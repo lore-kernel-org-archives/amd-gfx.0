@@ -1,8 +1,8 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace mmu
  notifier v4
-Date: Thu, 27 Sep 2018 14:27:09 +0000
-Message-ID: <DM5PR12MB1707273AC4B0C03A3BEDF73092140@DM5PR12MB1707.namprd12.prod.outlook.com>
+Date: Thu, 27 Sep 2018 14:29:30 +0000
+Message-ID: <1068c389-56fc-4125-ac40-b1ef2d60eabd@email.android.com>
 References: <1536871954-8451-1-git-send-email-Philip.Yang@amd.com>
  <9d6717ac-23f0-7beb-6e41-58c6e32acdf8@amd.com>
  <58bc3bb9-b7b1-a32f-e355-c78a23d95215@gmail.com>
@@ -19,12 +19,13 @@ References: <1536871954-8451-1-git-send-email-Philip.Yang@amd.com>
  <DM5PR12MB17072AE77EB0DE3AD22B8D7892140@DM5PR12MB1707.namprd12.prod.outlook.com>
  <9b427976-f2ff-8ba1-6ebf-588ca95aef80@amd.com>,
  <DM5PR12MB17072879EC907150027D6F7892140@DM5PR12MB1707.namprd12.prod.outlook.com>
- <58199419-e20f-4ab0-ac1d-a7eb79f5c6f7@email.android.com>
+ <58199419-e20f-4ab0-ac1d-a7eb79f5c6f7@email.android.com>,
+ <DM5PR12MB1707273AC4B0C03A3BEDF73092140@DM5PR12MB1707.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0963204793=="
+Content-Type: multipart/mixed; boundary="===============0674006268=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <58199419-e20f-4ab0-ac1d-a7eb79f5c6f7-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <DM5PR12MB1707273AC4B0C03A3BEDF73092140-2J9CzHegvk9TCtO+SvGBKwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -35,22 +36,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Jerome Glisse <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: "j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Yang,
+ Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0963204793==
-Content-Language: en-US
+--===============0674006268==
+Content-Language: de-DE
 Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_"
+	boundary="_000_1068c38956fc4125ac40b1ef2d60eabdemailandroidcom_"
 
---_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_1068c38956fc4125ac40b1ef2d60eabdemailandroidcom_
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
+At least with get_user_pages() that is perfectly possible.
+
+For HMM it could be that this is prevented somehow.
+
+Christian.
+
+Am 27.09.2018 16:27 schrieb "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>:
 > In this case you can end up accessing pages which are invalidated while g=
 et_user_pages is in process.
 
-What's the sequence of events you have in mind? Something like this?
+What=92s the sequence of events you have in mind? Something like this?
 
 
   *   Page table is updated and triggers MMU notifier
@@ -60,11 +69,11 @@ ding the read lock
  but before the page table update is done
   *   get_user_pages returns outdated physical addresses
 
-I hope that's not actually possible and that get_user_pages or hmm_vma_faul=
-t would block until the page table update is done. That is, invalidate_rang=
-e_start marks the start of a page table update, and while that update is in=
- progress, get_user_pages or hmm_vma_fault block. Jerome, can you comment o=
-n that?
+I hope that=92s not actually possible and that get_user_pages or hmm_vma_fa=
+ult would block until the page table update is done. That is, invalidate_ra=
+nge_start marks the start of a page table update, and while that update is =
+in progress, get_user_pages or hmm_vma_fault block. Jerome, can you comment=
+ on that?
 
 Thanks,
   Felix
@@ -86,8 +95,8 @@ Christian.
 
 Am 27.09.2018 15:41 schrieb "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailt=
 o:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>:
-> I'm not planning to change that. I don't think there is any need to chang=
-e it.
+> I=92m not planning to change that. I don=92t think there is any need to c=
+hange it.
 >
 > Yeah, but when HMM doesn't provide both the start and the end hock of the=
  invalidation this way won't work any more.
@@ -95,9 +104,9 @@ e it.
 > So we need to find a solution for this,
 > Christian.
 
-My whole argument is that you don't need to hold the read lock until the in=
-validate_range_end. Just read_lock and read_unlock in the invalidate_range_=
-start function.
+My whole argument is that you don=92t need to hold the read lock until the =
+invalidate_range_end. Just read_lock and read_unlock in the invalidate_rang=
+e_start function.
 
 Regards,
   Felix
@@ -124,8 +133,8 @@ ct.
 between the check of amdgpu_ttm_tt_userptr_needs_pages() and adding the fen=
 ce to the reservation object.
 
-I'm not planning to change that. I don't think there is any need to change =
-it.
+I=92m not planning to change that. I don=92t think there is any need to cha=
+nge it.
 
 Yeah, but when HMM doesn't provide both the start and the end hock of the i=
 nvalidation this way won't work any more.
@@ -161,9 +170,9 @@ epared the submission and restart the whole process when there actually was=
 finish before it modifies the page table.
 
 
-I don't see why this requires holding the read-lock until invalidate_range_=
-end. amdgpu_ttm_tt_affect_userptr gets called while the mn read-lock is hel=
-d in invalidate_range_start notifier.
+I don=92t see why this requires holding the read-lock until invalidate_rang=
+e_end. amdgpu_ttm_tt_affect_userptr gets called while the mn read-lock is h=
+eld in invalidate_range_start notifier.
 
 That's not related to amdgpu_ttm_tt_affect_userptr(), this function could a=
 ctually be called outside the lock.
@@ -409,261 +418,156 @@ https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
 
---_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_1068c38956fc4125ac40b1ef2d60eabdemailandroidcom_
+Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<meta content=3D"text/html; charset=3Diso-8859-1">
 <meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
+<style>
+<!--
 @font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
+	{font-family:Wingdings}
 @font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
+	{font-family:"Cambria Math"}
 @font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
+	{font-family:Calibri}
 @font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
-/* Style Definitions */
+	{font-family:Consolas}
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;
-	color:black;}
+	color:black}
 a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
+	{color:blue;
+	text-decoration:underline}
 a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
+	{color:purple;
+	text-decoration:underline}
 p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
-	margin:0in;
+	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;
-	color:black;}
+	color:black}
 p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
+	{margin-top:0in;
 	margin-right:0in;
 	margin-bottom:0in;
 	margin-left:.5in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;
-	color:black;}
+	color:black}
 p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
+	{margin-right:0in;
 	margin-left:0in;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Calibri",sans-serif}
 span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:Consolas;
-	color:black;}
+	{font-family:Consolas;
+	color:black}
 p.msonormal00, li.msonormal00, div.msonormal00
-	{mso-style-name:msonormal0;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
+	{margin-right:0in;
 	margin-left:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;
-	color:black;}
+	color:black}
 p.emailquote, li.emailquote, div.emailquote
-	{mso-style-name:emailquote;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
+	{margin-right:0in;
 	margin-left:1.0pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;
-	color:black;}
+	color:black}
 p.msochpdefault, li.msochpdefault, div.msochpdefault
-	{mso-style-name:msochpdefault;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
+	{margin-right:0in;
 	margin-left:0in;
 	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
+	font-family:"Calibri",sans-serif}
 span.plaintextchar0
-	{mso-style-name:plaintextchar;
-	font-family:"Calibri",sans-serif;}
+	{font-family:"Calibri",sans-serif}
 span.emailstyle22
-	{mso-style-name:emailstyle22;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
 span.emailstyle23
-	{mso-style-name:emailstyle23;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
 span.emailstyle24
-	{mso-style-name:emailstyle24;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
 span.emailstyle25
-	{mso-style-name:emailstyle25;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
 span.EmailStyle30
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
+	{font-family:"Calibri",sans-serif;
+	color:windowtext}
 .MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
+	{font-size:10.0pt}
 @page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
+	{margin:1.0in 1.0in 1.0in 1.0in}
 div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:1914123001;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1258128068 243071270 67698691 67698693 67698689 676=
-98691 67698693 67698689 67698691 67698693;}
-@list l0:level1
-	{mso-level-start-at:0;
-	mso-level-number-format:bullet;
-	mso-level-text:-;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;
-	mso-bidi-font-family:"Times New Roman";}
-@list l0:level2
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New",serif;}
-@list l0:level3
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level4
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level5
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New",serif;}
-@list l0:level6
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
-@list l0:level7
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0B7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Symbol;}
-@list l0:level8
-	{mso-level-number-format:bullet;
-	mso-level-text:o;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:"Courier New",serif;}
-@list l0:level9
-	{mso-level-number-format:bullet;
-	mso-level-text:\F0A7;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-.25in;
-	font-family:Wingdings;}
+	{}
 ol
-	{margin-bottom:0in;}
+	{margin-bottom:0in}
 ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+	{margin-bottom:0in}
+-->
+</style>
 </head>
 <body bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div dir=3D"auto">At least with get_user_pages() that is perfectly possible=
+.
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">For HMM it could be that this is prevented somehow.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">Am 27.09.2018 16:27 schrieb &quot;Kuehling, Feli=
+x&quot; &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
+</div>
+</div>
+<div>
 <div class=3D"WordSection1">
 <p class=3D"MsoNormal"><span style=3D"color:windowtext">&gt; In this case y=
 ou can end up accessing pages which are invalidated while get_user_pages is=
- in process.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">What&#8217;s the se=
-quence of events you have in mind? Something like this?<o:p></o:p></span></=
-p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
-<ul style=3D"margin-top:0in" type=3D"disc">
-<li class=3D"MsoListParagraph" style=3D"color:windowtext;margin-left:0in;ms=
-o-list:l0 level1 lfo1">
-Page table is updated and triggers MMU notifier<o:p></o:p></li><li class=3D=
-"MsoListParagraph" style=3D"color:windowtext;margin-left:0in;mso-list:l0 le=
-vel1 lfo1">
-amdgpu MMU notifier runs and waits for pending CS to finish while holding t=
-he read lock<o:p></o:p></li><li class=3D"MsoListParagraph" style=3D"color:w=
-indowtext;margin-left:0in;mso-list:l0 level1 lfo1">
-New CS starts just after invalidate_range_start MMU notifier finishes but b=
-efore the page table update is done<o:p></o:p></li><li class=3D"MsoListPara=
-graph" style=3D"color:windowtext;margin-left:0in;mso-list:l0 level1 lfo1">
-get_user_pages returns outdated physical addresses<o:p></o:p></li></ul>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">I hope that&#8217;s=
- not actually possible and that get_user_pages or hmm_vma_fault would block=
- until the page table update is done. That is, invalidate_range_start marks=
- the start of a page table update, and while
+ in process.</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">What=92s the sequen=
+ce of events you have in mind? Something like this?</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
+<ul type=3D"disc" style=3D"margin-top:0in">
+<li class=3D"MsoListParagraph" style=3D"color:windowtext; margin-left:0in">=
+Page table is updated and triggers MMU notifier</li><li class=3D"MsoListPar=
+agraph" style=3D"color:windowtext; margin-left:0in">amdgpu MMU notifier run=
+s and waits for pending CS to finish while holding the read lock</li><li cl=
+ass=3D"MsoListParagraph" style=3D"color:windowtext; margin-left:0in">New CS=
+ starts just after invalidate_range_start MMU notifier finishes but before =
+the page table update is done</li><li class=3D"MsoListParagraph" style=3D"c=
+olor:windowtext; margin-left:0in">get_user_pages returns outdated physical =
+addresses</li></ul>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">I hope that=92s not=
+ actually possible and that get_user_pages or hmm_vma_fault would block unt=
+il the page table update is done. That is, invalidate_range_start marks the=
+ start of a page table update, and while
  that update is in progress, get_user_pages or hmm_vma_fault block. Jerome,=
- can you comment on that?<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
+ can you comment on that?</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 <p class=3D"MsoNormal"><span style=3D"color:windowtext">Thanks,<br>
-&nbsp; Felix<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
+&nbsp; Felix</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
 <p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
 <span style=3D"color:windowtext"> Koenig, Christian
 <br>
@@ -672,65 +576,60 @@ span></p>
 <b>Cc:</b> Yang, Philip &lt;Philip.Yang-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
 top.org; Jerome Glisse &lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
-mmu notifier v4<o:p></o:p></span></p>
+mmu notifier v4</span></p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <div>
 <p class=3D"MsoNormal"><span style=3D"color:windowtext">Yeah I understand t=
 hat, but again that won't work.
-<o:p></o:p></span></p>
+</span></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 </div>
 <div>
 <p class=3D"MsoNormal"><span style=3D"color:windowtext">In this case you ca=
 n end up accessing pages which are invalidated while get_user_pages is in p=
-rocess.<o:p></o:p></span></p>
+rocess.</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">Christian.<o:p></o:=
-p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Christian.</span></=
+p>
 </div>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
-span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 <div>
 <p class=3D"MsoNormal"><span style=3D"color:windowtext">Am 27.09.2018 15:41=
  schrieb &quot;Kuehling, Felix&quot; &lt;<a href=3D"mailto:Felix.Kuehling@a=
-md.com">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;:<o:p></o:p></span></p>
+md.com">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;:</span></p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">&gt; I&#8217;m not =
-planning to change that. I don&#8217;t think there is any need to change it=
-.</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&gt; I=92m not plan=
+ning to change that. I don=92t think there is any need to change it.</span>=
+</p>
 <p class=3D"MsoNormal">&gt;<br>
 &gt; Yeah, but when HMM doesn't provide both the start and the end hock of =
 the invalidation this way won't work any more.<br>
 &gt;<br>
 &gt; So we need to find a solution for this,<br>
-&gt; Christian.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">My whole argument is that you don&#8217;t need to ho=
-ld the read lock until the invalidate_range_end. Just read_lock and read_un=
-lock in the invalidate_range_start function.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&nbsp; Felix<o:p></o:=
-p></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
-/o:p></p>
+&gt; Christian.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">My whole argument is that you don=92t need to hold t=
+he read lock until the invalidate_range_end. Just read_lock and read_unlock=
+ in the invalidate_range_start function.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">Regards,</p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&nbsp; Felix</p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
 <p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
 <span style=3D"color:windowtext"> Koenig, Christian
 <br>
@@ -743,20 +642,19 @@ ang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
 org</a>; Jerome Glisse &lt;<a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">j.glisse@g=
 mail.com</a>&gt;<br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
-mmu notifier v4</span><o:p></o:p></p>
+mmu notifier v4</span></p>
 </div>
 </div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <div>
-<p class=3D"MsoNormal">Am 27.09.2018 um 15:18 schrieb Kuehling, Felix:<o:p>=
-</o:p></p>
+<p class=3D"MsoNormal">Am 27.09.2018 um 15:18 schrieb Kuehling, Felix:</p>
 </div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
 <p class=3D"MsoNormal">&gt; The problem is here:<br>
-&gt;<o:p></o:p></p>
+&gt;</p>
 <p class=3D"MsoNormal">&gt; ttm_eu_fence_buffer_objects(&amp;p-&gt;ticket, =
-&amp;p-&gt;validated, p-&gt;fence);<o:p></o:p></p>
-<p class=3D"MsoNormal">&gt; amdgpu_mn_unlock(p-&gt;mn); <o:p></o:p></p>
+&amp;p-&gt;validated, p-&gt;fence);</p>
+<p class=3D"MsoNormal">&gt; amdgpu_mn_unlock(p-&gt;mn); </p>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&gt;<br>
 &gt; We need to hold the lock until the fence is added to the reservation o=
 bject.<br>
@@ -765,10 +663,9 @@ bject.<br>
 nt between the check of amdgpu_ttm_tt_userptr_needs_pages() and adding the =
 fence to the reservation object.<br>
 <br>
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">I&#8217;m not plann=
-ing to change that. I don&#8217;t think there is any need to change it.</sp=
-an><o:p></o:p></p>
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">I=92m not planning =
+to change that. I don=92t think there is any need to change it.</span></p>
 </blockquote>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
 Yeah, but when HMM doesn't provide both the start and the end hock of the i=
@@ -777,19 +674,16 @@ nvalidation this way won't work any more.<br>
 So we need to find a solution for this,<br>
 Christian.<br>
 <br>
-<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
-/o:p></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">Regards,</span><o:p=
-></o:p></p>
+</p>
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Regards,</span></p>
 <p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp; Felix</span>=
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
-/o:p></p>
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
 <p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
 <span style=3D"color:windowtext"> Koenig, Christian
 <br>
@@ -802,37 +696,36 @@ ang-5C7GfCeVMHo@public.gmane.org&gt;</a>;
 org</a>; Jerome Glisse
 <a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
-mmu notifier v4</span><o:p></o:p></p>
+mmu notifier v4</span></p>
 </div>
 </div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <div>
-<p class=3D"MsoNormal">Am 27.09.2018 um 13:08 schrieb Kuehling, Felix:<o:p>=
-</o:p></p>
+<p class=3D"MsoNormal">Am 27.09.2018 um 13:08 schrieb Kuehling, Felix:</p>
 </div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
 <p class=3D"MsoNormal">&gt; We double check that there wasn't any page tabl=
 e modification while we prepared the submission and restart the whole proce=
 ss when there actually was some update.<br>
 &gt;<br>
 &gt; The reason why we need to do this is here:<br>
-&gt;<o:p></o:p></p>
+&gt;</p>
 <p class=3D"MsoNormal">&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_eu_fen=
 ce_buffer_objects(&amp;p-&gt;ticket, &amp;p-&gt;validated, p-&gt;fence);<br=
 >
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mn_unlock(p-&gt;mn);<=
-o:p></o:p></p>
+/p>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">&gt;<br>
 &gt; Only after the new fence is added to the buffer object we can release =
 the lock so that any invalidation will now block on our command submission =
 to finish before it modifies the page table.<br>
 <br>
 <br>
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">I don&#8217;t see w=
-hy this requires holding the read-lock until invalidate_range_end. amdgpu_t=
-tm_tt_affect_userptr gets called while the mn read-lock is held in invalida=
-te_range_start notifier.</span><o:p></o:p></p>
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">I don=92t see why t=
+his requires holding the read-lock until invalidate_range_end. amdgpu_ttm_t=
+t_affect_userptr gets called while the mn read-lock is held in invalidate_r=
+ange_start notifier.</span></p>
 </blockquote>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
 That's not related to amdgpu_ttm_tt_affect_userptr(), this function could a=
@@ -840,13 +733,13 @@ ctually be called outside the lock.<br>
 <br>
 The problem is here:<br>
 <br>
-<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+</p>
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
 <p class=3D"MsoNormal">ttm_eu_fence_buffer_objects(&amp;p-&gt;ticket, &amp;=
-p-&gt;validated, p-&gt;fence);<o:p></o:p></p>
+p-&gt;validated, p-&gt;fence);</p>
 </blockquote>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"MsoNormal">amdgpu_mn_unlock(p-&gt;mn); <o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
+<p class=3D"MsoNormal">amdgpu_mn_unlock(p-&gt;mn); </p>
 </blockquote>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
 We need to hold the lock until the fence is added to the reservation object=
@@ -861,19 +754,16 @@ Christian.<br>
 <br>
 <br>
 <br>
-<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
-/o:p></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">Regards,</span><o:p=
-></o:p></p>
+</p>
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">Regards,</span></p>
 <p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp; Felix</span>=
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span><o:p><=
-/o:p></p>
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
 <p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
 <span style=3D"color:windowtext"> Koenig, Christian
 <br>
@@ -886,18 +776,18 @@ ang-5C7GfCeVMHo@public.gmane.org&gt;</a>;
 org</a>; Jerome Glisse
 <a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
-mmu notifier v4</span><o:p></o:p></p>
+mmu notifier v4</span></p>
 </div>
 </div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <div>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">That is correct, but =
 take a look what we do when after calling the amdgpu_mn_read_lock():<br>
 <br>
 <br>
 <br>
-<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+</p>
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
 <p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* No mem=
 ory allocation is allowed while holding the mn lock */<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mn_lock(p-&gt;mn);<br>
@@ -917,7 +807,7 @@ sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto error_=
 abort;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
 </blockquote>
 <p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><br>
 We double check that there wasn't any page table modification while we prep=
@@ -927,13 +817,12 @@ ome update.<br>
 The reason why we need to do this is here:<br>
 <br>
 <br>
-<o:p></o:p></p>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+</p>
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
 <p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_eu_fe=
 nce_buffer_objects(&amp;p-&gt;ticket, &amp;p-&gt;validated, p-&gt;fence);<b=
 r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mn_unlock(p-&gt;mn);<o:p>=
-</o:p></p>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mn_unlock(p-&gt;mn);</p>
 </blockquote>
 <p class=3D"MsoNormal"><br>
 Only after the new fence is added to the buffer object we can release the l=
@@ -954,35 +843,33 @@ Not sure if that is actually possible.<br>
 Regards,<br>
 Christian.<br>
 <br>
-Am 27.09.2018 um 10:47 schrieb Kuehling, Felix:<o:p></o:p></p>
+Am 27.09.2018 um 10:47 schrieb Kuehling, Felix:</p>
 </div>
-<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
-<p class=3D"MsoNormal">So back to my previous question:<o:p></o:p></p>
-<p class=3D"MsoPlainText">&nbsp;<o:p></o:p></p>
+<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
+<p class=3D"MsoNormal">So back to my previous question:</p>
+<p class=3D"MsoPlainText">&nbsp;</p>
 <p class=3D"MsoPlainText">&gt;&gt; But do we really need another lock for t=
 his? Wouldn't the
-<o:p></o:p></p>
+</p>
 <p class=3D"MsoPlainText">&gt;&gt; re-validation of userptr BOs (currently =
 calling get_user_pages) force
-<o:p></o:p></p>
+</p>
 <p class=3D"MsoPlainText">&gt;&gt; synchronization with the ongoing page ta=
 ble invalidation through the
-<o:p></o:p></p>
-<p class=3D"MsoPlainText">&gt;&gt; mmap_sem or other MM locks?<o:p></o:p></=
-p>
-<p class=3D"MsoPlainText">&gt;&nbsp;<o:p></o:p></p>
+</p>
+<p class=3D"MsoPlainText">&gt;&gt; mmap_sem or other MM locks?</p>
+<p class=3D"MsoPlainText">&gt;&nbsp;</p>
 <p class=3D"MsoPlainText">&gt; No and yes. We don't hold any other locks wh=
 ile doing command submission, but I expect that HMM has its own mechanism t=
-o prevent that.<o:p></o:p></p>
-<p class=3D"MsoPlainText">&gt;&nbsp;<o:p></o:p></p>
+o prevent that.</p>
+<p class=3D"MsoPlainText">&gt;&nbsp;</p>
 <p class=3D"MsoPlainText">&gt; Since we don't modify amdgpu_mn_lock()/amdgp=
-u_mn_unlock() we are certainly not using this mechanism correctly.<o:p></o:=
-p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+u_mn_unlock() we are certainly not using this mechanism correctly.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <p class=3D"MsoNormal">The existing amdgpu_mn_lock/unlock should block the =
 MMU notifier while a command submission is in progress. It should also bloc=
-k command submission while an MMU notifier is in progress.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+k command submission while an MMU notifier is in progress.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <p class=3D"MsoNormal">What we lose with HMM is the ability to hold a read-=
 lock for the entire duration of the invalidate_range_start until invalidate=
 _range_end. As I understand it, that lock is meant to prevent new command s=
@@ -991,14 +878,14 @@ ubmissions while the page tables are
 ma_fault should do the same kind of thing. Before the command submission ca=
 n go ahead, it needs to update the userptr addresses. If the page tables ar=
 e still being updated, it will block
- there even without holding the amdgpu_mn_read_lock.<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp; Felix<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+ there even without holding the amdgpu_mn_read_lock.</p>
+<p class=3D"MsoNormal">&nbsp;</p>
+<p class=3D"MsoNormal">Regards,</p>
+<p class=3D"MsoNormal">&nbsp; Felix</p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
+n 0in 0in">
 <p class=3D"MsoNormal"><b>From:</b> Koenig, Christian <br>
 <b>Sent:</b> Thursday, September 27, 2018 3:00 AM<br>
 <b>To:</b> Kuehling, Felix <a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">&lt;Fe=
@@ -1009,42 +896,41 @@ ang-5C7GfCeVMHo@public.gmane.org&gt;</a>;
 org</a>; Jerome Glisse
 <a href=3D"mailto:j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;j.glisse-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
 <b>Subject:</b> RE: [PATCH] drm/amdgpu: use HMM mirror callback to replace =
-mmu notifier v4<o:p></o:p></p>
+mmu notifier v4</p>
 </div>
 </div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <div>
 <div>
 <p class=3D"MsoNormal">No, that won't work. We would still run into lock in=
-version problems.<o:p></o:p></p>
+version problems.</p>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 </div>
 <div>
 <p class=3D"MsoNormal">What we could do with the scheduler is to turn submi=
-ssions into dummies if we find that the page tables are now outdated.<o:p><=
-/o:p></p>
+ssions into dummies if we find that the page tables are now outdated.</p>
 </div>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 </div>
 <div>
 <p class=3D"MsoNormal">But that would be really hacky and I'm not sure if t=
-hat would really work in all cases.<o:p></o:p></p>
+hat would really work in all cases.</p>
 </div>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 </div>
 <div>
-<p class=3D"MsoNormal">Christian.<o:p></o:p></p>
+<p class=3D"MsoNormal">Christian.</p>
 </div>
 </div>
 <div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 <div>
 <p class=3D"MsoNormal">Am 27.09.2018 08:53 schrieb &quot;Kuehling, Felix&qu=
 ot; &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a=
->&gt;:<o:p></o:p></p>
+>&gt;:</p>
 </div>
 </div>
 </div>
@@ -1180,23 +1066,24 @@ amd-gfx mailing list<br>
 <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></p>
 </div>
 </blockquote>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 </blockquote>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
 </blockquote>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;</p>
+</div>
 </div>
 </div>
 </div>
 </body>
 </html>
 
---_000_DM5PR12MB1707273AC4B0C03A3BEDF73092140DM5PR12MB1707namp_--
+--_000_1068c38956fc4125ac40b1ef2d60eabdemailandroidcom_--
 
---===============0963204793==
+--===============0674006268==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1206,4 +1093,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0963204793==--
+--===============0674006268==--
