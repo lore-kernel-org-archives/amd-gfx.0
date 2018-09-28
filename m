@@ -1,14 +1,14 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Work around race beetween hw_done and
- wait_for_flip
-Date: Fri, 28 Sep 2018 09:16:06 -0400
-Message-ID: <20180928131606.15931-1-harry.wentland@amd.com>
-References: <1537795907-1168-1-git-send-email-shirish.s@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: Enable/Disable NBPSTATE on On/OFF of
+ UVD
+Date: Fri, 28 Sep 2018 13:35:23 +0000
+Message-ID: <BN6PR12MB18096491078EBD3D346069B6F7EC0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1537950879-27760-1-git-send-email-satyajit.sahu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1007215224=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1537795907-1168-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1537950879-27760-1-git-send-email-satyajit.sahu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,50 +19,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, shirish.s-5C7GfCeVMHo@public.gmane.org, sunpeng.li-5C7GfCeVMHo@public.gmane.org
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+To: "Sahu, Satyajit" <Satyajit.Sahu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Agrawal, Akshu" <Akshu.Agrawal-5C7GfCeVMHo@public.gmane.org>
 
-W1doeV0KVGhlcmUgaXMgYSByYWNlIHRoYXQgYmV0d2VlbiBkcm1fY3J0Y19jb21taXRfaHdfZG9u
-ZSBhbmQKZHJtX2F0b21pY19oZWxwZXJfd2FpdF9mb3JfZmxpcCB3aGVyZSB0aGUgcG9zc2liaWx0
-eSBleGlzdCBmb3IgdGhlCmNydGMtPmNvbW1pdCB0byBiZSBjbGVhcmVkIGFmdGVyIHRoZSBudWxs
-IGNoZWNrIGluIHdhaXRfZm9yX2ZsaXBfZG9uZQpidXQgYmVmb3JlIHRoZSBjYWxsIHRvIHdhaXRf
-Zm9yX2NvbXBsZXRpb25fdGltZW91dCBvbiBjb21taXQtPmZsaXBfZG9uZS4KCltIb3ddClRha2Ug
-YSByZWZlcmVuY2UgdG8gYWxsIGNvbW1pdHMgaW4gdGhlIHN0YXRlIGJlZm9yZQpkcm1fY3J0Y19j
-b21taXRfaHdfZG9uZSBpcyBjYWxsZWQgYW5kIHJlbGVhc2UgdGhvc2UgYWZ0ZXIKZHJtX2F0b21p
-Y19oZWxwZXJfd2FpdF9mb3JfZmxpcCBoYXMgZmluaXNoZWQuCgpTaWduZWQtb2ZmLWJ5OiBIYXJy
-eSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KLS0tCgpXb3VsZCBzb21ldGhpbmcg
-bGlrZSB0aGlzIHdvcms/IEkgZ2V0IHRoZSBzdHJvbmcgc2Vuc2UgdGhhdCB0aGlzIGhhcHBlbnMK
-YmVjYXVzZSBJbnRlbCBhbmQgSU1YIHVzZSB0aGUgaGVscGVycyBpbiB0aGUgb3RoZXIgb3JkZXIs
-IGhlbmNlIHRoZQpkZXBlbmRlbmN5IGJldHdlZW4gaHdfZG9uZSBhbmQgd2FpdF9mb3JfZmxpcCB3
-YXMgbWlzc2VkLgoKSSdkIHJhdGhlciBtYWtlIGl0IG9idmlvdXMgdGhhdCB0aGVyZSdzIChhKSBu
-byByZWFzb24gdG8gcmVvcmRlciB0aGVzZQp0d28gY2FsbHMgb24gQU1EIEhXIChvdGhlciB0aGFu
-IHRoaXMgdW5leHBlY3RlZCBkZXBlbmRlbmN5KSBhbmQgKGIpIHRoaXMKaXMgc29tZXRoaW5nIHdl
-J2xsIHByb2JhYmx5IHdhbnQgdG8gZml4IGluIERSTS4KClNvcnJ5IGl0IHRvb2sgbWUgYSB3aGls
-ZSB0byB1bmRlcnN0YW5kIHdoYXQgd2FzIGhhcHBlbmluZyBoZXJlLiBCZWVuCmJ1c3kgYXQgWERD
-IHVudGlsIEpvcmRhbiBhbmQgTGVvIHJlbWluZGVkIG1lIHRvIHRha2UgYW5vdGhlciBsb29rLgoK
-SGFycnkKCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-IHwgMTUgKysrKysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKQoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-CmluZGV4IDBmMTBkOTIwYTc4NS4uZWQ5YTdkNjgwYjYzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTQ2MjYsMTIgKzQ2MjYs
-MjcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RtX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgZHJt
-X2F0b21pY19zdGF0ZSAqc3RhdGUpCiAJfQogCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYt
-PmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsKIAorCS8qCisJICogV09SS0FST1VORDogVGFrZSBh
-IHJlZiBmb3IgYWxsIGNydGNfc3RhdGUgY29tbWl0cyB0byBhdm9pZAorCSAqIGEgcmFjZSB3aGVy
-ZSB0aGUgY29tbWl0IGdldHMgZnJlZWQgYmVmb3JlIGNvbW1pdF9od19kb25lIGhhZAorCSAqIGEg
-Y2hhbmNlIHRvIGxvb2sgZm9yIGNvbW1pdC0+ZmxpcF9kb25lCisJICovCisJZm9yX2VhY2hfbmV3
-X2NydGNfaW5fc3RhdGUoc3RhdGUsIGNydGMsIG5ld19jcnRjX3N0YXRlLCBpKQorCQlkcm1fY3J0
-Y19jb21taXRfZ2V0KG5ld19jcnRjX3N0YXRlLT5jb21taXQpOworCiAJLyogU2lnbmFsIEhXIHBy
-b2dyYW1taW5nIGNvbXBsZXRpb24gKi8KIAlkcm1fYXRvbWljX2hlbHBlcl9jb21taXRfaHdfZG9u
-ZShzdGF0ZSk7CiAKIAlpZiAod2FpdF9mb3JfdmJsYW5rKQogCQlkcm1fYXRvbWljX2hlbHBlcl93
-YWl0X2Zvcl9mbGlwX2RvbmUoZGV2LCBzdGF0ZSk7CiAKKwkvKgorCSAqIFdPUktBUk9VTkQ6IHB1
-dCB0aGUgY29tbWl0IHJlZnMgZnJvbSBhYm92ZSAoc2VlIGNvbW1lbnQgb24KKwkgKiB0aGUgZHJt
-X2NydGNfY29tbWl0X2dldCBjYWxsIGFib3ZlKQorCSAqLworCWZvcl9lYWNoX25ld19jcnRjX2lu
-X3N0YXRlKHN0YXRlLCBjcnRjLCBuZXdfY3J0Y19zdGF0ZSwgaSkKKwkJZHJtX2NydGNfY29tbWl0
-X3B1dChuZXdfY3J0Y19zdGF0ZS0+Y29tbWl0KTsKKwogCWRybV9hdG9taWNfaGVscGVyX2NsZWFu
-dXBfcGxhbmVzKGRldiwgc3RhdGUpOwogCiAJLyoKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1007215224==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18096491078EBD3D346069B6F7EC0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18096491078EBD3D346069B6F7EC0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Satyajit=
+ Sahu <satyajit.sahu-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, September 26, 2018 4:34:39 AM
+To: Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Sahu, Satyajit; Agrawal, Akshu
+Subject: [PATCH] drm/amd/powerplay: Enable/Disable NBPSTATE on On/OFF of UV=
+D
+
+From: Akshu Agrawal <akshu.agrawal-5C7GfCeVMHo@public.gmane.org>
+
+We observe black lines (underflow) on display when playing a
+4K video with UVD. On Disabling Low memory P state this issue is
+not seen.
+Multiple runs of power measurement shows no imapct.
+
+Change-Id: I6171ced550ee244e6b9a961fb50247d12f4168a0
+Signed-off-by: Akshu Agrawal <akshu.agrawal-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Satyajit Sahu <satyajit.sahu-5C7GfCeVMHo@public.gmane.org>
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+index b863704..86b6a43 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+@@ -1227,14 +1227,17 @@ static int smu8_dpm_force_dpm_level(struct pp_hwmgr=
+ *hwmgr,
+
+ static int smu8_dpm_powerdown_uvd(struct pp_hwmgr *hwmgr)
+ {
+-       if (PP_CAP(PHM_PlatformCaps_UVDPowerGating))
++       if (PP_CAP(PHM_PlatformCaps_UVDPowerGating)) {
++               smu8_nbdpm_pstate_enable_disable(hwmgr, true, true);
+                 return smum_send_msg_to_smc(hwmgr, PPSMC_MSG_UVDPowerOFF);
++       }
+         return 0;
+ }
+
+ static int smu8_dpm_powerup_uvd(struct pp_hwmgr *hwmgr)
+ {
+         if (PP_CAP(PHM_PlatformCaps_UVDPowerGating)) {
++               smu8_nbdpm_pstate_enable_disable(hwmgr, false, true);
+                 return smum_send_msg_to_smc_with_parameter(
+                         hwmgr,
+                         PPSMC_MSG_UVDPowerON,
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18096491078EBD3D346069B6F7EC0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Satyajit Sahu &lt;satyajit.sa=
+hu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, September 26, 2018 4:34:39 AM<br>
+<b>To:</b> Deucher, Alexander; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Sahu, Satyajit; Agrawal, Akshu<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: Enable/Disable NBPSTATE on On/OF=
+F of UVD</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Akshu Agrawal &lt;akshu.agrawal-5C7GfCeVMHo@public.gmane.org&gt;<=
+br>
+<br>
+We observe black lines (underflow) on display when playing a<br>
+4K video with UVD. On Disabling Low memory P state this issue is<br>
+not seen.<br>
+Multiple runs of power measurement shows no imapct.<br>
+<br>
+Change-Id: I6171ced550ee244e6b9a961fb50247d12f4168a0<br>
+Signed-off-by: Akshu Agrawal &lt;akshu.agrawal-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Satyajit Sahu &lt;satyajit.sahu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c | 5 &#43;&#43;&#43;&=
+#43;-<br>
+&nbsp;1 file changed, 4 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
+/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+index b863704..86b6a43 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
+@@ -1227,14 &#43;1227,17 @@ static int smu8_dpm_force_dpm_level(struct pp_h=
+wmgr *hwmgr,<br>
+&nbsp;<br>
+&nbsp;static int smu8_dpm_powerdown_uvd(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_UVDPowerG=
+ating))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCaps_UVDPo=
+werGating)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu8_nbdpm_pstate_enable_disable(hwmgr, true, true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return smum_send_msg_to_smc(hwmgr, PPSMC_MSG_UVDPower=
+OFF);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;static int smu8_dpm_powerup_uvd(struct pp_hwmgr *hwmgr)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (PP_CAP(PHM_PlatformCap=
+s_UVDPowerGating)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu8_nbdpm_pstate_enable_disable(hwmgr, false, true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return smum_send_msg_to_smc_with_parameter(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC=
+_MSG_UVDPowerON,<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18096491078EBD3D346069B6F7EC0BN6PR12MB1809namp_--
+
+--===============1007215224==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1007215224==--
