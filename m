@@ -1,12 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amd/pp: Remove useless code in smu
-Date: Fri, 28 Sep 2018 13:56:35 +0000
-Message-ID: <BN6PR12MB180977EF060F36BE104E4A8EF7EC0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1538126618-21656-1-git-send-email-Rex.Zhu@amd.com>
+From: Bhawanpreet Lakha <Bhawanpreet.lakha-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [bug report] drm/amd/display: Build stream update and plane
+ updates in dm
+Date: Fri, 28 Sep 2018 10:36:14 -0400
+Message-ID: <818ad03a-ef5f-12c5-02a4-c27b2f42a6a9@amd.com>
+References: <20180928083258.GA32031@mwanda>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1306606557=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1538126618-21656-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20180928083258.GA32031@mwanda>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,263 +20,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1306606557==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180977EF060F36BE104E4A8EF7EC0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180977EF060F36BE104E4A8EF7EC0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, September 28, 2018 5:23:38 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH v2] drm/amd/pp: Remove useless code in smu
-
-the condition always false and the code
-path never be executed. so remove them.
-
-v2: add comments
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c        | 1 -
- drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          | 1 -
- drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 5 -----
- drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c | 5 -----
- 4 files changed, 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
-amd/powerplay/hwmgr/hwmgr.c
-index 7500a3e..7844256 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -89,7 +89,6 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)
-         hwmgr_init_default_caps(hwmgr);
-         hwmgr_set_user_specify_caps(hwmgr);
-         hwmgr->fan_ctrl_is_in_default_mode =3D true;
--       hwmgr->reload_fw =3D 1;
-         hwmgr_init_workload_prority(hwmgr);
-
-         switch (hwmgr->chip_family) {
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h
-index d1183b1..b691fca 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-@@ -733,7 +733,6 @@ struct pp_hwmgr {
-         void *smu_backend;
-         const struct pp_smumgr_func *smumgr_funcs;
-         bool is_kicker;
--       bool reload_fw;
-
-         enum PP_DAL_POWERLEVEL dal_power_level;
-         struct phm_dynamic_state_info dyn_state;
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-index 186dafc..10eb967 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c
-@@ -381,11 +381,6 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmgr)
-         uint32_t fw_to_load;
-         int r =3D 0;
-
--       if (!hwmgr->reload_fw) {
--               pr_info("skip reloading...\n");
--               return 0;
--       }
--
-         if (smu_data->soft_regs_start)
-                 cgs_write_ind_register(hwmgr->device, CGS_IND_REG__SMC,
-                                         smu_data->soft_regs_start + smum_g=
-et_offsetof(hwmgr,
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-index a74c5be..7a4c425 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c
-@@ -659,11 +659,6 @@ static int smu8_request_smu_load_fw(struct pp_hwmgr *h=
-wmgr)
-         struct smu8_smumgr *smu8_smu =3D hwmgr->smu_backend;
-         uint32_t smc_address;
-
--       if (!hwmgr->reload_fw) {
--               pr_info("skip reloading...\n");
--               return 0;
--       }
--
-         smu8_smu_populate_firmware_entries(hwmgr);
-
-         smu8_smu_construct_toc(hwmgr);
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180977EF060F36BE104E4A8EF7EC0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Friday, September 28, 2018 5:23:38 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH v2] drm/amd/pp: Remove useless code in smu</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">the condition always false and the code<br>
-path never be executed. so remove them.<br>
-<br>
-v2: add comments<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; | 1 -<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c | 5 -----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c | 5 -----<br>
-&nbsp;4 files changed, 12 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/=
-amd/powerplay/hwmgr/hwmgr.c<br>
-index 7500a3e..7844256 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c<br>
-@@ -89,7 &#43;89,6 @@ int hwmgr_early_init(struct pp_hwmgr *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr_init_default_caps(hw=
-mgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr_set_user_specify_cap=
-s(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;fan_ctrl_is_in_d=
-efault_mode =3D true;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;reload_fw =3D 1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr_init_workload_prorit=
-y(hwmgr);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (hwmgr-&gt;chip_fam=
-ily) {<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
-d/powerplay/inc/hwmgr.h<br>
-index d1183b1..b691fca 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
-@@ -733,7 &#43;733,6 @@ struct pp_hwmgr {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *smu_backend;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct pp_smumgr_fun=
-c *smumgr_funcs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool is_kicker;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool reload_fw;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum PP_DAL_POWERLEVEL dal=
-_power_level;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct phm_dynamic_state_i=
-nfo dyn_state;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-index 186dafc..10eb967 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu7_smumgr.c<br>
-@@ -381,11 &#43;381,6 @@ int smu7_request_smu_load_fw(struct pp_hwmgr *hwmg=
-r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fw_to_load;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r =3D 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;reload_fw) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_info(&quot;skip reloading...\n&quot;);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_data-&gt;soft_regs=
-_start)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; cgs_write_ind_register(hwmgr-&gt;device, CGS_IND_REG_=
-_SMC,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; smu_data-&gt;soft_regs_start &#43; smum_get_offsetof(hwmgr,=
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c b/drivers/g=
-pu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
-index a74c5be..7a4c425 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smumgr/smu8_smumgr.c<br>
-@@ -659,11 &#43;659,6 @@ static int smu8_request_smu_load_fw(struct pp_hwmg=
-r *hwmgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu8_smumgr *smu8_s=
-mu =3D hwmgr-&gt;smu_backend;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t smc_address;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;reload_fw) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; pr_info(&quot;skip reloading...\n&quot;);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_smu_populate_firmware=
-_entries(hwmgr);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu8_smu_construct_toc(hwm=
-gr);<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180977EF060F36BE104E4A8EF7EC0BN6PR12MB1809namp_--
-
---===============1306606557==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1306606557==--
+SSBoYWQgYSBwYXRjaCByZWFkeSBhbmQgd2FzIGdvaW5nIHRvIHNlbmQgaXQgaW4gdGhlIG5leHQg
+cHJvbW90aW9uIApwYXRjaGVzLiBXaWxsIHNlbmQgaXQgc29vbi4KCgpCaGF3YW4KCgpPbiAyMDE4
+LTA5LTI4IDA0OjMyIEFNLCBEYW4gQ2FycGVudGVyIHdyb3RlOgo+IEhlbGxvIEJoYXdhbnByZWV0
+IExha2hhLAo+Cj4gVGhlIHBhdGNoIGE4N2ZhOTkzODc0OTogImRybS9hbWQvZGlzcGxheTogQnVp
+bGQgc3RyZWFtIHVwZGF0ZSBhbmQKPiBwbGFuZSB1cGRhdGVzIGluIGRtIiBmcm9tIEF1ZyAyMCwg
+MjAxOCwgbGVhZHMgdG8gdGhlIGZvbGxvd2luZyBzdGF0aWMKPiBjaGVja2VyIHdhcm5pbmc6Cj4K
+PiAJZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmM6NTE5MCBkbV9kZXRlcm1pbmVfdXBkYXRlX3R5cGVfZm9yX2NvbW1pdCgpCj4gCWVycm9y
+OiBwb3RlbnRpYWwgbnVsbCBkZXJlZmVyZW5jZSAnc3VyZmFjZScuICAoa3phbGxvYyByZXR1cm5z
+IG51bGwpCj4KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG0uYwo+ICAgIDUxNTMgICAgICAgICAgaW50IGksIGosIG51bV9wbGFuZTsKPiAg
+ICA1MTU0ICAgICAgICAgIHN0cnVjdCBkcm1fcGxhbmVfc3RhdGUgKm9sZF9wbGFuZV9zdGF0ZSwg
+Km5ld19wbGFuZV9zdGF0ZTsKPiAgICA1MTU1ICAgICAgICAgIHN0cnVjdCBkbV9wbGFuZV9zdGF0
+ZSAqbmV3X2RtX3BsYW5lX3N0YXRlLCAqb2xkX2RtX3BsYW5lX3N0YXRlOwo+ICAgIDUxNTYgICAg
+ICAgICAgc3RydWN0IGRybV9jcnRjICpuZXdfcGxhbmVfY3J0YywgKm9sZF9wbGFuZV9jcnRjOwo+
+ICAgIDUxNTcgICAgICAgICAgc3RydWN0IGRybV9wbGFuZSAqcGxhbmU7Cj4gICAgNTE1OAo+ICAg
+IDUxNTkgICAgICAgICAgc3RydWN0IGRybV9jcnRjICpjcnRjOwo+ICAgIDUxNjAgICAgICAgICAg
+c3RydWN0IGRybV9jcnRjX3N0YXRlICpuZXdfY3J0Y19zdGF0ZSwgKm9sZF9jcnRjX3N0YXRlOwo+
+ICAgIDUxNjEgICAgICAgICAgc3RydWN0IGRtX2NydGNfc3RhdGUgKm5ld19kbV9jcnRjX3N0YXRl
+LCAqb2xkX2RtX2NydGNfc3RhdGU7Cj4gICAgNTE2MiAgICAgICAgICBzdHJ1Y3QgZGNfc3RyZWFt
+X3N0YXR1cyAqc3RhdHVzID0gTlVMTDsKPiAgICA1MTYzCj4gICAgNTE2NCAgICAgICAgICBzdHJ1
+Y3QgZGNfc3VyZmFjZV91cGRhdGUgKnVwZGF0ZXMgPSBremFsbG9jKE1BWF9TVVJGQUNFUyAqIHNp
+emVvZihzdHJ1Y3QgZGNfc3VyZmFjZV91cGRhdGUpLCBHRlBfS0VSTkVMKTsKPiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgXl5eXl5eXl5eXl5eXl5eXl4KPiAgICA1
+MTY1ICAgICAgICAgIHN0cnVjdCBkY19wbGFuZV9zdGF0ZSAqc3VyZmFjZSA9IGt6YWxsb2MoTUFY
+X1NVUkZBQ0VTICogc2l6ZW9mKHN0cnVjdCBkY19wbGFuZV9zdGF0ZSksIEdGUF9LRVJORUwpOwo+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeXl5eXl5eXl5eXl5eXl5e
+Xgo+IE5vIGNoZWNrcyBmb3IgTlVMTC4KPgo+ICAgIDUxNjYgICAgICAgICAgc3RydWN0IGRjX3N0
+cmVhbV91cGRhdGUgc3RyZWFtX3VwZGF0ZTsKPiAgICA1MTY3ICAgICAgICAgIGVudW0gc3VyZmFj
+ZV91cGRhdGVfdHlwZSB1cGRhdGVfdHlwZSA9IFVQREFURV9UWVBFX0ZBU1Q7Cj4gICAgNTE2OAo+
+ICAgIDUxNjkKPiAgICA1MTcwICAgICAgICAgIGZvcl9lYWNoX29sZG5ld19jcnRjX2luX3N0YXRl
+KHN0YXRlLCBjcnRjLCBvbGRfY3J0Y19zdGF0ZSwgbmV3X2NydGNfc3RhdGUsIGkpIHsKPiAgICA1
+MTcxICAgICAgICAgICAgICAgICAgbmV3X2RtX2NydGNfc3RhdGUgPSB0b19kbV9jcnRjX3N0YXRl
+KG5ld19jcnRjX3N0YXRlKTsKPiAgICA1MTcyICAgICAgICAgICAgICAgICAgb2xkX2RtX2NydGNf
+c3RhdGUgPSB0b19kbV9jcnRjX3N0YXRlKG9sZF9jcnRjX3N0YXRlKTsKPiAgICA1MTczICAgICAg
+ICAgICAgICAgICAgbnVtX3BsYW5lID0gMDsKPiAgICA1MTc0Cj4gICAgNTE3NSAgICAgICAgICAg
+ICAgICAgIGlmIChuZXdfZG1fY3J0Y19zdGF0ZS0+c3RyZWFtKSB7Cj4gICAgNTE3Ngo+ICAgIDUx
+NzcgICAgICAgICAgICAgICAgICAgICAgICAgIGZvcl9lYWNoX29sZG5ld19wbGFuZV9pbl9zdGF0
+ZShzdGF0ZSwgcGxhbmUsIG9sZF9wbGFuZV9zdGF0ZSwgbmV3X3BsYW5lX3N0YXRlLCBqKSB7Cj4g
+ICAgNTE3OCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBuZXdfcGxhbmVfY3J0YyA9
+IG5ld19wbGFuZV9zdGF0ZS0+Y3J0YzsKPiAgICA1MTc5ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIG9sZF9wbGFuZV9jcnRjID0gb2xkX3BsYW5lX3N0YXRlLT5jcnRjOwo+ICAgIDUx
+ODAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmV3X2RtX3BsYW5lX3N0YXRlID0g
+dG9fZG1fcGxhbmVfc3RhdGUobmV3X3BsYW5lX3N0YXRlKTsKPiAgICA1MTgxICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIG9sZF9kbV9wbGFuZV9zdGF0ZSA9IHRvX2RtX3BsYW5lX3N0
+YXRlKG9sZF9wbGFuZV9zdGF0ZSk7Cj4gICAgNTE4Mgo+ICAgIDUxODMgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgaWYgKHBsYW5lLT50eXBlID09IERSTV9QTEFORV9UWVBFX0NVUlNP
+UikKPiAgICA1MTg0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29u
+dGludWU7Cj4gICAgNTE4NQo+ICAgIDUxODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgaWYgKCFzdGF0ZS0+YWxsb3dfbW9kZXNldCkKPiAgICA1MTg3ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgY29udGludWU7Cj4gICAgNTE4OAo+ICAgIDUxODkgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGNydGMgPT0gbmV3X3BsYW5lX2NydGMp
+IHsKPiAgICA1MTkwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdXBk
+YXRlc1tudW1fcGxhbmVdLnN1cmZhY2UgPSAmc3VyZmFjZVtudW1fcGxhbmVdOwo+ICAgIDUxOTEK
+PiAgICA1MTkyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgaWYgKG5l
+d19jcnRjX3N0YXRlLT5tb2RlX2NoYW5nZWQpIHsKPiAgICA1MTkzICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1cGRhdGVzW251bV9wbGFuZV0uc3VyZmFj
+ZS0+c3JjX3JlY3QgPQo+ICAgIDUxOTQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5ld19kbV9wbGFuZV9zdGF0
+ZS0+ZGNfc3RhdGUtPnNyY19yZWN0Owo+ICAgIDUxOTUgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHVwZGF0ZXNbbnVtX3BsYW5lXS5zdXJmYWNlLT5kc3Rf
+cmVjdCA9Cj4gICAgNTE5NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmV3X2RtX3BsYW5lX3N0YXRlLT5kY19z
+dGF0ZS0+ZHN0X3JlY3Q7Cj4gICAgNTE5NyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgdXBkYXRlc1tudW1fcGxhbmVdLnN1cmZhY2UtPnJvdGF0aW9uID0K
+Pgo+IHJlZ2FyZHMsCj4gZGFuIGNhcnBlbnRlcgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
