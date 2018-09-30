@@ -1,16 +1,10 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 5/5] drm/amdgpu: Disable sysfs pwm1 if not in manual fan
- control
-Date: Sun, 30 Sep 2018 11:00:17 +0000
-Message-ID: <SN6PR12MB26564F32307C0BF20F485AF0E4EE0@SN6PR12MB2656.namprd12.prod.outlook.com>
-References: <1538288279-11428-1-git-send-email-Rex.Zhu@amd.com>
- <1538288279-11428-5-git-send-email-Rex.Zhu@amd.com>
+From: Louis Garcia <louisgtwo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: VegaM DP dpms issue
+Date: Sun, 30 Sep 2018 12:23:09 -0400
+Message-ID: <CAFiZx5yVF+0uZUQMwQVXRs4Bms9Q0J85ZHr84ThyKioQg9w0oQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0968393839=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1538288279-11428-5-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,39 +15,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-U2VyaWVzIGlzIFJldmlld2VkLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KDQo+
-IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91
-bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBSZXgNCj4gWmh1DQo+IFNl
-bnQ6IDIwMTjlubQ55pyIMzDml6UgMTQ6MTgNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQo+IENjOiBaaHUsIFJleCA8UmV4LlpodUBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFU
-Q0ggNS81XSBkcm0vYW1kZ3B1OiBEaXNhYmxlIHN5c2ZzIHB3bTEgaWYgbm90IGluIG1hbnVhbCBm
-YW4NCj4gY29udHJvbA0KPiANCj4gRm9sbG93aW5nIGxtLXNlbnNvcnMgMy4wLjAsDQo+IE9ubHkg
-ZW5hYmxlIHB3bTEgc3lzZnMgd2hlbiBmYW4gY29udHJvbCBtb2RlKHB3bTFfZW5hYmxlKSBpbiBt
-YW51YWwNCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4NCj4g
-LS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDcgKysrKysr
-Kw0KPiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMNCj4gaW5kZXggMWQ4NTcwNi4uZDZiZDVhYiAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMNCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMNCj4gQEAgLTExMjAsMTIg
-KzExMjAsMTkgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2h3bW9uX3NldF9wd20xKHN0cnVjdA0K
-PiBkZXZpY2UgKmRldiwNCj4gIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRldl9nZXRf
-ZHJ2ZGF0YShkZXYpOw0KPiAgCWludCBlcnI7DQo+ICAJdTMyIHZhbHVlOw0KPiArCXUzMiBwd21f
-bW9kZTsNCj4gDQo+ICAJLyogQ2FuJ3QgYWRqdXN0IGZhbiB3aGVuIHRoZSBjYXJkIGlzIG9mZiAq
-Lw0KPiAgCWlmICAoKGFkZXYtPmZsYWdzICYgQU1EX0lTX1BYKSAmJg0KPiAgCSAgICAgKGFkZXYt
-PmRkZXYtPnN3aXRjaF9wb3dlcl9zdGF0ZSAhPQ0KPiBEUk1fU1dJVENIX1BPV0VSX09OKSkNCj4g
-IAkJcmV0dXJuIC1FSU5WQUw7DQo+IA0KPiArCXB3bV9tb2RlID0gYW1kZ3B1X2RwbV9nZXRfZmFu
-X2NvbnRyb2xfbW9kZShhZGV2KTsNCj4gKwlpZiAocHdtX21vZGUgIT0gQU1EX0ZBTl9DVFJMX01B
-TlVBTCkgew0KPiArCQlwcl9pbmZvKCJtYW51YWwgZmFuIHNwZWVkIGNvbnRyb2wgc2hvdWxkIGJl
-IGVuYWJsZWQNCj4gZmlyc3RcbiIpOw0KPiArCQlyZXR1cm4gLUVJTlZBTDsNCj4gKwl9DQo+ICsN
-Cj4gIAllcnIgPSBrc3RydG91MzIoYnVmLCAxMCwgJnZhbHVlKTsNCj4gIAlpZiAoZXJyKQ0KPiAg
-CQlyZXR1cm4gZXJyOw0KPiAtLQ0KPiAxLjkuMQ0KPiANCj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+--===============0968393839==
+Content-Type: multipart/alternative; boundary="0000000000005b925b0577191b67"
+
+--0000000000005b925b0577191b67
+Content-Type: text/plain; charset="UTF-8"
+
+I am having an issue with intel NUC8i7HNK with AMD Vega M. I have three
+Dell U2415 monitors connected to one mDP daisychained. When the monitors go
+to sleep (dpms) trying to wake up the monitors after half hour or more
+fails, touching the keyboard and mouse. Only way is a hard reboot. Same
+monitors connected to other systems wake up fine. I seen old bug reports on
+this issue but seems I'm hitting this bug again.
+
+If this is not the proper list please let me kno. --Thanks
+
+--0000000000005b925b0577191b67
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>I am having an issue with intel NUC8i7HNK with AMD Ve=
+ga M. I have three Dell U2415 monitors connected to one mDP daisychained. W=
+hen the monitors go to sleep (dpms) trying to wake up the monitors after ha=
+lf hour or more fails, touching the keyboard and mouse. Only way is a hard =
+reboot. Same monitors connected to other systems wake up fine. I seen old b=
+ug reports on this issue but seems I&#39;m hitting this bug again.</div><di=
+v><br></div><div>If this is not the proper list please let me kno. --Thanks=
+<br></div></div>
+
+--0000000000005b925b0577191b67--
+
+--===============0968393839==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0968393839==--
