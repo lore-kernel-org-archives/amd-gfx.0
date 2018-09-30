@@ -1,60 +1,55 @@
-From: Louis Garcia <louisgtwo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: VegaM DP dpms issue
-Date: Sun, 30 Sep 2018 12:23:09 -0400
-Message-ID: <CAFiZx5yVF+0uZUQMwQVXRs4Bms9Q0J85ZHr84ThyKioQg9w0oQ@mail.gmail.com>
+From: Thomas Hellstrom <thomas@shipmail.org>
+Subject: Re: [PATCH libdrm] libdrm: Allow dynamic drm majors on linux
+Date: Sun, 30 Sep 2018 19:31:17 +0200
+Message-ID: <a3af864a-8914-3bef-ff26-02c7672a9e50@shipmail.org>
+References: <20180831115419.4922-1-thellstrom@vmware.com>
+ <CACvgo50fT1JAfmCLeZT1STRe_nnPo9PQjgk9+S5VRk-o5P088w@mail.gmail.com>
+ <bbb94b6f-c9d5-27ab-9e6d-4b4c1d85db8e@vmware.com>
+ <33fb1ba6-cc44-f747-545b-9f877917933e@daenzer.net>
+ <CACvgo53Wd1fq8=V_v7jjuFGimUfh7xD+ccCg-jOTjLSJdWUKeA@mail.gmail.com>
+ <c1dc7253-d505-dd16-480c-ee9a862d57ef@vmware.com>
+ <abe23e5a-2271-d428-06ba-de4d2d62179e@vmware.com>
+ <20180903163310.GJ21634@phenom.ffwll.local>
+ <91ad6140-4e56-afc1-2515-9ca973d0ea05@vmware.com>
+ <CAPM=9tzScEQ-RWK55zKeT_yXiN6iAyx34DVX1eCgA3ZqC_SpuQ@mail.gmail.com>
+ <CACvgo50cfLHWDUEjeNet4H3F4i3okdhSsXfjNiPvH-YZbQsyEg@mail.gmail.com>
+ <53ece2d8-e4ae-331d-16e9-8ad5d067844d@vmware.com>
+ <CACvgo53t4OSsdmxdHSqrfSWKZGYg4s+uXrSV3gWcignwNxfE8A@mail.gmail.com>
+ <ce00f764-1ebd-aac8-45e3-95eda4b02fc0@vmware.com>
+ <CACvgo52dj75j--gi8UrUZ9txpAjRXRpKzr-QaH92deS1=Lfk_w@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0968393839=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-
---===============0968393839==
-Content-Type: multipart/alternative; boundary="0000000000005b925b0577191b67"
-
---0000000000005b925b0577191b67
-Content-Type: text/plain; charset="UTF-8"
-
-I am having an issue with intel NUC8i7HNK with AMD Vega M. I have three
-Dell U2415 monitors connected to one mDP daisychained. When the monitors go
-to sleep (dpms) trying to wake up the monitors after half hour or more
-fails, touching the keyboard and mouse. Only way is a hard reboot. Same
-monitors connected to other systems wake up fine. I seen old bug reports on
-this issue but seems I'm hitting this bug again.
-
-If this is not the proper list please let me kno. --Thanks
-
---0000000000005b925b0577191b67
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I am having an issue with intel NUC8i7HNK with AMD Ve=
-ga M. I have three Dell U2415 monitors connected to one mDP daisychained. W=
-hen the monitors go to sleep (dpms) trying to wake up the monitors after ha=
-lf hour or more fails, touching the keyboard and mouse. Only way is a hard =
-reboot. Same monitors connected to other systems wake up fine. I seen old b=
-ug reports on this issue but seems I&#39;m hitting this bug again.</div><di=
-v><br></div><div>If this is not the proper list please let me kno. --Thanks=
-<br></div></div>
-
---0000000000005b925b0577191b67--
-
---===============0968393839==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CACvgo52dj75j--gi8UrUZ9txpAjRXRpKzr-QaH92deS1=Lfk_w@mail.gmail.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Emil Velikov <emil.l.velikov@gmail.com>, Thomas Hellstrom <thellstrom@vmware.com>
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>, =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, VMware Graphics <linux-graphics-maintainer@vmware.com>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0968393839==--
+SGksIEVtaWwsCgpPbiAwOS8wNS8yMDE4IDAzOjUzIFBNLCBFbWlsIFZlbGlrb3Ygd3JvdGU6Cj4g
+T24gNSBTZXB0ZW1iZXIgMjAxOCBhdCAxNDoyMCwgVGhvbWFzIEhlbGxzdHJvbSA8dGhlbGxzdHJv
+bUB2bXdhcmUuY29tPiB3cm90ZToKPgo+Pj4gSW4gdGhhdCBjYXNlLCBwbGVhc2UgZ2l2ZSBtZSAy
+NGggdG8gZG8gYSBsaWJkcm0gcmVsZWFzZSBiZWZvcmUgcHVzaGluZy4KPj4+IEkgaGFkIHRvIHB1
+c2ggc29tZSB3b3JrYXJvdW5kcyBmb3IgdGhlIHNhbmRib3hpbmcgbWVudGlvbmVkIGVhcmxpZXIg
+Oi1cCj4+Pgo+Pj4gVGhhbmtzCj4+PiBFbWlsCj4+Cj4+IE91Y2gsIEkganVzdCBwdXNoZWQgdGhl
+IHBhdGNoLCBidXQgZmVlbCBmcmVlIHRvIGN1dCB0aGUgcmVsZWFzZSBqdXN0IGJlZm9yZQo+PiB0
+aGF0IGNvbW1pdC4KPj4KPiBUaGF0IGRvZXNuJ3QgcXVpdGUgd29yay4gQmFycmluZyBhbnkgb2Jq
+ZWN0aW9ucyBJJ2xsOiByZXZlcnQsIHJlbGVhc2UsIHJlYXBwbHkuCj4KPiAtRW1pbAo+IF9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1h
+aWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAoKV2hhdCBoYXBw
+ZW5lZCBoZXJlPyBJIGNhbid0IHJlYWxseSBzZWUgbXkgY29tbWl0IG5vciBhIHJldmVydCBub3Ig
+YSAKcmVsZWFzZSBpbiBsaWJkcm0uCgovVGhvbWFzCgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vZHJpLWRldmVsCg==
