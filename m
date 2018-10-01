@@ -1,16 +1,12 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/display: Work around race beetween hw_done and
- wait_for_flip
-Date: Mon, 1 Oct 2018 09:06:54 +0000
-Message-ID: <BLUPR12MB0452D8F0CC154240B9FDF23FF2EF0@BLUPR12MB0452.namprd12.prod.outlook.com>
-References: <1537795907-1168-1-git-send-email-shirish.s@amd.com>
- <20180928131606.15931-1-harry.wentland@amd.com>
+From: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>
+Subject: Re: VegaM DP dpms issue
+Date: Mon, 1 Oct 2018 11:17:30 +0100
+Message-ID: <CAHbf0-Ga449y3L-nrM6SGGiG9OUFa=-rTUFKXnmuSvmUx4c5dw@mail.gmail.com>
+References: <CAFiZx5yVF+0uZUQMwQVXRs4Bms9Q0J85ZHr84ThyKioQg9w0oQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1547436941=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20180928131606.15931-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAFiZx5yVF+0uZUQMwQVXRs4Bms9Q0J85ZHr84ThyKioQg9w0oQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,63 +17,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Sun
- peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
-Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+To: Louis Garcia <louisgtwo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-VGhpcyB3b3JrYXJvdW5kIGlzIG5vdCBmaXhpbmcgdGhlIGlzc3VlLg0KDQpSZWdhcmRzLA0KU2hp
-cmlzaCBTDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQt
-Z2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgSGFycnkgV2Vu
-dGxhbmQNClNlbnQ6IEZyaWRheSwgU2VwdGVtYmVyIDI4LCAyMDE4IDY6NDYgUE0NClRvOiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgUywgU2hpcmlzaCA8U2hpcmlzaC5TQGFtZC5jb20+
-OyBMaSwgU3VuIHBlbmcgKExlbykgPFN1bnBlbmcuTGlAYW1kLmNvbT4NCkNjOiBXZW50bGFuZCwg
-SGFycnkgPEhhcnJ5LldlbnRsYW5kQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWQv
-ZGlzcGxheTogV29yayBhcm91bmQgcmFjZSBiZWV0d2VlbiBod19kb25lIGFuZCB3YWl0X2Zvcl9m
-bGlwDQoNCltXaHldDQpUaGVyZSBpcyBhIHJhY2UgdGhhdCBiZXR3ZWVuIGRybV9jcnRjX2NvbW1p
-dF9od19kb25lIGFuZCBkcm1fYXRvbWljX2hlbHBlcl93YWl0X2Zvcl9mbGlwIHdoZXJlIHRoZSBw
-b3NzaWJpbHR5IGV4aXN0IGZvciB0aGUNCmNydGMtPmNvbW1pdCB0byBiZSBjbGVhcmVkIGFmdGVy
-IHRoZSBudWxsIGNoZWNrIGluIHdhaXRfZm9yX2ZsaXBfZG9uZQ0KYnV0IGJlZm9yZSB0aGUgY2Fs
-bCB0byB3YWl0X2Zvcl9jb21wbGV0aW9uX3RpbWVvdXQgb24gY29tbWl0LT5mbGlwX2RvbmUuDQoN
-CltIb3ddDQpUYWtlIGEgcmVmZXJlbmNlIHRvIGFsbCBjb21taXRzIGluIHRoZSBzdGF0ZSBiZWZv
-cmUgZHJtX2NydGNfY29tbWl0X2h3X2RvbmUgaXMgY2FsbGVkIGFuZCByZWxlYXNlIHRob3NlIGFm
-dGVyIGRybV9hdG9taWNfaGVscGVyX3dhaXRfZm9yX2ZsaXAgaGFzIGZpbmlzaGVkLg0KDQpTaWdu
-ZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCi0tLQ0K
-DQpXb3VsZCBzb21ldGhpbmcgbGlrZSB0aGlzIHdvcms/IEkgZ2V0IHRoZSBzdHJvbmcgc2Vuc2Ug
-dGhhdCB0aGlzIGhhcHBlbnMgYmVjYXVzZSBJbnRlbCBhbmQgSU1YIHVzZSB0aGUgaGVscGVycyBp
-biB0aGUgb3RoZXIgb3JkZXIsIGhlbmNlIHRoZSBkZXBlbmRlbmN5IGJldHdlZW4gaHdfZG9uZSBh
-bmQgd2FpdF9mb3JfZmxpcCB3YXMgbWlzc2VkLg0KDQpJJ2QgcmF0aGVyIG1ha2UgaXQgb2J2aW91
-cyB0aGF0IHRoZXJlJ3MgKGEpIG5vIHJlYXNvbiB0byByZW9yZGVyIHRoZXNlIHR3byBjYWxscyBv
-biBBTUQgSFcgKG90aGVyIHRoYW4gdGhpcyB1bmV4cGVjdGVkIGRlcGVuZGVuY3kpIGFuZCAoYikg
-dGhpcyBpcyBzb21ldGhpbmcgd2UnbGwgcHJvYmFibHkgd2FudCB0byBmaXggaW4gRFJNLg0KDQpT
-b3JyeSBpdCB0b29rIG1lIGEgd2hpbGUgdG8gdW5kZXJzdGFuZCB3aGF0IHdhcyBoYXBwZW5pbmcg
-aGVyZS4gQmVlbiBidXN5IGF0IFhEQyB1bnRpbCBKb3JkYW4gYW5kIExlbyByZW1pbmRlZCBtZSB0
-byB0YWtlIGFub3RoZXIgbG9vay4NCg0KSGFycnkNCg0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAxNSArKysrKysrKysrKysrKysNCiAxIGZpbGUg
-Y2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCmluZGV4IDBmMTBkOTIwYTc4NS4uZWQ5YTdk
-NjgwYjYzIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYw0KQEAgLTQ2MjYsMTIgKzQ2MjYsMjcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1
-X2RtX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUpDQog
-CX0NCiAJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+ZGRldi0+ZXZlbnRfbG9jaywgZmxh
-Z3MpOw0KIA0KKwkvKg0KKwkgKiBXT1JLQVJPVU5EOiBUYWtlIGEgcmVmIGZvciBhbGwgY3J0Y19z
-dGF0ZSBjb21taXRzIHRvIGF2b2lkDQorCSAqIGEgcmFjZSB3aGVyZSB0aGUgY29tbWl0IGdldHMg
-ZnJlZWQgYmVmb3JlIGNvbW1pdF9od19kb25lIGhhZA0KKwkgKiBhIGNoYW5jZSB0byBsb29rIGZv
-ciBjb21taXQtPmZsaXBfZG9uZQ0KKwkgKi8NCisJZm9yX2VhY2hfbmV3X2NydGNfaW5fc3RhdGUo
-c3RhdGUsIGNydGMsIG5ld19jcnRjX3N0YXRlLCBpKQ0KKwkJZHJtX2NydGNfY29tbWl0X2dldChu
-ZXdfY3J0Y19zdGF0ZS0+Y29tbWl0KTsNCisNCiAJLyogU2lnbmFsIEhXIHByb2dyYW1taW5nIGNv
-bXBsZXRpb24gKi8NCiAJZHJtX2F0b21pY19oZWxwZXJfY29tbWl0X2h3X2RvbmUoc3RhdGUpOw0K
-IA0KIAlpZiAod2FpdF9mb3JfdmJsYW5rKQ0KIAkJZHJtX2F0b21pY19oZWxwZXJfd2FpdF9mb3Jf
-ZmxpcF9kb25lKGRldiwgc3RhdGUpOw0KIA0KKwkvKg0KKwkgKiBXT1JLQVJPVU5EOiBwdXQgdGhl
-IGNvbW1pdCByZWZzIGZyb20gYWJvdmUgKHNlZSBjb21tZW50IG9uDQorCSAqIHRoZSBkcm1fY3J0
-Y19jb21taXRfZ2V0IGNhbGwgYWJvdmUpDQorCSAqLw0KKwlmb3JfZWFjaF9uZXdfY3J0Y19pbl9z
-dGF0ZShzdGF0ZSwgY3J0YywgbmV3X2NydGNfc3RhdGUsIGkpDQorCQlkcm1fY3J0Y19jb21taXRf
-cHV0KG5ld19jcnRjX3N0YXRlLT5jb21taXQpOw0KKw0KIAlkcm1fYXRvbWljX2hlbHBlcl9jbGVh
-bnVwX3BsYW5lcyhkZXYsIHN0YXRlKTsNCiANCiAJLyoNCi0tDQoyLjE3LjENCg0KX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBs
-aXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+--===============1547436941==
+Content-Type: multipart/alternative; boundary="000000000000914f270577281d43"
+
+--000000000000914f270577281d43
+Content-Type: text/plain; charset="UTF-8"
+
+Hi
+
+I'm pretty sure unless you're offloading using DRI_PRIME=1 then it'll be
+your Intel graphics that'll be driving the displays
+
+I'd recommend you raise a bug on https://bugs.freedesktop.org/ under DRI
+then DRM/Intel
+
+Make sure you attach your dmesg and Xorg.0.log and hopefully they'll be
+able to help
+
+Cheers
+
+Mike
+
+On Sun, 30 Sep 2018 at 17:23 Louis Garcia <louisgtwo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> I am having an issue with intel NUC8i7HNK with AMD Vega M. I have three
+> Dell U2415 monitors connected to one mDP daisychained. When the monitors go
+> to sleep (dpms) trying to wake up the monitors after half hour or more
+> fails, touching the keyboard and mouse. Only way is a hard reboot. Same
+> monitors connected to other systems wake up fine. I seen old bug reports on
+> this issue but seems I'm hitting this bug again.
+>
+> If this is not the proper list please let me kno. --Thanks
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--000000000000914f270577281d43
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi<div><br></div><div>I&#39;m pretty sure unless you&#39;r=
+e offloading using DRI_PRIME=3D1 then it&#39;ll be your Intel graphics that=
+&#39;ll be driving the displays</div><div><br></div><div>I&#39;d recommend =
+you raise a bug on=C2=A0<a href=3D"https://bugs.freedesktop.org/">https://b=
+ugs.freedesktop.org/</a>=C2=A0under DRI then DRM/Intel</div><div><br></div>=
+<div>Make sure you attach your dmesg and Xorg.0.log and hopefully they&#39;=
+ll be able to help</div><div><br></div><div>Cheers</div><div><br></div><div=
+>Mike=C2=A0</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr">On S=
+un, 30 Sep 2018 at 17:23 Louis Garcia &lt;<a href=3D"mailto:louisgtwo@gmail=
+.com">louisgtwo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left=
+:1ex"><div dir=3D"ltr"><div>I am having an issue with intel NUC8i7HNK with =
+AMD Vega M. I have three Dell U2415 monitors connected to one mDP daisychai=
+ned. When the monitors go to sleep (dpms) trying to wake up the monitors af=
+ter half hour or more fails, touching the keyboard and mouse. Only way is a=
+ hard reboot. Same monitors connected to other systems wake up fine. I seen=
+ old bug reports on this issue but seems I&#39;m hitting this bug again.</d=
+iv><div><br></div><div>If this is not the proper list please let me kno. --=
+Thanks<br></div></div>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div>
+
+--000000000000914f270577281d43--
+
+--===============1547436941==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1547436941==--
