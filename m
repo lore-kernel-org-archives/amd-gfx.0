@@ -1,14 +1,17 @@
-From: Mike Lothian <mike@fireburn.co.uk>
+From: Daniel Vetter <daniel@ffwll.ch>
 Subject: Re: [PATCH v2 0/3] A DRM API for adaptive sync and variable refresh
  rate support
-Date: Wed, 3 Oct 2018 09:25:42 +0100
-Message-ID: <CAHbf0-HhjG2xc1sAjHBR=Ep11LzumO6tdyzBcKSZ8h82H28Zbg@mail.gmail.com>
+Date: Wed, 3 Oct 2018 10:41:20 +0200
+Message-ID: <20181003084120.GP11082@phenom.ffwll.local>
 References: <20180924181537.12092-1-nicholas.kazlauskas@amd.com>
  <20181001071525.GJ11082@phenom.ffwll.local>
+ <effdad82-e16b-421e-bcae-569a638f1b5a@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1982043773=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20181001071525.GJ11082@phenom.ffwll.local>
+Content-Disposition: inline
+In-Reply-To: <effdad82-e16b-421e-bcae-569a638f1b5a@amd.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -18,407 +21,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: nicolai.haehnle@amd.com, michel@daenzer.net, Marek.Olsak@amd.com, amd-gfx@lists.freedesktop.org, Christian.Koenig@amd.com, manasi.d.navare@intel.com, dri-devel@lists.freedesktop.org, Alexander.Deucher@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: manasi.d.navare@intel.com, nicolai.haehnle@amd.com, michel@daenzer.net, dri-devel@lists.freedesktop.org, Christian.Koenig@amd.com, Marek.Olsak@amd.com, amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, Arkadiusz Hiler <arkadiusz.hiler@intel.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
---===============1982043773==
-Content-Type: multipart/alternative; boundary="00000000000067fe7405774ec918"
-
---00000000000067fe7405774ec918
-Content-Type: text/plain; charset="UTF-8"
-
-Hi
-
-I'm curious to know whether this will/could work over PRIME
-
-If the discrete card is rendering slower than the display's frequency could
-the frequency be dropped on integrated display? I think there are laptops
-that have freesync now
-
-Cheers
-
-Mike
-
-On Mon, 1 Oct 2018 at 08:15 Daniel Vetter <daniel@ffwll.ch> wrote:
-
-> On Mon, Sep 24, 2018 at 02:15:34PM -0400, Nicholas Kazlauskas wrote:
-> > These patches are part of a proposed new interface for supporting
-> variable refresh rate via DRM properties.
-> >
-> > === Changes from v1 ===
-> >
-> > For drm:
-> >
-> > * The variable_refresh_capable property is now flagged as
-> DRM_MODE_PROP_IMMUTABLE
-> >
-> > For drm/gpu/amd/display:
-> >
-> > * Patches no longer pull in IOCTL/FreeSync refactoring code
-> > * FreeSync enable/disable behavior has been modified to reflect changes
-> in userspace behavior from xf86-video-amdgpu and mesa
-> >
-> > === Adaptive sync and variable refresh rate ===
-> >
-> > Adaptive sync is part of the DisplayPort spec and allows for graphics
-> adapters to drive displays with varying frame timings.
-> >
-> > Variable refresh rate (VRR) is essentially the same, but defined for
-> HDMI.
-> >
-> > === Use cases for variable refresh rate ===
-> >
-> > Variable frame (flip) timings don't align well with fixed refresh rate
-> displays. This results in stuttering, tearing and/or input lag. By
-> adjusting the display refresh rate dynamically these issues can be reduced
-> or eliminated.
-> >
-> > However, not all content is suitable for dynamic refresh adaptation.
-> Content that is flipped infrequently or at random intervals tends to fair
-> poorly. Multiple clients trying to flip under the same screen can similarly
-> interfere with prediction.
-> >
-> > Userland needs a way to let the driver know when the content on the
-> screen is suitable for variable refresh rate and if the user wishes to have
-> the feature enabled.
-> >
-> > === DRM API to support variable refresh rates ===
-> >
-> > This patch introduces a new API via atomic properties on the DRM
-> connector and CRTC.
-> >
-> > The connector has two new optional properties:
-> >
-> > * bool variable_refresh_capable - set by the driver if the hardware is
-> capable of supporting variable refresh tech
-> >
-> > * bool variable_refresh_enabled - set by the user to enable variable
-> refresh adjustment over the connector
-> >
-> > The CRTC has one additional default property:
-> >
-> > * bool variable_refresh - a content hint to the driver specifying that
-> the CRTC contents are suitable for variable refresh adjustment
-> >
-> > == Overview for DRM driver developers ===
-> >
-> > Driver developers can attach the optional connector properties via
-> drm_connector_attach_variable_refresh_properties on connectors that support
-> variable refresh (typically DP or HDMI).
-> >
-> > The variable_refresh_capable property should be managed as the output on
-> the connector changes. The property is read only from userspace.
-> >
-> > The variable_refresh_enabled property is intended to be a property
-> controlled by userland as a global on/off switch for variable refresh
-> technology. It should be checked before enabling variable refresh rate.
-> >
-> > === Overview for Userland developers ==
-> >
-> > The variable_refresh property on the CRTC should be set to true when the
-> CRTCs are suitable for variable refresh rate. In practice this is probably
-> an application like a game - a single window that covers the whole CRTC
-> surface and is the only client issuing flips.
-> >
-> > To demonstrate the suitability of the API for variable refresh and
-> dynamic adaptation there are additional patches using this API that
-> implement adaptive variable refresh across kernel and userland projects:
-> >
-> > * DRM (dri-devel)
-> > * amdgpu DRM kernel driver (amd-gfx)
-> > * xf86-video-amdgpu (amd-gfx)
-> > * mesa (mesa-dev)
-> >
-> > These patches enable adaptive variable refresh on X for AMD hardware
-> provided that the user sets the variable_refresh_enabled property to true
-> on supported connectors (ie. using xrandr --set-prop).
-> >
-> > The patches have been tested as working on upstream userland with the
-> GNOME desktop environment under a single monitor setup. They also work on
-> KDE in single monitor setup if the compositor is disabled.
-> >
-> > The patches require that the application window can issue screen flips
-> via the Present extension to xf86-video-amdgpu. Due to Present extension
-> limitations some desktop environments and multi-monitor setups are
-> currently not compatible.
-> >
-> > Full implementation details for these changes can be reviewed in their
-> respective mailing lists.
-> >
-> > === Previous discussions ===
-> >
-> > These patches are based upon feedback from patches and feedback from two
-> previous threads on the subject which are linked below for reference:
-> >
-> > https://lists.freedesktop.org/archives/amd-gfx/2018-April/021047.html
-> >
-> https://lists.freedesktop.org/archives/dri-devel/2017-October/155207.html
-> >
-> https://lists.freedesktop.org/archives/dri-devel/2018-September/189404.html
-> >
-> > Nicholas Kazlauskas
-> >
-> > Nicholas Kazlauskas (3):
-> >   drm: Add variable refresh rate properties to connector
-> >   drm: Add variable refresh property to DRM CRTC
-> >   drm/amd/display: Set FreeSync state using DRM VRR properties
->
-> Please include Manasi manasi.d.navare@intel.com when resending, she's
-> working on this from our side.
->
-> Also some overview kernel-docs that document the uapi aspect of how the
-> prorties are driven should be included. Probably best if you add a new
-> "Variable Refresh Rate" section under
->
-> https://dri.freedesktop.org/docs/drm/gpu/drm-kms.html#kms-properties
->
-> with links to functions drivers should call to set up and everything. Best
-> practice is to stuff all that into a DOC: comment.
->
-> An igt testcase would be neat too.
->
-> Cheers, Daniel
->
-> >
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 232 +++++++++---------
-> >  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   6 +-
-> >  drivers/gpu/drm/drm_atomic_helper.c           |   1 +
-> >  drivers/gpu/drm/drm_atomic_uapi.c             |  12 +
-> >  drivers/gpu/drm/drm_connector.c               |  35 +++
-> >  drivers/gpu/drm/drm_crtc.c                    |   2 +
-> >  drivers/gpu/drm/drm_mode_config.c             |   6 +
-> >  include/drm/drm_connector.h                   |  27 ++
-> >  include/drm/drm_crtc.h                        |  13 +
-> >  include/drm/drm_mode_config.h                 |   8 +
-> >  10 files changed, 225 insertions(+), 117 deletions(-)
-> >
-> > --
-> > 2.19.0
-> >
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
-
---00000000000067fe7405774ec918
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi<div><br></div><div>I&#39;m curious to know whether this=
- will/could work over PRIME<br><br>If the discrete card is rendering slower=
- than the display&#39;s frequency could the frequency be dropped on integra=
-ted display? I think there are laptops that have freesync now</div><div><br=
-></div><div>Cheers</div><div><br></div><div>Mike</div><div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr">On Mon, 1 Oct 2018 at 08:15 Daniel Vetter=
- &lt;<a href=3D"mailto:daniel@ffwll.ch">daniel@ffwll.ch</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">On Mon, Sep 24, 2018 at 02:15:34PM -040=
-0, Nicholas Kazlauskas wrote:<br>
-&gt; These patches are part of a proposed new interface for supporting vari=
-able refresh rate via DRM properties.<br>
-&gt; <br>
-&gt; =3D=3D=3D Changes from v1 =3D=3D=3D<br>
-&gt; <br>
-&gt; For drm:<br>
-&gt; <br>
-&gt; * The variable_refresh_capable property is now flagged as DRM_MODE_PRO=
-P_IMMUTABLE<br>
-&gt; <br>
-&gt; For drm/gpu/amd/display:<br>
-&gt; <br>
-&gt; * Patches no longer pull in IOCTL/FreeSync refactoring code<br>
-&gt; * FreeSync enable/disable behavior has been modified to reflect change=
-s in userspace behavior from xf86-video-amdgpu and mesa<br>
-&gt; <br>
-&gt; =3D=3D=3D Adaptive sync and variable refresh rate =3D=3D=3D<br>
-&gt; <br>
-&gt; Adaptive sync is part of the DisplayPort spec and allows for graphics =
-adapters to drive displays with varying frame timings.<br>
-&gt; <br>
-&gt; Variable refresh rate (VRR) is essentially the same, but defined for H=
-DMI.<br>
-&gt; <br>
-&gt; =3D=3D=3D Use cases for variable refresh rate =3D=3D=3D<br>
-&gt; <br>
-&gt; Variable frame (flip) timings don&#39;t align well with fixed refresh =
-rate displays. This results in stuttering, tearing and/or input lag. By adj=
-usting the display refresh rate dynamically these issues can be reduced or =
-eliminated.<br>
-&gt; <br>
-&gt; However, not all content is suitable for dynamic refresh adaptation. C=
-ontent that is flipped infrequently or at random intervals tends to fair po=
-orly. Multiple clients trying to flip under the same screen can similarly i=
-nterfere with prediction.<br>
-&gt; <br>
-&gt; Userland needs a way to let the driver know when the content on the sc=
-reen is suitable for variable refresh rate and if the user wishes to have t=
-he feature enabled.<br>
-&gt; <br>
-&gt; =3D=3D=3D DRM API to support variable refresh rates =3D=3D=3D<br>
-&gt; <br>
-&gt; This patch introduces a new API via atomic properties on the DRM conne=
-ctor and CRTC.<br>
-&gt; <br>
-&gt; The connector has two new optional properties:<br>
-&gt; <br>
-&gt; * bool variable_refresh_capable - set by the driver if the hardware is=
- capable of supporting variable refresh tech<br>
-&gt; <br>
-&gt; * bool variable_refresh_enabled - set by the user to enable variable r=
-efresh adjustment over the connector<br>
-&gt; <br>
-&gt; The CRTC has one additional default property:<br>
-&gt; <br>
-&gt; * bool variable_refresh - a content hint to the driver specifying that=
- the CRTC contents are suitable for variable refresh adjustment<br>
-&gt; <br>
-&gt; =3D=3D Overview for DRM driver developers =3D=3D=3D<br>
-&gt; <br>
-&gt; Driver developers can attach the optional connector properties via drm=
-_connector_attach_variable_refresh_properties on connectors that support va=
-riable refresh (typically DP or HDMI).<br>
-&gt; <br>
-&gt; The variable_refresh_capable property should be managed as the output =
-on the connector changes. The property is read only from userspace.<br>
-&gt; <br>
-&gt; The variable_refresh_enabled property is intended to be a property con=
-trolled by userland as a global on/off switch for variable refresh technolo=
-gy. It should be checked before enabling variable refresh rate.<br>
-&gt; <br>
-&gt; =3D=3D=3D Overview for Userland developers =3D=3D<br>
-&gt; <br>
-&gt; The variable_refresh property on the CRTC should be set to true when t=
-he CRTCs are suitable for variable refresh rate. In practice this is probab=
-ly an application like a game - a single window that covers the whole CRTC =
-surface and is the only client issuing flips.<br>
-&gt; <br>
-&gt; To demonstrate the suitability of the API for variable refresh and dyn=
-amic adaptation there are additional patches using this API that implement =
-adaptive variable refresh across kernel and userland projects:<br>
-&gt; <br>
-&gt; * DRM (dri-devel)<br>
-&gt; * amdgpu DRM kernel driver (amd-gfx)<br>
-&gt; * xf86-video-amdgpu (amd-gfx)<br>
-&gt; * mesa (mesa-dev)<br>
-&gt; <br>
-&gt; These patches enable adaptive variable refresh on X for AMD hardware p=
-rovided that the user sets the variable_refresh_enabled property to true on=
- supported connectors (ie. using xrandr --set-prop).<br>
-&gt; <br>
-&gt; The patches have been tested as working on upstream userland with the =
-GNOME desktop environment under a single monitor setup. They also work on K=
-DE in single monitor setup if the compositor is disabled.<br>
-&gt; <br>
-&gt; The patches require that the application window can issue screen flips=
- via the Present extension to xf86-video-amdgpu. Due to Present extension l=
-imitations some desktop environments and multi-monitor setups are currently=
- not compatible.<br>
-&gt; <br>
-&gt; Full implementation details for these changes can be reviewed in their=
- respective mailing lists.<br>
-&gt; <br>
-&gt; =3D=3D=3D Previous discussions =3D=3D=3D<br>
-&gt; <br>
-&gt; These patches are based upon feedback from patches and feedback from t=
-wo previous threads on the subject which are linked below for reference:<br=
->
-&gt; <br>
-&gt; <a href=3D"https://lists.freedesktop.org/archives/amd-gfx/2018-April/0=
-21047.html" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.=
-org/archives/amd-gfx/2018-April/021047.html</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/archives/dri-devel/2017-Octob=
-er/155207.html" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesk=
-top.org/archives/dri-devel/2017-October/155207.html</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/archives/dri-devel/2018-Septe=
-mber/189404.html" rel=3D"noreferrer" target=3D"_blank">https://lists.freede=
-sktop.org/archives/dri-devel/2018-September/189404.html</a><br>
-&gt; <br>
-&gt; Nicholas Kazlauskas<br>
-&gt; <br>
-&gt; Nicholas Kazlauskas (3):<br>
-&gt;=C2=A0 =C2=A0drm: Add variable refresh rate properties to connector<br>
-&gt;=C2=A0 =C2=A0drm: Add variable refresh property to DRM CRTC<br>
-&gt;=C2=A0 =C2=A0drm/amd/display: Set FreeSync state using DRM VRR properti=
-es<br>
-<br>
-Please include Manasi <a href=3D"mailto:manasi.d.navare@intel.com" target=
-=3D"_blank">manasi.d.navare@intel.com</a> when resending, she&#39;s<br>
-working on this from our side.<br>
-<br>
-Also some overview kernel-docs that document the uapi aspect of how the<br>
-prorties are driven should be included. Probably best if you add a new<br>
-&quot;Variable Refresh Rate&quot; section under<br>
-<br>
-<a href=3D"https://dri.freedesktop.org/docs/drm/gpu/drm-kms.html#kms-proper=
-ties" rel=3D"noreferrer" target=3D"_blank">https://dri.freedesktop.org/docs=
-/drm/gpu/drm-kms.html#kms-properties</a><br>
-<br>
-with links to functions drivers should call to set up and everything. Best<=
-br>
-practice is to stuff all that into a DOC: comment.<br>
-<br>
-An igt testcase would be neat too.<br>
-<br>
-Cheers, Daniel<br>
-<br>
-&gt; <br>
-&gt;=C2=A0 .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 232 +++++++++---=
-------<br>
-&gt;=C2=A0 .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |=C2=A0 =C2=A06 +-=
-<br>
-&gt;=C2=A0 drivers/gpu/drm/drm_atomic_helper.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0|=C2=A0 =C2=A01 +<br>
-&gt;=C2=A0 drivers/gpu/drm/drm_atomic_uapi.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0|=C2=A0 12 +<br>
-&gt;=C2=A0 drivers/gpu/drm/drm_connector.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 35 +++<br>
-&gt;=C2=A0 drivers/gpu/drm/drm_crtc.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A02 +<br>
-&gt;=C2=A0 drivers/gpu/drm/drm_mode_config.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A06 +<br>
-&gt;=C2=A0 include/drm/drm_connector.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 27 ++<br>
-&gt;=C2=A0 include/drm/drm_crtc.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 13 +<br>
-&gt;=C2=A0 include/drm/drm_mode_config.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A08 +<br>
-&gt;=C2=A0 10 files changed, 225 insertions(+), 117 deletions(-)<br>
-&gt; <br>
-&gt; -- <br>
-&gt; 2.19.0<br>
-&gt; <br>
-<br>
--- <br>
-Daniel Vetter<br>
-Software Engineer, Intel Corporation<br>
-<a href=3D"http://blog.ffwll.ch" rel=3D"noreferrer" target=3D"_blank">http:=
-//blog.ffwll.ch</a><br>
-_______________________________________________<br>
-dri-devel mailing list<br>
-<a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank">dri-de=
-vel@lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
-"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listin=
-fo/dri-devel</a><br>
-</blockquote></div></div></div>
-
---00000000000067fe7405774ec918--
-
---===============1982043773==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1982043773==--
+T24gVHVlLCBPY3QgMDIsIDIwMTggYXQgMTA6NDk6MTdBTSAtMDQwMCwgSGFycnkgV2VudGxhbmQg
+d3JvdGU6Cj4gCj4gCj4gT24gMjAxOC0xMC0wMSAwMzoxNSBBTSwgRGFuaWVsIFZldHRlciB3cm90
+ZToKPiA+IE9uIE1vbiwgU2VwIDI0LCAyMDE4IGF0IDAyOjE1OjM0UE0gLTA0MDAsIE5pY2hvbGFz
+IEthemxhdXNrYXMgd3JvdGU6Cj4gPj4gVGhlc2UgcGF0Y2hlcyBhcmUgcGFydCBvZiBhIHByb3Bv
+c2VkIG5ldyBpbnRlcmZhY2UgZm9yIHN1cHBvcnRpbmcgdmFyaWFibGUgcmVmcmVzaCByYXRlIHZp
+YSBEUk0gcHJvcGVydGllcy4KPiA+Pgo+ID4+ID09PSBDaGFuZ2VzIGZyb20gdjEgPT09Cj4gPj4K
+PiA+PiBGb3IgZHJtOgo+ID4+Cj4gPj4gKiBUaGUgdmFyaWFibGVfcmVmcmVzaF9jYXBhYmxlIHBy
+b3BlcnR5IGlzIG5vdyBmbGFnZ2VkIGFzIERSTV9NT0RFX1BST1BfSU1NVVRBQkxFCj4gPj4KPiA+
+PiBGb3IgZHJtL2dwdS9hbWQvZGlzcGxheToKPiA+Pgo+ID4+ICogUGF0Y2hlcyBubyBsb25nZXIg
+cHVsbCBpbiBJT0NUTC9GcmVlU3luYyByZWZhY3RvcmluZyBjb2RlCj4gPj4gKiBGcmVlU3luYyBl
+bmFibGUvZGlzYWJsZSBiZWhhdmlvciBoYXMgYmVlbiBtb2RpZmllZCB0byByZWZsZWN0IGNoYW5n
+ZXMgaW4gdXNlcnNwYWNlIGJlaGF2aW9yIGZyb20geGY4Ni12aWRlby1hbWRncHUgYW5kIG1lc2EK
+PiA+Pgo+ID4+ID09PSBBZGFwdGl2ZSBzeW5jIGFuZCB2YXJpYWJsZSByZWZyZXNoIHJhdGUgPT09
+Cj4gPj4KPiA+PiBBZGFwdGl2ZSBzeW5jIGlzIHBhcnQgb2YgdGhlIERpc3BsYXlQb3J0IHNwZWMg
+YW5kIGFsbG93cyBmb3IgZ3JhcGhpY3MgYWRhcHRlcnMgdG8gZHJpdmUgZGlzcGxheXMgd2l0aCB2
+YXJ5aW5nIGZyYW1lIHRpbWluZ3MuCj4gPj4KPiA+PiBWYXJpYWJsZSByZWZyZXNoIHJhdGUgKFZS
+UikgaXMgZXNzZW50aWFsbHkgdGhlIHNhbWUsIGJ1dCBkZWZpbmVkIGZvciBIRE1JLgo+ID4+Cj4g
+Pj4gPT09IFVzZSBjYXNlcyBmb3IgdmFyaWFibGUgcmVmcmVzaCByYXRlID09PQo+ID4+Cj4gPj4g
+VmFyaWFibGUgZnJhbWUgKGZsaXApIHRpbWluZ3MgZG9uJ3QgYWxpZ24gd2VsbCB3aXRoIGZpeGVk
+IHJlZnJlc2ggcmF0ZSBkaXNwbGF5cy4gVGhpcyByZXN1bHRzIGluIHN0dXR0ZXJpbmcsIHRlYXJp
+bmcgYW5kL29yIGlucHV0IGxhZy4gQnkgYWRqdXN0aW5nIHRoZSBkaXNwbGF5IHJlZnJlc2ggcmF0
+ZSBkeW5hbWljYWxseSB0aGVzZSBpc3N1ZXMgY2FuIGJlIHJlZHVjZWQgb3IgZWxpbWluYXRlZC4K
+PiA+Pgo+ID4+IEhvd2V2ZXIsIG5vdCBhbGwgY29udGVudCBpcyBzdWl0YWJsZSBmb3IgZHluYW1p
+YyByZWZyZXNoIGFkYXB0YXRpb24uIENvbnRlbnQgdGhhdCBpcyBmbGlwcGVkIGluZnJlcXVlbnRs
+eSBvciBhdCByYW5kb20gaW50ZXJ2YWxzIHRlbmRzIHRvIGZhaXIgcG9vcmx5LiBNdWx0aXBsZSBj
+bGllbnRzIHRyeWluZyB0byBmbGlwIHVuZGVyIHRoZSBzYW1lIHNjcmVlbiBjYW4gc2ltaWxhcmx5
+IGludGVyZmVyZSB3aXRoIHByZWRpY3Rpb24uCj4gPj4KPiA+PiBVc2VybGFuZCBuZWVkcyBhIHdh
+eSB0byBsZXQgdGhlIGRyaXZlciBrbm93IHdoZW4gdGhlIGNvbnRlbnQgb24gdGhlIHNjcmVlbiBp
+cyBzdWl0YWJsZSBmb3IgdmFyaWFibGUgcmVmcmVzaCByYXRlIGFuZCBpZiB0aGUgdXNlciB3aXNo
+ZXMgdG8gaGF2ZSB0aGUgZmVhdHVyZSBlbmFibGVkLgo+ID4+Cj4gPj4gPT09IERSTSBBUEkgdG8g
+c3VwcG9ydCB2YXJpYWJsZSByZWZyZXNoIHJhdGVzID09PQo+ID4+Cj4gPj4gVGhpcyBwYXRjaCBp
+bnRyb2R1Y2VzIGEgbmV3IEFQSSB2aWEgYXRvbWljIHByb3BlcnRpZXMgb24gdGhlIERSTSBjb25u
+ZWN0b3IgYW5kIENSVEMuCj4gPj4KPiA+PiBUaGUgY29ubmVjdG9yIGhhcyB0d28gbmV3IG9wdGlv
+bmFsIHByb3BlcnRpZXM6Cj4gPj4KPiA+PiAqIGJvb2wgdmFyaWFibGVfcmVmcmVzaF9jYXBhYmxl
+IC0gc2V0IGJ5IHRoZSBkcml2ZXIgaWYgdGhlIGhhcmR3YXJlIGlzIGNhcGFibGUgb2Ygc3VwcG9y
+dGluZyB2YXJpYWJsZSByZWZyZXNoIHRlY2gKPiA+Pgo+ID4+ICogYm9vbCB2YXJpYWJsZV9yZWZy
+ZXNoX2VuYWJsZWQgLSBzZXQgYnkgdGhlIHVzZXIgdG8gZW5hYmxlIHZhcmlhYmxlIHJlZnJlc2gg
+YWRqdXN0bWVudCBvdmVyIHRoZSBjb25uZWN0b3IKPiA+Pgo+ID4+IFRoZSBDUlRDIGhhcyBvbmUg
+YWRkaXRpb25hbCBkZWZhdWx0IHByb3BlcnR5Ogo+ID4+Cj4gPj4gKiBib29sIHZhcmlhYmxlX3Jl
+ZnJlc2ggLSBhIGNvbnRlbnQgaGludCB0byB0aGUgZHJpdmVyIHNwZWNpZnlpbmcgdGhhdCB0aGUg
+Q1JUQyBjb250ZW50cyBhcmUgc3VpdGFibGUgZm9yIHZhcmlhYmxlIHJlZnJlc2ggYWRqdXN0bWVu
+dAo+ID4+Cj4gPj4gPT0gT3ZlcnZpZXcgZm9yIERSTSBkcml2ZXIgZGV2ZWxvcGVycyA9PT0KPiA+
+Pgo+ID4+IERyaXZlciBkZXZlbG9wZXJzIGNhbiBhdHRhY2ggdGhlIG9wdGlvbmFsIGNvbm5lY3Rv
+ciBwcm9wZXJ0aWVzIHZpYSBkcm1fY29ubmVjdG9yX2F0dGFjaF92YXJpYWJsZV9yZWZyZXNoX3By
+b3BlcnRpZXMgb24gY29ubmVjdG9ycyB0aGF0IHN1cHBvcnQgdmFyaWFibGUgcmVmcmVzaCAodHlw
+aWNhbGx5IERQIG9yIEhETUkpLgo+ID4+Cj4gPj4gVGhlIHZhcmlhYmxlX3JlZnJlc2hfY2FwYWJs
+ZSBwcm9wZXJ0eSBzaG91bGQgYmUgbWFuYWdlZCBhcyB0aGUgb3V0cHV0IG9uIHRoZSBjb25uZWN0
+b3IgY2hhbmdlcy4gVGhlIHByb3BlcnR5IGlzIHJlYWQgb25seSBmcm9tIHVzZXJzcGFjZS4KPiA+
+Pgo+ID4+IFRoZSB2YXJpYWJsZV9yZWZyZXNoX2VuYWJsZWQgcHJvcGVydHkgaXMgaW50ZW5kZWQg
+dG8gYmUgYSBwcm9wZXJ0eSBjb250cm9sbGVkIGJ5IHVzZXJsYW5kIGFzIGEgZ2xvYmFsIG9uL29m
+ZiBzd2l0Y2ggZm9yIHZhcmlhYmxlIHJlZnJlc2ggdGVjaG5vbG9neS4gSXQgc2hvdWxkIGJlIGNo
+ZWNrZWQgYmVmb3JlIGVuYWJsaW5nIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZS4KPiA+Pgo+ID4+ID09
+PSBPdmVydmlldyBmb3IgVXNlcmxhbmQgZGV2ZWxvcGVycyA9PQo+ID4+Cj4gPj4gVGhlIHZhcmlh
+YmxlX3JlZnJlc2ggcHJvcGVydHkgb24gdGhlIENSVEMgc2hvdWxkIGJlIHNldCB0byB0cnVlIHdo
+ZW4gdGhlIENSVENzIGFyZSBzdWl0YWJsZSBmb3IgdmFyaWFibGUgcmVmcmVzaCByYXRlLiBJbiBw
+cmFjdGljZSB0aGlzIGlzIHByb2JhYmx5IGFuIGFwcGxpY2F0aW9uIGxpa2UgYSBnYW1lIC0gYSBz
+aW5nbGUgd2luZG93IHRoYXQgY292ZXJzIHRoZSB3aG9sZSBDUlRDIHN1cmZhY2UgYW5kIGlzIHRo
+ZSBvbmx5IGNsaWVudCBpc3N1aW5nIGZsaXBzLgo+ID4+Cj4gPj4gVG8gZGVtb25zdHJhdGUgdGhl
+IHN1aXRhYmlsaXR5IG9mIHRoZSBBUEkgZm9yIHZhcmlhYmxlIHJlZnJlc2ggYW5kIGR5bmFtaWMg
+YWRhcHRhdGlvbiB0aGVyZSBhcmUgYWRkaXRpb25hbCBwYXRjaGVzIHVzaW5nIHRoaXMgQVBJIHRo
+YXQgaW1wbGVtZW50IGFkYXB0aXZlIHZhcmlhYmxlIHJlZnJlc2ggYWNyb3NzIGtlcm5lbCBhbmQg
+dXNlcmxhbmQgcHJvamVjdHM6Cj4gPj4KPiA+PiAqIERSTSAoZHJpLWRldmVsKQo+ID4+ICogYW1k
+Z3B1IERSTSBrZXJuZWwgZHJpdmVyIChhbWQtZ2Z4KQo+ID4+ICogeGY4Ni12aWRlby1hbWRncHUg
+KGFtZC1nZngpCj4gPj4gKiBtZXNhIChtZXNhLWRldikKPiA+Pgo+ID4+IFRoZXNlIHBhdGNoZXMg
+ZW5hYmxlIGFkYXB0aXZlIHZhcmlhYmxlIHJlZnJlc2ggb24gWCBmb3IgQU1EIGhhcmR3YXJlIHBy
+b3ZpZGVkIHRoYXQgdGhlIHVzZXIgc2V0cyB0aGUgdmFyaWFibGVfcmVmcmVzaF9lbmFibGVkIHBy
+b3BlcnR5IHRvIHRydWUgb24gc3VwcG9ydGVkIGNvbm5lY3RvcnMgKGllLiB1c2luZyB4cmFuZHIg
+LS1zZXQtcHJvcCkuCj4gPj4KPiA+PiBUaGUgcGF0Y2hlcyBoYXZlIGJlZW4gdGVzdGVkIGFzIHdv
+cmtpbmcgb24gdXBzdHJlYW0gdXNlcmxhbmQgd2l0aCB0aGUgR05PTUUgZGVza3RvcCBlbnZpcm9u
+bWVudCB1bmRlciBhIHNpbmdsZSBtb25pdG9yIHNldHVwLiBUaGV5IGFsc28gd29yayBvbiBLREUg
+aW4gc2luZ2xlIG1vbml0b3Igc2V0dXAgaWYgdGhlIGNvbXBvc2l0b3IgaXMgZGlzYWJsZWQuCj4g
+Pj4KPiA+PiBUaGUgcGF0Y2hlcyByZXF1aXJlIHRoYXQgdGhlIGFwcGxpY2F0aW9uIHdpbmRvdyBj
+YW4gaXNzdWUgc2NyZWVuIGZsaXBzIHZpYSB0aGUgUHJlc2VudCBleHRlbnNpb24gdG8geGY4Ni12
+aWRlby1hbWRncHUuIER1ZSB0byBQcmVzZW50IGV4dGVuc2lvbiBsaW1pdGF0aW9ucyBzb21lIGRl
+c2t0b3AgZW52aXJvbm1lbnRzIGFuZCBtdWx0aS1tb25pdG9yIHNldHVwcyBhcmUgY3VycmVudGx5
+IG5vdCBjb21wYXRpYmxlLgo+ID4+Cj4gPj4gRnVsbCBpbXBsZW1lbnRhdGlvbiBkZXRhaWxzIGZv
+ciB0aGVzZSBjaGFuZ2VzIGNhbiBiZSByZXZpZXdlZCBpbiB0aGVpciByZXNwZWN0aXZlIG1haWxp
+bmcgbGlzdHMuCj4gPj4KPiA+PiA9PT0gUHJldmlvdXMgZGlzY3Vzc2lvbnMgPT09Cj4gPj4KPiA+
+PiBUaGVzZSBwYXRjaGVzIGFyZSBiYXNlZCB1cG9uIGZlZWRiYWNrIGZyb20gcGF0Y2hlcyBhbmQg
+ZmVlZGJhY2sgZnJvbSB0d28gcHJldmlvdXMgdGhyZWFkcyBvbiB0aGUgc3ViamVjdCB3aGljaCBh
+cmUgbGlua2VkIGJlbG93IGZvciByZWZlcmVuY2U6Cj4gPj4KPiA+PiBodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9hcmNoaXZlcy9hbWQtZ2Z4LzIwMTgtQXByaWwvMDIxMDQ3Lmh0bWwKPiA+
+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9hcmNoaXZlcy9kcmktZGV2ZWwvMjAxNy1P
+Y3RvYmVyLzE1NTIwNy5odG1sCj4gPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvYXJj
+aGl2ZXMvZHJpLWRldmVsLzIwMTgtU2VwdGVtYmVyLzE4OTQwNC5odG1sCj4gPj4KPiA+PiBOaWNo
+b2xhcyBLYXpsYXVza2FzCj4gPj4KPiA+PiBOaWNob2xhcyBLYXpsYXVza2FzICgzKToKPiA+PiAg
+IGRybTogQWRkIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBwcm9wZXJ0aWVzIHRvIGNvbm5lY3Rvcgo+
+ID4+ICAgZHJtOiBBZGQgdmFyaWFibGUgcmVmcmVzaCBwcm9wZXJ0eSB0byBEUk0gQ1JUQwo+ID4+
+ICAgZHJtL2FtZC9kaXNwbGF5OiBTZXQgRnJlZVN5bmMgc3RhdGUgdXNpbmcgRFJNIFZSUiBwcm9w
+ZXJ0aWVzCj4gPiAKPiA+IFBsZWFzZSBpbmNsdWRlIE1hbmFzaSBtYW5hc2kuZC5uYXZhcmVAaW50
+ZWwuY29tIHdoZW4gcmVzZW5kaW5nLCBzaGUncwo+ID4gd29ya2luZyBvbiB0aGlzIGZyb20gb3Vy
+IHNpZGUuCj4gPiAKPiA+IEFsc28gc29tZSBvdmVydmlldyBrZXJuZWwtZG9jcyB0aGF0IGRvY3Vt
+ZW50IHRoZSB1YXBpIGFzcGVjdCBvZiBob3cgdGhlCj4gPiBwcm9ydGllcyBhcmUgZHJpdmVuIHNo
+b3VsZCBiZSBpbmNsdWRlZC4gUHJvYmFibHkgYmVzdCBpZiB5b3UgYWRkIGEgbmV3Cj4gPiAiVmFy
+aWFibGUgUmVmcmVzaCBSYXRlIiBzZWN0aW9uIHVuZGVyCj4gPiAKPiA+IGh0dHBzOi8vZHJpLmZy
+ZWVkZXNrdG9wLm9yZy9kb2NzL2RybS9ncHUvZHJtLWttcy5odG1sI2ttcy1wcm9wZXJ0aWVzCj4g
+PiAKPiA+IHdpdGggbGlua3MgdG8gZnVuY3Rpb25zIGRyaXZlcnMgc2hvdWxkIGNhbGwgdG8gc2V0
+IHVwIGFuZCBldmVyeXRoaW5nLiBCZXN0Cj4gPiBwcmFjdGljZSBpcyB0byBzdHVmZiBhbGwgdGhh
+dCBpbnRvIGEgRE9DOiBjb21tZW50Lgo+ID4gCj4gPiBBbiBpZ3QgdGVzdGNhc2Ugd291bGQgYmUg
+bmVhdCB0b28uCj4gPiAKPiAKPiBUaGFua3MgZm9yIGJyaW5naW5nIHVwIGRvY3MgYW5kIGlndC4K
+PiAKPiBGb3IgaWd0IGlmIHdlIGV4cG9zZSBhIG1vbml0b3IncyB2bWluL3ZtYXggdGhyb3VnaCBh
+IGRlYnVnZnMgd2UgY291bGQKPiB0aGVuIGRvIHZyciBmbGlwcyBhdCBkaWZmZXJlbnQgcG9pbnRz
+IHdpdGhpbiB0aGF0IHJhbmdlIGFuZCBtZWFzdXJlIHRoZQo+IHRpbWUgdW50aWwgdmJsYW5rIG5v
+dGlmaWNhdGlvbnMgdG8gY2hlY2sgdGhhdCB0aGV5IChyb3VnaGx5KSBhbGlnbiB3aXRoCj4gdGhl
+IHZ0b3RhbC4gTm90IHN1cmUgaG93IGRpZmZpY3VsdCB0aGF0J2QgYmUgd2l0aCBpZ3QuIFdvbmRl
+ciBpZiBBcmVrCj4gaGFzIGFueSBpZGVhcyBvZiBhIGJldHRlciBhcHByb2FjaC4KCldlIGNhbiBk
+byBtdWNoIGJldHRlcjoKCjEuIGFsbG9jYXRlIGEgYnVuY2ggb2YgYnVmZmVycwoyLiBzaGFyZSB3
+aXRoIHZnZW0KMy4gdXNlIHZnZW0gZmFrZSBmZW5jZXMgdG8gcGVyZmVjdGx5IGNvbnRyb2wgdGhl
+ICJyZW5kZXJpbmciIG9mIHlvdXIgZmFrZQp3b3JrbG9hZAo0LiBmbGlwIGF3YXksIGFuZCBjaGVj
+ayB0aGF0IHZyciBkb2VzIHdoYXQgaXQncyBzdXBwb3NlZCB0byBkby4KCkV2ZW4gbW9yZSBldmls
+IHRoYW4gdnJyLCB0aGlzIHdvdWxkIHRlc3QgcHJpbWUrdnJyIDotKQoKUGxhbiBiKSwgYnV0IG9u
+bHkgd29ya3Mgb24gaW50ZWw6IFVzZSB0aGUgbWFnaWMgc3Bpbm5pbmcgYmF0Y2ggc3VwcG9ydCB3
+ZQpoYXZlIGZvciBpOTE1LmtvLCB3aGVyZSBhIGR3b3JkIHdyaXRlIGZyb20gdGhlIGNwdSBzdG9w
+cyB0aGUgc3Bpbm5pbmcsIGFuZApoZW5jZSBhbGxvd3MgeW91IHRvIGNvbnRyb2wgaG93IGxvbmcg
+dGhlICJyZW5kZXJpbmciIHRha2VzIHZlcnkKYWNjdXJhdGVseS4KCk5laXRoZXIgbmVlZHMgZHJp
+dmVyIGhhY2tzIG9yIGRlYnVnZnMuCgpDaGVlcnMsIERhbmllbAo+IAo+IEhhcnJ5Cj4gCj4gPiBD
+aGVlcnMsIERhbmllbAo+ID4gCj4gPj4KPiA+PiAgLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
+Z3B1X2RtL2FtZGdwdV9kbS5jIHwgMjMyICsrKysrKysrKy0tLS0tLS0tLQo+ID4+ICAuLi4vZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmggfCAgIDYgKy0KPiA+PiAgZHJp
+dmVycy9ncHUvZHJtL2RybV9hdG9taWNfaGVscGVyLmMgICAgICAgICAgIHwgICAxICsKPiA+PiAg
+ZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfdWFwaS5jICAgICAgICAgICAgIHwgIDEyICsKPiA+
+PiAgZHJpdmVycy9ncHUvZHJtL2RybV9jb25uZWN0b3IuYyAgICAgICAgICAgICAgIHwgIDM1ICsr
+Kwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2NydGMuYyAgICAgICAgICAgICAgICAgICAgfCAg
+IDIgKwo+ID4+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX21vZGVfY29uZmlnLmMgICAgICAgICAgICAg
+fCAgIDYgKwo+ID4+ICBpbmNsdWRlL2RybS9kcm1fY29ubmVjdG9yLmggICAgICAgICAgICAgICAg
+ICAgfCAgMjcgKysKPiA+PiAgaW5jbHVkZS9kcm0vZHJtX2NydGMuaCAgICAgICAgICAgICAgICAg
+ICAgICAgIHwgIDEzICsKPiA+PiAgaW5jbHVkZS9kcm0vZHJtX21vZGVfY29uZmlnLmggICAgICAg
+ICAgICAgICAgIHwgICA4ICsKPiA+PiAgMTAgZmlsZXMgY2hhbmdlZCwgMjI1IGluc2VydGlvbnMo
+KyksIDExNyBkZWxldGlvbnMoLSkKPiA+Pgo+ID4+IC0tIAo+ID4+IDIuMTkuMAo+ID4+Cj4gPiAK
+Ci0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpo
+dHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
+cmktZGV2ZWwK
