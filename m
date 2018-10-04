@@ -1,95 +1,71 @@
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Fri, 5 Oct 2018 01:38:02 -0700
-Message-ID: <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
-References: <1536919552-116245-1-git-send-email-peng.hao2@zte.com.cn>
- <20181004185237.GA20667@roeck-us.net>
- <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
+From: Nick Alcock <nick.alcock-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH] drm/radeon: ratelimit bo warnings
+Date: Thu, 04 Oct 2018 20:58:09 +0100
+Message-ID: <874le1h4by.fsf@esperi.org.uk>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, Peng Hao <peng.hao2@zte.com.cn>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 10/05/2018 01:14 AM, Koenig, Christian wrote:
-> Am 04.10.2018 um 20:52 schrieb Guenter Roeck:
->> Hi,
->>
->> On Fri, Sep 14, 2018 at 06:05:52PM +0800, Peng Hao wrote:
->>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:
->>>       In function ‘gmc_v8_0_process_interrupt’:
->>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:10:
->>>       warning: missing braces around initializer [-Wmissing-braces]
->>>
->>> Signed-off-by: Peng Hao <peng.hao2@zte.com.cn>
->> Was there any feedback on this patch ? The problem does affect us,
->> and we'll need a fix.
-> 
-> Well as discussed using "{ { 0 } }" is as wrong as using "{ 0 }".
-> 
-
-Ah, sorry, I must have missed the discussion.
-
-It is for sure not the best solution, but at least it compiles, and it seems
-to be proliferating.
-
-$ git grep "{ *{ *0 *} *}" | wc
-     144    1180   11802
-$ git grep "{ *{ *0 *} *}" drivers/gpu/drm/amd/ | wc
-      50     459    5239
-
-> We should either use only "{ }" or even better make nails with heads and
-> use memset().
-
-I'd rather leave it up to the compiler to decide what is most efficient.
-
-Guenter
-
-> 
-> Christian.
-> 
->>
->>> ---
->>>    drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-
->>>    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
->>>    2 files changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>> index 9333109..55f4755 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
->>> @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
->>>    		gmc_v8_0_set_fault_enable_default(adev, false);
->>>    
->>>    	if (printk_ratelimit()) {
->>> -		struct amdgpu_task_info task_info = { 0 };
->>> +		struct amdgpu_task_info task_info = { {0} };
->>>    
->> I wondered if
->> 		struct amdgpu_task_info task_info = { };
->> would be better.
->>
->> Thanks,
->> Guenter
->>
->>>    		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
->>>    
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> index 72f8018..e8b78c5 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
->>> @@ -259,7 +259,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
->>>    	}
->>>    
->>>    	if (printk_ratelimit()) {
->>> -		struct amdgpu_task_info task_info = { 0 };
->>> +		struct amdgpu_task_info task_info = { {0} };
->>>    
->>>    		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
->>>    
-> 
+U28gYSBmZXcgZGF5cyBhZ28gSSBzdGFydGVkIGdldHRpbmcgc3ByYXlzIG9mIHRoZXNlIHdhcm5p
+bmdzIC0tCnNvcnJ5LCBidXQgYmVjYXVzZSBpdCB3YXMgYSBmZXcgZGF5cyBhZ28gSSdtIG5vdCBz
+dXJlIHdoYXQgSSB3YXMKcnVubmluZyBhdCB0aGUgdGltZSAoYnV0IGl0IHdhcyBwcm9iYWJseSBl
+aXRoZXIgU3RlbGxhcmlzIG9yIENocm9taXVtKS4KClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBl
+cnI6IDogWyAgNTQ0LjcxODkwNV0gW2RybTpyYWRlb25fY3NfcGFyc2VyX3JlbG9jc10gKkVSUk9S
+KiBnZW0gb2JqZWN0IGxvb2t1cCBmYWlsZWQgMHhjClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBl
+cnI6IDogWyAgNTQ0LjcxODkwOV0gW2RybTpyYWRlb25fY3NfaW9jdGxdICpFUlJPUiogRmFpbGVk
+IHRvIHBhcnNlIHJlbG9jYXRpb24gLTIhClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBlcnI6IDog
+WyAgNTQ0LjcxOTcxMF0gW2RybTpyYWRlb25fY3NfcGFyc2VyX3JlbG9jc10gKkVSUk9SKiBnZW0g
+b2JqZWN0IGxvb2t1cCBmYWlsZWQgMHhjClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBlcnI6IDog
+WyAgNTQ0LjcxOTcxNF0gW2RybTpyYWRlb25fY3NfaW9jdGxdICpFUlJPUiogRmFpbGVkIHRvIHBh
+cnNlIHJlbG9jYXRpb24gLTIhClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBlcnI6IDogWyAgNTQ0
+LjcxOTg2Ml0gW2RybTpyYWRlb25fY3NfcGFyc2VyX3JlbG9jc10gKkVSUk9SKiBnZW0gb2JqZWN0
+IGxvb2t1cCBmYWlsZWQgMHhjClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBlcnI6IDogWyAgNTQ0
+LjcxOTg2NV0gW2RybTpyYWRlb25fY3NfaW9jdGxdICpFUlJPUiogRmFpbGVkIHRvIHBhcnNlIHJl
+bG9jYXRpb24gLTIhClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBlcnI6IDogWyAgNTQ0LjcyMDc3
+Ml0gW2RybTpyYWRlb25fY3NfcGFyc2VyX3JlbG9jc10gKkVSUk9SKiBnZW0gb2JqZWN0IGxvb2t1
+cCBmYWlsZWQgMHhjClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSBlcnI6IDogWyAgNTQ0LjcyMDc3
+OF0gW2RybTpyYWRlb25fY3NfaW9jdGxdICpFUlJPUiogRmFpbGVkIHRvIHBhcnNlIHJlbG9jYXRp
+b24gLTIhClNlcCAyNSAyMjowNjozNCBtdXRpbGF0ZSB3YXJuaW5nOiA6IFsgIDU0NC43MjE0MTVd
+IHJhZGVvbiAwMDAwOjAxOjAwLjA6IHZibyByZXNvdXJjZSBzZWVtcyB0b28gYmlnIGZvciB0aGUg
+Ym8KCmZvbGxvd2VkIGJ5IGEgbWFzc2l2ZSBzdHJlYW0gb2YgInZibyByZXNvdXJjZSBzZWVtcyB0
+b28gYmlnIGZvciB0aGUgYm8iLgoKVGhlIG1vc3QgZXh0cmVtZSBmbG9vZCByYW4gZnJvbSAyMzow
+MTo1OCB0byAyMzowMjo0NyBhbmQgZW1pdHRlZCA5MSwwMDAKbGluZXMgb2YgbG9nIGluIHRoYXQg
+dGltZS4gIFRoaXMuLi4gc2VlbXMgZXhjZXNzaXZlLCBnaXZlbiB0aGF0IGVhY2ggbG9nCm1lc3Nh
+Z2UgYWZ0ZXIgdGhlIGZpcnN0IGNvbnRhaW5zIG1vcmUgb3IgbGVzcyBubyBpbmZvcm1hdGlvbi4K
+ClNvIHJhdGVsaW1pdCB0aGVzZSBtZXNzYWdlcy4gKFdlIHByb2JhYmx5IHdhbnQgdG8gc2VlIGF0
+IGxlYXN0ICpzb21lKiBzbwp0aGF0IHRoZSB1bmRlcmx5aW5nIGJ1ZyBjYW4gYmUgZml4ZWQgLS0g
+YWx3YXlzIGFzc3VtaW5nIHRoZSBidWcgaXNuJ3QgaW4KdW5maXhhYmxlIGNsb3NlZC1zb3VyY2Ug
+Z2FtZSBjb2RlIHNvbWV3aGVyZS4pCgpUaGlzIHBhdGNoIGlzIGFnYWluc3QgNC4xOC4xMTogSSBz
+YXcgdGhlIHdhcm5pbmdzIG9uIDQuMTcuNiB3aXRoIE1lc2EKMTguMS4yLCBidXQgbm90aGluZyBt
+dWNoIHNlZW1zIHRvIGhhdmUgY2hhbmdlZCBpbiB0aGlzIGFyZWEgc28gSSBiZXQKdGhpcyBjb3Vs
+ZCByZWN1ci4KClNpZ25lZC1vZmYtYnk6IE5pY2sgQWxjb2NrIDxuaWNrLmFsY29ja0BvcmFjbGUu
+Y29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vZXZlcmdyZWVuX2NzLmMgfCAyICstCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jIGIvZHJpdmVycy9ncHUvZHJt
+L3JhZGVvbi9ldmVyZ3JlZW5fY3MuYwppbmRleCA1NDMyNDMzMGI5MWYuLmY0NzE1MzdjODUyZiAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9ldmVyZ3JlZW5fY3MuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jCkBAIC0yNDE2LDcgKzI0MTYsNyBA
+QCBzdGF0aWMgaW50IGV2ZXJncmVlbl9wYWNrZXQzX2NoZWNrKHN0cnVjdCByYWRlb25fY3NfcGFy
+c2VyICpwLAogCQkJCXNpemUgPSByYWRlb25fZ2V0X2liX3ZhbHVlKHAsIGlkeCsxKyhpKjgpKzEp
+OwogCQkJCWlmIChwLT5yZGV2ICYmIChzaXplICsgb2Zmc2V0KSA+IHJhZGVvbl9ib19zaXplKHJl
+bG9jLT5yb2JqKSkgewogCQkJCQkvKiBmb3JjZSBzaXplIHRvIHNpemUgb2YgdGhlIGJ1ZmZlciAq
+LwotCQkJCQlkZXZfd2FybihwLT5kZXYsICJ2Ym8gcmVzb3VyY2Ugc2VlbXMgdG9vIGJpZyBmb3Ig
+dGhlIGJvXG4iKTsKKwkJCQkJZGV2X3dhcm5fcmF0ZWxpbWl0ZWQocC0+ZGV2LCAidmJvIHJlc291
+cmNlIHNlZW1zIHRvbyBiaWcgZm9yIHRoZSBib1xuIik7CiAJCQkJCWliW2lkeCsxKyhpKjgpKzFd
+ID0gcmFkZW9uX2JvX3NpemUocmVsb2MtPnJvYmopIC0gb2Zmc2V0OwogCQkJCX0KIAotLSAKMi4x
+OS4wLjIzMi5nNGMwYjM4OTgxOQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
