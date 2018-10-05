@@ -1,332 +1,165 @@
-From: Pekka Paalanen <ppaalanen@gmail.com>
-Subject: Re: [PATCH v2 2/3] drm: Add variable refresh property to DRM CRTC
-Date: Fri, 5 Oct 2018 11:10:59 +0300
-Message-ID: <20181005111059.1cd71f95@eldfell>
-References: <20180924181537.12092-1-nicholas.kazlauskas@amd.com>
- <20180924181537.12092-3-nicholas.kazlauskas@amd.com>
- <20180924183826.GX5565@intel.com>
- <4aa1583c-2be0-8cec-2857-6c3e489965b4@amd.com>
- <20180924202655.GA9144@intel.com>
- <bb8b3e03-94ce-3f0e-0947-ac0aaa4ff8a9@amd.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove the intterupt handling for the KIQ
+ events
+Date: Fri, 5 Oct 2018 08:12:44 +0000
+Message-ID: <bf5212b7-6ebf-5590-f8fa-7b56ec29ab44@amd.com>
+References: <1538718339-18234-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0263141873=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <bb8b3e03-94ce-3f0e-0947-ac0aaa4ff8a9@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Cc: nicolai.haehnle@amd.com, michel@daenzer.net, Marek.Olsak@amd.com, amd-gfx@lists.freedesktop.org, manasi.d.navare@intel.com, dri-devel@lists.freedesktop.org, Alexander.Deucher@amd.com, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============0263141873==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/G4YD1lCusOclL75HPWdsxxp"; protocol="application/pgp-signature"
-
---Sig_/G4YD1lCusOclL75HPWdsxxp
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-I have a somewhat of my own view on what would be involved with VRR,
-and I'd like to hear what you think of it. Comments inline.
-
-
-On Tue, 25 Sep 2018 09:51:37 -0400
-"Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com> wrote:
-
-> On 09/24/2018 04:26 PM, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Mon, Sep 24, 2018 at 03:06:02PM -0400, Kazlauskas, Nicholas wrote: =
-=20
-> >> On 09/24/2018 02:38 PM, Ville Syrj=C3=A4l=C3=A4 wrote: =20
-> >>> On Mon, Sep 24, 2018 at 02:15:36PM -0400, Nicholas Kazlauskas wrote: =
-=20
-> >>>> Variable refresh rate algorithms have typically been enabled only
-> >>>> when the display is covered by a single source of content.
-> >>>>
-> >>>> This patch introduces a new default CRTC property that helps
-> >>>> hint to the driver when the CRTC composition is suitable for variable
-> >>>> refresh rate algorithms. Userspace can set this property dynamically
-> >>>> as the composition changes.
-> >>>>
-> >>>> Whether the variable refresh rate algorithms are active will still
-> >>>> depend on the CRTC being suitable and the connector being capable
-> >>>> and enabled by the user for variable refresh rate support.
-> >>>>
-> >>>> It is worth noting that while the property is atomic it isn't filter=
-ed
-> >>>> from legacy userspace queries. This allows for Xorg userspace drivers
-> >>>> to implement support in non-atomic setups.
-> >>>>
-> >>>> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-...
-
-> >>> Actually I don't understand why this per-crtc thing is being added at
-> >>> all. You already have the prop on the connector. Why do we want to
-> >>> make life more difficult by requiring the thing to be set on both the
-> >>> crtc and connector? =20
-> >>
-> >> It doesn't make much sense without both.
-> >>
-> >> The user can globally enable or disable the variable_refresh_enabled on
-> >> the connector. This is the user's preference.
-> >>
-> >> What they don't control is the variable_refresh - the content hint that
-> >> userspace specifies when the CRTC contents are suitable for enabling
-> >> variable refresh features (like adaptive sync). This is userspace's
-> >> preference. =20
-> >=20
-> > By userspace I guess you mean the compositor/display server. I don't
-> > really see why the kernel has to be involved like this in a userspace
-> > policy matter. If the compositor doesn't think vrr is a good idea then
-> > it could simply choose to disable the prop on the connector even when
-> > requested by its clients. =20
->=20
-> The properties are both a kernel and userspace API so I think it's=20
-> important to think about the usecase and API usage for both.
->=20
-> In a DRM driver the variable refresh capability will be determined by=20
-> connector type and the display that's connected. The driver needs a way=20
-> to track this if it's going to be sending any sort of packet over the=20
-> connector. The capability property provides a method for the driver to=20
-> do this while also exposing this information to the userspace for queryin=
-g.
->=20
-> The variable_refresh_enabled property exists because not all users will=20
-> want this feature enabled. I think it makes sense to place this=20
-> alongside the capability property on the connector because of their=20
-> relation and because of the ease of access for the end user in existing=20
-> userspace stacks - xrandr makes this easy.
-
-I'm not sure I understood your intention here. Do you mean that you
-expect games (e.g. via Mesa) to toggle the connector property via RandR
-to tell if they wish for VRR?
-
-The RandR interface is for display configuration utilities, like the UIs
-that desktop environments use to configure monitors. It should not be
-used by applications like games to modify anything. I believe there are
-lots of apps out there that enrage users by abusing RandR, but one
-should not base an interface design on such abuse.
-
-If games are not using RandR to communicate the wish for VRR, what do
-they use? Does the X11 Present extension have something for it?
-
-What is the application-facing API to request VRR, is it in GLX, EGL,
-Vulkan, something else?
-
-Btw. I would not expect xrandr to qualify as proper userspace to
-validate new kernel UABI, like new properties. Did you have something
-else for the userspace settable connector property?
-
-> The variable_refresh CRTC property exists for a few reasons.
->=20
-> Userspace needs a method via the atomic API to let a DRM driver know=20
-> that it wants variable frame timing to be enabled. The connector enable=20
-> property certainly satisfies this condition - but I think there are=20
-> other to take into consideration here.
-
-I agree that this CRTC property makes sense.
-
-> Whenever I mentioned variable refresh "features", what I really meant=20
-> was operating in one of two modes:
->=20
-> (1) Letting the driver and hardware adjust refresh automatically based=20
-> on the flip rate on a CRTC from a single application
->=20
-> (2) Setting a fixed frame duration based on the flip rate on a CRTC from=
-=20
-> a single application
-
-I wonder if that's too much magic in the kernel... what would be wrong
-with simply flipping ASAP when VRR is active?
-
-How will userspace be able to predict coming flip opportunities if the
-kernel does so much magic?
-
-> In both cases the important thing to note is that they're both dependent=
-=20
-> on how often a CRTC is flipping. There's also the "requirement" for=20
-> single application in both cases - if there are multiple applications=20
-> issuing flips then the hardware can't determine the correct content=20
-> rate. The resulting user experience is going to be negative as the=20
-> monitor seemingly adjusts to a random rate.
->=20
-> With the existing kernelspace and userspace stacks a DRM driver can't=20
-> reasonably understand whether a single application is flipping or not=20
-> and what variable refresh "mode" to operate in - these both depend on=20
-> what's happening in userspace.
->=20
-> These factors are decided in userspace when interfacing with a DRM CRTC.=
-=20
-> The userspace integration patches I've posted alongside this interface=20
-> demonstrate this usage - checks are done against a CRTC to see if the=20
-> application fully covers the surface and the automatic adjustment mode=20
-> is only enabled for when flips are issued for the CRTC originating from=20
-> that application.
->=20
-> Determining which connectors use the CRTC can certainly be done and the=20
-> property could be changed there, but I don't think this logically=20
-> follows from the API usage described above.
->=20
-> The reasoning behind this being a default property on the CRTC is that I=
-=20
-> don't think userspace should need to keep track of what's actually=20
-> connected using the CRTC. A user can hotplug displays at will or=20
-> enable/disable variable refresh support via their display's OSD.=20
-> Capabilities can change and this is only something a driver really needs=
-=20
-> to concern themselves with - the driver is what sends the control=20
-> packets to the hardware.
-
-Userspace must already track carefully what is connected and what is
-driven through which CRTC, otherwise it cannot drive the KMS API
-correctly.
-
-> I probably could have gone into more detail about some of this in the=20
-> cover letter itself for these patchsets. These patches were actually a=20
-> connector only interface originally but evolved after developing the=20
-> actual implementation.
->=20
-> >  =20
-> >>
-> >> When both preferences agree, only then will variable refresh features =
-be
-> >> enabled.
-> >>
-> >> The reasoning for the split is because not all content is suitable for
-> >> variable refresh. Desktop environments, web browsers, etc only typical=
-ly
-> >> flip when needed - which will result in display flickering.
-
-Flickering? What do you mean?
-
-> >>
-> >> The userspace integration as part of these patches demonstrates enabli=
-ng
-> >> variable_refresh on the CRTC selectively.
-
-
-I believe that VRR on X11 would probably depend on these bits:
-
-1. Hardware capability
-	Whether the monitor, the CRTC hardware, and the kernel driver
-	all agree that VRR is possible.
-
-2. User preference
-	A toggle on the desktop environment's display settings
-	application to allow or disallow VRR. After all, video mode
-	configuration is here too, and ideally applications should not
-	mess with the video mode directly.
-
-3. Application preference
-	Whether the application, e.g. a game, is prepared to deal with
-	VRR and wishes it to be enabled.
-
-4. X server scenegraph
-	Which windows happen to be showing on the VRR-capable output
-	and does that scenegraph allow e.g. flipping straight to client
-	buffers instead of having the X server copy into framebuffers
-	of its own.
-
-You mentioned that VRR probably doesn't make sense if there are
-multiple windows showing in the same output, so point 4 would cover
-that. Also games etc. would aim to hit the direct scanout path to avoid
-wasting time in the X server copy, so it seems that requiring flips to
-client buffers would be reasonable for enabling VRR. Sounds like that
-is exactly how you implemented it in xf86-video-amdgpu, isn't it?
-
-Skimming through your proposal, it seems you have covered 3 out of 4
-points. Did you or I miss something? You cannot have points 2 and 3
-fight over the control of the same property.
-
-How do you envision VRR to interact with X11 compositing managers?
-
-I presume compositing managers aim for the direct scanout path in the X
-server to avoid yet another copy there, right? Does point 4 need to
-exclude the Composite Overlay Window (COW) from allowed VRR windows?
-
-
-Given all the above, I would like to question the choice of trying to
-accommodate X11 interfaces directly in the DRM UABI. There seems to be
-quite many bits controlled by different processes and VRR should be
-active only when they all agree. Therefore, if you want end user
-applications to rely on straight connector property pass-through via
-RandR, you end up with more properties than strictly necessary,
-complicating the UABI.
-
-In other words, I agree with the criticism here by Ville and Daniel.
-
-
-On the other hand, in Wayland architecture, there is only one single
-userspace process you need to consider in the DRM UABI: the display
-server:
-- There is no separate compositing manager process.
-- There is no separate application to handle user preference (point 2);
-  well, not in the sense that you would need to consider it in the DRM
-  UABI, because it will go through the display server that is part of
-  the desktop rather than bypassing the desktop.
-- There is no DRM property pass-through to end-user applications,
-  instead there will be dedicated protocol extensions to let the
-  display server make the final call.
-
-Therefore, it would be fine to have just two bits:
-
-1. Hardware capability
-	Whether the monitor, the CRTC hardware, and the kernel driver
-	all agree that VRR is possible.
-
-2. - 4. Whether userspace (i.e. the display server) wants to use VRR or
-	not. This would be the CRTC property.
-
-I also believe that it would be useful to expose vmin/vmax to userspace
-as properties, so that display servers and apps can plan ahead on when
-they will render. I suppose that can be left for later when someone
-starts working on userspace taking advantage of it, so that the proper
-userspace requirement for new UABI is fulfilled.
-
-
-Thanks,
-pq
-
---Sig_/G4YD1lCusOclL75HPWdsxxp
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlu3HJQACgkQI1/ltBGq
-qqdc8RAArZjwPj900jAApBgmTj+Pb1ZbCZgUm3XTNvkegpqkCL+DX8zkPxcw6PEW
-m0LZVg9r/z6HSsKfUewD0Bdbz0XWID2Xwclzj5Pd7/shb9V4/JCxQTXKaw2fjFOV
-KmRZ/X7SMLefuDEtn9w6+6YgKfieZwdA9J6nFLfOKGcrs4AoOmfOuDoBo0O8h+Un
-rruJ+he+hYBDzkOXAJTbAqSY9JG7f2JzqzQKRPZi126cJK2Jdn2wdcPt0QQe6YMG
-gAbifrw5Fl+ImEhst+6fqdoXYEwbNqEft/fE40F9OS0JrUL6Sgjfg1eBYgmQPMnm
-AjKvb1Nbucl71QSS/gCuJiqaQWx+0SXb4OYWgkkY6YvHydAyBRH6aamu5TG9jXNL
-YcMPpK72W8CbvHpOUYc4qYX/YAKFNVwaEQ9YiB0xdEz8xHQ5Xc1ECb/AJJzTZJfm
-AinqKZ/2E4auMTA/+FbTCDsZ0HLSxDf8Faf1LnvB2sY2nUgJxYhPMytmojQbmQ0A
-kaUW67PX+V0vm0iDNh/sxg2eOK5YgYwGlUZXOoE6+Jqd8jcRXbXd3CtdX6IaxODo
-WT6Asay33Cyhmtz/LdeMy3JFLp8JIKv1lmwSAgM9hMvLfh16kex3TUvhnQL7X/dh
-wW6rGCpxY6EhhiU3KRuafJifS10NrKL9HuUZ22DuGCMAkb7eSc0=
-=SHMr
------END PGP SIGNATURE-----
-
---Sig_/G4YD1lCusOclL75HPWdsxxp--
-
---===============0263141873==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1538718339-18234-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <05DF3B1B1FDBB44BBE5C4A1F6623911B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============0263141873==--
+QW0gMDUuMTAuMjAxOCB1bSAwNzo0NSBzY2hyaWViIFNoaXJpc2ggUzoNCj4gW1doeV0NCj4gMS4g
+d2UgbmV2ZXIgc3VibWl0IElCcyB0byB0aGUgS0lRDQo+IDIuIHRoZXJlIHNlZW1zIHRvIGJlIH41
+MDBtcyBkZWxheSBkdXJpbmcgYW1kZ3B1IHJlc3VtZSBzcGVudCBpbiBLSVEsDQo+ICAgICBoZW5j
+ZSwgS0lRIGludGVycnVwdHMgYXJlIG5vdCB3b3JraW5nIGNvcnJlY3RseS4NCj4NCj4gW0hvd10N
+Cj4gcmVtb3ZlIGludGVycnVwdCBoYW5kbGluZyBmb3IgS0lRLg0KPg0KPiBTaWduZWQtb2ZmLWJ5
+OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPg0KDQpSZXZpZXdlZC1ieTogQ2hyaXN0aWFu
+IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KDQo+IC0tLQ0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgfCA1OSAtLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgNzUgLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gICAyIGZpbGVzIGNoYW5nZWQsIDEz
+NCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jDQo+
+IGluZGV4IDJhZWVmMmIuLmRjOWQ1YmYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92OF8wLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y4XzAuYw0KPiBAQCAtMjA0OCwxMSArMjA0OCw2IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBf
+c3dfaW5pdCh2b2lkICpoYW5kbGUpDQo+ICAgCWFkZXYtPmdmeC5tZWMubnVtX3BpcGVfcGVyX21l
+YyA9IDQ7DQo+ICAgCWFkZXYtPmdmeC5tZWMubnVtX3F1ZXVlX3Blcl9waXBlID0gODsNCj4gICAN
+Cj4gLQkvKiBLSVEgZXZlbnQgKi8NCj4gLQlyID0gYW1kZ3B1X2lycV9hZGRfaWQoYWRldiwgQU1E
+R1BVX0lSUV9DTElFTlRJRF9MRUdBQ1ksIFZJU0xBTkRTMzBfSVZfU1JDSURfQ1BfSU5UX0lCMiwg
+JmFkZXYtPmdmeC5raXEuaXJxKTsNCj4gLQlpZiAocikNCj4gLQkJcmV0dXJuIHI7DQo+IC0NCj4g
+ICAJLyogRU9QIEV2ZW50ICovDQo+ICAgCXIgPSBhbWRncHVfaXJxX2FkZF9pZChhZGV2LCBBTURH
+UFVfSVJRX0NMSUVOVElEX0xFR0FDWSwgVklTTEFORFMzMF9JVl9TUkNJRF9DUF9FTkRfT0ZfUElQ
+RSwgJmFkZXYtPmdmeC5lb3BfaXJxKTsNCj4gICAJaWYgKHIpDQo+IEBAIC03MDI1LDUyICs3MDIw
+LDYgQEAgc3RhdGljIGludCBnZnhfdjhfMF9zcV9pcnEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYsDQo+ICAgCXJldHVybiAwOw0KPiAgIH0NCj4gICANCj4gLXN0YXRpYyBpbnQgZ2Z4X3Y4XzBf
+a2lxX3NldF9pbnRlcnJ1cHRfc3RhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+IC0J
+CQkJCSAgICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgKnNyYywNCj4gLQkJCQkJICAgIHVuc2lnbmVk
+IGludCB0eXBlLA0KPiAtCQkJCQkgICAgZW51bSBhbWRncHVfaW50ZXJydXB0X3N0YXRlIHN0YXRl
+KQ0KPiAtew0KPiAtCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICYoYWRldi0+Z2Z4LmtpcS5y
+aW5nKTsNCj4gLQ0KPiAtCXN3aXRjaCAodHlwZSkgew0KPiAtCWNhc2UgQU1ER1BVX0NQX0tJUV9J
+UlFfRFJJVkVSMDoNCj4gLQkJV1JFRzMyX0ZJRUxEKENQQ19JTlRfQ05UTCwgR0VORVJJQzJfSU5U
+X0VOQUJMRSwNCj4gLQkJCSAgICAgc3RhdGUgPT0gQU1ER1BVX0lSUV9TVEFURV9ESVNBQkxFID8g
+MCA6IDEpOw0KPiAtCQlpZiAocmluZy0+bWUgPT0gMSkNCj4gLQkJCVdSRUczMl9GSUVMRF9PRkZT
+RVQoQ1BfTUUxX1BJUEUwX0lOVF9DTlRMLA0KPiAtCQkJCSAgICAgcmluZy0+cGlwZSwNCj4gLQkJ
+CQkgICAgIEdFTkVSSUMyX0lOVF9FTkFCTEUsDQo+IC0JCQkJICAgICBzdGF0ZSA9PSBBTURHUFVf
+SVJRX1NUQVRFX0RJU0FCTEUgPyAwIDogMSk7DQo+IC0JCWVsc2UNCj4gLQkJCVdSRUczMl9GSUVM
+RF9PRkZTRVQoQ1BfTUUyX1BJUEUwX0lOVF9DTlRMLA0KPiAtCQkJCSAgICAgcmluZy0+cGlwZSwN
+Cj4gLQkJCQkgICAgIEdFTkVSSUMyX0lOVF9FTkFCTEUsDQo+IC0JCQkJICAgICBzdGF0ZSA9PSBB
+TURHUFVfSVJRX1NUQVRFX0RJU0FCTEUgPyAwIDogMSk7DQo+IC0JCWJyZWFrOw0KPiAtCWRlZmF1
+bHQ6DQo+IC0JCUJVRygpOyAvKiBraXEgb25seSBzdXBwb3J0IEdFTkVSSUMyX0lOVCBub3cgKi8N
+Cj4gLQkJYnJlYWs7DQo+IC0JfQ0KPiAtCXJldHVybiAwOw0KPiAtfQ0KPiAtDQo+IC1zdGF0aWMg
+aW50IGdmeF92OF8wX2tpcV9pcnEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+IC0JCQkg
+ICAgc3RydWN0IGFtZGdwdV9pcnFfc3JjICpzb3VyY2UsDQo+IC0JCQkgICAgc3RydWN0IGFtZGdw
+dV9pdl9lbnRyeSAqZW50cnkpDQo+IC17DQo+IC0JdTggbWVfaWQsIHBpcGVfaWQsIHF1ZXVlX2lk
+Ow0KPiAtCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9ICYoYWRldi0+Z2Z4LmtpcS5yaW5nKTsN
+Cj4gLQ0KPiAtCW1lX2lkID0gKGVudHJ5LT5yaW5nX2lkICYgMHgwYykgPj4gMjsNCj4gLQlwaXBl
+X2lkID0gKGVudHJ5LT5yaW5nX2lkICYgMHgwMykgPj4gMDsNCj4gLQlxdWV1ZV9pZCA9IChlbnRy
+eS0+cmluZ19pZCAmIDB4NzApID4+IDQ7DQo+IC0JRFJNX0RFQlVHKCJJSDogQ1BDIEdFTkVSSUMy
+X0lOVCwgbWU6JWQsIHBpcGU6JWQsIHF1ZXVlOiVkXG4iLA0KPiAtCQkgICBtZV9pZCwgcGlwZV9p
+ZCwgcXVldWVfaWQpOw0KPiAtDQo+IC0JYW1kZ3B1X2ZlbmNlX3Byb2Nlc3MocmluZyk7DQo+IC0J
+cmV0dXJuIDA7DQo+IC19DQo+IC0NCj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZF9pcF9mdW5j
+cyBnZnhfdjhfMF9pcF9mdW5jcyA9IHsNCj4gICAJLm5hbWUgPSAiZ2Z4X3Y4XzAiLA0KPiAgIAku
+ZWFybHlfaW5pdCA9IGdmeF92OF8wX2Vhcmx5X2luaXQsDQo+IEBAIC03MjIxLDExICs3MTcwLDYg
+QEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfaXJxX3NyY19mdW5jcyBnZnhfdjhfMF9wcml2
+X2luc3RfaXJxX2Z1bmNzID0gew0KPiAgIAkucHJvY2VzcyA9IGdmeF92OF8wX3ByaXZfaW5zdF9p
+cnEsDQo+ICAgfTsNCj4gICANCj4gLXN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmNf
+ZnVuY3MgZ2Z4X3Y4XzBfa2lxX2lycV9mdW5jcyA9IHsNCj4gLQkuc2V0ID0gZ2Z4X3Y4XzBfa2lx
+X3NldF9pbnRlcnJ1cHRfc3RhdGUsDQo+IC0JLnByb2Nlc3MgPSBnZnhfdjhfMF9raXFfaXJxLA0K
+PiAtfTsNCj4gLQ0KPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmNfZnVuY3Mg
+Z2Z4X3Y4XzBfY3BfZWNjX2Vycm9yX2lycV9mdW5jcyA9IHsNCj4gICAJLnNldCA9IGdmeF92OF8w
+X3NldF9jcF9lY2NfaW50X3N0YXRlLA0KPiAgIAkucHJvY2VzcyA9IGdmeF92OF8wX2NwX2VjY19l
+cnJvcl9pcnEsDQo+IEBAIC03MjQ3LDkgKzcxOTEsNiBAQCBzdGF0aWMgdm9pZCBnZnhfdjhfMF9z
+ZXRfaXJxX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAgIAlhZGV2LT5nZngu
+cHJpdl9pbnN0X2lycS5udW1fdHlwZXMgPSAxOw0KPiAgIAlhZGV2LT5nZngucHJpdl9pbnN0X2ly
+cS5mdW5jcyA9ICZnZnhfdjhfMF9wcml2X2luc3RfaXJxX2Z1bmNzOw0KPiAgIA0KPiAtCWFkZXYt
+PmdmeC5raXEuaXJxLm51bV90eXBlcyA9IEFNREdQVV9DUF9LSVFfSVJRX0xBU1Q7DQo+IC0JYWRl
+di0+Z2Z4LmtpcS5pcnEuZnVuY3MgPSAmZ2Z4X3Y4XzBfa2lxX2lycV9mdW5jczsNCj4gLQ0KPiAg
+IAlhZGV2LT5nZnguY3BfZWNjX2Vycm9yX2lycS5udW1fdHlwZXMgPSAxOw0KPiAgIAlhZGV2LT5n
+ZnguY3BfZWNjX2Vycm9yX2lycS5mdW5jcyA9ICZnZnhfdjhfMF9jcF9lY2NfZXJyb3JfaXJxX2Z1
+bmNzOw0KPiAgIA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCj4gaW5kZXgg
+N2E2YTgxNC4uZWRmMjNhNSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3Y5XzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlf
+MC5jDQo+IEBAIC0xNzExLDExICsxNzExLDYgQEAgc3RhdGljIGludCBnZnhfdjlfMF9zd19pbml0
+KHZvaWQgKmhhbmRsZSkNCj4gICAJYWRldi0+Z2Z4Lm1lYy5udW1fcGlwZV9wZXJfbWVjID0gNDsN
+Cj4gICAJYWRldi0+Z2Z4Lm1lYy5udW1fcXVldWVfcGVyX3BpcGUgPSA4Ow0KPiAgIA0KPiAtCS8q
+IEtJUSBldmVudCAqLw0KPiAtCXIgPSBhbWRncHVfaXJxX2FkZF9pZChhZGV2LCBTT0MxNV9JSF9D
+TElFTlRJRF9HUkJNX0NQLCBHRlhfOV8wX19TUkNJRF9fQ1BfSUIyX0lOVEVSUlVQVF9QS1QsICZh
+ZGV2LT5nZngua2lxLmlycSk7DQo+IC0JaWYgKHIpDQo+IC0JCXJldHVybiByOw0KPiAtDQo+ICAg
+CS8qIEVPUCBFdmVudCAqLw0KPiAgIAlyID0gYW1kZ3B1X2lycV9hZGRfaWQoYWRldiwgU09DMTVf
+SUhfQ0xJRU5USURfR1JCTV9DUCwgR0ZYXzlfMF9fU1JDSURfX0NQX0VPUF9JTlRFUlJVUFQsICZh
+ZGV2LT5nZnguZW9wX2lycSk7DQo+ICAgCWlmIChyKQ0KPiBAQCAtNDcxNiw2OCArNDcxMSw2IEBA
+IHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfcHJpdl9pbnN0X2lycShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwNCj4gICAJcmV0dXJuIDA7DQo+ICAgfQ0KPiAgIA0KPiAtc3RhdGljIGludCBnZnhfdjlf
+MF9raXFfc2V0X2ludGVycnVwdF9zdGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4g
+LQkJCQkJICAgIHN0cnVjdCBhbWRncHVfaXJxX3NyYyAqc3JjLA0KPiAtCQkJCQkgICAgdW5zaWdu
+ZWQgaW50IHR5cGUsDQo+IC0JCQkJCSAgICBlbnVtIGFtZGdwdV9pbnRlcnJ1cHRfc3RhdGUgc3Rh
+dGUpDQo+IC17DQo+IC0JdWludDMyX3QgdG1wLCB0YXJnZXQ7DQo+IC0Jc3RydWN0IGFtZGdwdV9y
+aW5nICpyaW5nID0gJihhZGV2LT5nZngua2lxLnJpbmcpOw0KPiAtDQo+IC0JaWYgKHJpbmctPm1l
+ID09IDEpDQo+IC0JCXRhcmdldCA9IFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tQ1BfTUUxX1BJ
+UEUwX0lOVF9DTlRMKTsNCj4gLQllbHNlDQo+IC0JCXRhcmdldCA9IFNPQzE1X1JFR19PRkZTRVQo
+R0MsIDAsIG1tQ1BfTUUyX1BJUEUwX0lOVF9DTlRMKTsNCj4gLQl0YXJnZXQgKz0gcmluZy0+cGlw
+ZTsNCj4gLQ0KPiAtCXN3aXRjaCAodHlwZSkgew0KPiAtCWNhc2UgQU1ER1BVX0NQX0tJUV9JUlFf
+RFJJVkVSMDoNCj4gLQkJaWYgKHN0YXRlID09IEFNREdQVV9JUlFfU1RBVEVfRElTQUJMRSkgew0K
+PiAtCQkJdG1wID0gUlJFRzMyX1NPQzE1KEdDLCAwLCBtbUNQQ19JTlRfQ05UTCk7DQo+IC0JCQl0
+bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgQ1BDX0lOVF9DTlRMLA0KPiAtCQkJCQkJIEdFTkVSSUMy
+X0lOVF9FTkFCTEUsIDApOw0KPiAtCQkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQQ19JTlRfQ05U
+TCwgdG1wKTsNCj4gLQ0KPiAtCQkJdG1wID0gUlJFRzMyKHRhcmdldCk7DQo+IC0JCQl0bXAgPSBS
+RUdfU0VUX0ZJRUxEKHRtcCwgQ1BfTUUyX1BJUEUwX0lOVF9DTlRMLA0KPiAtCQkJCQkJIEdFTkVS
+SUMyX0lOVF9FTkFCTEUsIDApOw0KPiAtCQkJV1JFRzMyKHRhcmdldCwgdG1wKTsNCj4gLQkJfSBl
+bHNlIHsNCj4gLQkJCXRtcCA9IFJSRUczMl9TT0MxNShHQywgMCwgbW1DUENfSU5UX0NOVEwpOw0K
+PiAtCQkJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIENQQ19JTlRfQ05UTCwNCj4gLQkJCQkJCSBH
+RU5FUklDMl9JTlRfRU5BQkxFLCAxKTsNCj4gLQkJCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUENf
+SU5UX0NOVEwsIHRtcCk7DQo+IC0NCj4gLQkJCXRtcCA9IFJSRUczMih0YXJnZXQpOw0KPiAtCQkJ
+dG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIENQX01FMl9QSVBFMF9JTlRfQ05UTCwNCj4gLQkJCQkJ
+CSBHRU5FUklDMl9JTlRfRU5BQkxFLCAxKTsNCj4gLQkJCVdSRUczMih0YXJnZXQsIHRtcCk7DQo+
+IC0JCX0NCj4gLQkJYnJlYWs7DQo+IC0JZGVmYXVsdDoNCj4gLQkJQlVHKCk7IC8qIGtpcSBvbmx5
+IHN1cHBvcnQgR0VORVJJQzJfSU5UIG5vdyAqLw0KPiAtCQlicmVhazsNCj4gLQl9DQo+IC0JcmV0
+dXJuIDA7DQo+IC19DQo+IC0NCj4gLXN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2lycShzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldiwNCj4gLQkJCSAgICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgKnNv
+dXJjZSwNCj4gLQkJCSAgICBzdHJ1Y3QgYW1kZ3B1X2l2X2VudHJ5ICplbnRyeSkNCj4gLXsNCj4g
+LQl1OCBtZV9pZCwgcGlwZV9pZCwgcXVldWVfaWQ7DQo+IC0Jc3RydWN0IGFtZGdwdV9yaW5nICpy
+aW5nID0gJihhZGV2LT5nZngua2lxLnJpbmcpOw0KPiAtDQo+IC0JbWVfaWQgPSAoZW50cnktPnJp
+bmdfaWQgJiAweDBjKSA+PiAyOw0KPiAtCXBpcGVfaWQgPSAoZW50cnktPnJpbmdfaWQgJiAweDAz
+KSA+PiAwOw0KPiAtCXF1ZXVlX2lkID0gKGVudHJ5LT5yaW5nX2lkICYgMHg3MCkgPj4gNDsNCj4g
+LQlEUk1fREVCVUcoIklIOiBDUEMgR0VORVJJQzJfSU5ULCBtZTolZCwgcGlwZTolZCwgcXVldWU6
+JWRcbiIsDQo+IC0JCSAgIG1lX2lkLCBwaXBlX2lkLCBxdWV1ZV9pZCk7DQo+IC0NCj4gLQlhbWRn
+cHVfZmVuY2VfcHJvY2VzcyhyaW5nKTsNCj4gLQlyZXR1cm4gMDsNCj4gLX0NCj4gLQ0KPiAgIHN0
+YXRpYyBjb25zdCBzdHJ1Y3QgYW1kX2lwX2Z1bmNzIGdmeF92OV8wX2lwX2Z1bmNzID0gew0KPiAg
+IAkubmFtZSA9ICJnZnhfdjlfMCIsDQo+ICAgCS5lYXJseV9pbml0ID0gZ2Z4X3Y5XzBfZWFybHlf
+aW5pdCwNCj4gQEAgLTQ5MjYsMTEgKzQ4NTksNiBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9zZXRf
+cmluZ19mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gICAJCWFkZXYtPmdmeC5j
+b21wdXRlX3JpbmdbaV0uZnVuY3MgPSAmZ2Z4X3Y5XzBfcmluZ19mdW5jc19jb21wdXRlOw0KPiAg
+IH0NCj4gICANCj4gLXN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmNfZnVuY3MgZ2Z4
+X3Y5XzBfa2lxX2lycV9mdW5jcyA9IHsNCj4gLQkuc2V0ID0gZ2Z4X3Y5XzBfa2lxX3NldF9pbnRl
+cnJ1cHRfc3RhdGUsDQo+IC0JLnByb2Nlc3MgPSBnZnhfdjlfMF9raXFfaXJxLA0KPiAtfTsNCj4g
+LQ0KPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmNfZnVuY3MgZ2Z4X3Y5XzBf
+ZW9wX2lycV9mdW5jcyA9IHsNCj4gICAJLnNldCA9IGdmeF92OV8wX3NldF9lb3BfaW50ZXJydXB0
+X3N0YXRlLA0KPiAgIAkucHJvY2VzcyA9IGdmeF92OV8wX2VvcF9pcnEsDQo+IEBAIC00OTU2LDkg
+KzQ4ODQsNiBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9zZXRfaXJxX2Z1bmNzKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQ0KPiAgIA0KPiAgIAlhZGV2LT5nZngucHJpdl9pbnN0X2lycS5udW1f
+dHlwZXMgPSAxOw0KPiAgIAlhZGV2LT5nZngucHJpdl9pbnN0X2lycS5mdW5jcyA9ICZnZnhfdjlf
+MF9wcml2X2luc3RfaXJxX2Z1bmNzOw0KPiAtDQo+IC0JYWRldi0+Z2Z4LmtpcS5pcnEubnVtX3R5
+cGVzID0gQU1ER1BVX0NQX0tJUV9JUlFfTEFTVDsNCj4gLQlhZGV2LT5nZngua2lxLmlycS5mdW5j
+cyA9ICZnZnhfdjlfMF9raXFfaXJxX2Z1bmNzOw0KPiAgIH0NCj4gICANCj4gICBzdGF0aWMgdm9p
+ZCBnZnhfdjlfMF9zZXRfcmxjX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
