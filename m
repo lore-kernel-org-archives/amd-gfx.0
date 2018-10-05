@@ -1,55 +1,95 @@
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
+From: Guenter Roeck <linux@roeck-us.net>
 Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Fri, 5 Oct 2018 08:14:34 +0000
-Message-ID: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
+Date: Fri, 5 Oct 2018 01:38:02 -0700
+Message-ID: <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
 References: <1536919552-116245-1-git-send-email-peng.hao2@zte.com.cn>
  <20181004185237.GA20667@roeck-us.net>
+ <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181004185237.GA20667@roeck-us.net>
+In-Reply-To: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
 Content-Language: en-US
-Content-ID: <957C012718770745945997ADADB984DB@namprd12.prod.outlook.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Guenter Roeck <linux@roeck-us.net>, Peng Hao <peng.hao2@zte.com.cn>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, Peng Hao <peng.hao2@zte.com.cn>
 Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDQuMTAuMjAxOCB1bSAyMDo1MiBzY2hyaWViIEd1ZW50ZXIgUm9lY2s6DQo+IEhpLA0KPg0K
-PiBPbiBGcmksIFNlcCAxNCwgMjAxOCBhdCAwNjowNTo1MlBNICswODAwLCBQZW5nIEhhbyB3cm90
-ZToNCj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmM6DQo+PiAgICAgIElu
-IGZ1bmN0aW9uIOKAmGdtY192OF8wX3Byb2Nlc3NfaW50ZXJydXB04oCZOg0KPj4gZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYzoxNDQ3OjEwOg0KPj4gICAgICB3YXJuaW5nOiBt
-aXNzaW5nIGJyYWNlcyBhcm91bmQgaW5pdGlhbGl6ZXIgWy1XbWlzc2luZy1icmFjZXNdDQo+Pg0K
-Pj4gU2lnbmVkLW9mZi1ieTogUGVuZyBIYW8gPHBlbmcuaGFvMkB6dGUuY29tLmNuPg0KPiBXYXMg
-dGhlcmUgYW55IGZlZWRiYWNrIG9uIHRoaXMgcGF0Y2ggPyBUaGUgcHJvYmxlbSBkb2VzIGFmZmVj
-dCB1cywNCj4gYW5kIHdlJ2xsIG5lZWQgYSBmaXguDQoNCldlbGwgYXMgZGlzY3Vzc2VkIHVzaW5n
-ICJ7IHsgMCB9IH0iIGlzIGFzIHdyb25nIGFzIHVzaW5nICJ7IDAgfSIuDQoNCldlIHNob3VsZCBl
-aXRoZXIgdXNlIG9ubHkgInsgfSIgb3IgZXZlbiBiZXR0ZXIgbWFrZSBuYWlscyB3aXRoIGhlYWRz
-IGFuZCANCnVzZSBtZW1zZXQoKS4NCg0KQ2hyaXN0aWFuLg0KDQo+DQo+PiAtLS0NCj4+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYyB8IDIgKy0NCj4+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyB8IDIgKy0NCj4+ICAgMiBmaWxlcyBjaGFuZ2Vk
-LCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjhfMC5jDQo+PiBpbmRleCA5MzMzMTA5Li41NWY0NzU1IDEwMDY0NA0KPj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYw0KPj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYw0KPj4gQEAgLTE0NDQsNyArMTQ0NCw3
-IEBAIHN0YXRpYyBpbnQgZ21jX3Y4XzBfcHJvY2Vzc19pbnRlcnJ1cHQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsDQo+PiAgIAkJZ21jX3Y4XzBfc2V0X2ZhdWx0X2VuYWJsZV9kZWZhdWx0KGFk
-ZXYsIGZhbHNlKTsNCj4+ICAgDQo+PiAgIAlpZiAocHJpbnRrX3JhdGVsaW1pdCgpKSB7DQo+PiAt
-CQlzdHJ1Y3QgYW1kZ3B1X3Rhc2tfaW5mbyB0YXNrX2luZm8gPSB7IDAgfTsNCj4+ICsJCXN0cnVj
-dCBhbWRncHVfdGFza19pbmZvIHRhc2tfaW5mbyA9IHsgezB9IH07DQo+PiAgIA0KPiBJIHdvbmRl
-cmVkIGlmDQo+IAkJc3RydWN0IGFtZGdwdV90YXNrX2luZm8gdGFza19pbmZvID0geyB9Ow0KPiB3
-b3VsZCBiZSBiZXR0ZXIuDQo+DQo+IFRoYW5rcywNCj4gR3VlbnRlcg0KPg0KPj4gICAJCWFtZGdw
-dV92bV9nZXRfdGFza19pbmZvKGFkZXYsIGVudHJ5LT5wYXNpZCwgJnRhc2tfaW5mbyk7DQo+PiAg
-IA0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+PiBpbmRleCA3MmY4MDE4
-Li5lOGI3OGM1IDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3Y5XzAuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0K
-Pj4gQEAgLTI1OSw3ICsyNTksNyBAQCBzdGF0aWMgaW50IGdtY192OV8wX3Byb2Nlc3NfaW50ZXJy
-dXB0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gICAJfQ0KPj4gICANCj4+ICAgCWlm
-IChwcmludGtfcmF0ZWxpbWl0KCkpIHsNCj4+IC0JCXN0cnVjdCBhbWRncHVfdGFza19pbmZvIHRh
-c2tfaW5mbyA9IHsgMCB9Ow0KPj4gKwkJc3RydWN0IGFtZGdwdV90YXNrX2luZm8gdGFza19pbmZv
-ID0geyB7MH0gfTsNCj4+ICAgDQo+PiAgIAkJYW1kZ3B1X3ZtX2dldF90YXNrX2luZm8oYWRldiwg
-ZW50cnktPnBhc2lkLCAmdGFza19pbmZvKTsNCj4+ICAgDQoNCg==
+On 10/05/2018 01:14 AM, Koenig, Christian wrote:
+> Am 04.10.2018 um 20:52 schrieb Guenter Roeck:
+>> Hi,
+>>
+>> On Fri, Sep 14, 2018 at 06:05:52PM +0800, Peng Hao wrote:
+>>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:
+>>>       In function ‘gmc_v8_0_process_interrupt’:
+>>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:10:
+>>>       warning: missing braces around initializer [-Wmissing-braces]
+>>>
+>>> Signed-off-by: Peng Hao <peng.hao2@zte.com.cn>
+>> Was there any feedback on this patch ? The problem does affect us,
+>> and we'll need a fix.
+> 
+> Well as discussed using "{ { 0 } }" is as wrong as using "{ 0 }".
+> 
+
+Ah, sorry, I must have missed the discussion.
+
+It is for sure not the best solution, but at least it compiles, and it seems
+to be proliferating.
+
+$ git grep "{ *{ *0 *} *}" | wc
+     144    1180   11802
+$ git grep "{ *{ *0 *} *}" drivers/gpu/drm/amd/ | wc
+      50     459    5239
+
+> We should either use only "{ }" or even better make nails with heads and
+> use memset().
+
+I'd rather leave it up to the compiler to decide what is most efficient.
+
+Guenter
+
+> 
+> Christian.
+> 
+>>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 2 +-
+>>>    drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 2 +-
+>>>    2 files changed, 2 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>> index 9333109..55f4755 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+>>> @@ -1444,7 +1444,7 @@ static int gmc_v8_0_process_interrupt(struct amdgpu_device *adev,
+>>>    		gmc_v8_0_set_fault_enable_default(adev, false);
+>>>    
+>>>    	if (printk_ratelimit()) {
+>>> -		struct amdgpu_task_info task_info = { 0 };
+>>> +		struct amdgpu_task_info task_info = { {0} };
+>>>    
+>> I wondered if
+>> 		struct amdgpu_task_info task_info = { };
+>> would be better.
+>>
+>> Thanks,
+>> Guenter
+>>
+>>>    		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>    
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>>> index 72f8018..e8b78c5 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+>>> @@ -259,7 +259,7 @@ static int gmc_v9_0_process_interrupt(struct amdgpu_device *adev,
+>>>    	}
+>>>    
+>>>    	if (printk_ratelimit()) {
+>>> -		struct amdgpu_task_info task_info = { 0 };
+>>> +		struct amdgpu_task_info task_info = { {0} };
+>>>    
+>>>    		amdgpu_vm_get_task_info(adev, entry->pasid, &task_info);
+>>>    
+> 
