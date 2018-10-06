@@ -1,122 +1,57 @@
-From: Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v3 1/4] drm: Add vrr_capable property to the drm connector
-Date: Fri, 5 Oct 2018 15:10:06 -0700
-Message-ID: <20181005221006.GF4163@intel.com>
-References: <20181005203949.6289-1-nicholas.kazlauskas@amd.com>
- <20181005203949.6289-2-nicholas.kazlauskas@amd.com>
+From: Bjorn Andersson <bjorn.andersson-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
+Subject: Re: [PATCH v2 05/17] compat_ioctl: move more drivers to
+ generic_compat_ioctl_ptrarg
+Date: Sat, 6 Oct 2018 00:05:21 -0700
+Message-ID: <20181006070521.GM12063@builder>
+References: <20180912150142.157913-1-arnd@arndb.de>
+ <20180912151134.436719-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <20181005203949.6289-2-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Cc: Aric.Cyr-5C7GfCeVMHo@public.gmane.org, nicolai.haehnle-5C7GfCeVMHo@public.gmane.org, michel-otUistvHUpPR7s880joybQ@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, daniel-/w4YWyX8dFk@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org, ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org
+In-Reply-To: <20180912151134.436719-1-arnd-r2nGTMty4D4@public.gmane.org>
+List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
+List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
+Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
+Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
+Cc: linux-fbdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-iio-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-remoteproc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvme-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, platform-driver-x86-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, sparclinux-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, devel-gWbeCf7V1WCQmaza687I9mD2FQJk+8+b@public.gmane.org, linux-scsi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, qat-linux-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-input-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ceph-devel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Greg Kroah-Hartman <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, linux-usb-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-wireless-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-crypto-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-fsdevel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org, "David S. Miller" <davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org>, linux-btrfs-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBPY3QgMDUsIDIwMTggYXQgMDQ6Mzk6NDZQTSAtMDQwMCwgTmljaG9sYXMgS2F6bGF1
-c2thcyB3cm90ZToKPiBNb2Rlcm4gZGlzcGxheSBoYXJkd2FyZSBpcyBjYXBhYmxlIG9mIHN1cHBv
-cnRpbmcgdmFyaWFibGUgcmVmcmVzaCByYXRlcy4KPiBUaGlzIHBhdGNoIGludHJvZHVjZXMgdGhl
-ICJ2cnJfY2FwYWJsZSIgcHJvcGVydHkgb24gdGhlIGNvbm5lY3RvciB0bwo+IGFsbG93IHVzZXJz
-cGFjZSB0byBxdWVyeSBzdXBwb3J0IGZvciB2YXJpYWJsZSByZWZyZXNoIHJhdGVzLgo+IAo+IEF0
-b21pYyBkcml2ZXJzIHNob3VsZCBhdHRhY2ggdGhpcyBwcm9wZXJ0eSB0byBjb25uZWN0b3JzIHRo
-YXQgYXJlCj4gY2FwYWJsZSBvZiBkcml2aW5nIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZXMgdXNpbmcK
-PiBkcm1fY29ubmVjdG9yX2F0dGFjaF92cnJfY2FwYWJsZV9wcm9wZXJ0eSgpLgo+IAo+IFRoZSB2
-YWx1ZSBzaG91bGQgYmUgdXBkYXRlZCBiYXNlZCBvbiBkcml2ZXIgYW5kIGhhcmR3YXJlIGNhcGFi
-aWx0aXkKPiBieSB1c2luZyBkcm1fY29ubmVjdG9yX3NldF92cnJfY2FwYWJsZV9wcm9wZXJ0eSgp
-Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxh
-dXNrYXNAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2RybV9jb25uZWN0b3IuYyB8
-IDUxICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwo+ICBpbmNsdWRlL2RybS9kcm1f
-Y29ubmVjdG9yLmggICAgIHwgMTUgKysrKysrKysrKwo+ICAyIGZpbGVzIGNoYW5nZWQsIDY2IGlu
-c2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9jb25uZWN0
-b3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fY29ubmVjdG9yLmMKPiBpbmRleCAxZTQwZTVkZWNi
-ZTkuLjMyODM3MDNiOTgyMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2Nvbm5l
-Y3Rvci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jb25uZWN0b3IuYwo+IEBAIC0xMjU0
-LDYgKzEyNTQsMzkgQEAgaW50IGRybV9tb2RlX2NyZWF0ZV9zY2FsaW5nX21vZGVfcHJvcGVydHko
-c3RydWN0IGRybV9kZXZpY2UgKmRldikKPiAgfQo+ICBFWFBPUlRfU1lNQk9MKGRybV9tb2RlX2Ny
-ZWF0ZV9zY2FsaW5nX21vZGVfcHJvcGVydHkpOwo+ICAKPiArLyoqCj4gKyAqIGRybV9jb25uZWN0
-b3JfYXR0YWNoX3Zycl9jYXBhYmxlX3Byb3BlcnR5IC0gY3JlYXRlcyB0aGUKPiArICogdnJyX2Nh
-cGFibGUgcHJvcGVydHkKPiArICogQGNvbm5lY3RvcjogY29ubmVjdG9yIHRvIGNyZWF0ZSB0aGUg
-dnJyX2NhcGFibGUgcHJvcGVydHkgb24uCj4gKyAqCj4gKyAqIFRoaXMgaXMgdXNlZCBieSBhdG9t
-aWMgZHJpdmVycyB0byBhZGQgc3VwcG9ydCBmb3IgcXVlcnlpbmcKPiArICogdmFyaWFibGUgcmVm
-cmVzaCByYXRlIGNhcGFiaWxpdHkgZm9yIGEgY29ubmVjdG9yLgo+ICsgKgo+ICsgKiBUaGUgdmFs
-dWUgZnJvbSAmZHJtX2Nvbm5lY3Rvcl9zdGF0ZS52cnJfY2FwYWJsZSB3aWxsIHJlYWRzCj4gKyAq
-CgpUaGUgc2VudGVuY2UgYWJvdmUgbG9va3MgaW5jb21wbGV0ZS4KCk90aGVyIHRoYW4gdGhhdCB0
-aGlzIHBhdGNoIGxvb2tzIGdvb2QgdG8gbWUuIFNvIHdpdGggdGhlIGtlcm5lbCBkb2MgZml4ZXM6
-CgpSZXZpZXdlZC1ieTogTWFuYXNpIE5hdmFyZSA8bWFuYXNpLmQubmF2YXJlQGludGVsLmNvbT4K
-Ck1hbmFzaQoKPiArICogUmV0dXJuczoKPiArICogWmVybyBvbiBzdWNjZXNzLCBuZWdhdGl2ZSBl
-cnJvbm8gb24gZmFpbHVyZS4KPiArICovCj4gK2ludCBkcm1fY29ubmVjdG9yX2F0dGFjaF92cnJf
-Y2FwYWJsZV9wcm9wZXJ0eSgKPiArCXN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCj4g
-K3sKPiArCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBjb25uZWN0b3ItPmRldjsKPiArCXN0cnVj
-dCBkcm1fcHJvcGVydHkgKnByb3A7Cj4gKwo+ICsJaWYgKCFjb25uZWN0b3ItPnZycl9jYXBhYmxl
-X3Byb3BlcnR5KSB7Cj4gKwkJcHJvcCA9IGRybV9wcm9wZXJ0eV9jcmVhdGVfYm9vbChkZXYsIERS
-TV9NT0RFX1BST1BfSU1NVVRBQkxFLAo+ICsJCQkidnJyX2NhcGFibGUiKTsKPiArCQlpZiAoIXBy
-b3ApCj4gKwkJCXJldHVybiAtRU5PTUVNOwo+ICsKPiArCQljb25uZWN0b3ItPnZycl9jYXBhYmxl
-X3Byb3BlcnR5ID0gcHJvcDsKPiArCQlkcm1fb2JqZWN0X2F0dGFjaF9wcm9wZXJ0eSgmY29ubmVj
-dG9yLT5iYXNlLCBwcm9wLCAwKTsKPiArCX0KPiArCj4gKwlyZXR1cm4gMDsKPiArfQo+ICtFWFBP
-UlRfU1lNQk9MKGRybV9jb25uZWN0b3JfYXR0YWNoX3Zycl9jYXBhYmxlX3Byb3BlcnR5KTsKPiAr
-Cj4gIC8qKgo+ICAgKiBkcm1fY29ubmVjdG9yX2F0dGFjaF9zY2FsaW5nX21vZGVfcHJvcGVydHkg
-LSBhdHRhY2ggYXRvbWljIHNjYWxpbmcgbW9kZSBwcm9wZXJ0eQo+ICAgKiBAY29ubmVjdG9yOiBj
-b25uZWN0b3IgdG8gYXR0YWNoIHNjYWxpbmcgbW9kZSBwcm9wZXJ0eSBvbi4KPiBAQCAtMTU4Miw2
-ICsxNjE1LDI0IEBAIHZvaWQgZHJtX2Nvbm5lY3Rvcl9zZXRfbGlua19zdGF0dXNfcHJvcGVydHko
-c3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwKPiAgfQo+ICBFWFBPUlRfU1lNQk9MKGRy
-bV9jb25uZWN0b3Jfc2V0X2xpbmtfc3RhdHVzX3Byb3BlcnR5KTsKPiAgCj4gKy8qKgo+ICsgKiBk
-cm1fY29ubmVjdG9yX3NldF92cnJfY2FwYWJsZV9wcm9wZXJ0eSAtIHNldHMgdGhlIHZhcmlhYmxl
-IHJlZnJlc2ggcmF0ZQo+ICsgKiBjYXBhYmxlIHByb3BlcnR5IGZvciBhIGNvbm5lY3Rvcgo+ICsg
-KiBAY29ubmVjdG9yOiBkcm0gY29ubmVjdG9yCj4gKyAqIEBjYXBhYmxlOiBUcnVlIGlmIHRoZSBj
-b25uZWN0b3IgaXMgdmFyaWFibGUgcmVmcmVzaCByYXRlIGNhcGFibGUKPiArICoKPiArICogU2hv
-dWxkIGJlIHVzZWQgYnkgYXRvbWljIGRyaXZlcnMgdG8gdXBkYXRlIHRoZSBpbmRpY2F0ZWQgc3Vw
-cG9ydCBmb3IKPiArICogdmFyaWFibGUgcmVmcmVzaCByYXRlIG92ZXIgYSBjb25uZWN0b3IuCj4g
-KyAqLwo+ICt2b2lkIGRybV9jb25uZWN0b3Jfc2V0X3Zycl9jYXBhYmxlX3Byb3BlcnR5KAo+ICsJ
-CXN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsIGJvb2wgY2FwYWJsZSkKPiArewo+ICsJ
-cmV0dXJuIGRybV9vYmplY3RfcHJvcGVydHlfc2V0X3ZhbHVlKCZjb25uZWN0b3ItPmJhc2UsCj4g
-KwkJCQkJICAgICBjb25uZWN0b3ItPnZycl9jYXBhYmxlX3Byb3BlcnR5LAo+ICsJCQkJCSAgICAg
-Y2FwYWJsZSk7Cj4gK30KPiArRVhQT1JUX1NZTUJPTChkcm1fY29ubmVjdG9yX3NldF92cnJfY2Fw
-YWJsZV9wcm9wZXJ0eSk7Cj4gKwo+ICAvKioKPiAgICogZHJtX2Nvbm5lY3Rvcl9pbml0X3BhbmVs
-X29yaWVudGF0aW9uX3Byb3BlcnR5IC0KPiAgICoJaW5pdGlhbGl6ZSB0aGUgY29ubmVjdGVycyBw
-YW5lbF9vcmllbnRhdGlvbiBwcm9wZXJ0eQo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1f
-Y29ubmVjdG9yLmggYi9pbmNsdWRlL2RybS9kcm1fY29ubmVjdG9yLmgKPiBpbmRleCA5MWE4Nzdm
-YTAwY2IuLmIyMjYzMDA1MjM0YSAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fY29ubmVj
-dG9yLmgKPiArKysgYi9pbmNsdWRlL2RybS9kcm1fY29ubmVjdG9yLmgKPiBAQCAtOTEwLDYgKzkx
-MCwxNyBAQCBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciB7Cj4gIAkgKi8KPiAgCXN0cnVjdCBkcm1fcHJv
-cGVydHkgKnNjYWxpbmdfbW9kZV9wcm9wZXJ0eTsKPiAgCj4gKwkvKioKPiArCSAqIEB2cnJfY2Fw
-YWJsZV9wcm9wZXJ0eTogT3B0aW9uYWwgcHJvcGVydHkgdG8gaGVscCB1c2Vyc3BhY2UKPiArCSAq
-IHF1ZXJ5IGhhcmR3YXJlIHN1cHBvcnQgZm9yIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBvbiBhIGNv
-bm5lY3Rvci4KPiArCSAqIGNvbm5lY3Rvci4gRHJpdmVycyBjYW4gYWRkIHRoZSBwcm9wZXJ0eSB0
-byBhIGNvbm5lY3RvciBieQo+ICsJICogY2FsbGluZyBkcm1fY29ubmVjdG9yX2F0dGFjaF92cnJf
-Y2FwYWJsZV9wcm9wZXJ0eSgpLgo+ICsJICoKPiArCSAqIFRoaXMgc2hvdWxkIGJlIHVwZGF0ZWQg
-b25seSBieSBjYWxsaW5nCj4gKwkgKiBkcm1fY29ubmVjdG9yX3NldF92cnJfY2FwYWJsZV9wcm9w
-ZXJ0eSgpLgo+ICsJICovCj4gKwlzdHJ1Y3QgZHJtX3Byb3BlcnR5ICp2cnJfY2FwYWJsZV9wcm9w
-ZXJ0eTsKPiArCj4gIAkvKioKPiAgCSAqIEBjb250ZW50X3Byb3RlY3Rpb25fcHJvcGVydHk6IERS
-TSBFTlVNIHByb3BlcnR5IGZvciBjb250ZW50Cj4gIAkgKiBwcm90ZWN0aW9uLiBTZWUgZHJtX2Nv
-bm5lY3Rvcl9hdHRhY2hfY29udGVudF9wcm90ZWN0aW9uX3Byb3BlcnR5KCkuCj4gQEAgLTExODMs
-NiArMTE5NCw4IEBAIGludCBkcm1fbW9kZV9jcmVhdGVfc2NhbGluZ19tb2RlX3Byb3BlcnR5KHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYpOwo+ICBpbnQgZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfY29udGVu
-dF90eXBlX3Byb3BlcnR5KHN0cnVjdCBkcm1fY29ubmVjdG9yICpkZXYpOwo+ICBpbnQgZHJtX2Nv
-bm5lY3Rvcl9hdHRhY2hfc2NhbGluZ19tb2RlX3Byb3BlcnR5KHN0cnVjdCBkcm1fY29ubmVjdG9y
-ICpjb25uZWN0b3IsCj4gIAkJCQkJICAgICAgIHUzMiBzY2FsaW5nX21vZGVfbWFzayk7Cj4gK2lu
-dCBkcm1fY29ubmVjdG9yX2F0dGFjaF92cnJfY2FwYWJsZV9wcm9wZXJ0eSgKPiArCQlzdHJ1Y3Qg
-ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKTsKPiAgaW50IGRybV9jb25uZWN0b3JfYXR0YWNoX2Nv
-bnRlbnRfcHJvdGVjdGlvbl9wcm9wZXJ0eSgKPiAgCQlzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29u
-bmVjdG9yKTsKPiAgaW50IGRybV9tb2RlX2NyZWF0ZV9hc3BlY3RfcmF0aW9fcHJvcGVydHkoc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldik7Cj4gQEAgLTExOTksNiArMTIxMiw4IEBAIGludCBkcm1fY29u
-bmVjdG9yX3VwZGF0ZV9lZGlkX3Byb3BlcnR5KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0
-b3IsCj4gIAkJCQkgICAgICAgY29uc3Qgc3RydWN0IGVkaWQgKmVkaWQpOwo+ICB2b2lkIGRybV9j
-b25uZWN0b3Jfc2V0X2xpbmtfc3RhdHVzX3Byb3BlcnR5KHN0cnVjdCBkcm1fY29ubmVjdG9yICpj
-b25uZWN0b3IsCj4gIAkJCQkJICAgIHVpbnQ2NF90IGxpbmtfc3RhdHVzKTsKPiArdm9pZCBkcm1f
-Y29ubmVjdG9yX3NldF92cnJfY2FwYWJsZV9wcm9wZXJ0eSgKPiArCQlzdHJ1Y3QgZHJtX2Nvbm5l
-Y3RvciAqY29ubmVjdG9yLCBib29sIGNhcGFibGUpOwo+ICBpbnQgZHJtX2Nvbm5lY3Rvcl9pbml0
-X3BhbmVsX29yaWVudGF0aW9uX3Byb3BlcnR5KAo+ICAJc3RydWN0IGRybV9jb25uZWN0b3IgKmNv
-bm5lY3RvciwgaW50IHdpZHRoLCBpbnQgaGVpZ2h0KTsKPiAgCj4gLS0gCj4gMi4xOS4wCj4gCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Wed 12 Sep 08:08 PDT 2018, Arnd Bergmann wrote:
+
+[..]
+> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
+> index a76b963a7e50..02aefb2b2d47 100644
+> --- a/drivers/rpmsg/rpmsg_char.c
+> +++ b/drivers/rpmsg/rpmsg_char.c
+> @@ -285,7 +285,7 @@ static const struct file_operations rpmsg_eptdev_fops = {
+>  	.write = rpmsg_eptdev_write,
+>  	.poll = rpmsg_eptdev_poll,
+>  	.unlocked_ioctl = rpmsg_eptdev_ioctl,
+> -	.compat_ioctl = rpmsg_eptdev_ioctl,
+> +	.compat_ioctl = generic_compat_ioctl_ptrarg,
+>  };
+>  
+>  static ssize_t name_show(struct device *dev, struct device_attribute *attr,
+> @@ -446,7 +446,7 @@ static const struct file_operations rpmsg_ctrldev_fops = {
+>  	.open = rpmsg_ctrldev_open,
+>  	.release = rpmsg_ctrldev_release,
+>  	.unlocked_ioctl = rpmsg_ctrldev_ioctl,
+> -	.compat_ioctl = rpmsg_ctrldev_ioctl,
+> +	.compat_ioctl = generic_compat_ioctl_ptrarg,
+>  };
+>  
+
+For rpmsg part
+
+Acked-by: Bjorn Andersson <bjorn.andersson-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
+
+Regards,
+Bjorn
