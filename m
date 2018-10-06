@@ -1,57 +1,52 @@
-From: Bjorn Andersson <bjorn.andersson-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
-Subject: Re: [PATCH v2 05/17] compat_ioctl: move more drivers to
- generic_compat_ioctl_ptrarg
-Date: Sat, 6 Oct 2018 00:05:21 -0700
-Message-ID: <20181006070521.GM12063@builder>
-References: <20180912150142.157913-1-arnd@arndb.de>
- <20180912151134.436719-1-arnd@arndb.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: set GTT_USWC on reserved VRAM allocations
+Date: Sat, 6 Oct 2018 13:44:59 +0200
+Message-ID: <eadf5c35-09f7-e6a1-2ede-243f0a577e56@gmail.com>
+References: <20181005210144.13999-1-maraeo@gmail.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20180912151134.436719-1-arnd-r2nGTMty4D4@public.gmane.org>
-List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
-List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
-Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
-Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
-Cc: linux-fbdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-iio-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-remoteproc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvme-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, platform-driver-x86-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, sparclinux-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, devel-gWbeCf7V1WCQmaza687I9mD2FQJk+8+b@public.gmane.org, linux-scsi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, qat-linux-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-input-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ceph-devel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Greg Kroah-Hartman <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, linux-usb-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-wireless-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-crypto-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-fsdevel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linuxppc-dev-uLR06cmDAlY/bJ5BZ2RsiQ@public.gmane.org, "David S. Miller" <davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org>, linux-btrfs-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181005210144.13999-1-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Wed 12 Sep 08:08 PDT 2018, Arnd Bergmann wrote:
-
-[..]
-> diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-> index a76b963a7e50..02aefb2b2d47 100644
-> --- a/drivers/rpmsg/rpmsg_char.c
-> +++ b/drivers/rpmsg/rpmsg_char.c
-> @@ -285,7 +285,7 @@ static const struct file_operations rpmsg_eptdev_fops = {
->  	.write = rpmsg_eptdev_write,
->  	.poll = rpmsg_eptdev_poll,
->  	.unlocked_ioctl = rpmsg_eptdev_ioctl,
-> -	.compat_ioctl = rpmsg_eptdev_ioctl,
-> +	.compat_ioctl = generic_compat_ioctl_ptrarg,
->  };
->  
->  static ssize_t name_show(struct device *dev, struct device_attribute *attr,
-> @@ -446,7 +446,7 @@ static const struct file_operations rpmsg_ctrldev_fops = {
->  	.open = rpmsg_ctrldev_open,
->  	.release = rpmsg_ctrldev_release,
->  	.unlocked_ioctl = rpmsg_ctrldev_ioctl,
-> -	.compat_ioctl = rpmsg_ctrldev_ioctl,
-> +	.compat_ioctl = generic_compat_ioctl_ptrarg,
->  };
->  
-
-For rpmsg part
-
-Acked-by: Bjorn Andersson <bjorn.andersson-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
-
-Regards,
-Bjorn
+QW0gMDUuMTAuMjAxOCB1bSAyMzowMSBzY2hyaWViIE1hcmVrIE9sxaHDoWs6Cj4gRnJvbTogTWFy
+ZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNvbT4KPgo+IFNpZ25lZC1vZmYtYnk6IE1hcmVr
+IE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+CgpWUkFNIGlzIGFsd2F5cyBhY2Nlc3NlZCBV
+U1dDLCBzbyB0aGF0IGRvZXNuJ3QgbG9va3MgbGlrZSBpdCB3b3VsZCBoYXZlIAphbnkgZWZmZWN0
+IHRvIG1lLgoKVGhlIHJlc3Qgb2YgdGhlIHNlcmllcyBsb29rcyBnb29kIHRvIG1lLApDaHJpc3Rp
+YW4uCgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5j
+IHwgNCArKystCj4gICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29i
+amVjdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gaW5k
+ZXggOTA0MDE0ZGM1OTE1Li44ZTBmNDczNDNlMGUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gQEAgLTI0MSwyMSArMjQxLDIzIEBAIGludCBhbWRn
+cHVfYm9fY3JlYXRlX3Jlc2VydmVkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCWlm
+ICghc2l6ZSkgewo+ICAgCQlhbWRncHVfYm9fdW5yZWYoYm9fcHRyKTsKPiAgIAkJcmV0dXJuIDA7
+Cj4gICAJfQo+ICAgCj4gICAJbWVtc2V0KCZicCwgMCwgc2l6ZW9mKGJwKSk7Cj4gICAJYnAuc2l6
+ZSA9IHNpemU7Cj4gICAJYnAuYnl0ZV9hbGlnbiA9IGFsaWduOwo+ICAgCWJwLmRvbWFpbiA9IGRv
+bWFpbjsKPiAgIAlicC5mbGFncyA9IEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlS
+RUQgfAo+IC0JCUFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ09OVElHVU9VUzsKPiArCQkgICBBTURH
+UFVfR0VNX0NSRUFURV9WUkFNX0NPTlRJR1VPVVMgfAo+ICsJCSAgIChkb21haW4gJiBBTURHUFVf
+R0VNX0RPTUFJTl9WUkFNID8KPiArCQkJICAgIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNX
+QyA6IDApOwo+ICAgCWJwLnR5cGUgPSB0dG1fYm9fdHlwZV9rZXJuZWw7Cj4gICAJYnAucmVzdiA9
+IE5VTEw7Cj4gICAKPiAgIAlpZiAoISpib19wdHIpIHsKPiAgIAkJciA9IGFtZGdwdV9ib19jcmVh
+dGUoYWRldiwgJmJwLCBib19wdHIpOwo+ICAgCQlpZiAocikgewo+ICAgCQkJZGV2X2VycihhZGV2
+LT5kZXYsICIoJWQpIGZhaWxlZCB0byBhbGxvY2F0ZSBrZXJuZWwgYm9cbiIsCj4gICAJCQkJcik7
+Cj4gICAJCQlyZXR1cm4gcjsKPiAgIAkJfQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
