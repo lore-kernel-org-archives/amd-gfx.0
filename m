@@ -1,93 +1,120 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+From: Guenter Roeck <linux@roeck-us.net>
 Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Mon, 8 Oct 2018 13:47:55 +0000
-Message-ID: <c43669b7-1074-714c-fb22-81685826b3ad@amd.com>
+Date: Mon, 8 Oct 2018 07:10:37 -0700
+Message-ID: <74078dc6-ef08-586b-fd58-51eb2c0b5060@roeck-us.net>
 References: <1536919552-116245-1-git-send-email-peng.hao2@zte.com.cn>
  <20181004185237.GA20667@roeck-us.net>
  <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
  <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
  <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com>
  <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
+ <c43669b7-1074-714c-fb22-81685826b3ad@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c72a23ea-efea-4c0e-d397-623d6ac16ebb-0h96xk9xTtrk1uMJSBkQmQ@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <c43669b7-1074-714c-fb22-81685826b3ad@amd.com>
 Content-Language: en-US
-Content-ID: <288F2CE92F620E468FFE685D735D787D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Guenter Roeck <linux-0h96xk9xTtrk1uMJSBkQmQ@public.gmane.org>, Peng Hao <peng.hao2-Th6q7B73Y6EnDS1+zs4M5A@public.gmane.org>
-Cc: "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, Peng Hao <peng.hao2@zte.com.cn>
+Cc: "airlied@linux.ie" <airlied@linux.ie>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDguMTAuMjAxOCB1bSAxNTozMyBzY2hyaWViIEd1ZW50ZXIgUm9lY2s6DQo+IE9uIDEwLzA4
-LzIwMTggMDE6MDAgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+PiBBbSAwNS4xMC4yMDE4
-IHVtIDEwOjM4IHNjaHJpZWIgR3VlbnRlciBSb2VjazoNCj4+PiBPbiAxMC8wNS8yMDE4IDAxOjE0
-IEFNLCBLb2VuaWcsIENocmlzdGlhbiB3cm90ZToNCj4+Pj4gQW0gMDQuMTAuMjAxOCB1bSAyMDo1
-MiBzY2hyaWViIEd1ZW50ZXIgUm9lY2s6DQo+Pj4+PiBIaSwNCj4+Pj4+DQo+Pj4+PiBPbiBGcmks
-IFNlcCAxNCwgMjAxOCBhdCAwNjowNTo1MlBNICswODAwLCBQZW5nIEhhbyB3cm90ZToNCj4+Pj4+
-PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jOg0KPj4+Pj4+IMKgwqDCoMKg
-wqAgSW4gZnVuY3Rpb24g4oCYZ21jX3Y4XzBfcHJvY2Vzc19pbnRlcnJ1cHTigJk6DQo+Pj4+Pj4g
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYzoxNDQ3OjEwOg0KPj4+Pj4+IMKg
-wqDCoMKgwqAgd2FybmluZzogbWlzc2luZyBicmFjZXMgYXJvdW5kIGluaXRpYWxpemVyIFstV21p
-c3NpbmctYnJhY2VzXQ0KPj4+Pj4+DQo+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogUGVuZyBIYW8gPHBl
-bmcuaGFvMkB6dGUuY29tLmNuPg0KPj4+Pj4gV2FzIHRoZXJlIGFueSBmZWVkYmFjayBvbiB0aGlz
-IHBhdGNoID8gVGhlIHByb2JsZW0gZG9lcyBhZmZlY3QgdXMsDQo+Pj4+PiBhbmQgd2UnbGwgbmVl
-ZCBhIGZpeC4NCj4+Pj4NCj4+Pj4gV2VsbCBhcyBkaXNjdXNzZWQgdXNpbmcgInsgeyAwIH0gfSIg
-aXMgYXMgd3JvbmcgYXMgdXNpbmcgInsgMCB9Ii4NCj4+Pj4NCj4+Pg0KPj4+IEFoLCBzb3JyeSwg
-SSBtdXN0IGhhdmUgbWlzc2VkIHRoZSBkaXNjdXNzaW9uLg0KPj4+DQo+Pj4gSXQgaXMgZm9yIHN1
-cmUgbm90IHRoZSBiZXN0IHNvbHV0aW9uLCBidXQgYXQgbGVhc3QgaXQgY29tcGlsZXMsIGFuZCAN
-Cj4+PiBpdCBzZWVtcw0KPj4+IHRvIGJlIHByb2xpZmVyYXRpbmcuDQo+Pg0KPj4gWWVhaCwgYW5k
-IGV4YWN0bHkgdGhhdCdzIHRoZSBwcm9ibGVtLiBBcyB0aGUgZGlzY3Vzc2lvbiBzaG93ZWQgInsg
-eyAwIA0KPj4gfSB9IiBpcyBidWdneSBiZWNhdXNlIGl0IHRlbGxzIHRoZSBjb21waWxlciB0byBv
-bmx5IGluaXRpYWxpemUgdGhlIA0KPj4gZmlyc3QgbWVtYmVyIG9mIHRoZSBzdHJ1Y3R1cmUsIGJ1
-dCBub3QgYWxsIG9mIGl0Lg0KPj4NCj4+IFRoYXQgaXMgaW5jb3JyZWN0IGFuZCByYXRoZXIgZGFu
-Z2Vyb3VzIGNhdXNlIGl0IGNhbiBsZWFkIHRvIA0KPj4gdW5mb3Jlc2VlbiByZXN1bHRzIGFuZCBz
-aG91bGQgcHJvYmFibHkgdHJpZ2dlciBhIHdhcm5pbmcuDQo+Pg0KPj4+DQo+Pj4gJCBnaXQgZ3Jl
-cCAieyAqeyAqMCAqfSAqfSIgfCB3Yw0KPj4+IMKgwqDCoCAxNDTCoMKgwqAgMTE4MMKgwqAgMTE4
-MDINCj4+PiAkIGdpdCBncmVwICJ7ICp7ICowICp9ICp9IiBkcml2ZXJzL2dwdS9kcm0vYW1kLyB8
-IHdjDQo+Pj4gwqDCoMKgwqAgNTDCoMKgwqDCoCA0NTnCoMKgwqAgNTIzOQ0KPj4+DQo+Pj4+IFdl
-IHNob3VsZCBlaXRoZXIgdXNlIG9ubHkgInsgfSIgb3IgZXZlbiBiZXR0ZXIgbWFrZSBuYWlscyB3
-aXRoIA0KPj4+PiBoZWFkcyBhbmQNCj4+Pj4gdXNlIG1lbXNldCgpLg0KPj4+DQo+Pj4gSSdkIHJh
-dGhlciBsZWF2ZSBpdCB1cCB0byB0aGUgY29tcGlsZXIgdG8gZGVjaWRlIHdoYXQgaXMgbW9zdCAN
-Cj4+PiBlZmZpY2llbnQuDQo+Pg0KPj4gQW5kIEkgd291bGQgcmF0aGVyIHByZWZlciB0byBoYXZl
-IGEgd29ya2luZyBkcml2ZXIgOikNCj4+DQo+DQo+IFNvIHsgfSBpc24ndCBjb3JyZWN0IGVpdGhl
-ciA/DQoNClllcywgaW5pdGlhbGl6aW5nIHN0cnVjdHVyZXMgd2l0aCB7IH0gaXMga25vd24gdG8g
-YmUgcHJvYmxlbWF0aWMgYXMgd2VsbC4NCg0KSXQgZG9lc24ndCBuZWNlc3NhcnkgaW5pdGlhbGl6
-ZSBhbGwgYnl0ZXMgd2hlbiB5b3UgaGF2ZSBwYWRkaW5nIGNhdXNpbmcgDQpyYW5kb20gZmFpbHVy
-ZXMgd2hlbiBzdHJ1Y3R1cmVzIGFyZSBtZW1jbXAoKS4NCg0KPg0KPiBPbmUgdGhpbmcgSSBmb3Vu
-ZCBtaXNzaW5nIGluIHRoZSBkaXNjdXNzaW9uIHdhcyB0aGUgcmVmZXJlbmNlIHRvIHRoZSBDIA0K
-PiBzdGFuZGFyZC4NCj4gVGhlIEM5OSBzdGFuZGFyZCBzdGF0ZXMgaW4gc2VjdGlvbiA2LjcuOCAo
-SW5pdGlhbGl6YXRpb24pIGNsYXVzZSAxOTogDQo+ICIuLi4gYWxsDQo+IHN1Ym9iamVjdHMgdGhh
-dCBhcmUgbm90IGluaXRpYWxpemVkIGV4cGxpY2l0bHkgc2hhbGwgYmUgaW5pdGlhbGl6ZWQgDQo+
-IGltcGxpY2l0bHkNCj4gdGhlIHNhbWUgYXMgb2JqZWN0cyB0aGF0IGhhdmUgc3RhdGljIHN0b3Jh
-Z2UgZHVyYXRpb24iLiBDbGF1c2UgMjEgDQo+IG1ha2VzIGZ1cnRoZXINCj4gcmVmZXJlbmNlIHRv
-IHBhcnRpYWwgaW5pdGlhbGl6YXRpb24sIHN1Z2dlc3RpbmcgdGhlIHNhbWUuIFZhcmlvdXMgb25s
-aW5lDQo+IHJlc291cmNlcywgaW5jbHVkaW5nIHRoZSBnY2MgZG9jdW1lbnRhdGlvbiwgYWxsIHN0
-YXRlIHRoZSBzYW1lLiBJIA0KPiBkb24ndCBmaW5kDQo+IGFueSByZWZlcmVuY2UgdG8gYSBwYXJ0
-aWFsIGluaXRpYWxpemF0aW9uIHdoaWNoIHdvdWxkIGxlYXZlIG1lbWJlcnMgb2YgDQo+IGEgc3Ry
-dWN0dXJlDQo+IHVuZGVmaW5lZC4gSXQgd291bGQgYmUgaW50ZXJlc3RpbmcgZm9yIG1lIHRvIHVu
-ZGVyc3RhbmQgaG93IGFuZCB3aHkgDQo+IHRoaXMgZG9lcw0KPiBub3QgYXBwbHkgaGVyZS4NCj4N
-Cj4gSW4gdGhpcyBjb250ZXh0LCBpdCBpcyBpbnRlcmVzdGluZyB0aGF0IHRoZSBvdGhlciA0OCBp
-bnN0YW5jZXMgb2YgdGhlDQo+IHsgeyAwIH0gfSBpbml0aWFsaXphdGlvbiBpbiB0aGUgc2FtZSBk
-cml2ZXIgZG9uJ3QgcmFpc2Ugc2ltaWxhciBjb25jZXJucywNCj4gbm9yIHNlZW1lZCB0byBoYXZl
-IGNhdXNlZCBhbnkgb3BlcmF0aW9uYWwgcHJvYmxlbXMuDQoNCkZlZWwgZnJlZSB0byBwcm92aWRl
-IHBhdGNoZXMgdG8gcmVwbGFjZSB0aG9zZSB3aXRoIG1lbXNldCgpLg0KDQo+DQo+IEFueXdheSwg
-SSBmaXhlZCB1cCB0aGUgY29kZSBpbiBvdXIgdHJlZSAod2l0aCB7IH0pLCBzbyBJJ2xsIGxlYXZl
-IGl0DQo+IHVwIHRvIHlvdSBmb2xrcyB0byBkZWNpZGUgd2hhdCBpZiBhbnl0aGluZyB0byBkbyBh
-Ym91dCBpdC4NCg0KV2VsbCBjb25zaWRlcmluZyB0aGUga25vd24gcHJvYmxlbXMgd2l0aCB7fSBp
-bml0aWFsaXphdGlvbiBJJ20gY2VydGFpbmx5IA0KcmVqZWN0aW5nIGFsbCBwYXRjaGVzIHdoaWNo
-IHR1cm5zIG1lbXNldCgpIGludG8ge30uDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4NCj4g
-VGhhbmtzLA0KPiBHdWVudGVyDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+On 10/08/2018 06:47 AM, Koenig, Christian wrote:
+> Am 08.10.2018 um 15:33 schrieb Guenter Roeck:
+>> On 10/08/2018 01:00 AM, Christian König wrote:
+>>> Am 05.10.2018 um 10:38 schrieb Guenter Roeck:
+>>>> On 10/05/2018 01:14 AM, Koenig, Christian wrote:
+>>>>> Am 04.10.2018 um 20:52 schrieb Guenter Roeck:
+>>>>>> Hi,
+>>>>>>
+>>>>>> On Fri, Sep 14, 2018 at 06:05:52PM +0800, Peng Hao wrote:
+>>>>>>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:
+>>>>>>>        In function ‘gmc_v8_0_process_interrupt’:
+>>>>>>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:10:
+>>>>>>>        warning: missing braces around initializer [-Wmissing-braces]
+>>>>>>>
+>>>>>>> Signed-off-by: Peng Hao <peng.hao2@zte.com.cn>
+>>>>>> Was there any feedback on this patch ? The problem does affect us,
+>>>>>> and we'll need a fix.
+>>>>>
+>>>>> Well as discussed using "{ { 0 } }" is as wrong as using "{ 0 }".
+>>>>>
+>>>>
+>>>> Ah, sorry, I must have missed the discussion.
+>>>>
+>>>> It is for sure not the best solution, but at least it compiles, and
+>>>> it seems
+>>>> to be proliferating.
+>>>
+>>> Yeah, and exactly that's the problem. As the discussion showed "{ { 0
+>>> } }" is buggy because it tells the compiler to only initialize the
+>>> first member of the structure, but not all of it.
+>>>
+>>> That is incorrect and rather dangerous cause it can lead to
+>>> unforeseen results and should probably trigger a warning.
+>>>
+>>>>
+>>>> $ git grep "{ *{ *0 *} *}" | wc
+>>>>      144    1180   11802
+>>>> $ git grep "{ *{ *0 *} *}" drivers/gpu/drm/amd/ | wc
+>>>>       50     459    5239
+>>>>
+>>>>> We should either use only "{ }" or even better make nails with
+>>>>> heads and
+>>>>> use memset().
+>>>>
+>>>> I'd rather leave it up to the compiler to decide what is most
+>>>> efficient.
+>>>
+>>> And I would rather prefer to have a working driver :)
+>>>
+>>
+>> So { } isn't correct either ?
+> 
+> Yes, initializing structures with { } is known to be problematic as well.
+> 
+> It doesn't necessary initialize all bytes when you have padding causing
+> random failures when structures are memcmp().
+> 
+>>
+>> One thing I found missing in the discussion was the reference to the C
+>> standard.
+>> The C99 standard states in section 6.7.8 (Initialization) clause 19:
+>> "... all
+>> subobjects that are not initialized explicitly shall be initialized
+>> implicitly
+>> the same as objects that have static storage duration". Clause 21
+>> makes further
+>> reference to partial initialization, suggesting the same. Various online
+>> resources, including the gcc documentation, all state the same. I
+>> don't find
+>> any reference to a partial initialization which would leave members of
+>> a structure
+>> undefined. It would be interesting for me to understand how and why
+>> this does
+>> not apply here.
+>>
+>> In this context, it is interesting that the other 48 instances of the
+>> { { 0 } } initialization in the same driver don't raise similar concerns,
+>> nor seemed to have caused any operational problems.
+> 
+> Feel free to provide patches to replace those with memset().
+> 
+
+Not me. As I see it, the problem, if it exists, would be a violation of the
+C standard. I don't believe hacking around bad C compilers. I would rather
+blacklist such compilers.
+
+>>
+>> Anyway, I fixed up the code in our tree (with { }), so I'll leave it
+>> up to you folks to decide what if anything to do about it.
+> 
+> Well considering the known problems with {} initialization I'm certainly
+> rejecting all patches which turns memset() into {}.
+> 
+
+Please point me to specific instances of this problem.
+
+Thanks,
+Guenter
