@@ -1,83 +1,78 @@
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Mon, 8 Oct 2018 06:33:01 -0700
-Message-ID: <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
-References: <1536919552-116245-1-git-send-email-peng.hao2@zte.com.cn>
- <20181004185237.GA20667@roeck-us.net>
- <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
- <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
- <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 1/8] drm/amdgpu: fix incorrect use of amdgpu_irq_add_id in
+ si_dma.c
+Date: Mon,  8 Oct 2018 15:35:14 +0200
+Message-ID: <20181008133521.3237-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: christian.koenig@amd.com, Peng Hao <peng.hao2@zte.com.cn>
-Cc: "airlied@linux.ie" <airlied@linux.ie>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 10/08/2018 01:00 AM, Christian König wrote:
-> Am 05.10.2018 um 10:38 schrieb Guenter Roeck:
->> On 10/05/2018 01:14 AM, Koenig, Christian wrote:
->>> Am 04.10.2018 um 20:52 schrieb Guenter Roeck:
->>>> Hi,
->>>>
->>>> On Fri, Sep 14, 2018 at 06:05:52PM +0800, Peng Hao wrote:
->>>>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:
->>>>>       In function ‘gmc_v8_0_process_interrupt’:
->>>>> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:1447:10:
->>>>>       warning: missing braces around initializer [-Wmissing-braces]
->>>>>
->>>>> Signed-off-by: Peng Hao <peng.hao2@zte.com.cn>
->>>> Was there any feedback on this patch ? The problem does affect us,
->>>> and we'll need a fix.
->>>
->>> Well as discussed using "{ { 0 } }" is as wrong as using "{ 0 }".
->>>
->>
->> Ah, sorry, I must have missed the discussion.
->>
->> It is for sure not the best solution, but at least it compiles, and it seems
->> to be proliferating.
-> 
-> Yeah, and exactly that's the problem. As the discussion showed "{ { 0 } }" is buggy because it tells the compiler to only initialize the first member of the structure, but not all of it.
-> 
-> That is incorrect and rather dangerous cause it can lead to unforeseen results and should probably trigger a warning.
-> 
->>
->> $ git grep "{ *{ *0 *} *}" | wc
->>     144    1180   11802
->> $ git grep "{ *{ *0 *} *}" drivers/gpu/drm/amd/ | wc
->>      50     459    5239
->>
->>> We should either use only "{ }" or even better make nails with heads and
->>> use memset().
->>
->> I'd rather leave it up to the compiler to decide what is most efficient.
-> 
-> And I would rather prefer to have a working driver :)
-> 
-
-So { } isn't correct either ?
-
-One thing I found missing in the discussion was the reference to the C standard.
-The C99 standard states in section 6.7.8 (Initialization) clause 19: "... all
-subobjects that are not initialized explicitly shall be initialized implicitly
-the same as objects that have static storage duration". Clause 21 makes further
-reference to partial initialization, suggesting the same. Various online
-resources, including the gcc documentation, all state the same. I don't find
-any reference to a partial initialization which would leave members of a structure
-undefined. It would be interesting for me to understand how and why this does
-not apply here.
-
-In this context, it is interesting that the other 48 instances of the
-{ { 0 } } initialization in the same driver don't raise similar concerns,
-nor seemed to have caused any operational problems.
-
-Anyway, I fixed up the code in our tree (with { }), so I'll leave it
-up to you folks to decide what if anything to do about it.
-
-Thanks,
-Guenter
+QWRkaW5nIGEgc2Vjb25kIGlycSBzb3VyY2UgYmVjYXVzZSBvZiBhIGRpZmZlcmVudCBzcmNfaWQg
+aXMgYWN0dWFsbHkgYQpidWcuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJp
+c3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3NkbWEuaCB8ICA0IC0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RtYS5j
+ICAgICAgfCAyNyArKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwg
+OCBpbnNlcnRpb25zKCspLCAyMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3NkbWEuaAppbmRleCBkMTc1MDNmMGRmOGUuLjUwMDExM2VjNjVjYSAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NkbWEuaAorKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5oCkBAIC00NiwxMCArNDYsNiBAQCBz
+dHJ1Y3QgYW1kZ3B1X3NkbWFfaW5zdGFuY2UgewogCiBzdHJ1Y3QgYW1kZ3B1X3NkbWEgewogCXN0
+cnVjdCBhbWRncHVfc2RtYV9pbnN0YW5jZSBpbnN0YW5jZVtBTURHUFVfTUFYX1NETUFfSU5TVEFO
+Q0VTXTsKLSNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9TSQotCS8vU0kgRE1BIGhhcyBhIGRpZmZl
+cmVuY2UgdHJhcCBpcnEgbnVtYmVyIGZvciB0aGUgc2Vjb25kIGVuZ2luZQotCXN0cnVjdCBhbWRn
+cHVfaXJxX3NyYwl0cmFwX2lycV8xOwotI2VuZGlmCiAJc3RydWN0IGFtZGdwdV9pcnFfc3JjCXRy
+YXBfaXJxOwogCXN0cnVjdCBhbWRncHVfaXJxX3NyYwlpbGxlZ2FsX2luc3RfaXJxOwogCWludAkJ
+CW51bV9pbnN0YW5jZXM7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9z
+aV9kbWEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RtYS5jCmluZGV4IGQ0Y2Vh
+ZjQ0MGYyNi4uYWRiYWVhNmRhMGQ3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9zaV9kbWEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kbWEuYwpA
+QCAtNTAyLDEyICs1MDIsMTQgQEAgc3RhdGljIGludCBzaV9kbWFfc3dfaW5pdCh2b2lkICpoYW5k
+bGUpCiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KiloYW5kbGU7CiAKIAkvKiBETUEwIHRyYXAgZXZlbnQgKi8KLQlyID0gYW1kZ3B1X2lycV9hZGRf
+aWQoYWRldiwgQU1ER1BVX0lSUV9DTElFTlRJRF9MRUdBQ1ksIDIyNCwgJmFkZXYtPnNkbWEudHJh
+cF9pcnEpOworCXIgPSBhbWRncHVfaXJxX2FkZF9pZChhZGV2LCBBTURHUFVfSVJRX0NMSUVOVElE
+X0xFR0FDWSwgMjI0LAorCQkJICAgICAgJmFkZXYtPnNkbWEudHJhcF9pcnEpOwogCWlmIChyKQog
+CQlyZXR1cm4gcjsKIAogCS8qIERNQTEgdHJhcCBldmVudCAqLwotCXIgPSBhbWRncHVfaXJxX2Fk
+ZF9pZChhZGV2LCBBTURHUFVfSVJRX0NMSUVOVElEX0xFR0FDWSwgMjQ0LCAmYWRldi0+c2RtYS50
+cmFwX2lycV8xKTsKKwlyID0gYW1kZ3B1X2lycV9hZGRfaWQoYWRldiwgQU1ER1BVX0lSUV9DTElF
+TlRJRF9MRUdBQ1ksIDI0NCwKKwkJCSAgICAgICZhZGV2LT5zZG1hLnRyYXBfaXJxKTsKIAlpZiAo
+cikKIAkJcmV0dXJuIHI7CiAKQEAgLTY0OSwxNyArNjUxLDEwIEBAIHN0YXRpYyBpbnQgc2lfZG1h
+X3Byb2Nlc3NfdHJhcF9pcnEoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkJICAgICAg
+c3RydWN0IGFtZGdwdV9pcnFfc3JjICpzb3VyY2UsCiAJCQkJICAgICAgc3RydWN0IGFtZGdwdV9p
+dl9lbnRyeSAqZW50cnkpCiB7Ci0JYW1kZ3B1X2ZlbmNlX3Byb2Nlc3MoJmFkZXYtPnNkbWEuaW5z
+dGFuY2VbMF0ucmluZyk7Ci0KLQlyZXR1cm4gMDsKLX0KLQotc3RhdGljIGludCBzaV9kbWFfcHJv
+Y2Vzc190cmFwX2lycV8xKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAotCQkJCSAgICAgIHN0
+cnVjdCBhbWRncHVfaXJxX3NyYyAqc291cmNlLAotCQkJCSAgICAgIHN0cnVjdCBhbWRncHVfaXZf
+ZW50cnkgKmVudHJ5KQotewotCWFtZGdwdV9mZW5jZV9wcm9jZXNzKCZhZGV2LT5zZG1hLmluc3Rh
+bmNlWzFdLnJpbmcpOwotCisJaWYgKGVudHJ5LT5zcmNfaWQgPT0gMjI0KQorCQlhbWRncHVfZmVu
+Y2VfcHJvY2VzcygmYWRldi0+c2RtYS5pbnN0YW5jZVswXS5yaW5nKTsKKwllbHNlCisJCWFtZGdw
+dV9mZW5jZV9wcm9jZXNzKCZhZGV2LT5zZG1hLmluc3RhbmNlWzFdLnJpbmcpOwogCXJldHVybiAw
+OwogfQogCkBAIC03ODYsMTEgKzc4MSw2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2ly
+cV9zcmNfZnVuY3Mgc2lfZG1hX3RyYXBfaXJxX2Z1bmNzID0gewogCS5wcm9jZXNzID0gc2lfZG1h
+X3Byb2Nlc3NfdHJhcF9pcnEsCiB9OwogCi1zdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9pcnFf
+c3JjX2Z1bmNzIHNpX2RtYV90cmFwX2lycV9mdW5jc18xID0gewotCS5zZXQgPSBzaV9kbWFfc2V0
+X3RyYXBfaXJxX3N0YXRlLAotCS5wcm9jZXNzID0gc2lfZG1hX3Byb2Nlc3NfdHJhcF9pcnFfMSwK
+LX07Ci0KIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmNfZnVuY3Mgc2lfZG1hX2ls
+bGVnYWxfaW5zdF9pcnFfZnVuY3MgPSB7CiAJLnByb2Nlc3MgPSBzaV9kbWFfcHJvY2Vzc19pbGxl
+Z2FsX2luc3RfaXJxLAogfTsKQEAgLTc5OSw3ICs3ODksNiBAQCBzdGF0aWMgdm9pZCBzaV9kbWFf
+c2V0X2lycV9mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAlhZGV2LT5zZG1h
+LnRyYXBfaXJxLm51bV90eXBlcyA9IEFNREdQVV9TRE1BX0lSUV9MQVNUOwogCWFkZXYtPnNkbWEu
+dHJhcF9pcnEuZnVuY3MgPSAmc2lfZG1hX3RyYXBfaXJxX2Z1bmNzOwotCWFkZXYtPnNkbWEudHJh
+cF9pcnFfMS5mdW5jcyA9ICZzaV9kbWFfdHJhcF9pcnFfZnVuY3NfMTsKIAlhZGV2LT5zZG1hLmls
+bGVnYWxfaW5zdF9pcnEuZnVuY3MgPSAmc2lfZG1hX2lsbGVnYWxfaW5zdF9pcnFfZnVuY3M7CiB9
+CiAKLS0gCjIuMTQuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
