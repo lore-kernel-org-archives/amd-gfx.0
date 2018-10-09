@@ -1,40 +1,50 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amdkfd: Remove set but not used variable 'preempt_all_queues'
-Date: Tue, 9 Oct 2018 01:53:00 +0000
-Message-ID: <1539049980-186978-1-git-send-email-yuehaibing@huawei.com>
+From: <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu: add CP_DEBUG register definition for GC9.0
+Date: Tue, 9 Oct 2018 14:31:35 +0800
+Message-ID: <1539066696-20803-1-git-send-email-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: oded.gabbay@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
-Cc: YueHaibing <yuehaibing@huawei.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>, maciej.jesionowski-5C7GfCeVMHo@public.gmane.org, yukun1.li-5C7GfCeVMHo@public.gmane.org
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c: In function 'destroy_queue_cpsch':
-drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:1366:7: warning:
- variable 'preempt_all_queues' set but not used [-Wunused-but-set-variable]
-
-It never used since introduct in 
-commit 992839ad64f2 ("drm/amdkfd: Add static user-mode queues support")
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 4f22e74..06d38b7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1363,9 +1363,6 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- {
- 	int retval;
- 	struct mqd_manager *mqd_mgr;
--	bool preempt_all_queues;
--
--	preempt_all_queues = false;
- 
- 	retval = 0;
+RnJvbTogVGFvIFpob3UgPHRhby56aG91MUBhbWQuY29tPgoKQWRkIENQX0RFQlVHIHJlZ2lzdGVy
+IGRlZmluaXRpb24uCgpDaGFuZ2UtSWQ6IEkzOGIwZTVhY2NjOWVkMmY1MTZmNDA5ZjFmZmQ4OGE5
+NjkwMzU2MDgzClNpZ25lZC1vZmYtYnk6IFRhbyBaaG91IDx0YW8uemhvdTFAYW1kLmNvbT4KLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvZ2MvZ2NfOV8wX29mZnNldC5o
+IHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hc2ljX3JlZy9nYy9nY185XzBfb2Zmc2V0LmggYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXNpY19yZWcvZ2MvZ2NfOV8wX29mZnNldC5oCmlu
+ZGV4IDRjZTA5MGQuLjUyOWIzN2QgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5j
+bHVkZS9hc2ljX3JlZy9nYy9nY185XzBfb2Zmc2V0LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9pbmNsdWRlL2FzaWNfcmVnL2djL2djXzlfMF9vZmZzZXQuaApAQCAtMjQ0OSw2ICsyNDQ5LDgg
+QEAKICNkZWZpbmUgbW1DUF9FQ0NfRklSU1RPQ0NVUlJFTkNFX1JJTkcyX0JBU0VfSURYICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwCiAjZGVm
+aW5lIG1tR0JfRURDX01PREUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgxMDdlCiAjZGVmaW5l
+IG1tR0JfRURDX01PREVfQkFTRV9JRFggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMAorI2RlZmluZSBtbUNQX0RF
+QlVHICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDB4MTA3ZgorI2RlZmluZSBtbUNQX0RFQlVH
+X0JBU0VfSURYICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAKICNkZWZpbmUgbW1DUF9DUEZfREVCVUcgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAweDEwODAKICNkZWZpbmUgbW1DUF9QUV9XUFRSX1BPTExfQ05U
+TCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAweDEwODMKICNkZWZpbmUgbW1DUF9QUV9XUFRSX1BPTExfQ05UTF9C
+QVNFX0lEWCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAwCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
