@@ -1,13 +1,12 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in dmesg
-Date: Tue, 9 Oct 2018 19:31:33 +0000
-Message-ID: <BN6PR12MB18092A9B21825FC8004E3434F7E70@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1539099379-24551-1-git-send-email-Rex.Zhu@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 1/4] drm/amdgpu/powerplay: endian fixes for
+ vega10_processpptables.c
+Date: Tue,  9 Oct 2018 16:40:35 -0500
+Message-ID: <20181009214038.19663-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0381532138=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1539099379-24551-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,164 +17,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0381532138==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18092A9B21825FC8004E3434F7E70BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18092A9B21825FC8004E3434F7E70BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Maybe just drop the warning altogether?  We only support SMU loading on VI =
-at this point.  Otherwise, we'll need to update this if we ever add a new f=
-w loading type.
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, October 9, 2018 11:36 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in dmesg
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Fix the warning message:
-"-1 is not supported on VI"
-the -1 is the default fw load type, mean auto.
-
-v2: fix typo
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ucode.c
-index 971549f..01d794d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -297,7 +297,7 @@ enum amdgpu_firmware_load_type
-         case CHIP_POLARIS11:
-         case CHIP_POLARIS12:
-         case CHIP_VEGAM:
--               if (load_type !=3D AMDGPU_FW_LOAD_SMU)
-+               if (load_type =3D=3D AMDGPU_FW_LOAD_DIRECT || load_type =3D=
-=3D AMDGPU_FW_LOAD_PSP)
-                         pr_warning("%d is not supported on VI\n", load_typ=
-e);
-                 return AMDGPU_FW_LOAD_SMU;
-         case CHIP_VEGA10:
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18092A9B21825FC8004E3434F7E70BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
- 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
-"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Maybe just drop the warning altog=
-ether?&nbsp; We only support SMU loading on VI at this point.&nbsp; Otherwi=
-se, we'll need to update this if we ever add a new fw loading type.<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
-&gt;<br>
-<b>Sent:</b> Tuesday, October 9, 2018 11:36 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in dmesg=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Fix the warning message:<br>
-&quot;-1 is not supported on VI&quot;<br>
-the -1 is the default fw load type, mean auto.<br>
-<br>
-v2: fix typo<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ucode.c<br>
-index 971549f..01d794d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c<br>
-@@ -297,7 &#43;297,7 @@ enum amdgpu_firmware_load_type<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS11:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS12:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGAM:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (load_type !=3D AMDGPU_FW_LOAD_SMU)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (load_type =3D=3D AMDGPU_FW_LOAD_DIRECT || load_type =3D=
-=3D AMDGPU_FW_LOAD_PSP)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_wa=
-rning(&quot;%d is not supported on VI\n&quot;, load_type);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return AMDGPU_FW_LOAD_SMU;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA10:<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk268037" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
-desktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB18092A9B21825FC8004E3434F7E70BN6PR12MB1809namp_--
-
---===============0381532138==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0381532138==--
+UHJvcGVybHkgc3dhcCBkYXRhIGZyb20gdmJpb3MuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNo
+ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogLi4uL2FtZC9wb3dlcnBsYXkvaHdt
+Z3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5jICAgfCAzMCArKysrKysrKysrKy0tLS0tLS0tLS0t
+CiAxIGZpbGUgY2hhbmdlZCwgMTUgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nl
+c3NwcHRhYmxlcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEw
+X3Byb2Nlc3NwcHRhYmxlcy5jCmluZGV4IDE2YjFhOWNmNmNmMC4uYjg3NDdhNWM5MjA0IDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfcHJvY2Vz
+c3BwdGFibGVzLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVn
+YTEwX3Byb2Nlc3NwcHRhYmxlcy5jCkBAIC00NTEsMjMgKzQ1MSwyMyBAQCBzdGF0aWMgaW50IGdl
+dF90ZHBfdGFibGUoCiAJCQkJCWxlMTZfdG9fY3B1KHBvd2VyX3R1bmVfdGFibGVfdjItPnVzTG9h
+ZExpbmVSZXNpc3RhbmNlKTsKIAl9IGVsc2UgewogCQlwb3dlcl90dW5lX3RhYmxlX3YzID0gKEFU
+T01fVmVnYTEwX1Bvd2VyVHVuZV9UYWJsZV9WMyAqKXRhYmxlOwotCQl0ZHBfdGFibGUtPnVzTWF4
+aW11bVBvd2VyRGVsaXZlcnlMaW1pdCAgID0gcG93ZXJfdHVuZV90YWJsZV92My0+dXNTb2NrZXRQ
+b3dlckxpbWl0OwotCQl0ZHBfdGFibGUtPnVzVERDICAgICAgICAgICAgICAgICAgICAgICAgID0g
+cG93ZXJfdHVuZV90YWJsZV92My0+dXNUZGNMaW1pdDsKLQkJdGRwX3RhYmxlLT51c0VEQ0xpbWl0
+ICAgICAgICAgICAgICAgICAgICA9IHBvd2VyX3R1bmVfdGFibGVfdjMtPnVzRWRjTGltaXQ7Ci0J
+CXRkcF90YWJsZS0+dXNTb2Z0d2FyZVNodXRkb3duVGVtcCAgICAgICAgPSBwb3dlcl90dW5lX3Rh
+YmxlX3YzLT51c1NvZnR3YXJlU2h1dGRvd25UZW1wOwotCQl0ZHBfdGFibGUtPnVzVGVtcGVyYXR1
+cmVMaW1pdFRlZGdlICAgICAgID0gcG93ZXJfdHVuZV90YWJsZV92My0+dXNUZW1wZXJhdHVyZUxp
+bWl0VGVkZ2U7Ci0JCXRkcF90YWJsZS0+dXNUZW1wZXJhdHVyZUxpbWl0SG90c3BvdCAgICAgPSBw
+b3dlcl90dW5lX3RhYmxlX3YzLT51c1RlbXBlcmF0dXJlTGltaXRIb3RTcG90OwotCQl0ZHBfdGFi
+bGUtPnVzVGVtcGVyYXR1cmVMaW1pdExpcXVpZDEgICAgID0gcG93ZXJfdHVuZV90YWJsZV92My0+
+dXNUZW1wZXJhdHVyZUxpbWl0TGlxdWlkMTsKLQkJdGRwX3RhYmxlLT51c1RlbXBlcmF0dXJlTGlt
+aXRMaXF1aWQyICAgICA9IHBvd2VyX3R1bmVfdGFibGVfdjMtPnVzVGVtcGVyYXR1cmVMaW1pdExp
+cXVpZDI7Ci0JCXRkcF90YWJsZS0+dXNUZW1wZXJhdHVyZUxpbWl0SEJNICAgICAgICAgPSBwb3dl
+cl90dW5lX3RhYmxlX3YzLT51c1RlbXBlcmF0dXJlTGltaXRIQk07Ci0JCXRkcF90YWJsZS0+dXNU
+ZW1wZXJhdHVyZUxpbWl0VnJWZGRjICAgICAgPSBwb3dlcl90dW5lX3RhYmxlX3YzLT51c1RlbXBl
+cmF0dXJlTGltaXRWclNvYzsKLQkJdGRwX3RhYmxlLT51c1RlbXBlcmF0dXJlTGltaXRWck12ZGQg
+ICAgICA9IHBvd2VyX3R1bmVfdGFibGVfdjMtPnVzVGVtcGVyYXR1cmVMaW1pdFZyTWVtOwotCQl0
+ZHBfdGFibGUtPnVzVGVtcGVyYXR1cmVMaW1pdFBseCAgICAgICAgID0gcG93ZXJfdHVuZV90YWJs
+ZV92My0+dXNUZW1wZXJhdHVyZUxpbWl0UGx4OworCQl0ZHBfdGFibGUtPnVzTWF4aW11bVBvd2Vy
+RGVsaXZlcnlMaW1pdCAgID0gbGUxNl90b19jcHUocG93ZXJfdHVuZV90YWJsZV92My0+dXNTb2Nr
+ZXRQb3dlckxpbWl0KTsKKwkJdGRwX3RhYmxlLT51c1REQyAgICAgICAgICAgICAgICAgICAgICAg
+ICA9IGxlMTZfdG9fY3B1KHBvd2VyX3R1bmVfdGFibGVfdjMtPnVzVGRjTGltaXQpOworCQl0ZHBf
+dGFibGUtPnVzRURDTGltaXQgICAgICAgICAgICAgICAgICAgID0gbGUxNl90b19jcHUocG93ZXJf
+dHVuZV90YWJsZV92My0+dXNFZGNMaW1pdCk7CisJCXRkcF90YWJsZS0+dXNTb2Z0d2FyZVNodXRk
+b3duVGVtcCAgICAgICAgPSBsZTE2X3RvX2NwdShwb3dlcl90dW5lX3RhYmxlX3YzLT51c1NvZnR3
+YXJlU2h1dGRvd25UZW1wKTsKKwkJdGRwX3RhYmxlLT51c1RlbXBlcmF0dXJlTGltaXRUZWRnZSAg
+ICAgICA9IGxlMTZfdG9fY3B1KHBvd2VyX3R1bmVfdGFibGVfdjMtPnVzVGVtcGVyYXR1cmVMaW1p
+dFRlZGdlKTsKKwkJdGRwX3RhYmxlLT51c1RlbXBlcmF0dXJlTGltaXRIb3RzcG90ICAgICA9IGxl
+MTZfdG9fY3B1KHBvd2VyX3R1bmVfdGFibGVfdjMtPnVzVGVtcGVyYXR1cmVMaW1pdEhvdFNwb3Qp
+OworCQl0ZHBfdGFibGUtPnVzVGVtcGVyYXR1cmVMaW1pdExpcXVpZDEgICAgID0gbGUxNl90b19j
+cHUocG93ZXJfdHVuZV90YWJsZV92My0+dXNUZW1wZXJhdHVyZUxpbWl0TGlxdWlkMSk7CisJCXRk
+cF90YWJsZS0+dXNUZW1wZXJhdHVyZUxpbWl0TGlxdWlkMiAgICAgPSBsZTE2X3RvX2NwdShwb3dl
+cl90dW5lX3RhYmxlX3YzLT51c1RlbXBlcmF0dXJlTGltaXRMaXF1aWQyKTsKKwkJdGRwX3RhYmxl
+LT51c1RlbXBlcmF0dXJlTGltaXRIQk0gICAgICAgICA9IGxlMTZfdG9fY3B1KHBvd2VyX3R1bmVf
+dGFibGVfdjMtPnVzVGVtcGVyYXR1cmVMaW1pdEhCTSk7CisJCXRkcF90YWJsZS0+dXNUZW1wZXJh
+dHVyZUxpbWl0VnJWZGRjICAgICAgPSBsZTE2X3RvX2NwdShwb3dlcl90dW5lX3RhYmxlX3YzLT51
+c1RlbXBlcmF0dXJlTGltaXRWclNvYyk7CisJCXRkcF90YWJsZS0+dXNUZW1wZXJhdHVyZUxpbWl0
+VnJNdmRkICAgICAgPSBsZTE2X3RvX2NwdShwb3dlcl90dW5lX3RhYmxlX3YzLT51c1RlbXBlcmF0
+dXJlTGltaXRWck1lbSk7CisJCXRkcF90YWJsZS0+dXNUZW1wZXJhdHVyZUxpbWl0UGx4ICAgICAg
+ICAgPSBsZTE2X3RvX2NwdShwb3dlcl90dW5lX3RhYmxlX3YzLT51c1RlbXBlcmF0dXJlTGltaXRQ
+bHgpOwogCQl0ZHBfdGFibGUtPnVjTGlxdWlkMV9JMkNfYWRkcmVzcyAgICAgICAgID0gcG93ZXJf
+dHVuZV90YWJsZV92My0+dWNMaXF1aWQxX0kyQ19hZGRyZXNzOwogCQl0ZHBfdGFibGUtPnVjTGlx
+dWlkMl9JMkNfYWRkcmVzcyAgICAgICAgID0gcG93ZXJfdHVuZV90YWJsZV92My0+dWNMaXF1aWQy
+X0kyQ19hZGRyZXNzOwotCQl0ZHBfdGFibGUtPnVzQm9vc3RTdGFydFRlbXBlcmF0dXJlICAgICAg
+ID0gcG93ZXJfdHVuZV90YWJsZV92My0+dXNCb29zdFN0YXJ0VGVtcGVyYXR1cmU7Ci0JCXRkcF90
+YWJsZS0+dXNCb29zdFN0b3BUZW1wZXJhdHVyZSAgICAgICAgPSBwb3dlcl90dW5lX3RhYmxlX3Yz
+LT51c0Jvb3N0U3RvcFRlbXBlcmF0dXJlOwotCQl0ZHBfdGFibGUtPnVsQm9vc3RDbG9jayAgICAg
+ICAgICAgICAgICAgID0gcG93ZXJfdHVuZV90YWJsZV92My0+dWxCb29zdENsb2NrOworCQl0ZHBf
+dGFibGUtPnVzQm9vc3RTdGFydFRlbXBlcmF0dXJlICAgICAgID0gbGUxNl90b19jcHUocG93ZXJf
+dHVuZV90YWJsZV92My0+dXNCb29zdFN0YXJ0VGVtcGVyYXR1cmUpOworCQl0ZHBfdGFibGUtPnVz
+Qm9vc3RTdG9wVGVtcGVyYXR1cmUgICAgICAgID0gbGUxNl90b19jcHUocG93ZXJfdHVuZV90YWJs
+ZV92My0+dXNCb29zdFN0b3BUZW1wZXJhdHVyZSk7CisJCXRkcF90YWJsZS0+dWxCb29zdENsb2Nr
+ICAgICAgICAgICAgICAgICAgPSBsZTMyX3RvX2NwdShwb3dlcl90dW5lX3RhYmxlX3YzLT51bEJv
+b3N0Q2xvY2spOwogCiAJCWdldF9zY2xfc2RhX3ZhbHVlKHBvd2VyX3R1bmVfdGFibGVfdjMtPnVj
+TGlxdWlkX0kyQ19MaW5lLCAmc2NsLCAmc2RhKTsKIAotLSAKMi4xMy42CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
