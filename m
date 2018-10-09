@@ -1,56 +1,40 @@
-From: sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Subject: Re: [RFC] drm/amd/display: add SI support to AMD DC
-Date: Mon, 8 Oct 2018 21:22:37 +0000
-Message-ID: <20181008212236.GA338@freedom>
-References: <20181008022344.10247-1-issor.oruam@gmail.com>
- <20181008120423.GA300@freedom>
- <CAEQFVGahx4U+52uKu20_q0iCPrdzeW8G+viS7p2LJtgF61bf6Q@mail.gmail.com>
- <20181008201706.GA351@freedom>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amdkfd: Remove set but not used variable 'preempt_all_queues'
+Date: Tue, 9 Oct 2018 01:53:00 +0000
+Message-ID: <1539049980-186978-1-git-send-email-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20181008201706.GA351@freedom>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: oded.gabbay@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
+Cc: YueHaibing <yuehaibing@huawei.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBPY3QgMDgsIDIwMTggYXQgMDg6MTc6MDZQTSArMDAwMCwgc3lsdmFpbi5iZXJ0cmFu
-ZEBnbWFpbC5jb20gd3JvdGU6Cj4gU29ycnksIEkgd2FzIHdyb25nOiBJIHRob3VnaHQgeW91ciBw
-YXRjaCBzZXQgd2FzIGVuYWJsaW5nIGJ5IGRlZmF1bHQgREMgZm9yCj4gZGNlNiAoaXQgcmVxdWly
-ZXMgdGhlIERDIGtlcm5lbCBwYXJhbSkuCj4gSSBkaWQgZm9yY2UgaXQsIGFuZCBpdCBmYWlscyB0
-byBpbml0IHRoZSBkY2U2LgoKSSBkaWQgaGFjayBhIGJpdCB5b3VyIHBhdGNoIHNldCBvbiBhbWQt
-c3RhZ2luZy1kcm0tbmV4dCB0byBtYWtlIGl0IGdvIHRocm91Z2ggdGhlCmFzaWMgaW5pdCBhbmQg
-SSBtYW5hZ2VkIHRvIGdldCBhIHgxMSBkaXNwbGF5IHdpdGggbGluZXMga2luZCBvZiBnYXJibGVk
-LCBidXQKeW91IGNhbiBzdGlsbCB1bmRlcnN0YW5kIGVhc2lseSB3aGF0J3Mgb24gdGhlIHNjcmVl
-bi4KCkkgY2hlY2tlZCB0aGUga2VybmVsIGxvZywgYW5kIGxpa2UgeW91IHNhaWQsIEkgZ290IGVy
-cm9ycyBpbiBETV9QUExJQiBkdWUgdG8gYW4KaW52YWxpZCBwb3dlcmxldmVsIGFuZCBhdG9tYmlv
-cy92YmlvcyB0YWJsZSBwYXJzaW5nIHJlZ2FyZGluZyBjb25uZWN0b3JzLgoKSXQgX3NlZW1zXyB0
-aGVyZSBpcyBub3QgdGhhdCBtdWNoIGFkZGl0aW9uYWwgd29yayB0byBkbyBpbiBvcmRlciB0byBt
-YWtlIGl0CnByb3Blcmx5IHdvcmsuCgpUaGF0IHNhaWQsIHNpbmNlIEkgYW0gbm90IGFuIGFuZHJv
-aWQgbGludXggZGV2LCBJIGNhbm5vdCByZWFsbHkgdW5kZXJzdGFuZCB3aHkKdGhlIGN1cnJlbnQg
-ZGNlNiBpbXBsZW1lbnRhdGlvbiBpbiBhbWRncHUgaXMgYSBwYi4KCkFGQUlLLCB0aGUgcmVhbCB0
-aGluZyB0aGF0IHlvdSBhZGRpdGlvbmFsbHkgZ2V0IHdpdGggREMgaXMgZnJlZXN5bmMuIEJ1dApm
-cmVlc3luYyBpcyBhY3R1YWxseSBnb2luZyB0byBiZSBpbnRlcmVzdGluZyBvbmx5IGlmIGRpc3Bs
-YXlzIGFyZSBhYmxlIHRvCmdldCB0aGVpciBzeW5jIHJhbmdlIGxvd2VyIGJvdW5kIHRvIDAsIGFu
-ZCBnZXQgc2lnbmlmaWNhbnQgcG93ZXIgc2F2aW5nCnRoYW5rcyB0byB0aGlzLiBGb3IgdGhlIHVz
-ZSBjYXNlIG9mIHZlcnkgbG93IGRpc3BsYXkgcmVmcmVzaCByYXRlIEkgZG9uJ3QgZXZlbgp0aGlu
-ayBkaXNwbGF5cG9ydCBvciBoZG1pIGNhbiBkbyB0aGF0LCBhbmQgYmUgcG93ZXIgZnJpZW5kbHkg
-KHlvdSB3b3VsZCBoYXZlCnRvIHJldHJhaW4gdGhlIGxpbmsgcHJvYmFibHkgZWFjaCB0aW1lIHlv
-dSBzZW5kIGEgZnJhbWVidWZmZXIgdG8gdGhlIGRpc3BsYXkpLgoKSSBkb24ndCBrbm93IHdoYXQg
-YXJlIHRoZSBmZWF0dXJlcyB5b3UgaGF2ZSBpbiBhdG9taWMgbW9kZSBzZXR0aW5nIGFuZCBub3Qg
-aW4KbGVnYWN5IG1vZGUgc2V0dGluZz8gWW91IGFyZSBqdXN0IHNldHRpbmcgdGhlIHNhbWUgdmlk
-ZW8gbW9kZSBpbiAyIGRpZmZlcmVudAp3YXlzLgoKLS0gClN5bHZhaW4KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c: In function 'destroy_queue_cpsch':
+drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c:1366:7: warning:
+ variable 'preempt_all_queues' set but not used [-Wunused-but-set-variable]
+
+It never used since introduct in 
+commit 992839ad64f2 ("drm/amdkfd: Add static user-mode queues support")
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 4f22e74..06d38b7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1363,9 +1363,6 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ {
+ 	int retval;
+ 	struct mqd_manager *mqd_mgr;
+-	bool preempt_all_queues;
+-
+-	preempt_all_queues = false;
+ 
+ 	retval = 0;
