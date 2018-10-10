@@ -1,57 +1,49 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH -next] drm/amdgpu: remove set but not used variable 'header'
-Date: Wed, 10 Oct 2018 15:18:56 -0400
-Message-ID: <CADnq5_MF1KvBQQRPNuuRE1gcTq6aHutktCPBi2ocfjYyZAcPYA@mail.gmail.com>
-References: <1537971334-130152-1-git-send-email-yuehaibing@huawei.com>
+From: James Zhu <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 08/18] drm/amdgpu/vcn:Add DPG mode Register XX check
+Date: Wed, 10 Oct 2018 14:41:58 -0400
+Message-ID: <1539196928-28890-9-git-send-email-James.Zhu@amd.com>
+References: <1539196928-28890-1-git-send-email-James.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1537971334-130152-1-git-send-email-yuehaibing@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: yuehaibing@huawei.com
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Likun Gao <Likun.Gao@amd.com>, David Francis <David.Francis@amd.com>, Huang Rui <ray.huang@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, "monk.liu" <Monk.Liu@amd.com>, kernel-janitors@vger.kernel.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1539196928-28890-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: james.zhu-5C7GfCeVMHo@public.gmane.org
 
-On Wed, Sep 26, 2018 at 11:01 AM YueHaibing <yuehaibing@huawei.com> wrote:
->
-> Fixes gcc '-Wunused-but-set-variable' warning:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c: In function 'amdgpu_ucode_init_bo':
-> drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c:431:39: warning:
->  variable 'header' set but not used [-Wunused-but-set-variable]
->
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-
-Applied.  Thanks,
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index 1fa8bc3..afd5cf3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -428,7 +428,6 @@ int amdgpu_ucode_init_bo(struct amdgpu_device *adev)
->         uint64_t fw_offset = 0;
->         int i, err;
->         struct amdgpu_firmware_info *ucode = NULL;
-> -       const struct common_firmware_header *header = NULL;
->
->         if (!adev->firmware.fw_size) {
->                 dev_warn(adev->dev, "No ip firmware need to load\n");
-> @@ -465,7 +464,6 @@ int amdgpu_ucode_init_bo(struct amdgpu_device *adev)
->         for (i = 0; i < adev->firmware.max_ucodes; i++) {
->                 ucode = &adev->firmware.ucode[i];
->                 if (ucode->fw) {
-> -                       header = (const struct common_firmware_header *)ucode->fw->data;
->                         amdgpu_ucode_init_single_fw(adev, ucode, adev->firmware.fw_buf_mc + fw_offset,
->                                                     adev->firmware.fw_buf_ptr + fw_offset);
->                         if (i == AMDGPU_UCODE_ID_CP_MEC1 &&
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QWRkIER5bmFtaWMgUG93ZXIgR2F0ZSBtb2RlIFJlZ2lzdGVyIFhYIGNoZWNrCgpTaWduZWQtb2Zm
+LWJ5OiBKYW1lcyBaaHUgPEphbWVzLlpodUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3Zjbl92MV8wLmMgfCA4ICsrKysrKysrCiAxIGZpbGUgY2hhbmdlZCwgOCBpbnNl
+cnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3Yx
+XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKaW5kZXggZGU1N2U2
+ZC4uYWZjN2ExZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3Yx
+XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCkBAIC0zNyw2
+ICszNywxMSBAQAogCiAjaW5jbHVkZSAiaXZzcmNpZC92Y24vaXJxc3Jjc192Y25fMV8wLmgiCiAK
+KyNkZWZpbmUgbW1VVkRfUkJDX1hYX0lCX1JFR19DSEVDSwkJCQkweDA1YWIKKyNkZWZpbmUgbW1V
+VkRfUkJDX1hYX0lCX1JFR19DSEVDS19CQVNFX0lEWAkxCisjZGVmaW5lIG1tVVZEX1JFR19YWF9N
+QVNLCQkJCQkJCTB4MDVhYworI2RlZmluZSBtbVVWRF9SRUdfWFhfTUFTS19CQVNFX0lEWAkJCQkx
+CisKIHN0YXRpYyBpbnQgdmNuX3YxXzBfc3RvcChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7
+CiBzdGF0aWMgdm9pZCB2Y25fdjFfMF9zZXRfZGVjX3JpbmdfZnVuY3Moc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpOwogc3RhdGljIHZvaWQgdmNuX3YxXzBfc2V0X2VuY19yaW5nX2Z1bmNzKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKQEAgLTEwMzEsNiArMTAzNiw5IEBAIHN0YXRpYyBp
+bnQgdmNuX3YxXzBfc3RhcnRfZHBnX21vZGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAK
+IAl2Y25fdjFfMF9tY19yZXN1bWVfZHBnX21vZGUoYWRldik7CiAKKwlXUkVHMzJfU09DMTVfRFBH
+X01PREUoVVZELCAwLCBtbVVWRF9SRUdfWFhfTUFTSywgMHgxMCwgMHhGRkZGRkZGRiwgMCk7CisJ
+V1JFRzMyX1NPQzE1X0RQR19NT0RFKFVWRCwgMCwgbW1VVkRfUkJDX1hYX0lCX1JFR19DSEVDSywg
+MHgzLCAweEZGRkZGRkZGLCAwKTsKKwogCS8qIHRha2UgYWxsIHN1YmJsb2NrcyBvdXQgb2YgcmVz
+ZXQsIGV4Y2VwdCBWQ1BVICovCiAJV1JFRzMyX1NPQzE1X0RQR19NT0RFKFVWRCwgMCwgbW1VVkRf
+U09GVF9SRVNFVCwKIAkJCVVWRF9TT0ZUX1JFU0VUX19WQ1BVX1NPRlRfUkVTRVRfTUFTSywgMHhG
+RkZGRkZGRiwgMCk7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
