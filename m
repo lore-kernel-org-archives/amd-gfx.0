@@ -1,15 +1,14 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] Updated comment accuracy in PSP SOS/Sysdriver loading
- sequence to target bootloader instead of bootrom
-Date: Wed, 10 Oct 2018 11:32:26 +0800
-Message-ID: <20181010033201.GA21633@hr-amur2>
-References: <20181009215132.5970-1-clements.jm@gmail.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in dmesg
+Date: Wed, 10 Oct 2018 03:39:49 +0000
+Message-ID: <BYAPR12MB27754EF703027A7696A0EB99FBE00@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <1539099379-24551-1-git-send-email-Rex.Zhu@amd.com>,
+ <BN6PR12MB18092A9B21825FC8004E3434F7E70@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0083544425=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20181009215132.5970-1-clements.jm-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <BN6PR12MB18092A9B21825FC8004E3434F7E70-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,57 +19,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: John Clements <clements.jm-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBPY3QgMDksIDIwMTggYXQgMDU6NTE6MzJQTSAtMDQwMCwgSm9obiBDbGVtZW50cyB3
-cm90ZToKPiBGcm9tOiBKb2huIENsZW1lbnRzIDxjbGVtZW50cy5qbUBnbWFpbC5jb20+Cj4gCgpQ
-bGVhc2UgYWRkIGNvbW1pdCBjb21tZW50IGFuZCBzaWduZWQtb2ZmIGluIHRoZSBwYXRjaC4KClRo
-YW5rcywKUmF5Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAu
-YyB8IDQgKystLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjNfMS5jICB8IDQg
-KystLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkK
-PiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYwo+IGluZGV4IGI3MGNmYTNm
-ZTFiMi4uM2ZlMzBlYjQ2ZDI2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3BzcF92MTFfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3Yx
-MV8wLmMKPiBAQCAtMTY3LDcgKzE2Nyw3IEBAIHN0YXRpYyBpbnQgcHNwX3YxMV8wX2Jvb3Rsb2Fk
-ZXJfbG9hZF9zeXNkcnYoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCj4gIAkvKiBDb3B5IFBTUCBT
-eXN0ZW0gRHJpdmVyIGJpbmFyeSB0byBtZW1vcnkgKi8KPiAgCW1lbWNweShwc3AtPmZ3X3ByaV9i
-dWYsIHBzcC0+c3lzX3N0YXJ0X2FkZHIsIHBzcC0+c3lzX2Jpbl9zaXplKTsKPiAgCj4gLQkvKiBQ
-cm92aWRlIHRoZSBzeXMgZHJpdmVyIHRvIGJvb3Ryb20gKi8KPiArCS8qIFByb3ZpZGUgdGhlIHN5
-cyBkcml2ZXIgdG8gYm9vdGxvYWRlciAqLwo+ICAJV1JFRzMyX1NPQzE1KE1QMCwgMCwgbW1NUDBf
-U01OX0MyUE1TR18zNiwKPiAgCSAgICAgICAodWludDMyX3QpKHBzcC0+ZndfcHJpX21jX2FkZHIg
-Pj4gMjApKTsKPiAgCXBzcF9nZnhkcnZfY29tbWFuZF9yZWcgPSAxIDw8IDE2Owo+IEBAIC0yMDgs
-NyArMjA4LDcgQEAgc3RhdGljIGludCBwc3BfdjExXzBfYm9vdGxvYWRlcl9sb2FkX3NvcyhzdHJ1
-Y3QgcHNwX2NvbnRleHQgKnBzcCkKPiAgCS8qIENvcHkgU2VjdXJlIE9TIGJpbmFyeSB0byBQU1Ag
-bWVtb3J5ICovCj4gIAltZW1jcHkocHNwLT5md19wcmlfYnVmLCBwc3AtPnNvc19zdGFydF9hZGRy
-LCBwc3AtPnNvc19iaW5fc2l6ZSk7Cj4gIAo+IC0JLyogUHJvdmlkZSB0aGUgUFNQIHNlY3VyZSBP
-UyB0byBib290cm9tICovCj4gKwkvKiBQcm92aWRlIHRoZSBQU1Agc2VjdXJlIE9TIHRvIGJvb3Rs
-b2FkZXIgKi8KPiAgCVdSRUczMl9TT0MxNShNUDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfMzYsCj4g
-IAkgICAgICAgKHVpbnQzMl90KShwc3AtPmZ3X3ByaV9tY19hZGRyID4+IDIwKSk7Cj4gIAlwc3Bf
-Z2Z4ZHJ2X2NvbW1hbmRfcmVnID0gMiA8PCAxNjsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvcHNwX3YzXzEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Bz
-cF92M18xLmMKPiBpbmRleCBlMWViZjc3MGMzMDMuLjljZWEwYmJlNDUyNSAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjNfMS5jCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvcHNwX3YzXzEuYwo+IEBAIC0xOTQsNyArMTk0LDcgQEAgc3RhdGlj
-IGludCBwc3BfdjNfMV9ib290bG9hZGVyX2xvYWRfc3lzZHJ2KHN0cnVjdCBwc3BfY29udGV4dCAq
-cHNwKQo+ICAJLyogQ29weSBQU1AgU3lzdGVtIERyaXZlciBiaW5hcnkgdG8gbWVtb3J5ICovCj4g
-IAltZW1jcHkocHNwLT5md19wcmlfYnVmLCBwc3AtPnN5c19zdGFydF9hZGRyLCBwc3AtPnN5c19i
-aW5fc2l6ZSk7Cj4gIAo+IC0JLyogUHJvdmlkZSB0aGUgc3lzIGRyaXZlciB0byBib290cm9tICov
-Cj4gKwkvKiBQcm92aWRlIHRoZSBzeXMgZHJpdmVyIHRvIGJvb3Rsb2FkZXIgKi8KPiAgCVdSRUcz
-Ml9TT0MxNShNUDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfMzYsCj4gIAkgICAgICAgKHVpbnQzMl90
-KShwc3AtPmZ3X3ByaV9tY19hZGRyID4+IDIwKSk7Cj4gIAlwc3BfZ2Z4ZHJ2X2NvbW1hbmRfcmVn
-ID0gMSA8PCAxNjsKPiBAQCAtMjU0LDcgKzI1NCw3IEBAIHN0YXRpYyBpbnQgcHNwX3YzXzFfYm9v
-dGxvYWRlcl9sb2FkX3NvcyhzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKPiAgCS8qIENvcHkgU2Vj
-dXJlIE9TIGJpbmFyeSB0byBQU1AgbWVtb3J5ICovCj4gIAltZW1jcHkocHNwLT5md19wcmlfYnVm
-LCBwc3AtPnNvc19zdGFydF9hZGRyLCBwc3AtPnNvc19iaW5fc2l6ZSk7Cj4gIAo+IC0JLyogUHJv
-dmlkZSB0aGUgUFNQIHNlY3VyZSBPUyB0byBib290cm9tICovCj4gKwkvKiBQcm92aWRlIHRoZSBQ
-U1Agc2VjdXJlIE9TIHRvIGJvb3Rsb2FkZXIgKi8KPiAgCVdSRUczMl9TT0MxNShNUDAsIDAsIG1t
-TVAwX1NNTl9DMlBNU0dfMzYsCj4gIAkgICAgICAgKHVpbnQzMl90KShwc3AtPmZ3X3ByaV9tY19h
-ZGRyID4+IDIwKSk7Cj4gIAlwc3BfZ2Z4ZHJ2X2NvbW1hbmRfcmVnID0gMiA8PCAxNjsKPiAtLSAK
-PiAyLjE3LjEKPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0083544425==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB27754EF703027A7696A0EB99FBE00BYAPR12MB2775namp_"
+
+--_000_BYAPR12MB27754EF703027A7696A0EB99FBE00BYAPR12MB2775namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Ok.
+
+
+BTW, Maybe we can remove the module parameter amdgpu_fw_load_type suppor .
+
+It is only used for bring up/debug.
+
+
+Best Regards
+
+Rex
+
+
+________________________________
+From: Deucher, Alexander
+Sent: Wednesday, October 10, 2018 3:31 AM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in dmesg
+
+
+Maybe just drop the warning altogether?  We only support SMU loading on VI =
+at this point.  Otherwise, we'll need to update this if we ever add a new f=
+w loading type.
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
+<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, October 9, 2018 11:36 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhu, Rex
+Subject: [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in dmesg
+
+Fix the warning message:
+"-1 is not supported on VI"
+the -1 is the default fw load type, mean auto.
+
+v2: fix typo
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ucode.c
+index 971549f..01d794d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -297,7 +297,7 @@ enum amdgpu_firmware_load_type
+         case CHIP_POLARIS11:
+         case CHIP_POLARIS12:
+         case CHIP_VEGAM:
+-               if (load_type !=3D AMDGPU_FW_LOAD_SMU)
++               if (load_type =3D=3D AMDGPU_FW_LOAD_DIRECT || load_type =3D=
+=3D AMDGPU_FW_LOAD_PSP)
+                         pr_warning("%d is not supported on VI\n", load_typ=
+e);
+                 return AMDGPU_FW_LOAD_SMU;
+         case CHIP_VEGA10:
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BYAPR12MB27754EF703027A7696A0EB99FBE00BYAPR12MB2775namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Ok.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">BTW, Maybe we can&nbsp;remove the=
+ module parameter
+<span>amdgpu_fw_load_type suppor </span>.<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">It is only used for bring up/debu=
+g.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Deucher, Alexander<b=
+r>
+<b>Sent:</b> Wednesday, October 10, 2018 3:31 AM<br>
+<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in d=
+mesg</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Diso-8859-1">
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:rgb(0,0,0); font-family:Calibri,Helvetica,sans-serif,&quot;EmojiFont&quo=
+t;,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,=
+&quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols">
+<p style=3D"margin-top:0; margin-bottom:0">Maybe just drop the warning alto=
+gether?&nbsp; We only support SMU loading on VI at this point.&nbsp; Otherw=
+ise, we'll need to update this if we ever add a new fw loading type.<br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Alex<br>
+</p>
+<div style=3D"color:rgb(0,0,0)">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" colo=
+r=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org=
+&gt;<br>
+<b>Sent:</b> Tuesday, October 9, 2018 11:36 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH v2 4/5] drm/amdgpu: Fix unnecessary warning in dmesg=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Fix the warning message:<br>
+&quot;-1 is not supported on VI&quot;<br>
+the -1 is the default fw load type, mean auto.<br>
+<br>
+v2: fix typo<br>
+<br>
+Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ucode.c<br>
+index 971549f..01d794d 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c<br>
+@@ -297,7 &#43;297,7 @@ enum amdgpu_firmware_load_type<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS11:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS12:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGAM:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (load_type !=3D AMDGPU_FW_LOAD_SMU)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (load_type =3D=3D AMDGPU_FW_LOAD_DIRECT || load_type =3D=
+=3D AMDGPU_FW_LOAD_PSP)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_wa=
+rning(&quot;%d is not supported on VI\n&quot;, load_type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return AMDGPU_FW_LOAD_SMU;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA10:<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk268037" class=3D"x_OWAAutoLink" previewremoved=3D"true">https://lists.fr=
+eedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB27754EF703027A7696A0EB99FBE00BYAPR12MB2775namp_--
+
+--===============0083544425==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0083544425==--
