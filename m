@@ -1,14 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amdgpu: Remove wrong fw loading type warning
-Date: Wed, 10 Oct 2018 15:28:52 +0000
-Message-ID: <DM5PR12MB18207BEF8BF6470829DDC823F7E00@DM5PR12MB1820.namprd12.prod.outlook.com>
-References: <1539178095-24356-1-git-send-email-Rex.Zhu@amd.com>,
- <1539178095-24356-3-git-send-email-Rex.Zhu@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Suppress keypresses from ACPI_VIDEO events
+Date: Wed, 10 Oct 2018 15:06:32 -0400
+Message-ID: <CADnq5_Ohjr2nnX=y2QeiUncVabADnJDdO+MZmT5ag+yCJL+cHA@mail.gmail.com>
+References: <20180922004346.12288-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0971379009=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1539178095-24356-3-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20180922004346.12288-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,144 +18,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Lyude <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "for 3.8" <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============0971379009==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB18207BEF8BF6470829DDC823F7E00DM5PR12MB1820namp_"
-
---_000_DM5PR12MB18207BEF8BF6470829DDC823F7E00DM5PR12MB1820namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Rex Zhu =
-<Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, October 10, 2018 9:28:15 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: [PATCH 3/3] drm/amdgpu: Remove wrong fw loading type warning
-
-Remove the warning message:
-"-1 is not supported on VI"
-the -1 is the default fw load type, mean auto.
-
-Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ucode.c
-index 971549f..d91f378 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -297,8 +297,6 @@ enum amdgpu_firmware_load_type
-         case CHIP_POLARIS11:
-         case CHIP_POLARIS12:
-         case CHIP_VEGAM:
--               if (load_type !=3D AMDGPU_FW_LOAD_SMU)
--                       pr_warning("%d is not supported on VI\n", load_type=
-);
-                 return AMDGPU_FW_LOAD_SMU;
-         case CHIP_VEGA10:
-         case CHIP_RAVEN:
---
-1.9.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM5PR12MB18207BEF8BF6470829DDC823F7E00DM5PR12MB1820namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<b>Sent:</b> Wednesday, October 10, 2018 9:28:15 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> [PATCH 3/3] drm/amdgpu: Remove wrong fw loading type warnin=
-g</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Remove the warning message:<br>
-&quot;-1 is not supported on VI&quot;<br>
-the -1 is the default fw load type, mean auto.<br>
-<br>
-Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 2 --<br>
-&nbsp;1 file changed, 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ucode.c<br>
-index 971549f..d91f378 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c<br>
-@@ -297,8 &#43;297,6 @@ enum amdgpu_firmware_load_type<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS11:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS12:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGAM:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (load_type !=3D AMDGPU_FW_LOAD_SMU)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_warning(&quot=
-;%d is not supported on VI\n&quot;, load_type);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return AMDGPU_FW_LOAD_SMU;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA10:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RAVEN:<br>
--- <br>
-1.9.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM5PR12MB18207BEF8BF6470829DDC823F7E00DM5PR12MB1820namp_--
-
---===============0971379009==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0971379009==--
+T24gRnJpLCBTZXAgMjEsIDIwMTggYXQgODo0NCBQTSBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQu
+Y29tPiB3cm90ZToKPgo+IEN1cnJlbnRseSB3ZSByZXR1cm4gTk9USUZZX0RPTkUgZm9yIGFueSBl
+dmVudCB3aGljaCB3ZSBkb24ndCB0aGluayBpcwo+IG91cnMuIEhvd2V2ZXIsIG1hbnkgbGFwdG9w
+cyB3aWxsIHNlbmQgbW9yZSB0aGVuIGp1c3QgYW4gQVRJRiBldmVudCBhbmQKPiB3aWxsIGFsc28g
+c2VuZCBhbiBBQ1BJX1ZJREVPX05PVElGWV9QUk9CRSBldmVudCBhcyB3ZWxsLiBTaW5jZSB3ZSBk
+b24ndAo+IGNoZWNrIGZvciB0aGlzLCB3ZSByZXR1cm4gTk9USUZZX0RPTkUgd2hpY2ggY2F1c2Vz
+IGEga2V5cHJlc3MgZm9yIHRoZQo+IEFDUEkgZXZlbnQgdG8gYmUgcHJvcG9nYXRlZCB0byB1c2Vy
+c3BhY2UuIFRoaXMgaXMgdGhlIGVxdWl2YWxlbnQgb2YKPiBzb21lb25lIHByZXNzaW5nIHRoZSBk
+aXNwbGF5IGtleSBvbiBhIGxhcHRvcCBldmVyeSB0aW1lIHRoZXJlJ3MgYQo+IGhvdHBsdWcgZXZl
+bnQuCj4KPiBTbywgY2hlY2sgZm9yIEFDUElfVklERU9fTk9USUZZX1BST0JFIGV2ZW50cyBhbmQg
+c3VwcHJlc3Mga2V5cHJlc3Nlcwo+IGZyb20gdGhlbS4KPgo+IFNpZ25lZC1vZmYtYnk6IEx5dWRl
+IFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+Cj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKCkFw
+cGxpZWQuICBUaGFua3MhICBTb3JyeSBmb3IgdGhlIGRlbGF5LgoKQWxleAoKPiAtLS0KPiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FjcGkuYyB8IDE3ICsrKysrKysrKysrKy0t
+LS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hY3BpLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYWNwaS5jCj4gaW5kZXggMzUzOTkz
+MjE4ZjIxLi5mMDA4ODA0ZjBiOTcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2FjcGkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9hY3BpLmMKPiBAQCAtMzU4LDcgKzM1OCw5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2F0aWZf
+Z2V0X3NiaW9zX3JlcXVlc3RzKHN0cnVjdCBhbWRncHVfYXRpZiAqYXRpZiwKPiAgICoKPiAgICog
+Q2hlY2tzIHRoZSBhY3BpIGV2ZW50IGFuZCBpZiBpdCBtYXRjaGVzIGFuIGF0aWYgZXZlbnQsCj4g
+ICAqIGhhbmRsZXMgaXQuCj4gLSAqIFJldHVybnMgTk9USUZZIGNvZGUKPiArICoKPiArICogUmV0
+dXJuczoKPiArICogTk9USUZZX0JBRCBvciBOT1RJRllfRE9ORSwgZGVwZW5kaW5nIG9uIHRoZSBl
+dmVudC4KPiAgICovCj4gIHN0YXRpYyBpbnQgYW1kZ3B1X2F0aWZfaGFuZGxlcihzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
+IGFjcGlfYnVzX2V2ZW50ICpldmVudCkKPiBAQCAtMzcyLDExICszNzQsMTYgQEAgc3RhdGljIGlu
+dCBhbWRncHVfYXRpZl9oYW5kbGVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgICAg
+ICAgaWYgKHN0cmNtcChldmVudC0+ZGV2aWNlX2NsYXNzLCBBQ1BJX1ZJREVPX0NMQVNTKSAhPSAw
+KQo+ICAgICAgICAgICAgICAgICByZXR1cm4gTk9USUZZX0RPTkU7Cj4KPiArICAgICAgIC8qIElz
+IHRoaXMgYWN0dWFsbHkgb3VyIGV2ZW50PyAqLwo+ICAgICAgICAgaWYgKCFhdGlmIHx8Cj4gICAg
+ICAgICAgICAgIWF0aWYtPm5vdGlmaWNhdGlvbl9jZmcuZW5hYmxlZCB8fAo+IC0gICAgICAgICAg
+IGV2ZW50LT50eXBlICE9IGF0aWYtPm5vdGlmaWNhdGlvbl9jZmcuY29tbWFuZF9jb2RlKQo+IC0g
+ICAgICAgICAgICAgICAvKiBOb3Qgb3VyIGV2ZW50ICovCj4gLSAgICAgICAgICAgICAgIHJldHVy
+biBOT1RJRllfRE9ORTsKPiArICAgICAgICAgICBldmVudC0+dHlwZSAhPSBhdGlmLT5ub3RpZmlj
+YXRpb25fY2ZnLmNvbW1hbmRfY29kZSkgewo+ICsgICAgICAgICAgICAgICAvKiBUaGVzZSBldmVu
+dHMgd2lsbCBnZW5lcmF0ZSBrZXlwcmVzc2VzIG90aGVyd2lzZSAqLwo+ICsgICAgICAgICAgICAg
+ICBpZiAoZXZlbnQtPnR5cGUgPT0gQUNQSV9WSURFT19OT1RJRllfUFJPQkUpCj4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgcmV0dXJuIE5PVElGWV9CQUQ7Cj4gKyAgICAgICAgICAgICAgIGVsc2UK
+PiArICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gTk9USUZZX0RPTkU7Cj4gKyAgICAgICB9
+Cj4KPiAgICAgICAgIGlmIChhdGlmLT5mdW5jdGlvbnMuc2Jpb3NfcmVxdWVzdHMpIHsKPiAgICAg
+ICAgICAgICAgICAgc3RydWN0IGF0aWZfc2Jpb3NfcmVxdWVzdHMgcmVxOwo+IEBAIC0zODUsNyAr
+MzkyLDcgQEAgc3RhdGljIGludCBhbWRncHVfYXRpZl9oYW5kbGVyKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2LAo+ICAgICAgICAgICAgICAgICBjb3VudCA9IGFtZGdwdV9hdGlmX2dldF9zYmlv
+c19yZXF1ZXN0cyhhdGlmLCAmcmVxKTsKPgo+ICAgICAgICAgICAgICAgICBpZiAoY291bnQgPD0g
+MCkKPiAtICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gTk9USUZZX0RPTkU7Cj4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgcmV0dXJuIE5PVElGWV9CQUQ7Cj4KPiAgICAgICAgICAgICAgICAg
+RFJNX0RFQlVHX0RSSVZFUigiQVRJRjogJWQgcGVuZGluZyBTQklPUyByZXF1ZXN0c1xuIiwgY291
+bnQpOwo+Cj4gLS0KPiAyLjE3LjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
