@@ -1,7 +1,7 @@
 From: Frank.Min <Frank.Min-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH 1/2] drm/amdgpu: fix sdma doorbell comments typo
-Date: Thu, 11 Oct 2018 20:08:23 +0800
-Message-ID: <1539259704-15025-1-git-send-email-Frank.Min@amd.com>
+Date: Thu, 11 Oct 2018 20:09:11 +0800
+Message-ID: <1539259752-15172-1-git-send-email-Frank.Min@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
