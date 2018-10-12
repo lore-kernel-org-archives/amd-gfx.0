@@ -1,21 +1,19 @@
-From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2 2/3] drm: Add variable refresh property to DRM CRTC
-Date: Fri, 12 Oct 2018 10:23:10 +0300
-Message-ID: <20181012102310.32e0bac0@eldfell>
-References: <20180924181537.12092-1-nicholas.kazlauskas@amd.com>
- <20180924181537.12092-3-nicholas.kazlauskas@amd.com>
- <20180924183826.GX5565@intel.com>
- <4aa1583c-2be0-8cec-2857-6c3e489965b4@amd.com>
- <20180924202655.GA9144@intel.com>
- <bb8b3e03-94ce-3f0e-0947-ac0aaa4ff8a9@amd.com>
- <20181005111059.1cd71f95@eldfell>
- <fdc195dd-9650-8194-3a16-393f61bb2eee@amd.com>
- <20181010101448.400f4010@eldfell>
- <3bb5e05d-f7e6-8e44-cfae-202191d64245@amd.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: skip vm entries checking while in sriov vf
+Date: Fri, 12 Oct 2018 07:25:05 +0000
+Message-ID: <27b55866-bacf-422e-b357-79459cf8a911@amd.com>
+References: <1539259752-15172-1-git-send-email-Frank.Min@amd.com>
+ <1539259752-15172-2-git-send-email-Frank.Min@amd.com>
+ <b776d7bb-dd47-4130-fd45-9b4a432b92d5@gmail.com>
+ <9dcce91a-2176-feea-9a89-19fa1b55959a@amd.com>
+ <BY2PR12MB00408D294FB316A26BD59330ECE20@BY2PR12MB0040.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0785377081=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3bb5e05d-f7e6-8e44-cfae-202191d64245-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BY2PR12MB00408D294FB316A26BD59330ECE20-K//h7OWB4q7Zvl48JdS6+wdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+Content-ID: <52DE8448E635CA4A8A00787B101198A1-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,106 +24,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Cc: nicolai.haehnle-5C7GfCeVMHo@public.gmane.org, michel-otUistvHUpPR7s880joybQ@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Min, Frank" <Frank.Min-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0785377081==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/+SXQ3lk5ppfFZ9ovvQOCNBZ"; protocol="application/pgp-signature"
-
---Sig_/+SXQ3lk5ppfFZ9ovvQOCNBZ
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 10 Oct 2018 09:35:50 -0400
-"Kazlauskas, Nicholas" <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> The patches I've put out target this use case mostly because of the=20
-> benefit for a relatively simple interface. VRR can and has been used in=20
-> more ways that this, however.
->=20
-> An example usecase that differs from this would actually be video=20
-> playback. The monitor's refresh rate likely doesn't align with the video=
-=20
-> content rate. An API that exposes direct control over VRR (like the=20
-> range, refresh duration, presentation timestamp) could allow the=20
-> application to specify the content rate directly to deliver a smoother=20
-> playback experience. For example, if you had a 24fps video and the VRR=20
-> range was 40-60Hz you could target 48Hz via some API here.
-
-The way that has been discussed to be implemented is that DRM page flips
-would carry a target timestamp, which the driver will then meet as good
-as it can. It is better to define an absolute target timestamp than a
-frequency, because a timestamp can be used to synchronize with audio
-and more. Mario Kleiner can tell you all about scientific use cases
-that require accurate display timing, not just frequency.
-
-A timestamp will naturally lend itself to arbitrary on-demand screen
-updates as well.
-
-However, userspace still needs to know if the target timestamp it is
-contemplating on could realistically be met, so that e.g. a video
-player can choose between showing video frames as is vs. needing to
-interpolate for the presentation times it actually can achieve.
-
-I suppose we agree on the above.
-
-Btw. would a video player even need explicit controls if it knows the
-display will adapt to the player's refresh rate? It could just use the
-original video rate and from what I understood, the display will soon
-end up refreshing at exactly that rate. The player can still use the
-realized page flip timestamps to synchronize with audio, since it can
-assume the refresh rate is stable and can predict the next few flips.
-But, this would only work if the video player knows that VRR will adapt
-to its rate.
-
-While we are talking about predictability of page flips, Weston is
-already relying on a prediction to reduce the desktop latency to
-screen. However, it should be possible to modify Weston to implement
-the kind of VRR support for fullscreen exclusive windows like you are
-proposing just fine.
-
-Just like the X11 window property you mentioned for marking windows as
-eligible for VRR in Xorg, Wayland will need a similar protocol
-extension.
-
-I'm happy to see work being done for VRR.
-
-
-Thanks,
-pq
-
---Sig_/+SXQ3lk5ppfFZ9ovvQOCNBZ
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlvAS94ACgkQI1/ltBGq
-qqeHfxAAoi6gdoPpklsbZfpsiSJfQoEA8M4YegA4Vp1XqmuGPM6KRh6aThxxrave
-dEGpocGlQ5GCs8yZWvC66x/Vs5DBStk5t9BrtafevsdUPq8ql+fvL6DcJW3IdcSW
-CC3GrVijtBE4IXojlx8UpYVDsde6o770yZC8iJA/IY0yrpMM7xqObcC4Q98g7tyo
-bmhpuyk1mrbJiARFDY+s9T92nUtLIXWML7X/Z/V6r3kHO6ibpvG8d3v6ZzjOSHBG
-T9Wg91Nj45oubv/CgIbJuLjP5hSUceejm531sDK9cyMX6O9lEwu1L1fOV+TeCvck
-OKRAsnwJSflEFFAgLczDtH1rgrLVz17B0rrybg9dLSuSmU3jraF+9fn0C6qHsNfD
-Dxb1OuxvitUSu0BHbSZ9dz3lPsvKvawn1VGprUmhRsQMwTqXFt50iIrWk+plOgo6
-g9D2Tiw1ARVr76+Fdmad233R0BIJC3LN7fsdFTa4+t+c+vwZDOG/ITER9iP7vI8T
-nxaMNmh/SuJpn2c6i6iG7ibhMe5UiBpnjOku//XAJd1Q9Mw9PZ+h5KrkoHjiR3xE
-kiYcrjmWJA21qbyy5Hmq8WCAsEkm+tlW+ZLez2LSBT3ct7Wk3x+oEKaAuOr97GpE
-hLFp19DU4ocCZXhO0nOytmLzC5nfMn6Oc9MF/Lmyztpz4nPly6o=
-=voC5
------END PGP SIGNATURE-----
-
---Sig_/+SXQ3lk5ppfFZ9ovvQOCNBZ--
-
---===============0785377081==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0785377081==--
+QW0gMTIuMTAuMjAxOCB1bSAwNjowNSBzY2hyaWViIEh1YW5nLCBSYXk6DQo+PiAtLS0tLU9yaWdp
+bmFsIE1lc3NhZ2UtLS0tLQ0KPj4gRnJvbTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNl
+c0BsaXN0cy5mcmVlZGVza3RvcC5vcmddIE9uIEJlaGFsZg0KPj4gT2YgRmVsaXggS3VlaGxpbmcN
+Cj4+IFNlbnQ6IEZyaWRheSwgT2N0b2JlciAxMiwgMjAxOCAzOjQ2IEFNDQo+PiBUbzogS29lbmln
+LCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IE1pbiwgRnJhbmsNCj4+IDxG
+cmFuay5NaW5AYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PiBTdWJq
+ZWN0OiBSZTogW1BBVENIIDIvMl0gZHJtL2FtZGdwdTogc2tpcCB2bSBlbnRyaWVzIGNoZWNraW5n
+IHdoaWxlIGluDQo+PiBzcmlvdiB2Zg0KPj4NCj4+IE9uIDIwMTgtMTAtMTEgMDg6MzIgQU0sIENo
+cmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+Pj4gQW0gMTEuMTAuMjAxOCB1bSAxNDowOSBzY2hyaWVi
+IEZyYW5rLk1pbjoNCj4+Pj4gdm0gcGFnZSB0YWJsZSB3b3VsZCBiZSBhbGxvY2F0ZWQgd2hpbGUg
+aW4gYW1kZ3B1X3ZtX2luaXQgYnkNCj4+Pj4gYW1kZ3B1X2FsbG9jYXRlX3N0YXRpY19jc2EgZm9y
+IHNyaW92LCBzbyB0aGUgY2hlY2tpbmcgaGVyZSB3b3VsZCBiZQ0KPj4+PiBza2lwcGVkLg0KPj4+
+IE5BSywgdGhhdCBjaGVja2luZyBpcyBhY3R1YWxseSBjb3JyZWN0IGFuZCBwb2ludHMgb3V0IHRo
+YXQgdGhpcw0KPj4+IGRvZXNuJ3Qgd29yayBjb3JyZWN0bHkuDQo+Pj4NCj4+PiBGaXggdGhlIGZ1
+bmN0aW9uIHRvIGJlIGFibGUgdG8gaGFuZGxlIHRoZSBjYXNlIHdoZW4gdGhlcmUgYXJlIGFscmVh
+ZHkNCj4+PiBtYXBwaW5ncyBpbiB0aGUgVk0uDQo+PiBLRkQgYW5kIHRoZSBUaHVuayBhc3N1bWUg
+dGhhdCB0aGV5IG93biB0aGUgZW50aXJlIGFkZHJlc3Mgc3BhY2UuIElmDQo+PiBzb21ldGhpbmcg
+aXMgYWxyZWFkeSBtYXBwZWQsIEtGRCBhbmQgdGhlIFRodW5rIHdvdWxkIG5vdCBiZSBhd2FyZSBv
+ZiBpdC4NCj4+DQo+PiBhbWRncHVfYWxsb2NhdGVfc3RhdGljX2NzYSBydW5zIGR1cmluZyBkcml2
+ZXIgaW5pdGlhbGl6YXRpb24sIGJlZm9yZSB0aGVyZSBhcmUNCj4+IGFueSBWTXMuIExvb2tzIGxp
+a2UgYW1kZ3B1X21hcF9zdGF0aWNfY3NhIGlzIHRoZSBtb3JlIGltcG9ydGFudCBmdW5jdGlvbg0K
+Pj4gaGVyZSwgd2hpY2ggY3VycmVudGx5IHJ1bnMgaW4gYW1kZ3B1X2RyaXZlcl9vcGVuX2ttcy4N
+Cj4+DQo+PiBDb3VsZCBhbWRncHVfbWFwX3N0YXRpY19jc2EgYmUgZGVsYXllZCB0byB0aGUgZmly
+c3QgdGltZSB1c2VyIG1vZGUgbWFwcw0KPj4gbWVtb3J5IGludG8gdGhlIFZNIHRocm91Z2ggR0VN
+IEFQSXM/IFRoYXQgd2F5IGl0IHdvdWxkIGFsbG93IHR1cm5pbmcgYQ0KPj4gVk0gaW50byBhIGNv
+bXB1dGUgVk0gdGhhdCBoYXNuJ3QgYmVlbiB1c2VkIGZvciBhbnkgR0VNIG1lbW9yeQ0KPj4gbWFw
+cGluZ3MuDQo+Pg0KPiBZZXMuIEZyYW5rIGFuZCBJIGZvdW5kLCB3aGlsZSB3ZSBkbyBhY3F1aXJl
+X3Byb2Nlc3Nfdm0oKSwgdGhlIHZtLT52YSBSQiB0cmVlcyBhcmUgYWx3YXlzIG5vdCBlbXB0eSB1
+bmRlciBTUklPViwgYmVjYXVzZSBhbWRncHVfbWFwX3N0YXRpY19jc2EoKSB3aWxsIGJlIGNhbGxl
+ZCB3aGlsZSB2bSBpbml0cyB1bmRlciBTUklPViwgdGhhdCB3aWxsIGFjdHVhbGx5IG1hcCB0aGUg
+Q1NBIEJPIHRvIHRoZSBWTSBhbmQgaW5zZXJ0IHRoZSBub2RlIGludG8gdm0tPnZhIGJlZm9yZSBp
+dCBhY3F1aXJlcyBwcm9jZXNzIFZNIGluIEtGRC4NCg0KWWVhaCBhbmQgZXhhY3RseSB0aGF0IHdp
+bGwgY2xhc2ggd2l0aCB0aGUgS0ZELg0KDQpDb3VsZCBiZSB0aGF0IGl0IHN0aWxsIHdvcmtzIGlu
+aXRpYWxseSBiZWNhdXNlIHRoZSBDU0EgaXMgbm90IG1hcHBlZCBhdCANCnRoZSBiZWdpbm5pbmcg
+b2YgdGhlIGFkZHJlc3Mgc3BhY2UgSUlSQywgYnV0IHdlIG5lZWQgdG8gY2xlYW4gdGhhdCB1cCBp
+biANCnRoZSBsb25nIHRlcm0uDQoNCldlIHNob3VsZCBlaXRoZXIgZGVsYXkgYWRkaW5nIHRoZSBD
+U0EgQk8gdG8gdGhlIFZNIChwcm9iYWJseSBiZXN0IGRvbmUgDQpkdXJpbmcgY29udGV4dCBjcmVh
+dGlvbikuDQoNCk9yIHdlIHN0YXJ0IHRvIG1ha2UgbmFpbHMgd2l0aCBoZWFkcyBhbmQgbW92ZSB0
+aGUgQ1NBIEJPIGludG8gdGhlIA0KY29udGV4dCBhbHRvZ2V0aGVyLiBXZSBhcmUgZ29pbmcgdG8g
+bmVlZCB0aGlzIGFueXdheSBmb3IgTUNCUCwgc28gdGhhdCANCndvdWxkIGJlIGEgZ29vZCBmaXJz
+dCBzdGVwLg0KDQpSYXkvRnJhbmsgY2FuIGFueWJvZHkgb2YgeW91IHRha2UgY2FyZSBvZiB0aGlz
+Pw0KDQpUaGFua3MsDQpDaHJpc3RpYW4uDQoNCj4gICANCj4gVGhhbmtzLA0KPiBSYXkNCj4NCj4+
+IFJlZ2FyZHMsDQo+PiAgwqAgRmVsaXgNCj4+DQo+Pj4gQ2hyaXN0aWFuLg0KPj4+DQo+Pj4+IENo
+YW5nZS1JZDogSWQzMGI4NmFkMTVhZTUwOWFlZWQ5ZWQ4YWI2MGMyNTljODhhZjNkZjUNCj4+Pj4g
+U2lnbmVkLW9mZi1ieTogRnJhbmsuTWluIDxGcmFuay5NaW5AYW1kLmNvbT4NCj4+Pj4gLS0tDQo+
+Pj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDkgKysrKyst
+LS0tDQo+Pj4+ICDCoCAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9u
+cygtKQ0KPj4+Pg0KPj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtLmMNCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
+Yw0KPj4+PiBpbmRleCA2OTA0ZDc5Li42MDY2Zjg3IDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4+PiBAQCAtMzEwMCwxMSArMzEwMCwxMiBAQCBp
+bnQgYW1kZ3B1X3ZtX21ha2VfY29tcHV0ZShzdHJ1Y3QNCj4+Pj4gYW1kZ3B1X2RldmljZSAqYWRl
+diwgc3RydWN0IGFtZGdwdV92bSAqdm0sIHVucw0KPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIHJl
+dHVybiByOw0KPj4+PiAgwqAgwqDCoMKgwqDCoCAvKiBTYW5pdHkgY2hlY2tzICovDQo+Pj4+IC3C
+oMKgwqAgaWYgKCFSQl9FTVBUWV9ST09UKCZ2bS0+dmEucmJfcm9vdCkgfHwgdm0tPnJvb3QuZW50
+cmllcykgew0KPj4+PiAtwqDCoMKgwqDCoMKgwqAgciA9IC1FSU5WQUw7DQo+Pj4+IC3CoMKgwqDC
+oMKgwqDCoCBnb3RvIHVucmVzZXJ2ZV9ibzsNCj4+Pj4gK8KgwqDCoCBpZiAoIWFtZGdwdV9zcmlv
+dl92ZihhZGV2KSkgew0KPj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKCFSQl9FTVBUWV9ST09UKCZ2
+bS0+dmEucmJfcm9vdCkgfHwgdm0tPnJvb3QuZW50cmllcykgew0KPj4+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCByID0gLUVJTlZBTDsNCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290
+byB1bnJlc2VydmVfYm87DQo+Pj4+ICvCoMKgwqDCoMKgwqDCoCB9DQo+Pj4+ICDCoMKgwqDCoMKg
+IH0NCj4+Pj4gLQ0KPj4+PiAgwqDCoMKgwqDCoCBpZiAocGFzaWQpIHsNCj4+Pj4gIMKgwqDCoMKg
+wqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIGZsYWdzOw0KPj4+Pg0KPj4+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+Pj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QNCj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4+IGh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KPj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4+IGFtZC1nZnggbWFpbGluZyBs
+aXN0DQo+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4gaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQoNCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
