@@ -1,55 +1,36 @@
-From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/display: dm/amdgpu: make dp phy debugfs for eDP
-Date: Fri, 12 Oct 2018 11:14:59 -0400
-Message-ID: <2e0401cb-7126-ded5-3aab-f8af528cb494@amd.com>
-References: <1539355825-11012-1-git-send-email-sunpeng.li@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/radeon/r420: mark expected switch fall-through
+Date: Fri, 12 Oct 2018 18:06:55 +0200
+Message-ID: <20181012160655.GA21620@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1539355825-11012-1-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: sunpeng.li-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-CgpPbiAyMDE4LTEwLTEyIDEwOjUwIGEubS4sIHN1bnBlbmcubGlAYW1kLmNvbSB3cm90ZToKPiBG
-cm9tOiBoZXJzZW4gd3UgPGhlcnNlbnhzLnd1QGFtZC5jb20+Cj4gCj4gW1dIWV0gZHAgZGVidWdm
-cyBmaWxlIGRvZXMgbm90IGV4aXN0IGZvciBlRFAgdW5kZXIKPiAgICAgICAvc3lzL2tlcm5lbC9k
-ZWJ1Zy9kcmkvMC9lRFAtMS4gdGhlIHJvb3QgaXMgcGh5IGRlYnVnZnMKPiAgICAgICBpcyBjcmVh
-dGVkIGZvciBkcCBjb25uZWN0b3Igb25seS4KPiBbSE9XXSBmb3IgZURQIGNvbm5lY3RvciwgY3Jl
-YXRlIHBoeSBkZWJ1Z2ZzIHRvby4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBIZXJzZW4gV3UgPGhlcnNl
-bnhzLnd1QGFtZC5jb20+Cj4gUmV2aWV3ZWQtYnk6IERhdmlkIEZyYW5jaXMgPERhdmlkLkZyYW5j
-aXNAYW1kLmNvbT4KPiBBY2tlZC1ieTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+Cj4gLS0t
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVn
-ZnMuYyB8IDQgKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0
-aW9uKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYwo+IGluZGV4IDBlZjRhNDAuLjc2YTljOTUgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1fZGVidWdmcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG1fZGVidWdmcy5jCj4gQEAgLTcwNSw3ICs3MDUsOSBAQCBpbnQgY29ubmVjdG9y
-X2RlYnVnZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICAJ
-aW50IGk7Cj4gIAlzdHJ1Y3QgZGVudHJ5ICplbnQsICpkaXIgPSBjb25uZWN0b3ItPmJhc2UuZGVi
-dWdmc19lbnRyeTsKPiAgCj4gLQlpZiAoY29ubmVjdG9yLT5iYXNlLmNvbm5lY3Rvcl90eXBlID09
-IERSTV9NT0RFX0NPTk5FQ1RPUl9EaXNwbGF5UG9ydCkgewo+ICsJaWYgKGNvbm5lY3Rvci0+YmFz
-ZS5jb25uZWN0b3JfdHlwZSA9PSBEUk1fTU9ERV9DT05ORUNUT1JfRGlzcGxheVBvcnQgfHwKPiAr
-CQkJY29ubmVjdG9yLT5iYXNlLmNvbm5lY3Rvcl90eXBlID09Cj4gKwkJCQkJRFJNX01PREVfQ09O
-TkVDVE9SX2VEUCkgewoKSW5kZW50aW5nIGxvb2tzIGZ1bmt5LiBXb3VsZCBiZSBuaWNlIHRvIGdl
-dCB0aGF0IGNsZWFuZWQgdXAgYmVmb3JlIG1lcmdlLgoKQW55d2F5cywgYmVzaWRlIHRoZSBiaWtl
-c2hlZGRpbmcgdGhpcyBpcwpSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRs
-YW5kQGFtZC5jb20+CgpIYXJyeQoKPiAgCQlmb3IgKGkgPSAwOyBpIDwgQVJSQVlfU0laRShkcF9k
-ZWJ1Z2ZzX2VudHJpZXMpOyBpKyspIHsKPiAgCQkJZW50ID0gZGVidWdmc19jcmVhdGVfZmlsZShk
-cF9kZWJ1Z2ZzX2VudHJpZXNbaV0ubmFtZSwKPiAgCQkJCQkJICAwNjQ0LAo+IApfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+In preparation to enabling -Wimplicit-fallthrough, mark switch cases
+where we are expecting to fall through.
+
+Addresses-Coverity-ID: 1357317 ("Missing break in switch")
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/radeon/r420.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r420.c
+index 45e1d4e..2318d9e 100644
+--- a/drivers/gpu/drm/radeon/r420.c
++++ b/drivers/gpu/drm/radeon/r420.c
+@@ -109,6 +109,7 @@ void r420_pipes_init(struct radeon_device *rdev)
+ 	default:
+ 		/* force to 1 pipe */
+ 		num_pipes = 1;
++		/* fall through */
+ 	case 1:
+ 		tmp = (0 << 1);
+ 		break;
+-- 
+2.7.4
