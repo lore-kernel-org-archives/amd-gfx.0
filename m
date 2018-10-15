@@ -1,12 +1,16 @@
-From: "Sunnanyong (Nanyong Sun, Intelligent Computing Solution Development
- Dep)" <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Subject: amd gpu hung with opensource driver
-Date: Mon, 15 Oct 2018 09:50:46 +0000
-Message-ID: <EB021AE3BDDC1742A899855D00BABEB0010BD220@dggemm526-mbx.china.huawei.com>
+From: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 17/26] drm/amd/display: implement PERF_TRACE on Linux
+Date: Mon, 15 Oct 2018 14:51:46 +0000
+Message-ID: <DM3PR1201MB1039270D0084B96880F3552FEFFD0@DM3PR1201MB1039.namprd12.prod.outlook.com>
+References: <20181010220922.3864-1-Bhawanpreet.Lakha@amd.com>
+ <20181010220922.3864-19-Bhawanpreet.Lakha@amd.com>
+ <116c2a95-a249-88c7-ad6a-1b688f03b2c9@daenzer.net>,
+ <d1083156-4246-1af2-1bb2-5bdb54455b99@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1241836242=="
+Content-Type: multipart/mixed; boundary="===============1303871173=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <d1083156-4246-1af2-1bb2-5bdb54455b99-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,163 +21,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "'amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org'" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1241836242==
-Content-Language: zh-CN
+--===============1303871173==
+Content-Language: en-CA
 Content-Type: multipart/alternative;
-	boundary="_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_"
+	boundary="_000_DM3PR1201MB1039270D0084B96880F3552FEFFD0DM3PR1201MB1039_"
 
---_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_
-Content-Type: text/plain; charset="us-ascii"
+--_000_DM3PR1201MB1039270D0084B96880F3552FEFFD0DM3PR1201MB1039_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Hi All,
-    When use amd radeon pro wx5100 with opensource driver(mesa17.2.8 , kern=
-el v4.17, Ubuntu17.10), GPU hung happened:
-     [260362.362835] amdgpu 0005:01:00.0: GPU fault detected: 146 0x02c0082=
-c
-[260362.369366] amdgpu 0005:01:00.0:   VM_CONTEXT1_PROTECTION_FAULT_ADDR   =
-0x00100058
-[260362.377099] amdgpu 0005:01:00.0:   VM_CONTEXT1_PROTECTION_FAULT_STATUS =
-0x0400802C
-[260362.384781] amdgpu 0005:01:00.0: VM fault (0x2c, vmid 2, pasid 32792) a=
-t page 1048664, read from 'TC0' (0x54433000) (8)
-[260372.423402] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx timeout=
-, last signaled seq=3D132702874, last emitted seq=3D132702877
-[260372.435267] [drm] IP block:gfx_v8_0 is hung!
-[260372.435276] [drm] GPU recovery disabled.
+Fully agreed.  Will redesign this.
 
-It is happened accidentally when play games.
-How to debug and solve this problem ?
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: October 13, 2018 1:40:24 PM
+To: Michel D=E4nzer; Lakha, Bhawanpreet
+Cc: Francis, David; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 17/26] drm/amd/display: implement PERF_TRACE on Linux
 
-Please help, Thanks : )
+Am 12.10.2018 um 18:56 schrieb Michel D=E4nzer:
+> On 2018-10-11 12:09 a.m., Bhawanpreet Lakha wrote:
+>> From: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
+>>
+>> [Why]
+>> A quick-and-dirty way of getting performance data for the amdgpu
+>> driver would make performance improvements easier
+>>
+>> [How]
+>> The PERF_TRACE functionality is a tic-toc style debug method.
+>> Put PERF_TRACE calls on either side of the code you want to test.
+>> PERF_TRACE requires access to struct dc_context.  PERF_TRACE()
+>> will pick up the CTX macro, and PERF_TRACE_CTX(struct dc_context)
+>> allows you to pass the context explicitly.
+>>
+>> The last 20 results can be read through the debugfs entry
+>> amdgpu_perf_trace.  Each result contains the time in ns and
+>> number of GPU read/writes since the result before it.
+>>
+>> In my experimentation, each PERF_TRACE() call uses at most 700ns
+> Should this use the Linux tracing infrastructure?
 
---_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_
-Content-Type: text/html; charset="us-ascii"
+Yeah, agree that looks like reimplementing the tracing infrastructure to
+me as well.
+
+Christian.
+
+--_000_DM3PR1201MB1039270D0084B96880F3552FEFFD0DM3PR1201MB1039_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	font-size:10.5pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-span.EmailStyle18
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle19
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle20
-	{mso-style-type:personal;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-span.EmailStyle21
-	{mso-style-type:personal-reply;
-	font-family:"Calibri","sans-serif";
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
 </head>
-<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
-rim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Hi All,=
- <o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">&nbsp;&=
-nbsp;&nbsp;&nbsp;When use amd radeon pro wx5100 with opensource driver(mesa=
-17.2.8 , kernel v4.17, Ubuntu17.10), GPU hung happened:
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;[260362.362835] amdgpu 0005:01:00.0: GPU fault detec=
-ted: 146 0x02c0082c<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"text-indent:10.5pt"><span lang=3D"EN-US" st=
-yle=3D"color:#1F497D">[260362.369366] amdgpu 0005:01:00.0:&nbsp;&nbsp; VM_C=
-ONTEXT1_PROTECTION_FAULT_ADDR&nbsp;&nbsp; 0x00100058<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"text-indent:10.5pt"><span lang=3D"EN-US" st=
-yle=3D"color:#1F497D">[260362.377099] amdgpu 0005:01:00.0:&nbsp;&nbsp; VM_C=
-ONTEXT1_PROTECTION_FAULT_STATUS 0x0400802C<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
-gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260362.384781] amdgpu 000=
-5:01:00.0: VM fault (0x2c, vmid 2, pasid 32792) at page 1048664, read from =
-'TC0' (0x54433000) (8)<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
-gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260372.423402] [drm:amdgp=
-u_job_timedout [amdgpu]] *ERROR* ring gfx timeout, last signaled seq=3D1327=
-02874, last emitted seq=3D132702877<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
-gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260372.435267] [drm] IP b=
-lock:gfx_v8_0 is hung!<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
-gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260372.435276] [drm] GPU =
-recovery disabled.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">It is h=
-appened accidentally when play games.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">How to =
-debug and solve this problem ?<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Please =
-help, Thanks : )<o:p></o:p></span></p>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Fully agreed.&nbsp; Will redesign=
+ this.&nbsp;&nbsp;</p>
 </div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> October 13, 2018 1:40:24 PM<br>
+<b>To:</b> Michel D=E4nzer; Lakha, Bhawanpreet<br>
+<b>Cc:</b> Francis, David; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 17/26] drm/amd/display: implement PERF_TRACE on =
+Linux</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 12.10.2018 um 18:56 schrieb Michel D=E4nzer:<br=
+>
+&gt; On 2018-10-11 12:09 a.m., Bhawanpreet Lakha wrote:<br>
+&gt;&gt; From: David Francis &lt;David.Francis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; [Why]<br>
+&gt;&gt; A quick-and-dirty way of getting performance data for the amdgpu<b=
+r>
+&gt;&gt; driver would make performance improvements easier<br>
+&gt;&gt;<br>
+&gt;&gt; [How]<br>
+&gt;&gt; The PERF_TRACE functionality is a tic-toc style debug method.<br>
+&gt;&gt; Put PERF_TRACE calls on either side of the code you want to test.<=
+br>
+&gt;&gt; PERF_TRACE requires access to struct dc_context.&nbsp; PERF_TRACE(=
+)<br>
+&gt;&gt; will pick up the CTX macro, and PERF_TRACE_CTX(struct dc_context)<=
+br>
+&gt;&gt; allows you to pass the context explicitly.<br>
+&gt;&gt;<br>
+&gt;&gt; The last 20 results can be read through the debugfs entry<br>
+&gt;&gt; amdgpu_perf_trace.&nbsp; Each result contains the time in ns and<b=
+r>
+&gt;&gt; number of GPU read/writes since the result before it.<br>
+&gt;&gt;<br>
+&gt;&gt; In my experimentation, each PERF_TRACE() call uses at most 700ns<b=
+r>
+&gt; Should this use the Linux tracing infrastructure?<br>
+<br>
+Yeah, agree that looks like reimplementing the tracing infrastructure to <b=
+r>
+me as well.<br>
+<br>
+Christian.<br>
+</div>
+</span></font></div>
 </body>
 </html>
 
---_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_--
+--_000_DM3PR1201MB1039270D0084B96880F3552FEFFD0DM3PR1201MB1039_--
 
---===============1241836242==
+--===============1303871173==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -183,4 +151,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1241836242==--
+--===============1303871173==--
