@@ -1,14 +1,26 @@
-From: <sunpeng.li@amd.com>
-Subject: [PATCH v2] drm: Get ref on CRTC commit object when waiting for
- flip_done
-Date: Mon, 15 Oct 2018 09:46:40 -0400
-Message-ID: <1539611200-6184-1-git-send-email-sunpeng.li@amd.com>
-References: <1539380010-9221-1-git-send-email-sunpeng.li@amd.com>
+From: Pekka Paalanen <ppaalanen@gmail.com>
+Subject: Re: [PATCH v2 2/3] drm: Add variable refresh property to DRM CRTC
+Date: Mon, 15 Oct 2018 16:57:33 +0300
+Message-ID: <20181015165733.66c668ba@eldfell>
+References: <20180924181537.12092-1-nicholas.kazlauskas@amd.com>
+ <20180924181537.12092-3-nicholas.kazlauskas@amd.com>
+ <20180924183826.GX5565@intel.com>
+ <4aa1583c-2be0-8cec-2857-6c3e489965b4@amd.com>
+ <20180924202655.GA9144@intel.com>
+ <bb8b3e03-94ce-3f0e-0947-ac0aaa4ff8a9@amd.com>
+ <20181005111059.1cd71f95@eldfell>
+ <fdc195dd-9650-8194-3a16-393f61bb2eee@amd.com>
+ <20181010101448.400f4010@eldfell>
+ <3bb5e05d-f7e6-8e44-cfae-202191d64245@amd.com>
+ <20181012102310.32e0bac0@eldfell>
+ <894d12d3-aa0b-c0f6-6347-7d13e58e651a@amd.com>
+ <20181012122144.595de059@eldfell>
+ <00b8b89f-2675-dda5-7307-8a75b20390d7@amd.com>
+ <c73340aa-a437-dc44-92b6-b3f104d0556e@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1168432051=="
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1539380010-9221-1-git-send-email-sunpeng.li@amd.com>
+In-Reply-To: <c73340aa-a437-dc44-92b6-b3f104d0556e@amd.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -18,104 +30,222 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Cc: "Haehnle, Nicolai" <Nicolai.Haehnle@amd.com>, "michel@daenzer.net" <michel@daenzer.net>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Olsak, Marek" <Marek.Olsak@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+CgpUaGlzIGZpeGVzIGEgZ2VuZXJhbCBw
-cm90ZWN0aW9uIGZhdWx0LCBjYXVzZWQgYnkgYWNjZXNzaW5nIHRoZSBjb250ZW50cwpvZiBhIGZs
-aXBfZG9uZSBjb21wbGV0aW9uIG9iamVjdCB0aGF0IGhhcyBhbHJlYWR5IGJlZW4gZnJlZWQuIEl0
-IG9jY3VycwpkdWUgdG8gdGhlIHByZWVtcHRpb24gb2YgYSBub24tYmxvY2tpbmcgY29tbWl0IHdv
-cmtlciB0aHJlYWQgVyBieQphbm90aGVyIGNvbW1pdCB0aHJlYWQgWC4gWCBjb250aW51ZXMgdG8g
-Y2xlYXIgaXRzIGF0b21pYyBzdGF0ZSBhdCB0aGUKZW5kLCBkZXN0cm95aW5nIHRoZSBDUlRDIGNv
-bW1pdCBvYmplY3QgdGhhdCBXIHN0aWxsIG5lZWRzLiBTd2l0Y2hpbmcKYmFjayB0byBXIGFuZCBh
-Y2Nlc3NpbmcgdGhlIGNvbW1pdCBvYmplY3RzIHRoZW4gbGVhZHMgdG8gYmFkIHJlc3VsdHMuCgpX
-b3JrZXIgVyBiZWNvbWVzIHByZWVtcHRhYmxlIHdoZW4gd2FpdGluZyBmb3IgZmxpcF9kb25lIHRv
-IGNvbXBsZXRlLiBBdAp0aGlzIHBvaW50LCBhIGZyZXF1ZW50bHkgb2NjdXJyaW5nIGNvbW1pdCB0
-aHJlYWQgWCBjYW4gdGFrZSBvdmVyLiBIZXJlJ3MKYW4gZXhhbXBsZSB3aGVyZSBXIGlzIGEgd29y
-a2VyIHRocmVhZCB0aGF0IGZsaXBzIG9uIGJvdGggQ1JUQ3MsIGFuZCBYCmRvZXMgYSBsZWdhY3kg
-Y3Vyc29yIHVwZGF0ZSBvbiBib3RoIENSVENzOgoKICAgICAgICAuLi4KICAgICAxLiBXIGRvZXMg
-ZmxpcCB3b3JrCiAgICAgMi4gVyBydW5zIGNvbW1pdF9od19kb25lKCkKICAgICAzLiBXIHdhaXRz
-IGZvciBmbGlwX2RvbmUgb24gQ1JUQyAxCiAgICAgNC4gPiBmbGlwX2RvbmUgZm9yIENSVEMgMSBj
-b21wbGV0ZXMKICAgICA1LiBXIGZpbmlzaGVzIHdhaXRpbmcgZm9yIENSVEMgMQogICAgIDYuIFcg
-d2FpdHMgZm9yIGZsaXBfZG9uZSBvbiBDUlRDIDIKCiAgICAgNy4gPiBQcmVlbXB0ZWQgYnkgWAog
-ICAgIDguID4gZmxpcF9kb25lIGZvciBDUlRDIDIgY29tcGxldGVzCiAgICAgOS4gWCBhdG9taWNf
-Y2hlY2s6IGh3X2RvbmUgYW5kIGZsaXBfZG9uZSBhcmUgY29tcGxldGUgb24gYWxsIENSVENzCiAg
-ICAxMC4gWCB1cGRhdGVzIGN1cnNvciBvbiBib3RoIENSVENzCiAgICAxMS4gWCBkZXN0cm95cyBh
-dG9taWMgc3RhdGUKICAgIDEyLiBYIGRvbmUKCiAgICAxMy4gPiBTd2l0Y2ggYmFjayB0byBXCiAg
-ICAxNC4gVyB3YWl0cyBmb3IgZmxpcF9kb25lIG9uIENSVEMgMgogICAgMTUuIFcgcmFpc2VzIGdl
-bmVyYWwgcHJvdGVjdGlvbiBmYXVsdAoKVGhlIGVycm9yIGxvb2tzIGxpa2Ugc286CgogICAgZ2Vu
-ZXJhbCBwcm90ZWN0aW9uIGZhdWx0OiAwMDAwIFsjMV0gUFJFRU1QVCBTTVAgUFRJCiAgICAqKnNu
-aXAqKgogICAgQ2FsbCBUcmFjZToKICAgICBsb2NrX2FjcXVpcmUrMHhhMi8weDFiMAogICAgIF9y
-YXdfc3Bpbl9sb2NrX2lycSsweDM5LzB4NzAKICAgICB3YWl0X2Zvcl9jb21wbGV0aW9uX3RpbWVv
-dXQrMHgzMS8weDEzMAogICAgIGRybV9hdG9taWNfaGVscGVyX3dhaXRfZm9yX2ZsaXBfZG9uZSsw
-eDY0LzB4OTAgW2RybV9rbXNfaGVscGVyXQogICAgIGFtZGdwdV9kbV9hdG9taWNfY29tbWl0X3Rh
-aWwrMHhjYWUvMHhkZDAgW2FtZGdwdV0KICAgICBjb21taXRfdGFpbCsweDNkLzB4NzAgW2RybV9r
-bXNfaGVscGVyXQogICAgIHByb2Nlc3Nfb25lX3dvcmsrMHgyMTIvMHg2NTAKICAgICB3b3JrZXJf
-dGhyZWFkKzB4NDkvMHg0MjAKICAgICBrdGhyZWFkKzB4ZmIvMHgxMzAKICAgICByZXRfZnJvbV9m
-b3JrKzB4M2EvMHg1MAogICAgTW9kdWxlcyBsaW5rZWQgaW46IHg4Nl9wa2dfdGVtcF90aGVybWFs
-IGFtZGdwdShPKSBjaGFzaChPKQogICAgZ3B1X3NjaGVkKE8pIGRybV9rbXNfaGVscGVyKE8pIHN5
-c2NvcHlhcmVhIHN5c2ZpbGxyZWN0IHN5c2ltZ2JsdAogICAgZmJfc3lzX2ZvcHMgdHRtKE8pIGRy
-bShPKQoKTm90ZSB0aGF0IGk5MTUgaGFzIHRoaXMgaXNzdWUgbWFza2VkLCBzaW5jZSBod19kb25l
-IGlzIHNpZ25hbGVkIGFmdGVyCndhaXRpbmcgZm9yIGZsaXBfZG9uZS4gRG9pbmcgc28gd2lsbCBi
-bG9jayB0aGUgY3Vyc29yIHVwZGF0ZSBmcm9tCmhhcHBlbmluZyB1bnRpbCBod19kb25lIGlzIHNp
-Z25hbGVkLCBwcmV2ZW50aW5nIHRoZSBjdXJzb3IgY29tbWl0IGZyb20KZGVzdHJveWluZyB0aGUg
-c3RhdGUuCgp2MjogVGhlIHJlZmVyZW5jZSBvbiB0aGUgY29tbWl0IG9iamVjdCBuZWVkcyB0byBi
-ZSBvYnRhaW5lZCBiZWZvcmUKICAgIGh3X2RvbmUoKSBpcyBzaWduYWxlZCwgc2luY2UgdGhhdCdz
-IHRoZSBwb2ludCB3aGVyZSBhbm90aGVyIGNvbW1pdAogICAgaXMgYWxsb3dlZCB0byBtb2RpZnkg
-dGhlIHN0YXRlLiBBc3N1bWluZyB0aGF0IHRoZQogICAgbmV3X2NydGNfc3RhdGUtPmNvbW1pdCBv
-YmplY3Qgc3RpbGwgZXhpc3RzIHdpdGhpbiBmbGlwX2RvbmUoKSBpcwogICAgaW5jb3JyZWN0LgoK
-ICAgIEZpeCBieSBnZXR0aW5nIGEgcmVmZXJlbmNlIGluIHNldHVwX2NvbW1pdCgpLCBhbmQgcmVs
-ZWFzaW5nIGl0CiAgICBkdXJpbmcgZGVmYXVsdF9jbGVhcigpLgoKU2lnbmVkLW9mZi1ieTogTGVv
-IExpIDxzdW5wZW5nLmxpQGFtZC5jb20+Ci0tLQoKU2VuZGluZyBhZ2FpbiwgdGhpcyB0aW1lIHRv
-IHRoZSBjb3JyZWN0IG1haWxpbmcgbGlzdCA6KQoKTGVvCgogZHJpdmVycy9ncHUvZHJtL2RybV9h
-dG9taWMuYyAgICAgICAgfCAgNSArKysrKwogZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfaGVs
-cGVyLmMgfCAxMiArKysrKysrKy0tLS0KIGluY2x1ZGUvZHJtL2RybV9hdG9taWMuaCAgICAgICAg
-ICAgIHwgMTEgKysrKysrKysrKysKIDMgZmlsZXMgY2hhbmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwg
-NCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5j
-IGIvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYwppbmRleCAzZWIwNjFlLi4xMmFlOTE3IDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9kcm1fYXRvbWljLmMKQEAgLTE3NCw2ICsxNzQsMTEgQEAgdm9pZCBkcm1fYXRvbWljX3N0
-YXRlX2RlZmF1bHRfY2xlYXIoc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKQogCQlzdGF0
-ZS0+Y3J0Y3NbaV0uc3RhdGUgPSBOVUxMOwogCQlzdGF0ZS0+Y3J0Y3NbaV0ub2xkX3N0YXRlID0g
-TlVMTDsKIAkJc3RhdGUtPmNydGNzW2ldLm5ld19zdGF0ZSA9IE5VTEw7CisKKwkJaWYgKHN0YXRl
-LT5jcnRjc1tpXS5jb21taXQpIHsKKwkJCWRybV9jcnRjX2NvbW1pdF9wdXQoc3RhdGUtPmNydGNz
-W2ldLmNvbW1pdCk7CisJCQlzdGF0ZS0+Y3J0Y3NbaV0uY29tbWl0ID0gTlVMTDsKKwkJfQogCX0K
-IAogCWZvciAoaSA9IDA7IGkgPCBjb25maWctPm51bV90b3RhbF9wbGFuZTsgaSsrKSB7CmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19oZWxwZXIuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9kcm1fYXRvbWljX2hlbHBlci5jCmluZGV4IDgwYmU3NGQuLjFiYjRjMzEgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX2hlbHBlci5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9kcm1fYXRvbWljX2hlbHBlci5jCkBAIC0xNDA4LDE1ICsxNDA4LDE2IEBAIEVYUE9SVF9T
-WU1CT0woZHJtX2F0b21pY19oZWxwZXJfd2FpdF9mb3JfdmJsYW5rcyk7CiB2b2lkIGRybV9hdG9t
-aWNfaGVscGVyX3dhaXRfZm9yX2ZsaXBfZG9uZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCQkJ
-CQkgIHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpvbGRfc3RhdGUpCiB7Ci0Jc3RydWN0IGRybV9j
-cnRjX3N0YXRlICpuZXdfY3J0Y19zdGF0ZTsKIAlzdHJ1Y3QgZHJtX2NydGMgKmNydGM7CiAJaW50
-IGk7CiAKLQlmb3JfZWFjaF9uZXdfY3J0Y19pbl9zdGF0ZShvbGRfc3RhdGUsIGNydGMsIG5ld19j
-cnRjX3N0YXRlLCBpKSB7Ci0JCXN0cnVjdCBkcm1fY3J0Y19jb21taXQgKmNvbW1pdCA9IG5ld19j
-cnRjX3N0YXRlLT5jb21taXQ7CisJZm9yIChpID0gMDsgaSA8IGRldi0+bW9kZV9jb25maWcubnVt
-X2NydGM7IGkrKykgeworCQlzdHJ1Y3QgZHJtX2NydGNfY29tbWl0ICpjb21taXQgPSBvbGRfc3Rh
-dGUtPmNydGNzW2ldLmNvbW1pdDsKIAkJaW50IHJldDsKIAotCQlpZiAoIWNvbW1pdCkKKwkJY3J0
-YyA9IG9sZF9zdGF0ZS0+Y3J0Y3NbaV0ucHRyOworCisJCWlmICghY3J0YyB8fCAhY29tbWl0KQog
-CQkJY29udGludWU7CiAKIAkJcmV0ID0gd2FpdF9mb3JfY29tcGxldGlvbl90aW1lb3V0KCZjb21t
-aXQtPmZsaXBfZG9uZSwgMTAgKiBIWik7CkBAIC0xOTM0LDYgKzE5MzUsOSBAQCBpbnQgZHJtX2F0
-b21pY19oZWxwZXJfc2V0dXBfY29tbWl0KHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwK
-IAkJZHJtX2NydGNfY29tbWl0X2dldChjb21taXQpOwogCiAJCWNvbW1pdC0+YWJvcnRfY29tcGxl
-dGlvbiA9IHRydWU7CisKKwkJc3RhdGUtPmNydGNzW2ldLmNvbW1pdCA9IGNvbW1pdDsKKwkJZHJt
-X2NydGNfY29tbWl0X2dldChjb21taXQpOwogCX0KIAogCWZvcl9lYWNoX29sZG5ld19jb25uZWN0
-b3JfaW5fc3RhdGUoc3RhdGUsIGNvbm4sIG9sZF9jb25uX3N0YXRlLCBuZXdfY29ubl9zdGF0ZSwg
-aSkgewpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2F0b21pYy5oIGIvaW5jbHVkZS9kcm0v
-ZHJtX2F0b21pYy5oCmluZGV4IGRhOWQ5NWEuLjFlNzEzMTUgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUv
-ZHJtL2RybV9hdG9taWMuaAorKysgYi9pbmNsdWRlL2RybS9kcm1fYXRvbWljLmgKQEAgLTE1Myw2
-ICsxNTMsMTcgQEAgc3RydWN0IF9fZHJtX3BsYW5lc19zdGF0ZSB7CiBzdHJ1Y3QgX19kcm1fY3J0
-Y3Nfc3RhdGUgewogCXN0cnVjdCBkcm1fY3J0YyAqcHRyOwogCXN0cnVjdCBkcm1fY3J0Y19zdGF0
-ZSAqc3RhdGUsICpvbGRfc3RhdGUsICpuZXdfc3RhdGU7CisKKwkvKioKKwkgKiBAY29tbWl0Ogor
-CSAqCisJICogQSByZWZlcmVuY2UgdG8gdGhlIENSVEMgY29tbWl0IG9iamVjdCB0aGF0IGlzIGtl
-cHQgZm9yIHVzZSBieQorCSAqIGRybV9hdG9taWNfaGVscGVyX3dhaXRfZm9yX2ZsaXBfZG9uZSgp
-IGFmdGVyCisJICogZHJtX2F0b21pY19oZWxwZXJfY29tbWl0X2h3X2RvbmUoKSBpcyBjYWxsZWQu
-IFRoaXMgZW5zdXJlcyB0aGF0IGEKKwkgKiBjb25jdXJyZW50IGNvbW1pdCB3b24ndCBmcmVlIGEg
-Y29tbWl0IG9iamVjdCB0aGF0IGlzIHN0aWxsIGluIHVzZS4KKwkgKi8KKwlzdHJ1Y3QgZHJtX2Ny
-dGNfY29tbWl0ICpjb21taXQ7CisKIAlzMzIgX191c2VyICpvdXRfZmVuY2VfcHRyOwogCXU2NCBs
-YXN0X3ZibGFua19jb3VudDsKIH07Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+--===============1168432051==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/kihenBEltgluD.haH131/fL"; protocol="application/pgp-signature"
+
+--Sig_/kihenBEltgluD.haH131/fL
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 12 Oct 2018 08:58:23 -0400
+"Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com> wrote:
+
+> On 10/12/2018 07:20 AM, Koenig, Christian wrote:
+> > Am 12.10.2018 um 11:21 schrieb Pekka Paalanen: =20
+> >> On Fri, 12 Oct 2018 07:35:57 +0000
+> >> "Koenig, Christian" <Christian.Koenig@amd.com> wrote:
+> >> =20
+> >>> Am 12.10.2018 um 09:23 schrieb Pekka Paalanen: =20
+> >>>> On Wed, 10 Oct 2018 09:35:50 -0400
+> >>>> "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com> wrote:
+> >>>>     =20
+> >>>>> The patches I've put out target this use case mostly because of the
+> >>>>> benefit for a relatively simple interface. VRR can and has been use=
+d in
+> >>>>> more ways that this, however.
+> >>>>>
+> >>>>> An example usecase that differs from this would actually be video
+> >>>>> playback. The monitor's refresh rate likely doesn't align with the =
+video
+> >>>>> content rate. An API that exposes direct control over VRR (like the
+> >>>>> range, refresh duration, presentation timestamp) could allow the
+> >>>>> application to specify the content rate directly to deliver a smoot=
+her
+> >>>>> playback experience. For example, if you had a 24fps video and the =
+VRR
+> >>>>> range was 40-60Hz you could target 48Hz via some API here. =20
+> >>>> The way that has been discussed to be implemented is that DRM page f=
+lips
+> >>>> would carry a target timestamp, which the driver will then meet as g=
+ood
+> >>>> as it can. It is better to define an absolute target timestamp than a
+> >>>> frequency, because a timestamp can be used to synchronize with audio
+> >>>> and more. Mario Kleiner can tell you all about scientific use cases
+> >>>> that require accurate display timing, not just frequency. =20
+> >>> To summarize what information should be provided by the driver stack =
+to
+> >>> make applications happy:
+> >>>
+> >>> 1. The minimum time a frame can be displayed, in other words the maxi=
+mum
+> >>> frame rate.
+> >>> 2. The maximum time a frame can be displayed, in other words the mini=
+mum
+> >>> frame rate.
+> >>> 3. How much change of frame timing is allowed between frames to avoid
+> >>> luminescence flickering.
+> >>>
+> >>> Number 1 and 2 can also be used to signal the availability of VRR to
+> >>> applications, e.g. if they are identical we don't support VRR at all.=
+ =20
+> >> Hi Christian,
+> >>
+> >> "the maximum time a frame can be displayed" is perhaps not an
+> >> unambiguous definition. A frame can be shown indefinitely in any case.=
+ =20
+> >=20
+> > Good point. Please also note that I'm not an expert on the display stuff
+> > in general.
+> >=20
+> > My background comes more from implementing the VDPAU mediaplayer
+> > interface in mesa.
+> >=20
+> > So just throwing some ideas in here from the point of view of an
+> > userspace developer which wants to write a media player :)
+
+Excellent!
+
+> >> The CRTC will simply start scanning out the same frame again if there
+> >> is no new one. I understand what you want to say, but perhaps some
+> >> different words will be in order.
+> >>
+> >> I do wonder if applications really want to know the maximum acceptable
+> >> slew rate in timings... maybe that should be left for the drivers to
+> >> apply. What I'm thinking is that we have the page flip timestamp with
+> >> the page flip events to tell when the new FB became active. That
+> >> information could be extended with a time range on when the very next
+> >> flip could take place. Applications are already computing that
+> >> prediction from the flip timestamp and fixed refresh rate, but it might
+> >> be nice to give them the driver's opinion explicitly. Maybe the
+> >> tolerable slew rate is not a constant. =20
+> >=20
+> > Well it depends. I agree that the kernel should probably enforce the
+> > slew rate to avoid flickering for the user.
+
+That's what I was hoping if the monitor hardware does not do that
+already, but now it sounds like it's not possible. Another failed
+assumption from my side.
+
+> > But it might be beneficial for the application to know things like this.
+
+Applications should know when they could likely flip, my question is
+how to tell them. Is the acceptable slew rate a constant for a video
+mode, or does it depend on the previous refresh interval.
+
+> >=20
+> > What the application definitely needs to know is when a frame was
+> > actually displayed. E.g. application says I want to display this at
+> > point X and at some point later the kernel returns saying the frame was
+> > displayed at point N where in the ideal case N=3DX.
+
+You already get this timestamp with the DRM page flip events. We also
+have Wayland and X11 extensions to get it to apps.
+
+> >=20
+> > Additional to that let's please use 64bit values and nanoseconds for
+> > every value we use here, and NOT fps, line numbers or similar :)
+
+Seconded!
+
+I'd really favour absolute timestamps even.
+
+> >=20
+> > Regards,
+> > Christian. =20
+>=20
+> Flickering will really depend on the panel itself. A wider ranger is
+> more likely to exhibit the issue, but factors like topology, pixel
+> density and other display technology can affect this.
+>=20
+> It can be hard for a driver to guess at all of this. For many panels
+> it'd be difficult to notice unless it's consistently jumping between the
+> min and max range.
+
+Do you mean that there is no way to know and get that information from
+the monitor itself? Nothing in EDID that could even be used as a
+default and quirk the monitors that got it wrong?
+
+> Opening up an API that restricts how much the driver can change the
+> refresh rate in a VRR scenario seems a bit extreme, but there's probably
+> some applications that could benefit from this. I'd certainly want to
+> see the actual use case first, though. This still feels more like a
+> driver policy to me.
+
+I don't think anyone suggested that, certainly I did not. The driver
+should get that information from the monitor hardware so that it can
+drive it correctly. If the hardware driver doesn't know, then how could
+the DRM core or userspace know any better? My whole premise was that the
+driver knows.
+
+Sounds like VRR hardware was designed not only for a consistent refresh
+rate but also temporary glitches being ok.
+
+I suppose this will result in choosing a very pessimistic allowed slew
+rate in the driver that covers 95% of VRR monitors and handle the rest
+with quirks. That could still work.
+
+> I agree with the nanosecond based timestamp API making the most logical
+> sense here from an API perspective. This does overlap a little bit with
+> the target vblank property that's already on the CRTC, perhaps.
+
+KMS UABI already has a target vblank property defined, or are you
+talking about your CRTC hardware?
+
+Target vblank counter value makes even less sense with VRR than it ever
+did with a fixed refresh rate. :-)
+
+> The target vblank could be determined based on the timestamp. The driver
+> is likely to exceed the target presentation timestamp by a fair bit if
+> it was to just do this, however. VRR could be used in this case to get
+> closer to the timestamp. A naive implementation could iterate over every
+> rate in the range and take the one with the minimum difference, for
+> example.
+
+Could you elaborate on that, who could be doing what exactly to achieve
+what?
+
+
+Thanks,
+pq
+
+--Sig_/kihenBEltgluD.haH131/fL
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlvEnM0ACgkQI1/ltBGq
+qqclzw//RoIaSAkyNBylzqUZ29ecQ1Kmz78jtIHC+R/v4SCzSm8oeQQiF9oYkb9P
+4mBVddsctVYTn3KR3FpYfvcpz4BPcpNAxCgMzDrWCWhAvcmlCeUVApKVXNGxeTsI
+Qry0xeu7POA7nOXy+9dOZKglTOToXPC7bDxg0K7VEGdjpj8jKaTO8BT20NKJNOOh
+ZWrlM2KDs7e5a5ngJ6QPv+6ATB4d2OvufK2AB7Uzeh3hTtSIfrntij0IWSmpOGUM
+IGGp1lUWRTQTPX+8Wjr7CLr+qeStDiuPNsA+8Wly4MGzE2rQtA1jtHUaQQypyesg
+X2PaV3hGUh+Wo758XGNH20NlPjT0ZWvVABeb7NWltBVnSfdNDDxU+hrzeYCns1rq
+dXivDqf9U5lUFoRF/+Y5WSUZC7NBt2Z+Jd4CkwDIvy76+R5gg6lO9UUgMWGPjAni
+0xDTThm1TzeZvSU8ZJKbt9eHPpGJ+xEcFi6uF5ggr1bWALA8AU743PXKvKoZeEQj
+CBhgkiu70E+RHA7NWR1TODO9bdcEbWT53G+Fjj0rfwrR8K1Qun1qdrq757vFC11L
+TK78pw33/9eEFfqidWqsFyawrY1QxYnm+QWVKBJLnvPcN64cgvO3cg2W6L09yHv9
+1X/OtDPkzT8OG8wcRZmU6O1zsVqqUsP80h/H8m8eC6c0t3CpNi4=
+=0ZxA
+-----END PGP SIGNATURE-----
+
+--Sig_/kihenBEltgluD.haH131/fL--
+
+--===============1168432051==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1168432051==--
