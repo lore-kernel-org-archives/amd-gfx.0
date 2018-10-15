@@ -1,28 +1,19 @@
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2 2/3] drm: Add variable refresh property to DRM CRTC
-Date: Mon, 15 Oct 2018 12:02:14 -0400
-Message-ID: <52103366-510d-15a6-61d2-26196a4f0e57@amd.com>
-References: <20180924181537.12092-1-nicholas.kazlauskas@amd.com>
- <20180924181537.12092-3-nicholas.kazlauskas@amd.com>
- <20180924183826.GX5565@intel.com>
- <4aa1583c-2be0-8cec-2857-6c3e489965b4@amd.com>
- <20180924202655.GA9144@intel.com>
- <bb8b3e03-94ce-3f0e-0947-ac0aaa4ff8a9@amd.com>
- <20181005111059.1cd71f95@eldfell>
- <fdc195dd-9650-8194-3a16-393f61bb2eee@amd.com>
- <20181010101448.400f4010@eldfell>
- <3bb5e05d-f7e6-8e44-cfae-202191d64245@amd.com>
- <20181012102310.32e0bac0@eldfell>
- <894d12d3-aa0b-c0f6-6347-7d13e58e651a@amd.com>
- <20181012122144.595de059@eldfell>
- <00b8b89f-2675-dda5-7307-8a75b20390d7@amd.com>
- <c73340aa-a437-dc44-92b6-b3f104d0556e@amd.com>
- <20181015165733.66c668ba@eldfell>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [RFC] drm/amd/display: add SI support to AMD DC
+Date: Mon, 15 Oct 2018 17:53:39 +0000
+Message-ID: <BN6PR12MB18092365083B2653B547057AF7FD0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181008022344.10247-1-issor.oruam@gmail.com>
+ <20181008120423.GA300@freedom>
+ <CAEQFVGahx4U+52uKu20_q0iCPrdzeW8G+viS7p2LJtgF61bf6Q@mail.gmail.com>
+ <20181008201706.GA351@freedom> <20181008212236.GA338@freedom>
+ <CAEQFVGaErupy3y+sKA+uqQPn7x0oL1T9BKWj6y8EC12Ap2-YDw@mail.gmail.com>
+ <20181015012533.GA21702@freedom>
+ <CAEQFVGbB_ezGSGwPu2Ka-4rY9RjB_rJvPL8ZCEG-_rfXxOEN-A@mail.gmail.com>,
+ <20181015124549.GA579@freedom>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1746836886=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181015165733.66c668ba@eldfell>
+In-Reply-To: <20181015124549.GA579@freedom>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -34,159 +25,147 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>, "michel-otUistvHUpPR7s880joybQ@public.gmane.org" <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Olsak,
- Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org" <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+To: "sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Mauro Rossi <issor.oruam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Mike Lothian <mike-4+n8WJKc9ve9FHfhHBbuYA@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMTAvMTUvMjAxOCAwOTo1NyBBTSwgUGVra2EgUGFhbGFuZW4gd3JvdGU6Cj4gT24gRnJpLCAx
-MiBPY3QgMjAxOCAwODo1ODoyMyAtMDQwMAo+ICJLYXpsYXVza2FzLCBOaWNob2xhcyIgPG5pY2hv
-bGFzLmthemxhdXNrYXNAYW1kLmNvbT4gd3JvdGU6Cj4gCj4+IE9uIDEwLzEyLzIwMTggMDc6MjAg
-QU0sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOgo+Pj4gQW0gMTIuMTAuMjAxOCB1bSAxMToyMSBz
-Y2hyaWViIFBla2thIFBhYWxhbmVuOgo+Pj4+IE9uIEZyaSwgMTIgT2N0IDIwMTggMDc6MzU6NTcg
-KzAwMDAKPj4+PiAiS29lbmlnLCBDaHJpc3RpYW4iIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+
-IHdyb3RlOgo+Pj4+ICAgCj4+Pj4+IEFtIDEyLjEwLjIwMTggdW0gMDk6MjMgc2NocmllYiBQZWtr
-YSBQYWFsYW5lbjoKPj4+Pj4+IE9uIFdlZCwgMTAgT2N0IDIwMTggMDk6MzU6NTAgLTA0MDAKPj4+
-Pj4+ICJLYXpsYXVza2FzLCBOaWNob2xhcyIgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4g
-d3JvdGU6Cj4+Pj4+PiAgICAgICAKPj4+Pj4+PiBUaGUgcGF0Y2hlcyBJJ3ZlIHB1dCBvdXQgdGFy
-Z2V0IHRoaXMgdXNlIGNhc2UgbW9zdGx5IGJlY2F1c2Ugb2YgdGhlCj4+Pj4+Pj4gYmVuZWZpdCBm
-b3IgYSByZWxhdGl2ZWx5IHNpbXBsZSBpbnRlcmZhY2UuIFZSUiBjYW4gYW5kIGhhcyBiZWVuIHVz
-ZWQgaW4KPj4+Pj4+PiBtb3JlIHdheXMgdGhhdCB0aGlzLCBob3dldmVyLgo+Pj4+Pj4+Cj4+Pj4+
-Pj4gQW4gZXhhbXBsZSB1c2VjYXNlIHRoYXQgZGlmZmVycyBmcm9tIHRoaXMgd291bGQgYWN0dWFs
-bHkgYmUgdmlkZW8KPj4+Pj4+PiBwbGF5YmFjay4gVGhlIG1vbml0b3IncyByZWZyZXNoIHJhdGUg
-bGlrZWx5IGRvZXNuJ3QgYWxpZ24gd2l0aCB0aGUgdmlkZW8KPj4+Pj4+PiBjb250ZW50IHJhdGUu
-IEFuIEFQSSB0aGF0IGV4cG9zZXMgZGlyZWN0IGNvbnRyb2wgb3ZlciBWUlIgKGxpa2UgdGhlCj4+
-Pj4+Pj4gcmFuZ2UsIHJlZnJlc2ggZHVyYXRpb24sIHByZXNlbnRhdGlvbiB0aW1lc3RhbXApIGNv
-dWxkIGFsbG93IHRoZQo+Pj4+Pj4+IGFwcGxpY2F0aW9uIHRvIHNwZWNpZnkgdGhlIGNvbnRlbnQg
-cmF0ZSBkaXJlY3RseSB0byBkZWxpdmVyIGEgc21vb3RoZXIKPj4+Pj4+PiBwbGF5YmFjayBleHBl
-cmllbmNlLiBGb3IgZXhhbXBsZSwgaWYgeW91IGhhZCBhIDI0ZnBzIHZpZGVvIGFuZCB0aGUgVlJS
-Cj4+Pj4+Pj4gcmFuZ2Ugd2FzIDQwLTYwSHogeW91IGNvdWxkIHRhcmdldCA0OEh6IHZpYSBzb21l
-IEFQSSBoZXJlLgo+Pj4+Pj4gVGhlIHdheSB0aGF0IGhhcyBiZWVuIGRpc2N1c3NlZCB0byBiZSBp
-bXBsZW1lbnRlZCBpcyB0aGF0IERSTSBwYWdlIGZsaXBzCj4+Pj4+PiB3b3VsZCBjYXJyeSBhIHRh
-cmdldCB0aW1lc3RhbXAsIHdoaWNoIHRoZSBkcml2ZXIgd2lsbCB0aGVuIG1lZXQgYXMgZ29vZAo+
-Pj4+Pj4gYXMgaXQgY2FuLiBJdCBpcyBiZXR0ZXIgdG8gZGVmaW5lIGFuIGFic29sdXRlIHRhcmdl
-dCB0aW1lc3RhbXAgdGhhbiBhCj4+Pj4+PiBmcmVxdWVuY3ksIGJlY2F1c2UgYSB0aW1lc3RhbXAg
-Y2FuIGJlIHVzZWQgdG8gc3luY2hyb25pemUgd2l0aCBhdWRpbwo+Pj4+Pj4gYW5kIG1vcmUuIE1h
-cmlvIEtsZWluZXIgY2FuIHRlbGwgeW91IGFsbCBhYm91dCBzY2llbnRpZmljIHVzZSBjYXNlcwo+
-Pj4+Pj4gdGhhdCByZXF1aXJlIGFjY3VyYXRlIGRpc3BsYXkgdGltaW5nLCBub3QganVzdCBmcmVx
-dWVuY3kuCj4+Pj4+IFRvIHN1bW1hcml6ZSB3aGF0IGluZm9ybWF0aW9uIHNob3VsZCBiZSBwcm92
-aWRlZCBieSB0aGUgZHJpdmVyIHN0YWNrIHRvCj4+Pj4+IG1ha2UgYXBwbGljYXRpb25zIGhhcHB5
-Ogo+Pj4+Pgo+Pj4+PiAxLiBUaGUgbWluaW11bSB0aW1lIGEgZnJhbWUgY2FuIGJlIGRpc3BsYXll
-ZCwgaW4gb3RoZXIgd29yZHMgdGhlIG1heGltdW0KPj4+Pj4gZnJhbWUgcmF0ZS4KPj4+Pj4gMi4g
-VGhlIG1heGltdW0gdGltZSBhIGZyYW1lIGNhbiBiZSBkaXNwbGF5ZWQsIGluIG90aGVyIHdvcmRz
-IHRoZSBtaW5pbXVtCj4+Pj4+IGZyYW1lIHJhdGUuCj4+Pj4+IDMuIEhvdyBtdWNoIGNoYW5nZSBv
-ZiBmcmFtZSB0aW1pbmcgaXMgYWxsb3dlZCBiZXR3ZWVuIGZyYW1lcyB0byBhdm9pZAo+Pj4+PiBs
-dW1pbmVzY2VuY2UgZmxpY2tlcmluZy4KPj4+Pj4KPj4+Pj4gTnVtYmVyIDEgYW5kIDIgY2FuIGFs
-c28gYmUgdXNlZCB0byBzaWduYWwgdGhlIGF2YWlsYWJpbGl0eSBvZiBWUlIgdG8KPj4+Pj4gYXBw
-bGljYXRpb25zLCBlLmcuIGlmIHRoZXkgYXJlIGlkZW50aWNhbCB3ZSBkb24ndCBzdXBwb3J0IFZS
-UiBhdCBhbGwuCj4+Pj4gSGkgQ2hyaXN0aWFuLAo+Pj4+Cj4+Pj4gInRoZSBtYXhpbXVtIHRpbWUg
-YSBmcmFtZSBjYW4gYmUgZGlzcGxheWVkIiBpcyBwZXJoYXBzIG5vdCBhbgo+Pj4+IHVuYW1iaWd1
-b3VzIGRlZmluaXRpb24uIEEgZnJhbWUgY2FuIGJlIHNob3duIGluZGVmaW5pdGVseSBpbiBhbnkg
-Y2FzZS4KPj4+Cj4+PiBHb29kIHBvaW50LiBQbGVhc2UgYWxzbyBub3RlIHRoYXQgSSdtIG5vdCBh
-biBleHBlcnQgb24gdGhlIGRpc3BsYXkgc3R1ZmYKPj4+IGluIGdlbmVyYWwuCj4+Pgo+Pj4gTXkg
-YmFja2dyb3VuZCBjb21lcyBtb3JlIGZyb20gaW1wbGVtZW50aW5nIHRoZSBWRFBBVSBtZWRpYXBs
-YXllcgo+Pj4gaW50ZXJmYWNlIGluIG1lc2EuCj4+Pgo+Pj4gU28ganVzdCB0aHJvd2luZyBzb21l
-IGlkZWFzIGluIGhlcmUgZnJvbSB0aGUgcG9pbnQgb2YgdmlldyBvZiBhbgo+Pj4gdXNlcnNwYWNl
-IGRldmVsb3BlciB3aGljaCB3YW50cyB0byB3cml0ZSBhIG1lZGlhIHBsYXllciA6KQo+IAo+IEV4
-Y2VsbGVudCEKPiAKPj4+PiBUaGUgQ1JUQyB3aWxsIHNpbXBseSBzdGFydCBzY2FubmluZyBvdXQg
-dGhlIHNhbWUgZnJhbWUgYWdhaW4gaWYgdGhlcmUKPj4+PiBpcyBubyBuZXcgb25lLiBJIHVuZGVy
-c3RhbmQgd2hhdCB5b3Ugd2FudCB0byBzYXksIGJ1dCBwZXJoYXBzIHNvbWUKPj4+PiBkaWZmZXJl
-bnQgd29yZHMgd2lsbCBiZSBpbiBvcmRlci4KPj4+Pgo+Pj4+IEkgZG8gd29uZGVyIGlmIGFwcGxp
-Y2F0aW9ucyByZWFsbHkgd2FudCB0byBrbm93IHRoZSBtYXhpbXVtIGFjY2VwdGFibGUKPj4+PiBz
-bGV3IHJhdGUgaW4gdGltaW5ncy4uLiBtYXliZSB0aGF0IHNob3VsZCBiZSBsZWZ0IGZvciB0aGUg
-ZHJpdmVycyB0bwo+Pj4+IGFwcGx5LiBXaGF0IEknbSB0aGlua2luZyBpcyB0aGF0IHdlIGhhdmUg
-dGhlIHBhZ2UgZmxpcCB0aW1lc3RhbXAgd2l0aAo+Pj4+IHRoZSBwYWdlIGZsaXAgZXZlbnRzIHRv
-IHRlbGwgd2hlbiB0aGUgbmV3IEZCIGJlY2FtZSBhY3RpdmUuIFRoYXQKPj4+PiBpbmZvcm1hdGlv
-biBjb3VsZCBiZSBleHRlbmRlZCB3aXRoIGEgdGltZSByYW5nZSBvbiB3aGVuIHRoZSB2ZXJ5IG5l
-eHQKPj4+PiBmbGlwIGNvdWxkIHRha2UgcGxhY2UuIEFwcGxpY2F0aW9ucyBhcmUgYWxyZWFkeSBj
-b21wdXRpbmcgdGhhdAo+Pj4+IHByZWRpY3Rpb24gZnJvbSB0aGUgZmxpcCB0aW1lc3RhbXAgYW5k
-IGZpeGVkIHJlZnJlc2ggcmF0ZSwgYnV0IGl0IG1pZ2h0Cj4+Pj4gYmUgbmljZSB0byBnaXZlIHRo
-ZW0gdGhlIGRyaXZlcidzIG9waW5pb24gZXhwbGljaXRseS4gTWF5YmUgdGhlCj4+Pj4gdG9sZXJh
-YmxlIHNsZXcgcmF0ZSBpcyBub3QgYSBjb25zdGFudC4KPj4+Cj4+PiBXZWxsIGl0IGRlcGVuZHMu
-IEkgYWdyZWUgdGhhdCB0aGUga2VybmVsIHNob3VsZCBwcm9iYWJseSBlbmZvcmNlIHRoZQo+Pj4g
-c2xldyByYXRlIHRvIGF2b2lkIGZsaWNrZXJpbmcgZm9yIHRoZSB1c2VyLgo+IAo+IFRoYXQncyB3
-aGF0IEkgd2FzIGhvcGluZyBpZiB0aGUgbW9uaXRvciBoYXJkd2FyZSBkb2VzIG5vdCBkbyB0aGF0
-Cj4gYWxyZWFkeSwgYnV0IG5vdyBpdCBzb3VuZHMgbGlrZSBpdCdzIG5vdCBwb3NzaWJsZS4gQW5v
-dGhlciBmYWlsZWQKPiBhc3N1bXB0aW9uIGZyb20gbXkgc2lkZS4KPiAKPj4+IEJ1dCBpdCBtaWdo
-dCBiZSBiZW5lZmljaWFsIGZvciB0aGUgYXBwbGljYXRpb24gdG8ga25vdyB0aGluZ3MgbGlrZSB0
-aGlzLgo+IAo+IEFwcGxpY2F0aW9ucyBzaG91bGQga25vdyB3aGVuIHRoZXkgY291bGQgbGlrZWx5
-IGZsaXAsIG15IHF1ZXN0aW9uIGlzCj4gaG93IHRvIHRlbGwgdGhlbS4gSXMgdGhlIGFjY2VwdGFi
-bGUgc2xldyByYXRlIGEgY29uc3RhbnQgZm9yIGEgdmlkZW8KPiBtb2RlLCBvciBkb2VzIGl0IGRl
-cGVuZCBvbiB0aGUgcHJldmlvdXMgcmVmcmVzaCBpbnRlcnZhbC4KPiAKPj4+Cj4+PiBXaGF0IHRo
-ZSBhcHBsaWNhdGlvbiBkZWZpbml0ZWx5IG5lZWRzIHRvIGtub3cgaXMgd2hlbiBhIGZyYW1lIHdh
-cwo+Pj4gYWN0dWFsbHkgZGlzcGxheWVkLiBFLmcuIGFwcGxpY2F0aW9uIHNheXMgSSB3YW50IHRv
-IGRpc3BsYXkgdGhpcyBhdAo+Pj4gcG9pbnQgWCBhbmQgYXQgc29tZSBwb2ludCBsYXRlciB0aGUg
-a2VybmVsIHJldHVybnMgc2F5aW5nIHRoZSBmcmFtZSB3YXMKPj4+IGRpc3BsYXllZCBhdCBwb2lu
-dCBOIHdoZXJlIGluIHRoZSBpZGVhbCBjYXNlIE49WC4KPiAKPiBZb3UgYWxyZWFkeSBnZXQgdGhp
-cyB0aW1lc3RhbXAgd2l0aCB0aGUgRFJNIHBhZ2UgZmxpcCBldmVudHMuIFdlIGFsc28KPiBoYXZl
-IFdheWxhbmQgYW5kIFgxMSBleHRlbnNpb25zIHRvIGdldCBpdCB0byBhcHBzLgo+IAo+Pj4KPj4+
-IEFkZGl0aW9uYWwgdG8gdGhhdCBsZXQncyBwbGVhc2UgdXNlIDY0Yml0IHZhbHVlcyBhbmQgbmFu
-b3NlY29uZHMgZm9yCj4+PiBldmVyeSB2YWx1ZSB3ZSB1c2UgaGVyZSwgYW5kIE5PVCBmcHMsIGxp
-bmUgbnVtYmVycyBvciBzaW1pbGFyIDopCj4gCj4gU2Vjb25kZWQhCj4gCj4gSSdkIHJlYWxseSBm
-YXZvdXIgYWJzb2x1dGUgdGltZXN0YW1wcyBldmVuLgo+IAo+Pj4KPj4+IFJlZ2FyZHMsCj4+PiBD
-aHJpc3RpYW4uCj4+Cj4+IEZsaWNrZXJpbmcgd2lsbCByZWFsbHkgZGVwZW5kIG9uIHRoZSBwYW5l
-bCBpdHNlbGYuIEEgd2lkZXIgcmFuZ2VyIGlzCj4+IG1vcmUgbGlrZWx5IHRvIGV4aGliaXQgdGhl
-IGlzc3VlLCBidXQgZmFjdG9ycyBsaWtlIHRvcG9sb2d5LCBwaXhlbAo+PiBkZW5zaXR5IGFuZCBv
-dGhlciBkaXNwbGF5IHRlY2hub2xvZ3kgY2FuIGFmZmVjdCB0aGlzLgo+Pgo+PiBJdCBjYW4gYmUg
-aGFyZCBmb3IgYSBkcml2ZXIgdG8gZ3Vlc3MgYXQgYWxsIG9mIHRoaXMuIEZvciBtYW55IHBhbmVs
-cwo+PiBpdCdkIGJlIGRpZmZpY3VsdCB0byBub3RpY2UgdW5sZXNzIGl0J3MgY29uc2lzdGVudGx5
-IGp1bXBpbmcgYmV0d2VlbiB0aGUKPj4gbWluIGFuZCBtYXggcmFuZ2UuCj4gCj4gRG8geW91IG1l
-YW4gdGhhdCB0aGVyZSBpcyBubyB3YXkgdG8ga25vdyBhbmQgZ2V0IHRoYXQgaW5mb3JtYXRpb24g
-ZnJvbQo+IHRoZSBtb25pdG9yIGl0c2VsZj8gTm90aGluZyBpbiBFRElEIHRoYXQgY291bGQgZXZl
-biBiZSB1c2VkIGFzIGEKPiBkZWZhdWx0IGFuZCBxdWlyayB0aGUgbW9uaXRvcnMgdGhhdCBnb3Qg
-aXQgd3Jvbmc/CgpUaGUgdmFyaWFibGUgcmVmcmVzaCByYW5nZSBpcyBleHBvc2VkLCBidXQgdGhh
-dCdzIGFib3V0IGl0LiBUaGVyZSdzIApjZXJ0YWlubHkgbm8gc2ltcGxlIGFsZ29yaXRobSB5b3Ug
-Y2FuIGZlZWQgbW9uaXRvciBpbmZvcm1hdGlvbiBpbnRvIHRvIApkZXRlcm1pbmUgaG93IGJhZCB0
-aGUgbHVtaW5hbmNlIGZsaWNrZXJpbmcgaXMgZ29pbmcgdG8gbG9vayB0byB0aGUgdXNlci4KCj4g
-Cj4+IE9wZW5pbmcgdXAgYW4gQVBJIHRoYXQgcmVzdHJpY3RzIGhvdyBtdWNoIHRoZSBkcml2ZXIg
-Y2FuIGNoYW5nZSB0aGUKPj4gcmVmcmVzaCByYXRlIGluIGEgVlJSIHNjZW5hcmlvIHNlZW1zIGEg
-Yml0IGV4dHJlbWUsIGJ1dCB0aGVyZSdzIHByb2JhYmx5Cj4+IHNvbWUgYXBwbGljYXRpb25zIHRo
-YXQgY291bGQgYmVuZWZpdCBmcm9tIHRoaXMuIEknZCBjZXJ0YWlubHkgd2FudCB0bwo+PiBzZWUg
-dGhlIGFjdHVhbCB1c2UgY2FzZSBmaXJzdCwgdGhvdWdoLiBUaGlzIHN0aWxsIGZlZWxzIG1vcmUg
-bGlrZSBhCj4+IGRyaXZlciBwb2xpY3kgdG8gbWUuCj4gCj4gSSBkb24ndCB0aGluayBhbnlvbmUg
-c3VnZ2VzdGVkIHRoYXQsIGNlcnRhaW5seSBJIGRpZCBub3QuIFRoZSBkcml2ZXIKPiBzaG91bGQg
-Z2V0IHRoYXQgaW5mb3JtYXRpb24gZnJvbSB0aGUgbW9uaXRvciBoYXJkd2FyZSBzbyB0aGF0IGl0
-IGNhbgo+IGRyaXZlIGl0IGNvcnJlY3RseS4gSWYgdGhlIGhhcmR3YXJlIGRyaXZlciBkb2Vzbid0
-IGtub3csIHRoZW4gaG93IGNvdWxkCj4gdGhlIERSTSBjb3JlIG9yIHVzZXJzcGFjZSBrbm93IGFu
-eSBiZXR0ZXI/IE15IHdob2xlIHByZW1pc2Ugd2FzIHRoYXQgdGhlCj4gZHJpdmVyIGtub3dzLgoK
-VGhpcyB3YXMgcmVmZXJyaW5nIHRvIHRoZSAiSG93IG11Y2ggY2hhbmdlIG9mIGZyYW1lIHRpbWlu
-ZyBpcyBhbGxvd2VkIApiZXR3ZWVuIGZyYW1lcyB0byBhdm9pZCBsdW1pbmVzY2VuY2UgZmxpY2tl
-cmluZyIgY29tbWVudC4gSSBhc3N1bWVkIHRoYXQgCnRoaXMgaW1wbGllZCByZXN0cmljdGlvbiBv
-ZiB0aGUgbWluL21heCBWUlIgcmFuZ2VzIGZyb20gdGhlIGRyaXZlci4KCj4gCj4gU291bmRzIGxp
-a2UgVlJSIGhhcmR3YXJlIHdhcyBkZXNpZ25lZCBub3Qgb25seSBmb3IgYSBjb25zaXN0ZW50IHJl
-ZnJlc2gKPiByYXRlIGJ1dCBhbHNvIHRlbXBvcmFyeSBnbGl0Y2hlcyBiZWluZyBvay4KPiAKPiBJ
-IHN1cHBvc2UgdGhpcyB3aWxsIHJlc3VsdCBpbiBjaG9vc2luZyBhIHZlcnkgcGVzc2ltaXN0aWMg
-YWxsb3dlZCBzbGV3Cj4gcmF0ZSBpbiB0aGUgZHJpdmVyIHRoYXQgY292ZXJzIDk1JSBvZiBWUlIg
-bW9uaXRvcnMgYW5kIGhhbmRsZSB0aGUgcmVzdAo+IHdpdGggcXVpcmtzLiBUaGF0IGNvdWxkIHN0
-aWxsIHdvcmsuCj4gCj4+IEkgYWdyZWUgd2l0aCB0aGUgbmFub3NlY29uZCBiYXNlZCB0aW1lc3Rh
-bXAgQVBJIG1ha2luZyB0aGUgbW9zdCBsb2dpY2FsCj4+IHNlbnNlIGhlcmUgZnJvbSBhbiBBUEkg
-cGVyc3BlY3RpdmUuIFRoaXMgZG9lcyBvdmVybGFwIGEgbGl0dGxlIGJpdCB3aXRoCj4+IHRoZSB0
-YXJnZXQgdmJsYW5rIHByb3BlcnR5IHRoYXQncyBhbHJlYWR5IG9uIHRoZSBDUlRDLCBwZXJoYXBz
-Lgo+IAo+IEtNUyBVQUJJIGFscmVhZHkgaGFzIGEgdGFyZ2V0IHZibGFuayBwcm9wZXJ0eSBkZWZp
-bmVkLCBvciBhcmUgeW91Cj4gdGFsa2luZyBhYm91dCB5b3VyIENSVEMgaGFyZHdhcmU/Cj4gCj4g
-VGFyZ2V0IHZibGFuayBjb3VudGVyIHZhbHVlIG1ha2VzIGV2ZW4gbGVzcyBzZW5zZSB3aXRoIFZS
-UiB0aGFuIGl0IGV2ZXIKPiBkaWQgd2l0aCBhIGZpeGVkIHJlZnJlc2ggcmF0ZS4gOi0pID4KPj4g
-VGhlIHRhcmdldCB2YmxhbmsgY291bGQgYmUgZGV0ZXJtaW5lZCBiYXNlZCBvbiB0aGUgdGltZXN0
-YW1wLiBUaGUgZHJpdmVyCj4+IGlzIGxpa2VseSB0byBleGNlZWQgdGhlIHRhcmdldCBwcmVzZW50
-YXRpb24gdGltZXN0YW1wIGJ5IGEgZmFpciBiaXQgaWYKPj4gaXQgd2FzIHRvIGp1c3QgZG8gdGhp
-cywgaG93ZXZlci4gVlJSIGNvdWxkIGJlIHVzZWQgaW4gdGhpcyBjYXNlIHRvIGdldAo+PiBjbG9z
-ZXIgdG8gdGhlIHRpbWVzdGFtcC4gQSBuYWl2ZSBpbXBsZW1lbnRhdGlvbiBjb3VsZCBpdGVyYXRl
-IG92ZXIgZXZlcnkKPj4gcmF0ZSBpbiB0aGUgcmFuZ2UgYW5kIHRha2UgdGhlIG9uZSB3aXRoIHRo
-ZSBtaW5pbXVtIGRpZmZlcmVuY2UsIGZvcgo+PiBleGFtcGxlLgo+IAo+IENvdWxkIHlvdSBlbGFi
-b3JhdGUgb24gdGhhdCwgd2hvIGNvdWxkIGJlIGRvaW5nIHdoYXQgZXhhY3RseSB0byBhY2hpZXZl
-Cj4gd2hhdD8KPiAKPiAKPiBUaGFua3MsCj4gcHEKPiAKClRoZXNlIGNvbW1lbnRzIHdlcmUgbW9z
-dGx5IGRpc2N1c3NpbmcgYWJvdXQgaG93IGEga2VybmVsIGRyaXZlciBtaWdodCAKYXBwcm9hY2gg
-YSB0YXJnZXQgcHJlc2VudGF0aW9uIHRpbWVzdGFtcC4KCkEgdGFyZ2V0IHByZXNlbnRhdGlvbiB0
-aW1lc3RhbXAgaXNuJ3QgcmVsYXRlZCB0byBWUlIgZGlyZWN0bHkuIFdpdGhvdXQgClZSUiB0aGlz
-IGNvdWxkIHN0aWxsIGJlIGltcGxlbWVudGVkIGJ5IGEga2VybmVsIGRyaXZlciwgYnV0IGl0IHdv
-dWxkIAplZmZlY3RpdmVseSBiZSB0aGUgY2xpZW50IGFza2luZyB0aGUgZHJpdmVyIHRvIHBpY2sg
-dGhlIHJpZ2h0IHRhcmdldCAKdmJsYW5rLiBUaGVyZSdzIGFscmVhZHkgc29tZSBzdXBwb3J0IGZv
-ciB0aGlzIGluIERSTSB3aXRoIHRoZSAKdGFyZ2V0X3ZibGFuayBDUlRDIHByb3BlcnR5LCBidXQg
-aXQgaXNuJ3QgdGhlIGVhc2llc3QgdGhpbmcgdG8gdXNlLgoKVGhlIGRyaXZlciBjYW4gZG8gbXVj
-aCBiZXR0ZXIgYXQgZ2V0dGluZyBjbG9zZXIgdG8gdGhlIGNsaWVudCdzIHRhcmdldCAKcHJlc2Vu
-dGF0aW9uIHRpbWVzdGFtcCBieSBhZGp1c3RpbmcgdGhlIHJlZnJlc2ggcmF0ZSBhY2NvcmRpbmds
-eSBvbiBhIApWUlIgY2FwYWJsZSBtb25pdG9yLgoKTmljaG9sYXMgS2F6bGF1c2thcwpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1746836886==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18092365083B2653B547057AF7FD0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18092365083B2653B547057AF7FD0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+There are two sets of power management code in amdgpu, the older dpm code w=
+hich was ported from radeon, and the newer powerplay code which was rewritt=
+en to align closer with the power management code for other OSes and the hw=
+ teams.  The "powerplay" code has more features than the older dpm code, bu=
+t at a fundamental level, they are pretty much the same.  Both use the same=
+ SMU interfaces to support dynamic clock switching.  SI is a bit tricky bec=
+ause it uses and older version of the SMU and an older power management des=
+ign so it doesn't really match cleanly with the current APIs in the "powerp=
+lay" code.
+
+
+Alex
+
+
+________________________________
+From: sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Monday, October 15, 2018 8:45 AM
+To: Mauro Rossi
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Wentland, Harry; Deucher, Alexander; Mik=
+e Lothian
+Subject: Re: [RFC] drm/amd/display: add SI support to AMD DC
+
+On Mon, Oct 15, 2018 at 07:28:57AM +0200, Mauro Rossi wrote:
+> dpm for SI is available, while powerplay for SI is not, but
+> display/amdgpu_dm uses some powerplay calls, where get_static_clock
+> functions not available and the *ERROR* DM_PPLIB is due to missing handli=
+ng
+> in powerplay
+
+I though powerplay was just more power states for the dpm state machines to
+play with. I recall parsing ATOMBIOS pplay tables for records of (voltages/=
+clocks
+frequencies).
+
+Maybe the future is to trust the OS kernel and perform all "low speed" 3D a=
+sic
+functions there and keep only high speed 3D operations in the asic.
+
+--
+Sylvain
+
+--_000_BN6PR12MB18092365083B2653B547057AF7FD0BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFont&quot;, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D=
+"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">There are two sets of power manag=
+ement code in amdgpu, the older dpm code which was ported from radeon, and =
+the newer powerplay code which was rewritten to align closer with the power=
+ management code for other OSes and
+ the hw teams.&nbsp; The &quot;powerplay&quot; code has more features than =
+the older dpm code, but at a fundamental level, they are pretty much the sa=
+me.&nbsp; Both use the same SMU interfaces to support dynamic clock switchi=
+ng.&nbsp; SI is a bit tricky because it uses and older version
+ of the SMU and an older power management design so it doesn't really match=
+ cleanly with the current APIs in the &quot;powerplay&quot; code.&nbsp;
+<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> sylvain.bertrand@gm=
+ail.com &lt;sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, October 15, 2018 8:45 AM<br>
+<b>To:</b> Mauro Rossi<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Wentland, Harry; Deucher, Alexand=
+er; Mike Lothian<br>
+<b>Subject:</b> Re: [RFC] drm/amd/display: add SI support to AMD DC</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Mon, Oct 15, 2018 at 07:28:57AM &#43;0200, Maur=
+o Rossi wrote:<br>
+&gt; dpm for SI is available, while powerplay for SI is not, but<br>
+&gt; display/amdgpu_dm uses some powerplay calls, where get_static_clock<br=
+>
+&gt; functions not available and the *ERROR* DM_PPLIB is due to missing han=
+dling<br>
+&gt; in powerplay<br>
+<br>
+I though powerplay was just more power states for the dpm state machines to=
+<br>
+play with. I recall parsing ATOMBIOS pplay tables for records of (voltages/=
+clocks<br>
+frequencies).<br>
+<br>
+Maybe the future is to trust the OS kernel and perform all &quot;low speed&=
+quot; 3D asic<br>
+functions there and keep only high speed 3D operations in the asic.<br>
+<br>
+-- <br>
+Sylvain<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB18092365083B2653B547057AF7FD0BN6PR12MB1809namp_--
+
+--===============1746836886==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1746836886==--
