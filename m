@@ -1,251 +1,186 @@
-From: Pekka Paalanen <ppaalanen@gmail.com>
-Subject: Re: [PATCH v2 2/3] drm: Add variable refresh property to DRM CRTC
-Date: Mon, 15 Oct 2018 16:57:33 +0300
-Message-ID: <20181015165733.66c668ba@eldfell>
-References: <20180924181537.12092-1-nicholas.kazlauskas@amd.com>
- <20180924181537.12092-3-nicholas.kazlauskas@amd.com>
- <20180924183826.GX5565@intel.com>
- <4aa1583c-2be0-8cec-2857-6c3e489965b4@amd.com>
- <20180924202655.GA9144@intel.com>
- <bb8b3e03-94ce-3f0e-0947-ac0aaa4ff8a9@amd.com>
- <20181005111059.1cd71f95@eldfell>
- <fdc195dd-9650-8194-3a16-393f61bb2eee@amd.com>
- <20181010101448.400f4010@eldfell>
- <3bb5e05d-f7e6-8e44-cfae-202191d64245@amd.com>
- <20181012102310.32e0bac0@eldfell>
- <894d12d3-aa0b-c0f6-6347-7d13e58e651a@amd.com>
- <20181012122144.595de059@eldfell>
- <00b8b89f-2675-dda5-7307-8a75b20390d7@amd.com>
- <c73340aa-a437-dc44-92b6-b3f104d0556e@amd.com>
+From: "Sunnanyong (Nanyong Sun, Intelligent Computing Solution Development
+ Dep)" <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Subject: amd gpu hung with opensource driver
+Date: Mon, 15 Oct 2018 09:50:46 +0000
+Message-ID: <EB021AE3BDDC1742A899855D00BABEB0010BD220@dggemm526-mbx.china.huawei.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1168432051=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <c73340aa-a437-dc44-92b6-b3f104d0556e@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Cc: "Haehnle, Nicolai" <Nicolai.Haehnle@amd.com>, "michel@daenzer.net" <michel@daenzer.net>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Olsak, Marek" <Marek.Olsak@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1241836242=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "'amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org'" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1168432051==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/kihenBEltgluD.haH131/fL"; protocol="application/pgp-signature"
+--===============1241836242==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_"
 
---Sig_/kihenBEltgluD.haH131/fL
-Content-Type: text/plain; charset=US-ASCII
+--_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 12 Oct 2018 08:58:23 -0400
-"Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com> wrote:
+Hi All,
+    When use amd radeon pro wx5100 with opensource driver(mesa17.2.8 , kern=
+el v4.17, Ubuntu17.10), GPU hung happened:
+     [260362.362835] amdgpu 0005:01:00.0: GPU fault detected: 146 0x02c0082=
+c
+[260362.369366] amdgpu 0005:01:00.0:   VM_CONTEXT1_PROTECTION_FAULT_ADDR   =
+0x00100058
+[260362.377099] amdgpu 0005:01:00.0:   VM_CONTEXT1_PROTECTION_FAULT_STATUS =
+0x0400802C
+[260362.384781] amdgpu 0005:01:00.0: VM fault (0x2c, vmid 2, pasid 32792) a=
+t page 1048664, read from 'TC0' (0x54433000) (8)
+[260372.423402] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring gfx timeout=
+, last signaled seq=3D132702874, last emitted seq=3D132702877
+[260372.435267] [drm] IP block:gfx_v8_0 is hung!
+[260372.435276] [drm] GPU recovery disabled.
 
-> On 10/12/2018 07:20 AM, Koenig, Christian wrote:
-> > Am 12.10.2018 um 11:21 schrieb Pekka Paalanen: =20
-> >> On Fri, 12 Oct 2018 07:35:57 +0000
-> >> "Koenig, Christian" <Christian.Koenig@amd.com> wrote:
-> >> =20
-> >>> Am 12.10.2018 um 09:23 schrieb Pekka Paalanen: =20
-> >>>> On Wed, 10 Oct 2018 09:35:50 -0400
-> >>>> "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com> wrote:
-> >>>>     =20
-> >>>>> The patches I've put out target this use case mostly because of the
-> >>>>> benefit for a relatively simple interface. VRR can and has been use=
-d in
-> >>>>> more ways that this, however.
-> >>>>>
-> >>>>> An example usecase that differs from this would actually be video
-> >>>>> playback. The monitor's refresh rate likely doesn't align with the =
-video
-> >>>>> content rate. An API that exposes direct control over VRR (like the
-> >>>>> range, refresh duration, presentation timestamp) could allow the
-> >>>>> application to specify the content rate directly to deliver a smoot=
-her
-> >>>>> playback experience. For example, if you had a 24fps video and the =
-VRR
-> >>>>> range was 40-60Hz you could target 48Hz via some API here. =20
-> >>>> The way that has been discussed to be implemented is that DRM page f=
-lips
-> >>>> would carry a target timestamp, which the driver will then meet as g=
-ood
-> >>>> as it can. It is better to define an absolute target timestamp than a
-> >>>> frequency, because a timestamp can be used to synchronize with audio
-> >>>> and more. Mario Kleiner can tell you all about scientific use cases
-> >>>> that require accurate display timing, not just frequency. =20
-> >>> To summarize what information should be provided by the driver stack =
-to
-> >>> make applications happy:
-> >>>
-> >>> 1. The minimum time a frame can be displayed, in other words the maxi=
-mum
-> >>> frame rate.
-> >>> 2. The maximum time a frame can be displayed, in other words the mini=
-mum
-> >>> frame rate.
-> >>> 3. How much change of frame timing is allowed between frames to avoid
-> >>> luminescence flickering.
-> >>>
-> >>> Number 1 and 2 can also be used to signal the availability of VRR to
-> >>> applications, e.g. if they are identical we don't support VRR at all.=
- =20
-> >> Hi Christian,
-> >>
-> >> "the maximum time a frame can be displayed" is perhaps not an
-> >> unambiguous definition. A frame can be shown indefinitely in any case.=
- =20
-> >=20
-> > Good point. Please also note that I'm not an expert on the display stuff
-> > in general.
-> >=20
-> > My background comes more from implementing the VDPAU mediaplayer
-> > interface in mesa.
-> >=20
-> > So just throwing some ideas in here from the point of view of an
-> > userspace developer which wants to write a media player :)
+It is happened accidentally when play games.
+How to debug and solve this problem ?
 
-Excellent!
+Please help, Thanks : )
 
-> >> The CRTC will simply start scanning out the same frame again if there
-> >> is no new one. I understand what you want to say, but perhaps some
-> >> different words will be in order.
-> >>
-> >> I do wonder if applications really want to know the maximum acceptable
-> >> slew rate in timings... maybe that should be left for the drivers to
-> >> apply. What I'm thinking is that we have the page flip timestamp with
-> >> the page flip events to tell when the new FB became active. That
-> >> information could be extended with a time range on when the very next
-> >> flip could take place. Applications are already computing that
-> >> prediction from the flip timestamp and fixed refresh rate, but it might
-> >> be nice to give them the driver's opinion explicitly. Maybe the
-> >> tolerable slew rate is not a constant. =20
-> >=20
-> > Well it depends. I agree that the kernel should probably enforce the
-> > slew rate to avoid flickering for the user.
+--_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-That's what I was hoping if the monitor hardware does not do that
-already, but now it sounds like it's not possible. Another failed
-assumption from my side.
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 12 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	font-size:10.5pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle19
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri","sans-serif";
+	color:#1F497D;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
+rim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Hi All,=
+ <o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">&nbsp;&=
+nbsp;&nbsp;&nbsp;When use amd radeon pro wx5100 with opensource driver(mesa=
+17.2.8 , kernel v4.17, Ubuntu17.10), GPU hung happened:
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;[260362.362835] amdgpu 0005:01:00.0: GPU fault detec=
+ted: 146 0x02c0082c<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"text-indent:10.5pt"><span lang=3D"EN-US" st=
+yle=3D"color:#1F497D">[260362.369366] amdgpu 0005:01:00.0:&nbsp;&nbsp; VM_C=
+ONTEXT1_PROTECTION_FAULT_ADDR&nbsp;&nbsp; 0x00100058<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"text-indent:10.5pt"><span lang=3D"EN-US" st=
+yle=3D"color:#1F497D">[260362.377099] amdgpu 0005:01:00.0:&nbsp;&nbsp; VM_C=
+ONTEXT1_PROTECTION_FAULT_STATUS 0x0400802C<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
+gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260362.384781] amdgpu 000=
+5:01:00.0: VM fault (0x2c, vmid 2, pasid 32792) at page 1048664, read from =
+'TC0' (0x54433000) (8)<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
+gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260372.423402] [drm:amdgp=
+u_job_timedout [amdgpu]] *ERROR* ring gfx timeout, last signaled seq=3D1327=
+02874, last emitted seq=3D132702877<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
+gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260372.435267] [drm] IP b=
+lock:gfx_v8_0 is hung!<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-left:10.5pt;mso-para-margin-left:1.0=
+gd"><span lang=3D"EN-US" style=3D"color:#1F497D">[260372.435276] [drm] GPU =
+recovery disabled.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
+bsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">It is h=
+appened accidentally when play games.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">How to =
+debug and solve this problem ?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
+bsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Please =
+help, Thanks : )<o:p></o:p></span></p>
+</div>
+</body>
+</html>
 
-> > But it might be beneficial for the application to know things like this.
+--_000_EB021AE3BDDC1742A899855D00BABEB0010BD220dggemm526mbxchi_--
 
-Applications should know when they could likely flip, my question is
-how to tell them. Is the acceptable slew rate a constant for a video
-mode, or does it depend on the previous refresh interval.
-
-> >=20
-> > What the application definitely needs to know is when a frame was
-> > actually displayed. E.g. application says I want to display this at
-> > point X and at some point later the kernel returns saying the frame was
-> > displayed at point N where in the ideal case N=3DX.
-
-You already get this timestamp with the DRM page flip events. We also
-have Wayland and X11 extensions to get it to apps.
-
-> >=20
-> > Additional to that let's please use 64bit values and nanoseconds for
-> > every value we use here, and NOT fps, line numbers or similar :)
-
-Seconded!
-
-I'd really favour absolute timestamps even.
-
-> >=20
-> > Regards,
-> > Christian. =20
->=20
-> Flickering will really depend on the panel itself. A wider ranger is
-> more likely to exhibit the issue, but factors like topology, pixel
-> density and other display technology can affect this.
->=20
-> It can be hard for a driver to guess at all of this. For many panels
-> it'd be difficult to notice unless it's consistently jumping between the
-> min and max range.
-
-Do you mean that there is no way to know and get that information from
-the monitor itself? Nothing in EDID that could even be used as a
-default and quirk the monitors that got it wrong?
-
-> Opening up an API that restricts how much the driver can change the
-> refresh rate in a VRR scenario seems a bit extreme, but there's probably
-> some applications that could benefit from this. I'd certainly want to
-> see the actual use case first, though. This still feels more like a
-> driver policy to me.
-
-I don't think anyone suggested that, certainly I did not. The driver
-should get that information from the monitor hardware so that it can
-drive it correctly. If the hardware driver doesn't know, then how could
-the DRM core or userspace know any better? My whole premise was that the
-driver knows.
-
-Sounds like VRR hardware was designed not only for a consistent refresh
-rate but also temporary glitches being ok.
-
-I suppose this will result in choosing a very pessimistic allowed slew
-rate in the driver that covers 95% of VRR monitors and handle the rest
-with quirks. That could still work.
-
-> I agree with the nanosecond based timestamp API making the most logical
-> sense here from an API perspective. This does overlap a little bit with
-> the target vblank property that's already on the CRTC, perhaps.
-
-KMS UABI already has a target vblank property defined, or are you
-talking about your CRTC hardware?
-
-Target vblank counter value makes even less sense with VRR than it ever
-did with a fixed refresh rate. :-)
-
-> The target vblank could be determined based on the timestamp. The driver
-> is likely to exceed the target presentation timestamp by a fair bit if
-> it was to just do this, however. VRR could be used in this case to get
-> closer to the timestamp. A naive implementation could iterate over every
-> rate in the range and take the one with the minimum difference, for
-> example.
-
-Could you elaborate on that, who could be doing what exactly to achieve
-what?
-
-
-Thanks,
-pq
-
---Sig_/kihenBEltgluD.haH131/fL
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlvEnM0ACgkQI1/ltBGq
-qqclzw//RoIaSAkyNBylzqUZ29ecQ1Kmz78jtIHC+R/v4SCzSm8oeQQiF9oYkb9P
-4mBVddsctVYTn3KR3FpYfvcpz4BPcpNAxCgMzDrWCWhAvcmlCeUVApKVXNGxeTsI
-Qry0xeu7POA7nOXy+9dOZKglTOToXPC7bDxg0K7VEGdjpj8jKaTO8BT20NKJNOOh
-ZWrlM2KDs7e5a5ngJ6QPv+6ATB4d2OvufK2AB7Uzeh3hTtSIfrntij0IWSmpOGUM
-IGGp1lUWRTQTPX+8Wjr7CLr+qeStDiuPNsA+8Wly4MGzE2rQtA1jtHUaQQypyesg
-X2PaV3hGUh+Wo758XGNH20NlPjT0ZWvVABeb7NWltBVnSfdNDDxU+hrzeYCns1rq
-dXivDqf9U5lUFoRF/+Y5WSUZC7NBt2Z+Jd4CkwDIvy76+R5gg6lO9UUgMWGPjAni
-0xDTThm1TzeZvSU8ZJKbt9eHPpGJ+xEcFi6uF5ggr1bWALA8AU743PXKvKoZeEQj
-CBhgkiu70E+RHA7NWR1TODO9bdcEbWT53G+Fjj0rfwrR8K1Qun1qdrq757vFC11L
-TK78pw33/9eEFfqidWqsFyawrY1QxYnm+QWVKBJLnvPcN64cgvO3cg2W6L09yHv9
-1X/OtDPkzT8OG8wcRZmU6O1zsVqqUsP80h/H8m8eC6c0t3CpNi4=
-=0ZxA
------END PGP SIGNATURE-----
-
---Sig_/kihenBEltgluD.haH131/fL--
-
---===============1168432051==
+--===============1241836242==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1168432051==--
+--===============1241836242==--
