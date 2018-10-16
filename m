@@ -1,17 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm: Get ref on CRTC commit object when waiting for
- flip_done
-Date: Tue, 16 Oct 2018 11:48:57 -0400
-Message-ID: <CADnq5_NkjNgeRtwKMTQwfJ6vRKMpu9KoqZ4CE=oZRN5ymo05RQ@mail.gmail.com>
-References: <1539380010-9221-1-git-send-email-sunpeng.li@amd.com>
- <1539611200-6184-1-git-send-email-sunpeng.li@amd.com>
- <20181016123317.GV31561@phenom.ffwll.local>
- <4726089c-d2b8-4f3e-d0be-b7b5c92cbb6b@amd.com>
+From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if they were
+ disabled by user
+Date: Tue, 16 Oct 2018 17:12:18 +0000
+Message-ID: <BLUPR12MB0452631CCD03B605244486CFF2FE0@BLUPR12MB0452.namprd12.prod.outlook.com>
+References: <1539668026-4854-1-git-send-email-Rex.Zhu@amd.com>
+ <BN6PR12MB1809AE48F3B1FD9CCB1DEFA0F7FE0@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0277129123=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4726089c-d2b8-4f3e-d0be-b7b5c92cbb6b-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809AE48F3B1FD9CCB1DEFA0F7FE0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,143 +20,419 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Leo (Sunpeng) Li" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
-Cc: Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBPY3QgMTYsIDIwMTggYXQgMTE6MDAgQU0gTGksIFN1biBwZW5nIChMZW8pIDxTdW5w
-ZW5nLkxpQGFtZC5jb20+IHdyb3RlOgo+Cj4KPgo+IE9uIDIwMTgtMTAtMTYgMDg6MzMgQU0sIERh
-bmllbCBWZXR0ZXIgd3JvdGU6Cj4gPiBPbiBNb24sIE9jdCAxNSwgMjAxOCBhdCAwOTo0Njo0MEFN
-IC0wNDAwLCBzdW5wZW5nLmxpQGFtZC5jb20gd3JvdGU6Cj4gPj4gRnJvbTogTGVvIExpIDxzdW5w
-ZW5nLmxpQGFtZC5jb20+Cj4gPj4KPiA+PiBUaGlzIGZpeGVzIGEgZ2VuZXJhbCBwcm90ZWN0aW9u
-IGZhdWx0LCBjYXVzZWQgYnkgYWNjZXNzaW5nIHRoZSBjb250ZW50cwo+ID4+IG9mIGEgZmxpcF9k
-b25lIGNvbXBsZXRpb24gb2JqZWN0IHRoYXQgaGFzIGFscmVhZHkgYmVlbiBmcmVlZC4gSXQgb2Nj
-dXJzCj4gPj4gZHVlIHRvIHRoZSBwcmVlbXB0aW9uIG9mIGEgbm9uLWJsb2NraW5nIGNvbW1pdCB3
-b3JrZXIgdGhyZWFkIFcgYnkKPiA+PiBhbm90aGVyIGNvbW1pdCB0aHJlYWQgWC4gWCBjb250aW51
-ZXMgdG8gY2xlYXIgaXRzIGF0b21pYyBzdGF0ZSBhdCB0aGUKPiA+PiBlbmQsIGRlc3Ryb3lpbmcg
-dGhlIENSVEMgY29tbWl0IG9iamVjdCB0aGF0IFcgc3RpbGwgbmVlZHMuIFN3aXRjaGluZwo+ID4+
-IGJhY2sgdG8gVyBhbmQgYWNjZXNzaW5nIHRoZSBjb21taXQgb2JqZWN0cyB0aGVuIGxlYWRzIHRv
-IGJhZCByZXN1bHRzLgo+ID4+Cj4gPj4gV29ya2VyIFcgYmVjb21lcyBwcmVlbXB0YWJsZSB3aGVu
-IHdhaXRpbmcgZm9yIGZsaXBfZG9uZSB0byBjb21wbGV0ZS4gQXQKPiA+PiB0aGlzIHBvaW50LCBh
-IGZyZXF1ZW50bHkgb2NjdXJyaW5nIGNvbW1pdCB0aHJlYWQgWCBjYW4gdGFrZSBvdmVyLiBIZXJl
-J3MKPiA+PiBhbiBleGFtcGxlIHdoZXJlIFcgaXMgYSB3b3JrZXIgdGhyZWFkIHRoYXQgZmxpcHMg
-b24gYm90aCBDUlRDcywgYW5kIFgKPiA+PiBkb2VzIGEgbGVnYWN5IGN1cnNvciB1cGRhdGUgb24g
-Ym90aCBDUlRDczoKPiA+Pgo+ID4+ICAgICAgICAgIC4uLgo+ID4+ICAgICAgIDEuIFcgZG9lcyBm
-bGlwIHdvcmsKPiA+PiAgICAgICAyLiBXIHJ1bnMgY29tbWl0X2h3X2RvbmUoKQo+ID4+ICAgICAg
-IDMuIFcgd2FpdHMgZm9yIGZsaXBfZG9uZSBvbiBDUlRDIDEKPiA+PiAgICAgICA0LiA+IGZsaXBf
-ZG9uZSBmb3IgQ1JUQyAxIGNvbXBsZXRlcwo+ID4+ICAgICAgIDUuIFcgZmluaXNoZXMgd2FpdGlu
-ZyBmb3IgQ1JUQyAxCj4gPj4gICAgICAgNi4gVyB3YWl0cyBmb3IgZmxpcF9kb25lIG9uIENSVEMg
-Mgo+ID4+Cj4gPj4gICAgICAgNy4gPiBQcmVlbXB0ZWQgYnkgWAo+ID4+ICAgICAgIDguID4gZmxp
-cF9kb25lIGZvciBDUlRDIDIgY29tcGxldGVzCj4gPj4gICAgICAgOS4gWCBhdG9taWNfY2hlY2s6
-IGh3X2RvbmUgYW5kIGZsaXBfZG9uZSBhcmUgY29tcGxldGUgb24gYWxsIENSVENzCj4gPj4gICAg
-ICAxMC4gWCB1cGRhdGVzIGN1cnNvciBvbiBib3RoIENSVENzCj4gPj4gICAgICAxMS4gWCBkZXN0
-cm95cyBhdG9taWMgc3RhdGUKPiA+PiAgICAgIDEyLiBYIGRvbmUKPiA+Pgo+ID4+ICAgICAgMTMu
-ID4gU3dpdGNoIGJhY2sgdG8gVwo+ID4+ICAgICAgMTQuIFcgd2FpdHMgZm9yIGZsaXBfZG9uZSBv
-biBDUlRDIDIKPiA+PiAgICAgIDE1LiBXIHJhaXNlcyBnZW5lcmFsIHByb3RlY3Rpb24gZmF1bHQK
-PiA+Pgo+ID4+IFRoZSBlcnJvciBsb29rcyBsaWtlIHNvOgo+ID4+Cj4gPj4gICAgICBnZW5lcmFs
-IHByb3RlY3Rpb24gZmF1bHQ6IDAwMDAgWyMxXSBQUkVFTVBUIFNNUCBQVEkKPiA+PiAgICAgICoq
-c25pcCoqCj4gPj4gICAgICBDYWxsIFRyYWNlOgo+ID4+ICAgICAgIGxvY2tfYWNxdWlyZSsweGEy
-LzB4MWIwCj4gPj4gICAgICAgX3Jhd19zcGluX2xvY2tfaXJxKzB4MzkvMHg3MAo+ID4+ICAgICAg
-IHdhaXRfZm9yX2NvbXBsZXRpb25fdGltZW91dCsweDMxLzB4MTMwCj4gPj4gICAgICAgZHJtX2F0
-b21pY19oZWxwZXJfd2FpdF9mb3JfZmxpcF9kb25lKzB4NjQvMHg5MCBbZHJtX2ttc19oZWxwZXJd
-Cj4gPj4gICAgICAgYW1kZ3B1X2RtX2F0b21pY19jb21taXRfdGFpbCsweGNhZS8weGRkMCBbYW1k
-Z3B1XQo+ID4+ICAgICAgIGNvbW1pdF90YWlsKzB4M2QvMHg3MCBbZHJtX2ttc19oZWxwZXJdCj4g
-Pj4gICAgICAgcHJvY2Vzc19vbmVfd29yaysweDIxMi8weDY1MAo+ID4+ICAgICAgIHdvcmtlcl90
-aHJlYWQrMHg0OS8weDQyMAo+ID4+ICAgICAgIGt0aHJlYWQrMHhmYi8weDEzMAo+ID4+ICAgICAg
-IHJldF9mcm9tX2ZvcmsrMHgzYS8weDUwCj4gPj4gICAgICBNb2R1bGVzIGxpbmtlZCBpbjogeDg2
-X3BrZ190ZW1wX3RoZXJtYWwgYW1kZ3B1KE8pIGNoYXNoKE8pCj4gPj4gICAgICBncHVfc2NoZWQo
-TykgZHJtX2ttc19oZWxwZXIoTykgc3lzY29weWFyZWEgc3lzZmlsbHJlY3Qgc3lzaW1nYmx0Cj4g
-Pj4gICAgICBmYl9zeXNfZm9wcyB0dG0oTykgZHJtKE8pCj4gPj4KPiA+PiBOb3RlIHRoYXQgaTkx
-NSBoYXMgdGhpcyBpc3N1ZSBtYXNrZWQsIHNpbmNlIGh3X2RvbmUgaXMgc2lnbmFsZWQgYWZ0ZXIK
-PiA+PiB3YWl0aW5nIGZvciBmbGlwX2RvbmUuIERvaW5nIHNvIHdpbGwgYmxvY2sgdGhlIGN1cnNv
-ciB1cGRhdGUgZnJvbQo+ID4+IGhhcHBlbmluZyB1bnRpbCBod19kb25lIGlzIHNpZ25hbGVkLCBw
-cmV2ZW50aW5nIHRoZSBjdXJzb3IgY29tbWl0IGZyb20KPiA+PiBkZXN0cm95aW5nIHRoZSBzdGF0
-ZS4KPiA+Pgo+ID4+IHYyOiBUaGUgcmVmZXJlbmNlIG9uIHRoZSBjb21taXQgb2JqZWN0IG5lZWRz
-IHRvIGJlIG9idGFpbmVkIGJlZm9yZQo+ID4+ICAgICAgaHdfZG9uZSgpIGlzIHNpZ25hbGVkLCBz
-aW5jZSB0aGF0J3MgdGhlIHBvaW50IHdoZXJlIGFub3RoZXIgY29tbWl0Cj4gPj4gICAgICBpcyBh
-bGxvd2VkIHRvIG1vZGlmeSB0aGUgc3RhdGUuIEFzc3VtaW5nIHRoYXQgdGhlCj4gPj4gICAgICBu
-ZXdfY3J0Y19zdGF0ZS0+Y29tbWl0IG9iamVjdCBzdGlsbCBleGlzdHMgd2l0aGluIGZsaXBfZG9u
-ZSgpIGlzCj4gPj4gICAgICBpbmNvcnJlY3QuCj4gPj4KPiA+PiAgICAgIEZpeCBieSBnZXR0aW5n
-IGEgcmVmZXJlbmNlIGluIHNldHVwX2NvbW1pdCgpLCBhbmQgcmVsZWFzaW5nIGl0Cj4gPj4gICAg
-ICBkdXJpbmcgZGVmYXVsdF9jbGVhcigpLgo+ID4+Cj4gPj4gU2lnbmVkLW9mZi1ieTogTGVvIExp
-IDxzdW5wZW5nLmxpQGFtZC5jb20+Cj4gPj4gLS0tCj4gPj4KPiA+PiBTZW5kaW5nIGFnYWluLCB0
-aGlzIHRpbWUgdG8gdGhlIGNvcnJlY3QgbWFpbGluZyBsaXN0IDopCj4gPj4KPiA+PiBMZW8KPiA+
-Cj4gPiBSZXZpZXdlZC1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4K
-PiA+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gPgo+ID4gSSB0aGluayBpdCdkIGJlIHJl
-YWxseSBnb29kIGlmIHlvdSBjb3VsZCBnZXQgaW50ZWwtZ2Z4LWNpIHRvIHRlc3QgdGhpcwo+ID4g
-cGF0Y2guIFNpbXBseSBzdWJtaXQgaXQgdG8gaW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy4gSSdsbCBsZWF2ZQo+ID4gYXBwbHlpbmcgdG8gb25lIG9mIHRoZSBhbWQgZHJtLW1pc2MgY29t
-bWl0dGVycywgb25jZSBpdCdzIHBhc3NlZCBDSS4KCkxlbywgZG8geW91IG9yIEhhcnJ5IGhhdmUg
-ZHJtLW1pc2MgY29tbWl0IGFjY2VzcyB5ZXQ/ICBJZiBub3QsIHlvdSBzaG91bGQuCgpBbGV4Cgo+
-ID4KPiA+IENoZWVycywgRGFuaWVsCj4KPiBUaGFua3MgZm9yIHRoZSByYiEKPgo+IE9uIHRoZSB0
-b3BpYyBvZiBDSSwgaXMgaXQgcG9zc2libGUgdG8gd3JpdGUgYSB0ZXN0IChtYXliZSBvbmUgYWxy
-ZWFkeQo+IGV4aXN0cykgZm9yIHRoaXMgaXNzdWU/IEkndmUgYXR0ZW1wdGVkIHRvIGRvIG9uZSBo
-ZXJlOgo+Cj4gaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzI1NjMxOS8K
-Pgo+IFRoZSBwcm9ibGVtIGlzIGZpbmRpbmcgYSBzdXJlZmlyZSB3YXkgdG8gdHJpZ2dlciB0aGUg
-c2VxdWVuY2UsIEknbSBub3QKPiBzdXJlIGhvdyB0aGF0IGNhbiBiZSBkb25lLiBJZiB5b3UgaGF2
-ZSBhbnkgaWRlYXMsIEkgd291bGQgbG92ZSB0byBoZWFyIHRoZW0uCj4KPiBMZW8KPgo+ID4KPiA+
-Pgo+ID4+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYyAgICAgICAgfCAgNSArKysrKwo+
-ID4+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfaGVscGVyLmMgfCAxMiArKysrKysrKy0t
-LS0KPiA+PiAgIGluY2x1ZGUvZHJtL2RybV9hdG9taWMuaCAgICAgICAgICAgIHwgMTEgKysrKysr
-KysrKysKPiA+PiAgIDMgZmlsZXMgY2hhbmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlv
-bnMoLSkKPiA+Pgo+ID4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pYy5j
-IGIvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYwo+ID4+IGluZGV4IDNlYjA2MWUuLjEyYWU5
-MTcgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWMuYwo+ID4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljLmMKPiA+PiBAQCAtMTc0LDYgKzE3NCwxMSBA
-QCB2b2lkIGRybV9hdG9taWNfc3RhdGVfZGVmYXVsdF9jbGVhcihzdHJ1Y3QgZHJtX2F0b21pY19z
-dGF0ZSAqc3RhdGUpCj4gPj4gICAgICAgICAgICAgIHN0YXRlLT5jcnRjc1tpXS5zdGF0ZSA9IE5V
-TEw7Cj4gPj4gICAgICAgICAgICAgIHN0YXRlLT5jcnRjc1tpXS5vbGRfc3RhdGUgPSBOVUxMOwo+
-ID4+ICAgICAgICAgICAgICBzdGF0ZS0+Y3J0Y3NbaV0ubmV3X3N0YXRlID0gTlVMTDsKPiA+PiAr
-Cj4gPj4gKyAgICAgICAgICAgIGlmIChzdGF0ZS0+Y3J0Y3NbaV0uY29tbWl0KSB7Cj4gPj4gKyAg
-ICAgICAgICAgICAgICAgICAgZHJtX2NydGNfY29tbWl0X3B1dChzdGF0ZS0+Y3J0Y3NbaV0uY29t
-bWl0KTsKPiA+PiArICAgICAgICAgICAgICAgICAgICBzdGF0ZS0+Y3J0Y3NbaV0uY29tbWl0ID0g
-TlVMTDsKPiA+PiArICAgICAgICAgICAgfQo+ID4+ICAgICAgfQo+ID4+Cj4gPj4gICAgICBmb3Ig
-KGkgPSAwOyBpIDwgY29uZmlnLT5udW1fdG90YWxfcGxhbmU7IGkrKykgewo+ID4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19oZWxwZXIuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9kcm1fYXRvbWljX2hlbHBlci5jCj4gPj4gaW5kZXggODBiZTc0ZC4uMWJiNGMzMSAxMDA2NDQK
-PiA+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19oZWxwZXIuYwo+ID4+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX2hlbHBlci5jCj4gPj4gQEAgLTE0MDgsMTUgKzE0
-MDgsMTYgQEAgRVhQT1JUX1NZTUJPTChkcm1fYXRvbWljX2hlbHBlcl93YWl0X2Zvcl92Ymxhbmtz
-KTsKPiA+PiAgIHZvaWQgZHJtX2F0b21pY19oZWxwZXJfd2FpdF9mb3JfZmxpcF9kb25lKHN0cnVj
-dCBkcm1fZGV2aWNlICpkZXYsCj4gPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKm9sZF9zdGF0ZSkKPiA+PiAgIHsKPiA+PiAt
-ICAgIHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqbmV3X2NydGNfc3RhdGU7Cj4gPj4gICAgICBzdHJ1
-Y3QgZHJtX2NydGMgKmNydGM7Cj4gPj4gICAgICBpbnQgaTsKPiA+Pgo+ID4+IC0gICAgZm9yX2Vh
-Y2hfbmV3X2NydGNfaW5fc3RhdGUob2xkX3N0YXRlLCBjcnRjLCBuZXdfY3J0Y19zdGF0ZSwgaSkg
-ewo+ID4+IC0gICAgICAgICAgICBzdHJ1Y3QgZHJtX2NydGNfY29tbWl0ICpjb21taXQgPSBuZXdf
-Y3J0Y19zdGF0ZS0+Y29tbWl0Owo+ID4+ICsgICAgZm9yIChpID0gMDsgaSA8IGRldi0+bW9kZV9j
-b25maWcubnVtX2NydGM7IGkrKykgewo+ID4+ICsgICAgICAgICAgICBzdHJ1Y3QgZHJtX2NydGNf
-Y29tbWl0ICpjb21taXQgPSBvbGRfc3RhdGUtPmNydGNzW2ldLmNvbW1pdDsKPiA+PiAgICAgICAg
-ICAgICAgaW50IHJldDsKPiA+Pgo+ID4+IC0gICAgICAgICAgICBpZiAoIWNvbW1pdCkKPiA+PiAr
-ICAgICAgICAgICAgY3J0YyA9IG9sZF9zdGF0ZS0+Y3J0Y3NbaV0ucHRyOwo+ID4+ICsKPiA+PiAr
-ICAgICAgICAgICAgaWYgKCFjcnRjIHx8ICFjb21taXQpCj4gPj4gICAgICAgICAgICAgICAgICAg
-ICAgY29udGludWU7Cj4gPj4KPiA+PiAgICAgICAgICAgICAgcmV0ID0gd2FpdF9mb3JfY29tcGxl
-dGlvbl90aW1lb3V0KCZjb21taXQtPmZsaXBfZG9uZSwgMTAgKiBIWik7Cj4gPj4gQEAgLTE5MzQs
-NiArMTkzNSw5IEBAIGludCBkcm1fYXRvbWljX2hlbHBlcl9zZXR1cF9jb21taXQoc3RydWN0IGRy
-bV9hdG9taWNfc3RhdGUgKnN0YXRlLAo+ID4+ICAgICAgICAgICAgICBkcm1fY3J0Y19jb21taXRf
-Z2V0KGNvbW1pdCk7Cj4gPj4KPiA+PiAgICAgICAgICAgICAgY29tbWl0LT5hYm9ydF9jb21wbGV0
-aW9uID0gdHJ1ZTsKPiA+PiArCj4gPj4gKyAgICAgICAgICAgIHN0YXRlLT5jcnRjc1tpXS5jb21t
-aXQgPSBjb21taXQ7Cj4gPj4gKyAgICAgICAgICAgIGRybV9jcnRjX2NvbW1pdF9nZXQoY29tbWl0
-KTsKPiA+PiAgICAgIH0KPiA+Pgo+ID4+ICAgICAgZm9yX2VhY2hfb2xkbmV3X2Nvbm5lY3Rvcl9p
-bl9zdGF0ZShzdGF0ZSwgY29ubiwgb2xkX2Nvbm5fc3RhdGUsIG5ld19jb25uX3N0YXRlLCBpKSB7
-Cj4gPj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9hdG9taWMuaCBiL2luY2x1ZGUvZHJt
-L2RybV9hdG9taWMuaAo+ID4+IGluZGV4IGRhOWQ5NWEuLjFlNzEzMTUgMTAwNjQ0Cj4gPj4gLS0t
-IGEvaW5jbHVkZS9kcm0vZHJtX2F0b21pYy5oCj4gPj4gKysrIGIvaW5jbHVkZS9kcm0vZHJtX2F0
-b21pYy5oCj4gPj4gQEAgLTE1Myw2ICsxNTMsMTcgQEAgc3RydWN0IF9fZHJtX3BsYW5lc19zdGF0
-ZSB7Cj4gPj4gICBzdHJ1Y3QgX19kcm1fY3J0Y3Nfc3RhdGUgewo+ID4+ICAgICAgc3RydWN0IGRy
-bV9jcnRjICpwdHI7Cj4gPj4gICAgICBzdHJ1Y3QgZHJtX2NydGNfc3RhdGUgKnN0YXRlLCAqb2xk
-X3N0YXRlLCAqbmV3X3N0YXRlOwo+ID4+ICsKPiA+PiArICAgIC8qKgo+ID4+ICsgICAgICogQGNv
-bW1pdDoKPiA+PiArICAgICAqCj4gPj4gKyAgICAgKiBBIHJlZmVyZW5jZSB0byB0aGUgQ1JUQyBj
-b21taXQgb2JqZWN0IHRoYXQgaXMga2VwdCBmb3IgdXNlIGJ5Cj4gPj4gKyAgICAgKiBkcm1fYXRv
-bWljX2hlbHBlcl93YWl0X2Zvcl9mbGlwX2RvbmUoKSBhZnRlcgo+ID4+ICsgICAgICogZHJtX2F0
-b21pY19oZWxwZXJfY29tbWl0X2h3X2RvbmUoKSBpcyBjYWxsZWQuIFRoaXMgZW5zdXJlcyB0aGF0
-IGEKPiA+PiArICAgICAqIGNvbmN1cnJlbnQgY29tbWl0IHdvbid0IGZyZWUgYSBjb21taXQgb2Jq
-ZWN0IHRoYXQgaXMgc3RpbGwgaW4gdXNlLgo+ID4+ICsgICAgICovCj4gPj4gKyAgICBzdHJ1Y3Qg
-ZHJtX2NydGNfY29tbWl0ICpjb21taXQ7Cj4gPj4gKwo+ID4+ICAgICAgczMyIF9fdXNlciAqb3V0
-X2ZlbmNlX3B0cjsKPiA+PiAgICAgIHU2NCBsYXN0X3ZibGFua19jb3VudDsKPiA+PiAgIH07Cj4g
-Pj4gLS0KPiA+PiAyLjcuNAo+ID4+Cj4gPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0277129123==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_"
+
+--_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+This patch fails on the very first resume as below:
+[   53.632732] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   54.653212] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   55.673692] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   56.694203] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   57.714683] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   58.735164] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   59.755643] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   60.776124] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   61.796608] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   62.817092] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, trying to reset the ECPU!!!
+[   62.837108] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
+ing, giving up!!!
+[   62.837112] Power gating vce_v3_0 failed
+[   62.837118] [drm:amdgpu_device_ip_suspend_phase1] *ERROR* set_powergatin=
+g_state(gate) of IP block <vce_v3_0> failed -110
+
+I believe there is some more work left to be done with it.
+
+Regards,
+Shirish S
+
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Deucher,=
+ Alexander
+Sent: Tuesday, October 16, 2018 9:44 AM
+To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if they wer=
+e disabled by user
+
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deuch=
+er-5C7GfCeVMHo@public.gmane.org>>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Z=
+hu-5C7GfCeVMHo@public.gmane.org>>
+Sent: Tuesday, October 16, 2018 1:33:46 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; De=
+ucher, Alexander
+Cc: Zhu, Rex
+Subject: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if they were di=
+sabled by user
+
+If user disable uvd/vce/vcn/acp blocks via module
+parameter ip_block_mask,
+driver power off thoser blocks to save power.
+
+Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 1e4dd09..3ffee08 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1774,6 +1774,24 @@ static int amdgpu_device_set_pg_state(struct amdgpu_=
+device *adev, enum amd_power
+
+         for (j =3D 0; j < adev->num_ip_blocks; j++) {
+                 i =3D state =3D=3D AMD_PG_STATE_GATE ? j : adev->num_ip_bl=
+ocks - j - 1;
++
++               /* try to power off VCE/UVD/VCN/ACP if they were disabled b=
+y user */
++               if ((adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_T=
+YPE_UVD ||
++                   adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_TY=
+PE_VCE ||
++                   adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_TY=
+PE_VCN ||
++                   adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_TY=
+PE_ACP) &&
++                   adev->ip_blocks[i].version->funcs->set_powergating_stat=
+e) {
++                       if (!adev->ip_blocks[i].status.valid) {
++                               r =3D adev->ip_blocks[i].version->funcs->se=
+t_powergating_state((void *)adev,
++                                                                          =
+             state);
++                               if (r) {
++                                       DRM_ERROR("set_powergating_state(ga=
+te) of IP block <%s> failed %d\n",
++                                         adev->ip_blocks[i].version->funcs=
+->name, r);
++                                       return r;
++                               }
++                       }
++               }
++
+                 if (!adev->ip_blocks[i].status.late_initialized)
+                         continue;
+                 /* skip CG for VCE/UVD, it's handled specially */
+@@ -1791,6 +1809,7 @@ static int amdgpu_device_set_pg_state(struct amdgpu_d=
+evice *adev, enum amd_power
+                         }
+                 }
+         }
++
+         return 0;
+ }
+
+--
+1.9.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">This patch fails on the very first resume as below:<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 53.632732] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp; &nbsp;54.653212] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 55.673692] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 56.694203] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 57.714683] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 58.735164] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 59.755643] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 60.776124] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 61.796608] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 62.817092] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, trying to reset the ECPU!!!<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 62.837108] [drm:vce_v3_0_set_powergati=
+ng_state] *ERROR* VCE not responding, giving up!!!<o:p></o:p></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 62.837112] Power gating vce_v3_0 faile=
+d<o:p></o:p></p>
+<p class=3D"MsoNormal">[&nbsp;&nbsp; 62.837118] [drm:amdgpu_device_ip_suspe=
+nd_phase1] *ERROR* set_powergating_state(gate) of IP block &lt;vce_v3_0&gt;=
+ failed -110<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I believe there is some more work left to be done wi=
+th it.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Shirish S<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org&gt;
+<b>On Behalf Of </b>Deucher, Alexander<br>
+<b>Sent:</b> Tuesday, October 16, 2018 9:44 AM<br>
+<b>To:</b> Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<=
+br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if t=
+hey were disabled by user<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt;color:black">Reviewed-by: Alex Deucher &=
+lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</=
+a>&gt;<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"3" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
+.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
+f Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br=
+>
+<b>Sent:</b> Tuesday, October 16, 2018 1:33:46 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a>; Deucher, Alexander<br>
+<b>Cc:</b> Zhu, Rex<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if they =
+were disabled by user</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">If user disable uvd/vce/vcn/acp blocks via module<br=
+>
+parameter ip_block_mask,<br>
+driver power off thoser blocks to save power.<br>
+<br>
+Signed-off-by: Rex Zhu &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu@amd.c=
+om</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 19 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<=
+br>
+&nbsp;1 file changed, 19 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 1e4dd09..3ffee08 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -1774,6 &#43;1774,24 @@ static int amdgpu_device_set_pg_state(struct amd=
+gpu_device *adev, enum amd_power<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (j =3D 0; j &lt; adev-=
+&gt;num_ip_blocks; j&#43;&#43;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; i =3D state =3D=3D AMD_PG_STATE_GATE ? j : adev-&gt;n=
+um_ip_blocks - j - 1;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /* try to power off VCE/UVD/VCN/ACP if they were disabled by=
+ user */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if ((adev-&gt;ip_blocks[i].version-&gt;type =3D=3D AMD_IP_BL=
+OCK_TYPE_UVD ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version-&gt;ty=
+pe =3D=3D AMD_IP_BLOCK_TYPE_VCE ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version-&gt;ty=
+pe =3D=3D AMD_IP_BLOCK_TYPE_VCN ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version-&gt;ty=
+pe =3D=3D AMD_IP_BLOCK_TYPE_ACP) &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version-&gt;fu=
+ncs-&gt;set_powergating_state) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&g=
+t;ip_blocks[i].status.valid) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D adev-&gt;ip_blocks[i].version-&gt=
+;funcs-&gt;set_powergating_state((void *)adev,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sta=
+te);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; DRM_ERROR(&quot;set_powergating_state(gate) of IP block &lt;%s&gt;=
+ failed %d\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].version-&gt;funcs-&gt;name, r);<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;ip_blocks[i].status.late_initialized)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* skip CG for VCE/UVD, it's handled specially */<br>
+@@ -1791,6 &#43;1809,7 @@ static int amdgpu_device_set_pg_state(struct amdg=
+pu_device *adev, enum amd_power<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+1.9.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_--
+
+--===============0277129123==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0277129123==--
