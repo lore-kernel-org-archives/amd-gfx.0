@@ -1,14 +1,15 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if they were
  disabled by user
-Date: Tue, 16 Oct 2018 17:12:18 +0000
-Message-ID: <BLUPR12MB0452631CCD03B605244486CFF2FE0@BLUPR12MB0452.namprd12.prod.outlook.com>
+Date: Tue, 16 Oct 2018 17:14:32 +0000
+Message-ID: <BYAPR12MB27751B1475028EAE09DD4E84FBFE0@BYAPR12MB2775.namprd12.prod.outlook.com>
 References: <1539668026-4854-1-git-send-email-Rex.Zhu@amd.com>
  <BN6PR12MB1809AE48F3B1FD9CCB1DEFA0F7FE0@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <BLUPR12MB0452631CCD03B605244486CFF2FE0@BLUPR12MB0452.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0277129123=="
+Content-Type: multipart/mixed; boundary="===============0451564442=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1809AE48F3B1FD9CCB1DEFA0F7FE0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BLUPR12MB0452631CCD03B605244486CFF2FE0-7LeqcoF/hwohIaQXubWUmgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,16 +21,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0277129123==
+--===============0451564442==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_"
+	boundary="_000_BYAPR12MB27751B1475028EAE09DD4E84FBFE0BYAPR12MB2775namp_"
 
---_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_
+--_000_BYAPR12MB27751B1475028EAE09DD4E84FBFE0BYAPR12MB2775namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Do you test based on drm-next branch?
+
+Best Regards
+Rex
+
+From: S, Shirish
+Sent: Wednesday, October 17, 2018 1:12 AM
+To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Zhu, Rex <Rex.Zhu@amd.c=
+om>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if they wer=
+e disabled by user
 
 This patch fails on the very first resume as below:
 [   53.632732] [drm:vce_v3_0_set_powergating_state] *ERROR* VCE not respond=
@@ -63,10 +76,11 @@ I believe there is some more work left to be done with it.
 Regards,
 Shirish S
 
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Deucher,=
- Alexander
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Deucher, Alexander
 Sent: Tuesday, October 16, 2018 9:44 AM
-To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if they wer=
 e disabled by user
 
@@ -153,7 +167,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_
+--_000_BYAPR12MB27751B1475028EAE09DD4E84FBFE0BYAPR12MB2775namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -175,8 +189,14 @@ w\:* {behavior:url(#default#VML);}
 	{font-family:"Cambria Math";
 	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
 	{font-family:Calibri;
 	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 /* Style Definitions */
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
@@ -197,7 +217,10 @@ p.msonormal0, li.msonormal0, div.msonormal0
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle21
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;}
 .MsoChpDefault
@@ -217,6 +240,25 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal">Do you test based on drm-next branch?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Rex<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> S, Shirish <br>
+<b>Sent:</b> Wednesday, October 17, 2018 1:12 AM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Zhu, Rex &=
+lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if t=
+hey were disabled by user<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">This patch fails on the very first resume as below:<=
 o:p></o:p></p>
 <p class=3D"MsoNormal">[&nbsp;&nbsp; 53.632732] [drm:vce_v3_0_set_powergati=
@@ -266,12 +308,13 @@ th it.<o:p></o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org&gt;
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
 <b>On Behalf Of </b>Deucher, Alexander<br>
 <b>Sent:</b> Tuesday, October 16, 2018 9:44 AM<br>
-<b>To:</b> Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<=
-br>
+<b>To:</b> Zhu, Rex &lt;<a href=3D"mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org">Rex.Zhu-5C7GfCeVMHo@public.gmane.org<=
+/a>&gt;; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: Poweroff uvd/vce/vcn/acp block if t=
 hey were disabled by user<o:p></o:p></p>
 </div>
@@ -420,12 +463,13 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_BLUPR12MB0452631CCD03B605244486CFF2FE0BLUPR12MB0452namp_--
+--_000_BYAPR12MB27751B1475028EAE09DD4E84FBFE0BYAPR12MB2775namp_--
 
---===============0277129123==
+--===============0451564442==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -435,4 +479,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0277129123==--
+--===============0451564442==--
