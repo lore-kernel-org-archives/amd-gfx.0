@@ -1,13 +1,13 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/powerplay: error out when force clock level under
- auto dpm mode
-Date: Wed, 17 Oct 2018 14:25:53 +0000
-Message-ID: <BN6PR12MB1809EBA4593E4ABED4909FCEF7FF0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181017084116.30005-1-evan.quan@amd.com>
+ auto dpm mode V2
+Date: Wed, 17 Oct 2018 14:40:07 +0000
+Message-ID: <BN6PR12MB1809FFD19FE1F1145084ED6FF7FF0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181017092154.31202-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1520249616=="
+Content-Type: multipart/mixed; boundary="===============0709628128=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181017084116.30005-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181017092154.31202-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,40 +22,41 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
---===============1520249616==
+--===============0709628128==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809EBA4593E4ABED4909FCEF7FF0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB1809FFD19FE1F1145084ED6FF7FF0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB1809EBA4593E4ABED4909FCEF7FF0BN6PR12MB1809namp_
+--_000_BN6PR12MB1809FFD19FE1F1145084ED6FF7FF0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
-n <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, October 17, 2018 4:41:16 AM
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, October 17, 2018 5:21:54 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander; Quan, Evan; Zhu, Rex
+Cc: Zhu, Rex; Deucher, Alexander; Quan, Evan
 Subject: [PATCH] drm/amd/powerplay: error out when force clock level under =
-auto dpm mode
+auto dpm mode V2
 
 Forcing clock level is supported under manual dpm mode only. Error out
 when trying to set under manual mode. Instead of doing nothing and
 reporting success.
 
+V2: update for mclk/pcie clock level settings also
+
 Change-Id: I2af32be5ebd4323a98cb48da88b22177a68fbdb0
 Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  5 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        | 15 ++++++++++++---
  drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 11 +++++++----
- 2 files changed, 11 insertions(+), 5 deletions(-)
+ 2 files changed, 19 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
 mdgpu/amdgpu_pm.c
-index 94055a485e01..c2efd79d9a39 100644
+index 94055a485e01..59cc678de8c1 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
 @@ -704,7 +704,10 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct device *d=
@@ -65,6 +66,32 @@ ev,
          if (adev->powerplay.pp_funcs->force_clock_level)
 -               amdgpu_dpm_force_clock_level(adev, PP_SCLK, mask);
 +               ret =3D amdgpu_dpm_force_clock_level(adev, PP_SCLK, mask);
++
++       if (ret)
++               return -EINVAL;
+
+         return count;
+ }
+@@ -737,7 +740,10 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct device *d=
+ev,
+                 return ret;
+
+         if (adev->powerplay.pp_funcs->force_clock_level)
+-               amdgpu_dpm_force_clock_level(adev, PP_MCLK, mask);
++               ret =3D amdgpu_dpm_force_clock_level(adev, PP_MCLK, mask);
++
++       if (ret)
++               return -EINVAL;
+
+         return count;
+ }
+@@ -770,7 +776,10 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct device *d=
+ev,
+                 return ret;
+
+         if (adev->powerplay.pp_funcs->force_clock_level)
+-               amdgpu_dpm_force_clock_level(adev, PP_PCIE, mask);
++               ret =3D amdgpu_dpm_force_clock_level(adev, PP_PCIE, mask);
 +
 +       if (ret)
 +               return -EINVAL;
@@ -100,12 +127,8 @@ ask);
 --
 2.19.1
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB1809EBA4593E4ABED4909FCEF7FF0BN6PR12MB1809namp_
+--_000_BN6PR12MB1809FFD19FE1F1145084ED6FF7FF0BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -125,14 +148,13 @@ xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 </div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
-<b>Sent:</b> Wednesday, October 17, 2018 4:41:16 AM<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Evan Quan &lt;evan.qu=
+an-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, October 17, 2018 5:21:54 AM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander; Quan, Evan; Zhu, Rex<br>
+<b>Cc:</b> Zhu, Rex; Deucher, Alexander; Quan, Evan<br>
 <b>Subject:</b> [PATCH] drm/amd/powerplay: error out when force clock level=
- under auto dpm mode</font>
+ under auto dpm mode V2</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
@@ -142,18 +164,21 @@ mode only. Error out<br>
 when trying to set under manual mode. Instead of doing nothing and<br>
 reporting success.<br>
 <br>
+V2: update for mclk/pcie clock level settings also<br>
+<br>
 Change-Id: I2af32be5ebd4323a98cb48da88b22177a68fbdb0<br>
 Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; |&nbsp; 5 &#43;&#43;&#43;&#43;-<br>
+nbsp;&nbsp; | 15 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;---<br>
 &nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 11 &#43;&#43;&#43;&#4=
 3;&#43;&#43;&#43;----<br>
-&nbsp;2 files changed, 11 insertions(&#43;), 5 deletions(-)<br>
+&nbsp;2 files changed, 19 insertions(&#43;), 7 deletions(-)<br>
 <br>
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
 mdgpu/amdgpu_pm.c<br>
-index 94055a485e01..c2efd79d9a39 100644<br>
+index 94055a485e01..59cc678de8c1 100644<br>
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
 &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
 @@ -704,7 &#43;704,10 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct devic=
@@ -167,6 +192,44 @@ funcs-&gt;force_clock_level)<br>
 bsp;&nbsp; amdgpu_dpm_force_clock_level(adev, PP_SCLK, mask);<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; ret =3D amdgpu_dpm_force_clock_level(adev, PP_SCLK, mask);<b=
+r>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+&nbsp;}<br>
+@@ -737,7 &#43;740,10 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct devic=
+e *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_=
+funcs-&gt;force_clock_level)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_dpm_force_clock_level(adev, PP_MCLK, mask);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D amdgpu_dpm_force_clock_level(adev, PP_MCLK, mask);<b=
+r>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+&nbsp;}<br>
+@@ -770,7 &#43;776,10 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct devic=
+e *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_=
+funcs-&gt;force_clock_level)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_dpm_force_clock_level(adev, PP_PCIE, mask);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D amdgpu_dpm_force_clock_level(adev, PP_PCIE, mask);<b=
 r>
 &#43;<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
@@ -217,19 +280,14 @@ t;smu_lock);<br>
 -- <br>
 2.19.1<br>
 <br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
 </body>
 </html>
 
---_000_BN6PR12MB1809EBA4593E4ABED4909FCEF7FF0BN6PR12MB1809namp_--
+--_000_BN6PR12MB1809FFD19FE1F1145084ED6FF7FF0BN6PR12MB1809namp_--
 
---===============1520249616==
+--===============0709628128==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -239,4 +297,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1520249616==--
+--===============0709628128==--
