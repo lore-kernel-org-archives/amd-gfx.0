@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: regression on RV1
-Date: Wed, 17 Oct 2018 16:15:21 +0000
-Message-ID: <BN6PR12MB180952142479156B7C607F3FF7FF0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <fa0c1c22-5dce-e97f-3e17-59f08bd96f4f@amd.com>
+From: Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/4] drm/scheduler: make sure timer is restarted
+Date: Thu, 18 Oct 2018 01:28:51 +0900
+Message-ID: <CAFd4ddxo_4djVZ_ktZ9+WVCYMK7YNgTPBE=FXZXOJnbkGSJrrg@mail.gmail.com>
+References: <20181016115505.1331-1-christian.koenig@amd.com>
+ <c035aeaf-93e2-3a7d-3b9e-0a2c7fc0942d@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1742860779=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <fa0c1c22-5dce-e97f-3e17-59f08bd96f4f-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <c035aeaf-93e2-3a7d-3b9e-0a2c7fc0942d-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,116 +19,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1742860779==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180952142479156B7C607F3FF7FF0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180952142479156B7C607F3FF7FF0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-IIRC, APUs do not have a paging queue.  Only dGPUs have it.
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of StDenis,=
- Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, October 17, 2018 11:54:33 AM
-To: Koenig, Christian; amd-gfx mailing list
-Cc: Huang, Ray
-Subject: regression on RV1
-
-This commit:
-
-commit 6cbd074831a423e0d30b386fc056d6c2c3559147 (HEAD, refs/bisect/bad)
-Author: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Date:   Mon Oct 8 14:38:22 2018 +0200
-
-     drm/amdgpu: activate paging queue on SDMA v4
-
-     Implement all the necessary stuff to get those extra rings working.
-
-     Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-     Reviewed-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-
-Breaks my RV1 init.
-
-Tom
-
---_000_BN6PR12MB180952142479156B7C607F3FF7FF0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">IIRC, APUs do not have a paging q=
-ueue.&nbsp; Only dGPUs have it.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of StDenis, Tom &lt;Tom.StDenis@=
-amd.com&gt;<br>
-<b>Sent:</b> Wednesday, October 17, 2018 11:54:33 AM<br>
-<b>To:</b> Koenig, Christian; amd-gfx mailing list<br>
-<b>Cc:</b> Huang, Ray<br>
-<b>Subject:</b> regression on RV1</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This commit:<br>
-<br>
-commit 6cbd074831a423e0d30b386fc056d6c2c3559147 (HEAD, refs/bisect/bad)<br>
-Author: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Date:&nbsp;&nbsp; Mon Oct 8 14:38:22 2018 &#43;0200<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; drm/amdgpu: activate paging queue on SDMA v4<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Implement all the necessary stuff to get those ext=
-ra rings working.<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Signed-off-by: Christian K=F6nig &lt;christian.koe=
-nig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&nbsp;&nbsp;&nbsp;&nbsp; Reviewed-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<b=
-r>
-<br>
-Breaks my RV1 init.<br>
-<br>
-Tom<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180952142479156B7C607F3FF7FF0BN6PR12MB1809namp_--
-
---===============1742860779==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1742860779==--
+UGF0Y2ggMSBhbmQgMiBhcmUgUmV2aWV3ZWQtYnk6IE5heWFuIERlc2htdWtoIDxuYXlhbjI2ZGVz
+aG11a2hAZ21haWwuY29tPgpPbiBXZWQsIE9jdCAxNywgMjAxOCBhdCAxMjozMCBBTSBHcm9kem92
+c2t5LCBBbmRyZXkKPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+IHdyb3RlOgo+Cj4gUGF0Y2hl
+cyAxLTMgUmV2aWV3ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBh
+bWQuY29tPgo+Cj4gUGF0Y2ggNCBBY2tlZC1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5n
+cm9kem92c2t5QGFtZC5jb20+Cj4KPiBBbmRyZXkKPgo+Cj4gT24gMTAvMTYvMjAxOCAwNzo1NSBB
+TSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiA+IE1ha2Ugc3VyZSB3ZSBhbHdheXMgcmVzdGFy
+dCB0aGUgdGltZXIgYWZ0ZXIgYSB0aW1lb3V0IGFuZCByZW1vdmUgdGhlCj4gPiBkZXZpY2Ugc3Bl
+Y2lmaWMgd29ya2Fyb3VuZHMuCj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5p
+ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYyB8IDIgLS0KPiA+ICAgZHJpdmVycy9ncHUvZHJtL3Nj
+aGVkdWxlci9zY2hlZF9tYWluLmMgIHwgMSArCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS92M2QvdjNk
+X3NjaGVkLmMgICAgICAgICB8IDMgLS0tCj4gPiAgIDMgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRp
+b24oKyksIDUgZGVsZXRpb25zKC0pCj4gPgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYyBiL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2
+aXZfc2NoZWQuYwo+ID4gaW5kZXggZTdjM2VkNmM5YTJlLi5mOGM1ZjFlNmM1ZTIgMTAwNjQ0Cj4g
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2X3NjaGVkLmMKPiA+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYwo+ID4gQEAgLTEwNSw4ICsx
+MDUsNiBAQCBzdGF0aWMgdm9pZCBldG5hdml2X3NjaGVkX3RpbWVkb3V0X2pvYihzdHJ1Y3QgZHJt
+X3NjaGVkX2pvYiAqc2NoZWRfam9iKQo+ID4gICAgICAgY2hhbmdlID0gZG1hX2FkZHIgLSBncHUt
+PmhhbmdjaGVja19kbWFfYWRkcjsKPiA+ICAgICAgIGlmIChjaGFuZ2UgPCAwIHx8IGNoYW5nZSA+
+IDE2KSB7Cj4gPiAgICAgICAgICAgICAgIGdwdS0+aGFuZ2NoZWNrX2RtYV9hZGRyID0gZG1hX2Fk
+ZHI7Cj4gPiAtICAgICAgICAgICAgIHNjaGVkdWxlX2RlbGF5ZWRfd29yaygmc2NoZWRfam9iLT5z
+Y2hlZC0+d29ya190ZHIsCj4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBz
+Y2hlZF9qb2ItPnNjaGVkLT50aW1lb3V0KTsKPiA+ICAgICAgICAgICAgICAgcmV0dXJuOwo+ID4g
+ICAgICAgfQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3Nj
+aGVkX21haW4uYyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gPiBp
+bmRleCA0NGZlNTg3YWFlZjkuLjczNDQ5YzY1M2I2ZSAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+c2NoZWR1bGVyL3NjaGVkX21haW4uYwo+ID4gQEAgLTI4Myw2ICsyODMsNyBAQCBzdGF0aWMgdm9p
+ZCBkcm1fc2NoZWRfam9iX3RpbWVkb3V0KHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKPiA+ICAg
+YWxyZWFkeV9zaWduYWxlZDoKPiA+ICAgICAgICAgICAgICAgOwo+ID4gICAgICAgfQo+ID4gKyAg
+ICAgZHJtX3NjaGVkX3N0YXJ0X3RpbWVvdXQoc2NoZWQpOwo+ID4gICAgICAgc3Bpbl91bmxvY2so
+JnNjaGVkLT5qb2JfbGlzdF9sb2NrKTsKPiA+ICAgfQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vdjNkL3YzZF9zY2hlZC5jIGIvZHJpdmVycy9ncHUvZHJtL3YzZC92M2Rfc2No
+ZWQuYwo+ID4gaW5kZXggOTI0M2RlYTZlNmFkLi44MGI2NDFmZmMzYmUgMTAwNjQ0Cj4gPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vdjNkL3YzZF9zY2hlZC5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vdjNkL3YzZF9zY2hlZC5jCj4gPiBAQCAtMTY3LDkgKzE2Nyw2IEBAIHYzZF9qb2JfdGltZWRv
+dXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNjaGVkX2pvYikKPiA+ICAgICAgIGlmIChqb2ItPnRp
+bWVkb3V0X2N0Y2EgIT0gY3RjYSB8fCBqb2ItPnRpbWVkb3V0X2N0cmEgIT0gY3RyYSkgewo+ID4g
+ICAgICAgICAgICAgICBqb2ItPnRpbWVkb3V0X2N0Y2EgPSBjdGNhOwo+ID4gICAgICAgICAgICAg
+ICBqb2ItPnRpbWVkb3V0X2N0cmEgPSBjdHJhOwo+ID4gLQo+ID4gLSAgICAgICAgICAgICBzY2hl
+ZHVsZV9kZWxheWVkX3dvcmsoJmpvYi0+YmFzZS5zY2hlZC0+d29ya190ZHIsCj4gPiAtICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBqb2ItPmJhc2Uuc2NoZWQtPnRpbWVvdXQpOwo+
+ID4gICAgICAgICAgICAgICByZXR1cm47Cj4gPiAgICAgICB9Cj4gPgo+Cj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlz
+dAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
