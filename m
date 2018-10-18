@@ -1,14 +1,16 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH 2/3] drm/amdgpu: increase the size of HQD EOP buffers
-Date: Thu, 18 Oct 2018 15:46:49 -0400
-Message-ID: <CAAxE2A7Jv_FJ5_YPpn7O1g2LhMkOiSPh9nvuih3FRfdXfAvp=A@mail.gmail.com>
+Date: Thu, 18 Oct 2018 15:57:50 -0400
+Message-ID: <CADnq5_N1DvJfEaCh_xJzjZF=uSnHDBq7k9prT2Smw+hkves74w@mail.gmail.com>
 References: <20181005210144.13999-1-maraeo@gmail.com>
  <20181005210144.13999-2-maraeo@gmail.com>
  <CADnq5_M-uz+ABbZpm1-SFS26f1Q8T-w00FwXiMxj9HeAx8PhQw@mail.gmail.com>
+ <CAAxE2A7Jv_FJ5_YPpn7O1g2LhMkOiSPh9nvuih3FRfdXfAvp=A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1429499190=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_M-uz+ABbZpm1-SFS26f1Q8T-w00FwXiMxj9HeAx8PhQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAAxE2A7Jv_FJ5_YPpn7O1g2LhMkOiSPh9nvuih3FRfdXfAvp=A@mail.gmail.com>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,69 +21,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Marek Olsak <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1429499190==
-Content-Type: multipart/alternative; boundary="0000000000006614c40578860eac"
-
---0000000000006614c40578860eac
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Oct 9, 2018 at 12:17 PM Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> On Fri, Oct 5, 2018 at 5:01 PM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> w=
-rote:
-> >
-> > From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-> >
-> > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-
-> >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 +-
->
-> Any reason not to bump the size for gfx7 as well?
->
-
-No, I just don't know if gfx7 supports the same size.
-
-Marek
-
---0000000000006614c40578860eac
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Tue, Oct 9,=
- 2018 at 12:17 PM Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"=
->alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_q=
-uote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1e=
-x">On Fri, Oct 5, 2018 at 5:01 PM Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mail=
-to:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-&gt;<br>
-&gt; From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"=
- target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt;<br>
-&gt; Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak=
-@amd.com" target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 2 +-<br>
-&gt;=C2=A0 drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 +-<br>
-<br>
-Any reason not to bump the size for gfx7 as well?<br></blockquote><div><br>=
-</div><div>No, I just don&#39;t know if gfx7 supports the same size.</div><=
-div><br></div><div>Marek</div><br></div></div>
-
---0000000000006614c40578860eac--
-
---===============1429499190==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1429499190==--
+T24gVGh1LCBPY3QgMTgsIDIwMTggYXQgMzo0NyBQTSBNYXJlayBPbMWhw6FrIDxtYXJhZW9AZ21h
+aWwuY29tPiB3cm90ZToKPgo+IE9uIFR1ZSwgT2N0IDksIDIwMTggYXQgMTI6MTcgUE0gQWxleCBE
+ZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+IHdyb3RlOgo+Pgo+PiBPbiBGcmksIE9jdCA1
+LCAyMDE4IGF0IDU6MDEgUE0gTWFyZWsgT2zFocOhayA8bWFyYWVvQGdtYWlsLmNvbT4gd3JvdGU6
+Cj4+ID4KPj4gPiBGcm9tOiBNYXJlayBPbMWhw6FrIDxtYXJlay5vbHNha0BhbWQuY29tPgo+PiA+
+Cj4+ID4gU2lnbmVkLW9mZi1ieTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNvbT4K
+Pj4gPiAtLS0KPj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDIg
+Ky0KPj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDIgKy0KPj4K
+Pj4gQW55IHJlYXNvbiBub3QgdG8gYnVtcCB0aGUgc2l6ZSBmb3IgZ2Z4NyBhcyB3ZWxsPwo+Cj4K
+PiBObywgSSBqdXN0IGRvbid0IGtub3cgaWYgZ2Z4NyBzdXBwb3J0cyB0aGUgc2FtZSBzaXplLgoK
+TG9va3MgbGlrZSBpdCBkb2VzIG5vdC4gIGdmeDcgaXMgMl4xMSwgZ2Z4OCBpcyAyXjEyLiAgU2Vy
+aWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQu
+Y29tPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
