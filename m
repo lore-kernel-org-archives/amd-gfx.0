@@ -1,90 +1,45 @@
-From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
-Subject: [PATCH 3/3] drm/radeon: Replace TTM initialization/release with
- ttm_global
-Date: Thu, 18 Oct 2018 18:27:52 +0200
-Message-ID: <20181018162752.2241-4-tzimmermann@suse.de>
-References: <20181018162752.2241-1-tzimmermann@suse.de>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181018162752.2241-1-tzimmermann-l3A5Bk7waGM@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org, ray.huang-5C7GfCeVMHo@public.gmane.org, Jerry.Zhang-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org
-Cc: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Wenwen Wang <wang6495@umn.edu>
+Subject: [PATCH] drm/radeon: fix a missing-check bug
+Date: Thu, 18 Oct 2018 11:42:13 -0500
+Message-ID: <1539880933-6887-1-git-send-email-wang6495@umn.edu>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Wenwen Wang <wang6495@umn.edu>
+Cc: Kangjie Lu <kjlu@umn.edu>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VW5pZmllZCBpbml0aWFsaXphdGlvbiBhbmQgcmVsZWFzZSBvZiB0aGUgZ2xvYmFsIFRUTSBzdGF0
-ZSBpcyBwcm92aWRlZApieSBzdHJ1Y3QgdHRtX2dsb2JhbCBhbmQgaXRzIGludGVyZmFjZXMuCgpT
-aWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4KLS0t
-CiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbi5oICAgICB8ICA0ICstLQogZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMgfCA0MCArKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQogMiBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDM3IGRlbGV0aW9ucygtKQoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uLmggYi9kcml2ZXJzL2dw
-dS9kcm0vcmFkZW9uL3JhZGVvbi5oCmluZGV4IDFhNmY2ZWRiMzUxNS4uNTU0YzA0MjFiNzc5IDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbi5oCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uLmgKQEAgLTczLDYgKzczLDcgQEAKICNpbmNsdWRlIDxkcm0v
-dHRtL3R0bV9wbGFjZW1lbnQuaD4KICNpbmNsdWRlIDxkcm0vdHRtL3R0bV9tb2R1bGUuaD4KICNp
-bmNsdWRlIDxkcm0vdHRtL3R0bV9leGVjYnVmX3V0aWwuaD4KKyNpbmNsdWRlIDxkcm0vdHRtL3R0
-bV9nbG9iYWwuaD4KIAogI2luY2x1ZGUgPGRybS9kcm1fZ2VtLmg+CiAKQEAgLTQ0OCw4ICs0NDks
-NyBAQCBzdHJ1Y3QgcmFkZW9uX3N1cmZhY2VfcmVnIHsKICAqIFRUTS4KICAqLwogc3RydWN0IHJh
-ZGVvbl9tbWFuIHsKLQlzdHJ1Y3QgdHRtX2JvX2dsb2JhbF9yZWYgICAgICAgIGJvX2dsb2JhbF9y
-ZWY7Ci0Jc3RydWN0IGRybV9nbG9iYWxfcmVmZXJlbmNlCW1lbV9nbG9iYWxfcmVmOworCXN0cnVj
-dCB0dG1fZ2xvYmFsCQlnbG9iOwogCXN0cnVjdCB0dG1fYm9fZGV2aWNlCQliZGV2OwogCWJvb2wJ
-CQkJbWVtX2dsb2JhbF9yZWZlcmVuY2VkOwogCWJvb2wJCQkJaW5pdGlhbGl6ZWQ7CmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vcmFkZW9uX3R0bS5jCmluZGV4IGRhYzRlYzVhMTIwYi4uMzYzODYwZTgyODkyIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYworKysgYi9kcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYwpAQCAtNjQsNDUgKzY0LDE2IEBAIHN0YXRp
-YyBzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmFkZW9uX2dldF9yZGV2KHN0cnVjdCB0dG1fYm9fZGV2
-aWNlICpiZGV2KQogLyoKICAqIEdsb2JhbCBtZW1vcnkuCiAgKi8KLXN0YXRpYyBpbnQgcmFkZW9u
-X3R0bV9tZW1fZ2xvYmFsX2luaXQoc3RydWN0IGRybV9nbG9iYWxfcmVmZXJlbmNlICpyZWYpCi17
-Ci0JcmV0dXJuIHR0bV9tZW1fZ2xvYmFsX2luaXQocmVmLT5vYmplY3QpOwotfQotCi1zdGF0aWMg
-dm9pZCByYWRlb25fdHRtX21lbV9nbG9iYWxfcmVsZWFzZShzdHJ1Y3QgZHJtX2dsb2JhbF9yZWZl
-cmVuY2UgKnJlZikKLXsKLQl0dG1fbWVtX2dsb2JhbF9yZWxlYXNlKHJlZi0+b2JqZWN0KTsKLX0K
-IAogc3RhdGljIGludCByYWRlb25fdHRtX2dsb2JhbF9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNl
-ICpyZGV2KQogewotCXN0cnVjdCBkcm1fZ2xvYmFsX3JlZmVyZW5jZSAqZ2xvYmFsX3JlZjsKIAlp
-bnQgcjsKIAogCXJkZXYtPm1tYW4ubWVtX2dsb2JhbF9yZWZlcmVuY2VkID0gZmFsc2U7Ci0JZ2xv
-YmFsX3JlZiA9ICZyZGV2LT5tbWFuLm1lbV9nbG9iYWxfcmVmOwotCWdsb2JhbF9yZWYtPmdsb2Jh
-bF90eXBlID0gRFJNX0dMT0JBTF9UVE1fTUVNOwotCWdsb2JhbF9yZWYtPnNpemUgPSBzaXplb2Yo
-c3RydWN0IHR0bV9tZW1fZ2xvYmFsKTsKLQlnbG9iYWxfcmVmLT5pbml0ID0gJnJhZGVvbl90dG1f
-bWVtX2dsb2JhbF9pbml0OwotCWdsb2JhbF9yZWYtPnJlbGVhc2UgPSAmcmFkZW9uX3R0bV9tZW1f
-Z2xvYmFsX3JlbGVhc2U7Ci0JciA9IGRybV9nbG9iYWxfaXRlbV9yZWYoZ2xvYmFsX3JlZik7Ci0J
-aWYgKHIgIT0gMCkgewotCQlEUk1fRVJST1IoIkZhaWxlZCBzZXR0aW5nIHVwIFRUTSBtZW1vcnkg
-YWNjb3VudGluZyAiCi0JCQkgICJzdWJzeXN0ZW0uXG4iKTsKLQkJcmV0dXJuIHI7Ci0JfQogCi0J
-cmRldi0+bW1hbi5ib19nbG9iYWxfcmVmLm1lbV9nbG9iID0KLQkJcmRldi0+bW1hbi5tZW1fZ2xv
-YmFsX3JlZi5vYmplY3Q7Ci0JZ2xvYmFsX3JlZiA9ICZyZGV2LT5tbWFuLmJvX2dsb2JhbF9yZWYu
-cmVmOwotCWdsb2JhbF9yZWYtPmdsb2JhbF90eXBlID0gRFJNX0dMT0JBTF9UVE1fQk87Ci0JZ2xv
-YmFsX3JlZi0+c2l6ZSA9IHNpemVvZihzdHJ1Y3QgdHRtX2JvX2dsb2JhbCk7Ci0JZ2xvYmFsX3Jl
-Zi0+aW5pdCA9ICZ0dG1fYm9fZ2xvYmFsX3JlZl9pbml0OwotCWdsb2JhbF9yZWYtPnJlbGVhc2Ug
-PSAmdHRtX2JvX2dsb2JhbF9yZWZfcmVsZWFzZTsKLQlyID0gZHJtX2dsb2JhbF9pdGVtX3JlZihn
-bG9iYWxfcmVmKTsKLQlpZiAociAhPSAwKSB7Ci0JCURSTV9FUlJPUigiRmFpbGVkIHNldHRpbmcg
-dXAgVFRNIEJPIHN1YnN5c3RlbS5cbiIpOwotCQlkcm1fZ2xvYmFsX2l0ZW1fdW5yZWYoJnJkZXYt
-Pm1tYW4ubWVtX2dsb2JhbF9yZWYpOworCXIgPSB0dG1fZ2xvYmFsX2luaXQoJnJkZXYtPm1tYW4u
-Z2xvYik7CisJaWYgKHIpIHsKKwkJRFJNX0VSUk9SKCJGYWlsZWQgc2V0dGluZyB1cCBUVE0gc3Vi
-c3lzdGVtLlxuIik7CiAJCXJldHVybiByOwogCX0KIApAQCAtMTEzLDggKzg0LDcgQEAgc3RhdGlj
-IGludCByYWRlb25fdHRtX2dsb2JhbF9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQog
-c3RhdGljIHZvaWQgcmFkZW9uX3R0bV9nbG9iYWxfZmluaShzdHJ1Y3QgcmFkZW9uX2RldmljZSAq
-cmRldikKIHsKIAlpZiAocmRldi0+bW1hbi5tZW1fZ2xvYmFsX3JlZmVyZW5jZWQpIHsKLQkJZHJt
-X2dsb2JhbF9pdGVtX3VucmVmKCZyZGV2LT5tbWFuLmJvX2dsb2JhbF9yZWYucmVmKTsKLQkJZHJt
-X2dsb2JhbF9pdGVtX3VucmVmKCZyZGV2LT5tbWFuLm1lbV9nbG9iYWxfcmVmKTsKKwkJdHRtX2ds
-b2JhbF9yZWxlYXNlKCZyZGV2LT5tbWFuLmdsb2IpOwogCQlyZGV2LT5tbWFuLm1lbV9nbG9iYWxf
-cmVmZXJlbmNlZCA9IGZhbHNlOwogCX0KIH0KQEAgLTg1Myw3ICs4MjMsNyBAQCBpbnQgcmFkZW9u
-X3R0bV9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCX0KIAkvKiBObyBvdGhlcnMg
-dXNlciBvZiBhZGRyZXNzIHNwYWNlIHNvIHNldCBpdCB0byAwICovCiAJciA9IHR0bV9ib19kZXZp
-Y2VfaW5pdCgmcmRldi0+bW1hbi5iZGV2LAotCQkJICAgICAgIHJkZXYtPm1tYW4uYm9fZ2xvYmFs
-X3JlZi5yZWYub2JqZWN0LAorCQkJICAgICAgIHR0bV9nbG9iYWxfZ2V0X2JvX2dsb2JhbCgmcmRl
-di0+bW1hbi5nbG9iKSwKIAkJCSAgICAgICAmcmFkZW9uX2JvX2RyaXZlciwKIAkJCSAgICAgICBy
-ZGV2LT5kZGV2LT5hbm9uX2lub2RlLT5pX21hcHBpbmcsCiAJCQkgICAgICAgRFJNX0ZJTEVfUEFH
-RV9PRkZTRVQsCi0tIAoyLjE5LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+In igp_read_bios_from_vram(), the start of vram is firstly remapped to the
+IO memory region 'bios' through ioremap(). Then the size and values of
+'bios' are checked. For example, 'bios[0]' is compared against 0x55 and
+'bios[1]' is compared against 0xaa. If no error happens during this
+checking process, the whole data in 'bios' is then copied to 'rdev->bios'
+through memcpy_fromio().  The problem here is that the checks are performed
+on 'bios' directly. Given that the IO memory region can also be accessed by
+the device, it is possible that a malicious device race to modify 'bios[0]'
+and/or 'bios[1]' after the checks but before memcpy_fromio(). This can
+cause undefined behavior of the kernel and potentially introduce security
+risk, especially when the device can be controlled by attackers.
+
+This patch avoids the above issue by rewriting the first two bytes of
+'rdev->bios' after memcpy_fromio() with expected values.
+
+Signed-off-by: Wenwen Wang <wang6495@umn.edu>
+---
+ drivers/gpu/drm/radeon/radeon_bios.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 04c0ed4..d8304fa 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -69,6 +69,8 @@ static bool igp_read_bios_from_vram(struct radeon_device *rdev)
+ 		return false;
+ 	}
+ 	memcpy_fromio(rdev->bios, bios, size);
++	rdev->bios[0] = 0x55;
++	rdev->bios[1] = 0xaa;
+ 	iounmap(bios);
+ 	return true;
+ }
+-- 
+2.7.4
