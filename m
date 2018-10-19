@@ -1,85 +1,95 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Fri, 19 Oct 2018 10:56:13 +0200
-Message-ID: <CAKMK7uHg-o6CUREz+egJVPwAeHB_rF229vKkqFENxAZRjdGcZg@mail.gmail.com>
-References: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com> <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
- <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com> <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
- <c43669b7-1074-714c-fb22-81685826b3ad@amd.com> <74078dc6-ef08-586b-fd58-51eb2c0b5060@roeck-us.net>
- <BN6PR12MB1809E1A07CD1B5B0F41273EBF7E60@BN6PR12MB1809.namprd12.prod.outlook.com>
- <c6880c5b-e259-4923-8d5a-80c620563398@amd.com> <20181008174628.GB11442@roeck-us.net>
- <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com> <20181019085308.GY31561@phenom.ffwll.local>
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: bump the PPtable version supported
+Date: Fri, 19 Oct 2018 16:58:45 +0800
+Message-ID: <20181019085845.25177-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181019085308.GY31561@phenom.ffwll.local>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>, Guenter Roeck <linux@roeck-us.net>, Peng Hao <peng.hao2@zte.com.cn>, Dave Airlie <airlied@linux.ie>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Alex Deucher <Alexander.Deucher@amd.com>, "Peres, Martin" <martin.peres@linux.intel.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, feifei.xu-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Oct 19, 2018 at 10:53 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Mon, Oct 08, 2018 at 06:13:56PM +0000, Koenig, Christian wrote:
-> > Am 08.10.2018 um 19:46 schrieb Guenter Roeck:
-> > > On Mon, Oct 08, 2018 at 05:22:24PM +0000, Koenig, Christian wrote:
-> > >> Am 08.10.2018 um 17:57 schrieb Deucher, Alexander:
-> > >>>>>> One thing I found missing in the discussion was the reference to the
-> > >>>>>> C standard.
-> > >>>>>> The C99 standard states in section 6.7.8 (Initialization) clause 19:
-> > >>>>>> "... all
-> > >>>>>> subobjects that are not initialized explicitly shall be initialized
-> > >>>>>> implicitly the same as objects that have static storage duration".
-> > >>>>>> Clause 21 makes further reference to partial initialization,
-> > >>>>>> suggesting the same. Various online resources, including the gcc
-> > >>>>>> documentation, all state the same. I don't find any reference to a
-> > >>>>>> partial initialization which would leave members of a structure
-> > >>>>>> undefined. It would be interesting for me to understand how and why
-> > >>>>>> this does not apply here.
-> > >>>>>>
-> > >>>>>> In this context, it is interesting that the other 48 instances of the
-> > >>>>>> { { 0 } } initialization in the same driver don't raise similar
-> > >>>>>> concerns, nor seemed to have caused any operational problems.
-> > >>>>> Feel free to provide patches to replace those with memset().
-> > >>>>>
-> > >>>> Not me. As I see it, the problem, if it exists, would be a violation of the C
-> > >>>> standard. I don't believe hacking around bad C compilers. I would rather
-> > >>>> blacklist such compilers.
-> > >> Well then you would need to blacklist basically all gcc variants of the
-> > >> last decade or so.
-> > >>
-> > >> Initializing only known members of structures is a perfectly valid
-> > >> optimization and well known issue when you then compare the structure
-> > >> with memcpy() or use the bytes for hashing or something similar.
-> > >>
-> > > Isn't that about padding ? That is a completely different issue.
-> >
-> > Correct, yes. But that is the reason why I recommend using memset() for
-> > zero initialization.
-> >
-> > See we don't know the inner layout of the structure, could be another
-> > structure or an union.
-> >
-> > If it's a structure everything is fine because if you initialize one
-> > structure member all other get their default type (whatever that means),
-> > but if it's an union.....
-> >
-> > Not sure if compilers still react allergic to that, but its the status
-> > I've learned the hard way when the C99 standard came out and it still
-> > seems like people are working around that so I recommend everybody to
-> > stick with memset().
->
-> Went boom:
->
-> https://bugs.freedesktop.org/show_bug.cgi?id=108490
->
-> Can we revert?
->
-> Also, can we properly igt this so that intel-gfx-ci could test this before
-> it's all fireworks?
-
-Please disregard this reply, that was the wrong thread.
-
-Sorry, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+QXMgdGhlIG1hdGNoaW5nIFZCSU9TIGlzIGFscmVhZHkgcmVhZHkuIEFsc28gZHJvcCB0aGUKdGVt
+cG9yYXJ5IHdvcmthcm91bmRzIGFwcGxpZWQgYmVmb3JlLgoKQ2hhbmdlLUlkOiBJZjViNzgyOThi
+YzA4MTdiMDZlMTFhYmE0OWQzOTBmYTM0MWQ3MTRiNApTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4g
+PGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIC4uLi9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX3Byb2Nl
+c3NwcHRhYmxlcy5jICB8IDQ2ICsrKysrKystLS0tLS0tLS0tLS0KIC4uLi9kcm0vYW1kL3Bvd2Vy
+cGxheS9pbmMvc211MTFfZHJpdmVyX2lmLmggICB8ICAyICstCiAyIGZpbGVzIGNoYW5nZWQsIDE4
+IGluc2VydGlvbnMoKyksIDMwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9wcm9jZXNzcHB0YWJsZXMuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9wcm9jZXNzcHB0YWJsZXMuYwpp
+bmRleCBlNWY3ZjgyMzAwNjUuLmY3ZThiYmRjMjBiMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX3Byb2Nlc3NwcHRhYmxlcy5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9wcm9jZXNzcHB0YWJsZXMu
+YwpAQCAtNzE2LDEwICs3MTYsNiBAQCBzdGF0aWMgaW50IGFwcGVuZF92Ymlvc19wcHRhYmxlKHN0
+cnVjdCBwcF9od21nciAqaHdtZ3IsIFBQVGFibGVfdCAqcHBzbWNfcHB0YWJsZQogCQkiW2FwcGVu
+ZFZiaW9zUFBUYWJsZV0gRmFpbGVkIHRvIHJldHJpZXZlIFNtYyBEcG0gVGFibGUgZnJvbSBWQklP
+UyEiLAogCQlyZXR1cm4gLTEpOwogCi0JbWVtc2V0KHBwc21jX3BwdGFibGUtPlBhZGRpbmczMiwK
+LQkJCTAsCi0JCQlzaXplb2Yoc3RydWN0IGF0b21fc21jX2RwbV9pbmZvX3Y0XzQpIC0KLQkJCXNp
+emVvZihzdHJ1Y3QgYXRvbV9jb21tb25fdGFibGVfaGVhZGVyKSk7CiAJcHBzbWNfcHB0YWJsZS0+
+TWF4Vm9sdGFnZVN0ZXBHZnggPSBzbWNfZHBtX3RhYmxlLT5tYXh2b2x0YWdlc3RlcGdmeDsKIAlw
+cHNtY19wcHRhYmxlLT5NYXhWb2x0YWdlU3RlcFNvYyA9IHNtY19kcG1fdGFibGUtPm1heHZvbHRh
+Z2VzdGVwc29jOwogCkBAIC03NzgsMjIgKzc3NCwxOSBAQCBzdGF0aWMgaW50IGFwcGVuZF92Ymlv
+c19wcHRhYmxlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIFBQVGFibGVfdCAqcHBzbWNfcHB0YWJs
+ZQogCXBwc21jX3BwdGFibGUtPkZsbEdmeGNsa1NwcmVhZFBlcmNlbnQgPSBzbWNfZHBtX3RhYmxl
+LT5mbGxnZnhjbGtzcHJlYWRwZXJjZW50OwogCXBwc21jX3BwdGFibGUtPkZsbEdmeGNsa1NwcmVh
+ZEZyZXEgPSBzbWNfZHBtX3RhYmxlLT5mbGxnZnhjbGtzcHJlYWRmcmVxOwogCi0JaWYgKChzbWNf
+ZHBtX3RhYmxlLT50YWJsZV9oZWFkZXIuZm9ybWF0X3JldmlzaW9uID09IDQpICYmCi0JICAgIChz
+bWNfZHBtX3RhYmxlLT50YWJsZV9oZWFkZXIuY29udGVudF9yZXZpc2lvbiA9PSA0KSkgewotCQlm
+b3IgKGkgPSAwOyBpIDwgSTJDX0NPTlRST0xMRVJfTkFNRV9DT1VOVDsgaSsrKSB7Ci0JCQlwcHNt
+Y19wcHRhYmxlLT5JMmNDb250cm9sbGVyc1tpXS5FbmFibGVkID0KLQkJCQlzbWNfZHBtX3RhYmxl
+LT5pMmNjb250cm9sbGVyc1tpXS5lbmFibGVkOwotCQkJcHBzbWNfcHB0YWJsZS0+STJjQ29udHJv
+bGxlcnNbaV0uU2xhdmVBZGRyZXNzID0KLQkJCQlzbWNfZHBtX3RhYmxlLT5pMmNjb250cm9sbGVy
+c1tpXS5zbGF2ZWFkZHJlc3M7Ci0JCQlwcHNtY19wcHRhYmxlLT5JMmNDb250cm9sbGVyc1tpXS5D
+b250cm9sbGVyUG9ydCA9Ci0JCQkJc21jX2RwbV90YWJsZS0+aTJjY29udHJvbGxlcnNbaV0uY29u
+dHJvbGxlcnBvcnQ7Ci0JCQlwcHNtY19wcHRhYmxlLT5JMmNDb250cm9sbGVyc1tpXS5UaGVybWFs
+VGhyb3R0bGVyID0KLQkJCQlzbWNfZHBtX3RhYmxlLT5pMmNjb250cm9sbGVyc1tpXS50aGVybWFs
+dGhyb3R0bGVyOwotCQkJcHBzbWNfcHB0YWJsZS0+STJjQ29udHJvbGxlcnNbaV0uSTJjUHJvdG9j
+b2wgPQotCQkJCXNtY19kcG1fdGFibGUtPmkyY2NvbnRyb2xsZXJzW2ldLmkyY3Byb3RvY29sOwot
+CQkJcHBzbWNfcHB0YWJsZS0+STJjQ29udHJvbGxlcnNbaV0uSTJjU3BlZWQgPQotCQkJCXNtY19k
+cG1fdGFibGUtPmkyY2NvbnRyb2xsZXJzW2ldLmkyY3NwZWVkOwotCQl9CisJZm9yIChpID0gMDsg
+aSA8IEkyQ19DT05UUk9MTEVSX05BTUVfQ09VTlQ7IGkrKykgeworCQlwcHNtY19wcHRhYmxlLT5J
+MmNDb250cm9sbGVyc1tpXS5FbmFibGVkID0KKwkJCXNtY19kcG1fdGFibGUtPmkyY2NvbnRyb2xs
+ZXJzW2ldLmVuYWJsZWQ7CisJCXBwc21jX3BwdGFibGUtPkkyY0NvbnRyb2xsZXJzW2ldLlNsYXZl
+QWRkcmVzcyA9CisJCQlzbWNfZHBtX3RhYmxlLT5pMmNjb250cm9sbGVyc1tpXS5zbGF2ZWFkZHJl
+c3M7CisJCXBwc21jX3BwdGFibGUtPkkyY0NvbnRyb2xsZXJzW2ldLkNvbnRyb2xsZXJQb3J0ID0K
+KwkJCXNtY19kcG1fdGFibGUtPmkyY2NvbnRyb2xsZXJzW2ldLmNvbnRyb2xsZXJwb3J0OworCQlw
+cHNtY19wcHRhYmxlLT5JMmNDb250cm9sbGVyc1tpXS5UaGVybWFsVGhyb3R0bGVyID0KKwkJCXNt
+Y19kcG1fdGFibGUtPmkyY2NvbnRyb2xsZXJzW2ldLnRoZXJtYWx0aHJvdHRsZXI7CisJCXBwc21j
+X3BwdGFibGUtPkkyY0NvbnRyb2xsZXJzW2ldLkkyY1Byb3RvY29sID0KKwkJCXNtY19kcG1fdGFi
+bGUtPmkyY2NvbnRyb2xsZXJzW2ldLmkyY3Byb3RvY29sOworCQlwcHNtY19wcHRhYmxlLT5JMmND
+b250cm9sbGVyc1tpXS5JMmNTcGVlZCA9CisJCQlzbWNfZHBtX3RhYmxlLT5pMmNjb250cm9sbGVy
+c1tpXS5pMmNzcGVlZDsKIAl9CiAKIAlyZXR1cm4gMDsKQEAgLTg4MiwxNSArODc1LDEwIEBAIHN0
+YXRpYyBpbnQgaW5pdF9wb3dlcnBsYXlfdGFibGVfaW5mb3JtYXRpb24oCiAJaWYgKHBwdGFibGVf
+aW5mb3JtYXRpb24tPnNtY19wcHRhYmxlID09IE5VTEwpCiAJCXJldHVybiAtRU5PTUVNOwogCi0J
+aWYgKHBvd2VycGxheV90YWJsZS0+c21jUFBUYWJsZS5WZXJzaW9uIDw9IDIpCi0JCW1lbWNweShw
+cHRhYmxlX2luZm9ybWF0aW9uLT5zbWNfcHB0YWJsZSwKLQkJCQkmKHBvd2VycGxheV90YWJsZS0+
+c21jUFBUYWJsZSksCi0JCQkJc2l6ZW9mKFBQVGFibGVfdCkgLQotCQkJCXNpemVvZihJMmNDb250
+cm9sbGVyQ29uZmlnX3QpICogSTJDX0NPTlRST0xMRVJfTkFNRV9DT1VOVCk7Ci0JZWxzZQotCQlt
+ZW1jcHkocHB0YWJsZV9pbmZvcm1hdGlvbi0+c21jX3BwdGFibGUsCi0JCQkJJihwb3dlcnBsYXlf
+dGFibGUtPnNtY1BQVGFibGUpLAotCQkJCXNpemVvZihQUFRhYmxlX3QpKTsKKwltZW1jcHkocHB0
+YWJsZV9pbmZvcm1hdGlvbi0+c21jX3BwdGFibGUsCisJCQkmKHBvd2VycGxheV90YWJsZS0+c21j
+UFBUYWJsZSksCisJCQlzaXplb2YoUFBUYWJsZV90KSk7CisKIAogCXJlc3VsdCA9IGFwcGVuZF92
+Ymlvc19wcHRhYmxlKGh3bWdyLCAocHB0YWJsZV9pbmZvcm1hdGlvbi0+c21jX3BwdGFibGUpKTsK
+IApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2Ry
+aXZlcl9pZi5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZl
+cl9pZi5oCmluZGV4IDI5OThhNDk5NjBlZC4uNjNkNWNmNjkxNTQ5IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211MTFfZHJpdmVyX2lmLmgKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTExX2RyaXZlcl9pZi5oCkBAIC0yOSw3
+ICsyOSw3IEBACiAvLyBhbnkgc3RydWN0dXJlIGlzIGNoYW5nZWQgaW4gdGhpcyBmaWxlCiAjZGVm
+aW5lIFNNVTExX0RSSVZFUl9JRl9WRVJTSU9OIDB4MTIKIAotI2RlZmluZSBQUFRBQkxFX1YyMF9T
+TVVfVkVSU0lPTiAyCisjZGVmaW5lIFBQVEFCTEVfVjIwX1NNVV9WRVJTSU9OIDMKIAogI2RlZmlu
+ZSBOVU1fR0ZYQ0xLX0RQTV9MRVZFTFMgIDE2CiAjZGVmaW5lIE5VTV9WQ0xLX0RQTV9MRVZFTFMg
+ICAgOAotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
