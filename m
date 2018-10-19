@@ -1,239 +1,131 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix sdma v4 ring is disabled accidently
-Date: Fri, 19 Oct 2018 19:53:53 +0000
-Message-ID: <BN6PR12MB18098DF74D09F43AC24CCFFCF7F90@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1539976426-10271-1-git-send-email-Philip.Yang@amd.com>
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+Subject: [PATCH v2 1/2] drm/sched: Add boolean to mark if sched is ready to
+ work v2
+Date: Fri, 19 Oct 2018 16:52:43 -0400
+Message-ID: <1539982364-6533-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0083676869=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1539976426-10271-1-git-send-email-Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0083676869==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18098DF74D09F43AC24CCFFCF7F90BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18098DF74D09F43AC24CCFFCF7F90BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Yang, Ph=
-ilip <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, October 19, 2018 3:13:56 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Yang, Philip
-Subject: [PATCH] drm/amdgpu: fix sdma v4 ring is disabled accidently
-
-For sdma v4, there is bug caused by
-commit d4e869b6b5d6 ("drm/amdgpu: add ring test for page queue")'
-
-local variable ring is reused and changed, so amdgpu_ttm_set_buffer_funcs_s=
-tatus(adev, true)
-is skipped accidently. As a result, amdgpu_fill_buffer() will fail, kernel =
-message:
-
-[drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear memory with ring =
-turned off.
-[   25.260444] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear me=
-mory with ring turned off.
-[   25.260627] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear me=
-mory with ring turned off.
-[   25.290119] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear me=
-mory with ring turned off.
-[   25.290370] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear me=
-mory with ring turned off.
-[   25.319971] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear me=
-mory with ring turned off.
-[   25.320486] amdgpu 0000:19:00.0: [mmhub] VMC page fault (src_id:0 ring:1=
-54 vmid:8 pasid:32768, for process  pid 0 thread  pid 0)
-[   25.320533] amdgpu 0000:19:00.0:   in page starting at address 0x0000000=
-000000000 from 18
-[   25.320563] amdgpu 0000:19:00.0: VM_L2_PROTECTION_FAULT_STATUS:0x0080013=
-4
-
-Change-Id: Idacdf8e60557edb0a4a499aa4051b75d87ce4091
-Signed-off-by: Philip Yang <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v4_0.c
-index ede149a..cd368ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1151,10 +1151,11 @@ static int sdma_v4_0_start(struct amdgpu_device *ad=
-ev)
-                 }
-
-                 if (adev->sdma.has_page_queue) {
--                       ring =3D &adev->sdma.instance[i].page;
--                       r =3D amdgpu_ring_test_ring(ring);
-+                       struct amdgpu_ring *page =3D &adev->sdma.instance[i=
-].page;
-+
-+                       r =3D amdgpu_ring_test_ring(page);
-                         if (r) {
--                               ring->ready =3D false;
-+                               page->ready =3D false;
-                                 return r;
-                         }
-                 }
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18098DF74D09F43AC24CCFFCF7F90BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Yang, Philip &lt;Philip.Yang@=
-amd.com&gt;<br>
-<b>Sent:</b> Friday, October 19, 2018 3:13:56 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Yang, Philip<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: fix sdma v4 ring is disabled accidently=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">For sdma v4, there is bug caused by<br>
-commit d4e869b6b5d6 (&quot;drm/amdgpu: add ring test for page queue&quot;)'=
-<br>
-<br>
-local variable ring is reused and changed, so amdgpu_ttm_set_buffer_funcs_s=
-tatus(adev, true)<br>
-is skipped accidently. As a result, amdgpu_fill_buffer() will fail, kernel =
-message:<br>
-<br>
-[drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying to clear memory with ring =
-turned off.<br>
-[&nbsp;&nbsp; 25.260444] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying t=
-o clear memory with ring turned off.<br>
-[&nbsp;&nbsp; 25.260627] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying t=
-o clear memory with ring turned off.<br>
-[&nbsp;&nbsp; 25.290119] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying t=
-o clear memory with ring turned off.<br>
-[&nbsp;&nbsp; 25.290370] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying t=
-o clear memory with ring turned off.<br>
-[&nbsp;&nbsp; 25.319971] [drm:amdgpu_fill_buffer [amdgpu]] *ERROR* Trying t=
-o clear memory with ring turned off.<br>
-[&nbsp;&nbsp; 25.320486] amdgpu 0000:19:00.0: [mmhub] VMC page fault (src_i=
-d:0 ring:154 vmid:8 pasid:32768, for process&nbsp; pid 0 thread&nbsp; pid 0=
-)<br>
-[&nbsp;&nbsp; 25.320533] amdgpu 0000:19:00.0:&nbsp;&nbsp; in page starting =
-at address 0x0000000000000000 from 18<br>
-[&nbsp;&nbsp; 25.320563] amdgpu 0000:19:00.0: VM_L2_PROTECTION_FAULT_STATUS=
-:0x00800134<br>
-<br>
-Change-Id: Idacdf8e60557edb0a4a499aa4051b75d87ce4091<br>
-Signed-off-by: Philip Yang &lt;Philip.Yang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 7 &#43;&#43;&#43;&#43;---<br=
->
-&nbsp;1 file changed, 4 insertions(&#43;), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v4_0.c<br>
-index ede149a..cd368ac 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-@@ -1151,10 &#43;1151,11 @@ static int sdma_v4_0_start(struct amdgpu_device=
- *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;sdma.has_page_queue) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring =3D &amp;ad=
-ev-&gt;sdma.instance[i].page;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_rin=
-g_test_ring(ring);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgp=
-u_ring *page =3D &amp;adev-&gt;sdma.instance[i].page;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu=
-_ring_test_ring(page);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
-) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;ready =3D false;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; page-&gt;ready =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18098DF74D09F43AC24CCFFCF7F90BN6PR12MB1809namp_--
-
---===============0083676869==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, christian.koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0083676869==--
+UHJvYmxlbToKQSBwYXJ0aWN1bGFyIHNjaGVkdWxlciBtYXkgYmVjb21lIHVuc3VhYmxlICh1bmRl
+cmx5aW5nIEhXKSBhZnRlcgpzb21lIGV2ZW50IChlLmcuIEdQVSByZXNldCkuIElmIGl0J3MgbGF0
+ZXIgY2hvc2VuIGJ5CnRoZSBnZXQgZnJlZSBzY2hlZC4gcG9saWN5IGEgY29tbWFuZCB3aWxsIGZh
+aWwgdG8gYmUKc3VibWl0dGVkLgoKRml4OgpBZGQgYSBkcml2ZXIgc3BlY2lmaWMgY2FsbGJhY2sg
+dG8gcmVwb3J0IHRoZSBzY2hlZCBzdGF0dXMgc28KcnEgd2l0aCBiYWQgc2NoZWQgY2FuIGJlIGF2
+b2lkZWQgaW4gZmF2b3Igb2Ygd29ya2luZyBvbmUgb3IKbm9uZSBpbiB3aGljaCBjYXNlIGpvYiBp
+bml0IHdpbGwgZmFpbC4KCnYyOiBTd2l0Y2ggZnJvbSBkcml2ZXIgY2FsbGJhY2sgdG8gZmxhZyBp
+biBzY2hlZHVsZXIuCgpTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdy
+b2R6b3Zza3lAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZmVuY2UuYyB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2X3NjaGVkLmMg
+ICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2VudGl0eS5jICB8ICA5
+ICsrKysrKysrLQogZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgICAgfCAx
+MCArKysrKysrKystCiBkcml2ZXJzL2dwdS9kcm0vdjNkL3YzZF9zY2hlZC5jICAgICAgICAgICB8
+ICA0ICsrLS0KIGluY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaCAgICAgICAgICAgICAgIHwgIDUg
+KysrKy0KIDYgZmlsZXMgY2hhbmdlZCwgMjUgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkK
+CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCmluZGV4IDU0NDhjZjIu
+LmJmODQ1YjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9m
+ZW5jZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCkBA
+IC00NTAsNyArNDUwLDcgQEAgaW50IGFtZGdwdV9mZW5jZV9kcml2ZXJfaW5pdF9yaW5nKHN0cnVj
+dCBhbWRncHVfcmluZyAqcmluZywKIAogCQlyID0gZHJtX3NjaGVkX2luaXQoJnJpbmctPnNjaGVk
+LCAmYW1kZ3B1X3NjaGVkX29wcywKIAkJCQkgICBudW1faHdfc3VibWlzc2lvbiwgYW1kZ3B1X2pv
+Yl9oYW5nX2xpbWl0LAotCQkJCSAgIHRpbWVvdXQsIHJpbmctPm5hbWUpOworCQkJCSAgIHRpbWVv
+dXQsIHJpbmctPm5hbWUsIGZhbHNlKTsKIAkJaWYgKHIpIHsKIAkJCURSTV9FUlJPUigiRmFpbGVk
+IHRvIGNyZWF0ZSBzY2hlZHVsZXIgb24gcmluZyAlcy5cbiIsCiAJCQkJICByaW5nLT5uYW1lKTsK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYwppbmRleCBmOGM1ZjFlLi45ZGNh
+MzQ3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9ldG5hdml2X3NjaGVkLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRuYXZpdl9zY2hlZC5jCkBAIC0xNzgsNyAr
+MTc4LDcgQEAgaW50IGV0bmF2aXZfc2NoZWRfaW5pdChzdHJ1Y3QgZXRuYXZpdl9ncHUgKmdwdSkK
+IAogCXJldCA9IGRybV9zY2hlZF9pbml0KCZncHUtPnNjaGVkLCAmZXRuYXZpdl9zY2hlZF9vcHMs
+CiAJCQkgICAgIGV0bmF2aXZfaHdfam9ic19saW1pdCwgZXRuYXZpdl9qb2JfaGFuZ19saW1pdCwK
+LQkJCSAgICAgbXNlY3NfdG9famlmZmllcyg1MDApLCBkZXZfbmFtZShncHUtPmRldikpOworCQkJ
+ICAgICBtc2Vjc190b19qaWZmaWVzKDUwMCksIGRldl9uYW1lKGdwdS0+ZGV2KSwgdHJ1ZSk7CiAJ
+aWYgKHJldCkKIAkJcmV0dXJuIHJldDsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3Nj
+aGVkdWxlci9zY2hlZF9lbnRpdHkuYyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRf
+ZW50aXR5LmMKaW5kZXggM2UyMmE1NC4uYmE1NGMzMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL3NjaGVkdWxlci9zY2hlZF9lbnRpdHkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1
+bGVyL3NjaGVkX2VudGl0eS5jCkBAIC0xMzAsNyArMTMwLDE0IEBAIGRybV9zY2hlZF9lbnRpdHlf
+Z2V0X2ZyZWVfc2NoZWQoc3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSkKIAlpbnQgaTsK
+IAogCWZvciAoaSA9IDA7IGkgPCBlbnRpdHktPm51bV9ycV9saXN0OyArK2kpIHsKLQkJbnVtX2pv
+YnMgPSBhdG9taWNfcmVhZCgmZW50aXR5LT5ycV9saXN0W2ldLT5zY2hlZC0+bnVtX2pvYnMpOwor
+CQlzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkID0gZW50aXR5LT5ycV9saXN0W2ldLT5z
+Y2hlZDsKKworCQlpZiAoIWVudGl0eS0+cnFfbGlzdFtpXS0+c2NoZWQtPnJlYWR5KSB7CisJCQlE
+Uk1fV0FSTigic2NoZWQlcyBpcyBub3QgcmVhZHksIHNraXBwaW5nIiwgc2NoZWQtPm5hbWUpOwor
+CQkJY29udGludWU7CisJCX0KKworCQludW1fam9icyA9IGF0b21pY19yZWFkKCZzY2hlZC0+bnVt
+X2pvYnMpOwogCQlpZiAobnVtX2pvYnMgPCBtaW5fam9icykgewogCQkJbWluX2pvYnMgPSBudW1f
+am9iczsKIAkJCXJxID0gZW50aXR5LT5ycV9saXN0W2ldOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVy
+L3NjaGVkX21haW4uYwppbmRleCA2M2I5OTdkLi43NzJhZGVjIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vc2No
+ZWR1bGVyL3NjaGVkX21haW4uYwpAQCAtNDIwLDYgKzQyMCw5IEBAIGludCBkcm1fc2NoZWRfam9i
+X2luaXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKmpvYiwKIAlzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVs
+ZXIgKnNjaGVkOwogCiAJZHJtX3NjaGVkX2VudGl0eV9zZWxlY3RfcnEoZW50aXR5KTsKKwlpZiAo
+IWVudGl0eS0+cnEpCisJCXJldHVybiAtRU5PRU5UOworCiAJc2NoZWQgPSBlbnRpdHktPnJxLT5z
+Y2hlZDsKIAogCWpvYi0+c2NoZWQgPSBzY2hlZDsKQEAgLTU5OCw2ICs2MDEsNyBAQCBzdGF0aWMg
+aW50IGRybV9zY2hlZF9tYWluKHZvaWQgKnBhcmFtKQogICogQGhhbmdfbGltaXQ6IG51bWJlciBv
+ZiB0aW1lcyB0byBhbGxvdyBhIGpvYiB0byBoYW5nIGJlZm9yZSBkcm9wcGluZyBpdAogICogQHRp
+bWVvdXQ6IHRpbWVvdXQgdmFsdWUgaW4gamlmZmllcyBmb3IgdGhlIHNjaGVkdWxlcgogICogQG5h
+bWU6IG5hbWUgdXNlZCBmb3IgZGVidWdnaW5nCisgKiBAcmVhZHk6IG1hcmtzIGlmIHRoZSB1bmRl
+cmx5aW5nIEhXIGlzIHJlYWR5IHRvIHdvcmsKICAqCiAgKiBSZXR1cm4gMCBvbiBzdWNjZXNzLCBv
+dGhlcndpc2UgZXJyb3IgY29kZS4KICAqLwpAQCAtNjA2LDcgKzYxMCw4IEBAIGludCBkcm1fc2No
+ZWRfaW5pdChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAogCQkgICB1bnNpZ25lZCBo
+d19zdWJtaXNzaW9uLAogCQkgICB1bnNpZ25lZCBoYW5nX2xpbWl0LAogCQkgICBsb25nIHRpbWVv
+dXQsCi0JCSAgIGNvbnN0IGNoYXIgKm5hbWUpCisJCSAgIGNvbnN0IGNoYXIgKm5hbWUsCisJCSAg
+IGJvb2wJcmVhZHkpCiB7CiAJaW50IGk7CiAJc2NoZWQtPm9wcyA9IG9wczsKQEAgLTYzMyw2ICs2
+MzgsNyBAQCBpbnQgZHJtX3NjaGVkX2luaXQoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hl
+ZCwKIAkJcmV0dXJuIFBUUl9FUlIoc2NoZWQtPnRocmVhZCk7CiAJfQogCisJc2NoZWQtPnJlYWR5
+ID0gcmVhZHk7CiAJcmV0dXJuIDA7CiB9CiBFWFBPUlRfU1lNQk9MKGRybV9zY2hlZF9pbml0KTsK
+QEAgLTY0OCw1ICs2NTQsNyBAQCB2b2lkIGRybV9zY2hlZF9maW5pKHN0cnVjdCBkcm1fZ3B1X3Nj
+aGVkdWxlciAqc2NoZWQpCiB7CiAJaWYgKHNjaGVkLT50aHJlYWQpCiAJCWt0aHJlYWRfc3RvcChz
+Y2hlZC0+dGhyZWFkKTsKKworCXNjaGVkLT5yZWFkeSA9IGZhbHNlOwogfQogRVhQT1JUX1NZTUJP
+TChkcm1fc2NoZWRfZmluaSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdjNkL3YzZF9z
+Y2hlZC5jIGIvZHJpdmVycy9ncHUvZHJtL3YzZC92M2Rfc2NoZWQuYwppbmRleCA4MGI2NDFmLi43
+Y2VkYjVmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdjNkL3YzZF9zY2hlZC5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX3NjaGVkLmMKQEAgLTIxMiw3ICsyMTIsNyBAQCB2M2Rf
+c2NoZWRfaW5pdChzdHJ1Y3QgdjNkX2RldiAqdjNkKQogCQkJICAgICAmdjNkX3NjaGVkX29wcywK
+IAkJCSAgICAgaHdfam9ic19saW1pdCwgam9iX2hhbmdfbGltaXQsCiAJCQkgICAgIG1zZWNzX3Rv
+X2ppZmZpZXMoaGFuZ19saW1pdF9tcyksCi0JCQkgICAgICJ2M2RfYmluIik7CisJCQkgICAgICJ2
+M2RfYmluIiwgdHJ1ZSk7CiAJaWYgKHJldCkgewogCQlkZXZfZXJyKHYzZC0+ZGV2LCAiRmFpbGVk
+IHRvIGNyZWF0ZSBiaW4gc2NoZWR1bGVyOiAlZC4iLCByZXQpOwogCQlyZXR1cm4gcmV0OwpAQCAt
+MjIyLDcgKzIyMiw3IEBAIHYzZF9zY2hlZF9pbml0KHN0cnVjdCB2M2RfZGV2ICp2M2QpCiAJCQkg
+ICAgICZ2M2Rfc2NoZWRfb3BzLAogCQkJICAgICBod19qb2JzX2xpbWl0LCBqb2JfaGFuZ19saW1p
+dCwKIAkJCSAgICAgbXNlY3NfdG9famlmZmllcyhoYW5nX2xpbWl0X21zKSwKLQkJCSAgICAgInYz
+ZF9yZW5kZXIiKTsKKwkJCSAgICAgInYzZF9yZW5kZXIiLCB0cnVlKTsKIAlpZiAocmV0KSB7CiAJ
+CWRldl9lcnIodjNkLT5kZXYsICJGYWlsZWQgdG8gY3JlYXRlIHJlbmRlciBzY2hlZHVsZXI6ICVk
+LiIsCiAJCQlyZXQpOwpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oIGIv
+aW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oCmluZGV4IDA2ODRkY2QuLjAzN2NhZWEgMTAwNjQ0
+Ci0tLSBhL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaAorKysgYi9pbmNsdWRlL2RybS9ncHVf
+c2NoZWR1bGVyLmgKQEAgLTI2NCw2ICsyNjQsNyBAQCBzdHJ1Y3QgZHJtX3NjaGVkX2JhY2tlbmRf
+b3BzIHsKICAqIEBoYW5nX2xpbWl0OiBvbmNlIHRoZSBoYW5ncyBieSBhIGpvYiBjcm9zc2VzIHRo
+aXMgbGltaXQgdGhlbiBpdCBpcyBtYXJrZWQKICAqICAgICAgICAgICAgICBndWlsdHkgYW5kIGl0
+IHdpbGwgYmUgY29uc2lkZXJlZCBmb3Igc2NoZWR1bGluZyBmdXJ0aGVyLgogICogQG51bV9qb2Jz
+OiB0aGUgbnVtYmVyIG9mIGpvYnMgaW4gcXVldWUgaW4gdGhlIHNjaGVkdWxlcgorICogQHJlYWR5
+OiBtYXJrcyBpZiB0aGUgdW5kZXJseWluZyBIVyBpcyByZWFkeSB0byB3b3JrCiAgKgogICogT25l
+IHNjaGVkdWxlciBpcyBpbXBsZW1lbnRlZCBmb3IgZWFjaCBoYXJkd2FyZSByaW5nLgogICovCkBA
+IC0yODMsMTIgKzI4NCwxNCBAQCBzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgewogCXNwaW5sb2Nr
+X3QJCQlqb2JfbGlzdF9sb2NrOwogCWludAkJCQloYW5nX2xpbWl0OwogCWF0b21pY190ICAgICAg
+ICAgICAgICAgICAgICAgICAgbnVtX2pvYnM7CisJYm9vbAkJCXJlYWR5OwogfTsKIAogaW50IGRy
+bV9zY2hlZF9pbml0KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsCiAJCSAgIGNvbnN0
+IHN0cnVjdCBkcm1fc2NoZWRfYmFja2VuZF9vcHMgKm9wcywKIAkJICAgdWludDMyX3QgaHdfc3Vi
+bWlzc2lvbiwgdW5zaWduZWQgaGFuZ19saW1pdCwgbG9uZyB0aW1lb3V0LAotCQkgICBjb25zdCBj
+aGFyICpuYW1lKTsKKwkJICAgY29uc3QgY2hhciAqbmFtZSwKKwkJICAgYm9vbAlyZWFkeSk7CiB2
+b2lkIGRybV9zY2hlZF9maW5pKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpOwogaW50
+IGRybV9zY2hlZF9qb2JfaW5pdChzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqam9iLAogCQkgICAgICAg
+c3RydWN0IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSwKLS0gCjIuNy40CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0
+CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
