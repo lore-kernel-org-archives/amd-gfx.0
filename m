@@ -1,90 +1,85 @@
 From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH 2/7] drm: add syncobj timeline support v8
-Date: Fri, 19 Oct 2018 10:55:09 +0200
-Message-ID: <20181019085509.GZ31561@phenom.ffwll.local>
-References: <20181015085553.30656-1-david1.zhou@amd.com>
- <20181015085553.30656-2-david1.zhou@amd.com>
- <20181017080908.GK31561@phenom.ffwll.local>
- <2066a18d-8002-014b-ef3c-a6f6014bdb55@amd.com>
- <2f99da09-7bf7-d5e7-d7c1-fe2e4cf43b40@amd.com>
- <CAKMK7uGxptMKtz-4JzT9us3M2dsLGhTSVuAKduNH+VGCsCSsQw@mail.gmail.com>
- <b08b1f23-d8dc-a294-2176-5125075c9acc@amd.com>
- <bdb5bf27-b543-e308-a121-6bae35854e95@gmail.com>
- <544bca0a-977a-9900-d6dd-92c91ef9337e@amd.com>
+Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
+Date: Fri, 19 Oct 2018 10:56:13 +0200
+Message-ID: <CAKMK7uHg-o6CUREz+egJVPwAeHB_rF229vKkqFENxAZRjdGcZg@mail.gmail.com>
+References: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com> <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
+ <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com> <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
+ <c43669b7-1074-714c-fb22-81685826b3ad@amd.com> <74078dc6-ef08-586b-fd58-51eb2c0b5060@roeck-us.net>
+ <BN6PR12MB1809E1A07CD1B5B0F41273EBF7E60@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <c6880c5b-e259-4923-8d5a-80c620563398@amd.com> <20181008174628.GB11442@roeck-us.net>
+ <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com> <20181019085308.GY31561@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <544bca0a-977a-9900-d6dd-92c91ef9337e@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: zhoucm1 <zhoucm1@amd.com>
-Cc: Jason Ekstrand <jason@jlekstrand.net>, dri-devel <dri-devel@lists.freedesktop.org>, "Rakos,
- Daniel" <Daniel.Rakos@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Dave Airlie <airlied@redhat.com>, christian.koenig@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20181019085308.GY31561@phenom.ffwll.local>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig@amd.com>, Guenter Roeck <linux@roeck-us.net>, Peng Hao <peng.hao2@zte.com.cn>, Dave Airlie <airlied@linux.ie>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Alex Deucher <Alexander.Deucher@amd.com>, "Peres, Martin" <martin.peres@linux.intel.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBPY3QgMTksIDIwMTggYXQgMTA6Mjk6NTVBTSArMDgwMCwgemhvdWNtMSB3cm90ZToK
-PiAKPiAKPiBPbiAyMDE45bm0MTDmnIgxOOaXpSAxOTo1MCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90
-ZToKPiA+IEFtIDE4LjEwLjE4IHVtIDA1OjExIHNjaHJpZWIgemhvdWNtMToKPiA+ID4gCj4gPiA+
-IAo+ID4gPiBPbiAyMDE45bm0MTDmnIgxN+aXpSAxODoyNCwgRGFuaWVsIFZldHRlciB3cm90ZToK
-PiA+ID4gPiBPbiBXZWQsIE9jdCAxNywgMjAxOCBhdCAxMToyOSBBTSBLb2VuaWcsIENocmlzdGlh
-bgo+ID4gPiA+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+IHdyb3RlOgo+ID4gPiA+ID4gQW0g
-MTcuMTAuMTggdW0gMTE6MTcgc2NocmllYiB6aG91Y20xOgo+ID4gPiA+ID4gPiBbU05JUF0KPiA+
-ID4gPiA+ID4gPiA+IMKgwqAgK3N0cnVjdCBkcm1fc3luY29ial9zaWduYWxfcHQgewo+ID4gPiA+
-ID4gPiA+ID4gK8KgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlX2FycmF5ICpiYXNlOwo+ID4gPiA+ID4g
-PiA+IE91dCBvZiBjdXJpb3NpdHksIHdoeSB0aGUgcG9pbnRlciBhbmQgbm90IGVtYmVkZGluZz8g
-YmFzZSBpcyBraW5kYQo+ID4gPiA+ID4gPiA+IG1pc2xlYWRpbmcgZm9yIGEgcG9pbnRlci4KPiA+
-ID4gPiA+ID4gWWVhaCwgQ2hyaXN0aWFuIGRvZXNuJ3QgbGlrZSBzaWduYWxfcHQgbGlmZWN5Y2xl
-IHNhbWUgYXMgZmVuY2UsIHNvCj4gPiA+ID4gPiA+IGl0J3MgYSBwb2ludGVyLgo+ID4gPiA+ID4g
-PiBJZiB5b3UgZG9uJ3QgbGlrZSAnYmFzZScgbmFtZSwgSSBjYW4gY2hhbmdlIGl0Lgo+ID4gPiA+
-ID4gV2VsbCBJIG5ldmVyIHNhaWQgdGhhdCB5b3UgY2FuJ3QgZW1iZWQgdGhlIGZlbmNlIGFycmF5
-IGludG8KPiA+ID4gPiA+IHRoZSBzaWduYWxfcHQuCj4gPiA+ID4gPiAKPiA+ID4gPiA+IFlvdSBq
-dXN0IG5lZWQgdG8gbWFrZSBzdXJlIHRoYXQgd2UgZG9uJ3QgYWZmZWN0IHRoZSBkcm1fc3luY29i
-ago+ID4gPiA+ID4gbGlsZWN5Y2xlIGFzIHdlbGwsIGUuZy4gdGhhdCB3ZSBkb24ndCBhbHNvIG5l
-ZWQgdG8ga2VlcCB0aGF0IGFyb3VuZC4KPiA+ID4gPiBJIGRvbid0IHNlZSBhIHByb2JsZW0gd2l0
-aCB0aGF0LCBhcyBsb25nIGFzIGRybV9zeW5jb2JqIGtlZXBzIGEKPiA+ID4gPiByZWZlcmVuY2Ug
-dG8gdGhlIGZlbmNlIHdoaWxlIGl0J3Mgb24gdGhlIHRpbWVsaW5lIGxpc3QuIFdoaWNoIGl0Cj4g
-PiA+ID4gYWxyZWFkeSBkb2VzLiBBbmQgZW1iZWRkaW5nIHdvdWxkIGF2b2lkIHRoYXQgMm5kIHNl
-cGFyYXRlIGFsbG9jYXRpb24sCj4gPiA+ID4gYXNpZGUgZnJvbSBtYWtpbmcgYmFzZSBsZXNzIGNv
-bmZ1c2luZy4KPiA+ID4gVGhhdCdzIGluZGVlZCBteSBpbml0aWFsIGltcGxlbWVudGF0aW9uIGZv
-ciBzaWduYWxfcHQvd2FpdF9wdCB3aXRoCj4gPiA+IGZlbmNlIGJhc2VkLCBidXQgYWZ0ZXIgbG9u
-ZyBhbmQgbWFueSBkaXNjdXNzaW9ucywgd2UgZ2V0IGN1cnJlbnQKPiA+ID4gc29sdXRpb24sIGFz
-IHlvdSBzZWUsIHRoZSB2ZXJzaW9uIGlzIHVwIHRvIHY4IDopLgo+ID4gPiAKPiA+ID4gRm9yIGhl
-cmXCoCB3aHkgdGhlIHBvaW50ZXIgYW5kIG5vdCBlbWJlZGRpbmc/Cj4gPiA+IFR3byByZWFzb25z
-Ogo+ID4gPiAxLiB0aGVpciBsaWZlY3ljbGVzIGFyZSBub3Qgc2FtZS4KPiA+ID4gMi4gSXQgaXMg
-YSBmZW5jZSBhcnJheSB1c2FnZSwgd2hpY2ggYWx3YXlzIG5lZWRzIHNlcGFyYXRlCj4gPiA+IGFs
-bG9jYXRpb24sIHNlZW1zIHdoaWNoIGlzIG1hbmRhdG9yeS4KPiA+ID4gU28gaXQgaXMgYSBwb2lu
-dGVyLgo+ID4gPiAKPiA+ID4gQnV0IHRoZSBuYW1lIGlzIGhpc3RvcmljYWwgZnJvbSBpbml0aWFs
-LCBhbmQgaW5kZWVkIGJlIGtpbmRhCj4gPiA+IG1pc2xlYWRpbmcgZm9yIGEgcG9pbnRlciwgSSB3
-aWxsIGNoYW5nZSBpdCB0byBmZW5jZV9hcnJheSBpbnN0ZWFkIGluCj4gPiA+IGNvbWluZyB2OS4K
-PiA+IAo+ID4gVG8gYXZvaWQgcnVubmluZyBpbnRvIGEgdjEwIEkndmUganVzdCBwdXNoZWQgdGhp
-cyB2ZXJzaW9uIHVwc3RyZWFtIDopCj4gVGhhbmtzIGEgbG90LgoKKFRoaXMgdGltZSByZXBseSB0
-byB0aGUgcmlnaHQgcGF0Y2gsIHNpbGx5IG1lKQoKV2VudCBib29tOgoKaHR0cHM6Ly9idWdzLmZy
-ZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTA4NDkwCgpDYW4gd2UgcmV2ZXJ0IHBscz8K
-CkFsc28sIGNhbiB3ZSBwbGVhc2UgaGF2ZSBpZ3RzIGZvciB0aGlzIHN0dWZmIHNvIHRoYXQgaW50
-ZWwtZ2Z4LWNpIGNvdWxkCnRlc3QgdGhpcyBwcm9wZXJseSBiZWZvcmUgaXQncyBhbGwgZmlyZXdv
-cmtzPwoKVGhhbmtzLCBEYW5pZWwKCj4gPiAKPiA+IFRoZSByZXN0IGluIHRoZSBzZXJpZXMgbG9v
-a3MgZ29vZCB0byBtZSBhcyB3ZWxsLAo+IENhbiBJIGdldCB5b3VyIFJCIG9uIHRoZW0gZmlyc3Q/
-Cj4gCj4gPiBidXQgSSBjZXJ0YWlubHkgd2FudCB0aGUgcmFkdi9hbnYgZGV2ZWxvcGVycyB0byB0
-YWtlIGEgbG9vayBhcyB3ZWxsIGFzCj4gPiBEYW5pZWwgc3VnZ2VzdGVkLgo+IFBpbmcgQERhdmUv
-QmFzL0phc29uIG9yIG90aGVyIHJhZHYvYW52IGRldmVsb3BlcnMsIENvdWxkIGFueW9uZSBvZiB5
-b3UgdGFrZQo+IGEgbG9vayB0aGUgcmVzdCBvZiBzZXJpZXMgZm9yIHUvayBpbnRlcmZhY2U/IFNv
-IHRoYXQgd2UgY2FuIG1vdmUgdG8gbmV4dAo+IHN0ZXAgZm9yIGxpYmRybSBwYXRjaGVzPwo+IAo+
-IFRoYW5rcywKPiBEYXZpZAo+ID4gCj4gPiBDaHJpc3RpYW4uCj4gPiAKPiA+ID4gCj4gPiA+IFRo
-YW5rcywKPiA+ID4gRGF2aWQgWmhvdQo+ID4gPiAKPiA+ID4gPiAtRGFuaWVsCj4gPiA+IAo+ID4g
-PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+ID4gPiBh
-bWQtZ2Z4IG1haWxpbmcgbGlzdAo+ID4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-ID4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKPiA+IAo+IAoKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENv
-cnBvcmF0aW9uCmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2RyaS1kZXZlbAo=
+On Fri, Oct 19, 2018 at 10:53 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Mon, Oct 08, 2018 at 06:13:56PM +0000, Koenig, Christian wrote:
+> > Am 08.10.2018 um 19:46 schrieb Guenter Roeck:
+> > > On Mon, Oct 08, 2018 at 05:22:24PM +0000, Koenig, Christian wrote:
+> > >> Am 08.10.2018 um 17:57 schrieb Deucher, Alexander:
+> > >>>>>> One thing I found missing in the discussion was the reference to the
+> > >>>>>> C standard.
+> > >>>>>> The C99 standard states in section 6.7.8 (Initialization) clause 19:
+> > >>>>>> "... all
+> > >>>>>> subobjects that are not initialized explicitly shall be initialized
+> > >>>>>> implicitly the same as objects that have static storage duration".
+> > >>>>>> Clause 21 makes further reference to partial initialization,
+> > >>>>>> suggesting the same. Various online resources, including the gcc
+> > >>>>>> documentation, all state the same. I don't find any reference to a
+> > >>>>>> partial initialization which would leave members of a structure
+> > >>>>>> undefined. It would be interesting for me to understand how and why
+> > >>>>>> this does not apply here.
+> > >>>>>>
+> > >>>>>> In this context, it is interesting that the other 48 instances of the
+> > >>>>>> { { 0 } } initialization in the same driver don't raise similar
+> > >>>>>> concerns, nor seemed to have caused any operational problems.
+> > >>>>> Feel free to provide patches to replace those with memset().
+> > >>>>>
+> > >>>> Not me. As I see it, the problem, if it exists, would be a violation of the C
+> > >>>> standard. I don't believe hacking around bad C compilers. I would rather
+> > >>>> blacklist such compilers.
+> > >> Well then you would need to blacklist basically all gcc variants of the
+> > >> last decade or so.
+> > >>
+> > >> Initializing only known members of structures is a perfectly valid
+> > >> optimization and well known issue when you then compare the structure
+> > >> with memcpy() or use the bytes for hashing or something similar.
+> > >>
+> > > Isn't that about padding ? That is a completely different issue.
+> >
+> > Correct, yes. But that is the reason why I recommend using memset() for
+> > zero initialization.
+> >
+> > See we don't know the inner layout of the structure, could be another
+> > structure or an union.
+> >
+> > If it's a structure everything is fine because if you initialize one
+> > structure member all other get their default type (whatever that means),
+> > but if it's an union.....
+> >
+> > Not sure if compilers still react allergic to that, but its the status
+> > I've learned the hard way when the C99 standard came out and it still
+> > seems like people are working around that so I recommend everybody to
+> > stick with memset().
+>
+> Went boom:
+>
+> https://bugs.freedesktop.org/show_bug.cgi?id=108490
+>
+> Can we revert?
+>
+> Also, can we properly igt this so that intel-gfx-ci could test this before
+> it's all fireworks?
+
+Please disregard this reply, that was the wrong thread.
+
+Sorry, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
