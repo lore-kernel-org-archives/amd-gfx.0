@@ -1,92 +1,103 @@
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Fri, 19 Oct 2018 06:08:48 -0700
-Message-ID: <8081f60d-ef19-14a5-a589-874afc050d94@roeck-us.net>
-References: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
- <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
- <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com>
- <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
- <c43669b7-1074-714c-fb22-81685826b3ad@amd.com>
- <74078dc6-ef08-586b-fd58-51eb2c0b5060@roeck-us.net>
- <BN6PR12MB1809E1A07CD1B5B0F41273EBF7E60@BN6PR12MB1809.namprd12.prod.outlook.com>
- <c6880c5b-e259-4923-8d5a-80c620563398@amd.com>
- <20181008174628.GB11442@roeck-us.net>
- <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com>
- <20181019085308.GY31561@phenom.ffwll.local>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: Expose *_setup_vm_pt_regs for kfd to use
+Date: Fri, 19 Oct 2018 07:14:14 +0000
+Message-ID: <46157ae3-b195-6d42-b3d1-4d685d3ec9db@amd.com>
+References: <1539897169-23047-1-git-send-email-Yong.Zhao@amd.com>
+ <1539897169-23047-2-git-send-email-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181019085308.GY31561@phenom.ffwll.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1539897169-23047-2-git-send-email-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, Peng Hao <peng.hao2@zte.com.cn>, "airlied@linux.ie" <airlied@linux.ie>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Martin Peres <martin.peres@linux.intel.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <5ED8CD4E5D5FC24AA2988F30543D4222-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>
 
-On 10/19/2018 01:53 AM, Daniel Vetter wrote:
-> On Mon, Oct 08, 2018 at 06:13:56PM +0000, Koenig, Christian wrote:
->> Am 08.10.2018 um 19:46 schrieb Guenter Roeck:
->>> On Mon, Oct 08, 2018 at 05:22:24PM +0000, Koenig, Christian wrote:
->>>> Am 08.10.2018 um 17:57 schrieb Deucher, Alexander:
->>>>>>>> One thing I found missing in the discussion was the reference to the
->>>>>>>> C standard.
->>>>>>>> The C99 standard states in section 6.7.8 (Initialization) clause 19:
->>>>>>>> "... all
->>>>>>>> subobjects that are not initialized explicitly shall be initialized
->>>>>>>> implicitly the same as objects that have static storage duration".
->>>>>>>> Clause 21 makes further reference to partial initialization,
->>>>>>>> suggesting the same. Various online resources, including the gcc
->>>>>>>> documentation, all state the same. I don't find any reference to a
->>>>>>>> partial initialization which would leave members of a structure
->>>>>>>> undefined. It would be interesting for me to understand how and why
->>>>>>>> this does not apply here.
->>>>>>>>
->>>>>>>> In this context, it is interesting that the other 48 instances of the
->>>>>>>> { { 0 } } initialization in the same driver don't raise similar
->>>>>>>> concerns, nor seemed to have caused any operational problems.
->>>>>>> Feel free to provide patches to replace those with memset().
->>>>>>>
->>>>>> Not me. As I see it, the problem, if it exists, would be a violation of the C
->>>>>> standard. I don't believe hacking around bad C compilers. I would rather
->>>>>> blacklist such compilers.
->>>> Well then you would need to blacklist basically all gcc variants of the
->>>> last decade or so.
->>>>
->>>> Initializing only known members of structures is a perfectly valid
->>>> optimization and well known issue when you then compare the structure
->>>> with memcpy() or use the bytes for hashing or something similar.
->>>>
->>> Isn't that about padding ? That is a completely different issue.
->>
->> Correct, yes. But that is the reason why I recommend using memset() for
->> zero initialization.
->>
->> See we don't know the inner layout of the structure, could be another
->> structure or an union.
->>
->> If it's a structure everything is fine because if you initialize one
->> structure member all other get their default type (whatever that means),
->> but if it's an union.....
->>
->> Not sure if compilers still react allergic to that, but its the status
->> I've learned the hard way when the C99 standard came out and it still
->> seems like people are working around that so I recommend everybody to
->> stick with memset().
-> 
-> Went boom:
-> 
-> https://bugs.freedesktop.org/show_bug.cgi?id=108490
-> 
-
-What went boom ? This patch wasn't accepted, and I don't immediately see
-the correlation of the suggested revert with the rejected patch.
-
-Guenter
-
-> Can we revert?
-> 
-> Also, can we properly igt this so that intel-gfx-ci could test this before
-> it's all fireworks?
-> 
-> Thanks, Daniel
-> 
+QW0gMTguMTAuMTggdW0gMjM6MTMgc2NocmllYiBaaGFvLCBZb25nOg0KPiBDaGFuZ2UtSWQ6IEky
+ZWEyN2M0NzQ5YTQ1NDUwNmZlY2Y3NWJiNWI3OGIwOWJkZTljYjI4DQo+IFNpZ25lZC1vZmYtYnk6
+IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeGh1Yl92MV8wLmMgfCAyMCArKysrKysrKysrKysrKystLS0tLQ0KPiAg
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmggICAgfCAgNiArKysrKysNCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMgIHwgMjAgKysrKysrKysr
+KysrKysrLS0tLS0NCj4gICAzIGZpbGVzIGNoYW5nZWQsIDM2IGluc2VydGlvbnMoKyksIDEwIGRl
+bGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4aHViX3YxXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeGh1Yl92MV8wLmMN
+Cj4gaW5kZXggY2ViNzg0Ny4uMzQxNDVhNiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4aHViX3YxXzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhodWJfdjFfMC5jDQo+IEBAIC0zNSwxNSArMzUsMjUgQEAgdTY0IGdmeGh1Yl92MV8w
+X2dldF9tY19mYl9vZmZzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgCXJldHVy
+biAodTY0KVJSRUczMl9TT0MxNShHQywgMCwgbW1NQ19WTV9GQl9PRkZTRVQpIDw8IDI0Ow0KPiAg
+IH0NCj4gICANCj4gK3ZvaWQgZ2Z4aHViX3YxXzBfc2V0dXBfdm1fcHRfcmVncyhzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwNCj4gKwkJCQl1aW50NjRfdCB2YWx1ZSkN
+Cg0KSSB3b3VsZCByYXRoZXIgZ2l2ZSB0aGUgcGFyYW1ldGVyIHNvbWUgbWVhbmluZ2Z1bCBuYW1l
+LCBlLmcuIA0KcGFnZV90YWJsZV9iYXNlIG9yIHNpbWlsYXIuDQoNCj4gK3sNCj4gKwkvKiB0d28g
+cmVnaXN0ZXJzIGRpc3RhbmNlIGJldHdlZW4gbW1WTV9DT05URVhUMF8qIHRvIG1tVk1fQ09OVEVY
+VDFfKiAqLw0KPiArCWludCBvZmZzZXQgPSBtbVZNX0NPTlRFWFQxX1BBR0VfVEFCTEVfQkFTRV9B
+RERSX0xPMzINCj4gKwkJCS0gbW1WTV9DT05URVhUMF9QQUdFX1RBQkxFX0JBU0VfQUREUl9MTzMy
+Ow0KPiArDQo+ICsJV1JFRzMyX1NPQzE1X09GRlNFVChHQywgMCwgbW1WTV9DT05URVhUMF9QQUdF
+X1RBQkxFX0JBU0VfQUREUl9MTzMyLA0KPiArCQkJCW9mZnNldCAqIHZtaWQsIGxvd2VyXzMyX2Jp
+dHModmFsdWUpKTsNCj4gKw0KPiArCVdSRUczMl9TT0MxNV9PRkZTRVQoR0MsIDAsIG1tVk1fQ09O
+VEVYVDBfUEFHRV9UQUJMRV9CQVNFX0FERFJfSEkzMiwNCj4gKwkJCQlvZmZzZXQgKiB2bWlkLCB1
+cHBlcl8zMl9iaXRzKHZhbHVlKSk7DQo+ICt9DQo+ICsNCj4gICBzdGF0aWMgdm9pZCBnZnhodWJf
+djFfMF9pbml0X2dhcnRfcHRfcmVncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gICB7
+DQo+ICAgCXVpbnQ2NF90IHZhbHVlID0gYW1kZ3B1X2dtY19wZF9hZGRyKGFkZXYtPmdhcnQuYm8p
+Ow0KPiAgIA0KPiAtCVdSRUczMl9TT0MxNShHQywgMCwgbW1WTV9DT05URVhUMF9QQUdFX1RBQkxF
+X0JBU0VfQUREUl9MTzMyLA0KPiAtCQkgICAgIGxvd2VyXzMyX2JpdHModmFsdWUpKTsNCj4gLQ0K
+PiAtCVdSRUczMl9TT0MxNShHQywgMCwgbW1WTV9DT05URVhUMF9QQUdFX1RBQkxFX0JBU0VfQURE
+Ul9ISTMyLA0KPiAtCQkgICAgIHVwcGVyXzMyX2JpdHModmFsdWUpKTsNCj4gKwlnZnhodWJfdjFf
+MF9zZXR1cF92bV9wdF9yZWdzKGFkZXYsIDAsIHZhbHVlKTsNCg0KU2luY2UgdGhhdCBmdW5jdGlv
+biBpcyBub3cgYSBtb3N0bHkgbWVhbmluZ2xlc3Mgd3JhcHBlciBJIHdvdWxkIGp1c3QgZ28gDQph
+aGVhZCBhbmQgY2FsbCBnZnhodWJfdjFfMF9zZXR1cF92bV9wdF9yZWdzIGRpcmVjdGx5IGFzIGxv
+bmcgYXMgaXQgDQpkb2Vzbid0IGR1cGxpY2F0ZXMgdGhlIGNvZGUgdG8gbXVjaC4NCg0KU2FtZSBh
+cHBsaWVzIG9mIGNvdXJzZSB0byB0aGUgbW1odWIgdmFyaWFudC4NCg0KQXBhcnQgZnJvbSB0aGF0
+IGxvb2tzIGdvb2QgdG8gbWUsDQpDaHJpc3RpYW4uDQoNCj4gICB9DQo+ICAgDQo+ICAgc3RhdGlj
+IHZvaWQgZ2Z4aHViX3YxXzBfaW5pdF9nYXJ0X2FwZXJ0dXJlX3JlZ3Moc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+bWNfdjlfMC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuaA0KPiBpbmRl
+eCBiMDMwY2E1Li4wMDhhYjA4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nbWNfdjlfMC5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
+OV8wLmgNCj4gQEAgLTI3LDQgKzI3LDEwIEBADQo+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBhbWRf
+aXBfZnVuY3MgZ21jX3Y5XzBfaXBfZnVuY3M7DQo+ICAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBhbWRn
+cHVfaXBfYmxvY2tfdmVyc2lvbiBnbWNfdjlfMF9pcF9ibG9jazsNCj4gICANCj4gKy8qIGFtZGdw
+dV9hbWRrZmQqLmMgKi8NCj4gK3ZvaWQgZ2Z4aHViX3YxXzBfc2V0dXBfdm1fcHRfcmVncyhzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwNCj4gKwkJCQl1aW50NjRfdCB2
+YWx1ZSk7DQo+ICt2b2lkIG1taHViX3YxXzBfc2V0dXBfdm1fcHRfcmVncyhzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwNCj4gKwkJCQl1aW50NjRfdCB2YWx1ZSk7DQo+
+ICsNCj4gICAjZW5kaWYNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L21taHViX3YxXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L21taHViX3YxXzAuYw0K
+PiBpbmRleCAxNDY0OWY4Li44ZTE4YmUwIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9tbWh1Yl92MV8wLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvbW1odWJfdjFfMC5jDQo+IEBAIC01MiwxNSArNTIsMjUgQEAgdTY0IG1taHViX3YxXzBfZ2V0
+X2ZiX2xvY2F0aW9uKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAgIAlyZXR1cm4gYmFz
+ZTsNCj4gICB9DQo+ICAgDQo+ICt2b2lkIG1taHViX3YxXzBfc2V0dXBfdm1fcHRfcmVncyhzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgdm1pZCwNCj4gKwkJCQl1aW50NjRfdCB2
+YWx1ZSkNCj4gK3sNCj4gKwkvKiB0d28gcmVnaXN0ZXJzIGRpc3RhbmNlIGJldHdlZW4gbW1WTV9D
+T05URVhUMF8qIHRvIG1tVk1fQ09OVEVYVDFfKiAqLw0KPiArCWludCBvZmZzZXQgPSBtbVZNX0NP
+TlRFWFQxX1BBR0VfVEFCTEVfQkFTRV9BRERSX0xPMzINCj4gKwkJCS0gbW1WTV9DT05URVhUMF9Q
+QUdFX1RBQkxFX0JBU0VfQUREUl9MTzMyOw0KPiArDQo+ICsJV1JFRzMyX1NPQzE1X09GRlNFVChN
+TUhVQiwgMCwgbW1WTV9DT05URVhUMF9QQUdFX1RBQkxFX0JBU0VfQUREUl9MTzMyLA0KPiArCQkJ
+b2Zmc2V0ICogdm1pZCwgbG93ZXJfMzJfYml0cyh2YWx1ZSkpOw0KPiArDQo+ICsJV1JFRzMyX1NP
+QzE1X09GRlNFVChNTUhVQiwgMCwgbW1WTV9DT05URVhUMF9QQUdFX1RBQkxFX0JBU0VfQUREUl9I
+STMyLA0KPiArCQkJb2Zmc2V0ICogdm1pZCwgdXBwZXJfMzJfYml0cyh2YWx1ZSkpOw0KPiArfQ0K
+PiArDQo+ICAgc3RhdGljIHZvaWQgbW1odWJfdjFfMF9pbml0X2dhcnRfcHRfcmVncyhzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldikNCj4gICB7DQo+ICAgCXVpbnQ2NF90IHZhbHVlID0gYW1kZ3B1
+X2dtY19wZF9hZGRyKGFkZXYtPmdhcnQuYm8pOw0KPiAgIA0KPiAtCVdSRUczMl9TT0MxNShNTUhV
+QiwgMCwgbW1WTV9DT05URVhUMF9QQUdFX1RBQkxFX0JBU0VfQUREUl9MTzMyLA0KPiAtCQkgICAg
+IGxvd2VyXzMyX2JpdHModmFsdWUpKTsNCj4gLQ0KPiAtCVdSRUczMl9TT0MxNShNTUhVQiwgMCwg
+bW1WTV9DT05URVhUMF9QQUdFX1RBQkxFX0JBU0VfQUREUl9ISTMyLA0KPiAtCQkgICAgIHVwcGVy
+XzMyX2JpdHModmFsdWUpKTsNCj4gKwltbWh1Yl92MV8wX3NldHVwX3ZtX3B0X3JlZ3MoYWRldiwg
+MCwgdmFsdWUpOw0KPiAgIH0NCj4gICANCj4gICBzdGF0aWMgdm9pZCBtbWh1Yl92MV8wX2luaXRf
+Z2FydF9hcGVydHVyZV9yZWdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
