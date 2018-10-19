@@ -1,24 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Fri, 19 Oct 2018 11:30:55 -0400
-Message-ID: <CADnq5_PFdgZFfejWKdt6jp-Fc1sHDgX6F8kcCpAO4BmpDHHsEQ@mail.gmail.com>
-References: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
- <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
- <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com>
- <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
- <c43669b7-1074-714c-fb22-81685826b3ad@amd.com>
- <74078dc6-ef08-586b-fd58-51eb2c0b5060@roeck-us.net>
- <BN6PR12MB1809E1A07CD1B5B0F41273EBF7E60@BN6PR12MB1809.namprd12.prod.outlook.com>
- <c6880c5b-e259-4923-8d5a-80c620563398@amd.com>
- <20181008174628.GB11442@roeck-us.net>
- <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com>
- <20181019085308.GY31561@phenom.ffwll.local>
- <8081f60d-ef19-14a5-a589-874afc050d94@roeck-us.net>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: Expose *_setup_vm_pt_regs for kfd to use
+Date: Fri, 19 Oct 2018 15:50:31 +0000
+Message-ID: <BL0PR12MB2500351B2791A94A561FD563F0F90@BL0PR12MB2500.namprd12.prod.outlook.com>
+References: <1539897169-23047-1-git-send-email-Yong.Zhao@amd.com>
+ <1539897169-23047-2-git-send-email-Yong.Zhao@amd.com>,
+ <46157ae3-b195-6d42-b3d1-4d685d3ec9db@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0901218768=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8081f60d-ef19-14a5-a589-874afc050d94-0h96xk9xTtrk1uMJSBkQmQ@public.gmane.org>
+In-Reply-To: <46157ae3-b195-6d42-b3d1-4d685d3ec9db-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -29,70 +20,378 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Guenter Roeck <linux-0h96xk9xTtrk1uMJSBkQmQ@public.gmane.org>
-Cc: peng.hao2-Th6q7B73Y6EnDS1+zs4M5A@public.gmane.org, Martin Peres <martin.peres-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>
 
-T24gRnJpLCBPY3QgMTksIDIwMTggYXQgOTozMSBBTSBHdWVudGVyIFJvZWNrIDxsaW51eEByb2Vj
-ay11cy5uZXQ+IHdyb3RlOgo+Cj4gT24gMTAvMTkvMjAxOCAwMTo1MyBBTSwgRGFuaWVsIFZldHRl
-ciB3cm90ZToKPiA+IE9uIE1vbiwgT2N0IDA4LCAyMDE4IGF0IDA2OjEzOjU2UE0gKzAwMDAsIEtv
-ZW5pZywgQ2hyaXN0aWFuIHdyb3RlOgo+ID4+IEFtIDA4LjEwLjIwMTggdW0gMTk6NDYgc2Nocmll
-YiBHdWVudGVyIFJvZWNrOgo+ID4+PiBPbiBNb24sIE9jdCAwOCwgMjAxOCBhdCAwNToyMjoyNFBN
-ICswMDAwLCBLb2VuaWcsIENocmlzdGlhbiB3cm90ZToKPiA+Pj4+IEFtIDA4LjEwLjIwMTggdW0g
-MTc6NTcgc2NocmllYiBEZXVjaGVyLCBBbGV4YW5kZXI6Cj4gPj4+Pj4+Pj4gT25lIHRoaW5nIEkg
-Zm91bmQgbWlzc2luZyBpbiB0aGUgZGlzY3Vzc2lvbiB3YXMgdGhlIHJlZmVyZW5jZSB0byB0aGUK
-PiA+Pj4+Pj4+PiBDIHN0YW5kYXJkLgo+ID4+Pj4+Pj4+IFRoZSBDOTkgc3RhbmRhcmQgc3RhdGVz
-IGluIHNlY3Rpb24gNi43LjggKEluaXRpYWxpemF0aW9uKSBjbGF1c2UgMTk6Cj4gPj4+Pj4+Pj4g
-Ii4uLiBhbGwKPiA+Pj4+Pj4+PiBzdWJvYmplY3RzIHRoYXQgYXJlIG5vdCBpbml0aWFsaXplZCBl
-eHBsaWNpdGx5IHNoYWxsIGJlIGluaXRpYWxpemVkCj4gPj4+Pj4+Pj4gaW1wbGljaXRseSB0aGUg
-c2FtZSBhcyBvYmplY3RzIHRoYXQgaGF2ZSBzdGF0aWMgc3RvcmFnZSBkdXJhdGlvbiIuCj4gPj4+
-Pj4+Pj4gQ2xhdXNlIDIxIG1ha2VzIGZ1cnRoZXIgcmVmZXJlbmNlIHRvIHBhcnRpYWwgaW5pdGlh
-bGl6YXRpb24sCj4gPj4+Pj4+Pj4gc3VnZ2VzdGluZyB0aGUgc2FtZS4gVmFyaW91cyBvbmxpbmUg
-cmVzb3VyY2VzLCBpbmNsdWRpbmcgdGhlIGdjYwo+ID4+Pj4+Pj4+IGRvY3VtZW50YXRpb24sIGFs
-bCBzdGF0ZSB0aGUgc2FtZS4gSSBkb24ndCBmaW5kIGFueSByZWZlcmVuY2UgdG8gYQo+ID4+Pj4+
-Pj4+IHBhcnRpYWwgaW5pdGlhbGl6YXRpb24gd2hpY2ggd291bGQgbGVhdmUgbWVtYmVycyBvZiBh
-IHN0cnVjdHVyZQo+ID4+Pj4+Pj4+IHVuZGVmaW5lZC4gSXQgd291bGQgYmUgaW50ZXJlc3Rpbmcg
-Zm9yIG1lIHRvIHVuZGVyc3RhbmQgaG93IGFuZCB3aHkKPiA+Pj4+Pj4+PiB0aGlzIGRvZXMgbm90
-IGFwcGx5IGhlcmUuCj4gPj4+Pj4+Pj4KPiA+Pj4+Pj4+PiBJbiB0aGlzIGNvbnRleHQsIGl0IGlz
-IGludGVyZXN0aW5nIHRoYXQgdGhlIG90aGVyIDQ4IGluc3RhbmNlcyBvZiB0aGUKPiA+Pj4+Pj4+
-PiB7IHsgMCB9IH0gaW5pdGlhbGl6YXRpb24gaW4gdGhlIHNhbWUgZHJpdmVyIGRvbid0IHJhaXNl
-IHNpbWlsYXIKPiA+Pj4+Pj4+PiBjb25jZXJucywgbm9yIHNlZW1lZCB0byBoYXZlIGNhdXNlZCBh
-bnkgb3BlcmF0aW9uYWwgcHJvYmxlbXMuCj4gPj4+Pj4+PiBGZWVsIGZyZWUgdG8gcHJvdmlkZSBw
-YXRjaGVzIHRvIHJlcGxhY2UgdGhvc2Ugd2l0aCBtZW1zZXQoKS4KPiA+Pj4+Pj4+Cj4gPj4+Pj4+
-IE5vdCBtZS4gQXMgSSBzZWUgaXQsIHRoZSBwcm9ibGVtLCBpZiBpdCBleGlzdHMsIHdvdWxkIGJl
-IGEgdmlvbGF0aW9uIG9mIHRoZSBDCj4gPj4+Pj4+IHN0YW5kYXJkLiBJIGRvbid0IGJlbGlldmUg
-aGFja2luZyBhcm91bmQgYmFkIEMgY29tcGlsZXJzLiBJIHdvdWxkIHJhdGhlcgo+ID4+Pj4+PiBi
-bGFja2xpc3Qgc3VjaCBjb21waWxlcnMuCj4gPj4+PiBXZWxsIHRoZW4geW91IHdvdWxkIG5lZWQg
-dG8gYmxhY2tsaXN0IGJhc2ljYWxseSBhbGwgZ2NjIHZhcmlhbnRzIG9mIHRoZQo+ID4+Pj4gbGFz
-dCBkZWNhZGUgb3Igc28uCj4gPj4+Pgo+ID4+Pj4gSW5pdGlhbGl6aW5nIG9ubHkga25vd24gbWVt
-YmVycyBvZiBzdHJ1Y3R1cmVzIGlzIGEgcGVyZmVjdGx5IHZhbGlkCj4gPj4+PiBvcHRpbWl6YXRp
-b24gYW5kIHdlbGwga25vd24gaXNzdWUgd2hlbiB5b3UgdGhlbiBjb21wYXJlIHRoZSBzdHJ1Y3R1
-cmUKPiA+Pj4+IHdpdGggbWVtY3B5KCkgb3IgdXNlIHRoZSBieXRlcyBmb3IgaGFzaGluZyBvciBz
-b21ldGhpbmcgc2ltaWxhci4KPiA+Pj4+Cj4gPj4+IElzbid0IHRoYXQgYWJvdXQgcGFkZGluZyA/
-IFRoYXQgaXMgYSBjb21wbGV0ZWx5IGRpZmZlcmVudCBpc3N1ZS4KPiA+Pgo+ID4+IENvcnJlY3Qs
-IHllcy4gQnV0IHRoYXQgaXMgdGhlIHJlYXNvbiB3aHkgSSByZWNvbW1lbmQgdXNpbmcgbWVtc2V0
-KCkgZm9yCj4gPj4gemVybyBpbml0aWFsaXphdGlvbi4KPiA+Pgo+ID4+IFNlZSB3ZSBkb24ndCBr
-bm93IHRoZSBpbm5lciBsYXlvdXQgb2YgdGhlIHN0cnVjdHVyZSwgY291bGQgYmUgYW5vdGhlcgo+
-ID4+IHN0cnVjdHVyZSBvciBhbiB1bmlvbi4KPiA+Pgo+ID4+IElmIGl0J3MgYSBzdHJ1Y3R1cmUg
-ZXZlcnl0aGluZyBpcyBmaW5lIGJlY2F1c2UgaWYgeW91IGluaXRpYWxpemUgb25lCj4gPj4gc3Ry
-dWN0dXJlIG1lbWJlciBhbGwgb3RoZXIgZ2V0IHRoZWlyIGRlZmF1bHQgdHlwZSAod2hhdGV2ZXIg
-dGhhdCBtZWFucyksCj4gPj4gYnV0IGlmIGl0J3MgYW4gdW5pb24uLi4uLgo+ID4+Cj4gPj4gTm90
-IHN1cmUgaWYgY29tcGlsZXJzIHN0aWxsIHJlYWN0IGFsbGVyZ2ljIHRvIHRoYXQsIGJ1dCBpdHMg
-dGhlIHN0YXR1cwo+ID4+IEkndmUgbGVhcm5lZCB0aGUgaGFyZCB3YXkgd2hlbiB0aGUgQzk5IHN0
-YW5kYXJkIGNhbWUgb3V0IGFuZCBpdCBzdGlsbAo+ID4+IHNlZW1zIGxpa2UgcGVvcGxlIGFyZSB3
-b3JraW5nIGFyb3VuZCB0aGF0IHNvIEkgcmVjb21tZW5kIGV2ZXJ5Ym9keSB0bwo+ID4+IHN0aWNr
-IHdpdGggbWVtc2V0KCkuCj4gPgo+ID4gV2VudCBib29tOgo+ID4KPiA+IGh0dHBzOi8vYnVncy5m
-cmVlZGVza3RvcC5vcmcvc2hvd19idWcuY2dpP2lkPTEwODQ5MAo+ID4KPgo+IFdoYXQgd2VudCBi
-b29tID8gVGhpcyBwYXRjaCB3YXNuJ3QgYWNjZXB0ZWQsIGFuZCBJIGRvbid0IGltbWVkaWF0ZWx5
-IHNlZQo+IHRoZSBjb3JyZWxhdGlvbiBvZiB0aGUgc3VnZ2VzdGVkIHJldmVydCB3aXRoIHRoZSBy
-ZWplY3RlZCBwYXRjaC4KCkRhbmllbCBhY2NpZGVudGFsbHkgcmVwbGllZCB0byB0aGUgd3Jvbmcg
-dGhyZWFkLiAgUGxlYXNlIGlnbm9yZS4KCkFsZXgKCj4KPiBHdWVudGVyCj4KPiA+IENhbiB3ZSBy
-ZXZlcnQ/Cj4gPgo+ID4gQWxzbywgY2FuIHdlIHByb3Blcmx5IGlndCB0aGlzIHNvIHRoYXQgaW50
-ZWwtZ2Z4LWNpIGNvdWxkIHRlc3QgdGhpcyBiZWZvcmUKPiA+IGl0J3MgYWxsIGZpcmV3b3Jrcz8K
-PiA+Cj4gPiBUaGFua3MsIERhbmllbAo+ID4KPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+--===============0901218768==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BL0PR12MB2500351B2791A94A561FD563F0F90BL0PR12MB2500namp_"
+
+--_000_BL0PR12MB2500351B2791A94A561FD563F0F90BL0PR12MB2500namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Fixed as suggested, added the descriptions, and pushed them. Thanks.
+
+Yong
+________________________________
+From: Koenig, Christian
+Sent: Friday, October 19, 2018 3:14:14 AM
+To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; brahma_sw_dev
+Subject: Re: [PATCH 2/3] drm/amdgpu: Expose *_setup_vm_pt_regs for kfd to u=
+se
+
+Am 18.10.18 um 23:13 schrieb Zhao, Yong:
+> Change-Id: I2ea27c4749a454506fecf75bb5b78b09bde9cb28
+> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 20 +++++++++++++++-----
+>   drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h    |  6 ++++++
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 20 +++++++++++++++-----
+>   3 files changed, 36 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/drm/a=
+md/amdgpu/gfxhub_v1_0.c
+> index ceb7847..34145a6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> @@ -35,15 +35,25 @@ u64 gfxhub_v1_0_get_mc_fb_offset(struct amdgpu_device=
+ *adev)
+>        return (u64)RREG32_SOC15(GC, 0, mmMC_VM_FB_OFFSET) << 24;
+>   }
+>
+> +void gfxhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t v=
+mid,
+> +                             uint64_t value)
+
+I would rather give the parameter some meaningful name, e.g.
+page_table_base or similar.
+
+> +{
+> +     /* two registers distance between mmVM_CONTEXT0_* to mmVM_CONTEXT1_=
+* */
+> +     int offset =3D mmVM_CONTEXT1_PAGE_TABLE_BASE_ADDR_LO32
+> +                     - mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32;
+> +
+> +     WREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
+> +                             offset * vmid, lower_32_bits(value));
+> +
+> +     WREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
+> +                             offset * vmid, upper_32_bits(value));
+> +}
+> +
+>   static void gfxhub_v1_0_init_gart_pt_regs(struct amdgpu_device *adev)
+>   {
+>        uint64_t value =3D amdgpu_gmc_pd_addr(adev->gart.bo);
+>
+> -     WREG32_SOC15(GC, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
+> -                  lower_32_bits(value));
+> -
+> -     WREG32_SOC15(GC, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
+> -                  upper_32_bits(value));
+> +     gfxhub_v1_0_setup_vm_pt_regs(adev, 0, value);
+
+Since that function is now a mostly meaningless wrapper I would just go
+ahead and call gfxhub_v1_0_setup_vm_pt_regs directly as long as it
+doesn't duplicates the code to much.
+
+Same applies of course to the mmhub variant.
+
+Apart from that looks good to me,
+Christian.
+
+>   }
+>
+>   static void gfxhub_v1_0_init_gart_aperture_regs(struct amdgpu_device *a=
+dev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h b/drivers/gpu/drm/amd/=
+amdgpu/gmc_v9_0.h
+> index b030ca5..008ab08 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h
+> @@ -27,4 +27,10 @@
+>   extern const struct amd_ip_funcs gmc_v9_0_ip_funcs;
+>   extern const struct amdgpu_ip_block_version gmc_v9_0_ip_block;
+>
+> +/* amdgpu_amdkfd*.c */
+> +void gfxhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t v=
+mid,
+> +                             uint64_t value);
+> +void mmhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vm=
+id,
+> +                             uint64_t value);
+> +
+>   #endif
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/am=
+d/amdgpu/mmhub_v1_0.c
+> index 14649f8..8e18be0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> @@ -52,15 +52,25 @@ u64 mmhub_v1_0_get_fb_location(struct amdgpu_device *=
+adev)
+>        return base;
+>   }
+>
+> +void mmhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vm=
+id,
+> +                             uint64_t value)
+> +{
+> +     /* two registers distance between mmVM_CONTEXT0_* to mmVM_CONTEXT1_=
+* */
+> +     int offset =3D mmVM_CONTEXT1_PAGE_TABLE_BASE_ADDR_LO32
+> +                     - mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32;
+> +
+> +     WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO=
+32,
+> +                     offset * vmid, lower_32_bits(value));
+> +
+> +     WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI=
+32,
+> +                     offset * vmid, upper_32_bits(value));
+> +}
+> +
+>   static void mmhub_v1_0_init_gart_pt_regs(struct amdgpu_device *adev)
+>   {
+>        uint64_t value =3D amdgpu_gmc_pd_addr(adev->gart.bo);
+>
+> -     WREG32_SOC15(MMHUB, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
+> -                  lower_32_bits(value));
+> -
+> -     WREG32_SOC15(MMHUB, 0, mmVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
+> -                  upper_32_bits(value));
+> +     mmhub_v1_0_setup_vm_pt_regs(adev, 0, value);
+>   }
+>
+>   static void mmhub_v1_0_init_gart_aperture_regs(struct amdgpu_device *ad=
+ev)
+
+
+--_000_BL0PR12MB2500351B2791A94A561FD563F0F90BL0PR12MB2500namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
+r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;">
+Fixed as suggested, added the descriptions, and pushed them. Thanks.</div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
+r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;">
+<br>
+</div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
+r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &q=
+uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
+uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;">
+Yong</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian<br>
+<b>Sent:</b> Friday, October 19, 2018 3:14:14 AM<br>
+<b>To:</b> Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; brahma_sw_dev<br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdgpu: Expose *_setup_vm_pt_regs for k=
+fd to use</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">Am 18.10.18 um 23:13 schrieb Zhao, Yong:<br>
+&gt; Change-Id: I2ea27c4749a454506fecf75bb5b78b09bde9cb28<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 20 &#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-----<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h&nbsp;&nbsp;&nbsp; |&=
+nbsp; 6 &#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c&nbsp; | 20 &#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-----<b=
+r>
+&gt;&nbsp;&nbsp; 3 files changed, 36 insertions(&#43;), 10 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c b/drivers/gpu/dr=
+m/amd/amdgpu/gfxhub_v1_0.c<br>
+&gt; index ceb7847..34145a6 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
+&gt; @@ -35,15 &#43;35,25 @@ u64 gfxhub_v1_0_get_mc_fb_offset(struct amdgpu=
+_device *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (u64)RREG32_SOC15(GC,=
+ 0, mmMC_VM_FB_OFFSET) &lt;&lt; 24;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;void gfxhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uin=
+t32_t vmid,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t value)<br>
+<br>
+I would rather give the parameter some meaningful name, e.g. <br>
+page_table_base or similar.<br>
+<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* two registers distance between mmVM_C=
+ONTEXT0_* to mmVM_CONTEXT1_* */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int offset =3D mmVM_CONTEXT1_PAGE_TABLE_=
+BASE_ADDR_LO32<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - mmVM_CONTEXT0_PAG=
+E_TABLE_BASE_ADDR_LO32;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT0=
+_PAGE_TABLE_BASE_ADDR_LO32,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; offset * vmid, lower_32_bits(value));<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_OFFSET(GC, 0, mmVM_CONTEXT0=
+_PAGE_TABLE_BASE_ADDR_HI32,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; offset * vmid, upper_32_bits(value));<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp; static void gfxhub_v1_0_init_gart_pt_regs(struct amdgpu_de=
+vice *adev)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t value =3D amdgpu_gm=
+c_pd_addr(adev-&gt;gart.bo);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmVM_CONTEXT0_PAGE_TABLE=
+_BASE_ADDR_LO32,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(value));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmVM_CONTEXT0_PAGE_TABLE=
+_BASE_ADDR_HI32,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(value));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; gfxhub_v1_0_setup_vm_pt_regs(adev, 0, va=
+lue);<br>
+<br>
+Since that function is now a mostly meaningless wrapper I would just go <br=
+>
+ahead and call gfxhub_v1_0_setup_vm_pt_regs directly as long as it <br>
+doesn't duplicates the code to much.<br>
+<br>
+Same applies of course to the mmhub variant.<br>
+<br>
+Apart from that looks good to me,<br>
+Christian.<br>
+<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static void gfxhub_v1_0_init_gart_aperture_regs(struct amd=
+gpu_device *adev)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h b/drivers/gpu/drm/a=
+md/amdgpu/gmc_v9_0.h<br>
+&gt; index b030ca5..008ab08 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.h<br>
+&gt; @@ -27,4 &#43;27,10 @@<br>
+&gt;&nbsp;&nbsp; extern const struct amd_ip_funcs gmc_v9_0_ip_funcs;<br>
+&gt;&nbsp;&nbsp; extern const struct amdgpu_ip_block_version gmc_v9_0_ip_bl=
+ock;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;/* amdgpu_amdkfd*.c */<br>
+&gt; &#43;void gfxhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uin=
+t32_t vmid,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t value);<br>
+&gt; &#43;void mmhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint=
+32_t vmid,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t value);<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp; #endif<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm=
+/amd/amdgpu/mmhub_v1_0.c<br>
+&gt; index 14649f8..8e18be0 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
+&gt; @@ -52,15 &#43;52,25 @@ u64 mmhub_v1_0_get_fb_location(struct amdgpu_d=
+evice *adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return base;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;void mmhub_v1_0_setup_vm_pt_regs(struct amdgpu_device *adev, uint=
+32_t vmid,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t value)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* two registers distance between mmVM_C=
+ONTEXT0_* to mmVM_CONTEXT1_* */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int offset =3D mmVM_CONTEXT1_PAGE_TABLE_=
+BASE_ADDR_LO32<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - mmVM_CONTEXT0_PAG=
+E_TABLE_BASE_ADDR_LO32;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTE=
+XT0_PAGE_TABLE_BASE_ADDR_LO32,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset * vmid, lowe=
+r_32_bits(value));<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15_OFFSET(MMHUB, 0, mmVM_CONTE=
+XT0_PAGE_TABLE_BASE_ADDR_HI32,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; offset * vmid, uppe=
+r_32_bits(value));<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp; static void mmhub_v1_0_init_gart_pt_regs(struct amdgpu_dev=
+ice *adev)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t value =3D amdgpu_gm=
+c_pd_addr(adev-&gt;gart.bo);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_CONTEXT0_PAGE_TA=
+BLE_BASE_ADDR_LO32,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lower_32_bits(value));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mmVM_CONTEXT0_PAGE_TA=
+BLE_BASE_ADDR_HI32,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper_32_bits(value));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; mmhub_v1_0_setup_vm_pt_regs(adev, 0, val=
+ue);<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static void mmhub_v1_0_init_gart_aperture_regs(struct amdg=
+pu_device *adev)<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BL0PR12MB2500351B2791A94A561FD563F0F90BL0PR12MB2500namp_--
+
+--===============0901218768==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0901218768==--
