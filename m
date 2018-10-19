@@ -1,191 +1,432 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 Subject: Re: [PATCH 01/18] drm/ttm: Provide struct ttm_global for referencing
  TTM global state
-Date: Fri, 19 Oct 2018 11:30:51 +0200
-Message-ID: <39122bc3-869b-8e7f-f5bc-98c2a79184fb@gmail.com>
+Date: Fri, 19 Oct 2018 11:41:59 +0200
+Message-ID: <616760d1-6598-9769-f058-54777e55b392@suse.de>
 References: <20181019085423.28159-1-tzimmermann@suse.de>
  <20181019085423.28159-2-tzimmermann@suse.de>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <39122bc3-869b-8e7f-f5bc-98c2a79184fb@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181019085423.28159-2-tzimmermann-l3A5Bk7waGM@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, ray.huang-5C7GfCeVMHo@public.gmane.org, Jerry.Zhang-5C7GfCeVMHo@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, syeh-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org, z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org, zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org, puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============1875591765=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <39122bc3-869b-8e7f-f5bc-98c2a79184fb@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: christian.koenig@amd.com, ray.huang@amd.com, Jerry.Zhang@amd.com, alexander.deucher@amd.com, David1.Zhou@amd.com, airlied@linux.ie, kraxel@redhat.com, bskeggs@redhat.com, syeh@vmware.com, z.liuxinliang@hisilicon.com, zourongrong@gmail.com, kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SW4gZ2VuZXJhbCBJJ20gcmVhbGx5IGdyYWNlZnVsIHRoYXQgeW91IGxvb2sgaW50byB0aGlzLCBi
-dXQgeW91IGFyZSBqdXN0IAptb3ZpbmcgdGhlIGNvbXBsZXhpdHkgYXJvdW5kIGluc3RlYWQgb2Yg
-Y2xlYW5pbmcgaXQgdXAuCgpUaGlzIHdob2xlIGdsb2JhbCByZWZlcmVuY2Ugc3R1ZmYgaXMganVz
-dCBnb2luZyBpbnRvIHRoZSB3cm9uZyBkaXJlY3Rpb24uCgpQbGVhc2UgbGV0IG1lIGNsZWFuIHRo
-YXQgdXAgaW5zdGVhZCwKQ2hyaXN0aWFuLgoKQW0gMTkuMTAuMTggdW0gMTA6NTQgc2NocmllYiBU
-aG9tYXMgWmltbWVybWFubjoKPiBUaGUgbmV3IHN0cnVjdCB0dG1fZ2xvYmFsIHByb3ZpZGVzIGRy
-aXZlcnMgd2l0aCBUVE0ncyBnbG9iYWwgbWVtb3J5IGFuZAo+IEJPIGluIGEgdW5pZmllZCB3YXku
-IEluaXRpYWxpemF0aW9uIGFuZCByZWxlYXNlIGlzIGhhbmRsZWQgaW50ZXJuYWxseS4KPgo+IFRo
-ZSBmdW5jdGlvbmFsaXR5IHByb3ZpZGVkIGJ5IHN0cnVjdCB0dG1fZ2xvYmFsIGlzIGN1cnJlbnRs
-eSByZS1pbXBsZW1lbnRlZAo+IGJ5IGEgZG96ZW4gaW5kaXZpZHVhbCBEUk0gZHJpdmVycyB1c2lu
-ZyBzdHJ1Y3QgZHJtX2dsb2JhbC4gVGhlIGltcGxlbWVudGF0aW9uCj4gb2Ygc3RydWN0IHR0bV9n
-bG9iYWwgaXMgYWxzbyBidWlsdCBvbiB0b3Agb2YgZHJtX2dsb2JhbCwgc28gaXQgY2FuIGNvLWV4
-aXN0cwo+IHdpdGggdGhlIGV4aXN0aW5nIGRyaXZlcnMuIE9uY2UgYWxsIFRUTS1iYXNlZCBkcml2
-ZXJzIGhhdmUgYmVlbiBjb252ZXJ0ZWQgdG8KPiBzdHJ1Y3QgdHRtX2dsb2JhbCwgdGhlIGltcGxl
-bWVudGF0aW9uIG9mIHN0cnVjdCBkcm1fZ2xvYmFsIGNhbiBiZSBtYWRlCj4gcHJpdmF0ZSB0byBU
-VE0uCj4KPiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3Vz
-ZS5kZT4KPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS90dG0vTWFrZWZpbGUgICAgIHwgIDIgKy0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2dsb2JhbC5jIHwgOTggKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysKPiAgIGluY2x1ZGUvZHJtL2RybV9nbG9iYWwuaCAgICAgICAgIHwg
-IDggKysrCj4gICBpbmNsdWRlL2RybS90dG0vdHRtX2dsb2JhbC5oICAgICB8IDc5ICsrKysrKysr
-KysrKysrKysrKysrKysrKysKPiAgIDQgZmlsZXMgY2hhbmdlZCwgMTg2IGluc2VydGlvbnMoKyks
-IDEgZGVsZXRpb24oLSkKPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vdHRt
-L3R0bV9nbG9iYWwuYwo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvZHJtL3R0bS90dG1f
-Z2xvYmFsLmgKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL01ha2VmaWxlIGIv
-ZHJpdmVycy9ncHUvZHJtL3R0bS9NYWtlZmlsZQo+IGluZGV4IDAxZmM2NzBjZTdhMi4uYjcyNzJi
-MjZlOWYzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vTWFrZWZpbGUKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vdHRtL01ha2VmaWxlCj4gQEAgLTUsNyArNSw3IEBACj4gICB0dG0t
-eSA6PSB0dG1fbWVtb3J5Lm8gdHRtX3R0Lm8gdHRtX2JvLm8gXAo+ICAgCXR0bV9ib191dGlsLm8g
-dHRtX2JvX3ZtLm8gdHRtX21vZHVsZS5vIFwKPiAgIAl0dG1fZXhlY2J1Zl91dGlsLm8gdHRtX3Bh
-Z2VfYWxsb2MubyB0dG1fYm9fbWFuYWdlci5vIFwKPiAtCXR0bV9wYWdlX2FsbG9jX2RtYS5vCj4g
-Kwl0dG1fcGFnZV9hbGxvY19kbWEubyB0dG1fZ2xvYmFsLm8KPiAgIHR0bS0kKENPTkZJR19BR1Ap
-ICs9IHR0bV9hZ3BfYmFja2VuZC5vCj4gICAKPiAgIG9iai0kKENPTkZJR19EUk1fVFRNKSArPSB0
-dG0ubwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9nbG9iYWwuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS90dG0vdHRtX2dsb2JhbC5jCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBp
-bmRleCAwMDAwMDAwMDAwMDAuLmNhOWRhMGE0NjE0Nwo+IC0tLSAvZGV2L251bGwKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9nbG9iYWwuYwo+IEBAIC0wLDAgKzEsOTggQEAKPiArLyog
-U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAgT1IgTUlUICovCj4gKy8qKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKgo+ICsgKgo+ICsgKiBDb3B5cmlnaHQgMjAwOC0yMDA5IFZNd2FyZSwgSW5jLiwgUGFs
-byBBbHRvLCBDQS4sIFVTQQo+ICsgKiBBbGwgUmlnaHRzIFJlc2VydmVkLgo+ICsgKgo+ICsgKiBQ
-ZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNv
-biBvYnRhaW5pbmcgYQo+ICsgKiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQg
-ZG9jdW1lbnRhdGlvbiBmaWxlcyAodGhlCj4gKyAqICJTb2Z0d2FyZSIpLCB0byBkZWFsIGluIHRo
-ZSBTb2Z0d2FyZSB3aXRob3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcKPiArICogd2l0aG91dCBs
-aW1pdGF0aW9uIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNo
-LAo+ICsgKiBkaXN0cmlidXRlLCBzdWIgbGljZW5zZSwgYW5kL29yIHNlbGwgY29waWVzIG9mIHRo
-ZSBTb2Z0d2FyZSwgYW5kIHRvCj4gKyAqIHBlcm1pdCBwZXJzb25zIHRvIHdob20gdGhlIFNvZnR3
-YXJlIGlzIGZ1cm5pc2hlZCB0byBkbyBzbywgc3ViamVjdCB0bwo+ICsgKiB0aGUgZm9sbG93aW5n
-IGNvbmRpdGlvbnM6Cj4gKyAqCj4gKyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0
-aGlzIHBlcm1pc3Npb24gbm90aWNlIChpbmNsdWRpbmcgdGhlCj4gKyAqIG5leHQgcGFyYWdyYXBo
-KSBzaGFsbCBiZSBpbmNsdWRlZCBpbiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25z
-Cj4gKyAqIG9mIHRoZSBTb2Z0d2FyZS4KPiArICoKPiArICogVEhFIFNPRlRXQVJFIElTIFBST1ZJ
-REVEICJBUyBJUyIsIFdJVEhPVVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IKPiAr
-ICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBP
-RiBNRVJDSEFOVEFCSUxJVFksCj4gKyAqIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NF
-IEFORCBOT04tSU5GUklOR0VNRU5ULiBJTiBOTyBFVkVOVCBTSEFMTAo+ICsgKiBUSEUgQ09QWVJJ
-R0hUIEhPTERFUlMsIEFVVEhPUlMgQU5EL09SIElUUyBTVVBQTElFUlMgQkUgTElBQkxFIEZPUiBB
-TlkgQ0xBSU0sCj4gKyAqIERBTUFHRVMgT1IgT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFO
-IEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBPUgo+ICsgKiBPVEhFUldJU0UsIEFSSVNJTkcgRlJP
-TSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09GVFdBUkUgT1IgVEhFCj4gKyAq
-IFVTRSBPUiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCj4gKyAqCj4gKyAqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKi8KPiArCj4gKyNpbmNsdWRlIDxkcm0vdHRtL3R0bV9nbG9iYWwuaD4KPiArI2lu
-Y2x1ZGUgPGRybS90dG0vdHRtX2JvX2RyaXZlci5oPgo+ICsjaW5jbHVkZSA8ZHJtL3R0bS90dG1f
-bWVtb3J5Lmg+Cj4gKyNpbmNsdWRlIDxsaW51eC9rZXJuZWwuaD4KPiArCj4gK3N0YXRpYyBpbnQg
-dHRtX2dsb2JhbF9pbml0X21lbShzdHJ1Y3QgZHJtX2dsb2JhbF9yZWZlcmVuY2UgKnJlZikKPiAr
-ewo+ICsJQlVHX09OKCFyZWYtPm9iamVjdCk7Cj4gKwlyZXR1cm4gdHRtX21lbV9nbG9iYWxfaW5p
-dChyZWYtPm9iamVjdCk7Cj4gK30KPiArCj4gK3N0YXRpYyB2b2lkIHR0bV9nbG9iYWxfcmVsZWFz
-ZV9tZW0oc3RydWN0IGRybV9nbG9iYWxfcmVmZXJlbmNlICpyZWYpCj4gK3sKPiArCUJVR19PTigh
-cmVmLT5vYmplY3QpOwo+ICsJdHRtX21lbV9nbG9iYWxfcmVsZWFzZShyZWYtPm9iamVjdCk7Cj4g
-K30KPiArCj4gK3N0YXRpYyBpbnQgdHRtX2dsb2JhbF9pbml0X2JvKHN0cnVjdCBkcm1fZ2xvYmFs
-X3JlZmVyZW5jZSAqcmVmKQo+ICt7Cj4gKwlzdHJ1Y3QgdHRtX2dsb2JhbCAqZ2xvYiA9Cj4gKwkJ
-Y29udGFpbmVyX29mKHJlZiwgc3RydWN0IHR0bV9nbG9iYWwsIGJvX3JlZik7Cj4gKwlCVUdfT04o
-IXJlZi0+b2JqZWN0KTsKPiArCUJVR19PTighZ2xvYi0+bWVtX3JlZi5vYmplY3QpOwo+ICsJcmV0
-dXJuIHR0bV9ib19nbG9iYWxfaW5pdChyZWYtPm9iamVjdCwgZ2xvYi0+bWVtX3JlZi5vYmplY3Qp
-Owo+ICt9Cj4gKwo+ICtzdGF0aWMgdm9pZCB0dG1fZ2xvYmFsX3JlbGVhc2VfYm8oc3RydWN0IGRy
-bV9nbG9iYWxfcmVmZXJlbmNlICpyZWYpCj4gK3sKPiArCUJVR19PTighcmVmLT5vYmplY3QpOwo+
-ICsJdHRtX2JvX2dsb2JhbF9yZWxlYXNlKHJlZi0+b2JqZWN0KTsKPiArfQo+ICsKPiAraW50IHR0
-bV9nbG9iYWxfaW5pdChzdHJ1Y3QgdHRtX2dsb2JhbCAqZ2xvYikKPiArewo+ICsJaW50IHJldDsK
-PiArCj4gKwlnbG9iLT5tZW1fcmVmLmdsb2JhbF90eXBlID0gRFJNX0dMT0JBTF9UVE1fTUVNOwo+
-ICsJZ2xvYi0+bWVtX3JlZi5zaXplID0gc2l6ZW9mKHN0cnVjdCB0dG1fbWVtX2dsb2JhbCk7Cj4g
-KwlnbG9iLT5ib19yZWYub2JqZWN0ID0gTlVMTDsKPiArCWdsb2ItPm1lbV9yZWYuaW5pdCA9ICZ0
-dG1fZ2xvYmFsX2luaXRfbWVtOwo+ICsJZ2xvYi0+bWVtX3JlZi5yZWxlYXNlID0gJnR0bV9nbG9i
-YWxfcmVsZWFzZV9tZW07Cj4gKwlyZXQgPSBkcm1fZ2xvYmFsX2l0ZW1fcmVmKCZnbG9iLT5tZW1f
-cmVmKTsKPiArCWlmIChyZXQpCj4gKwkJcmV0dXJuIHJldDsKPiArCj4gKwlnbG9iLT5ib19yZWYu
-Z2xvYmFsX3R5cGUgPSBEUk1fR0xPQkFMX1RUTV9CTzsKPiArCWdsb2ItPmJvX3JlZi5zaXplID0g
-c2l6ZW9mKHN0cnVjdCB0dG1fYm9fZ2xvYmFsKTsKPiArCWdsb2ItPmJvX3JlZi5vYmplY3QgPSBO
-VUxMOwo+ICsJZ2xvYi0+Ym9fcmVmLmluaXQgPSAmdHRtX2dsb2JhbF9pbml0X2JvOwo+ICsJZ2xv
-Yi0+Ym9fcmVmLnJlbGVhc2UgPSAmdHRtX2dsb2JhbF9yZWxlYXNlX2JvOwo+ICsJcmV0ID0gZHJt
-X2dsb2JhbF9pdGVtX3JlZigmZ2xvYi0+Ym9fcmVmKTsKPiArCWlmIChyZXQpCj4gKwkJZ290byBl
-cnJfZHJtX2dsb2JhbF9pdGVtX3VucmVmX21lbTsKPiArCj4gKwlyZXR1cm4gMDsKPiArCj4gK2Vy
-cl9kcm1fZ2xvYmFsX2l0ZW1fdW5yZWZfbWVtOgo+ICsJZHJtX2dsb2JhbF9pdGVtX3VucmVmKCZn
-bG9iLT5tZW1fcmVmKTsKPiArCXJldHVybiByZXQ7Cj4gK30KPiArCj4gK0VYUE9SVF9TWU1CT0wo
-dHRtX2dsb2JhbF9pbml0KTsKPiArCj4gK3ZvaWQgdHRtX2dsb2JhbF9yZWxlYXNlKHN0cnVjdCB0
-dG1fZ2xvYmFsICpnbG9iKQo+ICt7Cj4gKwlkcm1fZ2xvYmFsX2l0ZW1fdW5yZWYoJmdsb2ItPmJv
-X3JlZik7Cj4gKwlkcm1fZ2xvYmFsX2l0ZW1fdW5yZWYoJmdsb2ItPm1lbV9yZWYpOwo+ICt9Cj4g
-Kwo+ICtFWFBPUlRfU1lNQk9MKHR0bV9nbG9iYWxfcmVsZWFzZSk7Cj4gZGlmZiAtLWdpdCBhL2lu
-Y2x1ZGUvZHJtL2RybV9nbG9iYWwuaCBiL2luY2x1ZGUvZHJtL2RybV9nbG9iYWwuaAo+IGluZGV4
-IDNhODMwNjAyYTJlNC4uNDQ4MmE5YmJkNmU5IDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJtL2Ry
-bV9nbG9iYWwuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9nbG9iYWwuaAo+IEBAIC0yOCw4ICsy
-OCwxNiBAQAo+ICAgICogQXV0aG9yczogVGhvbWFzIEhlbGxzdHJvbSA8dGhlbGxzdHJvbS1hdC12
-bXdhcmUtZG90LWNvbT4KPiAgICAqLwo+ICAgCj4gKy8qCj4gKyAqICBUaGUgaW50ZXJmYWNlcyBp
-biB0aGlzIGZpbGUgYXJlIGRlcHJlY2F0ZWQuIFBsZWFzZSB1c2UgdHRtX2dsb2JhbAo+ICsgKiAg
-ZnJvbSA8ZHJtL3R0bS90dG1fZ2xvYmFsLmg+IGluc3RlYWQuCj4gKyAqLwo+ICsKPiAgICNpZm5k
-ZWYgX0RSTV9HTE9CQUxfSF8KPiAgICNkZWZpbmUgX0RSTV9HTE9CQUxfSF8KPiArCj4gKyNpbmNs
-dWRlIDxsaW51eC90eXBlcy5oPgo+ICsKPiAgIGVudW0gZHJtX2dsb2JhbF90eXBlcyB7Cj4gICAJ
-RFJNX0dMT0JBTF9UVE1fTUVNID0gMCwKPiAgIAlEUk1fR0xPQkFMX1RUTV9CTywKPiBkaWZmIC0t
-Z2l0IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9nbG9iYWwuaCBiL2luY2x1ZGUvZHJtL3R0bS90dG1f
-Z2xvYmFsLmgKPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+IGluZGV4IDAwMDAwMDAwMDAwMC4uMDZl
-NzkxNDk5Zjg3Cj4gLS0tIC9kZXYvbnVsbAo+ICsrKyBiL2luY2x1ZGUvZHJtL3R0bS90dG1fZ2xv
-YmFsLmgKPiBAQCAtMCwwICsxLDc5IEBACj4gKy8qKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKgo+ICsgKgo+ICsg
-KiBDb3B5cmlnaHQgMjAwOC0yMDA5IFZNd2FyZSwgSW5jLiwgUGFsbyBBbHRvLCBDQS4sIFVTQQo+
-ICsgKiBBbGwgUmlnaHRzIFJlc2VydmVkLgo+ICsgKgo+ICsgKiBQZXJtaXNzaW9uIGlzIGhlcmVi
-eSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQo+ICsg
-KiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9jdW1lbnRhdGlvbiBmaWxl
-cyAodGhlCj4gKyAqICJTb2Z0d2FyZSIpLCB0byBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRob3V0
-IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcKPiArICogd2l0aG91dCBsaW1pdGF0aW9uIHRoZSByaWdo
-dHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLAo+ICsgKiBkaXN0cmlidXRl
-LCBzdWIgbGljZW5zZSwgYW5kL29yIHNlbGwgY29waWVzIG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRv
-Cj4gKyAqIHBlcm1pdCBwZXJzb25zIHRvIHdob20gdGhlIFNvZnR3YXJlIGlzIGZ1cm5pc2hlZCB0
-byBkbyBzbywgc3ViamVjdCB0bwo+ICsgKiB0aGUgZm9sbG93aW5nIGNvbmRpdGlvbnM6Cj4gKyAq
-Cj4gKyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90
-aWNlIChpbmNsdWRpbmcgdGhlCj4gKyAqIG5leHQgcGFyYWdyYXBoKSBzaGFsbCBiZSBpbmNsdWRl
-ZCBpbiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zCj4gKyAqIG9mIHRoZSBTb2Z0
-d2FyZS4KPiArICoKPiArICogVEhFIFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhP
-VVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IKPiArICogSU1QTElFRCwgSU5DTFVE
-SU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFks
-Cj4gKyAqIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT04tSU5GUklOR0VN
-RU5ULiBJTiBOTyBFVkVOVCBTSEFMTAo+ICsgKiBUSEUgQ09QWVJJR0hUIEhPTERFUlMsIEFVVEhP
-UlMgQU5EL09SIElUUyBTVVBQTElFUlMgQkUgTElBQkxFIEZPUiBBTlkgQ0xBSU0sCj4gKyAqIERB
-TUFHRVMgT1IgT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFD
-VCwgVE9SVCBPUgo+ICsgKiBPVEhFUldJU0UsIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENP
-Tk5FQ1RJT04gV0lUSCBUSEUgU09GVFdBUkUgT1IgVEhFCj4gKyAqIFVTRSBPUiBPVEhFUiBERUFM
-SU5HUyBJTiBUSEUgU09GVFdBUkUuCj4gKyAqCj4gKyAqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKi8KPiArCj4g
-KyNpZm5kZWYgX1RUTV9HTE9CQUxfSF8KPiArI2RlZmluZSBfVFRNX0dMT0JBTF9IXwo+ICsKPiAr
-I2luY2x1ZGUgPGRybS9kcm1fZ2xvYmFsLmg+Cj4gKwo+ICtzdHJ1Y3QgdHRtX2JvX2dsb2JhbDsK
-PiArCj4gKy8qKgo+ICsgKiBzdHJ1Y3QgdHRtX2dsb2JhbCAtIFN0b3JlcyByZWZlcmVuY2VzIHRv
-IGdsb2JhbCBUVE0gc3RhdGUKPiArICovCj4gK3N0cnVjdCB0dG1fZ2xvYmFsIHsKPiArCXN0cnVj
-dCBkcm1fZ2xvYmFsX3JlZmVyZW5jZSBtZW1fcmVmOwo+ICsJc3RydWN0IGRybV9nbG9iYWxfcmVm
-ZXJlbmNlIGJvX3JlZjsKPiArfTsKPiArCj4gKy8qKgo+ICsgKiB0dG1fZ2xvYmFsX2luaXQKPiAr
-ICoKPiArICogQGdsb2I6IEEgcG9pbnRlciB0byBhIHN0cnVjdCB0dG1fZ2xvYmFsIHRoYXQgaXMg
-YWJvdXQgdG8gYmUgaW5pdGlhbGl6ZWQKPiArICogQHJldHVybiBaZXJvIG9uIHN1Y2Nlc3MsIG9y
-IGEgbmVnYXRpdmUgZXJyb3IgY29kZSBvdGhlcndpc2UuCj4gKyAqCj4gKyAqIEluaXRpYWxpemVz
-IGFuIGluc3RhbmNlIG9mIHN0cnVjdCB0dG1fZ2xvYmFsIHdpdGggVFRNJ3MgZ2xvYmFsIHN0YXRl
-Cj4gKyAqLwo+ICtpbnQgdHRtX2dsb2JhbF9pbml0KHN0cnVjdCB0dG1fZ2xvYmFsICpnbG9iKTsK
-PiArCj4gKy8qKgo+ICsgKiB0dG1fZ2xvYmFsX3JlbGVhc2UKPiArICoKPiArICogQGdsb2I6IEEg
-cG9pbnRlciB0byBhbiBpbnN0YW5jZSBvZiBzdHJ1Y3QgdHRtX2dsb2JhbAo+ICsgKgo+ICsgKiBS
-ZWxlYXNlcyBhbiBpbml0aWFsaXplZCBpbnN0YW5jZSBvZiBzdHJ1Y3QgdHRtX2dsb2JhbC4gSWYg
-dGhlIGluc3RhbmNlCj4gKyAqIGNvbnN0YWlucyB0aGUgZmluYWwgcmVmZXJlbmNlcyB0byB0aGUg
-Z2xvYmFsIG1lbW9yeSBhbmQgQk8sIHRoZSBnbG9iYWwKPiArICogc3RydWN0dXJlcyBhcmUgcmVs
-ZWFzZWQgYXMgd2VsbC4KPiArICovCj4gK3ZvaWQgdHRtX2dsb2JhbF9yZWxlYXNlKHN0cnVjdCB0
-dG1fZ2xvYmFsICpnbG9iKTsKPiArCj4gKy8qKgo+ICsgKiB0dG1fZ2xvYmFsX2dldF9ib19nbG9i
-YWwKPiArICoKPiArICogQGdsb2IgQSBwb2ludGVyIHRvIGFuIGluc3RhbmNlIG9mIHN0cnVjdCB0
-dG1fZ2xvYmFsCj4gKyAqIEByZXR1cm4gQSByZWZlcm5jZSB0byB0aGUgZ2xvYmFsIEJPLgo+ICsg
-Kgo+ICsgKiBSZXR1cm5zIHRoZSBnbG9iYWwgQk8uIFRoZSBCTyBzaG91bGQgYmUgZm9yd2FyZGVk
-IHRvIHRoZSBpbml0aWFsaXphdGlvbgo+ICsgKiBvZiBhIGRyaXZlcidzIFRUTSBCTyBkZXZpY2Uu
-Cj4gKyAqLwo+ICtzdGF0aWMgaW5saW5lIHN0cnVjdCB0dG1fYm9fZ2xvYmFsKgo+ICt0dG1fZ2xv
-YmFsX2dldF9ib19nbG9iYWwoc3RydWN0IHR0bV9nbG9iYWwgKmdsb2IpCj4gK3sKPiArCXJldHVy
-biBnbG9iLT5ib19yZWYub2JqZWN0Owo+ICt9Cj4gKwo+ICsjZW5kaWYgLyogX1RUTV9HTE9CQUxf
-SF8gKi8KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1875591765==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="MRbCgk6URw3cC2VorkTKzCbxHyAOuQSrZ"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--MRbCgk6URw3cC2VorkTKzCbxHyAOuQSrZ
+Content-Type: multipart/mixed; boundary="7c5lSohiTcUfDSCHubziOdUyWoXrq78ap";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: christian.koenig@amd.com, ray.huang@amd.com, Jerry.Zhang@amd.com,
+ alexander.deucher@amd.com, David1.Zhou@amd.com, airlied@linux.ie,
+ kraxel@redhat.com, bskeggs@redhat.com, syeh@vmware.com,
+ z.liuxinliang@hisilicon.com, zourongrong@gmail.com,
+ kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Message-ID: <616760d1-6598-9769-f058-54777e55b392@suse.de>
+Subject: Re: [PATCH 01/18] drm/ttm: Provide struct ttm_global for referencing
+ TTM global state
+References: <20181019085423.28159-1-tzimmermann@suse.de>
+ <20181019085423.28159-2-tzimmermann@suse.de>
+ <39122bc3-869b-8e7f-f5bc-98c2a79184fb@gmail.com>
+In-Reply-To: <39122bc3-869b-8e7f-f5bc-98c2a79184fb@gmail.com>
+
+--7c5lSohiTcUfDSCHubziOdUyWoXrq78ap
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 19.10.18 um 11:30 schrieb Christian K=C3=B6nig:
+> In general I'm really graceful that you look into this, but you are jus=
+t
+> moving the complexity around instead of cleaning it up.
+>=20
+> This whole global reference stuff is just going into the wrong directio=
+n.
+>=20
+> Please let me clean that up instead,
+
+Well, Ok.
+
+One thing I noticed is that none of the drivers does anything with the
+global TTM state. One thing that could be done is to remove the state
+from the drivers and handle it entirely in ttm_bo_device.
+
+Best regards
+Thomas
+
+> Christian.
+>=20
+> Am 19.10.18 um 10:54 schrieb Thomas Zimmermann:
+>> The new struct ttm_global provides drivers with TTM's global memory an=
+d
+>> BO in a unified way. Initialization and release is handled internally.=
+
+>>
+>> The functionality provided by struct ttm_global is currently
+>> re-implemented
+>> by a dozen individual DRM drivers using struct drm_global. The
+>> implementation
+>> of struct ttm_global is also built on top of drm_global, so it can
+>> co-exists
+>> with the existing drivers. Once all TTM-based drivers have been
+>> converted to
+>> struct ttm_global, the implementation of struct drm_global can be made=
+
+>> private to TTM.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>> =C2=A0 drivers/gpu/drm/ttm/Makefile=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 =
++-
+>> =C2=A0 drivers/gpu/drm/ttm/ttm_global.c | 98 +++++++++++++++++++++++++=
++++++++
+>> =C2=A0 include/drm/drm_global.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 8 +++
+>> =C2=A0 include/drm/ttm/ttm_global.h=C2=A0=C2=A0=C2=A0=C2=A0 | 79 +++++=
+++++++++++++++++++++
+>> =C2=A0 4 files changed, 186 insertions(+), 1 deletion(-)
+>> =C2=A0 create mode 100644 drivers/gpu/drm/ttm/ttm_global.c
+>> =C2=A0 create mode 100644 include/drm/ttm/ttm_global.h
+>>
+>> diff --git a/drivers/gpu/drm/ttm/Makefile b/drivers/gpu/drm/ttm/Makefi=
+le
+>> index 01fc670ce7a2..b7272b26e9f3 100644
+>> --- a/drivers/gpu/drm/ttm/Makefile
+>> +++ b/drivers/gpu/drm/ttm/Makefile
+>> @@ -5,7 +5,7 @@
+>> =C2=A0 ttm-y :=3D ttm_memory.o ttm_tt.o ttm_bo.o \
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_bo_util.o ttm_bo_vm.o ttm_module.o =
+\
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ttm_execbuf_util.o ttm_page_alloc.o ttm=
+_bo_manager.o \
+>> -=C2=A0=C2=A0=C2=A0 ttm_page_alloc_dma.o
+>> +=C2=A0=C2=A0=C2=A0 ttm_page_alloc_dma.o ttm_global.o
+>> =C2=A0 ttm-$(CONFIG_AGP) +=3D ttm_agp_backend.o
+>> =C2=A0 =C2=A0 obj-$(CONFIG_DRM_TTM) +=3D ttm.o
+>> diff --git a/drivers/gpu/drm/ttm/ttm_global.c
+>> b/drivers/gpu/drm/ttm/ttm_global.c
+>> new file mode 100644
+>> index 000000000000..ca9da0a46147
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/ttm/ttm_global.c
+>> @@ -0,0 +1,98 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+>> +/********************************************************************=
+******
+>>
+>> + *
+>> + * Copyright 2008-2009 VMware, Inc., Palo Alto, CA., USA
+>> + * All Rights Reserved.
+>> + *
+>> + * Permission is hereby granted, free of charge, to any person
+>> obtaining a
+>> + * copy of this software and associated documentation files (the
+>> + * "Software"), to deal in the Software without restriction, includin=
+g
+>> + * without limitation the rights to use, copy, modify, merge, publish=
+,
+>> + * distribute, sub license, and/or sell copies of the Software, and t=
+o
+>> + * permit persons to whom the Software is furnished to do so, subject=
+ to
+>> + * the following conditions:
+>> + *
+>> + * The above copyright notice and this permission notice (including t=
+he
+>> + * next paragraph) shall be included in all copies or substantial
+>> portions
+>> + * of the Software.
+>> + *
+>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+>> EXPRESS OR
+>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+>> MERCHANTABILITY,
+>> + * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT=
+
+>> SHALL
+>> + * THE COPYRIGHT HOLDERS, AUTHORS AND/OR ITS SUPPLIERS BE LIABLE FOR
+>> ANY CLAIM,
+>> + * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT=
+ OR
+>> + * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE=
+
+>> OR THE
+>> + * USE OR OTHER DEALINGS IN THE SOFTWARE.
+>> + *
+>> +
+>> **********************************************************************=
+****/
+>>
+>> +
+>> +#include <drm/ttm/ttm_global.h>
+>> +#include <drm/ttm/ttm_bo_driver.h>
+>> +#include <drm/ttm/ttm_memory.h>
+>> +#include <linux/kernel.h>
+>> +
+>> +static int ttm_global_init_mem(struct drm_global_reference *ref)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 BUG_ON(!ref->object);
+>> +=C2=A0=C2=A0=C2=A0 return ttm_mem_global_init(ref->object);
+>> +}
+>> +
+>> +static void ttm_global_release_mem(struct drm_global_reference *ref)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 BUG_ON(!ref->object);
+>> +=C2=A0=C2=A0=C2=A0 ttm_mem_global_release(ref->object);
+>> +}
+>> +
+>> +static int ttm_global_init_bo(struct drm_global_reference *ref)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 struct ttm_global *glob =3D
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 container_of(ref, struct t=
+tm_global, bo_ref);
+>> +=C2=A0=C2=A0=C2=A0 BUG_ON(!ref->object);
+>> +=C2=A0=C2=A0=C2=A0 BUG_ON(!glob->mem_ref.object);
+>> +=C2=A0=C2=A0=C2=A0 return ttm_bo_global_init(ref->object, glob->mem_r=
+ef.object);
+>> +}
+>> +
+>> +static void ttm_global_release_bo(struct drm_global_reference *ref)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 BUG_ON(!ref->object);
+>> +=C2=A0=C2=A0=C2=A0 ttm_bo_global_release(ref->object);
+>> +}
+>> +
+>> +int ttm_global_init(struct ttm_global *glob)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 int ret;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 glob->mem_ref.global_type =3D DRM_GLOBAL_TTM_MEM;
+>> +=C2=A0=C2=A0=C2=A0 glob->mem_ref.size =3D sizeof(struct ttm_mem_globa=
+l);
+>> +=C2=A0=C2=A0=C2=A0 glob->bo_ref.object =3D NULL;
+>> +=C2=A0=C2=A0=C2=A0 glob->mem_ref.init =3D &ttm_global_init_mem;
+>> +=C2=A0=C2=A0=C2=A0 glob->mem_ref.release =3D &ttm_global_release_mem;=
+
+>> +=C2=A0=C2=A0=C2=A0 ret =3D drm_global_item_ref(&glob->mem_ref);
+>> +=C2=A0=C2=A0=C2=A0 if (ret)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 glob->bo_ref.global_type =3D DRM_GLOBAL_TTM_BO;
+>> +=C2=A0=C2=A0=C2=A0 glob->bo_ref.size =3D sizeof(struct ttm_bo_global)=
+;
+>> +=C2=A0=C2=A0=C2=A0 glob->bo_ref.object =3D NULL;
+>> +=C2=A0=C2=A0=C2=A0 glob->bo_ref.init =3D &ttm_global_init_bo;
+>> +=C2=A0=C2=A0=C2=A0 glob->bo_ref.release =3D &ttm_global_release_bo;
+>> +=C2=A0=C2=A0=C2=A0 ret =3D drm_global_item_ref(&glob->bo_ref);
+>> +=C2=A0=C2=A0=C2=A0 if (ret)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 goto err_drm_global_item_u=
+nref_mem;
+>> +
+>> +=C2=A0=C2=A0=C2=A0 return 0;
+>> +
+>> +err_drm_global_item_unref_mem:
+>> +=C2=A0=C2=A0=C2=A0 drm_global_item_unref(&glob->mem_ref);
+>> +=C2=A0=C2=A0=C2=A0 return ret;
+>> +}
+>> +
+>> +EXPORT_SYMBOL(ttm_global_init);
+>> +
+>> +void ttm_global_release(struct ttm_global *glob)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 drm_global_item_unref(&glob->bo_ref);
+>> +=C2=A0=C2=A0=C2=A0 drm_global_item_unref(&glob->mem_ref);
+>> +}
+>> +
+>> +EXPORT_SYMBOL(ttm_global_release);
+>> diff --git a/include/drm/drm_global.h b/include/drm/drm_global.h
+>> index 3a830602a2e4..4482a9bbd6e9 100644
+>> --- a/include/drm/drm_global.h
+>> +++ b/include/drm/drm_global.h
+>> @@ -28,8 +28,16 @@
+>> =C2=A0=C2=A0 * Authors: Thomas Hellstrom <thellstrom-at-vmware-dot-com=
+>
+>> =C2=A0=C2=A0 */
+>> =C2=A0 +/*
+>> + *=C2=A0 The interfaces in this file are deprecated. Please use ttm_g=
+lobal
+>> + *=C2=A0 from <drm/ttm/ttm_global.h> instead.
+>> + */
+>> +
+>> =C2=A0 #ifndef _DRM_GLOBAL_H_
+>> =C2=A0 #define _DRM_GLOBAL_H_
+>> +
+>> +#include <linux/types.h>
+>> +
+>> =C2=A0 enum drm_global_types {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_GLOBAL_TTM_MEM =3D 0,
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 DRM_GLOBAL_TTM_BO,
+>> diff --git a/include/drm/ttm/ttm_global.h b/include/drm/ttm/ttm_global=
+=2Eh
+>> new file mode 100644
+>> index 000000000000..06e791499f87
+>> --- /dev/null
+>> +++ b/include/drm/ttm/ttm_global.h
+>> @@ -0,0 +1,79 @@
+>> +/********************************************************************=
+******
+>>
+>> + *
+>> + * Copyright 2008-2009 VMware, Inc., Palo Alto, CA., USA
+>> + * All Rights Reserved.
+>> + *
+>> + * Permission is hereby granted, free of charge, to any person
+>> obtaining a
+>> + * copy of this software and associated documentation files (the
+>> + * "Software"), to deal in the Software without restriction, includin=
+g
+>> + * without limitation the rights to use, copy, modify, merge, publish=
+,
+>> + * distribute, sub license, and/or sell copies of the Software, and t=
+o
+>> + * permit persons to whom the Software is furnished to do so, subject=
+ to
+>> + * the following conditions:
+>> + *
+>> + * The above copyright notice and this permission notice (including t=
+he
+>> + * next paragraph) shall be included in all copies or substantial
+>> portions
+>> + * of the Software.
+>> + *
+>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+>> EXPRESS OR
+>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+>> MERCHANTABILITY,
+>> + * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT=
+
+>> SHALL
+>> + * THE COPYRIGHT HOLDERS, AUTHORS AND/OR ITS SUPPLIERS BE LIABLE FOR
+>> ANY CLAIM,
+>> + * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT=
+ OR
+>> + * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE=
+
+>> OR THE
+>> + * USE OR OTHER DEALINGS IN THE SOFTWARE.
+>> + *
+>> +
+>> **********************************************************************=
+****/
+>>
+>> +
+>> +#ifndef _TTM_GLOBAL_H_
+>> +#define _TTM_GLOBAL_H_
+>> +
+>> +#include <drm/drm_global.h>
+>> +
+>> +struct ttm_bo_global;
+>> +
+>> +/**
+>> + * struct ttm_global - Stores references to global TTM state
+>> + */
+>> +struct ttm_global {
+>> +=C2=A0=C2=A0=C2=A0 struct drm_global_reference mem_ref;
+>> +=C2=A0=C2=A0=C2=A0 struct drm_global_reference bo_ref;
+>> +};
+>> +
+>> +/**
+>> + * ttm_global_init
+>> + *
+>> + * @glob: A pointer to a struct ttm_global that is about to be
+>> initialized
+>> + * @return Zero on success, or a negative error code otherwise.
+>> + *
+>> + * Initializes an instance of struct ttm_global with TTM's global sta=
+te
+>> + */
+>> +int ttm_global_init(struct ttm_global *glob);
+>> +
+>> +/**
+>> + * ttm_global_release
+>> + *
+>> + * @glob: A pointer to an instance of struct ttm_global
+>> + *
+>> + * Releases an initialized instance of struct ttm_global. If the
+>> instance
+>> + * constains the final references to the global memory and BO, the
+>> global
+>> + * structures are released as well.
+>> + */
+>> +void ttm_global_release(struct ttm_global *glob);
+>> +
+>> +/**
+>> + * ttm_global_get_bo_global
+>> + *
+>> + * @glob A pointer to an instance of struct ttm_global
+>> + * @return A refernce to the global BO.
+>> + *
+>> + * Returns the global BO. The BO should be forwarded to the
+>> initialization
+>> + * of a driver's TTM BO device.
+>> + */
+>> +static inline struct ttm_bo_global*
+>> +ttm_global_get_bo_global(struct ttm_global *glob)
+>> +{
+>> +=C2=A0=C2=A0=C2=A0 return glob->bo_ref.object;
+>> +}
+>> +
+>> +#endif /* _TTM_GLOBAL_H_ */
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstr. 5, D-90409 N=C3=BCrnberg
+Tel: +49-911-74053-0; Fax: +49-911-7417755;  https://www.suse.com/
+SUSE Linux GmbH, GF: Felix Imend=C3=B6rffer, Jane Smithard,
+Graham Norton, HRB 21284 (AG N=C3=BCrnberg)
+
+
+--7c5lSohiTcUfDSCHubziOdUyWoXrq78ap--
+
+--MRbCgk6URw3cC2VorkTKzCbxHyAOuQSrZ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAlvJpucACgkQaA3BHVML
+eiODMQf+Ltd1CQb0b2wNaO9i0te2qfuKNtvWXO6JR0j9sdsZUCBVN3W+2HeQ8VnJ
+GQAcBZCZFiJS8dtmjlCvOm2evp+4egX/2B3FqwLdFtNAJ78KAYgBA6n6fV6tm2pc
+n8rFUzkekT/AF+NjbY+5jAHUwrhtW8+iVn9j3lIkBaKGM6nzJwSoON2hByvf0IDJ
+bKn8QXuLP5aOyvu8YCCXgRC4nPVZ31IlV6zODdHgI+vMXY12ITe2guC1wTAJuBS2
+SZL7UZneDORSNMHrxWkH9eO/ivAx5rZs4IsjOVI6uLG0hKp50mWfJpW8c6aXpU5C
+rHF4Hrj6XkjyTopGq00QIqd0Qf4g3g==
+=96tx
+-----END PGP SIGNATURE-----
+
+--MRbCgk6URw3cC2VorkTKzCbxHyAOuQSrZ--
+
+--===============1875591765==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============1875591765==--
