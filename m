@@ -1,87 +1,102 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
-Date: Fri, 19 Oct 2018 10:53:08 +0200
-Message-ID: <20181019085308.GY31561@phenom.ffwll.local>
-References: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
- <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
- <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com>
- <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
- <c43669b7-1074-714c-fb22-81685826b3ad@amd.com>
- <74078dc6-ef08-586b-fd58-51eb2c0b5060@roeck-us.net>
- <BN6PR12MB1809E1A07CD1B5B0F41273EBF7E60@BN6PR12MB1809.namprd12.prod.outlook.com>
- <c6880c5b-e259-4923-8d5a-80c620563398@amd.com>
- <20181008174628.GB11442@roeck-us.net>
- <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [RFC][PATCH 00/18] Provide a nice interface for TTM global state
+Date: Fri, 19 Oct 2018 10:54:05 +0200
+Message-ID: <20181019085423.28159-1-tzimmermann@suse.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Peng Hao <peng.hao2@zte.com.cn>, "airlied@linux.ie" <airlied@linux.ie>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Martin Peres <martin.peres@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: christian.koenig@amd.com, ray.huang@amd.com, Jerry.Zhang@amd.com, alexander.deucher@amd.com, David1.Zhou@amd.com, airlied@linux.ie, kraxel@redhat.com, bskeggs@redhat.com, syeh@vmware.com, z.liuxinliang@hisilicon.com, zourongrong@gmail.com, kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Oct 08, 2018 at 06:13:56PM +0000, Koenig, Christian wrote:
-> Am 08.10.2018 um 19:46 schrieb Guenter Roeck:
-> > On Mon, Oct 08, 2018 at 05:22:24PM +0000, Koenig, Christian wrote:
-> >> Am 08.10.2018 um 17:57 schrieb Deucher, Alexander:
-> >>>>>> One thing I found missing in the discussion was the reference to the
-> >>>>>> C standard.
-> >>>>>> The C99 standard states in section 6.7.8 (Initialization) clause 19:
-> >>>>>> "... all
-> >>>>>> subobjects that are not initialized explicitly shall be initialized
-> >>>>>> implicitly the same as objects that have static storage duration".
-> >>>>>> Clause 21 makes further reference to partial initialization,
-> >>>>>> suggesting the same. Various online resources, including the gcc
-> >>>>>> documentation, all state the same. I don't find any reference to a
-> >>>>>> partial initialization which would leave members of a structure
-> >>>>>> undefined. It would be interesting for me to understand how and why
-> >>>>>> this does not apply here.
-> >>>>>>
-> >>>>>> In this context, it is interesting that the other 48 instances of the
-> >>>>>> { { 0 } } initialization in the same driver don't raise similar
-> >>>>>> concerns, nor seemed to have caused any operational problems.
-> >>>>> Feel free to provide patches to replace those with memset().
-> >>>>>
-> >>>> Not me. As I see it, the problem, if it exists, would be a violation of the C
-> >>>> standard. I don't believe hacking around bad C compilers. I would rather
-> >>>> blacklist such compilers.
-> >> Well then you would need to blacklist basically all gcc variants of the
-> >> last decade or so.
-> >>
-> >> Initializing only known members of structures is a perfectly valid
-> >> optimization and well known issue when you then compare the structure
-> >> with memcpy() or use the bytes for hashing or something similar.
-> >>
-> > Isn't that about padding ? That is a completely different issue.
-> 
-> Correct, yes. But that is the reason why I recommend using memset() for 
-> zero initialization.
-> 
-> See we don't know the inner layout of the structure, could be another 
-> structure or an union.
-> 
-> If it's a structure everything is fine because if you initialize one 
-> structure member all other get their default type (whatever that means), 
-> but if it's an union.....
-> 
-> Not sure if compilers still react allergic to that, but its the status 
-> I've learned the hard way when the C99 standard came out and it still 
-> seems like people are working around that so I recommend everybody to 
-> stick with memset().
-
-Went boom:
-
-https://bugs.freedesktop.org/show_bug.cgi?id=108490
-
-Can we revert?
-
-Also, can we properly igt this so that intel-gfx-ci could test this before
-it's all fireworks?
-
-Thanks, Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+VGhpcyBpcyB0aGUgZnVsbCBwYXRjaCBzZXQgZm9yIGNsZWFuaW5nIHVwIHRoZSBUVE0gZ2xvYmFs
+LXN0YXRlIGhhbmRsaW5nCmFuZCBvZmZlcmluZyBhIG5pY2UgaW50ZXJmYWNlIGZvciBkcml2ZXJz
+LiBUaGUgZmlyc3QgMyBwYXRjaGVzIGhhdmUgYmVlbgpkaXNjdXNzZWQgb24gZHJpLWRldmVsIGFs
+cmVhZHkuCgpQYXRjaCBbMDFdIGFkZHMgc3RydWN0IHR0bV9nbG9iYWwsIGEgZGF0YSBzdHJ1Y3R1
+cmUgdGhhdCBnaXZlcyBkcml2ZXJzCmEgaGFuZGxlIG90IHRoZSBnbG9iYWwgVFRNIHN0YXRlLgoK
+UGF0Y2hlcyBbMDJdIHRvIFsxM10gY29udmVydCBhbGwgVFRNIGRyaXZlcnMgdG8gc3RydWN0IHR0
+bV9nbG9iYWwuCgpQYXRjaGVzIFsxNF0gYW5kIFsxNV0gcmVtb3ZlIHVudXNlZCBjb2RlLgoKUGF0
+Y2hlcyBbMTZdIHRvIFsxOF0gbWVyZ2UgdGhlIGZ1bmN0aW9uYWxpdHkgb2Ygc3RydWN0IGRybV9n
+bG9iYWxfcmVmZXJlbmNlCmludG8gdGhlIGltcGxlbWVudGF0aW9uIG9mIHN0cnVjdCB0dG1fZ2xv
+YmFsIGFuZCByZW1vdmUgdGhlIGZvcm1lci4KCkknZCByZWFsbHkgbGlrZSB0byBzZWUgcGF0Y2hl
+cyBbMDFdIHRvIFsxNV0gYmVpbmcgbWVyZ2luZyBpbiBvbmUgd2F5IG9yIHRoZQpvdGhlci4gVXNp
+bmcgc3RydWN0IHR0bV9nbG9iYWwgYWxsb3dzIGZvciBzaGFyaW5nIGNvZGUgdGhhdCB0b3VjaGVz
+IFRUTQppbnRlcm5hbHMsIGFuZCBpdCBnZXRzIGRyaXZlcnMgb3V0IG9mIHRoZSB3YXkgZm9yIHRo
+ZSBjbGVhbnVwIG9mIHRoZSBmaW5hbAozIHBhdGNoZXMuCgpPbmUgcXVlc3Rpb24gd2FzIGlmIHRo
+ZSBjdXJyZW50IGluZnJhc3RydWN0dXJlIGFyb3VuZCBkcm1fZ2xvYmFsX3JlZmVyZW5jZQppc24n
+dCBvdmVyLWVuZ2luZWVyZWQgYW5kIGNvdWxkIGJlIHNpbXBsaWZpZWQuIEZvciBub3csIEkgdG9v
+ayB0aGUgZXhpc3RpbmcKcmVmLWNvdW50aW5nIGFzIGl0IGlzIGluIGRybV9nbG9iYWwuYy4gVGhp
+cyBjYW4gY2VydGFpbmx5IGJlIHNpbXBsaWZpZWQgaWYKcHJlZmVyZWQuCgpUaG9tYXMgWmltbWVy
+bWFubiAoMTgpOgogIGRybS90dG06IFByb3ZpZGUgc3RydWN0IHR0bV9nbG9iYWwgZm9yIHJlZmVy
+ZW5jaW5nIFRUTSBnbG9iYWwgc3RhdGUKICBkcm0vYW1kZ3B1OiBSZXBsYWNlIFRUTSBpbml0aWFs
+aXphdGlvbi9yZWxlYXNlIHdpdGggdHRtX2dsb2JhbAogIGRybS9yYWRlb246IFJlcGxhY2UgVFRN
+IGluaXRpYWxpemF0aW9uL3JlbGVhc2Ugd2l0aCB0dG1fZ2xvYmFsCiAgZHJtL2FzdDogUmVwbGFj
+ZSBUVE0gaW5pdGlhbGl6YXRpb24vcmVsZWFzZSB3aXRoIHR0bV9nbG9iYWwKICBkcm0vYm9jaHM6
+IFJlcGxhY2UgVFRNIGluaXRpYWxpemF0aW9uL3JlbGVhc2Ugd2l0aCB0dG1fZ2xvYmFsCiAgZHJt
+L2NpcnJ1czogUmVwbGFjZSBUVE0gaW5pdGlhbGl6YXRpb24vcmVsZWFzZSB3aXRoIHR0bV9nbG9i
+YWwKICBkcm0vaGlzaWxpY29uOiBSZXBsYWNlIFRUTSBpbml0aWFsaXphdGlvbi9yZWxlYXNlIHdp
+dGggdHRtX2dsb2JhbAogIGRybS9tZ2FnMjAwOiBSZXBsYWNlIFRUTSBpbml0aWFsaXphdGlvbi9y
+ZWxlYXNlIHdpdGggdHRtX2dsb2JhbAogIGRybS9ub3V2ZWF1OiBSZXBsYWNlIFRUTSBpbml0aWFs
+aXphdGlvbi9yZWxlYXNlIHdpdGggdHRtX2dsb2JhbAogIGRybS9xbHg6IFJlcGxhY2UgVFRNIGlu
+aXRpYWxpemF0aW9uL3JlbGVhc2Ugd2l0aCB0dG1fZ2xvYmFsCiAgZHJtL3ZpcnRpbzogUmVwbGFj
+ZSBUVE0gaW5pdGlhbGl6YXRpb24vcmVsZWFzZSB3aXRoIHR0bV9nbG9iYWwKICBkcm0vdm13Z2Z4
+OiBSZXBsYWNlIFRUTSBpbml0aWFsaXphdGlvbi9yZWxlYXNlIHdpdGggdHRtX2dsb2JhbAogIHN0
+YWdpbmcvdmJveHZpZGVvOiBSZXBsYWNlIFRUTSBpbml0aWFsaXphdGlvbi9yZWxlYXNlIHdpdGgg
+dHRtX2dsb2JhbAogIGRybS90dG06IFJlbW92ZSBzdHJ1Y3QgdHRtX2JvX2dsb2JhbF9yZWYgYW5k
+IGhlbHBlcnMKICBkcm06IFJlbW92ZSBEUk1fR0xPQkFMX1RUTV9PQkpFQ1QKICBkcm0vdHRtOiBJ
+bXBsZW1lbnQgc3RydWN0IHR0bV9nbG9iYWxfaXRlbSBhbmQgaGVscGVycwogIGRybS90dG06IElt
+cGxlbWVudCBzdHJ1Y3QgdHRtX2dsb2JhbCB3aXRoIHN0cnVjdCB0dG1fZ2xvYmFsX3JlZgogIGRy
+bTogUmVtb3ZlIGRybV9nbG9iYWwue2MsaH0KCiBkcml2ZXJzL2dwdS9kcm0vTWFrZWZpbGUgICAg
+ICAgICAgICAgICAgICAgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90dG0uYyAgICAgICB8ICA2MyArLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90dG0uaCAgICAgICB8ICAgNCArLQogZHJpdmVycy9ncHUvZHJtL2FzdC9hc3RfZHJ2
+LmggICAgICAgICAgICAgICAgIHwgICA1ICstCiBkcml2ZXJzL2dwdS9kcm0vYXN0L2FzdF90dG0u
+YyAgICAgICAgICAgICAgICAgfCAgNDkgKy0tLS0KIGRyaXZlcnMvZ3B1L2RybS9ib2Nocy9ib2No
+cy5oICAgICAgICAgICAgICAgICB8ICAgNSArLQogZHJpdmVycy9ncHUvZHJtL2JvY2hzL2JvY2hz
+X21tLmMgICAgICAgICAgICAgIHwgIDQ3ICstLS0tCiBkcml2ZXJzL2dwdS9kcm0vY2lycnVzL2Np
+cnJ1c19kcnYuaCAgICAgICAgICAgfCAgIDUgKy0KIGRyaXZlcnMvZ3B1L2RybS9jaXJydXMvY2ly
+cnVzX3R0bS5jICAgICAgICAgICB8ICA0OSArLS0tLQogZHJpdmVycy9ncHUvZHJtL2RybV9kcnYu
+YyAgICAgICAgICAgICAgICAgICAgIHwgICAyIC0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fZ2xvYmFs
+LmMgICAgICAgICAgICAgICAgICB8IDEzNyAtLS0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9n
+bWE1MDAvcHNiX2Rydi5oICAgICAgICAgICAgICB8ICAgNCArLQogLi4uL2dwdS9kcm0vaGlzaWxp
+Y29uL2hpYm1jL2hpYm1jX2RybV9kcnYuaCAgIHwgICA0ICstCiBkcml2ZXJzL2dwdS9kcm0vaGlz
+aWxpY29uL2hpYm1jL2hpYm1jX3R0bS5jICAgfCAgMzYgKy0tLQogZHJpdmVycy9ncHUvZHJtL21n
+YWcyMDAvbWdhZzIwMF9kcnYuaCAgICAgICAgIHwgICA3ICstCiBkcml2ZXJzL2dwdS9kcm0vbWdh
+ZzIwMC9tZ2FnMjAwX3R0bS5jICAgICAgICAgfCAgNDkgKy0tLS0KIGRyaXZlcnMvZ3B1L2RybS9u
+b3V2ZWF1L25vdXZlYXVfZHJ2LmggICAgICAgICB8ICAgNSArLQogZHJpdmVycy9ncHUvZHJtL25v
+dXZlYXUvbm91dmVhdV90dG0uYyAgICAgICAgIHwgIDQ4ICstLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+cXhsL3F4bF9kcnYuaCAgICAgICAgICAgICAgICAgfCAgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9x
+eGwvcXhsX3R0bS5jICAgICAgICAgICAgICAgICB8ICA0MCArLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+cmFkZW9uL3JhZGVvbi5oICAgICAgICAgICAgICAgfCAgIDQgKy0KIGRyaXZlcnMvZ3B1L2RybS9y
+YWRlb24vcmFkZW9uX3R0bS5jICAgICAgICAgICB8ICA0MCArLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+dHRtL01ha2VmaWxlICAgICAgICAgICAgICAgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS90
+dG0vdHRtX2dsb2JhbC5jICAgICAgICAgICAgICB8IDE5OCArKysrKysrKysrKysrKysrKysKIGRy
+aXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9kcnYuaCAgICAgICAgICB8ICAgNCArLQogZHJp
+dmVycy9ncHUvZHJtL3ZpcnRpby92aXJ0Z3B1X3R0bS5jICAgICAgICAgIHwgIDQwICstLS0KIGRy
+aXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2Rydi5jICAgICAgICAgICB8ICAgNiArLQogZHJp
+dmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfZHJ2LmggICAgICAgICAgIHwgICA2ICstCiBkcml2
+ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF90dG1fZ2x1ZS5jICAgICAgfCAgNDQgKy0tLQogZHJp
+dmVycy9zdGFnaW5nL3Zib3h2aWRlby92Ym94X2Rydi5oICAgICAgICAgIHwgICA0ICstCiBkcml2
+ZXJzL3N0YWdpbmcvdmJveHZpZGVvL3Zib3hfdHRtLmMgICAgICAgICAgfCAgNDIgKy0tLQogaW5j
+bHVkZS9kcm0vZHJtUC5oICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxIC0KIGluY2x1
+ZGUvZHJtL2RybV9nbG9iYWwuaCAgICAgICAgICAgICAgICAgICAgICB8ICA1MyAtLS0tLQogaW5j
+bHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaCAgICAgICAgICAgICAgIHwgIDQwIC0tLS0KIGlu
+Y2x1ZGUvZHJtL3R0bS90dG1fZ2xvYmFsLmggICAgICAgICAgICAgICAgICB8IDEwMCArKysrKysr
+KysKIDM1IGZpbGVzIGNoYW5nZWQsIDQwMSBpbnNlcnRpb25zKCspLCA3NDggZGVsZXRpb25zKC0p
+CiBkZWxldGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2RybV9nbG9iYWwuYwogY3JlYXRl
+IG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2dsb2JhbC5jCiBkZWxldGUgbW9k
+ZSAxMDA2NDQgaW5jbHVkZS9kcm0vZHJtX2dsb2JhbC5oCiBjcmVhdGUgbW9kZSAxMDA2NDQgaW5j
+bHVkZS9kcm0vdHRtL3R0bV9nbG9iYWwuaAoKLS0KMi4xOS4xCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1k
+ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
