@@ -1,53 +1,87 @@
-From: Daniel Vetter <daniel.vetter@ffwll.ch>
-Subject: [PATCH] RFC: Make igts for cross-driver stuff mandatory?
-Date: Fri, 19 Oct 2018 10:50:49 +0200
-Message-ID: <20181019085049.25482-1-daniel.vetter@ffwll.ch>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH] amdgpu/gmc : fix compile warning
+Date: Fri, 19 Oct 2018 10:53:08 +0200
+Message-ID: <20181019085308.GY31561@phenom.ffwll.local>
+References: <022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com>
+ <4772f72c-6018-3556-6324-5f49faa00073@roeck-us.net>
+ <4da23fcb-4a94-2695-ad80-929025e84bd2@gmail.com>
+ <c72a23ea-efea-4c0e-d397-623d6ac16ebb@roeck-us.net>
+ <c43669b7-1074-714c-fb22-81685826b3ad@amd.com>
+ <74078dc6-ef08-586b-fd58-51eb2c0b5060@roeck-us.net>
+ <BN6PR12MB1809E1A07CD1B5B0F41273EBF7E60@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <c6880c5b-e259-4923-8d5a-80c620563398@amd.com>
+ <20181008174628.GB11442@roeck-us.net>
+ <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: DRI Development <dri-devel@lists.freedesktop.org>
-Cc: IGT development <igt-dev@lists.freedesktop.org>, Daniel Vetter <daniel.vetter@ffwll.ch>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <4a1faa3b-8c42-b742-9b55-9d2711f7ecc1@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Peng Hao <peng.hao2@zte.com.cn>, "airlied@linux.ie" <airlied@linux.ie>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Martin Peres <martin.peres@linux.intel.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgYWxsLAoKVGhpcyBpcyBqdXN0IHRvIGNvbGxlY3QgZmVlZGJhY2sgb24gdGhpcyBpZGVhLCBh
-bmQgc2VlIHdoZXRoZXIgdGhlCm92ZXJhbGwgZHJpLWRldmVsIGNvbW11bml0eSBzdGFuZHMgb24g
-YWxsIHRoaXMuIEkgdGhpbmsgdGhlIHBhc3QgZmV3CmNyb3NzLXZlbmRvciB1YXBpIGV4dGVuc2lv
-bnMgYWxsIGNhbWUgd2l0aCBpZ3RzIGF0dGFjaGVkLCBhbmQKcGVyc29uYWxseSBJIHRoaW5rIHRo
-ZXJlJ3MgbG90cyBvZiB2YWx1ZSBpbiBoYXZpbmcgdGhlbTogQQpjcm9zcy12ZW5kb3IgaW50ZXJm
-YWNlIGlzbid0IHVzZWZ1bCBpZiBldmVyeSBkcml2ZXIgaW1wbGVtZW50cyBpdApzbGlnaHRseSBk
-aWZmZXJlbnRseS4KCkkgdGhpbmsgdGhlcmUncyAyIHF1ZXN0aW9ucyBoZXJlOgoKLSBEbyB3ZSB3
-YW50IHRvIG1ha2Ugc3VjaCB0ZXN0Y2FzZXMgbWFuZGF0b3J5PwoKLSBJZiB5ZXMsIGFyZSB3ZSB0
-aGVyZSB5ZXQsIG9yIGlzIHRoZXJlIHNvbWV0aGluZyBjcnVjaWFsbHkgbWlzc2luZwogIHN0aWxs
-PwoKQW5kIG9mIGNvdXJzZSB0aGVyZSdzIGEgYnVuY2ggb2YgZGV0YWlscyB0byBmaWd1cmUgb3V0
-LiBMaWtlIHdlCnByb2JhYmx5IHdhbnQgdG8gYWxzbyByZWNvbW1lbmQgdGhlIHNlbGZ0ZXN0cy91
-bml0LXRlc3RzIGluCmRyaXZlcnMvZ3B1L2RybS9zZWxmdGVzdCwgc2luY2UgZmFpcmx5IG9mdGVu
-IHRoYXQncyBhIG11Y2ggbW9yZQplZmZlY3RpdmUgYXBwcm9hY2ggdG8gY2hlY2tpbmcgdGhlIGRl
-dGFpbHMgdGhhbiBmcm9tIHVzZXJzcGFjZS4KCkZlZWRiYWNrIGFuZCB0aG91Z2h0cyB2ZXJ5IG11
-Y2ggYXBwcmVjaWF0ZWQuCgpDaGVlcnMsIERhbmllbAotLS0KIERvY3VtZW50YXRpb24vZ3B1L2Ry
-bS11YXBpLnJzdCB8IDcgKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKQoK
-ZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZ3B1L2RybS11YXBpLnJzdCBiL0RvY3VtZW50YXRp
-b24vZ3B1L2RybS11YXBpLnJzdAppbmRleCA0YjRiZjJjNWVhYzUuLjkxY2Y2ZTRiNjMwMyAxMDA2
-NDQKLS0tIGEvRG9jdW1lbnRhdGlvbi9ncHUvZHJtLXVhcGkucnN0CisrKyBiL0RvY3VtZW50YXRp
-b24vZ3B1L2RybS11YXBpLnJzdApAQCAtMjM4LDYgKzIzOCwxMyBAQCBEUk0gc3BlY2lmaWMgcGF0
-dGVybnMuIE5vdGUgdGhhdCBFTk9UVFkgaGFzIHRoZSBzbGlnaHRseSB1bmludHVpdGl2ZSBtZWFu
-aW5nIG9mCiBUZXN0aW5nIGFuZCB2YWxpZGF0aW9uCiA9PT09PT09PT09PT09PT09PT09PT09CiAK
-K1Rlc3RpbmcgUmVxdWlyZW1lbnRzIGZvciB1c2Vyc3BhY2UgQVBJCistLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLQorCitOZXcgY3Jvc3MtZHJpdmVyIHVzZXJzcGFjZSBpbnRl
-cmZhY2UgZXh0ZW5zaW9ucywgbGlrZSBuZXcgSU9DVEwsIG5ldyBLTVMKK3Byb3BlcnRpZXMsIG5l
-dyBmaWxlcyBpbiBzeXNmcyBvciBhbnl0aGluZyBlbHNlIHRoYXQgY29uc3RpdHV0ZXMgYW4gQVBJ
-IGNoYW5nZQorbmVlZCB0byBoYXZlIGRyaXZlci1hZ25vc3RpYyB0ZXN0Y2FzZXMgaW4gSUdUIGZv
-ciB0aGF0IGZlYXR1cmUuCisKIFZhbGlkYXRpbmcgY2hhbmdlcyB3aXRoIElHVAogLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tCiAKLS0gCjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+On Mon, Oct 08, 2018 at 06:13:56PM +0000, Koenig, Christian wrote:
+> Am 08.10.2018 um 19:46 schrieb Guenter Roeck:
+> > On Mon, Oct 08, 2018 at 05:22:24PM +0000, Koenig, Christian wrote:
+> >> Am 08.10.2018 um 17:57 schrieb Deucher, Alexander:
+> >>>>>> One thing I found missing in the discussion was the reference to the
+> >>>>>> C standard.
+> >>>>>> The C99 standard states in section 6.7.8 (Initialization) clause 19:
+> >>>>>> "... all
+> >>>>>> subobjects that are not initialized explicitly shall be initialized
+> >>>>>> implicitly the same as objects that have static storage duration".
+> >>>>>> Clause 21 makes further reference to partial initialization,
+> >>>>>> suggesting the same. Various online resources, including the gcc
+> >>>>>> documentation, all state the same. I don't find any reference to a
+> >>>>>> partial initialization which would leave members of a structure
+> >>>>>> undefined. It would be interesting for me to understand how and why
+> >>>>>> this does not apply here.
+> >>>>>>
+> >>>>>> In this context, it is interesting that the other 48 instances of the
+> >>>>>> { { 0 } } initialization in the same driver don't raise similar
+> >>>>>> concerns, nor seemed to have caused any operational problems.
+> >>>>> Feel free to provide patches to replace those with memset().
+> >>>>>
+> >>>> Not me. As I see it, the problem, if it exists, would be a violation of the C
+> >>>> standard. I don't believe hacking around bad C compilers. I would rather
+> >>>> blacklist such compilers.
+> >> Well then you would need to blacklist basically all gcc variants of the
+> >> last decade or so.
+> >>
+> >> Initializing only known members of structures is a perfectly valid
+> >> optimization and well known issue when you then compare the structure
+> >> with memcpy() or use the bytes for hashing or something similar.
+> >>
+> > Isn't that about padding ? That is a completely different issue.
+> 
+> Correct, yes. But that is the reason why I recommend using memset() for 
+> zero initialization.
+> 
+> See we don't know the inner layout of the structure, could be another 
+> structure or an union.
+> 
+> If it's a structure everything is fine because if you initialize one 
+> structure member all other get their default type (whatever that means), 
+> but if it's an union.....
+> 
+> Not sure if compilers still react allergic to that, but its the status 
+> I've learned the hard way when the C99 standard came out and it still 
+> seems like people are working around that so I recommend everybody to 
+> stick with memset().
+
+Went boom:
+
+https://bugs.freedesktop.org/show_bug.cgi?id=108490
+
+Can we revert?
+
+Also, can we properly igt this so that intel-gfx-ci could test this before
+it's all fireworks?
+
+Thanks, Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
