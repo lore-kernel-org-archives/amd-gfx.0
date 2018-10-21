@@ -1,58 +1,88 @@
 From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/radeon/kms: remove set but not used variable 'pll'
-Date: Sun, 21 Oct 2018 10:05:59 +0000
-Message-ID: <1540116359-164086-1-git-send-email-yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amd/powerplay: remove duplicated includes
+Date: Sun, 21 Oct 2018 18:39:58 +0800
+Message-ID: <20181021103958.12892-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
-Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+To: rex.zhu@amd.com, evan.quan@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Hawking.Zhang@amd.com, ray.huang@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/radeon/radeon_legacy_tv.c: In function 'radeon_legacy_tv_init_restarts':
-drivers/gpu/drm/radeon/radeon_legacy_tv.c:435:21: warning:
- variable 'pll' set but not used [-Wunused-but-set-variable]
-  struct radeon_pll *pll;
-  
-It never used since introduction in commit
-4ce001abafaf ("drm/radeon/kms: add initial radeon tv-out support.")
-Also remove related variables 'dev, rdev, radeon_crtc'
+Remove some duplicated include.
 
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/gpu/drm/radeon/radeon_legacy_tv.c | 10 ----------
- 1 file changed, 10 deletions(-)
+ drivers/gpu/drm/amd/powerplay/inc/hwmgr.h               | 1 -
+ drivers/gpu/drm/amd/powerplay/inc/smu7_common.h         | 4 ----
+ drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 -
+ drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c     | 1 -
+ drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c     | 1 -
+ 5 files changed, 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_legacy_tv.c b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
-index 4278272..3dae2c4 100644
---- a/drivers/gpu/drm/radeon/radeon_legacy_tv.c
-+++ b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
-@@ -421,24 +421,14 @@ static void radeon_legacy_write_tv_restarts(struct radeon_encoder *radeon_encode
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+index e5a60aa..07d180ce 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+@@ -28,7 +28,6 @@
+ #include "hardwaremanager.h"
+ #include "hwmgr_ppt.h"
+ #include "ppatomctrl.h"
+-#include "hwmgr_ppt.h"
+ #include "power_state.h"
+ #include "smu_helper.h"
  
- static bool radeon_legacy_tv_init_restarts(struct drm_encoder *encoder)
- {
--	struct drm_device *dev = encoder->dev;
--	struct radeon_device *rdev = dev->dev_private;
- 	struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
- 	struct radeon_encoder_tv_dac *tv_dac = radeon_encoder->enc_priv;
--	struct radeon_crtc *radeon_crtc;
- 	int restart;
- 	unsigned int h_total, v_total, f_total;
- 	int v_offset, h_offset;
- 	u16 p1, p2, h_inc;
- 	bool h_changed;
- 	const struct radeon_tv_mode_constants *const_ptr;
--	struct radeon_pll *pll;
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu7_common.h b/drivers/gpu/drm/amd/powerplay/inc/smu7_common.h
+index 65eb630..94bf7b6 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu7_common.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu7_common.h
+@@ -40,10 +40,6 @@
+ #include "bif/bif_5_0_d.h"
+ #include "bif/bif_5_0_sh_mask.h"
+ 
 -
--	radeon_crtc = to_radeon_crtc(radeon_encoder->base.crtc);
--	if (radeon_crtc->crtc_id == 1)
--		pll = &rdev->clock.p2pll;
--	else
--		pll = &rdev->clock.p1pll;
+-#include "bif/bif_5_0_d.h"
+-#include "bif/bif_5_0_sh_mask.h"
+-
+ #include "dce/dce_10_0_d.h"
+ #include "dce/dce_10_0_sh_mask.h"
  
- 	const_ptr = radeon_legacy_tv_get_std_mode(radeon_encoder, NULL);
- 	if (!const_ptr)
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+index 872d382..2b2c266 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+@@ -44,7 +44,6 @@
+ 
+ #include "smu7_hwmgr.h"
+ #include "hardwaremanager.h"
+-#include "ppatomctrl.h"
+ #include "atombios.h"
+ #include "pppcielanes.h"
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
+index d0eb8ab..d111dd4 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
+@@ -29,7 +29,6 @@
+ #include "rv_ppsmc.h"
+ #include "smu10_driver_if.h"
+ #include "smu10.h"
+-#include "ppatomctrl.h"
+ #include "pp_debug.h"
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+index 9f71512..1e69300 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vegam_smumgr.c
+@@ -40,7 +40,6 @@
+ 
+ #include "smu7_hwmgr.h"
+ #include "hardwaremanager.h"
+-#include "ppatomctrl.h"
+ #include "atombios.h"
+ #include "pppcielanes.h"
+ 
+-- 
+1.8.3.1
