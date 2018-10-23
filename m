@@ -1,14 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Use functions from amdgpu to invalidate
- vmid in kfd
-Date: Tue, 23 Oct 2018 19:20:06 +0000
-Message-ID: <BN6PR12MB1809B4684E7E16A5F49C74F6F7F50@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1540318546-1468-1-git-send-email-Yong.Zhao@amd.com>,
- <1540318546-1468-2-git-send-email-Yong.Zhao@amd.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdgpu: Reorganize *_flush_gpu_tlb() for kfd to use
+Date: Tue, 23 Oct 2018 18:15:56 +0000
+Message-ID: <1540318546-1468-1-git-send-email-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1459292704=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1540318546-1468-2-git-send-email-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,282 +17,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 
---===============1459292704==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809B4684E7E16A5F49C74F6F7F50BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809B4684E7E16A5F49C74F6F7F50BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: Zhao, Yong
-Sent: Tuesday, October 23, 2018 2:15:59 PM
-To: brahma_sw_dev; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhao, Yong
-Subject: [PATCH 2/2] drm/amdkfd: Use functions from amdgpu to invalidate vm=
-id in kfd
-
-As part of the change, we stop taking the srbm lock, and start to use
-the same invalidation engine and software lock.
-
-Change-Id: I306305e43d4b4032316909b3f4e3f9f5ca4520ae
-Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 37 +------------------=
-----
- 1 file changed, 1 insertion(+), 36 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 3ade5d5..f4b4706 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -48,17 +48,6 @@
- #include "soc15d.h"
- #include "gmc_v9_0.h"
-
--/* HACK: MMHUB and GC both have VM-related register with the same
-- * names but different offsets. Define the MMHUB register we need here
-- * with a prefix. A proper solution would be to move the functions
-- * programming these registers into gfx_v9_0.c and mmhub_v1_0.c
-- * respectively.
-- */
--#define mmMMHUB_VM_INVALIDATE_ENG16_REQ                                0x0=
-6f3
--#define mmMMHUB_VM_INVALIDATE_ENG16_REQ_BASE_IDX               0
--
--#define mmMMHUB_VM_INVALIDATE_ENG16_ACK                                0x0=
-705
--#define mmMMHUB_VM_INVALIDATE_ENG16_ACK_BASE_IDX               0
-
- #define V9_PIPE_PER_MEC         (4)
- #define V9_QUEUES_PER_PIPE_MEC  (8)
-@@ -742,15 +731,6 @@ static uint16_t get_atc_vmid_pasid_mapping_pasid(struc=
-t kgd_dev *kgd,
- static void write_vmid_invalidate_request(struct kgd_dev *kgd, uint8_t vmi=
-d)
- {
-         struct amdgpu_device *adev =3D (struct amdgpu_device *) kgd;
--       uint32_t req =3D (1 << vmid) |
--               (0 << VM_INVALIDATE_ENG16_REQ__FLUSH_TYPE__SHIFT) | /* lega=
-cy */
--               VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PTES_MASK |
--               VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PDE0_MASK |
--               VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PDE1_MASK |
--               VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PDE2_MASK |
--               VM_INVALIDATE_ENG16_REQ__INVALIDATE_L1_PTES_MASK;
--
--       mutex_lock(&adev->srbm_mutex);
-
-         /* Use legacy mode tlb invalidation.
-          *
-@@ -767,22 +747,7 @@ static void write_vmid_invalidate_request(struct kgd_d=
-ev *kgd, uint8_t vmid)
-          * TODO 2: support range-based invalidation, requires kfg2kgd
-          * interface change
-          */
--       WREG32(SOC15_REG_OFFSET(GC, 0, mmVM_INVALIDATE_ENG16_REQ), req);
--
--       WREG32(SOC15_REG_OFFSET(MMHUB, 0, mmMMHUB_VM_INVALIDATE_ENG16_REQ),
--                               req);
--
--       while (!(RREG32(SOC15_REG_OFFSET(GC, 0, mmVM_INVALIDATE_ENG16_ACK))=
- &
--                                       (1 << vmid)))
--               cpu_relax();
--
--       while (!(RREG32(SOC15_REG_OFFSET(MMHUB, 0,
--                                       mmMMHUB_VM_INVALIDATE_ENG16_ACK)) &
--                                       (1 << vmid)))
--               cpu_relax();
--
--       mutex_unlock(&adev->srbm_mutex);
--
-+       amdgpu_gmc_flush_gpu_tlb(adev, vmid, 0);
- }
-
- static int invalidate_tlbs_with_kiq(struct amdgpu_device *adev, uint16_t p=
-asid)
---
-2.7.4
-
-
---_000_BN6PR12MB1809B4684E7E16A5F49C74F6F7F50BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhao, Yong<br>
-<b>Sent:</b> Tuesday, October 23, 2018 2:15:59 PM<br>
-<b>To:</b> brahma_sw_dev; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhao, Yong<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdkfd: Use functions from amdgpu to invali=
-date vmid in kfd</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">As part of the change, we stop taking the srbm loc=
-k, and start to use<br>
-the same invalidation engine and software lock.<br>
-<br>
-Change-Id: I306305e43d4b4032316909b3f4e3f9f5ca4520ae<br>
-Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 37 &#43;---------=
--------------<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 36 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-index 3ade5d5..f4b4706 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-@@ -48,17 &#43;48,6 @@<br>
-&nbsp;#include &quot;soc15d.h&quot;<br>
-&nbsp;#include &quot;gmc_v9_0.h&quot;<br>
-&nbsp;<br>
--/* HACK: MMHUB and GC both have VM-related register with the same<br>
-- * names but different offsets. Define the MMHUB register we need here<br>
-- * with a prefix. A proper solution would be to move the functions<br>
-- * programming these registers into gfx_v9_0.c and mmhub_v1_0.c<br>
-- * respectively.<br>
-- */<br>
--#define mmMMHUB_VM_INVALIDATE_ENG16_REQ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; 0x06f3<br>
--#define mmMMHUB_VM_INVALIDATE_ENG16_REQ_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
--<br>
--#define mmMMHUB_VM_INVALIDATE_ENG16_ACK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; 0x0705<br>
--#define mmMMHUB_VM_INVALIDATE_ENG16_ACK_BASE_IDX&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0<br>
-&nbsp;<br>
-&nbsp;#define V9_PIPE_PER_MEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; (4)<br>
-&nbsp;#define V9_QUEUES_PER_PIPE_MEC&nbsp; (8)<br>
-@@ -742,15 &#43;731,6 @@ static uint16_t get_atc_vmid_pasid_mapping_pasid(s=
-truct kgd_dev *kgd,<br>
-&nbsp;static void write_vmid_invalidate_request(struct kgd_dev *kgd, uint8_=
-t vmid)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D (struct amdgpu_device *) kgd;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t req =3D (1 &lt;&lt; vmid) |<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (0 &lt;&lt; VM_INVALIDATE_ENG16_REQ__FLUSH_TYPE__SHIFT) | /* leg=
-acy */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PTES_MASK |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PDE0_MASK |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PDE1_MASK |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; VM_INVALIDATE_ENG16_REQ__INVALIDATE_L2_PDE2_MASK |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; VM_INVALIDATE_ENG16_REQ__INVALIDATE_L1_PTES_MASK;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;srbm_mutex);=
-<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Use legacy mode tlb inv=
-alidation.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
-@@ -767,22 &#43;747,7 @@ static void write_vmid_invalidate_request(struct k=
-gd_dev *kgd, uint8_t vmid)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TODO 2: support ra=
-nge-based invalidation, requires kfg2kgd<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * interface change<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(SOC15_REG_OFFSET(GC, 0, mmVM_I=
-NVALIDATE_ENG16_REQ), req);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(SOC15_REG_OFFSET(MMHUB, 0, mmM=
-MHUB_VM_INVALIDATE_ENG16_REQ),<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; req);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (!(RREG32(SOC15_REG_OFFSET(GC, =
-0, mmVM_INVALIDATE_ENG16_ACK)) &amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (1 &lt;&lt; vmid)))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; cpu_relax();<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (!(RREG32(SOC15_REG_OFFSET(MMHU=
-B, 0,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; mmMMHUB_VM_INVALIDATE_ENG16_ACK)) &amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; (1 &lt;&lt; vmid)))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; cpu_relax();<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;srbm_mutex=
-);<br>
--<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gmc_flush_gpu_tlb(adev, vm=
-id, 0);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int invalidate_tlbs_with_kiq(struct amdgpu_device *adev, uint1=
-6_t pasid)<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809B4684E7E16A5F49C74F6F7F50BN6PR12MB1809namp_--
-
---===============1459292704==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1459292704==--
+QWRkIGEgZmx1c2hfdHlwZSBwYXJhbWV0ZXIgdG8gdGhhdCBzZXJpZXMgb2YgZnVuY3Rpb25zLgoK
+Q2hhbmdlLUlkOiBJM2RjZDcxOTU1Mjk3YzUzYjE4MWY4MmU3MDc4OTgxMjMwYzY0MmMwMQpTaWdu
+ZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmMgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZ21jLmggIHwgIDQgKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ21jX3Y2XzAuYyAgICB8ICA1ICsrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nbWNfdjdfMC5jICAgIHwgIDUgKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
+Y192OF8wLmMgICAgfCAgNCArKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlf
+MC5jICAgIHwgMTkgKysrKysrKysrKy0tLS0tLS0tLQogNiBmaWxlcyBjaGFuZ2VkLCAyMiBpbnNl
+cnRpb25zKCspLCAxOSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2dhcnQuYwppbmRleCAxMWZlYTI4Li45YTIxMmFhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9nYXJ0LmMKQEAgLTI0OCw3ICsyNDgsNyBAQCBpbnQgYW1kZ3B1X2dhcnRf
+dW5iaW5kKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50NjRfdCBvZmZzZXQsCiAJfQog
+CW1iKCk7CiAJYW1kZ3B1X2FzaWNfZmx1c2hfaGRwKGFkZXYsIE5VTEwpOwotCWFtZGdwdV9nbWNf
+Zmx1c2hfZ3B1X3RsYihhZGV2LCAwKTsKKwlhbWRncHVfZ21jX2ZsdXNoX2dwdV90bGIoYWRldiwg
+MCwgMCk7CiAJcmV0dXJuIDA7CiB9CiAKQEAgLTMzMSw3ICszMzEsNyBAQCBpbnQgYW1kZ3B1X2dh
+cnRfYmluZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDY0X3Qgb2Zmc2V0LAogCiAJ
+bWIoKTsKIAlhbWRncHVfYXNpY19mbHVzaF9oZHAoYWRldiwgTlVMTCk7Ci0JYW1kZ3B1X2dtY19m
+bHVzaF9ncHVfdGxiKGFkZXYsIDApOworCWFtZGdwdV9nbWNfZmx1c2hfZ3B1X3RsYihhZGV2LCAw
+LCAwKTsKIAlyZXR1cm4gMDsKIH0KIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2dtYy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dt
+Yy5oCmluZGV4IDZmYTdlZjQuLjRjNWYxOGMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9nbWMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZ21jLmgKQEAgLTY0LDcgKzY0LDcgQEAgc3RydWN0IGFtZGdwdV92bWh1YiB7CiBzdHJ1
+Y3QgYW1kZ3B1X2dtY19mdW5jcyB7CiAJLyogZmx1c2ggdGhlIHZtIHRsYiB2aWEgbW1pbyAqLwog
+CXZvaWQgKCpmbHVzaF9ncHVfdGxiKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKLQkJCSAg
+ICAgIHVpbnQzMl90IHZtaWQpOworCQkJICAgICAgdWludDMyX3Qgdm1pZCwgdWludDMyX3QgZmx1
+c2hfdHlwZSk7CiAJLyogZmx1c2ggdGhlIHZtIHRsYiB2aWEgcmluZyAqLwogCXVpbnQ2NF90ICgq
+ZW1pdF9mbHVzaF9ncHVfdGxiKShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVkIHZt
+aWQsCiAJCQkJICAgICAgIHVpbnQ2NF90IHBkX2FkZHIpOwpAQCAtMTUxLDcgKzE1MSw3IEBAIHN0
+cnVjdCBhbWRncHVfZ21jIHsKIAlzdHJ1Y3QgYW1kZ3B1X3hnbWkgeGdtaTsKIH07CiAKLSNkZWZp
+bmUgYW1kZ3B1X2dtY19mbHVzaF9ncHVfdGxiKGFkZXYsIHZtaWQpIChhZGV2KS0+Z21jLmdtY19m
+dW5jcy0+Zmx1c2hfZ3B1X3RsYigoYWRldiksICh2bWlkKSkKKyNkZWZpbmUgYW1kZ3B1X2dtY19m
+bHVzaF9ncHVfdGxiKGFkZXYsIHZtaWQsIHR5cGUpIChhZGV2KS0+Z21jLmdtY19mdW5jcy0+Zmx1
+c2hfZ3B1X3RsYigoYWRldiksICh2bWlkKSwgKHR5cGUpKQogI2RlZmluZSBhbWRncHVfZ21jX2Vt
+aXRfZmx1c2hfZ3B1X3RsYihyLCB2bWlkLCBhZGRyKSAociktPmFkZXYtPmdtYy5nbWNfZnVuY3Mt
+PmVtaXRfZmx1c2hfZ3B1X3RsYigociksICh2bWlkKSwgKGFkZHIpKQogI2RlZmluZSBhbWRncHVf
+Z21jX2VtaXRfcGFzaWRfbWFwcGluZyhyLCB2bWlkLCBwYXNpZCkgKHIpLT5hZGV2LT5nbWMuZ21j
+X2Z1bmNzLT5lbWl0X3Bhc2lkX21hcHBpbmcoKHIpLCAodm1pZCksIChwYXNpZCkpCiAjZGVmaW5l
+IGFtZGdwdV9nbWNfc2V0X3B0ZV9wZGUoYWRldiwgcHQsIGlkeCwgYWRkciwgZmxhZ3MpIChhZGV2
+KS0+Z21jLmdtY19mdW5jcy0+c2V0X3B0ZV9wZGUoKGFkZXYpLCAocHQpLCAoaWR4KSwgKGFkZHIp
+LCAoZmxhZ3MpKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2
+XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMKaW5kZXggZTFjMmI0
+ZS4uMjgyMWQxZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y2
+XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jCkBAIC0zNTgs
+NyArMzU4LDggQEAgc3RhdGljIGludCBnbWNfdjZfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KQogCXJldHVybiAwOwogfQogCi1zdGF0aWMgdm9pZCBnbWNfdjZfMF9mbHVzaF9n
+cHVfdGxiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50MzJfdCB2bWlkKQorc3RhdGlj
+IHZvaWQgZ21jX3Y2XzBfZmx1c2hfZ3B1X3RsYihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
+KwkJCQl1aW50MzJfdCB2bWlkLCB1aW50MzJfdCBmbHVzaF90eXBlKQogewogCVdSRUczMihtbVZN
+X0lOVkFMSURBVEVfUkVRVUVTVCwgMSA8PCB2bWlkKTsKIH0KQEAgLTU4MCw3ICs1ODEsNyBAQCBz
+dGF0aWMgaW50IGdtY192Nl8wX2dhcnRfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogCWVsc2UKIAkJZ21jX3Y2XzBfc2V0X2ZhdWx0X2VuYWJsZV9kZWZhdWx0KGFkZXYsIHRydWUp
+OwogCi0JZ21jX3Y2XzBfZmx1c2hfZ3B1X3RsYihhZGV2LCAwKTsKKwlnbWNfdjZfMF9mbHVzaF9n
+cHVfdGxiKGFkZXYsIDAsIDApOwogCWRldl9pbmZvKGFkZXYtPmRldiwgIlBDSUUgR0FSVCBvZiAl
+dU0gZW5hYmxlZCAodGFibGUgYXQgMHglMDE2bGxYKS5cbiIsCiAJCSAodW5zaWduZWQpKGFkZXYt
+PmdtYy5nYXJ0X3NpemUgPj4gMjApLAogCQkgKHVuc2lnbmVkIGxvbmcgbG9uZyl0YWJsZV9hZGRy
+KTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jCmluZGV4IDkxMGM0Y2UuLjc2MWRj
+ZmIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYwpAQCAtNDMwLDcgKzQzMCw4
+IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfbWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dikKICAqCiAgKiBGbHVzaCB0aGUgVExCIGZvciB0aGUgcmVxdWVzdGVkIHBhZ2UgdGFibGUgKENJ
+SykuCiAgKi8KLXN0YXRpYyB2b2lkIGdtY192N18wX2ZsdXNoX2dwdV90bGIoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZtaWQpCitzdGF0aWMgdm9pZCBnbWNfdjdfMF9mbHVz
+aF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAorCQkJCXVpbnQzMl90IHZtaWQs
+IHVpbnQzMl90IGZsdXNoX3R5cGUpCiB7CiAJLyogYml0cyAwLTE1IGFyZSB0aGUgVk0gY29udGV4
+dHMwLTE1ICovCiAJV1JFRzMyKG1tVk1fSU5WQUxJREFURV9SRVFVRVNULCAxIDw8IHZtaWQpOwpA
+QCAtNjk4LDcgKzY5OSw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfZ2FydF9lbmFibGUoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCVdSRUczMihtbUNIVUJfQ09OVFJPTCwgdG1wKTsKIAl9
+CiAKLQlnbWNfdjdfMF9mbHVzaF9ncHVfdGxiKGFkZXYsIDApOworCWdtY192N18wX2ZsdXNoX2dw
+dV90bGIoYWRldiwgMCwgMCk7CiAJRFJNX0lORk8oIlBDSUUgR0FSVCBvZiAldU0gZW5hYmxlZCAo
+dGFibGUgYXQgMHglMDE2bGxYKS5cbiIsCiAJCSAodW5zaWduZWQpKGFkZXYtPmdtYy5nYXJ0X3Np
+emUgPj4gMjApLAogCQkgKHVuc2lnbmVkIGxvbmcgbG9uZyl0YWJsZV9hZGRyKTsKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jCmluZGV4IDFkMzI2NWMuLjUzMWFhZjMgMTAwNjQ0Ci0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwpAQCAtNjExLDcgKzYxMSw3IEBAIHN0YXRpYyBp
+bnQgZ21jX3Y4XzBfbWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKICAqIEZsdXNo
+IHRoZSBUTEIgZm9yIHRoZSByZXF1ZXN0ZWQgcGFnZSB0YWJsZSAoQ0lLKS4KICAqLwogc3RhdGlj
+IHZvaWQgZ21jX3Y4XzBfZmx1c2hfZ3B1X3RsYihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
+LQkJCQkJdWludDMyX3Qgdm1pZCkKKwkJCQl1aW50MzJfdCB2bWlkLCB1aW50MzJfdCBmbHVzaF90
+eXBlKQogewogCS8qIGJpdHMgMC0xNSBhcmUgdGhlIFZNIGNvbnRleHRzMC0xNSAqLwogCVdSRUcz
+MihtbVZNX0lOVkFMSURBVEVfUkVRVUVTVCwgMSA8PCB2bWlkKTsKQEAgLTkyMCw3ICs5MjAsNyBA
+QCBzdGF0aWMgaW50IGdtY192OF8wX2dhcnRfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2KQogCWVsc2UKIAkJZ21jX3Y4XzBfc2V0X2ZhdWx0X2VuYWJsZV9kZWZhdWx0KGFkZXYsIHRy
+dWUpOwogCi0JZ21jX3Y4XzBfZmx1c2hfZ3B1X3RsYihhZGV2LCAwKTsKKwlnbWNfdjhfMF9mbHVz
+aF9ncHVfdGxiKGFkZXYsIDAsIDApOwogCURSTV9JTkZPKCJQQ0lFIEdBUlQgb2YgJXVNIGVuYWJs
+ZWQgKHRhYmxlIGF0IDB4JTAxNmxsWCkuXG4iLAogCQkgKHVuc2lnbmVkKShhZGV2LT5nbWMuZ2Fy
+dF9zaXplID4+IDIwKSwKIAkJICh1bnNpZ25lZCBsb25nIGxvbmcpdGFibGVfYWRkcik7CmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwppbmRleCBmMzVkN2E1Li43OWQ4YTg0IDEwMDY0
+NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKQEAgLTI5MywxNCArMjkzLDE1IEBAIHN0
+YXRpYyB2b2lkIGdtY192OV8wX3NldF9pcnFfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpCiAJYWRldi0+Z21jLnZtX2ZhdWx0LmZ1bmNzID0gJmdtY192OV8wX2lycV9mdW5jczsKIH0K
+IAotc3RhdGljIHVpbnQzMl90IGdtY192OV8wX2dldF9pbnZhbGlkYXRlX3JlcSh1bnNpZ25lZCBp
+bnQgdm1pZCkKK3N0YXRpYyB1aW50MzJfdCBnbWNfdjlfMF9nZXRfaW52YWxpZGF0ZV9yZXEodW5z
+aWduZWQgaW50IHZtaWQsCisJCQkJCXVpbnQzMl90IGZsdXNoX3R5cGUpCiB7CiAJdTMyIHJlcSA9
+IDA7CiAKIAkvKiBpbnZhbGlkYXRlIHVzaW5nIGxlZ2FjeSBtb2RlIG9uIHZtaWQqLwogCXJlcSA9
+IFJFR19TRVRfRklFTEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLAogCQkJICAgIFBFUl9W
+TUlEX0lOVkFMSURBVEVfUkVRLCAxIDw8IHZtaWQpOwotCXJlcSA9IFJFR19TRVRfRklFTEQocmVx
+LCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLCBGTFVTSF9UWVBFLCAwKTsKKwlyZXEgPSBSRUdfU0VU
+X0ZJRUxEKHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JFUSwgRkxVU0hfVFlQRSwgZmx1c2hfdHlw
+ZSk7CiAJcmVxID0gUkVHX1NFVF9GSUVMRChyZXEsIFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIElO
+VkFMSURBVEVfTDJfUFRFUywgMSk7CiAJcmVxID0gUkVHX1NFVF9GSUVMRChyZXEsIFZNX0lOVkFM
+SURBVEVfRU5HMF9SRVEsIElOVkFMSURBVEVfTDJfUERFMCwgMSk7CiAJcmVxID0gUkVHX1NFVF9G
+SUVMRChyZXEsIFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIElOVkFMSURBVEVfTDJfUERFMSwgMSk7
+CkBAIC0zNjIsMjQgKzM2MywyNCBAQCBzdGF0aWMgc2lnbmVkIGxvbmcgIGFtZGdwdV9raXFfcmVn
+X3dyaXRlX3JlZ193YWl0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogICovCiAKIC8qKgot
+ICogZ21jX3Y5XzBfZmx1c2hfZ3B1X3RsYiAtIGdhcnQgdGxiIGZsdXNoIGNhbGxiYWNrCisgKiBn
+bWNfdjlfMF9mbHVzaF9ncHVfdGxiIC0gdGxiIGZsdXNoIHdpdGggY2VydGFpbiB0eXBlCiAgKgog
+ICogQGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgogICogQHZtaWQ6IHZtIGluc3RhbmNlIHRv
+IGZsdXNoCisgKiBAZmx1c2hfdHlwZTogdGhlIGZsdXNoIHR5cGUKICAqCi0gKiBGbHVzaCB0aGUg
+VExCIGZvciB0aGUgcmVxdWVzdGVkIHBhZ2UgdGFibGUuCisgKiBGbHVzaCB0aGUgVExCIGZvciB0
+aGUgcmVxdWVzdGVkIHBhZ2UgdGFibGUgdXNpbmcgY2VydGFpbiB0eXBlLgogICovCiBzdGF0aWMg
+dm9pZCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAot
+CQkJCQl1aW50MzJfdCB2bWlkKQorCQkJCXVpbnQzMl90IHZtaWQsIHVpbnQzMl90IGZsdXNoX3R5
+cGUpCiB7Ci0JLyogVXNlIHJlZ2lzdGVyIDE3IGZvciBHQVJUICovCiAJY29uc3QgdW5zaWduZWQg
+ZW5nID0gMTc7CiAJdW5zaWduZWQgaSwgajsKIAlpbnQgcjsKIAogCWZvciAoaSA9IDA7IGkgPCBB
+TURHUFVfTUFYX1ZNSFVCUzsgKytpKSB7CiAJCXN0cnVjdCBhbWRncHVfdm1odWIgKmh1YiA9ICZh
+ZGV2LT52bWh1YltpXTsKLQkJdTMyIHRtcCA9IGdtY192OV8wX2dldF9pbnZhbGlkYXRlX3JlcSh2
+bWlkKTsKKwkJdTMyIHRtcCA9IGdtY192OV8wX2dldF9pbnZhbGlkYXRlX3JlcSh2bWlkLCBmbHVz
+aF90eXBlKTsKIAogCQlpZiAoYWRldi0+Z2Z4LmtpcS5yaW5nLnJlYWR5ICYmCiAJCSAgICAoYW1k
+Z3B1X3NyaW92X3J1bnRpbWUoYWRldikgfHwgIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkgJiYKQEAg
+LTQyOSw3ICs0MzAsNyBAQCBzdGF0aWMgdWludDY0X3QgZ21jX3Y5XzBfZW1pdF9mbHVzaF9ncHVf
+dGxiKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiA9IHJpbmctPmFkZXY7CiAJc3RydWN0IGFtZGdwdV92bWh1YiAqaHViID0gJmFkZXYtPnZt
+aHViW3JpbmctPmZ1bmNzLT52bWh1Yl07Ci0JdWludDMyX3QgcmVxID0gZ21jX3Y5XzBfZ2V0X2lu
+dmFsaWRhdGVfcmVxKHZtaWQpOworCXVpbnQzMl90IHJlcSA9IGdtY192OV8wX2dldF9pbnZhbGlk
+YXRlX3JlcSh2bWlkLCAwKTsKIAl1bnNpZ25lZCBlbmcgPSByaW5nLT52bV9pbnZfZW5nOwogCiAJ
+YW1kZ3B1X3JpbmdfZW1pdF93cmVnKHJpbmcsIGh1Yi0+Y3R4MF9wdGJfYWRkcl9sbzMyICsgKDIg
+KiB2bWlkKSwKQEAgLTExMjIsNyArMTEyMyw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y5XzBfZ2FydF9l
+bmFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAKIAlnZnhodWJfdjFfMF9zZXRfZmF1
+bHRfZW5hYmxlX2RlZmF1bHQoYWRldiwgdmFsdWUpOwogCW1taHViX3YxXzBfc2V0X2ZhdWx0X2Vu
+YWJsZV9kZWZhdWx0KGFkZXYsIHZhbHVlKTsKLQlnbWNfdjlfMF9mbHVzaF9ncHVfdGxiKGFkZXYs
+IDApOworCWdtY192OV8wX2ZsdXNoX2dwdV90bGIoYWRldiwgMCwgMCk7CiAKIAlEUk1fSU5GTygi
+UENJRSBHQVJUIG9mICV1TSBlbmFibGVkICh0YWJsZSBhdCAweCUwMTZsbFgpLlxuIiwKIAkJICh1
+bnNpZ25lZCkoYWRldi0+Z21jLmdhcnRfc2l6ZSA+PiAyMCksCi0tIAoyLjcuNAoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
