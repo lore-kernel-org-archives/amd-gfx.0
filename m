@@ -1,17 +1,17 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Reorganize *_flush_gpu_tlb() for kfd to
- use
-Date: Tue, 23 Oct 2018 20:53:52 +0000
-Message-ID: <5e5db6f8-fd88-8fb1-38fe-cd155d1084ae@amd.com>
-References: <1540318546-1468-1-git-send-email-Yong.Zhao@amd.com>
- <367bc700-8dae-1877-5b77-b28f0ba2e118@amd.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdkfd: page_table_base already have the flags
+ needed
+Date: Tue, 23 Oct 2018 21:15:41 +0000
+Message-ID: <BL0PR12MB25006DC56817C2B7F00F093BF0F50@BL0PR12MB2500.namprd12.prod.outlook.com>
+References: <1540233186-3456-1-git-send-email-Yong.Zhao@amd.com>
+ <1540233186-3456-2-git-send-email-Yong.Zhao@amd.com>
+ <BL0PR12MB2500DD8AAC17A29418807EC2F0F50@BL0PR12MB2500.namprd12.prod.outlook.com>,
+ <f2a19dc1-db2f-1c85-b940-d024fea31792@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1910448889=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <367bc700-8dae-1877-5b77-b28f0ba2e118-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <f2a19dc1-db2f-1c85-b940-d024fea31792-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <8168E38AC2D1FE4E8C4750F6BFE0232E-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,179 +22,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>
 
-SSdtIHdvcmtpbmcgb24gYSB2bSBmYXVsdCBpc3N1ZSB0aGF0IHRoaXMgdGxiIGZsdXNoIHR5cGUg
-Y2FuIGhhdmXCoCANCmVmZmVjdCBvbiB0aGlzICwgZG8gd2UgcGxhbiB0byBtYWtlIGEga2VybmVs
-IHBhcmFtZXRlciBmb3IgdGhpcyA/DQoNCg0KUmVnYXJkcw0KDQpzaGFveXVuLmxpdQ0KDQpPbiAy
-MDE4LTEwLTIzIDQ6MzcgcC5tLiwgS3VlaGxpbmcsIEZlbGl4IHdyb3RlOg0KPiBJdCBvY2N1cnJl
-ZCB0byBtZSB0aGF0IHRoZSBmbHVzaF90eXBlIGlzIGEgaGFyZHdhcmUtc3BlY2lmaWMgdmFsdWUs
-IGJ1dA0KPiB5b3UncmUgdXNpbmcgaXQgaW4gYSBoYXJkd2FyZS1hYnN0cmFjdGVkIGludGVyZmFj
-ZS4gSWYgdGhlIG1lYW5pbmcgb2YNCj4gdGhlIGZsdXNoIHR5cGUgdmFsdWVzIGNoYW5nZXMgaW4g
-ZnV0dXJlIEhXLWdlbmVyYXRpb25zLCB3ZSdsbCBuZWVkIHRvDQo+IGRlZmluZSBhbiBhYnN0cmFj
-dCBlbnVtIHRoYXQgZ2V0cyB0cmFuc2xhdGVkIHRvIHRoZSByZXNwZWN0aXZlIEhXIHZhbHVlcw0K
-PiBpbiB0aGUgSFctc3BlY2lmaWMgY29kZS4NCj4NCj4gQW55d2F5LCB0aGlzIHdvcmtzIGZvciBu
-b3cuDQo+DQo+IE9uZSBtb3JlIGNvc21ldGljIGNvbW1lbnQgaW5saW5lIC4uLg0KPg0KPiBPdGhl
-ciB0aGFuIHRoYXQgdGhlIHNlcmllcyBpcyBSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcNCj4g
-PEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+DQo+IFJlZ2FyZHMsDQo+ICDCoCBGZWxpeA0KPg0K
-PiBPbiAyMDE4LTEwLTIzIDI6MTUgcC5tLiwgWmhhbywgWW9uZyB3cm90ZToNCj4+IEFkZCBhIGZs
-dXNoX3R5cGUgcGFyYW1ldGVyIHRvIHRoYXQgc2VyaWVzIG9mIGZ1bmN0aW9ucy4NCj4+DQo+PiBD
-aGFuZ2UtSWQ6IEkzZGNkNzE5NTUyOTdjNTNiMTgxZjgyZTcwNzg5ODEyMzBjNjQyYzAxDQo+PiBT
-aWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPg0KPj4gLS0tDQo+PiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0LmMgfCAgNCArKy0tDQo+PiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMuaCAgfCAgNCArKy0tDQo+PiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192Nl8wLmMgICAgfCAgNSArKystLQ0KPj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jICAgIHwgIDUgKysrLS0NCj4+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYyAgICB8ICA0ICsrLS0NCj4+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyAgICB8IDE5ICsrKysrKysr
-KystLS0tLS0tLS0NCj4+ICAgNiBmaWxlcyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCspLCAxOSBk
-ZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2dhcnQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nYXJ0
-LmMNCj4+IGluZGV4IDExZmVhMjguLjlhMjEyYWEgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZ2FydC5jDQo+PiBAQCAtMjQ4LDcgKzI0OCw3IEBAIGludCBhbWRn
-cHVfZ2FydF91bmJpbmQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQ2NF90IG9mZnNl
-dCwNCj4+ICAgCX0NCj4+ICAgCW1iKCk7DQo+PiAgIAlhbWRncHVfYXNpY19mbHVzaF9oZHAoYWRl
-diwgTlVMTCk7DQo+PiAtCWFtZGdwdV9nbWNfZmx1c2hfZ3B1X3RsYihhZGV2LCAwKTsNCj4+ICsJ
-YW1kZ3B1X2dtY19mbHVzaF9ncHVfdGxiKGFkZXYsIDAsIDApOw0KPj4gICAJcmV0dXJuIDA7DQo+
-PiAgIH0NCj4+ICAgDQo+PiBAQCAtMzMxLDcgKzMzMSw3IEBAIGludCBhbWRncHVfZ2FydF9iaW5k
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50NjRfdCBvZmZzZXQsDQo+PiAgIA0KPj4g
-ICAJbWIoKTsNCj4+ICAgCWFtZGdwdV9hc2ljX2ZsdXNoX2hkcChhZGV2LCBOVUxMKTsNCj4+IC0J
-YW1kZ3B1X2dtY19mbHVzaF9ncHVfdGxiKGFkZXYsIDApOw0KPj4gKwlhbWRncHVfZ21jX2ZsdXNo
-X2dwdV90bGIoYWRldiwgMCwgMCk7DQo+PiAgIAlyZXR1cm4gMDsNCj4+ICAgfQ0KPj4gICANCj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmggYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ21jLmgNCj4+IGluZGV4IDZmYTdlZjQu
-LjRjNWYxOGMgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZ21jLmgNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nbWMu
-aA0KPj4gQEAgLTY0LDcgKzY0LDcgQEAgc3RydWN0IGFtZGdwdV92bWh1YiB7DQo+PiAgIHN0cnVj
-dCBhbWRncHVfZ21jX2Z1bmNzIHsNCj4+ICAgCS8qIGZsdXNoIHRoZSB2bSB0bGIgdmlhIG1taW8g
-Ki8NCj4+ICAgCXZvaWQgKCpmbHVzaF9ncHVfdGxiKShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwNCj4+IC0JCQkgICAgICB1aW50MzJfdCB2bWlkKTsNCj4+ICsJCQkgICAgICB1aW50MzJfdCB2
-bWlkLCB1aW50MzJfdCBmbHVzaF90eXBlKTsNCj4+ICAgCS8qIGZsdXNoIHRoZSB2bSB0bGIgdmlh
-IHJpbmcgKi8NCj4+ICAgCXVpbnQ2NF90ICgqZW1pdF9mbHVzaF9ncHVfdGxiKShzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmcsIHVuc2lnbmVkIHZtaWQsDQo+PiAgIAkJCQkgICAgICAgdWludDY0X3Qg
-cGRfYWRkcik7DQo+PiBAQCAtMTUxLDcgKzE1MSw3IEBAIHN0cnVjdCBhbWRncHVfZ21jIHsNCj4+
-ICAgCXN0cnVjdCBhbWRncHVfeGdtaSB4Z21pOw0KPj4gICB9Ow0KPj4gICANCj4+IC0jZGVmaW5l
-IGFtZGdwdV9nbWNfZmx1c2hfZ3B1X3RsYihhZGV2LCB2bWlkKSAoYWRldiktPmdtYy5nbWNfZnVu
-Y3MtPmZsdXNoX2dwdV90bGIoKGFkZXYpLCAodm1pZCkpDQo+PiArI2RlZmluZSBhbWRncHVfZ21j
-X2ZsdXNoX2dwdV90bGIoYWRldiwgdm1pZCwgdHlwZSkgKGFkZXYpLT5nbWMuZ21jX2Z1bmNzLT5m
-bHVzaF9ncHVfdGxiKChhZGV2KSwgKHZtaWQpLCAodHlwZSkpDQo+PiAgICNkZWZpbmUgYW1kZ3B1
-X2dtY19lbWl0X2ZsdXNoX2dwdV90bGIociwgdm1pZCwgYWRkcikgKHIpLT5hZGV2LT5nbWMuZ21j
-X2Z1bmNzLT5lbWl0X2ZsdXNoX2dwdV90bGIoKHIpLCAodm1pZCksIChhZGRyKSkNCj4+ICAgI2Rl
-ZmluZSBhbWRncHVfZ21jX2VtaXRfcGFzaWRfbWFwcGluZyhyLCB2bWlkLCBwYXNpZCkgKHIpLT5h
-ZGV2LT5nbWMuZ21jX2Z1bmNzLT5lbWl0X3Bhc2lkX21hcHBpbmcoKHIpLCAodm1pZCksIChwYXNp
-ZCkpDQo+PiAgICNkZWZpbmUgYW1kZ3B1X2dtY19zZXRfcHRlX3BkZShhZGV2LCBwdCwgaWR4LCBh
-ZGRyLCBmbGFncykgKGFkZXYpLT5nbWMuZ21jX2Z1bmNzLT5zZXRfcHRlX3BkZSgoYWRldiksIChw
-dCksIChpZHgpLCAoYWRkciksIChmbGFncykpDQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y2XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dt
-Y192Nl8wLmMNCj4+IGluZGV4IGUxYzJiNGUuLjI4MjFkMWQgMTAwNjQ0DQo+PiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjZfMC5jDQo+PiBAQCAtMzU4LDcgKzM1OCw4IEBAIHN0YXRpYyBp
-bnQgZ21jX3Y2XzBfbWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICAgCXJl
-dHVybiAwOw0KPj4gICB9DQo+PiAgIA0KPj4gLXN0YXRpYyB2b2lkIGdtY192Nl8wX2ZsdXNoX2dw
-dV90bGIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZtaWQpDQo+PiArc3Rh
-dGljIHZvaWQgZ21jX3Y2XzBfZmx1c2hfZ3B1X3RsYihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diwNCj4+ICsJCQkJdWludDMyX3Qgdm1pZCwgdWludDMyX3QgZmx1c2hfdHlwZSkNCj4+ICAgew0K
-Pj4gICAJV1JFRzMyKG1tVk1fSU5WQUxJREFURV9SRVFVRVNULCAxIDw8IHZtaWQpOw0KPj4gICB9
-DQo+PiBAQCAtNTgwLDcgKzU4MSw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y2XzBfZ2FydF9lbmFibGUo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+PiAgIAllbHNlDQo+PiAgIAkJZ21jX3Y2XzBf
-c2V0X2ZhdWx0X2VuYWJsZV9kZWZhdWx0KGFkZXYsIHRydWUpOw0KPj4gICANCj4+IC0JZ21jX3Y2
-XzBfZmx1c2hfZ3B1X3RsYihhZGV2LCAwKTsNCj4+ICsJZ21jX3Y2XzBfZmx1c2hfZ3B1X3RsYihh
-ZGV2LCAwLCAwKTsNCj4+ICAgCWRldl9pbmZvKGFkZXYtPmRldiwgIlBDSUUgR0FSVCBvZiAldU0g
-ZW5hYmxlZCAodGFibGUgYXQgMHglMDE2bGxYKS5cbiIsDQo+PiAgIAkJICh1bnNpZ25lZCkoYWRl
-di0+Z21jLmdhcnRfc2l6ZSA+PiAyMCksDQo+PiAgIAkJICh1bnNpZ25lZCBsb25nIGxvbmcpdGFi
-bGVfYWRkcik7DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
-X3Y3XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMNCj4+IGluZGV4
-IDkxMGM0Y2UuLjc2MWRjZmIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjdfMC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djdfMC5jDQo+PiBAQCAtNDMwLDcgKzQzMCw4IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfbWNfaW5p
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICAgICoNCj4+ICAgICogRmx1c2ggdGhl
-IFRMQiBmb3IgdGhlIHJlcXVlc3RlZCBwYWdlIHRhYmxlIChDSUspLg0KPj4gICAgKi8NCj4+IC1z
-dGF0aWMgdm9pZCBnbWNfdjdfMF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LCB1aW50MzJfdCB2bWlkKQ0KPj4gK3N0YXRpYyB2b2lkIGdtY192N18wX2ZsdXNoX2dwdV90
-bGIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiArCQkJCXVpbnQzMl90IHZtaWQsIHVp
-bnQzMl90IGZsdXNoX3R5cGUpDQo+PiAgIHsNCj4+ICAgCS8qIGJpdHMgMC0xNSBhcmUgdGhlIFZN
-IGNvbnRleHRzMC0xNSAqLw0KPj4gICAJV1JFRzMyKG1tVk1fSU5WQUxJREFURV9SRVFVRVNULCAx
-IDw8IHZtaWQpOw0KPj4gQEAgLTY5OCw3ICs2OTksNyBAQCBzdGF0aWMgaW50IGdtY192N18wX2dh
-cnRfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPj4gICAJCVdSRUczMihtbUNI
-VUJfQ09OVFJPTCwgdG1wKTsNCj4+ICAgCX0NCj4+ICAgDQo+PiAtCWdtY192N18wX2ZsdXNoX2dw
-dV90bGIoYWRldiwgMCk7DQo+PiArCWdtY192N18wX2ZsdXNoX2dwdV90bGIoYWRldiwgMCwgMCk7
-DQo+PiAgIAlEUk1fSU5GTygiUENJRSBHQVJUIG9mICV1TSBlbmFibGVkICh0YWJsZSBhdCAweCUw
-MTZsbFgpLlxuIiwNCj4+ICAgCQkgKHVuc2lnbmVkKShhZGV2LT5nbWMuZ2FydF9zaXplID4+IDIw
-KSwNCj4+ICAgCQkgKHVuc2lnbmVkIGxvbmcgbG9uZyl0YWJsZV9hZGRyKTsNCj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYw0KPj4gaW5kZXggMWQzMjY1Yy4uNTMxYWFmMyAxMDA2
-NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMNCj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMNCj4+IEBAIC02MTEsNyAr
-NjExLDcgQEAgc3RhdGljIGludCBnbWNfdjhfMF9tY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQ0KPj4gICAgKiBGbHVzaCB0aGUgVExCIGZvciB0aGUgcmVxdWVzdGVkIHBhZ2UgdGFi
-bGUgKENJSykuDQo+PiAgICAqLw0KPj4gICBzdGF0aWMgdm9pZCBnbWNfdjhfMF9mbHVzaF9ncHVf
-dGxiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gLQkJCQkJdWludDMyX3Qgdm1pZCkN
-Cj4+ICsJCQkJdWludDMyX3Qgdm1pZCwgdWludDMyX3QgZmx1c2hfdHlwZSkNCj4+ICAgew0KPj4g
-ICAJLyogYml0cyAwLTE1IGFyZSB0aGUgVk0gY29udGV4dHMwLTE1ICovDQo+PiAgIAlXUkVHMzIo
-bW1WTV9JTlZBTElEQVRFX1JFUVVFU1QsIDEgPDwgdm1pZCk7DQo+PiBAQCAtOTIwLDcgKzkyMCw3
-IEBAIHN0YXRpYyBpbnQgZ21jX3Y4XzBfZ2FydF9lbmFibGUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpDQo+PiAgIAllbHNlDQo+PiAgIAkJZ21jX3Y4XzBfc2V0X2ZhdWx0X2VuYWJsZV9kZWZh
-dWx0KGFkZXYsIHRydWUpOw0KPj4gICANCj4+IC0JZ21jX3Y4XzBfZmx1c2hfZ3B1X3RsYihhZGV2
-LCAwKTsNCj4+ICsJZ21jX3Y4XzBfZmx1c2hfZ3B1X3RsYihhZGV2LCAwLCAwKTsNCj4+ICAgCURS
-TV9JTkZPKCJQQ0lFIEdBUlQgb2YgJXVNIGVuYWJsZWQgKHRhYmxlIGF0IDB4JTAxNmxsWCkuXG4i
-LA0KPj4gICAJCSAodW5zaWduZWQpKGFkZXYtPmdtYy5nYXJ0X3NpemUgPj4gMjApLA0KPj4gICAJ
-CSAodW5zaWduZWQgbG9uZyBsb25nKXRhYmxlX2FkZHIpOw0KPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjlfMC5jDQo+PiBpbmRleCBmMzVkN2E1Li43OWQ4YTg0IDEwMDY0NA0KPj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4gQEAgLTI5MywxNCArMjkzLDE1IEBA
-IHN0YXRpYyB2b2lkIGdtY192OV8wX3NldF9pcnFfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpDQo+PiAgIAlhZGV2LT5nbWMudm1fZmF1bHQuZnVuY3MgPSAmZ21jX3Y5XzBfaXJxX2Z1
-bmNzOw0KPj4gICB9DQo+PiAgIA0KPj4gLXN0YXRpYyB1aW50MzJfdCBnbWNfdjlfMF9nZXRfaW52
-YWxpZGF0ZV9yZXEodW5zaWduZWQgaW50IHZtaWQpDQo+PiArc3RhdGljIHVpbnQzMl90IGdtY192
-OV8wX2dldF9pbnZhbGlkYXRlX3JlcSh1bnNpZ25lZCBpbnQgdm1pZCwNCj4+ICsJCQkJCXVpbnQz
-Ml90IGZsdXNoX3R5cGUpDQo+PiAgIHsNCj4+ICAgCXUzMiByZXEgPSAwOw0KPj4gICANCj4+ICAg
-CS8qIGludmFsaWRhdGUgdXNpbmcgbGVnYWN5IG1vZGUgb24gdm1pZCovDQo+IFRoaXMgY29tbWVu
-dCBpcyBubyBsb25nZXIgYWNjdXJhdGUuDQo+DQo+DQo+PiAgIAlyZXEgPSBSRUdfU0VUX0ZJRUxE
-KHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JFUSwNCj4+ICAgCQkJICAgIFBFUl9WTUlEX0lOVkFM
-SURBVEVfUkVRLCAxIDw8IHZtaWQpOw0KPj4gLQlyZXEgPSBSRUdfU0VUX0ZJRUxEKHJlcSwgVk1f
-SU5WQUxJREFURV9FTkcwX1JFUSwgRkxVU0hfVFlQRSwgMCk7DQo+PiArCXJlcSA9IFJFR19TRVRf
-RklFTEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVRLCBGTFVTSF9UWVBFLCBmbHVzaF90eXBl
-KTsNCj4+ICAgCXJlcSA9IFJFR19TRVRfRklFTEQocmVxLCBWTV9JTlZBTElEQVRFX0VORzBfUkVR
-LCBJTlZBTElEQVRFX0wyX1BURVMsIDEpOw0KPj4gICAJcmVxID0gUkVHX1NFVF9GSUVMRChyZXEs
-IFZNX0lOVkFMSURBVEVfRU5HMF9SRVEsIElOVkFMSURBVEVfTDJfUERFMCwgMSk7DQo+PiAgIAly
-ZXEgPSBSRUdfU0VUX0ZJRUxEKHJlcSwgVk1fSU5WQUxJREFURV9FTkcwX1JFUSwgSU5WQUxJREFU
-RV9MMl9QREUxLCAxKTsNCj4+IEBAIC0zNjIsMjQgKzM2MywyNCBAQCBzdGF0aWMgc2lnbmVkIGxv
-bmcgIGFtZGdwdV9raXFfcmVnX3dyaXRlX3JlZ193YWl0KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LA0KPj4gICAgKi8NCj4+ICAgDQo+PiAgIC8qKg0KPj4gLSAqIGdtY192OV8wX2ZsdXNoX2dw
-dV90bGIgLSBnYXJ0IHRsYiBmbHVzaCBjYWxsYmFjaw0KPj4gKyAqIGdtY192OV8wX2ZsdXNoX2dw
-dV90bGIgLSB0bGIgZmx1c2ggd2l0aCBjZXJ0YWluIHR5cGUNCj4+ICAgICoNCj4+ICAgICogQGFk
-ZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcg0KPj4gICAgKiBAdm1pZDogdm0gaW5zdGFuY2UgdG8g
-Zmx1c2gNCj4+ICsgKiBAZmx1c2hfdHlwZTogdGhlIGZsdXNoIHR5cGUNCj4+ICAgICoNCj4+IC0g
-KiBGbHVzaCB0aGUgVExCIGZvciB0aGUgcmVxdWVzdGVkIHBhZ2UgdGFibGUuDQo+PiArICogRmx1
-c2ggdGhlIFRMQiBmb3IgdGhlIHJlcXVlc3RlZCBwYWdlIHRhYmxlIHVzaW5nIGNlcnRhaW4gdHlw
-ZS4NCj4+ICAgICovDQo+PiAgIHN0YXRpYyB2b2lkIGdtY192OV8wX2ZsdXNoX2dwdV90bGIoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiAtCQkJCQl1aW50MzJfdCB2bWlkKQ0KPj4gKwkJ
-CQl1aW50MzJfdCB2bWlkLCB1aW50MzJfdCBmbHVzaF90eXBlKQ0KPj4gICB7DQo+PiAtCS8qIFVz
-ZSByZWdpc3RlciAxNyBmb3IgR0FSVCAqLw0KPj4gICAJY29uc3QgdW5zaWduZWQgZW5nID0gMTc7
-DQo+PiAgIAl1bnNpZ25lZCBpLCBqOw0KPj4gICAJaW50IHI7DQo+PiAgIA0KPj4gICAJZm9yIChp
-ID0gMDsgaSA8IEFNREdQVV9NQVhfVk1IVUJTOyArK2kpIHsNCj4+ICAgCQlzdHJ1Y3QgYW1kZ3B1
-X3ZtaHViICpodWIgPSAmYWRldi0+dm1odWJbaV07DQo+PiAtCQl1MzIgdG1wID0gZ21jX3Y5XzBf
-Z2V0X2ludmFsaWRhdGVfcmVxKHZtaWQpOw0KPj4gKwkJdTMyIHRtcCA9IGdtY192OV8wX2dldF9p
-bnZhbGlkYXRlX3JlcSh2bWlkLCBmbHVzaF90eXBlKTsNCj4+ICAgDQo+PiAgIAkJaWYgKGFkZXYt
-PmdmeC5raXEucmluZy5yZWFkeSAmJg0KPj4gICAJCSAgICAoYW1kZ3B1X3NyaW92X3J1bnRpbWUo
-YWRldikgfHwgIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkgJiYNCj4+IEBAIC00MjksNyArNDMwLDcg
-QEAgc3RhdGljIHVpbnQ2NF90IGdtY192OV8wX2VtaXRfZmx1c2hfZ3B1X3RsYihzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmcsDQo+PiAgIHsNCj4+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-ID0gcmluZy0+YWRldjsNCj4+ICAgCXN0cnVjdCBhbWRncHVfdm1odWIgKmh1YiA9ICZhZGV2LT52
-bWh1YltyaW5nLT5mdW5jcy0+dm1odWJdOw0KPj4gLQl1aW50MzJfdCByZXEgPSBnbWNfdjlfMF9n
-ZXRfaW52YWxpZGF0ZV9yZXEodm1pZCk7DQo+PiArCXVpbnQzMl90IHJlcSA9IGdtY192OV8wX2dl
-dF9pbnZhbGlkYXRlX3JlcSh2bWlkLCAwKTsNCj4+ICAgCXVuc2lnbmVkIGVuZyA9IHJpbmctPnZt
-X2ludl9lbmc7DQo+PiAgIA0KPj4gICAJYW1kZ3B1X3JpbmdfZW1pdF93cmVnKHJpbmcsIGh1Yi0+
-Y3R4MF9wdGJfYWRkcl9sbzMyICsgKDIgKiB2bWlkKSwNCj4+IEBAIC0xMTIyLDcgKzExMjMsNyBA
-QCBzdGF0aWMgaW50IGdtY192OV8wX2dhcnRfZW5hYmxlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KQ0KPj4gICANCj4+ICAgCWdmeGh1Yl92MV8wX3NldF9mYXVsdF9lbmFibGVfZGVmYXVsdChh
-ZGV2LCB2YWx1ZSk7DQo+PiAgIAltbWh1Yl92MV8wX3NldF9mYXVsdF9lbmFibGVfZGVmYXVsdChh
-ZGV2LCB2YWx1ZSk7DQo+PiAtCWdtY192OV8wX2ZsdXNoX2dwdV90bGIoYWRldiwgMCk7DQo+PiAr
-CWdtY192OV8wX2ZsdXNoX2dwdV90bGIoYWRldiwgMCwgMCk7DQo+PiAgIA0KPj4gICAJRFJNX0lO
-Rk8oIlBDSUUgR0FSVCBvZiAldU0gZW5hYmxlZCAodGFibGUgYXQgMHglMDE2bGxYKS5cbiIsDQo+
-PiAgIAkJICh1bnNpZ25lZCkoYWRldi0+Z21jLmdhcnRfc2l6ZSA+PiAyMCksDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1910448889==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BL0PR12MB25006DC56817C2B7F00F093BF0F50BL0PR12MB2500namp_"
+
+--_000_BL0PR12MB25006DC56817C2B7F00F093BF0F50BL0PR12MB2500namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Pushed. Thanks!
+
+
+Yong
+
+________________________________
+From: Kuehling, Felix
+Sent: Tuesday, October 23, 2018 4:43:05 PM
+To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; brahma_sw_dev
+Subject: Re: [PATCH 2/2] drm/amdkfd: page_table_base already have the flags=
+ needed
+
+The series is Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+
+
+On 2018-10-23 1:00 p.m., Zhao, Yong wrote:
+>
+> How about those two patches?
+>
+>
+> Yong
+>
+> ------------------------------------------------------------------------
+> *From:* Zhao, Yong
+> *Sent:* Monday, October 22, 2018 2:33:26 PM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; brahma_sw_dev
+> *Cc:* Zhao, Yong
+> *Subject:* [PATCH 2/2] drm/amdkfd: page_table_base already have the
+> flags needed
+>
+> The flags are added when calling amdgpu_gmc_pd_addr().
+>
+> Change-Id: Idd85b1ac35d3d100154df8229ea20721d9a7045c
+> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 5 ++---
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h             | 1 +
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> index 54c3690..60b5f56c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> @@ -978,7 +978,6 @@ static void set_vm_context_page_table_base(struct
+> kgd_dev *kgd, uint32_t vmid,
+>                  uint64_t page_table_base)
+>  {
+>          struct amdgpu_device *adev =3D get_amdgpu_device(kgd);
+> -       uint64_t base =3D page_table_base | AMDGPU_PTE_VALID;
+>
+>          if (!amdgpu_amdkfd_is_kfd_vmid(adev, vmid)) {
+>                  pr_err("trying to set page table base for wrong VMID
+> %u\n",
+> @@ -990,7 +989,7 @@ static void set_vm_context_page_table_base(struct
+> kgd_dev *kgd, uint32_t vmid,
+>           * now, all processes share the same address space size, like
+>           * on GFX8 and older.
+>           */
+> -       mmhub_v1_0_setup_vm_pt_regs(adev, vmid, base);
+> +       mmhub_v1_0_setup_vm_pt_regs(adev, vmid, page_table_base);
+>
+> -       gfxhub_v1_0_setup_vm_pt_regs(adev, vmid, base);
+> +       gfxhub_v1_0_setup_vm_pt_regs(adev, vmid, page_table_base);
+>  }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 53ff86d..dec8e64 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -507,6 +507,7 @@ struct qcm_process_device {
+>           * All the memory management data should be here too
+>           */
+>          uint64_t gds_context_area;
+> +       /* Contains page table flags such as AMDGPU_PTE_VALID since
+> gfx9 */
+>          uint64_t page_table_base;
+>          uint32_t sh_mem_config;
+>          uint32_t sh_mem_bases;
+> --
+> 2.7.4
+>
+
+--_000_BL0PR12MB25006DC56817C2B7F00F093BF0F50BL0PR12MB2500namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Pushed. Thanks!</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Yong</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
+<b>Sent:</b> Tuesday, October 23, 2018 4:43:05 PM<br>
+<b>To:</b> Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; brahma_sw_dev<br>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdkfd: page_table_base already have th=
+e flags needed</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The series is Reviewed-by: Felix Kuehling &lt;Feli=
+x.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+<br>
+On 2018-10-23 1:00 p.m., Zhao, Yong wrote:<br>
+&gt;<br>
+&gt; How about those two patches?<br>
+&gt;<br>
+&gt;<br>
+&gt; Yong<br>
+&gt;<br>
+&gt; ----------------------------------------------------------------------=
+--<br>
+&gt; *From:* Zhao, Yong<br>
+&gt; *Sent:* Monday, October 22, 2018 2:33:26 PM<br>
+&gt; *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; brahma_sw_dev<br>
+&gt; *Cc:* Zhao, Yong<br>
+&gt; *Subject:* [PATCH 2/2] drm/amdkfd: page_table_base already have the<br=
+>
+&gt; flags needed<br>
+&gt; &nbsp;<br>
+&gt; The flags are added when calling amdgpu_gmc_pd_addr().<br>
+&gt;<br>
+&gt; Change-Id: Idd85b1ac35d3d100154df8229ea20721d9a7045c<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt; &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 5 &#43;&#43;=
+---<br>
+&gt; &nbsp;drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
+&gt; &nbsp;2 files changed, 3 insertions(&#43;), 3 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+&gt; index 54c3690..60b5f56c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br=
+>
+&gt; @@ -978,7 &#43;978,6 @@ static void set_vm_context_page_table_base(str=
+uct<br>
+&gt; kgd_dev *kgd, uint32_t vmid,<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t page_table_base)<br>
+&gt; &nbsp;{<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device =
+*adev =3D get_amdgpu_device(kgd);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t base =3D page_table_bas=
+e | AMDGPU_PTE_VALID;<br>
+&gt; &nbsp;<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_amdkfd_is=
+_kfd_vmid(adev, vmid)) {<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;trying to set page table base for w=
+rong VMID<br>
+&gt; %u\n&quot;,<br>
+&gt; @@ -990,7 &#43;989,7 @@ static void set_vm_context_page_table_base(str=
+uct<br>
+&gt; kgd_dev *kgd, uint32_t vmid,<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * now, all proc=
+esses share the same address space size, like<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * on GFX8 and o=
+lder.<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmhub_v1_0_setup_vm_pt_regs(adev=
+, vmid, base);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmhub_v1_0_setup_vm_pt_regs(=
+adev, vmid, page_table_base);<br>
+&gt; &nbsp;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfxhub_v1_0_setup_vm_pt_regs(ade=
+v, vmid, base);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfxhub_v1_0_setup_vm_pt_regs=
+(adev, vmid, page_table_base);<br>
+&gt; &nbsp;}<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; index 53ff86d..dec8e64 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; @@ -507,6 &#43;507,7 @@ struct qcm_process_device {<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * All the memor=
+y management data should be here too<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t gds_context_=
+area;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Contains page table flags=
+ such as AMDGPU_PTE_VALID since<br>
+&gt; gfx9 */<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t page_table_b=
+ase;<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sh_mem_confi=
+g;<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sh_mem_bases=
+;<br>
+&gt; -- <br>
+&gt; 2.7.4<br>
+&gt;<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BL0PR12MB25006DC56817C2B7F00F093BF0F50BL0PR12MB2500namp_--
+
+--===============1910448889==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1910448889==--
