@@ -1,14 +1,12 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix amdgpu_vm_alloc_pts failed
-Date: Tue, 23 Oct 2018 05:42:00 +0000
-Message-ID: <BYAPR12MB2775C0F7BCA52B2969C9D16EFBF50@BYAPR12MB2775.namprd12.prod.outlook.com>
-References: <1540265370-23923-1-git-send-email-Rex.Zhu@amd.com>,
- <7b50f2a1-791e-8eab-6777-e7fff572565c@amd.com>
+From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
+Subject: Re: [PATCH 1/5] drm/ttm: use a static ttm_mem_global instance
+Date: Tue, 23 Oct 2018 08:22:52 +0200
+Message-ID: <c037580b-924c-e932-e0ea-6e1682b53053@suse.de>
+References: <20181019164138.32993-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0337382882=="
+Content-Type: multipart/mixed; boundary="===============0555421932=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7b50f2a1-791e-8eab-6777-e7fff572565c-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20181019164138.32993-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,287 +17,519 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0337382882==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0555421932==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="7Tr2uLv72HP5OBr75UTYenkS5dngpWD6K"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--7Tr2uLv72HP5OBr75UTYenkS5dngpWD6K
+Content-Type: multipart/mixed; boundary="4ONVUrhqGzwTg7LK1vAaw9pdvrJUKYeBB";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Message-ID: <c037580b-924c-e932-e0ea-6e1682b53053-l3A5Bk7waGM@public.gmane.org>
+Subject: Re: [PATCH 1/5] drm/ttm: use a static ttm_mem_global instance
+References: <20181019164138.32993-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181019164138.32993-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+--4ONVUrhqGzwTg7LK1vAaw9pdvrJUKYeBB
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB2775C0F7BCA52B2969C9D16EFBF50BYAPR12MB2775namp_"
-
---_000_BYAPR12MB2775C0F7BCA52B2969C9D16EFBF50BYAPR12MB2775namp_
-Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-No, if the vm size is small, there may only on root pd entry.
+Hi Christian
 
-we need to make sure the mask >=3D 0;
-
-
-Maybe this change revert Christian's commit:
-
-
-commit 72af632549b97ead9251bb155f08fefd1fb6f5c3
-Author: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Date:   Sat Sep 15 10:02:13 2018 +0200
-
-    drm/amdgpu: add amdgpu_vm_entries_mask v2
-
-    We can't get the mask for the root directory from the number of entries=
-.
-
-    So add a new function to avoid that problem.
-
-
-Best Regards
-
-Rex
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhang, J=
-erry(Junwei) <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, October 23, 2018 1:12 PM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koenig, Ch=
-ristian
-Subject: Re: [PATCH] drm/amdgpu: Fix amdgpu_vm_alloc_pts failed
-
-On 10/23/2018 11:29 AM, Rex Zhu wrote:
-> when the VA address located in the last PD entries,
-> the alloc_pts will faile.
->
-> Use the right PD mask instand of hardcode, suggested
-> by jerry.zhang.
->
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-
-Thanks to verify that.
-Feel free to add
-Reviewed-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-
-Also like to get to know some background about these two functions from
-Christian.
-Perhaps we may make it more simple, e.g. merging them together.
-
-Regards,
-Jerry
-
+Am 19.10.18 um 18:41 schrieb Christian K=C3=B6nig:
+> As the name says we only need one global instance of ttm_mem_global.
+>=20
+> Drop all the driver initialization and just use a single exported
+> instance which is initialized during BO global initialization.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 ++++-
->   1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 054633b..3939013 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -202,8 +202,11 @@ static unsigned amdgpu_vm_num_entries(struct amdgpu_=
-device *adev,
->   static uint32_t amdgpu_vm_entries_mask(struct amdgpu_device *adev,
->                                       unsigned int level)
->   {
-> +     unsigned shift =3D amdgpu_vm_level_shift(adev,
-> +                                            adev->vm_manager.root_level)=
-;
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c         | 44 -----------------=
+--------
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h         |  1 -
+>  drivers/gpu/drm/ast/ast_drv.h                   |  1 -
+>  drivers/gpu/drm/ast/ast_ttm.c                   | 32 ++---------------=
+-
+>  drivers/gpu/drm/bochs/bochs.h                   |  1 -
+>  drivers/gpu/drm/bochs/bochs_mm.c                | 30 ++---------------=
+
+>  drivers/gpu/drm/cirrus/cirrus_drv.h             |  1 -
+>  drivers/gpu/drm/cirrus/cirrus_ttm.c             | 32 ++---------------=
+-
+>  drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h |  1 -
+>  drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c     | 31 +++--------------=
+
+>  drivers/gpu/drm/mgag200/mgag200_drv.h           |  1 -
+>  drivers/gpu/drm/mgag200/mgag200_ttm.c           | 32 ++---------------=
+-
+>  drivers/gpu/drm/nouveau/nouveau_drv.h           |  1 -
+>  drivers/gpu/drm/nouveau/nouveau_ttm.c           | 34 ++---------------=
+--
+>  drivers/gpu/drm/qxl/qxl_drv.h                   |  1 -
+>  drivers/gpu/drm/qxl/qxl_ttm.c                   | 28 ----------------
+>  drivers/gpu/drm/radeon/radeon.h                 |  1 -
+>  drivers/gpu/drm/radeon/radeon_ttm.c             | 26 ---------------
+>  drivers/gpu/drm/ttm/ttm_bo.c                    | 10 ++++--
+>  drivers/gpu/drm/ttm/ttm_memory.c                |  5 +--
+>  drivers/gpu/drm/virtio/virtgpu_drv.h            |  1 -
+>  drivers/gpu/drm/virtio/virtgpu_ttm.c            | 27 ---------------
+>  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c             |  4 +--
+>  drivers/gpu/drm/vmwgfx/vmwgfx_drv.h             |  3 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c        | 27 ---------------
+>  drivers/staging/vboxvideo/vbox_drv.h            |  1 -
+>  drivers/staging/vboxvideo/vbox_ttm.c            | 24 --------------
+>  include/drm/ttm/ttm_bo_driver.h                 |  8 ++---
+>  include/drm/ttm/ttm_memory.h                    |  4 +--
+>  29 files changed, 32 insertions(+), 380 deletions(-)
+
+Great that you removed all the global TTM state from all the drivers.
+This removes a lot of duplication and simplifies driver development a bit=
+=2E
+
+
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.=
+c
+> index 9edece6510d3..3006050b1720 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -1526,18 +1526,22 @@ void ttm_bo_global_release(struct ttm_bo_global=
+ *glob)
+>  {
+>  	kobject_del(&glob->kobj);
+>  	kobject_put(&glob->kobj);
+> +	ttm_mem_global_release(&ttm_mem_glob);
+>  }
+>  EXPORT_SYMBOL(ttm_bo_global_release);
+> =20
+> -int ttm_bo_global_init(struct ttm_bo_global *glob,
+> -		       struct ttm_mem_global *mem_glob)
+> +int ttm_bo_global_init(struct ttm_bo_global *glob)
+>  {
+>  	int ret;
+>  	unsigned i;
+> =20
+> +	ret =3D ttm_mem_global_init(&ttm_mem_glob);
+> +	if (ret)
+> +		return ret;
 > +
->        if (level <=3D adev->vm_manager.root_level)
-> -             return 0xffffffff;
-> +             return (round_up(adev->vm_manager.max_pfn, 1 << shift) >> s=
-hift) - 1;
->        else if (level !=3D AMDGPU_VM_PTB)
->                return 0x1ff;
->        else
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in the sections below.
+What I really dislike about this patch set is that it mixes state and
+implementation into that same functions. The original code had a fairly
+good separation of both. Now the mechanisms and policies are located in
+the same places.[^1]
+
+This looks like a simplification, but from my experience, such code is a
+setup for long-term maintenance problems. For example, I can imagine
+that someone at some point wants multiple global buffers (e.g., on a
+NUMA-like architecture).
+
+I understand that I'm new here, have no say, and probably don't get the
+big picture, but from my point of view, this is not a forward-thinking
+change.
+
+Best regards
+Thomas
+
+[^1] More philosophically speaking, program state can be global, but
+data structures can only be share-able. ttm_mem_global and ttm_bo_global
+should be renamed to something like ttm_shared_mem, rsp. ttm_shared_bo.
 
 
+>  	mutex_init(&glob->device_list_mutex);
+>  	spin_lock_init(&glob->lru_lock);
+> -	glob->mem_glob =3D mem_glob;
+> +	glob->mem_glob =3D &ttm_mem_glob;
+>  	glob->mem_glob->bo_glob =3D glob;
+>  	glob->dummy_read_page =3D alloc_page(__GFP_ZERO | GFP_DMA32);
+> =20
+> diff --git a/drivers/gpu/drm/ttm/ttm_memory.c b/drivers/gpu/drm/ttm/ttm=
+_memory.c
+> index 450387c92b63..7704e17c402f 100644
+> --- a/drivers/gpu/drm/ttm/ttm_memory.c
+> +++ b/drivers/gpu/drm/ttm/ttm_memory.c
+> @@ -41,6 +41,9 @@
+> =20
+>  #define TTM_MEMORY_ALLOC_RETRIES 4
+> =20
+> +struct ttm_mem_global ttm_mem_glob;
+> +EXPORT_SYMBOL(ttm_mem_glob);
+> +
+>  struct ttm_mem_zone {
+>  	struct kobject kobj;
+>  	struct ttm_mem_global *glob;
+> @@ -464,7 +467,6 @@ int ttm_mem_global_init(struct ttm_mem_global *glob=
+)
+>  	ttm_mem_global_release(glob);
+>  	return ret;
+>  }
+> -EXPORT_SYMBOL(ttm_mem_global_init);
+> =20
+>  void ttm_mem_global_release(struct ttm_mem_global *glob)
+>  {
+> @@ -486,7 +488,6 @@ void ttm_mem_global_release(struct ttm_mem_global *=
+glob)
+>  	kobject_del(&glob->kobj);
+>  	kobject_put(&glob->kobj);
+>  }
+> -EXPORT_SYMBOL(ttm_mem_global_release);
+> =20
+>  static void ttm_check_swapping(struct ttm_mem_global *glob)
+>  {
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/vir=
+tio/virtgpu_drv.h
+> index 65605e207bbe..dec42d421e00 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_drv.h
+> +++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+> @@ -133,7 +133,6 @@ struct virtio_gpu_framebuffer {
+> =20
+>  struct virtio_gpu_mman {
+>  	struct ttm_bo_global_ref        bo_global_ref;
+> -	struct drm_global_reference	mem_global_ref;
+>  	bool				mem_global_referenced;
+>  	struct ttm_bo_device		bdev;
+>  };
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_ttm.c b/drivers/gpu/drm/vir=
+tio/virtgpu_ttm.c
+> index 0ec46b47b423..b99ecc6d97d3 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_ttm.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_ttm.c
+> @@ -50,37 +50,12 @@ virtio_gpu_device *virtio_gpu_get_vgdev(struct ttm_=
+bo_device *bdev)
+>  	return vgdev;
+>  }
+> =20
+> -static int virtio_gpu_ttm_mem_global_init(struct drm_global_reference =
+*ref)
+> -{
+> -	return ttm_mem_global_init(ref->object);
+> -}
+> -
+> -static void virtio_gpu_ttm_mem_global_release(struct drm_global_refere=
+nce *ref)
+> -{
+> -	ttm_mem_global_release(ref->object);
+> -}
+> -
+>  static int virtio_gpu_ttm_global_init(struct virtio_gpu_device *vgdev)=
 
---_000_BYAPR12MB2775C0F7BCA52B2969C9D16EFBF50BYAPR12MB2775namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+>  {
+>  	struct drm_global_reference *global_ref;
+>  	int r;
+> =20
+>  	vgdev->mman.mem_global_referenced =3D false;
+> -	global_ref =3D &vgdev->mman.mem_global_ref;
+> -	global_ref->global_type =3D DRM_GLOBAL_TTM_MEM;
+> -	global_ref->size =3D sizeof(struct ttm_mem_global);
+> -	global_ref->init =3D &virtio_gpu_ttm_mem_global_init;
+> -	global_ref->release =3D &virtio_gpu_ttm_mem_global_release;
+> -
+> -	r =3D drm_global_item_ref(global_ref);
+> -	if (r !=3D 0) {
+> -		DRM_ERROR("Failed setting up TTM memory accounting "
+> -			  "subsystem.\n");
+> -		return r;
+> -	}
+> -
+> -	vgdev->mman.bo_global_ref.mem_glob =3D
+> -		vgdev->mman.mem_global_ref.object;
+>  	global_ref =3D &vgdev->mman.bo_global_ref.ref;
+>  	global_ref->global_type =3D DRM_GLOBAL_TTM_BO;
+>  	global_ref->size =3D sizeof(struct ttm_bo_global);
+> @@ -89,7 +64,6 @@ static int virtio_gpu_ttm_global_init(struct virtio_g=
+pu_device *vgdev)
+>  	r =3D drm_global_item_ref(global_ref);
+>  	if (r !=3D 0) {
+>  		DRM_ERROR("Failed setting up TTM BO subsystem.\n");
+> -		drm_global_item_unref(&vgdev->mman.mem_global_ref);
+>  		return r;
+>  	}
+> =20
+> @@ -101,7 +75,6 @@ static void virtio_gpu_ttm_global_fini(struct virtio=
+_gpu_device *vgdev)
+>  {
+>  	if (vgdev->mman.mem_global_referenced) {
+>  		drm_global_item_unref(&vgdev->mman.bo_global_ref.ref);
+> -		drm_global_item_unref(&vgdev->mman.mem_global_ref);
+>  		vgdev->mman.mem_global_referenced =3D false;
+>  	}
+>  }
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwg=
+fx/vmwgfx_drv.c
+> index bb6dbbe18835..57df776d987c 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
+> @@ -828,8 +828,8 @@ static int vmw_driver_load(struct drm_device *dev, =
+unsigned long chipset)
+>  		goto out_err4;
+>  	}
+> =20
+> -	dev_priv->tdev =3D ttm_object_device_init
+> -		(dev_priv->mem_global_ref.object, 12, &vmw_prime_dmabuf_ops);
+> +	dev_priv->tdev =3D ttm_object_device_init(&ttm_mem_glob, 12,
+> +						&vmw_prime_dmabuf_ops);
+> =20
+>  	if (unlikely(dev_priv->tdev =3D=3D NULL)) {
+>  		DRM_ERROR("Unable to initialize TTM object management.\n");
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwg=
+fx/vmwgfx_drv.h
+> index 1abe21758b0d..df15a745efc3 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
+> @@ -366,7 +366,6 @@ enum {
+>  struct vmw_private {
+>  	struct ttm_bo_device bdev;
+>  	struct ttm_bo_global_ref bo_global_ref;
+> -	struct drm_global_reference mem_global_ref;
+> =20
+>  	struct vmw_fifo_state fifo;
+> =20
+> @@ -1288,7 +1287,7 @@ vmw_bo_reference(struct vmw_buffer_object *buf)
+> =20
+>  static inline struct ttm_mem_global *vmw_mem_glob(struct vmw_private *=
+dev_priv)
+>  {
+> -	return (struct ttm_mem_global *) dev_priv->mem_global_ref.object;
+> +	return &ttm_mem_glob;
+>  }
+> =20
+>  static inline void vmw_fifo_resource_inc(struct vmw_private *dev_priv)=
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">No, if the vm size is small, ther=
-e may only on root pd entry.</p>
-<p style=3D"margin-top:0;margin-bottom:0">we need to make sure the mask &gt=
-;=3D 0;</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Maybe this change revert Christia=
-n's commit:</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"></p>
-<div>commit 72af632549b97ead9251bb155f08fefd1fb6f5c3<br>
-Author: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Date:&nbsp;&nbsp; Sat Sep 15 10:02:13 2018 &#43;0200<br>
-<br>
-&nbsp;&nbsp;&nbsp; drm/amdgpu: add amdgpu_vm_entries_mask v2<br>
-&nbsp;&nbsp; &nbsp;<br>
-&nbsp;&nbsp;&nbsp; We can't get the mask for the root directory from the nu=
-mber of entries.<br>
-&nbsp;&nbsp; &nbsp;<br>
-&nbsp;&nbsp;&nbsp; So add a new function to avoid that problem.</div>
-<p></p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> amd-gfx &lt;amd-gfx-=
-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhang, Jerry(Junwei) &lt;Jer=
-ry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, October 23, 2018 1:12 PM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Koe=
-nig, Christian<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Fix amdgpu_vm_alloc_pts failed</fon=
-t>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 10/23/2018 11:29 AM, Rex Zhu wrote:<br>
-&gt; when the VA address located in the last PD entries,<br>
-&gt; the alloc_pts will faile.<br>
-&gt;<br>
-&gt; Use the right PD mask instand of hardcode, suggested<br>
-&gt; by jerry.zhang.<br>
-&gt;<br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Thanks to verify that.<br>
-Feel free to add<br>
-Reviewed-by: Junwei Zhang &lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Also like to get to know some background about these two functions from <br=
->
-Christian.<br>
-Perhaps we may make it more simple, e.g. merging them together.<br>
-<br>
-Regards,<br>
-Jerry<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 &#43;&#43;&#43;=
-&#43;-<br>
-&gt;&nbsp;&nbsp; 1 file changed, 4 insertions(&#43;), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm.c<br>
-&gt; index 054633b..3939013 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; @@ -202,8 &#43;202,11 @@ static unsigned amdgpu_vm_num_entries(struct =
-amdgpu_device *adev,<br>
-&gt;&nbsp;&nbsp; static uint32_t amdgpu_vm_entries_mask(struct amdgpu_devic=
-e *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; unsigned int level)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; unsigned shift =3D amdgpu_vm_level_shift=
-(adev,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;vm_manager.root_level)=
-;<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (level &lt;=3D adev-&gt;v=
-m_manager.root_level)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; return 0xffffffff;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return (round_up(adev-&gt;vm_manager.max_pfn, 1 &lt;&lt; shift) &gt=
-;&gt; shift) - 1;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (level !=3D AMDGPU_V=
-M_PTB)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return 0x1ff;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk206689" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
-desktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15402730099220.06989990489403342" style=3D"margin-bo=
-ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15402730099180.16758172594804666" style=3D"width: =
-90%; background-color: rgb(255, 255, 255); position: relative; overflow: au=
-to; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: =
-1px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200)=
-;" role=3D"presentation" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing: 0px;" valign=3D"top">
-<td id=3D"TextCell_15402730099180.9196994567727107" style=3D"vertical-align=
-: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
-">
-<div id=3D"LPRemovePreviewContainer_15402730099180.1670273140970655"></div>
-<div id=3D"LPTitle_15402730099180.46519874882455503" style=3D"top: 0px; col=
-or: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot=
-;wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&=
-quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-seri=
-f; line-height: 21px;">
-<a id=3D"LPUrlAnchor_15402730099200.5625533175983499" style=3D"text-decorat=
-ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
- target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15402730099200.935286511114562" style=3D"margin: 10px=
- 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;=
-wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahom=
-a, Arial, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15402730099200.10363074579177611" style=3D"display=
-: block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf=
-_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma,=
- Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; =
-overflow: hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in
- the sections below.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c b/drivers/gpu/drm=
+/vmwgfx/vmwgfx_ttm_glue.c
+> index f3ce43c41978..0ac473cd5136 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c
+> @@ -43,36 +43,11 @@ int vmw_mmap(struct file *filp, struct vm_area_stru=
+ct *vma)
+>  	return ttm_bo_mmap(filp, vma, &dev_priv->bdev);
+>  }
+> =20
+> -static int vmw_ttm_mem_global_init(struct drm_global_reference *ref)
+> -{
+> -	DRM_INFO("global init.\n");
+> -	return ttm_mem_global_init(ref->object);
+> -}
+> -
+> -static void vmw_ttm_mem_global_release(struct drm_global_reference *re=
+f)
+> -{
+> -	ttm_mem_global_release(ref->object);
+> -}
+> -
+>  int vmw_ttm_global_init(struct vmw_private *dev_priv)
+>  {
+>  	struct drm_global_reference *global_ref;
+>  	int ret;
+> =20
+> -	global_ref =3D &dev_priv->mem_global_ref;
+> -	global_ref->global_type =3D DRM_GLOBAL_TTM_MEM;
+> -	global_ref->size =3D sizeof(struct ttm_mem_global);
+> -	global_ref->init =3D &vmw_ttm_mem_global_init;
+> -	global_ref->release =3D &vmw_ttm_mem_global_release;
+> -
+> -	ret =3D drm_global_item_ref(global_ref);
+> -	if (unlikely(ret !=3D 0)) {
+> -		DRM_ERROR("Failed setting up TTM memory accounting.\n");
+> -		return ret;
+> -	}
+> -
+> -	dev_priv->bo_global_ref.mem_glob =3D
+> -		dev_priv->mem_global_ref.object;
+>  	global_ref =3D &dev_priv->bo_global_ref.ref;
+>  	global_ref->global_type =3D DRM_GLOBAL_TTM_BO;
+>  	global_ref->size =3D sizeof(struct ttm_bo_global);
+> @@ -87,12 +62,10 @@ int vmw_ttm_global_init(struct vmw_private *dev_pri=
+v)
+> =20
+>  	return 0;
+>  out_no_bo:
+> -	drm_global_item_unref(&dev_priv->mem_global_ref);
+>  	return ret;
+>  }
+> =20
+>  void vmw_ttm_global_release(struct vmw_private *dev_priv)
+>  {
+>  	drm_global_item_unref(&dev_priv->bo_global_ref.ref);
+> -	drm_global_item_unref(&dev_priv->mem_global_ref);
+>  }
+> diff --git a/drivers/staging/vboxvideo/vbox_drv.h b/drivers/staging/vbo=
+xvideo/vbox_drv.h
+> index 594f84272957..41f760b77704 100644
+> --- a/drivers/staging/vboxvideo/vbox_drv.h
+> +++ b/drivers/staging/vboxvideo/vbox_drv.h
+> @@ -95,7 +95,6 @@ struct vbox_private {
+>  	int fb_mtrr;
+> =20
+>  	struct {
+> -		struct drm_global_reference mem_global_ref;
+>  		struct ttm_bo_global_ref bo_global_ref;
+>  		struct ttm_bo_device bdev;
+>  	} ttm;
+> diff --git a/drivers/staging/vboxvideo/vbox_ttm.c b/drivers/staging/vbo=
+xvideo/vbox_ttm.c
+> index 2329a55d4636..88cdacf2b0f0 100644
+> --- a/drivers/staging/vboxvideo/vbox_ttm.c
+> +++ b/drivers/staging/vboxvideo/vbox_ttm.c
+> @@ -35,16 +35,6 @@ static inline struct vbox_private *vbox_bdev(struct =
+ttm_bo_device *bd)
+>  	return container_of(bd, struct vbox_private, ttm.bdev);
+>  }
+> =20
+> -static int vbox_ttm_mem_global_init(struct drm_global_reference *ref)
+> -{
+> -	return ttm_mem_global_init(ref->object);
+> -}
+> -
+> -static void vbox_ttm_mem_global_release(struct drm_global_reference *r=
+ef)
+> -{
+> -	ttm_mem_global_release(ref->object);
+> -}
+> -
+>  /**
+>   * Adds the vbox memory manager object/structures to the global memory=
+ manager.
+>   */
+> @@ -53,18 +43,6 @@ static int vbox_ttm_global_init(struct vbox_private =
+*vbox)
+>  	struct drm_global_reference *global_ref;
+>  	int ret;
+> =20
+> -	global_ref =3D &vbox->ttm.mem_global_ref;
+> -	global_ref->global_type =3D DRM_GLOBAL_TTM_MEM;
+> -	global_ref->size =3D sizeof(struct ttm_mem_global);
+> -	global_ref->init =3D &vbox_ttm_mem_global_init;
+> -	global_ref->release =3D &vbox_ttm_mem_global_release;
+> -	ret =3D drm_global_item_ref(global_ref);
+> -	if (ret) {
+> -		DRM_ERROR("Failed setting up TTM memory subsystem.\n");
+> -		return ret;
+> -	}
+> -
+> -	vbox->ttm.bo_global_ref.mem_glob =3D vbox->ttm.mem_global_ref.object;=
 
---_000_BYAPR12MB2775C0F7BCA52B2969C9D16EFBF50BYAPR12MB2775namp_--
+>  	global_ref =3D &vbox->ttm.bo_global_ref.ref;
+>  	global_ref->global_type =3D DRM_GLOBAL_TTM_BO;
+>  	global_ref->size =3D sizeof(struct ttm_bo_global);
+> @@ -74,7 +52,6 @@ static int vbox_ttm_global_init(struct vbox_private *=
+vbox)
+>  	ret =3D drm_global_item_ref(global_ref);
+>  	if (ret) {
+>  		DRM_ERROR("Failed setting up TTM BO subsystem.\n");
+> -		drm_global_item_unref(&vbox->ttm.mem_global_ref);
+>  		return ret;
+>  	}
+> =20
+> @@ -87,7 +64,6 @@ static int vbox_ttm_global_init(struct vbox_private *=
+vbox)
+>  static void vbox_ttm_global_release(struct vbox_private *vbox)
+>  {
+>  	drm_global_item_unref(&vbox->ttm.bo_global_ref.ref);
+> -	drm_global_item_unref(&vbox->ttm.mem_global_ref);
+>  }
+> =20
+>  static void vbox_bo_ttm_destroy(struct ttm_buffer_object *tbo)
+> diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_d=
+river.h
+> index c6ee07d10281..4ae6fc33f761 100644
+> --- a/include/drm/ttm/ttm_bo_driver.h
+> +++ b/include/drm/ttm/ttm_bo_driver.h
+> @@ -570,8 +570,7 @@ void ttm_bo_mem_put_locked(struct ttm_buffer_object=
+ *bo,
+>  			   struct ttm_mem_reg *mem);
+> =20
+>  void ttm_bo_global_release(struct ttm_bo_global *glob);
+> -int ttm_bo_global_init(struct ttm_bo_global *glob,
+> -		       struct ttm_mem_global *mem_glob);
+> +int ttm_bo_global_init(struct ttm_bo_global *glob);
+> =20
+>  int ttm_bo_device_release(struct ttm_bo_device *bdev);
+> =20
+> @@ -895,7 +894,6 @@ extern const struct ttm_mem_type_manager_func ttm_b=
+o_manager_func;
+> =20
+>  struct ttm_bo_global_ref {
+>  	struct drm_global_reference ref;
+> -	struct ttm_mem_global *mem_glob;
+>  };
+> =20
+>  /**
+> @@ -909,9 +907,7 @@ struct ttm_bo_global_ref {
+>   */
+>  static inline int ttm_bo_global_ref_init(struct drm_global_reference *=
+ref)
+>  {
+> -	struct ttm_bo_global_ref *bo_ref =3D
+> -		container_of(ref, struct ttm_bo_global_ref, ref);
+> -	return ttm_bo_global_init(ref->object, bo_ref->mem_glob);
+> +	return ttm_bo_global_init(ref->object);
+>  }
+> =20
+>  /**
+> diff --git a/include/drm/ttm/ttm_memory.h b/include/drm/ttm/ttm_memory.=
+h
+> index 737b5fed8003..3ff48a0a2d7b 100644
+> --- a/include/drm/ttm/ttm_memory.h
+> +++ b/include/drm/ttm/ttm_memory.h
+> @@ -63,7 +63,7 @@
+> =20
+>  #define TTM_MEM_MAX_ZONES 2
+>  struct ttm_mem_zone;
+> -struct ttm_mem_global {
+> +extern struct ttm_mem_global {
+>  	struct kobject kobj;
+>  	struct ttm_bo_global *bo_glob;
+>  	struct workqueue_struct *swap_queue;
+> @@ -78,7 +78,7 @@ struct ttm_mem_global {
+>  #else
+>  	struct ttm_mem_zone *zone_dma32;
+>  #endif
+> -};
+> +} ttm_mem_glob;
+> =20
+>  extern int ttm_mem_global_init(struct ttm_mem_global *glob);
+>  extern void ttm_mem_global_release(struct ttm_mem_global *glob);
+>=20
 
---===============0337382882==
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstr. 5, D-90409 N=C3=BCrnberg
+Tel: +49-911-74053-0; Fax: +49-911-7417755;  https://www.suse.com/
+SUSE Linux GmbH, GF: Felix Imend=C3=B6rffer, Jane Smithard,
+Graham Norton, HRB 21284 (AG N=C3=BCrnberg)
+
+
+--4ONVUrhqGzwTg7LK1vAaw9pdvrJUKYeBB--
+
+--7Tr2uLv72HP5OBr75UTYenkS5dngpWD6K
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAlvOvkAACgkQaA3BHVML
+eiMSmQf9GvS1SpbTD1ohMGM9AB/tOkGROFSepy4yghZ5nc1yg7srw84dlpiPcJ2t
+fCZvKLn3GxEkIekT30TNObmGu0UexQg6XzH4qyttEMTFWJg81AqOy87G6Ii+Wmn9
+rUuIenlmvs3tkuQHfBjzDvLRl7KM0eTZ+yInUGSWnQme1PaH6z6O7K8g8NPQ+bE5
+rw158ZgHveNfDRyo5BHn3oUjsYHABkAgsH6CMROz/J0+VCLxm6tDLfWzYTW8a0MH
+/Bet0MHFGNmd/xX+zoXVmbePtAYK0niKBHpoSi+czBPUNmg0F8sJlYhETe6lpYBR
+UqpO8ijVhpJrmo2P+QjkyT1Pgiw2TQ==
+=Ks1e
+-----END PGP SIGNATURE-----
+
+--7Tr2uLv72HP5OBr75UTYenkS5dngpWD6K--
+
+--===============0555421932==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -309,4 +539,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0337382882==--
+--===============0555421932==--
