@@ -1,62 +1,43 @@
-From: "Zhang, Jerry(Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix amdgpu_vm_alloc_pts failed
-Date: Tue, 23 Oct 2018 13:29:36 +0800
-Message-ID: <e90e3b54-b647-6c79-e644-7aee86369e17@amd.com>
-References: <1540265370-23923-1-git-send-email-Rex.Zhu@amd.com>
- <7b50f2a1-791e-8eab-6777-e7fff572565c@amd.com>
+From: "Huang\, Ying" <ying.huang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] mm: convert totalram_pages,
+ totalhigh_pages and managed_pages to atomic.
+Date: Tue, 23 Oct 2018 13:37:01 +0800
+Message-ID: <874lddxlz6.fsf@yhuang-dev.intel.com>
+References: <1540229092-25207-1-git-send-email-arunks@codeaurora.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7b50f2a1-791e-8eab-6777-e7fff572565c-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-mediatek-bounces+glpam-linux-mediatek=m.gmane.org-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+In-Reply-To: <1540229092-25207-1-git-send-email-arunks-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org> (Arun
+ KS's message of "Mon, 22 Oct 2018 22:53:22 +0530")
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-mediatek>,
+ <mailto:linux-mediatek-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-mediatek/>
+List-Post: <mailto:linux-mediatek-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+List-Help: <mailto:linux-mediatek-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-mediatek>,
+ <mailto:linux-mediatek-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=subscribe>
+Sender: "Linux-mediatek" <linux-mediatek-bounces-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+Errors-To: linux-mediatek-bounces+glpam-linux-mediatek=m.gmane.org-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org
+To: Arun KS <arunks-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>
+Cc: Mike Snitzer <snitzer-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Benjamin Herrenschmidt <benh-XVmvHMARGAS8U2dJNN8I7kB+6BGkLq7r@public.gmane.org>, Kemi Wang <kemi.wang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "J. Bruce Fields" <bfields-uC3wQj2KruNg9hUCZPvPmw@public.gmane.org>, linux-sctp-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Paul Mackerras <paulus-eUNUBHrolfbYtjvyW6yDsg@public.gmane.org>, Pavel Machek <pavel-+ZI9xUNit7I@public.gmane.org>, Christoph Lameter <cl-vYTEC60ixJUAvxtiuMwx3w@public.gmane.org>, "K. Y. Srinivasan" <kys-0li6OtcxBFHby3iVrkZq2A@public.gmane.org>, Sumit Semwal <sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Petr Tesarik <ptesarik-IBi9RG/b67k@public.gmane.org>, Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>, ceph-devel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, "James E.J. Bottomley" <jejb-6jwH94ZQLHl74goWV3ctuw@public.gmane.org>, kasan-dev-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org, Marcos Paulo de Souza <marcos.souza.org-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Steven J. Hill" <steven.hill-YGCgFSpz5w/QT0dZR+AlfA@public.gmane.org>, David Rientjes <rientjes-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Anthony Yznaga <anthony.yznaga-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Daniel Vacek <neelx-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Roman Gushchin <guro-b10kYP2dOMg@public.gmane.org>, Len Brown <len.>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMTAvMjMvMjAxOCAwMToxMiBQTSwgWmhhbmcsIEplcnJ5KEp1bndlaSkgd3JvdGU6Cj4gT24g
-MTAvMjMvMjAxOCAxMToyOSBBTSwgUmV4IFpodSB3cm90ZToKPj4gd2hlbiB0aGUgVkEgYWRkcmVz
-cyBsb2NhdGVkIGluIHRoZSBsYXN0IFBEIGVudHJpZXMsCj4+IHRoZSBhbGxvY19wdHMgd2lsbCBm
-YWlsZS4KPj4KPj4gVXNlIHRoZSByaWdodCBQRCBtYXNrIGluc3RhbmQgb2YgaGFyZGNvZGUsIHN1
-Z2dlc3RlZAo+PiBieSBqZXJyeS56aGFuZy4KPj4KPj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8
-UmV4LlpodUBhbWQuY29tPgo+Cj4gVGhhbmtzIHRvIHZlcmlmeSB0aGF0Lgo+IEZlZWwgZnJlZSB0
-byBhZGQKPiBSZXZpZXdlZC1ieTogSnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgo+
-Cj4gQWxzbyBsaWtlIHRvIGdldCB0byBrbm93IHNvbWUgYmFja2dyb3VuZCBhYm91dCB0aGVzZSB0
-d28gZnVuY3Rpb25zIAo+IGZyb20gQ2hyaXN0aWFuLgo+IFBlcmhhcHMgd2UgbWF5IG1ha2UgaXQg
-bW9yZSBzaW1wbGUsIGUuZy4gbWVyZ2luZyB0aGVtIHRvZ2V0aGVyLgoKSWYgd2UgcmVhbGx5IG5l
-ZWRzIHRoZW0gYWxsLCB3ZSBtYXkgc2ltcGxpZnkgdGhhdCBsaWtlOgpgYGAKYW1kZ3B1X3ZtX2Vu
-dHJpZXNfbWFzayhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQgaW50IGxldmVs
-KQp7CiDCoMKgwqAgcmV0dXJuIGFtZGdwdV92bV9udW1fZW50cmllcyhhZGV2LCBsZXZlbCkgLSAx
-Owp9CmBgYAoKSmVycnkKPgo+IFJlZ2FyZHMsCj4gSmVycnkKPgo+PiAtLS0KPj4gwqAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCA1ICsrKystCj4+IMKgIDEgZmlsZSBj
-aGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPj4KPj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIAo+PiBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+IGluZGV4IDA1NDYzM2IuLjM5MzkwMTMgMTAw
-NjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+IEBAIC0yMDIsOCAr
-MjAyLDExIEBAIHN0YXRpYyB1bnNpZ25lZCBhbWRncHVfdm1fbnVtX2VudHJpZXMoc3RydWN0IAo+
-PiBhbWRncHVfZGV2aWNlICphZGV2LAo+PiDCoCBzdGF0aWMgdWludDMyX3QgYW1kZ3B1X3ZtX2Vu
-dHJpZXNfbWFzayhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBsZXZlbCkKPj4g
-wqAgewo+PiArwqDCoMKgIHVuc2lnbmVkIHNoaWZ0ID0gYW1kZ3B1X3ZtX2xldmVsX3NoaWZ0KGFk
-ZXYsCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIGFkZXYtPnZtX21hbmFnZXIucm9vdF9sZXZlbCk7Cj4+ICsKPj4gwqDCoMKgwqDCoCBpZiAo
-bGV2ZWwgPD0gYWRldi0+dm1fbWFuYWdlci5yb290X2xldmVsKQo+PiAtwqDCoMKgwqDCoMKgwqAg
-cmV0dXJuIDB4ZmZmZmZmZmY7Cj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gKHJvdW5kX3VwKGFk
-ZXYtPnZtX21hbmFnZXIubWF4X3BmbiwgMSA8PCBzaGlmdCkgPj4gCj4+IHNoaWZ0KSAtIDE7Cj4+
-IMKgwqDCoMKgwqAgZWxzZSBpZiAobGV2ZWwgIT0gQU1ER1BVX1ZNX1BUQikKPj4gwqDCoMKgwqDC
-oMKgwqDCoMKgIHJldHVybiAweDFmZjsKPj4gwqDCoMKgwqDCoCBlbHNlCj4KPiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBs
-aXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+Arun KS <arunks-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org> writes:
+
+> Remove managed_page_count_lock spinlock and instead use atomic
+> variables.
+>
+> Suggested-by: Michal Hocko <mhocko-IBi9RG/b67k@public.gmane.org>
+> Suggested-by: Vlastimil Babka <vbabka-AlSwsSmVLrQ@public.gmane.org>
+> Signed-off-by: Arun KS <arunks-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>
+>
+> ---
+> As discussed here,
+> https://patchwork.kernel.org/patch/10627521/#22261253
+
+My 2 cents.  I think you should include at least part of the discussion
+in the patch description to make it more readable by itself.
+
+Best Regards,
+Huang, Ying
