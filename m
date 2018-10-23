@@ -1,17 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/8] dma-buf: remove shared fence staging in reservation
- object
-Date: Tue, 23 Oct 2018 15:40:48 +0200
-Message-ID: <d6cb3f2b-4b6b-933a-d0e5-2a6099659cce@daenzer.net>
-References: <20181004131250.2373-1-christian.koenig@amd.com>
- <30ba1fc8-58d5-1c75-406e-d10e68ec4b18@gmail.com>
- <42ee3d74-9dac-6573-448c-c70ea28cb9ff@gmail.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Add DCC flags for GFX9 amdgpu_bo
+Date: Tue, 23 Oct 2018 10:04:54 -0400
+Message-ID: <20181023140454.23097-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <42ee3d74-9dac-6573-448c-c70ea28cb9ff-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,16 +16,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org" <linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, "linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Marek.Olsak-5C7GfCeVMHo@public.gmane.org, Harry.Wentland-5C7GfCeVMHo@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOC0xMC0yMyAyOjIwIHAubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gUGluZyBv
-bmNlIG1vcmUhIEFkZGluZyBhIGZldyBtb3JlIEFNRCBwZW9wbGUuCj4gCj4gQW55IGNvbW1lbnRz
-IG9uIHRoaXM/CgpQYXRjaGVzIDEgJiAzIGFyZSBhIGJpdCBvdmVyIG15IGhlYWQgSSdtIGFmcmFp
-ZC4KCgpQYXRjaGVzIDIsIDQsIDYtOCBhcmUKClJldmlld2VkLWJ5OiBNaWNoZWwgRMOkbnplciA8
-bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAg
-ICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0
-d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZl
-bG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+W1doeV0KSGFyZHdhcmUgc3VwcG9ydCBmb3IgRGVsdGEgQ29sb3IgQ29tcHJlc3Npb24gKERDQykg
+ZGVjb21wcmVzc2lvbiBpcwphdmFpbGFibGUgaW4gREMgZm9yIEdGWDkgYnV0IHRoZXJlJ3Mgbm8g
+d2F5IGZvciB1c2Vyc3BhY2UgdG8gZW5hYmxlCnRoZSBmZWF0dXJlLgoKRW5hYmxpbmcgdGhlIGZl
+YXR1cmUgY2FuIHByb3ZpZGUgaW1wcm92ZWQgR0ZYIHBlcmZvcm1hbmNlIGFuZApwb3dlciBzYXZp
+bmdzIGluIG1hbnkgc2l0dWF0aW9ucy4KCltIb3ddCkV4dGVuZCB0aGUgR0ZYOSB0aWxpbmcgZmxh
+Z3MgdG8gaW5jbHVkZSBEQ0MgcGFyYW1ldGVycy4gVGhlc2UgYXJlCmxvZ2ljYWxseSBncm91cGVk
+IHRvZ2V0aGVyIHdpdGggdGlsaW5nIGZsYWdzIGV2ZW4gaWYgdGhleSBhcmUKdGVjaG5pY2FsbHkg
+ZGlzdGluY3QuCgpUaGlzIHRyaXZpYWxseSBtYWludGFpbnMgYmFja3dhcmRzIGNvbXBhdGliaWxp
+dHkgd2l0aCBleGlzdGluZwp1c2VycyBvZiBhbWRncHVfZ2VtX21ldGFkYXRhLiBObyBuZXcgSU9D
+VGxzIG9yIGRhdGEgc3RydWN0dXJlcyBhcmUKbmVlZGVkIHRvIHN1cHBvcnQgRENDLgoKVGhpcyBw
+YXRjaCBoZWxwcyBleHBvc2UgRENDIGF0dHJpYnV0ZXMgdG8gYm90aCBsaWJkcm0gYW5kIGFtZGdw
+dV9kbS4KClNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxh
+dXNrYXNAYW1kLmNvbT4KLS0tCiBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCB8IDYgKysr
+KysrCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvaW5jbHVk
+ZS91YXBpL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaApp
+bmRleCA2YTBkNzdkY2ZjNDcuLmZhYWFkMDQ4MTRlNCAxMDA2NDQKLS0tIGEvaW5jbHVkZS91YXBp
+L2RybS9hbWRncHVfZHJtLmgKKysrIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKQEAg
+LTMyOSw2ICszMjksMTIgQEAgc3RydWN0IGRybV9hbWRncHVfZ2VtX3VzZXJwdHIgewogLyogR0ZY
+OSBhbmQgbGF0ZXI6ICovCiAjZGVmaW5lIEFNREdQVV9USUxJTkdfU1dJWlpMRV9NT0RFX1NISUZU
+CQkwCiAjZGVmaW5lIEFNREdQVV9USUxJTkdfU1dJWlpMRV9NT0RFX01BU0sJCQkweDFmCisjZGVm
+aW5lIEFNREdQVV9USUxJTkdfRENDX09GRlNFVF8yNTZCX1NISUZUCQk1CisjZGVmaW5lIEFNREdQ
+VV9USUxJTkdfRENDX09GRlNFVF8yNTZCX01BU0sJCTB4RkZGRkZGCisjZGVmaW5lIEFNREdQVV9U
+SUxJTkdfRENDX1BJVENIX01BWF9TSElGVAkJMjkKKyNkZWZpbmUgQU1ER1BVX1RJTElOR19EQ0Nf
+UElUQ0hfTUFYX01BU0sJCTB4M0ZGRgorI2RlZmluZSBBTURHUFVfVElMSU5HX0RDQ19JTkRFUEVO
+REVOVF82NEJfU0hJRlQJCTQzCisjZGVmaW5lIEFNREdQVV9USUxJTkdfRENDX0lOREVQRU5ERU5U
+XzY0Ql9NQVNLCQkweDEKIAogLyogU2V0L0dldCBoZWxwZXJzIGZvciB0aWxpbmcgZmxhZ3MuICov
+CiAjZGVmaW5lIEFNREdQVV9USUxJTkdfU0VUKGZpZWxkLCB2YWx1ZSkgXAotLSAKMi4xNy4xCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
