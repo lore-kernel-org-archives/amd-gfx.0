@@ -1,15 +1,16 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/3] drm/amd/powerplay: support hwmon max/min fan speed
- setting on Vega20
-Date: Wed, 24 Oct 2018 08:53:56 +0000
-Message-ID: <SN6PR12MB2656C84D3FDFB470BC17653DE4F60@SN6PR12MB2656.namprd12.prod.outlook.com>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amd/powerplay: added hwmon interfaces for setting
+ max/min fan speed
+Date: Wed, 24 Oct 2018 09:04:28 +0000
+Message-ID: <BYAPR12MB27756445D4157DD337C5B6B2FBF60@BYAPR12MB2775.namprd12.prod.outlook.com>
 References: <20181024081141.18647-1-evan.quan@amd.com>,
- <20181024081141.18647-3-evan.quan@amd.com>
- <BYAPR12MB277564C5DF32AFE83E33F7D8FBF60@BYAPR12MB2775.namprd12.prod.outlook.com>
+ <20181024081141.18647-2-evan.quan@amd.com>
+ <BYAPR12MB2775F650496C7DA583461501FBF60@BYAPR12MB2775.namprd12.prod.outlook.com>,
+ <SN6PR12MB26563DA5F631ECD8A372CDE0E4F60@SN6PR12MB2656.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1253123602=="
+Content-Type: multipart/mixed; boundary="===============1929356242=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BYAPR12MB277564C5DF32AFE83E33F7D8FBF60-ZGDeBxoHBPmJeBUhB162ZQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <SN6PR12MB26563DA5F631ECD8A372CDE0E4F60-kxOKjb6HO/FeL/N0e1LXkAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,539 +22,834 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1253123602==
+--===============1929356242==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB2656C84D3FDFB470BC17653DE4F60SN6PR12MB2656namp_"
+	boundary="_000_BYAPR12MB27756445D4157DD337C5B6B2FBF60BYAPR12MB2775namp_"
 
---_000_SN6PR12MB2656C84D3FDFB470BC17653DE4F60SN6PR12MB2656namp_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+--_000_BYAPR12MB27756445D4157DD337C5B6B2FBF60BYAPR12MB2775namp_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 
-U3VyZQ0KDQpGcm9tOiBaaHUsIFJleA0KU2VudDogMjAxOMTqMTDUwjI0yNUgMTY6MzcNClRvOiBR
-dWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIDMvM10gZHJtL2FtZC9wb3dlcnBsYXk6IHN1cHBvcnQg
-aHdtb24gbWF4L21pbiBmYW4gc3BlZWQgc2V0dGluZyBvbiBWZWdhMjANCg0KDQotICAgICAgIHBl
-cmNlbnQgPSBjdXJyZW50X3JwbSAqIDEwMCAvIHBwX3RhYmxlLT5GYW5NYXhpbXVtUnBtOw0KKyAg
-ICAgICBwZXJjZW50ID0gKGN1cnJlbnRfcnBtICogMTAwKSAvDQorICAgICAgICAgICAgICAgaHdt
-Z3ItPnRoZXJtYWxfY29udHJvbGxlci5mYW5JbmZvLnVsTWF4UlBNOw0KDQoNCkJldHRlciBjaGVj
-ayBod21nci0+dGhlcm1hbF9jb250cm9sbGVyLmZhbkluZm8udWxNYXhSUE0gbm90IGVxdWFsIHRv
-IDAuDQoNCg0KDQpCZXN0IFJlZ2FyZHMNCg0KUmV4DQoNCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnPG1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPj4gb24g
-YmVoYWxmIG9mIEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb208bWFpbHRvOmV2YW4ucXVhbkBh
-bWQuY29tPj4NClNlbnQ6IFdlZG5lc2RheSwgT2N0b2JlciAyNCwgMjAxOCA0OjExIFBNDQpUbzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnPg0KQ2M6IFF1YW4sIEV2YW4NClN1YmplY3Q6IFtQQVRDSCAzLzNdIGRybS9hbWQv
-cG93ZXJwbGF5OiBzdXBwb3J0IGh3bW9uIG1heC9taW4gZmFuIHNwZWVkIHNldHRpbmcgb24gVmVn
-YTIwDQoNCkFkZGVkIHN1cHBvcnQgZm9yIGh3bW9uIG1heC9taW4gZmFuIHNwZWVkIHNldHRpbmcg
-b24gVmVnYTIwLg0KDQpDaGFuZ2UtSWQ6IEllYWI0MmM3NDRkNmM1NGY4Yjg1YTcxYmU4MGY3YzY4
-MzJhZTczNTJiDQpTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPG1h
-aWx0bzpldmFuLnF1YW5AYW1kLmNvbT4+DQotLS0NCiAuLi4vZHJtL2FtZC9wb3dlcnBsYXkvaHdt
-Z3IvdmVnYTIwX2h3bWdyLmMgICAgfCAgNCArKw0KIC4uLi9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci92ZWdhMjBfdGhlcm1hbC5jICB8IDU2ICsrKysrKysrKysrKysrKysrKy0NCiAuLi4vZHJtL2Ft
-ZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX3RoZXJtYWwuaCAgfCAgNCArKw0KIDMgZmlsZXMgY2hh
-bmdlZCwgNjIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMNCmluZGV4IDU3MTQz
-ZDUxZTNlZS4uMjUxM2U2YmUzMjE5IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jDQpAQCAtMzUzOSw2ICszNTM5LDEwIEBAIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyB2ZWdhMjBfaHdtZ3JfZnVuY3MgPSB7DQog
-ICAgICAgICAgICAgICAgIHZlZ2EyMF9nZXRfZmFuX2NvbnRyb2xfbW9kZSwNCiAgICAgICAgIC5z
-ZXRfZmFuX2NvbnRyb2xfbW9kZSA9DQogICAgICAgICAgICAgICAgIHZlZ2EyMF9zZXRfZmFuX2Nv
-bnRyb2xfbW9kZSwNCisgICAgICAgLnNldF9mYW5fc3BlZWRfbWF4X3JwbSA9DQorICAgICAgICAg
-ICAgICAgdmVnYTIwX2Zhbl9jdHJsX3NldF9mYW5fc3BlZWRfbWF4X3JwbSwNCisgICAgICAgLnNl
-dF9mYW5fc3BlZWRfbWluX3JwbSA9DQorICAgICAgICAgICAgICAgdmVnYTIwX2Zhbl9jdHJsX3Nl
-dF9mYW5fc3BlZWRfbWluX3JwbSwNCiAgICAgICAgIC8qIHNtdSBtZW1vcnkgcmVsYXRlZCAqLw0K
-ICAgICAgICAgLm5vdGlmeV9jYWNfYnVmZmVyX2luZm8gPQ0KICAgICAgICAgICAgICAgICB2ZWdh
-MjBfbm90aWZ5X2NhY19idWZmZXJfaW5mbywNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfdGhlcm1hbC5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX3RoZXJtYWwuYw0KaW5kZXggZWRlNTRlODdlMjg3Li5k
-YTlmZDIxNjhkY2IgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
-d21nci92ZWdhMjBfdGhlcm1hbC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9od21nci92ZWdhMjBfdGhlcm1hbC5jDQpAQCAtMTE4LDcgKzExOCw2IEBAIGludCB2ZWdhMjBf
-ZmFuX2N0cmxfZ2V0X2Zhbl9zcGVlZF9wZXJjZW50KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsDQog
-ICAgICAgICAgICAgICAgIHVpbnQzMl90ICpzcGVlZCkNCiB7DQogICAgICAgICBzdHJ1Y3QgdmVn
-YTIwX2h3bWdyICpkYXRhID0gKHN0cnVjdCB2ZWdhMjBfaHdtZ3IgKikoaHdtZ3ItPmJhY2tlbmQp
-Ow0KLSAgICAgICBQUFRhYmxlX3QgKnBwX3RhYmxlID0gJihkYXRhLT5zbWNfc3RhdGVfdGFibGUu
-cHBfdGFibGUpOw0KICAgICAgICAgdWludDMyX3QgY3VycmVudF9ycG0sIHBlcmNlbnQgPSAwOw0K
-ICAgICAgICAgaW50IHJldCA9IDA7DQoNCkBAIC0xMjYsNyArMTI1LDggQEAgaW50IHZlZ2EyMF9m
-YW5fY3RybF9nZXRfZmFuX3NwZWVkX3BlcmNlbnQoc3RydWN0IHBwX2h3bWdyICpod21nciwNCiAg
-ICAgICAgIGlmIChyZXQpDQogICAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQoNCi0gICAgICAg
-cGVyY2VudCA9IGN1cnJlbnRfcnBtICogMTAwIC8gcHBfdGFibGUtPkZhbk1heGltdW1ScG07DQor
-ICAgICAgIHBlcmNlbnQgPSAoY3VycmVudF9ycG0gKiAxMDApIC8NCisgICAgICAgICAgICAgICBo
-d21nci0+dGhlcm1hbF9jb250cm9sbGVyLmZhbkluZm8udWxNYXhSUE07DQoNCiAgICAgICAgICpz
-cGVlZCA9IHBlcmNlbnQgPiAxMDAgPyAxMDAgOiBwZXJjZW50Ow0KDQpAQCAtMjA4LDYgKzIwOCw1
-OCBAQCBpbnQgdmVnYTIwX2Zhbl9jdHJsX3NldF9mYW5fc3BlZWRfcnBtKHN0cnVjdCBwcF9od21n
-ciAqaHdtZ3IsIHVpbnQzMl90IHNwZWVkKQ0KICAgICAgICAgcmV0dXJuIHZlZ2EyMF9mYW5fY3Ry
-bF9zZXRfc3RhdGljX21vZGUoaHdtZ3IsIEZET19QV01fTU9ERV9TVEFUSUNfUlBNKTsNCiB9DQoN
-CitpbnQgdmVnYTIwX2Zhbl9jdHJsX3NldF9mYW5fc3BlZWRfbWF4X3JwbShzdHJ1Y3QgcHBfaHdt
-Z3IgKmh3bWdyLCB1aW50MzJfdCBzcGVlZCkNCit7DQorICAgICAgIHN0cnVjdCB2ZWdhMjBfaHdt
-Z3IgKmRhdGEgPSAoc3RydWN0IHZlZ2EyMF9od21nciAqKShod21nci0+YmFja2VuZCk7DQorICAg
-ICAgIHN0cnVjdCB2ZWdhMjBfb2Q4X3NldHRpbmdzICpvZDhfc2V0dGluZ3MgPSAmKGRhdGEtPm9k
-OF9zZXR0aW5ncyk7DQorICAgICAgIGludCByZXQgPSAwOw0KKw0KKyAgICAgICBpZiAoKG9kOF9z
-ZXR0aW5ncy0+b3ZlcmRyaXZlOF9jYXBhYmlsaXRpZXMgJiBPRDhfQUNPVVNUSUNfTElNSVRfU0NM
-SykgJiYNCisgICAgICAgICAgIChzcGVlZCA+IG9kOF9zZXR0aW5ncy0+b2Q4X3NldHRpbmdzX2Fy
-cmF5W09EOF9TRVRUSU5HX0ZBTl9BQ09VU1RJQ19MSU1JVF0ubWF4X3ZhbHVlIHx8DQorICAgICAg
-ICAgICAgc3BlZWQgPCBvZDhfc2V0dGluZ3MtPm9kOF9zZXR0aW5nc19hcnJheVtPRDhfU0VUVElO
-R19GQU5fQUNPVVNUSUNfTElNSVRdLm1pbl92YWx1ZSkpDQorICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7DQorDQorICAgICAgIHJldCA9IHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFy
-YW1ldGVyKGh3bWdyLA0KKyAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldEZhbk1h
-eFJwbSwNCisgICAgICAgICAgICAgICAgICAgICAgIHNwZWVkKTsNCisgICAgICAgUFBfQVNTRVJU
-X1dJVEhfQ09ERSghcmV0LA0KKyAgICAgICAgICAgICAgICAgICAgICAgIlNldCBGYW5NYXhScG0g
-RmFpbGVkISIsDQorICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmV0KTsNCisNCisgICAg
-ICAgaHdtZ3ItPnRoZXJtYWxfY29udHJvbGxlci5mYW5JbmZvLnVsTWluUlBNID0NCisgICAgICAg
-ICAgICAgICAoc3BlZWQgKiBod21nci0+dGhlcm1hbF9jb250cm9sbGVyLmZhbkluZm8udWxNaW5Q
-V00pIC8gMjU1Ow0KKw0KKyAgICAgICByZXR1cm4gcmV0Ow0KK30NCisNCitpbnQgdmVnYTIwX2Zh
-bl9jdHJsX3NldF9mYW5fc3BlZWRfbWluX3JwbShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCB1aW50
-MzJfdCBzcGVlZCkNCit7DQorICAgICAgIHN0cnVjdCB2ZWdhMjBfaHdtZ3IgKmRhdGEgPSAoc3Ry
-dWN0IHZlZ2EyMF9od21nciAqKShod21nci0+YmFja2VuZCk7DQorICAgICAgIHN0cnVjdCB2ZWdh
-MjBfb2Q4X3NldHRpbmdzICpvZDhfc2V0dGluZ3MgPSAmKGRhdGEtPm9kOF9zZXR0aW5ncyk7DQor
-ICAgICAgIGludCByZXQgPSAwOw0KKyAgICAgICB1aW50MzJfdCBwd20gPSAwOw0KKw0KKyAgICAg
-ICBpZiAoKG9kOF9zZXR0aW5ncy0+b3ZlcmRyaXZlOF9jYXBhYmlsaXRpZXMgJiBPRDhfRkFOX1NQ
-RUVEX01JTikgJiYNCisgICAgICAgICAgIChzcGVlZCA+IG9kOF9zZXR0aW5ncy0+b2Q4X3NldHRp
-bmdzX2FycmF5W09EOF9GQU5fU1BFRURfTUlOXS5tYXhfdmFsdWUgfHwNCisgICAgICAgICAgICBz
-cGVlZCA8IG9kOF9zZXR0aW5ncy0+b2Q4X3NldHRpbmdzX2FycmF5W09EOF9GQU5fU1BFRURfTUlO
-XS5taW5fdmFsdWUpKQ0KKyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KKw0KKyAgICAg
-ICBpZiAoc3BlZWQgPiBod21nci0+dGhlcm1hbF9jb250cm9sbGVyLmZhbkluZm8udWxNYXhSUE0p
-DQorICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQorDQorICAgICAgIHB3bSA9IChzcGVl
-ZCAqIDI1NSkgLyBod21nci0+dGhlcm1hbF9jb250cm9sbGVyLmZhbkluZm8udWxNYXhSUE07DQor
-ICAgICAgIHJldCA9IHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLA0K
-KyAgICAgICAgICAgICAgICAgICAgICAgUFBTTUNfTVNHX1NldEZhbk1pblB3bSwNCisgICAgICAg
-ICAgICAgICAgICAgICAgIHB3bSk7DQorICAgICAgIFBQX0FTU0VSVF9XSVRIX0NPREUoIXJldCwN
-CisgICAgICAgICAgICAgICAgICAgICAgICJTZXQgRmFuTWluUHdtIEZhaWxlZCEiLA0KKyAgICAg
-ICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldCk7DQorDQorICAgICAgIGh3bWdyLT50aGVybWFs
-X2NvbnRyb2xsZXIuZmFuSW5mby51bE1pblBXTSA9IHB3bTsNCisNCisgICAgICAgcmV0dXJuIHJl
-dDsNCit9DQorDQogLyoqDQogKiBSZWFkcyB0aGUgcmVtb3RlIHRlbXBlcmF0dXJlIGZyb20gdGhl
-IFNJc2xhbmRzIHRoZXJtYWwgY29udHJvbGxlci4NCiAqDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX3RoZXJtYWwuaCBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF90aGVybWFsLmgNCmluZGV4IDJkMTc2OWJi
-ZDI0ZS4uZGRmYzk1MGU5MGNhIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3IvdmVnYTIwX3RoZXJtYWwuaA0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvaHdtZ3IvdmVnYTIwX3RoZXJtYWwuaA0KQEAgLTU2LDYgKzU2LDEwIEBAIGV4dGVy
-biBpbnQgdmVnYTIwX2Zhbl9jdHJsX2dldF9mYW5fc3BlZWRfcnBtKHN0cnVjdCBwcF9od21nciAq
-aHdtZ3IsDQogICAgICAgICAgICAgICAgIHVpbnQzMl90ICpzcGVlZCk7DQogZXh0ZXJuIGludCB2
-ZWdhMjBfZmFuX2N0cmxfc2V0X2Zhbl9zcGVlZF9ycG0oc3RydWN0IHBwX2h3bWdyICpod21nciwN
-CiAgICAgICAgICAgICAgICAgdWludDMyX3Qgc3BlZWQpOw0KK2V4dGVybiBpbnQgdmVnYTIwX2Zh
-bl9jdHJsX3NldF9mYW5fc3BlZWRfbWF4X3JwbShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLA0KKyAg
-ICAgICAgICAgICAgIHVpbnQzMl90IHNwZWVkKTsNCitleHRlcm4gaW50IHZlZ2EyMF9mYW5fY3Ry
-bF9zZXRfZmFuX3NwZWVkX21pbl9ycG0oc3RydWN0IHBwX2h3bWdyICpod21nciwNCisgICAgICAg
-ICAgICAgICB1aW50MzJfdCBzcGVlZCk7DQogZXh0ZXJuIGludCB2ZWdhMjBfZmFuX2N0cmxfZ2V0
-X2Zhbl9zcGVlZF9wZXJjZW50KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsDQogICAgICAgICAgICAg
-ICAgIHVpbnQzMl90ICpzcGVlZCk7DQogZXh0ZXJuIGludCB2ZWdhMjBfZmFuX2N0cmxfc2V0X2Zh
-bl9zcGVlZF9wZXJjZW50KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsDQotLQ0KMi4xOS4xDQoNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4DQphbWQtZ2Z4IEluZm8gUGFnZSAtIGZyZWVkZXNrdG9wLm9y
-ZzxodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng+
-DQpsaXN0cy5mcmVlZGVza3RvcC5vcmcNClRvIHNlZSB0aGUgY29sbGVjdGlvbiBvZiBwcmlvciBw
-b3N0aW5ncyB0byB0aGUgbGlzdCwgdmlzaXQgdGhlIGFtZC1nZnggQXJjaGl2ZXMuLiBVc2luZyBh
-bWQtZ2Z4OiBUbyBwb3N0IGEgbWVzc2FnZSB0byBhbGwgdGhlIGxpc3QgbWVtYmVycywgc2VuZCBl
-bWFpbCB0byBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmc+LiBZb3UgY2FuIHN1YnNjcmliZSB0byB0aGUgbGlzdCwgb3IgY2hh
-bmdlIHlvdXIgZXhpc3Rpbmcgc3Vic2NyaXB0aW9uLCBpbiB0aGUgc2VjdGlvbnMgYmVsb3cuDQoN
-Cg0K
+I think when user set max/min fan speed, the fan control mode will switch t=
+o
 
---_000_SN6PR12MB2656C84D3FDFB470BC17653DE4F60SN6PR12MB2656namp_
-Content-Type: text/html; charset="gb2312"
+manual mode.
+
+so if user need to exit the max/min fan speed, user need to reset to auto m=
+ode.
+
+
+Do we need to let user enter manual mode first before set max/min fan speed=
+?
+
+
+Best Regards
+
+Rex
+
+
+
+________________________________
+From: Quan, Evan
+Sent: Wednesday, October 24, 2018 4:47 PM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH 2/3] drm/amd/powerplay: added hwmon interfaces for sett=
+ing max/min fan speed
+
+
+This can be performed under auto mode.
+
+The settings are always effective unless user resets them back.
+
+
+
+Regards,
+
+Evan
+
+From: Zhu, Rex
+Sent: 2018=1B$BG/=1B(B10=1B$B7n=1B(B24=1B$BF|=1B(B 16:36
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 2/3] drm/amd/powerplay: added hwmon interfaces for sett=
+ing max/min fan speed
+
+
+
+One question: how to exit the max/min fan speed and return to auto mode?
+
+
+
+Best Regards
+
+Rex
+
+
+
+
+
+________________________________
+
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:e=
+van.quan-5C7GfCeVMHo@public.gmane.org>>
+Sent: Wednesday, October 24, 2018 4:11 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Quan, Evan
+Subject: [PATCH 2/3] drm/amd/powerplay: added hwmon interfaces for setting =
+max/min fan speed
+
+
+
+New hwmon interfaces for maximum and minimum fan speed setting.
+
+Change-Id: Ic9ec9f2427c6d3425e1c7e7b765d7d01a92f9a26
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h       |  6 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        | 56 ++++++++++++++++++-
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  2 +
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 46 +++++++++++++++
+ drivers/gpu/drm/amd/powerplay/inc/hwmgr.h     |  2 +
+ 5 files changed, 110 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_dpm.h
+index f972cd156795..12c4e461a7bc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
+@@ -364,6 +364,12 @@ enum amdgpu_pcie_gen {
+                 ((adev)->powerplay.pp_funcs->enable_mgpu_fan_boost(\
+                         (adev)->powerplay.pp_handle))
+
++#define amdgpu_dpm_set_fan_speed_max_rpm(adev, s) \
++               ((adev)->powerplay.pp_funcs->set_fan_speed_max_rpm)((adev)-=
+>powerplay.pp_handle, (s))
++
++#define amdgpu_dpm_set_fan_speed_min_rpm(adev, s) \
++               ((adev)->powerplay.pp_funcs->set_fan_speed_min_rpm)((adev)-=
+>powerplay.pp_handle, (s))
++
+ struct amdgpu_dpm {
+         struct amdgpu_ps        *ps;
+         /* number of valid power states */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c
+index 8e94255654ed..92da37bb51ba 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -1265,6 +1265,32 @@ static ssize_t amdgpu_hwmon_get_fan1_min(struct devi=
+ce *dev,
+         return snprintf(buf, PAGE_SIZE, "%d\n", min_rpm);
+ }
+
++static ssize_t amdgpu_hwmon_set_fan1_min(struct device *dev,
++                                    struct device_attribute *attr,
++                                    const char *buf, size_t count)
++{
++       struct amdgpu_device *adev =3D dev_get_drvdata(dev);
++       int err;
++       u32 value;
++
++       /* Can't adjust fan when the card is off */
++       if  ((adev->flags & AMD_IS_PX) &&
++            (adev->ddev->switch_power_state !=3D DRM_SWITCH_POWER_ON))
++               return -EINVAL;
++
++       err =3D kstrtou32(buf, 10, &value);
++       if (err)
++               return err;
++
++       if (adev->powerplay.pp_funcs->set_fan_speed_min_rpm) {
++               err =3D amdgpu_dpm_set_fan_speed_min_rpm(adev, value);
++               if (err)
++                       return err;
++       }
++
++       return count;
++}
++
+ static ssize_t amdgpu_hwmon_get_fan1_max(struct device *dev,
+                                          struct device_attribute *attr,
+                                          char *buf)
+@@ -1285,6 +1311,32 @@ static ssize_t amdgpu_hwmon_get_fan1_max(struct devi=
+ce *dev,
+         return snprintf(buf, PAGE_SIZE, "%d\n", max_rpm);
+ }
+
++static ssize_t amdgpu_hwmon_set_fan1_max(struct device *dev,
++                                    struct device_attribute *attr,
++                                    const char *buf, size_t count)
++{
++       struct amdgpu_device *adev =3D dev_get_drvdata(dev);
++       int err;
++       u32 value;
++
++       /* Can't adjust fan when the card is off */
++       if  ((adev->flags & AMD_IS_PX) &&
++            (adev->ddev->switch_power_state !=3D DRM_SWITCH_POWER_ON))
++               return -EINVAL;
++
++       err =3D kstrtou32(buf, 10, &value);
++       if (err)
++               return err;
++
++       if (adev->powerplay.pp_funcs->set_fan_speed_max_rpm) {
++               err =3D amdgpu_dpm_set_fan_speed_max_rpm(adev, value);
++               if (err)
++                       return err;
++       }
++
++       return count;
++}
++
+ static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,
+                                            struct device_attribute *attr,
+                                            char *buf)
+@@ -1628,8 +1680,8 @@ static SENSOR_DEVICE_ATTR(pwm1_enable, S_IRUGO | S_IW=
+USR, amdgpu_hwmon_get_pwm1_
+ static SENSOR_DEVICE_ATTR(pwm1_min, S_IRUGO, amdgpu_hwmon_get_pwm1_min, NU=
+LL, 0);
+ static SENSOR_DEVICE_ATTR(pwm1_max, S_IRUGO, amdgpu_hwmon_get_pwm1_max, NU=
+LL, 0);
+ static SENSOR_DEVICE_ATTR(fan1_input, S_IRUGO, amdgpu_hwmon_get_fan1_input=
+, NULL, 0);
+-static SENSOR_DEVICE_ATTR(fan1_min, S_IRUGO, amdgpu_hwmon_get_fan1_min, NU=
+LL, 0);
+-static SENSOR_DEVICE_ATTR(fan1_max, S_IRUGO, amdgpu_hwmon_get_fan1_max, NU=
+LL, 0);
++static SENSOR_DEVICE_ATTR(fan1_min, S_IRUGO | S_IWUSR, amdgpu_hwmon_get_fa=
+n1_min, amdgpu_hwmon_set_fan1_min, 0);
++static SENSOR_DEVICE_ATTR(fan1_max, S_IRUGO | S_IWUSR, amdgpu_hwmon_get_fa=
+n1_max, amdgpu_hwmon_set_fan1_max, 0);
+ static SENSOR_DEVICE_ATTR(fan1_target, S_IRUGO | S_IWUSR, amdgpu_hwmon_get=
+_fan1_target, amdgpu_hwmon_set_fan1_target, 0);
+ static SENSOR_DEVICE_ATTR(fan1_enable, S_IRUGO | S_IWUSR, amdgpu_hwmon_get=
+_fan1_enable, amdgpu_hwmon_set_fan1_enable, 0);
+ static SENSOR_DEVICE_ATTR(in0_input, S_IRUGO, amdgpu_hwmon_show_vddgfx, NU=
+LL, 0);
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h
+index 980e696989b1..1af55997bdb9 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -276,6 +276,8 @@ struct amd_pm_funcs {
+                 struct amd_pp_simple_clock_info *clocks);
+         int (*notify_smu_enable_pwe)(void *handle);
+         int (*enable_mgpu_fan_boost)(void *handle);
++       int (*set_fan_speed_max_rpm)(void *handle, uint32_t rpm);
++       int (*set_fan_speed_min_rpm)(void *handle, uint32_t rpm);
+ };
+
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c
+index 586f1ff9f73e..f10237b4d057 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -603,6 +603,50 @@ static int pp_dpm_set_fan_speed_rpm(void *handle, uint=
+32_t rpm)
+         return ret;
+ }
+
++static int pp_dpm_set_fan_speed_max_rpm(void *handle, uint32_t rpm)
++{
++       struct pp_hwmgr *hwmgr =3D handle;
++       int ret =3D 0;
++
++       if (!hwmgr || !hwmgr->pm_en)
++               return -EINVAL;
++
++       if (hwmgr->hwmgr_func->set_fan_speed_max_rpm =3D=3D NULL) {
++               pr_info("%s was not implemented.\n", __func__);
++               return -EOPNOTSUPP;
++       }
++       mutex_lock(&hwmgr->smu_lock);
++       ret =3D hwmgr->hwmgr_func->set_fan_speed_max_rpm(hwmgr, rpm);
++       mutex_unlock(&hwmgr->smu_lock);
++
++       if (!ret)
++               hwmgr->thermal_controller.fanInfo.ulMaxRPM =3D rpm;
++
++       return ret;
++}
++
++static int pp_dpm_set_fan_speed_min_rpm(void *handle, uint32_t rpm)
++{
++       struct pp_hwmgr *hwmgr =3D handle;
++       int ret =3D 0;
++
++       if (!hwmgr || !hwmgr->pm_en)
++               return -EINVAL;
++
++       if (hwmgr->hwmgr_func->set_fan_speed_min_rpm =3D=3D NULL) {
++               pr_info("%s was not implemented.\n", __func__);
++               return -EOPNOTSUPP;
++       }
++       mutex_lock(&hwmgr->smu_lock);
++       ret =3D hwmgr->hwmgr_func->set_fan_speed_min_rpm(hwmgr, rpm);
++       mutex_unlock(&hwmgr->smu_lock);
++
++       if (!ret)
++               hwmgr->thermal_controller.fanInfo.ulMinRPM =3D rpm;
++
++       return ret;
++}
++
+ static int pp_dpm_get_pp_num_states(void *handle,
+                 struct pp_states_info *data)
+ {
+@@ -1342,6 +1386,8 @@ static const struct amd_pm_funcs pp_dpm_funcs =3D {
+         .get_fan_speed_percent =3D pp_dpm_get_fan_speed_percent,
+         .get_fan_speed_rpm =3D pp_dpm_get_fan_speed_rpm,
+         .set_fan_speed_rpm =3D pp_dpm_set_fan_speed_rpm,
++       .set_fan_speed_max_rpm =3D pp_dpm_set_fan_speed_max_rpm,
++       .set_fan_speed_min_rpm =3D pp_dpm_set_fan_speed_min_rpm,
+         .get_pp_num_states =3D pp_dpm_get_pp_num_states,
+         .get_pp_table =3D pp_dpm_get_pp_table,
+         .set_pp_table =3D pp_dpm_set_pp_table,
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h
+index 687f73fe4cf5..0242bc039a48 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+@@ -269,6 +269,8 @@ struct pp_hwmgr_func {
+         int (*get_fan_speed_percent)(struct pp_hwmgr *hwmgr, uint32_t *spe=
+ed);
+         int (*set_fan_speed_rpm)(struct pp_hwmgr *hwmgr, uint32_t percent)=
+;
+         int (*get_fan_speed_rpm)(struct pp_hwmgr *hwmgr, uint32_t *speed);
++       int (*set_fan_speed_max_rpm)(struct pp_hwmgr *hwmgr, uint32_t max_r=
+pm);
++       int (*set_fan_speed_min_rpm)(struct pp_hwmgr *hwmgr, uint32_t min_r=
+pm);
+         int (*reset_fan_speed_to_default)(struct pp_hwmgr *hwmgr);
+         int (*uninitialize_thermal_controller)(struct pp_hwmgr *hwmgr);
+         int (*register_irq_handlers)(struct pp_hwmgr *hwmgr);
+--
+2.19.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+
+lists.freedesktop.org
+
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>. Yo=
+u can subscribe to the list, or change your existing subscription, in the s=
+ections below.
+
+
+
+
+--_000_BYAPR12MB27756445D4157DD337C5B6B2FBF60BYAPR12MB2775namp_
+Content-Type: text/html; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Microsoft YaHei";
-	panose-1:2 11 5 3 2 2 4 2 2 4;}
-@font-face
-	{font-family:"Microsoft YaHei";}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-@font-face
-	{font-family:"Segoe UI Light";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
+jp">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
 </head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Sure<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0cm 0cm 0cm =
-4.0pt">
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">I think when user set max/min fan=
+ speed, the fan control mode will switch to</p>
+<p style=3D"margin-top:0;margin-bottom:0">manual mode.</p>
+<p style=3D"margin-top:0;margin-bottom:0">so if user need to exit the max/m=
+in fan speed, user need to reset to auto mode.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Do we need to let user enter manu=
+al mode first before set max/min fan speed?<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Quan, Evan<br>
+<b>Sent:</b> Wednesday, October 24, 2018 4:47 PM<br>
+<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> RE: [PATCH 2/3] drm/amd/powerplay: added hwmon interfaces f=
+or setting max/min fan speed</font>
+<div>&nbsp;</div>
+</div>
+<meta content=3D"text/html; charset=3Dgb2312">
+<meta name=3D"x_Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<div link=3D"blue" vlink=3D"purple" lang=3D"EN-US">
+<div class=3D"x_WordSection1">
+<p class=3D"x_MsoNormal">This can be performed under auto mode. </p>
+<p class=3D"x_MsoNormal">The settings are always effective unless user rese=
+ts them back.</p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"x_MsoNormal">Regards,</p>
+<p class=3D"x_MsoNormal">Evan</p>
+<div style=3D"border:none; border-left:solid blue 1.5pt; padding:0cm 0cm 0c=
+m 4.0pt">
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b>From:</b> Zhu, Rex <br>
-<b>Sent:</b> 2018<span lang=3D"ZH-CN" style=3D"font-family:&quot;=CE=A2=C8=
-=ED=D1=C5=BA=DA&quot;,sans-serif">=C4=EA</span>10<span lang=3D"ZH-CN" style=
-=3D"font-family:&quot;=CE=A2=C8=ED=D1=C5=BA=DA&quot;,sans-serif">=D4=C2</sp=
-an>24<span lang=3D"ZH-CN" style=3D"font-family:&quot;=CE=A2=C8=ED=D1=C5=BA=
-=DA&quot;,sans-serif">=C8=D5</span> 16:37<br>
+<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0c=
+m 0cm 0cm">
+<p class=3D"x_MsoNormal"><b>From:</b> Zhu, Rex <br>
+<b>Sent:</b> 2018<span style=3D"font-family:&quot;=1B$BHy=1B(B&#36719;=1B$B=
+2m|n=1B(B&quot;,sans-serif" lang=3D"ZH-CN">=1B$BG/=1B(B</span>10<span style=
+=3D"font-family:&quot;=1B$BHy=1B(B&#36719;=1B$B2m|n=1B(B&quot;,sans-serif" =
+lang=3D"ZH-CN">=1B$B7n=1B(B</span>24<span style=3D"font-family:&quot;=1B$BH=
+y=1B(B&#36719;=1B$B2m|n=1B(B&quot;,sans-serif" lang=3D"ZH-CN">=1B$BF|=1B(B<=
+/span> 16:36<br>
 <b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org<br>
-<b>Subject:</b> Re: [PATCH 3/3] drm/amd/powerplay: support hwmon max/min fa=
-n speed setting on Vega20<o:p></o:p></p>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amd/powerplay: added hwmon interfaces f=
+or setting max/min fan speed</p>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div id=3D"divtagdefaultwrapper">
-<p><span style=3D"color:black">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; percen=
-t =3D current_rpm * 100 / pp_table-&gt;FanMaximumRpm;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; percent =3D (current_rpm * 100) /=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; hwmgr-&gt;thermal_controller.fanInfo.ulMaxRPM;</span><span s=
-tyle=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-<p><span style=3D"font-size:12.0pt;color:black">Better check </span><span s=
-tyle=3D"color:black">hwmgr-&gt;thermal_controller.fanInfo.ulMaxRPM</span><s=
-pan style=3D"font-size:12.0pt;color:black"> not equal to 0.<o:p></o:p></spa=
-n></p>
-<p><span style=3D"font-size:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p=
->
-<p><span style=3D"font-size:12.0pt;color:black">Best Regards<o:p></o:p></sp=
-an></p>
-<p><span style=3D"font-size:12.0pt;color:black">Rex<o:p></o:p></span></p>
+<p class=3D"x_MsoNormal">&nbsp;</p>
+<div id=3D"x_divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt; color:black">One question: how to exit =
+the max/min fan speed and return to auto mode?</span></p>
+<p><span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
+<p><span style=3D"font-size:12.0pt; color:black">Best Regards</span></p>
+<p><span style=3D"font-size:12.0pt; color:black">Rex</span></p>
+<p><span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
+<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font=
+-size:12.0pt; color:black">&nbsp;</span></p>
 <div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
- style=3D"font-size:12.0pt;color:black">
-<hr size=3D"2" width=3D"98%" align=3D"center">
+<div class=3D"x_MsoNormal" style=3D"text-align:center" align=3D"center"><sp=
+an style=3D"font-size:12.0pt; color:black">
+<hr width=3D"98%" size=3D"2" align=3D"center">
 </span></div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
-.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
-f Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&=
-gt;<br>
+<div id=3D"x_divRplyFwdMsg">
+<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
+an style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lis=
+ts.freedesktop.org" id=3D"LPlnk669449" class=3D"OWAAutoLink" previewremoved=
+=3D"true">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
+ on behalf of Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org" id=3D"LPln=
+k588882" class=3D"OWAAutoLink" previewremoved=3D"true">evan.quan-5C7GfCeVMHo@public.gmane.org</a=
+>&gt;<br>
 <b>Sent:</b> Wednesday, October 24, 2018 4:11 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" id=3D"LPlnk7463=
+17" class=3D"OWAAutoLink" previewremoved=3D"true">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Cc:</b> Quan, Evan<br>
-<b>Subject:</b> [PATCH 3/3] drm/amd/powerplay: support hwmon max/min fan sp=
-eed setting on Vega20</span><span style=3D"font-size:12.0pt;color:black">
-<o:p></o:p></span></p>
+<b>Subject:</b> [PATCH 2/3] drm/amd/powerplay: added hwmon interfaces for s=
+etting max/min fan speed</span><span style=3D"font-size:12.0pt; color:black=
+">
+</span></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp;<=
-o:p></o:p></span></p>
+<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
+p;</span></p>
 </div>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"color:black">Added support for hwmon =
-max/min fan speed setting on Vega20.<br>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">New hwmon interfaces f=
+or maximum and minimum fan speed setting.<br>
 <br>
-Change-Id: Ieab42c744d6c54f8b85a71be80f7c6832ae7352b<br>
-Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
-@amd.com</a>&gt;<br>
+Change-Id: Ic9ec9f2427c6d3425e1c7e7b765d7d01a92f9a26<br>
+Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org" id=3D"LPl=
+nk457844" class=3D"OWAAutoLink" previewremoved=3D"true">evan.quan-5C7GfCeVMHo@public.gmane.org</=
+a>&gt;<br>
 ---<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/vega20_hwmgr.c&nbsp;&nbsp;&nbsp; |&nbsp; =
-4 &#43;&#43;<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/vega20_thermal.c&nbsp; | 56 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;-<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/vega20_thermal.h&nbsp; |&nbsp; 4 &#43;&#4=
-3;<br>
-&nbsp;3 files changed, 62 insertions(&#43;), 2 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; |&nbsp; 6 &#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; | 56 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
+&nbsp;.../gpu/drm/amd/include/kgd_pp_interface.h&nbsp;&nbsp;&nbsp; |&nbsp; =
+2 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 46 &#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp; |&n=
+bsp; 2 &#43;<br>
+&nbsp;5 files changed, 110 insertions(&#43;), 2 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-index 57143d51e3ee..2513e6be3219 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-@@ -3539,6 &#43;3539,10 @@ static const struct pp_hwmgr_func vega20_hwmgr_f=
-uncs =3D {<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_dpm.h<br>
+index f972cd156795..12c4e461a7bc 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h<br>
+@@ -364,6 &#43;364,12 @@ enum amdgpu_pcie_gen {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; vega20_get_fan_control_mode,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_fan_control_mode =3D<=
-br>
+sp;&nbsp;&nbsp;&nbsp; ((adev)-&gt;powerplay.pp_funcs-&gt;enable_mgpu_fan_bo=
+ost(\<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; vega20_set_fan_control_mode,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_fan_speed_max_rpm =3D<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev=
+)-&gt;powerplay.pp_handle))<br>
+&nbsp;<br>
+&#43;#define amdgpu_dpm_set_fan_speed_max_rpm(adev, s) \<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; vega20_fan_ctrl_set_fan_speed_max_rpm,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_fan_speed_min_rpm =3D<br>
+p;&nbsp;&nbsp; ((adev)-&gt;powerplay.pp_funcs-&gt;set_fan_speed_max_rpm)((a=
+dev)-&gt;powerplay.pp_handle, (s))<br>
+&#43;<br>
+&#43;#define amdgpu_dpm_set_fan_speed_min_rpm(adev, s) \<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; vega20_fan_ctrl_set_fan_speed_min_rpm,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* smu memory related */<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .notify_cac_buffer_info =
-=3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; vega20_notify_cac_buffer_info,<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.c b/drivers=
-/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.c<br>
-index ede54e87e287..da9fd2168dcb 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.c<br>
-@@ -118,7 &#43;118,6 @@ int vega20_fan_ctrl_get_fan_speed_percent(struct pp=
-_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint32_t *speed)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_hwmgr *data =
-=3D (struct vega20_hwmgr *)(hwmgr-&gt;backend);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pp_table =3D &amp;(data-&g=
-t;smc_state_table.pp_table);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t current_rpm, perc=
-ent =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&nbsp;<br>
-@@ -126,7 &#43;125,8 @@ int vega20_fan_ctrl_get_fan_speed_percent(struct pp=
-_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; percent =3D current_rpm * 100 / pp_ta=
-ble-&gt;FanMaximumRpm;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; percent =3D (current_rpm * 100) /=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; hwmgr-&gt;thermal_controller.fanInfo.ulMaxRPM;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *speed =3D percent &gt; 10=
-0 ? 100 : percent;<br>
-&nbsp;<br>
-@@ -208,6 &#43;208,58 @@ int vega20_fan_ctrl_set_fan_speed_rpm(struct pp_hw=
-mgr *hwmgr, uint32_t speed)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return vega20_fan_ctrl_set=
-_static_mode(hwmgr, FDO_PWM_MODE_STATIC_RPM);<br>
+p;&nbsp;&nbsp; ((adev)-&gt;powerplay.pp_funcs-&gt;set_fan_speed_min_rpm)((a=
+dev)-&gt;powerplay.pp_handle, (s))<br>
+&#43;<br>
+&nbsp;struct amdgpu_dpm {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ps&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* number of valid power s=
+tates */<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c<br>
+index 8e94255654ed..92da37bb51ba 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+@@ -1265,6 &#43;1265,32 @@ static ssize_t amdgpu_hwmon_get_fan1_min(struct =
+device *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_=
+SIZE, &quot;%d\n&quot;, min_rpm);<br>
 &nbsp;}<br>
 &nbsp;<br>
-&#43;int vega20_fan_ctrl_set_fan_speed_max_rpm(struct pp_hwmgr *hwmgr, uint=
-32_t speed)<br>
+&#43;static ssize_t amdgpu_hwmon_set_fan1_min(struct device *dev,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct de=
+vice_attribute *attr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const cha=
+r *buf, size_t count)<br>
 &#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_hwmgr *data =3D (st=
-ruct vega20_hwmgr *)(hwmgr-&gt;backend);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_od8_settings *od8_s=
-ettings =3D &amp;(data-&gt;od8_settings);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D de=
+v_get_drvdata(dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int err;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 value;<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((od8_settings-&gt;overdrive8_=
-capabilities &amp; OD8_ACOUSTIC_LIMIT_SCLK) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (speed &g=
-t; od8_settings-&gt;od8_settings_array[OD8_SETTING_FAN_ACOUSTIC_LIMIT].max_=
-value ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spe=
-ed &lt; od8_settings-&gt;od8_settings_array[OD8_SETTING_FAN_ACOUSTIC_LIMIT]=
-.min_value))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Can't adjust fan when the card=
+ is off */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; ((adev-&gt;flags &amp; A=
+MD_IS_PX) &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ad=
+ev-&gt;ddev-&gt;switch_power_state !=3D DRM_SWITCH_POWER_ON))<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; return -EINVAL;<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_send_msg_to_smc_with=
-_parameter(hwmgr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D kstrtou32(buf, 10, &amp;v=
+alue);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_Se=
-tFanMaxRpm,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; speed);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Set Fa=
-nMaxRpm Failed!&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);=
-<br>
+p;&nbsp;&nbsp; return err;<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;thermal_controller.fanI=
-nfo.ulMinRPM =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_funcs-&=
+gt;set_fan_speed_min_rpm) {<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; (speed * hwmgr-&gt;thermal_controller.fanInfo.ulMinPWM) / 25=
-5;<br>
+p;&nbsp;&nbsp; err =3D amdgpu_dpm_set_fan_speed_min_rpm(adev, value);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (err)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return err;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static ssize_t amdgpu_hwmon_get_fan1_max(struct device *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; char *buf)<br>
+@@ -1285,6 &#43;1311,32 @@ static ssize_t amdgpu_hwmon_get_fan1_max(struct =
+device *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_=
+SIZE, &quot;%d\n&quot;, max_rpm);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static ssize_t amdgpu_hwmon_set_fan1_max(struct device *dev,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct de=
+vice_attribute *attr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const cha=
+r *buf, size_t count)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D de=
+v_get_drvdata(dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int err;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 value;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Can't adjust fan when the card=
+ is off */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; ((adev-&gt;flags &amp; A=
+MD_IS_PX) &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ad=
+ev-&gt;ddev-&gt;switch_power_state !=3D DRM_SWITCH_POWER_ON))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D kstrtou32(buf, 10, &amp;v=
+alue);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return err;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;powerplay.pp_funcs-&=
+gt;set_fan_speed_max_rpm) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; err =3D amdgpu_dpm_set_fan_speed_max_rpm(adev, value);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (err)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return err;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf)<br>
+@@ -1628,8 &#43;1680,8 @@ static SENSOR_DEVICE_ATTR(pwm1_enable, S_IRUGO | =
+S_IWUSR, amdgpu_hwmon_get_pwm1_<br>
+&nbsp;static SENSOR_DEVICE_ATTR(pwm1_min, S_IRUGO, amdgpu_hwmon_get_pwm1_mi=
+n, NULL, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(pwm1_max, S_IRUGO, amdgpu_hwmon_get_pwm1_ma=
+x, NULL, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(fan1_input, S_IRUGO, amdgpu_hwmon_get_fan1_=
+input, NULL, 0);<br>
+-static SENSOR_DEVICE_ATTR(fan1_min, S_IRUGO, amdgpu_hwmon_get_fan1_min, NU=
+LL, 0);<br>
+-static SENSOR_DEVICE_ATTR(fan1_max, S_IRUGO, amdgpu_hwmon_get_fan1_max, NU=
+LL, 0);<br>
+&#43;static SENSOR_DEVICE_ATTR(fan1_min, S_IRUGO | S_IWUSR, amdgpu_hwmon_ge=
+t_fan1_min, amdgpu_hwmon_set_fan1_min, 0);<br>
+&#43;static SENSOR_DEVICE_ATTR(fan1_max, S_IRUGO | S_IWUSR, amdgpu_hwmon_ge=
+t_fan1_max, amdgpu_hwmon_set_fan1_max, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(fan1_target, S_IRUGO | S_IWUSR, amdgpu_hwmo=
+n_get_fan1_target, amdgpu_hwmon_set_fan1_target, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(fan1_enable, S_IRUGO | S_IWUSR, amdgpu_hwmo=
+n_get_fan1_enable, amdgpu_hwmon_set_fan1_enable, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(in0_input, S_IRUGO, amdgpu_hwmon_show_vddgf=
+x, NULL, 0);<br>
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h<br>
+index 980e696989b1..1af55997bdb9 100644<br>
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+@@ -276,6 &#43;276,8 @@ struct amd_pm_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; struct amd_pp_simple_clock_info *clocks);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*notify_smu_enable_pw=
+e)(void *handle);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*enable_mgpu_fan_boos=
+t)(void *handle);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_fan_speed_max_rpm)(void=
+ *handle, uint32_t rpm);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_fan_speed_min_rpm)(void=
+ *handle, uint32_t rpm);<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;#endif<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c<br>
+index 586f1ff9f73e..f10237b4d057 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+@@ -603,6 &#43;603,50 @@ static int pp_dpm_set_fan_speed_rpm(void *handle, =
+uint32_t rpm)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static int pp_dpm_set_fan_speed_max_rpm(void *handle, uint32_t rpm)<br=
+>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
+;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_en)<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;set_=
+fan_speed_max_rpm =3D=3D NULL) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; pr_info(&quot;%s was not implemented.\n&quot;, __func__);<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EOPNOTSUPP;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;smu_loc=
+k);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D hwmgr-&gt;hwmgr_func-&gt;=
+set_fan_speed_max_rpm(hwmgr, rpm);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;hwmgr-&gt;smu_l=
+ock);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hwmgr-&gt;thermal_controller.fanInfo.ulMaxRPM =3D rpm;<br>
 &#43;<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
 &#43;}<br>
 &#43;<br>
-&#43;int vega20_fan_ctrl_set_fan_speed_min_rpm(struct pp_hwmgr *hwmgr, uint=
-32_t speed)<br>
+&#43;static int pp_dpm_set_fan_speed_min_rpm(void *handle, uint32_t rpm)<br=
+>
 &#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_hwmgr *data =3D (st=
-ruct vega20_hwmgr *)(hwmgr-&gt;backend);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_od8_settings *od8_s=
-ettings =3D &amp;(data-&gt;od8_settings);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
+;<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pwm =3D 0;<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((od8_settings-&gt;overdrive8_=
-capabilities &amp; OD8_FAN_SPEED_MIN) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (speed &g=
-t; od8_settings-&gt;od8_settings_array[OD8_FAN_SPEED_MIN].max_value ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spe=
-ed &lt; od8_settings-&gt;od8_settings_array[OD8_FAN_SPEED_MIN].min_value))<=
-br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_en)<b=
+r>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; return -EINVAL;<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (speed &gt; hwmgr-&gt;thermal_=
-controller.fanInfo.ulMaxRPM)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;set_=
+fan_speed_min_rpm =3D=3D NULL) {<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
+p;&nbsp;&nbsp; pr_info(&quot;%s was not implemented.\n&quot;, __func__);<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EOPNOTSUPP;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;smu_loc=
+k);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D hwmgr-&gt;hwmgr_func-&gt;=
+set_fan_speed_min_rpm(hwmgr, rpm);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;hwmgr-&gt;smu_l=
+ock);<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pwm =3D (speed * 255) / hwmgr-&gt=
-;thermal_controller.fanInfo.ulMaxRPM;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_send_msg_to_smc_with=
-_parameter(hwmgr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ret)<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_Se=
-tFanMinPwm,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pwm);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Set Fa=
-nMinPwm Failed!&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);=
-<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;thermal_controller.fanI=
-nfo.ulMinPWM =3D pwm;<br>
+p;&nbsp;&nbsp; hwmgr-&gt;thermal_controller.fanInfo.ulMinRPM =3D rpm;<br>
 &#43;<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
 &#43;}<br>
 &#43;<br>
-&nbsp;/**<br>
-&nbsp;* Reads the remote temperature from the SIslands thermal controller.<=
-br>
-&nbsp;*<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.h b/drivers=
-/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.h<br>
-index 2d1769bbd24e..ddfc950e90ca 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_thermal.h<br>
-@@ -56,6 &#43;56,10 @@ extern int vega20_fan_ctrl_get_fan_speed_rpm(struct =
-pp_hwmgr *hwmgr,<br>
+&nbsp;static int pp_dpm_get_pp_num_states(void *handle,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint32_t *speed);<br>
-&nbsp;extern int vega20_fan_ctrl_set_fan_speed_rpm(struct pp_hwmgr *hwmgr,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint32_t speed);<br>
-&#43;extern int vega20_fan_ctrl_set_fan_speed_max_rpm(struct pp_hwmgr *hwmg=
-r,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; uint32_t speed);<br>
-&#43;extern int vega20_fan_ctrl_set_fan_speed_min_rpm(struct pp_hwmgr *hwmg=
-r,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; uint32_t speed);<br>
-&nbsp;extern int vega20_fan_ctrl_get_fan_speed_percent(struct pp_hwmgr *hwm=
-gr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint32_t *speed);<br>
-&nbsp;extern int vega20_fan_ctrl_set_fan_speed_percent(struct pp_hwmgr *hwm=
-gr,<br>
+sp;&nbsp;&nbsp;&nbsp; struct pp_states_info *data)<br>
+&nbsp;{<br>
+@@ -1342,6 &#43;1386,8 @@ static const struct amd_pm_funcs pp_dpm_funcs =3D=
+ {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_fan_speed_percent =3D=
+ pp_dpm_get_fan_speed_percent,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_fan_speed_rpm =3D pp_=
+dpm_get_fan_speed_rpm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_fan_speed_rpm =3D pp_=
+dpm_set_fan_speed_rpm,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_fan_speed_max_rpm =3D pp_dpm=
+_set_fan_speed_max_rpm,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_fan_speed_min_rpm =3D pp_dpm=
+_set_fan_speed_min_rpm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pp_num_states =3D pp_=
+dpm_get_pp_num_states,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pp_table =3D pp_dpm_g=
+et_pp_table,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_pp_table =3D pp_dpm_s=
+et_pp_table,<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h<br>
+index 687f73fe4cf5..0242bc039a48 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+@@ -269,6 &#43;269,8 @@ struct pp_hwmgr_func {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_fan_speed_percen=
+t)(struct pp_hwmgr *hwmgr, uint32_t *speed);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_fan_speed_rpm)(s=
+truct pp_hwmgr *hwmgr, uint32_t percent);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_fan_speed_rpm)(s=
+truct pp_hwmgr *hwmgr, uint32_t *speed);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_fan_speed_max_rpm)(stru=
+ct pp_hwmgr *hwmgr, uint32_t max_rpm);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_fan_speed_min_rpm)(stru=
+ct pp_hwmgr *hwmgr, uint32_t min_rpm);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*reset_fan_speed_to_d=
+efault)(struct pp_hwmgr *hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*uninitialize_thermal=
+_controller)(struct pp_hwmgr *hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*register_irq_handler=
+s)(struct pp_hwmgr *hwmgr);<br>
 -- <br>
 2.19.1<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-<o:p></o:p></span></p>
-<div style=3D"margin-bottom:15.0pt;overflow:auto" id=3D"LPBorder_GT_1540370=
-1438120.35346562924862934">
-<table class=3D"MsoNormalTable" border=3D"1" cellspacing=3D"0" cellpadding=
-=3D"0" width=3D"90%" style=3D"width:90.0%;background:white;border-top:dotte=
-d #C8C8C8 1.0pt;border-left:none;border-bottom:dotted #C8C8C8 1.0pt;border-=
-right:none">
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" id=3D"LPlnk218458" class=
+=3D"OWAAutoLink" previewremoved=3D"true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><=
+br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk474610" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a>
+</span></p>
+<div id=3D"LPBorder_GT_15403698863000.14269909928300328" style=3D"margin-bo=
+ttom:15.0pt; overflow:auto">
+<table class=3D"x_MsoNormalTable" style=3D"width:90.0%; background:white; b=
+order-top:dotted #C8C8C8 1.0pt; border-left:none; border-bottom:dotted #C8C=
+8C8 1.0pt; border-right:none" width=3D"90%" cellspacing=3D"0" cellpadding=
+=3D"0" border=3D"1">
 <tbody>
 <tr>
-<td valign=3D"top" style=3D"border:none;padding:0cm 0cm 0cm 0cm">
-<div id=3D"LPTitle_15403701438100.6054106554689949">
-<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;mso-line-height-alt:15.75=
-pt"><span style=3D"font-size:16.0pt;font-family:&quot;Segoe UI Light&quot;,=
-sans-serif;color:#0078D7"><a href=3D"https://lists.freedesktop.org/mailman/=
-listinfo/amd-gfx" target=3D"_blank"><span style=3D"text-decoration:none">am=
-d-gfx
- Info Page - freedesktop.org</span></a><o:p></o:p></span></p>
+<td style=3D"border:none; padding:0cm 0cm 0cm 0cm" valign=3D"top">
+<div id=3D"LPTitle_15403698863000.9916224528545828">
+<p class=3D"x_MsoNormal" style=3D"margin-top:15.0pt"><span style=3D"font-si=
+ze:16.0pt; font-family:&quot;Segoe UI Light&quot;,sans-serif; color:#0078D7=
+"><a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target=
+=3D"_blank" id=3D"LPlnk74812" class=3D"OWAAutoLink" previewremoved=3D"true"=
+><span style=3D"text-decoration:none">amd-gfx
+ Info Page - freedesktop.org</span></a></span></p>
 </div>
-<div style=3D"margin-top:7.5pt;margin-bottom:12.0pt" id=3D"LPMetadata_15403=
-701438120.035970050768817985">
-<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:10.5pt"><span=
- style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,sans-serif;colo=
-r:#666666">lists.freedesktop.org<o:p></o:p></span></p>
+<div id=3D"LPMetadata_15403698863000.39120505537129757" style=3D"margin-top=
+:7.5pt; margin-bottom:12.0pt">
+<p class=3D"x_MsoNormal" style=3D"margin-top:15.0pt; line-height:10.5pt"><s=
+pan style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sans-serif;=
+ color:#666666">lists.freedesktop.org</span></p>
 </div>
-<div id=3D"LPDescription_15403701438120.9681582559548375">
-<p class=3D"MsoNormal" style=3D"margin-top:15.0pt;line-height:15.0pt"><span=
- style=3D"font-size:10.5pt;font-family:&quot;Segoe UI&quot;,sans-serif;colo=
-r:#666666">To see the collection of prior postings to the list, visit the a=
-md-gfx Archives.. Using amd-gfx: To post a message
- to all the list members, send email to <a href=3D"mailto:amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
+<div id=3D"LPDescription_15403698863000.17702711523041492">
+<p class=3D"x_MsoNormal" style=3D"margin-top:15.0pt; line-height:15.0pt"><s=
+pan style=3D"font-size:10.5pt; font-family:&quot;Segoe UI&quot;,sans-serif;=
+ color:#666666">To see the collection of prior postings to the list, visit =
+the amd-gfx Archives.. Using amd-gfx: To post a
+ message to all the list members, send email to <a href=3D"mailto:amd-gfx@l=
+ists.freedesktop.org" id=3D"LPlnk253702" class=3D"OWAAutoLink" previewremov=
+ed=3D"true">
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>. You can subscribe to the list, or change=
- your existing subscription, in the sections below.<o:p></o:p></span></p>
+ your existing subscription, in the sections below.</span></p>
 </div>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
-</p>
+<p class=3D"x_MsoNormal"><span style=3D"color:black">&nbsp;</span></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -563,9 +859,9 @@ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>. You can subscribe
 </body>
 </html>
 
---_000_SN6PR12MB2656C84D3FDFB470BC17653DE4F60SN6PR12MB2656namp_--
+--_000_BYAPR12MB27756445D4157DD337C5B6B2FBF60BYAPR12MB2775namp_--
 
---===============1253123602==
+--===============1929356242==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -575,4 +871,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1253123602==--
+--===============1929356242==--
