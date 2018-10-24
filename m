@@ -1,493 +1,185 @@
-From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Patch csa mc address in IB packet
-Date: Wed, 24 Oct 2018 07:00:15 +0000
-Message-ID: <BYAPR12MB2775BEA8CAE420B02B12552AFBF60@BYAPR12MB2775.namprd12.prod.outlook.com>
-References: <1540361003-3443-1-git-send-email-Rex.Zhu@amd.com>,
- <BY1PR12MB0502AE01F45D60C7BD199D8AB4F60@BY1PR12MB0502.namprd12.prod.outlook.com>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: Re: [PATCH v2 1/2] drm/sched: Add boolean to mark if sched is ready
+ to work v2
+Date: Wed, 24 Oct 2018 07:01:34 +0000
+Message-ID: <ff1613d0-9df2-1f55-65ac-e43ee9777613@amd.com>
+References: <1539982364-6533-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1eed2f47-90da-e518-1c14-3ad5156044a3@amd.com>
+ <9c7a04f6-9fc0-8885-22cc-0c6d5dc4af51@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0465960023=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY1PR12MB0502AE01F45D60C7BD199D8AB4F60-PicGAnIBOobrCwm+z9iKNgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0465960023==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB2775BEA8CAE420B02B12552AFBF60BYAPR12MB2775namp_"
-
---_000_BYAPR12MB2775BEA8CAE420B02B12552AFBF60BYAPR12MB2775namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Sorry, Please ignore this patch.
-
-
-Best Regards
-
-Rex
-
-
-________________________________
-From: Zhou, David(ChunMing)
-Sent: Wednesday, October 24, 2018 2:55 PM
-To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhu, Rex
-Subject: RE: [PATCH v2] drm/amdgpu: Patch csa mc address in IB packet
-
-
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Rex
-> Zhu
-> Sent: Wednesday, October 24, 2018 2:03 PM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Zhu, Rex <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH v2] drm/amdgpu: Patch csa mc address in IB packet
->
-> the csa buffer is used by sdma engine to do context save when preemption
-> happens. it the mc address is zero, mean the preemtpion feature(MCBP) is
-> disabled.
->
-> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 13 +++++++++++++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  2 ++
->  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   |  8 ++++++--
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  8 ++++++--
->  4 files changed, 27 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> index 0fb9907..24b80bc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -40,3 +40,16 @@ struct amdgpu_sdma_instance *
-> amdgpu_get_sdma_instance(struct amdgpu_ring *ring)
->
->        return NULL;
->  }
-> +
-> +int amdgpu_get_sdma_index(struct amdgpu_ring *ring, uint32_t *index) {
-> +     struct amdgpu_device *adev =3D ring->adev;
-> +     int i;
-> +
-> +     for (i =3D 0; i < adev->sdma.num_instances; i++)
-> +             if (ring =3D=3D &adev->sdma.instance[i].ring ||
-> +                 ring =3D=3D &adev->sdma.instance[i].page)
-> +                     return i;
-> +
-> +     return -EINVAL;
-> +}
-
-Loop for checking works,  but looks not good.
-
-If you need ring index, you can define them first as enum, and evaluate enu=
-m index to ring when ring initializing.
-
-Regards,
-David Zhou
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> index 479a245..314078a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-> @@ -26,6 +26,7 @@
->
->  /* max number of IP instances */
->  #define AMDGPU_MAX_SDMA_INSTANCES            2
-> +#define AMDGPU_SDMA_CSA_SIZE                 (1024)
->
->  enum amdgpu_sdma_irq {
->        AMDGPU_SDMA_IRQ_TRAP0 =3D 0,
-> @@ -96,4 +97,5 @@ struct amdgpu_buffer_funcs {  struct
-> amdgpu_sdma_instance *  amdgpu_get_sdma_instance(struct amdgpu_ring
-> *ring);
->
-> +int amdgpu_get_sdma_index(struct amdgpu_ring *ring, uint32_t *index);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> index f5e6aa2..fdc5d75 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -424,7 +424,11 @@ static void sdma_v3_0_ring_emit_ib(struct
-> amdgpu_ring *ring,
->                                   bool ctx_switch)
->  {
->        unsigned vmid =3D GET_VMID(job);
-> +     uint64_t csa_mc_addr =3D job ? job->csa_mc_addr : 0;
-> +     uint32_t i =3D 0;
->
-> +     if (amdgpu_get_sdma_index(ring, &i))
-> +             return -EINVAL;
->        /* IB packet must end on a 8 DW boundary */
->        sdma_v3_0_ring_insert_nop(ring, (10 - (lower_32_bits(ring->wptr) &
-> 7)) % 8);
->
-> @@ -434,8 +438,8 @@ static void sdma_v3_0_ring_emit_ib(struct
-> amdgpu_ring *ring,
->        amdgpu_ring_write(ring, lower_32_bits(ib->gpu_addr) & 0xffffffe0);
->        amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr));
->        amdgpu_ring_write(ring, ib->length_dw);
-> -     amdgpu_ring_write(ring, 0);
-> -     amdgpu_ring_write(ring, 0);
-> +     amdgpu_ring_write(ring, lower_32_bits(csa_mc_addr + i *
-> AMDGPU_SDMA_CSA_SIZE));
-> +     amdgpu_ring_write(ring, upper_32_bits(csa_mc_addr + i *
-> +AMDGPU_SDMA_CSA_SIZE));
->
->  }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> index 2282ac1..e69a584 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> @@ -507,7 +507,11 @@ static void sdma_v4_0_ring_emit_ib(struct
-> amdgpu_ring *ring,
->                                   bool ctx_switch)
->  {
->        unsigned vmid =3D GET_VMID(job);
-> +     uint64_t csa_mc_addr =3D job ? job->csa_mc_addr : 0;
-> +     uint32_t i =3D 0;
->
-> +     if (amdgpu_get_sdma_index(ring, &i))
-> +             return -EINVAL;
->        /* IB packet must end on a 8 DW boundary */
->        sdma_v4_0_ring_insert_nop(ring, (10 - (lower_32_bits(ring->wptr) &
-> 7)) % 8);
->
-> @@ -517,8 +521,8 @@ static void sdma_v4_0_ring_emit_ib(struct
-> amdgpu_ring *ring,
->        amdgpu_ring_write(ring, lower_32_bits(ib->gpu_addr) & 0xffffffe0);
->        amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr));
->        amdgpu_ring_write(ring, ib->length_dw);
-> -     amdgpu_ring_write(ring, 0);
-> -     amdgpu_ring_write(ring, 0);
-> +     amdgpu_ring_write(ring, lower_32_bits(csa_mc_addr + i *
-> AMDGPU_SDMA_CSA_SIZE));
-> +     amdgpu_ring_write(ring, upper_32_bits(csa_mc_addr + i *
-> +AMDGPU_SDMA_CSA_SIZE));
->
->  }
->
-> --
-> 1.9.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in the sections below.
-
-
-
---_000_BYAPR12MB2775BEA8CAE420B02B12552AFBF60BYAPR12MB2775namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Sorry, Please ignore this patch.<=
-/p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
-<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
-</p>
-<br>
-<br>
-<div style=3D"color: rgb(0, 0, 0);">
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
-=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Zhou, David(ChunMing=
-)<br>
-<b>Sent:</b> Wednesday, October 24, 2018 2:55 PM<br>
-<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhu, Rex<br>
-<b>Subject:</b> RE: [PATCH v2] drm/amdgpu: Patch csa mc address in IB packe=
-t</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf =
-Of Rex<br>
-&gt; Zhu<br>
-&gt; Sent: Wednesday, October 24, 2018 2:03 PM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Zhu, Rex &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: [PATCH v2] drm/amdgpu: Patch csa mc address in IB packet<br>
-&gt; <br>
-&gt; the csa buffer is used by sdma engine to do context save when preempti=
-on<br>
-&gt; happens. it the mc address is zero, mean the preemtpion feature(MCBP) =
-is<br>
-&gt; disabled.<br>
-&gt; <br>
-&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 13 &#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt; drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |&nbsp; 2 &#43;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c&nbsp;&nbsp; |&nbsp; 8 &#4=
-3;&#43;&#43;&#43;&#43;&#43;--<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c&nbsp;&nbsp; |&nbsp; 8 &#4=
-3;&#43;&#43;&#43;&#43;&#43;--<br>
-&gt;&nbsp; 4 files changed, 27 insertions(&#43;), 4 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<br>
-&gt; index 0fb9907..24b80bc 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c<br>
-&gt; @@ -40,3 &#43;40,16 @@ struct amdgpu_sdma_instance *<br>
-&gt; amdgpu_get_sdma_instance(struct amdgpu_ring *ring)<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<br>
-&gt;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;int amdgpu_get_sdma_index(struct amdgpu_ring *ring, uint32_t *ind=
-ex) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D ring-&gt;=
-adev;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;sdma.num_i=
-nstances; i&#43;&#43;)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (ring =3D=3D &amp;adev-&gt;sdma.instance[i].ring ||<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring =3D=3D &amp;adev-&gt;sdma.instance[i].=
-page)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return i;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&gt; &#43;}<br>
-<br>
-Loop for checking works,&nbsp; but looks not good.<br>
-<br>
-If you need ring index, you can define them first as enum, and evaluate enu=
-m index to ring when ring initializing.<br>
-<br>
-Regards,<br>
-David Zhou<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h<br>
-&gt; index 479a245..314078a 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h<br>
-&gt; @@ -26,6 &#43;26,7 @@<br>
-&gt; <br>
-&gt;&nbsp; /* max number of IP instances */<br>
-&gt;&nbsp; #define AMDGPU_MAX_SDMA_INSTANCES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2<br>
-&gt; &#43;#define AMDGPU_SDMA_CSA_SIZE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1024)<br>
-&gt; <br>
-&gt;&nbsp; enum amdgpu_sdma_irq {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_SDMA_IRQ_TRAP0 =3D 0,=
-<br>
-&gt; @@ -96,4 &#43;97,5 @@ struct amdgpu_buffer_funcs {&nbsp; struct<br>
-&gt; amdgpu_sdma_instance *&nbsp; amdgpu_get_sdma_instance(struct amdgpu_ri=
-ng<br>
-&gt; *ring);<br>
-&gt; <br>
-&gt; &#43;int amdgpu_get_sdma_index(struct amdgpu_ring *ring, uint32_t *ind=
-ex);<br>
-&gt;&nbsp; #endif<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; index f5e6aa2..fdc5d75 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; @@ -424,7 &#43;424,11 @@ static void sdma_v3_0_ring_emit_ib(struct<br>
-&gt; amdgpu_ring *ring,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)=
-<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D GET_VMID(j=
-ob);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t csa_mc_addr =3D job ? job-&gt;c=
-sa_mc_addr : 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0;<br>
-&gt; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_get_sdma_index(ring, &amp;i))=
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return -EINVAL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* IB packet must end on a 8=
- DW boundary */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_v3_0_ring_insert_nop(ri=
-ng, (10 - (lower_32_bits(ring-&gt;wptr) &amp;<br>
-&gt; 7)) % 8);<br>
-&gt; <br>
-&gt; @@ -434,8 &#43;438,8 @@ static void sdma_v3_0_ring_emit_ib(struct<br>
-&gt; amdgpu_ring *ring,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, lowe=
-r_32_bits(ib-&gt;gpu_addr) &amp; 0xffffffe0);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, uppe=
-r_32_bits(ib-&gt;gpu_addr));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, ib-&=
-gt;length_dw);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, 0);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, lower_32_bits(cs=
-a_mc_addr &#43; i *<br>
-&gt; AMDGPU_SDMA_CSA_SIZE));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, upper_32_bits(cs=
-a_mc_addr &#43; i *<br>
-&gt; &#43;AMDGPU_SDMA_CSA_SIZE));<br>
-&gt; <br>
-&gt;&nbsp; }<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; index 2282ac1..e69a584 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; @@ -507,7 &#43;507,11 @@ static void sdma_v4_0_ring_emit_ib(struct<br>
-&gt; amdgpu_ring *ring,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)=
-<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D GET_VMID(j=
-ob);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t csa_mc_addr =3D job ? job-&gt;c=
-sa_mc_addr : 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i =3D 0;<br>
-&gt; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_get_sdma_index(ring, &amp;i))=
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return -EINVAL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* IB packet must end on a 8=
- DW boundary */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_v4_0_ring_insert_nop(ri=
-ng, (10 - (lower_32_bits(ring-&gt;wptr) &amp;<br>
-&gt; 7)) % 8);<br>
-&gt; <br>
-&gt; @@ -517,8 &#43;521,8 @@ static void sdma_v4_0_ring_emit_ib(struct<br>
-&gt; amdgpu_ring *ring,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, lowe=
-r_32_bits(ib-&gt;gpu_addr) &amp; 0xffffffe0);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, uppe=
-r_32_bits(ib-&gt;gpu_addr));<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, ib-&=
-gt;length_dw);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, 0);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, 0);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, lower_32_bits(cs=
-a_mc_addr &#43; i *<br>
-&gt; AMDGPU_SDMA_CSA_SIZE));<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, upper_32_bits(cs=
-a_mc_addr &#43; i *<br>
-&gt; &#43;AMDGPU_SDMA_CSA_SIZE));<br>
-&gt; <br>
-&gt;&nbsp; }<br>
-&gt; <br>
-&gt; --<br>
-&gt; 1.9.1<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
-=3D"LPlnk678787" class=3D"OWAAutoLink" previewremoved=3D"true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15403643288900.9389810958492499" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15403643288620.05097377372827949" style=3D"width: =
-90%; background-color: rgb(255, 255, 255); position: relative; overflow: au=
-to; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: =
-1px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200)=
-;" role=3D"presentation" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing: 0px;" valign=3D"top">
-<td id=3D"TextCell_15403643288820.060056346354324885" style=3D"vertical-ali=
-gn: top; position: relative; padding: 0px; display: table-cell;" colspan=3D=
-"2">
-<div id=3D"LPRemovePreviewContainer_15403643288820.009954324085404198"></di=
-v>
-<div id=3D"LPTitle_15403643288820.8192472788978892" style=3D"top: 0px; colo=
-r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;=
-wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&q=
-uot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif=
-; line-height: 21px;">
-<a id=3D"LPUrlAnchor_15403643288880.8875590676966787" style=3D"text-decorat=
-ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
- target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15403643288880.35548407863940923" style=3D"margin: 10=
-px 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quo=
-t;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tah=
-oma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15403643288900.6201448818586388" style=3D"display:=
- block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
-segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, =
-Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; o=
-verflow: hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in
- the sections below.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BYAPR12MB2775BEA8CAE420B02B12552AFBF60BYAPR12MB2775namp_--
-
---===============0465960023==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <9c7a04f6-9fc0-8885-22cc-0c6d5dc4af51@amd.com>
+Content-Language: en-US
+Content-ID: <BA22BEE6DA3156438FAE4BEE8A77D6BD@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0465960023==--
+QW0gMjMuMTAuMTggdW0gMTY6MjMgc2NocmllYiBHcm9kem92c2t5LCBBbmRyZXk6DQo+DQo+IE9u
+IDEwLzIyLzIwMTggMDU6MzMgQU0sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOg0KPj4gQW0gMTku
+MTAuMTggdW0gMjI6NTIgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToNCj4+PiBQcm9ibGVtOg0K
+Pj4+IEEgcGFydGljdWxhciBzY2hlZHVsZXIgbWF5IGJlY29tZSB1bnN1YWJsZSAodW5kZXJseWlu
+ZyBIVykgYWZ0ZXINCj4+PiBzb21lIGV2ZW50IChlLmcuIEdQVSByZXNldCkuIElmIGl0J3MgbGF0
+ZXIgY2hvc2VuIGJ5DQo+Pj4gdGhlIGdldCBmcmVlIHNjaGVkLiBwb2xpY3kgYSBjb21tYW5kIHdp
+bGwgZmFpbCB0byBiZQ0KPj4+IHN1Ym1pdHRlZC4NCj4+Pg0KPj4+IEZpeDoNCj4+PiBBZGQgYSBk
+cml2ZXIgc3BlY2lmaWMgY2FsbGJhY2sgdG8gcmVwb3J0IHRoZSBzY2hlZCBzdGF0dXMgc28NCj4+
+PiBycSB3aXRoIGJhZCBzY2hlZCBjYW4gYmUgYXZvaWRlZCBpbiBmYXZvciBvZiB3b3JraW5nIG9u
+ZSBvcg0KPj4+IG5vbmUgaW4gd2hpY2ggY2FzZSBqb2IgaW5pdCB3aWxsIGZhaWwuDQo+Pj4NCj4+
+PiB2MjogU3dpdGNoIGZyb20gZHJpdmVyIGNhbGxiYWNrIHRvIGZsYWcgaW4gc2NoZWR1bGVyLg0K
+Pj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92
+c2t5QGFtZC5jb20+DQo+Pj4gLS0tDQo+Pj4gICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9mZW5jZS5jIHwgIDIgKy0NCj4+PiAgICAgZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYv
+ZXRuYXZpdl9zY2hlZC5jICAgfCAgMiArLQ0KPj4+ICAgICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1
+bGVyL3NjaGVkX2VudGl0eS5jICB8ICA5ICsrKysrKysrLQ0KPj4+ICAgICBkcml2ZXJzL2dwdS9k
+cm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYyAgICB8IDEwICsrKysrKysrKy0NCj4+PiAgICAgZHJp
+dmVycy9ncHUvZHJtL3YzZC92M2Rfc2NoZWQuYyAgICAgICAgICAgfCAgNCArKy0tDQo+Pj4gICAg
+IGluY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaCAgICAgICAgICAgICAgIHwgIDUgKysrKy0NCj4+
+PiAgICAgNiBmaWxlcyBjaGFuZ2VkLCAyNSBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQ0K
+Pj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9m
+ZW5jZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMNCj4+PiBp
+bmRleCA1NDQ4Y2YyLi5iZjg0NWIwIDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2ZlbmNlLmMNCj4+PiBAQCAtNDUwLDcgKzQ1MCw3IEBAIGludCBhbWRncHVf
+ZmVuY2VfZHJpdmVyX2luaXRfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQo+Pj4gICAg
+IA0KPj4+ICAgICAJCXIgPSBkcm1fc2NoZWRfaW5pdCgmcmluZy0+c2NoZWQsICZhbWRncHVfc2No
+ZWRfb3BzLA0KPj4+ICAgICAJCQkJICAgbnVtX2h3X3N1Ym1pc3Npb24sIGFtZGdwdV9qb2JfaGFu
+Z19saW1pdCwNCj4+PiAtCQkJCSAgIHRpbWVvdXQsIHJpbmctPm5hbWUpOw0KPj4+ICsJCQkJICAg
+dGltZW91dCwgcmluZy0+bmFtZSwgZmFsc2UpOw0KPj4+ICAgICAJCWlmIChyKSB7DQo+Pj4gICAg
+IAkJCURSTV9FUlJPUigiRmFpbGVkIHRvIGNyZWF0ZSBzY2hlZHVsZXIgb24gcmluZyAlcy5cbiIs
+DQo+Pj4gICAgIAkJCQkgIHJpbmctPm5hbWUpOw0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vZXRuYXZpdi9ldG5hdml2X3NjaGVkLmMgYi9kcml2ZXJzL2dwdS9kcm0vZXRuYXZpdi9l
+dG5hdml2X3NjaGVkLmMNCj4+PiBpbmRleCBmOGM1ZjFlLi45ZGNhMzQ3IDEwMDY0NA0KPj4+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYw0KPj4+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYw0KPj4+IEBAIC0xNzgsNyArMTc4
+LDcgQEAgaW50IGV0bmF2aXZfc2NoZWRfaW5pdChzdHJ1Y3QgZXRuYXZpdl9ncHUgKmdwdSkNCj4+
+PiAgICAgDQo+Pj4gICAgIAlyZXQgPSBkcm1fc2NoZWRfaW5pdCgmZ3B1LT5zY2hlZCwgJmV0bmF2
+aXZfc2NoZWRfb3BzLA0KPj4+ICAgICAJCQkgICAgIGV0bmF2aXZfaHdfam9ic19saW1pdCwgZXRu
+YXZpdl9qb2JfaGFuZ19saW1pdCwNCj4+PiAtCQkJICAgICBtc2Vjc190b19qaWZmaWVzKDUwMCks
+IGRldl9uYW1lKGdwdS0+ZGV2KSk7DQo+Pj4gKwkJCSAgICAgbXNlY3NfdG9famlmZmllcyg1MDAp
+LCBkZXZfbmFtZShncHUtPmRldiksIHRydWUpOw0KPj4+ICAgICAJaWYgKHJldCkNCj4+PiAgICAg
+CQlyZXR1cm4gcmV0Ow0KPj4+ICAgICANCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3NjaGVkdWxlci9zY2hlZF9lbnRpdHkuYyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2No
+ZWRfZW50aXR5LmMNCj4+PiBpbmRleCAzZTIyYTU0Li5iYTU0YzMwIDEwMDY0NA0KPj4+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfZW50aXR5LmMNCj4+PiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2VudGl0eS5jDQo+Pj4gQEAgLTEzMCw3ICsxMzAs
+MTQgQEAgZHJtX3NjaGVkX2VudGl0eV9nZXRfZnJlZV9zY2hlZChzdHJ1Y3QgZHJtX3NjaGVkX2Vu
+dGl0eSAqZW50aXR5KQ0KPj4+ICAgICAJaW50IGk7DQo+Pj4gICAgIA0KPj4+ICAgICAJZm9yIChp
+ID0gMDsgaSA8IGVudGl0eS0+bnVtX3JxX2xpc3Q7ICsraSkgew0KPj4+IC0JCW51bV9qb2JzID0g
+YXRvbWljX3JlYWQoJmVudGl0eS0+cnFfbGlzdFtpXS0+c2NoZWQtPm51bV9qb2JzKTsNCj4+PiAr
+CQlzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkID0gZW50aXR5LT5ycV9saXN0W2ldLT5z
+Y2hlZDsNCj4+PiArDQo+Pj4gKwkJaWYgKCFlbnRpdHktPnJxX2xpc3RbaV0tPnNjaGVkLT5yZWFk
+eSkgew0KPj4+ICsJCQlEUk1fV0FSTigic2NoZWQlcyBpcyBub3QgcmVhZHksIHNraXBwaW5nIiwg
+c2NoZWQtPm5hbWUpOw0KPj4+ICsJCQljb250aW51ZTsNCj4+PiArCQl9DQo+Pj4gKw0KPj4+ICsJ
+CW51bV9qb2JzID0gYXRvbWljX3JlYWQoJnNjaGVkLT5udW1fam9icyk7DQo+Pj4gICAgIAkJaWYg
+KG51bV9qb2JzIDwgbWluX2pvYnMpIHsNCj4+PiAgICAgCQkJbWluX2pvYnMgPSBudW1fam9iczsN
+Cj4+PiAgICAgCQkJcnEgPSBlbnRpdHktPnJxX2xpc3RbaV07DQo+Pj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jIGIvZHJpdmVycy9ncHUvZHJtL3Nj
+aGVkdWxlci9zY2hlZF9tYWluLmMNCj4+PiBpbmRleCA2M2I5OTdkLi43NzJhZGVjIDEwMDY0NA0K
+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jDQo+Pj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMNCj4+PiBAQCAtNDIwLDYg
+KzQyMCw5IEBAIGludCBkcm1fc2NoZWRfam9iX2luaXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKmpv
+YiwNCj4+PiAgICAgCXN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQ7DQo+Pj4gICAgIA0K
+Pj4+ICAgICAJZHJtX3NjaGVkX2VudGl0eV9zZWxlY3RfcnEoZW50aXR5KTsNCj4+PiArCWlmICgh
+ZW50aXR5LT5ycSkNCj4+PiArCQlyZXR1cm4gLUVOT0VOVDsNCj4+PiArDQo+Pj4gICAgIAlzY2hl
+ZCA9IGVudGl0eS0+cnEtPnNjaGVkOw0KPj4+ICAgICANCj4+PiAgICAgCWpvYi0+c2NoZWQgPSBz
+Y2hlZDsNCj4+PiBAQCAtNTk4LDYgKzYwMSw3IEBAIHN0YXRpYyBpbnQgZHJtX3NjaGVkX21haW4o
+dm9pZCAqcGFyYW0pDQo+Pj4gICAgICAqIEBoYW5nX2xpbWl0OiBudW1iZXIgb2YgdGltZXMgdG8g
+YWxsb3cgYSBqb2IgdG8gaGFuZyBiZWZvcmUgZHJvcHBpbmcgaXQNCj4+PiAgICAgICogQHRpbWVv
+dXQ6IHRpbWVvdXQgdmFsdWUgaW4gamlmZmllcyBmb3IgdGhlIHNjaGVkdWxlcg0KPj4+ICAgICAg
+KiBAbmFtZTogbmFtZSB1c2VkIGZvciBkZWJ1Z2dpbmcNCj4+PiArICogQHJlYWR5OiBtYXJrcyBp
+ZiB0aGUgdW5kZXJseWluZyBIVyBpcyByZWFkeSB0byB3b3JrDQo+Pj4gICAgICAqDQo+Pj4gICAg
+ICAqIFJldHVybiAwIG9uIHN1Y2Nlc3MsIG90aGVyd2lzZSBlcnJvciBjb2RlLg0KPj4+ICAgICAg
+Ki8NCj4+PiBAQCAtNjA2LDcgKzYxMCw4IEBAIGludCBkcm1fc2NoZWRfaW5pdChzdHJ1Y3QgZHJt
+X2dwdV9zY2hlZHVsZXIgKnNjaGVkLA0KPj4+ICAgICAJCSAgIHVuc2lnbmVkIGh3X3N1Ym1pc3Np
+b24sDQo+Pj4gICAgIAkJICAgdW5zaWduZWQgaGFuZ19saW1pdCwNCj4+PiAgICAgCQkgICBsb25n
+IHRpbWVvdXQsDQo+Pj4gLQkJICAgY29uc3QgY2hhciAqbmFtZSkNCj4+PiArCQkgICBjb25zdCBj
+aGFyICpuYW1lLA0KPj4+ICsJCSAgIGJvb2wJcmVhZHkpDQo+PiBQbGVhc2UgZHJvcCB0aGUgcmVh
+ZHkgZmxhZyBoZXJlLiBXZSBzaG91bGQgY29uc2lkZXIgYSBzY2hlZHVsZXIgcmVhZHkgYXMNCj4+
+IHNvb24gYXMgaXQgaXMgaW5pdGlhbGl6ZWQuDQo+IE5vdCB0b3RhbGx5IGFncmVlIHdpdGggdGhp
+cyBiZWNhdXNlIHRoaXMgZmxhZyBtYXJrcyB0aGF0IEhXIHJlYWR5IHRvIHJ1bg0KPiAodGhlIEhX
+IHJpbmcpIGFuZCBub3QgdGhlIHNjaGVkdWxlciB3aGljaCBpcyBTVyBlbnRpdHksDQoNCkFuZCBl
+eGFjdGx5IHRoYXQncyBpbmNvcnJlY3QuIFRoaXMgcmVhZHkgZmxhZyBtYXJrcyBpZiB0aGUgU1cg
+c2NoZWR1bGVyIA0KaXMgcmVhZHkgdG8gYWNjZXB0IGpvYiBzdWJtaXNzaW9ucy4gSWYgdGhlIHVu
+ZGVybHlpbmcgaGFyZHdhcmUgaXMgcmVhZHkgDQpvciBub3QgaXMgY29tcGxldGVseSBpcnJlbGV2
+YW50IGZvciB0aGlzIHN0YXRlLg0KDQpGb3IgZXhhbXBsZSB3ZSBzaG91bGQgTk9UIHNldCBpdCB0
+byBmYWxzZSBkdXJpbmcgR1BVIHJlc2V0LiBPbmx5IHdoZW4gYSANCnJlc2V0IGZhaWxlZCBhbmQg
+YSBIVyBlbmdpbmUgcnVucyBpbnRvIGFuIHVucmVjb3ZlcmFibGUgZmFpbHVyZSB0aGVuIHdlIA0K
+Y2FuIHNldCB0aGUgZmxhZyB0byBmYWxzZS4NCg0KU2F5aW5nIHRoaXMgc2V0dGluZyBpdCB0byBm
+YWxzZSBpbiBhbGwgdGhlIElQIHNwZWNpZmljICpfc3RvcCgpIGFuZCANCipfZmluaSgpIGZ1bmN0
+aW9ucyBpcyBwcm9iYWJseSBpbmNvcnJlY3QgYXMgd2VsbC4NCg0KQ2hyaXN0aWFuLg0KDQo+IEZv
+ciBhbWRncHUgLSBkcm1fc2NoZWRfaW5pdCBpcyBjYWxsZWQgZnJvbSB0aGUgc3dfaW5pdCBzdGFn
+ZSB3aGlsZSB0aGUNCj4gcmluZyBpbml0aWFsaXphdGlvbiBhbmQgdGVzdHMgdGFrZXMgcGxhY2Ug
+aW4gaHdfaW5pdCBzdGFnZS4gTWF5YmUgaWYgdGhlDQo+IGZsYWcgaXMNCj4gbmFtZWQgJ2h3X3Jl
+YWR5JyBpbnN0ZWFkIG9mIGp1c3QgJ3JlYWR5JyBpdCB3b3VsZCBtYWtlIG1vcmUgc2Vuc2UgPw0K
+PiBBbHNvIGluIGNhc2UgdGhlcmUgaXMgc29tZSBjb2RlIHdoaWNoIHRvZGF5IGxvb2tzIGF0ICdy
+ZWFkeScgZmxhZyBzdGF0ZQ0KPiB0byB0YWtlIHNvbWUgYWN0aW9uIGFuZCB0aGUgY29kZSBpcyBl
+eGVjdXRlZCBhZnRlciBkcm1fc2NoZWRfaW5pdCBidXQNCj4gYmVmb3JlDQo+IGFtZGdwdV9yaW5n
+X3Rlc3RfaGVscGVyIGlzIGNhbGxlZCBpdCB3aWxsIHNlZSB0aGUgJ3JlYWR5JyBmbGFnID09IHRy
+dWUNCj4gaW5zdGVhZCBvZiBmYWxzZSBhcyBpdCdzIHRvZGF5Lg0KPg0KPiBBbmRyZXkNCj4NCj4+
+IEFwYXJ0IGZyb20gdGhhdCBsb29rcyBnb29kIHRvIG1lLA0KPj4gQ2hyaXN0aWFuLg0KPj4NCj4+
+PiAgICAgew0KPj4+ICAgICAJaW50IGk7DQo+Pj4gICAgIAlzY2hlZC0+b3BzID0gb3BzOw0KPj4+
+IEBAIC02MzMsNiArNjM4LDcgQEAgaW50IGRybV9zY2hlZF9pbml0KHN0cnVjdCBkcm1fZ3B1X3Nj
+aGVkdWxlciAqc2NoZWQsDQo+Pj4gICAgIAkJcmV0dXJuIFBUUl9FUlIoc2NoZWQtPnRocmVhZCk7
+DQo+Pj4gICAgIAl9DQo+Pj4gICAgIA0KPj4+ICsJc2NoZWQtPnJlYWR5ID0gcmVhZHk7DQo+Pj4g
+ICAgIAlyZXR1cm4gMDsNCj4+PiAgICAgfQ0KPj4+ICAgICBFWFBPUlRfU1lNQk9MKGRybV9zY2hl
+ZF9pbml0KTsNCj4+PiBAQCAtNjQ4LDUgKzY1NCw3IEBAIHZvaWQgZHJtX3NjaGVkX2Zpbmkoc3Ry
+dWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCkNCj4+PiAgICAgew0KPj4+ICAgICAJaWYgKHNj
+aGVkLT50aHJlYWQpDQo+Pj4gICAgIAkJa3RocmVhZF9zdG9wKHNjaGVkLT50aHJlYWQpOw0KPj4+
+ICsNCj4+PiArCXNjaGVkLT5yZWFkeSA9IGZhbHNlOw0KPj4+ICAgICB9DQo+Pj4gICAgIEVYUE9S
+VF9TWU1CT0woZHJtX3NjaGVkX2ZpbmkpOw0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vdjNkL3YzZF9zY2hlZC5jIGIvZHJpdmVycy9ncHUvZHJtL3YzZC92M2Rfc2NoZWQuYw0KPj4+
+IGluZGV4IDgwYjY0MWYuLjdjZWRiNWYgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L3YzZC92M2Rfc2NoZWQuYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX3NjaGVk
+LmMNCj4+PiBAQCAtMjEyLDcgKzIxMiw3IEBAIHYzZF9zY2hlZF9pbml0KHN0cnVjdCB2M2RfZGV2
+ICp2M2QpDQo+Pj4gICAgIAkJCSAgICAgJnYzZF9zY2hlZF9vcHMsDQo+Pj4gICAgIAkJCSAgICAg
+aHdfam9ic19saW1pdCwgam9iX2hhbmdfbGltaXQsDQo+Pj4gICAgIAkJCSAgICAgbXNlY3NfdG9f
+amlmZmllcyhoYW5nX2xpbWl0X21zKSwNCj4+PiAtCQkJICAgICAidjNkX2JpbiIpOw0KPj4+ICsJ
+CQkgICAgICJ2M2RfYmluIiwgdHJ1ZSk7DQo+Pj4gICAgIAlpZiAocmV0KSB7DQo+Pj4gICAgIAkJ
+ZGV2X2Vycih2M2QtPmRldiwgIkZhaWxlZCB0byBjcmVhdGUgYmluIHNjaGVkdWxlcjogJWQuIiwg
+cmV0KTsNCj4+PiAgICAgCQlyZXR1cm4gcmV0Ow0KPj4+IEBAIC0yMjIsNyArMjIyLDcgQEAgdjNk
+X3NjaGVkX2luaXQoc3RydWN0IHYzZF9kZXYgKnYzZCkNCj4+PiAgICAgCQkJICAgICAmdjNkX3Nj
+aGVkX29wcywNCj4+PiAgICAgCQkJICAgICBod19qb2JzX2xpbWl0LCBqb2JfaGFuZ19saW1pdCwN
+Cj4+PiAgICAgCQkJICAgICBtc2Vjc190b19qaWZmaWVzKGhhbmdfbGltaXRfbXMpLA0KPj4+IC0J
+CQkgICAgICJ2M2RfcmVuZGVyIik7DQo+Pj4gKwkJCSAgICAgInYzZF9yZW5kZXIiLCB0cnVlKTsN
+Cj4+PiAgICAgCWlmIChyZXQpIHsNCj4+PiAgICAgCQlkZXZfZXJyKHYzZC0+ZGV2LCAiRmFpbGVk
+IHRvIGNyZWF0ZSByZW5kZXIgc2NoZWR1bGVyOiAlZC4iLA0KPj4+ICAgICAJCQlyZXQpOw0KPj4+
+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggYi9pbmNsdWRlL2RybS9n
+cHVfc2NoZWR1bGVyLmgNCj4+PiBpbmRleCAwNjg0ZGNkLi4wMzdjYWVhIDEwMDY0NA0KPj4+IC0t
+LSBhL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaA0KPj4+ICsrKyBiL2luY2x1ZGUvZHJtL2dw
+dV9zY2hlZHVsZXIuaA0KPj4+IEBAIC0yNjQsNiArMjY0LDcgQEAgc3RydWN0IGRybV9zY2hlZF9i
+YWNrZW5kX29wcyB7DQo+Pj4gICAgICAqIEBoYW5nX2xpbWl0OiBvbmNlIHRoZSBoYW5ncyBieSBh
+IGpvYiBjcm9zc2VzIHRoaXMgbGltaXQgdGhlbiBpdCBpcyBtYXJrZWQNCj4+PiAgICAgICogICAg
+ICAgICAgICAgIGd1aWx0eSBhbmQgaXQgd2lsbCBiZSBjb25zaWRlcmVkIGZvciBzY2hlZHVsaW5n
+IGZ1cnRoZXIuDQo+Pj4gICAgICAqIEBudW1fam9iczogdGhlIG51bWJlciBvZiBqb2JzIGluIHF1
+ZXVlIGluIHRoZSBzY2hlZHVsZXINCj4+PiArICogQHJlYWR5OiBtYXJrcyBpZiB0aGUgdW5kZXJs
+eWluZyBIVyBpcyByZWFkeSB0byB3b3JrDQo+Pj4gICAgICAqDQo+Pj4gICAgICAqIE9uZSBzY2hl
+ZHVsZXIgaXMgaW1wbGVtZW50ZWQgZm9yIGVhY2ggaGFyZHdhcmUgcmluZy4NCj4+PiAgICAgICov
+DQo+Pj4gQEAgLTI4MywxMiArMjg0LDE0IEBAIHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciB7DQo+
+Pj4gICAgIAlzcGlubG9ja190CQkJam9iX2xpc3RfbG9jazsNCj4+PiAgICAgCWludAkJCQloYW5n
+X2xpbWl0Ow0KPj4+ICAgICAJYXRvbWljX3QgICAgICAgICAgICAgICAgICAgICAgICBudW1fam9i
+czsNCj4+PiArCWJvb2wJCQlyZWFkeTsNCj4+PiAgICAgfTsNCj4+PiAgICAgDQo+Pj4gICAgIGlu
+dCBkcm1fc2NoZWRfaW5pdChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLA0KPj4+ICAg
+ICAJCSAgIGNvbnN0IHN0cnVjdCBkcm1fc2NoZWRfYmFja2VuZF9vcHMgKm9wcywNCj4+PiAgICAg
+CQkgICB1aW50MzJfdCBod19zdWJtaXNzaW9uLCB1bnNpZ25lZCBoYW5nX2xpbWl0LCBsb25nIHRp
+bWVvdXQsDQo+Pj4gLQkJICAgY29uc3QgY2hhciAqbmFtZSk7DQo+Pj4gKwkJICAgY29uc3QgY2hh
+ciAqbmFtZSwNCj4+PiArCQkgICBib29sCXJlYWR5KTsNCj4+PiAgICAgdm9pZCBkcm1fc2NoZWRf
+ZmluaShzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkKTsNCj4+PiAgICAgaW50IGRybV9z
+Y2hlZF9qb2JfaW5pdChzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqam9iLA0KPj4+ICAgICAJCSAgICAg
+ICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5LA0KPj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+
+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQoNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
