@@ -1,14 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: revert "enable gfxoff in non-sriov and
- stutter mode by default"
-Date: Wed, 24 Oct 2018 15:52:39 +0000
-Message-ID: <BN6PR12MB1809EB72A4FA6A73226B8E34F7F60@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181024125910.1134-1-christian.koenig@amd.com>
+From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: [PATCH xf86-video-ati 3/3] Allow up to six instances in Zaphod mode
+Date: Wed, 24 Oct 2018 18:40:19 +0200
+Message-ID: <20181024164019.5867-3-michel@daenzer.net>
+References: <20181024164019.5867-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1206837180=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181024125910.1134-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20181024164019.5867-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,187 +18,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1206837180==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Is it gfx off or stutter mode that causes the problem for you?  Can you nar=
-row it down?
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
-n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, October 24, 2018 8:59:10 AM
-To: Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [PATCH] drm/amdgpu: revert "enable gfxoff in non-sriov and stutter=
- mode by default"
-
-This is still completely breaking my Raven system.
-
-This reverts commit cdf2f910fa969adca1b0e3ad2b487821233dc038.
-
-Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 4 ++--
- 2 files changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index d11489e8b388..926eeb09d4c8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1493,8 +1493,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_=
-device *adev)
-         }
-
-         adev->powerplay.pp_feature =3D amdgpu_pp_feature_mask;
--       if (amdgpu_sriov_vf(adev))
--               adev->powerplay.pp_feature &=3D ~PP_GFXOFF_MASK;
-
-         for (i =3D 0; i < adev->num_ip_blocks; i++) {
-                 if ((amdgpu_ip_block_mask & (1 << i)) =3D=3D 0) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 27528eeb444c..3b7d511031c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -114,8 +114,8 @@ uint amdgpu_pg_mask =3D 0xffffffff;
- uint amdgpu_sdma_phase_quantum =3D 32;
- char *amdgpu_disable_cu =3D NULL;
- char *amdgpu_virtual_display =3D NULL;
--/* OverDrive(bit 14) disabled by default*/
--uint amdgpu_pp_feature_mask =3D 0xffffbfff;
-+/* OverDrive(bit 14),gfxoff(bit 15),stutter mode(bit 17) disabled by defau=
-lt*/
-+uint amdgpu_pp_feature_mask =3D 0xfffd3fff;
- int amdgpu_ngg =3D 0;
- int amdgpu_prim_buf_per_se =3D 0;
- int amdgpu_pos_buf_per_se =3D 0;
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Is it gfx off or stutter mode tha=
-t causes the problem for you?&nbsp; Can you narrow it down?</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
-.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, October 24, 2018 8:59:10 AM<br>
-<b>To:</b> Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: revert &quot;enable gfxoff in non-sriov=
- and stutter mode by default&quot;</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This is still completely breaking my Raven system.=
-<br>
-<br>
-This reverts commit cdf2f910fa969adca1b0e3ad2b487821233dc038.<br>
-<br>
-Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp; | 4 &#43;&#=
-43;--<br>
-&nbsp;2 files changed, 2 insertions(&#43;), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index d11489e8b388..926eeb09d4c8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -1493,8 &#43;1493,6 @@ static int amdgpu_device_ip_early_init(struct amd=
-gpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_feat=
-ure =3D amdgpu_pp_feature_mask;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;powerplay.pp_feature &amp;=3D ~PP_GFXOFF_MASK;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
-&gt;num_ip_blocks; i&#43;&#43;) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if ((amdgpu_ip_block_mask &amp; (1 &lt;&lt; i)) =3D=
-=3D 0) {<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index 27528eeb444c..3b7d511031c6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -114,8 &#43;114,8 @@ uint amdgpu_pg_mask =3D 0xffffffff;<br>
-&nbsp;uint amdgpu_sdma_phase_quantum =3D 32;<br>
-&nbsp;char *amdgpu_disable_cu =3D NULL;<br>
-&nbsp;char *amdgpu_virtual_display =3D NULL;<br>
--/* OverDrive(bit 14) disabled by default*/<br>
--uint amdgpu_pp_feature_mask =3D 0xffffbfff;<br>
-&#43;/* OverDrive(bit 14),gfxoff(bit 15),stutter mode(bit 17) disabled by d=
-efault*/<br>
-&#43;uint amdgpu_pp_feature_mask =3D 0xfffd3fff;<br>
-&nbsp;int amdgpu_ngg =3D 0;<br>
-&nbsp;int amdgpu_prim_buf_per_se =3D 0;<br>
-&nbsp;int amdgpu_pos_buf_per_se =3D 0;<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_--
-
---===============1206837180==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1206837180==--
+RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpDb3JyZXNwb25k
+aW5nIHRvIHVwIHRvIHNpeCBDUlRDcyBiZWluZyBhdmFpbGFibGUgaW4gdGhlIGhhcmR3YXJlLgoK
+KFBvcnRlZCBmcm9tIGFtZGdwdSBjb21taXQgYzlkNDNjMWRlYjlhOWNmYzQxYThkNjQzOWNhZjQ2
+ZDEyZDIyMDg1MykKClNpZ25lZC1vZmYtYnk6IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnpl
+ckBhbWQuY29tPgotLS0KIHNyYy9kcm1tb2RlX2Rpc3BsYXkuYyB8IDM4ICsrKysrKysrKysrKysr
+KysrKysrLS0tLS0tLS0tLS0tLQogc3JjL3JhZGVvbi5oICAgICAgICAgIHwgIDIgKy0KIHNyYy9y
+YWRlb25fa21zLmMgICAgICB8IDQ5ICsrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0KIHNyYy9yYWRlb25fcHJvYmUuaCAgICB8ICA0ICsrLS0KIDQgZmlsZXMgY2hhbmdl
+ZCwgNTAgaW5zZXJ0aW9ucygrKSwgNDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2Ry
+bW1vZGVfZGlzcGxheS5jIGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCmluZGV4IDMyZmZlODRlZC4u
+ZmJkZjVlNmQxIDEwMDY0NAotLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKKysrIGIvc3JjL2Ry
+bW1vZGVfZGlzcGxheS5jCkBAIC0yMDYwLDkgKzIwNjAsNyBAQCBkcm1tb2RlX291dHB1dF9pbml0
+KFNjcm5JbmZvUHRyIHBTY3JuLCBkcm1tb2RlX3B0ciBkcm1tb2RlLCBkcm1Nb2RlUmVzUHRyIG1v
+ZGVfcgogCQkJaWYgKCFSQURFT05aYXBob2RTdHJpbmdNYXRjaGVzKHBTY3JuLCBzLCBuYW1lKSkK
+IAkJCQlnb3RvIG91dF9mcmVlX2VuY29kZXJzOwogCQl9IGVsc2UgewotCQkJaWYgKCFpbmZvLT5J
+c1NlY29uZGFyeSAmJiAobnVtICE9IDApKQotCQkJCWdvdG8gb3V0X2ZyZWVfZW5jb2RlcnM7Ci0J
+CQllbHNlIGlmIChpbmZvLT5Jc1NlY29uZGFyeSAmJiAobnVtICE9IDEpKQorCQkJaWYgKGluZm8t
+Pmluc3RhbmNlX2lkICE9IG51bSkKIAkJCQlnb3RvIG91dF9mcmVlX2VuY29kZXJzOwogCQl9CiAJ
+fQpAQCAtMjY4MCw2ICsyNjc4LDcgQEAgQm9vbCBkcm1tb2RlX3ByZV9pbml0KFNjcm5JbmZvUHRy
+IHBTY3JuLCBkcm1tb2RlX3B0ciBkcm1tb2RlLCBpbnQgY3BwKQogCWludCBpLCBudW1fZHZpID0g
+MCwgbnVtX2hkbWkgPSAwOwogCWRybU1vZGVSZXNQdHIgbW9kZV9yZXM7CiAJdW5zaWduZWQgaW50
+IGNydGNzX25lZWRlZCA9IDA7CisJdW5zaWduZWQgaW50IGNydGNzX2dvdCA9IDA7CiAJY2hhciAq
+YnVzX2lkX3N0cmluZywgKnByb3ZpZGVyX25hbWU7CiAKIAl4Zjg2Q3J0Y0NvbmZpZ0luaXQocFNj
+cm4sICZkcm1tb2RlX3hmODZjcnRjX2NvbmZpZ19mdW5jcyk7CkBAIC0yNzE4LDE2ICsyNzE3LDI2
+IEBAIEJvb2wgZHJtbW9kZV9wcmVfaW5pdChTY3JuSW5mb1B0ciBwU2NybiwgZHJtbW9kZV9wdHIg
+ZHJtbW9kZSwgaW50IGNwcCkKIAlkcm1tb2RlLT5jb3VudF9jcnRjcyA9IG1vZGVfcmVzLT5jb3Vu
+dF9jcnRjczsKIAl4Zjg2Q3J0Y1NldFNpemVSYW5nZShwU2NybiwgMzIwLCAyMDAsIG1vZGVfcmVz
+LT5tYXhfd2lkdGgsIG1vZGVfcmVzLT5tYXhfaGVpZ2h0KTsKIAotCWZvciAoaSA9IDA7IGkgPCBt
+b2RlX3Jlcy0+Y291bnRfY3J0Y3M7IGkrKykKKwlmb3IgKGkgPSAwOyBpIDwgbW9kZV9yZXMtPmNv
+dW50X2NydGNzOyBpKyspIHsKIAkJaWYgKCF4Zjg2SXNFbnRpdHlTaGFyZWQocFNjcm4tPmVudGl0
+eUxpc3RbMF0pIHx8Ci0JCSAgICAoY3J0Y3NfbmVlZGVkICYmICEocFJBREVPTkVudC0+YXNzaWdu
+ZWRfY3J0Y3MgJiAoMSA8PCBpKSkpKQotCQkJY3J0Y3NfbmVlZGVkIC09IGRybW1vZGVfY3J0Y19p
+bml0KHBTY3JuLCBkcm1tb2RlLCBtb2RlX3JlcywgaSk7CisJCSAgICAoY3J0Y3NfZ290IDwgY3J0
+Y3NfbmVlZGVkICYmCisJCSAgICAgIShwUkFERU9ORW50LT5hc3NpZ25lZF9jcnRjcyAmICgxIDw8
+IGkpKSkpCisJCQljcnRjc19nb3QgKz0gZHJtbW9kZV9jcnRjX2luaXQocFNjcm4sIGRybW1vZGUs
+IG1vZGVfcmVzLCBpKTsKKwl9CiAKIAkvKiBBbGwgWmFwaG9kSGVhZHMgb3V0cHV0cyBwcm92aWRl
+ZCB3aXRoIG1hdGNoaW5nIGNydGNzPyAqLwotCWlmICh4Zjg2SXNFbnRpdHlTaGFyZWQocFNjcm4t
+PmVudGl0eUxpc3RbMF0pICYmIChjcnRjc19uZWVkZWQgPiAwKSkKKwlpZiAoY3J0Y3NfZ290IDwg
+Y3J0Y3NfbmVlZGVkKSB7CisJCWlmIChjcnRjc19nb3QgPT0gMCkgeworCQkJeGY4NkRydk1zZyhw
+U2Nybi0+c2NybkluZGV4LCBYX0VSUk9SLAorCQkJCSAgICJObyBaYXBob2RIZWFkcyBDUlRDIGF2
+YWlsYWJsZSwgbmVlZGVkICV1XG4iLAorCQkJCSAgIGNydGNzX25lZWRlZCk7CisJCQlyZXR1cm4g
+RkFMU0U7CisJCX0KKwogCQl4Zjg2RHJ2TXNnKHBTY3JuLT5zY3JuSW5kZXgsIFhfV0FSTklORywK
+IAkJCSAgICIlZCBaYXBob2RIZWFkcyBjcnRjcyB1bmF2YWlsYWJsZS4gU29tZSBvdXRwdXRzIHdp
+bGwgc3RheSBvZmYuXG4iLAogCQkJICAgY3J0Y3NfbmVlZGVkKTsKKwl9CiAKIAkvKiB3b3Jrb3V0
+IGNsb25lcyAqLwogCWRybW1vZGVfY2xvbmVzX2luaXQocFNjcm4sIGRybW1vZGUsIG1vZGVfcmVz
+KTsKQEAgLTMxNzAsMTMgKzMxNzksMTQgQEAgcmVzdGFydF9kZXN0cm95OgogCiAJLyogZmluZCBu
+ZXcgb3V0cHV0IGlkcyB3ZSBkb24ndCBoYXZlIG91dHB1dHMgZm9yICovCiAJZm9yIChpID0gMDsg
+aSA8IG1vZGVfcmVzLT5jb3VudF9jb25uZWN0b3JzOyBpKyspIHsKLQkJaWYgKGRybW1vZGVfZmlu
+ZF9vdXRwdXQocFJBREVPTkVudC0+cHJpbWFyeV9zY3JuLAotCQkJCQltb2RlX3Jlcy0+Y29ubmVj
+dG9yc1tpXSwKLQkJCQkJJm51bV9kdmksICZudW1faGRtaSkgfHwKLQkJICAgIChwUkFERU9ORW50
+LT5zZWNvbmRhcnlfc2NybiAmJgotCQkgICAgIGRybW1vZGVfZmluZF9vdXRwdXQocFJBREVPTkVu
+dC0+c2Vjb25kYXJ5X3Njcm4sCi0JCQkJCSBtb2RlX3Jlcy0+Y29ubmVjdG9yc1tpXSwKLQkJCQkJ
+ICZudW1fZHZpLCAmbnVtX2hkbWkpKSkKKwkJZm9yIChqID0gMDsgaiA8IHBSQURFT05FbnQtPm51
+bV9zY3JuczsgaisrKSB7CisJCQlpZiAoZHJtbW9kZV9maW5kX291dHB1dChwUkFERU9ORW50LT5z
+Y3JuW2pdLAorCQkJCQkJbW9kZV9yZXMtPmNvbm5lY3RvcnNbaV0sCisJCQkJCQkmbnVtX2R2aSwg
+Jm51bV9oZG1pKSkKKwkJCQlicmVhazsKKwkJfQorCisJCWlmIChqIDwgcFJBREVPTkVudC0+bnVt
+X3Njcm5zKQogCQkJY29udGludWU7CiAKIAkJaWYgKGRybW1vZGVfb3V0cHV0X2luaXQoc2Nybiwg
+ZHJtbW9kZSwgbW9kZV9yZXMsIGksICZudW1fZHZpLApkaWZmIC0tZ2l0IGEvc3JjL3JhZGVvbi5o
+IGIvc3JjL3JhZGVvbi5oCmluZGV4IGIxZDVmNWFmNC4uY2RlOTIyYzYzIDEwMDY0NAotLS0gYS9z
+cmMvcmFkZW9uLmgKKysrIGIvc3JjL3JhZGVvbi5oCkBAIC01NjAsNyArNTYwLDcgQEAgdHlwZWRl
+ZiBzdHJ1Y3QgewogICAgIC8qIE51bWJlciBvZiBTVyBjdXJzb3JzIGN1cnJlbnRseSB2aXNpYmxl
+IG9uIHRoaXMgc2NyZWVuICovCiAgICAgaW50IHNwcml0ZXNfdmlzaWJsZTsKIAotICAgIEJvb2wg
+ICAgICAgICAgICAgIElzU2Vjb25kYXJ5OworICAgIGludCBpbnN0YW5jZV9pZDsKIAogICAgIEJv
+b2wgICAgICAgICAgICAgIHI2MDBfc2hhZG93X2ZiOwogICAgIHZvaWQgKmZiX3NoYWRvdzsKZGlm
+ZiAtLWdpdCBhL3NyYy9yYWRlb25fa21zLmMgYi9zcmMvcmFkZW9uX2ttcy5jCmluZGV4IDUwYzcx
+MzdjNC4uY2Q1ZWZkNTMwIDEwMDY0NAotLS0gYS9zcmMvcmFkZW9uX2ttcy5jCisrKyBiL3NyYy9y
+YWRlb25fa21zLmMKQEAgLTIwMiw2ICsyMDIsMTAgQEAgc3RhdGljIHZvaWQgUkFERU9ORnJlZVJl
+YyhTY3JuSW5mb1B0ciBwU2NybikKICAgICBpZiAoIXBTY3JuKQogCXJldHVybjsKIAorICAgIHBF
+bnQgPSB4Zjg2R2V0RW50aXR5SW5mbyhwU2Nybi0+ZW50aXR5TGlzdFtwU2Nybi0+bnVtRW50aXRp
+ZXMgLSAxXSk7CisgICAgcFByaXYgPSB4Zjg2R2V0RW50aXR5UHJpdmF0ZShwRW50LT5pbmRleCwg
+Z1JBREVPTkVudGl0eUluZGV4KTsKKyAgICBwUkFERU9ORW50ID0gcFByaXYtPnB0cjsKKwogICAg
+IGluZm8gPSBSQURFT05QVFIocFNjcm4pOwogICAgIGlmIChpbmZvKSB7CiAJaWYgKGluZm8tPmZi
+Y29uX3BpeG1hcCkKQEAgLTIxNywxNSArMjIxLDEyIEBAIHN0YXRpYyB2b2lkIFJBREVPTkZyZWVS
+ZWMoU2NybkluZm9QdHIgcFNjcm4pCiAJICAgIGdibV9kZXZpY2VfZGVzdHJveShpbmZvLT5nYm0p
+OwogI2VuZGlmCiAKLQlwRW50ID0gaW5mby0+cEVudDsKKwlwUkFERU9ORW50LT5zY3JuW2luZm8t
+Pmluc3RhbmNlX2lkXSA9IE5VTEw7CisJcFJBREVPTkVudC0+bnVtX3Njcm5zLS07CiAJZnJlZShw
+U2Nybi0+ZHJpdmVyUHJpdmF0ZSk7CiAJcFNjcm4tPmRyaXZlclByaXZhdGUgPSBOVUxMOwotICAg
+IH0gZWxzZSB7Ci0JcEVudCA9IHhmODZHZXRFbnRpdHlJbmZvKHBTY3JuLT5lbnRpdHlMaXN0W3BT
+Y3JuLT5udW1FbnRpdGllcyAtIDFdKTsKICAgICB9CiAKLSAgICBwUHJpdiA9IHhmODZHZXRFbnRp
+dHlQcml2YXRlKHBFbnQtPmluZGV4LCBnUkFERU9ORW50aXR5SW5kZXgpOwotICAgIHBSQURFT05F
+bnQgPSBwUHJpdi0+cHRyOwogICAgIGlmIChwUkFERU9ORW50LT5mZCA+IDApIHsKICAgICAgICAg
+RGV2VW5pb24gKnBQcml2OwogICAgICAgICBSQURFT05FbnRQdHIgcFJBREVPTkVudDsKQEAgLTE2
+ODksNyArMTY5MCw2IEBAIEJvb2wgUkFERU9OUHJlSW5pdF9LTVMoU2NybkluZm9QdHIgcFNjcm4s
+IGludCBmbGFncykKICAgICBSQURFT05JbmZvUHRyICAgICBpbmZvOwogICAgIFJBREVPTkVudFB0
+ciBwUkFERU9ORW50OwogICAgIE1lc3NhZ2VUeXBlIGZyb207Ci0gICAgRGV2VW5pb24qIHBQcml2
+OwogICAgIEdhbW1hICB6ZXJvcyA9IHsgMC4wLCAwLjAsIDAuMCB9OwogICAgIHVpbnQzMl90IHRp
+bGluZyA9IDA7CiAgICAgaW50IGNwcDsKQEAgLTE3MDAsMTAgKzE3MDAsMjMgQEAgQm9vbCBSQURF
+T05QcmVJbml0X0tNUyhTY3JuSW5mb1B0ciBwU2NybiwgaW50IGZsYWdzKQogICAgIHhmODZEcnZN
+c2dWZXJiKHBTY3JuLT5zY3JuSW5kZXgsIFhfSU5GTywgUkFERU9OX0xPR0xFVkVMX0RFQlVHLAog
+CQkgICAiUkFERU9OUHJlSW5pdF9LTVNcbiIpOwogICAgIGlmIChwU2Nybi0+bnVtRW50aXRpZXMg
+IT0gMSkgcmV0dXJuIEZBTFNFOworCisgICAgcFJBREVPTkVudCA9IHhmODZHZXRFbnRpdHlQcml2
+YXRlKHBTY3JuLT5lbnRpdHlMaXN0WzBdLAorCQkJCSAgICAgIGdldFJBREVPTkVudGl0eUluZGV4
+KCkpLT5wdHI7CisgICAgaWYgKHBSQURFT05FbnQtPm51bV9zY3JucyA9PSBBUlJBWV9TSVpFKHBS
+QURFT05FbnQtPnNjcm4pKSB7CisJeGY4NkRydk1zZyhwU2Nybi0+c2NybkluZGV4LCBYX0VSUk9S
+LAorCQkgICAiT25seSB1cCB0byAldSBaYXBob2QgaW5zdGFuY2VzIHN1cHBvcnRlZFxuIiwKKwkJ
+ICAgKHVuc2lnbmVkKUFSUkFZX1NJWkUocFJBREVPTkVudC0+c2NybikpOworCXJldHVybiBGQUxT
+RTsKKyAgICB9CisgICAgCiAgICAgaWYgKCFSQURFT05HZXRSZWMocFNjcm4pKSByZXR1cm4gRkFM
+U0U7CiAKICAgICBpbmZvICAgICAgICAgICAgICAgPSBSQURFT05QVFIocFNjcm4pOwotICAgIGlu
+Zm8tPklzU2Vjb25kYXJ5ICA9IEZBTFNFOworCisgICAgaW5mby0+aW5zdGFuY2VfaWQgPSBwUkFE
+RU9ORW50LT5udW1fc2NybnMrKzsKKyAgICBwUkFERU9ORW50LT5zY3JuW2luZm8tPmluc3RhbmNl
+X2lkXSA9IHBTY3JuOworCiAgICAgaW5mby0+cEVudCAgICAgICAgID0geGY4NkdldEVudGl0eUlu
+Zm8ocFNjcm4tPmVudGl0eUxpc3RbcFNjcm4tPm51bUVudGl0aWVzIC0gMV0pOwogICAgIGlmIChp
+bmZvLT5wRW50LT5sb2NhdGlvbi50eXBlICE9IEJVU19QQ0kKICNpZmRlZiBYU0VSVkVSX1BMQVRG
+T1JNX0JVUwpAQCAtMTcxMiwyNyArMTcyNSwxMSBAQCBCb29sIFJBREVPTlByZUluaXRfS01TKFNj
+cm5JbmZvUHRyIHBTY3JuLCBpbnQgZmxhZ3MpCiAgICAgICAgICkKICAgICAgICAgcmV0dXJuIEZB
+TFNFOwogCi0gICAgcFByaXYgPSB4Zjg2R2V0RW50aXR5UHJpdmF0ZShwU2Nybi0+ZW50aXR5TGlz
+dFswXSwKLQkJCQkgZ2V0UkFERU9ORW50aXR5SW5kZXgoKSk7Ci0gICAgcFJBREVPTkVudCA9IHBQ
+cml2LT5wdHI7Ci0KLSAgICBpZih4Zjg2SXNFbnRpdHlTaGFyZWQocFNjcm4tPmVudGl0eUxpc3Rb
+MF0pKQotICAgIHsKLSAgICAgICAgaWYoeGY4NklzUHJpbUluaXREb25lKHBTY3JuLT5lbnRpdHlM
+aXN0WzBdKSkKLSAgICAgICAgewotICAgICAgICAgICAgaW5mby0+SXNTZWNvbmRhcnkgPSBUUlVF
+OwotICAgICAgICB9Ci0gICAgICAgIGVsc2UKLSAgICAgICAgewotICAgICAgICAgICAgeGY4NlNl
+dFByaW1Jbml0RG9uZShwU2Nybi0+ZW50aXR5TGlzdFswXSk7Ci0gICAgICAgIH0KKyAgICBpZiAo
+eGY4NklzRW50aXR5U2hhcmVkKHBTY3JuLT5lbnRpdHlMaXN0WzBdKSAmJgorCWluZm8tPmluc3Rh
+bmNlX2lkID09IDApIHsKKwl4Zjg2U2V0UHJpbUluaXREb25lKHBTY3JuLT5lbnRpdHlMaXN0WzBd
+KTsKICAgICB9CiAKLSAgICBpZiAoaW5mby0+SXNTZWNvbmRhcnkpCi0JcFJBREVPTkVudC0+c2Vj
+b25kYXJ5X3Njcm4gPSBwU2NybjsKLSAgICBlbHNlCi0JcFJBREVPTkVudC0+cHJpbWFyeV9zY3Ju
+ID0gcFNjcm47Ci0KICAgICBpbmZvLT5QY2lJbmZvID0geGY4NkdldFBjaUluZm9Gb3JFbnRpdHko
+aW5mby0+cEVudC0+aW5kZXgpOwogICAgIHBTY3JuLT5tb25pdG9yICAgICA9IHBTY3JuLT5jb25m
+U2NyZWVuLT5tb25pdG9yOwogCmRpZmYgLS1naXQgYS9zcmMvcmFkZW9uX3Byb2JlLmggYi9zcmMv
+cmFkZW9uX3Byb2JlLmgKaW5kZXggYmU4MmY5YWVhLi43Y2IyOWI5MTYgMTAwNjQ0Ci0tLSBhL3Ny
+Yy9yYWRlb25fcHJvYmUuaAorKysgYi9zcmMvcmFkZW9uX3Byb2JlLmgKQEAgLTE0MCw4ICsxNDAs
+OCBAQCB0eXBlZGVmIHN0cnVjdAogICAgIHVuc2lnbmVkIGxvbmcgICAgIGZkX3dha2V1cF9yZWdp
+c3RlcmVkOyAvKiBzZXJ2ZXIgZ2VuZXJhdGlvbiBmb3Igd2hpY2ggZmQgaGFzIGJlZW4gcmVnaXN0
+ZXJlZCBmb3Igd2FrZXVwIGhhbmRsaW5nICovCiAgICAgaW50IGZkX3dha2V1cF9yZWY7CiAgICAg
+dW5zaWduZWQgaW50IGFzc2lnbmVkX2NydGNzOwotICAgIFNjcm5JbmZvUHRyIHByaW1hcnlfc2Ny
+bjsKLSAgICBTY3JuSW5mb1B0ciBzZWNvbmRhcnlfc2NybjsKKyAgICB1bnNpZ25lZCBpbnQgbnVt
+X3Njcm5zOworICAgIFNjcm5JbmZvUHRyIHNjcm5bNl07CiAjaWZkZWYgWFNFUlZFUl9QTEFURk9S
+TV9CVVMKICAgICBzdHJ1Y3QgeGY4Nl9wbGF0Zm9ybV9kZXZpY2UgKnBsYXRmb3JtX2RldjsKICNl
+bmRpZgotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
