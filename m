@@ -1,13 +1,14 @@
-From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/3] drm/amdgpu: Patch csa mc address to sdma IB packet
-Date: Wed, 24 Oct 2018 23:40:51 +0800
-Message-ID: <1540395651-900-3-git-send-email-Rex.Zhu@amd.com>
-References: <1540395651-900-1-git-send-email-Rex.Zhu@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: revert "enable gfxoff in non-sriov and
+ stutter mode by default"
+Date: Wed, 24 Oct 2018 15:52:39 +0000
+Message-ID: <BN6PR12MB1809EB72A4FA6A73226B8E34F7F60@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181024125910.1134-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1206837180=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1540395651-900-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181024125910.1134-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,72 +19,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-dGhlIGNzYSBidWZmZXIgaXMgdXNlZCBieSBzZG1hIGVuZ2luZSB0byBkbyBjb250ZXh0CnNhdmUg
-d2hlbiBwcmVlbXB0aW9uIGhhcHBlbnMuIGlmIHRoZSBtYyBhZGRyZXNzIGlzIHplcm8sCm1lYW4g
-dGhlIHByZWVtdHBpb24gZmVhdHVyZShNQ0JQKSBpcyBkaXNhYmxlZC4KClNpZ25lZC1vZmYtYnk6
-IFJleCBaaHUgPFJleC5aaHVAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfam9iLmggIHwgIDIgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9zZG1hLmggfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYyAg
-IHwgMTEgKysrKysrKystLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5j
-ICAgfCAxMSArKysrKysrKystLQogNCBmaWxlcyBjaGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspLCA1
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9qb2IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuaAppbmRl
-eCAxNWI0ZDM5Li5lNGEwODM3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfam9iLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pv
-Yi5oCkBAIC0zMyw3ICszMyw5IEBACiAjZGVmaW5lIHRvX2FtZGdwdV9qb2Ioc2NoZWRfam9iKQkJ
-XAogCQljb250YWluZXJfb2YoKHNjaGVkX2pvYiksIHN0cnVjdCBhbWRncHVfam9iLCBiYXNlKQog
-CisKICNkZWZpbmUgQU1ER1BVX0pPQl9HRVRfVk1JRChqb2IpICgoam9iKSA/IChqb2IpLT52bWlk
-IDogMCkKKyNkZWZpbmUgQU1ER1BVX0pPQl9HRVRfQ1NBX01DX0FERFIoam9iKSAoKGpvYikgPyAo
-am9iKS0+Y3NhX21jX2FkZHIgOiAwKQogCiBzdHJ1Y3QgYW1kZ3B1X2ZlbmNlOwogCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5oIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NkbWEuaAppbmRleCA0NzlhMjQ1Li4yMzdhMzU3IDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5oCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZG1hLmgKQEAgLTI2LDYgKzI2LDcg
-QEAKIAogLyogbWF4IG51bWJlciBvZiBJUCBpbnN0YW5jZXMgKi8KICNkZWZpbmUgQU1ER1BVX01B
-WF9TRE1BX0lOU1RBTkNFUwkJMgorI2RlZmluZSBBTURHUFVfU0RNQV9DU0FfU0laRQkJCSgxMDI0
-KQogCiBlbnVtIGFtZGdwdV9zZG1hX2lycSB7CiAJQU1ER1BVX1NETUFfSVJRX1RSQVAwID0gMCwK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMKaW5kZXggOGJmYzY4ZC4uYWU4ZjVk
-YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMKKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMKQEAgLTQyNCw2ICs0MjQs
-MTIgQEAgc3RhdGljIHZvaWQgc2RtYV92M18wX3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3Jp
-bmcgKnJpbmcsCiAJCQkJICAgYm9vbCBjdHhfc3dpdGNoKQogewogCXVuc2lnbmVkIHZtaWQgPSBB
-TURHUFVfSk9CX0dFVF9WTUlEKGpvYik7CisJdWludDY0X3QgY3NhX21jX2FkZHIgPSBBTURHUFVf
-Sk9CX0dFVF9DU0FfTUNfQUREUihqb2IpOworCisJaWYgKGNzYV9tY19hZGRyID09IDAgfHwgdm1p
-ZCA9PSAwKQorCQljc2FfbWNfYWRkciA9IDA7CisJZWxzZQorCQljc2FfbWNfYWRkciArPSByaW5n
-LT5pZHggKiBBTURHUFVfU0RNQV9DU0FfU0laRTsKIAogCS8qIElCIHBhY2tldCBtdXN0IGVuZCBv
-biBhIDggRFcgYm91bmRhcnkgKi8KIAlzZG1hX3YzXzBfcmluZ19pbnNlcnRfbm9wKHJpbmcsICgx
-MCAtIChsb3dlcl8zMl9iaXRzKHJpbmctPndwdHIpICYgNykpICUgOCk7CkBAIC00MzQsOSArNDQw
-LDggQEAgc3RhdGljIHZvaWQgc2RtYV92M18wX3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3Jp
-bmcgKnJpbmcsCiAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgbG93ZXJfMzJfYml0cyhpYi0+Z3B1
-X2FkZHIpICYgMHhmZmZmZmZlMCk7CiAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgdXBwZXJfMzJf
-Yml0cyhpYi0+Z3B1X2FkZHIpKTsKIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBpYi0+bGVuZ3Ro
-X2R3KTsKLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsKLQlhbWRncHVfcmluZ193cml0ZShy
-aW5nLCAwKTsKLQorCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIGxvd2VyXzMyX2JpdHMoY3NhX21j
-X2FkZHIpKTsKKwlhbWRncHVfcmluZ193cml0ZShyaW5nLCB1cHBlcl8zMl9iaXRzKGNzYV9tY19h
-ZGRyKSk7CiB9CiAKIC8qKgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c2RtYV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwppbmRl
-eCA2NGZhNmJlLi5lZWRlNjhlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zZG1hX3Y0XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAu
-YwpAQCAtNTA2LDcgKzUwNiwxNCBAQCBzdGF0aWMgdm9pZCBzZG1hX3Y0XzBfcmluZ19lbWl0X2li
-KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKIAkJCQkgICBzdHJ1Y3QgYW1kZ3B1X2liICppYiwK
-IAkJCQkgICBib29sIGN0eF9zd2l0Y2gpCiB7CisKIAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pP
-Ql9HRVRfVk1JRChqb2IpOworCXVpbnQ2NF90IGNzYV9tY19hZGRyID0gQU1ER1BVX0pPQl9HRVRf
-Q1NBX01DX0FERFIoam9iKTsKKworCWlmIChjc2FfbWNfYWRkciA9PSAwIHx8IHZtaWQgPT0gMCkK
-KwkJY3NhX21jX2FkZHIgPSAwOworCWVsc2UKKwkJY3NhX21jX2FkZHIgKz0gcmluZy0+aWR4ICog
-QU1ER1BVX1NETUFfQ1NBX1NJWkU7CiAKIAkvKiBJQiBwYWNrZXQgbXVzdCBlbmQgb24gYSA4IERX
-IGJvdW5kYXJ5ICovCiAJc2RtYV92NF8wX3JpbmdfaW5zZXJ0X25vcChyaW5nLCAoMTAgLSAobG93
-ZXJfMzJfYml0cyhyaW5nLT53cHRyKSAmIDcpKSAlIDgpOwpAQCAtNTE3LDggKzUyNCw4IEBAIHN0
-YXRpYyB2b2lkIHNkbWFfdjRfMF9yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
-LAogCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIGxvd2VyXzMyX2JpdHMoaWItPmdwdV9hZGRyKSAm
-IDB4ZmZmZmZmZTApOwogCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHVwcGVyXzMyX2JpdHMoaWIt
-PmdwdV9hZGRyKSk7CiAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgaWItPmxlbmd0aF9kdyk7Ci0J
-YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMCk7Ci0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMCk7
-CisJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgbG93ZXJfMzJfYml0cyhjc2FfbWNfYWRkcikpOwor
-CWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHVwcGVyXzMyX2JpdHMoY3NhX21jX2FkZHIpKTsKIAog
-fQogCi0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1206837180==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Is it gfx off or stutter mode that causes the problem for you?  Can you nar=
+row it down?
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Wednesday, October 24, 2018 8:59:10 AM
+To: Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH] drm/amdgpu: revert "enable gfxoff in non-sriov and stutter=
+ mode by default"
+
+This is still completely breaking my Raven system.
+
+This reverts commit cdf2f910fa969adca1b0e3ad2b487821233dc038.
+
+Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 4 ++--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index d11489e8b388..926eeb09d4c8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1493,8 +1493,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_=
+device *adev)
+         }
+
+         adev->powerplay.pp_feature =3D amdgpu_pp_feature_mask;
+-       if (amdgpu_sriov_vf(adev))
+-               adev->powerplay.pp_feature &=3D ~PP_GFXOFF_MASK;
+
+         for (i =3D 0; i < adev->num_ip_blocks; i++) {
+                 if ((amdgpu_ip_block_mask & (1 << i)) =3D=3D 0) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 27528eeb444c..3b7d511031c6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -114,8 +114,8 @@ uint amdgpu_pg_mask =3D 0xffffffff;
+ uint amdgpu_sdma_phase_quantum =3D 32;
+ char *amdgpu_disable_cu =3D NULL;
+ char *amdgpu_virtual_display =3D NULL;
+-/* OverDrive(bit 14) disabled by default*/
+-uint amdgpu_pp_feature_mask =3D 0xffffbfff;
++/* OverDrive(bit 14),gfxoff(bit 15),stutter mode(bit 17) disabled by defau=
+lt*/
++uint amdgpu_pp_feature_mask =3D 0xfffd3fff;
+ int amdgpu_ngg =3D 0;
+ int amdgpu_prim_buf_per_se =3D 0;
+ int amdgpu_pos_buf_per_se =3D 0;
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Is it gfx off or stutter mode tha=
+t causes the problem for you?&nbsp; Can you narrow it down?</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
+.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, October 24, 2018 8:59:10 AM<br>
+<b>To:</b> Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: revert &quot;enable gfxoff in non-sriov=
+ and stutter mode by default&quot;</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This is still completely breaking my Raven system.=
+<br>
+<br>
+This reverts commit cdf2f910fa969adca1b0e3ad2b487821233dc038.<br>
+<br>
+Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c&nbsp;&nbsp;&nbsp; | 4 &#43;&#=
+43;--<br>
+&nbsp;2 files changed, 2 insertions(&#43;), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index d11489e8b388..926eeb09d4c8 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -1493,8 &#43;1493,6 @@ static int amdgpu_device_ip_early_init(struct amd=
+gpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;powerplay.pp_feat=
+ure =3D amdgpu_pp_feature_mask;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; adev-&gt;powerplay.pp_feature &amp;=3D ~PP_GFXOFF_MASK;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
+&gt;num_ip_blocks; i&#43;&#43;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if ((amdgpu_ip_block_mask &amp; (1 &lt;&lt; i)) =3D=
+=3D 0) {<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 27528eeb444c..3b7d511031c6 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -114,8 &#43;114,8 @@ uint amdgpu_pg_mask =3D 0xffffffff;<br>
+&nbsp;uint amdgpu_sdma_phase_quantum =3D 32;<br>
+&nbsp;char *amdgpu_disable_cu =3D NULL;<br>
+&nbsp;char *amdgpu_virtual_display =3D NULL;<br>
+-/* OverDrive(bit 14) disabled by default*/<br>
+-uint amdgpu_pp_feature_mask =3D 0xffffbfff;<br>
+&#43;/* OverDrive(bit 14),gfxoff(bit 15),stutter mode(bit 17) disabled by d=
+efault*/<br>
+&#43;uint amdgpu_pp_feature_mask =3D 0xfffd3fff;<br>
+&nbsp;int amdgpu_ngg =3D 0;<br>
+&nbsp;int amdgpu_prim_buf_per_se =3D 0;<br>
+&nbsp;int amdgpu_pos_buf_per_se =3D 0;<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809EB72A4FA6A73226B8E34F7F60BN6PR12MB1809namp_--
+
+--===============1206837180==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1206837180==--
