@@ -1,71 +1,79 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH -next] drm/radeon/kms: remove set but not used variable 'pll'
-Date: Thu, 25 Oct 2018 14:24:17 -0400
-Message-ID: <CADnq5_OSqxu_e88dmh57eiq2y78jKrQkarDXNYpeSWCe066DrA@mail.gmail.com>
-References: <1540116359-164086-1-git-send-email-yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] drm/amd/powerplay: remove duplicated includes
+Date: Thu, 25 Oct 2018 14:25:36 -0400
+Message-ID: <CADnq5_P=0yUepxenN8NbdCGZhe6S2g+RsZnbLDFpzysB01_mEA@mail.gmail.com>
+References: <20181021103958.12892-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1540116359-164086-1-git-send-email-yuehaibing@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20181021103958.12892-1-yuehaibing@huawei.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: yuehaibing@huawei.com
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+Cc: Dave Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Quan,
+ Evan" <evan.quan@amd.com>, Rex Zhu <rex.zhu@amd.com>, Christian Koenig <christian.koenig@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Sun, Oct 21, 2018 at 11:32 PM YueHaibing <yuehaibing@huawei.com> wrote:
->
-> Fixes gcc '-Wunused-but-set-variable' warning:
->
-> drivers/gpu/drm/radeon/radeon_legacy_tv.c: In function 'radeon_legacy_tv_init_restarts':
-> drivers/gpu/drm/radeon/radeon_legacy_tv.c:435:21: warning:
->  variable 'pll' set but not used [-Wunused-but-set-variable]
->   struct radeon_pll *pll;
->
-> It never used since introduction in commit
-> 4ce001abafaf ("drm/radeon/kms: add initial radeon tv-out support.")
-> Also remove related variables 'dev, rdev, radeon_crtc'
->
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/radeon/radeon_legacy_tv.c | 10 ----------
->  1 file changed, 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_legacy_tv.c b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
-> index 4278272..3dae2c4 100644
-> --- a/drivers/gpu/drm/radeon/radeon_legacy_tv.c
-> +++ b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
-> @@ -421,24 +421,14 @@ static void radeon_legacy_write_tv_restarts(struct radeon_encoder *radeon_encode
->
->  static bool radeon_legacy_tv_init_restarts(struct drm_encoder *encoder)
->  {
-> -       struct drm_device *dev = encoder->dev;
-> -       struct radeon_device *rdev = dev->dev_private;
->         struct radeon_encoder *radeon_encoder = to_radeon_encoder(encoder);
->         struct radeon_encoder_tv_dac *tv_dac = radeon_encoder->enc_priv;
-> -       struct radeon_crtc *radeon_crtc;
->         int restart;
->         unsigned int h_total, v_total, f_total;
->         int v_offset, h_offset;
->         u16 p1, p2, h_inc;
->         bool h_changed;
->         const struct radeon_tv_mode_constants *const_ptr;
-> -       struct radeon_pll *pll;
-> -
-> -       radeon_crtc = to_radeon_crtc(radeon_encoder->base.crtc);
-> -       if (radeon_crtc->crtc_id == 1)
-> -               pll = &rdev->clock.p2pll;
-> -       else
-> -               pll = &rdev->clock.p1pll;
->
->         const_ptr = radeon_legacy_tv_get_std_mode(radeon_encoder, NULL);
->         if (!const_ptr)
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gU3VuLCBPY3QgMjEsIDIwMTggYXQgMTE6MzIgUE0gWXVlSGFpYmluZyA8eXVlaGFpYmluZ0Bo
+dWF3ZWkuY29tPiB3cm90ZToKPgo+IFJlbW92ZSBzb21lIGR1cGxpY2F0ZWQgaW5jbHVkZS4KPgo+
+IFNpZ25lZC1vZmYtYnk6IFl1ZUhhaWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4KCkFwcGxp
+ZWQuICBUaGFua3MhCgpBbGV4Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9pbmMvaHdtZ3IuaCAgICAgICAgICAgICAgIHwgMSAtCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2luYy9zbXU3X2NvbW1vbi5oICAgICAgICAgfCA0IC0tLS0KPiAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyB8IDEgLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Ivc211MTBfc211bWdyLmMgICAgIHwg
+MSAtCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhbV9zbXVtZ3Iu
+YyAgICAgfCAxIC0KPiAgNSBmaWxlcyBjaGFuZ2VkLCA4IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKPiBpbmRleCBlNWE2MGFhLi4wN2Qx
+ODBjZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdt
+Z3IuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCj4g
+QEAgLTI4LDcgKzI4LDYgQEAKPiAgI2luY2x1ZGUgImhhcmR3YXJlbWFuYWdlci5oIgo+ICAjaW5j
+bHVkZSAiaHdtZ3JfcHB0LmgiCj4gICNpbmNsdWRlICJwcGF0b21jdHJsLmgiCj4gLSNpbmNsdWRl
+ICJod21ncl9wcHQuaCIKPiAgI2luY2x1ZGUgInBvd2VyX3N0YXRlLmgiCj4gICNpbmNsdWRlICJz
+bXVfaGVscGVyLmgiCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvaW5jL3NtdTdfY29tbW9uLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMv
+c211N19jb21tb24uaAo+IGluZGV4IDY1ZWI2MzAuLjk0YmY3YjYgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdTdfY29tbW9uLmgKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211N19jb21tb24uaAo+IEBAIC00MCwxMCAr
+NDAsNiBAQAo+ICAjaW5jbHVkZSAiYmlmL2JpZl81XzBfZC5oIgo+ICAjaW5jbHVkZSAiYmlmL2Jp
+Zl81XzBfc2hfbWFzay5oIgo+Cj4gLQo+IC0jaW5jbHVkZSAiYmlmL2JpZl81XzBfZC5oIgo+IC0j
+aW5jbHVkZSAiYmlmL2JpZl81XzBfc2hfbWFzay5oIgo+IC0KPiAgI2luY2x1ZGUgImRjZS9kY2Vf
+MTBfMF9kLmgiCj4gICNpbmNsdWRlICJkY2UvZGNlXzEwXzBfc2hfbWFzay5oIgo+Cj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211
+bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3Nt
+dW1nci5jCj4gaW5kZXggODcyZDM4Mi4uMmIyYzI2NiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwo+IEBA
+IC00NCw3ICs0NCw2IEBACj4KPiAgI2luY2x1ZGUgInNtdTdfaHdtZ3IuaCIKPiAgI2luY2x1ZGUg
+ImhhcmR3YXJlbWFuYWdlci5oIgo+IC0jaW5jbHVkZSAicHBhdG9tY3RybC5oIgo+ICAjaW5jbHVk
+ZSAiYXRvbWJpb3MuaCIKPiAgI2luY2x1ZGUgInBwcGNpZWxhbmVzLmgiCj4KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdTEwX3NtdW1nci5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3NtdTEwX3NtdW1nci5jCj4gaW5k
+ZXggZDBlYjhhYi4uZDExMWRkNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9zbXVtZ3Ivc211MTBfc211bWdyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9zbXVtZ3Ivc211MTBfc211bWdyLmMKPiBAQCAtMjksNyArMjksNiBAQAo+ICAj
+aW5jbHVkZSAicnZfcHBzbWMuaCIKPiAgI2luY2x1ZGUgInNtdTEwX2RyaXZlcl9pZi5oIgo+ICAj
+aW5jbHVkZSAic211MTAuaCIKPiAtI2luY2x1ZGUgInBwYXRvbWN0cmwuaCIKPiAgI2luY2x1ZGUg
+InBwX2RlYnVnLmgiCj4KPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9zbXVtZ3IvdmVnYW1fc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9zbXVtZ3IvdmVnYW1fc211bWdyLmMKPiBpbmRleCA5ZjcxNTEyLi4xZTY5MzAwIDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhbV9zbXVtZ3Iu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhbV9zbXVt
+Z3IuYwo+IEBAIC00MCw3ICs0MCw2IEBACj4KPiAgI2luY2x1ZGUgInNtdTdfaHdtZ3IuaCIKPiAg
+I2luY2x1ZGUgImhhcmR3YXJlbWFuYWdlci5oIgo+IC0jaW5jbHVkZSAicHBhdG9tY3RybC5oIgo+
+ICAjaW5jbHVkZSAiYXRvbWJpb3MuaCIKPiAgI2luY2x1ZGUgInBwcGNpZWxhbmVzLmgiCj4KPiAt
+LQo+IDEuOC4zLjEKPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRy
+aS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
