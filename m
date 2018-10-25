@@ -1,13 +1,14 @@
 From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH] drm/amdgpu: fix VM leaf walking
-Date: Thu, 25 Oct 2018 15:33:46 +0000
-Message-ID: <BYAPR12MB2775292DA22A6D78872926DDFBF70@BYAPR12MB2775.namprd12.prod.outlook.com>
+Date: Thu, 25 Oct 2018 15:43:17 +0000
+Message-ID: <BYAPR12MB2775D822132203F5E206128EFBF70@BYAPR12MB2775.namprd12.prod.outlook.com>
 References: <20181025143804.1698-1-christian.koenig@amd.com>
  <BN6PR12MB180949222B5967C8A2DD147DF7F70@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <BYAPR12MB2775292DA22A6D78872926DDFBF70@BYAPR12MB2775.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0186374237=="
+Content-Type: multipart/mixed; boundary="===============0369544077=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB180949222B5967C8A2DD147DF7F70-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BYAPR12MB2775292DA22A6D78872926DDFBF70-ZGDeBxoHBPmJeBUhB162ZQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,27 +20,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0186374237==
+--===============0369544077==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB2775292DA22A6D78872926DDFBF70BYAPR12MB2775namp_"
+	boundary="_000_BYAPR12MB2775D822132203F5E206128EFBF70BYAPR12MB2775namp_"
 
---_000_BYAPR12MB2775292DA22A6D78872926DDFBF70BYAPR12MB2775namp_
+--_000_BYAPR12MB2775D822132203F5E206128EFBF70BYAPR12MB2775namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+How about add a return value for the function amdgpu_vm_pt_next?
+And change the code as:
+
+     ret =3D amdgpu_vm_pt_next(adev, cursor);
+-       while (amdgpu_vm_pt_descendant(adev, cursor));
++       if (!ret)
++               while (amdgpu_vm_pt_descendant(adev, cursor));
+
+Best Regards
+Rex
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Zhu, Rex
+Sent: Thursday, October 25, 2018 11:34 PM
+To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Christian K=F6nig <ckoe=
+nig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: RE: [PATCH] drm/amdgpu: fix VM leaf walking
 
 Patch is Tested-by:  Rex Zhu Rex.Zhu-5C7GfCeVMHo@public.gmane.org<mailto:Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
 Regards
 Rex
 
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Deucher,=
- Alexander
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Deucher, Alexander
 Sent: Thursday, October 25, 2018 11:08 PM
-To: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org
+To: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:ckoenig.leic=
+htzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx@lists.=
+freedesktop.org>
 Subject: Re: [PATCH] drm/amdgpu: fix VM leaf walking
 
 
@@ -87,7 +105,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BYAPR12MB2775292DA22A6D78872926DDFBF70BYAPR12MB2775namp_
+--_000_BYAPR12MB2775D822132203F5E206128EFBF70BYAPR12MB2775namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -137,7 +155,10 @@ p.msonormal0, li.msonormal0, div.msonormal0
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
+span.EmailStyle18
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle21
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;}
 .MsoChpDefault
@@ -157,6 +178,39 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"color:black">How about add a return v=
+alue for the function amdgpu_vm_pt_next?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:black">And change the code as:<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:black">&nbsp;&nbsp;&nbsp;&nbsp;=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:black">&nbsp;&nbsp;&nbsp;&nbsp;=
+ ret =3D amdgpu_vm_pt_next(adev, cursor);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (amdgpu_vm_pt_descendant(adev, =
+cursor));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; while (amdgpu_vm_pt_descendant(adev, cursor));</span><o:p></=
+o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best Regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Rex<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org&gt;
+<b>On Behalf Of </b>Zhu, Rex<br>
+<b>Sent:</b> Thursday, October 25, 2018 11:34 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Christian =
+K=F6nig &lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
+.org<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: fix VM leaf walking<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Patch is Tested-by: &nbsp;Rex Zhu <a href=3D"mailto:=
 Rex.Zhu-5C7GfCeVMHo@public.gmane.org">
 Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a><o:p></o:p></p>
@@ -169,12 +223,14 @@ Rex.Zhu-5C7GfCeVMHo@public.gmane.org</a><o:p></o:p></p>
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org&gt;
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;
 <b>On Behalf Of </b>Deucher, Alexander<br>
 <b>Sent:</b> Thursday, October 25, 2018 11:08 PM<br>
-<b>To:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; amd-=
-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>To:</b> Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@g=
+mail.com">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 <b>Subject:</b> Re: [PATCH] drm/amdgpu: fix VM leaf walking<o:p></o:p></p>
 </div>
 </div>
@@ -256,12 +312,13 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></span></p>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_BYAPR12MB2775292DA22A6D78872926DDFBF70BYAPR12MB2775namp_--
+--_000_BYAPR12MB2775D822132203F5E206128EFBF70BYAPR12MB2775namp_--
 
---===============0186374237==
+--===============0369544077==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -271,4 +328,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0186374237==--
+--===============0369544077==--
