@@ -1,53 +1,112 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] Revert "drm/amd/powerplay: Enable/Disable NBPSTATE on On/OFF
- of UVD"
-Date: Thu, 25 Oct 2018 16:27:46 +0000
-Message-ID: <1540484844-31056-1-git-send-email-shirish.s@amd.com>
+From: Eric Anholt <eric@anholt.net>
+Subject: Re: [igt-dev] [PATCH] RFC: Make igts for cross-driver
+ stuff mandatory?
+Date: Thu, 25 Oct 2018 09:35:50 -0700
+Message-ID: <87efcernkp.fsf@anholt.net>
+References: <20181019085049.25482-1-daniel.vetter@ffwll.ch>
+ <20181025125149.GG154160@art_vandelay>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Agrawal, Akshu" <Akshu.Agrawal-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0920542304=="
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+In-Reply-To: <20181025125149.GG154160@art_vandelay>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: Sean Paul <sean@poorly.run>, Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: IGT development <igt-dev@lists.freedesktop.org>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, DRI Development <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyByZXZlcnRzIGNvbW1pdCBkYmQ4Mjk5YzMyZjZmNDEzZjZjZmUzMjJmZTAzMDhmM2NmYzU3
-N2U4LgoKUmVhc29uIGZvciByZXZlcnQ6ClRoaXMgcGF0Y2ggc2VuZHMgIG1zZyBQUFNNQ19NU0df
-RGlzYWJsZUxvd01lbW9yeVBzdGF0ZSgweDAwMmUpCmluIHdyb25nIG9mIHNlcXVlbmNlIHRvIFNN
-VSB3aGljaCBpcyBiZWZvcmUgUFBTTUNfTVNHX1VWRFBvd2VyT04gKDB4MDAwOCkuClRoaXMgbGVh
-ZHMgdG8gU01VIGZhaWxpbmcgdG8gc2VydmljZSB0aGUgcmVxdWVzdCBhcyBpdCBpcwpkZXBlbmRl
-bnQgb24gVVZEIHRvIGJlIHBvd2VyZWQgT04sIHNpbmNlIGl0IGFjY2Vzc2VzIFVWRApyZWdpc3Rl
-cnMuCgpUaGlzIG1zZyBzaG91bGQgaWRlYWxseSBiZSBzZW50IG9ubHkgd2hlbiB0aGUgVVZEIGlz
-IGFib3V0IHRvIGRlY29kZQphIDRrIHZpZGVvLgoKU2lnbmVkLW9mZi1ieTogU2hpcmlzaCBTIDxz
-aGlyaXNoLnNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
-ci9zbXU4X2h3bWdyLmMgfCA1ICstLS0tCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyks
-IDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaHdtZ3Ivc211OF9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
-Z3Ivc211OF9od21nci5jCmluZGV4IGZlZjExMWQuLjUzY2Y3ODcgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdThfaHdtZ3IuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU4X2h3bWdyLmMKQEAgLTEyMjgsMTcgKzEy
-MjgsMTQgQEAgc3RhdGljIGludCBzbXU4X2RwbV9mb3JjZV9kcG1fbGV2ZWwoc3RydWN0IHBwX2h3
-bWdyICpod21nciwKIAogc3RhdGljIGludCBzbXU4X2RwbV9wb3dlcmRvd25fdXZkKHN0cnVjdCBw
-cF9od21nciAqaHdtZ3IpCiB7Ci0JaWYgKFBQX0NBUChQSE1fUGxhdGZvcm1DYXBzX1VWRFBvd2Vy
-R2F0aW5nKSkgewotCQlzbXU4X25iZHBtX3BzdGF0ZV9lbmFibGVfZGlzYWJsZShod21nciwgdHJ1
-ZSwgdHJ1ZSk7CisJaWYgKFBQX0NBUChQSE1fUGxhdGZvcm1DYXBzX1VWRFBvd2VyR2F0aW5nKSkK
-IAkJcmV0dXJuIHNtdW1fc2VuZF9tc2dfdG9fc21jKGh3bWdyLCBQUFNNQ19NU0dfVVZEUG93ZXJP
-RkYpOwotCX0KIAlyZXR1cm4gMDsKIH0KIAogc3RhdGljIGludCBzbXU4X2RwbV9wb3dlcnVwX3V2
-ZChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogewogCWlmIChQUF9DQVAoUEhNX1BsYXRmb3JtQ2Fw
-c19VVkRQb3dlckdhdGluZykpIHsKLQkJc211OF9uYmRwbV9wc3RhdGVfZW5hYmxlX2Rpc2FibGUo
-aHdtZ3IsIGZhbHNlLCB0cnVlKTsKIAkJcmV0dXJuIHNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhf
-cGFyYW1ldGVyKAogCQkJaHdtZ3IsCiAJCQlQUFNNQ19NU0dfVVZEUG93ZXJPTiwKLS0gCjIuNy40
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0920542304==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+
+Sean Paul <sean@poorly.run> writes:
+
+> On Fri, Oct 19, 2018 at 10:50:49AM +0200, Daniel Vetter wrote:
+>> Hi all,
+>>=20
+>> This is just to collect feedback on this idea, and see whether the
+>> overall dri-devel community stands on all this. I think the past few
+>> cross-vendor uapi extensions all came with igts attached, and
+>> personally I think there's lots of value in having them: A
+>> cross-vendor interface isn't useful if every driver implements it
+>> slightly differently.
+>>=20
+>> I think there's 2 questions here:
+>>=20
+>> - Do we want to make such testcases mandatory?
+>>=20
+>
+> Yes, more testing =3D=3D better code.
+>
+>
+>> - If yes, are we there yet, or is there something crucially missing
+>>   still?
+>
+> In my experience, no. Last week while trying to replicate an intel-gfx CI
+> failure, I tried compiling igt for one of my (intel) chromebooks. It seem=
+s like
+> cross-compilation (or, in my case, just specifying
+> prefix/ld_library_path/sbin_path) is broken on igt. If we want to impose
+> restrictions across the entire subsystem, we need to make sure that every=
+one can
+> build and deploy igt easily.
+>
+> I managed to hack around everything and get it working, but I still haven=
+'t
+> tried switching out the toolchain. Once we have some GitLab CI to validate
+> cross-compilation, then we can consider making IGT mandatory.
+>
+> It's possible that I'm just a meson n00b and didn't use the right incanta=
+tion,
+> so maybe it already works, but then we need better documentation.
+>
+> I've pasted my horrible hacks below, I also didn't have libunwind, so rem=
+oved
+> its usage.
+
+I've also had to cut out libunwind for cross-compiling on many
+occasions.  Worst library.
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlvR8OYACgkQtdYpNtH8
+nugbnA//d38dKOKXQoc2QULqasRpO63vPklcmNSBj3ZcMjy67Vf24cL0XdeOePPT
+oiisV3PSMODrVmxLYPes1AifauI1CO9yu0hhOdXr7NOfHj4LG+YdORkWoRK3xXdR
+pThzY0J4zXTKzXUyemL7X1vFYhehUHdL1UVArS6/ZgLOjj0kLqbsMCB/mDQY1vrE
+huaTZt4xGtOzPNpxXqzaps1p9Z+XGZG/l1c7tlZtnIIdJCfKQHWnchTmtv9nf2cR
+SEmTMJRCXHstqq5kK7LfUEWRqnOM/iKAUd0L/+TMvtXSarXdGKbaXjaDP41AlzoI
+lwmCXCsqlVpBf1JFH48a9RIiEgJylMrxQAYAk8yRtjbzbVKLzBdZY64hgyWwJ4ed
+7nqfp36b5pD6acZyibPskvwGnPzrCqjOsFqkjEiRT+3g5X7PG4ya+Q34F/LVE9yi
+NmgeCmF/x+LAHFEEXh+0hLK7iFsSQPrqAE6K1K57W2syB2GwW4Mrp/clMDgRf4YL
+s3iONXtgl2RxGRAF7m8G5cWOgKDCOjWSmfRFXv3sJLuPNszYGQKo+RPaOpuVbFx9
+f1t+ClQ5/+qE4JohJ/QvmLt5gtKzg9ysTclyOs9ySd07Uyd93rZQgZkG1gQQy/pm
+ImwvBgooN2yB6+brtzpWONCVKSKzPZ4fxQEQhZ4iU9+aF+dGKdo=
+=kPxM
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============0920542304==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KSW50ZWwtZ2Z4
+IG1haWxpbmcgbGlzdApJbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vaW50ZWwtZ2Z4Cg==
+
+--===============0920542304==--
