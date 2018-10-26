@@ -1,13 +1,14 @@
-From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v4 3/4] drm: Document variable refresh properties
-Date: Fri, 26 Oct 2018 14:37:19 +0300
-Message-ID: <20181026143719.01381cdd@eldfell>
-References: <20181011163942.28267-1-nicholas.kazlauskas@amd.com>
- <20181011163942.28267-4-nicholas.kazlauskas@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: add VM test to exercise max/min address
+ space
+Date: Fri, 26 Oct 2018 13:43:37 +0000
+Message-ID: <BN6PR12MB1809BA40F7E737C7DB14BA87F7F00@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181026105921.3033-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0332818700=="
+Content-Type: multipart/mixed; boundary="===============0996159778=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181011163942.28267-4-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181026105921.3033-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,131 +19,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Cc: daniel.vetter-/w4YWyX8dFk@public.gmane.org, michel-otUistvHUpPR7s880joybQ@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0332818700==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4"; protocol="application/pgp-signature"
+--===============0996159778==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809BA40F7E737C7DB14BA87F7F00BN6PR12MB1809namp_"
 
---Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4
-Content-Type: text/plain; charset=US-ASCII
+--_000_BN6PR12MB1809BA40F7E737C7DB14BA87F7F00BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 11 Oct 2018 12:39:41 -0400
-Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org> wrote:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-> These include the drm_connector 'vrr_capable' and the drm_crtc
-> 'vrr_enabled' properties.
->=20
-> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-> ---
->  Documentation/gpu/drm-kms.rst   |  7 +++++++
->  drivers/gpu/drm/drm_connector.c | 22 ++++++++++++++++++++++
->  2 files changed, 29 insertions(+)
->=20
-> diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
-> index 4b1501b4835b..8da2a178cf85 100644
-> --- a/Documentation/gpu/drm-kms.rst
-> +++ b/Documentation/gpu/drm-kms.rst
-> @@ -575,6 +575,13 @@ Explicit Fencing Properties
->  .. kernel-doc:: drivers/gpu/drm/drm_atomic_uapi.c
->     :doc: explicit fencing properties
-> =20
-> +
-> +Variable Refresh Properties
-> +---------------------------
-> +
-> +.. kernel-doc:: drivers/gpu/drm/drm_connector.c
-> +   :doc: Variable refresh properties
-> +
->  Existing KMS Properties
->  -----------------------
-> =20
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index f0deeb7298d0..2a12853ca917 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1254,6 +1254,28 @@ int drm_mode_create_scaling_mode_property(struct d=
-rm_device *dev)
->  }
->  EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
-> =20
-> +/**
-> + * DOC: Variable refresh properties
-> + *
-> + * Variable refresh rate control is supported via properties on the
-> + * &drm_connector and &drm_crtc objects.
-> + *
-> + * "vrr_capable":
-> + *	Optional &drm_connector boolean property that drivers should attach
-> + *	with drm_connector_attach_vrr_capable_property() on connectors that
-> + *	could support variable refresh rates. Drivers should update the
-> + *	property value by calling drm_connector_set_vrr_capable_property().
-> + *
-> + *	Absence of the property should indicate absence of support.
-> + *
-> + * "vrr_enabled":
-> + *	Default &drm_crtc boolean property that notifies the driver that the
-> + *	variable refresh rate adjustment should be enabled for the CRTC.
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, October 26, 2018 6:59:21 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH libdrm] amdgpu: add VM test to exercise max/min address spa=
+ce
 
-Hi,
+Make sure the kernel doesn't crash if we map something at the minimum/maxim=
+um address.
 
-where is the documentation that explains how drivers must implement
-"variable refresh rate adjustment"?
+Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ tests/amdgpu/vm_tests.c | 45 ++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 44 insertions(+), 1 deletion(-)
 
-What should and could userspace expect to get if it flicks this switch?
+diff --git a/tests/amdgpu/vm_tests.c b/tests/amdgpu/vm_tests.c
+index 7b6dc5d6..bbdeef4d 100644
+--- a/tests/amdgpu/vm_tests.c
++++ b/tests/amdgpu/vm_tests.c
+@@ -31,8 +31,8 @@ static  amdgpu_device_handle device_handle;
+ static  uint32_t  major_version;
+ static  uint32_t  minor_version;
 
-I also think the kernel documentation should include a description of
-what VRR actually is and how it conceptually works as far as userspace
-is concerned.
+-
+ static void amdgpu_vmid_reserve_test(void);
++static void amdgpu_vm_mapping_test(void);
 
-That is, the kernel documentation should describe what this thing does,
-so that we avoid every driver implementing a different thing. For
-example, one driver could prevent the luminance flickering itself by
-tuning the timings while another driver might not do that, which means
-that an application tested on the former driver will look just fine
-while it is unbearable to watch on the latter.
+ CU_BOOL suite_vm_tests_enable(void)
+ {
+@@ -84,6 +84,7 @@ int suite_vm_tests_clean(void)
 
+ CU_TestInfo vm_tests[] =3D {
+         { "resere vmid test",  amdgpu_vmid_reserve_test },
++       { "vm mapping test",  amdgpu_vm_mapping_test },
+         CU_TEST_INFO_NULL,
+ };
 
-Thanks,
-pq
+@@ -167,3 +168,45 @@ static void amdgpu_vmid_reserve_test(void)
+         r =3D amdgpu_cs_ctx_free(context_handle);
+         CU_ASSERT_EQUAL(r, 0);
+ }
++
++static void amdgpu_vm_mapping_test(void)
++{
++       struct amdgpu_bo_alloc_request req =3D {0};
++       struct drm_amdgpu_info_device dev_info;
++       const uint64_t size =3D 4096;
++       amdgpu_bo_handle buf;
++       uint64_t addr;
++       int r;
++
++       req.alloc_size =3D size;
++       req.phys_alignment =3D 0;
++       req.preferred_heap =3D AMDGPU_GEM_DOMAIN_GTT;
++       req.flags =3D 0;
++
++       r =3D amdgpu_bo_alloc(device_handle, &req, &buf);
++       CU_ASSERT_EQUAL(r, 0);
++
++       r =3D amdgpu_query_info(device_handle, AMDGPU_INFO_DEV_INFO,
++                             sizeof(dev_info), &dev_info);
++       CU_ASSERT_EQUAL(r, 0);
++
++       addr =3D dev_info.virtual_address_offset;
++       r =3D amdgpu_bo_va_op(buf, 0, size, addr, 0, AMDGPU_VA_OP_MAP);
++       CU_ASSERT_EQUAL(r, 0);
++
++       addr =3D dev_info.virtual_address_max - size;
++       r =3D amdgpu_bo_va_op(buf, 0, size, addr, 0, AMDGPU_VA_OP_MAP);
++       CU_ASSERT_EQUAL(r, 0);
++
++       if (dev_info.high_va_offset) {
++               addr =3D dev_info.high_va_offset;
++               r =3D amdgpu_bo_va_op(buf, 0, size, addr, 0, AMDGPU_VA_OP_M=
+AP);
++               CU_ASSERT_EQUAL(r, 0);
++
++               addr =3D dev_info.high_va_max - size;
++               r =3D amdgpu_bo_va_op(buf, 0, size, addr, 0, AMDGPU_VA_OP_M=
+AP);
++               CU_ASSERT_EQUAL(r, 0);
++       }
++
++       amdgpu_bo_free(buf);
++}
+--
+2.17.1
 
-> + *
-> + *	Support for variable refresh rate will depend on the "vrr_capable"
-> + *	property exposed on the &drm_connector object.
-> + */
-> +
->  /**
->   * drm_connector_attach_vrr_capable_property - creates the
->   * vrr_capable property
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
+--_000_BN6PR12MB1809BA40F7E737C7DB14BA87F7F00BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
---Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
+.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, October 26, 2018 6:59:21 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH libdrm] amdgpu: add VM test to exercise max/min addr=
+ess space</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Make sure the kernel doesn't crash if we map somet=
+hing at the minimum/maximum address.<br>
+<br>
+Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;tests/amdgpu/vm_tests.c | 45 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;-<br>
+&nbsp;1 file changed, 44 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/tests/amdgpu/vm_tests.c b/tests/amdgpu/vm_tests.c<br>
+index 7b6dc5d6..bbdeef4d 100644<br>
+--- a/tests/amdgpu/vm_tests.c<br>
+&#43;&#43;&#43; b/tests/amdgpu/vm_tests.c<br>
+@@ -31,8 &#43;31,8 @@ static&nbsp; amdgpu_device_handle device_handle;<br>
+&nbsp;static&nbsp; uint32_t&nbsp; major_version;<br>
+&nbsp;static&nbsp; uint32_t&nbsp; minor_version;<br>
+&nbsp;<br>
+-<br>
+&nbsp;static void amdgpu_vmid_reserve_test(void);<br>
+&#43;static void amdgpu_vm_mapping_test(void);<br>
+&nbsp;<br>
+&nbsp;CU_BOOL suite_vm_tests_enable(void)<br>
+&nbsp;{<br>
+@@ -84,6 &#43;84,7 @@ int suite_vm_tests_clean(void)<br>
+&nbsp;<br>
+&nbsp;CU_TestInfo vm_tests[] =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { &quot;resere vmid test&q=
+uot;,&nbsp; amdgpu_vmid_reserve_test },<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; { &quot;vm mapping test&quot;,&nb=
+sp; amdgpu_vm_mapping_test },<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_TEST_INFO_NULL,<br>
+&nbsp;};<br>
+&nbsp;<br>
+@@ -167,3 &#43;168,45 @@ static void amdgpu_vmid_reserve_test(void)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_cs_ctx_free(c=
+ontext_handle);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+&nbsp;}<br>
+&#43;<br>
+&#43;static void amdgpu_vm_mapping_test(void)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_alloc_request re=
+q =3D {0};<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_info_device dev=
+_info;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const uint64_t size =3D 4096;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_handle buf;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; req.alloc_size =3D size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; req.phys_alignment =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; req.preferred_heap =3D AMDGPU_GEM=
+_DOMAIN_GTT;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; req.flags =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_alloc(device_hand=
+le, &amp;req, &amp;buf);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_query_info(device_ha=
+ndle, AMDGPU_INFO_DEV_INFO,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; sizeof(dev_info), &amp;dev_info);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr =3D dev_info.virtual_address=
+_offset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_va_op(buf, 0, siz=
+e, addr, 0, AMDGPU_VA_OP_MAP);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr =3D dev_info.virtual_address=
+_max - size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_va_op(buf, 0, siz=
+e, addr, 0, AMDGPU_VA_OP_MAP);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev_info.high_va_offset) {<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; addr =3D dev_info.high_va_offset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D amdgpu_bo_va_op(buf, 0, size, addr, 0, AMDGPU_VA_OP_MA=
+P);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; addr =3D dev_info.high_va_max - size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; r =3D amdgpu_bo_va_op(buf, 0, size, addr, 0, AMDGPU_VA_OP_MA=
+P);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free(buf);<br>
+&#43;}<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
 
------BEGIN PGP SIGNATURE-----
+--_000_BN6PR12MB1809BA40F7E737C7DB14BA87F7F00BN6PR12MB1809namp_--
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlvS/G8ACgkQI1/ltBGq
-qqfZVw//ZsPlC7x0xSry7eF9rfnwECAjsJtIxsxssh1WkJjui/fePTnw7H5+q7/X
-WBPJHQzaUTxbvMyg+ijEkBR+1r2R0jKmILTqHD8hT1wpJel7H/PMVpBdssqualMM
-iUeVfQnLRZ/3crZUZticeKgODRyvCqgkC0dOs+MxuWFv2qJXaRR9BuGa4gYEy+rv
-ME7GF74yUCsr6i6mWj5GjT0FJLln80lkklyQIPfUQvNS5kSzhY7nF4GcnT6d1h77
-KrQHFvmMN6QdlyKMySVtWh5VHocFcZ8PNCnVyODMbco4EQhv0NZBItGprZOObicW
-Gf39QN6D/+2eszXNPZA2btXIIy0fCLVA3RcHHWr+sEJAPXfutt+KY3teV2sPixda
-LlRFXYG/EohAYdcsBHfQkxFWD0trhBqmQ2mgZJhds7LjUZu+y1RSF/T+hrYk2BP7
-JVfuMZssQzGDWG32SPViVHHdkxsMZbGX05ZBj2NHdM5VCeoSat3Cm/I34v+o0cpn
-3gw9XcPfQEzSkJ6ZBmLZRX4XTJUszbW0wfgZH9Y6anrqV6pYWsUnT6dAVE7cHTnj
-6cURXu+d96zYIhFaPRVPkbFgNEhK072f7FqL/MzuUIAA0Nl1NcPm9Wc/j/isPhMB
-VMphgC3WSIgi+culc10NgecSWxekX+PcMpU+0bHuzb1TyLUdopA=
-=HxRX
------END PGP SIGNATURE-----
-
---Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4--
-
---===============0332818700==
+--===============0996159778==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -152,4 +284,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0332818700==--
+--===============0996159778==--
