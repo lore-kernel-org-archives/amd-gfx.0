@@ -1,11 +1,13 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH libdrm] amdgpu: add VM test to exercise max/min address space
-Date: Fri, 26 Oct 2018 12:59:21 +0200
-Message-ID: <20181026105921.3033-1-christian.koenig@amd.com>
+From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v4 3/4] drm: Document variable refresh properties
+Date: Fri, 26 Oct 2018 14:37:19 +0300
+Message-ID: <20181026143719.01381cdd@eldfell>
+References: <20181011163942.28267-1-nicholas.kazlauskas@amd.com>
+ <20181011163942.28267-4-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0332818700=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181011163942.28267-4-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,46 +18,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Cc: daniel.vetter-/w4YWyX8dFk@public.gmane.org, michel-otUistvHUpPR7s880joybQ@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org
 
-TWFrZSBzdXJlIHRoZSBrZXJuZWwgZG9lc24ndCBjcmFzaCBpZiB3ZSBtYXAgc29tZXRoaW5nIGF0
-IHRoZSBtaW5pbXVtL21heGltdW0gYWRkcmVzcy4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBL
-w7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiB0ZXN0cy9hbWRncHUvdm1fdGVz
-dHMuYyB8IDQ1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystCiAxIGZp
-bGUgY2hhbmdlZCwgNDQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBh
-L3Rlc3RzL2FtZGdwdS92bV90ZXN0cy5jIGIvdGVzdHMvYW1kZ3B1L3ZtX3Rlc3RzLmMKaW5kZXgg
-N2I2ZGM1ZDYuLmJiZGVlZjRkIDEwMDY0NAotLS0gYS90ZXN0cy9hbWRncHUvdm1fdGVzdHMuYwor
-KysgYi90ZXN0cy9hbWRncHUvdm1fdGVzdHMuYwpAQCAtMzEsOCArMzEsOCBAQCBzdGF0aWMgIGFt
-ZGdwdV9kZXZpY2VfaGFuZGxlIGRldmljZV9oYW5kbGU7CiBzdGF0aWMgIHVpbnQzMl90ICBtYWpv
-cl92ZXJzaW9uOwogc3RhdGljICB1aW50MzJfdCAgbWlub3JfdmVyc2lvbjsKIAotCiBzdGF0aWMg
-dm9pZCBhbWRncHVfdm1pZF9yZXNlcnZlX3Rlc3Qodm9pZCk7CitzdGF0aWMgdm9pZCBhbWRncHVf
-dm1fbWFwcGluZ190ZXN0KHZvaWQpOwogCiBDVV9CT09MIHN1aXRlX3ZtX3Rlc3RzX2VuYWJsZSh2
-b2lkKQogewpAQCAtODQsNiArODQsNyBAQCBpbnQgc3VpdGVfdm1fdGVzdHNfY2xlYW4odm9pZCkK
-IAogQ1VfVGVzdEluZm8gdm1fdGVzdHNbXSA9IHsKIAl7ICJyZXNlcmUgdm1pZCB0ZXN0IiwgIGFt
-ZGdwdV92bWlkX3Jlc2VydmVfdGVzdCB9LAorCXsgInZtIG1hcHBpbmcgdGVzdCIsICBhbWRncHVf
-dm1fbWFwcGluZ190ZXN0IH0sCiAJQ1VfVEVTVF9JTkZPX05VTEwsCiB9OwogCkBAIC0xNjcsMyAr
-MTY4LDQ1IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92bWlkX3Jlc2VydmVfdGVzdCh2b2lkKQogCXIg
-PSBhbWRncHVfY3NfY3R4X2ZyZWUoY29udGV4dF9oYW5kbGUpOwogCUNVX0FTU0VSVF9FUVVBTChy
-LCAwKTsKIH0KKworc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX21hcHBpbmdfdGVzdCh2b2lkKQorewor
-CXN0cnVjdCBhbWRncHVfYm9fYWxsb2NfcmVxdWVzdCByZXEgPSB7MH07CisJc3RydWN0IGRybV9h
-bWRncHVfaW5mb19kZXZpY2UgZGV2X2luZm87CisJY29uc3QgdWludDY0X3Qgc2l6ZSA9IDQwOTY7
-CisJYW1kZ3B1X2JvX2hhbmRsZSBidWY7CisJdWludDY0X3QgYWRkcjsKKwlpbnQgcjsKKworCXJl
-cS5hbGxvY19zaXplID0gc2l6ZTsKKwlyZXEucGh5c19hbGlnbm1lbnQgPSAwOworCXJlcS5wcmVm
-ZXJyZWRfaGVhcCA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsKKwlyZXEuZmxhZ3MgPSAwOworCisJ
-ciA9IGFtZGdwdV9ib19hbGxvYyhkZXZpY2VfaGFuZGxlLCAmcmVxLCAmYnVmKTsKKwlDVV9BU1NF
-UlRfRVFVQUwociwgMCk7CisKKwlyID0gYW1kZ3B1X3F1ZXJ5X2luZm8oZGV2aWNlX2hhbmRsZSwg
-QU1ER1BVX0lORk9fREVWX0lORk8sCisJCQkgICAgICBzaXplb2YoZGV2X2luZm8pLCAmZGV2X2lu
-Zm8pOworCUNVX0FTU0VSVF9FUVVBTChyLCAwKTsKKworCWFkZHIgPSBkZXZfaW5mby52aXJ0dWFs
-X2FkZHJlc3Nfb2Zmc2V0OworCXIgPSBhbWRncHVfYm9fdmFfb3AoYnVmLCAwLCBzaXplLCBhZGRy
-LCAwLCBBTURHUFVfVkFfT1BfTUFQKTsKKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7CisKKwlhZGRy
-ID0gZGV2X2luZm8udmlydHVhbF9hZGRyZXNzX21heCAtIHNpemU7CisJciA9IGFtZGdwdV9ib192
-YV9vcChidWYsIDAsIHNpemUsIGFkZHIsIDAsIEFNREdQVV9WQV9PUF9NQVApOworCUNVX0FTU0VS
-VF9FUVVBTChyLCAwKTsKKworCWlmIChkZXZfaW5mby5oaWdoX3ZhX29mZnNldCkgeworCQlhZGRy
-ID0gZGV2X2luZm8uaGlnaF92YV9vZmZzZXQ7CisJCXIgPSBhbWRncHVfYm9fdmFfb3AoYnVmLCAw
-LCBzaXplLCBhZGRyLCAwLCBBTURHUFVfVkFfT1BfTUFQKTsKKwkJQ1VfQVNTRVJUX0VRVUFMKHIs
-IDApOworCisJCWFkZHIgPSBkZXZfaW5mby5oaWdoX3ZhX21heCAtIHNpemU7CisJCXIgPSBhbWRn
-cHVfYm9fdmFfb3AoYnVmLCAwLCBzaXplLCBhZGRyLCAwLCBBTURHUFVfVkFfT1BfTUFQKTsKKwkJ
-Q1VfQVNTRVJUX0VRVUFMKHIsIDApOworCX0KKworCWFtZGdwdV9ib19mcmVlKGJ1Zik7Cit9Ci0t
-IAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0332818700==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4"; protocol="application/pgp-signature"
+
+--Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 11 Oct 2018 12:39:41 -0400
+Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> These include the drm_connector 'vrr_capable' and the drm_crtc
+> 'vrr_enabled' properties.
+>=20
+> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  Documentation/gpu/drm-kms.rst   |  7 +++++++
+>  drivers/gpu/drm/drm_connector.c | 22 ++++++++++++++++++++++
+>  2 files changed, 29 insertions(+)
+>=20
+> diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
+> index 4b1501b4835b..8da2a178cf85 100644
+> --- a/Documentation/gpu/drm-kms.rst
+> +++ b/Documentation/gpu/drm-kms.rst
+> @@ -575,6 +575,13 @@ Explicit Fencing Properties
+>  .. kernel-doc:: drivers/gpu/drm/drm_atomic_uapi.c
+>     :doc: explicit fencing properties
+> =20
+> +
+> +Variable Refresh Properties
+> +---------------------------
+> +
+> +.. kernel-doc:: drivers/gpu/drm/drm_connector.c
+> +   :doc: Variable refresh properties
+> +
+>  Existing KMS Properties
+>  -----------------------
+> =20
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index f0deeb7298d0..2a12853ca917 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -1254,6 +1254,28 @@ int drm_mode_create_scaling_mode_property(struct d=
+rm_device *dev)
+>  }
+>  EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
+> =20
+> +/**
+> + * DOC: Variable refresh properties
+> + *
+> + * Variable refresh rate control is supported via properties on the
+> + * &drm_connector and &drm_crtc objects.
+> + *
+> + * "vrr_capable":
+> + *	Optional &drm_connector boolean property that drivers should attach
+> + *	with drm_connector_attach_vrr_capable_property() on connectors that
+> + *	could support variable refresh rates. Drivers should update the
+> + *	property value by calling drm_connector_set_vrr_capable_property().
+> + *
+> + *	Absence of the property should indicate absence of support.
+> + *
+> + * "vrr_enabled":
+> + *	Default &drm_crtc boolean property that notifies the driver that the
+> + *	variable refresh rate adjustment should be enabled for the CRTC.
+
+Hi,
+
+where is the documentation that explains how drivers must implement
+"variable refresh rate adjustment"?
+
+What should and could userspace expect to get if it flicks this switch?
+
+I also think the kernel documentation should include a description of
+what VRR actually is and how it conceptually works as far as userspace
+is concerned.
+
+That is, the kernel documentation should describe what this thing does,
+so that we avoid every driver implementing a different thing. For
+example, one driver could prevent the luminance flickering itself by
+tuning the timings while another driver might not do that, which means
+that an application tested on the former driver will look just fine
+while it is unbearable to watch on the latter.
+
+
+Thanks,
+pq
+
+> + *
+> + *	Support for variable refresh rate will depend on the "vrr_capable"
+> + *	property exposed on the &drm_connector object.
+> + */
+> +
+>  /**
+>   * drm_connector_attach_vrr_capable_property - creates the
+>   * vrr_capable property
+
+
+--Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlvS/G8ACgkQI1/ltBGq
+qqfZVw//ZsPlC7x0xSry7eF9rfnwECAjsJtIxsxssh1WkJjui/fePTnw7H5+q7/X
+WBPJHQzaUTxbvMyg+ijEkBR+1r2R0jKmILTqHD8hT1wpJel7H/PMVpBdssqualMM
+iUeVfQnLRZ/3crZUZticeKgODRyvCqgkC0dOs+MxuWFv2qJXaRR9BuGa4gYEy+rv
+ME7GF74yUCsr6i6mWj5GjT0FJLln80lkklyQIPfUQvNS5kSzhY7nF4GcnT6d1h77
+KrQHFvmMN6QdlyKMySVtWh5VHocFcZ8PNCnVyODMbco4EQhv0NZBItGprZOObicW
+Gf39QN6D/+2eszXNPZA2btXIIy0fCLVA3RcHHWr+sEJAPXfutt+KY3teV2sPixda
+LlRFXYG/EohAYdcsBHfQkxFWD0trhBqmQ2mgZJhds7LjUZu+y1RSF/T+hrYk2BP7
+JVfuMZssQzGDWG32SPViVHHdkxsMZbGX05ZBj2NHdM5VCeoSat3Cm/I34v+o0cpn
+3gw9XcPfQEzSkJ6ZBmLZRX4XTJUszbW0wfgZH9Y6anrqV6pYWsUnT6dAVE7cHTnj
+6cURXu+d96zYIhFaPRVPkbFgNEhK072f7FqL/MzuUIAA0Nl1NcPm9Wc/j/isPhMB
+VMphgC3WSIgi+culc10NgecSWxekX+PcMpU+0bHuzb1TyLUdopA=
+=HxRX
+-----END PGP SIGNATURE-----
+
+--Sig_/Q3UrFW7TGHYi7FQ9qIaAqn4--
+
+--===============0332818700==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0332818700==--
