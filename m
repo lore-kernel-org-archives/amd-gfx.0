@@ -1,20 +1,10 @@
-From: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH libdrm] amdgpu: add VM test to exercise max/min address
- space
-Date: Mon, 29 Oct 2018 09:13:24 +0000
-Message-ID: <F6DCEA1C-B915-46FF-9F5B-BA7CA451D68A@amd.com>
-References: <20181026105921.3033-1-christian.koenig@amd.com>
- <B07E931A-8ABA-462E-AA99-C1CC8A695BF4@amd.com>
- <1efd59cd-d605-b05f-4929-561c90709a60@gmail.com>
- <68424CE7-03AF-488F-9855-E1C3AA0B4E94@amd.com>
- <5be172b4-765c-b81a-0899-e5e473472577@amd.com>
+From: Federico Cuello <fedux.c-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [RFC 0/7] UVD support for SI in amdgpu
+Date: Sat, 27 Oct 2018 12:53:38 +0200
+Message-ID: <CALs1_Lxs=kPkjgEjx5CDGOtr9kc_u2RZhKn8WO_kmRdQS+xsQw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0145715132=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5be172b4-765c-b81a-0899-e5e473472577-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <914B61D017C9804B999BBB16973D52B2-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,90 +15,227 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-5ZyoIDIwMTjlubQxMOaciDI55pel77yMMTY6NDDvvIxLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0
-aWFuLktvZW5pZ0BhbWQuY29tPiDlhpnpgZPvvJoNCj4gDQo+IEFtIDI5LjEwLjE4IHVtIDA5OjEz
-IHNjaHJpZWIgWmhhbmcsIEplcnJ5Og0KPj4g5ZyoIDIwMTjlubQxMOaciDI55pel77yMMTU6MzLv
-vIxDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4g5YaZ
-6YGT77yaDQo+Pj4gQW0gMjkuMTAuMTggdW0gMDY6NTAgc2NocmllYiBaaGFuZywgSmVycnk6DQo+
-Pj4+IOWcqCAyMDE45bm0MTDmnIgyNuaXpe+8jDE4OjU577yMQ2hyaXN0aWFuIEvDtm5pZyA8Y2tv
-ZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IOWGmemBk++8mg0KPj4+Pj4gTWFrZSBzdXJl
-IHRoZSBrZXJuZWwgZG9lc24ndCBjcmFzaCBpZiB3ZSBtYXAgc29tZXRoaW5nIGF0IHRoZSBtaW5p
-bXVtL21heGltdW0gYWRkcmVzcy4NCj4+Pj4+IA0KPj4+Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0
-aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPj4+Pj4gLS0tDQo+Pj4+PiB0
-ZXN0cy9hbWRncHUvdm1fdGVzdHMuYyB8IDQ1ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKystDQo+Pj4+PiAxIGZpbGUgY2hhbmdlZCwgNDQgaW5zZXJ0aW9ucygrKSwgMSBk
-ZWxldGlvbigtKQ0KPj4+Pj4gDQo+Pj4+PiBkaWZmIC0tZ2l0IGEvdGVzdHMvYW1kZ3B1L3ZtX3Rl
-c3RzLmMgYi90ZXN0cy9hbWRncHUvdm1fdGVzdHMuYw0KPj4+Pj4gaW5kZXggN2I2ZGM1ZDYuLmJi
-ZGVlZjRkIDEwMDY0NA0KPj4+Pj4gLS0tIGEvdGVzdHMvYW1kZ3B1L3ZtX3Rlc3RzLmMNCj4+Pj4+
-ICsrKyBiL3Rlc3RzL2FtZGdwdS92bV90ZXN0cy5jDQo+Pj4+PiBAQCAtMzEsOCArMzEsOCBAQCBz
-dGF0aWMgIGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldmljZV9oYW5kbGU7DQo+Pj4+PiBzdGF0aWMg
-IHVpbnQzMl90ICBtYWpvcl92ZXJzaW9uOw0KPj4+Pj4gc3RhdGljICB1aW50MzJfdCAgbWlub3Jf
-dmVyc2lvbjsNCj4+Pj4+IA0KPj4+Pj4gLQ0KPj4+Pj4gc3RhdGljIHZvaWQgYW1kZ3B1X3ZtaWRf
-cmVzZXJ2ZV90ZXN0KHZvaWQpOw0KPj4+Pj4gK3N0YXRpYyB2b2lkIGFtZGdwdV92bV9tYXBwaW5n
-X3Rlc3Qodm9pZCk7DQo+Pj4+PiANCj4+Pj4+IENVX0JPT0wgc3VpdGVfdm1fdGVzdHNfZW5hYmxl
-KHZvaWQpDQo+Pj4+PiB7DQo+Pj4+PiBAQCAtODQsNiArODQsNyBAQCBpbnQgc3VpdGVfdm1fdGVz
-dHNfY2xlYW4odm9pZCkNCj4+Pj4+IA0KPj4+Pj4gQ1VfVGVzdEluZm8gdm1fdGVzdHNbXSA9IHsN
-Cj4+Pj4+IAl7ICJyZXNlcmUgdm1pZCB0ZXN0IiwgIGFtZGdwdV92bWlkX3Jlc2VydmVfdGVzdCB9
-LA0KPj4+Pj4gKwl7ICJ2bSBtYXBwaW5nIHRlc3QiLCAgYW1kZ3B1X3ZtX21hcHBpbmdfdGVzdCB9
-LA0KPj4+Pj4gCUNVX1RFU1RfSU5GT19OVUxMLA0KPj4+Pj4gfTsNCj4+Pj4+IA0KPj4+Pj4gQEAg
-LTE2NywzICsxNjgsNDUgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtaWRfcmVzZXJ2ZV90ZXN0KHZv
-aWQpDQo+Pj4+PiAJciA9IGFtZGdwdV9jc19jdHhfZnJlZShjb250ZXh0X2hhbmRsZSk7DQo+Pj4+
-PiAJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOw0KPj4+Pj4gfQ0KPj4+Pj4gKw0KPj4+Pj4gK3N0YXRp
-YyB2b2lkIGFtZGdwdV92bV9tYXBwaW5nX3Rlc3Qodm9pZCkNCj4+Pj4+ICt7DQo+Pj4+PiArCXN0
-cnVjdCBhbWRncHVfYm9fYWxsb2NfcmVxdWVzdCByZXEgPSB7MH07DQo+Pj4+PiArCXN0cnVjdCBk
-cm1fYW1kZ3B1X2luZm9fZGV2aWNlIGRldl9pbmZvOw0KPj4+Pj4gKwljb25zdCB1aW50NjRfdCBz
-aXplID0gNDA5NjsNCj4+Pj4+ICsJYW1kZ3B1X2JvX2hhbmRsZSBidWY7DQo+Pj4+PiArCXVpbnQ2
-NF90IGFkZHI7DQo+Pj4+PiArCWludCByOw0KPj4+Pj4gKw0KPj4+Pj4gKwlyZXEuYWxsb2Nfc2l6
-ZSA9IHNpemU7DQo+Pj4+PiArCXJlcS5waHlzX2FsaWdubWVudCA9IDA7DQo+Pj4+PiArCXJlcS5w
-cmVmZXJyZWRfaGVhcCA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsNCj4+Pj4+ICsJcmVxLmZsYWdz
-ID0gMDsNCj4+Pj4+ICsNCj4+Pj4+ICsJciA9IGFtZGdwdV9ib19hbGxvYyhkZXZpY2VfaGFuZGxl
-LCAmcmVxLCAmYnVmKTsNCj4+Pj4+ICsJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOw0KPj4+Pj4gKw0K
-Pj4+Pj4gKwlyID0gYW1kZ3B1X3F1ZXJ5X2luZm8oZGV2aWNlX2hhbmRsZSwgQU1ER1BVX0lORk9f
-REVWX0lORk8sDQo+Pj4+PiArCQkJICAgICAgc2l6ZW9mKGRldl9pbmZvKSwgJmRldl9pbmZvKTsN
-Cj4+Pj4+ICsJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOw0KPj4+Pj4gKw0KPj4+Pj4gKwlhZGRyID0g
-ZGV2X2luZm8udmlydHVhbF9hZGRyZXNzX29mZnNldDsNCj4+Pj4+ICsJciA9IGFtZGdwdV9ib192
-YV9vcChidWYsIDAsIHNpemUsIGFkZHIsIDAsIEFNREdQVV9WQV9PUF9NQVApOw0KPj4+Pj4gKwlD
-VV9BU1NFUlRfRVFVQUwociwgMCk7DQo+Pj4+IFBsZWFzZSBjb25maXJtOg0KPj4+PiANCj4+Pj4g
-V2UgbWF5IG5lZWQgdG8gdW5tYXAgdGhlIFZBIGJlZm9yZSBibyBmcmVlLCBhbHRob3VnaCB0aGlz
-IFZBIHJhbmdlIGlzIHVubGlrZWx5IHRvIGJlIHVzZWQgYnkgb3RoZXIgdGVzdCBjYXNlcy4NCj4+
-PiBVbm1hcHBpbmcgaXMgdW5uZWNlc3NhcnksIFZBIG1hcHBpbmdzIG9mIEJPcyBhcmUgYXV0b21h
-dGljYWxseSByZW1vdmVkIHdoZW4gdGhlIEJPIGlzIGZyZWVkLg0KPj4gQWgsIGNvcnJlY3QuIEZl
-ZWwgZnJlZSB0byBhZGQNCj4+IFJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5n
-QGFtZC5jb20+DQo+IA0KPiBUaGFua3MuDQo+IA0KPj4gDQo+Pj4+IEJUVywgaXMgaXQgYSBjaGFu
-Y2UgaW4gcHJhY3RpY2UgdGhhdCBhIHByb2Nlc3MgbWF5IG1hcCBkaWZmZXJlbnQgVkEgcmFuZ2Vz
-IHRvIHRoZSBzYW1lIGJvPw0KPj4+IFllYWgsIHRoYXQgaXMgdXNlZCBxdWl0ZSBleHRlbnNpdmVs
-eSB3aXRoIFBSVHMuDQo+PiBQUlQgbWF5IHVzZSBkaWZmZXJlbnQgcmFuZ2VzIGluIGVudGlyZSBC
-Ty4NCj4+IFdoYXQgSSBhY3R1YWxseSBtZWFuIGlzIHRoZSBzYW1lIGJvIHJhbmdlLCBlLmcuIDEg
-cGFnZSBvZiBCTyBzdGFydGluZyBmcm9tIG9mZnNldCAwLCBtYXBwaW5nIHRvIGRpZmZlcmVudCBW
-QSByYW5nZXMsIGxpa2Ugd2hhdCB0aGUgdGVzdCBkb2VzIG5vdy4NCj4gDQo+IEdvb2QgcG9pbnQs
-IGJ1dCB0aGF0IHNob3VsZCBhbHNvIGJlIHVzZWQgYnkgUFJUIG1hcHBpbmdzLg0KPiANCj4gRS5n
-LiB3aGF0IHdlIGRvIHdpdGggUFJUIGlzIHRvIGhhdmUgYSBCTyBmaWxsZWQgd2l0aCBwYXJ0cyBv
-ZiBhIHRleHR1cmUuIA0KPiBUaGlzIEJPIGlzIHRoZW4gbWFwcGVkIG9uY2UgY29tcGxldGVseSBm
-b3JtIHN0YXJ0IHRpbGwgZW5kDQoNCkl0IHNvdW5kcyBNQVAgd2l0aCBtYXAgb3ANCg0KPiBhbmQg
-b25jZSBwYWdlIGJ5IHBhZ2UgaW50byB0aGUgc3BhcnNlIHBvcHVsYXRlZCBQUlQgdGV4dHVyZS4N
-Cg0KSXQgc291bmRzIFJFUExBQ0Ugd2l0aCBtYXAgb3ANCg0KSXMgdGhlcmUgYSBjYXNlIHRoYXQg
-bWFwKE1BUCkgdGhlIHNhbWUgYm8gcmFuZ2UgYnkgZGlmZmVyZW50IFZBIHJhbmdlcz8NCndvcmsg
-YXMgYSBwaHlzaWNhbCByYW0gcmFuZ2UgaXMgbWFwcGVkIGJ5IGRpZmZlcmVudCB2aXJ0dWFsIGFk
-ZHJlc3MuDQoNCg0KSmVycnkNCg0KPiANCj4gQ2hyaXN0aWFuLg0KPiANCj4+IA0KPj4gSmVycnkN
-Cj4+IA0KPj4+IFJlZ2FyZHMsDQo+Pj4gQ2hyaXN0aWFuLg0KPj4+IA0KPj4+PiBSZWdhcmRzLA0K
-Pj4+PiBKZXJyeQ0KPj4+PiANCj4+Pj4+ICsNCj4+Pj4+ICsJYWRkciA9IGRldl9pbmZvLnZpcnR1
-YWxfYWRkcmVzc19tYXggLSBzaXplOw0KPj4+Pj4gKwlyID0gYW1kZ3B1X2JvX3ZhX29wKGJ1Ziwg
-MCwgc2l6ZSwgYWRkciwgMCwgQU1ER1BVX1ZBX09QX01BUCk7DQo+Pj4+PiArCUNVX0FTU0VSVF9F
-UVVBTChyLCAwKTsNCj4+Pj4+ICsNCj4+Pj4+ICsJaWYgKGRldl9pbmZvLmhpZ2hfdmFfb2Zmc2V0
-KSB7DQo+Pj4+PiArCQlhZGRyID0gZGV2X2luZm8uaGlnaF92YV9vZmZzZXQ7DQo+Pj4+PiArCQly
-ID0gYW1kZ3B1X2JvX3ZhX29wKGJ1ZiwgMCwgc2l6ZSwgYWRkciwgMCwgQU1ER1BVX1ZBX09QX01B
-UCk7DQo+Pj4+PiArCQlDVV9BU1NFUlRfRVFVQUwociwgMCk7DQo+Pj4+PiArDQo+Pj4+PiArCQlh
-ZGRyID0gZGV2X2luZm8uaGlnaF92YV9tYXggLSBzaXplOw0KPj4+Pj4gKwkJciA9IGFtZGdwdV9i
-b192YV9vcChidWYsIDAsIHNpemUsIGFkZHIsIDAsIEFNREdQVV9WQV9PUF9NQVApOw0KPj4+Pj4g
-KwkJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOw0KPj4+Pj4gKwl9DQo+Pj4+PiArDQo+Pj4+PiArCWFt
-ZGdwdV9ib19mcmVlKGJ1Zik7DQo+Pj4+PiArfQ0KPj4+Pj4gLS0gDQo+Pj4+PiAyLjE3LjENCj4+
-Pj4+IA0KPj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18NCj4+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KPj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+--===============0145715132==
+Content-Type: multipart/alternative; boundary="00000000000099d0dc057933a659"
+
+--00000000000099d0dc057933a659
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+> Am 09.11.2017 um 11:53 schrieb Piotr Redlewski:
+> > On Thu, Nov 09, 2017 at 11:09:42AM +0100, Christian K=C3=B6nig wrote:
+> >> Am 09.11.2017 um 10:54 schrieb Piotr Redlewski:
+> >>> On Wed, Nov 08, 2017 at 06:54:18PM -0500, Alex Deucher wrote:
+> >>>> On Wed, Nov 8, 2017 at 5:38 PM, Piotr Redlewski <predlewski at
+gmail.com> wrote:
+> >>>>> Hi,
+> >>>>>
+> >>>>> Following series implements UVD support for SI in amdgpu driver.
+Code is based
+> >>>>> on CIK's UVD support in amdgpu and SI's UVD support in radeon
+drivers. To work,
+> >>>>> it requires tahiti uvd firmware with added header - I've created
+simple script
+> >>>>> to produce exactly this, so if anyone is interested it can be found
+here:
+> >>>>> https://gist.github.com/anonymous/6d974a970340f7f64b6fcc4f95267e43
+> >>>>>
+> >>>>> Code is based on amd-staging-drm-next branch in Alex's tree. After
+applying
+> >>>>> these patches, uvd boots up and seems to work ok. I've tested it
+with vdpauinfo
+> >>>>> and mpv.
+> >>>>>
+> >>>>> Some comments/issues for the patches:
+> >>>>> 1. To make uvd work, I had to bring back fb location programming.
+Using location
+> >>>>> programmed by vbios, vram location is not available for uvd mc (at
+least on my
+> >>>>> machine) due to too wide address. Starting address is 40-bit long
+for fb, but
+> >>>>> uvd mc supports only 32-bits (judging by comments in amdgpu code
+and actual code
+> >>>>> in radeon driver)
+> >>>> Something else must be going on.  The vram location is irrelevant
+with
+> >>>> respect to the limitations of UVD.  I think the limitations with UVD
+> >>>> are more to do with the location of the active buffers relative to
+> >>>> each other rather than the absolute location of some aperture in the
+> >>>> GPU's address space.  CI has the same limitation as I recall so ther=
+e
+> >>>> is probably a bug somewhere.  Windows has used the fb location as se=
+t
+> >>>> by the vbios since evergreen, so it definitely should work.
+> >>>>
+> >>> If this is the case, then there must be something missing in UVD mc
+controller
+> >>> programming. When using vbios, I get following location:
+> >>> amdgpu 0000:01:00.0: VRAM: 2048M 0x000000F400000000 -
+0x000000F47FFFFFFF (2048M used)
+> >>>
+> >>> When UVD bo is created, it starts at address 0xf400243000 and this
+value is used
+> >>> for programming UVD mc offsets. Programming is done in the following
+way:
+> >>> addr =3D (adev->uvd.gpu_addr + AMDGPU_UVD_FIRMWARE_OFFSET) >> 3;
+> >>> WREG32(mmUVD_VCPU_CACHE_OFFSET0, addr);
+> >>>
+> >>> Because address of the bo is wider than 32-bit, this won't work. It
+would be the
+> >>> same if UVD bo would be created at the beginning of the VRAM.
+> >>>
+> >>> Any ideas how to handle this?
+> >> Are you programming UVD_LMI_EXT40_ADDR?
+> >>
+> >> But I'm not sure if we ever handled that correctly in the SI code.
+> > Yes, I do it exactly the same as it is done in radeon (and CIK in
+amdgpu):
+> >   /* bits 32-39 */
+> > addr =3D (adev->uvd.gpu_addr >> 32) & 0xFF;
+> > WREG32(mmUVD_LMI_EXT40_ADDR, addr | (0x9 << 16) | (0x1 << 31));
+>
+> Ok, I've checked the firmware in the meantime and found that we never
+> released firmware which supports the full 40bit addressing.
+>
+> That's why this will never work correctly. Going to check if we can get
+> updated firmware out of the door.
+
+Hi Christian,
+
+Did you manage to publish the updated firmware? I can't see it in the
+linux-firmware tree.
+
+Thanks,
+Federico
+
+> Regards,
+> Christian.
+>
+> >
+> > Regards,
+> > Piotr
+
+--00000000000099d0dc057933a659
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><p>&gt; Am 09.11.2017 um 11:53 schrieb Pi=
+otr Redlewski:<br>
+&gt; &gt; On Thu, Nov 09, 2017 at 11:09:42AM +0100, Christian K=C3=B6nig wr=
+ote:<br>
+&gt; &gt;&gt; Am 09.11.2017 um 10:54 schrieb Piotr Redlewski:<br>
+&gt; &gt;&gt;&gt; On Wed, Nov 08, 2017 at 06:54:18PM -0500, Alex Deucher wr=
+ote:<br>
+&gt; &gt;&gt;&gt;&gt; On Wed, Nov 8, 2017 at 5:38 PM, Piotr Redlewski &lt;p=
+redlewski at <a href=3D"http://gmail.com">gmail.com</a>&gt; wrote:<br>
+&gt; &gt;&gt;&gt;&gt;&gt; Hi,<br>
+&gt; &gt;&gt;&gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&gt;&gt; Following series implements UVD support for SI in=
+ amdgpu driver. Code is based<br>
+&gt; &gt;&gt;&gt;&gt;&gt; on CIK&#39;s UVD support in amdgpu and SI&#39;s U=
+VD support in radeon drivers. To work,<br>
+&gt; &gt;&gt;&gt;&gt;&gt; it requires tahiti uvd firmware with added header=
+ - I&#39;ve created simple script<br>
+&gt; &gt;&gt;&gt;&gt;&gt; to produce exactly this, so if anyone is interest=
+ed it can be found here:<br>
+&gt; &gt;&gt;&gt;&gt;&gt; <a href=3D"https://gist.github.com/anonymous/6d97=
+4a970340f7f64b6fcc4f95267e43">https://gist.github.com/anonymous/6d974a97034=
+0f7f64b6fcc4f95267e43</a><br>
+&gt; &gt;&gt;&gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&gt;&gt; Code is based on amd-staging-drm-next branch in A=
+lex&#39;s tree. After applying<br>
+&gt; &gt;&gt;&gt;&gt;&gt; these patches, uvd boots up and seems to work ok.=
+ I&#39;ve tested it with vdpauinfo<br>
+&gt; &gt;&gt;&gt;&gt;&gt; and mpv.<br>
+&gt; &gt;&gt;&gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt;&gt;&gt; Some comments/issues for the patches:<br>
+&gt; &gt;&gt;&gt;&gt;&gt; 1. To make uvd work, I had to bring back fb locat=
+ion programming. Using location<br>
+&gt; &gt;&gt;&gt;&gt;&gt; programmed by vbios, vram location is not availab=
+le for uvd mc (at least on my<br>
+&gt; &gt;&gt;&gt;&gt;&gt; machine) due to too wide address. Starting addres=
+s is 40-bit long for fb, but<br>
+&gt; &gt;&gt;&gt;&gt;&gt; uvd mc supports only 32-bits (judging by comments=
+ in amdgpu code and actual code<br>
+&gt; &gt;&gt;&gt;&gt;&gt; in radeon driver)<br>
+&gt; &gt;&gt;&gt;&gt; Something else must be going on.=C2=A0 The vram locat=
+ion is irrelevant with<br>
+&gt; &gt;&gt;&gt;&gt; respect to the limitations of UVD.=C2=A0 I think the =
+limitations with UVD<br>
+&gt; &gt;&gt;&gt;&gt; are more to do with the location of the active buffer=
+s relative to<br>
+&gt; &gt;&gt;&gt;&gt; each other rather than the absolute location of some =
+aperture in the<br>
+&gt; &gt;&gt;&gt;&gt; GPU&#39;s address space.=C2=A0 CI has the same limita=
+tion as I recall so there<br>
+&gt; &gt;&gt;&gt;&gt; is probably a bug somewhere.=C2=A0 Windows has used t=
+he fb location as set<br>
+&gt; &gt;&gt;&gt;&gt; by the vbios since evergreen, so it definitely should=
+ work.<br>
+&gt; &gt;&gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; If this is the case, then there must be something missing=
+ in UVD mc controller<br>
+&gt; &gt;&gt;&gt; programming. When using vbios, I get following location:<=
+br>
+&gt; &gt;&gt;&gt; amdgpu 0000:01:00.0: VRAM: 2048M 0x000000F400000000 - 0x0=
+00000F47FFFFFFF (2048M used)<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; When UVD bo is created, it starts at address 0xf400243000=
+ and this value is used<br>
+&gt; &gt;&gt;&gt; for programming UVD mc offsets. Programming is done in th=
+e following way:<br>
+&gt; &gt;&gt;&gt; addr =3D (adev-&gt;uvd.gpu_addr + AMDGPU_UVD_FIRMWARE_OFF=
+SET) &gt;&gt; 3;<br>
+&gt; &gt;&gt;&gt; WREG32(mmUVD_VCPU_CACHE_OFFSET0, addr);<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; Because address of the bo is wider than 32-bit, this won&=
+#39;t work. It would be the<br>
+&gt; &gt;&gt;&gt; same if UVD bo would be created at the beginning of the V=
+RAM.<br>
+&gt; &gt;&gt;&gt;<br>
+&gt; &gt;&gt;&gt; Any ideas how to handle this?<br>
+&gt; &gt;&gt; Are you programming UVD_LMI_EXT40_ADDR?<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; But I&#39;m not sure if we ever handled that correctly in the=
+ SI code.<br>
+&gt; &gt; Yes, I do it exactly the same as it is done in radeon (and CIK in=
+ amdgpu):<br>
+&gt; &gt;=C2=A0=C2=A0 /* bits 32-39 */<br>
+&gt; &gt; addr =3D (adev-&gt;uvd.gpu_addr &gt;&gt; 32) &amp; 0xFF;<br>
+&gt; &gt; WREG32(mmUVD_LMI_EXT40_ADDR, addr | (0x9 &lt;&lt; 16) | (0x1 &lt;=
+&lt; 31));<br>
+&gt;<br>
+&gt; Ok, I&#39;ve checked the firmware in the meantime and found that we ne=
+ver<br>
+&gt; released firmware which supports the full 40bit addressing.<br>
+&gt;<br>
+&gt; That&#39;s why this will never work correctly. Going to check if we ca=
+n get<br>
+&gt; updated firmware out of the door.</p><p>Hi Christian,<br></p><p>Did yo=
+u manage to publish the updated firmware? I can&#39;t see it in the linux-f=
+irmware tree.<br></p><p>Thanks,<br>Federico</p><div><br></div><p>
+&gt; Regards,<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Regards,<br>
+&gt; &gt; Piotr<br>
+  <br>
+  <br>
+</p></div></div>
+
+--00000000000099d0dc057933a659--
+
+--===============0145715132==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0145715132==--
