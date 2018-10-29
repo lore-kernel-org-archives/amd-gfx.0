@@ -1,17 +1,19 @@
-From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v4 3/4] drm: Document variable refresh properties
-Date: Mon, 29 Oct 2018 10:36:36 +0200
-Message-ID: <20181029103636.5cc2798b@eldfell>
-References: <20181011163942.28267-1-nicholas.kazlauskas@amd.com>
- <20181011163942.28267-4-nicholas.kazlauskas@amd.com>
- <20181026143719.01381cdd@eldfell>
- <bdda3a3b-c912-98bf-8dbd-29a5b58086df@amd.com>
- <20181026145321.GV9144@intel.com>
- <f21251f7-10e2-e0f7-702d-bd3868ac8edc@amd.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: add VM test to exercise max/min address
+ space
+Date: Mon, 29 Oct 2018 08:40:57 +0000
+Message-ID: <5be172b4-765c-b81a-0899-e5e473472577@amd.com>
+References: <20181026105921.3033-1-christian.koenig@amd.com>
+ <B07E931A-8ABA-462E-AA99-C1CC8A695BF4@amd.com>
+ <1efd59cd-d605-b05f-4929-561c90709a60@gmail.com>
+ <68424CE7-03AF-488F-9855-E1C3AA0B4E94@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1876256759=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f21251f7-10e2-e0f7-702d-bd3868ac8edc-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <68424CE7-03AF-488F-9855-E1C3AA0B4E94-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <239084398F8CAB4E98EB653AA627F78C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,181 +24,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Cc: "daniel.vetter-/w4YWyX8dFk@public.gmane.org" <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, "michel-otUistvHUpPR7s880joybQ@public.gmane.org" <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org" <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1876256759==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/02GLZp3RKsp=iUHInp20u77"; protocol="application/pgp-signature"
-
---Sig_/02GLZp3RKsp=iUHInp20u77
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 26 Oct 2018 17:34:15 +0000
-"Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> On 10/26/18 10:53 AM, Ville Syrj=C3=A4l=C3=A4 wrote:
-> > On Fri, Oct 26, 2018 at 02:49:31PM +0000, Kazlauskas, Nicholas wrote: =
-=20
-> >> On 10/26/18 7:37 AM, Pekka Paalanen wrote: =20
-
-> >>> Hi,
-> >>>
-> >>> where is the documentation that explains how drivers must implement
-> >>> "variable refresh rate adjustment"?
-> >>>
-> >>> What should and could userspace expect to get if it flicks this switc=
-h?
-> >>>
-> >>> I also think the kernel documentation should include a description of
-> >>> what VRR actually is and how it conceptually works as far as userspace
-> >>> is concerned.
-> >>>
-> >>> That is, the kernel documentation should describe what this thing doe=
-s,
-> >>> so that we avoid every driver implementing a different thing. For
-> >>> example, one driver could prevent the luminance flickering itself by
-> >>> tuning the timings while another driver might not do that, which means
-> >>> that an application tested on the former driver will look just fine
-> >>> while it is unbearable to watch on the latter.
-> >>>
-> >>>
-> >>> Thanks,
-> >>> pq =20
-> >>
-> >> I felt it was best to leave this more on the vague side to not impose
-> >> restrictions yet on what a driver must do.
-> >>
-> >> If you think it's worth defining what the "baseline" expectation is for
-> >> userspace, I would probably describe it as "utilizing the monitor's
-> >> variable refresh rate to reduce stuttering or tearing that can occur
-> >> during flipping". This is currently what the amdgpu driver has enabled
-> >> for support. The implementation also isn't much more complex than just
-> >> passing the variable refresh range to the hardware.
-
-Hi,
-
-sorry, but that says nothing.
-
-Also, tearing has nothing to do here. VRR reduces stuttering if
-userspace is already tear-free. If userspace was driving the display in
-a tearing fashion, VRR will not reduce or remove tearing, it just makes
-it happen at different points and times. Tearing happens because
-framebuffer flips are executed regardless of the refresh cycle, so
-adjusting the refresh timings won't help.
-
-However...
-
-> >>
-> >> I wouldn't want every driver to be forced to implement some sort of
-> >> luminance flickering by default. It's not noticeable on many panels and
-> >> any tuning would inherently add latency to the output. It would probab=
-ly
-> >> be better left as a new property or a driver specific feature.
-
-The point is to give userspace guaranteed expectations. If the
-expectation is that some displays might actually emit bad luminance
-flickering, then userspace must always assume the worst and implement
-the needed slewing algorithms to avoid it, even if it would be
-unnecessary.
-
-Userspace is farther away from the hardware than the drivers are, and
-if userspace is required to implement luminance flickering avoidance,
-that implementation must be done in all display servers and KMS apps
-that might enable VRR. That would also call for a userspace hardware
-database, so that people can set up quirks to enable/disable/adjust the
-algorithms for specific hardware with the hopes that other users could
-then have a good out-of-the-box experience. Instead, if possible, I
-would like to see some guarantees from the kernel drivers that
-userspace does not need to worry about luminance flickering.
-
-Unless you would deem all hardware that can exhibit luminance
-flickering as faulty and unsupported?
-
-We need a baseline default expectation. You can modify that expectation
-later with new properties, but I believe something needs to be defined
-as the default. Even if the definition is really just "hardware takes
-care of not flickering".
-
-> >>
-> >> In general I would imagine that most future VRR features would end up =
-as
-> >> new properties. Anything that's purely software could be implemented as
-> >> a drm helper that every driver can use. I think the target presentation
-> >> timestamp feature is a good example for that. =20
-> >=20
-> > Speaking of timestamps. What is the expected behaviour of vblank
-> > timestamps when vrr is enabled?
-> > =20
->=20
-> When vrr is enabled the duration of the vertical front porch will be
-> extended until flip or timeout occurs. The vblank timestamp will vary
-> based on duration of the vertical front porch. The min/max duration for
-> the front porch can be specified by the driver via the min/max range.
-
-...This is actually useful information, it explains things. Do all VRR
-hardware implementations fundamentally work like this?
-
-With that definition, there is only more parameter to be exposed to
-userspace in the future: what is the length of the timeout? No need to
-expose maximum-refresh-freq because that information is already present
-in the programmed video mode.
-
-Btw. even this definition does not give any hint about problems like
-the luminance flickering. If possible flickering is an issue that
-cannot be simply ignored, then something should be documented about it.
-
-Do you know of any other "hidden" issues that could require userspace
-or drivers to be careful in how it will drive VRR?
-
-
-Thanks,
-pq
-
-> No changes to vblank timestamping handling should be necessary to
-> accommodate variable refresh rate.
->=20
-> I think it's probably best to update the documentation for vrr_enable=20
-> with some of the specifics I described above. That should help clarify=20
-> userspace expectations as well.
->=20
-> Nicholas Kazlauskas
-
-
---Sig_/02GLZp3RKsp=iUHInp20u77
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlvWxpQACgkQI1/ltBGq
-qqdHwA//d+ExqSnjyij0XJ5LRp4fpAEq991MR6RxQCByzMACiXIGwfWWvbfkLFRi
-cWrt3JbMeXD/ShXJRj2MqZHE+hmZ1+mgok2YMv+reRKNjEr9Q6JsUugLgraOuwKf
-90RfAp5+hjehfHB2FwEcs/bjpDIevKdkQcFlu1K7ABeL+++PMXglxEBpoA6xmXRv
-Cmp52aYOwkZng/FwoYOq3AHiGHsF4vjRamuhTQiXa6eKmKhcWqBn0AidGz3StTdE
-n434OjQp60kmNE2ZoZM1ws4am21Awn1Ow+ALqqCzw6L9VrR7L60irH5+xg6Cvowd
-7SD25X64qx5SPfDA+/LKAhjvXDbPA2z3EWouvzx82JCnQqJyhQBYMPSq3vTlwy9X
-5+toebJrBmWkQLVMUSJZ3CTEIRi4KLT/Cc5Wb4V1O/8K8pK/jXQyVmYn7A2EXFPR
-1Z+30OkLgqLWTrdKQLSN8VK+8NM13t92BnVlKP+grqXzOOyMm7200aEgZy4QFYSM
-OSdXB1YJKxyJMR6XgcODg8X4/t5++TLm6Wf5cDiHORTmasvMNG+8b5j8DOwSEEAn
-zJU/b9sulq90OiApALh1TqMMcUj8tzZ8AbtYMlBzPbOl+8Ok4uoobiCgOUnByxGP
-dZ2p3E6chTmKYJn6nsnpWQ5i0R7nFt+UFwbs/c3Ois1ct6heoi4=
-=1Oj+
------END PGP SIGNATURE-----
-
---Sig_/02GLZp3RKsp=iUHInp20u77--
-
---===============1876256759==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1876256759==--
+QW0gMjkuMTAuMTggdW0gMDk6MTMgc2NocmllYiBaaGFuZywgSmVycnk6DQo+IOWcqCAyMDE45bm0
+MTDmnIgyOeaXpe+8jDE1OjMy77yMQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1l
+cmtlbkBnbWFpbC5jb20+IOWGmemBk++8mg0KPj4gQW0gMjkuMTAuMTggdW0gMDY6NTAgc2Nocmll
+YiBaaGFuZywgSmVycnk6DQo+Pj4g5ZyoIDIwMTjlubQxMOaciDI25pel77yMMTg6NTnvvIxDaHJp
+c3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4g5YaZ6YGT77ya
+DQo+Pj4+IE1ha2Ugc3VyZSB0aGUga2VybmVsIGRvZXNuJ3QgY3Jhc2ggaWYgd2UgbWFwIHNvbWV0
+aGluZyBhdCB0aGUgbWluaW11bS9tYXhpbXVtIGFkZHJlc3MuDQo+Pj4+DQo+Pj4+IFNpZ25lZC1v
+ZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4+Pj4g
+LS0tDQo+Pj4+IHRlc3RzL2FtZGdwdS92bV90ZXN0cy5jIHwgNDUgKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKy0NCj4+Pj4gMSBmaWxlIGNoYW5nZWQsIDQ0IGluc2VydGlv
+bnMoKyksIDEgZGVsZXRpb24oLSkNCj4+Pj4NCj4+Pj4gZGlmZiAtLWdpdCBhL3Rlc3RzL2FtZGdw
+dS92bV90ZXN0cy5jIGIvdGVzdHMvYW1kZ3B1L3ZtX3Rlc3RzLmMNCj4+Pj4gaW5kZXggN2I2ZGM1
+ZDYuLmJiZGVlZjRkIDEwMDY0NA0KPj4+PiAtLS0gYS90ZXN0cy9hbWRncHUvdm1fdGVzdHMuYw0K
+Pj4+PiArKysgYi90ZXN0cy9hbWRncHUvdm1fdGVzdHMuYw0KPj4+PiBAQCAtMzEsOCArMzEsOCBA
+QCBzdGF0aWMgIGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldmljZV9oYW5kbGU7DQo+Pj4+IHN0YXRp
+YyAgdWludDMyX3QgIG1ham9yX3ZlcnNpb247DQo+Pj4+IHN0YXRpYyAgdWludDMyX3QgIG1pbm9y
+X3ZlcnNpb247DQo+Pj4+DQo+Pj4+IC0NCj4+Pj4gc3RhdGljIHZvaWQgYW1kZ3B1X3ZtaWRfcmVz
+ZXJ2ZV90ZXN0KHZvaWQpOw0KPj4+PiArc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX21hcHBpbmdfdGVz
+dCh2b2lkKTsNCj4+Pj4NCj4+Pj4gQ1VfQk9PTCBzdWl0ZV92bV90ZXN0c19lbmFibGUodm9pZCkN
+Cj4+Pj4gew0KPj4+PiBAQCAtODQsNiArODQsNyBAQCBpbnQgc3VpdGVfdm1fdGVzdHNfY2xlYW4o
+dm9pZCkNCj4+Pj4NCj4+Pj4gQ1VfVGVzdEluZm8gdm1fdGVzdHNbXSA9IHsNCj4+Pj4gCXsgInJl
+c2VyZSB2bWlkIHRlc3QiLCAgYW1kZ3B1X3ZtaWRfcmVzZXJ2ZV90ZXN0IH0sDQo+Pj4+ICsJeyAi
+dm0gbWFwcGluZyB0ZXN0IiwgIGFtZGdwdV92bV9tYXBwaW5nX3Rlc3QgfSwNCj4+Pj4gCUNVX1RF
+U1RfSU5GT19OVUxMLA0KPj4+PiB9Ow0KPj4+Pg0KPj4+PiBAQCAtMTY3LDMgKzE2OCw0NSBAQCBz
+dGF0aWMgdm9pZCBhbWRncHVfdm1pZF9yZXNlcnZlX3Rlc3Qodm9pZCkNCj4+Pj4gCXIgPSBhbWRn
+cHVfY3NfY3R4X2ZyZWUoY29udGV4dF9oYW5kbGUpOw0KPj4+PiAJQ1VfQVNTRVJUX0VRVUFMKHIs
+IDApOw0KPj4+PiB9DQo+Pj4+ICsNCj4+Pj4gK3N0YXRpYyB2b2lkIGFtZGdwdV92bV9tYXBwaW5n
+X3Rlc3Qodm9pZCkNCj4+Pj4gK3sNCj4+Pj4gKwlzdHJ1Y3QgYW1kZ3B1X2JvX2FsbG9jX3JlcXVl
+c3QgcmVxID0gezB9Ow0KPj4+PiArCXN0cnVjdCBkcm1fYW1kZ3B1X2luZm9fZGV2aWNlIGRldl9p
+bmZvOw0KPj4+PiArCWNvbnN0IHVpbnQ2NF90IHNpemUgPSA0MDk2Ow0KPj4+PiArCWFtZGdwdV9i
+b19oYW5kbGUgYnVmOw0KPj4+PiArCXVpbnQ2NF90IGFkZHI7DQo+Pj4+ICsJaW50IHI7DQo+Pj4+
+ICsNCj4+Pj4gKwlyZXEuYWxsb2Nfc2l6ZSA9IHNpemU7DQo+Pj4+ICsJcmVxLnBoeXNfYWxpZ25t
+ZW50ID0gMDsNCj4+Pj4gKwlyZXEucHJlZmVycmVkX2hlYXAgPSBBTURHUFVfR0VNX0RPTUFJTl9H
+VFQ7DQo+Pj4+ICsJcmVxLmZsYWdzID0gMDsNCj4+Pj4gKw0KPj4+PiArCXIgPSBhbWRncHVfYm9f
+YWxsb2MoZGV2aWNlX2hhbmRsZSwgJnJlcSwgJmJ1Zik7DQo+Pj4+ICsJQ1VfQVNTRVJUX0VRVUFM
+KHIsIDApOw0KPj4+PiArDQo+Pj4+ICsJciA9IGFtZGdwdV9xdWVyeV9pbmZvKGRldmljZV9oYW5k
+bGUsIEFNREdQVV9JTkZPX0RFVl9JTkZPLA0KPj4+PiArCQkJICAgICAgc2l6ZW9mKGRldl9pbmZv
+KSwgJmRldl9pbmZvKTsNCj4+Pj4gKwlDVV9BU1NFUlRfRVFVQUwociwgMCk7DQo+Pj4+ICsNCj4+
+Pj4gKwlhZGRyID0gZGV2X2luZm8udmlydHVhbF9hZGRyZXNzX29mZnNldDsNCj4+Pj4gKwlyID0g
+YW1kZ3B1X2JvX3ZhX29wKGJ1ZiwgMCwgc2l6ZSwgYWRkciwgMCwgQU1ER1BVX1ZBX09QX01BUCk7
+DQo+Pj4+ICsJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOw0KPj4+IFBsZWFzZSBjb25maXJtOg0KPj4+
+DQo+Pj4gV2UgbWF5IG5lZWQgdG8gdW5tYXAgdGhlIFZBIGJlZm9yZSBibyBmcmVlLCBhbHRob3Vn
+aCB0aGlzIFZBIHJhbmdlIGlzIHVubGlrZWx5IHRvIGJlIHVzZWQgYnkgb3RoZXIgdGVzdCBjYXNl
+cy4NCj4+IFVubWFwcGluZyBpcyB1bm5lY2Vzc2FyeSwgVkEgbWFwcGluZ3Mgb2YgQk9zIGFyZSBh
+dXRvbWF0aWNhbGx5IHJlbW92ZWQgd2hlbiB0aGUgQk8gaXMgZnJlZWQuDQo+IEFoLCBjb3JyZWN0
+LiBGZWVsIGZyZWUgdG8gYWRkDQo+IFJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5Llpo
+YW5nQGFtZC5jb20+DQoNClRoYW5rcy4NCg0KPg0KPj4+IEJUVywgaXMgaXQgYSBjaGFuY2UgaW4g
+cHJhY3RpY2UgdGhhdCBhIHByb2Nlc3MgbWF5IG1hcCBkaWZmZXJlbnQgVkEgcmFuZ2VzIHRvIHRo
+ZSBzYW1lIGJvPw0KPj4gWWVhaCwgdGhhdCBpcyB1c2VkIHF1aXRlIGV4dGVuc2l2ZWx5IHdpdGgg
+UFJUcy4NCj4gUFJUIG1heSB1c2UgZGlmZmVyZW50IHJhbmdlcyBpbiBlbnRpcmUgQk8uDQo+IFdo
+YXQgSSBhY3R1YWxseSBtZWFuIGlzIHRoZSBzYW1lIGJvIHJhbmdlLCBlLmcuIDEgcGFnZSBvZiBC
+TyBzdGFydGluZyBmcm9tIG9mZnNldCAwLCBtYXBwaW5nIHRvIGRpZmZlcmVudCBWQSByYW5nZXMs
+IGxpa2Ugd2hhdCB0aGUgdGVzdCBkb2VzIG5vdy4NCg0KR29vZCBwb2ludCwgYnV0IHRoYXQgc2hv
+dWxkIGFsc28gYmUgdXNlZCBieSBQUlQgbWFwcGluZ3MuDQoNCkUuZy4gd2hhdCB3ZSBkbyB3aXRo
+IFBSVCBpcyB0byBoYXZlIGEgQk8gZmlsbGVkIHdpdGggcGFydHMgb2YgYSB0ZXh0dXJlLiANClRo
+aXMgQk8gaXMgdGhlbiBtYXBwZWQgb25jZSBjb21wbGV0ZWx5IGZvcm0gc3RhcnQgdGlsbCBlbmQg
+YW5kIG9uY2UgcGFnZSANCmJ5IHBhZ2UgaW50byB0aGUgc3BhcnNlIHBvcHVsYXRlZCBQUlQgdGV4
+dHVyZS4NCg0KQ2hyaXN0aWFuLg0KDQo+DQo+IEplcnJ5DQo+DQo+PiBSZWdhcmRzLA0KPj4gQ2hy
+aXN0aWFuLg0KPj4NCj4+PiBSZWdhcmRzLA0KPj4+IEplcnJ5DQo+Pj4NCj4+Pj4gKw0KPj4+PiAr
+CWFkZHIgPSBkZXZfaW5mby52aXJ0dWFsX2FkZHJlc3NfbWF4IC0gc2l6ZTsNCj4+Pj4gKwlyID0g
+YW1kZ3B1X2JvX3ZhX29wKGJ1ZiwgMCwgc2l6ZSwgYWRkciwgMCwgQU1ER1BVX1ZBX09QX01BUCk7
+DQo+Pj4+ICsJQ1VfQVNTRVJUX0VRVUFMKHIsIDApOw0KPj4+PiArDQo+Pj4+ICsJaWYgKGRldl9p
+bmZvLmhpZ2hfdmFfb2Zmc2V0KSB7DQo+Pj4+ICsJCWFkZHIgPSBkZXZfaW5mby5oaWdoX3ZhX29m
+ZnNldDsNCj4+Pj4gKwkJciA9IGFtZGdwdV9ib192YV9vcChidWYsIDAsIHNpemUsIGFkZHIsIDAs
+IEFNREdQVV9WQV9PUF9NQVApOw0KPj4+PiArCQlDVV9BU1NFUlRfRVFVQUwociwgMCk7DQo+Pj4+
+ICsNCj4+Pj4gKwkJYWRkciA9IGRldl9pbmZvLmhpZ2hfdmFfbWF4IC0gc2l6ZTsNCj4+Pj4gKwkJ
+ciA9IGFtZGdwdV9ib192YV9vcChidWYsIDAsIHNpemUsIGFkZHIsIDAsIEFNREdQVV9WQV9PUF9N
+QVApOw0KPj4+PiArCQlDVV9BU1NFUlRfRVFVQUwociwgMCk7DQo+Pj4+ICsJfQ0KPj4+PiArDQo+
+Pj4+ICsJYW1kZ3B1X2JvX2ZyZWUoYnVmKTsNCj4+Pj4gK30NCj4+Pj4gLS0gDQo+Pj4+IDIuMTcu
+MQ0KPj4+Pg0KPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXw0KPj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZw0KPj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
