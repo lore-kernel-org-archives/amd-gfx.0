@@ -1,14 +1,14 @@
 From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH libdrm 1/2] amdgpu: prevent an integer wraparound of
  cpu_map_count
-Date: Mon, 29 Oct 2018 17:12:49 -0400
-Message-ID: <CAAxE2A50faU_h4HAPkauLxt5mw9qfVnQRazwviSPhrTbmW4sCQ@mail.gmail.com>
+Date: Mon, 29 Oct 2018 17:15:07 -0400
+Message-ID: <CAAxE2A50X-XGvyx7GcZnnAC4p-bRnXrQpjQZ1D-8pD5ir3QdMQ@mail.gmail.com>
 References: <20181023190733.15251-1-maraeo@gmail.com>
- <63dd9ca5-dbfc-ad21-4a3b-6c1f48f03a03@amd.com>
+ <7690cf4c-5eff-85e4-885c-2ecc9dc01c25@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1258534421=="
+Content-Type: multipart/mixed; boundary="===============0153797082=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <63dd9ca5-dbfc-ad21-4a3b-6c1f48f03a03-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <7690cf4c-5eff-85e4-885c-2ecc9dc01c25-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,32 +19,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1258534421==
-Content-Type: multipart/alternative; boundary="000000000000316f1f0579648a78"
+--===============0153797082==
+Content-Type: multipart/alternative; boundary="0000000000006c0eb7057964928e"
 
---000000000000316f1f0579648a78
+--0000000000006c0eb7057964928e
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 23, 2018 at 10:38 PM Zhang, Jerry(Junwei) <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-wrote:
+You and I discussed this extensively internally a while ago. It's expected
+and correct behavior. Mesa doesn't unmap some buffers and never will.
 
-> On 10/24/18 3:07 AM, Marek Ol=C5=A1=C3=A1k wrote:
+Marek
+
+On Wed, Oct 24, 2018 at 3:45 AM Christian K=C3=B6nig <
+ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> That looks really ugly to me. Mapping the same BO so often is illegal
+> and should be handled as error.
+>
+> Otherwise we will never be able to cleanly recover from a GPU lockup
+> with lost state by reloading the client library.
+>
+> Christian.
+>
+> Am 23.10.18 um 21:07 schrieb Marek Ol=C5=A1=C3=A1k:
 > > From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
->
-> We need commit log and sign-off here.
->
-> BTW, have you encounter any issue about that?
->
-
-I don't know what you mean. I'm pretty sure that a sign-off is not needed
-for libdrm.
-
-
->
 > >
 > > ---
 > >   amdgpu/amdgpu_bo.c | 19 +++++++++++++++++--
@@ -100,35 +102,75 @@ for libdrm.
 > > +              */
 > > +             if (bo->cpu_map_count !=3D INT_MAX)
 > > +                     bo->cpu_map_count++;
+> > +
+> >               *cpu =3D bo->cpu_ptr;
+> >               pthread_mutex_unlock(&bo->cpu_access_mutex);
+> >               return 0;
+> >       }
+> >
+> >       assert(bo->cpu_map_count =3D=3D 0);
+> >
+> >       memset(&args, 0, sizeof(args));
+> >
+> >       /* Query the buffer address (args.addr_ptr).
+> > @@ -492,21 +501,27 @@ drm_public int
+> amdgpu_bo_cpu_unmap(amdgpu_bo_handle bo)
+> >
+> >       pthread_mutex_lock(&bo->cpu_access_mutex);
+> >       assert(bo->cpu_map_count >=3D 0);
+> >
+> >       if (bo->cpu_map_count =3D=3D 0) {
+> >               /* not mapped */
+> >               pthread_mutex_unlock(&bo->cpu_access_mutex);
+> >               return -EINVAL;
+> >       }
+> >
+> > -     bo->cpu_map_count--;
+> > +     /* If the counter has already reached INT_MAX, don't decrement it=
+.
+> > +      * This is because amdgpu_bo_cpu_map doesn't increment it past
+> > +      * INT_MAX.
+> > +      */
+> > +     if (bo->cpu_map_count !=3D INT_MAX)
+> > +             bo->cpu_map_count--;
+> > +
+> >       if (bo->cpu_map_count > 0) {
+> >               /* mapped multiple times */
+> >               pthread_mutex_unlock(&bo->cpu_access_mutex);
+> >               return 0;
+> >       }
+> >
+> >       r =3D drm_munmap(bo->cpu_ptr, bo->alloc_size) =3D=3D 0 ? 0 : -err=
+no;
+> >       bo->cpu_ptr =3D NULL;
+> >       pthread_mutex_unlock(&bo->cpu_access_mutex);
+> >       return r;
 >
-> If so, shall we print some error here to notice that indefinite mappings
-> come up.
 >
 
-No error. This is expected usage.
-
-Marek
-
---000000000000316f1f0579648a78
+--0000000000006c0eb7057964928e
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Tue, Oct 23=
-, 2018 at 10:38 PM Zhang, Jerry(Junwei) &lt;<a href=3D"mailto:Jerry.Zhang@a=
-md.com">Jerry.Zhang-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
-ft:1ex">On 10/24/18 3:07 AM, Marek Ol=C5=A1=C3=A1k wrote:<br>
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div>You and I discussed this e=
+xtensively internally a while ago. It&#39;s expected and correct behavior. =
+Mesa doesn&#39;t unmap some buffers and never will.</div><div><br></div><di=
+v>Marek<br></div><div dir=3D"ltr"><br></div><div dir=3D"ltr">On Wed, Oct 24=
+, 2018 at 3:45 AM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leicht=
+zumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&=
+gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0=
+ .8ex;border-left:1px #ccc solid;padding-left:1ex">That looks really ugly t=
+o me. Mapping the same BO so often is illegal <br>
+and should be handled as error.<br>
+<br>
+Otherwise we will never be able to cleanly recover from a GPU lockup <br>
+with lost state by reloading the client library.<br>
+<br>
+Christian.<br>
+<br>
+Am 23.10.18 um 21:07 schrieb Marek Ol=C5=A1=C3=A1k:<br>
 &gt; From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"=
  target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<br>
-We need commit log and sign-off here.<br>
-<br>
-BTW, have you encounter any issue about that?<br></blockquote><div><br></di=
-v><div>I don&#39;t know what you mean. I&#39;m pretty sure that a sign-off =
-is not needed for libdrm.</div><div>=C2=A0</div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
-ex">
-<br>
 &gt;<br>
 &gt; ---<br>
 &gt;=C2=A0 =C2=A0amdgpu/amdgpu_bo.c | 19 +++++++++++++++++--<br>
@@ -190,15 +232,67 @@ ty unlikely to get unmapped by the user<br>
 unt !=3D INT_MAX)<br>
 &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
  =C2=A0bo-&gt;cpu_map_count++;<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*cpu =3D bo-&gt;=
+cpu_ptr;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_mutex_un=
+lock(&amp;bo-&gt;cpu_access_mutex);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0assert(bo-&gt;cpu_map_count =3D=3D 0);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0memset(&amp;args, 0, sizeof(args));<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Query the buffer address (args.addr_ptr).=
 <br>
-If so, shall we print some error here to notice that indefinite mappings <b=
-r>
-come up.<br></blockquote><div><br></div><div>No error. This is expected usa=
-ge.</div><div><br></div><div>Marek</div></div></div>
+&gt; @@ -492,21 +501,27 @@ drm_public int amdgpu_bo_cpu_unmap(amdgpu_bo_han=
+dle bo)<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_mutex_lock(&amp;bo-&gt;cpu_access_mu=
+tex);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0assert(bo-&gt;cpu_map_count &gt;=3D 0);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bo-&gt;cpu_map_count =3D=3D 0) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* not mapped */=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_mutex_un=
+lock(&amp;bo-&gt;cpu_access_mutex);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EINVAL;<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0bo-&gt;cpu_map_count--;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/* If the counter has already reached INT_MAX, do=
+n&#39;t decrement it.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * This is because amdgpu_bo_cpu_map doesn&#39;t =
+increment it past<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * INT_MAX.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (bo-&gt;cpu_map_count !=3D INT_MAX)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bo-&gt;cpu_map_count-=
+-;<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (bo-&gt;cpu_map_count &gt; 0) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* mapped multip=
+le times */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_mutex_un=
+lock(&amp;bo-&gt;cpu_access_mutex);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D drm_munmap(bo-&gt;cpu_ptr, bo-&gt;allo=
+c_size) =3D=3D 0 ? 0 : -errno;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0bo-&gt;cpu_ptr =3D NULL;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0pthread_mutex_unlock(&amp;bo-&gt;cpu_access_=
+mutex);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
+<br>
+</blockquote></div></div>
 
---000000000000316f1f0579648a78--
+--0000000000006c0eb7057964928e--
 
---===============1258534421==
+--===============0153797082==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -208,4 +302,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1258534421==--
+--===============0153797082==--
