@@ -1,130 +1,104 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Subject: Re: [PATCH v4 3/4] drm: Document variable refresh properties
-Date: Tue, 30 Oct 2018 15:34:01 +0000
-Message-ID: <1c1c0f6f-ccbd-bfc2-f249-a01f6fc997ec@amd.com>
-References: <20181011163942.28267-1-nicholas.kazlauskas@amd.com>
- <20181011163942.28267-4-nicholas.kazlauskas@amd.com>
- <20181026143719.01381cdd@eldfell>
- <bdda3a3b-c912-98bf-8dbd-29a5b58086df@amd.com>
- <20181026145321.GV9144@intel.com>
- <f21251f7-10e2-e0f7-702d-bd3868ac8edc@amd.com>
- <20181026175924.GH9144@intel.com>
- <481ae686-adda-5857-5538-2b0af2e25427@daenzer.net>
- <20181029180341.GN9144@intel.com>
- <13a934a2-5cea-3d1b-ec57-bf5488698129@daenzer.net>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm 1/2] amdgpu: prevent an integer wraparound of
+ cpu_map_count
+Date: Tue, 30 Oct 2018 11:49:02 -0400
+Message-ID: <CAAxE2A59+J7-jdYobFMMFDhS0oPLS8MgJXzV-Z=N7jhMr9rcdg@mail.gmail.com>
+References: <20181023190733.15251-1-maraeo@gmail.com>
+ <7690cf4c-5eff-85e4-885c-2ecc9dc01c25@gmail.com>
+ <CAAxE2A50X-XGvyx7GcZnnAC4p-bRnXrQpjQZ1D-8pD5ir3QdMQ@mail.gmail.com>
+ <e8cf4264-f211-70b3-01ec-34d0eb5e7edb@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <13a934a2-5cea-3d1b-ec57-bf5488698129@daenzer.net>
-Content-Language: en-US
-Content-ID: <D20824F690BD8344B39B9EC03A92D92B@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel@daenzer.net>, =?utf-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>, "Olsak,
- Marek" <Marek.Olsak@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "manasi.d.navare@intel.com" <manasi.d.navare@intel.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0214698029=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <e8cf4264-f211-70b3-01ec-34d0eb5e7edb-otUistvHUpPR7s880joybQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMTAvMzAvMTggNToyOSBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6DQo+IE9uIDIwMTgtMTAt
-MjkgNzowMyBwLm0uLCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6DQo+PiBPbiBNb24sIE9jdCAyOSwg
-MjAxOCBhdCAwNTozNzo0OVBNICswMTAwLCBNaWNoZWwgRMOkbnplciB3cm90ZToNCj4+PiBPbiAy
-MDE4LTEwLTI2IDc6NTkgcC5tLiwgVmlsbGUgU3lyasOkbMOkIHdyb3RlOg0KPj4+PiBPbiBGcmks
-IE9jdCAyNiwgMjAxOCBhdCAwNTozNDoxNVBNICswMDAwLCBLYXpsYXVza2FzLCBOaWNob2xhcyB3
-cm90ZToNCj4+Pj4+IE9uIDEwLzI2LzE4IDEwOjUzIEFNLCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6
-DQo+Pj4+Pj4NCj4+Pj4+PiBTcGVha2luZyBvZiB0aW1lc3RhbXBzLiBXaGF0IGlzIHRoZSBleHBl
-Y3RlZCBiZWhhdmlvdXIgb2YgdmJsYW5rDQo+Pj4+Pj4gdGltZXN0YW1wcyB3aGVuIHZyciBpcyBl
-bmFibGVkPw0KPj4+Pj4NCj4+Pj4+IFdoZW4gdnJyIGlzIGVuYWJsZWQgdGhlIGR1cmF0aW9uIG9m
-IHRoZSB2ZXJ0aWNhbCBmcm9udCBwb3JjaCB3aWxsIGJlDQo+Pj4+PiBleHRlbmRlZCB1bnRpbCBm
-bGlwIG9yIHRpbWVvdXQgb2NjdXJzLiBUaGUgdmJsYW5rIHRpbWVzdGFtcCB3aWxsIHZhcnkNCj4+
-Pj4+IGJhc2VkIG9uIGR1cmF0aW9uIG9mIHRoZSB2ZXJ0aWNhbCBmcm9udCBwb3JjaC4gVGhlIG1p
-bi9tYXggZHVyYXRpb24gZm9yDQo+Pj4+PiB0aGUgZnJvbnQgcG9yY2ggY2FuIGJlIHNwZWNpZmll
-ZCBieSB0aGUgZHJpdmVyIHZpYSB0aGUgbWluL21heCByYW5nZS4NCj4+Pj4+DQo+Pj4+PiBObyBj
-aGFuZ2VzIHRvIHZibGFuayB0aW1lc3RhbXBpbmcgaGFuZGxpbmcgc2hvdWxkIGJlIG5lY2Vzc2Fy
-eSB0bw0KPj4+Pj4gYWNjb21tb2RhdGUgdmFyaWFibGUgcmVmcmVzaCByYXRlLg0KPj4+Pg0KPj4+
-PiBUaGUgcHJvYmxlbSBpcyB0aGF0IHRoZSB0aW1lc3RhbXAgaXMgc3VwcG9zZWQgdG8gY29ycmVz
-cG9uZCB0byB0aGUgZmlyc3QNCj4+Pj4gYWN0aXZlIHBpeGVsLiBBbmQgc2luY2Ugd2UgZG9uJ3Qg
-a25vdyBob3cgbG9uZyB0aGUgZnJvbnQgcG9yY2ggd2lsbCBiZQ0KPj4+PiB3ZSBjYW4ndCByZWFs
-aXN0aWNhbGx5IHJlcG9ydCB0aGUgdHJ1ZSB2YWx1ZS4gU28gSSBndWVzcyBqdXN0IGFzc3VtaW5n
-DQo+Pj4+IG1pbiBmcm9udCBwb3JjaCBsZW5ndGggaXMgYXMgZ29vZCBhcyBhbnl0aGluZyBlbHNl
-Pw0KPj4+DQo+Pj4gVGhhdCAoYW5kIGRvY3VtZW50aW5nIHRoYXQgdGhlIHRpbWVzdGFtcCBjb3Jy
-ZXNwb25kcyB0byB0aGUgZWFybGllc3QNCj4+PiBwb3NzaWJsZSBmaXJzdCBhY3RpdmUgcGl4ZWws
-IG5vdCBuZWNlc3NhcmlseSB0aGUgYWN0dWFsIG9uZSwgd2l0aCBWUlIpDQo+Pj4gbWlnaHQgYmUg
-Z29vZCBlbm91Z2ggZm9yIHRoZSBhY3R1YWwgdmJsYW5rIGV2ZW50IHRpbWVzdGFtcHMuDQo+Pj4N
-Cj4+Pg0KPj4+IEhvd2V2ZXIsIEknbSBub3Qgc28gc3VyZSBhYm91dCB0aGUgdGltZXN0YW1wcyBv
-ZiBwYWdlIGZsaXAgY29tcGxldGlvbg0KPj4+IGV2ZW50cy4gVGhvc2UgY291bGQgYmUgdmVyeSBt
-aXNsZWFkaW5nIGlmIHRoZSBmbGlwIGNvbXBsZXRlcyB0b3dhcmRzIHRoZQ0KPj4+IHRpbWVvdXQs
-IHdoaWNoIGNvdWxkIHJlc3VsdCBpbiBiYWQgYmVoYXZpb3VyIG9mIGFwcGxpY2F0aW9ucyB3aGlj
-aCB1c2UNCj4+PiB0aGVtIGZvciBhbmltYXRpb24gdGltaW5nLg0KPj4+DQo+Pj4gTWF5YmUgdGhl
-IHRpbWVzdGFtcCBjb3VsZCBiZSB1cGRhdGVkIGFwcHJvcHJpYXRlbHkgKHllcywgSSdtIGhhbmQt
-d2F2aW5nDQo+Pj4gOikgaW4gZHJtX2NydGNfc2VuZF92YmxhbmtfZXZlbnQ/DQo+Pg0KPj4gSG1t
-LiBVcGRhdGVkIGhvdz8gV2hldGhlciBpdCdzIGEgcGFnZSBmbGlwIGV2ZW50IG9yIHZibGFuayBl
-dmVuIHdlIHdvbid0DQo+PiBrbm93IHdoZW4gdGhlIGZpcnN0IGFjdGl2ZSBwaXhlbCB3aWxsIGNv
-bWUuIEFsdGhvdWdoIEkgc3VwcG9zZSBpZg0KPj4gdGhlcmUgaXMgc29tZSBraW5kIG9mIHZyciBz
-bGV3IHJhdGUgbGltaXQgd2UgY291bGQgYXQgbGVhc3QgYWNjb3VudA0KPj4gZm9yIHRoYXQgdG8g
-cmVwb3J0IGEgbW9yZSBjb3JyZWN0ICJ0aGlzIGlzIHRoZSBlYXJsaWVzdCB5b3UgbWlndGggYmUN
-Cj4+IGFibGUgdG8gc2VlIHlvdXIgZnJhbWUiIHRpbWVzdGFtcC4NCj4+DQo+PiBPaCwgb3IgYXJl
-IHlvdSBhY3R1YWxseSBzYXlpbmcgdGhhdCBzaGNlZHVsaW5nIGEgbmV3IGZsaXAgYmVmb3JlIHRo
-ZQ0KPj4gdGltZW91dCBpcyBhY3R1YWxseSBnb2luZyB0byBsYXRjaCB0aGF0IGZsaXAgaW1tZWRp
-YXRlbHk/IEkgZmlndXJlZA0KPj4gdGhhdCB0aGUgZmxpcCB3b3VsZCBnZXQgbGF0Y2hlZCBvbiB0
-aGUgbmV4dCBzdGFydCBvZiB2YmxhbmsgcmVnYXJkbGVzcywNCj4+IGFuZCB0aGUgYWN0IG9mIHNj
-aGVkdWxpbmcgYSBmbGlwIHdpbGwganVzdCBraWNrIHRoZSBoYXJkd2FyZSB0byBzdGFydA0KPj4g
-c2Nhbm5pbmcgdGhlIHByZXZpb3VzbHkgbGF0Y2hlZCBmcmFtZSBlYXJsaWVyLg0KPj4NCj4+IHNj
-YW5vdXQgQSB8IC4uLiB2YmxhbmsgfCBzY2Fub3V0IEEgfCAuLi4gdmJsYW5rIHwgc2Nhbm91dCBC
-IHwgLi4uIHZibGFuaw0KPj4gICAgICAgICAgICAgICAgICAgIF4gICAgICAgICAgICAgICAgXiAg
-ICAgICAgXiAgICAgICAgICAgICAgIF4NCj4+ICAgICAgICAgICAgICAgICAgICB8ICAgICAgICAg
-ICAgICAgIHwgICAgICAgIGZsaXAgQyAgICAgICAgICBsYXRjaCBDDQo+PiAgICAgICAgICAgICAg
-ICAgICAgZmxpcCBCICAgICAgICAgICBsYXRjaCBCDQo+IA0KPiBUaGlzIHdvdWxkIGtpbmQgb2Yg
-ZGVmZWF0IHRoZSBwb2ludCBvZiBWUlIsIHdvdWxkbid0IGl0PyBJZiBhIGZsaXAgd2FzDQo+IHNj
-aGVkdWxlZCBhZnRlciB0aGUgc3RhcnQgb2YgdmJsYW5rLCB0aGUgdmJsYW5rIHdvdWxkIGFsd2F5
-cyB0aW1lIG91dCwNCj4gcmVzdWx0aW5nIGluIHRoZSBtaW5pbXVtIHJlZnJlc2ggcmF0ZS4NCj4g
-DQo+IA0KPj4gc2Nhbm91dCBBIHwgLi4uIHZibGFuayB8IHNjYW5vdXQgQiB8IC4uLiB2Ymxhbmsg
-fCBzY2Fub3V0IEMgfCAuLi4gdmJsYW5rDQo+PiAgICAgICAgICAgICAgICAgICAgXiBeICAgICAg
-ICAgICAgICAgICAgICAgIF4gXg0KPj4gICAgICAgICAgICAgICAgICAgIHwgbGF0Y2ggQiAgICAg
-ICAgICAgICAgICB8IGxhdGNoIEMNCj4+ICAgICAgICAgICAgICAgICAgICBmbGlwIEIgICAgICAg
-ICAgICAgICAgICAgZmxpcCBDDQo+IA0KPiBTbyB0aGlzIGlzIHdoYXQgaGFwcGVucy4NCj4gDQo+
-IFJlZ2FyZGxlc3MsIHdoZW4gdGhlIGZsaXAgaXMgbGF0Y2hlZCwgQU1EIGhhcmR3YXJlIGdlbmVy
-YXRlcyBhICJwZmxpcCINCj4gaW50ZXJydXB0LCBhbmQgaXRzIGhhbmRsZXIgY2FsbHMgZHJtX2Ny
-dGNfc2VuZF92YmxhbmtfZXZlbnQgKGFuZCBpbiB0aGUNCj4gY2FzZSBvZiBEQyBkcm1fY3J0Y19h
-Y2N1cmF0ZV92YmxhbmtfY291bnQgYmVmb3JlIHRoYXQpLiBTbyB0aGUgdGltZSB3aGVuDQo+IGRy
-bV9jcnRjX3NlbmRfdmJsYW5rX2V2ZW50IGlzIGNhbGxlZCBtaWdodCBiZSBhIGdvb2QgYXBwcm94
-aW1hdGlvbiBvZg0KPiB3aGVuIHNjYW5vdXQgb2YgdGhlIG5leHQgZnJhbWUgc3RhcnRzLg0KPiAN
-Cj4gQW5vdGhlciBwb3NzaWJpbGl0eSBtaWdodCBiZSB0byB3YWl0IGZvciB0aGUgaGFyZHdhcmUg
-dmxpbmUgY291bnRlciB0bw0KPiB3cmFwIGFyb3VuZCB0byAwIGJlZm9yZSBjYWxsaW5nIGRybV9j
-cnRjX2FjY3VyYXRlX3ZibGFua19jb3VudCwgdGhlbiB0aGUNCj4gY2FsY3VsYXRpb25zIHNob3Vs
-ZCBiZSBiYXNlZCBvbiAwIGluc3RlYWQgb2YgY3J0Y192dG90YWwuDQo+IA0KPiANCg0KDQpJIHVu
-ZGVyc3RhbmQgdGhlIGlzc3VlIHlvdSdyZSBkZXNjcmliaW5nIG5vdy4gVGhlIHRpbWVzdGFtcCBp
-cyBzdXBwb3NlZCANCnRvIHNpZ25pZnkgdGhlIGVuZCBvZiB0aGUgY3VycmVudCB2YmxhbmsuIFRo
-ZSBjYWxsIHRvIGdldCBzY2Fub3V0IA0KcG9zaXRpb24gaXMgc3VwcG9zZWQgdG8gcmV0dXJuIHRo
-ZSBudW1iZXIgb2YgbGluZXMgdW50aWwgc2Nhbm91dCAoYSANCm5lZ2F0aXZlIHZhbHVlKSBvciB0
-aGUgbnVtYmVyIG9mIGxpbmVzIHNpbmNlIHRoZSBuZXh0IHNjYW5vdXQgYmVnYW4gKGEgDQpwb3Np
-dGl2ZSB2YWx1ZSkuDQoNClRoZSBhbWRncHUgZHJpdmVyIGNhbGN1bGF0ZXMgdGhlIG51bWJlciBv
-ZiBsaW5lcyBiYXNlZCBvbiBhIGhhcmR3YXJlIA0KcmVnaXN0ZXIgc3RhdHVzIHBvc2l0aW9uIHdo
-aWNoIHJldHVybnMgYW4gaW5jcmVhc2luZyB2YWx1ZSBmcm9tIDAgdGhhdCANCmluZGljYXRlcyB0
-aGUgY3VycmVudCB2cG9zL2hwb3MgZm9yIHRoZSBkaXNwbGF5Lg0KDQpGb3IgYW55IHZwb3MgYmVs
-b3cgdmJsX3N0YXJ0IHdlIGtub3cgdGhlIHZhbHVlIGlzIGNvcnJlY3Qgc2luY2UgdGhlIG5leHQg
-DQp2YmxhbmsgaGFzbid0IGJlZ3VuIHlldC4gQnV0IGZvciBhbnl0aGlnbiBhYm91dCB2Ymxfc3Rh
-cnQgaXQncyBwcm9iYWJseSANCndyb25nIHNpbmNlIGl0IGFwcGxpZXMgYSBjb3JyZWN0aXZlIG9m
-ZnNldCBiYXNlZCBvbiB0aGUgZml4ZWQgdmFsdWUgb2YgDQpjcnRjX3Z0b3RhbC4gSXQncyBldmVu
-IHdvcnNlIHdoZW4gdGhlIHZhbHVlIGlzIGFib3ZlIGNydGNfdnRvdGFsIHNpbmNlIA0KaXQnbGwg
-YmUgY2FsY3VsYXRpbmcgdGhlIG51bWJlciBvZiBsaW5lcyBzaW5jZSB0aGUgbGFzdCBzY2Fub3V0
-IHNpbmNlIA0KaXQnbGwgYmUgYSBwb3NpdGl2ZSB2YWx1ZS4NCg0KU28gdGhlIGlzc3VlIGJlY29t
-ZXMgZGV0ZXJtaW5pbmcgd2hlbiB0aGUgdmZyb250IHBvcmNoIHdpbGwgZW5kLg0KDQpXaGVuIHRo
-ZSBmbGlwIGFkZHJlc3MgZ2V0cyB3cml0dGVuIHRoZSB2ZnJvbnQgcG9yY2ggd2lsbCBlbmQgYXQg
-dGhlIA0Kc3RhcnQgb2YgdGhlIG5leHQgbGluZSBsZWF2aW5nIG9ubHkgdGhlIGJhY2sgcG9yY2gg
-cGx1cyBwYXJ0IG9mIHRoZSANCmxpbmUuIEJ1dCB3ZSBkb24ndCBrbm93IHdoZW4gdGhlIGZsaXAg
-d2lsbCBvY2N1ciwgaWYgYXQgYWxsLiBJdCBoYXNuJ3QgDQpvY2N1cnJlZCB5ZXQgaW4gdGhpcyBj
-YXNlLg0KDQpXYWl0aW5nIGZvciB0aGUgd3JhcCBhcm91bmQgdG8gMCBtaWdodCBiZSB0aGUgYmVz
-dCBjaG9pY2UgaGVyZSBzaW5jZSANCnRoZXJlJ3Mgbm8gZ3VhcmFudGVlIHRoZSBmbGlwIHdpbGwg
-b2NjdXIuDQoNCk5pY2hvbGFzIEthemxhdXNrYXMNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2RyaS1kZXZlbAo=
+--===============0214698029==
+Content-Type: multipart/alternative; boundary="000000000000bbea930579742054"
+
+--000000000000bbea930579742054
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Oct 30, 2018, 4:20 AM Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrote=
+:
+
+> On 2018-10-29 10:15 p.m., Marek Ol=C5=A1=C3=A1k wrote:
+> > You and I discussed this extensively internally a while ago. It's
+> expected
+> > and correct behavior. Mesa doesn't unmap some buffers and never will.
+>
+> It doesn't need to keep mapping the same buffer over and over again
+> though, does it?
+>
+
+It doesnt map it again. It just doesnt unmap. So the next map call just
+returns the pointer. It's correct to stop the counter wraparound.
+
+Marek
+
+
+>
+> --
+> Earthling Michel D=C3=A4nzer               |               http://www.amd=
+.com
+> Libre software enthusiast             |             Mesa and X developer
+>
+
+--000000000000bbea930579742054
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">=
+On Tue, Oct 30, 2018, 4:20 AM Michel D=C3=A4nzer &lt;<a href=3D"mailto:mich=
+el-otUistvHUpPR7s880joybQ@public.gmane.org">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br></div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
+ding-left:1ex">On 2018-10-29 10:15 p.m., Marek Ol=C5=A1=C3=A1k wrote:<br>
+&gt; You and I discussed this extensively internally a while ago. It&#39;s =
+expected<br>
+&gt; and correct behavior. Mesa doesn&#39;t unmap some buffers and never wi=
+ll.<br>
+<br>
+It doesn&#39;t need to keep mapping the same buffer over and over again<br>
+though, does it?<br></blockquote></div></div><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto">It doesnt map it again. It just doesnt unmap. So the next m=
+ap call just returns the pointer. It&#39;s correct to stop the counter wrap=
+around.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Marek</div><div =
+dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
+solid;padding-left:1ex">
+<br>
+<br>
+-- <br>
+Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
+=3D"http://www.amd.com" rel=3D"noreferrer noreferrer" target=3D"_blank">htt=
+p://www.amd.com</a><br>
+Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
+</blockquote></div></div></div>
+
+--000000000000bbea930579742054--
+
+--===============0214698029==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0214698029==--
