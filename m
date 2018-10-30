@@ -1,17 +1,16 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH libdrm 1/2] amdgpu: prevent an integer wraparound of
- cpu_map_count
-Date: Tue, 30 Oct 2018 09:20:57 +0100
-Message-ID: <e8cf4264-f211-70b3-01ec-34d0eb5e7edb@daenzer.net>
-References: <20181023190733.15251-1-maraeo@gmail.com>
- <7690cf4c-5eff-85e4-885c-2ecc9dc01c25@gmail.com>
- <CAAxE2A50X-XGvyx7GcZnnAC4p-bRnXrQpjQZ1D-8pD5ir3QdMQ@mail.gmail.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [Intel-gfx] [PATCH] RFC: Make igts for cross-driver stuff
+ mandatory?
+Date: Tue, 30 Oct 2018 09:54:54 +0100
+Message-ID: <20181030085454.GG21967@phenom.ffwll.local>
+References: <20181019085049.25482-1-daniel.vetter@ffwll.ch>
+ <CAPM=9tykF1U0Kah42ej7GR=6HyKe+WeV-LRe7_xB0VEUkikdPQ@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A50X-XGvyx7GcZnnAC4p-bRnXrQpjQZ1D-8pD5ir3QdMQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-CA
+Content-Disposition: inline
+In-Reply-To: <CAPM=9tykF1U0Kah42ej7GR=6HyKe+WeV-LRe7_xB0VEUkikdPQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,17 +21,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: igt-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOC0xMC0yOSAxMDoxNSBwLm0uLCBNYXJlayBPbMWhw6FrIHdyb3RlOgo+IFlvdSBhbmQg
-SSBkaXNjdXNzZWQgdGhpcyBleHRlbnNpdmVseSBpbnRlcm5hbGx5IGEgd2hpbGUgYWdvLiBJdCdz
-IGV4cGVjdGVkCj4gYW5kIGNvcnJlY3QgYmVoYXZpb3IuIE1lc2EgZG9lc24ndCB1bm1hcCBzb21l
-IGJ1ZmZlcnMgYW5kIG5ldmVyIHdpbGwuCgpJdCBkb2Vzbid0IG5lZWQgdG8ga2VlcCBtYXBwaW5n
-IHRoZSBzYW1lIGJ1ZmZlciBvdmVyIGFuZCBvdmVyIGFnYWluCnRob3VnaCwgZG9lcyBpdD8KCgot
-LSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAg
-IGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAg
-IHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gVHVlLCBPY3QgMzAsIDIwMTggYXQgMTI6MTc6MzBQTSArMTAwMCwgRGF2ZSBBaXJsaWUgd3Jv
+dGU6Cj4gT24gRnJpLCAxOSBPY3QgMjAxOCBhdCAxODo1MSwgRGFuaWVsIFZldHRlciA8ZGFuaWVs
+LnZldHRlckBmZndsbC5jaD4gd3JvdGU6Cj4gPgo+ID4gSGkgYWxsLAo+ID4KPiA+IFRoaXMgaXMg
+anVzdCB0byBjb2xsZWN0IGZlZWRiYWNrIG9uIHRoaXMgaWRlYSwgYW5kIHNlZSB3aGV0aGVyIHRo
+ZQo+ID4gb3ZlcmFsbCBkcmktZGV2ZWwgY29tbXVuaXR5IHN0YW5kcyBvbiBhbGwgdGhpcy4gSSB0
+aGluayB0aGUgcGFzdCBmZXcKPiA+IGNyb3NzLXZlbmRvciB1YXBpIGV4dGVuc2lvbnMgYWxsIGNh
+bWUgd2l0aCBpZ3RzIGF0dGFjaGVkLCBhbmQKPiA+IHBlcnNvbmFsbHkgSSB0aGluayB0aGVyZSdz
+IGxvdHMgb2YgdmFsdWUgaW4gaGF2aW5nIHRoZW06IEEKPiA+IGNyb3NzLXZlbmRvciBpbnRlcmZh
+Y2UgaXNuJ3QgdXNlZnVsIGlmIGV2ZXJ5IGRyaXZlciBpbXBsZW1lbnRzIGl0Cj4gPiBzbGlnaHRs
+eSBkaWZmZXJlbnRseS4KPiA+Cj4gPiBJIHRoaW5rIHRoZXJlJ3MgMiBxdWVzdGlvbnMgaGVyZToK
+PiA+Cj4gPiAtIERvIHdlIHdhbnQgdG8gbWFrZSBzdWNoIHRlc3RjYXNlcyBtYW5kYXRvcnk/Cj4g
+Cj4gWWVzIEkgdGhpbmsgaWYgYXQgYWxsIHByYWN0aWNhbCBpdCBwcm9iYWJseSBtYWtlcyBzZW5z
+ZSB0byBoYXZlIHNvbWUKPiBtYW5kYXRvcnkgdGVzdCBjYXNlcyBmb3IgYWxsIGNyb3NzLXZlbmRv
+ciBmZWF0dXJlcywgb3IgZmVhdHVyZXMgdGhhdAo+IG1pZ2h0IGJlY29tZSBjcm9zcyB2ZW5kb3Ig
+aW4gdGhlIGZ1dHVyZS4KCkkndmUgY3JlYXRlZCBhIGZldyBwYXRjaGVzIHRvIHRlc3QgdGhhdCBp
+biBnaXRsYWIgQ0kuIEkgdGhpbmsgdGhlIG9ubHkKdGhpbmcgbGVmdCBub3cgaXMgQ0knaW5nIHN5
+c3Jvb3QgYnVpbGRzLCBidXQgSSBkb24ndCBrbm93IGhvdyB0byBkbyB0aGF0Cm15c2VsZi4KCj4g
+PiAtIElmIHllcywgYXJlIHdlIHRoZXJlIHlldCwgb3IgaXMgdGhlcmUgc29tZXRoaW5nIGNydWNp
+YWxseSBtaXNzaW5nCj4gPiAgIHN0aWxsPwo+IAo+IEkgdGhpbmsgdGhlIGRvZXMgaWd0IGJ1aWxk
+IGluIGFsbCB0aGUgcGxhY2VzIG5lZWRlZCBpcyB0aGUgbWFpbiBvbmUsCj4gSSd2ZSBubyBpZGVh
+IHdoYXQgYSBiYXNlbGluZSBJR1QgdGVzdCBydW4gbG9va3MgbGlrZSBvbiBub24taW50ZWwgaHcs
+Cj4gaG93IHVzZWZ1bCBpcyBpdD8KCldlJ3JlIGluIHRoZSBwcm9jZXNzIG9mIG1vdmluZyBpOTE1
+IHRlc3RzIGludG8gYSB0ZXN0cy9pOTE1LyBzdWJmb2xkZXIuIEkKdGhpbmsgYWZ0ZXIgdGhhdCB3
+ZSBjb3VsZCB0cnkgdG8gdGhlbSBvbiBzb21lIGhhcmR3YXJlIChteSBsb25nIHRlcm0gcGxhbgpp
+cyB0byB1c2UgdmttcyBmb3IgdGhhdCBhbmQgcHV0IGl0IGludG8gZ2l0bGFiIENJIHdpdGggcWVt
+dSkuIFdlIGhhdmUKYWNjaWRlbnRhbGx5IHJ1biBpZ3RzIG9uIGFtZGdwdSBpbnN0ZWFkIG9mIGk5
+MTUgb24gS0JMLUcgKGFuZCBvdXIgQ0kgZm91bmQKYXQgbGVhc3Qgb25lIGJ1ZyBpbiBvbmUgb2Yg
+bXkgcmVmYWN0b3Igc2VyaWVzKSwgc28gc3R1ZmYgd29ya3MgOi0pCgpDb3ZlcmFnZSBpcyBhIGJp
+dCBhIG1peGVkIGJhZyBJIHRoaW5rLCBidXQgdGhhdCdzIGFsd2F5cyB0aGUgY2FzZSB3aGVuIHlv
+dQpyZXRyb2ZpdCBhIHRlc3RzdWl0ZS4KLURhbmllbAoKPiAKPiBBY2tlZC1ieTogRGF2ZSBBaXJs
+aWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2lu
+ZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
