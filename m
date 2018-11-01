@@ -1,20 +1,16 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm 1/2] amdgpu: prevent an integer wraparound of
- cpu_map_count
-Date: Wed, 31 Oct 2018 18:12:09 -0400
-Message-ID: <CAAxE2A7aZ2YiJN0P8KD1F=ncj17ds1x2Dmkka-tHR7Y5vrOOBQ@mail.gmail.com>
-References: <20181023190733.15251-1-maraeo@gmail.com>
- <7690cf4c-5eff-85e4-885c-2ecc9dc01c25@gmail.com>
- <CAAxE2A50X-XGvyx7GcZnnAC4p-bRnXrQpjQZ1D-8pD5ir3QdMQ@mail.gmail.com>
- <e8cf4264-f211-70b3-01ec-34d0eb5e7edb@daenzer.net>
- <CAAxE2A59+J7-jdYobFMMFDhS0oPLS8MgJXzV-Z=N7jhMr9rcdg@mail.gmail.com>
- <CAAxE2A7kA_W3xeK01F7jthfMyEij3TFy_G7=A5_vsduNVrKpbQ@mail.gmail.com>
- <79fe6959-6f43-5c3b-8fa1-69d43498cdd4@daenzer.net>
- <e434a695-a6c4-14f7-deff-5420d08311f7@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu/test: Add illegal register and memory
+ access test.
+Date: Wed, 31 Oct 2018 21:44:07 -0400
+Message-ID: <CADnq5_NnyeG3w+-a67Vw3Ow0J6=5C7qypSaxg7fx6YcvhAgctA@mail.gmail.com>
+References: <1541010808-1293-1-git-send-email-andrey.grodzovsky@amd.com>
+ <CADnq5_O-PgE57kRmF1TrnS1LPZi4_7-_TeALM5VnuxTFuLUpdw@mail.gmail.com>
+ <05e62106-331f-adf8-4cc3-18da6a7e0a78@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1187169038=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e434a695-a6c4-14f7-deff-5420d08311f7-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <05e62106-331f-adf8-4cc3-18da6a7e0a78-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,126 +21,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andrey Grodzovsky <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christian Koenig <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============1187169038==
-Content-Type: multipart/alternative; boundary="0000000000001ca94a05798d9afd"
-
---0000000000001ca94a05798d9afd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Oct 31, 2018 at 3:59 AM Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org=
->
-wrote:
-
-> Am 30.10.18 um 16:59 schrieb Michel D=C3=A4nzer:
-> > On 2018-10-30 4:52 p.m., Marek Ol=C5=A1=C3=A1k wrote:
-> >> On Tue, Oct 30, 2018, 11:49 AM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
-> wrote:
-> >>> On Tue, Oct 30, 2018, 4:20 AM Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-> wrote:
-> >>>
-> >>>> On 2018-10-29 10:15 p.m., Marek Ol=C5=A1=C3=A1k wrote:
-> >>>>> You and I discussed this extensively internally a while ago. It's
-> >>>> expected
-> >>>>> and correct behavior. Mesa doesn't unmap some buffers and never wil=
-l.
-> >>>> It doesn't need to keep mapping the same buffer over and over again
-> >>>> though, does it?
-> >>>>
-> >>> It doesnt map it again. It just doesnt unmap. So the next map call ju=
-st
-> >>> returns the pointer. It's correct to stop the counter wraparound.
-> >>>
-> >> Mesa doesn't track whether a buffer is already mapped. Libdrm tracks
-> that.
-> >> It's a feature of libdrm to return the same pointer and expect infinit=
-e
-> >> number of map calls.
-> > That's not what the reference counting in libdrm is intended for. It's
-> > for keeping track of how many independent callers have mapped the
-> > buffer. Mesa should remember that it mapped a buffer and not map it
-> again.
->
-> Well if Mesa just wants to query the existing mapping then why not add a
-> amdgpu_bo_get_cpu_ptr() which just queries if a CPU mapping exists and
-> if yes returns the appropriate pointer or NULL otherwise?
->
-> I mean when we want to abstract everything in libdrm then we just need
-> to add the functions we need to use this abstraction.
->
-
-That can be future work for the sake of cleanliness and clarity, but it
-would be a waste of time and wouldn't help old Mesa.
-
-Marek
-
---0000000000001ca94a05798d9afd
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr">On Wed, Oct 31=
-, 2018 at 3:59 AM Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@=
-amd.com">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">Am 30.10.18 um 16:59 schrieb Michel D=C3=A4nzer:<br>
-&gt; On 2018-10-30 4:52 p.m., Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt;&gt; On Tue, Oct 30, 2018, 11:49 AM Marek Ol=C5=A1=C3=A1k &lt;<a href=
-=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wro=
-te:<br>
-&gt;&gt;&gt; On Tue, Oct 30, 2018, 4:20 AM Michel D=C3=A4nzer &lt;<a href=
-=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org" target=3D"_blank">michel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt;=
- wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&gt; On 2018-10-29 10:15 p.m., Marek Ol=C5=A1=C3=A1k wrote:<br>
-&gt;&gt;&gt;&gt;&gt; You and I discussed this extensively internally a whil=
-e ago. It&#39;s<br>
-&gt;&gt;&gt;&gt; expected<br>
-&gt;&gt;&gt;&gt;&gt; and correct behavior. Mesa doesn&#39;t unmap some buff=
-ers and never will.<br>
-&gt;&gt;&gt;&gt; It doesn&#39;t need to keep mapping the same buffer over a=
-nd over again<br>
-&gt;&gt;&gt;&gt; though, does it?<br>
-&gt;&gt;&gt;&gt;<br>
-&gt;&gt;&gt; It doesnt map it again. It just doesnt unmap. So the next map =
-call just<br>
-&gt;&gt;&gt; returns the pointer. It&#39;s correct to stop the counter wrap=
-around.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt; Mesa doesn&#39;t track whether a buffer is already mapped. Libdrm =
-tracks that.<br>
-&gt;&gt; It&#39;s a feature of libdrm to return the same pointer and expect=
- infinite<br>
-&gt;&gt; number of map calls.<br>
-&gt; That&#39;s not what the reference counting in libdrm is intended for. =
-It&#39;s<br>
-&gt; for keeping track of how many independent callers have mapped the<br>
-&gt; buffer. Mesa should remember that it mapped a buffer and not map it ag=
-ain.<br>
-<br>
-Well if Mesa just wants to query the existing mapping then why not add a <b=
-r>
-amdgpu_bo_get_cpu_ptr() which just queries if a CPU mapping exists and <br>
-if yes returns the appropriate pointer or NULL otherwise?<br>
-<br>
-I mean when we want to abstract everything in libdrm then we just need <br>
-to add the functions we need to use this abstraction.<br></blockquote><div>=
-<br></div><div>That can be future work for the sake of cleanliness and clar=
-ity, but it would be a waste of time and wouldn&#39;t help old Mesa.</div><=
-div><br></div><div>Marek<br></div></div></div>
-
---0000000000001ca94a05798d9afd--
-
---===============1187169038==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1187169038==--
+T24gV2VkLCBPY3QgMzEsIDIwMTggYXQgNDowNSBQTSBHcm9kem92c2t5LCBBbmRyZXkKPEFuZHJl
+eS5Hcm9kem92c2t5QGFtZC5jb20+IHdyb3RlOgo+Cj4KPgo+IE9uIDEwLzMxLzIwMTggMDM6NDkg
+UE0sIEFsZXggRGV1Y2hlciB3cm90ZToKPiA+IE9uIFdlZCwgT2N0IDMxLCAyMDE4IGF0IDI6MzMg
+UE0gQW5kcmV5IEdyb2R6b3Zza3kKPiA+IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPiB3cm90
+ZToKPiA+PiBJbGxlZ2FsIGFjY2VzcyB3aWxsIGNhdXNlIENQIGhhbmcgZm9sbG93ZWQgYnkgam9i
+IHRpbWVvdXQgYW5kCj4gPj4gcmVjb3Zlcnkga2lja2luZyBpbi4KPiA+PiBBbHNvLCBkaXNhYmxl
+IHRoZSBzdWl0ZSBmb3IgYWxsIEFQVSBBU0lDcyB1bnRpbCBHUFUKPiA+PiByZXNldCBpc3N1ZXMg
+Zm9yIHRoZW0gd2lsbCBiZSByZXNvbHZlZCBhbmQgR1BVIHJlc2V0IHJlY292ZXJ5Cj4gPj4gd2ls
+bCBiZSBlbmFibGVkIGJ5IGRlZmF1bHQuCj4gPj4KPiA+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkg
+R3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KPiA+PiAtLS0KPiA+PiAgIHRl
+c3RzL2FtZGdwdS9kZWFkbG9ja190ZXN0cy5jIHwgMTE4ICsrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrLQo+ID4+ICAgMSBmaWxlIGNoYW5nZWQsIDExNyBpbnNlcnRpb25z
+KCspLCAxIGRlbGV0aW9uKC0pCj4gPj4KPiA+PiBkaWZmIC0tZ2l0IGEvdGVzdHMvYW1kZ3B1L2Rl
+YWRsb2NrX3Rlc3RzLmMgYi90ZXN0cy9hbWRncHUvZGVhZGxvY2tfdGVzdHMuYwo+ID4+IGluZGV4
+IDI5MmVjNGUuLmM1NjVmN2EgMTAwNjQ0Cj4gPj4gLS0tIGEvdGVzdHMvYW1kZ3B1L2RlYWRsb2Nr
+X3Rlc3RzLmMKPiA+PiArKysgYi90ZXN0cy9hbWRncHUvZGVhZGxvY2tfdGVzdHMuYwo+ID4+IEBA
+IC03Myw2ICs3MywyOSBAQAo+ID4+ICAgICAgICAgICAgICAgICAgICogMSAtIHBmcAo+ID4+ICAg
+ICAgICAgICAgICAgICAgICovCj4gPj4KPiA+PiArI2RlZmluZSAgICAgICAgUEFDS0VUM19XUklU
+RV9EQVRBICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMHgzNwo+ID4+ICsjZGVmaW5lICAg
+ICAgICAgICAgICAgIFdSSVRFX0RBVEFfRFNUX1NFTCh4KSAgICAgICAgICAgICAgICAgICAoKHgp
+IDw8IDgpCj4gPj4gKyAgICAgICAgICAgICAgIC8qIDAgLSByZWdpc3Rlcgo+ID4+ICsgICAgICAg
+ICAgICAgICAgKiAxIC0gbWVtb3J5IChzeW5jIC0gdmlhIEdSQk0pCj4gPj4gKyAgICAgICAgICAg
+ICAgICAqIDIgLSBnbDIKPiA+PiArICAgICAgICAgICAgICAgICogMyAtIGdkcwo+ID4+ICsgICAg
+ICAgICAgICAgICAgKiA0IC0gcmVzZXJ2ZWQKPiA+PiArICAgICAgICAgICAgICAgICogNSAtIG1l
+bW9yeSAoYXN5bmMgLSBkaXJlY3QpCj4gPj4gKyAgICAgICAgICAgICAgICAqLwo+ID4+ICsjZGVm
+aW5lICAgICAgICAgICAgICAgIFdSX09ORV9BRERSICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoMSA8PCAxNikKPiA+PiArI2RlZmluZSAgICAgICAgICAgICAgICBXUl9DT05GSVJNICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgKDEgPDwgMjApCj4gPj4gKyNkZWZpbmUgICAgICAgICAg
+ICAgICAgV1JJVEVfREFUQV9DQUNIRV9QT0xJQ1koeCkgICAgICAgICAgICAgICgoeCkgPDwgMjUp
+Cj4gPj4gKyAgICAgICAgICAgICAgIC8qIDAgLSBMUlUKPiA+PiArICAgICAgICAgICAgICAgICog
+MSAtIFN0cmVhbQo+ID4+ICsgICAgICAgICAgICAgICAgKi8KPiA+PiArI2RlZmluZSAgICAgICAg
+ICAgICAgICBXUklURV9EQVRBX0VOR0lORV9TRUwoeCkgICAgICAgICAgICAgICAgKCh4KSA8PCAz
+MCkKPiA+PiArICAgICAgICAgICAgICAgLyogMCAtIG1lCj4gPj4gKyAgICAgICAgICAgICAgICAq
+IDEgLSBwZnAKPiA+PiArICAgICAgICAgICAgICAgICogMiAtIGNlCj4gPj4gKyAgICAgICAgICAg
+ICAgICAqLwo+ID4+ICsKPiA+PiArI2RlZmluZSBtbVZNX0NPTlRFWFQwX1BBR0VfVEFCTEVfQkFT
+RV9BRERSICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAweDU0Zgo+ID4+ICsK
+PiA+PiAgIHN0YXRpYyAgYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2aWNlX2hhbmRsZTsKPiA+PiAg
+IHN0YXRpYyAgdWludDMyX3QgIG1ham9yX3ZlcnNpb247Cj4gPj4gICBzdGF0aWMgIHVpbnQzMl90
+ICBtaW5vcl92ZXJzaW9uOwo+ID4+IEBAIC04NSw2ICsxMDgsOCBAQCBpbnQgdXNlX3VjX210eXBl
+ID0gMDsKPiA+PiAgIHN0YXRpYyB2b2lkIGFtZGdwdV9kZWFkbG9ja19oZWxwZXIodW5zaWduZWQg
+aXBfdHlwZSk7Cj4gPj4gICBzdGF0aWMgdm9pZCBhbWRncHVfZGVhZGxvY2tfZ2Z4KHZvaWQpOwo+
+ID4+ICAgc3RhdGljIHZvaWQgYW1kZ3B1X2RlYWRsb2NrX2NvbXB1dGUodm9pZCk7Cj4gPj4gK3N0
+YXRpYyB2b2lkIGFtZGdwdV9pbGxlZ2FsX3JlZ19hY2Nlc3MoKTsKPiA+PiArc3RhdGljIHZvaWQg
+YW1kZ3B1X2lsbGVnYWxfbWVtX2FjY2VzcygpOwo+ID4+Cj4gPj4gICBDVV9CT09MIHN1aXRlX2Rl
+YWRsb2NrX3Rlc3RzX2VuYWJsZSh2b2lkKQo+ID4+ICAgewo+ID4+IEBAIC05NCw3ICsxMTksOSBA
+QCBDVV9CT09MIHN1aXRlX2RlYWRsb2NrX3Rlc3RzX2VuYWJsZSh2b2lkKQo+ID4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmbWlub3JfdmVyc2lvbiwgJmRl
+dmljZV9oYW5kbGUpKQo+ID4+ICAgICAgICAgICAgICAgICAgcmV0dXJuIENVX0ZBTFNFOwo+ID4+
+Cj4gPj4gLSAgICAgICBpZiAoZGV2aWNlX2hhbmRsZS0+aW5mby5mYW1pbHlfaWQgPT0gQU1ER1BV
+X0ZBTUlMWV9TSSkgewo+ID4+ICsgICAgICAgaWYgKGRldmljZV9oYW5kbGUtPmluZm8uZmFtaWx5
+X2lkID09IEFNREdQVV9GQU1JTFlfU0kgfHwKPiA+IEFkZCBBTURHUFVfRkFNSUxZX0tWIGZvciBD
+SSBiYXNlZCBBUFVzIGFzIHdlbGwuCj4gPgo+ID4KPiA+PiArICAgICAgICAgICAgICAgICAgICAg
+ICBkZXZpY2VfaGFuZGxlLT5pbmZvLmZhbWlseV9pZCA9PSBBTURHUFVfRkFNSUxZX0NaIHx8Cj4g
+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgZGV2aWNlX2hhbmRsZS0+aW5mby5mYW1pbHlfaWQg
+PT0gQU1ER1BVX0ZBTUlMWV9SVikgewo+ID4+ICAgICAgICAgICAgICAgICAgcHJpbnRmKCJcblxu
+Q3VycmVudGx5IGhhbmdzIHRoZSBDUCBvbiB0aGlzIEFTSUMsIGRlYWRsb2NrIHN1aXRlIGRpc2Fi
+bGVkXG4iKTsKPiA+PiAgICAgICAgICAgICAgICAgIGVuYWJsZSA9IENVX0ZBTFNFOwo+ID4+ICAg
+ICAgICAgIH0KPiA+PiBAQCAtMTQwLDYgKzE2Nyw4IEBAIGludCBzdWl0ZV9kZWFkbG9ja190ZXN0
+c19jbGVhbih2b2lkKQo+ID4+ICAgQ1VfVGVzdEluZm8gZGVhZGxvY2tfdGVzdHNbXSA9IHsKPiA+
+PiAgICAgICAgICB7ICJnZnggcmluZyBibG9jayB0ZXN0IiwgIGFtZGdwdV9kZWFkbG9ja19nZngg
+fSwKPiA+PiAgICAgICAgICB7ICJjb21wdXRlIHJpbmcgYmxvY2sgdGVzdCIsICBhbWRncHVfZGVh
+ZGxvY2tfY29tcHV0ZSB9LAo+ID4+ICsgICAgICAgeyAiaWxsZWdhbCByZWcgYWNjZXNzIHRlc3Qi
+LCAgYW1kZ3B1X2lsbGVnYWxfcmVnX2FjY2VzcyB9LAo+ID4+ICsgICAgICAgeyAiaWxsZWdhbCBt
+ZW0gYWNjZXNzIHRlc3QiLCAgYW1kZ3B1X2lsbGVnYWxfbWVtX2FjY2VzcyB9LAo+ID4gV29uJ3Qg
+dGhpcyBpbGxlZ2FsIG1lbSBhY2Nlc3MganVzdCByZXN1bHQgaW4gYSBwYWdlIGZhdWx0PyAgSXMg
+dGhlCj4gPiBpZGVhIHRvIHNldCB2bV9kZWJ1ZyB0byBmb3JjZSBhbiBNQyBoYWx0IHRvIHRlc3Qg
+cmVzZXQ/Cj4gPgo+ID4gQWxleAo+Cj4gRm9yIHRoaXMgdGVzdCB0byBoYW5nIHRoZSBDUCBhbWRn
+cHUudm1fZmF1bHRfc3RvcD0yIG5lZWRzIHRvIGJlIHNldC4KCldpdGggdGhlIEtWIGFkZGVkIGFi
+b3ZlIGFuZCBhIGNvbW1lbnQgYWJvdXQgdm1fZmF1bHRfc3RvcCBhZGRlZCwgdGhpcyBwYXRjaCBp
+czoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
+Cj4KPiBBbmRyZXkKPgo+ID4KPiA+PiAgICAgICAgICBDVV9URVNUX0lORk9fTlVMTCwKPiA+PiAg
+IH07Cj4gPj4KPiA+PiBAQCAtMjU3LDMgKzI4Niw5MCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZGVh
+ZGxvY2tfaGVscGVyKHVuc2lnbmVkIGlwX3R5cGUpCj4gPj4gICAgICAgICAgciA9IGFtZGdwdV9j
+c19jdHhfZnJlZShjb250ZXh0X2hhbmRsZSk7Cj4gPj4gICAgICAgICAgQ1VfQVNTRVJUX0VRVUFM
+KHIsIDApOwo+ID4+ICAgfQo+ID4+ICsKPiA+PiArc3RhdGljIHZvaWQgYmFkX2FjY2Vzc19oZWxw
+ZXIoaW50IHJlZ19hY2Nlc3MpCj4gPj4gK3sKPiA+PiArICAgICAgIGFtZGdwdV9jb250ZXh0X2hh
+bmRsZSBjb250ZXh0X2hhbmRsZTsKPiA+PiArICAgICAgIGFtZGdwdV9ib19oYW5kbGUgaWJfcmVz
+dWx0X2hhbmRsZTsKPiA+PiArICAgICAgIHZvaWQgKmliX3Jlc3VsdF9jcHU7Cj4gPj4gKyAgICAg
+ICB1aW50NjRfdCBpYl9yZXN1bHRfbWNfYWRkcmVzczsKPiA+PiArICAgICAgIHN0cnVjdCBhbWRn
+cHVfY3NfcmVxdWVzdCBpYnNfcmVxdWVzdDsKPiA+PiArICAgICAgIHN0cnVjdCBhbWRncHVfY3Nf
+aWJfaW5mbyBpYl9pbmZvOwo+ID4+ICsgICAgICAgc3RydWN0IGFtZGdwdV9jc19mZW5jZSBmZW5j
+ZV9zdGF0dXM7Cj4gPj4gKyAgICAgICB1aW50MzJfdCBleHBpcmVkOwo+ID4+ICsgICAgICAgaW50
+IGksIHI7Cj4gPj4gKyAgICAgICBhbWRncHVfYm9fbGlzdF9oYW5kbGUgYm9fbGlzdDsKPiA+PiAr
+ICAgICAgIGFtZGdwdV92YV9oYW5kbGUgdmFfaGFuZGxlOwo+ID4+ICsKPiA+PiArICAgICAgIHIg
+PSBhbWRncHVfY3NfY3R4X2NyZWF0ZShkZXZpY2VfaGFuZGxlLCAmY29udGV4dF9oYW5kbGUpOwo+
+ID4+ICsgICAgICAgQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ID4+ICsKPiA+PiArICAgICAgIHIg
+PSBhbWRncHVfYm9fYWxsb2NfYW5kX21hcF9yYXcoZGV2aWNlX2hhbmRsZSwgNDA5NiwgNDA5NiwK
+PiA+PiArICAgICAgICAgICAgICAgICAgICAgICBBTURHUFVfR0VNX0RPTUFJTl9HVFQsIDAsIDAs
+Cj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAmaWJfcmVzdWx0X2hhbmRsZSwgJmliX3Jlc3VsdF9jcHUsCj4gPj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmaWJfcmVzdWx0X21j
+X2FkZHJlc3MsICZ2YV9oYW5kbGUpOwo+ID4+ICsgICAgICAgQ1VfQVNTRVJUX0VRVUFMKHIsIDAp
+Owo+ID4+ICsKPiA+PiArICAgICAgIHIgPSBhbWRncHVfZ2V0X2JvX2xpc3QoZGV2aWNlX2hhbmRs
+ZSwgaWJfcmVzdWx0X2hhbmRsZSwgTlVMTCwKPiA+PiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICZib19saXN0KTsKPiA+PiArICAgICAgIENVX0FTU0VSVF9FUVVBTChyLCAwKTsK
+PiA+PiArCj4gPj4gKyAgICAgICBwdHIgPSBpYl9yZXN1bHRfY3B1Owo+ID4+ICsgICAgICAgaSA9
+IDA7Cj4gPj4gKwo+ID4+ICsgICAgICAgcHRyW2krK10gPSBQQUNLRVQzKFBBQ0tFVDNfV1JJVEVf
+REFUQSwgMyk7Cj4gPj4gKyAgICAgICBwdHJbaSsrXSA9IChyZWdfYWNjZXNzID8gV1JJVEVfREFU
+QV9EU1RfU0VMKDApIDogV1JJVEVfREFUQV9EU1RfU0VMKDUpKXwgV1JfQ09ORklSTTsKPiA+PiAr
+ICAgICAgIHB0cltpKytdID0gcmVnX2FjY2VzcyA/IG1tVk1fQ09OVEVYVDBfUEFHRV9UQUJMRV9C
+QVNFX0FERFIgOiAweGRlYWRiZWUwOwo+ID4+ICsgICAgICAgcHRyW2krK10gPSAwOwo+ID4+ICsg
+ICAgICAgcHRyW2krK10gPSAweGRlYWRiZWVmOwo+ID4+ICsKPiA+PiArICAgICAgIGZvciAoOyBp
+IDwgMTY7ICsraSkKPiA+PiArICAgICAgICAgICAgICAgcHRyW2ldID0gMHhmZmZmMTAwMDsKPiA+
+PiArCj4gPj4gKyAgICAgICBtZW1zZXQoJmliX2luZm8sIDAsIHNpemVvZihzdHJ1Y3QgYW1kZ3B1
+X2NzX2liX2luZm8pKTsKPiA+PiArICAgICAgIGliX2luZm8uaWJfbWNfYWRkcmVzcyA9IGliX3Jl
+c3VsdF9tY19hZGRyZXNzOwo+ID4+ICsgICAgICAgaWJfaW5mby5zaXplID0gMTY7Cj4gPj4gKwo+
+ID4+ICsgICAgICAgbWVtc2V0KCZpYnNfcmVxdWVzdCwgMCwgc2l6ZW9mKHN0cnVjdCBhbWRncHVf
+Y3NfcmVxdWVzdCkpOwo+ID4+ICsgICAgICAgaWJzX3JlcXVlc3QuaXBfdHlwZSA9IEFNREdQVV9I
+V19JUF9HRlg7Cj4gPj4gKyAgICAgICBpYnNfcmVxdWVzdC5yaW5nID0gMDsKPiA+PiArICAgICAg
+IGlic19yZXF1ZXN0Lm51bWJlcl9vZl9pYnMgPSAxOwo+ID4+ICsgICAgICAgaWJzX3JlcXVlc3Qu
+aWJzID0gJmliX2luZm87Cj4gPj4gKyAgICAgICBpYnNfcmVxdWVzdC5yZXNvdXJjZXMgPSBib19s
+aXN0Owo+ID4+ICsgICAgICAgaWJzX3JlcXVlc3QuZmVuY2VfaW5mby5oYW5kbGUgPSBOVUxMOwo+
+ID4+ICsKPiA+PiArICAgICAgIHIgPSBhbWRncHVfY3Nfc3VibWl0KGNvbnRleHRfaGFuZGxlLCAw
+LCZpYnNfcmVxdWVzdCwgMSk7Cj4gPj4gKyAgICAgICBDVV9BU1NFUlRfRVFVQUwoKHIgPT0gMCB8
+fCByID09IC1FQ0FOQ0VMRUQpLCAxKTsKPiA+PiArCj4gPj4gKwo+ID4+ICsgICAgICAgbWVtc2V0
+KCZmZW5jZV9zdGF0dXMsIDAsIHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2NzX2ZlbmNlKSk7Cj4gPj4g
+KyAgICAgICBmZW5jZV9zdGF0dXMuY29udGV4dCA9IGNvbnRleHRfaGFuZGxlOwo+ID4+ICsgICAg
+ICAgZmVuY2Vfc3RhdHVzLmlwX3R5cGUgPSBBTURHUFVfSFdfSVBfR0ZYOwo+ID4+ICsgICAgICAg
+ZmVuY2Vfc3RhdHVzLmlwX2luc3RhbmNlID0gMDsKPiA+PiArICAgICAgIGZlbmNlX3N0YXR1cy5y
+aW5nID0gMDsKPiA+PiArICAgICAgIGZlbmNlX3N0YXR1cy5mZW5jZSA9IGlic19yZXF1ZXN0LnNl
+cV9ubzsKPiA+PiArCj4gPj4gKyAgICAgICByID0gYW1kZ3B1X2NzX3F1ZXJ5X2ZlbmNlX3N0YXR1
+cygmZmVuY2Vfc3RhdHVzLAo+ID4+ICsgICAgICAgICAgICAgICAgICAgICAgIEFNREdQVV9USU1F
+T1VUX0lORklOSVRFLDAsICZleHBpcmVkKTsKPiA+PiArICAgICAgIENVX0FTU0VSVF9FUVVBTCgo
+ciA9PSAwIHx8IHIgPT0gLUVDQU5DRUxFRCksIDEpOwo+ID4+ICsKPiA+PiArICAgICAgIHIgPSBh
+bWRncHVfYm9fbGlzdF9kZXN0cm95KGJvX2xpc3QpOwo+ID4+ICsgICAgICAgQ1VfQVNTRVJUX0VR
+VUFMKHIsIDApOwo+ID4+ICsKPiA+PiArICAgICAgIHIgPSBhbWRncHVfYm9fdW5tYXBfYW5kX2Zy
+ZWUoaWJfcmVzdWx0X2hhbmRsZSwgdmFfaGFuZGxlLAo+ID4+ICsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgaWJfcmVzdWx0X21jX2FkZHJlc3MsIDQwOTYpOwo+ID4+ICsg
+ICAgICAgQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ID4+ICsKPiA+PiArICAgICAgIHIgPSBhbWRn
+cHVfY3NfY3R4X2ZyZWUoY29udGV4dF9oYW5kbGUpOwo+ID4+ICsgICAgICAgQ1VfQVNTRVJUX0VR
+VUFMKHIsIDApOwo+ID4+ICt9Cj4gPj4gKwo+ID4+ICtzdGF0aWMgdm9pZCBhbWRncHVfaWxsZWdh
+bF9yZWdfYWNjZXNzKCkKPiA+PiArewo+ID4+ICsgICAgICAgYmFkX2FjY2Vzc19oZWxwZXIoMSk7
+Cj4gPj4gK30KPiA+PiArCj4gPj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9pbGxlZ2FsX21lbV9hY2Nl
+c3MoKQo+ID4+ICt7Cj4gPj4gKyAgICAgICBiYWRfYWNjZXNzX2hlbHBlcigwKTsKPiA+PiArfQo+
+ID4+IC0tCj4gPj4gMi43LjQKPiA+Pgo+ID4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCj4gPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiA+PiBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+ID4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gPiBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
