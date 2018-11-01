@@ -1,10 +1,14 @@
-From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Freezes back with Raven Ridge 2500u and 4.19
-Date: Thu, 1 Nov 2018 09:33:37 -0300
-Message-ID: <CAJri6_uaemRaNuoaEJXCtEXNHvggL4cZbhp+=oBRLoqrAUaKiw@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: revert "enable gfxoff in non-sriov and
+ stutter mode by default"
+Date: Thu, 1 Nov 2018 10:07:36 -0400
+Message-ID: <CADnq5_P2+cPEWtLjGk2PLPRYFaoek6uZ8--1ZgrUUrRzw+NXzA@mail.gmail.com>
+References: <20181024125910.1134-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1481195012=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181024125910.1134-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,49 +19,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1481195012==
-Content-Type: multipart/alternative; boundary="000000000000693749057999a131"
-
---000000000000693749057999a131
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi all,
-
-4.18 was completely stable with Raven Ridge 2500u and kernel opt
-idle=3Dnomwait
-
-Now with 4.19 I'm having freezes again. And this time I cannot reboot using
-SysReq + B shortcut.
-Also the mouse is always frozen as well, before most of the times I could
-move it.
-
-Best Regards,
-Br=C3=A1ulio
-
---000000000000693749057999a131
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<div><br></div><div>4.18 was completely stable with=
- Raven Ridge 2500u and kernel opt=C2=A0<span style=3D"font-family:monospace=
-">idle=3Dnomwait</span></div><br>Now with 4.19 I&#39;m having freezes again=
-. And this time I cannot reboot using SysReq + B shortcut.<br><div>Also the=
- mouse is always frozen as well, before most of the times I could move it.<=
-/div><div><br></div><div>Best Regards,</div><div>Br=C3=A1ulio</div></div>
-
---000000000000693749057999a131--
-
---===============1481195012==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1481195012==--
+T24gV2VkLCBPY3QgMjQsIDIwMTggYXQgODo1OSBBTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBUaGlzIGlzIHN0aWxsIGNvbXBs
+ZXRlbHkgYnJlYWtpbmcgbXkgUmF2ZW4gc3lzdGVtLgo+Cj4gVGhpcyByZXZlcnRzIGNvbW1pdCBj
+ZGYyZjkxMGZhOTY5YWRjYTFiMGUzYWQyYjQ4NzgyMTIzM2RjMDM4Lgo+CgpXaXRoIHRoYXQgYWRk
+aXRpb24gb2Y6ClJldmVydCB1bnRpbCB3ZSBzb3J0IG91dCB0aGUgc2Jpb3MgYW5kIGZpcm13YXJl
+IGNvbWJpbmF0aW9ucyB0aGF0IHdvcmsKY29ycmVjdGx5LgoKYnVnOiBodHRwczovL2J1Z3MuZnJl
+ZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD0xMDg2MDYKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
+bC5vcmcgIyB2NC4xOQoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4KCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
+LmtvZW5pZ0BhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgfCAyIC0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+cnYuYyAgICB8IDQgKystLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgNCBk
+ZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
+LmMKPiBpbmRleCBkMTE0ODllOGIzODguLjkyNmVlYjA5ZDRjOCAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBAQCAtMTQ5Myw4ICsxNDkzLDYgQEAg
+c3RhdGljIGludCBhbWRncHVfZGV2aWNlX2lwX2Vhcmx5X2luaXQoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpCj4gICAgICAgICB9Cj4KPiAgICAgICAgIGFkZXYtPnBvd2VycGxheS5wcF9mZWF0
+dXJlID0gYW1kZ3B1X3BwX2ZlYXR1cmVfbWFzazsKPiAtICAgICAgIGlmIChhbWRncHVfc3Jpb3Zf
+dmYoYWRldikpCj4gLSAgICAgICAgICAgICAgIGFkZXYtPnBvd2VycGxheS5wcF9mZWF0dXJlICY9
+IH5QUF9HRlhPRkZfTUFTSzsKPgo+ICAgICAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPm51bV9p
+cF9ibG9ja3M7IGkrKykgewo+ICAgICAgICAgICAgICAgICBpZiAoKGFtZGdwdV9pcF9ibG9ja19t
+YXNrICYgKDEgPDwgaSkpID09IDApIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rydi5jCj4gaW5kZXggMjc1MjhlZWI0NDRjLi4zYjdkNTExMDMxYzYgMTAwNjQ0Cj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gQEAgLTExNCw4ICsxMTQsOCBAQCB1aW50
+IGFtZGdwdV9wZ19tYXNrID0gMHhmZmZmZmZmZjsKPiAgdWludCBhbWRncHVfc2RtYV9waGFzZV9x
+dWFudHVtID0gMzI7Cj4gIGNoYXIgKmFtZGdwdV9kaXNhYmxlX2N1ID0gTlVMTDsKPiAgY2hhciAq
+YW1kZ3B1X3ZpcnR1YWxfZGlzcGxheSA9IE5VTEw7Cj4gLS8qIE92ZXJEcml2ZShiaXQgMTQpIGRp
+c2FibGVkIGJ5IGRlZmF1bHQqLwo+IC11aW50IGFtZGdwdV9wcF9mZWF0dXJlX21hc2sgPSAweGZm
+ZmZiZmZmOwo+ICsvKiBPdmVyRHJpdmUoYml0IDE0KSxnZnhvZmYoYml0IDE1KSxzdHV0dGVyIG1v
+ZGUoYml0IDE3KSBkaXNhYmxlZCBieSBkZWZhdWx0Ki8KPiArdWludCBhbWRncHVfcHBfZmVhdHVy
+ZV9tYXNrID0gMHhmZmZkM2ZmZjsKPiAgaW50IGFtZGdwdV9uZ2cgPSAwOwo+ICBpbnQgYW1kZ3B1
+X3ByaW1fYnVmX3Blcl9zZSA9IDA7Cj4gIGludCBhbWRncHVfcG9zX2J1Zl9wZXJfc2UgPSAwOwo+
+IC0tCj4gMi4xNy4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
