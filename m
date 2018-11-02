@@ -1,15 +1,13 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH libdrm] amdgpu/test: Add illegal register and memory
- access test.
-Date: Fri, 2 Nov 2018 15:24:29 +0100
-Message-ID: <08e1a7c5-7e2e-9706-404d-4c1217b95e07@daenzer.net>
-References: <1541010808-1293-1-git-send-email-andrey.grodzovsky@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd: Update atom_smu_info_v3_3 structure
+Date: Fri, 2 Nov 2018 15:06:09 +0000
+Message-ID: <BN6PR12MB1809F359CE832143227BBF8FF7CF0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1541165364-6819-1-git-send-email-sunpeng.li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1807747311=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1541010808-1293-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <1541165364-6819-1-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,38 +18,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOC0xMC0zMSA3OjMzIHAubS4sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+IElsbGVn
-YWwgYWNjZXNzIHdpbGwgY2F1c2UgQ1AgaGFuZyBmb2xsb3dlZCBieSBqb2IgdGltZW91dCBhbmQK
-PiByZWNvdmVyeSBraWNraW5nIGluLgo+IEFsc28sIGRpc2FibGUgdGhlIHN1aXRlIGZvciBhbGwg
-QVBVIEFTSUNzIHVudGlsIEdQVQo+IHJlc2V0IGlzc3VlcyBmb3IgdGhlbSB3aWxsIGJlIHJlc29s
-dmVkIGFuZCBHUFUgcmVzZXQgcmVjb3ZlcnkKPiB3aWxsIGJlIGVuYWJsZWQgYnkgZGVmYXVsdC4K
-PiAKPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lA
-YW1kLmNvbT4KPiAKPiBbLi4uXQo+ICAKPiBAQCAtOTQsNyArMTE5LDkgQEAgQ1VfQk9PTCBzdWl0
-ZV9kZWFkbG9ja190ZXN0c19lbmFibGUodm9pZCkKPiAgCQkJCQkgICAgICZtaW5vcl92ZXJzaW9u
-LCAmZGV2aWNlX2hhbmRsZSkpCj4gIAkJcmV0dXJuIENVX0ZBTFNFOwo+ICAKPiAtCWlmIChkZXZp
-Y2VfaGFuZGxlLT5pbmZvLmZhbWlseV9pZCA9PSBBTURHUFVfRkFNSUxZX1NJKSB7Cj4gKwlpZiAo
-ZGV2aWNlX2hhbmRsZS0+aW5mby5mYW1pbHlfaWQgPT0gQU1ER1BVX0ZBTUlMWV9TSSB8fAo+ICsJ
-CQlkZXZpY2VfaGFuZGxlLT5pbmZvLmZhbWlseV9pZCA9PSBBTURHUFVfRkFNSUxZX0NaIHx8Cj4g
-KwkJCWRldmljZV9oYW5kbGUtPmluZm8uZmFtaWx5X2lkID09IEFNREdQVV9GQU1JTFlfUlYpIHsK
-PiAgCQlwcmludGYoIlxuXG5DdXJyZW50bHkgaGFuZ3MgdGhlIENQIG9uIHRoaXMgQVNJQywgZGVh
-ZGxvY2sgc3VpdGUgZGlzYWJsZWRcbiIpOwo+ICAJCWVuYWJsZSA9IENVX0ZBTFNFOwo+ICAJfQoK
-SW5kZW50YXRpb24gaXMgd3JvbmcgaGVyZSBhbmQgaW4gb3RoZXIgcGxhY2VzLiBUaGUgbGliZHJt
-IHRyZWUgY29udGFpbnMKY29uZmlndXJhdGlvbiBmaWxlcyBmb3IgRWRpdG9yQ29uZmlnIChodHRw
-czovL2VkaXRvcmNvbmZpZy5vcmcvKTsgc2luY2UKeW91J3JlIHVzaW5nIEVjbGlwc2UsIGh0dHBz
-Oi8vZ2l0aHViLmNvbS9uY2pvbmVzL2VkaXRvcmNvbmZpZy1lY2xpcHNlCnNob3VsZCBoZWxwLgoK
-CkkgcnVuIGFtZGdwdV90ZXN0IGFzIHBhcnQgb2YgbXkgZGFpbHkgYnVpbGQvdGVzdCBzY3JpcHQg
-ZHVyaW5nIGx1bmNoCmJyZWFrOyB3aGVuIEkgY2FtZSBiYWNrIHRvZGF5LCBJIHdhcyBncmVldGVk
-IGJ5IGEgR0ZYIGhhbmcgb2YgdGhlCkJvbmFpcmUgaW4gbXkgZGV2ZWxvcG1lbnQgYm94IGR1ZSB0
-byB0aGlzIHRlc3QuIFBsZWFzZSBkaXNhYmxlIGl0IGZvcgphbGwgcHJlLUdGWDggQVNJQ3MuIElk
-ZWFsbHksIGl0IHNob3VsZCBhbHNvIGNoZWNrIGF0IHJ1bnRpbWUgdGhhdCBHUFUKcmVjb3Zlcnkg
-aXMgYWN0dWFsbHkgZW5hYmxlZCwgYXMgdGhhdCBzdGlsbCBpc24ndCB0aGUgY2FzZSBieSBkZWZh
-dWx0CmV4Y2VwdCB3aXRoIGJsZWVkaW5nIGVkZ2UgYW1kZ3B1IGtlcm5lbCBjb2RlLgoKCi0tIApF
-YXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0
-cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAg
-ICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+--===============1807747311==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809F359CE832143227BBF8FF7CF0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809F359CE832143227BBF8FF7CF0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of sunpeng.=
+li-5C7GfCeVMHo@public.gmane.org <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, November 2, 2018 9:29:24 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander; Li, Sun peng (Leo); Wentland, Harry
+Subject: [PATCH] drm/amd: Update atom_smu_info_v3_3 structure
+
+From: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+
+Mainly adding the WAFL spread spectrum info, for adjusting display
+clocks when XGMI is enabled.
+
+Signed-off-by: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/include/atomfirmware.h | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/a=
+md/include/atomfirmware.h
+index d2e7c0f..8eb0bb2 100644
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h
++++ b/drivers/gpu/drm/amd/include/atomfirmware.h
+@@ -1325,7 +1325,7 @@ struct atom_smu_info_v3_3 {
+   struct   atom_common_table_header  table_header;
+   uint8_t  smuip_min_ver;
+   uint8_t  smuip_max_ver;
+-  uint8_t  smu_rsd1;
++  uint8_t  waflclk_ss_mode;
+   uint8_t  gpuclk_ss_mode;
+   uint16_t sclk_ss_percentage;
+   uint16_t sclk_ss_rate_10hz;
+@@ -1355,7 +1355,10 @@ struct atom_smu_info_v3_3 {
+   uint32_t syspll3_1_vco_freq_10khz;
+   uint32_t bootup_fclk_10khz;
+   uint32_t bootup_waflclk_10khz;
+-  uint32_t reserved[3];
++  uint32_t smu_info_caps;
++  uint16_t waflclk_ss_percentage;    // in unit of 0.001%
++  uint16_t smuinitoffset;
++  uint32_t reserved;
+ };
+
+ /*
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809F359CE832143227BBF8FF7CF0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of sunpeng.li-5C7GfCeVMHo@public.gmane.org &lt;sunpen=
+g.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, November 2, 2018 9:29:24 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander; Li, Sun peng (Leo); Wentland, Harry<br>
+<b>Subject:</b> [PATCH] drm/amd: Update atom_smu_info_v3_3 structure</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Mainly adding the WAFL spread spectrum info, for adjusting display<br>
+clocks when XGMI is enabled.<br>
+<br>
+Signed-off-by: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/include/atomfirmware.h | 7 &#43;&#43;&#43;&#43;&#=
+43;--<br>
+&nbsp;1 file changed, 5 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/a=
+md/include/atomfirmware.h<br>
+index d2e7c0f..8eb0bb2 100644<br>
+--- a/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/atomfirmware.h<br>
+@@ -1325,7 &#43;1325,7 @@ struct atom_smu_info_v3_3 {<br>
+&nbsp;&nbsp; struct&nbsp;&nbsp; atom_common_table_header&nbsp; table_header=
+;<br>
+&nbsp;&nbsp; uint8_t&nbsp; smuip_min_ver;<br>
+&nbsp;&nbsp; uint8_t&nbsp; smuip_max_ver;<br>
+-&nbsp; uint8_t&nbsp; smu_rsd1;<br>
+&#43;&nbsp; uint8_t&nbsp; waflclk_ss_mode;<br>
+&nbsp;&nbsp; uint8_t&nbsp; gpuclk_ss_mode;<br>
+&nbsp;&nbsp; uint16_t sclk_ss_percentage;<br>
+&nbsp;&nbsp; uint16_t sclk_ss_rate_10hz;<br>
+@@ -1355,7 &#43;1355,10 @@ struct atom_smu_info_v3_3 {<br>
+&nbsp;&nbsp; uint32_t syspll3_1_vco_freq_10khz;<br>
+&nbsp;&nbsp; uint32_t bootup_fclk_10khz;<br>
+&nbsp;&nbsp; uint32_t bootup_waflclk_10khz;<br>
+-&nbsp; uint32_t reserved[3];<br>
+&#43;&nbsp; uint32_t smu_info_caps;<br>
+&#43;&nbsp; uint16_t waflclk_ss_percentage;&nbsp;&nbsp;&nbsp; // in unit of=
+ 0.001%<br>
+&#43;&nbsp; uint16_t smuinitoffset;<br>
+&#43;&nbsp; uint32_t reserved;<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;/*<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809F359CE832143227BBF8FF7CF0BN6PR12MB1809namp_--
+
+--===============1807747311==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1807747311==--
