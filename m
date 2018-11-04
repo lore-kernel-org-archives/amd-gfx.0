@@ -1,102 +1,53 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: fix interrupt spin lock
-Date: Sun, 4 Nov 2018 20:20:06 +0100
-Message-ID: <ed7eaed0-f266-607b-1966-c9f69eadded1@gmail.com>
-References: <20181102134807.1978-1-christian.koenig@amd.com>
- <88082c86-278b-6832-4e3f-7ce9771ef048@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Subject: Re: radeon vs radeonfb Mobility quirks (Thinkpad X32)
+Date: Mon, 05 Nov 2018 10:14:57 +1100
+Message-ID: <365d8b24f1c6a28c32998924a95b6a2a74655526.camel@kernel.crashing.org>
+References: <20181104042328.jzavn47y2wloprbs@untitled>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <88082c86-278b-6832-4e3f-7ce9771ef048-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20181104042328.jzavn47y2wloprbs@untitled>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Eric Wong <e@80x24.org>, David Airlie <airlied@linux.ie>, Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDIuMTEuMTggdW0gMTk6NTkgc2NocmllYiBLdWVobGluZywgRmVsaXg6Cj4gT24gMjAxOC0x
-MS0wMiA5OjQ4IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IFZlZ2ExMCBoYXMgbXVs
-dGlwbGUgaW50ZXJydXB0IHJpbmdzLAo+IEkgZG9uJ3QgdGhpbmsgSSd2ZSBzZWVuIHlvdXIgY29k
-ZSB0aGF0IGltcGxlbWVudHMgbXVsdGlwbGUgaW50ZXJydXB0Cj4gcmluZ3MuIFNvIGl0J3MgYSBi
-aXQgaGFyZCB0byBjb21tZW50LgoKSXQncyBhbHJlYWR5IGEgd2hpbGUgYWdvLCBidXQgeW91IGFj
-dHVhbGx5IHJldmlld2VkIGl0IDopCgo+IEFzIEkgdW5kZXJzdGFuZCBpdCwgdGhlIG9ubHkgd2F5
-Cj4gdGhpcyBjb3VsZCBoYXBwZW4gaXMsIGlmIHRoZSB0d28gaW50ZXJydXB0IHJpbmdzIGFyZSBo
-YW5kbGVkIGJ5Cj4gZGlmZmVyZW50IENQVSBjb3Jlcy4gQWx0ZXJuYXRpdmVseSwgeW91IG1heSBl
-bmQgdXAgY2FsbGluZwo+IGtnZDJrZmRfaW50ZXJydXB0IG91dHNpZGUgb2YgaW50ZXJydXB0IGNv
-bnRleHQgKGUuZy4gaW4gYSBrZXJuZWwKPiB0aHJlYWQpLCB3aGljaCB3b3VsZCBpbnZhbGlkYXRl
-IGFuIGltcGxpY2l0IGFzc3VtcHRpb24gaW4KPiBrZ2Qya2ZkX2ludGVycnVwdC4gQ2FuIHlvdSBj
-bGFyaWZ5IHdoYXQncyBoYXBwZW5pbmcgaGVyZT8KCkN1cnJlbnRseSB0aGUgbGF0ZXIgc2NlbmFy
-aW8sIEkndmUgb2ZmbG9hZGVkIHJpbmcgcHJvY2Vzc2luZyBvbiBJSCByaW5nIAoxICYgMiB0byBh
-IHdvcmsgaXRlbS4KCkJ1dCB0aGUgSUggaXMgaW4gdGhlb3J5IGNhcGFibGUgb2YgcmFpc2luZyBJ
-UlEgb24gZGlmZmVyZW50IENQVSBjb3JlcyBhcyAKd2VsbCwgZS5nLiBmaXJzdCBoYWx2ZSBvZiBy
-aW5nIGlzIHByb2Nlc3NlZCBhbmQgYWNrbm93bGVkZ2VkIG9uIENQVTEsIApuZXcgaW50ZXJydXB0
-IGZvciBuZXh0IGVudHJpZXMgaXMgcmFpc2VkIG9uIENQVTIgYmVmb3JlIENQVTEgZmluaXNoZXMg
-CmV4ZWN1dGluZyB0aGUgaGFuZGxlci4KCldlIGN1cnJlbnRseSBleHBsaWNpdGx5IHByZXZlbnQg
-dGhhdCBpbiB0aGUgYW1kZ3B1IElIIGNvZGUsIGJ1dCB0aGF0IGlzIApzb21ldGhpbmcgSSB3b3Vs
-ZCByZWFsbHkgcmVhbGx5IGxpa2UgdG8gZ2V0IHJpZCBvZi4KCkFyZSB0aGVyZSBhbnkgb3RoZXIg
-Y2FzZXMgd2hlcmUgdGhpcyBpcyBhc3N1bWVkIGluIHRoZSBrZ2Qya2ZkX2ludGVycnVwdCAKY29k
-ZT8KCkNocmlzdGlhbi4KCj4KPiBBbnl3YXksIHRoaXMgY2hhbmdlIHNob3VsZG4ndCBjYXVzZSBh
-bnkgb3RoZXIgcHJvYmxlbXMgc28gZmVlbCBmcmVlIHRvCj4gYWRkIG15IEFja2VkLWJ5Lgo+Cj4g
-UmVnYXJkcywKPiAgwqAgRmVsaXgKPgo+Cj4+ICAgc28gdGhpcyBjYW4gYmUgY2FsbGVkIGZyb20g
-bXVsdGlwbGUKPj4gY2FsbGVzIGF0IHRoZSBzYW1lIHRpbWUgcmVzdWx0aW5nIGluOgo+Pgo+PiBb
-ICAgNzEuNzc5MzM0XSA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQo+PiBbICAgNzEu
-Nzc5NDA2XSBXQVJOSU5HOiBpbmNvbnNpc3RlbnQgbG9jayBzdGF0ZQo+PiBbICAgNzEuNzc5NDc4
-XSA0LjE5LjAtcmMxKyAjNDQgVGFpbnRlZDogRyAgICAgICAgVwo+PiBbICAgNzEuNzc5NTY1XSAt
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiBbICAgNzEuNzc5NjM3XSBpbmNvbnNp
-c3RlbnQge0lOLUhBUkRJUlEtV30gLT4ge0hBUkRJUlEtT04tV30gdXNhZ2UuCj4+IFsgICA3MS43
-Nzk3NDBdIGt3b3JrZXIvNjoxLzEyMCBbSEMwWzBdOlNDMFswXTpIRTE6U0UxXSB0YWtlczoKPj4g
-WyAgIDcxLjc3OTgzMl0gMDAwMDAwMDBhZDc2MTk3MSAoJigma2ZkLT5pbnRlcnJ1cHRfbG9jaykt
-PnJsb2NrKXs/Li4ufSwKPj4gYXQ6IGtnZDJrZmRfaW50ZXJydXB0KzB4NzUvMHgxMDAgW2FtZGdw
-dV0KPj4gWyAgIDcxLjc4MDA1OF0ge0lOLUhBUkRJUlEtV30gc3RhdGUgd2FzIHJlZ2lzdGVyZWQg
-YXQ6Cj4+IFsgICA3MS43ODAxMTVdICAgX3Jhd19zcGluX2xvY2srMHgyYy8weDQwCj4+IFsgICA3
-MS43ODAxODBdICAga2dkMmtmZF9pbnRlcnJ1cHQrMHg3NS8weDEwMCBbYW1kZ3B1XQo+PiBbICAg
-NzEuNzgwMjQ4XSAgIGFtZGdwdV9pcnFfY2FsbGJhY2srMHg2Yy8weDE1MCBbYW1kZ3B1XQo+PiBb
-ICAgNzEuNzgwMzE1XSAgIGFtZGdwdV9paF9wcm9jZXNzKzB4ODgvMHgxMDAgW2FtZGdwdV0KPj4g
-WyAgIDcxLjc4MDM4MF0gICBhbWRncHVfaXJxX2hhbmRsZXIrMHgyMC8weDQwIFthbWRncHVdCj4+
-IFsgICA3MS43ODA0MDldICAgX19oYW5kbGVfaXJxX2V2ZW50X3BlcmNwdSsweDQ5LzB4MmEwCj4+
-IFsgICA3MS43ODA0MzZdICAgaGFuZGxlX2lycV9ldmVudF9wZXJjcHUrMHgzMC8weDcwCj4+IFsg
-ICA3MS43ODA0NjFdICAgaGFuZGxlX2lycV9ldmVudCsweDM3LzB4NjAKPj4gWyAgIDcxLjc4MDQ4
-NF0gICBoYW5kbGVfZWRnZV9pcnErMHg4My8weDFiMAo+PiBbICAgNzEuNzgwNTA2XSAgIGhhbmRs
-ZV9pcnErMHgxZi8weDMwCj4+IFsgICA3MS43ODA1MjZdICAgZG9fSVJRKzB4NTMvMHgxMTAKPj4g
-WyAgIDcxLjc4MDU0NF0gICByZXRfZnJvbV9pbnRyKzB4MC8weDIyCj4+IFsgICA3MS43ODA1NjZd
-ICAgY3B1aWRsZV9lbnRlcl9zdGF0ZSsweGFhLzB4MzMwCj4+IFsgICA3MS43ODA1OTFdICAgZG9f
-aWRsZSsweDIwMy8weDI4MAo+PiBbICAgNzEuNzgwNjEwXSAgIGNwdV9zdGFydHVwX2VudHJ5KzB4
-NmYvMHg4MAo+PiBbICAgNzEuNzgwNjM0XSAgIHN0YXJ0X3NlY29uZGFyeSsweDFiMC8weDIwMAo+
-PiBbICAgNzEuNzgwNjU3XSAgIHNlY29uZGFyeV9zdGFydHVwXzY0KzB4YTQvMHhiMAo+Pgo+PiBG
-aXggdGhpcyBieSBhbHdheXMgdXNpbmcgaXJxIHNhdmUgc3BpbiBsb2Nrcy4KPj4KPj4gU2lnbmVk
-LW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+PiAt
-LS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMgfCA1ICsrKy0t
-Cj4+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPj4K
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYwo+PiBpbmRleCBkN2UwZjQx
-ZjhlZGMuLmMwMDQ2NDdjOGNiNCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX2RldmljZS5jCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
-ZF9kZXZpY2UuYwo+PiBAQCAtNjgyLDYgKzY4Miw3IEBAIHZvaWQga2dkMmtmZF9pbnRlcnJ1cHQo
-c3RydWN0IGtmZF9kZXYgKmtmZCwgY29uc3Qgdm9pZCAqaWhfcmluZ19lbnRyeSkKPj4gICB7Cj4+
-ICAgCXVpbnQzMl90IHBhdGNoZWRfaWhyZVtLRkRfTUFYX1JJTkdfRU5UUllfU0laRV07Cj4+ICAg
-CWJvb2wgaXNfcGF0Y2hlZCA9IGZhbHNlOwo+PiArCXVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+ICAg
-Cj4+ICAgCWlmICgha2ZkLT5pbml0X2NvbXBsZXRlKQo+PiAgIAkJcmV0dXJuOwo+PiBAQCAtNjkx
-LDcgKzY5Miw3IEBAIHZvaWQga2dkMmtmZF9pbnRlcnJ1cHQoc3RydWN0IGtmZF9kZXYgKmtmZCwg
-Y29uc3Qgdm9pZCAqaWhfcmluZ19lbnRyeSkKPj4gICAJCXJldHVybjsKPj4gICAJfQo+PiAgIAo+
-PiAtCXNwaW5fbG9jaygma2ZkLT5pbnRlcnJ1cHRfbG9jayk7Cj4+ICsJc3Bpbl9sb2NrX2lycXNh
-dmUoJmtmZC0+aW50ZXJydXB0X2xvY2ssIGZsYWdzKTsKPj4gICAKPj4gICAJaWYgKGtmZC0+aW50
-ZXJydXB0c19hY3RpdmUKPj4gICAJICAgICYmIGludGVycnVwdF9pc193YW50ZWQoa2ZkLCBpaF9y
-aW5nX2VudHJ5LAo+PiBAQCAtNzAwLDcgKzcwMSw3IEBAIHZvaWQga2dkMmtmZF9pbnRlcnJ1cHQo
-c3RydWN0IGtmZF9kZXYgKmtmZCwgY29uc3Qgdm9pZCAqaWhfcmluZ19lbnRyeSkKPj4gICAJCQkJ
-ICAgICBpc19wYXRjaGVkID8gcGF0Y2hlZF9paHJlIDogaWhfcmluZ19lbnRyeSkpCj4+ICAgCQlx
-dWV1ZV93b3JrKGtmZC0+aWhfd3EsICZrZmQtPmludGVycnVwdF93b3JrKTsKPj4gICAKPj4gLQlz
-cGluX3VubG9jaygma2ZkLT5pbnRlcnJ1cHRfbG9jayk7Cj4+ICsJc3Bpbl91bmxvY2tfaXJxcmVz
-dG9yZSgma2ZkLT5pbnRlcnJ1cHRfbG9jaywgZmxhZ3MpOwo+PiAgIH0KPj4gICAKPj4gICBpbnQg
-a2dkMmtmZF9xdWllc2NlX21tKHN0cnVjdCBtbV9zdHJ1Y3QgKm1tKQoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Sun, 2018-11-04 at 04:23 +0000, Eric Wong wrote:
+> Looking at drivers/video/fbdev/aty/radeon_pm.c, I notice it sets
+> a D2 sleep mode for my X32:
+> 
+>         BUGFIX("IBM Thinkpad X31/X32",
+>                PCI_VENDOR_ID_IBM, 0x052f,
+>                radeon_pm_d2, NULL),
+> 
+> Which I suspect is what allows "radeonfb" to work for me
+> 
+> But I can't find the corresponding quirk in drivers/gpu/drm/radeon/,
+> so I now believe a missing quirk is the cause of this problem
+> with the "radeon" driver.
+> 
+> I poked around but couldn't figure out what changes to make to
+> the "radeon" driver to enable the corresponding, but I'm willing
+> to test patches.
+> 
+> Setting "dynpm" in /sys/**/power_method didn't seem to change
+> things, either.
+> 
+> Help greatly appreaciated.  Thanks
+> 
+> 
+> I've mainly been using the X32 as a server this decade so didn't
+> use suspend/hibernate so I didn't investigate until recently
+> (because my netbook died).
+
+There's a whole pile of power management stuff for ancient laptops that
+never quite made it from radeonfb to the radeon DRM driver... sadly it
+also prevents sleep on old PowerBooks but I haven't had many complaints
+so...
+
+The code for D2 and D3 on those old things is reasonably self
+contained, it shouldn't be that hard to move it over I suppose.
+
+Cheers,
+Ben.
