@@ -1,53 +1,73 @@
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Subject: Re: radeon vs radeonfb Mobility quirks (Thinkpad X32)
-Date: Mon, 05 Nov 2018 10:14:57 +1100
-Message-ID: <365d8b24f1c6a28c32998924a95b6a2a74655526.camel@kernel.crashing.org>
-References: <20181104042328.jzavn47y2wloprbs@untitled>
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/4] drm/amdgpu: remove nonsense in_interrupt() checks
+Date: Mon, 5 Nov 2018 02:20:40 +0000
+Message-ID: <BN7PR12MB26441A3297669BD1228C18768FCA0@BN7PR12MB2644.namprd12.prod.outlook.com>
+References: <20181025091500.54226-1-christian.koenig@amd.com>
+ <BN7PR12MB26447299AB84EF2061511A228FF70@BN7PR12MB2644.namprd12.prod.outlook.com>
+ <322d0175-6590-beea-9ba2-8dee89c48af2@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181104042328.jzavn47y2wloprbs@untitled>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Eric Wong <e@80x24.org>, David Airlie <airlied@linux.ie>, Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <322d0175-6590-beea-9ba2-8dee89c48af2-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Lou,
+ Wentao" <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
 
-On Sun, 2018-11-04 at 04:23 +0000, Eric Wong wrote:
-> Looking at drivers/video/fbdev/aty/radeon_pm.c, I notice it sets
-> a D2 sleep mode for my X32:
-> 
->         BUGFIX("IBM Thinkpad X31/X32",
->                PCI_VENDOR_ID_IBM, 0x052f,
->                radeon_pm_d2, NULL),
-> 
-> Which I suspect is what allows "radeonfb" to work for me
-> 
-> But I can't find the corresponding quirk in drivers/gpu/drm/radeon/,
-> so I now believe a missing quirk is the cause of this problem
-> with the "radeon" driver.
-> 
-> I poked around but couldn't figure out what changes to make to
-> the "radeon" driver to enable the corresponding, but I'm willing
-> to test patches.
-> 
-> Setting "dynpm" in /sys/**/power_method didn't seem to change
-> things, either.
-> 
-> Help greatly appreaciated.  Thanks
-> 
-> 
-> I've mainly been using the X32 as a server this decade so didn't
-> use suspend/hibernate so I didn't investigate until recently
-> (because my netbook died).
-
-There's a whole pile of power management stuff for ancient laptops that
-never quite made it from radeonfb to the radeon DRM driver... sadly it
-also prevents sleep on old PowerBooks but I haven't had many complaints
-so...
-
-The code for D2 and D3 on those old things is reasonably self
-contained, it shouldn't be that hard to move it over I suppose.
-
-Cheers,
-Ben.
+VGhlIHNlcmllcyBhcmUgUmV2aWV3ZWQtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNv
+bT4NCg0KQmVzdCB3aXNoZXMNCkVtaWx5IERlbmcNCg0KDQo+LS0tLS1PcmlnaW5hbCBNZXNzYWdl
+LS0tLS0NCj5Gcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdt
+YWlsLmNvbT4NCj5TZW50OiBUdWVzZGF5LCBPY3RvYmVyIDMwLCAyMDE4IDEwOjM5IFBNDQo+VG86
+IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZzsgTG91LA0KPldlbnRhbyA8V2VudGFvLkxvdUBhbWQuY29tPg0KPlN1YmplY3Q6IFJl
+OiBbUEFUQ0ggMS80XSBkcm0vYW1kZ3B1OiByZW1vdmUgbm9uc2Vuc2UgaW5faW50ZXJydXB0KCkN
+Cj5jaGVja3MNCj4NCj5KdXN0IGEgZ2VudGxlIHBpbmcuDQo+DQo+RW1pbHkgY2FuIEkgZ2V0IGFu
+IHJiIGZvciB0aGlzIG9yIGF0IGxlYXN0IGEgdGVzdGVkLWJ5Pw0KPg0KPlRoYW5rcywNCj5DaHJp
+c3RpYW4uDQo+DQo+QW0gMjUuMTAuMTggdW0gMTE6Mzkgc2NocmllYiBEZW5nLCBFbWlseToNCj4+
+IEFkZCBXZW50YW8uDQo+Pg0KPj4gQmVzdCB3aXNoZXMNCj4+IEVtaWx5IERlbmcNCj4+DQo+Pg0K
+Pj4NCj4+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4+IEZyb206IGFtZC1nZnggPGFt
+ZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZg0KPj4+IENo
+cmlzdGlhbiBLw7ZuaWcNCj4+PiBTZW50OiBUaHVyc2RheSwgT2N0b2JlciAyNSwgMjAxOCA1OjE1
+IFBNDQo+Pj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+Pj4gU3ViamVjdDog
+W1BBVENIIDEvNF0gZHJtL2FtZGdwdTogcmVtb3ZlIG5vbnNlbnNlIGluX2ludGVycnVwdCgpDQo+
+Pj4gY2hlY2tzDQo+Pj4NCj4+PiBtaWdodF9zbGVlcCgpIGlzIHN1cHBvc2VkIHRvIHJhaXNlIGlm
+IHdhcm5pbmcgaWYgY2FsbGVkIGluIGludGVycnVwdA0KPj4+IG9yIGF0b21pYyBjb250ZXh0Lg0K
+Pj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tPg0KPj4+IC0tLQ0KPj4+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV92aXJ0LmMgfCA4ICsrLS0tLS0tDQo+Pj4gMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
+KSwgNiBkZWxldGlvbnMoLSkNCj4+Pg0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdmlydC5jDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdmlydC5jDQo+Pj4gaW5kZXggZjJmMzU4YWEwNTk3Li44ZjUwYmMyNDVkZDYgMTAw
+NjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYw0K
+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMNCj4+PiBA
+QCAtMTYyLDkgKzE2Miw3IEBAIHVpbnQzMl90IGFtZGdwdV92aXJ0X2tpcV9ycmVnKHN0cnVjdA0K
+Pj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHJlZykNCj4+PiAJaWYgKHIgPCAxICYm
+IChhZGV2LT5pbl9ncHVfcmVzZXQgfHwgaW5faW50ZXJydXB0KCkpKQ0KPj4+IAkJZ290byBmYWls
+ZWRfa2lxX3JlYWQ7DQo+Pj4NCj4+PiAtCWlmIChpbl9pbnRlcnJ1cHQoKSkNCj4+PiAtCQltaWdo
+dF9zbGVlcCgpOw0KPj4+IC0NCj4+PiArCW1pZ2h0X3NsZWVwKCk7DQo+Pj4gCXdoaWxlIChyIDwg
+MSAmJiBjbnQrKyA8IE1BWF9LSVFfUkVHX1RSWSkgew0KPj4+IAkJbXNsZWVwKE1BWF9LSVFfUkVH
+X0JBSUxPVVRfSU5URVJWQUwpOw0KPj4+IAkJciA9IGFtZGdwdV9mZW5jZV93YWl0X3BvbGxpbmco
+cmluZywgc2VxLA0KPk1BWF9LSVFfUkVHX1dBSVQpOyBAQA0KPj4+IC0yMTAsOSArMjA4LDcgQEAg
+dm9pZCBhbWRncHVfdmlydF9raXFfd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPj4+ICphZGV2
+LCB1aW50MzJfdCByZWcsIHVpbnQzMl90IHYpDQo+Pj4gCWlmIChyIDwgMSAmJiAoYWRldi0+aW5f
+Z3B1X3Jlc2V0IHx8IGluX2ludGVycnVwdCgpKSkNCj4+PiAJCWdvdG8gZmFpbGVkX2tpcV93cml0
+ZTsNCj4+Pg0KPj4+IC0JaWYgKGluX2ludGVycnVwdCgpKQ0KPj4+IC0JCW1pZ2h0X3NsZWVwKCk7
+DQo+Pj4gLQ0KPj4+ICsJbWlnaHRfc2xlZXAoKTsNCj4+PiAJd2hpbGUgKHIgPCAxICYmIGNudCsr
+IDwgTUFYX0tJUV9SRUdfVFJZKSB7DQo+Pj4NCj4+PiAJCW1zbGVlcChNQVhfS0lRX1JFR19CQUlM
+T1VUX0lOVEVSVkFMKTsNCj4+PiAtLQ0KPj4+IDIuMTQuMQ0KPj4+DQo+Pj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4+PiBhbWQtZ2Z4IG1haWxpbmcg
+bGlzdA0KPj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+Pj4gaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQoNCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
