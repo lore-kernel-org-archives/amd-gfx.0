@@ -1,17 +1,11 @@
-From: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v6 4/5] drm/amdgpu: Correct get_crtc_scanoutpos behavior
- when vpos >= vtotal
-Date: Wed, 7 Nov 2018 14:58:38 +0000
-Message-ID: <f0875474-1e84-c397-19a1-f06e42254ee9@amd.com>
-References: <20181106202435.23556-1-nicholas.kazlauskas@amd.com>
- <20181106202435.23556-5-nicholas.kazlauskas@amd.com>
+From: "Panariti, David" <David.Panariti-5C7GfCeVMHo@public.gmane.org>
+Subject: Same bridge number?
+Date: Wed, 7 Nov 2018 14:59:42 +0000
+Message-ID: <DM5PR12MB2440E0F712F58653EF7666E895C40@DM5PR12MB2440.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1352460542=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181106202435.23556-5-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <FD36828883643D4199356FB044572DE7-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,50 +16,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "michel-otUistvHUpPR7s880joybQ@public.gmane.org" <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-DQoNCk9uIDIwMTgtMTEtMDYgMzoyNCBwLm0uLCBOaWNob2xhcyBLYXpsYXVza2FzIHdyb3RlOg0K
-PiBXaGVuIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBpcyBhY3RpdmUgdGhlIGhhcmR3YXJlIGNvdW50
-ZXIgY2FuIHJldHVybg0KPiBhIHBvc2l0aW9uID49IHZ0b3RhbC4gVGhpcyByZXN1bHRzIGluIGEg
-dnBvcyBiZWluZyByZXR1cm5lZCBmcm9tDQo+IGFtZGdwdV9kaXNwbGF5X2dldF9jcnRjX3NjYW5v
-dXRwb3MgdGhhdCdzIGEgcG9zaXRpdmUgdmFsdWUuIFRoZQ0KPiBwb3NpdGl2ZSB2YWx1ZSBpbmRp
-Y2F0ZXMgdG8gdGhlIGNhbGxlciB0aGF0IHRoZSBkaXNwbGF5IGlzDQo+IGN1cnJlbnRseSBpbiBz
-Y2Fub3V0IHdoZW4gdGhlIGRpc3BsYXkgaXMgYWN0dWFsbHkgc3RpbGwgaW4gdmJsYW5rLg0KPiAN
-Cj4gVGhpcyBpcyBiZWNhdXNlIHRoZSB2ZnJvbnQgcG9yY2ggZHVyYXRpb24gaXMgdW5rbm93biB3
-aXRoIHZhcmlhYmxlDQo+IHJlZnJlc2ggYWN0aXZlIGFuZCB3aWxsIGVuZCB3aGVuIGVpdGhlciBh
-IHBhZ2UgZmxpcCBvY2N1cnMgb3IgdGhlDQo+IHRpbWVvdXQgc3BlY2lmaWVkIGJ5IHRoZSBkcml2
-ZXIvZGlzcGxheSBpcyByZWFjaGVkLg0KPiANCj4gVGhlIGJlaGF2aW9yIG9mIHRoZSBhbWRncHVf
-ZGlzcGxheV9nZXRfY3J0Y19zY2Fub3V0cG9zIHJlbWFpbnMgdGhlDQo+IHNhbWUgd2hlbiB0aGUg
-cG9zaXRpb24gaXMgYmVsb3cgdnRvdGFsLiBXaGVuIHRoZSBwb3NpdGlvbiBpcyBhYm92ZQ0KPiB2
-dG90YWwgdGhlIGZ1bmN0aW9uIHdpbGwgcmV0dXJuIGEgdmFsdWUgdGhhdCBpcyBlZmZlY3RpdmVs
-eSAtdmJsX2VuZCwNCj4gdGhlIHNpemUgb2YgdGhlIHZiYWNrIHBvcmNoLg0KPiANCj4gVGhlIG9u
-bHkgY2FsbGVyIGFmZmVjdGVkIGJ5IHRoaXMgY2hhbmdlIGlzIHRoZSBEUk0gaGVscGVyIGZvcg0K
-PiBjYWxjdWxhdGluZyB2YmxhbmsgdGltZXN0YW1wcy4gVGhpcyBjaGFuZ2UgY29ycmVjdHMgYmVo
-YXZpb3IgZm9yDQo+IGNhbGN1bGF0aW5nIHRoZSBwYWdlIGZsaXAgdGltZXN0YXAgZnJvbSBiZWlu
-ZyB0aGUgcHJldmlvdXMgdGltZXN0YW1wDQo+IHRvIHRoZSBjYWxjdWxhdGlvbiB0byB0aGUgbmV4
-dCB0aW1lc3RhbXAgd2hlbiBwb3NpdGlvbiA+PSB2dG90YWwuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5
-OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+DQoNClJl
-dmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCg0KSGFy
-cnkNCg0KPiBDYzogTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4NCj4gQ2M6IEhh
-cnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMgfCA3ICsrKysrKy0NCj4gIDEgZmls
-ZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYw0KPiBpbmRleCA2NzQ4Y2Q3ZmMx
-MjkuLmNiMzMxMzE5ZjIyNSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2Rpc3BsYXkuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGlzcGxheS5jDQo+IEBAIC04NTAsNyArODUwLDEyIEBAIGludCBhbWRncHVfZGlzcGxh
-eV9nZXRfY3J0Y19zY2Fub3V0cG9zKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsDQo+ICAJLyogSW5z
-aWRlICJ1cHBlciBwYXJ0IiBvZiB2YmxhbmsgYXJlYT8gQXBwbHkgY29ycmVjdGl2ZSBvZmZzZXQg
-aWYgc286ICovDQo+ICAJaWYgKGluX3ZibCAmJiAoKnZwb3MgPj0gdmJsX3N0YXJ0KSkgew0KPiAg
-CQl2dG90YWwgPSBtb2RlLT5jcnRjX3Z0b3RhbDsNCj4gLQkJKnZwb3MgPSAqdnBvcyAtIHZ0b3Rh
-bDsNCj4gKw0KPiArCQkvKiBXaXRoIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBkaXNwbGF5cyB0aGUg
-dnBvcyBjYW4gZXhjZWVkDQo+ICsJCSAqIHRoZSB2dG90YWwgdmFsdWUuIENsYW1wIHRvIDAgdG8g
-cmV0dXJuIC12YmxfZW5kIGluc3RlYWQNCj4gKwkJICogb2YgZ3Vlc3NpbmcgdGhlIHJlbWFpbmlu
-ZyBudW1iZXIgb2YgbGluZXMgdW50aWwgc2Nhbm91dC4NCj4gKwkJICovDQo+ICsJCSp2cG9zID0g
-KCp2cG9zIDwgdnRvdGFsKSA/ICgqdnBvcyAtIHZ0b3RhbCkgOiAwOw0KPiAgCX0NCj4gIA0KPiAg
-CS8qIENvcnJlY3QgZm9yIHNoaWZ0ZWQgZW5kIG9mIHZibCBhdCB2YmxfZW5kLiAqLw0KPiANCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1352460542==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB2440E0F712F58653EF7666E895C40DM5PR12MB2440namp_"
+
+--_000_DM5PR12MB2440E0F712F58653EF7666E895C40DM5PR12MB2440namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+--_000_DM5PR12MB2440E0F712F58653EF7666E895C40DM5PR12MB2440namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB2440E0F712F58653EF7666E895C40DM5PR12MB2440namp_--
+
+--===============1352460542==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1352460542==--
