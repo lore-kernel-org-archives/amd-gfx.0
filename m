@@ -1,13 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Add "max_bpc" connector property
-Date: Wed, 7 Nov 2018 15:40:23 +0000
-Message-ID: <BN6PR12MB1809BB48F7B0BE5064C7B2BEF7C40@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/display: Support "max_bpc" connector property
+Date: Wed, 7 Nov 2018 15:42:45 +0000
+Message-ID: <f148f4f2-424b-a14b-b806-1240d540924e@amd.com>
 References: <20181107145655.5944-1-nicholas.kazlauskas@amd.com>
+ <20181107145655.5944-2-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1771517617=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181107145655.5944-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181107145655.5944-2-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <9E6DDAE957C4C34486D7ABFFD9D4FB8E-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,241 +23,75 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1771517617==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809BB48F7B0BE5064C7B2BEF7C40BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809BB48F7B0BE5064C7B2BEF7C40BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-FWIW there is a common property patch:
-
-https://patchwork.kernel.org/patch/10606697/
-
-When should try and be compatible so we can transition.
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Nicholas=
- Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Sent: Wednesday, November 7, 2018 9:56:54 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Kazlauskas, Nicholas
-Subject: [PATCH 1/2] drm/amdgpu: Add "max_bpc" connector property
-
-[Why]
-Many panels support more than 8bpc but some modes are unavailable while
-running at greater than 8bpc due to DP/HDMI bandwidth constraints.
-
-Support for more than 8bpc was added recently in the driver but it's
-defaults to the maximum supported bpc - locking out these modes.
-
-This should be a user configurable option such that the user can select
-what bpc configuration they would like.
-
-[How]
-Introduce the "max_bpc" connector property so the user can limit the
-maximum bpc for the panel. It ranges from 8 to 16.
-
-This doesn't directly set the preferred bpc for the panel but this
-convetion is already in use for other drivers.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 5 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    | 2 ++
- 2 files changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_display.c
-index 7d6a36bca9dd..83dadf5b85e0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -626,6 +626,11 @@ int amdgpu_display_modeset_create_props(struct amdgpu_=
-device *adev)
-                                          "dither",
-                                          amdgpu_dither_enum_list, sz);
-
-+       adev->mode_info.max_bpc_property =3D
-+               drm_property_create_range(adev->ddev, 0, "max_bpc", 8, 16);
-+       if (!adev->mode_info.max_bpc_property)
-+               return -ENOMEM;
-+
-         if (amdgpu_device_has_dc_support(adev)) {
-                 adev->mode_info.freesync_property =3D
-                         drm_property_create_bool(adev->ddev, 0, "freesync"=
-);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_mode.h
-index 1627dd3413c7..c39af5d79608 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -338,6 +338,8 @@ struct amdgpu_mode_info {
-         struct drm_property *audio_property;
-         /* FMT dithering */
-         struct drm_property *dither_property;
-+       /* maximum number of bits per channel for monitor color */
-+       struct drm_property *max_bpc_property;
-         /* it is used to allow enablement of freesync mode */
-         struct drm_property *freesync_property;
-         /* it is used to know about display capability of freesync mode */
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809BB48F7B0BE5064C7B2BEF7C40BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">FWIW there is a common property p=
-atch:<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><a href=3D"https://patchwork.kern=
-el.org/patch/10606697/" class=3D"OWAAutoLink" id=3D"LPlnk586943" previewrem=
-oved=3D"true">https://patchwork.kernel.org/patch/10606697/</a></p>
-<p style=3D"margin-top:0;margin-bottom:0">When should try and be compatible=
- so we can transition.<br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Nicholas Kazlauskas &lt;nicho=
-las.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, November 7, 2018 9:56:54 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Kazlauskas, Nicholas<br>
-<b>Subject:</b> [PATCH 1/2] drm/amdgpu: Add &quot;max_bpc&quot; connector p=
-roperty</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-Many panels support more than 8bpc but some modes are unavailable while<br>
-running at greater than 8bpc due to DP/HDMI bandwidth constraints.<br>
-<br>
-Support for more than 8bpc was added recently in the driver but it's<br>
-defaults to the maximum supported bpc - locking out these modes.<br>
-<br>
-This should be a user configurable option such that the user can select<br>
-what bpc configuration they would like.<br>
-<br>
-[How]<br>
-Introduce the &quot;max_bpc&quot; connector property so the user can limit =
-the<br>
-maximum bpc for the panel. It ranges from 8 to 16.<br>
-<br>
-This doesn't directly set the preferred bpc for the panel but this<br>
-convetion is already in use for other drivers.<br>
-<br>
-Signed-off-by: Nicholas Kazlauskas &lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 5 &#43;&#43;&#43;&#43;&=
-#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h&nbsp;&nbsp;&nbsp; | 2 &#43;&=
-#43;<br>
-&nbsp;2 files changed, 7 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_display.c<br>
-index 7d6a36bca9dd..83dadf5b85e0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c<br>
-@@ -626,6 &#43;626,11 @@ int amdgpu_display_modeset_create_props(struct amd=
-gpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; &quot;dither&quot;,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_dither_enum_list, sz);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mode_info.max_bpc_proper=
-ty =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; drm_property_create_range(adev-&gt;ddev, 0, &quot;max_bpc&qu=
-ot;, 8, 16);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;mode_info.max_bpc_p=
-roperty)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -ENOMEM;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_has_dc_s=
-upport(adev)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;mode_info.freesync_property =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_p=
-roperty_create_bool(adev-&gt;ddev, 0, &quot;freesync&quot;);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_mode.h<br>
-index 1627dd3413c7..c39af5d79608 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h<br>
-@@ -338,6 &#43;338,8 @@ struct amdgpu_mode_info {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_property *audio=
-_property;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* FMT dithering */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_property *dithe=
-r_property;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* maximum number of bits per cha=
-nnel for monitor color */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_property *max_bpc_prop=
-erty;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* it is used to allow ena=
-blement of freesync mode */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_property *frees=
-ync_property;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* it is used to know abou=
-t display capability of freesync mode */<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809BB48F7B0BE5064C7B2BEF7C40BN6PR12MB1809namp_--
-
---===============1771517617==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1771517617==--
+DQoNCk9uIDIwMTgtMTEtMDcgOTo1NiBhLm0uLCBOaWNob2xhcyBLYXpsYXVza2FzIHdyb3RlOg0K
+PiBbV2h5XQ0KPiBNYW55IHBhbmVscyBzdXBwb3J0IG1vcmUgdGhhbiA4YnBjIGJ1dCBzb21lIG1v
+ZGVzIGFyZSB1bmF2YWlsYWJsZSB3aGlsZQ0KPiBydW5uaW5nIGF0IGdyZWF0ZXIgdGhhbiA4YnBj
+IGR1ZSB0byBEUC9IRE1JIGJhbmR3aWR0aCBjb25zdHJhaW50cy4NCj4gDQo+IFN1cHBvcnQgZm9y
+IG1vcmUgdGhhbiA4YnBjIHdhcyBhZGRlZCByZWNlbnRseSBpbiB0aGUgZHJpdmVyIGJ1dCBpdCdz
+DQo+IGRlZmF1bHRzIHRvIHRoZSBtYXhpbXVtIHN1cHBvcnRlZCBicGMgLSBsb2NraW5nIG91dCB0
+aGVzZSBtb2Rlcy4NCj4gDQo+IFRoaXMgc2hvdWxkIGJlIGEgdXNlciBjb25maWd1cmFibGUgb3B0
+aW9uIHN1Y2ggdGhhdCB0aGUgdXNlciBjYW4gc2VsZWN0DQo+IHdoYXQgYnBjIGNvbmZpZ3VyYXRp
+b24gdGhleSB3b3VsZCBsaWtlLg0KPiANCj4gW0hvd10NCj4gQWRkIHN1cHBvcnQgZm9yIGdldHRp
+bmcgYW5kIHNldHRpbmcgdGhlIHByb3BlcnR5IG9uIHRoZSBjb25uZWN0b3INCj4gaW4gYW1kZ3B1
+X2RtLg0KPiANCj4gVGhlIG1heGltdW0gYnBjIGlzIHRoZW4gbGltaXRlZCBieSB0aGUgdmFsdWUg
+c2V0IGJ5IHRoZSB1c2VyLiBUaGUNCj4gZGVmYXVsdCB2YWx1ZSBpcyB0aGUgbG93ZXN0IGluIHRo
+ZSByYW5nZSwgOGJwYy4gVGhpcyB3YXMgdGhlIG9sZA0KPiBkZWZhdWx0IGJlZm9yZSB0aGUgcmFu
+Z2Ugd2FzIHVuY2FwcGVkLg0KPiANCg0KV291bGQgYmUgZ29vZCB0byBoYXZlIGEgRml4ZXMgdGFn
+IHJlZmVyZW5jaW5nIHRoZSByZWdyZXNzaW9uIGNvbW1pdCBhbmQNCkJ1Z3ppbGxhIHRhZ3MgZm9y
+IGFsbCBidWd6aWxsYSBidWdzIHRoYXQgYXJlIGZpeGVkIGJ5IHRoaXMuDQoNCkhhcnJ5DQoNCj4g
+U2lnbmVkLW9mZi1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0Bh
+bWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
+YW1kZ3B1X2RtLmMgfCAxNSArKysrKysrKysrKysrKysNCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmggfCAgMSArDQo+ICAyIGZpbGVzIGNoYW5nZWQs
+IDE2IGluc2VydGlvbnMoKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBpbmRleCBjNDQwZDk2N2RiNTcuLjYxODRjNWJj
+NTJlMyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1
+X2RtL2FtZGdwdV9kbS5jDQo+IEBAIC0yNDE3LDggKzI0MTcsMTQgQEAgc3RhdGljIHZvaWQgdXBk
+YXRlX3N0cmVhbV9zY2FsaW5nX3NldHRpbmdzKGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9tb2Rl
+ICptb2RlLA0KPiAgc3RhdGljIGVudW0gZGNfY29sb3JfZGVwdGgNCj4gIGNvbnZlcnRfY29sb3Jf
+ZGVwdGhfZnJvbV9kaXNwbGF5X2luZm8oY29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5l
+Y3RvcikNCj4gIHsNCj4gKwlzdHJ1Y3QgZG1fY29ubmVjdG9yX3N0YXRlICpkbV9jb25uX3N0YXRl
+ID0NCj4gKwkJdG9fZG1fY29ubmVjdG9yX3N0YXRlKGNvbm5lY3Rvci0+c3RhdGUpOw0KPiAgCXVp
+bnQzMl90IGJwYyA9IGNvbm5lY3Rvci0+ZGlzcGxheV9pbmZvLmJwYzsNCj4gIA0KPiArCWlmIChk
+bV9jb25uX3N0YXRlICYmIGJwYyA+IGRtX2Nvbm5fc3RhdGUtPm1heF9icGMpDQo+ICsJCS8qIFJv
+dW5kIGRvd24gdG8gbmVhcmVzdCBldmVuIG51bWJlci4gKi8NCj4gKwkJYnBjID0gZG1fY29ubl9z
+dGF0ZS0+bWF4X2JwYyAtIChkbV9jb25uX3N0YXRlLT5tYXhfYnBjICYgMSk7DQo+ICsNCj4gIAlz
+d2l0Y2ggKGJwYykgew0KPiAgCWNhc2UgMDoNCj4gIAkJLyoNCj4gQEAgLTMwMDEsNiArMzAwNyw5
+IEBAIGludCBhbWRncHVfZG1fY29ubmVjdG9yX2F0b21pY19zZXRfcHJvcGVydHkoc3RydWN0IGRy
+bV9jb25uZWN0b3IgKmNvbm5lY3RvciwNCj4gIAl9IGVsc2UgaWYgKHByb3BlcnR5ID09IGFkZXYt
+Pm1vZGVfaW5mby51bmRlcnNjYW5fcHJvcGVydHkpIHsNCj4gIAkJZG1fbmV3X3N0YXRlLT51bmRl
+cnNjYW5fZW5hYmxlID0gdmFsOw0KPiAgCQlyZXQgPSAwOw0KPiArCX0gZWxzZSBpZiAocHJvcGVy
+dHkgPT0gYWRldi0+bW9kZV9pbmZvLm1heF9icGNfcHJvcGVydHkpIHsNCj4gKwkJZG1fbmV3X3N0
+YXRlLT5tYXhfYnBjID0gdmFsOw0KPiArCQlyZXQgPSAwOw0KPiAgCX0gZWxzZSBpZiAocHJvcGVy
+dHkgPT0gYWRldi0+bW9kZV9pbmZvLmZyZWVzeW5jX3Byb3BlcnR5KSB7DQo+ICAJCWRtX25ld19z
+dGF0ZS0+ZnJlZXN5bmNfZW5hYmxlID0gdmFsOw0KPiAgCQlyZXQgPSAwOw0KPiBAQCAtMzA0OSw2
+ICszMDU4LDkgQEAgaW50IGFtZGdwdV9kbV9jb25uZWN0b3JfYXRvbWljX2dldF9wcm9wZXJ0eShz
+dHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLA0KPiAgCX0gZWxzZSBpZiAocHJvcGVydHkg
+PT0gYWRldi0+bW9kZV9pbmZvLnVuZGVyc2Nhbl9wcm9wZXJ0eSkgew0KPiAgCQkqdmFsID0gZG1f
+c3RhdGUtPnVuZGVyc2Nhbl9lbmFibGU7DQo+ICAJCXJldCA9IDA7DQo+ICsJfSBlbHNlIGlmIChw
+cm9wZXJ0eSA9PSBhZGV2LT5tb2RlX2luZm8ubWF4X2JwY19wcm9wZXJ0eSkgew0KPiArCQkqdmFs
+ID0gZG1fc3RhdGUtPm1heF9icGM7DQo+ICsJCXJldCA9IDA7DQo+ICAJfSBlbHNlIGlmIChwcm9w
+ZXJ0eSA9PSBhZGV2LT5tb2RlX2luZm8uZnJlZXN5bmNfcHJvcGVydHkpIHsNCj4gIAkJKnZhbCA9
+IGRtX3N0YXRlLT5mcmVlc3luY19lbmFibGU7DQo+ICAJCXJldCA9IDA7DQo+IEBAIC0zODY0LDYg
+KzM4NzYsOSBAQCB2b2lkIGFtZGdwdV9kbV9jb25uZWN0b3JfaW5pdF9oZWxwZXIoc3RydWN0IGFt
+ZGdwdV9kaXNwbGF5X21hbmFnZXIgKmRtLA0KPiAgCWRybV9vYmplY3RfYXR0YWNoX3Byb3BlcnR5
+KCZhY29ubmVjdG9yLT5iYXNlLmJhc2UsDQo+ICAJCQkJYWRldi0+bW9kZV9pbmZvLnVuZGVyc2Nh
+bl92Ym9yZGVyX3Byb3BlcnR5LA0KPiAgCQkJCTApOw0KPiArCWRybV9vYmplY3RfYXR0YWNoX3By
+b3BlcnR5KCZhY29ubmVjdG9yLT5iYXNlLmJhc2UsDQo+ICsJCQkJYWRldi0+bW9kZV9pbmZvLm1h
+eF9icGNfcHJvcGVydHksDQo+ICsJCQkJMCk7DQo+ICANCj4gIAlpZiAoY29ubmVjdG9yX3R5cGUg
+PT0gRFJNX01PREVfQ09OTkVDVE9SX0hETUlBIHx8DQo+ICAJICAgIGNvbm5lY3Rvcl90eXBlID09
+IERSTV9NT0RFX0NPTk5FQ1RPUl9EaXNwbGF5UG9ydCkgew0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uaCBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmgNCj4gaW5kZXggMjNmMmQwNWNm
+MDdlLi5hZmNiOTg0MmJiNDUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uaA0KPiBAQCAtMjUyLDYgKzI1Miw3IEBAIHN0cnVj
+dCBkbV9jb25uZWN0b3Jfc3RhdGUgew0KPiAgCWVudW0gYW1kZ3B1X3JteF90eXBlIHNjYWxpbmc7
+DQo+ICAJdWludDhfdCB1bmRlcnNjYW5fdmJvcmRlcjsNCj4gIAl1aW50OF90IHVuZGVyc2Nhbl9o
+Ym9yZGVyOw0KPiArCXVpbnQ4X3QgbWF4X2JwYzsNCj4gIAlib29sIHVuZGVyc2Nhbl9lbmFibGU7
+DQo+ICAJYm9vbCBmcmVlc3luY19lbmFibGU7DQo+ICAJYm9vbCBmcmVlc3luY19jYXBhYmxlOw0K
+PiANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
