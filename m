@@ -1,103 +1,61 @@
-From: Eric Wong <e@80x24.org>
-Subject: Re: radeon vs radeonfb Mobility quirks (Thinkpad X32)
-Date: Thu, 8 Nov 2018 00:03:35 +0000
-Message-ID: <20181108000335.a7usqftcmxvu7ywk@untitled>
-References: <20181104042328.jzavn47y2wloprbs@untitled>
- <365d8b24f1c6a28c32998924a95b6a2a74655526.camel@kernel.crashing.org>
+From: "Zhang, Jerry(Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu/sdma4: use paging queue for buffer funcs
+Date: Thu, 8 Nov 2018 10:05:33 +0800
+Message-ID: <19502b5a-8508-3b59-b50e-44de4ade535b@amd.com>
+References: <20181107172949.27158-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <365d8b24f1c6a28c32998924a95b6a2a74655526.camel@kernel.crashing.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Cc: David Airlie <airlied@linux.ie>, Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>, linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181107172949.27158-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Benjamin Herrenschmidt <benh@kernel.crashing.org> wrote:
-> There's a whole pile of power management stuff for ancient laptops that
-> never quite made it from radeonfb to the radeon DRM driver... sadly it
-> also prevents sleep on old PowerBooks but I haven't had many complaints
-> so...
-
-Thanks for the confirmation that stuff is missing from the DRM driver.
-
-> The code for D2 and D3 on those old things is reasonably self
-> contained, it shouldn't be that hard to move it over I suppose.
-
-I started working on the following (dirty) patch for my X32,
-but hasn't made a difference with just PCI_D2:
-
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index 59c8a6647ff2..acc587b18ad2 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1548,6 +1548,23 @@ void radeon_device_fini(struct radeon_device *rdev)
- 		radeon_doorbell_fini(rdev);
- }
- 
-+/* XXX copy of radeonfb_whack_power_state */
-+static void radeon_whack_power_state(struct pci_dev *pdev, pci_power_t state)
-+{
-+	u16 pwr_cmd;
-+
-+	for (;;) {
-+		pci_read_config_word(pdev, pdev->pm_cap + PCI_PM_CTRL,
-+				     &pwr_cmd);
-+		if (pwr_cmd & state)
-+			break;
-+		pwr_cmd = (pwr_cmd & ~PCI_PM_CTRL_STATE_MASK) | state;
-+		pci_write_config_word(pdev, pdev->pm_cap + PCI_PM_CTRL,
-+				      pwr_cmd);
-+		msleep(500);
-+	}
-+	pdev->current_state = state;
-+}
- 
- /*
-  * Suspend & resume.
-@@ -1596,6 +1613,7 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 
- 		if (radeon_crtc->cursor_bo) {
- 			struct radeon_bo *robj = gem_to_radeon_bo(radeon_crtc->cursor_bo);
-+
- 			r = radeon_bo_reserve(robj, false);
- 			if (r == 0) {
- 				radeon_bo_unpin(robj);
-@@ -1647,7 +1665,13 @@ int radeon_suspend_kms(struct drm_device *dev, bool suspend,
- 	} else if (suspend) {
- 		/* Shut down the device */
- 		pci_disable_device(dev->pdev);
--		pci_set_power_state(dev->pdev, PCI_D3hot);
-+
-+		if ("X32") {
-+			radeon_whack_power_state(dev->pdev, PCI_D2);
-+			__pci_complete_power_transition(dev->pdev, PCI_D2);
-+		} else {
-+			pci_set_power_state(dev->pdev, PCI_D3hot);
-+		}
- 	}
- 
- 	if (fbcon) {
-
-
-I suppose some of the mobility stuff from
-drivers/video/fbdev/aty/radeon_pm.c is necessary, but I haven't
-figured it out for the DRM driver.  Not sure when/if I'll have
-time to figure it out, or if I'll stick to the radeonfb driver
-for now.
-
-		/* Prepare mobility chips for suspend.
-		 */
-		if (rinfo->is_mobility) {
-			/* Program V2CLK */
-			radeon_pm_program_v2clk(rinfo);
-		
-			/* Disable IO PADs */
-			radeon_pm_disable_iopad(rinfo);
-
-			/* Set low current */
-			radeon_pm_low_current(rinfo);
-
-			/* Prepare chip for power management */
-			radeon_pm_setup_for_suspend(rinfo);
+T24gMTEvOC8xOCAxOjI5IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gVXNlIHRoZSBwYWdpbmcg
+cXVldWUgZm9yIGJ1ZmZlciBmdW5jdGlvbnMgdG8gYXZvaWQgY29udGVudGlvbgo+IHdpdGggdGhl
+IG90aGVyIHF1ZXVlcy4KPgo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
+LmRldWNoZXJAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEp1bndlaSBaaGFuZyA8SmVycnkuWmhhbmdA
+YW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAu
+YyB8IDEyICsrKysrKysrKysrLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyks
+IDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9zZG1hX3Y0XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCj4g
+aW5kZXggZTM5YTA5ZWIwZmExLi40YjViNDdkZDJmNGMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9zZG1hX3Y0XzAuYwo+IEBAIC02NjIsNiArNjYyLDEwIEBAIHN0YXRpYyB2b2lkIHNk
+bWFfdjRfMF9wYWdlX3N0b3Aoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJdTMyIHJi
+X2NudGwsIGliX2NudGw7Cj4gICAJaW50IGk7Cj4gICAKPiArCWlmICgoYWRldi0+bW1hbi5idWZm
+ZXJfZnVuY3NfcmluZyA9PSBzZG1hMCkgfHwKPiArCSAgICAoYWRldi0+bW1hbi5idWZmZXJfZnVu
+Y3NfcmluZyA9PSBzZG1hMSkpCj4gKwkJYW1kZ3B1X3R0bV9zZXRfYnVmZmVyX2Z1bmNzX3N0YXR1
+cyhhZGV2LCBmYWxzZSk7Cj4gKwo+ICAgCWZvciAoaSA9IDA7IGkgPCBhZGV2LT5zZG1hLm51bV9p
+bnN0YW5jZXM7IGkrKykgewo+ICAgCQlyYl9jbnRsID0gUlJFRzMyX1NETUEoaSwgbW1TRE1BMF9Q
+QUdFX1JCX0NOVEwpOwo+ICAgCQlyYl9jbnRsID0gUkVHX1NFVF9GSUVMRChyYl9jbnRsLCBTRE1B
+MF9QQUdFX1JCX0NOVEwsCj4gQEAgLTExNTIsNiArMTE1Niw5IEBAIHN0YXRpYyBpbnQgc2RtYV92
+NF8wX3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCQkJciA9IGFtZGdwdV9y
+aW5nX3Rlc3RfaGVscGVyKHBhZ2UpOwo+ICAgCQkJaWYgKHIpCj4gICAJCQkJcmV0dXJuIHI7Cj4g
+Kwo+ICsJCQlpZiAoYWRldi0+bW1hbi5idWZmZXJfZnVuY3NfcmluZyA9PSBwYWdlKQo+ICsJCQkJ
+YW1kZ3B1X3R0bV9zZXRfYnVmZmVyX2Z1bmNzX3N0YXR1cyhhZGV2LCB0cnVlKTsKPiAgIAkJfQo+
+ICAgCj4gICAJCWlmIChhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nID09IHJpbmcpCj4gQEAg
+LTIwNTQsNyArMjA2MSwxMCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9idWZmZXJfZnVu
+Y3Mgc2RtYV92NF8wX2J1ZmZlcl9mdW5jcyA9IHsKPiAgIHN0YXRpYyB2b2lkIHNkbWFfdjRfMF9z
+ZXRfYnVmZmVyX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgewo+ICAgCWFk
+ZXYtPm1tYW4uYnVmZmVyX2Z1bmNzID0gJnNkbWFfdjRfMF9idWZmZXJfZnVuY3M7Cj4gLQlhZGV2
+LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nID0gJmFkZXYtPnNkbWEuaW5zdGFuY2VbMF0ucmluZzsK
+PiArCWlmIChhZGV2LT5zZG1hLmhhc19wYWdlX3F1ZXVlKQo+ICsJCWFkZXYtPm1tYW4uYnVmZmVy
+X2Z1bmNzX3JpbmcgPSAmYWRldi0+c2RtYS5pbnN0YW5jZVswXS5wYWdlOwo+ICsJZWxzZQo+ICsJ
+CWFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3JpbmcgPSAmYWRldi0+c2RtYS5pbnN0YW5jZVswXS5y
+aW5nOwo+ICAgfQo+ICAgCj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV92bV9wdGVfZnVu
+Y3Mgc2RtYV92NF8wX3ZtX3B0ZV9mdW5jcyA9IHsKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
