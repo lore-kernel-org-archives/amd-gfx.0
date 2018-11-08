@@ -1,45 +1,56 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/radeon: remove set but not used variable 'rdev'
-Date: Thu, 8 Nov 2018 11:53:43 +0000
-Message-ID: <1541678023-143862-1-git-send-email-yuehaibing@huawei.com>
+From: likun Gao <likun.gao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2 0/3] RLC kernel code update to improve resuabillity
+Date: Thu, 8 Nov 2018 21:04:07 +0800
+Message-ID: <1541682250-2953-1-git-send-email-likun.gao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
-Cc: Yue Haibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Likun Gao <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
 
-From: Yue Haibing <yuehaibing@huawei.com>
-
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/radeon/radeon_object.c: In function 'radeon_bo_unref':
-drivers/gpu/drm/radeon/radeon_object.c:317:24: warning:
- variable 'rdev' set but not used [-Wunused-but-set-variable]
-
-It not used  any more after commit
-  e7e31600d3e2 ("drm/radeon: remove taking mclk_lock from radeon_bo_unref")
-
-Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/radeon/radeon_object.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-index ba2fd29..c4b2e14 100644
---- a/drivers/gpu/drm/radeon/radeon_object.c
-+++ b/drivers/gpu/drm/radeon/radeon_object.c
-@@ -314,11 +314,9 @@ struct radeon_bo *radeon_bo_ref(struct radeon_bo *bo)
- void radeon_bo_unref(struct radeon_bo **bo)
- {
- 	struct ttm_buffer_object *tbo;
--	struct radeon_device *rdev;
- 
- 	if ((*bo) == NULL)
- 		return;
--	rdev = (*bo)->rdev;
- 	tbo = &((*bo)->tbo);
- 	ttm_bo_put(tbo);
- 	*bo = NULL;
+RnJvbTogTGlrdW4gR2FvIDxMaWt1bi5HYW9AYW1kLmNvbT4KCkhpLAoKUGF0Y2hlcyBmb3IgUkxD
+IHdoaWNoIGlzIHVzZWQgZm9yIGltcHJvdmluZyB0aGUgcmVzdWFiaWxsaXR5IG9mClJMQydzIGNv
+ZGUgaGF2ZSB1cGRhdGUsIHRoZSBjaGFuZ2VzIGJldHdlZW4gdGhlIG9sZCBwYXRjaCBhcmUgYXMg
+Zm9sbG93OgpQQVRDSCAxLzM6IGhhdmUgbm90IGNoYW5nZWQgYW5kIGl0IHVuaWZpZWQgUkxDJ3Mg
+ZnVuY3Rpb24gaW50byB0aGUgc3RydWN0CmFtZGdwdV9ybGNfZnVuY3MgYW5kIGNoYW5nZSB0aGUg
+bWV0aG9kIG9mIGNhbGxpbmcgUkxDLgpQQVRDSCAyLzMgYW5kIDMvMzogMS5DaGFuZ2VkIHRoZSBz
+ZXF1ZW5jZSAyLzMgYW5kIDMvMywgc2VwYXJ0ZSB0aGUgZmlsZSBybGMgZnJvbQpnZnggZmlyc3Qs
+IGFuZCBtb3ZlIHRoZSBmdW5jdGlvbiByZWxhdGVkIHRvIHJsYyBmcm9tIGFtZGdwdV9nZnggaW4g
+dGhlIGxhdGVyCnBhdGNoLiAyLkFwcGx5IHRvIHJsYyBrZXJuZWwgZnVuY3Rpb24gZG91Y21lbnRh
+dGlvbiB0byB0aGUgYWRkZWQgcmxjIGNvbW1vbgpmdW5jdGlvbi4KUGxlYXNlIGhlbHAgdG8gcmV2
+aWV3LCB0aGFua3MuCgpSZWdhcmRzLApMaWt1biAKCkxpa3VuIEdhbyAoMyk6CiAgZHJtL2FtZGdw
+dTogdW5pZnkgcmxjIGZ1bmN0aW9uIGludG8gc3RydWN0dXJlCiAgZHJtL2FtZGdwdTogc2VwYXJh
+dGUgYW1kZ3B1X3JsYyBpbnRvIGEgc2luZ2xlIGZpbGUKICBkcm0vYW1kZ3B1OiBhYnN0cmFjdCB0
+aGUgZnVuY3Rpb24gb2YgZW50ZXIvZXhpdCBzYWZlIG1vZGUgZm9yIFJMQwoKIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlICAgICAgICAgICAgICAgIHwgICAxICsKIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyAgICAgICAgICAgIHwgICAxICsKIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguaCAgICAgICAgICAgIHwgIDU0ICstLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ybGMuYyAgICAgICAgICAgIHwgMjgy
+ICsrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3JsYy5oICAgICAgICAgICAgfCAgOTggKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvY2lfZHBtLmMgICAgICAgICAgICAgICAgfCAgIDYgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2dmeF92Nl8wLmMgICAgICAgICAgICAgIHwgIDU2ICsrLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgICAgICAgICAgICAgIHwgMTc2ICsrKy0tLS0tLS0tLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgICAgICAgIHwgMjMw
+ICsrKysrKy0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
+ICAgICAgICAgICAgICB8IDIxNSArKysrLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9rdl9kcG0uYyAgICAgICAgICAgICAgICB8ICAgNiArLQogLi4uL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci9zbXU3X3Bvd2VydHVuZS5jICAgfCAgMTIgKy0KIC4uLi9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Bvd2VydHVuZS5jIHwgIDM2ICstLQogMTMgZmls
+ZXMgY2hhbmdlZCwgNTk5IGluc2VydGlvbnMoKyksIDU3NCBkZWxldGlvbnMoLSkKIGNyZWF0ZSBt
+b2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmxjLmMKIGNyZWF0
+ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmxjLmgKCi0t
+IAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
