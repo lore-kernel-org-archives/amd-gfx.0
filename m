@@ -1,91 +1,45 @@
-From: "Gong, Curry" <Curry.Gong-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu/sdma4: use paging queue for buffer funcs
-Date: Thu, 8 Nov 2018 08:15:13 +0000
-Message-ID: <BN6PR12MB15866E5452C2D3057013DD309DC50@BN6PR12MB1586.namprd12.prod.outlook.com>
-References: <20181107172949.27158-1-alexander.deucher@amd.com>
- <19502b5a-8508-3b59-b50e-44de4ade535b@amd.com>
- <CADnq5_Pd9VMHzJ0VR_VzjDyb=ZJo9W9LCbtQbYrrhJwzT+kV=Q@mail.gmail.com>
- <d7df731c-ce0f-1cad-0cf9-15b06fc738db@amd.com>
- <BN6PR12MB1586D7AC56967190DFD835B59DC50@BN6PR12MB1586.namprd12.prod.outlook.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/radeon: remove set but not used variable 'rdev'
+Date: Thu, 8 Nov 2018 11:53:43 +0000
+Message-ID: <1541678023-143862-1-git-send-email-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1586D7AC56967190DFD835B59DC50-/b2+HYfkarTyoQOqIZFxpgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie
+Cc: Yue Haibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmVzdWx0IGlzIHBhc3MNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEdvbmcs
-IEN1cnJ5IA0KU2VudDogVGh1cnNkYXksIE5vdmVtYmVyIDgsIDIwMTggNDoxNCBQTQ0KVG86IFpo
-YW5nLCBKZXJyeSA8SmVycnkuWmhhbmdAYW1kLmNvbT47IEFsZXggRGV1Y2hlciA8YWxleGRldWNo
-ZXJAZ21haWwuY29tPg0KQ2M6IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmc+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQpT
-dWJqZWN0OiBSRTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdS9zZG1hNDogdXNlIHBhZ2luZyBxdWV1
-ZSBmb3IgYnVmZmVyIGZ1bmNzDQoNCkhpIEFsZXjvvJoNCg0KSSBoYXZlIHRlc3RlZCB0aGlzIHBh
-dGNoIGJhc2Ugb24gYnJhbmNoICJhbWQtc3RhZ2luZy1ka21zLTQuMTgiDQpnbG1hcmsyIGFuZCB1
-bmlnaW5lX2hlYXZlbg0KDQpUZXN0ZWQtYnk6IENoZW4gR29uZyA8Q3VycnkuR29uZ0BhbWQuY29t
-Pg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBaaGFuZywgSmVycnkgPEpl
-cnJ5LlpoYW5nQGFtZC5jb20+DQpTZW50OiBUaHVyc2RheSwgTm92ZW1iZXIgOCwgMjAxOCAzOjQ1
-IFBNDQpUbzogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBHb25nLCBDdXJy
-eSA8Q3VycnkuR29uZ0BhbWQuY29tPg0KQ2M6IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmc+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFt
-ZC5jb20+DQpTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdS9zZG1hNDogdXNlIHBh
-Z2luZyBxdWV1ZSBmb3IgYnVmZmVyIGZ1bmNzDQoNCisgQ3VycnkNCg0KT24gMTEvOC8xOCAxMDo1
-OSBBTSwgQWxleCBEZXVjaGVyIHdyb3RlOg0KPiBPbiBXZWQsIE5vdiA3LCAyMDE4IGF0IDk6MDUg
-UE0gWmhhbmcsIEplcnJ5KEp1bndlaSkgPEplcnJ5LlpoYW5nQGFtZC5jb20+IHdyb3RlOg0KPj4g
-T24gMTEvOC8xOCAxOjI5IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+Pj4gVXNlIHRoZSBwYWdp
-bmcgcXVldWUgZm9yIGJ1ZmZlciBmdW5jdGlvbnMgdG8gYXZvaWQgY29udGVudGlvbiB3aXRoIA0K
-Pj4+IHRoZSBvdGhlciBxdWV1ZXMuDQo+Pj4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNo
-ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+PiBSZXZpZXdlZC1ieTogSnVud2VpIFpo
-YW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPg0KPiBDYW4gc29tZW9uZSB3aXRoIGEgdmVnYTEwIHRl
-c3QgdGhpcz8NCj4NCj4gQWxleA0KPg0KPj4+IC0tLQ0KPj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3NkbWFfdjRfMC5jIHwgMTIgKysrKysrKysrKystDQo+Pj4gICAgMSBmaWxlIGNo
-YW5nZWQsIDExIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4+Pg0KPj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYw0KPj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMNCj4+PiBpbmRleCBlMzlhMDllYjBmYTEu
-LjRiNWI0N2RkMmY0YyAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zZG1hX3Y0XzAuYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFf
-djRfMC5jDQo+Pj4gQEAgLTY2Miw2ICs2NjIsMTAgQEAgc3RhdGljIHZvaWQgc2RtYV92NF8wX3Bh
-Z2Vfc3RvcChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+PiAgICAgICAgdTMyIHJiX2Nu
-dGwsIGliX2NudGw7DQo+Pj4gICAgICAgIGludCBpOw0KPj4+DQo+Pj4gKyAgICAgaWYgKChhZGV2
-LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nID09IHNkbWEwKSB8fA0KPj4+ICsgICAgICAgICAoYWRl
-di0+bW1hbi5idWZmZXJfZnVuY3NfcmluZyA9PSBzZG1hMSkpDQo+Pj4gKyAgICAgICAgICAgICBh
-bWRncHVfdHRtX3NldF9idWZmZXJfZnVuY3Nfc3RhdHVzKGFkZXYsIGZhbHNlKTsNCj4+PiArDQo+
-Pj4gICAgICAgIGZvciAoaSA9IDA7IGkgPCBhZGV2LT5zZG1hLm51bV9pbnN0YW5jZXM7IGkrKykg
-ew0KPj4+ICAgICAgICAgICAgICAgIHJiX2NudGwgPSBSUkVHMzJfU0RNQShpLCBtbVNETUEwX1BB
-R0VfUkJfQ05UTCk7DQo+Pj4gICAgICAgICAgICAgICAgcmJfY250bCA9IFJFR19TRVRfRklFTEQo
-cmJfY250bCwgU0RNQTBfUEFHRV9SQl9DTlRMLCANCj4+PiBAQCAtMTE1Miw2ICsxMTU2LDkgQEAg
-c3RhdGljIGludCBzZG1hX3Y0XzBfc3RhcnQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+
-Pj4gICAgICAgICAgICAgICAgICAgICAgICByID0gYW1kZ3B1X3JpbmdfdGVzdF9oZWxwZXIocGFn
-ZSk7DQo+Pj4gICAgICAgICAgICAgICAgICAgICAgICBpZiAocikNCj4+PiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcmV0dXJuIHI7DQo+Pj4gKw0KPj4+ICsgICAgICAgICAgICAgICAg
-ICAgICBpZiAoYWRldi0+bW1hbi5idWZmZXJfZnVuY3NfcmluZyA9PSBwYWdlKQ0KPj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIA0KPj4+ICsgYW1kZ3B1X3R0bV9zZXRfYnVmZmVyX2Z1
-bmNzX3N0YXR1cyhhZGV2LCB0cnVlKTsNCj4+PiAgICAgICAgICAgICAgICB9DQo+Pj4NCj4+PiAg
-ICAgICAgICAgICAgICBpZiAoYWRldi0+bW1hbi5idWZmZXJfZnVuY3NfcmluZyA9PSByaW5nKSBA
-QCAtMjA1NCw3DQo+Pj4gKzIwNjEsMTAgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfYnVm
-ZmVyX2Z1bmNzIA0KPj4+ICtzZG1hX3Y0XzBfYnVmZmVyX2Z1bmNzID0gew0KPj4+ICAgIHN0YXRp
-YyB2b2lkIHNkbWFfdjRfMF9zZXRfYnVmZmVyX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KQ0KPj4+ICAgIHsNCj4+PiAgICAgICAgYWRldi0+bW1hbi5idWZmZXJfZnVuY3MgPSAmc2Rt
-YV92NF8wX2J1ZmZlcl9mdW5jczsNCj4+PiAtICAgICBhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19y
-aW5nID0gJmFkZXYtPnNkbWEuaW5zdGFuY2VbMF0ucmluZzsNCj4+PiArICAgICBpZiAoYWRldi0+
-c2RtYS5oYXNfcGFnZV9xdWV1ZSkNCj4+PiArICAgICAgICAgICAgIGFkZXYtPm1tYW4uYnVmZmVy
-X2Z1bmNzX3JpbmcgPSAmYWRldi0+c2RtYS5pbnN0YW5jZVswXS5wYWdlOw0KPj4+ICsgICAgIGVs
-c2UNCj4+PiArICAgICAgICAgICAgIGFkZXYtPm1tYW4uYnVmZmVyX2Z1bmNzX3JpbmcgPSANCj4+
-PiArICZhZGV2LT5zZG1hLmluc3RhbmNlWzBdLnJpbmc7DQo+Pj4gICAgfQ0KPj4+DQo+Pj4gICAg
-c3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfdm1fcHRlX2Z1bmNzIHNkbWFfdjRfMF92bV9wdGVf
-ZnVuY3MgPSANCj4+PiB7DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+From: Yue Haibing <yuehaibing@huawei.com>
+
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/radeon/radeon_object.c: In function 'radeon_bo_unref':
+drivers/gpu/drm/radeon/radeon_object.c:317:24: warning:
+ variable 'rdev' set but not used [-Wunused-but-set-variable]
+
+It not used  any more after commit
+  e7e31600d3e2 ("drm/radeon: remove taking mclk_lock from radeon_bo_unref")
+
+Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/radeon/radeon_object.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
+index ba2fd29..c4b2e14 100644
+--- a/drivers/gpu/drm/radeon/radeon_object.c
++++ b/drivers/gpu/drm/radeon/radeon_object.c
+@@ -314,11 +314,9 @@ struct radeon_bo *radeon_bo_ref(struct radeon_bo *bo)
+ void radeon_bo_unref(struct radeon_bo **bo)
+ {
+ 	struct ttm_buffer_object *tbo;
+-	struct radeon_device *rdev;
+ 
+ 	if ((*bo) == NULL)
+ 		return;
+-	rdev = (*bo)->rdev;
+ 	tbo = &((*bo)->tbo);
+ 	ttm_bo_put(tbo);
+ 	*bo = NULL;
