@@ -1,14 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Fix CSA buffer alloc failed on Vega
-Date: Mon, 12 Nov 2018 11:42:04 +0100
-Message-ID: <e7909a29-fddd-9c65-d748-49f51e72afa9@gmail.com>
-References: <1542018800-998-1-git-send-email-Rex.Zhu@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Date: Mon, 12 Nov 2018 11:16:00 +0000
+Message-ID: <BYAPR12MB277536E13BA51356E3D9AD1FFBC10@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <1542018800-998-1-git-send-email-Rex.Zhu@amd.com>,
+ <e7909a29-fddd-9c65-d748-49f51e72afa9@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0816452098=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1542018800-998-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <e7909a29-fddd-9c65-d748-49f51e72afa9-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,50 +19,251 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTIuMTEuMTggdW0gMTE6MzMgc2NocmllYiBSZXggWmh1Ogo+IEFsbG9jX3B0ZSBmYWlsZWQg
-d2hlbiB0aGUgVkEgYWRkcmVzcyBsb2NhdGVkIGluCj4gdGhlIGhpZ2hlciBhcnJhbmdlIG9mIDI1
-NlQuCj4KPiBzbyByZXNlcnZlIHRoZSBjc2EgYnVmZmVyIHVuZGVyIDEyOFQgYXMgYSB3b3JrIGFy
-b3VuZC4KPgo+IFsgIDEyMi45Nzk0MjVdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IHZhIGFib3ZlIGxp
-bWl0ICgweEZGRkZGRkZGRkZGMUYgPj0gMHgxMDAwMDAwMDAwKQo+IFsgIDEyMi45ODcwODBdIEJV
-RzogdW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgcGFnaW5nIHJlcXVlc3QgYXQgZmZmZjg4MGUxYTc5
-ZmZmOAo+Cj4gU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPgoKV2VsbCBO
-QUssIHVzZXJzcGFjZSB3YW50cyB0byB1c2UgdGhlIGZ1bGwgYWRkcmVzcyBzcGFjZSBiZWxvdyAx
-MjhUIGZvciBTVk0uCgpUaGUgcHJvYmxlbSBpcyByYXRoZXIgdGhhdCB5b3UgaW5jb3JyZWN0bHkg
-dXNlIGFtZGdwdV9jc2FfdmFkZHIoKS4gU2VlIAp0aGUgY29kZSBpbiBhbWRncHVfZHJpdmVyX29w
-ZW5fa21zKCkgaG93IHRvIGRvIGl0IGNvcnJlY3RseToKCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHVpbnQ2NF90IGNzYV9hZGRyID0gYW1kZ3B1X2NzYV92YWRkcihhZGV2KSAmIAo+
-IEFNREdQVV9HTUNfSE9MRV9NQVNLOwo+Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHIgPSBhbWRncHVfbWFwX3N0YXRpY19jc2EoYWRldiwgJmZwcml2LT52bSwgCj4gYWRldi0+dmly
-dC5jc2Ffb2JqLAo+ICZmcHJpdi0+Y3NhX3ZhLCBjc2FfYWRkciwgQU1ER1BVX0NTQV9TSVpFKTsK
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIpCj4gwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX3ZtOwoKQ2hyaXN0aWFu
-LgoKCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMgfCA0
-ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyB8IDIgKy0K
-PiAgIDIgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Cj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jc2EuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jc2EuYwo+IGluZGV4IGZlYTQ1NTUuLmUy
-ZjMyNWIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nz
-YS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5jCj4gQEAg
-LTM2LDkgKzM2LDkgQEAgdWludDY0X3QgYW1kZ3B1X2NzYV92YWRkcihzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwgdWludDMyX3QgaWQpCj4gICB7Cj4gICAJdWludDY0X3QgYWRkciA9IGFkZXYt
-PnZtX21hbmFnZXIubWF4X3BmbiA8PCBBTURHUFVfR1BVX1BBR0VfU0hJRlQ7Cj4gICAKPiAtCWFk
-ZHIgLT0gQU1ER1BVX1ZBX1JFU0VSVkVEX1NJWkUgKiBpZDsKPiArCWFkZHIgPSBtaW4oYWRkciwg
-QU1ER1BVX0dNQ19IT0xFX1NUQVJUKTsKPiAgIAo+IC0JYWRkciA9IGFtZGdwdV9nbWNfc2lnbl9l
-eHRlbmQoYWRkcik7Cj4gKwlhZGRyIC09ICh1aW50NjRfdClBTURHUFVfVkFfUkVTRVJWRURfU0la
-RSAqIGlkOwo+ICAgCj4gICAJcmV0dXJuIGFkZHI7Cj4gICB9Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9rbXMuYwo+IGluZGV4IDMzOGEwOTEuLmVhNmExMmEgMTAwNjQ0Cj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gQEAgLTcxMSw3ICs3MTEsNyBAQCBz
-dGF0aWMgaW50IGFtZGdwdV9pbmZvX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQg
-KmRhdGEsIHN0cnVjdCBkcm1fZmlsZQo+ICAgCj4gICAJCWRldl9pbmZvLnZpcnR1YWxfYWRkcmVz
-c19vZmZzZXQgPSBBTURHUFVfVkFfUkVTRVJWRURfU0laRTsKPiAgIAkJZGV2X2luZm8udmlydHVh
-bF9hZGRyZXNzX21heCA9Cj4gLQkJCW1pbih2bV9zaXplLCBBTURHUFVfR01DX0hPTEVfU1RBUlQp
-Owo+ICsJCQltaW4odm1fc2l6ZSwgQU1ER1BVX0dNQ19IT0xFX1NUQVJUIC0gYWRldi0+dm1fbWFu
-YWdlci5yZXNlcnZlZF92bV9zaXplKTsKPiAgIAo+ICAgCQlpZiAodm1fc2l6ZSA+IEFNREdQVV9H
-TUNfSE9MRV9TVEFSVCkgewo+ICAgCQkJZGV2X2luZm8uaGlnaF92YV9vZmZzZXQgPSBBTURHUFVf
-R01DX0hPTEVfRU5EOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0816452098==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB277536E13BA51356E3D9AD1FFBC10BYAPR12MB2775namp_"
+
+--_000_BYAPR12MB277536E13BA51356E3D9AD1FFBC10BYAPR12MB2775namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Got it .
+
+Thanks.
+
+
+Best Regards
+
+Rex
+
+
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Monday, November 12, 2018 6:42 PM
+To: Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amdgpu: Fix CSA buffer alloc failed on Vega
+
+Am 12.11.18 um 11:33 schrieb Rex Zhu:
+> Alloc_pte failed when the VA address located in
+> the higher arrange of 256T.
+>
+> so reserve the csa buffer under 128T as a work around.
+>
+> [  122.979425] amdgpu 0000:03:00.0: va above limit (0xFFFFFFFFFFF1F >=3D =
+0x1000000000)
+> [  122.987080] BUG: unable to handle kernel paging request at ffff880e1a7=
+9fff8
+>
+> Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+
+Well NAK, userspace wants to use the full address space below 128T for SVM.
+
+The problem is rather that you incorrectly use amdgpu_csa_vaddr(). See
+the code in amdgpu_driver_open_kms() how to do it correctly:
+
+>                 uint64_t csa_addr =3D amdgpu_csa_vaddr(adev) &
+> AMDGPU_GMC_HOLE_MASK;
+>
+>                 r =3D amdgpu_map_static_csa(adev, &fpriv->vm,
+> adev->virt.csa_obj,
+> &fpriv->csa_va, csa_addr, AMDGPU_CSA_SIZE);
+>                 if (r)
+>                         goto error_vm;
+
+Christian.
+
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c | 4 ++--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 +-
+>   2 files changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_csa.c
+> index fea4555..e2f325b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+> @@ -36,9 +36,9 @@ uint64_t amdgpu_csa_vaddr(struct amdgpu_device *adev, u=
+int32_t id)
+>   {
+>        uint64_t addr =3D adev->vm_manager.max_pfn << AMDGPU_GPU_PAGE_SHIF=
+T;
+>
+> -     addr -=3D AMDGPU_VA_RESERVED_SIZE * id;
+> +     addr =3D min(addr, AMDGPU_GMC_HOLE_START);
+>
+> -     addr =3D amdgpu_gmc_sign_extend(addr);
+> +     addr -=3D (uint64_t)AMDGPU_VA_RESERVED_SIZE * id;
+>
+>        return addr;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_kms.c
+> index 338a091..ea6a12a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -711,7 +711,7 @@ static int amdgpu_info_ioctl(struct drm_device *dev, =
+void *data, struct drm_file
+>
+>                dev_info.virtual_address_offset =3D AMDGPU_VA_RESERVED_SIZ=
+E;
+>                dev_info.virtual_address_max =3D
+> -                     min(vm_size, AMDGPU_GMC_HOLE_START);
+> +                     min(vm_size, AMDGPU_GMC_HOLE_START - adev->vm_manag=
+er.reserved_vm_size);
+>
+>                if (vm_size > AMDGPU_GMC_HOLE_START) {
+>                        dev_info.high_va_offset =3D AMDGPU_GMC_HOLE_END;
+
+
+--_000_BYAPR12MB277536E13BA51356E3D9AD1FFBC10BYAPR12MB2775namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Got it .</p>
+<p style=3D"margin-top:0;margin-bottom:0">Thanks.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" color=
+=3D"#000000" face=3D"Calibri, sans-serif"><b>From:</b> Christian K=F6nig &l=
+t;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, November 12, 2018 6:42 PM<br>
+<b>To:</b> Zhu, Rex; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Fix CSA buffer alloc failed on Vega=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 12.11.18 um 11:33 schrieb Rex Zhu:<br>
+&gt; Alloc_pte failed when the VA address located in<br>
+&gt; the higher arrange of 256T.<br>
+&gt;<br>
+&gt; so reserve the csa buffer under 128T as a work around.<br>
+&gt;<br>
+&gt; [&nbsp; 122.979425] amdgpu 0000:03:00.0: va above limit (0xFFFFFFFFFFF=
+1F &gt;=3D 0x1000000000)<br>
+&gt; [&nbsp; 122.987080] BUG: unable to handle kernel paging request at fff=
+f880e1a79fff8<br>
+&gt;<br>
+&gt; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Well NAK, userspace wants to use the full address space below 128T for SVM.=
+<br>
+<br>
+The problem is rather that you incorrectly use amdgpu_csa_vaddr(). See <br>
+the code in amdgpu_driver_open_kms() how to do it correctly:<br>
+<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; uint64_t csa_addr =3D amdgpu_csa_vaddr(adev) &amp; <br=
+>
+&gt; AMDGPU_GMC_HOLE_MASK;<br>
+&gt;<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; r =3D amdgpu_map_static_csa(adev, &amp;fpriv-&gt;vm, <=
+br>
+&gt; adev-&gt;virt.csa_obj,<br>
+&gt; &amp;fpriv-&gt;csa_va, csa_addr, AMDGPU_CSA_SIZE);<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto e=
+rror_vm;<br>
+<br>
+Christian.<br>
+<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c | 4 &#43;&#43;--<b=
+r>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 2 &#43;-<br>
+&gt;&nbsp;&nbsp; 2 files changed, 3 insertions(&#43;), 3 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_csa.c<br>
+&gt; index fea4555..e2f325b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c<br>
+&gt; @@ -36,9 &#43;36,9 @@ uint64_t amdgpu_csa_vaddr(struct amdgpu_device *=
+adev, uint32_t id)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr =3D adev-&gt;v=
+m_manager.max_pfn &lt;&lt; AMDGPU_GPU_PAGE_SHIFT;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; addr -=3D AMDGPU_VA_RESERVED_SIZE * id;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; addr =3D min(addr, AMDGPU_GMC_HOLE_START=
+);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; addr =3D amdgpu_gmc_sign_extend(addr);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; addr -=3D (uint64_t)AMDGPU_VA_RESERVED_S=
+IZE * id;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return addr;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_kms.c<br>
+&gt; index 338a091..ea6a12a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c<br>
+&gt; @@ -711,7 &#43;711,7 @@ static int amdgpu_info_ioctl(struct drm_device=
+ *dev, void *data, struct drm_file<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev_info.virtual_address_offset =3D AMDGPU_VA_RESERVED_=
+SIZE;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; dev_info.virtual_address_max =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min(vm_size, AMDGPU_GMC=
+_HOLE_START);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min(vm_size, AMDGPU=
+_GMC_HOLE_START - adev-&gt;vm_manager.reserved_vm_size);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (vm_size &gt; AMDGPU_GMC_HOLE_START) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_inf=
+o.high_va_offset =3D AMDGPU_GMC_HOLE_END;<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB277536E13BA51356E3D9AD1FFBC10BYAPR12MB2775namp_--
+
+--===============0816452098==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0816452098==--
