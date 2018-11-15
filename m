@@ -1,264 +1,71 @@
-From: Joerg Roedel <joro@8bytes.org>
-Subject: [PATCH] drm/amd/powerplay:  Ratelimit all "was not implemented" messages
-Date: Thu, 15 Nov 2018 14:40:29 +0100
-Message-ID: <20181115134029.25675-1-joro@8bytes.org>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, David1.Zhou@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Joerg Roedel <jroedel@suse.de>
-List-Id: amd-gfx.lists.freedesktop.org
+From: Joerg Roedel <joro-zLv9SwRftAIdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Fix Kernel Oops triggered by kfdtest
+Date: Thu, 15 Nov 2018 15:46:12 +0100
+Message-ID: <20181115144612.30301-1-joro@8bytes.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org
+Cc: Joerg Roedel <jroedel-l3A5Bk7waGM@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-From: Joerg Roedel <jroedel@suse.de>
-
-Running kfdtest on an AMD Carizzo flooded the kernel log
-with thousands of these "was not implemented" messages,
-making it impossible to see other messages there.
-
-Ratelimit the messages to prevent user-space from flooding
-the kernel log.
-
-Signed-off-by: Joerg Roedel <jroedel@suse.de>
----
- drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 52 +++++++++++++--------------
- 1 file changed, 26 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-index d6aa1d414320..b68c2e0fef01 100644
---- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
-@@ -300,7 +300,7 @@ static int pp_set_clockgating_by_smu(void *handle, uint32_t msg_id)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->update_clock_gatings == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 
-@@ -387,7 +387,7 @@ static uint32_t pp_dpm_get_sclk(void *handle, bool low)
- 		return 0;
- 
- 	if (hwmgr->hwmgr_func->get_sclk == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -405,7 +405,7 @@ static uint32_t pp_dpm_get_mclk(void *handle, bool low)
- 		return 0;
- 
- 	if (hwmgr->hwmgr_func->get_mclk == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -422,7 +422,7 @@ static void pp_dpm_powergate_vce(void *handle, bool gate)
- 		return;
- 
- 	if (hwmgr->hwmgr_func->powergate_vce == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -438,7 +438,7 @@ static void pp_dpm_powergate_uvd(void *handle, bool gate)
- 		return;
- 
- 	if (hwmgr->hwmgr_func->powergate_uvd == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -505,7 +505,7 @@ static void pp_dpm_set_fan_control_mode(void *handle, uint32_t mode)
- 		return;
- 
- 	if (hwmgr->hwmgr_func->set_fan_control_mode == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -522,7 +522,7 @@ static uint32_t pp_dpm_get_fan_control_mode(void *handle)
- 		return 0;
- 
- 	if (hwmgr->hwmgr_func->get_fan_control_mode == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -540,7 +540,7 @@ static int pp_dpm_set_fan_speed_percent(void *handle, uint32_t percent)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->set_fan_speed_percent == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -558,7 +558,7 @@ static int pp_dpm_get_fan_speed_percent(void *handle, uint32_t *speed)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->get_fan_speed_percent == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 
-@@ -594,7 +594,7 @@ static int pp_dpm_set_fan_speed_rpm(void *handle, uint32_t rpm)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->set_fan_speed_rpm == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -720,7 +720,7 @@ static int pp_dpm_force_clock_level(void *handle,
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->force_clock_level == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 
-@@ -745,7 +745,7 @@ static int pp_dpm_print_clock_levels(void *handle,
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->print_clock_levels == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -763,7 +763,7 @@ static int pp_dpm_get_sclk_od(void *handle)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->get_sclk_od == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -781,7 +781,7 @@ static int pp_dpm_set_sclk_od(void *handle, uint32_t value)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->set_sclk_od == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 
-@@ -800,7 +800,7 @@ static int pp_dpm_get_mclk_od(void *handle)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->get_mclk_od == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -818,7 +818,7 @@ static int pp_dpm_set_mclk_od(void *handle, uint32_t value)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->set_mclk_od == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 	mutex_lock(&hwmgr->smu_lock);
-@@ -878,7 +878,7 @@ static int pp_get_power_profile_mode(void *handle, char *buf)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->get_power_profile_mode == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return snprintf(buf, PAGE_SIZE, "\n");
- 	}
- 
-@@ -894,7 +894,7 @@ static int pp_set_power_profile_mode(void *handle, long *input, uint32_t size)
- 		return ret;
- 
- 	if (hwmgr->hwmgr_func->set_power_profile_mode == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return ret;
- 	}
- 
-@@ -917,7 +917,7 @@ static int pp_odn_edit_dpm_table(void *handle, uint32_t type, long *input, uint3
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->odn_edit_dpm_table == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
- 	}
- 
-@@ -935,7 +935,7 @@ static int pp_dpm_switch_power_profile(void *handle,
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->set_power_profile_mode == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
- 	}
- 
-@@ -972,7 +972,7 @@ static int pp_set_power_limit(void *handle, uint32_t limit)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->set_power_limit == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;
- 	}
- 
-@@ -1212,7 +1212,7 @@ static int pp_dpm_powergate_mmhub(void *handle)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->powergate_mmhub == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 
-@@ -1227,7 +1227,7 @@ static int pp_dpm_powergate_gfx(void *handle, bool gate)
- 		return 0;
- 
- 	if (hwmgr->hwmgr_func->powergate_gfx == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return 0;
- 	}
- 
-@@ -1242,7 +1242,7 @@ static void pp_dpm_powergate_acp(void *handle, bool gate)
- 		return;
- 
- 	if (hwmgr->hwmgr_func->powergate_acp == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
- 	}
- 
-@@ -1257,7 +1257,7 @@ static void pp_dpm_powergate_sdma(void *handle, bool gate)
- 		return;
- 
- 	if (hwmgr->hwmgr_func->powergate_sdma == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return;
- 	}
- 
-@@ -1303,7 +1303,7 @@ static int pp_notify_smu_enable_pwe(void *handle)
- 		return -EINVAL;
- 
- 	if (hwmgr->hwmgr_func->smus_notify_pwe == NULL) {
--		pr_info("%s was not implemented.\n", __func__);
-+		pr_info_ratelimited("%s was not implemented.\n", __func__);
- 		return -EINVAL;;
- 	}
- 
--- 
-2.13.7
+RnJvbTogSm9lcmcgUm9lZGVsIDxqcm9lZGVsQHN1c2UuZGU+CgpSdW5uaW5nIGtmZHRlc3Qgb24g
+S2F2ZXJpIHRyaWdnZXJzIGEga2VybmVsIE5VTEwtcHRyIGRlcmVmZXJlbmNlOgoKCUJVRzogdW5h
+YmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0IDAwMDAwMDAw
+MDAwMDAwMDAKCVBHRCA0MmMwMTcwNjcgUDREIDQyYzAxNzA2NyBQVUQgNDBmMDcxMDY3IFBNRCAw
+CglPb3BzOiAwMDEwIFsjMV0gU01QIE5PUFRJCglDUFU6IDAgUElEOiAxMzEwNyBDb21tOiBrZmR0
+ZXN0IE5vdCB0YWludGVkIDQuMjAuMC1yYzIrICMxMQoJSGFyZHdhcmUgbmFtZTogR2lnYWJ5dGUg
+VGVjaG5vbG9neSBDby4sIEx0ZC4gVG8gYmUgZmlsbGVkIGJ5IE8uRS5NLi9GMkE4OFhNLUhEMywg
+QklPUyBGNiAwNS8yOC8yMDE0CglSSVA6IDAwMTA6ICAgICAgICAgIChudWxsKQoJQ29kZTogQmFk
+IFJJUCB2YWx1ZS4KCVJTUDogMDAxODpmZmZmYzkwMDAxYWRiYmYwIEVGTEFHUzogMDAwMTAyMDIK
+CVJBWDogZmZmZmZmZmZhMDgwNjI0MCBSQlg6IGZmZmY4ODg0MmEwZmJjMDAgUkNYOiAwMDAwMDAw
+MDAwMDAwMDAyCglSRFg6IDAwMDAwMDAwMDAwMDAwMDEgUlNJOiAwMDAwMDAwMDAwMDAwMDA0IFJE
+STogZmZmZjg4ODQyOTY5MDAwMAoJUkJQOiBmZmZmYzkwMDAxYWRiYmY4IFIwODogMDAwMDAwMDAw
+MDAwMjAwMCBSMDk6IGZmZmY4ODg0MmU1NDJlYzAKCVIxMDogMDAwMDdmZWZmNzc4ZjAwOCBSMTE6
+IDAwMDA3ZmVmZjc3OGYwMTAgUjEyOiAwMDAwMDAwMDAwMDAwMDAwCglSMTM6IGZmZmY4ODg0MGYw
+NjNhMjAgUjE0OiBmZmZmODg4NDJhMGZiZDIwIFIxNTogMDAwMDAwMDAwZjQzZmY2MAoJRlM6ICAw
+MDAwN2ZlZmY3NzY5NzQwKDAwMDApIEdTOmZmZmY4ODg0MmZhMDAwMDAoMDAwMCkga25sR1M6MDAw
+MDAwMDAwMDAwMDAwMAoJQ1M6ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4
+MDA1MDAzMwoJQ1IyOiBmZmZmZmZmZmZmZmZmZmQ2IENSMzogMDAwMDAwMDQwZjEyMjAwMCBDUjQ6
+IDAwMDAwMDAwMDAwNDA2ZjAKCUNhbGwgVHJhY2U6CgkgPyBhbWRncHVfYW1ka2ZkX3NldF9jb21w
+dXRlX2lkbGUrMHgyOS8weDMwIFthbWRncHVdCgkgcmVnaXN0ZXJfcHJvY2VzcysweDE0MC8weDE1
+MCBbYW1kZ3B1XQoJIHBxbV9jcmVhdGVfcXVldWUrMHgzOTUvMHg1NjAgW2FtZGdwdV0KCSBrZmRf
+aW9jdGxfY3JlYXRlX3F1ZXVlKzB4Mjg1LzB4NjgwIFthbWRncHVdCgkga2ZkX2lvY3RsKzB4Mjdm
+LzB4NDUwIFthbWRncHVdCgkgPyBrZmRfaW9jdGxfZGVzdHJveV9xdWV1ZSsweDgwLzB4ODAgW2Ft
+ZGdwdV0KCSBkb192ZnNfaW9jdGwrMHg5Ni8weDZhMAoJID8gX19hdWRpdF9zeXNjYWxsX2VudHJ5
+KzB4ZGQvMHgxMzAKCSA/IGhhbmRsZV9tbV9mYXVsdCsweDExYi8weDI0MAoJIGtzeXNfaW9jdGwr
+MHg2Ny8weDkwCgkgX194NjRfc3lzX2lvY3RsKzB4MWEvMHgyMAoJIGRvX3N5c2NhbGxfNjQrMHg2
+MS8weDE5MAoJIGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDQ0LzB4YTkKClRoZSBy
+ZWFzb24gaXMgdGhhdCB0aGUgcHBfZnVuY3MtPnN3aXRjaF9wb3dlcl9wcm9maWxlCmZ1bmN0aW9u
+IHBvaW50ZXIgaXMgbm90IHNldCBmb3IgYSBLYXZlcmkgQVNJQyBhbmQgdGh1cyB0aGUKa2VybmVs
+IGNhbGxzIGEgTlVMTCBwb2ludGVyLgoKQWRkIGEgY2hlY2sgYmVmb3JlIGNhbGxpbmcgdGhlIGZ1
+bmN0aW9uIHRvIGF2b2lkIHRoYXQuCgpTaWduZWQtb2ZmLWJ5OiBKb2VyZyBSb2VkZWwgPGpyb2Vk
+ZWxAc3VzZS5kZT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHBtLmgg
+fCA1ICsrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uaCBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uaAppbmRleCBmOTcyY2QxNTY3
+OTUuLjBlY2VkZDMwZjJhYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RwbS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0u
+aApAQCAtMzM3LDggKzMzNyw5IEBAIGVudW0gYW1kZ3B1X3BjaWVfZ2VuIHsKIAkJCShhZGV2KS0+
+cG93ZXJwbGF5LnBwX2hhbmRsZSwgcmVxdWVzdCkpCiAKICNkZWZpbmUgYW1kZ3B1X2RwbV9zd2l0
+Y2hfcG93ZXJfcHJvZmlsZShhZGV2LCB0eXBlLCBlbikgXAotCQkoKGFkZXYpLT5wb3dlcnBsYXku
+cHBfZnVuY3MtPnN3aXRjaF9wb3dlcl9wcm9maWxlKFwKLQkJCShhZGV2KS0+cG93ZXJwbGF5LnBw
+X2hhbmRsZSwgdHlwZSwgZW4pKQorCQlpZiAoKGFkZXYpLT5wb3dlcnBsYXkucHBfZnVuY3MtPnN3
+aXRjaF9wb3dlcl9wcm9maWxlICE9IE5VTEwpIFwKKwkJCSgoYWRldiktPnBvd2VycGxheS5wcF9m
+dW5jcy0+c3dpdGNoX3Bvd2VyX3Byb2ZpbGUoXAorCQkJCShhZGV2KS0+cG93ZXJwbGF5LnBwX2hh
+bmRsZSwgdHlwZSwgZW4pKQogCiAjZGVmaW5lIGFtZGdwdV9kcG1fc2V0X2Nsb2NrZ2F0aW5nX2J5
+X3NtdShhZGV2LCBtc2dfaWQpIFwKIAkJKChhZGV2KS0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5zZXRf
+Y2xvY2tnYXRpbmdfYnlfc211KFwKLS0gCjIuMTMuNwoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
