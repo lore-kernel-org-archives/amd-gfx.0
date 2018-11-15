@@ -1,15 +1,14 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: enable paging queue doorbell support
-Date: Thu, 15 Nov 2018 18:01:11 +0000
-Message-ID: <DM5PR12MB170795FFAFFF461CA6E3D96592DC0@DM5PR12MB1707.namprd12.prod.outlook.com>
-References: <20181115160803.21907-1-Philip.Yang@amd.com>
- <CADnq5_NjEQa2E-pXtLn-rDK3TmuMb+9Ye=3jbmchrqif_M3eVw@mail.gmail.com>
- <47ddc0e2-6164-ac44-608e-24f6f219f782@amd.com>
+From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu : Use XGMI mapping when devices on the same
+ hive v2
+Date: Thu, 15 Nov 2018 18:03:48 +0000
+Message-ID: <BN6PR12MB1618A5A059D3991D0929012985DC0@BN6PR12MB1618.namprd12.prod.outlook.com>
+References: <1542300861-16861-1-git-send-email-kent.russell@amd.com>,
+ <DM5PR12MB1707C6F03FE35623CE42DE6E92DC0@DM5PR12MB1707.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2114324776=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <47ddc0e2-6164-ac44-608e-24f6f219f782-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR12MB1707C6F03FE35623CE42DE6E92DC0-2J9CzHegvk9TCtO+SvGBKwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,147 +20,279 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-WW91IGNoYW5nZWQgdGhlIGRvb3JiZWxsIHJvdXRpbmcgaW4gTkJJTy4gSSB0aGluayB0aGF0IHdv
-bid0IHdvcmsgZm9yIFNSLUlPViwgYmVjYXVzZSBpdCdzIG5vdCBjb250cm9sbGVkIGJ5IHRoZSBn
-dWVzdCBPUyB0aGVyZS4gV2UgbWF5IG5lZWQgdG8gZGlzYWJsZSBwYWdpbmcgcXVldWUgZG9vcmJl
-bGwgb24gVmVnYTEwIGFuZCBWZWdhMTIgd2l0aCBTUklPVi4gRm9yIFZlZ2EyMCB3ZSBwbGFuIHRv
-IGNoYW5nZSB0aGUgZG9vcmJlbGwgbGF5b3V0IGJlZm9yZSBpdCBnb2VzIHRvIHByb2R1Y3Rpb24g
-KE9hayBzdGFydGVkIHdvcmtpbmcgb24gdGhhdCkuIFNvIG9uIFZlZ2EyMCB3ZSBzaG91bGQgYmUg
-YWJsZSB0byBlbmFibGUgdGhlIGRvb3JiZWxsIGZvciB0aGUgcGFnaW5nIHF1ZXVlLg0KDQpSZWdh
-cmRzLA0KICBGZWxpeA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdm
-eCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIFlh
-bmcsIFBoaWxpcA0KU2VudDogVGh1cnNkYXksIE5vdmVtYmVyIDE1LCAyMDE4IDEyOjU0IFBNDQpU
-bzogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQpDYzogYW1kLWdmeCBsaXN0
-IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRy
-bS9hbWRncHU6IGVuYWJsZSBwYWdpbmcgcXVldWUgZG9vcmJlbGwgc3VwcG9ydA0KDQpPbiAyMDE4
-LTExLTE1IDExOjQzIGEubS4sIEFsZXggRGV1Y2hlciB3cm90ZToNCj4gT24gVGh1LCBOb3YgMTUs
-IDIwMTggYXQgMTE6MDggQU0gWWFuZywgUGhpbGlwIDxQaGlsaXAuWWFuZ0BhbWQuY29tPiB3cm90
-ZToNCj4+IHBhZ2luZyBxdWV1ZXMgZG9vcmJlbGwgaW5kZXggdXNlIGV4aXN0aW5nIGFzc2lnbm1l
-bnQgDQo+PiBzRE1BX0hJX1BSSV9FTkdJTkUwLzEgaW5kZXgsIGFuZCBpbmNyZWFzZSBTRE1BX0RP
-T1JCRUxMX1JBTkdFIHNpemUgDQo+PiBmcm9tIDIgZHdvcmRzIHRvIDQgZHdvcmRzIHRvIGVuYWJs
-ZSB0aGUgbmV3IGRvb3JiZWxsIGluZGV4Lg0KPj4NCj4+IENoYW5nZS1JZDogSTlhZGI5NjVmMTZl
-ZTQwODlkMjYxZDlhMjIyMzEzMzc3MzkxODRlNDkNCj4+IFNpZ25lZC1vZmYtYnk6IFBoaWxpcCBZ
-YW5nIDxQaGlsaXAuWWFuZ0BhbWQuY29tPg0KPiBJcyB0aGVyZSBhIHNwZWNpZmljIGZ3IHZlcnNp
-b24gcmVxdWlyZW1lbnQgZm9yIHRoaXM/ICBJZiBzbywgd2UgbmVlZCANCj4gdG8gYWRkIGEgY2hl
-Y2suICBBbHNvIHdpbGwgdGhpcyBicmVhayBTUi1JT1YgZHVlIHRvIHRoZSBkb29yYmVsbCANCj4g
-bWFwcGluZyByZXF1aXJlbWVudHMgZm9yIG90aGVyIE9TZXM/ICBIYXZlIHdlIHJlc29sdmVkIHRo
-YXQgeWV0Pw0KPg0KWWVzLCBuZXcgRlcgaXMgcmVxdWlyZWQgdG8gZW5hYmxlIHBhZ2luZyBxdWV1
-ZSwgaXQncyBnb29kIGlkZWEgdG8gY2hlY2sgRlcgdmVyc2lvbiB3aGVuIHdlIGVuYWJsZSBwYWdp
-bmcgcXVldWUgbGF0ZXIgYWZ0ZXIgbmV3IEZXIGlzIGNoZWNrZWQgaW4uIHBhZ2luZyBxdWV1ZSBp
-cyBub3QgZW5hYmxlZCB5ZXQuDQpUaGlzIGNoYW5nZSB3aWxsIG5vdCB0YWtlIGVmZmVjdCB1bnRp
-bCBwYWdpbmcgcXVldWUgaXMgZW5hYmxlZC4NCg0KVGhpcyBkb2VzIG5vdCBjaGFuZ2UgZG9vcmJl
-bGwgbWFwcGluZyBzbyBpdCB3aWxsIG5vdCBicmVhayBTUi1JT1YuIE15IHVuZGVyc3RhbmRpbmcg
-aXMgRG9vcmJlbGwgbWFwcGluZyBpcyBnb29kIGZvciB2ZWdhMTAvMTIvMjAsIGJ1dCBuZWVkIHVw
-ZGF0ZSBmb3IgZnV0dXJlIGNoaXAuDQo+PiAtLS0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvbmJpb192Nl8xLmMgfCAgMiArLQ0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9uYmlvX3Y3XzQuYyB8ICAyICstDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Nk
-bWFfdjRfMC5jIHwgMjUgKysrKysrKysrKysrKysrKystLS0tLS0tLQ0KPj4gICAzIGZpbGVzIGNo
-YW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y2XzEuYyANCj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpb192Nl8xLmMNCj4+IGluZGV4IDZmOWM1NDk3OGNjMS4u
-MGViNDJjMjllY2FjIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-bmJpb192Nl8xLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25iaW9fdjZf
-MS5jDQo+PiBAQCAtODAsNyArODAsNyBAQCBzdGF0aWMgdm9pZCBuYmlvX3Y2XzFfc2RtYV9kb29y
-YmVsbF9yYW5nZShzdHJ1Y3QgDQo+PiBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgaW5zdGFuDQo+
-Pg0KPj4gICAgICAgICAgaWYgKHVzZV9kb29yYmVsbCkgew0KPj4gICAgICAgICAgICAgICAgICBk
-b29yYmVsbF9yYW5nZSA9IFJFR19TRVRfRklFTEQoZG9vcmJlbGxfcmFuZ2UsIEJJRl9TRE1BMF9E
-T09SQkVMTF9SQU5HRSwgT0ZGU0VULCBkb29yYmVsbF9pbmRleCk7DQo+PiAtICAgICAgICAgICAg
-ICAgZG9vcmJlbGxfcmFuZ2UgPSBSRUdfU0VUX0ZJRUxEKGRvb3JiZWxsX3JhbmdlLCBCSUZfU0RN
-QTBfRE9PUkJFTExfUkFOR0UsIFNJWkUsIDIpOw0KPj4gKyAgICAgICAgICAgICAgIGRvb3JiZWxs
-X3JhbmdlID0gUkVHX1NFVF9GSUVMRChkb29yYmVsbF9yYW5nZSwgDQo+PiArIEJJRl9TRE1BMF9E
-T09SQkVMTF9SQU5HRSwgU0laRSwgNCk7DQo+PiAgICAgICAgICB9IGVsc2UNCj4+ICAgICAgICAg
-ICAgICAgICAgZG9vcmJlbGxfcmFuZ2UgPSBSRUdfU0VUX0ZJRUxEKGRvb3JiZWxsX3JhbmdlLCAN
-Cj4+IEJJRl9TRE1BMF9ET09SQkVMTF9SQU5HRSwgU0laRSwgMCk7DQo+Pg0KPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25iaW9fdjdfNC5jIA0KPj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlvX3Y3XzQuYw0KPj4gaW5kZXggZjhjZWU5NWQ2MWNjLi45
-MzQyZWUwM2Q3ZDQgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9u
-YmlvX3Y3XzQuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpb192N180
-LmMNCj4+IEBAIC03Niw3ICs3Niw3IEBAIHN0YXRpYyB2b2lkIG5iaW9fdjdfNF9zZG1hX2Rvb3Ji
-ZWxsX3JhbmdlKHN0cnVjdCANCj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBpbnN0YW4NCj4+
-DQo+PiAgICAgICAgICBpZiAodXNlX2Rvb3JiZWxsKSB7DQo+PiAgICAgICAgICAgICAgICAgIGRv
-b3JiZWxsX3JhbmdlID0gUkVHX1NFVF9GSUVMRChkb29yYmVsbF9yYW5nZSwgQklGX1NETUEwX0RP
-T1JCRUxMX1JBTkdFLCBPRkZTRVQsIGRvb3JiZWxsX2luZGV4KTsNCj4+IC0gICAgICAgICAgICAg
-ICBkb29yYmVsbF9yYW5nZSA9IFJFR19TRVRfRklFTEQoZG9vcmJlbGxfcmFuZ2UsIEJJRl9TRE1B
-MF9ET09SQkVMTF9SQU5HRSwgU0laRSwgMik7DQo+PiArICAgICAgICAgICAgICAgZG9vcmJlbGxf
-cmFuZ2UgPSBSRUdfU0VUX0ZJRUxEKGRvb3JiZWxsX3JhbmdlLCANCj4+ICsgQklGX1NETUEwX0RP
-T1JCRUxMX1JBTkdFLCBTSVpFLCA0KTsNCj4+ICAgICAgICAgIH0gZWxzZQ0KPj4gICAgICAgICAg
-ICAgICAgICBkb29yYmVsbF9yYW5nZSA9IFJFR19TRVRfRklFTEQoZG9vcmJlbGxfcmFuZ2UsIA0K
-Pj4gQklGX1NETUEwX0RPT1JCRUxMX1JBTkdFLCBTSVpFLCAwKTsNCj4+DQo+PiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMgDQo+PiBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jDQo+PiBpbmRleCBmNDQ5MGNkZDk4MDQuLjk2
-YzllODMyMDRiNyAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Nk
-bWFfdjRfMC5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAu
-Yw0KPj4gQEAgLTkyNSwxMSArOTI1LDkgQEAgc3RhdGljIHZvaWQgc2RtYV92NF8wX3BhZ2VfcmVz
-dW1lKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBpbnQgaSkNCj4+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgT0ZGU0VULCByaW5nLT5kb29yYmVs
-bF9pbmRleCk7DQo+PiAgICAgICAgICBXUkVHMzJfU0RNQShpLCBtbVNETUEwX1BBR0VfRE9PUkJF
-TEwsIGRvb3JiZWxsKTsNCj4+ICAgICAgICAgIFdSRUczMl9TRE1BKGksIG1tU0RNQTBfUEFHRV9E
-T09SQkVMTF9PRkZTRVQsIGRvb3JiZWxsX29mZnNldCk7DQo+PiAtICAgICAgIC8qIFRPRE86IGVu
-YWJsZSBkb29yYmVsbCBzdXBwb3J0ICovDQo+PiAtICAgICAgIC8qYWRldi0+bmJpb19mdW5jcy0+
-c2RtYV9kb29yYmVsbF9yYW5nZShhZGV2LCBpLCByaW5nLT51c2VfZG9vcmJlbGwsDQo+PiAtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmluZy0+ZG9vcmJlbGxf
-aW5kZXgpOyovDQo+Pg0KPj4gLSAgICAgICBzZG1hX3Y0XzBfcmluZ19zZXRfd3B0cihyaW5nKTsN
-Cj4+ICsgICAgICAgLyogcGFnaW5nIHF1ZXVlIGRvb3JiZWxsIGluZGV4IGlzIGFscmVhZHkgZW5h
-YmxlZCBhdCBzZG1hX3Y0XzBfZ2Z4X3Jlc3VtZSAqLw0KPj4gKyAgICAgICBzZG1hX3Y0XzBfcGFn
-ZV9yaW5nX3NldF93cHRyKHJpbmcpOw0KPj4NCj4+ICAgICAgICAgIC8qIHNldCBtaW5vcl9wdHJf
-dXBkYXRlIHRvIDAgYWZ0ZXIgd3B0ciBwcm9ncmFtZWQgKi8NCj4+ICAgICAgICAgIFdSRUczMl9T
-RE1BKGksIG1tU0RNQTBfUEFHRV9NSU5PUl9QVFJfVVBEQVRFLCAwKTsgQEAgLTE1MDQsOSANCj4+
-ICsxNTAyLDYgQEAgc3RhdGljIGludCBzZG1hX3Y0XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpDQo+
-PiAgICAgICAgICAgICAgICAgIHJpbmctPnJpbmdfb2JqID0gTlVMTDsNCj4+ICAgICAgICAgICAg
-ICAgICAgcmluZy0+dXNlX2Rvb3JiZWxsID0gdHJ1ZTsNCj4+DQo+PiAtICAgICAgICAgICAgICAg
-RFJNX0lORk8oInVzZV9kb29yYmVsbCBiZWluZyBzZXQgdG86IFslc11cbiIsDQo+PiAtICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHJpbmctPnVzZV9kb29yYmVsbD8idHJ1ZSI6ImZhbHNl
-Iik7DQo+PiAtDQo+PiAgICAgICAgICAgICAgICAgIGlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJ
-UF9WRUdBMTApDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgcmluZy0+ZG9vcmJlbGxfaW5k
-ZXggPSAoaSA9PSAwKSA/DQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICANCj4+
-IChBTURHUFVfVkVHQTEwX0RPT1JCRUxMNjRfc0RNQV9FTkdJTkUwIDw8IDEpIC8vZ2V0IERXT1JE
-IG9mZnNldCBAQCAtMTUxNiw2ICsxNTExLDggQEAgc3RhdGljIGludCBzZG1hX3Y0XzBfc3dfaW5p
-dCh2b2lkICpoYW5kbGUpDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoQU1E
-R1BVX0RPT1JCRUxMNjRfc0RNQV9FTkdJTkUwIDw8IDEpIC8vZ2V0IERXT1JEIG9mZnNldA0KPj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiAoQU1ER1BVX0RPT1JCRUxMNjRfc0RN
-QV9FTkdJTkUxIDw8IA0KPj4gMSk7IC8vIGdldCBEV09SRCBvZmZzZXQNCj4+DQo+PiArICAgICAg
-ICAgICAgICAgRFJNX0lORk8oInVzZV9kb29yYmVsbCBiZWluZyBzZXQgdG86IFslc10gZG9vcmJl
-bGwgaW5kZXggJWRcbiIsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICByaW5nLT51c2VfZG9v
-cmJlbGw/InRydWUiOiJmYWxzZSIsIA0KPj4gKyByaW5nLT5kb29yYmVsbF9pbmRleCk7DQo+Pg0K
-PiBJIHRoaW5rIHdlIGNhbiBkcm9wIHRoZXNlIG1lc3NhZ2VzIGluIGdlbmVyYWwuICBMb29rcyBs
-aWtlIGxlZnRvdmVyIA0KPiBkZWJ1Z2dpbmcgb3V0cHV0Lg0KPg0KT2ssIGNoYW5nZSBpdCB0byBE
-Uk1fREVCVUcNCj4+ICAgICAgICAgICAgICAgICAgc3ByaW50ZihyaW5nLT5uYW1lLCAic2RtYSVk
-IiwgaSk7DQo+PiAgICAgICAgICAgICAgICAgIHIgPSBhbWRncHVfcmluZ19pbml0KGFkZXYsIHJp
-bmcsIDEwMjQsIEBAIC0xNTI5LDcgDQo+PiArMTUyNiwxOSBAQCBzdGF0aWMgaW50IHNkbWFfdjRf
-MF9zd19pbml0KHZvaWQgKmhhbmRsZSkNCj4+ICAgICAgICAgICAgICAgICAgaWYgKGFkZXYtPnNk
-bWEuaGFzX3BhZ2VfcXVldWUpIHsNCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICByaW5nID0g
-JmFkZXYtPnNkbWEuaW5zdGFuY2VbaV0ucGFnZTsNCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICByaW5nLT5yaW5nX29iaiA9IE5VTEw7DQo+PiAtICAgICAgICAgICAgICAgICAgICAgICByaW5n
-LT51c2VfZG9vcmJlbGwgPSBmYWxzZTsNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHJpbmct
-PnVzZV9kb29yYmVsbCA9IHRydWU7DQo+PiArDQo+PiArICAgICAgICAgICAgICAgICAgICAgICBp
-ZiAoYWRldi0+YXNpY190eXBlID09IENISVBfVkVHQTEwKQ0KPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICByaW5nLT5kb29yYmVsbF9pbmRleCA9IChpID09IDApID8NCj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoQU1ER1BVX1ZFR0ExMF9ET09SQkVM
-TDY0X3NETUFfSElfUFJJX0VOR0lORTAgPDwgMSkNCj4+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICA6IChBTURHUFVfVkVHQTEwX0RPT1JCRUxMNjRfc0RNQV9ISV9QUklf
-RU5HSU5FMSA8PCAxKTsNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGVsc2UNCj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcmluZy0+ZG9vcmJlbGxfaW5kZXggPSAoaSA9PSAw
-KSA/DQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKEFNREdQVV9W
-RUdBMTBfRE9PUkJFTEw2NF9zRE1BX0hJX1BSSV9FTkdJTkUwIDw8IDEpDQo+PiArICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgOiANCj4+ICsgKEFNREdQVV9WRUdBMTBfRE9P
-UkJFTEw2NF9zRE1BX0hJX1BSSV9FTkdJTkUxIDw8IDEpOw0KPj4gKw0KPiBDb3B5IHBhc3RlIHR5
-cG8/ICBTZWVtcyBsaWtlIHRoZSBpZiBhbmQgZWxzZSBhcmUgdGhlIHNhbWUuDQo+DQo+IEFsZXgN
-ClllcywgY29weSBwYXN0ZSBlcnJvci4gVGhhbmtzDQo+DQo+PiArICAgICAgICAgICAgICAgICAg
-ICAgICBEUk1fSU5GTygicGFnaW5nIHF1ZXVlIGRvb3JiZWxsIGJlaW5nIHNldCB0bzogWyVzXSBk
-b29yYmVsbCBpbmRleCAlZFxuIiwNCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cmluZy0+dXNlX2Rvb3JiZWxsPyJ0cnVlIjoiZmFsc2UiLCANCj4+ICsgcmluZy0+ZG9vcmJlbGxf
-aW5kZXgpOw0KPj4NCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICBzcHJpbnRmKHJpbmctPm5h
-bWUsICJwYWdlJWQiLCBpKTsNCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICByID0gYW1kZ3B1
-X3JpbmdfaW5pdChhZGV2LCByaW5nLCAxMDI0LA0KPj4gLS0NCj4+IDIuMTcuMQ0KPj4NCj4+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+PiBhbWQtZ2Z4
-IG1haWxpbmcgbGlzdA0KPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KDQpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWls
-aW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============2114324776==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1618A5A059D3991D0929012985DC0BN6PR12MB1618namp_"
+
+--_000_BN6PR12MB1618A5A059D3991D0929012985DC0BN6PR12MB1618namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+It was merged to 4.19 on Sept 21. It got missed on the 4.20 rebase.
+
+Kent
+
+KENT RUSSELL
+Sr. Software Engineer | Linux Compute Kernel
+1 Commerce Valley Drive East
+Markham, ON L3T 7X6
+O +(1) 289-695-2122 | Ext 72122
+________________________________
+From: Kuehling, Felix
+Sent: Thursday, November 15, 2018 12:57:44 PM
+To: Russell, Kent; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Russell, Kent; Liu, Shaoyun
+Subject: RE: [PATCH] drm/amdgpu : Use XGMI mapping when devices on the same=
+ hive v2
+
+This change is not suitable for amd-staging-drm-next. PCIe P2P was not enab=
+led on amd-staging-drm-next because it's not reliable yet. This change enab=
+les it even in situations that are not safe (including small BAR systems).
+
+Why are you porting this change to amd-staging-drm-next? Does anyone depend=
+ on XGMI support on this branch?
+
+Regards,
+  Felix
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Russell,=
+ Kent
+Sent: Thursday, November 15, 2018 11:54 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>; Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org=
+>
+Subject: [PATCH] drm/amdgpu : Use XGMI mapping when devices on the same hiv=
+e v2
+
+From: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+
+VM mapping will only fall back to P2P if XGMI mapping is not available
+
+V2: Rebase onto 4.20
+
+Change-Id: I7a854ab3d5c9958bd45d4fe439ea7e370a092e7a
+Signed-off-by: Shaoyun Liu <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c
+index dad0e23..576d168 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2011,6 +2011,8 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+         struct drm_mm_node *nodes;
+         struct dma_fence *exclusive, **last_update;
+         uint64_t flags;
++       uint64_t vram_base_offset =3D adev->vm_manager.vram_base_offset;
++       struct amdgpu_device *bo_adev;
+         int r;
+
+         if (clear || !bo) {
+@@ -2029,9 +2031,19 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+                 exclusive =3D reservation_object_get_excl(bo->tbo.resv);
+         }
+
+-       if (bo)
++       if (bo) {
+                 flags =3D amdgpu_ttm_tt_pte_flags(adev, bo->tbo.ttm, mem);
+-       else
++               bo_adev =3D amdgpu_ttm_adev(bo->tbo.bdev);
++               if (mem && mem->mem_type =3D=3D TTM_PL_VRAM && adev !=3D bo=
+_adev) {
++                       if (adev->gmc.xgmi.hive_id &&
++                           adev->gmc.xgmi.hive_id =3D=3D bo_adev->gmc.xgmi=
+.hive_id) {
++                               vram_base_offset =3D bo_adev->vm_manager.vr=
+am_base_offset;
++                       } else {
++                               flags |=3D AMDGPU_PTE_SYSTEM;
++                               vram_base_offset =3D bo_adev->gmc.aper_base=
+;
++                       }
++               }
++       } else
+                 flags =3D 0x0;
+
+         if (clear || (bo && bo->tbo.resv =3D=3D vm->root.base.bo->tbo.resv=
+))
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1618A5A059D3991D0929012985DC0BN6PR12MB1618namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body>
+It was merged to 4.19 on Sept 21. It got missed on the 4.20 rebase.<br>
+<br>
+Kent<br>
+<br>
+KENT RUSSELL<br>
+Sr. Software Engineer | Linux Compute Kernel<br>
+1 Commerce Valley Drive East<br>
+Markham, ON L3T 7X6<br>
+O &#43;(1) 289-695-2122 | Ext 72122<br>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
+<b>Sent:</b> Thursday, November 15, 2018 12:57:44 PM<br>
+<b>To:</b> Russell, Kent; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Russell, Kent; Liu, Shaoyun<br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu : Use XGMI mapping when devices on t=
+he same hive v2</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This change is not suitable for amd-staging-drm-ne=
+xt. PCIe P2P was not enabled on amd-staging-drm-next because it's not relia=
+ble yet. This change enables it even in situations that are not safe (inclu=
+ding small BAR systems).<br>
+<br>
+Why are you porting this change to amd-staging-drm-next? Does anyone depend=
+ on XGMI support on this branch?<br>
+<br>
+Regards,<br>
+&nbsp; Felix<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf Of Ru=
+ssell, Kent<br>
+Sent: Thursday, November 15, 2018 11:54 AM<br>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+Cc: Russell, Kent &lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&gt;; Liu, Shaoyun &lt;Shaoyun.Li=
+u@amd.com&gt;<br>
+Subject: [PATCH] drm/amdgpu : Use XGMI mapping when devices on the same hiv=
+e v2<br>
+<br>
+From: Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+VM mapping will only fall back to P2P if XGMI mapping is not available<br>
+<br>
+V2: Rebase onto 4.20<br>
+<br>
+Change-Id: I7a854ab3d5c9958bd45d4fe439ea7e370a092e7a<br>
+Signed-off-by: Shaoyun Liu &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Reviewed-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Reviewed-by: Huang Rui &lt;ray.huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Reviewed-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Kent Russell &lt;kent.russell-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 16 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
+&nbsp;1 file changed, 14 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_vm.c<br>
+index dad0e23..576d168 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+@@ -2011,6 &#43;2011,8 @@ int amdgpu_vm_bo_update(struct amdgpu_device *ade=
+v,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_mm_node *nodes;=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence *exclusiv=
+e, **last_update;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t flags;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t vram_base_offset =3D ade=
+v-&gt;vm_manager.vram_base_offset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *bo_adev;<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (clear || !bo) {<br>
+@@ -2029,9 &#43;2031,19 @@ int amdgpu_vm_bo_update(struct amdgpu_device *ad=
+ev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; exclusive =3D reservation_object_get_excl(bo-&gt;tbo.=
+resv);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; flags =3D amdgpu_ttm_tt_pte_flags(adev, bo-&gt;tbo.tt=
+m, mem);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; bo_adev =3D amdgpu_ttm_adev(bo-&gt;tbo.bdev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (mem &amp;&amp; mem-&gt;mem_type =3D=3D TTM_PL_VRAM &amp;=
+&amp; adev !=3D bo_adev) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt=
+;gmc.xgmi.hive_id &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; adev-&gt;gmc.xgmi.hive_id =3D=3D bo_adev-&gt;gmc.xgmi.hive_id) =
+{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vram_base_offset =3D bo_adev-&gt;vm_man=
+ager.vram_base_offset;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags |=3D AMDGPU_PTE_SYSTEM;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vram_base_offset =3D bo_adev-&gt;gmc.ap=
+er_base;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; flags =3D 0x0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (clear || (bo &amp;&amp=
+; bo-&gt;tbo.resv =3D=3D vm-&gt;root.base.bo-&gt;tbo.resv))<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1618A5A059D3991D0929012985DC0BN6PR12MB1618namp_--
+
+--===============2114324776==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2114324776==--
