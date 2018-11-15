@@ -1,71 +1,264 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH v2 -next] drm/amdgpu: remove set but not used variable 'ring'
-Date: Thu, 15 Nov 2018 20:00:35 +0800
-Message-ID: <20181115120035.4328-1-yuehaibing@huawei.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+From: Joerg Roedel <joro@8bytes.org>
+Subject: [PATCH] drm/amd/powerplay:  Ratelimit all "was not implemented" messages
+Date: Thu, 15 Nov 2018 14:40:29 +0100
+Message-ID: <20181115134029.25675-1-joro@8bytes.org>
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Shaoyun.Liu@amd.com, David.Francis@amd.com, ray.huang@amd.com, Feifei.Xu@amd.com, Likun.Gao@amd.com
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, YueHaibing <yuehaibing@huawei.com>
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, David1.Zhou@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Joerg Roedel <jroedel@suse.de>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Fixes gcc '-Wunused-but-set-variable' warning:
+From: Joerg Roedel <jroedel@suse.de>
 
-drivers/gpu/drm/amd/amdgpu/psp_v10_0.c: In function 'psp_v10_0_ring_stop':
-drivers/gpu/drm/amd/amdgpu/psp_v10_0.c:230:19: warning:
- variable 'ring' set but not used [-Wunused-but-set-variable]
+Running kfdtest on an AMD Carizzo flooded the kernel log
+with thousands of these "was not implemented" messages,
+making it impossible to see other messages there.
 
-drivers/gpu/drm/amd/amdgpu/psp_v3_1.c: In function 'psp_v3_1_ring_stop':
-drivers/gpu/drm/amd/amdgpu/psp_v3_1.c:359:19: warning:
- variable ‘ring’ set but not used [-Wunused-but-set-variable]
+Ratelimit the messages to prevent user-space from flooding
+the kernel log.
 
-It not used since commit
-4ef72453311a ("drm/amdgpu: added api for stopping psp ring (v2)")
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Reviewed-by: Huang Rui <ray.huang@amd.com>
+Signed-off-by: Joerg Roedel <jroedel@suse.de>
 ---
-v2:also remove it in psp_v3_1_ring_stop
----
- drivers/gpu/drm/amd/amdgpu/psp_v10_0.c | 3 ---
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c  | 3 ---
- 2 files changed, 6 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 52 +++++++++++++--------------
+ 1 file changed, 26 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-index 295c220..d78b430 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v10_0.c
-@@ -240,12 +240,9 @@ static int psp_v10_0_ring_stop(struct psp_context *psp,
- 			       enum psp_ring_type ring_type)
- {
- 	int ret = 0;
--	struct psp_ring *ring;
- 	unsigned int psp_ring_reg = 0;
- 	struct amdgpu_device *adev = psp->adev;
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+index d6aa1d414320..b68c2e0fef01 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -300,7 +300,7 @@ static int pp_set_clockgating_by_smu(void *handle, uint32_t msg_id)
+ 		return -EINVAL;
  
--	ring = &psp->km_ring;
--
- 	/* Write the ring destroy command to C2PMSG_64 */
- 	psp_ring_reg = 3 << 16;
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64, psp_ring_reg);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index e1ebf77..cc5e3ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -356,12 +356,9 @@ static int psp_v3_1_ring_stop(struct psp_context *psp,
- 			      enum psp_ring_type ring_type)
- {
- 	int ret = 0;
--	struct psp_ring *ring;
- 	unsigned int psp_ring_reg = 0;
- 	struct amdgpu_device *adev = psp->adev;
+ 	if (hwmgr->hwmgr_func->update_clock_gatings == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
  
--	ring = &psp->km_ring;
--
- 	/* Write the ring destroy command to C2PMSG_64 */
- 	psp_ring_reg = 3 << 16;
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_64, psp_ring_reg);
+@@ -387,7 +387,7 @@ static uint32_t pp_dpm_get_sclk(void *handle, bool low)
+ 		return 0;
+ 
+ 	if (hwmgr->hwmgr_func->get_sclk == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -405,7 +405,7 @@ static uint32_t pp_dpm_get_mclk(void *handle, bool low)
+ 		return 0;
+ 
+ 	if (hwmgr->hwmgr_func->get_mclk == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -422,7 +422,7 @@ static void pp_dpm_powergate_vce(void *handle, bool gate)
+ 		return;
+ 
+ 	if (hwmgr->hwmgr_func->powergate_vce == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -438,7 +438,7 @@ static void pp_dpm_powergate_uvd(void *handle, bool gate)
+ 		return;
+ 
+ 	if (hwmgr->hwmgr_func->powergate_uvd == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -505,7 +505,7 @@ static void pp_dpm_set_fan_control_mode(void *handle, uint32_t mode)
+ 		return;
+ 
+ 	if (hwmgr->hwmgr_func->set_fan_control_mode == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -522,7 +522,7 @@ static uint32_t pp_dpm_get_fan_control_mode(void *handle)
+ 		return 0;
+ 
+ 	if (hwmgr->hwmgr_func->get_fan_control_mode == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -540,7 +540,7 @@ static int pp_dpm_set_fan_speed_percent(void *handle, uint32_t percent)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->set_fan_speed_percent == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -558,7 +558,7 @@ static int pp_dpm_get_fan_speed_percent(void *handle, uint32_t *speed)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->get_fan_speed_percent == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 
+@@ -594,7 +594,7 @@ static int pp_dpm_set_fan_speed_rpm(void *handle, uint32_t rpm)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->set_fan_speed_rpm == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -720,7 +720,7 @@ static int pp_dpm_force_clock_level(void *handle,
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->force_clock_level == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 
+@@ -745,7 +745,7 @@ static int pp_dpm_print_clock_levels(void *handle,
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->print_clock_levels == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -763,7 +763,7 @@ static int pp_dpm_get_sclk_od(void *handle)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->get_sclk_od == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -781,7 +781,7 @@ static int pp_dpm_set_sclk_od(void *handle, uint32_t value)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->set_sclk_od == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 
+@@ -800,7 +800,7 @@ static int pp_dpm_get_mclk_od(void *handle)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->get_mclk_od == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -818,7 +818,7 @@ static int pp_dpm_set_mclk_od(void *handle, uint32_t value)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->set_mclk_od == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -878,7 +878,7 @@ static int pp_get_power_profile_mode(void *handle, char *buf)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->get_power_profile_mode == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return snprintf(buf, PAGE_SIZE, "\n");
+ 	}
+ 
+@@ -894,7 +894,7 @@ static int pp_set_power_profile_mode(void *handle, long *input, uint32_t size)
+ 		return ret;
+ 
+ 	if (hwmgr->hwmgr_func->set_power_profile_mode == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return ret;
+ 	}
+ 
+@@ -917,7 +917,7 @@ static int pp_odn_edit_dpm_table(void *handle, uint32_t type, long *input, uint3
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->odn_edit_dpm_table == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -935,7 +935,7 @@ static int pp_dpm_switch_power_profile(void *handle,
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->set_power_profile_mode == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -972,7 +972,7 @@ static int pp_set_power_limit(void *handle, uint32_t limit)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->set_power_limit == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -1212,7 +1212,7 @@ static int pp_dpm_powergate_mmhub(void *handle)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->powergate_mmhub == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 
+@@ -1227,7 +1227,7 @@ static int pp_dpm_powergate_gfx(void *handle, bool gate)
+ 		return 0;
+ 
+ 	if (hwmgr->hwmgr_func->powergate_gfx == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return 0;
+ 	}
+ 
+@@ -1242,7 +1242,7 @@ static void pp_dpm_powergate_acp(void *handle, bool gate)
+ 		return;
+ 
+ 	if (hwmgr->hwmgr_func->powergate_acp == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return;
+ 	}
+ 
+@@ -1257,7 +1257,7 @@ static void pp_dpm_powergate_sdma(void *handle, bool gate)
+ 		return;
+ 
+ 	if (hwmgr->hwmgr_func->powergate_sdma == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return;
+ 	}
+ 
+@@ -1303,7 +1303,7 @@ static int pp_notify_smu_enable_pwe(void *handle)
+ 		return -EINVAL;
+ 
+ 	if (hwmgr->hwmgr_func->smus_notify_pwe == NULL) {
+-		pr_info("%s was not implemented.\n", __func__);
++		pr_info_ratelimited("%s was not implemented.\n", __func__);
+ 		return -EINVAL;;
+ 	}
+ 
 -- 
-2.7.0
+2.13.7
