@@ -1,38 +1,26 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: enable paging queue doorbell support v3
-Date: Fri, 16 Nov 2018 22:58:50 +0000
-Message-ID: <549a3f39-2be2-9f0c-8317-a4a69371c9f3@amd.com>
-References: <20181116190819.28112-1-Philip.Yang@amd.com>
- <CADnq5_M_FFga1hxj187yt0bf2DPLNj-OggUe-B=9TDYYRdMYVA@mail.gmail.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH 0/2] drm/amd/dm: Misc MST connector fixes
+Date: Fri, 16 Nov 2018 18:24:37 -0500
+Message-ID: <20181116232443.1709-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_M_FFga1hxj187yt0bf2DPLNj-OggUe-B=9TDYYRdMYVA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-Content-ID: <1FBC9975C4D09347AE7251344885A70B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Jerry Zuo <Jerry.Zuo@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>, David Airlie <airlied@linux.ie>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, linux-kernel@vger.kernel.org, Roman Li <roman.li@amd.com>, dri-devel@lists.freedesktop.org, "David (ChunMing) Zhou" <david1.zhou@amd.com>, Shirish S <shirish.s@amd.com>, "Jerry (Fangzhi) Zuo" <jerry.zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>, Lyude Paul <lyude@redhat.com>, Tony Cheng <tony.cheng@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQpPbiAyMDE4LTExLTE2IDQ6MzUgcC5tLiwgQWxleCBEZXVjaGVyIHdyb3RlOg0KPj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgcmluZy0+ZG9vcmJlbGxfaW5kZXggKz0gMHg0MDA7DQo+IEkgZG9u
-J3QgcXVpdGUgdW5kZXJzdGFuZCBob3cgdGhpcyB3b3Jrcy4gIFdoeSBkb24ndCB3ZSBoYXZlIHRv
-IGFkanVzdA0KPiB0aGUgZG9vcmJlbGwgcmFuZ2UgcmVnaXN0ZXJzIGluIHRoZSBuYmlvIGNvZGU/
-DQoNCk5CSU8gb25seSBsb29rcyBhdCB0aGUgbG93ZXIgMTIgYml0cyBvZiB0aGUgZG9vcmJlbGwg
-YWRkcmVzcy4gU28gYWRkaW5nDQoweDQwMCBkd29yZHMgb3IgMHgxMDAwIGJ5dGVzIGhhcyBubyBl
-ZmZlY3Qgb24gdGhlIGRvb3JiZWxsIHJvdXRpbmcuDQoNClRoYXQncyBhbHNvIGhvdyB3ZSBjYW4g
-dXNlIFNETUEgZG9vcmJlbGxzIGluIG91ciBwZXItcHJvY2VzcyBkb29yYmVsbA0KcGFnZXMgYXQg
-aGlnaGVyIGFkZHJlc3Nlcy4NCg0KUmVnYXJkcywNCsKgIEZlbGl4DQoNCg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Some fixes for things I spotted after trying to look at a bug Jerry Zuo
+mentioned to me. Didn't manage to reproduce the bug! But I found these.
+
+Cc: Jerry Zuo <Jerry.Zuo@amd.com>
+
+Lyude Paul (2):
+  drm/amd/dm: Don't forget to attach MST encoders
+  drm/amd/dm: Understand why attaching path/tile properties are needed
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+-- 
+2.19.1
