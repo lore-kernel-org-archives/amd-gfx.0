@@ -1,12 +1,15 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/psp: use define rather than magic number for mode1
- reset
-Date: Fri, 16 Nov 2018 13:25:07 -0500
-Message-ID: <20181116182507.12709-1-alexander.deucher@amd.com>
+From: Joerg Roedel <jroedel-l3A5Bk7waGM@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix oops when pp_funcs->switch_power_profile
+ is unset
+Date: Fri, 16 Nov 2018 18:06:13 +0100
+Message-ID: <20181116170613.n5przn7ipczmo5ol@suse.de>
+References: <1542318992-12464-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <1542318992-12464-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,20 +20,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VXNlIHRoZSBkZWZpbmUgcmF0aGVyIHRoYW4gaGFyZGNvZGVkIHZhbHVlLgoKU2lnbmVkLW9mZi1i
-eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmMgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBp
-bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9wc3BfdjNfMS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3Yz
-XzEuYwppbmRleCBlMWViZjc3MGMzMDMuLjk0MDg5NGU4YzY3ZSAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YzXzEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9wc3BfdjNfMS5jCkBAIC01OTMsNyArNTkzLDcgQEAgc3RhdGljIGludCBwc3BfdjNf
-MV9tb2RlMV9yZXNldChzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKIAl9CiAKIAkvKnNlbmQgdGhl
-IG1vZGUgMSByZXNldCBjb21tYW5kKi8KLQlXUkVHMzIob2Zmc2V0LCAweDcwMDAwKTsKKwlXUkVH
-MzIob2Zmc2V0LCBHRlhfQ1RSTF9DTURfSURfTU9ERTFfUlNUKTsKIAogCW1kZWxheSgxMDAwKTsK
-IAotLSAKMi4xMy42CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gVGh1LCBOb3YgMTUsIDIwMTggYXQgMDk6NTY6NTFQTSArMDAwMCwgS3VlaGxpbmcsIEZlbGl4
+IHdyb3RlOgo+IE9uIFZlZ2EyMCBhbmQgb3RoZXIgcHJlLXByb2R1Y3Rpb24gR1BVcywgcG93ZXJw
+bGF5IGlzIG5vdCBlbmFibGVkIHlldC4KPiBDaGVjayBmb3IgTlVMTCBwb2ludGVycyBiZWZvcmUg
+Y2FsbGluZyBwcF9mdW5jcyBmdW5jdGlvbiBwb2ludGVycy4KPiAKPiBBbHNvIGFmZmVjdHMgS2F2
+ZXJpLgo+IAo+IENDOiBKb2VyZyBSb2VkZWwgPGpyb2VkZWxAc3VzZS5kZT4KPiBTaWduZWQtb2Zm
+LWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KPiAtLS0KPiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jIHwgNyArKysrKy0tCj4gIDEg
+ZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpUZXN0ZWQgb24g
+bXkgS2F2ZXJpIGJveCBhbmQgdGhlIGlzc3VlIGlzIGZpeGVkLCB0aGFua3MhCgpUZXN0ZWQtYnk6
+IEpvZXJnIFJvZWRlbCA8anJvZWRlbEBzdXNlLmRlPgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
