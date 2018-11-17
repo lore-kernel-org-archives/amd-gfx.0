@@ -1,39 +1,108 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH 2/2] drm/amd/dm: Understand why attaching path/tile properties are needed
-Date: Fri, 16 Nov 2018 18:24:39 -0500
-Message-ID: <20181116232443.1709-3-lyude@redhat.com>
-References: <20181116232443.1709-1-lyude@redhat.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 7/9] drm/amdkfd: Fix and simplify sync object handling for
+ KFD
+Date: Sat, 17 Nov 2018 16:01:38 +0000
+Message-ID: <6463e36b-1fd2-f491-8130-600ec9d86cc8@amd.com>
+References: <1541468434-29384-1-git-send-email-Felix.Kuehling@amd.com>
+ <1541468434-29384-8-git-send-email-Felix.Kuehling@amd.com>
+ <972bbc9e-8f5d-9740-f400-4e1211e8e00f@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181116232443.1709-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>, Roman Li <Roman.Li@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Shirish S <shirish.s@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <972bbc9e-8f5d-9740-f400-4e1211e8e00f-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <27614174B2A6E04789DA5BAD3D0B6D35-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-Path property is used for userspace to know what MST connector goes to
-what actual DRM DisplayPort connector, the tiling property is for tiling
-configurations. Not sure what else there is to figure out.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 0cca1809fdcd..1b0d209d8367 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -345,9 +345,6 @@ dm_dp_add_mst_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	drm_connector_attach_encoder(&aconnector->base,
- 				     &aconnector->mst_encoder->base);
- 
--	/*
--	 * TODO: understand why this one is needed
--	 */
- 	drm_object_attach_property(
- 		&connector->base,
- 		dev->mode_config.path_property,
--- 
-2.19.1
+SGkgRmVsaXgsDQoNCmxvb2tzIHBlcmZlY3RseSBvayB0byBtZSwgcGF0Y2ggaXMgUmV2aWV3ZWQt
+Ynk6IENocmlzdGlhbiBLw7ZuaWcgDQo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4NCg0KQnV0
+IElJUkMgd2Ugb25jZSBoYWQgYSBwYXRjaCB0byByZW1vdmUgdGhlIGFkZXYgcGFyYW1ldGVyIGZy
+b20gDQphbWRncHVfc3luY19mZW5jZSgpLiBJIHdvbmRlciB3aHkgd2UgaGF2ZSBkcm9wcGVkIHRo
+YXQgb25lLg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQpBbSAxNi4xMS4xOCB1bSAyMToxOSBz
+Y2hyaWViIEt1ZWhsaW5nLCBGZWxpeDoNCj4gSGkgQ2hyaXN0aWFuLA0KPg0KPiBXb3VsZCB5b3Ug
+cmV2aWV3IHRoaXMgcGF0Y2g/IEp1c3QgbG9va2luZyBhdCB0aGUgY29kZSwgY2FsbGluZw0KPiBh
+bWRncHVfc3luY19mZW5jZSB3aXRoIGFkZXY9TlVMTCBzaG91bGQgYmUgT0sgZm9yIHVzLiBJdCdz
+IGp1c3QgYSBiaXQNCj4gdW51c3VhbCBjb21wYXJlZCB0byBhbWRncHUncyB1c2FnZSBvZiB0aGlz
+IGZ1bmN0aW9uLiBXZSd2ZSBoYWQgdGhpcw0KPiBwYXRjaCBpbiBrZmQtc3RhZ2luZyBmb3IgYSB3
+aGlsZSB3aXRob3V0IHByb2JsZW1zLiBJZiB5b3UncmUgT0sgd2l0aA0KPiB0aGlzIEknbGwgZ28g
+YWhlYWQgYW5kIHB1c2ggdGhpcyB1cHN0cmVhbSBhcyB3ZWxsLg0KPg0KPiBUaGFua3MsDQo+ICDC
+oCBGZWxpeA0KPg0KPiBPbiAyMDE4LTExLTA1IDg6NDAgcC5tLiwgS3VlaGxpbmcsIEZlbGl4IHdy
+b3RlOg0KPj4gVGhlIGFkZXYgcGFyYW1ldGVyIGluIGFtZGdwdV9zeW5jX2ZlbmNlIGFuZCBhbWRn
+cHVfc3luY19yZXN2IGlzIG9ubHkNCj4+IG5lZWRlZCBmb3IgdXBkYXRpbmcgc3luYy0+bGFzdF92
+bV91cGRhdGUuIFRoaXMgYnJlYWtzIGlmIGRpZmZlcmVudA0KPj4gYWRldnMgYXJlIHBhc3NlZCB0
+byBjYWxscyBmb3IgdGhlIHNhbWUgc3luYyBvYmplY3QuDQo+Pg0KPj4gQWx3YXlzIHBhc3MgTlVM
+TCBmb3IgY2FsbHMgZnJvbSBLRkQgYmVjYXVzZSBzeW5jIG9iamVjdHMgdXNlZCBmb3INCj4+IEtG
+RCBkb24ndCBiZWxvbmcgdG8gYW55IHBhcnRpY3VsYXIgZGV2aWNlLCBhbmQgS0ZEIGRvZXNuJ3Qg
+bmVlZCB0aGUNCj4+IHN5bmMtPmxhc3Rfdm1fdXBkYXRlIGZlbmNlLg0KPj4NCj4+IFRoaXMgZml4
+ZXMga2VybmVsIGxvZyB3YXJuaW5ncyBvbiBtdWx0aS1HUFUgc3lzdGVtcyBhZnRlciByZWNlbnQN
+Cj4+IGNoYW5nZXMgaW4gYW1kZ3B1X2FtZGtmZF9ncHV2bV9yZXN0b3JlX3Byb2Nlc3NfYm9zLg0K
+Pj4NCj4+IFNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQu
+Y29tPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRr
+ZmRfZ3B1dm0uYyB8IDI4ICsrKysrLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPj4gICAxIGZpbGUgY2hh
+bmdlZCwgNSBpbnNlcnRpb25zKCspLCAyMyBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+PiBpbmRleCBk
+MDA1MzcxLi41NzJhYzVmIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMNCj4+IEBAIC0zOTUsMjMgKzM5NSw2IEBAIHN0YXRp
+YyBpbnQgdm1fdmFsaWRhdGVfcHRfcGRfYm9zKHN0cnVjdCBhbWRncHVfdm0gKnZtKQ0KPj4gICAJ
+cmV0dXJuIDA7DQo+PiAgIH0NCj4+ICAgDQo+PiAtc3RhdGljIGludCBzeW5jX3ZtX2ZlbmNlKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3N5bmMgKnN5bmMsDQo+PiAt
+CQkJIHN0cnVjdCBkbWFfZmVuY2UgKmYpDQo+PiAtew0KPj4gLQlpbnQgcmV0ID0gYW1kZ3B1X3N5
+bmNfZmVuY2UoYWRldiwgc3luYywgZiwgZmFsc2UpOw0KPj4gLQ0KPj4gLQkvKiBTeW5jIG9iamVj
+dHMgY2FuJ3QgaGFuZGxlIG11bHRpcGxlIEdQVXMgKGNvbnRleHRzKSB1cGRhdGluZw0KPj4gLQkg
+KiBzeW5jLT5sYXN0X3ZtX3VwZGF0ZS4gRm9ydHVuYXRlbHkgd2UgZG9uJ3QgbmVlZCBpdCBmb3IN
+Cj4+IC0JICogS0ZEJ3MgcHVycG9zZXMsIHNvIHdlIGNhbiBqdXN0IGRyb3AgdGhhdCBmZW5jZS4N
+Cj4+IC0JICovDQo+PiAtCWlmIChzeW5jLT5sYXN0X3ZtX3VwZGF0ZSkgew0KPj4gLQkJZG1hX2Zl
+bmNlX3B1dChzeW5jLT5sYXN0X3ZtX3VwZGF0ZSk7DQo+PiAtCQlzeW5jLT5sYXN0X3ZtX3VwZGF0
+ZSA9IE5VTEw7DQo+PiAtCX0NCj4+IC0NCj4+IC0JcmV0dXJuIHJldDsNCj4+IC19DQo+PiAtDQo+
+PiAgIHN0YXRpYyBpbnQgdm1fdXBkYXRlX3BkcyhzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwgc3RydWN0
+IGFtZGdwdV9zeW5jICpzeW5jKQ0KPj4gICB7DQo+PiAgIAlzdHJ1Y3QgYW1kZ3B1X2JvICpwZCA9
+IHZtLT5yb290LmJhc2UuYm87DQo+PiBAQCAtNDIyLDcgKzQwNSw3IEBAIHN0YXRpYyBpbnQgdm1f
+dXBkYXRlX3BkcyhzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwgc3RydWN0IGFtZGdwdV9zeW5jICpzeW5j
+KQ0KPj4gICAJaWYgKHJldCkNCj4+ICAgCQlyZXR1cm4gcmV0Ow0KPj4gICANCj4+IC0JcmV0dXJu
+IHN5bmNfdm1fZmVuY2UoYWRldiwgc3luYywgdm0tPmxhc3RfdXBkYXRlKTsNCj4+ICsJcmV0dXJu
+IGFtZGdwdV9zeW5jX2ZlbmNlKE5VTEwsIHN5bmMsIHZtLT5sYXN0X3VwZGF0ZSwgZmFsc2UpOw0K
+Pj4gICB9DQo+PiAgIA0KPj4gICAvKiBhZGRfYm9fdG9fdm0gLSBBZGQgYSBCTyB0byBhIFZNDQo+
+PiBAQCAtODI2LDcgKzgwOSw3IEBAIHN0YXRpYyBpbnQgdW5tYXBfYm9fZnJvbV9ncHV2bShzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICAgCS8qIEFkZCB0aGUgZXZpY3Rpb24gZmVuY2Ug
+YmFjayAqLw0KPj4gICAJYW1kZ3B1X2JvX2ZlbmNlKHBkLCAmdm0tPnByb2Nlc3NfaW5mby0+ZXZp
+Y3Rpb25fZmVuY2UtPmJhc2UsIHRydWUpOw0KPj4gICANCj4+IC0Jc3luY192bV9mZW5jZShhZGV2
+LCBzeW5jLCBib192YS0+bGFzdF9wdF91cGRhdGUpOw0KPj4gKwlhbWRncHVfc3luY19mZW5jZShO
+VUxMLCBzeW5jLCBib192YS0+bGFzdF9wdF91cGRhdGUsIGZhbHNlKTsNCj4+ICAgDQo+PiAgIAly
+ZXR1cm4gMDsNCj4+ICAgfQ0KPj4gQEAgLTg1MSw3ICs4MzQsNyBAQCBzdGF0aWMgaW50IHVwZGF0
+ZV9ncHV2bV9wdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiAgIAkJcmV0dXJuIHJl
+dDsNCj4+ICAgCX0NCj4+ICAgDQo+PiAtCXJldHVybiBzeW5jX3ZtX2ZlbmNlKGFkZXYsIHN5bmMs
+IGJvX3ZhLT5sYXN0X3B0X3VwZGF0ZSk7DQo+PiArCXJldHVybiBhbWRncHVfc3luY19mZW5jZShO
+VUxMLCBzeW5jLCBib192YS0+bGFzdF9wdF91cGRhdGUsIGZhbHNlKTsNCj4+ICAgfQ0KPj4gICAN
+Cj4+ICAgc3RhdGljIGludCBtYXBfYm9fdG9fZ3B1dm0oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYsDQo+PiBAQCAtOTExLDcgKzg5NCw3IEBAIHN0YXRpYyBpbnQgcHJvY2Vzc19zeW5jX3Bkc19y
+ZXN2KHN0cnVjdCBhbWRrZmRfcHJvY2Vzc19pbmZvICpwcm9jZXNzX2luZm8sDQo+PiAgIAkJCSAg
+ICB2bV9saXN0X25vZGUpIHsNCj4+ICAgCQlzdHJ1Y3QgYW1kZ3B1X2JvICpwZCA9IHBlZXJfdm0t
+PnJvb3QuYmFzZS5ibzsNCj4+ICAgDQo+PiAtCQlyZXQgPSBhbWRncHVfc3luY19yZXN2KGFtZGdw
+dV90dG1fYWRldihwZC0+dGJvLmJkZXYpLA0KPj4gKwkJcmV0ID0gYW1kZ3B1X3N5bmNfcmVzdihO
+VUxMLA0KPj4gICAJCQkJCXN5bmMsIHBkLT50Ym8ucmVzdiwNCj4+ICAgCQkJCQlBTURHUFVfRkVO
+Q0VfT1dORVJfVU5ERUZJTkVELCBmYWxzZSk7DQo+PiAgIAkJaWYgKHJldCkNCj4+IEBAIC0yMDg0
+LDggKzIwNjcsNyBAQCBpbnQgYW1kZ3B1X2FtZGtmZF9ncHV2bV9yZXN0b3JlX3Byb2Nlc3NfYm9z
+KHZvaWQgKmluZm8sIHN0cnVjdCBkbWFfZmVuY2UgKiplZikNCj4+ICAgCQkJcHJfZGVidWcoIk1l
+bW9yeSBldmljdGlvbjogVmFsaWRhdGUgQk9zIGZhaWxlZC4gVHJ5IGFnYWluXG4iKTsNCj4+ICAg
+CQkJZ290byB2YWxpZGF0ZV9tYXBfZmFpbDsNCj4+ICAgCQl9DQo+PiAtCQlyZXQgPSBhbWRncHVf
+c3luY19mZW5jZShhbWRncHVfdHRtX2FkZXYoYm8tPnRiby5iZGV2KSwNCj4+IC0JCQkJCSZzeW5j
+X29iaiwgYm8tPnRiby5tb3ZpbmcsIGZhbHNlKTsNCj4+ICsJCXJldCA9IGFtZGdwdV9zeW5jX2Zl
+bmNlKE5VTEwsICZzeW5jX29iaiwgYm8tPnRiby5tb3ZpbmcsIGZhbHNlKTsNCj4+ICAgCQlpZiAo
+cmV0KSB7DQo+PiAgIAkJCXByX2RlYnVnKCJNZW1vcnkgZXZpY3Rpb246IFN5bmMgQk8gZmVuY2Ug
+ZmFpbGVkLiBUcnkgYWdhaW5cbiIpOw0KPj4gICAJCQlnb3RvIHZhbGlkYXRlX21hcF9mYWlsOw0K
+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
+IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
