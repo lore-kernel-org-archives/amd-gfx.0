@@ -1,7 +1,7 @@
 From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH v2] drm/amdgpu: Remove dead static variable
-Date: Mon, 19 Nov 2018 23:10:59 +0800
-Message-ID: <1542640259-2862-1-git-send-email-Rex.Zhu@amd.com>
+Date: Mon, 19 Nov 2018 23:21:19 +0800
+Message-ID: <1542640879-3057-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
