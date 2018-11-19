@@ -1,14 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH xf86-video-ati] Update README for gitlab migration
-Date: Mon, 19 Nov 2018 11:39:57 +0100
-Message-ID: <8dacb782-b27f-41e2-78d3-bed6eecd24e4@daenzer.net>
-References: <20181118202216.3466-1-alan.coopersmith@oracle.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Remove dead static variable
+Date: Mon, 19 Nov 2018 19:07:40 +0800
+Message-ID: <1542625660-29454-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181118202216.3466-1-alan.coopersmith-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,18 +16,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alan Coopersmith <alan.coopersmith-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOC0xMS0xOCA5OjIyIHAubS4sIEFsYW4gQ29vcGVyc21pdGggd3JvdGU6Cj4gU2lnbmVk
-LW9mZi1ieTogQWxhbiBDb29wZXJzbWl0aCA8YWxhbi5jb29wZXJzbWl0aEBvcmFjbGUuY29tPgo+
-IC0tLQo+IAo+IFVubGlrZSB0aGUgc2ltaWxhciB1cGRhdGVzIHRvIHRoZSBvdGhlciBYb3JnIHBy
-b2plY3QgUkVBRE1FJ3MsIHRoaXMgbGVhdmVzCj4geW91ciBidWd6aWxsYSBsaW5rIGluIHBsYWNl
-LCBhcyB3ZWxsIGFzIHRoZSBpbnN0cnVjdGlvbnMgdG8gc3VibWl0IHBhdGNoZXMKPiB0byB5b3Vy
-IG1haWxpbmcgbGlzdCBpbnN0ZWFkIG9mIHN1Z2dlc3RpbmcgZ2l0bGFiIG1lcmdlIHJlcXVlc3Rz
-LgoKUHVzaGVkLCB0aGFua3MgQWxhbiEKCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAg
-ICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0
-d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZl
-bG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+VGhlIHN0YXRpYyBzdHJ1Y3QgZHJtX2RyaXZlciAqZHJpdmVyIHdhcwpub3QgdXNlZCBiZWNhdXNl
+IGRybV9wY2lfaW5pdCB3YXMgZGVwcmVjYXRlZAoKU2lnbmVkLW9mZi1ieTogUmV4IFpodSA8UmV4
+LlpodUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYu
+YyB8IDQgKy0tLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAzIGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwppbmRleCAzYjdkNTExLi5m
+YTMzZTMxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCkBAIC0xMjM1
+LDcgKzEyMzUsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9mbHVzaChzdHJ1Y3QgZmlsZSAqZiwgZmxf
+b3duZXJfdCBpZCkKIAkucGF0Y2hsZXZlbCA9IEtNU19EUklWRVJfUEFUQ0hMRVZFTCwKIH07CiAK
+LXN0YXRpYyBzdHJ1Y3QgZHJtX2RyaXZlciAqZHJpdmVyOwogc3RhdGljIHN0cnVjdCBwY2lfZHJp
+dmVyICpwZHJpdmVyOwogCiBzdGF0aWMgc3RydWN0IHBjaV9kcml2ZXIgYW1kZ3B1X2ttc19wY2lf
+ZHJpdmVyID0gewpAQCAtMTI2Nyw5ICsxMjY2LDggQEAgc3RhdGljIGludCBfX2luaXQgYW1kZ3B1
+X2luaXQodm9pZCkKIAkJZ290byBlcnJvcl9mZW5jZTsKIAogCURSTV9JTkZPKCJhbWRncHUga2Vy
+bmVsIG1vZGVzZXR0aW5nIGVuYWJsZWQuXG4iKTsKLQlkcml2ZXIgPSAma21zX2RyaXZlcjsKIAlw
+ZHJpdmVyID0gJmFtZGdwdV9rbXNfcGNpX2RyaXZlcjsKLQlkcml2ZXItPm51bV9pb2N0bHMgPSBh
+bWRncHVfbWF4X2ttc19pb2N0bDsKKwlrbXNfZHJpdmVyLm51bV9pb2N0bHMgPSBhbWRncHVfbWF4
+X2ttc19pb2N0bDsKIAlhbWRncHVfcmVnaXN0ZXJfYXRweF9oYW5kbGVyKCk7CiAKIAkvKiBJZ25v
+cmUgS0ZEIGluaXQgZmFpbHVyZXMuIE5vcm1hbCB3aGVuIENPTkZJR19IU0FfQU1EIGlzIG5vdCBz
+ZXQuICovCi0tIAoxLjkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
