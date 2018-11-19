@@ -1,35 +1,75 @@
-From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-Subject: [PATCH] drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c: Remove duplicate
- header
-Date: Mon, 19 Nov 2018 22:02:19 +0530
-Message-ID: <20181119163219.GA26520@hp-pavilion-15-notebook-pc-brajeswar>
+From: Lyude Paul <lyude@redhat.com>
+Subject: Re: [PATCH 1/2] drm/amd/dm: Don't forget to attach MST encoders
+Date: Mon, 19 Nov 2018 13:51:53 -0500
+Message-ID: <6033a16ccbc6e1286b4bfd082f0de9f0d60594b7.camel@redhat.com>
+References: <20181116232443.1709-1-lyude@redhat.com>
+ <20181116232443.1709-2-lyude@redhat.com>
+ <BY1PR12MB0406C1EC0BCD2F6A295CCE3AE5D80@BY1PR12MB0406.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Rex.Zhu@amd.com, andrey.grodzovsky@amd.com, leo.liu@amd.com, David.Panariti@amd.com, shirish.s@amd.com
-Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <BY1PR12MB0406C1EC0BCD2F6A295CCE3AE5D80@BY1PR12MB0406.namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Zuo, Jerry" <Jerry.Zuo@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, "Li, Roman" <Roman.Li@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "S,
+ Shirish" <Shirish.S@amd.com>, David Airlie <airlied@linux.ie>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Remove gca/gfx_8_0_enum.h which is included more than once
-
-Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 3d0f277a6523..4ca1ecf1ffd7 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -44,7 +44,6 @@
- #include "gca/gfx_8_0_d.h"
- #include "gca/gfx_8_0_enum.h"
- #include "gca/gfx_8_0_sh_mask.h"
--#include "gca/gfx_8_0_enum.h"
- 
- #include "dce/dce_10_0_d.h"
- #include "dce/dce_10_0_sh_mask.h"
--- 
-2.17.1
+Q29vbCEgSWYgaXQgZGlkIGFjdHVhbGx5IGZpeCB0aG9zZSBwcm9ibGVtcywgd291bGQgeW91IG1p
+bmQgbWFraW5nIHN1cmUgdGhpcwpnZXRzIENjJ2QgdG8gc3RhYmxlIHdoZW4gaXQgZ2V0cyBwdXNo
+ZWQgdXBzdHJlYW0/CgpPbiBNb24sIDIwMTgtMTEtMTkgYXQgMTU6MDAgKzAwMDAsIFp1bywgSmVy
+cnkgd3JvdGU6Cj4gUmV2aWV3ZWQtYnk6IEplcnJ5IChGYW5nemhpKSBadW8gPEplcnJ5Llp1b0Bh
+bWQuY29tPgo+IAo+IFRoZSBjaGFuZ2UgZml4ZWQgTVNUICsgU1NUIGRhaXN5IGNoYWluIGFuZCBT
+MyBzY2VuYXJpb3MuIFRoZSBpc3N1ZSBzaG93cwo+IGh1Z2UgZGVsYXkgaW4gTVNUICsgU1NUIGRh
+aXN5IGNoYWluLCBhbmQgc29mdCBoYW5nIGluIFMzIHJlc3VtZS4KPiAKPiBUaGUgYXV4IHNlcXVl
+bmNlIGlzIGNoYW5nZWQgYnkgZmFpbGVkIGl0ZXJhdGlvbiBzZWFyY2ggaW4KPiBkcm1fY29ubmVj
+dG9yX2Zvcl9lYWNoX3Bvc3NpYmxlX2VuY29kZXIoKS4gCj4gVGhlIGZhaWx1cmUgb2Ygc2VhcmNo
+aW5nIGZvciB0aGUgYmVzdCBlbmNvZGVyIGZvciB0aGUgY29ubmVjdG9yIGR1ZSB0byB0aGUKPiBt
+aXNzIG9mIGF0dGFjaGVkIGVuY29kZXIgaW4gdGhlIHByb2Nlc3Mgb2YgYWRkaW5nIE1TVCBjb25u
+ZWN0b3IuIFRoZQo+IGl0ZXJhdGlvbiBzZWFyY2ggdGFrZXMgdGltZSB0byBwdXNoIGRybV9kcF9z
+ZW5kX2VudW1fcGF0aF9yZXNvdXJjZXMoKSBhdXgKPiB0cmFuc2FjdGlvbiBhZnRlciB0aGUgbW9k
+ZSBwcm9iZSwgYW5kIGNhdXNlcyBjb25mbGljdCB0bwo+IGRybV9kcF9tc3RfaTJjX3hmZXIoKSwg
+bGVhZGluZyB0byB0aGUgYXV4IHRyYW5zYWN0aW9uIHRpbWVvdXQuCj4gCj4gLS0tLS1PcmlnaW5h
+bCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPiAKPiBT
+ZW50OiBOb3ZlbWJlciAxNiwgMjAxOCA2OjI1IFBNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gQ2M6IFp1bywgSmVycnkgPEplcnJ5Llp1b0BhbWQuY29tPjsgV2VudGxhbmQs
+IEhhcnJ5IDxIYXJyeS5XZW50bGFuZEBhbWQuY29tPgo+IDsgTGksIFN1biBwZW5nIChMZW8pIDxT
+dW5wZW5nLkxpQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4YW5kZXIgPAo+IEFsZXhhbmRlci5EZXVj
+aGVyQGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29t
+PjsKPiBaaG91LCBEYXZpZChDaHVuTWluZykgPERhdmlkMS5aaG91QGFtZC5jb20+OyBEYXZpZCBB
+aXJsaWUgPGFpcmxpZWRAbGludXguaWU+Cj4gOyBMaSwgUm9tYW4gPFJvbWFuLkxpQGFtZC5jb20+
+OyBTLCBTaGlyaXNoIDxTaGlyaXNoLlNAYW1kLmNvbT47IERhbmllbAo+IFZldHRlciA8ZGFuaWVs
+LnZldHRlckBmZndsbC5jaD47IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IAo+IGxp
+bnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKPiBTdWJqZWN0OiBbUEFUQ0ggMS8yXSBkcm0vYW1k
+L2RtOiBEb24ndCBmb3JnZXQgdG8gYXR0YWNoIE1TVCBlbmNvZGVycwo+IAo+IERyaXZlLWJ5IGZp
+eCwgdGhpcyBpcyBib3VuZCB0byBjYXVzZSBwcm9ibGVtcyBzb21ld2hlcmUuCj4gCj4gU2lnbmVk
+LW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4KPiBDYzogSmVycnkgWnVvIDxK
+ZXJyeS5adW9AYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMgfCAyICsrCj4gIDEgZmlsZSBjaGFuZ2VkLCAy
+IGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jCj4gaW5kZXggZDAyYzMy
+YTEwMzljLi4wY2NhMTgwOWZkY2QgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYwo+IEBAIC0z
+NDIsNiArMzQyLDggQEAgZG1fZHBfYWRkX21zdF9jb25uZWN0b3Ioc3RydWN0IGRybV9kcF9tc3Rf
+dG9wb2xvZ3lfbWdyCj4gKm1nciwKPiAgCQltYXN0ZXItPmNvbm5lY3Rvcl9pZCk7Cj4gIAo+ICAJ
+YWNvbm5lY3Rvci0+bXN0X2VuY29kZXIgPSBkbV9kcF9jcmVhdGVfZmFrZV9tc3RfZW5jb2Rlciht
+YXN0ZXIpOwo+ICsJZHJtX2Nvbm5lY3Rvcl9hdHRhY2hfZW5jb2RlcigmYWNvbm5lY3Rvci0+YmFz
+ZSwKPiArCQkJCSAgICAgJmFjb25uZWN0b3ItPm1zdF9lbmNvZGVyLT5iYXNlKTsKPiAgCj4gIAkv
+Kgo+ICAJICogVE9ETzogdW5kZXJzdGFuZCB3aHkgdGhpcyBvbmUgaXMgbmVlZGVkCi0tIApDaGVl
+cnMsCglMeXVkZSBQYXVsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
+ZGV2ZWwK
