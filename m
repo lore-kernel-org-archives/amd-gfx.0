@@ -1,15 +1,16 @@
-From: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v6 3/5] drm: Document variable refresh properties
-Date: Tue, 20 Nov 2018 17:05:41 +0200
-Message-ID: <20181120170541.74de7b8b@eldfell>
-References: <20181106202435.23556-1-nicholas.kazlauskas@amd.com>
- <20181106202435.23556-4-nicholas.kazlauskas@amd.com>
- <0cb3b0c9-b3a6-1c79-341a-6b7ebc9da29a@amd.com>
- <a48c02c9-0e35-a9ca-08ea-99df83014d3f@amd.com>
+From: Bjorn Helgaas <helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: Re: [PATCH] pci: fix incorrect value returned from pcie_get_speed_cap
+Date: Tue, 20 Nov 2018 09:13:03 -0600
+Message-ID: <20181120151303.GB191199@google.com>
+References: <alpine.LRH.2.02.1810301232310.23106@file01.intranet.prod.int.rdu2.redhat.com>
+ <20181120004704.GA191199@google.com>
+ <CADnq5_OjN8jaxr9SsSgLxeUvOcZoxY401pg732QoXxJjtUiCuw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0959979787=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a48c02c9-0e35-a9ca-08ea-99df83014d3f-5C7GfCeVMHo@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OjN8jaxr9SsSgLxeUvOcZoxY401pg732QoXxJjtUiCuw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,235 +21,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Cc: "michel-otUistvHUpPR7s880joybQ@public.gmane.org" <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: talgi-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org, Linux PCI <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, mpatocka-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, tariqt-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org
 
---===============0959979787==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/b5Ne54uAURg_3F7f2YUjh7U"; protocol="application/pgp-signature"
-
---Sig_/b5Ne54uAURg_3F7f2YUjh7U
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 7 Nov 2018 15:10:31 +0000
-"Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org> wrote:
-
-> On 11/7/18 9:57 AM, Wentland, Harry wrote:
-> >=20
-> >=20
-> > On 2018-11-06 3:24 p.m., Nicholas Kazlauskas wrote: =20
-> >> These include the drm_connector 'vrr_capable' and the drm_crtc
-> >> 'vrr_enabled' properties.
-> >>
-> >> Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-> >> Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-> >> Cc: Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-> >> Cc: Pekka Paalanen <ppaalanen-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> >> Cc: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
-> >> Cc: Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-> >> ---
-> >>   Documentation/gpu/drm-kms.rst   |  7 ++++
-> >>   drivers/gpu/drm/drm_connector.c | 61 +++++++++++++++++++++++++++++++=
-++
-> >>   2 files changed, 68 insertions(+)
-> >>
-> >> diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms=
-.rst
-> >> index 4b1501b4835b..8da2a178cf85 100644
-> >> --- a/Documentation/gpu/drm-kms.rst
-> >> +++ b/Documentation/gpu/drm-kms.rst
-> >> @@ -575,6 +575,13 @@ Explicit Fencing Properties
-> >>   .. kernel-doc:: drivers/gpu/drm/drm_atomic_uapi.c
-> >>      :doc: explicit fencing properties
-> >>  =20
-> >> +
-> >> +Variable Refresh Properties
-> >> +---------------------------
-> >> +
-> >> +.. kernel-doc:: drivers/gpu/drm/drm_connector.c
-> >> +   :doc: Variable refresh properties
-> >> +
-> >>   Existing KMS Properties
-> >>   -----------------------
-> >>  =20
-> >> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_con=
-nector.c
-> >> index 49290060ab7b..a6adf5450db3 100644
-> >> --- a/drivers/gpu/drm/drm_connector.c
-> >> +++ b/drivers/gpu/drm/drm_connector.c
-> >> @@ -1255,6 +1255,67 @@ int drm_mode_create_scaling_mode_property(struc=
-t drm_device *dev)
-> >>   }
-> >>   EXPORT_SYMBOL(drm_mode_create_scaling_mode_property);
-> >>  =20
-> >> +/**
-> >> + * DOC: Variable refresh properties
-> >> + *
-> >> + * Variable refresh rate capable displays can dynamically adjust their
-> >> + * refresh rate by extending the duration of their vertical porch unt=
-il =20
-> >=20
-> > vertical porch -> vertical front porch
-> >  =20
-> >> + * page flip or timeout occurs. This can reduce or remove stuttering
-> >> + * and latency in scenarios where the page flip does not align with t=
-he
-> >> + * vblank interval.
-> >> + *
-> >> + * An example scenario would be an application flipping at a constant=
- rate
-> >> + * of 48Hz on a 60Hz display. The page flip will frequently miss the =
-vblank
-> >> + * interval and the same contents will be displayed twice. This can be
-> >> + * observed as stuttering for content with motion.
-> >> + *
-> >> + * If variable refresh rate was active on a display that supported a
-> >> + * variable refresh range from 35Hz to 60Hz no stuttering would be ob=
-servable
-> >> + * for the example scenario. The minimum supported variable refresh r=
-ate of
-> >> + * 35Hz is below the page flip frequency and the vertical front porch=
- can
-> >> + * be extended until the page flip occurs. The vblank interval will be
-> >> + * directly aligned to the page flip rate.
-> >> + *
-> >> + * Userspace control for variable refresh rate is supported via prope=
-rties
-> >> + * on the &drm_connector and &drm_crtc objects.
-> >> + *
-> >> + * "vrr_capable":
-> >> + *	Optional &drm_connector boolean property that drivers should attach
-> >> + *	with drm_connector_attach_vrr_capable_property() on connectors that
-> >> + *	could support variable refresh rates. Drivers should update the
-> >> + *	property value by calling drm_connector_set_vrr_capable_property().
-> >> + *
-> >> + *	Absence of the property should indicate absence of support.
-> >> + *
-> >> + * "vrr_enabled":
-> >> + *	Default &drm_crtc boolean property that notifies the driver that t=
-he
-> >> + *	content on the CRTC is suitable for variable refresh rate presenta=
-tion.
-> >> + *	The driver will take this property as a hint to enable variable
-> >> + *	refresh rate support if the receiver supports it, ie. if the
-> >> + *	"vrr_capable" property is true on the &drm_connector object. The
-> >> + *	veritcal front porch duration will be extended until page-flip or =
-=20
-> >=20
-> > veritcal -> vertical
-> >  =20
-> >> + *	timeout when enabled.
-> >> + *
-> >> + *	The minimum vertical front porch duration is defined as the vertic=
-al
-> >> + *	front porch duration for the current mode.
-> >> + *
-> >> + *	The maximum vertical front porch duration is greater than or equal=
- to
-> >> + *	the minimum vertical front porch duration. The duration is derived
-> >> + *	from the minimum supported variable refresh rate for the connector.
-> >> + *
-> >> + *	The driver may place further restrictions within these minimum
-> >> + *	and maximum bounds.
-> >> + *
-> >> + *	Some displays may exhibit noticeable differences in brightness when
-> >> + *	varying vertical front porch duration.
-> >> + * =20
-> >=20
-> > Maybe something like this makes sense here:
-> >=20
-> >   *	Some displays may exhibit noticeable differences in brightness when
-> >   *	varying vertical front porch duration drastically. It is therefore
-> >   *	advised userspace only provide the "vrr_enabled" hint for content
-> >   *	with a render rate that is expected to change gradually frame to fr=
-ame,
-> >   *	such as games. =20
->=20
-> Good point about mentioning that userspace shouldn't expect this to work=
-=20
-> well with frequent (and large) changes in vertical front porch duration.
->=20
-> I should probably more clearly word that the panel brightness may differ=
-=20
-> based on the vertical front porch duration. So large changes will be=20
-> more noticeable.
->=20
-> >  =20
-> >> + *	The semantics for the vertical blank timestamp differ when
-> >> + *	variable refresh rate is active. The vertical blank timestamp
-> >> + *	is defined to be an estimate using the current mode's fixed
-> >> + *	refresh rate timings. The semantics for the page-flip event
-> >> + *	timestamp remain the same.
-> >> + */
-> >> +
-> >>   /**
-> >>    * drm_connector_attach_vrr_capable_property - creates the
-> >>    * vrr_capable property
-> >> =20
->=20
-> Thanks for the review, I'll fix up these for the next revision.
-
-Hi Nicholas,
-
-I am happy with this documentation.
-
-- It explains exactly what VRR does: VRR allows extending the front
-  porch from the video mode defined length to some maximum length.
-
-- It guarantees that a flip is performed ASAP: when the buffer becomes
-  ready (fences) and when the driver agrees on the first possible time
-  to flip.
-
-- The point about drivers also allows for drivers to prevent the
-  luminance flickering by enforcing a maximum slew rate on the timings,
-  should anyone want to implement that.
-
-- The timestamps for vblank and pageflip events.
-
-Acked-by: Pekka Paalanen <pekka.paalanen-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
-
-Btw. I don't think I yet understood the underlying mechanism on how a
-monitor could exhibit luminance changes due to VRR. Do you know, can
-you point me to some analysis on what happens? Are the liquid crystals
-slowly turning on their own without a refresh cycle, or?
-
-
-Thanks,
-pq
-
---Sig_/b5Ne54uAURg_3F7f2YUjh7U
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAlv0IsUACgkQI1/ltBGq
-qqfrQA/+MvPCMr8HTYmpOUG55mBNiYutWbBHEcINTtK7e0w8T/7TRR34UQCh4XiX
-dh/MMGlC4QnPZ+WCy65NIpINHSv+Tb/cFuOvLjeQADlaf/WUqjs+sshh59BL3bUN
-pzdCEf0urP8NwJeM3mJalzwqzrXTflcULIQAH4oNdPQp+n/6IGgDCOkKLy6jSxYn
-d9cMvPutlcJEeQiWG62JpspjBgZ6dOIVwanSMf+VTYyGEMoz9YBv6EroC+vqNP4H
-/l7TrO4HeQDc1+2anYB0xDzRaDAuur2FGh5B+dzqBGKoJLx2brnoLs+SN/y1BMxH
-oUgojCWAfCO3bV55qj9YW/9w/vHdpkSh2yRWs69ffsnZ5E7MJZ1ws0W085JmvIC/
-XjlzWaMORcvGdnePCEx8dj/cXge1DdDoqozF+ICBskIje7UweL7Pt0E+n/KGwos7
-eTQFmHGXJyIissrhSmnzfAz0turiNOy+KmPqTGpsOCwY10+nQaELmSsAI2btF9kd
-ZbIUn0w14jaL1UKEvyg6ZwD5Gi0czYf4UoKy+W+5Oz3tLGdUrwjI22cVVOSjFJP5
-bRWZvLzGB0AjT7LXiaXGJrufdQOjlsEYHBgV+ewVFUOOE7eLAMriyyENbp0VbsPG
-3OXSqLdd9WxKifMCmru5L1dl6V7EymufgeKBUKbPH2DeuEIFmvI=
-=cYpK
------END PGP SIGNATURE-----
-
---Sig_/b5Ne54uAURg_3F7f2YUjh7U--
-
---===============0959979787==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0959979787==--
+T24gVHVlLCBOb3YgMjAsIDIwMTggYXQgMDk6MTc6NTJBTSAtMDUwMCwgQWxleCBEZXVjaGVyIHdy
+b3RlOgo+IE9uIE1vbiwgTm92IDE5LCAyMDE4IGF0IDc6NDcgUE0gQmpvcm4gSGVsZ2FhcyA8aGVs
+Z2Fhc0BrZXJuZWwub3JnPiB3cm90ZToKPiA+IE9uIFR1ZSwgT2N0IDMwLCAyMDE4IGF0IDEyOjM2
+OjA4UE0gLTA0MDAsIE1pa3VsYXMgUGF0b2NrYSB3cm90ZToKPiA+ID4gVGhlIG1hY3JvcyBQQ0lf
+RVhQX0xOS0NBUF9TTFNfKkdCIGFyZSB2YWx1ZXMsIG5vdCBiaXQgbWFza3MuIFdlIG11c3QgbWFz
+awo+ID4gPiB0aGUgcmVnaXN0ZXIgYW5kIGNvbXBhcmUgaXQgYWdhaW5zdCB0aGVtLgo+ID4gPgo+
+ID4gPiBUaGlzIHBhdGNoIGZpeGVzIGVycm9ycyAiYW1kZ3B1OiBbcG93ZXJwbGF5XSBmYWlsZWQg
+dG8gc2VuZCBtZXNzYWdlIDI2MQo+ID4gPiByZXQgaXMgMCIgZXJyb3JzIHdoZW4gUENJZS12MyBj
+YXJkIGlzIHBsdWdnZWQgaW50byBQQ0llLXYxIHNsb3QsIGJlY2F1c2UKPiA+ID4gdGhlIHNsb3Qg
+aXMgYmVpbmcgaW5jb3JyZWN0bHkgcmVwb3J0ZWQgYXMgUENJZS12MyBjYXBhYmxlLgo+ID4gPgo+
+ID4gPiBTaWduZWQtb2ZmLWJ5OiBNaWt1bGFzIFBhdG9ja2EgPG1wYXRvY2thQHJlZGhhdC5jb20+
+Cj4gPiA+IEZpeGVzOiA2Y2Y1N2JlMGY3OGUgKCJQQ0k6IEFkZCBwY2llX2dldF9zcGVlZF9jYXAo
+KSB0byBmaW5kIG1heCBzdXBwb3J0ZWQgbGluayBzcGVlZCIpCj4gPiA+IENjOiBzdGFibGVAdmdl
+ci5rZXJuZWwub3JnICAgICMgdjQuMTcrCj4gPiA+Cj4gPiA+IC0tLQo+ID4gPiAgZHJpdmVycy9w
+Y2kvcGNpLmMgfCAgICA4ICsrKystLS0tCj4gPiA+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
+b25zKCspLCA0IGRlbGV0aW9ucygtKQo+ID4gPgo+ID4gPiBJbmRleDogbGludXgtNC4xOS9kcml2
+ZXJzL3BjaS9wY2kuYwo+ID4gPiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Cj4gPiA+IC0tLSBsaW51eC00LjE5Lm9yaWcv
+ZHJpdmVycy9wY2kvcGNpLmMgMjAxOC0xMC0zMCAxNjo1ODo1OC4wMDAwMDAwMDAgKzAxMDAKPiA+
+ID4gKysrIGxpbnV4LTQuMTkvZHJpdmVycy9wY2kvcGNpLmMgICAgICAyMDE4LTEwLTMwIDE2OjU4
+OjU4LjAwMDAwMDAwMCArMDEwMAo+ID4gPiBAQCAtNTQ5MiwxMyArNTQ5MiwxMyBAQCBlbnVtIHBj
+aV9idXNfc3BlZWQgcGNpZV9nZXRfc3BlZWRfY2FwKHN0Cj4gPiA+Cj4gPiA+ICAgICAgIHBjaWVf
+Y2FwYWJpbGl0eV9yZWFkX2R3b3JkKGRldiwgUENJX0VYUF9MTktDQVAsICZsbmtjYXApOwo+ID4g
+PiAgICAgICBpZiAobG5rY2FwKSB7Cj4gPiA+IC0gICAgICAgICAgICAgaWYgKGxua2NhcCAmIFBD
+SV9FWFBfTE5LQ0FQX1NMU18xNl8wR0IpCj4gPiA+ICsgICAgICAgICAgICAgaWYgKChsbmtjYXAg
+JiBQQ0lfRVhQX0xOS0NBUF9TTFMpID09IFBDSV9FWFBfTE5LQ0FQX1NMU18xNl8wR0IpCj4gPiA+
+ICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gUENJRV9TUEVFRF8xNl8wR1Q7Cj4gPiA+IC0g
+ICAgICAgICAgICAgZWxzZSBpZiAobG5rY2FwICYgUENJX0VYUF9MTktDQVBfU0xTXzhfMEdCKQo+
+ID4gPiArICAgICAgICAgICAgIGVsc2UgaWYgKChsbmtjYXAgJiBQQ0lfRVhQX0xOS0NBUF9TTFMp
+ID09IFBDSV9FWFBfTE5LQ0FQX1NMU184XzBHQikKPiA+ID4gICAgICAgICAgICAgICAgICAgICAg
+IHJldHVybiBQQ0lFX1NQRUVEXzhfMEdUOwo+ID4gPiAtICAgICAgICAgICAgIGVsc2UgaWYgKGxu
+a2NhcCAmIFBDSV9FWFBfTE5LQ0FQX1NMU181XzBHQikKPiA+ID4gKyAgICAgICAgICAgICBlbHNl
+IGlmICgobG5rY2FwICYgUENJX0VYUF9MTktDQVBfU0xTKSA9PVBDSV9FWFBfTE5LQ0FQX1NMU181
+XzBHQikKPiA+ID4gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBQQ0lFX1NQRUVEXzVfMEdU
+Owo+ID4gPiAtICAgICAgICAgICAgIGVsc2UgaWYgKGxua2NhcCAmIFBDSV9FWFBfTE5LQ0FQX1NM
+U18yXzVHQikKPiA+ID4gKyAgICAgICAgICAgICBlbHNlIGlmICgobG5rY2FwICYgUENJX0VYUF9M
+TktDQVBfU0xTKSA9PSBQQ0lfRVhQX0xOS0NBUF9TTFNfMl81R0IpCj4gPiA+ICAgICAgICAgICAg
+ICAgICAgICAgICByZXR1cm4gUENJRV9TUEVFRF8yXzVHVDsKPiA+ID4gICAgICAgfQo+ID4gPgo+
+ID4KPiA+IEknZCBsaWtlIHRvIGFwcGx5IHRoaXMgYXMgYmVsb3csIHdoZXJlIEkgcmVtb3ZlZCB0
+aGUgOF8wR0IgYW5kIDE2XzBHQgo+ID4gY2FzZXMgYXMgcmVjb21tZW5kZWQgYnkgdGhlIHNwZWMu
+ICBJIGNhbid0IHRlc3QgaXQgbXlzZWxmLCBhbmQgdGhlCj4gPiBidWd6aWxsYXMgZG9uJ3QgY29u
+dGFpbiBlbm91Z2ggaW5mb3JtYXRpb24gZm9yIG1lIHRvIGNvbmZpcm0gdGhhdCB0aGUKPiA+IHBh
+dGNoIGJlbG93IGlzIGVub3VnaCAodGhlICJsc3BjaSAtdnYiIG91dHB1dCBvZiB0aGUgcm9vdCBw
+b3J0IGFuZCBHUFUKPiA+IGlzIHdoYXQgSSB3b3VsZCBuZWVkKS4KPiA+Cj4gPiBJJ20gY29uZnVz
+ZWQgYWJvdXQgdGhlIGZhY3QgdGhhdCA2Y2Y1N2JlMGY3OGUgYXBwZWFyZWQgaW4gdjQuMTcsIGJ1
+dAo+ID4gdjQuMTggd29ya3MgZmluZSBhY2NvcmRpbmcgdG8gYm90aCBidWd6aWxsYXMuCj4gCj4g
+VGhpcyBpc3N1ZSBhZmZlY3RzIEFNRCBHUFVzIGJlY2F1c2Ugd2Ugc3dpdGNoZWQgZnJvbSB1c2lu
+ZyBhbiBvcGVuCj4gY29kZWQgY2hlY2sgZm9yIHBjaWUgbGluayBzcGVlZHMgaW4gdGhlIGRyaXZl
+ciB0byB1c2luZyB0aGUgY29tbW9uCj4gcGNpZSB2YXJpYW50cyBpbgo+IGh0dHBzOi8vZ2l0Lmtl
+cm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC9jb21t
+aXQvP2g9djQuMTkmaWQ9NWQ5YTYzMzA0MDMyNzFmYmIxMjQ0ZjE0MzgwYTdjYzQ0NjYyNzk2ZgoK
+T0ssIHRoYW5rcy4gIEkgYWRkZWQgdGhhdCBTSEExIGFuZCBhIG5vdGUgdG8gZXhwbGFpbiB0aGUg
+Y29ubmVjdGlvbi4KCj4gVGhlIHBhdGNoIGJlbG93IHdvdWxkIHJlZ3Jlc3MgcGVyZm9ybWFuY2Us
+IGF0IGxlYXN0IG9uIEFNRCBHUFVzLCBzaW5jZQo+IHdlJ2QgZW5kIHVwIHJlcG9ydGluZyBhIG1h
+eCBzcGVlZCBvZiBnZW4gMiAoNSBHVC9zKSB3aGljaCB3b3VsZCBjYXVzZQo+IHRoZSBkcml2ZXIg
+dG8gbGltaXQgdGhlIHNwZWVkIHRvIGdlbjIgZXZlbiBpZiBnZW4zIG9yIDQgYXJlIGF2YWlsYWJs
+ZS4KCkkgZ3Vlc3MgdGhpcyBtZWFucyB0aGVzZSBwYXJ0cyBhcmUgYnJva2VuIHdpdGggcmVzcGVj
+dCB0byB0aGUgc3BlYywKc2luY2UgdGhleSBzdXBwb3J0IGdlbjMgc3BlZWRzIGJ1dCBkb24ndCBp
+bXBsZW1lbnQgTG5rQ2FwMj8KCkdlbjIsIGkuZS4sIFBDSWUgcjIuMSwgb25seSBkZWZpbmVkIDIu
+NSBHVC9zIGFuZCA1IEdUL3MuICBEZXZpY2VzCmNhcGFibGUgb2YgdGhlIGhpZ2hlciBzcGVlZHMg
+YWRkZWQgYnkgUENJZSByMy4wIGFyZSBzdXBwb3NlZCB0bwppbXBsZW1lbnQgTG5rQ2FwMiwgYnV0
+IGlmIHdlJ3JlIGV2ZW4gZ2V0dGluZyB0byB0aGlzIGNvZGUsIGl0IG1lYW5zCkxua0NhcDIgd2Fz
+IHplcm8uCgpJZiB3ZSBjb25maXJtIHRoYXQgdGhpcyBpcyBhIGRldmljZSBkZWZlY3QsIHRoZSBx
+dWVzdGlvbiBpcyB3aGF0IHRoZQpiZXN0IHdheSB0byB3b3JrIGFyb3VuZCBpdCBpcy4gIFByb2Jh
+Ymx5IHRoZSBvcmlnaW5hbCBwYXRjaCBpcyBlYXNpZXIKdGhhbiBzb21lIHNvcnQgb2YgcXVpcmss
+IGJ1dCB3ZSdkIG5lZWQgdG8gZXhwYW5kIHRoZSBjb21tZW50IGEgbGl0dGxlCmJpdCB0byBleHBs
+YWluIHdoeSB3ZSdyZSBub3QgZm9sbG93aW5nIHRoZSBzcGVjIHJlY29tbWVuZGF0aW9uLgoKSXQg
+bG9va3MgbGlrZSBsc3BjaSBwcm9iYWJseSBhbHNvIG5lZWRzIHNvbWUgdXBkYXRpbmcgaGVyZSAt
+LSBpdApjdXJyZW50bHkgZG9lc24ndCBkbyBhbnl0aGluZyBhdCBhbGwgd2l0aCBMbmtDYXAyLgoK
+PiA+IEkgYWxzbyBkb24ndCBoYXZlIGEgZ29vZCBmZWVsIGZvciB3aGV0aGVyIHRoaXMgaXMgdXJn
+ZW50IGVub3VnaCB0byBiZQo+ID4gYSB2NC4yMCBmaXggb3Igd2hldGhlciBpdCBjYW4gd2FpdCBm
+b3IgdjQuMjEuICBFdmlkZW5jZSBlaXRoZXIgd2F5Cj4gPiB3b3VsZCBoZWxwLgo+IAo+IEknZCBs
+aWtlIGl0IHRvIGxhbmQgZm9yIDQuMTkgYW5kIDQuMjAgYXQgbGVhc3QuICBBbHRlcm5hdGl2ZWx5
+LCB3ZQo+IGNvdWxkIHJldmVydCBhbGwgb2YgdGhlIGRybSBwYXRjaGVzIHRvIGFuZCBicmluZyBi
+YWNrIGFsbCB0aGUgb3Blbgo+IGNvZGVkIGltcGxlbWVudGF0aW9ucywgYnV0IGl0J3MgYSBmYWly
+bHkgbGFyZ2UgbnVtYmVyIG9mIHBhdGNoZXMgdG8KPiByZXZlcnQuCgpPSywgc291bmRzIGxpa2Ug
+aXQgbWFrZXMgc2Vuc2UgdG8gZG8gdGhpcyBmb3IgdjQuMjAgYW5kIGJhY2twb3J0IGl0IGF0Cmxl
+YXN0IHRvIHY0LjE5IHN0YWJsZS4gIEkgZG8gd2FudCB0byBnZXQgdGhlIHBsYWNlcyBiZWxvdyBm
+aXhlZCBhbHNvLgpUaGV5IG1heSBub3QgYmUgYXMgdXJnZW50LCBidXQgd2UgbWlnaHQgYXMgd2Vs
+bCB0cnkgYW5kIG1ha2UKZXZlcnl0aGluZyBjb25zaXN0ZW50IHdoaWxlIHdlJ3JlIGxvb2tpbmcg
+YXQgaXQuCgo+ID4gV2UgYWxzbyBuZWVkIHNpbWlsYXIgZml4ZXMgaW4gcGNpX3NldF9idXNfc3Bl
+ZWQoKSwgcGNpZV9zcGVlZHMoKQo+ID4gKGhmaTEpLCBjb2JhbHRfcGNpZV9zdGF0dXNfc2hvdygp
+LCBoYmFfaW9jdGxfY2FsbGJhY2soKSwKPiA+IHFsYTI0eHhfcGNpX2luZm9fc3RyKCksIGFuZCBt
+YXliZSBhIGNvdXBsZSBvdGhlciBwbGFjZXMuCj4gPgo+ID4gQmpvcm4KPiA+Cj4gPgo+ID4gY29t
+bWl0IDg3MWY3M2FiZjRiOGU2YWVlOGEyMDY3NzVmOTQ0ZWRlN2M3ZDcyNTAKPiA+IEF1dGhvcjog
+TWlrdWxhcyBQYXRvY2thIDxtcGF0b2NrYUByZWRoYXQuY29tPgo+ID4gRGF0ZTogICBUdWUgT2N0
+IDMwIDEyOjM2OjA4IDIwMTggLTA0MDAKPiA+Cj4gPiAgICAgUENJOiBGaXggaW5jb3JyZWN0IHZh
+bHVlIHJldHVybmVkIGZyb20gcGNpZV9nZXRfc3BlZWRfY2FwKCkKPiA+Cj4gPiAgICAgVGhlIG1h
+Y3JvcyBQQ0lfRVhQX0xOS0NBUF9TTFNfKkdCIGFyZSB2YWx1ZXMsIG5vdCBiaXQgbWFza3MuICBX
+ZSBtdXN0IG1hc2sKPiA+ICAgICB0aGUgcmVnaXN0ZXIgYW5kIGNvbXBhcmUgaXQgYWdhaW5zdCB0
+aGVtLgo+ID4KPiA+ICAgICBUaGlzIHBhdGNoIGZpeGVzIGVycm9ycyAiYW1kZ3B1OiBbcG93ZXJw
+bGF5XSBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDI2MSByZXQKPiA+ICAgICBpcyAwIiBlcnJvcnMg
+d2hlbiBQQ0llLXYzIGNhcmQgaXMgcGx1Z2dlZCBpbnRvIFBDSWUtdjEgc2xvdCwgYmVjYXVzZSB0
+aGUKPiA+ICAgICBzbG90IGlzIGJlaW5nIGluY29ycmVjdGx5IHJlcG9ydGVkIGFzIFBDSWUtdjMg
+Y2FwYWJsZS4KPiA+Cj4gPiAgICAgRml4ZXM6IDZjZjU3YmUwZjc4ZSAoIlBDSTogQWRkIHBjaWVf
+Z2V0X3NwZWVkX2NhcCgpIHRvIGZpbmQgbWF4IHN1cHBvcnRlZCBsaW5rIHNwZWVkIikKPiA+ICAg
+ICBMaW5rOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD0xMDg3
+MDQKPiA+ICAgICBMaW5rOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNn
+aT9pZD0xMDg3NzgKPiA+ICAgICBTaWduZWQtb2ZmLWJ5OiBNaWt1bGFzIFBhdG9ja2EgPG1wYXRv
+Y2thQHJlZGhhdC5jb20+Cj4gPiAgICAgW2JoZWxnYWFzOiB1cGRhdGUgY29tbWVudCwgcmVtb3Zl
+IHVzZSBvZiBQQ0lfRVhQX0xOS0NBUF9TTFNfOF8wR0IgYW5kCj4gPiAgICAgUENJX0VYUF9MTktD
+QVBfU0xTXzE2XzBHQiBzaW5jZSB0aG9zZSBzaG91bGQgYmUgY292ZXJlZCBieSBQQ0lfRVhQX0xO
+S0NBUDJdCj4gPiAgICAgU2lnbmVkLW9mZi1ieTogQmpvcm4gSGVsZ2FhcyA8YmhlbGdhYXNAZ29v
+Z2xlLmNvbT4KPiA+ICAgICBBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
+ckBhbWQuY29tPgo+ID4gICAgIENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnICAgICAgIyB2NC4x
+NysKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9wY2kvcGNpLmMgYi9kcml2ZXJzL3BjaS9w
+Y2kuYwo+ID4gaW5kZXggZDA2OGYxMWQwOGE3Li44NTYzZDFkOWIxMDIgMTAwNjQ0Cj4gPiAtLS0g
+YS9kcml2ZXJzL3BjaS9wY2kuYwo+ID4gKysrIGIvZHJpdmVycy9wY2kvcGNpLmMKPiA+IEBAIC01
+NTU2LDkgKzU1NTYsMTMgQEAgZW51bSBwY2lfYnVzX3NwZWVkIHBjaWVfZ2V0X3NwZWVkX2NhcChz
+dHJ1Y3QgcGNpX2RldiAqZGV2KQo+ID4gICAgICAgICB1MzIgbG5rY2FwMiwgbG5rY2FwOwo+ID4K
+PiA+ICAgICAgICAgLyoKPiA+IC0gICAgICAgICogUENJZSByNC4wIHNlYyA3LjUuMy4xOCByZWNv
+bW1lbmRzIHVzaW5nIHRoZSBTdXBwb3J0ZWQgTGluawo+ID4gLSAgICAgICAgKiBTcGVlZHMgVmVj
+dG9yIGluIExpbmsgQ2FwYWJpbGl0aWVzIDIgd2hlbiBzdXBwb3J0ZWQsIGZhbGxpbmcKPiA+IC0g
+ICAgICAgICogYmFjayB0byBNYXggTGluayBTcGVlZCBpbiBMaW5rIENhcGFiaWxpdGllcyBvdGhl
+cndpc2UuCj4gPiArICAgICAgICAqIExpbmsgQ2FwYWJpbGl0aWVzIDIgd2FzIGFkZGVkIGluIFBD
+SWUgcjMuMCwgc2VjIDcuOC4xOC4gIFRoZQo+ID4gKyAgICAgICAgKiBpbXBsZW1lbnRhdGlvbiBu
+b3RlIHRoZXJlIHJlY29tbWVuZHMgdXNpbmcgdGhlIFN1cHBvcnRlZCBMaW5rCj4gPiArICAgICAg
+ICAqIFNwZWVkcyBWZWN0b3IgaW4gTGluayBDYXBhYmlsaXRpZXMgMiB3aGVuIHN1cHBvcnRlZC4K
+PiA+ICsgICAgICAgICoKPiA+ICsgICAgICAgICogV2l0aG91dCBMaW5rIENhcGFiaWxpdGllcyAy
+LCBpLmUuLCBwcmlvciB0byBQQ0llIHIzLjAsIHNvZnR3YXJlCj4gPiArICAgICAgICAqIHNob3Vs
+ZCB1c2UgdGhlIFN1cHBvcnRlZCBMaW5rIFNwZWVkcyBmaWVsZCBpbiBMaW5rIENhcGFiaWxpdGll
+cywKPiA+ICsgICAgICAgICogd2hlcmUgb25seSAyLjUgR1QvcyBhbmQgNS4wIEdUL3Mgc3BlZWRz
+IHdlcmUgZGVmaW5lZC4KPiA+ICAgICAgICAgICovCj4gPiAgICAgICAgIHBjaWVfY2FwYWJpbGl0
+eV9yZWFkX2R3b3JkKGRldiwgUENJX0VYUF9MTktDQVAyLCAmbG5rY2FwMik7Cj4gPiAgICAgICAg
+IGlmIChsbmtjYXAyKSB7IC8qIFBDSWUgcjMuMC1jb21wbGlhbnQgKi8KPiA+IEBAIC01NTc1LDEz
+ICs1NTc5LDkgQEAgZW51bSBwY2lfYnVzX3NwZWVkIHBjaWVfZ2V0X3NwZWVkX2NhcChzdHJ1Y3Qg
+cGNpX2RldiAqZGV2KQo+ID4KPiA+ICAgICAgICAgcGNpZV9jYXBhYmlsaXR5X3JlYWRfZHdvcmQo
+ZGV2LCBQQ0lfRVhQX0xOS0NBUCwgJmxua2NhcCk7Cj4gPiAgICAgICAgIGlmIChsbmtjYXApIHsK
+PiA+IC0gICAgICAgICAgICAgICBpZiAobG5rY2FwICYgUENJX0VYUF9MTktDQVBfU0xTXzE2XzBH
+QikKPiA+IC0gICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBQQ0lFX1NQRUVEXzE2XzBHVDsK
+PiA+IC0gICAgICAgICAgICAgICBlbHNlIGlmIChsbmtjYXAgJiBQQ0lfRVhQX0xOS0NBUF9TTFNf
+OF8wR0IpCj4gPiAtICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gUENJRV9TUEVFRF84XzBH
+VDsKPiA+IC0gICAgICAgICAgICAgICBlbHNlIGlmIChsbmtjYXAgJiBQQ0lfRVhQX0xOS0NBUF9T
+TFNfNV8wR0IpCj4gPiArICAgICAgICAgICAgICAgaWYgKChsbmtjYXAgJiBQQ0lfRVhQX0xOS0NB
+UF9TTFMpID09IFBDSV9FWFBfTE5LQ0FQX1NMU181XzBHQikKPiA+ICAgICAgICAgICAgICAgICAg
+ICAgICAgIHJldHVybiBQQ0lFX1NQRUVEXzVfMEdUOwo+ID4gLSAgICAgICAgICAgICAgIGVsc2Ug
+aWYgKGxua2NhcCAmIFBDSV9FWFBfTE5LQ0FQX1NMU18yXzVHQikKPiA+ICsgICAgICAgICAgICAg
+ICBlbHNlIGlmICgobG5rY2FwICYgUENJX0VYUF9MTktDQVBfU0xTKSA9PSBQQ0lfRVhQX0xOS0NB
+UF9TTFNfMl81R0IpCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gUENJRV9TUEVF
+RF8yXzVHVDsKPiA+ICAgICAgICAgfQo+ID4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
