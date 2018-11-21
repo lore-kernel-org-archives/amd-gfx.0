@@ -1,17 +1,18 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 5/5] drm/amdgpu: Refactor GPU reset for XGMI hive case.
-Date: Wed, 21 Nov 2018 22:02:21 +0000
-Message-ID: <5f257299-4833-82b7-83ec-75bf02c4e441@amd.com>
-References: <1542823821-15631-1-git-send-email-andrey.grodzovsky@amd.com>
- <1542823821-15631-6-git-send-email-andrey.grodzovsky@amd.com>
- <ef758cf9-9e27-9807-4e25-47148782249e@amd.com>
+From: "Ho, Kenny" <Kenny.Ho-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH RFC 2/5] cgroup: Add mechanism to register vendor specific
+ DRM devices
+Date: Wed, 21 Nov 2018 22:07:22 +0000
+Message-ID: <DM5PR12MB1226238684747E76C7FE217D83DA0@DM5PR12MB1226.namprd12.prod.outlook.com>
+References: <20181120185814.13362-1-Kenny.Ho@amd.com>
+ <20181120185814.13362-3-Kenny.Ho@amd.com>
+ <20181120202141.GA2509588@devbig004.ftw2.facebook.com>
+ <DM5PR12MB1226E972538A45325114ADF683D90@DM5PR12MB1226.namprd12.prod.outlook.com>,
+ <20181120223018.GB2509588@devbig004.ftw2.facebook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0758498318=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ef758cf9-9e27-9807-4e25-47148782249e-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181120223018.GB2509588-LpCCV3molIbIZ9tKgghJQw2O0Ztt9esIQQ4Iyu8u01E@public.gmane.org>
 Content-Language: en-US
-Content-ID: <A950AC689F1F734AA3080FEB881CB260-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,297 +23,226 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Liu,
- Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: Tejun Heo <tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Cc: "cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RGVwZW5kcyB3aGF0IHdhcyB0aGUgcmVhc29uIGZvciB0cmlnZ2VyaW5nIHRoZSByZXNldCBmb3Ig
-dGhhdCBub2RlIGhvdyANCmRvIHdlIGtub3cgPw0KSWYgdGhlIHJlYXNvbiB3YXMgUkFTIGVycm9y
-IHRoYXQgcHJvYmFibHkgbm90IGhhcmQgdG8gY2hlY2sgYWxsIGVycm9ycyANCmFyZSBjbGVhcmVk
-LCBidXQNCmlmIHRoZSByZWFzb24gd2FzIGpvYiB0aW1lb3V0IG9uIHRoYXQgc3BlY2lmaWMgbm9k
-ZSBJIHdpbGwgbmVlZCB0byANCnJlY2hlY2sgdGhhdCBubyBqb2JzIGFyZSBsZWZ0IGluIGluY29t
-cGxldGUgc3RhdGUNCnN0YXRlLiBBbmQgaWYgdGhlIHJlYXNvbiBpcyBtYW51YWwgZ3B1IHJlc2V0
-IHRyaWdnZXIgZnJvbSBzeXNmcywgdGhlbiANCndoYXQncyB0aGUgcG9saWN5ID8NClNvdW5kcyB0
-byBtZSBpdCdzIGp1c3QgZWFzaWVyIHRvIGdvIGFoZWFkIGFuZCBhbGxvdyBhbGwgdGhlIHBlbmRp
-bmcgDQpyZXNldHMgdG8gcHJvY2VlZCB1bmxlc3MgdGhlcmUgaXMNCmEgY2xlYXIgYW5kIHF1aWNr
-IGNyaXRlcmlhIHlvdSBjYW4gY2hlY2sgYWZ0ZXIgeW91IGdyYWIgdGhlIG11dGV4IHRoZW4gDQpz
-dXJlIC0gYnV0IEkgZG9uJ3Qga25vdyB3aGF0IGl0IHdvdWxkIGJlLg0KDQpBbmRyZXkNCg0KT24g
-MTEvMjEvMjAxOCAwMzo0OSBQTSwgTGl1LCBTaGFveXVuIHdyb3RlOg0KPiBJIHNhdyB5b3UgdXNl
-IHRoZcKgIGdsb2JhbCB4Z21pX211dGV4IHRvIHByZXZlbnQgY29uY3VycmVudCByZXNldCB0byBi
-ZQ0KPiB0cmlnZ2VyZWQgYnkgZGlmZmVyZW50IG5vZGVzICzCoCBidXQgYWZ0ZXIgdGhlwqAgbXV0
-ZXggYmVlbiByZWxlYXNlZCAsDQo+IGN1cnJlbnQgbm9kZSBtYXkgZ3JhcCB0aGUgbXV0ZXggYW5k
-IGNvbnRpbnVlIHRvIGRvIGFub3RoZXIgcmVzZXQgLg0KPiBNYXliZcKgIHdlIHNob3VsZCBjaGVj
-ayB0aGUgR1BVIHN0YXR1cyBhbmTCoCBza2lwIHRoZcKgIHJlc2V0IGluIHRoaXMgY2FzZQ0KPiBz
-aW5jZSB0aGXCoCBHUFUgbWF5IGFscmVhZHkgYmUgaW4gZ29vZCBzdGF0ZSAuDQo+DQo+IFJlZ2Fy
-ZHMNCj4NCj4gc2hhb3l1bi5saXUNCj4NCj4gT24gMjAxOC0xMS0yMSAxOjEwIHAubS4sIEFuZHJl
-eSBHcm9kem92c2t5IHdyb3RlOg0KPj4gRm9yIFhHTUkgaGl2ZSBjYXNlIGRvIHJlc2V0IGluIHN0
-ZXBzIHdoZXJlIGVhY2ggc3RlcCBpdGVyYXRlcyBvdmVyDQo+PiBhbGwgZGV2cyBpbiBoaXZlLiBU
-aGlzIGVzcGVjaWFsbHkgaW1wb3J0YW50IGZvciBhc2ljIHJlc2V0DQo+PiBzaW5jZSBhbGwgUFNQ
-IEZXIGluIGhpdmUgbXVzdCBjb21lIHVwIHdpdGhpbiBhIGxpbWl0ZWQgdGltZQ0KPj4gKGFyb3Vu
-ZCAxIHNlYykgdG8gcHJvcGVycGx5IG5lZ290aWF0ZSB0aGUgbGluay4NCj4+IERvIHRoaXMgYnkg
-IHJlZmFjdG9yaW5nICBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyIGFuZCBhbWRncHVfZGV2aWNl
-X3Jlc2V0DQo+PiBpbnRvIHByZV9hc2ljX3Jlc2V0LCBhc2ljX3Jlc2V0IGFuZCBwb3N0X2FzaWNf
-cmVzZXQgZnVuY3Rpb25zIHdoZXJlIGlzIHBhcnQNCj4+IGlzIGV4ZWN0dWVkIGZvciBhbGwgdGhl
-IEdQVXMgaW4gdGhlIGhpdmUgYmVmb3JlIGdvaW5nIHRvIHRoZSBuZXh0IHN0ZXAuDQo+Pg0KPj4g
-U2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5j
-b20+DQo+PiAtLS0NCj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAg
-ICAgICB8ICAgNSArLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rl
-dmljZS5jIHwgMzc1ICsrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tDQo+PiAgICAyIGZpbGVz
-IGNoYW5nZWQsIDI2NCBpbnNlcnRpb25zKCspLCAxMTYgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+IGluZGV4IDRlZjVmN2EuLmJkMDZkNDUgMTAw
-NjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaA0KPj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4+IEBAIC0xMDI2LDYgKzEw
-MjYsOSBAQCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSB7DQo+PiAgICAJdW5zaWduZWQgbG9uZyBsYXN0
-X21tX2luZGV4Ow0KPj4gICAgCWJvb2wgICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5fZ3B1
-X3Jlc2V0Ow0KPj4gICAgCXN0cnVjdCBtdXRleCAgbG9ja19yZXNldDsNCj4+ICsNCj4+ICsJaW50
-IGFzaWNfcmVzZXRfcmVzOw0KPj4gKwlpbnQgcmVzY2hlZDsNCj4+ICAgIH07DQo+PiAgICANCj4+
-ICAgIHN0YXRpYyBpbmxpbmUgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFtZGdwdV90dG1fYWRldihz
-dHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldikNCj4+IEBAIC0xMjMyLDcgKzEyMzUsNyBAQCBzdHJ1
-Y3QgYW1kZ3B1X2hpdmVfaW5mbzsNCj4+ICAgIA0KPj4gICAgc3RydWN0IGxpc3RfaGVhZCAqYW1k
-Z3B1X3hnbWlfZ2V0X2FkZXZfbGlzdF9oYW5kbGUoc3RydWN0IGFtZGdwdV9oaXZlX2luZm8gKmhp
-dmUpOw0KPj4gICAgc3RydWN0IGFtZGdwdV9oaXZlX2luZm8gKmFtZGdwdV9nZXRfeGdtaV9oaXZl
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsNCj4+IC1pbnQgYW1kZ3B1X3hnbWlfdXBkYXRl
-X3RvcG9sb2d5KHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICpoaXZlKTsNCj4+ICtpbnQgYW1kZ3B1
-X3hnbWlfdXBkYXRlX3RvcG9sb2d5KHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICpoaXZlLCBzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+PiAgICBpbnQgYW1kZ3B1X3hnbWlfYWRkX2Rldmlj
-ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+PiAgICANCj4+ICAgIC8qDQo+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+PiBpbmRleCBjYjA2ZTY4
-Li44ZTk0ZDdmIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2RldmljZS5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZGV2aWNlLmMNCj4+IEBAIC0zMTU3LDg2ICszMTU3LDYgQEAgc3RhdGljIGludCBhbWRncHVfZGV2
-aWNlX3JlY292ZXJfdnJhbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICAgIAlyZXR1
-cm4gMDsNCj4+ICAgIH0NCj4+ICAgIA0KPj4gLS8qKg0KPj4gLSAqIGFtZGdwdV9kZXZpY2VfcmVz
-ZXQgLSByZXNldCBBU0lDL0dQVSBmb3IgYmFyZS1tZXRhbCBvciBwYXNzdGhyb3VnaA0KPj4gLSAq
-DQo+PiAtICogQGFkZXY6IGFtZGdwdSBkZXZpY2UgcG9pbnRlcg0KPj4gLSAqDQo+PiAtICogYXR0
-ZW1wdCB0byBkbyBzb2Z0LXJlc2V0IG9yIGZ1bGwtcmVzZXQgYW5kIHJlaW5pdGlhbGl6ZSBBc2lj
-DQo+PiAtICogcmV0dXJuIDAgbWVhbnMgc3VjY2VlZGVkIG90aGVyd2lzZSBmYWlsZWQNCj4+IC0g
-Ki8NCj4+IC1zdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpDQo+PiAtew0KPj4gLQlib29sIG5lZWRfZnVsbF9yZXNldCwgdnJhbV9sb3N0ID0g
-MDsNCj4+IC0JaW50IHI7DQo+PiAtDQo+PiAtCW5lZWRfZnVsbF9yZXNldCA9IGFtZGdwdV9kZXZp
-Y2VfaXBfbmVlZF9mdWxsX3Jlc2V0KGFkZXYpOw0KPj4gLQ0KPj4gLQlpZiAoIW5lZWRfZnVsbF9y
-ZXNldCkgew0KPj4gLQkJYW1kZ3B1X2RldmljZV9pcF9wcmVfc29mdF9yZXNldChhZGV2KTsNCj4+
-IC0JCXIgPSBhbWRncHVfZGV2aWNlX2lwX3NvZnRfcmVzZXQoYWRldik7DQo+PiAtCQlhbWRncHVf
-ZGV2aWNlX2lwX3Bvc3Rfc29mdF9yZXNldChhZGV2KTsNCj4+IC0JCWlmIChyIHx8IGFtZGdwdV9k
-ZXZpY2VfaXBfY2hlY2tfc29mdF9yZXNldChhZGV2KSkgew0KPj4gLQkJCURSTV9JTkZPKCJzb2Z0
-IHJlc2V0IGZhaWxlZCwgd2lsbCBmYWxsYmFjayB0byBmdWxsIHJlc2V0IVxuIik7DQo+PiAtCQkJ
-bmVlZF9mdWxsX3Jlc2V0ID0gdHJ1ZTsNCj4+IC0JCX0NCj4+IC0JfQ0KPj4gLQ0KPj4gLQlpZiAo
-bmVlZF9mdWxsX3Jlc2V0KSB7DQo+PiAtCQlyID0gYW1kZ3B1X2RldmljZV9pcF9zdXNwZW5kKGFk
-ZXYpOw0KPj4gLQ0KPj4gLXJldHJ5Og0KPj4gLQkJciA9IGFtZGdwdV9hc2ljX3Jlc2V0KGFkZXYp
-Ow0KPj4gLQkJLyogcG9zdCBjYXJkICovDQo+PiAtCQlhbWRncHVfYXRvbV9hc2ljX2luaXQoYWRl
-di0+bW9kZV9pbmZvLmF0b21fY29udGV4dCk7DQo+PiAtDQo+PiAtCQlpZiAoIXIpIHsNCj4+IC0J
-CQlkZXZfaW5mbyhhZGV2LT5kZXYsICJHUFUgcmVzZXQgc3VjY2VlZGVkLCB0cnlpbmcgdG8gcmVz
-dW1lXG4iKTsNCj4+IC0JCQlyID0gYW1kZ3B1X2RldmljZV9pcF9yZXN1bWVfcGhhc2UxKGFkZXYp
-Ow0KPj4gLQkJCWlmIChyKQ0KPj4gLQkJCQlnb3RvIG91dDsNCj4+IC0NCj4+IC0JCQl2cmFtX2xv
-c3QgPSBhbWRncHVfZGV2aWNlX2NoZWNrX3ZyYW1fbG9zdChhZGV2KTsNCj4+IC0JCQlpZiAodnJh
-bV9sb3N0KSB7DQo+PiAtCQkJCURSTV9FUlJPUigiVlJBTSBpcyBsb3N0IVxuIik7DQo+PiAtCQkJ
-CWF0b21pY19pbmMoJmFkZXYtPnZyYW1fbG9zdF9jb3VudGVyKTsNCj4+IC0JCQl9DQo+PiAtDQo+
-PiAtCQkJciA9IGFtZGdwdV9ndHRfbWdyX3JlY292ZXIoDQo+PiAtCQkJCSZhZGV2LT5tbWFuLmJk
-ZXYubWFuW1RUTV9QTF9UVF0pOw0KPj4gLQkJCWlmIChyKQ0KPj4gLQkJCQlnb3RvIG91dDsNCj4+
-IC0NCj4+IC0JCQlyID0gYW1kZ3B1X2RldmljZV9md19sb2FkaW5nKGFkZXYpOw0KPj4gLQkJCWlm
-IChyKQ0KPj4gLQkJCQlyZXR1cm4gcjsNCj4+IC0NCj4+IC0JCQlyID0gYW1kZ3B1X2RldmljZV9p
-cF9yZXN1bWVfcGhhc2UyKGFkZXYpOw0KPj4gLQkJCWlmIChyKQ0KPj4gLQkJCQlnb3RvIG91dDsN
-Cj4+IC0NCj4+IC0JCQlpZiAodnJhbV9sb3N0KQ0KPj4gLQkJCQlhbWRncHVfZGV2aWNlX2ZpbGxf
-cmVzZXRfbWFnaWMoYWRldik7DQo+PiAtCQl9DQo+PiAtCX0NCj4+IC0NCj4+IC1vdXQ6DQo+PiAt
-CWlmICghcikgew0KPj4gLQkJYW1kZ3B1X2lycV9ncHVfcmVzZXRfcmVzdW1lX2hlbHBlcihhZGV2
-KTsNCj4+IC0JCXIgPSBhbWRncHVfaWJfcmluZ190ZXN0cyhhZGV2KTsNCj4+IC0JCWlmIChyKSB7
-DQo+PiAtCQkJZGV2X2VycihhZGV2LT5kZXYsICJpYiByaW5nIHRlc3QgZmFpbGVkICglZCkuXG4i
-LCByKTsNCj4+IC0JCQlyID0gYW1kZ3B1X2RldmljZV9pcF9zdXNwZW5kKGFkZXYpOw0KPj4gLQkJ
-CW5lZWRfZnVsbF9yZXNldCA9IHRydWU7DQo+PiAtCQkJZ290byByZXRyeTsNCj4+IC0JCX0NCj4+
-IC0JfQ0KPj4gLQ0KPj4gLQlpZiAoIXIpDQo+PiAtCQlyID0gYW1kZ3B1X2RldmljZV9yZWNvdmVy
-X3ZyYW0oYWRldik7DQo+PiAtDQo+PiAtCXJldHVybiByOw0KPj4gLX0NCj4+ICAgIA0KPj4gICAg
-LyoqDQo+PiAgICAgKiBhbWRncHVfZGV2aWNlX3Jlc2V0X3NyaW92IC0gcmVzZXQgQVNJQyBmb3Ig
-U1ItSU9WIHZmDQo+PiBAQCAtMzMzNSwzMSArMzI1NSwxNiBAQCBib29sIGFtZGdwdV9kZXZpY2Vf
-c2hvdWxkX3JlY292ZXJfZ3B1KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPj4gICAgCQly
-ZXR1cm4gZmFsc2U7DQo+PiAgICB9DQo+PiAgICANCj4+IC0vKioNCj4+IC0gKiBhbWRncHVfZGV2
-aWNlX2dwdV9yZWNvdmVyIC0gcmVzZXQgdGhlIGFzaWMgYW5kIHJlY292ZXIgc2NoZWR1bGVyDQo+
-PiAtICoNCj4+IC0gKiBAYWRldjogYW1kZ3B1IGRldmljZSBwb2ludGVyDQo+PiAtICogQGpvYjog
-d2hpY2ggam9iIHRyaWdnZXIgaGFuZw0KPj4gLSAqDQo+PiAtICogQXR0ZW1wdCB0byByZXNldCB0
-aGUgR1BVIGlmIGl0IGhhcyBodW5nIChhbGwgYXNpY3MpLg0KPj4gLSAqIFJldHVybnMgMCBmb3Ig
-c3VjY2VzcyBvciBhbiBlcnJvciBvbiBmYWlsdXJlLg0KPj4gLSAqLw0KPj4gLWludCBhbWRncHVf
-ZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gLQkJCSAg
-ICAgIHN0cnVjdCBhbWRncHVfam9iICpqb2IpDQo+PiAtew0KPj4gLQlpbnQgaSwgciwgcmVzY2hl
-ZDsNCj4+IC0NCj4+IC0JZGV2X2luZm8oYWRldi0+ZGV2LCAiR1BVIHJlc2V0IGJlZ2luIVxuIik7
-DQo+PiAtDQo+PiAtCW11dGV4X2xvY2soJmFkZXYtPmxvY2tfcmVzZXQpOw0KPj4gLQlhdG9taWNf
-aW5jKCZhZGV2LT5ncHVfcmVzZXRfY291bnRlcik7DQo+PiAtCWFkZXYtPmluX2dwdV9yZXNldCA9
-IDE7DQo+PiAgICANCj4+IC0JLyogQmxvY2sga2ZkICovDQo+PiAtCWFtZGdwdV9hbWRrZmRfcHJl
-X3Jlc2V0KGFkZXYpOw0KPj4gK3N0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9wcmVfYXNpY19yZXNl
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICsJCQkJCXN0cnVjdCBhbWRncHVfam9i
-ICpqb2IsDQo+PiArCQkJCQlib29sICpuZWVkX2Z1bGxfcmVzZXRfYXJnKQ0KPj4gK3sNCj4+ICsJ
-aW50IGksIHIgPSAwOw0KPj4gKwlib29sIG5lZWRfZnVsbF9yZXNldCAgPSAqbmVlZF9mdWxsX3Jl
-c2V0X2FyZzsNCj4+ICAgIA0KPj4gICAgCS8qIGJsb2NrIFRUTSAqLw0KPj4gLQlyZXNjaGVkID0g
-dHRtX2JvX2xvY2tfZGVsYXllZF93b3JrcXVldWUoJmFkZXYtPm1tYW4uYmRldik7DQo+PiArCWFk
-ZXYtPnJlc2NoZWQgPSB0dG1fYm9fbG9ja19kZWxheWVkX3dvcmtxdWV1ZSgmYWRldi0+bW1hbi5i
-ZGV2KTsNCj4+ICAgIA0KPj4gICAgCS8qIGJsb2NrIGFsbCBzY2hlZHVsZXJzIGFuZCByZXNldCBn
-aXZlbiBqb2IncyByaW5nICovDQo+PiAgICAJZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfUklO
-R1M7ICsraSkgew0KPj4gQEAgLTMzNzksMTAgKzMyODQsMTIxIEBAIGludCBhbWRncHVfZGV2aWNl
-X2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gICAgCQlhbWRncHVf
-ZmVuY2VfZHJpdmVyX2ZvcmNlX2NvbXBsZXRpb24ocmluZyk7DQo+PiAgICAJfQ0KPj4gICAgDQo+
-PiAtCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpDQo+PiAtCQlyID0gYW1kZ3B1X2RldmljZV9y
-ZXNldF9zcmlvdihhZGV2LCBqb2IgPyBmYWxzZSA6IHRydWUpOw0KPj4gLQllbHNlDQo+PiAtCQly
-ID0gYW1kZ3B1X2RldmljZV9yZXNldChhZGV2KTsNCj4+ICsJaWYgKCFhbWRncHVfc3Jpb3ZfdmYo
-YWRldikpIHsNCj4+ICsNCj4+ICsJCWlmICghbmVlZF9mdWxsX3Jlc2V0KQ0KPj4gKwkJCW5lZWRf
-ZnVsbF9yZXNldCA9IGFtZGdwdV9kZXZpY2VfaXBfbmVlZF9mdWxsX3Jlc2V0KGFkZXYpOw0KPj4g
-Kw0KPj4gKwkJaWYgKCFuZWVkX2Z1bGxfcmVzZXQpIHsNCj4+ICsJCQlhbWRncHVfZGV2aWNlX2lw
-X3ByZV9zb2Z0X3Jlc2V0KGFkZXYpOw0KPj4gKwkJCXIgPSBhbWRncHVfZGV2aWNlX2lwX3NvZnRf
-cmVzZXQoYWRldik7DQo+PiArCQkJYW1kZ3B1X2RldmljZV9pcF9wb3N0X3NvZnRfcmVzZXQoYWRl
-dik7DQo+PiArCQkJaWYgKHIgfHwgYW1kZ3B1X2RldmljZV9pcF9jaGVja19zb2Z0X3Jlc2V0KGFk
-ZXYpKSB7DQo+PiArCQkJCURSTV9JTkZPKCJzb2Z0IHJlc2V0IGZhaWxlZCwgd2lsbCBmYWxsYmFj
-ayB0byBmdWxsIHJlc2V0IVxuIik7DQo+PiArCQkJCW5lZWRfZnVsbF9yZXNldCA9IHRydWU7DQo+
-PiArCQkJfQ0KPj4gKwkJfQ0KPj4gKw0KPj4gKwkJaWYgKG5lZWRfZnVsbF9yZXNldCkNCj4+ICsJ
-CQlyID0gYW1kZ3B1X2RldmljZV9pcF9zdXNwZW5kKGFkZXYpOw0KPj4gKw0KPj4gKwkJKm5lZWRf
-ZnVsbF9yZXNldF9hcmcgPSBuZWVkX2Z1bGxfcmVzZXQ7DQo+PiArCX0NCj4+ICsNCj4+ICsJcmV0
-dXJuIHI7DQo+PiArfQ0KPj4gKw0KPj4gK3N0YXRpYyBpbnQgYW1kZ3B1X2RvX2FzaWNfcmVzZXQo
-c3RydWN0IGFtZGdwdV9oaXZlX2luZm8gKmhpdmUsDQo+PiArCQkJICAgICAgIHN0cnVjdCBsaXN0
-X2hlYWQgKmRldmljZV9saXN0X2hhbmRsZSwNCj4+ICsJCQkgICAgICAgYm9vbCAqbmVlZF9mdWxs
-X3Jlc2V0X2FyZykNCj4+ICt7DQo+PiArCXN0cnVjdCBhbWRncHVfZGV2aWNlICp0bXBfYWRldiA9
-IE5VTEw7DQo+PiArCWJvb2wgbmVlZF9mdWxsX3Jlc2V0ID0gKm5lZWRfZnVsbF9yZXNldF9hcmcs
-IHZyYW1fbG9zdCA9IGZhbHNlOw0KPj4gKwlpbnQgciA9IDA7DQo+PiArDQo+PiArCS8qDQo+PiAr
-CSAqIEFTSUMgcmVzZXQgaGFzIHRvIGJlIGRvbmUgb24gYWxsIEhHTUkgaGl2ZSBub2RlcyBBU0FQ
-DQo+PiArCSAqIHRvIGFsbG93IHByb3BlciBsaW5rcyBuZWdvdGlhdGlvbiBpbiBGVyAod2l0aGlu
-IDEgc2VjKQ0KPj4gKwkgKi8NCj4+ICsJaWYgKG5lZWRfZnVsbF9yZXNldCkgew0KPj4gKwkJbGlz
-dF9mb3JfZWFjaF9lbnRyeSh0bXBfYWRldiwgZGV2aWNlX2xpc3RfaGFuZGxlLCBnbWMueGdtaS5o
-ZWFkKSB7DQo+PiArCQkJciA9IGFtZGdwdV9hc2ljX3Jlc2V0KHRtcF9hZGV2KTsNCj4+ICsJCQlp
-ZiAocikNCj4+ICsJCQkJRFJNX1dBUk4oIkFTSUMgcmVzZXQgZmFpbGVkIHdpdGggZXJyIHIsICVk
-IGZvciBkcm0gZGV2LCAlcyIsDQo+PiArCQkJCQkgciwgdG1wX2FkZXYtPmRkZXYtPnVuaXF1ZSk7
-DQo+PiArCQl9DQo+PiArCX0NCj4+ICsNCj4+ICsNCj4+ICsJbGlzdF9mb3JfZWFjaF9lbnRyeSh0
-bXBfYWRldiwgZGV2aWNlX2xpc3RfaGFuZGxlLCBnbWMueGdtaS5oZWFkKSB7DQo+PiArCQlpZiAo
-bmVlZF9mdWxsX3Jlc2V0KSB7DQo+PiArCQkJLyogcG9zdCBjYXJkICovDQo+PiArCQkJaWYgKGFt
-ZGdwdV9hdG9tX2FzaWNfaW5pdCh0bXBfYWRldi0+bW9kZV9pbmZvLmF0b21fY29udGV4dCkpDQo+
-PiArCQkJCURSTV9XQVJOKCJhc2ljIGF0b20gaW5pdCBmYWlsZWQhIik7DQo+PiArDQo+PiArCQkJ
-aWYgKCFyKSB7DQo+PiArCQkJCWRldl9pbmZvKHRtcF9hZGV2LT5kZXYsICJHUFUgcmVzZXQgc3Vj
-Y2VlZGVkLCB0cnlpbmcgdG8gcmVzdW1lXG4iKTsNCj4+ICsJCQkJciA9IGFtZGdwdV9kZXZpY2Vf
-aXBfcmVzdW1lX3BoYXNlMSh0bXBfYWRldik7DQo+PiArCQkJCWlmIChyKQ0KPj4gKwkJCQkJZ290
-byBvdXQ7DQo+PiArDQo+PiArCQkJCXZyYW1fbG9zdCA9IGFtZGdwdV9kZXZpY2VfY2hlY2tfdnJh
-bV9sb3N0KHRtcF9hZGV2KTsNCj4+ICsJCQkJaWYgKHZyYW1fbG9zdCkgew0KPj4gKwkJCQkJRFJN
-X0VSUk9SKCJWUkFNIGlzIGxvc3QhXG4iKTsNCj4+ICsJCQkJCWF0b21pY19pbmMoJnRtcF9hZGV2
-LT52cmFtX2xvc3RfY291bnRlcik7DQo+PiArCQkJCX0NCj4+ICsNCj4+ICsJCQkJciA9IGFtZGdw
-dV9ndHRfbWdyX3JlY292ZXIoDQo+PiArCQkJCQkmdG1wX2FkZXYtPm1tYW4uYmRldi5tYW5bVFRN
-X1BMX1RUXSk7DQo+PiArCQkJCWlmIChyKQ0KPj4gKwkJCQkJZ290byBvdXQ7DQo+PiArDQo+PiAr
-CQkJCXIgPSBhbWRncHVfZGV2aWNlX2Z3X2xvYWRpbmcodG1wX2FkZXYpOw0KPj4gKwkJCQlpZiAo
-cikNCj4+ICsJCQkJCXJldHVybiByOw0KPj4gKw0KPj4gKwkJCQlyID0gYW1kZ3B1X2RldmljZV9p
-cF9yZXN1bWVfcGhhc2UyKHRtcF9hZGV2KTsNCj4+ICsJCQkJaWYgKHIpDQo+PiArCQkJCQlnb3Rv
-IG91dDsNCj4+ICsNCj4+ICsJCQkJaWYgKHZyYW1fbG9zdCkNCj4+ICsJCQkJCWFtZGdwdV9kZXZp
-Y2VfZmlsbF9yZXNldF9tYWdpYyh0bXBfYWRldik7DQo+PiArDQo+PiArCQkJCS8qIFVwZGF0ZSBQ
-U1AgRlcgdG9wb2xvZ3kgYWZ0ZXIgcmVzZXQgKi8NCj4+ICsJCQkJaWYgKHRtcF9hZGV2LT5nbWMu
-eGdtaS5udW1fcGh5c2ljYWxfbm9kZXMgPiAxKQ0KPj4gKwkJCQkJciA9IGFtZGdwdV94Z21pX3Vw
-ZGF0ZV90b3BvbG9neShoaXZlLCB0bXBfYWRldik7DQo+PiArCQkJfQ0KPj4gKwkJfQ0KPj4gKw0K
-Pj4gKw0KPj4gK291dDoNCj4+ICsJCWlmICghcikgew0KPj4gKwkJCWFtZGdwdV9pcnFfZ3B1X3Jl
-c2V0X3Jlc3VtZV9oZWxwZXIodG1wX2FkZXYpOw0KPj4gKwkJCXIgPSBhbWRncHVfaWJfcmluZ190
-ZXN0cyh0bXBfYWRldik7DQo+PiArCQkJaWYgKHIpIHsNCj4+ICsJCQkJZGV2X2Vycih0bXBfYWRl
-di0+ZGV2LCAiaWIgcmluZyB0ZXN0IGZhaWxlZCAoJWQpLlxuIiwgcik7DQo+PiArCQkJCXIgPSBh
-bWRncHVfZGV2aWNlX2lwX3N1c3BlbmQodG1wX2FkZXYpOw0KPj4gKwkJCQluZWVkX2Z1bGxfcmVz
-ZXQgPSB0cnVlOw0KPj4gKwkJCQlyID0gLUVBR0FJTjsNCj4+ICsJCQkJZ290byBlbmQ7DQo+PiAr
-CQkJfQ0KPj4gKwkJfQ0KPj4gKw0KPj4gKwkJaWYgKCFyKQ0KPj4gKwkJCXIgPSBhbWRncHVfZGV2
-aWNlX3JlY292ZXJfdnJhbSh0bXBfYWRldik7DQo+PiArCQllbHNlDQo+PiArCQkJdG1wX2FkZXYt
-PmFzaWNfcmVzZXRfcmVzID0gcjsNCj4+ICsJfQ0KPj4gKw0KPj4gK2VuZDoNCj4+ICsJKm5lZWRf
-ZnVsbF9yZXNldF9hcmcgPSBuZWVkX2Z1bGxfcmVzZXQ7DQo+PiArCXJldHVybiByOw0KPj4gK30N
-Cj4+ICsNCj4+ICtzdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNlX3Bvc3RfYXNpY19yZXNldChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICsJCQkJCSAgc3RydWN0IGFtZGdwdV9qb2IgKmpv
-YikNCj4+ICt7DQo+PiArCWludCBpOw0KPj4gICAgDQo+PiAgICAJZm9yIChpID0gMDsgaSA8IEFN
-REdQVV9NQVhfUklOR1M7ICsraSkgew0KPj4gICAgCQlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcg
-PSBhZGV2LT5yaW5nc1tpXTsNCj4+IEBAIC0zMzk0LDcgKzM0MTAsNyBAQCBpbnQgYW1kZ3B1X2Rl
-dmljZV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICAgIAkJICog
-b3IgYWxsIHJpbmdzIChpbiB0aGUgY2FzZSBAam9iIGlzIE5VTEwpDQo+PiAgICAJCSAqIGFmdGVy
-IGFib3ZlIGFtZGdwdV9yZXNldCBhY2NvbXBsaXNoZWQNCj4+ICAgIAkJICovDQo+PiAtCQlpZiAo
-KCFqb2IgfHwgam9iLT5iYXNlLnNjaGVkID09ICZyaW5nLT5zY2hlZCkgJiYgIXIpDQo+PiArCQlp
-ZiAoKCFqb2IgfHwgam9iLT5iYXNlLnNjaGVkID09ICZyaW5nLT5zY2hlZCkgJiYgIWFkZXYtPmFz
-aWNfcmVzZXRfcmVzKQ0KPj4gICAgCQkJZHJtX3NjaGVkX2pvYl9yZWNvdmVyeSgmcmluZy0+c2No
-ZWQpOw0KPj4gICAgDQo+PiAgICAJCWt0aHJlYWRfdW5wYXJrKHJpbmctPnNjaGVkLnRocmVhZCk7
-DQo+PiBAQCAtMzQwNCwyMSArMzQyMCwxNTAgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292
-ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiAgICAJCWRybV9oZWxwZXJfcmVzdW1l
-X2ZvcmNlX21vZGUoYWRldi0+ZGRldik7DQo+PiAgICAJfQ0KPj4gICAgDQo+PiAtCXR0bV9ib191
-bmxvY2tfZGVsYXllZF93b3JrcXVldWUoJmFkZXYtPm1tYW4uYmRldiwgcmVzY2hlZCk7DQo+PiAr
-CXR0bV9ib191bmxvY2tfZGVsYXllZF93b3JrcXVldWUoJmFkZXYtPm1tYW4uYmRldiwgYWRldi0+
-cmVzY2hlZCk7DQo+PiAgICANCj4+IC0JaWYgKHIpIHsNCj4+IC0JCS8qIGJhZCBuZXdzLCBob3cg
-dG8gdGVsbCBpdCB0byB1c2Vyc3BhY2UgPyAqLw0KPj4gLQkJZGV2X2luZm8oYWRldi0+ZGV2LCAi
-R1BVIHJlc2V0KCVkKSBmYWlsZWRcbiIsIGF0b21pY19yZWFkKCZhZGV2LT5ncHVfcmVzZXRfY291
-bnRlcikpOw0KPj4gLQkJYW1kZ3B1X3ZmX2Vycm9yX3B1dChhZGV2LCBBTURHSU1fRVJST1JfVkZf
-R1BVX1JFU0VUX0ZBSUwsIDAsIHIpOw0KPj4gLQl9IGVsc2Ugew0KPj4gLQkJZGV2X2luZm8oYWRl
-di0+ZGV2LCAiR1BVIHJlc2V0KCVkKSBzdWNjZWVkZWQhXG4iLGF0b21pY19yZWFkKCZhZGV2LT5n
-cHVfcmVzZXRfY291bnRlcikpOw0KPj4gLQl9DQo+PiArCWFkZXYtPmFzaWNfcmVzZXRfcmVzID0g
-YWRldi0+cmVzY2hlZCA9IDA7DQo+PiArDQo+PiArfQ0KPj4gICAgDQo+PiArc3RhdGljIHZvaWQg
-YW1kZ3B1X2xvY2tfYWRldihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICt7DQo+PiAr
-CW11dGV4X2xvY2soJmFkZXYtPmxvY2tfcmVzZXQpOw0KPj4gKwlhdG9taWNfaW5jKCZhZGV2LT5n
-cHVfcmVzZXRfY291bnRlcik7DQo+PiArCWFkZXYtPmluX2dwdV9yZXNldCA9IDE7DQo+PiArCS8q
-IEJsb2NrIGtmZCAqLw0KPj4gKwlhbWRncHVfYW1ka2ZkX3ByZV9yZXNldChhZGV2KTsNCj4+ICt9
-DQo+PiArDQo+PiArc3RhdGljIHZvaWQgYW1kZ3B1X3VubG9ja19hZGV2KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KQ0KPj4gK3sNCj4+ICAgIAkvKnVubG9jayBrZmQgKi8NCj4+ICAgIAlhbWRn
-cHVfYW1ka2ZkX3Bvc3RfcmVzZXQoYWRldik7DQo+PiAgICAJYW1kZ3B1X3ZmX2Vycm9yX3RyYW5z
-X2FsbChhZGV2KTsNCj4+ICAgIAlhZGV2LT5pbl9ncHVfcmVzZXQgPSAwOw0KPj4gICAgCW11dGV4
-X3VubG9jaygmYWRldi0+bG9ja19yZXNldCk7DQo+PiArfQ0KPj4gKw0KPj4gKw0KPj4gKy8qKg0K
-Pj4gKyAqIGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXIgLSByZXNldCB0aGUgYXNpYyBhbmQgcmVj
-b3ZlciBzY2hlZHVsZXINCj4+ICsgKg0KPj4gKyAqIEBhZGV2OiBhbWRncHUgZGV2aWNlIHBvaW50
-ZXINCj4+ICsgKiBAam9iOiB3aGljaCBqb2IgdHJpZ2dlciBoYW5nDQo+PiArICoNCj4+ICsgKiBB
-dHRlbXB0IHRvIHJlc2V0IHRoZSBHUFUgaWYgaXQgaGFzIGh1bmcgKGFsbCBhc2ljcykuDQo+PiAr
-ICogQXR0ZW1wdCB0byBkbyBzb2Z0LXJlc2V0IG9yIGZ1bGwtcmVzZXQgYW5kIHJlaW5pdGlhbGl6
-ZSBBc2ljDQo+PiArICogUmV0dXJucyAwIGZvciBzdWNjZXNzIG9yIGFuIGVycm9yIG9uIGZhaWx1
-cmUuDQo+PiArICovDQo+PiArDQo+PiAraW50IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXIoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiArCQkJICAgICAgc3RydWN0IGFtZGdwdV9qb2Ig
-KmpvYikNCj4+ICt7DQo+PiArCWludCByOw0KPj4gKwlzdHJ1Y3QgYW1kZ3B1X2hpdmVfaW5mbyAq
-aGl2ZSA9IE5VTEw7DQo+PiArCWJvb2wgbmVlZF9mdWxsX3Jlc2V0ID0gZmFsc2U7DQo+PiArCXN0
-cnVjdCBhbWRncHVfZGV2aWNlICp0bXBfYWRldiA9IE5VTEw7DQo+PiArCXN0cnVjdCBsaXN0X2hl
-YWQgZGV2aWNlX2xpc3QsICpkZXZpY2VfbGlzdF9oYW5kbGUgPSAgTlVMTDsNCj4+ICsNCj4+ICsJ
-SU5JVF9MSVNUX0hFQUQoJmRldmljZV9saXN0KTsNCj4+ICsNCj4+ICsJZGV2X2luZm8oYWRldi0+
-ZGV2LCAiR1BVIHJlc2V0IGJlZ2luIVxuIik7DQo+PiArDQo+PiArCS8qDQo+PiArCSAqIEluIGNh
-c2Ugb2YgWEdNSSBoaXZlIGRpc2FsbG93IGNvbmN1cnJlbnQgcmVzZXRzIHRvIGJlIHRyaWdnZXJl
-ZA0KPj4gKwkgKiBieSBkaWZmZXJlbnQgbm9kZXMuDQo+PiArCSAqLw0KPj4gKwlpZiAoYWRldi0+
-Z21jLnhnbWkubnVtX3BoeXNpY2FsX25vZGVzID4gMSkNCj4+ICsJCW11dGV4X2xvY2soJnhnbWlf
-bXV0ZXgpOw0KPj4gKw0KPj4gKwkvKiBTdGFydCB3aXRoIGFkZXYgcHJlIGFzaWMgcmVzZXQgZmly
-c3QgZm9yIHNvZnQgcmVzZXQgY2hlY2suKi8NCj4+ICsJYW1kZ3B1X2xvY2tfYWRldihhZGV2KTsN
-Cj4+ICsJciA9IGFtZGdwdV9kZXZpY2VfcHJlX2FzaWNfcmVzZXQoYWRldiwNCj4+ICsJCQkJCSBq
-b2IsDQo+PiArCQkJCQkgJm5lZWRfZnVsbF9yZXNldCk7DQo+PiArCWlmIChyKSB7DQo+PiArCQkv
-KlRPRE8gU2hvdWxkIHdlIHN0b3AgPyovDQo+PiArCQlEUk1fRVJST1IoIkdQVSBwcmUgYXNpYyBy
-ZXNldCBmYWlsZWQgd2l0aCBlcnIsICVkIGZvciBkcm0gZGV2LCAlcyAiLA0KPj4gKwkJCSAgciwg
-YWRldi0+ZGRldi0+dW5pcXVlKTsNCj4+ICsJCWFkZXYtPmFzaWNfcmVzZXRfcmVzID0gcjsNCj4+
-ICsJfQ0KPj4gKw0KPj4gKwkvKiBCdWlsZCBsaXN0IG9mIGRldmljZXMgdG8gcmVzZXQgKi8NCj4+
-ICsJaWYgIChuZWVkX2Z1bGxfcmVzZXQgJiYgYWRldi0+Z21jLnhnbWkubnVtX3BoeXNpY2FsX25v
-ZGVzID4gMSkgew0KPj4gKwkJaGl2ZSA9IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFkZXYpOw0KPj4g
-KwkJaWYgKCFoaXZlKSB7DQo+PiArCQkJciA9IC1FTk9ERVY7DQo+PiArDQo+PiArCQkJYW1kZ3B1
-X3VubG9ja19hZGV2KGFkZXYpOw0KPj4gKw0KPj4gKwkJCWlmIChhZGV2LT5nbWMueGdtaS5udW1f
-cGh5c2ljYWxfbm9kZXMgPiAxKQ0KPj4gKwkJCQltdXRleF91bmxvY2soJnhnbWlfbXV0ZXgpOw0K
-Pj4gKwkJCXJldHVybiByOw0KPj4gKwkJfQ0KPj4gKw0KPj4gKwkJLyoNCj4+ICsJCSAqIEluIGNh
-c2Ugd2UgYXJlIGluIFhHTUkgaGl2ZSBtb2RlIGRldmljZSByZXNldCBpcyBkb25lIGZvciBhbGwg
-dGhlDQo+PiArCQkgKiBub2RlcyBpbiB0aGUgaGl2ZSB0byByZXRyYWluIGFsbCBYR01JIGxpbmtz
-IGFuZCBoZW5jZSB0aGUgcmVzZXQNCj4+ICsJCSAqIHNlcXVlbmNlIGlzIGV4ZWN1dGVkIGluIGxv
-b3Agb24gYWxsIG5vZGVzLg0KPj4gKwkJICovDQo+PiArCQlkZXZpY2VfbGlzdF9oYW5kbGUgPSBh
-bWRncHVfeGdtaV9nZXRfYWRldl9saXN0X2hhbmRsZShoaXZlKTsNCj4+ICsJfSBlbHNlIHsNCj4+
-ICsJCWxpc3RfYWRkX3RhaWwoJmFkZXYtPmdtYy54Z21pLmhlYWQsICZkZXZpY2VfbGlzdCk7DQo+
-PiArCQlkZXZpY2VfbGlzdF9oYW5kbGUgPSAmZGV2aWNlX2xpc3Q7DQo+PiArCX0NCj4+ICsNCj4+
-ICtyZXRyeToJLyogUmVzdCBvZiBhZGV2cyBwcmUgYXNpYyByZXNldCBmcm9tIFhHTUkgaGl2ZS4g
-Ki8NCj4+ICsJbGlzdF9mb3JfZWFjaF9lbnRyeSh0bXBfYWRldiwgZGV2aWNlX2xpc3RfaGFuZGxl
-LCBnbWMueGdtaS5oZWFkKSB7DQo+PiArDQo+PiArCQlpZiAodG1wX2FkZXYgPT0gYWRldikNCj4+
-ICsJCQljb250aW51ZTsNCj4+ICsNCj4+ICsJCWRldl9pbmZvKHRtcF9hZGV2LT5kZXYsICJHUFUg
-cmVzZXQgYmVnaW4gZm9yIGRybSBkZXYgJXMhXG4iLCBhZGV2LT5kZGV2LT51bmlxdWUpOw0KPj4g
-Kw0KPj4gKwkJYW1kZ3B1X2xvY2tfYWRldih0bXBfYWRldik7DQo+PiArCQlyID0gYW1kZ3B1X2Rl
-dmljZV9wcmVfYXNpY19yZXNldCh0bXBfYWRldiwNCj4+ICsJCQkJCQkgTlVMTCwNCj4+ICsJCQkJ
-CQkgJm5lZWRfZnVsbF9yZXNldCk7DQo+PiArCQkvKlRPRE8gU2hvdWxkIHdlIHN0b3AgPyovDQo+
-PiArCQlpZiAocikgew0KPj4gKwkJCURSTV9FUlJPUigiR1BVIHByZSBhc2ljIHJlc2V0IGZhaWxl
-ZCB3aXRoIGVyciwgJWQgZm9yIGRybSBkZXYsICVzICIsDQo+PiArCQkJCSAgciwgdG1wX2FkZXYt
-PmRkZXYtPnVuaXF1ZSk7DQo+PiArCQkJdG1wX2FkZXYtPmFzaWNfcmVzZXRfcmVzID0gcjsNCj4+
-ICsJCX0NCj4+ICsJfQ0KPj4gKw0KPj4gKwkvKiBBY3R1YWwgQVNJQyByZXNldHMgaWYgbmVlZGVk
-LiovDQo+PiArCS8qIFRPRE8gSW1wbGVtZW50IFhHTUkgaGl2ZSByZXNldCBsb2dpYyBmb3IgU1JJ
-T1YgKi8NCj4+ICsJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkgew0KPj4gKwkJciA9IGFtZGdw
-dV9kZXZpY2VfcmVzZXRfc3Jpb3YoYWRldiwgam9iID8gZmFsc2UgOiB0cnVlKTsNCj4+ICsJCWlm
-IChyKQ0KPj4gKwkJCWFkZXYtPmFzaWNfcmVzZXRfcmVzID0gcjsNCj4+ICsJfSBlbHNlIHsNCj4+
-ICsJCXIgID0gYW1kZ3B1X2RvX2FzaWNfcmVzZXQoaGl2ZSwgZGV2aWNlX2xpc3RfaGFuZGxlLCAm
-bmVlZF9mdWxsX3Jlc2V0KTsNCj4+ICsJCWlmIChyICYmIHIgPT0gLUVBR0FJTikNCj4+ICsJCQln
-b3RvIHJldHJ5Ow0KPj4gKwl9DQo+PiArDQo+PiArCS8qIFBvc3QgQVNJQyByZXNldCBmb3IgYWxs
-IGRldnMgLiovDQo+PiArCWxpc3RfZm9yX2VhY2hfZW50cnkodG1wX2FkZXYsIGRldmljZV9saXN0
-X2hhbmRsZSwgZ21jLnhnbWkuaGVhZCkgew0KPj4gKwkJYW1kZ3B1X2RldmljZV9wb3N0X2FzaWNf
-cmVzZXQodG1wX2FkZXYsIHRtcF9hZGV2ID09IGFkZXYgPyBqb2IgOiBOVUxMKTsNCj4+ICsNCj4+
-ICsJCWlmIChyKSB7DQo+PiArCQkJLyogYmFkIG5ld3MsIGhvdyB0byB0ZWxsIGl0IHRvIHVzZXJz
-cGFjZSA/ICovDQo+PiArCQkJZGV2X2luZm8odG1wX2FkZXYtPmRldiwgIkdQVSByZXNldCglZCkg
-ZmFpbGVkXG4iLCBhdG9taWNfcmVhZCgmYWRldi0+Z3B1X3Jlc2V0X2NvdW50ZXIpKTsNCj4+ICsJ
-CQlhbWRncHVfdmZfZXJyb3JfcHV0KHRtcF9hZGV2LCBBTURHSU1fRVJST1JfVkZfR1BVX1JFU0VU
-X0ZBSUwsIDAsIHIpOw0KPj4gKwkJfSBlbHNlIHsNCj4+ICsJCQlkZXZfaW5mbyh0bXBfYWRldi0+
-ZGV2LCAiR1BVIHJlc2V0KCVkKSBzdWNjZWVkZWQhXG4iLCBhdG9taWNfcmVhZCgmYWRldi0+Z3B1
-X3Jlc2V0X2NvdW50ZXIpKTsNCj4+ICsJCX0NCj4+ICsNCj4+ICsJCWFtZGdwdV91bmxvY2tfYWRl
-dih0bXBfYWRldik7DQo+PiArCX0NCj4+ICsNCj4+ICsJaWYgKGFkZXYtPmdtYy54Z21pLm51bV9w
-aHlzaWNhbF9ub2RlcyA+IDEpDQo+PiArCQltdXRleF91bmxvY2soJnhnbWlfbXV0ZXgpOw0KPj4g
-Kw0KPj4gKwlpZiAocikNCj4+ICsJCWRldl9pbmZvKGFkZXYtPmRldiwgIkdQVSByZXNldCBlbmQg
-d2l0aCByZXQgPSAlZFxuIiwgcik7DQo+PiAgICAJcmV0dXJuIHI7DQo+PiAgICB9DQo+PiAgICAN
-Cg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0758498318==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB1226238684747E76C7FE217D83DA0DM5PR12MB1226namp_"
+
+--_000_DM5PR12MB1226238684747E76C7FE217D83DA0DM5PR12MB1226namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Tejun,
+
+On Tue, Nov 20, 2018 at 5:30 PM Tejun Heo <tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org> wrote:
+> On Tue, Nov 20, 2018 at 10:21:14PM +0000, Ho, Kenny wrote:
+> > By this reply, are you suggesting that vendor specific resources
+> > will never be acceptable to be managed under cgroup?  Let say a user
+>
+> I wouldn't say never but whatever which gets included as a cgroup
+> controller should have clearly defined resource abstractions and the
+> control schemes around them including support for delegation.  AFAICS,
+> gpu side still seems to have a long way to go (and it's not clear
+> whether that's somewhere it will or needs to end up).
+Right, I totally understand that it's not obvious from this RFC because the=
+ 'resource' counting demonstrated in this RFC is trivial in nature, mostly =
+to illustrate the 'vendor' concept.  The structure of this patch actually g=
+ive us the ability to support both abstracted resources you mentioned and v=
+endor specific resources.  But it is probably not very clear as the RFC onl=
+y includes two resources and they are both vendor specific.  To be clear, I=
+ am not saying there aren't abstracted resources in drm, there are (we are =
+still working on those).  What I am saying is that not all resources are ab=
+stracted and for the purpose of this RFC I was hoping to get some feedback =
+on the vendor specific parts early just so that we don't go down the wrong =
+path.
+
+That said, I think I am getting a better sense of what you are saying.  Ple=
+ase correct me if I misinterpreted: your concern is that abstracting by ven=
+dor is too high level and it's too much of a free-for-all.  Instead, resour=
+ces should be abstracted at the controller level even if it's only availabl=
+e to a specific vendor (or even a specific product from a specific vendor).=
+  Is that a fair read?
+
+A couple of additional side questions:
+* Is statistic/accounting-only use cases like those enabled by cpuacct cont=
+roller no longer sufficient?  If it is still sufficient, can you elaborate =
+more on what you mean by having control schemes and supporting delegation?
+* When you wrote delegation, do you mean delegation in the sense described =
+in https://www.kernel.org/doc/Documentation/cgroup-v2.txt ?
+
+> > To put the questions in more concrete terms, let say a user wants to
+> > expose certain part of a gpu to a particular cgroup similar to the
+> > way selective cpu cores are exposed to a cgroup via cpuset, how
+> > should we go about enabling such functionality?
+>
+> Do what the intel driver or bpf is doing?  It's not difficult to hook
+> into cgroup for identification purposes.
+Does intel driver or bpf present an interface file in cgroupfs for users to=
+ configure the core selection like cpuset?  I must admit I am not too famil=
+iar with the bpf case as I was referencing mostly the way rdma was implemen=
+ted when putting this RFC together.
+
+
+Perhaps I wasn't communicating clearly so let me see if I can illustrate th=
+is discussion with a hypothetical but concrete example using our competitor=
+'s product.  Nvidia has something called Tensor Cores in some of their GPUs=
+ and the purpose of those cores is to accelerate matrix operations for mach=
+ine learning applications.  This is something unique to Nvidia and to my kn=
+owledge no one else has something like it.  These cores are different from =
+regular shader processors and there are multiple of them in a GPU.
+
+Under the structure of this RFC, if Nvidia wants to make Tensor Cores manag=
+eable via cgroup (with the "Allocation" distribution model let say), they w=
+ill probably have an interface file called "drm.nvidia.tensor_core", in whi=
+ch only nvidia's GPUs will be listed.  If a GPU has TC, it will have a posi=
+tive count, otherwise 0.
+
+If I understand you correctly Tejun, is that they should not do that.  What=
+ they should do is have an abstracted resource, possibly named "drm.matrix_=
+accelerator" where all drm devices available on a system will be listed.  A=
+ll GPUs except some Nvidia's will have a count of 0.  Or perhaps that is no=
+t sufficiently abstracted so instead there should be just "drm.cores" inste=
+ad and that file list both device, core types and count.  For one vendor th=
+ey may have shader proc, texture map unit, tensor core, ray tracing cores a=
+s types.  Others may have ALUs, EUs and subslices.
+
+Is that an accurate representation of what you are recommending?
+
+Regards,
+Kenny
+
+
+--_000_DM5PR12MB1226238684747E76C7FE217D83DA0DM5PR12MB1226namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Co=
+lor Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI=
+ Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"></p>
+<div>Hi Tejun,<br>
+<br>
+On Tue, Nov 20, 2018 at 5:30 PM Tejun Heo &lt;tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org&gt; wrote:<br>
+&gt; On Tue, Nov 20, 2018 at 10:21:14PM &#43;0000, Ho, Kenny wrote:<br>
+&gt; &gt; By this reply, are you suggesting that vendor specific resources<=
+br>
+&gt; &gt; will never be acceptable to be managed under cgroup? &nbsp;Let sa=
+y a user<br>
+&gt;<br>
+&gt; I wouldn't say never but whatever which gets included as a cgroup<br>
+&gt; controller should have clearly defined resource abstractions and the<b=
+r>
+&gt; control schemes around them including support for delegation. &nbsp;AF=
+AICS,<br>
+&gt; gpu side still seems to have a long way to go (and it's not clear<br>
+&gt; whether that's somewhere it will or needs to end up).<br>
+Right, I totally understand that it's not obvious from this RFC because the=
+ 'resource' counting demonstrated in this RFC is trivial in nature, mostly =
+to illustrate the 'vendor' concept. &nbsp;The structure of this patch actua=
+lly give us the ability to support both
+ abstracted resources you mentioned and vendor specific resources.&nbsp; Bu=
+t it is probably not very clear as the RFC only includes two resources and =
+they are both vendor specific.&nbsp; To be clear, I am not saying there are=
+n't abstracted resources in drm, there are
+ (we are still working on those).&nbsp; What I am saying is that not all re=
+sources are abstracted and for the purpose of this RFC I was hoping to get =
+some feedback on the vendor specific parts early just so that we don't go d=
+own the wrong path.<br>
+<br>
+That said, I think I am getting a better sense of what you are saying. &nbs=
+p;Please correct me if I misinterpreted: your concern is that abstracting b=
+y vendor is too high level and it's too much of a free-for-all. &nbsp;Inste=
+ad, resources should be abstracted at the
+ controller level even if it's only available to a specific vendor (or even=
+ a specific product from a specific vendor). &nbsp;Is that a fair read?<br>
+<br>
+A couple of additional side questions:<br>
+* Is statistic/accounting-only use cases like those enabled by cpuacct cont=
+roller no longer sufficient? &nbsp;If it is still sufficient, can you elabo=
+rate more on what you mean by having control schemes and supporting delegat=
+ion?<br>
+* When you wrote delegation, do you mean delegation in the sense described =
+in https://www.kernel.org/doc/Documentation/cgroup-v2.txt ?<br>
+<br>
+&gt; &gt; To put the questions in more concrete terms, let say a user wants=
+ to<br>
+&gt; &gt; expose certain part of a gpu to a particular cgroup similar to th=
+e<br>
+&gt; &gt; way selective cpu cores are exposed to a cgroup via cpuset, how<b=
+r>
+&gt; &gt; should we go about enabling such functionality?<br>
+&gt;<br>
+&gt; Do what the intel driver or bpf is doing? &nbsp;It's not difficult to =
+hook<br>
+&gt; into cgroup for identification purposes.<br>
+Does intel driver or bpf present an interface file in cgroupfs for users to=
+ configure the core selection like cpuset?&nbsp; I must admit I am not too =
+familiar with the bpf case as I was referencing mostly the way rdma was imp=
+lemented when putting this RFC together.<br>
+<br>
+<br>
+Perhaps I wasn't communicating clearly so let me see if I can illustrate th=
+is discussion with a hypothetical but concrete example using our competitor=
+'s product. &nbsp;Nvidia has something called Tensor Cores in some of their=
+ GPUs and the purpose of those cores
+ is to accelerate matrix operations for machine learning applications. &nbs=
+p;This is something unique to Nvidia and to my knowledge no one else has so=
+mething like it. &nbsp;These cores are different from regular shader proces=
+sors and there are multiple of them in a GPU.<br>
+<br>
+Under the structure of this RFC, if Nvidia wants to make Tensor Cores manag=
+eable via cgroup (with the &quot;Allocation&quot; distribution model let sa=
+y), they will probably have an interface file called &quot;drm.nvidia.tenso=
+r_core&quot;, in which only nvidia's GPUs will be listed.
+ &nbsp;If a GPU has TC, it will have a positive count, otherwise 0.<br>
+<br>
+If I understand you correctly Tejun, is that they should not do that.&nbsp;=
+ What they should do is have an abstracted resource, possibly named &quot;d=
+rm.matrix_accelerator&quot; where all drm devices available on a system wil=
+l be listed.&nbsp; All GPUs except some Nvidia's will
+ have a count of 0.&nbsp; Or perhaps that is not sufficiently abstracted so=
+ instead there should be just &quot;drm.cores&quot; instead and that file l=
+ist both device, core types and count.&nbsp; For one vendor they may have s=
+hader proc, texture map unit, tensor core, ray tracing
+ cores as types.&nbsp; Others may have ALUs, EUs and subslices.<br>
+<br>
+Is that an&nbsp;accurate representation of what you are recommending?<br>
+<br>
+Regards,<br>
+Kenny&nbsp;</div>
+<div style=3D"color: rgb(0, 0, 0);">
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText"><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DM5PR12MB1226238684747E76C7FE217D83DA0DM5PR12MB1226namp_--
+
+--===============0758498318==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0758498318==--
