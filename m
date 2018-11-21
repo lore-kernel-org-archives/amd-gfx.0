@@ -1,37 +1,34 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: disable page queue support for Vega20
-Date: Wed, 21 Nov 2018 14:40:30 +0800
-Message-ID: <20181121064030.14792-1-evan.quan@amd.com>
+From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Subject: [PATCH] drm/amd/amdgpu/vce_v3_0.c: Remove duplicate header
+Date: Wed, 21 Nov 2018 12:41:03 +0530
+Message-ID: <20181121071103.GA2622@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Jerry.Zhang@amd.com, leo.liu@amd.com, andrey.grodzovsky@amd.com, Emily.Deng@amd.com, Rex.Zhu@amd.com
+Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-S2VlcCBpdCBkaXNhYmxlZCB1bnRpbCB3ZSBjb25maXJtIGl0J3MgcmVhZHkuCgpDaGFuZ2UtSWQ6
-IEkyZGM0YzBmMTE1NmRkODJmNzA0NjY3MmZlZDZkMjJiOWQxOGMyMDEwClNpZ25lZC1vZmYtYnk6
-IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvc2RtYV92NF8wLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3NkbWFfdjRfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKaW5k
-ZXggMGEzYjY4ZGQ0OWEwLi5lNmNiMmMzOTk5NTcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3NkbWFfdjRfMC5jCkBAIC0xNDU3LDcgKzE0NTcsOCBAQCBzdGF0aWMgYm9vbCBzZG1hX3Y0XzBf
-Zndfc3VwcG9ydF9wYWdpbmdfcXVldWUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJY2Fz
-ZSBDSElQX1ZFR0ExMjoKIAkJcmV0dXJuIGZ3X3ZlcnNpb24gPj0gMzE7CiAJY2FzZSBDSElQX1ZF
-R0EyMDoKLQkJcmV0dXJuIGZ3X3ZlcnNpb24gPj0gMTE1OworCQkvL3JldHVybiBmd192ZXJzaW9u
-ID49IDExNTsKKwkJcmV0dXJuIGZhbHNlOwogCWRlZmF1bHQ6CiAJCXJldHVybiBmYWxzZTsKIAl9
-Ci0tIAoyLjE5LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Remove gca/gfx_8_0_d.h which is included more than once
+
+Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index 6dbd39730070..4e4289a06a53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -37,7 +37,6 @@
+ #include "gca/gfx_8_0_d.h"
+ #include "smu/smu_7_1_2_d.h"
+ #include "smu/smu_7_1_2_sh_mask.h"
+-#include "gca/gfx_8_0_d.h"
+ #include "gca/gfx_8_0_sh_mask.h"
+ #include "ivsrcid/ivsrcid_vislands30.h"
+ 
+-- 
+2.17.1
