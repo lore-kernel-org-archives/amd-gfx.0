@@ -1,47 +1,35 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: disable page queue support for Vega20
-Date: Wed, 21 Nov 2018 02:25:06 -0500
-Message-ID: <CADnq5_Pg=pepXBY=Gj-nzmihdfig+weFNtnc7JBmBrqE5QNF2A@mail.gmail.com>
-References: <20181121064030.14792-1-evan.quan@amd.com>
+From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Subject: [PATCH] drm/amd/display/amdgpu_dm/amdgpu_dm.c: Remove duplicate
+ header
+Date: Wed, 21 Nov 2018 12:55:08 +0530
+Message-ID: <20181121072508.GA2948@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181121064030.14792-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Tony.Cheng@amd.com, mikita.lipski@amd.com, shirish.s@amd.com, Bhawanpreet.Lakha@amd.com, David.Francis@amd.com, Anthony.Koo@amd.com
+Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KT24g
-V2VkLCBOb3YgMjEsIDIwMTggYXQgMTo0MCBBTSBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29t
-PiB3cm90ZToKPgo+IEtlZXAgaXQgZGlzYWJsZWQgdW50aWwgd2UgY29uZmlybSBpdCdzIHJlYWR5
-Lgo+Cj4gQ2hhbmdlLUlkOiBJMmRjNGMwZjExNTZkZDgyZjcwNDY2NzJmZWQ2ZDIyYjlkMThjMjAx
-MAo+IFNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Cj4gLS0tCj4g
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jIHwgMyArKy0KPiAgMSBmaWxl
-IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvc2RtYV92NF8wLmMKPiBpbmRleCAwYTNiNjhkZDQ5YTAuLmU2Y2IyYzM5OTk1
-NyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCj4gQEAgLTE0NTcs
-NyArMTQ1Nyw4IEBAIHN0YXRpYyBib29sIHNkbWFfdjRfMF9md19zdXBwb3J0X3BhZ2luZ19xdWV1
-ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgICAgICAgIGNhc2UgQ0hJUF9WRUdBMTI6
-Cj4gICAgICAgICAgICAgICAgIHJldHVybiBmd192ZXJzaW9uID49IDMxOwo+ICAgICAgICAgY2Fz
-ZSBDSElQX1ZFR0EyMDoKPiAtICAgICAgICAgICAgICAgcmV0dXJuIGZ3X3ZlcnNpb24gPj0gMTE1
-Owo+ICsgICAgICAgICAgICAgICAvL3JldHVybiBmd192ZXJzaW9uID49IDExNTsKPiArICAgICAg
-ICAgICAgICAgcmV0dXJuIGZhbHNlOwo+ICAgICAgICAgZGVmYXVsdDoKPiAgICAgICAgICAgICAg
-ICAgcmV0dXJuIGZhbHNlOwo+ICAgICAgICAgfQo+IC0tCj4gMi4xOS4xCj4KPiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBs
-aXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Remove dm_services_types.h which is included more than once
+
+Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index e224f23e2215..62a96c683584 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -38,7 +38,6 @@
+ #include "amd_shared.h"
+ #include "amdgpu_dm_irq.h"
+ #include "dm_helpers.h"
+-#include "dm_services_types.h"
+ #include "amdgpu_dm_mst_types.h"
+ #if defined(CONFIG_DEBUG_FS)
+ #include "amdgpu_dm_debugfs.h"
+-- 
+2.17.1
