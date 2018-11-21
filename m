@@ -1,35 +1,34 @@
 From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-Subject: [PATCH] drm/amd/display/amdgpu_dm/amdgpu_dm.c: Remove duplicate
- header
-Date: Wed, 21 Nov 2018 17:39:13 +0530
-Message-ID: <20181121120913.GA2289@hp-pavilion-15-notebook-pc-brajeswar>
+Subject: [PATCH] drm/amd/amdgpu: Remove duplicate header
+Date: Wed, 21 Nov 2018 19:21:52 +0530
+Message-ID: <20181121135151.GA2536@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
 Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Tony.Cheng@amd.com, shirish.s@amd.com, Bhawanpreet.Lakha@amd.com, David.Francis@amd.com, Anthony.Koo@amd.com
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, andrey.grodzovsky@amd.com, Pixel.Ding@amd.com, Monk.Liu@amd.com
 Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
 List-Id: amd-gfx.lists.freedesktop.org
 
-Remove dm_services_types.h which is included more than once
+Remove gca/gfx_8_0_sh_mask.h which is included more than once
 
 Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 -
+ drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index e224f23e2215..62a96c683584 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -38,7 +38,6 @@
- #include "amd_shared.h"
- #include "amdgpu_dm_irq.h"
- #include "dm_helpers.h"
--#include "dm_services_types.h"
- #include "amdgpu_dm_mst_types.h"
- #if defined(CONFIG_DEBUG_FS)
- #include "amdgpu_dm_debugfs.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+index 64e875d528dd..6a0fcd67662a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
+@@ -37,7 +37,6 @@
+ #include "gmc/gmc_8_2_sh_mask.h"
+ #include "oss/oss_3_0_d.h"
+ #include "oss/oss_3_0_sh_mask.h"
+-#include "gca/gfx_8_0_sh_mask.h"
+ #include "dce/dce_10_0_d.h"
+ #include "dce/dce_10_0_sh_mask.h"
+ #include "smu/smu_7_1_3_d.h"
 -- 
 2.17.1
