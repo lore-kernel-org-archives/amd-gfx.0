@@ -1,14 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: disable page queue support for Vega20
-Date: Wed, 21 Nov 2018 14:06:42 +0000
-Message-ID: <BN6PR12MB1809878E2D614F14232D33CBF7DA0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181121064030.14792-1-evan.quan@amd.com>,
- <CADnq5_Pg=pepXBY=Gj-nzmihdfig+weFNtnc7JBmBrqE5QNF2A@mail.gmail.com>
+From: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/display: Fix Scaling (RMX_*) for DC driver
+Date: Wed, 21 Nov 2018 14:37:45 +0000
+Message-ID: <814061e0-d3a1-6f81-3f6f-b7a33388bd17@amd.com>
+References: <20181116195901.8562-1-Bhawanpreet.Lakha@amd.com>
+ <20181116195901.8562-2-Bhawanpreet.Lakha@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1158304834=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Pg=pepXBY=Gj-nzmihdfig+weFNtnc7JBmBrqE5QNF2A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <20181116195901.8562-2-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <9F7F95FE46A5E946940616A8DC444683-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,161 +21,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1158304834==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809878E2D614F14232D33CBF7DA0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809878E2D614F14232D33CBF7DA0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Do we need this for vega12 as well?
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, November 21, 2018 2:25:06 AM
-To: Quan, Evan
-Cc: amd-gfx list
-Subject: Re: [PATCH] drm/amdgpu: disable page queue support for Vega20
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-On Wed, Nov 21, 2018 at 1:40 AM Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org> wrote:
->
-> Keep it disabled until we confirm it's ready.
->
-> Change-Id: I2dc4c0f1156dd82f7046672fed6d22b9d18c2010
-> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v4_0.c
-> index 0a3b68dd49a0..e6cb2c399957 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> @@ -1457,7 +1457,8 @@ static bool sdma_v4_0_fw_support_paging_queue(struc=
-t amdgpu_device *adev)
->         case CHIP_VEGA12:
->                 return fw_version >=3D 31;
->         case CHIP_VEGA20:
-> -               return fw_version >=3D 115;
-> +               //return fw_version >=3D 115;
-> +               return false;
->         default:
->                 return false;
->         }
-> --
-> 2.19.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809878E2D614F14232D33CBF7DA0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Do we need this for vega12 as wel=
-l?<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
-gmail.com&gt;<br>
-<b>Sent:</b> Wednesday, November 21, 2018 2:25:06 AM<br>
-<b>To:</b> Quan, Evan<br>
-<b>Cc:</b> amd-gfx list<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: disable page queue support for Vega=
-20</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Reviewed-by: Alex Deucher &lt;alexander.deucher@am=
-d.com&gt;<br>
-On Wed, Nov 21, 2018 at 1:40 AM Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt; wrote:<=
-br>
-&gt;<br>
-&gt; Keep it disabled until we confirm it's ready.<br>
-&gt;<br>
-&gt; Change-Id: I2dc4c0f1156dd82f7046672fed6d22b9d18c2010<br>
-&gt; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 3 &#43;&#43;-<br>
-&gt;&nbsp; 1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/=
-amd/amdgpu/sdma_v4_0.c<br>
-&gt; index 0a3b68dd49a0..e6cb2c399957 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; @@ -1457,7 &#43;1457,8 @@ static bool sdma_v4_0_fw_support_paging_queu=
-e(struct amdgpu_device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA12:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; return fw_version &gt;=3D 31;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA20:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return fw_version &gt;=3D 115;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; //return fw_version &gt;=3D 115;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; return false;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; --<br>
-&gt; 2.19.1<br>
-&gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809878E2D614F14232D33CBF7DA0BN6PR12MB1809namp_--
-
---===============1158304834==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1158304834==--
+DQoNCk9uIDIwMTgtMTEtMTYgMjo1OSBwLm0uLCBCaGF3YW5wcmVldCBMYWtoYSB3cm90ZToNCj4g
+QmVmb3JlOg0KPiBXZSB1c2UgZHJtX21hdGNoX2NlYV9tb2RlKCkgdG8gZ2V0IHRoZSB2aWMgZm9y
+IGFueSBtb2RlIHdlDQo+IHdhbnQgdG8gc2V0LCBtb3N0IG9mIHRoZSB0aW1lIHZpYyB3aWxsIGJl
+IGRpZmZlcmVudCBmb3IgdGhlIG5ldyBtb2RlLg0KPiANCj4gREMgdXNlcyBtZW1jbXAgdG8gY2hl
+Y2sgaWYgdGltaW5nIGNoYW5nZWQsIGluIHRoaXMgY2FzZSBEQyB3aWxsDQo+IHNheSB0aW1pbmcg
+Y2hhbmdlZCBhbmQgd2UgZW5kdXAgZG9pbmcgYSBmdWxsIG1vZGVzZXQuDQo+IA0KPiBDdXJyZW50
+Og0KPiBOb3cgd2UgY2hlY2sgaWYgIVJNWF9PRkYgYW5kIG9sZF9yZWZyZXNoID09IG5ld19yZWZy
+ZXNoIGlmIHNvDQo+IHdlIGNvcHkgdGhlIHZpYyBmcm9tIG9sZCB0aW1pbmcuIEluIGEgY2FzZSB3
+aGVyZSB3ZSBhcmUgY3VycmVudGx5IG9uDQo+IGEgbG93ZXIgdGltaW5nIGFuZCB3YW50IHRvIGNo
+YW5nZSB0byBoaWdoZXIgbW9kZSwgc3RyZWFtLT5kc3Qgd2lsbCBiZQ0KPiBkaWZmZXJlbnQgYW5k
+IGNhdXNlIHVzIHRvIGRvIGEgZnVsbCBtb2Rlc2V0LCB3aGljaCBpcyB3aGF0IHdlIHdhbnQuDQo+
+IA0KPiBTaWduZWQtb2ZmLWJ5OiBCaGF3YW5wcmVldCBMYWtoYSA8Qmhhd2FucHJlZXQuTGFraGFA
+YW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG0uYyB8IDQ5ICsrKysrKysrKysrKysrKysrKy0tLS0tDQo+ICAgMSBmaWxlIGNo
+YW5nZWQsIDM4IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IGluZGV4
+IGUwMzI4ZThkY2ZmMy4uNjFlOTk0NzcwZjA4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gQEAgLTI1NTQsNyArMjU1
+NCw4IEBAIHN0YXRpYyB2b2lkIGFkanVzdF9jb2xvdXJfZGVwdGhfZnJvbV9kaXNwbGF5X2luZm8o
+c3RydWN0IGRjX2NydGNfdGltaW5nICp0aW1pbmdfDQo+ICAgc3RhdGljIHZvaWQNCj4gICBmaWxs
+X3N0cmVhbV9wcm9wZXJ0aWVzX2Zyb21fZHJtX2Rpc3BsYXlfbW9kZShzdHJ1Y3QgZGNfc3RyZWFt
+X3N0YXRlICpzdHJlYW0sDQo+ICAgCQkJCQkgICAgIGNvbnN0IHN0cnVjdCBkcm1fZGlzcGxheV9t
+b2RlICptb2RlX2luLA0KPiAtCQkJCQkgICAgIGNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yICpj
+b25uZWN0b3IpDQo+ICsJCQkJCSAgICAgY29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5l
+Y3RvciwNCj4gKwkJCQkJICAgICBjb25zdCBzdHJ1Y3QgZGNfc3RyZWFtX3N0YXRlICpvbGRfc3Ry
+ZWFtKQ0KPiAgIHsNCj4gICAJc3RydWN0IGRjX2NydGNfdGltaW5nICp0aW1pbmdfb3V0ID0gJnN0
+cmVhbS0+dGltaW5nOw0KPiAgIAljb25zdCBzdHJ1Y3QgZHJtX2Rpc3BsYXlfaW5mbyAqaW5mbyA9
+ICZjb25uZWN0b3ItPmRpc3BsYXlfaW5mbzsNCj4gQEAgLTI1ODAsNyArMjU4MSwxOCBAQCBmaWxs
+X3N0cmVhbV9wcm9wZXJ0aWVzX2Zyb21fZHJtX2Rpc3BsYXlfbW9kZShzdHJ1Y3QgZGNfc3RyZWFt
+X3N0YXRlICpzdHJlYW0sDQo+ICAgCQkJY29ubmVjdG9yKTsNCj4gICAJdGltaW5nX291dC0+c2Nh
+bl90eXBlID0gU0NBTk5JTkdfVFlQRV9OT0RBVEE7DQo+ICAgCXRpbWluZ19vdXQtPmhkbWlfdmlj
+ID0gMDsNCj4gLQl0aW1pbmdfb3V0LT52aWMgPSBkcm1fbWF0Y2hfY2VhX21vZGUobW9kZV9pbik7
+DQo+ICsNCj4gKwlpZihvbGRfc3RyZWFtKSB7DQo+ICsJCXRpbWluZ19vdXQtPnZpYyA9IG9sZF9z
+dHJlYW0tPnRpbWluZy52aWM7DQo+ICsJCXRpbWluZ19vdXQtPmZsYWdzLkhTWU5DX1BPU0lUSVZF
+X1BPTEFSSVRZID0gb2xkX3N0cmVhbS0+dGltaW5nLmZsYWdzLkhTWU5DX1BPU0lUSVZFX1BPTEFS
+SVRZOw0KPiArCQl0aW1pbmdfb3V0LT5mbGFncy5WU1lOQ19QT1NJVElWRV9QT0xBUklUWSA9IG9s
+ZF9zdHJlYW0tPnRpbWluZy5mbGFncy5WU1lOQ19QT1NJVElWRV9QT0xBUklUWTsNCj4gKwl9IGVs
+c2Ugew0KPiArCQl0aW1pbmdfb3V0LT52aWMgPSBkcm1fbWF0Y2hfY2VhX21vZGUobW9kZV9pbik7
+DQo+ICsJCWlmIChtb2RlX2luLT5mbGFncyAmIERSTV9NT0RFX0ZMQUdfUEhTWU5DKQ0KPiArCQkJ
+dGltaW5nX291dC0+ZmxhZ3MuSFNZTkNfUE9TSVRJVkVfUE9MQVJJVFkgPSAxOw0KPiArCQlpZiAo
+bW9kZV9pbi0+ZmxhZ3MgJiBEUk1fTU9ERV9GTEFHX1BWU1lOQykNCj4gKwkJCXRpbWluZ19vdXQt
+PmZsYWdzLlZTWU5DX1BPU0lUSVZFX1BPTEFSSVRZID0gMTsNCj4gKwl9DQo+ICAgDQo+ICAgCXRp
+bWluZ19vdXQtPmhfYWRkcmVzc2FibGUgPSBtb2RlX2luLT5jcnRjX2hkaXNwbGF5Ow0KPiAgIAl0
+aW1pbmdfb3V0LT5oX3RvdGFsID0gbW9kZV9pbi0+Y3J0Y19odG90YWw7DQo+IEBAIC0yNTk2LDEw
+ICsyNjA4LDYgQEAgZmlsbF9zdHJlYW1fcHJvcGVydGllc19mcm9tX2RybV9kaXNwbGF5X21vZGUo
+c3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFtLA0KPiAgIAkJbW9kZV9pbi0+Y3J0Y192c3lu
+Y19lbmQgLSBtb2RlX2luLT5jcnRjX3ZzeW5jX3N0YXJ0Ow0KPiAgIAl0aW1pbmdfb3V0LT5waXhf
+Y2xrX2toeiA9IG1vZGVfaW4tPmNydGNfY2xvY2s7DQo+ICAgCXRpbWluZ19vdXQtPmFzcGVjdF9y
+YXRpbyA9IGdldF9hc3BlY3RfcmF0aW8obW9kZV9pbik7DQo+IC0JaWYgKG1vZGVfaW4tPmZsYWdz
+ICYgRFJNX01PREVfRkxBR19QSFNZTkMpDQo+IC0JCXRpbWluZ19vdXQtPmZsYWdzLkhTWU5DX1BP
+U0lUSVZFX1BPTEFSSVRZID0gMTsNCj4gLQlpZiAobW9kZV9pbi0+ZmxhZ3MgJiBEUk1fTU9ERV9G
+TEFHX1BWU1lOQykNCj4gLQkJdGltaW5nX291dC0+ZmxhZ3MuVlNZTkNfUE9TSVRJVkVfUE9MQVJJ
+VFkgPSAxOw0KPiAgIA0KPiAgIAlzdHJlYW0tPm91dHB1dF9jb2xvcl9zcGFjZSA9IGdldF9vdXRw
+dXRfY29sb3Jfc3BhY2UodGltaW5nX291dCk7DQo+ICAgDQo+IEBAIC0yNzYyLDEzICsyNzcwLDE4
+IEBAIHN0YXRpYyB2b2lkIGRtX2VuYWJsZV9wZXJfZnJhbWVfY3J0Y19tYXN0ZXJfc3luYyhzdHJ1
+Y3QgZGNfc3RhdGUgKmNvbnRleHQpDQo+ICAgc3RhdGljIHN0cnVjdCBkY19zdHJlYW1fc3RhdGUg
+Kg0KPiAgIGNyZWF0ZV9zdHJlYW1fZm9yX3Npbmsoc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3Ig
+KmFjb25uZWN0b3IsDQo+ICAgCQkgICAgICAgY29uc3Qgc3RydWN0IGRybV9kaXNwbGF5X21vZGUg
+KmRybV9tb2RlLA0KPiAtCQkgICAgICAgY29uc3Qgc3RydWN0IGRtX2Nvbm5lY3Rvcl9zdGF0ZSAq
+ZG1fc3RhdGUpDQo+ICsJCSAgICAgICBjb25zdCBzdHJ1Y3QgZG1fY29ubmVjdG9yX3N0YXRlICpk
+bV9zdGF0ZSwNCj4gKwkJICAgICAgIGNvbnN0IHN0cnVjdCBkY19zdHJlYW1fc3RhdGUgKm9sZF9z
+dHJlYW0pDQo+ICAgew0KPiAgIAlzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqcHJlZmVycmVkX21v
+ZGUgPSBOVUxMOw0KPiAgIAlzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqZHJtX2Nvbm5lY3RvcjsNCj4g
+ICAJc3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFtID0gTlVMTDsNCj4gICAJc3RydWN0IGRy
+bV9kaXNwbGF5X21vZGUgbW9kZSA9ICpkcm1fbW9kZTsNCj4gICAJYm9vbCBuYXRpdmVfbW9kZV9m
+b3VuZCA9IGZhbHNlOw0KPiArCWJvb2wgc2NhbGUgPSBkbV9zdGF0ZSA/IChkbV9zdGF0ZS0+c2Nh
+bGluZyAhPSBSTVhfT0ZGKSA6IGZhbHNlOw0KPiArCWludCBtb2RlX3JlZnJlc2g7DQo+ICsJaW50
+IHByZWZlcnJlZF9yZWZyZXNoOw0KPiArDQo+ICAgCXN0cnVjdCBkY19zaW5rICpzaW5rID0gTlVM
+TDsNCj4gICAJaWYgKGFjb25uZWN0b3IgPT0gTlVMTCkgew0KPiAgIAkJRFJNX0VSUk9SKCJhY29u
+bmVjdG9yIGlzIE5VTEwhXG4iKTsNCj4gQEAgLTI4MDcsNiArMjgyMCw4IEBAIGNyZWF0ZV9zdHJl
+YW1fZm9yX3Npbmsoc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFjb25uZWN0b3IsDQo+ICAg
+CQkJCXN0cnVjdCBkcm1fZGlzcGxheV9tb2RlLA0KPiAgIAkJCQloZWFkKTsNCj4gICANCj4gKwlt
+b2RlX3JlZnJlc2ggPSBkcm1fbW9kZV92cmVmcmVzaCgmbW9kZSk7DQo+ICsNCj4gICAJaWYgKHBy
+ZWZlcnJlZF9tb2RlID09IE5VTEwpIHsNCj4gICAJCS8qDQo+ICAgCQkgKiBUaGlzIG1heSBub3Qg
+YmUgYW4gZXJyb3IsIHRoZSB1c2UgY2FzZSBpcyB3aGVuIHdlIGhhdmUgbm8NCj4gQEAgLTI4MjQs
+OCArMjgzOSwxOSBAQCBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rKHN0cnVjdCBhbWRncHVfZG1fY29u
+bmVjdG9yICphY29ubmVjdG9yLA0KPiAgIAlpZiAoIWRtX3N0YXRlKQ0KPiAgIAkJZHJtX21vZGVf
+c2V0X2NydGNpbmZvKCZtb2RlLCAwKTsNCj4gICANCj4gLQlmaWxsX3N0cmVhbV9wcm9wZXJ0aWVz
+X2Zyb21fZHJtX2Rpc3BsYXlfbW9kZShzdHJlYW0sDQo+IC0JCQkmbW9kZSwgJmFjb25uZWN0b3It
+PmJhc2UpOw0KPiArCXByZWZlcnJlZF9yZWZyZXNoID0gZHJtX21vZGVfdnJlZnJlc2gocHJlZmVy
+cmVkX21vZGUpOw0KPiArDQo+ICsJLyoNCj4gKwkqIElmIHNjYWxpbmcgaXMgZW5hYmxlZCBhbmQg
+cmVmcmVzaCByYXRlIGRpZG4ndCBjaGFuZ2UNCj4gKwkqIHdlIGNvcHkgdGhlIHZpYyBhbmQgcG9s
+YXJpdGllcyBvZiB0aGUgb2xkIHRpbWluZ3MsIGluIGNhc2UNCg0KTG9va3MgbGlrZSBzb21ldGhp
+bmcgZ290IGN1dCBpbiB0aGUgY29tbWVudHM/DQoNCldpdGggdGhhdCBmaXhlZCwgc2VyaWVzIGlz
+DQpSZXZpZXdlZC1ieTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+DQoNCj4gKwkqLw0KPiAr
+CWlmICghc2NhbGUgfHwgbW9kZV9yZWZyZXNoICE9IHByZWZlcnJlZF9yZWZyZXNoKQ0KPiArCQlm
+aWxsX3N0cmVhbV9wcm9wZXJ0aWVzX2Zyb21fZHJtX2Rpc3BsYXlfbW9kZShzdHJlYW0sDQo+ICsJ
+CQkmbW9kZSwgJmFjb25uZWN0b3ItPmJhc2UsIE5VTEwpOw0KPiArCWVsc2UNCj4gKwkJZmlsbF9z
+dHJlYW1fcHJvcGVydGllc19mcm9tX2RybV9kaXNwbGF5X21vZGUoc3RyZWFtLA0KPiArCQkJJm1v
+ZGUsICZhY29ubmVjdG9yLT5iYXNlLCBvbGRfc3RyZWFtKTsNCj4gKw0KPiAgIAl1cGRhdGVfc3Ry
+ZWFtX3NjYWxpbmdfc2V0dGluZ3MoJm1vZGUsIGRtX3N0YXRlLCBzdHJlYW0pOw0KPiAgIA0KPiAg
+IAlmaWxsX2F1ZGlvX2luZm8oDQo+IEBAIC0zMjQ2LDcgKzMyNzIsNyBAQCBlbnVtIGRybV9tb2Rl
+X3N0YXR1cyBhbWRncHVfZG1fY29ubmVjdG9yX21vZGVfdmFsaWQoc3RydWN0IGRybV9jb25uZWN0
+b3IgKmNvbm5lYw0KPiAgIAkJZ290byBmYWlsOw0KPiAgIAl9DQo+ICAgDQo+IC0Jc3RyZWFtID0g
+Y3JlYXRlX3N0cmVhbV9mb3Jfc2luayhhY29ubmVjdG9yLCBtb2RlLCBOVUxMKTsNCj4gKwlzdHJl
+YW0gPSBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rKGFjb25uZWN0b3IsIG1vZGUsIE5VTEwsIE5VTEwp
+Ow0KPiAgIAlpZiAoc3RyZWFtID09IE5VTEwpIHsNCj4gICAJCURSTV9FUlJPUigiRmFpbGVkIHRv
+IGNyZWF0ZSBzdHJlYW0gZm9yIHNpbmshXG4iKTsNCj4gICAJCWdvdG8gZmFpbDsNCj4gQEAgLTUx
+MDksNyArNTEzNSw4IEBAIHN0YXRpYyBpbnQgZG1fdXBkYXRlX2NydGNzX3N0YXRlKHN0cnVjdCBh
+bWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSwNCj4gICANCj4gICAJCQluZXdfc3RyZWFtID0gY3Jl
+YXRlX3N0cmVhbV9mb3Jfc2luayhhY29ubmVjdG9yLA0KPiAgIAkJCQkJCQkgICAgICZuZXdfY3J0
+Y19zdGF0ZS0+bW9kZSwNCj4gLQkJCQkJCQkgICAgZG1fbmV3X2Nvbm5fc3RhdGUpOw0KPiArCQkJ
+CQkJCSAgICBkbV9uZXdfY29ubl9zdGF0ZSwNCj4gKwkJCQkJCQkgICAgZG1fb2xkX2NydGNfc3Rh
+dGUtPnN0cmVhbSk7DQo+ICAgDQo+ICAgCQkJLyoNCj4gICAJCQkgKiB3ZSBjYW4gaGF2ZSBubyBz
+dHJlYW0gb24gQUNUSU9OX1NFVCBpZiBhIGRpc3BsYXkNCj4gDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
