@@ -1,33 +1,34 @@
-From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm: should break if already get the best size
-Date: Thu, 22 Nov 2018 20:33:06 +0800
-Message-ID: <1542889986-13261-1-git-send-email-Monk.Liu@amd.com>
+From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Subject: [PATCH] drm/amd/display: Remove duplicate header
+Date: Thu, 22 Nov 2018 19:31:26 +0530
+Message-ID: <20181122140126.GA3124@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Tony.Cheng@amd.com, Bhawanpreet.Lakha@amd.com, David.Francis@amd.com, hersenxs.wu@amd.com
+Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9n
-cHUvZHJtL2RybV9tbS5jIHwgMiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoK
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fbW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9k
-cm1fbW0uYwppbmRleCAzY2M1ZmJkLi4zNjlmZDliIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vZHJtX21tLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9tbS5jCkBAIC0zMTgsNiArMzE4
-LDggQEAgc3RhdGljIHN0cnVjdCBkcm1fbW1fbm9kZSAqYmVzdF9ob2xlKHN0cnVjdCBkcm1fbW0g
-Km1tLCB1NjQgc2l6ZSkKIAkJaWYgKHNpemUgPD0gbm9kZS0+aG9sZV9zaXplKSB7CiAJCQliZXN0
-ID0gbm9kZTsKIAkJCXJiID0gcmItPnJiX3JpZ2h0OworCQkJaWYgKHNpemUgPT0gbm9kZS0+aG9s
-ZV9zaXplKQorCQkJCWJyZWFrOwogCQl9IGVsc2UgewogCQkJcmIgPSByYi0+cmJfbGVmdDsKIAkJ
-fQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Remove dce/dce_mem_input.h which is included more than once
+
+Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+index d68f951f9869..c41408c3eaf1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+@@ -40,7 +40,6 @@
+ #include "dce/dce_mem_input.h"
+ #include "dce/dce_link_encoder.h"
+ #include "dce/dce_stream_encoder.h"
+-#include "dce/dce_mem_input.h"
+ #include "dce/dce_ipp.h"
+ #include "dce/dce_transform.h"
+ #include "dce/dce_opp.h"
+-- 
+2.17.1
