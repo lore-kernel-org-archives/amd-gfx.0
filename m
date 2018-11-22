@@ -1,127 +1,47 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/display: Remove wait for hw/flip done in
- atomic check
-Date: Thu, 22 Nov 2018 19:49:07 +0000
-Message-ID: <1e2bcea6-2cbe-877f-fec8-c4f6b9a351ad@amd.com>
-References: <20181122173437.13538-1-nicholas.kazlauskas@amd.com>
- <20181122173437.13538-2-nicholas.kazlauskas@amd.com>
- <9b4c08d4-4aac-02dc-ce86-ae7152ae67c0@amd.com>
- <66d5f064-61fc-83d1-bb4a-2e0227dca826@amd.com>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 28/36] drm/amdgpu: fix bug with IH ring setup
+Date: Thu, 22 Nov 2018 14:52:32 -0500
+Message-ID: <20181122195240.13123-28-sashal@kernel.org>
+References: <20181122195240.13123-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <66d5f064-61fc-83d1-bb4a-2e0227dca826-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <9B8BA3B6EE92964AAA6367D4F6F402DC-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20181122195240.13123-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Philip Yang <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCk9uIDExLzIyLzIwMTggMDI6NDMgUE0sIEthemxhdXNrYXMsIE5pY2hvbGFzIHdyb3RlOg0K
-PiBPbiAxMS8yMi8xOCAyOjM5IFBNLCBHcm9kem92c2t5LCBBbmRyZXkgd3JvdGU6DQo+Pg0KPj4g
-T24gMTEvMjIvMjAxOCAxMjozNCBQTSwgTmljaG9sYXMgS2F6bGF1c2thcyB3cm90ZToNCj4+PiBb
-V2h5XQ0KPj4+IEF0b21pYyBjaGVjayBjYW4ndCB0cnVseSBiZSBub24tYmxvY2tpbmcgaWYgYW1k
-Z3B1X2RtIGlzIHdhaXRpbmcgZm9yDQo+Pj4gaHdfZG9uZSBhbmQgZmxpcF9kb25lIGluIGF0b21p
-YyBjaGVjay4gVGhpcyBpbnRyb2R1Y2VzIHdhaXRzIHdoZW4NCj4+PiBhbnkgcHJldmlvdXMgbm9u
-LWJsb2NraW5nIGNvbW1pdHMgcXVldWVkIHdvcmsgb24gYSB3b3JrZXIgdGhyZWFkIGFuZA0KPj4+
-IGEgbmV3IGF0b21pYyBjb21taXQgYXR0ZW1wdHMgdG8gZG8gYW5vdGhlciBmdWxsIHVwZGF0ZS9t
-b2Rlc2V0Lg0KPj4+DQo+Pj4gW0hvd10NCj4+PiBEcm9wIHRoZSB3YWl0cyBhbmQgbW92ZSB0aGUg
-Z2xvYmFsIGxvY2sgYWNxdXNpdGlvbiBpbnRvIGF0b21pYyBjaGVjay4NCj4+Pg0KPj4+IFRoaXMg
-aXMgZmluZSB0byBkbyBzaW5jZSBjb21taXQgdGFpbCB3YWl0cyBmb3IgdGhlc2UgZGVwZW5kZW5j
-aWVzDQo+Pj4gYmVmb3JlIGNhbGxpbmcgYW1kZ3B1X2RtX2F0b21pY19jb21taXRfdGFpbC4NCj4+
-IE5vdGUgdGhhdCBkcm1fYXRvbWljX2hlbHBlcl93YWl0X2Zvcl9kZXBlbmRlbmNpZXMgd2FpdHMg
-b25seSBvbiBhbGwNCj4+IHByZWNlZWRpbmcgY29tbWl0cyB0aGF0IHRvdWNoIHRoZSBzYW1lIENS
-VEMNCj4+IHdoaWxlIG91ciBjdXN0b20gZG9fYXF1aXJlX2dsb2JhbF9sb2NrIHdhaXQgb24gQUxM
-IHByZXZpb3VzIGNvbW1pdHMgaW4NCj4+IHRoZSBzeXN0ZW0gLSBldmVuIG9uIG90aGVyIENSVENT
-LiBBcyBmYXIgYXMgSSBjYW4NCj4+IHJlbWVtYmVyIHRoYXQgd2FzIGltcG9ydGFudCBiZWNhdXNl
-IHdlIGhhdmUgZ2xvYmFsIGRjX3N0YXRlIGNvbnRleHQNCj4+IHdoaWNoIG11c3QgYmUgcHJvdGVj
-dGVkIGZvciBhY2Nlc3MvbW9kaWZpY2F0aW9ucyB3aGlsZQ0KPj4gbG9va3MgbGlrZSBEUk0gYXNz
-dW1lcyB1bnJlbGF0ZWQgQ1JUQ3MgY2FuIGJlIG1vZGlmaWVkIGNvbmN1cnJlbnRseS4NCj4+IFRy
-eSB0byB2ZXJpZnkgdGhhdCBsYXRlc3QgZGlzcGxheSBjb2RlIHdpbGwgbm90IGJlIGJyb2tlbiBi
-eSB0aGlzDQo+PiByZWxheGF0aW9uIG9mIHN5bmNocm9uaXphdGlvbi4NCj4+DQo+PiBBbmRyZXkN
-Cj4gVGhpcyBpcyBhIGdvb2QgcG9pbnQuDQo+DQo+IFdoYXQgd2Ugc2hvdWxkIHJlYWxseSBiZSBk
-b2luZyBpbnN0ZWFkIGhlcmUgaXMgbG9ja2luZyBhbnl0aGluZyB0aGF0IGNhbg0KPiBtb2RpZnkg
-ZGMtPmN1cnJlbnRfc3RhdGUgZnJvbSB3aXRoaW4gYXRvbWljIGNvbW1pdCB0YWlsLiBTZXJpYWxp
-emluZw0KPiBjb21taXRzIGludG8gYSBxdWV1ZSBjb3VsZCB3b3JrIHRvby4NCg0KVGhpcyBpcyBh
-IHBvc3NpYmlsaXR5IGJ5IHRoZW4geW91IGhhdmUgdG8gZHVwbGljYXRlIA0KZHJtX2F0b21pY19o
-ZWxwZXJfY29tbWl0IHdpdGggb25seSBvbmNlIGNoYW5nZSB3aGljaA0KaXMgdG8gc3Vic3RpdHV0
-ZSBzeXN0ZW1fdW5ib3VuZF93cSB3aXRoIHlvdSBjb3N0dW1lIFdRLiBBbHRlcm5hdGl2ZWx5IA0K
-cHJvcG9zZSBhIGNoYW5nZcKgIHRvIHVwZGF0ZSBkcm1fYXRvbWljX2hlbHBlcl9jb21taXQNCnRv
-IGFsbG93IFdRcyBhcyBwYXJhbWV0ZXIuDQoNCkFuZHJleQ0KDQo+DQo+IEVpdGhlciBzaG91bGQg
-Zml4IG5vbi1ibG9ja2luZyBzdXBwb3J0Lg0KPg0KPiBOaWNob2xhcyBLYXpsYXVza2FzDQo+DQo+
-Pj4gVGhpcyBpcyBvbmx5IHNhZmUgYXMgbG9uZyBhcyBEQyBuZXZlciBxdWVyaWVzIGFueXRoaW5n
-IGZyb20gd2l0aGluDQo+Pj4gY3VycmVudF9zdGF0ZSB3aGVuIGRvaW5nIHZhbGlkYXRpb24gaW4g
-YXRvbWljX2NoZWNrLiBUaGlzIGlzIHRoZQ0KPj4+IGNhc2UgYXMgb2Ygd3JpdGluZywgYnV0IGFu
-eSBmdXR1cmUgdXNlcyBvZiBkYy0+Y3VycmVudF9zdGF0ZSBmcm9tDQo+Pj4gd2l0aGluIGF0b21p
-Y19jaGVjayBzaG91bGQgYmUgY29uc2lkZXJlZCBpbmNvcnJlY3QuDQo+Pj4NCj4+PiBDYzogSGFy
-cnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+DQo+Pj4gQ2M6IExlbyBMaSA8c3Vu
-cGVuZy5saUBhbWQuY29tPg0KPj4+IFNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMg
-PG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4NCj4+PiAtLS0NCj4+PiAgICAgLi4uL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNTggKystLS0tLS0tLS0tLS0t
-LS0tLQ0KPj4+ICAgICAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCA1MiBkZWxldGlv
-bnMoLSkNCj4+Pg0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYw0KPj4+IGluZGV4IDNhZTQzOGQ5ODQ5Zi4uZmUyMWJiODZiNjZhIDEw
-MDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
-L2FtZGdwdV9kbS5jDQo+Pj4gQEAgLTUwNzgsNTcgKzUwNzgsNiBAQCB2b2lkIGRtX3Jlc3RvcmVf
-ZHJtX2Nvbm5lY3Rvcl9zdGF0ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LA0KPj4+ICAgICAJCWRt
-X2ZvcmNlX2F0b21pY19jb21taXQoJmFjb25uZWN0b3ItPmJhc2UpOw0KPj4+ICAgICB9DQo+Pj4g
-ICAgIA0KPj4+IC0vKg0KPj4+IC0gKiBHcmFicyBhbGwgbW9kZXNldHRpbmcgbG9ja3MgdG8gc2Vy
-aWFsaXplIGFnYWluc3QgYW55IGJsb2NraW5nIGNvbW1pdHMsDQo+Pj4gLSAqIFdhaXRzIGZvciBj
-b21wbGV0aW9uIG9mIGFsbCBub24gYmxvY2tpbmcgY29tbWl0cy4NCj4+PiAtICovDQo+Pj4gLXN0
-YXRpYyBpbnQgZG9fYXF1aXJlX2dsb2JhbF9sb2NrKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsDQo+
-Pj4gLQkJCQkgc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKQ0KPj4+IC17DQo+Pj4gLQlz
-dHJ1Y3QgZHJtX2NydGMgKmNydGM7DQo+Pj4gLQlzdHJ1Y3QgZHJtX2NydGNfY29tbWl0ICpjb21t
-aXQ7DQo+Pj4gLQlsb25nIHJldDsNCj4+PiAtDQo+Pj4gLQkvKg0KPj4+IC0JICogQWRkaW5nIGFs
-bCBtb2Rlc2V0IGxvY2tzIHRvIGFxdWlyZV9jdHggd2lsbA0KPj4+IC0JICogZW5zdXJlIHRoYXQg
-d2hlbiB0aGUgZnJhbWV3b3JrIHJlbGVhc2UgaXQgdGhlDQo+Pj4gLQkgKiBleHRyYSBsb2NrcyB3
-ZSBhcmUgbG9ja2luZyBoZXJlIHdpbGwgZ2V0IHJlbGVhc2VkIHRvDQo+Pj4gLQkgKi8NCj4+PiAt
-CXJldCA9IGRybV9tb2Rlc2V0X2xvY2tfYWxsX2N0eChkZXYsIHN0YXRlLT5hY3F1aXJlX2N0eCk7
-DQo+Pj4gLQlpZiAocmV0KQ0KPj4+IC0JCXJldHVybiByZXQ7DQo+Pj4gLQ0KPj4+IC0JbGlzdF9m
-b3JfZWFjaF9lbnRyeShjcnRjLCAmZGV2LT5tb2RlX2NvbmZpZy5jcnRjX2xpc3QsIGhlYWQpIHsN
-Cj4+PiAtCQlzcGluX2xvY2soJmNydGMtPmNvbW1pdF9sb2NrKTsNCj4+PiAtCQljb21taXQgPSBs
-aXN0X2ZpcnN0X2VudHJ5X29yX251bGwoJmNydGMtPmNvbW1pdF9saXN0LA0KPj4+IC0JCQkJc3Ry
-dWN0IGRybV9jcnRjX2NvbW1pdCwgY29tbWl0X2VudHJ5KTsNCj4+PiAtCQlpZiAoY29tbWl0KQ0K
-Pj4+IC0JCQlkcm1fY3J0Y19jb21taXRfZ2V0KGNvbW1pdCk7DQo+Pj4gLQkJc3Bpbl91bmxvY2so
-JmNydGMtPmNvbW1pdF9sb2NrKTsNCj4+PiAtDQo+Pj4gLQkJaWYgKCFjb21taXQpDQo+Pj4gLQkJ
-CWNvbnRpbnVlOw0KPj4+IC0NCj4+PiAtCQkvKg0KPj4+IC0JCSAqIE1ha2Ugc3VyZSBhbGwgcGVu
-ZGluZyBIVyBwcm9ncmFtbWluZyBjb21wbGV0ZWQgYW5kDQo+Pj4gLQkJICogcGFnZSBmbGlwcyBk
-b25lDQo+Pj4gLQkJICovDQo+Pj4gLQkJcmV0ID0gd2FpdF9mb3JfY29tcGxldGlvbl9pbnRlcnJ1
-cHRpYmxlX3RpbWVvdXQoJmNvbW1pdC0+aHdfZG9uZSwgMTAqSFopOw0KPj4+IC0NCj4+PiAtCQlp
-ZiAocmV0ID4gMCkNCj4+PiAtCQkJcmV0ID0gd2FpdF9mb3JfY29tcGxldGlvbl9pbnRlcnJ1cHRp
-YmxlX3RpbWVvdXQoDQo+Pj4gLQkJCQkJJmNvbW1pdC0+ZmxpcF9kb25lLCAxMCpIWik7DQo+Pj4g
-LQ0KPj4+IC0JCWlmIChyZXQgPT0gMCkNCj4+PiAtCQkJRFJNX0VSUk9SKCJbQ1JUQzolZDolc10g
-aHdfZG9uZSBvciBmbGlwX2RvbmUgIg0KPj4+IC0JCQkJICAidGltZWQgb3V0XG4iLCBjcnRjLT5i
-YXNlLmlkLCBjcnRjLT5uYW1lKTsNCj4+PiAtDQo+Pj4gLQkJZHJtX2NydGNfY29tbWl0X3B1dChj
-b21taXQpOw0KPj4+IC0JfQ0KPj4+IC0NCj4+PiAtCXJldHVybiByZXQgPCAwID8gcmV0IDogMDsN
-Cj4+PiAtfQ0KPj4+IC0NCj4+PiAgICAgdm9pZCBzZXRfZnJlZXN5bmNfb25fc3RyZWFtKHN0cnVj
-dCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSwNCj4+PiAgICAgCQkJICAgIHN0cnVjdCBkbV9j
-cnRjX3N0YXRlICpuZXdfY3J0Y19zdGF0ZSwNCj4+PiAgICAgCQkJICAgIHN0cnVjdCBkbV9jb25u
-ZWN0b3Jfc3RhdGUgKm5ld19jb25fc3RhdGUsDQo+Pj4gQEAgLTU3OTMsNyArNTc0MiwxMiBAQCBz
-dGF0aWMgaW50IGFtZGdwdV9kbV9hdG9taWNfY2hlY2soc3RydWN0IGRybV9kZXZpY2UgKmRldiwN
-Cj4+PiAgICAgCQlpZiAocmV0KQ0KPj4+ICAgICAJCQlnb3RvIGZhaWw7DQo+Pj4gICAgIA0KPj4+
-IC0JCXJldCA9IGRvX2FxdWlyZV9nbG9iYWxfbG9jayhkZXYsIHN0YXRlKTsNCj4+PiArCQkvKg0K
-Pj4+ICsJCSAqIFRoaXMgc2hvdWxkIGJlIHJlcGxhY2VkIHdpdGggZmluZXIgbG9ja2luZyBvbiB0
-aGUNCj4+PiArCQkgKiBvbiB0aGUgYXBwcm9wcmlhdGUgcmVzb3VyY2VzIHdoZW4gcG9zc2libGUu
-DQo+Pj4gKwkJICogRm9yIG5vdyBpdCdzIHNhZmVyIHRvIGdyYWIgZXZlcnl0aGluZy4NCj4+PiAr
-CQkgKi8NCj4+PiArCQlyZXQgPSBkcm1fbW9kZXNldF9sb2NrX2FsbF9jdHgoZGV2LCBzdGF0ZS0+
-YWNxdWlyZV9jdHgpOw0KPj4+ICAgICAJCWlmIChyZXQpDQo+Pj4gICAgIAkJCWdvdG8gZmFpbDsN
-Cj4+PiAgICAgDQo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXw0KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngNCj4+DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: Philip Yang <Philip.Yang@amd.com>
+
+[ Upstream commit c837243ff4017f493c7d6f4ab57278d812a86859 ]
+
+The bug limits the IH ring wptr address to 40bit. When the system memory
+is bigger than 1TB, the bus address is more than 40bit, this causes the
+interrupt cannot be handled and cleared correctly.
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+index 5ae5ed2e62d6..21bc12e02311 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -129,7 +129,7 @@ static int vega10_ih_irq_init(struct amdgpu_device *adev)
+ 	else
+ 		wptr_off = adev->wb.gpu_addr + (adev->irq.ih.wptr_offs * 4);
+ 	WREG32_SOC15(OSSSYS, 0, mmIH_RB_WPTR_ADDR_LO, lower_32_bits(wptr_off));
+-	WREG32_SOC15(OSSSYS, 0, mmIH_RB_WPTR_ADDR_HI, upper_32_bits(wptr_off) & 0xFF);
++	WREG32_SOC15(OSSSYS, 0, mmIH_RB_WPTR_ADDR_HI, upper_32_bits(wptr_off) & 0xFFFF);
+ 
+ 	/* set rptr, wptr to 0 */
+ 	WREG32_SOC15(OSSSYS, 0, mmIH_RB_RPTR, 0);
+-- 
+2.17.1
