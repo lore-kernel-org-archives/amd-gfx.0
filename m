@@ -1,19 +1,11 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 7/7] drm/amdgpu: Use new doorbell layout for vega20 and
- future asic
-Date: Fri, 23 Nov 2018 19:38:15 +0000
-Message-ID: <BN6PR12MB165194EF202C47EE0C8487BE80D40@BN6PR12MB1651.namprd12.prod.outlook.com>
-References: <1542815518-8124-1-git-send-email-ozeng@amd.com>
- <1542815518-8124-7-git-send-email-ozeng@amd.com>
- <CADnq5_M6+jQpJGF0wscUP917QWbDSwCQTF4TYMTtTXp2vsKXEQ@mail.gmail.com>
- <BN6PR12MB1651198C70B58BE69A44EBFF80DA0@BN6PR12MB1651.namprd12.prod.outlook.com>
- <CADnq5_Omgd=yLKuqpb8-ZsrBJdjkEord0OL0WwVpXXcntQaB1A@mail.gmail.com>,
- <5a171836-f0bc-4edf-db9d-51746e8c9c4e@gmail.com>
- <BN6PR12MB180946F99B5AA562E542C4EBF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Oak Zeng <ozeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Moved doorbell structures to seperate file
+Date: Fri, 23 Nov 2018 20:01:23 +0000
+Message-ID: <1543003277-18487-1-git-send-email-ozeng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0913434652=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB180946F99B5AA562E542C4EBF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,705 +17,382 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 
---===============0913434652==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB165194EF202C47EE0C8487BE80D40BN6PR12MB1651namp_"
-
---_000_BN6PR12MB165194EF202C47EE0C8487BE80D40BN6PR12MB1651namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
-It is strange I didn't get your email on Wednesday. I will add one patch to=
- move all the doorbell definitions to a separate amdgpu_doorbell.h
-
-Regards,
-Oak
-
-From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, November 23, 2018 1:57 PM
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>; Koe=
-nig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 7/7] drm/amdgpu: Use new doorbell layout for vega20 and=
- future asic
-
-
-The main idea is to be able to use different layouts on different asics tha=
-t may share the same IP code.
-
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Christian K=F6nig <ckoenig.leichtzume=
-rken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
-Sent: Thursday, November 22, 2018 4:26:53 AM
-To: Alex Deucher; Zeng, Oak
-Cc: amd-gfx list
-Subject: Re: [PATCH 7/7] drm/amdgpu: Use new doorbell layout for vega20 and=
- future asic
-
-Am 21.11.18 um 17:39 schrieb Alex Deucher:
-> On Wed, Nov 21, 2018 at 11:37 AM Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org<mailto:Oak.Z=
-eng-5C7GfCeVMHo@public.gmane.org>> wrote:
->>> No need to add a new file for this.  Just add this to vega20_reg_init.c=
-.
->> Agreed.
->>
->>> Also, please use the doorbell enums rather than hardcoding the numbers.
->> Ok. Where should I put the doorbell enums for vega20? In amdgpu.h or in =
-vega20_reg_init.c?
-> Maybe add amdgpu_doorbell.h and move all of the enums there?
-
-Mhm, isn't part of the goal of this work to get rid of the enums?
-
-I mean when we have a structure to hold the indexes to we really need
-the enums any more? I don't think so.
-
-Christian.
-
->
-> Alex
->
->> thanks,
->> Oak
->>
->> -----Original Message-----
->> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-boun=
-ces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>> On Behalf Of Alex Deucher
->> Sent: Wednesday, November 21, 2018 11:22 AM
->> To: Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org<mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>>
->> Cc: Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org<mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>>; amd-gfx list =
-<amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
->> Subject: Re: [PATCH 7/7] drm/amdgpu: Use new doorbell layout for vega20 =
-and future asic
->>
->> On Wed, Nov 21, 2018 at 10:52 AM Oak Zeng <ozeng-5C7GfCeVMHo@public.gmane.org<mailto:ozeng@am=
-d.com>> wrote:
->>> Change-Id: I04d22fb717ac50483c0835f160a2e860e344f358
->>> Signed-off-by: Oak Zeng <ozeng-5C7GfCeVMHo@public.gmane.org<mailto:ozeng-5C7GfCeVMHo@public.gmane.org>>
->>> Suggested-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailto:Felix.Kuehl=
-ing-5C7GfCeVMHo@public.gmane.org>>
->>> Suggested-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.=
-deucher-5C7GfCeVMHo@public.gmane.org>>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/Makefile                |  4 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  4 +-
->>>   drivers/gpu/drm/amd/amdgpu/soc15.h                 |  1 +
->>>   .../drm/amd/amdgpu/vega20_doorbell_index_init.c    | 64 +++++++++++++=
-+++++++++
->>>   4 files changed, 70 insertions(+), 3 deletions(-)  create mode 100644
->>> drivers/gpu/drm/amd/amdgpu/vega20_doorbell_index_init.c
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile
->>> b/drivers/gpu/drm/amd/amdgpu/Makefile
->>> index 3ab8eba..b3b150b 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
->>> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
->>> @@ -63,8 +63,8 @@ amdgpu-$(CONFIG_DRM_AMDGPU_SI)+=3D si.o gmc_v6_0.o
->>> gfx_v6_0.o si_ih.o si_dma.o dce
->>>
->>>   amdgpu-y +=3D \
->>>          vi.o mxgpu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o nbio_=
-v7_0.o vega10_reg_init.o \
->>> -       vega20_reg_init.o nbio_v7_4.o vega10_doorbell_index_init.o vega=
-12_doorbell_index_init.o \
->>> -       vi_doorbell_index_init.o
->>> +       vega20_reg_init.o nbio_v7_4.o vi_doorbell_index_init.o vega10_d=
-oorbell_index_init.o \
->>> +       vega12_doorbell_index_init.o vega20_doorbell_index_init.o
->>>
->>>   # add DF block
->>>   amdgpu-y +=3D \
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> index 3ffd8f5..19f2149 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->>> @@ -517,8 +517,10 @@ static int amdgpu_device_doorbell_init(struct amdg=
-pu_device *adev)
->>>                  vi_doorbell_index_init(adev);
->>>          else if (adev->asic_type =3D=3D CHIP_VEGA10)
->>>                  vega10_doorbell_index_init(adev);
->>> -       else
->>> +       else if (adev->asic_type =3D=3D CHIP_VEGA12 || adev->asic_type =
-=3D=3D
->>> + CHIP_RAVEN)
->>>                  vega12_doorbell_index_init(adev);
->>> +       else
->>> +               vega20_doorbell_index_init(adev);
->>>
->>>          /* No doorbell on SI hardware generation */
->>>          if (adev->asic_type < CHIP_BONAIRE) { diff --git
->>> a/drivers/gpu/drm/amd/amdgpu/soc15.h
->>> b/drivers/gpu/drm/amd/amdgpu/soc15.h
->>> index 939c0e8..6ba0d26 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/soc15.h
->>> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
->>> @@ -60,4 +60,5 @@ int vega20_reg_base_init(struct amdgpu_device
->>> *adev);
->>>
->>>   void vega10_doorbell_index_init(struct amdgpu_device *adev);  void
->>> vega12_doorbell_index_init(struct amdgpu_device *adev);
->>> +void vega20_doorbell_index_init(struct amdgpu_device *adev);
->>>   #endif
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_doorbell_index_init.c
->>> b/drivers/gpu/drm/amd/amdgpu/vega20_doorbell_index_init.c
->>> new file mode 100644
->>> index 0000000..dcaef7f
->>> --- /dev/null
->>> +++ b/drivers/gpu/drm/amd/amdgpu/vega20_doorbell_index_init.c
->>> @@ -0,0 +1,64 @@
->>> +/*
->>> + * Copyright 2018 Advanced Micro Devices, Inc.
->>> + *
->>> + * Permission is hereby granted, free of charge, to any person
->>> +obtaining a
->>> + * copy of this software and associated documentation files (the
->>> +"Software"),
->>> + * to deal in the Software without restriction, including without
->>> +limitation
->>> + * the rights to use, copy, modify, merge, publish, distribute,
->>> +sublicense,
->>> + * and/or sell copies of the Software, and to permit persons to whom
->>> +the
->>> + * Software is furnished to do so, subject to the following conditions=
-:
->>> + *
->>> + * The above copyright notice and this permission notice shall be
->>> +included in
->>> + * all copies or substantial portions of the Software.
->>> + *
->>> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
->>> +EXPRESS OR
->>> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
->>> +MERCHANTABILITY,
->>> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT
->>> +SHALL
->>> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM,
->>> +DAMAGES OR
->>> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
->>> +OTHERWISE,
->>> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
->>> +OR
->>> + * OTHER DEALINGS IN THE SOFTWARE.
->>> + *
->>> + */
->>> +
->>> +#include "amdgpu.h"
->>> +
->>> +void vega20_doorbell_index_init(struct amdgpu_device *adev) {
->>> +       /* Compute + GFX: 0~255 */
->>> +       adev->doorbell_index.kiq =3D 0x00;
->>> +       adev->doorbell_index.mec_ring0 =3D 0x03;
->>> +       adev->doorbell_index.mec_ring1 =3D 0x04;
->>> +       adev->doorbell_index.mec_ring2 =3D 0x05;
->>> +       adev->doorbell_index.mec_ring3 =3D 0x06;
->>> +       adev->doorbell_index.mec_ring4 =3D 0x07;
->>> +       adev->doorbell_index.mec_ring5 =3D 0x08;
->>> +       adev->doorbell_index.mec_ring6 =3D 0x09;
->>> +       adev->doorbell_index.mec_ring7 =3D 0x0a;
->>> +       adev->doorbell_index.userqueue_start =3D 0x0b;
->>> +       adev->doorbell_index.userqueue_end =3D 0x8a;
->>> +       adev->doorbell_index.gfx_ring0 =3D 0x8b;
->>> +       /* SDMA:256~335*/
->>> +       adev->doorbell_index.sdma_engine0 =3D 0x100;
->>> +       adev->doorbell_index.sdma_engine1 =3D 0x10a;
->>> +       adev->doorbell_index.sdma_engine2 =3D 0x114;
->>> +       adev->doorbell_index.sdma_engine3 =3D 0x11e;
->>> +       adev->doorbell_index.sdma_engine4 =3D 0x128;
->>> +       adev->doorbell_index.sdma_engine5 =3D 0x132;
->>> +       adev->doorbell_index.sdma_engine6 =3D 0x13C;
->>> +       adev->doorbell_index.sdma_engine7 =3D 0x146;
->>> +       /* IH: 376~391 */
->>> +       adev->doorbell_index.ih =3D 0x178;
->>> +       /* MMSCH: 392~407 */
->>> +       adev->doorbell_index.uvd_vce.uvd_ring0_1 =3D 0x188;
->>> +       adev->doorbell_index.uvd_vce.uvd_ring2_3 =3D 0x189;
->>> +       adev->doorbell_index.uvd_vce.uvd_ring4_5 =3D 0x18a;
->>> +       adev->doorbell_index.uvd_vce.uvd_ring6_7 =3D 0x18b;
->>> +       adev->doorbell_index.uvd_vce.vce_ring0_1 =3D 0x18c;
->>> +       adev->doorbell_index.uvd_vce.vce_ring2_3 =3D 0x18d;
->>> +       adev->doorbell_index.uvd_vce.vce_ring4_5 =3D 0x18e;
->>> +       adev->doorbell_index.uvd_vce.vce_ring6_7 =3D 0x18f;
->>> +       /* In unit of dword doorbell */
->>> +       adev->doorbell_index.max_assignment =3D 0x18f << 1; }
->> No need to add a new file for this.  Just add this to vega20_reg_init.c.=
-  Also, please use the doorbell enums rather than hardcoding the numbers.
->>
->> Alex
->>
->>> +
->>> --
->>> 2.7.4
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB165194EF202C47EE0C8487BE80D40BN6PR12MB1651namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi Alex,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">It is strange I didn&#8217;t get your email on Wedne=
-sday. I will add one patch to move all the doorbell definitions to a separa=
-te amdgpu_doorbell.h
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Oak<o:p></o:p></p>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
-r@amd.com&gt; <br>
-<b>Sent:</b> Friday, November 23, 2018 1:57 PM<br>
-<b>To:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Zeng, Oak &lt;Oak.Ze=
-ng-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH 7/7] drm/amdgpu: Use new doorbell layout for veg=
-a20 and future asic<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div id=3D"divtagdefaultwrapper">
-<p><span style=3D"font-size:12.0pt;color:black">The main idea is to be able=
- to use different layouts on different asics that may share the same IP cod=
-e.<o:p></o:p></span></p>
-<p><span style=3D"font-size:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p=
->
-<p><span style=3D"font-size:12.0pt;color:black">Alex<o:p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"3" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
-.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
-f Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"=
->ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Thursday, November 22, 2018 4:26:53 AM<br>
-<b>To:</b> Alex Deucher; Zeng, Oak<br>
-<b>Cc:</b> amd-gfx list<br>
-<b>Subject:</b> Re: [PATCH 7/7] drm/amdgpu: Use new doorbell layout for veg=
-a20 and future asic</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">Am 21.11.18 um 17:39 schrieb Alex Deucher:<br>
-&gt; On Wed, Nov 21, 2018 at 11:37 AM Zeng, Oak &lt;<a href=3D"mailto:Oak.Z=
-eng-5C7GfCeVMHo@public.gmane.org">Oak.Zeng-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
-&gt;&gt;&gt; No need to add a new file for this.&nbsp; Just add this to veg=
-a20_reg_init.c.<br>
-&gt;&gt; Agreed.<br>
-&gt;&gt;<br>
-&gt;&gt;&gt; Also, please use the doorbell enums rather than hardcoding the=
- numbers.<br>
-&gt;&gt; Ok. Where should I put the doorbell enums for vega20? In amdgpu.h =
-or in vega20_reg_init.c?<br>
-&gt; Maybe add amdgpu_doorbell.h and move all of the enums there?<br>
-<br>
-Mhm, isn't part of the goal of this work to get rid of the enums?<br>
-<br>
-I mean when we have a structure to hold the indexes to we really need <br>
-the enums any more? I don't think so.<br>
-<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Alex<br>
-&gt;<br>
-&gt;&gt; thanks,<br>
-&gt;&gt; Oak<br>
-&gt;&gt;<br>
-&gt;&gt; -----Original Message-----<br>
-&gt;&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; On Behalf Of Alex De=
-ucher<br>
-&gt;&gt; Sent: Wednesday, November 21, 2018 11:22 AM<br>
-&gt;&gt; To: Zeng, Oak &lt;<a href=3D"mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org">Oak.Zeng@amd=
-.com</a>&gt;<br>
-&gt;&gt; Cc: Zeng, Oak &lt;<a href=3D"mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org">Oak.Zeng@amd=
-.com</a>&gt;; amd-gfx list &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
-&gt;&gt; Subject: Re: [PATCH 7/7] drm/amdgpu: Use new doorbell layout for v=
-ega20 and future asic<br>
-&gt;&gt;<br>
-&gt;&gt; On Wed, Nov 21, 2018 at 10:52 AM Oak Zeng &lt;<a href=3D"mailto:oz=
-eng-5C7GfCeVMHo@public.gmane.org">ozeng-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
-&gt;&gt;&gt; Change-Id: I04d22fb717ac50483c0835f160a2e860e344f358<br>
-&gt;&gt;&gt; Signed-off-by: Oak Zeng &lt;<a href=3D"mailto:ozeng-5C7GfCeVMHo@public.gmane.org">o=
-zeng-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt;&gt;&gt; Suggested-by: Felix Kuehling &lt;<a href=3D"mailto:Felix.Kuehl=
-ing-5C7GfCeVMHo@public.gmane.org">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt;&gt;&gt; Suggested-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deu=
-cher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt;&gt;&gt; ---<br>
-&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/Makefile&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- |&nbsp; 4 &#43;-<br>
-&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;-<br>
-&gt;&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.h&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; |&nbsp; 1 &#43;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; .../drm/amd/amdgpu/vega20_doorbell_index_init.c&nb=
-sp;&nbsp;&nbsp; | 64 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; 4 files changed, 70 insertions(&#43;), 3 deletions=
-(-)&nbsp; create mode 100644<br>
-&gt;&gt;&gt; drivers/gpu/drm/amd/amdgpu/vega20_doorbell_index_init.c<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile<br>
-&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/Makefile<br>
-&gt;&gt;&gt; index 3ab8eba..b3b150b 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/Makefile<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/Makefile<br>
-&gt;&gt;&gt; @@ -63,8 &#43;63,8 @@ amdgpu-$(CONFIG_DRM_AMDGPU_SI)&#43;=3D s=
-i.o gmc_v6_0.o<br>
-&gt;&gt;&gt; gfx_v6_0.o si_ih.o si_dma.o dce<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; amdgpu-y &#43;=3D \<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vi.o mxg=
-pu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o nbio_v7_0.o vega10_reg_ini=
-t.o \<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega20_reg_init.o nbio_v=
-7_4.o vega10_doorbell_index_init.o vega12_doorbell_index_init.o \<br>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vi_doorbell_index_init.o=
-<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega20_reg_init.o nb=
-io_v7_4.o vi_doorbell_index_init.o vega10_doorbell_index_init.o \<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega12_doorbell_inde=
-x_init.o vega20_doorbell_index_init.o<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; # add DF block<br>
-&gt;&gt;&gt;&nbsp;&nbsp; amdgpu-y &#43;=3D \<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt;&gt; index 3ffd8f5..19f2149 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<b=
-r>
-&gt;&gt;&gt; @@ -517,8 &#43;517,10 @@ static int amdgpu_device_doorbell_ini=
-t(struct amdgpu_device *adev)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vi_doorbell_index_init(adev);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if =
-(adev-&gt;asic_type =3D=3D CHIP_VEGA10)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega10_doorbell_index_init(adev);<b=
-r>
-&gt;&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;as=
-ic_type =3D=3D CHIP_VEGA12 || adev-&gt;asic_type =3D=3D<br>
-&gt;&gt;&gt; &#43; CHIP_RAVEN)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vega12_doorbell_index_init(adev);<b=
-r>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; vega20_doorbell_index_init(adev);<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* No do=
-orbell on SI hardware generation */<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev=
--&gt;asic_type &lt; CHIP_BONAIRE) { diff --git<br>
-&gt;&gt;&gt; a/drivers/gpu/drm/amd/amdgpu/soc15.h<br>
-&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/soc15.h<br>
-&gt;&gt;&gt; index 939c0e8..6ba0d26 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/soc15.h<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.h<br>
-&gt;&gt;&gt; @@ -60,4 &#43;60,5 @@ int vega20_reg_base_init(struct amdgpu_d=
-evice<br>
-&gt;&gt;&gt; *adev);<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt;&nbsp;&nbsp; void vega10_doorbell_index_init(struct amdgpu_devi=
-ce *adev);&nbsp; void<br>
-&gt;&gt;&gt; vega12_doorbell_index_init(struct amdgpu_device *adev);<br>
-&gt;&gt;&gt; &#43;void vega20_doorbell_index_init(struct amdgpu_device *ade=
-v);<br>
-&gt;&gt;&gt;&nbsp;&nbsp; #endif<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_doorbell_index_=
-init.c<br>
-&gt;&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/vega20_doorbell_index_init.c<br>
-&gt;&gt;&gt; new file mode 100644<br>
-&gt;&gt;&gt; index 0000000..dcaef7f<br>
-&gt;&gt;&gt; --- /dev/null<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega20_doorbell_i=
-ndex_init.c<br>
-&gt;&gt;&gt; @@ -0,0 &#43;1,64 @@<br>
-&gt;&gt;&gt; &#43;/*<br>
-&gt;&gt;&gt; &#43; * Copyright 2018 Advanced Micro Devices, Inc.<br>
-&gt;&gt;&gt; &#43; *<br>
-&gt;&gt;&gt; &#43; * Permission is hereby granted, free of charge, to any p=
-erson<br>
-&gt;&gt;&gt; &#43;obtaining a<br>
-&gt;&gt;&gt; &#43; * copy of this software and associated documentation fil=
-es (the<br>
-&gt;&gt;&gt; &#43;&quot;Software&quot;),<br>
-&gt;&gt;&gt; &#43; * to deal in the Software without restriction, including=
- without<br>
-&gt;&gt;&gt; &#43;limitation<br>
-&gt;&gt;&gt; &#43; * the rights to use, copy, modify, merge, publish, distr=
-ibute,<br>
-&gt;&gt;&gt; &#43;sublicense,<br>
-&gt;&gt;&gt; &#43; * and/or sell copies of the Software, and to permit pers=
-ons to whom<br>
-&gt;&gt;&gt; &#43;the<br>
-&gt;&gt;&gt; &#43; * Software is furnished to do so, subject to the followi=
-ng conditions:<br>
-&gt;&gt;&gt; &#43; *<br>
-&gt;&gt;&gt; &#43; * The above copyright notice and this permission notice =
-shall be<br>
-&gt;&gt;&gt; &#43;included in<br>
-&gt;&gt;&gt; &#43; * all copies or substantial portions of the Software.<br=
->
-&gt;&gt;&gt; &#43; *<br>
-&gt;&gt;&gt; &#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WA=
-RRANTY OF ANY KIND,<br>
-&gt;&gt;&gt; &#43;EXPRESS OR<br>
-&gt;&gt;&gt; &#43; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES O=
-F<br>
-&gt;&gt;&gt; &#43;MERCHANTABILITY,<br>
-&gt;&gt;&gt; &#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&=
-nbsp; IN NO EVENT<br>
-&gt;&gt;&gt; &#43;SHALL<br>
-&gt;&gt;&gt; &#43; * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY=
- CLAIM,<br>
-&gt;&gt;&gt; &#43;DAMAGES OR<br>
-&gt;&gt;&gt; &#43; * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TOR=
-T OR<br>
-&gt;&gt;&gt; &#43;OTHERWISE,<br>
-&gt;&gt;&gt; &#43; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWAR=
-E OR THE USE<br>
-&gt;&gt;&gt; &#43;OR<br>
-&gt;&gt;&gt; &#43; * OTHER DEALINGS IN THE SOFTWARE.<br>
-&gt;&gt;&gt; &#43; *<br>
-&gt;&gt;&gt; &#43; */<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;#include &quot;amdgpu.h&quot;<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; &#43;void vega20_doorbell_index_init(struct amdgpu_device *ade=
-v) {<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Compute &#43; GFX=
-: 0~255 */<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.kiq =3D 0x00;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring0 =3D 0x03;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring1 =3D 0x04;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring2 =3D 0x05;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring3 =3D 0x06;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring4 =3D 0x07;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring5 =3D 0x08;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring6 =3D 0x09;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.mec_ring7 =3D 0x0a;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.userqueue_start =3D 0x0b;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.userqueue_end =3D 0x8a;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.gfx_ring0 =3D 0x8b;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* SDMA:256~335*/<br=
->
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine0 =3D 0x100;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine1 =3D 0x10a;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine2 =3D 0x114;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine3 =3D 0x11e;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine4 =3D 0x128;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine5 =3D 0x132;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine6 =3D 0x13C;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.sdma_engine7 =3D 0x146;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* IH: 376~391 */<br=
->
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.ih =3D 0x178;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* MMSCH: 392~407 */=
-<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.uvd_ring0_1 =3D 0x188;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.uvd_ring2_3 =3D 0x189;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.uvd_ring4_5 =3D 0x18a;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.uvd_ring6_7 =3D 0x18b;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.vce_ring0_1 =3D 0x18c;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.vce_ring2_3 =3D 0x18d;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.vce_ring4_5 =3D 0x18e;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.uvd_vce.vce_ring6_7 =3D 0x18f;<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* In unit of dword =
-doorbell */<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_in=
-dex.max_assignment =3D 0x18f &lt;&lt; 1; }<br>
-&gt;&gt; No need to add a new file for this.&nbsp; Just add this to vega20_=
-reg_init.c.&nbsp; Also, please use the doorbell enums rather than hardcodin=
-g the numbers.<br>
-&gt;&gt;<br>
-&gt;&gt; Alex<br>
-&gt;&gt;<br>
-&gt;&gt;&gt; &#43;<br>
-&gt;&gt;&gt; --<br>
-&gt;&gt;&gt; 2.7.4<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; _______________________________________________<br>
-&gt;&gt;&gt; amd-gfx mailing list<br>
-&gt;&gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists=
-.freedesktop.org</a><br>
-&gt;&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-=
-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-&gt;&gt; _______________________________________________<br>
-&gt;&gt; amd-gfx mailing list<br>
-&gt;&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org</a><br>
-&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
->https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org</a><br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB165194EF202C47EE0C8487BE80D40BN6PR12MB1651namp_--
-
---===============0913434652==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0913434652==--
+TW92ZSBkb29yYmVsbCBzdHJ1Y3R1cmVzLCBlbnVtIGRlZmluaXRpb25zIGFuZCBoZWxwZXIgZnVu
+Y3Rpb25zCmZyb20gYW1kZ3B1LmggdG8gYW1kZ3B1X2Rvb3JiZWxsLmguIE5vIGZ1bmN0aW9uYWwg
+Y2hhbmdlCgpDaGFuZ2UtSWQ6IEkwOWY3Yjg0ODY5YjZkM2M2ODhiN2EyNTA2ZmY3OGQ2MmIzZGUy
+M2Y1ClNpZ25lZC1vZmYtYnk6IE9hayBaZW5nIDxvemVuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgIHwgMjI3ICstLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rvb3JiZWxsLmgg
+fCAyNDkgKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDI1MCBp
+bnNlcnRpb25zKCspLCAyMjYgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rvb3JiZWxsLmgKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oCmluZGV4IGU0MTAxYjEuLjdmYzMyYzcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oCkBAIC04MSw2ICs4MSw3IEBACiAjaW5jbHVkZSAiYW1kZ3B1X2pvYi5oIgog
+I2luY2x1ZGUgImFtZGdwdV9ib19saXN0LmgiCiAjaW5jbHVkZSAiYW1kZ3B1X2dlbS5oIgorI2lu
+Y2x1ZGUgImFtZGdwdV9kb29yYmVsbC5oIgogCiAjZGVmaW5lIE1BWF9HUFVfSU5TVEFOQ0UJCTE2
+CiAKQEAgLTM2MSwxNzMgKzM2Miw2IEBAIGludCBhbWRncHVfZmVuY2Vfc2xhYl9pbml0KHZvaWQp
+Owogdm9pZCBhbWRncHVfZmVuY2Vfc2xhYl9maW5pKHZvaWQpOwogCiAvKgotICogR1BVIGRvb3Ji
+ZWxsIHN0cnVjdHVyZXMsIGZ1bmN0aW9ucyAmIGhlbHBlcnMKLSAqLwotdHlwZWRlZiBlbnVtIF9B
+TURHUFVfRE9PUkJFTExfQVNTSUdOTUVOVAotewotCUFNREdQVV9ET09SQkVMTF9LSVEgICAgICAg
+ICAgICAgICAgICAgICA9IDB4MDAwLAotCUFNREdQVV9ET09SQkVMTF9ISVEgICAgICAgICAgICAg
+ICAgICAgICA9IDB4MDAxLAotCUFNREdQVV9ET09SQkVMTF9ESVEgICAgICAgICAgICAgICAgICAg
+ICA9IDB4MDAyLAotCUFNREdQVV9ET09SQkVMTF9NRUNfUklORzAgICAgICAgICAgICAgICA9IDB4
+MDEwLAotCUFNREdQVV9ET09SQkVMTF9NRUNfUklORzEgICAgICAgICAgICAgICA9IDB4MDExLAot
+CUFNREdQVV9ET09SQkVMTF9NRUNfUklORzIgICAgICAgICAgICAgICA9IDB4MDEyLAotCUFNREdQ
+VV9ET09SQkVMTF9NRUNfUklORzMgICAgICAgICAgICAgICA9IDB4MDEzLAotCUFNREdQVV9ET09S
+QkVMTF9NRUNfUklORzQgICAgICAgICAgICAgICA9IDB4MDE0LAotCUFNREdQVV9ET09SQkVMTF9N
+RUNfUklORzUgICAgICAgICAgICAgICA9IDB4MDE1LAotCUFNREdQVV9ET09SQkVMTF9NRUNfUklO
+RzYgICAgICAgICAgICAgICA9IDB4MDE2LAotCUFNREdQVV9ET09SQkVMTF9NRUNfUklORzcgICAg
+ICAgICAgICAgICA9IDB4MDE3LAotCUFNREdQVV9ET09SQkVMTF9HRlhfUklORzAgICAgICAgICAg
+ICAgICA9IDB4MDIwLAotCUFNREdQVV9ET09SQkVMTF9zRE1BX0VOR0lORTAgICAgICAgICAgICA9
+IDB4MUUwLAotCUFNREdQVV9ET09SQkVMTF9zRE1BX0VOR0lORTEgICAgICAgICAgICA9IDB4MUUx
+LAotCUFNREdQVV9ET09SQkVMTF9JSCAgICAgICAgICAgICAgICAgICAgICA9IDB4MUU4LAotCUFN
+REdQVV9ET09SQkVMTF9NQVhfQVNTSUdOTUVOVCAgICAgICAgICA9IDB4M0ZGLAotCUFNREdQVV9E
+T09SQkVMTF9JTlZBTElEICAgICAgICAgICAgICAgICA9IDB4RkZGRgotfSBBTURHUFVfRE9PUkJF
+TExfQVNTSUdOTUVOVDsKLQotc3RydWN0IGFtZGdwdV9kb29yYmVsbCB7Ci0JLyogZG9vcmJlbGwg
+bW1pbyAqLwotCXJlc291cmNlX3NpemVfdAkJYmFzZTsKLQlyZXNvdXJjZV9zaXplX3QJCXNpemU7
+Ci0JdTMyIF9faW9tZW0JCSpwdHI7Ci0JdTMyCQkJbnVtX2Rvb3JiZWxsczsJLyogTnVtYmVyIG9m
+IGRvb3JiZWxscyBhY3R1YWxseSByZXNlcnZlZCBmb3IgYW1kZ3B1LiAqLwotfTsKLQotdHlwZWRl
+ZiBlbnVtIF9BTURHUFVfVkVHQTIwX0RPT1JCRUxMX0FTU0lHTk1FTlQKLXsKLQkvKiBDb21wdXRl
+ICsgR0ZYOiAwfjI1NSAqLwotCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfS0lRICAgICAgICAgICAg
+ICAgICAgICAgPSAweDAwMCwKLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX0hJUSAgICAgICAgICAg
+ICAgICAgICAgID0gMHgwMDEsCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9ESVEgICAgICAgICAg
+ICAgICAgICAgICA9IDB4MDAyLAotCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfTUVDX1JJTkcwICAg
+ICAgICAgICAgICAgPSAweDAwMywKLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX01FQ19SSU5HMSAg
+ICAgICAgICAgICAgID0gMHgwMDQsCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklORzIg
+ICAgICAgICAgICAgICA9IDB4MDA1LAotCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfTUVDX1JJTkcz
+ICAgICAgICAgICAgICAgPSAweDAwNiwKLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX01FQ19SSU5H
+NCAgICAgICAgICAgICAgID0gMHgwMDcsCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklO
+RzUgICAgICAgICAgICAgICA9IDB4MDA4LAotCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfTUVDX1JJ
+Tkc2ICAgICAgICAgICAgICAgPSAweDAwOSwKLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX01FQ19S
+SU5HNyAgICAgICAgICAgICAgID0gMHgwMEEsCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9VU0VS
+UVVFVUVfU1RBUlQJICAgICAgID0gMHgwMEIsCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9VU0VS
+UVVFVUVfRU5ECSAgICAgICA9IDB4MDhBLAotCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfR0ZYX1JJ
+TkcwICAgICAgICAgICAgICAgPSAweDA4QiwKLQkvKiBTRE1BOjI1Nn4zMzUqLwotCUFNREdQVV9W
+RUdBMjBfRE9PUkJFTExfc0RNQV9FTkdJTkUwICAgICAgICAgICAgPSAweDEwMCwKLQlBTURHUFVf
+VkVHQTIwX0RPT1JCRUxMX3NETUFfRU5HSU5FMSAgICAgICAgICAgID0gMHgxMEEsCi0JQU1ER1BV
+X1ZFR0EyMF9ET09SQkVMTF9zRE1BX0VOR0lORTIgICAgICAgICAgICA9IDB4MTE0LAotCUFNREdQ
+VV9WRUdBMjBfRE9PUkJFTExfc0RNQV9FTkdJTkUzICAgICAgICAgICAgPSAweDExRSwKLQlBTURH
+UFVfVkVHQTIwX0RPT1JCRUxMX3NETUFfRU5HSU5FNCAgICAgICAgICAgID0gMHgxMjgsCi0JQU1E
+R1BVX1ZFR0EyMF9ET09SQkVMTF9zRE1BX0VOR0lORTUgICAgICAgICAgICA9IDB4MTMyLAotCUFN
+REdQVV9WRUdBMjBfRE9PUkJFTExfc0RNQV9FTkdJTkU2ICAgICAgICAgICAgPSAweDEzQywKLQlB
+TURHUFVfVkVHQTIwX0RPT1JCRUxMX3NETUFfRU5HSU5FNyAgICAgICAgICAgID0gMHgxNDYsCi0J
+LyogSUg6IDM3Nn4zOTEgKi8KLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX0lIICAgICAgICAgICAg
+ICAgICAgICAgID0gMHgxNzgsCi0JLyogTU1TQ0g6IDM5Mn40MDcKLQkgKiBvdmVybGFwIHRoZSBk
+b29yYmVsbCBhc3NpZ25tZW50IHdpdGggVkNOIGFzIHRoZXkgYXJlICBtdXR1YWxseSBleGNsdXNp
+dmUKLQkgKiBWQ0UgZW5naW5lJ3MgZG9vcmJlbGwgaXMgMzIgYml0IGFuZCB0d28gVkNFIHJpbmcg
+c2hhcmUgb25lIFFXT1JECi0JICovCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTDY0X1ZDTjBfMSAg
+ICAgICAgICAgICAgICAgID0gMHgxODgsIC8qIGxvd2VyIDMyIGJpdHMgZm9yIFZOQzAgYW5kIHVw
+cGVyIDMyIGJpdHMgZm9yIFZOQzEgKi8KLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMNjRfVkNOMl8z
+ICAgICAgICAgICAgICAgICAgPSAweDE4OSwKLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMNjRfVkNO
+NF81ICAgICAgICAgICAgICAgICAgPSAweDE4QSwKLQlBTURHUFVfVkVHQTIwX0RPT1JCRUxMNjRf
+VkNONl83ICAgICAgICAgICAgICAgICAgPSAweDE4QiwKLQotCUFNREdQVV9WRUdBMjBfRE9PUkJF
+TEw2NF9VVkRfUklORzBfMSAgICAgICAgICAgICA9IDB4MTg4LAotCUFNREdQVV9WRUdBMjBfRE9P
+UkJFTEw2NF9VVkRfUklORzJfMyAgICAgICAgICAgICA9IDB4MTg5LAotCUFNREdQVV9WRUdBMjBf
+RE9PUkJFTEw2NF9VVkRfUklORzRfNSAgICAgICAgICAgICA9IDB4MThBLAotCUFNREdQVV9WRUdB
+MjBfRE9PUkJFTEw2NF9VVkRfUklORzZfNyAgICAgICAgICAgICA9IDB4MThCLAotCi0JQU1ER1BV
+X1ZFR0EyMF9ET09SQkVMTDY0X1ZDRV9SSU5HMF8xICAgICAgICAgICAgID0gMHgxOEMsCi0JQU1E
+R1BVX1ZFR0EyMF9ET09SQkVMTDY0X1ZDRV9SSU5HMl8zICAgICAgICAgICAgID0gMHgxOEQsCi0J
+QU1ER1BVX1ZFR0EyMF9ET09SQkVMTDY0X1ZDRV9SSU5HNF81ICAgICAgICAgICAgID0gMHgxOEUs
+Ci0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTDY0X1ZDRV9SSU5HNl83ICAgICAgICAgICAgID0gMHgx
+OEYsCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NQVhfQVNTSUdOTUVOVCAgICAgICAgICAgID0g
+MHgxOEYsCi0JQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9JTlZBTElEICAgICAgICAgICAgICAgICAg
+ID0gMHhGRkZGCi19IEFNREdQVV9WRUdBMjBfRE9PUkJFTExfQVNTSUdOTUVOVDsKLQotLyoKLSAq
+IDY0Yml0IGRvb3JiZWxsLCBvZmZzZXQgYXJlIGluIFFXT1JELCBvY2N1cHkgMktCIGRvb3JiZWxs
+IHNwYWNlCi0gKi8KLXR5cGVkZWYgZW51bSBfQU1ER1BVX0RPT1JCRUxMNjRfQVNTSUdOTUVOVAot
+ewotCS8qCi0JICogQWxsIGNvbXB1dGUgcmVsYXRlZCBkb29yYmVsbHM6IGtpcSwgaGlxLCBkaXEs
+IHRyYWRpdGlvbmFsIGNvbXB1dGUgcXVldWUsIHVzZXIgcXVldWUsIHNob3VsZCBsb2NhdGUgaW4K
+LQkgKiBhIGNvbnRpbnVlcyByYW5nZSBzbyB0aGF0IHByb2dyYW1taW5nIENQX01FQ19ET09SQkVM
+TF9SQU5HRV9MT1dFUi9VUFBFUiBjYW4gY292ZXIgdGhpcyByYW5nZS4KLQkgKiAgQ29tcHV0ZSBy
+ZWxhdGVkIGRvb3JiZWxscyBhcmUgYWxsb2NhdGVkIGZyb20gMHgwMCB0byAweDhhCi0JICovCi0K
+LQotCS8qIGtlcm5lbCBzY2hlZHVsaW5nICovCi0JQU1ER1BVX0RPT1JCRUxMNjRfS0lRICAgICAg
+ICAgICAgICAgICAgICAgPSAweDAwLAotCi0JLyogSFNBIGludGVyZmFjZSBxdWV1ZSBhbmQgZGVi
+dWcgcXVldWUgKi8KLQlBTURHUFVfRE9PUkJFTEw2NF9ISVEgICAgICAgICAgICAgICAgICAgICA9
+IDB4MDEsCi0JQU1ER1BVX0RPT1JCRUxMNjRfRElRICAgICAgICAgICAgICAgICAgICAgPSAweDAy
+LAotCi0JLyogQ29tcHV0ZSBlbmdpbmVzICovCi0JQU1ER1BVX0RPT1JCRUxMNjRfTUVDX1JJTkcw
+ICAgICAgICAgICAgICAgPSAweDAzLAotCUFNREdQVV9ET09SQkVMTDY0X01FQ19SSU5HMSAgICAg
+ICAgICAgICAgID0gMHgwNCwKLQlBTURHUFVfRE9PUkJFTEw2NF9NRUNfUklORzIgICAgICAgICAg
+ICAgICA9IDB4MDUsCi0JQU1ER1BVX0RPT1JCRUxMNjRfTUVDX1JJTkczICAgICAgICAgICAgICAg
+PSAweDA2LAotCUFNREdQVV9ET09SQkVMTDY0X01FQ19SSU5HNCAgICAgICAgICAgICAgID0gMHgw
+NywKLQlBTURHUFVfRE9PUkJFTEw2NF9NRUNfUklORzUgICAgICAgICAgICAgICA9IDB4MDgsCi0J
+QU1ER1BVX0RPT1JCRUxMNjRfTUVDX1JJTkc2ICAgICAgICAgICAgICAgPSAweDA5LAotCUFNREdQ
+VV9ET09SQkVMTDY0X01FQ19SSU5HNyAgICAgICAgICAgICAgID0gMHgwYSwKLQotCS8qIFVzZXIg
+cXVldWUgZG9vcmJlbGwgcmFuZ2UgKDEyOCBkb29yYmVsbHMpICovCi0JQU1ER1BVX0RPT1JCRUxM
+NjRfVVNFUlFVRVVFX1NUQVJUICAgICAgICAgPSAweDBiLAotCUFNREdQVV9ET09SQkVMTDY0X1VT
+RVJRVUVVRV9FTkQgICAgICAgICAgID0gMHg4YSwKLQotCS8qIEdyYXBoaWNzIGVuZ2luZSAqLwot
+CUFNREdQVV9ET09SQkVMTDY0X0dGWF9SSU5HMCAgICAgICAgICAgICAgID0gMHg4YiwKLQotCS8q
+Ci0JICogT3RoZXIgZ3JhcGhpY3MgZG9vcmJlbGxzIGNhbiBiZSBhbGxvY2F0ZWQgaGVyZTogZnJv
+bSAweDhjIHRvIDB4ZGYKLQkgKiBHcmFwaGljcyB2b2x0YWdlIGlzbGFuZCBhcGVydHVyZSAxCi0J
+ICogZGVmYXVsdCBub24tZ3JhcGhpY3MgUVdPUkQgaW5kZXggaXMgMHhlMCAtIDB4RkYgaW5jbHVz
+aXZlCi0JICovCi0KLQkvKiBzRE1BIGVuZ2luZXMgIHJlc2VydmVkIGZyb20gMHhlMCAtMHhlZiAg
+Ki8KLQlBTURHUFVfRE9PUkJFTEw2NF9zRE1BX0VOR0lORTAgICAgICAgICAgICA9IDB4RTAsCi0J
+QU1ER1BVX0RPT1JCRUxMNjRfc0RNQV9ISV9QUklfRU5HSU5FMCAgICAgPSAweEUxLAotCUFNREdQ
+VV9ET09SQkVMTDY0X3NETUFfRU5HSU5FMSAgICAgICAgICAgID0gMHhFOCwKLQlBTURHUFVfRE9P
+UkJFTEw2NF9zRE1BX0hJX1BSSV9FTkdJTkUxICAgICA9IDB4RTksCi0KLQkvKiBGb3IgdmVnYTEw
+IHNyaW92LCB0aGUgc2RtYSBkb29yYmVsbCBtdXN0IGJlIGZpeGVkIGFzIGZvbGxvdwotCSAqIHRv
+IGtlZXAgdGhlIHNhbWUgc2V0dGluZyB3aXRoIGhvc3QgZHJpdmVyLCBvciBpdCB3aWxsCi0JICog
+aGFwcGVuIGNvbmZsaWN0cwotCSAqLwotCUFNREdQVV9WRUdBMTBfRE9PUkJFTEw2NF9zRE1BX0VO
+R0lORTAgICAgICAgICAgICA9IDB4RjAsCi0JQU1ER1BVX1ZFR0ExMF9ET09SQkVMTDY0X3NETUFf
+SElfUFJJX0VOR0lORTAgICAgID0gMHhGMSwKLQlBTURHUFVfVkVHQTEwX0RPT1JCRUxMNjRfc0RN
+QV9FTkdJTkUxICAgICAgICAgICAgPSAweEYyLAotCUFNREdQVV9WRUdBMTBfRE9PUkJFTEw2NF9z
+RE1BX0hJX1BSSV9FTkdJTkUxICAgICA9IDB4RjMsCi0KLQkvKiBJbnRlcnJ1cHQgaGFuZGxlciAq
+LwotCUFNREdQVV9ET09SQkVMTDY0X0lIICAgICAgICAgICAgICAgICAgICAgID0gMHhGNCwgIC8q
+IEZvciBsZWdhY3kgaW50ZXJydXB0IHJpbmcgYnVmZmVyICovCi0JQU1ER1BVX0RPT1JCRUxMNjRf
+SUhfUklORzEgICAgICAgICAgICAgICAgPSAweEY1LCAgLyogRm9yIHBhZ2UgbWlncmF0aW9uIHJl
+cXVlc3QgbG9nICovCi0JQU1ER1BVX0RPT1JCRUxMNjRfSUhfUklORzIgICAgICAgICAgICAgICAg
+PSAweEY2LCAgLyogRm9yIHBhZ2UgbWlncmF0aW9uIHRyYW5zbGF0aW9uL2ludmFsaWRhdGlvbiBs
+b2cgKi8KLQotCS8qIFZDTiBlbmdpbmUgdXNlIDMyIGJpdHMgZG9vcmJlbGwgICovCi0JQU1ER1BV
+X0RPT1JCRUxMNjRfVkNOMF8xICAgICAgICAgICAgICAgICAgPSAweEY4LCAvKiBsb3dlciAzMiBi
+aXRzIGZvciBWTkMwIGFuZCB1cHBlciAzMiBiaXRzIGZvciBWTkMxICovCi0JQU1ER1BVX0RPT1JC
+RUxMNjRfVkNOMl8zICAgICAgICAgICAgICAgICAgPSAweEY5LAotCUFNREdQVV9ET09SQkVMTDY0
+X1ZDTjRfNSAgICAgICAgICAgICAgICAgID0gMHhGQSwKLQlBTURHUFVfRE9PUkJFTEw2NF9WQ042
+XzcgICAgICAgICAgICAgICAgICA9IDB4RkIsCi0KLQkvKiBvdmVybGFwIHRoZSBkb29yYmVsbCBh
+c3NpZ25tZW50IHdpdGggVkNOIGFzIHRoZXkgYXJlICBtdXR1YWxseSBleGNsdXNpdmUKLQkgKiBW
+Q0UgZW5naW5lJ3MgZG9vcmJlbGwgaXMgMzIgYml0IGFuZCB0d28gVkNFIHJpbmcgc2hhcmUgb25l
+IFFXT1JECi0JICovCi0JQU1ER1BVX0RPT1JCRUxMNjRfVVZEX1JJTkcwXzEgICAgICAgICAgICAg
+PSAweEY4LAotCUFNREdQVV9ET09SQkVMTDY0X1VWRF9SSU5HMl8zICAgICAgICAgICAgID0gMHhG
+OSwKLQlBTURHUFVfRE9PUkJFTEw2NF9VVkRfUklORzRfNSAgICAgICAgICAgICA9IDB4RkEsCi0J
+QU1ER1BVX0RPT1JCRUxMNjRfVVZEX1JJTkc2XzcgICAgICAgICAgICAgPSAweEZCLAotCi0JQU1E
+R1BVX0RPT1JCRUxMNjRfVkNFX1JJTkcwXzEgICAgICAgICAgICAgPSAweEZDLAotCUFNREdQVV9E
+T09SQkVMTDY0X1ZDRV9SSU5HMl8zICAgICAgICAgICAgID0gMHhGRCwKLQlBTURHUFVfRE9PUkJF
+TEw2NF9WQ0VfUklORzRfNSAgICAgICAgICAgICA9IDB4RkUsCi0JQU1ER1BVX0RPT1JCRUxMNjRf
+VkNFX1JJTkc2XzcgICAgICAgICAgICAgPSAweEZGLAotCi0JQU1ER1BVX0RPT1JCRUxMNjRfTUFY
+X0FTU0lHTk1FTlQgICAgICAgICAgPSAweEZGLAotCUFNREdQVV9ET09SQkVMTDY0X0lOVkFMSUQg
+ICAgICAgICAgICAgICAgID0gMHhGRkZGCi19IEFNREdQVV9ET09SQkVMTDY0X0FTU0lHTk1FTlQ7
+Ci0KLS8qCiAgKiBJUlFTLgogICovCiAKQEAgLTg2Myw1NSArNjk3LDYgQEAgc3RydWN0IGFtZF9w
+b3dlcnBsYXkgewogCXVpbnQzMl90IHBwX2ZlYXR1cmU7CiB9OwogCi0vKiBSZXNlcnZlZCBkb29y
+YmVsbHMgZm9yIGFtZGdwdSAoaW5jbHVkaW5nIG11bHRpbWVkaWEpLgotICogS0ZEIGNhbiB1c2Ug
+YWxsIHRoZSByZXN0IGluIHRoZSAyTSBkb29yYmVsbCBiYXIuCi0gKiBGb3IgYXNpYyBiZWZvcmUg
+dmVnYTEwLCBkb29yYmVsbCBpcyAzMi1iaXQsIHNvIHRoZQotICogaW5kZXgvb2Zmc2V0IGlzIGlu
+IGR3b3JkLiBGb3IgdmVnYTEwIGFuZCBhZnRlciwgZG9vcmJlbGwKLSAqIGNhbiBiZSA2NC1iaXQs
+IHNvIHRoZSBpbmRleCBkZWZpbmVkIGlzIGluIHF3b3JkLgotICovCi1zdHJ1Y3QgYW1kZ3B1X2Rv
+b3JiZWxsX2luZGV4IHsKLQl1aW50MzJfdCBraXE7Ci0JdWludDMyX3QgbWVjX3JpbmcwOwotCXVp
+bnQzMl90IG1lY19yaW5nMTsKLQl1aW50MzJfdCBtZWNfcmluZzI7Ci0JdWludDMyX3QgbWVjX3Jp
+bmczOwotCXVpbnQzMl90IG1lY19yaW5nNDsKLQl1aW50MzJfdCBtZWNfcmluZzU7Ci0JdWludDMy
+X3QgbWVjX3Jpbmc2OwotCXVpbnQzMl90IG1lY19yaW5nNzsKLQl1aW50MzJfdCB1c2VycXVldWVf
+c3RhcnQ7Ci0JdWludDMyX3QgdXNlcnF1ZXVlX2VuZDsKLQl1aW50MzJfdCBnZnhfcmluZzA7Ci0J
+dWludDMyX3Qgc2RtYV9lbmdpbmUwOwotCXVpbnQzMl90IHNkbWFfZW5naW5lMTsKLQl1aW50MzJf
+dCBzZG1hX2VuZ2luZTI7Ci0JdWludDMyX3Qgc2RtYV9lbmdpbmUzOwotCXVpbnQzMl90IHNkbWFf
+ZW5naW5lNDsKLQl1aW50MzJfdCBzZG1hX2VuZ2luZTU7Ci0JdWludDMyX3Qgc2RtYV9lbmdpbmU2
+OwotCXVpbnQzMl90IHNkbWFfZW5naW5lNzsKLQl1aW50MzJfdCBpaDsKLQl1bmlvbiB7Ci0JCXN0
+cnVjdCB7Ci0JCQl1aW50MzJfdCB2Y25fcmluZzBfMTsKLQkJCXVpbnQzMl90IHZjbl9yaW5nMl8z
+OwotCQkJdWludDMyX3QgdmNuX3Jpbmc0XzU7Ci0JCQl1aW50MzJfdCB2Y25fcmluZzZfNzsKLQkJ
+fSB2Y247Ci0JCXN0cnVjdCB7Ci0JCQl1aW50MzJfdCB1dmRfcmluZzBfMTsKLQkJCXVpbnQzMl90
+IHV2ZF9yaW5nMl8zOwotCQkJdWludDMyX3QgdXZkX3Jpbmc0XzU7Ci0JCQl1aW50MzJfdCB1dmRf
+cmluZzZfNzsKLQkJCXVpbnQzMl90IHZjZV9yaW5nMF8xOwotCQkJdWludDMyX3QgdmNlX3Jpbmcy
+XzM7Ci0JCQl1aW50MzJfdCB2Y2VfcmluZzRfNTsKLQkJCXVpbnQzMl90IHZjZV9yaW5nNl83Owot
+CQl9IHV2ZF92Y2U7Ci0JfTsKLQl1aW50MzJfdCBtYXhfYXNzaWdubWVudDsKLX07Ci0KICNkZWZp
+bmUgQU1ER1BVX1JFU0VUX01BR0lDX05VTSA2NAogc3RydWN0IGFtZGdwdV9kZXZpY2UgewogCXN0
+cnVjdCBkZXZpY2UJCQkqZGV2OwpAQCAtMTE1MCwxMSArOTM1LDYgQEAgdWludDhfdCBhbWRncHVf
+bW1fcnJlZzgoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IG9mZnNldCk7CiB1
+MzIgYW1kZ3B1X2lvX3JyZWcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiByZWcpOwog
+dm9pZCBhbWRncHVfaW9fd3JlZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHJlZywg
+dTMyIHYpOwogCi11MzIgYW1kZ3B1X21tX3Jkb29yYmVsbChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwgdTMyIGluZGV4KTsKLXZvaWQgYW1kZ3B1X21tX3dkb29yYmVsbChzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwgdTMyIGluZGV4LCB1MzIgdik7Ci11NjQgYW1kZ3B1X21tX3Jkb29yYmVs
+bDY0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgaW5kZXgpOwotdm9pZCBhbWRncHVf
+bW1fd2Rvb3JiZWxsNjQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBpbmRleCwgdTY0
+IHYpOwotCiBib29sIGFtZGdwdV9kZXZpY2VfYXNpY19oYXNfZGNfc3VwcG9ydChlbnVtIGFtZF9h
+c2ljX3R5cGUgYXNpY190eXBlKTsKIGJvb2wgYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9ydChz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiAKQEAgLTEyMTYsMTEgKzk5Niw2IEBAIGludCBl
+bXVfc29jX2FzaWNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CiAjZGVmaW5lIFJS
+RUczMl9JTyhyZWcpIGFtZGdwdV9pb19ycmVnKGFkZXYsIChyZWcpKQogI2RlZmluZSBXUkVHMzJf
+SU8ocmVnLCB2KSBhbWRncHVfaW9fd3JlZyhhZGV2LCAocmVnKSwgKHYpKQogCi0jZGVmaW5lIFJE
+T09SQkVMTDMyKGluZGV4KSBhbWRncHVfbW1fcmRvb3JiZWxsKGFkZXYsIChpbmRleCkpCi0jZGVm
+aW5lIFdET09SQkVMTDMyKGluZGV4LCB2KSBhbWRncHVfbW1fd2Rvb3JiZWxsKGFkZXYsIChpbmRl
+eCksICh2KSkKLSNkZWZpbmUgUkRPT1JCRUxMNjQoaW5kZXgpIGFtZGdwdV9tbV9yZG9vcmJlbGw2
+NChhZGV2LCAoaW5kZXgpKQotI2RlZmluZSBXRE9PUkJFTEw2NChpbmRleCwgdikgYW1kZ3B1X21t
+X3dkb29yYmVsbDY0KGFkZXYsIChpbmRleCksICh2KSkKLQogI2RlZmluZSBSRUdfRklFTERfU0hJ
+RlQocmVnLCBmaWVsZCkgcmVnIyNfXyMjZmllbGQjI19fU0hJRlQKICNkZWZpbmUgUkVHX0ZJRUxE
+X01BU0socmVnLCBmaWVsZCkgcmVnIyNfXyMjZmllbGQjI19NQVNLCiAKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kb29yYmVsbC5oIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rvb3JiZWxsLmgKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5k
+ZXggMDAwMDAwMC4uNzA4YWM3MwotLS0gL2Rldi9udWxsCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kb29yYmVsbC5oCkBAIC0wLDAgKzEsMjQ5IEBACisvKgorICogQ29w
+eXJpZ2h0IDIwMTggQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgorICoKKyAqIFBlcm1pc3Np
+b24gaXMgaGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVyc29uIG9idGFp
+bmluZyBhCisgKiBjb3B5IG9mIHRoaXMgc29mdHdhcmUgYW5kIGFzc29jaWF0ZWQgZG9jdW1lbnRh
+dGlvbiBmaWxlcyAodGhlICJTb2Z0d2FyZSIpLAorICogdG8gZGVhbCBpbiB0aGUgU29mdHdhcmUg
+d2l0aG91dCByZXN0cmljdGlvbiwgaW5jbHVkaW5nIHdpdGhvdXQgbGltaXRhdGlvbgorICogdGhl
+IHJpZ2h0cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1Ymxpc2gsIGRpc3RyaWJ1dGUs
+IHN1YmxpY2Vuc2UsCisgKiBhbmQvb3Igc2VsbCBjb3BpZXMgb2YgdGhlIFNvZnR3YXJlLCBhbmQg
+dG8gcGVybWl0IHBlcnNvbnMgdG8gd2hvbSB0aGUKKyAqIFNvZnR3YXJlIGlzIGZ1cm5pc2hlZCB0
+byBkbyBzbywgc3ViamVjdCB0byB0aGUgZm9sbG93aW5nIGNvbmRpdGlvbnM6CisgKgorICogVGhl
+IGFib3ZlIGNvcHlyaWdodCBub3RpY2UgYW5kIHRoaXMgcGVybWlzc2lvbiBub3RpY2Ugc2hhbGwg
+YmUgaW5jbHVkZWQgaW4KKyAqIGFsbCBjb3BpZXMgb3Igc3Vic3RhbnRpYWwgcG9ydGlvbnMgb2Yg
+dGhlIFNvZnR3YXJlLgorICoKKyAqIFRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBX
+SVRIT1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCBFWFBSRVNTIE9SCisgKiBJTVBMSUVELCBJTkNM
+VURJTkcgQlVUIE5PVCBMSU1JVEVEIFRPIFRIRSBXQVJSQU5USUVTIE9GIE1FUkNIQU5UQUJJTElU
+WSwKKyAqIEZJVE5FU1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFIEFORCBOT05JTkZSSU5HRU1F
+TlQuICBJTiBOTyBFVkVOVCBTSEFMTAorICogVEhFIENPUFlSSUdIVCBIT0xERVIoUykgT1IgQVVU
+SE9SKFMpIEJFIExJQUJMRSBGT1IgQU5ZIENMQUlNLCBEQU1BR0VTIE9SCisgKiBPVEhFUiBMSUFC
+SUxJVFksIFdIRVRIRVIgSU4gQU4gQUNUSU9OIE9GIENPTlRSQUNULCBUT1JUIE9SIE9USEVSV0lT
+RSwKKyAqIEFSSVNJTkcgRlJPTSwgT1VUIE9GIE9SIElOIENPTk5FQ1RJT04gV0lUSCBUSEUgU09G
+VFdBUkUgT1IgVEhFIFVTRSBPUgorICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLgor
+ICoKKyAqLworCisvKgorICogR1BVIGRvb3JiZWxsIHN0cnVjdHVyZXMsIGZ1bmN0aW9ucyAmIGhl
+bHBlcnMKKyAqLworc3RydWN0IGFtZGdwdV9kb29yYmVsbCB7CisJLyogZG9vcmJlbGwgbW1pbyAq
+LworCXJlc291cmNlX3NpemVfdAkJYmFzZTsKKwlyZXNvdXJjZV9zaXplX3QJCXNpemU7CisJdTMy
+IF9faW9tZW0JCSpwdHI7CisJdTMyCQkJbnVtX2Rvb3JiZWxsczsJLyogTnVtYmVyIG9mIGRvb3Ji
+ZWxscyBhY3R1YWxseSByZXNlcnZlZCBmb3IgYW1kZ3B1LiAqLworfTsKKworLyogUmVzZXJ2ZWQg
+ZG9vcmJlbGxzIGZvciBhbWRncHUgKGluY2x1ZGluZyBtdWx0aW1lZGlhKS4KKyAqIEtGRCBjYW4g
+dXNlIGFsbCB0aGUgcmVzdCBpbiB0aGUgMk0gZG9vcmJlbGwgYmFyLgorICogRm9yIGFzaWMgYmVm
+b3JlIHZlZ2ExMCwgZG9vcmJlbGwgaXMgMzItYml0LCBzbyB0aGUKKyAqIGluZGV4L29mZnNldCBp
+cyBpbiBkd29yZC4gRm9yIHZlZ2ExMCBhbmQgYWZ0ZXIsIGRvb3JiZWxsCisgKiBjYW4gYmUgNjQt
+Yml0LCBzbyB0aGUgaW5kZXggZGVmaW5lZCBpcyBpbiBxd29yZC4KKyAqLworc3RydWN0IGFtZGdw
+dV9kb29yYmVsbF9pbmRleCB7CisJdWludDMyX3Qga2lxOworCXVpbnQzMl90IG1lY19yaW5nMDsK
+Kwl1aW50MzJfdCBtZWNfcmluZzE7CisJdWludDMyX3QgbWVjX3JpbmcyOworCXVpbnQzMl90IG1l
+Y19yaW5nMzsKKwl1aW50MzJfdCBtZWNfcmluZzQ7CisJdWludDMyX3QgbWVjX3Jpbmc1OworCXVp
+bnQzMl90IG1lY19yaW5nNjsKKwl1aW50MzJfdCBtZWNfcmluZzc7CisJdWludDMyX3QgdXNlcnF1
+ZXVlX3N0YXJ0OworCXVpbnQzMl90IHVzZXJxdWV1ZV9lbmQ7CisJdWludDMyX3QgZ2Z4X3Jpbmcw
+OworCXVpbnQzMl90IHNkbWFfZW5naW5lMDsKKwl1aW50MzJfdCBzZG1hX2VuZ2luZTE7CisJdWlu
+dDMyX3Qgc2RtYV9lbmdpbmUyOworCXVpbnQzMl90IHNkbWFfZW5naW5lMzsKKwl1aW50MzJfdCBz
+ZG1hX2VuZ2luZTQ7CisJdWludDMyX3Qgc2RtYV9lbmdpbmU1OworCXVpbnQzMl90IHNkbWFfZW5n
+aW5lNjsKKwl1aW50MzJfdCBzZG1hX2VuZ2luZTc7CisJdWludDMyX3QgaWg7CisJdW5pb24gewor
+CQlzdHJ1Y3QgeworCQkJdWludDMyX3QgdmNuX3JpbmcwXzE7CisJCQl1aW50MzJfdCB2Y25fcmlu
+ZzJfMzsKKwkJCXVpbnQzMl90IHZjbl9yaW5nNF81OworCQkJdWludDMyX3QgdmNuX3Jpbmc2Xzc7
+CisJCX0gdmNuOworCQlzdHJ1Y3QgeworCQkJdWludDMyX3QgdXZkX3JpbmcwXzE7CisJCQl1aW50
+MzJfdCB1dmRfcmluZzJfMzsKKwkJCXVpbnQzMl90IHV2ZF9yaW5nNF81OworCQkJdWludDMyX3Qg
+dXZkX3Jpbmc2Xzc7CisJCQl1aW50MzJfdCB2Y2VfcmluZzBfMTsKKwkJCXVpbnQzMl90IHZjZV9y
+aW5nMl8zOworCQkJdWludDMyX3QgdmNlX3Jpbmc0XzU7CisJCQl1aW50MzJfdCB2Y2VfcmluZzZf
+NzsKKwkJfSB1dmRfdmNlOworCX07CisJdWludDMyX3QgbWF4X2Fzc2lnbm1lbnQ7Cit9OworCit0
+eXBlZGVmIGVudW0gX0FNREdQVV9ET09SQkVMTF9BU1NJR05NRU5UCit7CisJQU1ER1BVX0RPT1JC
+RUxMX0tJUSAgICAgICAgICAgICAgICAgICAgID0gMHgwMDAsCisJQU1ER1BVX0RPT1JCRUxMX0hJ
+USAgICAgICAgICAgICAgICAgICAgID0gMHgwMDEsCisJQU1ER1BVX0RPT1JCRUxMX0RJUSAgICAg
+ICAgICAgICAgICAgICAgID0gMHgwMDIsCisJQU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HMCAgICAg
+ICAgICAgICAgID0gMHgwMTAsCisJQU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HMSAgICAgICAgICAg
+ICAgID0gMHgwMTEsCisJQU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HMiAgICAgICAgICAgICAgID0g
+MHgwMTIsCisJQU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HMyAgICAgICAgICAgICAgID0gMHgwMTMs
+CisJQU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HNCAgICAgICAgICAgICAgID0gMHgwMTQsCisJQU1E
+R1BVX0RPT1JCRUxMX01FQ19SSU5HNSAgICAgICAgICAgICAgID0gMHgwMTUsCisJQU1ER1BVX0RP
+T1JCRUxMX01FQ19SSU5HNiAgICAgICAgICAgICAgID0gMHgwMTYsCisJQU1ER1BVX0RPT1JCRUxM
+X01FQ19SSU5HNyAgICAgICAgICAgICAgID0gMHgwMTcsCisJQU1ER1BVX0RPT1JCRUxMX0dGWF9S
+SU5HMCAgICAgICAgICAgICAgID0gMHgwMjAsCisJQU1ER1BVX0RPT1JCRUxMX3NETUFfRU5HSU5F
+MCAgICAgICAgICAgID0gMHgxRTAsCisJQU1ER1BVX0RPT1JCRUxMX3NETUFfRU5HSU5FMSAgICAg
+ICAgICAgID0gMHgxRTEsCisJQU1ER1BVX0RPT1JCRUxMX0lIICAgICAgICAgICAgICAgICAgICAg
+ID0gMHgxRTgsCisJQU1ER1BVX0RPT1JCRUxMX01BWF9BU1NJR05NRU5UICAgICAgICAgID0gMHgz
+RkYsCisJQU1ER1BVX0RPT1JCRUxMX0lOVkFMSUQgICAgICAgICAgICAgICAgID0gMHhGRkZGCit9
+IEFNREdQVV9ET09SQkVMTF9BU1NJR05NRU5UOworCit0eXBlZGVmIGVudW0gX0FNREdQVV9WRUdB
+MjBfRE9PUkJFTExfQVNTSUdOTUVOVAoreworCS8qIENvbXB1dGUgKyBHRlg6IDB+MjU1ICovCisJ
+QU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9LSVEgICAgICAgICAgICAgICAgICAgICA9IDB4MDAwLAor
+CUFNREdQVV9WRUdBMjBfRE9PUkJFTExfSElRICAgICAgICAgICAgICAgICAgICAgPSAweDAwMSwK
+KwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX0RJUSAgICAgICAgICAgICAgICAgICAgID0gMHgwMDIs
+CisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklORzAgICAgICAgICAgICAgICA9IDB4MDAz
+LAorCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfTUVDX1JJTkcxICAgICAgICAgICAgICAgPSAweDAw
+NCwKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX01FQ19SSU5HMiAgICAgICAgICAgICAgID0gMHgw
+MDUsCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklORzMgICAgICAgICAgICAgICA9IDB4
+MDA2LAorCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfTUVDX1JJTkc0ICAgICAgICAgICAgICAgPSAw
+eDAwNywKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX01FQ19SSU5HNSAgICAgICAgICAgICAgID0g
+MHgwMDgsCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklORzYgICAgICAgICAgICAgICA9
+IDB4MDA5LAorCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfTUVDX1JJTkc3ICAgICAgICAgICAgICAg
+PSAweDAwQSwKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX1VTRVJRVUVVRV9TVEFSVAkgICAgICAg
+PSAweDAwQiwKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX1VTRVJRVUVVRV9FTkQJICAgICAgID0g
+MHgwOEEsCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9HRlhfUklORzAgICAgICAgICAgICAgICA9
+IDB4MDhCLAorCS8qIFNETUE6MjU2fjMzNSovCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9zRE1B
+X0VOR0lORTAgICAgICAgICAgICA9IDB4MTAwLAorCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfc0RN
+QV9FTkdJTkUxICAgICAgICAgICAgPSAweDEwQSwKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX3NE
+TUFfRU5HSU5FMiAgICAgICAgICAgID0gMHgxMTQsCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9z
+RE1BX0VOR0lORTMgICAgICAgICAgICA9IDB4MTFFLAorCUFNREdQVV9WRUdBMjBfRE9PUkJFTExf
+c0RNQV9FTkdJTkU0ICAgICAgICAgICAgPSAweDEyOCwKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxM
+X3NETUFfRU5HSU5FNSAgICAgICAgICAgID0gMHgxMzIsCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVM
+TF9zRE1BX0VOR0lORTYgICAgICAgICAgICA9IDB4MTNDLAorCUFNREdQVV9WRUdBMjBfRE9PUkJF
+TExfc0RNQV9FTkdJTkU3ICAgICAgICAgICAgPSAweDE0NiwKKwkvKiBJSDogMzc2fjM5MSAqLwor
+CUFNREdQVV9WRUdBMjBfRE9PUkJFTExfSUggICAgICAgICAgICAgICAgICAgICAgPSAweDE3OCwK
+KwkvKiBNTVNDSDogMzkyfjQwNworCSAqIG92ZXJsYXAgdGhlIGRvb3JiZWxsIGFzc2lnbm1lbnQg
+d2l0aCBWQ04gYXMgdGhleSBhcmUgIG11dHVhbGx5IGV4Y2x1c2l2ZQorCSAqIFZDRSBlbmdpbmUn
+cyBkb29yYmVsbCBpcyAzMiBiaXQgYW5kIHR3byBWQ0UgcmluZyBzaGFyZSBvbmUgUVdPUkQKKwkg
+Ki8KKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMNjRfVkNOMF8xICAgICAgICAgICAgICAgICAgPSAw
+eDE4OCwgLyogbG93ZXIgMzIgYml0cyBmb3IgVk5DMCBhbmQgdXBwZXIgMzIgYml0cyBmb3IgVk5D
+MSAqLworCUFNREdQVV9WRUdBMjBfRE9PUkJFTEw2NF9WQ04yXzMgICAgICAgICAgICAgICAgICA9
+IDB4MTg5LAorCUFNREdQVV9WRUdBMjBfRE9PUkJFTEw2NF9WQ040XzUgICAgICAgICAgICAgICAg
+ICA9IDB4MThBLAorCUFNREdQVV9WRUdBMjBfRE9PUkJFTEw2NF9WQ042XzcgICAgICAgICAgICAg
+ICAgICA9IDB4MThCLAorCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTDY0X1VWRF9SSU5HMF8xICAg
+ICAgICAgICAgID0gMHgxODgsCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTDY0X1VWRF9SSU5HMl8z
+ICAgICAgICAgICAgID0gMHgxODksCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTDY0X1VWRF9SSU5H
+NF81ICAgICAgICAgICAgID0gMHgxOEEsCisJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTDY0X1VWRF9S
+SU5HNl83ICAgICAgICAgICAgID0gMHgxOEIsCisKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxMNjRf
+VkNFX1JJTkcwXzEgICAgICAgICAgICAgPSAweDE4QywKKwlBTURHUFVfVkVHQTIwX0RPT1JCRUxM
+NjRfVkNFX1JJTkcyXzMgICAgICAgICAgICAgPSAweDE4RCwKKwlBTURHUFVfVkVHQTIwX0RPT1JC
+RUxMNjRfVkNFX1JJTkc0XzUgICAgICAgICAgICAgPSAweDE4RSwKKwlBTURHUFVfVkVHQTIwX0RP
+T1JCRUxMNjRfVkNFX1JJTkc2XzcgICAgICAgICAgICAgPSAweDE4RiwKKwlBTURHUFVfVkVHQTIw
+X0RPT1JCRUxMX01BWF9BU1NJR05NRU5UICAgICAgICAgICAgPSAweDE4RiwKKwlBTURHUFVfVkVH
+QTIwX0RPT1JCRUxMX0lOVkFMSUQgICAgICAgICAgICAgICAgICAgPSAweEZGRkYKK30gQU1ER1BV
+X1ZFR0EyMF9ET09SQkVMTF9BU1NJR05NRU5UOworCisvKgorICogNjRiaXQgZG9vcmJlbGwsIG9m
+ZnNldCBhcmUgaW4gUVdPUkQsIG9jY3VweSAyS0IgZG9vcmJlbGwgc3BhY2UKKyAqLwordHlwZWRl
+ZiBlbnVtIF9BTURHUFVfRE9PUkJFTEw2NF9BU1NJR05NRU5UCit7CisJLyoKKwkgKiBBbGwgY29t
+cHV0ZSByZWxhdGVkIGRvb3JiZWxsczoga2lxLCBoaXEsIGRpcSwgdHJhZGl0aW9uYWwgY29tcHV0
+ZSBxdWV1ZSwgdXNlciBxdWV1ZSwgc2hvdWxkIGxvY2F0ZSBpbgorCSAqIGEgY29udGludWVzIHJh
+bmdlIHNvIHRoYXQgcHJvZ3JhbW1pbmcgQ1BfTUVDX0RPT1JCRUxMX1JBTkdFX0xPV0VSL1VQUEVS
+IGNhbiBjb3ZlciB0aGlzIHJhbmdlLgorCSAqICBDb21wdXRlIHJlbGF0ZWQgZG9vcmJlbGxzIGFy
+ZSBhbGxvY2F0ZWQgZnJvbSAweDAwIHRvIDB4OGEKKwkgKi8KKworCisJLyoga2VybmVsIHNjaGVk
+dWxpbmcgKi8KKwlBTURHUFVfRE9PUkJFTEw2NF9LSVEgICAgICAgICAgICAgICAgICAgICA9IDB4
+MDAsCisKKwkvKiBIU0EgaW50ZXJmYWNlIHF1ZXVlIGFuZCBkZWJ1ZyBxdWV1ZSAqLworCUFNREdQ
+VV9ET09SQkVMTDY0X0hJUSAgICAgICAgICAgICAgICAgICAgID0gMHgwMSwKKwlBTURHUFVfRE9P
+UkJFTEw2NF9ESVEgICAgICAgICAgICAgICAgICAgICA9IDB4MDIsCisKKwkvKiBDb21wdXRlIGVu
+Z2luZXMgKi8KKwlBTURHUFVfRE9PUkJFTEw2NF9NRUNfUklORzAgICAgICAgICAgICAgICA9IDB4
+MDMsCisJQU1ER1BVX0RPT1JCRUxMNjRfTUVDX1JJTkcxICAgICAgICAgICAgICAgPSAweDA0LAor
+CUFNREdQVV9ET09SQkVMTDY0X01FQ19SSU5HMiAgICAgICAgICAgICAgID0gMHgwNSwKKwlBTURH
+UFVfRE9PUkJFTEw2NF9NRUNfUklORzMgICAgICAgICAgICAgICA9IDB4MDYsCisJQU1ER1BVX0RP
+T1JCRUxMNjRfTUVDX1JJTkc0ICAgICAgICAgICAgICAgPSAweDA3LAorCUFNREdQVV9ET09SQkVM
+TDY0X01FQ19SSU5HNSAgICAgICAgICAgICAgID0gMHgwOCwKKwlBTURHUFVfRE9PUkJFTEw2NF9N
+RUNfUklORzYgICAgICAgICAgICAgICA9IDB4MDksCisJQU1ER1BVX0RPT1JCRUxMNjRfTUVDX1JJ
+Tkc3ICAgICAgICAgICAgICAgPSAweDBhLAorCisJLyogVXNlciBxdWV1ZSBkb29yYmVsbCByYW5n
+ZSAoMTI4IGRvb3JiZWxscykgKi8KKwlBTURHUFVfRE9PUkJFTEw2NF9VU0VSUVVFVUVfU1RBUlQg
+ICAgICAgICA9IDB4MGIsCisJQU1ER1BVX0RPT1JCRUxMNjRfVVNFUlFVRVVFX0VORCAgICAgICAg
+ICAgPSAweDhhLAorCisJLyogR3JhcGhpY3MgZW5naW5lICovCisJQU1ER1BVX0RPT1JCRUxMNjRf
+R0ZYX1JJTkcwICAgICAgICAgICAgICAgPSAweDhiLAorCisJLyoKKwkgKiBPdGhlciBncmFwaGlj
+cyBkb29yYmVsbHMgY2FuIGJlIGFsbG9jYXRlZCBoZXJlOiBmcm9tIDB4OGMgdG8gMHhkZgorCSAq
+IEdyYXBoaWNzIHZvbHRhZ2UgaXNsYW5kIGFwZXJ0dXJlIDEKKwkgKiBkZWZhdWx0IG5vbi1ncmFw
+aGljcyBRV09SRCBpbmRleCBpcyAweGUwIC0gMHhGRiBpbmNsdXNpdmUKKwkgKi8KKworCS8qIHNE
+TUEgZW5naW5lcyAgcmVzZXJ2ZWQgZnJvbSAweGUwIC0weGVmICAqLworCUFNREdQVV9ET09SQkVM
+TDY0X3NETUFfRU5HSU5FMCAgICAgICAgICAgID0gMHhFMCwKKwlBTURHUFVfRE9PUkJFTEw2NF9z
+RE1BX0hJX1BSSV9FTkdJTkUwICAgICA9IDB4RTEsCisJQU1ER1BVX0RPT1JCRUxMNjRfc0RNQV9F
+TkdJTkUxICAgICAgICAgICAgPSAweEU4LAorCUFNREdQVV9ET09SQkVMTDY0X3NETUFfSElfUFJJ
+X0VOR0lORTEgICAgID0gMHhFOSwKKworCS8qIEZvciB2ZWdhMTAgc3Jpb3YsIHRoZSBzZG1hIGRv
+b3JiZWxsIG11c3QgYmUgZml4ZWQgYXMgZm9sbG93CisJICogdG8ga2VlcCB0aGUgc2FtZSBzZXR0
+aW5nIHdpdGggaG9zdCBkcml2ZXIsIG9yIGl0IHdpbGwKKwkgKiBoYXBwZW4gY29uZmxpY3RzCisJ
+ICovCisJQU1ER1BVX1ZFR0ExMF9ET09SQkVMTDY0X3NETUFfRU5HSU5FMCAgICAgICAgICAgID0g
+MHhGMCwKKwlBTURHUFVfVkVHQTEwX0RPT1JCRUxMNjRfc0RNQV9ISV9QUklfRU5HSU5FMCAgICAg
+PSAweEYxLAorCUFNREdQVV9WRUdBMTBfRE9PUkJFTEw2NF9zRE1BX0VOR0lORTEgICAgICAgICAg
+ICA9IDB4RjIsCisJQU1ER1BVX1ZFR0ExMF9ET09SQkVMTDY0X3NETUFfSElfUFJJX0VOR0lORTEg
+ICAgID0gMHhGMywKKworCS8qIEludGVycnVwdCBoYW5kbGVyICovCisJQU1ER1BVX0RPT1JCRUxM
+NjRfSUggICAgICAgICAgICAgICAgICAgICAgPSAweEY0LCAgLyogRm9yIGxlZ2FjeSBpbnRlcnJ1
+cHQgcmluZyBidWZmZXIgKi8KKwlBTURHUFVfRE9PUkJFTEw2NF9JSF9SSU5HMSAgICAgICAgICAg
+ICAgICA9IDB4RjUsICAvKiBGb3IgcGFnZSBtaWdyYXRpb24gcmVxdWVzdCBsb2cgKi8KKwlBTURH
+UFVfRE9PUkJFTEw2NF9JSF9SSU5HMiAgICAgICAgICAgICAgICA9IDB4RjYsICAvKiBGb3IgcGFn
+ZSBtaWdyYXRpb24gdHJhbnNsYXRpb24vaW52YWxpZGF0aW9uIGxvZyAqLworCisJLyogVkNOIGVu
+Z2luZSB1c2UgMzIgYml0cyBkb29yYmVsbCAgKi8KKwlBTURHUFVfRE9PUkJFTEw2NF9WQ04wXzEg
+ICAgICAgICAgICAgICAgICA9IDB4RjgsIC8qIGxvd2VyIDMyIGJpdHMgZm9yIFZOQzAgYW5kIHVw
+cGVyIDMyIGJpdHMgZm9yIFZOQzEgKi8KKwlBTURHUFVfRE9PUkJFTEw2NF9WQ04yXzMgICAgICAg
+ICAgICAgICAgICA9IDB4RjksCisJQU1ER1BVX0RPT1JCRUxMNjRfVkNONF81ICAgICAgICAgICAg
+ICAgICAgPSAweEZBLAorCUFNREdQVV9ET09SQkVMTDY0X1ZDTjZfNyAgICAgICAgICAgICAgICAg
+ID0gMHhGQiwKKworCS8qIG92ZXJsYXAgdGhlIGRvb3JiZWxsIGFzc2lnbm1lbnQgd2l0aCBWQ04g
+YXMgdGhleSBhcmUgIG11dHVhbGx5IGV4Y2x1c2l2ZQorCSAqIFZDRSBlbmdpbmUncyBkb29yYmVs
+bCBpcyAzMiBiaXQgYW5kIHR3byBWQ0UgcmluZyBzaGFyZSBvbmUgUVdPUkQKKwkgKi8KKwlBTURH
+UFVfRE9PUkJFTEw2NF9VVkRfUklORzBfMSAgICAgICAgICAgICA9IDB4RjgsCisJQU1ER1BVX0RP
+T1JCRUxMNjRfVVZEX1JJTkcyXzMgICAgICAgICAgICAgPSAweEY5LAorCUFNREdQVV9ET09SQkVM
+TDY0X1VWRF9SSU5HNF81ICAgICAgICAgICAgID0gMHhGQSwKKwlBTURHUFVfRE9PUkJFTEw2NF9V
+VkRfUklORzZfNyAgICAgICAgICAgICA9IDB4RkIsCisKKwlBTURHUFVfRE9PUkJFTEw2NF9WQ0Vf
+UklORzBfMSAgICAgICAgICAgICA9IDB4RkMsCisJQU1ER1BVX0RPT1JCRUxMNjRfVkNFX1JJTkcy
+XzMgICAgICAgICAgICAgPSAweEZELAorCUFNREdQVV9ET09SQkVMTDY0X1ZDRV9SSU5HNF81ICAg
+ICAgICAgICAgID0gMHhGRSwKKwlBTURHUFVfRE9PUkJFTEw2NF9WQ0VfUklORzZfNyAgICAgICAg
+ICAgICA9IDB4RkYsCisKKwlBTURHUFVfRE9PUkJFTEw2NF9NQVhfQVNTSUdOTUVOVCAgICAgICAg
+ICA9IDB4RkYsCisJQU1ER1BVX0RPT1JCRUxMNjRfSU5WQUxJRCAgICAgICAgICAgICAgICAgPSAw
+eEZGRkYKK30gQU1ER1BVX0RPT1JCRUxMNjRfQVNTSUdOTUVOVDsKKwordTMyIGFtZGdwdV9tbV9y
+ZG9vcmJlbGwoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBpbmRleCk7Cit2b2lkIGFt
+ZGdwdV9tbV93ZG9vcmJlbGwoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHUzMiBpbmRleCwg
+dTMyIHYpOwordTY0IGFtZGdwdV9tbV9yZG9vcmJlbGw2NChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiwgdTMyIGluZGV4KTsKK3ZvaWQgYW1kZ3B1X21tX3dkb29yYmVsbDY0KHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LCB1MzIgaW5kZXgsIHU2NCB2KTsKKworI2RlZmluZSBSRE9PUkJFTEwz
+MihpbmRleCkgYW1kZ3B1X21tX3Jkb29yYmVsbChhZGV2LCAoaW5kZXgpKQorI2RlZmluZSBXRE9P
+UkJFTEwzMihpbmRleCwgdikgYW1kZ3B1X21tX3dkb29yYmVsbChhZGV2LCAoaW5kZXgpLCAodikp
+CisjZGVmaW5lIFJET09SQkVMTDY0KGluZGV4KSBhbWRncHVfbW1fcmRvb3JiZWxsNjQoYWRldiwg
+KGluZGV4KSkKKyNkZWZpbmUgV0RPT1JCRUxMNjQoaW5kZXgsIHYpIGFtZGdwdV9tbV93ZG9vcmJl
+bGw2NChhZGV2LCAoaW5kZXgpLCAodikpCisKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
