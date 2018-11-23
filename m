@@ -1,85 +1,68 @@
-From: Eric Anholt <eric@anholt.net>
-Subject: Re: [PATCH RFC 4/5] drm/amdgpu: Add accounting of command submission
- via DRM cgroup
-Date: Fri, 23 Nov 2018 09:36:28 -0800
-Message-ID: <871s7b7l2b.fsf@anholt.net>
-References: <20181120185814.13362-1-Kenny.Ho@amd.com>
- <20181120185814.13362-5-Kenny.Ho@amd.com> <87r2ff79he.fsf@anholt.net>
- <56833f60-1636-d149-c9b0-c021a6ad99d1@gmail.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add the checking to avoid NULL pointer
+ dereference
+Date: Fri, 23 Nov 2018 18:10:52 +0000
+Message-ID: <138bad33-c604-c0c5-98cb-1ce71a432185@amd.com>
+References: <20181122065523.5510-1-Deepak.Sharma@amd.com>
+ <b8284caa-3f1d-5672-6317-36be83907e9d@gmail.com>
+ <9350d13a-e745-f284-1c49-785fe523773d@amd.com>
+ <eae25687-23ce-d686-f5f0-deeb7c3d2e1c@amd.com>
+ <70a32625-7568-6253-6c5e-a72fe38f7986@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1616063232=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <56833f60-1636-d149-c9b0-c021a6ad99d1@gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: christian.koenig@amd.com, Kenny Ho <Kenny.Ho@amd.com>, y2kenny@gmail.com, cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1616063232==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> writes:
-
-> Am 20.11.18 um 21:57 schrieb Eric Anholt:
->> Kenny Ho <Kenny.Ho@amd.com> writes:
->>
->>> Account for the number of command submitted to amdgpu by type on a per
->>> cgroup basis, for the purpose of profiling/monitoring applications.
->> For profiling other drivers, I've used perf tracepoints, which let you
->> get useful timelines of multiple events in the driver.  Have you made
->> use of this stat for productive profiling?
->
-> Yes, but this is not related to profiling at all.
->
-> What we want to do is to limit the resource usage of processes.
-
-That sounds great, and something I'd be interested in for vc4.  However,
-as far as I saw explained here, this patch doesn't let you limit
-resource usage of a process and is only useful for
-"profiling/monitoring" so I'm wondering how it is useful for that
-purpose.
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlv4OpwACgkQtdYpNtH8
-nuisag//cE0Np/kVFyEqmSwGSjAUUFQlcU8hw9wFMGoCbeNdWzpcciUtTP2gNlMX
-Ujxuc6Z9woYmAGOsTf1i1Hc/wZ32TLKMh66tSB6fHLJNfK3js04nmJRurBr/0SIr
-QYlOieQl6U+AAFUyXMtSMyDWu8KX9ZnHpodbDiIm0jqSLsvsIQt9M9+pny5hgwkz
-dDeprOAEhI8TtP367Dy/nDnd7bS8f3prEhonGPiMul1MyowAsrNMRGG4IUox93SY
-0MRlaBPjkPCQKvS2jT4T8+bMoGb3eO2QrR87oiywxhTLORZYxRvI/aT2sSMgA9/A
-EbVryTlR7Jj0XNwY11JGwlO1Pg3YsU4DJZqyuX2l/d+v6bNbZYkQB30d+5ETiZNM
-D7m0kz7/NTaJEBttlMFJOexJgd5on+J94CkLvzlhiJhyWICJoV5Uhpvvoxad/plK
-1p5jTRC/lOzR38XDfcTWkCbEE8VJJvr2Vjc5zMypeDny05I7cQ5puZ8tDlZDETdK
-/yal9PeiujPmUBMYbm+bGDHe3EYy3uXC5s+Sa3t7nO5SNIiCQH34pcNTgsw1YQjQ
-Hua85qgR1859FAn333zOnvcp5L9Lnwn5OFrr/SUlJygLz1mUL8VSFKWXpnDICty5
-B0KxEpgziHzS75JQlAahsx63SmFyTPjIbgFoi4lZDsrE9M5RgFk=
-=HeYD
------END PGP SIGNATURE-----
---=-=-=--
-
---===============1616063232==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <70a32625-7568-6253-6c5e-a72fe38f7986-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <0B908C4C24BEBE4E9A2CE8A9BB0E4D43-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Sharma, Deepak" <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============1616063232==--
+QW0gMjMuMTEuMTggdW0gMTU6MTAgc2NocmllYiBaaG91LCBEYXZpZChDaHVuTWluZyk6DQo+DQo+
+IOWcqCAyMDE4LzExLzIzIDIxOjMwLCBLb2VuaWcsIENocmlzdGlhbiDlhpnpgZM6DQo+PiBBbSAy
+My4xMS4xOCB1bSAxNDoyNyBzY2hyaWViIFpob3UsIERhdmlkKENodW5NaW5nKToNCj4+PiDlnKgg
+MjAxOC8xMS8yMiAxOToyNSwgQ2hyaXN0aWFuIEvDtm5pZyDlhpnpgZM6DQo+Pj4+IEFtIDIyLjEx
+LjE4IHVtIDA3OjU2IHNjaHJpZWIgU2hhcm1hLCBEZWVwYWs6DQo+Pj4+PiB3aGVuIHJldHVybmVk
+IGZlbmNlIGlzIG5vdCB2YWxpZCBtb3N0bHkgZHVlIHRvIHVzZXJzcGFjZSBpZ25vcmVkDQo+Pj4+
+PiBwcmV2aW91cyBlcnJvciBjYXVzZXMgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLg0KPj4+PiBB
+Z2FpbiwgdGhpcyBpcyBjbGVhcmx5IGluY29ycmVjdC4gVGhlIG15IG90aGVyIG1haWxzIG9uIHRo
+ZSBlYXJsaWVyDQo+Pj4+IHBhdGNoLg0KPj4+IFNvcnJ5IGZvciBJIGRpZG4ndCBnZXQgeW91ciBo
+aXN0b3J5LCBidXQgbG9va3MgZnJvbSB0aGUgcGF0Y2ggaXRzZWxmLCBpdA0KPj4+IGlzIHN0aWxs
+IGEgdmFsaWQgcGF0Y2gsIGlzbid0IGl0Pw0KPj4gTm8sIHRoZSBzZW1hbnRpYyBvZiBhbWRncHVf
+Y3R4X2dldF9mZW5jZSgpIGlzIHRoYXQgd2UgcmV0dXJuIE5VTEwgd2hlbg0KPj4gdGhlIGZlbmNl
+IGlzIGFscmVhZHkgc2lnbmFsZWQuDQo+Pg0KPj4gU28gdGhpcyBwYXRjaCBjb3VsZCB0b3RhbGx5
+IGJyZWFrIHVzZXJzcGFjZSBiZWNhdXNlIGl0IGNoYW5nZXMgdGhlDQo+PiBiZWhhdmlvciB3aGVu
+IHdlIHRyeSB0byBzeW5jIHRvIGFuIGFscmVhZHkgc2lnbmFsZWQgZmVuY2UuDQo+IEFoLCBJIGdv
+dCB5b3VyIG1lYW5pbmcsIGhvdyBhYm91dCBhdHRhY2hlZCBwYXRjaD8NCg0KWWVhaCBzb21ldGhp
+bmcgbGlrZSB0aGlzLCBidXQgSSB3b3VsZCBqdXN0IGdpdmUgdGhlIA0KRFJNX1NZTkNPQkpfQ1JF
+QVRFX1NJR05BTEVEIGluc3RlYWQuDQoNCkkgbWVhbiB0aGF0J3Mgd2hhdCB0aGlzIGZsYWcgaXMg
+Z29vZCBmb3IgaXNuJ3QgaXQ/DQoNCkNocmlzdGlhbi4NCg0KPg0KPiAtRGF2aWQNCj4+IElmIHRo
+YXQgcGF0Y2ggd2FzIGFwcGxpZWQgdGhlbiBwbGVhc2UgcmV2ZXJ0IGl0IGltbWVkaWF0ZWx5Lg0K
+Pj4NCj4+IENocmlzdGlhbi4NCj4+DQo+Pj4gLURhdmlkDQo+Pj4+IElmIHlvdSBoYXZlIGFscmVh
+ZHkgcHVzaGVkIHRoZSBwYXRjaCB0aGVuIHBsZWFzZSByZXZlcnQuDQo+Pj4+DQo+Pj4+IENocmlz
+dGlhbi4NCj4+Pj4NCj4+Pj4+IFNpZ25lZC1vZmYtYnk6IERlZXBhayBTaGFybWEgPERlZXBhay5T
+aGFybWFAYW1kLmNvbT4NCj4+Pj4+IC0tLQ0KPj4+Pj4gICAgwqAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2NzLmMgfCAyICsrDQo+Pj4+PiAgICDCoCAxIGZpbGUgY2hhbmdlZCwg
+MiBpbnNlcnRpb25zKCspDQo+Pj4+Pg0KPj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9jcy5jDQo+Pj4+PiBpbmRleCAwMjRkZmJkODdmMTEuLjE0MTY2Y2Q4YTEyZiAx
+MDA2NDQNCj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5j
+DQo+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPj4+
+Pj4gQEAgLTE0MDMsNiArMTQwMyw4IEBAIHN0YXRpYyBzdHJ1Y3QgZG1hX2ZlbmNlDQo+Pj4+PiAq
+YW1kZ3B1X2NzX2dldF9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+Pj4+ICAg
+IMKgIMKgwqDCoMKgwqAgZmVuY2UgPSBhbWRncHVfY3R4X2dldF9mZW5jZShjdHgsIGVudGl0eSwg
+dXNlci0+c2VxX25vKTsNCj4+Pj4+ICAgIMKgwqDCoMKgwqAgYW1kZ3B1X2N0eF9wdXQoY3R4KTsN
+Cj4+Pj4+ICvCoMKgwqAgaWYoIWZlbmNlKQ0KPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBF
+UlJfUFRSKC1FSU5WQUwpOw0KPj4+Pj4gICAgwqAgwqDCoMKgwqDCoCByZXR1cm4gZmVuY2U7DQo+
+Pj4+PiAgICDCoCB9DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
