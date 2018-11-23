@@ -1,126 +1,85 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add the checking to avoid NULL pointer
- dereference
-Date: Fri, 23 Nov 2018 14:10:44 +0000
-Message-ID: <70a32625-7568-6253-6c5e-a72fe38f7986@amd.com>
-References: <20181122065523.5510-1-Deepak.Sharma@amd.com>
- <b8284caa-3f1d-5672-6317-36be83907e9d@gmail.com>
- <9350d13a-e745-f284-1c49-785fe523773d@amd.com>
- <eae25687-23ce-d686-f5f0-deeb7c3d2e1c@amd.com>
+From: Eric Anholt <eric@anholt.net>
+Subject: Re: [PATCH RFC 4/5] drm/amdgpu: Add accounting of command submission
+ via DRM cgroup
+Date: Fri, 23 Nov 2018 09:36:28 -0800
+Message-ID: <871s7b7l2b.fsf@anholt.net>
+References: <20181120185814.13362-1-Kenny.Ho@amd.com>
+ <20181120185814.13362-5-Kenny.Ho@amd.com> <87r2ff79he.fsf@anholt.net>
+ <56833f60-1636-d149-c9b0-c021a6ad99d1@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="_002_70a32625756862536c5ea72fe38f7986amdcom_"
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <eae25687-23ce-d686-f5f0-deeb7c3d2e1c-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Sharma, Deepak" <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1616063232=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <56833f60-1636-d149-c9b0-c021a6ad99d1@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: christian.koenig@amd.com, Kenny Ho <Kenny.Ho@amd.com>, y2kenny@gmail.com, cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
---_002_70a32625756862536c5ea72fe38f7986amdcom_
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BDC1D8A2F35AF549ABF1F4101A1607C8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: base64
+--===============1616063232==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
 
-DQoNCuWcqCAyMDE4LzExLzIzIDIxOjMwLCBLb2VuaWcsIENocmlzdGlhbiDlhpnpgZM6DQo+IEFt
-IDIzLjExLjE4IHVtIDE0OjI3IHNjaHJpZWIgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpOg0KPj4g5Zyo
-IDIwMTgvMTEvMjIgMTk6MjUsIENocmlzdGlhbiBLw7ZuaWcg5YaZ6YGTOg0KPj4+IEFtIDIyLjEx
-LjE4IHVtIDA3OjU2IHNjaHJpZWIgU2hhcm1hLCBEZWVwYWs6DQo+Pj4+IHdoZW4gcmV0dXJuZWQg
-ZmVuY2UgaXMgbm90IHZhbGlkIG1vc3RseSBkdWUgdG8gdXNlcnNwYWNlIGlnbm9yZWQNCj4+Pj4g
-cHJldmlvdXMgZXJyb3IgY2F1c2VzIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZS4NCj4+PiBBZ2Fp
-biwgdGhpcyBpcyBjbGVhcmx5IGluY29ycmVjdC4gVGhlIG15IG90aGVyIG1haWxzIG9uIHRoZSBl
-YXJsaWVyDQo+Pj4gcGF0Y2guDQo+PiBTb3JyeSBmb3IgSSBkaWRuJ3QgZ2V0IHlvdXIgaGlzdG9y
-eSwgYnV0IGxvb2tzIGZyb20gdGhlIHBhdGNoIGl0c2VsZiwgaXQNCj4+IGlzIHN0aWxsIGEgdmFs
-aWQgcGF0Y2gsIGlzbid0IGl0Pw0KPiBObywgdGhlIHNlbWFudGljIG9mIGFtZGdwdV9jdHhfZ2V0
-X2ZlbmNlKCkgaXMgdGhhdCB3ZSByZXR1cm4gTlVMTCB3aGVuDQo+IHRoZSBmZW5jZSBpcyBhbHJl
-YWR5IHNpZ25hbGVkLg0KPg0KPiBTbyB0aGlzIHBhdGNoIGNvdWxkIHRvdGFsbHkgYnJlYWsgdXNl
-cnNwYWNlIGJlY2F1c2UgaXQgY2hhbmdlcyB0aGUNCj4gYmVoYXZpb3Igd2hlbiB3ZSB0cnkgdG8g
-c3luYyB0byBhbiBhbHJlYWR5IHNpZ25hbGVkIGZlbmNlLg0KQWgsIEkgZ290IHlvdXIgbWVhbmlu
-ZywgaG93IGFib3V0IGF0dGFjaGVkIHBhdGNoPw0KDQotRGF2aWQNCj4NCj4gSWYgdGhhdCBwYXRj
-aCB3YXMgYXBwbGllZCB0aGVuIHBsZWFzZSByZXZlcnQgaXQgaW1tZWRpYXRlbHkuDQo+DQo+IENo
-cmlzdGlhbi4NCj4NCj4+IC1EYXZpZA0KPj4+IElmIHlvdSBoYXZlIGFscmVhZHkgcHVzaGVkIHRo
-ZSBwYXRjaCB0aGVuIHBsZWFzZSByZXZlcnQuDQo+Pj4NCj4+PiBDaHJpc3RpYW4uDQo+Pj4NCj4+
-Pj4gU2lnbmVkLW9mZi1ieTogRGVlcGFrIFNoYXJtYSA8RGVlcGFrLlNoYXJtYUBhbWQuY29tPg0K
-Pj4+PiAtLS0NCj4+Pj4gICDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3Mu
-YyB8IDIgKysNCj4+Pj4gICDCoCAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQo+Pj4+
-DQo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3Mu
-Yw0KPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+Pj4+IGlu
-ZGV4IDAyNGRmYmQ4N2YxMS4uMTQxNjZjZDhhMTJmIDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPj4+PiBAQCAtMTQwMyw2ICsxNDAzLDggQEAgc3Rh
-dGljIHN0cnVjdCBkbWFfZmVuY2UNCj4+Pj4gKmFtZGdwdV9jc19nZXRfZmVuY2Uoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsDQo+Pj4+ICAgwqAgwqDCoMKgwqDCoCBmZW5jZSA9IGFtZGdwdV9j
-dHhfZ2V0X2ZlbmNlKGN0eCwgZW50aXR5LCB1c2VyLT5zZXFfbm8pOw0KPj4+PiAgIMKgwqDCoMKg
-wqAgYW1kZ3B1X2N0eF9wdXQoY3R4KTsNCj4+Pj4gK8KgwqDCoCBpZighZmVuY2UpDQo+Pj4+ICvC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gRVJSX1BUUigtRUlOVkFMKTsNCj4+Pj4gICDCoCDCoMKgwqDC
-oMKgIHJldHVybiBmZW5jZTsNCj4+Pj4gICDCoCB9DQoNCg==
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
---_002_70a32625756862536c5ea72fe38f7986amdcom_
-Content-Type: text/plain;
-	name="0001-drm-amdgpu-fix-signaled-fence-isn-t-handled.patch"
-Content-Description: 0001-drm-amdgpu-fix-signaled-fence-isn-t-handled.patch
-Content-Disposition: attachment;
-	filename="0001-drm-amdgpu-fix-signaled-fence-isn-t-handled.patch"; size=2164;
-	creation-date="Fri, 23 Nov 2018 14:10:44 GMT";
-	modification-date="Fri, 23 Nov 2018 14:10:44 GMT"
-Content-ID: <3247E24707A2E84387848607F93C5C4F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: base64
+Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com> writes:
 
-RnJvbSAzNjQwYTE4YzMxZTdiNzg2MTI5Mjg2NjE1ZmNkZjM5N2UxMTQyNDUxIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBDaHVubWluZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgpE
-YXRlOiBGcmksIDIzIE5vdiAyMDE4IDIyOjA1OjE5ICswODAwClN1YmplY3Q6IFtQQVRDSF0gZHJt
-L2FtZGdwdTogZml4IHNpZ25hbGVkIGZlbmNlIGlzbid0IGhhbmRsZWQKTUlNRS1WZXJzaW9uOiAx
-LjAKQ29udGVudC1UeXBlOiB0ZXh0L3BsYWluOyBjaGFyc2V0PVVURi04CkNvbnRlbnQtVHJhbnNm
-ZXItRW5jb2Rpbmc6IDhiaXQKClNpZ25lZC1vZmYtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56
-aG91QGFtZC5jb20+CkNjOiBTaGFybWEsIERlZXBhayA8RGVlcGFrLlNoYXJtYUBhbWQuY29tPgpD
-QzogQ2hyaXN0aWFuIEvDtm5pZyA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIHwgMyArKysKIGRyaXZlcnMvZ3B1L2Ry
-bS9kcm1fc3luY29iai5jICAgICAgICAgIHwgMSArCiBpbmNsdWRlL2RybS9kcm1fc3luY29iai5o
-ICAgICAgICAgICAgICB8IDEgKwogMyBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jCmluZGV4IDZhODIzYjU4YjNiOC4uZTk2
-MGY5ODY0ZTlmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwpAQCAtMTUw
-NSw2ICsxNTA1LDkgQEAgaW50IGFtZGdwdV9jc19mZW5jZV90b19oYW5kbGVfaW9jdGwoc3RydWN0
-IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAlpZiAoSVNfRVJSKGZlbmNlKSkKIAkJcmV0
-dXJuIFBUUl9FUlIoZmVuY2UpOwogCisgICAgLyogdGhhdCBtZWFucyBmZW5jZSB3YXMgc2lnbmFs
-ZWQgKi8KKwlpZiAoIWZlbmNlKQorCQlmZW5jZSA9IGRybV9zeW5jb2JqX2dldF9zdHViX2ZlbmNl
-KCk7CiAJc3dpdGNoIChpbmZvLT5pbi53aGF0KSB7CiAJY2FzZSBBTURHUFVfRkVOQ0VfVE9fSEFO
-RExFX0dFVF9TWU5DT0JKOgogCQlyID0gZHJtX3N5bmNvYmpfY3JlYXRlKCZzeW5jb2JqLCAwLCBm
-ZW5jZSk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYyBiL2RyaXZl
-cnMvZ3B1L2RybS9kcm1fc3luY29iai5jCmluZGV4IDVmMmRmMTBlNTFjMy4uZTU2MjFmODBkNTAx
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vZHJtX3N5bmNvYmouYwpAQCAtOTcsNiArOTcsNyBAQCBzdHJ1Y3QgZG1hX2ZlbmNl
-ICpkcm1fc3luY29ial9nZXRfc3R1Yl9mZW5jZSh2b2lkKQogCiAJcmV0dXJuIGRtYV9mZW5jZV9n
-ZXQoJnNpZ25hbGVkX2ZlbmNlKTsKIH0KK0VYUE9SVF9TWU1CT0woZHJtX3N5bmNvYmpfZ2V0X3N0
-dWJfZmVuY2UpOwogLyoqCiAgKiBkcm1fc3luY29ial9maW5kIC0gbG9va3VwIGFuZCByZWZlcmVu
-Y2UgYSBzeW5jIG9iamVjdC4KICAqIEBmaWxlX3ByaXZhdGU6IGRybSBmaWxlIHByaXZhdGUgcG9p
-bnRlcgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX3N5bmNvYmouaCBiL2luY2x1ZGUvZHJt
-L2RybV9zeW5jb2JqLmgKaW5kZXggMjkyNDRjYmNkMDVlLi45M2U5ZTliMTU5YWIgMTAwNjQ0Ci0t
-LSBhL2luY2x1ZGUvZHJtL2RybV9zeW5jb2JqLmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX3N5bmNv
-YmouaApAQCAtMTQ3LDUgKzE0Nyw2IEBAIGludCBkcm1fc3luY29ial9nZXRfaGFuZGxlKHN0cnVj
-dCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlLAogaW50IGRybV9zeW5jb2JqX2dldF9mZChzdHJ1Y3Qg
-ZHJtX3N5bmNvYmogKnN5bmNvYmosIGludCAqcF9mZCk7CiBpbnQgZHJtX3N5bmNvYmpfc2VhcmNo
-X2ZlbmNlKHN0cnVjdCBkcm1fc3luY29iaiAqc3luY29iaiwgdTY0IHBvaW50LCB1NjQgZmxhZ3Ms
-CiAJCQkgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSk7CitzdHJ1Y3QgZG1hX2ZlbmNlICpk
-cm1fc3luY29ial9nZXRfc3R1Yl9mZW5jZSh2b2lkKTsKIAogI2VuZGlmCi0tIAoyLjE3LjEKCg==
+> Am 20.11.18 um 21:57 schrieb Eric Anholt:
+>> Kenny Ho <Kenny.Ho@amd.com> writes:
+>>
+>>> Account for the number of command submitted to amdgpu by type on a per
+>>> cgroup basis, for the purpose of profiling/monitoring applications.
+>> For profiling other drivers, I've used perf tracepoints, which let you
+>> get useful timelines of multiple events in the driver.  Have you made
+>> use of this stat for productive profiling?
+>
+> Yes, but this is not related to profiling at all.
+>
+> What we want to do is to limit the resource usage of processes.
 
---_002_70a32625756862536c5ea72fe38f7986amdcom_
+That sounds great, and something I'd be interested in for vc4.  However,
+as far as I saw explained here, this patch doesn't let you limit
+resource usage of a process and is only useful for
+"profiling/monitoring" so I'm wondering how it is useful for that
+purpose.
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlv4OpwACgkQtdYpNtH8
+nuisag//cE0Np/kVFyEqmSwGSjAUUFQlcU8hw9wFMGoCbeNdWzpcciUtTP2gNlMX
+Ujxuc6Z9woYmAGOsTf1i1Hc/wZ32TLKMh66tSB6fHLJNfK3js04nmJRurBr/0SIr
+QYlOieQl6U+AAFUyXMtSMyDWu8KX9ZnHpodbDiIm0jqSLsvsIQt9M9+pny5hgwkz
+dDeprOAEhI8TtP367Dy/nDnd7bS8f3prEhonGPiMul1MyowAsrNMRGG4IUox93SY
+0MRlaBPjkPCQKvS2jT4T8+bMoGb3eO2QrR87oiywxhTLORZYxRvI/aT2sSMgA9/A
+EbVryTlR7Jj0XNwY11JGwlO1Pg3YsU4DJZqyuX2l/d+v6bNbZYkQB30d+5ETiZNM
+D7m0kz7/NTaJEBttlMFJOexJgd5on+J94CkLvzlhiJhyWICJoV5Uhpvvoxad/plK
+1p5jTRC/lOzR38XDfcTWkCbEE8VJJvr2Vjc5zMypeDny05I7cQ5puZ8tDlZDETdK
+/yal9PeiujPmUBMYbm+bGDHe3EYy3uXC5s+Sa3t7nO5SNIiCQH34pcNTgsw1YQjQ
+Hua85qgR1859FAn333zOnvcp5L9Lnwn5OFrr/SUlJygLz1mUL8VSFKWXpnDICty5
+B0KxEpgziHzS75JQlAahsx63SmFyTPjIbgFoi4lZDsrE9M5RgFk=
+=HeYD
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============1616063232==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
 
---_002_70a32625756862536c5ea72fe38f7986amdcom_--
+--===============1616063232==--
