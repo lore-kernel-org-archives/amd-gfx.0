@@ -1,34 +1,57 @@
-From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-Subject: [PATCH] drm/amd/amdgpu: Remove duplicate header
-Date: Fri, 23 Nov 2018 08:48:31 +0530
-Message-ID: <20181123031831.GA2470@hp-pavilion-15-notebook-pc-brajeswar>
+From: =?UTF-8?Q?Ernst_Sj=C3=B6strand?= <ernstp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Add delay after enable RLC ucode
+Date: Fri, 23 Nov 2018 08:15:06 +0100
+Message-ID: <CAD=4a=WZmjxeMB2X1+YPEX7YZFh8qCMef-Q6oWCoBk0hSvyb3A@mail.gmail.com>
+References: <1542910952-15954-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Samuel.Li@amd.com, michel.daenzer@amd.com, harry.wentland@amd.com, noralf@tronnes.org
-Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1542910952-15954-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Remove drm/drm_fb_helper.h which is included more than once
-
-Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index b9e9e8b02fb7..1cac12a26a4e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -38,7 +38,6 @@
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_fb_helper.h>
- #include <drm/drm_plane_helper.h>
--#include <drm/drm_fb_helper.h>
- #include <linux/i2c.h>
- #include <linux/i2c-algo-bit.h>
- #include <linux/hrtimer.h>
--- 
-2.17.1
+RG9lcyB0aGlzIHNvbHZlIGEgcHJvYmxlbT8gSWYgc28sIHlvdSBjb3VsZCB3cml0ZSB0aGF0IGlu
+IHRoZSBjb21taXQgbWVzc2FnZS4KClJlZ2FyZHMKLy9Fcm5zdApEZW4gdG9ycyAyMiBub3YuIDIw
+MTgga2wgMTk6MjIgc2tyZXYgTGl1LCBTaGFveXVuIDxTaGFveXVuLkxpdUBhbWQuY29tPjoKPgo+
+IERyaXZlciBzaG91bGRuJ3QgdHJ5IHRvIGFjY2VzcyBhbnkgR0ZYIHJlZ2lzdGVycyB1bnRpbCBS
+TEMgaXMgaWRsZS4KPiBEdXJpbmcgdGhlIHRlc3QsIGl0IHRvb2sgMTIgc2Vjb25kcyBmb3IgUkxD
+IHRvIGNsZWFyIHRoZSBCVVNZIGJpdAo+IGluIFJMQ19HUE1fU1RBVCByZWdpc3RlciB3aGljaCBp
+cyB1bi1hY2NlcHRhYmxlIGZvciBkcml2ZXIuCj4gQXMgcGVyIFJMQyBlbmdpbmVlciwgaXQgd291
+bGQgdGFrZSBSTEMgVWNvZGUgbGVzcyB0aGFuIDEwLDAwMCBHRlhDTEsKPiBjeWNsZXMgdG8gZmlu
+aXNoIGl0cyBjcml0aWNhbCBzZWN0aW9uLiBJbiBhIGxvd2VzdCAzMDBNIGVuZ2luZXIgY2xvY2sK
+PiBzZXR0aW5nKGRlZmF1bHQgZnJvbSB2YmlvcyksIDUwIHVzIGRlbGF5IGlzIGVub3VnaC4KPgo+
+IENoYW5nZS1JZDogSWYwNzRmYmVlZWNhZDNmNjNjZjVmNWFiMjMyNDcyZDBmZTQ2MDgyYTYKPiBT
+aWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1kLmNvbT4KPiAtLS0KPiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDcgKysrKy0tLQo+ICAxIGZpbGUg
+Y2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggZTQwOWZiZi4uOTY4NmZjYyAxMDA2NDQKPiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IEBAIC0yMzI2LDEyICsyMzI2LDEzIEBA
+IHN0YXRpYyB2b2lkIGdmeF92OV8wX3JsY19zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dikKPiAgI2VuZGlmCj4KPiAgICAgICAgIFdSRUczMl9GSUVMRDE1KEdDLCAwLCBSTENfQ05UTCwg
+UkxDX0VOQUJMRV9GMzIsIDEpOwo+ICsgICAgICAgdWRlbGF5KDUwKTsKPgo+ICAgICAgICAgLyog
+Y2Fycml6byBkbyBlbmFibGUgY3AgaW50ZXJydXB0IGFmdGVyIGNwIGluaXRlZCAqLwo+IC0gICAg
+ICAgaWYgKCEoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSkKPiArICAgICAgIGlmICghKGFkZXYt
+PmZsYWdzICYgQU1EX0lTX0FQVSkpIHsKPiAgICAgICAgICAgICAgICAgZ2Z4X3Y5XzBfZW5hYmxl
+X2d1aV9pZGxlX2ludGVycnVwdChhZGV2LCB0cnVlKTsKPiAtCj4gLSAgICAgICB1ZGVsYXkoNTAp
+Owo+ICsgICAgICAgICAgICAgICB1ZGVsYXkoNTApOwo+ICsgICAgICAgfQo+Cj4gICNpZmRlZiBB
+TURHUFVfUkxDX0RFQlVHX1JFVFJZCj4gICAgICAgICAvKiBSTENfR1BNX0dFTkVSQUxfNiA6IFJM
+QyBVY29kZSB2ZXJzaW9uICovCj4gLS0KPiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeAo=
