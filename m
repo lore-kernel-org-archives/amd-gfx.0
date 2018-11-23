@@ -1,15 +1,17 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix static checker warning
-Date: Fri, 23 Nov 2018 11:36:45 +0100
-Message-ID: <dca7c34e-523b-f39a-6c73-2f0bf90e8c18@gmail.com>
-References: <1542969136-20300-1-git-send-email-Rex.Zhu@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: add the checking to avoid NULL pointer
+ dereference
+Date: Fri, 23 Nov 2018 13:27:14 +0000
+Message-ID: <9350d13a-e745-f284-1c49-785fe523773d@amd.com>
+References: <20181122065523.5510-1-Deepak.Sharma@amd.com>
+ <b8284caa-3f1d-5672-6317-36be83907e9d@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1542969136-20300-1-git-send-email-Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <b8284caa-3f1d-5672-6317-36be83907e9d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
+Content-ID: <E04DD3450183C24597568D1296290DA1-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,25 +22,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Sharma, Deepak" <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMjMuMTEuMTggdW0gMTE6MzIgc2NocmllYiBSZXggWmh1Ogo+IGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9jc2EuYzo0OSBhbWRncHVfYWxsb2NhdGVfc3RhdGljX2NzYSgpCj4g
-ZXJyb3I6IHVuaW5pdGlhbGl6ZWQgc3ltYm9sICdwdHInLgo+Cj4gdGhlIHRlc3QgaWYgKCFibykg
-ZG9lc24ndCB3b3JrLCBhcyB0aGUgYm8gaXMgYSBwb2ludGVyIHRvIGEgcG9pbnRlci4KPiBzbyBu
-ZWVkIHRvIGNoZWNrICEqYm8KPgo+IFNpZ25lZC1vZmYtYnk6IFJleCBaaHUgPFJleC5aaHVAYW1k
-LmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5j
-IHwgMiArLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0p
-Cj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5jCj4gaW5kZXggZmVhNDU1
-NS4uZDNhMjUzNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfY3NhLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMK
-PiBAQCAtNTIsNyArNTIsNyBAQCBpbnQgYW1kZ3B1X2FsbG9jYXRlX3N0YXRpY19jc2Eoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfYm8gKipibwo+ICAgCXIgPSBhbWRn
-cHVfYm9fY3JlYXRlX2tlcm5lbChhZGV2LCBzaXplLCBQQUdFX1NJWkUsCj4gICAJCQkJZG9tYWlu
-LCBibywKPiAgIAkJCQlOVUxMLCAmcHRyKTsKPiAtCWlmICghYm8pCj4gKwlpZiAoISpibykKPiAg
-IAkJcmV0dXJuIC1FTk9NRU07Cj4gICAKPiAgIAltZW1zZXQocHRyLCAwLCBzaXplKTsKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+DQoNCuWcqCAyMDE4LzExLzIyIDE5OjI1LCBDaHJpc3RpYW4gS8O2bmlnIOWGmemBkzoNCj4gQW0g
+MjIuMTEuMTggdW0gMDc6NTYgc2NocmllYiBTaGFybWEsIERlZXBhazoNCj4+IHdoZW4gcmV0dXJu
+ZWQgZmVuY2UgaXMgbm90IHZhbGlkIG1vc3RseSBkdWUgdG8gdXNlcnNwYWNlIGlnbm9yZWQNCj4+
+IHByZXZpb3VzIGVycm9yIGNhdXNlcyBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UuDQo+DQo+IEFn
+YWluLCB0aGlzIGlzIGNsZWFybHkgaW5jb3JyZWN0LiBUaGUgbXkgb3RoZXIgbWFpbHMgb24gdGhl
+IGVhcmxpZXIgDQo+IHBhdGNoLg0KU29ycnkgZm9yIEkgZGlkbid0IGdldCB5b3VyIGhpc3Rvcnks
+IGJ1dCBsb29rcyBmcm9tIHRoZSBwYXRjaCBpdHNlbGYsIGl0IA0KaXMgc3RpbGwgYSB2YWxpZCBw
+YXRjaCwgaXNuJ3QgaXQ/DQoNCi1EYXZpZA0KPg0KPiBJZiB5b3UgaGF2ZSBhbHJlYWR5IHB1c2hl
+ZCB0aGUgcGF0Y2ggdGhlbiBwbGVhc2UgcmV2ZXJ0Lg0KPg0KPiBDaHJpc3RpYW4uDQo+DQo+Pg0K
+Pj4gU2lnbmVkLW9mZi1ieTogRGVlcGFrIFNoYXJtYSA8RGVlcGFrLlNoYXJtYUBhbWQuY29tPg0K
+Pj4gLS0tDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyB8IDIg
+KysNCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykNCj4+DQo+PiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgDQo+PiBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+PiBpbmRleCAwMjRkZmJkODdmMTEu
+LjE0MTY2Y2Q4YTEyZiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9jcy5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Y3MuYw0KPj4gQEAgLTE0MDMsNiArMTQwMyw4IEBAIHN0YXRpYyBzdHJ1Y3QgZG1hX2ZlbmNlIA0K
+Pj4gKmFtZGdwdV9jc19nZXRfZmVuY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiDC
+oCDCoMKgwqDCoMKgIGZlbmNlID0gYW1kZ3B1X2N0eF9nZXRfZmVuY2UoY3R4LCBlbnRpdHksIHVz
+ZXItPnNlcV9ubyk7DQo+PiDCoMKgwqDCoMKgIGFtZGdwdV9jdHhfcHV0KGN0eCk7DQo+PiArwqDC
+oMKgIGlmKCFmZW5jZSkNCj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gRVJSX1BUUigtRUlOVkFM
+KTsNCj4+IMKgIMKgwqDCoMKgwqAgcmV0dXJuIGZlbmNlOw0KPj4gwqAgfQ0KPg0KDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
