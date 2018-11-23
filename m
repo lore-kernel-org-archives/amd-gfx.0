@@ -1,17 +1,12 @@
-From: "Ho, Kenny" <Kenny.Ho-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH RFC 4/5] drm/amdgpu: Add accounting of command submission
- via DRM cgroup
-Date: Fri, 23 Nov 2018 19:09:38 +0000
-Message-ID: <DM5PR12MB122621462A0D79F04FF4034783D40@DM5PR12MB1226.namprd12.prod.outlook.com>
-References: <20181120185814.13362-1-Kenny.Ho@amd.com>
- <20181120185814.13362-5-Kenny.Ho@amd.com> <87r2ff79he.fsf@anholt.net>
- <56833f60-1636-d149-c9b0-c021a6ad99d1@gmail.com> <871s7b7l2b.fsf@anholt.net>
- <095e010c-e3b8-ec79-c87b-a05ce1d95e10@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 variants
+Date: Fri, 23 Nov 2018 19:32:49 +0000
+Message-ID: <BN6PR12MB18091B4409C1DC5CD17F903CF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181123083227.25555-1-Jerry.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0783204813=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <095e010c-e3b8-ec79-c87b-a05ce1d95e10-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181123083227.25555-1-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,33 +18,208 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, "y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpLCBOb3YgMjMsIDIwMTggYXQgMToxMyBQTSBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0
-aWFuLktvZW5pZ0BhbWQuY29tPiB3cm90ZToNCj4gQW0gMjMuMTEuMTggdW0gMTg6MzYgc2Nocmll
-YiBFcmljIEFuaG9sdDoNCj4gPiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVy
-a2VuQGdtYWlsLmNvbT4gd3JpdGVzOg0KPiA+PiBBbSAyMC4xMS4xOCB1bSAyMTo1NyBzY2hyaWVi
-IEVyaWMgQW5ob2x0Og0KPiA+Pj4gS2VubnkgSG8gPEtlbm55LkhvQGFtZC5jb20+IHdyaXRlczoN
-Cj4gPj4+PiBBY2NvdW50IGZvciB0aGUgbnVtYmVyIG9mIGNvbW1hbmQgc3VibWl0dGVkIHRvIGFt
-ZGdwdSBieSB0eXBlIG9uIGEgcGVyDQo+ID4+Pj4gY2dyb3VwIGJhc2lzLCBmb3IgdGhlIHB1cnBv
-c2Ugb2YgcHJvZmlsaW5nL21vbml0b3JpbmcgYXBwbGljYXRpb25zLg0KPiA+Pj4gRm9yIHByb2Zp
-bGluZyBvdGhlciBkcml2ZXJzLCBJJ3ZlIHVzZWQgcGVyZiB0cmFjZXBvaW50cywgd2hpY2ggbGV0
-IHlvdQ0KPiA+Pj4gZ2V0IHVzZWZ1bCB0aW1lbGluZXMgb2YgbXVsdGlwbGUgZXZlbnRzIGluIHRo
-ZSBkcml2ZXIuICBIYXZlIHlvdSBtYWRlDQo+ID4+PiB1c2Ugb2YgdGhpcyBzdGF0IGZvciBwcm9k
-dWN0aXZlIHByb2ZpbGluZz8NCj4gPj4gWWVzLCBidXQgdGhpcyBpcyBub3QgcmVsYXRlZCB0byBw
-cm9maWxpbmcgYXQgYWxsLg0KPiA+Pg0KPiA+PiBXaGF0IHdlIHdhbnQgdG8gZG8gaXMgdG8gbGlt
-aXQgdGhlIHJlc291cmNlIHVzYWdlIG9mIHByb2Nlc3Nlcy4NCj4gPiBUaGF0IHNvdW5kcyBncmVh
-dCwgYW5kIHNvbWV0aGluZyBJJ2QgYmUgaW50ZXJlc3RlZCBpbiBmb3IgdmM0LiAgSG93ZXZlciwN
-Cj4gPiBhcyBmYXIgYXMgSSBzYXcgZXhwbGFpbmVkIGhlcmUsIHRoaXMgcGF0Y2ggZG9lc24ndCBs
-ZXQgeW91IGxpbWl0DQo+ID4gcmVzb3VyY2UgdXNhZ2Ugb2YgYSBwcm9jZXNzIGFuZCBpcyBvbmx5
-IHVzZWZ1bCBmb3INCj4gPiAicHJvZmlsaW5nL21vbml0b3JpbmciIHNvIEknbSB3b25kZXJpbmcg
-aG93IGl0IGlzIHVzZWZ1bCBmb3IgdGhhdA0KPiA+IHB1cnBvc2UuDQo+DQo+IE9rLCBnb29kIHRv
-IGtub3cuIEkgaGF2ZW4ndCBsb29rZWQgYXQgdGhpcyBpbiBkZWVwLCBidXQgaWYgdGhpcyBpcyBq
-dXN0DQo+IGZvciBhY2NvdW50aW5nIHRoYXQgd291bGQgY2VydGFpbmx5IGJlIG1pc3NpbmcgdGhl
-IGdvYWwuDQpUaGUgZW5kIGdvYWwgaXMgdG8gaGF2ZSBsaW1pdCBpbiBwbGFjZS4gIFRoZSBjdXJy
-ZW50IHBhdGNoIGlzIG1vc3RseSB0byBpbGx1c3RyYXRlIHRoZSBzdHJ1Y3R1cmUgb2YgdGhlIGNv
-bnRyb2xsZXIgYW5kIGdldCBzb21lIGVhcmx5IGZlZWRiYWNrLiAgSSB3aWxsIGhhdmUgbW9yZSBz
-b29uLg0KDQpSZWdhcmRzLA0KS2VubnkNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+--===============0783204813==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18091B4409C1DC5CD17F903CF7D40BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18091B4409C1DC5CD17F903CF7D40BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Is this required?  Are the harvesting fuses incorrect?  If the blocks are h=
+arvested, we should bail out of the blocks properly during init.  Also, ple=
+ase make this more explicit if we still need it.  E.g.,
+
+       if ((adev->pdev->device =3D=3D 0x67df) &&
+              (adev->pdev->revision =3D=3D 0xf7)) {
+
+        /* Some polaris12 variants don't support UVD/VCE */
+
+      } else  {
+
+                 amdgpu_device_ip_block_add(adev, &uvd_v6_3_ip_block);
+
+                 amdgpu_device_ip_block_add(adev, &vce_v3_4_ip_block);
+
+    }
+
+
+That way if we re-arrange the order later, it will be easier to track.
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Junwei Z=
+hang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, November 23, 2018 3:32:27 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhang, Jerry
+Subject: [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 variants
+
+Some variants don't support UVD and VCE.
+
+Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
+i.c
+index f3a4cf1f013a..3338b013ded4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -1660,6 +1660,10 @@ int vi_set_ip_blocks(struct amdgpu_device *adev)
+                         amdgpu_device_ip_block_add(adev, &dce_v11_2_ip_blo=
+ck);
+                 amdgpu_device_ip_block_add(adev, &gfx_v8_0_ip_block);
+                 amdgpu_device_ip_block_add(adev, &sdma_v3_1_ip_block);
++               /* Some polaris12 variants don't support UVD/VCE */
++               if ((adev->pdev->device =3D=3D 0x67df) &&
++                     (adev->pdev->revision =3D=3D 0xf7))
++                       break;
+                 amdgpu_device_ip_block_add(adev, &uvd_v6_3_ip_block);
+                 amdgpu_device_ip_block_add(adev, &vce_v3_4_ip_block);
+                 break;
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18091B4409C1DC5CD17F903CF7D40BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Is this required?&nbsp; Are the h=
+arvesting fuses incorrect?&nbsp; If the blocks are harvested, we should bai=
+l out of the blocks properly during init. &nbsp;Also, please make this more=
+ explicit if we still need it.&nbsp; E.g.,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;"><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;pdev-&gt;device =3D=3D 0=
+x67df) &amp;&amp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; (adev-&gt;pdev-&gt;revision =3D=3D 0xf7)) {<br>
+</span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<font size=3D"2"><span style=3D"font-size:11pt;">/* Some polaris12 variants=
+ don't support UVD/VCE */</span></font><br>
+</span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else&nbsp; {<br>
+</span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp=
+;uvd_v6_3_ip_block);</span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp=
+;vce_v3_4_ip_block);</span></font></p>
+<p style=3D"margin-top:0;margin-bottom:0">&nbsp;&nbsp;&nbsp; }</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">That way if we re-arrange the ord=
+er later, it will be easier to track.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Junwei Zhang &lt;Jerry.Zhang@=
+amd.com&gt;<br>
+<b>Sent:</b> Friday, November 23, 2018 3:32:27 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhang, Jerry<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 var=
+iants</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Some variants don't support UVD and VCE.<br>
+<br>
+Signed-off-by: Junwei Zhang &lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vi.c | 4 &#43;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 4 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
+i.c<br>
+index f3a4cf1f013a..3338b013ded4 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+@@ -1660,6 &#43;1660,10 @@ int vi_set_ip_blocks(struct amdgpu_device *adev)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_device_ip_block_add(adev, &amp;dce_v11_2_ip_block);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;gfx_v8_0_ip_blo=
+ck);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;sdma_v3_1_ip_bl=
+ock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /* Some polaris12 variants don't support UVD/VCE */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if ((adev-&gt;pdev-&gt;device =3D=3D 0x67df) &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;revis=
+ion =3D=3D 0xf7))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;uvd_v6_3_ip_blo=
+ck);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_block_add(adev, &amp;vce_v3_4_ip_blo=
+ck);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18091B4409C1DC5CD17F903CF7D40BN6PR12MB1809namp_--
+
+--===============0783204813==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0783204813==--
