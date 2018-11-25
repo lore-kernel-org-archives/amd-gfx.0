@@ -1,21 +1,13 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add the checking to avoid NULL pointer
- dereference
-Date: Sat, 24 Nov 2018 08:14:33 +0000
-Message-ID: <46007826-1a4a-40eb-5ee8-af2d0c93e04a@amd.com>
-References: <20181122065523.5510-1-Deepak.Sharma@amd.com>
- <b8284caa-3f1d-5672-6317-36be83907e9d@gmail.com>
- <9350d13a-e745-f284-1c49-785fe523773d@amd.com>
- <eae25687-23ce-d686-f5f0-deeb7c3d2e1c@amd.com>
- <70a32625-7568-6253-6c5e-a72fe38f7986@amd.com>
- <138bad33-c604-c0c5-98cb-1ce71a432185@amd.com>
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: amdgpu: several powerplay errors during boot of HAWAII PRO GPU
+Date: Sun, 25 Nov 2018 11:11:31 +0100
+Message-ID: <66336f2f-c095-e0da-928f-0c737ab3a8c0@dev.carbon-project.org>
+References: <2e515da4-23b0-06b3-0d6f-2ea4ebb71baa@dev.carbon-project.org>
+ <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0216732623=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <138bad33-c604-c0c5-98cb-1ce71a432185-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <189119FE0C0C834881B358E6E672C729-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,60 +18,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Sharma, Deepak" <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-DQoNCuWcqCAyMDE4LzExLzI0IDI6MTAsIEtvZW5pZywgQ2hyaXN0aWFuIOWGmemBkzoNCj4gQW0g
-MjMuMTEuMTggdW0gMTU6MTAgc2NocmllYiBaaG91LCBEYXZpZChDaHVuTWluZyk6DQo+PiDlnKgg
-MjAxOC8xMS8yMyAyMTozMCwgS29lbmlnLCBDaHJpc3RpYW4g5YaZ6YGTOg0KPj4+IEFtIDIzLjEx
-LjE4IHVtIDE0OjI3IHNjaHJpZWIgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpOg0KPj4+PiDlnKggMjAx
-OC8xMS8yMiAxOToyNSwgQ2hyaXN0aWFuIEvDtm5pZyDlhpnpgZM6DQo+Pj4+PiBBbSAyMi4xMS4x
-OCB1bSAwNzo1NiBzY2hyaWViIFNoYXJtYSwgRGVlcGFrOg0KPj4+Pj4+IHdoZW4gcmV0dXJuZWQg
-ZmVuY2UgaXMgbm90IHZhbGlkIG1vc3RseSBkdWUgdG8gdXNlcnNwYWNlIGlnbm9yZWQNCj4+Pj4+
-PiBwcmV2aW91cyBlcnJvciBjYXVzZXMgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLg0KPj4+Pj4g
-QWdhaW4sIHRoaXMgaXMgY2xlYXJseSBpbmNvcnJlY3QuIFRoZSBteSBvdGhlciBtYWlscyBvbiB0
-aGUgZWFybGllcg0KPj4+Pj4gcGF0Y2guDQo+Pj4+IFNvcnJ5IGZvciBJIGRpZG4ndCBnZXQgeW91
-ciBoaXN0b3J5LCBidXQgbG9va3MgZnJvbSB0aGUgcGF0Y2ggaXRzZWxmLCBpdA0KPj4+PiBpcyBz
-dGlsbCBhIHZhbGlkIHBhdGNoLCBpc24ndCBpdD8NCj4+PiBObywgdGhlIHNlbWFudGljIG9mIGFt
-ZGdwdV9jdHhfZ2V0X2ZlbmNlKCkgaXMgdGhhdCB3ZSByZXR1cm4gTlVMTCB3aGVuDQo+Pj4gdGhl
-IGZlbmNlIGlzIGFscmVhZHkgc2lnbmFsZWQuDQo+Pj4NCj4+PiBTbyB0aGlzIHBhdGNoIGNvdWxk
-IHRvdGFsbHkgYnJlYWsgdXNlcnNwYWNlIGJlY2F1c2UgaXQgY2hhbmdlcyB0aGUNCj4+PiBiZWhh
-dmlvciB3aGVuIHdlIHRyeSB0byBzeW5jIHRvIGFuIGFscmVhZHkgc2lnbmFsZWQgZmVuY2UuDQo+
-PiBBaCwgSSBnb3QgeW91ciBtZWFuaW5nLCBob3cgYWJvdXQgYXR0YWNoZWQgcGF0Y2g/DQo+IFll
-YWggc29tZXRoaW5nIGxpa2UgdGhpcywgYnV0IEkgd291bGQganVzdCBnaXZlIHRoZQ0KPiBEUk1f
-U1lOQ09CSl9DUkVBVEVfU0lHTkFMRUQgaW5zdGVhZC4NCj4NCj4gSSBtZWFuIHRoYXQncyB3aGF0
-IHRoaXMgZmxhZyBpcyBnb29kIGZvciBpc24ndCBpdD8NClllYWgsIEkgZ2l2ZSBhIGZsYWcgaW5p
-dGFsbHkgd2hlbiBjcmVhdGluZyBwYXRjaCwgYnV0IGFzIHlvdSBrbm93LCB0aGVyZSANCmlzIGEg
-c3dpY2ggY2FzZSBub3QgYmUgYWJsZSB0byB1c2UgdGhhdCBmbGFnOg0KDQogwqDCoMKgIGNhc2Ug
-QU1ER1BVX0ZFTkNFX1RPX0hBTkRMRV9HRVRfU1lOQ19GSUxFX0ZEOg0KIMKgwqDCoMKgwqDCoMKg
-IGZkID0gZ2V0X3VudXNlZF9mZF9mbGFncyhPX0NMT0VYRUMpOw0KIMKgwqDCoMKgwqDCoMKgIGlm
-IChmZCA8IDApIHsNCiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRtYV9mZW5jZV9wdXQoZmVuY2Up
-Ow0KIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGZkOw0KIMKgwqDCoMKgwqDCoMKgIH0N
-Cg0KIMKgwqDCoMKgwqDCoMKgIHN5bmNfZmlsZSA9IHN5bmNfZmlsZV9jcmVhdGUoZmVuY2UpOw0K
-IMKgwqDCoMKgwqDCoMKgIGRtYV9mZW5jZV9wdXQoZmVuY2UpOw0KIMKgwqDCoMKgwqDCoMKgIGlm
-ICghc3luY19maWxlKSB7DQogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwdXRfdW51c2VkX2ZkKGZk
-KTsNCiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOw0KIMKgwqDCoMKgwqDC
-oMKgIH0NCg0KIMKgwqDCoMKgwqDCoMKgIGZkX2luc3RhbGwoZmQsIHN5bmNfZmlsZS0+ZmlsZSk7
-DQogwqDCoMKgwqDCoMKgwqAgaW5mby0+b3V0LmhhbmRsZSA9IGZkOw0KIMKgwqDCoMKgwqDCoMKg
-IHJldHVybiAwOw0KDQpTbyBJIGNoYW5nZSB0byBzdHViIGZlbmNlIGluc3RlYWQuDQoNCi1EYXZp
-ZA0KPg0KPiBDaHJpc3RpYW4uDQo+DQo+PiAtRGF2aWQNCj4+PiBJZiB0aGF0IHBhdGNoIHdhcyBh
-cHBsaWVkIHRoZW4gcGxlYXNlIHJldmVydCBpdCBpbW1lZGlhdGVseS4NCj4+Pg0KPj4+IENocmlz
-dGlhbi4NCj4+Pg0KPj4+PiAtRGF2aWQNCj4+Pj4+IElmIHlvdSBoYXZlIGFscmVhZHkgcHVzaGVk
-IHRoZSBwYXRjaCB0aGVuIHBsZWFzZSByZXZlcnQuDQo+Pj4+Pg0KPj4+Pj4gQ2hyaXN0aWFuLg0K
-Pj4+Pj4NCj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBEZWVwYWsgU2hhcm1hIDxEZWVwYWsuU2hhcm1h
-QGFtZC5jb20+DQo+Pj4+Pj4gLS0tDQo+Pj4+Pj4gICAgIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9jcy5jIHwgMiArKw0KPj4+Pj4+ICAgICDCoCAxIGZpbGUgY2hhbmdlZCwg
-MiBpbnNlcnRpb25zKCspDQo+Pj4+Pj4NCj4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCj4+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9jcy5jDQo+Pj4+Pj4gaW5kZXggMDI0ZGZiZDg3ZjExLi4xNDE2NmNkOGEx
-MmYgMTAwNjQ0DQo+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2NzLmMNCj4+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3Mu
-Yw0KPj4+Pj4+IEBAIC0xNDAzLDYgKzE0MDMsOCBAQCBzdGF0aWMgc3RydWN0IGRtYV9mZW5jZQ0K
-Pj4+Pj4+ICphbWRncHVfY3NfZ2V0X2ZlbmNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0K
-Pj4+Pj4+ICAgICDCoCDCoMKgwqDCoMKgIGZlbmNlID0gYW1kZ3B1X2N0eF9nZXRfZmVuY2UoY3R4
-LCBlbnRpdHksIHVzZXItPnNlcV9ubyk7DQo+Pj4+Pj4gICAgIMKgwqDCoMKgwqAgYW1kZ3B1X2N0
-eF9wdXQoY3R4KTsNCj4+Pj4+PiArwqDCoMKgIGlmKCFmZW5jZSkNCj4+Pj4+PiArwqDCoMKgwqDC
-oMKgwqAgcmV0dXJuIEVSUl9QVFIoLUVJTlZBTCk7DQo+Pj4+Pj4gICAgIMKgIMKgwqDCoMKgwqAg
-cmV0dXJuIGZlbmNlOw0KPj4+Pj4+ICAgICDCoCB9DQoNCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0216732623==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature";
+ boundary="BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB
+Content-Type: multipart/mixed; boundary="aH6LzYf5kZKYCLA59Q7FWJH0tmHiwuQUq";
+ protected-headers="v1"
+From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Message-ID: <66336f2f-c095-e0da-928f-0c737ab3a8c0-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+Subject: Re: amdgpu: several powerplay errors during boot of HAWAII PRO GPU
+References: <2e515da4-23b0-06b3-0d6f-2ea4ebb71baa-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
+ <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+
+--aH6LzYf5kZKYCLA59Q7FWJH0tmHiwuQUq
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
+Content-Transfer-Encoding: quoted-printable
+
+[Please CC me on replies, I'm not subscribed to amd-gfx.]
+
+Hey Alex,
+Alex Deucher wrote on 23.11.18 21:22:
+> On Fri, Nov 23, 2018 at 5:28 AM Kai Wasserb=C3=A4ch <kai-1ZKVMVCtJ2cdGMMoKFmSow@public.gmane.org=
+ject.org> wrote:
+>> with the recent 4.19.x series of kernels I'm seeing several errors bei=
+ng logged
+>> during boot for my R9 290 (HAWAII PRO) GPU:
+>>> [   50.057264] amdgpu: [powerplay] Failed to retrieve minimum clocks.=
+
+>>> [   50.057266] amdgpu: [powerplay] Error in phm_get_clock_info
+>>> [   50.057309] [drm] dce110_link_encoder_construct: Failed to get enc=
+oder_cap_info from VBIOS with error code 4!
+>>> [   50.057316] [drm] dce110_link_encoder_construct: Failed to get enc=
+oder_cap_info from VBIOS with error code 4!
+>>> [   50.057324] [drm] dce110_link_encoder_construct: Failed to get enc=
+oder_cap_info from VBIOS with error code 4!
+>=20
+> These are harmless.
+
+ok, thanks. Maybe the error messages could be improved to indicate that t=
+hey
+aren't serious? Something along the lines of "Failed to retrieve minimum =
+clocks,
+falling back to $foo."?
+
+>>> [   51.611918] amdgpu: [powerplay]
+>>>                 failed to send message 282 ret is 254
+>=20
+> These may be fixed by this patch if you are using an older pcie gen1/2 =
+platform:
+> https://patchwork.freedesktop.org/patch/259364/
+
+I've applied that patch on top of 4.19.4 but I'm still seeing:
+  [   17.407112] amdgpu: [powerplay]
+                  failed to send message 282 ret is 254
+And as far as I know, I do have PCIe Gen3:
+  [   14.992861] [drm] PCIE gen 3 link speeds already enabled
+
+Cheers,
+Kai
+
+
+--aH6LzYf5kZKYCLA59Q7FWJH0tmHiwuQUq--
+
+--BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQQHGGOoanjvCkOaaid97R0LvoA5AgUCW/p1WgAKCRB97R0LvoA5
+Anz6AQDH4dVSEJrV5a6b/dNqBBGcRNoZnuSur40L13d7KP/obQD+Iy/uRElxlX7Y
+7PUHQwtqyrmcxtwS60KP4T5e9R/H8gQ=
+=9j/d
+-----END PGP SIGNATURE-----
+
+--BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB--
+
+--===============0216732623==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0216732623==--
