@@ -1,48 +1,55 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Remove duplicate header
-Date: Mon, 26 Nov 2018 15:35:06 -0500
-Message-ID: <CADnq5_NyW=w84HkHoL_M1=9M+e6dGLb3TYxZjTLZ9_O+5hS8bg@mail.gmail.com>
-References: <20181122140126.GA3124@hp-pavilion-15-notebook-pc-brajeswar>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix spelling mistake "Pramater" -> "Parameter"
+Date: Mon, 26 Nov 2018 15:36:43 -0500
+Message-ID: <CADnq5_Nm_-sLR1OfrXBPsE0YGNCEJ6Wv+sFAa01Am7XLvvpH9g@mail.gmail.com>
+References: <20181126150228.8578-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181122140126.GA3124@hp-pavilion-15-notebook-pc-brajeswar>
-Sender: linux-kernel-owner@vger.kernel.org
-To: brajeswar.linux@gmail.com
-Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, "Cheng, Tony" <Tony.Cheng@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, David Francis <David.Francis@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Sabyasachi Gupta <sabyasachi.linux@gmail.com>, Souptick Joarder <jrdr.linux@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181126150228.8578-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Nov 23, 2018 at 2:43 AM Brajeswar Ghosh
-<brajeswar.linux@gmail.com> wrote:
->
-> Remove dce/dce_mem_input.h which is included more than once
->
-> Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-> index d68f951f9869..c41408c3eaf1 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
-> @@ -40,7 +40,6 @@
->  #include "dce/dce_mem_input.h"
->  #include "dce/dce_link_encoder.h"
->  #include "dce/dce_stream_encoder.h"
-> -#include "dce/dce_mem_input.h"
->  #include "dce/dce_ipp.h"
->  #include "dce/dce_transform.h"
->  #include "dce/dce_opp.h"
-> --
-> 2.17.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gTW9uLCBOb3YgMjYsIDIwMTggYXQgMTA6MDIgQU0gQ29saW4gS2luZyA8Y29saW4ua2luZ0Bj
+YW5vbmljYWwuY29tPiB3cm90ZToKPgo+IEZyb206IENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5n
+QGNhbm9uaWNhbC5jb20+Cj4KPiBUaGVyZSBpcyBhIHNwZWxsaW5nIG1pc3Rha2UgaW4gdGhlIG1v
+ZHVsZSBkZXNjcmlwdGlvbiB0ZXh0IGFuZAo+IGEgY29tbWVudCB0b28sIGZpeCB0aGVtLiBBbHNv
+IGxpbmUgYnJlYWsgb3Zlcmx5IGxvbmcgY29tbWVudC4KPgo+IFNpZ25lZC1vZmYtYnk6IENvbGlu
+IElhbiBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+CgpBcHBsaWVkLiAgdGhhbmtzIQoK
+QWxleAoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwg
+NSArKystLQo+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
+KQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+IGluZGV4IDhkZTU1
+ZjdmMWEzYS4uZGQwM2ZlNzdiM2VkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kcnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kcnYuYwo+IEBAIC00NTQsOSArNDU0LDEwIEBAIG1vZHVsZV9wYXJhbV9uYW1lZChjbnRs
+X3NiX2J1Zl9wZXJfc2UsIGFtZGdwdV9jbnRsX3NiX2J1Zl9wZXJfc2UsIGludCwgMDQ0NCk7Cj4K
+PiAgLyoqCj4gICAqIERPQzogcGFyYW1fYnVmX3Blcl9zZSAoaW50KQo+IC0gKiBPdmVycmlkZSB0
+aGUgc2l6ZSBvZiBPZmYtQ2hpcCBQcmFtYXRlciBDYWNoZSBwZXIgU2hhZGVyIEVuZ2luZSBpbiBC
+eXRlLiBUaGUgZGVmYXVsdCBpcyAwIChkZXBlbmRpbmcgb24gZ2Z4KS4KPiArICogT3ZlcnJpZGUg
+dGhlIHNpemUgb2YgT2ZmLUNoaXAgUGFyYW1ldGVyIENhY2hlIHBlciBTaGFkZXIgRW5naW5lIGlu
+IEJ5dGUuCj4gKyAqIFRoZSBkZWZhdWx0IGlzIDAgKGRlcGVuZGluZyBvbiBnZngpLgo+ICAgKi8K
+PiAtTU9EVUxFX1BBUk1fREVTQyhwYXJhbV9idWZfcGVyX3NlLCAidGhlIHNpemUgb2YgT2ZmLUNo
+aXAgUHJhbWF0ZXIgQ2FjaGUgcGVyIFNoYWRlciBFbmdpbmUgKGRlZmF1bHQgZGVwZW5kaW5nIG9u
+IGdmeCkiKTsKPiArTU9EVUxFX1BBUk1fREVTQyhwYXJhbV9idWZfcGVyX3NlLCAidGhlIHNpemUg
+b2YgT2ZmLUNoaXAgUGFyYW1ldGVyIENhY2hlIHBlciBTaGFkZXIgRW5naW5lIChkZWZhdWx0IGRl
+cGVuZGluZyBvbiBnZngpIik7Cj4gIG1vZHVsZV9wYXJhbV9uYW1lZChwYXJhbV9idWZfcGVyX3Nl
+LCBhbWRncHVfcGFyYW1fYnVmX3Blcl9zZSwgaW50LCAwNDQ0KTsKPgo+ICAvKioKPiAtLQo+IDIu
+MTkuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+PiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRl
+dmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
