@@ -1,17 +1,10 @@
 From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 4/7] drm/amdgpu: Doorbell index initialization for ASICs
- before vega10
-Date: Mon, 26 Nov 2018 17:20:10 +0000
-Message-ID: <BN6PR12MB165126A9513105183F63194880D70@BN6PR12MB1651.namprd12.prod.outlook.com>
-References: <1542837620-13571-1-git-send-email-ozeng@amd.com>
- <1542837620-13571-4-git-send-email-ozeng@amd.com>
- <CADnq5_P=pN349ch33MSWNTM3QcXJtcnFiq=FP5wQT7SijDVRZQ@mail.gmail.com>
- <CADnq5_OUGOecJAvQiCEcdBsk9DmjZkd-yd6aEyGvPMc1+4MsXg@mail.gmail.com>
+Subject: amdgpu-drm-next branch compile error
+Date: Mon, 26 Nov 2018 17:22:33 +0000
+Message-ID: <BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70@BN6PR12MB1651.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0761612391=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_OUGOecJAvQiCEcdBsk9DmjZkd-yd6aEyGvPMc1+4MsXg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,106 +16,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T2ssIEkgY2FuIGNoYW5nZSBpdCBsZWdhY3lfZG9vcmJlbGxfaW5kZXhfaW5pdCgpLiBJIHdpbGwg
-a2VlcCB0aGlzIGZ1bmN0aW9uIGluIHZpLmMuIFRoZSByZWFzb24gSSBkb24ndCB3YW50IHRvIHB1
-dCBpdCBpbiBjaWsuYyBpcyBjaWsuYyBpcyBvbmx5IGNvbXBpbGVkIG9wdGlvbmFsbHkuIA0KDQpB
-bm90aGVyIHRoaW5nIEkgd2FudCB0byBrbm93IGlzLCBteSB1bmRlcnN0YW5kaW5nIGlzIHNpIGRv
-ZXNuJ3QgdXNlIGRvb3JiZWxsLCBkb2VzIGl0Pw0KDQp0aGFua3MsDQpPYWsNCg0KLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwu
-Y29tPiANClNlbnQ6IFN1bmRheSwgTm92ZW1iZXIgMjUsIDIwMTggMTo0NiBQTQ0KVG86IFplbmcs
-IE9hayA8T2FrLlplbmdAYW1kLmNvbT4NClN1YmplY3Q6IEZ3ZDogW1BBVENIIDQvN10gZHJtL2Ft
-ZGdwdTogRG9vcmJlbGwgaW5kZXggaW5pdGlhbGl6YXRpb24gZm9yIEFTSUNzIGJlZm9yZSB2ZWdh
-MTANCg0KLS0tLS0tLS0tLSBGb3J3YXJkZWQgbWVzc2FnZSAtLS0tLS0tLS0NCkZyb206IEFsZXgg
-RGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0KRGF0ZTogV2VkLCBOb3YgMjEsIDIwMTgg
-YXQgNTo0MCBQTQ0KU3ViamVjdDogUmU6IFtQQVRDSCA0LzddIGRybS9hbWRncHU6IERvb3JiZWxs
-IGluZGV4IGluaXRpYWxpemF0aW9uIGZvciBBU0lDcyBiZWZvcmUgdmVnYTEwDQpUbzogPG96ZW5n
-QGFtZC5jb20+DQpDYzogYW1kLWdmeCBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zz4sIE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPg0KDQoNCk9uIFdlZCwgTm92IDIxLCAyMDE4
-IGF0IDU6MDAgUE0gT2FrIFplbmcgPG96ZW5nQGFtZC5jb20+IHdyb3RlOg0KPg0KPiB2MjogVXNl
-IGVudW0gZGVmaW5pdGlvbiBpbnN0ZWFkIG9mIGhhcmRjb2RlZCBudW1iZXINCj4NCj4gQ2hhbmdl
-LUlkOiBJZDY0ZWI5OGY1YjFjMjRiNTFlYjJmZDVhMDgzMDg2ZmMzNTE1ODEzZA0KPiBTaWduZWQt
-b2ZmLWJ5OiBPYWsgWmVuZyA8b3plbmdAYW1kLmNvbT4NCj4gU3VnZ2VzdGVkLWJ5OiBGZWxpeCBL
-dWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCj4gU3VnZ2VzdGVkLWJ5OiBBbGV4IERl
-dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQoNClNpbmNlIHRoaXMgY292ZXJzIGNp
-ayBhbmQgdmksIG1heWJlIGNhbGwgaXQgY2lrX2Rvb3JiZWxsX2luZGV4X2luaXQoKSBvciBsZWdh
-Y3lfZG9vcmJlbGxfaW5kZXhfaW5pdCgpPw0KDQpBbGV4DQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAgICAgIHwgIDIgKy0NCj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3ZpLmggICAgICAgICAgfCAgMiArLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvdmlfcmVnX2luaXQuYyB8IDQzIA0KPiArKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKw0KPiAgMyBmaWxlcyBjaGFuZ2VkLCA0NSBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
-cygtKSAgY3JlYXRlIG1vZGUgMTAwNjQ0IA0KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92
-aV9yZWdfaW5pdC5jDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9NYWtlZmlsZSANCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQ0KPiBp
-bmRleCAxY2VmOWUxLi5hZTI5YmY1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9NYWtlZmlsZQ0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtl
-ZmlsZQ0KPiBAQCAtNjMsNyArNjMsNyBAQCBhbWRncHUtJChDT05GSUdfRFJNX0FNREdQVV9TSSkr
-PSBzaS5vIGdtY192Nl8wLm8gDQo+IGdmeF92Nl8wLm8gc2lfaWgubyBzaV9kbWEubyBkY2UNCj4N
-Cj4gIGFtZGdwdS15ICs9IFwNCj4gICAgICAgICB2aS5vIG14Z3B1X3ZpLm8gbmJpb192Nl8xLm8g
-c29jMTUubyBlbXVfc29jLm8gbXhncHVfYWkubyBuYmlvX3Y3XzAubyB2ZWdhMTBfcmVnX2luaXQu
-byBcDQo+IC0gICAgICAgdmVnYTIwX3JlZ19pbml0Lm8gbmJpb192N180Lm8gdmVnYTEyX3JlZ19p
-bml0Lm8NCj4gKyAgICAgICB2ZWdhMjBfcmVnX2luaXQubyBuYmlvX3Y3XzQubyB2ZWdhMTJfcmVn
-X2luaXQubyB2aV9yZWdfaW5pdC5vDQo+DQo+ICAjIGFkZCBERiBibG9jaw0KPiAgYW1kZ3B1LXkg
-Kz0gXA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuaCANCj4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aS5oIGluZGV4IDA0MjlmZTMuLmFiY2I1MmUg
-MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmgNCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuaA0KPiBAQCAtMjksNSArMjksNSBAQA0KPiAg
-dm9pZCB2aV9zcmJtX3NlbGVjdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICAgICAg
-ICAgICAgICAgICAgICB1MzIgbWUsIHUzMiBwaXBlLCB1MzIgcXVldWUsIHUzMiB2bWlkKTsgIGlu
-dCANCj4gdmlfc2V0X2lwX2Jsb2NrcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+IC0N
-Cj4gK3ZvaWQgdmlfZG9vcmJlbGxfaW5kZXhfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dik7DQo+ICAjZW5kaWYNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3ZpX3JlZ19pbml0LmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmlfcmVnX2lu
-aXQuYw0KPiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPiBpbmRleCAwMDAwMDAwLi5jZGViODhkDQo+
-IC0tLSAvZGV2L251bGwNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmlfcmVn
-X2luaXQuYw0KPiBAQCAtMCwwICsxLDQzIEBADQo+ICsvKg0KPiArICogQ29weXJpZ2h0IDIwMTgg
-QWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLg0KPiArICoNCj4gKyAqIFBlcm1pc3Npb24gaXMg
-aGVyZWJ5IGdyYW50ZWQsIGZyZWUgb2YgY2hhcmdlLCB0byBhbnkgcGVyc29uIA0KPiArb2J0YWlu
-aW5nIGENCj4gKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVu
-dGF0aW9uIGZpbGVzICh0aGUgDQo+ICsiU29mdHdhcmUiKSwNCj4gKyAqIHRvIGRlYWwgaW4gdGhl
-IFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IA0KPiArbGlt
-aXRhdGlvbg0KPiArICogdGhlIHJpZ2h0cyB0byB1c2UsIGNvcHksIG1vZGlmeSwgbWVyZ2UsIHB1
-Ymxpc2gsIGRpc3RyaWJ1dGUsIA0KPiArc3VibGljZW5zZSwNCj4gKyAqIGFuZC9vciBzZWxsIGNv
-cGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBwZXJtaXQgcGVyc29ucyB0byB3aG9tIA0KPiAr
-dGhlDQo+ICsgKiBTb2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhl
-IGZvbGxvd2luZyBjb25kaXRpb25zOg0KPiArICoNCj4gKyAqIFRoZSBhYm92ZSBjb3B5cmlnaHQg
-bm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIA0KPiAraW5jbHVkZWQg
-aW4NCj4gKyAqIGFsbCBjb3BpZXMgb3Igc3Vic3RhbnRpYWwgcG9ydGlvbnMgb2YgdGhlIFNvZnR3
-YXJlLg0KPiArICoNCj4gKyAqIFRIRSBTT0ZUV0FSRSBJUyBQUk9WSURFRCAiQVMgSVMiLCBXSVRI
-T1VUIFdBUlJBTlRZIE9GIEFOWSBLSU5ELCANCj4gK0VYUFJFU1MgT1INCj4gKyAqIElNUExJRUQs
-IElOQ0xVRElORyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgDQo+ICtNRVJD
-SEFOVEFCSUxJVFksDQo+ICsgKiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQg
-Tk9OSU5GUklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgDQo+ICtTSEFMTA0KPiArICogVEhFIENPUFlS
-SUdIVCBIT0xERVIoUykgT1IgQVVUSE9SKFMpIEJFIExJQUJMRSBGT1IgQU5ZIENMQUlNLCANCj4g
-K0RBTUFHRVMgT1INCj4gKyAqIE9USEVSIExJQUJJTElUWSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04g
-T0YgQ09OVFJBQ1QsIFRPUlQgT1IgDQo+ICtPVEhFUldJU0UsDQo+ICsgKiBBUklTSU5HIEZST00s
-IE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgDQo+
-ICtPUg0KPiArICogT1RIRVIgREVBTElOR1MgSU4gVEhFIFNPRlRXQVJFLg0KPiArICoNCj4gKyAq
-Lw0KPiArDQo+ICsjaW5jbHVkZSAiYW1kZ3B1LmgiDQo+ICsNCj4gK3ZvaWQgdmlfZG9vcmJlbGxf
-aW5kZXhfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgew0KPiArICAgICAgIGFkZXYt
-PmRvb3JiZWxsX2luZGV4LmtpcSA9IEFNREdQVV9ET09SQkVMTF9LSVE7DQo+ICsgICAgICAgYWRl
-di0+ZG9vcmJlbGxfaW5kZXgubWVjX3JpbmcwID0gQU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HMDsN
-Cj4gKyAgICAgICBhZGV2LT5kb29yYmVsbF9pbmRleC5tZWNfcmluZzEgPSBBTURHUFVfRE9PUkJF
-TExfTUVDX1JJTkcxOw0KPiArICAgICAgIGFkZXYtPmRvb3JiZWxsX2luZGV4Lm1lY19yaW5nMiA9
-IEFNREdQVV9ET09SQkVMTF9NRUNfUklORzI7DQo+ICsgICAgICAgYWRldi0+ZG9vcmJlbGxfaW5k
-ZXgubWVjX3JpbmczID0gQU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HMzsNCj4gKyAgICAgICBhZGV2
-LT5kb29yYmVsbF9pbmRleC5tZWNfcmluZzQgPSBBTURHUFVfRE9PUkJFTExfTUVDX1JJTkc0Ow0K
-PiArICAgICAgIGFkZXYtPmRvb3JiZWxsX2luZGV4Lm1lY19yaW5nNSA9IEFNREdQVV9ET09SQkVM
-TF9NRUNfUklORzU7DQo+ICsgICAgICAgYWRldi0+ZG9vcmJlbGxfaW5kZXgubWVjX3Jpbmc2ID0g
-QU1ER1BVX0RPT1JCRUxMX01FQ19SSU5HNjsNCj4gKyAgICAgICBhZGV2LT5kb29yYmVsbF9pbmRl
-eC5tZWNfcmluZzcgPSBBTURHUFVfRE9PUkJFTExfTUVDX1JJTkc3Ow0KPiArICAgICAgIGFkZXYt
-PmRvb3JiZWxsX2luZGV4LmdmeF9yaW5nMCA9IEFNREdQVV9ET09SQkVMTF9HRlhfUklORzA7DQo+
-ICsgICAgICAgYWRldi0+ZG9vcmJlbGxfaW5kZXguc2RtYV9lbmdpbmUwID0gQU1ER1BVX0RPT1JC
-RUxMX3NETUFfRU5HSU5FMDsNCj4gKyAgICAgICBhZGV2LT5kb29yYmVsbF9pbmRleC5zZG1hX2Vu
-Z2luZTEgPSBBTURHUFVfRE9PUkJFTExfc0RNQV9FTkdJTkUxOw0KPiArICAgICAgIGFkZXYtPmRv
-b3JiZWxsX2luZGV4LmloID0gQU1ER1BVX0RPT1JCRUxMX0lIOw0KPiArICAgICAgIGFkZXYtPmRv
-b3JiZWxsX2luZGV4Lm1heF9hc3NpZ25tZW50ID0gDQo+ICtBTURHUFVfRE9PUkJFTExfTUFYX0FT
-U0lHTk1FTlQ7IH0NCj4gKw0KPiAtLQ0KPiAyLjcuNA0KPg0KPiBfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+--===============0761612391==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_"
+
+--_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hello all,
+
+When I pull the latest code, I have this compilation error. Anything I can =
+do to fix it?
+
+/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c: In
+function 'amdgpu_dpm_enable_uvd':
+/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c:1968:=
+21:
+error: dereferencing pointer to incomplete type 'struct pp_instance'
+    hwmgr =3D pp_handle->hwmgr;
+                     ^
+
+thanks,
+Oak
+
+
+--_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hello all, <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">When I pull the latest code, I have this compilation=
+ error. Anything I can do to fix it?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c: In<o:p></o:p></p>
+<p class=3D"MsoNormal">function &#8216;amdgpu_dpm_enable_uvd&#8217;:<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c:1968:21:<o:p></o:p></p>
+<p class=3D"MsoNormal">error: dereferencing pointer to incomplete type &#82=
+16;struct pp_instance&#8217;<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; hwmgr =3D pp_handle-&gt;hwmgr;<o:=
+p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Oak<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_--
+
+--===============0761612391==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0761612391==--
