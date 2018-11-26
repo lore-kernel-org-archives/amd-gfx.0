@@ -1,17 +1,18 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 5/7] drm/amdgpu: Call doorbell index init on device
  initialization
-Date: Mon, 26 Nov 2018 15:59:02 +0000
-Message-ID: <BN6PR12MB1809D7A7892DC1A246F47750F7D70@BN6PR12MB1809.namprd12.prod.outlook.com>
+Date: Mon, 26 Nov 2018 16:02:25 +0000
+Message-ID: <BN6PR12MB180989D8B99769C89F6F710FF7D70@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <1542815518-8124-1-git-send-email-ozeng@amd.com>
  <1542815518-8124-5-git-send-email-ozeng@amd.com>
  <CADnq5_PKauwpBumDu8CigT33vC2QSMUCvTw0wzxd1_11LfoiUg@mail.gmail.com>
  <CADnq5_O-ajV9xMFF5BsKUei48LLY1dGV3C_i+oDy+5J+Y2VwHA@mail.gmail.com>,
- <BN6PR12MB165183EC3AAC7436C0E6846C80D70@BN6PR12MB1651.namprd12.prod.outlook.com>
+ <BN6PR12MB165183EC3AAC7436C0E6846C80D70@BN6PR12MB1651.namprd12.prod.outlook.com>,
+ <BN6PR12MB1809D7A7892DC1A246F47750F7D70@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1197028693=="
+Content-Type: multipart/mixed; boundary="===============1415131652=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB165183EC3AAC7436C0E6846C80D70-/b2+HYfkarRSqX7PDniLCgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809D7A7892DC1A246F47750F7D70-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -26,14 +27,30 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1197028693==
+--===============1415131652==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809D7A7892DC1A246F47750F7D70BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB180989D8B99769C89F6F710FF7D70BN6PR12MB1809namp_"
 
---_000_BN6PR12MB1809D7A7892DC1A246F47750F7D70BN6PR12MB1809namp_
+--_000_BN6PR12MB180989D8B99769C89F6F710FF7D70BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Maybe it would be better to add this as a callback to struct amdgpu_asic_fu=
+ncs to avoid adding asic specific code to amdgpu_device.c
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Deucher,=
+ Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, November 26, 2018 10:59:02 AM
+To: Zeng, Oak; Alex Deucher
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 5/7] drm/amdgpu: Call doorbell index init on device ini=
+tialization
+
 
 Ah, ok.  no problem.
 
@@ -125,7 +142,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB1809D7A7892DC1A246F47750F7D70BN6PR12MB1809namp_
+--_000_BN6PR12MB180989D8B99769C89F6F710FF7D70BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -139,7 +156,10 @@ n-bottom:0;} --></style>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Ah, ok.&nbsp; no problem.</p>
+<p style=3D"margin-top:0;margin-bottom:0">Maybe it would be better to add t=
+his as a callback to
+<span>struct amdgpu_asic_funcs</span> to avoid adding asic specific code to=
+ amdgpu_device.c</p>
 <p style=3D"margin-top:0;margin-bottom:0"><br>
 </p>
 <p style=3D"margin-top:0;margin-bottom:0">Alex<br>
@@ -148,8 +168,36 @@ n-bottom:0;} --></style>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zeng, Oak &lt;Oak.Zeng-urvtwAKJhsc@public.gmane.org=
-m&gt;<br>
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, November 26, 2018 10:59:02 AM<br>
+<b>To:</b> Zeng, Oak; Alex Deucher<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 5/7] drm/amdgpu: Call doorbell index init on dev=
+ice initialization</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">Ah, ok.&nbsp; no problem.</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zeng, Oak &lt;Oak.Zeng@amd.=
+com&gt;<br>
 <b>Sent:</b> Monday, November 26, 2018 10:31:04 AM<br>
 <b>To:</b> Alex Deucher<br>
 <b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
@@ -157,12 +205,12 @@ m&gt;<br>
 ice initialization</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Yes, that was my first version. But during debug, =
-I found amdgpu_device_doorbell_init uses adev-&gt;doorbell_index.max_assign=
-ment which is initialized in *_doorbell_index_init. So I have to call *_doo=
-rbell_index_init before amdgpu_device_doorbell_init.
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Yes, that was my first version. But during debug=
+, I found amdgpu_device_doorbell_init uses adev-&gt;doorbell_index.max_assi=
+gnment which is initialized in *_doorbell_index_init. So I have to call *_d=
+oorbell_index_init before amdgpu_device_doorbell_init.
  *_set_ip_blocks() is too late.<br>
 <br>
 In a later version, I moved calling of *_doorbell_index_init to the top of =
@@ -249,12 +297,13 @@ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
+</div>
 </body>
 </html>
 
---_000_BN6PR12MB1809D7A7892DC1A246F47750F7D70BN6PR12MB1809namp_--
+--_000_BN6PR12MB180989D8B99769C89F6F710FF7D70BN6PR12MB1809namp_--
 
---===============1197028693==
+--===============1415131652==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -264,4 +313,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1197028693==--
+--===============1415131652==--
