@@ -1,9 +1,11 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: amdgpu-drm-next branch compile error
-Date: Mon, 26 Nov 2018 17:22:33 +0000
-Message-ID: <BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70@BN6PR12MB1651.namprd12.prod.outlook.com>
+From: Oak Zeng <ozeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/8] drm/amdgpu: Add field in amdgpu_dev to hold reserved
+ doorbell index
+Date: Mon, 26 Nov 2018 17:29:32 +0000
+Message-ID: <1543253365-11942-1-git-send-email-ozeng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0761612391=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
@@ -17,124 +19,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 
---===============0761612391==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_"
-
---_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hello all,
-
-When I pull the latest code, I have this compilation error. Anything I can =
-do to fix it?
-
-/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c: In
-function 'amdgpu_dpm_enable_uvd':
-/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c:1968:=
-21:
-error: dereferencing pointer to incomplete type 'struct pp_instance'
-    hwmgr =3D pp_handle->hwmgr;
-                     ^
-
-thanks,
-Oak
-
-
---_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hello all, <o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">When I pull the latest code, I have this compilation=
- error. Anything I can do to fix it?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c: In<o:p></o:p></p>
-<p class=3D"MsoNormal">function &#8216;amdgpu_dpm_enable_uvd&#8217;:<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">/home/ozeng/git/compute/kernel/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c:1968:21:<o:p></o:p></p>
-<p class=3D"MsoNormal">error: dereferencing pointer to incomplete type &#82=
-16;struct pp_instance&#8217;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; hwmgr =3D pp_handle-&gt;hwmgr;<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">thanks,<o:p></o:p></p>
-<p class=3D"MsoNormal">Oak<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1651C1ECCF2A009BE6A8B54F80D70BN6PR12MB1651namp_--
-
---===============0761612391==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0761612391==--
+VGhpcyBpcyBhIHByZXBhcmF0aW9uIHdvcmsgdG8gbWFrZSByZXNlcnZlZCBkb29yYmVsbCBpbmRl
+eCBwZXIgZGV2aWNlLAppbnN0ZWFkIG9mIHVzaW5nIGEgZ2xvYmFsIG1hY3JvIGRlZmluaXRpb24u
+IEJ5IGRvaW5nIHRoaXMsIHdlIGNhbiBlYXNpbHkKY2hhbmdlIGRvb3JiZWxsIGxheW91dCBmb3Ig
+ZnV0dXJlIEFTSUNzIHdoaWxlIG5vdCBhZmZlY3RpbmcgQVNJQ3MgaW4KcHJvZHVjdGlvbi4KCkNo
+YW5nZS1JZDogSWYwOGUyYmM5ZDA3NDk3NDhlZDQwODNiYTRlYjMyYTQ2OTg3NjMwODUKU2lnbmVk
+LW9mZi1ieTogT2FrIFplbmcgPG96ZW5nQGFtZC5jb20+ClN1Z2dlc3RlZC1ieTogRmVsaXggS3Vl
+aGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+ClN1Z2dlc3RlZC1ieTogQWxleCBEZXVjaGVy
+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oIHwgNTAgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwog
+MSBmaWxlIGNoYW5nZWQsIDUwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdS5oCmluZGV4IDJjODA0NTMuLmI3ZWU0ZWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdS5oCkBAIC04MTMsNiArODEzLDU1IEBAIHN0cnVjdCBhbWRfcG93ZXJwbGF5IHsKIAl1aW50
+MzJfdCBwcF9mZWF0dXJlOwogfTsKIAorLyogUmVzZXJ2ZWQgZG9vcmJlbGxzIGZvciBhbWRncHUg
+KGluY2x1ZGluZyBtdWx0aW1lZGlhKS4KKyAqIEtGRCBjYW4gdXNlIGFsbCB0aGUgcmVzdCBpbiB0
+aGUgMk0gZG9vcmJlbGwgYmFyLgorICogRm9yIGFzaWMgYmVmb3JlIHZlZ2ExMCwgZG9vcmJlbGwg
+aXMgMzItYml0LCBzbyB0aGUKKyAqIGluZGV4L29mZnNldCBpcyBpbiBkd29yZC4gRm9yIHZlZ2Ex
+MCBhbmQgYWZ0ZXIsIGRvb3JiZWxsCisgKiBjYW4gYmUgNjQtYml0LCBzbyB0aGUgaW5kZXggZGVm
+aW5lZCBpcyBpbiBxd29yZC4KKyAqLworc3RydWN0IGFtZGdwdV9kb29yYmVsbF9pbmRleCB7CisJ
+dWludDMyX3Qga2lxOworCXVpbnQzMl90IG1lY19yaW5nMDsKKwl1aW50MzJfdCBtZWNfcmluZzE7
+CisJdWludDMyX3QgbWVjX3JpbmcyOworCXVpbnQzMl90IG1lY19yaW5nMzsKKwl1aW50MzJfdCBt
+ZWNfcmluZzQ7CisJdWludDMyX3QgbWVjX3Jpbmc1OworCXVpbnQzMl90IG1lY19yaW5nNjsKKwl1
+aW50MzJfdCBtZWNfcmluZzc7CisJdWludDMyX3QgdXNlcnF1ZXVlX3N0YXJ0OworCXVpbnQzMl90
+IHVzZXJxdWV1ZV9lbmQ7CisJdWludDMyX3QgZ2Z4X3JpbmcwOworCXVpbnQzMl90IHNkbWFfZW5n
+aW5lMDsKKwl1aW50MzJfdCBzZG1hX2VuZ2luZTE7CisJdWludDMyX3Qgc2RtYV9lbmdpbmUyOwor
+CXVpbnQzMl90IHNkbWFfZW5naW5lMzsKKwl1aW50MzJfdCBzZG1hX2VuZ2luZTQ7CisJdWludDMy
+X3Qgc2RtYV9lbmdpbmU1OworCXVpbnQzMl90IHNkbWFfZW5naW5lNjsKKwl1aW50MzJfdCBzZG1h
+X2VuZ2luZTc7CisJdWludDMyX3QgaWg7CisJdW5pb24geworCQlzdHJ1Y3QgeworCQkJdWludDMy
+X3QgdmNuX3JpbmcwXzE7CisJCQl1aW50MzJfdCB2Y25fcmluZzJfMzsKKwkJCXVpbnQzMl90IHZj
+bl9yaW5nNF81OworCQkJdWludDMyX3QgdmNuX3Jpbmc2Xzc7CisJCX0gdmNuOworCQlzdHJ1Y3Qg
+eworCQkJdWludDMyX3QgdXZkX3JpbmcwXzE7CisJCQl1aW50MzJfdCB1dmRfcmluZzJfMzsKKwkJ
+CXVpbnQzMl90IHV2ZF9yaW5nNF81OworCQkJdWludDMyX3QgdXZkX3Jpbmc2Xzc7CisJCQl1aW50
+MzJfdCB2Y2VfcmluZzBfMTsKKwkJCXVpbnQzMl90IHZjZV9yaW5nMl8zOworCQkJdWludDMyX3Qg
+dmNlX3Jpbmc0XzU7CisJCQl1aW50MzJfdCB2Y2VfcmluZzZfNzsKKwkJfSB1dmRfdmNlOworCX07
+CisJdWludDMyX3QgbWF4X2Fzc2lnbm1lbnQ7Cit9OworCiAjZGVmaW5lIEFNREdQVV9SRVNFVF9N
+QUdJQ19OVU0gNjQKIHN0cnVjdCBhbWRncHVfZGV2aWNlIHsKIAlzdHJ1Y3QgZGV2aWNlCQkJKmRl
+djsKQEAgLTEwMjYsNiArMTA3NSw3IEBAIHN0cnVjdCBhbWRncHVfZGV2aWNlIHsKIAl1bnNpZ25l
+ZCBsb25nIGxhc3RfbW1faW5kZXg7CiAJYm9vbCAgICAgICAgICAgICAgICAgICAgICAgICAgICBp
+bl9ncHVfcmVzZXQ7CiAJc3RydWN0IG11dGV4ICBsb2NrX3Jlc2V0OworCXN0cnVjdCBhbWRncHVf
+ZG9vcmJlbGxfaW5kZXggZG9vcmJlbGxfaW5kZXg7CiB9OwogCiBzdGF0aWMgaW5saW5lIHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphbWRncHVfdHRtX2FkZXYoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJk
+ZXYpCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
