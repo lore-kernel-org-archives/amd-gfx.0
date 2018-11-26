@@ -1,22 +1,12 @@
-From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: add the checking to avoid NULL pointer
- dereference
-Date: Mon, 26 Nov 2018 09:57:09 +0000
-Message-ID: <BY1PR12MB0502AC0F928B517E35C58751B4D70@BY1PR12MB0502.namprd12.prod.outlook.com>
-References: <20181122065523.5510-1-Deepak.Sharma@amd.com>
- <b8284caa-3f1d-5672-6317-36be83907e9d@gmail.com>
- <9350d13a-e745-f284-1c49-785fe523773d@amd.com>
- <eae25687-23ce-d686-f5f0-deeb7c3d2e1c@amd.com>
- <70a32625-7568-6253-6c5e-a72fe38f7986@amd.com>
- <138bad33-c604-c0c5-98cb-1ce71a432185@amd.com>
- <46007826-1a4a-40eb-5ee8-af2d0c93e04a@amd.com>
- <BY2PR12MB0694DBE621FC3BBC269E7D51E9D70@BY2PR12MB0694.namprd12.prod.outlook.com>
- <38725288-c15f-58be-7d1a-422abe503a04@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
+Date: Mon, 26 Nov 2018 14:15:50 +0000
+Message-ID: <BN6PR12MB1809F50687D05789C14E6C61F7D70@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1543214171-12460-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0702654118=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <38725288-c15f-58be-7d1a-422abe503a04-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1543214171-12460-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -28,94 +18,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Sharma, Deepak" <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+DQo+IFNlbnQ6IE1vbmRheSwgTm92
-ZW1iZXIgMjYsIDIwMTggNToyMyBQTQ0KPiBUbzogU2hhcm1hLCBEZWVwYWsgPERlZXBhay5TaGFy
-bWFAYW1kLmNvbT47IFpob3UsIERhdmlkKENodW5NaW5nKQ0KPiA8RGF2aWQxLlpob3VAYW1kLmNv
-bT47IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+Ow0KPiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1k
-Z3B1OiBhZGQgdGhlIGNoZWNraW5nIHRvIGF2b2lkIE5VTEwgcG9pbnRlcg0KPiBkZXJlZmVyZW5j
-ZQ0KPiANCj4gQW0gMjYuMTEuMTggdW0gMDI6NTkgc2NocmllYiBTaGFybWEsIERlZXBhazoNCj4g
-Pg0KPiA+IOWcqCAyMDE4LzExLzI0IDI6MTAsIEtvZW5pZywgQ2hyaXN0aWFuIOWGmemBkzoNCj4g
-Pj4gQW0gMjMuMTEuMTggdW0gMTU6MTAgc2NocmllYiBaaG91LCBEYXZpZChDaHVuTWluZyk6DQo+
-ID4+PiDlnKggMjAxOC8xMS8yMyAyMTozMCwgS29lbmlnLCBDaHJpc3RpYW4g5YaZ6YGTOg0KPiA+
-Pj4+IEFtIDIzLjExLjE4IHVtIDE0OjI3IHNjaHJpZWIgWmhvdSwgRGF2aWQoQ2h1bk1pbmcpOg0K
-PiA+Pj4+PiDlnKggMjAxOC8xMS8yMiAxOToyNSwgQ2hyaXN0aWFuIEvDtm5pZyDlhpnpgZM6DQo+
-ID4+Pj4+PiBBbSAyMi4xMS4xOCB1bSAwNzo1NiBzY2hyaWViIFNoYXJtYSwgRGVlcGFrOg0KPiA+
-Pj4+Pj4+IHdoZW4gcmV0dXJuZWQgZmVuY2UgaXMgbm90IHZhbGlkIG1vc3RseSBkdWUgdG8gdXNl
-cnNwYWNlIGlnbm9yZWQNCj4gPj4+Pj4+PiBwcmV2aW91cyBlcnJvciBjYXVzZXMgTlVMTCBwb2lu
-dGVyIGRlcmVmZXJlbmNlLg0KPiA+Pj4+Pj4gQWdhaW4sIHRoaXMgaXMgY2xlYXJseSBpbmNvcnJl
-Y3QuIFRoZSBteSBvdGhlciBtYWlscyBvbiB0aGUNCj4gPj4+Pj4+IGVhcmxpZXIgcGF0Y2guDQo+
-ID4+Pj4+IFNvcnJ5IGZvciBJIGRpZG4ndCBnZXQgeW91ciBoaXN0b3J5LCBidXQgbG9va3MgZnJv
-bSB0aGUgcGF0Y2gNCj4gPj4+Pj4gaXRzZWxmLCBpdCBpcyBzdGlsbCBhIHZhbGlkIHBhdGNoLCBp
-c24ndCBpdD8NCj4gPj4+PiBObywgdGhlIHNlbWFudGljIG9mIGFtZGdwdV9jdHhfZ2V0X2ZlbmNl
-KCkgaXMgdGhhdCB3ZSByZXR1cm4gTlVMTA0KPiA+Pj4+IHdoZW4gdGhlIGZlbmNlIGlzIGFscmVh
-ZHkgc2lnbmFsZWQuDQo+ID4+Pj4NCj4gPj4+PiBTbyB0aGlzIHBhdGNoIGNvdWxkIHRvdGFsbHkg
-YnJlYWsgdXNlcnNwYWNlIGJlY2F1c2UgaXQgY2hhbmdlcyB0aGUNCj4gPj4+PiBiZWhhdmlvciB3
-aGVuIHdlIHRyeSB0byBzeW5jIHRvIGFuIGFscmVhZHkgc2lnbmFsZWQgZmVuY2UuDQo+ID4+PiBB
-aCwgSSBnb3QgeW91ciBtZWFuaW5nLCBob3cgYWJvdXQgYXR0YWNoZWQgcGF0Y2g/DQo+ID4+IFll
-YWggc29tZXRoaW5nIGxpa2UgdGhpcywgYnV0IEkgd291bGQganVzdCBnaXZlIHRoZQ0KPiA+PiBE
-Uk1fU1lOQ09CSl9DUkVBVEVfU0lHTkFMRUQgaW5zdGVhZC4NCj4gPj4NCj4gPj4gSSBtZWFuIHRo
-YXQncyB3aGF0IHRoaXMgZmxhZyBpcyBnb29kIGZvciBpc24ndCBpdD8NCj4gPiBZZWFoLCBJIGdp
-dmUgYSBmbGFnIGluaXRhbGx5IHdoZW4gY3JlYXRpbmcgcGF0Y2gsIGJ1dCBhcyB5b3Uga25vdywg
-dGhlcmUgaXMgYQ0KPiBzd2ljaCBjYXNlIG5vdCBiZSBhYmxlIHRvIHVzZSB0aGF0IGZsYWc6DQo+
-ID4NCj4gPiAgIMKgwqDCoCBjYXNlIEFNREdQVV9GRU5DRV9UT19IQU5ETEVfR0VUX1NZTkNfRklM
-RV9GRDoNCj4gPiAgIMKgwqDCoMKgwqDCoMKgIGZkID0gZ2V0X3VudXNlZF9mZF9mbGFncyhPX0NM
-T0VYRUMpOw0KPiA+ICAgwqDCoMKgwqDCoMKgwqAgaWYgKGZkIDwgMCkgew0KPiA+ICAgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBkbWFfZmVuY2VfcHV0KGZlbmNlKTsNCj4gPiAgIMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgcmV0dXJuIGZkOw0KPiA+ICAgwqDCoMKgwqDCoMKgwqAgfQ0KPiA+DQo+ID4g
-ICDCoMKgwqDCoMKgwqDCoCBzeW5jX2ZpbGUgPSBzeW5jX2ZpbGVfY3JlYXRlKGZlbmNlKTsNCj4g
-PiAgIMKgwqDCoMKgwqDCoMKgIGRtYV9mZW5jZV9wdXQoZmVuY2UpOw0KPiA+ICAgwqDCoMKgwqDC
-oMKgwqAgaWYgKCFzeW5jX2ZpbGUpIHsNCj4gPiAgIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHV0
-X3VudXNlZF9mZChmZCk7DQo+ID4gICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5P
-TUVNOw0KPiA+ICAgwqDCoMKgwqDCoMKgwqAgfQ0KPiA+DQo+ID4gICDCoMKgwqDCoMKgwqDCoCBm
-ZF9pbnN0YWxsKGZkLCBzeW5jX2ZpbGUtPmZpbGUpOw0KPiA+ICAgwqDCoMKgwqDCoMKgwqAgaW5m
-by0+b3V0LmhhbmRsZSA9IGZkOw0KPiA+ICAgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7DQo+ID4N
-Cj4gPiBTbyBJIGNoYW5nZSB0byBzdHViIGZlbmNlIGluc3RlYWQuDQo+IA0KPiBZZWFoLCBJJ3Zl
-IG1pc3NlZCB0aGF0IGNhc2UuIE5vdCBzdXJlIGlmIHRoZSBzeW5jX2ZpbGUgY2FuIGRlYWwgd2l0
-aCBhIE5VTEwNCj4gZmVuY2UuDQo+IA0KPiBXZSBzaG91bGQgdGhlbiBwcm9iYWJseSBtb3ZlIHRo
-ZSBzdHViIGZlbmNlIGZ1bmN0aW9uIGludG8NCj4gZG1hX2ZlbmNlX3N0dWIuYyB1bmRlciBkcml2
-ZXJzL2RtYS1idWYgdG8ga2VlcCB0aGUgc3R1ZmYgdG9nZXRoZXIuDQoNClllcywgeW91IHdyYXAg
-aXQgdG8gcmV2aWV3IGZpcnN0IHdpdGggeW91ciBzdHViIGZlbmNlLCB3ZSBjYW4gZG8gaXQgc2Vw
-YXJhdGVseSBmaXJzdC4NCg0KLURhdmlkIA0KPiANCj4gPg0KPiA+IC1EYXZpZA0KPiA+DQo+ID4g
-SSBoYXZlIG5vdCBhcHBsaWVkIHRoaXMgcGF0Y2guDQo+ID4gVGhlIGlzc3VlIHdhcyB0cnlpbmcg
-dG8gYWRkcmVzcyBpcyB3aGVuIGFtZGdwdV9jc19pb2N0bCgpIGZhaWxlZCBkdWUgdG8NCj4gbG93
-IG1lbW9yeSAoRU5PTUVNKSBidXQgdXNlcnNwYWNlIGNob3NlIHRvIHByb2NlZWQgYW5kIGNhbGxl
-ZA0KPiBhbWRncHVfY3NfZmVuY2VfdG9faGFuZGxlX2lvY3RsKCkuDQo+ID4gSW4gYW1kZ3B1X2Nz
-X2ZlbmNlX3RvX2hhbmRsZV9pb2N0bCgpLCBmZW5jZSBpcyBudWxsIGFuZCBsYXRlciBjYXVzaW5n
-DQo+ID4gTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLCB0aGlzIHBhdGNoIHdhcyB0byBhdm9pZCB0
-aGF0IGFuZCBzeXN0ZW0gcGFuaWMNCj4gQnV0IEkgdW5kZXJzdGFuZCBub3cgdGhhdCBpdHMgYSB2
-YWxpZCBjYXNlIHJldHVuaW5nIE5VTEwgaWYgZmVuY2Ugd2FzIGFscmVhZHkNCj4gc2lnbmFsZWQg
-YnV0IG5lZWQgdG8gaGFuZGxlIGNhc2Ugc28gYXZvaWQga2VybmVsIHBhbmljLiBTZWVtcyBEYXZp
-ZCBwYXRjaA0KPiBzaG91bGQgZml4IHRoaXMsIEkgd2lsbCB0ZXN0IGl0IHRvbW9ycm93Lg0KPiAN
-Cj4gTWhtLCBidXQgZG9uJ3Qgd2UgYmFpbCBvdXQgd2l0aCBhbiBlcnJvciBpZiB3ZSBhc2sgZm9y
-IGEgZmFpbGVkIGNvbW1hbmQNCj4gc3VibWlzc2lvbj8gSWYgbm90IHRoYXQgc291bmRzIGxpa2Ug
-YSBidWcgYXMgd2VsbC4NCj4gDQo+IENocmlzdGlhbi4NCj4gDQo+ID4NCj4gPiAtRGVlcGFrDQo+
-ID4+IENocmlzdGlhbi4NCj4gPj4NCj4gPj4+IC1EYXZpZA0KPiA+Pj4+IElmIHRoYXQgcGF0Y2gg
-d2FzIGFwcGxpZWQgdGhlbiBwbGVhc2UgcmV2ZXJ0IGl0IGltbWVkaWF0ZWx5Lg0KPiA+Pj4+DQo+
-ID4+Pj4gQ2hyaXN0aWFuLg0KPiA+Pj4+DQo+ID4+Pj4+IC1EYXZpZA0KPiA+Pj4+Pj4gSWYgeW91
-IGhhdmUgYWxyZWFkeSBwdXNoZWQgdGhlIHBhdGNoIHRoZW4gcGxlYXNlIHJldmVydC4NCj4gPj4+
-Pj4+DQo+ID4+Pj4+PiBDaHJpc3RpYW4uDQo+ID4+Pj4+Pg0KPiA+Pj4+Pj4+IFNpZ25lZC1vZmYt
-Ynk6IERlZXBhayBTaGFybWEgPERlZXBhay5TaGFybWFAYW1kLmNvbT4NCj4gPj4+Pj4+PiAtLS0N
-Cj4gPj4+Pj4+PiAgICAgIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5j
-IHwgMiArKw0KPiA+Pj4+Pj4+ICAgICAgwqAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KQ0KPiA+Pj4+Pj4+DQo+ID4+Pj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9jcy5jDQo+ID4+Pj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfY3MuYw0KPiA+Pj4+Pj4+IGluZGV4IDAyNGRmYmQ4N2YxMS4uMTQxNjZjZDhhMTJm
-IDEwMDY0NA0KPiA+Pj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9jcy5jDQo+ID4+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2NzLmMNCj4gPj4+Pj4+PiBAQCAtMTQwMyw2ICsxNDAzLDggQEAgc3RhdGljIHN0cnVjdCBkbWFf
-ZmVuY2UNCj4gPj4+Pj4+PiAqYW1kZ3B1X2NzX2dldF9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwNCj4gPj4+Pj4+PiAgICAgIMKgIMKgwqDCoMKgwqAgZmVuY2UgPSBhbWRncHVfY3R4
-X2dldF9mZW5jZShjdHgsIGVudGl0eSwgdXNlci0+c2VxX25vKTsNCj4gPj4+Pj4+PiAgICAgIMKg
-wqDCoMKgwqAgYW1kZ3B1X2N0eF9wdXQoY3R4KTsNCj4gPj4+Pj4+PiArwqDCoMKgIGlmKCFmZW5j
-ZSkNCj4gPj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIEVSUl9QVFIoLUVJTlZBTCk7DQo+
-ID4+Pj4+Pj4gICAgICDCoCDCoMKgwqDCoMKgIHJldHVybiBmZW5jZTsNCj4gPj4+Pj4+PiAgICAg
-IMKgIH0NCj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xw0KPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+ID4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0702654118==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809F50687D05789C14E6C61F7D70BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809F50687D05789C14E6C61F7D70BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I thought there was a patch to do this already that got sent out a few week=
+s ago.  Basically limit ST/CZ to modes that do not require a retimer.  Is a=
+n additional patch needed?
+
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of S, Shiri=
+sh <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, November 26, 2018 1:36:30 AM
+To: Li, Sun peng (Leo); Wentland, Harry
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; S, Shirish
+Subject: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
+
+[Why]
+ST/CZ (dce110) advertises modes such as 4k@60Hz etc.,
+that it cannot handle correctly, hence  resulting in
+several issues like flickering, black lines/flashes and so on.
+
+[How]
+These modes are basically high pixel clock ones, hence
+limit the same to be advertised to avoid bad user experiences
+
+Signed-off-by: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>
+Suggested-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+---
+ .../gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c    | 10 ++++++=
+++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.=
+c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c
+index 1b2fe0d..1b8fe99 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c
+@@ -1121,6 +1121,16 @@ bool dce110_timing_generator_validate_timing(
+         if (!timing)
+                 return false;
+
++       /* Limit all modes that have a high pixel clock
++        * which seems to be problematic on dce110
++        * These include: 4k@60Hz, 1080p@144Hz,1440p@120Hz
++        * based on the below formula:
++        * refresh rate =3D pixel clock / (htotal * vtotal)
++        */
++       if (timing->pix_clk_khz > 300000)
++               return false;
++
++
+         hsync_offset =3D timing->h_border_right + timing->h_front_porch;
+         h_sync_start =3D timing->h_addressable + hsync_offset;
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809F50687D05789C14E6C61F7D70BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">I thought there was a patch to do=
+ this already that got sent out a few weeks ago.&nbsp; Basically limit ST/C=
+Z to modes that do not require a retimer.&nbsp; Is an additional patch need=
+ed?</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of S, Shirish &lt;Shirish.S@amd.=
+com&gt;<br>
+<b>Sent:</b> Monday, November 26, 2018 1:36:30 AM<br>
+<b>To:</b> Li, Sun peng (Leo); Wentland, Harry<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; S, Shirish<br>
+<b>Subject:</b> [PATCH] drm/amd/display: limit high pixel clock modes on ST=
+/CZ</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[Why]<br>
+ST/CZ (dce110) advertises modes such as 4k@60Hz etc.,<br>
+that it cannot handle correctly, hence&nbsp; resulting in<br>
+several issues like flickering, black lines/flashes and so on.<br>
+<br>
+[How]<br>
+These modes are basically high pixel clock ones, hence<br>
+limit the same to be advertised to avoid bad user experiences<br>
+<br>
+Signed-off-by: Shirish S &lt;shirish.s-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Suggested-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;.../gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c&nbsp;&nbs=
+p;&nbsp; | 10 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 10 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.=
+c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c<br>
+index 1b2fe0d..1b8fe99 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_gener=
+ator.c<br>
+@@ -1121,6 &#43;1121,16 @@ bool dce110_timing_generator_validate_timing(<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!timing)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Limit all modes that have a hi=
+gh pixel clock<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * which seems to be problem=
+atic on dce110<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * These include: 4k@60Hz, 1=
+080p@144Hz,1440p@120Hz<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * based on the below formul=
+a:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * refresh rate =3D pixel cl=
+ock / (htotal * vtotal)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (timing-&gt;pix_clk_khz &gt; 3=
+00000)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return false;<br>
+&#43;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hsync_offset =3D timing-&g=
+t;h_border_right &#43; timing-&gt;h_front_porch;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; h_sync_start =3D timing-&g=
+t;h_addressable &#43; hsync_offset;<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809F50687D05789C14E6C61F7D70BN6PR12MB1809namp_--
+
+--===============0702654118==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0702654118==--
