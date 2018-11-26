@@ -1,13 +1,14 @@
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: amdgpu: several powerplay errors during boot of HAWAII PRO GPU
-Date: Sun, 25 Nov 2018 11:11:31 +0100
-Message-ID: <66336f2f-c095-e0da-928f-0c737ab3a8c0@dev.carbon-project.org>
-References: <2e515da4-23b0-06b3-0d6f-2ea4ebb71baa@dev.carbon-project.org>
- <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg@mail.gmail.com>
+From: "Zhang, Jerry(Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 variants
+Date: Mon, 26 Nov 2018 10:38:25 +0800
+Message-ID: <b8a49f59-e466-b0e7-abf8-feedf1bf1946@amd.com>
+References: <20181123083227.25555-1-Jerry.Zhang@amd.com>
+ <BN6PR12MB18091B4409C1DC5CD17F903CF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0216732623=="
+Content-Type: multipart/mixed; boundary="===============1872357461=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <BN6PR12MB18091B4409C1DC5CD17F903CF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,95 +19,244 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0216732623==
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature";
- boundary="BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB"
+--===============1872357461==
+Content-Type: multipart/alternative;
+	boundary="------------EC7C7E96E410090788E666C7"
+Content-Language: en-US
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB
-Content-Type: multipart/mixed; boundary="aH6LzYf5kZKYCLA59Q7FWJH0tmHiwuQUq";
- protected-headers="v1"
-From: =?UTF-8?Q?Kai_Wasserb=c3=a4ch?= <kai-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Message-ID: <66336f2f-c095-e0da-928f-0c737ab3a8c0-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
-Subject: Re: amdgpu: several powerplay errors during boot of HAWAII PRO GPU
-References: <2e515da4-23b0-06b3-0d6f-2ea4ebb71baa-1ZKVMVCtJ2dx9oSEVPI0kiST3g8Odh+X@public.gmane.org>
- <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-In-Reply-To: <CADnq5_OBjT2HbFh8YgiZPamZR1im1ubXxRQ56cJMUAW8E9g9cg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+--------------EC7C7E96E410090788E666C7
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
 
---aH6LzYf5kZKYCLA59Q7FWJH0tmHiwuQUq
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-GB
-Content-Transfer-Encoding: quoted-printable
+On 11/24/18 3:32 AM, Deucher, Alexander wrote:
+>
+> Is this required?  Are the harvesting fuses incorrect?  If the blocks 
+> are harvested, we should bail out of the blocks properly during init. 
+>  Also, please make this more explicit if we still need it.  E.g.,
+>
+>
 
-[Please CC me on replies, I'm not subscribed to amd-gfx.]
+The harvest fuse is indeed disabling UVD and VCE, as it's a mining card.
+Then any command to UVD/VCE causing NULL pointer issue, like amdgpu_test.
 
-Hey Alex,
-Alex Deucher wrote on 23.11.18 21:22:
-> On Fri, Nov 23, 2018 at 5:28 AM Kai Wasserb=C3=A4ch <kai-1ZKVMVCtJ2cdGMMoKFmSow@public.gmane.org=
-ject.org> wrote:
->> with the recent 4.19.x series of kernels I'm seeing several errors bei=
-ng logged
->> during boot for my R9 290 (HAWAII PRO) GPU:
->>> [   50.057264] amdgpu: [powerplay] Failed to retrieve minimum clocks.=
+AFAIW, windows also disable UVD and VCE in initialization.
 
->>> [   50.057266] amdgpu: [powerplay] Error in phm_get_clock_info
->>> [   50.057309] [drm] dce110_link_encoder_construct: Failed to get enc=
-oder_cap_info from VBIOS with error code 4!
->>> [   50.057316] [drm] dce110_link_encoder_construct: Failed to get enc=
-oder_cap_info from VBIOS with error code 4!
->>> [   50.057324] [drm] dce110_link_encoder_construct: Failed to get enc=
-oder_cap_info from VBIOS with error code 4!
->=20
-> These are harmless.
+>        if ((adev->pdev->device == 0x67df) &&
+>               (adev->pdev->revision == 0xf7)) {
+>
+> /* Some polaris12 variants don't support UVD/VCE */
+>
+>       } else  {
+>
+> amdgpu_device_ip_block_add(adev, &uvd_v6_3_ip_block);
+>
+> amdgpu_device_ip_block_add(adev, &vce_v3_4_ip_block);
+>
+>     }
+>
+>
 
-ok, thanks. Maybe the error messages could be improved to indicate that t=
-hey
-aren't serious? Something along the lines of "Failed to retrieve minimum =
-clocks,
-falling back to $foo."?
+OK, will explicit the process.
 
->>> [   51.611918] amdgpu: [powerplay]
->>>                 failed to send message 282 ret is 254
->=20
-> These may be fixed by this patch if you are using an older pcie gen1/2 =
-platform:
-> https://patchwork.freedesktop.org/patch/259364/
+Regards,
+Jerry
+>
+> That way if we re-arrange the order later, it will be easier to track.
+>
+>
+> Alex
+>
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
+> Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+> *Sent:* Friday, November 23, 2018 3:32:27 AM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Cc:* Zhang, Jerry
+> *Subject:* [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 
+> variants
+> Some variants don't support UVD and VCE.
+>
+> Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vi.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c 
+> b/drivers/gpu/drm/amd/amdgpu/vi.c
+> index f3a4cf1f013a..3338b013ded4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1660,6 +1660,10 @@ int vi_set_ip_blocks(struct amdgpu_device *adev)
+>                          amdgpu_device_ip_block_add(adev, 
+> &dce_v11_2_ip_block);
+>                  amdgpu_device_ip_block_add(adev, &gfx_v8_0_ip_block);
+>                  amdgpu_device_ip_block_add(adev, &sdma_v3_1_ip_block);
+> +               /* Some polaris12 variants don't support UVD/VCE */
+> +               if ((adev->pdev->device == 0x67df) &&
+> +                     (adev->pdev->revision == 0xf7))
+> +                       break;
+>                  amdgpu_device_ip_block_add(adev, &uvd_v6_3_ip_block);
+>                  amdgpu_device_ip_block_add(adev, &vce_v3_4_ip_block);
+>                  break;
+> -- 
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
-I've applied that patch on top of 4.19.4 but I'm still seeing:
-  [   17.407112] amdgpu: [powerplay]
-                  failed to send message 282 ret is 254
-And as far as I know, I do have PCIe Gen3:
-  [   14.992861] [drm] PCIE gen 3 link speeds already enabled
 
-Cheers,
-Kai
+--------------EC7C7E96E410090788E666C7
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    On 11/24/18 3:32 AM, Deucher, Alexander wrote:<br>
+    <blockquote type="cite"
+cite="mid:BN6PR12MB18091B4409C1DC5CD17F903CF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <p style="margin-top:0;margin-bottom:0">Is this required?  Are
+          the harvesting fuses incorrect?  If the blocks are harvested,
+          we should bail out of the blocks properly during init.  Also,
+          please make this more explicit if we still need it.  E.g.,</p>
+        <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+              style="font-size:11pt;"><br>
+            </span></font></p>
+      </div>
+    </blockquote>
+    <br>
+    The harvest fuse is indeed disabling UVD and VCE, as it's a mining
+    card.<br>
+    Then any command to UVD/VCE causing NULL pointer issue, like
+    amdgpu_test.<br>
+    <br>
+    AFAIW, windows also disable UVD and VCE in initialization.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:BN6PR12MB18091B4409C1DC5CD17F903CF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+              style="font-size:11pt;">
+                     if ((adev-&gt;pdev-&gt;device == 0x67df) &amp;&amp;<br>
+                            (adev-&gt;pdev-&gt;revision == 0xf7)) {<br>
+            </span></font></p>
+        <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+              style="font-size:11pt;">       
+              <font size="2"><span style="font-size:11pt;">/* Some
+                  polaris12 variants don't support UVD/VCE */</span></font><br>
+            </span></font></p>
+        <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+              style="font-size:11pt;">      } else  {<br>
+            </span></font></p>
+        <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+              style="font-size:11pt;">                
+              amdgpu_device_ip_block_add(adev, &amp;uvd_v6_3_ip_block);</span></font></p>
+        <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+              style="font-size:11pt;">                
+              amdgpu_device_ip_block_add(adev, &amp;vce_v3_4_ip_block);</span></font></p>
+        <p style="margin-top:0;margin-bottom:0">    }</p>
+        <p style="margin-top:0;margin-bottom:0"><br>
+        </p>
+      </div>
+    </blockquote>
+    <br>
+    OK, will explicit the process.<br>
+    <br>
+    Regards,<br>
+    Jerry<br>
+    <blockquote type="cite"
+cite="mid:BN6PR12MB18091B4409C1DC5CD17F903CF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+        dir="ltr">
+        <p style="margin-top:0;margin-bottom:0">
+        </p>
+        <p style="margin-top:0;margin-bottom:0">That way if we
+          re-arrange the order later, it will be easier to track.</p>
+        <p style="margin-top:0;margin-bottom:0"><br>
+        </p>
+        <p style="margin-top:0;margin-bottom:0">Alex<br>
+        </p>
+      </div>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          face="Calibri, sans-serif" color="#000000"><b>From:</b>
+          amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
+          behalf of Junwei Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org">&lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+          <b>Sent:</b> Friday, November 23, 2018 3:32:27 AM<br>
+          <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+          <b>Cc:</b> Zhang, Jerry<br>
+          <b>Subject:</b> [PATCH] drm/amdgpu: disable UVD/VCE for some
+          polaris 12 variants</font>
+        <div> </div>
+      </div>
+      <div class="BodyFragment"><font size="2"><span
+            style="font-size:11pt;">
+            <div class="PlainText">Some variants don't support UVD and
+              VCE.<br>
+              <br>
+              Signed-off-by: Junwei Zhang <a class="moz-txt-link-rfc2396E" href="mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org">&lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+              ---<br>
+               drivers/gpu/drm/amd/amdgpu/vi.c | 4 ++++<br>
+               1 file changed, 4 insertions(+)<br>
+              <br>
+              diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c
+              b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+              index f3a4cf1f013a..3338b013ded4 100644<br>
+              --- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+              +++ b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+              @@ -1660,6 +1660,10 @@ int vi_set_ip_blocks(struct
+              amdgpu_device *adev)<br>
+                                       amdgpu_device_ip_block_add(adev,
+              &amp;dce_v11_2_ip_block);<br>
+                               amdgpu_device_ip_block_add(adev,
+              &amp;gfx_v8_0_ip_block);<br>
+                               amdgpu_device_ip_block_add(adev,
+              &amp;sdma_v3_1_ip_block);<br>
+              +               /* Some polaris12 variants don't support
+              UVD/VCE */<br>
+              +               if ((adev-&gt;pdev-&gt;device == 0x67df)
+              &amp;&amp;<br>
+              +                     (adev-&gt;pdev-&gt;revision ==
+              0xf7))<br>
+              +                       break;<br>
+                               amdgpu_device_ip_block_add(adev,
+              &amp;uvd_v6_3_ip_block);<br>
+                               amdgpu_device_ip_block_add(adev,
+              &amp;vce_v3_4_ip_block);<br>
+                               break;<br>
+              -- <br>
+              2.17.1<br>
+              <br>
+              _______________________________________________<br>
+              amd-gfx mailing list<br>
+              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+              <a
+                href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+            </div>
+          </span></font></div>
+    </blockquote>
+    <br>
+  </body>
+</html>
 
---aH6LzYf5kZKYCLA59Q7FWJH0tmHiwuQUq--
+--------------EC7C7E96E410090788E666C7--
 
---BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQQHGGOoanjvCkOaaid97R0LvoA5AgUCW/p1WgAKCRB97R0LvoA5
-Anz6AQDH4dVSEJrV5a6b/dNqBBGcRNoZnuSur40L13d7KP/obQD+Iy/uRElxlX7Y
-7PUHQwtqyrmcxtwS60KP4T5e9R/H8gQ=
-=9j/d
------END PGP SIGNATURE-----
-
---BcjSwX7oEeklxSAxaZFs9sfEqYHoQIoLB--
-
---===============0216732623==
+--===============1872357461==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -116,4 +266,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0216732623==--
+--===============1872357461==--
