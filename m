@@ -1,12 +1,18 @@
-From: "Sunnanyong (Nanyong Sun, Intelligent Computing Solution Development
- Dep)" <sunnanyong-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Subject: How to use vce1 in Radeon Pro WX5100
-Date: Tue, 27 Nov 2018 14:04:55 +0000
-Message-ID: <EB021AE3BDDC1742A899855D00BABEB006CFCA81@dggemm526-mbx.china.huawei.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 variants
+Date: Tue, 27 Nov 2018 11:11:10 -0500
+Message-ID: <CADnq5_NOaJShmdMvbuiykPXfC7LZneZ8U54feDU4EWYcZSQ5fw@mail.gmail.com>
+References: <20181123083227.25555-1-Jerry.Zhang@amd.com>
+ <BN6PR12MB18091B4409C1DC5CD17F903CF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <b8a49f59-e466-b0e7-abf8-feedf1bf1946@amd.com>
+ <b63c3263-9df8-6c3f-06aa-7b97609d21a6@gmail.com>
+ <962b81c0-358b-0447-d496-9b8efe817261@amd.com>
+ <31393f87-a966-4e90-7cdf-e00676124f73@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1087703849=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: zh-CN
+In-Reply-To: <31393f87-a966-4e90-7cdf-e00676124f73-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,151 +23,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1087703849==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_EB021AE3BDDC1742A899855D00BABEB006CFCA81dggemm526mbxchi_"
-
---_000_EB021AE3BDDC1742A899855D00BABEB006CFCA81dggemm526mbxchi_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-SGkgYWxso6wNCiAgICAgSSBmb3VuZCB0d28gdmNlIGJsb2NrIHVuZGVyIC9zeXMva2VybmVsL2Rl
-YnVnL2RyaS8xL2FtZGdwdV9yaW5nX3ZjZTAgJiBhbWRncHVfcmluZ192Y2UxLg0Kd2hlbiBJIHVz
-ZSBmZm1wZWcgdG8gZG8gSC4yNjQgZW5jb2RpbmcgLCBJIHVzZSChsHVtciCoQ3RvcKGxICBhbmQg
-cHJlc3MgobBjobEgdG8gc2hvdyB0aGUgVkNFIGxvYWRpbmcsICBhbmQNCkkgZm91bmQgdGhhdCBv
-bmx5IHZjZTAgaGFkIGxvYWRpbmcgLCBhbmQgdmNlMSBhbHdheXMgYmUgMCUsIGxpa2UgdGhpczoN
-ClZDRSBCaXRzOg0KVkNFMCA9PiAgICAgMTAwJSAgIHwgICAgICAgICAgICBWQ0UxID0+ICAgICAw
-ICUgICB8DQogIFNvIEkgdGhpbmsgdmNlMSBibG9jayBoYXMgbmV2ZXIgYmVlbiB1c2VkLCBhbmQg
-aG93IHRvIHNlbGVjdCB2Y2UxIHRvIGRvIGVuY29kZSA/DQpNeSBlbnZpcm9ubWVudDoNClJhZGVv
-biBQcm8gV1g1MTAwDQpNZXNhMTguMC41DQpMaW51eCBrZXJuZWwgNC4xOQ0KDQpQbGVhc2UgaGVs
-cCENCg==
-
---_000_EB021AE3BDDC1742A899855D00BABEB006CFCA81dggemm526mbxchi_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:=CB=CE=CC=E5;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@=CB=CE=CC=E5";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle18
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:#1F497D;}
-span.EmailStyle19
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:#1F497D;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:#1F497D;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
-rim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Hi all<=
-/span><span style=3D"font-family:=CB=CE=CC=E5;color:#1F497D">=A3=AC</span><=
-span lang=3D"EN-US" style=3D"color:#1F497D"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">&nbsp;&=
-nbsp;&nbsp;&nbsp; I found two vce block under /sys/kernel/debug/dri/1/amdgp=
-u_ring_vce0 &amp; amdgpu_ring_vce1.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">when I =
-use ffmpeg to do H.264 encoding , I use =A1=B0umr =A8Ctop=A1=B1 &nbsp;and p=
-ress =A1=B0c=A1=B1 to show the VCE loading,&nbsp; and<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">I found=
- that only vce0 had loading , and vce1 always be 0%, like this:<o:p></o:p><=
-/span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">VCE Bit=
-s:<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-left:63.0pt;text-indent:21.0pt"><spa=
-n lang=3D"EN-US" style=3D"color:#1F497D">VCE0 =3D&gt;&nbsp;&nbsp;&nbsp;&nbs=
-p; 100%&nbsp;&nbsp; |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; VCE1 =3D&gt;&nbsp;&nbsp;&nbsp;&nbsp; 0 %&nbsp;&nbsp; |<o:p></o=
-:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">&nbsp; =
-So I think vce1 block has never been used, and how to select vce1 to do enc=
-ode ?<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">My envi=
-ronment:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Radeon =
-Pro WX5100<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Mesa18.=
-0.5 <o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Linux k=
-ernel 4.19<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D"><o:p>&n=
-bsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:#1F497D">Please =
-help!<o:p></o:p></span></p>
-</div>
-</body>
-</html>
-
---_000_EB021AE3BDDC1742A899855D00BABEB006CFCA81dggemm526mbxchi_--
-
---===============1087703849==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1087703849==--
+T24gVHVlLCBOb3YgMjcsIDIwMTggYXQgNDo1NiBBTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBbSAyNy4xMS4xOCB1bSAwMjo0
+NyBzY2hyaWViIFpoYW5nLCBKZXJyeShKdW53ZWkpOgo+Cj4gT24gMTEvMjYvMTggNToyOCBQTSwg
+Q2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPgo+IEFtIDI2LjExLjE4IHVtIDAzOjM4IHNjaHJpZWIg
+WmhhbmcsIEplcnJ5KEp1bndlaSk6Cj4KPiBPbiAxMS8yNC8xOCAzOjMyIEFNLCBEZXVjaGVyLCBB
+bGV4YW5kZXIgd3JvdGU6Cj4KPiBJcyB0aGlzIHJlcXVpcmVkPyAgQXJlIHRoZSBoYXJ2ZXN0aW5n
+IGZ1c2VzIGluY29ycmVjdD8gIElmIHRoZSBibG9ja3MgYXJlIGhhcnZlc3RlZCwgd2Ugc2hvdWxk
+IGJhaWwgb3V0IG9mIHRoZSBibG9ja3MgcHJvcGVybHkgZHVyaW5nIGluaXQuICBBbHNvLCBwbGVh
+c2UgbWFrZSB0aGlzIG1vcmUgZXhwbGljaXQgaWYgd2Ugc3RpbGwgbmVlZCBpdC4gIEUuZy4sCj4K
+Pgo+Cj4gVGhlIGhhcnZlc3QgZnVzZSBpcyBpbmRlZWQgZGlzYWJsaW5nIFVWRCBhbmQgVkNFLCBh
+cyBpdCdzIGEgbWluaW5nIGNhcmQuCj4gVGhlbiBhbnkgY29tbWFuZCB0byBVVkQvVkNFIGNhdXNp
+bmcgTlVMTCBwb2ludGVyIGlzc3VlLCBsaWtlIGFtZGdwdV90ZXN0Lgo+Cj4KPiBJbiB0aGlzIGNh
+c2Ugd2Ugc2hvdWxkIGZpeCB0aGUgTlVMTCBwb2ludGVyIGlzc3VlIGluc3RlYWQuIERvIHlvdSBo
+YXZlIGEgYmFja3RyYWNlIGZvciB0aGlzPwo+Cj4KPiBTb3JyeSB0byBtaXNzIHRoZSBkZXRhaWwu
+Cj4gVGhlIE5VTEwgcG9pbnRlciBpcyBjYXVzZWQgYnkgVVZEIGlzIG5vdCBpbml0aWFsaXplZCBh
+cyBpdCdzIGRpc2FibGVkIGluIFZCSU9TIGZvciB0aGlzIGtpbmQgb2YgY2FyZC4KPgo+Cj4gWWVh
+aCwgYnV0IHRoYXQgc2hvdWxkIGJlIGhhbmRsZWQgY29ycmVjdGx5Lgo+Cj4KPiBXaGVuIGNzIHN1
+Ym1pdCwgaXQgd2lsbCBjaGVjayByaW5nLT5mdW5jcy0+cGFyc2VfY3MgaW4gYW1kZ3B1X2NzX2li
+X2ZpbGwoKS4KPiBIb3dldmVyLCB1dmRfdjZfMF9lYXJseV9pbml0KCkgc2tpcCB0aGUgc2V0IHJp
+bmcgZnVuY3Rpb24sIGFzIENDX0hBUlZFU1RfRlVTRVMgaXMgc2V0IFVWRC9WQ0UgZGlzYWJsZWQu
+Cj4gVGhlbiB0aGUgYWNjZXNzIHRvIFVWRC9WQ0UgcmluZydzIGZ1bmNzIHdpbGwgY2F1c2UgTlVM
+TCBwb2ludGVyIGlzc3VlLgo+Cj4gQlRXLCBXaW5kb3dzIGRyaXZlciBkaXNhYmxlcyBVVkQvVkNF
+IGZvciBpdCBhcyB3ZWxsLgo+Cj4KPiBZb3UgYXJlIGFwcHJvYWNoaW5nIHRoaXMgZnJvbSB0aGUg
+d3Jvbmcgc2lkZS4gVGhlIGZhY3QgdGhhdCBVVkQvVkNFIGlzIGRpc2FibGVkIHNob3VsZCBhbHJl
+YWR5IGJlIGhhbmRsZWQgY29ycmVjdGx5Lgo+Cj4gVGhlIHByb2JsZW0gaXMgcmF0aGVyIHRoYXQg
+aW4gYSBjb3VwbGUgb2YgcGxhY2VzIChhbWRncHVfY3R4X2luaXQgZm9yIGV4YW1wbGUpIHdlIGFz
+c3VtZSB0aGF0IHdlIGhhdmUgYXQgbGVhc3Qgb25lIFVWRC9WQ0UgcmluZy4KPgo+IEFsZXggaXMg
+cmlnaHQgdGhhdCBjaGVja2luZyB0aGUgZnVzZXMgc2hvdWxkIGJlIHN1ZmZpY2llbnQgYW5kIHdl
+IHJhdGhlciBuZWVkIHRvIGZpeCB0aGUgaGFuZGxpbmcgaGVyZSBpbnN0ZWFkIG9mIGFkZGluZyBh
+bm90aGVyIHdvcmthcm91bmQuCgpFeGFjdGx5LiAgVGhlcmUgYXJlIGFscmVhZHkgY2FyZHMgb3V0
+IHRoZXJlIHdpdGggbm8gVVZEIG9yIFZDRSwgc28gd2UKbmVlZCB0byBmaXggdGhpcyBpZiBpdCdz
+IGEgcHJvYmxlbS4gIEl0IHNvdW5kcyBsaWtlIHVzZXJzcGFjZSBpcwpzdWJtaXR0aW5nIHdvcmsg
+dG8gdGhlIFZDRSBvciBVVkQgcmluZ3Mgd2l0aG91dCBjaGVja2luZyB3aGV0aGVyIG9yCm5vdCB0
+aGUgZGV2aWNlIHN1cHBvcnRzIHRoZW0gaW4gdGhlIGZpcnN0IHBsYWNlLiAgV2Ugc2hvdWxkIGRv
+IGEKYmV0dGVyIGpvYiBvZiBndWFyZGluZyBhZ2FpbnN0IHRoYXQgaW4gdGhlIGtlcm5lbC4KCkFs
+ZXgKCj4KPiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+Cj4gUmVnYXJkcywKPiBKZXJyeQo+Cj4K
+PiBSZWdhcmRzLAo+IENocmlzdGlhbi4KPgo+Cj4gQUZBSVcsIHdpbmRvd3MgYWxzbyBkaXNhYmxl
+IFVWRCBhbmQgVkNFIGluIGluaXRpYWxpemF0aW9uLgo+Cj4gICAgICAgIGlmICgoYWRldi0+cGRl
+di0+ZGV2aWNlID09IDB4NjdkZikgJiYKPiAgICAgICAgICAgICAgIChhZGV2LT5wZGV2LT5yZXZp
+c2lvbiA9PSAweGY3KSkgewo+Cj4gICAgICAgICAvKiBTb21lIHBvbGFyaXMxMiB2YXJpYW50cyBk
+b24ndCBzdXBwb3J0IFVWRC9WQ0UgKi8KPgo+ICAgICAgIH0gZWxzZSAgewo+Cj4gICAgICAgICAg
+ICAgICAgICBhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmdXZkX3Y2XzNfaXBfYmxv
+Y2spOwo+Cj4gICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2
+LCAmdmNlX3YzXzRfaXBfYmxvY2spOwo+Cj4gICAgIH0KPgo+Cj4KPiBPSywgd2lsbCBleHBsaWNp
+dCB0aGUgcHJvY2Vzcy4KPgo+IFJlZ2FyZHMsCj4gSmVycnkKPgo+IFRoYXQgd2F5IGlmIHdlIHJl
+LWFycmFuZ2UgdGhlIG9yZGVyIGxhdGVyLCBpdCB3aWxsIGJlIGVhc2llciB0byB0cmFjay4KPgo+
+Cj4gQWxleAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBGcm9tOiBhbWQt
+Z2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhhbGYgb2Yg
+SnVud2VpIFpoYW5nIDxKZXJyeS5aaGFuZ0BhbWQuY29tPgo+IFNlbnQ6IEZyaWRheSwgTm92ZW1i
+ZXIgMjMsIDIwMTggMzozMjoyNyBBTQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IENjOiBaaGFuZywgSmVycnkKPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGRpc2Fi
+bGUgVVZEL1ZDRSBmb3Igc29tZSBwb2xhcmlzIDEyIHZhcmlhbnRzCj4KPiBTb21lIHZhcmlhbnRz
+IGRvbid0IHN1cHBvcnQgVVZEIGFuZCBWQ0UuCj4KPiBTaWduZWQtb2ZmLWJ5OiBKdW53ZWkgWmhh
+bmcgPEplcnJ5LlpoYW5nQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3ZpLmMgfCA0ICsrKysKPiAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQo+Cj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS92aS5jCj4gaW5kZXggZjNhNGNmMWYwMTNhLi4zMzM4YjAxM2RlZDQg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZpLmMKPiBAQCAtMTY2MCw2ICsxNjYwLDEwIEBAIGlu
+dCB2aV9zZXRfaXBfYmxvY2tzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmZGNlX3Yx
+MV8yX2lwX2Jsb2NrKTsKPiAgICAgICAgICAgICAgICAgIGFtZGdwdV9kZXZpY2VfaXBfYmxvY2tf
+YWRkKGFkZXYsICZnZnhfdjhfMF9pcF9ibG9jayk7Cj4gICAgICAgICAgICAgICAgICBhbWRncHVf
+ZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmc2RtYV92M18xX2lwX2Jsb2NrKTsKPiArICAgICAg
+ICAgICAgICAgLyogU29tZSBwb2xhcmlzMTIgdmFyaWFudHMgZG9uJ3Qgc3VwcG9ydCBVVkQvVkNF
+ICovCj4gKyAgICAgICAgICAgICAgIGlmICgoYWRldi0+cGRldi0+ZGV2aWNlID09IDB4NjdkZikg
+JiYKPiArICAgICAgICAgICAgICAgICAgICAgKGFkZXYtPnBkZXYtPnJldmlzaW9uID09IDB4Zjcp
+KQo+ICsgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+ICAgICAgICAgICAgICAgICAgYW1k
+Z3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwgJnV2ZF92Nl8zX2lwX2Jsb2NrKTsKPiAgICAg
+ICAgICAgICAgICAgIGFtZGdwdV9kZXZpY2VfaXBfYmxvY2tfYWRkKGFkZXYsICZ2Y2VfdjNfNF9p
+cF9ibG9jayk7Cj4gICAgICAgICAgICAgICAgICBicmVhazsKPiAtLQo+IDIuMTcuMQo+Cj4gX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KPgo+Cj4gX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxp
+bmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cj4KPgo+Cj4KPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGlu
+ZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPgo+Cj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlz
+dAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
