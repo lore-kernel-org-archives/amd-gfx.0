@@ -1,12 +1,18 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix compile error with ACPI disabled
-Date: Tue, 27 Nov 2018 19:51:01 +0000
-Message-ID: <BN6PR12MB180995C1CFFA868025741EA6F7D00@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181127161814.14749-1-David.Francis@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH RFC 5/5] drm/amdgpu: Add accounting of buffer object
+ creation request via DRM cgroup
+Date: Tue, 27 Nov 2018 21:31:19 +0100
+Message-ID: <3299d9d6-e272-0459-8f63-0c81d11cde1e@gmail.com>
+References: <20181120185814.13362-1-Kenny.Ho@amd.com>
+ <20181120185814.13362-6-Kenny.Ho@amd.com>
+ <831a582a-9496-e4fb-d789-f5fb3bb95ab7@gmail.com>
+ <CAOWid-fMFUvT_XQijRd34+cUOxM=zbbf+HwWv_NbqO-rBo2d_A@mail.gmail.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1826665403=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181127161814.14749-1-David.Francis-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAOWid-fMFUvT_XQijRd34+cUOxM=zbbf+HwWv_NbqO-rBo2d_A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,158 +24,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Kenny Ho <y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: Kenny.Ho-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1826665403==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180995C1CFFA868025741EA6F7D00BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180995C1CFFA868025741EA6F7D00BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of David Fr=
-ancis <David.Francis-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, November 27, 2018 11:18:14 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Francis, David
-Subject: [PATCH] drm/amd/display: Fix compile error with ACPI disabled
-
-The fallback code for getting default backlight caps was using
-the wrong variable name.  Fix it.
-
-Fixes: https://lists.freedesktop.org/archives/dri-devel/2018-November/19775=
-2.html
-Signed-off-by: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 27df3ae945be..aa3f8200fa69 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1615,8 +1615,8 @@ static void amdgpu_dm_update_backlight_caps(struct am=
-dgpu_display_manager *dm)
-                                 AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-         }
- #else
--       dm->backlight_min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
--       dm->backlight_max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+       dm->backlight_caps.min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKL=
-IGHT;
-+       dm->backlight_caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKL=
-IGHT;
- #endif
- }
-
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180995C1CFFA868025741EA6F7D00BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of David Francis &lt;David.Franc=
-is-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, November 27, 2018 11:18:14 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<b=
-r>
-<b>Cc:</b> Francis, David<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Fix compile error with ACPI disabl=
-ed</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The fallback code for getting default backlight ca=
-ps was using<br>
-the wrong variable name.&nbsp; Fix it.<br>
-<br>
-Fixes: <a href=3D"https://lists.freedesktop.org/archives/dri-devel/2018-Nov=
-ember/197752.html">
-https://lists.freedesktop.org/archives/dri-devel/2018-November/197752.html<=
-/a><br>
-Signed-off-by: David Francis &lt;David.Francis-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 4 &#43;&#43;--<br=
->
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index 27df3ae945be..aa3f8200fa69 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -1615,8 &#43;1615,8 @@ static void amdgpu_dm_update_backlight_caps(struc=
-t amdgpu_display_manager *dm)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;#else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm-&gt;backlight_min_input_signal =3D=
- AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm-&gt;backlight_max_input_signal =3D=
- AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm-&gt;backlight_caps.min_input_s=
-ignal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm-&gt;backlight_caps.max_input_s=
-ignal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;<br>
-&nbsp;#endif<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180995C1CFFA868025741EA6F7D00BN6PR12MB1809namp_--
-
---===============1826665403==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1826665403==--
+QW0gMjcuMTEuMTggdW0gMTk6MTUgc2NocmllYiBLZW5ueSBIbzoKPiBIZXkgQ2hyaXN0aWFuLAo+
+Cj4gU29ycnkgZm9yIHRoZSBsYXRlIHJlcGx5LCBJIG1pc3NlZCB0aGlzIGZvciBzb21lIHJlYXNv
+bi4KPgo+IE9uIFdlZCwgTm92IDIxLCAyMDE4IGF0IDU6MDAgQU0gQ2hyaXN0aWFuIEvDtm5pZwo+
+IDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4+PiBkaWZmIC0tZ2l0
+IGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdw
+dV9kcm0uaAo+Pj4gaW5kZXggMzcwZTlhNTUzNmVmLi41MzE3MjY0NDMxMDQgMTAwNjQ0Cj4+PiAt
+LS0gYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+Pj4gKysrIGIvaW5jbHVkZS91YXBp
+L2RybS9hbWRncHVfZHJtLmgKPj4+IEBAIC03Miw2ICs3MiwxOCBAQCBleHRlcm4gIkMiIHsKPj4+
+ICAgICNkZWZpbmUgRFJNX0lPQ1RMX0FNREdQVV9GRU5DRV9UT19IQU5ETEUgRFJNX0lPV1IoRFJN
+X0NPTU1BTkRfQkFTRSArIERSTV9BTURHUFVfRkVOQ0VfVE9fSEFORExFLCB1bmlvbiBkcm1fYW1k
+Z3B1X2ZlbmNlX3RvX2hhbmRsZSkKPj4+ICAgICNkZWZpbmUgRFJNX0lPQ1RMX0FNREdQVV9TQ0hF
+RCAgICAgICAgICAgICAgRFJNX0lPVyhEUk1fQ09NTUFORF9CQVNFICsgRFJNX0FNREdQVV9TQ0hF
+RCwgdW5pb24gZHJtX2FtZGdwdV9zY2hlZCkKPj4+Cj4+PiArZW51bSBhbWRncHVfbWVtX2RvbWFp
+biB7Cj4+PiArICAgICBBTURHUFVfTUVNX0RPTUFJTl9DUFUsCj4+PiArICAgICBBTURHUFVfTUVN
+X0RPTUFJTl9HVFQsCj4+PiArICAgICBBTURHUFVfTUVNX0RPTUFJTl9WUkFNLAo+Pj4gKyAgICAg
+QU1ER1BVX01FTV9ET01BSU5fR0RTLAo+Pj4gKyAgICAgQU1ER1BVX01FTV9ET01BSU5fR1dTLAo+
+Pj4gKyAgICAgQU1ER1BVX01FTV9ET01BSU5fT0EsCj4+PiArICAgICBfX01BWF9BTURHUFVfTUVN
+X0RPTUFJTgo+Pj4gK307Cj4+IFdlbGwgdGhhdCBpcyBhIGNsZWFyIE5BSyBzaW5jZSBpdCBkdXBs
+aWNhdGVzIHRoZSBUVE0gZGVmaW5lcy4gUGxlYXNlIHVzZQo+PiB0aGF0IG9uZSBpbnN0ZWFkIGFu
+ZCBkb24ndCBtYWtlIHRoaXMgVUFQSS4KPiBUaGlzIGlzIGRlZmluZWQgdG8gaGVscCB3aXRoIHRo
+ZSBjaHVuayBvZiBjaGFuZ2VzIGJlbG93LiAgVGhlCj4gQU1ER1BVX0dFTV9ET01BSU4qIGFscmVh
+ZHkgZXhpc3RzIGFuZCB0aGlzIGlzIHNpbWlsYXIgdG8gaG93IFRUTSBoYXMKPiBUVE1fUExfKiB0
+byBoZWxwIHdpdGggdGhlIGNyZWF0aW9uIG9mIFRUTV9QTF9GTEFHXyo6Cj4gaHR0cHM6Ly9lbGl4
+aXIuYm9vdGxpbi5jb20vbGludXgvdjQuMjAtcmM0L3NvdXJjZS9pbmNsdWRlL2RybS90dG0vdHRt
+X3BsYWNlbWVudC5oI0wzNgo+Cj4gSSBkb24ndCBkaXNhZ3JlZSB0aGF0IHRoZXJlIGlzIGEgZHVw
+bGljYXRpb24gaGVyZSBidXQgaXQncwo+IHByZS1leGlzdGluZyBzbyBpZiB5b3UgY2FuIGhlbHAg
+Y2xhcmlmeSBteSBjb25mdXNpb24gdGhhdCB3b3VsZCBiZQo+IG11Y2ggYXBwcmVjaWF0ZWQuCgpU
+aGUgQU1ER1BVX0dFTV9ET01BSU4gYXJlIG1hc2tzIHdoaWNoIGFyZSB1c2VkIGluIHRoZSBmcm9u
+dGVuZCBJT0NUTCAKaW50ZXJmYWNlIHRvIGNyZWF0ZSBCT3MuCgpUVE0gZGVmaW5lcyB0aGUgYmFj
+a2VuZCBwb29scyB3aGVyZSB0aGUgbWVtb3J5IGlzIHRoZW4gYWxsb2NhdGVkIGZyb20gdG8gCmZp
+bGwgdGhlIEJPcy4KClNvIHlvdSBhcmUgbWl4aW5nIGZyb250ZW5kIGFuZCBiYWNrZW5kIGhlcmUu
+CgpJbiBvdGhlciB3b3JkcyBmb3IgdGhlIHdob2xlIGNncm91cCBpbnRlcmZhY2UgeW91IHNob3Vs
+ZCBub3QgbWFrZSBhIApzaW5nbGUgY2hhbmdlIHRvIGFtZGdwdV9kcm0uaCBvciBvdGhlcndpc2Ug
+eW91IGFyZSBkb2luZyBzb21ldGhpbmcgd3JvbmcuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4g
+UmVhcmRzLAo+IEtlbm55Cj4KPj4+ICsKPj4+ICtleHRlcm4gY2hhciBjb25zdCAqYW1kZ3B1X21l
+bV9kb21haW5fbmFtZXNbXTsKPj4+ICsKPj4+ICAgIC8qKgo+Pj4gICAgICogRE9DOiBtZW1vcnkg
+ZG9tYWlucwo+Pj4gICAgICoKPj4+IEBAIC05NSwxMiArMTA3LDEyIEBAIGV4dGVybiAiQyIgewo+
+Pj4gICAgICogJUFNREdQVV9HRU1fRE9NQUlOX09BICAgIE9yZGVyZWQgYXBwZW5kLCB1c2VkIGJ5
+IDNEIG9yIENvbXB1dGUgZW5naW5lcwo+Pj4gICAgICogZm9yIGFwcGVuZGluZyBkYXRhLgo+Pj4g
+ICAgICovCj4+PiAtI2RlZmluZSBBTURHUFVfR0VNX0RPTUFJTl9DUFUgICAgICAgICAgICAgICAg
+MHgxCj4+PiAtI2RlZmluZSBBTURHUFVfR0VNX0RPTUFJTl9HVFQgICAgICAgICAgICAgICAgMHgy
+Cj4+PiAtI2RlZmluZSBBTURHUFVfR0VNX0RPTUFJTl9WUkFNICAgICAgICAgICAgICAgMHg0Cj4+
+PiAtI2RlZmluZSBBTURHUFVfR0VNX0RPTUFJTl9HRFMgICAgICAgICAgICAgICAgMHg4Cj4+PiAt
+I2RlZmluZSBBTURHUFVfR0VNX0RPTUFJTl9HV1MgICAgICAgICAgICAgICAgMHgxMAo+Pj4gLSNk
+ZWZpbmUgQU1ER1BVX0dFTV9ET01BSU5fT0EgICAgICAgICAweDIwCj4+PiArI2RlZmluZSBBTURH
+UFVfR0VNX0RPTUFJTl9DUFUgICAgICAgICAgICAgICAgKDEgPDwgQU1ER1BVX01FTV9ET01BSU5f
+Q1BVKQo+Pj4gKyNkZWZpbmUgQU1ER1BVX0dFTV9ET01BSU5fR1RUICAgICAgICAgICAgICAgICgx
+IDw8IEFNREdQVV9NRU1fRE9NQUlOX0dUVCkKPj4+ICsjZGVmaW5lIEFNREdQVV9HRU1fRE9NQUlO
+X1ZSQU0gICAgICAgICAgICAgICAoMSA8PCBBTURHUFVfTUVNX0RPTUFJTl9WUkFNKQo+Pj4gKyNk
+ZWZpbmUgQU1ER1BVX0dFTV9ET01BSU5fR0RTICAgICAgICAgICAgICAgICgxIDw8IEFNREdQVV9N
+RU1fRE9NQUlOX0dEUykKPj4+ICsjZGVmaW5lIEFNREdQVV9HRU1fRE9NQUlOX0dXUyAgICAgICAg
+ICAgICAgICAoMSA8PCBBTURHUFVfTUVNX0RPTUFJTl9HV1MpCj4+PiArI2RlZmluZSBBTURHUFVf
+R0VNX0RPTUFJTl9PQSAgICAgICAgICgxIDw8IEFNREdQVV9NRU1fRE9NQUlOX09BKQo+Pj4gICAg
+I2RlZmluZSBBTURHUFVfR0VNX0RPTUFJTl9NQVNLICAgICAgICAgICAgICAoQU1ER1BVX0dFTV9E
+T01BSU5fQ1BVIHwgXAo+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IEFNREdQVV9HRU1fRE9NQUlOX0dUVCB8IFwKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBBTURHUFVfR0VNX0RPTUFJTl9WUkFNIHwgXAo+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
