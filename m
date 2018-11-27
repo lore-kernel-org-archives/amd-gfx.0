@@ -1,14 +1,14 @@
-From: Mikulas Patocka <mpatocka-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [PATCH] pci: fix incorrect value returned from pcie_get_speed_cap
-Date: Tue, 27 Nov 2018 11:49:43 -0500 (EST)
-Message-ID: <alpine.LRH.2.02.1811271144420.27588@file01.intranet.prod.int.rdu2.redhat.com>
-References: <alpine.LRH.2.02.1810301232310.23106@file01.intranet.prod.int.rdu2.redhat.com>
- <20181120004704.GA191199@google.com> <20181126224051.GB212532@google.com>
+From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Fix NULL ptr when calculating refresh
+ rate
+Date: Tue, 27 Nov 2018 19:01:05 +0000
+Message-ID: <MW2PR12MB25886720FCF7C3C895D3FF00F9D00@MW2PR12MB2588.namprd12.prod.outlook.com>
+References: <20181127184554.12527-1-Jerry.Zuo@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0093203236=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181126224051.GB212532-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+In-Reply-To: <20181127184554.12527-1-Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,64 +19,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Bjorn Helgaas <helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Cc: Tal Gilboa <talgi-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Tariq Toukan <tariqt-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+To: "Zuo, Jerry" <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-CgpPbiBNb24sIDI2IE5vdiAyMDE4LCBCam9ybiBIZWxnYWFzIHdyb3RlOgoKPiBPbiBNb24sIE5v
-diAxOSwgMjAxOCBhdCAwNjo0NzowNFBNIC0wNjAwLCBCam9ybiBIZWxnYWFzIHdyb3RlOgo+ID4g
-T24gVHVlLCBPY3QgMzAsIDIwMTggYXQgMTI6MzY6MDhQTSAtMDQwMCwgTWlrdWxhcyBQYXRvY2th
-IHdyb3RlOgo+ID4gPiBUaGUgbWFjcm9zIFBDSV9FWFBfTE5LQ0FQX1NMU18qR0IgYXJlIHZhbHVl
-cywgbm90IGJpdCBtYXNrcy4gV2UgbXVzdCBtYXNrCj4gPiA+IHRoZSByZWdpc3RlciBhbmQgY29t
-cGFyZSBpdCBhZ2FpbnN0IHRoZW0uCj4gPiA+IAo+ID4gPiBUaGlzIHBhdGNoIGZpeGVzIGVycm9y
-cyAiYW1kZ3B1OiBbcG93ZXJwbGF5XSBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDI2MQo+ID4gPiBy
-ZXQgaXMgMCIgZXJyb3JzIHdoZW4gUENJZS12MyBjYXJkIGlzIHBsdWdnZWQgaW50byBQQ0llLXYx
-IHNsb3QsIGJlY2F1c2UKPiA+ID4gdGhlIHNsb3QgaXMgYmVpbmcgaW5jb3JyZWN0bHkgcmVwb3J0
-ZWQgYXMgUENJZS12MyBjYXBhYmxlLgo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTogTWlrdWxh
-cyBQYXRvY2thIDxtcGF0b2NrYUByZWRoYXQuY29tPgo+ID4gPiBGaXhlczogNmNmNTdiZTBmNzhl
-ICgiUENJOiBBZGQgcGNpZV9nZXRfc3BlZWRfY2FwKCkgdG8gZmluZCBtYXggc3VwcG9ydGVkIGxp
-bmsgc3BlZWQiKQo+ID4gPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwkjIHY0LjE3Kwo+ID4g
-PiAKPiA+ID4gLS0tCj4gPiA+ICBkcml2ZXJzL3BjaS9wY2kuYyB8ICAgIDggKysrKy0tLS0KPiA+
-ID4gIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gPiA+
-IAo+ID4gPiBJbmRleDogbGludXgtNC4xOS9kcml2ZXJzL3BjaS9wY2kuYwo+ID4gPiA9PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09Cj4gPiA+IC0tLSBsaW51eC00LjE5Lm9yaWcvZHJpdmVycy9wY2kvcGNpLmMJMjAxOC0xMC0z
-MCAxNjo1ODo1OC4wMDAwMDAwMDAgKzAxMDAKPiA+ID4gKysrIGxpbnV4LTQuMTkvZHJpdmVycy9w
-Y2kvcGNpLmMJMjAxOC0xMC0zMCAxNjo1ODo1OC4wMDAwMDAwMDAgKzAxMDAKPiA+ID4gQEAgLTU0
-OTIsMTMgKzU0OTIsMTMgQEAgZW51bSBwY2lfYnVzX3NwZWVkIHBjaWVfZ2V0X3NwZWVkX2NhcChz
-dAo+ID4gPiAgCj4gPiA+ICAJcGNpZV9jYXBhYmlsaXR5X3JlYWRfZHdvcmQoZGV2LCBQQ0lfRVhQ
-X0xOS0NBUCwgJmxua2NhcCk7Cj4gPiA+ICAJaWYgKGxua2NhcCkgewo+ID4gPiAtCQlpZiAobG5r
-Y2FwICYgUENJX0VYUF9MTktDQVBfU0xTXzE2XzBHQikKPiA+ID4gKwkJaWYgKChsbmtjYXAgJiBQ
-Q0lfRVhQX0xOS0NBUF9TTFMpID09IFBDSV9FWFBfTE5LQ0FQX1NMU18xNl8wR0IpCj4gPiA+ICAJ
-CQlyZXR1cm4gUENJRV9TUEVFRF8xNl8wR1Q7Cj4gPiA+IC0JCWVsc2UgaWYgKGxua2NhcCAmIFBD
-SV9FWFBfTE5LQ0FQX1NMU184XzBHQikKPiA+ID4gKwkJZWxzZSBpZiAoKGxua2NhcCAmIFBDSV9F
-WFBfTE5LQ0FQX1NMUykgPT0gUENJX0VYUF9MTktDQVBfU0xTXzhfMEdCKQo+ID4gPiAgCQkJcmV0
-dXJuIFBDSUVfU1BFRURfOF8wR1Q7Cj4gPiA+IC0JCWVsc2UgaWYgKGxua2NhcCAmIFBDSV9FWFBf
-TE5LQ0FQX1NMU181XzBHQikKPiA+ID4gKwkJZWxzZSBpZiAoKGxua2NhcCAmIFBDSV9FWFBfTE5L
-Q0FQX1NMUykgPT1QQ0lfRVhQX0xOS0NBUF9TTFNfNV8wR0IpCj4gPiA+ICAJCQlyZXR1cm4gUENJ
-RV9TUEVFRF81XzBHVDsKPiA+ID4gLQkJZWxzZSBpZiAobG5rY2FwICYgUENJX0VYUF9MTktDQVBf
-U0xTXzJfNUdCKQo+ID4gPiArCQllbHNlIGlmICgobG5rY2FwICYgUENJX0VYUF9MTktDQVBfU0xT
-KSA9PSBQQ0lfRVhQX0xOS0NBUF9TTFNfMl81R0IpCj4gPiA+ICAJCQlyZXR1cm4gUENJRV9TUEVF
-RF8yXzVHVDsKPiA+ID4gIAl9Cj4gCj4gPiBXZSBhbHNvIG5lZWQgc2ltaWxhciBmaXhlcyBpbiBw
-Y2lfc2V0X2J1c19zcGVlZCgpLCBwY2llX3NwZWVkcygpCj4gPiAoaGZpMSksIGNvYmFsdF9wY2ll
-X3N0YXR1c19zaG93KCksIGhiYV9pb2N0bF9jYWxsYmFjaygpLAo+ID4gcWxhMjR4eF9wY2lfaW5m
-b19zdHIoKSwgYW5kIG1heWJlIGEgY291cGxlIG90aGVyIHBsYWNlcy4KPiAKPiBEb2VzIGFueWJv
-ZHkgd2FudCB0byB2b2x1bnRlZXIgdG8gZml4IHRoZSBwbGFjZXMgYWJvdmUgYXMgd2VsbD8gIEkK
-PiBmb3VuZCB0aGVtIGJ5IGdyZXBwaW5nIGZvciBQQ0lfRVhQX0xOS0NBUCwgYW5kIHRoZXkncmUg
-YWxsIGJyb2tlbiBpbgo+IHdheXMgc2ltaWxhciB0byBwY2llX2dldF9zcGVlZF9jYXAoKS4gIFBv
-c3NpYmx5IHNvbWUgb2YgdGhlc2UgcGxhY2VzCj4gY291bGQgdXNlIHBjaWVfZ2V0X3NwZWVkX2Nh
-cCgpIGRpcmVjdGx5Lgo+IAo+IEJqb3JuCj4gCgpUaGV5IGFyZSBub3QgYnJva2VuLCB0aGV5IGFy
-ZSBtYXNraW5nIHRoZSB2YWx1ZSB3aXRoIFBDSV9FWFBfTE5LQ0FQX1NMUyAtIAp0aGF0IGlzIGNv
-cnJlY3QuCgpwY2lfc2V0X2J1c19zcGVlZDoKICAgICAgICAgICAgICAgIHBjaWVfY2FwYWJpbGl0
-eV9yZWFkX2R3b3JkKGJyaWRnZSwgUENJX0VYUF9MTktDQVAsICZsaW5rY2FwKTsKICAgICAgICAg
-ICAgICAgIGJ1cy0+bWF4X2J1c19zcGVlZCA9IHBjaWVfbGlua19zcGVlZFtsaW5rY2FwICYgUENJ
-X0VYUF9MTktDQVBfU0xTXTsKCnBjaWVfc3BlZWRzOgoJaWYgKChsaW5rY2FwICYgUENJX0VYUF9M
-TktDQVBfU0xTKSAhPSBQQ0lfRVhQX0xOS0NBUF9TTFNfOF8wR0IpCgpjb2JhbHRfcGNpZV9zdGF0
-dXNfc2hvdzoKCWp1c3QgcHJpbnRzIHRoZSB2YWx1ZXMgd2l0aG91dCBkb2luZyBhbnl0aGluZyB3
-aXRoIHRoZW0KCmhiYV9pb2N0bF9jYWxsYmFjazoKCWdhaS0+cGNpLmxpbmtfc3BlZWRfbWF4ID0g
-KHU4KShjYXBzICYgUENJX0VYUF9MTktDQVBfU0xTKTsKCglnYWktPnBjaS5saW5rX3dpZHRoX21h
-eCA9ICh1OCkoKGNhcHMgJiBQQ0lfRVhQX0xOS0NBUF9NTFcpID4+IDQpOwoKcWxhMjR4eF9wY2lf
-aW5mb19zdHI6Cglsc3BlZWQgPSBsc3RhdCAmIFBDSV9FWFBfTE5LQ0FQX1NMUzsKCWx3aWR0aCA9
-IChsc3RhdCAmIFBDSV9FWFBfTE5LQ0FQX01MVykgPj4gNDsKCk1pa3VsYXMKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0093203236==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_MW2PR12MB25886720FCF7C3C895D3FF00F9D00MW2PR12MB2588namp_"
+
+--_000_MW2PR12MB25886720FCF7C3C895D3FF00F9D00MW2PR12MB2588namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Jerry (F=
+angzhi) Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>
+Sent: November 27, 2018 1:45:54 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Wentland, Harry; Lakha, Bhawanpreet
+Cc: Zuo, Jerry
+Subject: [PATCH] drm/amd/display: Fix NULL ptr when calculating refresh rat=
+e
+
+Calculate preferred refresh rate only when preferred mode exists.
+
+Signed-off-by: Jerry (Fangzhi) Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 27df3ae945be..3039faf004a8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2835,7 +2835,7 @@ create_stream_for_sink(struct amdgpu_dm_connector *ac=
+onnector,
+         bool native_mode_found =3D false;
+         bool scale =3D dm_state ? (dm_state->scaling !=3D RMX_OFF) : false=
+;
+         int mode_refresh;
+-       int preferred_refresh;
++       int preferred_refresh =3D 0;
+
+         struct dc_sink *sink =3D NULL;
+         if (aconnector =3D=3D NULL) {
+@@ -2889,13 +2889,12 @@ create_stream_for_sink(struct amdgpu_dm_connector *=
+aconnector,
+                 decide_crtc_timing_for_drm_display_mode(
+                                 &mode, preferred_mode,
+                                 dm_state ? (dm_state->scaling !=3D RMX_OFF=
+) : false);
++               preferred_refresh =3D drm_mode_vrefresh(preferred_mode);
+         }
+
+         if (!dm_state)
+                 drm_mode_set_crtcinfo(&mode, 0);
+
+-       preferred_refresh =3D drm_mode_vrefresh(preferred_mode);
+-
+         /*
+         * If scaling is enabled and refresh rate didn't change
+         * we copy the vic and polarities of the old timings
+--
+2.14.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_MW2PR12MB25886720FCF7C3C895D3FF00F9D00MW2PR12MB2588namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><span><span>Reviewed-by:</span> B=
+hawanpreet Lakha &lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Jerry (Fangzhi) Zuo &lt;Jerry=
+.Zuo-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> November 27, 2018 1:45:54 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Wentland, Harry; Lakha, Bhawanpre=
+et<br>
+<b>Cc:</b> Zuo, Jerry<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Fix NULL ptr when calculating refr=
+esh rate</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Calculate preferred refresh rate only when preferr=
+ed mode exists.<br>
+<br>
+Signed-off-by: Jerry (Fangzhi) Zuo &lt;Jerry.Zuo-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 &#43;&#43;---<b=
+r>
+&nbsp;1 file changed, 2 insertions(&#43;), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index 27df3ae945be..3039faf004a8 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -2835,7 &#43;2835,7 @@ create_stream_for_sink(struct amdgpu_dm_connector=
+ *aconnector,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool native_mode_found =3D=
+ false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool scale =3D dm_state ? =
+(dm_state-&gt;scaling !=3D RMX_OFF) : false;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int mode_refresh;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int preferred_refresh;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int preferred_refresh =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dc_sink *sink =3D N=
+ULL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (aconnector =3D=3D NULL=
+) {<br>
+@@ -2889,13 &#43;2889,12 @@ create_stream_for_sink(struct amdgpu_dm_connect=
+or *aconnector,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; decide_crtc_timing_for_drm_display_mode(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;mode, preferred_mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_state ? (dm_state-&gt;scaling=
+ !=3D RMX_OFF) : false);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; preferred_refresh =3D drm_mode_vrefresh(preferred_mode);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dm_state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; drm_mode_set_crtcinfo(&amp;mode, 0);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; preferred_refresh =3D drm_mode_vrefre=
+sh(preferred_mode);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * If scaling is enabled an=
+d refresh rate didn't change<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * we copy the vic and pola=
+rities of the old timings<br>
+-- <br>
+2.14.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MW2PR12MB25886720FCF7C3C895D3FF00F9D00MW2PR12MB2588namp_--
+
+--===============0093203236==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0093203236==--
