@@ -1,25 +1,16 @@
-From: Deepak Sharma <deesharm-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add the checking to avoid NULL pointer
- dereference
-Date: Tue, 27 Nov 2018 00:40:43 +0000
-Message-ID: <9619e159-d47b-2078-974d-0d3b418f6d88@amd.com>
-References: <20181122065523.5510-1-Deepak.Sharma@amd.com>
- <b8284caa-3f1d-5672-6317-36be83907e9d@gmail.com>
- <9350d13a-e745-f284-1c49-785fe523773d@amd.com>
- <eae25687-23ce-d686-f5f0-deeb7c3d2e1c@amd.com>
- <70a32625-7568-6253-6c5e-a72fe38f7986@amd.com>
- <138bad33-c604-c0c5-98cb-1ce71a432185@amd.com>
- <46007826-1a4a-40eb-5ee8-af2d0c93e04a@amd.com>
- <BY2PR12MB0694DBE621FC3BBC269E7D51E9D70@BY2PR12MB0694.namprd12.prod.outlook.com>
- <38725288-c15f-58be-7d1a-422abe503a04@gmail.com>
- <BY1PR12MB0502AC0F928B517E35C58751B4D70@BY1PR12MB0502.namprd12.prod.outlook.com>
+From: "Zhang, Jerry(Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 variants
+Date: Tue, 27 Nov 2018 09:47:40 +0800
+Message-ID: <962b81c0-358b-0447-d496-9b8efe817261@amd.com>
+References: <20181123083227.25555-1-Jerry.Zhang@amd.com>
+ <BN6PR12MB18091B4409C1DC5CD17F903CF7D40@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <b8a49f59-e466-b0e7-abf8-feedf1bf1946@amd.com>
+ <b63c3263-9df8-6c3f-06aa-7b97609d21a6@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0279036403=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BY1PR12MB0502AC0F928B517E35C58751B4D70-PicGAnIBOobrCwm+z9iKNgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <b63c3263-9df8-6c3f-06aa-7b97609d21a6-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
-Content-ID: <C2DDE4B8BD386245ADA7F41F20211BA8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -30,105 +21,342 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Sharma, Deepak" <Deepak.Sharma-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-DQoNCk9uIDExLzI2LzE4IDE6NTcgQU0sIFpob3UsIERhdmlkKENodW5NaW5nKSB3cm90ZToNCj4g
-DQo+IA0KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+IEZyb206IENocmlzdGlhbiBL
-w7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPg0KPj4gU2VudDogTW9uZGF5
-LCBOb3ZlbWJlciAyNiwgMjAxOCA1OjIzIFBNDQo+PiBUbzogU2hhcm1hLCBEZWVwYWsgPERlZXBh
-ay5TaGFybWFAYW1kLmNvbT47IFpob3UsIERhdmlkKENodW5NaW5nKQ0KPj4gPERhdmlkMS5aaG91
-QGFtZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsN
-Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PiBTdWJqZWN0OiBSZTogW1BBVENI
-XSBkcm0vYW1kZ3B1OiBhZGQgdGhlIGNoZWNraW5nIHRvIGF2b2lkIE5VTEwgcG9pbnRlcg0KPj4g
-ZGVyZWZlcmVuY2UNCj4+DQo+PiBBbSAyNi4xMS4xOCB1bSAwMjo1OSBzY2hyaWViIFNoYXJtYSwg
-RGVlcGFrOg0KPj4+DQo+Pj4g5ZyoIDIwMTgvMTEvMjQgMjoxMCwgS29lbmlnLCBDaHJpc3RpYW4g
-5YaZ6YGTOg0KPj4+PiBBbSAyMy4xMS4xOCB1bSAxNToxMCBzY2hyaWViIFpob3UsIERhdmlkKENo
-dW5NaW5nKToNCj4+Pj4+IOWcqCAyMDE4LzExLzIzIDIxOjMwLCBLb2VuaWcsIENocmlzdGlhbiDl
-hpnpgZM6DQo+Pj4+Pj4gQW0gMjMuMTEuMTggdW0gMTQ6Mjcgc2NocmllYiBaaG91LCBEYXZpZChD
-aHVuTWluZyk6DQo+Pj4+Pj4+IOWcqCAyMDE4LzExLzIyIDE5OjI1LCBDaHJpc3RpYW4gS8O2bmln
-IOWGmemBkzoNCj4+Pj4+Pj4+IEFtIDIyLjExLjE4IHVtIDA3OjU2IHNjaHJpZWIgU2hhcm1hLCBE
-ZWVwYWs6DQo+Pj4+Pj4+Pj4gd2hlbiByZXR1cm5lZCBmZW5jZSBpcyBub3QgdmFsaWQgbW9zdGx5
-IGR1ZSB0byB1c2Vyc3BhY2UgaWdub3JlZA0KPj4+Pj4+Pj4+IHByZXZpb3VzIGVycm9yIGNhdXNl
-cyBOVUxMIHBvaW50ZXIgZGVyZWZlcmVuY2UuDQo+Pj4+Pj4+PiBBZ2FpbiwgdGhpcyBpcyBjbGVh
-cmx5IGluY29ycmVjdC4gVGhlIG15IG90aGVyIG1haWxzIG9uIHRoZQ0KPj4+Pj4+Pj4gZWFybGll
-ciBwYXRjaC4NCj4+Pj4+Pj4gU29ycnkgZm9yIEkgZGlkbid0IGdldCB5b3VyIGhpc3RvcnksIGJ1
-dCBsb29rcyBmcm9tIHRoZSBwYXRjaA0KPj4+Pj4+PiBpdHNlbGYsIGl0IGlzIHN0aWxsIGEgdmFs
-aWQgcGF0Y2gsIGlzbid0IGl0Pw0KPj4+Pj4+IE5vLCB0aGUgc2VtYW50aWMgb2YgYW1kZ3B1X2N0
-eF9nZXRfZmVuY2UoKSBpcyB0aGF0IHdlIHJldHVybiBOVUxMDQo+Pj4+Pj4gd2hlbiB0aGUgZmVu
-Y2UgaXMgYWxyZWFkeSBzaWduYWxlZC4NCj4+Pj4+Pg0KPj4+Pj4+IFNvIHRoaXMgcGF0Y2ggY291
-bGQgdG90YWxseSBicmVhayB1c2Vyc3BhY2UgYmVjYXVzZSBpdCBjaGFuZ2VzIHRoZQ0KPj4+Pj4+
-IGJlaGF2aW9yIHdoZW4gd2UgdHJ5IHRvIHN5bmMgdG8gYW4gYWxyZWFkeSBzaWduYWxlZCBmZW5j
-ZS4NCj4+Pj4+IEFoLCBJIGdvdCB5b3VyIG1lYW5pbmcsIGhvdyBhYm91dCBhdHRhY2hlZCBwYXRj
-aD8NCj4+Pj4gWWVhaCBzb21ldGhpbmcgbGlrZSB0aGlzLCBidXQgSSB3b3VsZCBqdXN0IGdpdmUg
-dGhlDQo+Pj4+IERSTV9TWU5DT0JKX0NSRUFURV9TSUdOQUxFRCBpbnN0ZWFkLg0KPj4+Pg0KPj4+
-PiBJIG1lYW4gdGhhdCdzIHdoYXQgdGhpcyBmbGFnIGlzIGdvb2QgZm9yIGlzbid0IGl0Pw0KPj4+
-IFllYWgsIEkgZ2l2ZSBhIGZsYWcgaW5pdGFsbHkgd2hlbiBjcmVhdGluZyBwYXRjaCwgYnV0IGFz
-IHlvdSBrbm93LCB0aGVyZSBpcyBhDQo+PiBzd2ljaCBjYXNlIG5vdCBiZSBhYmxlIHRvIHVzZSB0
-aGF0IGZsYWc6DQo+Pj4NCj4+PiAgICDCoMKgwqAgY2FzZSBBTURHUFVfRkVOQ0VfVE9fSEFORExF
-X0dFVF9TWU5DX0ZJTEVfRkQ6DQo+Pj4gICAgwqDCoMKgwqDCoMKgwqAgZmQgPSBnZXRfdW51c2Vk
-X2ZkX2ZsYWdzKE9fQ0xPRVhFQyk7DQo+Pj4gICAgwqDCoMKgwqDCoMKgwqAgaWYgKGZkIDwgMCkg
-ew0KPj4+ICAgIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZG1hX2ZlbmNlX3B1dChmZW5jZSk7DQo+
-Pj4gICAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gZmQ7DQo+Pj4gICAgwqDCoMKgwqDC
-oMKgwqAgfQ0KPj4+DQo+Pj4gICAgwqDCoMKgwqDCoMKgwqAgc3luY19maWxlID0gc3luY19maWxl
-X2NyZWF0ZShmZW5jZSk7DQo+Pj4gICAgwqDCoMKgwqDCoMKgwqAgZG1hX2ZlbmNlX3B1dChmZW5j
-ZSk7DQo+Pj4gICAgwqDCoMKgwqDCoMKgwqAgaWYgKCFzeW5jX2ZpbGUpIHsNCj4+PiAgICDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHB1dF91bnVzZWRfZmQoZmQpOw0KPj4+ICAgIMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9NRU07DQo+Pj4gICAgwqDCoMKgwqDCoMKgwqAgfQ0KPj4+
-DQo+Pj4gICAgwqDCoMKgwqDCoMKgwqAgZmRfaW5zdGFsbChmZCwgc3luY19maWxlLT5maWxlKTsN
-Cj4+PiAgICDCoMKgwqDCoMKgwqDCoCBpbmZvLT5vdXQuaGFuZGxlID0gZmQ7DQo+Pj4gICAgwqDC
-oMKgwqDCoMKgwqAgcmV0dXJuIDA7DQo+Pj4NCj4+PiBTbyBJIGNoYW5nZSB0byBzdHViIGZlbmNl
-IGluc3RlYWQuDQo+Pg0KPj4gWWVhaCwgSSd2ZSBtaXNzZWQgdGhhdCBjYXNlLiBOb3Qgc3VyZSBp
-ZiB0aGUgc3luY19maWxlIGNhbiBkZWFsIHdpdGggYSBOVUxMDQo+PiBmZW5jZS4NCj4+DQo+PiBX
-ZSBzaG91bGQgdGhlbiBwcm9iYWJseSBtb3ZlIHRoZSBzdHViIGZlbmNlIGZ1bmN0aW9uIGludG8N
-Cj4+IGRtYV9mZW5jZV9zdHViLmMgdW5kZXIgZHJpdmVycy9kbWEtYnVmIHRvIGtlZXAgdGhlIHN0
-dWZmIHRvZ2V0aGVyLg0KPiANCj4gWWVzLCB5b3Ugd3JhcCBpdCB0byByZXZpZXcgZmlyc3Qgd2l0
-aCB5b3VyIHN0dWIgZmVuY2UsIHdlIGNhbiBkbyBpdCBzZXBhcmF0ZWx5IGZpcnN0Lg0KPiANCj4g
-LURhdmlkDQo+Pg0KPj4+DQo+Pj4gLURhdmlkDQo+Pj4NCj4+PiBJIGhhdmUgbm90IGFwcGxpZWQg
-dGhpcyBwYXRjaC4NCj4+PiBUaGUgaXNzdWUgd2FzIHRyeWluZyB0byBhZGRyZXNzIGlzIHdoZW4g
-YW1kZ3B1X2NzX2lvY3RsKCkgZmFpbGVkIGR1ZSB0bw0KPj4gbG93IG1lbW9yeSAoRU5PTUVNKSBi
-dXQgdXNlcnNwYWNlIGNob3NlIHRvIHByb2NlZWQgYW5kIGNhbGxlZA0KPj4gYW1kZ3B1X2NzX2Zl
-bmNlX3RvX2hhbmRsZV9pb2N0bCgpLg0KPj4+IEluIGFtZGdwdV9jc19mZW5jZV90b19oYW5kbGVf
-aW9jdGwoKSwgZmVuY2UgaXMgbnVsbCBhbmQgbGF0ZXIgY2F1c2luZw0KPj4+IE5VTEwgcG9pbnRl
-ciBkZXJlZmVyZW5jZSwgdGhpcyBwYXRjaCB3YXMgdG8gYXZvaWQgdGhhdCBhbmQgc3lzdGVtIHBh
-bmljDQo+PiBCdXQgSSB1bmRlcnN0YW5kIG5vdyB0aGF0IGl0cyBhIHZhbGlkIGNhc2UgcmV0dW5p
-bmcgTlVMTCBpZiBmZW5jZSB3YXMgYWxyZWFkeQ0KPj4gc2lnbmFsZWQgYnV0IG5lZWQgdG8gaGFu
-ZGxlIGNhc2Ugc28gYXZvaWQga2VybmVsIHBhbmljLiBTZWVtcyBEYXZpZCBwYXRjaA0KPj4gc2hv
-dWxkIGZpeCB0aGlzLCBJIHdpbGwgdGVzdCBpdCB0b21vcnJvdy4NCj4+DQo+PiBNaG0sIGJ1dCBk
-b24ndCB3ZSBiYWlsIG91dCB3aXRoIGFuIGVycm9yIGlmIHdlIGFzayBmb3IgYSBmYWlsZWQgY29t
-bWFuZA0KPj4gc3VibWlzc2lvbj8gSWYgbm90IHRoYXQgc291bmRzIGxpa2UgYSBidWcgYXMgd2Vs
-bC4NCj4+DQo+PiBDaHJpc3RpYW4uDQo+Pg0KV2hlcmUgZG8gd2UgZG8gdGhhdD8NCkkgc2VlIGVy
-cm9yDQpbZHJtOmFtZGdwdV9jc19pb2N0bF0gKkVSUk9SKiBhbWRncHVfY3NfbGlzdF92YWxpZGF0
-ZSh2YWxpZGF0ZWQpIGZhaWxlZC4NCltkcm06YW1kZ3B1X2NzX2lvY3RsXSAqRVJST1IqIE5vdCBl
-bm91Z2ggbWVtb3J5IGZvciBjb21tYW5kIHN1Ym1pc3Npb24hDQpCVUc6IHVuYWJsZSB0byBoYW5k
-bGUga2VybmVsIE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBhdCAwMDAwMDAwMDAwMDAwMDA4DQpE
-aWQgc29tZSBtb3JlIGRlYnVnZ2luZyxkbWFfZmVuY2VfaXNfYXJyYXkoKSBpcyBjYXVzaW5nIE5V
-TEwgcG9pbnRlciANCmRlcmVmZXJlbmNlIGNhbGwgdGhyb3VnaCBzeW5jX2ZpbGVfaW9jdGwuDQoN
-CkFsc28gSSB0aGluayBjaGFuZ2VzIGluIERhdmlkIHBhdGNoIGNhbnQgYmUgYXBwbGllZCBvbiAN
-CmFtZC1zdGFnaW5nLWRybS1uZXh0LCB3aGljaCBhbGwgcGF0Y2hlcyBJIHNob3VsZCB0YWtlIHRv
-IGdldCBpdCBjb3JyZWN0bHk/DQoNCj4+Pg0KPj4+IC1EZWVwYWsNCj4+Pj4gQ2hyaXN0aWFuLg0K
-Pj4+Pg0KPj4+Pj4gLURhdmlkDQo+Pj4+Pj4gSWYgdGhhdCBwYXRjaCB3YXMgYXBwbGllZCB0aGVu
-IHBsZWFzZSByZXZlcnQgaXQgaW1tZWRpYXRlbHkuDQo+Pj4+Pj4NCj4+Pj4+PiBDaHJpc3RpYW4u
-DQo+Pj4+Pj4NCj4+Pj4+Pj4gLURhdmlkDQo+Pj4+Pj4+PiBJZiB5b3UgaGF2ZSBhbHJlYWR5IHB1
-c2hlZCB0aGUgcGF0Y2ggdGhlbiBwbGVhc2UgcmV2ZXJ0Lg0KPj4+Pj4+Pj4NCj4+Pj4+Pj4+IENo
-cmlzdGlhbi4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogRGVlcGFrIFNoYXJt
-YSA8RGVlcGFrLlNoYXJtYUBhbWQuY29tPg0KPj4+Pj4+Pj4+IC0tLQ0KPj4+Pj4+Pj4+ICAgICAg
-IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jIHwgMiArKw0KPj4+Pj4+
-Pj4+ICAgICAgIMKgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykNCj4+Pj4+Pj4+Pg0K
-Pj4+Pj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYw0KPj4+Pj4+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMN
-Cj4+Pj4+Pj4+PiBpbmRleCAwMjRkZmJkODdmMTEuLjE0MTY2Y2Q4YTEyZiAxMDA2NDQNCj4+Pj4+
-Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPj4+Pj4+
-Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+Pj4+Pj4+
-Pj4gQEAgLTE0MDMsNiArMTQwMyw4IEBAIHN0YXRpYyBzdHJ1Y3QgZG1hX2ZlbmNlDQo+Pj4+Pj4+
-Pj4gKmFtZGdwdV9jc19nZXRfZmVuY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+Pj4+
-Pj4+Pj4gICAgICAgwqAgwqDCoMKgwqDCoCBmZW5jZSA9IGFtZGdwdV9jdHhfZ2V0X2ZlbmNlKGN0
-eCwgZW50aXR5LCB1c2VyLT5zZXFfbm8pOw0KPj4+Pj4+Pj4+ICAgICAgIMKgwqDCoMKgwqAgYW1k
-Z3B1X2N0eF9wdXQoY3R4KTsNCj4+Pj4+Pj4+PiArwqDCoMKgIGlmKCFmZW5jZSkNCj4+Pj4+Pj4+
-PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIEVSUl9QVFIoLUVJTlZBTCk7DQo+Pj4+Pj4+Pj4gICAg
-ICAgwqAgwqDCoMKgwqDCoCByZXR1cm4gZmVuY2U7DQo+Pj4+Pj4+Pj4gICAgICAgwqAgfQ0KPj4+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+Pj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QNCj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
-PiANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0279036403==
+Content-Type: multipart/alternative;
+	boundary="------------9846CFFC88892C2AD20C0C5C"
+Content-Language: en-US
+
+--------------9846CFFC88892C2AD20C0C5C
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 11/26/18 5:28 PM, Christian König wrote:
+> Am 26.11.18 um 03:38 schrieb Zhang, Jerry(Junwei):
+>> On 11/24/18 3:32 AM, Deucher, Alexander wrote:
+>>>
+>>> Is this required? Are the harvesting fuses incorrect?  If the blocks 
+>>> are harvested, we should bail out of the blocks properly during 
+>>> init.  Also, please make this more explicit if we still need it.  E.g.,
+>>>
+>>>
+>>
+>> The harvest fuse is indeed disabling UVD and VCE, as it's a mining card.
+>> Then any command to UVD/VCE causing NULL pointer issue, like amdgpu_test.
+>
+> In this case we should fix the NULL pointer issue instead. Do you have 
+> a backtrace for this?
+
+Sorry to miss the detail.
+The NULL pointer is caused by UVD is not initialized as it's disabled in 
+VBIOS for this kind of card.
+
+When cs submit, it will check ring->funcs->parse_cs in amdgpu_cs_ib_fill().
+However, uvd_v6_0_early_init() skip the set ring function, as 
+CC_HARVEST_FUSES is set UVD/VCE disabled.
+Then the access to UVD/VCE ring's funcs will cause NULL pointer issue.
+
+BTW, Windows driver disables UVD/VCE for it as well.
+
+Regards,
+Jerry
+
+>
+> Regards,
+> Christian.
+>
+>>
+>> AFAIW, windows also disable UVD and VCE in initialization.
+>>
+>>>        if ((adev->pdev->device == 0x67df) &&
+>>>               (adev->pdev->revision == 0xf7)) {
+>>>
+>>> /* Some polaris12 variants don't support UVD/VCE */
+>>>
+>>>       } else  {
+>>>
+>>> amdgpu_device_ip_block_add(adev, &uvd_v6_3_ip_block);
+>>>
+>>> amdgpu_device_ip_block_add(adev, &vce_v3_4_ip_block);
+>>>
+>>>     }
+>>>
+>>>
+>>
+>> OK, will explicit the process.
+>>
+>> Regards,
+>> Jerry
+>>>
+>>> That way if we re-arrange the order later, it will be easier to track.
+>>>
+>>>
+>>> Alex
+>>>
+>>> ------------------------------------------------------------------------
+>>> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
+>>> Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+>>> *Sent:* Friday, November 23, 2018 3:32:27 AM
+>>> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> *Cc:* Zhang, Jerry
+>>> *Subject:* [PATCH] drm/amdgpu: disable UVD/VCE for some polaris 12 
+>>> variants
+>>> Some variants don't support UVD and VCE.
+>>>
+>>> Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>  drivers/gpu/drm/amd/amdgpu/vi.c | 4 ++++
+>>>  1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> index f3a4cf1f013a..3338b013ded4 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+>>> @@ -1660,6 +1660,10 @@ int vi_set_ip_blocks(struct amdgpu_device *adev)
+>>> amdgpu_device_ip_block_add(adev, &dce_v11_2_ip_block);
+>>>                  amdgpu_device_ip_block_add(adev, &gfx_v8_0_ip_block);
+>>>                  amdgpu_device_ip_block_add(adev, &sdma_v3_1_ip_block);
+>>> +               /* Some polaris12 variants don't support UVD/VCE */
+>>> +               if ((adev->pdev->device == 0x67df) &&
+>>> +                     (adev->pdev->revision == 0xf7))
+>>> +                       break;
+>>>                  amdgpu_device_ip_block_add(adev, &uvd_v6_3_ip_block);
+>>>                  amdgpu_device_ip_block_add(adev, &vce_v3_4_ip_block);
+>>>                  break;
+>>> -- 
+>>> 2.17.1
+>>>
+>>> _______________________________________________
+>>> amd-gfx mailing list
+>>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+
+--------------9846CFFC88892C2AD20C0C5C
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    On 11/26/18 5:28 PM, Christian König wrote:<br>
+    <blockquote type="cite"
+      cite="mid:b63c3263-9df8-6c3f-06aa-7b97609d21a6-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <div class="moz-cite-prefix">Am 26.11.18 um 03:38 schrieb Zhang,
+        Jerry(Junwei):<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:b8a49f59-e466-b0e7-abf8-feedf1bf1946-5C7GfCeVMHo@public.gmane.org"> On
+        11/24/18 3:32 AM, Deucher, Alexander wrote:<br>
+        <blockquote type="cite"
+cite="mid:BN6PR12MB18091B4409C1DC5CD17F903CF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+          <style type="text/css" style="display:none;"><!-- P {margin-top:0;margin-bottom:0;} --></style>
+          <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+            dir="ltr">
+            <p style="margin-top:0;margin-bottom:0">Is this required? 
+              Are the harvesting fuses incorrect?  If the blocks are
+              harvested, we should bail out of the blocks properly
+              during init.  Also, please make this more explicit if we
+              still need it.  E.g.,</p>
+            <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+                  style="font-size:11pt;"><br>
+                </span></font></p>
+          </div>
+        </blockquote>
+        <br>
+        The harvest fuse is indeed disabling UVD and VCE, as it's a
+        mining card.<br>
+        Then any command to UVD/VCE causing NULL pointer issue, like
+        amdgpu_test.<br>
+      </blockquote>
+      <br>
+      In this case we should fix the NULL pointer issue instead. Do you
+      have a backtrace for this?<br>
+    </blockquote>
+    <br>
+    Sorry to miss the detail.<br>
+    The NULL pointer is caused by UVD is not initialized as it's
+    disabled in VBIOS for this kind of card.<br>
+    <br>
+    When cs submit, it will check ring-&gt;funcs-&gt;parse_cs in
+    amdgpu_cs_ib_fill().<br>
+    However, uvd_v6_0_early_init() skip the set ring function, as
+    CC_HARVEST_FUSES is set UVD/VCE disabled.<br>
+    Then the access to UVD/VCE ring's funcs will cause NULL pointer
+    issue.<br>
+    <br>
+    BTW, Windows driver disables UVD/VCE for it as well.<br>
+    <br>
+    Regards,<br>
+    Jerry<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:b63c3263-9df8-6c3f-06aa-7b97609d21a6-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"> <br>
+      Regards,<br>
+      Christian.<br>
+      <br>
+      <blockquote type="cite"
+        cite="mid:b8a49f59-e466-b0e7-abf8-feedf1bf1946-5C7GfCeVMHo@public.gmane.org"> <br>
+        AFAIW, windows also disable UVD and VCE in initialization.<br>
+        <br>
+        <blockquote type="cite"
+cite="mid:BN6PR12MB18091B4409C1DC5CD17F903CF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+          <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+            dir="ltr">
+            <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+                  style="font-size:11pt;">        if
+                  ((adev-&gt;pdev-&gt;device == 0x67df) &amp;&amp;<br>
+                                (adev-&gt;pdev-&gt;revision == 0xf7)) {<br>
+                </span></font></p>
+            <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+                  style="font-size:11pt;">        <font size="2"><span
+                      style="font-size:11pt;">/* Some polaris12 variants
+                      don't support UVD/VCE */</span></font><br>
+                </span></font></p>
+            <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+                  style="font-size:11pt;">      } else  {<br>
+                </span></font></p>
+            <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+                  style="font-size:11pt;">                
+                  amdgpu_device_ip_block_add(adev,
+                  &amp;uvd_v6_3_ip_block);</span></font></p>
+            <p style="margin-top:0;margin-bottom:0"><font size="2"><span
+                  style="font-size:11pt;">                
+                  amdgpu_device_ip_block_add(adev,
+                  &amp;vce_v3_4_ip_block);</span></font></p>
+            <p style="margin-top:0;margin-bottom:0">    }</p>
+            <p style="margin-top:0;margin-bottom:0"><br>
+            </p>
+          </div>
+        </blockquote>
+        <br>
+        OK, will explicit the process.<br>
+        <br>
+        Regards,<br>
+        Jerry<br>
+        <blockquote type="cite"
+cite="mid:BN6PR12MB18091B4409C1DC5CD17F903CF7D40-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+          <div id="divtagdefaultwrapper"
+style="font-size:12pt;color:#000000;font-family:Calibri,Helvetica,sans-serif;"
+            dir="ltr">
+            <p style="margin-top:0;margin-bottom:0"> </p>
+            <p style="margin-top:0;margin-bottom:0">That way if we
+              re-arrange the order later, it will be easier to track.</p>
+            <p style="margin-top:0;margin-bottom:0"><br>
+            </p>
+            <p style="margin-top:0;margin-bottom:0">Alex<br>
+            </p>
+          </div>
+          <hr style="display:inline-block;width:98%" tabindex="-1">
+          <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+              face="Calibri, sans-serif" color="#000000"><b>From:</b>
+              amd-gfx <a class="moz-txt-link-rfc2396E"
+                href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                moz-do-not-send="true">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>
+              on behalf of Junwei Zhang <a
+                class="moz-txt-link-rfc2396E"
+                href="mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org" moz-do-not-send="true">&lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+              <b>Sent:</b> Friday, November 23, 2018 3:32:27 AM<br>
+              <b>To:</b> <a class="moz-txt-link-abbreviated"
+                href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+              <b>Cc:</b> Zhang, Jerry<br>
+              <b>Subject:</b> [PATCH] drm/amdgpu: disable UVD/VCE for
+              some polaris 12 variants</font>
+            <div> </div>
+          </div>
+          <div class="BodyFragment"><font size="2"><span
+                style="font-size:11pt;">
+                <div class="PlainText">Some variants don't support UVD
+                  and VCE.<br>
+                  <br>
+                  Signed-off-by: Junwei Zhang <a
+                    class="moz-txt-link-rfc2396E"
+                    href="mailto:Jerry.Zhang-5C7GfCeVMHo@public.gmane.org"
+                    moz-do-not-send="true">&lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+                  ---<br>
+                   drivers/gpu/drm/amd/amdgpu/vi.c | 4 ++++<br>
+                   1 file changed, 4 insertions(+)<br>
+                  <br>
+                  diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c
+                  b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+                  index f3a4cf1f013a..3338b013ded4 100644<br>
+                  --- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+                  +++ b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+                  @@ -1660,6 +1660,10 @@ int vi_set_ip_blocks(struct
+                  amdgpu_device *adev)<br>
+                                          
+                  amdgpu_device_ip_block_add(adev,
+                  &amp;dce_v11_2_ip_block);<br>
+                                   amdgpu_device_ip_block_add(adev,
+                  &amp;gfx_v8_0_ip_block);<br>
+                                   amdgpu_device_ip_block_add(adev,
+                  &amp;sdma_v3_1_ip_block);<br>
+                  +               /* Some polaris12 variants don't
+                  support UVD/VCE */<br>
+                  +               if ((adev-&gt;pdev-&gt;device ==
+                  0x67df) &amp;&amp;<br>
+                  +                     (adev-&gt;pdev-&gt;revision ==
+                  0xf7))<br>
+                  +                       break;<br>
+                                   amdgpu_device_ip_block_add(adev,
+                  &amp;uvd_v6_3_ip_block);<br>
+                                   amdgpu_device_ip_block_add(adev,
+                  &amp;vce_v3_4_ip_block);<br>
+                                   break;<br>
+                  -- <br>
+                  2.17.1<br>
+                  <br>
+                  _______________________________________________<br>
+                  amd-gfx mailing list<br>
+                  <a class="moz-txt-link-abbreviated"
+                    href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
+                    moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+                  <a
+                    href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                    moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+                </div>
+              </span></font></div>
+        </blockquote>
+        <br>
+        <br>
+        <fieldset class="mimeAttachmentHeader"></fieldset>
+        <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+      </blockquote>
+      <br>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------9846CFFC88892C2AD20C0C5C--
+
+--===============0279036403==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0279036403==--
