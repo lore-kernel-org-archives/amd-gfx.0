@@ -1,17 +1,14 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
-Date: Tue, 27 Nov 2018 18:49:33 +0000
-Message-ID: <BLUPR12MB0452CFA936F551D64AA10737F2D00@BLUPR12MB0452.namprd12.prod.outlook.com>
-References: <1543214171-12460-1-git-send-email-shirish.s@amd.com>
- <BN6PR12MB1809F50687D05789C14E6C61F7D70@BN6PR12MB1809.namprd12.prod.outlook.com>
- <BLUPR12MB0452C3CF56CBB8089FB9D5CBF2D00@BLUPR12MB0452.namprd12.prod.outlook.com>,
- <BLUPR12MB045213B336F6D1D61674CFEFF2D00@BLUPR12MB0452.namprd12.prod.outlook.com>,
- <BN6PR12MB1809B7A81F8D2A38C4B85362F7D00@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Mikulas Patocka <mpatocka-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH] pci: fix incorrect value returned from pcie_get_speed_cap
+Date: Tue, 27 Nov 2018 11:49:43 -0500 (EST)
+Message-ID: <alpine.LRH.2.02.1811271144420.27588@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.1810301232310.23106@file01.intranet.prod.int.rdu2.redhat.com>
+ <20181120004704.GA191199@google.com> <20181126224051.GB212532@google.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1074901211=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1809B7A81F8D2A38C4B85362F7D00-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20181126224051.GB212532-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,439 +19,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Bjorn Helgaas <helgaas-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Cc: Tal Gilboa <talgi-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Tariq Toukan <tariqt-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
 
---===============1074901211==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BLUPR12MB0452CFA936F551D64AA10737F2D00BLUPR12MB0452namp_"
-
---_000_BLUPR12MB0452CFA936F551D64AA10737F2D00BLUPR12MB0452namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-This is for the devices with type-c ports.
-
-Wherein the signal type is same 32 (DISPLAY PORT)  for both HDMI and DP  mo=
-nitors connected to the system via type-c dongles/convertors.
-
-Regards,
-Shirish S
-
-Get Outlook for Android<https://aka.ms/ghei36>
-
-________________________________
-From: Deucher, Alexander
-Sent: Wednesday, November 28, 2018 12:06:26 AM
-To: S, Shirish; Li, Sun peng (Leo); Wentland, Harry
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
-
-
-Is this a DP to HDMI adapter?  I think 4k@60 should be valid on DP in gener=
-al on ST/CZ, but Harry or Leo should comment.
-
-
-Alex
-
-________________________________
-From: S, Shirish
-Sent: Tuesday, November 27, 2018 3:58:12 AM
-To: Deucher, Alexander; Li, Sun peng (Leo); Wentland, Harry
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
-
-
-However, while using Type-C connectors noted that the signal type is actual=
-ly SIGNAL_TYPE_DISPLAY_PORT and found that the check was missing.
-
-Hence have added the same in https://patchwork.freedesktop.org/patch/264033=
-/
-
-
-
-Regards,
-
-Shirish S
-
-
-
-From: S, Shirish
-Sent: Tuesday, November 27, 2018 9:54 AM
-To: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Li, Sun peng (Leo) <Sun=
-peng.Li-5C7GfCeVMHo@public.gmane.org>; Wentland, Harry <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
-
-
-
-Thanks Alex, found that patch.
-
-My patch is no more required.
-
-
-
-
-
-Regards,
-
-Shirish S
-
-
-
-From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deuche=
-r@amd.com>>
-Sent: Monday, November 26, 2018 7:46 PM
-To: S, Shirish <Shirish.S-5C7GfCeVMHo@public.gmane.org<mailto:Shirish.S-5C7GfCeVMHo@public.gmane.org>>; Li, Sun peng =
-(Leo) <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org<mailto:Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>>; Wentland, Harry <Har=
-ry.Wentland-5C7GfCeVMHo@public.gmane.org<mailto:Harry.Wentland-5C7GfCeVMHo@public.gmane.org>>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
-
-
-
-I thought there was a patch to do this already that got sent out a few week=
-s ago.  Basically limit ST/CZ to modes that do not require a retimer.  Is a=
-n additional patch needed?
-
-
-
-Alex
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of S, Shirish <Shirish.S-5C7GfCeVMHo@public.gmane.org<mailto:=
-Shirish.S-5C7GfCeVMHo@public.gmane.org>>
-Sent: Monday, November 26, 2018 1:36:30 AM
-To: Li, Sun peng (Leo); Wentland, Harry
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; S,=
- Shirish
-Subject: [PATCH] drm/amd/display: limit high pixel clock modes on ST/CZ
-
-
-
-[Why]
-ST/CZ (dce110) advertises modes such as 4k@60Hz etc.,
-that it cannot handle correctly, hence  resulting in
-several issues like flickering, black lines/flashes and so on.
-
-[How]
-These modes are basically high pixel clock ones, hence
-limit the same to be advertised to avoid bad user experiences
-
-Signed-off-by: Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org<mailto:shirish.s-5C7GfCeVMHo@public.gmane.org>>
-Suggested-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org<mailto:harry.wentland@=
-amd.com>>
----
- .../gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c    | 10 ++++++=
-++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.=
-c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c
-index 1b2fe0d..1b8fe99 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c
-@@ -1121,6 +1121,16 @@ bool dce110_timing_generator_validate_timing(
-         if (!timing)
-                 return false;
-
-+       /* Limit all modes that have a high pixel clock
-+        * which seems to be problematic on dce110
-+        * These include: 4k@60Hz, 1080p@144Hz,1440p@120Hz
-+        * based on the below formula:
-+        * refresh rate =3D pixel clock / (htotal * vtotal)
-+        */
-+       if (timing->pix_clk_khz > 300000)
-+               return false;
-+
-+
-         hsync_offset =3D timing->h_border_right + timing->h_front_porch;
-         h_sync_start =3D timing->h_addressable + hsync_offset;
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BLUPR12MB0452CFA936F551D64AA10737F2D00BLUPR12MB0452namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta content=3D"text/html; charset=3Dus-ascii">
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-</head>
-<body dir=3D"ltr">
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-This is for the devices with type-c ports.<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Wherein the signal type is same 32 (DISPLAY PORT)&nbsp; for both HDMI and D=
-P&nbsp; monitors connected to the system via type-c dongles/convertors.<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Regards,<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Shirish S<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Get <a href=3D"https://aka.ms/ghei36">Outlook for Android</a></div>
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Deucher, Alexander<br=
->
-<b>Sent:</b> Wednesday, November 28, 2018 12:06:26 AM<br>
-<b>To:</b> S, Shirish; Li, Sun peng (Leo); Wentland, Harry<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: limit high pixel clock modes o=
-n ST/CZ</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0; margin-bottom:0">Is this a DP to HDMI adapter?&nb=
-sp; I think 4k@60 should be valid on DP in general on ST/CZ, but Harry or L=
-eo should comment.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> S, Shirish<br>
-<b>Sent:</b> Tuesday, November 27, 2018 3:58:12 AM<br>
-<b>To:</b> Deucher, Alexander; Li, Sun peng (Leo); Wentland, Harry<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/display: limit high pixel clock modes o=
-n ST/CZ</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:Calibri}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:blue;
-	text-decoration:underline}
-a:visited, span.x_MsoHyperlinkFollowed
-	{color:purple;
-	text-decoration:underline}
-p.x_msonormal0, li.x_msonormal0, div.x_msonormal0
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-span.x_EmailStyle18
-	{font-family:"Calibri",sans-serif}
-span.x_EmailStyle21
-	{font-family:"Calibri",sans-serif}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
--->
-</style>
-<div lang=3D"EN-US">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">However, while using Type-C connectors noted that =
-the signal type is actually SIGNAL_TYPE_DISPLAY_PORT and found that the che=
-ck was missing.</p>
-<p class=3D"x_MsoNormal">Hence have added the same in <a href=3D"https://pa=
-tchwork.freedesktop.org/patch/264033/">
-https://patchwork.freedesktop.org/patch/264033/</a></p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Regards,</p>
-<p class=3D"x_MsoNormal">Shirish S</p>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> S, Shirish <br>
-<b>Sent:</b> Tuesday, November 27, 2018 9:54 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Li, Sun pe=
-ng (Leo) &lt;Sunpeng.Li-5C7GfCeVMHo@public.gmane.org&gt;; Wentland, Harry &lt;Harry.Wentland@amd=
-.com&gt;<br>
-<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/display: limit high pixel clock modes o=
-n ST/CZ</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Thanks Alex, found that patch.</p>
-<p class=3D"x_MsoNormal">My patch is no more required.</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Regards,</p>
-<p class=3D"x_MsoNormal">Shirish S</p>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Deucher, Alexander &lt;<a href=3D"mai=
-lto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;
-<br>
-<b>Sent:</b> Monday, November 26, 2018 7:46 PM<br>
-<b>To:</b> S, Shirish &lt;<a href=3D"mailto:Shirish.S-5C7GfCeVMHo@public.gmane.org">Shirish.S@am=
-d.com</a>&gt;; Li, Sun peng (Leo) &lt;<a href=3D"mailto:Sunpeng.Li-5C7GfCeVMHo@public.gmane.org"=
->Sunpeng.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;; Wentland, Harry &lt;<a href=3D"mailto:Harry.We=
-ntland-5C7GfCeVMHo@public.gmane.org">Harry.Wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: limit high pixel clock modes o=
-n ST/CZ</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div id=3D"x_divtagdefaultwrapper">
-<p><span style=3D"font-size:12.0pt; color:black">I thought there was a patc=
-h to do this already that got sent out a few weeks ago.&nbsp; Basically lim=
-it ST/CZ to modes that do not require a retimer.&nbsp; Is an additional pat=
-ch needed?</span></p>
-<p><span style=3D"font-size:12.0pt; color:black">&nbsp;</span></p>
-<p><span style=3D"font-size:12.0pt; color:black">Alex</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
-an style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lis=
-ts.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf=
- of S, Shirish &lt;<a href=3D"mailto:Shirish.S-5C7GfCeVMHo@public.gmane.org">Shirish.S-5C7GfCeVMHo@public.gmane.org</=
-a>&gt;<br>
-<b>Sent:</b> Monday, November 26, 2018 1:36:30 AM<br>
-<b>To:</b> Li, Sun peng (Leo); Wentland, Harry<br>
-<b>Cc:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a>; S, Shirish<br>
-<b>Subject:</b> [PATCH] drm/amd/display: limit high pixel clock modes on ST=
-/CZ</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">[Why]<br>
-ST/CZ (dce110) advertises modes such as 4k@60Hz etc.,<br>
-that it cannot handle correctly, hence&nbsp; resulting in<br>
-several issues like flickering, black lines/flashes and so on.<br>
-<br>
-[How]<br>
-These modes are basically high pixel clock ones, hence<br>
-limit the same to be advertised to avoid bad user experiences<br>
-<br>
-Signed-off-by: Shirish S &lt;<a href=3D"mailto:shirish.s-5C7GfCeVMHo@public.gmane.org">shirish.s=
-@amd.com</a>&gt;<br>
-Suggested-by: Harry Wentland &lt;<a href=3D"mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">=
-harry.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;.../gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c&nbsp;&nbs=
-p;&nbsp; | 10 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 10 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.=
-c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c<br>
-index 1b2fe0d..1b8fe99 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_generator.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dce110/dce110_timing_gener=
-ator.c<br>
-@@ -1121,6 &#43;1121,16 @@ bool dce110_timing_generator_validate_timing(<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!timing)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return false;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Limit all modes that have a hi=
-gh pixel clock<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * which seems to be problem=
-atic on dce110<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * These include: 4k@60Hz, 1=
-080p@144Hz,1440p@120Hz<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * based on the below formul=
-a:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * refresh rate =3D pixel cl=
-ock / (htotal * vtotal)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (timing-&gt;pix_clk_khz &gt; 3=
-00000)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return false;<br>
-&#43;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hsync_offset =3D timing-&g=
-t;h_border_right &#43; timing-&gt;h_front_porch;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; h_sync_start =3D timing-&g=
-t;h_addressable &#43; hsync_offset;<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BLUPR12MB0452CFA936F551D64AA10737F2D00BLUPR12MB0452namp_--
-
---===============1074901211==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1074901211==--
+CgpPbiBNb24sIDI2IE5vdiAyMDE4LCBCam9ybiBIZWxnYWFzIHdyb3RlOgoKPiBPbiBNb24sIE5v
+diAxOSwgMjAxOCBhdCAwNjo0NzowNFBNIC0wNjAwLCBCam9ybiBIZWxnYWFzIHdyb3RlOgo+ID4g
+T24gVHVlLCBPY3QgMzAsIDIwMTggYXQgMTI6MzY6MDhQTSAtMDQwMCwgTWlrdWxhcyBQYXRvY2th
+IHdyb3RlOgo+ID4gPiBUaGUgbWFjcm9zIFBDSV9FWFBfTE5LQ0FQX1NMU18qR0IgYXJlIHZhbHVl
+cywgbm90IGJpdCBtYXNrcy4gV2UgbXVzdCBtYXNrCj4gPiA+IHRoZSByZWdpc3RlciBhbmQgY29t
+cGFyZSBpdCBhZ2FpbnN0IHRoZW0uCj4gPiA+IAo+ID4gPiBUaGlzIHBhdGNoIGZpeGVzIGVycm9y
+cyAiYW1kZ3B1OiBbcG93ZXJwbGF5XSBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDI2MQo+ID4gPiBy
+ZXQgaXMgMCIgZXJyb3JzIHdoZW4gUENJZS12MyBjYXJkIGlzIHBsdWdnZWQgaW50byBQQ0llLXYx
+IHNsb3QsIGJlY2F1c2UKPiA+ID4gdGhlIHNsb3QgaXMgYmVpbmcgaW5jb3JyZWN0bHkgcmVwb3J0
+ZWQgYXMgUENJZS12MyBjYXBhYmxlLgo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTogTWlrdWxh
+cyBQYXRvY2thIDxtcGF0b2NrYUByZWRoYXQuY29tPgo+ID4gPiBGaXhlczogNmNmNTdiZTBmNzhl
+ICgiUENJOiBBZGQgcGNpZV9nZXRfc3BlZWRfY2FwKCkgdG8gZmluZCBtYXggc3VwcG9ydGVkIGxp
+bmsgc3BlZWQiKQo+ID4gPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwkjIHY0LjE3Kwo+ID4g
+PiAKPiA+ID4gLS0tCj4gPiA+ICBkcml2ZXJzL3BjaS9wY2kuYyB8ICAgIDggKysrKy0tLS0KPiA+
+ID4gIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gPiA+
+IAo+ID4gPiBJbmRleDogbGludXgtNC4xOS9kcml2ZXJzL3BjaS9wY2kuYwo+ID4gPiA9PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09Cj4gPiA+IC0tLSBsaW51eC00LjE5Lm9yaWcvZHJpdmVycy9wY2kvcGNpLmMJMjAxOC0xMC0z
+MCAxNjo1ODo1OC4wMDAwMDAwMDAgKzAxMDAKPiA+ID4gKysrIGxpbnV4LTQuMTkvZHJpdmVycy9w
+Y2kvcGNpLmMJMjAxOC0xMC0zMCAxNjo1ODo1OC4wMDAwMDAwMDAgKzAxMDAKPiA+ID4gQEAgLTU0
+OTIsMTMgKzU0OTIsMTMgQEAgZW51bSBwY2lfYnVzX3NwZWVkIHBjaWVfZ2V0X3NwZWVkX2NhcChz
+dAo+ID4gPiAgCj4gPiA+ICAJcGNpZV9jYXBhYmlsaXR5X3JlYWRfZHdvcmQoZGV2LCBQQ0lfRVhQ
+X0xOS0NBUCwgJmxua2NhcCk7Cj4gPiA+ICAJaWYgKGxua2NhcCkgewo+ID4gPiAtCQlpZiAobG5r
+Y2FwICYgUENJX0VYUF9MTktDQVBfU0xTXzE2XzBHQikKPiA+ID4gKwkJaWYgKChsbmtjYXAgJiBQ
+Q0lfRVhQX0xOS0NBUF9TTFMpID09IFBDSV9FWFBfTE5LQ0FQX1NMU18xNl8wR0IpCj4gPiA+ICAJ
+CQlyZXR1cm4gUENJRV9TUEVFRF8xNl8wR1Q7Cj4gPiA+IC0JCWVsc2UgaWYgKGxua2NhcCAmIFBD
+SV9FWFBfTE5LQ0FQX1NMU184XzBHQikKPiA+ID4gKwkJZWxzZSBpZiAoKGxua2NhcCAmIFBDSV9F
+WFBfTE5LQ0FQX1NMUykgPT0gUENJX0VYUF9MTktDQVBfU0xTXzhfMEdCKQo+ID4gPiAgCQkJcmV0
+dXJuIFBDSUVfU1BFRURfOF8wR1Q7Cj4gPiA+IC0JCWVsc2UgaWYgKGxua2NhcCAmIFBDSV9FWFBf
+TE5LQ0FQX1NMU181XzBHQikKPiA+ID4gKwkJZWxzZSBpZiAoKGxua2NhcCAmIFBDSV9FWFBfTE5L
+Q0FQX1NMUykgPT1QQ0lfRVhQX0xOS0NBUF9TTFNfNV8wR0IpCj4gPiA+ICAJCQlyZXR1cm4gUENJ
+RV9TUEVFRF81XzBHVDsKPiA+ID4gLQkJZWxzZSBpZiAobG5rY2FwICYgUENJX0VYUF9MTktDQVBf
+U0xTXzJfNUdCKQo+ID4gPiArCQllbHNlIGlmICgobG5rY2FwICYgUENJX0VYUF9MTktDQVBfU0xT
+KSA9PSBQQ0lfRVhQX0xOS0NBUF9TTFNfMl81R0IpCj4gPiA+ICAJCQlyZXR1cm4gUENJRV9TUEVF
+RF8yXzVHVDsKPiA+ID4gIAl9Cj4gCj4gPiBXZSBhbHNvIG5lZWQgc2ltaWxhciBmaXhlcyBpbiBw
+Y2lfc2V0X2J1c19zcGVlZCgpLCBwY2llX3NwZWVkcygpCj4gPiAoaGZpMSksIGNvYmFsdF9wY2ll
+X3N0YXR1c19zaG93KCksIGhiYV9pb2N0bF9jYWxsYmFjaygpLAo+ID4gcWxhMjR4eF9wY2lfaW5m
+b19zdHIoKSwgYW5kIG1heWJlIGEgY291cGxlIG90aGVyIHBsYWNlcy4KPiAKPiBEb2VzIGFueWJv
+ZHkgd2FudCB0byB2b2x1bnRlZXIgdG8gZml4IHRoZSBwbGFjZXMgYWJvdmUgYXMgd2VsbD8gIEkK
+PiBmb3VuZCB0aGVtIGJ5IGdyZXBwaW5nIGZvciBQQ0lfRVhQX0xOS0NBUCwgYW5kIHRoZXkncmUg
+YWxsIGJyb2tlbiBpbgo+IHdheXMgc2ltaWxhciB0byBwY2llX2dldF9zcGVlZF9jYXAoKS4gIFBv
+c3NpYmx5IHNvbWUgb2YgdGhlc2UgcGxhY2VzCj4gY291bGQgdXNlIHBjaWVfZ2V0X3NwZWVkX2Nh
+cCgpIGRpcmVjdGx5Lgo+IAo+IEJqb3JuCj4gCgpUaGV5IGFyZSBub3QgYnJva2VuLCB0aGV5IGFy
+ZSBtYXNraW5nIHRoZSB2YWx1ZSB3aXRoIFBDSV9FWFBfTE5LQ0FQX1NMUyAtIAp0aGF0IGlzIGNv
+cnJlY3QuCgpwY2lfc2V0X2J1c19zcGVlZDoKICAgICAgICAgICAgICAgIHBjaWVfY2FwYWJpbGl0
+eV9yZWFkX2R3b3JkKGJyaWRnZSwgUENJX0VYUF9MTktDQVAsICZsaW5rY2FwKTsKICAgICAgICAg
+ICAgICAgIGJ1cy0+bWF4X2J1c19zcGVlZCA9IHBjaWVfbGlua19zcGVlZFtsaW5rY2FwICYgUENJ
+X0VYUF9MTktDQVBfU0xTXTsKCnBjaWVfc3BlZWRzOgoJaWYgKChsaW5rY2FwICYgUENJX0VYUF9M
+TktDQVBfU0xTKSAhPSBQQ0lfRVhQX0xOS0NBUF9TTFNfOF8wR0IpCgpjb2JhbHRfcGNpZV9zdGF0
+dXNfc2hvdzoKCWp1c3QgcHJpbnRzIHRoZSB2YWx1ZXMgd2l0aG91dCBkb2luZyBhbnl0aGluZyB3
+aXRoIHRoZW0KCmhiYV9pb2N0bF9jYWxsYmFjazoKCWdhaS0+cGNpLmxpbmtfc3BlZWRfbWF4ID0g
+KHU4KShjYXBzICYgUENJX0VYUF9MTktDQVBfU0xTKTsKCglnYWktPnBjaS5saW5rX3dpZHRoX21h
+eCA9ICh1OCkoKGNhcHMgJiBQQ0lfRVhQX0xOS0NBUF9NTFcpID4+IDQpOwoKcWxhMjR4eF9wY2lf
+aW5mb19zdHI6Cglsc3BlZWQgPSBsc3RhdCAmIFBDSV9FWFBfTE5LQ0FQX1NMUzsKCWx3aWR0aCA9
+IChsc3RhdCAmIFBDSV9FWFBfTE5LQ0FQX01MVykgPj4gNDsKCk1pa3VsYXMKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
