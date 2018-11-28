@@ -1,16 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v3 0/3] Add support for XGMI hive reset
-Date: Wed, 28 Nov 2018 16:14:13 +0100
-Message-ID: <34748cbb-1760-6037-98b9-d39f1824bfa5@gmail.com>
-References: <1543343848-11249-1-git-send-email-andrey.grodzovsky@amd.com>
- <f68ac17d-657d-81fb-42a5-54dfb8cbbd35@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Disable 4k@60 on DP as well for DCE11
+Date: Wed, 28 Nov 2018 15:47:35 +0000
+Message-ID: <689b89f2-d8d0-b400-3c02-2e42b30deacf@amd.com>
+References: <1543308721-7138-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f68ac17d-657d-81fb-42a5-54dfb8cbbd35-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1543308721-7138-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <E785AC7A08B29A4FAD8BC635FB26C380-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,37 +20,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-IEZyb20gdGhlIGRlc2lnbiBpdCBsb29rcyBnb29kIHRvIG1lLCBidXQgSSByZWFsbHkgZG9uJ3Qg
-a25vdyBtdWNoIGFib3V0IApYR01JLgoKV2hlbiB5b3Ugd2FudCB0byBzaW1wbGlmeSBpdCBhIGJp
-dCwgSSdtIHByZXR0eSBzdXJlIHRoZSBjYWxscyB0byAKdHRtX2JvX2xvY2tfZGVsYXllZF93b3Jr
-cXVldWUoKS90dG1fYm9fdW5sb2NrX2RlbGF5ZWRfd29ya3F1ZXVlKCkgY2FuIApqdXN0IGJlIGRy
-b3BwZWQuCgpUaGV5IGFyZSBjb3B5ICYgcGFzdGVkIG92ZXIgZnJvbSByYWRlb24gYW5kIG9uIGFt
-ZGdwdSB0aGVyZSBpc24ndCBhbnkgCnJlYXNvbiBmb3IgdGhhdCBhbnkgbW9yZS4KCkNocmlzdGlh
-bi4KCkFtIDI4LjExLjE4IHVtIDE2OjA3IHNjaHJpZWIgR3JvZHpvdnNreSwgQW5kcmV5Ogo+IFBp
-bmcuLi4KPgo+IEFuZHJleQo+Cj4KPiBPbiAxMS8yNy8yMDE4IDAxOjM3IFBNLCBBbmRyZXkgR3Jv
-ZHpvdnNreSB3cm90ZToKPj4gVGhpcyBzZXQgb2YgcGF0Y2hlcyBhZGRzIHN1cHBvcnQgdG8gcmVz
-ZXQgZW50aXJlIFhHTUkgaGl2ZQo+PiB3aGVuIHJlc2V0IGlzIHJlcXVpcmVkLgo+Pgo+PiBQYXRj
-aGVzIDEtMiByZWZhY3RvcmluZyBhIGJpdCB0aGUgWEdNSSBpbmZyYXN0cnVjdHVyZSBhcwo+PiBw
-cmVwYXJhdG9uIGZvciB0aGUgYWN0dWFsIGhpdmUgcmVzZXQgY2hhbmdlLgo+Pgo+PiBQYXRjaCA1
-IGlzIEdQVSByZXNldC9yZWNvdmVyeSByZWZhY3RvcmVkIHRvIHN1cHBvcnQgWEdNSQo+PiBoaXZl
-IHJlc2V0Lgo+Pgo+PiBBbmRyZXkgR3JvZHpvdnNreSAoMyk6Cj4+ICAgICBkcm0vYW1kZ3B1OiBS
-ZWZhY3RvciBhbWRncHVfeGdtaV9hZGRfZGV2aWNlIHYzCj4+ICAgICBkcm0vYW1kZ3B1OiBFeHBv
-c2UgaGl2ZSBhZGV2IGxpc3QgYW5kIHhnbWlfbXV0ZXggdjMKPj4gICAgIGRybS9hbWRncHU6IFJl
-ZmFjdG9yIEdQVSByZXNldCBmb3IgWEdNSSBoaXZlIGNhc2UgdjMKPj4KPj4gICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgICA5ICstCj4+ICAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDM3NiArKysrKysrKysrKysrKysr
-KysrKy0tLS0tLS0tLQo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdt
-aS5jICAgfCAgNjggKysrLS0tCj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV94Z21pLmggICB8ICAzOSArKysKPj4gICAgNCBmaWxlcyBjaGFuZ2VkLCAzNDMgaW5zZXJ0aW9u
-cygrKSwgMTQ5IGRlbGV0aW9ucygtKQo+PiAgICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuaAo+Pgo+IF9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+T24gMjAxOC0xMS0yNyAzOjUyIGEubS4sIFMsIFNoaXJpc2ggd3JvdGU6DQo+IFRoaXMgcGF0Y2gg
+ZXh0ZW5kcyB0aGUgYmVsb3cgcGF0Y2ggdG8gYXBwbHkgRFAgc2lnbmFsIHR5cGUsIGZvciBleGFj
+dGx5DQo+IHRoZSBzYW1lIHJlYXNvbnMgaXQgd2FzIGRpc2FibGVkIGZvciBIRE1JLg0KPiANCj4g
+IjFhMGUzNDggZHJtL2FtZC9kaXNwbGF5OiBEaXNhYmxlIDRrIDYwIEhETUkgb24gRENFMTEiDQo+
+IA0KPiBTaWduZWQtb2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPg0KPiAtLS0N
+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2xpbmtfZW5jb2Rlci5j
+IHwgNCArKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfbGlua19lbmNv
+ZGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9saW5rX2VuY29k
+ZXIuYw0KPiBpbmRleCAzZTE4ZWE4Li5kNTc4ODI4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9saW5rX2VuY29kZXIuYw0KPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9saW5rX2VuY29kZXIuYw0KPiBAQCAt
+NjYyLDYgKzY2MiwxMCBAQCBib29sIGRjZTExMF9saW5rX2VuY29kZXJfdmFsaWRhdGVfZHBfb3V0
+cHV0KA0KPiAgCWNvbnN0IHN0cnVjdCBkY2UxMTBfbGlua19lbmNvZGVyICplbmMxMTAsDQo+ICAJ
+Y29uc3Qgc3RydWN0IGRjX2NydGNfdGltaW5nICpjcnRjX3RpbWluZykNCj4gIHsNCj4gKwlpZiAo
+Y3J0Y190aW1pbmctPnBpeF9jbGtfa2h6ID4NCj4gKwkJZW5jMTEwLT5iYXNlLmZlYXR1cmVzLm1h
+eF9oZG1pX3BpeGVsX2Nsb2NrKQ0KPiArCQlyZXR1cm4gZmFsc2U7DQo+ICsNCg0KSXQgZG9lc24n
+dCBtYWtlIHNlbnNlIHRvIGxvb2sgYXQgdGhlIG1heCBoZG1pIHBpeGVsIGZvciBEUC4NCg0KSWYg
+d2Ugd2FudCB0byByZXN0cmljdCB0aGUgc3VwcG9ydGVkIHRpbWluZ3Mgd2Ugc2hvdWxkIGFsc28g
+bWFrZSBzdXJlIHRoZXkgb25seSBhcHBseSB0byBTdG9uZXkgYW5kL29yIENhcnJpem8uIFRoYXQg
+c2FpZCwgYXJlIHlvdSBzdXJlIDRrNjAgaXMgYW4gaXNzdWUgb24gYWxsIENaL1NUIGJvYXJkcyBv
+ciBpcyB0aGlzIHBhcnRpY3VsYXIgdG8gYSBjZXJ0YWluIHBsYXRmb3JtPw0KDQpIYXJyeQ0KDQo+
+ICAJaWYgKGNydGNfdGltaW5nLT5waXhlbF9lbmNvZGluZyA9PSBQSVhFTF9FTkNPRElOR19ZQ0JD
+UjQyMCkNCj4gIAkJcmV0dXJuIGZhbHNlOw0KPiAgDQo+IA0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
