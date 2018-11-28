@@ -1,46 +1,68 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [pull] amdgpu drm-fixes-4.20
-Date: Wed, 28 Nov 2018 14:59:05 -0500
-Message-ID: <20181128195905.2897-1-alexander.deucher@amd.com>
+Subject: Re: [PATCH] drm/amd/pp: fix spelling mistake "dependancy" -> "dependency"
+Date: Wed, 28 Nov 2018 15:26:48 -0500
+Message-ID: <CADnq5_Nxz3o2ttyAkN=+Ti+N8RMkWx5bQHqM+bsbZ53=bNF3-A@mail.gmail.com>
+References: <20181127141943.27110-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20181127141943.27110-1-colin.king@canonical.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin Ian King <colin.king@canonical.com>
+Cc: Rex Zhu <rex.zhu@amd.com>, "Quan, Evan" <evan.quan@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwKCkZpeGVzIGZvciA0LjIwLiAgTm90aGluZyBtYWpvci4KLSBEQyBEUCBNU1QgZml4
-Ci0gR1BVVk0gZml4IGZvciBodWdlIHBhZ2UgbWFwcGluZwotIFJMQyBmaXggZm9yIHZlZ2EyMAoK
-VGhlIGZvbGxvd2luZyBjaGFuZ2VzIHNpbmNlIGNvbW1pdCBhNWQwZjQ1NjU5OTZlNTU5NWExMGNi
-NTdiM2QxZTNkNzQzNzljNTAyOgoKICBkcm0vYW1kZ3B1OiBFbmFibGUgSERQIG1lbW9yeSBsaWdo
-dCBzbGVlcCAoMjAxOC0xMS0yMCAxNDo0MDoxNSAtMDUwMCkKCmFyZSBhdmFpbGFibGUgaW4gdGhl
-IGdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0b3Aub3JnL35hZ2Q1
-Zi9saW51eCBkcm0tZml4ZXMtNC4yMAoKZm9yIHlvdSB0byBmZXRjaCBjaGFuZ2VzIHVwIHRvIGFk
-OTdkOWRlNDU4MzViNmEwZjcxOTgzYjBhZTBjZmZkNzMwNjczMGE6CgogIGRybS9hbWRncHU6IEFk
-ZCBkZWxheSBhZnRlciBlbmFibGUgUkxDIHVjb2RlICgyMDE4LTExLTI4IDE0OjUyOjQ0IC0wNTAw
-KQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLQpGZWxpeCBLdWVobGluZyAoMik6CiAgICAgIGRybS9hbWRncHU6IENhc3QgdG8g
-dWludDY0X3QgYmVmb3JlIGxlZnQgc2hpZnQKICAgICAgZHJtL2FtZGdwdTogQXZvaWQgZW5kbGVz
-cyBsb29wIGluIEdQVVZNIGZyYWdtZW50IHByb2Nlc3NpbmcKCkx5dWRlIFBhdWwgKDIpOgogICAg
-ICBkcm0vYW1kL2RtOiBEb24ndCBmb3JnZXQgdG8gYXR0YWNoIE1TVCBlbmNvZGVycwogICAgICBk
-cm0vYW1kL2RtOiBVbmRlcnN0YW5kIHdoeSBhdHRhY2hpbmcgcGF0aC90aWxlIHByb3BlcnRpZXMg
-YXJlIG5lZWRlZAoKc2hhb3l1bmwgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBBZGQgZGVsYXkgYWZ0
-ZXIgZW5hYmxlIFJMQyB1Y29kZQoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-bS5jICAgICAgICAgICAgICAgICAgICAgfCAxNCArKysrKysrKy0tLS0tLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgICAgICAgICAgICAgICAgICAgICB8ICA3ICsrKyst
-LS0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVz
-LmMgICAgfCAgNSArKy0tLQogMyBmaWxlcyBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCAxMiBk
-ZWxldGlvbnMoLSkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-Cg==
+On Tue, Nov 27, 2018 at 9:19 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> There are spelling mistakes in PP_ASSERT_WITH_CODE messages, fix these.
+>
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> index 88f6b35ea6fe..5dcd21d29dbf 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -269,7 +269,7 @@ static int smu7_construct_voltage_tables(struct pp_hwmgr *hwmgr)
+>                                         hwmgr->dyn_state.mvdd_dependency_on_mclk);
+>
+>                 PP_ASSERT_WITH_CODE((0 == result),
+> -                               "Failed to retrieve SVI2 MVDD table from dependancy table.",
+> +                               "Failed to retrieve SVI2 MVDD table from dependency table.",
+>                                 return result;);
+>         }
+>
+> @@ -288,7 +288,7 @@ static int smu7_construct_voltage_tables(struct pp_hwmgr *hwmgr)
+>                         result = phm_get_svi2_voltage_table_v0(&(data->vddci_voltage_table),
+>                                         hwmgr->dyn_state.vddci_dependency_on_mclk);
+>                 PP_ASSERT_WITH_CODE((0 == result),
+> -                               "Failed to retrieve SVI2 VDDCI table from dependancy table.",
+> +                               "Failed to retrieve SVI2 VDDCI table from dependency table.",
+>                                 return result);
+>         }
+>
+> @@ -317,7 +317,7 @@ static int smu7_construct_voltage_tables(struct pp_hwmgr *hwmgr)
+>                                 table_info->vddc_lookup_table);
+>
+>                 PP_ASSERT_WITH_CODE((0 == result),
+> -                       "Failed to retrieve SVI2 VDDC table from dependancy table.", return result;);
+> +                       "Failed to retrieve SVI2 VDDC table from dependency table.", return result;);
+>         }
+>
+>         tmp = smum_get_mac_definition(hwmgr, SMU_MAX_LEVELS_VDDC);
+> --
+> 2.19.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
