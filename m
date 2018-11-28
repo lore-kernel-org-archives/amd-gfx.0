@@ -1,89 +1,82 @@
-From: Eric Anholt <eric@anholt.net>
-Subject: Re: [PATCH v3 1/3] drm/connector: Add generic underscan properties
-Date: Wed, 28 Nov 2018 09:17:07 -0800
-Message-ID: <875zwh6s18.fsf@anholt.net>
-References: <20181122112331.17735-1-boris.brezillon@bootlin.com>
- <20181122112331.17735-2-boris.brezillon@bootlin.com>
- <20181122173658.7gvnl3trkdhsqn3p@DESKTOP-E1NTVVP.localdomain>
+From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/edid: Add display_info.rgb_quant_range_selectable
+Date: Wed, 28 Nov 2018 09:19:08 -0800
+Message-ID: <8736rl6rxv.fsf@anholt.net>
+References: <20181120161345.15440-1-ville.syrjala@linux.intel.com>
+ <20181120161345.15440-4-ville.syrjala@linux.intel.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0290045825=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20181122173658.7gvnl3trkdhsqn3p@DESKTOP-E1NTVVP.localdomain>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Brian Starkey <Brian.Starkey@arm.com>, Boris Brezillon <boris.brezillon@bootlin.com>
-Cc: "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, nd <nd@arm.com>, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Ben Skeggs <bskeggs@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============2088122029=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181120161345.15440-4-ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ville Syrjala <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0290045825==
+--===============2088122029==
 Content-Type: multipart/signed; boundary="=-=-=";
 	micalg=pgp-sha512; protocol="application/pgp-signature"
 
 --=-=-=
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Brian Starkey <Brian.Starkey@arm.com> writes:
+Ville Syrjala <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> writes:
 
-> Hi Boris,
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 >
-> Just because I happened to read the docs in here, one typo below:
+> Move the CEA-861 QS bit handling entirely into the edid code. No
+> need to bother the drivers with this.
 >
-> On Thu, Nov 22, 2018 at 12:23:29PM +0100, Boris Brezillon wrote:
->>diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
->>index c555e17ab8d7..170317248da6 100644
->>--- a/drivers/gpu/drm/drm_connector.c
->>+++ b/drivers/gpu/drm/drm_connector.c
->>@@ -971,6 +971,38 @@ DRM_ENUM_NAME_FN(drm_get_content_protection_name, drm_cp_enum_list)
->>  *	can also expose this property to external outputs, in which case they
->>  *	must support "None", which should be the default (since external screens
->>  *	have a built-in scaler).
->>+ *
->>+ * Connectors for non-analog outputs may also have standardized underscan
->>+ * properties (drivers can set this up by calling
->>+ * drm_connector_attach_content_protection_property() on initialization):
->
-> Should be drm_connector_attach_underscan_properties()
+> Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Cc: "Christian K=C3=B6nig" <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+> Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Cc: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org> (supporter:DRM DRIVERS FOR VC4)
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 
-Other than this typo, this series is:
+For vc4,
+Acked-by: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
 
-Reviewed-by: Eric Anholt <eric@anholt.net>
+Looks like a nice cleanup!
 
 --=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlv+zZMACgkQtdYpNtH8
-nugbfQ//Uqeeq2iFesEUAtE76R436NzQuAZ220SpW+NuV7OzfZPU0HX9wwWygneS
-uUkXlAlDuUatzFgLzoFtLczU2hLyz3czePW5foGzr6roDneZElT/HvANK/xfymO5
-Gim+w1RocqAg3DEZb+pH2LLaqtJnu53DIVk0yQpMGCnL5it3n/lGmzxbA48ozETn
-BOycujwUHvHfpSdmNlxQ0+GwBPaa2dEbxhwhApqdxIGk5JZECgndWZd7CYwxnY0x
-uFr2y1AKfBf/7TJzTTcyQOBTC9+5M2iPTR8yJ6B3YOoP7VlTuGtF9is7ykW8UUi0
-w+XgfSpN2Dti8eL0W65kNcHX/oVOzMkLIdAgfRlq7jC3F0OmlEy5tajPSRoYond4
-xsBKsuhCDOpGOOhucRIn2ktHnL5AWMDc8hwU886eaaWSYJm83I6WTcWuG8YzDY3D
-noxJsqnmJ2uVX5SgxSDon8Sv2mhcuGlqkr9O9+xuY0inV8sBPK2ccDmrBhYB/IId
-54g3zsKIWwWY49MCwAzQ5rjyjixc5WKqCMJpwhKbw4By6vO8KMAO69JHG2ZPOPOQ
-eiD31VlxqVD+DEsy/i8ALmyX6WdZRsnundHuKV4TVglKulPzclt47ATxXKZvuSKP
-ohyF81zTofYM/wF6Tk4y9sh4VbAkhZoYt94HDQ1lUVEZ7qPIZjM=
-=0Pgr
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlv+zgwACgkQtdYpNtH8
+nuiZug//R3TqIZKdJFb0z7mCyv+9CqdsABrfVg5chnU68kpIiQ9e0HkGvB0B42Xq
+mIDG8lj2P7Ky6bVxi94g0KNuDXEeiDKBINm88lPALSTo5cxHbXbb9q1yQEl5zwGC
+8mGy2TZnu7dTm3m1cf/f9YT5+uWgOwj/5Tey/qQH5I1B7W36M9BUY+YQ1PB9at3/
+HysxqaJSB4JGzI2oPCnUpKTkwF3z7/Gvo+yOfKkMbmv1fWuM6OuhUtWn2axXlL3m
+DlC1VKx6qA2kh0FeBxRBxhLru0oRvnxQS0L8v+h6FbWLZqBZKiQi8b/vwzuwuHkl
+cpEP9WvCDe9U0DhSlF8uCXvI4vN8EHhWAMkAf1tR5eHFDIJU+LfPlWvy8/qWmT/P
+Xq6FCuc3inWQrKMZrZk9ZqNRW5tcyQpBTJFFGbqN0hSeZU+uAUu2w4XSpXXLJcjy
+nKSETH2mRCWmDMZNSFuoP2pkL2+dbAseecaZk7INvZx2J7+9aUvADx2yRx5E4xey
+IOeJ0iRh6WN7HHfceC8p3gKW8e14Ul+HAx/voXv+Fxq+Edwu6i0q2cScWiX97e4x
+tz5uSyDMm2HrG+aJIodyWu88iZ5hjwQkmyagk2sGomuyQuMTUTBFPsimcpsGA4JO
+jB42Ap+pBz57n1Rg6ybNCdnVXDzIqf4o+nkUfdpNcY9yvB5zufE=
+=TPw0
 -----END PGP SIGNATURE-----
 --=-=-=--
 
---===============0290045825==
+--===============2088122029==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0290045825==--
+--===============2088122029==--
