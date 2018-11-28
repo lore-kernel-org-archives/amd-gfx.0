@@ -1,52 +1,89 @@
-From: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Disable 4k@60 on DP as well for DCE11
-Date: Wed, 28 Nov 2018 15:47:35 +0000
-Message-ID: <689b89f2-d8d0-b400-3c02-2e42b30deacf@amd.com>
-References: <1543308721-7138-1-git-send-email-shirish.s@amd.com>
+From: Eric Anholt <eric@anholt.net>
+Subject: Re: [PATCH v3 1/3] drm/connector: Add generic underscan properties
+Date: Wed, 28 Nov 2018 09:17:07 -0800
+Message-ID: <875zwh6s18.fsf@anholt.net>
+References: <20181122112331.17735-1-boris.brezillon@bootlin.com>
+ <20181122112331.17735-2-boris.brezillon@bootlin.com>
+ <20181122173658.7gvnl3trkdhsqn3p@DESKTOP-E1NTVVP.localdomain>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1543308721-7138-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <E785AC7A08B29A4FAD8BC635FB26C380-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0290045825=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20181122173658.7gvnl3trkdhsqn3p@DESKTOP-E1NTVVP.localdomain>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Brian Starkey <Brian.Starkey@arm.com>, Boris Brezillon <boris.brezillon@bootlin.com>
+Cc: "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, nd <nd@arm.com>, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Ben Skeggs <bskeggs@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0xMS0yNyAzOjUyIGEubS4sIFMsIFNoaXJpc2ggd3JvdGU6DQo+IFRoaXMgcGF0Y2gg
-ZXh0ZW5kcyB0aGUgYmVsb3cgcGF0Y2ggdG8gYXBwbHkgRFAgc2lnbmFsIHR5cGUsIGZvciBleGFj
-dGx5DQo+IHRoZSBzYW1lIHJlYXNvbnMgaXQgd2FzIGRpc2FibGVkIGZvciBIRE1JLg0KPiANCj4g
-IjFhMGUzNDggZHJtL2FtZC9kaXNwbGF5OiBEaXNhYmxlIDRrIDYwIEhETUkgb24gRENFMTEiDQo+
-IA0KPiBTaWduZWQtb2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPg0KPiAtLS0N
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UvZGNlX2xpbmtfZW5jb2Rlci5j
-IHwgNCArKysrDQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfbGlua19lbmNv
-ZGVyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9saW5rX2VuY29k
-ZXIuYw0KPiBpbmRleCAzZTE4ZWE4Li5kNTc4ODI4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9saW5rX2VuY29kZXIuYw0KPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9saW5rX2VuY29kZXIuYw0KPiBAQCAt
-NjYyLDYgKzY2MiwxMCBAQCBib29sIGRjZTExMF9saW5rX2VuY29kZXJfdmFsaWRhdGVfZHBfb3V0
-cHV0KA0KPiAgCWNvbnN0IHN0cnVjdCBkY2UxMTBfbGlua19lbmNvZGVyICplbmMxMTAsDQo+ICAJ
-Y29uc3Qgc3RydWN0IGRjX2NydGNfdGltaW5nICpjcnRjX3RpbWluZykNCj4gIHsNCj4gKwlpZiAo
-Y3J0Y190aW1pbmctPnBpeF9jbGtfa2h6ID4NCj4gKwkJZW5jMTEwLT5iYXNlLmZlYXR1cmVzLm1h
-eF9oZG1pX3BpeGVsX2Nsb2NrKQ0KPiArCQlyZXR1cm4gZmFsc2U7DQo+ICsNCg0KSXQgZG9lc24n
-dCBtYWtlIHNlbnNlIHRvIGxvb2sgYXQgdGhlIG1heCBoZG1pIHBpeGVsIGZvciBEUC4NCg0KSWYg
-d2Ugd2FudCB0byByZXN0cmljdCB0aGUgc3VwcG9ydGVkIHRpbWluZ3Mgd2Ugc2hvdWxkIGFsc28g
-bWFrZSBzdXJlIHRoZXkgb25seSBhcHBseSB0byBTdG9uZXkgYW5kL29yIENhcnJpem8uIFRoYXQg
-c2FpZCwgYXJlIHlvdSBzdXJlIDRrNjAgaXMgYW4gaXNzdWUgb24gYWxsIENaL1NUIGJvYXJkcyBv
-ciBpcyB0aGlzIHBhcnRpY3VsYXIgdG8gYSBjZXJ0YWluIHBsYXRmb3JtPw0KDQpIYXJyeQ0KDQo+
-ICAJaWYgKGNydGNfdGltaW5nLT5waXhlbF9lbmNvZGluZyA9PSBQSVhFTF9FTkNPRElOR19ZQ0JD
-UjQyMCkNCj4gIAkJcmV0dXJuIGZhbHNlOw0KPiAgDQo+IA0KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0290045825==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain
+
+Brian Starkey <Brian.Starkey@arm.com> writes:
+
+> Hi Boris,
+>
+> Just because I happened to read the docs in here, one typo below:
+>
+> On Thu, Nov 22, 2018 at 12:23:29PM +0100, Boris Brezillon wrote:
+>>diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+>>index c555e17ab8d7..170317248da6 100644
+>>--- a/drivers/gpu/drm/drm_connector.c
+>>+++ b/drivers/gpu/drm/drm_connector.c
+>>@@ -971,6 +971,38 @@ DRM_ENUM_NAME_FN(drm_get_content_protection_name, drm_cp_enum_list)
+>>  *	can also expose this property to external outputs, in which case they
+>>  *	must support "None", which should be the default (since external screens
+>>  *	have a built-in scaler).
+>>+ *
+>>+ * Connectors for non-analog outputs may also have standardized underscan
+>>+ * properties (drivers can set this up by calling
+>>+ * drm_connector_attach_content_protection_property() on initialization):
+>
+> Should be drm_connector_attach_underscan_properties()
+
+Other than this typo, this series is:
+
+Reviewed-by: Eric Anholt <eric@anholt.net>
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlv+zZMACgkQtdYpNtH8
+nugbfQ//Uqeeq2iFesEUAtE76R436NzQuAZ220SpW+NuV7OzfZPU0HX9wwWygneS
+uUkXlAlDuUatzFgLzoFtLczU2hLyz3czePW5foGzr6roDneZElT/HvANK/xfymO5
+Gim+w1RocqAg3DEZb+pH2LLaqtJnu53DIVk0yQpMGCnL5it3n/lGmzxbA48ozETn
+BOycujwUHvHfpSdmNlxQ0+GwBPaa2dEbxhwhApqdxIGk5JZECgndWZd7CYwxnY0x
+uFr2y1AKfBf/7TJzTTcyQOBTC9+5M2iPTR8yJ6B3YOoP7VlTuGtF9is7ykW8UUi0
+w+XgfSpN2Dti8eL0W65kNcHX/oVOzMkLIdAgfRlq7jC3F0OmlEy5tajPSRoYond4
+xsBKsuhCDOpGOOhucRIn2ktHnL5AWMDc8hwU886eaaWSYJm83I6WTcWuG8YzDY3D
+noxJsqnmJ2uVX5SgxSDon8Sv2mhcuGlqkr9O9+xuY0inV8sBPK2ccDmrBhYB/IId
+54g3zsKIWwWY49MCwAzQ5rjyjixc5WKqCMJpwhKbw4By6vO8KMAO69JHG2ZPOPOQ
+eiD31VlxqVD+DEsy/i8ALmyX6WdZRsnundHuKV4TVglKulPzclt47ATxXKZvuSKP
+ohyF81zTofYM/wF6Tk4y9sh4VbAkhZoYt94HDQ1lUVEZ7qPIZjM=
+=0Pgr
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============0290045825==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0290045825==--
