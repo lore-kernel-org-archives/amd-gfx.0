@@ -1,63 +1,81 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: don't expose fan attributes on APUs
-Date: Thu, 29 Nov 2018 01:52:18 +0000
-Message-ID: <SN6PR12MB2656D7CD84D25119FF7A8BF8E4D20@SN6PR12MB2656.namprd12.prod.outlook.com>
-References: <20181128185220.32150-1-alexander.deucher@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181128185220.32150-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 27/68] drm/amdgpu: Add amdgpu "max bpc" connector property (v2)
+Date: Thu, 29 Nov 2018 00:55:18 -0500
+Message-ID: <20181129055559.159228-27-sashal@kernel.org>
+References: <20181129055559.159228-1-sashal@kernel.org>
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20181129055559.159228-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXgNCj4gRGV1Y2hlcg0KPiBTZW50OiAy
-MDE45bm0MTHmnIgyOeaXpSAyOjUyDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsN
-Cj4gc3RhYmxlQHZnZXIua2VybmVsLm9yZw0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6
-IGRvbid0IGV4cG9zZSBmYW4gYXR0cmlidXRlcyBvbiBBUFVzDQo+IA0KPiBUaGV5IGRvbid0IGhh
-dmUgYSBmYW4gY29udHJvbGxlci4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8
-YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcN
-Cj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDEzICsr
-KysrKysrKysrKysNCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspDQo+IA0KPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMNCj4gYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYw0KPiBpbmRleCAwZGU4NjUwYzVk
-NmUuLjFmNjFlZDk1NzI3YyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3BtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3BtLmMNCj4gQEAgLTE2NDQsNiArMTY0NCwxOSBAQCBzdGF0aWMgdW1vZGVfdCBod21vbl9hdHRy
-aWJ1dGVzX3Zpc2libGUoc3RydWN0DQo+IGtvYmplY3QgKmtvYmosDQo+ICAJICAgIGF0dHIgPT0g
-JnNlbnNvcl9kZXZfYXR0cl9mYW4xX2VuYWJsZS5kZXZfYXR0ci5hdHRyKSkNCj4gIAkJcmV0dXJu
-IDA7DQo+IA0KPiArCS8qIFNraXAgZmFuIGF0dHJpYnV0ZXMgb24gQVBVICovDQo+ICsJaWYgKChh
-ZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpICYmDQo+ICsJICAgIChhdHRyID09ICZzZW5zb3JfZGV2
-X2F0dHJfcHdtMS5kZXZfYXR0ci5hdHRyIHx8DQo+ICsJICAgICBhdHRyID09ICZzZW5zb3JfZGV2
-X2F0dHJfcHdtMV9lbmFibGUuZGV2X2F0dHIuYXR0ciB8fA0KPiArCSAgICAgYXR0ciA9PSAmc2Vu
-c29yX2Rldl9hdHRyX3B3bTFfbWF4LmRldl9hdHRyLmF0dHIgfHwNCj4gKwkgICAgIGF0dHIgPT0g
-JnNlbnNvcl9kZXZfYXR0cl9wd20xX21pbi5kZXZfYXR0ci5hdHRyIHx8DQo+ICsJICAgICBhdHRy
-ID09ICZzZW5zb3JfZGV2X2F0dHJfZmFuMV9pbnB1dC5kZXZfYXR0ci5hdHRyIHx8DQo+ICsJICAg
-ICBhdHRyID09ICZzZW5zb3JfZGV2X2F0dHJfZmFuMV9taW4uZGV2X2F0dHIuYXR0ciB8fA0KPiAr
-CSAgICAgYXR0ciA9PSAmc2Vuc29yX2Rldl9hdHRyX2ZhbjFfbWF4LmRldl9hdHRyLmF0dHIgfHwN
-Cj4gKwkgICAgIGF0dHIgPT0gJnNlbnNvcl9kZXZfYXR0cl9mYW4xX3RhcmdldC5kZXZfYXR0ci5h
-dHRyIHx8DQo+ICsJICAgICBhdHRyID09ICZzZW5zb3JfZGV2X2F0dHJfZmFuMV9lbmFibGUuZGV2
-X2F0dHIuYXR0cikpDQo+ICsJCXJldHVybiAwOw0KPiArDQo+ICAJLyogU2tpcCBsaW1pdCBhdHRy
-aWJ1dGVzIGlmIERQTSBpcyBub3QgZW5hYmxlZCAqLw0KPiAgCWlmICghYWRldi0+cG0uZHBtX2Vu
-YWJsZWQgJiYNCj4gIAkgICAgKGF0dHIgPT0gJnNlbnNvcl9kZXZfYXR0cl90ZW1wMV9jcml0LmRl
-dl9hdHRyLmF0dHIgfHwNCj4gLS0NCj4gMi4xMy42DQo+IA0KPiBfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
+[ Upstream commit 69756c6ff0de478c10100481f16c966dde3b5339 ]
+
+[Why]
+Many panels support more than 8bpc but some modes are unavailable while
+running at greater than 8bpc due to DP/HDMI bandwidth constraints.
+
+Support for more than 8bpc was added recently in the driver but it
+defaults to the maximum supported bpc - locking out these modes.
+
+This should be a user configurable option such that the user can select
+what bpc configuration they would like.
+
+[How]
+This patch introduces the "max bpc" amdgpu driver specific connector
+property so the user can limit the maximum bpc. It ranges from 8 to 16.
+
+This doesn't directly set the preferred bpc for the panel since it
+follows Intel's existing driver conventions.
+
+This proprety should be removed once common drm support for max bpc
+lands.
+
+v2: rebase on upstream (Alex)
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 7 +++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    | 2 ++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 6748cd7fc129..686a26de50f9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -626,6 +626,13 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
+ 					 "dither",
+ 					 amdgpu_dither_enum_list, sz);
+ 
++	if (amdgpu_device_has_dc_support(adev)) {
++		adev->mode_info.max_bpc_property =
++			drm_property_create_range(adev->ddev, 0, "max bpc", 8, 16);
++		if (!adev->mode_info.max_bpc_property)
++			return -ENOMEM;
++	}
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+index b9e9e8b02fb7..d1b4d9b6aae0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
+@@ -339,6 +339,8 @@ struct amdgpu_mode_info {
+ 	struct drm_property *audio_property;
+ 	/* FMT dithering */
+ 	struct drm_property *dither_property;
++	/* maximum number of bits per channel for monitor color */
++	struct drm_property *max_bpc_property;
+ 	/* hardcoded DFP edid from BIOS */
+ 	struct edid *bios_hardcoded_edid;
+ 	int bios_hardcoded_edid_size;
+-- 
+2.17.1
