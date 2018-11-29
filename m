@@ -1,118 +1,165 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 28/68] drm/amd/display: Support amdgpu "max bpc" connector property (v2)
-Date: Thu, 29 Nov 2018 00:55:19 -0500
-Message-ID: <20181129055559.159228-28-sashal@kernel.org>
-References: <20181129055559.159228-1-sashal@kernel.org>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181129055559.159228-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 01/11] dma-buf: make fence sequence numbers 64 bit
+Date: Thu, 29 Nov 2018 16:08:13 +0800
+Message-ID: <7f05b0cb-45d4-99d8-efd6-0a10d14d71ce@amd.com>
+References: <20181128145021.4105-1-christian.koenig@amd.com>
+ <20181128145021.4105-2-christian.koenig@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181128145021.4105-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-[ Upstream commit 07e3a1cfb0568b6d8d7862077029af96af6690ea ]
-
-[Why]
-Many panels support more than 8bpc but some modes are unavailable while
-running at greater than 8bpc due to DP/HDMI bandwidth constraints.
-
-Support for more than 8bpc was added recently in the driver but it
-defaults to the maximum supported bpc - locking out these modes.
-
-This should be a user configurable option such that the user can select
-what bpc configuration they would like.
-
-[How]
-This patch adds support for getting and setting the amdgpu driver
-specific "max bpc" property on the connector.
-
-It also adds support for limiting the output bpc based on the property
-value. The default limitation is the lowest value in the range, 8bpc.
-This was the old value before the range was uncapped.
-
-This patch should be updated/replaced later once common drm support
-for max bpc lands.
-
-Bugzilla: https://bugs.freedesktop.org/108542
-Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=201585
-Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=200645
-Fixes: e03fd3f300f6 ("drm/amd/display: Do not limit color depth to 8bpc")
-
-v2: rebase on upstream (Alex)
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++++
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h    |  1 +
- 2 files changed, 17 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ef5c6af4d964..299def84e69c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2213,8 +2213,15 @@ static void update_stream_scaling_settings(const struct drm_display_mode *mode,
- static enum dc_color_depth
- convert_color_depth_from_display_info(const struct drm_connector *connector)
- {
-+	struct dm_connector_state *dm_conn_state =
-+		to_dm_connector_state(connector->state);
- 	uint32_t bpc = connector->display_info.bpc;
- 
-+	/* TODO: Remove this when there's support for max_bpc in drm */
-+	if (dm_conn_state && bpc > dm_conn_state->max_bpc)
-+		/* Round down to nearest even number. */
-+		bpc = dm_conn_state->max_bpc - (dm_conn_state->max_bpc & 1);
-+
- 	switch (bpc) {
- 	case 0:
- 		/* Temporary Work around, DRM don't parse color depth for
-@@ -2796,6 +2803,9 @@ int amdgpu_dm_connector_atomic_set_property(struct drm_connector *connector,
- 	} else if (property == adev->mode_info.underscan_property) {
- 		dm_new_state->underscan_enable = val;
- 		ret = 0;
-+	} else if (property == adev->mode_info.max_bpc_property) {
-+		dm_new_state->max_bpc = val;
-+		ret = 0;
- 	}
- 
- 	return ret;
-@@ -2838,6 +2848,9 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
- 	} else if (property == adev->mode_info.underscan_property) {
- 		*val = dm_state->underscan_enable;
- 		ret = 0;
-+	} else if (property == adev->mode_info.max_bpc_property) {
-+		*val = dm_state->max_bpc;
-+		ret = 0;
- 	}
- 	return ret;
- }
-@@ -3658,6 +3671,9 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	drm_object_attach_property(&aconnector->base.base,
- 				adev->mode_info.underscan_vborder_property,
- 				0);
-+	drm_object_attach_property(&aconnector->base.base,
-+				adev->mode_info.max_bpc_property,
-+				0);
- 
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index aba2c5c1d2f8..74aedcffc4bb 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -213,6 +213,7 @@ struct dm_connector_state {
- 	enum amdgpu_rmx_type scaling;
- 	uint8_t underscan_vborder;
- 	uint8_t underscan_hborder;
-+	uint8_t max_bpc;
- 	bool underscan_enable;
- 	struct mod_freesync_user_enable user_enable;
- 	bool freesync_capable;
--- 
-2.17.1
+CgpPbiAyMDE45bm0MTHmnIgyOOaXpSAyMjo1MCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBG
+b3IgYSBsb3Qgb2YgdXNlIGNhc2VzIHdlIG5lZWQgNjRiaXQgc2VxdWVuY2UgbnVtYmVycy4gQ3Vy
+cmVudGx5IGRyaXZlcnMKPiBvdmVybG9hZCB0aGUgZG1hX2ZlbmNlIHN0cnVjdHVyZSB0byBzdG9y
+ZSB0aGUgYWRkaXRpb25hbCBiaXRzLgo+Cj4gU3RvcCBkb2luZyB0aGF0IGFuZCBtYWtlIHRoZSBz
+ZXF1ZW5jZSBudW1iZXIgaW4gdGhlIGRtYV9mZW5jZSBhbHdheXMKPiA2NGJpdC4KPgo+IEZvciBj
+b21wYXRpYmlsaXR5IHdpdGggaGFyZHdhcmUgd2hpY2ggY2FuIGRvIG9ubHkgMzJiaXQgc2VxdWVu
+Y2VzIHRoZQo+IGNvbXBhcmlzb25zIGluIF9fZG1hX2ZlbmNlX2lzX2xhdGVyIHN0aWxsIG9ubHkg
+dGFrZXMgdGhlIGxvd2VyIDMyYml0cyBhcwo+IHNpZ25pZmljYW50LgpDYW4ndCB3ZSBjb21wYXJl
+IDY0Yml0IHZhcmlhYmxlIGRpcmVjdGx5P8KgIENhbiB3ZSBkbyBpdCBhcyBiZWxvdz8KCi1zdGF0
+aWMgaW5saW5lIGJvb2wgX19kbWFfZmVuY2VfaXNfbGF0ZXIodTMyIGYxLCB1MzIgZjIpCitzdGF0
+aWMgaW5saW5lIGJvb2wgX19kbWFfZmVuY2VfaXNfbGF0ZXIodTY0IGYxLCB1NjQgZjIpCiAgewot
+CXJldHVybiAoaW50KShmMSAtIGYyKSA+IDA7CisJcmV0dXJuIChmMSA+IGYyKSA/IHRydWUgOiBm
+YWxzZTsKCiAgfQoKLURhdmlkCgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9kbWEtYnVmL2RtYS1m
+ZW5jZS5jICAgICAgICAgICAgfCAgMiArLQo+ICAgZHJpdmVycy9kbWEtYnVmL3N3X3N5bmMuYyAg
+ICAgICAgICAgICAgfCAgMiArLQo+ICAgZHJpdmVycy9kbWEtYnVmL3N5bmNfZmlsZS5jICAgICAg
+ICAgICAgfCAgNCArKy0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2Eu
+YyB8ICAyICstCj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pOTE1X3N3X2ZlbmNlLmMgICB8ICAy
+ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9lbmdpbmVfY3MuYyB8ICAyICstCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vdmdlbS92Z2VtX2ZlbmNlLmMgICAgICB8ICA0ICsrLS0KPiAgIGlu
+Y2x1ZGUvbGludXgvZG1hLWZlbmNlLmggICAgICAgICAgICAgIHwgMTQgKysrKysrKy0tLS0tLS0K
+PiAgIDggZmlsZXMgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygrKSwgMTYgZGVsZXRpb25zKC0pCj4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL2RtYS1mZW5jZS5jIGIvZHJpdmVycy9kbWEt
+YnVmL2RtYS1mZW5jZS5jCj4gaW5kZXggMTU1MWNhN2RmMzk0Li4zN2UyNGI2OWU5NGIgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9kbWEtYnVmL2RtYS1mZW5jZS5jCj4gKysrIGIvZHJpdmVycy9kbWEt
+YnVmL2RtYS1mZW5jZS5jCj4gQEAgLTYxNSw3ICs2MTUsNyBAQCBFWFBPUlRfU1lNQk9MKGRtYV9m
+ZW5jZV93YWl0X2FueV90aW1lb3V0KTsKPiAgICAqLwo+ICAgdm9pZAo+ICAgZG1hX2ZlbmNlX2lu
+aXQoc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UsIGNvbnN0IHN0cnVjdCBkbWFfZmVuY2Vfb3BzICpv
+cHMsCj4gLQkgICAgICAgc3BpbmxvY2tfdCAqbG9jaywgdTY0IGNvbnRleHQsIHVuc2lnbmVkIHNl
+cW5vKQo+ICsJICAgICAgIHNwaW5sb2NrX3QgKmxvY2ssIHU2NCBjb250ZXh0LCB1NjQgc2Vxbm8p
+Cj4gICB7Cj4gICAJQlVHX09OKCFsb2NrKTsKPiAgIAlCVUdfT04oIW9wcyB8fCAhb3BzLT5nZXRf
+ZHJpdmVyX25hbWUgfHwgIW9wcy0+Z2V0X3RpbWVsaW5lX25hbWUpOwo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2RtYS1idWYvc3dfc3luYy5jIGIvZHJpdmVycy9kbWEtYnVmL3N3X3N5bmMuYwo+IGlu
+ZGV4IDUzYzFkNmQzNmE2NC4uMzJkY2Y3YjRjOTM1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZG1h
+LWJ1Zi9zd19zeW5jLmMKPiArKysgYi9kcml2ZXJzL2RtYS1idWYvc3dfc3luYy5jCj4gQEAgLTE3
+Miw3ICsxNzIsNyBAQCBzdGF0aWMgYm9vbCB0aW1lbGluZV9mZW5jZV9lbmFibGVfc2lnbmFsaW5n
+KHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKQo+ICAgc3RhdGljIHZvaWQgdGltZWxpbmVfZmVuY2Vf
+dmFsdWVfc3RyKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlLAo+ICAgCQkJCSAgICBjaGFyICpzdHIs
+IGludCBzaXplKQo+ICAgewo+IC0Jc25wcmludGYoc3RyLCBzaXplLCAiJWQiLCBmZW5jZS0+c2Vx
+bm8pOwo+ICsJc25wcmludGYoc3RyLCBzaXplLCAiJWxsZCIsIGZlbmNlLT5zZXFubyk7Cj4gICB9
+Cj4gICAKPiAgIHN0YXRpYyB2b2lkIHRpbWVsaW5lX2ZlbmNlX3RpbWVsaW5lX3ZhbHVlX3N0cihz
+dHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL3N5
+bmNfZmlsZS5jIGIvZHJpdmVycy9kbWEtYnVmL3N5bmNfZmlsZS5jCj4gaW5kZXggMzVkZDA2NDc5
+ODY3Li40ZjYzMDVjYTUyYzggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9kbWEtYnVmL3N5bmNfZmls
+ZS5jCj4gKysrIGIvZHJpdmVycy9kbWEtYnVmL3N5bmNfZmlsZS5jCj4gQEAgLTE0NCw3ICsxNDQs
+NyBAQCBjaGFyICpzeW5jX2ZpbGVfZ2V0X25hbWUoc3RydWN0IHN5bmNfZmlsZSAqc3luY19maWxl
+LCBjaGFyICpidWYsIGludCBsZW4pCj4gICAJfSBlbHNlIHsKPiAgIAkJc3RydWN0IGRtYV9mZW5j
+ZSAqZmVuY2UgPSBzeW5jX2ZpbGUtPmZlbmNlOwo+ICAgCj4gLQkJc25wcmludGYoYnVmLCBsZW4s
+ICIlcy0lcyVsbHUtJWQiLAo+ICsJCXNucHJpbnRmKGJ1ZiwgbGVuLCAiJXMtJXMlbGx1LSVsbGQi
+LAo+ICAgCQkJIGZlbmNlLT5vcHMtPmdldF9kcml2ZXJfbmFtZShmZW5jZSksCj4gICAJCQkgZmVu
+Y2UtPm9wcy0+Z2V0X3RpbWVsaW5lX25hbWUoZmVuY2UpLAo+ICAgCQkJIGZlbmNlLT5jb250ZXh0
+LAo+IEBAIC0yNTgsNyArMjU4LDcgQEAgc3RhdGljIHN0cnVjdCBzeW5jX2ZpbGUgKnN5bmNfZmls
+ZV9tZXJnZShjb25zdCBjaGFyICpuYW1lLCBzdHJ1Y3Qgc3luY19maWxlICphLAo+ICAgCj4gICAJ
+CQlpX2IrKzsKPiAgIAkJfSBlbHNlIHsKPiAtCQkJaWYgKHB0X2EtPnNlcW5vIC0gcHRfYi0+c2Vx
+bm8gPD0gSU5UX01BWCkKPiArCQkJaWYgKF9fZG1hX2ZlbmNlX2lzX2xhdGVyKHB0X2EtPnNlcW5v
+LCBwdF9iLT5zZXFubykpCj4gICAJCQkJYWRkX2ZlbmNlKGZlbmNlcywgJmksIHB0X2EpOwo+ICAg
+CQkJZWxzZQo+ICAgCQkJCWFkZF9mZW5jZShmZW5jZXMsICZpLCBwdF9iKTsKPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NhLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfc2EuYwo+IGluZGV4IDEyZjJiZjk3NjExZi4uYmZhZjVjNjMy
+M2JlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zYS5j
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NhLmMKPiBAQCAtMzg4
+LDcgKzM4OCw3IEBAIHZvaWQgYW1kZ3B1X3NhX2JvX2R1bXBfZGVidWdfaW5mbyhzdHJ1Y3QgYW1k
+Z3B1X3NhX21hbmFnZXIgKnNhX21hbmFnZXIsCj4gICAJCQkgICBzb2Zmc2V0LCBlb2Zmc2V0LCBl
+b2Zmc2V0IC0gc29mZnNldCk7Cj4gICAKPiAgIAkJaWYgKGktPmZlbmNlKQo+IC0JCQlzZXFfcHJp
+bnRmKG0sICIgcHJvdGVjdGVkIGJ5IDB4JTA4eCBvbiBjb250ZXh0ICVsbHUiLAo+ICsJCQlzZXFf
+cHJpbnRmKG0sICIgcHJvdGVjdGVkIGJ5IDB4JTAxNmxseCBvbiBjb250ZXh0ICVsbHUiLAo+ICAg
+CQkJCSAgIGktPmZlbmNlLT5zZXFubywgaS0+ZmVuY2UtPmNvbnRleHQpOwo+ICAgCj4gICAJCXNl
+cV9wcmludGYobSwgIlxuIik7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
+MTVfc3dfZmVuY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5MTVfc3dfZmVuY2UuYwo+IGlu
+ZGV4IDZkYmVlZDA3OWFlNS4uMTFiY2RhYmQ1MTc3IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9pOTE1L2k5MTVfc3dfZmVuY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2k5
+MTVfc3dfZmVuY2UuYwo+IEBAIC0zOTMsNyArMzkzLDcgQEAgc3RhdGljIHZvaWQgdGltZXJfaTkx
+NV9zd19mZW5jZV93YWtlKHN0cnVjdCB0aW1lcl9saXN0ICp0KQo+ICAgCWlmICghZmVuY2UpCj4g
+ICAJCXJldHVybjsKPiAgIAo+IC0JcHJfbm90aWNlKCJBc3luY2hyb25vdXMgd2FpdCBvbiBmZW5j
+ZSAlczolczoleCB0aW1lZCBvdXQgKGhpbnQ6JXBTKVxuIiwKPiArCXByX25vdGljZSgiQXN5bmNo
+cm9ub3VzIHdhaXQgb24gZmVuY2UgJXM6JXM6JWxseCB0aW1lZCBvdXQgKGhpbnQ6JXBTKVxuIiwK
+PiAgIAkJICBjYi0+ZG1hLT5vcHMtPmdldF9kcml2ZXJfbmFtZShjYi0+ZG1hKSwKPiAgIAkJICBj
+Yi0+ZG1hLT5vcHMtPmdldF90aW1lbGluZV9uYW1lKGNiLT5kbWEpLAo+ICAgCQkgIGNiLT5kbWEt
+PnNlcW5vLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9lbmdpbmVf
+Y3MuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2VuZ2luZV9jcy5jCj4gaW5kZXggMjE3
+ZWQzZWUxY2FiLi5mMjhhNjZjNjdkMzQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5
+MTUvaW50ZWxfZW5naW5lX2NzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9l
+bmdpbmVfY3MuYwo+IEBAIC0xMjM2LDcgKzEyMzYsNyBAQCBzdGF0aWMgdm9pZCBwcmludF9yZXF1
+ZXN0KHN0cnVjdCBkcm1fcHJpbnRlciAqbSwKPiAgIAo+ICAgCXggPSBwcmludF9zY2hlZF9hdHRy
+KHJxLT5pOTE1LCAmcnEtPnNjaGVkLmF0dHIsIGJ1ZiwgeCwgc2l6ZW9mKGJ1ZikpOwo+ICAgCj4g
+LQlkcm1fcHJpbnRmKG0sICIlcyV4JXMgWyVsbHg6JXhdJXMgQCAlZG1zOiAlc1xuIiwKPiArCWRy
+bV9wcmludGYobSwgIiVzJXglcyBbJWxseDolbGx4XSVzIEAgJWRtczogJXNcbiIsCj4gICAJCSAg
+IHByZWZpeCwKPiAgIAkJICAgcnEtPmdsb2JhbF9zZXFubywKPiAgIAkJICAgaTkxNV9yZXF1ZXN0
+X2NvbXBsZXRlZChycSkgPyAiISIgOiAiIiwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L3ZnZW0vdmdlbV9mZW5jZS5jIGIvZHJpdmVycy9ncHUvZHJtL3ZnZW0vdmdlbV9mZW5jZS5jCj4g
+aW5kZXggYzFjNDIwYWZlMmRkLi5lYjE3YzBjZDM3MjcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL3ZnZW0vdmdlbV9mZW5jZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3ZnZW0vdmdl
+bV9mZW5jZS5jCj4gQEAgLTUzLDEzICs1MywxMyBAQCBzdGF0aWMgdm9pZCB2Z2VtX2ZlbmNlX3Jl
+bGVhc2Uoc3RydWN0IGRtYV9mZW5jZSAqYmFzZSkKPiAgIAo+ICAgc3RhdGljIHZvaWQgdmdlbV9m
+ZW5jZV92YWx1ZV9zdHIoc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UsIGNoYXIgKnN0ciwgaW50IHNp
+emUpCj4gICB7Cj4gLQlzbnByaW50ZihzdHIsIHNpemUsICIldSIsIGZlbmNlLT5zZXFubyk7Cj4g
+KwlzbnByaW50ZihzdHIsIHNpemUsICIlbGx1IiwgZmVuY2UtPnNlcW5vKTsKPiAgIH0KPiAgIAo+
+ICAgc3RhdGljIHZvaWQgdmdlbV9mZW5jZV90aW1lbGluZV92YWx1ZV9zdHIoc3RydWN0IGRtYV9m
+ZW5jZSAqZmVuY2UsIGNoYXIgKnN0ciwKPiAgIAkJCQkJICBpbnQgc2l6ZSkKPiAgIHsKPiAtCXNu
+cHJpbnRmKHN0ciwgc2l6ZSwgIiV1IiwKPiArCXNucHJpbnRmKHN0ciwgc2l6ZSwgIiVsbHUiLAo+
+ICAgCQkgZG1hX2ZlbmNlX2lzX3NpZ25hbGVkKGZlbmNlKSA/IGZlbmNlLT5zZXFubyA6IDApOwo+
+ICAgfQo+ICAgCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvZG1hLWZlbmNlLmggYi9pbmNs
+dWRlL2xpbnV4L2RtYS1mZW5jZS5oCj4gaW5kZXggMDJkYmE4Y2QwMzNkLi4xMzkzNTI5YzBjMWYg
+MTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS9saW51eC9kbWEtZmVuY2UuaAo+ICsrKyBiL2luY2x1ZGUv
+bGludXgvZG1hLWZlbmNlLmgKPiBAQCAtNzcsNyArNzcsNyBAQCBzdHJ1Y3QgZG1hX2ZlbmNlIHsK
+PiAgIAlzdHJ1Y3QgbGlzdF9oZWFkIGNiX2xpc3Q7Cj4gICAJc3BpbmxvY2tfdCAqbG9jazsKPiAg
+IAl1NjQgY29udGV4dDsKPiAtCXVuc2lnbmVkIHNlcW5vOwo+ICsJdTY0IHNlcW5vOwo+ICAgCXVu
+c2lnbmVkIGxvbmcgZmxhZ3M7Cj4gICAJa3RpbWVfdCB0aW1lc3RhbXA7Cj4gICAJaW50IGVycm9y
+Owo+IEBAIC0yNDQsNyArMjQ0LDcgQEAgc3RydWN0IGRtYV9mZW5jZV9vcHMgewo+ICAgfTsKPiAg
+IAo+ICAgdm9pZCBkbWFfZmVuY2VfaW5pdChzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwgY29uc3Qg
+c3RydWN0IGRtYV9mZW5jZV9vcHMgKm9wcywKPiAtCQkgICAgc3BpbmxvY2tfdCAqbG9jaywgdTY0
+IGNvbnRleHQsIHVuc2lnbmVkIHNlcW5vKTsKPiArCQkgICAgc3BpbmxvY2tfdCAqbG9jaywgdTY0
+IGNvbnRleHQsIHU2NCBzZXFubyk7Cj4gICAKPiAgIHZvaWQgZG1hX2ZlbmNlX3JlbGVhc2Uoc3Ry
+dWN0IGtyZWYgKmtyZWYpOwo+ICAgdm9pZCBkbWFfZmVuY2VfZnJlZShzdHJ1Y3QgZG1hX2ZlbmNl
+ICpmZW5jZSk7Cj4gQEAgLTQxNCw5ICs0MTQsOSBAQCBkbWFfZmVuY2VfaXNfc2lnbmFsZWQoc3Ry
+dWN0IGRtYV9mZW5jZSAqZmVuY2UpCj4gICAgKiBSZXR1cm5zIHRydWUgaWYgZjEgaXMgY2hyb25v
+bG9naWNhbGx5IGxhdGVyIHRoYW4gZjIuIEJvdGggZmVuY2VzIG11c3QgYmUKPiAgICAqIGZyb20g
+dGhlIHNhbWUgY29udGV4dCwgc2luY2UgYSBzZXFubyBpcyBub3QgY29tbW9uIGFjcm9zcyBjb250
+ZXh0cy4KPiAgICAqLwo+IC1zdGF0aWMgaW5saW5lIGJvb2wgX19kbWFfZmVuY2VfaXNfbGF0ZXIo
+dTMyIGYxLCB1MzIgZjIpCj4gK3N0YXRpYyBpbmxpbmUgYm9vbCBfX2RtYV9mZW5jZV9pc19sYXRl
+cih1NjQgZjEsIHU2NCBmMikKPiAgIHsKPiAtCXJldHVybiAoaW50KShmMSAtIGYyKSA+IDA7Cj4g
+KwlyZXR1cm4gKGludCkobG93ZXJfMzJfYml0cyhmMSkgLSBsb3dlcl8zMl9iaXRzKGYyKSkgPiAw
+Owo+ICAgfQo+ICAgCj4gICAvKioKPiBAQCAtNTQ3LDIxICs1NDcsMjEgQEAgdTY0IGRtYV9mZW5j
+ZV9jb250ZXh0X2FsbG9jKHVuc2lnbmVkIG51bSk7Cj4gICAJZG8gewkJCQkJCQkJXAo+ICAgCQlz
+dHJ1Y3QgZG1hX2ZlbmNlICpfX2ZmID0gKGYpOwkJCQlcCj4gICAJCWlmIChJU19FTkFCTEVEKENP
+TkZJR19ETUFfRkVOQ0VfVFJBQ0UpKQkJCVwKPiAtCQkJcHJfaW5mbygiZiAlbGx1IyV1OiAiIGZt
+dCwJCQlcCj4gKwkJCXByX2luZm8oImYgJWxsdSMlbGx1OiAiIGZtdCwJCQlcCj4gICAJCQkJX19m
+Zi0+Y29udGV4dCwgX19mZi0+c2Vxbm8sICMjYXJncyk7CVwKPiAgIAl9IHdoaWxlICgwKQo+ICAg
+Cj4gICAjZGVmaW5lIERNQV9GRU5DRV9XQVJOKGYsIGZtdCwgYXJncy4uLikgXAo+ICAgCWRvIHsJ
+CQkJCQkJCVwKPiAgIAkJc3RydWN0IGRtYV9mZW5jZSAqX19mZiA9IChmKTsJCQkJXAo+IC0JCXBy
+X3dhcm4oImYgJWxsdSMldTogIiBmbXQsIF9fZmYtPmNvbnRleHQsIF9fZmYtPnNlcW5vLAlcCj4g
+KwkJcHJfd2FybigiZiAlbGx1IyVsbHU6ICIgZm10LCBfX2ZmLT5jb250ZXh0LCBfX2ZmLT5zZXFu
+byxcCj4gICAJCQkgIyNhcmdzKTsJCQkJCVwKPiAgIAl9IHdoaWxlICgwKQo+ICAgCj4gICAjZGVm
+aW5lIERNQV9GRU5DRV9FUlIoZiwgZm10LCBhcmdzLi4uKSBcCj4gICAJZG8gewkJCQkJCQkJXAo+
+ICAgCQlzdHJ1Y3QgZG1hX2ZlbmNlICpfX2ZmID0gKGYpOwkJCQlcCj4gLQkJcHJfZXJyKCJmICVs
+bHUjJXU6ICIgZm10LCBfX2ZmLT5jb250ZXh0LCBfX2ZmLT5zZXFubywJXAo+ICsJCXByX2Vycigi
+ZiAlbGx1IyVsbHU6ICIgZm10LCBfX2ZmLT5jb250ZXh0LCBfX2ZmLT5zZXFubywJXAo+ICAgCQkJ
+IyNhcmdzKTsJCQkJCVwKPiAgIAl9IHdoaWxlICgwKQo+ICAgCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
