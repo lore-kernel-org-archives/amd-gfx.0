@@ -1,14 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 09/16] drm/amd/display: fbc state could not reach while
+From: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 09/16] drm/amd/display: fbc state could not reach while
  enable fbc
-Date: Thu, 29 Nov 2018 16:27:12 +0000
-Message-ID: <BN6PR12MB18092FE3F45C1039E19F2F5AF7D20@BN6PR12MB1809.namprd12.prod.outlook.com>
+Date: Thu, 29 Nov 2018 18:23:19 +0000
+Message-ID: <DM5PR1201MB247238AE46ABCADEF83EECA889D20@DM5PR1201MB2472.namprd12.prod.outlook.com>
 References: <1543506743-4674-1-git-send-email-sunpeng.li@amd.com>,
  <1543506743-4674-10-git-send-email-sunpeng.li@amd.com>
+ <BN6PR12MB18092FE3F45C1039E19F2F5AF7D20@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0082952222=="
+Content-Type: multipart/mixed; boundary="===============0462694528=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1543506743-4674-10-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB18092FE3F45C1039E19F2F5AF7D20-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,17 +21,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
 
---===============0082952222==
+--===============0462694528==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18092FE3F45C1039E19F2F5AF7D20BN6PR12MB1809namp_"
+	boundary="_000_DM5PR1201MB247238AE46ABCADEF83EECA889D20DM5PR1201MB2472_"
 
---_000_BN6PR12MB18092FE3F45C1039E19F2F5AF7D20BN6PR12MB1809namp_
+--_000_DM5PR1201MB247238AE46ABCADEF83EECA889D20DM5PR1201MB2472_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Unfortunately, not. I sent this patch to the reporter to try and it  didn't=
+ work.
+
+- Roman
+
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Deucher,=
+ Alexander
+Sent: Thursday, November 29, 2018 11:27 AM
+To: Li, Sun peng (Leo) <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Wu, Hersen <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 09/16] drm/amd/display: fbc state could not reach while=
+ enable fbc
+
 
 Do you think this will fix this bug?
 
@@ -39,18 +54,20 @@ https://bugs.freedesktop.org/show_bug.cgi?id=3D108577
 If so, we can re-enable fbc.
 
 
+
 Alex
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of sunpeng.=
-li-5C7GfCeVMHo@public.gmane.org <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of sunpeng.li-5C7GfCeVMHo@public.gmane.org<mailto:sunpeng.li@=
+amd.com> <sunpeng.li-5C7GfCeVMHo@public.gmane.org<mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org>>
 Sent: Thursday, November 29, 2018 10:52:16 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: Wu, Hersen
 Subject: [PATCH 09/16] drm/amd/display: fbc state could not reach while ena=
 ble fbc
 
-From: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+From: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org<mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org>>
 
    [WHY] fbc is within the data path from memory to dce. while
    re-configure mc dmif, fbc should be enabled. otherwise, fbc
@@ -59,9 +76,9 @@ From: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
    [HOW] before re-configure mc dmif, disable fbc, only after
    dmif re-configuration fully done, enable fbc again.
 
-Signed-off-by: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
-Reviewed-by: Roman Li <Roman.Li-5C7GfCeVMHo@public.gmane.org>
-Acked-by: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org<mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org>>
+Reviewed-by: Roman Li <Roman.Li-5C7GfCeVMHo@public.gmane.org<mailto:Roman.Li-5C7GfCeVMHo@public.gmane.org>>
+Acked-by: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org<mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org>>
 ---
  .../drm/amd/display/dc/dce110/dce110_compressor.c  | 91 ++++++++----------=
 ----
@@ -449,50 +466,131 @@ index bcb18f5..7a147a9 100644
 
 _______________________________________________
 amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB18092FE3F45C1039E19F2F5AF7D20BN6PR12MB1809namp_
+--_000_DM5PR1201MB247238AE46ABCADEF83EECA889D20DM5PR1201MB2472_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Do you think this will fix this b=
-ug?</p>
-<p style=3D"margin-top:0;margin-bottom:0"><a href=3D"https://bugs.freedeskt=
-op.org/show_bug.cgi?id=3D108577" class=3D"OWAAutoLink" id=3D"LPlnk860565" p=
-reviewremoved=3D"true">https://bugs.freedesktop.org/show_bug.cgi?id=3D10857=
-7</a></p>
-<p style=3D"margin-top:0;margin-bottom:0">If so, we can re-enable fbc.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Unfortunately, not. I sent this patch to the reporte=
+r to try and it &nbsp;didn&#8217;t work.<br>
+<br>
+- Roman<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org&gt;
+<b>On Behalf Of </b>Deucher, Alexander<br>
+<b>Sent:</b> Thursday, November 29, 2018 11:27 AM<br>
+<b>To:</b> Li, Sun peng (Leo) &lt;Sunpeng.Li-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org<br>
+<b>Cc:</b> Wu, Hersen &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 09/16] drm/amd/display: fbc state could not reac=
+h while enable fbc<o:p></o:p></p>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of sunpeng.li-5C7GfCeVMHo@public.gmane.org &lt;sunpen=
-g.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt;color:black">Do you think this will fix =
+this bug?<o:p></o:p></span></p>
+<p><span style=3D"font-size:12.0pt;color:black"><a href=3D"https://bugs.fre=
+edesktop.org/show_bug.cgi?id=3D108577">https://bugs.freedesktop.org/show_bu=
+g.cgi?id=3D108577</a><o:p></o:p></span></p>
+<p><span style=3D"font-size:12.0pt;color:black">If so, we can re-enable fbc=
+.<o:p></o:p></span></p>
+<p><span style=3D"font-size:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p=
+>
+<p><span style=3D"font-size:12.0pt;color:black">Alex<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
+.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
+f
+<a href=3D"mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org">sunpeng.li-5C7GfCeVMHo@public.gmane.org</a> &lt;<a href=3D=
+"mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org">sunpeng.li-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Thursday, November 29, 2018 10:52:16 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a><br>
 <b>Cc:</b> Wu, Hersen<br>
 <b>Subject:</b> [PATCH 09/16] drm/amd/display: fbc state could not reach wh=
-ile enable fbc</font>
-<div>&nbsp;</div>
+ile enable fbc</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: hersen wu &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">From: hersen wu &lt;<a href=3D"mailto:hersenxs.wu@am=
+d.com">hersenxs.wu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <br>
 &nbsp;&nbsp; [WHY] fbc is within the data path from memory to dce. while<br=
 >
@@ -503,9 +601,12 @@ ile enable fbc</font>
 &nbsp;&nbsp; [HOW] before re-configure mc dmif, disable fbc, only after<br>
 &nbsp;&nbsp; dmif re-configuration fully done, enable fbc again.<br>
 <br>
-Signed-off-by: hersen wu &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Reviewed-by: Roman Li &lt;Roman.Li-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Acked-by: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: hersen wu &lt;<a href=3D"mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org">hersenx=
+s.wu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+Reviewed-by: Roman Li &lt;<a href=3D"mailto:Roman.Li-5C7GfCeVMHo@public.gmane.org">Roman.Li@amd.=
+com</a>&gt;<br>
+Acked-by: Leo Li &lt;<a href=3D"mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org">sunpeng.li@amd.c=
+om</a>&gt;<br>
 ---<br>
 &nbsp;.../drm/amd/display/dc/dce110/dce110_compressor.c&nbsp; | 91 &#43;&#4=
 3;&#43;&#43;&#43;&#43;&#43;&#43;--------------<br>
@@ -1124,17 +1225,19 @@ ncs *funcs;<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </body>
 </html>
 
---_000_BN6PR12MB18092FE3F45C1039E19F2F5AF7D20BN6PR12MB1809namp_--
+--_000_DM5PR1201MB247238AE46ABCADEF83EECA889D20DM5PR1201MB2472_--
 
---===============0082952222==
+--===============0462694528==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1144,4 +1247,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0082952222==--
+--===============0462694528==--
