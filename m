@@ -1,13 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix unintialized max_bpc state values
-Date: Thu, 29 Nov 2018 15:50:03 +0000
-Message-ID: <BN6PR12MB18099E2DABE2BD84ED8F99EDF7D20@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181129154446.14838-1-nicholas.kazlauskas@amd.com>
+From: <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 00/16] DC Patches Nov 29, 2018
+Date: Thu, 29 Nov 2018 10:52:07 -0500
+Message-ID: <1543506743-4674-1-git-send-email-sunpeng.li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0849552315=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181129154446.14838-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,193 +16,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0849552315==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18099E2DABE2BD84ED8F99EDF7D20BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18099E2DABE2BD84ED8F99EDF7D20BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Nicholas=
- Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, November 29, 2018 10:44:46 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Kazlauskas, Nicholas
-Subject: [PATCH] drm/amd/display: Fix unintialized max_bpc state values
+Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
 
-[Why]
-If the "max bpc" isn't explicitly set in the atomic state then it
-have a value of 0. This has the correct behavior of limiting a panel
-to 8bpc in the case where the panel supports 8bpc. In the case of eDP
-panels this isn't a true assumption - there are panels that can only
-do 6bpc.
-
-Banding occurs for these displays.
-
-[How]
-Initialize the max_bpc when the connector resets to 8bpc. Also carry
-over the value when the state is duplicated.
-
-Bugzilla: https://bugs.freedesktop.org/108825
-Fixes: 307638884f72 ("drm/amd/display: Support amdgpu "max bpc" connector p=
-roperty")
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ce00e56814ed..ede93d53e209 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3215,6 +3215,7 @@ void amdgpu_dm_connector_funcs_reset(struct drm_conne=
-ctor *connector)
-                 state->underscan_enable =3D false;
-                 state->underscan_hborder =3D 0;
-                 state->underscan_vborder =3D 0;
-+               state->max_bpc =3D 8;
-
-                 __drm_atomic_helper_connector_reset(connector, &state->bas=
-e);
-         }
-@@ -3236,6 +3237,7 @@ amdgpu_dm_connector_atomic_duplicate_state(struct drm=
-_connector *connector)
-
-         new_state->freesync_capable =3D state->freesync_capable;
-         new_state->abm_level =3D state->abm_level;
-+       new_state->max_bpc =3D state->max_bpc;
-
-         return &new_state->base;
- }
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18099E2DABE2BD84ED8F99EDF7D20BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Nicholas Kazlauskas &lt;nicho=
-las.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, November 29, 2018 10:44:46 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Kazlauskas, Nicholas<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Fix unintialized max_bpc state val=
-ues</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-If the &quot;max bpc&quot; isn't explicitly set in the atomic state then it=
-<br>
-have a value of 0. This has the correct behavior of limiting a panel<br>
-to 8bpc in the case where the panel supports 8bpc. In the case of eDP<br>
-panels this isn't a true assumption - there are panels that can only<br>
-do 6bpc.<br>
-<br>
-Banding occurs for these displays.<br>
-<br>
-[How]<br>
-Initialize the max_bpc when the connector resets to 8bpc. Also carry<br>
-over the value when the state is duplicated.<br>
-<br>
-Bugzilla: <a href=3D"https://bugs.freedesktop.org/108825">https://bugs.free=
-desktop.org/108825</a><br>
-Fixes: 307638884f72 (&quot;drm/amd/display: Support amdgpu &quot;max bpc&qu=
-ot; connector property&quot;)<br>
-<br>
-Signed-off-by: Nicholas Kazlauskas &lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index ce00e56814ed..ede93d53e209 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -3215,6 &#43;3215,7 @@ void amdgpu_dm_connector_funcs_reset(struct drm_c=
-onnector *connector)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; state-&gt;underscan_enable =3D false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; state-&gt;underscan_hborder =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; state-&gt;underscan_vborder =3D 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; state-&gt;max_bpc =3D 8;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; __drm_atomic_helper_connector_reset(connector, &amp;s=
-tate-&gt;base);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -3236,6 &#43;3237,7 @@ amdgpu_dm_connector_atomic_duplicate_state(struct=
- drm_connector *connector)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_state-&gt;freesync_cap=
-able =3D state-&gt;freesync_capable;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_state-&gt;abm_level =
-=3D state-&gt;abm_level;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_state-&gt;max_bpc =3D state-&=
-gt;max_bpc;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return &amp;new_state-&gt;=
-base;<br>
-&nbsp;}<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18099E2DABE2BD84ED8F99EDF7D20BN6PR12MB1809namp_--
-
---===============0849552315==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0849552315==--
+RnJvbTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+CgpTdW1tYXJ5IG9mIGNoYW5nZToKKiBJ
+bml0aWFsIGRvY3VtZW50YXRpb24gb2YgREMKKiBJbXBsZW1lbnQgdHJhY2luZyBpbiBEQwoqIEZp
+eCBBVVggdHJhbnNhY3Rpb24gcmFjZQoKQ2hpYXdlbiBIdWFuZyAoMSk6CiAgZHJtL2FtZC9kaXNw
+bGF5OiBBZGQgY3VzdG9taXphYmxlIHRyYWNpbmcgZXZlbnQKCkRhdmlkIEZyYW5jaXMgKDMpOgog
+IGRybS9hbWQvZGlzcGxheTogU3RhcnQgZG9jdW1lbnRhdGlvbiBvZiBEQwogIGRybS9hbWQvZGlz
+cGxheTogQWRkIHRyYWNpbmcgdG8gZGMKICBkcm0vYW1kL2Rpc3BsYXk6IEFsbG93IGNsb2NrIGxv
+d2VyIG9uIGRjZTEwMAoKRmF0ZW1laCBEYXJiZWhhbmkgKDEpOgogIGRybS9hbWQvZGlzcGxheTog
+Q2xlYW4gdXAgZm9yIERDTjEgY2xvY2sgZGVidWcgbG9nZ2luZwoKSGFybWFucHJpdCBUYXRsYSAo
+MSk6CiAgZHJtL2FtZC9kaXNwbGF5OiBJbmZvIGZyYW1lIGNsZWFudXAKCkpvc2h1YSBBYmVyYmFj
+ayAoMSk6CiAgZHJtL2FtZC9kaXNwbGF5OiBSZW1vdmUgdW51c2VkIHBhbmVsIHBhdGNoICJkaXNj
+b25uZWN0X2RlbGF5IgoKS3J1bm9zbGF2IEtvdmFjICgxKToKICBkcm0vYW1kL2Rpc3BsYXk6IEZp
+eCBzcGVsbGluZyBvZiBheGlzIGluIG1vZHVsZXMvY29sb3IvY29sb3JfZ2FtbWEuYwoKTmV2ZW5r
+byBTdHVwYXIgKDEpOgogIGRybS9hbWQvZGlzcGxheTogUmUtYXJyYW5nZSBHRlg5IGZpZWxkcwoK
+TmljaG9sYXMgS2F6bGF1c2thcyAoMSk6CiAgZHJtL2FtZC9kaXNwbGF5OiBDb3B5IGNyY19lbmFi
+bGVkIHdoZW4gZHVwbGljYXRpbmcgZG1fY3J0Y19zdGF0ZQoKU2l2YXBpcml5YW5LdW1hcmFzYW15
+ICgxKToKICBkcm0vYW1kL2Rpc3BsYXk6IFByb2dyYW0gZGl0aGVyaW5nIGlmIHJlcXVlc3RlZAoK
+U3RldmVuIENoaXUgKDIpOgogIGRybS9hbWQvZGlzcGxheTogMy4yLjA3CiAgZHJtL2FtZC9kaXNw
+bGF5OiAzLjIuMDgKCllvZ2VzaCBNb2hhbiBNYXJpbXV0aHUgKDEpOgogIGRybS9hbWQvZGlzcGxh
+eTogZml4IHNwb3JhZGljIG11bHRpcGxlIGF1eCB0cmFuc2FjdGlvbiBmYWlsdXJlCgphYmRvdWxh
+eWUgYmVydGhlICgxKToKICBkcm0vYW1kL2Rpc3BsYXk6IENUUyA0LjIuMi43CgpoZXJzZW4gd3Ug
+KDEpOgogIGRybS9hbWQvZGlzcGxheTogZmJjIHN0YXRlIGNvdWxkIG5vdCByZWFjaCB3aGlsZSBl
+bmFibGUgZmJjCgogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
+ZG0uYyAgfCAgMTAgKy0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV90
+cmFjZS5oICAgIHwgMTA0ICsrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2NvcmUvZGMuYyAgICAgICAgICAgfCAxMDAgKysrKysrKysrKysrKy0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYyAgICAgIHwgIDIxICsrLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGlua19kcC5jICAgfCAgIDIgKy0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX3Jlc291cmNlLmMgIHwgMTQ1
+ICsrKysrKy0tLS0tLS0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nv
+cmUvZGNfc3RyZWFtLmMgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9kYy5oICAgICAgICAgICAgICAgIHwgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZGNfaHdfdHlwZXMuaCAgICAgICB8ICAgNyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RjX2xpbmsuaCAgICAgICAgICAgfCAgIDYgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9kY19zdHJlYW0uaCAgICAgICAgIHwgICAzICsKIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9kY190eXBlcy5oICAgICAgICAgIHwgICA5ICstCiAuLi4vYW1kL2Rp
+c3BsYXkvZGMvZGNlMTAwL2RjZTEwMF9od19zZXF1ZW5jZXIuYyAgICB8ICAxNCArLQogLi4uL2Ry
+bS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2NvbXByZXNzb3IuYyAgfCAgOTEgKysrKyst
+LS0tLS0tLQogLi4uL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMg
+ICAgfCAgNTcgKysrKy0tLS0KIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEw
+X2Nsa19tZ3IuYyAgIHwgICA0ICstCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9k
+Y24xMF9jbGtfbWdyLmggICB8ICAgNiArCiAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24x
+MC9kY24xMF9jbV9jb21tb24uYyB8ICAgNCArLQogLi4uL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBf
+aHdfc2VxdWVuY2VyX2RlYnVnLmMgICAgfCAgMzkgKysrLS0tCiAuLi4vZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9kY24xMC9kY24xMF9yZXNvdXJjZS5jICB8ICAgNCAtCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvZG1fZXZlbnRfbG9nLmggICAgICB8ICAgMSArCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvZG1fcHBfc211LmggICAgICAgICB8ICAgMiArLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtX3NlcnZpY2VzLmggICAgICAgfCAgMTIgKy0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9ncGlvL2dwaW9fc2VydmljZS5jIHwgIDY1ICsrKy0t
+LS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2dwaW8vZ3Bpb19zZXJ2aWNlLmgg
+fCAgIDcgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvY29tcHJlc3Nvci5o
+ICAgIHwgICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvY29yZV90eXBl
+cy5oICAgIHwgIDEyICstCiAuLi4vZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvY29sb3IvY29sb3Jf
+Z2FtbWEuYyAgICB8ICAxNiArLS0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9mcmVlc3lu
+Yy9mcmVlc3luYy5jICAgIHwgIDEwICstCiAuLi4vZHJtL2FtZC9kaXNwbGF5L21vZHVsZXMvaW5j
+L21vZF9pbmZvX3BhY2tldC5oICB8ICAxNCArLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9k
+dWxlcy9pbmMvbW9kX3NoYXJlZC5oICAgfCAgMjcgKystLQogLi4uL2FtZC9kaXNwbGF5L21vZHVs
+ZXMvaW5mb19wYWNrZXQvaW5mb19wYWNrZXQuYyAgfCAgMTUgKy0tCiAzMiBmaWxlcyBjaGFuZ2Vk
+LCA0ODEgaW5zZXJ0aW9ucygrKSwgMzMxIGRlbGV0aW9ucygtKQogY3JlYXRlIG1vZGUgMTAwNjQ0
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3RyYWNlLmgK
+Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
