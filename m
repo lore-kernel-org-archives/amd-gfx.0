@@ -1,18 +1,18 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 27/68] drm/amdgpu: Add amdgpu "max bpc" connector property (v2)
-Date: Thu, 29 Nov 2018 00:55:18 -0500
-Message-ID: <20181129055559.159228-27-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 28/68] drm/amd/display: Support amdgpu "max bpc" connector property (v2)
+Date: Thu, 29 Nov 2018 00:55:19 -0500
+Message-ID: <20181129055559.159228-28-sashal@kernel.org>
 References: <20181129055559.159228-1-sashal@kernel.org>
-Return-path: <stable-owner@vger.kernel.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20181129055559.159228-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
+Sender: linux-kernel-owner@vger.kernel.org
 To: stable@vger.kernel.org, linux-kernel@vger.kernel.org
 Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit 69756c6ff0de478c10100481f16c966dde3b5339 ]
+[ Upstream commit 07e3a1cfb0568b6d8d7862077029af96af6690ea ]
 
 [Why]
 Many panels support more than 8bpc but some modes are unavailable while
@@ -25,14 +25,20 @@ This should be a user configurable option such that the user can select
 what bpc configuration they would like.
 
 [How]
-This patch introduces the "max bpc" amdgpu driver specific connector
-property so the user can limit the maximum bpc. It ranges from 8 to 16.
+This patch adds support for getting and setting the amdgpu driver
+specific "max bpc" property on the connector.
 
-This doesn't directly set the preferred bpc for the panel since it
-follows Intel's existing driver conventions.
+It also adds support for limiting the output bpc based on the property
+value. The default limitation is the lowest value in the range, 8bpc.
+This was the old value before the range was uncapped.
 
-This proprety should be removed once common drm support for max bpc
-lands.
+This patch should be updated/replaced later once common drm support
+for max bpc lands.
+
+Bugzilla: https://bugs.freedesktop.org/108542
+Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=201585
+Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=200645
+Fixes: e03fd3f300f6 ("drm/amd/display: Do not limit color depth to 8bpc")
 
 v2: rebase on upstream (Alex)
 
@@ -42,40 +48,71 @@ Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h    | 2 ++
- 2 files changed, 9 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    | 16 ++++++++++++++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h    |  1 +
+ 2 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 6748cd7fc129..686a26de50f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -626,6 +626,13 @@ int amdgpu_display_modeset_create_props(struct amdgpu_device *adev)
- 					 "dither",
- 					 amdgpu_dither_enum_list, sz);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ef5c6af4d964..299def84e69c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2213,8 +2213,15 @@ static void update_stream_scaling_settings(const struct drm_display_mode *mode,
+ static enum dc_color_depth
+ convert_color_depth_from_display_info(const struct drm_connector *connector)
+ {
++	struct dm_connector_state *dm_conn_state =
++		to_dm_connector_state(connector->state);
+ 	uint32_t bpc = connector->display_info.bpc;
  
-+	if (amdgpu_device_has_dc_support(adev)) {
-+		adev->mode_info.max_bpc_property =
-+			drm_property_create_range(adev->ddev, 0, "max bpc", 8, 16);
-+		if (!adev->mode_info.max_bpc_property)
-+			return -ENOMEM;
-+	}
++	/* TODO: Remove this when there's support for max_bpc in drm */
++	if (dm_conn_state && bpc > dm_conn_state->max_bpc)
++		/* Round down to nearest even number. */
++		bpc = dm_conn_state->max_bpc - (dm_conn_state->max_bpc & 1);
 +
- 	return 0;
+ 	switch (bpc) {
+ 	case 0:
+ 		/* Temporary Work around, DRM don't parse color depth for
+@@ -2796,6 +2803,9 @@ int amdgpu_dm_connector_atomic_set_property(struct drm_connector *connector,
+ 	} else if (property == adev->mode_info.underscan_property) {
+ 		dm_new_state->underscan_enable = val;
+ 		ret = 0;
++	} else if (property == adev->mode_info.max_bpc_property) {
++		dm_new_state->max_bpc = val;
++		ret = 0;
+ 	}
+ 
+ 	return ret;
+@@ -2838,6 +2848,9 @@ int amdgpu_dm_connector_atomic_get_property(struct drm_connector *connector,
+ 	} else if (property == adev->mode_info.underscan_property) {
+ 		*val = dm_state->underscan_enable;
+ 		ret = 0;
++	} else if (property == adev->mode_info.max_bpc_property) {
++		*val = dm_state->max_bpc;
++		ret = 0;
+ 	}
+ 	return ret;
+ }
+@@ -3658,6 +3671,9 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
+ 	drm_object_attach_property(&aconnector->base.base,
+ 				adev->mode_info.underscan_vborder_property,
+ 				0);
++	drm_object_attach_property(&aconnector->base.base,
++				adev->mode_info.max_bpc_property,
++				0);
+ 
  }
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-index b9e9e8b02fb7..d1b4d9b6aae0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h
-@@ -339,6 +339,8 @@ struct amdgpu_mode_info {
- 	struct drm_property *audio_property;
- 	/* FMT dithering */
- 	struct drm_property *dither_property;
-+	/* maximum number of bits per channel for monitor color */
-+	struct drm_property *max_bpc_property;
- 	/* hardcoded DFP edid from BIOS */
- 	struct edid *bios_hardcoded_edid;
- 	int bios_hardcoded_edid_size;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index aba2c5c1d2f8..74aedcffc4bb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -213,6 +213,7 @@ struct dm_connector_state {
+ 	enum amdgpu_rmx_type scaling;
+ 	uint8_t underscan_vborder;
+ 	uint8_t underscan_hborder;
++	uint8_t max_bpc;
+ 	bool underscan_enable;
+ 	struct mod_freesync_user_enable user_enable;
+ 	bool freesync_capable;
 -- 
 2.17.1
