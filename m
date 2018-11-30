@@ -1,14 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix NULL ptr deref for
- commit_planes_to_stream
-Date: Fri, 30 Nov 2018 15:13:00 +0000
-Message-ID: <BN6PR12MB18095A60473A856DEE992843F7D30@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181130150928.26420-1-nicholas.kazlauskas@amd.com>
+From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Handle xgmi device removal and add reset
+ wq.
+Date: Fri, 30 Nov 2018 15:14:24 +0000
+Message-ID: <52e3af85-4b94-ef26-d2b6-38d00c0b46b6@amd.com>
+References: <1543523816-26659-1-git-send-email-andrey.grodzovsky@amd.com>
+ <03808d85-0c16-6cee-0e3a-e383969e9c98@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1252352026=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181130150928.26420-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <03808d85-0c16-6cee-0e3a-e383969e9c98-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
+Content-ID: <A5B9EC83AF8A094B86DE4C1AC4EC90C5-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,179 +22,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1252352026==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18095A60473A856DEE992843F7D30BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18095A60473A856DEE992843F7D30BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Nicholas=
- Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, November 30, 2018 10:09:28 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Li, Sun peng (Leo); Wentland, Harry; Kazlauskas, Nicholas
-Subject: [PATCH] drm/amd/display: Fix NULL ptr deref for commit_planes_to_s=
-tream
-
-[Why]
-With scaling, underscan and abm changes we can end up calling
-commit_planes_to_stream in commit_tail. This call uses dm_state->context
-which can be NULL if the commit was a fast update.
-
-[How]
-Use dc_state instead since that can't be NULL unless the system ran
-out of memory.
-
-Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=3D108912
-Fixes: e64abff2f133 ("drm/amd/display: Use private obj helpers for dm_atomi=
-c_state")
-
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 76b1aebdca0c..8ecd78657d43 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5011,7 +5011,7 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_a=
-tomic_state *state)
-                                 status->plane_count,
-                                 dm_new_crtc_state,
-                                 to_dm_crtc_state(old_crtc_state),
--                               dm_state->context))
-+                               dc_state))
-                         dm_error("%s: Failed to update stream scaling!\n",=
- __func__);
-         }
-
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18095A60473A856DEE992843F7D30BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Nicholas Kazlauskas &lt;nicho=
-las.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, November 30, 2018 10:09:28 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Li, Sun peng (Leo); Wentland, Harry; Kazlauskas, Nicholas<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Fix NULL ptr deref for commit_plan=
-es_to_stream</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[Why]<br>
-With scaling, underscan and abm changes we can end up calling<br>
-commit_planes_to_stream in commit_tail. This call uses dm_state-&gt;context=
-<br>
-which can be NULL if the commit was a fast update.<br>
-<br>
-[How]<br>
-Use dc_state instead since that can't be NULL unless the system ran<br>
-out of memory.<br>
-<br>
-Bugzilla: <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D108912"=
->https://bugs.freedesktop.org/show_bug.cgi?id=3D108912</a><br>
-Fixes: e64abff2f133 (&quot;drm/amd/display: Use private obj helpers for dm_=
-atomic_state&quot;)<br>
-<br>
-Cc: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Cc: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Signed-off-by: Nicholas Kazlauskas &lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
-u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-index 76b1aebdca0c..8ecd78657d43 100644<br>
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-@@ -5011,7 &#43;5011,7 @@ static void amdgpu_dm_atomic_commit_tail(struct d=
-rm_atomic_state *state)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status-&gt;plane_count,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_new_crtc_state,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to_dm_crtc_state(old_crtc_state)=
-,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_state-&gt;context))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc_state))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dm_er=
-ror(&quot;%s: Failed to update stream scaling!\n&quot;, __func__);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18095A60473A856DEE992843F7D30BN6PR12MB1809namp_--
-
---===============1252352026==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1252352026==--
+DQoNCk9uIDExLzMwLzIwMTggMDQ6MDMgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFt
+IDI5LjExLjE4IHVtIDIxOjM2IHNjaHJpZWIgQW5kcmV5IEdyb2R6b3Zza3k6DQo+PiBYR01JIGhp
+dmUgaGFzIHNvbWUgcmVzb3VyY2VzIGFsbG9jdGVkIG9uIGRldmljZSBpbml0IHdoaWNoDQo+PiBu
+ZWVkcyB0byBiZSBkZWFsbG9jYXRlZCB3aGVuIHRoZSBkZXZpY2UgaXMgdW5yZWdpc3RlcmVkLg0K
+Pj4NCj4+IEFkZCBwZXIgaGl2ZSB3cSB0byBhbGxvdyBhbGwgdGhlIG5vZGVzIGluIGhpdmUgdG8g
+cnVuIHJlc2V0cw0KPj4gY29uY3VyZW50bHkgLSB0aGlzIHNob3VsZCBzcGVlZCB1cCB0aGUgdG90
+YWwgcmVzZXQgdGltZSB0byBhdm9pZA0KPj4gYnJlYWNoaW5nIHRoZSBQU1AgRlcgdGltZW91dC4N
+Cj4NCj4gRG8geW91IHJlYWxseSB3YW50IGEgd29ya3F1ZXVlPyBUaGF0IHNvdW5kcyBsaWtlIHRo
+ZSBleGFjdCBvcHBvc2l0ZSBvZiANCj4gd2hhdCB5b3UgZGVzY3JpYmUgaGVyZS4NCj4NCj4gRS5n
+LiBhIHdvcmtxdWV1ZSBpcyB0aGVyZSB0byBzZXJpYWxpemUgYWxsIHdvcmsgaXRlbXMgc2NoZWR1
+bGVkIHRvIGl0Lg0KPg0KPiBXaGF0IHlvdSBtb3N0IGxpa2VseSByYXRoZXIgd2FudCBpcyBhIHdv
+cmsgaXRlbSBwZXIgZGV2aWNlIHdoaWNoIGFyZSANCj4gc2NoZWR1bGVkLCBydW4gaW4gcGFyYWxs
+ZWwgYW5kIGFyZSBqb2luZWQgYmFjayB0b2dldGhlciBiZWZvcmUgDQo+IGRyb3BwaW5nIHRoZSBw
+ZXIgaGl2ZSBsb2NrLg0KPg0KPiBDaHJpc3RpYW4uDQoNCkFzIHlvdSBjYW4gc2VlIGluIHNlY29u
+ZCBwYXRjaCB0aGF0IGV4YWN0bHkgaG93IEkgdXNlIHRoaXMgd3EuIEkgZGVmaW5lIA0KcGVyIGFk
+ZXYgd29yayBpdGVtIGFsbCBvZiB3aGljaCBJIGVucXVldWUgZHVyaW5nIEdQVSByZXNldCByb3V0
+aW5lLg0KSSBiZWxpZXZlIHRoZSB3cSBJIGNyZWF0ZWQgd2lsbCBwcm9jZXNzZXMgd29yayBpdGVt
+cyBpbiBwYXJhbGxlbCBzaW5jZSANCml0J3MgaXMgc2VydmVkIGJ5IHBlciBDUFUgd29ya2VyIHRo
+cmVhZCAodGhyZWFkIHBvb2wpIHdoaWxlwqAgYSANCnNlcmlhbGl6aW5nIHdxIGlzDQpjcmVhdGVk
+wqAgdXNpbmcgdGhlICdjcmVhdGVfc2luZ2xldGhyZWFkX3dvcmtxdWV1ZScgaW50ZXJmYWNlIHdo
+aWNoIA0KY3JlYXRlcyBhbiBvcmRlcmVkIHdxIHdoaWNoIHByb2Nlc3MgYXQgbW9zdCBvbmUgaXRl
+bSBzaW11bHRhbmVvdXNseS4NCkkgZGlkIGhhdmUgbXkgZG91YnRzIGFib3V0IGNyZWF0aW5nIGEg
+ZGVkaWNhdGVkIHdxIGluc3RlYWQgb2YgcmV1c2luZyANCmV4aXN0aW5nIHN5c3RlbSB3aWRlIHdx
+IHN1Y2ggYXMgc3lzdGVtX3VuYm91bmRfd3EgYmVjYXVzZSB0aGlzIGFkZHMgbmV3DQprZXJuZWwg
+dGhyZWFkcyBidXQgZXZlbnR1YWxseSBJIG9wdGVkIGZvciBteSBvd24gcXVldWUgYmVjYXVzZSB0
+aGVyZSBpcyANCmEgaGFyZCByZXF1aXJlbWVudCBmcm9tIHRoZSBQU1AgRlcgdG8gY29tcGxldGUg
+YWxsIEFTSUMgcmVzZXRzIGluwqAgDQpkZWZpbmVkIGZpbml0ZSBhbW91bnQNCm9mIHRpbWUgKDFz
+IGkgYmVsaWV2ZSkgwqAgb3RoZXJ3aXNlIHNvbWUgbm9kZXMgaW4gdGhlIFhHTUkgaGl2ZSBtaWdo
+dCANCnN3aXRjaCB0byBzaW5nbGUgR1BVIG1vZGUgZHVlIHRvIHRpbWVvdXQuDQpJZiBJIHJlbHkg
+b24gc3lzdGVtIHdpZGUgd3EgdGhlbiBkdXJpbmcgc3RyZXNzIHRpbWVzIHRoaXMgcXVldWUgbWln
+aHQgDQpmYWlsIHRvIHByb2Nlc3MgbXkgd29yayBpdGVtcyB3aXRoaW4gdGhhdCB0aW1lIGxpbWl0
+IGJlY2F1c2UgaXQncyANCm92ZXJsb2FkZWQgYnkgd29yayBpdGVtcyBmcm9tIG90aGVyIHF1ZXVl
+IGNsaWVudHMuDQpNYXliZSBJIHNob3VsZCBzcXVhc2ggdGhlIDIgY2hhbmdlcyBpbnRvIG9uZSB0
+byBtYWtlIGFsbCBvZiB0aGlzIG1vcmUgDQpjbGVhciA/DQoNCkFuZHJleQ0KPj4NCj4+IFNpZ25l
+ZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPg0K
+Pj4gLS0tDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jIHwg
+MjQgKysrKysrKysrKysrKysrKysrKysrKysrDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfeGdtaS5oIHzCoCAzICsrKw0KPj4gwqAgMiBmaWxlcyBjaGFuZ2VkLCAyNyBp
+bnNlcnRpb25zKCspDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV94Z21pLmMgDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV94Z21pLmMNCj4+IGluZGV4IGZiMzdlNjkuLjlhYzJkYzUgMTAwNjQ0DQo+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jDQo+PiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jDQo+PiBAQCAtNjEsNiArNjEsOCBAQCBzdHJ1
+Y3QgYW1kZ3B1X2hpdmVfaW5mbyANCj4+ICphbWRncHVfZ2V0X3hnbWlfaGl2ZShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldikNCj4+IMKgwqDCoMKgwqAgSU5JVF9MSVNUX0hFQUQoJnRtcC0+ZGV2
+aWNlX2xpc3QpOw0KPj4gwqDCoMKgwqDCoCBtdXRleF9pbml0KCZ0bXAtPmhpdmVfbG9jayk7DQo+
+PiDCoCArwqDCoMKgIHRtcC0+cmVzZXRfcXVldWUgPSBhbGxvY193b3JrcXVldWUoInhnbWktaGl2
+ZSIsIFdRX1VOQk9VTkQgfCANCj4+IFdRX0hJR0hQUkksIDApOw0KPj4gKw0KPj4gwqDCoMKgwqDC
+oCByZXR1cm4gdG1wOw0KPj4gwqAgfQ0KPj4gwqAgQEAgLTEzNSwzICsxMzcsMjUgQEAgaW50IGFt
+ZGdwdV94Z21pX2FkZF9kZXZpY2Uoc3RydWN0IA0KPj4gYW1kZ3B1X2RldmljZSAqYWRldikNCj4+
+IMKgwqDCoMKgwqAgbXV0ZXhfdW5sb2NrKCZ4Z21pX211dGV4KTsNCj4+IMKgwqDCoMKgwqAgcmV0
+dXJuIHJldDsNCj4+IMKgIH0NCj4+ICsNCj4+ICt2b2lkIGFtZGdwdV94Z21pX3JlbW92ZV9kZXZp
+Y2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+PiArew0KPj4gK8KgwqDCoCBzdHJ1Y3Qg
+YW1kZ3B1X2hpdmVfaW5mbyAqaGl2ZTsNCj4+ICsNCj4+ICvCoMKgwqAgaWYgKChhZGV2LT5hc2lj
+X3R5cGUgPCBDSElQX1ZFR0EyMCkgfHwgKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkpDQo+PiAr
+wqDCoMKgwqDCoMKgwqAgcmV0dXJuOw0KPj4gKw0KPj4gK8KgwqDCoCBtdXRleF9sb2NrKCZ4Z21p
+X211dGV4KTsNCj4+ICsNCj4+ICvCoMKgwqAgaGl2ZSA9IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFk
+ZXYpOw0KPj4gK8KgwqDCoCBpZiAoIWhpdmUpDQo+PiArwqDCoMKgwqDCoMKgwqAgZ290byBleGl0
+Ow0KPj4gKw0KPj4gK8KgwqDCoCBpZiAoIShoaXZlLT5udW1iZXJfZGV2aWNlcy0tKSkgew0KPj4g
+K8KgwqDCoMKgwqDCoMKgIG11dGV4X2Rlc3Ryb3koJmhpdmUtPmhpdmVfbG9jayk7DQo+PiArwqDC
+oMKgwqDCoMKgwqAgZGVzdHJveV93b3JrcXVldWUoaGl2ZS0+cmVzZXRfcXVldWUpOw0KPj4gK8Kg
+wqDCoCB9DQo+PiArDQo+PiArZXhpdDoNCj4+ICvCoMKgwqAgbXV0ZXhfdW5sb2NrKCZ4Z21pX211
+dGV4KTsNCj4+ICt9DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3hnbWkuaCANCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hn
+bWkuaA0KPj4gaW5kZXggNjMzNWJmZC4uMjg1YWI5MyAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmgNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmgNCj4+IEBAIC0zMCwxMCArMzAsMTMgQEAgc3RydWN0
+IGFtZGdwdV9oaXZlX2luZm8gew0KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgcHNwX3hnbWlfdG9wb2xv
+Z3lfaW5mb8KgwqDCoCB0b3BvbG9neV9pbmZvOw0KPj4gwqDCoMKgwqDCoCBpbnQgbnVtYmVyX2Rl
+dmljZXM7DQo+PiDCoMKgwqDCoMKgIHN0cnVjdCBtdXRleCBoaXZlX2xvY2s7DQo+PiArwqDCoMKg
+IC8qIGhpdmUgbWVtYmVycyByZXNldCB3cSAqLw0KPj4gK8KgwqDCoCBzdHJ1Y3Qgd29ya3F1ZXVl
+X3N0cnVjdCAqcmVzZXRfcXVldWU7DQo+PiDCoCB9Ow0KPj4gwqAgwqAgc3RydWN0IGFtZGdwdV9o
+aXZlX2luZm8gKmFtZGdwdV9nZXRfeGdtaV9oaXZlKHN0cnVjdCANCj4+IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpOw0KPj4gwqAgaW50IGFtZGdwdV94Z21pX3VwZGF0ZV90b3BvbG9neShzdHJ1Y3QgYW1k
+Z3B1X2hpdmVfaW5mbyAqaGl2ZSwgDQo+PiBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+
+PiDCoCBpbnQgYW1kZ3B1X3hnbWlfYWRkX2RldmljZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dik7DQo+PiArdm9pZCBhbWRncHVfeGdtaV9yZW1vdmVfZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KTsNCj4+IMKgIMKgICNlbmRpZg0KPg0KDQpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
