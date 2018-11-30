@@ -1,13 +1,13 @@
-From: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 04/16 v2] drm/amd/display: Add tracing to dc
-Date: Fri, 30 Nov 2018 09:57:06 -0500
-Message-ID: <20181130145706.5984-1-David.Francis@amd.com>
-References: <3179d43f-1c48-3987-ba6d-ce70052cc07c@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove amdgpu_bo_backup_to_shadow
+Date: Fri, 30 Nov 2018 15:03:27 +0000
+Message-ID: <BN6PR12MB1809585DCC64052170FB7C6BF7D30@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181130124517.80176-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0530309851=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3179d43f-1c48-3987-ba6d-ce70052cc07c-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <20181130124517.80176-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,179 +18,295 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-W1doeV0KVHJhY2luZyBpcyBhIHVzZWZ1bCBhbmQgY2hlYXAgZGVidWcgZnVuY3Rpb25hbGl0eQoK
-W0hvd10KVGhpcyBjcmVhdGVzIGEgbmV3IHRyYWNlIHN5c3RlbSBhbWRncHVfZG0sIGN1cnJlbnRs
-eSB3aXRoCnRocmVlIHRyYWNlIGV2ZW50cwoKYW1kZ3B1X2RjX3JyZWcgYW5kIGFtZGdwdV9kY193
-cmVnIHJlcG9ydCB0aGUgYWRkcmVzcyBhbmQgdmFsdWUKb2YgYW55IGRjIHJlZ2lzdGVyIHJlYWRz
-IGFuZCB3cml0ZXMKCmFtZGdwdV9kY19wZXJmb3JtYW5jZSByZXF1aXJlcyBhdCBsZWFzdCBvbmUg
-b2YgdGhvc2UgdHdvIHRvIGJlCmVuYWJsZWQuICBJdCBjb3VudHMgdGhlIHJlZ2lzdGVyIHJlYWRz
-IGFuZCB3cml0ZXMgc2luY2UgdGhlCmxhc3QgZW50cnkKCnYyOiBEb24ndCBjaGVjayBmb3IgTlVM
-TCBiZWZvcmUga2ZyZWUKClNpZ25lZC1vZmYtYnk6IERhdmlkIEZyYW5jaXMgPERhdmlkLkZyYW5j
-aXNAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxIYXJyeS5XZW50bGFuZEBh
-bWQuY29tPgpBY2tlZC1ieTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+Ci0tLQogLi4uL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgICAzICsKIC4uLi9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3RyYWNlLmggICB8IDEwNCArKysrKysrKysrKysr
-KysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgICAgICB8ICAx
-OSArKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNfdHlwZXMuaCAgICAgfCAg
-IDggKysKIC4uLi9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9jbV9jb21tb24uYyAgICB8ICAg
-NCArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtX3NlcnZpY2VzLmggIHwgIDEy
-ICstCiA2IGZpbGVzIGNoYW5nZWQsIDE0NiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQog
-Y3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtX3RyYWNlLmgKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
-ZGdwdV9kbS9hbWRncHVfZG0uYwppbmRleCA3NmIxYWViZGNhMGMuLjM3NjkyN2M4YmNjNiAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-CkBAIC0yMyw2ICsyMyw5IEBACiAgKgogICovCiAKKy8qIFRoZSBjYXByaWNlcyBvZiB0aGUgcHJl
-cHJvY2Vzc29yIHJlcXVpcmUgdGhhdCB0aGlzIGJlIGRlY2xhcmVkIHJpZ2h0IGhlcmUgKi8KKyNk
-ZWZpbmUgQ1JFQVRFX1RSQUNFX1BPSU5UUworCiAjaW5jbHVkZSAiZG1fc2VydmljZXNfdHlwZXMu
-aCIKICNpbmNsdWRlICJkYy5oIgogI2luY2x1ZGUgImRjL2luYy9jb3JlX3R5cGVzLmgiCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV90
-cmFjZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1f
-dHJhY2UuaApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwMDAwMDAuLmQ4OTg5ODE2
-ODRkNQotLS0gL2Rldi9udWxsCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtX3RyYWNlLmgKQEAgLTAsMCArMSwxMDQgQEAKKy8qCisgKiBDb3B5cmln
-aHQgMjAxOCBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCisgKgorICogUGVybWlzc2lvbiBp
-cyBoZXJlYnkgZ3JhbnRlZCwgZnJlZSBvZiBjaGFyZ2UsIHRvIGFueSBwZXJzb24gb2J0YWluaW5n
-IGEKKyAqIGNvcHkgb2YgdGhpcyBzb2Z0d2FyZSBhbmQgYXNzb2NpYXRlZCBkb2N1bWVudGF0aW9u
-IGZpbGVzICh0aGUgIlNvZnR3YXJlIiksCisgKiB0byBkZWFsIGluIHRoZSBTb2Z0d2FyZSB3aXRo
-b3V0IHJlc3RyaWN0aW9uLCBpbmNsdWRpbmcgd2l0aG91dCBsaW1pdGF0aW9uCisgKiB0aGUgcmln
-aHRzIHRvIHVzZSwgY29weSwgbW9kaWZ5LCBtZXJnZSwgcHVibGlzaCwgZGlzdHJpYnV0ZSwgc3Vi
-bGljZW5zZSwKKyAqIGFuZC9vciBzZWxsIGNvcGllcyBvZiB0aGUgU29mdHdhcmUsIGFuZCB0byBw
-ZXJtaXQgcGVyc29ucyB0byB3aG9tIHRoZQorICogU29mdHdhcmUgaXMgZnVybmlzaGVkIHRvIGRv
-IHNvLCBzdWJqZWN0IHRvIHRoZSBmb2xsb3dpbmcgY29uZGl0aW9uczoKKyAqCisgKiBUaGUgYWJv
-dmUgY29weXJpZ2h0IG5vdGljZSBhbmQgdGhpcyBwZXJtaXNzaW9uIG5vdGljZSBzaGFsbCBiZSBp
-bmNsdWRlZCBpbgorICogYWxsIGNvcGllcyBvciBzdWJzdGFudGlhbCBwb3J0aW9ucyBvZiB0aGUg
-U29mdHdhcmUuCisgKgorICogVEhFIFNPRlRXQVJFIElTIFBST1ZJREVEICJBUyBJUyIsIFdJVEhP
-VVQgV0FSUkFOVFkgT0YgQU5ZIEtJTkQsIEVYUFJFU1MgT1IKKyAqIElNUExJRUQsIElOQ0xVRElO
-RyBCVVQgTk9UIExJTUlURUQgVE8gVEhFIFdBUlJBTlRJRVMgT0YgTUVSQ0hBTlRBQklMSVRZLAor
-ICogRklUTkVTUyBGT1IgQSBQQVJUSUNVTEFSIFBVUlBPU0UgQU5EIE5PTklORlJJTkdFTUVOVC4g
-IElOIE5PIEVWRU5UIFNIQUxMCisgKiBUSEUgQ09QWVJJR0hUIEhPTERFUihTKSBPUiBBVVRIT1Io
-UykgQkUgTElBQkxFIEZPUiBBTlkgQ0xBSU0sIERBTUFHRVMgT1IKKyAqIE9USEVSIExJQUJJTElU
-WSwgV0hFVEhFUiBJTiBBTiBBQ1RJT04gT0YgQ09OVFJBQ1QsIFRPUlQgT1IgT1RIRVJXSVNFLAor
-ICogQVJJU0lORyBGUk9NLCBPVVQgT0YgT1IgSU4gQ09OTkVDVElPTiBXSVRIIFRIRSBTT0ZUV0FS
-RSBPUiBUSEUgVVNFIE9SCisgKiBPVEhFUiBERUFMSU5HUyBJTiBUSEUgU09GVFdBUkUuCisgKgor
-ICogQXV0aG9yczogQU1ECisgKgorICovCisKKyN1bmRlZiBUUkFDRV9TWVNURU0KKyNkZWZpbmUg
-VFJBQ0VfU1lTVEVNIGFtZGdwdV9kbQorCisjaWYgIWRlZmluZWQoX0FNREdQVV9ETV9UUkFDRV9I
-KSB8fCBkZWZpbmVkKFRSQUNFX0hFQURFUl9NVUxUSV9SRUFEKQorI2RlZmluZSBfQU1ER1BVX0RN
-X1RSQUNFX0hfCisKKyNpbmNsdWRlIDxsaW51eC90cmFjZXBvaW50Lmg+CisKK1RSQUNFX0VWRU5U
-KGFtZGdwdV9kY19ycmVnLAorCVRQX1BST1RPKHVuc2lnbmVkIGxvbmcgKnJlYWRfY291bnQsIHVp
-bnQzMl90IHJlZywgdWludDMyX3QgdmFsdWUpLAorCVRQX0FSR1MocmVhZF9jb3VudCwgcmVnLCB2
-YWx1ZSksCisJVFBfU1RSVUNUX19lbnRyeSgKKwkJCV9fZmllbGQodWludDMyX3QsIHJlZykKKwkJ
-CV9fZmllbGQodWludDMyX3QsIHZhbHVlKQorCQkpLAorCVRQX2Zhc3RfYXNzaWduKAorCQkJX19l
-bnRyeS0+cmVnID0gcmVnOworCQkJX19lbnRyeS0+dmFsdWUgPSB2YWx1ZTsKKwkJCSpyZWFkX2Nv
-dW50ID0gKnJlYWRfY291bnQgKyAxOworCQkpLAorCVRQX3ByaW50aygicmVnPTB4JTA4bHgsIHZh
-bHVlPTB4JTA4bHgiLAorCQkJKHVuc2lnbmVkIGxvbmcpX19lbnRyeS0+cmVnLAorCQkJKHVuc2ln
-bmVkIGxvbmcpX19lbnRyeS0+dmFsdWUpCispOworCitUUkFDRV9FVkVOVChhbWRncHVfZGNfd3Jl
-ZywKKwlUUF9QUk9UTyh1bnNpZ25lZCBsb25nICp3cml0ZV9jb3VudCwgdWludDMyX3QgcmVnLCB1
-aW50MzJfdCB2YWx1ZSksCisJVFBfQVJHUyh3cml0ZV9jb3VudCwgcmVnLCB2YWx1ZSksCisJVFBf
-U1RSVUNUX19lbnRyeSgKKwkJCV9fZmllbGQodWludDMyX3QsIHJlZykKKwkJCV9fZmllbGQodWlu
-dDMyX3QsIHZhbHVlKQorCQkpLAorCVRQX2Zhc3RfYXNzaWduKAorCQkJX19lbnRyeS0+cmVnID0g
-cmVnOworCQkJX19lbnRyeS0+dmFsdWUgPSB2YWx1ZTsKKwkJCSp3cml0ZV9jb3VudCA9ICp3cml0
-ZV9jb3VudCArIDE7CisJCSksCisJVFBfcHJpbnRrKCJyZWc9MHglMDhseCwgdmFsdWU9MHglMDhs
-eCIsCisJCQkodW5zaWduZWQgbG9uZylfX2VudHJ5LT5yZWcsCisJCQkodW5zaWduZWQgbG9uZylf
-X2VudHJ5LT52YWx1ZSkKKyk7CisKKworVFJBQ0VfRVZFTlQoYW1kZ3B1X2RjX3BlcmZvcm1hbmNl
-LAorCVRQX1BST1RPKHVuc2lnbmVkIGxvbmcgcmVhZF9jb3VudCwgdW5zaWduZWQgbG9uZyB3cml0
-ZV9jb3VudCwKKwkJdW5zaWduZWQgbG9uZyAqbGFzdF9yZWFkLCB1bnNpZ25lZCBsb25nICpsYXN0
-X3dyaXRlLAorCQljb25zdCBjaGFyICpmdW5jLCB1bnNpZ25lZCBpbnQgbGluZSksCisJVFBfQVJH
-UyhyZWFkX2NvdW50LCB3cml0ZV9jb3VudCwgbGFzdF9yZWFkLCBsYXN0X3dyaXRlLCBmdW5jLCBs
-aW5lKSwKKwlUUF9TVFJVQ1RfX2VudHJ5KAorCQkJX19maWVsZCh1aW50MzJfdCwgcmVhZHMpCisJ
-CQlfX2ZpZWxkKHVpbnQzMl90LCB3cml0ZXMpCisJCQlfX2ZpZWxkKHVpbnQzMl90LCByZWFkX2Rl
-bHRhKQorCQkJX19maWVsZCh1aW50MzJfdCwgd3JpdGVfZGVsdGEpCisJCQlfX3N0cmluZyhmdW5j
-LCBmdW5jKQorCQkJX19maWVsZCh1aW50MzJfdCwgbGluZSkKKwkJCSksCisJVFBfZmFzdF9hc3Np
-Z24oCisJCQlfX2VudHJ5LT5yZWFkcyA9IHJlYWRfY291bnQ7CisJCQlfX2VudHJ5LT53cml0ZXMg
-PSB3cml0ZV9jb3VudDsKKwkJCV9fZW50cnktPnJlYWRfZGVsdGEgPSByZWFkX2NvdW50IC0gKmxh
-c3RfcmVhZDsKKwkJCV9fZW50cnktPndyaXRlX2RlbHRhID0gd3JpdGVfY291bnQgLSAqbGFzdF93
-cml0ZTsKKwkJCV9fYXNzaWduX3N0cihmdW5jLCBmdW5jKTsKKwkJCV9fZW50cnktPmxpbmUgPSBs
-aW5lOworCQkJKmxhc3RfcmVhZCA9IHJlYWRfY291bnQ7CisJCQkqbGFzdF93cml0ZSA9IHdyaXRl
-X2NvdW50OworCQkJKSwKKwlUUF9wcmludGsoIiVzOiVkIHJlYWRzPSUwOGxkICglMDhsZCB0b3Rh
-bCksIHdyaXRlcz0lMDhsZCAoJTA4bGQgdG90YWwpIiwKKwkJCV9fZ2V0X3N0cihmdW5jKSwgX19l
-bnRyeS0+bGluZSwKKwkJCSh1bnNpZ25lZCBsb25nKV9fZW50cnktPnJlYWRfZGVsdGEsCisJCQko
-dW5zaWduZWQgbG9uZylfX2VudHJ5LT5yZWFkcywKKwkJCSh1bnNpZ25lZCBsb25nKV9fZW50cnkt
-PndyaXRlX2RlbHRhLAorCQkJKHVuc2lnbmVkIGxvbmcpX19lbnRyeS0+d3JpdGVzKQorKTsKKyNl
-bmRpZiAvKiBfQU1ER1BVX0RNX1RSQUNFX0hfICovCisKKyN1bmRlZiBUUkFDRV9JTkNMVURFX1BB
-VEgKKyNkZWZpbmUgVFJBQ0VfSU5DTFVERV9QQVRIIC4KKyNkZWZpbmUgVFJBQ0VfSU5DTFVERV9G
-SUxFIGFtZGdwdV9kbV90cmFjZQorI2luY2x1ZGUgPHRyYWNlL2RlZmluZV90cmFjZS5oPgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMKaW5kZXggZGJhNmI1NzgzMGM3Li4z
-OTAzYjJjMGE2ZjEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9j
-b3JlL2RjLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYwpA
-QCAtMTc1LDYgKzE3NSwxNyBAQCBzdGF0aWMgYm9vbCBjcmVhdGVfbGlua3MoCiAJcmV0dXJuIGZh
-bHNlOwogfQogCitzdGF0aWMgc3RydWN0IGRjX3BlcmZfdHJhY2UgKmRjX3BlcmZfdHJhY2VfY3Jl
-YXRlKHZvaWQpCit7CisJcmV0dXJuIGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCBkY19wZXJmX3RyYWNl
-KSwgR0ZQX0tFUk5FTCk7Cit9CisKK3N0YXRpYyB2b2lkIGRjX3BlcmZfdHJhY2VfZGVzdHJveShz
-dHJ1Y3QgZGNfcGVyZl90cmFjZSAqKnBlcmZfdHJhY2UpCit7CisJa2ZyZWUoKnBlcmZfdHJhY2Up
-OworCSpwZXJmX3RyYWNlID0gTlVMTDsKK30KKwogLyoqCiAgKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioK
-ICAqICBGdW5jdGlvbjogZGNfc3RyZWFtX2FkanVzdF92bWluX3ZtYXgKQEAgLTUzNiw2ICs1NDcs
-OCBAQCBzdGF0aWMgdm9pZCBkZXN0cnVjdChzdHJ1Y3QgZGMgKmRjKQogCWlmIChkYy0+Y3R4LT5j
-cmVhdGVkX2Jpb3MpCiAJCWRhbF9iaW9zX3BhcnNlcl9kZXN0cm95KCZkYy0+Y3R4LT5kY19iaW9z
-KTsKIAorCWRjX3BlcmZfdHJhY2VfZGVzdHJveSgmZGMtPmN0eC0+cGVyZl90cmFjZSk7CisKIAlr
-ZnJlZShkYy0+Y3R4KTsKIAlkYy0+Y3R4ID0gTlVMTDsKIApAQCAtNjU5LDYgKzY3MiwxMiBAQCBz
-dGF0aWMgYm9vbCBjb25zdHJ1Y3Qoc3RydWN0IGRjICpkYywKIAkJZ290byBmYWlsOwogCX0KIAor
-CWRjX2N0eC0+cGVyZl90cmFjZSA9IGRjX3BlcmZfdHJhY2VfY3JlYXRlKCk7CisJaWYgKCFkY19j
-dHgtPnBlcmZfdHJhY2UpIHsKKwkJQVNTRVJUX0NSSVRJQ0FMKGZhbHNlKTsKKwkJZ290byBmYWls
-OworCX0KKwogCS8qIENyZWF0ZSBHUElPIHNlcnZpY2UgKi8KIAlkY19jdHgtPmdwaW9fc2Vydmlj
-ZSA9IGRhbF9ncGlvX3NlcnZpY2VfY3JlYXRlKAogCQkJZGNfdmVyc2lvbiwKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY190eXBlcy5oIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RjX3R5cGVzLmgKaW5kZXggNmUxMmQ2NDBkMDIwLi44MzkwYmFl
-ZGFmNzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY190eXBl
-cy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY190eXBlcy5oCkBAIC03
-MywxMCArNzMsMTggQEAgc3RydWN0IGh3X2FzaWNfaWQgewogCXZvaWQgKmF0b21iaW9zX2Jhc2Vf
-YWRkcmVzczsKIH07CiAKK3N0cnVjdCBkY19wZXJmX3RyYWNlIHsKKwl1bnNpZ25lZCBsb25nIHJl
-YWRfY291bnQ7CisJdW5zaWduZWQgbG9uZyB3cml0ZV9jb3VudDsKKwl1bnNpZ25lZCBsb25nIGxh
-c3RfZW50cnlfcmVhZDsKKwl1bnNpZ25lZCBsb25nIGxhc3RfZW50cnlfd3JpdGU7Cit9OworCiBz
-dHJ1Y3QgZGNfY29udGV4dCB7CiAJc3RydWN0IGRjICpkYzsKIAogCXZvaWQgKmRyaXZlcl9jb250
-ZXh0OyAvKiBlLmcuIGFtZGdwdV9kZXZpY2UgKi8KKwlzdHJ1Y3QgZGNfcGVyZl90cmFjZSAqcGVy
-Zl90cmFjZTsKIAl2b2lkICpjZ3NfZGV2aWNlOwogCiAJZW51bSBkY2VfZW52aXJvbm1lbnQgZGNl
-X2Vudmlyb25tZW50OwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjbjEwL2RjbjEwX2NtX2NvbW1vbi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjbjEwL2RjbjEwX2NtX2NvbW1vbi5jCmluZGV4IDNlZWE0NDA5MmEwNC4uNzQ2OTMzM2EyYzhh
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBf
-Y21fY29tbW9uLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2Rj
-bjEwX2NtX2NvbW1vbi5jCkBAIC0zMjQsNyArMzI0LDcgQEAgYm9vbCBjbV9oZWxwZXJfdHJhbnNs
-YXRlX2N1cnZlX3RvX2h3X2Zvcm1hdCgKIAlpZiAob3V0cHV0X3RmID09IE5VTEwgfHwgbHV0X3Bh
-cmFtcyA9PSBOVUxMIHx8IG91dHB1dF90Zi0+dHlwZSA9PSBURl9UWVBFX0JZUEFTUykKIAkJcmV0
-dXJuIGZhbHNlOwogCi0JUEVSRl9UUkFDRSgpOworCVBFUkZfVFJBQ0VfQ1RYKG91dHB1dF90Zi0+
-Y3R4KTsKIAogCWNvcm5lcl9wb2ludHMgPSBsdXRfcGFyYW1zLT5jb3JuZXJfcG9pbnRzOwogCXJn
-Yl9yZXN1bHRlZCA9IGx1dF9wYXJhbXMtPnJnYl9yZXN1bHRlZDsKQEAgLTUxMyw3ICs1MTMsNyBA
-QCBib29sIGNtX2hlbHBlcl90cmFuc2xhdGVfY3VydmVfdG9fZGVnYW1tYV9od19mb3JtYXQoCiAJ
-aWYgKG91dHB1dF90ZiA9PSBOVUxMIHx8IGx1dF9wYXJhbXMgPT0gTlVMTCB8fCBvdXRwdXRfdGYt
-PnR5cGUgPT0gVEZfVFlQRV9CWVBBU1MpCiAJCXJldHVybiBmYWxzZTsKIAotCVBFUkZfVFJBQ0Uo
-KTsKKwlQRVJGX1RSQUNFX0NUWChvdXRwdXRfdGYtPmN0eCk7CiAKIAljb3JuZXJfcG9pbnRzID0g
-bHV0X3BhcmFtcy0+Y29ybmVyX3BvaW50czsKIAlyZ2JfcmVzdWx0ZWQgPSBsdXRfcGFyYW1zLT5y
-Z2JfcmVzdWx0ZWQ7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZG1fc2VydmljZXMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbV9zZXJ2aWNl
-cy5oCmluZGV4IDI4MTI4YzAyZGUwMC4uMTk2MWNjNmQ5MTQzIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1fc2VydmljZXMuaAorKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvZG1fc2VydmljZXMuaApAQCAtMzEsNiArMzEsOCBAQAogCiAjZGVm
-aW5lIF9fRE1fU0VSVklDRVNfSF9fCiAKKyNpbmNsdWRlICJhbWRncHVfZG1fdHJhY2UuaCIKKwog
-LyogVE9ETzogcmVtb3ZlIHdoZW4gREMgaXMgY29tcGxldGUuICovCiAjaW5jbHVkZSAiZG1fc2Vy
-dmljZXNfdHlwZXMuaCIKICNpbmNsdWRlICJsb2dnZXJfaW50ZXJmYWNlLmgiCkBAIC03MCw2ICs3
-Miw3IEBAIHN0YXRpYyBpbmxpbmUgdWludDMyX3QgZG1fcmVhZF9yZWdfZnVuYygKIAl9CiAjZW5k
-aWYKIAl2YWx1ZSA9IGNnc19yZWFkX3JlZ2lzdGVyKGN0eC0+Y2dzX2RldmljZSwgYWRkcmVzcyk7
-CisJdHJhY2VfYW1kZ3B1X2RjX3JyZWcoJmN0eC0+cGVyZl90cmFjZS0+cmVhZF9jb3VudCwgYWRk
-cmVzcywgdmFsdWUpOwogCiAJcmV0dXJuIHZhbHVlOwogfQpAQCAtOTAsNiArOTMsNyBAQCBzdGF0
-aWMgaW5saW5lIHZvaWQgZG1fd3JpdGVfcmVnX2Z1bmMoCiAJfQogI2VuZGlmCiAJY2dzX3dyaXRl
-X3JlZ2lzdGVyKGN0eC0+Y2dzX2RldmljZSwgYWRkcmVzcywgdmFsdWUpOworCXRyYWNlX2FtZGdw
-dV9kY193cmVnKCZjdHgtPnBlcmZfdHJhY2UtPndyaXRlX2NvdW50LCBhZGRyZXNzLCB2YWx1ZSk7
-CiB9CiAKIHN0YXRpYyBpbmxpbmUgdWludDMyX3QgZG1fcmVhZF9pbmRleF9yZWcoCkBAIC0zNTEs
-OCArMzU1LDEyIEBAIHVuc2lnbmVkIGxvbmcgbG9uZyBkbV9nZXRfZWxhcHNlX3RpbWVfaW5fbnMo
-c3RydWN0IGRjX2NvbnRleHQgKmN0eCwKIC8qCiAgKiBwZXJmb3JtYW5jZSB0cmFjaW5nCiAgKi8K
-LXZvaWQgZG1fcGVyZl90cmFjZV90aW1lc3RhbXAoY29uc3QgY2hhciAqZnVuY19uYW1lLCB1bnNp
-Z25lZCBpbnQgbGluZSk7Ci0jZGVmaW5lIFBFUkZfVFJBQ0UoKQlkbV9wZXJmX3RyYWNlX3RpbWVz
-dGFtcChfX2Z1bmNfXywgX19MSU5FX18pCisjZGVmaW5lIFBFUkZfVFJBQ0UoKQl0cmFjZV9hbWRn
-cHVfZGNfcGVyZm9ybWFuY2UoQ1RYLT5wZXJmX3RyYWNlLT5yZWFkX2NvdW50LFwKKwkJQ1RYLT5w
-ZXJmX3RyYWNlLT53cml0ZV9jb3VudCwgJkNUWC0+cGVyZl90cmFjZS0+bGFzdF9lbnRyeV9yZWFk
-LFwKKwkJJkNUWC0+cGVyZl90cmFjZS0+bGFzdF9lbnRyeV93cml0ZSwgX19mdW5jX18sIF9fTElO
-RV9fKQorI2RlZmluZSBQRVJGX1RSQUNFX0NUWChfX0NUWCkJdHJhY2VfYW1kZ3B1X2RjX3BlcmZv
-cm1hbmNlKF9fQ1RYLT5wZXJmX3RyYWNlLT5yZWFkX2NvdW50LFwKKwkJX19DVFgtPnBlcmZfdHJh
-Y2UtPndyaXRlX2NvdW50LCAmX19DVFgtPnBlcmZfdHJhY2UtPmxhc3RfZW50cnlfcmVhZCxcCisJ
-CSZfX0NUWC0+cGVyZl90cmFjZS0+bGFzdF9lbnRyeV93cml0ZSwgX19mdW5jX18sIF9fTElORV9f
-KQogCiAKIC8qCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+--===============0530309851==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809585DCC64052170FB7C6BF7D30BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809585DCC64052170FB7C6BF7D30BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
+n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, November 30, 2018 7:45:17 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH] drm/amdgpu: remove amdgpu_bo_backup_to_shadow
+
+It is unused.
+
+Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 47 ----------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  5 ---
+ 2 files changed, 52 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.c
+index cf768acb51dc..cc50cb65c212 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -607,53 +607,6 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+         return r;
+ }
+
+-/**
+- * amdgpu_bo_backup_to_shadow - Backs up an &amdgpu_bo buffer object
+- * @adev: amdgpu device object
+- * @ring: amdgpu_ring for the engine handling the buffer operations
+- * @bo: &amdgpu_bo buffer to be backed up
+- * @resv: reservation object with embedded fence
+- * @fence: dma_fence associated with the operation
+- * @direct: whether to submit the job directly
+- *
+- * Copies an &amdgpu_bo buffer object to its shadow object.
+- * Not used for now.
+- *
+- * Returns:
+- * 0 for success or a negative error code on failure.
+- */
+-int amdgpu_bo_backup_to_shadow(struct amdgpu_device *adev,
+-                              struct amdgpu_ring *ring,
+-                              struct amdgpu_bo *bo,
+-                              struct reservation_object *resv,
+-                              struct dma_fence **fence,
+-                              bool direct)
+-
+-{
+-       struct amdgpu_bo *shadow =3D bo->shadow;
+-       uint64_t bo_addr, shadow_addr;
+-       int r;
+-
+-       if (!shadow)
+-               return -EINVAL;
+-
+-       bo_addr =3D amdgpu_bo_gpu_offset(bo);
+-       shadow_addr =3D amdgpu_bo_gpu_offset(bo->shadow);
+-
+-       r =3D reservation_object_reserve_shared(bo->tbo.resv, 1);
+-       if (r)
+-               goto err;
+-
+-       r =3D amdgpu_copy_buffer(ring, bo_addr, shadow_addr,
+-                              amdgpu_bo_size(bo), resv, fence,
+-                              direct, false);
+-       if (!r)
+-               amdgpu_bo_fence(bo, *fence, true);
+-
+-err:
+-       return r;
+-}
+-
+ /**
+  * amdgpu_bo_validate - validate an &amdgpu_bo buffer object
+  * @bo: pointer to the buffer object
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.h
+index 7d3312d0da11..9291c2f837e9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -267,11 +267,6 @@ int amdgpu_bo_fault_reserve_notify(struct ttm_buffer_o=
+bject *bo);
+ void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+                      bool shared);
+ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);
+-int amdgpu_bo_backup_to_shadow(struct amdgpu_device *adev,
+-                              struct amdgpu_ring *ring,
+-                              struct amdgpu_bo *bo,
+-                              struct reservation_object *resv,
+-                              struct dma_fence **fence, bool direct);
+ int amdgpu_bo_validate(struct amdgpu_bo *bo);
+ int amdgpu_bo_restore_shadow(struct amdgpu_bo *shadow,
+                              struct dma_fence **fence);
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809585DCC64052170FB7C6BF7D30BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
+.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, November 30, 2018 7:45:17 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: remove amdgpu_bo_backup_to_shadow</font=
+>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">It is unused.<br>
+<br>
+Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 47 ---------------------=
+-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |&nbsp; 5 ---<br>
+&nbsp;2 files changed, 52 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.c<br>
+index cf768acb51dc..cc50cb65c212 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+@@ -607,53 &#43;607,6 @@ int amdgpu_bo_create(struct amdgpu_device *adev,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-/**<br>
+- * amdgpu_bo_backup_to_shadow - Backs up an &amp;amdgpu_bo buffer object<b=
+r>
+- * @adev: amdgpu device object<br>
+- * @ring: amdgpu_ring for the engine handling the buffer operations<br>
+- * @bo: &amp;amdgpu_bo buffer to be backed up<br>
+- * @resv: reservation object with embedded fence<br>
+- * @fence: dma_fence associated with the operation<br>
+- * @direct: whether to submit the job directly<br>
+- *<br>
+- * Copies an &amp;amdgpu_bo buffer object to its shadow object.<br>
+- * Not used for now.<br>
+- *<br>
+- * Returns:<br>
+- * 0 for success or a negative error code on failure.<br>
+- */<br>
+-int amdgpu_bo_backup_to_shadow(struct amdgpu_device *adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct reservation_object *resv,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence **fence,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; bool direct)<br>
+-<br>
+-{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *shadow =3D bo-&gt;s=
+hadow;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t bo_addr, shadow_addr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!shadow)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_addr =3D amdgpu_bo_gpu_offset(bo);=
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; shadow_addr =3D amdgpu_bo_gpu_offset(=
+bo-&gt;shadow);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D reservation_object_reserve_shar=
+ed(bo-&gt;tbo.resv, 1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; goto err;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_copy_buffer(ring, bo_add=
+r, shadow_addr,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_size(bo), resv, fence,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; direct, false);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_bo_fence(bo, *fence, true);<br>
+-<br>
+-err:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+-}<br>
+-<br>
+&nbsp;/**<br>
+&nbsp; * amdgpu_bo_validate - validate an &amp;amdgpu_bo buffer object<br>
+&nbsp; * @bo: pointer to the buffer object<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_object.h<br>
+index 7d3312d0da11..9291c2f837e9 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
+@@ -267,11 &#43;267,6 @@ int amdgpu_bo_fault_reserve_notify(struct ttm_buff=
+er_object *bo);<br>
+&nbsp;void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool shared);<br>
+&nbsp;u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo);<br>
+-int amdgpu_bo_backup_to_shadow(struct amdgpu_device *adev,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct reservation_object *resv,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence **fence, bool direct);<br>
+&nbsp;int amdgpu_bo_validate(struct amdgpu_bo *bo);<br>
+&nbsp;int amdgpu_bo_restore_shadow(struct amdgpu_bo *shadow,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence **fence);<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809585DCC64052170FB7C6BF7D30BN6PR12MB1809namp_--
+
+--===============0530309851==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0530309851==--
