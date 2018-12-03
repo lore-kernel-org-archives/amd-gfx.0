@@ -1,20 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 02/11] dma-buf: add new dma_fence_chain container v2
-Date: Mon, 3 Dec 2018 14:55:48 +0100
-Message-ID: <d30e355a-d0fb-053f-ee6f-179c33298a3a@gmail.com>
-References: <20181128145021.4105-1-christian.koenig@amd.com>
- <20181128145021.4105-3-christian.koenig@amd.com>
- <3e383857-ff11-4b2e-995f-c9bfd9ffa3d3@amd.com>
- <c76229c3-8012-04db-2282-8ad1fd974bb7@gmail.com>
- <f37ab2bf-fe8c-c329-ef24-a3a341c31958@amd.com>
- <673cad83-d503-bd2d-805b-22f0e2a991ef@gmail.com>
- <0f3ff499-a926-5a48-b6a4-9afb32993a4a@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v3 3/3] drm/amdgpu: Implement concurrent asic reset for
+ XGMI.
+Date: Mon, 3 Dec 2018 14:21:30 +0000
+Message-ID: <BN6PR12MB1809BDEB9A20E5374525FD69F7AE0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1543614070-27547-1-git-send-email-andrey.grodzovsky@amd.com>,
+ <1543614070-27547-3-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0643721582=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0f3ff499-a926-5a48-b6a4-9afb32993a4a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1543614070-27547-3-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -26,229 +20,441 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Wang, Ken" <Ken.Wang-5C7GfCeVMHo@public.gmane.org>, "ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMDMuMTIuMTggdW0gMTQ6NDQgc2NocmllYiBDaHVubWluZyBaaG91Ogo+Cj4g5ZyoIDIwMTgv
-MTIvMyAyMToyOCwgQ2hyaXN0aWFuIEvDtm5pZyDlhpnpgZM6Cj4+IEFtIDAzLjEyLjE4IHVtIDE0
-OjE4IHNjaHJpZWIgQ2h1bm1pbmcgWmhvdToKPj4+IOWcqCAyMDE4LzEyLzMgMTk6MDAsIENocmlz
-dGlhbiBLw7ZuaWcg5YaZ6YGTOgo+Pj4+IEFtIDAzLjEyLjE4IHVtIDA2OjI1IHNjaHJpZWIgemhv
-dWNtMToKPj4+Pj4gT24gMjAxOOW5tDEx5pyIMjjml6UgMjI6NTAsIENocmlzdGlhbiBLw7ZuaWcg
-d3JvdGU6Cj4+Pj4+PiBMb2NrbGVzcyBjb250YWluZXIgaW1wbGVtZW50YXRpb24gc2ltaWxhciB0
-byBhIGRtYV9mZW5jZV9hcnJheSwgYnV0Cj4+Pj4+PiB3aXRoCj4+Pj4+PiBvbmx5IHR3byBlbGVt
-ZW50cyBwZXIgbm9kZSBhbmQgYXV0b21hdGljIGdhcmJhZ2UgY29sbGVjdGlvbi4KPj4+Pj4+Cj4+
-Pj4+PiB2MjogcHJvcGVybHkgZG9jdW1lbnQgZG1hX2ZlbmNlX2NoYWluX2Zvcl9lYWNoLCBhZGQK
-Pj4+Pj4+IGRtYV9mZW5jZV9jaGFpbl9maW5kX3NlcW5vLAo+Pj4+Pj4gIMKgwqDCoMKgwqAgZHJv
-cCBwcmV2IHJlZmVyZW5jZSBkdXJpbmcgZ2FyYmFnZSBjb2xsZWN0aW9uIGlmIGl0J3Mgbm90IGEK
-Pj4+Pj4+IGNoYWluIGZlbmNlLgo+Pj4+Pj4KPj4+Pj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPj4+Pj4+IC0tLQo+Pj4+Pj4gIMKg
-wqAgZHJpdmVycy9kbWEtYnVmL01ha2VmaWxlwqDCoMKgwqDCoMKgwqDCoMKgIHzCoMKgIDMgKy0K
-Pj4+Pj4+ICDCoMKgIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UtY2hhaW4uYyB8IDIzNQo+Pj4+
-Pj4gKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPj4+Pj4+ICDCoMKgIGlu
-Y2x1ZGUvbGludXgvZG1hLWZlbmNlLWNoYWluLmjCoMKgIHzCoCA3OSArKysrKysrKysrKysrCj4+
-Pj4+PiAgwqDCoCAzIGZpbGVzIGNoYW5nZWQsIDMxNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pCj4+Pj4+PiAgwqDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9kbWEtYnVmL2RtYS1m
-ZW5jZS1jaGFpbi5jCj4+Pj4+PiAgwqDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgaW5jbHVkZS9saW51
-eC9kbWEtZmVuY2UtY2hhaW4uaAo+Pj4+Pj4KPj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2Rt
-YS1idWYvTWFrZWZpbGUgYi9kcml2ZXJzL2RtYS1idWYvTWFrZWZpbGUKPj4+Pj4+IGluZGV4IDA5
-MTNhNmNjYWI1YS4uMWYwMDZlMDgzZWI5IDEwMDY0NAo+Pj4+Pj4gLS0tIGEvZHJpdmVycy9kbWEt
-YnVmL01ha2VmaWxlCj4+Pj4+PiArKysgYi9kcml2ZXJzL2RtYS1idWYvTWFrZWZpbGUKPj4+Pj4+
-IEBAIC0xLDQgKzEsNSBAQAo+Pj4+Pj4gLW9iai15IDo9IGRtYS1idWYubyBkbWEtZmVuY2UubyBk
-bWEtZmVuY2UtYXJyYXkubyByZXNlcnZhdGlvbi5vCj4+Pj4+PiBzZXFuby1mZW5jZS5vCj4+Pj4+
-PiArb2JqLXkgOj0gZG1hLWJ1Zi5vIGRtYS1mZW5jZS5vIGRtYS1mZW5jZS1hcnJheS5vIGRtYS1m
-ZW5jZS1jaGFpbi5vIFwKPj4+Pj4+ICvCoMKgwqDCoCByZXNlcnZhdGlvbi5vIHNlcW5vLWZlbmNl
-Lm8KPj4+Pj4+ICDCoMKgIG9iai0kKENPTkZJR19TWU5DX0ZJTEUpwqDCoMKgwqDCoMKgwqAgKz0g
-c3luY19maWxlLm8KPj4+Pj4+ICDCoMKgIG9iai0kKENPTkZJR19TV19TWU5DKcKgwqDCoMKgwqDC
-oMKgICs9IHN3X3N5bmMubyBzeW5jX2RlYnVnLm8KPj4+Pj4+ICDCoMKgIG9iai0kKENPTkZJR19V
-RE1BQlVGKcKgwqDCoMKgwqDCoMKgICs9IHVkbWFidWYubwo+Pj4+Pj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UtY2hhaW4uYwo+Pj4+Pj4gYi9kcml2ZXJzL2RtYS1idWYv
-ZG1hLWZlbmNlLWNoYWluLmMKPj4+Pj4+IG5ldyBmaWxlIG1vZGUgMTAwNjQ0Cj4+Pj4+PiBpbmRl
-eCAwMDAwMDAwMDAwMDAuLmRlMDUxMDFmYzQ4ZAo+Pj4+Pj4gLS0tIC9kZXYvbnVsbAo+Pj4+Pj4g
-KysrIGIvZHJpdmVycy9kbWEtYnVmL2RtYS1mZW5jZS1jaGFpbi5jCj4+Pj4+PiBAQCAtMCwwICsx
-LDIzNSBAQAo+Pj4+Pj4gKy8qCj4+Pj4+PiArICogZmVuY2UtY2hhaW46IGNoYWluIGZlbmNlcyB0
-b2dldGhlciBpbiBhIHRpbWVsaW5lCj4+Pj4+PiArICoKPj4+Pj4+ICsgKiBDb3B5cmlnaHQgKEMp
-IDIwMTggQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLgo+Pj4+Pj4gKyAqIEF1dGhvcnM6Cj4+
-Pj4+PiArICrCoMKgwqAgQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
-Pgo+Pj4+Pj4gKyAqCj4+Pj4+PiArICogVGhpcyBwcm9ncmFtIGlzIGZyZWUgc29mdHdhcmU7IHlv
-dSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9vcgo+Pj4+Pj4gbW9kaWZ5IGl0Cj4+Pj4+PiArICog
-dW5kZXIgdGhlIHRlcm1zIG9mIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSB2ZXJzaW9u
-IDIgYXMKPj4+Pj4+IHB1Ymxpc2hlZCBieQo+Pj4+Pj4gKyAqIHRoZSBGcmVlIFNvZnR3YXJlIEZv
-dW5kYXRpb24uCj4+Pj4+PiArICoKPj4+Pj4+ICsgKiBUaGlzIHByb2dyYW0gaXMgZGlzdHJpYnV0
-ZWQgaW4gdGhlIGhvcGUgdGhhdCBpdCB3aWxsIGJlIHVzZWZ1bCwKPj4+Pj4+IGJ1dCBXSVRIT1VU
-Cj4+Pj4+PiArICogQU5ZIFdBUlJBTlRZOyB3aXRob3V0IGV2ZW4gdGhlIGltcGxpZWQgd2FycmFu
-dHkgb2YKPj4+Pj4+IE1FUkNIQU5UQUJJTElUWSBvcgo+Pj4+Pj4gKyAqIEZJVE5FU1MgRk9SIEEg
-UEFSVElDVUxBUiBQVVJQT1NFLsKgIFNlZSB0aGUgR05VIEdlbmVyYWwgUHVibGljCj4+Pj4+PiBM
-aWNlbnNlIGZvcgo+Pj4+Pj4gKyAqIG1vcmUgZGV0YWlscy4KPj4+Pj4+ICsgKi8KPj4+Pj4+ICsK
-Pj4+Pj4+ICsjaW5jbHVkZSA8bGludXgvZG1hLWZlbmNlLWNoYWluLmg+Cj4+Pj4+PiArCj4+Pj4+
-PiArc3RhdGljIGJvb2wgZG1hX2ZlbmNlX2NoYWluX2VuYWJsZV9zaWduYWxpbmcoc3RydWN0IGRt
-YV9mZW5jZQo+Pj4+Pj4gKmZlbmNlKTsKPj4+Pj4+ICsKPj4+Pj4+ICsvKioKPj4+Pj4+ICsgKiBk
-bWFfZmVuY2VfY2hhaW5fZ2V0X3ByZXYgLSB1c2UgUkNVIHRvIGdldCBhIHJlZmVyZW5jZSB0byB0
-aGUKPj4+Pj4+IHByZXZpb3VzIGZlbmNlCj4+Pj4+PiArICogQGNoYWluOiBjaGFpbiBub2RlIHRv
-IGdldCB0aGUgcHJldmlvdXMgbm9kZSBmcm9tCj4+Pj4+PiArICoKPj4+Pj4+ICsgKiBVc2UgZG1h
-X2ZlbmNlX2dldF9yY3Vfc2FmZSB0byBnZXQgYSByZWZlcmVuY2UgdG8gdGhlIHByZXZpb3VzCj4+
-Pj4+PiBmZW5jZSBvZiB0aGUKPj4+Pj4+ICsgKiBjaGFpbiBub2RlLgo+Pj4+Pj4gKyAqLwo+Pj4+
-Pj4gK3N0YXRpYyBzdHJ1Y3QgZG1hX2ZlbmNlICpkbWFfZmVuY2VfY2hhaW5fZ2V0X3ByZXYoc3Ry
-dWN0Cj4+Pj4+PiBkbWFfZmVuY2VfY2hhaW4gKmNoYWluKQo+Pj4+Pj4gK3sKPj4+Pj4+ICvCoMKg
-wqAgc3RydWN0IGRtYV9mZW5jZSAqcHJldjsKPj4+Pj4+ICsKPj4+Pj4+ICvCoMKgwqAgcmN1X3Jl
-YWRfbG9jaygpOwo+Pj4+Pj4gK8KgwqDCoCBwcmV2ID0gZG1hX2ZlbmNlX2dldF9yY3Vfc2FmZSgm
-Y2hhaW4tPnByZXYpOwo+Pj4+Pj4gK8KgwqDCoCByY3VfcmVhZF91bmxvY2soKTsKPj4+Pj4+ICvC
-oMKgwqAgcmV0dXJuIHByZXY7Cj4+Pj4+PiArfQo+Pj4+Pj4gKwo+Pj4+Pj4gKy8qKgo+Pj4+Pj4g
-KyAqIGRtYV9mZW5jZV9jaGFpbl93YWxrIC0gY2hhaW4gd2Fsa2luZyBmdW5jdGlvbgo+Pj4+Pj4g
-KyAqIEBmZW5jZTogY3VycmVudCBjaGFpbiBub2RlCj4+Pj4+PiArICoKPj4+Pj4+ICsgKiBXYWxr
-IHRoZSBjaGFpbiB0byB0aGUgbmV4dCBub2RlLiBSZXR1cm5zIHRoZSBuZXh0IGZlbmNlIG9yIE5V
-TEwKPj4+Pj4+IGlmIHdlIGFyZSBhdAo+Pj4+Pj4gKyAqIHRoZSBlbmQgb2YgdGhlIGNoYWluLiBH
-YXJiYWdlIGNvbGxlY3RzIGNoYWluIG5vZGVzIHdoaWNoIGFyZQo+Pj4+Pj4gYWxyZWFkeQo+Pj4+
-Pj4gKyAqIHNpZ25hbGVkLgo+Pj4+Pj4gKyAqLwo+Pj4+Pj4gK3N0cnVjdCBkbWFfZmVuY2UgKmRt
-YV9mZW5jZV9jaGFpbl93YWxrKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKQo+Pj4+Pj4gK3sKPj4+
-Pj4+ICvCoMKgwqAgc3RydWN0IGRtYV9mZW5jZV9jaGFpbiAqY2hhaW4sICpwcmV2X2NoYWluOwo+
-Pj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpwcmV2LCAqcmVwbGFjZW1lbnQsICp0bXA7
-Cj4+Pj4+PiArCj4+Pj4+PiArwqDCoMKgIGNoYWluID0gdG9fZG1hX2ZlbmNlX2NoYWluKGZlbmNl
-KTsKPj4+Pj4+ICvCoMKgwqAgaWYgKCFjaGFpbikgewo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGRt
-YV9mZW5jZV9wdXQoZmVuY2UpOwo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBOVUxMOwo+
-Pj4+Pj4gK8KgwqDCoCB9Cj4+Pj4+PiArCj4+Pj4+PiArwqDCoMKgIHdoaWxlICgocHJldiA9IGRt
-YV9mZW5jZV9jaGFpbl9nZXRfcHJldihjaGFpbikpKSB7Cj4+Pj4+PiArCj4+Pj4+PiArwqDCoMKg
-wqDCoMKgwqAgcHJldl9jaGFpbiA9IHRvX2RtYV9mZW5jZV9jaGFpbihwcmV2KTsKPj4+Pj4+ICvC
-oMKgwqDCoMKgwqDCoCBpZiAocHJldl9jaGFpbikgewo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgaWYgKCFkbWFfZmVuY2VfaXNfc2lnbmFsZWQocHJldl9jaGFpbi0+ZmVuY2UpKQo+Pj4+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+Pj4+ICsKPj4+Pj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlcGxhY2VtZW50ID0gZG1hX2ZlbmNlX2NoYWluX2dl
-dF9wcmV2KHByZXZfY2hhaW4pOwo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIH0gZWxzZSB7Cj4+Pj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIWRtYV9mZW5jZV9pc19zaWduYWxlZChwcmV2
-KSkKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4+PiAr
-Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXBsYWNlbWVudCA9IE5VTEw7Cj4+Pj4+
-PiArwqDCoMKgwqDCoMKgwqAgfQo+Pj4+Pj4gKwo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIHRtcCA9
-IGNtcHhjaGcoJmNoYWluLT5wcmV2LCBwcmV2LCByZXBsYWNlbWVudCk7Cj4+Pj4+PiArwqDCoMKg
-wqDCoMKgwqAgaWYgKHRtcCA9PSBwcmV2KQo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-ZG1hX2ZlbmNlX3B1dCh0bXApOwo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGVsc2UKPj4+Pj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRtYV9mZW5jZV9wdXQocmVwbGFjZW1lbnQpOwo+Pj4+Pj4g
-K8KgwqDCoMKgwqDCoMKgIGRtYV9mZW5jZV9wdXQocHJldik7Cj4+Pj4+PiArwqDCoMKgIH0KPj4+
-Pj4+ICsKPj4+Pj4+ICvCoMKgwqAgZG1hX2ZlbmNlX3B1dChmZW5jZSk7Cj4+Pj4+PiArwqDCoMKg
-IHJldHVybiBwcmV2Owo+Pj4+Pj4gK30KPj4+Pj4+ICtFWFBPUlRfU1lNQk9MKGRtYV9mZW5jZV9j
-aGFpbl93YWxrKTsKPj4+Pj4+ICsKPj4+Pj4+ICsvKioKPj4+Pj4+ICsgKiBkbWFfZmVuY2VfY2hh
-aW5fZmluZF9zZXFubyAtIGZpbmQgZmVuY2UgY2hhaW4gbm9kZSBieSBzZXFubwo+Pj4+Pj4gKyAq
-IEBwZmVuY2U6IHBvaW50ZXIgdG8gdGhlIGNoYWluIG5vZGUgd2hlcmUgdG8gc3RhcnQKPj4+Pj4+
-ICsgKiBAc2Vxbm86IHRoZSBzZXF1ZW5jZSBudW1iZXIgdG8gc2VhcmNoIGZvcgo+Pj4+Pj4gKyAq
-Cj4+Pj4+PiArICogQWR2YW5jZSB0aGUgZmVuY2UgcG9pbnRlciB0byB0aGUgY2hhaW4gbm9kZSB3
-aGljaCB3aWxsIHNpZ25hbAo+Pj4+Pj4gdGhpcyBzZXF1ZW5jZQo+Pj4+Pj4gKyAqIG51bWJlci4g
-SWYgbm8gc2VxdWVuY2UgbnVtYmVyIGlzIHByb3ZpZGVkIHRoZW4gdGhpcyBpcyBhIG5vLW9wLgo+
-Pj4+Pj4gKyAqCj4+Pj4+PiArICogUmV0dXJucyBFSU5WQUwgaWYgdGhlIGZlbmNlIGlzIG5vdCBh
-IGNoYWluIG5vZGUgb3IgdGhlIHNlcXVlbmNlCj4+Pj4+PiBudW1iZXIgaGFzCj4+Pj4+PiArICog
-bm90IHlldCBhZHZhbmNlZCBmYXIgZW5vdWdoLgo+Pj4+Pj4gKyAqLwo+Pj4+Pj4gK2ludCBkbWFf
-ZmVuY2VfY2hhaW5fZmluZF9zZXFubyhzdHJ1Y3QgZG1hX2ZlbmNlICoqcGZlbmNlLCB1aW50NjRf
-dAo+Pj4+Pj4gc2Vxbm8pCj4+Pj4+PiArewo+Pj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNl
-X2NoYWluICpjaGFpbjsKPj4+Pj4+ICsKPj4+Pj4+ICvCoMKgwqAgaWYgKCFzZXFubykKPj4+Pj4+
-ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+Pj4+ICsKPj4+Pj4+ICvCoMKgwqAgY2hhaW4g
-PSB0b19kbWFfZmVuY2VfY2hhaW4oKnBmZW5jZSk7Cj4+Pj4+PiArwqDCoMKgIGlmICghY2hhaW4g
-fHwgY2hhaW4tPmJhc2Uuc2Vxbm8gPCBzZXFubykKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1
-cm4gLUVJTlZBTDsKPj4+Pj4+ICsKPj4+Pj4+ICvCoMKgwqAgZG1hX2ZlbmNlX2NoYWluX2Zvcl9l
-YWNoKCpwZmVuY2UpIHsKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoKCpwZmVuY2UpLT5jb250
-ZXh0ICE9IGNoYWluLT5iYXNlLmNvbnRleHQgfHwKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHRvX2RtYV9mZW5jZV9jaGFpbigqcGZlbmNlKS0+cHJldl9zZXFubyA8IHNlcW5vKQo+Pj4+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+Pj4+PiArwqDCoMKgIH0KPj4+Pj4+
-ICvCoMKgwqAgZG1hX2ZlbmNlX3B1dCgmY2hhaW4tPmJhc2UpOwo+Pj4+Pj4gKwo+Pj4+Pj4gK8Kg
-wqDCoCByZXR1cm4gMDsKPj4+Pj4+ICt9Cj4+Pj4+PiArRVhQT1JUX1NZTUJPTChkbWFfZmVuY2Vf
-Y2hhaW5fZmluZF9zZXFubyk7Cj4+Pj4+PiArCj4+Pj4+PiArc3RhdGljIGNvbnN0IGNoYXIgKmRt
-YV9mZW5jZV9jaGFpbl9nZXRfZHJpdmVyX25hbWUoc3RydWN0IGRtYV9mZW5jZQo+Pj4+Pj4gKmZl
-bmNlKQo+Pj4+Pj4gK3sKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gImRtYV9mZW5jZV9j
-aGFpbiI7Cj4+Pj4+PiArfQo+Pj4+Pj4gKwo+Pj4+Pj4gK3N0YXRpYyBjb25zdCBjaGFyICpkbWFf
-ZmVuY2VfY2hhaW5fZ2V0X3RpbWVsaW5lX25hbWUoc3RydWN0Cj4+Pj4+PiBkbWFfZmVuY2UgKmZl
-bmNlKQo+Pj4+Pj4gK3sKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gInVuYm91bmQiOwo+
-Pj4+Pj4gK30KPj4+Pj4+ICsKPj4+Pj4+ICtzdGF0aWMgdm9pZCBkbWFfZmVuY2VfY2hhaW5faXJx
-X3dvcmsoc3RydWN0IGlycV93b3JrICp3b3JrKQo+Pj4+Pj4gK3sKPj4+Pj4+ICvCoMKgwqAgc3Ry
-dWN0IGRtYV9mZW5jZV9jaGFpbiAqY2hhaW47Cj4+Pj4+PiArCj4+Pj4+PiArwqDCoMKgIGNoYWlu
-ID0gY29udGFpbmVyX29mKHdvcmssIHR5cGVvZigqY2hhaW4pLCB3b3JrKTsKPj4+Pj4+ICsKPj4+
-Pj4+ICvCoMKgwqAgLyogVHJ5IHRvIHJlYXJtIHRoZSBjYWxsYmFjayAqLwo+Pj4+Pj4gK8KgwqDC
-oCBpZiAoIWRtYV9mZW5jZV9jaGFpbl9lbmFibGVfc2lnbmFsaW5nKCZjaGFpbi0+YmFzZSkpCj4+
-Pj4+PiArwqDCoMKgwqDCoMKgwqAgLyogT2ssIHdlIGFyZSBkb25lLiBObyBtb3JlIHVuc2lnbmFs
-ZWQgZmVuY2VzIGxlZnQgKi8KPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBkbWFfZmVuY2Vfc2lnbmFs
-KCZjaGFpbi0+YmFzZSk7Cj4+Pj4+PiArfQo+Pj4+Pj4gKwo+Pj4+Pj4gK3N0YXRpYyB2b2lkIGRt
-YV9mZW5jZV9jaGFpbl9jYihzdHJ1Y3QgZG1hX2ZlbmNlICpmLCBzdHJ1Y3QKPj4+Pj4+IGRtYV9m
-ZW5jZV9jYiAqY2IpCj4+Pj4+PiArewo+Pj4+Pj4gK8KgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlX2No
-YWluICpjaGFpbjsKPj4+Pj4+ICsKPj4+Pj4+ICvCoMKgwqAgY2hhaW4gPSBjb250YWluZXJfb2Yo
-Y2IsIHR5cGVvZigqY2hhaW4pLCBjYik7Cj4+Pj4+PiArwqDCoMKgIGlycV93b3JrX3F1ZXVlKCZj
-aGFpbi0+d29yayk7Cj4+Pj4+PiArwqDCoMKgIGRtYV9mZW5jZV9wdXQoZik7Cj4+Pj4+PiArfQo+
-Pj4+Pj4gKwo+Pj4+Pj4gK3N0YXRpYyBib29sIGRtYV9mZW5jZV9jaGFpbl9lbmFibGVfc2lnbmFs
-aW5nKHN0cnVjdCBkbWFfZmVuY2UKPj4+Pj4+ICpmZW5jZSkKPj4+Pj4+ICt7Cj4+Pj4+PiArwqDC
-oMKgIHN0cnVjdCBkbWFfZmVuY2VfY2hhaW4gKmhlYWQgPSB0b19kbWFfZmVuY2VfY2hhaW4oZmVu
-Y2UpOwo+Pj4+Pj4gKwo+Pj4+Pj4gK8KgwqDCoCBkbWFfZmVuY2VfY2hhaW5fZm9yX2VhY2goZmVu
-Y2UpIHsKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlX2NoYWluICpjaGFp
-biA9IHRvX2RtYV9mZW5jZV9jaGFpbihmZW5jZSk7Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgc3Ry
-dWN0IGRtYV9mZW5jZSAqZiA9IGNoYWluID8gY2hhaW4tPmZlbmNlIDogZmVuY2U7Cj4+Pj4+PiAr
-Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKCFkbWFfZmVuY2VfYWRkX2NhbGxiYWNrKGYsICZo
-ZWFkLT5jYiwKPj4+Pj4+IGRtYV9mZW5jZV9jaGFpbl9jYikpCj4+Pj4+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByZXR1cm4gdHJ1ZTsKPj4+Pj4+ICvCoMKgwqAgfQo+Pj4+Pj4gK8KgwqDCoCBy
-ZXR1cm4gZmFsc2U7Cj4+Pj4+PiArfQo+Pj4+Pj4gKwo+Pj4+Pj4gK3N0YXRpYyBib29sIGRtYV9m
-ZW5jZV9jaGFpbl9zaWduYWxlZChzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKPj4+Pj4+ICt7Cj4+
-Pj4+PiArwqDCoMKgIGRtYV9mZW5jZV9jaGFpbl9mb3JfZWFjaChmZW5jZSkgewo+Pj4+Pj4gK8Kg
-wqDCoMKgwqDCoMKgIHN0cnVjdCBkbWFfZmVuY2VfY2hhaW4gKmNoYWluID0gdG9fZG1hX2ZlbmNl
-X2NoYWluKGZlbmNlKTsKPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpm
-ID0gY2hhaW4gPyBjaGFpbi0+ZmVuY2UgOiBmZW5jZTsKPj4+Pj4+ICsKPj4+Pj4+ICvCoMKgwqDC
-oMKgwqDCoCBpZiAoIWRtYV9mZW5jZV9pc19zaWduYWxlZChmKSkgewo+Pj4+Pj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgZG1hX2ZlbmNlX3B1dChmZW5jZSk7Cj4+Pj4+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCByZXR1cm4gZmFsc2U7Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgfQo+Pj4+Pj4g
-K8KgwqDCoCB9Cj4+Pj4+PiArCj4+Pj4+PiArwqDCoMKgIHJldHVybiB0cnVlOwo+Pj4+Pj4gK30K
-Pj4+Pj4+ICsKPj4+Pj4+ICtzdGF0aWMgdm9pZCBkbWFfZmVuY2VfY2hhaW5fcmVsZWFzZShzdHJ1
-Y3QgZG1hX2ZlbmNlICpmZW5jZSkKPj4+Pj4+ICt7Cj4+Pj4+PiArwqDCoMKgIHN0cnVjdCBkbWFf
-ZmVuY2VfY2hhaW4gKmNoYWluID0gdG9fZG1hX2ZlbmNlX2NoYWluKGZlbmNlKTsKPj4+Pj4+ICsK
-Pj4+Pj4+ICvCoMKgwqAgZG1hX2ZlbmNlX3B1dChjaGFpbi0+cHJldik7Cj4+Pj4+PiArwqDCoMKg
-IGRtYV9mZW5jZV9wdXQoY2hhaW4tPmZlbmNlKTsKPj4+Pj4+ICvCoMKgwqAgZG1hX2ZlbmNlX2Zy
-ZWUoZmVuY2UpOwo+Pj4+Pj4gK30KPj4+Pj4+ICsKPj4+Pj4+ICtjb25zdCBzdHJ1Y3QgZG1hX2Zl
-bmNlX29wcyBkbWFfZmVuY2VfY2hhaW5fb3BzID0gewo+Pj4+Pj4gK8KgwqDCoCAuZ2V0X2RyaXZl
-cl9uYW1lID0gZG1hX2ZlbmNlX2NoYWluX2dldF9kcml2ZXJfbmFtZSwKPj4+Pj4+ICvCoMKgwqAg
-LmdldF90aW1lbGluZV9uYW1lID0gZG1hX2ZlbmNlX2NoYWluX2dldF90aW1lbGluZV9uYW1lLAo+
-Pj4+Pj4gK8KgwqDCoCAuZW5hYmxlX3NpZ25hbGluZyA9IGRtYV9mZW5jZV9jaGFpbl9lbmFibGVf
-c2lnbmFsaW5nLAo+Pj4+Pj4gK8KgwqDCoCAuc2lnbmFsZWQgPSBkbWFfZmVuY2VfY2hhaW5fc2ln
-bmFsZWQsCj4+Pj4+PiArwqDCoMKgIC5yZWxlYXNlID0gZG1hX2ZlbmNlX2NoYWluX3JlbGVhc2Us
-Cj4+Pj4+PiArfTsKPj4+Pj4+ICtFWFBPUlRfU1lNQk9MKGRtYV9mZW5jZV9jaGFpbl9vcHMpOwo+
-Pj4+Pj4gKwo+Pj4+Pj4gKy8qKgo+Pj4+Pj4gKyAqIGRtYV9mZW5jZV9jaGFpbl9pbml0IC0gaW5p
-dGlhbGl6ZSBhIGZlbmNlIGNoYWluCj4+Pj4+PiArICogQGNoYWluOiB0aGUgY2hhaW4gbm9kZSB0
-byBpbml0aWFsaXplCj4+Pj4+PiArICogQHByZXY6IHRoZSBwcmV2aW91cyBmZW5jZQo+Pj4+Pj4g
-KyAqIEBmZW5jZTogdGhlIGN1cnJlbnQgZmVuY2UKPj4+Pj4+ICsgKgo+Pj4+Pj4gKyAqIEluaXRp
-YWxpemUgYSBuZXcgY2hhaW4gbm9kZSBhbmQgZWl0aGVyIHN0YXJ0IGEgbmV3IGNoYWluIG9yIGFk
-ZAo+Pj4+Pj4gdGhlIG5vZGUgdG8KPj4+Pj4+ICsgKiB0aGUgZXhpc3RpbmcgY2hhaW4gb2YgdGhl
-IHByZXZpb3VzIGZlbmNlLgo+Pj4+Pj4gKyAqLwo+Pj4+Pj4gK3ZvaWQgZG1hX2ZlbmNlX2NoYWlu
-X2luaXQoc3RydWN0IGRtYV9mZW5jZV9jaGFpbiAqY2hhaW4sCj4+Pj4+PiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgc3RydWN0IGRtYV9mZW5jZSAqcHJldiwKPj4+Pj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwKPj4+Pj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50NjRfdCBzZXFubykKPj4+Pj4+ICt7Cj4+Pj4+PiArwqDC
-oMKgIHN0cnVjdCBkbWFfZmVuY2VfY2hhaW4gKnByZXZfY2hhaW4gPSB0b19kbWFfZmVuY2VfY2hh
-aW4ocHJldik7Cj4+Pj4+PiArwqDCoMKgIHVpbnQ2NF90IGNvbnRleHQ7Cj4+Pj4+PiArCj4+Pj4+
-PiArwqDCoMKgIHNwaW5fbG9ja19pbml0KCZjaGFpbi0+bG9jayk7Cj4+Pj4+PiArwqDCoMKgIGNo
-YWluLT5wcmV2ID0gcHJldjsKPj4+Pj4+ICvCoMKgwqAgY2hhaW4tPmZlbmNlID0gZmVuY2U7Cj4+
-Pj4+PiArwqDCoMKgIGNoYWluLT5wcmV2X3NlcW5vID0gMDsKPj4+Pj4+ICvCoMKgwqAgaW5pdF9p
-cnFfd29yaygmY2hhaW4tPndvcmssIGRtYV9mZW5jZV9jaGFpbl9pcnFfd29yayk7Cj4+Pj4+PiAr
-Cj4+Pj4+PiArwqDCoMKgIC8qIFRyeSB0byByZXVzZSB0aGUgY29udGV4dCBvZiB0aGUgcHJldmlv
-dXMgY2hhaW4gbm9kZS4gKi8KPj4+Pj4+ICvCoMKgwqAgaWYgKHByZXZfY2hhaW4gJiYgc2Vxbm8g
-PiBwcmV2LT5zZXFubyAmJgo+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIF9fZG1hX2ZlbmNlX2lzX2xh
-dGVyKHNlcW5vLCBwcmV2LT5zZXFubykpIHsKPj4+Pj4gQXMgeW91ciBwYXRjaCMxIG1ha2VzIF9f
-ZG1hX2ZlbmNlX2lzX2xhdGVyIG9ubHkgYmUgdmFsaWQgZm9yIDMyYml0LAo+Pj4+PiB3ZSBjYW5u
-b3QgdXNlIGl0IGZvciA2NGJpdCBoZXJlLCB3ZSBzaG91bGQgcmVtb3ZlIGl0IGZyb20gaGVyZSwg
-anVzdAo+Pj4+PiBjb21wYXJlIHNlcW5vIGRpcmVjdGx5Lgo+Pj4+IFRoYXQgaXMgaW50ZW50aW9u
-YWwuIFdlIG11c3QgbWFrZSBzdXJlIHRoYXQgdGhlIG51bWJlciBib3RoIGluY3JlbWVudHMKPj4+
-PiBhcyA2NGJpdCBudW1iZXIgYXMgd2VsbCBhcyBub3Qgd3JhcHMgYXJvdW5kIGFzIDMyYml0IG51
-bWJlci4KPj4+Pgo+Pj4+IEluIG90aGVyIHdvcmRzIHRoZSBsYXJnZXN0IGRpZmZlcmVuY2UgYmV0
-d2VlbiB0d28gc2VxdWVuY2UgbnVtYmVycwo+Pj4+IHVzZXJzcGFjZSBpcyBhbGxvd2VkIHRvIHN1
-Ym1pdCBpcyAxPDwzMS4KPj4+IFdoeT8gbm8gb25lIGNhbiBtYWtlIHN1cmUgdGhhdCwgYXBwbGlj
-YXRpb24gdXNlcnMgd291bGQgb25seSB0aGluayBpdCBpcwo+Pj4gYW4gdWludDY0IHNlcXVlbmNl
-IG51Ym1lciwgYW5kIHRoZXkgY2FuIHNpZ25hbCBhbnkgYWR2YW5jZWQgcG9pbnQuIEkKPj4+IGFs
-cmVhZHkgc2VlIHVtZCBndXlzIHdyaXRpbmcgdGltZWxpbmUgdGVzdCB1c2UgbWF4X3VpbnQ2NC0x
-IGFzIGEgZmluYWwKPj4+IHNpZ25hbC4KPj4+IFdlIHNob3VsZG4ndCBhZGQgdGhpcyBsaW1pdGF0
-aW9uIGhlcmUuCj4+IFdlIG5lZWQgdG8gYmUgYmFja3dhcmQgY29tcGF0aWJsZSB0byBoYXJkd2Fy
-ZSB3aGljaCBjYW4gb25seSBkbyAzMmJpdAo+PiBzaWduYWxpbmcgd2l0aCB0aGUgZG1hLWZlbmNl
-IGltcGxlbWVudGF0aW9uLgo+IEkgc2VlIHRoYXQsIHlvdSBhbHJlYWR5IGV4cGxhaW5lZCB0aGF0
-IGJlZm9yZS4KPiBidXQgY2FuJ3Qgd2UganVzdCBncmVwIGxvdyAzMmJpdCBvZiBzZXFubyBvbmx5
-IHdoZW4gMzJiaXQgaGFyZHdhcmUgdHJ5Cj4gdG8gdXNlPwo+Cj4gdGhlbiB3ZSBjYW4gbWFrZSBk
-bWFfZmVuY2VfbGF0ZXIgdXNlIDY0Yml0IGNvbXBhcmF0aW9uLgoKVGhlIHByb2JsZW0gaXMgdGhh
-dCB3ZSBkb24ndCBrbm93IGF0IGFsbCB0aW1lcyB3aGVuIHRvIHVzZSBhIDMyYml0IApjb21wYXJl
-IGFuZCB3aGVuIHRvIHVzZSBhIDY0Yml0IGNvbXBhcmUuCgpXaGF0IHdlIGNvdWxkIGRvIGlzIHRl
-c3QgaWYgYW55IG9mIHRoZSB1cHBlciAzMmJpdHMgb2YgYSBzZXF1ZW5jZSBudW1iZXIgCmlzIG5v
-dCAwIGFuZCBpZiB0aGF0IGlzIHRoZSBjYXNlIGRvIGEgNjRiaXQgY29tcGFyZS4gVGhpcyB3YXkg
-Cm1heF91aW50NjRfdCB3b3VsZCBzdGlsbCBiZSBoYW5kbGVkIGNvcnJlY3RseS4KCgpDaHJpc3Rp
-YW4uCgo+Cj4+IE90aGVyd2lzZSBkbWFfZmVuY2VfbGF0ZXIoKSBjb3VsZCByZXR1cm4gYW4gaW5j
-b25zaXN0ZW50IHJlc3VsdCBhbmQKPj4gYnJlYWsgYXQgb3RoZXIgcGxhY2VzLgo+Pgo+PiBTbyBp
-ZiB1c2Vyc3BhY2Ugd2FudHMgdG8gdXNlIG1vcmUgdGhhbiAxPDwzMSBkaWZmZXJlbmNlIGJldHdl
-ZW4KPj4gc2VxdWVuY2UgbnVtYmVycyB3ZSBuZWVkIHRvIHB1c2ggYmFjayBvbiB0aGlzLgo+IEl0
-J3MgcmFyZSBjYXNlLCBidXQgSSBkb24ndCB0aGluayB3ZSBjYW4gY29udmluY2UgdGhlbSBhZGQg
-dGhpcwo+IGxpbWl0YXRpb24uIFNvIHdlIGNhbm5vdCBhZGQgdGhpcyBsaW1pdGF0aW9uIGhlcmUu
-Cj4KPiAtRGF2aWQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0643721582==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809BDEB9A20E5374525FD69F7AE0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809BDEB9A20E5374525FD69F7AE0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Patches 1, 2:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+
+Patch 3:
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Andrey G=
+rodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, November 30, 2018 4:41:10 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Wang, Ken; ckoenig.l=
+eichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; Xu, Feifei
+Cc: Grodzovsky, Andrey
+Subject: [PATCH v3 3/3] drm/amdgpu: Implement concurrent asic reset for XGM=
+I.
+
+Use per hive wq to concurrently send reset commands to all nodes
+in the hive.
+
+v2:
+Switch to system_highpri_wq after dropping dedicated queue.
+Fix non XGMI code path KASAN error.
+Stop  the hive reset for each node loop if there
+is a reset failure on any of the nodes.
+
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 44 ++++++++++++++++++++++++++=
+----
+ 2 files changed, 41 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index c8ad6bf..6fc023b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -910,7 +910,9 @@ struct amdgpu_device {
+         bool                            in_gpu_reset;
+         struct mutex  lock_reset;
+         struct amdgpu_doorbell_index doorbell_index;
++
+         int asic_reset_res;
++       struct work_struct              xgmi_reset_work;
+ };
+
+ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *=
+bdev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index bfd286c..9fd9f63 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2356,6 +2356,19 @@ bool amdgpu_device_has_dc_support(struct amdgpu_devi=
+ce *adev)
+         return amdgpu_device_asic_has_dc_support(adev->asic_type);
+ }
+
++
++static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)
++{
++       struct amdgpu_device *adev =3D
++               container_of(__work, struct amdgpu_device, xgmi_reset_work)=
+;
++
++       adev->asic_reset_res =3D  amdgpu_asic_reset(adev);
++       if (adev->asic_reset_res)
++               DRM_WARN("ASIC reset failed with err r, %d for drm dev, %s"=
+,
++                        adev->asic_reset_res, adev->ddev->unique);
++}
++
++
+ /**
+  * amdgpu_device_init - initialize the driver
+  *
+@@ -2454,6 +2467,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+         INIT_DELAYED_WORK(&adev->gfx.gfx_off_delay_work,
+                           amdgpu_device_delay_enable_gfx_off);
+
++       INIT_WORK(&adev->xgmi_reset_work, amdgpu_device_xgmi_reset_func);
++
+         adev->gfx.gfx_off_req_count =3D 1;
+         adev->pm.ac_power =3D power_supply_is_system_supplied() > 0 ? true=
+ : false;
+
+@@ -3331,10 +3346,31 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_=
+info *hive,
+          */
+         if (need_full_reset) {
+                 list_for_each_entry(tmp_adev, device_list_handle, gmc.xgmi=
+.head) {
+-                       r =3D amdgpu_asic_reset(tmp_adev);
+-                       if (r)
+-                               DRM_WARN("ASIC reset failed with err r, %d =
+for drm dev, %s",
++                       /* For XGMI run all resets in parallel to speed up =
+the process */
++                       if (tmp_adev->gmc.xgmi.num_physical_nodes > 1) {
++                               if (!queue_work(system_highpri_wq, &tmp_ade=
+v->xgmi_reset_work))
++                                       r =3D -EALREADY;
++                       } else
++                               r =3D amdgpu_asic_reset(tmp_adev);
++
++                       if (r) {
++                               DRM_ERROR("ASIC reset failed with err r, %d=
+ for drm dev, %s",
+                                          r, tmp_adev->ddev->unique);
++                               break;
++                       }
++               }
++
++               /* For XGMI wait for all PSP resets to complete before proc=
+eed */
++               if (!r) {
++                       list_for_each_entry(tmp_adev, device_list_handle,
++                                           gmc.xgmi.head) {
++                               if (tmp_adev->gmc.xgmi.num_physical_nodes >=
+ 1) {
++                                       flush_work(&tmp_adev->xgmi_reset_wo=
+rk);
++                                       r =3D tmp_adev->asic_reset_res;
++                                       if (r)
++                                               break;
++                               }
++                       }
+                 }
+         }
+
+@@ -3521,8 +3557,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *a=
+dev,
+                 if (tmp_adev =3D=3D adev)
+                         continue;
+
+-               dev_info(tmp_adev->dev, "GPU reset begin for drm dev %s!\n"=
+, adev->ddev->unique);
+-
+                 amdgpu_device_lock_adev(tmp_adev);
+                 r =3D amdgpu_device_pre_asic_reset(tmp_adev,
+                                                  NULL,
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809BDEB9A20E5374525FD69F7AE0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Patches 1, 2:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Patch 3:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Andrey Grodzovsky &lt;andrey.=
+grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, November 30, 2018 4:41:10 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, Alexander; Wang, Ken; ck=
+oenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; Xu, Feifei<br>
+<b>Cc:</b> Grodzovsky, Andrey<br>
+<b>Subject:</b> [PATCH v3 3/3] drm/amdgpu: Implement concurrent asic reset =
+for XGMI.</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Use per hive wq to concurrently send reset command=
+s to all nodes<br>
+in the hive.<br>
+<br>
+v2:<br>
+Switch to system_highpri_wq after dropping dedicated queue.<br>
+Fix non XGMI code path KASAN error.<br>
+Stop&nbsp; the hive reset for each node loop if there<br>
+is a reset failure on any of the nodes.<br>
+<br>
+Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; |&nbsp; 2 &#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 44 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;----<br>
+&nbsp;2 files changed, 41 insertions(&#43;), 5 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index c8ad6bf..6fc023b 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -910,7 &#43;910,9 @@ struct amdgpu_device {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; in_gpu_re=
+set;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp; lock_re=
+set;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_doorbell_ind=
+ex doorbell_index;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int asic_reset_res;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct work_struct&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xgmi_reset_=
+work;<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_dev=
+ice *bdev)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index bfd286c..9fd9f63 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -2356,6 &#43;2356,19 @@ bool amdgpu_device_has_dc_support(struct amdgpu_=
+device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_device_asic_=
+has_dc_support(adev-&gt;asic_type);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;<br>
+&#43;static void amdgpu_device_xgmi_reset_func(struct work_struct *__work)<=
+br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; container_of(__work, struct amdgpu_device, xgmi_reset_work);=
+<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;asic_reset_res =3D&nbsp;=
+ amdgpu_asic_reset(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;asic_reset_res)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; DRM_WARN(&quot;ASIC reset failed with err r, %d for drm dev,=
+ %s&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&=
+gt;asic_reset_res, adev-&gt;ddev-&gt;unique);<br>
+&#43;}<br>
+&#43;<br>
+&#43;<br>
+&nbsp;/**<br>
+&nbsp; * amdgpu_device_init - initialize the driver<br>
+&nbsp; *<br>
+@@ -2454,6 &#43;2467,8 @@ int amdgpu_device_init(struct amdgpu_device *adev=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;ade=
+v-&gt;gfx.gfx_off_delay_work,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; amdgpu_device_delay_enable_gfx_off);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_WORK(&amp;adev-&gt;xgmi_rese=
+t_work, amdgpu_device_xgmi_reset_func);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.gfx_off_req_c=
+ount =3D 1;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.ac_power =3D p=
+ower_supply_is_system_supplied() &gt; 0 ? true : false;<br>
+&nbsp;<br>
+@@ -3331,10 &#43;3346,31 @@ static int amdgpu_do_asic_reset(struct amdgpu_h=
+ive_info *hive,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (need_full_reset) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; list_for_each_entry(tmp_adev, device_list_handle, gmc=
+.xgmi.head) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asi=
+c_reset(tmp_adev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_WARN(&quot;ASIC reset failed with err r=
+, %d for drm dev, %s&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* For XGMI =
+run all resets in parallel to speed up the process */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp_adev=
+-&gt;gmc.xgmi.num_physical_nodes &gt; 1) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!queue_work(system_highpri_wq, &amp=
+;tmp_adev-&gt;xgmi_reset_work))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; r =3D -EALREADY;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asic_reset(tmp_adev);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;ASIC reset failed with =
+err r, %d for drm dev, %s&quot;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r, tmp_adev-&gt;ddev-&gt;unique);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /* For XGMI wait for all PSP resets to complete before proce=
+ed */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_for_eac=
+h_entry(tmp_adev, device_list_handle,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gmc.xgmi.head) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp_adev-&gt;gmc.xgmi.num_physical_=
+nodes &gt; 1) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; flush_work(&amp;tmp_adev-&gt;xgmi_reset_work);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; r =3D tmp_adev-&gt;asic_reset_res;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; if (r)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -3521,8 &#43;3557,6 @@ int amdgpu_device_gpu_recover(struct amdgpu_devic=
+e *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (tmp_adev =3D=3D adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_info(tmp_adev-&gt;dev, &quot;GPU reset begin for drm dev %s!=
+\n&quot;, adev-&gt;ddev-&gt;unique);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_device_lock_adev(tmp_adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_device_pre_asic_reset(tmp_adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL,=
+<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809BDEB9A20E5374525FD69F7AE0BN6PR12MB1809namp_--
+
+--===============0643721582==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0643721582==--
