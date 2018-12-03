@@ -1,71 +1,114 @@
-From: Boris Brezillon <boris.brezillon@bootlin.com>
+From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
 Subject: Re: [PATCH v3 1/3] drm/connector: Add generic underscan properties
-Date: Mon, 3 Dec 2018 16:36:36 +0100
-Message-ID: <20181203163636.7053cffd@bbrezillon>
+Date: Mon, 03 Dec 2018 07:50:53 -0800
+Message-ID: <87k1kqfw2q.fsf@anholt.net>
 References: <20181122112331.17735-1-boris.brezillon@bootlin.com>
  <20181122112331.17735-2-boris.brezillon@bootlin.com>
- <20181203144011.GH9144@intel.com>
+ <20181203144011.GH9144@intel.com> <20181203163636.7053cffd@bbrezillon>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20181203144011.GH9144@intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0329242848=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181203163636.7053cffd@bbrezillon>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Boris Brezillon <boris.brezillon-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Ville =?utf-8?B?U3ly?= =?utf-8?B?asOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
+Cc: nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-T24gTW9uLCAzIERlYyAyMDE4IDE2OjQwOjExICswMjAwClZpbGxlIFN5cmrDpGzDpCA8dmlsbGUu
-c3lyamFsYUBsaW51eC5pbnRlbC5jb20+IHdyb3RlOgoKPiBPbiBUaHUsIE5vdiAyMiwgMjAxOCBh
-dCAxMjoyMzoyOVBNICswMTAwLCBCb3JpcyBCcmV6aWxsb24gd3JvdGU6Cj4gPiBAQCAtOTI0LDYg
-Kzk3OCwyOSBAQCBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciB7Cj4gPiAgCSAqLwo+ID4gIAlzdHJ1Y3Qg
-ZHJtX3Byb3BlcnR5X2Jsb2IgKnBhdGhfYmxvYl9wdHI7Cj4gPiAgCj4gPiArCS8qKgo+ID4gKwkg
-KiBAdW5kZXJzY2FuX21vZGVfcHJvcGVydHk6IE9wdGlvbmFsIGNvbm5lY3RvciB1bmRlcnNjYW4g
-bW9kZS4gVXNlZCBieQo+ID4gKwkgKiB0aGUgZHJpdmVyIHRvIHNjYWxlIHRoZSBvdXRwdXQgaW1h
-Z2UgYW5kIGNvbXBlbnNhdGUgYW4gb3ZlcnNjYW4gZG9uZQo+ID4gKwkgKiBvbiB0aGUgZGlzcGxh
-eSBzaWRlLgo+ID4gKwkgKi8KPiA+ICsJc3RydWN0IGRybV9wcm9wZXJ0eSAqdW5kZXJzY2FuX21v
-ZGVfcHJvcGVydHk7Cj4gPiArCj4gPiArCS8qKgo+ID4gKwkgKiBAdW5kZXJzY2FuX2hib3JkZXJf
-cHJvcGVydHk6IE9wdGlvbmFsIGNvbm5lY3RvciB1bmRlcnNjYW4gaG9yaXpvbnRhbAo+ID4gKwkg
-KiBib3JkZXIgKGV4cHJlc3NlZCBpbiBwaXhlbHMpLiBVc2VkIGJ5IHRoZSBkcml2ZXIgdG8gYWRq
-dXN0IHRoZQo+ID4gKwkgKiBvdXRwdXQgaW1hZ2UgcG9zaXRpb24gYW5kIGNvbXBlbnNhdGUgYW4g
-b3ZlcnNjYW4gZG9uZSBvbiB0aGUgZGlzcGxheQo+ID4gKwkgKiBzaWRlLgo+ID4gKwkgKi8KPiA+
-ICsJc3RydWN0IGRybV9wcm9wZXJ0eSAqdW5kZXJzY2FuX2hib3JkZXJfcHJvcGVydHk7Cj4gPiAr
-Cj4gPiArCS8qKgo+ID4gKwkgKiBAdW5kZXJzY2FuX2hib3JkZXJfcHJvcGVydHk6IE9wdGlvbmFs
-IGNvbm5lY3RvciB1bmRlcnNjYW4gdmVydGljYWwKPiA+ICsJICogYm9yZGVyIChleHByZXNzZWQg
-aW4gcGl4ZWxzKS4gVXNlZCBieSB0aGUgZHJpdmVyIHRvIGFkanVzdCB0aGUKPiA+ICsJICogb3V0
-cHV0IGltYWdlIHBvc2l0aW9uIGFuZCBjb21wZW5zYXRlIGFuIG92ZXJzY2FuIGRvbmUgb24gdGhl
-IGRpc3BsYXkKPiA+ICsJICogc2lkZS4KPiA+ICsJICovCj4gPiArCXN0cnVjdCBkcm1fcHJvcGVy
-dHkgKnVuZGVyc2Nhbl92Ym9yZGVyX3Byb3BlcnR5OyAgCj4gCj4gSSdtIHdvbmRlcmluZyB3aHkg
-d2UncmUgYWRkaW5nIHRoZXNlIG5ldyBwcm9wcyB3aGVuIHdlIGFscmVhZHkgaGF2ZSB0aGUKPiAo
-c2xpZ2h0bHkgbW9yZSBmbGV4aWJsZSkgbWFyZ2luIHByb3BlcnRpZXMgZm9yIFRWIG91dC4gV2Ug
-Y291bGQganVzdAo+IHJldXNlIHRob3NlIEFGQUlDUy4KCkknbSBub3QgYWdhaW5zdCB0aGUgaWRl
-YSwgYnV0IEkgY2FuJ3QgdXNlCmRybV9tb2RlX2NyZWF0ZV90dl9wcm9wZXJ0aWVzKCkgZGlyZWN0
-bHksIGFzIG1vc3QgcHJvcHMgY3JlYXRlZCBieSB0aGlzCmZ1bmN0aW9uIGFyZSBub3QgYXBwbGlj
-YWJsZSB0byBhbiBIRE1JIGRpc3BsYXlzLiBTaG91bGQgSSBtb3ZlIHRoZQptYXJnaW5zIHByb3Bz
-IG91dCBvZiB0aGUgdHZfY29ubmVjdG9yX3N0YXRlIGFuZCBwcm92aWRlIG5ldyBoZWxwZXJzIHRv
-CmNyZWF0ZSB0aG9zZSBwcm9wcz8KCj4gCj4gPiArCj4gPiAgI2RlZmluZSBEUk1fQ09OTkVDVE9S
-X1BPTExfSFBEICgxIDw8IDApCj4gPiAgI2RlZmluZSBEUk1fQ09OTkVDVE9SX1BPTExfQ09OTkVD
-VCAoMSA8PCAxKQo+ID4gICNkZWZpbmUgRFJNX0NPTk5FQ1RPUl9QT0xMX0RJU0NPTk5FQ1QgKDEg
-PDwgMikKPiA+IEBAIC0xMTgwLDYgKzEyNTcsOSBAQCBpbnQgZHJtX21vZGVfY3JlYXRlX2R2aV9p
-X3Byb3BlcnRpZXMoc3RydWN0IGRybV9kZXZpY2UgKmRldik7Cj4gPiAgaW50IGRybV9tb2RlX2Ny
-ZWF0ZV90dl9wcm9wZXJ0aWVzKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCj4gPiAgCQkJCSAgdW5z
-aWduZWQgaW50IG51bV9tb2RlcywKPiA+ICAJCQkJICBjb25zdCBjaGFyICogY29uc3QgbW9kZXNb
-XSk7Cj4gPiAraW50IGRybV9jb25uZWN0b3JfYXR0YWNoX3VuZGVyc2Nhbl9wcm9wZXJ0aWVzKHN0
-cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsCj4gPiArCQkJCQkgICAgICB1MzIgbW9kZV9t
-YXNrLCB1NjQgbWF4X2hib3JkZXIsCj4gPiArCQkJCQkgICAgICB1NjQgbWF4X3Zib3JkZXIpOwo+
-ID4gIGludCBkcm1fbW9kZV9jcmVhdGVfc2NhbGluZ19tb2RlX3Byb3BlcnR5KHN0cnVjdCBkcm1f
-ZGV2aWNlICpkZXYpOwo+ID4gIGludCBkcm1fY29ubmVjdG9yX2F0dGFjaF9jb250ZW50X3R5cGVf
-cHJvcGVydHkoc3RydWN0IGRybV9jb25uZWN0b3IgKmRldik7Cj4gPiAgaW50IGRybV9jb25uZWN0
-b3JfYXR0YWNoX3NjYWxpbmdfbW9kZV9wcm9wZXJ0eShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29u
-bmVjdG9yLAo+ID4gLS0gCj4gPiAyLjE3LjEgIAo+IAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+--===============0329242848==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Boris Brezillon <boris.brezillon-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org> writes:
+
+> On Mon, 3 Dec 2018 16:40:11 +0200
+> Ville Syrj=C3=A4l=C3=A4 <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org> wrote:
+>
+>> On Thu, Nov 22, 2018 at 12:23:29PM +0100, Boris Brezillon wrote:
+>> > @@ -924,6 +978,29 @@ struct drm_connector {
+>> >  	 */
+>> >  	struct drm_property_blob *path_blob_ptr;
+>> >=20=20
+>> > +	/**
+>> > +	 * @underscan_mode_property: Optional connector underscan mode. Used=
+ by
+>> > +	 * the driver to scale the output image and compensate an overscan d=
+one
+>> > +	 * on the display side.
+>> > +	 */
+>> > +	struct drm_property *underscan_mode_property;
+>> > +
+>> > +	/**
+>> > +	 * @underscan_hborder_property: Optional connector underscan horizon=
+tal
+>> > +	 * border (expressed in pixels). Used by the driver to adjust the
+>> > +	 * output image position and compensate an overscan done on the disp=
+lay
+>> > +	 * side.
+>> > +	 */
+>> > +	struct drm_property *underscan_hborder_property;
+>> > +
+>> > +	/**
+>> > +	 * @underscan_hborder_property: Optional connector underscan vertical
+>> > +	 * border (expressed in pixels). Used by the driver to adjust the
+>> > +	 * output image position and compensate an overscan done on the disp=
+lay
+>> > +	 * side.
+>> > +	 */
+>> > +	struct drm_property *underscan_vborder_property;=20=20
+>>=20
+>> I'm wondering why we're adding these new props when we already have the
+>> (slightly more flexible) margin properties for TV out. We could just
+>> reuse those AFAICS.
+>
+> I'm not against the idea, but I can't use
+> drm_mode_create_tv_properties() directly, as most props created by this
+> function are not applicable to an HDMI displays. Should I move the
+> margins props out of the tv_connector_state and provide new helpers to
+> create those props?
+
+TV margin props look good to me, FWIW.
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlwFUN0ACgkQtdYpNtH8
+nuj4/A//YBSOhcSonFIhzzu5jiBw0HfyUaumOpFaZ7U0BbcABXqFftpB3ddNIMnf
+NMte0ByJScUvTzEYkYqEE9d1bByvWNhkAsqqhEDvP/dWOVnTJhekZQb5Cm//xtG9
+HY6J5mvtNCIrRhTrFTX74tzEYEiojO25XZEM/qf0+fpmicyKigwmX4dhATnUGzeO
+1IlYGT2o9ZUlsR8FEqiph2gDnv2UfXwQVouYneSMeG/0TwWxTLC0a3Tq+DV220Fe
+kvDOIiR8PRgwR8B80zPT6b2MG3SJhep2ogXrMweln5XBKFYcaL85TOy0/MMNVQYo
+8jgO5ajBKOfcM/UFwUEC9HdlE3K73L/H4ClnyyfUvXdKYXzpnxn8B6ETF9YsW8kT
+fTPys0NOn6km+/NiULXDPknSot6rPo8s80ePp8yp3xVsxGy045tSKpjrVKGZM5Ym
+ENJHp4NA0obnRLRdbSriuu/9DRnh5IEOxLCwYE5t6NQMcKJ26t5xAm+ToKZRRhEc
+7qtN1WdmP4vhjJiDz9buHdiDc7y4u45UWksqbfO6kSnyQHq02KT8xPk1QqVAulBn
+H7naSUS8yAFqD25W2UaKyGVMYqmqJyXlGPpDcekQ8zc9w25f/24RKdTVmp2h4XHY
+rysVSr4xF0+1TA9fMe5GXI55N4eKZivlHvIk+gxyZF8g882Vq/8=
+=DAG6
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============0329242848==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0329242848==--
