@@ -1,31 +1,45 @@
-From: Thomas Meyer <thomas@m3y3r.de>
-Subject: [PATCH] drm/amdgpu: NULL check before some freeing functions is
- not needed.
-Date: Sun, 02 Dec 2018 21:52:11 +0100
-Message-ID: <1543760930051-1905796531-2-diffsplit-thomas@m3y3r.de>
-References: <1543760930050-1499171309-0-diffsplit-thomas@m3y3r.de>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/si: fix SI after doorbell rework
+Date: Sun,  2 Dec 2018 21:49:58 -0500
+Message-ID: <20181203024958.28896-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1543760930050-1499171309-0-diffsplit-thomas@m3y3r.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-NULL check before some freeing functions is not needed.
-
-Signed-off-by: Thomas Meyer <thomas@m3y3r.de>
----
-
-diff -u -p a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -816,6 +816,5 @@ out:
- void amdgpu_acpi_fini(struct amdgpu_device *adev)
- {
- 	unregister_acpi_notifier(&adev->acpi_nb);
--	if (adev->atif)
--		kfree(adev->atif);
-+	kfree(adev->atif);
- }
+U0kgZG9lcyBub3QgdXNlIGRvb3JiZWxscywgbW92ZSBhc2ljIGRvb3JiZWxsIGluaXQgbGF0ZXIK
+YXNpYyBjaGVjay4KCkZpeGVzOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVn
+LmNnaT9pZD0xMDg5MjAKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYyB8IDMgKystCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
+ZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCmluZGV4IGM3
+NWJhZGZhNWM0Yy4uNWE3MjkwNmZkYzZiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RldmljZS5jCkBAIC01MTUsNyArNTE1LDYgQEAgdm9pZCBhbWRncHVfZGV2aWNlX3Bj
+aV9jb25maWdfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAgKi8KIHN0YXRpYyBp
+bnQgYW1kZ3B1X2RldmljZV9kb29yYmVsbF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogewotCWFtZGdwdV9hc2ljX2luaXRfZG9vcmJlbGxfaW5kZXgoYWRldik7CiAKIAkvKiBObyBk
+b29yYmVsbCBvbiBTSSBoYXJkd2FyZSBnZW5lcmF0aW9uICovCiAJaWYgKGFkZXYtPmFzaWNfdHlw
+ZSA8IENISVBfQk9OQUlSRSkgewpAQCAtNTI5LDYgKzUyOCw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1
+X2RldmljZV9kb29yYmVsbF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCWlmIChw
+Y2lfcmVzb3VyY2VfZmxhZ3MoYWRldi0+cGRldiwgMikgJiBJT1JFU09VUkNFX1VOU0VUKQogCQly
+ZXR1cm4gLUVJTlZBTDsKIAorCWFtZGdwdV9hc2ljX2luaXRfZG9vcmJlbGxfaW5kZXgoYWRldik7
+CisKIAkvKiBkb29yYmVsbCBiYXIgbWFwcGluZyAqLwogCWFkZXYtPmRvb3JiZWxsLmJhc2UgPSBw
+Y2lfcmVzb3VyY2Vfc3RhcnQoYWRldi0+cGRldiwgMik7CiAJYWRldi0+ZG9vcmJlbGwuc2l6ZSA9
+IHBjaV9yZXNvdXJjZV9sZW4oYWRldi0+cGRldiwgMik7Ci0tIAoyLjEzLjYKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
