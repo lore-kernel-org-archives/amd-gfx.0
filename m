@@ -1,96 +1,239 @@
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/sched: Fix a use-after-free when tracing the
- scheduler.
-Date: Tue, 4 Dec 2018 07:25:14 +0000
-Message-ID: <5cc28f6d-15ab-3043-6f16-a293cd912807@amd.com>
-References: <20181203201453.25773-1-eric@anholt.net>
+From: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH -next] drm/amdgpu: Fix return value check in
+ amdgpu_allocate_static_csa()
+Date: Tue, 4 Dec 2018 07:39:56 +0000
+Message-ID: <BYAPR12MB27752170A0E1594190AD34BAFBAF0@BYAPR12MB2775.namprd12.prod.outlook.com>
+References: <1543905576-38015-1-git-send-email-weiyongjun1@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181203201453.25773-1-eric@anholt.net>
+Content-Type: multipart/mixed; boundary="===============1793911854=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1543905576-38015-1-git-send-email-weiyongjun1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
 Content-Language: en-US
-Content-ID: <89550CD2DE3E9740946409F2294B41FA@namprd12.prod.outlook.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Eric Anholt <eric@anholt.net>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Wei Yongjun <weiyongjun1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-QW0gMDMuMTIuMTggdW0gMjE6MTQgc2NocmllYiBFcmljIEFuaG9sdDoNCj4gV2l0aCBERUJVR19T
-TEFCIChwb2lzb25pbmcgb24gZnJlZSkgZW5hYmxlZCwgSSBjb3VsZCBxdWlja2x5IHByb2R1Y2UN
-Cj4gYW4gb29wcyB3aGVuIHRyYWNpbmcgVjNELg0KDQpHb29kIGNhdGNoLCBidXQgdGhlIHNvbHV0
-aW9uIGlzIGEgY2xlYXIgTkFLLg0KDQpkcm1fc2NoZWRfZW50aXR5X2FkZF9kZXBlbmRlbmN5X2Ni
-KCkgY2FuIHJlc3VsdCBpbiBzZXR0aW5nIA0KZW50aXR5LT5kZXBlbmRlbmN5IHRvIE5VTEwuIFRo
-YXQgaW4gdHVybiBjYW4gbGVhZCB0byBhIG1lbW9yeSBsZWFrIA0KYmVjYXVzZSB3ZSBjYWxsIHRo
-ZSBfcHV0IHdpdGggYSBOVUxMIGZlbmNlLg0KDQpJbnN0ZWFkIHdlIHNob3VsZCByYXRoZXIgY2Fs
-bCB0cmFjZV9kcm1fc2NoZWRfam9iX3dhaXRfZGVwKCkgYmVmb3JlIGV2ZW4gDQpjYWxsaW5nIGRy
-bV9zY2hlZF9lbnRpdHlfYWRkX2RlcGVuZGVuY3lfY2IoKS4gVGhpcyBpcyBhbHNvIGNsZWFuZXIg
-DQpiZWNhdXNlIHdlIHdhbnQgdG8gdHJhY2Ugd2hpY2ggZGVwZW5kZW5jaWVzIHRoZSBkcml2ZXIg
-Z2F2ZSB0byB0aGUgDQpzY2hlZHVsZXIgYW5kIG5vdCB3aGljaCB3ZSBhY3R1YWxseSBuZWVkZWQg
-dG8gYWRkIGEgY2FsbGJhY2sgdG8uDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4NCj4gU2ln
-bmVkLW9mZi1ieTogRXJpYyBBbmhvbHQgPGVyaWNAYW5ob2x0Lm5ldD4NCj4gLS0tDQo+DQo+IEkg
-dGhpbmsgdGhpcyBwYXRjaCBpcyBjb3JyZWN0ICh0aG91Z2ggbWF5YmUgYSBiaWdnZXIgcmVmYWN0
-b3IgY291bGQNCj4gYXZvaWQgdGhlIGV4dHJhIGdldC9wdXQ/KSwgYnV0IEkndmUgc3RpbGwgZ290
-IHRoaXMgd2l0aCAidmJsYW5rX21vZGU9MA0KPiBwZXJmIHJlY29yZCAtYSAtZSB2M2Q6LlwqIC1l
-IGdwdV9zY2hlZHVsZXI6LlwqIGdseGdlYXJzIi4gIEFueSBpZGVhcz8NCj4NCj4gWyAgMTM5Ljg0
-MjE5MV0gVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGF0
-IHZpcnR1YWwgYWRkcmVzcyAwMDAwMDAyMA0KPiBbICAxMzkuODUwNDEzXSBwZ2QgPSBlYWI3YmI1
-Nw0KPiBbICAxMzkuODU0NDI0XSBbMDAwMDAwMjBdICpwZ2Q9ODAwMDAwNDAwMDQwMDMsICpwbWQ9
-MDAwMDAwMDANCj4gWyAgMTM5Ljg2MDUyM10gSW50ZXJuYWwgZXJyb3I6IE9vcHM6IDIwNiBbIzFd
-IFNNUCBBUk0NCj4gWyAgMTM5Ljg2NTM0MF0gTW9kdWxlcyBsaW5rZWQgaW46DQo+IFsgIDEzOS44
-Njg0MDRdIENQVTogMCBQSUQ6IDExNjEgQ29tbTogdjNkX3JlbmRlciBOb3QgdGFpbnRlZCA0LjIw
-LjAtcmM0KyAjNTUyDQo+IFsgIDEzOS44NzUyODddIEhhcmR3YXJlIG5hbWU6IEJyb2FkY29tIFNU
-QiAoRmxhdHRlbmVkIERldmljZSBUcmVlKQ0KPiBbICAxMzkuODgxMjI4XSBQQyBpcyBhdCBwZXJm
-X3RyYWNlX2RybV9zY2hlZF9qb2Jfd2FpdF9kZXArMHhhOC8weGY0DQo+IFsgIDEzOS44ODcyNDNd
-IExSIGlzIGF0IDB4ZTk3OTAyNzQNCj4gWyAgMTM5Ljg5MDM4OF0gcGMgOiBbPGMwNmU3MTVjPl0g
-ICAgbHIgOiBbPGU5NzkwMjc0Pl0gICAgcHNyOiBhMDA1MDAxMw0KPiBbICAxMzkuODk2NjYyXSBz
-cCA6IGVkMjFkZWMwICBpcCA6IGVkMjFkZWMwICBmcCA6IGVkMjFkZjA0DQo+IFsgIDEzOS45MDE4
-OTNdIHIxMDogZWQyNjc0NzggIHI5IDogMDAwMDAwMDAgIHI4IDogZmY3YmRlMDQNCj4gWyAgMTM5
-LjkwNzEyM10gcjcgOiAwMDAwMDAwMCAgcjYgOiAwMDAwMDA2MyAgcjUgOiAwMDAwMDAwMCAgcjQg
-OiBjMTIwODQ0OA0KPiBbICAxMzkuOTEzNjU5XSByMyA6IGMxMjY1NjkwICByMiA6IGZmN2JmNjYw
-ICByMSA6IDAwMDAwMDM0ICByMCA6IGZmN2JmNjYwDQo+IFsgIDEzOS45MjAxOTZdIEZsYWdzOiBO
-ekN2ICBJUlFzIG9uICBGSVFzIG9uICBNb2RlIFNWQ18zMiAgSVNBIEFSTSAgU2VnbWVudCB1c2Vy
-DQo+IFsgIDEzOS45MjczMzldIENvbnRyb2w6IDMwYzUzODNkICBUYWJsZTogNjhmYTNiNDAgIERB
-QzogZmZmZmZmZmQNCj4gWyAgMTM5LjkzMzA5NV0gUHJvY2VzcyB2M2RfcmVuZGVyIChwaWQ6IDEx
-NjEsIHN0YWNrIGxpbWl0ID0gMHhiM2M4NGIxYikNCj4gWyAgMTM5LjkzOTQ1N10gU3RhY2s6ICgw
-eGVkMjFkZWMwIHRvIDB4ZWQyMWUwMDApDQo+IFsgIDEzOS45NDM4MjFdIGRlYzA6IDIwMDUwMDEz
-IGZmZmZmZmZmIGViOTcwMGNjIDAwMDAwMDAwIGVjMGU4ZTgwIDAwMDAwMDAwIGViOTcwMGNjIGU5
-NzkwMjc0DQo+IFsgIDEzOS45NTIwMDldIGRlZTA6IDAwMDAwMDAwIGUyZjU5MzQ1IGViOTcwMDc4
-IGViYThmNjgwIGMxMmFlMDBjIGMxMjA4NDc4IDAwMDAwMDAwIGU4YzJiMDQ4DQo+IFsgIDEzOS45
-NjAxOTddIGRmMDA6IGViOTcwMGNjIGMwNmU5MmU0IGMwNmU4ZjA0IDAwMDAwMDAwIDgwMDUwMDEz
-IGVkMjY3NDc4IGViOTcwMDc4IDAwMDAwMDAwDQo+IFsgIDEzOS45NjgzODVdIGRmMjA6IGVkMjY3
-NTc4IGMwZTQ1YWUwIGU5MDkzMDgwIGMwNmU4MzFjIGVkMjY3NjMwIGMwNmU4MTIwIGMwNmU3N2Q0
-IGMxMjA4NDQ4DQo+IFsgIDEzOS45NzY1NzNdIGRmNDA6IGVlMmU4YWNjIDAwMDAwMDAxIDAwMDAw
-MDAwIGVlMmU4NjQwIGMwMjcyYWI0IGVkMjFkZjU0IGVkMjFkZjU0IGUyZjU5MzQ1DQo+IFsgIDEz
-OS45ODQ3NjJdIGRmNjA6IGVkMjFjMDAwIGVkMWI0ODAwIGVkMmQ3ODQwIDAwMDAwMDAwIGVkMjFj
-MDAwIGVkMjY3NDc4IGMwNmU4MDg0IGVlOTM1Y2IwDQo+IFsgIDEzOS45OTI5NTBdIGRmODA6IGVk
-MWI0ODM4IGMwMjQ5YjQ0IGVkMjFjMDAwIGVkMmQ3ODQwIGMwMjQ5OWU0IDAwMDAwMDAwIDAwMDAw
-MDAwIDAwMDAwMDAwDQo+IFsgIDE0MC4wMDExMzhdIGRmYTA6IDAwMDAwMDAwIDAwMDAwMDAwIDAw
-MDAwMDAwIGMwMjAxMGFjIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwDQo+IFsg
-IDE0MC4wMDkzMjZdIGRmYzA6IDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAw
-MDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwDQo+IFsgIDE0MC4wMTc1MTRdIGRmZTA6
-IDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDEzIDAwMDAwMDAwIDAw
-MDAwMDAwIDAwMDAwMDAwDQo+IFsgIDE0MC4wMjU3MDddIFs8YzA2ZTcxNWM+XSAocGVyZl90cmFj
-ZV9kcm1fc2NoZWRfam9iX3dhaXRfZGVwKSBmcm9tIFs8YzA2ZTkyZTQ+XSAoZHJtX3NjaGVkX2Vu
-dGl0eV9wb3Bfam9iKzB4Mzk0LzB4NDM4KQ0KPiBbICAxNDAuMDM2MzMyXSBbPGMwNmU5MmU0Pl0g
-KGRybV9zY2hlZF9lbnRpdHlfcG9wX2pvYikgZnJvbSBbPGMwNmU4MTIwPl0gKGRybV9zY2hlZF9t
-YWluKzB4OWMvMHgyOTgpDQo+IFsgIDE0MC4wNDUyMjFdIFs8YzA2ZTgxMjA+XSAoZHJtX3NjaGVk
-X21haW4pIGZyb20gWzxjMDI0OWI0ND5dIChrdGhyZWFkKzB4MTYwLzB4MTY4KQ0KPiBbICAxNDAu
-MDUyNzE2XSBbPGMwMjQ5YjQ0Pl0gKGt0aHJlYWQpIGZyb20gWzxjMDIwMTBhYz5dIChyZXRfZnJv
-bV9mb3JrKzB4MTQvMHgyOCkNCj4NCj4gICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVk
-X2VudGl0eS5jIHwgNCArKystDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwg
-MSBkZWxldGlvbigtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxl
-ci9zY2hlZF9lbnRpdHkuYyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfZW50aXR5
-LmMNCj4gaW5kZXggNDQ2M2QzODI2ZWNiLi4wZDRmYzg2MDg5Y2IgMTAwNjQ0DQo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfZW50aXR5LmMNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL3NjaGVkdWxlci9zY2hlZF9lbnRpdHkuYw0KPiBAQCAtNDQwLDEzICs0NDAsMTUgQEAg
-c3RydWN0IGRybV9zY2hlZF9qb2IgKmRybV9zY2hlZF9lbnRpdHlfcG9wX2pvYihzdHJ1Y3QgZHJt
-X3NjaGVkX2VudGl0eSAqZW50aXR5KQ0KPiAgIA0KPiAgIAl3aGlsZSAoKGVudGl0eS0+ZGVwZW5k
-ZW5jeSA9DQo+ICAgCQkJc2NoZWQtPm9wcy0+ZGVwZW5kZW5jeShzY2hlZF9qb2IsIGVudGl0eSkp
-KSB7DQo+IC0NCj4gKwkJZG1hX2ZlbmNlX2dldChlbnRpdHktPmRlcGVuZGVuY3kpOw0KPiAgIAkJ
-aWYgKGRybV9zY2hlZF9lbnRpdHlfYWRkX2RlcGVuZGVuY3lfY2IoZW50aXR5KSkgew0KPiAgIA0K
-PiAgIAkJCXRyYWNlX2RybV9zY2hlZF9qb2Jfd2FpdF9kZXAoc2NoZWRfam9iLA0KPiAgIAkJCQkJ
-CSAgICAgZW50aXR5LT5kZXBlbmRlbmN5KTsNCj4gKwkJCWRtYV9mZW5jZV9wdXQoZW50aXR5LT5k
-ZXBlbmRlbmN5KTsNCj4gICAJCQlyZXR1cm4gTlVMTDsNCj4gICAJCX0NCj4gKwkJZG1hX2ZlbmNl
-X3B1dChlbnRpdHktPmRlcGVuZGVuY3kpOw0KPiAgIAl9DQo+ICAgDQo+ICAgCS8qIHNraXAgam9i
-cyBmcm9tIGVudGl0eSB0aGF0IG1hcmtlZCBndWlsdHkgKi8NCg0K
+--===============1793911854==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB27752170A0E1594190AD34BAFBAF0BYAPR12MB2775namp_"
+
+--_000_BYAPR12MB27752170A0E1594190AD34BAFBAF0BYAPR12MB2775namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Yongjun,
+
+
+This issue has been fixed.
+
+
+Thanks.
+
+
+Best Regards
+
+Rex
+
+
+
+
+commit 51f1f6f51712aade68cabb145ed8bab4a6c3997e
+Author: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Date:   Fri Nov 23 18:52:21 2018 +0800
+
+    drm/amdgpu: Fix static checker warning
+
+    drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c:49 amdgpu_allocate_static_csa()
+    error: uninitialized symbol 'ptr'.
+
+    the test if (!bo) doesn't work, as the bo is a pointer to a pointer.
+    if bo create failed, the *bo will be set to NULL.
+    so change to test *bo.
+
+    Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+    Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+    Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+
+
+
+________________________________
+From: Wei Yongjun <weiyongjun1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Sent: Tuesday, December 4, 2018 2:39 PM
+To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); airlied@l=
+inux.ie; Zhu, Rex; Liu, Monk
+Cc: Wei Yongjun; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32lNgt0PjOBp93gSJqDPrsil@public.gmane.org=
+.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Subject: [PATCH -next] drm/amdgpu: Fix return value check in amdgpu_allocat=
+e_static_csa()
+
+Fix the return value check which testing the wrong variable
+in amdgpu_allocate_static_csa().
+
+Fixes: 7946340fa389 ("drm/amdgpu: Move csa related code to separate file")
+Signed-off-by: Wei Yongjun <weiyongjun1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_csa.c
+index 0c590dd..a5fbc6f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+@@ -43,7 +43,7 @@ int amdgpu_allocate_static_csa(struct amdgpu_device *adev=
+, struct amdgpu_bo **bo
+         r =3D amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
+                                 domain, bo,
+                                 NULL, &ptr);
+-       if (!bo)
++       if (!r)
+                 return -ENOMEM;
+
+         memset(ptr, 0, size);
+
+
+
+
+--_000_BYAPR12MB27752170A0E1594190AD34BAFBAF0BYAPR12MB2775namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Hi Yongjun,</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">This issue has been fixed<span cl=
+ass=3D"op_dict_text2"></span>.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Thanks.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Best Regards</p>
+<p style=3D"margin-top:0;margin-bottom:0">Rex<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"></p>
+<div>commit 51f1f6f51712aade68cabb145ed8bab4a6c3997e<br>
+Author: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Date:&nbsp;&nbsp; Fri Nov 23 18:52:21 2018 &#43;0800<br>
+<br>
+&nbsp;&nbsp;&nbsp; drm/amdgpu: Fix static checker warning<br>
+&nbsp;&nbsp; &nbsp;<br>
+&nbsp;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c:49 amdgpu_alloca=
+te_static_csa()<br>
+&nbsp;&nbsp;&nbsp; error: uninitialized symbol 'ptr'.<br>
+&nbsp;&nbsp; &nbsp;<br>
+&nbsp;&nbsp;&nbsp; the test if (!bo) doesn't work, as the bo is a pointer t=
+o a pointer.<br>
+&nbsp;&nbsp;&nbsp; if bo create failed, the *bo will be set to NULL.<br>
+&nbsp;&nbsp;&nbsp; so change to test *bo.<br>
+&nbsp;&nbsp; &nbsp;<br>
+&nbsp;&nbsp;&nbsp; Reviewed-by: Christian K=F6nig &lt;christian.koenig@amd.=
+com&gt;<br>
+&nbsp;&nbsp;&nbsp; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&nbsp;&nbsp;&nbsp; Signed-off-by: Alex Deucher &lt;alexander.deucher-urvtwAKJhsc@public.gmane.org=
+m&gt;<br>
+<br>
+</div>
+<br>
+<p></p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Wei Yongjun &lt;wei=
+yongjun1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, December 4, 2018 2:39 PM<br>
+<b>To:</b> Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); ai=
+rlied-cv59FeDIM0c@public.gmane.org; Zhu, Rex; Liu, Monk<br>
+<b>Cc:</b> Wei Yongjun; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
+desktop.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<=
+br>
+<b>Subject:</b> [PATCH -next] drm/amdgpu: Fix return value check in amdgpu_=
+allocate_static_csa()</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Fix the return value check which testing the wrong=
+ variable<br>
+in amdgpu_allocate_static_csa().<br>
+<br>
+Fixes: 7946340fa389 (&quot;drm/amdgpu: Move csa related code to separate fi=
+le&quot;)<br>
+Signed-off-by: Wei Yongjun &lt;weiyongjun1-hv44wF8Li93QT0dZR+AlfA@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_csa.c<br>
+index 0c590dd..a5fbc6f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c<br>
+@@ -43,7 &#43;43,7 @@ int amdgpu_allocate_static_csa(struct amdgpu_device *=
+adev, struct amdgpu_bo **bo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_ker=
+nel(adev, size, PAGE_SIZE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; domain, bo,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL, &amp;ptr);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bo)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(ptr, 0, size);<br>
+<br>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB27752170A0E1594190AD34BAFBAF0BYAPR12MB2775namp_--
+
+--===============1793911854==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1793911854==--
