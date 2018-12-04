@@ -1,110 +1,35 @@
-From: "Zhou, David(ChunMing)" <David1.Zhou@amd.com>
-Subject: RE: [PATCH 02/11] dma-buf: add new dma_fence_chain container v2
-Date: Tue, 4 Dec 2018 03:01:30 +0000
-Message-ID: <BY1PR12MB050282AEB2E0425614DC8A1DB4AF0@BY1PR12MB0502.namprd12.prod.outlook.com>
-References: <20181128145021.4105-1-christian.koenig@amd.com>
- <20181128145021.4105-3-christian.koenig@amd.com>
- <3e383857-ff11-4b2e-995f-c9bfd9ffa3d3@amd.com>
- <c76229c3-8012-04db-2282-8ad1fd974bb7@gmail.com>
- <f37ab2bf-fe8c-c329-ef24-a3a341c31958@amd.com>
- <673cad83-d503-bd2d-805b-22f0e2a991ef@gmail.com>
- <0f3ff499-a926-5a48-b6a4-9afb32993a4a@amd.com>
- <d30e355a-d0fb-053f-ee6f-179c33298a3a@gmail.com>
+From: Wei Yongjun <weiyongjun1@huawei.com>
+Subject: [PATCH -next] drm/amdgpu: Fix return value check in amdgpu_allocate_static_csa()
+Date: Tue, 4 Dec 2018 06:39:36 +0000
+Message-ID: <1543905576-38015-1-git-send-email-weiyongjun1@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <d30e355a-d0fb-053f-ee6f-179c33298a3a@gmail.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Rex.Zhu@amd.com, Monk.Liu@amd.com
+Cc: Wei Yongjun <weiyongjun1@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+DQo+IFNlbnQ6IE1vbmRheSwgRGVj
-ZW1iZXIgMDMsIDIwMTggOTo1NiBQTQ0KPiBUbzogWmhvdSwgRGF2aWQoQ2h1bk1pbmcpIDxEYXZp
-ZDEuWmhvdUBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5Lb2VuaWdA
-YW1kLmNvbT47IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGFtZC0NCj4gZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDAyLzExXSBkbWEtYnVm
-OiBhZGQgbmV3IGRtYV9mZW5jZV9jaGFpbiBjb250YWluZXINCj4gdjINCj4gDQo+IEFtIDAzLjEy
-LjE4IHVtIDE0OjQ0IHNjaHJpZWIgQ2h1bm1pbmcgWmhvdToNCj4gPg0KPiA+IOWcqCAyMDE4LzEy
-LzMgMjE6MjgsIENocmlzdGlhbiBLw7ZuaWcg5YaZ6YGTOg0KPiA+PiBBbSAwMy4xMi4xOCB1bSAx
-NDoxOCBzY2hyaWViIENodW5taW5nIFpob3U6DQo+ID4+PiDlnKggMjAxOC8xMi8zIDE5OjAwLCBD
-aHJpc3RpYW4gS8O2bmlnIOWGmemBkzoNCj4gPj4+PiBBbSAwMy4xMi4xOCB1bSAwNjoyNSBzY2hy
-aWViIHpob3VjbTE6DQo+ID4+Pj4+IE9uIDIwMTjlubQxMeaciDI45pelIDIyOjUwLCBDaHJpc3Rp
-YW4gS8O2bmlnIHdyb3RlOg0KPiA+Pj4+Pj4gTG9ja2xlc3MgY29udGFpbmVyIGltcGxlbWVudGF0
-aW9uIHNpbWlsYXIgdG8gYSBkbWFfZmVuY2VfYXJyYXksDQo+ID4+Pj4+PiBidXQgd2l0aCBvbmx5
-IHR3byBlbGVtZW50cyBwZXIgbm9kZSBhbmQgYXV0b21hdGljIGdhcmJhZ2UNCj4gPj4+Pj4+IGNv
-bGxlY3Rpb24uDQo+ID4+Pj4+Pg0KPiA+Pj4+Pj4gdjI6IHByb3Blcmx5IGRvY3VtZW50IGRtYV9m
-ZW5jZV9jaGFpbl9mb3JfZWFjaCwgYWRkDQo+ID4+Pj4+PiBkbWFfZmVuY2VfY2hhaW5fZmluZF9z
-ZXFubywNCj4gPj4+Pj4+ICDCoMKgwqDCoMKgIGRyb3AgcHJldiByZWZlcmVuY2UgZHVyaW5nIGdh
-cmJhZ2UgY29sbGVjdGlvbiBpZiBpdCdzIG5vdA0KPiA+Pj4+Pj4gYSBjaGFpbiBmZW5jZS4NCj4g
-Pj4+Pj4+DQo+ID4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+DQo+ID4+Pj4+PiAtLS0NCiBbc25pcF0NCj4gPj4+Pj4+ICsNCj4g
-Pj4+Pj4+ICsvKioNCj4gPj4+Pj4+ICsgKiBkbWFfZmVuY2VfY2hhaW5faW5pdCAtIGluaXRpYWxp
-emUgYSBmZW5jZSBjaGFpbg0KPiA+Pj4+Pj4gKyAqIEBjaGFpbjogdGhlIGNoYWluIG5vZGUgdG8g
-aW5pdGlhbGl6ZQ0KPiA+Pj4+Pj4gKyAqIEBwcmV2OiB0aGUgcHJldmlvdXMgZmVuY2UNCj4gPj4+
-Pj4+ICsgKiBAZmVuY2U6IHRoZSBjdXJyZW50IGZlbmNlDQo+ID4+Pj4+PiArICoNCj4gPj4+Pj4+
-ICsgKiBJbml0aWFsaXplIGEgbmV3IGNoYWluIG5vZGUgYW5kIGVpdGhlciBzdGFydCBhIG5ldyBj
-aGFpbiBvcg0KPiA+Pj4+Pj4gK2FkZA0KPiA+Pj4+Pj4gdGhlIG5vZGUgdG8NCj4gPj4+Pj4+ICsg
-KiB0aGUgZXhpc3RpbmcgY2hhaW4gb2YgdGhlIHByZXZpb3VzIGZlbmNlLg0KPiA+Pj4+Pj4gKyAq
-Lw0KPiA+Pj4+Pj4gK3ZvaWQgZG1hX2ZlbmNlX2NoYWluX2luaXQoc3RydWN0IGRtYV9mZW5jZV9j
-aGFpbiAqY2hhaW4sDQo+ID4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0
-IGRtYV9mZW5jZSAqcHJldiwNCj4gPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBz
-dHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwNCj4gPj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCB1aW50NjRfdCBzZXFubykNCj4gPj4+Pj4+ICt7DQo+ID4+Pj4+PiArwqDCoMKgIHN0cnVj
-dCBkbWFfZmVuY2VfY2hhaW4gKnByZXZfY2hhaW4gPQ0KPiA+Pj4+Pj4gK3RvX2RtYV9mZW5jZV9j
-aGFpbihwcmV2KTsNCj4gPj4+Pj4+ICvCoMKgwqAgdWludDY0X3QgY29udGV4dDsNCj4gPj4+Pj4+
-ICsNCj4gPj4+Pj4+ICvCoMKgwqAgc3Bpbl9sb2NrX2luaXQoJmNoYWluLT5sb2NrKTsNCj4gPj4+
-Pj4+ICvCoMKgwqAgY2hhaW4tPnByZXYgPSBwcmV2Ow0KPiA+Pj4+Pj4gK8KgwqDCoCBjaGFpbi0+
-ZmVuY2UgPSBmZW5jZTsNCj4gPj4+Pj4+ICvCoMKgwqAgY2hhaW4tPnByZXZfc2Vxbm8gPSAwOw0K
-PiA+Pj4+Pj4gK8KgwqDCoCBpbml0X2lycV93b3JrKCZjaGFpbi0+d29yaywgZG1hX2ZlbmNlX2No
-YWluX2lycV93b3JrKTsNCj4gPj4+Pj4+ICsNCj4gPj4+Pj4+ICvCoMKgwqAgLyogVHJ5IHRvIHJl
-dXNlIHRoZSBjb250ZXh0IG9mIHRoZSBwcmV2aW91cyBjaGFpbiBub2RlLiAqLw0KPiA+Pj4+Pj4g
-K8KgwqDCoCBpZiAocHJldl9jaGFpbiAmJiBzZXFubyA+IHByZXYtPnNlcW5vICYmDQo+ID4+Pj4+
-PiArwqDCoMKgwqDCoMKgwqAgX19kbWFfZmVuY2VfaXNfbGF0ZXIoc2Vxbm8sIHByZXYtPnNlcW5v
-KSkgew0KPiA+Pj4+PiBBcyB5b3VyIHBhdGNoIzEgbWFrZXMgX19kbWFfZmVuY2VfaXNfbGF0ZXIg
-b25seSBiZSB2YWxpZCBmb3INCj4gPj4+Pj4gMzJiaXQsIHdlIGNhbm5vdCB1c2UgaXQgZm9yIDY0
-Yml0IGhlcmUsIHdlIHNob3VsZCByZW1vdmUgaXQgZnJvbQ0KPiA+Pj4+PiBoZXJlLCBqdXN0IGNv
-bXBhcmUgc2Vxbm8gZGlyZWN0bHkuDQo+ID4+Pj4gVGhhdCBpcyBpbnRlbnRpb25hbC4gV2UgbXVz
-dCBtYWtlIHN1cmUgdGhhdCB0aGUgbnVtYmVyIGJvdGgNCj4gPj4+PiBpbmNyZW1lbnRzIGFzIDY0
-Yml0IG51bWJlciBhcyB3ZWxsIGFzIG5vdCB3cmFwcyBhcm91bmQgYXMgMzJiaXQNCj4gbnVtYmVy
-Lg0KPiA+Pj4+DQo+ID4+Pj4gSW4gb3RoZXIgd29yZHMgdGhlIGxhcmdlc3QgZGlmZmVyZW5jZSBi
-ZXR3ZWVuIHR3byBzZXF1ZW5jZSBudW1iZXJzDQo+ID4+Pj4gdXNlcnNwYWNlIGlzIGFsbG93ZWQg
-dG8gc3VibWl0IGlzIDE8PDMxLg0KPiA+Pj4gV2h5PyBubyBvbmUgY2FuIG1ha2Ugc3VyZSB0aGF0
-LCBhcHBsaWNhdGlvbiB1c2VycyB3b3VsZCBvbmx5IHRoaW5rDQo+ID4+PiBpdCBpcyBhbiB1aW50
-NjQgc2VxdWVuY2UgbnVibWVyLCBhbmQgdGhleSBjYW4gc2lnbmFsIGFueSBhZHZhbmNlZA0KPiA+
-Pj4gcG9pbnQuIEkgYWxyZWFkeSBzZWUgdW1kIGd1eXMgd3JpdGluZyB0aW1lbGluZSB0ZXN0IHVz
-ZSBtYXhfdWludDY0LTENCj4gPj4+IGFzIGEgZmluYWwgc2lnbmFsLg0KPiA+Pj4gV2Ugc2hvdWxk
-bid0IGFkZCB0aGlzIGxpbWl0YXRpb24gaGVyZS4NCj4gPj4gV2UgbmVlZCB0byBiZSBiYWNrd2Fy
-ZCBjb21wYXRpYmxlIHRvIGhhcmR3YXJlIHdoaWNoIGNhbiBvbmx5IGRvIDMyYml0DQo+ID4+IHNp
-Z25hbGluZyB3aXRoIHRoZSBkbWEtZmVuY2UgaW1wbGVtZW50YXRpb24uDQo+ID4gSSBzZWUgdGhh
-dCwgeW91IGFscmVhZHkgZXhwbGFpbmVkIHRoYXQgYmVmb3JlLg0KPiA+IGJ1dCBjYW4ndCB3ZSBq
-dXN0IGdyZXAgbG93IDMyYml0IG9mIHNlcW5vIG9ubHkgd2hlbiAzMmJpdCBoYXJkd2FyZSB0cnkN
-Cj4gPiB0byB1c2U/DQo+ID4NCj4gPiB0aGVuIHdlIGNhbiBtYWtlIGRtYV9mZW5jZV9sYXRlciB1
-c2UgNjRiaXQgY29tcGFyYXRpb24uDQo+IA0KPiBUaGUgcHJvYmxlbSBpcyB0aGF0IHdlIGRvbid0
-IGtub3cgYXQgYWxsIHRpbWVzIHdoZW4gdG8gdXNlIGEgMzJiaXQgY29tcGFyZQ0KPiBhbmQgd2hl
-biB0byB1c2UgYSA2NGJpdCBjb21wYXJlLg0KPiANCj4gV2hhdCB3ZSBjb3VsZCBkbyBpcyB0ZXN0
-IGlmIGFueSBvZiB0aGUgdXBwZXIgMzJiaXRzIG9mIGEgc2VxdWVuY2UgbnVtYmVyIGlzDQo+IG5v
-dCAwIGFuZCBpZiB0aGF0IGlzIHRoZSBjYXNlIGRvIGEgNjRiaXQgY29tcGFyZS4gVGhpcyB3YXkg
-bWF4X3VpbnQ2NF90IHdvdWxkDQo+IHN0aWxsIGJlIGhhbmRsZWQgY29ycmVjdGx5Lg0KU291bmRz
-IHdlIGNhbiBoYXZlIGEgdHJ5LCBhbmQgd2UgbmVlZCBtYXNrIHVwcGVyIDMyYml0cyBmb3IgMzJi
-aXQgaGFyZHdhcmUgY2FzZSBpbiB0aGUgbWVhbndoaWxlLCAgcmlnaHQ/DQoNCi1EYXZpZA0KPiAN
-Cj4gDQo+IENocmlzdGlhbi4NCj4gDQo+ID4NCj4gPj4gT3RoZXJ3aXNlIGRtYV9mZW5jZV9sYXRl
-cigpIGNvdWxkIHJldHVybiBhbiBpbmNvbnNpc3RlbnQgcmVzdWx0IGFuZA0KPiA+PiBicmVhayBh
-dCBvdGhlciBwbGFjZXMuDQo+ID4+DQo+ID4+IFNvIGlmIHVzZXJzcGFjZSB3YW50cyB0byB1c2Ug
-bW9yZSB0aGFuIDE8PDMxIGRpZmZlcmVuY2UgYmV0d2Vlbg0KPiA+PiBzZXF1ZW5jZSBudW1iZXJz
-IHdlIG5lZWQgdG8gcHVzaCBiYWNrIG9uIHRoaXMuDQo+ID4gSXQncyByYXJlIGNhc2UsIGJ1dCBJ
-IGRvbid0IHRoaW5rIHdlIGNhbiBjb252aW5jZSB0aGVtIGFkZCB0aGlzDQo+ID4gbGltaXRhdGlv
-bi4gU28gd2UgY2Fubm90IGFkZCB0aGlzIGxpbWl0YXRpb24gaGVyZS4NCj4gPg0KPiA+IC1EYXZp
-ZA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmkt
-ZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+Fix the return value check which testing the wrong variable
+in amdgpu_allocate_static_csa().
+
+Fixes: 7946340fa389 ("drm/amdgpu: Move csa related code to separate file")
+Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+index 0c590dd..a5fbc6f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_csa.c
+@@ -43,7 +43,7 @@ int amdgpu_allocate_static_csa(struct amdgpu_device *adev, struct amdgpu_bo **bo
+ 	r = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
+ 				domain, bo,
+ 				NULL, &ptr);
+-	if (!bo)
++	if (!r)
+ 		return -ENOMEM;
+ 
+ 	memset(ptr, 0, size);
