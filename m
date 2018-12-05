@@ -1,45 +1,34 @@
-From: Russell King - ARM Linux <linux@armlinux.org.uk>
-Subject: Re: [PATCH 1/4] drm/edid: Pass connector to AVI inforframe functions
-Date: Wed, 5 Dec 2018 10:19:29 +0000
-Message-ID: <20181205101929.GP30658@n2100.armlinux.org.uk>
-References: <20181120161345.15440-1-ville.syrjala@linux.intel.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: regression in ttm
+Date: Wed, 5 Dec 2018 11:29:32 +0100
+Message-ID: <33400cb4-c198-6709-42fe-e6136c05cad9@daenzer.net>
+References: <f3dd49e5-5573-8344-6224-f3c24d1eefe6@amd.com>
+ <2808395a-058b-4f85-b235-eead75cd3e20@email.android.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <20181120161345.15440-1-ville.syrjala@linux.intel.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Ville Syrjala <ville.syrjala@linux.intel.com>
-Cc: nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, Thierry Reding <thierry.reding@gmail.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Kyungmin Park <kyungmin.park@samsung.com>, amd-gfx@lists.freedesktop.org, Tomi Valkeinen <tomi.valkeinen@ti.com>, Ben Skeggs <bskeggs@redhat.com>, linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org, Vincent Abriou <vincent.abriou@st.com>, freedreno@lists.freedesktop.org, Seung-Woo Kim <sw0312.kim@samsung.com>, Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <2808395a-058b-4f85-b235-eead75cd3e20-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVHVlLCBOb3YgMjAsIDIwMTggYXQgMDY6MTM6NDJQTSArMDIwMCwgVmlsbGUgU3lyamFsYSB3
-cm90ZToKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2kyYy90ZGE5OTh4X2Rydi5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2kyYy90ZGE5OTh4X2Rydi5jCj4gaW5kZXggYTdjMzlmMzk3OTNmLi4z
-OGM2NmZiYzgyNzYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2kyYy90ZGE5OTh4X2Ry
-di5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2kyYy90ZGE5OTh4X2Rydi5jCj4gQEAgLTg0OSw3
-ICs4NDksOCBAQCB0ZGE5OTh4X3dyaXRlX2F2aShzdHJ1Y3QgdGRhOTk4eF9wcml2ICpwcml2LCBz
-dHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqbW9kZSkKPiAgewo+ICAJdW5pb24gaGRtaV9pbmZvZnJh
-bWUgZnJhbWU7Cj4gIAo+IC0JZHJtX2hkbWlfYXZpX2luZm9mcmFtZV9mcm9tX2Rpc3BsYXlfbW9k
-ZSgmZnJhbWUuYXZpLCBtb2RlLCBmYWxzZSk7Cj4gKwlkcm1faGRtaV9hdmlfaW5mb2ZyYW1lX2Zy
-b21fZGlzcGxheV9tb2RlKCZmcmFtZS5hdmksCj4gKwkJCQkJCSAmcHJpdi0+Y29ubmVjdG9yLCBt
-b2RlKTsKPiAgCWZyYW1lLmF2aS5xdWFudGl6YXRpb25fcmFuZ2UgPSBIRE1JX1FVQU5USVpBVElP
-Tl9SQU5HRV9GVUxMOwo+ICAKPiAgCXRkYTk5OHhfd3JpdGVfaWYocHJpdiwgRElQX0lGX0ZMQUdT
-X0lGMiwgUkVHX0lGMl9IQjAsICZmcmFtZSk7CgpGb3IgdGhpcywKCkFja2VkLWJ5OiBSdXNzZWxs
-IEtpbmcgPHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrPgoKVGhhbmtzLgoKLS0gClJNSydzIFBh
-dGNoIHN5c3RlbTogaHR0cDovL3d3dy5hcm1saW51eC5vcmcudWsvZGV2ZWxvcGVyL3BhdGNoZXMv
-CkZUVEMgYnJvYWRiYW5kIGZvciAwLjhtaWxlIGxpbmUgaW4gc3VidXJiaWE6IHN5bmMgYXQgMTIu
-MU1icHMgZG93biA2MjJrYnBzIHVwCkFjY29yZGluZyB0byBzcGVlZHRlc3QubmV0OiAxMS45TWJw
-cyBkb3duIDUwMGticHMgdXAKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVsCg==
+T24gMjAxOC0xMi0wNCA2OjM1IHAubS4sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOgo+IFRoYW5r
+cywgZ29pbmcgdG8gdGFrZSBhIGxvb2sgdG9tb3Jyb3cuCgpJIGFsc28gaGl0IHRoaXMgd2l0aCBC
+b25haXJlIGluIG15IGRldmVsb3BtZW50IHN5c3RlbS4gSSB3b25kZXIgd2h5IHlvdQpkaWRuJ3Q/
+IEhvdyBhcmUgeW91IHJ1bm5pbmcgcGlnbGl0PwoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56
+ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJl
+IHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBY
+IGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
