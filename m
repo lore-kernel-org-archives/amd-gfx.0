@@ -1,14 +1,14 @@
 From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.19 099/123] drm/amdgpu: Add delay after enable RLC
+Subject: [PATCH AUTOSEL 4.14 53/69] drm/amdgpu: Add delay after enable RLC
  ucode
-Date: Wed,  5 Dec 2018 04:35:31 -0500
-Message-ID: <20181205093555.5386-99-sashal@kernel.org>
-References: <20181205093555.5386-1-sashal@kernel.org>
+Date: Wed,  5 Dec 2018 04:42:31 -0500
+Message-ID: <20181205094247.6556-53-sashal@kernel.org>
+References: <20181205094247.6556-1-sashal@kernel.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181205093555.5386-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+In-Reply-To: <20181205094247.6556-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -39,10 +39,10 @@ ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4g
 PHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
 OV8wLmMgfCA3ICsrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDMgZGVs
 ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKaW5kZXggZWYwMGQx
-NGY4NjQ1Li4zMjVlMjIxM2NhYzUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKaW5kZXggMzk4MTkx
+NWUyMzExLi5iMmVlY2ZjOTA0MmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
 Z3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAu
-YwpAQCAtMjI0MywxMiArMjI0MywxMyBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9ybGNfc3RhcnQo
+YwpAQCAtMTk5MiwxMiArMTk5MiwxMyBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9ybGNfc3RhcnQo
 c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAjZW5kaWYKIAogCVdSRUczMl9GSUVMRDE1KEdD
 LCAwLCBSTENfQ05UTCwgUkxDX0VOQUJMRV9GMzIsIDEpOworCXVkZWxheSg1MCk7CiAKIAkvKiBj
 YXJyaXpvIGRvIGVuYWJsZSBjcCBpbnRlcnJ1cHQgYWZ0ZXIgY3AgaW5pdGVkICovCi0JaWYgKCEo
