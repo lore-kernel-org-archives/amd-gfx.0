@@ -1,15 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: regression in ttm
-Date: Wed, 5 Dec 2018 11:29:32 +0100
-Message-ID: <33400cb4-c198-6709-42fe-e6136c05cad9@daenzer.net>
-References: <f3dd49e5-5573-8344-6224-f3c24d1eefe6@amd.com>
- <2808395a-058b-4f85-b235-eead75cd3e20@email.android.com>
+From: wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Skip ring soft recovery when fence parent was NULL
+Date: Wed, 5 Dec 2018 19:03:45 +0800
+Message-ID: <1544007825-10610-1-git-send-email-Wentao.Lou@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <2808395a-058b-4f85-b235-eead75cd3e20-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,15 +16,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOC0xMi0wNCA2OjM1IHAubS4sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOgo+IFRoYW5r
-cywgZ29pbmcgdG8gdGFrZSBhIGxvb2sgdG9tb3Jyb3cuCgpJIGFsc28gaGl0IHRoaXMgd2l0aCBC
-b25haXJlIGluIG15IGRldmVsb3BtZW50IHN5c3RlbS4gSSB3b25kZXIgd2h5IHlvdQpkaWRuJ3Q/
-IEhvdyBhcmUgeW91IHJ1bm5pbmcgcGlnbGl0PwoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56
-ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJl
-IHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBY
-IGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+YW1kZ3B1X3Jpbmdfc29mdF9yZWNvdmVyeSB3b3VsZCBoYXZlIENhbGwtVHJhY2UsCndoZW4gc19q
+b2ItPnNfZmVuY2UtPnBhcmVudCB3YXMgTlVMTCBpbnNpZGUgYW1kZ3B1X2pvYl90aW1lZG91dC4K
+Q2hlY2sgcGFyZW50IGZpcnN0LCBhcyBkcm1fc2NoZWRfaHdfam9iX3Jlc2V0IGRpZC4KCkNoYW5n
+ZS1JZDogSTBiNjc0ZmZkOTZhZmQ0NGJjZWZlMzdhNjZmYjE1N2IxZGJiYTYxYTAKU2lnbmVkLW9m
+Zi1ieTogV2VudGFvIExvdSA8V2VudGFvLkxvdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9qb2IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9q
+b2IuYwppbmRleCBlMGFmNDRmLi4yOTQ1NjE1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfam9iLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2pvYi5jCkBAIC0zMyw3ICszMyw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9qb2JfdGlt
+ZWRvdXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9iKQogCXN0cnVjdCBhbWRncHVfcmluZyAq
+cmluZyA9IHRvX2FtZGdwdV9yaW5nKHNfam9iLT5zY2hlZCk7CiAJc3RydWN0IGFtZGdwdV9qb2Ig
+KmpvYiA9IHRvX2FtZGdwdV9qb2Ioc19qb2IpOwogCi0JaWYgKGFtZGdwdV9yaW5nX3NvZnRfcmVj
+b3ZlcnkocmluZywgam9iLT52bWlkLCBzX2pvYi0+c19mZW5jZS0+cGFyZW50KSkgeworCWlmIChz
+X2pvYi0+c19mZW5jZS0+cGFyZW50ICYmIGFtZGdwdV9yaW5nX3NvZnRfcmVjb3ZlcnkocmluZywg
+am9iLT52bWlkLCBzX2pvYi0+c19mZW5jZS0+cGFyZW50KSkgewogCQlEUk1fRVJST1IoInJpbmcg
+JXMgdGltZW91dCwgYnV0IHNvZnQgcmVjb3ZlcmVkXG4iLAogCQkJICBzX2pvYi0+c2NoZWQtPm5h
+bWUpOwogCQlyZXR1cm47Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
