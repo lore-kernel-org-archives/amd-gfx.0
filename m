@@ -1,14 +1,14 @@
-From: "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: rv dal-pplib interface refactor
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: rv dal-pplib interface refactor
  powerplay part
-Date: Wed, 5 Dec 2018 18:03:57 +0000
-Message-ID: <DM5PR1201MB25530337DA4C7F36E268ED15FDA80@DM5PR1201MB2553.namprd12.prod.outlook.com>
-References: <1543863821-32322-1-git-send-email-hersenxs.wu@amd.com>
+Date: Wed, 5 Dec 2018 18:24:59 +0000
+Message-ID: <BN6PR12MB18094517386BC2D7C102E7FBF7A80@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1543863821-32322-1-git-send-email-hersenxs.wu@amd.com>,
+ <DM5PR1201MB25530337DA4C7F36E268ED15FDA80@DM5PR1201MB2553.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1154794256=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1543863821-32322-1-git-send-email-hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR1201MB25530337DA4C7F36E268ED15FDA80-grEf7a3NxMAXo4eMau56LGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,218 +20,935 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhu,
- Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-SGVsbG8sIEFsZXgsIFJleCwKCldvdWxkIHlvdSBwbGVhc2UgaGVscCByZXZpZXcgdGhlIGNoYW5n
-ZT8KClRoYW5rcywKSGVyc2VuCgoKCgoKW1dIWV0gY2xhcmlmeSBkYWwgaW5wdXQgcGFyYW1ldGVy
-cyB0byBwcGxpYiBpbnRlcmZhY2UsIHJlbW92ZSB1bi11c2VkIHBhcmFtZXRlcnMuIGRhbCBrbm93
-cyBleGFjdGx5IHdoaWNoIHBhcmFtZXRlcnMgbmVlZGVkIGFuZCB0aGVpciBlZmZlY3RzIGF0IHBw
-bGliIGFuZCBzbXUgc2lkZXMuCgpjdXJyZW50IGRhbCBzZXF1ZW5jZSBmb3IgZGNuMV91cGRhdGVf
-Y2xvY2sgdG8gcHBsaWI6CgoxLnNtdTEwX2Rpc3BsYXlfY2xvY2tfdm9sdGFnZV9yZXF1ZXN0IGZv
-ciBkY2VmY2xrIDIuc211MTBfZGlzcGxheV9jbG9ja192b2x0YWdlX3JlcXVlc3QgZm9yIGZjbGsg
-My5waG1fc3RvcmVfZGFsX2NvbmZpZ3VyYXRpb25fZGF0YSB7CiAgc2V0X21pbl9kZWVwX3NsZWVw
-X2RjZmNsawogIHNldF9hY3RpdmVfZGlzcGxheV9jb3VudAogIHN0b3JlX2NjNl9kYXRhIC0tLSB0
-aGlzIGRhdGEgbmV2ZXIgYmUgcmVmZXJlbmNlZAoKbmV3IHNlcXVlbmNlIHdpbGwgYmU6CgoxLiBz
-ZXRfZGlzcGxheV9jb3VudCAgLS0tIG5lZWQgYWRkIG5ldyBwcGxpYiBpbnRlcmZhY2UgMi4gc2V0
-X21pbl9kZWVwX3NsZWVwX2RjZmNsayAtLSBuZXcgcHBsaWIgaW50ZXJmYWNlIDMuIHNldF9oYXJk
-X21pbl9kY2ZjbGtfYnlfZnJlcSA0LiBzZXRfaGFyZF9taW5fZmNsa19ieV9mcmVxCgphZnRlciB0
-aGlzIGNvZGUgcmVmYWN0b3IsIHNtdTEwX2Rpc3BsYXlfY2xvY2tfdm9sdGFnZV9yZXF1ZXN0LApw
-aG1fc3RvcmVfZGFsX2NvbmZpZ3VyYXRpb25fZGF0YSB3aWxsIG5vdCBiZSBuZWVkZWQgZm9yIHJ2
-LgoKW0hPV10gc3RlcCAxOiBhZGQgbmV3IGZ1bmN0aW9ucyBhdCBwcGxpYiBpbnRlcmZhY2UKICAg
-ICAgc3RlcCAyOiBhZGQgbmV3IGZ1bmN0aW9ucyBhdCBhbWRncHUgZG0gYW5kIGRjCgpTaWduZWQt
-b2ZmLWJ5OiBoZXJzZW4gd3UgPGhlcnNlbnhzLnd1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9pbmNsdWRlL2tnZF9wcF9pbnRlcmZhY2UuaCAgICAgfCAgNCArKwogZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2VycGxheS5jICAgICAgfCA3NiArKysrKysrKysr
-KysrKysrKysrKysrCiAuLi4vZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFu
-YWdlci5jICB8IDQ1ICsrKysrKysrKysrKy0gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL3NtdTEwX2h3bWdyLmMgIHwgMzYgKysrKysrKysrLQogLi4uL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9pbmMvaGFyZHdhcmVtYW5hZ2VyLmggICAgfCAgMyArCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaCAgICAgICAgICB8ICA0ICstCiA2IGZpbGVzIGNoYW5n
-ZWQsIDE2MiBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2RfcHBfaW50ZXJmYWNlLmggYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2luY2x1ZGUva2dkX3BwX2ludGVyZmFjZS5oCmluZGV4IDk4MGU2OTYuLjE0NzllYTEg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2RfcHBfaW50ZXJmYWNl
-LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9wcF9pbnRlcmZhY2UuaApA
-QCAtMjc2LDYgKzI3NiwxMCBAQCBzdHJ1Y3QgYW1kX3BtX2Z1bmNzIHsKIAkJc3RydWN0IGFtZF9w
-cF9zaW1wbGVfY2xvY2tfaW5mbyAqY2xvY2tzKTsKIAlpbnQgKCpub3RpZnlfc211X2VuYWJsZV9w
-d2UpKHZvaWQgKmhhbmRsZSk7CiAJaW50ICgqZW5hYmxlX21ncHVfZmFuX2Jvb3N0KSh2b2lkICpo
-YW5kbGUpOworCWludCAoKnNldF9hY3RpdmVfZGlzcGxheV9jb3VudCkodm9pZCAqaGFuZGxlLCB1
-aW50MzJfdCBjb3VudCk7CisJaW50ICgqc2V0X2hhcmRfbWluX2RjZWZjbGtfYnlfZnJlcSkodm9p
-ZCAqaGFuZGxlLCB1aW50MzJfdCBjbG9jayk7CisJaW50ICgqc2V0X2hhcmRfbWluX2ZjbGtfYnlf
-ZnJlcSkodm9pZCAqaGFuZGxlLCB1aW50MzJfdCBjbG9jayk7CisJaW50ICgqc2V0X21pbl9kZWVw
-X3NsZWVwX2RjZWZjbGspKHZvaWQgKmhhbmRsZSwgdWludDMyX3QgY2xvY2spOwogfTsKIAogI2Vu
-ZGlmCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJw
-bGF5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKaW5k
-ZXggZDZhYTFkNC4uNTNkZGUxNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvYW1kX3Bvd2VycGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2FtZF9wb3dlcnBsYXkuYwpAQCAtMTMzMiw2ICsxMzMyLDc4IEBAIHN0YXRpYyBpbnQgcHBfZW5h
-YmxlX21ncHVfZmFuX2Jvb3N0KHZvaWQgKmhhbmRsZSkKIAlyZXR1cm4gMDsKIH0KIAorc3RhdGlj
-IGludCBwcF9zZXRfbWluX2RlZXBfc2xlZXBfZGNlZmNsayh2b2lkICpoYW5kbGUsIHVpbnQzMl90
-IGNsb2NrKSAKK3sKKwlzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyID0gaGFuZGxlOworCisJaWYgKCFo
-d21nciB8fCAhaHdtZ3ItPnBtX2VuKQorCQlyZXR1cm4gLUVJTlZBTDsKKworCWlmIChod21nci0+
-aHdtZ3JfZnVuYy0+c2V0X21pbl9kZWVwX3NsZWVwX2RjZWZjbGsgPT0gTlVMTCkgeworCQlwcl9p
-bmZvKCIlcyB3YXMgbm90IGltcGxlbWVudGVkLlxuIiwgX19mdW5jX18pOworCQlyZXR1cm4gLUVJ
-TlZBTDs7CisJfQorCisJbXV0ZXhfbG9jaygmaHdtZ3ItPnNtdV9sb2NrKTsKKwlod21nci0+aHdt
-Z3JfZnVuYy0+c2V0X21pbl9kZWVwX3NsZWVwX2RjZWZjbGsoaHdtZ3IsIGNsb2NrKTsKKwltdXRl
-eF91bmxvY2soJmh3bWdyLT5zbXVfbG9jayk7CisKKwlyZXR1cm4gMDsKK30KKworc3RhdGljIGlu
-dCBwcF9zZXRfaGFyZF9taW5fZGNlZmNsa19ieV9mcmVxKHZvaWQgKmhhbmRsZSwgdWludDMyX3Qg
-CitjbG9jaykgeworCXN0cnVjdCBwcF9od21nciAqaHdtZ3IgPSBoYW5kbGU7CisKKwlpZiAoIWh3
-bWdyIHx8ICFod21nci0+cG1fZW4pCisJCXJldHVybiAtRUlOVkFMOworCisJaWYgKGh3bWdyLT5o
-d21ncl9mdW5jLT5zZXRfaGFyZF9taW5fZGNlZmNsa19ieV9mcmVxID09IE5VTEwpIHsKKwkJcHJf
-aW5mbygiJXMgd2FzIG5vdCBpbXBsZW1lbnRlZC5cbiIsIF9fZnVuY19fKTsKKwkJcmV0dXJuIC1F
-SU5WQUw7OworCX0KKworCW11dGV4X2xvY2soJmh3bWdyLT5zbXVfbG9jayk7CisJaHdtZ3ItPmh3
-bWdyX2Z1bmMtPnNldF9oYXJkX21pbl9kY2VmY2xrX2J5X2ZyZXEoaHdtZ3IsIGNsb2NrKTsKKwlt
-dXRleF91bmxvY2soJmh3bWdyLT5zbXVfbG9jayk7CisKKwlyZXR1cm4gMDsKK30KKworc3RhdGlj
-IGludCBwcF9zZXRfaGFyZF9taW5fZmNsa19ieV9mcmVxKHZvaWQgKmhhbmRsZSwgdWludDMyX3Qg
-Y2xvY2spIHsKKwlzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyID0gaGFuZGxlOworCisJaWYgKCFod21n
-ciB8fCAhaHdtZ3ItPnBtX2VuKQorCQlyZXR1cm4gLUVJTlZBTDsKKworCWlmIChod21nci0+aHdt
-Z3JfZnVuYy0+c2V0X2hhcmRfbWluX2ZjbGtfYnlfZnJlcSA9PSBOVUxMKSB7CisJCXByX2luZm8o
-IiVzIHdhcyBub3QgaW1wbGVtZW50ZWQuXG4iLCBfX2Z1bmNfXyk7CisJCXJldHVybiAtRUlOVkFM
-OzsKKwl9CisKKwltdXRleF9sb2NrKCZod21nci0+c211X2xvY2spOworCWh3bWdyLT5od21ncl9m
-dW5jLT5zZXRfaGFyZF9taW5fZmNsa19ieV9mcmVxKGh3bWdyLCBjbG9jayk7CisJbXV0ZXhfdW5s
-b2NrKCZod21nci0+c211X2xvY2spOworCisJcmV0dXJuIDA7Cit9CisKK3N0YXRpYyBpbnQgcHBf
-c2V0X2FjdGl2ZV9kaXNwbGF5X2NvdW50KHZvaWQgKmhhbmRsZSwgdWludDMyX3QgY291bnQpIHsK
-KwlzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyID0gaGFuZGxlOworCWludCByZXQgPSAwOworCisJaWYg
-KCFod21nciB8fCAhaHdtZ3ItPnBtX2VuKQorCQlyZXR1cm4gLUVJTlZBTDsKKworCW11dGV4X2xv
-Y2soJmh3bWdyLT5zbXVfbG9jayk7CisJcmV0ID0gcGhtX3NldF9hY3RpdmVfZGlzcGxheV9jb3Vu
-dChod21nciwgY291bnQpOworCW11dGV4X3VubG9jaygmaHdtZ3ItPnNtdV9sb2NrKTsKKworCXJl
-dHVybiByZXQ7Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kX3BtX2Z1bmNzIHBwX2RwbV9m
-dW5jcyA9IHsKIAkubG9hZF9maXJtd2FyZSA9IHBwX2RwbV9sb2FkX2Z3LAogCS53YWl0X2Zvcl9m
-d19sb2FkaW5nX2NvbXBsZXRlID0gcHBfZHBtX2Z3X2xvYWRpbmdfY29tcGxldGUsIEBAIC0xMzc4
-LDQgKzE0NTAsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZF9wbV9mdW5jcyBwcF9kcG1fZnVu
-Y3MgPSB7CiAJLmdldF9kaXNwbGF5X21vZGVfdmFsaWRhdGlvbl9jbG9ja3MgPSBwcF9nZXRfZGlz
-cGxheV9tb2RlX3ZhbGlkYXRpb25fY2xvY2tzLAogCS5ub3RpZnlfc211X2VuYWJsZV9wd2UgPSBw
-cF9ub3RpZnlfc211X2VuYWJsZV9wd2UsCiAJLmVuYWJsZV9tZ3B1X2Zhbl9ib29zdCA9IHBwX2Vu
-YWJsZV9tZ3B1X2Zhbl9ib29zdCwKKwkuc2V0X2FjdGl2ZV9kaXNwbGF5X2NvdW50ID0gcHBfc2V0
-X2FjdGl2ZV9kaXNwbGF5X2NvdW50LAorCS5zZXRfbWluX2RlZXBfc2xlZXBfZGNlZmNsayA9IHBw
-X3NldF9taW5fZGVlcF9zbGVlcF9kY2VmY2xrLAorCS5zZXRfaGFyZF9taW5fZGNlZmNsa19ieV9m
-cmVxID0gcHBfc2V0X2hhcmRfbWluX2RjZWZjbGtfYnlfZnJlcSwKKwkuc2V0X2hhcmRfbWluX2Zj
-bGtfYnlfZnJlcSA9IHBwX3NldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEsCiB9OwpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYwpp
-bmRleCA4NTExOWMyLi4zMzNiOWI4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYwpAQCAtMjg2LDggKzI4Niw4IEBAIGlu
-dCBwaG1fc3RvcmVfZGFsX2NvbmZpZ3VyYXRpb25fZGF0YShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
-LAogCWlmIChkaXNwbGF5X2NvbmZpZyA9PSBOVUxMKQogCQlyZXR1cm4gLUVJTlZBTDsKIAotCWlm
-IChOVUxMICE9IGh3bWdyLT5od21ncl9mdW5jLT5zZXRfZGVlcF9zbGVlcF9kY2VmY2xrKQotCQlo
-d21nci0+aHdtZ3JfZnVuYy0+c2V0X2RlZXBfc2xlZXBfZGNlZmNsayhod21nciwgZGlzcGxheV9j
-b25maWctPm1pbl9kY2VmX2RlZXBfc2xlZXBfc2V0X2Nsayk7CisJaWYgKE5VTEwgIT0gaHdtZ3It
-Pmh3bWdyX2Z1bmMtPnNldF9taW5fZGVlcF9zbGVlcF9kY2VmY2xrKQorCQlod21nci0+aHdtZ3Jf
-ZnVuYy0+c2V0X21pbl9kZWVwX3NsZWVwX2RjZWZjbGsoaHdtZ3IsIAorZGlzcGxheV9jb25maWct
-Pm1pbl9kY2VmX2RlZXBfc2xlZXBfc2V0X2Nsayk7CiAKIAlmb3IgKGluZGV4ID0gMDsgaW5kZXgg
-PCBkaXNwbGF5X2NvbmZpZy0+bnVtX3BhdGhfaW5jbHVkaW5nX25vbl9kaXNwbGF5OyBpbmRleCsr
-KSB7CiAJCWlmIChkaXNwbGF5X2NvbmZpZy0+ZGlzcGxheXNbaW5kZXhdLmNvbnRyb2xsZXJfaWQg
-IT0gMCkgQEAgLTQ3OCwzICs0NzgsNDQgQEAgaW50IHBobV9kaXNhYmxlX3NtY19maXJtd2FyZV9j
-dGYoc3RydWN0IHBwX2h3bWdyICpod21ncikKIAogCXJldHVybiBod21nci0+aHdtZ3JfZnVuYy0+
-ZGlzYWJsZV9zbWNfZmlybXdhcmVfY3RmKGh3bWdyKTsKIH0KKworaW50IHBobV9zZXRfYWN0aXZl
-X2Rpc3BsYXlfY291bnQoc3RydWN0IHBwX2h3bWdyICpod21nciwgdWludDMyX3QgCitjb3VudCkg
-eworCVBITV9GVU5DX0NIRUNLKGh3bWdyKTsKKworCWlmICghaHdtZ3ItPmh3bWdyX2Z1bmMtPnNl
-dF9hY3RpdmVfZGlzcGxheV9jb3VudCkKKwkJcmV0dXJuIC1FSU5WQUw7CisKKwlyZXR1cm4gaHdt
-Z3ItPmh3bWdyX2Z1bmMtPnNldF9hY3RpdmVfZGlzcGxheV9jb3VudChod21nciwgY291bnQpOyB9
-CisKK2ludCBwaG1fc2V0X21pbl9kZWVwX3NsZWVwX2RjZWZjbGsoc3RydWN0IHBwX2h3bWdyICpo
-d21nciwgdWludDMyX3QgCitjbG9jaykgeworCVBITV9GVU5DX0NIRUNLKGh3bWdyKTsKKworCWlm
-ICghaHdtZ3ItPmh3bWdyX2Z1bmMtPnNldF9taW5fZGVlcF9zbGVlcF9kY2VmY2xrKQorCQlyZXR1
-cm4gLUVJTlZBTDsKKworCXJldHVybiBod21nci0+aHdtZ3JfZnVuYy0+c2V0X21pbl9kZWVwX3Ns
-ZWVwX2RjZWZjbGsoaHdtZ3IsIGNsb2NrKTsgfQorCitpbnQgcGhtX3NldF9oYXJkX21pbl9kY2Vm
-Y2xrX2J5X2ZyZXEoc3RydWN0IHBwX2h3bWdyICpod21nciwgdWludDMyX3QgCitjbG9jaykgewor
-CVBITV9GVU5DX0NIRUNLKGh3bWdyKTsKKworCWlmICghaHdtZ3ItPmh3bWdyX2Z1bmMtPnNldF9o
-YXJkX21pbl9kY2VmY2xrX2J5X2ZyZXEpCisJCXJldHVybiAtRUlOVkFMOworCisJcmV0dXJuIGh3
-bWdyLT5od21ncl9mdW5jLT5zZXRfaGFyZF9taW5fZGNlZmNsa19ieV9mcmVxKGh3bWdyLCBjbG9j
-ayk7IAorfQorCitpbnQgcGhtX3NldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEoc3RydWN0IHBwX2h3
-bWdyICpod21nciwgdWludDMyX3QgCitjbG9jaykgeworCVBITV9GVU5DX0NIRUNLKGh3bWdyKTsK
-KworCWlmICghaHdtZ3ItPmh3bWdyX2Z1bmMtPnNldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEpCisJ
-CXJldHVybiAtRUlOVkFMOworCisJcmV0dXJuIGh3bWdyLT5od21ncl9mdW5jLT5zZXRfaGFyZF9t
-aW5fZmNsa19ieV9mcmVxKGh3bWdyLCBjbG9jayk7IH0KKwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211MTBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTEwX2h3bWdyLmMKaW5kZXggZGQxOGNiNy4uZjk1YzVm
-NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211MTBf
-aHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXUxMF9o
-d21nci5jCkBAIC0yMTYsMTIgKzIxNiwxMiBAQCBzdGF0aWMgaW5saW5lIHVpbnQzMl90IGNvbnZl
-cnRfMTBrX3RvX21oeih1aW50MzJfdCBjbG9jaykKIAlyZXR1cm4gKGNsb2NrICsgOTkpIC8gMTAw
-OwogfQogCi1zdGF0aWMgaW50IHNtdTEwX3NldF9kZWVwX3NsZWVwX2RjZWZjbGsoc3RydWN0IHBw
-X2h3bWdyICpod21nciwgdWludDMyX3QgY2xvY2spCitzdGF0aWMgaW50IHNtdTEwX3NldF9taW5f
-ZGVlcF9zbGVlcF9kY2VmY2xrKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIAordWludDMyX3QgY2xv
-Y2spCiB7CiAJc3RydWN0IHNtdTEwX2h3bWdyICpzbXUxMF9kYXRhID0gKHN0cnVjdCBzbXUxMF9o
-d21nciAqKShod21nci0+YmFja2VuZCk7CiAKIAlpZiAoc211MTBfZGF0YS0+bmVlZF9taW5fZGVl
-cF9zbGVlcF9kY2VmY2xrICYmCi0JICAgIHNtdTEwX2RhdGEtPmRlZXBfc2xlZXBfZGNlZmNsayAh
-PSBjb252ZXJ0XzEwa190b19taHooY2xvY2spKSB7CisJCXNtdTEwX2RhdGEtPmRlZXBfc2xlZXBf
-ZGNlZmNsayAhPSBjb252ZXJ0XzEwa190b19taHooY2xvY2spKSB7CiAJCXNtdTEwX2RhdGEtPmRl
-ZXBfc2xlZXBfZGNlZmNsayA9IGNvbnZlcnRfMTBrX3RvX21oeihjbG9jayk7CiAJCXNtdW1fc2Vu
-ZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAogCQkJCQlQUFNNQ19NU0dfU2V0TWlu
-RGVlcFNsZWVwRGNlZmNsaywKQEAgLTIzMCw2ICsyMzAsMzQgQEAgc3RhdGljIGludCBzbXUxMF9z
-ZXRfZGVlcF9zbGVlcF9kY2VmY2xrKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHVpbnQzMl90IGNs
-b2NrKQogCXJldHVybiAwOwogfQogCitzdGF0aWMgaW50IHNtdTEwX3NldF9oYXJkX21pbl9kY2Vm
-Y2xrX2J5X2ZyZXEoc3RydWN0IHBwX2h3bWdyICpod21nciwgCit1aW50MzJfdCBjbG9jaykgewor
-CXN0cnVjdCBzbXUxMF9od21nciAqc211MTBfZGF0YSA9IChzdHJ1Y3Qgc211MTBfaHdtZ3IgCisq
-KShod21nci0+YmFja2VuZCk7CisKKwlpZiAoc211MTBfZGF0YS0+ZGNmX2FjdHVhbF9oYXJkX21p
-bl9mcmVxICYmCisJCXNtdTEwX2RhdGEtPmRjZl9hY3R1YWxfaGFyZF9taW5fZnJlcSAhPSBjb252
-ZXJ0XzEwa190b19taHooY2xvY2spKSB7CisJCXNtdTEwX2RhdGEtPmRjZl9hY3R1YWxfaGFyZF9t
-aW5fZnJlcSA9IGNvbnZlcnRfMTBrX3RvX21oeihjbG9jayk7CisJCXNtdW1fc2VuZF9tc2dfdG9f
-c21jX3dpdGhfcGFyYW1ldGVyKGh3bWdyLAorCQkJCQlQUFNNQ19NU0dfU2V0SGFyZE1pbkRjZWZj
-bGtCeUZyZXEsCisJCQkJCXNtdTEwX2RhdGEtPmRjZl9hY3R1YWxfaGFyZF9taW5fZnJlcSk7CisJ
-fQorCXJldHVybiAwOworfQorCitzdGF0aWMgaW50IHNtdTEwX3NldF9oYXJkX21pbl9mY2xrX2J5
-X2ZyZXEoc3RydWN0IHBwX2h3bWdyICpod21nciwgCit1aW50MzJfdCBjbG9jaykgeworCXN0cnVj
-dCBzbXUxMF9od21nciAqc211MTBfZGF0YSA9IChzdHJ1Y3Qgc211MTBfaHdtZ3IgCisqKShod21n
-ci0+YmFja2VuZCk7CisKKwlpZiAoc211MTBfZGF0YS0+Zl9hY3R1YWxfaGFyZF9taW5fZnJlcSAm
-JgorCQlzbXUxMF9kYXRhLT5mX2FjdHVhbF9oYXJkX21pbl9mcmVxICE9IGNvbnZlcnRfMTBrX3Rv
-X21oeihjbG9jaykpIHsKKwkJc211MTBfZGF0YS0+Zl9hY3R1YWxfaGFyZF9taW5fZnJlcSA9IGNv
-bnZlcnRfMTBrX3RvX21oeihjbG9jayk7CisJCXNtdW1fc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFy
-YW1ldGVyKGh3bWdyLAorCQkJCQlQUFNNQ19NU0dfU2V0SGFyZE1pbkZjbGtCeUZyZXEsCisJCQkJ
-CXNtdTEwX2RhdGEtPmZfYWN0dWFsX2hhcmRfbWluX2ZyZXEpOworCX0KKwlyZXR1cm4gMDsKK30K
-Kwogc3RhdGljIGludCBzbXUxMF9zZXRfYWN0aXZlX2Rpc3BsYXlfY291bnQoc3RydWN0IHBwX2h3
-bWdyICpod21nciwgdWludDMyX3QgY291bnQpICB7CiAJc3RydWN0IHNtdTEwX2h3bWdyICpzbXUx
-MF9kYXRhID0gKHN0cnVjdCBzbXUxMF9od21nciAqKShod21nci0+YmFja2VuZCk7IEBAIC0xMjA2
-LDcgKzEyMzQsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBwX2h3bWdyX2Z1bmMgc211MTBfaHdt
-Z3JfZnVuY3MgPSB7CiAJLmdldF9tYXhfaGlnaF9jbG9ja3MgPSBzbXUxMF9nZXRfbWF4X2hpZ2hf
-Y2xvY2tzLAogCS5yZWFkX3NlbnNvciA9IHNtdTEwX3JlYWRfc2Vuc29yLAogCS5zZXRfYWN0aXZl
-X2Rpc3BsYXlfY291bnQgPSBzbXUxMF9zZXRfYWN0aXZlX2Rpc3BsYXlfY291bnQsCi0JLnNldF9k
-ZWVwX3NsZWVwX2RjZWZjbGsgPSBzbXUxMF9zZXRfZGVlcF9zbGVlcF9kY2VmY2xrLAorCS5zZXRf
-bWluX2RlZXBfc2xlZXBfZGNlZmNsayA9IHNtdTEwX3NldF9taW5fZGVlcF9zbGVlcF9kY2VmY2xr
-LAogCS5keW5hbWljX3N0YXRlX21hbmFnZW1lbnRfZW5hYmxlID0gc211MTBfZW5hYmxlX2RwbV90
-YXNrcywKIAkucG93ZXJfb2ZmX2FzaWMgPSBzbXUxMF9wb3dlcl9vZmZfYXNpYywKIAkuYXNpY19z
-ZXR1cCA9IHNtdTEwX3NldHVwX2FzaWNfdGFzaywKQEAgLTEyMTcsNiArMTI0NSw4IEBAIHN0YXRp
-YyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyBzbXUxMF9od21ncl9mdW5jcyA9IHsKIAkuZGlz
-cGxheV9jbG9ja192b2x0YWdlX3JlcXVlc3QgPSBzbXUxMF9kaXNwbGF5X2Nsb2NrX3ZvbHRhZ2Vf
-cmVxdWVzdCwKIAkucG93ZXJnYXRlX2dmeCA9IHNtdTEwX2dmeF9vZmZfY29udHJvbCwKIAkucG93
-ZXJnYXRlX3NkbWEgPSBzbXUxMF9wb3dlcmdhdGVfc2RtYSwKKwkuc2V0X2hhcmRfbWluX2RjZWZj
-bGtfYnlfZnJlcSA9IHNtdTEwX3NldF9oYXJkX21pbl9kY2VmY2xrX2J5X2ZyZXEsCisJLnNldF9o
-YXJkX21pbl9mY2xrX2J5X2ZyZXEgPSBzbXUxMF9zZXRfaGFyZF9taW5fZmNsa19ieV9mcmVxLAog
-fTsKIAogaW50IHNtdTEwX2luaXRfZnVuY3Rpb25fcG9pbnRlcnMoc3RydWN0IHBwX2h3bWdyICpo
-d21ncikgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9oYXJk
-d2FyZW1hbmFnZXIuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9oYXJkd2Fy
-ZW1hbmFnZXIuaAppbmRleCA1NGZkMDEyLi5mNGRhYjk3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaGFyZHdhcmVtYW5hZ2VyLmgKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2hhcmR3YXJlbWFuYWdlci5oCkBAIC00NjMsNSArNDYz
-LDggQEAgZXh0ZXJuIGludCBwaG1fZGlzcGxheV9jbG9ja192b2x0YWdlX3JlcXVlc3Qoc3RydWN0
-IHBwX2h3bWdyICpod21nciwKIAogZXh0ZXJuIGludCBwaG1fZ2V0X21heF9oaWdoX2Nsb2Nrcyhz
-dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBzdHJ1Y3QgYW1kX3BwX3NpbXBsZV9jbG9ja19pbmZvICpj
-bG9ja3MpOyAgZXh0ZXJuIGludCBwaG1fZGlzYWJsZV9zbWNfZmlybXdhcmVfY3RmKHN0cnVjdCBw
-cF9od21nciAqaHdtZ3IpOworCitleHRlcm4gaW50IHBobV9zZXRfYWN0aXZlX2Rpc3BsYXlfY291
-bnQoc3RydWN0IHBwX2h3bWdyICpod21nciwgCit1aW50MzJfdCBjb3VudCk7CisKICNlbmRpZiAv
-KiBfSEFSRFdBUkVfTUFOQUdFUl9IXyAqLwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2luYy9od21nci5oCmluZGV4IDA3ZDE4MGNlLi4xOWVkZmM5IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaApAQCAtMzA5LDcgKzMwOSw3IEBAIHN0cnVjdCBwcF9o
-d21ncl9mdW5jIHsKIAlpbnQgKCphdmZzX2NvbnRyb2wpKHN0cnVjdCBwcF9od21nciAqaHdtZ3Is
-IGJvb2wgZW5hYmxlKTsKIAlpbnQgKCpkaXNhYmxlX3NtY19maXJtd2FyZV9jdGYpKHN0cnVjdCBw
-cF9od21nciAqaHdtZ3IpOwogCWludCAoKnNldF9hY3RpdmVfZGlzcGxheV9jb3VudCkoc3RydWN0
-IHBwX2h3bWdyICpod21nciwgdWludDMyX3QgY291bnQpOwotCWludCAoKnNldF9kZWVwX3NsZWVw
-X2RjZWZjbGspKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHVpbnQzMl90IGNsb2NrKTsKKwlpbnQg
-KCpzZXRfbWluX2RlZXBfc2xlZXBfZGNlZmNsaykoc3RydWN0IHBwX2h3bWdyICpod21nciwgdWlu
-dDMyX3QgCitjbG9jayk7CiAJaW50ICgqc3RhcnRfdGhlcm1hbF9jb250cm9sbGVyKShzdHJ1Y3Qg
-cHBfaHdtZ3IgKmh3bWdyLCBzdHJ1Y3QgUFBfVGVtcGVyYXR1cmVSYW5nZSAqcmFuZ2UpOwogCWlu
-dCAoKm5vdGlmeV9jYWNfYnVmZmVyX2luZm8pKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJCQkJ
-CXVpbnQzMl90IHZpcnR1YWxfYWRkcl9sb3csCkBAIC0zMjksNiArMzI5LDggQEAgc3RydWN0IHBw
-X2h3bWdyX2Z1bmMgewogCWludCAoKnNtdXNfbm90aWZ5X3B3ZSkoc3RydWN0IHBwX2h3bWdyICpo
-d21ncik7CiAJaW50ICgqcG93ZXJnYXRlX3NkbWEpKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGJv
-b2wgYmdhdGUpOwogCWludCAoKmVuYWJsZV9tZ3B1X2Zhbl9ib29zdCkoc3RydWN0IHBwX2h3bWdy
-ICpod21ncik7CisJaW50ICgqc2V0X2hhcmRfbWluX2RjZWZjbGtfYnlfZnJlcSkoc3RydWN0IHBw
-X2h3bWdyICpod21nciwgdWludDMyX3QgY2xvY2spOworCWludCAoKnNldF9oYXJkX21pbl9mY2xr
-X2J5X2ZyZXEpKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIHVpbnQzMl90IAorY2xvY2spOwogfTsK
-IAogc3RydWN0IHBwX3RhYmxlX2Z1bmMgewotLQoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============1154794256==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18094517386BC2D7C102E7FBF7A80BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18094517386BC2D7C102E7FBF7A80BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Looks reasonable to me.
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: Wu, Hersen
+Sent: Wednesday, December 5, 2018 1:03:57 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zhu, Rex; Deucher, Alexander
+Subject: RE: [PATCH] drm/amd/powerplay: rv dal-pplib interface refactor pow=
+erplay part
+
+Hello, Alex, Rex,
+
+Would you please help review the change?
+
+Thanks,
+Hersen
+
+
+
+
+
+[WHY] clarify dal input parameters to pplib interface, remove un-used param=
+eters. dal knows exactly which parameters needed and their effects at pplib=
+ and smu sides.
+
+current dal sequence for dcn1_update_clock to pplib:
+
+1.smu10_display_clock_voltage_request for dcefclk 2.smu10_display_clock_vol=
+tage_request for fclk 3.phm_store_dal_configuration_data {
+  set_min_deep_sleep_dcfclk
+  set_active_display_count
+  store_cc6_data --- this data never be referenced
+
+new sequence will be:
+
+1. set_display_count  --- need add new pplib interface 2. set_min_deep_slee=
+p_dcfclk -- new pplib interface 3. set_hard_min_dcfclk_by_freq 4. set_hard_=
+min_fclk_by_freq
+
+after this code refactor, smu10_display_clock_voltage_request,
+phm_store_dal_configuration_data will not be needed for rv.
+
+[HOW] step 1: add new functions at pplib interface
+      step 2: add new functions at amdgpu dm and dc
+
+Signed-off-by: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |  4 ++
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c      | 76 ++++++++++++++++++=
+++++
+ .../gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c  | 45 ++++++++++++-  dri=
+vers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c  | 36 +++++++++-
+ .../gpu/drm/amd/powerplay/inc/hardwaremanager.h    |  3 +
+ drivers/gpu/drm/amd/powerplay/inc/hwmgr.h          |  4 +-
+ 6 files changed, 162 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h
+index 980e696..1479ea1 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -276,6 +276,10 @@ struct amd_pm_funcs {
+                 struct amd_pp_simple_clock_info *clocks);
+         int (*notify_smu_enable_pwe)(void *handle);
+         int (*enable_mgpu_fan_boost)(void *handle);
++       int (*set_active_display_count)(void *handle, uint32_t count);
++       int (*set_hard_min_dcefclk_by_freq)(void *handle, uint32_t clock);
++       int (*set_hard_min_fclk_by_freq)(void *handle, uint32_t clock);
++       int (*set_min_deep_sleep_dcefclk)(void *handle, uint32_t clock);
+ };
+
+ #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c
+index d6aa1d4..53dde16 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -1332,6 +1332,78 @@ static int pp_enable_mgpu_fan_boost(void *handle)
+         return 0;
+ }
+
++static int pp_set_min_deep_sleep_dcefclk(void *handle, uint32_t clock)
++{
++       struct pp_hwmgr *hwmgr =3D handle;
++
++       if (!hwmgr || !hwmgr->pm_en)
++               return -EINVAL;
++
++       if (hwmgr->hwmgr_func->set_min_deep_sleep_dcefclk =3D=3D NULL) {
++               pr_info("%s was not implemented.\n", __func__);
++               return -EINVAL;;
++       }
++
++       mutex_lock(&hwmgr->smu_lock);
++       hwmgr->hwmgr_func->set_min_deep_sleep_dcefclk(hwmgr, clock);
++       mutex_unlock(&hwmgr->smu_lock);
++
++       return 0;
++}
++
++static int pp_set_hard_min_dcefclk_by_freq(void *handle, uint32_t
++clock) {
++       struct pp_hwmgr *hwmgr =3D handle;
++
++       if (!hwmgr || !hwmgr->pm_en)
++               return -EINVAL;
++
++       if (hwmgr->hwmgr_func->set_hard_min_dcefclk_by_freq =3D=3D NULL) {
++               pr_info("%s was not implemented.\n", __func__);
++               return -EINVAL;;
++       }
++
++       mutex_lock(&hwmgr->smu_lock);
++       hwmgr->hwmgr_func->set_hard_min_dcefclk_by_freq(hwmgr, clock);
++       mutex_unlock(&hwmgr->smu_lock);
++
++       return 0;
++}
++
++static int pp_set_hard_min_fclk_by_freq(void *handle, uint32_t clock) {
++       struct pp_hwmgr *hwmgr =3D handle;
++
++       if (!hwmgr || !hwmgr->pm_en)
++               return -EINVAL;
++
++       if (hwmgr->hwmgr_func->set_hard_min_fclk_by_freq =3D=3D NULL) {
++               pr_info("%s was not implemented.\n", __func__);
++               return -EINVAL;;
++       }
++
++       mutex_lock(&hwmgr->smu_lock);
++       hwmgr->hwmgr_func->set_hard_min_fclk_by_freq(hwmgr, clock);
++       mutex_unlock(&hwmgr->smu_lock);
++
++       return 0;
++}
++
++static int pp_set_active_display_count(void *handle, uint32_t count) {
++       struct pp_hwmgr *hwmgr =3D handle;
++       int ret =3D 0;
++
++       if (!hwmgr || !hwmgr->pm_en)
++               return -EINVAL;
++
++       mutex_lock(&hwmgr->smu_lock);
++       ret =3D phm_set_active_display_count(hwmgr, count);
++       mutex_unlock(&hwmgr->smu_lock);
++
++       return ret;
++}
++
+ static const struct amd_pm_funcs pp_dpm_funcs =3D {
+         .load_firmware =3D pp_dpm_load_fw,
+         .wait_for_fw_loading_complete =3D pp_dpm_fw_loading_complete, @@ -=
+1378,4 +1450,8 @@ static const struct amd_pm_funcs pp_dpm_funcs =3D {
+         .get_display_mode_validation_clocks =3D pp_get_display_mode_valida=
+tion_clocks,
+         .notify_smu_enable_pwe =3D pp_notify_smu_enable_pwe,
+         .enable_mgpu_fan_boost =3D pp_enable_mgpu_fan_boost,
++       .set_active_display_count =3D pp_set_active_display_count,
++       .set_min_deep_sleep_dcefclk =3D pp_set_min_deep_sleep_dcefclk,
++       .set_hard_min_dcefclk_by_freq =3D pp_set_hard_min_dcefclk_by_freq,
++       .set_hard_min_fclk_by_freq =3D pp_set_hard_min_fclk_by_freq,
+ };
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c b/driver=
+s/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+index 85119c2..333b9b8 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c
+@@ -286,8 +286,8 @@ int phm_store_dal_configuration_data(struct pp_hwmgr *h=
+wmgr,
+         if (display_config =3D=3D NULL)
+                 return -EINVAL;
+
+-       if (NULL !=3D hwmgr->hwmgr_func->set_deep_sleep_dcefclk)
+-               hwmgr->hwmgr_func->set_deep_sleep_dcefclk(hwmgr, display_co=
+nfig->min_dcef_deep_sleep_set_clk);
++       if (NULL !=3D hwmgr->hwmgr_func->set_min_deep_sleep_dcefclk)
++               hwmgr->hwmgr_func->set_min_deep_sleep_dcefclk(hwmgr,
++display_config->min_dcef_deep_sleep_set_clk);
+
+         for (index =3D 0; index < display_config->num_path_including_non_d=
+isplay; index++) {
+                 if (display_config->displays[index].controller_id !=3D 0) =
+@@ -478,3 +478,44 @@ int phm_disable_smc_firmware_ctf(struct pp_hwmgr *hwmg=
+r)
+
+         return hwmgr->hwmgr_func->disable_smc_firmware_ctf(hwmgr);
+ }
++
++int phm_set_active_display_count(struct pp_hwmgr *hwmgr, uint32_t
++count) {
++       PHM_FUNC_CHECK(hwmgr);
++
++       if (!hwmgr->hwmgr_func->set_active_display_count)
++               return -EINVAL;
++
++       return hwmgr->hwmgr_func->set_active_display_count(hwmgr, count); }
++
++int phm_set_min_deep_sleep_dcefclk(struct pp_hwmgr *hwmgr, uint32_t
++clock) {
++       PHM_FUNC_CHECK(hwmgr);
++
++       if (!hwmgr->hwmgr_func->set_min_deep_sleep_dcefclk)
++               return -EINVAL;
++
++       return hwmgr->hwmgr_func->set_min_deep_sleep_dcefclk(hwmgr, clock);=
+ }
++
++int phm_set_hard_min_dcefclk_by_freq(struct pp_hwmgr *hwmgr, uint32_t
++clock) {
++       PHM_FUNC_CHECK(hwmgr);
++
++       if (!hwmgr->hwmgr_func->set_hard_min_dcefclk_by_freq)
++               return -EINVAL;
++
++       return hwmgr->hwmgr_func->set_hard_min_dcefclk_by_freq(hwmgr, clock=
+);
++}
++
++int phm_set_hard_min_fclk_by_freq(struct pp_hwmgr *hwmgr, uint32_t
++clock) {
++       PHM_FUNC_CHECK(hwmgr);
++
++       if (!hwmgr->hwmgr_func->set_hard_min_fclk_by_freq)
++               return -EINVAL;
++
++       return hwmgr->hwmgr_func->set_hard_min_fclk_by_freq(hwmgr, clock); =
+}
++
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+index dd18cb7..f95c5f5 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+@@ -216,12 +216,12 @@ static inline uint32_t convert_10k_to_mhz(uint32_t cl=
+ock)
+         return (clock + 99) / 100;
+ }
+
+-static int smu10_set_deep_sleep_dcefclk(struct pp_hwmgr *hwmgr, uint32_t c=
+lock)
++static int smu10_set_min_deep_sleep_dcefclk(struct pp_hwmgr *hwmgr,
++uint32_t clock)
+ {
+         struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr *)(hwmgr->b=
+ackend);
+
+         if (smu10_data->need_min_deep_sleep_dcefclk &&
+-           smu10_data->deep_sleep_dcefclk !=3D convert_10k_to_mhz(clock)) =
+{
++               smu10_data->deep_sleep_dcefclk !=3D convert_10k_to_mhz(cloc=
+k)) {
+                 smu10_data->deep_sleep_dcefclk =3D convert_10k_to_mhz(cloc=
+k);
+                 smum_send_msg_to_smc_with_parameter(hwmgr,
+                                         PPSMC_MSG_SetMinDeepSleepDcefclk,
+@@ -230,6 +230,34 @@ static int smu10_set_deep_sleep_dcefclk(struct pp_hwmg=
+r *hwmgr, uint32_t clock)
+         return 0;
+ }
+
++static int smu10_set_hard_min_dcefclk_by_freq(struct pp_hwmgr *hwmgr,
++uint32_t clock) {
++       struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr
++*)(hwmgr->backend);
++
++       if (smu10_data->dcf_actual_hard_min_freq &&
++               smu10_data->dcf_actual_hard_min_freq !=3D convert_10k_to_mh=
+z(clock)) {
++               smu10_data->dcf_actual_hard_min_freq =3D convert_10k_to_mhz=
+(clock);
++               smum_send_msg_to_smc_with_parameter(hwmgr,
++                                       PPSMC_MSG_SetHardMinDcefclkByFreq,
++                                       smu10_data->dcf_actual_hard_min_fre=
+q);
++       }
++       return 0;
++}
++
++static int smu10_set_hard_min_fclk_by_freq(struct pp_hwmgr *hwmgr,
++uint32_t clock) {
++       struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr
++*)(hwmgr->backend);
++
++       if (smu10_data->f_actual_hard_min_freq &&
++               smu10_data->f_actual_hard_min_freq !=3D convert_10k_to_mhz(=
+clock)) {
++               smu10_data->f_actual_hard_min_freq =3D convert_10k_to_mhz(c=
+lock);
++               smum_send_msg_to_smc_with_parameter(hwmgr,
++                                       PPSMC_MSG_SetHardMinFclkByFreq,
++                                       smu10_data->f_actual_hard_min_freq)=
+;
++       }
++       return 0;
++}
++
+ static int smu10_set_active_display_count(struct pp_hwmgr *hwmgr, uint32_t=
+ count)  {
+         struct smu10_hwmgr *smu10_data =3D (struct smu10_hwmgr *)(hwmgr->b=
+ackend); @@ -1206,7 +1234,7 @@ static const struct pp_hwmgr_func smu10_hwmg=
+r_funcs =3D {
+         .get_max_high_clocks =3D smu10_get_max_high_clocks,
+         .read_sensor =3D smu10_read_sensor,
+         .set_active_display_count =3D smu10_set_active_display_count,
+-       .set_deep_sleep_dcefclk =3D smu10_set_deep_sleep_dcefclk,
++       .set_min_deep_sleep_dcefclk =3D smu10_set_min_deep_sleep_dcefclk,
+         .dynamic_state_management_enable =3D smu10_enable_dpm_tasks,
+         .power_off_asic =3D smu10_power_off_asic,
+         .asic_setup =3D smu10_setup_asic_task,
+@@ -1217,6 +1245,8 @@ static const struct pp_hwmgr_func smu10_hwmgr_funcs =
+=3D {
+         .display_clock_voltage_request =3D smu10_display_clock_voltage_req=
+uest,
+         .powergate_gfx =3D smu10_gfx_off_control,
+         .powergate_sdma =3D smu10_powergate_sdma,
++       .set_hard_min_dcefclk_by_freq =3D smu10_set_hard_min_dcefclk_by_fre=
+q,
++       .set_hard_min_fclk_by_freq =3D smu10_set_hard_min_fclk_by_freq,
+ };
+
+ int smu10_init_function_pointers(struct pp_hwmgr *hwmgr) diff --git a/driv=
+ers/gpu/drm/amd/powerplay/inc/hardwaremanager.h b/drivers/gpu/drm/amd/power=
+play/inc/hardwaremanager.h
+index 54fd012..f4dab97 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h
+@@ -463,5 +463,8 @@ extern int phm_display_clock_voltage_request(struct pp_=
+hwmgr *hwmgr,
+
+ extern int phm_get_max_high_clocks(struct pp_hwmgr *hwmgr, struct amd_pp_s=
+imple_clock_info *clocks);  extern int phm_disable_smc_firmware_ctf(struct =
+pp_hwmgr *hwmgr);
++
++extern int phm_set_active_display_count(struct pp_hwmgr *hwmgr,
++uint32_t count);
++
+ #endif /* _HARDWARE_MANAGER_H_ */
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h
+index 07d180ce..19edfc9 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+@@ -309,7 +309,7 @@ struct pp_hwmgr_func {
+         int (*avfs_control)(struct pp_hwmgr *hwmgr, bool enable);
+         int (*disable_smc_firmware_ctf)(struct pp_hwmgr *hwmgr);
+         int (*set_active_display_count)(struct pp_hwmgr *hwmgr, uint32_t c=
+ount);
+-       int (*set_deep_sleep_dcefclk)(struct pp_hwmgr *hwmgr, uint32_t cloc=
+k);
++       int (*set_min_deep_sleep_dcefclk)(struct pp_hwmgr *hwmgr, uint32_t
++clock);
+         int (*start_thermal_controller)(struct pp_hwmgr *hwmgr, struct PP_=
+TemperatureRange *range);
+         int (*notify_cac_buffer_info)(struct pp_hwmgr *hwmgr,
+                                         uint32_t virtual_addr_low,
+@@ -329,6 +329,8 @@ struct pp_hwmgr_func {
+         int (*smus_notify_pwe)(struct pp_hwmgr *hwmgr);
+         int (*powergate_sdma)(struct pp_hwmgr *hwmgr, bool bgate);
+         int (*enable_mgpu_fan_boost)(struct pp_hwmgr *hwmgr);
++       int (*set_hard_min_dcefclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_=
+t clock);
++       int (*set_hard_min_fclk_by_freq)(struct pp_hwmgr *hwmgr, uint32_t
++clock);
+ };
+
+ struct pp_table_func {
+--
+2.7.4
+
+
+--_000_BN6PR12MB18094517386BC2D7C102E7FBF7A80BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Looks reasonable to me.</p>
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wu, Hersen<br>
+<b>Sent:</b> Wednesday, December 5, 2018 1:03:57 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zhu, Rex; Deucher, Alexander<br>
+<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: rv dal-pplib interface refac=
+tor powerplay part</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hello, Alex, Rex,<br>
+<br>
+Would you please help review the change?<br>
+<br>
+Thanks,<br>
+Hersen<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+[WHY] clarify dal input parameters to pplib interface, remove un-used param=
+eters. dal knows exactly which parameters needed and their effects at pplib=
+ and smu sides.<br>
+<br>
+current dal sequence for dcn1_update_clock to pplib:<br>
+<br>
+1.smu10_display_clock_voltage_request for dcefclk 2.smu10_display_clock_vol=
+tage_request for fclk 3.phm_store_dal_configuration_data {<br>
+&nbsp; set_min_deep_sleep_dcfclk<br>
+&nbsp; set_active_display_count<br>
+&nbsp; store_cc6_data --- this data never be referenced<br>
+<br>
+new sequence will be:<br>
+<br>
+1. set_display_count&nbsp; --- need add new pplib interface 2. set_min_deep=
+_sleep_dcfclk -- new pplib interface 3. set_hard_min_dcfclk_by_freq 4. set_=
+hard_min_fclk_by_freq<br>
+<br>
+after this code refactor, smu10_display_clock_voltage_request,<br>
+phm_store_dal_configuration_data will not be needed for rv.<br>
+<br>
+[HOW] step 1: add new functions at pplib interface<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; step 2: add new functions at amdgpu dm and d=
+c<br>
+<br>
+Signed-off-by: hersen wu &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/include/kgd_pp_interface.h&nbsp;&nbsp;&nbsp;&nbsp=
+; |&nbsp; 4 &#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amd_powerplay.c&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; | 76 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;.../gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c&nbsp; | 45 &#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-&nbsp; drivers/gpu/drm=
+/amd/powerplay/hwmgr/smu10_hwmgr.c&nbsp; | 36 &#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;-<br>
+&nbsp;.../gpu/drm/amd/powerplay/inc/hardwaremanager.h&nbsp;&nbsp;&nbsp; |&n=
+bsp; 3 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/hwmgr.h&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;-<br>
+&nbsp;6 files changed, 162 insertions(&#43;), 6 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h<br>
+index 980e696..1479ea1 100644<br>
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+@@ -276,6 &#43;276,10 @@ struct amd_pm_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; struct amd_pp_simple_clock_info *clocks);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*notify_smu_enable_pw=
+e)(void *handle);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*enable_mgpu_fan_boos=
+t)(void *handle);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_active_display_count)(v=
+oid *handle, uint32_t count);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_hard_min_dcefclk_by_fre=
+q)(void *handle, uint32_t clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_hard_min_fclk_by_freq)(=
+void *handle, uint32_t clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_min_deep_sleep_dcefclk)=
+(void *handle, uint32_t clock);<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;#endif<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/dr=
+m/amd/powerplay/amd_powerplay.c<br>
+index d6aa1d4..53dde16 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c<br>
+@@ -1332,6 &#43;1332,78 @@ static int pp_enable_mgpu_fan_boost(void *handle=
+)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static int pp_set_min_deep_sleep_dcefclk(void *handle, uint32_t clock)=
+ <br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
+;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_en)<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;set_=
+min_deep_sleep_dcefclk =3D=3D NULL) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; pr_info(&quot;%s was not implemented.\n&quot;, __func__);<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;smu_loc=
+k);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_min_=
+deep_sleep_dcefclk(hwmgr, clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;hwmgr-&gt;smu_l=
+ock);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&#43;<br>
+&#43;static int pp_set_hard_min_dcefclk_by_freq(void *handle, uint32_t <br>
+&#43;clock) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
+;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_en)<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;set_=
+hard_min_dcefclk_by_freq =3D=3D NULL) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; pr_info(&quot;%s was not implemented.\n&quot;, __func__);<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;smu_loc=
+k);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_hard=
+_min_dcefclk_by_freq(hwmgr, clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;hwmgr-&gt;smu_l=
+ock);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&#43;<br>
+&#43;static int pp_set_hard_min_fclk_by_freq(void *handle, uint32_t clock) =
+{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
+;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_en)<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;hwmgr_func-&gt;set_=
+hard_min_fclk_by_freq =3D=3D NULL) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; pr_info(&quot;%s was not implemented.\n&quot;, __func__);<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;smu_loc=
+k);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_hard=
+_min_fclk_by_freq(hwmgr, clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;hwmgr-&gt;smu_l=
+ock);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&#43;<br>
+&#43;static int pp_set_active_display_count(void *handle, uint32_t count) {=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct pp_hwmgr *hwmgr =3D handle=
+;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr || !hwmgr-&gt;pm_en)<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;hwmgr-&gt;smu_loc=
+k);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D phm_set_active_display_co=
+unt(hwmgr, count);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;hwmgr-&gt;smu_l=
+ock);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static const struct amd_pm_funcs pp_dpm_funcs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .load_firmware =3D pp_dpm_=
+load_fw,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .wait_for_fw_loading_compl=
+ete =3D pp_dpm_fw_loading_complete, @@ -1378,4 &#43;1450,8 @@ static const =
+struct amd_pm_funcs pp_dpm_funcs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_display_mode_validati=
+on_clocks =3D pp_get_display_mode_validation_clocks,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .notify_smu_enable_pwe =3D=
+ pp_notify_smu_enable_pwe,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .enable_mgpu_fan_boost =3D=
+ pp_enable_mgpu_fan_boost,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_active_display_count =3D pp_=
+set_active_display_count,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_min_deep_sleep_dcefclk =3D p=
+p_set_min_deep_sleep_dcefclk,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_hard_min_dcefclk_by_freq =3D=
+ pp_set_hard_min_dcefclk_by_freq,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_hard_min_fclk_by_freq =3D pp=
+_set_hard_min_fclk_by_freq,<br>
+&nbsp;};<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c b/driver=
+s/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c<br>
+index 85119c2..333b9b8 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/hardwaremanager.c<br>
+@@ -286,8 &#43;286,8 @@ int phm_store_dal_configuration_data(struct pp_hwmg=
+r *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (display_config =3D=3D =
+NULL)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;hwmgr_func-&g=
+t;set_deep_sleep_dcefclk)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_deep_sleep_dcefclk(hwmgr, display_c=
+onfig-&gt;min_dcef_deep_sleep_set_clk);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (NULL !=3D hwmgr-&gt;hwmgr_fun=
+c-&gt;set_min_deep_sleep_dcefclk)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; hwmgr-&gt;hwmgr_func-&gt;set_min_deep_sleep_dcefclk(hwmgr, <=
+br>
+&#43;display_config-&gt;min_dcef_deep_sleep_set_clk);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (index =3D 0; index &l=
+t; display_config-&gt;num_path_including_non_display; index&#43;&#43;) {<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (display_config-&gt;displays[index].controller_id =
+!=3D 0) @@ -478,3 &#43;478,44 @@ int phm_disable_smc_firmware_ctf(struct pp=
+_hwmgr *hwmgr)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_fun=
+c-&gt;disable_smc_firmware_ctf(hwmgr);<br>
+&nbsp;}<br>
+&#43;<br>
+&#43;int phm_set_active_display_count(struct pp_hwmgr *hwmgr, uint32_t <br>
+&#43;count) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_FUNC_CHECK(hwmgr);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;hwmgr_func-&gt;set=
+_active_display_count)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_func-&gt;s=
+et_active_display_count(hwmgr, count); }<br>
+&#43;<br>
+&#43;int phm_set_min_deep_sleep_dcefclk(struct pp_hwmgr *hwmgr, uint32_t <b=
+r>
+&#43;clock) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_FUNC_CHECK(hwmgr);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;hwmgr_func-&gt;set=
+_min_deep_sleep_dcefclk)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_func-&gt;s=
+et_min_deep_sleep_dcefclk(hwmgr, clock); }<br>
+&#43;<br>
+&#43;int phm_set_hard_min_dcefclk_by_freq(struct pp_hwmgr *hwmgr, uint32_t =
+<br>
+&#43;clock) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_FUNC_CHECK(hwmgr);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;hwmgr_func-&gt;set=
+_hard_min_dcefclk_by_freq)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_func-&gt;s=
+et_hard_min_dcefclk_by_freq(hwmgr, clock); <br>
+&#43;}<br>
+&#43;<br>
+&#43;int phm_set_hard_min_fclk_by_freq(struct pp_hwmgr *hwmgr, uint32_t <br=
+>
+&#43;clock) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_FUNC_CHECK(hwmgr);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hwmgr-&gt;hwmgr_func-&gt;set=
+_hard_min_fclk_by_freq)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return hwmgr-&gt;hwmgr_func-&gt;s=
+et_hard_min_fclk_by_freq(hwmgr, clock); }<br>
+&#43;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
+u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+index dd18cb7..f95c5f5 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
+@@ -216,12 &#43;216,12 @@ static inline uint32_t convert_10k_to_mhz(uint32_=
+t clock)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (clock &#43; 99) / =
+100;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-static int smu10_set_deep_sleep_dcefclk(struct pp_hwmgr *hwmgr, uint32_t c=
+lock)<br>
+&#43;static int smu10_set_min_deep_sleep_dcefclk(struct pp_hwmgr *hwmgr, <b=
+r>
+&#43;uint32_t clock)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_=
+data =3D (struct smu10_hwmgr *)(hwmgr-&gt;backend);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu10_data-&gt;need_mi=
+n_deep_sleep_dcefclk &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu10_data-&g=
+t;deep_sleep_dcefclk !=3D convert_10k_to_mhz(clock)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu10_data-&gt;deep_sleep_dcefclk !=3D convert_10k_to_mhz(cl=
+ock)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; smu10_data-&gt;deep_sleep_dcefclk =3D convert_10k_to_=
+mhz(clock);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; PPSMC_MSG_SetMinDeepSleepDcefclk,<br>
+@@ -230,6 &#43;230,34 @@ static int smu10_set_deep_sleep_dcefclk(struct pp_=
+hwmgr *hwmgr, uint32_t clock)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static int smu10_set_hard_min_dcefclk_by_freq(struct pp_hwmgr *hwmgr, =
+<br>
+&#43;uint32_t clock) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_data =
+=3D (struct smu10_hwmgr <br>
+&#43;*)(hwmgr-&gt;backend);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu10_data-&gt;dcf_actual_har=
+d_min_freq &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu10_data-&gt;dcf_actual_hard_min_freq !=3D convert_10k_to_=
+mhz(clock)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu10_data-&gt;dcf_actual_hard_min_freq =3D convert_10k_to_m=
+hz(clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; PPSMC_MSG_SetHardMinDcefclkByFreq,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; smu10_data-&gt;dcf_actual_hard_min_freq);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&#43;<br>
+&#43;static int smu10_set_hard_min_fclk_by_freq(struct pp_hwmgr *hwmgr, <br=
+>
+&#43;uint32_t clock) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_data =
+=3D (struct smu10_hwmgr <br>
+&#43;*)(hwmgr-&gt;backend);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu10_data-&gt;f_actual_hard_=
+min_freq &amp;&amp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu10_data-&gt;f_actual_hard_min_freq !=3D convert_10k_to_mh=
+z(clock)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smu10_data-&gt;f_actual_hard_min_freq =3D convert_10k_to_mhz=
+(clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; smum_send_msg_to_smc_with_parameter(hwmgr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; PPSMC_MSG_SetHardMinFclkByFreq,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; smu10_data-&gt;f_actual_hard_min_freq);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static int smu10_set_active_display_count(struct pp_hwmgr *hwmgr, uin=
+t32_t count)&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu10_hwmgr *smu10_=
+data =3D (struct smu10_hwmgr *)(hwmgr-&gt;backend); @@ -1206,7 &#43;1234,7 =
+@@ static const struct pp_hwmgr_func smu10_hwmgr_funcs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_max_high_clocks =3D s=
+mu10_get_max_high_clocks,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_sensor =3D smu10_rea=
+d_sensor,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_active_display_count =
+=3D smu10_set_active_display_count,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_deep_sleep_dcefclk =3D smu10_set=
+_deep_sleep_dcefclk,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_min_deep_sleep_dcefclk =3D s=
+mu10_set_min_deep_sleep_dcefclk,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .dynamic_state_management_=
+enable =3D smu10_enable_dpm_tasks,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .power_off_asic =3D smu10_=
+power_off_asic,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .asic_setup =3D smu10_setu=
+p_asic_task,<br>
+@@ -1217,6 &#43;1245,8 @@ static const struct pp_hwmgr_func smu10_hwmgr_fun=
+cs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .display_clock_voltage_req=
+uest =3D smu10_display_clock_voltage_request,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_gfx =3D smu10_g=
+fx_off_control,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_sdma =3D smu10_=
+powergate_sdma,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_hard_min_dcefclk_by_freq =3D=
+ smu10_set_hard_min_dcefclk_by_freq,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_hard_min_fclk_by_freq =3D sm=
+u10_set_hard_min_fclk_by_freq,<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;int smu10_init_function_pointers(struct pp_hwmgr *hwmgr) diff --git a=
+/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h b/drivers/gpu/drm/amd/=
+powerplay/inc/hardwaremanager.h<br>
+index 54fd012..f4dab97 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hardwaremanager.h<br>
+@@ -463,5 &#43;463,8 @@ extern int phm_display_clock_voltage_request(struct=
+ pp_hwmgr *hwmgr,<br>
+&nbsp;<br>
+&nbsp;extern int phm_get_max_high_clocks(struct pp_hwmgr *hwmgr, struct amd=
+_pp_simple_clock_info *clocks);&nbsp; extern int phm_disable_smc_firmware_c=
+tf(struct pp_hwmgr *hwmgr);<br>
+&#43;<br>
+&#43;extern int phm_set_active_display_count(struct pp_hwmgr *hwmgr, <br>
+&#43;uint32_t count);<br>
+&#43;<br>
+&nbsp;#endif /* _HARDWARE_MANAGER_H_ */<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/am=
+d/powerplay/inc/hwmgr.h<br>
+index 07d180ce..19edfc9 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h<br>
+@@ -309,7 &#43;309,7 @@ struct pp_hwmgr_func {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*avfs_control)(struct=
+ pp_hwmgr *hwmgr, bool enable);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*disable_smc_firmware=
+_ctf)(struct pp_hwmgr *hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_active_display_c=
+ount)(struct pp_hwmgr *hwmgr, uint32_t count);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_deep_sleep_dcefclk)(struct =
+pp_hwmgr *hwmgr, uint32_t clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_min_deep_sleep_dcefclk)=
+(struct pp_hwmgr *hwmgr, uint32_t <br>
+&#43;clock);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*start_thermal_contro=
+ller)(struct pp_hwmgr *hwmgr, struct PP_TemperatureRange *range);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*notify_cac_buffer_in=
+fo)(struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; uint32_t virtual_addr_low,<br>
+@@ -329,6 &#43;329,8 @@ struct pp_hwmgr_func {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*smus_notify_pwe)(str=
+uct pp_hwmgr *hwmgr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*powergate_sdma)(stru=
+ct pp_hwmgr *hwmgr, bool bgate);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*enable_mgpu_fan_boos=
+t)(struct pp_hwmgr *hwmgr);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_hard_min_dcefclk_by_fre=
+q)(struct pp_hwmgr *hwmgr, uint32_t clock);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_hard_min_fclk_by_freq)(=
+struct pp_hwmgr *hwmgr, uint32_t <br>
+&#43;clock);<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;struct pp_table_func {<br>
+--<br>
+2.7.4<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18094517386BC2D7C102E7FBF7A80BN6PR12MB1809namp_--
+
+--===============1154794256==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1154794256==--
