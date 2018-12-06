@@ -1,18 +1,11 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/9] drm/amdgpu: Add a bitmask in amdgpu_ctx_mgr
-Date: Thu, 6 Dec 2018 14:56:40 +0000
-Message-ID: <0210ba6b-8410-a11c-2279-aa29c2fafe3c@amd.com>
-References: <1544098447-21648-1-git-send-email-Rex.Zhu@amd.com>
- <1544098447-21648-3-git-send-email-Rex.Zhu@amd.com>
- <ab6bcc8e-8f88-5cb9-c2e8-5322a907bdac@gmail.com>
- <BYAPR12MB2775D509B792B3D869B1BC8EFBA90@BYAPR12MB2775.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: KASAN: use-after-free in drm_sched_entity_pop_job with amdgpu
+Date: Thu, 6 Dec 2018 16:35:51 +0100
+Message-ID: <bb36ccaa-3e8e-4cda-4c77-3238a6e425c6@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="------------E0CD17B9282CD5FF1DAC1F1E"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BYAPR12MB2775D509B792B3D869B1BC8EFBA90-ZGDeBxoHBPmJeBUhB162ZQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-Content-ID: <2CC079A065A6054E9503EEAF49F0A197-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,90 +16,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-SGkgUmV4LA0KDQpvayBzdGlsbCBkb2Vzbid0IG1ha2Ugc2Vuc2UgdG8gbWUuIFZNIHVwZGF0ZXMg
-YXJlIHBpcGVsaW5lZCB3aXRoIGNvbW1hbmQgDQpzdWJtaXNzaW9ucy4NCg0KU28geW91IGp1c3Qg
-bmVlZCB0byBjcmVhdGUgdGhlIG1hcHBpbmcgZm9yIHRoZSBzcGVjaWZpYyBJRCB3aGVuIHRoZSBD
-VFggDQppcyBjcmVhdGVkLg0KDQpBbmQgd2hlbiB0aGUgQ1RYIGlzIGRlc3Ryb3llZCB5b3UgdW5t
-YXAgdGhlIENTQSBhZ2Fpbi4NCg0KT3IgaXMgdGhhdCBmb3IgZWFjaCBxdWV1ZSBpbnNpZGUgdGhl
-IGNvbnRleHQ/IFBsZWFzZSBjbGFyaWZ5Lg0KDQpUaGFua3MsDQpDaHJpc3RpYW4uDQoNCkFtIDA2
-LjEyLjE4IHVtIDE1OjQ4IHNjaHJpZWIgWmh1LCBSZXg6DQo+IEhpIENocmlzdGlhbiwNCj4NCj4g
-V2UgYWxsb2NhdGUgYW5kIG1hcCBjc2EgcGVyIGN0eCwgIG5lZWQgdG8gcmVjb3JkIHRoZSB1c2Vk
-L2ZyZWUgdm0gc3BhY2UuDQo+IFNvIHVzZSBiaXRtYXAgdG8gbWFuYWdlciB0aGUgcmVzZXJ2ZWQg
-dm0gc3BhY2UuDQo+DQo+IEFsc28gYWRkIHJlc3Zfc3BhY2VfaWQgaW4gY3R4Lg0KPiBXaGVuIGFt
-ZGdwdV9jdHhfZmluaSwgd2UgY2FuIGNsZWFyIHRoZSBiaXQgaW4gdGhlIGJpdG1hcC4NCj4NCj4N
-Cj4gQmVzdCBSZWdhcmRzDQo+IFJleA0KPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+
-IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29t
-Pg0KPj4gU2VudDogVGh1cnNkYXksIERlY2VtYmVyIDYsIDIwMTggODozNCBQTQ0KPj4gVG86IFpo
-dSwgUmV4IDxSZXguWmh1QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-Pj4gU3ViamVjdDogUmU6IFtQQVRDSCA0LzldIGRybS9hbWRncHU6IEFkZCBhIGJpdG1hc2sgaW4g
-YW1kZ3B1X2N0eF9tZ3INCj4+DQo+PiBBbSAwNi4xMi4xOCB1bSAxMzoxNCBzY2hyaWViIFJleCBa
-aHU6DQo+Pj4gdXNlZCB0byBtYW5hZ2VyIHRoZSByZXNlcnZlcmQgdm0gc3BhY2UuDQo+PiBXaHkg
-ZG8gd2UgbmVlZCB0aGF0Pw0KPj4NCj4+IENocmlzdGlhbi4NCj4+DQo+Pj4gU2lnbmVkLW9mZi1i
-eTogUmV4IFpodSA8UmV4LlpodUBhbWQuY29tPg0KPj4+IC0tLQ0KPj4+ICAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyB8IDggKysrKysrLS0NCj4+PiAgICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmggfCA0ICsrKy0NCj4+PiAgICBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCA2ICsrKysrLQ0KPj4+ICAgIDMgZmls
-ZXMgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkNCj4+Pg0KPj4+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMNCj4+PiBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYw0KPj4+IGluZGV4IDhlZGY1
-NGIuLjg4MDJmZjIgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2N0eC5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2N0eC5jDQo+Pj4gQEAgLTUyOSwxMCArNTI5LDE0IEBAIGludCBhbWRncHVfY3R4X3dhaXRfcHJl
-dl9mZW5jZShzdHJ1Y3QNCj4+IGFtZGdwdV9jdHggKmN0eCwNCj4+PiAgICAJcmV0dXJuIDA7DQo+
-Pj4gICAgfQ0KPj4+DQo+Pj4gLXZvaWQgYW1kZ3B1X2N0eF9tZ3JfaW5pdChzdHJ1Y3QgYW1kZ3B1
-X2N0eF9tZ3IgKm1ncikNCj4+PiAraW50IGFtZGdwdV9jdHhfbWdyX2luaXQoc3RydWN0IGFtZGdw
-dV9jdHhfbWdyICptZ3IpDQo+Pj4gICAgew0KPj4+ICAgIAltdXRleF9pbml0KCZtZ3ItPmxvY2sp
-Ow0KPj4+ICAgIAlpZHJfaW5pdCgmbWdyLT5jdHhfaGFuZGxlcyk7DQo+Pj4gKwltZ3ItPnJlc3Zf
-dm1fYml0bWFwID0NCj4+IGt6YWxsb2MoRElWX1JPVU5EX1VQKEFNREdQVV9WTV9NQVhfTlVNX0NU
-WCwgQklUU19QRVJfQllURSksDQo+PiBHRlBfS0VSTkVMKTsNCj4+PiArCWlmICh1bmxpa2VseSgh
-bWdyLT5yZXN2X3ZtX2JpdG1hcCkpDQo+Pj4gKwkJcmV0dXJuIC1FTk9NRU07DQo+Pj4gKwlyZXR1
-cm4gMDsNCj4+PiAgICB9DQo+Pj4NCj4+PiAgICB2b2lkIGFtZGdwdV9jdHhfbWdyX2VudGl0eV9m
-bHVzaChzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgKm1ncikgQEANCj4+PiAtNjAxLDcgKzYwNSw3IEBA
-IHZvaWQgYW1kZ3B1X2N0eF9tZ3JfZmluaShzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3INCj4+ICptZ3Ip
-DQo+Pj4gICAgCQlpZiAoa3JlZl9wdXQoJmN0eC0+cmVmY291bnQsIGFtZGdwdV9jdHhfZmluaSkg
-IT0gMSkNCj4+PiAgICAJCQlEUk1fRVJST1IoImN0eCAlcCBpcyBzdGlsbCBhbGl2ZVxuIiwgY3R4
-KTsNCj4+PiAgICAJfQ0KPj4+IC0NCj4+PiArCWtmcmVlKG1nci0+cmVzdl92bV9iaXRtYXApOw0K
-Pj4+ICAgIAlpZHJfZGVzdHJveSgmbWdyLT5jdHhfaGFuZGxlcyk7DQo+Pj4gICAgCW11dGV4X2Rl
-c3Ryb3koJm1nci0+bG9jayk7DQo+Pj4gICAgfQ0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmgNCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9jdHguaA0KPj4+IGluZGV4IGIzYjAxMmMuLjk0YWM5NTEgMTAwNjQ0DQo+
-Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5oDQo+Pj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5oDQo+Pj4gQEAgLTM4LDYg
-KzM4LDcgQEAgc3RydWN0IGFtZGdwdV9jdHhfZW50aXR5IHsNCj4+PiAgICBzdHJ1Y3QgYW1kZ3B1
-X2N0eCB7DQo+Pj4gICAgCXN0cnVjdCBrcmVmCQkJcmVmY291bnQ7DQo+Pj4gICAgCXN0cnVjdCBh
-bWRncHVfZGV2aWNlCQkqYWRldjsNCj4+PiArDQo+Pj4gICAgCXVuc2lnbmVkCQkJcmVzZXRfY291
-bnRlcjsNCj4+PiAgICAJdW5zaWduZWQJCQlyZXNldF9jb3VudGVyX3F1ZXJ5Ow0KPj4+ICAgIAl1
-aW50MzJfdAkJCXZyYW1fbG9zdF9jb3VudGVyOw0KPj4+IEBAIC01Niw2ICs1Nyw3IEBAIHN0cnVj
-dCBhbWRncHVfY3R4X21nciB7DQo+Pj4gICAgCXN0cnVjdCBtdXRleAkJbG9jazsNCj4+PiAgICAJ
-LyogcHJvdGVjdGVkIGJ5IGxvY2sgKi8NCj4+PiAgICAJc3RydWN0IGlkcgkJY3R4X2hhbmRsZXM7
-DQo+Pj4gKwl1bnNpZ25lZCBsb25nCQkqcmVzdl92bV9iaXRtYXA7DQo+Pj4gICAgfTsNCj4+Pg0K
-Pj4+ICAgIGV4dGVybiBjb25zdCB1bnNpZ25lZCBpbnQNCj4+IGFtZGdwdV9jdHhfbnVtX2VudGl0
-aWVzW0FNREdQVV9IV19JUF9OVU1dOw0KPj4+IEBAIC04MCw3ICs4Miw3IEBAIGludCBhbWRncHVf
-Y3R4X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQNCj4+ICpkYXRhLA0KPj4+ICAg
-IGludCBhbWRncHVfY3R4X3dhaXRfcHJldl9mZW5jZShzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4LA0K
-Pj4+ICAgIAkJCSAgICAgICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5KTsNCj4+Pg0K
-Pj4+IC12b2lkIGFtZGdwdV9jdHhfbWdyX2luaXQoc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3Ip
-Ow0KPj4+ICtpbnQgYW1kZ3B1X2N0eF9tZ3JfaW5pdChzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgKm1n
-cik7DQo+Pj4gICAgdm9pZCBhbWRncHVfY3R4X21ncl9lbnRpdHlfZmluaShzdHJ1Y3QgYW1kZ3B1
-X2N0eF9tZ3IgKm1ncik7DQo+Pj4gICAgdm9pZCBhbWRncHVfY3R4X21ncl9lbnRpdHlfZmx1c2go
-c3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IpOw0KPj4+ICAgIHZvaWQgYW1kZ3B1X2N0eF9tZ3Jf
-ZmluaShzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgKm1ncik7IGRpZmYgLS1naXQNCj4+PiBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYw0KPj4+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jDQo+Pj4gaW5kZXggNTJlNGU5MC4uMzM4YTA5MSAxMDA2
-NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMNCj4+PiBAQCAt
-OTg4LDExICs5ODgsMTUgQEAgaW50IGFtZGdwdV9kcml2ZXJfb3Blbl9rbXMoc3RydWN0IGRybV9k
-ZXZpY2UNCj4+ICpkZXYsIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2KQ0KPj4+ICAgIAltdXRl
-eF9pbml0KCZmcHJpdi0+Ym9fbGlzdF9sb2NrKTsNCj4+PiAgICAJaWRyX2luaXQoJmZwcml2LT5i
-b19saXN0X2hhbmRsZXMpOw0KPj4+DQo+Pj4gLQlhbWRncHVfY3R4X21ncl9pbml0KCZmcHJpdi0+
-Y3R4X21ncik7DQo+Pj4gKwlpZiAoYW1kZ3B1X2N0eF9tZ3JfaW5pdCgmZnByaXYtPmN0eF9tZ3Ip
-KQ0KPj4+ICsJCWdvdG8gZXJyb3JfY3R4X21ncjsNCj4+Pg0KPj4+ICAgIAlmaWxlX3ByaXYtPmRy
-aXZlcl9wcml2ID0gZnByaXY7DQo+Pj4gICAgCWdvdG8gb3V0X3N1c3BlbmQ7DQo+Pj4NCj4+PiAr
-ZXJyb3JfY3R4X21ncjoNCj4+PiArCWlkcl9kZXN0cm95KCZmcHJpdi0+Ym9fbGlzdF9oYW5kbGVz
-KTsNCj4+PiArCW11dGV4X2Rlc3Ryb3koJmZwcml2LT5ib19saXN0X2xvY2spOw0KPj4+ICAgIGVy
-cm9yX3ZtOg0KPj4+ICAgIAlhbWRncHVfdm1fZmluaShhZGV2LCAmZnByaXYtPnZtKTsNCj4+Pg0K
-DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This is a multi-part message in MIME format.
+--------------E0CD17B9282CD5FF1DAC1F1E
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+
+KASAN caught something during today's piglit run, see the attached dmesg
+excerpt.
+
+Looks like amdgpu destroys the VM while the scheduler still has a
+reference to its entity?
+
+
+-- 
+Earthling Michel Dänzer               |               http://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
+
+--------------E0CD17B9282CD5FF1DAC1F1E
+Content-Type: text/x-log;
+ name="kern.log"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+ filename="kern.log"
+
+Dec  6 15:21:35 kaveri kernel: [ 8318.734239] =3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+Dec  6 15:21:35 kaveri kernel: [ 8318.736505] BUG: KASAN: use-after-free =
+in drm_sched_entity_pop_job+0x50f/0x910 [gpu_sched]
+Dec  6 15:21:35 kaveri kernel: [ 8318.736661] Write of size 4 at addr fff=
+f888261b9b460 by task sdma0/827
+Dec  6 15:21:35 kaveri kernel: [ 8318.736769]=20
+Dec  6 15:21:35 kaveri kernel: [ 8318.736941] CPU: 7 PID: 827 Comm: sdma0=
+ Tainted: G           OE     4.20.0-rc3+ #118
+Dec  6 15:21:35 kaveri kernel: [ 8318.737091] Hardware name: Micro-Star I=
+nternational Co., Ltd. MS-7A34/B350 TOMAHAWK (MS-7A34), BIOS 1.80 09/13/2=
+017
+Dec  6 15:21:35 kaveri kernel: [ 8318.737220] Call Trace:
+Dec  6 15:21:35 kaveri kernel: [ 8318.737416]  dump_stack+0x7c/0xc0
+Dec  6 15:21:35 kaveri kernel: [ 8318.737639]  print_address_description+=
+0x65/0x22e
+Dec  6 15:21:35 kaveri kernel: [ 8318.737919]  ? drm_sched_entity_pop_job=
++0x50f/0x910 [gpu_sched]
+Dec  6 15:21:35 kaveri kernel: [ 8318.738089]  kasan_report.cold.5+0x241/=
+0x306
+Dec  6 15:21:35 kaveri kernel: [ 8318.738446]  drm_sched_entity_pop_job+0=
+x50f/0x910 [gpu_sched]
+Dec  6 15:21:35 kaveri kernel: [ 8318.738882]  drm_sched_main+0xe4/0x5a0 =
+[gpu_sched]
+Dec  6 15:21:35 kaveri kernel: [ 8318.739340]  ? drm_sched_job_recovery+0=
+x470/0x470 [gpu_sched]
+Dec  6 15:21:35 kaveri kernel: [ 8318.739750]  ? lock_acquire+0x103/0x2c0=
+
+Dec  6 15:21:35 kaveri kernel: [ 8318.739967]  ? __kthread_parkme+0x50/0x=
+f0
+Dec  6 15:21:35 kaveri kernel: [ 8318.740275]  ? finish_wait+0x230/0x230
+Dec  6 15:21:35 kaveri kernel: [ 8318.740517]  ? lockdep_hardirqs_on+0x37=
+c/0x560
+Dec  6 15:21:35 kaveri kernel: [ 8318.740924]  ? drm_sched_job_recovery+0=
+x470/0x470 [gpu_sched]
+Dec  6 15:21:35 kaveri kernel: [ 8318.741111]  kthread+0x2e2/0x3a0
+Dec  6 15:21:35 kaveri kernel: [ 8318.741279]  ? kthread_park+0x120/0x120=
+
+Dec  6 15:21:35 kaveri kernel: [ 8318.741536]  ret_from_fork+0x27/0x50
+Dec  6 15:21:35 kaveri kernel: [ 8318.742118]=20
+Dec  6 15:21:35 kaveri kernel: [ 8318.742264] Allocated by task 8273:
+Dec  6 15:21:35 kaveri kernel: [ 8318.742480]  kasan_kmalloc+0xbf/0xe0
+Dec  6 15:21:35 kaveri kernel: [ 8318.742652]  kmem_cache_alloc_trace+0x1=
+2d/0x290
+Dec  6 15:21:35 kaveri kernel: [ 8318.743245]  amdgpu_driver_open_kms+0xe=
+6/0x4c0 [amdgpu]
+Dec  6 15:21:35 kaveri kernel: [ 8318.743275]  drm_file_alloc+0x43a/0x980=
+ [drm]
+Dec  6 15:21:35 kaveri kernel: [ 8318.743303]  drm_open+0x21c/0x730 [drm]=
+
+Dec  6 15:21:35 kaveri kernel: [ 8318.743332]  drm_stub_open+0x25e/0x410 =
+[drm]
+Dec  6 15:21:35 kaveri kernel: [ 8318.743339]  chrdev_open+0x1e0/0x4e0
+Dec  6 15:21:35 kaveri kernel: [ 8318.743346]  do_dentry_open+0x3c4/0xda0=
+
+Dec  6 15:21:35 kaveri kernel: [ 8318.743353]  path_openat+0xa1e/0x3650
+Dec  6 15:21:35 kaveri kernel: [ 8318.743359]  do_filp_open+0x17c/0x250
+Dec  6 15:21:35 kaveri kernel: [ 8318.743365]  do_sys_open+0x1db/0x310
+Dec  6 15:21:35 kaveri kernel: [ 8318.743373]  do_syscall_64+0x9c/0x3d0
+Dec  6 15:21:35 kaveri kernel: [ 8318.743380]  entry_SYSCALL_64_after_hwf=
+rame+0x49/0xbe
+Dec  6 15:21:35 kaveri kernel: [ 8318.743385]=20
+Dec  6 15:21:35 kaveri kernel: [ 8318.743391] Freed by task 6916:
+Dec  6 15:21:35 kaveri kernel: [ 8318.743398]  __kasan_slab_free+0x125/0x=
+170
+Dec  6 15:21:35 kaveri kernel: [ 8318.743404]  kfree+0xe2/0x290
+Dec  6 15:21:35 kaveri kernel: [ 8318.743520]  amdgpu_driver_postclose_km=
+s+0x4e7/0x8e0 [amdgpu]
+Dec  6 15:21:35 kaveri kernel: [ 8318.743548]  drm_file_free.part.3+0x7d6=
+/0xe30 [drm]
+Dec  6 15:21:35 kaveri kernel: [ 8318.743576]  drm_release+0x231/0x3f0 [d=
+rm]
+Dec  6 15:21:35 kaveri kernel: [ 8318.743582]  __fput+0x235/0x710
+Dec  6 15:21:35 kaveri kernel: [ 8318.743590]  task_work_run+0x10e/0x180
+Dec  6 15:21:35 kaveri kernel: [ 8318.743596]  exit_to_usermode_loop+0x13=
+6/0x160
+Dec  6 15:21:35 kaveri kernel: [ 8318.743602]  do_syscall_64+0x32e/0x3d0
+Dec  6 15:21:35 kaveri kernel: [ 8318.743609]  entry_SYSCALL_64_after_hwf=
+rame+0x49/0xbe
+Dec  6 15:21:35 kaveri kernel: [ 8318.743613]=20
+Dec  6 15:21:35 kaveri kernel: [ 8318.743619] The buggy address belongs t=
+o the object at ffff888261b9b300
+Dec  6 15:21:35 kaveri kernel: [ 8318.743619]  which belongs to the cache=
+ kmalloc-4k of size 4096
+Dec  6 15:21:35 kaveri kernel: [ 8318.743627] The buggy address is locate=
+d 352 bytes inside of
+Dec  6 15:21:35 kaveri kernel: [ 8318.743627]  4096-byte region [ffff8882=
+61b9b300, ffff888261b9c300)
+Dec  6 15:21:35 kaveri kernel: [ 8318.743633] The buggy address belongs t=
+o the page:
+Dec  6 15:21:35 kaveri kernel: [ 8318.743639] page:ffffea000986e600 count=
+:1 mapcount:0 mapping:ffff8883ed80e600 index:0x0 compound_mapcount: 0
+Dec  6 15:21:35 kaveri kernel: [ 8318.743649] flags: 0x17fffc000010200(sl=
+ab|head)
+Dec  6 15:21:35 kaveri kernel: [ 8318.743657] raw: 017fffc000010200 ffffe=
+a00074fca00 0000000300000003 ffff8883ed80e600
+Dec  6 15:21:35 kaveri kernel: [ 8318.743664] raw: 0000000000000000 00000=
+00000070007 00000001ffffffff 0000000000000000
+Dec  6 15:21:35 kaveri kernel: [ 8318.743669] page dumped because: kasan:=
+ bad access detected
+Dec  6 15:21:35 kaveri kernel: [ 8318.743672]=20
+Dec  6 15:21:35 kaveri kernel: [ 8318.743677] Memory state around the bug=
+gy address:
+Dec  6 15:21:35 kaveri kernel: [ 8318.743683]  ffff888261b9b300: fb fb fb=
+ fb fb fb fb fb fb fb fb fb fb fb fb fb
+Dec  6 15:21:35 kaveri kernel: [ 8318.743689]  ffff888261b9b380: fb fb fb=
+ fb fb fb fb fb fb fb fb fb fb fb fb fb
+Dec  6 15:21:35 kaveri kernel: [ 8318.743695] >ffff888261b9b400: fb fb fb=
+ fb fb fb fb fb fb fb fb fb fb fb fb fb
+Dec  6 15:21:35 kaveri kernel: [ 8318.743700]                            =
+                            ^
+Dec  6 15:21:35 kaveri kernel: [ 8318.743706]  ffff888261b9b480: fb fb fb=
+ fb fb fb fb fb fb fb fb fb fb fb fb fb
+Dec  6 15:21:35 kaveri kernel: [ 8318.743712]  ffff888261b9b500: fb fb fb=
+ fb fb fb fb fb fb fb fb fb fb fb fb fb
+Dec  6 15:21:35 kaveri kernel: [ 8318.743717] =3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D
+
+--------------E0CD17B9282CD5FF1DAC1F1E
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--------------E0CD17B9282CD5FF1DAC1F1E--
