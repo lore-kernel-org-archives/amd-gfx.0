@@ -1,42 +1,47 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH 9/9] drm/amdgpu: update version for timeline syncobj support
- in amdgpu
-Date: Thu,  6 Dec 2018 10:37:27 +0100
-Message-ID: <20181206093727.16792-9-christian.koenig@amd.com>
-References: <20181206093727.16792-1-christian.koenig@amd.com>
+From: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/9] drm/amdgpu: Limit vm max ctx number to 4096
+Date: Thu, 6 Dec 2018 19:32:29 +0800
+Message-ID: <1544095957-21101-1-git-send-email-Rex.Zhu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20181206093727.16792-1-christian.koenig@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-RnJvbTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KClNpZ25lZC1vZmYtYnk6
-IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgMyArKy0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2Vy
-dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMKaW5kZXggOTBmNDc0Zjk4YjZlLi4zMTZiZmMxYTZhNzUgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTcxLDkgKzcxLDEwIEBACiAgKiAtIDMuMjUuMCAt
-IEFkZCBzdXBwb3J0IGZvciBzZW5zb3IgcXVlcnkgaW5mbyAoc3RhYmxlIHBzdGF0ZSBzY2xrL21j
-bGspLgogICogLSAzLjI2LjAgLSBHRlg5OiBQcm9jZXNzIEFNREdQVV9JQl9GTEFHX1RDX1dCX05P
-VF9JTlZBTElEQVRFLgogICogLSAzLjI3LjAgLSBBZGQgbmV3IGNodW5rIHRvIHRvIEFNREdQVV9D
-UyB0byBlbmFibGUgQk9fTElTVCBjcmVhdGlvbi4KKyAqIC0gMy4yOC4wIC0gQWRkIHN5bmNvYmog
-dGltZWxpbmUgc3VwcG9ydCB0byBBTURHUFVfQ1MuCiAgKi8KICNkZWZpbmUgS01TX0RSSVZFUl9N
-QUpPUgkzCi0jZGVmaW5lIEtNU19EUklWRVJfTUlOT1IJMjcKKyNkZWZpbmUgS01TX0RSSVZFUl9N
-SU5PUgkyOAogI2RlZmluZSBLTVNfRFJJVkVSX1BBVENITEVWRUwJMAogCiBpbnQgYW1kZ3B1X3Zy
-YW1fbGltaXQgPSAwOwotLSAKMi4xNC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWwK
+ZHJpdmVyIG5lZWQgdG8gcmVzZXJ2ZSByZXNvdXJjZSBmb3IgZWFjaCBjdHggZm9yCnNvbWUgaHcg
+ZmVhdHVyZXMuIHNvIGFkZCB0aGlzIGxpbWl0YXRpb24uCgpTaWduZWQtb2ZmLWJ5OiBSZXggWmh1
+IDxSZXguWmh1QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+LmggICAgIHwgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMgfCAy
+ICstCiAyIGZpbGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKaW5kZXggMzNmNWYyYy4uM2VmNWMzZSAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKQEAgLTE2MSw2ICsxNjEsNyBAQCBzdHJ1Y3QgYW1k
+Z3B1X21ncHVfaW5mbwogZXh0ZXJuIGludCBhbWRncHVfY2lrX3N1cHBvcnQ7CiAjZW5kaWYKIAor
+I2RlZmluZSBBTURHUFVfVk1fTUFYX05VTV9DVFgJCQk0MDk2CiAjZGVmaW5lIEFNREdQVV9TR19U
+SFJFU0hPTEQJCQkoMjU2KjEwMjQqMTAyNCkKICNkZWZpbmUgQU1ER1BVX0RFRkFVTFRfR1RUX1NJ
+WkVfTUIJCTMwNzJVTEwgLyogM0dCIGJ5IGRlZmF1bHQgKi8KICNkZWZpbmUgQU1ER1BVX1dBSVRf
+SURMRV9USU1FT1VUX0lOX01TCSAgICAgICAgMzAwMApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2N0eC5jCmluZGV4IGY5YjU0MjMuLjhlZGY1NGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfY3R4LmMKQEAgLTI0Nyw3ICsyNDcsNyBAQCBzdGF0aWMgaW50IGFtZGdw
+dV9jdHhfYWxsb2Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCXJldHVybiAtRU5PTUVN
+OwogCiAJbXV0ZXhfbG9jaygmbWdyLT5sb2NrKTsKLQlyID0gaWRyX2FsbG9jKCZtZ3ItPmN0eF9o
+YW5kbGVzLCBjdHgsIDEsIDAsIEdGUF9LRVJORUwpOworCXIgPSBpZHJfYWxsb2MoJm1nci0+Y3R4
+X2hhbmRsZXMsIGN0eCwgMSwgQU1ER1BVX1ZNX01BWF9OVU1fQ1RYLCBHRlBfS0VSTkVMKTsKIAlp
+ZiAociA8IDApIHsKIAkJbXV0ZXhfdW5sb2NrKCZtZ3ItPmxvY2spOwogCQlrZnJlZShjdHgpOwot
+LSAKMS45LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
