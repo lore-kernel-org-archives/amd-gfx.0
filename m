@@ -1,14 +1,12 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: update SMC firmware image for polaris10
- variants
-Date: Fri, 7 Dec 2018 16:13:16 +0000
-Message-ID: <BN6PR12MB180941FFAD1CBC28E702B8C8F7AA0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181207071952.8095-1-Jerry.Zhang@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/powerplay: Add special avfs cases for some polaris
+ asics (v3)
+Date: Fri,  7 Dec 2018 11:19:49 -0500
+Message-ID: <20181207161949.19337-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1497855323=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181207071952.8095-1-Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,184 +17,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1497855323==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180941FFAD1CBC28E702B8C8F7AA0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180941FFAD1CBC28E702B8C8F7AA0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Junwei Z=
-hang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, December 7, 2018 2:19:51 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhang, Jerry
-Subject: [PATCH 1/2] drm/amdgpu: update SMC firmware image for polaris10 va=
-riants
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Some new variants require different firmwares.
-
-Signed-off-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_cgs.c
-index ceadeeadfa56..387f1cf1dc20 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c
-@@ -381,7 +381,8 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_devi=
-ce *cgs_device,
-                                               (adev->pdev->revision =3D=3D=
- 0xe7) ||
-                                               (adev->pdev->revision =3D=3D=
- 0xef))) ||
-                                             ((adev->pdev->device =3D=3D 0x=
-6fdf) &&
--                                            (adev->pdev->revision =3D=3D 0=
-xef))) {
-+                                            ((adev->pdev->revision =3D=3D =
-0xef) ||
-+                                             (adev->pdev->revision =3D=3D =
-0xff)))) {
-                                                 info->is_kicker =3D true;
-                                                 strcpy(fw_name, "amdgpu/po=
-laris10_k_smc.bin");
-                                         } else if ((adev->pdev->device =3D=
-=3D 0x67df) &&
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180941FFAD1CBC28E702B8C8F7AA0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Junwei Zhang &lt;Jerry.Zhang@=
-amd.com&gt;<br>
-<b>Sent:</b> Friday, December 7, 2018 2:19:51 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhang, Jerry<br>
-<b>Subject:</b> [PATCH 1/2] drm/amdgpu: update SMC firmware image for polar=
-is10 variants</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Some new variants require different firmwares.<br>
-<br>
-Signed-off-by: Junwei Zhang &lt;Jerry.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_cgs.c<br>
-index ceadeeadfa56..387f1cf1dc20 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_cgs.c<br>
-@@ -381,7 &#43;381,8 @@ static int amdgpu_cgs_get_firmware_info(struct cgs_=
-device *cgs_device,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;revi=
-sion =3D=3D 0xe7) ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;revi=
-sion =3D=3D 0xef))) ||<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((adev-&gt;pdev-&gt;device =3D=3D 0=
-x6fdf) &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;revision =3D=3D 0xef)=
-)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((adev-&gt;pdev-&gt;revision =3D=3D =
-0xef) ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;pdev-&gt;revision =
-=3D=3D 0xff)))) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; info-&gt;is=
-_kicker =3D true;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(fw_n=
-ame, &quot;amdgpu/polaris10_k_smc.bin&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; } else if ((adev-&gt;pdev-&gt;device =3D=3D 0x67df) &amp;&a=
-mp;<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180941FFAD1CBC28E702B8C8F7AA0BN6PR12MB1809namp_--
-
---===============1497855323==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1497855323==--
+QWRkIHNwZWNpYWwgYXZmcyBoYW5kbGluZyBmb3Igc29tZSBwb2xhcmlzIHZhcmlhbnRzLgoKdjI6
+IGZpeCBjb3B5IHBhc3RlIHR5cG8uCnYzOiBmaXggYXNpYyByaWQgY2hlY2sKClNpZ25lZC1vZmYt
+Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiAuLi4vZHJt
+L2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyAgICB8IDU0ICsrKysrKysr
+KysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA1NCBpbnNlcnRpb25zKCspCgpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVt
+Z3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211
+bWdyLmMKaW5kZXggOTQ4OThiMmRhMjgyLi5iNDEyODE2Njc4ODQgMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwpA
+QCAtMTYzOSw2ICsxNjM5LDcgQEAgc3RhdGljIGludCBwb2xhcmlzMTBfcG9wdWxhdGVfYXZmc19w
+YXJhbWV0ZXJzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiB7CiAJc3RydWN0IHNtdTdfaHdtZ3Ig
+KmRhdGEgPSAoc3RydWN0IHNtdTdfaHdtZ3IgKikoaHdtZ3ItPmJhY2tlbmQpOwogCXN0cnVjdCBw
+b2xhcmlzMTBfc211bWdyICpzbXVfZGF0YSA9IChzdHJ1Y3QgcG9sYXJpczEwX3NtdW1nciAqKSho
+d21nci0+c211X2JhY2tlbmQpOworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gaHdtZ3It
+PmFkZXY7CiAKIAlTTVU3NF9EaXNjcmV0ZV9EcG1UYWJsZSAgKnRhYmxlID0gJihzbXVfZGF0YS0+
+c21jX3N0YXRlX3RhYmxlKTsKIAlpbnQgcmVzdWx0ID0gMDsKQEAgLTE2NTksNiArMTY2MCw1OSBA
+QCBzdGF0aWMgaW50IHBvbGFyaXMxMF9wb3B1bGF0ZV9hdmZzX3BhcmFtZXRlcnMoc3RydWN0IHBw
+X2h3bWdyICpod21ncikKIAlyZXN1bHQgPSBhdG9tY3RybF9nZXRfYXZmc19pbmZvcm1hdGlvbiho
+d21nciwgJmF2ZnNfcGFyYW1zKTsKIAogCWlmICgwID09IHJlc3VsdCkgeworCQlpZiAoKChhZGV2
+LT5wZGV2LT5kZXZpY2UgPT0gMHg2N2VmKSAmJgorCQkgICAgICgoYWRldi0+cGRldi0+cmV2aXNp
+b24gPT0gMHhlMCkgfHwKKwkJICAgICAgKGFkZXYtPnBkZXYtPnJldmlzaW9uID09IDB4ZTUpKSkg
+fHwKKwkJICAgICgoYWRldi0+cGRldi0+ZGV2aWNlID09IDB4NjdmZikgJiYKKwkJICAgICAoKGFk
+ZXYtPnBkZXYtPnJldmlzaW9uID09IDB4Y2YpIHx8CisJCSAgICAgIChhZGV2LT5wZGV2LT5yZXZp
+c2lvbiA9PSAweGVmKSB8fAorCQkgICAgICAoYWRldi0+cGRldi0+cmV2aXNpb24gPT0gMHhmZikp
+KSkgeworCQkJYXZmc19wYXJhbXMudWNFbmFibGVBcHBseUFWRlNfQ0tTX09GRl9Wb2x0YWdlID0g
+MTsKKwkJCWlmICgoYWRldi0+cGRldi0+ZGV2aWNlID09IDB4NjdlZiAmJiBhZGV2LT5wZGV2LT5y
+ZXZpc2lvbiA9PSAweGU1KSB8fAorCQkJICAgIChhZGV2LT5wZGV2LT5kZXZpY2UgPT0gMHg2N2Zm
+ICYmIGFkZXYtPnBkZXYtPnJldmlzaW9uID09IDB4ZWYpKSB7CisJCQkJaWYgKChhdmZzX3BhcmFt
+cy51bEdCX1ZEUk9PUF9UQUJMRV9DS1NPRkZfYTAgPT0gMHhFQTUyMkREMykgJiYKKwkJCQkgICAg
+KGF2ZnNfcGFyYW1zLnVsR0JfVkRST09QX1RBQkxFX0NLU09GRl9hMSA9PSAweDU2NDVBKSAmJgor
+CQkJCSAgICAoYXZmc19wYXJhbXMudWxHQl9WRFJPT1BfVEFCTEVfQ0tTT0ZGX2EyID09IDB4MzNG
+OUUpICYmCisJCQkJICAgIChhdmZzX3BhcmFtcy51bEFWRlNHQl9GVVNFX1RBQkxFX0NLU09GRl9t
+MSA9PSAweEZGRkZDNUNDKSAmJgorCQkJCSAgICAoYXZmc19wYXJhbXMudXNBVkZTR0JfRlVTRV9U
+QUJMRV9DS1NPRkZfbTIgPT0gMHgxQjFBKSAmJgorCQkJCSAgICAoYXZmc19wYXJhbXMudWxBVkZT
+R0JfRlVTRV9UQUJMRV9DS1NPRkZfYiA9PSAweEZGRkZGQ0VEKSkgeworCQkJCQlhdmZzX3BhcmFt
+cy51bEdCX1ZEUk9PUF9UQUJMRV9DS1NPRkZfYTAgICA9IDB4RjcxOEYxRDQ7CisJCQkJCWF2ZnNf
+cGFyYW1zLnVsR0JfVkRST09QX1RBQkxFX0NLU09GRl9hMSAgID0gMHgzMjNGRDsKKwkJCQkJYXZm
+c19wYXJhbXMudWxHQl9WRFJPT1BfVEFCTEVfQ0tTT0ZGX2EyICAgPSAweDFFNDU1OworCQkJCQlh
+dmZzX3BhcmFtcy51bEFWRlNHQl9GVVNFX1RBQkxFX0NLU09GRl9tMSA9IDA7CisJCQkJCWF2ZnNf
+cGFyYW1zLnVzQVZGU0dCX0ZVU0VfVEFCTEVfQ0tTT0ZGX20yID0gMDsKKwkJCQkJYXZmc19wYXJh
+bXMudWxBVkZTR0JfRlVTRV9UQUJMRV9DS1NPRkZfYiAgPSAweDIzOworCQkJCX0KKwkJCX0KKwkJ
+fSBlbHNlIGlmIChod21nci0+Y2hpcF9pZCA9PSBDSElQX1BPTEFSSVMxMiAmJiAhaHdtZ3ItPmlz
+X2tpY2tlcikgeworCQkJYXZmc19wYXJhbXMudWNFbmFibGVBcHBseUFWRlNfQ0tTX09GRl9Wb2x0
+YWdlID0gMTsKKwkJCWF2ZnNfcGFyYW1zLnVsR0JfVkRST09QX1RBQkxFX0NLU09GRl9hMCAgID0g
+MHhGNkIwMjRERDsKKwkJCWF2ZnNfcGFyYW1zLnVsR0JfVkRST09QX1RBQkxFX0NLU09GRl9hMSAg
+ID0gMHgzMDA1RTsKKwkJCWF2ZnNfcGFyYW1zLnVsR0JfVkRST09QX1RBQkxFX0NLU09GRl9hMiAg
+ID0gMHgxOEE1RjsKKwkJCWF2ZnNfcGFyYW1zLnVsQVZGU0dCX0ZVU0VfVEFCTEVfQ0tTT0ZGX20x
+ID0gMHgzMTU7CisJCQlhdmZzX3BhcmFtcy51c0FWRlNHQl9GVVNFX1RBQkxFX0NLU09GRl9tMiA9
+IDB4RkVEMTsKKwkJCWF2ZnNfcGFyYW1zLnVsQVZGU0dCX0ZVU0VfVEFCTEVfQ0tTT0ZGX2IgID0g
+MHgzQjsKKwkJfSBlbHNlIGlmICgoKGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDY3ZGYpICYmCisJ
+CQkgICAgKChhZGV2LT5wZGV2LT5yZXZpc2lvbiA9PSAweGUwKSB8fAorCQkJICAgICAoYWRldi0+
+cGRldi0+cmV2aXNpb24gPT0gMHhlMykgfHwKKwkJCSAgICAgKGFkZXYtPnBkZXYtPnJldmlzaW9u
+ID09IDB4ZTQpIHx8CisJCQkgICAgIChhZGV2LT5wZGV2LT5yZXZpc2lvbiA9PSAweGU1KSB8fAor
+CQkJICAgICAoYWRldi0+cGRldi0+cmV2aXNpb24gPT0gMHhlNykgfHwKKwkJCSAgICAgKGFkZXYt
+PnBkZXYtPnJldmlzaW9uID09IDB4ZWYpKSkgfHwKKwkJCSAgICgoYWRldi0+cGRldi0+ZGV2aWNl
+ID09IDB4NmZkZikgJiYKKwkJCSAgICAoKGFkZXYtPnBkZXYtPnJldmlzaW9uID09IDB4ZWYpIHx8
+CisJCQkgICAgIChhZGV2LT5wZGV2LT5yZXZpc2lvbiA9PSAweGZmKSkpIHsKKwkJCWF2ZnNfcGFy
+YW1zLnVjRW5hYmxlQXBwbHlBVkZTX0NLU19PRkZfVm9sdGFnZSA9IDE7CisJCQlhdmZzX3BhcmFt
+cy51bEdCX1ZEUk9PUF9UQUJMRV9DS1NPRkZfYTAgICA9IDB4Rjg0M0I2NkI7CisJCQlhdmZzX3Bh
+cmFtcy51bEdCX1ZEUk9PUF9UQUJMRV9DS1NPRkZfYTEgICA9IDB4NTlDQjU7CisJCQlhdmZzX3Bh
+cmFtcy51bEdCX1ZEUk9PUF9UQUJMRV9DS1NPRkZfYTIgICA9IDB4RkZGRjI4N0Y7CisJCQlhdmZz
+X3BhcmFtcy51bEFWRlNHQl9GVVNFX1RBQkxFX0NLU09GRl9tMSA9IDA7CisJCQlhdmZzX3BhcmFt
+cy51c0FWRlNHQl9GVVNFX1RBQkxFX0NLU09GRl9tMiA9IDB4RkYyMzsKKwkJCWF2ZnNfcGFyYW1z
+LnVsQVZGU0dCX0ZVU0VfVEFCTEVfQ0tTT0ZGX2IgID0gMHg1ODsKKwkJfQorCX0KKworCWlmICgw
+ID09IHJlc3VsdCkgewogCQl0YWJsZS0+QlRDR0JfVkRST09QX1RBQkxFWzBdLmEwICA9IFBQX0hP
+U1RfVE9fU01DX1VMKGF2ZnNfcGFyYW1zLnVsR0JfVkRST09QX1RBQkxFX0NLU09OX2EwKTsKIAkJ
+dGFibGUtPkJUQ0dCX1ZEUk9PUF9UQUJMRVswXS5hMSAgPSBQUF9IT1NUX1RPX1NNQ19VTChhdmZz
+X3BhcmFtcy51bEdCX1ZEUk9PUF9UQUJMRV9DS1NPTl9hMSk7CiAJCXRhYmxlLT5CVENHQl9WRFJP
+T1BfVEFCTEVbMF0uYTIgID0gUFBfSE9TVF9UT19TTUNfVUwoYXZmc19wYXJhbXMudWxHQl9WRFJP
+T1BfVEFCTEVfQ0tTT05fYTIpOwotLSAKMi4xMy42CgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
