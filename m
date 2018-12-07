@@ -1,210 +1,193 @@
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH 2/2] drm/sched: Rework HW fence processing.
-Date: Fri, 7 Dec 2018 15:26:27 +0000
-Message-ID: <c6284ff1-3d8c-da0f-e882-ef368129483d@amd.com>
-References: <1544118074-24910-1-git-send-email-andrey.grodzovsky@amd.com>
- <1544118074-24910-2-git-send-email-andrey.grodzovsky@amd.com>
- <BY1PR12MB05028DBBDB411053EE6B01EDB4AA0@BY1PR12MB0502.namprd12.prod.outlook.com>
- <e05f4102-1995-ea6b-caf5-4598414726fc@gmail.com>
- <bdec8790-f2ae-e6e6-623c-47905e40fced@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: bypass RLC init under sriov for Tonga
+Date: Fri, 7 Dec 2018 15:33:38 +0000
+Message-ID: <BN6PR12MB180903FE05AC850D8D4BFEC9F7AA0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1544148709-7256-1-git-send-email-Tiecheng.Zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <bdec8790-f2ae-e6e6-623c-47905e40fced@amd.com>
+Content-Type: multipart/mixed; boundary="===============0243742376=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1544148709-7256-1-git-send-email-Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <153EF6762166C34BBE82E0CD648DFA89@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "eric@anholt.net" <eric@anholt.net>, "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>
-Cc: "Liu, Monk" <Monk.Liu@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhou, Tiecheng" <Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMDcuMTIuMTggdW0gMTY6MjIgc2NocmllYiBHcm9kem92c2t5LCBBbmRyZXk6DQo+DQo+IE9u
-IDEyLzA3LzIwMTggMDM6MTkgQU0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+PiBBbSAwNy4x
-Mi4xOCB1bSAwNDoxOCBzY2hyaWViIFpob3UsIERhdmlkKENodW5NaW5nKToNCj4+Pj4gLS0tLS1P
-cmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+Pj4gRnJvbTogZHJpLWRldmVsIDxkcmktZGV2ZWwtYm91
-bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZg0KPj4+PiBBbmRyZXkgR3Jv
-ZHpvdnNreQ0KPj4+PiBTZW50OiBGcmlkYXksIERlY2VtYmVyIDA3LCAyMDE4IDE6NDEgQU0NCj4+
-Pj4gVG86IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnOw0KPj4+PiBja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbTsgZXJp
-Y0BhbmhvbHQubmV0Ow0KPj4+PiBldG5hdml2QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4+PiBD
-YzogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPg0KPj4+PiBTdWJqZWN0OiBbUEFUQ0ggMi8y
-XSBkcm0vc2NoZWQ6IFJld29yayBIVyBmZW5jZSBwcm9jZXNzaW5nLg0KPj4+Pg0KPj4+PiBFeHBl
-ZGl0ZSBqb2IgZGVsZXRpb24gZnJvbSByaW5nIG1pcnJvciBsaXN0IHRvIHRoZSBIVyBmZW5jZSBz
-aWduYWwNCj4+Pj4gY2FsbGJhY2sNCj4+Pj4gaW5zdGVhZCBmcm9tIGZpbmlzaF93b3JrLCB0b2dl
-dGhlciB3aXRoIHdhaXRpbmcgZm9yIGFsbCBzdWNoIGZlbmNlcw0KPj4+PiB0byBzaWduYWwgaW4N
-Cj4+Pj4gZHJtX3NjaGVkX3N0b3Agd2UgZ2FyYW50ZWUgdGhhdCBhbHJlYWR5IHNpZ25hbGVkIGpv
-YiB3aWxsIG5vdCBiZQ0KPj4+PiBwcm9jZXNzZWQNCj4+Pj4gdHdpY2UuDQo+Pj4+IFJlbW92ZSB0
-aGUgc2NoZWQgZmluaXNoIGZlbmNlIGNhbGxiYWNrIGFuZCBqdXN0IHN1Ym1pdCBmaW5pc2hfd29y
-aw0KPj4+PiBkaXJlY3RseQ0KPj4+PiBmcm9tIHRoZSBIVyBmZW5jZSBjYWxsYmFjay4NCj4+Pj4N
-Cj4+Pj4gU3VnZ2VzdGVkLWJ5OiBDaHJpc3RpYW4gS29lbmlnIDxDaHJpc3RpYW4uS29lbmlnQGFt
-ZC5jb20+DQo+Pj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3Jv
-ZHpvdnNreUBhbWQuY29tPg0KPj4+PiAtLS0NCj4+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9zY2hl
-ZHVsZXIvc2NoZWRfZmVuY2UuYyB8wqAgNCArKystDQo+Pj4+IGRyaXZlcnMvZ3B1L2RybS9zY2hl
-ZHVsZXIvc2NoZWRfbWFpbi5jwqAgfCAzOSArKysrKysrKysrKysrKysrLS0tLS0tLS0tLQ0KPj4+
-PiAtLS0tLS0tDQo+Pj4+ICDCoCBpbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmjCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgfCAxMCArKysrKysrLS0NCj4+Pj4gIMKgIDMgZmlsZXMgY2hhbmdlZCwg
-MzAgaW5zZXJ0aW9ucygrKSwgMjMgZGVsZXRpb25zKC0pDQo+Pj4+DQo+Pj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2ZlbmNlLmMNCj4+Pj4gYi9kcml2ZXJz
-L2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2ZlbmNlLmMNCj4+Pj4gaW5kZXggZDhkMmRmZi4uZTYy
-YzIzOSAxMDA2NDQNCj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9m
-ZW5jZS5jDQo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfZmVuY2Uu
-Yw0KPj4+PiBAQCAtMTUxLDcgKzE1MSw4IEBAIHN0cnVjdCBkcm1fc2NoZWRfZmVuY2UNCj4+Pj4g
-KnRvX2RybV9zY2hlZF9mZW5jZShzdHJ1Y3QgZG1hX2ZlbmNlICpmKQ0KPj4+PiBFWFBPUlRfU1lN
-Qk9MKHRvX2RybV9zY2hlZF9mZW5jZSk7DQo+Pj4+DQo+Pj4+ICDCoCBzdHJ1Y3QgZHJtX3NjaGVk
-X2ZlbmNlICpkcm1fc2NoZWRfZmVuY2VfY3JlYXRlKHN0cnVjdA0KPj4+PiBkcm1fc2NoZWRfZW50
-aXR5ICplbnRpdHksDQo+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHZvaWQgKm93bmVyKQ0KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB2b2lkICpvd25lciwNCj4+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRy
-bV9zY2hlZF9qb2IgKnNfam9iKQ0KPj4+PiAgwqAgew0KPj4+PiAgwqDCoMKgwqDCoCBzdHJ1Y3Qg
-ZHJtX3NjaGVkX2ZlbmNlICpmZW5jZSA9IE5VTEw7DQo+Pj4+ICDCoMKgwqDCoMKgIHVuc2lnbmVk
-IHNlcTsNCj4+Pj4gQEAgLTE2Myw2ICsxNjQsNyBAQCBzdHJ1Y3QgZHJtX3NjaGVkX2ZlbmNlDQo+
-Pj4+ICpkcm1fc2NoZWRfZmVuY2VfY3JlYXRlKHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRp
-dHksDQo+Pj4+ICDCoMKgwqDCoMKgIGZlbmNlLT5vd25lciA9IG93bmVyOw0KPj4+PiAgwqDCoMKg
-wqDCoCBmZW5jZS0+c2NoZWQgPSBlbnRpdHktPnJxLT5zY2hlZDsNCj4+Pj4gIMKgwqDCoMKgwqAg
-c3Bpbl9sb2NrX2luaXQoJmZlbmNlLT5sb2NrKTsNCj4+Pj4gK8KgwqDCoCBmZW5jZS0+c19qb2Ig
-PSBzX2pvYjsNCj4+Pj4NCj4+Pj4gIMKgwqDCoMKgwqAgc2VxID0gYXRvbWljX2luY19yZXR1cm4o
-JmVudGl0eS0+ZmVuY2Vfc2VxKTsNCj4+Pj4gIMKgwqDCoMKgwqAgZG1hX2ZlbmNlX2luaXQoJmZl
-bmNlLT5zY2hlZHVsZWQsDQo+Pj4+ICZkcm1fc2NoZWRfZmVuY2Vfb3BzX3NjaGVkdWxlZCwgZGlm
-ZiAtLWdpdA0KPj4+PiBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jDQo+
-Pj4+IGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMNCj4+Pj4gaW5kZXgg
-OGZiN2Y4Ni4uMjg2MDAzNyAxMDA2NDQNCj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVk
-dWxlci9zY2hlZF9tYWluLmMNCj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9z
-Y2hlZF9tYWluLmMNCj4+Pj4gQEAgLTI4NCwzMSArMjg0LDE3IEBAIHN0YXRpYyB2b2lkIGRybV9z
-Y2hlZF9qb2JfZmluaXNoKHN0cnVjdA0KPj4+PiB3b3JrX3N0cnVjdCAqd29yaykNCj4+Pj4gIMKg
-wqDCoMKgwqAgY2FuY2VsX2RlbGF5ZWRfd29ya19zeW5jKCZzY2hlZC0+d29ya190ZHIpOw0KPj4+
-Pg0KPj4+PiAgwqDCoMKgwqDCoCBzcGluX2xvY2tfaXJxc2F2ZSgmc2NoZWQtPmpvYl9saXN0X2xv
-Y2ssIGZsYWdzKTsNCj4+Pj4gLcKgwqDCoCAvKiByZW1vdmUgam9iIGZyb20gcmluZ19taXJyb3Jf
-bGlzdCAqLw0KPj4+PiAtwqDCoMKgIGxpc3RfZGVsX2luaXQoJnNfam9iLT5ub2RlKTsNCj4+Pj4g
-LcKgwqDCoCAvKiBxdWV1ZSBURFIgZm9yIG5leHQgam9iICovDQo+Pj4+ICDCoMKgwqDCoMKgIGRy
-bV9zY2hlZF9zdGFydF90aW1lb3V0KHNjaGVkKTsNCj4+Pj4gIMKgwqDCoMKgwqAgc3Bpbl91bmxv
-Y2tfaXJxcmVzdG9yZSgmc2NoZWQtPmpvYl9saXN0X2xvY2ssIGZsYWdzKTsNCj4+Pj4NCj4+Pj4g
-IMKgwqDCoMKgwqAgc2NoZWQtPm9wcy0+ZnJlZV9qb2Ioc19qb2IpOw0KPj4+PiAgwqAgfQ0KPj4+
-Pg0KPj4+PiAtc3RhdGljIHZvaWQgZHJtX3NjaGVkX2pvYl9maW5pc2hfY2Ioc3RydWN0IGRtYV9m
-ZW5jZSAqZiwNCj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0
-cnVjdCBkbWFfZmVuY2VfY2IgKmNiKQ0KPj4+PiAtew0KPj4+PiAtwqDCoMKgIHN0cnVjdCBkcm1f
-c2NoZWRfam9iICpqb2IgPSBjb250YWluZXJfb2YoY2IsIHN0cnVjdCBkcm1fc2NoZWRfam9iLA0K
-Pj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGZp
-bmlzaF9jYik7DQo+Pj4+IC3CoMKgwqAgc2NoZWR1bGVfd29yaygmam9iLT5maW5pc2hfd29yayk7
-DQo+Pj4+IC19DQo+Pj4+IC0NCj4+Pj4gIMKgIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9qb2JfYmVn
-aW4oc3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9iKcKgIHsNCj4+Pj4gIMKgwqDCoMKgwqAgc3Ry
-dWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCA9IHNfam9iLT5zY2hlZDsNCj4+Pj4gIMKgwqDC
-oMKgwqAgdW5zaWduZWQgbG9uZyBmbGFnczsNCj4+Pj4NCj4+Pj4gLSBkbWFfZmVuY2VfYWRkX2Nh
-bGxiYWNrKCZzX2pvYi0+c19mZW5jZS0+ZmluaXNoZWQsICZzX2pvYi0NCj4+Pj4+IGZpbmlzaF9j
-YiwNCj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkcm1fc2NoZWRf
-am9iX2ZpbmlzaF9jYik7DQo+Pj4+IC0NCj4+Pj4gIMKgwqDCoMKgwqAgc3Bpbl9sb2NrX2lycXNh
-dmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7DQo+Pj4+ICDCoMKgwqDCoMKgIGxpc3Rf
-YWRkX3RhaWwoJnNfam9iLT5ub2RlLCAmc2NoZWQtPnJpbmdfbWlycm9yX2xpc3QpOw0KPj4+PiAg
-wqDCoMKgwqDCoCBkcm1fc2NoZWRfc3RhcnRfdGltZW91dChzY2hlZCk7DQo+Pj4+IEBAIC00MTgs
-MTMgKzQwNCwxNyBAQCB2b2lkIGRybV9zY2hlZF9zdGFydChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVs
-ZXINCj4+Pj4gKnNjaGVkLCBib29sIHVucGFya19vbmx5KcKgIHsNCj4+Pj4gIMKgwqDCoMKgwqAg
-c3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9iLCAqdG1wOw0KPj4+PiAgwqDCoMKgwqDCoCBib29s
-IGZvdW5kX2d1aWx0eSA9IGZhbHNlOw0KPj4+PiAtwqDCoMKgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7
-DQo+Pj4+ICDCoMKgwqDCoMKgIGludCByOw0KPj4+Pg0KPj4+PiAgwqDCoMKgwqDCoCBpZiAodW5w
-YXJrX29ubHkpDQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byB1bnBhcms7DQo+Pj4+DQo+
-Pj4+IC3CoMKgwqAgc3Bpbl9sb2NrX2lycXNhdmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFn
-cyk7DQo+Pj4+ICvCoMKgwqAgLyoNCj4+Pj4gK8KgwqDCoMKgICogTG9ja2luZyB0aGUgbGlzdCBp
-cyBub3QgcmVxdWlyZWQgaGVyZSBhcyB0aGUgc2NoZWQgdGhyZWFkIGlzDQo+Pj4+IHBhcmtlZA0K
-Pj4+PiArwqDCoMKgwqAgKiBzbyBubyBuZXcgam9icyBhcmUgYmVpbmcgcHVzaGVkIGluIHRvIEhX
-IGFuZCBpbiBkcm1fc2NoZWRfc3RvcA0KPj4+PiB3ZQ0KPj4+PiArwqDCoMKgwqAgKiBmbHVzaGVk
-IGFueSBpbiBmbGlnaHQgam9icyB3aG8gZGlkbid0IHNpZ25hbCB5ZXQuIEFsc28NCj4+Pj4gY29u
-Y3VycmVudA0KPj4+PiArwqDCoMKgwqAgKiBHUFUgcmVjb3ZlcnMgY2FuJ3QgcnVuIGluIHBhcmFs
-bGVsLg0KPj4+PiArwqDCoMKgwqAgKi8NCj4+Pj4gIMKgwqDCoMKgwqAgbGlzdF9mb3JfZWFjaF9l
-bnRyeV9zYWZlKHNfam9iLCB0bXAsICZzY2hlZC0+cmluZ19taXJyb3JfbGlzdCwNCj4+Pj4gbm9k
-ZSkgew0KPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fc2NoZWRfZmVuY2UgKnNf
-ZmVuY2UgPSBzX2pvYi0+c19mZW5jZTsNCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
-ZG1hX2ZlbmNlICpmZW5jZTsNCj4+Pj4gQEAgLTQ1Myw3ICs0NDMsNiBAQCB2b2lkIGRybV9zY2hl
-ZF9zdGFydChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXINCj4+Pj4gKnNjaGVkLCBib29sIHVucGFy
-a19vbmx5KQ0KPj4+PiAgwqDCoMKgwqDCoCB9DQo+Pj4+DQo+Pj4+ICDCoMKgwqDCoMKgIGRybV9z
-Y2hlZF9zdGFydF90aW1lb3V0KHNjaGVkKTsNCj4+Pj4gLcKgwqDCoCBzcGluX3VubG9ja19pcnFy
-ZXN0b3JlKCZzY2hlZC0+am9iX2xpc3RfbG9jaywgZmxhZ3MpOw0KPj4+Pg0KPj4+PiAgwqAgdW5w
-YXJrOg0KPj4+PiAgwqDCoMKgwqDCoCBrdGhyZWFkX3VucGFyayhzY2hlZC0+dGhyZWFkKTsNCj4+
-Pj4gQEAgLTUwNSw3ICs0OTQsNyBAQCBpbnQgZHJtX3NjaGVkX2pvYl9pbml0KHN0cnVjdCBkcm1f
-c2NoZWRfam9iICpqb2IsDQo+Pj4+ICDCoMKgwqDCoMKgIGpvYi0+c2NoZWQgPSBzY2hlZDsNCj4+
-Pj4gIMKgwqDCoMKgwqAgam9iLT5lbnRpdHkgPSBlbnRpdHk7DQo+Pj4+ICDCoMKgwqDCoMKgIGpv
-Yi0+c19wcmlvcml0eSA9IGVudGl0eS0+cnEgLSBzY2hlZC0+c2NoZWRfcnE7DQo+Pj4+IC3CoMKg
-wqAgam9iLT5zX2ZlbmNlID0gZHJtX3NjaGVkX2ZlbmNlX2NyZWF0ZShlbnRpdHksIG93bmVyKTsN
-Cj4+Pj4gK8KgwqDCoCBqb2ItPnNfZmVuY2UgPSBkcm1fc2NoZWRfZmVuY2VfY3JlYXRlKGVudGl0
-eSwgb3duZXIsIGpvYik7DQo+Pj4+ICDCoMKgwqDCoMKgIGlmICgham9iLT5zX2ZlbmNlKQ0KPj4+
-PiAgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOw0KPj4+PiAgwqDCoMKgwqDCoCBq
-b2ItPmlkID0gYXRvbWljNjRfaW5jX3JldHVybigmc2NoZWQtPmpvYl9pZF9jb3VudCk7DQo+Pj4+
-IEBAIC01OTMsMTUgKzU4MiwyNSBAQCBzdGF0aWMgdm9pZCBkcm1fc2NoZWRfcHJvY2Vzc19qb2Io
-c3RydWN0DQo+Pj4+IGRtYV9mZW5jZSAqZiwgc3RydWN0IGRtYV9mZW5jZV9jYiAqY2IpDQo+Pj4+
-ICDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fc2NoZWRfZmVuY2UgKnNfZmVuY2UgPQ0KPj4+PiAgwqDC
-oMKgwqDCoMKgwqDCoMKgIGNvbnRhaW5lcl9vZihjYiwgc3RydWN0IGRybV9zY2hlZF9mZW5jZSwg
-Y2IpOw0KPj4+PiAgwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkID0g
-c19mZW5jZS0+c2NoZWQ7DQo+Pj4+ICvCoMKgwqAgc3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9i
-ID0gc19mZW5jZS0+c19qb2I7DQo+Pj4gU2VlbXMgd2UgYXJlIGJhY2sgdG8gb3JpZ2luYWwsIENo
-cmlzdGlhbiBhcmd1ZWQgc19mZW5jZSBhbmQgc19qb2IgYXJlDQo+Pj4gd2l0aCBkaWZmZXJlbnQg
-bGlmZXRpbWUgLCBEbyB0aGVpciBsaWZldGltZSBiZWNvbWUgc2FtZSBub3c/DQo+PiBObywgdGhh
-dCBzdGlsbCBkb2Vzbid0IHdvcmsuIFRoZSBzY2hlZHVsZXIgZmVuY2UgbGl2ZXMgbXVjaCBsb25n
-ZXINCj4+IHRoYW4gdGhlIGpvYiwgc28gd2Ugd291bGQgaGF2ZSBhIGRhbmdsaW5nIHBvaW50ZXIg
-aGVyZS4NCj4+DQo+PiBUaGUgcmVhbCBxdWVzdGlvbiBpcyB3aHkgd2UgYWN0dWFsbHkgbmVlZCB0
-aGF0PyBJIG1lYW4gd2UganVzdCBuZWVkIHRvDQo+PiBtb3ZlIHRoZSBjYWxsYmFjayBzdHJ1Y3R1
-cmUgaW50byB0aGUgam9iLCBkb24ndCB3ZT8NCj4+DQo+PiBDaHJpc3RpYW4uDQo+IFNvIGxldCdz
-IHNheSBJIG1vdmUgdGhlIC5jYiBmcm9tIGRybV9zY2hlZF9mZW5jZSB0byBkcm1fc2NoZWRfam9i
-LCBhbmQNCj4gdGhlcmUgaXQncyBvayB0byByZWZlcmVuY2UNCj4gam9iLT5zX2ZlbmNlIGJlY2F1
-c2Ugc19mZW5jZSBsaWZlIGFzIGF0IGxlYXN0IGFzIHRoZSBqb2IsIHJpZ2h0ID8NCg0KRXhhY3Rs
-eS4gV2VsbCwgd2UgY291bGQgYWN0dWFsbHkgbWFrZSB0aGUgbGl2ZSBvZiBzX2ZlbmNlIGEgYml0
-IHNob3J0ZXIgDQphbmQgZHJvcCBpdCBhcyBzb29uIGFzIGl0IGlzIHNpZ25hbGVkLg0KDQpDaHJp
-c3RpYW4uDQoNCj4NCj4gQW5kcmV5DQo+DQo+Pj4gLURhdmlkDQo+Pj4NCj4+Pj4gK8KgwqDCoCB1
-bnNpZ25lZCBsb25nIGZsYWdzOw0KPj4+PiArDQo+Pj4+ICvCoMKgwqAgY2FuY2VsX2RlbGF5ZWRf
-d29yaygmc2NoZWQtPndvcmtfdGRyKTsNCj4+Pj4NCj4+Pj4gLcKgwqDCoCBkbWFfZmVuY2VfZ2V0
-KCZzX2ZlbmNlLT5maW5pc2hlZCk7DQo+Pj4+ICDCoMKgwqDCoMKgIGF0b21pY19kZWMoJnNjaGVk
-LT5od19ycV9jb3VudCk7DQo+Pj4+ICDCoMKgwqDCoMKgIGF0b21pY19kZWMoJnNjaGVkLT5udW1f
-am9icyk7DQo+Pj4+ICsNCj4+Pj4gK8KgwqDCoCBzcGluX2xvY2tfaXJxc2F2ZSgmc2NoZWQtPmpv
-Yl9saXN0X2xvY2ssIGZsYWdzKTsNCj4+Pj4gK8KgwqDCoCAvKiByZW1vdmUgam9iIGZyb20gcmlu
-Z19taXJyb3JfbGlzdCAqLw0KPj4+PiArwqDCoMKgIGxpc3RfZGVsX2luaXQoJnNfam9iLT5ub2Rl
-KTsNCj4+Pj4gK8KgwqDCoCBzcGluX3VubG9ja19pcnFyZXN0b3JlKCZzY2hlZC0+am9iX2xpc3Rf
-bG9jaywgZmxhZ3MpOw0KPj4+PiArDQo+Pj4+ICDCoMKgwqDCoMKgIGRybV9zY2hlZF9mZW5jZV9m
-aW5pc2hlZChzX2ZlbmNlKTsNCj4+Pj4NCj4+Pj4gIMKgwqDCoMKgwqAgdHJhY2VfZHJtX3NjaGVk
-X3Byb2Nlc3Nfam9iKHNfZmVuY2UpOw0KPj4+PiAtwqDCoMKgIGRtYV9mZW5jZV9wdXQoJnNfZmVu
-Y2UtPmZpbmlzaGVkKTsNCj4+Pj4gIMKgwqDCoMKgwqAgd2FrZV91cF9pbnRlcnJ1cHRpYmxlKCZz
-Y2hlZC0+d2FrZV91cF93b3JrZXIpOw0KPj4+PiArDQo+Pj4+ICvCoMKgwqAgc2NoZWR1bGVfd29y
-aygmc19qb2ItPmZpbmlzaF93b3JrKTsNCj4+Pj4gIMKgIH0NCj4+Pj4NCj4+Pj4gIMKgIC8qKg0K
-Pj4+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oIGIvaW5jbHVkZS9k
-cm0vZ3B1X3NjaGVkdWxlci5oDQo+Pj4+IGluZGV4IGM5NGI1OTIuLjIzODU1YzYgMTAwNjQ0DQo+
-Pj4+IC0tLSBhL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaA0KPj4+PiArKysgYi9pbmNsdWRl
-L2RybS9ncHVfc2NoZWR1bGVyLmgNCj4+Pj4gQEAgLTExNSw2ICsxMTUsOCBAQCBzdHJ1Y3QgZHJt
-X3NjaGVkX3JxIHsNCj4+Pj4gIMKgwqDCoMKgwqAgc3RydWN0IGRybV9zY2hlZF9lbnRpdHnCoMKg
-wqDCoMKgwqDCoCAqY3VycmVudF9lbnRpdHk7DQo+Pj4+ICDCoCB9Ow0KPj4+Pg0KPj4+PiArc3Ry
-dWN0IGRybV9zY2hlZF9qb2I7DQo+Pj4+ICsNCj4+Pj4gIMKgIC8qKg0KPj4+PiAgwqDCoCAqIHN0
-cnVjdCBkcm1fc2NoZWRfZmVuY2UgLSBmZW5jZXMgY29ycmVzcG9uZGluZyB0byB0aGUgc2NoZWR1
-bGluZw0KPj4+PiBvZiBhIGpvYi4NCj4+Pj4gIMKgwqAgKi8NCj4+Pj4gQEAgLTE2MCw2ICsxNjIs
-OSBAQCBzdHJ1Y3QgZHJtX3NjaGVkX2ZlbmNlIHsNCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKg
-ICogQG93bmVyOiBqb2Igb3duZXIgZm9yIGRlYnVnZ2luZw0KPj4+PiAgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgKi8NCj4+Pj4gIMKgwqDCoMKgwqAgdm9pZMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCAqb3duZXI7DQo+Pj4+ICsNCj4+Pj4gK8KgwqDCoCAvKiBCYWNrIHBvaW50ZXIgdG8gb3du
-aW5nIGpvYiAqLw0KPj4+PiArwqDCoMKgIHN0cnVjdCBkcm1fc2NoZWRfam9iwqDCoMKgwqDCoMKg
-wqDCoCAqc19qb2I7DQo+Pj4+ICDCoCB9Ow0KPj4+Pg0KPj4+PiAgwqAgc3RydWN0IGRybV9zY2hl
-ZF9mZW5jZSAqdG9fZHJtX3NjaGVkX2ZlbmNlKHN0cnVjdCBkbWFfZmVuY2UgKmYpOyBAQA0KPj4+
-PiAtMzMwLDggKzMzNSw5IEBAIHZvaWQgZHJtX3NjaGVkX2VudGl0eV9zZXRfcHJpb3JpdHkoc3Ry
-dWN0DQo+Pj4+IGRybV9zY2hlZF9lbnRpdHkgKmVudGl0eSwNCj4+Pj4gIMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZW51bSBkcm1fc2NoZWRfcHJpb3JpdHkgcHJpb3Jp
-dHkpO8KgIGJvb2wNCj4+Pj4gZHJtX3NjaGVkX2VudGl0eV9pc19yZWFkeShzdHJ1Y3QgZHJtX3Nj
-aGVkX2VudGl0eSAqZW50aXR5KTsNCj4+Pj4NCj4+Pj4gLXN0cnVjdCBkcm1fc2NoZWRfZmVuY2Ug
-KmRybV9zY2hlZF9mZW5jZV9jcmVhdGUoDQo+Pj4+IC3CoMKgwqAgc3RydWN0IGRybV9zY2hlZF9l
-bnRpdHkgKnNfZW50aXR5LCB2b2lkICpvd25lcik7DQo+Pj4+ICtzdHJ1Y3QgZHJtX3NjaGVkX2Zl
-bmNlICpkcm1fc2NoZWRfZmVuY2VfY3JlYXRlKHN0cnVjdA0KPj4+PiBkcm1fc2NoZWRfZW50aXR5
-ICpzX2VudGl0eSwNCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgdm9pZCAqb3duZXIsDQo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fc2NoZWRfam9iICpzX2pv
-Yik7DQo+Pj4+ICDCoCB2b2lkIGRybV9zY2hlZF9mZW5jZV9zY2hlZHVsZWQoc3RydWN0IGRybV9z
-Y2hlZF9mZW5jZSAqZmVuY2UpO8KgIHZvaWQNCj4+Pj4gZHJtX3NjaGVkX2ZlbmNlX2ZpbmlzaGVk
-KHN0cnVjdCBkcm1fc2NoZWRfZmVuY2UgKmZlbmNlKTsNCj4+Pj4NCj4+Pj4gLS0gDQo+Pj4+IDIu
-Ny40DQo+Pj4+DQo+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fDQo+Pj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QNCj4+Pj4gZHJpLWRldmVsQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZw0KPj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2RyaS1kZXZlbA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWwK
+--===============0243742376==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180903FE05AC850D8D4BFEC9F7AA0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180903FE05AC850D8D4BFEC9F7AA0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tiecheng=
+ Zhou <Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, December 6, 2018 9:11:49 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Zhou, Tiecheng
+Subject: [PATCH] drm/amdgpu: bypass RLC init under sriov for Tonga
+
+SWDEV-173384: vm-mix reboot (4 VMs) fail on Tonga under sriov
+
+Phenomena: there is compute_1.3.1 ring test fail on one VM
+           when it starts to do hw_init after it is rebooted
+
+Root cause: RLC will go wrong in soft_reset under sriov
+
+Workaround: init RLC csb, and skip RLC stop, reset, start
+            this is because GIM has already done
+            full initialization on RLC
+
+refer to 'commit cfee05bc9057 ("drm/amdgpu:bypass RLC init for SRIOV")'
+     and 'commit f840cc5f8447 ("drm/amdgpu/sriov:init csb for gfxv9")'
+
+Signed-off-by: Tiecehng Zhou <Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c
+index 1454fc3..a9c853a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -4068,6 +4068,11 @@ static void gfx_v8_0_rlc_start(struct amdgpu_device =
+*adev)
+
+ static int gfx_v8_0_rlc_resume(struct amdgpu_device *adev)
+ {
++       if (amdgpu_sriov(adev)) {
++               gfx_v8_0_init_csb(adev);
++               return 0;
++       }
++
+         adev->gfx.rlc.funcs->stop(adev);
+         adev->gfx.rlc.funcs->reset(adev);
+         gfx_v8_0_init_pg(adev);
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180903FE05AC850D8D4BFEC9F7AA0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Tiecheng Zhou &lt;Tiecheng.Zh=
+ou-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, December 6, 2018 9:11:49 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Zhou, Tiecheng<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: bypass RLC init under sriov for Tonga</=
+font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">SWDEV-173384: vm-mix reboot (4 VMs) fail on Tonga =
+under sriov<br>
+<br>
+Phenomena: there is compute_1.3.1 ring test fail on one VM<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; when it starts=
+ to do hw_init after it is rebooted<br>
+<br>
+Root cause: RLC will go wrong in soft_reset under sriov<br>
+<br>
+Workaround: init RLC csb, and skip RLC stop, reset, start<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this is =
+because GIM has already done<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; full ini=
+tialization on RLC<br>
+<br>
+refer to 'commit cfee05bc9057 (&quot;drm/amdgpu:bypass RLC init for SRIOV&q=
+uot;)'<br>
+&nbsp;&nbsp;&nbsp;&nbsp; and 'commit f840cc5f8447 (&quot;drm/amdgpu/sriov:i=
+nit csb for gfxv9&quot;)'<br>
+<br>
+Signed-off-by: Tiecehng Zhou &lt;Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 5 &#43;&#43;&#43;&#43;&#43;<b=
+r>
+&nbsp;1 file changed, 5 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c<br>
+index 1454fc3..a9c853a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+@@ -4068,6 &#43;4068,11 @@ static void gfx_v8_0_rlc_start(struct amdgpu_dev=
+ice *adev)<br>
+&nbsp;<br>
+&nbsp;static int gfx_v8_0_rlc_resume(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov(adev)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; gfx_v8_0_init_csb(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt=
+;stop(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt=
+;reset(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfx_v8_0_init_pg(adev);<br=
+>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180903FE05AC850D8D4BFEC9F7AA0BN6PR12MB1809namp_--
+
+--===============0243742376==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0243742376==--
