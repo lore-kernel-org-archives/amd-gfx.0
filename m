@@ -1,62 +1,48 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix duplicating scaling/underscan
- connector state
-Date: Fri, 7 Dec 2018 13:14:12 -0500
-Message-ID: <CADnq5_OWLdmwei2_JH_795mvbSZgJi-7friD9apmYyC_P8wsNw@mail.gmail.com>
-References: <20181207150709.18551-1-nicholas.kazlauskas@amd.com>
+From: Eric Anholt <eric@anholt.net>
+Subject: [PATCH] drm/sched: Always trace the dependencies we wait on, to fix a race.
+Date: Fri,  7 Dec 2018 11:16:53 -0800
+Message-ID: <20181207191653.30118-1-eric@anholt.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181207150709.18551-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org
-Cc: "Leo (Sunpeng) Li" <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <harry.wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
+Cc: linux-kernel@vger.kernel.org, Eric Anholt <eric@anholt.net>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KT24gRnJp
-LCBEZWMgNywgMjAxOCBhdCAxMDowNyBBTSBOaWNob2xhcyBLYXpsYXVza2FzCjxuaWNob2xhcy5r
-YXpsYXVza2FzQGFtZC5jb20+IHdyb3RlOgo+Cj4gW1doeV0KPiBUaGVzZSBwcm9wZXJ0aWVzIGFy
-ZW4ndCBiZWluZyBjYXJyaWVkIG92ZXIgd2hlbiB0aGUgYXRvbWljIHN0YXRlLgo+IFRoaXMgdHJp
-Y2tzIGF0b21pYyBjaGVjayBhbmQgY29tbWl0IHRhaWwgaW50byBwZXJmb3JtaW5nIHVuZGVyc2Nh
-bgo+IGFuZCBzY2FsaW5nIG9wZXJhdGlvbnMgd2hlbiB0aGV5IGFyZW4ndCBuZWVkZWQuCj4KPiBX
-aXRoIHRoZSBwYXRjaCB0aGF0IGZvcmNlZCBzY2FsaW5nL1JNWF9BU1BFQ1Qgb24gYnkgZGVmYXVs
-dCB0aGlzCj4gcmVzdWx0cyBpbiBtYW55IHVubmVjZXNzYXJ5IHN1cmZhY2UgdXBkYXRlcyBhbmQg
-aGFuZ3MgdW5kZXIgY2VydGFpbgo+IGNvbmRpdGlvbnMuCj4KPiBbSG93XQo+IER1cGxpY2F0ZSB0
-aGUgcHJvcGVydGllcy4KPgo+IEZpeGVzOiA5MWI2NmM0N2JhMzQgKCJkcm0vYW1kL2Rpc3BsYXk6
-IFNldCBSTVhfQVNQRUNUIGFzIGRlZmF1bHQiKQo+Cj4gQ2M6IEJoYXdhbnByZWV0IExha2hhIDxC
-aGF3YW5wcmVldC5MYWtoYUBhbWQuY29tPgo+IENjOiBMZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNv
-bT4KPiBDYzogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4gU2lnbmVk
-LW9mZi1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29t
-Pgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jIHwgNCArKysrCj4gIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykKPgo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IGlu
-ZGV4IDIzZDYxNTcwZGYxNy4uZGRmNWVmZDFhNWY0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gQEAgLTMyNDIsNiArMzI0
-MiwxMCBAQCBhbWRncHVfZG1fY29ubmVjdG9yX2F0b21pY19kdXBsaWNhdGVfc3RhdGUoc3RydWN0
-IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKPgo+ICAgICAgICAgbmV3X3N0YXRlLT5mcmVlc3lu
-Y19jYXBhYmxlID0gc3RhdGUtPmZyZWVzeW5jX2NhcGFibGU7Cj4gICAgICAgICBuZXdfc3RhdGUt
-PmFibV9sZXZlbCA9IHN0YXRlLT5hYm1fbGV2ZWw7Cj4gKyAgICAgICBuZXdfc3RhdGUtPnNjYWxp
-bmcgPSBzdGF0ZS0+c2NhbGluZzsKPiArICAgICAgIG5ld19zdGF0ZS0+dW5kZXJzY2FuX2VuYWJs
-ZSA9IHN0YXRlLT51bmRlcnNjYW5fZW5hYmxlOwo+ICsgICAgICAgbmV3X3N0YXRlLT51bmRlcnNj
-YW5faGJvcmRlciA9IHN0YXRlLT51bmRlcnNjYW5faGJvcmRlcjsKPiArICAgICAgIG5ld19zdGF0
-ZS0+dW5kZXJzY2FuX3Zib3JkZXIgPSBzdGF0ZS0+dW5kZXJzY2FuX3Zib3JkZXI7Cj4gICAgICAg
-ICBuZXdfc3RhdGUtPm1heF9icGMgPSBzdGF0ZS0+bWF4X2JwYzsKPgo+ICAgICAgICAgcmV0dXJu
-ICZuZXdfc3RhdGUtPmJhc2U7Cj4gLS0KPiAyLjE3LjEKPgo+IF9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+The entity->dependency can go away completely once we've called
+drm_sched_entity_add_dependency_cb() (if the cb is called before we
+get around to tracing).  The tracepoint is more useful if we trace
+every dependency instead of just ones that get callbacks installed,
+anyway, so just do that.
+
+Fixes any easy-to-produce OOPS when tracing the scheduler on V3D with
+"perf record -a -e gpu_scheduler:.\* glxgears" and DEBUG_SLAB enabled.
+
+Signed-off-by: Eric Anholt <eric@anholt.net>
+---
+ drivers/gpu/drm/scheduler/sched_entity.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index 4463d3826ecb..e2942c9a11a7 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -440,13 +440,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 
+ 	while ((entity->dependency =
+ 			sched->ops->dependency(sched_job, entity))) {
++		trace_drm_sched_job_wait_dep(sched_job, entity->dependency);
+ 
+-		if (drm_sched_entity_add_dependency_cb(entity)) {
+-
+-			trace_drm_sched_job_wait_dep(sched_job,
+-						     entity->dependency);
++		if (drm_sched_entity_add_dependency_cb(entity))
+ 			return NULL;
+-		}
+ 	}
+ 
+ 	/* skip jobs from entity that marked guilty */
+-- 
+2.20.0.rc1
