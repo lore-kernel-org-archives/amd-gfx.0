@@ -1,38 +1,40 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 1/2] drm/amdkfd: add new vega10 pci ids
-Date: Fri,  7 Dec 2018 16:26:09 -0500
-Message-ID: <20181207212610.3680-1-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdkfd: add new vega20 pci id
+Date: Fri,  7 Dec 2018 16:26:10 -0500
+Message-ID: <20181207212610.3680-2-alexander.deucher@amd.com>
+References: <20181207212610.3680-1-alexander.deucher@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181207212610.3680-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-New vega10 ids.
-
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 9ed14a11afa2..b78b3c2fa9d8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -378,7 +378,13 @@ static const struct kfd_deviceid supported_devices[] = {
- 	{ 0x6864, &vega10_device_info },	/* Vega10 */
- 	{ 0x6867, &vega10_device_info },	/* Vega10 */
- 	{ 0x6868, &vega10_device_info },	/* Vega10 */
-+	{ 0x6869, &vega10_device_info },	/* Vega10 */
-+	{ 0x686A, &vega10_device_info },	/* Vega10 */
-+	{ 0x686B, &vega10_device_info },	/* Vega10 */
- 	{ 0x686C, &vega10_vf_device_info },	/* Vega10  vf*/
-+	{ 0x686D, &vega10_device_info },	/* Vega10 */
-+	{ 0x686E, &vega10_device_info },	/* Vega10 */
-+	{ 0x686F, &vega10_device_info },	/* Vega10 */
- 	{ 0x687F, &vega10_device_info },	/* Vega10 */
- 	{ 0x69A0, &vega12_device_info },	/* Vega12 */
- 	{ 0x69A1, &vega12_device_info },	/* Vega12 */
--- 
-2.13.6
+TmV3IHZlZ2EyMCBpZC4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
+dWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNl
+LmMgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9kZXZpY2UuYwppbmRleCBiNzhiM2MyZmE5ZDguLjhiZTk2NzdjMGMwNyAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYwpAQCAtMzk1LDYgKzM5NSw3
+IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qga2ZkX2RldmljZWlkIHN1cHBvcnRlZF9kZXZpY2VzW10g
+PSB7CiAJeyAweDY2YTEsICZ2ZWdhMjBfZGV2aWNlX2luZm8gfSwJLyogVmVnYTIwICovCiAJeyAw
+eDY2YTIsICZ2ZWdhMjBfZGV2aWNlX2luZm8gfSwJLyogVmVnYTIwICovCiAJeyAweDY2YTMsICZ2
+ZWdhMjBfZGV2aWNlX2luZm8gfSwJLyogVmVnYTIwICovCisJeyAweDY2YTQsICZ2ZWdhMjBfZGV2
+aWNlX2luZm8gfSwJLyogVmVnYTIwICovCiAJeyAweDY2YTcsICZ2ZWdhMjBfZGV2aWNlX2luZm8g
+fSwJLyogVmVnYTIwICovCiAJeyAweDY2YWYsICZ2ZWdhMjBfZGV2aWNlX2luZm8gfQkJLyogVmVn
+YTIwICovCiB9OwotLSAKMi4xMy42CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
