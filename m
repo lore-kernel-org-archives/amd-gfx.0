@@ -1,48 +1,47 @@
-From: Eric Anholt <eric@anholt.net>
-Subject: [PATCH] drm/sched: Always trace the dependencies we wait on, to fix a race.
-Date: Fri,  7 Dec 2018 11:16:53 -0800
-Message-ID: <20181207191653.30118-1-eric@anholt.net>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: Re: [PATCH] drm/sched: Always trace the dependencies we wait on, to
+ fix a race.
+Date: Fri, 7 Dec 2018 19:46:31 +0000
+Message-ID: <ba4a98f4-062e-0cb4-bd22-a0a191385f82@amd.com>
+References: <20181207191653.30118-1-eric@anholt.net>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20181207191653.30118-1-eric@anholt.net>
+Content-Language: en-US
+Content-ID: <00F4F65421CF6F4E9C3953511C830614@namprd12.prod.outlook.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, christian.koenig@amd.com
-Cc: linux-kernel@vger.kernel.org, Eric Anholt <eric@anholt.net>
+To: Eric Anholt <eric@anholt.net>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-The entity->dependency can go away completely once we've called
-drm_sched_entity_add_dependency_cb() (if the cb is called before we
-get around to tracing).  The tracepoint is more useful if we trace
-every dependency instead of just ones that get callbacks installed,
-anyway, so just do that.
-
-Fixes any easy-to-produce OOPS when tracing the scheduler on V3D with
-"perf record -a -e gpu_scheduler:.\* glxgears" and DEBUG_SLAB enabled.
-
-Signed-off-by: Eric Anholt <eric@anholt.net>
----
- drivers/gpu/drm/scheduler/sched_entity.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-index 4463d3826ecb..e2942c9a11a7 100644
---- a/drivers/gpu/drm/scheduler/sched_entity.c
-+++ b/drivers/gpu/drm/scheduler/sched_entity.c
-@@ -440,13 +440,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
- 
- 	while ((entity->dependency =
- 			sched->ops->dependency(sched_job, entity))) {
-+		trace_drm_sched_job_wait_dep(sched_job, entity->dependency);
- 
--		if (drm_sched_entity_add_dependency_cb(entity)) {
--
--			trace_drm_sched_job_wait_dep(sched_job,
--						     entity->dependency);
-+		if (drm_sched_entity_add_dependency_cb(entity))
- 			return NULL;
--		}
- 	}
- 
- 	/* skip jobs from entity that marked guilty */
--- 
-2.20.0.rc1
+QW0gMDcuMTIuMTggdW0gMjA6MTYgc2NocmllYiBFcmljIEFuaG9sdDoNCj4gVGhlIGVudGl0eS0+
+ZGVwZW5kZW5jeSBjYW4gZ28gYXdheSBjb21wbGV0ZWx5IG9uY2Ugd2UndmUgY2FsbGVkDQo+IGRy
+bV9zY2hlZF9lbnRpdHlfYWRkX2RlcGVuZGVuY3lfY2IoKSAoaWYgdGhlIGNiIGlzIGNhbGxlZCBi
+ZWZvcmUgd2UNCj4gZ2V0IGFyb3VuZCB0byB0cmFjaW5nKS4gIFRoZSB0cmFjZXBvaW50IGlzIG1v
+cmUgdXNlZnVsIGlmIHdlIHRyYWNlDQo+IGV2ZXJ5IGRlcGVuZGVuY3kgaW5zdGVhZCBvZiBqdXN0
+IG9uZXMgdGhhdCBnZXQgY2FsbGJhY2tzIGluc3RhbGxlZCwNCj4gYW55d2F5LCBzbyBqdXN0IGRv
+IHRoYXQuDQo+DQo+IEZpeGVzIGFueSBlYXN5LXRvLXByb2R1Y2UgT09QUyB3aGVuIHRyYWNpbmcg
+dGhlIHNjaGVkdWxlciBvbiBWM0Qgd2l0aA0KPiAicGVyZiByZWNvcmQgLWEgLWUgZ3B1X3NjaGVk
+dWxlcjouXCogZ2x4Z2VhcnMiIGFuZCBERUJVR19TTEFCIGVuYWJsZWQuDQo+DQo+IFNpZ25lZC1v
+ZmYtYnk6IEVyaWMgQW5ob2x0IDxlcmljQGFuaG9sdC5uZXQ+DQoNClJldmlld2VkLWJ5OiBDaHJp
+c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQoNCkdvaW5nIHRvIHBpY2sg
+dGhhdCB1cCBmb3IgdXBzdHJlYW0gYW5kIHdpbGwgYWRkIHdpdGggYSBDQzogc3RhYmxlLg0KDQpU
+aGFua3MsDQpDaHJpc3RpYW4uDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxl
+ci9zY2hlZF9lbnRpdHkuYyB8IDcgKystLS0tLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2Vy
+dGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vc2NoZWR1bGVyL3NjaGVkX2VudGl0eS5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9z
+Y2hlZF9lbnRpdHkuYw0KPiBpbmRleCA0NDYzZDM4MjZlY2IuLmUyOTQyYzlhMTFhNyAxMDA2NDQN
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9lbnRpdHkuYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2VudGl0eS5jDQo+IEBAIC00NDAsMTMg
+KzQ0MCwxMCBAQCBzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqZHJtX3NjaGVkX2VudGl0eV9wb3Bfam9i
+KHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRpdHkpDQo+ICAgDQo+ICAgCXdoaWxlICgoZW50
+aXR5LT5kZXBlbmRlbmN5ID0NCj4gICAJCQlzY2hlZC0+b3BzLT5kZXBlbmRlbmN5KHNjaGVkX2pv
+YiwgZW50aXR5KSkpIHsNCj4gKwkJdHJhY2VfZHJtX3NjaGVkX2pvYl93YWl0X2RlcChzY2hlZF9q
+b2IsIGVudGl0eS0+ZGVwZW5kZW5jeSk7DQo+ICAgDQo+IC0JCWlmIChkcm1fc2NoZWRfZW50aXR5
+X2FkZF9kZXBlbmRlbmN5X2NiKGVudGl0eSkpIHsNCj4gLQ0KPiAtCQkJdHJhY2VfZHJtX3NjaGVk
+X2pvYl93YWl0X2RlcChzY2hlZF9qb2IsDQo+IC0JCQkJCQkgICAgIGVudGl0eS0+ZGVwZW5kZW5j
+eSk7DQo+ICsJCWlmIChkcm1fc2NoZWRfZW50aXR5X2FkZF9kZXBlbmRlbmN5X2NiKGVudGl0eSkp
+DQo+ICAgCQkJcmV0dXJuIE5VTEw7DQo+IC0JCX0NCj4gICAJfQ0KPiAgIA0KPiAgIAkvKiBza2lw
+IGpvYnMgZnJvbSBlbnRpdHkgdGhhdCBtYXJrZWQgZ3VpbHR5ICovDQoNCg==
