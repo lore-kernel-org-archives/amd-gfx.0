@@ -1,68 +1,90 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amdgpu: remove set but not used variable 'grbm_soft_reset'
-Date: Sat, 8 Dec 2018 15:01:13 +0000
-Message-ID: <1544281273-73940-1-git-send-email-yuehaibing@huawei.com>
+From: =?UTF-8?Q?Br=C3=A1ulio_Bhavamitra?= <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Freezes back with Raven Ridge 2500u and 4.19
+Date: Sun, 9 Dec 2018 16:36:56 -0300
+Message-ID: <CAJri6_sPT7aSp2w81iaHzHgmTJpoYc602ioTT=a7Y6-sWKm4EQ@mail.gmail.com>
+References: <CAJri6_uaemRaNuoaEJXCtEXNHvggL4cZbhp+=oBRLoqrAUaKiw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, leo.liu@amd.com, Likun.Gao@amd.com, David.Panariti@amd.com, shirish.s@amd.com, Rex.Zhu@amd.com, andrey.grodzovsky@amd.com
-Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0573521293=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAJri6_uaemRaNuoaEJXCtEXNHvggL4cZbhp+=oBRLoqrAUaKiw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Fixes gcc '-Wunused-but-set-variable' warning:
+--===============0573521293==
+Content-Type: multipart/alternative; boundary="0000000000006132d7057c9bf939"
 
-drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c: In function 'gfx_v8_0_pre_soft_reset':
-drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:4950:27: warning:
- variable 'srbm_soft_reset' set but not used [-Wunused-but-set-variable]
+--0000000000006132d7057c9bf939
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c: In function 'gfx_v8_0_post_soft_reset':
-drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c:5054:27: warning:
- variable 'srbm_soft_reset' set but not used [-Wunused-but-set-variable]
+Crashes seems related to newer Mesa, as disabling 3d effects on Kwin fixed
+them all.
 
-It never used since introduction in commit d31a501ead7f ("drm/amdgpu: add
-pre_soft_reset ip func") and e4ae0fc33631 ("drm/amdgpu: implement
-gfx8 post_soft_reset")
+Reproduced problems with old and new firmware, latest 4.17, 4.18 and 4.19
+kernels
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+Now having another issue with new B19 update from HP
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 1454fc3..8c1ba79 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -4947,14 +4947,13 @@ static bool gfx_v8_0_check_soft_reset(void *handle)
- static int gfx_v8_0_pre_soft_reset(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	u32 grbm_soft_reset = 0, srbm_soft_reset = 0;
-+	u32 grbm_soft_reset = 0;
- 
- 	if ((!adev->gfx.grbm_soft_reset) &&
- 	    (!adev->gfx.srbm_soft_reset))
- 		return 0;
- 
- 	grbm_soft_reset = adev->gfx.grbm_soft_reset;
--	srbm_soft_reset = adev->gfx.srbm_soft_reset;
- 
- 	/* stop the rlc */
- 	adev->gfx.rlc.funcs->stop(adev);
-@@ -5051,14 +5050,13 @@ static int gfx_v8_0_soft_reset(void *handle)
- static int gfx_v8_0_post_soft_reset(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	u32 grbm_soft_reset = 0, srbm_soft_reset = 0;
-+	u32 grbm_soft_reset = 0;
- 
- 	if ((!adev->gfx.grbm_soft_reset) &&
- 	    (!adev->gfx.srbm_soft_reset))
- 		return 0;
- 
- 	grbm_soft_reset = adev->gfx.grbm_soft_reset;
--	srbm_soft_reset = adev->gfx.srbm_soft_reset;
- 
- 	if (REG_GET_FIELD(grbm_soft_reset, GRBM_SOFT_RESET, SOFT_RESET_CP) ||
- 	    REG_GET_FIELD(grbm_soft_reset, GRBM_SOFT_RESET, SOFT_RESET_CPF) ||
+Best,
+Br=C3=A1ulio
+
+On Thu, Nov 1, 2018 at 9:33 AM Br=C3=A1ulio Bhavamitra <brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org=
+>
+wrote:
+
+> Hi all,
+>
+> 4.18 was completely stable with Raven Ridge 2500u and kernel opt
+> idle=3Dnomwait
+>
+> Now with 4.19 I'm having freezes again. And this time I cannot reboot
+> using SysReq + B shortcut.
+> Also the mouse is always frozen as well, before most of the times I could
+> move it.
+>
+> Best Regards,
+> Br=C3=A1ulio
+>
+
+--0000000000006132d7057c9bf939
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Crashes seems related to newer Mesa, as disabling 3d effec=
+ts on Kwin fixed them all.<div><br></div><div>Reproduced problems with old =
+and new firmware, latest 4.17, 4.18 and 4.19 kernels<br><br>Now having anot=
+her issue with new B19 update from HP<br><br>Best,</div><div>Br=C3=A1ulio<b=
+r><br><div class=3D"gmail_quote"><div dir=3D"ltr">On Thu, Nov 1, 2018 at 9:=
+33 AM Br=C3=A1ulio Bhavamitra &lt;<a href=3D"mailto:brauliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">br=
+auliobo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><d=
+iv dir=3D"ltr">Hi all,<div><br></div><div>4.18 was completely stable with R=
+aven Ridge 2500u and kernel opt=C2=A0<span style=3D"font-family:monospace">=
+idle=3Dnomwait</span></div><br>Now with 4.19 I&#39;m having freezes again. =
+And this time I cannot reboot using SysReq + B shortcut.<br><div>Also the m=
+ouse is always frozen as well, before most of the times I could move it.</d=
+iv><div><br></div><div>Best Regards,</div><div>Br=C3=A1ulio</div></div>
+</blockquote></div></div></div>
+
+--0000000000006132d7057c9bf939--
+
+--===============0573521293==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0573521293==--
