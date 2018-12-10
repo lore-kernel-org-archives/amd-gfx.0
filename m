@@ -1,47 +1,98 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/amdgpu: Fix stub function name
-Date: Mon, 10 Dec 2018 21:46:16 +0000
-Message-ID: <0b6312a0-d876-eb4c-ac4b-9c70ad083338@amd.com>
-References: <1544477327-21625-1-git-send-email-Felix.Kuehling@amd.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: [PATCH] drm/amd/display: Pass app_tf by value rather than by reference
+Date: Mon, 10 Dec 2018 16:42:01 -0700
+Message-ID: <20181210234201.4850-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1544477327-21625-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <1F2D16C37AC56E4A941E96844ED10BC6-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWNrZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPg0K
-DQpBbmRyZXkNCg0KDQpPbiAxMi8xMC8yMDE4IDA0OjI5IFBNLCBLdWVobGluZywgRmVsaXggd3Jv
-dGU6DQo+IFRoaXMgZnVuY3Rpb24gd2FzIHJlbmFtZWQgaW4gYSBwcmV2aW91cyBjb21taXQuIFVw
-ZGF0ZSB0aGUgc3R1Yg0KPiBmdW5jdGlvbiBuYW1lIGZvciBidWlsZHMgd2l0aCBDT05GSUdfSFNB
-X0FNRCBkaXNhYmxlZC4NCj4NCj4gRml4ZXM6IDYyZjY1ZDNjYjM0YSAoImRybS9hbWRncHU6IEFk
-ZCBLRkQgVlJBTSBsaW1pdCBjaGVja2luZyIpDQo+IFNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhs
-aW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgfCAyICstDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEg
-aW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkLmMNCj4gaW5kZXggMzlmN2M4Yy4uMmRmYWYxNSAxMDA2NDQNCj4g
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jDQo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYw0KPiBAQCAtNTg2LDcg
-KzU4Niw3IEBAIGJvb2wgYW1ka2ZkX2ZlbmNlX2NoZWNrX21tKHN0cnVjdCBkbWFfZmVuY2UgKmYs
-IHN0cnVjdCBtbV9zdHJ1Y3QgKm1tKQ0KPiAgIAlyZXR1cm4gZmFsc2U7DQo+ICAgfQ0KPiAgIA0K
-PiAtdm9pZCBhbWRncHVfYW1ka2ZkX3VucmVzZXJ2ZV9zeXN0ZW1fbWVtb3J5X2xpbWl0KHN0cnVj
-dCBhbWRncHVfYm8gKmJvKQ0KPiArdm9pZCBhbWRncHVfYW1ka2ZkX3VucmVzZXJ2ZV9tZW1vcnlf
-bGltaXQoc3RydWN0IGFtZGdwdV9ibyAqYm8pDQo+ICAgew0KPiAgIH0NCj4gICANCg0KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Clang warns when an expression that equals zero is used as a null
+pointer constant (in lieu of NULL):
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4435:3:
+warning: expression which evaluates to zero treated as a null pointer
+constant of type 'const enum color_transfer_func *'
+[-Wnon-literal-null-conversion]
+                TRANSFER_FUNC_UNKNOWN,
+                ^~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+
+This warning is caused by commit bb47de736661 ("drm/amdgpu: Set FreeSync
+state using drm VRR properties") and it could be solved by using NULL
+instead of TRANSFER_FUNC_UNKNOWN or casting TRANSFER_FUNC_UNKNOWN as a
+pointer. However, after looking into it, there doesn't appear to be a
+good reason to pass app_tf by reference as it is never mutated along the
+way. This is the only code path in which app_tf is used:
+
+mod_freesync_build_vrr_infopacket ->
+    build_vrr_infopacket_v2 ->
+        build_vrr_infopacket_fs2_data
+
+Neither mod_freesync_build_vrr_infopacket or build_vrr_infopacket_v2
+modify app_tf's value and build_vrr_infopacket_fs2_data expects just
+the value so we can avoid dereferencing anything by just passing in
+app_tf's value to mod_freesync_build_vrr_infopacket and
+build_vrr_infopacket_v2.
+
+There is no functional change because build_vrr_infopacket_fs2_data
+doesn't do anything if TRANSFER_FUNC_UNKNOWN is passed to it, the same
+as not calling build_vrr_infopacket_fs2_data at all like before this
+change when NULL was used for app_tf.
+
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+---
+ drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 7 +++----
+ drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h  | 2 +-
+ 2 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 620a171620ee..520665a9d81a 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -656,7 +656,7 @@ static void build_vrr_infopacket_v1(enum signal_type signal,
+ 
+ static void build_vrr_infopacket_v2(enum signal_type signal,
+ 		const struct mod_vrr_params *vrr,
+-		const enum color_transfer_func *app_tf,
++		enum color_transfer_func app_tf,
+ 		struct dc_info_packet *infopacket)
+ {
+ 	unsigned int payload_size = 0;
+@@ -664,8 +664,7 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
+ 	build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
+ 	build_vrr_infopacket_data(vrr, infopacket);
+ 
+-	if (app_tf != NULL)
+-		build_vrr_infopacket_fs2_data(*app_tf, infopacket);
++	build_vrr_infopacket_fs2_data(app_tf, infopacket);
+ 
+ 	build_vrr_infopacket_checksum(&payload_size, infopacket);
+ 
+@@ -676,7 +675,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+ 		const struct dc_stream_state *stream,
+ 		const struct mod_vrr_params *vrr,
+ 		enum vrr_packet_type packet_type,
+-		const enum color_transfer_func *app_tf,
++		enum color_transfer_func app_tf,
+ 		struct dc_info_packet *infopacket)
+ {
+ 	/* SPD info packet for FreeSync */
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+index 949a8b62aa98..063af6258fd9 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+@@ -145,7 +145,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+ 		const struct dc_stream_state *stream,
+ 		const struct mod_vrr_params *vrr,
+ 		enum vrr_packet_type packet_type,
+-		const enum color_transfer_func *app_tf,
++		enum color_transfer_func app_tf,
+ 		struct dc_info_packet *infopacket);
+ 
+ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
+-- 
+2.20.0
