@@ -1,13 +1,14 @@
 From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: bypass RLC init under sriov for Tonga
-Date: Mon, 10 Dec 2018 18:07:01 +0000
-Message-ID: <18e5b0c7-1d33-a385-38c1-6a14663b9b60@amd.com>
+Date: Mon, 10 Dec 2018 18:14:11 +0000
+Message-ID: <61d18282-a793-9ede-7b38-5778722cf44e@amd.com>
 References: <1544148709-7256-1-git-send-email-Tiecheng.Zhou@amd.com>
  <BN6PR12MB180903FE05AC850D8D4BFEC9F7AA0@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <18e5b0c7-1d33-a385-38c1-6a14663b9b60@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1828893077=="
+Content-Type: multipart/mixed; boundary="===============1138096839=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB180903FE05AC850D8D4BFEC9F7AA0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <18e5b0c7-1d33-a385-38c1-6a14663b9b60-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,15 +22,18 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou, Tiecheng" <Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1828893077==
+--===============1138096839==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_18e5b0c71d33a38538c16a14663b9b60amdcom_"
+	boundary="_000_61d18282a7939ede7b385778722cf44eamdcom_"
 
---_000_18e5b0c71d33a38538c16a14663b9b60amdcom_
+--_000_61d18282a7939ede7b385778722cf44eamdcom_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
+Never mind, just saw the patch to fix the typo.
+
+On 2018-12-10 1:07 p.m., Yang, Philip wrote:
 I got this compilation error message after I rebase this morning, do I miss=
  anything?
 
@@ -117,9 +121,18 @@ https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
 
 
---_000_18e5b0c71d33a38538c16a14663b9b60amdcom_
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--_000_61d18282a7939ede7b385778722cf44eamdcom_
 Content-Type: text/html; charset="Windows-1252"
-Content-ID: <C331DBDDAB3C5A4A91EC15A8D7AD375F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-ID: <62ED1B4207829E4E92882284BA0D6B8F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 Content-Transfer-Encoding: quoted-printable
 
 <html>
@@ -128,6 +141,13 @@ Content-Transfer-Encoding: quoted-printable
 252">
 </head>
 <body text=3D"#000000" bgcolor=3D"#FFFFFF">
+<div class=3D"moz-cite-prefix">Never mind, just saw the patch to fix the ty=
+po.<br>
+<br>
+On 2018-12-10 1:07 p.m., Yang, Philip wrote:<br>
+</div>
+<blockquote type=3D"cite" cite=3D"mid:18e5b0c7-1d33-a385-38c1-6a14663b9b60@=
+amd.com">
 <div class=3D"moz-cite-prefix">I got this compilation error message after I=
  rebase this morning, do I miss anything?
 <br>
@@ -157,7 +177,8 @@ n-bottom:0;} --></style>
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
 <p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher <a class=
-=3D"moz-txt-link-rfc2396E" href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">
+=3D"moz-txt-link-rfc2396E" href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org" moz-do=
+-not-send=3D"true">
 &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
 </p>
 </div>
@@ -165,13 +186,14 @@ n-bottom:0;} --></style>
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
 =3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
 <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
+edesktop.org" moz-do-not-send=3D"true">
 &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Tiecheng Zho=
-u <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org">
+u <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org" =
+moz-do-not-send=3D"true">
 &lt;Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
 <b>Sent:</b> Thursday, December 6, 2018 9:11:49 PM<br>
 <b>To:</b> <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lis=
-ts.freedesktop.org">
+ts.freedesktop.org" moz-do-not-send=3D"true">
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Cc:</b> Zhou, Tiecheng<br>
 <b>Subject:</b> [PATCH] drm/amdgpu: bypass RLC init under sriov for Tonga</=
@@ -201,7 +223,7 @@ uot;)'<br>
 nit csb for gfxv9&quot;)'<br>
 <br>
 Signed-off-by: Tiecehng Zhou <a class=3D"moz-txt-link-rfc2396E" href=3D"mai=
-lto:Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org">
+lto:Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org" moz-do-not-send=3D"true">
 &lt;Tiecheng.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c | 5 &#43;&#43;&#43;&#43;&#43;<b=
@@ -237,12 +259,25 @@ p;&nbsp;&nbsp; return 0;<br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
 <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+top.org" moz-do-not-send=3D"true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-n=
 ot-send=3D"true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>=
 <br>
 </div>
 </span></font></div>
+<br>
+<fieldset class=3D"mimeAttachmentHeader"></fieldset>
+<pre class=3D"moz-quote-pre" wrap=3D"">____________________________________=
+___________
+amd-gfx mailing list
+<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org" moz-do-not-send=3D"true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
+ilman/listinfo/amd-gfx" moz-do-not-send=3D"true">https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx</a>
+</pre>
+</blockquote>
+<br>
 <br>
 <fieldset class=3D"mimeAttachmentHeader"></fieldset>
 <pre class=3D"moz-quote-pre" wrap=3D"">____________________________________=
@@ -259,9 +294,9 @@ gfx</a>
 </body>
 </html>
 
---_000_18e5b0c71d33a38538c16a14663b9b60amdcom_--
+--_000_61d18282a7939ede7b385778722cf44eamdcom_--
 
---===============1828893077==
+--===============1138096839==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -271,4 +306,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1828893077==--
+--===============1138096839==--
