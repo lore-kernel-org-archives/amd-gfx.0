@@ -1,185 +1,170 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu:skip ASIC_INIT when posting card on vg20
-Date: Mon, 10 Dec 2018 15:49:11 +0000
-Message-ID: <BN6PR12MB180983D776648EB0D41EB3F6F7A50@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181210044552.19197-1-Feifei.Xu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 4/7] drm: Move the legacy kms disable_all helper to crtc
+ helpers
+Date: Mon, 10 Dec 2018 10:58:20 -0500
+Message-ID: <CADnq5_ODEwoeY0uomUYcokYyqP0+e34-hN6i2RJNjPEV1Fs=2w@mail.gmail.com>
+References: <20181210100359.22507-1-daniel.vetter@ffwll.ch>
+ <20181210100359.22507-5-daniel.vetter@ffwll.ch>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0545428348=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181210044552.19197-1-Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0545428348==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180983D776648EB0D41EB3F6F7A50BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180983D776648EB0D41EB3F6F7A50BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-vbios asic init will still work.  It will wait on the psp init so I'd sugge=
-st we just drop this patch to keep the code consistent.  There are also pos=
-sibly some registers that are handled by vbios asic init rather than psp.
-
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Feifei X=
-u <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Sent: Sunday, December 9, 2018 11:45:52 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xu, Feifei
-Subject: [PATCH] drm/amdgpu:skip ASIC_INIT when posting card on vg20
-
-On vega20, the job of executing the ASIC_INIT table when posting card
-is moved to psp. Skip the atombios's ASIC_INIT on vega20 when posting
-card.
-
-Change-Id: Id1d3c0a0d19296d5ed804de7edf5b09b8d38c0a5
-Signed-off-by: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index f2bda76c8e05..310d4eb0536b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2513,8 +2513,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-         /* detect if we are with an SRIOV vbios */
-         amdgpu_device_detect_sriov_bios(adev);
-
-+    DRM_INFO("skip posting card using ASIC INIT table in vbios on vega20\n=
-");
-         /* Post card if necessary */
--       if (amdgpu_device_need_post(adev)) {
-+       if ((adev->asic_type !=3D CHIP_VEGA20) && amdgpu_device_need_post(a=
-dev)) {
-                 if (!adev->bios) {
-                         dev_err(adev->dev, "no vBIOS found\n");
-                         r =3D -EINVAL;
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180983D776648EB0D41EB3F6F7A50BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">vbios asic init will still work.&=
-nbsp; It will wait on the psp init so I'd suggest we just drop this patch t=
-o keep the code consistent.&nbsp; There are also possibly some registers th=
-at are handled by vbios asic init rather than
- psp.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Feifei Xu &lt;Feifei.Xu@amd.c=
-om&gt;<br>
-<b>Sent:</b> Sunday, December 9, 2018 11:45:52 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Xu, Feifei<br>
-<b>Subject:</b> [PATCH] drm/amdgpu:skip ASIC_INIT when posting card on vg20=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On vega20, the job of executing the ASIC_INIT tabl=
-e when posting card<br>
-is moved to psp. Skip the atombios's ASIC_INIT on vega20 when posting<br>
-card.<br>
-<br>
-Change-Id: Id1d3c0a0d19296d5ed804de7edf5b09b8d38c0a5<br>
-Signed-off-by: Feifei Xu &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index f2bda76c8e05..310d4eb0536b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -2513,8 &#43;2513,9 @@ int amdgpu_device_init(struct amdgpu_device *adev=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* detect if we are with a=
-n SRIOV vbios */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_detect_sriov=
-_bios(adev);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp; DRM_INFO(&quot;skip posting card using ASIC INIT ta=
-ble in vbios on vega20\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Post card if necessary =
-*/<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_device_need_post(adev)) {<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;asic_type !=3D CHIP=
-_VEGA20) &amp;&amp; amdgpu_device_need_post(adev)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;bios) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_e=
-rr(adev-&gt;dev, &quot;no vBIOS found\n&quot;);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D=
- -EINVAL;<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180983D776648EB0D41EB3F6F7A50BN6PR12MB1809namp_--
-
---===============0545428348==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20181210100359.22507-5-daniel.vetter@ffwll.ch>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Daniel Vetter <daniel.vetter@ffwll.ch>
+Cc: Maxime Ripard <maxime.ripard@bootlin.com>, sbobroff@linux.ibm.com, nouveau <nouveau@lists.freedesktop.org>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Rex Zhu <Rex.Zhu@amd.com>, Dave Airlie <airlied@linux.ie>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Daniel Vetter <daniel.vetter@intel.com>, Shaoyun Liu <Shaoyun.Liu@amd.com>, sean@poorly.run, Christian Koenig <christian.koenig@amd.com>, "monk.liu" <Monk.Liu@amd.com>, Ben Skeggs <bskeggs@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0545428348==--
+T24gTW9uLCBEZWMgMTAsIDIwMTggYXQgNTowNCBBTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0
+dGVyQGZmd2xsLmNoPiB3cm90ZToKPgo+IEl0J3Mgbm90IGEgY29yZSBmdW5jdGlvbiwgYW5kIHRo
+ZSBtYXRjaGluZyBhdG9taWMgZnVuY3Rpb25zIGFyZSBhbHNvCj4gbm90IGluIHRoZSBjb3JlLiBQ
+bHVzIHRoZSBzdXNwZW5kL3Jlc3VtZSBoZWxwZXIgaXMgYWxzbyBhbHJlYWR5IHRoZXJlLgo+Cj4g
+TmVlZHMgYSB0aW55IGJpdCBvZiBvcGVuLWNvZGluZywgYnV0IGxlc3MgbWlkbGF5ZXIgYmVhdHMg
+dGhhdCBJIHRoaW5rLgo+Cj4gQ2M6IFNhbSBCb2Jyb2ZmIDxzYm9icm9mZkBsaW51eC5pYm0uY29t
+Pgo+IFNpZ25lZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAaW50ZWwuY29t
+Pgo+IENjOiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwu
+Y29tPgo+IENjOiBNYXhpbWUgUmlwYXJkIDxtYXhpbWUucmlwYXJkQGJvb3RsaW4uY29tPgo+IENj
+OiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1bj4KPiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVk
+QGxpbnV4LmllPgo+IENjOiBCZW4gU2tlZ2dzIDxic2tlZ2dzQHJlZGhhdC5jb20+Cj4gQ2M6IEFs
+ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiBDYzogIkNocmlzdGlhbiBL
+w7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ2M6ICJEYXZpZCAoQ2h1bk1pbmcp
+IFpob3UiIDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+IENjOiBSZXggWmh1IDxSZXguWmh1QGFtZC5j
+b20+Cj4gQ2M6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+
+IENjOiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+IENjOiBTaGFveXVuIExpdSA8U2hh
+b3l1bi5MaXVAYW1kLmNvbT4KPiBDYzogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Cj4gQ2M6
+IG5vdXZlYXVAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYyB8ICAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Yy5jICAgICAgICAgICAgICAg
+ICB8IDMxIC0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjX2hl
+bHBlci5jICAgICAgICAgIHwgMzUgKysrKysrKysrKysrKysrKysrKysrKwo+ICBkcml2ZXJzL2dw
+dS9kcm0vbm91dmVhdS9ub3V2ZWF1X2Rpc3BsYXkuYyAgfCAgMiArLQo+ICBkcml2ZXJzL2dwdS9k
+cm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMgICAgfCAgMiArLQo+ICBpbmNsdWRlL2RybS9kcm1f
+Y3J0Yy5oICAgICAgICAgICAgICAgICAgICAgfCAgMiAtLQo+ICBpbmNsdWRlL2RybS9kcm1fY3J0
+Y19oZWxwZXIuaCAgICAgICAgICAgICAgfCAgMSArCj4gIDcgZmlsZXMgY2hhbmdlZCwgMzkgaW5z
+ZXJ0aW9ucygrKSwgMzYgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2RldmljZS5jCj4gaW5kZXggYzc1YmFkZmE1YzRjLi5lNjY5Mjk3ZmZlZmIgMTAw
+NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4g
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTI2
+ODksNyArMjY4OSw3IEBAIHZvaWQgYW1kZ3B1X2RldmljZV9maW5pKHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KQo+ICAgICAgICAgYW1kZ3B1X2lycV9kaXNhYmxlX2FsbChhZGV2KTsKPiAgICAg
+ICAgIGlmIChhZGV2LT5tb2RlX2luZm8ubW9kZV9jb25maWdfaW5pdGlhbGl6ZWQpewo+ICAgICAg
+ICAgICAgICAgICBpZiAoIWFtZGdwdV9kZXZpY2VfaGFzX2RjX3N1cHBvcnQoYWRldikpCj4gLSAg
+ICAgICAgICAgICAgICAgICAgICAgZHJtX2NydGNfZm9yY2VfZGlzYWJsZV9hbGwoYWRldi0+ZGRl
+dik7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgZHJtX2hlbHBlcl9mb3JjZV9kaXNhYmxlX2Fs
+bChhZGV2LT5kZGV2KTsKPiAgICAgICAgICAgICAgICAgZWxzZQo+ICAgICAgICAgICAgICAgICAg
+ICAgICAgIGRybV9hdG9taWNfaGVscGVyX3NodXRkb3duKGFkZXYtPmRkZXYpOwo+ICAgICAgICAg
+fQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2NydGMuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9kcm1fY3J0Yy5jCj4gaW5kZXggZjY2MDgxOWQ0MDZlLi43ZGFiYmFmMDMzYTEgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vZHJtX2NydGMuYwo+IEBAIC0xMDQsMzcgKzEwNCw2IEBAIGludCBkcm1fY3J0Y19mb3JjZV9k
+aXNhYmxlKHN0cnVjdCBkcm1fY3J0YyAqY3J0YykKPiAgICAgICAgIHJldHVybiBkcm1fbW9kZV9z
+ZXRfY29uZmlnX2ludGVybmFsKCZzZXQpOwo+ICB9Cj4KPiAtLyoqCj4gLSAqIGRybV9jcnRjX2Zv
+cmNlX2Rpc2FibGVfYWxsIC0gRm9yY2libHkgdHVybiBvZmYgYWxsIGVuYWJsZWQgQ1JUQ3MKPiAt
+ICogQGRldjogRFJNIGRldmljZSB3aG9zZSBDUlRDcyB0byB0dXJuIG9mZgo+IC0gKgo+IC0gKiBE
+cml2ZXJzIG1heSB3YW50IHRvIGNhbGwgdGhpcyBvbiB1bmxvYWQgdG8gZW5zdXJlIHRoYXQgYWxs
+IGRpc3BsYXlzIGFyZQo+IC0gKiB1bmxpdCBhbmQgdGhlIEdQVSBpcyBpbiBhIGNvbnNpc3RlbnQs
+IGxvdyBwb3dlciBzdGF0ZS4gVGFrZXMgbW9kZXNldCBsb2Nrcy4KPiAtICoKPiAtICogTm90ZTog
+VGhpcyBzaG91bGQgb25seSBiZSB1c2VkIGJ5IG5vbi1hdG9taWMgbGVnYWN5IGRyaXZlcnMuIEZv
+ciBhbiBhdG9taWMKPiAtICogdmVyc2lvbiBsb29rIGF0IGRybV9hdG9taWNfaGVscGVyX3NodXRk
+b3duKCkuCj4gLSAqCj4gLSAqIFJldHVybnM6Cj4gLSAqIFplcm8gb24gc3VjY2VzcywgZXJyb3Ig
+Y29kZSBvbiBmYWlsdXJlLgo+IC0gKi8KPiAtaW50IGRybV9jcnRjX2ZvcmNlX2Rpc2FibGVfYWxs
+KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpCj4gLXsKPiAtICAgICAgIHN0cnVjdCBkcm1fY3J0YyAq
+Y3J0YzsKPiAtICAgICAgIGludCByZXQgPSAwOwo+IC0KPiAtICAgICAgIGRybV9tb2Rlc2V0X2xv
+Y2tfYWxsKGRldik7Cj4gLSAgICAgICBkcm1fZm9yX2VhY2hfY3J0YyhjcnRjLCBkZXYpCj4gLSAg
+ICAgICAgICAgICAgIGlmIChjcnRjLT5lbmFibGVkKSB7Cj4gLSAgICAgICAgICAgICAgICAgICAg
+ICAgcmV0ID0gZHJtX2NydGNfZm9yY2VfZGlzYWJsZShjcnRjKTsKPiAtICAgICAgICAgICAgICAg
+ICAgICAgICBpZiAocmV0KQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBv
+dXQ7Cj4gLSAgICAgICAgICAgICAgIH0KPiAtb3V0Ogo+IC0gICAgICAgZHJtX21vZGVzZXRfdW5s
+b2NrX2FsbChkZXYpOwo+IC0gICAgICAgcmV0dXJuIHJldDsKPiAtfQo+IC1FWFBPUlRfU1lNQk9M
+KGRybV9jcnRjX2ZvcmNlX2Rpc2FibGVfYWxsKTsKPiAtCj4gIHN0YXRpYyB1bnNpZ25lZCBpbnQg
+ZHJtX251bV9jcnRjcyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KQo+ICB7Cj4gICAgICAgICB1bnNp
+Z25lZCBpbnQgbnVtID0gMDsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRj
+X2hlbHBlci5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjX2hlbHBlci5jCj4gaW5kZXggYTNj
+ODE4NTBlNzU1Li4yMzE1OWViNDk0ZjEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ry
+bV9jcnRjX2hlbHBlci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjX2hlbHBlci5j
+Cj4gQEAgLTk4NCwzICs5ODQsMzggQEAgdm9pZCBkcm1faGVscGVyX3Jlc3VtZV9mb3JjZV9tb2Rl
+KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpCj4gICAgICAgICBkcm1fbW9kZXNldF91bmxvY2tfYWxs
+KGRldik7Cj4gIH0KPiAgRVhQT1JUX1NZTUJPTChkcm1faGVscGVyX3Jlc3VtZV9mb3JjZV9tb2Rl
+KTsKPiArCj4gKy8qKgo+ICsgKiBkcm1faGVscGVyX2ZvcmNlX2Rpc2FibGVfYWxsIC0gRm9yY2li
+bHkgdHVybiBvZmYgYWxsIGVuYWJsZWQgQ1JUQ3MKPiArICogQGRldjogRFJNIGRldmljZSB3aG9z
+ZSBDUlRDcyB0byB0dXJuIG9mZgo+ICsgKgo+ICsgKiBEcml2ZXJzIG1heSB3YW50IHRvIGNhbGwg
+dGhpcyBvbiB1bmxvYWQgdG8gZW5zdXJlIHRoYXQgYWxsIGRpc3BsYXlzIGFyZQo+ICsgKiB1bmxp
+dCBhbmQgdGhlIEdQVSBpcyBpbiBhIGNvbnNpc3RlbnQsIGxvdyBwb3dlciBzdGF0ZS4gVGFrZXMg
+bW9kZXNldCBsb2Nrcy4KPiArICoKPiArICogTm90ZTogVGhpcyBzaG91bGQgb25seSBiZSB1c2Vk
+IGJ5IG5vbi1hdG9taWMgbGVnYWN5IGRyaXZlcnMuIEZvciBhbiBhdG9taWMKPiArICogdmVyc2lv
+biBsb29rIGF0IGRybV9hdG9taWNfaGVscGVyX3NodXRkb3duKCkuCj4gKyAqCj4gKyAqIFJldHVy
+bnM6Cj4gKyAqIFplcm8gb24gc3VjY2VzcywgZXJyb3IgY29kZSBvbiBmYWlsdXJlLgo+ICsgKi8K
+PiAraW50IGRybV9oZWxwZXJfZm9yY2VfZGlzYWJsZV9hbGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
+dikKCk1heWJlIHB1dCBjcnRjIHNvbWV3aGVyZSBpbiB0aGUgZnVuY3Rpb24gbmFtZSBzbyBpdCdz
+IGNsZWFyIHdoYXQgd2UKYXJlIGRpc2FibGluZy4gIFdpdGggdGhhdCBmaXhlZDoKUmV2aWV3ZWQt
+Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCj4gK3sKPiArICAg
+ICAgIHN0cnVjdCBkcm1fY3J0YyAqY3J0YzsKPiArICAgICAgIGludCByZXQgPSAwOwo+ICsKPiAr
+ICAgICAgIGRybV9tb2Rlc2V0X2xvY2tfYWxsKGRldik7Cj4gKyAgICAgICBkcm1fZm9yX2VhY2hf
+Y3J0YyhjcnRjLCBkZXYpCj4gKyAgICAgICAgICAgICAgIGlmIChjcnRjLT5lbmFibGVkKSB7Cj4g
+KyAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRybV9tb2RlX3NldCBzZXQgPSB7Cj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAuY3J0YyA9IGNydGMsCj4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgfTsKPiArCj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0ID0gZHJtX21v
+ZGVfc2V0X2NvbmZpZ19pbnRlcm5hbCgmc2V0KTsKPiArICAgICAgICAgICAgICAgICAgICAgICBp
+ZiAocmV0KQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZ290byBvdXQ7Cj4gKyAg
+ICAgICAgICAgICAgIH0KPiArb3V0Ogo+ICsgICAgICAgZHJtX21vZGVzZXRfdW5sb2NrX2FsbChk
+ZXYpOwo+ICsgICAgICAgcmV0dXJuIHJldDsKPiArfQo+ICtFWFBPUlRfU1lNQk9MKGRybV9oZWxw
+ZXJfZm9yY2VfZGlzYWJsZV9hbGwpOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbm91
+dmVhdS9ub3V2ZWF1X2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZlYXVf
+ZGlzcGxheS5jCj4gaW5kZXggZjMyNmZmZDg2NzY2Li41ZDI3M2E2NTU0NzkgMTAwNjQ0Cj4gLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9kaXNwbGF5LmMKPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2Rpc3BsYXkuYwo+IEBAIC00NTMsNyArNDUzLDcg
+QEAgbm91dmVhdV9kaXNwbGF5X2Zpbmkoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgYm9vbCBzdXNw
+ZW5kLCBib29sIHJ1bnRpbWUpCj4gICAgICAgICAgICAgICAgIGlmIChkcm1fZHJ2X3VzZXNfYXRv
+bWljX21vZGVzZXQoZGV2KSkKPiAgICAgICAgICAgICAgICAgICAgICAgICBkcm1fYXRvbWljX2hl
+bHBlcl9zaHV0ZG93bihkZXYpOwo+ICAgICAgICAgICAgICAgICBlbHNlCj4gLSAgICAgICAgICAg
+ICAgICAgICAgICAgZHJtX2NydGNfZm9yY2VfZGlzYWJsZV9hbGwoZGV2KTsKPiArICAgICAgICAg
+ICAgICAgICAgICAgICBkcm1faGVscGVyX2ZvcmNlX2Rpc2FibGVfYWxsKGRldik7Cj4gICAgICAg
+ICB9Cj4KPiAgICAgICAgIC8qIGRpc2FibGUgZmxpcCBjb21wbGV0aW9uIGV2ZW50cyAqLwo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMgYi9kcml2
+ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMKPiBpbmRleCBlNjkxMmViOTliNDIu
+LjkyMzMyMjI2ZTVjZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl9kaXNwbGF5LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5
+LmMKPiBAQCAtMTY0Myw3ICsxNjQzLDcgQEAgdm9pZCByYWRlb25fbW9kZXNldF9maW5pKHN0cnVj
+dCByYWRlb25fZGV2aWNlICpyZGV2KQo+ICAgICAgICAgaWYgKHJkZXYtPm1vZGVfaW5mby5tb2Rl
+X2NvbmZpZ19pbml0aWFsaXplZCkgewo+ICAgICAgICAgICAgICAgICBkcm1fa21zX2hlbHBlcl9w
+b2xsX2ZpbmkocmRldi0+ZGRldik7Cj4gICAgICAgICAgICAgICAgIHJhZGVvbl9ocGRfZmluaShy
+ZGV2KTsKPiAtICAgICAgICAgICAgICAgZHJtX2NydGNfZm9yY2VfZGlzYWJsZV9hbGwocmRldi0+
+ZGRldik7Cj4gKyAgICAgICAgICAgICAgIGRybV9oZWxwZXJfZm9yY2VfZGlzYWJsZV9hbGwocmRl
+di0+ZGRldik7Cj4gICAgICAgICAgICAgICAgIHJhZGVvbl9mYmRldl9maW5pKHJkZXYpOwo+ICAg
+ICAgICAgICAgICAgICByYWRlb25fYWZtdF9maW5pKHJkZXYpOwo+ICAgICAgICAgICAgICAgICBk
+cm1fbW9kZV9jb25maWdfY2xlYW51cChyZGV2LT5kZGV2KTsKPiBkaWZmIC0tZ2l0IGEvaW5jbHVk
+ZS9kcm0vZHJtX2NydGMuaCBiL2luY2x1ZGUvZHJtL2RybV9jcnRjLmgKPiBpbmRleCBiNDViZWMw
+YjdhOWMuLjg1YWJkM2ZlOWU4MyAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fY3J0Yy5o
+Cj4gKysrIGIvaW5jbHVkZS9kcm0vZHJtX2NydGMuaAo+IEBAIC0xMTQ5LDggKzExNDksNiBAQCBz
+dGF0aWMgaW5saW5lIHVpbnQzMl90IGRybV9jcnRjX21hc2soY29uc3Qgc3RydWN0IGRybV9jcnRj
+ICpjcnRjKQo+ICAgICAgICAgcmV0dXJuIDEgPDwgZHJtX2NydGNfaW5kZXgoY3J0Yyk7Cj4gIH0K
+Pgo+IC1pbnQgZHJtX2NydGNfZm9yY2VfZGlzYWJsZV9hbGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
+dik7Cj4gLQo+ICBpbnQgZHJtX21vZGVfc2V0X2NvbmZpZ19pbnRlcm5hbChzdHJ1Y3QgZHJtX21v
+ZGVfc2V0ICpzZXQpOwo+ICBzdHJ1Y3QgZHJtX2NydGMgKmRybV9jcnRjX2Zyb21faW5kZXgoc3Ry
+dWN0IGRybV9kZXZpY2UgKmRldiwgaW50IGlkeCk7Cj4KPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9k
+cm0vZHJtX2NydGNfaGVscGVyLmggYi9pbmNsdWRlL2RybS9kcm1fY3J0Y19oZWxwZXIuaAo+IGlu
+ZGV4IGQ2NWYwMzQ4NDNjZS4uMGVlOWE5NmI3MGRhIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJt
+L2RybV9jcnRjX2hlbHBlci5oCj4gKysrIGIvaW5jbHVkZS9kcm0vZHJtX2NydGNfaGVscGVyLmgK
+PiBAQCAtNTYsNiArNTYsNyBAQCBib29sIGRybV9oZWxwZXJfZW5jb2Rlcl9pbl91c2Uoc3RydWN0
+IGRybV9lbmNvZGVyICplbmNvZGVyKTsKPiAgaW50IGRybV9oZWxwZXJfY29ubmVjdG9yX2RwbXMo
+c3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwgaW50IG1vZGUpOwo+Cj4gIHZvaWQgZHJt
+X2hlbHBlcl9yZXN1bWVfZm9yY2VfbW9kZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2KTsKPiAraW50
+IGRybV9oZWxwZXJfZm9yY2VfZGlzYWJsZV9hbGwoc3RydWN0IGRybV9kZXZpY2UgKmRldik7Cj4K
+PiAgLyogZHJtX3Byb2JlX2hlbHBlci5jICovCj4gIGludCBkcm1faGVscGVyX3Byb2JlX3Npbmds
+ZV9jb25uZWN0b3JfbW9kZXMoc3RydWN0IGRybV9jb25uZWN0b3IKPiAtLQo+IDIuMjAuMC5yYzEK
+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGlu
+ZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
