@@ -1,12 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Enable GPU recovery by default for CI
-Date: Tue, 11 Dec 2018 20:44:43 +0000
-Message-ID: <BN6PR12MB1809653EBE49E117A18516E1F7A60@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1544560516-4820-1-git-send-email-andrey.grodzovsky@amd.com>
+From: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH libdrm] tests/amdgpu/vcn: fix the nop command in IBs
+Date: Tue, 11 Dec 2018 21:03:45 +0000
+Message-ID: <20181211210318.10807-1-leo.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2095044688=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1544560516-4820-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,142 +17,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============2095044688==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809653EBE49E117A18516E1F7A60BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809653EBE49E117A18516E1F7A60BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Andrey G=
-rodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, December 11, 2018 3:35:16 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander; Grodzovsky, Andrey
-Subject: [PATCH] drm/amdgpu: Enable GPU recovery by default for CI
-
-I retested Bonaire (gfx7 dGPU) and it works fine.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 42111d5..71a9e18 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3258,6 +3258,8 @@ bool amdgpu_device_should_recover_gpu(struct amdgpu_d=
-evice *adev)
-
-         if (amdgpu_gpu_recovery =3D=3D -1) {
-                 switch (adev->asic_type) {
-+               case CHIP_BONAIRE:
-+               case CHIP_HAWAII:
-                 case CHIP_TOPAZ:
-                 case CHIP_TONGA:
-                 case CHIP_FIJI:
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809653EBE49E117A18516E1F7A60BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Andrey Grodzovsky &lt;andrey.=
-grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, December 11, 2018 3:35:16 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander; Grodzovsky, Andrey<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Enable GPU recovery by default for CI</=
-font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">I retested Bonaire (gfx7 dGPU) and it works fine.<=
-br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 42111d5..71a9e18 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -3258,6 &#43;3258,8 @@ bool amdgpu_device_should_recover_gpu(struct amdg=
-pu_device *adev)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_gpu_recovery =
-=3D=3D -1) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; case CHIP_BONAIRE:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; case CHIP_HAWAII:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; case CHIP_TOPAZ:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; case CHIP_TONGA:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; case CHIP_FIJI:<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809653EBE49E117A18516E1F7A60BN6PR12MB1809namp_--
-
---===============2095044688==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2095044688==--
+SnVzdCBtYWtlIHRoZW0gcHJvcGVybHkgaS5lLiBwdXQgMCB0byB0aGUgTm9wIHJlZwoKU2lnbmVk
+LW9mZi1ieTogTGVvIExpdSA8bGVvLmxpdUBhbWQuY29tPgotLS0KIHRlc3RzL2FtZGdwdS92Y25f
+dGVzdHMuYyB8IDE4ICsrKysrKysrKysrKy0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDEyIGluc2Vy
+dGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvdGVzdHMvYW1kZ3B1L3Zjbl90
+ZXN0cy5jIGIvdGVzdHMvYW1kZ3B1L3Zjbl90ZXN0cy5jCmluZGV4IGQ5ZjA1YWY4Li44NTllYzQ5
+NiAxMDA2NDQKLS0tIGEvdGVzdHMvYW1kZ3B1L3Zjbl90ZXN0cy5jCisrKyBiL3Rlc3RzL2FtZGdw
+dS92Y25fdGVzdHMuYwpAQCAtMjY4LDggKzI2OCwxMCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY3Nf
+dmNuX2RlY19jcmVhdGUodm9pZCkKIAlpYl9jcHVbbGVuKytdID0gbXNnX2J1Zi5hZGRyID4+IDMy
+OwogCWliX2NwdVtsZW4rK10gPSAweDgxQzM7CiAJaWJfY3B1W2xlbisrXSA9IDA7Ci0JZm9yICg7
+IGxlbiAlIDE2OyArK2xlbikKLQkJaWJfY3B1W2xlbl0gPSAweDgxZmY7CisJZm9yICg7IGxlbiAl
+IDE2OyApIHsKKwkJaWJfY3B1W2xlbisrXSA9IDB4ODFmZjsKKwkJaWJfY3B1W2xlbisrXSA9IDA7
+CisJfQogCiAJciA9IHN1Ym1pdChsZW4sIEFNREdQVV9IV19JUF9WQ05fREVDKTsKIAlDVV9BU1NF
+UlRfRVFVQUwociwgMCk7CkBAIC0zMzYsOCArMzM4LDEwIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9j
+c192Y25fZGVjX2RlY29kZSh2b2lkKQogCiAJaWJfY3B1W2xlbisrXSA9IDB4ODFDNjsKIAlpYl9j
+cHVbbGVuKytdID0gMHgxOwotCWZvciAoOyBsZW4gJSAxNjsgKytsZW4pCi0JCWliX2NwdVtsZW5d
+ID0gMHg4MDAwMDAwMDsKKwlmb3IgKDsgbGVuICUgMTY7ICkgeworCQlpYl9jcHVbbGVuKytdID0g
+MHg4MWZmOworCQlpYl9jcHVbbGVuKytdID0gMDsKKwl9CiAKIAlyID0gc3VibWl0KGxlbiwgQU1E
+R1BVX0hXX0lQX1ZDTl9ERUMpOwogCUNVX0FTU0VSVF9FUVVBTChyLCAwKTsKQEAgLTM3Myw4ICsz
+NzcsMTAgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2NzX3Zjbl9kZWNfZGVzdHJveSh2b2lkKQogCWli
+X2NwdVtsZW4rK10gPSBtc2dfYnVmLmFkZHIgPj4gMzI7CiAJaWJfY3B1W2xlbisrXSA9IDB4ODFD
+MzsKIAlpYl9jcHVbbGVuKytdID0gMDsKLQlmb3IgKDsgbGVuICUgMTY7ICsrbGVuKQotCQlpYl9j
+cHVbbGVuXSA9IDB4ODAwMDAwMDA7CisJZm9yICg7IGxlbiAlIDE2OyApIHsKKwkJaWJfY3B1W2xl
+bisrXSA9IDB4ODFmZjsKKwkJaWJfY3B1W2xlbisrXSA9IDA7CisJfQogCiAJciA9IHN1Ym1pdChs
+ZW4sIEFNREdQVV9IV19JUF9WQ05fREVDKTsKIAlDVV9BU1NFUlRfRVFVQUwociwgMCk7Ci0tIAoy
+LjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
