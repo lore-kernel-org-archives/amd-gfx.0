@@ -1,62 +1,284 @@
-From: "Zhang, Boyuan" <Boyuan.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH libdrm] tests/amdgpu/vcn: fix the nop command in IBs
-Date: Tue, 11 Dec 2018 21:06:40 +0000
-Message-ID: <BN6PR12MB13620A048BC9E235FDC876EC87A60@BN6PR12MB1362.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH libdrm] tests/amdgpu/vcn: fix the nop command in IBs
+Date: Tue, 11 Dec 2018 21:11:10 +0000
+Message-ID: <BN6PR12MB18090D97F02E0F57CF4B6F99F7A60@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <20181211210318.10807-1-leo.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181211210318.10807-1-leo.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0820037746=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20181211210318.10807-1-leo.liu@amd.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Liu, Leo" <Leo.Liu@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UGF0Y2ggaXMgDQpSZXZpZXdlZC1ieTogQm95dWFuIFpoYW5nIDxib3l1YW4uemhhbmdAYW1kLmNv
-bT4NCg0KUmVnYXJkcywNCkJveXVhbg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJv
-bTogYW1kLWdmeCBbbWFpbHRvOmFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmdd
-IE9uIEJlaGFsZiBPZiBMaXUsIExlbw0KU2VudDogRGVjZW1iZXItMTEtMTggNDowNCBQTQ0KVG86
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQpDYzogTGl1LCBMZW8NClN1YmplY3Q6IFtQQVRDSCBsaWJkcm1dIHRlc3RzL2FtZGdw
-dS92Y246IGZpeCB0aGUgbm9wIGNvbW1hbmQgaW4gSUJzDQoNCkp1c3QgbWFrZSB0aGVtIHByb3Bl
-cmx5IGkuZS4gcHV0IDAgdG8gdGhlIE5vcCByZWcNCg0KU2lnbmVkLW9mZi1ieTogTGVvIExpdSA8
-bGVvLmxpdUBhbWQuY29tPg0KLS0tDQogdGVzdHMvYW1kZ3B1L3Zjbl90ZXN0cy5jIHwgMTggKysr
-KysrKysrKysrLS0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDYgZGVs
-ZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS90ZXN0cy9hbWRncHUvdmNuX3Rlc3RzLmMgYi90ZXN0
-cy9hbWRncHUvdmNuX3Rlc3RzLmMNCmluZGV4IGQ5ZjA1YWY4Li44NTllYzQ5NiAxMDA2NDQNCi0t
-LSBhL3Rlc3RzL2FtZGdwdS92Y25fdGVzdHMuYw0KKysrIGIvdGVzdHMvYW1kZ3B1L3Zjbl90ZXN0
-cy5jDQpAQCAtMjY4LDggKzI2OCwxMCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY3NfdmNuX2RlY19j
-cmVhdGUodm9pZCkNCiAJaWJfY3B1W2xlbisrXSA9IG1zZ19idWYuYWRkciA+PiAzMjsNCiAJaWJf
-Y3B1W2xlbisrXSA9IDB4ODFDMzsNCiAJaWJfY3B1W2xlbisrXSA9IDA7DQotCWZvciAoOyBsZW4g
-JSAxNjsgKytsZW4pDQotCQlpYl9jcHVbbGVuXSA9IDB4ODFmZjsNCisJZm9yICg7IGxlbiAlIDE2
-OyApIHsNCisJCWliX2NwdVtsZW4rK10gPSAweDgxZmY7DQorCQlpYl9jcHVbbGVuKytdID0gMDsN
-CisJfQ0KIA0KIAlyID0gc3VibWl0KGxlbiwgQU1ER1BVX0hXX0lQX1ZDTl9ERUMpOw0KIAlDVV9B
-U1NFUlRfRVFVQUwociwgMCk7DQpAQCAtMzM2LDggKzMzOCwxMCBAQCBzdGF0aWMgdm9pZCBhbWRn
-cHVfY3NfdmNuX2RlY19kZWNvZGUodm9pZCkNCiANCiAJaWJfY3B1W2xlbisrXSA9IDB4ODFDNjsN
-CiAJaWJfY3B1W2xlbisrXSA9IDB4MTsNCi0JZm9yICg7IGxlbiAlIDE2OyArK2xlbikNCi0JCWli
-X2NwdVtsZW5dID0gMHg4MDAwMDAwMDsNCisJZm9yICg7IGxlbiAlIDE2OyApIHsNCisJCWliX2Nw
-dVtsZW4rK10gPSAweDgxZmY7DQorCQlpYl9jcHVbbGVuKytdID0gMDsNCisJfQ0KIA0KIAlyID0g
-c3VibWl0KGxlbiwgQU1ER1BVX0hXX0lQX1ZDTl9ERUMpOw0KIAlDVV9BU1NFUlRfRVFVQUwociwg
-MCk7DQpAQCAtMzczLDggKzM3NywxMCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfY3NfdmNuX2RlY19k
-ZXN0cm95KHZvaWQpDQogCWliX2NwdVtsZW4rK10gPSBtc2dfYnVmLmFkZHIgPj4gMzI7DQogCWli
-X2NwdVtsZW4rK10gPSAweDgxQzM7DQogCWliX2NwdVtsZW4rK10gPSAwOw0KLQlmb3IgKDsgbGVu
-ICUgMTY7ICsrbGVuKQ0KLQkJaWJfY3B1W2xlbl0gPSAweDgwMDAwMDAwOw0KKwlmb3IgKDsgbGVu
-ICUgMTY7ICkgew0KKwkJaWJfY3B1W2xlbisrXSA9IDB4ODFmZjsNCisJCWliX2NwdVtsZW4rK10g
-PSAwOw0KKwl9DQogDQogCXIgPSBzdWJtaXQobGVuLCBBTURHUFVfSFdfSVBfVkNOX0RFQyk7DQog
-CUNVX0FTU0VSVF9FUVVBTChyLCAwKTsNCi0tIA0KMi4xNy4xDQoNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+--===============0820037746==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18090D97F02E0F57CF4B6F99F7A60BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18090D97F02E0F57CF4B6F99F7A60BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Liu, Leo=
+ <Leo.Liu@amd.com>
+Sent: Tuesday, December 11, 2018 4:03 PM
+To: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+Cc: Liu, Leo
+Subject: [PATCH libdrm] tests/amdgpu/vcn: fix the nop command in IBs
+
+Just make them properly i.e. put 0 to the Nop reg
+
+Signed-off-by: Leo Liu <leo.liu@amd.com>
+---
+ tests/amdgpu/vcn_tests.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/tests/amdgpu/vcn_tests.c b/tests/amdgpu/vcn_tests.c
+index d9f05af8..859ec496 100644
+--- a/tests/amdgpu/vcn_tests.c
++++ b/tests/amdgpu/vcn_tests.c
+@@ -268,8 +268,10 @@ static void amdgpu_cs_vcn_dec_create(void)
+         ib_cpu[len++] =3D msg_buf.addr >> 32;
+         ib_cpu[len++] =3D 0x81C3;
+         ib_cpu[len++] =3D 0;
+-       for (; len % 16; ++len)
+-               ib_cpu[len] =3D 0x81ff;
++       for (; len % 16; ) {
++               ib_cpu[len++] =3D 0x81ff;
++               ib_cpu[len++] =3D 0;
++       }
+
+         r =3D submit(len, AMDGPU_HW_IP_VCN_DEC);
+         CU_ASSERT_EQUAL(r, 0);
+@@ -336,8 +338,10 @@ static void amdgpu_cs_vcn_dec_decode(void)
+
+         ib_cpu[len++] =3D 0x81C6;
+         ib_cpu[len++] =3D 0x1;
+-       for (; len % 16; ++len)
+-               ib_cpu[len] =3D 0x80000000;
++       for (; len % 16; ) {
++               ib_cpu[len++] =3D 0x81ff;
++               ib_cpu[len++] =3D 0;
++       }
+
+         r =3D submit(len, AMDGPU_HW_IP_VCN_DEC);
+         CU_ASSERT_EQUAL(r, 0);
+@@ -373,8 +377,10 @@ static void amdgpu_cs_vcn_dec_destroy(void)
+         ib_cpu[len++] =3D msg_buf.addr >> 32;
+         ib_cpu[len++] =3D 0x81C3;
+         ib_cpu[len++] =3D 0;
+-       for (; len % 16; ++len)
+-               ib_cpu[len] =3D 0x80000000;
++       for (; len % 16; ) {
++               ib_cpu[len++] =3D 0x81ff;
++               ib_cpu[len++] =3D 0;
++       }
+
+         r =3D submit(len, AMDGPU_HW_IP_VCN_DEC);
+         CU_ASSERT_EQUAL(r, 0);
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx@lists.freedesktop.org. You can subscribe to the list, or change=
+ your existing subscription, in the sections below.
+
+
+
+--_000_BN6PR12MB18090D97F02E0F57CF4B6F99F7A60BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher@amd.com&gt;</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces@lists.freedesktop.org&gt; on behalf of Liu, Leo &lt;Leo.Liu@amd.co=
+m&gt;<br>
+<b>Sent:</b> Tuesday, December 11, 2018 4:03 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org<b=
+r>
+<b>Cc:</b> Liu, Leo<br>
+<b>Subject:</b> [PATCH libdrm] tests/amdgpu/vcn: fix the nop command in IBs=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">Just make them properly i.e. put 0 to the Nop reg<=
+br>
+<br>
+Signed-off-by: Leo Liu &lt;leo.liu@amd.com&gt;<br>
+---<br>
+&nbsp;tests/amdgpu/vcn_tests.c | 18 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;------<br>
+&nbsp;1 file changed, 12 insertions(&#43;), 6 deletions(-)<br>
+<br>
+diff --git a/tests/amdgpu/vcn_tests.c b/tests/amdgpu/vcn_tests.c<br>
+index d9f05af8..859ec496 100644<br>
+--- a/tests/amdgpu/vcn_tests.c<br>
+&#43;&#43;&#43; b/tests/amdgpu/vcn_tests.c<br>
+@@ -268,8 &#43;268,10 @@ static void amdgpu_cs_vcn_dec_create(void)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+msg_buf.addr &gt;&gt; 32;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+0x81C3;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (; len % 16; &#43;&#43;len)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ib_cpu[len] =3D 0x81ff;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (; len % 16; ) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D 0x81ff;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D submit(len, AMDGPU_H=
+W_IP_VCN_DEC);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+@@ -336,8 &#43;338,10 @@ static void amdgpu_cs_vcn_dec_decode(void)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+0x81C6;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+0x1;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (; len % 16; &#43;&#43;len)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ib_cpu[len] =3D 0x80000000;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (; len % 16; ) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D 0x81ff;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D submit(len, AMDGPU_H=
+W_IP_VCN_DEC);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+@@ -373,8 &#43;377,10 @@ static void amdgpu_cs_vcn_dec_destroy(void)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+msg_buf.addr &gt;&gt; 32;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+0x81C3;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D =
+0;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (; len % 16; &#43;&#43;len)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ib_cpu[len] =3D 0x80000000;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (; len % 16; ) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D 0x81ff;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ib_cpu[len&#43;&#43;] =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D submit(len, AMDGPU_H=
+W_IP_VCN_DEC);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CU_ASSERT_EQUAL(r, 0);<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk53758" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.freed=
+esktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_15445623887420.5236685554508548" style=3D"margin-bot=
+tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_15445623887380.1564058365798745" style=3D"width: 9=
+0%; background-color: rgb(255, 255, 255); position: relative; overflow: aut=
+o; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: 1=
+px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200);=
+" role=3D"presentation" cellspacing=3D"0">
+<tbody>
+<tr style=3D"border-spacing: 0px;" valign=3D"top">
+<td id=3D"TextCell_15445623887390.032671432095180974" style=3D"vertical-ali=
+gn: top; position: relative; padding: 0px; display: table-cell;" colspan=3D=
+"2">
+<div id=3D"LPRemovePreviewContainer_15445623887390.6231212730891129"></div>
+<div id=3D"LPTitle_15445623887390.5213951363639248" style=3D"top: 0px; colo=
+r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;=
+wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&q=
+uot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif=
+; line-height: 21px;">
+<a id=3D"LPUrlAnchor_15445623887400.8061479971000387" style=3D"text-decorat=
+ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15445623887400.8280153656906918" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
+;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Taho=
+ma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15445623887410.3923663823028356" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
+segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, =
+Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; o=
+verflow: hidden;">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx@lists.freedesktop.org. You can subscribe to the list, or change=
+ your existing subscription, in
+ the sections below.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB18090D97F02E0F57CF4B6F99F7A60BN6PR12MB1809namp_--
+
+--===============0820037746==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
+
+--===============0820037746==--
