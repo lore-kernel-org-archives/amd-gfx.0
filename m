@@ -1,190 +1,199 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Pass app_tf by value rather than by
- reference
-Date: Tue, 11 Dec 2018 15:24:30 -0700
-Message-ID: <20181211222430.GA17468@flashbox>
-References: <20181210234201.4850-1-natechancellor@gmail.com>
- <CAKwvOdkOwdrsOAADGp9To2F5o2AAW7123yADFzYLMawwsinmug@mail.gmail.com>
- <20181211214240.GA31705@flashbox>
- <CAKwvOdn4467193YUMCboj+Z62m0+pVMAbjAc4avCsSsng7hpPg@mail.gmail.com>
+From: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Add fast path for cursor plane updates
+Date: Tue, 11 Dec 2018 22:30:08 +0000
+Message-ID: <cca476e7-3e10-e029-7687-280e975f41e8@amd.com>
+References: <20181205195907.9501-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAKwvOdn4467193YUMCboj+Z62m0+pVMAbjAc4avCsSsng7hpPg@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181205195907.9501-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <6343F4EF05AFA84BA4937919766FFE90-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Dec 11, 2018 at 02:07:31PM -0800, Nick Desaulniers wrote:
-> On Tue, Dec 11, 2018 at 1:42 PM Nathan Chancellor
-> <natechancellor@gmail.com> wrote:
-> >
-> > On Tue, Dec 11, 2018 at 01:25:00PM -0800, Nick Desaulniers wrote:
-> > > On Mon, Dec 10, 2018 at 3:42 PM Nathan Chancellor
-> > > <natechancellor@gmail.com> wrote:
-> > > >
-> > > > Clang warns when an expression that equals zero is used as a null
-> > > > pointer constant (in lieu of NULL):
-> > > >
-> > > > drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4435:3:
-> > > > warning: expression which evaluates to zero treated as a null pointer
-> > > > constant of type 'const enum color_transfer_func *'
-> > > > [-Wnon-literal-null-conversion]
-> > > >                 TRANSFER_FUNC_UNKNOWN,
-> > > >                 ^~~~~~~~~~~~~~~~~~~~~
-> > > > 1 warning generated.
-> > > >
-> > > > This warning is caused by commit bb47de736661 ("drm/amdgpu: Set FreeSync
-> > > > state using drm VRR properties") and it could be solved by using NULL
-> > > > instead of TRANSFER_FUNC_UNKNOWN or casting TRANSFER_FUNC_UNKNOWN as a
-> > > > pointer. However, after looking into it, there doesn't appear to be a
-> > > > good reason to pass app_tf by reference as it is never mutated along the
-> > > > way. This is the only code path in which app_tf is used:
-> > > >
-> > > > mod_freesync_build_vrr_infopacket ->
-> > > >     build_vrr_infopacket_v2 ->
-> > > >         build_vrr_infopacket_fs2_data
-> > > >
-> > > > Neither mod_freesync_build_vrr_infopacket or build_vrr_infopacket_v2
-> > > > modify app_tf's value and build_vrr_infopacket_fs2_data expects just
-> > > > the value so we can avoid dereferencing anything by just passing in
-> > > > app_tf's value to mod_freesync_build_vrr_infopacket and
-> > > > build_vrr_infopacket_v2.
-> > > >
-> > > > There is no functional change because build_vrr_infopacket_fs2_data
-> > > > doesn't do anything if TRANSFER_FUNC_UNKNOWN is passed to it, the same
-> > > > as not calling build_vrr_infopacket_fs2_data at all like before this
-> > > > change when NULL was used for app_tf.
-> > >
-> > > Nathan,
-> > > Thanks for sending this patch.  I was hoping to provide review sooner,
-> > > but have been quite busy lately.
-> > >
-> >
-> > Late review is better than no review, I appeciate you taking the time to
-> > do this!
-> >
-> > > Yeah, especially for LP64 targets, the pointer to enum is larger than
-> > > just the enum, and if it's not being updated ("in/out paramter")
-> > > there's no need to pass by pointer.
-> > >
-> >
-> > Thanks for confirming!
-> >
-> > > >
-> > > > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-> > > > ---
-> > > >  drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 7 +++----
-> > > >  drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h  | 2 +-
-> > > >  2 files changed, 4 insertions(+), 5 deletions(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> > > > index 620a171620ee..520665a9d81a 100644
-> > > > --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> > > > +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> > > > @@ -656,7 +656,7 @@ static void build_vrr_infopacket_v1(enum signal_type signal,
-> > > >
-> > > >  static void build_vrr_infopacket_v2(enum signal_type signal,
-> > > >                 const struct mod_vrr_params *vrr,
-> > > > -               const enum color_transfer_func *app_tf,
-> > > > +               enum color_transfer_func app_tf,
-> > > >                 struct dc_info_packet *infopacket)
-> > > >  {
-> > > >         unsigned int payload_size = 0;
-> > > > @@ -664,8 +664,7 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
-> > > >         build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
-> > > >         build_vrr_infopacket_data(vrr, infopacket);
-> > > >
-> > > > -       if (app_tf != NULL)
-> > > > -               build_vrr_infopacket_fs2_data(*app_tf, infopacket);
-> > > > +       build_vrr_infopacket_fs2_data(app_tf, infopacket);
-> > > >
-> > > >         build_vrr_infopacket_checksum(&payload_size, infopacket);
-> > > >
-> > > > @@ -676,7 +675,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
-> > > >                 const struct dc_stream_state *stream,
-> > > >                 const struct mod_vrr_params *vrr,
-> > > >                 enum vrr_packet_type packet_type,
-> > > > -               const enum color_transfer_func *app_tf,
-> > > > +               enum color_transfer_func app_tf,
-> > > >                 struct dc_info_packet *infopacket)
-> > > >  {
-> > > >         /* SPD info packet for FreeSync */
-> > > > diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> > > > index 949a8b62aa98..063af6258fd9 100644
-> > > > --- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> > > > +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> > > > @@ -145,7 +145,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
-> > > >                 const struct dc_stream_state *stream,
-> > > >                 const struct mod_vrr_params *vrr,
-> > > >                 enum vrr_packet_type packet_type,
-> > > > -               const enum color_transfer_func *app_tf,
-> > > > +               enum color_transfer_func app_tf,
-> > >
-> > > Don't you need to update the callsite of `mod_freesync_build_vrr_infopacket` in
-> > >
-> > > drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#4949:
-> > >
-> > > -                                           NULL,
-> > > +                                          transfer_func_unknown,
-> > >
-> >
-> > That change in commit bb47de736661 ("drm/amdgpu: Set FreeSync state
-> > using drm VRR properties") in -next is what prompted this patch (the
-> > warning in the commit message is not present in mainline):
-> 
-> Ah! Sorry, I was looking at mainline.  I should have noticed
-> bb47de736661 wasn't there.
-> 
-> Shouldn't that change fail to compile, as transfer_func_unknown is an
-> `enum color_transfer_func` value, but
-> mod_freesync_build_vrr_infopacket takes a *pointer* to an `enum
-> color_transfer_func` value?
-> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/gpu/drm/amd/display/modules/freesync/freesync.c#n675
-> 
-
-Unfortunately, no. GCC does not warn like Clang does when an expression
-that equals zero is passed to a function requiring a pointer (it just
-silently treats it as NULL, whereas Clang audibly complains).
-
-They both do when the expression is something other than zero.
-
-https://godbolt.org/z/goo91G
-
-Nathan
-
-> >
-> >         mod_freesync_build_vrr_infopacket(
-> >                 dm->freesync_module,
-> >                 new_stream,
-> >                 &vrr,
-> >                 packet_type_vrr,
-> >                 transfer_func_unknown,
-> >                 &vrr_infopacket);
-> >
-> > > Maybe at that point the `if (app_tf != NULL)` could be replaced with
-> > > `if (app_tf != transfer_func_unknown)` hoisted from
-> > > `build_vrr_infopacket_fs2_data`? (There's only one caller of
-> > > `build_vrr_infopacket_fs2_data` today, maybe fine to leave the
-> > > unconditional call and check).
-> > >
-> >
-> > Hmmm that's not unreasonable I suppose. I guess it depends on if
-> > build_vrr_infopacket_fs2_data could ever be called from outside of
-> > build_vrr_infopacket_v2; if it can, it makes sense to leave the
-> > conditional check for 'app_tf != transfer_func_unknown' in
-> > build_vrr_infopacket_fs2_data and leaving the unconditional call
-> > to it in build_vrr_infopacket_v2 (since app_tf is no longer a pointer,
-> > no need to check against NULL).
-> >
-> > I'm happy to do a v2 if the maintainers feel strongly about it, thank
-> > you for bringing that up.
-> 
-> Don't worry about it, I think it's fine.
-> Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-> 
-> -- 
-> Thanks,
-> ~Nick Desaulniers
+DQoNCk9uIDIwMTgtMTItMDUgMjo1OSBwLm0uLCBOaWNob2xhcyBLYXpsYXVza2FzIHdyb3RlOg0K
+PiBbV2h5XQ0KPiBMZWdhY3kgY3Vyc29yIHBsYW5lIHVwZGF0ZXMgZnJvbSBkcm0gaGVscGVycyBn
+byB0aHJvdWdoIHRoZSBmdWxsDQo+IGF0b21pYyBjb2RlcGF0aC4gQSBoaWdoIHZvbHVtZSBvZiBj
+dXJzb3IgdXBkYXRlcyB0aHJvdWdoIHRoaXMgc2xvdw0KPiBjb2RlIHBhdGggY2FuIGNhdXNlIHN1
+YnNlcXVlbnQgcGFnZS1mbGlwcyB0byBza2lwIHZibGFuayBpbnRlcnZhbHMNCj4gc2luY2UgZWFj
+aCBpbmRpdmlkdWFsIHVwZGF0ZSBpcyBzbG93Lg0KPiANCj4gVGhpcyBwcm9ibGVtIGlzIHBhcnRp
+Y3VsYXJseSBub3RpY2VhYmxlIGZvciB0aGUgY29tcHRvbiBjb21wb3NpdG9yLg0KPiANCj4gW0hv
+d10NCj4gQSBmYXN0IHBhdGggZm9yIGN1cnNvciBwbGFuZSB1cGRhdGVzIGlzIGFkZGVkIGJ5IHVz
+aW5nIERSTSBhc3luY2hyb25vdXMNCj4gY29tbWl0IHN1cHBvcnQgcHJvdmlkZWQgYnkgYXN5bmNf
+Y2hlY2sgYW5kIGFzeW5jX3VwZGF0ZS4gVGhlc2UgZG9uJ3QgZG8NCj4gYSBmdWxsIHN0YXRlL2Zs
+aXBfZG9uZSBkZXBlbmRlbmN5IHN0YWxsIGFuZCB0aGV5IGRvbid0IGJsb2NrIG90aGVyDQo+IGNv
+bW1pdCB3b3JrLg0KPiANCj4gSG93ZXZlciwgREMgc3RpbGwgZXhwZWN0cyBpdHNlbGYgdG8gYmUg
+c2luZ2xlLXRocmVhZGVkIGZvciBhbnl0aGluZw0KPiB0aGF0IGNhbiBpc3N1ZSByZWdpc3RlciB3
+cml0ZXMuIFNjcmVlbiBjb3JydXB0aW9uIG9yIGhhbmdzIGNhbiBvY2N1cg0KPiBpZiB3cml0ZSBz
+ZXF1ZW5jZXMgb3ZlcmxhcC4gRXZlcnkgY2FsbCB0aGF0IHBvdGVudGlhbGx5IHBlcmZvcm0NCj4g
+cmVnaXN0ZXIgd3JpdGVzIG5lZWRzIHRvIGJlIGd1YXJkZWQgZm9yIGFzeW5jaHJvbm91cyB1cGRh
+dGVzIHRvIHdvcmsuDQo+IFRoZSBkY19sb2NrIG11dGV4IHdhcyBhZGRlZCBmb3IgdGhpcy4NCj4g
+DQo+IEJ1Z3ppbGxhOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9p
+ZD0xMDYxNzUNCj4gDQo+IENjOiBMZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4NCj4gQ2M6IEhh
+cnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBO
+aWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+DQoNCkkganVz
+dCBza2ltbWVkIHRocm91Z2ggdGhlIGNhbGxzIHRvIERDLCBidXQgSSB0cnVzdCB5b3UndmUgbG9j
+a2VkIG9uDQpldmVyeXRoaW5nIHRoYXQgY2FuIHBvdGVudGlhbGx5IG1vZGlmeSByZWdpc3RlcnMu
+DQoNCk1pZ2h0IGJlIGEgZ29vZCBmdXR1cmUgdGFzayB0byBkb2N1bWVudCBEQyBpbnRlcmZhY2Vz
+IHRoYXQgYXJlIG5vdA0KdGhyZWFkIHNhZmUsIHNpbmNlIGl0J3MgY3VycmVudGx5IG5vdCBjbGVh
+ci4gQWx0aG91Z2ggdGhpcyBjaGFuZ2UgZG9lcw0Kc2hpbmUgbGlnaHQgb24gdGhhdCA6KQ0KDQpU
+aGFua3MsDQoNClJldmlld2VkLWJ5IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29tPg0KDQo+IC0t
+LQ0KPiAgIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDY3
+ICsrKysrKysrKysrKysrKysrKy0NCj4gICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
+ZG0vYW1kZ3B1X2RtLmggfCAgOCArKysNCj4gICAyIGZpbGVzIGNoYW5nZWQsIDczIGluc2VydGlv
+bnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gaW5kZXggMjNkNjE1NzBkZjE3Li40ZGYx
+NGE1MGE4YWMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
+cHVfZG0vYW1kZ3B1X2RtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
+ZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBAQCAtNTcsNiArNTcsNyBAQA0KPiAgIA0KPiAgICNpbmNs
+dWRlIDxkcm0vZHJtUC5oPg0KPiAgICNpbmNsdWRlIDxkcm0vZHJtX2F0b21pYy5oPg0KPiArI2lu
+Y2x1ZGUgPGRybS9kcm1fYXRvbWljX3VhcGkuaD4NCj4gICAjaW5jbHVkZSA8ZHJtL2RybV9hdG9t
+aWNfaGVscGVyLmg+DQo+ICAgI2luY2x1ZGUgPGRybS9kcm1fZHBfbXN0X2hlbHBlci5oPg0KPiAg
+ICNpbmNsdWRlIDxkcm0vZHJtX2ZiX2hlbHBlci5oPg0KPiBAQCAtMTMzLDYgKzEzNCw4IEBAIHN0
+YXRpYyB2b2lkIGFtZGdwdV9kbV9hdG9taWNfY29tbWl0X3RhaWwoc3RydWN0IGRybV9hdG9taWNf
+c3RhdGUgKnN0YXRlKTsNCj4gICBzdGF0aWMgaW50IGFtZGdwdV9kbV9hdG9taWNfY2hlY2soc3Ry
+dWN0IGRybV9kZXZpY2UgKmRldiwNCj4gICAJCQkJICBzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAq
+c3RhdGUpOw0KPiAgIA0KPiArc3RhdGljIHZvaWQgaGFuZGxlX2N1cnNvcl91cGRhdGUoc3RydWN0
+IGRybV9wbGFuZSAqcGxhbmUsDQo+ICsJCQkJIHN0cnVjdCBkcm1fcGxhbmVfc3RhdGUgKm9sZF9w
+bGFuZV9zdGF0ZSk7DQo+ICAgDQo+ICAgDQo+ICAgDQo+IEBAIC00MDIsNiArNDA1LDggQEAgc3Rh
+dGljIGludCBhbWRncHVfZG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gICAJ
+LyogWmVybyBhbGwgdGhlIGZpZWxkcyAqLw0KPiAgIAltZW1zZXQoJmluaXRfZGF0YSwgMCwgc2l6
+ZW9mKGluaXRfZGF0YSkpOw0KPiAgIA0KPiArCW11dGV4X2luaXQoJmFkZXYtPmRtLmRjX2xvY2sp
+Ow0KPiArDQo+ICAgCWlmKGFtZGdwdV9kbV9pcnFfaW5pdChhZGV2KSkgew0KPiAgIAkJRFJNX0VS
+Uk9SKCJhbWRncHU6IGZhaWxlZCB0byBpbml0aWFsaXplIERNIElSUSBzdXBwb3J0LlxuIik7DQo+
+ICAgCQlnb3RvIGVycm9yOw0KPiBAQCAtNTE2LDYgKzUyMSw5IEBAIHN0YXRpYyB2b2lkIGFtZGdw
+dV9kbV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAgIAkvKiBEQyBEZXN0cm95
+IFRPRE86IFJlcGxhY2UgZGVzdHJveSBEQUwgKi8NCj4gICAJaWYgKGFkZXYtPmRtLmRjKQ0KPiAg
+IAkJZGNfZGVzdHJveSgmYWRldi0+ZG0uZGMpOw0KPiArDQo+ICsJbXV0ZXhfZGVzdHJveSgmYWRl
+di0+ZG0uZGNfbG9jayk7DQo+ICsNCj4gICAJcmV0dXJuOw0KPiAgIH0NCj4gICANCj4gQEAgLTM2
+MTUsMTAgKzM2MjMsNDMgQEAgc3RhdGljIGludCBkbV9wbGFuZV9hdG9taWNfY2hlY2soc3RydWN0
+IGRybV9wbGFuZSAqcGxhbmUsDQo+ICAgCXJldHVybiAtRUlOVkFMOw0KPiAgIH0NCj4gICANCj4g
+K3N0YXRpYyBpbnQgZG1fcGxhbmVfYXRvbWljX2FzeW5jX2NoZWNrKHN0cnVjdCBkcm1fcGxhbmUg
+KnBsYW5lLA0KPiArCQkJCSAgICAgICBzdHJ1Y3QgZHJtX3BsYW5lX3N0YXRlICpuZXdfcGxhbmVf
+c3RhdGUpDQo+ICt7DQo+ICsJLyogT25seSBzdXBwb3J0IGFzeW5jIHVwZGF0ZXMgb24gY3Vyc29y
+IHBsYW5lcy4gKi8NCj4gKwlpZiAocGxhbmUtPnR5cGUgIT0gRFJNX1BMQU5FX1RZUEVfQ1VSU09S
+KQ0KPiArCQlyZXR1cm4gLUVJTlZBTDsNCj4gKw0KPiArCXJldHVybiAwOw0KPiArfQ0KPiArDQo+
+ICtzdGF0aWMgdm9pZCBkbV9wbGFuZV9hdG9taWNfYXN5bmNfdXBkYXRlKHN0cnVjdCBkcm1fcGxh
+bmUgKnBsYW5lLA0KPiArCQkJCQkgc3RydWN0IGRybV9wbGFuZV9zdGF0ZSAqbmV3X3N0YXRlKQ0K
+PiArew0KPiArCXN0cnVjdCBkcm1fcGxhbmVfc3RhdGUgKm9sZF9zdGF0ZSA9DQo+ICsJCWRybV9h
+dG9taWNfZ2V0X29sZF9wbGFuZV9zdGF0ZShuZXdfc3RhdGUtPnN0YXRlLCBwbGFuZSk7DQo+ICsN
+Cj4gKwlpZiAocGxhbmUtPnN0YXRlLT5mYiAhPSBuZXdfc3RhdGUtPmZiKQ0KPiArCQlkcm1fYXRv
+bWljX3NldF9mYl9mb3JfcGxhbmUocGxhbmUtPnN0YXRlLCBuZXdfc3RhdGUtPmZiKTsNCj4gKw0K
+PiArCXBsYW5lLT5zdGF0ZS0+c3JjX3ggPSBuZXdfc3RhdGUtPnNyY194Ow0KPiArCXBsYW5lLT5z
+dGF0ZS0+c3JjX3kgPSBuZXdfc3RhdGUtPnNyY195Ow0KPiArCXBsYW5lLT5zdGF0ZS0+c3JjX3cg
+PSBuZXdfc3RhdGUtPnNyY193Ow0KPiArCXBsYW5lLT5zdGF0ZS0+c3JjX2ggPSBuZXdfc3RhdGUt
+PnNyY19oOw0KPiArCXBsYW5lLT5zdGF0ZS0+Y3J0Y194ID0gbmV3X3N0YXRlLT5jcnRjX3g7DQo+
+ICsJcGxhbmUtPnN0YXRlLT5jcnRjX3kgPSBuZXdfc3RhdGUtPmNydGNfeTsNCj4gKwlwbGFuZS0+
+c3RhdGUtPmNydGNfdyA9IG5ld19zdGF0ZS0+Y3J0Y193Ow0KPiArCXBsYW5lLT5zdGF0ZS0+Y3J0
+Y19oID0gbmV3X3N0YXRlLT5jcnRjX2g7DQo+ICsNCj4gKwloYW5kbGVfY3Vyc29yX3VwZGF0ZShw
+bGFuZSwgb2xkX3N0YXRlKTsNCj4gK30NCj4gKw0KPiAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJt
+X3BsYW5lX2hlbHBlcl9mdW5jcyBkbV9wbGFuZV9oZWxwZXJfZnVuY3MgPSB7DQo+ICAgCS5wcmVw
+YXJlX2ZiID0gZG1fcGxhbmVfaGVscGVyX3ByZXBhcmVfZmIsDQo+ICAgCS5jbGVhbnVwX2ZiID0g
+ZG1fcGxhbmVfaGVscGVyX2NsZWFudXBfZmIsDQo+ICAgCS5hdG9taWNfY2hlY2sgPSBkbV9wbGFu
+ZV9hdG9taWNfY2hlY2ssDQo+ICsJLmF0b21pY19hc3luY19jaGVjayA9IGRtX3BsYW5lX2F0b21p
+Y19hc3luY19jaGVjaywNCj4gKwkuYXRvbWljX2FzeW5jX3VwZGF0ZSA9IGRtX3BsYW5lX2F0b21p
+Y19hc3luY191cGRhdGUNCj4gICB9Ow0KPiAgIA0KPiAgIC8qDQo+IEBAIC00MzA3LDYgKzQzNDgs
+NyBAQCBzdGF0aWMgaW50IGdldF9jdXJzb3JfcG9zaXRpb24oc3RydWN0IGRybV9wbGFuZSAqcGxh
+bmUsIHN0cnVjdCBkcm1fY3J0YyAqY3J0YywNCj4gICBzdGF0aWMgdm9pZCBoYW5kbGVfY3Vyc29y
+X3VwZGF0ZShzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwNCj4gICAJCQkJIHN0cnVjdCBkcm1fcGxh
+bmVfc3RhdGUgKm9sZF9wbGFuZV9zdGF0ZSkNCj4gICB7DQo+ICsJc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYgPSBwbGFuZS0+ZGV2LT5kZXZfcHJpdmF0ZTsNCj4gICAJc3RydWN0IGFtZGdwdV9m
+cmFtZWJ1ZmZlciAqYWZiID0gdG9fYW1kZ3B1X2ZyYW1lYnVmZmVyKHBsYW5lLT5zdGF0ZS0+ZmIp
+Ow0KPiAgIAlzdHJ1Y3QgZHJtX2NydGMgKmNydGMgPSBhZmIgPyBwbGFuZS0+c3RhdGUtPmNydGMg
+OiBvbGRfcGxhbmVfc3RhdGUtPmNydGM7DQo+ICAgCXN0cnVjdCBkbV9jcnRjX3N0YXRlICpjcnRj
+X3N0YXRlID0gY3J0YyA/IHRvX2RtX2NydGNfc3RhdGUoY3J0Yy0+c3RhdGUpIDogTlVMTDsNCj4g
+QEAgLTQzMzEsOSArNDM3MywxMiBAQCBzdGF0aWMgdm9pZCBoYW5kbGVfY3Vyc29yX3VwZGF0ZShz
+dHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwNCj4gICANCj4gICAJaWYgKCFwb3NpdGlvbi5lbmFibGUp
+IHsNCj4gICAJCS8qIHR1cm4gb2ZmIGN1cnNvciAqLw0KPiAtCQlpZiAoY3J0Y19zdGF0ZSAmJiBj
+cnRjX3N0YXRlLT5zdHJlYW0pDQo+ICsJCWlmIChjcnRjX3N0YXRlICYmIGNydGNfc3RhdGUtPnN0
+cmVhbSkgew0KPiArCQkJbXV0ZXhfbG9jaygmYWRldi0+ZG0uZGNfbG9jayk7DQo+ICAgCQkJZGNf
+c3RyZWFtX3NldF9jdXJzb3JfcG9zaXRpb24oY3J0Y19zdGF0ZS0+c3RyZWFtLA0KPiAgIAkJCQkJ
+CSAgICAgICZwb3NpdGlvbik7DQo+ICsJCQltdXRleF91bmxvY2soJmFkZXYtPmRtLmRjX2xvY2sp
+Ow0KPiArCQl9DQo+ICAgCQlyZXR1cm47DQo+ICAgCX0NCj4gICANCj4gQEAgLTQzNTEsNiArNDM5
+Niw3IEBAIHN0YXRpYyB2b2lkIGhhbmRsZV9jdXJzb3JfdXBkYXRlKHN0cnVjdCBkcm1fcGxhbmUg
+KnBsYW5lLA0KPiAgIAlhdHRyaWJ1dGVzLnBpdGNoID0gYXR0cmlidXRlcy53aWR0aDsNCj4gICAN
+Cj4gICAJaWYgKGNydGNfc3RhdGUtPnN0cmVhbSkgew0KPiArCQltdXRleF9sb2NrKCZhZGV2LT5k
+bS5kY19sb2NrKTsNCj4gICAJCWlmICghZGNfc3RyZWFtX3NldF9jdXJzb3JfYXR0cmlidXRlcyhj
+cnRjX3N0YXRlLT5zdHJlYW0sDQo+ICAgCQkJCQkJCSAmYXR0cmlidXRlcykpDQo+ICAgCQkJRFJN
+X0VSUk9SKCJEQyBmYWlsZWQgdG8gc2V0IGN1cnNvciBhdHRyaWJ1dGVzXG4iKTsNCj4gQEAgLTQz
+NTgsNiArNDQwNCw3IEBAIHN0YXRpYyB2b2lkIGhhbmRsZV9jdXJzb3JfdXBkYXRlKHN0cnVjdCBk
+cm1fcGxhbmUgKnBsYW5lLA0KPiAgIAkJaWYgKCFkY19zdHJlYW1fc2V0X2N1cnNvcl9wb3NpdGlv
+bihjcnRjX3N0YXRlLT5zdHJlYW0sDQo+ICAgCQkJCQkJICAgJnBvc2l0aW9uKSkNCj4gICAJCQlE
+Uk1fRVJST1IoIkRDIGZhaWxlZCB0byBzZXQgY3Vyc29yIHBvc2l0aW9uXG4iKTsNCj4gKwkJbXV0
+ZXhfdW5sb2NrKCZhZGV2LT5kbS5kY19sb2NrKTsNCj4gICAJfQ0KPiAgIH0NCj4gICANCj4gQEAg
+LTQ1NzMsNiArNDYyMCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9kb19mbGlwKHN0cnVjdCBk
+cm1fY3J0YyAqY3J0YywNCj4gICAJCQkJJmFjcnRjX3N0YXRlLT5zdHJlYW0tPnZycl9pbmZvcGFj
+a2V0Ow0KPiAgIAl9DQo+ICAgDQo+ICsJbXV0ZXhfbG9jaygmYWRldi0+ZG0uZGNfbG9jayk7DQo+
+ICAgCWRjX2NvbW1pdF91cGRhdGVzX2Zvcl9zdHJlYW0oYWRldi0+ZG0uZGMsDQo+ICAgCQkJCQkg
+ICAgIHN1cmZhY2VfdXBkYXRlcywNCj4gICAJCQkJCSAgICAgMSwNCj4gQEAgLTQ1ODAsNiArNDYy
+OCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9kb19mbGlwKHN0cnVjdCBkcm1fY3J0YyAqY3J0
+YywNCj4gICAJCQkJCSAgICAgJnN0cmVhbV91cGRhdGUsDQo+ICAgCQkJCQkgICAgICZzdXJmYWNl
+X3VwZGF0ZXMtPnN1cmZhY2UsDQo+ICAgCQkJCQkgICAgIHN0YXRlKTsNCj4gKwltdXRleF91bmxv
+Y2soJmFkZXYtPmRtLmRjX2xvY2spOw0KPiAgIA0KPiAgIAlEUk1fREVCVUdfRFJJVkVSKCIlcyBG
+bGlwcGluZyB0byBoaTogMHgleCwgbG93OiAweCV4IFxuIiwNCj4gICAJCQkgX19mdW5jX18sDQo+
+IEBAIC00NTk0LDYgKzQ2NDMsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG1fZG9fZmxpcChzdHJ1
+Y3QgZHJtX2NydGMgKmNydGMsDQo+ICAgICogd2l0aCBhIGRjX3BsYW5lX3N0YXRlIGFuZCBmb2xs
+b3cgdGhlIGF0b21pYyBtb2RlbCBhIGJpdCBtb3JlIGNsb3NlbHkgaGVyZS4NCj4gICAgKi8NCj4g
+ICBzdGF0aWMgYm9vbCBjb21taXRfcGxhbmVzX3RvX3N0cmVhbSgNCj4gKwkJc3RydWN0IGFtZGdw
+dV9kaXNwbGF5X21hbmFnZXIgKmRtLA0KPiAgIAkJc3RydWN0IGRjICpkYywNCj4gICAJCXN0cnVj
+dCBkY19wbGFuZV9zdGF0ZSAqKnBsYW5lX3N0YXRlcywNCj4gICAJCXVpbnQ4X3QgbmV3X3BsYW5l
+X2NvdW50LA0KPiBAQCAtNDY3MCwxMSArNDcyMCwxMyBAQCBzdGF0aWMgYm9vbCBjb21taXRfcGxh
+bmVzX3RvX3N0cmVhbSgNCj4gICAJCXVwZGF0ZXNbaV0uc2NhbGluZ19pbmZvID0gJnNjYWxpbmdf
+aW5mb1tpXTsNCj4gICAJfQ0KPiAgIA0KPiArCW11dGV4X2xvY2soJmRtLT5kY19sb2NrKTsNCj4g
+ICAJZGNfY29tbWl0X3VwZGF0ZXNfZm9yX3N0cmVhbSgNCj4gICAJCQlkYywNCj4gICAJCQl1cGRh
+dGVzLA0KPiAgIAkJCW5ld19wbGFuZV9jb3VudCwNCj4gICAJCQlkY19zdHJlYW0sIHN0cmVhbV91
+cGRhdGUsIHBsYW5lX3N0YXRlcywgc3RhdGUpOw0KPiArCW11dGV4X3VubG9jaygmZG0tPmRjX2xv
+Y2spOw0KPiAgIA0KPiAgIAlrZnJlZShmbGlwX2FkZHIpOw0KPiAgIAlrZnJlZShwbGFuZV9pbmZv
+KTsNCj4gQEAgLTQ3ODAsNyArNDgzMiw4IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRf
+cGxhbmVzKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gICANCj4gICAJCWRjX3N0
+cmVhbV9hdHRhY2gtPmFibV9sZXZlbCA9IGFjcnRjX3N0YXRlLT5hYm1fbGV2ZWw7DQo+ICAgDQo+
+IC0JCWlmIChmYWxzZSA9PSBjb21taXRfcGxhbmVzX3RvX3N0cmVhbShkbS0+ZGMsDQo+ICsJCWlm
+IChmYWxzZSA9PSBjb21taXRfcGxhbmVzX3RvX3N0cmVhbShkbSwNCj4gKwkJCQkJCQlkbS0+ZGMs
+DQo+ICAgCQkJCQkJCXBsYW5lX3N0YXRlc19jb25zdHJ1Y3RlZCwNCj4gICAJCQkJCQkJcGxhbmVz
+X2NvdW50LA0KPiAgIAkJCQkJCQlhY3J0Y19zdGF0ZSwNCj4gQEAgLTQ5NTAsNyArNTAwMyw5IEBA
+IHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9hdG9taWNfY29tbWl0X3RhaWwoc3RydWN0IGRybV9hdG9t
+aWNfc3RhdGUgKnN0YXRlKQ0KPiAgIA0KPiAgIAlpZiAoZGNfc3RhdGUpIHsNCj4gICAJCWRtX2Vu
+YWJsZV9wZXJfZnJhbWVfY3J0Y19tYXN0ZXJfc3luYyhkY19zdGF0ZSk7DQo+ICsJCW11dGV4X2xv
+Y2soJmRtLT5kY19sb2NrKTsNCj4gICAJCVdBUk5fT04oIWRjX2NvbW1pdF9zdGF0ZShkbS0+ZGMs
+IGRjX3N0YXRlKSk7DQo+ICsJCW11dGV4X3VubG9jaygmZG0tPmRjX2xvY2spOw0KPiAgIAl9DQo+
+ICAgDQo+ICAgCWZvcl9lYWNoX25ld19jcnRjX2luX3N0YXRlKHN0YXRlLCBjcnRjLCBuZXdfY3J0
+Y19zdGF0ZSwgaSkgew0KPiBAQCAtNTAxMiw2ICs1MDY3LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1
+X2RtX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUpDQo+
+ICAgDQo+ICAgCQkvKlRPRE8gSG93IGl0IHdvcmtzIHdpdGggTVBPID8qLw0KPiAgIAkJaWYgKCFj
+b21taXRfcGxhbmVzX3RvX3N0cmVhbSgNCj4gKwkJCQlkbSwNCj4gICAJCQkJZG0tPmRjLA0KPiAg
+IAkJCQlzdGF0dXMtPnBsYW5lX3N0YXRlcywNCj4gICAJCQkJc3RhdHVzLT5wbGFuZV9jb3VudCwN
+Cj4gQEAgLTU5MDQsNiArNTk2MCwxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV9kbV9hdG9taWNfY2hl
+Y2soc3RydWN0IGRybV9kZXZpY2UgKmRldiwNCj4gICAJCQlyZXQgPSAtRUlOVkFMOw0KPiAgIAkJ
+CWdvdG8gZmFpbDsNCj4gICAJCX0NCj4gKwl9IGVsc2UgaWYgKHN0YXRlLT5sZWdhY3lfY3Vyc29y
+X3VwZGF0ZSkgew0KPiArCQkvKg0KPiArCQkgKiBUaGlzIGlzIGEgZmFzdCBjdXJzb3IgdXBkYXRl
+IGNvbWluZyBmcm9tIHRoZSBwbGFuZSB1cGRhdGUNCj4gKwkJICogaGVscGVyLCBjaGVjayBpZiBp
+dCBjYW4gYmUgZG9uZSBhc3luY2hyb25vdXNseSBmb3IgYmV0dGVyDQo+ICsJCSAqIHBlcmZvcm1h
+bmNlLg0KPiArCQkgKi8NCj4gKwkJc3RhdGUtPmFzeW5jX3VwZGF0ZSA9ICFkcm1fYXRvbWljX2hl
+bHBlcl9hc3luY19jaGVjayhkZXYsIHN0YXRlKTsNCj4gICAJfQ0KPiAgIA0KPiAgIAkvKiBNdXN0
+IGJlIHN1Y2Nlc3MgKi8NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
+Z3B1X2RtL2FtZGdwdV9kbS5oDQo+IGluZGV4IDQzMjZkYzI1NjQ5MS4uMjViYjkxZWU4MGJhIDEw
+MDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
+Z3B1X2RtLmgNCj4gQEAgLTEzNCw2ICsxMzQsMTQgQEAgc3RydWN0IGFtZGdwdV9kaXNwbGF5X21h
+bmFnZXIgew0KPiAgIA0KPiAgIAlzdHJ1Y3QgZHJtX21vZGVzZXRfbG9jayBhdG9taWNfb2JqX2xv
+Y2s7DQo+ICAgDQo+ICsJLyoqDQo+ICsJICogQGRjX2xvY2s6DQo+ICsJICoNCj4gKwkgKiBHdWFy
+ZHMgYWNjZXNzIHRvIERDIGZ1bmN0aW9ucyB0aGF0IGNhbiBpc3N1ZSByZWdpc3RlciB3cml0ZQ0K
+PiArCSAqIHNlcXVlbmNlcy4NCj4gKwkgKi8NCj4gKwlzdHJ1Y3QgbXV0ZXggZGNfbG9jazsNCj4g
+Kw0KPiAgIAkvKioNCj4gICAJICogQGlycV9oYW5kbGVyX2xpc3RfbG93X3RhYjoNCj4gICAJICoN
+Cj4gDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
