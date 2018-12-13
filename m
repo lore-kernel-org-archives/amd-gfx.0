@@ -1,20 +1,13 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [Intel-gfx] [PATCH 06/10] drm/syncobj: use the timeline point in
- drm_syncobj_find_fence v3
-Date: Thu, 13 Dec 2018 12:24:57 +0000
-Message-ID: <6e30211b-8257-61dd-0d56-ffa8add02601@amd.com>
-References: <20181211103449.25899-1-david1.zhou@amd.com>
- <20181211103449.25899-6-david1.zhou@amd.com>
- <154470106444.11001.18115532802703573952@skylake-alporthouse-com>
- <36d34a20-2562-4265-9abc-4d3bd6d358ef@amd.com>
- <154470371691.11001.12393270310703413444@skylake-alporthouse-com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: unify Vega20 PSP SOS firmwares for A0 and A1
+Date: Thu, 13 Dec 2018 15:05:23 +0000
+Message-ID: <BN6PR12MB180900FC993E80DD7F22127AF7A00@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181213061451.29038-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0199165459=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <154470371691.11001.12393270310703413444@skylake-alporthouse-com>
+In-Reply-To: <20181213061451.29038-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <D9A0838610C33A4EA9A5D6B18414341F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,71 +18,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMTMuMTIuMTggdW0gMTM6MjEgc2NocmllYiBDaHJpcyBXaWxzb246DQo+IFF1b3RpbmcgS29l
-bmlnLCBDaHJpc3RpYW4gKDIwMTgtMTItMTMgMTI6MTE6MTApDQo+PiBBbSAxMy4xMi4xOCB1bSAx
-MjozNyBzY2hyaWViIENocmlzIFdpbHNvbjoNCj4+PiBRdW90aW5nIENodW5taW5nIFpob3UgKDIw
-MTgtMTItMTEgMTA6MzQ6NDUpDQo+Pj4+IEZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcu
-bGVpY2h0enVtZXJrZW5AZ21haWwuY29tPg0KPj4+Pg0KPj4+PiBJbXBsZW1lbnQgZmluZGluZyB0
-aGUgcmlnaHQgdGltZWxpbmUgcG9pbnQgaW4gZHJtX3N5bmNvYmpfZmluZF9mZW5jZS4NCj4+Pj4N
-Cj4+Pj4gdjI6IHJldHVybiAtRUlOVkFMIHdoZW4gdGhlIHBvaW50IGlzIG5vdCBzdWJtaXR0ZWQg
-eWV0Lg0KPj4+PiB2MzogZml4IHJlZmVyZW5jZSBjb3VudGluZyBidWcsIGFkZCBmbGFncyBoYW5k
-bGluZyBhcyB3ZWxsDQo+Pj4+DQo+Pj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4+Pj4gLS0tDQo+Pj4+ICAgIGRyaXZlcnMvZ3B1
-L2RybS9kcm1fc3luY29iai5jIHwgNDMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKyst
-LS0NCj4+Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDQwIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25z
-KC0pDQo+Pj4+DQo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmou
-YyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jDQo+Pj4+IGluZGV4IDc2Y2UxM2RhZmM0
-ZC4uZDk2NGIzNDhlY2JhIDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5
-bmNvYmouYw0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYw0KPj4+PiBA
-QCAtMjMxLDE2ICsyMzEsNTMgQEAgaW50IGRybV9zeW5jb2JqX2ZpbmRfZmVuY2Uoc3RydWN0IGRy
-bV9maWxlICpmaWxlX3ByaXZhdGUsDQo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-c3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQ0KPj4+PiAgICB7DQo+Pj4+ICAgICAgICAgICBzdHJ1
-Y3QgZHJtX3N5bmNvYmogKnN5bmNvYmogPSBkcm1fc3luY29ial9maW5kKGZpbGVfcHJpdmF0ZSwg
-aGFuZGxlKTsNCj4+Pj4gLSAgICAgICBpbnQgcmV0ID0gMDsNCj4+Pj4gKyAgICAgICBzdHJ1Y3Qg
-c3luY29ial93YWl0X2VudHJ5IHdhaXQ7DQo+Pj4+ICsgICAgICAgaW50IHJldDsNCj4+Pj4gICAg
-DQo+Pj4+ICAgICAgICAgICBpZiAoIXN5bmNvYmopDQo+Pj4+ICAgICAgICAgICAgICAgICAgIHJl
-dHVybiAtRU5PRU5UOw0KPj4+PiAgICANCj4+Pj4gICAgICAgICAgICpmZW5jZSA9IGRybV9zeW5j
-b2JqX2ZlbmNlX2dldChzeW5jb2JqKTsNCj4+Pj4gLSAgICAgICBpZiAoISpmZW5jZSkgew0KPj4+
-PiArICAgICAgIGRybV9zeW5jb2JqX3B1dChzeW5jb2JqKTsNCj4+Pj4gKw0KPj4+PiArICAgICAg
-IGlmICgqZmVuY2UpIHsNCj4+Pj4gKyAgICAgICAgICAgICAgIHJldCA9IGRtYV9mZW5jZV9jaGFp
-bl9maW5kX3NlcW5vKGZlbmNlLCBwb2ludCk7DQo+Pj4+ICsgICAgICAgICAgICAgICBpZiAoIXJl
-dCkNCj4+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+Pj4+ICsgICAgICAg
-ICAgICAgICBkbWFfZmVuY2VfcHV0KCpmZW5jZSk7DQo+Pj4+ICsgICAgICAgfSBlbHNlIHsNCj4+
-Pj4gICAgICAgICAgICAgICAgICAgcmV0ID0gLUVJTlZBTDsNCj4+Pj4gICAgICAgICAgIH0NCj4+
-Pj4gLSAgICAgICBkcm1fc3luY29ial9wdXQoc3luY29iaik7DQo+Pj4+ICsNCj4+Pj4gKyAgICAg
-ICBpZiAoIShmbGFncyAmIERSTV9TWU5DT0JKX1dBSVRfRkxBR1NfV0FJVF9GT1JfU1VCTUlUKSkN
-Cj4+Pj4gKyAgICAgICAgICAgICAgIHJldHVybiByZXQ7DQo+Pj4+ICsNCj4+Pj4gKyAgICAgICBt
-ZW1zZXQoJndhaXQsIDAsIHNpemVvZih3YWl0KSk7DQo+Pj4+ICsgICAgICAgd2FpdC50YXNrID0g
-Y3VycmVudDsNCj4+Pj4gKyAgICAgICB3YWl0LnBvaW50ID0gcG9pbnQ7DQo+Pj4+ICsgICAgICAg
-ZHJtX3N5bmNvYmpfZmVuY2VfYWRkX3dhaXQoc3luY29iaiwgJndhaXQpOw0KPj4+PiArDQo+Pj4+
-ICsgICAgICAgZG8gew0KPj4+PiArICAgICAgICAgICAgICAgc2V0X2N1cnJlbnRfc3RhdGUoVEFT
-S19JTlRFUlJVUFRJQkxFKTsNCj4+Pj4gKyAgICAgICAgICAgICAgIGlmICh3YWl0LmZlbmNlKSB7
-DQo+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IDA7DQo+Pj4+ICsgICAgICAgICAg
-ICAgICAgICAgICAgIGJyZWFrOw0KPj4+PiArICAgICAgICAgICAgICAgfQ0KPj4+PiArDQo+Pj4+
-ICsgICAgICAgICAgICAgICBpZiAoc2lnbmFsX3BlbmRpbmcoY3VycmVudCkpIHsNCj4+Pj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgcmV0ID0gLUVSRVNUQVJUU1lTOw0KPj4+PiArICAgICAgICAg
-ICAgICAgICAgICAgICBicmVhazsNCj4+Pj4gKyAgICAgICAgICAgICAgIH0NCj4+Pj4gKw0KPj4+
-PiArICAgICAgICAgICAgICAgc2NoZWR1bGUoKTsNCj4+Pj4gKyAgICAgICB9IHdoaWxlICgxKTsN
-Cj4+PiBJJ3ZlIHByZXZpb3VzbHkgdXNlZCBhIGRtYV9mZW5jZV9wcm94eSBzbyB0aGF0IHdlIGNv
-dWxkIGRvIG5vbmJsb2NraW5nDQo+Pj4gd2FpdHMgb24gZnV0dXJlIHN1Ym1pdHMuIFRoYXQgd291
-bGQgYmUgcHJlZmVycmFibGUgKGEgcmVxdWlyZW1lbnQgZm9yDQo+Pj4gb3VyIHN0dXBpZCBCS0wt
-ZHJpdmVuIGNvZGUpLg0KPj4gVGhhdCBpcyBleGFjdGx5IHdoYXQgSSB3b3VsZCBkZWZpbml0ZWx5
-IE5BSy4NCj4+DQo+PiBJIHdvdWxkIHJhdGhlciBzYXkgd2Ugc2hvdWxkIGNvbWUgdXAgd2l0aCBh
-IHdhaXRfbXVsdGlwbGVfZXZlbnRzKCkgbWFjcm8NCj4+IGFuZCBjb21wbGV0ZWx5IG51a2UgdGhl
-IGN1c3RvbSBpbXBsZW1lbnRhdGlvbiBvZiB0aGlzIGluOg0KPj4gMS4gZG1hX2ZlbmNlX2RlZmF1
-bHRfd2FpdCBhbmQgZG1hX2ZlbmNlX3dhaXRfYW55X3RpbWVvdXQNCj4+IDIuIHRoZSByYWRlb24g
-ZmVuY2UgaW1wbGVtZW50YXRpb24NCj4+IDMuIHRoZSBub3V2ZWF1IGZlbmNlIGltcGxlbWVudGF0
-aW9uDQo+PiA0LiB0aGUgc3luY29iaiBjb2RlDQo+Pg0KPj4gQ2F1c2UgYWxsIG9mIHRoZW0gZG8g
-ZXhhY3RseSB0aGUgc2FtZS4gVGhlIGRtYV9mZW5jZSBpbXBsZW1lbnRhdGlvbg0KPj4gdW5mb3J0
-dW5hdGVseSBjYW1lIHVwIHdpdGggYSBjdXN0b20gZXZlbnQgaGFuZGxpbmcgbWVjaGFuaXNtIGlu
-c3RlYWQgb2YNCj4+IGV4dGVuZGluZyB0aGUgY29yZSBMaW51eCB3YWl0X2V2ZW50KCkgc3lzdGVt
-Lg0KPiBJIGRvbid0IHdhbnQgYSBibG9ja2luZyB3YWl0IGF0IGFsbC4NCg0KT2sgSSB3YXNuJ3Qg
-Y2xlYXIgZW5vdWdoIDopIFRoYXQgaXMgZXhhY3RseSB3aGF0IEkgd291bGQgTkFLIQ0KDQpUaGUg
-d2FpdCBtdXN0IGJlIGJsb2NraW5nIG9yIG90aGVyd2lzZSB5b3Ugd291bGQgYWxsb3cgd2FpdC1i
-ZWZvcmUtc2lnbmFsLg0KDQpDaHJpc3RpYW4uDQoNCj4gLUNocmlzDQoNCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0199165459==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180900FC993E80DD7F22127AF7A00BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180900FC993E80DD7F22127AF7A00BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
+n <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, December 13, 2018 1:14:51 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Quan, Evan
+Subject: [PATCH] drm/amdgpu: unify Vega20 PSP SOS firmwares for A0 and A1
+
+The new PSP SOS firmware can support both A0 and A1.
+
+Change-Id: I9bf85eb77b183a4403667c77e291e32689aed0af
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v11_0.c
+index 61cf2f6954e7..f3f5d4dd4631 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -34,14 +34,11 @@
+ #include "nbio/nbio_7_4_offset.h"
+
+ MODULE_FIRMWARE("amdgpu/vega20_sos.bin");
+-MODULE_FIRMWARE("amdgpu/vega20_sos_old.bin");
+ MODULE_FIRMWARE("amdgpu/vega20_ta.bin");
+
+ /* address block */
+ #define smnMP1_FIRMWARE_FLAGS           0x3010024
+
+-#define VEGA20_BL_VERSION_VAR_NEW 0xA1
+-
+ static int
+ psp_v11_0_get_fw_type(struct amdgpu_firmware_info *ucode, enum psp_gfx_fw_=
+type *type)
+ {
+@@ -104,7 +101,6 @@ static int psp_v11_0_init_microcode(struct psp_context =
+*psp)
+         int err =3D 0;
+         const struct psp_firmware_header_v1_0 *sos_hdr;
+         const struct ta_firmware_header_v1_0 *ta_hdr;
+-       uint32_t bl_version;
+
+         DRM_DEBUG("\n");
+
+@@ -116,13 +112,7 @@ static int psp_v11_0_init_microcode(struct psp_context=
+ *psp)
+                 BUG();
+         }
+
+-       bl_version =3D RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_100);
+-       bl_version =3D (bl_version & 0xFF0000) >> 16;
+-
+-       if (bl_version =3D=3D VEGA20_BL_VERSION_VAR_NEW)
+-               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sos.bin", chi=
+p_name);
+-       else
+-               snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sos_old.bin",=
+ chip_name);
++       snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sos.bin", chip_name);
+         err =3D request_firmware(&adev->psp.sos_fw, fw_name, adev->dev);
+         if (err)
+                 goto out;
+--
+2.19.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180900FC993E80DD7F22127AF7A00BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
+der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Thursday, December 13, 2018 1:14:51 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Quan, Evan<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: unify Vega20 PSP SOS firmwares for A0 a=
+nd A1</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The new PSP SOS firmware can support both A0 and A=
+1.<br>
+<br>
+Change-Id: I9bf85eb77b183a4403667c77e291e32689aed0af<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 12 &#43;-----------<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 11 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/psp_v11_0.c<br>
+index 61cf2f6954e7..f3f5d4dd4631 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
+@@ -34,14 &#43;34,11 @@<br>
+&nbsp;#include &quot;nbio/nbio_7_4_offset.h&quot;<br>
+&nbsp;<br>
+&nbsp;MODULE_FIRMWARE(&quot;amdgpu/vega20_sos.bin&quot;);<br>
+-MODULE_FIRMWARE(&quot;amdgpu/vega20_sos_old.bin&quot;);<br>
+&nbsp;MODULE_FIRMWARE(&quot;amdgpu/vega20_ta.bin&quot;);<br>
+&nbsp;<br>
+&nbsp;/* address block */<br>
+&nbsp;#define smnMP1_FIRMWARE_FLAGS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; 0x3010024<br>
+&nbsp;<br>
+-#define VEGA20_BL_VERSION_VAR_NEW 0xA1<br>
+-<br>
+&nbsp;static int<br>
+&nbsp;psp_v11_0_get_fw_type(struct amdgpu_firmware_info *ucode, enum psp_gf=
+x_fw_type *type)<br>
+&nbsp;{<br>
+@@ -104,7 &#43;101,6 @@ static int psp_v11_0_init_microcode(struct psp_cont=
+ext *psp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int err =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct psp_firmware_=
+header_v1_0 *sos_hdr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const struct ta_firmware_h=
+eader_v1_0 *ta_hdr;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t bl_version;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_DEBUG(&quot;\n&quot;);=
+<br>
+&nbsp;<br>
+@@ -116,13 &#43;112,7 @@ static int psp_v11_0_init_microcode(struct psp_con=
+text *psp)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; BUG();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bl_version =3D RREG32_SOC15(MP0, 0, m=
+mMP0_SMN_C2PMSG_100);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bl_version =3D (bl_version &amp; 0xFF=
+0000) &gt;&gt; 16;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bl_version =3D=3D VEGA20_BL_VERSI=
+ON_VAR_NEW)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &quot;amdgpu/%s_sos.bin&quot;=
+, chip_name);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; snprintf(fw_name, sizeof(fw_name), &quot;amdgpu/%s_sos_old.bin&q=
+uot;, chip_name);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; snprintf(fw_name, sizeof(fw_name)=
+, &quot;amdgpu/%s_sos.bin&quot;, chip_name);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err =3D request_firmware(&=
+amp;adev-&gt;psp.sos_fw, fw_name, adev-&gt;dev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; goto out;<br>
+-- <br>
+2.19.2<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180900FC993E80DD7F22127AF7A00BN6PR12MB1809namp_--
+
+--===============0199165459==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0199165459==--
