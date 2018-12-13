@@ -1,55 +1,52 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.19 36/73] drm/amd/powerplay: issue pre-display
- settings for display change event
-Date: Wed, 12 Dec 2018 23:28:01 -0500
-Message-ID: <20181213042838.75160-36-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 59/73] drm/amdgpu/vcn: Update vcn.cur_state during suspend
+Date: Wed, 12 Dec 2018 23:28:24 -0500
+Message-ID: <20181213042838.75160-59-sashal@kernel.org>
 References: <20181213042838.75160-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181213042838.75160-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20181213042838.75160-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: James Zhu <James.Zhu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDEw
-Y2IzZTZiNjNiZjQyNjZhNTE5ODgxMzUyNmZkZDcyNTlmZmI4YmUgXQoKRm9yIGRpc3BsYXkgY29u
-ZmlnIGNoYW5nZSBldmVudCBvbmx5LCBwcmUtZGlzcGxheSBjb25maWcgc2V0dGluZ3MgYXJlCm5l
-ZWRlZC4KClNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+CkFja2Vk
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYt
-Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1i
-eTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMgIHwgMyArKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3BwX3BzbS5jIHwgMiAtLQogMiBmaWxlcyBjaGFuZ2VkLCAzIGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL2h3bWdyLmMKaW5kZXggODk5NGFhNWM4Y2Y4Li42NDU5NjAyOWI2OTYgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2h3bWdyLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaHdtZ3IuYwpAQCAtMzY1LDYgKzM2NSw5
-IEBAIGludCBod21ncl9oYW5kbGVfdGFzayhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBlbnVtIGFt
-ZF9wcF90YXNrIHRhc2tfaWQsCiAKIAlzd2l0Y2ggKHRhc2tfaWQpIHsKIAljYXNlIEFNRF9QUF9U
-QVNLX0RJU1BMQVlfQ09ORklHX0NIQU5HRToKKwkJcmV0ID0gcGhtX3ByZV9kaXNwbGF5X2NvbmZp
-Z3VyYXRpb25fY2hhbmdlZChod21ncik7CisJCWlmIChyZXQpCisJCQlyZXR1cm4gcmV0OwogCQly
-ZXQgPSBwaG1fc2V0X2NwdV9wb3dlcl9zdGF0ZShod21ncik7CiAJCWlmIChyZXQpCiAJCQlyZXR1
-cm4gcmV0OwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Iv
-cHBfcHNtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9wcF9wc20uYwpp
-bmRleCA5MWZmYjdiYzRlZTcuLjU2NDM3ODY2ZDEyMCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHBfcHNtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvaHdtZ3IvcHBfcHNtLmMKQEAgLTI2NSw4ICsyNjUsNiBAQCBpbnQgcHNtX2Fk
-anVzdF9wb3dlcl9zdGF0ZV9keW5hbWljKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGJvb2wgc2tp
-cCwKIAlpZiAoc2tpcCkKIAkJcmV0dXJuIDA7CiAKLQlwaG1fcHJlX2Rpc3BsYXlfY29uZmlndXJh
-dGlvbl9jaGFuZ2VkKGh3bWdyKTsKLQogCXBobV9kaXNwbGF5X2NvbmZpZ3VyYXRpb25fY2hhbmdl
-ZChod21ncik7CiAKIAlpZiAoaHdtZ3ItPnBzKQotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: James Zhu <James.Zhu@amd.com>
+
+[ Upstream commit 0a9b89b2e2e7b6d90f81ddc47e489be1043e01b1 ]
+
+Replace vcn_v1_0_stop with vcn_v1_0_set_powergating_state during suspend,
+to keep adev->vcn.cur_state update. It will fix VCN S3 hung issue.
+
+Signed-off-by: James Zhu <James.Zhu@amd.com>
+Reviewed-by: Leo Liu <leo.liu@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index 072371ef5975..4f8f3bb21832 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -43,6 +43,7 @@ static void vcn_v1_0_set_enc_ring_funcs(struct amdgpu_device *adev);
+ static void vcn_v1_0_set_jpeg_ring_funcs(struct amdgpu_device *adev);
+ static void vcn_v1_0_set_irq_funcs(struct amdgpu_device *adev);
+ static void vcn_v1_0_jpeg_ring_set_patch_ring(struct amdgpu_ring *ring, uint32_t ptr);
++static int vcn_v1_0_set_powergating_state(void *handle, enum amd_powergating_state state);
+ 
+ /**
+  * vcn_v1_0_early_init - set function pointers
+@@ -216,7 +217,7 @@ static int vcn_v1_0_hw_fini(void *handle)
+ 	struct amdgpu_ring *ring = &adev->vcn.ring_dec;
+ 
+ 	if (RREG32_SOC15(VCN, 0, mmUVD_STATUS))
+-		vcn_v1_0_stop(adev);
++		vcn_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
+ 
+ 	ring->ready = false;
+ 
+-- 
+2.19.1
