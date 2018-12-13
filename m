@@ -1,47 +1,94 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/4] drm/amdgpu: increase the MAX ring number
-Date: Thu, 13 Dec 2018 08:59:14 +0000
-Message-ID: <351d08f1-00d0-d498-894d-4576ea164bd8@amd.com>
-References: <20181213040947.26260-1-evan.quan@amd.com>
+From: Huaisheng Ye <yehs2007@zoho.com>
+Subject: [PATCH] drm/amd/display: fix compiler warnings about wm variable
+Date: Thu, 13 Dec 2018 17:34:54 +0800
+Message-ID: <20181213093454.10872-1-yehs2007@zoho.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181213040947.26260-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <97DA15A6C3533B4D9721E459F39D5DEB-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zeng,
- Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, harry.wentland@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, tony.cheng@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chengnt@lenovo.com, Huaisheng Ye <yehs1@lenovo.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTMuMTIuMTggdW0gMDU6MDkgc2NocmllYiBFdmFuIFF1YW46DQo+IEFzIHR3byBtb3JlIFNE
-TUEgcGFnZSBxdWV1ZSByaW5ncyBhcmUgYWRkZWQgb24gVmVnYTIwLg0KPg0KPiBDaGFuZ2UtSWQ6
-IEk4YTNkOGZiYzkyNGY3YzI0YWFlYmYxN2IzZjMyOWE0YTM4ZmU1YTU2DQo+IFNpZ25lZC1vZmYt
-Ynk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBDaHJpc3Rp
-YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGZvciB0aGlzIG9uZS4NCg0KQW5k
-IEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IGZv
-ciBwYXRjaCAjMyANCmFuZCAjNC4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KPiAtLS0NCj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oIHwgMiArLQ0KPiAgIDEg
-ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KPg0KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgNCj4gaW5kZXggNGIzMWM5NmEyYTJjLi5m
-ZTY1Nzc4ODAyNGYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9yaW5nLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jp
-bmcuaA0KPiBAQCAtMzEsNyArMzEsNyBAQA0KPiAgICNlbmRpZg0KPiAgIA0KPiAgIC8qIG1heCBu
-dW1iZXIgb2YgcmluZ3MgKi8NCj4gLSNkZWZpbmUgQU1ER1BVX01BWF9SSU5HUwkJMjENCj4gKyNk
-ZWZpbmUgQU1ER1BVX01BWF9SSU5HUwkJMjMNCj4gICAjZGVmaW5lIEFNREdQVV9NQVhfR0ZYX1JJ
-TkdTCQkxDQo+ICAgI2RlZmluZSBBTURHUFVfTUFYX0NPTVBVVEVfUklOR1MJOA0KPiAgICNkZWZp
-bmUgQU1ER1BVX01BWF9WQ0VfUklOR1MJCTMNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+From: Huaisheng Ye <yehs1@lenovo.com>
+
+There are compiler warnings within functions 'dcn10_log_hubbub_state=E2=80=
+=99
+and 'dcn10_get_hubbub_state=E2=80=99. This patch avoids the compiler report=
+s
+the following warning when building amdgpu.ko.
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: In fun=
+ction =E2=80=98dcn10_log_hubbub_state=E2=80=99:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:94:9: w=
+arning: missing braces around initializer [-Wmissing-braces]
+  struct dcn_hubbub_wm wm =3D {0};
+         ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:94:9: w=
+arning: (near initialization for =E2=80=98wm.sets=E2=80=99) [-Wmissing-brac=
+es]
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer_debug.c: =
+In function =E2=80=98dcn10_get_hubbub_state=E2=80=99:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer_debug.c:7=
+4:9: warning: missing braces around initializer [-Wmissing-braces]
+  struct dcn_hubbub_wm wm =3D {0};
+         ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer_debug.c:7=
+4:9: warning: (near initialization for =E2=80=98wm.sets=E2=80=99) [-Wmissin=
+g-braces]
+
+Signed-off-by: Huaisheng Ye <yehs1@lenovo.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c       | 3 ++-
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/dr=
+ivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 193184a..e96933a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -91,9 +91,10 @@ static void log_mpc_crc(struct dc *dc,
+ void dcn10_log_hubbub_state(struct dc *dc, struct dc_log_buffer_ctx *log_c=
+tx)
+ {
+ =09struct dc_context *dc_ctx =3D dc->ctx;
+-=09struct dcn_hubbub_wm wm =3D {0};
++=09struct dcn_hubbub_wm wm;
+ =09int i;
+=20
++=09memset(&wm, 0, sizeof(struct dcn_hubbub_wm));
+ =09hubbub1_wm_read_state(dc->res_pool->hubbub, &wm);
+=20
+ =09DTN_INFO("HUBBUB WM:      data_urgent  pte_meta_urgent"
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.=
+c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
+index 6415890..f5610ea 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer_debug.c
+@@ -71,7 +71,7 @@ static unsigned int snprintf_count(char *pBuf, unsigned i=
+nt bufSize, char *fmt,
+ static unsigned int dcn10_get_hubbub_state(struct dc *dc, char *pBuf, unsi=
+gned int bufSize)
+ {
+ =09struct dc_context *dc_ctx =3D dc->ctx;
+-=09struct dcn_hubbub_wm wm =3D {0};
++=09struct dcn_hubbub_wm wm;
+ =09int i;
+=20
+ =09unsigned int chars_printed =3D 0;
+@@ -80,6 +80,7 @@ static unsigned int dcn10_get_hubbub_state(struct dc *dc,=
+ char *pBuf, unsigned i
+ =09const uint32_t ref_clk_mhz =3D dc_ctx->dc->res_pool->ref_clock_inKhz / =
+1000;
+ =09static const unsigned int frac =3D 1000;
+=20
++=09memset(&wm, 0, sizeof(struct dcn_hubbub_wm));
+ =09hubbub1_wm_read_state(dc->res_pool->hubbub, &wm);
+=20
+ =09chars_printed =3D snprintf_count(pBuf, remaining_buffer, "wm_set_index,=
+data_urgent,pte_meta_urgent,sr_enter,sr_exit,dram_clk_chanage\n");
+--=20
+1.8.3.1
