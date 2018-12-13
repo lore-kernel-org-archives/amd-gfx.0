@@ -1,52 +1,53 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 59/73] drm/amdgpu/vcn: Update vcn.cur_state during suspend
-Date: Wed, 12 Dec 2018 23:28:24 -0500
-Message-ID: <20181213042838.75160-59-sashal@kernel.org>
-References: <20181213042838.75160-1-sashal@kernel.org>
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: unify Vega20 PSP SOS firmwares for A0 and A1
+Date: Thu, 13 Dec 2018 14:14:51 +0800
+Message-ID: <20181213061451.29038-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20181213042838.75160-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: James Zhu <James.Zhu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-From: James Zhu <James.Zhu@amd.com>
-
-[ Upstream commit 0a9b89b2e2e7b6d90f81ddc47e489be1043e01b1 ]
-
-Replace vcn_v1_0_stop with vcn_v1_0_set_powergating_state during suspend,
-to keep adev->vcn.cur_state update. It will fix VCN S3 hung issue.
-
-Signed-off-by: James Zhu <James.Zhu@amd.com>
-Reviewed-by: Leo Liu <leo.liu@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 072371ef5975..4f8f3bb21832 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -43,6 +43,7 @@ static void vcn_v1_0_set_enc_ring_funcs(struct amdgpu_device *adev);
- static void vcn_v1_0_set_jpeg_ring_funcs(struct amdgpu_device *adev);
- static void vcn_v1_0_set_irq_funcs(struct amdgpu_device *adev);
- static void vcn_v1_0_jpeg_ring_set_patch_ring(struct amdgpu_ring *ring, uint32_t ptr);
-+static int vcn_v1_0_set_powergating_state(void *handle, enum amd_powergating_state state);
- 
- /**
-  * vcn_v1_0_early_init - set function pointers
-@@ -216,7 +217,7 @@ static int vcn_v1_0_hw_fini(void *handle)
- 	struct amdgpu_ring *ring = &adev->vcn.ring_dec;
- 
- 	if (RREG32_SOC15(VCN, 0, mmUVD_STATUS))
--		vcn_v1_0_stop(adev);
-+		vcn_v1_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
- 
- 	ring->ready = false;
- 
--- 
-2.19.1
+VGhlIG5ldyBQU1AgU09TIGZpcm13YXJlIGNhbiBzdXBwb3J0IGJvdGggQTAgYW5kIEExLgoKQ2hh
+bmdlLUlkOiBJOWJmODVlYjc3YjE4M2E0NDAzNjY3Yzc3ZTI5MWUzMjY4OWFlZDBhZgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jIHwgMTIgKy0tLS0tLS0tLS0tCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDExIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMKaW5kZXggNjFjZjJmNjk1NGU3Li5mM2Y1ZDRkZDQ2
+MzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jCkBAIC0zNCwxNCArMzQs
+MTEgQEAKICNpbmNsdWRlICJuYmlvL25iaW9fN180X29mZnNldC5oIgogCiBNT0RVTEVfRklSTVdB
+UkUoImFtZGdwdS92ZWdhMjBfc29zLmJpbiIpOwotTU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvdmVn
+YTIwX3Nvc19vbGQuYmluIik7CiBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS92ZWdhMjBfdGEuYmlu
+Iik7CiAKIC8qIGFkZHJlc3MgYmxvY2sgKi8KICNkZWZpbmUgc21uTVAxX0ZJUk1XQVJFX0ZMQUdT
+CQkweDMwMTAwMjQKIAotI2RlZmluZSBWRUdBMjBfQkxfVkVSU0lPTl9WQVJfTkVXIDB4QTEKLQog
+c3RhdGljIGludAogcHNwX3YxMV8wX2dldF9md190eXBlKHN0cnVjdCBhbWRncHVfZmlybXdhcmVf
+aW5mbyAqdWNvZGUsIGVudW0gcHNwX2dmeF9md190eXBlICp0eXBlKQogewpAQCAtMTA0LDcgKzEw
+MSw2IEBAIHN0YXRpYyBpbnQgcHNwX3YxMV8wX2luaXRfbWljcm9jb2RlKHN0cnVjdCBwc3BfY29u
+dGV4dCAqcHNwKQogCWludCBlcnIgPSAwOwogCWNvbnN0IHN0cnVjdCBwc3BfZmlybXdhcmVfaGVh
+ZGVyX3YxXzAgKnNvc19oZHI7CiAJY29uc3Qgc3RydWN0IHRhX2Zpcm13YXJlX2hlYWRlcl92MV8w
+ICp0YV9oZHI7Ci0JdWludDMyX3QgYmxfdmVyc2lvbjsKIAogCURSTV9ERUJVRygiXG4iKTsKIApA
+QCAtMTE2LDEzICsxMTIsNyBAQCBzdGF0aWMgaW50IHBzcF92MTFfMF9pbml0X21pY3JvY29kZShz
+dHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKIAkJQlVHKCk7CiAJfQogCi0JYmxfdmVyc2lvbiA9IFJS
+RUczMl9TT0MxNShNUDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfMTAwKTsKLQlibF92ZXJzaW9uID0g
+KGJsX3ZlcnNpb24gJiAweEZGMDAwMCkgPj4gMTY7Ci0KLQlpZiAoYmxfdmVyc2lvbiA9PSBWRUdB
+MjBfQkxfVkVSU0lPTl9WQVJfTkVXKQotCQlzbnByaW50Zihmd19uYW1lLCBzaXplb2YoZndfbmFt
+ZSksICJhbWRncHUvJXNfc29zLmJpbiIsIGNoaXBfbmFtZSk7Ci0JZWxzZQotCQlzbnByaW50Zihm
+d19uYW1lLCBzaXplb2YoZndfbmFtZSksICJhbWRncHUvJXNfc29zX29sZC5iaW4iLCBjaGlwX25h
+bWUpOworCXNucHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdwdS8lc19zb3Mu
+YmluIiwgY2hpcF9uYW1lKTsKIAllcnIgPSByZXF1ZXN0X2Zpcm13YXJlKCZhZGV2LT5wc3Auc29z
+X2Z3LCBmd19uYW1lLCBhZGV2LT5kZXYpOwogCWlmIChlcnIpCiAJCWdvdG8gb3V0OwotLSAKMi4x
+OS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
