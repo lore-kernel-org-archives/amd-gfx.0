@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: WARN once if amdgpu_bo_unpin is called for an
- unpinned BO
-Date: Thu, 13 Dec 2018 16:26:00 +0000
-Message-ID: <BN6PR12MB18090B724B778638D87874F6F7A00@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181213160635.2182-1-michel@daenzer.net>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/4] drm/amdgpu: update the vm invalidation engine layout
+Date: Thu, 13 Dec 2018 16:31:15 +0000
+Message-ID: <BL0PR12MB2580625D057FADB320B5A9D180A00@BL0PR12MB2580.namprd12.prod.outlook.com>
+References: <20181213040947.26260-1-evan.quan@amd.com>
+ <20181213040947.26260-2-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0645773159=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181213160635.2182-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <20181213040947.26260-2-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,145 +20,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
+ Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
---===============0645773159==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18090B724B778638D87874F6F7A00BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18090B724B778638D87874F6F7A00BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deuche-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
-=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Thursday, December 13, 2018 11:06:35 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [PATCH] drm/amdgpu: WARN once if amdgpu_bo_unpin is called for an =
-unpinned BO
-
-From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
-
-It indicates a pin/unpin imbalance bug somewhere. While the bug isn't
-necessarily in the call chain hitting this, it's at least one part
-involved.
-
-Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c
-index fd271f9746a2..728e15e5d68a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -912,7 +912,7 @@ int amdgpu_bo_unpin(struct amdgpu_bo *bo)
-         struct ttm_operation_ctx ctx =3D { false, false };
-         int r, i;
-
--       if (!bo->pin_count) {
-+       if (WARN_ON_ONCE(!bo->pin_count)) {
-                 dev_warn(adev->dev, "%p unpin not necessary\n", bo);
-                 return 0;
-         }
---
-2.20.0.rc2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18090B724B778638D87874F6F7A00BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deuche-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
-enzer.net&gt;<br>
-<b>Sent:</b> Thursday, December 13, 2018 11:06:35 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: WARN once if amdgpu_bo_unpin is called =
-for an unpinned BO</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<br>
-It indicates a pin/unpin imbalance bug somewhere. While the bug isn't<br>
-necessarily in the call chain hitting this, it's at least one part<br>
-involved.<br>
-<br>
-Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_object.c<br>
-index fd271f9746a2..728e15e5d68a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
-@@ -912,7 &#43;912,7 @@ int amdgpu_bo_unpin(struct amdgpu_bo *bo)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ttm_operation_ctx c=
-tx =3D { false, false };<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, i;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!bo-&gt;pin_count) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ON_ONCE(!bo-&gt;pin_coun=
-t)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;%p unpin not necessary\n=
-&quot;, bo);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--- <br>
-2.20.0.rc2<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18090B724B778638D87874F6F7A00BN6PR12MB1809namp_--
-
---===============0645773159==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0645773159==--
+UmV2aWV3ZWQtYnk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPgoKUmVnYXJkcywKT2FrCgot
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQpGcm9tOiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQu
+Y29tPiAKU2VudDogV2VkbmVzZGF5LCBEZWNlbWJlciAxMiwgMjAxOCAxMToxMCBQTQpUbzogYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3Rp
+YW4uS29lbmlnQGFtZC5jb20+OyBaZW5nLCBPYWsgPE9hay5aZW5nQGFtZC5jb20+OyBEZXVjaGVy
+LCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBRdWFuLCBFdmFuIDxFdmFu
+LlF1YW5AYW1kLmNvbT4KU3ViamVjdDogW1BBVENIIDIvNF0gZHJtL2FtZGdwdTogdXBkYXRlIHRo
+ZSB2bSBpbnZhbGlkYXRpb24gZW5naW5lIGxheW91dAoKV2UgbmVlZCBuZXcgaW52YWxpZGF0aW9u
+IGVuZ2luZSBsYXlvdXQgZHVlIHRvIG5ldyBTRE1BIHBhZ2UgcXVldWVzIGFkZGVkLgoKQ2hhbmdl
+LUlkOiBJMmYzODYxNjg5YmZmYjk4MjhjOWVhZTc0NGE3YTBkZTQ5NjNhYzJiNgpTaWduZWQtb2Zm
+LWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dtY192OV8wLmMgfCA0NyArKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0gIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmggfCAxMCArKysrKysKIDIgZmlsZXMg
+Y2hhbmdlZCwgMzUgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dtY192OV8wLmMKaW5kZXggZGM0ZGFkYzM1NzVjLi4wOTJhNGQxMTE1NTcgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwpAQCAtNzE5LDM3ICs3MTksNDAgQEAg
+c3RhdGljIGJvb2wgZ21jX3Y5XzBfa2VlcF9zdG9sZW5fbWVtb3J5KHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KQogCX0KIH0KIAotc3RhdGljIGludCBnbWNfdjlfMF9sYXRlX2luaXQodm9pZCAq
+aGFuZGxlKQorc3RhdGljIGludCBnbWNfdjlfMF9hbGxvY2F0ZV92bV9pbnZfZW5nKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2KQogewotCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOwotCS8qCi0JICogVGhlIGxhdGVzdCBlbmdpbmUg
+YWxsb2NhdGlvbiBvbiBnZng5IGlzOgotCSAqIEVuZ2luZSAwLCAxOiBpZGxlCi0JICogRW5naW5l
+IDIsIDM6IGZpcm13YXJlCi0JICogRW5naW5lIDR+MTM6IGFtZGdwdSByaW5nLCBzdWJqZWN0IHRv
+IGNoYW5nZSB3aGVuIHJpbmcgbnVtYmVyIGNoYW5nZXMKLQkgKiBFbmdpbmUgMTR+MTU6IGlkbGUK
+LQkgKiBFbmdpbmUgMTY6IGtmZCB0bGIgaW52YWxpZGF0aW9uCi0JICogRW5naW5lIDE3OiBHYXJ0
+IGZsdXNoZXMKLQkgKi8KLQl1bnNpZ25lZCB2bV9pbnZfZW5nW0FNREdQVV9NQVhfVk1IVUJTXSA9
+IHsgNCwgNCB9OworCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZzsKKwl1bnNpZ25lZCB2bV9pbnZf
+ZW5nc1tBTURHUFVfTUFYX1ZNSFVCU10gPQorCQl7R0ZYSFVCX0ZSRUVfVk1fSU5WX0VOR1NfQklU
+TUFQLCBNTUhVQl9GUkVFX1ZNX0lOVl9FTkdTX0JJVE1BUH07CiAJdW5zaWduZWQgaTsKLQlpbnQg
+cjsKKwl1bnNpZ25lZCB2bWh1YiwgaW52X2VuZzsKIAotCWlmICghZ21jX3Y5XzBfa2VlcF9zdG9s
+ZW5fbWVtb3J5KGFkZXYpKQotCQlhbWRncHVfYm9fbGF0ZV9pbml0KGFkZXYpOworCWZvciAoaSA9
+IDA7IGkgPCBhZGV2LT5udW1fcmluZ3M7ICsraSkgeworCQlyaW5nID0gYWRldi0+cmluZ3NbaV07
+CisJCXZtaHViID0gcmluZy0+ZnVuY3MtPnZtaHViOworCisJCWludl9lbmcgPSBmZnModm1faW52
+X2VuZ3Nbdm1odWJdKTsKKwkJQlVHX09OKCFpbnZfZW5nKTsKIAotCWZvcihpID0gMDsgaSA8IGFk
+ZXYtPm51bV9yaW5nczsgKytpKSB7Ci0JCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IGFkZXYt
+PnJpbmdzW2ldOwotCQl1bnNpZ25lZCB2bWh1YiA9IHJpbmctPmZ1bmNzLT52bWh1YjsKKwkJcmlu
+Zy0+dm1faW52X2VuZyA9IGludl9lbmcgLSAxOworCQljaGFuZ2VfYml0KGludl9lbmcgLSAxLCAo
+dW5zaWduZWQgbG9uZyAqKSgmdm1faW52X2VuZ3Nbdm1odWJdKSk7CiAKLQkJcmluZy0+dm1faW52
+X2VuZyA9IHZtX2ludl9lbmdbdm1odWJdKys7CiAJCWRldl9pbmZvKGFkZXYtPmRldiwgInJpbmcg
+JXMgdXNlcyBWTSBpbnYgZW5nICV1IG9uIGh1YiAldVxuIiwKIAkJCSByaW5nLT5uYW1lLCByaW5n
+LT52bV9pbnZfZW5nLCByaW5nLT5mdW5jcy0+dm1odWIpOwogCX0KIAotCS8qIEVuZ2luZSAxNiBp
+cyB1c2VkIGZvciBLRkQgYW5kIDE3IGZvciBHQVJUIGZsdXNoZXMgKi8KLQlmb3IoaSA9IDA7IGkg
+PCBBTURHUFVfTUFYX1ZNSFVCUzsgKytpKQotCQlCVUdfT04odm1faW52X2VuZ1tpXSA+IDE2KTsK
+KwlyZXR1cm4gMDsKK30KKworc3RhdGljIGludCBnbWNfdjlfMF9sYXRlX2luaXQodm9pZCAqaGFu
+ZGxlKSB7CisJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKiloYW5kbGU7CisJaW50IHI7CisKKwlpZiAoIWdtY192OV8wX2tlZXBfc3RvbGVuX21lbW9y
+eShhZGV2KSkKKwkJYW1kZ3B1X2JvX2xhdGVfaW5pdChhZGV2KTsKKworCWdtY192OV8wX2FsbG9j
+YXRlX3ZtX2ludl9lbmcoYWRldik7CiAKIAlpZiAoYWRldi0+YXNpY190eXBlID09IENISVBfVkVH
+QTEwICYmICFhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsKIAkJciA9IGdtY192OV8wX2VjY19hdmFp
+bGFibGUoYWRldik7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djlfMC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuaAppbmRleCBiMDMw
+Y2E1ZWExMDcuLjVjOGRlYWM2NTU4MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ21jX3Y5XzAuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlf
+MC5oCkBAIC0yNCw2ICsyNCwxNiBAQAogI2lmbmRlZiBfX0dNQ19WOV8wX0hfXwogI2RlZmluZSBf
+X0dNQ19WOV8wX0hfXwogCisJLyoKKwkgKiBUaGUgbGF0ZXN0IGVuZ2luZSBhbGxvY2F0aW9uIG9u
+IGdmeDkgaXM6CisJICogRW5naW5lIDIsIDM6IGZpcm13YXJlCisJICogRW5naW5lIDAsIDEsIDR+
+MTY6IGFtZGdwdSByaW5nLAorCSAqICAgICAgICAgICAgICAgICAgICBzdWJqZWN0IHRvIGNoYW5n
+ZSB3aGVuIHJpbmcgbnVtYmVyIGNoYW5nZXMKKwkgKiBFbmdpbmUgMTc6IEdhcnQgZmx1c2hlcwor
+CSAqLworI2RlZmluZSBHRlhIVUJfRlJFRV9WTV9JTlZfRU5HU19CSVRNQVAJCTB4MUZGRjMKKyNk
+ZWZpbmUgTU1IVUJfRlJFRV9WTV9JTlZfRU5HU19CSVRNQVAJCTB4MUZGRjMKKwogZXh0ZXJuIGNv
+bnN0IHN0cnVjdCBhbWRfaXBfZnVuY3MgZ21jX3Y5XzBfaXBfZnVuY3M7ICBleHRlcm4gY29uc3Qg
+c3RydWN0IGFtZGdwdV9pcF9ibG9ja192ZXJzaW9uIGdtY192OV8wX2lwX2Jsb2NrOwogCi0tCjIu
+MTkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
