@@ -1,43 +1,49 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [WIP PATCH 07/15] drm/nouveau: Remove bogus cleanup in nv50_mstm_add_connector()
-Date: Thu, 13 Dec 2018 20:25:36 -0500
-Message-ID: <20181214012604.13746-8-lyude@redhat.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [WIP PATCH 06/15] drm/i915: Keep malloc references to MST ports
+Date: Thu, 13 Dec 2018 20:25:35 -0500
+Message-ID: <20181214012604.13746-7-lyude@redhat.com>
 References: <20181214012604.13746-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181214012604.13746-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, Ilia Mirkin <imirkin@alum.mit.edu>, Sean Paul <seanpaul@chromium.org>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181214012604.13746-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-Trying to destroy the connector using mstc->connector.funcs->destroy()
-if connector initialization fails is wrong: there is no possible
-codepath in nv50_mstc_new where nv50_mstm_add_connector() would return
-<0 and mstc would be non-NULL.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 26af45785939..641252208e67 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1099,11 +1099,8 @@ nv50_mstm_add_connector(struct drm_dp_mst_topology_mgr *mgr,
- 	int ret;
- 
- 	ret = nv50_mstc_new(mstm, port, path, &mstc);
--	if (ret) {
--		if (mstc)
--			mstc->connector.funcs->destroy(&mstc->connector);
-+	if (ret)
- 		return NULL;
--	}
- 
- 	return &mstc->connector;
- }
--- 
-2.19.2
+U28gdGhhdCB0aGUgcG9ydHMgc3RheSBhcm91bmQgdW50aWwgd2UndmUgZGVzdHJveWVkIHRoZSBj
+b25uZWN0b3JzLCBpbgpvcmRlciB0byBlbnN1cmUgdGhhdCB3ZSBkb24ndCBwYXNzIGFuIGludmFs
+aWQgcG9pbnRlciB0byBhbnkgTVNUIGhlbHBlcnMKb25jZSB3ZSBpbnRyb2R1Y2UgdGhlIG5ldyBN
+U1QgVkNQSSBoZWxwZXJzLgoKU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9jb25uZWN0b3IuYyB8IDQgKysr
+KwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZHBfbXN0LmMgICAgfCAyICsrCiAyIGZpbGVz
+IGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2ludGVsX2Nvbm5lY3Rvci5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfY29ubmVj
+dG9yLmMKaW5kZXggMThlMzcwZjYwN2JjLi4zN2QyYzY0NGY0YjggMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9pOTE1L2ludGVsX2Nvbm5lY3Rvci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
+OTE1L2ludGVsX2Nvbm5lY3Rvci5jCkBAIC05NSw2ICs5NSwxMCBAQCB2b2lkIGludGVsX2Nvbm5l
+Y3Rvcl9kZXN0cm95KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJaW50ZWxfcGFu
+ZWxfZmluaSgmaW50ZWxfY29ubmVjdG9yLT5wYW5lbCk7CiAKIAlkcm1fY29ubmVjdG9yX2NsZWFu
+dXAoY29ubmVjdG9yKTsKKworCWlmIChpbnRlbF9jb25uZWN0b3ItPnBvcnQpCisJCWRybV9kcF9t
+c3RfcHV0X3BvcnRfbWFsbG9jKGludGVsX2Nvbm5lY3Rvci0+cG9ydCk7CisKIAlrZnJlZShjb25u
+ZWN0b3IpOwogfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kcF9t
+c3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RwX21zdC5jCmluZGV4IGYwNTQyN2I3
+NGUzNC4uNGQ2Y2VkMzRkNDY1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRl
+bF9kcF9tc3QuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kcF9tc3QuYwpAQCAt
+NDg0LDYgKzQ4NCw4IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqaW50ZWxfZHBfYWRk
+X21zdF9jb25uZWN0b3Ioc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvCiAJaWYgKHJldCkKIAkJZ290
+byBlcnI7CiAKKwlkcm1fZHBfbXN0X2dldF9wb3J0X21hbGxvYyhwb3J0KTsKKwogCXJldHVybiBj
+b25uZWN0b3I7CiAKIGVycjoKLS0gCjIuMTkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
