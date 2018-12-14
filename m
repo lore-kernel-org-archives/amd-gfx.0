@@ -1,61 +1,63 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [WIP PATCH 08/15] drm/nouveau: Remove unnecessary VCPI checks in nv50_msto_cleanup()
-Date: Thu, 13 Dec 2018 20:25:37 -0500
-Message-ID: <20181214012604.13746-9-lyude@redhat.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [WIP PATCH 09/15] drm/nouveau: Fix potential
+ use-after-frees for MSTCs
+Date: Thu, 13 Dec 2018 20:25:38 -0500
+Message-ID: <20181214012604.13746-10-lyude@redhat.com>
 References: <20181214012604.13746-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181214012604.13746-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, Sean Paul <seanpaul@chromium.org>, Karol Herbst <karolherbst@gmail.com>, Ilia Mirkin <imirkin@alum.mit.edu>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181214012604.13746-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Sean Paul <seanpaul-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-There is no need to look at the port's VCPI allocation before calling
-drm_dp_mst_deallocate_vcpi(), as we already have msto->disabled to let
-us avoid cleaning up an msto more then once. The DP MST core will never
-call drm_dp_mst_deallocate_vcpi() on it's own, which is presumably what
-these checks are meant to protect against.
-
-More importantly though, we're about to stop clearing mstc->port in the
-next commit, which means if we could potentially hit a use-after-free
-error if we tried to check mstc->port->vcpi here. So to make life easier
-for anyone who bisects this code in the future, use msto->disabled
-instead to check whether or not we need to deallocate VCPI instead.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 641252208e67..0f7d72518604 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -704,14 +704,17 @@ nv50_msto_cleanup(struct nv50_msto *msto)
- 	struct nv50_mstc *mstc = msto->mstc;
- 	struct nv50_mstm *mstm = mstc->mstm;
- 
-+	if (!msto->disabled)
-+		return;
-+
- 	NV_ATOMIC(drm, "%s: msto cleanup\n", msto->encoder.name);
--	if (mstc->port && mstc->port->vcpi.vcpi > 0 && !nv50_msto_payload(msto))
-+
-+	if (mstc->port)
- 		drm_dp_mst_deallocate_vcpi(&mstm->mgr, mstc->port);
--	if (msto->disabled) {
--		msto->mstc = NULL;
--		msto->head = NULL;
--		msto->disabled = false;
--	}
-+
-+	msto->mstc = NULL;
-+	msto->head = NULL;
-+	msto->disabled = false;
- }
- 
- static void
--- 
-2.19.2
+Tm93IHRoYXQgd2UgZmluYWxseSBoYXZlIGEgc2FuZSB3YXkgdG8ga2VlcCBwb3J0IGFsbG9jYXRp
+b25zIGFyb3VuZCwgdXNlCml0IHRvIGZpeCB0aGUgcG90ZW50aWFsIHVuY2hlY2tlZCAtPnBvcnQg
+YWNjZXNzZXMgdGhhdCBub3V2ZWF1IG1ha2VzIGJ5Cm1ha2luZyBzdXJlIHdlIGtlZXAgdGhlIG1z
+dCBwb3J0IGFsbG9jYXRlZCBmb3IgYXMgbG9uZyBhcyBpdCdzCmRybV9jb25uZWN0b3IgaXMgYWNj
+ZXNzaWJsZS4KCkFkZGl0aW9uYWxseSwgbm93IHRoYXQgd2UndmUgZ3VhcmFudGVlZCB0aGF0IG1z
+dGMtPnBvcnQgaXMgYWxsb2NhdGVkIGZvcgphcyBsb25nIGFzIHdlIGtlZXAgbXN0YyBhcm91bmQg
+d2UgY2FuIHJlbW92ZSB0aGUgY29ubmVjdG9yIHJlZ2lzdHJhdGlvbgpjaGVja3MgZm9yIGNvZGVw
+YXRocyB3aGljaCByZWxlYXNlIHBheWxvYWRzLCBhbGxvd2luZyB1cyB0byByZWxlYXNlCnBheWxv
+YWRzIG9uIGFjdGl2ZSB0b3BvbG9naWVzIHByb3Blcmx5LiBUaGVzZSByZWdpc3RyYXRpb24gY2hl
+Y2tzIHdlcmUKb25seSByZXF1aXJlZCBiZWZvcmUgaW4gb3JkZXIgdG8gYXZvaWQgc2l0dWF0aW9u
+cyB3aGVyZSBtc3RjLT5wb3J0IGNvdWxkCnRlY2huaWNhbGx5IGJlIHBvaW50aW5nIGF0IGZyZWVk
+IG1lbW9yeS4KClNpZ25lZC1vZmYtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+Ci0t
+LQogZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jIHwgNiArKysrKysKIDEg
+ZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNw
+bnY1MC9kaXNwLmMKaW5kZXggMGY3ZDcyNTE4NjA0Li45ODIwNTRiYmNjOGIgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L2Rpc3BudjUwL2Rpc3AuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMKQEAgLTk2NCw3ICs5NjQsMTEgQEAgc3RhdGlj
+IHZvaWQKIG52NTBfbXN0Y19kZXN0cm95KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3Ip
+CiB7CiAJc3RydWN0IG52NTBfbXN0YyAqbXN0YyA9IG52NTBfbXN0Yyhjb25uZWN0b3IpOworCiAJ
+ZHJtX2Nvbm5lY3Rvcl9jbGVhbnVwKCZtc3RjLT5jb25uZWN0b3IpOworCWlmIChtc3RjLT5wb3J0
+KQorCQlkcm1fZHBfbXN0X3B1dF9wb3J0X21hbGxvYyhtc3RjLT5wb3J0KTsKKwogCWtmcmVlKG1z
+dGMpOwogfQogCkBAIC0xMDEyLDYgKzEwMTYsNyBAQCBudjUwX21zdGNfbmV3KHN0cnVjdCBudjUw
+X21zdG0gKm1zdG0sIHN0cnVjdCBkcm1fZHBfbXN0X3BvcnQgKnBvcnQsCiAJZHJtX29iamVjdF9h
+dHRhY2hfcHJvcGVydHkoJm1zdGMtPmNvbm5lY3Rvci5iYXNlLCBkZXYtPm1vZGVfY29uZmlnLnBh
+dGhfcHJvcGVydHksIDApOwogCWRybV9vYmplY3RfYXR0YWNoX3Byb3BlcnR5KCZtc3RjLT5jb25u
+ZWN0b3IuYmFzZSwgZGV2LT5tb2RlX2NvbmZpZy50aWxlX3Byb3BlcnR5LCAwKTsKIAlkcm1fY29u
+bmVjdG9yX3NldF9wYXRoX3Byb3BlcnR5KCZtc3RjLT5jb25uZWN0b3IsIHBhdGgpOworCWRybV9k
+cF9tc3RfZ2V0X3BvcnRfbWFsbG9jKHBvcnQpOwogCXJldHVybiAwOwogfQogCkBAIC0xMDc3LDYg
+KzEwODIsNyBAQCBudjUwX21zdG1fZGVzdHJveV9jb25uZWN0b3Ioc3RydWN0IGRybV9kcF9tc3Rf
+dG9wb2xvZ3lfbWdyICptZ3IsCiAJZHJtX2ZiX2hlbHBlcl9yZW1vdmVfb25lX2Nvbm5lY3Rvcigm
+ZHJtLT5mYmNvbi0+aGVscGVyLCAmbXN0Yy0+Y29ubmVjdG9yKTsKIAogCWRybV9tb2Rlc2V0X2xv
+Y2soJmRybS0+ZGV2LT5tb2RlX2NvbmZpZy5jb25uZWN0aW9uX211dGV4LCBOVUxMKTsKKwlkcm1f
+ZHBfbXN0X3B1dF9wb3J0X21hbGxvYyhtc3RjLT5wb3J0KTsKIAltc3RjLT5wb3J0ID0gTlVMTDsK
+IAlkcm1fbW9kZXNldF91bmxvY2soJmRybS0+ZGV2LT5tb2RlX2NvbmZpZy5jb25uZWN0aW9uX211
+dGV4KTsKIAotLSAKMi4xOS4yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpOb3V2ZWF1IG1haWxpbmcgbGlzdApOb3V2ZWF1QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL25vdXZl
+YXUK
