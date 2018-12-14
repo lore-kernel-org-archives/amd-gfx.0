@@ -1,74 +1,52 @@
 From: Lyude Paul <lyude@redhat.com>
-Subject: [WIP PATCH 10/15] drm/nouveau: Stop unsetting mstc->port,
- use malloc refs
-Date: Thu, 13 Dec 2018 20:25:39 -0500
-Message-ID: <20181214012604.13746-11-lyude@redhat.com>
+Subject: [WIP PATCH 14/15] drm/dp_mst: Check payload count in drm_dp_mst_atomic_check()
+Date: Thu, 13 Dec 2018 20:25:43 -0500
+Message-ID: <20181214012604.13746-15-lyude@redhat.com>
 References: <20181214012604.13746-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20181214012604.13746-1-lyude@redhat.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org, Jerry Zuo <Jerry.Zuo@amd.com>, Sean Paul <seanpaul@chromium.org>, Ben Skeggs <bskeggs@redhat.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-U2FtZSBhcyB3ZSBkaWQgZm9yIGk5MTUsIGJ1dCBmb3Igbm91dmVhdSB0aGlzIHRpbWUuIEFkZGl0
-aW9uYWxseSwgd2UKZ3JhYiBhIG1hbGxvYyByZWZlcmVuY2UgdG8gdGhlIHBvcnQgdGhhdCBsYXN0
-cyBmb3IgdGhlIGVudGlyZSBsaWZldGltZQpvZiBudjUwX21zdGMsIHdoaWNoIGdpdmVzIHVzIHRo
-ZSBndWFyYW50ZWUgdGhhdCBtc3RjLT5wb3J0IHdpbGwgYWx3YXlzCnBvaW50IHRvIHZhbGlkIG1l
-bW9yeSBmb3IgYXMgbG9uZyBhcyB0aGUgbXN0YyBzdGF5cyBhcm91bmQuCgpTaWduZWQtb2ZmLWJ5
-OiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9ub3V2
-ZWF1L2Rpc3BudjUwL2Rpc3AuYyB8IDE4ICsrKysrLS0tLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5n
-ZWQsIDUgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jIGIvZHJpdmVycy9ncHUvZHJtL25vdXZl
-YXUvZGlzcG52NTAvZGlzcC5jCmluZGV4IDk4MjA1NGJiY2M4Yi4uMTU3ZDIwOGQzN2I1IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jCkBAIC03MDksOCArNzA5LDcgQEAg
-bnY1MF9tc3RvX2NsZWFudXAoc3RydWN0IG52NTBfbXN0byAqbXN0bykKIAogCU5WX0FUT01JQyhk
-cm0sICIlczogbXN0byBjbGVhbnVwXG4iLCBtc3RvLT5lbmNvZGVyLm5hbWUpOwogCi0JaWYgKG1z
-dGMtPnBvcnQpCi0JCWRybV9kcF9tc3RfZGVhbGxvY2F0ZV92Y3BpKCZtc3RtLT5tZ3IsIG1zdGMt
-PnBvcnQpOworCWRybV9kcF9tc3RfZGVhbGxvY2F0ZV92Y3BpKCZtc3RtLT5tZ3IsIG1zdGMtPnBv
-cnQpOwogCiAJbXN0by0+bXN0YyA9IE5VTEw7CiAJbXN0by0+aGVhZCA9IE5VTEw7CkBAIC03MzUs
-NyArNzM0LDcgQEAgbnY1MF9tc3RvX3ByZXBhcmUoc3RydWN0IG52NTBfbXN0byAqbXN0bykKIAl9
-OwogCiAJTlZfQVRPTUlDKGRybSwgIiVzOiBtc3RvIHByZXBhcmVcbiIsIG1zdG8tPmVuY29kZXIu
-bmFtZSk7Ci0JaWYgKG1zdGMtPnBvcnQgJiYgbXN0Yy0+cG9ydC0+dmNwaS52Y3BpID4gMCkgewor
-CWlmIChtc3RjLT5wb3J0LT52Y3BpLnZjcGkgPiAwKSB7CiAJCXN0cnVjdCBkcm1fZHBfcGF5bG9h
-ZCAqcGF5bG9hZCA9IG52NTBfbXN0b19wYXlsb2FkKG1zdG8pOwogCQlpZiAocGF5bG9hZCkgewog
-CQkJYXJncy52Y3BpLnN0YXJ0X3Nsb3QgPSBwYXlsb2FkLT5zdGFydF9zbG90OwpAQCAtODMyLDgg
-KzgzMSw3IEBAIG52NTBfbXN0b19kaXNhYmxlKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5jb2RlcikK
-IAlzdHJ1Y3QgbnY1MF9tc3RjICptc3RjID0gbXN0by0+bXN0YzsKIAlzdHJ1Y3QgbnY1MF9tc3Rt
-ICptc3RtID0gbXN0Yy0+bXN0bTsKIAotCWlmIChtc3RjLT5wb3J0KQotCQlkcm1fZHBfbXN0X3Jl
-c2V0X3ZjcGlfc2xvdHMoJm1zdG0tPm1nciwgbXN0Yy0+cG9ydCk7CisJZHJtX2RwX21zdF9yZXNl
-dF92Y3BpX3Nsb3RzKCZtc3RtLT5tZ3IsIG1zdGMtPnBvcnQpOwogCiAJbXN0bS0+b3V0cC0+dXBk
-YXRlKG1zdG0tPm91dHAsIG1zdG8tPmhlYWQtPmJhc2UuaW5kZXgsIE5VTEwsIDAsIDApOwogCW1z
-dG0tPm1vZGlmaWVkID0gdHJ1ZTsKQEAgLTk0NSw3ICs5NDMsNyBAQCBudjUwX21zdGNfZGV0ZWN0
-KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IsIGJvb2wgZm9yY2UpCiAJZW51bSBkcm1f
-Y29ubmVjdG9yX3N0YXR1cyBjb25uX3N0YXR1czsKIAlpbnQgcmV0OwogCi0JaWYgKCFtc3RjLT5w
-b3J0KQorCWlmIChkcm1fY29ubmVjdG9yX2lzX3VucmVnaXN0ZXJlZChjb25uZWN0b3IpKQogCQly
-ZXR1cm4gY29ubmVjdG9yX3N0YXR1c19kaXNjb25uZWN0ZWQ7CiAKIAlyZXQgPSBwbV9ydW50aW1l
-X2dldF9zeW5jKGNvbm5lY3Rvci0+ZGV2LT5kZXYpOwpAQCAtOTY2LDggKzk2NCw3IEBAIG52NTBf
-bXN0Y19kZXN0cm95KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJc3RydWN0IG52
-NTBfbXN0YyAqbXN0YyA9IG52NTBfbXN0Yyhjb25uZWN0b3IpOwogCiAJZHJtX2Nvbm5lY3Rvcl9j
-bGVhbnVwKCZtc3RjLT5jb25uZWN0b3IpOwotCWlmIChtc3RjLT5wb3J0KQotCQlkcm1fZHBfbXN0
-X3B1dF9wb3J0X21hbGxvYyhtc3RjLT5wb3J0KTsKKwlkcm1fZHBfbXN0X3B1dF9wb3J0X21hbGxv
-Yyhtc3RjLT5wb3J0KTsKIAogCWtmcmVlKG1zdGMpOwogfQpAQCAtMTA4MSwxMSArMTA3OCw2IEBA
-IG52NTBfbXN0bV9kZXN0cm95X2Nvbm5lY3RvcihzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9t
-Z3IgKm1nciwKIAogCWRybV9mYl9oZWxwZXJfcmVtb3ZlX29uZV9jb25uZWN0b3IoJmRybS0+ZmJj
-b24tPmhlbHBlciwgJm1zdGMtPmNvbm5lY3Rvcik7CiAKLQlkcm1fbW9kZXNldF9sb2NrKCZkcm0t
-PmRldi0+bW9kZV9jb25maWcuY29ubmVjdGlvbl9tdXRleCwgTlVMTCk7Ci0JZHJtX2RwX21zdF9w
-dXRfcG9ydF9tYWxsb2MobXN0Yy0+cG9ydCk7Ci0JbXN0Yy0+cG9ydCA9IE5VTEw7Ci0JZHJtX21v
-ZGVzZXRfdW5sb2NrKCZkcm0tPmRldi0+bW9kZV9jb25maWcuY29ubmVjdGlvbl9tdXRleCk7Ci0K
-IAlkcm1fY29ubmVjdG9yX3B1dCgmbXN0Yy0+Y29ubmVjdG9yKTsKIH0KIAotLSAKMi4xOS4yCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwg
-bWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+It occurred to me that we never actually check this! So let's start
+doing that.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+---
+ drivers/gpu/drm/drm_dp_mst_topology.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+index b9374c981a5b..ebffb834f5d6 100644
+--- a/drivers/gpu/drm/drm_dp_mst_topology.c
++++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+@@ -3538,7 +3538,7 @@ drm_dp_mst_atomic_check_topology_state(struct drm_dp_mst_topology_mgr *mgr,
+ 				       struct drm_dp_mst_topology_state *mst_state)
+ {
+ 	struct drm_dp_vcpi_allocation *vcpi;
+-	int avail_slots = 63, ret;
++	int avail_slots = 63, payload_count = 0, ret;
+ 
+ 	/* There's no possible scenario where releasing VCPI or keeping it the
+ 	 * same would make the state invalid
+@@ -3575,6 +3575,13 @@ drm_dp_mst_atomic_check_topology_state(struct drm_dp_mst_topology_mgr *mgr,
+ 			goto port_fail;
+ 		}
+ 
++		if (++payload_count > mgr->max_payloads) {
++			DRM_DEBUG_ATOMIC("[MST MGR:%p] state %p has too many payloads (max=%d)\n",
++					 mgr, mst_state, mgr->max_payloads);
++			ret = -EINVAL;
++			goto port_fail;
++		}
++
+ 		drm_dp_mst_topology_put_port(vcpi->port);
+ 	}
+ 	DRM_DEBUG_ATOMIC("[MST MGR:%p] mst state %p VCPI avail=%d used=%d\n",
+-- 
+2.19.2
