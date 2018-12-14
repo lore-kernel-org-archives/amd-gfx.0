@@ -1,13 +1,12 @@
-From: "Lin, Amber" <Amber.Lin-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/3] drm/amdgpu: Remove kgd2kfd function pointers
-Date: Fri, 14 Dec 2018 15:22:16 +0000
-Message-ID: <1544800921-15780-3-git-send-email-Amber.Lin@amd.com>
-References: <1544800921-15780-1-git-send-email-Amber.Lin@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix IH overflow on Vega10
+Date: Fri, 14 Dec 2018 15:47:55 +0000
+Message-ID: <BN6PR12MB18096E61C433234BC2881BE6F7A10@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20181214143723.5165-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1503797858=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1544800921-15780-1-git-send-email-Amber.Lin-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181214143723.5165-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,103 +18,344 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Lin, Amber" <Amber.Lin-5C7GfCeVMHo@public.gmane.org>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-a2dkMmtmZCBmdW5jdGlvbiBwb2ludGVycyBhbmQgZ2xvYmFsIGtnZDJrZmQgcG9pbnRlciBhcmUg
-bm8gbG9uZ2VyIGluIHVzZS4KClNpZ25lZC1vZmYtYnk6IEFtYmVyIExpbiA8QW1iZXIuTGluQGFt
-ZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jICAg
-ICAgfCAgNyArLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmgg
-ICAgICB8ICAzICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9kdWxlLmMgICAg
-ICAgICB8IDI5ICstLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dk
-X2tmZF9pbnRlcmZhY2UuaCB8IDUwIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KIDQgZmlsZXMg
-Y2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA4NSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKaW5kZXggZmM5MjZlMi4uNjEyODg3YyAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYwpAQCAtMjgsOCArMjgs
-NiBAQAogI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgogI2luY2x1ZGUgPGxpbnV4L2RtYS1idWYu
-aD4KIAotY29uc3Qgc3RydWN0IGtnZDJrZmRfY2FsbHMgKmtnZDJrZmQ7Ci0KIHN0YXRpYyBjb25z
-dCB1bnNpZ25lZCBpbnQgY29tcHV0ZV92bWlkX2JpdG1hcCA9IDB4RkYwMDsKIAogLyogVG90YWwg
-bWVtb3J5IHNpemUgaW4gc3lzdGVtIG1lbW9yeSBhbmQgYWxsIEdQVSBWUkFNLiBVc2VkIHRvCkBA
-IC00NywxMiArNDUsOSBAQCBpbnQgYW1kZ3B1X2FtZGtmZF9pbml0KHZvaWQpCiAJYW1kZ3B1X2Ft
-ZGtmZF90b3RhbF9tZW1fc2l6ZSAqPSBzaS5tZW1fdW5pdDsKIAogI2lmZGVmIENPTkZJR19IU0Ff
-QU1ECi0JcmV0ID0ga2dkMmtmZF9pbml0KEtGRF9JTlRFUkZBQ0VfVkVSU0lPTiwgJmtnZDJrZmQp
-OwotCWlmIChyZXQpCi0JCWtnZDJrZmQgPSBOVUxMOworCXJldCA9IGtnZDJrZmRfaW5pdCgpOwog
-CWFtZGdwdV9hbWRrZmRfZ3B1dm1faW5pdF9tZW1fbGltaXRzKCk7CiAjZWxzZQotCWtnZDJrZmQg
-PSBOVUxMOwogCXJldCA9IC1FTk9FTlQ7CiAjZW5kaWYKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2FtZGtmZC5oCmluZGV4IDMyMTRkMzEuLjBiMzFhMTggMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaAorKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmgKQEAgLTIxNCw4ICsyMTQsNyBAQCB2
-b2lkIGFtZGdwdV9hbWRrZmRfZ3B1dm1faW5pdF9tZW1fbGltaXRzKHZvaWQpOwogdm9pZCBhbWRn
-cHVfYW1ka2ZkX3VucmVzZXJ2ZV9tZW1vcnlfbGltaXQoc3RydWN0IGFtZGdwdV9ibyAqYm8pOwog
-CiAvKiBLR0QyS0ZEIGNhbGxiYWNrcyAqLwotaW50IGtnZDJrZmRfaW5pdCh1bnNpZ25lZCBpbnRl
-cmZhY2VfdmVyc2lvbiwKLQkJIGNvbnN0IHN0cnVjdCBrZ2Qya2ZkX2NhbGxzICoqZzJmKTsKK2lu
-dCBrZ2Qya2ZkX2luaXQodm9pZCk7CiB2b2lkIGtnZDJrZmRfZXhpdCh2b2lkKTsKIHN0cnVjdCBr
-ZmRfZGV2ICprZ2Qya2ZkX3Byb2JlKHN0cnVjdCBrZ2RfZGV2ICprZ2QsIHN0cnVjdCBwY2lfZGV2
-ICpwZGV2LAogCQkJICAgICAgY29uc3Qgc3RydWN0IGtmZDJrZ2RfY2FsbHMgKmYyZyk7CmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9kdWxlLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbW9kdWxlLmMKaW5kZXggMDMwYjM5ZC4uOTMyMDA3ZSAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX21vZHVsZS5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tb2R1bGUuYwpAQCAtMjUsMjIgKzI1LDYg
-QEAKICNpbmNsdWRlICJrZmRfcHJpdi5oIgogI2luY2x1ZGUgImFtZGdwdV9hbWRrZmQuaCIKIAot
-c3RhdGljIGNvbnN0IHN0cnVjdCBrZ2Qya2ZkX2NhbGxzIGtnZDJrZmQgPSB7Ci0JLmV4aXQJCT0g
-a2dkMmtmZF9leGl0LAotCS5wcm9iZQkJPSBrZ2Qya2ZkX3Byb2JlLAotCS5kZXZpY2VfaW5pdAk9
-IGtnZDJrZmRfZGV2aWNlX2luaXQsCi0JLmRldmljZV9leGl0CT0ga2dkMmtmZF9kZXZpY2VfZXhp
-dCwKLQkuaW50ZXJydXB0CT0ga2dkMmtmZF9pbnRlcnJ1cHQsCi0JLnN1c3BlbmQJPSBrZ2Qya2Zk
-X3N1c3BlbmQsCi0JLnJlc3VtZQkJPSBrZ2Qya2ZkX3Jlc3VtZSwKLQkucXVpZXNjZV9tbQk9IGtn
-ZDJrZmRfcXVpZXNjZV9tbSwKLQkucmVzdW1lX21tCT0ga2dkMmtmZF9yZXN1bWVfbW0sCi0JLnNj
-aGVkdWxlX2V2aWN0X2FuZF9yZXN0b3JlX3Byb2Nlc3MgPQotCQkJICBrZ2Qya2ZkX3NjaGVkdWxl
-X2V2aWN0X2FuZF9yZXN0b3JlX3Byb2Nlc3MsCi0JLnByZV9yZXNldAk9IGtnZDJrZmRfcHJlX3Jl
-c2V0LAotCS5wb3N0X3Jlc2V0CT0ga2dkMmtmZF9wb3N0X3Jlc2V0LAotfTsKLQogc3RhdGljIGlu
-dCBrZmRfaW5pdCh2b2lkKQogewogCWludCBlcnI7CkBAIC05MiwxOCArNzYsOSBAQCBzdGF0aWMg
-dm9pZCBrZmRfZXhpdCh2b2lkKQogCWtmZF9jaGFyZGV2X2V4aXQoKTsKIH0KIAotaW50IGtnZDJr
-ZmRfaW5pdCh1bnNpZ25lZCBpbnQgaW50ZXJmYWNlX3ZlcnNpb24sCi0JCWNvbnN0IHN0cnVjdCBr
-Z2Qya2ZkX2NhbGxzICoqZzJmKQoraW50IGtnZDJrZmRfaW5pdCgpCiB7Ci0JaW50IGVycjsKLQot
-CWVyciA9IGtmZF9pbml0KCk7Ci0JaWYgKGVycikKLQkJcmV0dXJuIGVycjsKLQotCSpnMmYgPSAm
-a2dkMmtmZDsKLQotCXJldHVybiAwOworCXJldHVybiBrZmRfaW5pdCgpOwogfQogCiB2b2lkIGtn
-ZDJrZmRfZXhpdCh2b2lkKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRl
-L2tnZF9rZmRfaW50ZXJmYWNlLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX2tm
-ZF9pbnRlcmZhY2UuaAppbmRleCAzZDVjM2IwLi44M2Q5NjAxIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX2tmZF9pbnRlcmZhY2UuaAorKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2luY2x1ZGUva2dkX2tmZF9pbnRlcmZhY2UuaApAQCAtMzQsNyArMzQsNiBAQAog
-CiBzdHJ1Y3QgcGNpX2RldjsKIAotI2RlZmluZSBLRkRfSU5URVJGQUNFX1ZFUlNJT04gMgogI2Rl
-ZmluZSBLR0RfTUFYX1FVRVVFUyAxMjgKIAogc3RydWN0IGtmZF9kZXY7CkBAIC0zMzAsNTMgKzMy
-OSw0IEBAIHN0cnVjdCBrZmQya2dkX2NhbGxzIHsKIAogfTsKIAotLyoqCi0gKiBzdHJ1Y3Qga2dk
-MmtmZF9jYWxscwotICoKLSAqIEBleGl0OiBOb3RpZmllcyBhbWRrZmQgdGhhdCBrZ2QgbW9kdWxl
-IGlzIHVubG9hZGVkCi0gKgotICogQHByb2JlOiBOb3RpZmllcyBhbWRrZmQgYWJvdXQgYSBwcm9i
-ZSBkb25lIG9uIGEgZGV2aWNlIGluIHRoZSBrZ2QgZHJpdmVyLgotICoKLSAqIEBkZXZpY2VfaW5p
-dDogSW5pdGlhbGl6ZSB0aGUgbmV3bHkgcHJvYmVkIGRldmljZSAoaWYgaXQgaXMgYSBkZXZpY2Ug
-dGhhdAotICogYW1ka2ZkIHN1cHBvcnRzKQotICoKLSAqIEBkZXZpY2VfZXhpdDogTm90aWZpZXMg
-YW1ka2ZkIGFib3V0IGEgcmVtb3ZhbCBvZiBhIGtnZCBkZXZpY2UKLSAqCi0gKiBAc3VzcGVuZDog
-Tm90aWZpZXMgYW1ka2ZkIGFib3V0IGEgc3VzcGVuZCBhY3Rpb24gZG9uZSB0byBhIGtnZCBkZXZp
-Y2UKLSAqCi0gKiBAcmVzdW1lOiBOb3RpZmllcyBhbWRrZmQgYWJvdXQgYSByZXN1bWUgYWN0aW9u
-IGRvbmUgdG8gYSBrZ2QgZGV2aWNlCi0gKgotICogQHF1aWVzY2VfbW06IFF1aWVzY2UgYWxsIHVz
-ZXIgcXVldWUgYWNjZXNzIHRvIHNwZWNpZmllZCBNTSBhZGRyZXNzIHNwYWNlCi0gKgotICogQHJl
-c3VtZV9tbTogUmVzdW1lIHVzZXIgcXVldWUgYWNjZXNzIHRvIHNwZWNpZmllZCBNTSBhZGRyZXNz
-IHNwYWNlCi0gKgotICogQHNjaGVkdWxlX2V2aWN0X2FuZF9yZXN0b3JlX3Byb2Nlc3M6IFNjaGVk
-dWxlcyB3b3JrIHF1ZXVlIHRoYXQgd2lsbCBwcmVwYXJlCi0gKiBmb3Igc2FmZSBldmljdGlvbiBv
-ZiBLRkQgQk9zIHRoYXQgYmVsb25nIHRvIHRoZSBzcGVjaWZpZWQgcHJvY2Vzcy4KLSAqCi0gKiBA
-cHJlX3Jlc2V0OiBOb3RpZmllcyBhbWRrZmQgdGhhdCBhbWRncHUgYWJvdXQgdG8gcmVzZXQgdGhl
-IGdwdQotICoKLSAqIEBwb3N0X3Jlc2V0OiBOb3RpZnkgYW1ka2ZkIHRoYXQgYW1ncHUgc3VjY2Vz
-c2Z1bGx5IHJlc2V0ZWQgdGhlIGdwdQotICoKLSAqIFRoaXMgc3RydWN0dXJlIGNvbnRhaW5zIGZ1
-bmN0aW9uIGNhbGxiYWNrIHBvaW50ZXJzIHNvIHRoZSBrZ2QgZHJpdmVyCi0gKiB3aWxsIG5vdGlm
-eSB0byB0aGUgYW1ka2ZkIGFib3V0IGNlcnRhaW4gc3RhdHVzIGNoYW5nZXMuCi0gKgotICovCi1z
-dHJ1Y3Qga2dkMmtmZF9jYWxscyB7Ci0Jdm9pZCAoKmV4aXQpKHZvaWQpOwotCXN0cnVjdCBrZmRf
-ZGV2KiAoKnByb2JlKShzdHJ1Y3Qga2dkX2RldiAqa2dkLCBzdHJ1Y3QgcGNpX2RldiAqcGRldiwK
-LQkJY29uc3Qgc3RydWN0IGtmZDJrZ2RfY2FsbHMgKmYyZyk7Ci0JYm9vbCAoKmRldmljZV9pbml0
-KShzdHJ1Y3Qga2ZkX2RldiAqa2ZkLAotCQkJY29uc3Qgc3RydWN0IGtnZDJrZmRfc2hhcmVkX3Jl
-c291cmNlcyAqZ3B1X3Jlc291cmNlcyk7Ci0Jdm9pZCAoKmRldmljZV9leGl0KShzdHJ1Y3Qga2Zk
-X2RldiAqa2ZkKTsKLQl2b2lkICgqaW50ZXJydXB0KShzdHJ1Y3Qga2ZkX2RldiAqa2ZkLCBjb25z
-dCB2b2lkICppaF9yaW5nX2VudHJ5KTsKLQl2b2lkICgqc3VzcGVuZCkoc3RydWN0IGtmZF9kZXYg
-KmtmZCk7Ci0JaW50ICgqcmVzdW1lKShzdHJ1Y3Qga2ZkX2RldiAqa2ZkKTsKLQlpbnQgKCpxdWll
-c2NlX21tKShzdHJ1Y3QgbW1fc3RydWN0ICptbSk7Ci0JaW50ICgqcmVzdW1lX21tKShzdHJ1Y3Qg
-bW1fc3RydWN0ICptbSk7Ci0JaW50ICgqc2NoZWR1bGVfZXZpY3RfYW5kX3Jlc3RvcmVfcHJvY2Vz
-cykoc3RydWN0IG1tX3N0cnVjdCAqbW0sCi0JCQlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSk7Ci0J
-aW50ICAoKnByZV9yZXNldCkoc3RydWN0IGtmZF9kZXYgKmtmZCk7Ci0JaW50ICAoKnBvc3RfcmVz
-ZXQpKHN0cnVjdCBrZmRfZGV2ICprZmQpOwotfTsKLQogI2VuZGlmCS8qIEtHRF9LRkRfSU5URVJG
-QUNFX0hfSU5DTFVERUQgKi8KLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+--===============1503797858==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18096E61C433234BC2881BE6F7A10BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18096E61C433234BC2881BE6F7A10BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, December 14, 2018 9:37:23 AM
+To: Deucher, Alexander; alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9/EVdHwE84te@public.gmane.org=
+g
+Subject: [PATCH] drm/amdgpu: fix IH overflow on Vega10
+
+When an ring buffer overflow happens the appropriate bit is set in the WPTR
+register which is also written back to memory. But clearing the bit in the
+WPTR doesn't trigger another memory writeback.
+
+So what can happen is that we end up processing the buffer overflow over an=
+d
+over again because the bit is never cleared. Resulting in a random system
+lockup because of an infinite loop in an interrupt handler.
+
+This is 100% reproducible on Vega10, but it's most likely an issue we have
+in the driver over all generations all the way back to radeon.
+
+Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 68 ++++++++++++++++----------
+ 1 file changed, 43 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/a=
+mdgpu/vega10_ih.c
+index 992c8a8b8f77..0ab7785079c0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+@@ -276,31 +276,49 @@ static u32 vega10_ih_get_wptr(struct amdgpu_device *a=
+dev,
+
+         wptr =3D le32_to_cpu(*ih->wptr_cpu);
+
+-       if (REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW)) {
+-               wptr =3D REG_SET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW, 0);
+-
+-               /* When a ring buffer overflow happen start parsing interru=
+pt
+-                * from the last not overwritten vector (wptr + 32). Hopefu=
+lly
+-                * this should allow us to catchup.
+-                */
+-               tmp =3D (wptr + 32) & ih->ptr_mask;
+-               dev_warn(adev->dev, "IH ring buffer overflow (0x%08X, 0x%08=
+X, 0x%08X)\n",
+-                        wptr, ih->rptr, tmp);
+-               ih->rptr =3D tmp;
+-
+-               if (ih =3D=3D &adev->irq.ih)
+-                       reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL);
+-               else if (ih =3D=3D &adev->irq.ih1)
+-                       reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RI=
+NG1);
+-               else if (ih =3D=3D &adev->irq.ih2)
+-                       reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RI=
+NG2);
+-               else
+-                       BUG();
+-
+-               tmp =3D RREG32_NO_KIQ(reg);
+-               tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR,=
+ 1);
+-               WREG32_NO_KIQ(reg, tmp);
+-       }
++       if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
++               goto out;
++
++       /* Double check that the overflow wasn't already cleared. */
++       if (ih =3D=3D &adev->irq.ih)
++               reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_WPTR);
++       else if (ih =3D=3D &adev->irq.ih1)
++               reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_WPTR_RING1);
++       else if (ih =3D=3D &adev->irq.ih2)
++               reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_WPTR_RING2);
++       else
++               BUG();
++
++       wptr =3D RREG32_NO_KIQ(reg);
++       if (!REG_GET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW))
++               goto out;
++
++       wptr =3D REG_SET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW, 0);
++
++       /* When a ring buffer overflow happen start parsing interrupt
++        * from the last not overwritten vector (wptr + 32). Hopefully
++        * this should allow us to catchup.
++        */
++       tmp =3D (wptr + 32) & ih->ptr_mask;
++       dev_warn(adev->dev, "IH ring buffer overflow "
++                "(0x%08X, 0x%08X, 0x%08X)\n",
++                wptr, ih->rptr, tmp);
++       ih->rptr =3D tmp;
++
++       if (ih =3D=3D &adev->irq.ih)
++               reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL);
++       else if (ih =3D=3D &adev->irq.ih1)
++               reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RING1);
++       else if (ih =3D=3D &adev->irq.ih2)
++               reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RING2);
++       else
++               BUG();
++
++       tmp =3D RREG32_NO_KIQ(reg);
++       tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);
++       WREG32_NO_KIQ(reg, tmp);
++
++out:
+         return (wptr & ih->ptr_mask);
+ }
+
+--
+2.17.1
+
+
+--_000_BN6PR12MB18096E61C433234BC2881BE6F7A10BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, December 14, 2018 9:37:23 AM<br>
+<b>To:</b> Deucher, Alexander; alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: fix IH overflow on Vega10</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">When an ring buffer overflow happens the appropria=
+te bit is set in the WPTR<br>
+register which is also written back to memory. But clearing the bit in the<=
+br>
+WPTR doesn't trigger another memory writeback.<br>
+<br>
+So what can happen is that we end up processing the buffer overflow over an=
+d<br>
+over again because the bit is never cleared. Resulting in a random system<b=
+r>
+lockup because of an infinite loop in an interrupt handler.<br>
+<br>
+This is 100% reproducible on Vega10, but it's most likely an issue we have<=
+br>
+in the driver over all generations all the way back to radeon.<br>
+<br>
+Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 68 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----------<br>
+&nbsp;1 file changed, 43 insertions(&#43;), 25 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/a=
+mdgpu/vega10_ih.c<br>
+index 992c8a8b8f77..0ab7785079c0 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<br>
+@@ -276,31 &#43;276,49 @@ static u32 vega10_ih_get_wptr(struct amdgpu_devic=
+e *adev,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr =3D le32_to_cpu(*ih-&=
+gt;wptr_cpu);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (REG_GET_FIELD(wptr, IH_RB_WPTR, R=
+B_OVERFLOW)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; wptr =3D REG_SET_FIELD(wptr, IH_RB_WPTR, RB_OVERFLOW, 0);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* When a ring buffer overflow happen start parsing interrupt<br=
+>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * from the last not overwritten vector (wptr &#43; 32). Ho=
+pefully<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; * this should allow us to catchup.<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D (wptr &#43; 32) &amp; ih-&gt;ptr_mask;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; dev_warn(adev-&gt;dev, &quot;IH ring buffer overflow (0x%08X, 0x=
+%08X, 0x%08X)\n&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr, ih-&=
+gt;rptr, tmp);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ih-&gt;rptr =3D tmp;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (ih =3D=3D &amp;adev-&gt;irq.ih)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D SOC15_RE=
+G_OFFSET(OSSSYS, 0, mmIH_RB_CNTL);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else if (ih =3D=3D &amp;adev-&gt;irq.ih1)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D SOC15_RE=
+G_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RING1);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else if (ih =3D=3D &amp;adev-&gt;irq.ih2)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reg =3D SOC15_RE=
+G_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RING2);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; else<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BUG();<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D RREG32_NO_KIQ(reg);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, IH_RB_CNTL, WPTR_OVERFLOW_CLEAR, 1);<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; WREG32_NO_KIQ(reg, tmp);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!REG_GET_FIELD(wptr, IH_RB_WP=
+TR, RB_OVERFLOW))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Double check that the overflow=
+ wasn't already cleared. */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih =3D=3D &amp;adev-&gt;irq.i=
+h)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_WPTR);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (ih =3D=3D &amp;adev-&gt;=
+irq.ih1)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_WPTR_RING1);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (ih =3D=3D &amp;adev-&gt;=
+irq.ih2)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_WPTR_RING2);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; BUG();<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr =3D RREG32_NO_KIQ(reg);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!REG_GET_FIELD(wptr, IH_RB_WP=
+TR, RB_OVERFLOW))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; goto out;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr =3D REG_SET_FIELD(wptr, IH_R=
+B_WPTR, RB_OVERFLOW, 0);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* When a ring buffer overflow ha=
+ppen start parsing interrupt<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * from the last not overwri=
+tten vector (wptr &#43; 32). Hopefully<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * this should allow us to c=
+atchup.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D (wptr &#43; 32) &amp; ih-=
+&gt;ptr_mask;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;IH r=
+ing buffer overflow &quot;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; &quot;(0x%08X, 0x%08X, 0x%08X)\n&quot;,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; wptr, ih-&gt;rptr, tmp);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih-&gt;rptr =3D tmp;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih =3D=3D &amp;adev-&gt;irq.i=
+h)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (ih =3D=3D &amp;adev-&gt;=
+irq.ih1)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RING1);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (ih =3D=3D &amp;adev-&gt;=
+irq.ih2)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; reg =3D SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_CNTL_RING2);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; BUG();<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D RREG32_NO_KIQ(reg);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, IH_RB_=
+CNTL, WPTR_OVERFLOW_CLEAR, 1);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_NO_KIQ(reg, tmp);<br>
+&#43;<br>
+&#43;out:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (wptr &amp; ih-&gt;=
+ptr_mask);<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18096E61C433234BC2881BE6F7A10BN6PR12MB1809namp_--
+
+--===============1503797858==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1503797858==--
