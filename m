@@ -1,64 +1,121 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [WIP PATCH 04/15] drm/dp_mst: Stop releasing VCPI when removing
- ports from topology
-Date: Fri, 14 Dec 2018 10:40:44 +0100
-Message-ID: <20181214094044.GQ21184@phenom.ffwll.local>
-References: <20181214012604.13746-1-lyude@redhat.com>
- <20181214012604.13746-5-lyude@redhat.com>
+From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Add fast path for cursor plane updates
+Date: Fri, 14 Dec 2018 14:01:43 +0000
+Message-ID: <570ad1ce-72d8-6188-8a5e-b37fce91aeff@amd.com>
+References: <20181205195907.9501-1-nicholas.kazlauskas@amd.com>
+ <d9cde6c1-90e1-da3e-7edd-eb3570da666c@daenzer.net>
+ <4d026379-d727-4e71-bc45-c16d0ea39035@amd.com>
+ <9888914f-2d7a-62d5-b696-f56226f6dcb5@amd.com>
+ <9431c7f6-5935-30bb-4c23-71e5cc1bb956@amd.com>
+ <c33a43d5-2447-77a4-c043-e12d38ebc552@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20181214012604.13746-5-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <c33a43d5-2447-77a4-c043-e12d38ebc552-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+Content-ID: <1993EB6CFF47D0418F5899EDBF072B5B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Thu, Dec 13, 2018 at 08:25:33PM -0500, Lyude Paul wrote:
-> This has never actually worked, and isn't needed anyway: the driver's
-> always going to try to deallocate VCPI when it tears down the display
-> that the VCPI belongs to.
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 8 --------
->  1 file changed, 8 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index c196fb580beb..ae9d019af9f2 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -1084,8 +1084,6 @@ static void drm_dp_destroy_port(struct kref *kref)
->  	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
->  
->  	if (!port->input) {
-> -		port->vcpi.num_slots = 0;
-> -
->  		kfree(port->cached_edid);
->  
->  		/*
-> @@ -3381,12 +3379,6 @@ static void drm_dp_destroy_connector_work(struct work_struct *work)
->  		drm_dp_port_teardown_pdt(port, port->pdt);
->  		port->pdt = DP_PEER_DEVICE_NONE;
->  
-> -		if (!port->input && port->vcpi.vcpi > 0) {
-> -			drm_dp_mst_reset_vcpi_slots(mgr, port);
-> -			drm_dp_update_payload_part1(mgr);
-> -			drm_dp_mst_put_payload_id(mgr, port->vcpi.vcpi);
-> -		}
-> -
->  		drm_dp_mst_put_port_malloc(port);
->  		send_hotplug = true;
->  	}
-> -- 
-> 2.19.2
-> 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+T24gMTIvMTQvMTggMzo0NiBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6DQo+IE9uIDIwMTgtMTIt
+MTMgOTo1OSBwLm0uLCBLYXpsYXVza2FzLCBOaWNob2xhcyB3cm90ZToNCj4+IE9uIDEyLzEzLzE4
+IDI6MjEgUE0sIEthemxhdXNrYXMsIE5pY2hvbGFzIHdyb3RlOg0KPj4+IE9uIDEyLzEzLzE4IDEx
+OjAxIEFNLCBLYXpsYXVza2FzLCBOaWNob2xhcyB3cm90ZToNCj4+Pj4gT24gMTIvMTMvMTggMTA6
+NDggQU0sIE1pY2hlbCBEw6RuemVyIHdyb3RlOg0KPj4+Pj4gT24gMjAxOC0xMi0wNSA4OjU5IHAu
+bS4sIE5pY2hvbGFzIEthemxhdXNrYXMgd3JvdGU6DQo+Pj4+Pj4gW1doeV0NCj4+Pj4+PiBMZWdh
+Y3kgY3Vyc29yIHBsYW5lIHVwZGF0ZXMgZnJvbSBkcm0gaGVscGVycyBnbyB0aHJvdWdoIHRoZSBm
+dWxsDQo+Pj4+Pj4gYXRvbWljIGNvZGVwYXRoLiBBIGhpZ2ggdm9sdW1lIG9mIGN1cnNvciB1cGRh
+dGVzIHRocm91Z2ggdGhpcyBzbG93DQo+Pj4+Pj4gY29kZSBwYXRoIGNhbiBjYXVzZSBzdWJzZXF1
+ZW50IHBhZ2UtZmxpcHMgdG8gc2tpcCB2YmxhbmsgaW50ZXJ2YWxzDQo+Pj4+Pj4gc2luY2UgZWFj
+aCBpbmRpdmlkdWFsIHVwZGF0ZSBpcyBzbG93Lg0KPj4+Pj4+DQo+Pj4+Pj4gVGhpcyBwcm9ibGVt
+IGlzIHBhcnRpY3VsYXJseSBub3RpY2VhYmxlIGZvciB0aGUgY29tcHRvbiBjb21wb3NpdG9yLg0K
+Pj4+Pj4+DQo+Pj4+Pj4gW0hvd10NCj4+Pj4+PiBBIGZhc3QgcGF0aCBmb3IgY3Vyc29yIHBsYW5l
+IHVwZGF0ZXMgaXMgYWRkZWQgYnkgdXNpbmcgRFJNIGFzeW5jaHJvbm91cw0KPj4+Pj4+IGNvbW1p
+dCBzdXBwb3J0IHByb3ZpZGVkIGJ5IGFzeW5jX2NoZWNrIGFuZCBhc3luY191cGRhdGUuIFRoZXNl
+IGRvbid0IGRvDQo+Pj4+Pj4gYSBmdWxsIHN0YXRlL2ZsaXBfZG9uZSBkZXBlbmRlbmN5IHN0YWxs
+IGFuZCB0aGV5IGRvbid0IGJsb2NrIG90aGVyDQo+Pj4+Pj4gY29tbWl0IHdvcmsuDQo+Pj4+Pj4N
+Cj4+Pj4+PiBIb3dldmVyLCBEQyBzdGlsbCBleHBlY3RzIGl0c2VsZiB0byBiZSBzaW5nbGUtdGhy
+ZWFkZWQgZm9yIGFueXRoaW5nDQo+Pj4+Pj4gdGhhdCBjYW4gaXNzdWUgcmVnaXN0ZXIgd3JpdGVz
+LiBTY3JlZW4gY29ycnVwdGlvbiBvciBoYW5ncyBjYW4gb2NjdXINCj4+Pj4+PiBpZiB3cml0ZSBz
+ZXF1ZW5jZXMgb3ZlcmxhcC4gRXZlcnkgY2FsbCB0aGF0IHBvdGVudGlhbGx5IHBlcmZvcm0NCj4+
+Pj4+PiByZWdpc3RlciB3cml0ZXMgbmVlZHMgdG8gYmUgZ3VhcmRlZCBmb3IgYXN5bmNocm9ub3Vz
+IHVwZGF0ZXMgdG8gd29yay4NCj4+Pj4+PiBUaGUgZGNfbG9jayBtdXRleCB3YXMgYWRkZWQgZm9y
+IHRoaXMuDQo+Pj4+Pj4NCj4+Pj4+PiBCdWd6aWxsYTogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9w
+Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTA2MTc1DQo+Pj4+Pj4NCj4+Pj4+PiBDYzogTGVvIExpIDxz
+dW5wZW5nLmxpQGFtZC5jb20+DQo+Pj4+Pj4gQ2M6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50
+bGFuZEBhbWQuY29tPg0KPj4+Pj4+IFNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMg
+PG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4NCj4+Pj4+DQo+Pj4+PiBMb29rcyBsaWtlIHRo
+aXMgY2hhbmdlIGludHJvZHVjZWQgKG9yIGF0IGxlYXN0IGV4cG9zZWQpIGEgcmVmZXJlbmNlDQo+
+Pj4+PiBjb3VudGluZyBidWcgcmVzdWx0aW5nIGluIHVzZS1hZnRlci1mcmVlIHdoZW4gWG9yZyBz
+aHV0cyBkb3duWzBdLiBTZWUNCj4+Pj4+IHRoZSBhdHRhY2hlZCBkbWVzZyBleGNlcnB0IChub3Rl
+IHRoYXQgSSB3cmFwcGVkIHRoZSAhYm8tPnBpbl9jb3VudCBjaGVjaw0KPj4+Pj4gaW4gYW1kZ3B1
+X2JvX3VucGluIGluIFdBUk5fT05fT05DRSkuDQo+Pj4+Pg0KPj4+Pj4NCj4+Pj4+IFswXSBPbmx5
+IHdpdGgNCj4+Pj4+IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNrdG9wLm9yZy94b3JnL2RyaXZlci94
+Zjg2LXZpZGVvLWFtZGdwdS9jb21taXQvMGQ2MDIzM2QyNmVjNzBkNGUxZmFhMzQzYjQzOGUzMzgy
+OWM2ZDVlNA0KPj4+Pj4gLCBpLmUuIGFsdGVybmF0aW5nIGJldHdlZW4gdHdvIEJPcyBmb3IgdGhl
+IEhXIGN1cnNvciwgaW5zdGVhZCBvZiBhbHdheXMNCj4+Pj4+IHVzaW5nIHRoZSBzYW1lIG9uZS4N
+Cj4+Pj4+DQo+Pj4+Pg0KPj4+Pg0KPj4+PiBUaGFua3MgZm9yIHRoZSBoZWFkcyB1cCwgSSBkb24n
+dCB0aGluayBJIGhhZCB0aGF0IHBhdGNoIGluIG15DQo+Pj4+IHhmODYtdmlkZW8tYW1kZ3B1IHdo
+ZW4gdGVzdGluZyB0aGUgZGVza3RvcCBzdGFjay4NCj4+Pj4NCj4+Pj4gVGhlIGFzeW5jIGF0b21p
+YyBoZWxwZXIgZG9lcyB0aGU6DQo+Pj4+DQo+Pj4+IGRybV9hdG9taWNfaGVscGVyX3ByZXBhcmVf
+cGxhbmVzDQo+Pj4+IGRybV9hdG9taWNfaGVscGVyX2FzeW5jX2NvbW1pdA0KPj4+PiBkcm1fYXRv
+bWljX2hlbHBlcl9jbGVhbnVwX3BsYW5lcw0KPj4+Pg0KPj4+PiAuLi5zZXF1ZW5jZSBjb3JyZWN0
+bHkgZnJvbSB3aGF0IEkgY2FuIHRlbGwsIHNvIG1heWJlIGl0J3Mgc29tZXRoaW5nIHdpdGgNCj4+
+Pj4gZG1fcGxhbmVfaGVscGVyX3ByZXBhcmVfZmIgb3IgZG1fcGxhbmVfaGVscGVyX2NsZWFudXBf
+ZmIgaXRzZWxmLg0KPj4+Pg0KPj4+PiBPbmUgY2FzZSB3aGVyZSB1bnJlZiBjb3VsZCBiZSBjYWxs
+ZWQgKG5vdCBmb2xsb3dpbmcgYSByZWYpIGlzIGR1cmluZw0KPj4+PiBkcm1fYXRvbWljX2hlbHBl
+cl9wcmVwYXJlX3BsYW5lcyAtIGlmIHByZXBhcmVfZmIgZmFpbHMgdGhlbiBjbGVhbnVwX2ZiDQo+
+Pj4+IGdldHMgY2FsbGVkIHJlZ2FyZGxlc3MsIGFuZCB3ZSBvbmx5IHJlZiB0aGUgZmIgaWYgcHJl
+cGFyZV9mYiBpcyBpbiB0aGUNCj4+Pj4gc3VjY2VzcyBwYXRoLg0KPj4+DQo+Pj4gVGhlIHByZXBh
+cmVfZmIvY2xlYW51cF9mYiBjYWxscyBhcmUgYWN0dWFsbHkgZmluZSBzaW5jZSBjbGVhbnVwX2Zi
+IG9ubHkNCj4+PiBnZXRzIGNhbGxlZCBvbiBwbGFuZXMgdGhhdCBoYWQgcHJlcGFyZV9mYiBzdWNj
+ZWVkIGluIGFsbCBjYXNlcyBhcyBmYXIgYXMNCj4+PiBJIGNhbiB0ZWxsLg0KPj4+DQo+Pj4gSSB0
+aGluayB0aGUgYnVnIGhlcmUgbWlnaHQgYmUgZm9yZ2V0dGluZyB0byBzZXQgdGhlIHBsYW5lLT5z
+dGF0ZSB0byB0aGUNCj4+PiBuZXdfc3RhdGUuIFRoZSBjbGVhbnVwIGZiIGNhbGxiYWNrIGRlY2lk
+ZXMgd2hldGhlciB0byBjYWxsIGl0IG9uIHRoZSBvbGQNCj4+PiBwbGFuZSBzdGF0ZSBvciBuZXcg
+cGxhbmUgc3RhdGUgZGVwZW5kaW5nIG9uIGlmIHRoZSBjb21taXQgd2FzIGFib3J0ZWQgb3INCj4+
+PiBub3QuIEkgdGhpbmsgZXZlcnkgZmFzdCBwbGFuZSB1cGRhdGUgbWlnaHQgYmUgdHJlYXRlZCBh
+cyBhYm9ydGVkIGluIHRoaXMNCj4+PiBjYXNlLg0KPj4NCj4+IFRoaXMgaXMgYSBidWcgd2l0aCBE
+Uk0sIGFjdHVhbGx5Lg0KPj4NCj4+IFR5cGljYWxseSBmb3IgYSByZWd1bGFyIGF0b21pYyBjb21t
+aXQgdGhlIHByZXBhcmVfZmIgY2FsbGJhY2sgaXMgY2FsbGVkDQo+PiBmb3IgdGhlIG5ld19wbGFu
+ZV9zdGF0ZSBhbmQgY2xlYW51cF9mYiBpcyBjYWxsZWQgZm9yIHRoZSBvbGRfcGxhbmVfc3RhdGUN
+Cj4+IGF0IHRoZSBlbmQgb2YgY29tbWl0IHRhaWwuDQo+Pg0KPj4gSG93ZXZlciwgZm9yIGFzeW5j
+aHJvbm91cyBjb21taXRzIHRoaXMgaXNuJ3QgdGhlIHNhbWUgLSBwcmVwYXJlX2ZiIGlzDQo+PiBj
+YWxsZWQgZm9yIG5ld19wbGFuZV9zdGF0ZSBhbmQgY2xlYW51cF9mYiBpcyB0aGVuIGltbWVkaWF0
+ZWx5IGNhbGxlZA0KPj4gYWZ0ZXIgYWxzbyBmb3IgdGhlIG5ld19wbGFuZV9zdGF0ZS4NCj4+DQo+
+PiBMb29raW5nIGF0IHlvdXIgc3RhY2sgdHJhY2UgSSBjYW4gc2VlIHRoYXQgdGhpcyBpcyBleGFj
+dGx5IHdoYXQgY2F1c2VzDQo+PiB0aGUgdXNlIGFmdGVyIGZyZWUsDQo+Pg0KPj4gVGhlIENSVEMg
+aGFzIGNoYW5nZWQgc28gaXQncyBzdHVjayBpbiB0aGUgc2xvdyBwYXRoIChjb21taXRfdGFpbCBp
+cyBpbg0KPj4gdGhlIHRyYWNlKS4gSG93ZXZlciwgdGhlIHBsYW5lLT5zdGF0ZS0+ZmIgaGFzIGFs
+cmVhZHkgYmVlbiB1bnBpbm5lZCBhbmQNCj4+IHVucmVmLiBCdXQgdGhlIHBsYW5lLT5zdGF0ZS0+
+ZmIgaXMgKm5vdCogTlVMTCBmcm9tIHRoZSBwcmV2aW91cyBmYXN0DQo+PiB1cGRhdGUsIHNvIHdo
+ZW4gaXQgZ2V0cyB0byBjbGVhbnVwIHBsYW5lcyBpdCB0cmllcyB0byBmcmVlIHRoZQ0KPj4gb2xk
+X3BsYW5lX3N0YXRlIGl0IHVucGlucyBhbmQgdW5yZWZzIHRoZSBibyBhIHNlY29uZCB0aW1lLg0K
+Pj4NCj4+IFRoZW4gYSBuZXcgZmFzdCBjdXJzb3IgdXBkYXRlIGNvbWVzIGFsb25nIChhbmQgdGhl
+IGZiIGhhc24ndCBjaGFuZ2VkKSBzbw0KPj4gaXQgdHJpZXMgdG8gcHJlcGFyZV9mYiBvbiB0aGUg
+c2FtZSBmcmVlZCBiby4NCj4gDQo+IERvIHlvdSBoYXZlIGFuIGlkZWEgZm9yIGEgZml4PyBJZiBu
+b3QsIEknbSBhZnJhaWQgd2UgbmVlZCB0byByZXZlcnQgdGhpcw0KPiBjaGFuZ2UgYWdhaW4gZm9y
+IG5vdywgYXMgdGhlIGNvbnNlcXVlbmNlcyBjYW4gYmUgc2V2ZXJlIChpbiBvbmUgY2FzZSwNCj4g
+ZXh0NCBjb2RlIHN0YXJ0ZWQgY29tcGxhaW5pbmcsIEkgY291bGRuJ3QgcmVib290IGNsZWFubHkg
+YW5kIGhhZCB0byBmc2NrDQo+IGFmdGVyd2FyZHMpLg0KPiANCj4gDQoNClllYWgsIEkgaGF2ZSBh
+IHdvcmthcm91bmQgdGhhdCBJIHdpbGwgcG9zdCBmb3IgdGhpcy4NCg0KSSdtIG5vdCBzdXJlIGlm
+IHRoaXMgaXMgaW50ZW5kZWQgYmVoYXZpb3Igb3Igbm90IGZvciBEUk0gLSBpdCBkb2Vzbid0IA0K
+ZmVlbCBjb3JyZWN0IHRvIG1lLCBidXQgSSBjYW4gdW5kZXJzdGFuZCB3aHkgaXQnZCBtYWtlIHNl
+bnNlIGluIHNvbWUgDQpjYXNlcy4gSXQgcmVhbGx5IGRlcGVuZHMgb24gd2hhdCB0aGUgY2xlYW51
+cF9mYiBpcyBpbnRlbmRpbmcgdG8gZG8uIEl0IA0KY2VydGFpbmx5IGRvZXNuJ3Qgd29yayB3aXRo
+IHRoZSBwaW4vdW5waW4gbW9kZWwgdGhvdWdoLg0KDQpOaWNob2xhcyBLYXpsYXVza2FzDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
