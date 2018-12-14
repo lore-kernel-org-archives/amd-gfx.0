@@ -1,51 +1,117 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [WIP PATCH 04/15] drm/dp_mst: Stop releasing VCPI when removing ports from topology
-Date: Thu, 13 Dec 2018 20:25:33 -0500
-Message-ID: <20181214012604.13746-5-lyude@redhat.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [WIP PATCH 05/15] drm/dp_mst: Fix payload deallocation on hotplugs
+ using malloc refs
+Date: Thu, 13 Dec 2018 20:25:34 -0500
+Message-ID: <20181214012604.13746-6-lyude@redhat.com>
 References: <20181214012604.13746-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181214012604.13746-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20181214012604.13746-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-This has never actually worked, and isn't needed anyway: the driver's
-always going to try to deallocate VCPI when it tears down the display
-that the VCPI belongs to.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/drm_dp_mst_topology.c | 8 --------
- 1 file changed, 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-index c196fb580beb..ae9d019af9f2 100644
---- a/drivers/gpu/drm/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-@@ -1084,8 +1084,6 @@ static void drm_dp_destroy_port(struct kref *kref)
- 	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
- 
- 	if (!port->input) {
--		port->vcpi.num_slots = 0;
--
- 		kfree(port->cached_edid);
- 
- 		/*
-@@ -3381,12 +3379,6 @@ static void drm_dp_destroy_connector_work(struct work_struct *work)
- 		drm_dp_port_teardown_pdt(port, port->pdt);
- 		port->pdt = DP_PEER_DEVICE_NONE;
- 
--		if (!port->input && port->vcpi.vcpi > 0) {
--			drm_dp_mst_reset_vcpi_slots(mgr, port);
--			drm_dp_update_payload_part1(mgr);
--			drm_dp_mst_put_payload_id(mgr, port->vcpi.vcpi);
--		}
--
- 		drm_dp_mst_put_port_malloc(port);
- 		send_hotplug = true;
- 	}
--- 
-2.19.2
+VXAgdW50aWwgbm93LCBmcmVlaW5nIHBheWxvYWRzIG9uIHJlbW90ZSBNU1QgaHVicyB0aGF0IGp1
+c3QgaGFkIHBvcnRzCnJlbW92ZWQgaGFzIGFsbW9zdCBuZXZlciB3b3JrZWQgYmVjYXVzZSB3ZSd2
+ZSBiZWVuIHJlbHlpbmcgb24gcG9ydAp2YWxpZGF0aW9uIGluIG9yZGVyIHRvIHN0b3AgdXMgZnJv
+bSBhY2Nlc3NpbmcgcG9ydHMgdGhhdCBoYXZlIGFscmVhZHkKYmVlbiBmcmVlZCBmcm9tIG1lbW9y
+eSwgYnV0IHBvcnRzIHdoaWNoIG5lZWQgdGhlaXIgcGF5bG9hZHMgcmVsZWFzZWQgZHVlCnRvIGJl
+aW5nIHJlbW92ZWQgd2lsbCBuZXZlciBiZSBhIHZhbGlkIHBhcnQgb2YgdGhlIHRvcG9sb2d5IGFm
+dGVyCnRoZXkndmUgYmVlbiByZW1vdmVkLgoKU2luY2Ugd2UndmUgaW50cm9kdWNlZCBtYWxsb2Mg
+cmVmcywgd2UgY2FuIHJlcGxhY2UgYWxsIG9mIHRoZSB2YWxpZGF0aW9uCmxvZ2ljIGluIHBheWxv
+YWQgaGVscGVycyB3aGljaCBhcmUgdXNlZCBmb3IgZGVhbGxvY2F0aW9uIHdpdGggc29tZQp3ZWxs
+LXBsYWNlZCBtYWxsb2Mga3JlZnMuIFRoaXMgZW5zdXJlcyB0aGF0IHJlZ2FyZGxlc3Mgb2Ygd2hl
+dGhlciBvciBub3QKdGhlIHBvcnRzIGFyZSBzdGlsbCB2YWxpZCBhbmQgaW4gdGhlIHRvcG9sb2d5
+LCBhbnkgcG9ydCB3aGljaCBoYXMgYW4KYWxsb2NhdGVkIHBheWxvYWQgd2lsbCByZW1haW4gYWxs
+b2NhdGVkIGluIG1lbW9yeSB1bnRpbCBpdCdzIHBheWxvYWRzCmhhdmUgYmVlbiByZW1vdmVkIC0g
+ZmluYWxseSBhbGxvd2luZyB1cyB0byBhY3R1YWxseSByZWxlYXNlIHNhaWQKcGF5bG9hZHMgY29y
+cmVjdGx5LgoKU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0LmNvbT4KLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jIHwgNTQgKysrKysrKysrKysr
+KysrLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKSwgMjQgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xv
+Z3kuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKaW5kZXggYWU5ZDAx
+OWFmOWYyLi45M2YwOGJmZDJhYjMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBf
+bXN0X3RvcG9sb2d5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3ku
+YwpAQCAtMTk4OSwxMCArMTk4OSw2IEBAIHN0YXRpYyBpbnQgZHJtX2RwX3BheWxvYWRfc2VuZF9t
+c2coc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsCiAJdTggc2lua3NbRFJNX0RQ
+X01BWF9TRFBfU1RSRUFNU107CiAJaW50IGk7CiAKLQlwb3J0ID0gZHJtX2RwX21zdF90b3BvbG9n
+eV9nZXRfcG9ydF92YWxpZGF0ZWQobWdyLCBwb3J0KTsKLQlpZiAoIXBvcnQpCi0JCXJldHVybiAt
+RUlOVkFMOwotCiAJcG9ydF9udW0gPSBwb3J0LT5wb3J0X251bTsKIAltc3RiID0gZHJtX2RwX21z
+dF90b3BvbG9neV9nZXRfbXN0Yl92YWxpZGF0ZWQobWdyLCBwb3J0LT5wYXJlbnQpOwogCWlmICgh
+bXN0YikgewpAQCAtMjAwMCwxMCArMTk5Niw4IEBAIHN0YXRpYyBpbnQgZHJtX2RwX3BheWxvYWRf
+c2VuZF9tc2coc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsCiAJCQkJCQkJICAg
+ICAgIHBvcnQtPnBhcmVudCwKIAkJCQkJCQkgICAgICAgJnBvcnRfbnVtKTsKIAotCQlpZiAoIW1z
+dGIpIHsKLQkJCWRybV9kcF9tc3RfdG9wb2xvZ3lfcHV0X3BvcnQocG9ydCk7CisJCWlmICghbXN0
+YikKIAkJCXJldHVybiAtRUlOVkFMOwotCQl9CiAJfQogCiAJdHhtc2cgPSBremFsbG9jKHNpemVv
+ZigqdHhtc2cpLCBHRlBfS0VSTkVMKTsKQEAgLTIwMzIsNyArMjAyNiw2IEBAIHN0YXRpYyBpbnQg
+ZHJtX2RwX3BheWxvYWRfc2VuZF9tc2coc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICpt
+Z3IsCiAJa2ZyZWUodHhtc2cpOwogZmFpbF9wdXQ6CiAJZHJtX2RwX21zdF90b3BvbG9neV9wdXRf
+bXN0Yihtc3RiKTsKLQlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9wb3J0KHBvcnQpOwogCXJldHVy
+biByZXQ7CiB9CiAKQEAgLTIxMzcsMTUgKzIxMzAsMTYgQEAgc3RhdGljIGludCBkcm1fZHBfZGVz
+dHJveV9wYXlsb2FkX3N0ZXAyKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAog
+ICovCiBpbnQgZHJtX2RwX3VwZGF0ZV9wYXlsb2FkX3BhcnQxKHN0cnVjdCBkcm1fZHBfbXN0X3Rv
+cG9sb2d5X21nciAqbWdyKQogewotCWludCBpLCBqOwotCWludCBjdXJfc2xvdHMgPSAxOwogCXN0
+cnVjdCBkcm1fZHBfcGF5bG9hZCByZXFfcGF5bG9hZDsKIAlzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0
+ICpwb3J0OworCWludCBpLCBqOworCWludCBjdXJfc2xvdHMgPSAxOwogCiAJbXV0ZXhfbG9jaygm
+bWdyLT5wYXlsb2FkX2xvY2spOwogCWZvciAoaSA9IDA7IGkgPCBtZ3ItPm1heF9wYXlsb2Fkczsg
+aSsrKSB7CiAJCXN0cnVjdCBkcm1fZHBfdmNwaSAqdmNwaSA9IG1nci0+cHJvcG9zZWRfdmNwaXNb
+aV07CiAJCXN0cnVjdCBkcm1fZHBfcGF5bG9hZCAqcGF5bG9hZCA9ICZtZ3ItPnBheWxvYWRzW2ld
+OworCQlib29sIHB1dF9wb3J0ID0gZmFsc2U7CiAKIAkJLyogc29sdmUgdGhlIGN1cnJlbnQgcGF5
+bG9hZHMgLSBjb21wYXJlIHRvIHRoZSBodyBvbmVzCiAJCSAgIC0gdXBkYXRlIHRoZSBodyB2aWV3
+ICovCkBAIC0yMTUzLDEyICsyMTQ3LDIwIEBAIGludCBkcm1fZHBfdXBkYXRlX3BheWxvYWRfcGFy
+dDEoc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IpCiAJCWlmICh2Y3BpKSB7CiAJ
+CQlwb3J0ID0gY29udGFpbmVyX29mKHZjcGksIHN0cnVjdCBkcm1fZHBfbXN0X3BvcnQsCiAJCQkJ
+CSAgICB2Y3BpKTsKLQkJCXBvcnQgPSBkcm1fZHBfbXN0X3RvcG9sb2d5X2dldF9wb3J0X3ZhbGlk
+YXRlZChtZ3IsCi0JCQkJCQkJCSAgICAgIHBvcnQpOwotCQkJaWYgKCFwb3J0KSB7Ci0JCQkJbXV0
+ZXhfdW5sb2NrKCZtZ3ItPnBheWxvYWRfbG9jayk7Ci0JCQkJcmV0dXJuIC1FSU5WQUw7CisKKwkJ
+CS8qIFZhbGlkYXRlZCBwb3J0cyBkb24ndCBtYXR0ZXIgaWYgd2UncmUgcmVsZWFzaW5nCisJCQkg
+KiBWQ1BJCisJCQkgKi8KKwkJCWlmICh2Y3BpLT5udW1fc2xvdHMpIHsKKwkJCQlwb3J0ID0gZHJt
+X2RwX21zdF90b3BvbG9neV9nZXRfcG9ydF92YWxpZGF0ZWQoCisJCQkJICAgIG1nciwgcG9ydCk7
+CisJCQkJaWYgKCFwb3J0KSB7CisJCQkJCW11dGV4X3VubG9jaygmbWdyLT5wYXlsb2FkX2xvY2sp
+OworCQkJCQlyZXR1cm4gLUVJTlZBTDsKKwkJCQl9CisJCQkJcHV0X3BvcnQgPSB0cnVlOwogCQkJ
+fQorCiAJCQlyZXFfcGF5bG9hZC5udW1fc2xvdHMgPSB2Y3BpLT5udW1fc2xvdHM7CiAJCQlyZXFf
+cGF5bG9hZC52Y3BpID0gdmNwaS0+dmNwaTsKIAkJfSBlbHNlIHsKQEAgLTIxOTAsNyArMjE5Miw3
+IEBAIGludCBkcm1fZHBfdXBkYXRlX3BheWxvYWRfcGFydDEoc3RydWN0IGRybV9kcF9tc3RfdG9w
+b2xvZ3lfbWdyICptZ3IpCiAJCX0KIAkJY3VyX3Nsb3RzICs9IHJlcV9wYXlsb2FkLm51bV9zbG90
+czsKIAotCQlpZiAocG9ydCkKKwkJaWYgKHB1dF9wb3J0KQogCQkJZHJtX2RwX21zdF90b3BvbG9n
+eV9wdXRfcG9ydChwb3J0KTsKIAl9CiAKQEAgLTMwMDUsNiArMzAwNyw4IEBAIGJvb2wgZHJtX2Rw
+X21zdF9hbGxvY2F0ZV92Y3BpKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAog
+CURSTV9ERUJVR19LTVMoImluaXRpbmcgdmNwaSBmb3IgcGJuPSVkIHNsb3RzPSVkXG4iLAogCQkg
+ICAgICBwYm4sIHBvcnQtPnZjcGkubnVtX3Nsb3RzKTsKIAorCS8qIEtlZXAgcG9ydCBhbGxvY2F0
+ZWQgdW50aWwgaXQncyBwYXlsb2FkIGhhcyBiZWVuIHJlbW92ZWQgKi8KKwlkcm1fZHBfbXN0X2dl
+dF9wb3J0X21hbGxvYyhwb3J0KTsKIAlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9wb3J0KHBvcnQp
+OwogCXJldHVybiB0cnVlOwogb3V0OgpAQCAtMzAzNCwxMSArMzAzOCwxMiBAQCBFWFBPUlRfU1lN
+Qk9MKGRybV9kcF9tc3RfZ2V0X3ZjcGlfc2xvdHMpOwogICovCiB2b2lkIGRybV9kcF9tc3RfcmVz
+ZXRfdmNwaV9zbG90cyhzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwgc3RydWN0
+IGRybV9kcF9tc3RfcG9ydCAqcG9ydCkKIHsKLQlwb3J0ID0gZHJtX2RwX21zdF90b3BvbG9neV9n
+ZXRfcG9ydF92YWxpZGF0ZWQobWdyLCBwb3J0KTsKLQlpZiAoIXBvcnQpCi0JCXJldHVybjsKKwkv
+KgorCSAqIEEgcG9ydCB3aXRoIFZDUEkgd2lsbCByZW1haW4gYWxsb2NhdGVkIHVudGlsIGl0J3Mg
+VkNQSSBpcworCSAqIHJlbGVhc2VkLCBubyB2ZXJpZmllZCByZWYgbmVlZGVkCisJICovCisKIAlw
+b3J0LT52Y3BpLm51bV9zbG90cyA9IDA7Ci0JZHJtX2RwX21zdF90b3BvbG9neV9wdXRfcG9ydChw
+b3J0KTsKIH0KIEVYUE9SVF9TWU1CT0woZHJtX2RwX21zdF9yZXNldF92Y3BpX3Nsb3RzKTsKIApA
+QCAtMzA1MCwxNiArMzA1NSwxNyBAQCBFWFBPUlRfU1lNQk9MKGRybV9kcF9tc3RfcmVzZXRfdmNw
+aV9zbG90cyk7CiB2b2lkIGRybV9kcF9tc3RfZGVhbGxvY2F0ZV92Y3BpKHN0cnVjdCBkcm1fZHBf
+bXN0X3RvcG9sb2d5X21nciAqbWdyLAogCQkJCXN0cnVjdCBkcm1fZHBfbXN0X3BvcnQgKnBvcnQp
+CiB7Ci0JcG9ydCA9IGRybV9kcF9tc3RfdG9wb2xvZ3lfZ2V0X3BvcnRfdmFsaWRhdGVkKG1nciwg
+cG9ydCk7Ci0JaWYgKCFwb3J0KQotCQlyZXR1cm47CisJLyoKKwkgKiBBIHBvcnQgd2l0aCBWQ1BJ
+IHdpbGwgcmVtYWluIGFsbG9jYXRlZCB1bnRpbCBpdCdzIFZDUEkgaXMKKwkgKiByZWxlYXNlZCwg
+bm8gdmVyaWZpZWQgcmVmIG5lZWRlZAorCSAqLwogCiAJZHJtX2RwX21zdF9wdXRfcGF5bG9hZF9p
+ZChtZ3IsIHBvcnQtPnZjcGkudmNwaSk7CiAJcG9ydC0+dmNwaS5udW1fc2xvdHMgPSAwOwogCXBv
+cnQtPnZjcGkucGJuID0gMDsKIAlwb3J0LT52Y3BpLmFsaWduZWRfcGJuID0gMDsKIAlwb3J0LT52
+Y3BpLnZjcGkgPSAwOwotCWRybV9kcF9tc3RfdG9wb2xvZ3lfcHV0X3BvcnQocG9ydCk7CisJZHJt
+X2RwX21zdF9wdXRfcG9ydF9tYWxsb2MocG9ydCk7CiB9CiBFWFBPUlRfU1lNQk9MKGRybV9kcF9t
+c3RfZGVhbGxvY2F0ZV92Y3BpKTsKIAotLSAKMi4xOS4yCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
