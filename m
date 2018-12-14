@@ -1,124 +1,85 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [WIP PATCH 15/15] drm/nouveau: Use atomic VCPI helpers for MST
-Date: Thu, 13 Dec 2018 20:25:44 -0500
-Message-ID: <20181214012604.13746-16-lyude@redhat.com>
-References: <20181214012604.13746-1-lyude@redhat.com>
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: update the vm invalidation engine layout V2
+Date: Fri, 14 Dec 2018 10:59:30 +0800
+Message-ID: <20181214025930.2162-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181214012604.13746-1-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel.vetter@ffwll.ch>, Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, Karol Herbst <karolherbst@gmail.com>, Sean Paul <seanpaul@chromium.org>, Ilia Mirkin <imirkin@alum.mit.edu>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Felix.Kuehling-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-Currently, nouveau uses the yolo method of setting up MST displays: it
-uses the old VCPI helpers (drm_dp_find_vcpi_slots()) for computing the
-display configuration. These helpers don't take care to make sure they
-take a reference to the mstb port that they're checking, and
-additionally don't actually check whether or not the topology still has
-enough bandwidth to provide the VCPI tokens required.
-
-So, drop usage of the old helpers and move entirely over to the atomic
-helpers.
-
-Changes since v5:
- - Update nv50_msto_atomic_check() and nv50_mstc_atomic_check() to the
-   new requirements for drm_dp_atomic_find_vcpi_slots() and
-   drm_dp_atomic_release_vcpi_slots()
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>
----
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 52 ++++++++++++++++++++++---
- 1 file changed, 46 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index 67f7bf97e5d9..df696008d205 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -762,16 +762,22 @@ nv50_msto_atomic_check(struct drm_encoder *encoder,
- 		       struct drm_crtc_state *crtc_state,
- 		       struct drm_connector_state *conn_state)
- {
--	struct nv50_mstc *mstc = nv50_mstc(conn_state->connector);
-+	struct drm_atomic_state *state = crtc_state->state;
-+	struct drm_connector *connector = conn_state->connector;
-+	struct nv50_mstc *mstc = nv50_mstc(connector);
- 	struct nv50_mstm *mstm = mstc->mstm;
--	int bpp = conn_state->connector->display_info.bpc * 3;
-+	int bpp = connector->display_info.bpc * 3;
- 	int slots;
- 
--	mstc->pbn = drm_dp_calc_pbn_mode(crtc_state->adjusted_mode.clock, bpp);
-+	mstc->pbn = drm_dp_calc_pbn_mode(crtc_state->adjusted_mode.clock,
-+					 bpp);
- 
--	slots = drm_dp_find_vcpi_slots(&mstm->mgr, mstc->pbn);
--	if (slots < 0)
--		return slots;
-+	if (crtc_state->connectors_changed || crtc_state->mode_changed) {
-+		slots = drm_dp_atomic_find_vcpi_slots(state, &mstm->mgr,
-+						      mstc->port, mstc->pbn);
-+		if (slots < 0)
-+			return slots;
-+	}
- 
- 	return nv50_outp_atomic_check_view(encoder, crtc_state, conn_state,
- 					   mstc->native);
-@@ -934,12 +940,42 @@ nv50_mstc_get_modes(struct drm_connector *connector)
- 	return ret;
- }
- 
-+static int
-+nv50_mstc_atomic_check(struct drm_connector *connector,
-+		       struct drm_connector_state *new_conn_state)
-+{
-+	struct drm_atomic_state *state = new_conn_state->state;
-+	struct nv50_mstc *mstc = nv50_mstc(connector);
-+	struct drm_dp_mst_topology_mgr *mgr = &mstc->mstm->mgr;
-+	struct drm_connector_state *old_conn_state =
-+		drm_atomic_get_old_connector_state(state, connector);
-+	struct drm_crtc_state *old_crtc_state;
-+	struct drm_crtc *new_crtc = new_conn_state->crtc,
-+			*old_crtc = old_conn_state->crtc;
-+
-+	if (!old_crtc)
-+		return 0;
-+
-+	old_crtc_state = drm_atomic_get_old_crtc_state(state, old_crtc);
-+	if (!old_crtc_state || !old_crtc_state->enable)
-+		return 0;
-+
-+	if (new_crtc)
-+		return 0;
-+
-+	/* This connector will be left without an enabled CRTC, so its VCPI
-+	 * must be released here
-+	 */
-+	return drm_dp_atomic_release_vcpi_slots(state, mgr, mstc->port);
-+}
-+
- static const struct drm_connector_helper_funcs
- nv50_mstc_help = {
- 	.get_modes = nv50_mstc_get_modes,
- 	.mode_valid = nv50_mstc_mode_valid,
- 	.best_encoder = nv50_mstc_best_encoder,
- 	.atomic_best_encoder = nv50_mstc_atomic_best_encoder,
-+	.atomic_check = nv50_mstc_atomic_check,
- };
- 
- static enum drm_connector_status
-@@ -2121,6 +2157,10 @@ nv50_disp_atomic_check(struct drm_device *dev, struct drm_atomic_state *state)
- 			return ret;
- 	}
- 
-+	ret = drm_dp_mst_atomic_check(state);
-+	if (ret)
-+		return ret;
-+
- 	return 0;
- }
- 
--- 
-2.19.2
+V2UgbmVlZCBuZXcgaW52YWxpZGF0aW9uIGVuZ2luZSBsYXlvdXQgZHVlIHRvIG5ldyBTRE1BIHBh
+Z2UKcXVldWVzIGFkZGVkLgoKVjI6IGZpeCBjb2Rpbmcgc3R5bGUgYW5kIGFkZCBjb3JyZWN0IHJl
+dHVybiB2YWx1ZQoKQ2hhbmdlLUlkOiBJMmYzODYxNjg5YmZmYjk4MjhjOWVhZTc0NGE3YTBkZTQ5
+NjNhYzJiNgpTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgpSZXZp
+ZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpSZXZp
+ZXdlZC1ieTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ21jX3Y5XzAuYyB8IDUzICsrKysrKysrKysrKysrKystLS0tLS0tLS0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuaCB8IDEwICsrKysrCiAyIGZpbGVz
+IGNoYW5nZWQsIDQxIGluc2VydGlvbnMoKyksIDIyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nbWNfdjlfMC5jCmluZGV4IGRjNGRhZGMzNTc1Yy4uY2U4ZDQxNTE0ZTBkIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKQEAgLTcxOSwzNyArNzE5LDQ2IEBA
+IHN0YXRpYyBib29sIGdtY192OV8wX2tlZXBfc3RvbGVuX21lbW9yeShzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikKIAl9CiB9CiAKLXN0YXRpYyBpbnQgZ21jX3Y5XzBfbGF0ZV9pbml0KHZvaWQg
+KmhhbmRsZSkKK3N0YXRpYyBpbnQgZ21jX3Y5XzBfYWxsb2NhdGVfdm1faW52X2VuZyhzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSAqYWRldikKIHsKLQlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKLQkvKgotCSAqIFRoZSBsYXRlc3QgZW5naW5l
+IGFsbG9jYXRpb24gb24gZ2Z4OSBpczoKLQkgKiBFbmdpbmUgMCwgMTogaWRsZQotCSAqIEVuZ2lu
+ZSAyLCAzOiBmaXJtd2FyZQotCSAqIEVuZ2luZSA0fjEzOiBhbWRncHUgcmluZywgc3ViamVjdCB0
+byBjaGFuZ2Ugd2hlbiByaW5nIG51bWJlciBjaGFuZ2VzCi0JICogRW5naW5lIDE0fjE1OiBpZGxl
+Ci0JICogRW5naW5lIDE2OiBrZmQgdGxiIGludmFsaWRhdGlvbgotCSAqIEVuZ2luZSAxNzogR2Fy
+dCBmbHVzaGVzCi0JICovCi0JdW5zaWduZWQgdm1faW52X2VuZ1tBTURHUFVfTUFYX1ZNSFVCU10g
+PSB7IDQsIDQgfTsKKwlzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmc7CisJdW5zaWduZWQgdm1faW52
+X2VuZ3NbQU1ER1BVX01BWF9WTUhVQlNdID0KKwkJe0dGWEhVQl9GUkVFX1ZNX0lOVl9FTkdTX0JJ
+VE1BUCwgTU1IVUJfRlJFRV9WTV9JTlZfRU5HU19CSVRNQVB9OwogCXVuc2lnbmVkIGk7Ci0JaW50
+IHI7CisJdW5zaWduZWQgdm1odWIsIGludl9lbmc7CiAKLQlpZiAoIWdtY192OV8wX2tlZXBfc3Rv
+bGVuX21lbW9yeShhZGV2KSkKLQkJYW1kZ3B1X2JvX2xhdGVfaW5pdChhZGV2KTsKKwlmb3IgKGkg
+PSAwOyBpIDwgYWRldi0+bnVtX3JpbmdzOyArK2kpIHsKKwkJcmluZyA9IGFkZXYtPnJpbmdzW2ld
+OworCQl2bWh1YiA9IHJpbmctPmZ1bmNzLT52bWh1YjsKKworCQlpbnZfZW5nID0gZmZzKHZtX2lu
+dl9lbmdzW3ZtaHViXSk7CisJCWlmICghaW52X2VuZykgeworCQkJZGV2X2VycihhZGV2LT5kZXYs
+ICJubyBWTSBpbnYgZW5nIGZvciByaW5nICVzXG4iLAorCQkJCXJpbmctPm5hbWUpOworCQkJcmV0
+dXJuIC1FSU5WQUw7CisJCX0KIAotCWZvcihpID0gMDsgaSA8IGFkZXYtPm51bV9yaW5nczsgKytp
+KSB7Ci0JCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IGFkZXYtPnJpbmdzW2ldOwotCQl1bnNp
+Z25lZCB2bWh1YiA9IHJpbmctPmZ1bmNzLT52bWh1YjsKKwkJcmluZy0+dm1faW52X2VuZyA9IGlu
+dl9lbmcgLSAxOworCQljaGFuZ2VfYml0KGludl9lbmcgLSAxLCAodW5zaWduZWQgbG9uZyAqKSgm
+dm1faW52X2VuZ3Nbdm1odWJdKSk7CiAKLQkJcmluZy0+dm1faW52X2VuZyA9IHZtX2ludl9lbmdb
+dm1odWJdKys7CiAJCWRldl9pbmZvKGFkZXYtPmRldiwgInJpbmcgJXMgdXNlcyBWTSBpbnYgZW5n
+ICV1IG9uIGh1YiAldVxuIiwKIAkJCSByaW5nLT5uYW1lLCByaW5nLT52bV9pbnZfZW5nLCByaW5n
+LT5mdW5jcy0+dm1odWIpOwogCX0KIAotCS8qIEVuZ2luZSAxNiBpcyB1c2VkIGZvciBLRkQgYW5k
+IDE3IGZvciBHQVJUIGZsdXNoZXMgKi8KLQlmb3IoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1ZNSFVC
+UzsgKytpKQotCQlCVUdfT04odm1faW52X2VuZ1tpXSA+IDE2KTsKKwlyZXR1cm4gMDsKK30KKwor
+c3RhdGljIGludCBnbWNfdjlfMF9sYXRlX2luaXQodm9pZCAqaGFuZGxlKQoreworCXN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopaGFuZGxlOworCWlu
+dCByOworCisJaWYgKCFnbWNfdjlfMF9rZWVwX3N0b2xlbl9tZW1vcnkoYWRldikpCisJCWFtZGdw
+dV9ib19sYXRlX2luaXQoYWRldik7CisKKwlyID0gZ21jX3Y5XzBfYWxsb2NhdGVfdm1faW52X2Vu
+ZyhhZGV2KTsKKwlpZiAocikKKwkJcmV0dXJuIHI7CiAKIAlpZiAoYWRldi0+YXNpY190eXBlID09
+IENISVBfVkVHQTEwICYmICFhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsKIAkJciA9IGdtY192OV8w
+X2VjY19hdmFpbGFibGUoYWRldik7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nbWNfdjlfMC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuaApp
+bmRleCBiMDMwY2E1ZWExMDcuLjVjOGRlYWM2NTU4MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nbWNfdjlfMC5oCkBAIC0yNCw2ICsyNCwxNiBAQAogI2lmbmRlZiBfX0dNQ19WOV8wX0hfXwog
+I2RlZmluZSBfX0dNQ19WOV8wX0hfXwogCisJLyoKKwkgKiBUaGUgbGF0ZXN0IGVuZ2luZSBhbGxv
+Y2F0aW9uIG9uIGdmeDkgaXM6CisJICogRW5naW5lIDIsIDM6IGZpcm13YXJlCisJICogRW5naW5l
+IDAsIDEsIDR+MTY6IGFtZGdwdSByaW5nLAorCSAqICAgICAgICAgICAgICAgICAgICBzdWJqZWN0
+IHRvIGNoYW5nZSB3aGVuIHJpbmcgbnVtYmVyIGNoYW5nZXMKKwkgKiBFbmdpbmUgMTc6IEdhcnQg
+Zmx1c2hlcworCSAqLworI2RlZmluZSBHRlhIVUJfRlJFRV9WTV9JTlZfRU5HU19CSVRNQVAJCTB4
+MUZGRjMKKyNkZWZpbmUgTU1IVUJfRlJFRV9WTV9JTlZfRU5HU19CSVRNQVAJCTB4MUZGRjMKKwog
+ZXh0ZXJuIGNvbnN0IHN0cnVjdCBhbWRfaXBfZnVuY3MgZ21jX3Y5XzBfaXBfZnVuY3M7CiBleHRl
+cm4gY29uc3Qgc3RydWN0IGFtZGdwdV9pcF9ibG9ja192ZXJzaW9uIGdtY192OV8wX2lwX2Jsb2Nr
+OwogCi0tIAoyLjE5LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
