@@ -1,106 +1,54 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: update the vm invalidation engine layout V2
-Date: Fri, 14 Dec 2018 04:31:37 +0000
-Message-ID: <DM5PR12MB17072D67AB4335B846D20FBA92A10@DM5PR12MB1707.namprd12.prod.outlook.com>
-References: <20181214025930.2162-1-evan.quan@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [WIP PATCH 01/15] drm/dp_mst: Remove bogus conditional in
+ drm_dp_update_payload_part1()
+Date: Fri, 14 Dec 2018 09:42:21 +0100
+Message-ID: <20181214084220.GL21184@phenom.ffwll.local>
+References: <20181214012604.13746-1-lyude@redhat.com>
+ <20181214012604.13746-2-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181214025930.2162-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20181214012604.13746-2-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Juston Li <juston.li@intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKVGhh
-bmtzLAogIEZlbGl4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZy
-b206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJl
-aGFsZiBvZiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgpTZW50OiBUaHVyc2RheSwgRGVj
-ZW1iZXIgMTMsIDIwMTggOTo1OTozMCBQTQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKQ2M6IEt1ZWhsaW5nLCBGZWxpeDsgUXVhbiwgRXZhbgpTdWJqZWN0OiBbUEFUQ0hdIGRybS9h
-bWRncHU6IHVwZGF0ZSB0aGUgdm0gaW52YWxpZGF0aW9uIGVuZ2luZSBsYXlvdXQgVjIKCldlIG5l
-ZWQgbmV3IGludmFsaWRhdGlvbiBlbmdpbmUgbGF5b3V0IGR1ZSB0byBuZXcgU0RNQSBwYWdlCnF1
-ZXVlcyBhZGRlZC4KClYyOiBmaXggY29kaW5nIHN0eWxlIGFuZCBhZGQgY29ycmVjdCByZXR1cm4g
-dmFsdWUKCkNoYW5nZS1JZDogSTJmMzg2MTY4OWJmZmI5ODI4YzllYWU3NDRhN2EwZGU0OTYzYWMy
-YjYKU2lnbmVkLW9mZi1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KUmV2aWV3ZWQt
-Ynk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KUmV2aWV3ZWQt
-Ynk6IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dtY192OV8wLmMgfCA1MyArKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmggfCAxMCArKysrKwogMiBmaWxlcyBjaGFu
-Z2VkLCA0MSBpbnNlcnRpb25zKCspLCAyMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ21jX3Y5XzAuYwppbmRleCBkYzRkYWRjMzU3NWMuLmNlOGQ0MTUxNGUwZCAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCkBAIC03MTksMzcgKzcxOSw0NiBAQCBzdGF0
-aWMgYm9vbCBnbWNfdjlfMF9rZWVwX3N0b2xlbl9tZW1vcnkoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpCiAgICAgICAgfQogfQoKLXN0YXRpYyBpbnQgZ21jX3Y5XzBfbGF0ZV9pbml0KHZvaWQg
-KmhhbmRsZSkKK3N0YXRpYyBpbnQgZ21jX3Y5XzBfYWxsb2NhdGVfdm1faW52X2VuZyhzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikKIHsKLSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhhbmRsZTsKLSAgICAgICAvKgotICAgICAgICAq
-IFRoZSBsYXRlc3QgZW5naW5lIGFsbG9jYXRpb24gb24gZ2Z4OSBpczoKLSAgICAgICAgKiBFbmdp
-bmUgMCwgMTogaWRsZQotICAgICAgICAqIEVuZ2luZSAyLCAzOiBmaXJtd2FyZQotICAgICAgICAq
-IEVuZ2luZSA0fjEzOiBhbWRncHUgcmluZywgc3ViamVjdCB0byBjaGFuZ2Ugd2hlbiByaW5nIG51
-bWJlciBjaGFuZ2VzCi0gICAgICAgICogRW5naW5lIDE0fjE1OiBpZGxlCi0gICAgICAgICogRW5n
-aW5lIDE2OiBrZmQgdGxiIGludmFsaWRhdGlvbgotICAgICAgICAqIEVuZ2luZSAxNzogR2FydCBm
-bHVzaGVzCi0gICAgICAgICovCi0gICAgICAgdW5zaWduZWQgdm1faW52X2VuZ1tBTURHUFVfTUFY
-X1ZNSFVCU10gPSB7IDQsIDQgfTsKKyAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmc7Cisg
-ICAgICAgdW5zaWduZWQgdm1faW52X2VuZ3NbQU1ER1BVX01BWF9WTUhVQlNdID0KKyAgICAgICAg
-ICAgICAgIHtHRlhIVUJfRlJFRV9WTV9JTlZfRU5HU19CSVRNQVAsIE1NSFVCX0ZSRUVfVk1fSU5W
-X0VOR1NfQklUTUFQfTsKICAgICAgICB1bnNpZ25lZCBpOwotICAgICAgIGludCByOworICAgICAg
-IHVuc2lnbmVkIHZtaHViLCBpbnZfZW5nOwoKLSAgICAgICBpZiAoIWdtY192OV8wX2tlZXBfc3Rv
-bGVuX21lbW9yeShhZGV2KSkKLSAgICAgICAgICAgICAgIGFtZGdwdV9ib19sYXRlX2luaXQoYWRl
-dik7CisgICAgICAgZm9yIChpID0gMDsgaSA8IGFkZXYtPm51bV9yaW5nczsgKytpKSB7CisgICAg
-ICAgICAgICAgICByaW5nID0gYWRldi0+cmluZ3NbaV07CisgICAgICAgICAgICAgICB2bWh1YiA9
-IHJpbmctPmZ1bmNzLT52bWh1YjsKKworICAgICAgICAgICAgICAgaW52X2VuZyA9IGZmcyh2bV9p
-bnZfZW5nc1t2bWh1Yl0pOworICAgICAgICAgICAgICAgaWYgKCFpbnZfZW5nKSB7CisgICAgICAg
-ICAgICAgICAgICAgICAgIGRldl9lcnIoYWRldi0+ZGV2LCAibm8gVk0gaW52IGVuZyBmb3Igcmlu
-ZyAlc1xuIiwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByaW5nLT5uYW1lKTsKKyAg
-ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7CisgICAgICAgICAgICAgICB9Cgot
-ICAgICAgIGZvcihpID0gMDsgaSA8IGFkZXYtPm51bV9yaW5nczsgKytpKSB7Ci0gICAgICAgICAg
-ICAgICBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSBhZGV2LT5yaW5nc1tpXTsKLSAgICAgICAg
-ICAgICAgIHVuc2lnbmVkIHZtaHViID0gcmluZy0+ZnVuY3MtPnZtaHViOworICAgICAgICAgICAg
-ICAgcmluZy0+dm1faW52X2VuZyA9IGludl9lbmcgLSAxOworICAgICAgICAgICAgICAgY2hhbmdl
-X2JpdChpbnZfZW5nIC0gMSwgKHVuc2lnbmVkIGxvbmcgKikoJnZtX2ludl9lbmdzW3ZtaHViXSkp
-OwoKLSAgICAgICAgICAgICAgIHJpbmctPnZtX2ludl9lbmcgPSB2bV9pbnZfZW5nW3ZtaHViXSsr
-OwogICAgICAgICAgICAgICAgZGV2X2luZm8oYWRldi0+ZGV2LCAicmluZyAlcyB1c2VzIFZNIGlu
-diBlbmcgJXUgb24gaHViICV1XG4iLAogICAgICAgICAgICAgICAgICAgICAgICAgcmluZy0+bmFt
-ZSwgcmluZy0+dm1faW52X2VuZywgcmluZy0+ZnVuY3MtPnZtaHViKTsKICAgICAgICB9CgotICAg
-ICAgIC8qIEVuZ2luZSAxNiBpcyB1c2VkIGZvciBLRkQgYW5kIDE3IGZvciBHQVJUIGZsdXNoZXMg
-Ki8KLSAgICAgICBmb3IoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1ZNSFVCUzsgKytpKQotICAgICAg
-ICAgICAgICAgQlVHX09OKHZtX2ludl9lbmdbaV0gPiAxNik7CisgICAgICAgcmV0dXJuIDA7Cit9
-CisKK3N0YXRpYyBpbnQgZ21jX3Y5XzBfbGF0ZV9pbml0KHZvaWQgKmhhbmRsZSkKK3sKKyAgICAg
-ICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKWhh
-bmRsZTsKKyAgICAgICBpbnQgcjsKKworICAgICAgIGlmICghZ21jX3Y5XzBfa2VlcF9zdG9sZW5f
-bWVtb3J5KGFkZXYpKQorICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2xhdGVfaW5pdChhZGV2KTsK
-KworICAgICAgIHIgPSBnbWNfdjlfMF9hbGxvY2F0ZV92bV9pbnZfZW5nKGFkZXYpOworICAgICAg
-IGlmIChyKQorICAgICAgICAgICAgICAgcmV0dXJuIHI7CgogICAgICAgIGlmIChhZGV2LT5hc2lj
-X3R5cGUgPT0gQ0hJUF9WRUdBMTAgJiYgIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkgewogICAgICAg
-ICAgICAgICAgciA9IGdtY192OV8wX2VjY19hdmFpbGFibGUoYWRldik7CmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5oIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ21jX3Y5XzAuaAppbmRleCBiMDMwY2E1ZWExMDcuLjVjOGRlYWM2NTU4MCAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuaAorKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5oCkBAIC0yNCw2ICsyNCwxNiBAQAogI2lm
-bmRlZiBfX0dNQ19WOV8wX0hfXwogI2RlZmluZSBfX0dNQ19WOV8wX0hfXwoKKyAgICAgICAvKgor
-ICAgICAgICAqIFRoZSBsYXRlc3QgZW5naW5lIGFsbG9jYXRpb24gb24gZ2Z4OSBpczoKKyAgICAg
-ICAgKiBFbmdpbmUgMiwgMzogZmlybXdhcmUKKyAgICAgICAgKiBFbmdpbmUgMCwgMSwgNH4xNjog
-YW1kZ3B1IHJpbmcsCisgICAgICAgICogICAgICAgICAgICAgICAgICAgIHN1YmplY3QgdG8gY2hh
-bmdlIHdoZW4gcmluZyBudW1iZXIgY2hhbmdlcworICAgICAgICAqIEVuZ2luZSAxNzogR2FydCBm
-bHVzaGVzCisgICAgICAgICovCisjZGVmaW5lIEdGWEhVQl9GUkVFX1ZNX0lOVl9FTkdTX0JJVE1B
-UCAgICAgICAgIDB4MUZGRjMKKyNkZWZpbmUgTU1IVUJfRlJFRV9WTV9JTlZfRU5HU19CSVRNQVAg
-ICAgICAgICAgMHgxRkZGMworCiBleHRlcm4gY29uc3Qgc3RydWN0IGFtZF9pcF9mdW5jcyBnbWNf
-djlfMF9pcF9mdW5jczsKIGV4dGVybiBjb25zdCBzdHJ1Y3QgYW1kZ3B1X2lwX2Jsb2NrX3ZlcnNp
-b24gZ21jX3Y5XzBfaXBfYmxvY2s7CgotLQoyLjE5LjIKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Thu, Dec 13, 2018 at 08:25:30PM -0500, Lyude Paul wrote:
+> There's no reason we need this, it's just confusing looking.
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: Juston Li <juston.li@intel.com>
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 4 +---
+>  1 file changed, 1 insertion(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index ad0fb6d003be..9b1b5c9b1fa0 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -1896,9 +1896,7 @@ int drm_dp_update_payload_part1(struct drm_dp_mst_topology_mgr *mgr)
+>  			req_payload.num_slots = 0;
+>  		}
+>  
+> -		if (mgr->payloads[i].start_slot != req_payload.start_slot) {
+> -			mgr->payloads[i].start_slot = req_payload.start_slot;
+> -		}
+> +		mgr->payloads[i].start_slot = req_payload.start_slot;
+
+Entertaining!
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+>  		/* work out what is required to happen with this payload */
+>  		if (mgr->payloads[i].num_slots != req_payload.num_slots) {
+>  
+> -- 
+> 2.19.2
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
