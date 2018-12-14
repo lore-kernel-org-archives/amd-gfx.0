@@ -1,131 +1,64 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [WIP PATCH 05/15] drm/dp_mst: Fix payload deallocation on
- hotplugs using malloc refs
-Date: Fri, 14 Dec 2018 10:38:46 +0100
-Message-ID: <20181214093845.GP21184@phenom.ffwll.local>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [WIP PATCH 04/15] drm/dp_mst: Stop releasing VCPI when removing
+ ports from topology
+Date: Fri, 14 Dec 2018 10:40:44 +0100
+Message-ID: <20181214094044.GQ21184@phenom.ffwll.local>
 References: <20181214012604.13746-1-lyude@redhat.com>
- <20181214012604.13746-6-lyude@redhat.com>
+ <20181214012604.13746-5-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <20181214012604.13746-6-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <20181214012604.13746-5-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBEZWMgMTMsIDIwMTggYXQgMDg6MjU6MzRQTSAtMDUwMCwgTHl1ZGUgUGF1bCB3cm90
-ZToKPiBVcCB1bnRpbCBub3csIGZyZWVpbmcgcGF5bG9hZHMgb24gcmVtb3RlIE1TVCBodWJzIHRo
-YXQganVzdCBoYWQgcG9ydHMKPiByZW1vdmVkIGhhcyBhbG1vc3QgbmV2ZXIgd29ya2VkIGJlY2F1
-c2Ugd2UndmUgYmVlbiByZWx5aW5nIG9uIHBvcnQKPiB2YWxpZGF0aW9uIGluIG9yZGVyIHRvIHN0
-b3AgdXMgZnJvbSBhY2Nlc3NpbmcgcG9ydHMgdGhhdCBoYXZlIGFscmVhZHkKPiBiZWVuIGZyZWVk
-IGZyb20gbWVtb3J5LCBidXQgcG9ydHMgd2hpY2ggbmVlZCB0aGVpciBwYXlsb2FkcyByZWxlYXNl
-ZCBkdWUKPiB0byBiZWluZyByZW1vdmVkIHdpbGwgbmV2ZXIgYmUgYSB2YWxpZCBwYXJ0IG9mIHRo
-ZSB0b3BvbG9neSBhZnRlcgo+IHRoZXkndmUgYmVlbiByZW1vdmVkLgo+IAo+IFNpbmNlIHdlJ3Zl
-IGludHJvZHVjZWQgbWFsbG9jIHJlZnMsIHdlIGNhbiByZXBsYWNlIGFsbCBvZiB0aGUgdmFsaWRh
-dGlvbgo+IGxvZ2ljIGluIHBheWxvYWQgaGVscGVycyB3aGljaCBhcmUgdXNlZCBmb3IgZGVhbGxv
-Y2F0aW9uIHdpdGggc29tZQo+IHdlbGwtcGxhY2VkIG1hbGxvYyBrcmVmcy4gVGhpcyBlbnN1cmVz
-IHRoYXQgcmVnYXJkbGVzcyBvZiB3aGV0aGVyIG9yIG5vdAo+IHRoZSBwb3J0cyBhcmUgc3RpbGwg
-dmFsaWQgYW5kIGluIHRoZSB0b3BvbG9neSwgYW55IHBvcnQgd2hpY2ggaGFzIGFuCj4gYWxsb2Nh
-dGVkIHBheWxvYWQgd2lsbCByZW1haW4gYWxsb2NhdGVkIGluIG1lbW9yeSB1bnRpbCBpdCdzIHBh
-eWxvYWRzCj4gaGF2ZSBiZWVuIHJlbW92ZWQgLSBmaW5hbGx5IGFsbG93aW5nIHVzIHRvIGFjdHVh
-bGx5IHJlbGVhc2Ugc2FpZAo+IHBheWxvYWRzIGNvcnJlY3RseS4KPiAKPiBTaWduZWQtb2ZmLWJ5
-OiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPgoKSSB0aGluayB3aXRoIHRoaXMgd2UgY2Fu
-IGFsc28gcmVtb3ZlIHRoZSBpbnQgcmV0dXJuIHZhbHVlICh0aGF0IGV2ZXJ5b25lCmlnbm9yZWQg
-ZXhjZXB0IGZvciBzb21lIGRlYnVnIG91dHB1dCkgZnJvbSBkcm1fZHBfdXBkYXRlX3BheWxvYWRf
-cGFydDEvMi4KRm9sbG93LXVwIGNsZWFudXAgcGF0Y2ggb2ZjLgoKVGhpcyBsb29rcyBnb29kLgoK
-UmV2aWV3ZWQtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+Cj4gLS0t
-Cj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMgfCA1NCArKysrKysrKysr
-KysrKystLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDI0
-IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21z
-dF90b3BvbG9neS5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+IGlu
-ZGV4IGFlOWQwMTlhZjlmMi4uOTNmMDhiZmQyYWIzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2Rw
-X21zdF90b3BvbG9neS5jCj4gQEAgLTE5ODksMTAgKzE5ODksNiBAQCBzdGF0aWMgaW50IGRybV9k
-cF9wYXlsb2FkX3NlbmRfbXNnKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAo+
-ICAJdTggc2lua3NbRFJNX0RQX01BWF9TRFBfU1RSRUFNU107Cj4gIAlpbnQgaTsKPiAgCj4gLQlw
-b3J0ID0gZHJtX2RwX21zdF90b3BvbG9neV9nZXRfcG9ydF92YWxpZGF0ZWQobWdyLCBwb3J0KTsK
-PiAtCWlmICghcG9ydCkKPiAtCQlyZXR1cm4gLUVJTlZBTDsKPiAtCj4gIAlwb3J0X251bSA9IHBv
-cnQtPnBvcnRfbnVtOwo+ICAJbXN0YiA9IGRybV9kcF9tc3RfdG9wb2xvZ3lfZ2V0X21zdGJfdmFs
-aWRhdGVkKG1nciwgcG9ydC0+cGFyZW50KTsKPiAgCWlmICghbXN0Yikgewo+IEBAIC0yMDAwLDEw
-ICsxOTk2LDggQEAgc3RhdGljIGludCBkcm1fZHBfcGF5bG9hZF9zZW5kX21zZyhzdHJ1Y3QgZHJt
-X2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKPiAgCQkJCQkJCSAgICAgICBwb3J0LT5wYXJlbnQs
-Cj4gIAkJCQkJCQkgICAgICAgJnBvcnRfbnVtKTsKPiAgCj4gLQkJaWYgKCFtc3RiKSB7Cj4gLQkJ
-CWRybV9kcF9tc3RfdG9wb2xvZ3lfcHV0X3BvcnQocG9ydCk7Cj4gKwkJaWYgKCFtc3RiKQo+ICAJ
-CQlyZXR1cm4gLUVJTlZBTDsKPiAtCQl9Cj4gIAl9Cj4gIAo+ICAJdHhtc2cgPSBremFsbG9jKHNp
-emVvZigqdHhtc2cpLCBHRlBfS0VSTkVMKTsKPiBAQCAtMjAzMiw3ICsyMDI2LDYgQEAgc3RhdGlj
-IGludCBkcm1fZHBfcGF5bG9hZF9zZW5kX21zZyhzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9t
-Z3IgKm1nciwKPiAgCWtmcmVlKHR4bXNnKTsKPiAgZmFpbF9wdXQ6Cj4gIAlkcm1fZHBfbXN0X3Rv
-cG9sb2d5X3B1dF9tc3RiKG1zdGIpOwo+IC0JZHJtX2RwX21zdF90b3BvbG9neV9wdXRfcG9ydChw
-b3J0KTsKPiAgCXJldHVybiByZXQ7Cj4gIH0KPiAgCj4gQEAgLTIxMzcsMTUgKzIxMzAsMTYgQEAg
-c3RhdGljIGludCBkcm1fZHBfZGVzdHJveV9wYXlsb2FkX3N0ZXAyKHN0cnVjdCBkcm1fZHBfbXN0
-X3RvcG9sb2d5X21nciAqbWdyLAo+ICAgKi8KPiAgaW50IGRybV9kcF91cGRhdGVfcGF5bG9hZF9w
-YXJ0MShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncikKPiAgewo+IC0JaW50IGks
-IGo7Cj4gLQlpbnQgY3VyX3Nsb3RzID0gMTsKPiAgCXN0cnVjdCBkcm1fZHBfcGF5bG9hZCByZXFf
-cGF5bG9hZDsKPiAgCXN0cnVjdCBkcm1fZHBfbXN0X3BvcnQgKnBvcnQ7Cj4gKwlpbnQgaSwgajsK
-PiArCWludCBjdXJfc2xvdHMgPSAxOwo+ICAKPiAgCW11dGV4X2xvY2soJm1nci0+cGF5bG9hZF9s
-b2NrKTsKPiAgCWZvciAoaSA9IDA7IGkgPCBtZ3ItPm1heF9wYXlsb2FkczsgaSsrKSB7Cj4gIAkJ
-c3RydWN0IGRybV9kcF92Y3BpICp2Y3BpID0gbWdyLT5wcm9wb3NlZF92Y3Bpc1tpXTsKPiAgCQlz
-dHJ1Y3QgZHJtX2RwX3BheWxvYWQgKnBheWxvYWQgPSAmbWdyLT5wYXlsb2Fkc1tpXTsKPiArCQli
-b29sIHB1dF9wb3J0ID0gZmFsc2U7Cj4gIAo+ICAJCS8qIHNvbHZlIHRoZSBjdXJyZW50IHBheWxv
-YWRzIC0gY29tcGFyZSB0byB0aGUgaHcgb25lcwo+ICAJCSAgIC0gdXBkYXRlIHRoZSBodyB2aWV3
-ICovCj4gQEAgLTIxNTMsMTIgKzIxNDcsMjAgQEAgaW50IGRybV9kcF91cGRhdGVfcGF5bG9hZF9w
-YXJ0MShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncikKPiAgCQlpZiAodmNwaSkg
-ewo+ICAJCQlwb3J0ID0gY29udGFpbmVyX29mKHZjcGksIHN0cnVjdCBkcm1fZHBfbXN0X3BvcnQs
-Cj4gIAkJCQkJICAgIHZjcGkpOwo+IC0JCQlwb3J0ID0gZHJtX2RwX21zdF90b3BvbG9neV9nZXRf
-cG9ydF92YWxpZGF0ZWQobWdyLAo+IC0JCQkJCQkJCSAgICAgIHBvcnQpOwo+IC0JCQlpZiAoIXBv
-cnQpIHsKPiAtCQkJCW11dGV4X3VubG9jaygmbWdyLT5wYXlsb2FkX2xvY2spOwo+IC0JCQkJcmV0
-dXJuIC1FSU5WQUw7Cj4gKwo+ICsJCQkvKiBWYWxpZGF0ZWQgcG9ydHMgZG9uJ3QgbWF0dGVyIGlm
-IHdlJ3JlIHJlbGVhc2luZwo+ICsJCQkgKiBWQ1BJCj4gKwkJCSAqLwo+ICsJCQlpZiAodmNwaS0+
-bnVtX3Nsb3RzKSB7Cj4gKwkJCQlwb3J0ID0gZHJtX2RwX21zdF90b3BvbG9neV9nZXRfcG9ydF92
-YWxpZGF0ZWQoCj4gKwkJCQkgICAgbWdyLCBwb3J0KTsKPiArCQkJCWlmICghcG9ydCkgewo+ICsJ
-CQkJCW11dGV4X3VubG9jaygmbWdyLT5wYXlsb2FkX2xvY2spOwo+ICsJCQkJCXJldHVybiAtRUlO
-VkFMOwo+ICsJCQkJfQo+ICsJCQkJcHV0X3BvcnQgPSB0cnVlOwo+ICAJCQl9Cj4gKwo+ICAJCQly
-ZXFfcGF5bG9hZC5udW1fc2xvdHMgPSB2Y3BpLT5udW1fc2xvdHM7Cj4gIAkJCXJlcV9wYXlsb2Fk
-LnZjcGkgPSB2Y3BpLT52Y3BpOwo+ICAJCX0gZWxzZSB7Cj4gQEAgLTIxOTAsNyArMjE5Miw3IEBA
-IGludCBkcm1fZHBfdXBkYXRlX3BheWxvYWRfcGFydDEoc3RydWN0IGRybV9kcF9tc3RfdG9wb2xv
-Z3lfbWdyICptZ3IpCj4gIAkJfQo+ICAJCWN1cl9zbG90cyArPSByZXFfcGF5bG9hZC5udW1fc2xv
-dHM7Cj4gIAo+IC0JCWlmIChwb3J0KQo+ICsJCWlmIChwdXRfcG9ydCkKPiAgCQkJZHJtX2RwX21z
-dF90b3BvbG9neV9wdXRfcG9ydChwb3J0KTsKPiAgCX0KPiAgCj4gQEAgLTMwMDUsNiArMzAwNyw4
-IEBAIGJvb2wgZHJtX2RwX21zdF9hbGxvY2F0ZV92Y3BpKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9s
-b2d5X21nciAqbWdyLAo+ICAJRFJNX0RFQlVHX0tNUygiaW5pdGluZyB2Y3BpIGZvciBwYm49JWQg
-c2xvdHM9JWRcbiIsCj4gIAkJICAgICAgcGJuLCBwb3J0LT52Y3BpLm51bV9zbG90cyk7Cj4gIAo+
-ICsJLyogS2VlcCBwb3J0IGFsbG9jYXRlZCB1bnRpbCBpdCdzIHBheWxvYWQgaGFzIGJlZW4gcmVt
-b3ZlZCAqLwo+ICsJZHJtX2RwX21zdF9nZXRfcG9ydF9tYWxsb2MocG9ydCk7Cj4gIAlkcm1fZHBf
-bXN0X3RvcG9sb2d5X3B1dF9wb3J0KHBvcnQpOwo+ICAJcmV0dXJuIHRydWU7Cj4gIG91dDoKPiBA
-QCAtMzAzNCwxMSArMzAzOCwxMiBAQCBFWFBPUlRfU1lNQk9MKGRybV9kcF9tc3RfZ2V0X3ZjcGlf
-c2xvdHMpOwo+ICAgKi8KPiAgdm9pZCBkcm1fZHBfbXN0X3Jlc2V0X3ZjcGlfc2xvdHMoc3RydWN0
-IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsIHN0cnVjdCBkcm1fZHBfbXN0X3BvcnQgKnBv
-cnQpCj4gIHsKPiAtCXBvcnQgPSBkcm1fZHBfbXN0X3RvcG9sb2d5X2dldF9wb3J0X3ZhbGlkYXRl
-ZChtZ3IsIHBvcnQpOwo+IC0JaWYgKCFwb3J0KQo+IC0JCXJldHVybjsKPiArCS8qCj4gKwkgKiBB
-IHBvcnQgd2l0aCBWQ1BJIHdpbGwgcmVtYWluIGFsbG9jYXRlZCB1bnRpbCBpdCdzIFZDUEkgaXMK
-PiArCSAqIHJlbGVhc2VkLCBubyB2ZXJpZmllZCByZWYgbmVlZGVkCj4gKwkgKi8KPiArCj4gIAlw
-b3J0LT52Y3BpLm51bV9zbG90cyA9IDA7Cj4gLQlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9wb3J0
-KHBvcnQpOwo+ICB9Cj4gIEVYUE9SVF9TWU1CT0woZHJtX2RwX21zdF9yZXNldF92Y3BpX3Nsb3Rz
-KTsKPiAgCj4gQEAgLTMwNTAsMTYgKzMwNTUsMTcgQEAgRVhQT1JUX1NZTUJPTChkcm1fZHBfbXN0
-X3Jlc2V0X3ZjcGlfc2xvdHMpOwo+ICB2b2lkIGRybV9kcF9tc3RfZGVhbGxvY2F0ZV92Y3BpKHN0
-cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAo+ICAJCQkJc3RydWN0IGRybV9kcF9t
-c3RfcG9ydCAqcG9ydCkKPiAgewo+IC0JcG9ydCA9IGRybV9kcF9tc3RfdG9wb2xvZ3lfZ2V0X3Bv
-cnRfdmFsaWRhdGVkKG1nciwgcG9ydCk7Cj4gLQlpZiAoIXBvcnQpCj4gLQkJcmV0dXJuOwo+ICsJ
-LyoKPiArCSAqIEEgcG9ydCB3aXRoIFZDUEkgd2lsbCByZW1haW4gYWxsb2NhdGVkIHVudGlsIGl0
-J3MgVkNQSSBpcwo+ICsJICogcmVsZWFzZWQsIG5vIHZlcmlmaWVkIHJlZiBuZWVkZWQKPiArCSAq
-Lwo+ICAKPiAgCWRybV9kcF9tc3RfcHV0X3BheWxvYWRfaWQobWdyLCBwb3J0LT52Y3BpLnZjcGkp
-Owo+ICAJcG9ydC0+dmNwaS5udW1fc2xvdHMgPSAwOwo+ICAJcG9ydC0+dmNwaS5wYm4gPSAwOwo+
-ICAJcG9ydC0+dmNwaS5hbGlnbmVkX3BibiA9IDA7Cj4gIAlwb3J0LT52Y3BpLnZjcGkgPSAwOwo+
-IC0JZHJtX2RwX21zdF90b3BvbG9neV9wdXRfcG9ydChwb3J0KTsKPiArCWRybV9kcF9tc3RfcHV0
-X3BvcnRfbWFsbG9jKHBvcnQpOwo+ICB9Cj4gIEVYUE9SVF9TWU1CT0woZHJtX2RwX21zdF9kZWFs
-bG9jYXRlX3ZjcGkpOwo+ICAKPiAtLSAKPiAyLjE5LjIKPiAKCi0tIApEYW5pZWwgVmV0dGVyClNv
-ZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Thu, Dec 13, 2018 at 08:25:33PM -0500, Lyude Paul wrote:
+> This has never actually worked, and isn't needed anyway: the driver's
+> always going to try to deallocate VCPI when it tears down the display
+> that the VCPI belongs to.
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 8 --------
+>  1 file changed, 8 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index c196fb580beb..ae9d019af9f2 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -1084,8 +1084,6 @@ static void drm_dp_destroy_port(struct kref *kref)
+>  	struct drm_dp_mst_topology_mgr *mgr = port->mgr;
+>  
+>  	if (!port->input) {
+> -		port->vcpi.num_slots = 0;
+> -
+>  		kfree(port->cached_edid);
+>  
+>  		/*
+> @@ -3381,12 +3379,6 @@ static void drm_dp_destroy_connector_work(struct work_struct *work)
+>  		drm_dp_port_teardown_pdt(port, port->pdt);
+>  		port->pdt = DP_PEER_DEVICE_NONE;
+>  
+> -		if (!port->input && port->vcpi.vcpi > 0) {
+> -			drm_dp_mst_reset_vcpi_slots(mgr, port);
+> -			drm_dp_update_payload_part1(mgr);
+> -			drm_dp_mst_put_payload_id(mgr, port->vcpi.vcpi);
+> -		}
+> -
+>  		drm_dp_mst_put_port_malloc(port);
+>  		send_hotplug = true;
+>  	}
+> -- 
+> 2.19.2
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
