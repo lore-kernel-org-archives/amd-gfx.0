@@ -1,49 +1,61 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [WIP PATCH 06/15] drm/i915: Keep malloc references to MST ports
-Date: Thu, 13 Dec 2018 20:25:35 -0500
-Message-ID: <20181214012604.13746-7-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [WIP PATCH 08/15] drm/nouveau: Remove unnecessary VCPI checks in nv50_msto_cleanup()
+Date: Thu, 13 Dec 2018 20:25:37 -0500
+Message-ID: <20181214012604.13746-9-lyude@redhat.com>
 References: <20181214012604.13746-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181214012604.13746-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Joonas Lahtinen <joonas.lahtinen-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Jani Nikula <jani.nikula-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20181214012604.13746-1-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Daniel Vetter <daniel@ffwll.ch>, Dave Airlie <airlied@gmail.com>, Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, Ben Skeggs <bskeggs@redhat.com>, David Airlie <airlied@linux.ie>, Sean Paul <seanpaul@chromium.org>, Karol Herbst <karolherbst@gmail.com>, Ilia Mirkin <imirkin@alum.mit.edu>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-U28gdGhhdCB0aGUgcG9ydHMgc3RheSBhcm91bmQgdW50aWwgd2UndmUgZGVzdHJveWVkIHRoZSBj
-b25uZWN0b3JzLCBpbgpvcmRlciB0byBlbnN1cmUgdGhhdCB3ZSBkb24ndCBwYXNzIGFuIGludmFs
-aWQgcG9pbnRlciB0byBhbnkgTVNUIGhlbHBlcnMKb25jZSB3ZSBpbnRyb2R1Y2UgdGhlIG5ldyBN
-U1QgVkNQSSBoZWxwZXJzLgoKU2lnbmVkLW9mZi1ieTogTHl1ZGUgUGF1bCA8bHl1ZGVAcmVkaGF0
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9jb25uZWN0b3IuYyB8IDQgKysr
-KwogZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfZHBfbXN0LmMgICAgfCAyICsrCiAyIGZpbGVz
-IGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2ludGVsX2Nvbm5lY3Rvci5jIGIvZHJpdmVycy9ncHUvZHJtL2k5MTUvaW50ZWxfY29ubmVj
-dG9yLmMKaW5kZXggMThlMzcwZjYwN2JjLi4zN2QyYzY0NGY0YjggMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9pOTE1L2ludGVsX2Nvbm5lY3Rvci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9p
-OTE1L2ludGVsX2Nvbm5lY3Rvci5jCkBAIC05NSw2ICs5NSwxMCBAQCB2b2lkIGludGVsX2Nvbm5l
-Y3Rvcl9kZXN0cm95KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3IpCiAJaW50ZWxfcGFu
-ZWxfZmluaSgmaW50ZWxfY29ubmVjdG9yLT5wYW5lbCk7CiAKIAlkcm1fY29ubmVjdG9yX2NsZWFu
-dXAoY29ubmVjdG9yKTsKKworCWlmIChpbnRlbF9jb25uZWN0b3ItPnBvcnQpCisJCWRybV9kcF9t
-c3RfcHV0X3BvcnRfbWFsbG9jKGludGVsX2Nvbm5lY3Rvci0+cG9ydCk7CisKIAlrZnJlZShjb25u
-ZWN0b3IpOwogfQogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kcF9t
-c3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9pOTE1L2ludGVsX2RwX21zdC5jCmluZGV4IGYwNTQyN2I3
-NGUzNC4uNGQ2Y2VkMzRkNDY1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRl
-bF9kcF9tc3QuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9pbnRlbF9kcF9tc3QuYwpAQCAt
-NDg0LDYgKzQ4NCw4IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqaW50ZWxfZHBfYWRk
-X21zdF9jb25uZWN0b3Ioc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvCiAJaWYgKHJldCkKIAkJZ290
-byBlcnI7CiAKKwlkcm1fZHBfbXN0X2dldF9wb3J0X21hbGxvYyhwb3J0KTsKKwogCXJldHVybiBj
-b25uZWN0b3I7CiAKIGVycjoKLS0gCjIuMTkuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+There is no need to look at the port's VCPI allocation before calling
+drm_dp_mst_deallocate_vcpi(), as we already have msto->disabled to let
+us avoid cleaning up an msto more then once. The DP MST core will never
+call drm_dp_mst_deallocate_vcpi() on it's own, which is presumably what
+these checks are meant to protect against.
+
+More importantly though, we're about to stop clearing mstc->port in the
+next commit, which means if we could potentially hit a use-after-free
+error if we tried to check mstc->port->vcpi here. So to make life easier
+for anyone who bisects this code in the future, use msto->disabled
+instead to check whether or not we need to deallocate VCPI instead.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/nouveau/dispnv50/disp.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+index 641252208e67..0f7d72518604 100644
+--- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
++++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
+@@ -704,14 +704,17 @@ nv50_msto_cleanup(struct nv50_msto *msto)
+ 	struct nv50_mstc *mstc = msto->mstc;
+ 	struct nv50_mstm *mstm = mstc->mstm;
+ 
++	if (!msto->disabled)
++		return;
++
+ 	NV_ATOMIC(drm, "%s: msto cleanup\n", msto->encoder.name);
+-	if (mstc->port && mstc->port->vcpi.vcpi > 0 && !nv50_msto_payload(msto))
++
++	if (mstc->port)
+ 		drm_dp_mst_deallocate_vcpi(&mstm->mgr, mstc->port);
+-	if (msto->disabled) {
+-		msto->mstc = NULL;
+-		msto->head = NULL;
+-		msto->disabled = false;
+-	}
++
++	msto->mstc = NULL;
++	msto->head = NULL;
++	msto->disabled = false;
+ }
+ 
+ static void
+-- 
+2.19.2
