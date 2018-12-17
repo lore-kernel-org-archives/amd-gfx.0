@@ -1,12 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: correct the return value for error case
-Date: Mon, 17 Dec 2018 15:23:51 +0000
-Message-ID: <BN6PR12MB18093C785CCF2CB3A6910A12F7BC0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20181217095902.12549-1-evan.quan@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v3 1/2] drm/sched: Refactor ring mirror list handling.
+Date: Mon, 17 Dec 2018 16:27:26 +0100
+Message-ID: <c547d206-0578-0b25-d18f-79688a489e7e@gmail.com>
+References: <1544478238-13310-1-git-send-email-andrey.grodzovsky@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0394379356=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181217095902.12549-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1544478238-13310-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,411 +20,241 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org, etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: david1.zhou-5C7GfCeVMHo@public.gmane.org, Monk.Liu-5C7GfCeVMHo@public.gmane.org
 
---===============0394379356==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18093C785CCF2CB3A6910A12F7BC0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18093C785CCF2CB3A6910A12F7BC0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
-n <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, December 17, 2018 4:59:02 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Quan, Evan
-Subject: [PATCH] drm/amdgpu: correct the return value for error case
-
-It should not return 0 for error case as '0' is actually
-a special value for index.
-
-Change-Id: Iced8b4427d4403f86826a7c8e3c9d1da3394246c
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h  | 12 ++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 15 +++++++++++++--
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c   | 20 ++++++++++++--------
- 3 files changed, 31 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h
-index 24dea17b4161..ee26181222ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -83,8 +83,8 @@ struct psp_funcs
-                                   enum AMDGPU_UCODE_ID ucode_type);
-         bool (*smu_reload_quirk)(struct psp_context *psp);
-         int (*mode1_reset)(struct psp_context *psp);
--       uint64_t (*xgmi_get_node_id)(struct psp_context *psp);
--       uint64_t (*xgmi_get_hive_id)(struct psp_context *psp);
-+       int (*xgmi_get_node_id)(struct psp_context *psp, uint64_t *node_id)=
-;
-+       int (*xgmi_get_hive_id)(struct psp_context *psp, uint64_t *hive_id)=
-;
-         int (*xgmi_get_topology_info)(struct psp_context *psp, int number_=
-devices,
-                                       struct psp_xgmi_topology_info *topol=
-ogy);
-         int (*xgmi_set_topology_info)(struct psp_context *psp, int number_=
-devices,
-@@ -216,10 +216,10 @@ struct tmz_clear_vpr {
-                 ((psp)->funcs->support_vmr_ring ? (psp)->funcs->support_vm=
-r_ring((psp)) : false)
- #define psp_mode1_reset(psp) \
-                 ((psp)->funcs->mode1_reset ? (psp)->funcs->mode1_reset((ps=
-p)) : false)
--#define psp_xgmi_get_node_id(psp) \
--               ((psp)->funcs->xgmi_get_node_id ? (psp)->funcs->xgmi_get_no=
-de_id((psp)) : 0)
--#define psp_xgmi_get_hive_id(psp) \
--               ((psp)->funcs->xgmi_get_hive_id ? (psp)->funcs->xgmi_get_hi=
-ve_id((psp)) : 0)
-+#define psp_xgmi_get_node_id(psp, node_id) \
-+               ((psp)->funcs->xgmi_get_node_id ? (psp)->funcs->xgmi_get_no=
-de_id((psp), (node_id)) : -EINVAL)
-+#define psp_xgmi_get_hive_id(psp, hive_id) \
-+               ((psp)->funcs->xgmi_get_hive_id ? (psp)->funcs->xgmi_get_hi=
-ve_id((psp), (hive_id)) : -EINVAL)
- #define psp_xgmi_get_topology_info(psp, num_device, topology) \
-                 ((psp)->funcs->xgmi_get_topology_info ? \
-                 (psp)->funcs->xgmi_get_topology_info((psp), (num_device), =
-(topology)) : -EINVAL)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c
-index 0b263a9857c6..8a8bc60cb6b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -97,8 +97,19 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
-         if (!adev->gmc.xgmi.supported)
-                 return 0;
-
--       adev->gmc.xgmi.node_id =3D psp_xgmi_get_node_id(&adev->psp);
--       adev->gmc.xgmi.hive_id =3D psp_xgmi_get_hive_id(&adev->psp);
-+       ret =3D psp_xgmi_get_node_id(&adev->psp, &adev->gmc.xgmi.node_id);
-+       if (ret) {
-+               dev_err(adev->dev,
-+                       "XGMI: Failed to get node id\n");
-+               return ret;
-+       }
-+
-+       ret =3D psp_xgmi_get_hive_id(&adev->psp, &adev->gmc.xgmi.hive_id);
-+       if (ret) {
-+               dev_err(adev->dev,
-+                       "XGMI: Failed to get hive id\n");
-+               return ret;
-+       }
-
-         mutex_lock(&xgmi_mutex);
-         hive =3D amdgpu_get_xgmi_hive(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v11_0.c
-index 0a390a9544b5..d9b4a3aca3be 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -704,7 +704,7 @@ static int psp_v11_0_xgmi_set_topology_info(struct psp_=
-context *psp,
-         return psp_xgmi_invoke(psp, TA_COMMAND_XGMI__SET_TOPOLOGY_INFO);
- }
-
--static u64 psp_v11_0_xgmi_get_hive_id(struct psp_context *psp)
-+static int psp_v11_0_xgmi_get_hive_id(struct psp_context *psp, uint64_t *h=
-ive_id)
- {
-         struct ta_xgmi_shared_memory *xgmi_cmd;
-         int ret;
-@@ -717,12 +717,14 @@ static u64 psp_v11_0_xgmi_get_hive_id(struct psp_cont=
-ext *psp)
-         /* Invoke xgmi ta to get hive id */
-         ret =3D psp_xgmi_invoke(psp, xgmi_cmd->cmd_id);
-         if (ret)
--               return 0;
--       else
--               return xgmi_cmd->xgmi_out_message.get_hive_id.hive_id;
-+               return ret;
-+
-+       *hive_id =3D xgmi_cmd->xgmi_out_message.get_hive_id.hive_id;
-+
-+       return 0;
- }
-
--static u64 psp_v11_0_xgmi_get_node_id(struct psp_context *psp)
-+static int psp_v11_0_xgmi_get_node_id(struct psp_context *psp, uint64_t *n=
-ode_id)
- {
-         struct ta_xgmi_shared_memory *xgmi_cmd;
-         int ret;
-@@ -735,9 +737,11 @@ static u64 psp_v11_0_xgmi_get_node_id(struct psp_conte=
-xt *psp)
-         /* Invoke xgmi ta to get the node id */
-         ret =3D psp_xgmi_invoke(psp, xgmi_cmd->cmd_id);
-         if (ret)
--               return 0;
--       else
--               return xgmi_cmd->xgmi_out_message.get_node_id.node_id;
-+               return ret;
-+
-+       *node_id =3D xgmi_cmd->xgmi_out_message.get_node_id.node_id;
-+
-+       return 0;
- }
-
- static const struct psp_funcs psp_v11_0_funcs =3D {
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18093C785CCF2CB3A6910A12F7BC0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
-<b>Sent:</b> Monday, December 17, 2018 4:59:02 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Quan, Evan<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: correct the return value for error case=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">It should not return 0 for error case as '0' is ac=
-tually<br>
-a special value for index.<br>
-<br>
-Change-Id: Iced8b4427d4403f86826a7c8e3c9d1da3394246c<br>
-Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h&nbsp; | 12 &#43;&#43;&#43;&#4=
-3;&#43;&#43;------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 15 &#43;&#43;&#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c&nbsp;&nbsp; | 20 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--------<br>
-&nbsp;3 files changed, 31 insertions(&#43;), 16 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.h<br>
-index 24dea17b4161..ee26181222ad 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h<br>
-@@ -83,8 &#43;83,8 @@ struct psp_funcs<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum AMDGPU_UCODE_ID=
- ucode_type);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool (*smu_reload_quirk)(s=
-truct psp_context *psp);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*mode1_reset)(struct =
-psp_context *psp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t (*xgmi_get_node_id)(struct p=
-sp_context *psp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t (*xgmi_get_hive_id)(struct p=
-sp_context *psp);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*xgmi_get_node_id)(struct ps=
-p_context *psp, uint64_t *node_id);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*xgmi_get_hive_id)(struct ps=
-p_context *psp, uint64_t *hive_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*xgmi_get_topology_in=
-fo)(struct psp_context *psp, int number_devices,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; struct psp_xgmi_topology_info *topology);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*xgmi_set_topology_in=
-fo)(struct psp_context *psp, int number_devices,<br>
-@@ -216,10 &#43;216,10 @@ struct tmz_clear_vpr {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((psp)-&gt;funcs-&gt;support_vmr_ring ? (psp)-&gt;fun=
-cs-&gt;support_vmr_ring((psp)) : false)<br>
-&nbsp;#define psp_mode1_reset(psp) \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((psp)-&gt;funcs-&gt;mode1_reset ? (psp)-&gt;funcs-&g=
-t;mode1_reset((psp)) : false)<br>
--#define psp_xgmi_get_node_id(psp) \<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ((psp)-&gt;funcs-&gt;xgmi_get_node_id ? (psp)-&gt;funcs-&gt;xgmi=
-_get_node_id((psp)) : 0)<br>
--#define psp_xgmi_get_hive_id(psp) \<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ((psp)-&gt;funcs-&gt;xgmi_get_hive_id ? (psp)-&gt;funcs-&gt;xgmi=
-_get_hive_id((psp)) : 0)<br>
-&#43;#define psp_xgmi_get_node_id(psp, node_id) \<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ((psp)-&gt;funcs-&gt;xgmi_get_node_id ? (psp)-&gt;funcs-&gt;=
-xgmi_get_node_id((psp), (node_id)) : -EINVAL)<br>
-&#43;#define psp_xgmi_get_hive_id(psp, hive_id) \<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ((psp)-&gt;funcs-&gt;xgmi_get_hive_id ? (psp)-&gt;funcs-&gt;=
-xgmi_get_hive_id((psp), (hive_id)) : -EINVAL)<br>
-&nbsp;#define psp_xgmi_get_topology_info(psp, num_device, topology) \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ((psp)-&gt;funcs-&gt;xgmi_get_topology_info ? \<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; (psp)-&gt;funcs-&gt;xgmi_get_topology_info((psp), (nu=
-m_device), (topology)) : -EINVAL)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c<br>
-index 0b263a9857c6..8a8bc60cb6b4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
-@@ -97,8 &#43;97,19 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *ade=
-v)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;gmc.xgmi.sup=
-ported)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.xgmi.node_id =3D psp_xgm=
-i_get_node_id(&amp;adev-&gt;psp);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc.xgmi.hive_id =3D psp_xgm=
-i_get_hive_id(&amp;adev-&gt;psp);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_xgmi_get_node_id(&amp=
-;adev-&gt;psp, &amp;adev-&gt;gmc.xgmi.node_id);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; dev_err(adev-&gt;dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;XGMI: =
-Failed to get node id\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return ret;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_xgmi_get_hive_id(&amp=
-;adev-&gt;psp, &amp;adev-&gt;gmc.xgmi.hive_id);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; dev_err(adev-&gt;dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;XGMI: =
-Failed to get hive id\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return ret;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;xgmi_mutex=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive =3D amdgpu_get_xgmi_h=
-ive(adev);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v11_0.c<br>
-index 0a390a9544b5..d9b4a3aca3be 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-@@ -704,7 &#43;704,7 @@ static int psp_v11_0_xgmi_set_topology_info(struct =
-psp_context *psp,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return psp_xgmi_invoke(psp=
-, TA_COMMAND_XGMI__SET_TOPOLOGY_INFO);<br>
-&nbsp;}<br>
-&nbsp;<br>
--static u64 psp_v11_0_xgmi_get_hive_id(struct psp_context *psp)<br>
-&#43;static int psp_v11_0_xgmi_get_hive_id(struct psp_context *psp, uint64_=
-t *hive_id)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ta_xgmi_shared_memo=
-ry *xgmi_cmd;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-@@ -717,12 &#43;717,14 @@ static u64 psp_v11_0_xgmi_get_hive_id(struct psp_=
-context *psp)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Invoke xgmi ta to get h=
-ive id */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_xgmi_invoke(ps=
-p, xgmi_cmd-&gt;cmd_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return xgmi_cmd-&gt;xgmi_out_message.get_hive_id.hive_id;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return ret;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *hive_id =3D xgmi_cmd-&gt;xgmi_ou=
-t_message.get_hive_id.hive_id;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--static u64 psp_v11_0_xgmi_get_node_id(struct psp_context *psp)<br>
-&#43;static int psp_v11_0_xgmi_get_node_id(struct psp_context *psp, uint64_=
-t *node_id)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ta_xgmi_shared_memo=
-ry *xgmi_cmd;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-@@ -735,9 &#43;737,11 @@ static u64 psp_v11_0_xgmi_get_node_id(struct psp_c=
-ontext *psp)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Invoke xgmi ta to get t=
-he node id */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_xgmi_invoke(ps=
-p, xgmi_cmd-&gt;cmd_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return xgmi_cmd-&gt;xgmi_out_message.get_node_id.node_id;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return ret;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *node_id =3D xgmi_cmd-&gt;xgmi_ou=
-t_message.get_node_id.node_id;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static const struct psp_funcs psp_v11_0_funcs =3D {<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18093C785CCF2CB3A6910A12F7BC0BN6PR12MB1809namp_--
-
---===============0394379356==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0394379356==--
+QW0gMTAuMTIuMTggdW0gMjI6NDMgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPiBEZWNhdXBs
+ZSBzY2hlZCB0aHJlYWRzIHN0b3AgYW5kIHN0YXJ0IGFuZCByaW5nIG1pcnJvcgo+IGxpc3QgaGFu
+ZGxpbmcgZnJvbSB0aGUgcG9saWN5IG9mIHdoYXQgdG8gZG8gYWJvdXQgdGhlCj4gZ3VpbHR5IGpv
+YnMuCj4gV2hlbiBzdG9wcHBpbmcgdGhlIHNjaGVkIHRocmVhZCBhbmQgZGV0YWNoaW5nIHNjaGVk
+IGZlbmNlcwo+IGZyb20gbm9uIHNpZ25hbGVkIEhXIGZlbmVzIHdhaXQgZm9yIGFsbCBzaWduYWxl
+ZCBIVyBmZW5jZXMKPiB0byBjb21wbGV0ZSBiZWZvcmUgcmVydW5uaW5nIHRoZSBqb2JzLgo+Cj4g
+djI6IEZpeCByZXN1Ym1pc3Npb24gb2YgZ3VpbHR5IGpvYiBpbnRvIEhXIGFmdGVyIHJlZmFjdG9y
+aW5nLgo+Cj4gU3VnZ2VzdGVkLWJ5OiBDaHJpc3RpYW4gS29lbmlnIDxDaHJpc3RpYW4uS29lbmln
+QGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9k
+em92c2t5QGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgfCAgMTcgKysrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2
+aXZfc2NoZWQuYyAgICB8ICAgOCArLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2No
+ZWRfbWFpbi5jICAgICB8IDExMCArKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLQo+ICAgZHJp
+dmVycy9ncHUvZHJtL3YzZC92M2Rfc2NoZWQuYyAgICAgICAgICAgIHwgIDExICstLQo+ICAgaW5j
+bHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oICAgICAgICAgICAgICAgIHwgIDEwICsrLQo+ICAgNSBm
+aWxlcyBjaGFuZ2VkLCA5NSBpbnNlcnRpb25zKCspLCA2MSBkZWxldGlvbnMoLSkKPgo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCBlZjM2Y2M1Li40
+MjExMWQ1IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
+Ywo+IEBAIC0zMjkyLDE3ICszMjkyLDE2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9wcmVf
+YXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAkvKiBibG9jayBhbGwg
+c2NoZWR1bGVycyBhbmQgcmVzZXQgZ2l2ZW4gam9iJ3MgcmluZyAqLwo+ICAgCWZvciAoaSA9IDA7
+IGkgPCBBTURHUFVfTUFYX1JJTkdTOyArK2kpIHsKPiAgIAkJc3RydWN0IGFtZGdwdV9yaW5nICpy
+aW5nID0gYWRldi0+cmluZ3NbaV07Cj4gKwkJYm9vbCBwYXJrX29ubHkgPSBqb2IgJiYgam9iLT5i
+YXNlLnNjaGVkICE9ICZyaW5nLT5zY2hlZDsKPiAgIAo+ICAgCQlpZiAoIXJpbmcgfHwgIXJpbmct
+PnNjaGVkLnRocmVhZCkKPiAgIAkJCWNvbnRpbnVlOwo+ICAgCj4gLQkJa3RocmVhZF9wYXJrKHJp
+bmctPnNjaGVkLnRocmVhZCk7Cj4gKwkJZHJtX3NjaGVkX3N0b3AoJnJpbmctPnNjaGVkLCBqb2Ig
+PyAmam9iLT5iYXNlIDogTlVMTCwgcGFya19vbmx5KTsKPiAgIAo+IC0JCWlmIChqb2IgJiYgam9i
+LT5iYXNlLnNjaGVkICE9ICZyaW5nLT5zY2hlZCkKPiArCQlpZiAocGFya19vbmx5KQo+ICAgCQkJ
+Y29udGludWU7Cj4gICAKPiAtCQlkcm1fc2NoZWRfaHdfam9iX3Jlc2V0KCZyaW5nLT5zY2hlZCwg
+am9iID8gJmpvYi0+YmFzZSA6IE5VTEwpOwo+IC0KPiAgIAkJLyogYWZ0ZXIgYWxsIGh3IGpvYnMg
+YXJlIHJlc2V0LCBodyBmZW5jZSBpcyBtZWFuaW5nbGVzcywgc28gZm9yY2VfY29tcGxldGlvbiAq
+Lwo+ICAgCQlhbWRncHVfZmVuY2VfZHJpdmVyX2ZvcmNlX2NvbXBsZXRpb24ocmluZyk7Cj4gICAJ
+fQo+IEBAIC0zNDQ1LDYgKzM0NDQsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNlX3Bvc3Rf
+YXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAkJCQkJICBzdHJ1Y3Qg
+YW1kZ3B1X2pvYiAqam9iKQo+ICAgewo+ICAgCWludCBpOwo+ICsJYm9vbCB1bnBhcmtfb25seTsK
+PiAgIAo+ICAgCWZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1JJTkdTOyArK2kpIHsKPiAgIAkJ
+c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gYWRldi0+cmluZ3NbaV07Cj4gQEAgLTM0NTYsMTAg
+KzM0NTYsMTMgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RldmljZV9wb3N0X2FzaWNfcmVzZXQoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAJCSAqIG9yIGFsbCByaW5ncyAoaW4gdGhlIGNh
+c2UgQGpvYiBpcyBOVUxMKQo+ICAgCQkgKiBhZnRlciBhYm92ZSBhbWRncHVfcmVzZXQgYWNjb21w
+bGlzaGVkCj4gICAJCSAqLwo+IC0JCWlmICgoIWpvYiB8fCBqb2ItPmJhc2Uuc2NoZWQgPT0gJnJp
+bmctPnNjaGVkKSAmJiAhYWRldi0+YXNpY19yZXNldF9yZXMpCj4gLQkJCWRybV9zY2hlZF9qb2Jf
+cmVjb3ZlcnkoJnJpbmctPnNjaGVkKTsKPiArCQl1bnBhcmtfb25seSA9IChqb2IgJiYgam9iLT5i
+YXNlLnNjaGVkICE9ICZyaW5nLT5zY2hlZCkgfHwKPiArCQkJICAgICAgIGFkZXYtPmFzaWNfcmVz
+ZXRfcmVzOwo+ICsKPiArCQlpZiAoIXVucGFya19vbmx5KQo+ICsJCQlkcm1fc2NoZWRfcmVzdWJt
+aXRfam9icygmcmluZy0+c2NoZWQpOwo+ICAgCj4gLQkJa3RocmVhZF91bnBhcmsocmluZy0+c2No
+ZWQudGhyZWFkKTsKPiArCQlkcm1fc2NoZWRfc3RhcnQoJnJpbmctPnNjaGVkLCB1bnBhcmtfb25s
+eSk7Cj4gICAJfQo+ICAgCj4gICAJaWYgKCFhbWRncHVfZGV2aWNlX2hhc19kY19zdXBwb3J0KGFk
+ZXYpKSB7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2No
+ZWQuYyBiL2RyaXZlcnMvZ3B1L2RybS9ldG5hdml2L2V0bmF2aXZfc2NoZWQuYwo+IGluZGV4IDQ5
+YTY3NjMuLmZhYjNiNTEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRu
+YXZpdl9zY2hlZC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2V0bmF2aXYvZXRuYXZpdl9zY2hl
+ZC5jCj4gQEAgLTEwOSwxNiArMTA5LDE2IEBAIHN0YXRpYyB2b2lkIGV0bmF2aXZfc2NoZWRfdGlt
+ZWRvdXRfam9iKHN0cnVjdCBkcm1fc2NoZWRfam9iICpzY2hlZF9qb2IpCj4gICAJfQo+ICAgCj4g
+ICAJLyogYmxvY2sgc2NoZWR1bGVyICovCj4gLQlrdGhyZWFkX3BhcmsoZ3B1LT5zY2hlZC50aHJl
+YWQpOwo+IC0JZHJtX3NjaGVkX2h3X2pvYl9yZXNldCgmZ3B1LT5zY2hlZCwgc2NoZWRfam9iKTsK
+PiArCWRybV9zY2hlZF9zdG9wKCZncHUtPnNjaGVkLCBzY2hlZF9qb2IsIGZhbHNlKTsKPiAgIAo+
+ICAgCS8qIGdldCB0aGUgR1BVIGJhY2sgaW50byB0aGUgaW5pdCBzdGF0ZSAqLwo+ICAgCWV0bmF2
+aXZfY29yZV9kdW1wKGdwdSk7Cj4gICAJZXRuYXZpdl9ncHVfcmVjb3Zlcl9oYW5nKGdwdSk7Cj4g
+ICAKPiArCWRybV9zY2hlZF9yZXN1Ym1pdF9qb2JzKCZncHUtPnNjaGVkKTsKPiArCj4gICAJLyog
+cmVzdGFydCBzY2hlZHVsZXIgYWZ0ZXIgR1BVIGlzIHVzYWJsZSBhZ2FpbiAqLwo+IC0JZHJtX3Nj
+aGVkX2pvYl9yZWNvdmVyeSgmZ3B1LT5zY2hlZCk7Cj4gLQlrdGhyZWFkX3VucGFyayhncHUtPnNj
+aGVkLnRocmVhZCk7Cj4gKwlkcm1fc2NoZWRfc3RhcnQoJmdwdS0+c2NoZWQpOwo+ICAgfQo+ICAg
+Cj4gICBzdGF0aWMgdm9pZCBldG5hdml2X3NjaGVkX2ZyZWVfam9iKHN0cnVjdCBkcm1fc2NoZWRf
+am9iICpzY2hlZF9qb2IpCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIv
+c2NoZWRfbWFpbi5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMKPiBp
+bmRleCBkYmI2OTA2Li5jZGY5NWUyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hl
+ZHVsZXIvc2NoZWRfbWFpbi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hl
+ZF9tYWluLmMKPiBAQCAtNjAsOCArNjAsNiBAQAo+ICAgCj4gICBzdGF0aWMgdm9pZCBkcm1fc2No
+ZWRfcHJvY2Vzc19qb2Ioc3RydWN0IGRtYV9mZW5jZSAqZiwgc3RydWN0IGRtYV9mZW5jZV9jYiAq
+Y2IpOwo+ICAgCj4gLXN0YXRpYyB2b2lkIGRybV9zY2hlZF9leHBlbF9qb2JfdW5sb2NrZWQoc3Ry
+dWN0IGRybV9zY2hlZF9qb2IgKnNfam9iKTsKPiAtCj4gICAvKioKPiAgICAqIGRybV9zY2hlZF9y
+cV9pbml0IC0gaW5pdGlhbGl6ZSBhIGdpdmVuIHJ1biBxdWV1ZSBzdHJ1Y3QKPiAgICAqCj4gQEAg
+LTM0MiwxMyArMzQwLDIxIEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9qb2JfdGltZWRvdXQoc3Ry
+dWN0IHdvcmtfc3RydWN0ICp3b3JrKQo+ICAgICogQGJhZDogYmFkIHNjaGVkdWxlciBqb2IKPiAg
+ICAqCj4gICAgKi8KPiAtdm9pZCBkcm1fc2NoZWRfaHdfam9iX3Jlc2V0KHN0cnVjdCBkcm1fZ3B1
+X3NjaGVkdWxlciAqc2NoZWQsIHN0cnVjdCBkcm1fc2NoZWRfam9iICpiYWQpCj4gK3ZvaWQgZHJt
+X3NjaGVkX3N0b3Aoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCwgc3RydWN0IGRybV9z
+Y2hlZF9qb2IgKmJhZCwKPiArCQkgICAgYm9vbCBwYXJrX29ubHkpCj4gICB7Cj4gICAJc3RydWN0
+IGRybV9zY2hlZF9qb2IgKnNfam9iOwo+ICAgCXN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRp
+dHksICp0bXA7Cj4gICAJdW5zaWduZWQgbG9uZyBmbGFnczsKPiArCXN0cnVjdCBsaXN0X2hlYWQg
+d2FpdF9saXN0Owo+ICAgCWludCBpOwo+ICAgCj4gKwlrdGhyZWFkX3Bhcmsoc2NoZWQtPnRocmVh
+ZCk7Cj4gKwlpZiAocGFya19vbmx5KQo+ICsJCXJldHVybjsKClJlbW92aW5nIHRoZSBjYWxsYmFj
+ayBuZWVkcyB0byBiZSBkb25lIGZvciBhbGwgZW5naW5lcywgbm90IGp1c3QgdGhlIG9uZSAKd2hl
+cmUgdGhlIGJhZCBqb2IgaXMgb24uCgo+ICsKPiArCUlOSVRfTElTVF9IRUFEKCZ3YWl0X2xpc3Qp
+Owo+ICsKPiAgIAlzcGluX2xvY2tfaXJxc2F2ZSgmc2NoZWQtPmpvYl9saXN0X2xvY2ssIGZsYWdz
+KTsKPiAgIAlsaXN0X2Zvcl9lYWNoX2VudHJ5X3JldmVyc2Uoc19qb2IsICZzY2hlZC0+cmluZ19t
+aXJyb3JfbGlzdCwgbm9kZSkgewo+ICAgCQlpZiAoc19qb2ItPnNfZmVuY2UtPnBhcmVudCAmJgo+
+IEBAIC0zNTgsOSArMzY0LDI0IEBAIHZvaWQgZHJtX3NjaGVkX2h3X2pvYl9yZXNldChzdHJ1Y3Qg
+ZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLCBzdHJ1Y3QgZHJtX3NjaGVkX2pvCj4gICAJCQlzX2pv
+Yi0+c19mZW5jZS0+cGFyZW50ID0gTlVMTDsKPiAgIAkJCWF0b21pY19kZWMoJnNjaGVkLT5od19y
+cV9jb3VudCk7Cj4gICAJCX0KPiArCQllbHNlIHsKPiArCQkJLyogVE9ETyBJcyBpdCBnZXQvcHV0
+IG5lY2Nlc3NleSBoZXJlID8gKi8KPiArCQkJZG1hX2ZlbmNlX2dldCgmc19qb2ItPnNfZmVuY2Ut
+PmZpbmlzaGVkKTsKPiArCQkJbGlzdF9hZGQoJnNfam9iLT5maW5pc2hfbm9kZSwgJndhaXRfbGlz
+dCk7Cj4gKwkJfQo+ICAgCX0KPiAgIAlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZzY2hlZC0+am9i
+X2xpc3RfbG9jaywgZmxhZ3MpOwo+ICAgCj4gKwkvKgo+ICsJICogVmVyaWZ5IGFsbCB0aGUgc2ln
+bmFsZWQgam9icyBpbiBtaXJyb3IgbGlzdCBhcmUgcmVtb3ZlZCBmcm9tIHRoZSByaW5nCj4gKwkg
+KiBXZSByZWx5IG9uIHRoZSBmYWN0IHRoYXQgYW55IGZpbmlzaF93b3JrIGluIHByb2dyZXNzIHdp
+bGwgd2FpdCBmb3IgdGhpcwo+ICsJICogaGFuZGxlciB0byBjb21wbGV0ZSBiZWZvcmUgcmVsZWFz
+aW5nIGFsbCBvZiB0aGUgam9icyB3ZSBpdGVyYXRlLgo+ICsJICovCj4gKwlsaXN0X2Zvcl9lYWNo
+X2VudHJ5KHNfam9iLCAmd2FpdF9saXN0LCBmaW5pc2hfbm9kZSkgewo+ICsJCWRtYV9mZW5jZV93
+YWl0KCZzX2pvYi0+c19mZW5jZS0+ZmluaXNoZWQsIGZhbHNlKTsKPiArCQlkbWFfZmVuY2VfcHV0
+KCZzX2pvYi0+c19mZW5jZS0+ZmluaXNoZWQpOwo+ICsJfQo+ICsKCkluY3JlYXNpbmcgYSBiYWQg
+am9icyBrYXJtYSBzaG91bGQgYmUgYSBzZXBhcmF0ZSBmdW5jdGlvbi4KCkNocmlzdGlhbi4KCj4g
+ICAJaWYgKGJhZCAmJiBiYWQtPnNfcHJpb3JpdHkgIT0gRFJNX1NDSEVEX1BSSU9SSVRZX0tFUk5F
+TCkgewo+ICAgCQlhdG9taWNfaW5jKCZiYWQtPmthcm1hKTsKPiAgIAkJLyogZG9uJ3QgaW5jcmVh
+c2UgQGJhZCdzIGthcm1hIGlmIGl0J3MgZnJvbSBLRVJORUwgUlEsCj4gQEAgLTM4NSw3ICs0MDYs
+NyBAQCB2b2lkIGRybV9zY2hlZF9od19qb2JfcmVzZXQoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVy
+ICpzY2hlZCwgc3RydWN0IGRybV9zY2hlZF9qbwo+ICAgCQl9Cj4gICAJfQo+ICAgfQo+IC1FWFBP
+UlRfU1lNQk9MKGRybV9zY2hlZF9od19qb2JfcmVzZXQpOwo+ICtFWFBPUlRfU1lNQk9MKGRybV9z
+Y2hlZF9zdG9wKTsKPiAgIAo+ICAgLyoqCj4gICAgKiBkcm1fc2NoZWRfam9iX3JlY292ZXJ5IC0g
+cmVjb3ZlciBqb2JzIGFmdGVyIGEgcmVzZXQKPiBAQCAtMzkzLDMzICs0MTQsMjEgQEAgRVhQT1JU
+X1NZTUJPTChkcm1fc2NoZWRfaHdfam9iX3Jlc2V0KTsKPiAgICAqIEBzY2hlZDogc2NoZWR1bGVy
+IGluc3RhbmNlCj4gICAgKgo+ICAgICovCj4gLXZvaWQgZHJtX3NjaGVkX2pvYl9yZWNvdmVyeShz
+dHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkKQo+ICt2b2lkIGRybV9zY2hlZF9zdGFydChz
+dHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLCBib29sIHVucGFya19vbmx5KQo+ICAgewo+
+ICAgCXN0cnVjdCBkcm1fc2NoZWRfam9iICpzX2pvYiwgKnRtcDsKPiAtCWJvb2wgZm91bmRfZ3Vp
+bHR5ID0gZmFsc2U7Cj4gICAJdW5zaWduZWQgbG9uZyBmbGFnczsKPiAgIAlpbnQgcjsKPiAgIAo+
+IC0Jc3Bpbl9sb2NrX2lycXNhdmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7Cj4gKwlp
+ZiAodW5wYXJrX29ubHkpCj4gKwkJZ290byB1bnBhcms7Cj4gKwo+ICsJc3Bpbl9sb2NrX2lycXNh
+dmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7CQo+ICAgCWxpc3RfZm9yX2VhY2hfZW50
+cnlfc2FmZShzX2pvYiwgdG1wLCAmc2NoZWQtPnJpbmdfbWlycm9yX2xpc3QsIG5vZGUpIHsKPiAg
+IAkJc3RydWN0IGRybV9zY2hlZF9mZW5jZSAqc19mZW5jZSA9IHNfam9iLT5zX2ZlbmNlOwo+IC0J
+CXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlOwo+IC0JCXVpbnQ2NF90IGd1aWx0eV9jb250ZXh0Owo+
+IC0KPiAtCQlpZiAoIWZvdW5kX2d1aWx0eSAmJiBhdG9taWNfcmVhZCgmc19qb2ItPmthcm1hKSA+
+IHNjaGVkLT5oYW5nX2xpbWl0KSB7Cj4gLQkJCWZvdW5kX2d1aWx0eSA9IHRydWU7Cj4gLQkJCWd1
+aWx0eV9jb250ZXh0ID0gc19qb2ItPnNfZmVuY2UtPnNjaGVkdWxlZC5jb250ZXh0Owo+IC0JCX0K
+PiAtCj4gLQkJaWYgKGZvdW5kX2d1aWx0eSAmJiBzX2pvYi0+c19mZW5jZS0+c2NoZWR1bGVkLmNv
+bnRleHQgPT0gZ3VpbHR5X2NvbnRleHQpCj4gLQkJCWRtYV9mZW5jZV9zZXRfZXJyb3IoJnNfZmVu
+Y2UtPmZpbmlzaGVkLCAtRUNBTkNFTEVEKTsKPiAtCj4gLQkJc3Bpbl91bmxvY2tfaXJxcmVzdG9y
+ZSgmc2NoZWQtPmpvYl9saXN0X2xvY2ssIGZsYWdzKTsKPiAtCQlmZW5jZSA9IHNjaGVkLT5vcHMt
+PnJ1bl9qb2Ioc19qb2IpOwo+IC0JCWF0b21pY19pbmMoJnNjaGVkLT5od19ycV9jb3VudCk7Cj4g
+KwkJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UgPSBzX2pvYi0+c19mZW5jZS0+cGFyZW50Owo+ICAg
+Cj4gICAJCWlmIChmZW5jZSkgewo+IC0JCQlzX2ZlbmNlLT5wYXJlbnQgPSBkbWFfZmVuY2VfZ2V0
+KGZlbmNlKTsKPiAgIAkJCXIgPSBkbWFfZmVuY2VfYWRkX2NhbGxiYWNrKGZlbmNlLCAmc19mZW5j
+ZS0+Y2IsCj4gICAJCQkJCQkgICBkcm1fc2NoZWRfcHJvY2Vzc19qb2IpOwo+ICAgCQkJaWYgKHIg
+PT0gLUVOT0VOVCkKPiBAQCAtNDI3LDE4ICs0MzYsNDcgQEAgdm9pZCBkcm1fc2NoZWRfam9iX3Jl
+Y292ZXJ5KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpCj4gICAJCQllbHNlIGlmIChy
+KQo+ICAgCQkJCURSTV9FUlJPUigiZmVuY2UgYWRkIGNhbGxiYWNrIGZhaWxlZCAoJWQpXG4iLAo+
+ICAgCQkJCQkgIHIpOwo+IC0JCQlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKPiAtCQl9IGVsc2Ugewo+
+IC0JCQlpZiAoc19mZW5jZS0+ZmluaXNoZWQuZXJyb3IgPCAwKQo+IC0JCQkJZHJtX3NjaGVkX2V4
+cGVsX2pvYl91bmxvY2tlZChzX2pvYik7Cj4gKwkJfSBlbHNlCj4gICAJCQlkcm1fc2NoZWRfcHJv
+Y2Vzc19qb2IoTlVMTCwgJnNfZmVuY2UtPmNiKTsKPiAtCQl9Cj4gLQkJc3Bpbl9sb2NrX2lycXNh
+dmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7Cj4gICAJfQo+ICsKPiAgIAlkcm1fc2No
+ZWRfc3RhcnRfdGltZW91dChzY2hlZCk7Cj4gICAJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmc2No
+ZWQtPmpvYl9saXN0X2xvY2ssIGZsYWdzKTsKPiArCj4gK3VucGFyazoKPiArCWt0aHJlYWRfdW5w
+YXJrKHNjaGVkLT50aHJlYWQpOwo+ICAgfQo+IC1FWFBPUlRfU1lNQk9MKGRybV9zY2hlZF9qb2Jf
+cmVjb3ZlcnkpOwo+ICtFWFBPUlRfU1lNQk9MKGRybV9zY2hlZF9zdGFydCk7Cj4gKwo+ICsvKioK
+PiArICogZHJtX3NjaGVkX3Jlc3VibWl0X2pvYnMgLSBoZWxwZXIgdG8gcmVsdW5jaCBqb2IgZnJv
+bSBtaXJyb3IgcmluZyBsaXN0Cj4gKyAqCj4gKyAqIEBzY2hlZDogc2NoZWR1bGVyIGluc3RhbmNl
+Cj4gKyAqCj4gKyAqLwo+ICt2b2lkIGRybV9zY2hlZF9yZXN1Ym1pdF9qb2JzKHN0cnVjdCBkcm1f
+Z3B1X3NjaGVkdWxlciAqc2NoZWQpCj4gK3sKPiArCXN0cnVjdCBkcm1fc2NoZWRfam9iICpzX2pv
+YiwgKnRtcDsKPiArCXVpbnQ2NF90IGd1aWx0eV9jb250ZXh0Owo+ICsJYm9vbCBmb3VuZF9ndWls
+dHkgPSBmYWxzZTsKPiArCj4gKwkvKlRPRE8gRE8gd2UgbmVlZCBzcGlubG9jayBoZXJlID8gKi8K
+PiArCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShzX2pvYiwgdG1wLCAmc2NoZWQtPnJpbmdfbWly
+cm9yX2xpc3QsIG5vZGUpIHsKPiArCQlzdHJ1Y3QgZHJtX3NjaGVkX2ZlbmNlICpzX2ZlbmNlID0g
+c19qb2ItPnNfZmVuY2U7Cj4gKwo+ICsJCWlmICghZm91bmRfZ3VpbHR5ICYmIGF0b21pY19yZWFk
+KCZzX2pvYi0+a2FybWEpID4gc2NoZWQtPmhhbmdfbGltaXQpIHsKPiArCQkJZm91bmRfZ3VpbHR5
+ID0gdHJ1ZTsKPiArCQkJZ3VpbHR5X2NvbnRleHQgPSBzX2pvYi0+c19mZW5jZS0+c2NoZWR1bGVk
+LmNvbnRleHQ7Cj4gKwkJfQo+ICsKPiArCQlpZiAoZm91bmRfZ3VpbHR5ICYmIHNfam9iLT5zX2Zl
+bmNlLT5zY2hlZHVsZWQuY29udGV4dCA9PSBndWlsdHlfY29udGV4dCkKPiArCQkJZG1hX2ZlbmNl
+X3NldF9lcnJvcigmc19mZW5jZS0+ZmluaXNoZWQsIC1FQ0FOQ0VMRUQpOwo+ICsKPiArCQlzX2pv
+Yi0+c19mZW5jZS0+cGFyZW50ID0gc2NoZWQtPm9wcy0+cnVuX2pvYihzX2pvYik7Cj4gKwkJYXRv
+bWljX2luYygmc2NoZWQtPmh3X3JxX2NvdW50KTsKPiArCX0KPiArfQo+ICtFWFBPUlRfU1lNQk9M
+KGRybV9zY2hlZF9yZXN1Ym1pdF9qb2JzKTsKPiAgIAo+ICAgLyoqCj4gICAgKiBkcm1fc2NoZWRf
+am9iX2luaXQgLSBpbml0IGEgc2NoZWR1bGVyIGpvYgo+IEBAIC02MzQsMjYgKzY3MiwxNCBAQCBz
+dGF0aWMgaW50IGRybV9zY2hlZF9tYWluKHZvaWQgKnBhcmFtKQo+ICAgCQkJCURSTV9FUlJPUigi
+ZmVuY2UgYWRkIGNhbGxiYWNrIGZhaWxlZCAoJWQpXG4iLAo+ICAgCQkJCQkgIHIpOwo+ICAgCQkJ
+ZG1hX2ZlbmNlX3B1dChmZW5jZSk7Cj4gLQkJfSBlbHNlIHsKPiAtCQkJaWYgKHNfZmVuY2UtPmZp
+bmlzaGVkLmVycm9yIDwgMCkKPiAtCQkJCWRybV9zY2hlZF9leHBlbF9qb2JfdW5sb2NrZWQoc2No
+ZWRfam9iKTsKPiArCQl9IGVsc2UKPiAgIAkJCWRybV9zY2hlZF9wcm9jZXNzX2pvYihOVUxMLCAm
+c19mZW5jZS0+Y2IpOwo+IC0JCX0KPiAgIAo+ICAgCQl3YWtlX3VwKCZzY2hlZC0+am9iX3NjaGVk
+dWxlZCk7Cj4gICAJfQo+ICAgCXJldHVybiAwOwo+ICAgfQo+ICAgCj4gLXN0YXRpYyB2b2lkIGRy
+bV9zY2hlZF9leHBlbF9qb2JfdW5sb2NrZWQoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9iKQo+
+IC17Cj4gLQlzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkID0gc19qb2ItPnNjaGVkOwo+
+IC0KPiAtCXNwaW5fbG9jaygmc2NoZWQtPmpvYl9saXN0X2xvY2spOwo+IC0JbGlzdF9kZWxfaW5p
+dCgmc19qb2ItPm5vZGUpOwo+IC0Jc3Bpbl91bmxvY2soJnNjaGVkLT5qb2JfbGlzdF9sb2NrKTsK
+PiAtfQo+IC0KPiAgIC8qKgo+ICAgICogZHJtX3NjaGVkX2luaXQgLSBJbml0IGEgZ3B1IHNjaGVk
+dWxlciBpbnN0YW5jZQo+ICAgICoKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3YzZC92
+M2Rfc2NoZWQuYyBiL2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX3NjaGVkLmMKPiBpbmRleCA0NDVi
+MmVmLi5mOTkzNDZhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS92M2QvdjNkX3NjaGVk
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdjNkL3YzZF9zY2hlZC5jCj4gQEAgLTE3OCwxOCAr
+MTc4LDE5IEBAIHYzZF9qb2JfdGltZWRvdXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNjaGVkX2pv
+YikKPiAgIAlmb3IgKHEgPSAwOyBxIDwgVjNEX01BWF9RVUVVRVM7IHErKykgewo+ICAgCQlzdHJ1
+Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkID0gJnYzZC0+cXVldWVbcV0uc2NoZWQ7Cj4gICAK
+PiAtCQlrdGhyZWFkX3Bhcmsoc2NoZWQtPnRocmVhZCk7Cj4gLQkJZHJtX3NjaGVkX2h3X2pvYl9y
+ZXNldChzY2hlZCwgKHNjaGVkX2pvYi0+c2NoZWQgPT0gc2NoZWQgPwo+IC0JCQkJCSAgICAgICBz
+Y2hlZF9qb2IgOiBOVUxMKSk7Cj4gKwkJZHJtX3NjaGVkX3N0b3Aoc2NoZWQsIChzY2hlZF9qb2It
+PnNjaGVkID09IHNjaGVkID8KPiArCQkJCQkgICAgICAgc2NoZWRfam9iIDogTlVMTCksIGZhbHNl
+KTsKPiAgIAl9Cj4gICAKPiAgIAkvKiBnZXQgdGhlIEdQVSBiYWNrIGludG8gdGhlIGluaXQgc3Rh
+dGUgKi8KPiAgIAl2M2RfcmVzZXQodjNkKTsKPiAgIAo+ICsJZm9yIChxID0gMDsgcSA8IFYzRF9N
+QVhfUVVFVUVTOyBxKyspCj4gKwkJZHJtX3NjaGVkX3Jlc3VibWl0X2pvYnMoc2NoZWRfam9iLT5z
+Y2hlZCk7Cj4gKwo+ICAgCS8qIFVuYmxvY2sgc2NoZWR1bGVycyBhbmQgcmVzdGFydCB0aGVpciBq
+b2JzLiAqLwo+ICAgCWZvciAocSA9IDA7IHEgPCBWM0RfTUFYX1FVRVVFUzsgcSsrKSB7Cj4gLQkJ
+ZHJtX3NjaGVkX2pvYl9yZWNvdmVyeSgmdjNkLT5xdWV1ZVtxXS5zY2hlZCk7Cj4gLQkJa3RocmVh
+ZF91bnBhcmsodjNkLT5xdWV1ZVtxXS5zY2hlZC50aHJlYWQpOwo+ICsJCWRybV9zY2hlZF9zdGFy
+dCgmdjNkLT5xdWV1ZVtxXS5zY2hlZCwgZmFsc2UpOwo+ICAgCX0KPiAgIAo+ICAgCW11dGV4X3Vu
+bG9jaygmdjNkLT5yZXNldF9sb2NrKTsKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZ3B1X3Nj
+aGVkdWxlci5oIGIvaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oCj4gaW5kZXggNDdlMTk3OS4u
+Yzk0YjU5MiAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiArKysg
+Yi9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiBAQCAtMTc1LDYgKzE3NSw3IEBAIHN0cnVj
+dCBkcm1fc2NoZWRfZmVuY2UgKnRvX2RybV9zY2hlZF9mZW5jZShzdHJ1Y3QgZG1hX2ZlbmNlICpm
+KTsKPiAgICAqICAgICAgICAgICAgICAgZmluaXNoZWQgdG8gcmVtb3ZlIHRoZSBqb2IgZnJvbSB0
+aGUKPiAgICAqICAgICAgICAgICAgICAgQGRybV9ncHVfc2NoZWR1bGVyLnJpbmdfbWlycm9yX2xp
+c3QuCj4gICAgKiBAbm9kZTogdXNlZCB0byBhcHBlbmQgdGhpcyBzdHJ1Y3QgdG8gdGhlIEBkcm1f
+Z3B1X3NjaGVkdWxlci5yaW5nX21pcnJvcl9saXN0Lgo+ICsgKiBAZmluaXNoX25vZGU6IHVzZWQg
+aW4gYSBsaXN0IHRvIHdhaXQgb24gYmVmb3JlIHJlc2V0dGluZyB0aGUgc2NoZWR1bGVyCj4gICAg
+KiBAaWQ6IGEgdW5pcXVlIGlkIGFzc2lnbmVkIHRvIGVhY2ggam9iIHNjaGVkdWxlZCBvbiB0aGUg
+c2NoZWR1bGVyLgo+ICAgICogQGthcm1hOiBpbmNyZW1lbnQgb24gZXZlcnkgaGFuZyBjYXVzZWQg
+YnkgdGhpcyBqb2IuIElmIHRoaXMgZXhjZWVkcyB0aGUgaGFuZwo+ICAgICogICAgICAgICBsaW1p
+dCBvZiB0aGUgc2NoZWR1bGVyIHRoZW4gdGhlIGpvYiBpcyBtYXJrZWQgZ3VpbHR5IGFuZCB3aWxs
+IG5vdAo+IEBAIC0xOTMsNiArMTk0LDcgQEAgc3RydWN0IGRybV9zY2hlZF9qb2Igewo+ICAgCXN0
+cnVjdCBkbWFfZmVuY2VfY2IJCWZpbmlzaF9jYjsKPiAgIAlzdHJ1Y3Qgd29ya19zdHJ1Y3QJCWZp
+bmlzaF93b3JrOwo+ICAgCXN0cnVjdCBsaXN0X2hlYWQJCW5vZGU7Cj4gKwlzdHJ1Y3QgbGlzdF9o
+ZWFkCQlmaW5pc2hfbm9kZTsKPiAgIAl1aW50NjRfdAkJCWlkOwo+ICAgCWF0b21pY190CQkJa2Fy
+bWE7Cj4gICAJZW51bSBkcm1fc2NoZWRfcHJpb3JpdHkJCXNfcHJpb3JpdHk7Cj4gQEAgLTI5OCw5
+ICszMDAsMTEgQEAgaW50IGRybV9zY2hlZF9qb2JfaW5pdChzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAq
+am9iLAo+ICAgCQkgICAgICAgdm9pZCAqb3duZXIpOwo+ICAgdm9pZCBkcm1fc2NoZWRfam9iX2Ns
+ZWFudXAoc3RydWN0IGRybV9zY2hlZF9qb2IgKmpvYik7Cj4gICB2b2lkIGRybV9zY2hlZF93YWtl
+dXAoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpzY2hlZCk7Cj4gLXZvaWQgZHJtX3NjaGVkX2h3
+X2pvYl9yZXNldChzdHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+IC0JCQkgICAgc3Ry
+dWN0IGRybV9zY2hlZF9qb2IgKmpvYik7Cj4gLXZvaWQgZHJtX3NjaGVkX2pvYl9yZWNvdmVyeShz
+dHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkKTsKPiArdm9pZCBkcm1fc2NoZWRfc3RvcChz
+dHJ1Y3QgZHJtX2dwdV9zY2hlZHVsZXIgKnNjaGVkLAo+ICsJCSAgICBzdHJ1Y3QgZHJtX3NjaGVk
+X2pvYiAqam9iLAo+ICsJCSAgICBib29sIHBhcmtfb25seSk7Cj4gK3ZvaWQgZHJtX3NjaGVkX3N0
+YXJ0KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsIGJvb2wgdW5wYXJrX29ubHkpOwo+
+ICt2b2lkIGRybV9zY2hlZF9yZXN1Ym1pdF9qb2JzKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAq
+c2NoZWQpOwo+ICAgYm9vbCBkcm1fc2NoZWRfZGVwZW5kZW5jeV9vcHRpbWl6ZWQoc3RydWN0IGRt
+YV9mZW5jZSogZmVuY2UsCj4gICAJCQkJICAgIHN0cnVjdCBkcm1fc2NoZWRfZW50aXR5ICplbnRp
+dHkpOwo+ICAgdm9pZCBkcm1fc2NoZWRfZmF1bHQoc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICpz
+Y2hlZCk7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
