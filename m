@@ -1,147 +1,198 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [WIP PATCH 05/15] drm/dp_mst: Fix payload
- deallocation on hotplugs using malloc refs
-Date: Tue, 18 Dec 2018 17:02:23 -0500
-Message-ID: <a678fe870b682a0f2ec466a62f1862cb9633893b.camel@redhat.com>
-References: <20181214012604.13746-1-lyude@redhat.com>
- <20181214012604.13746-6-lyude@redhat.com>
- <20181214093845.GP21184@phenom.ffwll.local>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/uvd:Change uvd ring name convention
+Date: Tue, 18 Dec 2018 22:06:30 +0000
+Message-ID: <BN6PR12MB1809289C85582D10810A491CF7BD0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1545167223-8267-1-git-send-email-James.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181214093845.GP21184-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1872516661=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1545167223-8267-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 
-T24gRnJpLCAyMDE4LTEyLTE0IGF0IDEwOjM4ICswMTAwLCBEYW5pZWwgVmV0dGVyIHdyb3RlOgo+
-IE9uIFRodSwgRGVjIDEzLCAyMDE4IGF0IDA4OjI1OjM0UE0gLTA1MDAsIEx5dWRlIFBhdWwgd3Jv
-dGU6Cj4gPiBVcCB1bnRpbCBub3csIGZyZWVpbmcgcGF5bG9hZHMgb24gcmVtb3RlIE1TVCBodWJz
-IHRoYXQganVzdCBoYWQgcG9ydHMKPiA+IHJlbW92ZWQgaGFzIGFsbW9zdCBuZXZlciB3b3JrZWQg
-YmVjYXVzZSB3ZSd2ZSBiZWVuIHJlbHlpbmcgb24gcG9ydAo+ID4gdmFsaWRhdGlvbiBpbiBvcmRl
-ciB0byBzdG9wIHVzIGZyb20gYWNjZXNzaW5nIHBvcnRzIHRoYXQgaGF2ZSBhbHJlYWR5Cj4gPiBi
-ZWVuIGZyZWVkIGZyb20gbWVtb3J5LCBidXQgcG9ydHMgd2hpY2ggbmVlZCB0aGVpciBwYXlsb2Fk
-cyByZWxlYXNlZCBkdWUKPiA+IHRvIGJlaW5nIHJlbW92ZWQgd2lsbCBuZXZlciBiZSBhIHZhbGlk
-IHBhcnQgb2YgdGhlIHRvcG9sb2d5IGFmdGVyCj4gPiB0aGV5J3ZlIGJlZW4gcmVtb3ZlZC4KPiA+
-IAo+ID4gU2luY2Ugd2UndmUgaW50cm9kdWNlZCBtYWxsb2MgcmVmcywgd2UgY2FuIHJlcGxhY2Ug
-YWxsIG9mIHRoZSB2YWxpZGF0aW9uCj4gPiBsb2dpYyBpbiBwYXlsb2FkIGhlbHBlcnMgd2hpY2gg
-YXJlIHVzZWQgZm9yIGRlYWxsb2NhdGlvbiB3aXRoIHNvbWUKPiA+IHdlbGwtcGxhY2VkIG1hbGxv
-YyBrcmVmcy4gVGhpcyBlbnN1cmVzIHRoYXQgcmVnYXJkbGVzcyBvZiB3aGV0aGVyIG9yIG5vdAo+
-ID4gdGhlIHBvcnRzIGFyZSBzdGlsbCB2YWxpZCBhbmQgaW4gdGhlIHRvcG9sb2d5LCBhbnkgcG9y
-dCB3aGljaCBoYXMgYW4KPiA+IGFsbG9jYXRlZCBwYXlsb2FkIHdpbGwgcmVtYWluIGFsbG9jYXRl
-ZCBpbiBtZW1vcnkgdW50aWwgaXQncyBwYXlsb2Fkcwo+ID4gaGF2ZSBiZWVuIHJlbW92ZWQgLSBm
-aW5hbGx5IGFsbG93aW5nIHVzIHRvIGFjdHVhbGx5IHJlbGVhc2Ugc2FpZAo+ID4gcGF5bG9hZHMg
-Y29ycmVjdGx5Lgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBMeXVkZSBQYXVsIDxseXVkZUByZWRo
-YXQuY29tPgo+IAo+IEkgdGhpbmsgd2l0aCB0aGlzIHdlIGNhbiBhbHNvIHJlbW92ZSB0aGUgaW50
-IHJldHVybiB2YWx1ZSAodGhhdCBldmVyeW9uZQo+IGlnbm9yZWQgZXhjZXB0IGZvciBzb21lIGRl
-YnVnIG91dHB1dCkgZnJvbSBkcm1fZHBfdXBkYXRlX3BheWxvYWRfcGFydDEvMi4KPiBGb2xsb3ct
-dXAgY2xlYW51cCBwYXRjaCBvZmMuCkEgbm90ZSBhcyB3ZWxsLUknbSBub3Qgc3VyZSB3ZSB3YW50
-IHRvIHJlbW92ZSB0aGF0IHlldCwgaXQgbWlnaHQgYWN0dWFsbHkgYmUgYQpiZXR0ZXIgaWRlYSB0
-byBqdXN0IHRlYWNoIGRyaXZlcnMgdG8gYWN0dWFsbHkgbG9vayBhdCB0aGUgcmV0dXJuIHZhbHVl
-cyBzbwp0aGV5IGNhbiB0YWtlIGFjdGlvbiBpZiBpdCBmYWlscy4gT2YgY291cnNlLCBzdWNoIGFj
-dGlvbnMgd291bGRuJ3QgaW52b2x2ZQphY3R1YWxseSBjaGFuZ2luZyB0aGUgYXRvbWljIHN0YXRl
-IHRoYXQgdXNlcnNwYWNlIHNldCwgYnV0IG1vcmVzbyBrbm93aW5nCndoaWNoIHBhcnRzIG9mIHVw
-ZGF0aW5nIHRoZSBwYXlsb2FkIHN1Y2NlZWRlZCBvciBub3Qgc28gaWYgYSBkb3duc3RyZWFtIGJy
-YW5jaAp3YXMgZGlzY29ubmVjdGVkIG1pZC1hdG9taWMgY29tbWl0IHdlIGhhdmUgZW5vdWdoIGlu
-Zm9ybWF0aW9uIHRvIGtub3cgd2hhdApzdGVwcyB3ZSBuZWVkIHRvIHNraXAgd2hlbiB1c2Vyc3Bh
-Y2UgbGF0ZXIgdW5zZXRzIHRoZSBtb2RlIG9uIHNhaWQgYnJhbmNoLgo+IAo+IFRoaXMgbG9va3Mg
-Z29vZC4KPiAKPiBSZXZpZXdlZC1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZnds
-bC5jaD4KPiA+IC0tLQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMg
-fCA1NCArKysrKysrKysrKysrKystLS0tLS0tLS0tLS0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMzAg
-aW5zZXJ0aW9ucygrKSwgMjQgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9k
-cm1fZHBfbXN0X3RvcG9sb2d5LmMKPiA+IGluZGV4IGFlOWQwMTlhZjlmMi4uOTNmMDhiZmQyYWIz
-IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+
-ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+ID4gQEAgLTE5
-ODksMTAgKzE5ODksNiBAQCBzdGF0aWMgaW50IGRybV9kcF9wYXlsb2FkX3NlbmRfbXNnKHN0cnVj
-dAo+ID4gZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKPiA+ICAJdTggc2lua3NbRFJNX0RQ
-X01BWF9TRFBfU1RSRUFNU107Cj4gPiAgCWludCBpOwo+ID4gIAo+ID4gLQlwb3J0ID0gZHJtX2Rw
-X21zdF90b3BvbG9neV9nZXRfcG9ydF92YWxpZGF0ZWQobWdyLCBwb3J0KTsKPiA+IC0JaWYgKCFw
-b3J0KQo+ID4gLQkJcmV0dXJuIC1FSU5WQUw7Cj4gPiAtCj4gPiAgCXBvcnRfbnVtID0gcG9ydC0+
-cG9ydF9udW07Cj4gPiAgCW1zdGIgPSBkcm1fZHBfbXN0X3RvcG9sb2d5X2dldF9tc3RiX3ZhbGlk
-YXRlZChtZ3IsIHBvcnQtPnBhcmVudCk7Cj4gPiAgCWlmICghbXN0Yikgewo+ID4gQEAgLTIwMDAs
-MTAgKzE5OTYsOCBAQCBzdGF0aWMgaW50IGRybV9kcF9wYXlsb2FkX3NlbmRfbXNnKHN0cnVjdAo+
-ID4gZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKPiA+ICAJCQkJCQkJICAgICAgIHBvcnQt
-PnBhcmVudCwKPiA+ICAJCQkJCQkJICAgICAgICZwb3J0X251bSk7Cj4gPiAgCj4gPiAtCQlpZiAo
-IW1zdGIpIHsKPiA+IC0JCQlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9wb3J0KHBvcnQpOwo+ID4g
-KwkJaWYgKCFtc3RiKQo+ID4gIAkJCXJldHVybiAtRUlOVkFMOwo+ID4gLQkJfQo+ID4gIAl9Cj4g
-PiAgCj4gPiAgCXR4bXNnID0ga3phbGxvYyhzaXplb2YoKnR4bXNnKSwgR0ZQX0tFUk5FTCk7Cj4g
-PiBAQCAtMjAzMiw3ICsyMDI2LDYgQEAgc3RhdGljIGludCBkcm1fZHBfcGF5bG9hZF9zZW5kX21z
-ZyhzdHJ1Y3QKPiA+IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsCj4gPiAgCWtmcmVlKHR4
-bXNnKTsKPiA+ICBmYWlsX3B1dDoKPiA+ICAJZHJtX2RwX21zdF90b3BvbG9neV9wdXRfbXN0Yiht
-c3RiKTsKPiA+IC0JZHJtX2RwX21zdF90b3BvbG9neV9wdXRfcG9ydChwb3J0KTsKPiA+ICAJcmV0
-dXJuIHJldDsKPiA+ICB9Cj4gPiAgCj4gPiBAQCAtMjEzNywxNSArMjEzMCwxNiBAQCBzdGF0aWMg
-aW50IGRybV9kcF9kZXN0cm95X3BheWxvYWRfc3RlcDIoc3RydWN0Cj4gPiBkcm1fZHBfbXN0X3Rv
-cG9sb2d5X21nciAqbWdyLAo+ID4gICAqLwo+ID4gIGludCBkcm1fZHBfdXBkYXRlX3BheWxvYWRf
-cGFydDEoc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IpCj4gPiAgewo+ID4gLQlp
-bnQgaSwgajsKPiA+IC0JaW50IGN1cl9zbG90cyA9IDE7Cj4gPiAgCXN0cnVjdCBkcm1fZHBfcGF5
-bG9hZCByZXFfcGF5bG9hZDsKPiA+ICAJc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqcG9ydDsKPiA+
-ICsJaW50IGksIGo7Cj4gPiArCWludCBjdXJfc2xvdHMgPSAxOwo+ID4gIAo+ID4gIAltdXRleF9s
-b2NrKCZtZ3ItPnBheWxvYWRfbG9jayk7Cj4gPiAgCWZvciAoaSA9IDA7IGkgPCBtZ3ItPm1heF9w
-YXlsb2FkczsgaSsrKSB7Cj4gPiAgCQlzdHJ1Y3QgZHJtX2RwX3ZjcGkgKnZjcGkgPSBtZ3ItPnBy
-b3Bvc2VkX3ZjcGlzW2ldOwo+ID4gIAkJc3RydWN0IGRybV9kcF9wYXlsb2FkICpwYXlsb2FkID0g
-Jm1nci0+cGF5bG9hZHNbaV07Cj4gPiArCQlib29sIHB1dF9wb3J0ID0gZmFsc2U7Cj4gPiAgCj4g
-PiAgCQkvKiBzb2x2ZSB0aGUgY3VycmVudCBwYXlsb2FkcyAtIGNvbXBhcmUgdG8gdGhlIGh3IG9u
-ZXMKPiA+ICAJCSAgIC0gdXBkYXRlIHRoZSBodyB2aWV3ICovCj4gPiBAQCAtMjE1MywxMiArMjE0
-NywyMCBAQCBpbnQgZHJtX2RwX3VwZGF0ZV9wYXlsb2FkX3BhcnQxKHN0cnVjdAo+ID4gZHJtX2Rw
-X21zdF90b3BvbG9neV9tZ3IgKm1ncikKPiA+ICAJCWlmICh2Y3BpKSB7Cj4gPiAgCQkJcG9ydCA9
-IGNvbnRhaW5lcl9vZih2Y3BpLCBzdHJ1Y3QgZHJtX2RwX21zdF9wb3J0LAo+ID4gIAkJCQkJICAg
-IHZjcGkpOwo+ID4gLQkJCXBvcnQgPSBkcm1fZHBfbXN0X3RvcG9sb2d5X2dldF9wb3J0X3ZhbGlk
-YXRlZChtZ3IsCj4gPiAtCQkJCQkJCQkgICAgICBwb3J0KTsKPiA+IC0JCQlpZiAoIXBvcnQpIHsK
-PiA+IC0JCQkJbXV0ZXhfdW5sb2NrKCZtZ3ItPnBheWxvYWRfbG9jayk7Cj4gPiAtCQkJCXJldHVy
-biAtRUlOVkFMOwo+ID4gKwo+ID4gKwkJCS8qIFZhbGlkYXRlZCBwb3J0cyBkb24ndCBtYXR0ZXIg
-aWYgd2UncmUgcmVsZWFzaW5nCj4gPiArCQkJICogVkNQSQo+ID4gKwkJCSAqLwo+ID4gKwkJCWlm
-ICh2Y3BpLT5udW1fc2xvdHMpIHsKPiA+ICsJCQkJcG9ydCA9IGRybV9kcF9tc3RfdG9wb2xvZ3lf
-Z2V0X3BvcnRfdmFsaWRhdGVkKAo+ID4gKwkJCQkgICAgbWdyLCBwb3J0KTsKPiA+ICsJCQkJaWYg
-KCFwb3J0KSB7Cj4gPiArCQkJCQltdXRleF91bmxvY2soJm1nci0+cGF5bG9hZF9sb2NrKTsKPiA+
-ICsJCQkJCXJldHVybiAtRUlOVkFMOwo+ID4gKwkJCQl9Cj4gPiArCQkJCXB1dF9wb3J0ID0gdHJ1
-ZTsKPiA+ICAJCQl9Cj4gPiArCj4gPiAgCQkJcmVxX3BheWxvYWQubnVtX3Nsb3RzID0gdmNwaS0+
-bnVtX3Nsb3RzOwo+ID4gIAkJCXJlcV9wYXlsb2FkLnZjcGkgPSB2Y3BpLT52Y3BpOwo+ID4gIAkJ
-fSBlbHNlIHsKPiA+IEBAIC0yMTkwLDcgKzIxOTIsNyBAQCBpbnQgZHJtX2RwX3VwZGF0ZV9wYXls
-b2FkX3BhcnQxKHN0cnVjdAo+ID4gZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncikKPiA+ICAJ
-CX0KPiA+ICAJCWN1cl9zbG90cyArPSByZXFfcGF5bG9hZC5udW1fc2xvdHM7Cj4gPiAgCj4gPiAt
-CQlpZiAocG9ydCkKPiA+ICsJCWlmIChwdXRfcG9ydCkKPiA+ICAJCQlkcm1fZHBfbXN0X3RvcG9s
-b2d5X3B1dF9wb3J0KHBvcnQpOwo+ID4gIAl9Cj4gPiAgCj4gPiBAQCAtMzAwNSw2ICszMDA3LDgg
-QEAgYm9vbCBkcm1fZHBfbXN0X2FsbG9jYXRlX3ZjcGkoc3RydWN0Cj4gPiBkcm1fZHBfbXN0X3Rv
-cG9sb2d5X21nciAqbWdyLAo+ID4gIAlEUk1fREVCVUdfS01TKCJpbml0aW5nIHZjcGkgZm9yIHBi
-bj0lZCBzbG90cz0lZFxuIiwKPiA+ICAJCSAgICAgIHBibiwgcG9ydC0+dmNwaS5udW1fc2xvdHMp
-Owo+ID4gIAo+ID4gKwkvKiBLZWVwIHBvcnQgYWxsb2NhdGVkIHVudGlsIGl0J3MgcGF5bG9hZCBo
-YXMgYmVlbiByZW1vdmVkICovCj4gPiArCWRybV9kcF9tc3RfZ2V0X3BvcnRfbWFsbG9jKHBvcnQp
-Owo+ID4gIAlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9wb3J0KHBvcnQpOwo+ID4gIAlyZXR1cm4g
-dHJ1ZTsKPiA+ICBvdXQ6Cj4gPiBAQCAtMzAzNCwxMSArMzAzOCwxMiBAQCBFWFBPUlRfU1lNQk9M
-KGRybV9kcF9tc3RfZ2V0X3ZjcGlfc2xvdHMpOwo+ID4gICAqLwo+ID4gIHZvaWQgZHJtX2RwX21z
-dF9yZXNldF92Y3BpX3Nsb3RzKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAo+
-ID4gc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqcG9ydCkKPiA+ICB7Cj4gPiAtCXBvcnQgPSBkcm1f
-ZHBfbXN0X3RvcG9sb2d5X2dldF9wb3J0X3ZhbGlkYXRlZChtZ3IsIHBvcnQpOwo+ID4gLQlpZiAo
-IXBvcnQpCj4gPiAtCQlyZXR1cm47Cj4gPiArCS8qCj4gPiArCSAqIEEgcG9ydCB3aXRoIFZDUEkg
-d2lsbCByZW1haW4gYWxsb2NhdGVkIHVudGlsIGl0J3MgVkNQSSBpcwo+ID4gKwkgKiByZWxlYXNl
-ZCwgbm8gdmVyaWZpZWQgcmVmIG5lZWRlZAo+ID4gKwkgKi8KPiA+ICsKPiA+ICAJcG9ydC0+dmNw
-aS5udW1fc2xvdHMgPSAwOwo+ID4gLQlkcm1fZHBfbXN0X3RvcG9sb2d5X3B1dF9wb3J0KHBvcnQp
-Owo+ID4gIH0KPiA+ICBFWFBPUlRfU1lNQk9MKGRybV9kcF9tc3RfcmVzZXRfdmNwaV9zbG90cyk7
-Cj4gPiAgCj4gPiBAQCAtMzA1MCwxNiArMzA1NSwxNyBAQCBFWFBPUlRfU1lNQk9MKGRybV9kcF9t
-c3RfcmVzZXRfdmNwaV9zbG90cyk7Cj4gPiAgdm9pZCBkcm1fZHBfbXN0X2RlYWxsb2NhdGVfdmNw
-aShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciwKPiA+ICAJCQkJc3RydWN0IGRy
-bV9kcF9tc3RfcG9ydCAqcG9ydCkKPiA+ICB7Cj4gPiAtCXBvcnQgPSBkcm1fZHBfbXN0X3RvcG9s
-b2d5X2dldF9wb3J0X3ZhbGlkYXRlZChtZ3IsIHBvcnQpOwo+ID4gLQlpZiAoIXBvcnQpCj4gPiAt
-CQlyZXR1cm47Cj4gPiArCS8qCj4gPiArCSAqIEEgcG9ydCB3aXRoIFZDUEkgd2lsbCByZW1haW4g
-YWxsb2NhdGVkIHVudGlsIGl0J3MgVkNQSSBpcwo+ID4gKwkgKiByZWxlYXNlZCwgbm8gdmVyaWZp
-ZWQgcmVmIG5lZWRlZAo+ID4gKwkgKi8KPiA+ICAKPiA+ICAJZHJtX2RwX21zdF9wdXRfcGF5bG9h
-ZF9pZChtZ3IsIHBvcnQtPnZjcGkudmNwaSk7Cj4gPiAgCXBvcnQtPnZjcGkubnVtX3Nsb3RzID0g
-MDsKPiA+ICAJcG9ydC0+dmNwaS5wYm4gPSAwOwo+ID4gIAlwb3J0LT52Y3BpLmFsaWduZWRfcGJu
-ID0gMDsKPiA+ICAJcG9ydC0+dmNwaS52Y3BpID0gMDsKPiA+IC0JZHJtX2RwX21zdF90b3BvbG9n
-eV9wdXRfcG9ydChwb3J0KTsKPiA+ICsJZHJtX2RwX21zdF9wdXRfcG9ydF9tYWxsb2MocG9ydCk7
-Cj4gPiAgfQo+ID4gIEVYUE9SVF9TWU1CT0woZHJtX2RwX21zdF9kZWFsbG9jYXRlX3ZjcGkpOwo+
-ID4gIAo+ID4gLS0gCj4gPiAyLjE5LjIKPiA+IAotLSAKQ2hlZXJzLAoJTHl1ZGUgUGF1bAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWls
-aW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2ZWF1Cg==
+--===============1872516661==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809289C85582D10810A491CF7BD0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809289C85582D10810A491CF7BD0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhu, Jam=
+es <James.Zhu-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, December 18, 2018 4:07:21 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Subject: [PATCH] drm/amdgpu/uvd:Change uvd ring name convention
+
+Since umr tool can't handle bracket, change uvd ring name convention.
+
+Signed-off-by: James Zhu <James.Zhu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v7_0.c
+index 089645e..aef9240 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+@@ -435,7 +435,7 @@ static int uvd_v7_0_sw_init(void *handle)
+                         continue;
+                 if (!amdgpu_sriov_vf(adev)) {
+                         ring =3D &adev->uvd.inst[j].ring;
+-                       sprintf(ring->name, "uvd<%d>", j);
++                       sprintf(ring->name, "uvd_%d", ring->me);
+                         r =3D amdgpu_ring_init(adev, ring, 512, &adev->uvd=
+.inst[j].irq, 0);
+                         if (r)
+                                 return r;
+@@ -443,7 +443,7 @@ static int uvd_v7_0_sw_init(void *handle)
+
+                 for (i =3D 0; i < adev->uvd.num_enc_rings; ++i) {
+                         ring =3D &adev->uvd.inst[j].ring_enc[i];
+-                       sprintf(ring->name, "uvd_enc%d<%d>", i, j);
++                       sprintf(ring->name, "uvd_enc_%d.%d", ring->me, i);
+                         if (amdgpu_sriov_vf(adev)) {
+                                 ring->use_doorbell =3D true;
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809289C85582D10810A491CF7BD0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Zhu, James &lt;James.Zhu@amd.=
+com&gt;<br>
+<b>Sent:</b> Tuesday, December 18, 2018 4:07:21 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> jzhums-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/uvd:Change uvd ring name convention</fon=
+t>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Since umr tool can't handle bracket, change uvd ri=
+ng name convention.<br>
+<br>
+Signed-off-by: James Zhu &lt;James.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c | 4 &#43;&#43;--<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v7_0.c<br>
+index 089645e..aef9240 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c<br>
+@@ -435,7 &#43;435,7 @@ static int uvd_v7_0_sw_init(void *handle)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring =
+=3D &amp;adev-&gt;uvd.inst[j].ring;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(ring-&gt=
+;name, &quot;uvd&lt;%d&gt;&quot;, j);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(ring=
+-&gt;name, &quot;uvd_%d&quot;, ring-&gt;me);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D=
+ amdgpu_ring_init(adev, ring, 512, &amp;adev-&gt;uvd.inst[j].irq, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
+)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
+@@ -443,7 &#43;443,7 @@ static int uvd_v7_0_sw_init(void *handle)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;uvd.num_enc_rings; &#43=
+;&#43;i) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring =
+=3D &amp;adev-&gt;uvd.inst[j].ring_enc[i];<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(ring-&gt=
+;name, &quot;uvd_enc%d&lt;%d&gt;&quot;, i, j);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sprintf(ring=
+-&gt;name, &quot;uvd_enc_%d.%d&quot;, ring-&gt;me, i);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (a=
+mdgpu_sriov_vf(adev)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;use_doorbell =3D true;<=
+br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809289C85582D10810A491CF7BD0BN6PR12MB1809namp_--
+
+--===============1872516661==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1872516661==--
