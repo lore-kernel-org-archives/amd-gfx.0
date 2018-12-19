@@ -1,40 +1,34 @@
-From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] Fix crash when page flipping in multi-X-Screen/Zaphod mode
-Date: Wed, 19 Dec 2018 08:01:24 +0100
-Message-ID: <CAEsyxyij4DkQDQ=8DOSk9CbBhGg9WRWiq8kgoOdhX0Ejf12Pjg@mail.gmail.com>
-References: <20181218104035.3708-1-mario.kleiner.de@gmail.com>
- <1458bf4e-e9be-01e1-940a-f45352ce74df@daenzer.net>
+From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Subject: [PATCH] drm/amd/display: Remove duplicate header
+Date: Wed, 19 Dec 2018 13:27:13 +0530
+Message-ID: <20181219075713.GA2259@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1458bf4e-e9be-01e1-940a-f45352ce74df-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Tony.Cheng@amd.com, Dmytro.Laktyushkin@amd.com, yongqiang.sun@amd.com, eric.bernstein@amd.com, Eric.Yang2@amd.com, Anthony.Koo@amd.com, nikola.cornij@amd.com
+Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBEZWMgMTgsIDIwMTggYXQgMzo0MiBQTSBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
-ZW56ZXIubmV0PiB3cm90ZToKPiBEbyB5b3Ugd2FudCB0byBtYWtlIGFuIHhmODYtdmlkZW8tYW1k
-Z3B1IG1lcmdlIHJlcXVlc3QgYXMgd2VsbD8gSWYgbm90LAo+IEkgY2FuIHRha2UgY2FyZSBvZiBw
-b3J0aW5nIHRoZSBmaXguIElmIHlvdSBkbyBpdCwgcGxlYXNlIGVuYWJsZSB0aGUKCk9rIE1pY2hl
-bCwgc3BlbnQgc29tZSBtb3JlIHRpbWUuIFBhdGNoIGZvciBhbWRncHUtZGR4IHNob3VsZCBiZSBv
-dXQgYXMKd2VsbCB2aWEgZ29vZCBvbCcgZS1tYWlsLgoKVGhpcyBvbmUgaXMgc3VjY2Vzc2Z1bGx5
-IHRlc3RlZCBvbiBhIFBvbGFyaXMxMSA0LWRpc3BsYXkgc2V0dXAgd2l0aCA0CnNlcGFyYXRlIFgt
-U2NyZWVucywgc28gd2Uga25vdyB0aGF0IHRoZSBuZXcgPiAyIFgtU2NyZWVucyBjb2RlIHdvcmtz
-CmFzIHdlbGwgOikKCnRoYW5rcywKLW1hcmlvCgo+ICJBbGxvdyBjb21taXRzIGZyb20gbWVtYmVy
-cyB3aG8gY2FuIG1lcmdlIHRvIHRoZSB0YXJnZXQgYnJhbmNoIiBjaGVja2JveAo+IGZvciB0aGUg
-TVIuCj4KPgo+IC0tCj4gRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAg
-ICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQo+IExpYnJlIHNvZnR3YXJlIGVudGh1c2lh
-c3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Remove custom_float.h which is included more than once
+
+Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 193184affefb..3e21c2d26998 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -40,7 +40,6 @@
+ #include "ipp.h"
+ #include "mpc.h"
+ #include "reg_helper.h"
+-#include "custom_float.h"
+ #include "dcn10_hubp.h"
+ #include "dcn10_hubbub.h"
+ #include "dcn10_cm_common.h"
+-- 
+2.17.1
