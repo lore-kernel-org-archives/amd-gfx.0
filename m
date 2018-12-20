@@ -1,34 +1,69 @@
-From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-Subject: [PATCH] drm/amd/display/i2c_hw_engine_dce110: Remove duplicate header
-Date: Thu, 20 Dec 2018 18:04:55 +0530
-Message-ID: <20181220123455.GA24952@hp-pavilion-15-notebook-pc-brajeswar>
+From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: fix compliler errors
+ [-Werror,-Wmissing-braces]
+Date: Thu, 20 Dec 2018 14:01:04 +0000
+Message-ID: <1545314443-7069-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Tony.Cheng@amd.com, Bhawanpreet.Lakha@amd.com, Dmytro.Laktyushkin@amd.com, charlene.liu@amd.com
-Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
+ Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
 
-Remove reg_helper.h which is included more than once
-
-Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
----
- .../gpu/drm/amd/display/dc/i2caux/dce110/i2c_hw_engine_dce110.c  | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/i2caux/dce110/i2c_hw_engine_dce110.c b/drivers/gpu/drm/amd/display/dc/i2caux/dce110/i2c_hw_engine_dce110.c
-index 9cbe1a7a6bcb..137350142fb2 100644
---- a/drivers/gpu/drm/amd/display/dc/i2caux/dce110/i2c_hw_engine_dce110.c
-+++ b/drivers/gpu/drm/amd/display/dc/i2caux/dce110/i2c_hw_engine_dce110.c
-@@ -97,7 +97,6 @@ enum dc_i2c_arbitration {
- #define FN(reg_name, field_name) \
- 	hw_engine->i2c_shift->field_name, hw_engine->i2c_mask->field_name
- 
--#include "reg_helper.h"
- 
- static void disable_i2c_hw_engine(
- 	struct i2c_hw_engine_dce110 *hw_engine)
--- 
-2.17.1
+SW5pdGlhbGl6aW5nIHN0cnVjdHVyZXMgd2l0aCB7IH0gaXMga25vd24gdG8gYmUgcHJvYmxlbWF0
+aWMgc2luY2UKaXQgZG9lc24ndCBuZWNlc3NhcmFyaWx5IGluaXRpYWxpemVzIGFsbCBieXRlcywg
+aW4gY2FzZSBvZiBwYWRkaW5nLApjYXVzaW5nIHJhbmRvbSBmYWlsdXJlcyB3aGVuIHN0cnVjdHVy
+ZXMgYXJlIG1lbWNtcCgpLgoKVGhpcyBwYXRjaCBmaXhlcyB0aGUgc3RydWN0dXJlIGluaXRpYWxp
+c2F0aW9uIGNvbXBpbGVyIGVycm9yIGJ5IG1lbXNldHRpbmcKdGhlIGVudGlyZSBzdHJ1Y3R1cmUg
+ZWxlbWVudHMgaW5zdGVhZCBvZiBvbmx5IHRoZSBmaXJzdCBvbmUuCgpTaWduZWQtb2ZmLWJ5OiBT
+aGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9kY24xMC9kY24xMF9od19zZXF1ZW5jZXIuYyAgICAgICB8IDMgKystCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyX2RlYnVnLmMg
+fCAzICsrLQogMiBmaWxlcyBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0p
+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEw
+X2h3X3NlcXVlbmNlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2Rj
+bjEwX2h3X3NlcXVlbmNlci5jCmluZGV4IDBiZDMzYTcuLjFiNTYzMGYgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9od19zZXF1ZW5jZXIuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVu
+Y2VyLmMKQEAgLTkyLDkgKzkyLDEwIEBAIHN0YXRpYyB2b2lkIGxvZ19tcGNfY3JjKHN0cnVjdCBk
+YyAqZGMsCiB2b2lkIGRjbjEwX2xvZ19odWJidWJfc3RhdGUoc3RydWN0IGRjICpkYywgc3RydWN0
+IGRjX2xvZ19idWZmZXJfY3R4ICpsb2dfY3R4KQogewogCXN0cnVjdCBkY19jb250ZXh0ICpkY19j
+dHggPSBkYy0+Y3R4OwotCXN0cnVjdCBkY25faHViYnViX3dtIHdtID0gezB9OworCXN0cnVjdCBk
+Y25faHViYnViX3dtIHdtOwogCWludCBpOwogCisJbWVtc2V0KCZ3bSwgMCwgc2l6ZW9mKHN0cnVj
+dCBkY25faHViYnViX3dtKSk7CiAJaHViYnViMV93bV9yZWFkX3N0YXRlKGRjLT5yZXNfcG9vbC0+
+aHViYnViLCAmd20pOwogCiAJRFROX0lORk8oIkhVQkJVQiBXTTogICAgICBkYXRhX3VyZ2VudCAg
+cHRlX21ldGFfdXJnZW50IgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlcl9kZWJ1Zy5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlcl9kZWJ1Zy5jCmluZGV4IGNkNDY5
+MDEuLjNmY2NlYzIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
+Y24xMC9kY24xMF9od19zZXF1ZW5jZXJfZGVidWcuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZGNuMTAvZGNuMTBfaHdfc2VxdWVuY2VyX2RlYnVnLmMKQEAgLTcyLDcgKzcy
+LDcgQEAgc3RhdGljIHVuc2lnbmVkIGludCBzbnByaW50Zl9jb3VudChjaGFyICpwQnVmLCB1bnNp
+Z25lZCBpbnQgYnVmU2l6ZSwgY2hhciAqZm10LAogc3RhdGljIHVuc2lnbmVkIGludCBkY24xMF9n
+ZXRfaHViYnViX3N0YXRlKHN0cnVjdCBkYyAqZGMsIGNoYXIgKnBCdWYsIHVuc2lnbmVkIGludCBi
+dWZTaXplKQogewogCXN0cnVjdCBkY19jb250ZXh0ICpkY19jdHggPSBkYy0+Y3R4OwotCXN0cnVj
+dCBkY25faHViYnViX3dtIHdtID0gezB9OworCXN0cnVjdCBkY25faHViYnViX3dtIHdtOwogCWlu
+dCBpOwogCiAJdW5zaWduZWQgaW50IGNoYXJzX3ByaW50ZWQgPSAwOwpAQCAtODEsNiArODEsNyBA
+QCBzdGF0aWMgdW5zaWduZWQgaW50IGRjbjEwX2dldF9odWJidWJfc3RhdGUoc3RydWN0IGRjICpk
+YywgY2hhciAqcEJ1ZiwgdW5zaWduZWQgaQogCWNvbnN0IHVpbnQzMl90IHJlZl9jbGtfbWh6ID0g
+ZGNfY3R4LT5kYy0+cmVzX3Bvb2wtPnJlZl9jbG9ja19pbktoeiAvIDEwMDA7CiAJc3RhdGljIGNv
+bnN0IHVuc2lnbmVkIGludCBmcmFjID0gMTAwMDsKIAorCW1lbXNldCgmd20sIDAsIHNpemVvZihz
+dHJ1Y3QgZGNuX2h1YmJ1Yl93bSkpOwogCWh1YmJ1YjFfd21fcmVhZF9zdGF0ZShkYy0+cmVzX3Bv
+b2wtPmh1YmJ1YiwgJndtKTsKIAogCWNoYXJzX3ByaW50ZWQgPSBzbnByaW50Zl9jb3VudChwQnVm
+LCByZW1haW5pbmdfYnVmZmVyLCAid21fc2V0X2luZGV4LGRhdGFfdXJnZW50LHB0ZV9tZXRhX3Vy
+Z2VudCxzcl9lbnRlcixzcl9leGl0LGRyYW1fY2xrX2NoYW5hZ2VcbiIpOwotLSAKMi43LjQKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
