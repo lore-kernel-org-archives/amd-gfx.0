@@ -1,12 +1,10 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/gmc: fix compiler errors [-Werror,-Wmissing-braces]
-Date: Thu, 20 Dec 2018 14:01:33 +0000
-Message-ID: <1545314475-7114-1-git-send-email-shirish.s@amd.com>
+From: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
+Subject: Trying to run AMD E9260 (Polaris 11) on NXP LS1012A-RDB
+Date: Thu, 20 Dec 2018 15:06:28 +0100
+Message-ID: <CAGtoiRiubNF5fCwGvYbC_sxzFk10Ceg79ZsK2fPLXUzFvm_QZw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2110870071=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,41 +15,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SW5pdGlhbGl6aW5nIHN0cnVjdHVyZXMgd2l0aCB7IH0gaXMga25vd24gdG8gYmUgcHJvYmxlbWF0
-aWMgc2luY2UKaXQgZG9lc24ndCBuZWNlc3NhcmFyaWx5IGluaXRpYWxpemVzIGFsbCBieXRlcywg
-aW4gY2FzZSBvZiBwYWRkaW5nLApjYXVzaW5nIHJhbmRvbSBmYWlsdXJlcyB3aGVuIHN0cnVjdHVy
-ZXMgYXJlIG1lbWNtcCgpLgoKVGhpcyBwYXRjaCBmaXhlcyB0aGUgc3RydWN0dXJlIGluaXRpYWxp
-c2F0aW9uIGNvbXBpbGVyIGVycm9yIGJ5IG1lbXNldHRpbmcKdGhlIGVudGlyZSBzdHJ1Y3R1cmUg
-ZWxlbWVudHMgaW5zdGVhZCBvZiBvbmx5IHRoZSBmaXJzdCBvbmUuCgpTaWduZWQtb2ZmLWJ5OiBT
-aGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dtY192OF8wLmMgfCAzICsrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5
-XzAuYyB8IDMgKystCiAyIGZpbGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwppbmRleCAxYWQ3ZTZiLi4z
-NDQ0MDY3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKQEAgLTE0NzEsOCAr
-MTQ3MSw5IEBAIHN0YXRpYyBpbnQgZ21jX3Y4XzBfcHJvY2Vzc19pbnRlcnJ1cHQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsCiAJCWdtY192OF8wX3NldF9mYXVsdF9lbmFibGVfZGVmYXVsdChh
-ZGV2LCBmYWxzZSk7CiAKIAlpZiAocHJpbnRrX3JhdGVsaW1pdCgpKSB7Ci0JCXN0cnVjdCBhbWRn
-cHVfdGFza19pbmZvIHRhc2tfaW5mbyA9IHsgMCB9OworCQlzdHJ1Y3QgYW1kZ3B1X3Rhc2tfaW5m
-byB0YXNrX2luZm87CiAKKwkJbWVtc2V0KCZ0YXNrX2luZm8sIDAsIHNpemVvZihzdHJ1Y3QgYW1k
-Z3B1X3Rhc2tfaW5mbykpOwogCQlhbWRncHVfdm1fZ2V0X3Rhc2tfaW5mbyhhZGV2LCBlbnRyeS0+
-cGFzaWQsICZ0YXNrX2luZm8pOwogCiAJCWRldl9lcnIoYWRldi0+ZGV2LCAiR1BVIGZhdWx0IGRl
-dGVjdGVkOiAlZCAweCUwOHggZm9yIHByb2Nlc3MgJXMgcGlkICVkIHRocmVhZCAlcyBwaWQgJWRc
-biIsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwppbmRleCBiYWNkYWVmLi4yYmZk
-ZGNlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKQEAgLTMyMCw4ICszMjAs
-OSBAQCBzdGF0aWMgaW50IGdtY192OV8wX3Byb2Nlc3NfaW50ZXJydXB0KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LAogCX0KIAogCWlmIChwcmludGtfcmF0ZWxpbWl0KCkpIHsKLQkJc3RydWN0
-IGFtZGdwdV90YXNrX2luZm8gdGFza19pbmZvID0geyAwIH07CisJCXN0cnVjdCBhbWRncHVfdGFz
-a19pbmZvIHRhc2tfaW5mbzsKIAorCQltZW1zZXQoJnRhc2tfaW5mbywgMCwgc2l6ZW9mKGFtZGdw
-dV90YXNrX2luZm8pKTsKIAkJYW1kZ3B1X3ZtX2dldF90YXNrX2luZm8oYWRldiwgZW50cnktPnBh
-c2lkLCAmdGFza19pbmZvKTsKIAogCQlkZXZfZXJyKGFkZXYtPmRldiwKLS0gCjIuNy40CgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============2110870071==
+Content-Type: multipart/alternative; boundary="000000000000a7fe8e057d74a305"
+
+--000000000000a7fe8e057d74a305
+Content-Type: text/plain; charset="UTF-8"
+
+Hi all,
+
+I have connected an E9260 (Polaris 11 based) to a mini-PCIe slot on my NXP
+LS1012ARDB.
+The GPU is seen, all the BARs are correctly assigned (but there's not
+enough PCIe memory space for the big BARs).
+
+When I try to load the amdgpu module, I can't get the driver to enable the
+acceleration (the scratch register check fails).
+
+The E9260 is connected to a PCIe x1 (Gen2) slot.
+
+Anyone have an idea on where to look or how to fix this? This is a test-bed
+before we get an LS1046ARDB with quad core A72's.
+
+Any help would be appreciated,
+
+Bas Vermeulen
+
+--000000000000a7fe8e057d74a305
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all,<div><br></div><div>I have connected an E9260 (Pola=
+ris 11 based) to a mini-PCIe slot on my NXP LS1012ARDB.</div><div>The GPU i=
+s seen, all the BARs are correctly assigned (but there&#39;s not enough PCI=
+e memory space for the big BARs).</div><div><br></div><div>When I try to lo=
+ad the amdgpu module, I can&#39;t get the driver to enable the acceleration=
+ (the scratch register check fails).</div><div><br></div><div>The E9260 is =
+connected to a PCIe x1 (Gen2) slot.</div><div><br></div><div>Anyone have an=
+ idea on where to look or how to fix this? This is a test-bed before we get=
+ an LS1046ARDB with quad core A72&#39;s.</div><div><br></div><div>Any help =
+would be appreciated,</div><div><br></div><div>Bas Vermeulen</div></div>
+
+--000000000000a7fe8e057d74a305--
+
+--===============2110870071==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============2110870071==--
