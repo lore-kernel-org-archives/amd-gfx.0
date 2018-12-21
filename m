@@ -1,34 +1,87 @@
-From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-Subject: [PATCH] drm/amd/powerplay/polaris10_smumgr: Remove duplicate
-Date: Fri, 21 Dec 2018 19:41:50 +0530
-Message-ID: <20181221141150.GA2872@hp-pavilion-15-notebook-pc-brajeswar>
+From: Liviu Dudau <Liviu.Dudau-5wv7dgnIgG8@public.gmane.org>
+Subject: Re: [PATCH] drm: return false in drm_arch_can_wc_memory() for ARM
+Date: Fri, 21 Dec 2018 14:16:44 +0000
+Message-ID: <20181221141644.GB22341@e110455-lin.cambridge.arm.com>
+References: <20181220145657.304-1-alexander.deucher@amd.com>
+ <20181220153619.GP21184@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: rex.zhu@amd.com, evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, ray.huang@amd.com
-Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
-List-Id: amd-gfx.lists.freedesktop.org
+In-Reply-To: <20181220153619.GP21184-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Remove ppatomctrl.h which is included more than once
-
-Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-index 872d3824337b..2b2c26616902 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-@@ -44,7 +44,6 @@
- 
- #include "smu7_hwmgr.h"
- #include "hardwaremanager.h"
--#include "ppatomctrl.h"
- #include "atombios.h"
- #include "pppcielanes.h"
- 
--- 
-2.17.1
+T24gVGh1LCBEZWMgMjAsIDIwMTggYXQgMDQ6MzY6MTlQTSArMDEwMCwgRGFuaWVsIFZldHRlciB3
+cm90ZToKPiBPbiBUaHUsIERlYyAyMCwgMjAxOCBhdCAwOTo1Njo1N0FNIC0wNTAwLCBBbGV4IERl
+dWNoZXIgd3JvdGU6Cj4gPiBJJ20gbm90IGZhbWlsaWFyIGVub3VnaCB3aXRoIEFSTSB0byBrbm93
+IGlmIHdyaXRlIGNvbWJpbmluZwo+ID4gaXMgYWN0dWFsbHkgYW4gYXJjaGl0ZWN0dXJhbCBsaW1p
+dGF0aW9uIG9yIGlmIGl0J3MgYW4gaXNzdWUKPiA+IHdpdGggdGhlIFBDSWUgSVBzIHVzZWQgb24g
+dmFyaW91cyBwbGF0Zm9ybXMsIGJ1dCBzbyBmYXIKPiA+IGV2ZXJ5b25lIHRoYXQgaGFzIHRyaWVk
+IHRvIHJ1biByYWRlb24gaGFyZHdhcmUgb24KPiA+IEFSTSBoYXMgaGFkIHRvIGRpc2FibGUgaXQu
+ICBTbyBsZXQncyBqdXN0IG1ha2UgaXQgb2ZmaWNpYWwuCj4gCj4gd2Mgb24gYXJtIGlzIFJlYWxs
+eSBDb21wbGljYXRlZCAodG0pIGFmYWl1aS4gVGhlcmUncyBpc3N1ZXMgd2l0aCBhbGlhc2luZwo+
+IG1hcHBpbmdzIGFuZCBzdHVmZiwgc28geW91IG5lZWQgdG8gYWxsb2NhdGUgeW91ciB3YyBtZW1v
+cnkgZnJvbSBzcGVjaWFsCj4gcG9vbHMuIFNvIHByb2JhYmx5IGJlc3QgdG8ganVzdCBkaXNhYmxl
+IGl0IHVudGlsIHdlIGZpZ3VyZSB0aGlzIG91dC4KCkkgYmVsaWV2ZSBib3RoIG9mIHlvdSBhcmUg
+Y29uZmxhdGluZyBkaWZmZXJlbnQgaXNzdWVzIHVuZGVyIHRoZSB3cm9uZwpuYW1lLiBXcml0ZSBj
+b21iaW5pbmcgaGFwcGVucyBhbGwgdGhlIHRpbWUgd2l0aCBBcm0sIHRoZSBBUk12OAphcmNoaXRl
+Y3R1cmUgaXMgYSB3ZWFrbHktb3JkZXJlZCBtb2RlbCBvZiBtZW1vcnkgc28gaGFyZHdhcmUgaXMg
+YWxsb3dlZAp0byByZS1vcmRlciBvciBjb21iaW5lIG1lbW9yeSBhY2Nlc3MgYXMgdGhleSBzZWVt
+IGZpdC4KCkEgd2hpbGUgYWdvIEkgZGlkIHJ1biBhbiBBTUQgR1BVIGNhcmQgb24gbXkgSnVubyBk
+ZXYgYm9hcmQgYW5kIGl0IHdvcmtlZAooZm9yIGEgdmVyeSBsaW1pdGVkIGRlZmluaXRpb24gb2Yg
+d29ya2VkLCBJJ3ZlIG9ubHkgdmFsaWRhdGVkIHRoZSBmYWN0CnRoYXQgSSBjb3VsZCBnZXQgYW4g
+ZmJjb24gYW5kIGNvdWxkIHJ1biB1bi1hY2NlbGVyYXRlZCBYMTEpLiBTbyBJIHdvdWxkCmJlIGlu
+dGVyZXN0ZWQgaWYgQWxleCBjb3VsZCBzaGFyZSBzb21lIG9mIHRoZSBzY2VuYXJpb3Mgd2hlcmUg
+cGVvcGxlIGFyZQpzZWVpbmcgZmFpbHVyZXMuCgpBcyBmb3IgYWxpYXNpbmcsIHllYWgsIGhhdmlu
+ZyBtdWx0aXBsZSBhbGlhc2VzIHRvIHRoZSBzYW1lIHBpZWNlIG9mCm1lbW9yeSBpcyBhIGJhZCB0
+aGluZy4gVGhlIHByb2JsZW0gYXJpc2VzIHdoZW4gZGV2aWNlcyBvbiB0aGUgUENJIGJ1cwpoYXZl
+IG1lbW9yeSBhbGxvY2F0ZWQgYXMgZGV2aWNlIG1lbW9yeSAod2hpY2ggb24gQXJtIGlzIG5vbi1j
+YWNoZWFibGUKYW5kIG5vbi1yZW9yZGVyYWJsZSksIGJ1dCB0aGUgUENJIGJ1cyBlZmZlY3RpdmVs
+eSBhY3RzIGFzIGEgd3JpdGUtY29tYmluZXIKd2hpY2ggY2hhbmdlcyB0aGUgb3JkZXIgb2YgdHJh
+bnNhY3Rpb25zLiBUaGVyZWZvcmUsIGZvciBkZXZpY2VzIHRoYXQKaGF2ZSBsb2NhbCBtZW1vcnkg
+YXNzb2NpYXRlZCB3aXRoIHRoZW0gKGkuZS4gbW9yZSB0aGFuIGp1c3QgcmVnaXN0ZXIKYWNjZXNz
+ZXMpIG9uZSBzaG91bGQgYWxsb2NhdGUgbWVtb3J5IGluIHRoZSBmaXJzdCBwbGFjZSB0aGF0IGlz
+CkRldmljZS1HUkUgKGdhdGhlcmluZywgcmVvcmRlcmluZyBhbmQgZWFybHktYWNjZXNzKS4gT3Ro
+ZXJ3aXNlLCBwcm9ibGVtcwp3aWxsIHN1cmZhY2UgdGhhdCBhcmUgbm90IHZpc2libGUgb24geDg2
+IGFzIHRoYXQgaXMgYSBzdHJvbmdseSBvcmRlcmVkCmFyY2hpdGVjdHVyZS4KCj4gIAo+ID4gU2ln
+bmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IAo+
+IFJldmlld2VkLWJ5OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgoKR2l2
+ZW4gdGhhdCB0aGlzIEFQSSBpcyBvbmx5IHVzZWQgYnkgQU1EIEknbSBPSyBmb3Igbm93IHdpdGgg
+dGhlIGNoYW5nZSwKYnV0IEkgdGhpbmsgaW4gZ2VuZXJhbCBpdCBpcyBtaXNsZWFkaW5nIGFuZCB3
+ZSBzaG91bGQgd29yayB0b3dhcmRzCmZpeGluZyByYWRlb24gYW5kIGFtZCBkcml2ZXJzLgoKQmVz
+dCByZWdhcmRzLApMaXZpdQoKPiAKPiA+IC0tLQo+ID4gIGluY2x1ZGUvZHJtL2RybV9jYWNoZS5o
+IHwgMiArKwo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKPiA+IAo+ID4gZGlm
+ZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5oIGIvaW5jbHVkZS9kcm0vZHJtX2NhY2hl
+LmgKPiA+IGluZGV4IGJmZTE2MzlkZjAyZC4uNjkxYjRjNGIwNTg3IDEwMDY0NAo+ID4gLS0tIGEv
+aW5jbHVkZS9kcm0vZHJtX2NhY2hlLmgKPiA+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5o
+Cj4gPiBAQCAtNDcsNiArNDcsOCBAQCBzdGF0aWMgaW5saW5lIGJvb2wgZHJtX2FyY2hfY2FuX3dj
+X21lbW9yeSh2b2lkKQo+ID4gIAlyZXR1cm4gZmFsc2U7Cj4gPiAgI2VsaWYgZGVmaW5lZChDT05G
+SUdfTUlQUykgJiYgZGVmaW5lZChDT05GSUdfQ1BVX0xPT05HU09OMykKPiA+ICAJcmV0dXJuIGZh
+bHNlOwo+ID4gKyNlbGlmIGRlZmluZWQoQ09ORklHX0FSTSkgfHwgZGVmaW5lZChDT05GSUdfQVJN
+NjQpCj4gPiArCXJldHVybiBmYWxzZTsKPiA+ICAjZWxzZQo+ID4gIAlyZXR1cm4gdHJ1ZTsKPiA+
+ICAjZW5kaWYKPiA+IC0tIAo+ID4gMi4xMy42Cj4gPiAKPiA+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4g
+PiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo+IAo+IC0tIAo+IERhbmllbCBW
+ZXR0ZXIKPiBTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPiBodHRwOi8vYmxv
+Zy5mZndsbC5jaAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
+aS1kZXZlbAoKLS0gCj09PT09PT09PT09PT09PT09PT09CnwgSSB3b3VsZCBsaWtlIHRvIHwKfCBm
+aXggdGhlIHdvcmxkLCAgfAp8IGJ1dCB0aGV5J3JlIG5vdCB8CnwgZ2l2aW5nIG1lIHRoZSAgIHwK
+IFwgc291cmNlIGNvZGUhICAvCiAgLS0tLS0tLS0tLS0tLS0tCiAgICDCr1xfKOODhClfL8KvCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
