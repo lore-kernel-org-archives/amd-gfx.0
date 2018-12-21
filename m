@@ -1,55 +1,64 @@
-From: Yu Zhao <yuzhao@google.com>
-Subject: [PATCH 3/3] drm/amd: validate user GEM object size
-Date: Thu, 20 Dec 2018 20:10:53 -0700
-Message-ID: <20181221031053.240161-3-yuzhao@google.com>
-References: <20181221031053.240161-1-yuzhao@google.com>
+From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/virtual_dce: Need to pin the fb's bo
+Date: Fri, 21 Dec 2018 15:26:49 +0800
+Message-ID: <1545377209-10718-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20181221031053.240161-1-yuzhao@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: David Zhou <David1.Zhou@amd.com>, Samuel Li <Samuel.Li@amd.com>, Harry Wentland <harry.wentland@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, Daniel Stone <daniels@collabora.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Yu Zhao <yuzhao@google.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 
-When creating frame buffer, userspace may request to attach to a
-previously allocated GEM object that is smaller than what GPU
-requires. Validation must be done to prevent out-of-bound DMA,
-which could not only corrupt memory but also reveal sensitive data.
-
-This fix is not done in a common code path because individual
-driver might have different requirement.
-
-Signed-off-by: Yu Zhao <yuzhao@google.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 755daa332f8a..bb48b016cc68 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -527,6 +527,7 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- 	struct drm_gem_object *obj;
- 	struct amdgpu_framebuffer *amdgpu_fb;
- 	int ret;
-+	int height;
- 	struct amdgpu_device *adev = dev->dev_private;
- 	int cpp = drm_format_plane_cpp(mode_cmd->pixel_format, 0);
- 	int pitch = amdgpu_align_pitch(adev, mode_cmd->width, cpp, false);
-@@ -550,6 +551,13 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- 		return ERR_PTR(-EINVAL);
- 	}
- 
-+	height = ALIGN(mode_cmd->height, 8);
-+	if (obj->size < pitch * height) {
-+		dev_err(&dev->pdev->dev, "Invalid GEM size: expecting %d but got %d\n",
-+			pitch * height, obj->size);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	amdgpu_fb = kzalloc(sizeof(*amdgpu_fb), GFP_KERNEL);
- 	if (amdgpu_fb == NULL) {
- 		drm_gem_object_put_unlocked(obj);
--- 
-2.20.1.415.g653613c723-goog
+V2hlbiB0aGUgYm8gaXMgdXNlZCB0byBzZXQgbW9kZSwgdGhlIGJvIG5lZWQgdG8gYmUgcGlubmVk
+LgoKU2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92aXJ0dWFsLmMgfCA1NCArKysrKysrKysrKysr
+KysrKysrKysrKystLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQxIGluc2VydGlvbnMoKyksIDEz
+IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Rj
+ZV92aXJ0dWFsLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdmlydHVhbC5jCmlu
+ZGV4IDJkNjgxODEuLjc3NzUyZTMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2RjZV92aXJ0dWFsLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Zp
+cnR1YWwuYwpAQCAtMjExLDE5ICsyMTEsNiBAQCBzdGF0aWMgdm9pZCBkY2VfdmlydHVhbF9jcnRj
+X2Rpc2FibGUoc3RydWN0IGRybV9jcnRjICpjcnRjKQogCWFtZGdwdV9jcnRjLT5jb25uZWN0b3Ig
+PSBOVUxMOwogfQogCi1zdGF0aWMgaW50IGRjZV92aXJ0dWFsX2NydGNfbW9kZV9zZXQoc3RydWN0
+IGRybV9jcnRjICpjcnRjLAotCQkJCSAgc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUsCi0J
+CQkJICBzdHJ1Y3QgZHJtX2Rpc3BsYXlfbW9kZSAqYWRqdXN0ZWRfbW9kZSwKLQkJCQkgIGludCB4
+LCBpbnQgeSwgc3RydWN0IGRybV9mcmFtZWJ1ZmZlciAqb2xkX2ZiKQotewotCXN0cnVjdCBhbWRn
+cHVfY3J0YyAqYW1kZ3B1X2NydGMgPSB0b19hbWRncHVfY3J0YyhjcnRjKTsKLQotCS8qIHVwZGF0
+ZSB0aGUgaHcgdmVyc2lvbiBmcHIgZHBtICovCi0JYW1kZ3B1X2NydGMtPmh3X21vZGUgPSAqYWRq
+dXN0ZWRfbW9kZTsKLQotCXJldHVybiAwOwotfQotCiBzdGF0aWMgYm9vbCBkY2VfdmlydHVhbF9j
+cnRjX21vZGVfZml4dXAoc3RydWN0IGRybV9jcnRjICpjcnRjLAogCQkJCSAgICAgY29uc3Qgc3Ry
+dWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUsCiAJCQkJICAgICBzdHJ1Y3QgZHJtX2Rpc3BsYXlf
+bW9kZSAqYWRqdXN0ZWRfbW9kZSkKQEAgLTIzNSw2ICsyMjIsNDcgQEAgc3RhdGljIGJvb2wgZGNl
+X3ZpcnR1YWxfY3J0Y19tb2RlX2ZpeHVwKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIHN0YXRpYyBp
+bnQgZGNlX3ZpcnR1YWxfY3J0Y19zZXRfYmFzZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsIGludCB4
+LCBpbnQgeSwKIAkJCQkgIHN0cnVjdCBkcm1fZnJhbWVidWZmZXIgKm9sZF9mYikKIHsKKwlzdHJ1
+Y3QgZHJtX2ZyYW1lYnVmZmVyICp0YXJnZXRfZmI7CisJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpv
+Ymo7CisJc3RydWN0IGFtZGdwdV9ibyAqYWJvOworCWludCByOworCisJLyogbm8gZmIgYm91bmQg
+Ki8KKwlpZiAoIWNydGMtPnByaW1hcnktPmZiKSB7CisJCURSTV9ERUJVR19LTVMoIk5vIEZCIGJv
+dW5kXG4iKTsKKwkJcmV0dXJuIDA7CisJfQorCisJdGFyZ2V0X2ZiID0gY3J0Yy0+cHJpbWFyeS0+
+ZmI7CisKKwlvYmogPSBrY2xfZHJtX2ZiX2dldF9nZW1fb2JqKHRhcmdldF9mYiwgMCk7CisJYWJv
+ID0gZ2VtX3RvX2FtZGdwdV9ibyhvYmopOworCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShhYm8sIGZh
+bHNlKTsKKwlpZiAodW5saWtlbHkociAhPSAwKSkKKwkJcmV0dXJuIHI7CisKKwlyID0gYW1kZ3B1
+X2JvX3BpbihhYm8sIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pOworCWlmICh1bmxpa2VseShyICE9
+IDApKSB7CisJCWFtZGdwdV9ib191bnJlc2VydmUoYWJvKTsKKwkJcmV0dXJuIC1FSU5WQUw7CisJ
+fQorCisJYW1kZ3B1X2JvX3VucmVzZXJ2ZShhYm8pOworCXJldHVybiAwOworfQorCitzdGF0aWMg
+aW50IGRjZV92aXJ0dWFsX2NydGNfbW9kZV9zZXQoc3RydWN0IGRybV9jcnRjICpjcnRjLAorCQkJ
+CSAgc3RydWN0IGRybV9kaXNwbGF5X21vZGUgKm1vZGUsCisJCQkJICBzdHJ1Y3QgZHJtX2Rpc3Bs
+YXlfbW9kZSAqYWRqdXN0ZWRfbW9kZSwKKwkJCQkgIGludCB4LCBpbnQgeSwgc3RydWN0IGRybV9m
+cmFtZWJ1ZmZlciAqb2xkX2ZiKQoreworCXN0cnVjdCBhbWRncHVfY3J0YyAqYW1kZ3B1X2NydGMg
+PSB0b19hbWRncHVfY3J0YyhjcnRjKTsKKworCWRjZV92aXJ0dWFsX2NydGNfc2V0X2Jhc2UoY3J0
+YywgeCwgeSwgb2xkX2ZiKTsKKworCS8qIHVwZGF0ZSB0aGUgaHcgdmVyc2lvbiBmcHIgZHBtICov
+CisJYW1kZ3B1X2NydGMtPmh3X21vZGUgPSAqYWRqdXN0ZWRfbW9kZTsKKwogCXJldHVybiAwOwog
+fQogCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
