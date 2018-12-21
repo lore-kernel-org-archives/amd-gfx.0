@@ -1,68 +1,34 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gmc: fix compiler errors
- [-Werror,-Wmissing-braces]
-Date: Fri, 21 Dec 2018 13:41:17 +0000
-Message-ID: <02d038f0-6b02-6829-f378-a32df8b68bf2@amd.com>
-References: <1545314475-7114-1-git-send-email-shirish.s@amd.com>
- <4d04ab79-32ff-ab0d-4735-280bcedaa2a7@daenzer.net>
+From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Subject: [PATCH] drm/amd/powerplay/polaris10_smumgr: Remove duplicate
+Date: Fri, 21 Dec 2018 19:41:50 +0530
+Message-ID: <20181221141150.GA2872@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4d04ab79-32ff-ab0d-4735-280bcedaa2a7-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-Content-ID: <357B07BF2013794B8B6783D25126D211-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: rex.zhu@amd.com, evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, ray.huang@amd.com
+Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjEuMTIuMTggdW0gMTI6MTggc2NocmllYiBNaWNoZWwgRMOkbnplcjoNCj4gT24gMjAxOC0x
-Mi0yMCAzOjAxIHAubS4sIFMsIFNoaXJpc2ggd3JvdGU6DQo+PiBJbml0aWFsaXppbmcgc3RydWN0
-dXJlcyB3aXRoIHsgfSBpcyBrbm93biB0byBiZSBwcm9ibGVtYXRpYyBzaW5jZQ0KPj4gaXQgZG9l
-c24ndCBuZWNlc3NhcmFyaWx5IGluaXRpYWxpemVzIGFsbCBieXRlcywgaW4gY2FzZSBvZiBwYWRk
-aW5nLA0KPj4gY2F1c2luZyByYW5kb20gZmFpbHVyZXMgd2hlbiBzdHJ1Y3R1cmVzIGFyZSBtZW1j
-bXAoKS4NCj4+DQo+PiBUaGlzIHBhdGNoIGZpeGVzIHRoZSBzdHJ1Y3R1cmUgaW5pdGlhbGlzYXRp
-b24gY29tcGlsZXIgZXJyb3IgYnkgbWVtc2V0dGluZw0KPj4gdGhlIGVudGlyZSBzdHJ1Y3R1cmUg
-ZWxlbWVudHMgaW5zdGVhZCBvZiBvbmx5IHRoZSBmaXJzdCBvbmUuDQo+Pg0KPj4gU2lnbmVkLW9m
-Zi1ieTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNvbT4NCj4+DQo+PiBbLi4uXQ0KPj4gICAN
-Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0KPj4gaW5kZXggYmFjZGFlZi4u
-MmJmZGRjZSAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-OV8wLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMNCj4+
-IEBAIC0zMjAsOCArMzIwLDkgQEAgc3RhdGljIGludCBnbWNfdjlfMF9wcm9jZXNzX2ludGVycnVw
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICAgCX0NCj4+ICAgDQo+PiAgIAlpZiAo
-cHJpbnRrX3JhdGVsaW1pdCgpKSB7DQo+PiAtCQlzdHJ1Y3QgYW1kZ3B1X3Rhc2tfaW5mbyB0YXNr
-X2luZm8gPSB7IDAgfTsNCj4+ICsJCXN0cnVjdCBhbWRncHVfdGFza19pbmZvIHRhc2tfaW5mbzsN
-Cj4+ICAgDQo+PiArCQltZW1zZXQoJnRhc2tfaW5mbywgMCwgc2l6ZW9mKGFtZGdwdV90YXNrX2lu
-Zm8pKTsNCj4gVGhpcyBkb2Vzbid0IGNvbXBpbGU6DQo+DQo+IGRyaXZlcnMvZ3B1L2RybS8vYW1k
-L2FtZGdwdS9nbWNfdjlfMC5jOiBJbiBmdW5jdGlvbiDigJhnbWNfdjlfMF9wcm9jZXNzX2ludGVy
-cnVwdOKAmToNCj4gZHJpdmVycy9ncHUvZHJtLy9hbWQvYW1kZ3B1L2dtY192OV8wLmM6MzI1OjMy
-OiBlcnJvcjog4oCYYW1kZ3B1X3Rhc2tfaW5mb+KAmSB1bmRlY2xhcmVkIChmaXJzdCB1c2UgaW4g
-dGhpcyBmdW5jdGlvbikNCj4gICAgIG1lbXNldCgmdGFza19pbmZvLCAwLCBzaXplb2YoYW1kZ3B1
-X3Rhc2tfaW5mbykpOw0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+
-fn5+fn5+fn5+DQo+DQo+IChOZWVkcyB0byBiZSAic2l6ZW9mKHN0cnVjdCBhbWRncHVfdGFza19p
-bmZvKSIpDQoNClRoZSBjb2Rpbmcgc3R5bGUgZ3VpZGUgbGluZXMgYWN0dWFsbHkgZG9jdW1lbnQg
-dGhhdCB5b3Ugc2hvdWxkIGF2b2lkIA0KdHlwZXMgd2l0aCBzaXplb2YgYW5kIGluc3RlYWQgdXNl
-IHRoZSB2YXJpYWJsZXMgZGlyZWN0bHkuDQoNCkUuZy4gdXNlICJtZW1zZXQoJnRhc2tfaW5mbywg
-MCwgc2l6ZW9mKHRhc2tfaW5mbykpOyINCg0KPiBJJ3ZlIHJldmVydGVkIHRoaXMgb24gdGhlIGlu
-dGVybmFsIGFtZC1zdGFnaW5nLWRybS1uZXh0IGJyYW5jaC4NCj4NCj4gUGF0Y2hlcyBtdXN0IGJl
-IHRlc3RlZCBhcHByb3ByaWF0ZWx5IChhZ2FpbnN0IHRoZSB0YXJnZXQgYnJhbmNoKSwNCj4gaWRl
-YWxseSBiZWZvcmUgc3VibWl0dGluZyB0aGVtIGZvciByZXZpZXcuIFJldmlld2VycyBhcmUgbm90
-IGV4cGVjdGVkIHRvDQo+IGxvb2sgZm9yIHRoaW5ncyB3aGljaCB0cml2aWFsbHkgYnJlYWsgdGhl
-IGJ1aWxkLg0KDQpDb21wbGV0ZWx5IGFncmVlLg0KDQpJIG1lYW4gSSBicmVhayB0aGluZ3MgbW9y
-ZSBvZnRlbiB0aGFuIG5vdCBteXNlbGYgYmVjYXVzZSBvZiBvdXIgbGltaXRlZCANClFBIHJlc291
-cmNlcywgYnV0IGF0IGxlYXN0IHN1Y2ggdHJpdmlhbCB0aGluZ3Mgc2hvdWxkIG5vdCBoYXBwZW4g
-YW55IG1vcmUuDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+Remove ppatomctrl.h which is included more than once
+
+Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+index 872d3824337b..2b2c26616902 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+@@ -44,7 +44,6 @@
+ 
+ #include "smu7_hwmgr.h"
+ #include "hardwaremanager.h"
+-#include "ppatomctrl.h"
+ #include "atombios.h"
+ #include "pppcielanes.h"
+ 
+-- 
+2.17.1
