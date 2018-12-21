@@ -1,60 +1,41 @@
-From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/gmc: fix compiler errors
- [-Werror,-Wmissing-braces] (V2)
-Date: Fri, 21 Dec 2018 15:50:33 +0000
-Message-ID: <1545407411-7996-1-git-send-email-shirish.s@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add new VegaM pci id
+Date: Fri, 21 Dec 2018 11:36:41 -0500
+Message-ID: <CADnq5_Mkx9EHq1ZjdRUbpuLVnyNQ-frSHNu3N41z0ftp5Wvymw@mail.gmail.com>
+References: <20181220151017.11077-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20181220151017.11077-1-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SW5pdGlhbGl6aW5nIHN0cnVjdHVyZXMgd2l0aCB7IH0gaXMga25vd24gdG8gYmUgcHJvYmxlbWF0
-aWMgc2luY2UKaXQgZG9lc24ndCBuZWNlc3NhcmFyaWx5IGluaXRpYWxpemUgYWxsIGJ5dGVzLCBp
-biBjYXNlIG9mIHBhZGRpbmcsCmNhdXNpbmcgcmFuZG9tIGZhaWx1cmVzIHdoZW4gc3RydWN0dXJl
-cyBhcmUgbWVtY21wKCkuCgpUaGlzIHBhdGNoIGZpeGVzIHRoZSBzdHJ1Y3R1cmUgaW5pdGlhbGlz
-YXRpb24gcmVsYXRlZCBjb21waWxlcgplcnJvciBieSBtZW1zZXQoKS4KClYyOiByZWN0aWZpZWQg
-bWlzc2luZyBwZWljZSBpbiBjb2RpbmcKClNpZ25lZC1vZmYtYnk6IFNoaXJpc2ggUyA8c2hpcmlz
-aC5zQGFtZC5jb20+ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
-QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYyB8IDMg
-KystCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIHwgMyArKy0KIDIgZmls
-ZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nbWNfdjhfMC5jCmluZGV4IDFhZDdlNmIuLjM0NDQwNjcgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ21jX3Y4XzAuYwpAQCAtMTQ3MSw4ICsxNDcxLDkgQEAgc3RhdGljIGlu
-dCBnbWNfdjhfMF9wcm9jZXNzX2ludGVycnVwdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
-IAkJZ21jX3Y4XzBfc2V0X2ZhdWx0X2VuYWJsZV9kZWZhdWx0KGFkZXYsIGZhbHNlKTsKIAogCWlm
-IChwcmludGtfcmF0ZWxpbWl0KCkpIHsKLQkJc3RydWN0IGFtZGdwdV90YXNrX2luZm8gdGFza19p
-bmZvID0geyAwIH07CisJCXN0cnVjdCBhbWRncHVfdGFza19pbmZvIHRhc2tfaW5mbzsKIAorCQlt
-ZW1zZXQoJnRhc2tfaW5mbywgMCwgc2l6ZW9mKHN0cnVjdCBhbWRncHVfdGFza19pbmZvKSk7CiAJ
-CWFtZGdwdV92bV9nZXRfdGFza19pbmZvKGFkZXYsIGVudHJ5LT5wYXNpZCwgJnRhc2tfaW5mbyk7
-CiAKIAkJZGV2X2VycihhZGV2LT5kZXYsICJHUFUgZmF1bHQgZGV0ZWN0ZWQ6ICVkIDB4JTA4eCBm
-b3IgcHJvY2VzcyAlcyBwaWQgJWQgdGhyZWFkICVzIHBpZCAlZFxuIiwKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nbWNfdjlfMC5jCmluZGV4IGJhY2RhZWYuLjUyMWFjODkgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ21jX3Y5XzAuYwpAQCAtMzIwLDggKzMyMCw5IEBAIHN0YXRpYyBpbnQgZ21j
-X3Y5XzBfcHJvY2Vzc19pbnRlcnJ1cHQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJfQog
-CiAJaWYgKHByaW50a19yYXRlbGltaXQoKSkgewotCQlzdHJ1Y3QgYW1kZ3B1X3Rhc2tfaW5mbyB0
-YXNrX2luZm8gPSB7IDAgfTsKKwkJc3RydWN0IGFtZGdwdV90YXNrX2luZm8gdGFza19pbmZvOwog
-CisJCW1lbXNldCgmdGFza19pbmZvLCAwLCBzaXplb2Yoc3RydWN0IGFtZGdwdV90YXNrX2luZm8p
-KTsKIAkJYW1kZ3B1X3ZtX2dldF90YXNrX2luZm8oYWRldiwgZW50cnktPnBhc2lkLCAmdGFza19p
-bmZvKTsKIAogCQlkZXZfZXJyKGFkZXYtPmRldiwKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+ping?
+
+On Thu, Dec 20, 2018 at 10:10 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Add a new pci id.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 9c77eaa45982..c806f984bcc5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -865,6 +865,7 @@ static const struct pci_device_id pciidlist[] = {
+>         /* VEGAM */
+>         {0x1002, 0x694C, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGAM},
+>         {0x1002, 0x694E, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGAM},
+> +       {0x1002, 0x694F, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGAM},
+>         /* Vega 10 */
+>         {0x1002, 0x6860, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+>         {0x1002, 0x6861, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_VEGA10},
+> --
+> 2.13.6
+>
