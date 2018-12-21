@@ -1,7 +1,7 @@
 From: Yu Zhao <yuzhao@google.com>
-Subject: [PATCH 2/3] drm/amd: validate user pitch alignment
-Date: Thu, 20 Dec 2018 20:10:52 -0700
-Message-ID: <20181221031053.240161-2-yuzhao@google.com>
+Subject: [PATCH 3/3] drm/amd: validate user GEM object size
+Date: Thu, 20 Dec 2018 20:10:53 -0700
+Message-ID: <20181221031053.240161-3-yuzhao@google.com>
 References: <20181221031053.240161-1-yuzhao@google.com>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -12,38 +12,44 @@ To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, =?UTF-8?q?
 Cc: David Zhou <David1.Zhou@amd.com>, Samuel Li <Samuel.Li@amd.com>, Harry Wentland <harry.wentland@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, Daniel Stone <daniels@collabora.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Yu Zhao <yuzhao@google.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Userspace may request pitch alignment that is not supported by GPU.
-Some requests 32, but GPU ignores it and uses default 64 when cpp is
-4. If GEM object is allocated based on the smaller alignment, GPU
-DMA will go out of bound.
+When creating frame buffer, userspace may request to attach to a
+previously allocated GEM object that is smaller than what GPU
+requires. Validation must be done to prevent out-of-bound DMA,
+which could not only corrupt memory but also reveal sensitive data.
 
-For GPU that does frame buffer compression, DMA writing out of bound
-memory will cause memory corruption.
+This fix is not done in a common code path because individual
+driver might have different requirement.
 
 Signed-off-by: Yu Zhao <yuzhao@google.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index e309d26170db..755daa332f8a 100644
+index 755daa332f8a..bb48b016cc68 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -527,6 +527,15 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+@@ -527,6 +527,7 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
  	struct drm_gem_object *obj;
  	struct amdgpu_framebuffer *amdgpu_fb;
  	int ret;
-+	struct amdgpu_device *adev = dev->dev_private;
-+	int cpp = drm_format_plane_cpp(mode_cmd->pixel_format, 0);
-+	int pitch = amdgpu_align_pitch(adev, mode_cmd->width, cpp, false);
-+
-+	if (mode_cmd->pitches[0] != pitch) {
-+		dev_err(&dev->pdev->dev, "Invalid pitch: expecting %d but got %d\n",
-+			pitch, mode_cmd->pitches[0]);
++	int height;
+ 	struct amdgpu_device *adev = dev->dev_private;
+ 	int cpp = drm_format_plane_cpp(mode_cmd->pixel_format, 0);
+ 	int pitch = amdgpu_align_pitch(adev, mode_cmd->width, cpp, false);
+@@ -550,6 +551,13 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
++	height = ALIGN(mode_cmd->height, 8);
++	if (obj->size < pitch * height) {
++		dev_err(&dev->pdev->dev, "Invalid GEM size: expecting %d but got %d\n",
++			pitch * height, obj->size);
 +		return ERR_PTR(-EINVAL);
 +	}
- 
- 	obj = drm_gem_object_lookup(file_priv, mode_cmd->handles[0]);
- 	if (obj ==  NULL) {
++
+ 	amdgpu_fb = kzalloc(sizeof(*amdgpu_fb), GFP_KERNEL);
+ 	if (amdgpu_fb == NULL) {
+ 		drm_gem_object_put_unlocked(obj);
 -- 
 2.20.1.415.g653613c723-goog
