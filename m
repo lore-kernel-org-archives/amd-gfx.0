@@ -1,74 +1,34 @@
-From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/virtual_dce: Need to pin the fb's bo
-Date: Fri, 21 Dec 2018 09:17:37 +0000
-Message-ID: <BN7PR12MB2644A1EA60FCFF6EAF4D1EA68FB80@BN7PR12MB2644.namprd12.prod.outlook.com>
-References: <1545377209-10718-1-git-send-email-Emily.Deng@amd.com>
- <3d75c11d-1172-1d0e-17a6-b5931660fe61@daenzer.net>
- <BN7PR12MB26449E825462ADBC0AC0A2E68FB80@BN7PR12MB2644.namprd12.prod.outlook.com>
- <34e8133d-c462-f836-5d95-db3119fd311d@daenzer.net>
- <BN7PR12MB2644EEFF06A0CCBC499C7C388FB80@BN7PR12MB2644.namprd12.prod.outlook.com>
+From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Subject: [PATCH] drm/amd/powerplay: Remove duplicate header
+Date: Fri, 21 Dec 2018 14:48:54 +0530
+Message-ID: <20181221091853.GA2319@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN7PR12MB2644EEFF06A0CCBC499C7C388FB80-Zx/IyJUqfGKoYeSiBV3SvgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: rex.zhu@amd.com, evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, Hawking.Zhang@amd.com, ray.huang@amd.com
+Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-Pi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3Vu
-Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIERlbmcsDQo+RW1pbHkNCj5T
-ZW50OiBGcmlkYXksIERlY2VtYmVyIDIxLCAyMDE4IDU6MTAgUE0NCj5UbzogTWljaGVsIETDpG56
-ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4NCj5DYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCj5TdWJqZWN0OiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1L3ZpcnR1YWxfZGNlOiBOZWVkIHRv
-IHBpbiB0aGUgZmIncyBibw0KPg0KPj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj5Gcm9t
-OiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0Pg0KPj5TZW50OiBGcmlkYXksIERl
-Y2VtYmVyIDIxLCAyMDE4IDQ6NTIgUE0NCj4+VG86IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFt
-ZC5jb20+DQo+PkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj5TdWJqZWN0OiBS
-ZTogW1BBVENIXSBkcm0vYW1kZ3B1L3ZpcnR1YWxfZGNlOiBOZWVkIHRvIHBpbiB0aGUgZmIncyBi
-bw0KPj4NCj4+T24gMjAxOC0xMi0yMSA5OjQ1IGEubS4sIERlbmcsIEVtaWx5IHdyb3RlOg0KPj4+
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj4+PiBGcm9tOiBNaWNoZWwgRMOkbnplciA8
-bWljaGVsQGRhZW56ZXIubmV0Pg0KPj4+PiBTZW50OiBGcmlkYXksIERlY2VtYmVyIDIxLCAyMDE4
-IDQ6MzggUE0NCj4+Pj4gVG86IERlbmcsIEVtaWx5IDxFbWlseS5EZW5nQGFtZC5jb20+DQo+Pj4+
-IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4+PiBTdWJqZWN0OiBSZTogW1BB
-VENIXSBkcm0vYW1kZ3B1L3ZpcnR1YWxfZGNlOiBOZWVkIHRvIHBpbiB0aGUgZmIncyBibw0KPj4+
-Pg0KPj4+PiBPbiAyMDE4LTEyLTIxIDg6MjYgYS5tLiwgRW1pbHkgRGVuZyB3cm90ZToNCj4+Pj4+
-IFdoZW4gdGhlIGJvIGlzIHVzZWQgdG8gc2V0IG1vZGUsIHRoZSBibyBuZWVkIHRvIGJlIHBpbm5l
-ZC4NCj4+Pj4NCj4+Pj4gT24gc2Vjb25kIHRob3VnaHQsIHdoeSBkb2VzIHRoZSBCTyBuZWVkIHRv
-IGJlIHBpbm5lZD8gV2hlbiB1c2luZyB0aGUNCj4+Pj4gZGlzcGxheSBoYXJkd2FyZSwgdGhlIEJP
-IG5lZWRzIHRvIGJlIHBpbm5lZCB0byBwcmV2ZW50IGl0IGZyb20gYmVpbmcNCj4+Pj4gbW92ZWQg
-d2hpbGUgdGhlIGhhcmR3YXJlIGlzIHNjYW5uaW5nIG91dCBmcm9tIGl0LCBidXQgdGhhdCBzaG91
-bGRuJ3QNCj4+Pj4gYmUNCj4+bmVjZXNzYXJ5IGhlcmUuDQo+Pj4gVGhlIHBpbiBoZXJlIGlzIHVz
-ZWQgZm9yIHNjYW4gb3V0IHRoZSBidWZmZXIgYnkgcmVtb3RlIGRpc3BsYXkgYXBwLg0KPj4NCj4+
-SSBzdGlsbCBkb24ndCB1bmRlcnN0YW5kIHdoeSBwaW5uaW5nIGlzIG5lZWRlZC4gV2hhdCBtZWNo
-YW5pc20gZG9lcyB0aGUNCj4+cmVtb3RlIGRpc3BsYXkgYXBwIHVzZSB0byBhY2Nlc3MgdGhlIEJP
-IGNvbnRlbnRzPw0KPlNvcnJ5LCBJIGFtIG5vdCBmYW1pbGlhciB3aXRoIHRoZSByZW1vdGUgZGlz
-cGxheSBhcHAuIE1heWJlIGl0IHdpbGwgdXNlIGRybSBpb2N0bA0KPmZ1bmN0aW9uIHRvIGdldCB0
-aGUgY3VycmVudCBjcnRjJ3MgZmIncyBpbmZvcm1hdGlvbiwgYW5kIGdldCB0aGUgY29udGVudCBp
-biB0aGUgZmIncw0KPmJ1ZmZlciBvYmplY3QgYnkgbW1hcCBvciB0cmFuc2xhdGUgdGhlIGJvIHRv
-IGFuIE9wZW5HTCB0ZXh0dXJlIGZvciBuZXh0DQo+cmVuZGVyaW5nLiBNYXliZSBkb24ndCBuZWVk
-IHRvIHBpbiB0aGUgYm8gaGVyZSwgYXMgdGhlIHVzZSBoYXMgbm8gZGlmZmVyZW50IHdpdGgNCj5v
-dGhlciBub3JtYWwgYm9zLiBTbyBwbGVhc2UgaWdub3JlIHRoZSBwYXRjaCwgYW5kIHdpbGwgc2Vu
-ZCBhbm90aGVyIHBhdGNoIHRvDQo+cmVtb3ZlIHRoZSB1bnBpbiB0aGUgZmIncyBibyBjb2RlLg0K
-SXQgc2VlbXMgdG8gYmUgaGFyZCB0byByZW1vdmUgYWxsIHRoZSBwaW4gZm9yIHZpcnR1YWxfZGNl
-LCBhcyBpdCB1c2VzIHNvbWUgY29tbW9uIGNvZGUgaW4gYW1kZ3B1X2Rpc3BsYXkuYy4NClNvIGZv
-ciBjb2RlIGNvbnNpc3RlbmN5LCBtYXliZSBzdGlsbCBuZWVkIHRvIGFkZCB0aGUgcGluIGhlcmUu
-DQoNCkJlc3Qgd2lzaGVzDQpFbWlseSBEZW5nDQo+Pg0KPj4NCj4+LS0NCj4+RWFydGhsaW5nIE1p
-Y2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1k
-LmNvbQ0KPj5MaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAg
-ICAgTWVzYSBhbmQgWCBkZXZlbG9wZXINCj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXw0KPmFtZC1nZnggbWFpbGluZyBsaXN0DQo+YW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcNCj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Remove hwmgr_ppt.h which is included more than once
+
+Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/inc/hwmgr.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+index e5a60aa44b5d..07d180ce4d18 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+@@ -28,7 +28,6 @@
+ #include "hardwaremanager.h"
+ #include "hwmgr_ppt.h"
+ #include "ppatomctrl.h"
+-#include "hwmgr_ppt.h"
+ #include "power_state.h"
+ #include "smu_helper.h"
+ 
+-- 
+2.17.1
