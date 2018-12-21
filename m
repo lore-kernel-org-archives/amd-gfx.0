@@ -1,83 +1,50 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/virtual_dce: Need to pin the fb's bo
-Date: Fri, 21 Dec 2018 18:23:17 +0000
-Message-ID: <bd21b09c-46c6-1e22-a014-ba23458fd5de@amd.com>
-References: <1545377209-10718-1-git-send-email-Emily.Deng@amd.com>
- <3d75c11d-1172-1d0e-17a6-b5931660fe61@daenzer.net>
- <BN7PR12MB26449E825462ADBC0AC0A2E68FB80@BN7PR12MB2644.namprd12.prod.outlook.com>
- <34e8133d-c462-f836-5d95-db3119fd311d@daenzer.net>
- <BN7PR12MB2644EEFF06A0CCBC499C7C388FB80@BN7PR12MB2644.namprd12.prod.outlook.com>
- <8cfb30a1-1b06-85e9-e738-f3b5041547a3@gmail.com>
- <CADnq5_NJR_msQL+VawUGr4RR48BCU+CKFWnJhOBVAivHtYgaQg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay/polaris10_smumgr: Remove duplicate
+Date: Fri, 21 Dec 2018 13:32:03 -0500
+Message-ID: <CADnq5_O3s4FgVDNz=5O4mKOuVeCJUSEfDUri=bQOQHUBv+zU2Q@mail.gmail.com>
+References: <20181221141150.GA2872@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NJR_msQL+VawUGr4RR48BCU+CKFWnJhOBVAivHtYgaQg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-Content-ID: <12AD3A3B9C99774A928657C0F6DF6A54-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20181221141150.GA2872@hp-pavilion-15-notebook-pc-brajeswar>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Cc: Rex Zhu <rex.zhu@amd.com>, "Quan, Evan" <evan.quan@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Sabyasachi Gupta <sabyasachi.linux@gmail.com>, Souptick Joarder <jrdr.linux@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjEuMTIuMTggdW0gMTk6MTkgc2NocmllYiBBbGV4IERldWNoZXI6DQo+IE9uIEZyaSwgRGVj
-IDIxLCAyMDE4IGF0IDE6MTUgUE0gQ2hyaXN0aWFuIEvDtm5pZw0KPiA8Y2tvZW5pZy5sZWljaHR6
-dW1lcmtlbkBnbWFpbC5jb20+IHdyb3RlOg0KPj4gQW0gMjEuMTIuMTggdW0gMTA6MDkgc2Nocmll
-YiBEZW5nLCBFbWlseToNCj4+Pj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4+Pj4gRnJv
-bTogTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4NCj4+Pj4gU2VudDogRnJpZGF5
-LCBEZWNlbWJlciAyMSwgMjAxOCA0OjUyIFBNDQo+Pj4+IFRvOiBEZW5nLCBFbWlseSA8RW1pbHku
-RGVuZ0BhbWQuY29tPg0KPj4+PiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+
-Pj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdS92aXJ0dWFsX2RjZTogTmVlZCB0byBw
-aW4gdGhlIGZiJ3MgYm8NCj4+Pj4NCj4+Pj4gT24gMjAxOC0xMi0yMSA5OjQ1IGEubS4sIERlbmcs
-IEVtaWx5IHdyb3RlOg0KPj4+Pj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+Pj4+Pj4g
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4NCj4+Pj4+PiBTZW50OiBG
-cmlkYXksIERlY2VtYmVyIDIxLCAyMDE4IDQ6MzggUE0NCj4+Pj4+PiBUbzogRGVuZywgRW1pbHkg
-PEVtaWx5LkRlbmdAYW1kLmNvbT4NCj4+Pj4+PiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcNCj4+Pj4+PiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1L3ZpcnR1YWxfZGNl
-OiBOZWVkIHRvIHBpbiB0aGUgZmIncyBibw0KPj4+Pj4+DQo+Pj4+Pj4gT24gMjAxOC0xMi0yMSA4
-OjI2IGEubS4sIEVtaWx5IERlbmcgd3JvdGU6DQo+Pj4+Pj4+IFdoZW4gdGhlIGJvIGlzIHVzZWQg
-dG8gc2V0IG1vZGUsIHRoZSBibyBuZWVkIHRvIGJlIHBpbm5lZC4NCj4+Pj4+PiBPbiBzZWNvbmQg
-dGhvdWdodCwgd2h5IGRvZXMgdGhlIEJPIG5lZWQgdG8gYmUgcGlubmVkPyBXaGVuIHVzaW5nIHRo
-ZQ0KPj4+Pj4+IGRpc3BsYXkgaGFyZHdhcmUsIHRoZSBCTyBuZWVkcyB0byBiZSBwaW5uZWQgdG8g
-cHJldmVudCBpdCBmcm9tIGJlaW5nDQo+Pj4+Pj4gbW92ZWQgd2hpbGUgdGhlIGhhcmR3YXJlIGlz
-IHNjYW5uaW5nIG91dCBmcm9tIGl0LCBidXQgdGhhdCBzaG91bGRuJ3QgYmUNCj4+Pj4gbmVjZXNz
-YXJ5IGhlcmUuDQo+Pj4+PiBUaGUgcGluIGhlcmUgaXMgdXNlZCBmb3Igc2NhbiBvdXQgdGhlIGJ1
-ZmZlciBieSByZW1vdGUgZGlzcGxheSBhcHAuDQo+Pj4+IEkgc3RpbGwgZG9uJ3QgdW5kZXJzdGFu
-ZCB3aHkgcGlubmluZyBpcyBuZWVkZWQuIFdoYXQgbWVjaGFuaXNtIGRvZXMgdGhlIHJlbW90ZQ0K
-Pj4+PiBkaXNwbGF5IGFwcCB1c2UgdG8gYWNjZXNzIHRoZSBCTyBjb250ZW50cz8NCj4+PiBTb3Jy
-eSwgSSBhbSBub3QgZmFtaWxpYXIgd2l0aCB0aGUgcmVtb3RlIGRpc3BsYXkgYXBwLiBNYXliZSBp
-dCB3aWxsIHVzZSBkcm0gaW9jdGwgZnVuY3Rpb24gdG8gZ2V0IHRoZQ0KPj4+IGN1cnJlbnQgY3J0
-YydzIGZiJ3MgaW5mb3JtYXRpb24sIGFuZCBnZXQgdGhlIGNvbnRlbnQgaW4gdGhlIGZiJ3MgYnVm
-ZmVyIG9iamVjdCBieSBtbWFwIG9yIHRyYW5zbGF0ZSB0aGUgYm8NCj4+PiB0byBhbiBPcGVuR0wg
-dGV4dHVyZSBmb3IgbmV4dCByZW5kZXJpbmcuIE1heWJlIGRvbid0IG5lZWQgdG8gcGluIHRoZSBi
-byBoZXJlLCBhcyB0aGUgdXNlIGhhcyBubyBkaWZmZXJlbnQgd2l0aA0KPj4+IG90aGVyIG5vcm1h
-bCBib3MuIFNvIHBsZWFzZSBpZ25vcmUgdGhlIHBhdGNoLCBhbmQgd2lsbCBzZW5kIGFub3RoZXIg
-cGF0Y2ggdG8gcmVtb3ZlIHRoZSB1bnBpbiB0aGUgZmIncyBibyBjb2RlLg0KPj4gT3BlbmluZyB0
-aGUgQk8gYW5kIGRvaW5nIHNvbWV0aGluZyB3aXRoIGl0IGluIE9wZW5HTCBzaG91bGQgcmVzdWx0
-IGluDQo+PiBwcm9wZXIgZmVuY2luZyBvZiB0aGUgQk8sIHNvIHRoaXMgc291bmRzIGxpa2UgYSB3
-b3JrYXJvdW5kIGZvciBhIGJ1Zw0KPj4gc29tZXdoZXJlIGVsc2UuDQo+Pg0KPj4gQXMgbG9uZyBh
-cyB0aGlzIGlzbid0IGV4cGxhaW5lZCBmdXJ0aGVyIHRoaXMgcGF0Y2ggaXMgY2VydGFpbmx5IGEg
-TkFLLg0KPj4NCj4+IFBpbm5pbmcgZm9yIHBoeXNpY2FsIGRpc3BsYXlzIGlzIGFsbG93ZWQgYmVj
-YXVzZSB0aGV5IGFyZSBsaW1pdGVkIGluDQo+PiBudW1iZXIsIGJ1dCB0aGlzIGlzIG5vdCBuZWNl
-c3NhcnkgdGhlIGNhc2Ugd2l0aCBhIHZpcnR1YWwgb3V0cHV0Lg0KPiBXZWxsIHByYWN0aWNhbGx5
-LCBpdCdzIHRoZSBzYW1lIGFzIHJlYWwgZGlzcGxheXMuICBXZSBsaW1pdCB0aGUNCj4gdmlydHVh
-bCBkaXNwbGF5cyB0byA2IGp1c3QgbGlrZSBtb3N0IGh3LiAgSXQgcmVhbGx5IHNob3VsZCBvdmVy
-YXRlIHRoZQ0KPiBzYW1lLiAgV2UganVzdCBkb24ndCBuZWVkIHRoZSBwaW5uaW5nIHBlciBzZSBi
-ZWNhdXNlIHRoZXJlIGlzIG5vIGh3DQo+IGFjdGl2ZWx5IHNjYW5uaW5nIG91dCBvZiBpdC4NCg0K
-WWVhaCwgYnV0IGRvIHdlIGxpbWl0IHRoZSBudW1iZXIgb2YgcGVuZGluZyBmbGlwcyBsaWtlIHdl
-IGRvIGZvciByZWFsIA0KaGFyZHdhcmUgYXMgd2VsbD8NCg0KRm9yIHJlYWwgaGFyZCB3ZSBoYXZl
-IGF0IG1heGltdW0gdHdvIEJPcyBwaW5uZWQsIHRoZSBjdXJyZW50IG9uZSBhbmQgdGhlIA0KbmV4
-dCBvbmUuIEZvciB0aGUgdmlydHVhbCBzY2Fub3V0IEknbSBub3Qgc3VyZSBhYm91dCB0aGF0Lg0K
-DQpDaHJpc3RpYW4uDQoNCj4NCj4gQWxleA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+Already fixed here:
+https://cgit.freedesktop.org/drm/drm/commit/?id=7e07834c12b96214e95a473f7b14fc03b20e2e7a
+
+Thanks,
+
+Alex
+
+On Fri, Dec 21, 2018 at 9:59 AM Brajeswar Ghosh
+<brajeswar.linux@gmail.com> wrote:
+>
+> Remove ppatomctrl.h which is included more than once
+>
+> Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+> index 872d3824337b..2b2c26616902 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+> @@ -44,7 +44,6 @@
+>
+>  #include "smu7_hwmgr.h"
+>  #include "hardwaremanager.h"
+> -#include "ppatomctrl.h"
+>  #include "atombios.h"
+>  #include "pppcielanes.h"
+>
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
