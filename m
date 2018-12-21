@@ -1,58 +1,41 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gmc: fix compiler errors
- [-Werror,-Wmissing-braces]
-Date: Fri, 21 Dec 2018 12:18:25 +0100
-Message-ID: <4d04ab79-32ff-ab0d-4735-280bcedaa2a7@daenzer.net>
-References: <1545314475-7114-1-git-send-email-shirish.s@amd.com>
+From: Souptick Joarder <jrdr.linux@gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: Remove duplicate header
+Date: Fri, 21 Dec 2018 18:05:49 +0530
+Message-ID: <CAFqt6zbRVuJ2=5nMb1S3am86tPE6117cSU32Rtyrwf8Ajk_Xrg@mail.gmail.com>
+References: <20181221091853.GA2319@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1545314475-7114-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20181221091853.GA2319@hp-pavilion-15-notebook-pc-brajeswar>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Cc: rex.zhu@amd.com, evan.quan@amd.com, "Deucher, Alexander" <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, airlied@linux.ie, Hawking.Zhang@amd.com, ray.huang@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Sabyasachi Gupta <sabyasachi.linux@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOC0xMi0yMCAzOjAxIHAubS4sIFMsIFNoaXJpc2ggd3JvdGU6Cj4gSW5pdGlhbGl6aW5n
-IHN0cnVjdHVyZXMgd2l0aCB7IH0gaXMga25vd24gdG8gYmUgcHJvYmxlbWF0aWMgc2luY2UKPiBp
-dCBkb2Vzbid0IG5lY2Vzc2FyYXJpbHkgaW5pdGlhbGl6ZXMgYWxsIGJ5dGVzLCBpbiBjYXNlIG9m
-IHBhZGRpbmcsCj4gY2F1c2luZyByYW5kb20gZmFpbHVyZXMgd2hlbiBzdHJ1Y3R1cmVzIGFyZSBt
-ZW1jbXAoKS4KPiAKPiBUaGlzIHBhdGNoIGZpeGVzIHRoZSBzdHJ1Y3R1cmUgaW5pdGlhbGlzYXRp
-b24gY29tcGlsZXIgZXJyb3IgYnkgbWVtc2V0dGluZwo+IHRoZSBlbnRpcmUgc3RydWN0dXJlIGVs
-ZW1lbnRzIGluc3RlYWQgb2Ygb25seSB0aGUgZmlyc3Qgb25lLgo+IAo+IFNpZ25lZC1vZmYtYnk6
-IFNoaXJpc2ggUyA8c2hpcmlzaC5zQGFtZC5jb20+Cj4gCj4gWy4uLl0KPiAgCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4gaW5kZXggYmFjZGFlZi4uMmJmZGRjZSAxMDA2NDQK
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwo+IEBAIC0zMjAsOCArMzIwLDkgQEAg
-c3RhdGljIGludCBnbWNfdjlfMF9wcm9jZXNzX2ludGVycnVwdChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwKPiAgCX0KPiAgCj4gIAlpZiAocHJpbnRrX3JhdGVsaW1pdCgpKSB7Cj4gLQkJc3Ry
-dWN0IGFtZGdwdV90YXNrX2luZm8gdGFza19pbmZvID0geyAwIH07Cj4gKwkJc3RydWN0IGFtZGdw
-dV90YXNrX2luZm8gdGFza19pbmZvOwo+ICAKPiArCQltZW1zZXQoJnRhc2tfaW5mbywgMCwgc2l6
-ZW9mKGFtZGdwdV90YXNrX2luZm8pKTsKClRoaXMgZG9lc24ndCBjb21waWxlOgoKZHJpdmVycy9n
-cHUvZHJtLy9hbWQvYW1kZ3B1L2dtY192OV8wLmM6IEluIGZ1bmN0aW9uIOKAmGdtY192OV8wX3By
-b2Nlc3NfaW50ZXJydXB04oCZOgpkcml2ZXJzL2dwdS9kcm0vL2FtZC9hbWRncHUvZ21jX3Y5XzAu
-YzozMjU6MzI6IGVycm9yOiDigJhhbWRncHVfdGFza19pbmZv4oCZIHVuZGVjbGFyZWQgKGZpcnN0
-IHVzZSBpbiB0aGlzIGZ1bmN0aW9uKQogICBtZW1zZXQoJnRhc2tfaW5mbywgMCwgc2l6ZW9mKGFt
-ZGdwdV90YXNrX2luZm8pKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+
-fn5+fn5+fn5+CgooTmVlZHMgdG8gYmUgInNpemVvZihzdHJ1Y3QgYW1kZ3B1X3Rhc2tfaW5mbyki
-KQoKCkkndmUgcmV2ZXJ0ZWQgdGhpcyBvbiB0aGUgaW50ZXJuYWwgYW1kLXN0YWdpbmctZHJtLW5l
-eHQgYnJhbmNoLgoKUGF0Y2hlcyBtdXN0IGJlIHRlc3RlZCBhcHByb3ByaWF0ZWx5IChhZ2FpbnN0
-IHRoZSB0YXJnZXQgYnJhbmNoKSwKaWRlYWxseSBiZWZvcmUgc3VibWl0dGluZyB0aGVtIGZvciBy
-ZXZpZXcuIFJldmlld2VycyBhcmUgbm90IGV4cGVjdGVkIHRvCmxvb2sgZm9yIHRoaW5ncyB3aGlj
-aCB0cml2aWFsbHkgYnJlYWsgdGhlIGJ1aWxkLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56
-ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJl
-IHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBY
-IGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Fri, Dec 21, 2018 at 2:49 PM Brajeswar Ghosh
+<brajeswar.linux@gmail.com> wrote:
+>
+> Remove hwmgr_ppt.h which is included more than once
+>
+> Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+> ---
+Acked-by: Souptick Joarder <jrdr.linux@gmail.com>
+
+>  drivers/gpu/drm/amd/powerplay/inc/hwmgr.h | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+> index e5a60aa44b5d..07d180ce4d18 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
+> @@ -28,7 +28,6 @@
+>  #include "hardwaremanager.h"
+>  #include "hwmgr_ppt.h"
+>  #include "ppatomctrl.h"
+> -#include "hwmgr_ppt.h"
+>  #include "power_state.h"
+>  #include "smu_helper.h"
+>
+> --
+> 2.17.1
+>
