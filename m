@@ -1,67 +1,34 @@
-From: Prike Liang <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay:clean up phm_enable_clock_power_gatings
-Date: Tue, 25 Dec 2018 18:05:43 +0800
-Message-ID: <1545732343-6096-1-git-send-email-Prike.Liang@amd.com>
+From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+Subject: [PATCH] drm/i915_request.h: Remove duplicate header
+Date: Tue, 25 Dec 2018 18:53:40 +0530
+Message-ID: <20181225132340.GA2584@hp-pavilion-15-notebook-pc-brajeswar>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: rex.zhu-5C7GfCeVMHo@public.gmane.org, Prike Liang <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, kenneth.feng-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, airlied@linux.ie
+Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-QXMgdGhlIFBHIHdhcyBzZXR0ZWQgYnkgZWFjaCBJUCBibG9jayBkdXJpbm5nIElQIGVhcmx5IGlu
-aXQgdGh1cwpyZW1vdmUgdGhlIHVudXNlZCBwaG1fZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGluZ3Mg
-cmVsYXRlZCBmdW5jcy4KCkNoYW5nZS1JZDogSTRkMjg1OGYzNWFhZjYxYWI2NDU3Y2ZmM2Y3MzQw
-OTcyNmU1MmM5ODAKU2lnbmVkLW9mZi1ieTogUHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5j
-b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5h
-Z2VyLmMgfCA5IC0tLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2hh
-cmR3YXJlbWFuYWdlci5oICAgfCAxIC0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2lu
-Yy9od21nci5oICAgICAgICAgICAgIHwgMSAtCiAzIGZpbGVzIGNoYW5nZWQsIDExIGRlbGV0aW9u
-cygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hh
-cmR3YXJlbWFuYWdlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFy
-ZHdhcmVtYW5hZ2VyLmMKaW5kZXggMWY5MmE5Zi4uYzFjNTFjMSAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKQEAgLTE1
-NCwxNSArMTU0LDYgQEAgaW50IHBobV9wb3dlcmRvd25fdXZkKHN0cnVjdCBwcF9od21nciAqaHdt
-Z3IpCiAJcmV0dXJuIDA7CiB9CiAKLWludCBwaG1fZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGluZ3Mo
-c3RydWN0IHBwX2h3bWdyICpod21ncikKLXsKLQlQSE1fRlVOQ19DSEVDSyhod21ncik7Ci0KLQlp
-ZiAoTlVMTCAhPSBod21nci0+aHdtZ3JfZnVuYy0+ZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGluZykK
-LQkJcmV0dXJuIGh3bWdyLT5od21ncl9mdW5jLT5lbmFibGVfY2xvY2tfcG93ZXJfZ2F0aW5nKGh3
-bWdyKTsKLQotCXJldHVybiAwOwotfQogCiBpbnQgcGhtX2Rpc2FibGVfY2xvY2tfcG93ZXJfZ2F0
-aW5ncyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2hhcmR3YXJlbWFuYWdlci5oIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvaW5jL2hhcmR3YXJlbWFuYWdlci5oCmluZGV4IGY0ZGFiOTcuLjZlMGJl
-NjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9oYXJkd2Fy
-ZW1hbmFnZXIuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaGFyZHdh
-cmVtYW5hZ2VyLmgKQEAgLTM5Nyw3ICszOTcsNiBAQCBzdHJ1Y3QgcGhtX29kbl9jbG9ja19sZXZl
-bHMgewogfTsKIAogZXh0ZXJuIGludCBwaG1fZGlzYWJsZV9jbG9ja19wb3dlcl9nYXRpbmdzKHN0
-cnVjdCBwcF9od21nciAqaHdtZ3IpOwotZXh0ZXJuIGludCBwaG1fZW5hYmxlX2Nsb2NrX3Bvd2Vy
-X2dhdGluZ3Moc3RydWN0IHBwX2h3bWdyICpod21ncik7CiBleHRlcm4gaW50IHBobV9wb3dlcmRv
-d25fdXZkKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpOwogZXh0ZXJuIGludCBwaG1fc2V0dXBfYXNp
-YyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKTsKIGV4dGVybiBpbnQgcGhtX2VuYWJsZV9keW5hbWlj
-X3N0YXRlX21hbmFnZW1lbnQoc3RydWN0IHBwX2h3bWdyICpod21ncik7CmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaHdtZ3IuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCmluZGV4IDBkMjk4YTAuLmIwMWMyODIgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCkBAIC0yNTEsNyArMjUxLDYg
-QEAgc3RydWN0IHBwX2h3bWdyX2Z1bmMgewogCXVpbnQzMl90ICgqZ2V0X3NjbGspKHN0cnVjdCBw
-cF9od21nciAqaHdtZ3IsIGJvb2wgbG93KTsKIAlpbnQgKCpwb3dlcl9zdGF0ZV9zZXQpKHN0cnVj
-dCBwcF9od21nciAqaHdtZ3IsCiAJCQkJCQljb25zdCB2b2lkICpzdGF0ZSk7Ci0JaW50ICgqZW5h
-YmxlX2Nsb2NrX3Bvd2VyX2dhdGluZykoc3RydWN0IHBwX2h3bWdyICpod21ncik7CiAJaW50ICgq
-bm90aWZ5X3NtY19kaXNwbGF5X2NvbmZpZ19hZnRlcl9wc19hZGp1c3RtZW50KShzdHJ1Y3QgcHBf
-aHdtZ3IgKmh3bWdyKTsKIAlpbnQgKCpwcmVfZGlzcGxheV9jb25maWdfY2hhbmdlZCkoc3RydWN0
-IHBwX2h3bWdyICpod21ncik7CiAJaW50ICgqZGlzcGxheV9jb25maWdfY2hhbmdlZCkoc3RydWN0
-IHBwX2h3bWdyICpod21ncik7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+Remove i915_scheduler.h which is included more than once
+
+Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_request.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/i915_request.h b/drivers/gpu/drm/i915/i915_request.h
+index 7fa94b024968..3d9d225bc5fc 100644
+--- a/drivers/gpu/drm/i915/i915_request.h
++++ b/drivers/gpu/drm/i915/i915_request.h
+@@ -30,7 +30,6 @@
+ #include "i915_gem.h"
+ #include "i915_scheduler.h"
+ #include "i915_sw_fence.h"
+-#include "i915_scheduler.h"
+ 
+ #include <uapi/drm/i915_drm.h>
+ 
+-- 
+2.17.1
