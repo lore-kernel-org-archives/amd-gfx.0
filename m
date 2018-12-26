@@ -1,51 +1,81 @@
-From: Kangjie Lu <kjlu@umn.edu>
-Subject: [PATCH] gpu: drm: fix an improper check of amdgpu_bo_create_kernel
-Date: Wed, 26 Dec 2018 00:23:45 -0600
-Message-ID: <20181226062348.75519-1-kjlu@umn.edu>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: kjlu@umn.edu
-Cc: pakki001@umn.edu, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Huang Rui <ray.huang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Likun Gao <Likun.Gao@amd.com>, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Lou, Wentao" <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: dma_fence finished signaled by unexpected
+ callback
+Date: Wed, 26 Dec 2018 06:38:15 +0000
+Message-ID: <BYAPR12MB27428794B99A9E400880D3A183B50@BYAPR12MB2742.namprd12.prod.outlook.com>
+References: <1545380754-13715-1-git-send-email-Wentao.Lou@amd.com>
+ <cdaffc60-2261-51ee-91d6-1b265baf7dd0@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <cdaffc60-2261-51ee-91d6-1b265baf7dd0-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-adev->firmware.fw_buf being not NULL may not indicate kernel buffer is
-created successful. A better way is to check the status (return value)
-of it. The fix does so.
-
-Signed-off-by: Kangjie Lu <kjlu@umn.edu>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-index 7b33867036e7..ba3c1cfb2c35 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-@@ -422,13 +422,19 @@ static int amdgpu_ucode_patch_jt(struct amdgpu_firmware_info *ucode,
- 
- int amdgpu_ucode_create_bo(struct amdgpu_device *adev)
- {
-+	int ret;
-+
- 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_DIRECT) {
--		amdgpu_bo_create_kernel(adev, adev->firmware.fw_size, PAGE_SIZE,
--			amdgpu_sriov_vf(adev) ? AMDGPU_GEM_DOMAIN_VRAM : AMDGPU_GEM_DOMAIN_GTT,
--			&adev->firmware.fw_buf,
--			&adev->firmware.fw_buf_mc,
--			&adev->firmware.fw_buf_ptr);
--		if (!adev->firmware.fw_buf) {
-+		ret =
-+			amdgpu_bo_create_kernel(adev,
-+			  adev->firmware.fw_size,
-+			  PAGE_SIZE,
-+			  amdgpu_sriov_vf(adev) ? AMDGPU_GEM_DOMAIN_VRAM :
-+				AMDGPU_GEM_DOMAIN_GTT,
-+			  &adev->firmware.fw_buf,
-+			  &adev->firmware.fw_buf_mc,
-+				&adev->firmware.fw_buf_ptr);
-+		if (ret) {
- 			dev_err(adev->dev, "failed to create kernel buffer for firmware.fw_buf\n");
- 			return -ENOMEM;
- 		} else if (amdgpu_sriov_vf(adev)) {
--- 
-2.17.2 (Apple Git-113)
+SGkgQW5kcmV5LA0KDQpJbiBhbWQtc3RhZ2luZy1ka21zLTQuMTgncyBtZXJnZWQgbGlzdCwgSSBj
+YW4ndCBmaW5kICdkcm0vc2NoZWQ6IFJlZmFjdG9yIHJpbmcgbWlycm9yIGxpc3QgaGFuZGxpbmcn
+LCBuZWl0aGVyICdkcm0vc2NoZWQ6IFJld29yayBIVyBmZW5jZSBwcm9jZXNzaW5nJy4NCk5vdyB0
+aGVyZSB3YXMgc3RpbGwgbXVjaCBDYWxsLVRyYWNlIGluIG5ldyBvc2RiIHRyaWdnZXJlZCBpbiBk
+bWFfZmVuY2Vfc2V0X2Vycm9yLiBEbyB5b3UgaGF2ZSBsaW5rIGZvciB0aGVzZSBwYXRjaGVzPw0K
+VGhhbmtzLg0KDQpCUiwNCldlbnRhbw0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpG
+cm9tOiBHcm9kem92c2t5LCBBbmRyZXkgPEFuZHJleS5Hcm9kem92c2t5QGFtZC5jb20+IA0KU2Vu
+dDogU2F0dXJkYXksIERlY2VtYmVyIDIyLCAyMDE4IDEyOjU3IEFNDQpUbzogTG91LCBXZW50YW8g
+PFdlbnRhby5Mb3VAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJq
+ZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBkbWFfZmVuY2UgZmluaXNoZWQgc2lnbmFsZWQg
+YnkgdW5leHBlY3RlZCBjYWxsYmFjaw0KDQpJIGJlbGlldmUgdGhpcyBpc3N1ZSB3b3VsZCBiZSBy
+ZXNvbHZlZCBieSBteSBwZW5kaW5nwqAgaW4gcmV2aWV3IHBhdGNoIHNldCwgc3BlY2lmaWNhbGx5
+ICdkcm0vc2NoZWQ6IFJlZmFjdG9yIHJpbmcgbWlycm9yIGxpc3QgaGFuZGxpbmcuJyBzaW5jZSBh
+bHJlYWR5IG9uIHRoZSBmaXJzdCBUTyBoYW5kbGVyIGl0IHdpbGwgZ28gb3ZlciBhbGwgdGhlIHJp
+bmdzIGluY2x1ZGluZyB0aGUgc2Vjb25kIHRpbWVkIG91dCByaW5nIGFuZCB3aWxsIHJlbW92ZSBh
+bGwgY2FsbCBiYWNrcyBpbmNsdWRpbmcgdGhlIGJhZCBqb2IgY2IuIEluIGNhc2UgYnkgdGhpcyB0
+aW1lIHRoaXMgYmFkIGpvYiB3aWxsIHNpZ25hbCBmb3Igc29tZSByZWFzb24gaXQgd2lsbCBiZSBy
+ZW1vdmVkIGZyb20gdGhlIG1pcnJvciBsaXN0IGFscmVhZHkgZHVyaW5nIGRybV9zY2hlZF9wcm9j
+ZXNzX2pvYiAodGFrZSBhIGxvb2sgYXQgJ2RybS9zY2hlZDogUmV3b3JrIEhXIGZlbmNlDQpwcm9j
+ZXNzaW5nLicpIGFuZCBoZW5jZSB3aWxsIG5vdCBiZSByZXJ1biBpbiBkcm1fc2NoZWRfam9iX3Jl
+Y292ZXJ5IChkcm1fc2NoZWRfcmVzdWJtaXRfam9icyB1bmRlciB0aGUgbmV3IG5hbWUpLg0KDQpB
+bmRyZXkNCg0KDQpPbiAxMi8yMS8yMDE4IDAzOjI1IEFNLCB3ZW50YWxvdSB3cm90ZToNCj4gV2hl
+biAyIHJpbmdzIG1ldCB0aW1lb3V0IGF0IHNhbWUgdGltZSwgdHJpZ2dlcmVkIGpvYl90aW1lZG91
+dCBzZXBhcmF0ZWx5Lg0KPiBFYWNoIGpvYl90aW1lZG91dCBjYWxsZWQgZ3B1X3JlY292ZXIsIGJ1
+dCBvbmUgb2YgZ3B1X3JlY292ZXIgbG9ja2VkIGJ5IGFub3RoZXIncyBtdXRleF9sb2NrLg0KPiBC
+YWQgam9k4oCZcyBjYWxsYmFjayBzaG91bGQgYmUgcmVtb3ZlZCBieSBkbWFfZmVuY2VfcmVtb3Zl
+X2NhbGxiYWNrIGJ1dCBsb2NrZWQgaW5zaWRlIG11dGV4X2xvY2suDQo+IFNvIGRtYV9mZW5jZV9y
+ZW1vdmVfY2FsbGJhY2sgY291bGQgbm90IGJlIGNhbGxlZCBpbW1lZGlhdGVseS4NCj4gVGhlbiBj
+YWxsYmFjayBkcm1fc2NoZWRfcHJvY2Vzc19qb2IgdHJpZ2dlcmVkIHVuZXhwZWN0ZWRseSwgYW5k
+IHNpZ25hbGVkIERNQV9GRU5DRV9GTEFHX1NJR05BTEVEX0JJVC4NCj4gQWZ0ZXIgYW5vdGhlcidz
+IG11dGV4X3VubG9jaywgc2lnbmFsZWQgYmFkIGpvYiB3ZW50IHRocm91Z2ggam9iX3J1biBpbnNp
+ZGUgZHJtX3NjaGVkX2pvYl9yZWNvdmVyeS4NCj4gam9iX3J1biB3b3VsZCBoYXZlIFdBUk5fT04g
+YW5kIENhbGwtVHJhY2UsIHdoZW4gY2FsbGluZyBrY2xfZG1hX2ZlbmNlX3NldF9lcnJvciBmb3Ig
+c2lnbmFsZWQgYmFkIGpvYi4NCj4NCj4gQ2hhbmdlLUlkOiBJNjM2NmFkZDEzZjAyMDQ3Njg4MmIy
+YjhiMDMzMzBhNThkMDcyZGQxYQ0KPiBTaWduZWQtb2ZmLWJ5OiBXZW50YW8gTG91IDxXZW50YW8u
+TG91QGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9qb2IuYyB8IDUgKysrKy0NCj4gICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAx
+IGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfam9iLmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pv
+Yi5jDQo+IGluZGV4IDBhMTdmYjEuLmZjMWQzYTAgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfam9iLmMNCj4gQEAgLTIyNSw4ICsyMjUsMTEgQEAgc3RhdGljIHN0cnVj
+dCBkbWFfZmVuY2UgKmFtZGdwdV9qb2JfcnVuKHN0cnVjdCANCj4gZHJtX3NjaGVkX2pvYiAqc2No
+ZWRfam9iKQ0KPiAgIA0KPiAgIAl0cmFjZV9hbWRncHVfc2NoZWRfcnVuX2pvYihqb2IpOw0KPiAg
+IA0KPiAtCWlmIChqb2ItPnZyYW1fbG9zdF9jb3VudGVyICE9IGF0b21pY19yZWFkKCZyaW5nLT5h
+ZGV2LT52cmFtX2xvc3RfY291bnRlcikpDQo+ICsJaWYgKGpvYi0+dnJhbV9sb3N0X2NvdW50ZXIg
+IT0gYXRvbWljX3JlYWQoJnJpbmctPmFkZXYtPnZyYW1fbG9zdF9jb3VudGVyKSkgew0KPiArCQkv
+KiBmbGFncyBtaWdodCBiZSBzaWduYWxlZCBieSB1bmV4cGVjdGVkIGNhbGxiYWNrLCBjbGVhciBp
+dCAqLw0KPiArCQl0ZXN0X2FuZF9jbGVhcl9iaXQoRE1BX0ZFTkNFX0ZMQUdfU0lHTkFMRURfQklU
+LCAmZmluaXNoZWQtPmZsYWdzKTsNCj4gICAJCWRtYV9mZW5jZV9zZXRfZXJyb3IoZmluaXNoZWQs
+IC1FQ0FOQ0VMRUQpOy8qIHNraXAgSUIgYXMgd2VsbCBpZiANCj4gVlJBTSBsb3N0ICovDQo+ICsJ
+fQ0KPiAgIA0KPiAgIAlpZiAoZmluaXNoZWQtPmVycm9yIDwgMCkgew0KPiAgIAkJRFJNX0lORk8o
+IlNraXAgc2NoZWR1bGluZyBJQnMhXG4iKTsNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
