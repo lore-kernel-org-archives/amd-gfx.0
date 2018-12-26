@@ -1,34 +1,70 @@
-From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-Subject: [PATCH] drm/intel_dsi_vbt: Remove duplicate header
-Date: Tue, 25 Dec 2018 19:00:56 +0530
-Message-ID: <20181225133055.GA2628@hp-pavilion-15-notebook-pc-brajeswar>
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/virtual_dce: No need to pin the cursor bo
+Date: Wed, 26 Dec 2018 02:26:34 +0000
+Message-ID: <BYAPR12MB264570B80C935D7E8298D22E8FB50@BYAPR12MB2645.namprd12.prod.outlook.com>
+References: <1545631716-19360-1-git-send-email-Emily.Deng@amd.com>
+ <1545631716-19360-2-git-send-email-Emily.Deng@amd.com>
+ <BN7PR12MB264451E95C2BB6A96800F0B38FB40@BN7PR12MB2644.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, airlied@linux.ie
-Cc: jrdr.linux@gmail.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, sabyasachi.linux@gmail.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN7PR12MB264451E95C2BB6A96800F0B38FB40-Zx/IyJUqfGKoYeSiBV3SvgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Remove video/mipi_display.h which is included more than once
-
-Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
----
- drivers/gpu/drm/i915/intel_dsi_vbt.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/intel_dsi_vbt.c b/drivers/gpu/drm/i915/intel_dsi_vbt.c
-index ac83d6b89ae0..40a5efa33c3d 100644
---- a/drivers/gpu/drm/i915/intel_dsi_vbt.c
-+++ b/drivers/gpu/drm/i915/intel_dsi_vbt.c
-@@ -32,7 +32,6 @@
- #include <linux/slab.h>
- #include <video/mipi_display.h>
- #include <asm/intel-mid.h>
--#include <video/mipi_display.h>
- #include "i915_drv.h"
- #include "intel_drv.h"
- #include "intel_dsi.h"
--- 
-2.17.1
+UGluZy4uLi4uLg0KDQpCZXN0IHdpc2hlcw0KRW1pbHkgRGVuZw0KDQoNCg0KPi0tLS0tT3JpZ2lu
+YWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT4N
+Cj5TZW50OiBUdWVzZGF5LCBEZWNlbWJlciAyNSwgMjAxOCAxMTo1MyBBTQ0KPlRvOiBEZW5nLCBF
+bWlseSA8RW1pbHkuRGVuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
+Cj5TdWJqZWN0OiBSRTogW1BBVENIIDIvMl0gZHJtL2FtZGdwdS92aXJ0dWFsX2RjZTogTm8gbmVl
+ZCB0byBwaW4gdGhlIGN1cnNvciBibw0KPg0KPlBpbmcuLi4uLi4NCj5QbGVhc2UgaGVscCB0byBy
+ZXZpZXcuIFRoaXMgaXNzdWUgd2lsbCBnYXRlIHByb21vdGlvbiB0byBtYWlubGluZSwgYXMgc3Rh
+cnR4IHdpbGwNCj5oYXZlIGNhbGwgdHJhY2Ugd2hlbiB1c2UgdmlydHVhbCBkaXNwbGF5Lg0KPg0K
+Pj4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPj5Gcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJv
+dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YNCj4+RW1pbHkgRGVuZw0K
+Pj5TZW50OiBNb25kYXksIERlY2VtYmVyIDI0LCAyMDE4IDI6MDkgUE0NCj4+VG86IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PkNjOiBEZW5nLCBFbWlseSA8RW1pbHkuRGVuZ0BhbWQu
+Y29tPg0KPj5TdWJqZWN0OiBbUEFUQ0ggMi8yXSBkcm0vYW1kZ3B1L3ZpcnR1YWxfZGNlOiBObyBu
+ZWVkIHRvIHBpbiB0aGUgY3Vyc29yDQo+PmJvDQo+Pg0KPj5Gb3IgdmlydHVhbCBkaXNwbGF5IGZl
+YXR1cmUsIG5vIG5lZWQgdG8gcGluIGN1cnNvciBiby4NCj4+DQo+PlNpZ25lZC1vZmYtYnk6IEVt
+aWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4NCj4+LS0tDQo+PiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA0ICsrLS0NCj4+IDEgZmlsZSBjaGFuZ2VkLCAy
+IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pg0KPj5kaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+PmIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+PmluZGV4IDhhMDc4ZjQuLjk4ZGY4ZTQgMTAw
+NjQ0DQo+Pi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0K
+Pj4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+QEAg
+LTI3OTgsNyArMjc5OCw3IEBAIGludCBhbWRncHVfZGV2aWNlX3N1c3BlbmQoc3RydWN0IGRybV9k
+ZXZpY2UgKmRldiwNCj4+Ym9vbCBzdXNwZW5kLCBib29sIGZiY29uKQ0KPj4gCQkJc3RydWN0IGRy
+bV9mcmFtZWJ1ZmZlciAqZmIgPSBjcnRjLT5wcmltYXJ5LT5mYjsNCj4+IAkJCXN0cnVjdCBhbWRn
+cHVfYm8gKnJvYmo7DQo+Pg0KPj4tCQkJaWYgKGFtZGdwdV9jcnRjLT5jdXJzb3JfYm8pIHsNCj4+
+KwkJCWlmIChhbWRncHVfY3J0Yy0+Y3Vyc29yX2JvICYmICFhZGV2LQ0KPj4+ZW5hYmxlX3ZpcnR1
+YWxfZGlzcGxheSkgew0KPj4gCQkJCXN0cnVjdCBhbWRncHVfYm8gKmFvYmogPQ0KPj5nZW1fdG9f
+YW1kZ3B1X2JvKGFtZGdwdV9jcnRjLT5jdXJzb3JfYm8pOw0KPj4gCQkJCXIgPSBhbWRncHVfYm9f
+cmVzZXJ2ZShhb2JqLCB0cnVlKTsNCj4+IAkJCQlpZiAociA9PSAwKSB7DQo+PkBAIC0yOTA2LDcg
+KzI5MDYsNyBAQCBpbnQgYW1kZ3B1X2RldmljZV9yZXN1bWUoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwNCj4+Ym9vbCByZXN1bWUsIGJvb2wgZmJjb24pDQo+PiAJCWxpc3RfZm9yX2VhY2hfZW50cnko
+Y3J0YywgJmRldi0+bW9kZV9jb25maWcuY3J0Y19saXN0LCBoZWFkKSB7DQo+PiAJCQlzdHJ1Y3Qg
+YW1kZ3B1X2NydGMgKmFtZGdwdV9jcnRjID0NCj4+dG9fYW1kZ3B1X2NydGMoY3J0Yyk7DQo+Pg0K
+Pj4tCQkJaWYgKGFtZGdwdV9jcnRjLT5jdXJzb3JfYm8pIHsNCj4+KwkJCWlmIChhbWRncHVfY3J0
+Yy0+Y3Vyc29yX2JvICYmICFhZGV2LQ0KPj4+ZW5hYmxlX3ZpcnR1YWxfZGlzcGxheSkgew0KPj4g
+CQkJCXN0cnVjdCBhbWRncHVfYm8gKmFvYmogPQ0KPj5nZW1fdG9fYW1kZ3B1X2JvKGFtZGdwdV9j
+cnRjLT5jdXJzb3JfYm8pOw0KPj4gCQkJCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShhb2JqLCB0cnVl
+KTsNCj4+IAkJCQlpZiAociA9PSAwKSB7DQo+Pi0tDQo+PjIuNy40DQo+Pg0KPj5fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPj5hbWQtZ2Z4IG1haWxpbmcg
+bGlzdA0KPj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj5odHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
