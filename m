@@ -1,82 +1,51 @@
-From: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay:clean up phm_enable_clock_power_gatings
-Date: Wed, 26 Dec 2018 02:57:52 +0000
-Message-ID: <BN6PR12MB16975AADC3C3235815DFB24BFBB50@BN6PR12MB1697.namprd12.prod.outlook.com>
-References: <1545732343-6096-1-git-send-email-Prike.Liang@amd.com>
- <CY4PR12MB1141F0ECF473BFD9EF3D1E8C8EB50@CY4PR12MB1141.namprd12.prod.outlook.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CY4PR12MB1141F0ECF473BFD9EF3D1E8C8EB50-rpdhrqHFk04LO106WgiyFAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
+From: Kangjie Lu <kjlu@umn.edu>
+Subject: [PATCH] gpu: drm: fix an improper check of amdgpu_bo_create_kernel
+Date: Wed, 26 Dec 2018 00:23:45 -0600
+Message-ID: <20181226062348.75519-1-kjlu@umn.edu>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: kjlu@umn.edu
+Cc: pakki001@umn.edu, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Huang Rui <ray.huang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Likun Gao <Likun.Gao@amd.com>, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzIGhlbHAgcmV2aWV3IC4KClRoYW5rcywKUHJpa2UKLS0tLS1PcmlnaW5hbCBNZXNzYWdl
-LS0tLS0KRnJvbTogRmVuZywgS2VubmV0aCAKU2VudDogV2VkbmVzZGF5LCBEZWNlbWJlciAyNiwg
-MjAxOCAxMDozMCBBTQpUbzogTGlhbmcsIFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29tPjsgYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IFpodSwgUmV4IDxSZXguWmh1QGFtZC5jb20+
-ClN1YmplY3Q6IFJFOiBbUEFUQ0hdIGRybS9hbWQvcG93ZXJwbGF5OmNsZWFuIHVwIHBobV9lbmFi
-bGVfY2xvY2tfcG93ZXJfZ2F0aW5ncwoKUmV2aWV3ZWQtYnk6IEtlbm5ldGggRmVuZyA8a2VubmV0
-aC5mZW5nQGFtZC5jb20+CgoKLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJvbTogTGlhbmcs
-IFByaWtlIApTZW50OiBUdWVzZGF5LCBEZWNlbWJlciAyNSwgMjAxOCA2OjA2IFBNClRvOiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogRmVuZywgS2VubmV0aCA8S2VubmV0aC5GZW5n
-QGFtZC5jb20+OyBaaHUsIFJleCA8UmV4LlpodUBhbWQuY29tPjsgTGlhbmcsIFByaWtlIDxQcmlr
-ZS5MaWFuZ0BhbWQuY29tPgpTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWQvcG93ZXJwbGF5OmNsZWFu
-IHVwIHBobV9lbmFibGVfY2xvY2tfcG93ZXJfZ2F0aW5ncwoKQXMgdGhlIFBHIHdhcyBzZXR0ZWQg
-YnkgZWFjaCBJUCBibG9jayBkdXJpbm5nIElQIGVhcmx5IGluaXQgdGh1cyByZW1vdmUgdGhlIHVu
-dXNlZCBwaG1fZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGluZ3MgcmVsYXRlZCBmdW5jcy4KCkNoYW5n
-ZS1JZDogSTRkMjg1OGYzNWFhZjYxYWI2NDU3Y2ZmM2Y3MzQwOTcyNmU1MmM5ODAKU2lnbmVkLW9m
-Zi1ieTogUHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMgfCA5IC0tLS0tLS0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2hhcmR3YXJlbWFuYWdlci5oICAgfCAx
-IC0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oICAgICAgICAgICAg
-IHwgMSAtCiAzIGZpbGVzIGNoYW5nZWQsIDExIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2hhcmR3YXJlbWFuYWdlci5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKaW5kZXgg
-MWY5MmE5Zi4uYzFjNTFjMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMKQEAgLTE1NCwxNSArMTU0LDYgQEAgaW50IHBo
-bV9wb3dlcmRvd25fdXZkKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJcmV0dXJuIDA7CiB9CiAK
-LWludCBwaG1fZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGluZ3Moc3RydWN0IHBwX2h3bWdyICpod21n
-cikgLXsKLQlQSE1fRlVOQ19DSEVDSyhod21ncik7Ci0KLQlpZiAoTlVMTCAhPSBod21nci0+aHdt
-Z3JfZnVuYy0+ZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGluZykKLQkJcmV0dXJuIGh3bWdyLT5od21n
-cl9mdW5jLT5lbmFibGVfY2xvY2tfcG93ZXJfZ2F0aW5nKGh3bWdyKTsKLQotCXJldHVybiAwOwot
-fQogCiBpbnQgcGhtX2Rpc2FibGVfY2xvY2tfcG93ZXJfZ2F0aW5ncyhzdHJ1Y3QgcHBfaHdtZ3Ig
-Kmh3bWdyKSAgeyBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5j
-L2hhcmR3YXJlbWFuYWdlci5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2hh
-cmR3YXJlbWFuYWdlci5oCmluZGV4IGY0ZGFiOTcuLjZlMGJlNjAgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9oYXJkd2FyZW1hbmFnZXIuaAorKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvaGFyZHdhcmVtYW5hZ2VyLmgKQEAgLTM5Nyw3
-ICszOTcsNiBAQCBzdHJ1Y3QgcGhtX29kbl9jbG9ja19sZXZlbHMgeyAgfTsKIAogZXh0ZXJuIGlu
-dCBwaG1fZGlzYWJsZV9jbG9ja19wb3dlcl9nYXRpbmdzKHN0cnVjdCBwcF9od21nciAqaHdtZ3Ip
-OyAtZXh0ZXJuIGludCBwaG1fZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGluZ3Moc3RydWN0IHBwX2h3
-bWdyICpod21ncik7ICBleHRlcm4gaW50IHBobV9wb3dlcmRvd25fdXZkKHN0cnVjdCBwcF9od21n
-ciAqaHdtZ3IpOyAgZXh0ZXJuIGludCBwaG1fc2V0dXBfYXNpYyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3
-bWdyKTsgIGV4dGVybiBpbnQgcGhtX2VuYWJsZV9keW5hbWljX3N0YXRlX21hbmFnZW1lbnQoc3Ry
-dWN0IHBwX2h3bWdyICpod21ncik7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
-d2VycGxheS9pbmMvaHdtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9o
-d21nci5oCmluZGV4IDBkMjk4YTAuLmIwMWMyODIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L2luYy9od21nci5oCkBAIC0yNTEsNyArMjUxLDYgQEAgc3RydWN0IHBwX2h3bWdyX2Z1
-bmMgewogCXVpbnQzMl90ICgqZ2V0X3NjbGspKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGJvb2wg
-bG93KTsKIAlpbnQgKCpwb3dlcl9zdGF0ZV9zZXQpKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJ
-CQkJCQljb25zdCB2b2lkICpzdGF0ZSk7Ci0JaW50ICgqZW5hYmxlX2Nsb2NrX3Bvd2VyX2dhdGlu
-Zykoc3RydWN0IHBwX2h3bWdyICpod21ncik7CiAJaW50ICgqbm90aWZ5X3NtY19kaXNwbGF5X2Nv
-bmZpZ19hZnRlcl9wc19hZGp1c3RtZW50KShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKTsKIAlpbnQg
-KCpwcmVfZGlzcGxheV9jb25maWdfY2hhbmdlZCkoc3RydWN0IHBwX2h3bWdyICpod21ncik7CiAJ
-aW50ICgqZGlzcGxheV9jb25maWdfY2hhbmdlZCkoc3RydWN0IHBwX2h3bWdyICpod21ncik7Ci0t
-CjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+adev->firmware.fw_buf being not NULL may not indicate kernel buffer is
+created successful. A better way is to check the status (return value)
+of it. The fix does so.
+
+Signed-off-by: Kangjie Lu <kjlu@umn.edu>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 18 ++++++++++++------
+ 1 file changed, 12 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+index 7b33867036e7..ba3c1cfb2c35 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
+@@ -422,13 +422,19 @@ static int amdgpu_ucode_patch_jt(struct amdgpu_firmware_info *ucode,
+ 
+ int amdgpu_ucode_create_bo(struct amdgpu_device *adev)
+ {
++	int ret;
++
+ 	if (adev->firmware.load_type != AMDGPU_FW_LOAD_DIRECT) {
+-		amdgpu_bo_create_kernel(adev, adev->firmware.fw_size, PAGE_SIZE,
+-			amdgpu_sriov_vf(adev) ? AMDGPU_GEM_DOMAIN_VRAM : AMDGPU_GEM_DOMAIN_GTT,
+-			&adev->firmware.fw_buf,
+-			&adev->firmware.fw_buf_mc,
+-			&adev->firmware.fw_buf_ptr);
+-		if (!adev->firmware.fw_buf) {
++		ret =
++			amdgpu_bo_create_kernel(adev,
++			  adev->firmware.fw_size,
++			  PAGE_SIZE,
++			  amdgpu_sriov_vf(adev) ? AMDGPU_GEM_DOMAIN_VRAM :
++				AMDGPU_GEM_DOMAIN_GTT,
++			  &adev->firmware.fw_buf,
++			  &adev->firmware.fw_buf_mc,
++				&adev->firmware.fw_buf_ptr);
++		if (ret) {
+ 			dev_err(adev->dev, "failed to create kernel buffer for firmware.fw_buf\n");
+ 			return -ENOMEM;
+ 		} else if (amdgpu_sriov_vf(adev)) {
+-- 
+2.17.2 (Apple Git-113)
