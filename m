@@ -1,57 +1,58 @@
-From: Yu Zhao <yuzhao@google.com>
-Subject: [PATCH v5 2/2] drm/amd: validate user GEM object size
-Date: Sat, 29 Dec 2018 18:00:21 -0700
-Message-ID: <20181230010021.196990-2-yuzhao@google.com>
-References: <20181223215239.173339-2-yuzhao@google.com>
- <20181230010021.196990-1-yuzhao@google.com>
+From: Nikos Fytilis <n-fit-EMRzualFZlQ@public.gmane.org>
+Subject: Re: [RFC 0/7] UVD support for SI in amdgpu
+Date: Mon, 31 Dec 2018 14:51:55 +0000
+Message-ID: <DM5PR01MB26993AD32256C0F95A140D339BB20@DM5PR01MB2699.prod.exchangelabs.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20181230010021.196990-1-yuzhao@google.com>
-Sender: stable-owner@vger.kernel.org
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: David Zhou <David1.Zhou@amd.com>, Samuel Li <Samuel.Li@amd.com>, Harry Wentland <harry.wentland@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, Daniel Stone <daniels@collabora.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Yu Zhao <yuzhao@google.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1411423268=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-When creating frame buffer, userspace may request to attach to a
-previously allocated GEM object that is smaller than what GPU
-requires. Validation must be done to prevent out-of-bound DMA,
-otherwise it could be exploited to reveal sensitive data.
+--===============1411423268==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR01MB26993AD32256C0F95A140D339BB20DM5PR01MB2699prod_"
 
-This fix is not done in a common code path because individual
-driver might have different requirement.
+--_000_DM5PR01MB26993AD32256C0F95A140D339BB20DM5PR01MB2699prod_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Cc: stable@vger.kernel.org # v4.2+
-Signed-off-by: Yu Zhao <yuzhao@google.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+SGksDQoNCkxhc3QgbWVzc2FnZSBhYm91dCB0aGVzZSBwYXRjaGVzIHdhcyBhYm91dCB3YWl0aW5n
+IGZvciBhIGZpcm13YXJlIGJsb2IuIFdoYXRldmVyIGRpZCBoYXBwZW4gdG8gdGhlbSBhbmQgYXJl
+IHRoZXkgZnVuY3Rpb25hbD8NCg0KVGhhbmtzIGZvciB5b3VyIGVmZm9ydHMsDQpOaWtvcw0K
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 16af80ccd0a0..61c075a78ee1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -527,6 +527,7 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- 	struct drm_gem_object *obj;
- 	struct amdgpu_framebuffer *amdgpu_fb;
- 	int ret;
-+	int height;
- 	struct amdgpu_device *adev = dev->dev_private;
- 	int cpp = drm_format_plane_cpp(mode_cmd->pixel_format, 0);
- 	int pitch = mode_cmd->pitches[0] / cpp;
-@@ -557,6 +558,13 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
- 		return ERR_PTR(-EINVAL);
- 	}
- 
-+	height = ALIGN(mode_cmd->height, 8);
-+	if (obj->size < pitch * height) {
-+		DRM_DEBUG_KMS("Invalid GEM size: expecting >= %d but got %zu\n",
-+			      pitch * height, obj->size);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
- 	amdgpu_fb = kzalloc(sizeof(*amdgpu_fb), GFP_KERNEL);
- 	if (amdgpu_fb == NULL) {
- 		drm_gem_object_put_unlocked(obj);
--- 
-2.20.1.415.g653613c723-goog
+--_000_DM5PR01MB26993AD32256C0F95A140D339BB20DM5PR01MB2699prod_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <EF0D154E89A3C647BC39CDD8BE21226C-5Lu9aVSBCJvZWX/HL0U7tJqQE7yCjDx5@public.gmane.org>
+Content-Transfer-Encoding: base64
+
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KSGksPGJyPg0KPGJy
+Pg0KTGFzdCBtZXNzYWdlIGFib3V0IHRoZXNlIHBhdGNoZXMgd2FzIGFib3V0IHdhaXRpbmcgZm9y
+IGEgZmlybXdhcmUgYmxvYi4gV2hhdGV2ZXIgZGlkIGhhcHBlbiB0byB0aGVtIGFuZCBhcmUgdGhl
+eSBmdW5jdGlvbmFsPzxicj4NCjxicj4NClRoYW5rcyBmb3IgeW91ciBlZmZvcnRzLDxicj4NCk5p
+a29zDQo8L2JvZHk+DQo8L2h0bWw+DQo=
+
+--_000_DM5PR01MB26993AD32256C0F95A140D339BB20DM5PR01MB2699prod_--
+
+--===============1411423268==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1411423268==--
