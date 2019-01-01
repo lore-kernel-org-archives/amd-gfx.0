@@ -1,18 +1,14 @@
-From: Christian Zigotzky <chzigotzky-KCoaydhb8eAb1SvskN2V4Q@public.gmane.org>
-Subject: ATI FirePro 2260 doesn't work after the update 'drm-next-2018-12-14'
-Date: Tue, 1 Jan 2019 16:03:09 +0100
-Message-ID: <845b2222-7014-0211-3246-55d1acc7686b@xenosoft.de>
-References: <55592246.5090505@candw.ms>
- <CADnq5_O7-8PUjqfa23PCA3C0fv2SfMx0pRHp6BaKXwVgarv1og@mail.gmail.com>
- <555A25D7.7070000@candw.ms>
- <CADnq5_NNn3ozwe7B+TUxgAEvPTs5wwibaewme0uxGgcwrNf8dg@mail.gmail.com>
- <56815C0F.4010207@candw.ms> <56A173FA.2090405@candw.ms>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [drm:generic_reg_wait [amdgpu]] *ERROR* REG_WAIT timeout 1us * 10
+ tries - optc1_lock line:628
+Date: Tue, 1 Jan 2019 14:48:41 -0500
+Message-ID: <CADnq5_OryEByan7G7kiMboiB8gxv=fkfftKXPWH=jYfSZdn5pQ@mail.gmail.com>
+References: <63aa12e8-2dee-11c6-88c1-784b5d03da26@molgen.mpg.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <56A173FA.2090405-zqC88Q5qmK4@public.gmane.org>
-Content-Language: de-DE
+In-Reply-To: <63aa12e8-2dee-11c6-88c1-784b5d03da26-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,22 +19,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Darren Stevens <darren-YHtdit1eIT3easaKlIn9Lw@public.gmane.org>, "R.T.Dickinson" <rtd2-kGM0oXzJM5p02iOg2JU2CQ@public.gmane.org>, Julian Margetson <runaway-zqC88Q5qmK4@public.gmane.org>
+To: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGVsbG8sCgpBbiBlbmQgdXNlciByZXBvcnRldCB0aGF0IGhpcyBBVEkgRmlyZVBybyAyMjYwIGRv
-ZXNuJ3Qgd29yayBhbnltb3JlIHdpdGggCnRoZSBsYXRlc3QgR2l0IGtlcm5lbC4gV2UgYXJlIGEg
-Zmlyc3QgbGV2ZWwgTGludXggc3VwcG9ydCBhbmQgd2UgdXN1YWxseSAKY29tcGlsZSBHaXQga2Vy
-bmVscyBkdXJpbmcgdGhlIG1lcmdlIHdpbmRvdyB0aW1lIGZvciB0ZXN0aW5nLiBBZnRlciB0aGUg
-CnVwZGF0ZSAnZHJtLW5leHQtMjAxOC0xMi0xNCcsIGhpcyBBVEkgRmlyZVBybyAyMjYwIGRvZXNu
-J3Qgd29yayBhbnltb3JlLiAKV2UgcmVtb3ZlZCB0aGUgdXBkYXRlICdkcm0tbmV4dC0yMDE4LTEy
-LTE0JyBhbmQgYWZ0ZXIgdGhhdCBoZSByZXBvcnRlZCAKdGhhdCBoaXMgQVRJIEZpcmVQcm8gMjI2
-MCB3b3JrcyBhZ2Fpbi4gVW5mb3J0dW5hdGVseSB3ZSBjYW4ndCB0ZXN0IApiZWNhdXNlIHdlIGRv
-bid0IGhhdmUgYW4gQVRJIEZpcmVQcm8gMjI2MC4gUGxlYXNlIGNoZWNrIHRoZSB1cGRhdGUuIApD
-dXJyZW50bHkgd2UgcmVsZWFzZSB0ZXN0IGtlcm5lbHMgd2l0aG91dCB5b3VyIGxhdGVzdCB1cGRh
-dGVzIGZvciBvdXIgCmVuZCB1c2Vycy4KCkZ1cnRoZXIgaW5mb3JtYXRpb24gaW4gdGhlIHN1cHBv
-cnQgdGhyZWFkOiAKaHR0cDovL2ZvcnVtLmh5cGVyaW9uLWVudGVydGFpbm1lbnQuY29tL3ZpZXd0
-b3BpYy5waHA/Zj01OCZ0PTQxODEmc3RhcnQ9MzAjcDQ2NjQ0CgpDaGVlcnMsCkNocmlzdGlhbgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gVHVlLCBKYW4gMSwgMjAxOSBhdCA5OjM4IEFNIFBhdWwgTWVuemVsCjxwbWVuemVsK2FtZC1n
+ZnhAbW9sZ2VuLm1wZy5kZT4gd3JvdGU6Cj4KPiBEZWFyIExpbnV4IGZvbGtzLAo+Cj4KPiBMaW51
+eCA0LjE5LjEzIHN0aWxsIGlzc3VlcyBhIHdhcm5pbmcgb24gYSBSeXplbiBzeXN0ZW0uIE90aGVy
+IGhhdmUgdGhlCj4gc2FtZSBwcm9ibGVtIFsxXS4KPgo+IERvIHlvdSBoYXZlIGEgc3lzdGVtLCB3
+aGVyZSB5b3UgY2FuIHlvdSByZXByb2R1Y2UgdGhlIGlzc3VlPwo+Cj4gRG8geW91IGhhdmUgYW4g
+aWRlYSwgd2hhdCBpcyBnb2luZyBvbiB0aGVyZSwgYW5kIGhvdyB0aGF0IGNhbiBiZSBmaXhlZD8K
+CkRlcGVuZGluZyBvbiB5b3VyIGNvbmZpZ3VyYXRpb24sIHRoaXMgcGF0Y2ggbWF5IGhlbHA6Cmh0
+dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvZHJtL2RybS9jb21taXQvP2lkPThjOWQ5MGVlYmQy
+M2I2ZDQwZGRmNGNlNWRmNWNhMmI5MzIzMzZhMDYKCkFsZXgKCj4KPgo+IEtpbmQgcmVnYXJkcywK
+Pgo+IFBhdWwKPgo+Cj4gWzFdOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVn
+LmNnaT9pZD0xMDcyNjEKPiAgICAgICAiQnVnIDEwNzI2MSAtIFtkcm06Z2VuZXJpY19yZWdfd2Fp
+dCBbYW1kZ3B1XV0gKkVSUk9SKiBSRUdfV0FJVAo+IHRpbWVvdXQgMXVzICogMTAgdHJpZXMgLSBv
+cHRjMV9sb2NrIGxpbmU6NjI4Igo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
