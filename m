@@ -1,14 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 0/9] PSP cleanup
-Date: Wed, 2 Jan 2019 11:01:56 +0100
-Message-ID: <070000a9-9abf-1c23-9294-03e8ff6041dd@gmail.com>
-References: <20190102092141.2196-1-evan.quan@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Date: Wed, 2 Jan 2019 10:21:03 +0000
+Message-ID: <BYAPR12MB2632A5BB82C2FCE97AF9E7ECFC8C0@BYAPR12MB2632.namprd12.prod.outlook.com>
+References: <20190102092141.2196-1-evan.quan@amd.com>,
+ <070000a9-9abf-1c23-9294-03e8ff6041dd@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0366120928=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190102092141.2196-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <070000a9-9abf-1c23-9294-03e8ff6041dd-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,56 +19,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: alexander.deucher-5C7GfCeVMHo@public.gmane.org, feifei.xu-5C7GfCeVMHo@public.gmane.org, ray.huang-5C7GfCeVMHo@public.gmane.org, hawking.zhang-5C7GfCeVMHo@public.gmane.org
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Xu,
+ Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 
-VGhlIGdlbmVyYWwgaWRlYSBsb29rcyBnb29kLCBidXQgY2FuIHdlIGNoYW5nZSB0aGUgZmlsZSBh
-bmQgc3ltYm9sIApuYW1pbmcgYSBiaXQ/CgpTbyBmYXIgd2UgaGF2ZSBuYW1lZCBhbGwgbm9uLWlw
-IHZlcnNpb24gcmVsYXRlZCBmdW5jdGlvbnMgYW1kZ3B1XyogYW5kIAppcCByZWxhdGVkIGZ1bmN0
-aW9ucyBpcF92ZXJzaW9uLgoKRS5nLiBmb2xsb3dpbmcgdGhpcyB4Z21pIGZ1bmN0aW9ucyBzaG91
-bGQgZ28gaW50byBhbWRncHVfeGdtaS5jIGFuZCBub3QgCnBzcF94Z21pLmMKCkNocmlzdGlhbi4K
-CkFtIDAyLjAxLjE5IHVtIDEwOjIxIHNjaHJpZWIgRXZhbiBRdWFuOgo+ICoqKiBCTFVSQiBIRVJF
-ICoqKgo+Cj4gRXZhbiBRdWFuICg5KToKPiAgICBkcm0vYW1kZ3B1OiBzZXBhcmF0ZSB0aGUgUFNQ
-IHJpbmcgcmVsYXRlZCBBUElzCj4gICAgZHJtL2FtZGdwdTogc2VwYXJhdGUgY29tbW9ubHkgdXNl
-ZCBQU1AgQVBJcwo+ICAgIGRybS9hbWRncHU6IHNlcGFyYXRlIHRoZSB4Z21pIHJlbGF0ZWQgQVBJ
-cwo+ICAgIGRybS9hbWRncHU6IHNlcGFyYXRlIHRoZSB0bXIgcmVsYXRlZCBBUElzCj4gICAgZHJt
-L2FtZGdwdTogc2VwYXJhdGUgdGhlIGFzZCByZWxhdGVkIEFQSXMKPiAgICBkcm0vYW1kZ3B1OiBk
-cm9wIHVzZWxlc3MgUFNQIEFQSXMgYW5kIHN0cnVjdHVyZXMKPiAgICBkcm0vYW1kZ3B1OiBjaGVj
-ayBQU1Agc3VwcG9ydCBiZWZvcmUgYWRkaW5nIHRoZSBpcCBibG9jawo+ICAgIGRybS9hbWRncHU6
-IG1ha2UgUFNQIHN1YiBtb2R1bGVzKEFTRC9YR01JL1RNUikgc3VwcG9ydCBjb25maWd1cmFibGUK
-PiAgICBkcm0vYW1kZ3B1OiBtb3ZlIHBzcF9mdW5jcyByZWxhdGVkIHRvIGEgbW9yZSBwcm9wZXIg
-cGxhY2UKPgo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUgICAgIHwgICA3
-ICstCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgfCA1MDQgKysr
-LS0tLS0tLS0tLS0tLS0tLS0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3BzcC5oIHwgIDkzICstLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF9hc2Qu
-YyAgICB8ICA4NiArKysrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfYXNkLmgg
-ICAgfCAgMzIgKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF9jbW4uYyAgICB8
-IDI4OSArKysrKysrKysrKysrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfY21u
-LmggICAgfCAgODQgKysrKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX2Z1bmNz
-LmggIHwgIDk4ICsrKysrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfcmluZy5j
-ICAgfCAzNTQgKysrKysrKysrKysrKysrKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-cHNwX3JpbmcuaCAgIHwgIDQzICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3Bf
-dG1yLmMgICAgfCAgODQgKysrKwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3Rt
-ci5oICAgIHwgIDMyICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjEwXzAu
-YyAgfCAzODEgKy0tLS0tLS0tLS0tLS0tLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3BzcF92MTFfMC5jICB8IDUzOSArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmMgICB8IDQ4MCArLS0tLS0tLS0tLS0tLS0tLS0t
-LS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF94Z21pLmMgICB8IDIwNyArKysr
-KysrKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF94Z21pLmggICB8ICAzMyAr
-Kwo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYyAgICAgIHwgIDEzICstCj4g
-ICAxOCBmaWxlcyBjaGFuZ2VkLCAxNDkzIGluc2VydGlvbnMoKyksIDE4NjYgZGVsZXRpb25zKC0p
-Cj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX2Fz
-ZC5jCj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNw
-X2FzZC5oCj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-cHNwX2Ntbi5jCj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvcHNwX2Ntbi5oCj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvcHNwX2Z1bmNzLmgKPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9wc3BfcmluZy5jCj4gICBjcmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvcHNwX3JpbmcuaAo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L3BzcF90bXIuYwo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF90bXIuaAo+ICAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF94Z21pLmMKPiAgIGNyZWF0ZSBtb2RlIDEwMDY0
-NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfeGdtaS5oCj4KCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0366120928==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB2632A5BB82C2FCE97AF9E7ECFC8C0BYAPR12MB2632namp_"
+
+--_000_BYAPR12MB2632A5BB82C2FCE97AF9E7ECFC8C0BYAPR12MB2632namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I'd prefer to keep the old structures: common interfaces in amdgpu_psp.c/.h=
+, and IP specific ones in IP specific file.
+
+
+No matter it's something related to ASD,TMR, or XGMI.etc, all of these are =
+just communication/handshake jobs between driver and psp fw. Driver plays m=
+essenger role with several psp cmd that are shared among ASIC generations. =
+a unified amdgpu_psp.c file is good enough to hold all the common stuffs.
+
+
+Regards,
+Hawking
+
+________________________________
+From: Christian K?nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Wednesday, January 2, 2019 6:01:56 PM
+To: Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander; Xu, Feifei; Huang, Ray; Zhang, Hawking
+Subject: Re: [PATCH 0/9] PSP cleanup
+
+The general idea looks good, but can we change the file and symbol
+naming a bit?
+
+So far we have named all non-ip version related functions amdgpu_* and
+ip related functions ip_version.
+
+E.g. following this xgmi functions should go into amdgpu_xgmi.c and not
+psp_xgmi.c
+
+Christian.
+
+Am 02.01.19 um 10:21 schrieb Evan Quan:
+> *** BLURB HERE ***
+>
+> Evan Quan (9):
+>    drm/amdgpu: separate the PSP ring related APIs
+>    drm/amdgpu: separate commonly used PSP APIs
+>    drm/amdgpu: separate the xgmi related APIs
+>    drm/amdgpu: separate the tmr related APIs
+>    drm/amdgpu: separate the asd related APIs
+>    drm/amdgpu: drop useless PSP APIs and structures
+>    drm/amdgpu: check PSP support before adding the ip block
+>    drm/amdgpu: make PSP sub modules(ASD/XGMI/TMR) support configurable
+>    drm/amdgpu: move psp_funcs related to a more proper place
+>
+>   drivers/gpu/drm/amd/amdgpu/Makefile     |   7 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 504 +++-------------------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  93 +---
+>   drivers/gpu/drm/amd/amdgpu/psp_asd.c    |  86 ++++
+>   drivers/gpu/drm/amd/amdgpu/psp_asd.h    |  32 ++
+>   drivers/gpu/drm/amd/amdgpu/psp_cmn.c    | 289 +++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/psp_cmn.h    |  84 ++++
+>   drivers/gpu/drm/amd/amdgpu/psp_funcs.h  |  98 +++++
+>   drivers/gpu/drm/amd/amdgpu/psp_ring.c   | 354 ++++++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/psp_ring.h   |  43 ++
+>   drivers/gpu/drm/amd/amdgpu/psp_tmr.c    |  84 ++++
+>   drivers/gpu/drm/amd/amdgpu/psp_tmr.h    |  32 ++
+>   drivers/gpu/drm/amd/amdgpu/psp_v10_0.c  | 381 +----------------
+>   drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 539 +-----------------------
+>   drivers/gpu/drm/amd/amdgpu/psp_v3_1.c   | 480 +--------------------
+>   drivers/gpu/drm/amd/amdgpu/psp_xgmi.c   | 207 +++++++++
+>   drivers/gpu/drm/amd/amdgpu/psp_xgmi.h   |  33 ++
+>   drivers/gpu/drm/amd/amdgpu/soc15.c      |  13 +-
+>   18 files changed, 1493 insertions(+), 1866 deletions(-)
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_asd.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_asd.h
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_cmn.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_cmn.h
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_funcs.h
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_ring.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_ring.h
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_tmr.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_tmr.h
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_xgmi.c
+>   create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_xgmi.h
+>
+
+
+--_000_BYAPR12MB2632A5BB82C2FCE97AF9E7ECFC8C0BYAPR12MB2632namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">I'd prefer to keep the ol=
+d structures: common interfaces in amdgpu_psp.c/.h, and IP specific ones in=
+ IP specific file.</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">No matter it's something&=
+nbsp;related to ASD,TMR, or XGMI.etc, all of these are just communication/h=
+andshake jobs between driver and psp fw. Driver plays messenger role with s=
+everal psp cmd that are shared among ASIC
+ generations. a unified amdgpu_psp.c file is good enough to hold all the co=
+mmon stuffs.
+</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;"><br>
+</p>
+<p style=3D"margin-top: 0px; margin-bottom: 0px;">Regards,<br>
+Hawking<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K&ouml;nig =
+&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, January 2, 2019 6:01:56 PM<br>
+<b>To:</b> Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander; Xu, Feifei; Huang, Ray; Zhang, Hawking<br>
+<b>Subject:</b> Re: [PATCH 0/9] PSP cleanup</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The general idea looks good, but can we change the=
+ file and symbol
+<br>
+naming a bit?<br>
+<br>
+So far we have named all non-ip version related functions amdgpu_* and <br>
+ip related functions ip_version.<br>
+<br>
+E.g. following this xgmi functions should go into amdgpu_xgmi.c and not <br=
+>
+psp_xgmi.c<br>
+<br>
+Christian.<br>
+<br>
+Am 02.01.19 um 10:21 schrieb Evan Quan:<br>
+&gt; *** BLURB HERE ***<br>
+&gt;<br>
+&gt; Evan Quan (9):<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: separate the PSP ring related APIs<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: separate commonly used PSP APIs<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: separate the xgmi related APIs<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: separate the tmr related APIs<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: separate the asd related APIs<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: drop useless PSP APIs and structures<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: check PSP support before adding the ip b=
+lock<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: make PSP sub modules(ASD/XGMI/TMR) suppo=
+rt configurable<br>
+&gt;&nbsp;&nbsp;&nbsp; drm/amdgpu: move psp_funcs related to a more proper =
+place<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/Makefile&nbsp;&nbsp;&nbsp;&nbsp=
+; |&nbsp;&nbsp; 7 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 504 &#43;&#43;&#=
+43;-------------------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |&nbsp; 93 &#43;--=
+-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_asd.c&nbsp;&nbsp;&nbsp; |&n=
+bsp; 86 &#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_asd.h&nbsp;&nbsp;&nbsp; |&n=
+bsp; 32 &#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_cmn.c&nbsp;&nbsp;&nbsp; | 2=
+89 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_cmn.h&nbsp;&nbsp;&nbsp; |&n=
+bsp; 84 &#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_funcs.h&nbsp; |&nbsp; 98 &#=
+43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_ring.c&nbsp;&nbsp; | 354 &#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_ring.h&nbsp;&nbsp; |&nbsp; =
+43 &#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_tmr.c&nbsp;&nbsp;&nbsp; |&n=
+bsp; 84 &#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_tmr.h&nbsp;&nbsp;&nbsp; |&n=
+bsp; 32 &#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_v10_0.c&nbsp; | 381 &#43;--=
+--------------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_v11_0.c&nbsp; | 539 &#43;--=
+---------------------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_v3_1.c&nbsp;&nbsp; | 480 &#=
+43;--------------------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_xgmi.c&nbsp;&nbsp; | 207 &#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/psp_xgmi.h&nbsp;&nbsp; |&nbsp; =
+33 &#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; |&nbsp; 13 &#43;-<br>
+&gt;&nbsp;&nbsp; 18 files changed, 1493 insertions(&#43;), 1866 deletions(-=
+)<br>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_asd.c<br=
+>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_asd.h<br=
+>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_cmn.c<br=
+>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_cmn.h<br=
+>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_funcs.h<=
+br>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_ring.c<b=
+r>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_ring.h<b=
+r>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_tmr.c<br=
+>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_tmr.h<br=
+>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_xgmi.c<b=
+r>
+&gt;&nbsp;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdgpu/psp_xgmi.h<b=
+r>
+&gt;<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BYAPR12MB2632A5BB82C2FCE97AF9E7ECFC8C0BYAPR12MB2632namp_--
+
+--===============0366120928==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0366120928==--
