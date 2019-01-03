@@ -1,88 +1,48 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: set the executable flag on unused Vega10
- PTEs v2
-Date: Thu, 3 Jan 2019 16:44:15 +0000
-Message-ID: <398d4881-87d8-b1ae-0cdb-3d095399b2f3@amd.com>
-References: <20190103095959.20354-1-christian.koenig@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/amdgpu_vm: fix boolean expressions
+Date: Thu, 3 Jan 2019 11:34:18 -0600
+Message-ID: <20190103173418.GA18739@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190103095959.20354-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <BCFF7D21CD5053438637506CC97A691C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wMS0wMyA0OjU5IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IE90aGVy
-d2lzZSB3ZSBydW4gaW50byBhIG5vbi1yZXRyeSBmYXVsdCBvbiBhY2Nlc3MuDQo+DQo+IEl0IHNl
-ZW1zIHRvIGJlIGEgaGFyZHdhcmUgYnVnIHRoYXQgdGhlIGV4ZWN1dGFibGUgYml0IGhhcw0KPiBo
-aWdoZXIgcHJpb3JpdHkgdGhhbiB0aGUgdmFsaWQgYml0Lg0KPg0KPiB2MjogaGFuZGxlIGNsZWFy
-cyBhcyB3ZWxsDQo+DQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
-bi5rb2VuaWdAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uYyB8IDM2ICsrKysrKysrKysrKysrKysrKy0tLS0tLS0tDQo+ICAxIGZpbGUgY2hh
-bmdlZCwgMjUgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+IGluZGV4IGU3M2QxNTI2NTlhMi4uMWFiODNmNDVm
-MWVjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
-Yw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBAQCAt
-Nzk5LDkgKzc5OSwxNiBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9jbGVhcl9ibyhzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwNCj4gIAkJYWRkciArPSBhdHNfZW50cmllcyAqIDg7DQo+ICAJfQ0K
-PiAgDQo+IC0JaWYgKGVudHJpZXMpDQo+ICsJaWYgKGVudHJpZXMpIHsNCj4gKwkJdWludDY0X3Qg
-dmFsdWUgPSAwOw0KPiArDQo+ICsJCS8qIFdvcmthcm91bmQgZm9yIGZhdWx0IHByaW9yaXR5IHBy
-b2JsZW0gb24gR01DOSAqLw0KPiArCQlpZiAobGV2ZWwgPT0gQU1ER1BVX1ZNX1BUQiAmJiBhZGV2
-LT5hc2ljX3R5cGUgPj0gQ0hJUF9WRUdBMTApDQo+ICsJCQl2YWx1ZSA9IEFNREdQVV9QVEVfRVhF
-Q1VUQUJMRTsNCj4gKw0KPiAgCQlhbWRncHVfdm1fc2V0X3B0ZV9wZGUoYWRldiwgJmpvYi0+aWJz
-WzBdLCBhZGRyLCAwLA0KPiAtCQkJCSAgICAgIGVudHJpZXMsIDAsIDApOw0KPiArCQkJCSAgICAg
-IGVudHJpZXMsIDAsIHZhbHVlKTsNCj4gKwl9DQo+ICANCj4gIAlhbWRncHVfcmluZ19wYWRfaWIo
-cmluZywgJmpvYi0+aWJzWzBdKTsNCj4gIA0KPiBAQCAtMTUwNiwyMCArMTUxMywyNyBAQCBpbnQg
-YW1kZ3B1X3ZtX3VwZGF0ZV9kaXJlY3RvcmllcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwN
-Cj4gIH0NCj4gIA0KPiAgLyoqDQo+IC0gKiBhbWRncHVfdm1fdXBkYXRlX2h1Z2UgLSBmaWd1cmUg
-b3V0IHBhcmFtZXRlcnMgZm9yIFBURSB1cGRhdGVzDQo+ICsgKiBhbWRncHVfdm1fdXBkYXRlX2Zs
-YWdzIC0gZmlndXJlIG91dCBmbGFncyBmb3IgUFRFIHVwZGF0ZXMNCg0KTG9va3MgbGlrZSB0aGlz
-IGZ1bmN0aW9uIGRvZXMgbW9yZSB0aGFuIGp1c3QgdXBkYXRlIGZsYWdzLiBJdCBkb2VzIHRoZQ0K
-UFRFIHVwZGF0ZSBhbmQgdHdlYWtzIHRoZSBmbGFncyBhcyBpdCBkb2VzIHNvLiBNYXliZSBpdCB3
-b3VsZCBtYWtlIHNlbnNlDQp0byBjYWxsIGl0IHNvbWV0aGluZyBsaWtlIGFtZGdwdV92bV9kb191
-cGRhdGVfcHRlcy4NCg0KRWl0aGVyIHdheSwgdGhpcyBwYXRjaCBpcyBSZXZpZXdlZC1ieTogRmVs
-aXggS3VlaGxpbmcNCjxGZWxpeC5LdWVobGluZ0BhbWQuY29tPi4NCg0KUmVnYXJkcywNCsKgIEZl
-bGl4DQoNCj4gICAqDQo+ICAgKiBNYWtlIHN1cmUgdG8gc2V0IHRoZSByaWdodCBmbGFncyBmb3Ig
-dGhlIFBURXMgYXQgdGhlIGRlc2lyZWQgbGV2ZWwuDQo+ICAgKi8NCj4gLXN0YXRpYyB2b2lkIGFt
-ZGdwdV92bV91cGRhdGVfaHVnZShzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJh
-bXMsDQo+IC0JCQkJICBzdHJ1Y3QgYW1kZ3B1X2JvICpibywgdW5zaWduZWQgbGV2ZWwsDQo+IC0J
-CQkJICB1aW50NjRfdCBwZSwgdWludDY0X3QgYWRkciwNCj4gLQkJCQkgIHVuc2lnbmVkIGNvdW50
-LCB1aW50MzJfdCBpbmNyLA0KPiAtCQkJCSAgdWludDY0X3QgZmxhZ3MpDQo+ICtzdGF0aWMgdm9p
-ZCBhbWRncHVfdm1fdXBkYXRlX2ZsYWdzKHN0cnVjdCBhbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMg
-KnBhcmFtcywNCj4gKwkJCQkgICBzdHJ1Y3QgYW1kZ3B1X2JvICpibywgdW5zaWduZWQgbGV2ZWws
-DQo+ICsJCQkJICAgdWludDY0X3QgcGUsIHVpbnQ2NF90IGFkZHIsDQo+ICsJCQkJICAgdW5zaWdu
-ZWQgY291bnQsIHVpbnQzMl90IGluY3IsDQo+ICsJCQkJICAgdWludDY0X3QgZmxhZ3MpDQo+ICAN
-Cj4gIHsNCj4gIAlpZiAobGV2ZWwgIT0gQU1ER1BVX1ZNX1BUQikgew0KPiAgCQlmbGFncyB8PSBB
-TURHUFVfUERFX1BURTsNCj4gIAkJYW1kZ3B1X2dtY19nZXRfdm1fcGRlKHBhcmFtcy0+YWRldiwg
-bGV2ZWwsICZhZGRyLCAmZmxhZ3MpOw0KPiArDQo+ICsJfSBlbHNlIGlmIChwYXJhbXMtPmFkZXYt
-PmFzaWNfdHlwZSA+PSBDSElQX1ZFR0ExMCAmJg0KPiArCQkgICAhKGZsYWdzICYgQU1ER1BVX1BU
-RV9WQUxJRCkgJiYNCj4gKwkJICAgIShmbGFncyAmIEFNREdQVV9QVEVfUFJUKSkgew0KPiArDQo+
-ICsJCS8qIFdvcmthcm91bmQgZm9yIGZhdWx0IHByaW9yaXR5IHByb2JsZW0gb24gR01DOSAqLw0K
-PiArCQlmbGFncyB8PSBBTURHUFVfUFRFX0VYRUNVVEFCTEU7DQo+ICAJfQ0KPiAgDQo+ICAJYW1k
-Z3B1X3ZtX3VwZGF0ZV9mdW5jKHBhcmFtcywgYm8sIHBlLCBhZGRyLCBjb3VudCwgaW5jciwgZmxh
-Z3MpOw0KPiBAQCAtMTY3Niw5ICsxNjkwLDkgQEAgc3RhdGljIGludCBhbWRncHVfdm1fdXBkYXRl
-X3B0ZXMoc3RydWN0IGFtZGdwdV9wdGVfdXBkYXRlX3BhcmFtcyAqcGFyYW1zLA0KPiAgCQkJdWlu
-dDY0X3QgdXBkX2VuZCA9IG1pbihlbnRyeV9lbmQsIGZyYWdfZW5kKTsNCj4gIAkJCXVuc2lnbmVk
-IG5wdGVzID0gKHVwZF9lbmQgLSBmcmFnX3N0YXJ0KSA+PiBzaGlmdDsNCj4gIA0KPiAtCQkJYW1k
-Z3B1X3ZtX3VwZGF0ZV9odWdlKHBhcmFtcywgcHQsIGN1cnNvci5sZXZlbCwNCj4gLQkJCQkJICAg
-ICAgcGVfc3RhcnQsIGRzdCwgbnB0ZXMsIGluY3IsDQo+IC0JCQkJCSAgICAgIGZsYWdzIHwgQU1E
-R1BVX1BURV9GUkFHKGZyYWcpKTsNCj4gKwkJCWFtZGdwdV92bV91cGRhdGVfZmxhZ3MocGFyYW1z
-LCBwdCwgY3Vyc29yLmxldmVsLA0KPiArCQkJCQkgICAgICAgcGVfc3RhcnQsIGRzdCwgbnB0ZXMs
-IGluY3IsDQo+ICsJCQkJCSAgICAgICBmbGFncyB8IEFNREdQVV9QVEVfRlJBRyhmcmFnKSk7DQo+
-ICANCj4gIAkJCXBlX3N0YXJ0ICs9IG5wdGVzICogODsNCj4gIAkJCWRzdCArPSAodWludDY0X3Qp
-bnB0ZXMgKiBBTURHUFVfR1BVX1BBR0VfU0laRSA8PCBzaGlmdDsNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Fix boolean expressions by using logical AND operator '&&'
+instead of bitwise operator '&'.
+
+This issue was detected with the help of Coccinelle.
+
+Fixes: c8c5e569c5b0 ("drm/amdgpu: Consolidate visible vs. real vram check v2.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index e73d152659a2..4cc0d1079935 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -3006,7 +3006,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	}
+ 	DRM_DEBUG_DRIVER("VM update mode is %s\n",
+ 			 vm->use_cpu_for_update ? "CPU" : "SDMA");
+-	WARN_ONCE((vm->use_cpu_for_update & !amdgpu_gmc_vram_full_visible(&adev->gmc)),
++	WARN_ONCE((vm->use_cpu_for_update && !amdgpu_gmc_vram_full_visible(&adev->gmc)),
+ 		  "CPU update of VM recommended only for large BAR system\n");
+ 	vm->last_update = NULL;
+ 
+@@ -3136,7 +3136,7 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm, uns
+ 	vm->pte_support_ats = pte_support_ats;
+ 	DRM_DEBUG_DRIVER("VM update mode is %s\n",
+ 			 vm->use_cpu_for_update ? "CPU" : "SDMA");
+-	WARN_ONCE((vm->use_cpu_for_update & !amdgpu_gmc_vram_full_visible(&adev->gmc)),
++	WARN_ONCE((vm->use_cpu_for_update && !amdgpu_gmc_vram_full_visible(&adev->gmc)),
+ 		  "CPU update of VM recommended only for large BAR system\n");
+ 
+ 	if (vm->pasid) {
+-- 
+2.20.1
