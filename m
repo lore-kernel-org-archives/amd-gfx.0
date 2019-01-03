@@ -1,40 +1,39 @@
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amd/display: Fix boolean expression in get_surf_rq_param
-Date: Thu, 3 Jan 2019 13:48:45 -0600
-Message-ID: <20190103194845.GA26175@embeddedor>
+Subject: Re: [PATCH] drm/amdgpu_vm: fix boolean expressions
+Date: Thu, 3 Jan 2019 13:52:33 -0600
+Message-ID: <84e1befb-3cce-f85a-2b90-71f42c445eda@embeddedor.com>
+References: <20190103173418.GA18739@embeddedor>
+ <08f2d5c0-0e97-f44e-c07d-6a8cdfd277bb@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
+In-Reply-To: <08f2d5c0-0e97-f44e-c07d-6a8cdfd277bb@amd.com>
+Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Fix boolean expression by using logical AND operator '&&'
-instead of bitwise operator '&'.
 
-This issue was detected with the help of Coccinelle.
 
-Fixes: 6d04ee9dc101 ("drm/amd/display: Restructuring and cleaning up DML")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 1/3/19 1:17 PM, Kuehling, Felix wrote:
+> On 2019-01-03 12:34 p.m., Gustavo A. R. Silva wrote:
+>> Fix boolean expressions by using logical AND operator '&&'
+>> instead of bitwise operator '&'.
+>>
+>> This issue was detected with the help of Coccinelle.
+>>
+>> Fixes: c8c5e569c5b0 ("drm/amdgpu: Consolidate visible vs. real vram check v2.")
+> Actually, this bug goes back further, to 9a4b7d4c769e ("drm/amdgpu: Add
+> vm context module param").
+> 
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
-index c2037daa8e66..d341b69fdc1a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
-@@ -881,7 +881,7 @@ static void get_surf_rq_param(
- 	/* the dpte_group_bytes is reduced for the specific case of vertical
- 	 * access of a tile surface that has dpte request of 8x1 ptes.
- 	 */
--	if (!surf_linear & (log2_dpte_req_height_ptes == 0) & surf_vert) /*reduced, in this case, will have page fault within a group */
-+	if (!surf_linear && (log2_dpte_req_height_ptes == 0) && surf_vert) /*reduced, in this case, will have page fault within a group */
- 		rq_sizing_param->dpte_group_bytes = 512;
- 	else
- 		/*full size */
--- 
-2.20.1
+You're right. I'll fix that and send v2 shortly. I'll add your RB.
+
+> Anyway, the patch is Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> 
+
+Thanks
+--
+Gustavo
