@@ -1,51 +1,41 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: Re: [PATCH v2] drm/amdgpu_vm: fix boolean expressions
-Date: Fri, 4 Jan 2019 10:58:28 -0600
-Message-ID: <040f2122-cd83-effb-3f1e-2c5755aece2a@embeddedor.com>
-References: <20190103200146.GA26442@embeddedor>
- <CAAEAJfA_1tLk0nk-WOtwdpF3W70keyaT=YPQHzXo5+nvWiZR=A@mail.gmail.com>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Add message print when unable to get valid hive
+Date: Fri, 4 Jan 2019 18:28:55 +0000
+Message-ID: <1546626529-29931-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAAEAJfA_1tLk0nk-WOtwdpF3W70keyaT=YPQHzXo5+nvWiZR=A@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-Hi Ezequiel,
-
-On 1/4/19 10:40 AM, Ezequiel Garcia wrote:
-> Hey Gustavo,
-> 
-> On Thu, 3 Jan 2019 at 17:25, Gustavo A. R. Silva <gustavo@embeddedor.com> wrote:
->>
->> Fix boolean expressions by using logical AND operator '&&'
->> instead of bitwise operator '&'.
->>
->> This issue was detected with the help of Coccinelle.
->>
->> Fixes: 9a4b7d4c769e ("drm/amdgpu: Add vm context module param")
->> Cc: stable@vger.kernel.org
->> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
->> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
->> ---
->> Changes in v2:
->>   - Update Fixes tag.
->>
-> 
-> This just fixes a user warning that would be wrongly reported, but
-> doesn't fix any other issue.
-> 
-> Why stable?
-> 
-
-Yeah. In this case the tag can be removed.
-
-Happy new year.
-
-Thanks
---
-Gustavo
+QWRkIG1lc3NhZ2UgcHJpbnQgb3V0IGFuZCByZXR1cm4gLUVJTlZBTCB3aGVuIGRyaXZlciBjYW4g
+bm90IGdldCB2YWxpZCBoaXZlCmZyb20gaGl2ZSAgYXJyYXJ5IG9uIHhnbWkgY29uZmlndXJhdGlv
+bgoKQ2hhbmdlLUlkOiBJYzAzOTI3OTA0ZWRmMGUzODRiOGM0NjUxZTE5Mjc0YmIzZjJhN2Q5YQpT
+aWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jIHwgNyArKysrKystCiAxIGZpbGUgY2hh
+bmdlZCwgNiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV94Z21pLmMKaW5kZXggOGE4YmM2MC4uYjIyNjYzMSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jCkBAIC0xMTMsOCArMTEzLDEzIEBAIGludCBh
+bWRncHVfeGdtaV9hZGRfZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCiAJbXV0
+ZXhfbG9jaygmeGdtaV9tdXRleCk7CiAJaGl2ZSA9IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFkZXYp
+OwotCWlmICghaGl2ZSkKKwlpZiAoIWhpdmUpIHsKKwkJcmV0ID0gLUVJTlZBTDsKKwkJZGV2X2Vy
+cihhZGV2LT5kZXYsCisJCQkiWEdNSTogQ2FuIG5vdCBtYXRlY2ggaGl2ZSAweGxseCBpbiB0aGUg
+aGl2ZSBsaXN0LlxuIiwKKwkJCWFkZXYtPmdtYy54Z21pLmhpdmVfaWQpOwogCQlnb3RvIGV4aXQ7
+CisJfQogCiAJaGl2ZV90b3BvbG9neSA9ICZoaXZlLT50b3BvbG9neV9pbmZvOwogCi0tIAoyLjcu
+NAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
