@@ -1,7 +1,7 @@
 From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 Subject: [PATCH] drm/amdgpu: Add message print when unable to get valid hive
-Date: Fri, 4 Jan 2019 18:28:55 +0000
-Message-ID: <1546626529-29931-1-git-send-email-shaoyun.liu@amd.com>
+Date: Fri, 4 Jan 2019 18:29:10 +0000
+Message-ID: <1546626542-29979-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
