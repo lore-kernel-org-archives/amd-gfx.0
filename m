@@ -1,40 +1,71 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: Re: [PATCH] drm/amd/display: Fix boolean expression in
- get_surf_rq_param
-Date: Thu, 3 Jan 2019 15:18:42 -0600
-Message-ID: <fa256e45-60dd-d7ea-75c4-898583b49480@embeddedor.com>
-References: <20190103194845.GA26175@embeddedor>
- <8169baae-434e-2d08-d63f-a285d1c3457e@amd.com>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [bug report] drm/amdgpu : Generate XGMI topology info from driver
+ level
+Date: Fri, 4 Jan 2019 14:53:07 +0300
+Message-ID: <20190104115307.GA25342@kadam>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <8169baae-434e-2d08-d63f-a285d1c3457e@amd.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-
-
-On 1/3/19 3:11 PM, Wentland, Harry wrote:
-> On 2019-01-03 2:48 p.m., Gustavo A. R. Silva wrote:
->> Fix boolean expression by using logical AND operator '&&'
->> instead of bitwise operator '&'.
->>
->> This issue was detected with the help of Coccinelle.
->>
->> Fixes: 6d04ee9dc101 ("drm/amd/display: Restructuring and cleaning up DML")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
-> 
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> 
-> and applied.
-> 
-
-Thanks, Harry.
-
---
-Gustavo
+SGVsbG8gU2hhb3l1biBMaXUsCgpUaGUgcGF0Y2ggZmIzMGZjNTlhMjQ1OiAiZHJtL2FtZGdwdSA6
+IEdlbmVyYXRlIFhHTUkgdG9wb2xvZ3kgaW5mbwpmcm9tIGRyaXZlciBsZXZlbCIgZnJvbSBKdW4g
+MjcsIDIwMTgsIGxlYWRzIHRvIHRoZSBmb2xsb3dpbmcgc3RhdGljCmNoZWNrZXIgd2FybmluZzoK
+Cglkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jOjExNyBhbWRncHVfeGdt
+aV9hZGRfZGV2aWNlKCkKCXdhcm46IG1pc3NpbmcgZXJyb3IgY29kZSBoZXJlPyAnYW1kZ3B1X2dl
+dF94Z21pX2hpdmUoKScgZmFpbGVkLiAncmV0JyA9ICcwJwoKZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3hnbWkuYwogICAgODggaW50IGFtZGdwdV94Z21pX2FkZF9kZXZpY2Uoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAgICA4OSB7CiAgICA5MCAJc3RydWN0IHBzcF94Z21p
+X3RvcG9sb2d5X2luZm8gKmhpdmVfdG9wb2xvZ3k7CiAgICA5MSAJc3RydWN0IGFtZGdwdV9oaXZl
+X2luZm8gKmhpdmU7CiAgICA5MiAJc3RydWN0IGFtZGdwdV94Z21pCSplbnRyeTsKICAgIDkzIAlz
+dHJ1Y3QgYW1kZ3B1X2RldmljZSAqdG1wX2FkZXYgPSBOVUxMOwogICAgOTQgCiAgICA5NSAJaW50
+IGNvdW50ID0gMCwgcmV0ID0gLUVJTlZBTDsKICAgIDk2IAogICAgOTcgCWlmICghYWRldi0+Z21j
+LnhnbWkuc3VwcG9ydGVkKQogICAgOTggCQlyZXR1cm4gMDsKICAgIDk5IAogICAgMTAwIAlyZXQg
+PSBwc3BfeGdtaV9nZXRfbm9kZV9pZCgmYWRldi0+cHNwLCAmYWRldi0+Z21jLnhnbWkubm9kZV9p
+ZCk7CiAgICAxMDEgCWlmIChyZXQpIHsKICAgIDEwMiAJCWRldl9lcnIoYWRldi0+ZGV2LAogICAg
+MTAzIAkJCSJYR01JOiBGYWlsZWQgdG8gZ2V0IG5vZGUgaWRcbiIpOwogICAgMTA0IAkJcmV0dXJu
+IHJldDsKICAgIDEwNSAJfQogICAgMTA2IAogICAgMTA3IAlyZXQgPSBwc3BfeGdtaV9nZXRfaGl2
+ZV9pZCgmYWRldi0+cHNwLCAmYWRldi0+Z21jLnhnbWkuaGl2ZV9pZCk7CiAgICAxMDggCWlmIChy
+ZXQpIHsKICAgIDEwOSAJCWRldl9lcnIoYWRldi0+ZGV2LAogICAgMTEwIAkJCSJYR01JOiBGYWls
+ZWQgdG8gZ2V0IGhpdmUgaWRcbiIpOwogICAgMTExIAkJcmV0dXJuIHJldDsKICAgIDExMiAJfQog
+ICAgMTEzIAogICAgMTE0IAltdXRleF9sb2NrKCZ4Z21pX211dGV4KTsKICAgIDExNSAJaGl2ZSA9
+IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFkZXYpOwogICAgMTE2IAlpZiAoIWhpdmUpCi0tPiAxMTcg
+CQlnb3RvIGV4aXQ7CgpJdCBkb2VzIGxvb2sgbGlrZSB3ZSBzaG91bGQgc2V0ICJyZXQgPSAtRVNP
+TUVUSElORzsiLi4uICBOb3Qgc3VyZSB3aGF0LgoKICAgIDExOCAKICAgIDExOSAJaGl2ZV90b3Bv
+bG9neSA9ICZoaXZlLT50b3BvbG9neV9pbmZvOwogICAgMTIwIAogICAgMTIxIAlsaXN0X2FkZF90
+YWlsKCZhZGV2LT5nbWMueGdtaS5oZWFkLCAmaGl2ZS0+ZGV2aWNlX2xpc3QpOwogICAgMTIyIAls
+aXN0X2Zvcl9lYWNoX2VudHJ5KGVudHJ5LCAmaGl2ZS0+ZGV2aWNlX2xpc3QsIGhlYWQpCiAgICAx
+MjMgCQloaXZlX3RvcG9sb2d5LT5ub2Rlc1tjb3VudCsrXS5ub2RlX2lkID0gZW50cnktPm5vZGVf
+aWQ7CiAgICAxMjQgCWhpdmUtPm51bWJlcl9kZXZpY2VzID0gY291bnQ7CiAgICAxMjUgCiAgICAx
+MjYgCS8qIEVhY2ggcHNwIG5lZWQgdG8gZ2V0IHRoZSBsYXRlc3QgdG9wb2xvZ3kgKi8KICAgIDEy
+NyAJbGlzdF9mb3JfZWFjaF9lbnRyeSh0bXBfYWRldiwgJmhpdmUtPmRldmljZV9saXN0LCBnbWMu
+eGdtaS5oZWFkKSB7CiAgICAxMjggCQlyZXQgPSBwc3BfeGdtaV9nZXRfdG9wb2xvZ3lfaW5mbygm
+dG1wX2FkZXYtPnBzcCwgY291bnQsIGhpdmVfdG9wb2xvZ3kpOwogICAgMTI5IAkJaWYgKHJldCkg
+ewogICAgMTMwIAkJCWRldl9lcnIodG1wX2FkZXYtPmRldiwKICAgIDEzMSAJCQkJIlhHTUk6IEdl
+dCB0b3BvbG9neSBmYWlsdXJlIG9uIGRldmljZSAlbGx4LCBoaXZlICVsbHgsIHJldCAlZCIsCiAg
+ICAxMzIgCQkJCXRtcF9hZGV2LT5nbWMueGdtaS5ub2RlX2lkLAogICAgMTMzIAkJCQl0bXBfYWRl
+di0+Z21jLnhnbWkuaGl2ZV9pZCwgcmV0KTsKICAgIDEzNCAJCQkvKiBUbyBkbyA6IGNvbnRpbnVl
+IHdpdGggc29tZSBub2RlIGZhaWxlZCBvciBkaXNhYmxlIHRoZSB3aG9sZSBoaXZlICovCiAgICAx
+MzUgCQkJYnJlYWs7CiAgICAxMzYgCQl9CiAgICAxMzcgCX0KICAgIDEzOCAKICAgIDEzOSAJbGlz
+dF9mb3JfZWFjaF9lbnRyeSh0bXBfYWRldiwgJmhpdmUtPmRldmljZV9saXN0LCBnbWMueGdtaS5o
+ZWFkKSB7CiAgICAxNDAgCQlyZXQgPSBhbWRncHVfeGdtaV91cGRhdGVfdG9wb2xvZ3koaGl2ZSwg
+dG1wX2FkZXYpOwogICAgMTQxIAkJaWYgKHJldCkKICAgIDE0MiAJCQlicmVhazsKICAgIDE0MyAJ
+fQogICAgMTQ0IAogICAgMTQ1IGV4aXQ6CiAgICAxNDYgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZ4
+Z21pX211dGV4KTsKICAgIDE0NyAgICAgICAgICByZXR1cm4gcmV0OwogICAgMTQ4ICB9CgpyZWdh
+cmRzLApkYW4gY2FycGVudGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
