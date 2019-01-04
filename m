@@ -1,15 +1,21 @@
 From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: System with kernel 4.21 hang immediately after start (invalid
- opcode: 0000 [#1] SMP NOPTI)
-Date: Fri, 4 Jan 2019 16:33:12 +0100
-Message-ID: <50769cc1-98f7-b844-c7e7-7a4ce965645c@daenzer.net>
-References: <CABXGCsPtSt4iiJetTGx8N_YoQuNCGOYDJYFztsCfgJuM6L0BeQ@mail.gmail.com>
- <CADnq5_NsGN-J6Q8oHG_kuGG90GuBEBgM5km2N8AzOCf5F=nDgg@mail.gmail.com>
+Subject: Re: Regression with kernel 4.20 on armhf
+Date: Fri, 4 Jan 2019 16:46:27 +0100
+Message-ID: <6df09da7-68aa-6a5e-9642-09935ca768f6@daenzer.net>
+References: <CAEzXK1p1E7D7SoGG7J2p4vDmaJuCAvmTJzY3K9D5vUgLy03h+g@mail.gmail.com>
+ <CADnq5_P4x6ZzSq-2e7uU-wo2CRCZCAwAkTYzsZ44PKaH00nCZw@mail.gmail.com>
+ <CAEzXK1pACzmmWBu4fEWr4GK6v8cwy8AdSaaOgxqk2K=RPLAC9g@mail.gmail.com>
+ <CAEzXK1r9kGg6sTcmi98csNYUS9HNn_Da4KtwNioRAkuJWCjqFw@mail.gmail.com>
+ <369de099-1f19-76f0-2674-8bcbb13bd9d4@gmail.com>
+ <CAEzXK1rd-WBh-i8d9HV3CqH_o5=0mES7RuNz4jR2LERu4cVKcw@mail.gmail.com>
+ <CADnq5_PQ_HieM1CqpTh2Pg1r1ENaM8=2atnCOHG6kM6cUOqf7A@mail.gmail.com>
+ <CAEzXK1rY3Q7iKXi84n5hh=rPvFO8=NDMm-3620p71ZrCOGv2mA@mail.gmail.com>
+ <CAEzXK1o29homhO85t2_NwePdRR=PoGjymG8kdDRfTa=Ch-g5MA@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NsGN-J6Q8oHG_kuGG90GuBEBgM5km2N8AzOCf5F=nDgg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <CAEzXK1o29homhO85t2_NwePdRR=PoGjymG8kdDRfTa=Ch-g5MA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,21 +27,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Lu=c3=ads_Mendes?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOS0wMS0wNCA0OjI0IHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBGcmksIEph
-biA0LCAyMDE5IGF0IDk6NTIgQU0gTWlraGFpbCBHYXZyaWxvdgo+IDxtaWtoYWlsLnYuZ2F2cmls
-b3ZAZ21haWwuY29tPiB3cm90ZToKPj4KPj4gSGkgZm9sa3MgSSBmb3VuZCB0aGF0IGtlcm5lbCA0
-LjIxIHVud29ya2FibGUgd2l0aCBBTUQgaGFyZHdhcmUuCj4+IEFsc28gSSBhbSBtYWtlIGtlcm5l
-bCBiaXNlY3QgYW5kIGZvdW5kZWQgdGhlIGJsYW1lIGNvbW1pdC4KPj4gRmlyc3QgYmFkIGNvbW1p
-dDogWzY3NGU3OGFjYWUwZGZiNGJlYjU2MTMyZTQxY2JhZTViNjBmN2Q2NjJdCj4+IGRybS9hbWQv
-ZGlzcGxheTogQWRkIGZhc3QgcGF0aCBmb3IgY3Vyc29yIHBsYW5lIHVwZGF0ZXMKPiAKPiBJSVJD
-LCB0aGUgaXNzdWUgb25seSBzaG93cyB1cCB3aXRoIG5ld2VyIHZlcnNpb25zIG9mIHRoZSBkZHgu
-CgpXYXlsYW5kIGNvbXBvc2l0b3JzIHNlZW0gdG8gaGl0IGl0IGFzIHdlbGwsIEkgdGhpbmsgTWlr
-aGFpbCBpcyB1c2luZwpHTk9NRSBvbiBXYXlsYW5kLgoKCi0tIApFYXJ0aGxpbmcgTWljaGVsIETD
-pG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0cDovL3d3dy5hbWQuY29tCkxp
-YnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFu
-ZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMjAxOS0wMS0wNCA0OjMyIHAubS4sIEx1w61zIE1lbmRlcyB3cm90ZToKPiBIaSBBbGV4LCBD
+aHJpc3RpYW4sCj4gCj4gSSd2ZSB0ZXN0ZWQgYW1kLXN0YWdpbmctZHJtLW5leHQgYXQgY29tbWl0
+Cj4gOTY5ODAyNGU4YTE5MTQ4MTMyMTU3NGJlYzFmZTg4NmJiY2U3OTdjZiAtIGRybS9hbWRncHU6
+IENsZWFudXAgMgo+IGNvbXBpbGVyIHdhcm5pbmdzLAo+IGFuZCBub3cgUlggNTUwIFBvbGFyaXMg
+MTIgc3RpbGwgaGFuZ3MgaW4gcmluZyBnZnggd2l0aCBYT3JnLCBidXQgYSBncHUKPiByZWNvdmVy
+eSBpcyBub3cgcGVyZm9ybWVkIGFuZCB3b3JrcywgZXhjZXB0IHRoYXQgVlJBTSBjb250ZW50cyBh
+cmUKPiBsb3N0IGFuZCBzY3JlZW4gaW1hZ2UgYmVjb21lcyBjb3JydXB0ZWQuCgpUaGlzIGlzIGJl
+Y2F1c2UgT3BlbkdMIGNvbnRleHRzIGJlY29tZSB1bnVzYWJsZSB3aGVuIGEgZnVsbCBHUFUgcmVz
+ZXQgaXMKcGVyZm9ybWVkLiBNYWtpbmcgaXQgcG9zc2libGUgdG8gZnVsbHkgcmVjb3ZlciBmcm9t
+IHRoaXMgd2l0aG91dApyZXN0YXJ0aW5nIFhvcmcgKHdoaWNoIHVzZXMgT3BlbkdMIHZpYSBnbGFt
+b3IpIG9yIGF0IGxlYXN0IHRoZQpjb21wb3NpdG9yIC8gb3RoZXIgYXBwcyB1c2luZyBPcGVuR0wg
+d291bGQgYmUgdHJpY2t5IGFuZCByZXF1aXJlIGEgbG90Cm9mIGVmZm9ydCwgc28gSSB3b3VsZG4n
+dCBiZXQgb24gaXQgZXZlciBoYXBwZW5pbmcgSSdtIGFmcmFpZC4KCgo+IE1heWJlIHRoaXMgaXMg
+bm90IGEgZHJpdmVyIGlzc3VlLCBidXQgcmF0aGVyIGEgbWVzYSBvciBYT3JnIGlzc3VlLAo+IHNp
+bmNlIHNvbWV0aGluZyBpcyBzZW50IHRvIHRoZSBjb21wdXRlL2dmeCB1bml0IHRoYXQgY2F1c2Vz
+IHRoZSBHUFUgdG8KPiBoYW5nLCBzbyBpdCBpcyBub3Qgb25seSB0aW1pbmcgc2Vuc2l0aXZlLCBi
+dXQgaXMgbWFpbmx5IGJlY2F1c2Ugb2YKPiB3cm9uZyBvcGVuR0wgY29tbWFuZHMsIHRoYXQgZHJp
+dmUgdGhlIEdQVSBpbnRvIGFuIGludmFsaWQgc3RhdGUKCkluIHRoYXQgY2FzZSwgdGhlIHByb2Js
+ZW0gd291bGQgYmUgZXhwZWN0ZWQgdG8gaGFwcGVuIHRoZSBzYW1lIHdheSBvbgp4ODYgYXMgd2Vs
+bC4gVGhlcmUgc2VlbXMgdG8gYmUgc29tZSBraW5kIG9mIHBsYXRmb3JtIHNwZWNpZmljIGFzcGVj
+dAphZmZlY3RpbmcgaXQuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAg
+ICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50
+aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
