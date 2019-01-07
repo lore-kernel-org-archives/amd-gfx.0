@@ -1,63 +1,53 @@
-From: =?UTF-8?B?THXDrXMgTWVuZGVz?= <luis.p.mendes-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Regression with kernel 4.20 on armhf
-Date: Sat, 5 Jan 2019 10:44:30 +0000
-Message-ID: <CAEzXK1rpZCWaVTLLYVcrWvqL2VJVd77WoFDk1z_UscvCf9LqKg@mail.gmail.com>
-References: <CAEzXK1p1E7D7SoGG7J2p4vDmaJuCAvmTJzY3K9D5vUgLy03h+g@mail.gmail.com>
- <CADnq5_P4x6ZzSq-2e7uU-wo2CRCZCAwAkTYzsZ44PKaH00nCZw@mail.gmail.com>
- <CAEzXK1pACzmmWBu4fEWr4GK6v8cwy8AdSaaOgxqk2K=RPLAC9g@mail.gmail.com>
- <CAEzXK1r9kGg6sTcmi98csNYUS9HNn_Da4KtwNioRAkuJWCjqFw@mail.gmail.com>
- <369de099-1f19-76f0-2674-8bcbb13bd9d4@gmail.com>
- <CAEzXK1rd-WBh-i8d9HV3CqH_o5=0mES7RuNz4jR2LERu4cVKcw@mail.gmail.com>
- <CADnq5_PQ_HieM1CqpTh2Pg1r1ENaM8=2atnCOHG6kM6cUOqf7A@mail.gmail.com>
- <CAEzXK1rY3Q7iKXi84n5hh=rPvFO8=NDMm-3620p71ZrCOGv2mA@mail.gmail.com>
- <CAEzXK1o29homhO85t2_NwePdRR=PoGjymG8kdDRfTa=Ch-g5MA@mail.gmail.com>
- <6df09da7-68aa-6a5e-9642-09935ca768f6@daenzer.net>
+From: Yu Zhao <yuzhao@google.com>
+Subject: Re: [PATCH v5 1/2] drm/amd: validate user pitch alignment
+Date: Sun, 6 Jan 2019 21:00:38 -0700
+Message-ID: <20190107040038.GA180037@google.com>
+References: <20181223215239.173339-2-yuzhao@google.com>
+ <20181230010021.196990-1-yuzhao@google.com>
+ <75d5f1d6-b259-6944-6ee0-8cc68cb1af0e@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6df09da7-68aa-6a5e-9642-09935ca768f6-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <75d5f1d6-b259-6944-6ee0-8cc68cb1af0e@daenzer.net>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>
+Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Daniel Stone <daniels@collabora.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Samuel Li <Samuel.Li@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, stable@vger.kernel.org, Harry Wentland <harry.wentland@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmVwbHkgaW4gYmV0d2Vlbi4KCk9uIEZyaSwgSmFuIDQsIDIwMTkgYXQgNDoyMiBQTSBNaWNoZWwg
-RMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3cm90ZToKPgo+IE9uIDIwMTktMDEtMDQgNDoz
-MiBwLm0uLCBMdcOtcyBNZW5kZXMgd3JvdGU6Cj4gPiBIaSBBbGV4LCBDaHJpc3RpYW4sCj4gPgo+
-ID4gSSd2ZSB0ZXN0ZWQgYW1kLXN0YWdpbmctZHJtLW5leHQgYXQgY29tbWl0Cj4gPiA5Njk4MDI0
-ZThhMTkxNDgxMzIxNTc0YmVjMWZlODg2YmJjZTc5N2NmIC0gZHJtL2FtZGdwdTogQ2xlYW51cCAy
-Cj4gPiBjb21waWxlciB3YXJuaW5ncywKPiA+IGFuZCBub3cgUlggNTUwIFBvbGFyaXMgMTIgc3Rp
-bGwgaGFuZ3MgaW4gcmluZyBnZnggd2l0aCBYT3JnLCBidXQgYSBncHUKPiA+IHJlY292ZXJ5IGlz
-IG5vdyBwZXJmb3JtZWQgYW5kIHdvcmtzLCBleGNlcHQgdGhhdCBWUkFNIGNvbnRlbnRzIGFyZQo+
-ID4gbG9zdCBhbmQgc2NyZWVuIGltYWdlIGJlY29tZXMgY29ycnVwdGVkLgo+Cj4gVGhpcyBpcyBi
-ZWNhdXNlIE9wZW5HTCBjb250ZXh0cyBiZWNvbWUgdW51c2FibGUgd2hlbiBhIGZ1bGwgR1BVIHJl
-c2V0IGlzCj4gcGVyZm9ybWVkLiBNYWtpbmcgaXQgcG9zc2libGUgdG8gZnVsbHkgcmVjb3ZlciBm
-cm9tIHRoaXMgd2l0aG91dAo+IHJlc3RhcnRpbmcgWG9yZyAod2hpY2ggdXNlcyBPcGVuR0wgdmlh
-IGdsYW1vcikgb3IgYXQgbGVhc3QgdGhlCj4gY29tcG9zaXRvciAvIG90aGVyIGFwcHMgdXNpbmcg
-T3BlbkdMIHdvdWxkIGJlIHRyaWNreSBhbmQgcmVxdWlyZSBhIGxvdAo+IG9mIGVmZm9ydCwgc28g
-SSB3b3VsZG4ndCBiZXQgb24gaXQgZXZlciBoYXBwZW5pbmcgSSdtIGFmcmFpZC4KCk1ha2VzIHNl
-bnNlLgoKPgo+Cj4gPiBNYXliZSB0aGlzIGlzIG5vdCBhIGRyaXZlciBpc3N1ZSwgYnV0IHJhdGhl
-ciBhIG1lc2Egb3IgWE9yZyBpc3N1ZSwKPiA+IHNpbmNlIHNvbWV0aGluZyBpcyBzZW50IHRvIHRo
-ZSBjb21wdXRlL2dmeCB1bml0IHRoYXQgY2F1c2VzIHRoZSBHUFUgdG8KPiA+IGhhbmcsIHNvIGl0
-IGlzIG5vdCBvbmx5IHRpbWluZyBzZW5zaXRpdmUsIGJ1dCBpcyBtYWlubHkgYmVjYXVzZSBvZgo+
-ID4gd3Jvbmcgb3BlbkdMIGNvbW1hbmRzLCB0aGF0IGRyaXZlIHRoZSBHUFUgaW50byBhbiBpbnZh
-bGlkIHN0YXRlCj4KPiBJbiB0aGF0IGNhc2UsIHRoZSBwcm9ibGVtIHdvdWxkIGJlIGV4cGVjdGVk
-IHRvIGhhcHBlbiB0aGUgc2FtZSB3YXkgb24KPiB4ODYgYXMgd2VsbC4gVGhlcmUgc2VlbXMgdG8g
-YmUgc29tZSBraW5kIG9mIHBsYXRmb3JtIHNwZWNpZmljIGFzcGVjdAo+IGFmZmVjdGluZyBpdC4K
-Ckl0IGlzIHF1aXRlIHBvc3NpYmxlIHRoaXMgYWxzbyBhZmZlY3RzIHg4Ni4gSSBqdXN0IGhhdmVu
-J3QgdHJpZWQKcnVubmluZyBVYnVudHUgTUFURSAxOC4wNCBvbiB4ODYuCgo+Cj4KPiAtLQo+IEVh
-cnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRw
-Oi8vd3d3LmFtZC5jb20KPiBMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwg
-ICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Jan 03, 2019 at 05:33:19PM +0100, Michel Dänzer wrote:
+> On 2018-12-30 2:00 a.m., Yu Zhao wrote:
+> > Userspace may request pitch alignment that is not supported by GPU.
+> > Some requests 32, but GPU ignores it and uses default 64 when cpp is
+> > 4. If GEM object is allocated based on the smaller alignment, GPU
+> > DMA will go out of bound.
+> > 
+> > Cc: stable@vger.kernel.org # v4.2+
+> > Signed-off-by: Yu Zhao <yuzhao@google.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> > 
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > index 15ce7e681d67..16af80ccd0a0 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+> > @@ -527,6 +527,22 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+> >  	struct drm_gem_object *obj;
+> >  	struct amdgpu_framebuffer *amdgpu_fb;
+> >  	int ret;
+> > +	struct amdgpu_device *adev = dev->dev_private;
+> > +	int cpp = drm_format_plane_cpp(mode_cmd->pixel_format, 0);
+> > +	int pitch = mode_cmd->pitches[0] / cpp;
+> > +
+> > +	if (pitch < mode_cmd->width) {
+> > +		DRM_DEBUG_KMS("Expecting pitch(%d)/cpp(%d) >= width(%d)\n",
+> > +			      mode_cmd->pitches[0], cpp, mode_cmd->width);
+> > +		return ERR_PTR(-EINVAL);
+> > +	}
+> 
+> This should possibly be tested in drm_internal_framebuffer_create instead.
+
+It seems to me drm_format_info_min_pitch() in framebuffer_check()
+already does it. We could just remove the check here?
