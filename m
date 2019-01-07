@@ -1,93 +1,48 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdkfd: Allow building KFD on ARM64 (v2)
-Date: Mon, 7 Jan 2019 21:34:12 +0000
-Message-ID: <1546896833-19100-1-git-send-email-Felix.Kuehling@amd.com>
+From: Yu Zhao <yuzhao@google.com>
+Subject: [PATCH v6 1/2] drm/amd: validate user pitch alignment
+Date: Mon,  7 Jan 2019 15:51:14 -0700
+Message-ID: <20190107225115.163992-1-yuzhao@google.com>
+References: <20181230010021.196990-1-yuzhao@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-Content-ID: <062407D24DFA784A856EA0628B0E3B9C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Mark Nutter <Mark.Nutter-5wv7dgnIgG8@public.gmane.org>, "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20181230010021.196990-1-yuzhao@google.com>
+Sender: stable-owner@vger.kernel.org
+To: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel@daenzer.net>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: David Zhou <David1.Zhou@amd.com>, Samuel Li <Samuel.Li@amd.com>, Harry Wentland <harry.wentland@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, Daniel Stone <daniels@collabora.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Yu Zhao <yuzhao@google.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-aWZkZWYgeDg2XzY0IHNwZWNpZmljIGNvZGUuDQpBbGxvdyBlbmFibGluZyBDT05GSUdfSFNBX0FN
-RCBvbiBBUk02NC4NCg0KdjI6IEZpeGVkIGEgY29tcGlsZXIgd2FybmluZyBkdWUgdG8gYW4gdW51
-c2VkIHZhcmlhYmxlDQoNCkNDOiBNYXJrIE51dHRlciA8TWFyay5OdXR0ZXJAYXJtLmNvbT4NClNp
-Z25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0KQWNr
-ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCkFja2VkLWJ5
-OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQotLS0NCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnICAgICAgICB8IDQgKystLQ0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMgICAgIHwgOCArKysrKysrKw0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jIHwgOSArKysrKy0tLS0NCiAzIGZpbGVz
-IGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9LY29uZmlnIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQvS2NvbmZpZw0KaW5kZXggZmJmMGVlNS4uYzM2MTM2MCAxMDA2NDQNCi0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL0tjb25maWcNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL0tjb25maWcNCkBAIC00LDggKzQsOCBAQA0KIA0KIGNvbmZpZyBIU0FfQU1EDQog
-CWJvb2wgIkhTQSBrZXJuZWwgZHJpdmVyIGZvciBBTUQgR1BVIGRldmljZXMiDQotCWRlcGVuZHMg
-b24gRFJNX0FNREdQVSAmJiBYODZfNjQNCi0JaW1wbHkgQU1EX0lPTU1VX1YyDQorCWRlcGVuZHMg
-b24gRFJNX0FNREdQVSAmJiAoWDg2XzY0IHx8IEFSTTY0KQ0KKwlpbXBseSBBTURfSU9NTVVfVjIg
-aWYgWDg2XzY0DQogCXNlbGVjdCBNTVVfTk9USUZJRVINCiAJaGVscA0KIAkgIEVuYWJsZSB0aGlz
-IGlmIHlvdSB3YW50IHRvIHVzZSBIU0EgZmVhdHVyZXMgb24gQU1EIEdQVSBkZXZpY2VzLg0KZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jDQppbmRleCBjMDJhZGJiLi5kN2RkYjM1IDEw
-MDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuYw0KKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuYw0KQEAgLTg2Myw2ICs4NjMsNyBA
-QCBzdGF0aWMgaW50IGtmZF9maWxsX21lbV9pbmZvX2Zvcl9jcHUoaW50IG51bWFfbm9kZV9pZCwg
-aW50ICphdmFpbF9zaXplLA0KIAlyZXR1cm4gMDsNCiB9DQogDQorI2lmIENPTkZJR19YODZfNjQN
-CiBzdGF0aWMgaW50IGtmZF9maWxsX2lvbGlua19pbmZvX2Zvcl9jcHUoaW50IG51bWFfbm9kZV9p
-ZCwgaW50ICphdmFpbF9zaXplLA0KIAkJCQl1aW50MzJfdCAqbnVtX2VudHJpZXMsDQogCQkJCXN0
-cnVjdCBjcmF0X3N1YnR5cGVfaW9saW5rICpzdWJfdHlwZV9oZHIpDQpAQCAtOTA1LDYgKzkwNiw3
-IEBAIHN0YXRpYyBpbnQga2ZkX2ZpbGxfaW9saW5rX2luZm9fZm9yX2NwdShpbnQgbnVtYV9ub2Rl
-X2lkLCBpbnQgKmF2YWlsX3NpemUsDQogDQogCXJldHVybiAwOw0KIH0NCisjZW5kaWYNCiANCiAv
-KiBrZmRfY3JlYXRlX3ZjcmF0X2ltYWdlX2NwdSAtIENyZWF0ZSBWaXJ0dWFsIENSQVQgZm9yIENQ
-VQ0KICAqDQpAQCAtOTIwLDcgKzkyMiw5IEBAIHN0YXRpYyBpbnQga2ZkX2NyZWF0ZV92Y3JhdF9p
-bWFnZV9jcHUodm9pZCAqcGNyYXRfaW1hZ2UsIHNpemVfdCAqc2l6ZSkNCiAJc3RydWN0IGNyYXRf
-c3VidHlwZV9nZW5lcmljICpzdWJfdHlwZV9oZHI7DQogCWludCBhdmFpbF9zaXplID0gKnNpemU7
-DQogCWludCBudW1hX25vZGVfaWQ7DQorI2lmZGVmIENPTkZJR19YODZfNjQNCiAJdWludDMyX3Qg
-ZW50cmllcyA9IDA7DQorI2VuZGlmDQogCWludCByZXQgPSAwOw0KIA0KIAlpZiAoIXBjcmF0X2lt
-YWdlIHx8IGF2YWlsX3NpemUgPCBWQ1JBVF9TSVpFX0ZPUl9DUFUpDQpAQCAtOTgyLDYgKzk4Niw3
-IEBAIHN0YXRpYyBpbnQga2ZkX2NyZWF0ZV92Y3JhdF9pbWFnZV9jcHUodm9pZCAqcGNyYXRfaW1h
-Z2UsIHNpemVfdCAqc2l6ZSkNCiAJCQlzdWJfdHlwZV9oZHItPmxlbmd0aCk7DQogDQogCQkvKiBG
-aWxsIGluIFN1YnR5cGU6IElPIExpbmsgKi8NCisjaWZkZWYgQ09ORklHX1g4Nl82NA0KIAkJcmV0
-ID0ga2ZkX2ZpbGxfaW9saW5rX2luZm9fZm9yX2NwdShudW1hX25vZGVfaWQsICZhdmFpbF9zaXpl
-LA0KIAkJCQkmZW50cmllcywNCiAJCQkJKHN0cnVjdCBjcmF0X3N1YnR5cGVfaW9saW5rICopc3Vi
-X3R5cGVfaGRyKTsNCkBAIC05OTIsNiArOTk3LDkgQEAgc3RhdGljIGludCBrZmRfY3JlYXRlX3Zj
-cmF0X2ltYWdlX2NwdSh2b2lkICpwY3JhdF9pbWFnZSwgc2l6ZV90ICpzaXplKQ0KIA0KIAkJc3Vi
-X3R5cGVfaGRyID0gKHR5cGVvZihzdWJfdHlwZV9oZHIpKSgoY2hhciAqKXN1Yl90eXBlX2hkciAr
-DQogCQkJCXN1Yl90eXBlX2hkci0+bGVuZ3RoICogZW50cmllcyk7DQorI2Vsc2UNCisJCXByX2lu
-Zm8oIklPIGxpbmsgbm90IGF2YWlsYWJsZSBmb3Igbm9uIHg4NiBwbGF0Zm9ybXNcbiIpOw0KKyNl
-bmRpZg0KIA0KIAkJY3JhdF90YWJsZS0+bnVtX2RvbWFpbnMrKzsNCiAJfQ0KZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMNCmluZGV4IDVmNWIyYWMuLjQ3MzRmMWEgMTAw
-NjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYw0KKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMNCkBAIC0xMzkyLDcg
-KzEzOTIsNiBAQCBpbnQga2ZkX3RvcG9sb2d5X2VudW1fa2ZkX2RldmljZXModWludDhfdCBpZHgs
-IHN0cnVjdCBrZmRfZGV2ICoqa2RldikNCiANCiBzdGF0aWMgaW50IGtmZF9jcHVtYXNrX3RvX2Fw
-aWNfaWQoY29uc3Qgc3RydWN0IGNwdW1hc2sgKmNwdW1hc2spDQogew0KLQljb25zdCBzdHJ1Y3Qg
-Y3B1aW5mb194ODYgKmNwdWluZm87DQogCWludCBmaXJzdF9jcHVfb2ZfbnVtYV9ub2RlOw0KIA0K
-IAlpZiAoIWNwdW1hc2sgfHwgY3B1bWFzayA9PSBjcHVfbm9uZV9tYXNrKQ0KQEAgLTE0MDAsOSAr
-MTM5OSwxMSBAQCBzdGF0aWMgaW50IGtmZF9jcHVtYXNrX3RvX2FwaWNfaWQoY29uc3Qgc3RydWN0
-IGNwdW1hc2sgKmNwdW1hc2spDQogCWZpcnN0X2NwdV9vZl9udW1hX25vZGUgPSBjcHVtYXNrX2Zp
-cnN0KGNwdW1hc2spOw0KIAlpZiAoZmlyc3RfY3B1X29mX251bWFfbm9kZSA+PSBucl9jcHVfaWRz
-KQ0KIAkJcmV0dXJuIC0xOw0KLQljcHVpbmZvID0gJmNwdV9kYXRhKGZpcnN0X2NwdV9vZl9udW1h
-X25vZGUpOw0KLQ0KLQlyZXR1cm4gY3B1aW5mby0+YXBpY2lkOw0KKyNpZmRlZiBDT05GSUdfWDg2
-XzY0DQorCXJldHVybiBjcHVfZGF0YShmaXJzdF9jcHVfb2ZfbnVtYV9ub2RlKS5hcGljaWQ7DQor
-I2Vsc2UNCisJcmV0dXJuIGZpcnN0X2NwdV9vZl9udW1hX25vZGU7DQorI2VuZGlmDQogfQ0KIA0K
-IC8qIGtmZF9udW1hX25vZGVfdG9fYXBpY19pZCAtIFJldHVybnMgdGhlIEFQSUMgSUQgb2YgdGhl
-IGZpcnN0IGxvZ2ljYWwgcHJvY2Vzc29yDQotLSANCjIuNy40DQoNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Userspace may request pitch alignment that is not supported by GPU.
+Some requests 32, but GPU ignores it and uses default 64 when cpp is
+4. If GEM object is allocated based on the smaller alignment, GPU
+DMA will go out of bound.
+
+Cc: stable@vger.kernel.org # v4.2+
+Signed-off-by: Yu Zhao <yuzhao@google.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 15ce7e681d67..de9f198d5371 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -527,6 +527,16 @@ amdgpu_display_user_framebuffer_create(struct drm_device *dev,
+ 	struct drm_gem_object *obj;
+ 	struct amdgpu_framebuffer *amdgpu_fb;
+ 	int ret;
++	struct amdgpu_device *adev = dev->dev_private;
++	int cpp = drm_format_plane_cpp(mode_cmd->pixel_format, 0);
++	int pitch = mode_cmd->pitches[0] / cpp;
++
++	pitch = amdgpu_align_pitch(adev, pitch, cpp, false);
++	if (mode_cmd->pitches[0] != pitch) {
++		DRM_DEBUG_KMS("Invalid pitch: expecting %d but got %d\n",
++			      pitch, mode_cmd->pitches[0]);
++		return ERR_PTR(-EINVAL);
++	}
+ 
+ 	obj = drm_gem_object_lookup(file_priv, mode_cmd->handles[0]);
+ 	if (obj ==  NULL) {
+-- 
+2.20.1.97.g81188d93c3-goog
