@@ -1,15 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Add message print when unable to get valid
- hive
-Date: Mon, 7 Jan 2019 16:27:41 +0000
-Message-ID: <BN6PR12MB1809E3C002C8735584023636F7890@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1546626542-29979-1-git-send-email-shaoyun.liu@amd.com>,
- <DM6PR12MB3241269A362C3E1ABE4D70C3F4890@DM6PR12MB3241.namprd12.prod.outlook.com>
+From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] add missing mutex lock to amdgpu_get_xgmi_hive() (v2)
+Date: Mon, 7 Jan 2019 16:33:36 +0000
+Message-ID: <967dc160-e50b-0f35-b11e-6d1c9951c6aa@amd.com>
+References: <20190107151620.11701-1-tom.stdenis@amd.com>
+ <DM6PR12MB324181E29144A5FBA327AADBF4890@DM6PR12MB3241.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1232907898=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB3241269A362C3E1ABE4D70C3F4890-lmeGfMZKVrEShx2hYn8pVQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <DM6PR12MB324181E29144A5FBA327AADBF4890-lmeGfMZKVrEShx2hYn8pVQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
+Content-ID: <CACA4D400F20824291B7DB97C6116434-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,180 +21,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1232907898==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809E3C002C8735584023636F7890BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809E3C002C8735584023636F7890BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Liu, Sha=
-oyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, January 7, 2019 11:01:51 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH] drm/amdgpu: Add message print when unable to get valid=
- hive
-
-Ping ...
-
------Original Message-----
-From: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, January 4, 2019 1:29 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Add message print when unable to get valid hiv=
-e
-
-Add message print out and return -EINVAL when driver can not get valid hive=
- from hive  arrary on xgmi configuration
-
-Change-Id: Ic03927904edf0e384b8c4651e19274bb3f2a7d9a
-Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c
-index 8a8bc60..b226631 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-@@ -113,8 +113,13 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
-
-         mutex_lock(&xgmi_mutex);
-         hive =3D amdgpu_get_xgmi_hive(adev);
--       if (!hive)
-+       if (!hive) {
-+               ret =3D -EINVAL;
-+               dev_err(adev->dev,
-+                       "XGMI: Can not matech hive 0xllx in the hive list.\=
-n",
-+                       adev->gmc.xgmi.hive_id);
-                 goto exit;
-+       }
-
-         hive_topology =3D &hive->topology_info;
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809E3C002C8735584023636F7890BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Liu, Shaoyun &lt;Shaoyun.Liu@=
-amd.com&gt;<br>
-<b>Sent:</b> Monday, January 7, 2019 11:01:51 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Add message print when unable to ge=
-t valid hive</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Ping ...<br>
-<br>
------Original Message-----<br>
-From: Liu, Shaoyun &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt; <br>
-Sent: Friday, January 4, 2019 1:29 PM<br>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-Cc: Liu, Shaoyun &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Subject: [PATCH] drm/amdgpu: Add message print when unable to get valid hiv=
-e<br>
-<br>
-Add message print out and return -EINVAL when driver can not get valid hive=
- from hive&nbsp; arrary on xgmi configuration<br>
-<br>
-Change-Id: Ic03927904edf0e384b8c4651e19274bb3f2a7d9a<br>
-Signed-off-by: shaoyunl &lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 7 &#43;&#43;&#43;&#43;&#43=
-;&#43;-<br>
-&nbsp;1 file changed, 6 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_xgmi.c<br>
-index 8a8bc60..b226631 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
-@@ -113,8 &#43;113,13 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *a=
-dev)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;xgmi_mutex=
-);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive =3D amdgpu_get_xgmi_h=
-ive(adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hive)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!hive) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D -EINVAL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; dev_err(adev-&gt;dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;XGMI: =
-Can not matech hive 0xllx in the hive list.\n&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gmc=
-.xgmi.hive_id);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; goto exit;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hive_topology =3D &amp;hiv=
-e-&gt;topology_info;<br>
-&nbsp;<br>
---<br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809E3C002C8735584023636F7890BN6PR12MB1809namp_--
-
---===============1232907898==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1232907898==--
+DQoNCk9uIDAxLzA3LzIwMTkgMTE6MTYgQU0sIExpdSwgU2hhb3l1biB3cm90ZToNCj4gSSB0aGlu
+ayBpdCdzIHJlYXNvbmFibGUgdG8gdXNlIHRoZSBoaXZlICBzcGVjaWZpYyBsb2NrIGZvciBoaXZl
+ICBzcGVjaWZpYyBmdW5jdGlvbnMuDQo+IFRoZSBjaGFuZ2VzIGlzIGFja2VkLWJ5ICBTaGFveXVu
+LmxpdSA8IFNoYW95dW4ubGl1QGFtZC5jb20+DQo+DQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
+LS0tDQo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5v
+cmc+IE9uIEJlaGFsZiBPZiBTdERlbmlzLCBUb20NCj4gU2VudDogTW9uZGF5LCBKYW51YXJ5IDcs
+IDIwMTkgMTA6MTYgQU0NCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENj
+OiBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlzQGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSF0g
+YWRkIG1pc3NpbmcgbXV0ZXggbG9jayB0byBhbWRncHVfZ2V0X3hnbWlfaGl2ZSgpICh2MikNCj4N
+Cj4gdjI6IE1vdmUgbG9ja3MgYXJvdW5kIGluIG90aGVyIGZ1bmN0aW9ucyBzbyB0aGF0IHRoaXMg
+ZnVuY3Rpb24gY2FuIHN0YW5kIG9uIGl0cyBvd24uICBBbHNvIG9ubHkgaG9sZCB0aGUgaGl2ZSBz
+cGVjaWZpYyBsb2NrIGZvciBhZGQvcmVtb3ZlIGRldmljZSBpbnN0ZWFkIG9mIHRoZSBkcml2ZXIg
+Z2xvYmFsIGxvY2sgc28geW91IGNhbid0IGFkZC9yZW1vdmUgZGV2aWNlcyBpbiBwYXJhbGxlbCBm
+cm9tIG9uZSBoaXZlLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRl
+bmlzQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9kZXZpY2UuYyB8ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3hnbWkuYyAgIHwgMzYgKysrKysrKysrKysrKystLS0tLS0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmggICB8ICAyICstDQo+ICAgMyBmaWxlcyBjaGFuZ2Vk
+LCAyNSBpbnNlcnRpb25zKCspLCAxNSBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiBpbmRleCAzOWQ1ZDA1OGIyYzcuLjEzZDhl
+MmFkMmY3YSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2RldmljZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZp
+Y2UuYw0KPiBAQCAtMzUyNSw3ICszNTI1LDcgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292
+ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAgCSAqIGJ5IGRpZmZlcmVudCBub2Rl
+cy4gTm8gcG9pbnQgYWxzbyBzaW5jZSB0aGUgb25lIG5vZGUgYWxyZWFkeSBleGVjdXRpbmcNCj4g
+ICAJICogcmVzZXQgd2lsbCBhbHNvIHJlc2V0IGFsbCB0aGUgb3RoZXIgbm9kZXMgaW4gdGhlIGhp
+dmUuDQo+ICAgCSAqLw0KPiAtCWhpdmUgPSBhbWRncHVfZ2V0X3hnbWlfaGl2ZShhZGV2KTsNCj4g
+KwloaXZlID0gYW1kZ3B1X2dldF94Z21pX2hpdmUoYWRldiwgMCk7DQo+ICAgCWlmIChoaXZlICYm
+IGFkZXYtPmdtYy54Z21pLm51bV9waHlzaWNhbF9ub2RlcyA+IDEgJiYNCj4gICAJICAgICFtdXRl
+eF90cnlsb2NrKCZoaXZlLT5oaXZlX2xvY2spKQ0KPiAgIAkJcmV0dXJuIDA7DQoNCkxldCdzIHNh
+eSBpIGhhdmUgZGV2aWNlIDAgaW4gaGl2ZSBBIGFuZCBpdCBqdXN0IGdvdCBhIGdwdSByZXNldCBh
+bmQgYXQgDQp0aGUgc2FtZSB0aW1lIGRldmljZSAxIGlzIGJlaW5nIGFkZGVkIHRvIHNhbWUgaGF2
+ZSB0aG91Z2ggDQphbWRncHVfeGdtaV9hZGRfZGV2aWNlLCBoaXZlLT5oaXZlX2xvY2sgaXMgYWNx
+dWlyZWQgYnkgdGhpcyBuZXcgZGV2aWNlIA0KYmVpbmcgYWRkZWQgYW5kIHNvIGdwdSByZXNldCBm
+b3IgZGV2aWNlIDAgYmFpbHMgb3V0IG9uIA0KJyFtdXRleF90cnlsb2NrKCZoaXZlLT5oaXZlX2xv
+Y2spKScgd2l0aG91dCBjb21wbGV0aW5nIHRoZSByZXNldC4NCkFsc28gaW4gZ2VuZXJhbCBpIGZl
+ZWwgYSBiaXQgdW5jb21mb3J0YWJsZSBhYm91dCB0aGUgY29uZnVzaW5nIA0KYWNxdWlzaXRpb24g
+c2NoZW1lIGluIHRoZSBmdW5jdGlvbiBhbmTCoCB0aGUgZmFjdCB0aGF0IHlvdSB0YWtlIHRoZSAN
+CmhpdmUtPmhpdmVfbG9jayBpbnNpZGUgYW1kZ3B1X2dldF94Z21pX2hpdmUgYnV0IHJlbGVhc2Ug
+aXMgc3RpbGwgb3V0c2lkZSANCm9mIHRoZSBmdW5jdGlvbi4NCg0KQW5kcmV5DQoNCj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jDQo+IGluZGV4IDhhOGJjNjBjYjZiNC4u
+ZWJmNTA4MDk0ODVmIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfeGdtaS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94
+Z21pLmMNCj4gQEAgLTQwLDI2ICs0MCwzOSBAQCB2b2lkICphbWRncHVfeGdtaV9oaXZlX3RyeV9s
+b2NrKHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICpoaXZlKQ0KPiAgIAlyZXR1cm4gJmhpdmUtPmRl
+dmljZV9saXN0Ow0KPiAgIH0NCj4gICANCj4gLXN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICphbWRn
+cHVfZ2V0X3hnbWlfaGl2ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gK3N0cnVjdCBh
+bWRncHVfaGl2ZV9pbmZvICphbWRncHVfZ2V0X3hnbWlfaGl2ZShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZQ0KPiArKmFkZXYsIGludCBsb2NrKQ0KPiAgIHsNCj4gICAJaW50IGk7DQo+ICAgCXN0cnVjdCBh
+bWRncHVfaGl2ZV9pbmZvICp0bXA7DQo+ICAgDQo+ICAgCWlmICghYWRldi0+Z21jLnhnbWkuaGl2
+ZV9pZCkNCj4gICAJCXJldHVybiBOVUxMOw0KPiArDQo+ICsJbXV0ZXhfbG9jaygmeGdtaV9tdXRl
+eCk7DQo+ICsNCj4gICAJZm9yIChpID0gMCA7IGkgPCBoaXZlX2NvdW50OyArK2kpIHsNCj4gICAJ
+CXRtcCA9ICZ4Z21pX2hpdmVzW2ldOw0KPiAtCQlpZiAodG1wLT5oaXZlX2lkID09IGFkZXYtPmdt
+Yy54Z21pLmhpdmVfaWQpDQo+ICsJCWlmICh0bXAtPmhpdmVfaWQgPT0gYWRldi0+Z21jLnhnbWku
+aGl2ZV9pZCkgew0KPiArCQkJaWYgKGxvY2spDQo+ICsJCQkJbXV0ZXhfbG9jaygmdG1wLT5oaXZl
+X2xvY2spOw0KPiArCQkJbXV0ZXhfdW5sb2NrKCZ4Z21pX211dGV4KTsNCj4gICAJCQlyZXR1cm4g
+dG1wOw0KPiArCQl9DQo+ICAgCX0NCj4gLQlpZiAoaSA+PSBBTURHUFVfTUFYX1hHTUlfSElWRSkN
+Cj4gKwlpZiAoaSA+PSBBTURHUFVfTUFYX1hHTUlfSElWRSkgew0KPiArCQltdXRleF91bmxvY2so
+JnhnbWlfbXV0ZXgpOw0KPiAgIAkJcmV0dXJuIE5VTEw7DQo+ICsJfQ0KPiAgIA0KPiAgIAkvKiBp
+bml0aWFsaXplIG5ldyBoaXZlIGlmIG5vdCBleGlzdCAqLw0KPiAgIAl0bXAgPSAmeGdtaV9oaXZl
+c1toaXZlX2NvdW50KytdOw0KPiAgIAl0bXAtPmhpdmVfaWQgPSBhZGV2LT5nbWMueGdtaS5oaXZl
+X2lkOw0KPiAgIAlJTklUX0xJU1RfSEVBRCgmdG1wLT5kZXZpY2VfbGlzdCk7DQo+ICAgCW11dGV4
+X2luaXQoJnRtcC0+aGl2ZV9sb2NrKTsNCj4gKwlpZiAobG9jaykNCj4gKwkJbXV0ZXhfbG9jaygm
+dG1wLT5oaXZlX2xvY2spOw0KPiArDQo+ICsJbXV0ZXhfdW5sb2NrKCZ4Z21pX211dGV4KTsNCj4g
+ICANCj4gICAJcmV0dXJuIHRtcDsNCj4gICB9DQo+IEBAIC0xMTEsOCArMTI0LDggQEAgaW50IGFt
+ZGdwdV94Z21pX2FkZF9kZXZpY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgCQly
+ZXR1cm4gcmV0Ow0KPiAgIAl9DQo+ICAgDQo+IC0JbXV0ZXhfbG9jaygmeGdtaV9tdXRleCk7DQo+
+IC0JaGl2ZSA9IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFkZXYpOw0KPiArCS8qIGZpbmQgaGl2ZSBh
+bmQgdGFrZSBsb2NrICovDQo+ICsJaGl2ZSA9IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFkZXYsIDEp
+Ow0KPiAgIAlpZiAoIWhpdmUpDQo+ICAgCQlnb3RvIGV4aXQ7DQo+ICAgDQo+IEBAIC0xNDIsOCAr
+MTU1LDggQEAgaW50IGFtZGdwdV94Z21pX2FkZF9kZXZpY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYpDQo+ICAgCQkJYnJlYWs7DQo+ICAgCX0NCj4gICANCj4gKwltdXRleF91bmxvY2soJmhp
+dmUtPmhpdmVfbG9jayk7DQo+ICAgZXhpdDoNCj4gLQltdXRleF91bmxvY2soJnhnbWlfbXV0ZXgp
+Ow0KPiAgIAlyZXR1cm4gcmV0Ow0KPiAgIH0NCj4gICANCj4gQEAgLTE1NCwxNSArMTY3LDEyIEBA
+IHZvaWQgYW1kZ3B1X3hnbWlfcmVtb3ZlX2RldmljZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dikNCj4gICAJaWYgKCFhZGV2LT5nbWMueGdtaS5zdXBwb3J0ZWQpDQo+ICAgCQlyZXR1cm47DQo+
+ICAgDQo+IC0JbXV0ZXhfbG9jaygmeGdtaV9tdXRleCk7DQo+IC0NCj4gLQloaXZlID0gYW1kZ3B1
+X2dldF94Z21pX2hpdmUoYWRldik7DQo+ICsJaGl2ZSA9IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFk
+ZXYsIDEpOw0KPiAgIAlpZiAoIWhpdmUpDQo+IC0JCWdvdG8gZXhpdDsNCj4gKwkJcmV0dXJuOw0K
+PiAgIA0KPiAgIAlpZiAoIShoaXZlLT5udW1iZXJfZGV2aWNlcy0tKSkNCj4gICAJCW11dGV4X2Rl
+c3Ryb3koJmhpdmUtPmhpdmVfbG9jayk7DQo+IC0NCj4gLWV4aXQ6DQo+IC0JbXV0ZXhfdW5sb2Nr
+KCZ4Z21pX211dGV4KTsNCj4gKwllbHNlDQo+ICsJCW11dGV4X3VubG9jaygmaGl2ZS0+aGl2ZV9s
+b2NrKTsNCj4gICB9DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfeGdtaS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuaA0K
+PiBpbmRleCA2MTUxZWI5YzhhZDMuLjhkNzk4NDg0NDE3NCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5oDQo+IEBAIC0zMiw3ICszMiw3IEBAIHN0cnVjdCBh
+bWRncHVfaGl2ZV9pbmZvIHsNCj4gICAJc3RydWN0IG11dGV4IGhpdmVfbG9jazsNCj4gICB9Ow0K
+PiAgIA0KPiAtc3RydWN0IGFtZGdwdV9oaXZlX2luZm8gKmFtZGdwdV9nZXRfeGdtaV9oaXZlKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsNCj4gK3N0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICph
+bWRncHVfZ2V0X3hnbWlfaGl2ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPiArKmFkZXYsIGludCBs
+b2NrKTsNCj4gICBpbnQgYW1kZ3B1X3hnbWlfdXBkYXRlX3RvcG9sb2d5KHN0cnVjdCBhbWRncHVf
+aGl2ZV9pbmZvICpoaXZlLCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7ICBpbnQgYW1kZ3B1
+X3hnbWlfYWRkX2RldmljZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7ICB2b2lkIGFtZGdw
+dV94Z21pX3JlbW92ZV9kZXZpY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KPiAtLQ0K
+PiAyLjE3LjINCj4NCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+DQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
