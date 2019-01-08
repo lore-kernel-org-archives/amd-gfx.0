@@ -1,55 +1,71 @@
-From: "Gao, Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: drop the unnecessary uclk hard min
- setting
-Date: Tue, 8 Jan 2019 05:06:16 +0000
-Message-ID: <DM5PR12MB1433925E0C30149B0404FAF6EF8A0@DM5PR12MB1433.namprd12.prod.outlook.com>
-References: <20190108042826.21031-1-evan.quan@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 3/3] drm/dp_mst: Add __must_check to
+ drm_dp_mst_topology_mgr_resume()
+Date: Tue, 8 Jan 2019 09:06:35 +0100
+Message-ID: <20190108080635.GO21184@phenom.ffwll.local>
+References: <20190108005651.25967-1-lyude@redhat.com>
+ <20190108005651.25967-4-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190108042826.21031-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190108005651.25967-4-lyude@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Lyude Paul <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Jerry Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IExpa3VuIEdhbyA8TGlrdW4uR2FvQGFtZC5jb20+CgotLS0tLU9yaWdpbmFs
-IE1lc3NhZ2UtLS0tLQpGcm9tOiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPiAKU2VudDog
-VHVlc2RheSwgSmFudWFyeSAwOCwgMjAxOSAxMjoyOCBQTQpUbzogYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKQ2M6IEdhbywgTGlrdW4gPExpa3VuLkdhb0BhbWQuY29tPjsgRmVuZywgS2Vu
-bmV0aCA8S2VubmV0aC5GZW5nQGFtZC5jb20+OyBRdWFuLCBFdmFuIDxFdmFuLlF1YW5AYW1kLmNv
-bT4KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kL3Bvd2VycGxheTogZHJvcCB0aGUgdW5uZWNlc3Nh
-cnkgdWNsayBoYXJkIG1pbiBzZXR0aW5nCgpTaW5jZSBzb2Z0IG1pbiBzZXR0aW5nIGlzIGVub3Vn
-aC4gSGFyZCBtaW4gc2V0dGluZyBpcyByZWR1bmRhbnQuCgpDaGFuZ2UtSWQ6IEk3NTgzODYwODVm
-MjI3YmFkOTQxNDhlYzBiMzg3NzYzMTJiNmY1YjI1ClJlcG9ydGVkLWJ5OiBMaWt1biBHYW8gPExp
-a3VuLkdhb0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQu
-Y29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21n
-ci5jIHwgNyAtLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jCmluZGV4
-IGMyMDYxZDM1MWQwNC4uODI5MzVhM2JkOTUwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwpAQCAtMTY5MiwxMyArMTY5Miw2IEBA
-IHN0YXRpYyBpbnQgdmVnYTIwX3VwbG9hZF9kcG1fbWluX2xldmVsKHN0cnVjdCBwcF9od21nciAq
-aHdtZ3IsIHVpbnQzMl90IGZlYXR1cmVfCiAJCQkJCShQUENMS19VQ0xLIDw8IDE2KSB8IChtaW5f
-ZnJlcSAmIDB4ZmZmZikpKSwKIAkJCQkJIkZhaWxlZCB0byBzZXQgc29mdCBtaW4gbWVtY2xrICEi
-LAogCQkJCQlyZXR1cm4gcmV0KTsKLQotCQltaW5fZnJlcSA9IGRhdGEtPmRwbV90YWJsZS5tZW1f
-dGFibGUuZHBtX3N0YXRlLmhhcmRfbWluX2xldmVsOwotCQlQUF9BU1NFUlRfV0lUSF9DT0RFKCEo
-cmV0ID0gc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoCi0JCQkJCWh3bWdyLCBQ
-UFNNQ19NU0dfU2V0SGFyZE1pbkJ5RnJlcSwKLQkJCQkJKFBQQ0xLX1VDTEsgPDwgMTYpIHwgKG1p
-bl9mcmVxICYgMHhmZmZmKSkpLAotCQkJCQkiRmFpbGVkIHRvIHNldCBoYXJkIG1pbiBtZW1jbGsg
-ISIsCi0JCQkJCXJldHVybiByZXQpOwogCX0KIAogCWlmIChkYXRhLT5zbXVfZmVhdHVyZXNbR05M
-RF9EUE1fVVZEXS5lbmFibGVkICYmCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeAo=
+On Mon, Jan 07, 2019 at 07:56:47PM -0500, Lyude Paul wrote:
+> Since I've had to fix two cases of drivers not checking the return code
+> from this function, let's make the compiler complain so this doesn't
+> come up again in the future.
+> 
+> Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: Jerry Zuo <Jerry.Zuo@amd.com>
+> Cc: Daniel Vetter <daniel@ffwll.ch>
+> ---
+>  drivers/gpu/drm/drm_dp_mst_topology.c | 3 ++-
+>  include/drm/drm_dp_mst_helper.h       | 3 ++-
+>  2 files changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
+> index 2ab16c9e6243..13a7e497bfe2 100644
+> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
+> @@ -2226,7 +2226,8 @@ EXPORT_SYMBOL(drm_dp_mst_topology_mgr_suspend);
+>   * if the device fails this returns -1, and the driver should do
+>   * a full MST reprobe, in case we were undocked.
+>   */
+> -int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr)
+> +int __must_check
+
+I think you need the must_check only in the header. With that fixed:
+
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+> +drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr)
+>  {
+>  	int ret = 0;
+>  
+> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
+> index 371cc2816477..4355b55d0081 100644
+> --- a/include/drm/drm_dp_mst_helper.h
+> +++ b/include/drm/drm_dp_mst_helper.h
+> @@ -614,7 +614,8 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
+>  			      struct drm_dp_mst_topology_mgr *mgr);
+>  
+>  void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr);
+> -int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr);
+> +int __must_check
+> +drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr);
+>  struct drm_dp_mst_topology_state *drm_atomic_get_mst_topology_state(struct drm_atomic_state *state,
+>  								    struct drm_dp_mst_topology_mgr *mgr);
+>  int drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
+> -- 
+> 2.20.1
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
