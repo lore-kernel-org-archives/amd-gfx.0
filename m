@@ -1,36 +1,89 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v2 0/3] drm/amdgpu: Fix suspend/resume issues with MST
-Date: Tue,  8 Jan 2019 16:11:26 -0500
-Message-ID: <20190108211133.32564-1-lyude@redhat.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH v2 1/3] drm/amdgpu: Don't ignore rc from drm_dp_mst_topology_mgr_resume()
+Date: Tue,  8 Jan 2019 16:11:27 -0500
+Message-ID: <20190108211133.32564-2-lyude@redhat.com>
+References: <20190108211133.32564-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, "David (ChunMing) Zhou" <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Bhawanpreet Lakha <bhawanpreet.lakha-5C7GfCeVMHo@public.gmane.org>, David Francis <david.francis-5C7GfCeVMHo@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Tony Cheng <tony.cheng-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Shirish S <shirish.s-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Mikita Lipski <mikita.lipski-5C7GfCeVMHo@public.gmane.org>, Anthony Koo <anthony.koo-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190108211133.32564-1-lyude@redhat.com>
+Sender: stable-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, stable@vger.kernel.org, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Tony Cheng <Tony.Cheng@amd.com>, David Francis <David.Francis@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Mikita Lipski <mikita.lipski@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rml4IHRoZSBzdXNwZW5kL2lzc3VlcyB0aGF0IEplcnJ5IFp1byBmb3VuZCBpbiBhbWRncHUsIGFu
-ZCBhZGQgc29tZQpjb21waWxlciB3YXJuaW5ncyBmb3IgZHJpdmVycyBpZ25vcmluZyB0aGUgcmV0
-dXJuIGNvZGUgb2YKZHJtX2RwX21zdF90b3BvbG9neV9tZ3JfcmVzdW1lKCkgdG8gaGVscCBlbnN1
-cmUgd2UgZG9uJ3QgbmVlZCB0byBmaXgKdGhpcyBhZ2FpbiBpbiB0aGUgZnV0dXJlIGZvciBzb21l
-b25lIGVsc2UncyBkcml2ZXIuCgpDYzogSmVycnkgWnVvIDxKZXJyeS5adW9AYW1kLmNvbT4KCkx5
-dWRlIFBhdWwgKDMpOgogIGRybS9hbWRncHU6IERvbid0IGlnbm9yZSByYyBmcm9tIGRybV9kcF9t
-c3RfdG9wb2xvZ3lfbWdyX3Jlc3VtZSgpCiAgZHJtL2FtZGdwdTogRG9uJ3QgZmFpbCByZXN1bWUg
-cHJvY2VzcyBpZiByZXN1bWluZyBhdG9taWMgc3RhdGUgZmFpbHMKICBkcm0vZHBfbXN0OiBBZGQg
-X19tdXN0X2NoZWNrIHRvIGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyX3Jlc3VtZSgpCgogLi4uL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMzcgKysrKysrKysrKysr
-Ky0tLS0tLQogaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIuaCAgICAgICAgICAgICAgIHwg
-IDMgKy0KIDIgZmlsZXMgY2hhbmdlZCwgMjcgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0p
-CgotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+drm_dp_mst_topology_mgr_resume() returns whether or not it managed to
+find the topology in question after a suspend resume cycle, and the
+driver is supposed to check this value and disable MST accordingly if
+it's gone-in addition to sending a hotplug in order to notify userspace
+that something changed during suspend.
+
+Currently, amdgpu just makes the mistake of ignoring the return code
+from drm_dp_mst_topology_mgr_resume() which means that if a topology was
+removed in suspend, amdgpu never notices and assumes it's still
+connected which leads to all sorts of problems.
+
+So, fix this by actually checking the rc from
+drm_dp_mst_topology_mgr_resume(). Also, reformat the rest of the
+function while we're at it to fix the over-indenting.
+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Cc: Jerry Zuo <Jerry.Zuo@amd.com>
+Cc: <stable@vger.kernel.org> # v4.15+
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 +++++++++++++------
+ 1 file changed, 23 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 8a626d16e8e3..3f326a2c513b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -699,22 +699,36 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+ {
+ 	struct amdgpu_dm_connector *aconnector;
+ 	struct drm_connector *connector;
++	struct drm_dp_mst_topology_mgr *mgr;
++	int ret;
++	bool need_hotplug = false;
+ 
+ 	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
+ 
+-	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
+-		   aconnector = to_amdgpu_dm_connector(connector);
+-		   if (aconnector->dc_link->type == dc_connection_mst_branch &&
+-				   !aconnector->mst_port) {
++	list_for_each_entry(connector, &dev->mode_config.connector_list,
++			    head) {
++		aconnector = to_amdgpu_dm_connector(connector);
++		if (aconnector->dc_link->type != dc_connection_mst_branch ||
++		    aconnector->mst_port)
++			continue;
++
++		mgr = &aconnector->mst_mgr;
+ 
+-			   if (suspend)
+-				   drm_dp_mst_topology_mgr_suspend(&aconnector->mst_mgr);
+-			   else
+-				   drm_dp_mst_topology_mgr_resume(&aconnector->mst_mgr);
+-		   }
++		if (suspend) {
++			drm_dp_mst_topology_mgr_suspend(mgr);
++		} else {
++			ret = drm_dp_mst_topology_mgr_resume(mgr);
++			if (ret < 0) {
++				drm_dp_mst_topology_mgr_set_mst(mgr, false);
++				need_hotplug = true;
++			}
++		}
+ 	}
+ 
+ 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
++
++	if (need_hotplug)
++		drm_kms_helper_hotplug_event(dev);
+ }
+ 
+ /**
+-- 
+2.20.1
