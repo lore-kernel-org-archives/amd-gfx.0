@@ -1,89 +1,50 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH v2 1/3] drm/amdgpu: Don't ignore rc from drm_dp_mst_topology_mgr_resume()
-Date: Tue,  8 Jan 2019 16:11:27 -0500
-Message-ID: <20190108211133.32564-2-lyude@redhat.com>
+From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Subject: [PATCH v2 3/3] drm/dp_mst: Add __must_check to
+ drm_dp_mst_topology_mgr_resume()
+Date: Tue,  8 Jan 2019 16:11:29 -0500
+Message-ID: <20190108211133.32564-4-lyude@redhat.com>
 References: <20190108211133.32564-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190108211133.32564-1-lyude@redhat.com>
-Sender: stable-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Jerry Zuo <Jerry.Zuo@amd.com>, stable@vger.kernel.org, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Tony Cheng <Tony.Cheng@amd.com>, David Francis <David.Francis@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Mikita Lipski <mikita.lipski@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190108211133.32564-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
 
-drm_dp_mst_topology_mgr_resume() returns whether or not it managed to
-find the topology in question after a suspend resume cycle, and the
-driver is supposed to check this value and disable MST accordingly if
-it's gone-in addition to sending a hotplug in order to notify userspace
-that something changed during suspend.
-
-Currently, amdgpu just makes the mistake of ignoring the return code
-from drm_dp_mst_topology_mgr_resume() which means that if a topology was
-removed in suspend, amdgpu never notices and assumes it's still
-connected which leads to all sorts of problems.
-
-So, fix this by actually checking the rc from
-drm_dp_mst_topology_mgr_resume(). Also, reformat the rest of the
-function while we're at it to fix the over-indenting.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Cc: Jerry Zuo <Jerry.Zuo@amd.com>
-Cc: <stable@vger.kernel.org> # v4.15+
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 32 +++++++++++++------
- 1 file changed, 23 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8a626d16e8e3..3f326a2c513b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -699,22 +699,36 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
- {
- 	struct amdgpu_dm_connector *aconnector;
- 	struct drm_connector *connector;
-+	struct drm_dp_mst_topology_mgr *mgr;
-+	int ret;
-+	bool need_hotplug = false;
- 
- 	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
- 
--	list_for_each_entry(connector, &dev->mode_config.connector_list, head) {
--		   aconnector = to_amdgpu_dm_connector(connector);
--		   if (aconnector->dc_link->type == dc_connection_mst_branch &&
--				   !aconnector->mst_port) {
-+	list_for_each_entry(connector, &dev->mode_config.connector_list,
-+			    head) {
-+		aconnector = to_amdgpu_dm_connector(connector);
-+		if (aconnector->dc_link->type != dc_connection_mst_branch ||
-+		    aconnector->mst_port)
-+			continue;
-+
-+		mgr = &aconnector->mst_mgr;
- 
--			   if (suspend)
--				   drm_dp_mst_topology_mgr_suspend(&aconnector->mst_mgr);
--			   else
--				   drm_dp_mst_topology_mgr_resume(&aconnector->mst_mgr);
--		   }
-+		if (suspend) {
-+			drm_dp_mst_topology_mgr_suspend(mgr);
-+		} else {
-+			ret = drm_dp_mst_topology_mgr_resume(mgr);
-+			if (ret < 0) {
-+				drm_dp_mst_topology_mgr_set_mst(mgr, false);
-+				need_hotplug = true;
-+			}
-+		}
- 	}
- 
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
-+
-+	if (need_hotplug)
-+		drm_kms_helper_hotplug_event(dev);
- }
- 
- /**
--- 
-2.20.1
+U2luY2UgSSd2ZSBoYWQgdG8gZml4IHR3byBjYXNlcyBvZiBkcml2ZXJzIG5vdCBjaGVja2luZyB0
+aGUgcmV0dXJuIGNvZGUKZnJvbSB0aGlzIGZ1bmN0aW9uLCBsZXQncyBtYWtlIHRoZSBjb21waWxl
+ciBjb21wbGFpbiBzbyB0aGlzIGRvZXNuJ3QKY29tZSB1cCBhZ2FpbiBpbiB0aGUgZnV0dXJlLgoK
+Q2hhbmdlcyBzaW5jZSB2MToKKiBSZW1vdmUgdW5uZWVkZWQgX19tdXN0X2NoZWNrIGluIGZ1bmN0
+aW9uIGRlY2xhcmF0aW9uIC0gZGFudmV0CgpTaWduZWQtb2ZmLWJ5OiBMeXVkZSBQYXVsIDxseXVk
+ZUByZWRoYXQuY29tPgpDYzogSmVycnkgWnVvIDxKZXJyeS5adW9AYW1kLmNvbT4KUmV2aWV3ZWQt
+Ynk6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KUmV2aWV3ZWQtYnk6IEhhcnJ5IFdl
+bnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgotLS0KIGluY2x1ZGUvZHJtL2RybV9kcF9t
+c3RfaGVscGVyLmggfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBk
+ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9kcF9tc3RfaGVscGVyLmgg
+Yi9pbmNsdWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oCmluZGV4IDM3MWNjMjgxNjQ3Ny4uNDM1
+NWI1NWQwMDgxIDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oCisr
+KyBiL2luY2x1ZGUvZHJtL2RybV9kcF9tc3RfaGVscGVyLmgKQEAgLTYxNCw3ICs2MTQsOCBAQCB2
+b2lkIGRybV9kcF9tc3RfZHVtcF90b3BvbG9neShzdHJ1Y3Qgc2VxX2ZpbGUgKm0sCiAJCQkgICAg
+ICBzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncik7CiAKIHZvaWQgZHJtX2RwX21z
+dF90b3BvbG9neV9tZ3Jfc3VzcGVuZChzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1n
+cik7Ci1pbnQgZHJtX2RwX21zdF90b3BvbG9neV9tZ3JfcmVzdW1lKHN0cnVjdCBkcm1fZHBfbXN0
+X3RvcG9sb2d5X21nciAqbWdyKTsKK2ludCBfX211c3RfY2hlY2sKK2RybV9kcF9tc3RfdG9wb2xv
+Z3lfbWdyX3Jlc3VtZShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncik7CiBzdHJ1
+Y3QgZHJtX2RwX21zdF90b3BvbG9neV9zdGF0ZSAqZHJtX2F0b21pY19nZXRfbXN0X3RvcG9sb2d5
+X3N0YXRlKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwKIAkJCQkJCQkJICAgIHN0cnVj
+dCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyKTsKIGludCBkcm1fZHBfYXRvbWljX2ZpbmRf
+dmNwaV9zbG90cyhzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUsCi0tIAoyLjIwLjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
