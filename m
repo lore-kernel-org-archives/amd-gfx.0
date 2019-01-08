@@ -1,26 +1,26 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.9 10/36] drm/amdgpu: Correct get_crtc_scanoutpos
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.4 07/28] drm/amdgpu: Correct get_crtc_scanoutpos
  behavior when vpos >= vtotal
-Date: Tue,  8 Jan 2019 14:33:22 -0500
-Message-ID: <20190108193348.123880-10-sashal@kernel.org>
-References: <20190108193348.123880-1-sashal@kernel.org>
+Date: Tue,  8 Jan 2019 14:34:24 -0500
+Message-ID: <20190108193445.124251-7-sashal@kernel.org>
+References: <20190108193445.124251-1-sashal@kernel.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190108193348.123880-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190108193445.124251-1-sashal@kernel.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
 RnJvbTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgoK
 WyBVcHN0cmVhbSBjb21taXQgNTIwZjA4ZGY0NWZiZTMwMGVkNjUwZGE3ODZhNzQwOTNkNjU4Yjdl
@@ -49,10 +49,10 @@ Zi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
 bS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMgfCA3ICsrKysrKy0KIDEgZmlsZSBjaGFuZ2Vk
 LCA2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
 dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwppbmRleCAxNWEyZDhmMzcyNWQuLjUwNDJhZTA3MjM4NiAx
+bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwppbmRleCBjNTU1NzgxNjg1ZWEuLjA5NDc1Njc5MDBiZiAx
 MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCkBAIC04NTYs
-NyArODU2LDEyIEBAIGludCBhbWRncHVfZ2V0X2NydGNfc2Nhbm91dHBvcyhzdHJ1Y3QgZHJtX2Rl
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCkBAIC04ODMs
+NyArODgzLDEyIEBAIGludCBhbWRncHVfZ2V0X2NydGNfc2Nhbm91dHBvcyhzdHJ1Y3QgZHJtX2Rl
 dmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSwKIAkvKiBJbnNpZGUgInVwcGVyIHBhcnQiIG9m
 IHZibGFuayBhcmVhPyBBcHBseSBjb3JyZWN0aXZlIG9mZnNldCBpZiBzbzogKi8KIAlpZiAoaW5f
 dmJsICYmICgqdnBvcyA+PSB2Ymxfc3RhcnQpKSB7CiAJCXZ0b3RhbCA9IG1vZGUtPmNydGNfdnRv
@@ -62,6 +62,6 @@ YWx1ZS4gQ2xhbXAgdG8gMCB0byByZXR1cm4gLXZibF9lbmQgaW5zdGVhZAorCQkgKiBvZiBndWVz
 c2luZyB0aGUgcmVtYWluaW5nIG51bWJlciBvZiBsaW5lcyB1bnRpbCBzY2Fub3V0LgorCQkgKi8K
 KwkJKnZwb3MgPSAoKnZwb3MgPCB2dG90YWwpID8gKCp2cG9zIC0gdnRvdGFsKSA6IDA7CiAJfQog
 CiAJLyogQ29ycmVjdCBmb3Igc2hpZnRlZCBlbmQgb2YgdmJsIGF0IHZibF9lbmQuICovCi0tIAoy
-LjE5LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+LjE5LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRy
+aS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAo=
