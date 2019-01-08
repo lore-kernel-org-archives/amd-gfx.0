@@ -1,71 +1,61 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH 3/3] drm/dp_mst: Add __must_check to
- drm_dp_mst_topology_mgr_resume()
-Date: Tue, 8 Jan 2019 09:06:35 +0100
-Message-ID: <20190108080635.GO21184@phenom.ffwll.local>
-References: <20190108005651.25967-1-lyude@redhat.com>
- <20190108005651.25967-4-lyude@redhat.com>
+From: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix CPDMA hang in PRT mode for VEGA20
+Date: Tue, 8 Jan 2019 18:55:36 +0800
+Message-ID: <20190108105536.3068-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190108005651.25967-4-lyude@redhat.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Jerry Zuo <Jerry.Zuo@amd.com>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>, yukun1.li-5C7GfCeVMHo@public.gmane.org
 
-On Mon, Jan 07, 2019 at 07:56:47PM -0500, Lyude Paul wrote:
-> Since I've had to fix two cases of drivers not checking the return code
-> from this function, let's make the compiler complain so this doesn't
-> come up again in the future.
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: Jerry Zuo <Jerry.Zuo@amd.com>
-> Cc: Daniel Vetter <daniel@ffwll.ch>
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 3 ++-
->  include/drm/drm_dp_mst_helper.h       | 3 ++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 2ab16c9e6243..13a7e497bfe2 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -2226,7 +2226,8 @@ EXPORT_SYMBOL(drm_dp_mst_topology_mgr_suspend);
->   * if the device fails this returns -1, and the driver should do
->   * a full MST reprobe, in case we were undocked.
->   */
-> -int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr)
-> +int __must_check
-
-I think you need the must_check only in the header. With that fixed:
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-> +drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr)
->  {
->  	int ret = 0;
->  
-> diff --git a/include/drm/drm_dp_mst_helper.h b/include/drm/drm_dp_mst_helper.h
-> index 371cc2816477..4355b55d0081 100644
-> --- a/include/drm/drm_dp_mst_helper.h
-> +++ b/include/drm/drm_dp_mst_helper.h
-> @@ -614,7 +614,8 @@ void drm_dp_mst_dump_topology(struct seq_file *m,
->  			      struct drm_dp_mst_topology_mgr *mgr);
->  
->  void drm_dp_mst_topology_mgr_suspend(struct drm_dp_mst_topology_mgr *mgr);
-> -int drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr);
-> +int __must_check
-> +drm_dp_mst_topology_mgr_resume(struct drm_dp_mst_topology_mgr *mgr);
->  struct drm_dp_mst_topology_state *drm_atomic_get_mst_topology_state(struct drm_atomic_state *state,
->  								    struct drm_dp_mst_topology_mgr *mgr);
->  int drm_dp_atomic_find_vcpi_slots(struct drm_atomic_state *state,
-> -- 
-> 2.20.1
-> 
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+Rml4IENQRE1BIGhhbmcgaW4gUFJUIG1vZGUgZm9yIGJvdGggb2YgVkVHQTEwIGFuZCBWRUdBMjAK
+CkNoYW5nZS1JZDogSTBlNWUwODlkMjE5MjA2M2M0YTA0ZmE2ZGJkNTM0ZjI1ZWIwMTc3YmUKU2ln
+bmVkLW9mZi1ieTogVGFvIFpob3UgPHRhby56aG91MUBhbWQuY29tPgpUZXN0ZWQtYnk6IFl1a3Vu
+LkxpIDx5dWt1bjEubGlAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjlfMC5jIHwgMTAgKysrKystLS0tLQogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygr
+KSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwppbmRl
+eCA5NjhiMTI3YzZjOGYuLmZiY2EwNDk0Zjg3MSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjlfMC5jCkBAIC0xMTMsNyArMTEzLDEwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc29jMTVf
+cmVnX2dvbGRlbiBnb2xkZW5fc2V0dGluZ3NfZ2NfOV8wW10gPQogCVNPQzE1X1JFR19HT0xERU5f
+VkFMVUUoR0MsIDAsIG1tVENQX0NIQU5fU1RFRVJfSEksIDB4ZmZmZmZmZmYsIDB4NGEyYzBlNjgp
+LAogCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tVENQX0NIQU5fU1RFRVJfTE8sIDB4
+ZmZmZmZmZmYsIDB4YjVkM2YxOTcpLAogCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1t
+VkdUX0NBQ0hFX0lOVkFMSURBVElPTiwgMHgzZmZmM2FmMywgMHgxOTIwMDAwMCksCi0JU09DMTVf
+UkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1WR1RfR1NfTUFYX1dBVkVfSUQsIDB4MDAwMDBmZmYs
+IDB4MDAwMDAzZmYpCisJU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1WR1RfR1NfTUFY
+X1dBVkVfSUQsIDB4MDAwMDBmZmYsIDB4MDAwMDAzZmYpLAorCVNPQzE1X1JFR19HT0xERU5fVkFM
+VUUoR0MsIDAsIG1tQ1BfTUVDMV9GMzJfSU5UX0RJUywgMHgwMDAwMDAwMCwgMHgwMDAwMDgwMCks
+CisJU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1DUF9NRUMyX0YzMl9JTlRfRElTLCAw
+eDAwMDAwMDAwLCAweDAwMDAwODAwKSwKKwlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBt
+bUNQX0RFQlVHLCAweDAwMDAwMDAwLCAweDAwMDA4MDAwKQogfTsKIAogc3RhdGljIGNvbnN0IHN0
+cnVjdCBzb2MxNV9yZWdfZ29sZGVuIGdvbGRlbl9zZXR0aW5nc19nY185XzBfdmcxMFtdID0KQEAg
+LTEzNSwxMCArMTM4LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzb2MxNV9yZWdfZ29sZGVuIGdv
+bGRlbl9zZXR0aW5nc19nY185XzBfdmcxMFtdID0KIAlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdD
+LCAwLCBtbVJNSV9VVENMMV9DTlRMMiwgMHgwMDAzMDAwMCwgMHgwMDAyMDAwMCksCiAJU09DMTVf
+UkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1TUElfQ09ORklHX0NOVExfMSwgMHgwMDAwMDAwZiwg
+MHgwMTAwMDEwNyksCiAJU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1URF9DTlRMLCAw
+eDAwMDAxODAwLCAweDAwMDAwODAwKSwKLQlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBt
+bVdEX1VUQ0wxX0NOVEwsIDB4MDgwMDAwMDAsIDB4MDgwMDAwODApLAotCVNPQzE1X1JFR19HT0xE
+RU5fVkFMVUUoR0MsIDAsIG1tQ1BfTUVDMV9GMzJfSU5UX0RJUywgMHgwMDAwMDAwMCwgMHgwMDAw
+MDgwMCksCi0JU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1DUF9NRUMyX0YzMl9JTlRf
+RElTLCAweDAwMDAwMDAwLCAweDAwMDAwODAwKSwKLQlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdD
+LCAwLCBtbUNQX0RFQlVHLCAweDAwMDAwMDAwLCAweDAwMDA4MDAwKQorCVNPQzE1X1JFR19HT0xE
+RU5fVkFMVUUoR0MsIDAsIG1tV0RfVVRDTDFfQ05UTCwgMHgwODAwMDAwMCwgMHgwODAwMDA4MCkK
+IH07CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc29jMTVfcmVnX2dvbGRlbiBnb2xkZW5fc2V0dGlu
+Z3NfZ2NfOV8wX3ZnMjBbXSA9Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo=
