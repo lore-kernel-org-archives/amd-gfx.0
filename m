@@ -1,14 +1,14 @@
 From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.14 13/53] drm/amdgpu: Correct get_crtc_scanoutpos
+Subject: [PATCH AUTOSEL 4.9 10/36] drm/amdgpu: Correct get_crtc_scanoutpos
  behavior when vpos >= vtotal
-Date: Tue,  8 Jan 2019 14:31:41 -0500
-Message-ID: <20190108193222.123316-13-sashal@kernel.org>
-References: <20190108193222.123316-1-sashal@kernel.org>
+Date: Tue,  8 Jan 2019 14:33:22 -0500
+Message-ID: <20190108193348.123880-10-sashal@kernel.org>
+References: <20190108193348.123880-1-sashal@kernel.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190108193222.123316-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+In-Reply-To: <20190108193348.123880-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -49,10 +49,10 @@ Zi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
 bS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMgfCA3ICsrKysrKy0KIDEgZmlsZSBjaGFuZ2Vk
 LCA2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
 dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwppbmRleCA2YWQyNDMyOTNhNzguLjhjMGEyMDhlNDNjNSAx
+bWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwppbmRleCAxNWEyZDhmMzcyNWQuLjUwNDJhZTA3MjM4NiAx
 MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCkBAIC04NTUs
-NyArODU1LDEyIEBAIGludCBhbWRncHVfZ2V0X2NydGNfc2Nhbm91dHBvcyhzdHJ1Y3QgZHJtX2Rl
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCkBAIC04NTYs
+NyArODU2LDEyIEBAIGludCBhbWRncHVfZ2V0X2NydGNfc2Nhbm91dHBvcyhzdHJ1Y3QgZHJtX2Rl
 dmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSwKIAkvKiBJbnNpZGUgInVwcGVyIHBhcnQiIG9m
 IHZibGFuayBhcmVhPyBBcHBseSBjb3JyZWN0aXZlIG9mZnNldCBpZiBzbzogKi8KIAlpZiAoaW5f
 dmJsICYmICgqdnBvcyA+PSB2Ymxfc3RhcnQpKSB7CiAJCXZ0b3RhbCA9IG1vZGUtPmNydGNfdnRv
