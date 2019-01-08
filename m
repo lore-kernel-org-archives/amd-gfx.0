@@ -1,78 +1,66 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.19 04/97] drm/amdkfd: fix interrupt spin lock
-Date: Tue,  8 Jan 2019 14:28:13 -0500
-Message-ID: <20190108192949.122407-4-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 26/97] drm/amdgpu: Correct get_crtc_scanoutpos behavior when vpos >= vtotal
+Date: Tue,  8 Jan 2019 14:28:35 -0500
+Message-ID: <20190108192949.122407-26-sashal@kernel.org>
 References: <20190108192949.122407-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190108192949.122407-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190108192949.122407-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKWyBVcHN0
-cmVhbSBjb21taXQgMjM4M2E3NjdjMGNhMDZmOTY1MzQ0NTZkODMxMzkwOTAxN2M2YzhkMCBdCgpW
-ZWdhMTAgaGFzIG11bHRpcGxlIGludGVycnVwdCByaW5ncywgc28gdGhpcyBjYW4gYmUgY2FsbGVk
-IGZyb20gbXVsdGlwbGUKY2FsbGVzIGF0IHRoZSBzYW1lIHRpbWUgcmVzdWx0aW5nIGluOgoKWyAg
-IDcxLjc3OTMzNF0gPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KWyAgIDcxLjc3OTQw
-Nl0gV0FSTklORzogaW5jb25zaXN0ZW50IGxvY2sgc3RhdGUKWyAgIDcxLjc3OTQ3OF0gNC4xOS4w
-LXJjMSsgIzQ0IFRhaW50ZWQ6IEcgICAgICAgIFcKWyAgIDcxLjc3OTU2NV0gLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0KWyAgIDcxLjc3OTYzN10gaW5jb25zaXN0ZW50IHtJTi1IQVJE
-SVJRLVd9IC0+IHtIQVJESVJRLU9OLVd9IHVzYWdlLgpbICAgNzEuNzc5NzQwXSBrd29ya2VyLzY6
-MS8xMjAgW0hDMFswXTpTQzBbMF06SEUxOlNFMV0gdGFrZXM6ClsgICA3MS43Nzk4MzJdIDAwMDAw
-MDAwYWQ3NjE5NzEgKCYoJmtmZC0+aW50ZXJydXB0X2xvY2spLT5ybG9jayl7Py4uLn0sCmF0OiBr
-Z2Qya2ZkX2ludGVycnVwdCsweDc1LzB4MTAwIFthbWRncHVdClsgICA3MS43ODAwNThdIHtJTi1I
-QVJESVJRLVd9IHN0YXRlIHdhcyByZWdpc3RlcmVkIGF0OgpbICAgNzEuNzgwMTE1XSAgIF9yYXdf
-c3Bpbl9sb2NrKzB4MmMvMHg0MApbICAgNzEuNzgwMTgwXSAgIGtnZDJrZmRfaW50ZXJydXB0KzB4
-NzUvMHgxMDAgW2FtZGdwdV0KWyAgIDcxLjc4MDI0OF0gICBhbWRncHVfaXJxX2NhbGxiYWNrKzB4
-NmMvMHgxNTAgW2FtZGdwdV0KWyAgIDcxLjc4MDMxNV0gICBhbWRncHVfaWhfcHJvY2VzcysweDg4
-LzB4MTAwIFthbWRncHVdClsgICA3MS43ODAzODBdICAgYW1kZ3B1X2lycV9oYW5kbGVyKzB4MjAv
-MHg0MCBbYW1kZ3B1XQpbICAgNzEuNzgwNDA5XSAgIF9faGFuZGxlX2lycV9ldmVudF9wZXJjcHUr
-MHg0OS8weDJhMApbICAgNzEuNzgwNDM2XSAgIGhhbmRsZV9pcnFfZXZlbnRfcGVyY3B1KzB4MzAv
-MHg3MApbICAgNzEuNzgwNDYxXSAgIGhhbmRsZV9pcnFfZXZlbnQrMHgzNy8weDYwClsgICA3MS43
-ODA0ODRdICAgaGFuZGxlX2VkZ2VfaXJxKzB4ODMvMHgxYjAKWyAgIDcxLjc4MDUwNl0gICBoYW5k
-bGVfaXJxKzB4MWYvMHgzMApbICAgNzEuNzgwNTI2XSAgIGRvX0lSUSsweDUzLzB4MTEwClsgICA3
-MS43ODA1NDRdICAgcmV0X2Zyb21faW50cisweDAvMHgyMgpbICAgNzEuNzgwNTY2XSAgIGNwdWlk
-bGVfZW50ZXJfc3RhdGUrMHhhYS8weDMzMApbICAgNzEuNzgwNTkxXSAgIGRvX2lkbGUrMHgyMDMv
-MHgyODAKWyAgIDcxLjc4MDYxMF0gICBjcHVfc3RhcnR1cF9lbnRyeSsweDZmLzB4ODAKWyAgIDcx
-Ljc4MDYzNF0gICBzdGFydF9zZWNvbmRhcnkrMHgxYjAvMHgyMDAKWyAgIDcxLjc4MDY1N10gICBz
-ZWNvbmRhcnlfc3RhcnR1cF82NCsweGE0LzB4YjAKCkZpeCB0aGlzIGJ5IGFsd2F5cyB1c2luZyBp
-cnEgc2F2ZSBzcGluIGxvY2tzLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hy
-aXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
-ZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVs
-Lm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMgfCA1ICsr
-Ky0tCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYwppbmRleCAxNDI3Njc1ZDBlNWEuLjVh
-YmE1MGY2M2FjNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rl
-dmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYwpAQCAt
-NjYxLDYgKzY2MSw3IEBAIHZvaWQga2dkMmtmZF9pbnRlcnJ1cHQoc3RydWN0IGtmZF9kZXYgKmtm
-ZCwgY29uc3Qgdm9pZCAqaWhfcmluZ19lbnRyeSkKIHsKIAl1aW50MzJfdCBwYXRjaGVkX2locmVb
-S0ZEX01BWF9SSU5HX0VOVFJZX1NJWkVdOwogCWJvb2wgaXNfcGF0Y2hlZCA9IGZhbHNlOworCXVu
-c2lnbmVkIGxvbmcgZmxhZ3M7CiAKIAlpZiAoIWtmZC0+aW5pdF9jb21wbGV0ZSkKIAkJcmV0dXJu
-OwpAQCAtNjcwLDcgKzY3MSw3IEBAIHZvaWQga2dkMmtmZF9pbnRlcnJ1cHQoc3RydWN0IGtmZF9k
-ZXYgKmtmZCwgY29uc3Qgdm9pZCAqaWhfcmluZ19lbnRyeSkKIAkJcmV0dXJuOwogCX0KIAotCXNw
-aW5fbG9jaygma2ZkLT5pbnRlcnJ1cHRfbG9jayk7CisJc3Bpbl9sb2NrX2lycXNhdmUoJmtmZC0+
-aW50ZXJydXB0X2xvY2ssIGZsYWdzKTsKIAogCWlmIChrZmQtPmludGVycnVwdHNfYWN0aXZlCiAJ
-ICAgICYmIGludGVycnVwdF9pc193YW50ZWQoa2ZkLCBpaF9yaW5nX2VudHJ5LApAQCAtNjc5LDcg
-KzY4MCw3IEBAIHZvaWQga2dkMmtmZF9pbnRlcnJ1cHQoc3RydWN0IGtmZF9kZXYgKmtmZCwgY29u
-c3Qgdm9pZCAqaWhfcmluZ19lbnRyeSkKIAkJCQkgICAgIGlzX3BhdGNoZWQgPyBwYXRjaGVkX2lo
-cmUgOiBpaF9yaW5nX2VudHJ5KSkKIAkJcXVldWVfd29yayhrZmQtPmloX3dxLCAma2ZkLT5pbnRl
-cnJ1cHRfd29yayk7CiAKLQlzcGluX3VubG9jaygma2ZkLT5pbnRlcnJ1cHRfbG9jayk7CisJc3Bp
-bl91bmxvY2tfaXJxcmVzdG9yZSgma2ZkLT5pbnRlcnJ1cHRfbG9jaywgZmxhZ3MpOwogfQogCiBp
-bnQga2dkMmtmZF9xdWllc2NlX21tKHN0cnVjdCBtbV9zdHJ1Y3QgKm1tKQotLSAKMi4xOS4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
+[ Upstream commit 520f08df45fbe300ed650da786a74093d658b7e1 ]
+
+When variable refresh rate is active the hardware counter can return
+a position >= vtotal. This results in a vpos being returned from
+amdgpu_display_get_crtc_scanoutpos that's a positive value. The
+positive value indicates to the caller that the display is
+currently in scanout when the display is actually still in vblank.
+
+This is because the vfront porch duration is unknown with variable
+refresh active and will end when either a page flip occurs or the
+timeout specified by the driver/display is reached.
+
+The behavior of the amdgpu_display_get_crtc_scanoutpos remains the
+same when the position is below vtotal. When the position is above
+vtotal the function will return a value that is effectively -vbl_end,
+the size of the vback porch.
+
+The only caller affected by this change is the DRM helper for
+calculating vblank timestamps. This change corrects behavior for
+calculating the page flip timestamp from being the previous timestamp
+to the calculation to the next timestamp when position >= vtotal.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 686a26de50f9..9c940bbed608 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -857,7 +857,12 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
+ 	/* Inside "upper part" of vblank area? Apply corrective offset if so: */
+ 	if (in_vbl && (*vpos >= vbl_start)) {
+ 		vtotal = mode->crtc_vtotal;
+-		*vpos = *vpos - vtotal;
++
++		/* With variable refresh rate displays the vpos can exceed
++		 * the vtotal value. Clamp to 0 to return -vbl_end instead
++		 * of guessing the remaining number of lines until scanout.
++		 */
++		*vpos = (*vpos < vtotal) ? (*vpos - vtotal) : 0;
+ 	}
+ 
+ 	/* Correct for shifted end of vbl at vbl_end. */
+-- 
+2.19.1
