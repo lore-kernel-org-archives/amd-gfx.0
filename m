@@ -1,11 +1,13 @@
-From: Ilya Trukhanov <lahvuun-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Adaptive Sync/VRR not working in multi-head with a non-freesync
- monitor
-Date: Tue, 8 Jan 2019 14:41:48 +0200
-Message-ID: <20190108124148.GA28230@lahvuun.homenetwork>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix CPDMA hang in PRT mode for VEGA20
+Date: Tue, 8 Jan 2019 09:36:41 -0500
+Message-ID: <CADnq5_MDWwO=b88pU09bLqt4F46mMA0yK-L3aNUOThw9CfuuAw@mail.gmail.com>
+References: <20190108105536.3068-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0001579327=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190108105536.3068-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,81 +18,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Cc: yukun1.li-5C7GfCeVMHo@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-
---===============0001579327==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="sm4nu43k4a2Rpi4c"
-Content-Disposition: inline
-
-
---sm4nu43k4a2Rpi4c
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-
-Tried Unigine Valley with bspwm and Plasma, Freesync does not get
-engaged when second monitor (without Freesync support) is in use.
-If I turn it off with e.g.
-
-$ xrandr --output HDMI-A-0 --off
-
-Freesync immediately starts working. Once I turn the monitor back on,
-Freesync is gone.
-
-
-Looking through one of the patches at
-https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu/merge_requests/5
-I found this:
-
-> Per-CRTC support is gone for enabling variable refresh.
-> A window must cover the entire X screen in order to flip
-> so every CRTC must be enabled or disabled at the same time.
-
-If I understood correctly, in case of multi-head, a window must span
-across all monitors, with all monitors having Freesync support.
-Therefore, my setup won't work in this case. However, it *does* work on
-Windows (albeit only one monitor has Freesync working, obviously).
-
-Am I missing something obvious?
-Or is this some kind of X design limitation?
-Are there any possible workarounds to achieve the same functionality as
-on Windows?
-
-
-I would greatly appreciate some clarification on this topic. Thank you!
-
---sm4nu43k4a2Rpi4c
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: Digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEERcDmQ1GAJW37CHdJz7C5mTm6ygcFAlw0mooACgkQz7C5mTm6
-ygdP3w//V16HlNDSnWJt/MVVX1OnWgRJNm4lMygxqUwazrrFa6BOsi5AtaQWwQrn
-lyUvN2CFc4UtqeXLL2Sodk78jN3I77eRTziOkUgux6voGjIWd374sfc0tr6hwe/L
-2s7ATvM7bclQ6XBG30Q+0z4QTc/5hT08Pp3ROyrVBX3TbaFCc5JQsfMLgCKs5ZSi
-r82y1kqzR5ZF52Wsd2AOfv332v0XYyqaEHMp78AsTsuFDR9TkfZRD8gcMqOkj5AK
-dCWdz9PS0hdK2kWOfhk1fBuHH6V2MZTOkxOJog3vTpkMMuctb9oSe6wS7UFE5+wG
-b39+vF3/ad1L1pstvGneR9u+hUQjUq0gO5mNiipC20UpOyh2SDUDARQMGzvLgkxd
-gpEqfnexzKEnYV0X2TN1EyzAnXG8cpj/jGir4fabfOg+VALA1v3x7+bbFQpsoJSg
-yTJ3tP3XnLdOsc20VXYppaD3xxywTdck7KgueZPuLcsZhlqv+4jYX4REATyZp0qU
-0fDlvEV2XQWPbkgMSWRw7yovb3UcI8JJumru2w80UKIfXWx/+otJsBrZ6l1Ir/hR
-5+r4RNewLmqH2qsn4ySVJcGPZxcaH+KY8EhwbCtG3Q4sbb5DfwV2SMcbX2ilKr5D
-GaoRnqBSOufSON7aySUJjHoOJvtqfmpA4IiQAC28Kn2KeOH3NcY=
-=NWR+
------END PGP SIGNATURE-----
-
---sm4nu43k4a2Rpi4c--
-
---===============0001579327==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0001579327==--
+T24gVHVlLCBKYW4gOCwgMjAxOSBhdCA1OjU1IEFNIFRhbyBaaG91IDx0YW8uemhvdTFAYW1kLmNv
+bT4gd3JvdGU6Cj4KPiBGaXggQ1BETUEgaGFuZyBpbiBQUlQgbW9kZSBmb3IgYm90aCBvZiBWRUdB
+MTAgYW5kIFZFR0EyMAo+Cj4gQ2hhbmdlLUlkOiBJMGU1ZTA4OWQyMTkyMDYzYzRhMDRmYTZkYmQ1
+MzRmMjVlYjAxNzdiZQo+IFNpZ25lZC1vZmYtYnk6IFRhbyBaaG91IDx0YW8uemhvdTFAYW1kLmNv
+bT4KPiBUZXN0ZWQtYnk6IFl1a3VuLkxpIDx5dWt1bjEubGlAYW1kLmNvbT4KCkFja2VkLWJ5OiBB
+bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgMTAgKysrKystLS0tLQo+ICAxIGZpbGUg
+Y2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggOTY4YjEyN2M2YzhmLi5mYmNhMDQ5NGY4NzEg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBAQCAtMTEzLDcgKzEx
+MywxMCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29sZGVuX3NldHRp
+bmdzX2djXzlfMFtdID0KPiAgICAgICAgIFNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1t
+VENQX0NIQU5fU1RFRVJfSEksIDB4ZmZmZmZmZmYsIDB4NGEyYzBlNjgpLAo+ICAgICAgICAgU09D
+MTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1UQ1BfQ0hBTl9TVEVFUl9MTywgMHhmZmZmZmZm
+ZiwgMHhiNWQzZjE5NyksCj4gICAgICAgICBTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBt
+bVZHVF9DQUNIRV9JTlZBTElEQVRJT04sIDB4M2ZmZjNhZjMsIDB4MTkyMDAwMDApLAo+IC0gICAg
+ICAgU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1WR1RfR1NfTUFYX1dBVkVfSUQsIDB4
+MDAwMDBmZmYsIDB4MDAwMDAzZmYpCj4gKyAgICAgICBTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdD
+LCAwLCBtbVZHVF9HU19NQVhfV0FWRV9JRCwgMHgwMDAwMGZmZiwgMHgwMDAwMDNmZiksCj4gKyAg
+ICAgICBTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBtbUNQX01FQzFfRjMyX0lOVF9ESVMs
+IDB4MDAwMDAwMDAsIDB4MDAwMDA4MDApLAo+ICsgICAgICAgU09DMTVfUkVHX0dPTERFTl9WQUxV
+RShHQywgMCwgbW1DUF9NRUMyX0YzMl9JTlRfRElTLCAweDAwMDAwMDAwLCAweDAwMDAwODAwKSwK
+PiArICAgICAgIFNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tQ1BfREVCVUcsIDB4MDAw
+MDAwMDAsIDB4MDAwMDgwMDApCj4gIH07Cj4KPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBzb2MxNV9y
+ZWdfZ29sZGVuIGdvbGRlbl9zZXR0aW5nc19nY185XzBfdmcxMFtdID0KPiBAQCAtMTM1LDEwICsx
+MzgsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29sZGVuX3NldHRp
+bmdzX2djXzlfMF92ZzEwW10gPQo+ICAgICAgICAgU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywg
+MCwgbW1STUlfVVRDTDFfQ05UTDIsIDB4MDAwMzAwMDAsIDB4MDAwMjAwMDApLAo+ICAgICAgICAg
+U09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1TUElfQ09ORklHX0NOVExfMSwgMHgwMDAw
+MDAwZiwgMHgwMTAwMDEwNyksCj4gICAgICAgICBTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAw
+LCBtbVREX0NOVEwsIDB4MDAwMDE4MDAsIDB4MDAwMDA4MDApLAo+IC0gICAgICAgU09DMTVfUkVH
+X0dPTERFTl9WQUxVRShHQywgMCwgbW1XRF9VVENMMV9DTlRMLCAweDA4MDAwMDAwLCAweDA4MDAw
+MDgwKSwKPiAtICAgICAgIFNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tQ1BfTUVDMV9G
+MzJfSU5UX0RJUywgMHgwMDAwMDAwMCwgMHgwMDAwMDgwMCksCj4gLSAgICAgICBTT0MxNV9SRUdf
+R09MREVOX1ZBTFVFKEdDLCAwLCBtbUNQX01FQzJfRjMyX0lOVF9ESVMsIDB4MDAwMDAwMDAsIDB4
+MDAwMDA4MDApLAo+IC0gICAgICAgU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1DUF9E
+RUJVRywgMHgwMDAwMDAwMCwgMHgwMDAwODAwMCkKPiArICAgICAgIFNPQzE1X1JFR19HT0xERU5f
+VkFMVUUoR0MsIDAsIG1tV0RfVVRDTDFfQ05UTCwgMHgwODAwMDAwMCwgMHgwODAwMDA4MCkKPiAg
+fTsKPgo+ICBzdGF0aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29sZGVuX3NldHRp
+bmdzX2djXzlfMF92ZzIwW10gPQo+IC0tCj4gMi4xNy4xCj4KPiBfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
