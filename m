@@ -1,13 +1,16 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: expose sclk and mclk via hwmon
-Date: Tue, 8 Jan 2019 21:32:29 +0000
-Message-ID: <BN6PR12MB1809786BD491F93EADF09B5FF78A0@BN6PR12MB1809.namprd12.prod.outlook.com>
+Date: Tue, 8 Jan 2019 21:43:56 +0000
+Message-ID: <7475fd2a-6207-2d76-77ea-fe9626695628@amd.com>
 References: <20181210211727.2840-1-alexander.deucher@amd.com>
+ <BN6PR12MB1809786BD491F93EADF09B5FF78A0@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1835830894=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181210211727.2840-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809786BD491F93EADF09B5FF78A0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
+Content-ID: <7A02D7811D3FB04AA7D7950ED29A203D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,491 +21,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "Freehill, Chris" <Chris.Freehill-5C7GfCeVMHo@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "Freehill, Chris" <Chris.Freehill-5C7GfCeVMHo@public.gmane.org>
 
---===============1835830894==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809786BD491F93EADF09B5FF78A0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809786BD491F93EADF09B5FF78A0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Ping?  Useful for rocm-smi?
-
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, December 10, 2018 4:17:27 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: [PATCH] drm/amdgpu: expose sclk and mclk via hwmon
-
-Expose sclk (gfx clock) and mclk (memory clock) via
-hwmon compatible interface.  hwmon does not actually
-formally specify a frequency type attribute, but these
-are compatible with the format of the other attributes
-exposed via hwmon.  Units are hertz.
-
-freq1_input - GPU gfx/compute clock in hertz
-freq2_input - GPU memory clock in hertz (dGPU only)
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 93 ++++++++++++++++++++++++++++++=
-++++
- 1 file changed, 93 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index 1f61ed95727c..6d52428fc45b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -1516,6 +1516,75 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct dev=
-ice *dev,
-         return count;
- }
-
-+static ssize_t amdgpu_hwmon_show_sclk(struct device *dev,
-+                                     struct device_attribute *attr,
-+                                     char *buf)
-+{
-+       struct amdgpu_device *adev =3D dev_get_drvdata(dev);
-+       struct drm_device *ddev =3D adev->ddev;
-+       uint32_t sclk;
-+       int r, size =3D sizeof(sclk);
-+
-+       /* Can't get voltage when the card is off */
-+       if  ((adev->flags & AMD_IS_PX) &&
-+            (ddev->switch_power_state !=3D DRM_SWITCH_POWER_ON))
-+               return -EINVAL;
-+
-+       /* sanity check PP is enabled */
-+       if (!(adev->powerplay.pp_funcs &&
-+             adev->powerplay.pp_funcs->read_sensor))
-+             return -EINVAL;
-+
-+       /* get the sclk */
-+       r =3D amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GFX_SCLK,
-+                                  (void *)&sclk, &size);
-+       if (r)
-+               return r;
-+
-+       return snprintf(buf, PAGE_SIZE, "%d\n", sclk * 10 * 1000);
-+}
-+
-+static ssize_t amdgpu_hwmon_show_sclk_label(struct device *dev,
-+                                           struct device_attribute *attr,
-+                                           char *buf)
-+{
-+       return snprintf(buf, PAGE_SIZE, "sclk\n");
-+}
-+
-+static ssize_t amdgpu_hwmon_show_mclk(struct device *dev,
-+                                     struct device_attribute *attr,
-+                                     char *buf)
-+{
-+       struct amdgpu_device *adev =3D dev_get_drvdata(dev);
-+       struct drm_device *ddev =3D adev->ddev;
-+       uint32_t mclk;
-+       int r, size =3D sizeof(mclk);
-+
-+       /* Can't get voltage when the card is off */
-+       if  ((adev->flags & AMD_IS_PX) &&
-+            (ddev->switch_power_state !=3D DRM_SWITCH_POWER_ON))
-+               return -EINVAL;
-+
-+       /* sanity check PP is enabled */
-+       if (!(adev->powerplay.pp_funcs &&
-+             adev->powerplay.pp_funcs->read_sensor))
-+             return -EINVAL;
-+
-+       /* get the sclk */
-+       r =3D amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GFX_MCLK,
-+                                  (void *)&mclk, &size);
-+       if (r)
-+               return r;
-+
-+       return snprintf(buf, PAGE_SIZE, "%d\n", mclk * 10 * 1000);
-+}
-+
-+static ssize_t amdgpu_hwmon_show_mclk_label(struct device *dev,
-+                                           struct device_attribute *attr,
-+                                           char *buf)
-+{
-+       return snprintf(buf, PAGE_SIZE, "mclk\n");
-+}
-
- /**
-  * DOC: hwmon
-@@ -1532,6 +1601,10 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct dev=
-ice *dev,
-  *
-  * - GPU fan
-  *
-+ * - GPU gfx/compute engine clock
-+ *
-+ * - GPU memory clock (dGPU only)
-+ *
-  * hwmon interfaces for GPU temperature:
-  *
-  * - temp1_input: the on die GPU temperature in millidegrees Celsius
-@@ -1576,6 +1649,12 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct dev=
-ice *dev,
-  *
-  * - fan[1-*]_enable: Enable or disable the sensors.1: Enable 0: Disable
-  *
-+ * hwmon interfaces for GPU clocks:
-+ *
-+ * - freq1_input: the gfx/compute clock in hertz
-+ *
-+ * - freq2_input: the memory clock in hertz
-+ *
-  * You can use hwmon tools like sensors to view this information on your s=
-ystem.
-  *
-  */
-@@ -1600,6 +1679,10 @@ static SENSOR_DEVICE_ATTR(power1_average, S_IRUGO, a=
-mdgpu_hwmon_show_power_avg,
- static SENSOR_DEVICE_ATTR(power1_cap_max, S_IRUGO, amdgpu_hwmon_show_power=
-_cap_max, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_cap_min, S_IRUGO, amdgpu_hwmon_show_power=
-_cap_min, NULL, 0);
- static SENSOR_DEVICE_ATTR(power1_cap, S_IRUGO | S_IWUSR, amdgpu_hwmon_show=
-_power_cap, amdgpu_hwmon_set_power_cap, 0);
-+static SENSOR_DEVICE_ATTR(freq1_input, S_IRUGO, amdgpu_hwmon_show_sclk, NU=
-LL, 0);
-+static SENSOR_DEVICE_ATTR(freq1_label, S_IRUGO, amdgpu_hwmon_show_sclk_lab=
-el, NULL, 0);
-+static SENSOR_DEVICE_ATTR(freq2_input, S_IRUGO, amdgpu_hwmon_show_mclk, NU=
-LL, 0);
-+static SENSOR_DEVICE_ATTR(freq2_label, S_IRUGO, amdgpu_hwmon_show_mclk_lab=
-el, NULL, 0);
-
- static struct attribute *hwmon_attributes[] =3D {
-         &sensor_dev_attr_temp1_input.dev_attr.attr,
-@@ -1622,6 +1705,10 @@ static struct attribute *hwmon_attributes[] =3D {
-         &sensor_dev_attr_power1_cap_max.dev_attr.attr,
-         &sensor_dev_attr_power1_cap_min.dev_attr.attr,
-         &sensor_dev_attr_power1_cap.dev_attr.attr,
-+       &sensor_dev_attr_freq1_input.dev_attr.attr,
-+       &sensor_dev_attr_freq1_label.dev_attr.attr,
-+       &sensor_dev_attr_freq2_input.dev_attr.attr,
-+       &sensor_dev_attr_freq2_label.dev_attr.attr,
-         NULL
- };
-
-@@ -1712,6 +1799,12 @@ static umode_t hwmon_attributes_visible(struct kobje=
-ct *kobj,
-              attr =3D=3D &sensor_dev_attr_in1_label.dev_attr.attr))
-                 return 0;
-
-+       /* no mclk on APUs */
-+       if ((adev->flags & AMD_IS_APU) &&
-+           (attr =3D=3D &sensor_dev_attr_freq2_input.dev_attr.attr ||
-+            attr =3D=3D &sensor_dev_attr_freq2_label.dev_attr.attr))
-+               return 0;
-+
-         return effective_mode;
- }
-
---
-2.13.6
-
-
---_000_BN6PR12MB1809786BD491F93EADF09B5FF78A0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Ping?&nbsp; Useful for rocm-smi?<=
-br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, December 10, 2018 4:17:27 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: expose sclk and mclk via hwmon</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Expose sclk (gfx clock) and mclk (memory clock) vi=
-a<br>
-hwmon compatible interface.&nbsp; hwmon does not actually<br>
-formally specify a frequency type attribute, but these<br>
-are compatible with the format of the other attributes<br>
-exposed via hwmon.&nbsp; Units are hertz.<br>
-<br>
-freq1_input - GPU gfx/compute clock in hertz<br>
-freq2_input - GPU memory clock in hertz (dGPU only)<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 93 &#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 93 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index 1f61ed95727c..6d52428fc45b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -1516,6 &#43;1516,75 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct=
- device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count;<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static ssize_t amdgpu_hwmon_show_sclk(struct device *dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str=
-uct device_attribute *attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cha=
-r *buf)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D de=
-v_get_drvdata(dev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *ddev =3D adev-=
-&gt;ddev;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, size =3D sizeof(sclk);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Can't get voltage when the car=
-d is off */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; ((adev-&gt;flags &amp; A=
-MD_IS_PX) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (dd=
-ev-&gt;switch_power_state !=3D DRM_SWITCH_POWER_ON))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* sanity check PP is enabled */<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;powerplay.pp_funcs=
- &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; adev-&gt;powerplay.pp_funcs-&gt;read_sensor))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* get the sclk */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_dpm_read_sensor(adev=
-, AMDGPU_PP_SENSOR_GFX_SCLK,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (void *)&amp;sclk, &a=
-mp;size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return r;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
-quot;%d\n&quot;, sclk * 10 * 1000);<br>
-&#43;}<br>
-&#43;<br>
-&#43;static ssize_t amdgpu_hwmon_show_sclk_label(struct device *dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
-quot;sclk\n&quot;);<br>
-&#43;}<br>
-&#43;<br>
-&#43;static ssize_t amdgpu_hwmon_show_mclk(struct device *dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str=
-uct device_attribute *attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cha=
-r *buf)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D de=
-v_get_drvdata(dev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *ddev =3D adev-=
-&gt;ddev;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mclk;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r, size =3D sizeof(mclk);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Can't get voltage when the car=
-d is off */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if&nbsp; ((adev-&gt;flags &amp; A=
-MD_IS_PX) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (dd=
-ev-&gt;switch_power_state !=3D DRM_SWITCH_POWER_ON))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* sanity check PP is enabled */<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;powerplay.pp_funcs=
- &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; adev-&gt;powerplay.pp_funcs-&gt;read_sensor))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* get the sclk */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_dpm_read_sensor(adev=
-, AMDGPU_PP_SENSOR_GFX_MCLK,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (void *)&amp;mclk, &a=
-mp;size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return r;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
-quot;%d\n&quot;, mclk * 10 * 1000);<br>
-&#43;}<br>
-&#43;<br>
-&#43;static ssize_t amdgpu_hwmon_show_mclk_label(struct device *dev,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
-quot;mclk\n&quot;);<br>
-&#43;}<br>
-&nbsp;<br>
-&nbsp;/**<br>
-&nbsp; * DOC: hwmon<br>
-@@ -1532,6 &#43;1601,10 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct=
- device *dev,<br>
-&nbsp; *<br>
-&nbsp; * - GPU fan<br>
-&nbsp; *<br>
-&#43; * - GPU gfx/compute engine clock<br>
-&#43; *<br>
-&#43; * - GPU memory clock (dGPU only)<br>
-&#43; *<br>
-&nbsp; * hwmon interfaces for GPU temperature:<br>
-&nbsp; *<br>
-&nbsp; * - temp1_input: the on die GPU temperature in millidegrees Celsius<=
-br>
-@@ -1576,6 &#43;1649,12 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct=
- device *dev,<br>
-&nbsp; *<br>
-&nbsp; * - fan[1-*]_enable: Enable or disable the sensors.1: Enable 0: Disa=
-ble<br>
-&nbsp; *<br>
-&#43; * hwmon interfaces for GPU clocks:<br>
-&#43; *<br>
-&#43; * - freq1_input: the gfx/compute clock in hertz<br>
-&#43; *<br>
-&#43; * - freq2_input: the memory clock in hertz<br>
-&#43; *<br>
-&nbsp; * You can use hwmon tools like sensors to view this information on y=
-our system.<br>
-&nbsp; *<br>
-&nbsp; */<br>
-@@ -1600,6 &#43;1679,10 @@ static SENSOR_DEVICE_ATTR(power1_average, S_IRUG=
-O, amdgpu_hwmon_show_power_avg,<br>
-&nbsp;static SENSOR_DEVICE_ATTR(power1_cap_max, S_IRUGO, amdgpu_hwmon_show_=
-power_cap_max, NULL, 0);<br>
-&nbsp;static SENSOR_DEVICE_ATTR(power1_cap_min, S_IRUGO, amdgpu_hwmon_show_=
-power_cap_min, NULL, 0);<br>
-&nbsp;static SENSOR_DEVICE_ATTR(power1_cap, S_IRUGO | S_IWUSR, amdgpu_hwmon=
-_show_power_cap, amdgpu_hwmon_set_power_cap, 0);<br>
-&#43;static SENSOR_DEVICE_ATTR(freq1_input, S_IRUGO, amdgpu_hwmon_show_sclk=
-, NULL, 0);<br>
-&#43;static SENSOR_DEVICE_ATTR(freq1_label, S_IRUGO, amdgpu_hwmon_show_sclk=
-_label, NULL, 0);<br>
-&#43;static SENSOR_DEVICE_ATTR(freq2_input, S_IRUGO, amdgpu_hwmon_show_mclk=
-, NULL, 0);<br>
-&#43;static SENSOR_DEVICE_ATTR(freq2_label, S_IRUGO, amdgpu_hwmon_show_mclk=
-_label, NULL, 0);<br>
-&nbsp;<br>
-&nbsp;static struct attribute *hwmon_attributes[] =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_temp1=
-_input.dev_attr.attr,<br>
-@@ -1622,6 &#43;1705,10 @@ static struct attribute *hwmon_attributes[] =3D =
-{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_power=
-1_cap_max.dev_attr.attr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_power=
-1_cap_min.dev_attr.attr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_power=
-1_cap.dev_attr.attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_freq1_input.=
-dev_attr.attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_freq1_label.=
-dev_attr.attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_freq2_input.=
-dev_attr.attr,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_freq2_label.=
-dev_attr.attr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NULL<br>
-&nbsp;};<br>
-&nbsp;<br>
-@@ -1712,6 &#43;1799,12 @@ static umode_t hwmon_attributes_visible(struct k=
-object *kobj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; attr =3D=3D &amp;sensor_dev_attr_in1_label.dev_attr.attr))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* no mclk on APUs */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if ((adev-&gt;flags &amp; AMD_IS_=
-APU) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (attr =3D=
-=3D &amp;sensor_dev_attr_freq2_input.dev_attr.attr ||<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; att=
-r =3D=3D &amp;sensor_dev_attr_freq2_label.dev_attr.attr))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return effective_mode;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.13.6<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809786BD491F93EADF09B5FF78A0BN6PR12MB1809namp_--
-
---===============1835830894==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1835830894==--
+SSdtIG5vdCBzYXlpbmcgaXQncyB1c2VsZXNzLiBCdXQgcm9jbS1zbWkgY2FuIGFscmVhZHkgZ2V0
+IHRoZSBjbG9ja3MKZnJvbSBzeXNmcyAocHBfZHBtX3NjbGsgYW5kIHBwX2RwbV9tY2xrKS4gQXJl
+IHRoZXNlIGNsb2NrcyBhbnkgZGlmZmVyZW50PwoKClJlZ2FyZHMsCsKgIEZlbGl4CgoKT24gMjAx
+OS0wMS0wOCA0OjMyIHAubS4sIERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPgo+IFBpbmc/wqAg
+VXNlZnVsIGZvciByb2NtLXNtaT8KPgo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICpGcm9tOiogQWxleCBE
+ZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+Cj4gKlNlbnQ6KiBNb25kYXksIERlY2VtYmVy
+IDEwLCAyMDE4IDQ6MTc6MjcgUE0KPiAqVG86KiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+ICpDYzoqIERldWNoZXIsIEFsZXhhbmRlcgo+ICpTdWJqZWN0OiogW1BBVENIXSBkcm0vYW1k
+Z3B1OiBleHBvc2Ugc2NsayBhbmQgbWNsayB2aWEgaHdtb24KPiDCoAo+IEV4cG9zZSBzY2xrIChn
+ZnggY2xvY2spIGFuZCBtY2xrIChtZW1vcnkgY2xvY2spIHZpYQo+IGh3bW9uIGNvbXBhdGlibGUg
+aW50ZXJmYWNlLsKgIGh3bW9uIGRvZXMgbm90IGFjdHVhbGx5Cj4gZm9ybWFsbHkgc3BlY2lmeSBh
+IGZyZXF1ZW5jeSB0eXBlIGF0dHJpYnV0ZSwgYnV0IHRoZXNlCj4gYXJlIGNvbXBhdGlibGUgd2l0
+aCB0aGUgZm9ybWF0IG9mIHRoZSBvdGhlciBhdHRyaWJ1dGVzCj4gZXhwb3NlZCB2aWEgaHdtb24u
+wqAgVW5pdHMgYXJlIGhlcnR6Lgo+Cj4gZnJlcTFfaW5wdXQgLSBHUFUgZ2Z4L2NvbXB1dGUgY2xv
+Y2sgaW4gaGVydHoKPiBmcmVxMl9pbnB1dCAtIEdQVSBtZW1vcnkgY2xvY2sgaW4gaGVydHogKGRH
+UFUgb25seSkKPgo+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4KPiAtLS0KPiDCoGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9w
+bS5jIHwgOTMKPiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4gwqAxIGZpbGUg
+Y2hhbmdlZCwgOTMgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcG0uYwo+IGluZGV4IDFmNjFlZDk1NzI3Yy4uNmQ1MjQyOGZjNDViIDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKPiBAQCAtMTUxNiw2ICsxNTE2LDc1IEBA
+IHN0YXRpYyBzc2l6ZV90Cj4gYW1kZ3B1X2h3bW9uX3NldF9wb3dlcl9jYXAoc3RydWN0IGRldmlj
+ZSAqZGV2LAo+IMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGNvdW50Owo+IMKgfQo+IMKgCj4gK3N0
+YXRpYyBzc2l6ZV90IGFtZGdwdV9od21vbl9zaG93X3NjbGsoc3RydWN0IGRldmljZSAqZGV2LAo+
+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsCj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBjaGFyICpidWYpCj4gK3sKPiArwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2ID0gZGV2X2dldF9kcnZkYXRhKGRldik7Cj4gK8KgwqDCoMKgwqDCoCBzdHJ1
+Y3QgZHJtX2RldmljZSAqZGRldiA9IGFkZXYtPmRkZXY7Cj4gK8KgwqDCoMKgwqDCoCB1aW50MzJf
+dCBzY2xrOwo+ICvCoMKgwqDCoMKgwqAgaW50IHIsIHNpemUgPSBzaXplb2Yoc2Nsayk7Cj4gKwo+
+ICvCoMKgwqDCoMKgwqAgLyogQ2FuJ3QgZ2V0IHZvbHRhZ2Ugd2hlbiB0aGUgY2FyZCBpcyBvZmYg
+Ki8KPiArwqDCoMKgwqDCoMKgIGlmwqAgKChhZGV2LT5mbGFncyAmIEFNRF9JU19QWCkgJiYKPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAoZGRldi0+c3dpdGNoX3Bvd2VyX3N0YXRlICE9IERSTV9T
+V0lUQ0hfUE9XRVJfT04pKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAt
+RUlOVkFMOwo+ICsKPiArwqDCoMKgwqDCoMKgIC8qIHNhbml0eSBjaGVjayBQUCBpcyBlbmFibGVk
+ICovCj4gK8KgwqDCoMKgwqDCoCBpZiAoIShhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MgJiYKPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+cmVhZF9z
+ZW5zb3IpKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4gKwo+
+ICvCoMKgwqDCoMKgwqAgLyogZ2V0IHRoZSBzY2xrICovCj4gK8KgwqDCoMKgwqDCoCByID0gYW1k
+Z3B1X2RwbV9yZWFkX3NlbnNvcihhZGV2LCBBTURHUFVfUFBfU0VOU09SX0dGWF9TQ0xLLAo+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgKHZvaWQgKikmc2NsaywgJnNpemUpOwo+ICvCoMKgwqDCoMKgwqAgaWYgKHIpCj4g
+K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7Cj4gKwo+ICvCoMKgwqDCoMKg
+wqAgcmV0dXJuIHNucHJpbnRmKGJ1ZiwgUEFHRV9TSVpFLCAiJWRcbiIsIHNjbGsgKiAxMCAqIDEw
+MDApOwo+ICt9Cj4gKwo+ICtzdGF0aWMgc3NpemVfdCBhbWRncHVfaHdtb25fc2hvd19zY2xrX2xh
+YmVsKHN0cnVjdCBkZXZpY2UgKmRldiwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0
+cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRyLAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgY2hhciAqYnVmKQo+ICt7Cj4gK8KgwqDCoMKgwqDCoCByZXR1cm4gc25wcmludGYoYnVmLCBQ
+QUdFX1NJWkUsICJzY2xrXG4iKTsKPiArfQo+ICsKPiArc3RhdGljIHNzaXplX3QgYW1kZ3B1X2h3
+bW9uX3Nob3dfbWNsayhzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1
+Y3QgZGV2aWNlX2F0dHJpYnV0ZSAqYXR0ciwKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGNoYXIgKmJ1ZikK
+PiArewo+ICvCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXZfZ2V0
+X2RydmRhdGEoZGV2KTsKPiArwqDCoMKgwqDCoMKgIHN0cnVjdCBkcm1fZGV2aWNlICpkZGV2ID0g
+YWRldi0+ZGRldjsKPiArwqDCoMKgwqDCoMKgIHVpbnQzMl90IG1jbGs7Cj4gK8KgwqDCoMKgwqDC
+oCBpbnQgciwgc2l6ZSA9IHNpemVvZihtY2xrKTsKPiArCj4gK8KgwqDCoMKgwqDCoCAvKiBDYW4n
+dCBnZXQgdm9sdGFnZSB3aGVuIHRoZSBjYXJkIGlzIG9mZiAqLwo+ICvCoMKgwqDCoMKgwqAgaWbC
+oCAoKGFkZXYtPmZsYWdzICYgQU1EX0lTX1BYKSAmJgo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IChkZGV2LT5zd2l0Y2hfcG93ZXJfc3RhdGUgIT0gRFJNX1NXSVRDSF9QT1dFUl9PTikpCj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4gKwo+ICvCoMKgwqDC
+oMKgwqAgLyogc2FuaXR5IGNoZWNrIFBQIGlzIGVuYWJsZWQgKi8KPiArwqDCoMKgwqDCoMKgIGlm
+ICghKGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcyAmJgo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5yZWFkX3NlbnNvcikpCj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPiArCj4gK8KgwqDCoMKgwqDCoCAvKiBnZXQg
+dGhlIHNjbGsgKi8KPiArwqDCoMKgwqDCoMKgIHIgPSBhbWRncHVfZHBtX3JlYWRfc2Vuc29yKGFk
+ZXYsIEFNREdQVV9QUF9TRU5TT1JfR0ZYX01DTEssCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAodm9pZCAqKSZtY2xr
+LCAmc2l6ZSk7Cj4gK8KgwqDCoMKgwqDCoCBpZiAocikKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gcjsKPiArCj4gK8KgwqDCoMKgwqDCoCByZXR1cm4gc25wcmludGYoYnVm
+LCBQQUdFX1NJWkUsICIlZFxuIiwgbWNsayAqIDEwICogMTAwMCk7Cj4gK30KPiArCj4gK3N0YXRp
+YyBzc2l6ZV90IGFtZGdwdV9od21vbl9zaG93X21jbGtfbGFiZWwoc3RydWN0IGRldmljZSAqZGV2
+LAo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUg
+KmF0dHIsCj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjaGFyICpidWYpCj4gK3sKPiAr
+wqDCoMKgwqDCoMKgIHJldHVybiBzbnByaW50ZihidWYsIFBBR0VfU0laRSwgIm1jbGtcbiIpOwo+
+ICt9Cj4gwqAKPiDCoC8qKgo+IMKgICogRE9DOiBod21vbgo+IEBAIC0xNTMyLDYgKzE2MDEsMTAg
+QEAgc3RhdGljIHNzaXplX3QKPiBhbWRncHVfaHdtb25fc2V0X3Bvd2VyX2NhcChzdHJ1Y3QgZGV2
+aWNlICpkZXYsCj4gwqAgKgo+IMKgICogLSBHUFUgZmFuCj4gwqAgKgo+ICsgKiAtIEdQVSBnZngv
+Y29tcHV0ZSBlbmdpbmUgY2xvY2sKPiArICoKPiArICogLSBHUFUgbWVtb3J5IGNsb2NrIChkR1BV
+IG9ubHkpCj4gKyAqCj4gwqAgKiBod21vbiBpbnRlcmZhY2VzIGZvciBHUFUgdGVtcGVyYXR1cmU6
+Cj4gwqAgKgo+IMKgICogLSB0ZW1wMV9pbnB1dDogdGhlIG9uIGRpZSBHUFUgdGVtcGVyYXR1cmUg
+aW4gbWlsbGlkZWdyZWVzIENlbHNpdXMKPiBAQCAtMTU3Niw2ICsxNjQ5LDEyIEBAIHN0YXRpYyBz
+c2l6ZV90Cj4gYW1kZ3B1X2h3bW9uX3NldF9wb3dlcl9jYXAoc3RydWN0IGRldmljZSAqZGV2LAo+
+IMKgICoKPiDCoCAqIC0gZmFuWzEtKl1fZW5hYmxlOiBFbmFibGUgb3IgZGlzYWJsZSB0aGUgc2Vu
+c29ycy4xOiBFbmFibGUgMDogRGlzYWJsZQo+IMKgICoKPiArICogaHdtb24gaW50ZXJmYWNlcyBm
+b3IgR1BVIGNsb2NrczoKPiArICoKPiArICogLSBmcmVxMV9pbnB1dDogdGhlIGdmeC9jb21wdXRl
+IGNsb2NrIGluIGhlcnR6Cj4gKyAqCj4gKyAqIC0gZnJlcTJfaW5wdXQ6IHRoZSBtZW1vcnkgY2xv
+Y2sgaW4gaGVydHoKPiArICoKPiDCoCAqIFlvdSBjYW4gdXNlIGh3bW9uIHRvb2xzIGxpa2Ugc2Vu
+c29ycyB0byB2aWV3IHRoaXMgaW5mb3JtYXRpb24gb24KPiB5b3VyIHN5c3RlbS4KPiDCoCAqCj4g
+wqAgKi8KPiBAQCAtMTYwMCw2ICsxNjc5LDEwIEBAIHN0YXRpYyBTRU5TT1JfREVWSUNFX0FUVFIo
+cG93ZXIxX2F2ZXJhZ2UsCj4gU19JUlVHTywgYW1kZ3B1X2h3bW9uX3Nob3dfcG93ZXJfYXZnLAo+
+IMKgc3RhdGljIFNFTlNPUl9ERVZJQ0VfQVRUUihwb3dlcjFfY2FwX21heCwgU19JUlVHTywKPiBh
+bWRncHVfaHdtb25fc2hvd19wb3dlcl9jYXBfbWF4LCBOVUxMLCAwKTsKPiDCoHN0YXRpYyBTRU5T
+T1JfREVWSUNFX0FUVFIocG93ZXIxX2NhcF9taW4sIFNfSVJVR08sCj4gYW1kZ3B1X2h3bW9uX3No
+b3dfcG93ZXJfY2FwX21pbiwgTlVMTCwgMCk7Cj4gwqBzdGF0aWMgU0VOU09SX0RFVklDRV9BVFRS
+KHBvd2VyMV9jYXAsIFNfSVJVR08gfCBTX0lXVVNSLAo+IGFtZGdwdV9od21vbl9zaG93X3Bvd2Vy
+X2NhcCwgYW1kZ3B1X2h3bW9uX3NldF9wb3dlcl9jYXAsIDApOwo+ICtzdGF0aWMgU0VOU09SX0RF
+VklDRV9BVFRSKGZyZXExX2lucHV0LCBTX0lSVUdPLAo+IGFtZGdwdV9od21vbl9zaG93X3NjbGss
+IE5VTEwsIDApOwo+ICtzdGF0aWMgU0VOU09SX0RFVklDRV9BVFRSKGZyZXExX2xhYmVsLCBTX0lS
+VUdPLAo+IGFtZGdwdV9od21vbl9zaG93X3NjbGtfbGFiZWwsIE5VTEwsIDApOwo+ICtzdGF0aWMg
+U0VOU09SX0RFVklDRV9BVFRSKGZyZXEyX2lucHV0LCBTX0lSVUdPLAo+IGFtZGdwdV9od21vbl9z
+aG93X21jbGssIE5VTEwsIDApOwo+ICtzdGF0aWMgU0VOU09SX0RFVklDRV9BVFRSKGZyZXEyX2xh
+YmVsLCBTX0lSVUdPLAo+IGFtZGdwdV9od21vbl9zaG93X21jbGtfbGFiZWwsIE5VTEwsIDApOwo+
+IMKgCj4gwqBzdGF0aWMgc3RydWN0IGF0dHJpYnV0ZSAqaHdtb25fYXR0cmlidXRlc1tdID0gewo+
+IMKgwqDCoMKgwqDCoMKgwqAgJnNlbnNvcl9kZXZfYXR0cl90ZW1wMV9pbnB1dC5kZXZfYXR0ci5h
+dHRyLAo+IEBAIC0xNjIyLDYgKzE3MDUsMTAgQEAgc3RhdGljIHN0cnVjdCBhdHRyaWJ1dGUgKmh3
+bW9uX2F0dHJpYnV0ZXNbXSA9IHsKPiDCoMKgwqDCoMKgwqDCoMKgICZzZW5zb3JfZGV2X2F0dHJf
+cG93ZXIxX2NhcF9tYXguZGV2X2F0dHIuYXR0ciwKPiDCoMKgwqDCoMKgwqDCoMKgICZzZW5zb3Jf
+ZGV2X2F0dHJfcG93ZXIxX2NhcF9taW4uZGV2X2F0dHIuYXR0ciwKPiDCoMKgwqDCoMKgwqDCoMKg
+ICZzZW5zb3JfZGV2X2F0dHJfcG93ZXIxX2NhcC5kZXZfYXR0ci5hdHRyLAo+ICvCoMKgwqDCoMKg
+wqAgJnNlbnNvcl9kZXZfYXR0cl9mcmVxMV9pbnB1dC5kZXZfYXR0ci5hdHRyLAo+ICvCoMKgwqDC
+oMKgwqAgJnNlbnNvcl9kZXZfYXR0cl9mcmVxMV9sYWJlbC5kZXZfYXR0ci5hdHRyLAo+ICvCoMKg
+wqDCoMKgwqAgJnNlbnNvcl9kZXZfYXR0cl9mcmVxMl9pbnB1dC5kZXZfYXR0ci5hdHRyLAo+ICvC
+oMKgwqDCoMKgwqAgJnNlbnNvcl9kZXZfYXR0cl9mcmVxMl9sYWJlbC5kZXZfYXR0ci5hdHRyLAo+
+IMKgwqDCoMKgwqDCoMKgwqAgTlVMTAo+IMKgfTsKPiDCoAo+IEBAIC0xNzEyLDYgKzE3OTksMTIg
+QEAgc3RhdGljIHVtb2RlX3QgaHdtb25fYXR0cmlidXRlc192aXNpYmxlKHN0cnVjdAo+IGtvYmpl
+Y3QgKmtvYmosCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYXR0ciA9PSAmc2Vuc29yX2Rl
+dl9hdHRyX2luMV9sYWJlbC5kZXZfYXR0ci5hdHRyKSkKPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCByZXR1cm4gMDsKPiDCoAo+ICvCoMKgwqDCoMKgwqAgLyogbm8gbWNsayBvbiBB
+UFVzICovCj4gK8KgwqDCoMKgwqDCoCBpZiAoKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkgJiYK
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqAgKGF0dHIgPT0gJnNlbnNvcl9kZXZfYXR0cl9mcmVxMl9p
+bnB1dC5kZXZfYXR0ci5hdHRyIHx8Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYXR0ciA9PSAm
+c2Vuc29yX2Rldl9hdHRyX2ZyZXEyX2xhYmVsLmRldl9hdHRyLmF0dHIpKQo+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+ICsKPiDCoMKgwqDCoMKgwqDCoMKgIHJldHVy
+biBlZmZlY3RpdmVfbW9kZTsKPiDCoH0KPiDCoAo+IC0tIAo+IDIuMTMuNgo+Cj4KPiBfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGlu
+ZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
