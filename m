@@ -1,11 +1,22 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Add missing power attribute to APU check
-Date: Wed,  9 Jan 2019 22:23:47 -0500
-Message-ID: <20190110032347.18890-1-alexander.deucher@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: After Vega 56/64 GPU hang I unable reboot system
+Date: Thu, 10 Jan 2019 02:12:18 +0500
+Message-ID: <CABXGCsMKMgzQBr4_QchVyc9JaN64cqDEY5dv29oRE5qhkaHH3g@mail.gmail.com>
+References: <CABXGCsPu3g8WZXV1RpggLFuL3bgofmXMs1SiPyYnPyEOW7t3Dg@mail.gmail.com>
+ <24702c72-cc06-1b54-0ab9-6d2409362c27@amd.com>
+ <CABXGCsMPjKnCb7hpuenL5q3_HJgoGW=VB9FRrBpJsZMtA7LxpA@mail.gmail.com>
+ <3ffe451b-1f17-23a5-985b-28d26fbaf7da@amd.com>
+ <09781f6e-5ea3-ccfd-1aa2-79941b089863@amd.com>
+ <CABXGCsPCACOhOo4DTCiOam65SiOiudrKpn5vKAL72bV6iGo9vA@mail.gmail.com>
+ <CABXGCsMMSMJuURyhBQC3GuZc7m6Wq7FH=8_rpSWHrZT-0dJeGA@mail.gmail.com>
+ <e1ced25f-4f35-320b-5208-7e1ca3565a3a@amd.com>
+ <CABXGCsPPjz57=Et-V-_iGyY0GrEwfcK2QcRJcqiujUp90zaz-g@mail.gmail.com>
+ <5a53e55f-91cf-759e-b52b-f4681083d639@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <5a53e55f-91cf-759e-b52b-f4681083d639-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,26 +27,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Koenig,
+ Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QWRkIG1pc3NpbmcgcG93ZXJfYXZlcmFnZSB0byB2aXNpYmxlIGNoZWNrIGZvciBwb3dlcgphdHRy
-aWJ1dGVzaSBmb3IgQVBVcy4gIFdhcyBtaXNzZWQgYmVmb3JlLgoKU2lnbmVkLW9mZi1ieTogQWxl
-eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgMyArKy0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2Vy
-dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9w
-bS5jCmluZGV4IDUxZWIyY2Y0MmI4MS4uOTc5ZDk2Mjc4NDEzIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcG0uYwpAQCAtMTc5OSw3ICsxNzk5LDggQEAgc3RhdGljIHVtb2RlX3Qg
-aHdtb25fYXR0cmlidXRlc192aXNpYmxlKHN0cnVjdCBrb2JqZWN0ICprb2JqLAogCQllZmZlY3Rp
-dmVfbW9kZSAmPSB+U19JV1VTUjsKIAogCWlmICgoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSAm
-JgotCSAgICAoYXR0ciA9PSAmc2Vuc29yX2Rldl9hdHRyX3Bvd2VyMV9jYXBfbWF4LmRldl9hdHRy
-LmF0dHIgfHwKKwkgICAgKGF0dHIgPT0gJnNlbnNvcl9kZXZfYXR0cl9wb3dlcjFfYXZlcmFnZS5k
-ZXZfYXR0ci5hdHRyIHx8CisJICAgICBhdHRyID09ICZzZW5zb3JfZGV2X2F0dHJfcG93ZXIxX2Nh
-cF9tYXguZGV2X2F0dHIuYXR0ciB8fAogCSAgICAgYXR0ciA9PSAmc2Vuc29yX2Rldl9hdHRyX3Bv
-d2VyMV9jYXBfbWluLmRldl9hdHRyLmF0dHJ8fAogCSAgICAgYXR0ciA9PSAmc2Vuc29yX2Rldl9h
-dHRyX3Bvd2VyMV9jYXAuZGV2X2F0dHIuYXR0cikpCiAJCXJldHVybiAwOwotLSAKMi4yMC4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gVGh1LCAxMCBKYW4gMjAxOSBhdCAwMTozNSwgR3JvZHpvdnNreSwgQW5kcmV5CjxBbmRyZXku
+R3JvZHpvdnNreUBhbWQuY29tPiB3cm90ZToKPgo+IEkgdGhpbmsgdGhlICd2ZXJib3NlJyBmbGFn
+IGNhdXNlcyBpdCBkbyBkdW1wIHNvIG11Y2ggb3V0cHV0LCBtYXliZSB0cnkgd2l0aG91dCBpdCBp
+biBBTEwgdGhlIGNvbW1hbmRzIGFib3ZlLgo+IEFyZSB5b3UgYXJlIGF3YXJlIG9mIGFueSBwYXJ0
+aWN1bGFyIGFwcGxpY2F0aW9uIGR1cmluZyB3aGljaCBydW4gdGhpcyBoYXBwZW5zID8KPgoKTGFz
+dCBsb2dzIHJlbGF0ZWQgdG8gc2l0dWF0aW9uIHdoZW4gSSBsYXVuY2ggdGhlIGdhbWUgIlNoYWRv
+dyBvZiB0aGUKVG9tYiBSYWlkZXIiIHZpYSBwcm90b24gMy4xNi0xNi4KT2NjdXJzIGV2ZXJ5IHRp
+bWUgd2hlbiB0aGUgZ2FtZSBtZW51IHNob3VsZCBhcHBlYXIgYWZ0ZXIgZ2FtZSBsYXVuY2hpbmcu
+CgotLQpCZXN0IFJlZ2FyZHMsCk1pa2UgR2F2cmlsb3YuCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
