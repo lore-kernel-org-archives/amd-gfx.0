@@ -1,13 +1,14 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/3] drm/amdgpu: add support for processing IH ring 1 & 2
-Date: Wed,  9 Jan 2019 14:12:45 +0100
-Message-ID: <20190109131246.1274-2-christian.koenig@amd.com>
-References: <20190109131246.1274-1-christian.koenig@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati 1/2] Only call drmmode_uevent_init if RandR
+ is enabled
+Date: Wed, 9 Jan 2019 14:27:00 +0000
+Message-ID: <BN6PR12MB18090CA1D25579CFF7BFCE3EF78B0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190109104323.4524-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1183325101=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190109131246.1274-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190109104323.4524-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,51 +19,209 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UHJldmlvdXNseSB3ZSBvbmx5IGFkZGVkIHRoZSByaW5nIGJ1ZmZlciBtZW1vcnksIG5vdyBhZGQg
-dGhlIGhhbmRsaW5nIGFzCndlbGwuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2lycS5jIHwgMzMgKysrKysrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2lycS5oIHwgIDQgKystCiAyIGZpbGVzIGNoYW5nZWQsIDM2IGluc2Vy
-dGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfaXJxLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aXJxLmMKaW5kZXggYjhlNTQzZTIzMTY2Li44YmZiM2RhYjQ2ZjcgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfaXJxLmMKQEAgLTE3Niw2ICsxNzYsMzYgQEAgaXJxcmV0dXJuX3Qg
-YW1kZ3B1X2lycV9oYW5kbGVyKGludCBpcnEsIHZvaWQgKmFyZykKIAlyZXR1cm4gcmV0OwogfQog
-CisvKioKKyAqIGFtZGdwdV9pcnFfaGFuZGxlX2loMSAtIGtpY2sgb2YgcHJvY2Vzc2luZyBmb3Ig
-SUgxCisgKgorICogQHdvcms6IHdvcmsgc3RydWN0dXJlIGluIHN0cnVjdCBhbWRncHVfaXJxCisg
-KgorICogS2ljayBvZiBwcm9jZXNzaW5nIElIIHJpbmcgMS4KKyAqLworc3RhdGljIHZvaWQgYW1k
-Z3B1X2lycV9oYW5kbGVfaWgxKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKK3sKKwlzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldiA9IGNvbnRhaW5lcl9vZih3b3JrLCBzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSwKKwkJCQkJCSAgaXJxLmloMV93b3JrKTsKKworCWFtZGdwdV9paF9wcm9jZXNzKGFkZXYs
-ICZhZGV2LT5pcnEuaWgxLCBhbWRncHVfaXJxX2NhbGxiYWNrKTsKK30KKworLyoqCisgKiBhbWRn
-cHVfaXJxX2hhbmRsZV9paDIgLSBraWNrIG9mIHByb2Nlc3NpbmcgZm9yIElIMgorICoKKyAqIEB3
-b3JrOiB3b3JrIHN0cnVjdHVyZSBpbiBzdHJ1Y3QgYW1kZ3B1X2lycQorICoKKyAqIEtpY2sgb2Yg
-cHJvY2Vzc2luZyBJSCByaW5nIDIuCisgKi8KK3N0YXRpYyB2b2lkIGFtZGdwdV9pcnFfaGFuZGxl
-X2loMihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCit7CisJc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYgPSBjb250YWluZXJfb2Yod29yaywgc3RydWN0IGFtZGdwdV9kZXZpY2UsCisJCQkJCQkg
-IGlycS5paDJfd29yayk7CisKKwlhbWRncHVfaWhfcHJvY2VzcyhhZGV2LCAmYWRldi0+aXJxLmlo
-MiwgYW1kZ3B1X2lycV9jYWxsYmFjayk7Cit9CisKIC8qKgogICogYW1kZ3B1X21zaV9vayAtIGNo
-ZWNrIHdoZXRoZXIgTVNJIGZ1bmN0aW9uYWxpdHkgaXMgZW5hYmxlZAogICoKQEAgLTI0MCw2ICsy
-NzAsOSBAQCBpbnQgYW1kZ3B1X2lycV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
-CQkJCWFtZGdwdV9ob3RwbHVnX3dvcmtfZnVuYyk7CiAJfQogCisJSU5JVF9XT1JLKCZhZGV2LT5p
-cnEuaWgxX3dvcmssIGFtZGdwdV9pcnFfaGFuZGxlX2loMSk7CisJSU5JVF9XT1JLKCZhZGV2LT5p
-cnEuaWgyX3dvcmssIGFtZGdwdV9pcnFfaGFuZGxlX2loMik7CisKIAlhZGV2LT5pcnEuaW5zdGFs
-bGVkID0gdHJ1ZTsKIAlyID0gZHJtX2lycV9pbnN0YWxsKGFkZXYtPmRkZXYsIGFkZXYtPmRkZXYt
-PnBkZXYtPmlycSk7CiAJaWYgKHIpIHsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9pcnEuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9p
-cnEuaAppbmRleCA3ZTA2ZmE2NDMyMWEuLmMyN2RlY2ZkYTQ5NCAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9pcnEuaApAQCAtODksNyArODksOSBAQCBzdHJ1Y3QgYW1kZ3B1X2ly
-cSB7CiAKIAkvKiBpbnRlcnJ1cHQgcmluZ3MgKi8KIAlzdHJ1Y3QgYW1kZ3B1X2loX3JpbmcJCWlo
-LCBpaDEsIGloMjsKLQljb25zdCBzdHJ1Y3QgYW1kZ3B1X2loX2Z1bmNzCSppaF9mdW5jczsKKwlj
-b25zdCBzdHJ1Y3QgYW1kZ3B1X2loX2Z1bmNzICAgICppaF9mdW5jczsKKwlzdHJ1Y3Qgd29ya19z
-dHJ1Y3QJCWloMV93b3JrLCBpaDJfd29yazsKKwlzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMJCXNlbGZf
-aXJxOwogCiAJLyogZ2VuIGlycSBzdHVmZiAqLwogCXN0cnVjdCBpcnFfZG9tYWluCQkqZG9tYWlu
-OyAvKiBHUFUgaXJxIGNvbnRyb2xsZXIgZG9tYWluICovCi0tIAoyLjE3LjEKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============1183325101==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18090CA1D25579CFF7BFCE3EF78B0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18090CA1D25579CFF7BFCE3EF78B0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
+=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Sent: Wednesday, January 9, 2019 5:43:22 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH xf86-video-ati 1/2] Only call drmmode_uevent_init if RandR =
+is enabled
+
+From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+
+There's no point in listening for hotplug events if RandR is disabled,
+as there's no other mechanism for them to be propagated. We were already
+mostly ignoring them in that case.
+
+Inspired by
+https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/commit/1a489142=
+c8e6a4828348cc9afbd0f430d3b1e2d8
+(via https://bugs.freedesktop.org/109230#c11).
+
+Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+---
+ src/drmmode_display.c | 2 +-
+ src/radeon_kms.c      | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/drmmode_display.c b/src/drmmode_display.c
+index d433e0611..e04a17d5e 100644
+--- a/src/drmmode_display.c
++++ b/src/drmmode_display.c
+@@ -3273,7 +3273,7 @@ restart_destroy:
+         /* Check to see if a lessee has disappeared */
+         drmmode_validate_leases(scrn);
+
+-       if (changed && dixPrivateKeyRegistered(rrPrivKey)) {
++       if (changed) {
+ #if XORG_VERSION_CURRENT >=3D XORG_VERSION_NUMERIC(1,14,99,2,0)
+                 RRSetChanged(xf86ScrnToScreen(scrn));
+ #else
+diff --git a/src/radeon_kms.c b/src/radeon_kms.c
+index bb6885fb9..67f42e0fe 100644
+--- a/src/radeon_kms.c
++++ b/src/radeon_kms.c
+@@ -349,13 +349,13 @@ static Bool RADEONCreateScreenResources_KMS(ScreenPtr=
+ pScreen)
+             RROutputChanged(rrScrPriv->primaryOutput, FALSE);
+             rrScrPriv->layoutChanged =3D TRUE;
+         }
++
++       drmmode_uevent_init(pScrn, &info->drmmode);
+     }
+
+     if (!drmmode_set_desired_modes(pScrn, &info->drmmode, pScreen->isGPU))
+         return FALSE;
+
+-    drmmode_uevent_init(pScrn, &info->drmmode);
+-
+     if (info->r600_shadow_fb) {
+         pixmap =3D pScreen->GetScreenPixmap(pScreen);
+
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18090CA1D25579CFF7BFCE3EF78B0BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
+enzer.net&gt;<br>
+<b>Sent:</b> Wednesday, January 9, 2019 5:43:22 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH xf86-video-ati 1/2] Only call drmmode_uevent_init if=
+ RandR is enabled</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<br>
+There's no point in listening for hotplug events if RandR is disabled,<br>
+as there's no other mechanism for them to be propagated. We were already<br=
+>
+mostly ignoring them in that case.<br>
+<br>
+Inspired by<br>
+<a href=3D"https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/comm=
+it/1a489142c8e6a4828348cc9afbd0f430d3b1e2d8">https://gitlab.freedesktop.org=
+/xorg/driver/xf86-video-intel/commit/1a489142c8e6a4828348cc9afbd0f430d3b1e2=
+d8</a><br>
+(via <a href=3D"https://bugs.freedesktop.org/109230#c11">https://bugs.freed=
+esktop.org/109230#c11</a>).<br>
+<br>
+Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;src/drmmode_display.c | 2 &#43;-<br>
+&nbsp;src/radeon_kms.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 4 &#43;&#43;--<br>
+&nbsp;2 files changed, 3 insertions(&#43;), 3 deletions(-)<br>
+<br>
+diff --git a/src/drmmode_display.c b/src/drmmode_display.c<br>
+index d433e0611..e04a17d5e 100644<br>
+--- a/src/drmmode_display.c<br>
+&#43;&#43;&#43; b/src/drmmode_display.c<br>
+@@ -3273,7 &#43;3273,7 @@ restart_destroy:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Check to see if a lesse=
+e has disappeared */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_validate_leases(sc=
+rn);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (changed &amp;&amp; dixPrivateKeyR=
+egistered(rrPrivKey)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (changed) {<br>
+&nbsp;#if XORG_VERSION_CURRENT &gt;=3D XORG_VERSION_NUMERIC(1,14,99,2,0)<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; RRSetChanged(xf86ScrnToScreen(scrn));<br>
+&nbsp;#else<br>
+diff --git a/src/radeon_kms.c b/src/radeon_kms.c<br>
+index bb6885fb9..67f42e0fe 100644<br>
+--- a/src/radeon_kms.c<br>
+&#43;&#43;&#43; b/src/radeon_kms.c<br>
+@@ -349,13 &#43;349,13 @@ static Bool RADEONCreateScreenResources_KMS(Scree=
+nPtr pScreen)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RR=
+OutputChanged(rrScrPriv-&gt;primaryOutput, FALSE);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rr=
+ScrPriv-&gt;layoutChanged =3D TRUE;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_uevent_init(pScrn, &amp;i=
+nfo-&gt;drmmode);<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; if (!drmmode_set_desired_modes(pScrn, &amp;info-&g=
+t;drmmode, pScreen-&gt;isGPU))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return FALSE;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp; drmmode_uevent_init(pScrn, &amp;info-&gt;drmmode);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp; if (info-&gt;r600_shadow_fb) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pixmap =3D pScreen-&gt;Get=
+ScreenPixmap(pScreen);<br>
+&nbsp;<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18090CA1D25579CFF7BFCE3EF78B0BN6PR12MB1809namp_--
+
+--===============1183325101==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1183325101==--
