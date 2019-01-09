@@ -1,11 +1,10 @@
-From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: Add sysfs file for PCIe usage v4
-Date: Wed, 9 Jan 2019 14:43:53 +0000
-Message-ID: <1547045026-27129-2-git-send-email-kent.russell@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Add NBIO SMN headers v2
+Date: Wed, 9 Jan 2019 15:05:50 +0000
+Message-ID: <BN6PR12MB180933A994DA3151BD165801F78B0@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <1547045026-27129-1-git-send-email-kent.russell@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0306201849=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1547045026-27129-1-git-send-email-kent.russell-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
@@ -19,266 +18,992 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QWRkIGEgc3lzZnMgZmlsZSB0aGF0IHJlcG9ydHMgdGhlIG51bWJlciBvZiBieXRlcyB0cmFuc21p
-dHRlZCBhbmQKcmVjZWl2ZWQgaW4gdGhlIGxhc3Qgc2Vjb25kLiBUaGlzIGNhbiBiZSB1c2VkIHRv
-IGFwcHJveGltYXRlIHRoZSBQQ0llCmJhbmR3aWR0aCB1c2FnZSBvdmVyIHRoZSBsYXN0IHNlY29u
-ZC4KCnYyOiBDbGFyaWZ5IHVzZSBvZiBtcHMgYXMgZXN0aW1hdGlvbiBvZiBiYW5kd2lkdGgKdjM6
-IERvbid0IG1ha2UgdGhlIGZpbGUgb24gQVBVcwp2NDogRWFybHkgZXhpdCBmb3IgQVBVcyBpbiB0
-aGUgcmVhZCBmdW5jdGlvbiwgY2hhbmdlIG91dHB1dCB0bwogICAgZGlzcGxheSAicGFja2V0cy1y
-ZWNlaXZlZCBwYWNrZXRzLXNlbnQgbXBzIgpTaWduZWQtb2ZmLWJ5OiBLZW50IFJ1c3NlbGwgPGtl
-bnQucnVzc2VsbEBhbWQuY29tPgoKU2lnbmVkLW9mZi1ieTogS2VudCBSdXNzZWxsIDxrZW50LnJ1
-c3NlbGxAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAg
-ICB8ICA0ICsrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgfCAzNiAr
-KysrKysrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Npay5j
-ICAgICAgIHwgNDcgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3NpLmMgICAgICAgIHwgNDcgKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgICAgIHwgNTAgKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvdmkuYyAgICAgICAgfCA0NyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogNiBm
-aWxlcyBjaGFuZ2VkLCAyMzEgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKaW5kZXggZTFiMmM2NC4uNTEyYjEyNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1LmgKQEAgLTU0Miw2ICs1NDIsOSBAQCBzdHJ1Y3QgYW1kZ3B1X2FzaWNfZnVuY3MgewogCWJv
-b2wgKCpuZWVkX2Z1bGxfcmVzZXQpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIAkvKiBp
-bml0aWFsaXplIGRvb3JiZWxsIGxheW91dCBmb3Igc3BlY2lmaWMgYXNpYyovCiAJdm9pZCAoKmlu
-aXRfZG9vcmJlbGxfaW5kZXgpKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKKwkvKiBQQ0ll
-IGJhbmR3aWR0aCB1c2FnZSAqLworCXZvaWQgKCpnZXRfcGNpZV91c2FnZSkoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsIHVpbnQ2NF90ICpjb3VudDAsCisJCQkgICAgICAgdWludDY0X3QgKmNv
-dW50MSk7CiB9OwogCiAvKgpAQCAtMTA0NSw2ICsxMDQ4LDcgQEAgaW50IGVtdV9zb2NfYXNpY19p
-bml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKICNkZWZpbmUgYW1kZ3B1X2FzaWNfaW52
-YWxpZGF0ZV9oZHAoYWRldiwgcikgKGFkZXYpLT5hc2ljX2Z1bmNzLT5pbnZhbGlkYXRlX2hkcCgo
-YWRldiksIChyKSkKICNkZWZpbmUgYW1kZ3B1X2FzaWNfbmVlZF9mdWxsX3Jlc2V0KGFkZXYpIChh
-ZGV2KS0+YXNpY19mdW5jcy0+bmVlZF9mdWxsX3Jlc2V0KChhZGV2KSkKICNkZWZpbmUgYW1kZ3B1
-X2FzaWNfaW5pdF9kb29yYmVsbF9pbmRleChhZGV2KSAoYWRldiktPmFzaWNfZnVuY3MtPmluaXRf
-ZG9vcmJlbGxfaW5kZXgoKGFkZXYpKQorI2RlZmluZSBhbWRncHVfYXNpY19nZXRfcGNpZV91c2Fn
-ZShhZGV2LCBjbnQwLCBjbnQxKSAoKGFkZXYpLT5hc2ljX2Z1bmNzLT5nZXRfcGNpZV91c2FnZSgo
-YWRldiksIChjbnQwKSwgKGNudDEpKSkKIAogLyogQ29tbW9uIGZ1bmN0aW9ucyAqLwogYm9vbCBh
-bWRncHVfZGV2aWNlX3Nob3VsZF9yZWNvdmVyX2dwdShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dik7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCmluZGV4IDY4OTZkZWMuLmIz
-OGMwNmYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jCkBAIC05OTAsNiAr
-OTkwLDMxIEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9nZXRfYnVzeV9wZXJjZW50KHN0cnVjdCBk
-ZXZpY2UgKmRldiwKIAlyZXR1cm4gc25wcmludGYoYnVmLCBQQUdFX1NJWkUsICIlZFxuIiwgdmFs
-dWUpOwogfQogCisvKioKKyAqIERPQzogcGNpZV9idworICoKKyAqIFRoZSBhbWRncHUgZHJpdmVy
-IHByb3ZpZGVzIGEgc3lzZnMgQVBJIGZvciBlc3RpbWF0aW5nIGhvdyBtdWNoIGRhdGEKKyAqIGhh
-cyBiZWVuIHJlY2VpdmVkIGFuZCBzZW50IGJ5IHRoZSBHUFUgaW4gdGhlIGxhc3Qgc2Vjb25kIHRo
-cm91Z2ggUENJZS4KKyAqIFRoZSBmaWxlIHBjaWVfYncgaXMgdXNlZCBmb3IgdGhpcy4KKyAqIFRo
-ZSBQZXJmIGNvdW50ZXJzIGNvdW50IHRoZSBudW1iZXIgb2YgcmVjZWl2ZWQgYW5kIHNlbnQgbWVz
-c2FnZXMgYW5kIHJldHVybgorICogdGhvc2UgdmFsdWVzLCBhcyB3ZWxsIGFzIHRoZSBtYXhpbXVt
-IHBheWxvYWQgc2l6ZSBvZiBhIFBDSWUgcGFja2V0IChtcHMpLgorICogTm90ZSB0aGF0IGl0IGlz
-IG5vdCBwb3NzaWJsZSB0byBlYXNpbHkgYW5kIHF1aWNrbHkgb2J0YWluIHRoZSBzaXplIG9mIGVh
-Y2gKKyAqIHBhY2tldCB0cmFuc21pdHRlZCwgc28gd2Ugb3V0cHV0IHRoZSBtYXggcGF5bG9hZCBz
-aXplIChtcHMpIHRvIGFsbG93IGZvcgorICogcXVpY2sgZXN0aW1hdGlvbiBvZiB0aGUgUENJZSBi
-YW5kd2lkdGggdXNhZ2UKKyAqLworc3RhdGljIHNzaXplX3QgYW1kZ3B1X2dldF9wY2llX2J3KHN0
-cnVjdCBkZXZpY2UgKmRldiwKKwkJc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsCisJCWNo
-YXIgKmJ1ZikKK3sKKwlzdHJ1Y3QgZHJtX2RldmljZSAqZGRldiA9IGRldl9nZXRfZHJ2ZGF0YShk
-ZXYpOworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7CisJ
-dWludDY0X3QgY291bnQwLCBjb3VudDE7CisKKwlhbWRncHVfYXNpY19nZXRfcGNpZV91c2FnZShh
-ZGV2LCAmY291bnQwLCAmY291bnQxKTsKKwlyZXR1cm4gc25wcmludGYoYnVmLCBQQUdFX1NJWkUs
-CSIlbGx1ICVsbHUgJWlcbiIsCisJCQljb3VudDAsIGNvdW50MSwgcGNpZV9nZXRfbXBzKGFkZXYt
-PnBkZXYpKTsKK30KKwogc3RhdGljIERFVklDRV9BVFRSKHBvd2VyX2RwbV9zdGF0ZSwgU19JUlVH
-TyB8IFNfSVdVU1IsIGFtZGdwdV9nZXRfZHBtX3N0YXRlLCBhbWRncHVfc2V0X2RwbV9zdGF0ZSk7
-CiBzdGF0aWMgREVWSUNFX0FUVFIocG93ZXJfZHBtX2ZvcmNlX3BlcmZvcm1hbmNlX2xldmVsLCBT
-X0lSVUdPIHwgU19JV1VTUiwKIAkJICAgYW1kZ3B1X2dldF9kcG1fZm9yY2VkX3BlcmZvcm1hbmNl
-X2xldmVsLApAQCAtMTAyNSw2ICsxMDUwLDcgQEAgc3RhdGljIERFVklDRV9BVFRSKHBwX29kX2Ns
-a192b2x0YWdlLCBTX0lSVUdPIHwgU19JV1VTUiwKIAkJYW1kZ3B1X3NldF9wcF9vZF9jbGtfdm9s
-dGFnZSk7CiBzdGF0aWMgREVWSUNFX0FUVFIoZ3B1X2J1c3lfcGVyY2VudCwgU19JUlVHTywKIAkJ
-YW1kZ3B1X2dldF9idXN5X3BlcmNlbnQsIE5VTEwpOworc3RhdGljIERFVklDRV9BVFRSKHBjaWVf
-YncsIFNfSVJVR08sIGFtZGdwdV9nZXRfcGNpZV9idywgTlVMTCk7CiAKIHN0YXRpYyBzc2l6ZV90
-IGFtZGdwdV9od21vbl9zaG93X3RlbXAoc3RydWN0IGRldmljZSAqZGV2LAogCQkJCSAgICAgIHN0
-cnVjdCBkZXZpY2VfYXR0cmlidXRlICphdHRyLApAQCAtMjEwOCw2ICsyMTM0LDE0IEBAIGludCBh
-bWRncHVfcG1fc3lzZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJCQkiZ3B1
-X2J1c3lfbGV2ZWxcbiIpOwogCQlyZXR1cm4gcmV0OwogCX0KKwkvKiBQQ0llIFBlcmYgY291bnRl
-cnMgd29uJ3Qgd29yayBvbiBBUFUgbm9kZXMgKi8KKwlpZiAoYWRldi0+ZmxhZ3MgJiAhQU1EX0lT
-X0FQVSkgeworCQlyZXQgPSBkZXZpY2VfY3JlYXRlX2ZpbGUoYWRldi0+ZGV2LCAmZGV2X2F0dHJf
-cGNpZV9idyk7CisJCWlmIChyZXQpIHsKKwkJCURSTV9FUlJPUigiZmFpbGVkIHRvIGNyZWF0ZSBk
-ZXZpY2UgZmlsZSBwY2llX2J3XG4iKTsKKwkJCXJldHVybiByZXQ7CisJCX0KKwl9CiAJcmV0ID0g
-YW1kZ3B1X2RlYnVnZnNfcG1faW5pdChhZGV2KTsKIAlpZiAocmV0KSB7CiAJCURSTV9FUlJPUigi
-RmFpbGVkIHRvIHJlZ2lzdGVyIGRlYnVnZnMgZmlsZSBmb3IgZHBtIVxuIik7CkBAIC0yMTQ3LDYg
-KzIxODEsOCBAQCB2b2lkIGFtZGdwdV9wbV9zeXNmc19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQogCQlkZXZpY2VfcmVtb3ZlX2ZpbGUoYWRldi0+ZGV2LAogCQkJCSZkZXZfYXR0cl9w
-cF9vZF9jbGtfdm9sdGFnZSk7CiAJZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwgJmRldl9h
-dHRyX2dwdV9idXN5X3BlcmNlbnQpOworCWlmIChhZGV2LT5mbGFncyAmICFBTURfSVNfQVBVKQor
-CQlkZXZpY2VfcmVtb3ZlX2ZpbGUoYWRldi0+ZGV2LCAmZGV2X2F0dHJfcGNpZV9idyk7CiB9CiAK
-IHZvaWQgYW1kZ3B1X3BtX2NvbXB1dGVfY2xvY2tzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-KQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYwppbmRleCA3MWM1MGQ4Li42Mjc3ZGU1IDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWsuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9jaWsuYwpAQCAtMTc0MSw2ICsxNzQxLDUyIEBAIHN0YXRpYyBib29sIGNp
-a19uZWVkX2Z1bGxfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJcmV0dXJuIHRy
-dWU7CiB9CiAKK3N0YXRpYyB2b2lkIGNpa19nZXRfcGNpZV91c2FnZShzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwgdWludDY0X3QgKmNvdW50MCwKKwkJCSAgICAgICB1aW50NjRfdCAqY291bnQx
-KQoreworCXVpbnQzMl90IHBlcmZjdHIgPSAwOworCXVpbnQ2NF90IGNudDBfb2YsIGNudDFfb2Y7
-CisJaW50IHRtcDsKKworCS8qIFRoaXMgcmVwb3J0cyAwIG9uIEFQVXMsIHNvIHJldHVybiB0byBh
-dm9pZCB3cml0aW5nL3JlYWRpbmcgcmVnaXN0ZXJzCisJICogdGhhdCBtYXkgb3IgbWF5IG5vdCBi
-ZSBkaWZmZXJlbnQgZnJvbSB0aGVpciBHUFUgY291bnRlcnBhcnRzCisJICovCisJaWYgKGFkZXYt
-PmZsYWdzICYgQU1EX0lTX0FQVSkKKwkJcmV0dXJuOworCisJLyogU2V0IHRoZSAyIGV2ZW50cyB0
-aGF0IHdlIHdpc2ggdG8gd2F0Y2gsIGRlZmluZWQgYWJvdmUgKi8KKwkvKiBSZWcgNDAgaXMgIyBy
-ZWNlaXZlZCBtc2dzLCBSZWcgMTA0IGlzICMgb2YgcG9zdGVkIHJlcXVlc3RzIHNlbnQgKi8KKwlw
-ZXJmY3RyID0gUkVHX1NFVF9GSUVMRChwZXJmY3RyLCBQQ0lFX1BFUkZfQ05UTF9UWENMSywgRVZF
-TlQwX1NFTCwgNDApOworCXBlcmZjdHIgPSBSRUdfU0VUX0ZJRUxEKHBlcmZjdHIsIFBDSUVfUEVS
-Rl9DTlRMX1RYQ0xLLCBFVkVOVDFfU0VMLCAxMDQpOworCisJLyogV3JpdGUgdG8gZW5hYmxlIGRl
-c2lyZWQgcGVyZiBjb3VudGVycyAqLworCVdSRUczMl9QQ0lFKGl4UENJRV9QRVJGX0NOVExfVFhD
-TEssIHBlcmZjdHIpOworCS8qIFplcm8gb3V0IGFuZCBlbmFibGUgdGhlIHBlcmYgY291bnRlcnMK
-KwkgKiBXcml0ZSAweDU6CisJICogQml0IDAgPSBTdGFydCBhbGwgY291bnRlcnMoMSkKKwkgKiBC
-aXQgMiA9IEdsb2JhbCBjb3VudGVyIHJlc2V0IGVuYWJsZSgxKQorCSAqLworCVdSRUczMl9QQ0lF
-KGl4UENJRV9QRVJGX0NPVU5UX0NOVEwsIDB4MDAwMDAwMDUpOworCisJbXNsZWVwKDEwMDApOwor
-CisJLyogTG9hZCB0aGUgc2hhZG93IGFuZCBkaXNhYmxlIHRoZSBwZXJmIGNvdW50ZXJzCisJICog
-V3JpdGUgMHgyOgorCSAqIEJpdCAwID0gU3RvcCBjb3VudGVycygwKQorCSAqIEJpdCAxID0gTG9h
-ZCB0aGUgc2hhZG93IGNvdW50ZXJzKDEpCisJICovCisJV1JFRzMyX1BDSUUoaXhQQ0lFX1BFUkZf
-Q09VTlRfQ05UTCwgMHgwMDAwMDAwMik7CisKKwkvKiBSZWFkIHJlZ2lzdGVyIHZhbHVlcyB0byBn
-ZXQgYW55ID4zMmJpdCBvdmVyZmxvdyAqLworCXRtcCA9IFJSRUczMl9QQ0lFKGl4UENJRV9QRVJG
-X0NOVExfVFhDTEspOworCWNudDBfb2YgPSBSRUdfR0VUX0ZJRUxEKHRtcCwgUENJRV9QRVJGX0NO
-VExfVFhDTEssIENPVU5URVIwX1VQUEVSKTsKKwljbnQxX29mID0gUkVHX0dFVF9GSUVMRCh0bXAs
-IFBDSUVfUEVSRl9DTlRMX1RYQ0xLLCBDT1VOVEVSMV9VUFBFUik7CisKKwkvKiBHZXQgdGhlIHZh
-bHVlcyBhbmQgYWRkIHRoZSBvdmVyZmxvdyAqLworCSpjb3VudDAgPSBSUkVHMzJfUENJRShpeFBD
-SUVfUEVSRl9DT1VOVDBfVFhDTEspIHwgKGNudDBfb2YgPDwgMzIpOworCSpjb3VudDEgPSBSUkVH
-MzJfUENJRShpeFBDSUVfUEVSRl9DT1VOVDFfVFhDTEspIHwgKGNudDFfb2YgPDwgMzIpOworfQor
-CiBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9hc2ljX2Z1bmNzIGNpa19hc2ljX2Z1bmNzID0K
-IHsKIAkucmVhZF9kaXNhYmxlZF9iaW9zID0gJmNpa19yZWFkX2Rpc2FibGVkX2Jpb3MsCkBAIC0x
-NzU2LDYgKzE4MDIsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9hc2ljX2Z1bmNzIGNp
-a19hc2ljX2Z1bmNzID0KIAkuaW52YWxpZGF0ZV9oZHAgPSAmY2lrX2ludmFsaWRhdGVfaGRwLAog
-CS5uZWVkX2Z1bGxfcmVzZXQgPSAmY2lrX25lZWRfZnVsbF9yZXNldCwKIAkuaW5pdF9kb29yYmVs
-bF9pbmRleCA9ICZsZWdhY3lfZG9vcmJlbGxfaW5kZXhfaW5pdCwKKwkuZ2V0X3BjaWVfdXNhZ2Ug
-PSAmY2lrX2dldF9wY2llX3VzYWdlLAogfTsKIAogc3RhdGljIGludCBjaWtfY29tbW9uX2Vhcmx5
-X2luaXQodm9pZCAqaGFuZGxlKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvc2kuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpLmMKaW5kZXggZjg0MDhmOC4u
-NjAzOTQyNiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2kuYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaS5jCkBAIC0xMzIzLDYgKzEzMjMsNTIgQEAg
-c3RhdGljIHZvaWQgc2lfc2V0X3BjaWVfbGFuZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-IGludCBsYW5lcykKIAlXUkVHMzJfUENJRV9QT1JUKFBDSUVfTENfTElOS19XSURUSF9DTlRMLCBs
-aW5rX3dpZHRoX2NudGwpOwogfQogCitzdGF0aWMgdm9pZCBzaV9nZXRfcGNpZV91c2FnZShzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDY0X3QgKmNvdW50MCwKKwkJCSAgICAgIHVpbnQ2
-NF90ICpjb3VudDEpCit7CisJdWludDMyX3QgcGVyZmN0ciA9IDA7CisJdWludDY0X3QgY250MF9v
-ZiwgY250MV9vZjsKKwlpbnQgdG1wOworCisJLyogVGhpcyByZXBvcnRzIDAgb24gQVBVcywgc28g
-cmV0dXJuIHRvIGF2b2lkIHdyaXRpbmcvcmVhZGluZyByZWdpc3RlcnMKKwkgKiB0aGF0IG1heSBv
-ciBtYXkgbm90IGJlIGRpZmZlcmVudCBmcm9tIHRoZWlyIEdQVSBjb3VudGVycGFydHMKKwkgKi8K
-KyAgICAgICAgaWYgKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkKKyAgICAgICAgICAgICAgICBy
-ZXR1cm47CisKKwkvKiBTZXQgdGhlIDIgZXZlbnRzIHRoYXQgd2Ugd2lzaCB0byB3YXRjaCwgZGVm
-aW5lZCBhYm92ZSAqLworCS8qIFJlZyA0MCBpcyAjIHJlY2VpdmVkIG1zZ3MsIFJlZyAxMDQgaXMg
-IyBvZiBwb3N0ZWQgcmVxdWVzdHMgc2VudCAqLworCXBlcmZjdHIgPSBSRUdfU0VUX0ZJRUxEKHBl
-cmZjdHIsIFBDSUVfUEVSRl9DTlRMX1RYQ0xLLCBFVkVOVDBfU0VMLCA0MCk7CisJcGVyZmN0ciA9
-IFJFR19TRVRfRklFTEQocGVyZmN0ciwgUENJRV9QRVJGX0NOVExfVFhDTEssIEVWRU5UMV9TRUws
-IDEwNCk7CisKKwkvKiBXcml0ZSB0byBlbmFibGUgZGVzaXJlZCBwZXJmIGNvdW50ZXJzICovCisJ
-V1JFRzMyX1BDSUUoaXhQQ0lFX1BFUkZfQ05UTF9UWENMSywgcGVyZmN0cik7CisJLyogWmVybyBv
-dXQgYW5kIGVuYWJsZSB0aGUgcGVyZiBjb3VudGVycworCSAqIFdyaXRlIDB4NToKKwkgKiBCaXQg
-MCA9IFN0YXJ0IGFsbCBjb3VudGVycygxKQorCSAqIEJpdCAyID0gR2xvYmFsIGNvdW50ZXIgcmVz
-ZXQgZW5hYmxlKDEpCisJICovCisJV1JFRzMyX1BDSUUoaXhQQ0lFX1BFUkZfQ09VTlRfQ05UTCwg
-MHgwMDAwMDAwNSk7CisKKwltc2xlZXAoMTAwMCk7CisKKwkvKiBMb2FkIHRoZSBzaGFkb3cgYW5k
-IGRpc2FibGUgdGhlIHBlcmYgY291bnRlcnMKKwkgKiBXcml0ZSAweDI6CisJICogQml0IDAgPSBT
-dG9wIGNvdW50ZXJzKDApCisJICogQml0IDEgPSBMb2FkIHRoZSBzaGFkb3cgY291bnRlcnMoMSkK
-KwkgKi8KKwlXUkVHMzJfUENJRShpeFBDSUVfUEVSRl9DT1VOVF9DTlRMLCAweDAwMDAwMDAyKTsK
-KworCS8qIFJlYWQgcmVnaXN0ZXIgdmFsdWVzIHRvIGdldCBhbnkgPjMyYml0IG92ZXJmbG93ICov
-CisJdG1wID0gUlJFRzMyX1BDSUUoaXhQQ0lFX1BFUkZfQ05UTF9UWENMSyk7CisJY250MF9vZiA9
-IFJFR19HRVRfRklFTEQodG1wLCBQQ0lFX1BFUkZfQ05UTF9UWENMSywgQ09VTlRFUjBfVVBQRVIp
-OworCWNudDFfb2YgPSBSRUdfR0VUX0ZJRUxEKHRtcCwgUENJRV9QRVJGX0NOVExfVFhDTEssIENP
-VU5URVIxX1VQUEVSKTsKKworCS8qIEdldCB0aGUgdmFsdWVzIGFuZCBhZGQgdGhlIG92ZXJmbG93
-ICovCisJKmNvdW50MCA9IFJSRUczMl9QQ0lFKGl4UENJRV9QRVJGX0NPVU5UMF9UWENMSykgfCAo
-Y250MF9vZiA8PCAzMik7CisJKmNvdW50MSA9IFJSRUczMl9QQ0lFKGl4UENJRV9QRVJGX0NPVU5U
-MV9UWENMSykgfCAoY250MV9vZiA8PCAzMik7Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1k
-Z3B1X2FzaWNfZnVuY3Mgc2lfYXNpY19mdW5jcyA9CiB7CiAJLnJlYWRfZGlzYWJsZWRfYmlvcyA9
-ICZzaV9yZWFkX2Rpc2FibGVkX2Jpb3MsCkBAIC0xMzM5LDYgKzEzODUsNyBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IGFtZGdwdV9hc2ljX2Z1bmNzIHNpX2FzaWNfZnVuY3MgPQogCS5mbHVzaF9oZHAg
-PSAmc2lfZmx1c2hfaGRwLAogCS5pbnZhbGlkYXRlX2hkcCA9ICZzaV9pbnZhbGlkYXRlX2hkcCwK
-IAkubmVlZF9mdWxsX3Jlc2V0ID0gJnNpX25lZWRfZnVsbF9yZXNldCwKKwkuZ2V0X3BjaWVfdXNh
-Z2UgPSAmc2lfZ2V0X3BjaWVfdXNhZ2UsCiB9OwogCiBzdGF0aWMgdWludDMyX3Qgc2lfZ2V0X3Jl
-dl9pZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2Mx
-NS5jCmluZGV4IDg4NDliNzQuLmJiODk4MzMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3NvYzE1LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUu
-YwpAQCAtNDMsNiArNDMsOSBAQAogI2luY2x1ZGUgImhkcC9oZHBfNF8wX3NoX21hc2suaCIKICNp
-bmNsdWRlICJzbXVpby9zbXVpb185XzBfb2Zmc2V0LmgiCiAjaW5jbHVkZSAic211aW8vc211aW9f
-OV8wX3NoX21hc2suaCIKKyNpbmNsdWRlICJuYmlvL25iaW9fN18wX2RlZmF1bHQuaCIKKyNpbmNs
-dWRlICJuYmlvL25iaW9fN18wX3NoX21hc2suaCIKKyNpbmNsdWRlICJuYmlvL25iaW9fN18wX3Nt
-bi5oIgogCiAjaW5jbHVkZSAic29jMTUuaCIKICNpbmNsdWRlICJzb2MxNV9jb21tb24uaCIKQEAg
-LTYwMSw2ICs2MDQsNTEgQEAgc3RhdGljIGJvb2wgc29jMTVfbmVlZF9mdWxsX3Jlc2V0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQogCS8qIGNoYW5nZSB0aGlzIHdoZW4gd2UgaW1wbGVtZW50
-IHNvZnQgcmVzZXQgKi8KIAlyZXR1cm4gdHJ1ZTsKIH0KK3N0YXRpYyB2b2lkIHNvYzE1X2dldF9w
-Y2llX3VzYWdlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50NjRfdCAqY291bnQwLAor
-CQkJCSB1aW50NjRfdCAqY291bnQxKQoreworCXVpbnQzMl90IHBlcmZjdHIgPSAwOworCXVpbnQ2
-NF90IGNudDBfb2YsIGNudDFfb2Y7CisJaW50IHRtcDsKKworCS8qIFRoaXMgcmVwb3J0cyAwIG9u
-IEFQVXMsIHNvIHJldHVybiB0byBhdm9pZCB3cml0aW5nL3JlYWRpbmcgcmVnaXN0ZXJzCisJICog
-dGhhdCBtYXkgb3IgbWF5IG5vdCBiZSBkaWZmZXJlbnQgZnJvbSB0aGVpciBHUFUgY291bnRlcnBh
-cnRzCisJICovCisJIGlmIChhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpCisJCSByZXR1cm47CisK
-KwkvKiBTZXQgdGhlIDIgZXZlbnRzIHRoYXQgd2Ugd2lzaCB0byB3YXRjaCwgZGVmaW5lZCBhYm92
-ZSAqLworCS8qIFJlZyA0MCBpcyAjIHJlY2VpdmVkIG1zZ3MsIFJlZyAxMDQgaXMgIyBvZiBwb3N0
-ZWQgcmVxdWVzdHMgc2VudCAqLworCXBlcmZjdHIgPSBSRUdfU0VUX0ZJRUxEKHBlcmZjdHIsIFBD
-SUVfUEVSRl9DTlRMX1RYQ0xLLCBFVkVOVDBfU0VMLCA0MCk7CisJcGVyZmN0ciA9IFJFR19TRVRf
-RklFTEQocGVyZmN0ciwgUENJRV9QRVJGX0NOVExfVFhDTEssIEVWRU5UMV9TRUwsIDEwNCk7CisK
-KwkvKiBXcml0ZSB0byBlbmFibGUgZGVzaXJlZCBwZXJmIGNvdW50ZXJzICovCisJV1JFRzMyX1BD
-SUUoc21uUENJRV9QRVJGX0NOVExfVFhDTEssIHBlcmZjdHIpOworCS8qIFplcm8gb3V0IGFuZCBl
-bmFibGUgdGhlIHBlcmYgY291bnRlcnMKKwkgKiBXcml0ZSAweDU6CisJICogQml0IDAgPSBTdGFy
-dCBhbGwgY291bnRlcnMoMSkKKwkgKiBCaXQgMiA9IEdsb2JhbCBjb3VudGVyIHJlc2V0IGVuYWJs
-ZSgxKQorCSAqLworCVdSRUczMl9QQ0lFKHNtblBDSUVfUEVSRl9DT1VOVF9DTlRMLCAweDAwMDAw
-MDA1KTsKKworCW1zbGVlcCgxMDAwKTsKKworCS8qIExvYWQgdGhlIHNoYWRvdyBhbmQgZGlzYWJs
-ZSB0aGUgcGVyZiBjb3VudGVycworCSAqIFdyaXRlIDB4MjoKKwkgKiBCaXQgMCA9IFN0b3AgY291
-bnRlcnMoMCkKKwkgKiBCaXQgMSA9IExvYWQgdGhlIHNoYWRvdyBjb3VudGVycygxKQorCSAqLwor
-CVdSRUczMl9QQ0lFKHNtblBDSUVfUEVSRl9DT1VOVF9DTlRMLCAweDAwMDAwMDAyKTsKKworCS8q
-IFJlYWQgcmVnaXN0ZXIgdmFsdWVzIHRvIGdldCBhbnkgPjMyYml0IG92ZXJmbG93ICovCisJdG1w
-ID0gUlJFRzMyX1BDSUUoc21uUENJRV9QRVJGX0NOVExfVFhDTEspOworCWNudDBfb2YgPSBSRUdf
-R0VUX0ZJRUxEKHRtcCwgUENJRV9QRVJGX0NOVExfVFhDTEssIENPVU5URVIwX1VQUEVSKTsKKwlj
-bnQxX29mID0gUkVHX0dFVF9GSUVMRCh0bXAsIFBDSUVfUEVSRl9DTlRMX1RYQ0xLLCBDT1VOVEVS
-MV9VUFBFUik7CisKKwkvKiBHZXQgdGhlIHZhbHVlcyBhbmQgYWRkIHRoZSBvdmVyZmxvdyAqLwor
-CSpjb3VudDAgPSBSUkVHMzJfUENJRShzbW5QQ0lFX1BFUkZfQ09VTlQwX1RYQ0xLKSB8IChjbnQw
-X29mIDw8IDMyKTsKKwkqY291bnQxID0gUlJFRzMyX1BDSUUoc21uUENJRV9QRVJGX0NPVU5UMV9U
-WENMSykgfCAoY250MV9vZiA8PCAzMik7Cit9CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1
-X2FzaWNfZnVuY3Mgc29jMTVfYXNpY19mdW5jcyA9CiB7CkBAIC02MTcsNiArNjY1LDcgQEAgc3Rh
-dGljIGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19mdW5jcyBzb2MxNV9hc2ljX2Z1bmNzID0KIAku
-aW52YWxpZGF0ZV9oZHAgPSAmc29jMTVfaW52YWxpZGF0ZV9oZHAsCiAJLm5lZWRfZnVsbF9yZXNl
-dCA9ICZzb2MxNV9uZWVkX2Z1bGxfcmVzZXQsCiAJLmluaXRfZG9vcmJlbGxfaW5kZXggPSAmdmVn
-YTEwX2Rvb3JiZWxsX2luZGV4X2luaXQsCisJLmdldF9wY2llX3VzYWdlID0gJnNvYzE1X2dldF9w
-Y2llX3VzYWdlLAogfTsKIAogc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfYXNpY19mdW5jcyB2
-ZWdhMjBfYXNpY19mdW5jcyA9CkBAIC02MzQsNiArNjgzLDcgQEAgc3RhdGljIGNvbnN0IHN0cnVj
-dCBhbWRncHVfYXNpY19mdW5jcyB2ZWdhMjBfYXNpY19mdW5jcyA9CiAJLmludmFsaWRhdGVfaGRw
-ID0gJnNvYzE1X2ludmFsaWRhdGVfaGRwLAogCS5uZWVkX2Z1bGxfcmVzZXQgPSAmc29jMTVfbmVl
-ZF9mdWxsX3Jlc2V0LAogCS5pbml0X2Rvb3JiZWxsX2luZGV4ID0gJnZlZ2EyMF9kb29yYmVsbF9p
-bmRleF9pbml0LAorCS5nZXRfcGNpZV91c2FnZSA9ICZzb2MxNV9nZXRfcGNpZV91c2FnZSwKIH07
-CiAKIHN0YXRpYyBpbnQgc29jMTVfY29tbW9uX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxlKQpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3ZpLmMKaW5kZXggMDNlN2JlNS4uY2RjOGFiOCAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92aS5jCkBAIC05NDEsNiArOTQxLDUyIEBAIHN0YXRpYyBib29sIHZpX25lZWRfZnVsbF9y
-ZXNldChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAl9CiB9CiAKK3N0YXRpYyB2b2lkIHZp
-X2dldF9wY2llX3VzYWdlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50NjRfdCAqY291
-bnQwLAorCQkJICAgICAgdWludDY0X3QgKmNvdW50MSkKK3sKKwl1aW50MzJfdCBwZXJmY3RyID0g
-MDsKKwl1aW50NjRfdCBjbnQwX29mLCBjbnQxX29mOworCWludCB0bXA7CisKKwkvKiBUaGlzIHJl
-cG9ydHMgMCBvbiBBUFVzLCBzbyByZXR1cm4gdG8gYXZvaWQgd3JpdGluZy9yZWFkaW5nIHJlZ2lz
-dGVycworCSAqIHRoYXQgbWF5IG9yIG1heSBub3QgYmUgZGlmZmVyZW50IGZyb20gdGhlaXIgR1BV
-IGNvdW50ZXJwYXJ0cworCSAqLworCWlmIChhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpCisJCXJl
-dHVybjsKKworCS8qIFNldCB0aGUgMiBldmVudHMgdGhhdCB3ZSB3aXNoIHRvIHdhdGNoLCBkZWZp
-bmVkIGFib3ZlICovCisJLyogUmVnIDQwIGlzICMgcmVjZWl2ZWQgbXNncywgUmVnIDEwNCBpcyAj
-IG9mIHBvc3RlZCByZXF1ZXN0cyBzZW50ICovCisJcGVyZmN0ciA9IFJFR19TRVRfRklFTEQocGVy
-ZmN0ciwgUENJRV9QRVJGX0NOVExfVFhDTEssIEVWRU5UMF9TRUwsIDQwKTsKKwlwZXJmY3RyID0g
-UkVHX1NFVF9GSUVMRChwZXJmY3RyLCBQQ0lFX1BFUkZfQ05UTF9UWENMSywgRVZFTlQxX1NFTCwg
-MTA0KTsKKworCS8qIFdyaXRlIHRvIGVuYWJsZSBkZXNpcmVkIHBlcmYgY291bnRlcnMgKi8KKwlX
-UkVHMzJfUENJRShpeFBDSUVfUEVSRl9DTlRMX1RYQ0xLLCBwZXJmY3RyKTsKKwkvKiBaZXJvIG91
-dCBhbmQgZW5hYmxlIHRoZSBwZXJmIGNvdW50ZXJzCisJICogV3JpdGUgMHg1OgorCSAqIEJpdCAw
-ID0gU3RhcnQgYWxsIGNvdW50ZXJzKDEpCisJICogQml0IDIgPSBHbG9iYWwgY291bnRlciByZXNl
-dCBlbmFibGUoMSkKKwkgKi8KKwlXUkVHMzJfUENJRShpeFBDSUVfUEVSRl9DT1VOVF9DTlRMLCAw
-eDAwMDAwMDA1KTsKKworCW1zbGVlcCgxMDAwKTsKKworCS8qIExvYWQgdGhlIHNoYWRvdyBhbmQg
-ZGlzYWJsZSB0aGUgcGVyZiBjb3VudGVycworCSAqIFdyaXRlIDB4MjoKKwkgKiBCaXQgMCA9IFN0
-b3AgY291bnRlcnMoMCkKKwkgKiBCaXQgMSA9IExvYWQgdGhlIHNoYWRvdyBjb3VudGVycygxKQor
-CSAqLworCVdSRUczMl9QQ0lFKGl4UENJRV9QRVJGX0NPVU5UX0NOVEwsIDB4MDAwMDAwMDIpOwor
-CisJLyogUmVhZCByZWdpc3RlciB2YWx1ZXMgdG8gZ2V0IGFueSA+MzJiaXQgb3ZlcmZsb3cgKi8K
-Kwl0bXAgPSBSUkVHMzJfUENJRShpeFBDSUVfUEVSRl9DTlRMX1RYQ0xLKTsKKwljbnQwX29mID0g
-UkVHX0dFVF9GSUVMRCh0bXAsIFBDSUVfUEVSRl9DTlRMX1RYQ0xLLCBDT1VOVEVSMF9VUFBFUik7
-CisJY250MV9vZiA9IFJFR19HRVRfRklFTEQodG1wLCBQQ0lFX1BFUkZfQ05UTF9UWENMSywgQ09V
-TlRFUjFfVVBQRVIpOworCisJLyogR2V0IHRoZSB2YWx1ZXMgYW5kIGFkZCB0aGUgb3ZlcmZsb3cg
-Ki8KKwkqY291bnQwID0gUlJFRzMyX1BDSUUoaXhQQ0lFX1BFUkZfQ09VTlQwX1RYQ0xLKSB8IChj
-bnQwX29mIDw8IDMyKTsKKwkqY291bnQxID0gUlJFRzMyX1BDSUUoaXhQQ0lFX1BFUkZfQ09VTlQx
-X1RYQ0xLKSB8IChjbnQxX29mIDw8IDMyKTsKK30KKwogc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRn
-cHVfYXNpY19mdW5jcyB2aV9hc2ljX2Z1bmNzID0KIHsKIAkucmVhZF9kaXNhYmxlZF9iaW9zID0g
-JnZpX3JlYWRfZGlzYWJsZWRfYmlvcywKQEAgLTk1Niw2ICsxMDAyLDcgQEAgc3RhdGljIGNvbnN0
-IHN0cnVjdCBhbWRncHVfYXNpY19mdW5jcyB2aV9hc2ljX2Z1bmNzID0KIAkuaW52YWxpZGF0ZV9o
-ZHAgPSAmdmlfaW52YWxpZGF0ZV9oZHAsCiAJLm5lZWRfZnVsbF9yZXNldCA9ICZ2aV9uZWVkX2Z1
-bGxfcmVzZXQsCiAJLmluaXRfZG9vcmJlbGxfaW5kZXggPSAmbGVnYWN5X2Rvb3JiZWxsX2luZGV4
-X2luaXQsCisJLmdldF9wY2llX3VzYWdlID0gJnZpX2dldF9wY2llX3VzYWdlLAogfTsKIAogI2Rl
-ZmluZSBDWl9SRVZfQlJJU1RPTChyZXYpCSBcCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0306201849==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180933A994DA3151BD165801F78B0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180933A994DA3151BD165801F78B0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Russell,=
+ Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, January 9, 2019 9:43:51 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Russell, Kent
+Subject: [PATCH 1/2] drm/amdgpu: Add NBIO SMN headers v2
+
+We need these offsets for PCIE perf counters, so include them as well as
+the the previously-used defines from the nbio_*.c files
+
+v2: Return NBIF definitions back to previous files
+
+Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c             |  6 +--
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c             |  4 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             |  5 +-
+ .../drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h   | 58 ++++++++++++++++++=
+++++
+ .../drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h   | 54 ++++++++++++++++++=
+++
+ .../drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.h | 53 ++++++++++++++++++=
+++
+ 6 files changed, 168 insertions(+), 12 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1_smn.=
+h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_smn.=
+h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_0_sm=
+n.h
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v6_1.c
+index accdedd..1965756 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
+@@ -27,13 +27,9 @@
+ #include "nbio/nbio_6_1_default.h"
+ #include "nbio/nbio_6_1_offset.h"
+ #include "nbio/nbio_6_1_sh_mask.h"
++#include "nbio/nbio_6_1_smn.h"
+ #include "vega10_enum.h"
+
+-#define smnCPM_CONTROL                                                    =
+                              0x11180460
+-#define smnPCIE_CNTL2                                                     =
+                              0x11180070
+-#define smnPCIE_CONFIG_CNTL                                               =
+                              0x11180044
+-#define smnPCIE_CI_CNTL                                                   =
+                              0x11180080
+-
+ static u32 nbio_v6_1_get_rev_id(struct amdgpu_device *adev)
+ {
+         u32 tmp =3D RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_STRAP0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v7_0.c
+index df34dc7..38291c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
+@@ -27,13 +27,11 @@
+ #include "nbio/nbio_7_0_default.h"
+ #include "nbio/nbio_7_0_offset.h"
+ #include "nbio/nbio_7_0_sh_mask.h"
++#include "nbio/nbio_7_0_smn.h"
+ #include "vega10_enum.h"
+
+ #define smnNBIF_MGCG_CTRL_LCLK  0x1013a05c
+
+-#define smnCPM_CONTROL                                                    =
+                              0x11180460
+-#define smnPCIE_CNTL2                                                     =
+                              0x11180070
+-
+ static u32 nbio_v7_0_get_rev_id(struct amdgpu_device *adev)
+ {
+         u32 tmp =3D RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_STRAP0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v7_4.c
+index 4cd31a2..0a61309 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -26,13 +26,10 @@
+
+ #include "nbio/nbio_7_4_offset.h"
+ #include "nbio/nbio_7_4_sh_mask.h"
++#include "nbio/nbio_7_4_0_smn.h"
+
+ #define smnNBIF_MGCG_CTRL_LCLK  0x1013a21c
+
+-#define smnCPM_CONTROL                                                    =
+                              0x11180460
+-#define smnPCIE_CNTL2                                                     =
+                              0x11180070
+-#define smnPCIE_CI_CNTL                                                   =
+                              0x11180080
+-
+ static u32 nbio_v7_4_get_rev_id(struct amdgpu_device *adev)
+ {
+     u32 tmp =3D RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_STRAP0);
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h b/dri=
+vers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h
+new file mode 100644
+index 0000000..8c75669
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h
+@@ -0,0 +1,58 @@
++/*
++ * Copyright (C) 2019  Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software=
+"),
++ * to deal in the Software without restriction, including without limitati=
+on
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense=
+,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABIL=
+ITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHAL=
+L
++ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABI=
+LITY, WHETHER IN
++ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA=
+RE.
++ */
++
++#ifndef _nbio_6_1_SMN_HEADER
++#define _nbio_6_1_SMN_HEADER
++
++
++#define smnCPM_CONTROL                                 0x11180460
++#define smnPCIE_CNTL2                                  0x11180070
++#define smnPCIE_CONFIG_CNTL                            0x11180044
++#define smnPCIE_CI_CNTL                                        0x11180080
++
++
++#define smnPCIE_PERF_COUNT_CNTL                                0x11180200
++#define smnPCIE_PERF_CNTL_TXCLK                                0x11180204
++#define smnPCIE_PERF_COUNT0_TXCLK                      0x11180208
++#define smnPCIE_PERF_COUNT1_TXCLK                      0x1118020c
++#define smnPCIE_PERF_CNTL_MST_R_CLK                    0x11180210
++#define smnPCIE_PERF_COUNT0_MST_R_CLK                  0x11180214
++#define smnPCIE_PERF_COUNT1_MST_R_CLK                  0x11180218
++#define smnPCIE_PERF_CNTL_MST_C_CLK                    0x1118021c
++#define smnPCIE_PERF_COUNT0_MST_C_CLK                  0x11180220
++#define smnPCIE_PERF_COUNT1_MST_C_CLK                  0x11180224
++#define smnPCIE_PERF_CNTL_SLV_R_CLK                    0x11180228
++#define smnPCIE_PERF_COUNT0_SLV_R_CLK                  0x1118022c
++#define smnPCIE_PERF_COUNT1_SLV_R_CLK                  0x11180230
++#define smnPCIE_PERF_CNTL_SLV_S_C_CLK                  0x11180234
++#define smnPCIE_PERF_COUNT0_SLV_S_C_CLK                        0x11180238
++#define smnPCIE_PERF_COUNT1_SLV_S_C_CLK                        0x1118023c
++#define smnPCIE_PERF_CNTL_SLV_NS_C_CLK                 0x11180240
++#define smnPCIE_PERF_COUNT0_SLV_NS_C_CLK               0x11180244
++#define smnPCIE_PERF_COUNT1_SLV_NS_C_CLK               0x11180248
++#define smnPCIE_PERF_CNTL_EVENT0_PORT_SEL              0x1118024c
++#define smnPCIE_PERF_CNTL_EVENT1_PORT_SEL              0x11180250
++#define smnPCIE_PERF_CNTL_TXCLK2                       0x11180254
++#define smnPCIE_PERF_COUNT0_TXCLK2                     0x11180258
++#define smnPCIE_PERF_COUNT1_TXCLK2                     0x1118025c
++
++#endif // _nbio_6_1_SMN_HEADER
++
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h b/dri=
+vers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h
+new file mode 100644
+index 0000000..5563f07
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h
+@@ -0,0 +1,54 @@
++/*
++ * Copyright (C) 2019  Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software=
+"),
++ * to deal in the Software without restriction, including without limitati=
+on
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense=
+,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABIL=
+ITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHAL=
+L
++ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABI=
+LITY, WHETHER IN
++ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA=
+RE.
++ */
++
++#ifndef _nbio_7_0_SMN_HEADER
++#define _nbio_7_0_SMN_HEADER
++
++
++#define smnCPM_CONTROL                                 0x11180460
++#define smnPCIE_CNTL2                                  0x11180070
++
++#define smnPCIE_PERF_COUNT_CNTL                                0x11180200
++#define smnPCIE_PERF_CNTL_TXCLK                                0x11180204
++#define smnPCIE_PERF_COUNT0_TXCLK                      0x11180208
++#define smnPCIE_PERF_COUNT1_TXCLK                      0x1118020c
++#define smnPCIE_PERF_CNTL_MST_R_CLK                    0x11180210
++#define smnPCIE_PERF_COUNT0_MST_R_CLK                  0x11180214
++#define smnPCIE_PERF_COUNT1_MST_R_CLK                  0x11180218
++#define smnPCIE_PERF_CNTL_MST_C_CLK                    0x1118021c
++#define smnPCIE_PERF_COUNT0_MST_C_CLK                  0x11180220
++#define smnPCIE_PERF_COUNT1_MST_C_CLK                  0x11180224
++#define smnPCIE_PERF_CNTL_SLV_R_CLK                    0x11180228
++#define smnPCIE_PERF_COUNT0_SLV_R_CLK                  0x1118022c
++#define smnPCIE_PERF_COUNT1_SLV_R_CLK                  0x11180230
++#define smnPCIE_PERF_CNTL_SLV_S_C_CLK                  0x11180234
++#define smnPCIE_PERF_COUNT0_SLV_S_C_CLK                        0x11180238
++#define smnPCIE_PERF_COUNT1_SLV_S_C_CLK                        0x1118023c
++#define smnPCIE_PERF_CNTL_SLV_NS_C_CLK                 0x11180240
++#define smnPCIE_PERF_COUNT0_SLV_NS_C_CLK               0x11180244
++#define smnPCIE_PERF_COUNT1_SLV_NS_C_CLK               0x11180248
++#define smnPCIE_PERF_CNTL_EVENT0_PORT_SEL              0x1118024c
++#define smnPCIE_PERF_CNTL_EVENT1_PORT_SEL              0x11180250
++#define smnPCIE_PERF_CNTL_TXCLK2                       0x11180254
++#define smnPCIE_PERF_COUNT0_TXCLK2                     0x11180258
++#define smnPCIE_PERF_COUNT1_TXCLK2                     0x1118025c
++
++#endif // _nbio_7_0_SMN_HEADER
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.h b/d=
+rivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.h
+new file mode 100644
+index 0000000..c1457d8
+--- /dev/null
++++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.h
+@@ -0,0 +1,53 @@
++/*
++ * Copyright (C) 2019  Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software=
+"),
++ * to deal in the Software without restriction, including without limitati=
+on
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense=
+,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included
++ * in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
++ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABIL=
+ITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHAL=
+L
++ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABI=
+LITY, WHETHER IN
++ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
++ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWA=
+RE.
++ */
++
++#ifndef _nbio_7_4_0_SMN_HEADER
++#define _nbio_7_4_0_SMN_HEADER
++
++
++#define smnNBIF_MGCG_CTRL_LCLK                         0x1013a21c
++#define smnCPM_CONTROL                                 0x11180460
++#define smnPCIE_CNTL2                                  0x11180070
++#define smnPCIE_CI_CNTL                                        0x11180080
++
++#define smnPCIE_PERF_COUNT_CNTL                                0x11180200
++#define smnPCIE_PERF_CNTL_TXCLK1                       0x11180204
++#define smnPCIE_PERF_COUNT0_TXCLK1                     0x11180208
++#define smnPCIE_PERF_COUNT1_TXCLK1                     0x1118020c
++#define smnPCIE_PERF_CNTL_TXCLK2                       0x11180210
++#define smnPCIE_PERF_COUNT0_TXCLK2                     0x11180214
++#define smnPCIE_PERF_COUNT1_TXCLK2                     0x11180218
++#define smnPCIE_PERF_CNTL_TXCLK3                       0x1118021c
++#define smnPCIE_PERF_COUNT0_TXCLK3                     0x11180220
++#define smnPCIE_PERF_COUNT1_TXCLK3                     0x11180224
++#define smnPCIE_PERF_CNTL_TXCLK4                       0x11180228
++#define smnPCIE_PERF_COUNT0_TXCLK4                     0x1118022c
++#define smnPCIE_PERF_COUNT1_TXCLK4                     0x11180230
++#define smnPCIE_PERF_CNTL_SCLK1                                0x11180234
++#define smnPCIE_PERF_COUNT0_SCLK1                      0x11180238
++#define smnPCIE_PERF_COUNT1_SCLK1                      0x1118023c
++#define smnPCIE_PERF_CNTL_SCLK2                                0x11180240
++#define smnPCIE_PERF_COUNT0_SCLK2                      0x11180244
++#define smnPCIE_PERF_COUNT1_SCLK2                      0x11180248
++#define smnPCIE_PERF_CNTL_EVENT_LC_PORT_SEL            0x1118024c
++#define smnPCIE_PERF_CNTL_EVENT_CI_PORT_SEL            0x11180250
++
++#endif // _nbio_7_4_0_SMN_HEADER
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in the sections below.
+
+
+
+--_000_BN6PR12MB180933A994DA3151BD165801F78B0BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
+r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFo=
+nt&quot;, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoCo=
+lorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymb=
+ols;">
+<p style=3D"margin-top:0; margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0; margin-bottom:0">Reviewed-by: Alex Deucher &lt;al=
+exander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Russell, Kent &lt;Kent.Russ=
+ell-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, January 9, 2019 9:43:51 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Russell, Kent<br>
+<b>Subject:</b> [PATCH 1/2] drm/amdgpu: Add NBIO SMN headers v2</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">We need these offsets for PCIE perf counters, so i=
+nclude them as well as<br>
+the the previously-used defines from the nbio_*.c files<br>
+<br>
+v2: Return NBIF definitions back to previous files<br>
+<br>
+Signed-off-by: Kent Russell &lt;kent.russell-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 6 &#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 5 &#43;-<br>
+&nbsp;.../drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h&nbsp;&nbsp; | 58 &#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;.../drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h&nbsp;&nbsp; | 54 &#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;<br>
+&nbsp;.../drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.h | 53 &#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;<br>
+&nbsp;6 files changed, 168 insertions(&#43;), 12 deletions(-)<br>
+&nbsp;create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1=
+_smn.h<br>
+&nbsp;create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0=
+_smn.h<br>
+&nbsp;create mode 100644 drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4=
+_0_smn.h<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v6_1.c<br>
+index accdedd..1965756 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
+@@ -27,13 &#43;27,9 @@<br>
+&nbsp;#include &quot;nbio/nbio_6_1_default.h&quot;<br>
+&nbsp;#include &quot;nbio/nbio_6_1_offset.h&quot;<br>
+&nbsp;#include &quot;nbio/nbio_6_1_sh_mask.h&quot;<br>
+&#43;#include &quot;nbio/nbio_6_1_smn.h&quot;<br>
+&nbsp;#include &quot;vega10_enum.h&quot;<br>
+&nbsp;<br>
+-#define smnCPM_CONTROL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180460<br>
+-#define smnPCIE_CNTL2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180070=
+<br>
+-#define smnPCIE_CONFIG_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180044<br>
+-#define smnPCIE_CI_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180080<br>
+-<br>
+&nbsp;static u32 nbio_v6_1_get_rev_id(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp =3D RREG32_SOC15(N=
+BIO, 0, mmRCC_DEV0_EPF0_STRAP0);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v7_0.c<br>
+index df34dc7..38291c5 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
+@@ -27,13 &#43;27,11 @@<br>
+&nbsp;#include &quot;nbio/nbio_7_0_default.h&quot;<br>
+&nbsp;#include &quot;nbio/nbio_7_0_offset.h&quot;<br>
+&nbsp;#include &quot;nbio/nbio_7_0_sh_mask.h&quot;<br>
+&#43;#include &quot;nbio/nbio_7_0_smn.h&quot;<br>
+&nbsp;#include &quot;vega10_enum.h&quot;<br>
+&nbsp;<br>
+&nbsp;#define smnNBIF_MGCG_CTRL_LCLK&nbsp; 0x1013a05c<br>
+&nbsp;<br>
+-#define smnCPM_CONTROL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180460<br>
+-#define smnPCIE_CNTL2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180070=
+<br>
+-<br>
+&nbsp;static u32 nbio_v7_0_get_rev_id(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp =3D RREG32_SOC15(N=
+BIO, 0, mmRCC_DEV0_EPF0_STRAP0);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
+mdgpu/nbio_v7_4.c<br>
+index 4cd31a2..0a61309 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
+@@ -26,13 &#43;26,10 @@<br>
+&nbsp;<br>
+&nbsp;#include &quot;nbio/nbio_7_4_offset.h&quot;<br>
+&nbsp;#include &quot;nbio/nbio_7_4_sh_mask.h&quot;<br>
+&#43;#include &quot;nbio/nbio_7_4_0_smn.h&quot;<br>
+&nbsp;<br>
+&nbsp;#define smnNBIF_MGCG_CTRL_LCLK&nbsp; 0x1013a21c<br>
+&nbsp;<br>
+-#define smnCPM_CONTROL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180460<br>
+-#define smnPCIE_CNTL2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180070=
+<br>
+-#define smnPCIE_CI_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180080<br>
+-<br>
+&nbsp;static u32 nbio_v7_4_get_rev_id(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp =3D RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_=
+STRAP0);<br>
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h b/dri=
+vers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h<br>
+new file mode 100644<br>
+index 0000000..8c75669<br>
+--- /dev/null<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_6_1_smn.h<=
+br>
+@@ -0,0 &#43;1,58 @@<br>
+&#43;/*<br>
+&#43; * Copyright (C) 2019&nbsp; Advanced Micro Devices, Inc.<br>
+&#43; *<br>
+&#43; * Permission is hereby granted, free of charge, to any person obtaini=
+ng a<br>
+&#43; * copy of this software and associated documentation files (the &quot=
+;Software&quot;),<br>
+&#43; * to deal in the Software without restriction, including without limi=
+tation<br>
+&#43; * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,<br>
+&#43; * and/or sell copies of the Software, and to permit persons to whom t=
+he<br>
+&#43; * Software is furnished to do so, subject to the following conditions=
+:<br>
+&#43; *<br>
+&#43; * The above copyright notice and this permission notice shall be incl=
+uded<br>
+&#43; * in all copies or substantial portions of the Software.<br>
+&#43; *<br>
+&#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY=
+ KIND, EXPRESS<br>
+&#43; * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANT=
+ABILITY,<br>
+&#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO E=
+VENT SHALL<br>
+&#43; * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER L=
+IABILITY, WHETHER IN<br>
+&#43; * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR I=
+N<br>
+&#43; * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO=
+FTWARE.<br>
+&#43; */<br>
+&#43;<br>
+&#43;#ifndef _nbio_6_1_SMN_HEADER<br>
+&#43;#define _nbio_6_1_SMN_HEADER<br>
+&#43;<br>
+&#43;<br>
+&#43;#define smnCPM_CONTROL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80460<br>
+&#43;#define smnPCIE_CNTL2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+0x11180070<br>
+&#43;#define smnPCIE_CONFIG_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180044<br>
+&#43;#define smnPCIE_CI_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180080<br>
+&#43;<br>
+&#43;<br>
+&#43;#define smnPCIE_PERF_COUNT_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x=
+11180200<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x=
+11180204<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x11180208<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x1118020c<br>
+&#43;#define smnPCIE_PERF_CNTL_MST_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 0x11180210<br>
+&#43;#define smnPCIE_PERF_COUNT0_MST_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80214<br>
+&#43;#define smnPCIE_PERF_COUNT1_MST_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80218<br>
+&#43;#define smnPCIE_PERF_CNTL_MST_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 0x1118021c<br>
+&#43;#define smnPCIE_PERF_COUNT0_MST_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80220<br>
+&#43;#define smnPCIE_PERF_COUNT1_MST_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80224<br>
+&#43;#define smnPCIE_PERF_CNTL_SLV_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 0x11180228<br>
+&#43;#define smnPCIE_PERF_COUNT0_SLV_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+8022c<br>
+&#43;#define smnPCIE_PERF_COUNT1_SLV_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80230<br>
+&#43;#define smnPCIE_PERF_CNTL_SLV_S_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80234<br>
+&#43;#define smnPCIE_PERF_COUNT0_SLV_S_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180238<br>
+&#43;#define smnPCIE_PERF_COUNT1_SLV_S_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1118023c<br>
+&#43;#define smnPCIE_PERF_CNTL_SLV_NS_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180240=
+<br>
+&#43;#define smnPCIE_PERF_COUNT0_SLV_NS_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180244<br>
+&#43;#define smnPCIE_PERF_COUNT1_SLV_NS_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180248<br>
+&#43;#define smnPCIE_PERF_CNTL_EVENT0_PORT_SEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1118024c<br>
+&#43;#define smnPCIE_PERF_CNTL_EVENT1_PORT_SEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180250<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x11180254<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180258<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x1118025c<br>
+&#43;<br>
+&#43;#endif // _nbio_6_1_SMN_HEADER<br>
+&#43;<br>
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h b/dri=
+vers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h<br>
+new file mode 100644<br>
+index 0000000..5563f07<br>
+--- /dev/null<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_smn.h<=
+br>
+@@ -0,0 &#43;1,54 @@<br>
+&#43;/*<br>
+&#43; * Copyright (C) 2019&nbsp; Advanced Micro Devices, Inc.<br>
+&#43; *<br>
+&#43; * Permission is hereby granted, free of charge, to any person obtaini=
+ng a<br>
+&#43; * copy of this software and associated documentation files (the &quot=
+;Software&quot;),<br>
+&#43; * to deal in the Software without restriction, including without limi=
+tation<br>
+&#43; * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,<br>
+&#43; * and/or sell copies of the Software, and to permit persons to whom t=
+he<br>
+&#43; * Software is furnished to do so, subject to the following conditions=
+:<br>
+&#43; *<br>
+&#43; * The above copyright notice and this permission notice shall be incl=
+uded<br>
+&#43; * in all copies or substantial portions of the Software.<br>
+&#43; *<br>
+&#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY=
+ KIND, EXPRESS<br>
+&#43; * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANT=
+ABILITY,<br>
+&#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO E=
+VENT SHALL<br>
+&#43; * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER L=
+IABILITY, WHETHER IN<br>
+&#43; * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR I=
+N<br>
+&#43; * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO=
+FTWARE.<br>
+&#43; */<br>
+&#43;<br>
+&#43;#ifndef _nbio_7_0_SMN_HEADER<br>
+&#43;#define _nbio_7_0_SMN_HEADER<br>
+&#43;<br>
+&#43;<br>
+&#43;#define smnCPM_CONTROL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80460<br>
+&#43;#define smnPCIE_CNTL2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+0x11180070<br>
+&#43;<br>
+&#43;#define smnPCIE_PERF_COUNT_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x=
+11180200<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x=
+11180204<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x11180208<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x1118020c<br>
+&#43;#define smnPCIE_PERF_CNTL_MST_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 0x11180210<br>
+&#43;#define smnPCIE_PERF_COUNT0_MST_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80214<br>
+&#43;#define smnPCIE_PERF_COUNT1_MST_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80218<br>
+&#43;#define smnPCIE_PERF_CNTL_MST_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 0x1118021c<br>
+&#43;#define smnPCIE_PERF_COUNT0_MST_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80220<br>
+&#43;#define smnPCIE_PERF_COUNT1_MST_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80224<br>
+&#43;#define smnPCIE_PERF_CNTL_SLV_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; 0x11180228<br>
+&#43;#define smnPCIE_PERF_COUNT0_SLV_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+8022c<br>
+&#43;#define smnPCIE_PERF_COUNT1_SLV_R_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80230<br>
+&#43;#define smnPCIE_PERF_CNTL_SLV_S_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80234<br>
+&#43;#define smnPCIE_PERF_COUNT0_SLV_S_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180238<br>
+&#43;#define smnPCIE_PERF_COUNT1_SLV_S_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1118023c<br>
+&#43;#define smnPCIE_PERF_CNTL_SLV_NS_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180240=
+<br>
+&#43;#define smnPCIE_PERF_COUNT0_SLV_NS_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180244<br>
+&#43;#define smnPCIE_PERF_COUNT1_SLV_NS_C_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180248<br>
+&#43;#define smnPCIE_PERF_CNTL_EVENT0_PORT_SEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1118024c<br>
+&#43;#define smnPCIE_PERF_CNTL_EVENT1_PORT_SEL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180250<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x11180254<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180258<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x1118025c<br>
+&#43;<br>
+&#43;#endif // _nbio_7_0_SMN_HEADER<br>
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.h b/d=
+rivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.h<br>
+new file mode 100644<br>
+index 0000000..c1457d8<br>
+--- /dev/null<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_0_smn.=
+h<br>
+@@ -0,0 &#43;1,53 @@<br>
+&#43;/*<br>
+&#43; * Copyright (C) 2019&nbsp; Advanced Micro Devices, Inc.<br>
+&#43; *<br>
+&#43; * Permission is hereby granted, free of charge, to any person obtaini=
+ng a<br>
+&#43; * copy of this software and associated documentation files (the &quot=
+;Software&quot;),<br>
+&#43; * to deal in the Software without restriction, including without limi=
+tation<br>
+&#43; * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,<br>
+&#43; * and/or sell copies of the Software, and to permit persons to whom t=
+he<br>
+&#43; * Software is furnished to do so, subject to the following conditions=
+:<br>
+&#43; *<br>
+&#43; * The above copyright notice and this permission notice shall be incl=
+uded<br>
+&#43; * in all copies or substantial portions of the Software.<br>
+&#43; *<br>
+&#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY=
+ KIND, EXPRESS<br>
+&#43; * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANT=
+ABILITY,<br>
+&#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN NO E=
+VENT SHALL<br>
+&#43; * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER L=
+IABILITY, WHETHER IN<br>
+&#43; * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR I=
+N<br>
+&#43; * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO=
+FTWARE.<br>
+&#43; */<br>
+&#43;<br>
+&#43;#ifndef _nbio_7_4_0_SMN_HEADER<br>
+&#43;#define _nbio_7_4_0_SMN_HEADER<br>
+&#43;<br>
+&#43;<br>
+&#43;#define smnNBIF_MGCG_CTRL_LCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1013a21c<br>
+&#43;#define smnCPM_CONTROL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x111=
+80460<br>
+&#43;#define smnPCIE_CNTL2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+0x11180070<br>
+&#43;#define smnPCIE_CI_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180080<br>
+&#43;<br>
+&#43;#define smnPCIE_PERF_COUNT_CNTL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x=
+11180200<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x11180204<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180208<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x1118020c<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x11180210<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180214<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180218<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x1118021c<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180220<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180224<br>
+&#43;#define smnPCIE_PERF_CNTL_TXCLK4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; 0x11180228<br>
+&#43;#define smnPCIE_PERF_COUNT0_TXCLK4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x1118022c<br>
+&#43;#define smnPCIE_PERF_COUNT1_TXCLK4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; 0x11180230<br>
+&#43;#define smnPCIE_PERF_CNTL_SCLK1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x=
+11180234<br>
+&#43;#define smnPCIE_PERF_COUNT0_SCLK1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x11180238<br>
+&#43;#define smnPCIE_PERF_COUNT1_SCLK1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x1118023c<br>
+&#43;#define smnPCIE_PERF_CNTL_SCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x=
+11180240<br>
+&#43;#define smnPCIE_PERF_COUNT0_SCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x11180244<br>
+&#43;#define smnPCIE_PERF_COUNT1_SCLK2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 0x11180248<br>
+&#43;#define smnPCIE_PERF_CNTL_EVENT_LC_PORT_SEL&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1118024c<br>
+&#43;#define smnPCIE_PERF_CNTL_EVENT_CI_PORT_SEL&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x11180250<br>
+&#43;<br>
+&#43;#endif // _nbio_7_4_0_SMN_HEADER<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk94473" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.freed=
+esktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_15470463481940.457219419930201" style=3D"margin-bott=
+om: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_15470463481900.990987111723645" style=3D"width: 90=
+%; background-color: rgb(255, 255, 255); position: relative; overflow: auto=
+; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: 1p=
+x dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200);"=
+ role=3D"presentation" cellspacing=3D"0">
+<tbody>
+<tr style=3D"border-spacing: 0px;" valign=3D"top">
+<td id=3D"TextCell_15470463481910.7071543803411071" style=3D"vertical-align=
+: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
+">
+<div id=3D"LPRemovePreviewContainer_15470463481920.3706927522531692"></div>
+<div id=3D"LPTitle_15470463481920.4898902007569307" style=3D"top: 0px; colo=
+r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;=
+wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&q=
+uot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif=
+; line-height: 21px;">
+<a id=3D"LPUrlAnchor_15470463481920.9458157574087794" style=3D"text-decorat=
+ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15470463481930.8534761720978721" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
+;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Taho=
+ma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15470463481940.26266687672424405" style=3D"display=
+: block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf=
+_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma,=
+ Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; =
+overflow: hidden;">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in
+ the sections below.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BN6PR12MB180933A994DA3151BD165801F78B0BN6PR12MB1809namp_--
+
+--===============0306201849==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0306201849==--
