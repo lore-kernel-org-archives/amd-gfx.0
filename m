@@ -1,98 +1,171 @@
-From: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v5 20/20] drm/nouveau: Use atomic VCPI helpers for
- MST
-Date: Tue,  8 Jan 2019 19:35:17 -0500
-Message-ID: <20190109003516.14752-21-lyude@redhat.com>
-References: <20190109003516.14752-1-lyude@redhat.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 0/6] kexec fixes
+Date: Wed, 9 Jan 2019 01:19:26 +0000
+Message-ID: <BN6PR12MB1809E14ADD46C8E974A4E94EF78B0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190108221156.24388-1-alexander.deucher@amd.com>,
+ <139d62ef-e36c-23ba-785d-914d5383f8d7@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190109003516.14752-1-lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Jerry Zuo <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Juston Li <juston.li-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0074291665=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <139d62ef-e36c-23ba-785d-914d5383f8d7-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Q3VycmVudGx5LCBub3V2ZWF1IHVzZXMgdGhlIHlvbG8gbWV0aG9kIG9mIHNldHRpbmcgdXAgTVNU
-IGRpc3BsYXlzOiBpdAp1c2VzIHRoZSBvbGQgVkNQSSBoZWxwZXJzIChkcm1fZHBfZmluZF92Y3Bp
-X3Nsb3RzKCkpIGZvciBjb21wdXRpbmcgdGhlCmRpc3BsYXkgY29uZmlndXJhdGlvbi4gVGhlc2Ug
-aGVscGVycyBkb24ndCB0YWtlIGNhcmUgdG8gbWFrZSBzdXJlIHRoZXkKdGFrZSBhIHJlZmVyZW5j
-ZSB0byB0aGUgbXN0YiBwb3J0IHRoYXQgdGhleSdyZSBjaGVja2luZywgYW5kCmFkZGl0aW9uYWxs
-eSBkb24ndCBhY3R1YWxseSBjaGVjayB3aGV0aGVyIG9yIG5vdCB0aGUgdG9wb2xvZ3kgc3RpbGwg
-aGFzCmVub3VnaCBiYW5kd2lkdGggdG8gcHJvdmlkZSB0aGUgVkNQSSB0b2tlbnMgcmVxdWlyZWQu
-CgpTbywgZHJvcCB1c2FnZSBvZiB0aGUgb2xkIGhlbHBlcnMgYW5kIG1vdmUgZW50aXJlbHkgb3Zl
-ciB0byB0aGUgYXRvbWljCmhlbHBlcnMuCgpDaGFuZ2VzIHNpbmNlIHY2OgoqIENsZWFudXAgYXRv
-bWljIGNoZWNrIGxvZ2ljIGFuZCByZW1vdmUgYSBidW5jaCBvZiB1bm5lZWRlZCBjaGVja3MgLQog
-IGRhbnZldApDaGFuZ2VzIHNpbmNlIHY1OgoqIFVwZGF0ZSBudjUwX21zdG9fYXRvbWljX2NoZWNr
-KCkgYW5kIG52NTBfbXN0Y19hdG9taWNfY2hlY2soKSB0byB0aGUKICBuZXcgcmVxdWlyZW1lbnRz
-IGZvciBkcm1fZHBfYXRvbWljX2ZpbmRfdmNwaV9zbG90cygpIGFuZAogIGRybV9kcF9hdG9taWNf
-cmVsZWFzZV92Y3BpX3Nsb3RzKCkKClNpZ25lZC1vZmYtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJl
-ZGhhdC5jb20+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGZmd2xsLmNoPgpDYzog
-RGF2aWQgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+CkNjOiBKZXJyeSBadW8gPEplcnJ5Llp1
-b0BhbWQuY29tPgpDYzogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+CkNj
-OiBKdXN0b24gTGkgPGp1c3Rvbi5saUBpbnRlbC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL25v
-dXZlYXUvZGlzcG52NTAvZGlzcC5jIHwgNTQgKysrKysrKysrKysrKysrKysrKysrKy0tLQogMSBm
-aWxlIGNoYW5nZWQsIDQ4IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jCmluZGV4IDY3ZjdiZjk3ZTVkOS4uNTNkNmM4ZGY4
-ZjY4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9kaXNwbnY1MC9kaXNwLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvZGlzcG52NTAvZGlzcC5jCkBAIC03NjIsMTYg
-Kzc2MiwyMyBAQCBudjUwX21zdG9fYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fZW5jb2RlciAqZW5j
-b2RlciwKIAkJICAgICAgIHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqY3J0Y19zdGF0ZSwKIAkJICAg
-ICAgIHN0cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpjb25uX3N0YXRlKQogewotCXN0cnVjdCBu
-djUwX21zdGMgKm1zdGMgPSBudjUwX21zdGMoY29ubl9zdGF0ZS0+Y29ubmVjdG9yKTsKKwlzdHJ1
-Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUgPSBjcnRjX3N0YXRlLT5zdGF0ZTsKKwlzdHJ1Y3Qg
-ZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yID0gY29ubl9zdGF0ZS0+Y29ubmVjdG9yOworCXN0cnVj
-dCBudjUwX21zdGMgKm1zdGMgPSBudjUwX21zdGMoY29ubmVjdG9yKTsKIAlzdHJ1Y3QgbnY1MF9t
-c3RtICptc3RtID0gbXN0Yy0+bXN0bTsKLQlpbnQgYnBwID0gY29ubl9zdGF0ZS0+Y29ubmVjdG9y
-LT5kaXNwbGF5X2luZm8uYnBjICogMzsKKwlpbnQgYnBwID0gY29ubmVjdG9yLT5kaXNwbGF5X2lu
-Zm8uYnBjICogMzsKIAlpbnQgc2xvdHM7CiAKLQltc3RjLT5wYm4gPSBkcm1fZHBfY2FsY19wYm5f
-bW9kZShjcnRjX3N0YXRlLT5hZGp1c3RlZF9tb2RlLmNsb2NrLCBicHApOworCW1zdGMtPnBibiA9
-IGRybV9kcF9jYWxjX3Bibl9tb2RlKGNydGNfc3RhdGUtPmFkanVzdGVkX21vZGUuY2xvY2ssCisJ
-CQkJCSBicHApOwogCi0Jc2xvdHMgPSBkcm1fZHBfZmluZF92Y3BpX3Nsb3RzKCZtc3RtLT5tZ3Is
-IG1zdGMtPnBibik7Ci0JaWYgKHNsb3RzIDwgMCkKLQkJcmV0dXJuIHNsb3RzOworCWlmIChkcm1f
-YXRvbWljX2NydGNfbmVlZHNfbW9kZXNldChjcnRjX3N0YXRlKSAmJgorCSAgICAhZHJtX2Nvbm5l
-Y3Rvcl9pc191bnJlZ2lzdGVyZWQoY29ubmVjdG9yKSkgeworCQlzbG90cyA9IGRybV9kcF9hdG9t
-aWNfZmluZF92Y3BpX3Nsb3RzKHN0YXRlLCAmbXN0bS0+bWdyLAorCQkJCQkJICAgICAgbXN0Yy0+
-cG9ydCwgbXN0Yy0+cGJuKTsKKwkJaWYgKHNsb3RzIDwgMCkKKwkJCXJldHVybiBzbG90czsKKwl9
-CiAKIAlyZXR1cm4gbnY1MF9vdXRwX2F0b21pY19jaGVja192aWV3KGVuY29kZXIsIGNydGNfc3Rh
-dGUsIGNvbm5fc3RhdGUsCiAJCQkJCSAgIG1zdGMtPm5hdGl2ZSk7CkBAIC05MzQsMTIgKzk0MSw0
-MyBAQCBudjUwX21zdGNfZ2V0X21vZGVzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0b3Ip
-CiAJcmV0dXJuIHJldDsKIH0KIAorc3RhdGljIGludAorbnY1MF9tc3RjX2F0b21pY19jaGVjayhz
-dHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yLAorCQkgICAgICAgc3RydWN0IGRybV9jb25u
-ZWN0b3Jfc3RhdGUgKm5ld19jb25uX3N0YXRlKQoreworCXN0cnVjdCBkcm1fYXRvbWljX3N0YXRl
-ICpzdGF0ZSA9IG5ld19jb25uX3N0YXRlLT5zdGF0ZTsKKwlzdHJ1Y3QgbnY1MF9tc3RjICptc3Rj
-ID0gbnY1MF9tc3RjKGNvbm5lY3Rvcik7CisJc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdy
-ICptZ3IgPSAmbXN0Yy0+bXN0bS0+bWdyOworCXN0cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpv
-bGRfY29ubl9zdGF0ZSA9CisJCWRybV9hdG9taWNfZ2V0X29sZF9jb25uZWN0b3Jfc3RhdGUoc3Rh
-dGUsIGNvbm5lY3Rvcik7CisJc3RydWN0IGRybV9jcnRjX3N0YXRlICpjcnRjX3N0YXRlOworCXN0
-cnVjdCBkcm1fY3J0YyAqbmV3X2NydGMgPSBuZXdfY29ubl9zdGF0ZS0+Y3J0YzsKKworCWlmICgh
-b2xkX2Nvbm5fc3RhdGUtPmNydGMpCisJCXJldHVybiAwOworCisJLyogV2Ugb25seSB3YW50IHRv
-IGZyZWUgVkNQSSBpZiB0aGlzIHN0YXRlIGRpc2FibGVzIHRoZSBDUlRDIG9uIHRoaXMKKwkgKiBj
-b25uZWN0b3IKKwkgKi8KKwlpZiAobmV3X2NydGMpIHsKKwkJY3J0Y19zdGF0ZSA9IGRybV9hdG9t
-aWNfZ2V0X25ld19jcnRjX3N0YXRlKHN0YXRlLCBuZXdfY3J0Yyk7CisKKwkJaWYgKCFjcnRjX3N0
-YXRlIHx8CisJCSAgICAhZHJtX2F0b21pY19jcnRjX25lZWRzX21vZGVzZXQoY3J0Y19zdGF0ZSkg
-fHwKKwkJICAgIGNydGNfc3RhdGUtPmVuYWJsZSkKKwkJCXJldHVybiAwOworCX0KKworCXJldHVy
-biBkcm1fZHBfYXRvbWljX3JlbGVhc2VfdmNwaV9zbG90cyhzdGF0ZSwgbWdyLCBtc3RjLT5wb3J0
-KTsKK30KKwogc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yX2hlbHBlcl9mdW5jcwog
-bnY1MF9tc3RjX2hlbHAgPSB7CiAJLmdldF9tb2RlcyA9IG52NTBfbXN0Y19nZXRfbW9kZXMsCiAJ
-Lm1vZGVfdmFsaWQgPSBudjUwX21zdGNfbW9kZV92YWxpZCwKIAkuYmVzdF9lbmNvZGVyID0gbnY1
-MF9tc3RjX2Jlc3RfZW5jb2RlciwKIAkuYXRvbWljX2Jlc3RfZW5jb2RlciA9IG52NTBfbXN0Y19h
-dG9taWNfYmVzdF9lbmNvZGVyLAorCS5hdG9taWNfY2hlY2sgPSBudjUwX21zdGNfYXRvbWljX2No
-ZWNrLAogfTsKIAogc3RhdGljIGVudW0gZHJtX2Nvbm5lY3Rvcl9zdGF0dXMKQEAgLTIxMjEsNiAr
-MjE1OSwxMCBAQCBudjUwX2Rpc3BfYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSkKIAkJCXJldHVybiByZXQ7CiAJfQogCisJ
-cmV0ID0gZHJtX2RwX21zdF9hdG9taWNfY2hlY2soc3RhdGUpOworCWlmIChyZXQpCisJCXJldHVy
-biByZXQ7CisKIAlyZXR1cm4gMDsKIH0KIAotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpOb3V2ZWF1IG1haWxpbmcgbGlzdApOb3V2ZWF1
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL25vdXZlYXUK
+--===============0074291665==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Yes, the checks are taken from the existing SMU and PSP code.
+
+
+Alex
+
+________________________________
+From: Kuehling, Felix
+Sent: Tuesday, January 8, 2019 6:22:48 PM
+To: Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: Re: [PATCH 0/6] kexec fixes
+
+Thanks for this. I trust that your method for detecting that SMU or PSP
+are running is correct. With that caveat the series is Reviewed-by:
+Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+
+Regards,
+  Felix
+
+On 2019-01-08 5:11 p.m., Alex Deucher wrote:
+> Fixes for kexec.  The GPU needs to be reset before the driver
+> can be loaded again reliably.  Needed for kexec for booting some
+> ppc platforms.  See:
+> https://bugs.freedesktop.org/show_bug.cgi?id=3D108585
+>
+> Alex Deucher (6):
+>   drm/amdgpu: add need_reset_on_init asic callback (v2)
+>   drm/amdgpu/si: add need_reset_on_init asic callback for SI (v2)
+>   drm/amdgpu/cik: add need_reset_on_init asic callback for CIK (v2)
+>   drm/amdgpu/vi: add need_reset_on_init asic callback for VI (v2)
+>   drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)
+>   drm/amdgpu: check if we need to reset at init time (v2)
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 +++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++++++++
+>  drivers/gpu/drm/amd/amdgpu/cik.c           | 18 ++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/si.c            |  6 ++++++
+>  drivers/gpu/drm/amd/amdgpu/soc15.c         | 20 ++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/vi.c            | 18 ++++++++++++++++++
+>  6 files changed, 76 insertions(+)
+>
+
+--_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Yes, the checks are taken from th=
+e existing SMU and PSP code.</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
+</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
+<b>Sent:</b> Tuesday, January 8, 2019 6:22:48 PM<br>
+<b>To:</b> Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> Re: [PATCH 0/6] kexec fixes</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Thanks for this. I trust that your method for dete=
+cting that SMU or PSP<br>
+are running is correct. With that caveat the series is Reviewed-by:<br>
+Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Regards,<br>
+&nbsp; Felix<br>
+<br>
+On 2019-01-08 5:11 p.m., Alex Deucher wrote:<br>
+&gt; Fixes for kexec.&nbsp; The GPU needs to be reset before the driver<br>
+&gt; can be loaded again reliably.&nbsp; Needed for kexec for booting some<=
+br>
+&gt; ppc platforms.&nbsp; See:<br>
+&gt; <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D108585">http=
+s://bugs.freedesktop.org/show_bug.cgi?id=3D108585</a><br>
+&gt;<br>
+&gt; Alex Deucher (6):<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: add need_reset_on_init asic callback (v2)<br>
+&gt;&nbsp;&nbsp; drm/amdgpu/si: add need_reset_on_init asic callback for SI=
+ (v2)<br>
+&gt;&nbsp;&nbsp; drm/amdgpu/cik: add need_reset_on_init asic callback for C=
+IK (v2)<br>
+&gt;&nbsp;&nbsp; drm/amdgpu/vi: add need_reset_on_init asic callback for VI=
+ (v2)<br>
+&gt;&nbsp;&nbsp; drm/amdgpu/soc15: add need_reset_on_init asic callback for=
+ SOC15 (v2)<br>
+&gt;&nbsp;&nbsp; drm/amdgpu: check if we need to reset at init time (v2)<br=
+>
+&gt;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; |&nbsp; 3 &#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 &#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/cik.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 18 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/si.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;&#43;&#43;&#43;<=
+br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; | 20 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/vi.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 18 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; 6 files changed, 76 insertions(&#43;)<br>
+&gt;<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_--
+
+--===============0074291665==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0074291665==--
