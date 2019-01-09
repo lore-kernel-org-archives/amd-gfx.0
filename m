@@ -1,25 +1,17 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: After Vega 56/64 GPU hang I unable reboot system
-Date: Wed, 9 Jan 2019 21:48:40 +0000
-Message-ID: <44411354-0f2d-8c4d-ac6b-beff18db1252@amd.com>
-References: <CABXGCsPu3g8WZXV1RpggLFuL3bgofmXMs1SiPyYnPyEOW7t3Dg@mail.gmail.com>
- <24702c72-cc06-1b54-0ab9-6d2409362c27@amd.com>
- <CABXGCsMPjKnCb7hpuenL5q3_HJgoGW=VB9FRrBpJsZMtA7LxpA@mail.gmail.com>
- <3ffe451b-1f17-23a5-985b-28d26fbaf7da@amd.com>
- <09781f6e-5ea3-ccfd-1aa2-79941b089863@amd.com>
- <CABXGCsPCACOhOo4DTCiOam65SiOiudrKpn5vKAL72bV6iGo9vA@mail.gmail.com>
- <CABXGCsMMSMJuURyhBQC3GuZc7m6Wq7FH=8_rpSWHrZT-0dJeGA@mail.gmail.com>
- <e1ced25f-4f35-320b-5208-7e1ca3565a3a@amd.com>
- <CABXGCsPPjz57=Et-V-_iGyY0GrEwfcK2QcRJcqiujUp90zaz-g@mail.gmail.com>
- <5a53e55f-91cf-759e-b52b-f4681083d639@amd.com>
- <CABXGCsMKMgzQBr4_QchVyc9JaN64cqDEY5dv29oRE5qhkaHH3g@mail.gmail.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH libdrm] amdgpu: add a faster BO list API
+Date: Wed, 9 Jan 2019 18:39:31 -0500
+Message-ID: <CAAxE2A5RjR=+2Rs5HDx1rV0ftdkZJX=6TQDkvRQSxfo++vnXOA@mail.gmail.com>
+References: <20190107193104.4361-1-maraeo@gmail.com>
+ <a0a15ed6-eb1a-fbbe-7c1b-e3b9a64c1008@gmail.com>
+ <CAAxE2A5M2WW6uPFo0a=+6ukbtgx5xHfkKUKOB9dgtB=qH88htQ@mail.gmail.com>
+ <513ee137-7e99-c8fc-9e3b-e9077ead60a3@gmail.com>
+ <CAAxE2A5WYWCWAPA0K+vYDirtT6BV7QJoZSbEhh0Z57OF860mWQ@mail.gmail.com>
+ <7f85afd6-b17b-1c50-ba03-c03dd6e9a362@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1208134913=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CABXGCsMKMgzQBr4_QchVyc9JaN64cqDEY5dv29oRE5qhkaHH3g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-Content-ID: <E482844C298557409E4F959676ED1267-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <7f85afd6-b17b-1c50-ba03-c03dd6e9a362-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -30,24 +22,167 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Q2FuIHlvdSBsYXVuY2ggUG90b24gZnJvbSBjb21tYW5kIGxpbmUgYXBwZW5kaW5nIEdBTExJVU1f
-RERFQlVHPTEwMDAgDQpiZWZvcmUgdGhlIGNvbW1hbmQgPyBUaGlzIHNob3VsZCBjcmVhdGUgTUVT
-QSBkZWJ1ZyBpbmZvIGluIH4vZGRlYnVnX2R1bXBzLw0KDQpBbmRyZXkNCg0KDQpPbiAwMS8wOS8y
-MDE5IDA0OjEyIFBNLCBNaWtoYWlsIEdhdnJpbG92IHdyb3RlOg0KPiBPbiBUaHUsIDEwIEphbiAy
-MDE5IGF0IDAxOjM1LCBHcm9kem92c2t5LCBBbmRyZXkNCj4gPEFuZHJleS5Hcm9kem92c2t5QGFt
-ZC5jb20+IHdyb3RlOg0KPj4gSSB0aGluayB0aGUgJ3ZlcmJvc2UnIGZsYWcgY2F1c2VzIGl0IGRv
-IGR1bXAgc28gbXVjaCBvdXRwdXQsIG1heWJlIHRyeSB3aXRob3V0IGl0IGluIEFMTCB0aGUgY29t
-bWFuZHMgYWJvdmUuDQo+PiBBcmUgeW91IGFyZSBhd2FyZSBvZiBhbnkgcGFydGljdWxhciBhcHBs
-aWNhdGlvbiBkdXJpbmcgd2hpY2ggcnVuIHRoaXMgaGFwcGVucyA/DQo+Pg0KPiBMYXN0IGxvZ3Mg
-cmVsYXRlZCB0byBzaXR1YXRpb24gd2hlbiBJIGxhdW5jaCB0aGUgZ2FtZSAiU2hhZG93IG9mIHRo
-ZQ0KPiBUb21iIFJhaWRlciIgdmlhIHByb3RvbiAzLjE2LTE2Lg0KPiBPY2N1cnMgZXZlcnkgdGlt
-ZSB3aGVuIHRoZSBnYW1lIG1lbnUgc2hvdWxkIGFwcGVhciBhZnRlciBnYW1lIGxhdW5jaGluZy4N
-Cj4NCj4gLS0NCj4gQmVzdCBSZWdhcmRzLA0KPiBNaWtlIEdhdnJpbG92Lg0KDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1208134913==
+Content-Type: multipart/alternative; boundary="0000000000007a2198057f0efbc3"
+
+--0000000000007a2198057f0efbc3
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jan 9, 2019 at 1:41 PM Christian K=C3=B6nig <
+ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> Am 09.01.19 um 17:14 schrieb Marek Ol=C5=A1=C3=A1k:
+>
+> On Wed, Jan 9, 2019 at 8:09 AM Christian K=C3=B6nig <
+> ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+>
+>> Am 09.01.19 um 13:36 schrieb Marek Ol=C5=A1=C3=A1k:
+>>
+>>
+>>
+>> On Wed, Jan 9, 2019, 5:28 AM Christian K=C3=B6nig <
+>> ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org wrote:
+>>
+>>> Looks good, but I'm wondering what's the actual improvement?
+>>>
+>>
+>> No malloc calls and 1 less for loop copying the bo list.
+>>
+>>
+>> Yeah, but didn't we want to get completely rid of the bo list?
+>>
+>
+> If we have multiple IBs (e.g. gfx + compute) that share a BO list, I thin=
+k
+> it's faster to send the BO list to the kernel only once.
+>
+>
+> That's not really faster.
+>
+> The only thing we safe us is a single loop over all BOs to lockup the
+> handle into a pointer and that is only a tiny fraction of the overhead.
+>
+> The majority of the overhead is locking the BOs and reserving space for
+> the submission.
+>
+> What could really help here is to submit gfx+comput together in just one
+> CS IOCTL. This way we would need the locking and space reservation only
+> once.
+>
+> It's a bit of work in the kernel side, but certainly doable.
+>
+
+OK. Any objections to this patch?
+
+Thanks,
+Marek
+
+--0000000000007a2198057f0efbc3
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr"></div><div dir=
+=3D"ltr">On Wed, Jan 9, 2019 at 1:41 PM Christian K=C3=B6nig &lt;<a href=3D=
+"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<=
+/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+ =20
+   =20
+ =20
+  <div bgcolor=3D"#FFFFFF">
+    <div class=3D"gmail-m_-7810855682144448022moz-cite-prefix">Am 09.01.19 =
+um 17:14 schrieb Marek
+      Ol=C5=A1=C3=A1k:<br>
+    </div>
+    <blockquote type=3D"cite">
+     =20
+      <div dir=3D"ltr">
+        <div dir=3D"ltr">
+          <div class=3D"gmail_quote">
+            <div dir=3D"ltr">On Wed, Jan 9, 2019 at 8:09 AM Christian
+              K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail=
+.com" target=3D"_blank">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;
+              wrote:<br>
+            </div>
+            <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
+.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+              <div bgcolor=3D"#FFFFFF">
+                <div class=3D"gmail-m_-7810855682144448022m_893090899402720=
+7900m_-7323258551939539738gmail-m_4443106390953893387gmail-m_-3252015337124=
+169842moz-cite-prefix">Am
+                  09.01.19 um 13:36 schrieb Marek Ol=C5=A1=C3=A1k:<br>
+                </div>
+                <blockquote type=3D"cite">
+                  <div dir=3D"auto">
+                    <div><br>
+                      <br>
+                      <div class=3D"gmail_quote">
+                        <div dir=3D"ltr">On Wed, Jan 9, 2019, 5:28 AM
+                          Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoeni=
+g.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ckoenig.leichtzumerken@gmail.=
+com</a>
+                          wrote:<br>
+                        </div>
+                        <blockquote class=3D"gmail_quote" style=3D"margin:0=
+px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">L=
+ooks good,
+                          but I&#39;m wondering what&#39;s the actual
+                          improvement?<br>
+                        </blockquote>
+                      </div>
+                    </div>
+                    <div dir=3D"auto"><br>
+                    </div>
+                    <div dir=3D"auto">No malloc calls and 1 less for loop
+                      copying the bo list.</div>
+                  </div>
+                </blockquote>
+                <br>
+                Yeah, but didn&#39;t we want to get completely rid of the b=
+o
+                list?<br>
+              </div>
+            </blockquote>
+            <div><br>
+            </div>
+            If we have multiple IBs (e.g. gfx + compute) that share a BO
+            list, I think it&#39;s faster to send the BO list to the kernel
+            only once.</div>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    That&#39;s not really faster.<br>
+    <br>
+    The only thing we safe us is a single loop over all BOs to lockup
+    the handle into a pointer and that is only a tiny fraction of the
+    overhead.<br>
+    <br>
+    The majority of the overhead is locking the BOs and reserving space
+    for the submission.<br>
+    <br>
+    What could really help here is to submit gfx+comput together in just
+    one CS IOCTL. This way we would need the locking and space
+    reservation only once.<br>
+    <br>
+    It&#39;s a bit of work in the kernel side, but certainly doable.<br></d=
+iv></blockquote><div><br></div><div>OK. Any objections to this patch?</div>=
+<div><br></div><div>Thanks,<br></div><div>Marek</div></div></div>
+
+--0000000000007a2198057f0efbc3--
+
+--===============1208134913==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1208134913==--
