@@ -1,13 +1,13 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 0/6] kexec fixes
-Date: Wed, 9 Jan 2019 01:19:26 +0000
-Message-ID: <BN6PR12MB1809E14ADD46C8E974A4E94EF78B0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190108221156.24388-1-alexander.deucher@amd.com>,
- <139d62ef-e36c-23ba-785d-914d5383f8d7@amd.com>
+From: "Zhang, Jerry(Junwei)" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: fix CPDMA hang in PRT mode for VEGA20
+Date: Wed, 9 Jan 2019 09:39:17 +0800
+Message-ID: <8689099b-60f7-5fbe-41a0-bcc6556ed8ed@amd.com>
+References: <20190108105536.3068-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0074291665=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <139d62ef-e36c-23ba-785d-914d5383f8d7-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190108105536.3068-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,153 +19,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: yukun1.li-5C7GfCeVMHo@public.gmane.org
 
---===============0074291665==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Yes, the checks are taken from the existing SMU and PSP code.
-
-
-Alex
-
-________________________________
-From: Kuehling, Felix
-Sent: Tuesday, January 8, 2019 6:22:48 PM
-To: Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: Re: [PATCH 0/6] kexec fixes
-
-Thanks for this. I trust that your method for detecting that SMU or PSP
-are running is correct. With that caveat the series is Reviewed-by:
-Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-
-Regards,
-  Felix
-
-On 2019-01-08 5:11 p.m., Alex Deucher wrote:
-> Fixes for kexec.  The GPU needs to be reset before the driver
-> can be loaded again reliably.  Needed for kexec for booting some
-> ppc platforms.  See:
-> https://bugs.freedesktop.org/show_bug.cgi?id=3D108585
->
-> Alex Deucher (6):
->   drm/amdgpu: add need_reset_on_init asic callback (v2)
->   drm/amdgpu/si: add need_reset_on_init asic callback for SI (v2)
->   drm/amdgpu/cik: add need_reset_on_init asic callback for CIK (v2)
->   drm/amdgpu/vi: add need_reset_on_init asic callback for VI (v2)
->   drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)
->   drm/amdgpu: check if we need to reset at init time (v2)
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++++++++
->  drivers/gpu/drm/amd/amdgpu/cik.c           | 18 ++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/si.c            |  6 ++++++
->  drivers/gpu/drm/amd/amdgpu/soc15.c         | 20 ++++++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/vi.c            | 18 ++++++++++++++++++
->  6 files changed, 76 insertions(+)
->
-
---_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Yes, the checks are taken from th=
-e existing SMU and PSP code.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
-<b>Sent:</b> Tuesday, January 8, 2019 6:22:48 PM<br>
-<b>To:</b> Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> Re: [PATCH 0/6] kexec fixes</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Thanks for this. I trust that your method for dete=
-cting that SMU or PSP<br>
-are running is correct. With that caveat the series is Reviewed-by:<br>
-Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Regards,<br>
-&nbsp; Felix<br>
-<br>
-On 2019-01-08 5:11 p.m., Alex Deucher wrote:<br>
-&gt; Fixes for kexec.&nbsp; The GPU needs to be reset before the driver<br>
-&gt; can be loaded again reliably.&nbsp; Needed for kexec for booting some<=
-br>
-&gt; ppc platforms.&nbsp; See:<br>
-&gt; <a href=3D"https://bugs.freedesktop.org/show_bug.cgi?id=3D108585">http=
-s://bugs.freedesktop.org/show_bug.cgi?id=3D108585</a><br>
-&gt;<br>
-&gt; Alex Deucher (6):<br>
-&gt;&nbsp;&nbsp; drm/amdgpu: add need_reset_on_init asic callback (v2)<br>
-&gt;&nbsp;&nbsp; drm/amdgpu/si: add need_reset_on_init asic callback for SI=
- (v2)<br>
-&gt;&nbsp;&nbsp; drm/amdgpu/cik: add need_reset_on_init asic callback for C=
-IK (v2)<br>
-&gt;&nbsp;&nbsp; drm/amdgpu/vi: add need_reset_on_init asic callback for VI=
- (v2)<br>
-&gt;&nbsp;&nbsp; drm/amdgpu/soc15: add need_reset_on_init asic callback for=
- SOC15 (v2)<br>
-&gt;&nbsp;&nbsp; drm/amdgpu: check if we need to reset at init time (v2)<br=
->
-&gt;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; |&nbsp; 3 &#43;&#43;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 &#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/cik.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 18 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/si.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;&#43;&#43;&#43;<=
-br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; | 20 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/vi.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 18 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&nbsp; 6 files changed, 76 insertions(&#43;)<br>
-&gt;<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809E14ADD46C8E974A4E94EF78B0BN6PR12MB1809namp_--
-
---===============0074291665==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0074291665==--
+T24gMS84LzE5IDY6NTUgUE0sIFRhbyBaaG91IHdyb3RlOgo+IEZpeCBDUERNQSBoYW5nIGluIFBS
+VCBtb2RlIGZvciBib3RoIG9mIFZFR0ExMCBhbmQgVkVHQTIwCj4KPiBDaGFuZ2UtSWQ6IEkwZTVl
+MDg5ZDIxOTIwNjNjNGEwNGZhNmRiZDUzNGYyNWViMDE3N2JlCj4gU2lnbmVkLW9mZi1ieTogVGFv
+IFpob3UgPHRhby56aG91MUBhbWQuY29tPgo+IFRlc3RlZC1ieTogWXVrdW4uTGkgPHl1a3VuMS5s
+aUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAu
+YyB8IDEwICsrKysrLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDUg
+ZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Z2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBpbmRl
+eCA5NjhiMTI3YzZjOGYuLmZiY2EwNDk0Zjg3MSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3Y5XzAuYwo+IEBAIC0xMTMsNyArMTEzLDEwIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qg
+c29jMTVfcmVnX2dvbGRlbiBnb2xkZW5fc2V0dGluZ3NfZ2NfOV8wW10gPQo+ICAgCVNPQzE1X1JF
+R19HT0xERU5fVkFMVUUoR0MsIDAsIG1tVENQX0NIQU5fU1RFRVJfSEksIDB4ZmZmZmZmZmYsIDB4
+NGEyYzBlNjgpLAo+ICAgCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tVENQX0NIQU5f
+U1RFRVJfTE8sIDB4ZmZmZmZmZmYsIDB4YjVkM2YxOTcpLAo+ICAgCVNPQzE1X1JFR19HT0xERU5f
+VkFMVUUoR0MsIDAsIG1tVkdUX0NBQ0hFX0lOVkFMSURBVElPTiwgMHgzZmZmM2FmMywgMHgxOTIw
+MDAwMCksCj4gLQlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBtbVZHVF9HU19NQVhfV0FW
+RV9JRCwgMHgwMDAwMGZmZiwgMHgwMDAwMDNmZikKPiArCVNPQzE1X1JFR19HT0xERU5fVkFMVUUo
+R0MsIDAsIG1tVkdUX0dTX01BWF9XQVZFX0lELCAweDAwMDAwZmZmLCAweDAwMDAwM2ZmKSwKPiAr
+CVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tQ1BfTUVDMV9GMzJfSU5UX0RJUywgMHgw
+MDAwMDAwMCwgMHgwMDAwMDgwMCksCj4gKwlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBt
+bUNQX01FQzJfRjMyX0lOVF9ESVMsIDB4MDAwMDAwMDAsIDB4MDAwMDA4MDApLAo+ICsJU09DMTVf
+UkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1DUF9ERUJVRywgMHgwMDAwMDAwMCwgMHgwMDAwODAw
+MCkKSUlSQywgdGhlIENQX0RFQlVHIGlzIHRoZSBrZXkgdG8gZml4IHRoZSBDUERNQSBoYW5nLCBk
+byB3ZSBuZWVkIG90aGVyIApzZXR0aW5ncz8Kb3IganVzdCB0byBhbGlnbiB0aGUgc2V0dGluZ3Mg
+d2l0aCBsYXRlc3Qgc3RhdHVzPwoKSmVycnkKCj4gICB9Owo+ICAgCj4gICBzdGF0aWMgY29uc3Qg
+c3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29sZGVuX3NldHRpbmdzX2djXzlfMF92ZzEwW10gPQo+
+IEBAIC0xMzUsMTAgKzEzOCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc29jMTVfcmVnX2dvbGRl
+biBnb2xkZW5fc2V0dGluZ3NfZ2NfOV8wX3ZnMTBbXSA9Cj4gICAJU09DMTVfUkVHX0dPTERFTl9W
+QUxVRShHQywgMCwgbW1STUlfVVRDTDFfQ05UTDIsIDB4MDAwMzAwMDAsIDB4MDAwMjAwMDApLAo+
+ICAgCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAsIG1tU1BJX0NPTkZJR19DTlRMXzEsIDB4
+MDAwMDAwMGYsIDB4MDEwMDAxMDcpLAo+ICAgCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAs
+IG1tVERfQ05UTCwgMHgwMDAwMTgwMCwgMHgwMDAwMDgwMCksCj4gLQlTT0MxNV9SRUdfR09MREVO
+X1ZBTFVFKEdDLCAwLCBtbVdEX1VUQ0wxX0NOVEwsIDB4MDgwMDAwMDAsIDB4MDgwMDAwODApLAo+
+IC0JU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1DUF9NRUMxX0YzMl9JTlRfRElTLCAw
+eDAwMDAwMDAwLCAweDAwMDAwODAwKSwKPiAtCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0MsIDAs
+IG1tQ1BfTUVDMl9GMzJfSU5UX0RJUywgMHgwMDAwMDAwMCwgMHgwMDAwMDgwMCksCj4gLQlTT0Mx
+NV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBtbUNQX0RFQlVHLCAweDAwMDAwMDAwLCAweDAwMDA4
+MDAwKQo+ICsJU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1XRF9VVENMMV9DTlRMLCAw
+eDA4MDAwMDAwLCAweDA4MDAwMDgwKQo+ICAgfTsKPiAgIAo+ICAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBzb2MxNV9yZWdfZ29sZGVuIGdvbGRlbl9zZXR0aW5nc19nY185XzBfdmcyMFtdID0KCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
