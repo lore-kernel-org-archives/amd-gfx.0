@@ -1,60 +1,51 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: validate user GEM object size"
-Date: Thu, 10 Jan 2019 09:28:38 -0500
-Message-ID: <CADnq5_Mb6GoMLFwgEdvOgHgzmnJnpMvkXzcvmom2cVx0nA+dFQ@mail.gmail.com>
-References: <20190110112121.4606-1-michel@daenzer.net>
+From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Subject: Re: amdgpu/TTM oopses since merging swiotlb_dma_ops into the
+	dma_direct code
+Date: Thu, 10 Jan 2019 15:48:37 +0100
+Message-ID: <20190110144837.GA10362@lst.de>
+References: <61f8f660-005c-190c-c08f-b563de2eae18@daenzer.net>
+	<20190110135741.GA9255@lst.de>
+	<a3f0fd49-2286-ee2a-f0e8-dfe82aac73fb@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190110112121.4606-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: Yu Zhao <yuzhao-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <a3f0fd49-2286-ee2a-f0e8-dfe82aac73fb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: Sibren Vasse <freedesktop-DLwv2wemLo05ZU0pBKPMFg@public.gmane.org>, Konrad Rzeszutek Wilk <konrad.wilk-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, x86-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBKYW4gMTAsIDIwMTkgYXQgNjoyMSBBTSBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
-ZW56ZXIubmV0PiB3cm90ZToKPgo+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFlbnpl
-ckBhbWQuY29tPgo+Cj4gSXQgd2FzIGF0IHRoZSBzYW1lIHRpbWUgdG9vIHN0cmljdCAoZm9yIGxp
-bmVhciB0aWxpbmcgbW9kZXMsIHdoZXJlIG5vCj4gaGVpZ2h0IGFsaWdubWVudCBpcyByZXF1aXJl
-ZCkgYW5kIHRvbyBsZW5pZW50IChmb3IgMkQgdGlsaW5nIG1vZGVzLAo+IHdoZXJlIGhlaWdodCBt
-YXkgbmVlZCB0byBiZSBhbGlnbmVkIHRvIHZhbHVlcyA+IDgpLgo+Cj4gU2lnbmVkLW9mZi1ieTog
-TWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpBY2tlZC1ieTogQWxleCBE
-ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyB8IDggLS0tLS0tLS0KPiAgMSBmaWxlIGNo
-YW5nZWQsIDggZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kaXNwbGF5LmMKPiBpbmRleCA4M2Y4MjFlOTkzYzguLjcwYTgxNmRkOGI0ZCAxMDA2NDQK
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwo+IEBAIC01MzEs
-NyArNTMxLDYgQEAgYW1kZ3B1X2Rpc3BsYXlfdXNlcl9mcmFtZWJ1ZmZlcl9jcmVhdGUoc3RydWN0
-IGRybV9kZXZpY2UgKmRldiwKPiAgICAgICAgIHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqOwo+
-ICAgICAgICAgc3RydWN0IGFtZGdwdV9mcmFtZWJ1ZmZlciAqYW1kZ3B1X2ZiOwo+ICAgICAgICAg
-aW50IHJldDsKPiAtICAgICAgIGludCBoZWlnaHQ7Cj4gICAgICAgICBzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiA9IGRldi0+ZGV2X3ByaXZhdGU7Cj4gICAgICAgICBpbnQgY3BwID0gZHJtX2Zv
-cm1hdF9wbGFuZV9jcHAobW9kZV9jbWQtPnBpeGVsX2Zvcm1hdCwgMCk7Cj4gICAgICAgICBpbnQg
-cGl0Y2ggPSBtb2RlX2NtZC0+cGl0Y2hlc1swXSAvIGNwcDsKPiBAQCAtNTU2LDEzICs1NTUsNiBA
-QCBhbWRncHVfZGlzcGxheV91c2VyX2ZyYW1lYnVmZmVyX2NyZWF0ZShzdHJ1Y3QgZHJtX2Rldmlj
-ZSAqZGV2LAo+ICAgICAgICAgICAgICAgICByZXR1cm4gRVJSX1BUUigtRUlOVkFMKTsKPiAgICAg
-ICAgIH0KPgo+IC0gICAgICAgaGVpZ2h0ID0gQUxJR04obW9kZV9jbWQtPmhlaWdodCwgOCk7Cj4g
-LSAgICAgICBpZiAob2JqLT5zaXplIDwgcGl0Y2ggKiBoZWlnaHQpIHsKPiAtICAgICAgICAgICAg
-ICAgRFJNX0RFQlVHX0tNUygiSW52YWxpZCBHRU0gc2l6ZTogZXhwZWN0aW5nID49ICVkIGJ1dCBn
-b3QgJXp1XG4iLAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBpdGNoICogaGVpZ2h0
-LCBvYmotPnNpemUpOwo+IC0gICAgICAgICAgICAgICByZXR1cm4gRVJSX1BUUigtRUlOVkFMKTsK
-PiAtICAgICAgIH0KPiAtCj4gICAgICAgICBhbWRncHVfZmIgPSBremFsbG9jKHNpemVvZigqYW1k
-Z3B1X2ZiKSwgR0ZQX0tFUk5FTCk7Cj4gICAgICAgICBpZiAoYW1kZ3B1X2ZiID09IE5VTEwpIHsK
-PiAgICAgICAgICAgICAgICAgZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKG9iaik7Cj4gLS0K
-PiAyLjIwLjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Thu, Jan 10, 2019 at 03:00:31PM +0100, Christian K=F6nig wrote:
+>>  From the trace it looks like we git the case where swiotlb tries
+>> to copy back data from a bounce buffer, but hits a dangling or NULL
+>> pointer.  So a couple questions for the submitter:
+>>
+>>   - does the system have more than 4GB memory and thus use swiotlb?
+>>     (check /proc/meminfo, and if something SWIOTLB appears in dmesg)
+>>   - does the device this happens on have a DMA mask smaller than
+>>     the available memory, that is should swiotlb be used here to start
+>>     with?
+>
+> Rather unlikely. The device is an AMD GPU, so we can address memory up to =
+
+> 1TB.
+
+So we probably somehow got a false positive.
+
+For now I'like the reported to confirm that the dma_direct_unmap_page+0x92
+backtrace really is in the swiotlb code (I can't think of anything else,
+but I'd rather be sure).
+
+Second it would be great to print what the contents of io_tlb_start
+and io_tlb_end are, e.g. by doing a printk_once in is_swiotlb_buffer,
+maybe that gives a clue why we are hitting the swiotlb code here.
