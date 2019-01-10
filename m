@@ -1,51 +1,55 @@
-From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Subject: Re: amdgpu/TTM oopses since merging swiotlb_dma_ops into the
-	dma_direct code
-Date: Thu, 10 Jan 2019 15:48:37 +0100
-Message-ID: <20190110144837.GA10362@lst.de>
-References: <61f8f660-005c-190c-c08f-b563de2eae18@daenzer.net>
-	<20190110135741.GA9255@lst.de>
-	<a3f0fd49-2286-ee2a-f0e8-dfe82aac73fb@gmail.com>
+From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/ttm: add lru notify to bo driver
+Date: Thu, 10 Jan 2019 22:52:43 +0800
+Message-ID: <20190110145244.23356-1-david1.zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <a3f0fd49-2286-ee2a-f0e8-dfe82aac73fb-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
-Cc: Sibren Vasse <freedesktop-DLwv2wemLo05ZU0pBKPMFg@public.gmane.org>, Konrad Rzeszutek Wilk <konrad.wilk-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, x86-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian.Koenig-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Jan 10, 2019 at 03:00:31PM +0100, Christian K=F6nig wrote:
->>  From the trace it looks like we git the case where swiotlb tries
->> to copy back data from a bounce buffer, but hits a dangling or NULL
->> pointer.  So a couple questions for the submitter:
->>
->>   - does the system have more than 4GB memory and thus use swiotlb?
->>     (check /proc/meminfo, and if something SWIOTLB appears in dmesg)
->>   - does the device this happens on have a DMA mask smaller than
->>     the available memory, that is should swiotlb be used here to start
->>     with?
->
-> Rather unlikely. The device is an AMD GPU, so we can address memory up to =
-
-> 1TB.
-
-So we probably somehow got a false positive.
-
-For now I'like the reported to confirm that the dma_direct_unmap_page+0x92
-backtrace really is in the swiotlb code (I can't think of anything else,
-but I'd rather be sure).
-
-Second it would be great to print what the contents of io_tlb_start
-and io_tlb_end are, e.g. by doing a printk_once in is_swiotlb_buffer,
-maybe that gives a clue why we are hitting the swiotlb code here.
+YWxsb3cgZHJpdmVyIGRvIHNvbWV0aGluZ3Mgd2hlbiBscnUgY2hhbmdlZC4KCkNoYW5nZS1JZDog
+SWU4MjA1M2RhNDkyNzI4ODFkNGI1MmIxYzQwNmY3YzIyMWEzZmNhZGYKU2lnbmVkLW9mZi1ieTog
+Q2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+dHRtL3R0bV9iby5jICAgIHwgMTEgKysrKysrKy0tLS0KIGluY2x1ZGUvZHJtL3R0bS90dG1fYm9f
+ZHJpdmVyLmggfCAgOSArKysrKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgMTYgaW5zZXJ0aW9ucygr
+KSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9i
+by5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwppbmRleCAwZWMwODM5NGUxN2EuLmVk
+NzllYTAyOTFiNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYworKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCkBAIC0xOTgsMTkgKzE5OCwyMiBAQCBzdGF0
+aWMgdm9pZCB0dG1fYm9fcmVmX2J1ZyhzdHJ1Y3Qga3JlZiAqbGlzdF9rcmVmKQogCiB2b2lkIHR0
+bV9ib19kZWxfZnJvbV9scnUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibykKIHsKKwlzdHJ1
+Y3QgdHRtX2JvX2RldmljZSAqYmRldiA9IGJvLT5iZGV2OworCWJvb2wgbm90aWZ5ID0gZmFsc2U7
+CisKIAlpZiAoIWxpc3RfZW1wdHkoJmJvLT5zd2FwKSkgewogCQlsaXN0X2RlbF9pbml0KCZiby0+
+c3dhcCk7CiAJCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVmX2J1Zyk7CisJCW5v
+dGlmeSA9IHRydWU7CiAJfQogCWlmICghbGlzdF9lbXB0eSgmYm8tPmxydSkpIHsKIAkJbGlzdF9k
+ZWxfaW5pdCgmYm8tPmxydSk7CiAJCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVm
+X2J1Zyk7CisJCW5vdGlmeSA9IHRydWU7CiAJfQogCi0JLyoKLQkgKiBUT0RPOiBBZGQgYSBkcml2
+ZXIgaG9vayB0byBkZWxldGUgZnJvbQotCSAqIGRyaXZlci1zcGVjaWZpYyBMUlUncyBoZXJlLgot
+CSAqLworCWlmIChub3RpZnkgJiYgYmRldi0+ZHJpdmVyLT5scnVfbm90aWZ5KQorCQliZGV2LT5k
+cml2ZXItPmxydV9ub3RpZnkoYm8pOwogfQogCiB2b2lkIHR0bV9ib19kZWxfc3ViX2Zyb21fbHJ1
+KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8pCmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS90
+dG0vdHRtX2JvX2RyaXZlci5oIGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaAppbmRl
+eCAxMDIxMTA2NDM4YjIuLjg1YTliOTdlMWM5ZCAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0vdHRt
+L3R0bV9ib19kcml2ZXIuaAorKysgYi9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCkBA
+IC0zODEsNiArMzgxLDE1IEBAIHN0cnVjdCB0dG1fYm9fZHJpdmVyIHsKIAkgKi8KIAlpbnQgKCph
+Y2Nlc3NfbWVtb3J5KShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCB1bnNpZ25lZCBsb25n
+IG9mZnNldCwKIAkJCSAgICAgdm9pZCAqYnVmLCBpbnQgbGVuLCBpbnQgd3JpdGUpOworCisJLyoq
+CisJICogc3RydWN0IHR0bV9ib19kcml2ZXIgbWVtYmVyIGxydV9ub3RpZnkKKwkgKgorCSAqIEBi
+bzogdGhlIGJ1ZmZlciBvYmplY3QgdG8gYmUgYWRkCisJICoKKwkgKiBzZW5kIGxydSBjaGFuZ2Vk
+IGV2ZW50IHRvIGRyaXZlci4KKwkgKi8KKwl2b2lkICgqbHJ1X25vdGlmeSkoc3RydWN0IHR0bV9i
+dWZmZXJfb2JqZWN0ICpibyk7CiB9OwogCiAvKioKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
