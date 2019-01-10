@@ -1,16 +1,18 @@
-From: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: Trying to run AMD E9260 (Polaris 11) on NXP LS1012A-RDB
-Date: Thu, 10 Jan 2019 14:31:24 +0100
-Message-ID: <CAGtoiRiY-TK+_YHwk=f_2vMxJJ6Ucv9AQ2vuoxtufFakKp=hAA@mail.gmail.com>
+Date: Thu, 10 Jan 2019 13:38:23 +0000
+Message-ID: <20720365-641e-ac3e-1cfb-9c16133905be@amd.com>
 References: <CAGtoiRiubNF5fCwGvYbC_sxzFk10Ceg79ZsK2fPLXUzFvm_QZw@mail.gmail.com>
  <CADnq5_MC9PLzvouWT=4J_RXkmsAy7NF1bpB-geEgxa-XV1dgQQ@mail.gmail.com>
  <CAGtoiRjahq_zC=QbS3gNCQB-nA++=gs=kKVJhWKNXEY0QQ8y=g@mail.gmail.com>
  <CAGtoiRiPHW8a3afkO3ui5FtLP-OztBjVz6CgMgLifgLvnk4QOg@mail.gmail.com>
  <5ae96345-680a-221f-1b04-678cb61f7eca@gmail.com>
+ <CAGtoiRiY-TK+_YHwk=f_2vMxJJ6Ucv9AQ2vuoxtufFakKp=hAA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0167367434=="
+Content-Type: multipart/mixed; boundary="===============0587164157=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5ae96345-680a-221f-1b04-678cb61f7eca-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CAGtoiRiY-TK+_YHwk=f_2vMxJJ6Ucv9AQ2vuoxtufFakKp=hAA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,92 +23,102 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
 Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0167367434==
-Content-Type: multipart/alternative; boundary="000000000000ec9804057f1a98cb"
+--===============0587164157==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_20720365641eac3e1cfb9c16133905beamdcom_"
 
---000000000000ec9804057f1a98cb
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_000_20720365641eac3e1cfb9c16133905beamdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Thu, Jan 10, 2019 at 11:59 AM Christian K=C3=B6nig <
-ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+QW0gMTAuMDEuMTkgdW0gMTQ6MzEgc2NocmllYiBCYXMgVmVybWV1bGVuOg0KT24gVGh1LCBKYW4g
+MTAsIDIwMTkgYXQgMTE6NTkgQU0gQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1l
+cmtlbkBnbWFpbC5jb208bWFpbHRvOmNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPj4g
+d3JvdGU6DQpUaGUgUENJIEV4cHJlc3MgY29udHJvbGxlciBhcyBpbnN0YW50aWF0ZWQgb24gdGhp
+cyBjaGlwIGRvZXMgbm90IHN1cHBvcnQgaGFyZHdhcmUgY29oZXJlbmN5LiBBbGwgaW5jb21pbmcg
+UENJIEV4cHJlc3MgdHJhbnNhY3Rpb25zIGFyZSBtYWRlIG5vbiBJTy1jb2hlcmVudC4NCg0KV291
+bGQgQU1ER1BVIHN0aWxsIHdvcmsgd2l0aCB0aGF0IFBDSSBFeHByZXNzIGNvbnRyb2xsZXIsIG9y
+IGlzIHRoaXMgYSBzaG93LXN0b3BwZXI/DQoNCkknbSByZWFsbHkgd29uZGVyaW5nIHdoYXQgdGhp
+cyBjb21tZW50IGluIHRoZSBkb2N1bWVudGF0aW9uIG1lYW5zLg0KDQpBcyBmYXIgYXMgSSBrbm93
+IFBDSWUgZG9lc24ndCBzdXBwb3J0IGNhY2hlIGNvaGVyZW5jeSBpbiB0aGUgZG93bnN0cmVhbSBh
+bmQgc3VwcG9ydGluZyBpdCBpbiB0aGUgdXAgc3RyZWFtIGlzIGEgbXVzdCBoYXZlLg0KU28gd2hh
+dCBleGFjdGx5IGlzIG1lYW50IGhlcmUgd2l0aCBJTy1jb2hlcmVudD8NCg0KSSBiZWxpZXZlIElP
+IENvaGVyZW50IG1lYW5zIHRoYXQgd2hlbiBQQ0llIHdyaXRlcyBzb21ldGhpbmcgdG8gQ1BVIG1l
+bW9yeSwgdGhlIGNhY2hlcyBhcmUgZmx1c2hlZCBvciB1cGRhdGVkDQoob3IgaW4gdGhpcyBjYXNl
+IHRoZXkgYXJlbid0KS4gSSBmb3VuZCBodHRwczovL2NvbW11bml0eS5hcm0uY29tL3Byb2Nlc3Nv
+cnMvYi9ibG9nL3Bvc3RzL2V4dGVuZGVkLXN5c3RlbS1jb2hlcmVuY3ktLS1wYXJ0LTEtLS1jYWNo
+ZS1jb2hlcmVuY3ktZnVuZGFtZW50YWxzDQp3aXRoIHRoaXMgZXhwbGFuYXRpb24uDQoNClllYWgs
+IGJ1dCBhcyBJIHNhaWQgdGhpcyB1cHN0cmVhbSBtZW1vcnkgY29oZXJlbmN5IGlzIG1hbmRhdG9y
+eSBmb3IgUENJZS4NCg0KV2hlbiBhIGNvbnRyb2xsZXIgZG9lc24ndCBoYXZlIHRoYXQgaXQgY2Fu
+J3QgY2FsbCBpdHNlbGYgYSBQQ0llIGNvbnRyb2xsZXIuIFRoZSBzcGVjIGlzIHByZXR0eSBjbGVh
+ciBhYm91dCB0aGF0IDopDQoNCkFuZCB0byBhbnN3ZXIgdGhlIG9yaWdpbmFsIHF1ZXN0aW9uOiBZ
+ZXMsIHRoYXQgd291bGQgYmUgYSB0b3RhbGx5IHNob3ctc3RvcHBlci4NCg0KUmVnYXJkcywNCkNo
+cmlzdGlhbi4NCg0KDQpSZWdhcmRzLA0KDQpCYXMgVmVybWV1bGVuDQoNCg==
 
-> The PCI Express controller as instantiated on this chip does not support
-> hardware coherency. All incoming PCI Express transactions are made non
-> IO-coherent.
->
-> Would AMDGPU still work with that PCI Express controller, or is this a
-> show-stopper?
->
->
-> I'm really wondering what this comment in the documentation means.
->
-> As far as I know PCIe doesn't support cache coherency in the downstream
-> and supporting it in the up stream is a must have.
->
-So what exactly is meant here with IO-coherent?
->
+--_000_20720365641eac3e1cfb9c16133905beamdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <381216FDD200004BB26FFB3679BE806E-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-I believe IO Coherent means that when PCIe writes something to CPU memory,
-the caches are flushed or updated
-(or in this case they aren't). I found
-https://community.arm.com/processors/b/blog/posts/extended-system-coherency=
----part-1---cache-coherency-fundamentals
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5BbSAxMC4w
+MS4xOSB1bSAxNDozMSBzY2hyaWViIEJhcyBWZXJtZXVsZW46PGJyPg0KPC9kaXY+DQo8YmxvY2tx
+dW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6Q0FHdG9pUmlZLVRLJiM0MztfWUh3az1mXzJ2TXhK
+SjZVY3Y5QVEydnVveHR1ZkZha0twPWhBQUBtYWlsLmdtYWlsLmNvbSI+DQo8ZGl2IGRpcj0ibHRy
+Ij4NCjxkaXYgZGlyPSJsdHIiPg0KPGRpdiBkaXI9Imx0ciI+T24gVGh1LCBKYW4gMTAsIDIwMTkg
+YXQgMTE6NTkgQU0gQ2hyaXN0aWFuIEvDtm5pZyAmbHQ7PGEgaHJlZj0ibWFpbHRvOmNrb2VuaWcu
+bGVpY2h0enVtZXJrZW5AZ21haWwuY29tIiBtb3otZG8tbm90LXNlbmQ9InRydWUiPmNrb2VuaWcu
+bGVpY2h0enVtZXJrZW5AZ21haWwuY29tPC9hPiZndDsgd3JvdGU6PGJyPg0KPC9kaXY+DQo8ZGl2
+IGNsYXNzPSJnbWFpbF9xdW90ZSI+DQo8YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0
+eWxlPSJtYXJnaW46MHB4IDBweCAwcHgNCiAgICAgICAgICAgICAgMC44ZXg7Ym9yZGVyLWxlZnQ6
+MXB4IHNvbGlkDQogICAgICAgICAgICAgIHJnYigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0OjFl
+eCI+DQo8ZGl2IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0iZ21haWwtbV85MTk1MzEz
+NTkwODkxMDEyMDU0bW96LWNpdGUtcHJlZml4Ij4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiPlRo
+ZSBQQ0kgRXhwcmVzcyBjb250cm9sbGVyIGFzIGluc3RhbnRpYXRlZCBvbiB0aGlzIGNoaXAgZG9l
+cyBub3Qgc3VwcG9ydCBoYXJkd2FyZSBjb2hlcmVuY3kuIEFsbCBpbmNvbWluZyBQQ0kgRXhwcmVz
+cyB0cmFuc2FjdGlvbnMgYXJlIG1hZGUgbm9uIElPLWNvaGVyZW50Lg0KPGRpdj48YnI+DQo8L2Rp
+dj4NCjxkaXY+V291bGQgQU1ER1BVIHN0aWxsIHdvcmsgd2l0aCB0aGF0IFBDSSBFeHByZXNzIGNv
+bnRyb2xsZXIsIG9yIGlzIHRoaXMgYSBzaG93LXN0b3BwZXI/PC9kaXY+DQo8L2Jsb2NrcXVvdGU+
+DQo8YnI+DQpJJ20gcmVhbGx5IHdvbmRlcmluZyB3aGF0IHRoaXMgY29tbWVudCBpbiB0aGUgZG9j
+dW1lbnRhdGlvbiBtZWFucy48YnI+DQo8YnI+DQpBcyBmYXIgYXMgSSBrbm93IFBDSWUgZG9lc24n
+dCBzdXBwb3J0IGNhY2hlIGNvaGVyZW5jeSBpbiB0aGUgZG93bnN0cmVhbSBhbmQgc3VwcG9ydGlu
+ZyBpdCBpbiB0aGUgdXAgc3RyZWFtIGlzIGEgbXVzdCBoYXZlLjxicj4NCjwvZGl2Pg0KPC9kaXY+
+DQo8L2Jsb2NrcXVvdGU+DQo8YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJt
+YXJnaW46MHB4IDBweCAwcHgNCiAgICAgICAgICAgICAgMC44ZXg7Ym9yZGVyLWxlZnQ6MXB4IHNv
+bGlkDQogICAgICAgICAgICAgIHJnYigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0OjFleCI+DQo8
+ZGl2IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0iZ21haWwtbV85MTk1MzEzNTkwODkx
+MDEyMDU0bW96LWNpdGUtcHJlZml4Ij5TbyB3aGF0IGV4YWN0bHkgaXMgbWVhbnQgaGVyZSB3aXRo
+IElPLWNvaGVyZW50Pzxicj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pjxi
+cj4NCjwvZGl2Pg0KPGRpdj5JIGJlbGlldmUgSU8gQ29oZXJlbnQgbWVhbnMgdGhhdCB3aGVuIFBD
+SWUgd3JpdGVzIHNvbWV0aGluZyB0byBDUFUgbWVtb3J5LCB0aGUgY2FjaGVzIGFyZSBmbHVzaGVk
+IG9yIHVwZGF0ZWQ8YnI+DQoob3IgaW4gdGhpcyBjYXNlIHRoZXkgYXJlbid0KS4gSSBmb3VuZCZu
+YnNwOzxhIGhyZWY9Imh0dHBzOi8vY29tbXVuaXR5LmFybS5jb20vcHJvY2Vzc29ycy9iL2Jsb2cv
+cG9zdHMvZXh0ZW5kZWQtc3lzdGVtLWNvaGVyZW5jeS0tLXBhcnQtMS0tLWNhY2hlLWNvaGVyZW5j
+eS1mdW5kYW1lbnRhbHMiIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+aHR0cHM6Ly9jb21tdW5pdHku
+YXJtLmNvbS9wcm9jZXNzb3JzL2IvYmxvZy9wb3N0cy9leHRlbmRlZC1zeXN0ZW0tY29oZXJlbmN5
+LS0tcGFydC0xLS0tY2FjaGUtY29oZXJlbmN5LWZ1bmRhbWVudGFsczwvYT4mbmJzcDs8L2Rpdj4N
+CjxkaXY+d2l0aCB0aGlzIGV4cGxhbmF0aW9uLjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2
+Pg0KPC9ibG9ja3F1b3RlPg0KPGJyPg0KWWVhaCwgYnV0IGFzIEkgc2FpZCB0aGlzIHVwc3RyZWFt
+IG1lbW9yeSBjb2hlcmVuY3kgaXMgbWFuZGF0b3J5IGZvciBQQ0llLjxicj4NCjxicj4NCldoZW4g
+YSBjb250cm9sbGVyIGRvZXNuJ3QgaGF2ZSB0aGF0IGl0IGNhbid0IGNhbGwgaXRzZWxmIGEgUENJ
+ZSBjb250cm9sbGVyLiBUaGUgc3BlYyBpcyBwcmV0dHkgY2xlYXIgYWJvdXQgdGhhdCA6KTxicj4N
+Cjxicj4NCkFuZCB0byBhbnN3ZXIgdGhlIG9yaWdpbmFsIHF1ZXN0aW9uOiBZZXMsIHRoYXQgd291
+bGQgYmUgYSB0b3RhbGx5IHNob3ctc3RvcHBlci48YnI+DQo8YnI+DQpSZWdhcmRzLDxicj4NCkNo
+cmlzdGlhbi48YnI+DQo8YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6Q0FH
+dG9pUmlZLVRLJiM0MztfWUh3az1mXzJ2TXhKSjZVY3Y5QVEydnVveHR1ZkZha0twPWhBQUBtYWls
+LmdtYWlsLmNvbSI+DQo8ZGl2IGRpcj0ibHRyIj4NCjxkaXYgZGlyPSJsdHIiPg0KPGRpdiBjbGFz
+cz0iZ21haWxfcXVvdGUiPg0KPGRpdj48YnI+DQo8L2Rpdj4NCjxkaXY+UmVnYXJkcyw8L2Rpdj4N
+CjxkaXY+PGJyPg0KPC9kaXY+DQo8ZGl2PkJhcyBWZXJtZXVsZW48L2Rpdj4NCjwvZGl2Pg0KPC9k
+aXY+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjxicj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-with this explanation.
+--_000_20720365641eac3e1cfb9c16133905beamdcom_--
 
-Regards,
-
-Bas Vermeulen
-
---000000000000ec9804057f1a98cb
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">On Thu, Jan 10, 2019 at =
-11:59 AM Christian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@=
-gmail.com">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><div cl=
-ass=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
- =20
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF">
-    <div class=3D"gmail-m_9195313590891012054moz-cite-prefix">
-      <blockquote type=3D"cite">The PCI Express controller as instantiated
-        on this chip does not
-        support hardware coherency. All incoming PCI Express
-        transactions are made non IO-coherent.
-        <div><br>
-        </div>
-        <div>Would AMDGPU still work with that PCI Express controller,
-          or is this a show-stopper?</div>
-      </blockquote>
-      <br>
-      I&#39;m really wondering what this comment in the documentation means=
-.<br>
-      <br>
-      As far as I know PCIe doesn&#39;t support cache coherency in the
-      downstream and supporting it in the up stream is a must have.<br></di=
-v></div></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px =
-0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div=
- bgcolor=3D"#FFFFFF"><div class=3D"gmail-m_9195313590891012054moz-cite-pref=
-ix">So what exactly is meant here with IO-coherent?<br></div></div></blockq=
-uote><div><br></div><div>I believe IO Coherent means that when PCIe writes =
-something to CPU memory, the caches are flushed or updated<br>(or in this c=
-ase they aren&#39;t). I found=C2=A0<a href=3D"https://community.arm.com/pro=
-cessors/b/blog/posts/extended-system-coherency---part-1---cache-coherency-f=
-undamentals">https://community.arm.com/processors/b/blog/posts/extended-sys=
-tem-coherency---part-1---cache-coherency-fundamentals</a>=C2=A0</div><div>w=
-ith this explanation.</div><div><br></div><div>Regards,</div><div><br></div=
-><div>Bas Vermeulen</div></div></div></div>
-
---000000000000ec9804057f1a98cb--
-
---===============0167367434==
+--===============0587164157==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -116,4 +128,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0167367434==--
+--===============0587164157==--
