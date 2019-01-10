@@ -1,15 +1,15 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: BISECTED- amd-staging-drm-next, xorg-server segfault A6-6310 APU
- - R4 Mullins.
-Date: Thu, 10 Jan 2019 17:22:07 +0100
-Message-ID: <641eb681-2952-19d9-5c74-01616a51c6ec@daenzer.net>
-References: <3677766.FRf3LM2rx8@eclipse>
- <70fd7291-8d04-f7f9-b31b-b19e9ba36f12@daenzer.net>
- <91019770.5DcfmtkFX1@eclipse>
+From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/3] drm/amdkfd: avoid HMM change cause circular lock
+ dependency v2
+Date: Thu, 10 Jan 2019 17:02:47 +0000
+Message-ID: <20190110170228.10917-2-Philip.Yang@amd.com>
+References: <20190110170228.10917-1-Philip.Yang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0149991384=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <91019770.5DcfmtkFX1@eclipse>
+In-Reply-To: <20190110170228.10917-1-Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,195 +20,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: yuzhao-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0149991384==
-Content-Type: multipart/signed; micalg=pgp-sha1;
- protocol="application/pgp-signature";
- boundary="00HbFZVtpNjdPz4UYqBq6pDjozQ6GqjTO"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---00HbFZVtpNjdPz4UYqBq6pDjozQ6GqjTO
-Content-Type: multipart/mixed; boundary="c6wvIvRLPtLIk3BYvWyFXAgXlgJKHMo7E";
- protected-headers="v1"
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-To: soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, yuzhao-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org
-Message-ID: <641eb681-2952-19d9-5c74-01616a51c6ec-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: BISECTED- amd-staging-drm-next, xorg-server segfault A6-6310 APU
- - R4 Mullins.
-References: <3677766.FRf3LM2rx8@eclipse>
- <70fd7291-8d04-f7f9-b31b-b19e9ba36f12-otUistvHUpPR7s880joybQ@public.gmane.org>
- <91019770.5DcfmtkFX1@eclipse>
-In-Reply-To: <91019770.5DcfmtkFX1@eclipse>
-
---c6wvIvRLPtLIk3BYvWyFXAgXlgJKHMo7E
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-CA
-Content-Transfer-Encoding: quoted-printable
-
-On 2019-01-10 5:06 p.m., Przemek Socha wrote:
-> Dnia czwartek, 10 stycznia 2019 12:25:01 CET piszesz:
->> On 2019-01-10 10:44 a.m., Przemek Socha wrote:
->>> Hi,
->>> after yesterday's fetch of amd-staging-drm-next tree from agd5f git r=
-epo
->>> my
->>> xorg server is segfaulting when starting up.
->>>
->>> I am using gentoo ~amd64, xorg-server 1.20.3, xf86-video-amdgpu-18.1.=
-0.
->>> Machine is an old Lenovo g50-45 netbook with A6-6310 APU - R4 Mullins=
-=2E
->>>
->>> - excerpt from Xorg.log:
->>>
->>> "[    21.878] (II) AMDGPU(0): Setting screen physical size to 700 x 2=
-70
->>> [    21.880] (EE)
->>> [    21.880] (EE) Backtrace:
->>> [    21.880] (EE) 0: /usr/bin/X (xorg_backtrace+0x4d) [0x559df051f0bd=
-]
->>> [    21.880] (EE) 1: /usr/bin/X (0x559df0376000+0x1acc89) [0x559df052=
-2c89]
->>> [    21.880] (EE) 2: /lib64/libpthread.so.0 (0x7f6f2edad000+0x14560)
->>> [0x7f6f2edc1560]
->>> [    21.880] (EE) 3: /usr/lib64/xorg/modules/drivers/amdgpu_drv.so
->>> (0x7f6f2f32b000+0x14fce) [0x7f6f2f33ffce]
->>> [    21.880] (EE) 4: /usr/lib64/xorg/modules/drivers/amdgpu_drv.so
->>> (0x7f6f2f32b000+0xd1c4) [0x7f6f2f3381c4]
->>> [    21.880] (EE) 5: /usr/bin/X (0x559df0376000+0xdf024) [0x559df0455=
-024]
->>> [    21.881] (EE) 6: /usr/bin/X (InitRootWindow+0x11) [0x559df03f8761=
-]
->>> [    21.881] (EE) 7: /usr/bin/X (0x559df0376000+0x5b574) [0x559df03d1=
-574]
->>> [    21.881] (EE) 8: /lib64/libc.so.6 (__libc_start_main+0xee)
->>> [0x7f6f2ec054ce]
->>> [    21.881] (EE) 9: /usr/bin/X (_start+0x2a) [0x559df03bb00a]
->>> [    21.881] (EE)
->>> [    21.881] (EE) Segmentation fault at address 0x4
->>> [    21.881] (EE)
->>> Fatal server error:
->>> [    21.881] (EE) Caught signal 11 (Segmentation fault). Server abort=
-ing
->>> [    21.881] (EE)
->>> [    21.881] (EE)
->>> Please consult the The X.Org Foundation support
->>>
->>> 	 at http://wiki.x.org
->>> =20
->>>  for help.
->>>
->>> [    21.881] (EE) Please also check the log file at "/var/log/Xorg.0.=
-log"
->>> for additional information.
->>> [    21.881] (EE)
->>> [    21.881] (II) AIGLX: Suspending AIGLX clients for VT switch
->>> [    21.957] (EE) Server terminated with error (1). Closing log file.=
-"
->>>
->>>
->>> I am not sure if I didn't mess up anything, but git bisect gives the
->>> results:
->>>
->>> [...]
->>>
->>> 79c6b898011958fba7722528d567b64e1cdc8dbe is the first bad commit
->>> commit 79c6b898011958fba7722528d567b64e1cdc8dbe
->>> Author: Yu Zhao <yuzhao-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
->>> Date:   Mon Jan 7 15:51:14 2019 -0700
->>>
->>>     drm/amdgpu: validate user pitch alignment
->>>    =20
->>>     Userspace may request pitch alignment that is not supported by GP=
-U.
->>>     Some requests 32, but GPU ignores it and uses default 64 when cpp=
- is
->>>     4. If GEM object is allocated based on the smaller alignment, GPU=
-
->>>     DMA will go out of bound.
->>>    =20
->>>     Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org # v4.2+
->>>     Reviewed-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
->>>     Signed-off-by: Yu Zhao <yuzhao-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
->>> :
->>> :040000 040000 5338964e9975e461ceedb27f6342c2896f54607a
->>>
->>> ed2f04fc9b665b27b1905fd60b7d2a3933d1fdcc M      drivers
->>
->> Thanks for tracking this down. It turns out the check added by this
->> change is too strict for linear framebuffers. I've sent a patch
->> reverting it for review: https://patchwork.freedesktop.org/patch/27612=
-2/
->>
->> Sorry I didn't realize this issue when reviewing this change.
->=20
-> Thanks for the swift response and sorry about the delay on my side.
-
-No worries.
-
-
-> Unfortunately applying this patch does not help in my case (but could b=
-e=20
-> necessarily after all).=20
->=20
-> To start xorg-server I had to apply your patch, and, on top of this, re=
-verse=20
-> the  "drm/amdgpu: validate user pitch alignment" -=20
-> 79c6b898011958fba7722528d567b64e1cdc8dbe.
->=20
-> Now xorg server starts, but I have doubt about system stability because=
-=20
-> description of reverted one is saying that "if GEM object is allocated =
-based=20
-> on the smaller alignment, GPU
-> DMA will go out of bound".=20
-
-I don't think you need to worry. If the pitch chosen by
-xf86-video-amdgpu actually didn't match the one used by the hardware,
-the output would be unusably distorted. So the pitch check seems too
-strict in this case as well.
-
-Please provide the full Xorg log file and the output of dmesg
-corresponding to a failure. If you write 4 to
-/sys/module/drm/parameters/debug before reproducing the problem (you can
-write 0 to it again afterwards), dmesg should give us even more
-information about why the pitch is rejected.
-
-
---=20
-Earthling Michel D=C3=A4nzer               |               http://www.amd=
-=2Ecom
-Libre software enthusiast             |             Mesa and X developer
-
-
---c6wvIvRLPtLIk3BYvWyFXAgXlgJKHMo7E--
-
---00HbFZVtpNjdPz4UYqBq6pDjozQ6GqjTO
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQSwn681vpFFIZgJURRaga+OatuyAAUCXDdxLwAKCRBaga+Oatuy
-ADksAKCVtmvZqHASw87fO7Z1AFj4EEZ2BACfUMzF0P44vUIy8lT9/8bjTVjmMG0=
-=ysMv
------END PGP SIGNATURE-----
-
---00HbFZVtpNjdPz4UYqBq6pDjozQ6GqjTO--
-
---===============0149991384==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0149991384==--
+VGhlcmUgaXMgY2lyY3VsYXIgbG9jayBiZXR3ZWVuIGdmeCBhbmQga2ZkIHBhdGggd2l0aCBITU0g
+Y2hhbmdlOgpsb2NrKGRxbSkgLT4gYm86OnJlc2VydmUgLT4gYW1kZ3B1X21uX2xvY2sKClRvIGF2
+b2lkIHRoaXMsIG1vdmUgaW5pdC91bmludF9tcWQoKSBvdXQgb2YgbG9jayhkcW0pLCB0byByZW1v
+dmUgbmVzdGVkCmxvY2tpbmcgYmV0d2VlbiBtbWFwX3NlbSBhbmQgYm86OnJlc2VydmUuIFRoZSBs
+b2NraW5nIG9yZGVyCmlzOiBibzo6cmVzZXJ2ZSAtPiBhbWRncHVfbW5fbG9jayhwLT5tbikKCkNo
+YW5nZS1JZDogSTJlYzA5YTQ3NTcxZjZiNGM4ZWFlZjkzZjIyYzBhNjAwZjVmNzAxNTMKU2lnbmVk
+LW9mZi1ieTogUGhpbGlwIFlhbmcgPFBoaWxpcC5ZYW5nQGFtZC5jb20+Ci0tLQogLi4uL2RybS9h
+bWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jIHwgMzIgKysrKysrKysrKy0tLS0t
+LS0tLQogMSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQoK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVf
+bWFuYWdlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9t
+YW5hZ2VyLmMKaW5kZXggODM3MjU1NmI1MmViLi5lZmUwZDNjMDIxNWIgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jCkBA
+IC0xMTU2LDIxICsxMTU2LDE3IEBAIHN0YXRpYyBpbnQgY3JlYXRlX3F1ZXVlX2Nwc2NoKHN0cnVj
+dCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLCBzdHJ1Y3QgcXVldWUgKnEsCiAJaW50IHJldHZh
+bDsKIAlzdHJ1Y3QgbXFkX21hbmFnZXIgKm1xZF9tZ3I7CiAKLQlyZXR2YWwgPSAwOwotCi0JZHFt
+X2xvY2soZHFtKTsKLQogCWlmIChkcW0tPnRvdGFsX3F1ZXVlX2NvdW50ID49IG1heF9udW1fb2Zf
+cXVldWVzX3Blcl9kZXZpY2UpIHsKIAkJcHJfd2FybigiQ2FuJ3QgY3JlYXRlIG5ldyB1c2VybW9k
+ZSBxdWV1ZSBiZWNhdXNlICVkIHF1ZXVlcyB3ZXJlIGFscmVhZHkgY3JlYXRlZFxuIiwKIAkJCQlk
+cW0tPnRvdGFsX3F1ZXVlX2NvdW50KTsKIAkJcmV0dmFsID0gLUVQRVJNOwotCQlnb3RvIG91dF91
+bmxvY2s7CisJCWdvdG8gb3V0OwogCX0KIAogCWlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZE
+X1FVRVVFX1RZUEVfU0RNQSkgewogCQlyZXR2YWwgPSBhbGxvY2F0ZV9zZG1hX3F1ZXVlKGRxbSwg
+JnEtPnNkbWFfaWQpOwogCQlpZiAocmV0dmFsKQotCQkJZ290byBvdXRfdW5sb2NrOworCQkJZ290
+byBvdXQ7CiAJCXEtPnByb3BlcnRpZXMuc2RtYV9xdWV1ZV9pZCA9CiAJCQlxLT5zZG1hX2lkIC8g
+Z2V0X251bV9zZG1hX2VuZ2luZXMoZHFtKTsKIAkJcS0+cHJvcGVydGllcy5zZG1hX2VuZ2luZV9p
+ZCA9CkBAIC0xMTgxLDYgKzExNzcsOSBAQCBzdGF0aWMgaW50IGNyZWF0ZV9xdWV1ZV9jcHNjaChz
+dHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwgc3RydWN0IHF1ZXVlICpxLAogCWlmIChy
+ZXR2YWwpCiAJCWdvdG8gb3V0X2RlYWxsb2NhdGVfc2RtYV9xdWV1ZTsKIAorCS8qIERvIGluaXRf
+bXFkIGJlZm9yZSBkcW1fbG9jayhkcW0pIHRvIGF2b2lkIGNpcmN1bGFyIGxvY2tpbmcgb3JkZXI6
+CisJICogbG9jayhkcW0pIC0+IGJvOjpyZXNlcnZlCisJICovCiAJbXFkX21nciA9IGRxbS0+b3Bz
+LmdldF9tcWRfbWFuYWdlcihkcW0sCiAJCQlnZXRfbXFkX3R5cGVfZnJvbV9xdWV1ZV90eXBlKHEt
+PnByb3BlcnRpZXMudHlwZSkpOwogCkBAIC0xMTg4LDYgKzExODcsNyBAQCBzdGF0aWMgaW50IGNy
+ZWF0ZV9xdWV1ZV9jcHNjaChzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwgc3RydWN0
+IHF1ZXVlICpxLAogCQlyZXR2YWwgPSAtRU5PTUVNOwogCQlnb3RvIG91dF9kZWFsbG9jYXRlX2Rv
+b3JiZWxsOwogCX0KKwogCS8qCiAJICogRXZpY3Rpb24gc3RhdGUgbG9naWM6IHdlIG9ubHkgbWFy
+ayBhY3RpdmUgcXVldWVzIGFzIGV2aWN0ZWQKIAkgKiB0byBhdm9pZCB0aGUgb3ZlcmhlYWQgb2Yg
+cmVzdG9yaW5nIGluYWN0aXZlIHF1ZXVlcyBsYXRlcgpAQCAtMTE5Niw5ICsxMTk2LDcgQEAgc3Rh
+dGljIGludCBjcmVhdGVfcXVldWVfY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpk
+cW0sIHN0cnVjdCBxdWV1ZSAqcSwKIAkJcS0+cHJvcGVydGllcy5pc19ldmljdGVkID0gKHEtPnBy
+b3BlcnRpZXMucXVldWVfc2l6ZSA+IDAgJiYKIAkJCQkJICAgIHEtPnByb3BlcnRpZXMucXVldWVf
+cGVyY2VudCA+IDAgJiYKIAkJCQkJICAgIHEtPnByb3BlcnRpZXMucXVldWVfYWRkcmVzcyAhPSAw
+KTsKLQogCWRxbS0+YXNpY19vcHMuaW5pdF9zZG1hX3ZtKGRxbSwgcSwgcXBkKTsKLQogCXEtPnBy
+b3BlcnRpZXMudGJhX2FkZHIgPSBxcGQtPnRiYV9hZGRyOwogCXEtPnByb3BlcnRpZXMudG1hX2Fk
+ZHIgPSBxcGQtPnRtYV9hZGRyOwogCXJldHZhbCA9IG1xZF9tZ3ItPmluaXRfbXFkKG1xZF9tZ3Is
+ICZxLT5tcWQsICZxLT5tcWRfbWVtX29iaiwKQEAgLTEyMDYsNiArMTIwNCw4IEBAIHN0YXRpYyBp
+bnQgY3JlYXRlX3F1ZXVlX2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLCBz
+dHJ1Y3QgcXVldWUgKnEsCiAJaWYgKHJldHZhbCkKIAkJZ290byBvdXRfZGVhbGxvY2F0ZV9kb29y
+YmVsbDsKIAorCWRxbV9sb2NrKGRxbSk7CisKIAlsaXN0X2FkZCgmcS0+bGlzdCwgJnFwZC0+cXVl
+dWVzX2xpc3QpOwogCXFwZC0+cXVldWVfY291bnQrKzsKIAlpZiAocS0+cHJvcGVydGllcy5pc19h
+Y3RpdmUpIHsKQEAgLTEyMzMsOSArMTIzMyw3IEBAIHN0YXRpYyBpbnQgY3JlYXRlX3F1ZXVlX2Nw
+c2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLCBzdHJ1Y3QgcXVldWUgKnEsCiBv
+dXRfZGVhbGxvY2F0ZV9zZG1hX3F1ZXVlOgogCWlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZE
+X1FVRVVFX1RZUEVfU0RNQSkKIAkJZGVhbGxvY2F0ZV9zZG1hX3F1ZXVlKGRxbSwgcS0+c2RtYV9p
+ZCk7Ci1vdXRfdW5sb2NrOgotCWRxbV91bmxvY2soZHFtKTsKLQorb3V0OgogCXJldHVybiByZXR2
+YWw7CiB9CiAKQEAgLTEzOTgsOCArMTM5Niw2IEBAIHN0YXRpYyBpbnQgZGVzdHJveV9xdWV1ZV9j
+cHNjaChzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwKIAkJCXFwZC0+cmVzZXRfd2F2
+ZWZyb250cyA9IHRydWU7CiAJfQogCi0JbXFkX21nci0+dW5pbml0X21xZChtcWRfbWdyLCBxLT5t
+cWQsIHEtPm1xZF9tZW1fb2JqKTsKLQogCS8qCiAJICogVW5jb25kaXRpb25hbGx5IGRlY3JlbWVu
+dCB0aGlzIGNvdW50ZXIsIHJlZ2FyZGxlc3Mgb2YgdGhlIHF1ZXVlJ3MKIAkgKiB0eXBlCkBAIC0x
+NDEwLDYgKzE0MDYsOSBAQCBzdGF0aWMgaW50IGRlc3Ryb3lfcXVldWVfY3BzY2goc3RydWN0IGRl
+dmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sCiAKIAlkcW1fdW5sb2NrKGRxbSk7CiAKKwkvKiBEbyB1
+bmluaXRfbXFkIGFmdGVyIGRxbV91bmxvY2soZHFtKSB0byBhdm9pZCBjaXJjdWxhciBsb2NraW5n
+ICovCisJbXFkX21nci0+dW5pbml0X21xZChtcWRfbWdyLCBxLT5tcWQsIHEtPm1xZF9tZW1fb2Jq
+KTsKKwogCXJldHVybiByZXR2YWw7CiAKIGZhaWxlZDoKQEAgLTE2MzEsNyArMTYzMCwxMSBAQCBz
+dGF0aWMgaW50IHByb2Nlc3NfdGVybWluYXRpb25fY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9t
+YW5hZ2VyICpkcW0sCiAJCXFwZC0+cmVzZXRfd2F2ZWZyb250cyA9IGZhbHNlOwogCX0KIAotCS8q
+IGxhc3RseSwgZnJlZSBtcWQgcmVzb3VyY2VzICovCisJZHFtX3VubG9jayhkcW0pOworCisJLyog
+TGFzdGx5LCBmcmVlIG1xZCByZXNvdXJjZXMuCisJICogRG8gdW5pbml0X21xZCgpIGFmdGVyIGRx
+bV91bmxvY2sgdG8gYXZvaWQgY2lyY3VsYXIgbG9ja2luZy4KKwkgKi8KIAlsaXN0X2Zvcl9lYWNo
+X2VudHJ5X3NhZmUocSwgbmV4dCwgJnFwZC0+cXVldWVzX2xpc3QsIGxpc3QpIHsKIAkJbXFkX21n
+ciA9IGRxbS0+b3BzLmdldF9tcWRfbWFuYWdlcihkcW0sCiAJCQlnZXRfbXFkX3R5cGVfZnJvbV9x
+dWV1ZV90eXBlKHEtPnByb3BlcnRpZXMudHlwZSkpOwpAQCAtMTY0NSw3ICsxNjQ4LDYgQEAgc3Rh
+dGljIGludCBwcm9jZXNzX3Rlcm1pbmF0aW9uX2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFu
+YWdlciAqZHFtLAogCX0KIAogb3V0OgotCWRxbV91bmxvY2soZHFtKTsKIAlyZXR1cm4gcmV0dmFs
+OwogfQogCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
