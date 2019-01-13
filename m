@@ -1,73 +1,60 @@
-From: Borislav Petkov <bp@alien8.de>
-Subject: radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf
- last fence id 0x00000000017a67a1 on ring 0)
-Date: Sat, 12 Jan 2019 21:50:51 +0100
-Message-ID: <20190112205051.GA1908@zn.tnic>
+From: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Include names of all PP clock types
+Date: Sun, 13 Jan 2019 14:24:07 +0100
+Message-ID: <20190113132407.13169-1-zajec5@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal-g1n6cQUeyibVItvQsEIGlw@public.gmane.org>
 
-Hi guys,
-
-my odyssey with the GPU continues. This time it didn't reset itself
-but started spewing a single line about the hardware locking up.
-
-The machine was responsive to sysrq so I was able to write out
-/var/log/messages and reboot.
-
-This is still with 4.20-rc7 but I'm building 5.0-rc1 to see if there's a
-difference.
-
-Any and all ideas what to do here are greatly appreciated.
-
-Thx.
-
-Jan 12 21:38:16 zn vmunix: [257393.853806] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a0 on ring 0)
-Jan 12 21:38:16 zn vmunix: [257394.369780] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a0 on ring 0)
-Jan 12 21:38:17 zn vmunix: [257394.877795] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:17 zn vmunix: [257395.389789] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:18 zn vmunix: [257395.901786] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:18 zn vmunix: [257396.413787] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:19 zn vmunix: [257396.925790] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:19 zn vmunix: [257397.437787] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:20 zn vmunix: [257397.949788] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:20 zn vmunix: [257398.461786] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:21 zn vmunix: [257398.973824] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:21 zn vmunix: [257399.485828] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:22 zn vmunix: [257399.997842] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:22 zn vmunix: [257400.509852] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:23 zn vmunix: [257401.021845] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:23 zn vmunix: [257401.533826] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:24 zn vmunix: [257402.045822] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:24 zn vmunix: [257402.557826] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:25 zn vmunix: [257403.069833] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:25 zn vmunix: [257403.581826] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:26 zn vmunix: [257404.093828] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:26 zn vmunix: [257404.605827] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:27 zn vmunix: [257405.117821] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:27 zn vmunix: [257405.629883] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:28 zn vmunix: [257406.141842] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:28 zn vmunix: [257406.653828] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:29 zn vmunix: [257407.165827] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:29 zn vmunix: [257407.677827] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:30 zn vmunix: [257408.189823] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:30 zn vmunix: [257408.701827] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:31 zn vmunix: [257409.213827] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:32 zn vmunix: [257409.725822] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:32 zn vmunix: [257410.237827] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:33 zn vmunix: [257410.749833] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:33 zn vmunix: [257411.261824] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:34 zn vmunix: [257411.773828] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-Jan 12 21:38:34 zn vmunix: [257412.285827] radeon 0000:1d:00.0: GPU lockup (current fence id 0x00000000017a66bf last fence id 0x00000000017a67a1 on ring 0)
-
-
--- 
-Regards/Gruss,
-    Boris.
-
-Good mailing practices for 400: avoid top-posting and trim the reply.
+RnJvbTogUmFmYcWCIE1pxYJlY2tpIDxyYWZhbEBtaWxlY2tpLnBsPgoKVGhpcyBmaXhlcyBwcmlu
+dGluZyBjbG9jayBuYW1lcyBpbiBjYXNlcyBsaWtlOgpbICAgIDUuMzUyMzExXSBbZHJtXSBETV9Q
+UExJQjogdmFsdWVzIGZvciBJbnZhbGlkIGNsb2NrClsgICAgNS4zNTIzMTNdIFtkcm1dIERNX1BQ
+TElCOiAgIDQwMDAwMCBpbiBrSHoKWyAgICA1LjM1MjMxM10gW2RybV0gRE1fUFBMSUI6ICAgOTMz
+MDAwIGluIGtIegpbICAgIDUuMzUyMzE0XSBbZHJtXSBETV9QUExJQjogICAxMDY3MDAwIGluIGtI
+egpbICAgIDUuMzUyMzE1XSBbZHJtXSBETV9QUExJQjogICAxMjAwMDAwIGluIGtIegpbICAgIDUu
+MzUyMzE3XSBbZHJtXSBETV9QUExJQjogdmFsdWVzIGZvciBJbnZhbGlkIGNsb2NrClsgICAgNS4z
+NTIzMThdIFtkcm1dIERNX1BQTElCOiAgIDMwMDAwMCBpbiBrSHoKWyAgICA1LjM1MjMxOF0gW2Ry
+bV0gRE1fUFBMSUI6ICAgNjAwMDAwIGluIGtIegpbICAgIDUuMzUyMzE5XSBbZHJtXSBETV9QUExJ
+QjogICA2MjYwMDAgaW4ga0h6ClsgICAgNS4zNTIzMjBdIFtkcm1dIERNX1BQTElCOiAgIDY1NDAw
+MCBpbiBrSHoKKHNvdXJjZTogSFAgRWxpdGVCb29rIDc0NSBHNSB3LiBSQVZFTiAweDEwMDI6MHgx
+NUREIDB4MTAzQzoweDgzRDUgMHhEMSkKCk9uIG15IHN5c3RlbSBhYm92ZSAiSW52YWxpZCIgbmFt
+ZXMgZ290IHJlcGxhY2VkIGJ5ICJGIiBhbmQgIkRDRiIuCgpUaGUgc2FtZSBwcm9ibGVtIHdhcyBv
+Y2N1cnJpbmcgb24gSHVhd2VpIE1hdGVib29rIEQgd2l0aCBqdXN0IDY2NzAwMCBrSHoKaW5zdGVh
+ZCBvZiA0MDAwMDAga0h6LgoKU2lnbmVkLW9mZi1ieTogUmFmYcWCIE1pxYJlY2tpIDxyYWZhbEBt
+aWxlY2tpLnBsPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbV9zZXJ2aWNl
+c190eXBlcy5oIHwgMTAgKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygr
+KSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9kbV9zZXJ2aWNlc190eXBlcy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2RtX3NlcnZpY2VzX3R5cGVzLmgKaW5kZXggMWFmOGM3NzdiM2FjLi45YWZkMzZhMDMxYTkgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbV9zZXJ2aWNlc190eXBl
+cy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbV9zZXJ2aWNlc190eXBl
+cy5oCkBAIC04Miw3ICs4MiwxNSBAQCBlbnVtIGRtX3BwX2Nsb2NrX3R5cGUgewogI2RlZmluZSBE
+Q19ERUNPREVfUFBfQ0xPQ0tfVFlQRShjbGtfdHlwZSkgXAogCShjbGtfdHlwZSkgPT0gRE1fUFBf
+Q0xPQ0tfVFlQRV9ESVNQTEFZX0NMSyA/ICJEaXNwbGF5IiA6IFwKIAkoY2xrX3R5cGUpID09IERN
+X1BQX0NMT0NLX1RZUEVfRU5HSU5FX0NMSyA/ICJFbmdpbmUiIDogXAotCShjbGtfdHlwZSkgPT0g
+RE1fUFBfQ0xPQ0tfVFlQRV9NRU1PUllfQ0xLID8gIk1lbW9yeSIgOiAiSW52YWxpZCIKKwkoY2xr
+X3R5cGUpID09IERNX1BQX0NMT0NLX1RZUEVfTUVNT1JZX0NMSyA/ICJNZW1vcnkiIDogXAorCShj
+bGtfdHlwZSkgPT0gRE1fUFBfQ0xPQ0tfVFlQRV9EQ0ZDTEsgPyAiRENGIiA6IFwKKwkoY2xrX3R5
+cGUpID09IERNX1BQX0NMT0NLX1RZUEVfRENFRkNMSyA/ICJEQ0VGIiA6IFwKKwkoY2xrX3R5cGUp
+ID09IERNX1BQX0NMT0NLX1RZUEVfU09DQ0xLID8gIlNvQyIgOiBcCisJKGNsa190eXBlKSA9PSBE
+TV9QUF9DTE9DS19UWVBFX1BJWEVMQ0xLID8gIlBpeGVsIiA6IFwKKwkoY2xrX3R5cGUpID09IERN
+X1BQX0NMT0NLX1RZUEVfRElTUExBWVBIWUNMSyA/ICJEaXNwbGF5IFBIWSIgOiBcCisJKGNsa190
+eXBlKSA9PSBETV9QUF9DTE9DS19UWVBFX0RQUENMSyA/ICJEUFAiIDogXAorCShjbGtfdHlwZSkg
+PT0gRE1fUFBfQ0xPQ0tfVFlQRV9GQ0xLID8gIkYiIDogXAorCSJJbnZhbGlkIgogCiAjZGVmaW5l
+IERNX1BQX01BWF9DTE9DS19MRVZFTFMgOAogCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
