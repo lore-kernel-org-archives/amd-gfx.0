@@ -1,45 +1,38 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/soc15: return proper error codes in baco reset
-Date: Mon, 14 Jan 2019 14:57:56 -0500
-Message-ID: <20190114195756.29970-1-alexander.deucher@amd.com>
+From: Mathieu Malaterre <malat@debian.org>
+Subject: [PATCH] drm: radeon: annotate implicit fall through
+Date: Mon, 14 Jan 2019 21:26:52 +0100
+Message-ID: <20190114202652.15204-1-malat@debian.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Mathieu Malaterre <malat@debian.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmF0aGVyIHRoYW4ganVzdCAtMS4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2Mx
-NS5jIHwgOCArKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYwppbmRleCA1MjQ4YjAzZGY1ZmEu
-LjcxMzBhNGM4ZGQ1ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29j
-MTUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCkBAIC00MjcsNyAr
-NDI3LDcgQEAgc3RhdGljIGludCBzb2MxNV9hc2ljX2dldF9iYWNvX2NhcGFiaWxpdHkoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wgKmNhcCkKIAogCWlmICghcHBfZnVuY3MgfHwgIXBw
-X2Z1bmNzLT5nZXRfYXNpY19iYWNvX2NhcGFiaWxpdHkpIHsKIAkJKmNhcCA9IGZhbHNlOwotCQly
-ZXR1cm4gLTE7CisJCXJldHVybiAtRU5PRU5UOwogCX0KIAogCXJldHVybiBwcF9mdW5jcy0+Z2V0
-X2FzaWNfYmFjb19jYXBhYmlsaXR5KHBwX2hhbmRsZSwgY2FwKTsKQEAgLTQzOSwxNSArNDM5LDE1
-IEBAIHN0YXRpYyBpbnQgc29jMTVfYXNpY19iYWNvX3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2KQogCWNvbnN0IHN0cnVjdCBhbWRfcG1fZnVuY3MgKnBwX2Z1bmNzID0gYWRldi0+cG93
-ZXJwbGF5LnBwX2Z1bmNzOwogCiAJaWYgKCFwcF9mdW5jcyB8fCFwcF9mdW5jcy0+Z2V0X2FzaWNf
-YmFjb19zdGF0ZSB8fCFwcF9mdW5jcy0+c2V0X2FzaWNfYmFjb19zdGF0ZSkKLQkJcmV0dXJuIC0x
-OworCQlyZXR1cm4gLUVOT0VOVDsKIAogCS8qIGVudGVyIEJBQ08gc3RhdGUgKi8KIAlpZiAocHBf
-ZnVuY3MtPnNldF9hc2ljX2JhY29fc3RhdGUocHBfaGFuZGxlLCAxKSkKLQkJcmV0dXJuIC0xOwor
-CQlyZXR1cm4gLUVJTzsKIAogCS8qIGV4aXQgQkFDTyBzdGF0ZSAqLwogCWlmIChwcF9mdW5jcy0+
-c2V0X2FzaWNfYmFjb19zdGF0ZShwcF9oYW5kbGUsIDApKQotCQlyZXR1cm4gLTE7CisJCXJldHVy
-biAtRUlPOwogCiAJZGV2X2luZm8oYWRldi0+ZGV2LCAiR1BVIEJBQ08gcmVzZXRcbiIpOwogCi0t
-IAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+There is a plan to build the kernel with -Wimplicit-fallthrough and
+this place in the code produced a warning (W=1).
+
+This commit remove the following warning:
+
+  drivers/gpu/drm/radeon/evergreen_cs.c:1301:11: warning: this statement may fall through [-Wimplicit-fallthrough=]
+
+Signed-off-by: Mathieu Malaterre <malat@debian.org>
+---
+ drivers/gpu/drm/radeon/evergreen_cs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+index f471537c852f..fbf346185790 100644
+--- a/drivers/gpu/drm/radeon/evergreen_cs.c
++++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+@@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
+ 			return -EINVAL;
+ 		}
+ 		ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
++		/* fall through */
+ 	case CB_TARGET_MASK:
+ 		track->cb_target_mask = radeon_get_ib_value(p, idx);
+ 		track->cb_dirty = true;
+-- 
+2.19.2
