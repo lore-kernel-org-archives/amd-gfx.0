@@ -1,63 +1,57 @@
-From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?tPC4tDogW1BBVENIXSBkcm0vYW1kZ3B1L3NvYzE1OiByZXR1cm4gcHJvcGVy?=
- =?gb2312?Q?_error_codes_in_baco_reset?=
-Date: Tue, 15 Jan 2019 03:22:44 +0000
-Message-ID: <BYAPR12MB27911E0C46819B902A3253D399810@BYAPR12MB2791.namprd12.prod.outlook.com>
-References: <20190114195756.29970-1-alexander.deucher@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/amdgpu: Replace kzalloc with kcalloc
+Date: Mon, 14 Jan 2019 23:22:02 -0600
+Message-ID: <20190115052202.GA8537@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190114195756.29970-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: zh-CN
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEppbVF1IDxKaW0uUXVAYW1kLmNvbT4NCg0KVGhhbmtzDQpKaW1RdQ0KDQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQrlj5Hku7bkuro6IGFtZC1n
-ZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IOS7o+ihqCBBbGV4IERl
-dWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCuWPkemAgeaXtumXtDogMjAxOeW5tDHmnIgx
-NeaXpSAzOjU3OjU2DQrmlLbku7bkuro6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQrm
-ioTpgIE6IERldWNoZXIsIEFsZXhhbmRlcg0K5Li76aKYOiBbUEFUQ0hdIGRybS9hbWRncHUvc29j
-MTU6IHJldHVybiBwcm9wZXIgZXJyb3IgY29kZXMgaW4gYmFjbyByZXNldA0KDQpSYXRoZXIgdGhh
-biBqdXN0IC0xLg0KDQpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jIHwg
-OCArKysrLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25z
-KC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KaW5kZXggNTI0OGIwM2RmNWZhLi43
-MTMwYTRjOGRkNWYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2Mx
-NS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQpAQCAtNDI3LDcg
-KzQyNyw3IEBAIHN0YXRpYyBpbnQgc29jMTVfYXNpY19nZXRfYmFjb19jYXBhYmlsaXR5KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCBib29sICpjYXApDQoNCiAgICAgICAgaWYgKCFwcF9mdW5j
-cyB8fCAhcHBfZnVuY3MtPmdldF9hc2ljX2JhY29fY2FwYWJpbGl0eSkgew0KICAgICAgICAgICAg
-ICAgICpjYXAgPSBmYWxzZTsNCi0gICAgICAgICAgICAgICByZXR1cm4gLTE7DQorICAgICAgICAg
-ICAgICAgcmV0dXJuIC1FTk9FTlQ7DQogICAgICAgIH0NCg0KICAgICAgICByZXR1cm4gcHBfZnVu
-Y3MtPmdldF9hc2ljX2JhY29fY2FwYWJpbGl0eShwcF9oYW5kbGUsIGNhcCk7DQpAQCAtNDM5LDE1
-ICs0MzksMTUgQEAgc3RhdGljIGludCBzb2MxNV9hc2ljX2JhY29fcmVzZXQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpDQogICAgICAgIGNvbnN0IHN0cnVjdCBhbWRfcG1fZnVuY3MgKnBwX2Z1
-bmNzID0gYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzOw0KDQogICAgICAgIGlmICghcHBfZnVuY3Mg
-fHwhcHBfZnVuY3MtPmdldF9hc2ljX2JhY29fc3RhdGUgfHwhcHBfZnVuY3MtPnNldF9hc2ljX2Jh
-Y29fc3RhdGUpDQotICAgICAgICAgICAgICAgcmV0dXJuIC0xOw0KKyAgICAgICAgICAgICAgIHJl
-dHVybiAtRU5PRU5UOw0KDQogICAgICAgIC8qIGVudGVyIEJBQ08gc3RhdGUgKi8NCiAgICAgICAg
-aWYgKHBwX2Z1bmNzLT5zZXRfYXNpY19iYWNvX3N0YXRlKHBwX2hhbmRsZSwgMSkpDQotICAgICAg
-ICAgICAgICAgcmV0dXJuIC0xOw0KKyAgICAgICAgICAgICAgIHJldHVybiAtRUlPOw0KDQogICAg
-ICAgIC8qIGV4aXQgQkFDTyBzdGF0ZSAqLw0KICAgICAgICBpZiAocHBfZnVuY3MtPnNldF9hc2lj
-X2JhY29fc3RhdGUocHBfaGFuZGxlLCAwKSkNCi0gICAgICAgICAgICAgICByZXR1cm4gLTE7DQor
-ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU87DQoNCiAgICAgICAgZGV2X2luZm8oYWRldi0+ZGV2
-LCAiR1BVIEJBQ08gcmVzZXRcbiIpOw0KDQotLQ0KMi4yMC4xDQoNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+Replace kzalloc() function with its 2-factor argument form, kcalloc().
+
+This patch replaces cases of:
+
+	kzalloc(a * b, gfp)
+
+with:
+	kcalloc(a, b, gfp)
+
+Also, improve the coding style and the use of sizeof during
+allocation by changing sizeof(struct dc_surface_update) and
+sizeof(struct dc_plane_state) to sizeof(*updates) and
+sizeof(*surfaces), correspondingly.
+
+This code was detected with the help of Coccinelle.
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a3e65e457348..4c201de38329 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5782,11 +5782,14 @@ dm_determine_update_type_for_commit(struct dc *dc,
+ 	struct dm_crtc_state *new_dm_crtc_state, *old_dm_crtc_state;
+ 	struct dc_stream_status *status = NULL;
+ 
+-	struct dc_surface_update *updates = kzalloc(MAX_SURFACES * sizeof(struct dc_surface_update), GFP_KERNEL);
+-	struct dc_plane_state *surface = kzalloc(MAX_SURFACES * sizeof(struct dc_plane_state), GFP_KERNEL);
++	struct dc_surface_update *updates;
++	struct dc_plane_state *surface;
+ 	struct dc_stream_update stream_update;
+ 	enum surface_update_type update_type = UPDATE_TYPE_FAST;
+ 
++	updates = kcalloc(MAX_SURFACES, sizeof(*updates), GFP_KERNEL);
++	surface = kcalloc(MAX_SURFACES, sizeof(*surface), GFP_KERNEL);
++
+ 	if (!updates || !surface) {
+ 		DRM_ERROR("Plane or surface update failed to allocate");
+ 		/* Set type to FULL to avoid crashing in DC*/
+-- 
+2.20.1
