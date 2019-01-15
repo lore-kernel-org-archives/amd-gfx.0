@@ -1,57 +1,64 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amdgpu: Replace kzalloc with kcalloc
-Date: Mon, 14 Jan 2019 23:22:02 -0600
-Message-ID: <20190115052202.GA8537@embeddedor>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: csa_vaddr should not larger than
+ AMDGPU_GMC_HOLE_START
+Date: Tue, 15 Jan 2019 06:19:17 +0000
+Message-ID: <CY4PR1201MB0245AB79C8C8319D8DFB3A3884810@CY4PR1201MB0245.namprd12.prod.outlook.com>
+References: <1547455236-30130-1-git-send-email-Wentao.Lou@amd.com>
+ <37b395b0-8503-238f-8775-66eb8795d23f@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <37b395b0-8503-238f-8775-66eb8795d23f-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Lou, Wentao" <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-Replace kzalloc() function with its 2-factor argument form, kcalloc().
-
-This patch replaces cases of:
-
-	kzalloc(a * b, gfp)
-
-with:
-	kcalloc(a, b, gfp)
-
-Also, improve the coding style and the use of sizeof during
-allocation by changing sizeof(struct dc_surface_update) and
-sizeof(struct dc_plane_state) to sizeof(*updates) and
-sizeof(*surfaces), correspondingly.
-
-This code was detected with the help of Coccinelle.
-
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a3e65e457348..4c201de38329 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5782,11 +5782,14 @@ dm_determine_update_type_for_commit(struct dc *dc,
- 	struct dm_crtc_state *new_dm_crtc_state, *old_dm_crtc_state;
- 	struct dc_stream_status *status = NULL;
- 
--	struct dc_surface_update *updates = kzalloc(MAX_SURFACES * sizeof(struct dc_surface_update), GFP_KERNEL);
--	struct dc_plane_state *surface = kzalloc(MAX_SURFACES * sizeof(struct dc_plane_state), GFP_KERNEL);
-+	struct dc_surface_update *updates;
-+	struct dc_plane_state *surface;
- 	struct dc_stream_update stream_update;
- 	enum surface_update_type update_type = UPDATE_TYPE_FAST;
- 
-+	updates = kcalloc(MAX_SURFACES, sizeof(*updates), GFP_KERNEL);
-+	surface = kcalloc(MAX_SURFACES, sizeof(*surface), GFP_KERNEL);
-+
- 	if (!updates || !surface) {
- 		DRM_ERROR("Plane or surface update failed to allocate");
- 		/* Set type to FULL to avoid crashing in DC*/
--- 
-2.20.1
+VGhlIG1heF9wZm4gaXMgbm93IDEnMDAwMCcwMDAwJzAwMDAnMDAwMCAoYnl0ZXMpIHdoaWNoIGlz
+IGFib3ZlIDQ4IGJpdCBub3csIGFuZCBpdCB3aXRoIEFNREdQVV9HTUNfSE9MRV9NQVNLIG1ha2Ug
+aXQgdG8gemVybyAuLi4uDQoNCkFuZCBpbiBjb2RlICJhbWRncHVfZHJpdmVyX29wZW5fa21zKCki
+IEkgc2F3IEBaaHUsIFJleCB3cml0ZSB0aGUgY29kZSBhcyA6DQoNCiJjc2FfYWRkciA9IGFtZGdw
+dV9jc2FfdmFkcihhZGV2KSAmIEFNREdQVV9HTUNfSE9MRV9NQVNLIiwgSSB0aGluayB0aGlzIGlz
+IHdyb25nIHNpbmNlIHlvdSBpbnRlbnRpb25hbGx5IHBsYWNlIHRoZSBjc2EgYWJvdmUgR01DIGhv
+bGUsIHJpZ2h0ID8NCg0KTG9va3MgbGlrZSAgd2Ugc2hvdWxkIG1vZGlmeSB0aGlzIHBsYWNlIA0K
+DQovTW9uaw0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIENocmlzdGlh
+biBLP25pZw0KU2VudDogTW9uZGF5LCBKYW51YXJ5IDE0LCAyMDE5IDk6MDUgUE0NClRvOiBMb3Us
+IFdlbnRhbyA8V2VudGFvLkxvdUBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcNClN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IGNzYV92YWRkciBzaG91bGQgbm90
+IGxhcmdlciB0aGFuIEFNREdQVV9HTUNfSE9MRV9TVEFSVA0KDQpBbSAxNC4wMS4xOSB1bSAwOTo0
+MCBzY2hyaWViIHdlbnRhbG91Og0KPiBBZnRlciByZW1vdmluZyB1bm5lY2Vzc2FyeSBWTSBzaXpl
+IGNhbGN1bGF0aW9ucywgdm1fbWFuYWdlci5tYXhfcGZuIA0KPiB3b3VsZCByZWFjaCAweDEwLDAw
+MDAsMDAwMCBtYXhfcGZuIDw8IEFNREdQVV9HUFVfUEFHRV9TSElGVCBleGNlZWRpbmcgDQo+IEFN
+REdQVV9HTUNfSE9MRV9TVEFSVCB3b3VsZCBjYXVzZWQgR1BVIHJlc2V0Lg0KPg0KPiBDaGFuZ2Ut
+SWQ6IEk0N2FkMGJlMmIwYmQ5ZmI3NDkwYzRlMWQ3YmI3YmRhY2Y3MTEzMmNiDQo+IFNpZ25lZC1v
+ZmYtYnk6IHdlbnRhbG91IDxXZW50YW8uTG91QGFtZC5jb20+DQoNCk5BSywgdGhhdCBpcyBpbmNv
+cnJlY3QuIFdlIGludGVudGlvbmFsbHkgcGxhY2UgdGhlIGNzYSBhYm92ZSB0aGUgR01DIGhvbGUu
+DQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2NzYS5jIHwgMyArKy0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
+cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2NzYS5jDQo+IGluZGV4IDdlMjJiZTcuLmRkM2JkMDEgMTAwNjQ0DQo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jc2EuYw0KPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMNCj4gQEAgLTI2LDcgKzI2LDggQEANCj4g
+ICANCj4gICB1aW50NjRfdCBhbWRncHVfY3NhX3ZhZGRyKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2KQ0KPiAgIHsNCj4gLQl1aW50NjRfdCBhZGRyID0gYWRldi0+dm1fbWFuYWdlci5tYXhfcGZu
+IDw8IEFNREdQVV9HUFVfUEFHRV9TSElGVDsNCj4gKwl1aW50NjRfdCBhZGRyID0gbWluKGFkZXYt
+PnZtX21hbmFnZXIubWF4X3BmbiA8PCBBTURHUFVfR1BVX1BBR0VfU0hJRlQsDQo+ICsJCQkJQU1E
+R1BVX0dNQ19IT0xFX1NUQVJUKTsNCj4gICANCj4gICAJYWRkciAtPSBBTURHUFVfVkFfUkVTRVJW
+RURfU0laRTsNCj4gICAJYWRkciA9IGFtZGdwdV9nbWNfc2lnbl9leHRlbmQoYWRkcik7DQoNCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
