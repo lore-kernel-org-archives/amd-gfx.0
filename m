@@ -1,17 +1,18 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: eDP fast bootup does not work for
+From: "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/display: eDP fast bootup does not work for
  pre-raven asic
-Date: Tue, 15 Jan 2019 17:18:17 +0000
-Message-ID: <BN6PR12MB1809D016156DD31C51A185F5F7810@BN6PR12MB1809.namprd12.prod.outlook.com>
+Date: Tue, 15 Jan 2019 17:20:23 +0000
+Message-ID: <DM5PR1201MB2553DFC7EC50BA698BE597E3FD810@DM5PR1201MB2553.namprd12.prod.outlook.com>
 References: <1547505375-13003-1-git-send-email-sunpeng.li@amd.com>
  <BN6PR12MB1809BE511C1770BED3E4349DF7810@BN6PR12MB1809.namprd12.prod.outlook.com>
  <DM5PR1201MB255383E2B49EFBE55ABA16D4FD810@DM5PR1201MB2553.namprd12.prod.outlook.com>
  <CADnq5_Mbw7ptXuXSM15P6oNcs1hQfmk6B+8C5D0G7m92VBG1fA@mail.gmail.com>,
  <DM5PR1201MB2553FF75089AC4B01F05962CFD810@DM5PR1201MB2553.namprd12.prod.outlook.com>
+ <BN6PR12MB1809D016156DD31C51A185F5F7810@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1244693139=="
+Content-Type: multipart/mixed; boundary="===============1491279789=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR1201MB2553FF75089AC4B01F05962CFD810-grEf7a3NxMAXo4eMau56LGrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809D016156DD31C51A185F5F7810-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,21 +24,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland,
  Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1244693139==
+--===============1491279789==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809D016156DD31C51A185F5F7810BN6PR12MB1809namp_"
+	boundary="_000_DM5PR1201MB2553DFC7EC50BA698BE597E3FD810DM5PR1201MB2553_"
 
---_000_BN6PR12MB1809D016156DD31C51A185F5F7810BN6PR12MB1809namp_
-Content-Type: text/plain; charset="Windows-1252"
+--_000_DM5PR1201MB2553DFC7EC50BA698BE597E3FD810DM5PR1201MB2553_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Hi, Alex,
+
+You are right!
+
+Thanks,
+Hersen
+
+
+From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, January 15, 2019 12:18 PM
+To: Wu, Hersen <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>; Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Li, Sun peng (Leo) <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org;=
+ Wentland, Harry <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: eDP fast bootup does not work for pre=
+-raven asic
+
 
 So 95f05a3a2e6895ecfd8b4f64b5d6c6 is still valid even with your patch and w=
 e should keep it?  Thanks
+
 
 
 Alex
@@ -46,8 +65,8 @@ ________________________________
 From: Wu, Hersen
 Sent: Tuesday, January 15, 2019 12:04:30 PM
 To: Alex Deucher
-Cc: Deucher, Alexander; Li, Sun peng (Leo); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; =
-Wentland, Harry
+Cc: Deucher, Alexander; Li, Sun peng (Leo); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<m=
+ailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Wentland, Harry
 Subject: RE: [PATCH] drm/amd/display: eDP fast bootup does not work for pre=
 -raven asic
 
@@ -59,12 +78,13 @@ Hersen
 
 
 -----Original Message-----
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>>
 Sent: Tuesday, January 15, 2019 12:01 PM
-To: Wu, Hersen <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Li, Sun peng (Leo) <Sun=
-peng.Li-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Wentland, Harry <Harry.Wen=
-tland-5C7GfCeVMHo@public.gmane.org>
+To: Wu, Hersen <hersenxs.wu-5C7GfCeVMHo@public.gmane.org<mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org>>
+Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher@=
+amd.com>>; Li, Sun peng (Leo) <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org<mailto:Sunpeng.Li-5C7GfCeVMHo@public.gmane.org=
+>>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; We=
+ntland, Harry <Harry.Wentland-5C7GfCeVMHo@public.gmane.org<mailto:Harry.Wentland-5C7GfCeVMHo@public.gmane.org>>
 Subject: Re: [PATCH] drm/amd/display: eDP fast bootup does not work for pre=
 -raven asic
 
@@ -75,14 +95,15 @@ Thanks,
 
 Alex
 
-On Tue, Jan 15, 2019 at 11:57 AM Wu, Hersen <hersenxs.wu-5C7GfCeVMHo@public.gmane.org> wrote:
+On Tue, Jan 15, 2019 at 11:57 AM Wu, Hersen <hersenxs.wu-5C7GfCeVMHo@public.gmane.org<mailto:her=
+senxs.wu-5C7GfCeVMHo@public.gmane.org>> wrote:
 >
 > Hi, Alex,
 >
 >
 >
-> Hersen=92s change is for older version of eDP fast boot up ( bios_get_vga=
-_enabled_displays  is called).
+> Hersen's change is for older version of eDP fast boot up ( bios_get_vga_e=
+nabled_displays  is called).
 >
 > Chrome tree source still use bios_get_vga_enabled_displays for fast boot =
 up.
@@ -91,11 +112,11 @@ up.
 >
 >
 >
-> Harry=92s change is new implementation of eDP fast boot up.
+> Harry's change is new implementation of eDP fast boot up.
 >
 >
 >
-> Hersen=92s change will not revert Harry=92s change.
+> Hersen's change will not revert Harry's change.
 >
 >
 >
@@ -107,12 +128,14 @@ up.
 >
 >
 >
-> From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+> From: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deuc=
+her-5C7GfCeVMHo@public.gmane.org>>
 > Sent: Tuesday, January 15, 2019 10:43 AM
-> To: Li, Sun peng (Leo) <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>;
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Wentland, Harry <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>; Wu, Hersen
-> <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+> To: Li, Sun peng (Leo) <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org<mailto:Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>>;
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> Cc: Wentland, Harry <Harry.Wentland-5C7GfCeVMHo@public.gmane.org<mailto:Harry.Wentland-5C7GfCeVMHo@public.gmane.org=
+>>; Wu, Hersen
+> <hersenxs.wu-5C7GfCeVMHo@public.gmane.org<mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org>>
 > Subject: Re: [PATCH] drm/amd/display: eDP fast bootup does not work
 > for pre-raven asic
 >
@@ -123,7 +146,8 @@ up.
 >
 >
 > commit 95f05a3a2e6895ecfd8b4f64b5d6c6cf0b6a3f4a
-> Author: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Author: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deucher@=
+amd.com>>
 > Date:   Thu Aug 16 15:35:21 2018 -0500
 >
 >     drm/amdgpu/display: disable eDP fast boot optimization on DCE8
@@ -131,26 +155,31 @@ up.
 >     Seems to cause blank screens.
 >
 >     Bug: https://bugs.freedesktop.org/show_bug.cgi?id=3D106940
->     Reviewed-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
->     Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+>     Reviewed-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org<mailto:harry.went=
+land-5C7GfCeVMHo@public.gmane.org>>
+>     Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexand=
+er.deucher-5C7GfCeVMHo@public.gmane.org>>
 >
 > Other than that, it looks good to me.
 >
-> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org<mailto:alexander.deu=
+cher-5C7GfCeVMHo@public.gmane.org>>
 >
 > ________________________________
 >
-> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
-> sunpeng.li-5C7GfCeVMHo@public.gmane.org <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounc=
+es-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>> on behalf of
+> sunpeng.li-5C7GfCeVMHo@public.gmane.org<mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org> <sunpeng.li-5C7GfCeVMHo@public.gmane.org<mailto:=
+sunpeng.li-5C7GfCeVMHo@public.gmane.org>>
 > Sent: Monday, January 14, 2019 5:36:15 PM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > Cc: Wentland, Harry; Wu, Hersen
 > Subject: [PATCH] drm/amd/display: eDP fast bootup does not work for
 > pre-raven asic
 >
 >
 >
-> From: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
+> From: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org<mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org>>
 >
 > [Why] bios will light up eDP before sw driver loaded. sw driver will
 > check if eDP lighted up by bios by reading BIOS_SCRATCH_3. If yes, sw
@@ -162,11 +191,15 @@ up.
 >
 > [How] add definition of BIOS_SCRATCH_3 for all asic
 >
-> CC: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>
-> Reviewed-by: Charlene Liu <Charlene.Liu-5C7GfCeVMHo@public.gmane.org>
-> Acked-by: Yongqiang Sun <yongqiang.sun-5C7GfCeVMHo@public.gmane.org>
-> Acked-by: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+> CC: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org<mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org>=
+>
+> Signed-off-by: hersen wu <hersenxs.wu-5C7GfCeVMHo@public.gmane.org<mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org>=
+>
+> Reviewed-by: Charlene Liu <Charlene.Liu-5C7GfCeVMHo@public.gmane.org<mailto:Charlene.Liu@amd.c=
+om>>
+> Acked-by: Yongqiang Sun <yongqiang.sun-5C7GfCeVMHo@public.gmane.org<mailto:yongqiang.sun@amd.c=
+om>>
+> Acked-by: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org<mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org>>
 > ---
 >  drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c | 3 +--
 > drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c  | 2 ++
@@ -287,51 +320,138 @@ up.
 >
 > _______________________________________________
 > amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 >
 > _______________________________________________
 > amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB1809D016156DD31C51A185F5F7810BN6PR12MB1809namp_
-Content-Type: text/html; charset="Windows-1252"
+--_000_DM5PR1201MB2553DFC7EC50BA698BE597E3FD810DM5PR1201MB2553_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">So <font size=3D"2"><span style=
-=3D"font-size:11pt;">95f05a3a2e6895ecfd8b4f64b5d6c6</span></font> is still =
-valid even with your patch and we should keep it?&nbsp; Thanks</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Alex<br>
-</p>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi, Alex,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">You are right!<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Hersen<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
+r@amd.com&gt; <br>
+<b>Sent:</b> Tuesday, January 15, 2019 12:18 PM<br>
+<b>To:</b> Wu, Hersen &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;; Alex Deucher &lt;alexdeu=
+cher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Cc:</b> Li, Sun peng (Leo) &lt;Sunpeng.Li-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org; Wentland, Harry &lt;Harry.Wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/display: eDP fast bootup does not work =
+for pre-raven asic<o:p></o:p></p>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wu, Hersen<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p><span style=3D"font-size:12.0pt;color:black">So </span><span style=3D"co=
+lor:black">95f05a3a2e6895ecfd8b4f64b5d6c6</span><span style=3D"font-size:12=
+.0pt;color:black"> is still valid even with your patch and we should keep i=
+t?&nbsp; Thanks<o:p></o:p></span></p>
+<p><span style=3D"font-size:12.0pt;color:black"><o:p>&nbsp;</o:p></span></p=
+>
+<p><span style=3D"font-size:12.0pt;color:black">Alex<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Wu, Hersen<br>
 <b>Sent:</b> Tuesday, January 15, 2019 12:04:30 PM<br>
 <b>To:</b> Alex Deucher<br>
-<b>Cc:</b> Deucher, Alexander; Li, Sun peng (Leo); amd-gfx-PD4FTy7X32lNgt0PjOBp9w@public.gmane.org=
-p.org; Wentland, Harry<br>
+<b>Cc:</b> Deucher, Alexander; Li, Sun peng (Leo); <a href=3D"mailto:amd-gf=
+x@lists.freedesktop.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>; Wentland, Harry<br>
 <b>Subject:</b> RE: [PATCH] drm/amd/display: eDP fast bootup does not work =
-for pre-raven asic</font>
-<div>&nbsp;</div>
+for pre-raven asic</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">My change will NOT revert 95f05a3a2e6895ecfd8b4f64=
-b5d6c6.<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">My change will NOT revert 95f05a3a2e6895ecfd8b4f64b5=
+d6c6.<br>
 <br>
 Thanks<br>
 Hersen<br>
@@ -339,12 +459,18 @@ Hersen<br>
 <br>
 <br>
 -----Original Message-----<br>
-From: Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt; <br>
+From: Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher=
+@gmail.com</a>&gt;
+<br>
 Sent: Tuesday, January 15, 2019 12:01 PM<br>
-To: Wu, Hersen &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Li, Sun peng (Leo=
-) &lt;Sunpeng.Li-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Wentland, Harr=
-y &lt;Harry.Wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+To: Wu, Hersen &lt;<a href=3D"mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org">hersenxs.wu@amd.c=
+om</a>&gt;<br>
+Cc: Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">Ale=
+xander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;; Li, Sun peng (Leo) &lt;<a href=3D"mailto:Su=
+npeng.Li-5C7GfCeVMHo@public.gmane.org">Sunpeng.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a>; Wentland, Harry &lt;<a href=3D"mailto:Harry.Wentland-5C7GfCeVMHo@public.gmane.org">Harr=
+y.Wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 Subject: Re: [PATCH] drm/amd/display: eDP fast bootup does not work for pre=
 -raven asic<br>
 <br>
@@ -355,15 +481,15 @@ Thanks,<br>
 <br>
 Alex<br>
 <br>
-On Tue, Jan 15, 2019 at 11:57 AM Wu, Hersen &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt; wro=
-te:<br>
+On Tue, Jan 15, 2019 at 11:57 AM Wu, Hersen &lt;<a href=3D"mailto:hersenxs.=
+wu-5C7GfCeVMHo@public.gmane.org">hersenxs.wu-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
 &gt;<br>
 &gt; Hi, Alex,<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; Hersen=92s change is for older version of eDP fast boot up ( bios_get_=
-vga_enabled_displays&nbsp; is called).<br>
+&gt; Hersen&#8217;s change is for older version of eDP fast boot up ( bios_=
+get_vga_enabled_displays&nbsp; is called).<br>
 &gt;<br>
 &gt; Chrome tree source still use bios_get_vga_enabled_displays for fast bo=
 ot up.<br>
@@ -372,11 +498,11 @@ ot up.<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; Harry=92s change is new implementation of eDP fast boot up.<br>
+&gt; Harry&#8217;s change is new implementation of eDP fast boot up.<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; Hersen=92s change will not revert Harry=92s change.<br>
+&gt; Hersen&#8217;s change will not revert Harry&#8217;s change.<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
@@ -388,12 +514,19 @@ ot up.<br>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; From: Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; From: Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt; Sent: Tuesday, January 15, 2019 10:43 AM<br>
-&gt; To: Li, Sun peng (Leo) &lt;Sunpeng.Li-5C7GfCeVMHo@public.gmane.org&gt;; <br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Wentland, Harry &lt;Harry.Wentland-5C7GfCeVMHo@public.gmane.org&gt;; Wu, Hersen <br>
-&gt; &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; To: Li, Sun peng (Leo) &lt;<a href=3D"mailto:Sunpeng.Li-5C7GfCeVMHo@public.gmane.org">Sunpe=
+ng.Li-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org</a><br>
+&gt; Cc: Wentland, Harry &lt;<a href=3D"mailto:Harry.Wentland-5C7GfCeVMHo@public.gmane.org">Harr=
+y.Wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;; Wu, Hersen
+<br>
+&gt; &lt;<a href=3D"mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org">hersenxs.wu-5C7GfCeVMHo@public.gmane.org</a>&gt;=
+<br>
 &gt; Subject: Re: [PATCH] drm/amd/display: eDP fast bootup does not work <b=
 r>
 &gt; for pre-raven asic<br>
@@ -405,7 +538,8 @@ r>
 &gt;<br>
 &gt;<br>
 &gt; commit 95f05a3a2e6895ecfd8b4f64b5d6c6cf0b6a3f4a<br>
-&gt; Author: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Author: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">=
+alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt; Date:&nbsp;&nbsp; Thu Aug 16 15:35:21 2018 -0500<br>
 &gt;<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp; drm/amdgpu/display: disable eDP fast boot opti=
@@ -416,22 +550,26 @@ mization on DCE8<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp; Bug: <a href=3D"https://bugs.freedesktop.org/s=
 how_bug.cgi?id=3D106940">https://bugs.freedesktop.org/show_bug.cgi?id=3D106=
 940</a><br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; Reviewed-by: Harry Wentland &lt;harry.wentland=
-@amd.com&gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp; Signed-off-by: Alex Deucher &lt;alexander.deuc=
-her-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; Reviewed-by: Harry Wentland &lt;<a href=3D"mai=
+lto:harry.wentland-5C7GfCeVMHo@public.gmane.org">harry.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; Signed-off-by: Alex Deucher &lt;<a href=3D"mai=
+lto:alexander.deucher-5C7GfCeVMHo@public.gmane.org">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt;<br>
 &gt; Other than that, it looks good to me.<br>
 &gt;<br>
-&gt; Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Reviewed-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.=
+com">alexander.deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt;<br>
 &gt; ________________________________<br>
 &gt;<br>
-&gt; From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf =
-of <br>
-&gt; sunpeng.li-5C7GfCeVMHo@public.gmane.org &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf of
+<br>
+&gt; <a href=3D"mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org">sunpeng.li-5C7GfCeVMHo@public.gmane.org</a> &lt;<a hr=
+ef=3D"mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org">sunpeng.li-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt; Sent: Monday, January 14, 2019 5:36:15 PM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org</a><br>
 &gt; Cc: Wentland, Harry; Wu, Hersen<br>
 &gt; Subject: [PATCH] drm/amd/display: eDP fast bootup does not work for <b=
 r>
@@ -439,7 +577,8 @@ r>
 &gt;<br>
 &gt;<br>
 &gt;<br>
-&gt; From: hersen wu &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; From: hersen wu &lt;<a href=3D"mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org">hersenxs.wu=
+@amd.com</a>&gt;<br>
 &gt;<br>
 &gt; [Why] bios will light up eDP before sw driver loaded. sw driver will <=
 br>
@@ -455,11 +594,16 @@ br>
 &gt;<br>
 &gt; [How] add definition of BIOS_SCRATCH_3 for all asic<br>
 &gt;<br>
-&gt; CC: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Signed-off-by: hersen wu &lt;hersenxs.wu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Reviewed-by: Charlene Liu &lt;Charlene.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Acked-by: Yongqiang Sun &lt;yongqiang.sun-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Acked-by: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; CC: Harry Wentland &lt;<a href=3D"mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org">harry=
+.wentland-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; Signed-off-by: hersen wu &lt;<a href=3D"mailto:hersenxs.wu-5C7GfCeVMHo@public.gmane.org">he=
+rsenxs.wu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; Reviewed-by: Charlene Liu &lt;<a href=3D"mailto:Charlene.Liu-5C7GfCeVMHo@public.gmane.org">=
+Charlene.Liu-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; Acked-by: Yongqiang Sun &lt;<a href=3D"mailto:yongqiang.sun-5C7GfCeVMHo@public.gmane.org">y=
+ongqiang.sun-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; Acked-by: Leo Li &lt;<a href=3D"mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org">sunpeng.li@=
+amd.com</a>&gt;<br>
 &gt; ---<br>
 &gt;&nbsp; drivers/gpu/drm/amd/display/dc/bios/bios_parser_helper.c | 3 &#4=
 3;--&nbsp; <br>
@@ -630,23 +774,26 @@ CRATCH_3,<br>
 &gt;<br>
 &gt; _______________________________________________<br>
 &gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org</a><br>
 &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
 ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 &gt;<br>
 &gt; _______________________________________________<br>
 &gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org</a><br>
 &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </body>
 </html>
 
---_000_BN6PR12MB1809D016156DD31C51A185F5F7810BN6PR12MB1809namp_--
+--_000_DM5PR1201MB2553DFC7EC50BA698BE597E3FD810DM5PR1201MB2553_--
 
---===============1244693139==
+--===============1491279789==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -656,4 +803,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1244693139==--
+--===============1491279789==--
