@@ -1,13 +1,15 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH libdrm] amdgpu: update amdgpu_drm.h
-Date: Wed, 16 Jan 2019 11:15:32 -0500
-Message-ID: <CAAxE2A4Xz3DC7C7YV+GRSqznrRGBk7TCvpVk7pS+z+w80++XLA@mail.gmail.com>
+Date: Wed, 16 Jan 2019 16:24:57 +0000
+Message-ID: <7b174535-ed89-9137-b204-dc21ca4ce896@amd.com>
 References: <20190115192527.11581-1-maraeo@gmail.com>
  <92ca5d38-50d3-f00a-3750-b00fd11b6851@gmail.com>
+ <CAAxE2A4Xz3DC7C7YV+GRSqznrRGBk7TCvpVk7pS+z+w80++XLA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0238972536=="
+Content-Type: multipart/mixed; boundary="===============1043237717=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <92ca5d38-50d3-f00a-3750-b00fd11b6851-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <CAAxE2A4Xz3DC7C7YV+GRSqznrRGBk7TCvpVk7pS+z+w80++XLA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,49 +20,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: =?utf-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0238972536==
-Content-Type: multipart/alternative; boundary="0000000000008440e2057f9598e8"
+--===============1043237717==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_7b174535ed899137b204dc21ca4ce896amdcom_"
 
---0000000000008440e2057f9598e8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_000_7b174535ed899137b204dc21ca4ce896amdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Wed, Jan 16, 2019 at 2:37 AM Christian K=C3=B6nig <
-ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+QW0gMTYuMDEuMTkgdW0gMTc6MTUgc2NocmllYiBNYXJlayBPbMWhw6FrOg0KT24gV2VkLCBKYW4g
+MTYsIDIwMTkgYXQgMjozNyBBTSBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVy
+a2VuQGdtYWlsLmNvbTxtYWlsdG86Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+PiB3
+cm90ZToNCkFtIDE1LjAxLjE5IHVtIDIwOjI1IHNjaHJpZWIgTWFyZWsgT2zFocOhazoNCj4gRnJv
+bTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNvbTxtYWlsdG86bWFyZWsub2xzYWtA
+YW1kLmNvbT4+DQoNCk1heWJlIG5vdGUgaW4gdGhlIGNvbW1pdCBtZXNzYWdlIGZyb20gd2hpY2gg
+dXBzdHJlYW0ga2VybmVsLg0KDQpObyB1cHN0cmVhbSBrZXJuZWwuIEl0J3MgZnJvbSBhbWQtc3Rh
+Z2luZy1kcm0tbmV4dC4NCg0KVGhhdCdzIGEgcHJvYmxlbSwgc2VlIHRoZSBydWxlcyBmb3IgdXBk
+YXRpbmcgdGhpcy4NCg0KSUlSQyB0aGUgY29kZSBtdXN0IGxhbmQgaW4gYW4gdXBzdHJlYW0ga2Vy
+bmVsIGJlZm9yZSBpdCBjYW4gYmUgY29tbWl0dGVkIHRvIGxpYmRybS4NCg0KQ2hyaXN0aWFuLg0K
+DQoNCk1hcmVrDQoNCg0K
 
-> Am 15.01.19 um 20:25 schrieb Marek Ol=C5=A1=C3=A1k:
-> > From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
->
-> Maybe note in the commit message from which upstream kernel.
->
+--_000_7b174535ed899137b204dc21ca4ce896amdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <8F7C8BFE4FB07C4A8B0D10E90C344116-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-No upstream kernel. It's from amd-staging-drm-next.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5BbSAxNi4w
+MS4xOSB1bSAxNzoxNSBzY2hyaWViIE1hcmVrIE9sxaHDoWs6PGJyPg0KPC9kaXY+DQo8YmxvY2tx
+dW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6Q0FBeEUyQTRYejNEQzdDN1lWJiM0MztHUlNxem5y
+UkdCazdUQ3ZwVms3cFMmIzQzO3omIzQzO3c4MCYjNDM7JiM0MztYTEFAbWFpbC5nbWFpbC5jb20i
+Pg0KPGRpdiBkaXI9Imx0ciI+DQo8ZGl2IGNsYXNzPSJnbWFpbF9xdW90ZSI+DQo8ZGl2IGRpcj0i
+bHRyIiBjbGFzcz0iZ21haWxfYXR0ciI+T24gV2VkLCBKYW4gMTYsIDIwMTkgYXQgMjozNyBBTSBD
+aHJpc3RpYW4gS8O2bmlnICZsdDs8YSBocmVmPSJtYWlsdG86Y2tvZW5pZy5sZWljaHR6dW1lcmtl
+bkBnbWFpbC5jb20iIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+Y2tvZW5pZy5sZWljaHR6dW1lcmtl
+bkBnbWFpbC5jb208L2E+Jmd0OyB3cm90ZTo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIGNsYXNz
+PSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHggMHB4IDBweA0KICAgICAgICAgICAgMC44
+ZXg7Ym9yZGVyLWxlZnQ6MXB4IHNvbGlkDQogICAgICAgICAgICByZ2IoMjA0LDIwNCwyMDQpO3Bh
+ZGRpbmctbGVmdDoxZXgiPg0KQW0gMTUuMDEuMTkgdW0gMjA6MjUgc2NocmllYiBNYXJlayBPbMWh
+w6FrOjxicj4NCiZndDsgRnJvbTogTWFyZWsgT2zFocOhayAmbHQ7PGEgaHJlZj0ibWFpbHRvOm1h
+cmVrLm9sc2FrQGFtZC5jb20iIHRhcmdldD0iX2JsYW5rIiBtb3otZG8tbm90LXNlbmQ9InRydWUi
+Pm1hcmVrLm9sc2FrQGFtZC5jb208L2E+Jmd0Ozxicj4NCjxicj4NCk1heWJlIG5vdGUgaW4gdGhl
+IGNvbW1pdCBtZXNzYWdlIGZyb20gd2hpY2ggdXBzdHJlYW0ga2VybmVsLjxicj4NCjwvYmxvY2tx
+dW90ZT4NCjxkaXY+PGJyPg0KPC9kaXY+DQo8ZGl2Pk5vIHVwc3RyZWFtIGtlcm5lbC4gSXQncyBm
+cm9tIGFtZC1zdGFnaW5nLWRybS1uZXh0LjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYmxvY2tx
+dW90ZT4NCjxicj4NClRoYXQncyBhIHByb2JsZW0sIHNlZSB0aGUgcnVsZXMgZm9yIHVwZGF0aW5n
+IHRoaXMuPGJyPg0KPGJyPg0KSUlSQyB0aGUgY29kZSBtdXN0IGxhbmQgaW4gYW4gdXBzdHJlYW0g
+a2VybmVsIGJlZm9yZSBpdCBjYW4gYmUgY29tbWl0dGVkIHRvIGxpYmRybS48YnI+DQo8YnI+DQpD
+aHJpc3RpYW4uPGJyPg0KPGJyPg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0ibWlkOkNB
+QXhFMkE0WHozREM3QzdZViYjNDM7R1JTcXpuclJHQms3VEN2cFZrN3BTJiM0Mzt6JiM0Mzt3ODAm
+IzQzOyYjNDM7WExBQG1haWwuZ21haWwuY29tIj4NCjxkaXYgZGlyPSJsdHIiPg0KPGRpdiBjbGFz
+cz0iZ21haWxfcXVvdGUiPg0KPGRpdj48YnI+DQo8L2Rpdj4NCjxkaXY+TWFyZWs8L2Rpdj4NCjxi
+cj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8YnI+DQo8L2JvZHk+DQo8L2h0bWw+
+DQo=
 
-Marek
+--_000_7b174535ed899137b204dc21ca4ce896amdcom_--
 
---0000000000008440e2057f9598e8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Wed, Jan 16, 2019 at 2:37 AM Christian K=C3=B6nig &lt;<a href=3D"=
-mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</=
-a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Am=
- 15.01.19 um 20:25 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-&gt; From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"=
- target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<br>
-Maybe note in the commit message from which upstream kernel.<br></blockquot=
-e><div><br></div><div>No upstream kernel. It&#39;s from amd-staging-drm-nex=
-t.</div><div><br></div><div>Marek</div><br></div></div>
-
---0000000000008440e2057f9598e8--
-
---===============0238972536==
+--===============1043237717==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -70,4 +91,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0238972536==--
+--===============1043237717==--
