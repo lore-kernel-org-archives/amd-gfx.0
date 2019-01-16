@@ -1,19 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Bas Nieuwenhuizen <bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
 Subject: Re: [PATCH libdrm] amdgpu: add a faster BO list API
-Date: Wed, 16 Jan 2019 15:43:15 +0100
-Message-ID: <3d525127-825b-efab-b0c8-76550634d1c1@gmail.com>
+Date: Wed, 16 Jan 2019 16:15:19 +0100
+Message-ID: <CAP+8YyFhXpM8eHEjWwy+yAs4s7A7FyrkYO8=FA0tf6M6n-ka+g@mail.gmail.com>
 References: <20190107193104.4361-1-maraeo@gmail.com>
  <CAP+8YyFD+LxEQOLOY+mDC5v3OOyh1De2DcXK0sRtMW0t7z20SQ@mail.gmail.com>
- <74054b1e-5211-3bfc-ab0f-27e8604759d1@gmail.com>
- <CAAxE2A5ywFkNMtPbesU_kuSwKCmsPJ0D8wRFuSp14mpORcwYhg@mail.gmail.com>
- <a550562a-7d36-9acf-3143-217c507e667a@amd.com>
- <CAAxE2A4k8JtkrS2XfgRdmYY3NVR4ges=Yqfh-TH9O=LnaVv02g@mail.gmail.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <CAAxE2A5chwbGmQN2yqVCfvF=TPvFMN6Qu-iFUuRW-zBVm=AN9w@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1910847877=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A4k8JtkrS2XfgRdmYY3NVR4ges=Yqfh-TH9O=LnaVv02g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CAAxE2A5chwbGmQN2yqVCfvF=TPvFMN6Qu-iFUuRW-zBVm=AN9w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,1239 +20,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Bas Nieuwenhuizen <bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1910847877==
-Content-Type: multipart/alternative;
- boundary="------------7DB6E7F80146BE6904688AE2"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------7DB6E7F80146BE6904688AE2
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 16.01.19 um 15:39 schrieb Marek Olšák:
->
->
-> On Wed, Jan 16, 2019, 9:34 AM Koenig, Christian 
-> <Christian.Koenig-5C7GfCeVMHo@public.gmane.org <mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org> wrote:
->
->     Am 16.01.19 um 15:31 schrieb Marek Olšák:
->>
->>
->>     On Wed, Jan 16, 2019, 7:55 AM Christian König
->>     <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
->>     <mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
->>
->>         Well if you ask me we should have the following interface for
->>         negotiating memory management with the kernel:
->>
->>         1. We have per process BOs which can't be shared between
->>         processes.
->>
->>         Those are always valid and don't need to be mentioned in any
->>         BO list
->>         whatsoever.
->>
->>         If we knew that a per process BO is currently not in use we can
->>         optionally tell that to the kernel to make memory management
->>         more efficient.
->>
->>         In other words instead of a list of stuff which is used we
->>         send down to
->>         the kernel a list of stuff which is not used any more and
->>         that only when
->>         we know that it is necessary, e.g. when a game or application
->>         overcommits.
->>
->>
->>     Radeonsi doesn't use this because this approach caused
->>     performance degradation and also drops BO priorities.
->
->     The performance degradation where mostly shortcomings with the LRU
->     which by now have been fixed.
->
->     BO priorities are a different topic, but could be added to per VM
->     BOs as well.
->
->
-> What's the minimum drm version that contains the fixes?
-
-I've pushed the last optimization this morning. No idea when it really 
-became useful, but the numbers from the closed source clients now look 
-much better.
-
-We should probably test and bump the drm version when we are sure that 
-this now works as expected.
-
-Christian.
-
->
-> Marek
->
->
->     Christian.
->
->>
->>     Marek
->>
->>
->>         2. We have shared BOs which are used by more than one process.
->>
->>         Those are rare and should be added to the per CS list of BOs
->>         in use.
->>
->>
->>         The whole BO list interface Marek tries to optimize here
->>         should be
->>         deprecated and not used any more.
->>
->>         Regards,
->>         Christian.
->>
->>         Am 16.01.19 um 13:46 schrieb Bas Nieuwenhuizen:
->>         > So random questions:
->>         >
->>         > 1) In this discussion it was mentioned that some Vulkan
->>         drivers still
->>         > use the bo_list interface. I think that implies radv as I
->>         think we're
->>         > still using bo_list. Is there any other API we should be
->>         using? (Also,
->>         > with VK_EXT_descriptor_indexing I suspect we'll be moving
->>         more towards
->>         > a global bo list instead of a cmd buffer one, as we cannot
->>         know all
->>         > the BOs referenced anymore, but not sure what end state
->>         here will be).
->>         >
->>         > 2) The other alternative mentioned was adding the buffers
->>         directly
->>         > into the submit ioctl. Is this the desired end state
->>         (though as above
->>         > I'm not sure how that works for vulkan)? If yes, what is
->>         the timeline
->>         > for this that we need something in the interim?
->>         >
->>         > 3) Did we measure any performance benefit?
->>         >
->>         > In general I'd like to to ack the raw bo list creation
->>         function as
->>         > this interface seems easier to use. The two arrays thing
->>         has always
->>         > been kind of a pain when we want to use e.g. builtin sort
->>         functions to
->>         > make sure we have no duplicate BOs, but have some comments
->>         below.
->>         >
->>         > On Mon, Jan 7, 2019 at 8:31 PM Marek Olšák
->>         <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org <mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->>         >> From: Marek Olšák <marek.olsak-5C7GfCeVMHo@public.gmane.org
->>         <mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org>>
->>         >>
->>         >> ---
->>         >>   amdgpu/amdgpu-symbol-check |  3 ++
->>         >>   amdgpu/amdgpu.h            | 56
->>         +++++++++++++++++++++++++++++++++++++-
->>         >>   amdgpu/amdgpu_bo.c         | 36 ++++++++++++++++++++++++
->>         >>   amdgpu/amdgpu_cs.c         | 25 +++++++++++++++++
->>         >>   4 files changed, 119 insertions(+), 1 deletion(-)
->>         >>
->>         >> diff --git a/amdgpu/amdgpu-symbol-check
->>         b/amdgpu/amdgpu-symbol-check
->>         >> index 6f5e0f95..96a44b40 100755
->>         >> --- a/amdgpu/amdgpu-symbol-check
->>         >> +++ b/amdgpu/amdgpu-symbol-check
->>         >> @@ -12,20 +12,22 @@ _edata
->>         >>   _end
->>         >>   _fini
->>         >>   _init
->>         >>   amdgpu_bo_alloc
->>         >>   amdgpu_bo_cpu_map
->>         >>   amdgpu_bo_cpu_unmap
->>         >>   amdgpu_bo_export
->>         >>   amdgpu_bo_free
->>         >>   amdgpu_bo_import
->>         >>   amdgpu_bo_inc_ref
->>         >> +amdgpu_bo_list_create_raw
->>         >> +amdgpu_bo_list_destroy_raw
->>         >>   amdgpu_bo_list_create
->>         >>   amdgpu_bo_list_destroy
->>         >>   amdgpu_bo_list_update
->>         >>   amdgpu_bo_query_info
->>         >>   amdgpu_bo_set_metadata
->>         >>   amdgpu_bo_va_op
->>         >>   amdgpu_bo_va_op_raw
->>         >>   amdgpu_bo_wait_for_idle
->>         >>   amdgpu_create_bo_from_user_mem
->>         >>   amdgpu_cs_chunk_fence_info_to_data
->>         >> @@ -40,20 +42,21 @@ amdgpu_cs_destroy_semaphore
->>         >>   amdgpu_cs_destroy_syncobj
->>         >>   amdgpu_cs_export_syncobj
->>         >>   amdgpu_cs_fence_to_handle
->>         >>   amdgpu_cs_import_syncobj
->>         >>   amdgpu_cs_query_fence_status
->>         >>   amdgpu_cs_query_reset_state
->>         >>   amdgpu_query_sw_info
->>         >>   amdgpu_cs_signal_semaphore
->>         >>   amdgpu_cs_submit
->>         >>   amdgpu_cs_submit_raw
->>         >> +amdgpu_cs_submit_raw2
->>         >>   amdgpu_cs_syncobj_export_sync_file
->>         >>   amdgpu_cs_syncobj_import_sync_file
->>         >>   amdgpu_cs_syncobj_reset
->>         >>   amdgpu_cs_syncobj_signal
->>         >>   amdgpu_cs_syncobj_wait
->>         >>   amdgpu_cs_wait_fences
->>         >>   amdgpu_cs_wait_semaphore
->>         >>   amdgpu_device_deinitialize
->>         >>   amdgpu_device_initialize
->>         >>   amdgpu_find_bo_by_cpu_mapping
->>         >> diff --git a/amdgpu/amdgpu.h b/amdgpu/amdgpu.h
->>         >> index dc51659a..5b800033 100644
->>         >> --- a/amdgpu/amdgpu.h
->>         >> +++ b/amdgpu/amdgpu.h
->>         >> @@ -35,20 +35,21 @@
->>         >>   #define _AMDGPU_H_
->>         >>
->>         >>   #include <stdint.h>
->>         >>   #include <stdbool.h>
->>         >>
->>         >>   #ifdef __cplusplus
->>         >>   extern "C" {
->>         >>   #endif
->>         >>
->>         >>   struct drm_amdgpu_info_hw_ip;
->>         >> +struct drm_amdgpu_bo_list_entry;
->>         >>
->>         >>
->>          /*--------------------------------------------------------------------------*/
->>         >>   /* --------------------------- Defines
->>         ------------------------------------ */
->>         >>
->>          /*--------------------------------------------------------------------------*/
->>         >>
->>         >>   /**
->>         >>    * Define max. number of Command Buffers (IB) which
->>         could be sent to the single
->>         >>    * hardware IP to accommodate CE/DE requirements
->>         >>    *
->>         >>    * \sa amdgpu_cs_ib_info
->>         >> @@ -767,34 +768,65 @@ int
->>         amdgpu_bo_cpu_unmap(amdgpu_bo_handle buf_handle);
->>         >>    *                            and no GPU access is
->>         scheduled.
->>         >>    *                          1 GPU access is in fly or
->>         scheduled
->>         >>    *
->>         >>    * \return   0 - on success
->>         >>    *          <0 - Negative POSIX Error code
->>         >>    */
->>         >>   int amdgpu_bo_wait_for_idle(amdgpu_bo_handle buf_handle,
->>         >>                              uint64_t timeout_ns,
->>         >>                              bool *buffer_busy);
->>         >>
->>         >> +/**
->>         >> + * Creates a BO list handle for command submission.
->>         >> + *
->>         >> + * \param   dev   - \c [in] Device handle.
->>         >> + * See #amdgpu_device_initialize()
->>         >> + * \param   number_of_buffers  - \c [in] Number of BOs in
->>         the list
->>         >> + * \param   buffers            - \c [in] List of BO handles
->>         >> + * \param   result             - \c [out] Created BO list
->>         handle
->>         >> + *
->>         >> + * \return   0 on success\n
->>         >> + *          <0 - Negative POSIX Error code
->>         >> + *
->>         >> + * \sa amdgpu_bo_list_destroy_raw()
->>         >> +*/
->>         >> +int amdgpu_bo_list_create_raw(amdgpu_device_handle dev,
->>         >> +  uint32_t number_of_buffers,
->>         >> +                             struct
->>         drm_amdgpu_bo_list_entry *buffers,
->>         >> +  uint32_t *result);
->>         > So AFAIU  drm_amdgpu_bo_list_entry takes a raw bo handle
->>         while we
->>         > never get a raw bo handle from libdrm_amdgpu. How are we
->>         supposed to
->>         > fill it in?
->>         >
->>         > What do we win by having the raw handle for the bo_list? If
->>         we would
->>         > not return the raw handle we would not need the submit_raw2.
->>         >
->>         >> +
->>         >> +/**
->>         >> + * Destroys a BO list handle.
->>         >> + *
->>         >> + * \param   bo_list    - \c [in] BO list handle.
->>         >> + *
->>         >> + * \return   0 on success\n
->>         >> + *          <0 - Negative POSIX Error code
->>         >> + *
->>         >> + * \sa amdgpu_bo_list_create_raw(), amdgpu_cs_submit_raw2()
->>         >> +*/
->>         >> +int amdgpu_bo_list_destroy_raw(amdgpu_device_handle dev,
->>         uint32_t bo_list);
->>         >> +
->>         >>   /**
->>         >>    * Creates a BO list handle for command submission.
->>         >>    *
->>         >>    * \param   dev     - \c [in] Device handle.
->>         >>    * See #amdgpu_device_initialize()
->>         >>    * \param   number_of_resources     - \c [in] Number of
->>         BOs in the list
->>         >>    * \param   resources          - \c [in] List of BO handles
->>         >>    * \param   resource_prios     - \c [in] Optional
->>         priority for each handle
->>         >>    * \param   result             - \c [out] Created BO
->>         list handle
->>         >>    *
->>         >>    * \return   0 on success\n
->>         >>    *          <0 - Negative POSIX Error code
->>         >>    *
->>         >> - * \sa amdgpu_bo_list_destroy()
->>         >> + * \sa amdgpu_bo_list_destroy(), amdgpu_cs_submit_raw2()
->>         >>   */
->>         >>   int amdgpu_bo_list_create(amdgpu_device_handle dev,
->>         >>                            uint32_t number_of_resources,
->>         >> amdgpu_bo_handle *resources,
->>         >>                            uint8_t *resource_prios,
->>         >> amdgpu_bo_list_handle *result);
->>         >>
->>         >>   /**
->>         >>    * Destroys a BO list handle.
->>         >>    *
->>         >> @@ -1580,20 +1612,42 @@ struct drm_amdgpu_cs_chunk;
->>         >>   struct drm_amdgpu_cs_chunk_dep;
->>         >>   struct drm_amdgpu_cs_chunk_data;
->>         >>
->>         >>   int amdgpu_cs_submit_raw(amdgpu_device_handle dev,
->>         >>  amdgpu_context_handle context,
->>         >>  amdgpu_bo_list_handle bo_list_handle,
->>         >>                           int num_chunks,
->>         >>                           struct drm_amdgpu_cs_chunk *chunks,
->>         >>                           uint64_t *seq_no);
->>         >>
->>         >> +/**
->>         >> + * Submit raw command submission to the kernel with a raw
->>         BO list handle.
->>         >> + *
->>         >> + * \param   dev               - \c [in] device handle
->>         >> + * \param   context    - \c [in] context handle for
->>         context id
->>         >> + * \param   bo_list_handle - \c [in] raw bo list handle
->>         (0 for none)
->>         >> + * \param   num_chunks - \c [in] number of CS chunks to
->>         submit
->>         >> + * \param   chunks     - \c [in] array of CS chunks
->>         >> + * \param   seq_no     - \c [out] output sequence number
->>         for submission.
->>         >> + *
->>         >> + * \return   0 on success\n
->>         >> + *          <0 - Negative POSIX Error code
->>         >> + *
->>         >> + * \sa amdgpu_bo_list_create_raw(),
->>         amdgpu_bo_list_destroy_raw()
->>         >> + */
->>         >> +int amdgpu_cs_submit_raw2(amdgpu_device_handle dev,
->>         >> +  amdgpu_context_handle context,
->>         >> +                         uint32_t bo_list_handle,
->>         >> +                         int num_chunks,
->>         >> +                         struct drm_amdgpu_cs_chunk *chunks,
->>         >> +                         uint64_t *seq_no);
->>         >> +
->>         >>   void amdgpu_cs_chunk_fence_to_dep(struct amdgpu_cs_fence
->>         *fence,
->>         >> struct drm_amdgpu_cs_chunk_dep *dep);
->>         >>   void amdgpu_cs_chunk_fence_info_to_data(struct
->>         amdgpu_cs_fence_info *fence_info,
->>         >>     struct drm_amdgpu_cs_chunk_data *data);
->>         >>
->>         >>   /**
->>         >>    * Reserve VMID
->>         >>    * \param   context - \c [in]  GPU Context
->>         >>    * \param   flags - \c [in]  TBD
->>         >>    *
->>         >> diff --git a/amdgpu/amdgpu_bo.c b/amdgpu/amdgpu_bo.c
->>         >> index c0f42e81..21bc73aa 100644
->>         >> --- a/amdgpu/amdgpu_bo.c
->>         >> +++ b/amdgpu/amdgpu_bo.c
->>         >> @@ -611,20 +611,56 @@ drm_public int
->>         amdgpu_create_bo_from_user_mem(amdgpu_device_handle dev,
->>         >> pthread_mutex_lock(&dev->bo_table_mutex);
->>         >>          r = handle_table_insert(&dev->bo_handles,
->>         (*buf_handle)->handle,
->>         >> *buf_handle);
->>         >> pthread_mutex_unlock(&dev->bo_table_mutex);
->>         >>          if (r)
->>         >> amdgpu_bo_free(*buf_handle);
->>         >>   out:
->>         >>          return r;
->>         >>   }
->>         >>
->>         >> +drm_public int
->>         amdgpu_bo_list_create_raw(amdgpu_device_handle dev,
->>         >> +     uint32_t number_of_buffers,
->>         >> +     struct drm_amdgpu_bo_list_entry *buffers,
->>         >> +     uint32_t *result)
->>         >> +{
->>         >> +       union drm_amdgpu_bo_list args;
->>         >> +       int r;
->>         >> +
->>         >> +       memset(&args, 0, sizeof(args));
->>         >> +       args.in.operation = AMDGPU_BO_LIST_OP_CREATE;
->>         >> +       args.in.bo_number = number_of_buffers;
->>         >> +       args.in.bo_info_size = sizeof(struct
->>         drm_amdgpu_bo_list_entry);
->>         >> +       args.in.bo_info_ptr = (uint64_t)(uintptr_t)buffers;
->>         >> +
->>         >> +       r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_BO_LIST,
->>         >> +  &args, sizeof(args));
->>         >> +       if (r)
->>         >> +               return r;
->>         >> +
->>         >> +       *result = args.out.list_handle;
->>         >> +       return 0;
->>         >> +}
->>         >> +
->>         >> +drm_public int
->>         amdgpu_bo_list_destroy_raw(amdgpu_device_handle dev,
->>         >> +      uint32_t bo_list)
->>         >> +{
->>         >> +       union drm_amdgpu_bo_list args;
->>         >> +
->>         >> +       memset(&args, 0, sizeof(args));
->>         >> +       args.in.operation = AMDGPU_BO_LIST_OP_DESTROY;
->>         >> +       args.in.list_handle = bo_list;
->>         >> +
->>         >> +       return drmCommandWriteRead(dev->fd,
->>         DRM_AMDGPU_BO_LIST,
->>         >> + &args, sizeof(args));
->>         >> +}
->>         >> +
->>         >>   drm_public int
->>         amdgpu_bo_list_create(amdgpu_device_handle dev,
->>         >>  uint32_t number_of_resources,
->>         >>  amdgpu_bo_handle *resources,
->>         >>  uint8_t *resource_prios,
->>         >>  amdgpu_bo_list_handle *result)
->>         >>   {
->>         >>          struct drm_amdgpu_bo_list_entry *list;
->>         >>          union drm_amdgpu_bo_list args;
->>         >>          unsigned i;
->>         >>          int r;
->>         >> diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
->>         >> index 3b8231aa..5bedf748 100644
->>         >> --- a/amdgpu/amdgpu_cs.c
->>         >> +++ b/amdgpu/amdgpu_cs.c
->>         >> @@ -724,20 +724,45 @@ drm_public int
->>         amdgpu_cs_submit_raw(amdgpu_device_handle dev,
->>         >>          r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_CS,
->>         >> &cs, sizeof(cs));
->>         >>          if (r)
->>         >>                  return r;
->>         >>
->>         >>          if (seq_no)
->>         >>                  *seq_no = cs.out.handle;
->>         >>          return 0;
->>         >>   }
->>         >>
->>         >> +drm_public int amdgpu_cs_submit_raw2(amdgpu_device_handle
->>         dev,
->>         >> + amdgpu_context_handle context,
->>         >> + uint32_t bo_list_handle,
->>         >> + int num_chunks,
->>         >> + struct drm_amdgpu_cs_chunk *chunks,
->>         >> + uint64_t *seq_no)
->>         >> +{
->>         >> +       union drm_amdgpu_cs cs = {0};
->>         >> +       uint64_t *chunk_array;
->>         >> +       int i, r;
->>         >> +
->>         >> +       chunk_array = alloca(sizeof(uint64_t) * num_chunks);
->>         >> +       for (i = 0; i < num_chunks; i++)
->>         >> +               chunk_array[i] =
->>         (uint64_t)(uintptr_t)&chunks[i];
->>         >> +       cs.in.chunks = (uint64_t)(uintptr_t)chunk_array;
->>         >> +       cs.in.ctx_id = context->id;
->>         >> +       cs.in.bo_list_handle = bo_list_handle;
->>         >> +       cs.in.num_chunks = num_chunks;
->>         >> +       r = drmCommandWriteRead(dev->fd, DRM_AMDGPU_CS,
->>         >> +  &cs, sizeof(cs));
->>         >> +       if (!r && seq_no)
->>         >> +               *seq_no = cs.out.handle;
->>         >> +       return r;
->>         >> +}
->>         >> +
->>         >>   drm_public void
->>         amdgpu_cs_chunk_fence_info_to_data(struct
->>         amdgpu_cs_fence_info *fence_info,
->>         >>     struct drm_amdgpu_cs_chunk_data *data)
->>         >>   {
->>         >>          data->fence_data.handle = fence_info->handle->handle;
->>         >>          data->fence_data.offset = fence_info->offset *
->>         sizeof(uint64_t);
->>         >>   }
->>         >>
->>         >>   drm_public void amdgpu_cs_chunk_fence_to_dep(struct
->>         amdgpu_cs_fence *fence,
->>         >>     struct drm_amdgpu_cs_chunk_dep *dep)
->>         >>   {
->>         >> --
->>         >> 2.17.1
->>         >>
->>         >> _______________________________________________
->>         >> amd-gfx mailing list
->>         >> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>         >> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>         > _______________________________________________
->>         > amd-gfx mailing list
->>         > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->>         <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->>         > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------7DB6E7F80146BE6904688AE2
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 16.01.19 um 15:39 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4k8JtkrS2XfgRdmYY3NVR4ges=Yqfh-TH9O=LnaVv02g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="auto">
-        <div><br>
-          <br>
-          <div class="gmail_quote">
-            <div dir="ltr">On Wed, Jan 16, 2019, 9:34 AM Koenig,
-              Christian &lt;<a href="mailto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org"
-                moz-do-not-send="true">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>
-              wrote:<br>
-            </div>
-            <blockquote class="gmail_quote" style="margin:0 0 0
-              .8ex;border-left:1px #ccc solid;padding-left:1ex">
-              <div text="#000000" bgcolor="#FFFFFF">
-                <div class="m_3799249069402976776moz-cite-prefix">Am
-                  16.01.19 um 15:31 schrieb Marek Olšák:<br>
-                </div>
-                <blockquote type="cite">
-                  <div dir="auto">
-                    <div><br>
-                      <br>
-                      <div class="gmail_quote">
-                        <div dir="ltr">On Wed, Jan 16, 2019, 7:55 AM
-                          Christian König &lt;<a
-                            href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                            target="_blank" rel="noreferrer"
-                            moz-do-not-send="true">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>
-                          wrote:<br>
-                        </div>
-                        <blockquote class="gmail_quote" style="margin:0
-                          0 0 .8ex;border-left:1px #ccc
-                          solid;padding-left:1ex">
-                          Well if you ask me we should have the
-                          following interface for <br>
-                          negotiating memory management with the kernel:<br>
-                          <br>
-                          1. We have per process BOs which can't be
-                          shared between processes.<br>
-                          <br>
-                          Those are always valid and don't need to be
-                          mentioned in any BO list <br>
-                          whatsoever.<br>
-                          <br>
-                          If we knew that a per process BO is currently
-                          not in use we can <br>
-                          optionally tell that to the kernel to make
-                          memory management more efficient.<br>
-                          <br>
-                          In other words instead of a list of stuff
-                          which is used we send down to <br>
-                          the kernel a list of stuff which is not used
-                          any more and that only when <br>
-                          we know that it is necessary, e.g. when a game
-                          or application overcommits.<br>
-                        </blockquote>
-                      </div>
-                    </div>
-                    <div dir="auto"><br>
-                    </div>
-                    <div dir="auto">Radeonsi doesn't use this because
-                      this approach caused performance degradation and
-                      also drops BO priorities.</div>
-                  </div>
-                </blockquote>
-                <br>
-                The performance degradation where mostly shortcomings
-                with the LRU which by now have been fixed.<br>
-                <br>
-                BO priorities are a different topic, but could be added
-                to per VM BOs as well.<br>
-              </div>
-            </blockquote>
-          </div>
-        </div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">What's the minimum drm version that contains the
-          fixes?</div>
-      </div>
-    </blockquote>
-    <br>
-    I've pushed the last optimization this morning. No idea when it
-    really became useful, but the numbers from the closed source clients
-    now look much better.<br>
-    <br>
-    We should probably test and bump the drm version when we are sure
-    that this now works as expected.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4k8JtkrS2XfgRdmYY3NVR4ges=Yqfh-TH9O=LnaVv02g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <div dir="auto">
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Marek</div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">
-          <div class="gmail_quote">
-            <blockquote class="gmail_quote" style="margin:0 0 0
-              .8ex;border-left:1px #ccc solid;padding-left:1ex">
-              <div text="#000000" bgcolor="#FFFFFF">
-                <br>
-                Christian.<br>
-                <br>
-                <blockquote type="cite">
-                  <div dir="auto">
-                    <div dir="auto"><br>
-                    </div>
-                    <div dir="auto">Marek</div>
-                    <div dir="auto"><br>
-                    </div>
-                    <div dir="auto">
-                      <div class="gmail_quote">
-                        <blockquote class="gmail_quote" style="margin:0
-                          0 0 .8ex;border-left:1px #ccc
-                          solid;padding-left:1ex">
-                          <br>
-                          2. We have shared BOs which are used by more
-                          than one process.<br>
-                          <br>
-                          Those are rare and should be added to the per
-                          CS list of BOs in use.<br>
-                          <br>
-                          <br>
-                          The whole BO list interface Marek tries to
-                          optimize here should be <br>
-                          deprecated and not used any more.<br>
-                          <br>
-                          Regards,<br>
-                          Christian.<br>
-                          <br>
-                          Am 16.01.19 um 13:46 schrieb Bas
-                          Nieuwenhuizen:<br>
-                          &gt; So random questions:<br>
-                          &gt;<br>
-                          &gt; 1) In this discussion it was mentioned
-                          that some Vulkan drivers still<br>
-                          &gt; use the bo_list interface. I think that
-                          implies radv as I think we're<br>
-                          &gt; still using bo_list. Is there any other
-                          API we should be using? (Also,<br>
-                          &gt; with VK_EXT_descriptor_indexing I suspect
-                          we'll be moving more towards<br>
-                          &gt; a global bo list instead of a cmd buffer
-                          one, as we cannot know all<br>
-                          &gt; the BOs referenced anymore, but not sure
-                          what end state here will be).<br>
-                          &gt;<br>
-                          &gt; 2) The other alternative mentioned was
-                          adding the buffers directly<br>
-                          &gt; into the submit ioctl. Is this the
-                          desired end state (though as above<br>
-                          &gt; I'm not sure how that works for vulkan)?
-                          If yes, what is the timeline<br>
-                          &gt; for this that we need something in the
-                          interim?<br>
-                          &gt;<br>
-                          &gt; 3) Did we measure any performance
-                          benefit?<br>
-                          &gt;<br>
-                          &gt; In general I'd like to to ack the raw bo
-                          list creation function as<br>
-                          &gt; this interface seems easier to use. The
-                          two arrays thing has always<br>
-                          &gt; been kind of a pain when we want to use
-                          e.g. builtin sort functions to<br>
-                          &gt; make sure we have no duplicate BOs, but
-                          have some comments below.<br>
-                          &gt;<br>
-                          &gt; On Mon, Jan 7, 2019 at 8:31 PM Marek
-                          Olšák &lt;<a href="mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                            rel="noreferrer noreferrer" target="_blank"
-                            moz-do-not-send="true">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;
-                          wrote:<br>
-                          &gt;&gt; From: Marek Olšák &lt;<a
-                            href="mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"
-                            rel="noreferrer noreferrer" target="_blank"
-                            moz-do-not-send="true">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; ---<br>
-                          &gt;&gt;   amdgpu/amdgpu-symbol-check |  3 ++<br>
-                          &gt;&gt;   amdgpu/amdgpu.h            | 56
-                          +++++++++++++++++++++++++++++++++++++-<br>
-                          &gt;&gt;   amdgpu/amdgpu_bo.c         | 36
-                          ++++++++++++++++++++++++<br>
-                          &gt;&gt;   amdgpu/amdgpu_cs.c         | 25
-                          +++++++++++++++++<br>
-                          &gt;&gt;   4 files changed, 119 insertions(+),
-                          1 deletion(-)<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; diff --git
-                          a/amdgpu/amdgpu-symbol-check
-                          b/amdgpu/amdgpu-symbol-check<br>
-                          &gt;&gt; index 6f5e0f95..96a44b40 100755<br>
-                          &gt;&gt; --- a/amdgpu/amdgpu-symbol-check<br>
-                          &gt;&gt; +++ b/amdgpu/amdgpu-symbol-check<br>
-                          &gt;&gt; @@ -12,20 +12,22 @@ _edata<br>
-                          &gt;&gt;   _end<br>
-                          &gt;&gt;   _fini<br>
-                          &gt;&gt;   _init<br>
-                          &gt;&gt;   amdgpu_bo_alloc<br>
-                          &gt;&gt;   amdgpu_bo_cpu_map<br>
-                          &gt;&gt;   amdgpu_bo_cpu_unmap<br>
-                          &gt;&gt;   amdgpu_bo_export<br>
-                          &gt;&gt;   amdgpu_bo_free<br>
-                          &gt;&gt;   amdgpu_bo_import<br>
-                          &gt;&gt;   amdgpu_bo_inc_ref<br>
-                          &gt;&gt; +amdgpu_bo_list_create_raw<br>
-                          &gt;&gt; +amdgpu_bo_list_destroy_raw<br>
-                          &gt;&gt;   amdgpu_bo_list_create<br>
-                          &gt;&gt;   amdgpu_bo_list_destroy<br>
-                          &gt;&gt;   amdgpu_bo_list_update<br>
-                          &gt;&gt;   amdgpu_bo_query_info<br>
-                          &gt;&gt;   amdgpu_bo_set_metadata<br>
-                          &gt;&gt;   amdgpu_bo_va_op<br>
-                          &gt;&gt;   amdgpu_bo_va_op_raw<br>
-                          &gt;&gt;   amdgpu_bo_wait_for_idle<br>
-                          &gt;&gt;   amdgpu_create_bo_from_user_mem<br>
-                          &gt;&gt;   amdgpu_cs_chunk_fence_info_to_data<br>
-                          &gt;&gt; @@ -40,20 +42,21 @@
-                          amdgpu_cs_destroy_semaphore<br>
-                          &gt;&gt;   amdgpu_cs_destroy_syncobj<br>
-                          &gt;&gt;   amdgpu_cs_export_syncobj<br>
-                          &gt;&gt;   amdgpu_cs_fence_to_handle<br>
-                          &gt;&gt;   amdgpu_cs_import_syncobj<br>
-                          &gt;&gt;   amdgpu_cs_query_fence_status<br>
-                          &gt;&gt;   amdgpu_cs_query_reset_state<br>
-                          &gt;&gt;   amdgpu_query_sw_info<br>
-                          &gt;&gt;   amdgpu_cs_signal_semaphore<br>
-                          &gt;&gt;   amdgpu_cs_submit<br>
-                          &gt;&gt;   amdgpu_cs_submit_raw<br>
-                          &gt;&gt; +amdgpu_cs_submit_raw2<br>
-                          &gt;&gt;   amdgpu_cs_syncobj_export_sync_file<br>
-                          &gt;&gt;   amdgpu_cs_syncobj_import_sync_file<br>
-                          &gt;&gt;   amdgpu_cs_syncobj_reset<br>
-                          &gt;&gt;   amdgpu_cs_syncobj_signal<br>
-                          &gt;&gt;   amdgpu_cs_syncobj_wait<br>
-                          &gt;&gt;   amdgpu_cs_wait_fences<br>
-                          &gt;&gt;   amdgpu_cs_wait_semaphore<br>
-                          &gt;&gt;   amdgpu_device_deinitialize<br>
-                          &gt;&gt;   amdgpu_device_initialize<br>
-                          &gt;&gt;   amdgpu_find_bo_by_cpu_mapping<br>
-                          &gt;&gt; diff --git a/amdgpu/amdgpu.h
-                          b/amdgpu/amdgpu.h<br>
-                          &gt;&gt; index dc51659a..5b800033 100644<br>
-                          &gt;&gt; --- a/amdgpu/amdgpu.h<br>
-                          &gt;&gt; +++ b/amdgpu/amdgpu.h<br>
-                          &gt;&gt; @@ -35,20 +35,21 @@<br>
-                          &gt;&gt;   #define _AMDGPU_H_<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   #include &lt;stdint.h&gt;<br>
-                          &gt;&gt;   #include &lt;stdbool.h&gt;<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   #ifdef __cplusplus<br>
-                          &gt;&gt;   extern "C" {<br>
-                          &gt;&gt;   #endif<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   struct drm_amdgpu_info_hw_ip;<br>
-                          &gt;&gt; +struct drm_amdgpu_bo_list_entry;<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; 
- /*--------------------------------------------------------------------------*/<br>
-                          &gt;&gt;   /* ---------------------------
-                          Defines ------------------------------------
-                          */<br>
-                          &gt;&gt; 
- /*--------------------------------------------------------------------------*/<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   /**<br>
-                          &gt;&gt;    * Define max. number of Command
-                          Buffers (IB) which could be sent to the single<br>
-                          &gt;&gt;    * hardware IP to accommodate CE/DE
-                          requirements<br>
-                          &gt;&gt;    *<br>
-                          &gt;&gt;    * \sa amdgpu_cs_ib_info<br>
-                          &gt;&gt; @@ -767,34 +768,65 @@ int
-                          amdgpu_bo_cpu_unmap(amdgpu_bo_handle
-                          buf_handle);<br>
-                          &gt;&gt;    *                            and
-                          no GPU access is scheduled.<br>
-                          &gt;&gt;    *                          1 GPU
-                          access is in fly or scheduled<br>
-                          &gt;&gt;    *<br>
-                          &gt;&gt;    * \return   0 - on success<br>
-                          &gt;&gt;    *          &lt;0 - Negative POSIX
-                          Error code<br>
-                          &gt;&gt;    */<br>
-                          &gt;&gt;   int
-                          amdgpu_bo_wait_for_idle(amdgpu_bo_handle
-                          buf_handle,<br>
-                          &gt;&gt;                              uint64_t
-                          timeout_ns,<br>
-                          &gt;&gt;                              bool
-                          *buffer_busy);<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; +/**<br>
-                          &gt;&gt; + * Creates a BO list handle for
-                          command submission.<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \param   dev                     
-                            - \c [in] Device handle.<br>
-                          &gt;&gt; + *                               
-                          See #amdgpu_device_initialize()<br>
-                          &gt;&gt; + * \param   number_of_buffers  - \c
-                          [in] Number of BOs in the list<br>
-                          &gt;&gt; + * \param   buffers            - \c
-                          [in] List of BO handles<br>
-                          &gt;&gt; + * \param   result             - \c
-                          [out] Created BO list handle<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \return   0 on success\n<br>
-                          &gt;&gt; + *          &lt;0 - Negative POSIX
-                          Error code<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \sa amdgpu_bo_list_destroy_raw()<br>
-                          &gt;&gt; +*/<br>
-                          &gt;&gt; +int
-                          amdgpu_bo_list_create_raw(amdgpu_device_handle
-                          dev,<br>
-                          &gt;&gt; +                           
-                           uint32_t number_of_buffers,<br>
-                          &gt;&gt; +                             struct
-                          drm_amdgpu_bo_list_entry *buffers,<br>
-                          &gt;&gt; +                           
-                           uint32_t *result);<br>
-                          &gt; So AFAIU  drm_amdgpu_bo_list_entry takes
-                          a raw bo handle while we<br>
-                          &gt; never get a raw bo handle from
-                          libdrm_amdgpu. How are we supposed to<br>
-                          &gt; fill it in?<br>
-                          &gt;<br>
-                          &gt; What do we win by having the raw handle
-                          for the bo_list? If we would<br>
-                          &gt; not return the raw handle we would not
-                          need the submit_raw2.<br>
-                          &gt;<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +/**<br>
-                          &gt;&gt; + * Destroys a BO list handle.<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \param   bo_list    - \c [in] BO
-                          list handle.<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \return   0 on success\n<br>
-                          &gt;&gt; + *          &lt;0 - Negative POSIX
-                          Error code<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \sa amdgpu_bo_list_create_raw(),
-                          amdgpu_cs_submit_raw2()<br>
-                          &gt;&gt; +*/<br>
-                          &gt;&gt; +int
-                          amdgpu_bo_list_destroy_raw(amdgpu_device_handle
-                          dev, uint32_t bo_list);<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt;   /**<br>
-                          &gt;&gt;    * Creates a BO list handle for
-                          command submission.<br>
-                          &gt;&gt;    *<br>
-                          &gt;&gt;    * \param   dev                   
-                              - \c [in] Device handle.<br>
-                          &gt;&gt;    *                               
-                          See #amdgpu_device_initialize()<br>
-                          &gt;&gt;    * \param   number_of_resources   
-                              - \c [in] Number of BOs in the list<br>
-                          &gt;&gt;    * \param   resources          - \c
-                          [in] List of BO handles<br>
-                          &gt;&gt;    * \param   resource_prios     - \c
-                          [in] Optional priority for each handle<br>
-                          &gt;&gt;    * \param   result             - \c
-                          [out] Created BO list handle<br>
-                          &gt;&gt;    *<br>
-                          &gt;&gt;    * \return   0 on success\n<br>
-                          &gt;&gt;    *          &lt;0 - Negative POSIX
-                          Error code<br>
-                          &gt;&gt;    *<br>
-                          &gt;&gt; - * \sa amdgpu_bo_list_destroy()<br>
-                          &gt;&gt; + * \sa amdgpu_bo_list_destroy(),
-                          amdgpu_cs_submit_raw2()<br>
-                          &gt;&gt;   */<br>
-                          &gt;&gt;   int
-                          amdgpu_bo_list_create(amdgpu_device_handle
-                          dev,<br>
-                          &gt;&gt;                            uint32_t
-                          number_of_resources,<br>
-                          &gt;&gt;                           
-                          amdgpu_bo_handle *resources,<br>
-                          &gt;&gt;                            uint8_t
-                          *resource_prios,<br>
-                          &gt;&gt;                           
-                          amdgpu_bo_list_handle *result);<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   /**<br>
-                          &gt;&gt;    * Destroys a BO list handle.<br>
-                          &gt;&gt;    *<br>
-                          &gt;&gt; @@ -1580,20 +1612,42 @@ struct
-                          drm_amdgpu_cs_chunk;<br>
-                          &gt;&gt;   struct drm_amdgpu_cs_chunk_dep;<br>
-                          &gt;&gt;   struct drm_amdgpu_cs_chunk_data;<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   int
-                          amdgpu_cs_submit_raw(amdgpu_device_handle dev,<br>
-                          &gt;&gt;                         
-                           amdgpu_context_handle context,<br>
-                          &gt;&gt;                         
-                           amdgpu_bo_list_handle bo_list_handle,<br>
-                          &gt;&gt;                           int
-                          num_chunks,<br>
-                          &gt;&gt;                           struct
-                          drm_amdgpu_cs_chunk *chunks,<br>
-                          &gt;&gt;                           uint64_t
-                          *seq_no);<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; +/**<br>
-                          &gt;&gt; + * Submit raw command submission to
-                          the kernel with a raw BO list handle.<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \param   dev               - \c
-                          [in] device handle<br>
-                          &gt;&gt; + * \param   context    - \c [in]
-                          context handle for context id<br>
-                          &gt;&gt; + * \param   bo_list_handle - \c [in]
-                          raw bo list handle (0 for none)<br>
-                          &gt;&gt; + * \param   num_chunks - \c [in]
-                          number of CS chunks to submit<br>
-                          &gt;&gt; + * \param   chunks     - \c [in]
-                          array of CS chunks<br>
-                          &gt;&gt; + * \param   seq_no     - \c [out]
-                          output sequence number for submission.<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \return   0 on success\n<br>
-                          &gt;&gt; + *          &lt;0 - Negative POSIX
-                          Error code<br>
-                          &gt;&gt; + *<br>
-                          &gt;&gt; + * \sa amdgpu_bo_list_create_raw(),
-                          amdgpu_bo_list_destroy_raw()<br>
-                          &gt;&gt; + */<br>
-                          &gt;&gt; +int
-                          amdgpu_cs_submit_raw2(amdgpu_device_handle
-                          dev,<br>
-                          &gt;&gt; +                       
-                           amdgpu_context_handle context,<br>
-                          &gt;&gt; +                         uint32_t
-                          bo_list_handle,<br>
-                          &gt;&gt; +                         int
-                          num_chunks,<br>
-                          &gt;&gt; +                         struct
-                          drm_amdgpu_cs_chunk *chunks,<br>
-                          &gt;&gt; +                         uint64_t
-                          *seq_no);<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt;   void
-                          amdgpu_cs_chunk_fence_to_dep(struct
-                          amdgpu_cs_fence *fence,<br>
-                          &gt;&gt;                                   
-                          struct drm_amdgpu_cs_chunk_dep *dep);<br>
-                          &gt;&gt;   void
-                          amdgpu_cs_chunk_fence_info_to_data(struct
-                          amdgpu_cs_fence_info *fence_info,<br>
-                          &gt;&gt;                                     
-                              struct drm_amdgpu_cs_chunk_data *data);<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   /**<br>
-                          &gt;&gt;    * Reserve VMID<br>
-                          &gt;&gt;    * \param   context - \c [in]  GPU
-                          Context<br>
-                          &gt;&gt;    * \param   flags - \c [in]  TBD<br>
-                          &gt;&gt;    *<br>
-                          &gt;&gt; diff --git a/amdgpu/amdgpu_bo.c
-                          b/amdgpu/amdgpu_bo.c<br>
-                          &gt;&gt; index c0f42e81..21bc73aa 100644<br>
-                          &gt;&gt; --- a/amdgpu/amdgpu_bo.c<br>
-                          &gt;&gt; +++ b/amdgpu/amdgpu_bo.c<br>
-                          &gt;&gt; @@ -611,20 +611,56 @@ drm_public int
-amdgpu_create_bo_from_user_mem(amdgpu_device_handle dev,<br>
-                          &gt;&gt;         
-                          pthread_mutex_lock(&amp;dev-&gt;bo_table_mutex);<br>
-                          &gt;&gt;          r =
-                          handle_table_insert(&amp;dev-&gt;bo_handles,
-                          (*buf_handle)-&gt;handle,<br>
-                          &gt;&gt;                                 
-                          *buf_handle);<br>
-                          &gt;&gt;         
-                          pthread_mutex_unlock(&amp;dev-&gt;bo_table_mutex);<br>
-                          &gt;&gt;          if (r)<br>
-                          &gt;&gt;                 
-                          amdgpu_bo_free(*buf_handle);<br>
-                          &gt;&gt;   out:<br>
-                          &gt;&gt;          return r;<br>
-                          &gt;&gt;   }<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; +drm_public int
-                          amdgpu_bo_list_create_raw(amdgpu_device_handle
-                          dev,<br>
-                          &gt;&gt; +                                   
-                              uint32_t number_of_buffers,<br>
-                          &gt;&gt; +                                   
-                              struct drm_amdgpu_bo_list_entry *buffers,<br>
-                          &gt;&gt; +                                   
-                              uint32_t *result)<br>
-                          &gt;&gt; +{<br>
-                          &gt;&gt; +       union drm_amdgpu_bo_list
-                          args;<br>
-                          &gt;&gt; +       int r;<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +       memset(&amp;args, 0,
-                          sizeof(args));<br>
-                          &gt;&gt; +       args.in.operation =
-                          AMDGPU_BO_LIST_OP_CREATE;<br>
-                          &gt;&gt; +       args.in.bo_number =
-                          number_of_buffers;<br>
-                          &gt;&gt; +       args.in.bo_info_size =
-                          sizeof(struct drm_amdgpu_bo_list_entry);<br>
-                          &gt;&gt; +       args.in.bo_info_ptr =
-                          (uint64_t)(uintptr_t)buffers;<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +       r =
-                          drmCommandWriteRead(dev-&gt;fd,
-                          DRM_AMDGPU_BO_LIST,<br>
-                          &gt;&gt; +                             
-                           &amp;args, sizeof(args));<br>
-                          &gt;&gt; +       if (r)<br>
-                          &gt;&gt; +               return r;<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +       *result =
-                          args.out.list_handle;<br>
-                          &gt;&gt; +       return 0;<br>
-                          &gt;&gt; +}<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +drm_public int
-                          amdgpu_bo_list_destroy_raw(amdgpu_device_handle
-                          dev,<br>
-                          &gt;&gt; +                                   
-                               uint32_t bo_list)<br>
-                          &gt;&gt; +{<br>
-                          &gt;&gt; +       union drm_amdgpu_bo_list
-                          args;<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +       memset(&amp;args, 0,
-                          sizeof(args));<br>
-                          &gt;&gt; +       args.in.operation =
-                          AMDGPU_BO_LIST_OP_DESTROY;<br>
-                          &gt;&gt; +       args.in.list_handle =
-                          bo_list;<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +       return
-                          drmCommandWriteRead(dev-&gt;fd,
-                          DRM_AMDGPU_BO_LIST,<br>
-                          &gt;&gt; +                                 
-                          &amp;args, sizeof(args));<br>
-                          &gt;&gt; +}<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt;   drm_public int
-                          amdgpu_bo_list_create(amdgpu_device_handle
-                          dev,<br>
-                          &gt;&gt;                                     
-                           uint32_t number_of_resources,<br>
-                          &gt;&gt;                                     
-                           amdgpu_bo_handle *resources,<br>
-                          &gt;&gt;                                     
-                           uint8_t *resource_prios,<br>
-                          &gt;&gt;                                     
-                           amdgpu_bo_list_handle *result)<br>
-                          &gt;&gt;   {<br>
-                          &gt;&gt;          struct
-                          drm_amdgpu_bo_list_entry *list;<br>
-                          &gt;&gt;          union drm_amdgpu_bo_list
-                          args;<br>
-                          &gt;&gt;          unsigned i;<br>
-                          &gt;&gt;          int r;<br>
-                          &gt;&gt; diff --git a/amdgpu/amdgpu_cs.c
-                          b/amdgpu/amdgpu_cs.c<br>
-                          &gt;&gt; index 3b8231aa..5bedf748 100644<br>
-                          &gt;&gt; --- a/amdgpu/amdgpu_cs.c<br>
-                          &gt;&gt; +++ b/amdgpu/amdgpu_cs.c<br>
-                          &gt;&gt; @@ -724,20 +724,45 @@ drm_public int
-                          amdgpu_cs_submit_raw(amdgpu_device_handle dev,<br>
-                          &gt;&gt;          r =
-                          drmCommandWriteRead(dev-&gt;fd, DRM_AMDGPU_CS,<br>
-                          &gt;&gt;                                 
-                          &amp;cs, sizeof(cs));<br>
-                          &gt;&gt;          if (r)<br>
-                          &gt;&gt;                  return r;<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;          if (seq_no)<br>
-                          &gt;&gt;                  *seq_no =
-                          cs.out.handle;<br>
-                          &gt;&gt;          return 0;<br>
-                          &gt;&gt;   }<br>
-                          &gt;&gt;<br>
-                          &gt;&gt; +drm_public int
-                          amdgpu_cs_submit_raw2(amdgpu_device_handle
-                          dev,<br>
-                          &gt;&gt; +                                   
-                          amdgpu_context_handle context,<br>
-                          &gt;&gt; +                                   
-                          uint32_t bo_list_handle,<br>
-                          &gt;&gt; +                                   
-                          int num_chunks,<br>
-                          &gt;&gt; +                                   
-                          struct drm_amdgpu_cs_chunk *chunks,<br>
-                          &gt;&gt; +                                   
-                          uint64_t *seq_no)<br>
-                          &gt;&gt; +{<br>
-                          &gt;&gt; +       union drm_amdgpu_cs cs = {0};<br>
-                          &gt;&gt; +       uint64_t *chunk_array;<br>
-                          &gt;&gt; +       int i, r;<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt; +       chunk_array =
-                          alloca(sizeof(uint64_t) * num_chunks);<br>
-                          &gt;&gt; +       for (i = 0; i &lt;
-                          num_chunks; i++)<br>
-                          &gt;&gt; +               chunk_array[i] =
-                          (uint64_t)(uintptr_t)&amp;chunks[i];<br>
-                          &gt;&gt; +       cs.in.chunks =
-                          (uint64_t)(uintptr_t)chunk_array;<br>
-                          &gt;&gt; +       cs.in.ctx_id =
-                          context-&gt;id;<br>
-                          &gt;&gt; +       cs.in.bo_list_handle =
-                          bo_list_handle;<br>
-                          &gt;&gt; +       cs.in.num_chunks =
-                          num_chunks;<br>
-                          &gt;&gt; +       r =
-                          drmCommandWriteRead(dev-&gt;fd, DRM_AMDGPU_CS,<br>
-                          &gt;&gt; +                             
-                           &amp;cs, sizeof(cs));<br>
-                          &gt;&gt; +       if (!r &amp;&amp; seq_no)<br>
-                          &gt;&gt; +               *seq_no =
-                          cs.out.handle;<br>
-                          &gt;&gt; +       return r;<br>
-                          &gt;&gt; +}<br>
-                          &gt;&gt; +<br>
-                          &gt;&gt;   drm_public void
-                          amdgpu_cs_chunk_fence_info_to_data(struct
-                          amdgpu_cs_fence_info *fence_info,<br>
-                          &gt;&gt;                                     
-                              struct drm_amdgpu_cs_chunk_data *data)<br>
-                          &gt;&gt;   {<br>
-                          &gt;&gt;          data-&gt;fence_data.handle =
-                          fence_info-&gt;handle-&gt;handle;<br>
-                          &gt;&gt;          data-&gt;fence_data.offset =
-                          fence_info-&gt;offset * sizeof(uint64_t);<br>
-                          &gt;&gt;   }<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;   drm_public void
-                          amdgpu_cs_chunk_fence_to_dep(struct
-                          amdgpu_cs_fence *fence,<br>
-                          &gt;&gt;                                     
-                              struct drm_amdgpu_cs_chunk_dep *dep)<br>
-                          &gt;&gt;   {<br>
-                          &gt;&gt; --<br>
-                          &gt;&gt; 2.17.1<br>
-                          &gt;&gt;<br>
-                          &gt;&gt;
-                          _______________________________________________<br>
-                          &gt;&gt; amd-gfx mailing list<br>
-                          &gt;&gt; <a
-                            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                            rel="noreferrer noreferrer" target="_blank"
-                            moz-do-not-send="true">
-                            amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                          &gt;&gt; <a
-                            href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                            rel="noreferrer noreferrer noreferrer"
-                            target="_blank" moz-do-not-send="true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-                          &gt;
-                          _______________________________________________<br>
-                          &gt; amd-gfx mailing list<br>
-                          &gt; <a
-                            href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                            rel="noreferrer noreferrer" target="_blank"
-                            moz-do-not-send="true">
-                            amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                          &gt; <a
-                            href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                            rel="noreferrer noreferrer noreferrer"
-                            target="_blank" moz-do-not-send="true">
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-                          <br>
-                        </blockquote>
-                      </div>
-                    </div>
-                  </div>
-                </blockquote>
-                <br>
-              </div>
-            </blockquote>
-          </div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------7DB6E7F80146BE6904688AE2--
-
---===============1910847877==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1910847877==--
+T24gV2VkLCBKYW4gMTYsIDIwMTkgYXQgMzozOCBQTSBNYXJlayBPbMWhw6FrIDxtYXJhZW9AZ21h
+aWwuY29tPiB3cm90ZToKPgo+Cj4KPiBPbiBXZWQsIEphbiAxNiwgMjAxOSwgNzo0NiBBTSBCYXMg
+TmlldXdlbmh1aXplbiA8YmFzQGJhc25pZXV3ZW5odWl6ZW4ubmwgd3JvdGU6Cj4+Cj4+IFNvIHJh
+bmRvbSBxdWVzdGlvbnM6Cj4+Cj4+IDEpIEluIHRoaXMgZGlzY3Vzc2lvbiBpdCB3YXMgbWVudGlv
+bmVkIHRoYXQgc29tZSBWdWxrYW4gZHJpdmVycyBzdGlsbAo+PiB1c2UgdGhlIGJvX2xpc3QgaW50
+ZXJmYWNlLiBJIHRoaW5rIHRoYXQgaW1wbGllcyByYWR2IGFzIEkgdGhpbmsgd2UncmUKPj4gc3Rp
+bGwgdXNpbmcgYm9fbGlzdC4gSXMgdGhlcmUgYW55IG90aGVyIEFQSSB3ZSBzaG91bGQgYmUgdXNp
+bmc/IChBbHNvLAo+PiB3aXRoIFZLX0VYVF9kZXNjcmlwdG9yX2luZGV4aW5nIEkgc3VzcGVjdCB3
+ZSdsbCBiZSBtb3ZpbmcgbW9yZSB0b3dhcmRzCj4+IGEgZ2xvYmFsIGJvIGxpc3QgaW5zdGVhZCBv
+ZiBhIGNtZCBidWZmZXIgb25lLCBhcyB3ZSBjYW5ub3Qga25vdyBhbGwKPj4gdGhlIEJPcyByZWZl
+cmVuY2VkIGFueW1vcmUsIGJ1dCBub3Qgc3VyZSB3aGF0IGVuZCBzdGF0ZSBoZXJlIHdpbGwgYmUp
+Lgo+Pgo+PiAyKSBUaGUgb3RoZXIgYWx0ZXJuYXRpdmUgbWVudGlvbmVkIHdhcyBhZGRpbmcgdGhl
+IGJ1ZmZlcnMgZGlyZWN0bHkKPj4gaW50byB0aGUgc3VibWl0IGlvY3RsLiBJcyB0aGlzIHRoZSBk
+ZXNpcmVkIGVuZCBzdGF0ZSAodGhvdWdoIGFzIGFib3ZlCj4+IEknbSBub3Qgc3VyZSBob3cgdGhh
+dCB3b3JrcyBmb3IgdnVsa2FuKT8gSWYgeWVzLCB3aGF0IGlzIHRoZSB0aW1lbGluZQo+PiBmb3Ig
+dGhpcyB0aGF0IHdlIG5lZWQgc29tZXRoaW5nIGluIHRoZSBpbnRlcmltPwo+Cj4KPiBSYWRlb25z
+aSBhbHJlYWR5IHVzZXMgdGhpcy4KPgo+Pgo+PiAzKSBEaWQgd2UgbWVhc3VyZSBhbnkgcGVyZm9y
+bWFuY2UgYmVuZWZpdD8KPj4KPj4gSW4gZ2VuZXJhbCBJJ2QgbGlrZSB0byB0byBhY2sgdGhlIHJh
+dyBibyBsaXN0IGNyZWF0aW9uIGZ1bmN0aW9uIGFzCj4+IHRoaXMgaW50ZXJmYWNlIHNlZW1zIGVh
+c2llciB0byB1c2UuIFRoZSB0d28gYXJyYXlzIHRoaW5nIGhhcyBhbHdheXMKPj4gYmVlbiBraW5k
+IG9mIGEgcGFpbiB3aGVuIHdlIHdhbnQgdG8gdXNlIGUuZy4gYnVpbHRpbiBzb3J0IGZ1bmN0aW9u
+cyB0bwo+PiBtYWtlIHN1cmUgd2UgaGF2ZSBubyBkdXBsaWNhdGUgQk9zLCBidXQgaGF2ZSBzb21l
+IGNvbW1lbnRzIGJlbG93Lgo+Cj4KPiBUaGUgcmVhc29uIGFtZGdwdSB3YXMgc2xvd2VyIHRoYW4g
+cmFkZW9uIHdhcyBiZWNhdXNlIG9mIHRoaXMgaW5lZmZpY2llbnQgYm8gbGlzdCBpbnRlcmZhY2Uu
+Cj4KPj4KPj4gT24gTW9uLCBKYW4gNywgMjAxOSBhdCA4OjMxIFBNIE1hcmVrIE9sxaHDoWsgPG1h
+cmFlb0BnbWFpbC5jb20+IHdyb3RlOgo+PiA+Cj4+ID4gRnJvbTogTWFyZWsgT2zFocOhayA8bWFy
+ZWsub2xzYWtAYW1kLmNvbT4KPj4gPgo+PiA+IC0tLQo+PiA+ICBhbWRncHUvYW1kZ3B1LXN5bWJv
+bC1jaGVjayB8ICAzICsrCj4+ID4gIGFtZGdwdS9hbWRncHUuaCAgICAgICAgICAgIHwgNTYgKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0KPj4gPiAgYW1kZ3B1L2FtZGdwdV9i
+by5jICAgICAgICAgfCAzNiArKysrKysrKysrKysrKysrKysrKysrKysKPj4gPiAgYW1kZ3B1L2Ft
+ZGdwdV9jcy5jICAgICAgICAgfCAyNSArKysrKysrKysrKysrKysrKwo+PiA+ICA0IGZpbGVzIGNo
+YW5nZWQsIDExOSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+ID4KPj4gPiBkaWZmIC0t
+Z2l0IGEvYW1kZ3B1L2FtZGdwdS1zeW1ib2wtY2hlY2sgYi9hbWRncHUvYW1kZ3B1LXN5bWJvbC1j
+aGVjawo+PiA+IGluZGV4IDZmNWUwZjk1Li45NmE0NGI0MCAxMDA3NTUKPj4gPiAtLS0gYS9hbWRn
+cHUvYW1kZ3B1LXN5bWJvbC1jaGVjawo+PiA+ICsrKyBiL2FtZGdwdS9hbWRncHUtc3ltYm9sLWNo
+ZWNrCj4+ID4gQEAgLTEyLDIwICsxMiwyMiBAQCBfZWRhdGEKPj4gPiAgX2VuZAo+PiA+ICBfZmlu
+aQo+PiA+ICBfaW5pdAo+PiA+ICBhbWRncHVfYm9fYWxsb2MKPj4gPiAgYW1kZ3B1X2JvX2NwdV9t
+YXAKPj4gPiAgYW1kZ3B1X2JvX2NwdV91bm1hcAo+PiA+ICBhbWRncHVfYm9fZXhwb3J0Cj4+ID4g
+IGFtZGdwdV9ib19mcmVlCj4+ID4gIGFtZGdwdV9ib19pbXBvcnQKPj4gPiAgYW1kZ3B1X2JvX2lu
+Y19yZWYKPj4gPiArYW1kZ3B1X2JvX2xpc3RfY3JlYXRlX3Jhdwo+PiA+ICthbWRncHVfYm9fbGlz
+dF9kZXN0cm95X3Jhdwo+PiA+ICBhbWRncHVfYm9fbGlzdF9jcmVhdGUKPj4gPiAgYW1kZ3B1X2Jv
+X2xpc3RfZGVzdHJveQo+PiA+ICBhbWRncHVfYm9fbGlzdF91cGRhdGUKPj4gPiAgYW1kZ3B1X2Jv
+X3F1ZXJ5X2luZm8KPj4gPiAgYW1kZ3B1X2JvX3NldF9tZXRhZGF0YQo+PiA+ICBhbWRncHVfYm9f
+dmFfb3AKPj4gPiAgYW1kZ3B1X2JvX3ZhX29wX3Jhdwo+PiA+ICBhbWRncHVfYm9fd2FpdF9mb3Jf
+aWRsZQo+PiA+ICBhbWRncHVfY3JlYXRlX2JvX2Zyb21fdXNlcl9tZW0KPj4gPiAgYW1kZ3B1X2Nz
+X2NodW5rX2ZlbmNlX2luZm9fdG9fZGF0YQo+PiA+IEBAIC00MCwyMCArNDIsMjEgQEAgYW1kZ3B1
+X2NzX2Rlc3Ryb3lfc2VtYXBob3JlCj4+ID4gIGFtZGdwdV9jc19kZXN0cm95X3N5bmNvYmoKPj4g
+PiAgYW1kZ3B1X2NzX2V4cG9ydF9zeW5jb2JqCj4+ID4gIGFtZGdwdV9jc19mZW5jZV90b19oYW5k
+bGUKPj4gPiAgYW1kZ3B1X2NzX2ltcG9ydF9zeW5jb2JqCj4+ID4gIGFtZGdwdV9jc19xdWVyeV9m
+ZW5jZV9zdGF0dXMKPj4gPiAgYW1kZ3B1X2NzX3F1ZXJ5X3Jlc2V0X3N0YXRlCj4+ID4gIGFtZGdw
+dV9xdWVyeV9zd19pbmZvCj4+ID4gIGFtZGdwdV9jc19zaWduYWxfc2VtYXBob3JlCj4+ID4gIGFt
+ZGdwdV9jc19zdWJtaXQKPj4gPiAgYW1kZ3B1X2NzX3N1Ym1pdF9yYXcKPj4gPiArYW1kZ3B1X2Nz
+X3N1Ym1pdF9yYXcyCj4+ID4gIGFtZGdwdV9jc19zeW5jb2JqX2V4cG9ydF9zeW5jX2ZpbGUKPj4g
+PiAgYW1kZ3B1X2NzX3N5bmNvYmpfaW1wb3J0X3N5bmNfZmlsZQo+PiA+ICBhbWRncHVfY3Nfc3lu
+Y29ial9yZXNldAo+PiA+ICBhbWRncHVfY3Nfc3luY29ial9zaWduYWwKPj4gPiAgYW1kZ3B1X2Nz
+X3N5bmNvYmpfd2FpdAo+PiA+ICBhbWRncHVfY3Nfd2FpdF9mZW5jZXMKPj4gPiAgYW1kZ3B1X2Nz
+X3dhaXRfc2VtYXBob3JlCj4+ID4gIGFtZGdwdV9kZXZpY2VfZGVpbml0aWFsaXplCj4+ID4gIGFt
+ZGdwdV9kZXZpY2VfaW5pdGlhbGl6ZQo+PiA+ICBhbWRncHVfZmluZF9ib19ieV9jcHVfbWFwcGlu
+Zwo+PiA+IGRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1LmggYi9hbWRncHUvYW1kZ3B1LmgKPj4g
+PiBpbmRleCBkYzUxNjU5YS4uNWI4MDAwMzMgMTAwNjQ0Cj4+ID4gLS0tIGEvYW1kZ3B1L2FtZGdw
+dS5oCj4+ID4gKysrIGIvYW1kZ3B1L2FtZGdwdS5oCj4+ID4gQEAgLTM1LDIwICszNSwyMSBAQAo+
+PiA+ICAjZGVmaW5lIF9BTURHUFVfSF8KPj4gPgo+PiA+ICAjaW5jbHVkZSA8c3RkaW50Lmg+Cj4+
+ID4gICNpbmNsdWRlIDxzdGRib29sLmg+Cj4+ID4KPj4gPiAgI2lmZGVmIF9fY3BsdXNwbHVzCj4+
+ID4gIGV4dGVybiAiQyIgewo+PiA+ICAjZW5kaWYKPj4gPgo+PiA+ICBzdHJ1Y3QgZHJtX2FtZGdw
+dV9pbmZvX2h3X2lwOwo+PiA+ICtzdHJ1Y3QgZHJtX2FtZGdwdV9ib19saXN0X2VudHJ5Owo+PiA+
+Cj4+ID4gIC8qLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0qLwo+PiA+ICAvKiAtLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0gRGVmaW5lcyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi8K
+Pj4gPiAgLyotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSovCj4+ID4KPj4gPiAgLyoqCj4+ID4gICAqIERlZmlu
+ZSBtYXguIG51bWJlciBvZiBDb21tYW5kIEJ1ZmZlcnMgKElCKSB3aGljaCBjb3VsZCBiZSBzZW50
+IHRvIHRoZSBzaW5nbGUKPj4gPiAgICogaGFyZHdhcmUgSVAgdG8gYWNjb21tb2RhdGUgQ0UvREUg
+cmVxdWlyZW1lbnRzCj4+ID4gICAqCj4+ID4gICAqIFxzYSBhbWRncHVfY3NfaWJfaW5mbwo+PiA+
+IEBAIC03NjcsMzQgKzc2OCw2NSBAQCBpbnQgYW1kZ3B1X2JvX2NwdV91bm1hcChhbWRncHVfYm9f
+aGFuZGxlIGJ1Zl9oYW5kbGUpOwo+PiA+ICAgKiAgICAgICAgICAgICAgICAgICAgICAgICAgICBh
+bmQgbm8gR1BVIGFjY2VzcyBpcyBzY2hlZHVsZWQuCj4+ID4gICAqICAgICAgICAgICAgICAgICAg
+ICAgICAgICAxIEdQVSBhY2Nlc3MgaXMgaW4gZmx5IG9yIHNjaGVkdWxlZAo+PiA+ICAgKgo+PiA+
+ICAgKiBccmV0dXJuICAgMCAtIG9uIHN1Y2Nlc3MKPj4gPiAgICogICAgICAgICAgPDAgLSBOZWdh
+dGl2ZSBQT1NJWCBFcnJvciBjb2RlCj4+ID4gICAqLwo+PiA+ICBpbnQgYW1kZ3B1X2JvX3dhaXRf
+Zm9yX2lkbGUoYW1kZ3B1X2JvX2hhbmRsZSBidWZfaGFuZGxlLAo+PiA+ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICB1aW50NjRfdCB0aW1lb3V0X25zLAo+PiA+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBib29sICpidWZmZXJfYnVzeSk7Cj4+ID4KPj4gPiArLyoqCj4+ID4gKyAqIENy
+ZWF0ZXMgYSBCTyBsaXN0IGhhbmRsZSBmb3IgY29tbWFuZCBzdWJtaXNzaW9uLgo+PiA+ICsgKgo+
+PiA+ICsgKiBccGFyYW0gICBkZXYgICAgICAgICAgICAgICAgICAgICAgICAtIFxjIFtpbl0gRGV2
+aWNlIGhhbmRsZS4KPj4gPiArICogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFNlZSAj
+YW1kZ3B1X2RldmljZV9pbml0aWFsaXplKCkKPj4gPiArICogXHBhcmFtICAgbnVtYmVyX29mX2J1
+ZmZlcnMgIC0gXGMgW2luXSBOdW1iZXIgb2YgQk9zIGluIHRoZSBsaXN0Cj4+ID4gKyAqIFxwYXJh
+bSAgIGJ1ZmZlcnMgICAgICAgICAgICAtIFxjIFtpbl0gTGlzdCBvZiBCTyBoYW5kbGVzCj4+ID4g
+KyAqIFxwYXJhbSAgIHJlc3VsdCAgICAgICAgICAgICAtIFxjIFtvdXRdIENyZWF0ZWQgQk8gbGlz
+dCBoYW5kbGUKPj4gPiArICoKPj4gPiArICogXHJldHVybiAgIDAgb24gc3VjY2Vzc1xuCj4+ID4g
+KyAqICAgICAgICAgIDwwIC0gTmVnYXRpdmUgUE9TSVggRXJyb3IgY29kZQo+PiA+ICsgKgo+PiA+
+ICsgKiBcc2EgYW1kZ3B1X2JvX2xpc3RfZGVzdHJveV9yYXcoKQo+PiA+ICsqLwo+PiA+ICtpbnQg
+YW1kZ3B1X2JvX2xpc3RfY3JlYXRlX3JhdyhhbWRncHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4+ID4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdWludDMyX3QgbnVtYmVyX29mX2J1ZmZlcnMs
+Cj4+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRybV9hbWRncHVfYm9f
+bGlzdF9lbnRyeSAqYnVmZmVycywKPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1
+aW50MzJfdCAqcmVzdWx0KTsKPj4KPj4gU28gQUZBSVUgIGRybV9hbWRncHVfYm9fbGlzdF9lbnRy
+eSB0YWtlcyBhIHJhdyBibyBoYW5kbGUgd2hpbGUgd2UKPj4gbmV2ZXIgZ2V0IGEgcmF3IGJvIGhh
+bmRsZSBmcm9tIGxpYmRybV9hbWRncHUuIEhvdyBhcmUgd2Ugc3VwcG9zZWQgdG8KPj4gZmlsbCBp
+dCBpbj8KPgo+Cj4gVGhpcyBmdW5jdGlvbiByZXR1cm5zIGl0LgoKVGhpcyBmdW5jdGlvbiByZXR1
+cm5zIGEgYm9fbGlzdCBoYW5kbGUgcmlnaHQ/IEknbSB0YWxraW5nIGFib3V0IHRoZSBCTwpoYW5k
+bGVzIGluIGBidWZmZXJzYCwgd2hlcmUgZG8gd2UgZ2V0IHRoZW0/Cgo+Cj4+Cj4+IFdoYXQgZG8g
+d2Ugd2luIGJ5IGhhdmluZyB0aGUgcmF3IGhhbmRsZSBmb3IgdGhlIGJvX2xpc3Q/IElmIHdlIHdv
+dWxkCj4+IG5vdCByZXR1cm4gdGhlIHJhdyBoYW5kbGUgd2Ugd291bGQgbm90IG5lZWQgdGhlIHN1
+Ym1pdF9yYXcyLgo+Cj4KPiBPbmUgbGVzcyBtYWxsb2MgY2FsbCBhbmQgcG9pbnRlciBpbmRpcmVj
+dGlvbi4KPgo+IE1hcmVrCj4KPj4KPj4gPiArCj4+ID4gKy8qKgo+PiA+ICsgKiBEZXN0cm95cyBh
+IEJPIGxpc3QgaGFuZGxlLgo+PiA+ICsgKgo+PiA+ICsgKiBccGFyYW0gICBib19saXN0ICAgIC0g
+XGMgW2luXSBCTyBsaXN0IGhhbmRsZS4KPj4gPiArICoKPj4gPiArICogXHJldHVybiAgIDAgb24g
+c3VjY2Vzc1xuCj4+ID4gKyAqICAgICAgICAgIDwwIC0gTmVnYXRpdmUgUE9TSVggRXJyb3IgY29k
+ZQo+PiA+ICsgKgo+PiA+ICsgKiBcc2EgYW1kZ3B1X2JvX2xpc3RfY3JlYXRlX3JhdygpLCBhbWRn
+cHVfY3Nfc3VibWl0X3JhdzIoKQo+PiA+ICsqLwo+PiA+ICtpbnQgYW1kZ3B1X2JvX2xpc3RfZGVz
+dHJveV9yYXcoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LCB1aW50MzJfdCBib19saXN0KTsKPj4g
+PiArCj4+ID4gIC8qKgo+PiA+ICAgKiBDcmVhdGVzIGEgQk8gbGlzdCBoYW5kbGUgZm9yIGNvbW1h
+bmQgc3VibWlzc2lvbi4KPj4gPiAgICoKPj4gPiAgICogXHBhcmFtICAgZGV2ICAgICAgICAgICAg
+ICAgICAgICAgICAgLSBcYyBbaW5dIERldmljZSBoYW5kbGUuCj4+ID4gICAqICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBTZWUgI2FtZGdwdV9kZXZpY2VfaW5pdGlhbGl6ZSgpCj4+ID4g
+ICAqIFxwYXJhbSAgIG51bWJlcl9vZl9yZXNvdXJjZXMgICAgICAgIC0gXGMgW2luXSBOdW1iZXIg
+b2YgQk9zIGluIHRoZSBsaXN0Cj4+ID4gICAqIFxwYXJhbSAgIHJlc291cmNlcyAgICAgICAgICAt
+IFxjIFtpbl0gTGlzdCBvZiBCTyBoYW5kbGVzCj4+ID4gICAqIFxwYXJhbSAgIHJlc291cmNlX3By
+aW9zICAgICAtIFxjIFtpbl0gT3B0aW9uYWwgcHJpb3JpdHkgZm9yIGVhY2ggaGFuZGxlCj4+ID4g
+ICAqIFxwYXJhbSAgIHJlc3VsdCAgICAgICAgICAgICAtIFxjIFtvdXRdIENyZWF0ZWQgQk8gbGlz
+dCBoYW5kbGUKPj4gPiAgICoKPj4gPiAgICogXHJldHVybiAgIDAgb24gc3VjY2Vzc1xuCj4+ID4g
+ICAqICAgICAgICAgIDwwIC0gTmVnYXRpdmUgUE9TSVggRXJyb3IgY29kZQo+PiA+ICAgKgo+PiA+
+IC0gKiBcc2EgYW1kZ3B1X2JvX2xpc3RfZGVzdHJveSgpCj4+ID4gKyAqIFxzYSBhbWRncHVfYm9f
+bGlzdF9kZXN0cm95KCksIGFtZGdwdV9jc19zdWJtaXRfcmF3MigpCj4+ID4gICovCj4+ID4gIGlu
+dCBhbWRncHVfYm9fbGlzdF9jcmVhdGUoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+PiA+ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgdWludDMyX3QgbnVtYmVyX29mX3Jlc291cmNlcywKPj4g
+PiAgICAgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9ib19oYW5kbGUgKnJlc291cmNlcywK
+Pj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQ4X3QgKnJlc291cmNlX3ByaW9zLAo+
+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2xpc3RfaGFuZGxlICpyZXN1
+bHQpOwo+PiA+Cj4+ID4gIC8qKgo+PiA+ICAgKiBEZXN0cm95cyBhIEJPIGxpc3QgaGFuZGxlLgo+
+PiA+ICAgKgo+PiA+IEBAIC0xNTgwLDIwICsxNjEyLDQyIEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2Nz
+X2NodW5rOwo+PiA+ICBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19kZXA7Cj4+ID4gIHN0cnVj
+dCBkcm1fYW1kZ3B1X2NzX2NodW5rX2RhdGE7Cj4+ID4KPj4gPiAgaW50IGFtZGdwdV9jc19zdWJt
+aXRfcmF3KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPj4gPiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgYW1kZ3B1X2NvbnRleHRfaGFuZGxlIGNvbnRleHQsCj4+ID4gICAgICAgICAgICAgICAg
+ICAgICAgICAgIGFtZGdwdV9ib19saXN0X2hhbmRsZSBib19saXN0X2hhbmRsZSwKPj4gPiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgaW50IG51bV9jaHVua3MsCj4+ID4gICAgICAgICAgICAgICAg
+ICAgICAgICAgIHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rICpjaHVua3MsCj4+ID4gICAgICAg
+ICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90ICpzZXFfbm8pOwo+PiA+Cj4+ID4gKy8qKgo+PiA+
+ICsgKiBTdWJtaXQgcmF3IGNvbW1hbmQgc3VibWlzc2lvbiB0byB0aGUga2VybmVsIHdpdGggYSBy
+YXcgQk8gbGlzdCBoYW5kbGUuCj4+ID4gKyAqCj4+ID4gKyAqIFxwYXJhbSAgIGRldiAgICAgICAg
+ICAgICAgIC0gXGMgW2luXSBkZXZpY2UgaGFuZGxlCj4+ID4gKyAqIFxwYXJhbSAgIGNvbnRleHQg
+ICAgLSBcYyBbaW5dIGNvbnRleHQgaGFuZGxlIGZvciBjb250ZXh0IGlkCj4+ID4gKyAqIFxwYXJh
+bSAgIGJvX2xpc3RfaGFuZGxlIC0gXGMgW2luXSByYXcgYm8gbGlzdCBoYW5kbGUgKDAgZm9yIG5v
+bmUpCj4+ID4gKyAqIFxwYXJhbSAgIG51bV9jaHVua3MgLSBcYyBbaW5dIG51bWJlciBvZiBDUyBj
+aHVua3MgdG8gc3VibWl0Cj4+ID4gKyAqIFxwYXJhbSAgIGNodW5rcyAgICAgLSBcYyBbaW5dIGFy
+cmF5IG9mIENTIGNodW5rcwo+PiA+ICsgKiBccGFyYW0gICBzZXFfbm8gICAgIC0gXGMgW291dF0g
+b3V0cHV0IHNlcXVlbmNlIG51bWJlciBmb3Igc3VibWlzc2lvbi4KPj4gPiArICoKPj4gPiArICog
+XHJldHVybiAgIDAgb24gc3VjY2Vzc1xuCj4+ID4gKyAqICAgICAgICAgIDwwIC0gTmVnYXRpdmUg
+UE9TSVggRXJyb3IgY29kZQo+PiA+ICsgKgo+PiA+ICsgKiBcc2EgYW1kZ3B1X2JvX2xpc3RfY3Jl
+YXRlX3JhdygpLCBhbWRncHVfYm9fbGlzdF9kZXN0cm95X3JhdygpCj4+ID4gKyAqLwo+PiA+ICtp
+bnQgYW1kZ3B1X2NzX3N1Ym1pdF9yYXcyKGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPj4gPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9jb250ZXh0X2hhbmRsZSBjb250ZXh0LAo+
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgdWludDMyX3QgYm9fbGlzdF9oYW5kbGUsCj4+
+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgbnVtX2NodW5rcywKPj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkcm1fYW1kZ3B1X2NzX2NodW5rICpjaHVua3MsCj4+
+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICB1aW50NjRfdCAqc2VxX25vKTsKPj4gPiArCj4+
+ID4gIHZvaWQgYW1kZ3B1X2NzX2NodW5rX2ZlbmNlX3RvX2RlcChzdHJ1Y3QgYW1kZ3B1X2NzX2Zl
+bmNlICpmZW5jZSwKPj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0
+IGRybV9hbWRncHVfY3NfY2h1bmtfZGVwICpkZXApOwo+PiA+ICB2b2lkIGFtZGdwdV9jc19jaHVu
+a19mZW5jZV9pbmZvX3RvX2RhdGEoc3RydWN0IGFtZGdwdV9jc19mZW5jZV9pbmZvICpmZW5jZV9p
+bmZvLAo+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Qg
+ZHJtX2FtZGdwdV9jc19jaHVua19kYXRhICpkYXRhKTsKPj4gPgo+PiA+ICAvKioKPj4gPiAgICog
+UmVzZXJ2ZSBWTUlECj4+ID4gICAqIFxwYXJhbSAgIGNvbnRleHQgLSBcYyBbaW5dICBHUFUgQ29u
+dGV4dAo+PiA+ICAgKiBccGFyYW0gICBmbGFncyAtIFxjIFtpbl0gIFRCRAo+PiA+ICAgKgo+PiA+
+IGRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1X2JvLmMgYi9hbWRncHUvYW1kZ3B1X2JvLmMKPj4g
+PiBpbmRleCBjMGY0MmU4MS4uMjFiYzczYWEgMTAwNjQ0Cj4+ID4gLS0tIGEvYW1kZ3B1L2FtZGdw
+dV9iby5jCj4+ID4gKysrIGIvYW1kZ3B1L2FtZGdwdV9iby5jCj4+ID4gQEAgLTYxMSwyMCArNjEx
+LDU2IEBAIGRybV9wdWJsaWMgaW50IGFtZGdwdV9jcmVhdGVfYm9fZnJvbV91c2VyX21lbShhbWRn
+cHVfZGV2aWNlX2hhbmRsZSBkZXYsCj4+ID4gICAgICAgICBwdGhyZWFkX211dGV4X2xvY2soJmRl
+di0+Ym9fdGFibGVfbXV0ZXgpOwo+PiA+ICAgICAgICAgciA9IGhhbmRsZV90YWJsZV9pbnNlcnQo
+JmRldi0+Ym9faGFuZGxlcywgKCpidWZfaGFuZGxlKS0+aGFuZGxlLAo+PiA+ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgKmJ1Zl9oYW5kbGUpOwo+PiA+ICAgICAgICAgcHRocmVhZF9t
+dXRleF91bmxvY2soJmRldi0+Ym9fdGFibGVfbXV0ZXgpOwo+PiA+ICAgICAgICAgaWYgKHIpCj4+
+ID4gICAgICAgICAgICAgICAgIGFtZGdwdV9ib19mcmVlKCpidWZfaGFuZGxlKTsKPj4gPiAgb3V0
+Ogo+PiA+ICAgICAgICAgcmV0dXJuIHI7Cj4+ID4gIH0KPj4gPgo+PiA+ICtkcm1fcHVibGljIGlu
+dCBhbWRncHVfYm9fbGlzdF9jcmVhdGVfcmF3KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldiwKPj4g
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IG51bWJl
+cl9vZl9idWZmZXJzLAo+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgc3RydWN0IGRybV9hbWRncHVfYm9fbGlzdF9lbnRyeSAqYnVmZmVycywKPj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90ICpyZXN1bHQpCj4+ID4g
+K3sKPj4gPiArICAgICAgIHVuaW9uIGRybV9hbWRncHVfYm9fbGlzdCBhcmdzOwo+PiA+ICsgICAg
+ICAgaW50IHI7Cj4+ID4gKwo+PiA+ICsgICAgICAgbWVtc2V0KCZhcmdzLCAwLCBzaXplb2YoYXJn
+cykpOwo+PiA+ICsgICAgICAgYXJncy5pbi5vcGVyYXRpb24gPSBBTURHUFVfQk9fTElTVF9PUF9D
+UkVBVEU7Cj4+ID4gKyAgICAgICBhcmdzLmluLmJvX251bWJlciA9IG51bWJlcl9vZl9idWZmZXJz
+Owo+PiA+ICsgICAgICAgYXJncy5pbi5ib19pbmZvX3NpemUgPSBzaXplb2Yoc3RydWN0IGRybV9h
+bWRncHVfYm9fbGlzdF9lbnRyeSk7Cj4+ID4gKyAgICAgICBhcmdzLmluLmJvX2luZm9fcHRyID0g
+KHVpbnQ2NF90KSh1aW50cHRyX3QpYnVmZmVyczsKPj4gPiArCj4+ID4gKyAgICAgICByID0gZHJt
+Q29tbWFuZFdyaXRlUmVhZChkZXYtPmZkLCBEUk1fQU1ER1BVX0JPX0xJU1QsCj4+ID4gKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAmYXJncywgc2l6ZW9mKGFyZ3MpKTsKPj4gPiArICAg
+ICAgIGlmIChyKQo+PiA+ICsgICAgICAgICAgICAgICByZXR1cm4gcjsKPj4gPiArCj4+ID4gKyAg
+ICAgICAqcmVzdWx0ID0gYXJncy5vdXQubGlzdF9oYW5kbGU7Cj4+ID4gKyAgICAgICByZXR1cm4g
+MDsKPj4gPiArfQo+PiA+ICsKPj4gPiArZHJtX3B1YmxpYyBpbnQgYW1kZ3B1X2JvX2xpc3RfZGVz
+dHJveV9yYXcoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2LAo+PiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IGJvX2xpc3QpCj4+ID4gK3sKPj4gPiAr
+ICAgICAgIHVuaW9uIGRybV9hbWRncHVfYm9fbGlzdCBhcmdzOwo+PiA+ICsKPj4gPiArICAgICAg
+IG1lbXNldCgmYXJncywgMCwgc2l6ZW9mKGFyZ3MpKTsKPj4gPiArICAgICAgIGFyZ3MuaW4ub3Bl
+cmF0aW9uID0gQU1ER1BVX0JPX0xJU1RfT1BfREVTVFJPWTsKPj4gPiArICAgICAgIGFyZ3MuaW4u
+bGlzdF9oYW5kbGUgPSBib19saXN0Owo+PiA+ICsKPj4gPiArICAgICAgIHJldHVybiBkcm1Db21t
+YW5kV3JpdGVSZWFkKGRldi0+ZmQsIERSTV9BTURHUFVfQk9fTElTVCwKPj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICZhcmdzLCBzaXplb2YoYXJncykpOwo+PiA+ICt9Cj4+
+ID4gKwo+PiA+ICBkcm1fcHVibGljIGludCBhbWRncHVfYm9fbGlzdF9jcmVhdGUoYW1kZ3B1X2Rl
+dmljZV9oYW5kbGUgZGV2LAo+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICB1aW50MzJfdCBudW1iZXJfb2ZfcmVzb3VyY2VzLAo+PiA+ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBhbWRncHVfYm9faGFuZGxlICpyZXNvdXJjZXMsCj4+ID4gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQ4X3QgKnJlc291cmNlX3ByaW9zLAo+
+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfYm9fbGlzdF9o
+YW5kbGUgKnJlc3VsdCkKPj4gPiAgewo+PiA+ICAgICAgICAgc3RydWN0IGRybV9hbWRncHVfYm9f
+bGlzdF9lbnRyeSAqbGlzdDsKPj4gPiAgICAgICAgIHVuaW9uIGRybV9hbWRncHVfYm9fbGlzdCBh
+cmdzOwo+PiA+ICAgICAgICAgdW5zaWduZWQgaTsKPj4gPiAgICAgICAgIGludCByOwo+PiA+IGRp
+ZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1X2NzLmMgYi9hbWRncHUvYW1kZ3B1X2NzLmMKPj4gPiBp
+bmRleCAzYjgyMzFhYS4uNWJlZGY3NDggMTAwNjQ0Cj4+ID4gLS0tIGEvYW1kZ3B1L2FtZGdwdV9j
+cy5jCj4+ID4gKysrIGIvYW1kZ3B1L2FtZGdwdV9jcy5jCj4+ID4gQEAgLTcyNCwyMCArNzI0LDQ1
+IEBAIGRybV9wdWJsaWMgaW50IGFtZGdwdV9jc19zdWJtaXRfcmF3KGFtZGdwdV9kZXZpY2VfaGFu
+ZGxlIGRldiwKPj4gPiAgICAgICAgIHIgPSBkcm1Db21tYW5kV3JpdGVSZWFkKGRldi0+ZmQsIERS
+TV9BTURHUFVfQ1MsCj4+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmY3MsIHNp
+emVvZihjcykpOwo+PiA+ICAgICAgICAgaWYgKHIpCj4+ID4gICAgICAgICAgICAgICAgIHJldHVy
+biByOwo+PiA+Cj4+ID4gICAgICAgICBpZiAoc2VxX25vKQo+PiA+ICAgICAgICAgICAgICAgICAq
+c2VxX25vID0gY3Mub3V0LmhhbmRsZTsKPj4gPiAgICAgICAgIHJldHVybiAwOwo+PiA+ICB9Cj4+
+ID4KPj4gPiArZHJtX3B1YmxpYyBpbnQgYW1kZ3B1X2NzX3N1Ym1pdF9yYXcyKGFtZGdwdV9kZXZp
+Y2VfaGFuZGxlIGRldiwKPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+YW1kZ3B1X2NvbnRleHRfaGFuZGxlIGNvbnRleHQsCj4+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHVpbnQzMl90IGJvX2xpc3RfaGFuZGxlLAo+PiA+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBpbnQgbnVtX2NodW5rcywKPj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRybV9hbWRncHVfY3NfY2h1bmsgKmNo
+dW5rcywKPj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdWludDY0X3Qg
+KnNlcV9ubykKPj4gPiArewo+PiA+ICsgICAgICAgdW5pb24gZHJtX2FtZGdwdV9jcyBjcyA9IHsw
+fTsKPj4gPiArICAgICAgIHVpbnQ2NF90ICpjaHVua19hcnJheTsKPj4gPiArICAgICAgIGludCBp
+LCByOwo+PiA+ICsKPj4gPiArICAgICAgIGNodW5rX2FycmF5ID0gYWxsb2NhKHNpemVvZih1aW50
+NjRfdCkgKiBudW1fY2h1bmtzKTsKPj4gPiArICAgICAgIGZvciAoaSA9IDA7IGkgPCBudW1fY2h1
+bmtzOyBpKyspCj4+ID4gKyAgICAgICAgICAgICAgIGNodW5rX2FycmF5W2ldID0gKHVpbnQ2NF90
+KSh1aW50cHRyX3QpJmNodW5rc1tpXTsKPj4gPiArICAgICAgIGNzLmluLmNodW5rcyA9ICh1aW50
+NjRfdCkodWludHB0cl90KWNodW5rX2FycmF5Owo+PiA+ICsgICAgICAgY3MuaW4uY3R4X2lkID0g
+Y29udGV4dC0+aWQ7Cj4+ID4gKyAgICAgICBjcy5pbi5ib19saXN0X2hhbmRsZSA9IGJvX2xpc3Rf
+aGFuZGxlOwo+PiA+ICsgICAgICAgY3MuaW4ubnVtX2NodW5rcyA9IG51bV9jaHVua3M7Cj4+ID4g
+KyAgICAgICByID0gZHJtQ29tbWFuZFdyaXRlUmVhZChkZXYtPmZkLCBEUk1fQU1ER1BVX0NTLAo+
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmNzLCBzaXplb2YoY3MpKTsKPj4g
+PiArICAgICAgIGlmICghciAmJiBzZXFfbm8pCj4+ID4gKyAgICAgICAgICAgICAgICpzZXFfbm8g
+PSBjcy5vdXQuaGFuZGxlOwo+PiA+ICsgICAgICAgcmV0dXJuIHI7Cj4+ID4gK30KPj4gPiArCj4+
+ID4gIGRybV9wdWJsaWMgdm9pZCBhbWRncHVfY3NfY2h1bmtfZmVuY2VfaW5mb190b19kYXRhKHN0
+cnVjdCBhbWRncHVfY3NfZmVuY2VfaW5mbyAqZmVuY2VfaW5mbywKPj4gPiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRybV9hbWRncHVfY3NfY2h1bmtfZGF0
+YSAqZGF0YSkKPj4gPiAgewo+PiA+ICAgICAgICAgZGF0YS0+ZmVuY2VfZGF0YS5oYW5kbGUgPSBm
+ZW5jZV9pbmZvLT5oYW5kbGUtPmhhbmRsZTsKPj4gPiAgICAgICAgIGRhdGEtPmZlbmNlX2RhdGEu
+b2Zmc2V0ID0gZmVuY2VfaW5mby0+b2Zmc2V0ICogc2l6ZW9mKHVpbnQ2NF90KTsKPj4gPiAgfQo+
+PiA+Cj4+ID4gIGRybV9wdWJsaWMgdm9pZCBhbWRncHVfY3NfY2h1bmtfZmVuY2VfdG9fZGVwKHN0
+cnVjdCBhbWRncHVfY3NfZmVuY2UgKmZlbmNlLAo+PiA+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBzdHJ1Y3QgZHJtX2FtZGdwdV9jc19jaHVua19kZXAgKmRlcCkKPj4g
+PiAgewo+PiA+IC0tCj4+ID4gMi4xNy4xCj4+ID4KPj4gPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+PiA+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+ID4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cg==
