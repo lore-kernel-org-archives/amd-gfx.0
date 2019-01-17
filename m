@@ -1,463 +1,562 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: csa_vaddr should not larger than
- AMDGPU_GMC_HOLE_START
-Date: Thu, 17 Jan 2019 07:39:26 +0000
-Message-ID: <361544e2-dd33-3b89-1211-4566b060b785@amd.com>
-References: <1547455236-30130-1-git-send-email-Wentao.Lou@amd.com>
- <37b395b0-8503-238f-8775-66eb8795d23f@gmail.com>
- <CY4PR1201MB0245AB79C8C8319D8DFB3A3884810@CY4PR1201MB0245.namprd12.prod.outlook.com>
- <7f3f7b71-7acc-689a-e1d8-6fb184771f7b@amd.com>
- <BYAPR12MB2742181357E4D7DF7C171EE983820@BYAPR12MB2742.namprd12.prod.outlook.com>
- <574d6ca8-f1c8-8ac0-3dbe-23aed7c0125d@amd.com>
- <BYAPR12MB27427158A5684A31BF96AB4783830@BYAPR12MB2742.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH v5 1/2] drm/sched: Refactor ring mirror list handling.
+Date: Thu, 17 Jan 2019 08:45:50 +0100
+Message-ID: <99f813cf-ae28-58c7-8b98-1ff69cecbed6@gmail.com>
+References: <1545333815-29870-1-git-send-email-andrey.grodzovsky@amd.com>
+ <c62cf367-1485-b1f4-04c2-a11dd8f35416@gmail.com>
+ <fc3e12f7-55e1-bf04-b190-7393e84d22a8@amd.com>
+ <109f33b9-0a24-08e3-053d-57923b4d7e7f@amd.com>
+ <642bdffd-afe9-1a58-4f32-9ef7a4cb22b7@amd.com>
+ <c087d565-05d6-aa24-f3ac-9a6378d9ca1b@amd.com>
+ <5e256bb1-d4aa-f965-2799-d68c9f925b66@gmail.com>
+ <d5a3470a-21a1-adf7-6f85-4d22fae7bb81@amd.com>
+ <6a2b45d7-0fa3-38fe-98b2-a538b663c6cc@gmail.com>
+ <ea37c55f-ee56-cce7-a4e1-1a599642c54c@amd.com>
+ <cbd07551-4f5e-fb80-a4ef-376b19bb3655@amd.com>
+ <37ad8228-355e-1d53-593f-b0cb736eadff@amd.com>
+ <5434e38b-c5c6-26e8-d632-bd1b1b52a44a@amd.com>
+ <8a615696-a9ff-7670-5d25-6120282e818b@amd.com>
+ <468f5a41-aa07-2cc2-d7dc-2f6e1d9af7e9@amd.com>
+ <de7d180d-f959-d8a6-0f99-99906f07e76c@amd.com>
+ <cbacbef0-d82b-1f44-2fd4-87d81d7ce00b@gmail.com>
+ <0622c5b7-b54a-c414-c8db-26e1ec3c5ab8@amd.com>
+ <4c43b728-628d-6880-edad-0e5fdb084f06@amd.com>
+ <6d8adac2-b5ab-991f-571d-771b973362a3@amd.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0444293678=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BYAPR12MB27427158A5684A31BF96AB4783830-ZGDeBxoHBPmbrehcvEBedAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0972608185=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <6d8adac2-b5ab-991f-571d-771b973362a3@amd.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Lou, Wentao" <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhu, Rex" <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "eric@anholt.net" <eric@anholt.net>, "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>
+Cc: "Liu, Monk" <Monk.Liu@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============0444293678==
-Content-Language: en-US
+This is a multi-part message in MIME format.
+--===============0972608185==
 Content-Type: multipart/alternative;
-	boundary="_000_361544e2dd333b8912114566b060b785amdcom_"
+ boundary="------------D1C811DEE6BD2CF613269AA2"
+Content-Language: en-US
 
---_000_361544e2dd333b8912114566b060b785amdcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+This is a multi-part message in MIME format.
+--------------D1C811DEE6BD2CF613269AA2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-QW0gMTcuMDEuMTkgdW0gMDQ6MTcgc2NocmllYiBMb3UsIFdlbnRhbzoNCkhpIENocmlzdGlhbiwN
-Cg0KWW91ciBzb2x1dGlvbiBhczoNCmFkZHIgPSAobWF4X3BmbiAtIChBTURHUFVfVkFfUkVTRVJW
-RURfU0laRSA+PiBBTURHUFVfUEFHRV9TSElGVCkpIDw8IEFNREdQVV9QQUdFX1NISUZUOw0Kbm93
-IG1heF9wZm4gPSAweDEwIDAwMDAgMDAwMCwgQU1ER1BVX1ZBX1JFU0VSVkVEX1NJWkUgPSAweDEw
-IDAwMDAsIEFNREdQVV9QQUdFX1NISUZUID0gMTINClN0aWxsIGdvdCBhZGRyID0gMHhGRkZGIEZG
-RjAgMDAwMCwgd2hpY2ggd291bGQgY2F1c2UgcmluZyBnZnggdGltZW91dC4NCg0KQnV0IDB4RkZG
-RiBGRkYwIDAwMDAgaXMgdGhlIGNvcnJlY3QgYWRkcmVzcywgaWYgdGhhdCBpcyBjYXVzaW5nIGEg
-cHJvYmxlbSB0aGVuIHRoZXJlIGlzIGEgYnVnIHNvbWV3aGVyZSBlbHNlLg0KDQpQbGVhc2UgdHJ5
-IHRvIHVzZSBBTURHUFVfR01DX0hPTEVfU1RBUlQtQU1ER1BVX1ZBX1JFU0VSVkVEX1NJWkUgYXMg
-d2VsbC4gRG9lcyB0aGF0IHdvcms/DQoNCg0KQmVmb3JlIGNvbW1pdCAxYmY2MjFjNDIxMzc5MjZh
-YzI0OWFmNzYxYzAxOTBhOTI1OGFhMGRiLCB2bV9zaXplIHdhcyAzMkdCLCBhbmQgY3NhX2FkZHIg
-d2FzIHVuZGVyIEFNREdQVV9HTUNfSE9MRV9TVEFSVC4NCg0KV2FpdCBhIHNlY29uZCB3aHkgd2Fz
-IHRoZSB2bV9zaXplIDMyR0I/IFRoaXMgaXMgb24gYSBWZWdhMTAgaXNuJ3QgaXQ/DQoNCkkgZGlk
-buKAmXQgdW5kZXJzdGFuZCB3aHkgY3NhX2FkZHIgbmVlZCB0byBiZSBhYm92ZSBBTURHUFVfR01D
-X0hPTEVfU1RBUlQgbm93Lg0KDQpPbiBWZWdhMTAgdGhlIGxvd2VyIHJhbmdlLCBlLmcuIGV2ZXJ5
-dGhpbmcgYmVsb3cgQU1ER1BVX0dNQ19IT0xFX1NUQVJUIGlzIHJlc2VydmVkIGZvciBTVkEuDQoN
-ClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNClRoYW5rcy4NCg0KQlIsDQpXZW50YW8NCg0KDQoNCkZy
-b206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+PG1haWx0bzpD
-aHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpTZW50OiBXZWRuZXNkYXksIEphbnVhcnkgMTYsIDIw
-MTkgNTo0OCBQTQ0KVG86IExvdSwgV2VudGFvIDxXZW50YW8uTG91QGFtZC5jb20+PG1haWx0bzpX
-ZW50YW8uTG91QGFtZC5jb20+OyBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+PG1haWx0bzpN
-b25rLkxpdUBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsgWmh1LCBSZXggPFJleC5aaHVAYW1kLmNvbT48
-bWFpbHRvOlJleC5aaHVAYW1kLmNvbT4NCkNjOiBEZW5nLCBFbWlseSA8RW1pbHkuRGVuZ0BhbWQu
-Y29tPjxtYWlsdG86RW1pbHkuRGVuZ0BhbWQuY29tPg0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJt
-L2FtZGdwdTogY3NhX3ZhZGRyIHNob3VsZCBub3QgbGFyZ2VyIHRoYW4gQU1ER1BVX0dNQ19IT0xF
-X1NUQVJUDQoNCkhpIFdlbnRhbywNCg0Kd2VsbCB0aGUgcHJvYmxlbSBpcyB5b3UgZG9uJ3Qgc2Vl
-bSB0byB1bmRlcnN0YW5kIGhvdyB0aGUgaGFyZHdhcmUgd29ya3MuDQoNClNlZSB0aGUgZW5naW5l
-cyBzZWUgYW4gTUMgYWRkcmVzcyBzcGFjZSB3aXRoIGEgaG9sZSBpbiB0aGUgbWlkZGxlLCBzaW1p
-bGFyIHRvIHRoZSBob3cgeDg2IDY0Yml0IENQVSBhZGRyZXNzIHNwYWNlIHdvcmtzLiBCdXQgdGhl
-IHBhZ2UgdGFibGVzIGFyZSBwcm9ncmFtbWVkIGxpbmVhcmx5Lg0KDQpTbyB0aGUgY2FsY3VsYXRp
-b24gaW4gYW1kZ3B1X2RyaXZlcl9vcGVuX2ttcygpIGlzIGNvcnJlY3QgYmVjYXVzZSBpdCB0YWtl
-cyB0aGUgTUMgYWRkcmVzcyBhbmQgbWFnZXMgYSBsaW5lYXIgcGFnZSB0YWJsZSBpbmRleCBmcm9t
-IGl0IGFnYWluLg0KDQpUaGUgb25seSB0aGluZyB3ZSBtaWdodCBuZWVkIHRvIGZpeCBoZXJlIGlz
-IHNoaWZ0aW5nIG1heF9wZm4gYmVmb3JlIHRoZSBzdWJ0cmFjdGlvbiBhbmQgSSBkb3VidCB0aGF0
-IGV2ZW4gdGhhdCBpcyBuZWNlc3NhcnkuDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoNCkFtIDE2
-LjAxLjE5IHVtIDEwOjM0IHNjaHJpZWIgTG91LCBXZW50YW86DQoNCkhpIENocmlzdGlhbiwNCg0K
-DQoNCk5vdyB2bV9zaXplIHdhcyBzZXQgdG8gMHg0IDAwMDAgR0IgYnkgYmVsb3cgY29tbWl0Og0K
-DQoxYmY2MjFjNDIxMzc5MjZhYzI0OWFmNzYxYzAxOTBhOTI1OGFhMGRiIGRybS9hbWRncHU6IFJl
-bW92ZSB1bm5lY2Vzc2FyeSBWTSBzaXplIGNhbGN1bGF0aW9ucw0KDQoNCg0KU28gdGhhdCBtYXhf
-cGZuIHdvdWxkIGJlIDB4MTAgMDAwMCAwMDAwLg0KDQphbWRncHVfY3NhX3ZhZGRyIHdvdWxkIG1h
-a2UgbWF4X3BmbiA8PCAxMiB0byBnZXQgMHgxIDAwMDAgMDAwMCAwMDAwLCBhbmQgdGhlbiBtaW51
-cyBBTURHUFVfVkFfUkVTRVJWRURfU0laRSwgdG8gZ2V0IDB4RkZGRiBGRkYwIDAwMDANCg0KdW5m
-b3J0dW5hdGVseSB0aGlzIG51bWJlciB3YXMgYmV0d2VlbiBBTURHUFVfR01DX0hPTEVfU1RBUlQg
-YW5kIEFNREdQVV9HTUNfSE9MRV9FTkQsIHNvIHRoYXQgYW1kZ3B1X2dtY19zaWduX2V4dGVuZCB3
-YXMgY2FsbGVkIHRvIG1ha2UgaXQgMHhGRkZGIEZGRkYgRkZGMCAwMDAwDQoNCg0KDQppbiBhbWRn
-cHVfZHJpdmVyX29wZW5fa21zLCBleHRlbmRlZCBjc2FfYWRkciBjYW5ub3QgYmUgcGFzc2VkIGlu
-dG8gYW1kZ3B1X21hcF9zdGF0aWNfY3NhIGRpcmVjdGx5LCBpdCB3b3VsZCBiZSBhYm92ZSB0aGUg
-bGltaXQgb2YgbWF4X3Bmbi4NCg0KU28gdGhhdCBjc2FfYWRkciB3YXMgcmVzdHJpY3RlZCBieSBB
-TURHUFVfR01DX0hPTEVfTUFTSyB0byBtYWtlIGl0IHBvc3NpYmxlIGZvciBhbWRncHVfdm1fYWxs
-b2NfcHRzLg0KDQpCdXQgdGhpcyByZXN0cmljdGlvbiBieSBBTURHUFVfR01DX0hPTEVfTUFTSyB3
-b3VsZCBtYWtlIHRoZSBhZGRyZXNzIGZhbGwgYmFjayBpbnRvIEFNREdQVV9HTUNfSE9MRSBhZ2Fp
-biwgIHdoaWNoIGNhdXNpbmcgR1BVIHJlc2V0Lg0KDQpXZSBqdXN0IHB1dCBhbWRncHVfY3NhX3Zh
-ZGRyIGJhY2sgdG8gQU1ER1BVX0dNQ19IT0xFX1NUQVJULCB0byBhdm9pZCB0aGUgYWRkcmVzcyB0
-b3VjaGluZyBBTURHUFVfR01DX0hPTEUuDQoNCkJ5IHRoZSB3YXksIGlmIG1heF9wZm4gd2FzIHNo
-aWZ0IG11Y2ggdG8gdGhlIGxlZnQsIGl0IHdvdWxkIGFsd2F5cyBnZXQgemVybywgd2l0aCBvciB3
-aXRob3V0IG1pbigqLCopLg0KDQoNCg0KDQoNCkJSLA0KDQpXZW50YW8NCg0KDQoNCg0KDQoNCg0K
-LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJp
-c3RpYW4uS29lbmlnQGFtZC5jb20+PG1haWx0bzpDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpT
-ZW50OiBUdWVzZGF5LCBKYW51YXJ5IDE1LCAyMDE5IDQ6MDIgUE0NClRvOiBMaXUsIE1vbmsgPE1v
-bmsuTGl1QGFtZC5jb20+PG1haWx0bzpNb25rLkxpdUBhbWQuY29tPjsgTG91LCBXZW50YW8gPFdl
-bnRhby5Mb3VAYW1kLmNvbT48bWFpbHRvOldlbnRhby5Mb3VAYW1kLmNvbT47IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47
-IFpodSwgUmV4IDxSZXguWmh1QGFtZC5jb20+PG1haWx0bzpSZXguWmh1QGFtZC5jb20+DQpTdWJq
-ZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBjc2FfdmFkZHIgc2hvdWxkIG5vdCBsYXJnZXIg
-dGhhbiBBTURHUFVfR01DX0hPTEVfU1RBUlQNCg0KDQoNCkFtIDE1LjAxLjE5IHVtIDA3OjE5IHNj
-aHJpZWIgTGl1LCBNb25rOg0KDQo+IFRoZSBtYXhfcGZuIGlzIG5vdyAxJzAwMDAnMDAwMCcwMDAw
-JzAwMDAgKGJ5dGVzKSB3aGljaCBpcyBhYm92ZSA0OCBiaXQgbm93LCBhbmQgaXQgd2l0aCBBTURH
-UFVfR01DX0hPTEVfTUFTSyBtYWtlIGl0IHRvIHplcm8gLi4uLg0KDQo+DQoNCj4gQW5kIGluIGNv
-ZGUgImFtZGdwdV9kcml2ZXJfb3Blbl9rbXMoKSIgSSBzYXcgQFpodSwgUmV4IHdyaXRlIHRoZSBj
-b2RlIGFzIDoNCg0KPg0KDQo+ICJjc2FfYWRkciA9IGFtZGdwdV9jc2FfdmFkcihhZGV2KSAmIEFN
-REdQVV9HTUNfSE9MRV9NQVNLIiwgSSB0aGluayB0aGlzIGlzIHdyb25nIHNpbmNlIHlvdSBpbnRl
-bnRpb25hbGx5IHBsYWNlIHRoZSBjc2EgYWJvdmUgR01DIGhvbGUsIHJpZ2h0ID8NCg0KDQoNClRo
-ZSBmaXggaXMganVzdCBjb21wbGV0ZWx5IGluY29ycmVjdCBzaW5jZSBtaW4oYWRldi0+dm1fbWFu
-YWdlci5tYXhfcGZuIDw8IEFNREdQVV9HUFVfUEFHRV9TSElGVCwgQU1ER1BVX0dNQ19IT0xFX1NU
-QVJUKSBzdGlsbCBnaXZlcyB5b3UgMCB3aGVuIHdlIHNoaWZ0IG1heF9wZm4gdG8gbXVjaCB0byB0
-aGUgbGVmdC4NCg0KDQoNClRoZSBjb3JyZWN0IHNvbHV0aW9uIGlzIHRvIHN1YnN0cmFjdCB0aGUg
-cmVzZXJ2ZWQgc2l6ZSBmaXJzdCBhbmQgdGhlbiBzaGlmdC4gRS5nLjoNCg0KDQoNCmFkZHIgPSAo
-bWF4X3BmbiAtIChBTURHUFVfVkFfUkVTRVJWRURfU0laRSA+PiBBTURHUFVfUEFHRV9TSElGVCkp
-IDw8IEFNREdQVV9QQUdFX1NISUZUOw0KDQoNCg0KUmVnYXJkcywNCg0KQ2hyaXN0aWFuLg0KDQoN
-Cg0KPg0KDQo+IExvb2tzIGxpa2UgIHdlIHNob3VsZCBtb2RpZnkgdGhpcyBwbGFjZQ0KDQo+DQoN
-Cj4gL01vbmsNCg0KPg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQoNCj4gRnJvbTog
-YW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4+IE9uIEJlaGFsZiBPZg0KDQo+IENo
-cmlzdGlhbiBLP25pZw0KDQo+IFNlbnQ6IE1vbmRheSwgSmFudWFyeSAxNCwgMjAxOSA5OjA1IFBN
-DQoNCj4gVG86IExvdSwgV2VudGFvIDxXZW50YW8uTG91QGFtZC5jb208bWFpbHRvOldlbnRhby5M
-b3VAYW1kLmNvbT4+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQoNCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2Ft
-ZGdwdTogY3NhX3ZhZGRyIHNob3VsZCBub3QgbGFyZ2VyIHRoYW4NCg0KPiBBTURHUFVfR01DX0hP
-TEVfU1RBUlQNCg0KPg0KDQo+IEFtIDE0LjAxLjE5IHVtIDA5OjQwIHNjaHJpZWIgd2VudGFsb3U6
-DQoNCj4+IEFmdGVyIHJlbW92aW5nIHVubmVjZXNzYXJ5IFZNIHNpemUgY2FsY3VsYXRpb25zLCB2
-bV9tYW5hZ2VyLm1heF9wZm4NCg0KPj4gd291bGQgcmVhY2ggMHgxMCwwMDAwLDAwMDAgbWF4X3Bm
-biA8PCBBTURHUFVfR1BVX1BBR0VfU0hJRlQgZXhjZWVkaW5nDQoNCj4+IEFNREdQVV9HTUNfSE9M
-RV9TVEFSVCB3b3VsZCBjYXVzZWQgR1BVIHJlc2V0Lg0KDQo+Pg0KDQo+PiBDaGFuZ2UtSWQ6IEk0
-N2FkMGJlMmIwYmQ5ZmI3NDkwYzRlMWQ3YmI3YmRhY2Y3MTEzMmNiDQoNCj4+IFNpZ25lZC1vZmYt
-Ynk6IHdlbnRhbG91IDxXZW50YW8uTG91QGFtZC5jb208bWFpbHRvOldlbnRhby5Mb3VAYW1kLmNv
-bT4+DQoNCj4gTkFLLCB0aGF0IGlzIGluY29ycmVjdC4gV2UgaW50ZW50aW9uYWxseSBwbGFjZSB0
-aGUgY3NhIGFib3ZlIHRoZSBHTUMgaG9sZS4NCg0KPg0KDQo+IFJlZ2FyZHMsDQoNCj4gQ2hyaXN0
-aWFuLg0KDQo+DQoNCj4+IC0tLQ0KDQo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3NhLmMgfCAzICsrLQ0KDQo+PiAgICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
-KCspLCAxIGRlbGV0aW9uKC0pDQoNCj4+DQoNCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMNCg0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfY3NhLmMNCg0KPj4gaW5kZXggN2UyMmJlNy4uZGQzYmQwMSAxMDA2NDQNCg0K
-Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5jDQoNCj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jc2EuYw0KDQo+PiBAQCAtMjYs
-NyArMjYsOCBAQA0KDQo+Pg0KDQo+PiAgICB1aW50NjRfdCBhbWRncHVfY3NhX3ZhZGRyKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQ0KDQo+PiAgICB7DQoNCj4+IC0gICAgICAgIHVpbnQ2NF90
-IGFkZHIgPSBhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4gPDwgQU1ER1BVX0dQVV9QQUdFX1NISUZU
-Ow0KDQo+PiArICAgICAgIHVpbnQ2NF90IGFkZHIgPSBtaW4oYWRldi0+dm1fbWFuYWdlci5tYXhf
-cGZuIDw8IEFNREdQVV9HUFVfUEFHRV9TSElGVCwNCg0KPj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBTURHUFVfR01DX0hPTEVfU1RBUlQpOw0K
-DQo+Pg0KDQo+PiAgICAgICAgICBhZGRyIC09IEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFOw0KDQo+
-PiAgICAgICAgICBhZGRyID0gYW1kZ3B1X2dtY19zaWduX2V4dGVuZChhZGRyKTsNCg0KPiBfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KDQo+IGFtZC1nZngg
-bWFpbGluZyBsaXN0DQoNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KDQoNCg0KDQo=
+Am 16.01.19 um 18:17 schrieb Grodzovsky, Andrey:
+>
+>
+>
+> On 01/16/2019 11:02 AM, Koenig, Christian wrote:
+>> Am 16.01.19 um 16:45 schrieb Grodzovsky, Andrey:
+>>>
+>>>
+>>>
+>>> On 01/16/2019 02:46 AM, Christian König wrote:
+>>>> Am 15.01.19 um 23:01 schrieb Grodzovsky, Andrey:
+>>>>> On 01/11/2019 05:03 PM, Andrey Grodzovsky wrote:
+>>>>>> On 01/11/2019 02:11 PM, Koenig, Christian wrote:
+>>>>>>> Am 11.01.19 um 16:37 schrieb Grodzovsky, Andrey:
+>>>>>>>> On 01/11/2019 04:42 AM, Koenig, Christian wrote:
+>>>>>>>>> Am 10.01.19 um 16:56 schrieb Grodzovsky, Andrey:
+>>>>>>>>>> [SNIP]
+>>>>>>>>>>>>> But we will not be adding the cb back in drm_sched_stop
+>>>>>>>>>>>>> anymore, now we
+>>>>>>>>>>>>> are only going to add back the cb in drm_sched_startr after
+>>>>>>>>>>>>> rerunning
+>>>>>>>>>>>>> those jobs in drm_sched_resubmit_jobs and assign them a new parent
+>>>>>>>>>>>>> there
+>>>>>>>>>>>>> anyway.
+>>>>>>>>>>>> Yeah, but when we find that we don't need to reset anything anymore
+>>>>>>>>>>>> then adding the callbacks again won't be possible any more.
+>>>>>>>>>>>>
+>>>>>>>>>>>> Christian.
+>>>>>>>>>>> I am not sure I understand it, can u point me to example of how this
+>>>>>>>>>>> will happen ? I am attaching my latest patches with waiting only for
+>>>>>>>>>>> the last job's fence here just so we are on same page regarding
+>>>>>>>>>>> the code.
+>>>>>>>>> Well the whole idea is to prepare all schedulers, then check once more
+>>>>>>>>> if the offending job hasn't completed in the meantime.
+>>>>>>>>>
+>>>>>>>>> If the job completed we need to be able to rollback everything and
+>>>>>>>>> continue as if nothing had happened.
+>>>>>>>>>
+>>>>>>>>> Christian.
+>>>>>>>> Oh, but this piece of functionality - skipping HW ASIC reset in case
+>>>>>>>> the
+>>>>>>>> guilty job done is totally missing form this patch series and so needs
+>>>>>>>> to be added. So what you say actually is that for the case were we skip
+>>>>>>>> HW asic reset because the guilty job did complete we also need to skip
+>>>>>>>> resubmitting the jobs in drm_sched_resubmit_jobs and hence preserve the
+>>>>>>>> old parent fence pointer for reuse ? If so I would like to add all this
+>>>>>>>> functionality as a third patch since the first 2 patches are more about
+>>>>>>>> resolving race condition with jobs in flight while doing reset -
+>>>>>>>> what do
+>>>>>>>> you think ?
+>>>>>>> Yeah, sounds perfectly fine to me.
+>>>>>>>
+>>>>>>> Christian.
+>>>>>> I realized there is another complication now for XGMI hive use case,
+>>>>>> we currently skip gpu recover for adev in case another gpu recover for
+>>>>>> different adev in same hive is running, under the assumption that we
+>>>>>> are going to reset all devices in hive anyway because that should
+>>>>>> cover our own dev too. But if we chose to skip now HW asic reset if
+>>>>>> our guilty job did finish we will aslo not HW reset any other devices
+>>>>>> in the hive even if one of them might actually had a bad job, wanted
+>>>>>> to do gpu recover but skipped it because our recover was in progress
+>>>>>> in that time.
+>>>>>> My general idea on that is to keep a list of guilty jobs per hive,
+>>>>>> when you start gpu recover you first add you guilty job to the hive
+>>>>>> and trylock hive->reset_lock. Any owner of hive->reset_lock (gpu
+>>>>>> recovery in progress) once he finished his recovery and released
+>>>>>> hive->reset_lock should go over hive->bad_jobs_list and if at least
+>>>>>> one of them is still not signaled (not done) trigger another gpu
+>>>>>> recovery and so on. If you do manage to trylock you also go over the
+>>>>>> list, clean it and perform recovery. This list probably needs to be
+>>>>>> protected with per hive lock.
+>>>>>> I also think we can for now at least finish reviewing the first 2
+>>>>>> patches and submit them since as I said before they are not dealing
+>>>>>> with this topic and fixing existing race conditions. If you are OK
+>>>>>> with that I can send for review the last iteration of the first 2
+>>>>>> patches where I wait for the last fence in ring mirror list.
+>>>>>>
+>>>>>> Andrey
+>>>>> I implemented HW reset avoidance including XGMI use case according to
+>>>>> the plan i specified. Patch is attached but I can't test it yet due to
+>>>>> XGMI regression in PSP which is supposed to be fixed soon. Please take a
+>>>>> look.
+>>>>
+>>>> Looks a bit too complicated on first glance. In general we should 
+>>>> probably get away from handling a hive in any special way.
+>>>
+>>> Yes, I guess i can do it the same way as the generic handling in 
+>>> amdgpu_device_gpu_recover - there is a list of devices to process 
+>>> which is of size 1 for non xgmi use case or more then 1 for XGMI.
+>>>
+>>>>
+>>>> Multiple timeout jobs in a hive are identical to multiple timeout 
+>>>> jobs on different engines on a single device.
+>>>>
+>>>> How about the following handling:
+>>>> 1. Add the timeout job to a list.
+>>>> 2. Try to grab a lock to handle the reset, if that doesn't work 
+>>>> because there is already a reset underway return immediately.
+>>>> 3. Stop all schedulers on all affected devices including stopping 
+>>>> the timeouts and detaching all callbacks.
+>>>> 4. Double check the list of timed out jobs, if all hw fences of all 
+>>>> jobs are completed now we actually don't need to do anything.
+>>>
+>>> What if all the jobs on the timed out list did complete but other 
+>>> job (or jobs) for which we removed the time out timer became hanged 
+>>> ? Wouldn't we  miss a required reset in this case and wouldn't even 
+>>> have any indication of their hang ?
+>>
+>> If the timeout triggers before we disable it we will have the job on 
+>> the list of jobs which are hanging.
+>>
+>> If we found that we don't reset and re-enable the timeout it will 
+>> trigger a bit later and we can do the check again.
+>>
+>> Thinking about this a bit more we actually don't need to change the 
+>> handling in any way. The idea with the list is just overkill.
+>>
+>> See when the we re-start the scheduler we will also re-arm the 
+>> timeout, so it will trigger again. It is just a matter of clever 
+>> timeout re-arming.
+>>
+>> Christian.
+>
+> This implies that hanged job might take in worst case twice (or more 
+> if there are recurrent resets) then the TO parameter value to trigger 
+> - is this OK ?
 
---_000_361544e2dd333b8912114566b060b785amdcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <CB1B5C062EBE3948A56A1C850B6D6B49-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: base64
+Re-arming the timeout should probably have a much reduced value when the 
+job hasn't changed. E.g. something like a few ms.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
-IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5BbSAxNy4w
-MS4xOSB1bSAwNDoxNyBzY2hyaWViIExvdSwgV2VudGFvOjxicj4NCjwvZGl2Pg0KPGJsb2NrcXVv
-dGUgdHlwZT0iY2l0ZSIgY2l0ZT0ibWlkOkJZQVBSMTJNQjI3NDI3MTU4QTU2ODRBMzFCRjk2QUI0
-NzgzODMwQEJZQVBSMTJNQjI3NDIubmFtcHJkMTIucHJvZC5vdXRsb29rLmNvbSI+DQo8bWV0YSBu
-YW1lPSJHZW5lcmF0b3IiIGNvbnRlbnQ9Ik1pY3Jvc29mdCBXb3JkIDE1IChmaWx0ZXJlZA0KICAg
-ICAgICBtZWRpdW0pIj4NCjxzdHlsZT48IS0tDQovKiBGb250IERlZmluaXRpb25zICovDQpAZm9u
-dC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJDYW1icmlhIE1hdGgiOw0KCXBhbm9zZS0xOjIgNCA1IDMg
-NSA0IDYgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpEZW5nWGlhbjsNCglwYW5v
-c2UtMToyIDEgNiAwIDMgMSAxIDEgMSAxO30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2Fs
-aWJyaTsNCglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2Zv
-bnQtZmFtaWx5OiJcQERlbmdYaWFuIjsNCglwYW5vc2UtMToyIDEgNiAwIDMgMSAxIDEgMSAxO30N
-Ci8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1zb05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYu
-TXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQt
-c2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6
-YmxhY2s7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3JpdHk6
-OTk7DQoJY29sb3I6IzA1NjNDMTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6dmlz
-aXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7
-DQoJY29sb3I6Izk1NEY3MjsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnAuTXNvUGxh
-aW5UZXh0LCBsaS5Nc29QbGFpblRleHQsIGRpdi5Nc29QbGFpblRleHQNCgl7bXNvLXN0eWxlLXBy
-aW9yaXR5Ojk5Ow0KCW1zby1zdHlsZS1saW5rOiJQbGFpbiBUZXh0IENoYXIiOw0KCW1hcmdpbjow
-aW47DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9udC1m
-YW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6YmxhY2s7fQ0KcC5tc29ub3JtYWww
-LCBsaS5tc29ub3JtYWwwLCBkaXYubXNvbm9ybWFsMA0KCXttc28tc3R5bGUtbmFtZTptc29ub3Jt
-YWw7DQoJbXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFyZ2luLXJpZ2h0OjBpbjsNCgltc28t
-bWFyZ2luLWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVmdDowaW47DQoJZm9udC1zaXplOjEx
-LjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjpibGFjazt9
-DQpzcGFuLlBsYWluVGV4dENoYXINCgl7bXNvLXN0eWxlLW5hbWU6IlBsYWluIFRleHQgQ2hhciI7
-DQoJbXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCW1zby1zdHlsZS1saW5rOiJQbGFpbiBUZXh0IjsN
-Cglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpzcGFuLkVtYWlsU3R5bGUyMA0K
-CXttc28tc3R5bGUtdHlwZTpwZXJzb25hbDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1z
-ZXJpZjt9DQpzcGFuLkVtYWlsU3R5bGUyMQ0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21w
-b3NlOw0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCi5Nc29DaHBEZWZhdWx0
-DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7fQ0KQHBh
-Z2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBp
-biAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30N
-Ci0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6
-ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBn
-dGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2
-OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0t
-LT4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5IaSBD
-aHJpc3RpYW4sPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNw
-OzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPllvdXIgc29sdXRpb24gYXM6PG86cD48
-L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5hZGRyID0gKG1heF9wZm4gLSAoQU1ER1BV
-X1ZBX1JFU0VSVkVEX1NJWkUgJmd0OyZndDsgQU1ER1BVX1BBR0VfU0hJRlQpKSAmbHQ7Jmx0OyBB
-TURHUFVfUEFHRV9TSElGVDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPm5v
-dyBtYXhfcGZuID0gMHgxMCAwMDAwIDAwMDAsIEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFID0gMHgx
-MCAwMDAwLCBBTURHUFVfUEFHRV9TSElGVCA9IDEyPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj5TdGlsbCBnb3QgYWRkciA9IDB4RkZGRiBGRkYwIDAwMDAsIHdoaWNoIHdvdWxk
-IGNhdXNlIHJpbmcgZ2Z4IHRpbWVvdXQuPC9wPg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8YnI+
-DQpCdXQgMHhGRkZGIEZGRjAgMDAwMCBpcyB0aGUgY29ycmVjdCBhZGRyZXNzLCBpZiB0aGF0IGlz
-IGNhdXNpbmcgYSBwcm9ibGVtIHRoZW4gdGhlcmUgaXMgYSBidWcgc29tZXdoZXJlIGVsc2UuPGJy
-Pg0KPGJyPg0KUGxlYXNlIHRyeSB0byB1c2UgQU1ER1BVX0dNQ19IT0xFX1NUQVJULUFNREdQVV9W
-QV9SRVNFUlZFRF9TSVpFIGFzIHdlbGwuIERvZXMgdGhhdCB3b3JrPzxicj4NCjxicj4NCjxibG9j
-a3F1b3RlIHR5cGU9ImNpdGUiIGNpdGU9Im1pZDpCWUFQUjEyTUIyNzQyNzE1OEE1Njg0QTMxQkY5
-NkFCNDc4MzgzMEBCWUFQUjEyTUIyNzQyLm5hbXByZDEyLnByb2Qub3V0bG9vay5jb20iPg0KPGRp
-diBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj5CZWZvcmUgY29tbWl0IDFiZjYyMWM0MjEzNzkyNmFjMjQ5YWY3NjFjMDE5
-MGE5MjU4YWEwZGIsIHZtX3NpemUgd2FzIDMyR0IsIGFuZCBjc2FfYWRkciB3YXMgdW5kZXIgQU1E
-R1BVX0dNQ19IT0xFX1NUQVJULjwvcD4NCjwvZGl2Pg0KPC9ibG9ja3F1b3RlPg0KPGJyPg0KV2Fp
-dCBhIHNlY29uZCB3aHkgd2FzIHRoZSB2bV9zaXplIDMyR0I/IFRoaXMgaXMgb24gYSBWZWdhMTAg
-aXNuJ3QgaXQ/PGJyPg0KPGJyPg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0ibWlkOkJZ
-QVBSMTJNQjI3NDI3MTU4QTU2ODRBMzFCRjk2QUI0NzgzODMwQEJZQVBSMTJNQjI3NDIubmFtcHJk
-MTIucHJvZC5vdXRsb29rLmNvbSI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5JIGRp
-ZG7igJl0IHVuZGVyc3RhbmQgd2h5IGNzYV9hZGRyIG5lZWQgdG8gYmUgYWJvdmUgQU1ER1BVX0dN
-Q19IT0xFX1NUQVJUIG5vdy48L3A+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjxicj4NCk9uIFZl
-Z2ExMCB0aGUgbG93ZXIgcmFuZ2UsIGUuZy4gZXZlcnl0aGluZyBiZWxvdyBBTURHUFVfR01DX0hP
-TEVfU1RBUlQgaXMgcmVzZXJ2ZWQgZm9yIFNWQS48YnI+DQo8YnI+DQpSZWdhcmRzLDxicj4NCkNo
-cmlzdGlhbi48YnI+DQo8YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6QllB
-UFIxMk1CMjc0MjcxNThBNTY4NEEzMUJGOTZBQjQ3ODM4MzBAQllBUFIxMk1CMjc0Mi5uYW1wcmQx
-Mi5wcm9kLm91dGxvb2suY29tIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRoYW5r
-cy48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+QlIsPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj5XZW50YW88bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxv
-OnA+Jm5ic3A7PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286
-cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+
-DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNFMUUxRTENCiAgICAg
-ICAgICAgIDEuMHB0O3BhZGRpbmc6My4wcHQgMGluIDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05v
-cm1hbCI+PGI+RnJvbTo8L2I+IEtvZW5pZywgQ2hyaXN0aWFuIDxhIGNsYXNzPSJtb3otdHh0LWxp
-bmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20iPg0KJmx0
-O0NocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbSZndDs8L2E+IDxicj4NCjxiPlNlbnQ6PC9iPiBXZWRu
-ZXNkYXksIEphbnVhcnkgMTYsIDIwMTkgNTo0OCBQTTxicj4NCjxiPlRvOjwvYj4gTG91LCBXZW50
-YW8gPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOldlbnRhby5M
-b3VAYW1kLmNvbSI+DQombHQ7V2VudGFvLkxvdUBhbWQuY29tJmd0OzwvYT47IExpdSwgTW9uayA8
-YSBjbGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86TW9uay5MaXVAYW1k
-LmNvbSI+DQombHQ7TW9uay5MaXVAYW1kLmNvbSZndDs8L2E+OyA8YSBjbGFzcz0ibW96LXR4dC1s
-aW5rLWFiYnJldmlhdGVkIiBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmciPg0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8L2E+OyBaaHUsIFJleCA8YSBjbGFz
-cz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86UmV4LlpodUBhbWQuY29tIj4N
-CiZsdDtSZXguWmh1QGFtZC5jb20mZ3Q7PC9hPjxicj4NCjxiPkNjOjwvYj4gRGVuZywgRW1pbHkg
-PGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOkVtaWx5LkRlbmdA
-YW1kLmNvbSI+DQombHQ7RW1pbHkuRGVuZ0BhbWQuY29tJmd0OzwvYT48YnI+DQo8Yj5TdWJqZWN0
-OjwvYj4gUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogY3NhX3ZhZGRyIHNob3VsZCBub3QgbGFyZ2Vy
-IHRoYW4gQU1ER1BVX0dNQ19IT0xFX1NUQVJUPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+SGkgV2VudGFvLDxicj4NCjxicj4NCndlbGwgdGhlIHByb2JsZW0g
-aXMgeW91IGRvbid0IHNlZW0gdG8gdW5kZXJzdGFuZCBob3cgdGhlIGhhcmR3YXJlIHdvcmtzLjxi
-cj4NCjxicj4NClNlZSB0aGUgZW5naW5lcyBzZWUgYW4gTUMgYWRkcmVzcyBzcGFjZSB3aXRoIGEg
-aG9sZSBpbiB0aGUgbWlkZGxlLCBzaW1pbGFyIHRvIHRoZSBob3cgeDg2IDY0Yml0IENQVSBhZGRy
-ZXNzIHNwYWNlIHdvcmtzLiBCdXQgdGhlIHBhZ2UgdGFibGVzIGFyZSBwcm9ncmFtbWVkIGxpbmVh
-cmx5Ljxicj4NCjxicj4NClNvIHRoZSBjYWxjdWxhdGlvbiBpbiBhbWRncHVfZHJpdmVyX29wZW5f
-a21zKCkgaXMgY29ycmVjdCBiZWNhdXNlIGl0IHRha2VzIHRoZSBNQyBhZGRyZXNzIGFuZCBtYWdl
-cyBhIGxpbmVhciBwYWdlIHRhYmxlIGluZGV4IGZyb20gaXQgYWdhaW4uPGJyPg0KPGJyPg0KVGhl
-IG9ubHkgdGhpbmcgd2UgbWlnaHQgbmVlZCB0byBmaXggaGVyZSBpcyBzaGlmdGluZyBtYXhfcGZu
-IGJlZm9yZSB0aGUgc3VidHJhY3Rpb24gYW5kIEkgZG91YnQgdGhhdCBldmVuIHRoYXQgaXMgbmVj
-ZXNzYXJ5Ljxicj4NCjxicj4NClJlZ2FyZHMsPGJyPg0KQ2hyaXN0aWFuLjxicj4NCjxicj4NCkFt
-IDE2LjAxLjE5IHVtIDEwOjM0IHNjaHJpZWIgTG91LCBXZW50YW86PG86cD48L286cD48L3A+DQo8
-L2Rpdj4NCjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206
-NS4wcHQiPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+SGkgQ2hyaXN0aWFuLDxvOnA+PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBj
-bGFzcz0iTXNvUGxhaW5UZXh0Ij5Ob3cgdm1fc2l6ZSB3YXMgc2V0IHRvIDxzcGFuIHN0eWxlPSJi
-YWNrZ3JvdW5kOnllbGxvdzttc28taGlnaGxpZ2h0OnllbGxvdyI+DQoweDQgMDAwMDwvc3Bhbj4g
-R0IgYnkgYmVsb3cgY29tbWl0OjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
-dCI+MWJmNjIxYzQyMTM3OTI2YWMyNDlhZjc2MWMwMTkwYTkyNThhYTBkYiBkcm0vYW1kZ3B1OiBS
-ZW1vdmUgdW5uZWNlc3NhcnkgVk0gc2l6ZSBjYWxjdWxhdGlvbnM8bzpwPjwvbzpwPjwvcD4NCjxw
-IGNsYXNzPSJNc29QbGFpblRleHQiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
-b1BsYWluVGV4dCI+U28gdGhhdCBtYXhfcGZuIHdvdWxkIGJlIDxzcGFuIHN0eWxlPSJiYWNrZ3Jv
-dW5kOnllbGxvdzttc28taGlnaGxpZ2h0OnllbGxvdyI+DQoweDEwIDAwMDAgMDAwMC48L3NwYW4+
-PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5hbWRncHVfY3NhX3ZhZGRy
-IHdvdWxkIG1ha2UgbWF4X3BmbiAmbHQ7Jmx0OyAxMiB0byBnZXQgMHgxIDAwMDAgMDAwMCAwMDAw
-LCBhbmQgdGhlbiBtaW51cyBBTURHUFVfVkFfUkVTRVJWRURfU0laRSwgdG8gZ2V0DQo8c3BhbiBz
-dHlsZT0iYmFja2dyb3VuZDp5ZWxsb3c7bXNvLWhpZ2hsaWdodDp5ZWxsb3ciPjB4RkZGRiBGRkYw
-IDAwMDA8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij51bmZv
-cnR1bmF0ZWx5IHRoaXMgbnVtYmVyIHdhcyBiZXR3ZWVuIEFNREdQVV9HTUNfSE9MRV9TVEFSVCBh
-bmQgQU1ER1BVX0dNQ19IT0xFX0VORCwgc28gdGhhdCBhbWRncHVfZ21jX3NpZ25fZXh0ZW5kIHdh
-cyBjYWxsZWQgdG8gbWFrZSBpdA0KPHNwYW4gc3R5bGU9ImJhY2tncm91bmQ6eWVsbG93O21zby1o
-aWdobGlnaHQ6eWVsbG93Ij4weEZGRkYgRkZGRiBGRkYwIDAwMDA8L3NwYW4+PG86cD48L286cD48
-L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNs
-YXNzPSJNc29QbGFpblRleHQiPmluIGFtZGdwdV9kcml2ZXJfb3Blbl9rbXMsIGV4dGVuZGVkIGNz
-YV9hZGRyIGNhbm5vdCBiZSBwYXNzZWQgaW50byBhbWRncHVfbWFwX3N0YXRpY19jc2EgZGlyZWN0
-bHksIGl0IHdvdWxkIGJlIGFib3ZlIHRoZSBsaW1pdCBvZiBtYXhfcGZuLjxvOnA+PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+U28gdGhhdCBjc2FfYWRkciB3YXMgcmVzdHJpY3Rl
-ZCBieSBBTURHUFVfR01DX0hPTEVfTUFTSyB0byBtYWtlIGl0IHBvc3NpYmxlIGZvciBhbWRncHVf
-dm1fYWxsb2NfcHRzLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+QnV0
-IHRoaXMgcmVzdHJpY3Rpb24gYnkgQU1ER1BVX0dNQ19IT0xFX01BU0sgd291bGQgbWFrZSB0aGUg
-YWRkcmVzcyBmYWxsIGJhY2sgaW50byBBTURHUFVfR01DX0hPTEUgYWdhaW4sICZuYnNwO3doaWNo
-IGNhdXNpbmcgR1BVIHJlc2V0LjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
-dCI+V2UganVzdCBwdXQgYW1kZ3B1X2NzYV92YWRkciBiYWNrIHRvIEFNREdQVV9HTUNfSE9MRV9T
-VEFSVCwgdG8gYXZvaWQgdGhlIGFkZHJlc3MgdG91Y2hpbmcgQU1ER1BVX0dNQ19IT0xFLjxvOnA+
-PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+QnkgdGhlIHdheSwgaWYgbWF4X3Bm
-biB3YXMgc2hpZnQgbXVjaCB0byB0aGUgbGVmdCwgaXQgd291bGQgYWx3YXlzIGdldCB6ZXJvLCB3
-aXRoIG9yIHdpdGhvdXQgbWluKCosKikuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxh
-aW5UZXh0Ij4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZu
-YnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+QlIsPG86cD48L286
-cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5XZW50YW88bzpwPjwvbzpwPjwvcD4NCjxw
-IGNsYXNzPSJNc29QbGFpblRleHQiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
-b1BsYWluVGV4dCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0
-Ij4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPi0tLS0tT3Jp
-Z2luYWwgTWVzc2FnZS0tLS0tPGJyPg0KRnJvbTogS29lbmlnLCBDaHJpc3RpYW4gPGEgaHJlZj0i
-bWFpbHRvOkNocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbSIgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIj4N
-CiZsdDtDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20mZ3Q7PC9hPiA8YnI+DQpTZW50OiBUdWVzZGF5
-LCBKYW51YXJ5IDE1LCAyMDE5IDQ6MDIgUE08YnI+DQpUbzogTGl1LCBNb25rIDxhIGhyZWY9Im1h
-aWx0bzpNb25rLkxpdUBhbWQuY29tIiBtb3otZG8tbm90LXNlbmQ9InRydWUiPiZsdDtNb25rLkxp
-dUBhbWQuY29tJmd0OzwvYT47IExvdSwgV2VudGFvDQo8YSBocmVmPSJtYWlsdG86V2VudGFvLkxv
-dUBhbWQuY29tIiBtb3otZG8tbm90LXNlbmQ9InRydWUiPiZsdDtXZW50YW8uTG91QGFtZC5jb20m
-Z3Q7PC9hPjsNCjxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIg
-bW96LWRvLW5vdC1zZW5kPSJ0cnVlIj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT47
-IFpodSwgUmV4DQo8YSBocmVmPSJtYWlsdG86UmV4LlpodUBhbWQuY29tIiBtb3otZG8tbm90LXNl
-bmQ9InRydWUiPiZsdDtSZXguWmh1QGFtZC5jb20mZ3Q7PC9hPjxicj4NClN1YmplY3Q6IFJlOiBb
-UEFUQ0hdIGRybS9hbWRncHU6IGNzYV92YWRkciBzaG91bGQgbm90IGxhcmdlciB0aGFuIEFNREdQ
-VV9HTUNfSE9MRV9TVEFSVDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+
-Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5BbSAxNS4wMS4x
-OSB1bSAwNzoxOSBzY2hyaWViIExpdSwgTW9uazo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
-c29QbGFpblRleHQiPiZndDsgVGhlIG1heF9wZm4gaXMgbm93IDEnMDAwMCcwMDAwJzAwMDAnMDAw
-MCAoYnl0ZXMpIHdoaWNoIGlzIGFib3ZlIDQ4IGJpdCBub3csIGFuZCBpdCB3aXRoIEFNREdQVV9H
-TUNfSE9MRV9NQVNLIG1ha2UgaXQgdG8gemVybyAuLi4uPG86cD48L286cD48L3A+DQo8cCBjbGFz
-cz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNv
-UGxhaW5UZXh0Ij4mZ3Q7IEFuZCBpbiBjb2RlICZxdW90O2FtZGdwdV9kcml2ZXJfb3Blbl9rbXMo
-KSZxdW90OyBJIHNhdyBAWmh1LCBSZXggd3JpdGUgdGhlIGNvZGUgYXMgOjxvOnA+PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyAmcXVvdDtjc2FfYWRkciA9IGFtZGdwdV9jc2FfdmFk
-cihhZGV2KSAmYW1wOyBBTURHUFVfR01DX0hPTEVfTUFTSyZxdW90OywgSSB0aGluayB0aGlzIGlz
-IHdyb25nIHNpbmNlIHlvdSBpbnRlbnRpb25hbGx5IHBsYWNlIHRoZSBjc2EgYWJvdmUgR01DIGhv
-bGUsIHJpZ2h0ID88bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZuYnNw
-OzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+VGhlIGZpeCBpcyBqdXN0
-IGNvbXBsZXRlbHkgaW5jb3JyZWN0IHNpbmNlIG1pbihhZGV2LSZndDt2bV9tYW5hZ2VyLm1heF9w
-Zm4gJmx0OyZsdDsgQU1ER1BVX0dQVV9QQUdFX1NISUZULCBBTURHUFVfR01DX0hPTEVfU1RBUlQp
-IHN0aWxsIGdpdmVzIHlvdSAwIHdoZW4gd2Ugc2hpZnQgbWF4X3BmbiB0byBtdWNoIHRvIHRoZSBs
-ZWZ0LjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jm5ic3A7PG86cD48
-L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5UaGUgY29ycmVjdCBzb2x1dGlvbiBp
-cyB0byBzdWJzdHJhY3QgdGhlIHJlc2VydmVkIHNpemUgZmlyc3QgYW5kIHRoZW4gc2hpZnQuIEUu
-Zy46PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mbmJzcDs8bzpwPjwv
-bzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPmFkZHIgPSAobWF4X3BmbiAtIChBTURH
-UFVfVkFfUkVTRVJWRURfU0laRSAmZ3Q7Jmd0OyBBTURHUFVfUEFHRV9TSElGVCkpICZsdDsmbHQ7
-IEFNREdQVV9QQUdFX1NISUZUOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
-dCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij5SZWdhcmRz
-LDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Q2hyaXN0aWFuLjxvOnA+
-PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jm5ic3A7PG86cD48L286cD48L3A+
-DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBj
-bGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IExvb2tzIGxpa2UmbmJzcDsgd2Ugc2hvdWxkIG1vZGlm
-eSB0aGlzIHBsYWNlPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7
-Jm5ic3A7PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IC9Nb25r
-PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jm5ic3A7PG86cD48
-L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IC0tLS0tT3JpZ2luYWwgTWVz
-c2FnZS0tLS0tPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IEZy
-b206IGFtZC1nZnggJmx0OzxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnIiBtb3otZG8tbm90LXNlbmQ9InRydWUiPjxzcGFuIHN0eWxlPSJ0ZXh0LWRl
-Y29yYXRpb246bm9uZSI+YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvc3Bh
-bj48L2E+Jmd0OyBPbiBCZWhhbGYgT2YNCjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1Bs
-YWluVGV4dCI+Jmd0OyBDaHJpc3RpYW4gSz9uaWc8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
-c29QbGFpblRleHQiPiZndDsgU2VudDogTW9uZGF5LCBKYW51YXJ5IDE0LCAyMDE5IDk6MDUgUE08
-bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgVG86IExvdSwgV2Vu
-dGFvICZsdDs8YSBocmVmPSJtYWlsdG86V2VudGFvLkxvdUBhbWQuY29tIiBtb3otZG8tbm90LXNl
-bmQ9InRydWUiPjxzcGFuIHN0eWxlPSJ0ZXh0LWRlY29yYXRpb246bm9uZSI+V2VudGFvLkxvdUBh
-bWQuY29tPC9zcGFuPjwvYT4mZ3Q7Ow0KPGEgaHJlZj0ibWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnIiBtb3otZG8tbm90LXNlbmQ9InRydWUiPjxzcGFuIHN0eWxlPSJ0ZXh0LWRl
-Y29yYXRpb246bm9uZSI+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc8L3NwYW4+PC9hPjxv
-OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBTdWJqZWN0OiBSZTog
-W1BBVENIXSBkcm0vYW1kZ3B1OiBjc2FfdmFkZHIgc2hvdWxkIG5vdCBsYXJnZXIgdGhhbg0KPG86
-cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7IEFNREdQVV9HTUNfSE9M
-RV9TVEFSVDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZuYnNw
-OzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBBbSAxNC4wMS4x
-OSB1bSAwOTo0MCBzY2hyaWViIHdlbnRhbG91OjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
-b1BsYWluVGV4dCI+Jmd0OyZndDsgQWZ0ZXIgcmVtb3ZpbmcgdW5uZWNlc3NhcnkgVk0gc2l6ZSBj
-YWxjdWxhdGlvbnMsIHZtX21hbmFnZXIubWF4X3Bmbg0KPG86cD48L286cD48L3A+DQo8cCBjbGFz
-cz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyB3b3VsZCByZWFjaCAweDEwLDAwMDAsMDAwMCBtYXhf
-cGZuICZsdDsmbHQ7IEFNREdQVV9HUFVfUEFHRV9TSElGVCBleGNlZWRpbmcNCjxvOnA+PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZndDsgQU1ER1BVX0dNQ19IT0xFX1NU
-QVJUIHdvdWxkIGNhdXNlZCBHUFUgcmVzZXQuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNv
-UGxhaW5UZXh0Ij4mZ3Q7Jmd0OyZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1Bs
-YWluVGV4dCI+Jmd0OyZndDsgQ2hhbmdlLUlkOiBJNDdhZDBiZTJiMGJkOWZiNzQ5MGM0ZTFkN2Ji
-N2JkYWNmNzExMzJjYjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0
-OyZndDsgU2lnbmVkLW9mZi1ieTogd2VudGFsb3UgJmx0OzxhIGhyZWY9Im1haWx0bzpXZW50YW8u
-TG91QGFtZC5jb20iIG1vei1kby1ub3Qtc2VuZD0idHJ1ZSI+PHNwYW4gc3R5bGU9InRleHQtZGVj
-b3JhdGlvbjpub25lIj5XZW50YW8uTG91QGFtZC5jb208L3NwYW4+PC9hPiZndDs8bzpwPjwvbzpw
-PjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgTkFLLCB0aGF0IGlzIGluY29ycmVj
-dC4gV2UgaW50ZW50aW9uYWxseSBwbGFjZSB0aGUgY3NhIGFib3ZlIHRoZSBHTUMgaG9sZS48bzpw
-PjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmbmJzcDs8bzpwPjwvbzpw
-PjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgUmVnYXJkcyw8bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsgQ2hyaXN0aWFuLjxvOnA+PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZndDsgLS0tPG86cD48L286cD48L3A+DQo8cCBjbGFz
-cz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMgfCAzICYjNDM7JiM0MzstPG86cD48L286cD48L3A+
-DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyAxIGZp
-bGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCYjNDM7KSwgMSBkZWxldGlvbigtKTxvOnA+PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZndDsmbmJzcDs8bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmM8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNz
-PSJNc29QbGFpblRleHQiPiZndDsmZ3Q7IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2NzYS5jPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0
-OyBpbmRleCA3ZTIyYmU3Li5kZDNiZDAxIDEwMDY0NDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9
-Ik1zb1BsYWluVGV4dCI+Jmd0OyZndDsgLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2NzYS5jPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7
-Jmd0OyAmIzQzOyYjNDM7JiM0MzsgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3NhLmM8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmZ3Q7IEBA
-IC0yNiw3ICYjNDM7MjYsOCBAQDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4
-dCI+Jmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsgPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
-TXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyB1aW50NjRfdCBhbWRncHVf
-Y3NhX3ZhZGRyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTxvOnA+PC9vOnA+PC9wPg0KPHAg
-Y2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZndDsmbmJzcDsmbmJzcDsmbmJzcDsgezxvOnA+PC9v
-OnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZndDsgLSZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB1aW50NjRfdCBhZGRyID0gYWRldi0mZ3Q7dm1f
-bWFuYWdlci5tYXhfcGZuICZsdDsmbHQ7IEFNREdQVV9HUFVfUEFHRV9TSElGVDs8bzpwPjwvbzpw
-PjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHVpbnQ2NF90IGFkZHIgPSBtaW4oYWRldi0mZ3Q7dm1f
-bWFuYWdlci5tYXhfcGZuICZsdDsmbHQ7IEFNREdQVV9HUFVfUEFHRV9TSElGVCw8bzpwPjwvbzpw
-PjwvcD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IEFNREdQVV9HTUNfSE9MRV9TVEFSVCk7PG86cD48L286cD48L3A+DQo8cCBjbGFz
-cz0iTXNvUGxhaW5UZXh0Ij4mZ3Q7Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyA8bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJNc29QbGFpblRleHQiPiZndDsmZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7ICZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBhZGRyIC09IEFNREdQVV9WQV9SRVNFUlZFRF9T
-SVpFOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyZndDsmbmJz
-cDsmbmJzcDsmbmJzcDsgJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFkZHIgPSBhbWRn
-cHVfZ21jX3NpZ25fZXh0ZW5kKGFkZHIpOzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1Bs
-YWluVGV4dCI+Jmd0OyBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0OyBhbWQtZ2Z4
-IG1haWxpbmcgbGlzdDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jmd0
-OyA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciIG1vei1kby1u
-b3Qtc2VuZD0idHJ1ZSI+DQo8c3BhbiBzdHlsZT0idGV4dC1kZWNvcmF0aW9uOm5vbmUiPmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9zcGFuPjwvYT48bzpwPjwvbzpwPjwvcD4NCjxwIGNs
-YXNzPSJNc29QbGFpblRleHQiPiZndDsgPGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4IiBtb3otZG8tbm90LXNlbmQ9InRydWUiPg0K
-PHNwYW4gc3R5bGU9InRleHQtZGVjb3JhdGlvbjpub25lIj5odHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng8L3NwYW4+PC9hPjxvOnA+PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9Ik1zb1BsYWluVGV4dCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8L2Jsb2Nr
-cXVvdGU+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2
-Pg0KPC9ibG9ja3F1b3RlPg0KPGJyPg0KPC9ib2R5Pg0KPC9odG1sPg0K
+> About flushing tdr jobs in progress from .free_job cb - looks like 
+> drm_sched_job_finish->cancel_delayed_work_sync is not enough, we still 
+> need to take care of flushing all sced->work_tdr for a device and for 
+> all devices in hive for XGMI.
+> What do you think ?
 
---_000_361544e2dd333b8912114566b060b785amdcom_--
+Why should that be necessary? We only wait for the delayed work to make 
+sure that the job is not destroyed while dealing with it.
 
---===============0444293678==
+Christian.
+
+>
+> Andrey
+>
+>>
+>>>
+>>>> 5. Do the reset on all affected devices.
+>>>> 6. Drop the lock.
+>>>> 7. Add callbacks again and restart the schedulers.
+>>>
+>>> I see your steps don't include flushing any tdr in progress from 
+>>> drm_sched_job_finish (or as I did it from amdgpu_job_free_cb) does 
+>>> it mean you don't think we need to flush in order to avoid freeing 
+>>> job while it still might be accessed from time out  list ?
+>>>
+>>> Andrey
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> Andrey
+>>>>>
+>>>>>>>> Andrey
+>>>>>>>>>>> Andrey
+>>>>>>>>>>>
+>>>>>>>>> _______________________________________________
+>>>>>>>>> amd-gfx mailing list
+>>>>>>>>> amd-gfx@lists.freedesktop.org
+>>>>>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>>>>> _______________________________________________
+>>>>>>> amd-gfx mailing list
+>>>>>>> amd-gfx@lists.freedesktop.org
+>>>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>>>
+>>>>> _______________________________________________
+>>>>> amd-gfx mailing list
+>>>>> amd-gfx@lists.freedesktop.org
+>>>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>>>>
+>>>
+>>
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------D1C811DEE6BD2CF613269AA2
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 16.01.19 um 18:17 schrieb
+      Grodzovsky, Andrey:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:6d8adac2-b5ab-991f-571d-771b973362a3@amd.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <p><br>
+      </p>
+      <br>
+      <div class="moz-cite-prefix">On 01/16/2019 11:02 AM, Koenig,
+        Christian wrote:<br>
+      </div>
+      <blockquote type="cite"
+        cite="mid:4c43b728-628d-6880-edad-0e5fdb084f06@amd.com">
+        <div class="moz-cite-prefix">Am 16.01.19 um 16:45 schrieb
+          Grodzovsky, Andrey:<br>
+        </div>
+        <blockquote type="cite"
+          cite="mid:0622c5b7-b54a-c414-c8db-26e1ec3c5ab8@amd.com">
+          <p><br>
+          </p>
+          <br>
+          <div class="moz-cite-prefix">On 01/16/2019 02:46 AM, Christian
+            König wrote:<br>
+          </div>
+          <blockquote type="cite"
+            cite="mid:cbacbef0-d82b-1f44-2fd4-87d81d7ce00b@gmail.com">
+            <div class="moz-cite-prefix">Am 15.01.19 um 23:01 schrieb
+              Grodzovsky, Andrey:<br>
+            </div>
+            <blockquote type="cite"
+              cite="mid:de7d180d-f959-d8a6-0f99-99906f07e76c@amd.com">
+              <pre class="moz-quote-pre" wrap="">On 01/11/2019 05:03 PM, Andrey Grodzovsky wrote:
+</pre>
+              <blockquote type="cite">
+                <pre class="moz-quote-pre" wrap="">On 01/11/2019 02:11 PM, Koenig, Christian wrote:
+</pre>
+                <blockquote type="cite">
+                  <pre class="moz-quote-pre" wrap="">Am 11.01.19 um 16:37 schrieb Grodzovsky, Andrey:
+</pre>
+                  <blockquote type="cite">
+                    <pre class="moz-quote-pre" wrap="">On 01/11/2019 04:42 AM, Koenig, Christian wrote:
+</pre>
+                    <blockquote type="cite">
+                      <pre class="moz-quote-pre" wrap="">Am 10.01.19 um 16:56 schrieb Grodzovsky, Andrey:
+</pre>
+                      <blockquote type="cite">
+                        <pre class="moz-quote-pre" wrap="">[SNIP]
+</pre>
+                        <blockquote type="cite">
+                          <blockquote type="cite">
+                            <blockquote type="cite">
+                              <pre class="moz-quote-pre" wrap="">But we will not be adding the cb back in drm_sched_stop 
+anymore, now we
+are only going to add back the cb in drm_sched_startr after 
+rerunning
+those jobs in drm_sched_resubmit_jobs and assign them a new parent
+there
+anyway.
+</pre>
+                            </blockquote>
+                            <pre class="moz-quote-pre" wrap="">Yeah, but when we find that we don't need to reset anything anymore
+then adding the callbacks again won't be possible any more.
+
+Christian.
+</pre>
+                          </blockquote>
+                          <pre class="moz-quote-pre" wrap="">I am not sure I understand it, can u point me to example of how this
+will happen ? I am attaching my latest patches with waiting only for
+the last job's fence here just so we are on same page regarding 
+the code.
+</pre>
+                        </blockquote>
+                      </blockquote>
+                      <pre class="moz-quote-pre" wrap="">Well the whole idea is to prepare all schedulers, then check once more
+if the offending job hasn't completed in the meantime.
+
+If the job completed we need to be able to rollback everything and
+continue as if nothing had happened.
+
+Christian.
+</pre>
+                    </blockquote>
+                    <pre class="moz-quote-pre" wrap="">Oh, but this piece of functionality - skipping HW ASIC reset in case 
+the
+guilty job done is totally missing form this patch series and so needs
+to be added. So what you say actually is that for the case were we skip
+HW asic reset because the guilty job did complete we also need to skip
+resubmitting the jobs in drm_sched_resubmit_jobs and hence preserve the
+old parent fence pointer for reuse ? If so I would like to add all this
+functionality as a third patch since the first 2 patches are more about
+resolving race condition with jobs in flight while doing reset - 
+what do
+you think ?
+</pre>
+                  </blockquote>
+                  <pre class="moz-quote-pre" wrap="">Yeah, sounds perfectly fine to me.
+
+Christian.
+</pre>
+                </blockquote>
+                <pre class="moz-quote-pre" wrap="">I realized there is another complication now for XGMI hive use case, 
+we currently skip gpu recover for adev in case another gpu recover for 
+different adev in same hive is running, under the assumption that we 
+are going to reset all devices in hive anyway because that should 
+cover our own dev too. But if we chose to skip now HW asic reset if 
+our guilty job did finish we will aslo not HW reset any other devices 
+in the hive even if one of them might actually had a bad job, wanted 
+to do gpu recover but skipped it because our recover was in progress 
+in that time.
+My general idea on that is to keep a list of guilty jobs per hive, 
+when you start gpu recover you first add you guilty job to the hive 
+and trylock hive-&gt;reset_lock. Any owner of hive-&gt;reset_lock (gpu 
+recovery in progress) once he finished his recovery and released 
+hive-&gt;reset_lock should go over hive-&gt;bad_jobs_list and if at least 
+one of them is still not signaled (not done) trigger another gpu 
+recovery and so on. If you do manage to trylock you also go over the 
+list, clean it and perform recovery. This list probably needs to be 
+protected with per hive lock.
+I also think we can for now at least finish reviewing the first 2 
+patches and submit them since as I said before they are not dealing 
+with this topic and fixing existing race conditions. If you are OK 
+with that I can send for review the last iteration of the first 2 
+patches where I wait for the last fence in ring mirror list.
+
+Andrey
+</pre>
+              </blockquote>
+              <pre class="moz-quote-pre" wrap="">I implemented HW reset avoidance including XGMI use case according to 
+the plan i specified. Patch is attached but I can't test it yet due to 
+XGMI regression in PSP which is supposed to be fixed soon. Please take a 
+look.</pre>
+            </blockquote>
+            <br>
+            Looks a bit too complicated on first glance. In general we
+            should probably get away from handling a hive in any special
+            way.<br>
+          </blockquote>
+          <br>
+          Yes, I guess i can do it the same way as the generic handling
+          in amdgpu_device_gpu_recover - there is a list of devices to
+          process which is of size 1 for non xgmi use case or more then
+          1 for XGMI.<br>
+          <br>
+          <blockquote type="cite"
+            cite="mid:cbacbef0-d82b-1f44-2fd4-87d81d7ce00b@gmail.com">
+            <br>
+            Multiple timeout jobs in a hive are identical to multiple
+            timeout jobs on different engines on a single device.<br>
+            <br>
+            How about the following handling:<br>
+            1. Add the timeout job to a list.<br>
+            2. Try to grab a lock to handle the reset, if that doesn't
+            work because there is already a reset underway return
+            immediately.<br>
+            3. Stop all schedulers on all affected devices including
+            stopping the timeouts and detaching all callbacks.<br>
+            4. Double check the list of timed out jobs, if all hw fences
+            of all jobs are completed now we actually don't need to do
+            anything.<br>
+          </blockquote>
+          <br>
+          What if all the jobs on the timed out list did complete but
+          other job (or jobs) for which we removed the time out timer
+          became hanged ? Wouldn't we  miss a required reset in this
+          case and wouldn't even have any indication of their hang ?<br>
+        </blockquote>
+        <br>
+        If the timeout triggers before we disable it we will have the
+        job on the list of jobs which are hanging.<br>
+        <br>
+        If we found that we don't reset and re-enable the timeout it
+        will trigger a bit later and we can do the check again.<br>
+        <br>
+        Thinking about this a bit more we actually don't need to change
+        the handling in any way. The idea with the list is just
+        overkill.<br>
+        <br>
+        See when the we re-start the scheduler we will also re-arm the
+        timeout, so it will trigger again. It is just a matter of clever
+        timeout re-arming.<br>
+        <br>
+        Christian.<br>
+      </blockquote>
+      <br>
+      This implies that hanged job might take in worst case twice (or
+      more if there are recurrent resets) then the TO parameter value to
+      trigger - is this OK ?<br>
+    </blockquote>
+    <br>
+    Re-arming the timeout should probably have a much reduced value when
+    the job hasn't changed. E.g. something like a few ms.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:6d8adac2-b5ab-991f-571d-771b973362a3@amd.com">
+      About flushing tdr jobs in progress from .free_job cb - looks like
+      drm_sched_job_finish-&gt;cancel_delayed_work_sync is not enough,
+      we still need to take care of flushing all sced-&gt;work_tdr for a
+      device and for all devices in hive for XGMI.<br>
+      What do you think ?<br>
+    </blockquote>
+    <br>
+    Why should that be necessary? We only wait for the delayed work to
+    make sure that the job is not destroyed while dealing with it.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:6d8adac2-b5ab-991f-571d-771b973362a3@amd.com">
+      <br>
+      Andrey<br>
+      <br>
+      <blockquote type="cite"
+        cite="mid:4c43b728-628d-6880-edad-0e5fdb084f06@amd.com"><br>
+        <blockquote type="cite"
+          cite="mid:0622c5b7-b54a-c414-c8db-26e1ec3c5ab8@amd.com"> <br>
+          <blockquote type="cite"
+            cite="mid:cbacbef0-d82b-1f44-2fd4-87d81d7ce00b@gmail.com">
+            5. Do the reset on all affected devices.<br>
+            6. Drop the lock.<br>
+            7. Add callbacks again and restart the schedulers.<br>
+          </blockquote>
+          <br>
+          I see your steps don't include flushing any tdr in progress
+          from drm_sched_job_finish (or as I did it from
+          amdgpu_job_free_cb) does it mean you don't think we need to
+          flush in order to avoid freeing job while it still might be
+          accessed from time out  list ?<br>
+          <br>
+          Andrey<br>
+          <br>
+          <blockquote type="cite"
+            cite="mid:cbacbef0-d82b-1f44-2fd4-87d81d7ce00b@gmail.com">
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            <blockquote type="cite"
+              cite="mid:de7d180d-f959-d8a6-0f99-99906f07e76c@amd.com">
+              <pre class="moz-quote-pre" wrap="">Andrey
+
+</pre>
+              <blockquote type="cite">
+                <blockquote type="cite">
+                  <blockquote type="cite">
+                    <pre class="moz-quote-pre" wrap="">Andrey
+</pre>
+                    <blockquote type="cite">
+                      <blockquote type="cite">
+                        <blockquote type="cite">
+                          <pre class="moz-quote-pre" wrap="">Andrey
+
+</pre>
+                        </blockquote>
+                      </blockquote>
+                      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+                    </blockquote>
+                  </blockquote>
+                  <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+                </blockquote>
+              </blockquote>
+              <br>
+              <fieldset class="mimeAttachmentHeader"></fieldset>
+              <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+            </blockquote>
+            <br>
+          </blockquote>
+          <br>
+        </blockquote>
+        <br>
+      </blockquote>
+      <br>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+</pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------D1C811DEE6BD2CF613269AA2--
+
+--===============0972608185==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
 
---===============0444293678==--
+--===============0972608185==--
