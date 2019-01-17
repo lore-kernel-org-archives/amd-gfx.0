@@ -1,46 +1,85 @@
-From: Mathieu Malaterre <malat@debian.org>
-Subject: [PATCH v2] drm: radeon: add a missing break in evergreen_cs_handle_reg
-Date: Thu, 17 Jan 2019 21:40:47 +0100
-Message-ID: <20190117204047.1262-1-malat@debian.org>
-References: <20190114202652.15204-1-malat@debian.org>
+From: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: eDP fast bootup does not work for
+ pre-raven asic
+Date: Thu, 17 Jan 2019 20:59:29 +0000
+Message-ID: <d1601fe9-e0d9-5192-aa6a-b9a171bf2601@amd.com>
+References: <1547505375-13003-1-git-send-email-sunpeng.li@amd.com>
+ <7940e423-a2f0-80dd-f9c9-7f0789572658@molgen.mpg.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190114202652.15204-1-malat@debian.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Mathieu Malaterre <malat@debian.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <7940e423-a2f0-80dd-f9c9-7f0789572658-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
+Content-Language: en-US
+Content-ID: <1DB730D7112AB940B248FD0AF6A3F5A7-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Wu,
+ Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-In commit dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
-case statements were added without a terminating break statement. This
-commit adds the missing break. This was discovered during a compilation
-with W=1.
-
-This commit removes the following warning:
-
-  drivers/gpu/drm/radeon/evergreen_cs.c:1301:11: warning: this statement may fall through [-Wimplicit-fallthrough=]
-
-Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-Fixes: dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
-Signed-off-by: Mathieu Malaterre <malat@debian.org>
----
-v2: Add missing break statement, instead of marking it as fall through
-
- drivers/gpu/drm/radeon/evergreen_cs.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
-index f471537c852f..1e14c6921454 100644
---- a/drivers/gpu/drm/radeon/evergreen_cs.c
-+++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-@@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
- 			return -EINVAL;
- 		}
- 		ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
-+		break;
- 	case CB_TARGET_MASK:
- 		track->cb_target_mask = radeon_get_ib_value(p, idx);
- 		track->cb_dirty = true;
--- 
-2.19.2
+DQoNCg0KT24gMjAxOS0wMS0xNSA1OjQyIGEubS4sIFBhdWwgTWVuemVsIHdyb3RlOg0KPiBEZWFy
+IEhlcnNlbiwgZGVhciBMZW8sDQo+IA0KPiANCj4gU29tZSBuaXRwaWNrcy4gQ291bGQgeW91IG5v
+dCBwdXQgdGhlIHByb2JsZW0gc3RhdGVtZW50IGluIHRoZSBjb21taXQNCj4gbWVzc2FnZSBzdW1t
+YXJ5LCBidXQgdGhlIHNvbHV0aW9uPyBGb3IgZXhhbXBsZToNCj4gDQo+PiBGaXggZURQIGZhc3Qg
+Ym9vdHVwIGZvciBwcmUtcmF2ZW4gYXNpY3MNCj4gDQo+IE9uIDAxLzE0LzE5IDIzOjM2LCBzdW5w
+ZW5nLmxpQGFtZC5jb20gd3JvdGU6DQo+PiBGcm9tOiBoZXJzZW4gd3UgPGhlcnNlbnhzLnd1QGFt
+ZC5jb20+DQo+Pg0KPj4gW1doeV0gYmlvcyB3aWxsIGxpZ2h0IHVwIGVEUCBiZWZvcmUgc3cgZHJp
+dmVyIGxvYWRlZC4gc3cgZHJpdmVyIHdpbGwNCj4gDQo+ICppcyogbG9hZGVkDQo+IA0KPj4gY2hl
+Y2sgaWYgZURQIGxpZ2h0ZWQgdXAgYnkgYmlvcyBieSByZWFkaW5nIEJJT1NfU0NSQVRDSF8zLiBJ
+ZiB5ZXMsDQo+PiBzdyBkcml2ZXIgd2lsbCBub3QgcG93ZXIgZG93biBlRFAgcG93ZXIsIHBoeSB0
+byBzYXZlIHRpbWUuDQo+PiBkZWZpbml0aW9uIG9mIEJJT1NfU0NSQVRDSF8zIGFyZSBtaXNzZWQg
+Zm9yIHByZS1yYXZlbiBhc2ljLiB0aGlzDQo+IA0KPiBhcmUgKm1pc3NpbmcqDQo+IA0KPj4gY3Vh
+c2UgZURQIGZhc3QgYm9vdCB1cCBub3Qgd29yay4gZm9yIHNvbWUgZURQIHBhbmVsLCBldmVuIEFN
+RCBkcCB0eA0KPiANCj4gKmNhdXNlcyog4oCmICp0byogbm90IHdvcmsuDQo+IA0KPj4gc2VuZCBO
+b1ZpZGVvU3RyZWFtX2ZsYWcgPTEgYW5kIGRwY2QgMHg2MDA9MiwgZURQIHJ4IG1heSBub3QgaGFu
+ZGxlDQo+IA0KPiBzZW5kKnMqPw0KDQpXaWxsIGJlIGNvcnJlY3RpbmcgdGhlc2Ugb24gc3VibWlz
+c2lvbiwgdGhhbmtzIQ0KDQo+IA0KPj4gcHJvcGVybHkuIHRoaXMgbWF5IGNhdXNlIHNob3J0IHBl
+cmlvZCBmbGFzaCBvbiBzY3JlZW4uDQo+IA0KPiBJcyB0aGF0IGluIHRoZSBlRFAgc3BlY2lmaWNh
+dGlvbj8NCj4gDQo+PiBbSG93XSBhZGQgZGVmaW5pdGlvbiBvZiBCSU9TX1NDUkFUQ0hfMyBmb3Ig
+YWxsIGFzaWMNCj4gDQo+IEhvdyB3YXMgdGhpcyB0ZXN0ZWQ/DQoNCkhlcnNlbiBtYXkgYmUgYWJs
+ZSB0byBwcm92aWRlIG1vcmUgZGV0YWlscyBvbiB0aGUgc3BlY3MuIEFGQUlLIGl0IHdhcw0KdGVz
+dGVkIG9uIGEgc3RvbmV5IGxhcHRvcCB3aGVyZSB3ZSB3ZXJlIGFibGUgdG8gcmVwcm9kdWNlIHRo
+ZSBpc3N1ZS4gSXQNCndhcyBmaXhlZCBhZnRlciB0aGlzLg0KDQo+IA0KPj4gQ0M6IEhhcnJ5IFdl
+bnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPg0KPj4gU2lnbmVkLW9mZi1ieTogaGVyc2Vu
+IHd1IDxoZXJzZW54cy53dUBhbWQuY29tPg0KPj4gUmV2aWV3ZWQtYnk6IENoYXJsZW5lIExpdSA8
+Q2hhcmxlbmUuTGl1QGFtZC5jb20+DQo+PiBBY2tlZC1ieTogWW9uZ3FpYW5nIFN1biA8eW9uZ3Fp
+YW5nLnN1bkBhbWQuY29tPg0KPj4gQWNrZWQtYnk6IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29t
+Pg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9iaW9zL2Jpb3Nf
+cGFyc2VyX2hlbHBlci5jIHwgMyArLS0NCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjZTEwMC9kY2UxMDBfcmVzb3VyY2UuYyAgfCAyICsrDQo+PiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX3Jlc291cmNlLmMgIHwgMiArKw0KPj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEyL2RjZTExMl9yZXNvdXJjZS5jICB8
+IDIgKysNCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBf
+cmVzb3VyY2UuYyAgfCAxICsNCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
+ZTgwL2RjZTgwX3Jlc291cmNlLmMgICAgfCAyICsrDQo+PiAgIDYgZmlsZXMgY2hhbmdlZCwgMTAg
+aW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXJfaGVscGVyLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlvcy9iaW9zX3BhcnNlcl9oZWxwZXIuYw0KPj4g
+aW5kZXggZmRkYThhYS4uZDgyNzVjZWIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvYmlvcy9iaW9zX3BhcnNlcl9oZWxwZXIuYw0KPj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXJfaGVscGVyLmMNCj4+IEBA
+IC04Myw4ICs4Myw3IEBAIHVpbnQzMl90IGJpb3NfZ2V0X3ZnYV9lbmFibGVkX2Rpc3BsYXlzKA0K
+Pj4gICB7DQo+PiAgIAl1aW50MzJfdCBhY3RpdmVfZGlzcCA9IDE7DQo+PiAgIA0KPj4gLQlpZiAo
+Ymlvcy0+cmVncy0+QklPU19TQ1JBVENIXzMpIC8qZm9sbG93IHVwIHdpdGggb3RoZXIgYXNpYywg
+dG9kbyovDQo+PiAtCQlhY3RpdmVfZGlzcCA9IFJFR19SRUFEKEJJT1NfU0NSQVRDSF8zKSAmIDBY
+RkZGRjsNCj4+ICsJYWN0aXZlX2Rpc3AgPSBSRUdfUkVBRChCSU9TX1NDUkFUQ0hfMykgJiAwWEZG
+RkY7DQo+IA0KPiBTbyB3aHkgaXMgdGhlIGlmIHN0YXRlbWVudCByZW1vdmVkPw0KDQpUaGUgU0NS
+QVRDSF8zIHJlZ2lzdGVyIGlzIGRlZmluZWQgZm9yIGFsbCBBU0lDcyBub3csIHNvIHRoZXJlJ3Mg
+bm8gbmVlZA0KdG8gY2hlY2suDQoNClRoYW5rcywNCkxlbw0KDQo+IA0KPj4gICAJcmV0dXJuIGFj
+dGl2ZV9kaXNwOw0KPj4gICB9DQo+IA0KPiBb4oCmXQ0KPiANCj4gDQo+IEtpbmQgcmVnYXJkcywN
+Cj4gDQo+IFBhdWwNCj4gDQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngNCj4gDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
