@@ -1,61 +1,46 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/radeon: check if device is root before getting pci speed
- caps
-Date: Thu, 17 Jan 2019 14:44:29 -0500
-Message-ID: <20190117194429.4328-1-alexander.deucher@amd.com>
+From: Mathieu Malaterre <malat@debian.org>
+Subject: [PATCH v2] drm: radeon: add a missing break in evergreen_cs_handle_reg
+Date: Thu, 17 Jan 2019 21:40:47 +0100
+Message-ID: <20190117204047.1262-1-malat@debian.org>
+References: <20190114202652.15204-1-malat@debian.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190114202652.15204-1-malat@debian.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Mathieu Malaterre <malat@debian.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2hlY2sgaWYgdGhlIGRldmljZSBpcyByb290IHJhdGhlciBiZWZvcmUgYXR0ZW1wdGluZyB0byBz
-ZWUgd2hhdApzcGVlZHMgdGhlIHBjaWUgcG9ydCBzdXBwb3J0cy4gIEZpeGVzIGEgY3Jhc2ggd2l0
-aCBwY2kgcGFzc3Rocm91Z2gKaW4gYSBWTS4KCkJ1ZzogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9w
-Lm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTA5MzY2ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8
-YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2Np
-X2RwbS5jIHwgNSArKystLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaV9kcG0uYyB8IDUgKysr
-LS0KIDIgZmlsZXMgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vY2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL2NpX2RwbS5jCmluZGV4IGQ1ODc3NzlhODBiNC4uYTk3Mjk0YWM5NmQ1IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2NpX2RwbS5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9yYWRlb24vY2lfZHBtLmMKQEAgLTU2NzYsNyArNTY3Niw3IEBAIGludCBjaV9kcG1faW5p
-dChzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldikKIAl1MTYgZGF0YV9vZmZzZXQsIHNpemU7CiAJ
-dTggZnJldiwgY3JldjsKIAlzdHJ1Y3QgY2lfcG93ZXJfaW5mbyAqcGk7Ci0JZW51bSBwY2lfYnVz
-X3NwZWVkIHNwZWVkX2NhcDsKKwllbnVtIHBjaV9idXNfc3BlZWQgc3BlZWRfY2FwID0gUENJX1NQ
-RUVEX1VOS05PV047CiAJc3RydWN0IHBjaV9kZXYgKnJvb3QgPSByZGV2LT5wZGV2LT5idXMtPnNl
-bGY7CiAJaW50IHJldDsKIApAQCAtNTY4NSw3ICs1Njg1LDggQEAgaW50IGNpX2RwbV9pbml0KHN0
-cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCQlyZXR1cm4gLUVOT01FTTsKIAlyZGV2LT5wbS5k
-cG0ucHJpdiA9IHBpOwogCi0Jc3BlZWRfY2FwID0gcGNpZV9nZXRfc3BlZWRfY2FwKHJvb3QpOwor
-CWlmICghcGNpX2lzX3Jvb3RfYnVzKHJkZXYtPnBkZXYtPmJ1cykpCisJCXNwZWVkX2NhcCA9IHBj
-aWVfZ2V0X3NwZWVkX2NhcChyb290KTsKIAlpZiAoc3BlZWRfY2FwID09IFBDSV9TUEVFRF9VTktO
-T1dOKSB7CiAJCXBpLT5zeXNfcGNpZV9tYXNrID0gMDsKIAl9IGVsc2UgewpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaV9kcG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-c2lfZHBtLmMKaW5kZXggOGZiNjBiM2FmMDE1Li4wYTc4NWVmMGFiNjYgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9yYWRlb24vc2lfZHBtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVv
-bi9zaV9kcG0uYwpAQCAtNjg5OSw3ICs2ODk5LDcgQEAgaW50IHNpX2RwbV9pbml0KHN0cnVjdCBy
-YWRlb25fZGV2aWNlICpyZGV2KQogCXN0cnVjdCBuaV9wb3dlcl9pbmZvICpuaV9waTsKIAlzdHJ1
-Y3Qgc2lfcG93ZXJfaW5mbyAqc2lfcGk7CiAJc3RydWN0IGF0b21fY2xvY2tfZGl2aWRlcnMgZGl2
-aWRlcnM7Ci0JZW51bSBwY2lfYnVzX3NwZWVkIHNwZWVkX2NhcDsKKwllbnVtIHBjaV9idXNfc3Bl
-ZWQgc3BlZWRfY2FwID0gUENJX1NQRUVEX1VOS05PV047CiAJc3RydWN0IHBjaV9kZXYgKnJvb3Qg
-PSByZGV2LT5wZGV2LT5idXMtPnNlbGY7CiAJaW50IHJldDsKIApAQCAtNjkxMSw3ICs2OTExLDgg
-QEAgaW50IHNpX2RwbV9pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCWVnX3BpID0g
-Jm5pX3BpLT5lZzsKIAlwaSA9ICZlZ19waS0+cnY3eHg7CiAKLQlzcGVlZF9jYXAgPSBwY2llX2dl
-dF9zcGVlZF9jYXAocm9vdCk7CisJaWYgKCFwY2lfaXNfcm9vdF9idXMocmRldi0+cGRldi0+YnVz
-KSkKKwkJc3BlZWRfY2FwID0gcGNpZV9nZXRfc3BlZWRfY2FwKHJvb3QpOwogCWlmIChzcGVlZF9j
-YXAgPT0gUENJX1NQRUVEX1VOS05PV04pIHsKIAkJc2lfcGktPnN5c19wY2llX21hc2sgPSAwOwog
-CX0gZWxzZSB7Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+In commit dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
+case statements were added without a terminating break statement. This
+commit adds the missing break. This was discovered during a compilation
+with W=1.
+
+This commit removes the following warning:
+
+  drivers/gpu/drm/radeon/evergreen_cs.c:1301:11: warning: this statement may fall through [-Wimplicit-fallthrough=]
+
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Fixes: dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
+Signed-off-by: Mathieu Malaterre <malat@debian.org>
+---
+v2: Add missing break statement, instead of marking it as fall through
+
+ drivers/gpu/drm/radeon/evergreen_cs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+index f471537c852f..1e14c6921454 100644
+--- a/drivers/gpu/drm/radeon/evergreen_cs.c
++++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+@@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
+ 			return -EINVAL;
+ 		}
+ 		ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
++		break;
+ 	case CB_TARGET_MASK:
+ 		track->cb_target_mask = radeon_get_ib_value(p, idx);
+ 		track->cb_dirty = true;
+-- 
+2.19.2
