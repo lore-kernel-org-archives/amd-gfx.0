@@ -1,213 +1,129 @@
-From: Bas Vermeulen <bas-MbI5SpmOCPBHdOctNixuYw@public.gmane.org>
-Subject: Re: Trying to run AMD E9260 (Polaris 11) on NXP LS1012A-RDB
-Date: Fri, 18 Jan 2019 14:21:14 +0100
-Message-ID: <CAGtoiRiOACskJTtMEzX5gts_Lo1RrySjPNyEuLCcw+8k31wk2g@mail.gmail.com>
-References: <CAGtoiRiubNF5fCwGvYbC_sxzFk10Ceg79ZsK2fPLXUzFvm_QZw@mail.gmail.com>
- <CADnq5_MC9PLzvouWT=4J_RXkmsAy7NF1bpB-geEgxa-XV1dgQQ@mail.gmail.com>
- <CAGtoiRjahq_zC=QbS3gNCQB-nA++=gs=kKVJhWKNXEY0QQ8y=g@mail.gmail.com>
- <CAGtoiRiPHW8a3afkO3ui5FtLP-OztBjVz6CgMgLifgLvnk4QOg@mail.gmail.com>
- <5ae96345-680a-221f-1b04-678cb61f7eca@gmail.com>
- <CAGtoiRiY-TK+_YHwk=f_2vMxJJ6Ucv9AQ2vuoxtufFakKp=hAA@mail.gmail.com>
- <20720365-641e-ac3e-1cfb-9c16133905be@amd.com>
+From: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
+Subject: Re: [PATCH v5 1/2] drm/sched: Refactor ring mirror list handling.
+Date: Fri, 18 Jan 2019 15:21:56 +0000
+Message-ID: <99c5c0c7-43c0-152b-0a1a-fba846f8e46f@amd.com>
+References: <1545333815-29870-1-git-send-email-andrey.grodzovsky@amd.com>
+ <5e256bb1-d4aa-f965-2799-d68c9f925b66@gmail.com>
+ <d5a3470a-21a1-adf7-6f85-4d22fae7bb81@amd.com>
+ <6a2b45d7-0fa3-38fe-98b2-a538b663c6cc@gmail.com>
+ <ea37c55f-ee56-cce7-a4e1-1a599642c54c@amd.com>
+ <cbd07551-4f5e-fb80-a4ef-376b19bb3655@amd.com>
+ <37ad8228-355e-1d53-593f-b0cb736eadff@amd.com>
+ <5434e38b-c5c6-26e8-d632-bd1b1b52a44a@amd.com>
+ <8a615696-a9ff-7670-5d25-6120282e818b@amd.com>
+ <468f5a41-aa07-2cc2-d7dc-2f6e1d9af7e9@amd.com>
+ <de7d180d-f959-d8a6-0f99-99906f07e76c@amd.com>
+ <cbacbef0-d82b-1f44-2fd4-87d81d7ce00b@gmail.com>
+ <0622c5b7-b54a-c414-c8db-26e1ec3c5ab8@amd.com>
+ <4c43b728-628d-6880-edad-0e5fdb084f06@amd.com>
+ <6d8adac2-b5ab-991f-571d-771b973362a3@amd.com>
+ <99f813cf-ae28-58c7-8b98-1ff69cecbed6@gmail.com>
+ <87ecd86c-4bd2-4cb7-0203-7e088e9e150b@amd.com>
+ <3de2a2bd-83cf-590b-e278-590c4907b78b@amd.com>
+ <13082b0c-d5dc-82c5-56ba-03eb3d301695@amd.com>
+ <abe9df44-5461-7c9c-a9f5-71af19d610c7@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2023426172=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20720365-641e-ac3e-1cfb-9c16133905be-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============2023426172==
-Content-Type: multipart/alternative; boundary="00000000000049bb70057fbb638b"
-
---00000000000049bb70057fbb638b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I've since replaced the LS1012ARDB with a LS1046ARDB, and this works out of
-the box.
-The LS1012ARDB does not have an SMMU, which handles hardware coherency on
-ARM.
-So amdgpu won't work on any ARM without an SMMU.
-
-Bas Vermeulen
-
-On Thu, Jan 10, 2019 at 2:38 PM Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org=
->
-wrote:
-
-> Am 10.01.19 um 14:31 schrieb Bas Vermeulen:
->
-> On Thu, Jan 10, 2019 at 11:59 AM Christian K=C3=B6nig <
-> ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
->
->> The PCI Express controller as instantiated on this chip does not support
->> hardware coherency. All incoming PCI Express transactions are made non
->> IO-coherent.
->>
->> Would AMDGPU still work with that PCI Express controller, or is this a
->> show-stopper?
->>
->>
->> I'm really wondering what this comment in the documentation means.
->>
->> As far as I know PCIe doesn't support cache coherency in the downstream
->> and supporting it in the up stream is a must have.
->>
-> So what exactly is meant here with IO-coherent?
->>
->
-> I believe IO Coherent means that when PCIe writes something to CPU memory=
-,
-> the caches are flushed or updated
-> (or in this case they aren't). I found
-> https://community.arm.com/processors/b/blog/posts/extended-system-coheren=
-cy---part-1---cache-coherency-fundamentals
->
-> with this explanation.
->
->
-> Yeah, but as I said this upstream memory coherency is mandatory for PCIe.
->
-> When a controller doesn't have that it can't call itself a PCIe
-> controller. The spec is pretty clear about that :)
->
-> And to answer the original question: Yes, that would be a totally
-> show-stopper.
->
-> Regards,
-> Christian.
->
->
-> Regards,
->
-> Bas Vermeulen
->
->
->
-
---00000000000049bb70057fbb638b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I&#39;ve since replaced the LS1012ARDB with a LS1046ARDB, =
-and this works out of the box.<div>The LS1012ARDB does not have an SMMU, wh=
-ich handles hardware coherency on ARM.</div><div>So amdgpu won&#39;t work o=
-n any ARM without an SMMU.</div><div><br></div><div>Bas Vermeulen</div></di=
-v><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On T=
-hu, Jan 10, 2019 at 2:38 PM Koenig, Christian &lt;<a href=3D"mailto:Christi=
-an.Koenig-5C7GfCeVMHo@public.gmane.org">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1p=
-x solid rgb(204,204,204);padding-left:1ex">
-
-
-
-<div bgcolor=3D"#FFFFFF">
-<div class=3D"gmail-m_7847254306218368447moz-cite-prefix">Am 10.01.19 um 14=
-:31 schrieb Bas Vermeulen:<br>
-</div>
-<blockquote type=3D"cite">
-<div dir=3D"ltr">
-<div dir=3D"ltr">
-<div dir=3D"ltr">On Thu, Jan 10, 2019 at 11:59 AM Christian K=C3=B6nig &lt;=
-<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ckoen=
-ig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-</div>
-<div class=3D"gmail_quote">
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">
-<div bgcolor=3D"#FFFFFF">
-<div class=3D"gmail-m_7847254306218368447gmail-m_9195313590891012054moz-cit=
-e-prefix">
-<blockquote type=3D"cite">The PCI Express controller as instantiated on thi=
-s chip does not support hardware coherency. All incoming PCI Express transa=
-ctions are made non IO-coherent.
-<div><br>
-</div>
-<div>Would AMDGPU still work with that PCI Express controller, or is this a=
- show-stopper?</div>
-</blockquote>
-<br>
-I&#39;m really wondering what this comment in the documentation means.<br>
-<br>
-As far as I know PCIe doesn&#39;t support cache coherency in the downstream=
- and supporting it in the up stream is a must have.<br>
-</div>
-</div>
-</blockquote>
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">
-<div bgcolor=3D"#FFFFFF">
-<div class=3D"gmail-m_7847254306218368447gmail-m_9195313590891012054moz-cit=
-e-prefix">So what exactly is meant here with IO-coherent?<br>
-</div>
-</div>
-</blockquote>
-<div><br>
-</div>
-<div>I believe IO Coherent means that when PCIe writes something to CPU mem=
-ory, the caches are flushed or updated<br>
-(or in this case they aren&#39;t). I found=C2=A0<a href=3D"https://communit=
-y.arm.com/processors/b/blog/posts/extended-system-coherency---part-1---cach=
-e-coherency-fundamentals" target=3D"_blank">https://community.arm.com/proce=
-ssors/b/blog/posts/extended-system-coherency---part-1---cache-coherency-fun=
-damentals</a>=C2=A0</div>
-<div>with this explanation.</div>
-</div>
-</div>
-</div>
-</blockquote>
-<br>
-Yeah, but as I said this upstream memory coherency is mandatory for PCIe.<b=
-r>
-<br>
-When a controller doesn&#39;t have that it can&#39;t call itself a PCIe con=
-troller. The spec is pretty clear about that :)<br>
-<br>
-And to answer the original question: Yes, that would be a totally show-stop=
-per.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-<blockquote type=3D"cite">
-<div dir=3D"ltr">
-<div dir=3D"ltr">
-<div class=3D"gmail_quote">
-<div><br>
-</div>
-<div>Regards,</div>
-<div><br>
-</div>
-<div>Bas Vermeulen</div>
-</div>
-</div>
-</div>
-</blockquote>
-<br>
-</div>
-
-</blockquote></div>
-
---00000000000049bb70057fbb638b--
-
---===============2023426172==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <abe9df44-5461-7c9c-a9f5-71af19d610c7@amd.com>
+Content-Language: en-US
+Content-ID: <6CA6FD7EA840C1419E9864DF79E76053@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "eric@anholt.net" <eric@anholt.net>, "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>
+Cc: "Liu, Monk" <Monk.Liu@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============2023426172==--
+DQoNCk9uIDAxLzE4LzIwMTkgMDQ6MjUgQU0sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOg0KPiBb
+U05JUF0NCj4+Pj4+IFJlLWFybWluZyB0aGUgdGltZW91dCBzaG91bGQgcHJvYmFibHkgaGF2ZSBh
+IG11Y2ggcmVkdWNlZCB2YWx1ZQ0KPj4+Pj4gd2hlbiB0aGUgam9iIGhhc24ndCBjaGFuZ2VkLiBF
+LmcuIHNvbWV0aGluZyBsaWtlIGEgZmV3IG1zLg0KPj4gTm93IGkgZ290IHRoaW5raW5nIGFib3V0
+IG5vbiBoYW5nZWQgam9iIGluIHByb2dyZXNzIChqb2IgQSkgYW5kIGxldCdzDQo+PiBzYXkgaXQn
+cyBhIGxvbmcgam9iICwgaXQganVzdCBzdGFydGVkIGV4ZWN1dGluZyBidXQgZHVlIHRvIHRpbWUg
+b3V0IG9mDQo+PiBhbm90aGVyIGpvYiAoam9iIEIpIG9uIGFub3RoZXIgKG9yIHRoaXMgc2NoZWR1
+bGVyKSBpdCdzIHBhcmVudCBjYiBnb3QNCj4+IGRpc2Nvbm5lY3RlZCwgd2UgZGlzYXJtZWQgdGhl
+IHRkciB0aW1lciBmb3IgdGhlIGpvYidzIHNjaGVkdWxlciwNCj4+IG1lYW53aGlsZSB0aGUgdGlt
+ZWQgb3V0IGpvYiBkaWQgbWFuYWdlIHRvIGNvbXBsZXRlIGJlZm9yZSBIVyByZXNldA0KPj4gY2hl
+Y2sgYW5kIGhlbmNlIHdlIHNraXAgSFcgcmVzZXQsIGF0dGFjaCBiYWNrIHRoZSBjYiBhbmQgcmVh
+cm0gam9iJ3MgQQ0KPj4gdGRywqAgdGltZXIgd2l0aCBhIGZ1dHVyZSB2YWx1ZSBvZiBmZXcgbXMg
+b25seSAtIGFyZW4ndCB3ZSBnb2luZyB0byBnZXQNCj4+IGZhbHNlIHRkciB0cmlnZ2VyZWQgb24g
+am9iIEIgbm93IGJlY2F1c2Ugd2UgZGlkbid0IGxldCBpdCBlbm91Z2ggdGltZQ0KPj4gdG8gcnVu
+IGFuZCBjb21wbGV0ZSA/IEkgd291bGQgcHJlZmVyIHRoZSBvdGhlciBleHRyZW1lIG9mIGxvbmdl
+ciB0aW1lDQo+PiBmb3IgdGltZSBvdXQgdG8gdHJpZ2dlciB0aGVuIGZhbHNlIFREUi4gT3B0aW1h
+bGx5IHdlIHdvdWxkIGhhdmUgcGVyDQo+PiBqb2IgdGltZXIgYW5kIHJlYXJtIHRvIGV4YWN0bHkg
+dGhlIHJlbWluZGVyIG9mIGl0J3MgdGltZSBvdXQgdmFsdWUgLQ0KPj4gYnV0IHdlIGdhdmUgdXAg
+b24gcGVyIGpvYiB0ZHIgd29yayBsb25nIGFnby4NCj4gV2VsbCB3ZSBvbmx5IHJlLWFybSB0aGUg
+dGltZW91dCB3aXRoIGEgc2hvcnRlciBwZXJpb2QgaWYgaXQgYWxyZWFkeQ0KPiB0cmlnZ2VyZWQg
+b25jZS4gSWYgd2UganVzdCBzdXNwZW5kIHRoZSB0aW1lb3V0IHRoZW4gd2Ugc2hvdWxkIHN0aWxs
+IHVzZQ0KPiB0aGUgbG9uZ2VyIHBlcmlvZC4NCg0KQ2FuIHlvdSBleHBsYWluIG1vcmUgb24gdGhp
+cyA/IEkgZG9uJ3QgZ2V0IGl0Lg0KDQpBbmRyZXkNCg0KPg0KPj4gSW4gZ2VuZXJhbCB0aGUgbW9y
+ZSBpIHRoaW5rIGFib3V0IGl0wqAgKGNvcnJlY3QgbWUgaWYgSSBhbSB3cm9uZykgSSBhbQ0KPj4g
+bGVzcyBzdXJlIGhvdyBtdWNoIHRoZSBvcHRpbWl6YXRpb24gZmVhdHVyZSBpcyB1c2VmdWwgLSBp
+ZiBqb2IncyB0aW1lDQo+PiBvdXQgZGlkIHRyaWdnZXIgd2hhdCBhcmUgdGhlIGNoYW5jZXMgdGhh
+dCB0aGUgbGl0dGxlIG1vcmUgdGltZSB3ZSBnaXZlDQo+PiBpdCBiZXR3ZWVuIGJlZ2lubmluZyBv
+ZiB0ZHIgZnVuY3Rpb24gYW5kIHRoZSB0aW1lIHdlIGRvIHN0YXJ0IHRoZQ0KPj4gYWN0dWFsIEhX
+IHJlc2V0IHdpbGwgYmUgZXhhY3RseSB3aGF0IGl0IG5lZWRlZCB0byBjb21wbGV0ZS4gQWxzbywg
+dGhpcw0KPj4gaXMgc3RpbGwgbm90IHdhdGVyIHByb29mIGFzIHRoZSBqb2IgbWlnaHQgY29tcGxl
+dGUgYW5kIHNpZ25hbCBpdCdzIEhXDQo+PiBmZW5jZSBleGFjdGx5IGFmdGVyIHdlIGNoZWNrZWQg
+Zm9yIGNvbXBsZXRpb24gYnV0IGJlZm9yZSBzdGFydGluZyB0aGUNCj4+IEhXIHJlc2V0IGNvZGUu
+DQo+IEkgZG9uJ3Qgc2VlIHRoaXMgYXMgYW4gb3B0aW1pemF0aW9uLCBidXQgcmF0aGVyIGFzIG1h
+bmRhdG9yeSBmb3IgY29ycmVjdA0KPiBvcGVyYXRpb24uDQo+DQo+IFNlZSB3aXRob3V0IHRoaXMg
+d2UgY2FuIHJ1biBpbnRvIGlzc3VlcyBiZWNhdXNlIHdlIGV4ZWN1dGUgam9icyBtdWx0aXBsZQ0K
+PiB0aW1lcy4gVGhhdCBjYW4gc3RpbGwgaGFwcGVuIHdpdGggdGhpcyBjbGVhbiBoYW5kbGluZywg
+YnV0IGl0IGlzIG11Y2gNCj4gbW9yZSB1bmxpa2VseS4NCj4NCj4gQ2hyaXN0aWFuLg0KPg0KPj4g
+QW5kcmV5DQo+Pg0KPj4+PiBCeSB1bmNoYW5nZWQgeW91IG1lYW4gd2hlbiB3ZSBkaWRuJ3QgcmVz
+dWJtaXQgdGhlIGpvYiBiZWNhdXNlIG9mIHRoZQ0KPj4+PiBvcHRpbWl6ZWQgbm9uIEhXIHJlc2V0
+LCByaWdodCA/DQo+Pj4gQ29ycmVjdCwgeWVzLg0KPj4+DQo+Pj4+Pj4gQWJvdXQgZmx1c2hpbmcg
+dGRyIGpvYnMgaW4gcHJvZ3Jlc3MgZnJvbSAuZnJlZV9qb2IgY2IgLSBsb29rcyBsaWtlDQo+Pj4+
+Pj4gZHJtX3NjaGVkX2pvYl9maW5pc2gtPmNhbmNlbF9kZWxheWVkX3dvcmtfc3luYyBpcyBub3Qg
+ZW5vdWdoLCB3ZQ0KPj4+Pj4+IHN0aWxsIG5lZWQgdG8gdGFrZSBjYXJlIG9mIGZsdXNoaW5nIGFs
+bCBzY2VkLT53b3JrX3RkciBmb3IgYQ0KPj4+Pj4+IGRldmljZSBhbmQgZm9yIGFsbCBkZXZpY2Vz
+IGluIGhpdmUgZm9yIFhHTUkuDQo+Pj4+Pj4gV2hhdCBkbyB5b3UgdGhpbmsgPw0KPj4+Pj4gV2h5
+IHNob3VsZCB0aGF0IGJlIG5lY2Vzc2FyeT8gV2Ugb25seSB3YWl0IGZvciB0aGUgZGVsYXllZCB3
+b3JrIHRvDQo+Pj4+PiBtYWtlIHN1cmUgdGhhdCB0aGUgam9iIGlzIG5vdCBkZXN0cm95ZWQgd2hp
+bGUgZGVhbGluZyB3aXRoIGl0Lg0KPj4+Pj4NCj4+Pj4+IENocmlzdGlhbi4NCj4+Pj4gQnV0IHdl
+IG1pZ2h0IG5vdCBiZSB3YWl0aW5nIGZvciB0aGUgY29ycmVjdCBzY2hlZC0+d29ya190ZHIsIHdl
+IGRvDQo+Pj4+IHRoZSByZXNldCByb3V0aW5lIGZvciBhbGwgc2NoZWR1bGVycyBpbiBhIGRldmlj
+ZSBhY2Nlc3NpbmcgdGhlaXINCj4+Pj4gam9icyB0b28gYW5kIG5vdCBvbmx5IGZvciB0aGUgc2No
+ZWR1bGVyIHRvIHdoaWNoIHRoZSBqb2IgYmVsb25ncy4NCj4+Pj4gRm9yIFhHTUkgbm90IG9ubHkg
+dGhhdCwgd2UgcmVzZXQgYWxsIHRoZSBkZXZpY2VzIGluIHRoZSBoaXZlLg0KPj4+IFRoYXQgaXMg
+aGFybWxlc3MgeW91IG9ubHkgbmVlZCB0byB3YWl0IGZvciB0aGUgd29ya190ZHIgb2YgdGhlDQo+
+Pj4gY3VycmVudCBzY2hlZHVsZXIsIG5vdCBmb3IgYWxsIG9mIHRoZW0uDQo+Pj4NCj4+Pj4gSSB3
+YXMgdGhpbmtpbmcsIGFtZGdwdSBkcml2ZXIgaXMgbm90IGV2ZW4gaW50ZXJlc3RlZCBpbiBhbGxv
+d2luZw0KPj4+PiBtdWx0aXBsZSBzY2VkLT50ZHIgdG8gZXhlY3V0ZSB0b2dldGhlciAtIHdlIGhh
+dmUgdG8gc2VyaWFsaXplIGFsbCBvZg0KPj4+PiB0aGVtIGFueXdheSB3aXRoIHRoZSB0cnlsb2Nr
+IG11dGV4IChldmVuIHdpdGhvdXQgWEdNSSksIHYzZCBpbg0KPj4+PiB2M2Rfam9iX3RpbWVkb3V0
+IHNlZW1zIGFsc28gdG8gcmVzZXQgYWxsIG9mIGhpcyBzY2hlZHVsZXJzIGZyb20gdGhlDQo+Pj4+
+IHRkciB3b3JrLiBXb3VsZCBpdCBtYWtlIHNlbnNlIHRvIHByb3ZpZGUgdGhlIHNjaGVkLT53b3Jr
+X3RkIGFzIGluaXQNCj4+Pj4gcGFyYW1ldGVyIHRvIHNjaGVkdWxlciAoc2FtZSBvbmUgZm9yIGFs
+bCBzY2hlZHVsZXJzKSBzbyB3ZSBjYW4NCj4+Pj4gZW5mb3JjZSBzZXJpYWxpemF0aW9uIGJ5IGRp
+c2FsbG93aW5nIG1vcmUgdGhlbiAxIHRkciB3b3JrIHRvIGV4ZWN1dGUNCj4+Pj4gaW4gdGhlIHNh
+bWUgdGltZSA/IE90aGVyIGRyaXZlcnMgaW50ZXJlc3RlZCB0byBkbyBpbiBwYXJhbGxlbCBjYW4N
+Cj4+Pj4gcHJvdmlkZSB1bmlxdWUgc2NoZWQtPndvcmtfdGRyIHBlciBzY2hlZHVsZXIuIFRoaXMg
+ZG9lc8KgIGltcGx5DQo+Pj4+IGRybV9zY2hlZF9qb2JfdGltZWRvdXQgaGFzIHRvIHJlbW92ZWQg
+YW5kIGRlbGVnYXRlZCB0byBzcGVjaWZpYw0KPj4+PiBkcml2ZXIgaW1wbGVtZW50YXRpb24gYXMg
+cHJvYmFibHkgb3RoZXIgY29kZSBkZWFsaW5nIHdpdGgNCj4+Pj4gc2NoZWQtPndvcmtfdGRyLi4u
+IE1heWJlIGV2ZW4gbW92ZSB0ZHIgaGFuZGxpbmcgdG8gdGhlIGRyaXZlciBhbGwNCj4+Pj4gdG9n
+ZXRoZXIgPw0KPj4+IFllYWgsIEkgd2FzIHRoaW5raW5nIHNvbWV0aGluZyBzaW1pbGFyLiBUaGUg
+cHJvYmxlbSB3aXRoIHRoaXMNCj4+PiBhcHByb2FjaCBpcyB0aGF0IGEgZGVsYXllZCB3b3JrIGl0
+ZW0gY2FuIGhhdmUgb25seSBvbmUgZGVsYXksIGJ1dCBmb3INCj4+PiBtdWx0aXBsZSBlbmdpbmVz
+IHdlIG5lZWQgbXVsdGlwbGUgZGVsYXlzLg0KPj4+DQo+Pj4gV2hhdCB3ZSBjb3VsZCBkbyBpcyB0
+byBtYWtlIGl0IGEgdGltZXIgaW5zdGVhZCBhbmQgcmFpc2UgdGhlIHdvcmsNCj4+PiBpdGVtIGZy
+b20gdGhlIGRldmljZSBzcGVjaWZpYyBjYWxsYmFjay4NCj4+Pg0KPj4+IEJ1dCB0aGF0IGRvZXNu
+J3QgcmVhbGx5IHNhdmVzIHVzIHRoZSBzdG9wIGFsbCBzY2hlZHVsZXJzIHRyb3VibGUsIHNvDQo+
+Pj4gaXQgZG9lc24ndCBidXkgdXMgbXVjaCBpbiB0aGUgZW5kIGlmIEkgc2VlIHRoaXMgY29ycmVj
+dGx5Lg0KPj4+DQo+Pj4gQ2hyaXN0aWFuLg0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vZHJpLWRldmVsCg==
