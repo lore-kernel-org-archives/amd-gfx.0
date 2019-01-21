@@ -1,53 +1,73 @@
-From: Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
  devices on non-x86
-Date: Mon, 21 Jan 2019 07:59:08 -0800
-Message-ID: <20190121155908.GA8084@infradead.org>
+Date: Mon, 21 Jan 2019 17:14:37 +0100
+Message-ID: <CAKv+Gu8LzS9OgvVnzUT8BZWVgDmx4OfqNiPSf+8=riY_LByN-g@mail.gmail.com>
 References: <20190121100617.2311-1-ard.biesheuvel@linaro.org>
- <20190121150734.GA30582@infradead.org>
- <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw@mail.gmail.com>
+ <20190121150734.GA30582@infradead.org> <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw@mail.gmail.com>
+ <20190121155908.GA8084@infradead.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Ard Biesheuvel <ard.biesheuvel-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
-Cc: Will Deacon <will.deacon-5wv7dgnIgG8@public.gmane.org>, David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Benjamin Herrenschmidt <benh-XVmvHMARGAS8U2dJNN8I7kB+6BGkLq7r@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Michel Daenzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, linux-arm-kernel <linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190121155908.GA8084@infradead.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christoph Hellwig <hch@infradead.org>
+Cc: linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Huang Rui <ray.huang@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, Michel Daenzer <michel.daenzer@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Will Deacon <will.deacon@arm.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBKYW4gMjEsIDIwMTkgYXQgMDQ6MzM6MjdQTSArMDEwMCwgQXJkIEJpZXNoZXV2ZWwg
-d3JvdGU6Cj4gT24gTW9uLCAyMSBKYW4gMjAxOSBhdCAxNjowNywgQ2hyaXN0b3BoIEhlbGx3aWcg
-PGhjaEBpbmZyYWRlYWQub3JnPiB3cm90ZToKPiA+Cj4gPiA+ICsjaW5jbHVkZSA8bGludXgvZG1h
-LW5vbmNvaGVyZW50Lmg+Cj4gPgo+ID4gVGhpcyBoZWFkZXIgaXMgbm90IGZvciB1c2FnZSBpbiBk
-ZXZpY2UgZHJpdmVycywgYnV0IHB1cmVseSBmb3IKPiA+IGRtYS1tYXBwaW5nIGltcGxlbWVudGF0
-aW9ucyEKPiA+Cj4gCj4gSXMgdGhhdCBkb2N1bWVudGVkIGFueXdoZXJlPwoKSSdsbCBhZGQgYmln
-IGZhdCBjb21tZW50cy4gIEJ1dCB0aGUgZmFjdCB0aGF0IG5vdGhpbmcgaXMgZXhwb3J0ZWQKdGhl
-cmUgc2hvdWxkIGJlIGEgZmFpcmx5IGJpZyBoaW50LgoKPiA+IEFuZCBldmVuIGlmIHNvbWV0aGlu
-ZyBsaWtlIHRoaXMgd2FzIHZhbGlkIHRvIGRvLCBpdCB3b3VsZCBoYXZlIHRvIGJlCj4gPiBhIGNv
-cmUgZnVuY3Rpb24gd2l0aCBhbiBhcmNoIGhvb2ssIGFuZCBub3QgaGlkZGVuIGluIGEgcmFuZG9t
-IGRyaXZlci4KPiAKPiBXaHkgd291bGQgaXQgbm90IGJlIHZhbGlkIHRvIGRvPyBJcyBpdCB3cm9u
-ZyBmb3IgYSBkcml2ZXIgdG8gYmUgYXdhcmUKPiBvZiB3aGV0aGVyIGEgZGV2aWNlIGlzIGNhY2hl
-IGNvaGVyZW50IG9yIG5vdD8KPiAKPiBBbmQgaW4gY2FzZSBpdCBpc24ndCwgZG8geW91IGhhdmUg
-YW4gYWx0ZXJuYXRpdmUgc3VnZ2VzdGlvbiBvbiBob3cgdG8KPiBmaXggdGhpcyBtZXNzPwoKRm9y
-IHRoZSB3cml0ZSBjb21iaW5lIG1hcHBpbmdzIHdlIG5lZWQgYSBwcm9wZXIgY29yZSBBUEkgaG93
-IGluc3RhbmNlcwpjYW4gYWR2ZXJ0aXNlIHRoZSBzdXBwb3J0LiAgT25lIHRoaW5nIEkgd2FudCB0
-byBkbyBmYWlybHkgc29vbiBpcwplcnJvciBjaGVja2luZyBvZiB0aGUgYXR0cnMgYXJndW1lbnQg
-dG8gZG1hX2FsbG9jX2F0dHJzIC0gc28gaWYgeW91CnBhc3MgaW4gc29tZXRoaW5nIHVuc3VwcG9y
-dGVkIGl0IHdpbGwgZ2l2ZSB5b3UgYmFjayBhbiBlcnJvci4KCkl0IHNlZW1zIHRoYXQgaXNuJ3Qg
-cXVpdGUgZW5vdWdoIGZvciB0aGUgZHJtIHVzZSBjYXNlLCBzbyB3ZSBtaWdodAphbHNvIG5lZWQg
-YSB3YXkgdG8gcXVlcnkgdGhlc2UgZmVhdHVyZXMsIGJ1dCB0aGF0IHJlYWxseSBoYXMgdG8gZ28K
-dGhyb3VnaCB0aGUgdXN1YWwgZG1hIGxheWVyIGFic3RyYWN0aW9uIGFzIHdlbGwgYW5kIG5vdCBo
-YWNrZWQgdG9nZXRoZXIKaW4gYSBkcml2ZXIgYmFzZWQgb24gYW4gZWR1YWN0ZWQgZ3Vlc3RpbWF0
-ZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Mon, 21 Jan 2019 at 16:59, Christoph Hellwig <hch@infradead.org> wrote:
+>
+> On Mon, Jan 21, 2019 at 04:33:27PM +0100, Ard Biesheuvel wrote:
+> > On Mon, 21 Jan 2019 at 16:07, Christoph Hellwig <hch@infradead.org> wrote:
+> > >
+> > > > +#include <linux/dma-noncoherent.h>
+> > >
+> > > This header is not for usage in device drivers, but purely for
+> > > dma-mapping implementations!
+> > >
+> >
+> > Is that documented anywhere?
+>
+> I'll add big fat comments.  But the fact that nothing is exported
+> there should be a fairly big hint.
+>
+
+I don't follow. How do other header files 'export' things in a way
+that this header doesn't?
+
+> > > And even if something like this was valid to do, it would have to be
+> > > a core function with an arch hook, and not hidden in a random driver.
+> >
+> > Why would it not be valid to do? Is it wrong for a driver to be aware
+> > of whether a device is cache coherent or not?
+> >
+> > And in case it isn't, do you have an alternative suggestion on how to
+> > fix this mess?
+>
+> For the write combine mappings we need a proper core API how instances
+> can advertise the support.  One thing I want to do fairly soon is
+> error checking of the attrs argument to dma_alloc_attrs - so if you
+> pass in something unsupported it will give you back an error.
+>
+
+That sounds useful.
+
+> It seems that isn't quite enough for the drm use case, so we might
+> also need a way to query these features, but that really has to go
+> through the usual dma layer abstraction as well and not hacked together
+> in a driver based on an eduacted guestimate.
+
+As far as I can tell, these drivers allocate DMA'able memory [in
+ttm_tt_populate()] and subsequently create their own CPU mappings for
+it, assuming that
+a) the default is cache coherent, so vmap()ing those pages with
+cacheable attributes works, and
+b) telling the GPU to use NoSnoop attributes makes the accesses it
+performs coherent with non-cacheable CPU mappings of those physical
+pages
+
+Since the latter is not true for many arm64 systems, I need this patch
+to get a working system.
+
+So how do you propose we proceed to get this fixed? Does it have to
+wait for this proper core API plus followup changes for DRM?
