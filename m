@@ -1,14 +1,13 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2] drm/amdgpu: add flags to emit_ib interface v2
-Date: Mon, 21 Jan 2019 09:14:29 +0000
-Message-ID: <BYAPR12MB2632F42880BB799B8886FA13FC9F0@BYAPR12MB2632.namprd12.prod.outlook.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amdgpu: add flags to emit_ib interface v2
+Date: Mon, 21 Jan 2019 09:18:50 +0000
+Message-ID: <20fa8f99-8e50-4434-993b-789657a79851@email.android.com>
 References: <1548053413-16767-1-git-send-email-Jack.Xiao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0930107173=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1548053413-16767-1-git-send-email-Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,313 +18,1341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCg0KUmVn
-YXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBYaWFvLCBK
-YWNrIDxKYWNrLlhpYW9AYW1kLmNvbT4gDQpTZW50OiAyMDE55bm0MeaciDIx5pelIDE0OjU3DQpU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IERldWNoZXIsIEFsZXhhbmRlciA8QWxl
-eGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFt
-ZC5jb20+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KQ2M6
-IFhpYW8sIEphY2sgPEphY2suWGlhb0BhbWQuY29tPg0KU3ViamVjdDogW1BBVENIIHYyXSBkcm0v
-YW1kZ3B1OiBhZGQgZmxhZ3MgdG8gZW1pdF9pYiBpbnRlcmZhY2UgdjINCg0KUmVwbGFjZSB0aGUg
-bGFzdCBib29sIHR5cGUgcGFyYW1ldGVyIHdpdGggYSBnZW5lcmFsIGZsYWdzIHBhcmFtZXRlciwg
-dG8gbWFrZSB0aGUgbGFzdCBwYXJhbWV0ZXIgYmUgYWJsZSB0byBjb250YWluIG1vcmUgaW5mb3Jt
-YXRpb24uDQoNCnYyOiBkcm9wIHNldHRpbmcgbmVlZF9jdHhfc3dpdGNoID0gZmFsc2UNCg0KU2ln
-bmVkLW9mZi1ieTogSmFjayBYaWFvIDxKYWNrLlhpYW9AYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jICAgfCAxMCArKysrKy0tLS0tDQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3JpbmcuaCB8ICA0ICsrLS0gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuYyAgfCAgMiArLSAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZjZS5oICB8ICAyICstDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvY2lrX3NkbWEuYyAgICB8ICAyICstDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3Y2XzAuYyAgICB8ICA0ICsrLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdf
-MC5jICAgIHwgIDYgKysrLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
-YyAgICB8ICA0ICsrLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAg
-IHwgIDQgKystLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjJfNC5jICAgfCAg
-MiArLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jICAgfCAgMiArLQ0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jICAgfCAgMiArLQ0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RtYS5jICAgICAgfCAgMiArLQ0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3V2ZF92NF8yLmMgICAgfCAgMiArLQ0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3V2ZF92NV8wLmMgICAgfCAgMiArLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3V2ZF92Nl8wLmMgICAgfCAgNCArKy0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dXZkX3Y3XzAuYyAgICB8ICA0ICsrLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2Vf
-djNfMC5jICAgIHwgIDIgKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5j
-ICAgIHwgIDIgKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jICAgIHwg
-IDYgKysrLS0tDQogMjAgZmlsZXMgY2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgMzQgZGVsZXRp
-b25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-aWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jDQppbmRleCBjNDgy
-MDdiMy4uMGI4ZWYyZCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9pYi5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYw0K
-QEAgLTIwMiwxMiArMjAyLDEyIEBAIGludCBhbWRncHVfaWJfc2NoZWR1bGUoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nLCB1bnNpZ25lZCBudW1faWJzLA0KIAkJCWFtZGdwdV9hc2ljX2ZsdXNoX2hk
-cChhZGV2LCByaW5nKTsNCiAJfQ0KIA0KKwlpZiAobmVlZF9jdHhfc3dpdGNoKQ0KKwkJc3RhdHVz
-IHw9IEFNREdQVV9IQVZFX0NUWF9TV0lUQ0g7DQorDQogCXNraXBfcHJlYW1ibGUgPSByaW5nLT5j
-dXJyZW50X2N0eCA9PSBmZW5jZV9jdHg7DQogCWlmIChqb2IgJiYgcmluZy0+ZnVuY3MtPmVtaXRf
-Y250eGNudGwpIHsNCi0JCWlmIChuZWVkX2N0eF9zd2l0Y2gpDQotCQkJc3RhdHVzIHw9IEFNREdQ
-VV9IQVZFX0NUWF9TV0lUQ0g7DQogCQlzdGF0dXMgfD0gam9iLT5wcmVhbWJsZV9zdGF0dXM7DQot
-DQogCQlhbWRncHVfcmluZ19lbWl0X2NudHhjbnRsKHJpbmcsIHN0YXR1cyk7DQogCX0NCiANCkBA
-IC0yMjEsOCArMjIxLDggQEAgaW50IGFtZGdwdV9pYl9zY2hlZHVsZShzdHJ1Y3QgYW1kZ3B1X3Jp
-bmcgKnJpbmcsIHVuc2lnbmVkIG51bV9pYnMsDQogCQkJIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkg
-LyogZm9yIFNSSU9WIHByZWVtcHRpb24sIFByZWFtYmxlIENFIGliIG11c3QgYmUgaW5zZXJ0ZWQg
-YW55d2F5ICovDQogCQkJY29udGludWU7DQogDQotCQlhbWRncHVfcmluZ19lbWl0X2liKHJpbmcs
-IGpvYiwgaWIsIG5lZWRfY3R4X3N3aXRjaCk7DQotCQluZWVkX2N0eF9zd2l0Y2ggPSBmYWxzZTsN
-CisJCWFtZGdwdV9yaW5nX2VtaXRfaWIocmluZywgam9iLCBpYiwgc3RhdHVzKTsNCisJCXN0YXR1
-cyAmPSB+QU1ER1BVX0hBVkVfQ1RYX1NXSVRDSDsNCiAJfQ0KIA0KIAlpZiAocmluZy0+ZnVuY3Mt
-PmVtaXRfdG16KQ0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9yaW5nLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oDQppbmRl
-eCBkODdlODI4Li5kN2ZhZTI2IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3JpbmcuaA0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3JpbmcuaA0KQEAgLTEzMSw3ICsxMzEsNyBAQCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3Mgew0K
-IAl2b2lkICgqZW1pdF9pYikoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KIAkJCXN0cnVjdCBh
-bWRncHVfam9iICpqb2IsDQogCQkJc3RydWN0IGFtZGdwdV9pYiAqaWIsDQotCQkJYm9vbCBjdHhf
-c3dpdGNoKTsNCisJCQl1aW50MzJfdCBmbGFncyk7DQogCXZvaWQgKCplbWl0X2ZlbmNlKShzdHJ1
-Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQ2NF90IGFkZHIsDQogCQkJICAgdWludDY0X3Qgc2Vx
-LCB1bnNpZ25lZCBmbGFncyk7DQogCXZvaWQgKCplbWl0X3BpcGVsaW5lX3N5bmMpKHN0cnVjdCBh
-bWRncHVfcmluZyAqcmluZyk7IEBAIC0yMjksNyArMjI5LDcgQEAgc3RydWN0IGFtZGdwdV9yaW5n
-IHsgICNkZWZpbmUgYW1kZ3B1X3JpbmdfZ2V0X3JwdHIocikgKHIpLT5mdW5jcy0+Z2V0X3JwdHIo
-KHIpKSAgI2RlZmluZSBhbWRncHVfcmluZ19nZXRfd3B0cihyKSAociktPmZ1bmNzLT5nZXRfd3B0
-cigocikpICAjZGVmaW5lIGFtZGdwdV9yaW5nX3NldF93cHRyKHIpIChyKS0+ZnVuY3MtPnNldF93
-cHRyKChyKSkgLSNkZWZpbmUgYW1kZ3B1X3JpbmdfZW1pdF9pYihyLCBqb2IsIGliLCBjKSAoKHIp
-LT5mdW5jcy0+ZW1pdF9pYigociksIChqb2IpLCAoaWIpLCAoYykpKQ0KKyNkZWZpbmUgYW1kZ3B1
-X3JpbmdfZW1pdF9pYihyLCBqb2IsIGliLCBmbGFncykgDQorKChyKS0+ZnVuY3MtPmVtaXRfaWIo
-KHIpLCAoam9iKSwgKGliKSwgKGZsYWdzKSkpDQogI2RlZmluZSBhbWRncHVfcmluZ19lbWl0X3Bp
-cGVsaW5lX3N5bmMocikgKHIpLT5mdW5jcy0+ZW1pdF9waXBlbGluZV9zeW5jKChyKSkNCiAjZGVm
-aW5lIGFtZGdwdV9yaW5nX2VtaXRfdm1fZmx1c2gociwgdm1pZCwgYWRkcikgKHIpLT5mdW5jcy0+
-ZW1pdF92bV9mbHVzaCgociksICh2bWlkKSwgKGFkZHIpKSAgI2RlZmluZSBhbWRncHVfcmluZ19l
-bWl0X2ZlbmNlKHIsIGFkZHIsIHNlcSwgZmxhZ3MpIChyKS0+ZnVuY3MtPmVtaXRfZmVuY2UoKHIp
-LCAoYWRkciksIChzZXEpLCAoZmxhZ3MpKSBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZjZS5jDQppbmRleCA5OGExYjJjLi5jMDIxYjExIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdmNlLmMNCkBAIC0xMDM1LDcgKzEwMzUsNyBAQCBpbnQgYW1kZ3B1X3ZjZV9y
-aW5nX3BhcnNlX2NzX3ZtKHN0cnVjdCBhbWRncHVfY3NfcGFyc2VyICpwLCB1aW50MzJfdCBpYl9p
-ZHgpICB2b2lkIGFtZGdwdV92Y2VfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmlu
-ZywNCiAJCQkJc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCiAJCQkJc3RydWN0IGFtZGdwdV9pYiAq
-aWIsDQotCQkJCWJvb2wgY3R4X3N3aXRjaCkNCisJCQkJdWludDMyX3QgZmxhZ3MpDQogew0KIAlh
-bWRncHVfcmluZ193cml0ZShyaW5nLCBWQ0VfQ01EX0lCKTsNCiAJYW1kZ3B1X3Jpbmdfd3JpdGUo
-cmluZywgbG93ZXJfMzJfYml0cyhpYi0+Z3B1X2FkZHIpKTsgZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92Y2UuaA0KaW5kZXggNTAyOTM2NS4uMzBlYTU0ZCAxMDA2NDQNCi0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y2UuaA0KKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZjZS5oDQpAQCAtNjYsNyArNjYsNyBAQCBpbnQgYW1kZ3B1
-X3ZjZV9nZXRfZGVzdHJveV9tc2coc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCBo
-YW5kbGUsICBpbnQgYW1kZ3B1X3ZjZV9yaW5nX3BhcnNlX2NzKHN0cnVjdCBhbWRncHVfY3NfcGFy
-c2VyICpwLCB1aW50MzJfdCBpYl9pZHgpOyAgaW50IGFtZGdwdV92Y2VfcmluZ19wYXJzZV9jc192
-bShzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciAqcCwgdWludDMyX3QgaWJfaWR4KTsgIHZvaWQgYW1k
-Z3B1X3ZjZV9yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1k
-Z3B1X2pvYiAqam9iLA0KLQkJCQlzdHJ1Y3QgYW1kZ3B1X2liICppYiwgYm9vbCBjdHhfc3dpdGNo
-KTsNCisJCQkJc3RydWN0IGFtZGdwdV9pYiAqaWIsIHVpbnQzMl90IGZsYWdzKTsNCiB2b2lkIGFt
-ZGdwdV92Y2VfcmluZ19lbWl0X2ZlbmNlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdTY0IGFk
-ZHIsIHU2NCBzZXEsDQogCQkJCXVuc2lnbmVkIGZsYWdzKTsNCiBpbnQgYW1kZ3B1X3ZjZV9yaW5n
-X3Rlc3RfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpOyBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvY2lrX3NkbWEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2Npa19zZG1hLmMNCmluZGV4IDQ1Nzk1MTkuLjE4OTU5OWIgMTAwNjQ0DQotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9jaWtfc2RtYS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9jaWtfc2RtYS5jDQpAQCAtMjIwLDcgKzIyMCw3IEBAIHN0YXRpYyB2b2lkIGNp
-a19zZG1hX3JpbmdfaW5zZXJ0X25vcChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90
-IGNvdW50KSAgc3RhdGljIHZvaWQgY2lrX3NkbWFfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVf
-cmluZyAqcmluZywNCiAJCQkJICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkgIHN0cnVj
-dCBhbWRncHVfaWIgKmliLA0KLQkJCQkgIGJvb2wgY3R4X3N3aXRjaCkNCisJCQkJICB1aW50MzJf
-dCBmbGFncykNCiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7
-DQogCXUzMiBleHRyYV9iaXRzID0gdm1pZCAmIDB4ZjsNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y2XzAuYw0KaW5kZXggMWRjMzAxMy4uMzA1Mjc2YyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92Nl8wLmMNCkBAIC0xODQyLDEzICsxODQyLDEzIEBAIHN0YXRpYyB2b2lkIGdm
-eF92Nl8wX3JpbmdfZW1pdF9mZW5jZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHU2NCBhZGRy
-LCAgc3RhdGljIHZvaWQgZ2Z4X3Y2XzBfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywNCiAJCQkJICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkgIHN0cnVjdCBhbWRn
-cHVfaWIgKmliLA0KLQkJCQkgIGJvb2wgY3R4X3N3aXRjaCkNCisJCQkJICB1aW50MzJfdCBmbGFn
-cykNCiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQogCXUz
-MiBoZWFkZXIsIGNvbnRyb2wgPSAwOw0KIA0KIAkvKiBpbnNlcnQgU1dJVENIX0JVRkZFUiBwYWNr
-ZXQgYmVmb3JlIGZpcnN0IElCIGluIHRoZSByaW5nIGZyYW1lICovDQotCWlmIChjdHhfc3dpdGNo
-KSB7DQorCWlmIChmbGFncyAmIEFNREdQVV9IQVZFX0NUWF9TV0lUQ0gpIHsNCiAJCWFtZGdwdV9y
-aW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19TV0lUQ0hfQlVGRkVSLCAwKSk7DQogCQlh
-bWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsNCiAJfQ0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjdfMC5jDQppbmRleCAzYTlmYjYwLi43OTg0MjkyIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ2Z4X3Y3XzAuYw0KQEAgLTIyMjgsMTMgKzIyMjgsMTMgQEAgc3RhdGljIHZvaWQgZ2Z4
-X3Y3XzBfcmluZ19lbWl0X2ZlbmNlX2NvbXB1dGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCAg
-c3RhdGljIHZvaWQgZ2Z4X3Y3XzBfcmluZ19lbWl0X2liX2dmeChzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
-KnJpbmcsDQogCQkJCQlzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkJc3RydWN0IGFtZGdw
-dV9pYiAqaWIsDQotCQkJCQlib29sIGN0eF9zd2l0Y2gpDQorCQkJCQl1aW50MzJfdCBmbGFncykN
-CiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQogCXUzMiBo
-ZWFkZXIsIGNvbnRyb2wgPSAwOw0KIA0KIAkvKiBpbnNlcnQgU1dJVENIX0JVRkZFUiBwYWNrZXQg
-YmVmb3JlIGZpcnN0IElCIGluIHRoZSByaW5nIGZyYW1lICovDQotCWlmIChjdHhfc3dpdGNoKSB7
-DQorCWlmIChmbGFncyAmIEFNREdQVV9IQVZFX0NUWF9TV0lUQ0gpIHsNCiAJCWFtZGdwdV9yaW5n
-X3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19TV0lUQ0hfQlVGRkVSLCAwKSk7DQogCQlhbWRn
-cHVfcmluZ193cml0ZShyaW5nLCAwKTsNCiAJfQ0KQEAgLTIyNTksNyArMjI1OSw3IEBAIHN0YXRp
-YyB2b2lkIGdmeF92N18wX3JpbmdfZW1pdF9pYl9nZngoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
-LCAgc3RhdGljIHZvaWQgZ2Z4X3Y3XzBfcmluZ19lbWl0X2liX2NvbXB1dGUoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nLA0KIAkJCQkJICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkJICBz
-dHJ1Y3QgYW1kZ3B1X2liICppYiwNCi0JCQkJCSAgYm9vbCBjdHhfc3dpdGNoKQ0KKwkJCQkJICB1
-aW50MzJfdCBmbGFncykNCiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlE
-KGpvYik7DQogCXUzMiBjb250cm9sID0gSU5ESVJFQ1RfQlVGRkVSX1ZBTElEIHwgaWItPmxlbmd0
-aF9kdyB8ICh2bWlkIDw8IDI0KTsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jDQpp
-bmRleCA1N2NiM2E1Li5hMjY3NDc2IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ2Z4X3Y4XzAuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4
-XzAuYw0KQEAgLTYwNDcsNyArNjA0Nyw3IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3JpbmdfZW1p
-dF92Z3RfZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKSAgc3RhdGljIHZvaWQgZ2Z4X3Y4
-XzBfcmluZ19lbWl0X2liX2dmeChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQogCQkJCQlzdHJ1
-Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkJc3RydWN0IGFtZGdwdV9pYiAqaWIsDQotCQkJCQli
-b29sIGN0eF9zd2l0Y2gpDQorCQkJCQl1aW50MzJfdCBmbGFncykNCiB7DQogCXVuc2lnbmVkIHZt
-aWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQogCXUzMiBoZWFkZXIsIGNvbnRyb2wgPSAw
-Ow0KQEAgLTYwNzksNyArNjA3OSw3IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3JpbmdfZW1pdF9p
-Yl9nZngoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCAgc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfcmlu
-Z19lbWl0X2liX2NvbXB1dGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KIAkJCQkJICBzdHJ1
-Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkJICBzdHJ1Y3QgYW1kZ3B1X2liICppYiwNCi0JCQkJ
-CSAgYm9vbCBjdHhfc3dpdGNoKQ0KKwkJCQkJICB1aW50MzJfdCBmbGFncykNCiB7DQogCXVuc2ln
-bmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQogCXUzMiBjb250cm9sID0gSU5E
-SVJFQ1RfQlVGRkVSX1ZBTElEIHwgaWItPmxlbmd0aF9kdyB8ICh2bWlkIDw8IDI0KTsgZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jDQppbmRleCBmYmNhMDQ5Li4yNjJlZTNjIDEwMDY0
-NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KQEAgLTM5NzIsNyArMzk3Miw3IEBA
-IHN0YXRpYyB2b2lkIGdmeF92OV8wX3JpbmdfZW1pdF9oZHBfZmx1c2goc3RydWN0IGFtZGdwdV9y
-aW5nICpyaW5nKSAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0X2liX2dmeChzdHJ1Y3Qg
-YW1kZ3B1X3JpbmcgKnJpbmcsDQogCQkJCQlzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkJ
-c3RydWN0IGFtZGdwdV9pYiAqaWIsDQotCQkJCQlib29sIGN0eF9zd2l0Y2gpDQorCQkJCQl1aW50
-MzJfdCBmbGFncykNCiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpv
-Yik7DQogCXUzMiBoZWFkZXIsIGNvbnRyb2wgPSAwOw0KQEAgLTQwMDUsNyArNDAwNSw3IEBAIHN0
-YXRpYyB2b2lkIGdmeF92OV8wX3JpbmdfZW1pdF9pYl9nZngoc3RydWN0IGFtZGdwdV9yaW5nICpy
-aW5nLCAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0X2liX2NvbXB1dGUoc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nLA0KIAkJCQkJICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkJ
-ICBzdHJ1Y3QgYW1kZ3B1X2liICppYiwNCi0JCQkJCSAgYm9vbCBjdHhfc3dpdGNoKQ0KKwkJCQkJ
-ICB1aW50MzJfdCBmbGFncykNCiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9W
-TUlEKGpvYik7DQogCXUzMiBjb250cm9sID0gSU5ESVJFQ1RfQlVGRkVSX1ZBTElEIHwgaWItPmxl
-bmd0aF9kdyB8ICh2bWlkIDw8IDI0KTsgZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3NkbWFfdjJfNC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92Ml80
-LmMNCmluZGV4IDlmM2NiMmEuLmNjYTM1NTIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9zZG1hX3YyXzQuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c2RtYV92Ml80LmMNCkBAIC0yNDcsNyArMjQ3LDcgQEAgc3RhdGljIHZvaWQgc2RtYV92Ml80X3Jp
-bmdfaW5zZXJ0X25vcChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGNvdW50KSAg
-c3RhdGljIHZvaWQgc2RtYV92Ml80X3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
-bmcsDQogCQkJCSAgIHN0cnVjdCBhbWRncHVfam9iICpqb2IsDQogCQkJCSAgIHN0cnVjdCBhbWRn
-cHVfaWIgKmliLA0KLQkJCQkgICBib29sIGN0eF9zd2l0Y2gpDQorCQkJCSAgIHVpbnQzMl90IGZs
-YWdzKQ0KIHsNCiAJdW5zaWduZWQgdm1pZCA9IEFNREdQVV9KT0JfR0VUX1ZNSUQoam9iKTsNCiAN
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3YzXzAuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jDQppbmRleCAwNmM1YTI3Li4wY2U4
-MzMxIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92M18wLmMN
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjNfMC5jDQpAQCAtNDIxLDcg
-KzQyMSw3IEBAIHN0YXRpYyB2b2lkIHNkbWFfdjNfMF9yaW5nX2luc2VydF9ub3Aoc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nLCB1aW50MzJfdCBjb3VudCkgIHN0YXRpYyB2b2lkIHNkbWFfdjNfMF9y
-aW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KIAkJCQkgICBzdHJ1Y3QgYW1k
-Z3B1X2pvYiAqam9iLA0KIAkJCQkgICBzdHJ1Y3QgYW1kZ3B1X2liICppYiwNCi0JCQkJICAgYm9v
-bCBjdHhfc3dpdGNoKQ0KKwkJCQkgICB1aW50MzJfdCBmbGFncykNCiB7DQogCXVuc2lnbmVkIHZt
-aWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQogDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9zZG1hX3Y0XzAuYw0KaW5kZXggNDhhMTY2Yi4uMTI3Yjg1OSAxMDA2NDQNCi0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9zZG1hX3Y0XzAuYw0KQEAgLTUwMCw3ICs1MDAsNyBAQCBzdGF0aWMgdm9pZCBz
-ZG1hX3Y0XzBfcmluZ19pbnNlcnRfbm9wKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdWludDMy
-X3QgY291bnQpICBzdGF0aWMgdm9pZCBzZG1hX3Y0XzBfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRn
-cHVfcmluZyAqcmluZywNCiAJCQkJICAgc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCiAJCQkJICAg
-c3RydWN0IGFtZGdwdV9pYiAqaWIsDQotCQkJCSAgIGJvb2wgY3R4X3N3aXRjaCkNCisJCQkJICAg
-dWludDMyX3QgZmxhZ3MpDQogew0KIAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pPQl9HRVRfVk1J
-RChqb2IpOw0KIA0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2Rt
-YS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZG1hLmMNCmluZGV4IGI2ZTQ3MzEu
-LmYxNWYxOTYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zaV9kbWEu
-Yw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZG1hLmMNCkBAIC02Myw3ICs2
-Myw3IEBAIHN0YXRpYyB2b2lkIHNpX2RtYV9yaW5nX3NldF93cHRyKHN0cnVjdCBhbWRncHVfcmlu
-ZyAqcmluZykgIHN0YXRpYyB2b2lkIHNpX2RtYV9yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9y
-aW5nICpyaW5nLA0KIAkJCQlzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQlzdHJ1Y3QgYW1k
-Z3B1X2liICppYiwNCi0JCQkJYm9vbCBjdHhfc3dpdGNoKQ0KKwkJCQl1aW50MzJfdCBmbGFncykN
-CiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7DQogCS8qIFRo
-ZSBpbmRpcmVjdCBidWZmZXIgcGFja2V0IG11c3QgZW5kIG9uIGFuIDggRFcgYm91bmRhcnkgaW4g
-dGhlIERNQSByaW5nLg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2
-ZF92NF8yLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91dmRfdjRfMi5jDQppbmRleCBk
-NjljOGY2Li5jNGZiNTg2IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dXZkX3Y0XzIuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y0XzIuYw0K
-QEAgLTUxMSw3ICs1MTEsNyBAQCBzdGF0aWMgaW50IHV2ZF92NF8yX3JpbmdfdGVzdF9yaW5nKHN0
-cnVjdCBhbWRncHVfcmluZyAqcmluZykgIHN0YXRpYyB2b2lkIHV2ZF92NF8yX3JpbmdfZW1pdF9p
-YihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQogCQkJCSAgc3RydWN0IGFtZGdwdV9qb2IgKmpv
-YiwNCiAJCQkJICBzdHJ1Y3QgYW1kZ3B1X2liICppYiwNCi0JCQkJICBib29sIGN0eF9zd2l0Y2gp
-DQorCQkJCSAgdWludDMyX3QgZmxhZ3MpDQogew0KIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQ
-QUNLRVQwKG1tVVZEX1JCQ19JQl9CQVNFLCAwKSk7DQogCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcs
-IGliLT5ncHVfYWRkcik7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91
-dmRfdjVfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y1XzAuYw0KaW5kZXgg
-ZWU4Y2QwNi4uNTJiZDhhNiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3V2ZF92NV8wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92NV8wLmMN
-CkBAIC01MjYsNyArNTI2LDcgQEAgc3RhdGljIGludCB1dmRfdjVfMF9yaW5nX3Rlc3RfcmluZyhz
-dHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpICBzdGF0aWMgdm9pZCB1dmRfdjVfMF9yaW5nX2VtaXRf
-aWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KIAkJCQkgIHN0cnVjdCBhbWRncHVfam9iICpq
-b2IsDQogCQkJCSAgc3RydWN0IGFtZGdwdV9pYiAqaWIsDQotCQkJCSAgYm9vbCBjdHhfc3dpdGNo
-KQ0KKwkJCQkgIHVpbnQzMl90IGZsYWdzKQ0KIHsNCiAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywg
-UEFDS0VUMChtbVVWRF9MTUlfUkJDX0lCXzY0QklUX0JBUl9MT1csIDApKTsNCiAJYW1kZ3B1X3Jp
-bmdfd3JpdGUocmluZywgbG93ZXJfMzJfYml0cyhpYi0+Z3B1X2FkZHIpKTsgZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS91dmRfdjZfMC5jDQppbmRleCBkNGY0YTY2Li5jOWVkZGRmIDEwMDY0NA0KLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y2XzAuYw0KKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y2XzAuYw0KQEAgLTk3Nyw3ICs5NzcsNyBAQCBzdGF0aWMg
-aW50IHV2ZF92Nl8wX3JpbmdfdGVzdF9yaW5nKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykgIHN0
-YXRpYyB2b2lkIHV2ZF92Nl8wX3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
-DQogCQkJCSAgc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCiAJCQkJICBzdHJ1Y3QgYW1kZ3B1X2li
-ICppYiwNCi0JCQkJICBib29sIGN0eF9zd2l0Y2gpDQorCQkJCSAgdWludDMyX3QgZmxhZ3MpDQog
-ew0KIAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pPQl9HRVRfVk1JRChqb2IpOw0KIA0KQEAgLTEw
-MDMsNyArMTAwMyw3IEBAIHN0YXRpYyB2b2lkIHV2ZF92Nl8wX3JpbmdfZW1pdF9pYihzdHJ1Y3Qg
-YW1kZ3B1X3JpbmcgKnJpbmcsICBzdGF0aWMgdm9pZCB1dmRfdjZfMF9lbmNfcmluZ19lbWl0X2li
-KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywNCiAJCQkJCXN0cnVjdCBhbWRncHVfam9iICpqb2Is
-DQogCQkJCQlzdHJ1Y3QgYW1kZ3B1X2liICppYiwNCi0JCQkJCWJvb2wgY3R4X3N3aXRjaCkNCisJ
-CQkJCXVpbnQzMl90IGZsYWdzKQ0KIHsNCiAJdW5zaWduZWQgdm1pZCA9IEFNREdQVV9KT0JfR0VU
-X1ZNSUQoam9iKTsNCiANCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS91
-dmRfdjdfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYw0KaW5kZXgg
-YWVmOTI0MC4uZGM0NjFkZiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3V2ZF92N18wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMN
-CkBAIC0xMjcyLDcgKzEyNzIsNyBAQCBzdGF0aWMgaW50IHV2ZF92N18wX3JpbmdfcGF0Y2hfY3Nf
-aW5fcGxhY2Uoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsICBzdGF0aWMgdm9pZCB1dmRfdjdf
-MF9yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KIAkJCQkgIHN0cnVjdCBh
-bWRncHVfam9iICpqb2IsDQogCQkJCSAgc3RydWN0IGFtZGdwdV9pYiAqaWIsDQotCQkJCSAgYm9v
-bCBjdHhfc3dpdGNoKQ0KKwkJCQkgIHVpbnQzMl90IGZsYWdzKQ0KIHsNCiAJc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Ow0KIAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pP
-Ql9HRVRfVk1JRChqb2IpOyBAQCAtMTMwMyw3ICsxMzAzLDcgQEAgc3RhdGljIHZvaWQgdXZkX3Y3
-XzBfcmluZ19lbWl0X2liKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgIHN0YXRpYyB2b2lkIHV2
-ZF92N18wX2VuY19yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KIAkJCQkJ
-c3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCiAJCQkJCXN0cnVjdCBhbWRncHVfaWIgKmliLA0KLQkJ
-CQkJYm9vbCBjdHhfc3dpdGNoKQ0KKwkJCQkJdWludDMyX3QgZmxhZ3MpDQogew0KIAl1bnNpZ25l
-ZCB2bWlkID0gQU1ER1BVX0pPQl9HRVRfVk1JRChqb2IpOw0KIA0KZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92Y2VfdjNfMC5jDQppbmRleCAyNjY4ZWZmLi42ZWM2NWNmMSAxMDA2NDQNCi0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3ZjZV92M18wLmMNCkBAIC04MzQsNyArODM0LDcgQEAgc3RhdGljIHZvaWQg
-dmNlX3YzXzBfZ2V0X2Nsb2NrZ2F0aW5nX3N0YXRlKHZvaWQgKmhhbmRsZSwgdTMyICpmbGFncykg
-IHN0YXRpYyB2b2lkIHZjZV92M18wX3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJp
-bmcsDQogCQkJCSAgc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCiAJCQkJICBzdHJ1Y3QgYW1kZ3B1
-X2liICppYiwNCi0JCQkJICBib29sIGN0eF9zd2l0Y2gpDQorCQkJCSAgdWludDMyX3QgZmxhZ3Mp
-DQogew0KIAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pPQl9HRVRfVk1JRChqb2IpOw0KIA0KZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZjZV92NF8wLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5jDQppbmRleCA5ZmIzNGI3Li5hYWRjM2U2IDEw
-MDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYw0KKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYw0KQEAgLTk0Nyw3ICs5NDcsNyBA
-QCBzdGF0aWMgaW50IHZjZV92NF8wX3NldF9wb3dlcmdhdGluZ19zdGF0ZSh2b2lkICpoYW5kbGUs
-ICAjZW5kaWYNCiANCiBzdGF0aWMgdm9pZCB2Y2VfdjRfMF9yaW5nX2VtaXRfaWIoc3RydWN0IGFt
-ZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KLQkJCQkJc3RydWN0IGFt
-ZGdwdV9pYiAqaWIsIGJvb2wgY3R4X3N3aXRjaCkNCisJCQkJCXN0cnVjdCBhbWRncHVfaWIgKmli
-LCB1aW50MzJfdCBmbGFncykNCiB7DQogCXVuc2lnbmVkIHZtaWQgPSBBTURHUFVfSk9CX0dFVF9W
-TUlEKGpvYik7DQogDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNu
-X3YxXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMNCmluZGV4IDg5
-YmIyZmUuLjNkYmM1MWYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92
-Y25fdjFfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jDQpA
-QCAtMTM3MSw3ICsxMzcxLDcgQEAgc3RhdGljIHZvaWQgdmNuX3YxXzBfZGVjX3JpbmdfZW1pdF9m
-ZW5jZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHU2NCBhZGRyLCB1NjQgIHN0YXRpYyB2b2lk
-IHZjbl92MV8wX2RlY19yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLA0KIAkJ
-CQkJc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCiAJCQkJCXN0cnVjdCBhbWRncHVfaWIgKmliLA0K
-LQkJCQkJYm9vbCBjdHhfc3dpdGNoKQ0KKwkJCQkJdWludDMyX3QgZmxhZ3MpDQogew0KIAlzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IHJpbmctPmFkZXY7DQogCXVuc2lnbmVkIHZtaWQgPSBB
-TURHUFVfSk9CX0dFVF9WTUlEKGpvYik7IEBAIC0xNTMxLDcgKzE1MzEsNyBAQCBzdGF0aWMgdm9p
-ZCB2Y25fdjFfMF9lbmNfcmluZ19pbnNlcnRfZW5kKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZykg
-IHN0YXRpYyB2b2lkIHZjbl92MV8wX2VuY19yaW5nX2VtaXRfaWIoc3RydWN0IGFtZGdwdV9yaW5n
-ICpyaW5nLA0KIAkJCQkJc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwNCiAJCQkJCXN0cnVjdCBhbWRn
-cHVfaWIgKmliLA0KLQkJCQkJYm9vbCBjdHhfc3dpdGNoKQ0KKwkJCQkJdWludDMyX3QgZmxhZ3Mp
-DQogew0KIAl1bnNpZ25lZCB2bWlkID0gQU1ER1BVX0pPQl9HRVRfVk1JRChqb2IpOw0KIA0KQEAg
-LTE3MzYsNyArMTczNiw3IEBAIHN0YXRpYyB2b2lkIHZjbl92MV8wX2pwZWdfcmluZ19lbWl0X2Zl
-bmNlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywgdTY0IGFkZHIsIHU2ICBzdGF0aWMgdm9pZCB2
-Y25fdjFfMF9qcGVnX3JpbmdfZW1pdF9pYihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsDQogCQkJ
-CQlzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iLA0KIAkJCQkJc3RydWN0IGFtZGdwdV9pYiAqaWIsDQot
-CQkJCQlib29sIGN0eF9zd2l0Y2gpDQorCQkJCQl1aW50MzJfdCBmbGFncykNCiB7DQogCXN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2ID0gcmluZy0+YWRldjsNCiAJdW5zaWduZWQgdm1pZCA9IEFN
-REdQVV9KT0JfR0VUX1ZNSUQoam9iKTsNCi0tDQoxLjkuMQ0KDQpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============0930107173==
+Content-Language: de-DE
+Content-Type: multipart/alternative;
+	boundary="_000_20fa8f998e504434993b789657a79851emailandroidcom_"
+
+--_000_20fa8f998e504434993b789657a79851emailandroidcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+Am 21.01.2019 07:57 schrieb "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>:
+Replace the last bool type parameter with a general flags parameter,
+to make the last parameter be able to contain more information.
+
+v2: drop setting need_ctx_switch =3D false
+
+Signed-off-by: Jack Xiao <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 10 +++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c    |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c    |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/si_dma.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c    |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c    |  4 ++--
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c    |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    |  6 +++---
+ 20 files changed, 34 insertions(+), 34 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_ib.c
+index c48207b3..0b8ef2d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -202,12 +202,12 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsi=
+gned num_ibs,
+                         amdgpu_asic_flush_hdp(adev, ring);
+         }
+
++       if (need_ctx_switch)
++               status |=3D AMDGPU_HAVE_CTX_SWITCH;
++
+         skip_preamble =3D ring->current_ctx =3D=3D fence_ctx;
+         if (job && ring->funcs->emit_cntxcntl) {
+-               if (need_ctx_switch)
+-                       status |=3D AMDGPU_HAVE_CTX_SWITCH;
+                 status |=3D job->preamble_status;
+-
+                 amdgpu_ring_emit_cntxcntl(ring, status);
+         }
+
+@@ -221,8 +221,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsign=
+ed num_ibs,
+                         !amdgpu_sriov_vf(adev)) /* for SRIOV preemption, P=
+reamble CE ib must be inserted anyway */
+                         continue;
+
+-               amdgpu_ring_emit_ib(ring, job, ib, need_ctx_switch);
+-               need_ctx_switch =3D false;
++               amdgpu_ring_emit_ib(ring, job, ib, status);
++               status &=3D ~AMDGPU_HAVE_CTX_SWITCH;
+         }
+
+         if (ring->funcs->emit_tmz)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ring.h
+index d87e828..d7fae26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -131,7 +131,7 @@ struct amdgpu_ring_funcs {
+         void (*emit_ib)(struct amdgpu_ring *ring,
+                         struct amdgpu_job *job,
+                         struct amdgpu_ib *ib,
+-                       bool ctx_switch);
++                       uint32_t flags);
+         void (*emit_fence)(struct amdgpu_ring *ring, uint64_t addr,
+                            uint64_t seq, unsigned flags);
+         void (*emit_pipeline_sync)(struct amdgpu_ring *ring);
+@@ -229,7 +229,7 @@ struct amdgpu_ring {
+ #define amdgpu_ring_get_rptr(r) (r)->funcs->get_rptr((r))
+ #define amdgpu_ring_get_wptr(r) (r)->funcs->get_wptr((r))
+ #define amdgpu_ring_set_wptr(r) (r)->funcs->set_wptr((r))
+-#define amdgpu_ring_emit_ib(r, job, ib, c) ((r)->funcs->emit_ib((r), (job)=
+, (ib), (c)))
++#define amdgpu_ring_emit_ib(r, job, ib, flags) ((r)->funcs->emit_ib((r), (=
+job), (ib), (flags)))
+ #define amdgpu_ring_emit_pipeline_sync(r) (r)->funcs->emit_pipeline_sync((=
+r))
+ #define amdgpu_ring_emit_vm_flush(r, vmid, addr) (r)->funcs->emit_vm_flush=
+((r), (vmid), (addr))
+ #define amdgpu_ring_emit_fence(r, addr, seq, flags) (r)->funcs->emit_fence=
+((r), (addr), (seq), (flags))
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vce.c
+index 98a1b2c..c021b11 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
+@@ -1035,7 +1035,7 @@ int amdgpu_vce_ring_parse_cs_vm(struct amdgpu_cs_pars=
+er *p, uint32_t ib_idx)
+ void amdgpu_vce_ring_emit_ib(struct amdgpu_ring *ring,
+                                 struct amdgpu_job *job,
+                                 struct amdgpu_ib *ib,
+-                               bool ctx_switch)
++                               uint32_t flags)
+ {
+         amdgpu_ring_write(ring, VCE_CMD_IB);
+         amdgpu_ring_write(ring, lower_32_bits(ib->gpu_addr));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vce.h
+index 5029365..30ea54d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h
+@@ -66,7 +66,7 @@ int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ring, =
+uint32_t handle,
+ int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p, uint32_t ib_idx);
+ int amdgpu_vce_ring_parse_cs_vm(struct amdgpu_cs_parser *p, uint32_t ib_id=
+x);
+ void amdgpu_vce_ring_emit_ib(struct amdgpu_ring *ring, struct amdgpu_job *=
+job,
+-                               struct amdgpu_ib *ib, bool ctx_switch);
++                               struct amdgpu_ib *ib, uint32_t flags);
+ void amdgpu_vce_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64 se=
+q,
+                                 unsigned flags);
+ int amdgpu_vce_ring_test_ring(struct amdgpu_ring *ring);
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/am=
+dgpu/cik_sdma.c
+index 4579519..189599b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+@@ -220,7 +220,7 @@ static void cik_sdma_ring_insert_nop(struct amdgpu_ring=
+ *ring, uint32_t count)
+ static void cik_sdma_ring_emit_ib(struct amdgpu_ring *ring,
+                                   struct amdgpu_job *job,
+                                   struct amdgpu_ib *ib,
+-                                 bool ctx_switch)
++                                 uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 extra_bits =3D vmid & 0xf;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v6_0.c
+index 1dc3013..305276c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -1842,13 +1842,13 @@ static void gfx_v6_0_ring_emit_fence(struct amdgpu_=
+ring *ring, u64 addr,
+ static void gfx_v6_0_ring_emit_ib(struct amdgpu_ring *ring,
+                                   struct amdgpu_job *job,
+                                   struct amdgpu_ib *ib,
+-                                 bool ctx_switch)
++                                 uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 header, control =3D 0;
+
+         /* insert SWITCH_BUFFER packet before first IB in the ring frame *=
+/
+-       if (ctx_switch) {
++       if (flags & AMDGPU_HAVE_CTX_SWITCH) {
+                 amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0))=
+;
+                 amdgpu_ring_write(ring, 0);
+         }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v7_0.c
+index 3a9fb60..7984292 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -2228,13 +2228,13 @@ static void gfx_v7_0_ring_emit_fence_compute(struct=
+ amdgpu_ring *ring,
+ static void gfx_v7_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 header, control =3D 0;
+
+         /* insert SWITCH_BUFFER packet before first IB in the ring frame *=
+/
+-       if (ctx_switch) {
++       if (flags & AMDGPU_HAVE_CTX_SWITCH) {
+                 amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0))=
+;
+                 amdgpu_ring_write(ring, 0);
+         }
+@@ -2259,7 +2259,7 @@ static void gfx_v7_0_ring_emit_ib_gfx(struct amdgpu_r=
+ing *ring,
+ static void gfx_v7_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+                                           struct amdgpu_job *job,
+                                           struct amdgpu_ib *ib,
+-                                         bool ctx_switch)
++                                         uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << 2=
+4);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c
+index 57cb3a5..a267476 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -6047,7 +6047,7 @@ static void gfx_v8_0_ring_emit_vgt_flush(struct amdgp=
+u_ring *ring)
+ static void gfx_v8_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 header, control =3D 0;
+@@ -6079,7 +6079,7 @@ static void gfx_v8_0_ring_emit_ib_gfx(struct amdgpu_r=
+ing *ring,
+ static void gfx_v8_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+                                           struct amdgpu_job *job,
+                                           struct amdgpu_ib *ib,
+-                                         bool ctx_switch)
++                                         uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << 2=
+4);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c
+index fbca049..262ee3c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -3972,7 +3972,7 @@ static void gfx_v9_0_ring_emit_hdp_flush(struct amdgp=
+u_ring *ring)
+ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 header, control =3D 0;
+@@ -4005,7 +4005,7 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu_r=
+ing *ring,
+ static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+                                           struct amdgpu_job *job,
+                                           struct amdgpu_ib *ib,
+-                                         bool ctx_switch)
++                                         uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << 2=
+4);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v2_4.c
+index 9f3cb2a..cca3552 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+@@ -247,7 +247,7 @@ static void sdma_v2_4_ring_insert_nop(struct amdgpu_rin=
+g *ring, uint32_t count)
+ static void sdma_v2_4_ring_emit_ib(struct amdgpu_ring *ring,
+                                    struct amdgpu_job *job,
+                                    struct amdgpu_ib *ib,
+-                                  bool ctx_switch)
++                                  uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v3_0.c
+index 06c5a27..0ce8331 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+@@ -421,7 +421,7 @@ static void sdma_v3_0_ring_insert_nop(struct amdgpu_rin=
+g *ring, uint32_t count)
+ static void sdma_v3_0_ring_emit_ib(struct amdgpu_ring *ring,
+                                    struct amdgpu_job *job,
+                                    struct amdgpu_ib *ib,
+-                                  bool ctx_switch)
++                                  uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v4_0.c
+index 48a166b..127b859 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -500,7 +500,7 @@ static void sdma_v4_0_ring_insert_nop(struct amdgpu_rin=
+g *ring, uint32_t count)
+ static void sdma_v4_0_ring_emit_ib(struct amdgpu_ring *ring,
+                                    struct amdgpu_job *job,
+                                    struct amdgpu_ib *ib,
+-                                  bool ctx_switch)
++                                  uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdg=
+pu/si_dma.c
+index b6e4731..f15f196 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+@@ -63,7 +63,7 @@ static void si_dma_ring_set_wptr(struct amdgpu_ring *ring=
+)
+ static void si_dma_ring_emit_ib(struct amdgpu_ring *ring,
+                                 struct amdgpu_job *job,
+                                 struct amdgpu_ib *ib,
+-                               bool ctx_switch)
++                               uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+         /* The indirect buffer packet must end on an 8 DW boundary in the =
+DMA ring.
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v4_2.c
+index d69c8f6..c4fb586 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+@@ -511,7 +511,7 @@ static int uvd_v4_2_ring_test_ring(struct amdgpu_ring *=
+ring)
+ static void uvd_v4_2_ring_emit_ib(struct amdgpu_ring *ring,
+                                   struct amdgpu_job *job,
+                                   struct amdgpu_ib *ib,
+-                                 bool ctx_switch)
++                                 uint32_t flags)
+ {
+         amdgpu_ring_write(ring, PACKET0(mmUVD_RBC_IB_BASE, 0));
+         amdgpu_ring_write(ring, ib->gpu_addr);
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v5_0.c
+index ee8cd06..52bd8a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -526,7 +526,7 @@ static int uvd_v5_0_ring_test_ring(struct amdgpu_ring *=
+ring)
+ static void uvd_v5_0_ring_emit_ib(struct amdgpu_ring *ring,
+                                   struct amdgpu_job *job,
+                                   struct amdgpu_ib *ib,
+-                                 bool ctx_switch)
++                                 uint32_t flags)
+ {
+         amdgpu_ring_write(ring, PACKET0(mmUVD_LMI_RBC_IB_64BIT_BAR_LOW, 0)=
+);
+         amdgpu_ring_write(ring, lower_32_bits(ib->gpu_addr));
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v6_0.c
+index d4f4a66..c9edddf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -977,7 +977,7 @@ static int uvd_v6_0_ring_test_ring(struct amdgpu_ring *=
+ring)
+ static void uvd_v6_0_ring_emit_ib(struct amdgpu_ring *ring,
+                                   struct amdgpu_job *job,
+                                   struct amdgpu_ib *ib,
+-                                 bool ctx_switch)
++                                 uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+@@ -1003,7 +1003,7 @@ static void uvd_v6_0_ring_emit_ib(struct amdgpu_ring =
+*ring,
+ static void uvd_v6_0_enc_ring_emit_ib(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v7_0.c
+index aef9240..dc461df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+@@ -1272,7 +1272,7 @@ static int uvd_v7_0_ring_patch_cs_in_place(struct amd=
+gpu_cs_parser *p,
+ static void uvd_v7_0_ring_emit_ib(struct amdgpu_ring *ring,
+                                   struct amdgpu_job *job,
+                                   struct amdgpu_ib *ib,
+-                                 bool ctx_switch)
++                                 uint32_t flags)
+ {
+         struct amdgpu_device *adev =3D ring->adev;
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+@@ -1303,7 +1303,7 @@ static void uvd_v7_0_ring_emit_ib(struct amdgpu_ring =
+*ring,
+ static void uvd_v7_0_enc_ring_emit_ib(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v3_0.c
+index 2668eff..6ec65cf1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -834,7 +834,7 @@ static void vce_v3_0_get_clockgating_state(void *handle=
+, u32 *flags)
+ static void vce_v3_0_ring_emit_ib(struct amdgpu_ring *ring,
+                                   struct amdgpu_job *job,
+                                   struct amdgpu_ib *ib,
+-                                 bool ctx_switch)
++                                 uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v4_0.c
+index 9fb34b7..aadc3e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+@@ -947,7 +947,7 @@ static int vce_v4_0_set_powergating_state(void *handle,
+ #endif
+
+ static void vce_v4_0_ring_emit_ib(struct amdgpu_ring *ring, struct amdgpu_=
+job *job,
+-                                       struct amdgpu_ib *ib, bool ctx_swit=
+ch)
++                                       struct amdgpu_ib *ib, uint32_t flag=
+s)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v1_0.c
+index 89bb2fe..3dbc51f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -1371,7 +1371,7 @@ static void vcn_v1_0_dec_ring_emit_fence(struct amdgp=
+u_ring *ring, u64 addr, u64
+ static void vcn_v1_0_dec_ring_emit_ib(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         struct amdgpu_device *adev =3D ring->adev;
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+@@ -1531,7 +1531,7 @@ static void vcn_v1_0_enc_ring_insert_end(struct amdgp=
+u_ring *ring)
+ static void vcn_v1_0_enc_ring_emit_ib(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+
+@@ -1736,7 +1736,7 @@ static void vcn_v1_0_jpeg_ring_emit_fence(struct amdg=
+pu_ring *ring, u64 addr, u6
+ static void vcn_v1_0_jpeg_ring_emit_ib(struct amdgpu_ring *ring,
+                                         struct amdgpu_job *job,
+                                         struct amdgpu_ib *ib,
+-                                       bool ctx_switch)
++                                       uint32_t flags)
+ {
+         struct amdgpu_device *adev =3D ring->adev;
+         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+--
+1.9.1
+
+
+--_000_20fa8f998e504434993b789657a79851emailandroidcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div dir=3D"auto">Reviewed-by: Christian K=F6nig &lt;christian.koenig@amd.c=
+om&gt;</div>
+<div class=3D"x_gmail_extra"><br>
+<div class=3D"x_gmail_quote">Am 21.01.2019 07:57 schrieb &quot;Xiao, Jack&q=
+uot; &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
+</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">Replace the last bool type parameter with a genera=
+l flags parameter,<br>
+to make the last parameter be able to contain more information.<br>
+<br>
+v2: drop setting need_ctx_switch =3D false<br>
+<br>
+Signed-off-by: Jack Xiao &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c&nbsp;&nbsp; | 10 &#43;&#43;&#4=
+3;&#43;&#43;-----<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |&nbsp; 4 &#43;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c&nbsp; |&nbsp; 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h&nbsp; |&nbsp; 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/cik_sdma.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#4=
+3;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#4=
+3;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 6 &#4=
+3;&#43;&#43;---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#4=
+3;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#4=
+3;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c&nbsp;&nbsp; |&nbsp; 2 &#43;-<b=
+r>
+&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c&nbsp;&nbsp; |&nbsp; 2 &#43;-<b=
+r>
+&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c&nbsp;&nbsp; |&nbsp; 2 &#43;-<b=
+r>
+&nbsp;drivers/gpu/drm/amd/amdgpu/si_dma.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&n=
+bsp; 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#4=
+3;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#4=
+3;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#4=
+3;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#4=
+3;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vce_v3_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#4=
+3;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vce_v4_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#4=
+3;-<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c&nbsp;&nbsp;&nbsp; |&nbsp; 6 &#4=
+3;&#43;&#43;---<br>
+&nbsp;20 files changed, 34 insertions(&#43;), 34 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_ib.c<br>
+index c48207b3..0b8ef2d 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
+@@ -202,12 &#43;202,12 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, =
+unsigned num_ibs,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_asic_flush_hdp(adev, ring);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (need_ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; status |=3D AMDGPU_HAVE_CTX_SWITCH;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; skip_preamble =3D ring-&gt=
+;current_ctx =3D=3D fence_ctx;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (job &amp;&amp; ring-&g=
+t;funcs-&gt;emit_cntxcntl) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; if (need_ctx_switch)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status |=3D AMDG=
+PU_HAVE_CTX_SWITCH;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; status |=3D job-&gt;preamble_status;<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_emit_cntxcntl(ring, status);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+@@ -221,8 &#43;221,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, un=
+signed num_ibs,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !amdg=
+pu_sriov_vf(adev)) /* for SRIOV preemption, Preamble CE ib must be inserted=
+ anyway */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_ring_emit_ib(ring, job, ib, need_ctx_switch);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; need_ctx_switch =3D false;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; amdgpu_ring_emit_ib(ring, job, ib, status);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; status &amp;=3D ~AMDGPU_HAVE_CTX_SWITCH;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ring-&gt;funcs-&gt;emi=
+t_tmz)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ring.h<br>
+index d87e828..d7fae26 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h<br>
+@@ -131,7 &#43;131,7 @@ struct amdgpu_ring_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*emit_ib)(struct amd=
+gpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struc=
+t amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struc=
+t amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)=
+;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t fla=
+gs);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*emit_fence)(struct =
+amdgpu_ring *ring, uint64_t addr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; uint64_t seq, unsigned flags);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*emit_pipeline_sync)=
+(struct amdgpu_ring *ring);<br>
+@@ -229,7 &#43;229,7 @@ struct amdgpu_ring {<br>
+&nbsp;#define amdgpu_ring_get_rptr(r) (r)-&gt;funcs-&gt;get_rptr((r))<br>
+&nbsp;#define amdgpu_ring_get_wptr(r) (r)-&gt;funcs-&gt;get_wptr((r))<br>
+&nbsp;#define amdgpu_ring_set_wptr(r) (r)-&gt;funcs-&gt;set_wptr((r))<br>
+-#define amdgpu_ring_emit_ib(r, job, ib, c) ((r)-&gt;funcs-&gt;emit_ib((r),=
+ (job), (ib), (c)))<br>
+&#43;#define amdgpu_ring_emit_ib(r, job, ib, flags) ((r)-&gt;funcs-&gt;emit=
+_ib((r), (job), (ib), (flags)))<br>
+&nbsp;#define amdgpu_ring_emit_pipeline_sync(r) (r)-&gt;funcs-&gt;emit_pipe=
+line_sync((r))<br>
+&nbsp;#define amdgpu_ring_emit_vm_flush(r, vmid, addr) (r)-&gt;funcs-&gt;em=
+it_vm_flush((r), (vmid), (addr))<br>
+&nbsp;#define amdgpu_ring_emit_fence(r, addr, seq, flags) (r)-&gt;funcs-&gt=
+;emit_fence((r), (addr), (seq), (flags))<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vce.c<br>
+index 98a1b2c..c021b11 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c<br>
+@@ -1035,7 &#43;1035,7 @@ int amdgpu_vce_ring_parse_cs_vm(struct amdgpu_cs_=
+parser *p, uint32_t ib_idx)<br>
+&nbsp;void amdgpu_vce_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, VC=
+E_CMD_IB);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, lo=
+wer_32_bits(ib-&gt;gpu_addr));<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_vce.h<br>
+index 5029365..30ea54d 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.h<br>
+@@ -66,7 &#43;66,7 @@ int amdgpu_vce_get_destroy_msg(struct amdgpu_ring *ri=
+ng, uint32_t handle,<br>
+&nbsp;int amdgpu_vce_ring_parse_cs(struct amdgpu_cs_parser *p, uint32_t ib_=
+idx);<br>
+&nbsp;int amdgpu_vce_ring_parse_cs_vm(struct amdgpu_cs_parser *p, uint32_t =
+ib_idx);<br>
+&nbsp;void amdgpu_vce_ring_emit_ib(struct amdgpu_ring *ring, struct amdgpu_=
+job *job,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib, bool ctx_switch);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib, uint32_t flags);<=
+br>
+&nbsp;void amdgpu_vce_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u=
+64 seq,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned flags);<br>
+&nbsp;int amdgpu_vce_ring_test_ring(struct amdgpu_ring *ring);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/am=
+dgpu/cik_sdma.c<br>
+index 4579519..189599b 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c<br>
+@@ -220,7 &#43;220,7 @@ static void cik_sdma_ring_insert_nop(struct amdgpu_=
+ring *ring, uint32_t count)<br>
+&nbsp;static void cik_sdma_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
+ob,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 extra_bits =3D vmid &a=
+mp; 0xf;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v6_0.c<br>
+index 1dc3013..305276c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c<br>
+@@ -1842,13 &#43;1842,13 @@ static void gfx_v6_0_ring_emit_fence(struct amd=
+gpu_ring *ring, u64 addr,<br>
+&nbsp;static void gfx_v6_0_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
+ob,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 header, control =3D 0;=
+<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* insert SWITCH_BUFFER pa=
+cket before first IB in the ring frame */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ctx_switch) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; AMDGPU_HAVE_CTX_S=
+WITCH) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER=
+, 0));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v7_0.c<br>
+index 3a9fb60..7984292 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+@@ -2228,13 &#43;2228,13 @@ static void gfx_v7_0_ring_emit_fence_compute(st=
+ruct amdgpu_ring *ring,<br>
+&nbsp;static void gfx_v7_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 header, control =3D 0;=
+<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* insert SWITCH_BUFFER pa=
+cket before first IB in the ring frame */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ctx_switch) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; AMDGPU_HAVE_CTX_S=
+WITCH) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER=
+, 0));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+@@ -2259,7 &#43;2259,7 @@ static void gfx_v7_0_ring_emit_ib_gfx(struct amdg=
+pu_ring *ring,<br>
+&nbsp;static void gfx_v7_0_ring_emit_ib_compute(struct amdgpu_ring *ring,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 control =3D INDIRECT_B=
+UFFER_VALID | ib-&gt;length_dw | (vmid &lt;&lt; 24);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c<br>
+index 57cb3a5..a267476 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+@@ -6047,7 &#43;6047,7 @@ static void gfx_v8_0_ring_emit_vgt_flush(struct a=
+mdgpu_ring *ring)<br>
+&nbsp;static void gfx_v8_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 header, control =3D 0;=
+<br>
+@@ -6079,7 &#43;6079,7 @@ static void gfx_v8_0_ring_emit_ib_gfx(struct amdg=
+pu_ring *ring,<br>
+&nbsp;static void gfx_v8_0_ring_emit_ib_compute(struct amdgpu_ring *ring,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 control =3D INDIRECT_B=
+UFFER_VALID | ib-&gt;length_dw | (vmid &lt;&lt; 24);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c<br>
+index fbca049..262ee3c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+@@ -3972,7 &#43;3972,7 @@ static void gfx_v9_0_ring_emit_hdp_flush(struct a=
+mdgpu_ring *ring)<br>
+&nbsp;static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 header, control =3D 0;=
+<br>
+@@ -4005,7 &#43;4005,7 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdg=
+pu_ring *ring,<br>
+&nbsp;static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 control =3D INDIRECT_B=
+UFFER_VALID | ib-&gt;length_dw | (vmid &lt;&lt; 24);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v2_4.c<br>
+index 9f3cb2a..cca3552 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c<br>
+@@ -247,7 &#43;247,7 @@ static void sdma_v2_4_ring_insert_nop(struct amdgpu=
+_ring *ring, uint32_t count)<br>
+&nbsp;static void sdma_v2_4_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
+job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
+ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v3_0.c<br>
+index 06c5a27..0ce8331 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
+@@ -421,7 &#43;421,7 @@ static void sdma_v3_0_ring_insert_nop(struct amdgpu=
+_ring *ring, uint32_t count)<br>
+&nbsp;static void sdma_v3_0_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
+job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
+ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v4_0.c<br>
+index 48a166b..127b859 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
+@@ -500,7 &#43;500,7 @@ static void sdma_v4_0_ring_insert_nop(struct amdgpu=
+_ring *ring, uint32_t count)<br>
+&nbsp;static void sdma_v4_0_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
+job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_=
+ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdg=
+pu/si_dma.c<br>
+index b6e4731..f15f196 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/si_dma.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si_dma.c<br>
+@@ -63,7 &#43;63,7 @@ static void si_dma_ring_set_wptr(struct amdgpu_ring *=
+ring)<br>
+&nbsp;static void si_dma_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* The indirect buffer pac=
+ket must end on an 8 DW boundary in the DMA ring.<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v4_2.c<br>
+index d69c8f6..c4fb586 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c<br>
+@@ -511,7 &#43;511,7 @@ static int uvd_v4_2_ring_test_ring(struct amdgpu_ri=
+ng *ring)<br>
+&nbsp;static void uvd_v4_2_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
+ob,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, PA=
+CKET0(mmUVD_RBC_IB_BASE, 0));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, ib=
+-&gt;gpu_addr);<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v5_0.c<br>
+index ee8cd06..52bd8a6 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c<br>
+@@ -526,7 &#43;526,7 @@ static int uvd_v5_0_ring_test_ring(struct amdgpu_ri=
+ng *ring)<br>
+&nbsp;static void uvd_v5_0_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
+ob,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, PA=
+CKET0(mmUVD_LMI_RBC_IB_64BIT_BAR_LOW, 0));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ring_write(ring, lo=
+wer_32_bits(ib-&gt;gpu_addr));<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v6_0.c<br>
+index d4f4a66..c9edddf 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c<br>
+@@ -977,7 &#43;977,7 @@ static int uvd_v6_0_ring_test_ring(struct amdgpu_ri=
+ng *ring)<br>
+&nbsp;static void uvd_v6_0_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
+ob,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+@@ -1003,7 &#43;1003,7 @@ static void uvd_v6_0_ring_emit_ib(struct amdgpu_r=
+ing *ring,<br>
+&nbsp;static void uvd_v6_0_enc_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/uvd_v7_0.c<br>
+index aef9240..dc461df 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c<br>
+@@ -1272,7 &#43;1272,7 @@ static int uvd_v7_0_ring_patch_cs_in_place(struct=
+ amdgpu_cs_parser *p,<br>
+&nbsp;static void uvd_v7_0_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
+ob,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D ring-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+@@ -1303,7 &#43;1303,7 @@ static void uvd_v7_0_ring_emit_ib(struct amdgpu_r=
+ing *ring,<br>
+&nbsp;static void uvd_v7_0_enc_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v3_0.c<br>
+index 2668eff..6ec65cf1 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c<br>
+@@ -834,7 &#43;834,7 @@ static void vce_v3_0_get_clockgating_state(void *ha=
+ndle, u32 *flags)<br>
+&nbsp;static void vce_v3_0_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_job *j=
+ob,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ib *ib=
+,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vce_v4_0.c<br>
+index 9fb34b7..aadc3e6 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c<br>
+@@ -947,7 &#43;947,7 @@ static int vce_v4_0_set_powergating_state(void *han=
+dle,<br>
+&nbsp;#endif<br>
+&nbsp;<br>
+&nbsp;static void vce_v4_0_ring_emit_ib(struct amdgpu_ring *ring, struct am=
+dgpu_job *job,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; struct amdgpu_ib *ib, bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; struct amdgpu_ib *ib, uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/am=
+dgpu/vcn_v1_0.c<br>
+index 89bb2fe..3dbc51f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c<br>
+@@ -1371,7 &#43;1371,7 @@ static void vcn_v1_0_dec_ring_emit_fence(struct a=
+mdgpu_ring *ring, u64 addr, u64<br>
+&nbsp;static void vcn_v1_0_dec_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D ring-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+@@ -1531,7 &#43;1531,7 @@ static void vcn_v1_0_enc_ring_insert_end(struct a=
+mdgpu_ring *ring)<br>
+&nbsp;static void vcn_v1_0_enc_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+&nbsp;<br>
+@@ -1736,7 &#43;1736,7 @@ static void vcn_v1_0_jpeg_ring_emit_fence(struct =
+amdgpu_ring *ring, u64 addr, u6<br>
+&nbsp;static void vcn_v1_0_jpeg_ring_emit_ib(struct amdgpu_ring *ring,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_job *job,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; struct amdgpu_ib *ib,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; bool ctx_switch)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; uint32_t flags)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
+ =3D ring-&gt;adev;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned vmid =3D AMDGPU_J=
+OB_GET_VMID(job);<br>
+-- <br>
+1.9.1<br>
+<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_20fa8f998e504434993b789657a79851emailandroidcom_--
+
+--===============0930107173==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0930107173==--
