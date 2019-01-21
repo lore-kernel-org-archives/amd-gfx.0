@@ -1,44 +1,47 @@
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
- devices on non-x86
-Date: Mon, 21 Jan 2019 16:33:27 +0100
-Message-ID: <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw@mail.gmail.com>
-References: <20190121100617.2311-1-ard.biesheuvel@linaro.org> <20190121150734.GA30582@infradead.org>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: change the max clock level to 16
+Date: Mon, 21 Jan 2019 10:29:23 -0500
+Message-ID: <CADnq5_Pj7HSZrUoUK4V-ObAAxoGBuL3yPFLdhejhotynsN6SSg@mail.gmail.com>
+References: <20190121100216.29122-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190121150734.GA30582@infradead.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@infradead.org>
-Cc: linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Christian Koenig <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Huang Rui <ray.huang@amd.com>, Junwei Zhang <Jerry.Zhang@amd.com>, Michel Daenzer <michel.daenzer@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Will Deacon <will.deacon@arm.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190121100216.29122-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Yeh, Eagle" <Eagle.Yeh-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, 21 Jan 2019 at 16:07, Christoph Hellwig <hch@infradead.org> wrote:
->
-> > +#include <linux/dma-noncoherent.h>
->
-> This header is not for usage in device drivers, but purely for
-> dma-mapping implementations!
->
-
-Is that documented anywhere?
-
-> > +static inline bool drm_device_can_wc_memory(struct drm_device *ddev)
-> >  {
-> > +     if (IS_ENABLED(CONFIG_PPC))
-> > +             return IS_ENABLED(CONFIG_NOT_COHERENT_CACHE);
-> > +     else if (IS_ENABLED(CONFIG_MIPS))
-> > +             return !IS_ENABLED(CONFIG_CPU_LOONGSON3);
-> > +     else if (IS_ENABLED(CONFIG_X86))
-> > +             return true;
-> > +
-> > +     return !dev_is_dma_coherent(ddev->dev);
->
-> And even if something like this was valid to do, it would have to be
-> a core function with an arch hook, and not hidden in a random driver.
-
-Why would it not be valid to do? Is it wrong for a driver to be aware
-of whether a device is cache coherent or not?
-
-And in case it isn't, do you have an alternative suggestion on how to
-fix this mess?
+T24gTW9uLCBKYW4gMjEsIDIwMTkgYXQgNTowMiBBTSBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQu
+Y29tPiB3cm90ZToKPgo+IEFzIHRoZSBnZnhjbGsgZm9yIFNNVTExIGNhbiBoYXZlIGF0IG1vc3Qg
+MTYgZGlzY3JldGUgbGV2ZWxzLgo+Cj4gQ2hhbmdlLUlkOiBJMGM2YThkYjhmNDAyMDZhMjQwMjg2
+NDcxYzZmN2IxZmZmZWYxNWVhMgo+IFNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFu
+QGFtZC5jb20+CgpBY2tlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQu
+Y29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtX3NlcnZpY2Vz
+X3R5cGVzLmggfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
+dGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
+bV9zZXJ2aWNlc190eXBlcy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtX3Nl
+cnZpY2VzX3R5cGVzLmgKPiBpbmRleCA5YWZkMzZhMDMxYTkuLjc3MjAwNzExYWJiZSAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1fc2VydmljZXNfdHlwZXMu
+aAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbV9zZXJ2aWNlc190eXBl
+cy5oCj4gQEAgLTkyLDcgKzkyLDcgQEAgZW51bSBkbV9wcF9jbG9ja190eXBlIHsKPiAgICAgICAg
+IChjbGtfdHlwZSkgPT0gRE1fUFBfQ0xPQ0tfVFlQRV9GQ0xLID8gIkYiIDogXAo+ICAgICAgICAg
+IkludmFsaWQiCj4KPiAtI2RlZmluZSBETV9QUF9NQVhfQ0xPQ0tfTEVWRUxTIDgKPiArI2RlZmlu
+ZSBETV9QUF9NQVhfQ0xPQ0tfTEVWRUxTIDE2Cj4KPiAgc3RydWN0IGRtX3BwX2Nsb2NrX2xldmVs
+cyB7Cj4gICAgICAgICB1aW50MzJfdCBudW1fbGV2ZWxzOwo+IC0tCj4gMi4yMC4xCj4KPiBfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFp
+bGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
