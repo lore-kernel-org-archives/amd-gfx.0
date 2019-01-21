@@ -1,83 +1,89 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
+From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
  devices on non-x86
-Date: Mon, 21 Jan 2019 19:23:58 +0100
-Message-ID: <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
+Date: Mon, 21 Jan 2019 19:28:30 +0100
+Message-ID: <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
 References: <20190121100617.2311-1-ard.biesheuvel@linaro.org>
- <20190121150734.GA30582@infradead.org>
- <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw@mail.gmail.com>
- <20190121155908.GA8084@infradead.org>
- <CAKv+Gu8LzS9OgvVnzUT8BZWVgDmx4OfqNiPSf+8=riY_LByN-g@mail.gmail.com>
- <20190121162238.GA17651@infradead.org>
- <CAKv+Gu-5V-UjP_YzZBCEsa+o_G6BRSVw2ZimYGNEfRGf-aRPNg@mail.gmail.com>
- <59ccf85d-b99d-b5c8-ea87-66c2a892e197@daenzer.net>
- <CAKv+Gu8OkbHwY5UBxahpQpM_gKh2331pQ6o-4YyJdLurbFNHvw@mail.gmail.com>
- <ccc775d3-3053-ab79-dac8-4feb28e8e690@daenzer.net>
- <CAKv+Gu-9VKL5RjScbKss4YfH1Cb8WbXmzU_0UsStnoXJcML7Rg@mail.gmail.com>
+ <20190121150734.GA30582@infradead.org> <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw@mail.gmail.com>
+ <20190121155908.GA8084@infradead.org> <CAKv+Gu8LzS9OgvVnzUT8BZWVgDmx4OfqNiPSf+8=riY_LByN-g@mail.gmail.com>
+ <20190121162238.GA17651@infradead.org> <CAKv+Gu-5V-UjP_YzZBCEsa+o_G6BRSVw2ZimYGNEfRGf-aRPNg@mail.gmail.com>
+ <59ccf85d-b99d-b5c8-ea87-66c2a892e197@daenzer.net> <CAKv+Gu8OkbHwY5UBxahpQpM_gKh2331pQ6o-4YyJdLurbFNHvw@mail.gmail.com>
+ <ccc775d3-3053-ab79-dac8-4feb28e8e690@daenzer.net> <CAKv+Gu-9VKL5RjScbKss4YfH1Cb8WbXmzU_0UsStnoXJcML7Rg@mail.gmail.com>
+ <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAKv+Gu-9VKL5RjScbKss4YfH1Cb8WbXmzU_0UsStnoXJcML7Rg@mail.gmail.com>
-Content-Language: en-CA
+In-Reply-To: <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
 Cc: Christoph Hellwig <hch@infradead.org>, Will Deacon <will.deacon@arm.com>, David Zhou <David1.Zhou@amd.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, David Airlie <airlied@linux.ie>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Junwei Zhang <Jerry.Zhang@amd.com>, Huang Rui <ray.huang@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Michael Ellerman <mpe@ellerman.id.au>, Alex Deucher <alexander.deucher@amd.com>, Sean Paul <sean@poorly.run>, Christian Koenig <christian.koenig@amd.com>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 2019-01-21 7:20 p.m., Ard Biesheuvel wrote:
-> On Mon, 21 Jan 2019 at 19:04, Michel Dänzer <michel@daenzer.net> wrote:
->>
->> On 2019-01-21 6:59 p.m., Ard Biesheuvel wrote:
->>> On Mon, 21 Jan 2019 at 18:55, Michel Dänzer <michel@daenzer.net> wrote:
->>>>
->>>> On 2019-01-21 5:30 p.m., Ard Biesheuvel wrote:
->>>>> On Mon, 21 Jan 2019 at 17:22, Christoph Hellwig <hch@infradead.org> wrote:
->>>>>
->>>>>> Until that happens we should just change the driver ifdefs to default
->>>>>> the hacks to off and only enable them on setups where we 100%
->>>>>> positively know that they actually work.  And document that fact
->>>>>> in big fat comments.
->>>>>
->>>>> Well, as I mentioned in my commit log as well, if we default to off
->>>>> unless CONFIG_X86, we may break working setups on MIPS and Power where
->>>>> the device is in fact non-cache coherent, and relies on this
->>>>> 'optimization' to get things working.
->>>>
->>>> FWIW, the amdgpu driver doesn't rely on non-snooped transfers for
->>>> correct basic operation (the scenario Christian brought up is a very
->>>> specialized use-case), so that shouldn't be an issue.
->>>>
->>>
->>> The point is that this is only true for x86.
->>>
->>> On other architectures, the use of non-cached mappings on the CPU side
->>> means that you /do/ rely on non-snooped transfers, since if those
->>> transfers turn out not to snoop inadvertently, the accesses are
->>> incoherent with the CPU's view of memory.
->>
->> The driver generally only uses non-cached mappings if
->> drm_arch/device_can_wc_memory returns true.
->>
-> 
-> Indeed. And so we should take care to only return 'true' from that
-> function if it is guaranteed that non-cached CPU mappings are coherent
-> with the mappings used by the GPU, either because that is always the
-> case (like on x86), or because we know that the platform in question
-> implements NoSnoop correctly throughout the interconnect.
-> 
-> What seems to be complicating matters is that in some cases, the
-> device is non-cache coherent to begin with, so regardless of whether
-> the NoSnoop attribute is used or not, those accesses will not snoop in
-> the caches and be coherent with the non-cached mappings used by the
-> CPU. So if we restrict this optimization [on non-X86] to platforms
-> that are known to implement NoSnoop correctly, we may break platforms
-> that are implicitly NoSnoop all the time.
+On Mon, 21 Jan 2019 at 19:24, Michel D=C3=A4nzer <michel@daenzer.net> wrote=
+:
+>
+> On 2019-01-21 7:20 p.m., Ard Biesheuvel wrote:
+> > On Mon, 21 Jan 2019 at 19:04, Michel D=C3=A4nzer <michel@daenzer.net> w=
+rote:
+> >>
+> >> On 2019-01-21 6:59 p.m., Ard Biesheuvel wrote:
+> >>> On Mon, 21 Jan 2019 at 18:55, Michel D=C3=A4nzer <michel@daenzer.net>=
+ wrote:
+> >>>>
+> >>>> On 2019-01-21 5:30 p.m., Ard Biesheuvel wrote:
+> >>>>> On Mon, 21 Jan 2019 at 17:22, Christoph Hellwig <hch@infradead.org>=
+ wrote:
+> >>>>>
+> >>>>>> Until that happens we should just change the driver ifdefs to defa=
+ult
+> >>>>>> the hacks to off and only enable them on setups where we 100%
+> >>>>>> positively know that they actually work.  And document that fact
+> >>>>>> in big fat comments.
+> >>>>>
+> >>>>> Well, as I mentioned in my commit log as well, if we default to off
+> >>>>> unless CONFIG_X86, we may break working setups on MIPS and Power wh=
+ere
+> >>>>> the device is in fact non-cache coherent, and relies on this
+> >>>>> 'optimization' to get things working.
+> >>>>
+> >>>> FWIW, the amdgpu driver doesn't rely on non-snooped transfers for
+> >>>> correct basic operation (the scenario Christian brought up is a very
+> >>>> specialized use-case), so that shouldn't be an issue.
+> >>>>
+> >>>
+> >>> The point is that this is only true for x86.
+> >>>
+> >>> On other architectures, the use of non-cached mappings on the CPU sid=
+e
+> >>> means that you /do/ rely on non-snooped transfers, since if those
+> >>> transfers turn out not to snoop inadvertently, the accesses are
+> >>> incoherent with the CPU's view of memory.
+> >>
+> >> The driver generally only uses non-cached mappings if
+> >> drm_arch/device_can_wc_memory returns true.
+> >>
+> >
+> > Indeed. And so we should take care to only return 'true' from that
+> > function if it is guaranteed that non-cached CPU mappings are coherent
+> > with the mappings used by the GPU, either because that is always the
+> > case (like on x86), or because we know that the platform in question
+> > implements NoSnoop correctly throughout the interconnect.
+> >
+> > What seems to be complicating matters is that in some cases, the
+> > device is non-cache coherent to begin with, so regardless of whether
+> > the NoSnoop attribute is used or not, those accesses will not snoop in
+> > the caches and be coherent with the non-cached mappings used by the
+> > CPU. So if we restrict this optimization [on non-X86] to platforms
+> > that are known to implement NoSnoop correctly, we may break platforms
+> > that are implicitly NoSnoop all the time.
+>
+> Since the driver generally doesn't rely on non-snooped accesses for
+> correctness, that couldn't "break" anything that hasn't always been broke=
+n.
+>
 
-Since the driver generally doesn't rely on non-snooped accesses for
-correctness, that couldn't "break" anything that hasn't always been broken.
+Again, that is only true on x86.
 
-
--- 
-Earthling Michel Dänzer               |               http://www.amd.com
-Libre software enthusiast             |             Mesa and X developer
+On other architectures, DMA writes from the device may allocate in the
+caches, and be invisible to the CPU when it uses non-cached mappings.
