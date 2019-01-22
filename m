@@ -1,58 +1,60 @@
-From: wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: sriov put csa below AMDGPU_GMC_HOLE
-Date: Tue, 22 Jan 2019 18:49:29 +0800
-Message-ID: <1548154169-2650-1-git-send-email-Wentao.Lou@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH] drm/amdgpu: Add APTX quirk for Lenovo laptop
+Date: Tue, 22 Jan 2019 15:56:05 +0000
+Message-ID: <20190122155605.C24BB217F9@mail.kernel.org>
+References: <20190116160514.13477-1-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190116160514.13477-1-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: Sasha Levin <sashal@kernel.org>, Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.orgstable@vger.kernel.orgstable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-c2luY2Ugdm1fc2l6ZSBlbmxhcmdlZCB0byAweDQwMDAwIEdCLApzcmlvdiBuZWVkIHRvIHB1dCBj
-c2EgYmVsb3cgQU1ER1BVX0dNQ19IT0xFLgpvciBhbWRncHVfdm1fYWxsb2NfcHRzIHdvdWxkIHJl
-Y2VpdmUgc2FkZHIgYW1vbmcgQU1ER1BVX0dNQ19IT0xFLAphbmQgcmVzdWx0IGluIGEgcmFuZ2Ug
-ZmF1bHQgaW50ZXJydXB0IElJUkMuCgpDaGFuZ2UtSWQ6IEk0MDVhMjVhMDFkOTQ5ZjMxMzA4ODli
-MzQ2ZjcxYmVkYWQ4ZWJjYWU3ClNpZ25lZC1vZmYtYnk6IFdlbnRhIExvdSA8V2VudGFvLkxvdUBh
-bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jc2EuYyB8IDYg
-KysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfa21zLmMgfCA2ICsrKyst
-LQogMiBmaWxlcyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5jCmluZGV4IGRkM2JkMDEuLjdhOTNjMzYg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jc2EuYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMKQEAgLTI2LDggKzI2LDEw
-IEBACiAKIHVpbnQ2NF90IGFtZGdwdV9jc2FfdmFkZHIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpCiB7Ci0JdWludDY0X3QgYWRkciA9IG1pbihhZGV2LT52bV9tYW5hZ2VyLm1heF9wZm4gPDwg
-QU1ER1BVX0dQVV9QQUdFX1NISUZULAotCQkJCUFNREdQVV9HTUNfSE9MRV9TVEFSVCk7CisJdWlu
-dDY0X3QgYWRkciA9IGFkZXYtPnZtX21hbmFnZXIubWF4X3BmbiA8PCBBTURHUFVfR1BVX1BBR0Vf
-U0hJRlQ7CisJLyogc3Jpb3YgcHV0IGNzYSBiZWxvdyBBTURHUFVfR01DX0hPTEUgKi8KKwlpZiAo
-YW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQorCQlhZGRyID0gbWluKGFkZHIsIEFNREdQVV9HTUNfSE9M
-RV9TVEFSVCk7CiAKIAlhZGRyIC09IEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFOwogCWFkZHIgPSBh
-bWRncHVfZ21jX3NpZ25fZXh0ZW5kKGFkZHIpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ttcy5jCmluZGV4IGY4N2Y3MTcuLmNmOWVjMjggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfa21zLmMKQEAgLTcwNyw4ICs3MDcsMTAgQEAgc3RhdGljIGludCBhbWRncHVf
-aW5mb19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJt
-X2ZpbGUKIAkJCXZtX3NpemUgPSBtaW4odm1fc2l6ZSwgMVVMTCA8PCA0MCk7CiAKIAkJZGV2X2lu
-Zm8udmlydHVhbF9hZGRyZXNzX29mZnNldCA9IEFNREdQVV9WQV9SRVNFUlZFRF9TSVpFOwotCQlk
-ZXZfaW5mby52aXJ0dWFsX2FkZHJlc3NfbWF4ID0KLQkJCW1pbih2bV9zaXplLCBBTURHUFVfR01D
-X0hPTEVfU1RBUlQpOworCQlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQorCQkJZGV2X2luZm8u
-dmlydHVhbF9hZGRyZXNzX21heCA9IG1pbih2bV9zaXplLCBBTURHUFVfR01DX0hPTEVfU1RBUlQg
-LSBBTURHUFVfVkFfUkVTRVJWRURfU0laRSk7CisJCWVsc2UKKwkJCWRldl9pbmZvLnZpcnR1YWxf
-YWRkcmVzc19tYXggPSBtaW4odm1fc2l6ZSwgQU1ER1BVX0dNQ19IT0xFX1NUQVJUKTsKIAogCQlp
-ZiAodm1fc2l6ZSA+IEFNREdQVV9HTUNfSE9MRV9TVEFSVCkgewogCQkJZGV2X2luZm8uaGlnaF92
-YV9vZmZzZXQgPSBBTURHUFVfR01DX0hPTEVfRU5EOwotLSAKMi43LjQKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Hi,
+
+[This is an automated email]
+
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
+
+The bot has tested the following trees: v4.20.3, v4.19.16, v4.14.94, v4.9.151, v4.4.171, v3.18.132.
+
+v4.20.3: Build OK!
+v4.19.16: Build OK!
+v4.14.94: Failed to apply! Possible dependencies:
+    Unable to calculate
+
+v4.9.151: Failed to apply! Possible dependencies:
+    b3fc2ab37e27 ("drm/amdgpu: add another ATPX quirk for TOPAZ")
+
+v4.4.171: Failed to apply! Possible dependencies:
+    052c299080cd ("drm/amdgpu: add atpx quirk handling (v2)")
+    1db4496f167b ("drm/amdgpu: fix power state when port pm is unavailable")
+    2f5af82eeab2 ("drm/amdgpu/atpx: track whether if this is a hybrid graphics platform")
+    5c614792474b ("drm/amdgpu: disable power control on hybrid laptops")
+    6b1095eedd39 ("drm/amdgpu: init atpx at switcheroo register time (v2)")
+    6c24a85d236e ("drm/amdgpu: add new device to use atpx quirk")
+    7ac33e47d576 ("drm/amdgpu: fix check for port PM availability")
+    8d45f80ed08b ("drm/amdgpu: clean up atpx power control handling")
+    a78fe13389f0 ("drm/amdgpu/atpx: add a query for ATPX dGPU power control")
+    b3fc2ab37e27 ("drm/amdgpu: add another ATPX quirk for TOPAZ")
+    c8791a13d281 ("drm/amdgpu: print a message if ATPX dGPU power control is missing")
+
+v3.18.132: Failed to apply! Possible dependencies:
+    052c299080cd ("drm/amdgpu: add atpx quirk handling (v2)")
+    1db4496f167b ("drm/amdgpu: fix power state when port pm is unavailable")
+    2f5af82eeab2 ("drm/amdgpu/atpx: track whether if this is a hybrid graphics platform")
+    5c614792474b ("drm/amdgpu: disable power control on hybrid laptops")
+    6c24a85d236e ("drm/amdgpu: add new device to use atpx quirk")
+    7ac33e47d576 ("drm/amdgpu: fix check for port PM availability")
+    8d45f80ed08b ("drm/amdgpu: clean up atpx power control handling")
+    97b2e202fba0 ("drm/amdgpu: add amdgpu.h (v2)")
+    a78fe13389f0 ("drm/amdgpu/atpx: add a query for ATPX dGPU power control")
+    b3fc2ab37e27 ("drm/amdgpu: add another ATPX quirk for TOPAZ")
+    bedf2a65c1aa ("drm/amdgpu: disable runtime pm on PX laptops without dGPU power control")
+    c8791a13d281 ("drm/amdgpu: print a message if ATPX dGPU power control is missing")
+    d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+    e9bef455af8e ("Revert "drm/amdgpu: disable runtime pm on PX laptops without dGPU power control"")
+
+
+How should we proceed with this patch?
