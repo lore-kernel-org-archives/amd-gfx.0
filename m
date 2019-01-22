@@ -1,114 +1,158 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
  devices on non-x86
-Date: Tue, 22 Jan 2019 15:56:33 -0500
-Message-ID: <CADnq5_O1uxCrSksfF127AZTfbmdukxmqGdh2Ee0zM6CqgG_Mhg@mail.gmail.com>
+Date: Tue, 22 Jan 2019 22:07:07 +0100
+Message-ID: <CAKv+Gu-4uYh_HD_5Ry_L80Nf5zpRhT4oJYhhG5_8g3gSzBs2tg@mail.gmail.com>
 References: <20190121100617.2311-1-ard.biesheuvel@linaro.org>
- <20190121150734.GA30582@infradead.org>
- <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw@mail.gmail.com>
- <20190121155908.GA8084@infradead.org>
- <CAKv+Gu8LzS9OgvVnzUT8BZWVgDmx4OfqNiPSf+8=riY_LByN-g@mail.gmail.com>
- <20190121162238.GA17651@infradead.org>
- <CAKv+Gu-5V-UjP_YzZBCEsa+o_G6BRSVw2ZimYGNEfRGf-aRPNg@mail.gmail.com>
- <59ccf85d-b99d-b5c8-ea87-66c2a892e197@daenzer.net>
- <CAKv+Gu8OkbHwY5UBxahpQpM_gKh2331pQ6o-4YyJdLurbFNHvw@mail.gmail.com>
- <ccc775d3-3053-ab79-dac8-4feb28e8e690@daenzer.net>
- <CAKv+Gu-9VKL5RjScbKss4YfH1Cb8WbXmzU_0UsStnoXJcML7Rg@mail.gmail.com>
- <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
- <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
- <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net>
- <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
+ <20190121150734.GA30582@infradead.org> <CAKv+Gu-hR=uieOeg7QheA5yfAycUoi2vjZsDUvROKVjW4eUNqw@mail.gmail.com>
+ <20190121155908.GA8084@infradead.org> <CAKv+Gu8LzS9OgvVnzUT8BZWVgDmx4OfqNiPSf+8=riY_LByN-g@mail.gmail.com>
+ <20190121162238.GA17651@infradead.org> <CAKv+Gu-5V-UjP_YzZBCEsa+o_G6BRSVw2ZimYGNEfRGf-aRPNg@mail.gmail.com>
+ <59ccf85d-b99d-b5c8-ea87-66c2a892e197@daenzer.net> <CAKv+Gu8OkbHwY5UBxahpQpM_gKh2331pQ6o-4YyJdLurbFNHvw@mail.gmail.com>
+ <ccc775d3-3053-ab79-dac8-4feb28e8e690@daenzer.net> <CAKv+Gu-9VKL5RjScbKss4YfH1Cb8WbXmzU_0UsStnoXJcML7Rg@mail.gmail.com>
+ <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net> <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
+ <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net> <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
+ <CADnq5_O1uxCrSksfF127AZTfbmdukxmqGdh2Ee0zM6CqgG_Mhg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Ard Biesheuvel <ard.biesheuvel-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
-Cc: Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Will Deacon <will.deacon-5wv7dgnIgG8@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, linux-arm-kernel <linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_O1uxCrSksfF127AZTfbmdukxmqGdh2Ee0zM6CqgG_Mhg@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, Maxime Ripard <maxime.ripard@bootlin.com>, Will Deacon <will.deacon@arm.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, David Airlie <airlied@linux.ie>, Huang Rui <ray.huang@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Michael Ellerman <mpe@ellerman.id.au>, Junwei Zhang <Jerry.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sean Paul <sean@poorly.run>, Christian Koenig <christian.koenig@amd.com>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBKYW4gMjIsIDIwMTkgYXQgNDoxOSBBTSBBcmQgQmllc2hldXZlbAo8YXJkLmJpZXNo
-ZXV2ZWxAbGluYXJvLm9yZz4gd3JvdGU6Cj4KPiBPbiBNb24sIDIxIEphbiAyMDE5IGF0IDIwOjA0
-LCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3cm90ZToKPiA+Cj4gPiBPbiAy
-MDE5LTAxLTIxIDc6MjggcC5tLiwgQXJkIEJpZXNoZXV2ZWwgd3JvdGU6Cj4gPiA+IE9uIE1vbiwg
-MjEgSmFuIDIwMTkgYXQgMTk6MjQsIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+
-IHdyb3RlOgo+ID4gPj4gT24gMjAxOS0wMS0yMSA3OjIwIHAubS4sIEFyZCBCaWVzaGV1dmVsIHdy
-b3RlOgo+ID4gPj4+IE9uIE1vbiwgMjEgSmFuIDIwMTkgYXQgMTk6MDQsIE1pY2hlbCBEw6RuemVy
-IDxtaWNoZWxAZGFlbnplci5uZXQ+IHdyb3RlOgo+ID4gPj4+PiBPbiAyMDE5LTAxLTIxIDY6NTkg
-cC5tLiwgQXJkIEJpZXNoZXV2ZWwgd3JvdGU6Cj4gPiA+Pj4+PiBPbiBNb24sIDIxIEphbiAyMDE5
-IGF0IDE4OjU1LCBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0PiB3cm90ZToKPiA+
-ID4+Pj4+PiBPbiAyMDE5LTAxLTIxIDU6MzAgcC5tLiwgQXJkIEJpZXNoZXV2ZWwgd3JvdGU6Cj4g
-PiA+Pj4+Pj4+IE9uIE1vbiwgMjEgSmFuIDIwMTkgYXQgMTc6MjIsIENocmlzdG9waCBIZWxsd2ln
-IDxoY2hAaW5mcmFkZWFkLm9yZz4gd3JvdGU6Cj4gPiA+Pj4+Pj4+Cj4gPiA+Pj4+Pj4+PiBVbnRp
-bCB0aGF0IGhhcHBlbnMgd2Ugc2hvdWxkIGp1c3QgY2hhbmdlIHRoZSBkcml2ZXIgaWZkZWZzIHRv
-IGRlZmF1bHQKPiA+ID4+Pj4+Pj4+IHRoZSBoYWNrcyB0byBvZmYgYW5kIG9ubHkgZW5hYmxlIHRo
-ZW0gb24gc2V0dXBzIHdoZXJlIHdlIDEwMCUKPiA+ID4+Pj4+Pj4+IHBvc2l0aXZlbHkga25vdyB0
-aGF0IHRoZXkgYWN0dWFsbHkgd29yay4gIEFuZCBkb2N1bWVudCB0aGF0IGZhY3QKPiA+ID4+Pj4+
-Pj4+IGluIGJpZyBmYXQgY29tbWVudHMuCj4gPiA+Pj4+Pj4+Cj4gPiA+Pj4+Pj4+IFdlbGwsIGFz
-IEkgbWVudGlvbmVkIGluIG15IGNvbW1pdCBsb2cgYXMgd2VsbCwgaWYgd2UgZGVmYXVsdCB0byBv
-ZmYKPiA+ID4+Pj4+Pj4gdW5sZXNzIENPTkZJR19YODYsIHdlIG1heSBicmVhayB3b3JraW5nIHNl
-dHVwcyBvbiBNSVBTIGFuZCBQb3dlciB3aGVyZQo+ID4gPj4+Pj4+PiB0aGUgZGV2aWNlIGlzIGlu
-IGZhY3Qgbm9uLWNhY2hlIGNvaGVyZW50LCBhbmQgcmVsaWVzIG9uIHRoaXMKPiA+ID4+Pj4+Pj4g
-J29wdGltaXphdGlvbicgdG8gZ2V0IHRoaW5ncyB3b3JraW5nLgo+ID4gPj4+Pj4+Cj4gPiA+Pj4+
-Pj4gRldJVywgdGhlIGFtZGdwdSBkcml2ZXIgZG9lc24ndCByZWx5IG9uIG5vbi1zbm9vcGVkIHRy
-YW5zZmVycyBmb3IKPiA+ID4+Pj4+PiBjb3JyZWN0IGJhc2ljIG9wZXJhdGlvbiAodGhlIHNjZW5h
-cmlvIENocmlzdGlhbiBicm91Z2h0IHVwIGlzIGEgdmVyeQo+ID4gPj4+Pj4+IHNwZWNpYWxpemVk
-IHVzZS1jYXNlKSwgc28gdGhhdCBzaG91bGRuJ3QgYmUgYW4gaXNzdWUuCj4gPiA+Pj4+Pgo+ID4g
-Pj4+Pj4gVGhlIHBvaW50IGlzIHRoYXQgdGhpcyBpcyBvbmx5IHRydWUgZm9yIHg4Ni4KPiA+ID4+
-Pj4+Cj4gPiA+Pj4+PiBPbiBvdGhlciBhcmNoaXRlY3R1cmVzLCB0aGUgdXNlIG9mIG5vbi1jYWNo
-ZWQgbWFwcGluZ3Mgb24gdGhlIENQVSBzaWRlCj4gPiA+Pj4+PiBtZWFucyB0aGF0IHlvdSAvZG8v
-IHJlbHkgb24gbm9uLXNub29wZWQgdHJhbnNmZXJzLCBzaW5jZSBpZiB0aG9zZQo+ID4gPj4+Pj4g
-dHJhbnNmZXJzIHR1cm4gb3V0IG5vdCB0byBzbm9vcCBpbmFkdmVydGVudGx5LCB0aGUgYWNjZXNz
-ZXMgYXJlCj4gPiA+Pj4+PiBpbmNvaGVyZW50IHdpdGggdGhlIENQVSdzIHZpZXcgb2YgbWVtb3J5
-Lgo+ID4gPj4+Pgo+ID4gPj4+PiBUaGUgZHJpdmVyIGdlbmVyYWxseSBvbmx5IHVzZXMgbm9uLWNh
-Y2hlZCBtYXBwaW5ncyBpZgo+ID4gPj4+PiBkcm1fYXJjaC9kZXZpY2VfY2FuX3djX21lbW9yeSBy
-ZXR1cm5zIHRydWUuCj4gPiA+Pj4KPiA+ID4+PiBJbmRlZWQuIEFuZCBzbyB3ZSBzaG91bGQgdGFr
-ZSBjYXJlIHRvIG9ubHkgcmV0dXJuICd0cnVlJyBmcm9tIHRoYXQKPiA+ID4+PiBmdW5jdGlvbiBp
-ZiBpdCBpcyBndWFyYW50ZWVkIHRoYXQgbm9uLWNhY2hlZCBDUFUgbWFwcGluZ3MgYXJlIGNvaGVy
-ZW50Cj4gPiA+Pj4gd2l0aCB0aGUgbWFwcGluZ3MgdXNlZCBieSB0aGUgR1BVLCBlaXRoZXIgYmVj
-YXVzZSB0aGF0IGlzIGFsd2F5cyB0aGUKPiA+ID4+PiBjYXNlIChsaWtlIG9uIHg4NiksIG9yIGJl
-Y2F1c2Ugd2Uga25vdyB0aGF0IHRoZSBwbGF0Zm9ybSBpbiBxdWVzdGlvbgo+ID4gPj4+IGltcGxl
-bWVudHMgTm9Tbm9vcCBjb3JyZWN0bHkgdGhyb3VnaG91dCB0aGUgaW50ZXJjb25uZWN0Lgo+ID4g
-Pj4+Cj4gPiA+Pj4gV2hhdCBzZWVtcyB0byBiZSBjb21wbGljYXRpbmcgbWF0dGVycyBpcyB0aGF0
-IGluIHNvbWUgY2FzZXMsIHRoZQo+ID4gPj4+IGRldmljZSBpcyBub24tY2FjaGUgY29oZXJlbnQg
-dG8gYmVnaW4gd2l0aCwgc28gcmVnYXJkbGVzcyBvZiB3aGV0aGVyCj4gPiA+Pj4gdGhlIE5vU25v
-b3AgYXR0cmlidXRlIGlzIHVzZWQgb3Igbm90LCB0aG9zZSBhY2Nlc3NlcyB3aWxsIG5vdCBzbm9v
-cCBpbgo+ID4gPj4+IHRoZSBjYWNoZXMgYW5kIGJlIGNvaGVyZW50IHdpdGggdGhlIG5vbi1jYWNo
-ZWQgbWFwcGluZ3MgdXNlZCBieSB0aGUKPiA+ID4+PiBDUFUuIFNvIGlmIHdlIHJlc3RyaWN0IHRo
-aXMgb3B0aW1pemF0aW9uIFtvbiBub24tWDg2XSB0byBwbGF0Zm9ybXMKPiA+ID4+PiB0aGF0IGFy
-ZSBrbm93biB0byBpbXBsZW1lbnQgTm9Tbm9vcCBjb3JyZWN0bHksIHdlIG1heSBicmVhayBwbGF0
-Zm9ybXMKPiA+ID4+PiB0aGF0IGFyZSBpbXBsaWNpdGx5IE5vU25vb3AgYWxsIHRoZSB0aW1lLgo+
-ID4gPj4KPiA+ID4+IFNpbmNlIHRoZSBkcml2ZXIgZ2VuZXJhbGx5IGRvZXNuJ3QgcmVseSBvbiBu
-b24tc25vb3BlZCBhY2Nlc3NlcyBmb3IKPiA+ID4+IGNvcnJlY3RuZXNzLCB0aGF0IGNvdWxkbid0
-ICJicmVhayIgYW55dGhpbmcgdGhhdCBoYXNuJ3QgYWx3YXlzIGJlZW4gYnJva2VuLgo+ID4gPgo+
-ID4gPiBBZ2FpbiwgdGhhdCBpcyBvbmx5IHRydWUgb24geDg2Lgo+ID4gPgo+ID4gPiBPbiBvdGhl
-ciBhcmNoaXRlY3R1cmVzLCBETUEgd3JpdGVzIGZyb20gdGhlIGRldmljZSBtYXkgYWxsb2NhdGUg
-aW4gdGhlCj4gPiA+IGNhY2hlcywgYW5kIGJlIGludmlzaWJsZSB0byB0aGUgQ1BVIHdoZW4gaXQg
-dXNlcyBub24tY2FjaGVkIG1hcHBpbmdzLgo+ID4KPiA+IExldCBtZSB0cnkgb25lIGxhc3QgdGlt
-ZToKPiA+Cj4gPiBJZiBkcm1fYXJjaF9jYW5fd2NfbWVtb3J5IHJldHVybnMgZmFsc2UsIHRoZSBk
-cml2ZXIgZmFsbHMgYmFjayB0byB0aGUKPiA+IG5vcm1hbCBtb2RlIG9mIG9wZXJhdGlvbiwgdXNp
-bmcgYSBjYWNoZWFibGUgQ1BVIG1hcHBpbmcgYW5kIHNub29wZWQgR1BVCj4gPiB0cmFuc2ZlcnMs
-IGV2ZW4gaWYgdXNlcnNwYWNlIGFza3MgKGFzIGEgcGVyZm9ybWFuY2Ugb3B0aW1pemF0aW9uKSBm
-b3IgYQo+ID4gd3JpdGUtY29tYmluZWQgQ1BVIG1hcHBpbmcgYW5kIG5vbi1zbm9vcGVkIEdQVSB0
-cmFuc2ZlcnMgdmlhCj4gPiBBTURHUFVfR0VNX0NSRUFURV9DUFVfR1RUX1VTV0MuCj4KPiBBbm90
-aGVyIHF1ZXN0aW9uOiB3aGVuIHVzZXJzcGFjZSByZXF1ZXN0cyBmb3Igc3VjaCBhIG1hcHBpbmcg
-dG8gYmUKPiBjcmVhdGVkLCBkb2VzIHRoaXMgaW52b2x2ZSBwYWdlcyB0aGF0IGFyZSBtYXBwZWQg
-Y2FjaGVhYmxlIGludG8gdGhlCj4gdXNlcmxhbmQgcHJvY2Vzcz8KCkFNREdQVV9HRU1fQ1JFQVRF
-X0NQVV9HVFRfVVNXQyBtZWFucyB0aGUgYnVmZmVyIHNob3VsZCBiZSB1bmNhY2hlZCBhbmQKd3Jp
-dGUgY29tYmluZWQgZnJvbSB0aGUgQ1BVJ3MgcGVyc3BlY3RpdmUgKGhlbmNlIHRoZSAnQ1BVJyBp
-biB0aGUgZmxhZwpuYW1lKS4gIE9uIHRoZSBHUFUgc2lkZSBpZiB0aGF0IGZsYWcgaXMgc2V0LCB3
-ZSBkbyBhbiBub24tc25vb3BlZCBHUFUKbWFwcGluZyBmb3IgYmV0dGVyIHBlcmZvcm1hbmNlIGlm
-IHRoZSBidWZmZXIgZW5kcyB1cCBnZXR0aW5nIG1hcHBlZAppbnRvIHRoZSBHUFUncyBhZGRyZXNz
-IHNwYWNlIGZvciBHUFUgYWNjZXNzLgoKQWxleApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngK
+On Tue, 22 Jan 2019 at 21:56, Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Tue, Jan 22, 2019 at 4:19 AM Ard Biesheuvel
+> <ard.biesheuvel@linaro.org> wrote:
+> >
+> > On Mon, 21 Jan 2019 at 20:04, Michel D=C3=A4nzer <michel@daenzer.net> w=
+rote:
+> > >
+> > > On 2019-01-21 7:28 p.m., Ard Biesheuvel wrote:
+> > > > On Mon, 21 Jan 2019 at 19:24, Michel D=C3=A4nzer <michel@daenzer.ne=
+t> wrote:
+> > > >> On 2019-01-21 7:20 p.m., Ard Biesheuvel wrote:
+> > > >>> On Mon, 21 Jan 2019 at 19:04, Michel D=C3=A4nzer <michel@daenzer.=
+net> wrote:
+> > > >>>> On 2019-01-21 6:59 p.m., Ard Biesheuvel wrote:
+> > > >>>>> On Mon, 21 Jan 2019 at 18:55, Michel D=C3=A4nzer <michel@daenze=
+r.net> wrote:
+> > > >>>>>> On 2019-01-21 5:30 p.m., Ard Biesheuvel wrote:
+> > > >>>>>>> On Mon, 21 Jan 2019 at 17:22, Christoph Hellwig <hch@infradea=
+d.org> wrote:
+> > > >>>>>>>
+> > > >>>>>>>> Until that happens we should just change the driver ifdefs t=
+o default
+> > > >>>>>>>> the hacks to off and only enable them on setups where we 100=
+%
+> > > >>>>>>>> positively know that they actually work.  And document that =
+fact
+> > > >>>>>>>> in big fat comments.
+> > > >>>>>>>
+> > > >>>>>>> Well, as I mentioned in my commit log as well, if we default =
+to off
+> > > >>>>>>> unless CONFIG_X86, we may break working setups on MIPS and Po=
+wer where
+> > > >>>>>>> the device is in fact non-cache coherent, and relies on this
+> > > >>>>>>> 'optimization' to get things working.
+> > > >>>>>>
+> > > >>>>>> FWIW, the amdgpu driver doesn't rely on non-snooped transfers =
+for
+> > > >>>>>> correct basic operation (the scenario Christian brought up is =
+a very
+> > > >>>>>> specialized use-case), so that shouldn't be an issue.
+> > > >>>>>
+> > > >>>>> The point is that this is only true for x86.
+> > > >>>>>
+> > > >>>>> On other architectures, the use of non-cached mappings on the C=
+PU side
+> > > >>>>> means that you /do/ rely on non-snooped transfers, since if tho=
+se
+> > > >>>>> transfers turn out not to snoop inadvertently, the accesses are
+> > > >>>>> incoherent with the CPU's view of memory.
+> > > >>>>
+> > > >>>> The driver generally only uses non-cached mappings if
+> > > >>>> drm_arch/device_can_wc_memory returns true.
+> > > >>>
+> > > >>> Indeed. And so we should take care to only return 'true' from tha=
+t
+> > > >>> function if it is guaranteed that non-cached CPU mappings are coh=
+erent
+> > > >>> with the mappings used by the GPU, either because that is always =
+the
+> > > >>> case (like on x86), or because we know that the platform in quest=
+ion
+> > > >>> implements NoSnoop correctly throughout the interconnect.
+> > > >>>
+> > > >>> What seems to be complicating matters is that in some cases, the
+> > > >>> device is non-cache coherent to begin with, so regardless of whet=
+her
+> > > >>> the NoSnoop attribute is used or not, those accesses will not sno=
+op in
+> > > >>> the caches and be coherent with the non-cached mappings used by t=
+he
+> > > >>> CPU. So if we restrict this optimization [on non-X86] to platform=
+s
+> > > >>> that are known to implement NoSnoop correctly, we may break platf=
+orms
+> > > >>> that are implicitly NoSnoop all the time.
+> > > >>
+> > > >> Since the driver generally doesn't rely on non-snooped accesses fo=
+r
+> > > >> correctness, that couldn't "break" anything that hasn't always bee=
+n broken.
+> > > >
+> > > > Again, that is only true on x86.
+> > > >
+> > > > On other architectures, DMA writes from the device may allocate in =
+the
+> > > > caches, and be invisible to the CPU when it uses non-cached mapping=
+s.
+> > >
+> > > Let me try one last time:
+> > >
+> > > If drm_arch_can_wc_memory returns false, the driver falls back to the
+> > > normal mode of operation, using a cacheable CPU mapping and snooped G=
+PU
+> > > transfers, even if userspace asks (as a performance optimization) for=
+ a
+> > > write-combined CPU mapping and non-snooped GPU transfers via
+> > > AMDGPU_GEM_CREATE_CPU_GTT_USWC.
+> >
+> > Another question: when userspace requests for such a mapping to be
+> > created, does this involve pages that are mapped cacheable into the
+> > userland process?
+>
+> AMDGPU_GEM_CREATE_CPU_GTT_USWC means the buffer should be uncached and
+> write combined from the CPU's perspective (hence the 'CPU' in the flag
+> name).  On the GPU side if that flag is set, we do an non-snooped GPU
+> mapping for better performance if the buffer ends up getting mapped
+> into the GPU's address space for GPU access.
+>
+
+Yes, so much was clear. And the reason this breaks on some arm64
+systems is because
+a) non-snooped PCIe TLP attributes may be ignored, and
+b) non-x86 CPUs do not snoop the caches when accessing uncached mappings.
+
+I don't think there is actually any disagreement on this part. And I
+think my patch is reasonable, only Christoph is objecting to it on the
+grounds that drivers should not go around the DMA API and create
+vmap()s of DMA pages with self chosen attributes.
+
+What I am trying to figure out is why the coherency problem exists:
+- it could be that the device is reading using cached mappings and
+sees stale clean cachelines that shadow data written by the CPU using
+uncached mappings
+- or the device is writing with cached mappings, resulting in data to
+be allocated there, but the CPU does not see it because it reads using
+uncached mappings.
+
+In the former case, I would expect cache invalidation right after the
+vmap() to be sufficient, but in the latter case, it is a bit more
+difficult probably.
+
+So my question was whether there are cacheable aliases for those
+uncached vmap()s being used?
