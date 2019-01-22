@@ -1,46 +1,64 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH] drm/amdkfd: Fix if preprocessor statement above kfd_fill_iolink_info_for_cpu
-Date: Mon, 21 Jan 2019 16:52:15 -0700
-Message-ID: <20190121235214.28455-1-natechancellor@gmail.com>
-References: <20190121223516.24340-1-natechancellor@gmail.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Add missing power attribute to APU check
+Date: Tue, 22 Jan 2019 04:27:06 +0000
+Message-ID: <SN6PR12MB2656BDB2A650950F29138E97E4980@SN6PR12MB2656.namprd12.prod.outlook.com>
+References: <20190110032347.18890-1-alexander.deucher@amd.com>
+ <CADnq5_NNmdoYZvAHcKy5Act4PRqGSqH1RPTCXq2SVHJNo2i4Hw@mail.gmail.com>
+ <CADnq5_Ode61xeHM03azU7LbzD-f38d5Kxadz98tveWm4Q062sw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190121223516.24340-1-natechancellor@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-Cc: Felix Kuehling <Felix.Kuehling@amd.com>, Mark Nutter <Mark.Nutter@arm.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nathan Chancellor <natechancellor@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_Ode61xeHM03azU7LbzD-f38d5Kxadz98tveWm4Q062sw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-Clang warns:
-
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_crat.c:866:5: warning:
-'CONFIG_X86_64' is not defined, evaluates to 0 [-Wundef]
-#if CONFIG_X86_64
-    ^
-1 warning generated.
-
-Fixes: d1c234e2cd10 ("drm/amdkfd: Allow building KFD on ARM64 (v2)")
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
-
-Resending as I forgot to add the lists...
-
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 5d85ff341385..2e7c44955f43 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -863,7 +863,7 @@ static int kfd_fill_mem_info_for_cpu(int numa_node_id, int *avail_size,
- 	return 0;
- }
- 
--#if CONFIG_X86_64
-+#ifdef CONFIG_X86_64
- static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
- 				uint32_t *num_entries,
- 				struct crat_subtype_iolink *sub_type_hdr)
--- 
-2.20.1
+UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXgNCj4gRGV1Y2hlcg0KPiBTZW50OiAy
+MDE55bm0MeaciDIy5pelIDM6MDENCj4gVG86IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc+DQo+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVj
+aGVyQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0hdIGRybS9hbWRncHU6IEFkZCBtaXNz
+aW5nIHBvd2VyIGF0dHJpYnV0ZSB0byBBUFUNCj4gY2hlY2sNCj4gDQo+IFBpbmcgYWdhaW4/DQo+
+IA0KPiBBbGV4DQo+IA0KPiBPbiBUdWUsIEphbiAxNSwgMjAxOSBhdCAxMTozMiBBTSBBbGV4IERl
+dWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gd3JvdGU6DQo+ID4NCj4gPiBQaW5nPw0K
+PiA+DQo+ID4gT24gV2VkLCBKYW4gOSwgMjAxOSBhdCAxMDoyMyBQTSBBbGV4IERldWNoZXIgPGFs
+ZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gd3JvdGU6DQo+ID4gPg0KPiA+ID4gQWRkIG1pc3Npbmcg
+cG93ZXJfYXZlcmFnZSB0byB2aXNpYmxlIGNoZWNrIGZvciBwb3dlciBhdHRyaWJ1dGVzaSBmb3IN
+Cj4gPiA+IEFQVXMuICBXYXMgbWlzc2VkIGJlZm9yZS4NCj4gPiA+DQo+ID4gPiBTaWduZWQtb2Zm
+LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+ID4gPiAtLS0N
+Cj4gPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDMgKystDQo+
+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiA+
+ID4NCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cG0uYw0KPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYw0KPiA+
+ID4gaW5kZXggNTFlYjJjZjQyYjgxLi45NzlkOTYyNzg0MTMgMTAwNjQ0DQo+ID4gPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYw0KPiA+ID4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMNCj4gPiA+IEBAIC0xNzk5LDcgKzE3OTks
+OCBAQCBzdGF0aWMgdW1vZGVfdA0KPiBod21vbl9hdHRyaWJ1dGVzX3Zpc2libGUoc3RydWN0IGtv
+YmplY3QgKmtvYmosDQo+ID4gPiAgICAgICAgICAgICAgICAgZWZmZWN0aXZlX21vZGUgJj0gflNf
+SVdVU1I7DQo+ID4gPg0KPiA+ID4gICAgICAgICBpZiAoKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQ
+VSkgJiYNCj4gPiA+IC0gICAgICAgICAgIChhdHRyID09ICZzZW5zb3JfZGV2X2F0dHJfcG93ZXIx
+X2NhcF9tYXguZGV2X2F0dHIuYXR0ciB8fA0KPiA+ID4gKyAgICAgICAgICAgKGF0dHIgPT0gJnNl
+bnNvcl9kZXZfYXR0cl9wb3dlcjFfYXZlcmFnZS5kZXZfYXR0ci5hdHRyIHx8DQo+ID4gPiArICAg
+ICAgICAgICAgYXR0ciA9PSAmc2Vuc29yX2Rldl9hdHRyX3Bvd2VyMV9jYXBfbWF4LmRldl9hdHRy
+LmF0dHINCj4gPiA+ICsgfHwNCj4gPiA+ICAgICAgICAgICAgICBhdHRyID09ICZzZW5zb3JfZGV2
+X2F0dHJfcG93ZXIxX2NhcF9taW4uZGV2X2F0dHIuYXR0cnx8DQo+ID4gPiAgICAgICAgICAgICAg
+YXR0ciA9PSAmc2Vuc29yX2Rldl9hdHRyX3Bvd2VyMV9jYXAuZGV2X2F0dHIuYXR0cikpDQo+ID4g
+PiAgICAgICAgICAgICAgICAgcmV0dXJuIDA7DQo+ID4gPiAtLQ0KPiA+ID4gMi4yMC4xDQo+ID4g
+Pg0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
