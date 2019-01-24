@@ -1,396 +1,111 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: avoid frequent metrics table export
-Date: Thu, 24 Jan 2019 13:49:52 +0000
-Message-ID: <BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190124105918.11647-1-evan.quan@amd.com>,
- <20190124105918.11647-2-evan.quan@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
+ devices on non-x86
+Date: Thu, 24 Jan 2019 08:54:19 -0500
+Message-ID: <CADnq5_PCCj1dgYTnJoWdFp45X8GMwdT34sMtWH7p6Ms1_SncOQ@mail.gmail.com>
+References: <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
+ <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
+ <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net> <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
+ <CADnq5_O1uxCrSksfF127AZTfbmdukxmqGdh2Ee0zM6CqgG_Mhg@mail.gmail.com>
+ <CAKv+Gu-4uYh_HD_5Ry_L80Nf5zpRhT4oJYhhG5_8g3gSzBs2tg@mail.gmail.com>
+ <20190123071521.GB20526@infradead.org> <CAKv+Gu8+77uZHJ6ZYjGNcKQL8C3cT5Ree+TcTVmkQXAHV-ADyg@mail.gmail.com>
+ <20190123164428.GA9367@infradead.org> <CAKv+Gu-9vEKu8mG-o+-4M1ZcgZmTTJVfEdNS9R27AFX8P5sqyQ@mail.gmail.com>
+ <20190124091316.GA22796@infradead.org> <bb559f74-4b1e-d5ee-74fb-b5dcd4a128cb@amd.com>
+ <CAKv+Gu_3LurSN-6w1WijPfpJpc+Pgu0YTnwTfMrXMF3-AKAnJA@mail.gmail.com>
+ <953e5e5f-5d47-d6df-40df-c8c94db5447f@amd.com> <CAKv+Gu9umPEmB+wh54NOTYcQ14oxf7rwVAXgCqo7V2A+VwkqPA@mail.gmail.com>
+ <57590a48-4629-e2a1-8673-ce9eb2ec210b@amd.com> <CAKv+Gu_2f0FaJ+Th7H48u4GrPX=MM9xw0fFjdwhfRrr1nhgEkA@mail.gmail.com>
+ <40ad3ae7-9970-0cb9-d35c-05e128f83820@amd.com> <CAKv+Gu_D4FC05Rz3Oxm_dTWLaGt+a3EDecbsrge1eHY7gFXEYg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0988909116=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190124105918.11647-2-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAKv+Gu_D4FC05Rz3Oxm_dTWLaGt+a3EDecbsrge1eHY7gFXEYg@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, Christoph Hellwig <hch@infradead.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, Maxime Ripard <maxime.ripard@bootlin.com>, Will Deacon <will.deacon@arm.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, "Huang, Ray" <Ray.Huang@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Michael Ellerman <mpe@ellerman.id.au>, "Zhang, Jerry" <Jerry.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Sean Paul <sean@poorly.run>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============0988909116==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
-n <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, January 24, 2019 5:59:18 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Quan, Evan
-Subject: [PATCH 2/2] drm/amd/powerplay: avoid frequent metrics table export
-
-That's unnecessary. Also it makes more sense to show all the clocks
-on one metrics table export.
-
-Change-Id: I6350911934dbd85dc701de17ccc0e9cbddda4648
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
----
- .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c    | 43 +++++++++++++------
- .../drm/amd/powerplay/hwmgr/vega20_hwmgr.h    |  3 ++
- 2 files changed, 33 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-index 13f124125f5a..7b49a9a13a4a 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-@@ -1958,16 +1958,36 @@ static uint32_t vega20_dpm_get_mclk(struct pp_hwmgr=
- *hwmgr, bool low)
-         return (mem_clk * 100);
- }
-
-+static int vega20_get_metrics_table(struct pp_hwmgr *hwmgr, SmuMetrics_t *=
-metrics_table)
-+{
-+       struct vega20_hwmgr *data =3D
-+                       (struct vega20_hwmgr *)(hwmgr->backend);
-+       int ret =3D 0;
-+
-+       if (!data->metrics_time || time_after(jiffies, data->metrics_time +=
- HZ / 2)) {
-+               ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)metrics_ta=
-ble,
-+                               TABLE_SMU_METRICS, true);
-+               if (ret) {
-+                       pr_info("Failed to export SMU metrics table!\n");
-+                       return ret;
-+               }
-+               memcpy(&data->metrics_table, metrics_table, sizeof(SmuMetri=
-cs_t));
-+               data->metrics_time =3D jiffies;
-+       } else
-+               memcpy(metrics_table, &data->metrics_table, sizeof(SmuMetri=
-cs_t));
-+
-+       return ret;
-+}
-+
- static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr,
-                 uint32_t *query)
- {
-         int ret =3D 0;
-         SmuMetrics_t metrics_table;
-
--       ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&metrics_table, TA=
-BLE_SMU_METRICS, true);
--       PP_ASSERT_WITH_CODE(!ret,
--                       "Failed to export SMU METRICS table!",
--                       return ret);
-+       ret =3D vega20_get_metrics_table(hwmgr, &metrics_table);
-+       if (ret)
-+               return ret;
-
-         *query =3D metrics_table.CurrSocketPower << 8;
-
-@@ -1998,10 +2018,9 @@ static int vega20_get_current_activity_percent(struc=
-t pp_hwmgr *hwmgr,
-         int ret =3D 0;
-         SmuMetrics_t metrics_table;
-
--       ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&metrics_table, TA=
-BLE_SMU_METRICS, true);
--       PP_ASSERT_WITH_CODE(!ret,
--                       "Failed to export SMU METRICS table!",
--                       return ret);
-+       ret =3D vega20_get_metrics_table(hwmgr, &metrics_table);
-+       if (ret)
-+               return ret;
-
-         *activity_percent =3D metrics_table.AverageGfxActivity;
-
-@@ -2019,11 +2038,9 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr=
-, int idx,
-
-         switch (idx) {
-         case AMDGPU_PP_SENSOR_GFX_SCLK:
--               ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&metrics_t=
-able,
--                               TABLE_SMU_METRICS, true);
--               PP_ASSERT_WITH_CODE(!ret,
--                               "Failed to export SMU METRICS table!",
--                               return ret);
-+               ret =3D vega20_get_metrics_table(hwmgr, &metrics_table);
-+               if (ret)
-+                       return ret;
-
-                 *((uint32_t *)value) =3D metrics_table.AverageGfxclkFreque=
-ncy * 100;
-                 *size =3D 4;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-index 25faaa5c5b10..37f5f5e657da 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
-@@ -520,6 +520,9 @@ struct vega20_hwmgr {
-         /* ---- Gfxoff ---- */
-         bool                           gfxoff_allowed;
-         uint32_t                       counter_gfxoff;
-+
-+       unsigned long                  metrics_time;
-+       SmuMetrics_t                   metrics_table;
- };
-
- #define VEGA20_DPM2_NEAR_TDP_DEC                      10
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Thu, Jan 24, 2019 at 6:45 AM Ard Biesheuvel
+<ard.biesheuvel@linaro.org> wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
-xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
-<b>Sent:</b> Thursday, January 24, 2019 5:59:18 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Quan, Evan<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/powerplay: avoid frequent metrics table=
- export</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">That's unnecessary. Also it makes more sense to sh=
-ow all the clocks<br>
-on one metrics table export.<br>
-<br>
-Change-Id: I6350911934dbd85dc701de17ccc0e9cbddda4648<br>
-Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/vega20_hwmgr.c&nbsp;&nbsp;&nbsp; | 43 &#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/vega20_hwmgr.h&nbsp;&nbsp;&nbsp; |&nbsp; =
-3 &#43;&#43;<br>
-&nbsp;2 files changed, 33 insertions(&#43;), 13 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-index 13f124125f5a..7b49a9a13a4a 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-@@ -1958,16 &#43;1958,36 @@ static uint32_t vega20_dpm_get_mclk(struct pp_h=
-wmgr *hwmgr, bool low)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (mem_clk * 100);<br=
+> On Thu, 24 Jan 2019 at 12:37, Koenig, Christian
+> <Christian.Koenig@amd.com> wrote:
+> >
+> > Am 24.01.19 um 12:26 schrieb Ard Biesheuvel:
+> > > On Thu, 24 Jan 2019 at 12:23, Koenig, Christian
+> > > <Christian.Koenig@amd.com> wrote:
+> > >> Am 24.01.19 um 10:59 schrieb Ard Biesheuvel:
+> > >>> [SNIP]
+> > >>> This is *exactly* my point the whole time.
+> > >>>
+> > >>> The current code has
+> > >>>
+> > >>> static inline bool drm_arch_can_wc_memory(void)
+> > >>> {
+> > >>> #if defined(CONFIG_PPC) && !defined(CONFIG_NOT_COHERENT_CACHE)
+> > >>>      return false;
+> > >>>
+> > >>> which means the optimization is disabled *unless the system is
+> > >>> non-cache coherent*
+> > >>>
+> > >>> So if you have reports that the optimization works on some PowerPC, it
+> > >>> must be non-cache coherent PowerPC, because that is the only place
+> > >>> where it is enabled in the first place.
+> > >>>
+> > >>>> The only problematic here actually seems to be ARM, so you should
+> > >>>> probably just add an "#ifdef .._ARM return false;".
+> > >>>>
+> > >>> ARM/arm64 does not have a Kconfig symbol like
+> > >>> CONFIG_NOT_COHERENT_CACHE, so we can only disable it everywhere. If
+> > >>> there are non-coherent ARM systems that are currently working in the
+> > >>> same way as those non-coherent PowerPC systems, we will break them by
+> > >>> doing this.
+> > >> Summing the things I've read so far for ARM up I actually think it
+> > >> depends on a runtime configuration and not on compile time one.
+> > >>
+> > >> So the whole idea of providing the device to the drm_*_can_wc_memory()
+> > >> function isn't so far fetched.
+> > >>
+> > > Thank you.
+> > >
+> > >> But for now I do prefer working and slightly slower system over broken
+> > >> one, so I think we should just disable this on ARM for now.
+> > >>
+> > > Again, this is not about non-cache coherent being slower without the
+> > > optimization, it is about non-cache coherent likely not working *at
+> > > all* unless the optimization is enabled.
+> >
+> > As Michel tried to explain this CAN'T happen. The optimization is a
+> > purely optional request from userspace.
+> >
 >
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static int vega20_get_metrics_table(struct pp_hwmgr *hwmgr, SmuMetrics=
-_t *metrics_table)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_hwmgr *data =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (struct vega=
-20_hwmgr *)(hwmgr-&gt;backend);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!data-&gt;metrics_time || tim=
-e_after(jiffies, data-&gt;metrics_time &#43; HZ / 2)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)metrics_tab=
-le,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TABLE_SMU_METRICS, true);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ret) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_info(&quo=
-t;Failed to export SMU metrics table!\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; memcpy(&amp;data-&gt;metrics_table, metrics_table, sizeof(Sm=
-uMetrics_t));<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; data-&gt;metrics_time =3D jiffies;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; memcpy(metrics_table, &amp;data-&gt;metrics_table, sizeof(Sm=
-uMetrics_t));<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; uint32_t *query)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics_table=
-;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr,=
- (uint8_t *)&amp;metrics_table, TABLE_SMU_METRICS, true);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to =
-export SMU METRICS table!&quot;,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_get_metrics_table(=
-hwmgr, &amp;metrics_table);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *query =3D metrics_table.C=
-urrSocketPower &lt;&lt; 8;<br>
-&nbsp;<br>
-@@ -1998,10 &#43;2018,9 @@ static int vega20_get_current_activity_percent(s=
-truct pp_hwmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics_table=
-;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr,=
- (uint8_t *)&amp;metrics_table, TABLE_SMU_METRICS, true);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to =
-export SMU METRICS table!&quot;,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_get_metrics_table(=
-hwmgr, &amp;metrics_table);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *activity_percent =3D metr=
-ics_table.AverageGfxActivity;<br>
-&nbsp;<br>
-@@ -2019,11 &#43;2038,9 @@ static int vega20_read_sensor(struct pp_hwmgr *h=
-wmgr, int idx,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (idx) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_=
-SCLK:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&amp;metrics_ta=
-ble,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TABLE_SMU_METRICS, true);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to export SMU METRICS table!&q=
-uot;,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D vega20_get_metrics_table(hwmgr, &amp;metrics_table);=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
-br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D metrics_table.AverageGfxclkF=
-requency * 100;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h<br>
-index 25faaa5c5b10..37f5f5e657da 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h<br>
-@@ -520,6 &#43;520,9 @@ struct vega20_hwmgr {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ---- Gfxoff ---- */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfxoff_allowed;=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; counter_gfxoff;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; metrics_time;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; metrics_table;<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;#define VEGA20_DPM2_NEAR_TDP_DEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; 10<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
+> Right.
+>
+> So in that case, we can assume that the following test
+>
+> static inline bool drm_arch_can_wc_memory(void)
+> {
+> #if defined(CONFIG_PPC) && !defined(CONFIG_NOT_COHERENT_CACHE)
+>     return false;
+>
+> is bogus, and it was just unnecessary caution on the part of the
+> author to disregard non-cache coherent devices.
+> Unfortunately, those commits have no log messages whatsoever, so it is
+> difficult to infer the intent retroactively.
+>
+> > > Otherwise, the driver will vmap() DMA pages with cacheable attributes,
+> > > while the non-cache coherent device uses uncached attributes, breaking
+> > > coherency.
+> >
+> > Again this is mandated by the userspace APIs anyway. E.g. we can't
+> > vmap() pages in any other way or our userspace APIs would break.
+> >
+>
+> OK,
+>
+> So let's just disable this for all ARM and arm64 then, given that
+> non-cache coherent is not supported in any case
 
---_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_--
+So I think we are back to this patch:
+https://patchwork.kernel.org/patch/10739023/
 
---===============0988909116==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0988909116==--
+Alex
