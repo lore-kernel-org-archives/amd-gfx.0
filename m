@@ -1,94 +1,65 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 Subject: Re: [PATCH] drm: enable uncached DMA optimization for ARM and arm64
-Date: Thu, 24 Jan 2019 12:31:33 +0000
-Message-ID: <3cca35a9-c71c-a100-b29d-31ba0d1d10b1@amd.com>
-References: <20190124120658.30288-1-ard.biesheuvel@linaro.org>
+Date: Thu, 24 Jan 2019 13:32:15 +0100
+Message-ID: <CAKv+Gu9OG3O4+4F2nioaQ-3U-1kwRBr5KVj-1gD1ZEsUx_Ud5A@mail.gmail.com>
+References: <20190124120658.30288-1-ard.biesheuvel@linaro.org> <3cca35a9-c71c-a100-b29d-31ba0d1d10b1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190124120658.30288-1-ard.biesheuvel-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
-Content-Language: en-US
-Content-ID: <BFDBC66C185C37408FF79FFB56393AD8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Ard Biesheuvel <ard.biesheuvel-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Benjamin Herrenschmidt <benh-XVmvHMARGAS8U2dJNN8I7kB+6BGkLq7r@public.gmane.org>, Carsten Haitzler <Carsten.Haitzler-5wv7dgnIgG8@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Daenzer,
- Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, Robin Murphy <robin.murphy-5wv7dgnIgG8@public.gmane.org>, Will Deacon <will.deacon-5wv7dgnIgG8@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, "linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org" <linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <3cca35a9-c71c-a100-b29d-31ba0d1d10b1@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>, "Zhang, Jerry" <Jerry.Zhang@amd.com>, "Daenzer, Michel" <Michel.Daenzer@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Will Deacon <will.deacon@arm.com>, Christoph Hellwig <hch@infradead.org>, Robin Murphy <robin.murphy@arm.com>am
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjQuMDEuMTkgdW0gMTM6MDYgc2NocmllYiBBcmQgQmllc2hldXZlbDoNCj4gVGhlIERSTSBk
-cml2ZXIgc3RhY2sgaXMgZGVzaWduZWQgdG8gd29yayB3aXRoIGNhY2hlIGNvaGVyZW50IGRldmlj
-ZXMNCj4gb25seSwgYnV0IHBlcm1pdHMgYW4gb3B0aW1pemF0aW9uIHRvIGJlIGVuYWJsZWQgaW4g
-c29tZSBjYXNlcywgd2hlcmUNCj4gZm9yIHNvbWUgYnVmZmVycywgYm90aCB0aGUgQ1BVIGFuZCB0
-aGUgR1BVIHVzZSB1bmNhY2hlZCBtYXBwaW5ncywNCj4gcmVtb3ZpbmcgdGhlIG5lZWQgZm9yIERN
-QSBzbm9vcGluZyBhbmQgYWxsb2NhdGlvbiBpbiB0aGUgQ1BVIGNhY2hlcy4NCj4NCj4gVGhlIHVz
-ZSBvZiB1bmNhY2hlZCBHUFUgbWFwcGluZ3MgcmVsaWVzIG9uIHRoZSBjb3JyZWN0IGltcGxlbWVu
-dGF0aW9uDQo+IG9mIHRoZSBQQ0llIE5vU25vb3AgVExQIGF0dHJpYnV0ZSBieSB0aGUgcGxhdGZv
-cm0sIG90aGVyd2lzZSB0aGUgR1BVDQo+IHdpbGwgdXNlIGNhY2hlZCBtYXBwaW5ncyBub25ldGhl
-bGVzcy4gT24geDg2IHBsYXRmb3JtcywgdGhpcyBkb2VzIG5vdA0KPiBzZWVtIHRvIG1hdHRlciwg
-YXMgdW5jYWNoZWQgQ1BVIG1hcHBpbmdzIHdpbGwgc25vb3AgdGhlIGNhY2hlcyBpbiBhbnkNCj4g
-Y2FzZS4gSG93ZXZlciwgb24gQVJNIGFuZCBhcm02NCwgZW5hYmxpbmcgdGhpcyBvcHRpbWl6YXRp
-b24gb24gYQ0KPiBwbGF0Zm9ybSB3aGVyZSBOb1Nub29wIGlzIGlnbm9yZWQgcmVzdWx0cyBpbiBs
-b3NzIG9mIGNvaGVyZW5jeSwgd2hpY2gNCj4gYnJlYWtzIGNvcnJlY3Qgb3BlcmF0aW9uIG9mIHRo
-ZSBkZXZpY2UuIFNpbmNlIHdlIGhhdmUgbm8gd2F5IG9mDQo+IGRldGVjdGluZyB3aGV0aGVyIE5v
-U25vb3Agd29ya3Mgb3Igbm90LCBqdXN0IGRpc2FibGUgdGhpcw0KPiBvcHRpbWl6YXRpb24gZW50
-aXJlbHkgZm9yIEFSTSBhbmQgYXJtNjQuDQo+DQo+IENjOiBDaHJpc3RpYW4gS29lbmlnIDxjaHJp
-c3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+DQo+IENjOiBEYXZpZCBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPg0KPiBD
-YzogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4NCj4gQ2M6IEp1bndlaSBaaGFuZyA8SmVy
-cnkuWmhhbmdAYW1kLmNvbT4NCj4gQ2M6IE1pY2hlbCBEYWVuemVyIDxtaWNoZWwuZGFlbnplckBh
-bWQuY29tPg0KPiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPg0KPiBDYzogRGFu
-aWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPg0KPiBDYzogTWFhcnRlbiBMYW5raG9yc3QgPG1h
-YXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT4NCj4gQ2M6IE1heGltZSBSaXBhcmQgPG1h
-eGltZS5yaXBhcmRAYm9vdGxpbi5jb20+DQo+IENjOiBTZWFuIFBhdWwgPHNlYW5AcG9vcmx5LnJ1
-bj4NCj4gQ2M6IE1pY2hhZWwgRWxsZXJtYW4gPG1wZUBlbGxlcm1hbi5pZC5hdT4NCj4gQ2M6IEJl
-bmphbWluIEhlcnJlbnNjaG1pZHQgPGJlbmhAa2VybmVsLmNyYXNoaW5nLm9yZz4NCj4gQ2M6IFdp
-bGwgRGVhY29uIDx3aWxsLmRlYWNvbkBhcm0uY29tPg0KPiBDYzogQ2hyaXN0b3BoIEhlbGx3aWcg
-PGhjaEBpbmZyYWRlYWQub3JnPg0KPiBDYzogUm9iaW4gTXVycGh5IDxyb2Jpbi5tdXJwaHlAYXJt
-LmNvbT4NCj4gQ2M6IGFtZC1nZnggbGlzdCA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+
-DQo+IENjOiBkcmktZGV2ZWwgPGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQo+IFJl
-cG9ydGVkLWJ5OiBDYXJzdGVuIEhhaXR6bGVyIDxDYXJzdGVuLkhhaXR6bGVyQGFybS5jb20+DQo+
-IFNpZ25lZC1vZmYtYnk6IEFyZCBCaWVzaGV1dmVsIDxhcmQuYmllc2hldXZlbEBsaW5hcm8ub3Jn
-Pg0KDQpUaGUgc3ViamVjdCBsaW5lIHNob3VsZCBwcm9iYWJseSByZWFkICJkaXNhYmxlIHVuY2Fj
-aGVkLi4uIi4NCg0KV2l0aCB0aGF0IGZpeGVkIHRoZSBwYXRjaCBpcyBSZXZpZXdlZC1ieTogQ2hy
-aXN0aWFuIEvDtm5pZyANCjxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Lg0KDQpSZWdhcmRzLA0K
-Q2hyaXN0aWFuLg0KDQo+IC0tLQ0KPiAgIGluY2x1ZGUvZHJtL2RybV9jYWNoZS5oIHwgMTggKysr
-KysrKysrKysrKysrKysrDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDE4IGluc2VydGlvbnMoKykNCj4N
-Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5oIGIvaW5jbHVkZS9kcm0vZHJt
-X2NhY2hlLmgNCj4gaW5kZXggYmZlMTYzOWRmMDJkLi45N2ZjNDk4ZGM3NjcgMTAwNjQ0DQo+IC0t
-LSBhL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5oDQo+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9jYWNo
-ZS5oDQo+IEBAIC00Nyw2ICs0NywyNCBAQCBzdGF0aWMgaW5saW5lIGJvb2wgZHJtX2FyY2hfY2Fu
-X3djX21lbW9yeSh2b2lkKQ0KPiAgIAlyZXR1cm4gZmFsc2U7DQo+ICAgI2VsaWYgZGVmaW5lZChD
-T05GSUdfTUlQUykgJiYgZGVmaW5lZChDT05GSUdfQ1BVX0xPT05HU09OMykNCj4gICAJcmV0dXJu
-IGZhbHNlOw0KPiArI2VsaWYgZGVmaW5lZChDT05GSUdfQVJNKSB8fCBkZWZpbmVkKENPTkZJR19B
-Uk02NCkNCj4gKwkvKg0KPiArCSAqIFRoZSBEUk0gZHJpdmVyIHN0YWNrIGlzIGRlc2lnbmVkIHRv
-IHdvcmsgd2l0aCBjYWNoZSBjb2hlcmVudCBkZXZpY2VzDQo+ICsJICogb25seSwgYnV0IHBlcm1p
-dHMgYW4gb3B0aW1pemF0aW9uIHRvIGJlIGVuYWJsZWQgaW4gc29tZSBjYXNlcywgd2hlcmUNCj4g
-KwkgKiBmb3Igc29tZSBidWZmZXJzLCBib3RoIHRoZSBDUFUgYW5kIHRoZSBHUFUgdXNlIHVuY2Fj
-aGVkIG1hcHBpbmdzLA0KPiArCSAqIHJlbW92aW5nIHRoZSBuZWVkIGZvciBETUEgc25vb3Bpbmcg
-YW5kIGFsbG9jYXRpb24gaW4gdGhlIENQVSBjYWNoZXMuDQo+ICsJICoNCj4gKwkgKiBUaGUgdXNl
-IG9mIHVuY2FjaGVkIEdQVSBtYXBwaW5ncyByZWxpZXMgb24gdGhlIGNvcnJlY3QgaW1wbGVtZW50
-YXRpb24NCj4gKwkgKiBvZiB0aGUgUENJZSBOb1Nub29wIFRMUCBhdHRyaWJ1dGUgYnkgdGhlIHBs
-YXRmb3JtLCBvdGhlcndpc2UgdGhlIEdQVQ0KPiArCSAqIHdpbGwgdXNlIGNhY2hlZCBtYXBwaW5n
-cyBub25ldGhlbGVzcy4gT24geDg2IHBsYXRmb3JtcywgdGhpcyBkb2VzIG5vdA0KPiArCSAqIHNl
-ZW0gdG8gbWF0dGVyLCBhcyB1bmNhY2hlZCBDUFUgbWFwcGluZ3Mgd2lsbCBzbm9vcCB0aGUgY2Fj
-aGVzIGluIGFueQ0KPiArCSAqIGNhc2UuIEhvd2V2ZXIsIG9uIEFSTSBhbmQgYXJtNjQsIGVuYWJs
-aW5nIHRoaXMgb3B0aW1pemF0aW9uIG9uIGENCj4gKwkgKiBwbGF0Zm9ybSB3aGVyZSBOb1Nub29w
-IGlzIGlnbm9yZWQgcmVzdWx0cyBpbiBsb3NzIG9mIGNvaGVyZW5jeSwgd2hpY2gNCj4gKwkgKiBi
-cmVha3MgY29ycmVjdCBvcGVyYXRpb24gb2YgdGhlIGRldmljZS4gU2luY2Ugd2UgaGF2ZSBubyB3
-YXkgb2YNCj4gKwkgKiBkZXRlY3Rpbmcgd2hldGhlciBOb1Nub29wIHdvcmtzIG9yIG5vdCwganVz
-dCBkaXNhYmxlIHRoaXMNCj4gKwkgKiBvcHRpbWl6YXRpb24gZW50aXJlbHkgZm9yIEFSTSBhbmQg
-YXJtNjQuDQo+ICsJICovDQo+ICsJcmV0dXJuIGZhbHNlOw0KPiAgICNlbHNlDQo+ICAgCXJldHVy
-biB0cnVlOw0KPiAgICNlbmRpZg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+On Thu, 24 Jan 2019 at 13:31, Koenig, Christian
+<Christian.Koenig@amd.com> wrote:
+>
+> Am 24.01.19 um 13:06 schrieb Ard Biesheuvel:
+> > The DRM driver stack is designed to work with cache coherent devices
+> > only, but permits an optimization to be enabled in some cases, where
+> > for some buffers, both the CPU and the GPU use uncached mappings,
+> > removing the need for DMA snooping and allocation in the CPU caches.
+> >
+> > The use of uncached GPU mappings relies on the correct implementation
+> > of the PCIe NoSnoop TLP attribute by the platform, otherwise the GPU
+> > will use cached mappings nonetheless. On x86 platforms, this does not
+> > seem to matter, as uncached CPU mappings will snoop the caches in any
+> > case. However, on ARM and arm64, enabling this optimization on a
+> > platform where NoSnoop is ignored results in loss of coherency, which
+> > breaks correct operation of the device. Since we have no way of
+> > detecting whether NoSnoop works or not, just disable this
+> > optimization entirely for ARM and arm64.
+> >
+> > Cc: Christian Koenig <christian.koenig@amd.com>
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: David Zhou <David1.Zhou@amd.com>
+> > Cc: Huang Rui <ray.huang@amd.com>
+> > Cc: Junwei Zhang <Jerry.Zhang@amd.com>
+> > Cc: Michel Daenzer <michel.daenzer@amd.com>
+> > Cc: David Airlie <airlied@linux.ie>
+> > Cc: Daniel Vetter <daniel@ffwll.ch>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Maxime Ripard <maxime.ripard@bootlin.com>
+> > Cc: Sean Paul <sean@poorly.run>
+> > Cc: Michael Ellerman <mpe@ellerman.id.au>
+> > Cc: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+> > Cc: Will Deacon <will.deacon@arm.com>
+> > Cc: Christoph Hellwig <hch@infradead.org>
+> > Cc: Robin Murphy <robin.murphy@arm.com>
+> > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+> > Cc: dri-devel <dri-devel@lists.freedesktop.org>
+> > Reported-by: Carsten Haitzler <Carsten.Haitzler@arm.com>
+> > Signed-off-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+>
+> The subject line should probably read "disable uncached...".
+>
+
+Ugh, of course ...
+
+> With that fixed the patch is Reviewed-by: Christian K=C3=B6nig
+> <christian.koenig@amd.com>.
+>
+
+Thanks.
