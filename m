@@ -1,14 +1,13 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 4/4] drm/amd/powerplay: support Vega12 retrieving and
- setting ppfeatures
-Date: Thu, 24 Jan 2019 13:44:58 +0000
-Message-ID: <BN6PR12MB180951C54A5FDA1CB9582895F79A0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190124074805.4169-1-evan.quan@amd.com>,
- <20190124074805.4169-4-evan.quan@amd.com>
+Subject: Re: [PATCH 2/2] drm/amd/powerplay: avoid frequent metrics table export
+Date: Thu, 24 Jan 2019 13:49:52 +0000
+Message-ID: <BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190124105918.11647-1-evan.quan@amd.com>,
+ <20190124105918.11647-2-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1036355120=="
+Content-Type: multipart/mixed; boundary="===============0988909116=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190124074805.4169-4-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190124105918.11647-2-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,166 +21,139 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1036355120==
+--===============0988909116==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180951C54A5FDA1CB9582895F79A0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB180951C54A5FDA1CB9582895F79A0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 Series is:
 
 Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-
 ________________________________
 From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
 n <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, January 24, 2019 2:48:05 AM
+Sent: Thursday, January 24, 2019 5:59:18 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Quan, Evan
-Subject: [PATCH 4/4] drm/amd/powerplay: support Vega12 retrieving and setti=
-ng ppfeatures
+Subject: [PATCH 2/2] drm/amd/powerplay: avoid frequent metrics table export
 
-Enable retrieving and setting ppfeatures on Vega12.
+That's unnecessary. Also it makes more sense to show all the clocks
+on one metrics table export.
 
-Change-Id: Idad5eaadbb9e7ea73edd9e9d4fe4e1a5b17fb7a6
+Change-Id: I6350911934dbd85dc701de17ccc0e9cbddda4648
 Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 ---
- .../drm/amd/powerplay/hwmgr/vega12_hwmgr.c    | 100 ++++++++++++++++++
- 1 file changed, 100 insertions(+)
+ .../drm/amd/powerplay/hwmgr/vega20_hwmgr.c    | 43 +++++++++++++------
+ .../drm/amd/powerplay/hwmgr/vega20_hwmgr.h    |  3 ++
+ 2 files changed, 33 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index 45a45669d2ec..342f8b81ca82 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -1933,6 +1933,104 @@ static int vega12_force_clock_level(struct pp_hwmgr=
- *hwmgr,
-         return 0;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+index 13f124125f5a..7b49a9a13a4a 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+@@ -1958,16 +1958,36 @@ static uint32_t vega20_dpm_get_mclk(struct pp_hwmgr=
+ *hwmgr, bool low)
+         return (mem_clk * 100);
  }
 
-+static int vega12_get_ppfeature_status(struct pp_hwmgr *hwmgr, char *buf)
++static int vega20_get_metrics_table(struct pp_hwmgr *hwmgr, SmuMetrics_t *=
+metrics_table)
 +{
-+       static const char *ppfeature_name[] =3D {
-+                               "DPM_PREFETCHER",
-+                               "GFXCLK_DPM",
-+                               "UCLK_DPM",
-+                               "SOCCLK_DPM",
-+                               "UVD_DPM",
-+                               "VCE_DPM",
-+                               "ULV",
-+                               "MP0CLK_DPM",
-+                               "LINK_DPM",
-+                               "DCEFCLK_DPM",
-+                               "GFXCLK_DS",
-+                               "SOCCLK_DS",
-+                               "LCLK_DS",
-+                               "PPT",
-+                               "TDC",
-+                               "THERMAL",
-+                               "GFX_PER_CU_CG",
-+                               "RM",
-+                               "DCEFCLK_DS",
-+                               "ACDC",
-+                               "VR0HOT",
-+                               "VR1HOT",
-+                               "FW_CTF",
-+                               "LED_DISPLAY",
-+                               "FAN_CONTROL",
-+                               "DIDT",
-+                               "GFXOFF",
-+                               "CG",
-+                               "ACG"};
-+       static const char *output_title[] =3D {
-+                               "FEATURES",
-+                               "BITMASK",
-+                               "ENABLEMENT"};
-+       uint64_t features_enabled;
-+       int i;
++       struct vega20_hwmgr *data =3D
++                       (struct vega20_hwmgr *)(hwmgr->backend);
 +       int ret =3D 0;
-+       int size =3D 0;
 +
-+       ret =3D vega12_get_enabled_smc_features(hwmgr, &features_enabled);
-+       PP_ASSERT_WITH_CODE(!ret,
-+                       "[EnableAllSmuFeatures] Failed to get enabled smc f=
-eatures!",
-+                       return ret);
++       if (!data->metrics_time || time_after(jiffies, data->metrics_time +=
+ HZ / 2)) {
++               ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)metrics_ta=
+ble,
++                               TABLE_SMU_METRICS, true);
++               if (ret) {
++                       pr_info("Failed to export SMU metrics table!\n");
++                       return ret;
++               }
++               memcpy(&data->metrics_table, metrics_table, sizeof(SmuMetri=
+cs_t));
++               data->metrics_time =3D jiffies;
++       } else
++               memcpy(metrics_table, &data->metrics_table, sizeof(SmuMetri=
+cs_t));
 +
-+       size +=3D sprintf(buf + size, "Current ppfeatures: 0x%016llx\n", fe=
-atures_enabled);
-+       size +=3D sprintf(buf + size, "%-19s %-22s %s\n",
-+                               output_title[0],
-+                               output_title[1],
-+                               output_title[2]);
-+       for (i =3D 0; i < GNLD_FEATURES_MAX; i++) {
-+               size +=3D sprintf(buf + size, "%-19s 0x%016llx %6s\n",
-+                                       ppfeature_name[i],
-+                                       1ULL << i,
-+                                       (features_enabled & (1ULL << i)) ? =
-"Y" : "N");
-+       }
-+
-+       return size;
++       return ret;
 +}
 +
-+static int vega12_set_ppfeature_status(struct pp_hwmgr *hwmgr, uint64_t ne=
-w_ppfeature_masks)
-+{
-+       uint64_t features_enabled;
-+       uint64_t features_to_enable;
-+       uint64_t features_to_disable;
-+       int ret =3D 0;
-+
-+       if (new_ppfeature_masks >=3D (1ULL << GNLD_FEATURES_MAX))
-+               return -EINVAL;
-+
-+       ret =3D vega12_get_enabled_smc_features(hwmgr, &features_enabled);
+ static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr,
+                 uint32_t *query)
+ {
+         int ret =3D 0;
+         SmuMetrics_t metrics_table;
+
+-       ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&metrics_table, TA=
+BLE_SMU_METRICS, true);
+-       PP_ASSERT_WITH_CODE(!ret,
+-                       "Failed to export SMU METRICS table!",
+-                       return ret);
++       ret =3D vega20_get_metrics_table(hwmgr, &metrics_table);
 +       if (ret)
 +               return ret;
-+
-+       features_to_disable =3D
-+               (features_enabled ^ new_ppfeature_masks) & features_enabled=
-;
-+       features_to_enable =3D
-+               (features_enabled ^ new_ppfeature_masks) ^ features_to_disa=
-ble;
-+
-+       pr_debug("features_to_disable 0x%llx\n", features_to_disable);
-+       pr_debug("features_to_enable 0x%llx\n", features_to_enable);
-+
-+       if (features_to_disable) {
-+               ret =3D vega12_enable_smc_features(hwmgr, false, features_t=
-o_disable);
+
+         *query =3D metrics_table.CurrSocketPower << 8;
+
+@@ -1998,10 +2018,9 @@ static int vega20_get_current_activity_percent(struc=
+t pp_hwmgr *hwmgr,
+         int ret =3D 0;
+         SmuMetrics_t metrics_table;
+
+-       ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&metrics_table, TA=
+BLE_SMU_METRICS, true);
+-       PP_ASSERT_WITH_CODE(!ret,
+-                       "Failed to export SMU METRICS table!",
+-                       return ret);
++       ret =3D vega20_get_metrics_table(hwmgr, &metrics_table);
++       if (ret)
++               return ret;
+
+         *activity_percent =3D metrics_table.AverageGfxActivity;
+
+@@ -2019,11 +2038,9 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr=
+, int idx,
+
+         switch (idx) {
+         case AMDGPU_PP_SENSOR_GFX_SCLK:
+-               ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&metrics_t=
+able,
+-                               TABLE_SMU_METRICS, true);
+-               PP_ASSERT_WITH_CODE(!ret,
+-                               "Failed to export SMU METRICS table!",
+-                               return ret);
++               ret =3D vega20_get_metrics_table(hwmgr, &metrics_table);
 +               if (ret)
 +                       return ret;
-+       }
+
+                 *((uint32_t *)value) =3D metrics_table.AverageGfxclkFreque=
+ncy * 100;
+                 *size =3D 4;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
+index 25faaa5c5b10..37f5f5e657da 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h
+@@ -520,6 +520,9 @@ struct vega20_hwmgr {
+         /* ---- Gfxoff ---- */
+         bool                           gfxoff_allowed;
+         uint32_t                       counter_gfxoff;
 +
-+       if (features_to_enable) {
-+               ret =3D vega12_enable_smc_features(hwmgr, true, features_to=
-_enable);
-+               if (ret)
-+                       return ret;
-+       }
-+
-+       return 0;
-+}
-+
- static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,
-                 enum pp_clock_type type, char *buf)
- {
-@@ -2528,6 +2626,8 @@ static const struct pp_hwmgr_func vega12_hwmgr_funcs =
-=3D {
-         .start_thermal_controller =3D vega12_start_thermal_controller,
-         .powergate_gfx =3D vega12_gfx_off_control,
-         .get_performance_level =3D vega12_get_performance_level,
-+       .get_ppfeature_status =3D vega12_get_ppfeature_status,
-+       .set_ppfeature_status =3D vega12_set_ppfeature_status,
++       unsigned long                  metrics_time;
++       SmuMetrics_t                   metrics_table;
  };
 
- int vega12_hwmgr_init(struct pp_hwmgr *hwmgr)
+ #define VEGA20_DPM2_NEAR_TDP_DEC                      10
 --
 2.20.1
 
@@ -189,368 +161,229 @@ _______________________________________________
 amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
-istinfo/amd-gfx>
-lists.freedesktop.org
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in the sections below.
 
-
-
---_000_BN6PR12MB180951C54A5FDA1CB9582895F79A0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
 n-bottom:0;} --></style>
 </head>
 <body dir=3D"ltr">
 <div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
 -family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
-r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, &quot;EmojiFo=
-nt&quot;, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoCo=
-lorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymb=
-ols;">
-<p style=3D"margin-top:0; margin-bottom:0">Series is:</p>
-<p style=3D"margin-top:0; margin-bottom:0">Reviewed-by: Alex Deucher &lt;al=
-exander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
+<p style=3D"margin-top:0;margin-bottom:0">Series is:</p>
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Alex Deucher &lt;ale=
+xander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 </p>
 </div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd=
-.com&gt;<br>
-<b>Sent:</b> Thursday, January 24, 2019 2:48:05 AM<br>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Thursday, January 24, 2019 5:59:18 AM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Cc:</b> Quan, Evan<br>
-<b>Subject:</b> [PATCH 4/4] drm/amd/powerplay: support Vega12 retrieving an=
-d setting ppfeatures</font>
+<b>Subject:</b> [PATCH 2/2] drm/amd/powerplay: avoid frequent metrics table=
+ export</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Enable retrieving and setting ppfeatures on Vega12=
-.<br>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">That's unnecessary. Also it makes more sense to sh=
+ow all the clocks<br>
+on one metrics table export.<br>
 <br>
-Change-Id: Idad5eaadbb9e7ea73edd9e9d4fe4e1a5b17fb7a6<br>
+Change-Id: I6350911934dbd85dc701de17ccc0e9cbddda4648<br>
 Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;.../drm/amd/powerplay/hwmgr/vega12_hwmgr.c&nbsp;&nbsp;&nbsp; | 100 &#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
-43;&#43;&#43;<br>
-&nbsp;1 file changed, 100 insertions(&#43;)<br>
+&nbsp;.../drm/amd/powerplay/hwmgr/vega20_hwmgr.c&nbsp;&nbsp;&nbsp; | 43 &#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------<br>
+&nbsp;.../drm/amd/powerplay/hwmgr/vega20_hwmgr.h&nbsp;&nbsp;&nbsp; |&nbsp; =
+3 &#43;&#43;<br>
+&nbsp;2 files changed, 33 insertions(&#43;), 13 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
-index 45a45669d2ec..342f8b81ca82 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
-@@ -1933,6 &#43;1933,104 @@ static int vega12_force_clock_level(struct pp_h=
-wmgr *hwmgr,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+index 13f124125f5a..7b49a9a13a4a 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+@@ -1958,16 &#43;1958,36 @@ static uint32_t vega20_dpm_get_mclk(struct pp_h=
+wmgr *hwmgr, bool low)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (mem_clk * 100);<br=
+>
 &nbsp;}<br>
 &nbsp;<br>
-&#43;static int vega12_get_ppfeature_status(struct pp_hwmgr *hwmgr, char *b=
-uf)<br>
+&#43;static int vega20_get_metrics_table(struct pp_hwmgr *hwmgr, SmuMetrics=
+_t *metrics_table)<br>
 &#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static const char *ppfeature_name=
-[] =3D {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct vega20_hwmgr *data =3D<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;DPM_PREFETCHER&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;GFXCLK_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;UCLK_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;SOCCLK_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;UVD_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;VCE_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;ULV&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;MP0CLK_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;LINK_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;DCEFCLK_DPM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;GFXCLK_DS&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;SOCCLK_DS&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;LCLK_DS&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;PPT&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;TDC&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;THERMAL&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;GFX_PER_CU_CG&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;RM&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;DCEFCLK_DS&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;ACDC&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;VR0HOT&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;VR1HOT&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;FW_CTF&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;LED_DISPLAY&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;FAN_CONTROL&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;DIDT&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;GFXOFF&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;CG&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;ACG&quot;};<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; static const char *output_title[]=
- =3D {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;FEATURES&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;BITMASK&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;ENABLEMENT&quot;};<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t features_enabled;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (struct vega=
+20_hwmgr *)(hwmgr-&gt;backend);<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int size =3D 0;<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega12_get_enabled_smc_fe=
-atures(hwmgr, &amp;features_enabled);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!data-&gt;metrics_time || tim=
+e_after(jiffies, data-&gt;metrics_time &#43; HZ / 2)) {<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;[Enabl=
-eAllSmuFeatures] Failed to get enabled smc features!&quot;,<br>
+p;&nbsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)metrics_tab=
+le,<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);=
-<br>
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TABLE_SMU_METRICS, true);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (ret) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_info(&quo=
+t;Failed to export SMU metrics table!\n&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; memcpy(&amp;data-&gt;metrics_table, metrics_table, sizeof(Sm=
+uMetrics_t));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; data-&gt;metrics_time =3D jiffies;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; memcpy(metrics_table, &amp;data-&gt;metrics_table, sizeof(Sm=
+uMetrics_t));<br>
 &#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; s=
-ize, &quot;Current ppfeatures: 0x%016llx\n&quot;, features_enabled);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; s=
-ize, &quot;%-19s %-22s %s\n&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output_title[0],<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output_title[1],<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; output_title[2]);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; GNLD_FEATURE=
-S_MAX; i&#43;&#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;%-19s 0x%016llx =
-%6s\n&quot;,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; ppfeature_name[i],<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; 1ULL &lt;&lt; i,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; (features_enabled &amp; (1ULL &lt;&lt; i)) ? &quot;Y&quot; : &quot=
-;N&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
 &#43;}<br>
 &#43;<br>
-&#43;static int vega12_set_ppfeature_status(struct pp_hwmgr *hwmgr, uint64_=
-t new_ppfeature_masks)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t features_enabled;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t features_to_enable;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t features_to_disable;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (new_ppfeature_masks &gt;=3D (=
-1ULL &lt;&lt; GNLD_FEATURES_MAX))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega12_get_enabled_smc_fe=
-atures(hwmgr, &amp;features_enabled);<br>
+&nbsp;static int vega20_get_gpu_power(struct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; uint32_t *query)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics_table=
+;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr,=
+ (uint8_t *)&amp;metrics_table, TABLE_SMU_METRICS, true);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to =
+export SMU METRICS table!&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_get_metrics_table(=
+hwmgr, &amp;metrics_table);<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; return ret;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; features_to_disable =3D<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *query =3D metrics_table.C=
+urrSocketPower &lt;&lt; 8;<br>
+&nbsp;<br>
+@@ -1998,10 &#43;2018,9 @@ static int vega20_get_current_activity_percent(s=
+truct pp_hwmgr *hwmgr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics_table=
+;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr,=
+ (uint8_t *)&amp;metrics_table, TABLE_SMU_METRICS, true);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to =
+export SMU METRICS table!&quot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D vega20_get_metrics_table(=
+hwmgr, &amp;metrics_table);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; (features_enabled ^ new_ppfeature_masks) &amp; features_enab=
-led;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; features_to_enable =3D<br>
+p;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *activity_percent =3D metr=
+ics_table.AverageGfxActivity;<br>
+&nbsp;<br>
+@@ -2019,11 &#43;2038,9 @@ static int vega20_read_sensor(struct pp_hwmgr *h=
+wmgr, int idx,<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (idx) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_=
+SCLK:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smum_smc_table_manager(hwmgr, (uint8_t *)&amp;metrics_ta=
+ble,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TABLE_SMU_METRICS, true);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; PP_ASSERT_WITH_CODE(!ret,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to export SMU METRICS table!&q=
+uot;,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret);<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; (features_enabled ^ new_ppfeature_masks) ^ features_to_disab=
-le;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;features_to_disabl=
-e 0x%llx\n&quot;, features_to_disable);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;features_to_enable=
- 0x%llx\n&quot;, features_to_enable);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (features_to_disable) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D vega12_enable_smc_features(hwmgr, false, features_to=
-_disable);<br>
+p;&nbsp;&nbsp; ret =3D vega20_get_metrics_table(hwmgr, &amp;metrics_table);=
+<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp; if (ret)<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
 p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
 br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (features_to_enable) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D vega12_enable_smc_features(hwmgr, true, features_to_=
-enable);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;static int vega12_print_clock_levels(struct pp_hwmgr *hwmgr,<br>
+&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; enum pp_clock_type type, char *buf)<br>
-&nbsp;{<br>
-@@ -2528,6 &#43;2626,8 @@ static const struct pp_hwmgr_func vega12_hwmgr_fu=
-ncs =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .start_thermal_controller =
-=3D vega12_start_thermal_controller,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .powergate_gfx =3D vega12_=
-gfx_off_control,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_performance_level =3D=
- vega12_get_performance_level,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_ppfeature_status =3D vega12_=
-get_ppfeature_status,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_ppfeature_status =3D vega12_=
-set_ppfeature_status,<br>
+sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D metrics_table.AverageGfxclkF=
+requency * 100;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h<br>
+index 25faaa5c5b10..37f5f5e657da 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.h<br>
+@@ -520,6 &#43;520,9 @@ struct vega20_hwmgr {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ---- Gfxoff ---- */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gfxoff_allowed;=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; counter_gfxoff;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; metrics_time;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; metrics_table;<br>
 &nbsp;};<br>
 &nbsp;<br>
-&nbsp;int vega12_hwmgr_init(struct pp_hwmgr *hwmgr)<br>
+&nbsp;#define VEGA20_DPM2_NEAR_TDP_DEC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; 10<br>
 -- <br>
 2.20.1<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
-lnk341796" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
-desktop.org/mailman/listinfo/amd-gfx</a>
-<div id=3D"LPBorder_GT_15483374806960.6518388166380761" style=3D"margin-bot=
-tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
-<table id=3D"LPContainer_15483374806910.6069971263137459" style=3D"width: 9=
-0%; background-color: rgb(255, 255, 255); position: relative; overflow: aut=
-o; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: 1=
-px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200);=
-" role=3D"presentation" cellspacing=3D"0">
-<tbody>
-<tr style=3D"border-spacing: 0px;" valign=3D"top">
-<td id=3D"TextCell_15483374806930.8354732714014149" style=3D"vertical-align=
-: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
-">
-<div id=3D"LPRemovePreviewContainer_15483374806930.2081363836479181"></div>
-<div id=3D"LPTitle_15483374806930.04411912528722006" style=3D"top: 0px; col=
-or: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot=
-;wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&=
-quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-seri=
-f; line-height: 21px;">
-<a id=3D"LPUrlAnchor_15483374806940.35404236282249213" style=3D"text-decora=
-tion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx=
-" target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
-<div id=3D"LPMetadata_15483374806940.2274490309551922" style=3D"margin: 10p=
-x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
-;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Taho=
-ma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
-lists.freedesktop.org</div>
-<div id=3D"LPDescription_15483374806940.21354906457319345" style=3D"display=
-: block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf=
-_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma,=
- Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; =
-overflow: hidden;">
-To see the collection of prior postings to the list, visit the amd-gfx Arch=
-ives.. Using amd-gfx: To post a message to all the list members, send email=
- to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
- your existing subscription, in
- the sections below.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </div>
 </span></font></div>
-</div>
 </body>
 </html>
 
---_000_BN6PR12MB180951C54A5FDA1CB9582895F79A0BN6PR12MB1809namp_--
+--_000_BN6PR12MB18096D21BDDC74A5A2FFBC19F79A0BN6PR12MB1809namp_--
 
---===============1036355120==
+--===============0988909116==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -560,4 +393,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1036355120==--
+--===============0988909116==--
