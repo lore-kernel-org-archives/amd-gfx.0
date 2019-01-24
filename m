@@ -1,60 +1,72 @@
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
  devices on non-x86
-Date: Thu, 24 Jan 2019 10:28:45 +0100
-Message-ID: <CAKv+Gu_3LurSN-6w1WijPfpJpc+Pgu0YTnwTfMrXMF3-AKAnJA@mail.gmail.com>
-References: <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
+Date: Thu, 24 Jan 2019 10:31:06 +0100
+Message-ID: <ee261b46-1a83-6af2-31fe-fb9f30894c1e@daenzer.net>
+References: <ccc775d3-3053-ab79-dac8-4feb28e8e690@daenzer.net>
+ <CAKv+Gu-9VKL5RjScbKss4YfH1Cb8WbXmzU_0UsStnoXJcML7Rg@mail.gmail.com>
+ <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
  <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
- <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net> <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
+ <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net>
+ <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
  <CADnq5_O1uxCrSksfF127AZTfbmdukxmqGdh2Ee0zM6CqgG_Mhg@mail.gmail.com>
  <CAKv+Gu-4uYh_HD_5Ry_L80Nf5zpRhT4oJYhhG5_8g3gSzBs2tg@mail.gmail.com>
- <20190123071521.GB20526@infradead.org> <CAKv+Gu8+77uZHJ6ZYjGNcKQL8C3cT5Ree+TcTVmkQXAHV-ADyg@mail.gmail.com>
- <20190123164428.GA9367@infradead.org> <CAKv+Gu-9vEKu8mG-o+-4M1ZcgZmTTJVfEdNS9R27AFX8P5sqyQ@mail.gmail.com>
- <20190124091316.GA22796@infradead.org> <bb559f74-4b1e-d5ee-74fb-b5dcd4a128cb@amd.com>
+ <20190123071521.GB20526@infradead.org>
+ <CAKv+Gu8+77uZHJ6ZYjGNcKQL8C3cT5Ree+TcTVmkQXAHV-ADyg@mail.gmail.com>
+ <20190123164428.GA9367@infradead.org>
+ <CAKv+Gu-9vEKu8mG-o+-4M1ZcgZmTTJVfEdNS9R27AFX8P5sqyQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <bb559f74-4b1e-d5ee-74fb-b5dcd4a128cb@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Christoph Hellwig <hch@infradead.org>, Alex Deucher <alexdeucher@gmail.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, Maxime Ripard <maxime.ripard@bootlin.com>, Will Deacon <will.deacon@arm.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, "Huang, Ray" <Ray.Huang@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Michael Ellerman <mpe@ellerman.id.au>, "Zhang, Jerry" <Jerry.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Sean Paul <sean@poorly.run>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAKv+Gu-9vEKu8mG-o+-4M1ZcgZmTTJVfEdNS9R27AFX8P5sqyQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ard Biesheuvel <ard.biesheuvel-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Cc: Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>, Will Deacon <will.deacon-5wv7dgnIgG8@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, linux-arm-kernel <linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
 
-On Thu, 24 Jan 2019 at 10:25, Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> Am 24.01.19 um 10:13 schrieb Christoph Hellwig:
-> > On Wed, Jan 23, 2019 at 05:52:50PM +0100, Ard Biesheuvel wrote:
-> >> But my concern is that it seems likely that non-cache coherent
-> >> implementations are relying on this hack as well. There must be a
-> >> reason that this hack is only disabled for PowerPC platforms if they
-> >> are cache coherent, for instance, and I suspect that that reason is
-> >> that the hack is the only thing ensuring that the CPU mapping
-> >> attributes match the device ones used for these buffers (the vmap()ed
-> >> ones), whereas the rings and other consistent data structures are
-> >> using the DMA API as intended, and thus getting uncached attributes in
-> >> the correct way.
-> > Dave, who added that commit is on Cc together with just about everyone
-> > involved in the review chain.  Based on the previous explanation
-> > that idea what we might want an uncached mapping for some non-coherent
-> > architectures for this to work at all makes sense, but then again
-> > the way to create those mappings is entirely architecture specific,
-> > and also need a cache flushing before creating the mapping to work
-> > properly.  So my working theory is that this code never properly
-> > worked on architectures without DMA coherent for PCIe at all, but
-> > I'd love to be corrected by concrete examples including an explanation
-> > of how it actually ends up working.
->
-> Cache coherency is mandatory for modern GPU operation.
->
-> Otherwise you can't implement a bunch of the requirements of the
-> userspace APIs.
->
-> In other words the applications doesn't inform the driver that the GPU
-> or the CPU is accessing data, it just does it and assumes that it works.
->
-
-Wonderful!
-
-In that case, do you have any objections to the patch proposed by
-Christoph above?
+T24gMjAxOS0wMS0yMyA1OjUyIHAubS4sIEFyZCBCaWVzaGV1dmVsIHdyb3RlOgo+IE9uIFdlZCwg
+MjMgSmFuIDIwMTkgYXQgMTc6NDQsIENocmlzdG9waCBIZWxsd2lnIDxoY2hAaW5mcmFkZWFkLm9y
+Zz4gd3JvdGU6Cj4+Cj4+IEkgdGhpbmsgd2UganVzdCB3YW50IGEgZHJpdmVyLWxvY2FsIGNoZWNr
+IGZvciB0aG9zZSBjb21iaW5hdGlvbnMKPj4gd2hlcmUgd2Uga25vdyB0aGlzIGhhY2sgYWN0dWFs
+bHkgd29ya3MsIHdoaWNoIHJlYWxseSBqdXN0IHNlZW1zCj4+IHRvIGJlIHg4Ni02NCB3aXRoIFBB
+VC4gU29tZXRoaW5nIGxpa2UgdGhlIHBhdGNoIGJlbG93LCBidXQgbWF5YmUgd2l0aAo+PiBldmVu
+IG1vcmUgc3Ryb25nIHdhcm5pbmdzIHRvIG5vdCBkbyBzb21ldGhpbmcgbGlrZSB0aGlzIGVsc2V3
+aGVyZToKPiAKPiBJIGFncmVlIHRoYXQgeW91ciBwYXRjaCBzZWVtcyBsaWtlIHRoZSByaWdodCB3
+YXkgdG8gZW5zdXJlIHRoYXQgdGhlIFdDCj4gb3B0aW1pemF0aW9uIGhhY2sgaXMgb25seSB1c2Vk
+IHdoZXJlIHdlIGtub3cgaXQgd29ya3MuCj4gCj4gQnV0IG15IGNvbmNlcm4gaXMgdGhhdCBpdCBz
+ZWVtcyBsaWtlbHkgdGhhdCBub24tY2FjaGUgY29oZXJlbnQKPiBpbXBsZW1lbnRhdGlvbnMgYXJl
+IHJlbHlpbmcgb24gdGhpcyBoYWNrIGFzIHdlbGwuCgpJJ3ZlIGJlZW4gdHJ5aW5nIHRvIHRlbGwg
+eW91IHRoZXkgY2FuJ3QgcmVseSBvbiB0aGF0LCBiZWNhdXNlIHRoZSBhbWRncHUKZHJpdmVyIGRv
+ZXNuJ3QgdXNlIHRoaXMgZnVuY3Rpb25hbGl0eSBmb3IgZnVuZGFtZW50YWxzIHN1Y2ggYXMgcmlu
+ZwpidWZmZXJzIHVzZWQgZm9yIGZlZWRpbmcgdGhlIGhhcmR3YXJlIHdpdGggY29tbWFuZHMuIElu
+c3RlYWQsIGZvciB0aG9zZQppdCByZWxpZXMgb24gc25vb3BlZCBQQ0llIHRyYW5zZmVycyBiZWlu
+ZyBjb2hlcmVudCB3aXRoIHRoZSBDUFUgY2FjaGVzLgoKCj4+IC0jZWxpZiBkZWZpbmVkKENPTkZJ
+R19YODYpICYmICFkZWZpbmVkKENPTkZJR19YODZfUEFUKQo+PiAtICAgICAgIC8qIERvbid0IHRy
+eSB0byBlbmFibGUgd3JpdGUtY29tYmluaW5nIHdoZW4gaXQgY2FuJ3Qgd29yaywgb3IgdGhpbmdz
+Cj4+IC0gICAgICAgICogbWF5IGJlIHNsb3cKPj4gLSAgICAgICAgKiBTZWUgaHR0cHM6Ly9idWdz
+LmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9ODg3NTgKPj4gLSAgICAgICAgKi8KPj4g
+LQo+PiAtI2lmbmRlZiBDT05GSUdfQ09NUElMRV9URVNUCj4+IC0jd2FybmluZyBQbGVhc2UgZW5h
+YmxlIENPTkZJR19NVFJSIGFuZCBDT05GSUdfWDg2X1BBVCBmb3IgYmV0dGVyIHBlcmZvcm1hbmNl
+IFwKPj4gLSAgICAgICAgdGhhbmtzIHRvIHdyaXRlLWNvbWJpbmluZwo+PiAtI2VuZGlmCj4+IC0K
+Pj4gLSAgICAgICBpZiAoYm8tPmZsYWdzICYgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0dUVF9VU1dD
+KQo+PiAtICAgICAgICAgICAgICAgRFJNX0lORk9fT05DRSgiUGxlYXNlIGVuYWJsZSBDT05GSUdf
+TVRSUiBhbmQgQ09ORklHX1g4Nl9QQVQgZm9yICIKPj4gLSAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgImJldHRlciBwZXJmb3JtYW5jZSB0aGFua3MgdG8gd3JpdGUtY29tYmluaW5nXG4iKTsK
+CkZXSVcsIHBsZWFzZSBkb24ndCBkcm9wIHRoZXNlIGNvbXBpbGUgYW5kIGJ1aWxkIHRpbWUgd2Fy
+bmluZ3Mgd2hlcmUgd2UKY29udGludWUgdG8gdGFrZSBhZHZhbnRhZ2Ugb2YgUEFULgoKCi0tIApF
+YXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgaHR0
+cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAgICAgfCAg
+ICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
