@@ -1,87 +1,84 @@
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
  devices on non-x86
-Date: Thu, 24 Jan 2019 10:37:14 +0100
-Message-ID: <CAKv+Gu-6=kUd_OYoe4TpFSUXHqC4etxH98mAN_gkHKvS1=1BGA@mail.gmail.com>
-References: <ccc775d3-3053-ab79-dac8-4feb28e8e690@daenzer.net>
- <CAKv+Gu-9VKL5RjScbKss4YfH1Cb8WbXmzU_0UsStnoXJcML7Rg@mail.gmail.com>
- <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net> <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
- <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net> <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
+Date: Thu, 24 Jan 2019 09:45:12 +0000
+Message-ID: <953e5e5f-5d47-d6df-40df-c8c94db5447f@amd.com>
+References: <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
+ <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
+ <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net>
+ <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
  <CADnq5_O1uxCrSksfF127AZTfbmdukxmqGdh2Ee0zM6CqgG_Mhg@mail.gmail.com>
  <CAKv+Gu-4uYh_HD_5Ry_L80Nf5zpRhT4oJYhhG5_8g3gSzBs2tg@mail.gmail.com>
- <20190123071521.GB20526@infradead.org> <CAKv+Gu8+77uZHJ6ZYjGNcKQL8C3cT5Ree+TcTVmkQXAHV-ADyg@mail.gmail.com>
- <20190123164428.GA9367@infradead.org> <CAKv+Gu-9vEKu8mG-o+-4M1ZcgZmTTJVfEdNS9R27AFX8P5sqyQ@mail.gmail.com>
- <ee261b46-1a83-6af2-31fe-fb9f30894c1e@daenzer.net>
+ <20190123071521.GB20526@infradead.org>
+ <CAKv+Gu8+77uZHJ6ZYjGNcKQL8C3cT5Ree+TcTVmkQXAHV-ADyg@mail.gmail.com>
+ <20190123164428.GA9367@infradead.org>
+ <CAKv+Gu-9vEKu8mG-o+-4M1ZcgZmTTJVfEdNS9R27AFX8P5sqyQ@mail.gmail.com>
+ <20190124091316.GA22796@infradead.org>
+ <bb559f74-4b1e-d5ee-74fb-b5dcd4a128cb@amd.com>
+ <CAKv+Gu_3LurSN-6w1WijPfpJpc+Pgu0YTnwTfMrXMF3-AKAnJA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <ee261b46-1a83-6af2-31fe-fb9f30894c1e@daenzer.net>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
-Cc: Christoph Hellwig <hch@infradead.org>, Maxime Ripard <maxime.ripard@bootlin.com>, Michael Ellerman <mpe@ellerman.id.au>, Will Deacon <will.deacon@arm.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Junwei Zhang <Jerry.Zhang@amd.com>, David Airlie <airlied@linux.ie>, Huang Rui <ray.huang@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Sean Paul <sean@poorly.run>, Christian Koenig <christian.koenig@amd.com>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAKv+Gu_3LurSN-6w1WijPfpJpc+Pgu0YTnwTfMrXMF3-AKAnJA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+Content-ID: <4FACB70F4502C74F892D9E8CBB9DBD2D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Ard Biesheuvel <ard.biesheuvel-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>
+Cc: Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Michael Ellerman <mpe-Gsx/Oe8HsFggBc27wqDAHg@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Will Deacon <will.deacon-5wv7dgnIgG8@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang,
+ Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, linux-arm-kernel <linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
 
-On Thu, 24 Jan 2019 at 10:31, Michel D=C3=A4nzer <michel@daenzer.net> wrote=
-:
->
-> On 2019-01-23 5:52 p.m., Ard Biesheuvel wrote:
-> > On Wed, 23 Jan 2019 at 17:44, Christoph Hellwig <hch@infradead.org> wro=
-te:
-> >>
-> >> I think we just want a driver-local check for those combinations
-> >> where we know this hack actually works, which really just seems
-> >> to be x86-64 with PAT. Something like the patch below, but maybe with
-> >> even more strong warnings to not do something like this elsewhere:
-> >
-> > I agree that your patch seems like the right way to ensure that the WC
-> > optimization hack is only used where we know it works.
-> >
-> > But my concern is that it seems likely that non-cache coherent
-> > implementations are relying on this hack as well.
->
-> I've been trying to tell you they can't rely on that, because the amdgpu
-> driver doesn't use this functionality for fundamentals such as ring
-> buffers used for feeding the hardware with commands. Instead, for those
-> it relies on snooped PCIe transfers being coherent with the CPU caches.
->
-
-I understand it does not use this functionality for the ring. Instead,
-it uses the DMA API, no?
-
-On non-cache coherent systems, that DMA API will allocate memory and
-map it uncached for the CPU so that it is coherent with the non-cache
-coherent device.
-
-In any case, if non-cache coherent systems are unlikely to work, and
-unsupported in case they do, I am fine with disabling this
-optimization unconditionally for non-X86 architectures.
-
->
-> >> -#elif defined(CONFIG_X86) && !defined(CONFIG_X86_PAT)
-> >> -       /* Don't try to enable write-combining when it can't work, or =
-things
-> >> -        * may be slow
-> >> -        * See https://bugs.freedesktop.org/show_bug.cgi?id=3D88758
-> >> -        */
-> >> -
-> >> -#ifndef CONFIG_COMPILE_TEST
-> >> -#warning Please enable CONFIG_MTRR and CONFIG_X86_PAT for better perf=
-ormance \
-> >> -        thanks to write-combining
-> >> -#endif
-> >> -
-> >> -       if (bo->flags & AMDGPU_GEM_CREATE_CPU_GTT_USWC)
-> >> -               DRM_INFO_ONCE("Please enable CONFIG_MTRR and CONFIG_X8=
-6_PAT for "
-> >> -                             "better performance thanks to write-comb=
-ining\n");
->
-> FWIW, please don't drop these compile and build time warnings where we
-> continue to take advantage of PAT.
->
->
-> --
-> Earthling Michel D=C3=A4nzer               |               http://www.amd=
-.com
-> Libre software enthusiast             |             Mesa and X developer
+QW0gMjQuMDEuMTkgdW0gMTA6Mjggc2NocmllYiBBcmQgQmllc2hldXZlbDoNCj4gT24gVGh1LCAy
+NCBKYW4gMjAxOSBhdCAxMDoyNSwgS29lbmlnLCBDaHJpc3RpYW4NCj4gPENocmlzdGlhbi5Lb2Vu
+aWdAYW1kLmNvbT4gd3JvdGU6DQo+PiBBbSAyNC4wMS4xOSB1bSAxMDoxMyBzY2hyaWViIENocmlz
+dG9waCBIZWxsd2lnOg0KPj4+IE9uIFdlZCwgSmFuIDIzLCAyMDE5IGF0IDA1OjUyOjUwUE0gKzAx
+MDAsIEFyZCBCaWVzaGV1dmVsIHdyb3RlOg0KPj4+PiBCdXQgbXkgY29uY2VybiBpcyB0aGF0IGl0
+IHNlZW1zIGxpa2VseSB0aGF0IG5vbi1jYWNoZSBjb2hlcmVudA0KPj4+PiBpbXBsZW1lbnRhdGlv
+bnMgYXJlIHJlbHlpbmcgb24gdGhpcyBoYWNrIGFzIHdlbGwuIFRoZXJlIG11c3QgYmUgYQ0KPj4+
+PiByZWFzb24gdGhhdCB0aGlzIGhhY2sgaXMgb25seSBkaXNhYmxlZCBmb3IgUG93ZXJQQyBwbGF0
+Zm9ybXMgaWYgdGhleQ0KPj4+PiBhcmUgY2FjaGUgY29oZXJlbnQsIGZvciBpbnN0YW5jZSwgYW5k
+IEkgc3VzcGVjdCB0aGF0IHRoYXQgcmVhc29uIGlzDQo+Pj4+IHRoYXQgdGhlIGhhY2sgaXMgdGhl
+IG9ubHkgdGhpbmcgZW5zdXJpbmcgdGhhdCB0aGUgQ1BVIG1hcHBpbmcNCj4+Pj4gYXR0cmlidXRl
+cyBtYXRjaCB0aGUgZGV2aWNlIG9uZXMgdXNlZCBmb3IgdGhlc2UgYnVmZmVycyAodGhlIHZtYXAo
+KWVkDQo+Pj4+IG9uZXMpLCB3aGVyZWFzIHRoZSByaW5ncyBhbmQgb3RoZXIgY29uc2lzdGVudCBk
+YXRhIHN0cnVjdHVyZXMgYXJlDQo+Pj4+IHVzaW5nIHRoZSBETUEgQVBJIGFzIGludGVuZGVkLCBh
+bmQgdGh1cyBnZXR0aW5nIHVuY2FjaGVkIGF0dHJpYnV0ZXMgaW4NCj4+Pj4gdGhlIGNvcnJlY3Qg
+d2F5Lg0KPj4+IERhdmUsIHdobyBhZGRlZCB0aGF0IGNvbW1pdCBpcyBvbiBDYyB0b2dldGhlciB3
+aXRoIGp1c3QgYWJvdXQgZXZlcnlvbmUNCj4+PiBpbnZvbHZlZCBpbiB0aGUgcmV2aWV3IGNoYWlu
+LiAgQmFzZWQgb24gdGhlIHByZXZpb3VzIGV4cGxhbmF0aW9uDQo+Pj4gdGhhdCBpZGVhIHdoYXQg
+d2UgbWlnaHQgd2FudCBhbiB1bmNhY2hlZCBtYXBwaW5nIGZvciBzb21lIG5vbi1jb2hlcmVudA0K
+Pj4+IGFyY2hpdGVjdHVyZXMgZm9yIHRoaXMgdG8gd29yayBhdCBhbGwgbWFrZXMgc2Vuc2UsIGJ1
+dCB0aGVuIGFnYWluDQo+Pj4gdGhlIHdheSB0byBjcmVhdGUgdGhvc2UgbWFwcGluZ3MgaXMgZW50
+aXJlbHkgYXJjaGl0ZWN0dXJlIHNwZWNpZmljLA0KPj4+IGFuZCBhbHNvIG5lZWQgYSBjYWNoZSBm
+bHVzaGluZyBiZWZvcmUgY3JlYXRpbmcgdGhlIG1hcHBpbmcgdG8gd29yaw0KPj4+IHByb3Blcmx5
+LiAgU28gbXkgd29ya2luZyB0aGVvcnkgaXMgdGhhdCB0aGlzIGNvZGUgbmV2ZXIgcHJvcGVybHkN
+Cj4+PiB3b3JrZWQgb24gYXJjaGl0ZWN0dXJlcyB3aXRob3V0IERNQSBjb2hlcmVudCBmb3IgUENJ
+ZSBhdCBhbGwsIGJ1dA0KPj4+IEknZCBsb3ZlIHRvIGJlIGNvcnJlY3RlZCBieSBjb25jcmV0ZSBl
+eGFtcGxlcyBpbmNsdWRpbmcgYW4gZXhwbGFuYXRpb24NCj4+PiBvZiBob3cgaXQgYWN0dWFsbHkg
+ZW5kcyB1cCB3b3JraW5nLg0KPj4gQ2FjaGUgY29oZXJlbmN5IGlzIG1hbmRhdG9yeSBmb3IgbW9k
+ZXJuIEdQVSBvcGVyYXRpb24uDQo+Pg0KPj4gT3RoZXJ3aXNlIHlvdSBjYW4ndCBpbXBsZW1lbnQg
+YSBidW5jaCBvZiB0aGUgcmVxdWlyZW1lbnRzIG9mIHRoZQ0KPj4gdXNlcnNwYWNlIEFQSXMuDQo+
+Pg0KPj4gSW4gb3RoZXIgd29yZHMgdGhlIGFwcGxpY2F0aW9ucyBkb2Vzbid0IGluZm9ybSB0aGUg
+ZHJpdmVyIHRoYXQgdGhlIEdQVQ0KPj4gb3IgdGhlIENQVSBpcyBhY2Nlc3NpbmcgZGF0YSwgaXQg
+anVzdCBkb2VzIGl0IGFuZCBhc3N1bWVzIHRoYXQgaXQgd29ya3MuDQo+Pg0KPiBXb25kZXJmdWwh
+DQo+DQo+IEluIHRoYXQgY2FzZSwgZG8geW91IGhhdmUgYW55IG9iamVjdGlvbnMgdG8gdGhlIHBh
+dGNoIHByb3Bvc2VkIGJ5DQo+IENocmlzdG9waCBhYm92ZT8NCg0KWWVhaCwgdGhlIHBhdGNoIG9m
+IENocmlzdG9waCBhY3R1YWxseSBnb2VzIHdheSB0byBmYXIgY2F1c2Ugd2UgaGF2ZSANCnJlcG9y
+dHMgdGhhdCB0aGlzIHdvcmtzIG9uIGEgYnVuY2ggb2Ygb3RoZXIgYXJjaGl0ZWN0dXJlcy4NCg0K
+RS5nLiBYODYgNjRiaXQsIFBvd2VyUEMgKHVuZGVyIHNvbWUgY29uZGl0aW9ucykgYW5kIHNvbWUg
+TUlQUy4NCg0KVGhlIG9ubHkgcHJvYmxlbWF0aWMgaGVyZSBhY3R1YWxseSBzZWVtcyB0byBiZSBB
+Uk0sIHNvIHlvdSBzaG91bGQgDQpwcm9iYWJseSBqdXN0IGFkZCBhbiAiI2lmZGVmIC4uX0FSTSBy
+ZXR1cm4gZmFsc2U7Ii4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
