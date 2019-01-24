@@ -1,75 +1,168 @@
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Subject: Re: [RFC PATCH] drm: disable WC optimization for cache coherent
- devices on non-x86
-Date: Thu, 24 Jan 2019 12:26:14 +0100
-Message-ID: <CAKv+Gu_2f0FaJ+Th7H48u4GrPX=MM9xw0fFjdwhfRrr1nhgEkA@mail.gmail.com>
-References: <850b6aee-0040-c333-b125-45211c18ada5@daenzer.net>
- <CAKv+Gu99zHqcQtj6TiOXAr3Qa6WWhKem+DHVA_mAQ0-Bc0Vbqw@mail.gmail.com>
- <047667fd-17be-1c37-5d2a-26768cfd6ab8@daenzer.net> <CAKv+Gu_VBd8agHASc5RS0eCgyXP64Lt_i4yPuBjKwGQ+5Lpd5Q@mail.gmail.com>
- <CADnq5_O1uxCrSksfF127AZTfbmdukxmqGdh2Ee0zM6CqgG_Mhg@mail.gmail.com>
- <CAKv+Gu-4uYh_HD_5Ry_L80Nf5zpRhT4oJYhhG5_8g3gSzBs2tg@mail.gmail.com>
- <20190123071521.GB20526@infradead.org> <CAKv+Gu8+77uZHJ6ZYjGNcKQL8C3cT5Ree+TcTVmkQXAHV-ADyg@mail.gmail.com>
- <20190123164428.GA9367@infradead.org> <CAKv+Gu-9vEKu8mG-o+-4M1ZcgZmTTJVfEdNS9R27AFX8P5sqyQ@mail.gmail.com>
- <20190124091316.GA22796@infradead.org> <bb559f74-4b1e-d5ee-74fb-b5dcd4a128cb@amd.com>
- <CAKv+Gu_3LurSN-6w1WijPfpJpc+Pgu0YTnwTfMrXMF3-AKAnJA@mail.gmail.com>
- <953e5e5f-5d47-d6df-40df-c8c94db5447f@amd.com> <CAKv+Gu9umPEmB+wh54NOTYcQ14oxf7rwVAXgCqo7V2A+VwkqPA@mail.gmail.com>
- <57590a48-4629-e2a1-8673-ce9eb2ec210b@amd.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v5 1/2] drm/sched: Refactor ring mirror list handling.
+Date: Thu, 24 Jan 2019 11:34:05 +0000
+Message-ID: <8613c13b-532b-3e73-8111-03cb5845ee02@amd.com>
+References: <1545333815-29870-1-git-send-email-andrey.grodzovsky@amd.com>
+ <37ad8228-355e-1d53-593f-b0cb736eadff@amd.com>
+ <5434e38b-c5c6-26e8-d632-bd1b1b52a44a@amd.com>
+ <8a615696-a9ff-7670-5d25-6120282e818b@amd.com>
+ <468f5a41-aa07-2cc2-d7dc-2f6e1d9af7e9@amd.com>
+ <de7d180d-f959-d8a6-0f99-99906f07e76c@amd.com>
+ <cbacbef0-d82b-1f44-2fd4-87d81d7ce00b@gmail.com>
+ <0622c5b7-b54a-c414-c8db-26e1ec3c5ab8@amd.com>
+ <4c43b728-628d-6880-edad-0e5fdb084f06@amd.com>
+ <6d8adac2-b5ab-991f-571d-771b973362a3@amd.com>
+ <99f813cf-ae28-58c7-8b98-1ff69cecbed6@gmail.com>
+ <87ecd86c-4bd2-4cb7-0203-7e088e9e150b@amd.com>
+ <3de2a2bd-83cf-590b-e278-590c4907b78b@amd.com>
+ <13082b0c-d5dc-82c5-56ba-03eb3d301695@amd.com>
+ <abe9df44-5461-7c9c-a9f5-71af19d610c7@amd.com>
+ <99c5c0c7-43c0-152b-0a1a-fba846f8e46f@amd.com>
+ <a85762db-c4a0-69c2-1757-b5eca3e87e8f@amd.com>
+ <5c2e2ce1-56bb-213d-e062-bfb6ace85e8b@amd.com>
+ <2c383b45-069e-1498-1b97-d14ac6373c7b@amd.com>
+ <abdcbb70-6080-7669-7939-21cbd0031cbd@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <57590a48-4629-e2a1-8673-ce9eb2ec210b@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Christoph Hellwig <hch@infradead.org>, Alex Deucher <alexdeucher@gmail.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>, Maxime Ripard <maxime.ripard@bootlin.com>, Will Deacon <will.deacon@arm.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, "Huang, Ray" <Ray.Huang@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Michael Ellerman <mpe@ellerman.id.au>, "Zhang, Jerry" <Jerry.Zhang@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Sean Paul <sean@poorly.run>, linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <abdcbb70-6080-7669-7939-21cbd0031cbd-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <0BB1829DAA4B694E8151377BDF1091BB-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org" <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, "etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, 24 Jan 2019 at 12:23, Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> Am 24.01.19 um 10:59 schrieb Ard Biesheuvel:
-> > [SNIP]
-> > This is *exactly* my point the whole time.
-> >
-> > The current code has
-> >
-> > static inline bool drm_arch_can_wc_memory(void)
-> > {
-> > #if defined(CONFIG_PPC) && !defined(CONFIG_NOT_COHERENT_CACHE)
-> >     return false;
-> >
-> > which means the optimization is disabled *unless the system is
-> > non-cache coherent*
-> >
-> > So if you have reports that the optimization works on some PowerPC, it
-> > must be non-cache coherent PowerPC, because that is the only place
-> > where it is enabled in the first place.
-> >
-> >> The only problematic here actually seems to be ARM, so you should
-> >> probably just add an "#ifdef .._ARM return false;".
-> >>
-> > ARM/arm64 does not have a Kconfig symbol like
-> > CONFIG_NOT_COHERENT_CACHE, so we can only disable it everywhere. If
-> > there are non-coherent ARM systems that are currently working in the
-> > same way as those non-coherent PowerPC systems, we will break them by
-> > doing this.
->
-> Summing the things I've read so far for ARM up I actually think it
-> depends on a runtime configuration and not on compile time one.
->
-> So the whole idea of providing the device to the drm_*_can_wc_memory()
-> function isn't so far fetched.
->
-
-Thank you.
-
-> But for now I do prefer working and slightly slower system over broken
-> one, so I think we should just disable this on ARM for now.
->
-
-Again, this is not about non-cache coherent being slower without the
-optimization, it is about non-cache coherent likely not working *at
-all* unless the optimization is enabled.
-
-Otherwise, the driver will vmap() DMA pages with cacheable attributes,
-while the non-cache coherent device uses uncached attributes, breaking
-coherency.
+SSBzZWUgYSBmZXcgY2xlYW51cHMgb24gUGF0Y2ggIzMgd2hpY2ggYWN0dWFsbHkgYmVsb25nIGlu
+IHBhdGNoICMxOg0KDQo+ICt2b2lkIGRybV9zY2hlZF9zdG9wKHN0cnVjdCBkcm1fZ3B1X3NjaGVk
+dWxlciAqc2NoZWQsIHN0cnVjdCANCj4gZHJtX3NjaGVkX2pvYiAqYmFkKQ0KVGhlICJiYWQiIGpv
+YiBwYXJhbWV0ZXIgYWN0dWFsbHkgaXNuJ3QgdXNlZCBhbnkgbW9yZSwgaXNuJ3QgaXQ/DQoNCj4g
+K3JldHJ5X3dhaXQ6DQpOb3QgdXNlZCBhbnkgbW9yZS4NCg0KQnV0IGFwYXJ0IGZyb20gdGhhdCBh
+dCBsZWFzdCBwYXRjaCAjMSBhbmQgIzIgbG9vayBsaWtlIHRoZXkgY2FuIGhhdmUgbXkgDQpyYiBu
+b3cuDQoNClBhdGNoICMzIGxvb2tzIGFsc28gbGlrZSBpdCBzaG91bGQgd29yayBhZnRlciBhIGJp
+dCBvZiBwb2xpc2hpbmcuDQoNClRoYW5rcywNCkNocmlzdGlhbi4NCg0KQW0gMTguMDEuMTkgdW0g
+MjA6MTUgc2NocmllYiBHcm9kem92c2t5LCBBbmRyZXk6DQo+IEF0dGFjaGVkIHNlcmllcyBpcyB0
+aGUgZmlyc3QgMiBwYXRjaGVzIHdlIGFscmVhZHkgZGlzY3Vzc2VkIGFib3V0IHJpbmcNCj4gbWly
+cm9yIGxpc3QgaGFuZGxpbmcgcmFjaW5nIHdpdGggYWxsIHlvdXIgY29tbWVudHMgZml4ZWQgKHN0
+aWxsIG5vdA0KPiBjb21taXR0ZWQpLiBUaGUgdGhpcmQgcGF0Y2ggaXMgYSBwcm90b3R5cGUgYmFz
+ZWQgb24gdGhlIGZpcnN0IDIgcGF0Y2hlcw0KPiBhbmQgb24gb3VyIGRpc2N1c3Npb24uDQo+DQo+
+IFBsZWFzZSB0YWtlIGEgbG9vay4NCj4NCj4gQW5kcmV5DQo+DQo+DQo+IE9uIDAxLzE4LzIwMTkg
+MDE6MzIgUE0sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOg0KPj4gQW0gMTguMDEuMTkgdW0gMTg6
+MzQgc2NocmllYiBHcm9kem92c2t5LCBBbmRyZXk6DQo+Pj4gT24gMDEvMTgvMjAxOSAxMjoxMCBQ
+TSwgS29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6DQo+Pj4+IEFtIDE4LjAxLjE5IHVtIDE2OjIxIHNj
+aHJpZWIgR3JvZHpvdnNreSwgQW5kcmV5Og0KPj4+Pj4gT24gMDEvMTgvMjAxOSAwNDoyNSBBTSwg
+S29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6DQo+Pj4+Pj4gW1NOSVBdDQo+Pj4+Pj4+Pj4+IFJlLWFy
+bWluZyB0aGUgdGltZW91dCBzaG91bGQgcHJvYmFibHkgaGF2ZSBhIG11Y2ggcmVkdWNlZCB2YWx1
+ZQ0KPj4+Pj4+Pj4+PiB3aGVuIHRoZSBqb2IgaGFzbid0IGNoYW5nZWQuIEUuZy4gc29tZXRoaW5n
+IGxpa2UgYSBmZXcgbXMuDQo+Pj4+Pj4+IE5vdyBpIGdvdCB0aGlua2luZyBhYm91dCBub24gaGFu
+Z2VkIGpvYiBpbiBwcm9ncmVzcyAoam9iIEEpIGFuZCBsZXQncw0KPj4+Pj4+PiBzYXkgaXQncyBh
+IGxvbmcgam9iICwgaXQganVzdCBzdGFydGVkIGV4ZWN1dGluZyBidXQgZHVlIHRvIHRpbWUgb3V0
+IG9mDQo+Pj4+Pj4+IGFub3RoZXIgam9iIChqb2IgQikgb24gYW5vdGhlciAob3IgdGhpcyBzY2hl
+ZHVsZXIpIGl0J3MgcGFyZW50IGNiIGdvdA0KPj4+Pj4+PiBkaXNjb25uZWN0ZWQsIHdlIGRpc2Fy
+bWVkIHRoZSB0ZHIgdGltZXIgZm9yIHRoZSBqb2IncyBzY2hlZHVsZXIsDQo+Pj4+Pj4+IG1lYW53
+aGlsZSB0aGUgdGltZWQgb3V0IGpvYiBkaWQgbWFuYWdlIHRvIGNvbXBsZXRlIGJlZm9yZSBIVyBy
+ZXNldA0KPj4+Pj4+PiBjaGVjayBhbmQgaGVuY2Ugd2Ugc2tpcCBIVyByZXNldCwgYXR0YWNoIGJh
+Y2sgdGhlIGNiIGFuZCByZWFybSBqb2IncyBBDQo+Pj4+Pj4+IHRkcsKgIHRpbWVyIHdpdGggYSBm
+dXR1cmUgdmFsdWUgb2YgZmV3IG1zIG9ubHkgLSBhcmVuJ3Qgd2UgZ29pbmcgdG8gZ2V0DQo+Pj4+
+Pj4+IGZhbHNlIHRkciB0cmlnZ2VyZWQgb24gam9iIEIgbm93IGJlY2F1c2Ugd2UgZGlkbid0IGxl
+dCBpdCBlbm91Z2ggdGltZQ0KPj4+Pj4+PiB0byBydW4gYW5kIGNvbXBsZXRlID8gSSB3b3VsZCBw
+cmVmZXIgdGhlIG90aGVyIGV4dHJlbWUgb2YgbG9uZ2VyIHRpbWUNCj4+Pj4+Pj4gZm9yIHRpbWUg
+b3V0IHRvIHRyaWdnZXIgdGhlbiBmYWxzZSBURFIuIE9wdGltYWxseSB3ZSB3b3VsZCBoYXZlIHBl
+cg0KPj4+Pj4+PiBqb2IgdGltZXIgYW5kIHJlYXJtIHRvIGV4YWN0bHkgdGhlIHJlbWluZGVyIG9m
+IGl0J3MgdGltZSBvdXQgdmFsdWUgLQ0KPj4+Pj4+PiBidXQgd2UgZ2F2ZSB1cCBvbiBwZXIgam9i
+IHRkciB3b3JrIGxvbmcgYWdvLg0KPj4+Pj4+IFdlbGwgd2Ugb25seSByZS1hcm0gdGhlIHRpbWVv
+dXQgd2l0aCBhIHNob3J0ZXIgcGVyaW9kIGlmIGl0IGFscmVhZHkNCj4+Pj4+PiB0cmlnZ2VyZWQg
+b25jZS4gSWYgd2UganVzdCBzdXNwZW5kIHRoZSB0aW1lb3V0IHRoZW4gd2Ugc2hvdWxkIHN0aWxs
+IHVzZQ0KPj4+Pj4+IHRoZSBsb25nZXIgcGVyaW9kLg0KPj4+Pj4gQ2FuIHlvdSBleHBsYWluIG1v
+cmUgb24gdGhpcyA/IEkgZG9uJ3QgZ2V0IGl0Lg0KPj4+PiBTZWUgZHJtX3NjaGVkX2pvYl90aW1l
+ZG91dCgpLCB3ZSByZS1hcm0gdGhlIHRpbWVvdXQgYXQgdGhlIGVuZCBvZiB0aGUNCj4+Pj4gcHJv
+Y2VkdXJlLg0KPj4+Pg0KPj4+PiBXZSBzaG91bGQgY2hhbmdlIHRoYXQgYW5kIHJlLWFybSB0aGUg
+dGltZXIgd2l0aCBhIG11Y2ggbG93ZXIgdGltZW91dCBpZg0KPj4+PiB0aGUgam9iIGlzIHN0aWxs
+IG5vdCBmaW5pc2hlZC4NCj4+Pj4NCj4+Pj4gQ2hyaXN0aWFuLg0KPj4+IEkgc3RpbGwgZG9uJ3Qg
+c2VlIGhvdyB0aGlzIGNhbiBmaXggdGhlIHByb2JsZW0gb2Ygb2YgbG9uZyBqb2IgaW4NCj4+PiBw
+cm9ncmVzcyB0cmlnZ2VyaW5nIGZhbHNlIHRkciBpZiBubyBIVyByZXNldCB3YXMgZG9uZSwgYnV0
+IG1heWJlIEkgYW0NCj4+PiBtaXNzaW5nIG90aGVyIHBpZWNlcyB5b3UgaGF2ZSBpbiBtaW5kLCBJ
+IHdpbGwgZmluaXNoIHRoZSBwYXRjaCBhbmQgc2VuZA0KPj4+IGl0IGFuZCB0aGVuIHdlIGNhbiBi
+ZSBtb3JlIHNwZWNpZmljIGJhc2VkIG9uIHRoZSBjb2RlLg0KPj4gT2sgc291bmRzIGdvb2QuIFdl
+IHNob3VsZCBwcm9iYWJseSBkaXNjdXNzIGxlc3Mgb24gZGV0YWlscyBhbmQgcHJvdG90eXBlDQo+
+PiBhIGJpdCBtb3JlLg0KPj4NCj4+IE1pZ2h0IGJlIHRoYXQgSSdtIG1pc3Npbmcgc29tZXRoaW5n
+IGhlcmUgYXMgd2VsbCwgc28gcHJvYmFibHkgZ29vZCB0bw0KPj4gaGF2ZSBzb21lIGNvZGUgdG8g
+dGFsayBhYm91dCB0aGluZ3MgbW9yZSBkaXJlY3RseS4NCj4+DQo+PiBDaHJpc3RpYW4uDQo+Pg0K
+Pj4+IEFuZHJleQ0KPj4+DQo+Pj4+PiBBbmRyZXkNCj4+Pj4+DQo+Pj4+Pj4+IEluIGdlbmVyYWwg
+dGhlIG1vcmUgaSB0aGluayBhYm91dCBpdMKgIChjb3JyZWN0IG1lIGlmIEkgYW0gd3JvbmcpIEkg
+YW0NCj4+Pj4+Pj4gbGVzcyBzdXJlIGhvdyBtdWNoIHRoZSBvcHRpbWl6YXRpb24gZmVhdHVyZSBp
+cyB1c2VmdWwgLSBpZiBqb2IncyB0aW1lDQo+Pj4+Pj4+IG91dCBkaWQgdHJpZ2dlciB3aGF0IGFy
+ZSB0aGUgY2hhbmNlcyB0aGF0IHRoZSBsaXR0bGUgbW9yZSB0aW1lIHdlIGdpdmUNCj4+Pj4+Pj4g
+aXQgYmV0d2VlbiBiZWdpbm5pbmcgb2YgdGRyIGZ1bmN0aW9uIGFuZCB0aGUgdGltZSB3ZSBkbyBz
+dGFydCB0aGUNCj4+Pj4+Pj4gYWN0dWFsIEhXIHJlc2V0IHdpbGwgYmUgZXhhY3RseSB3aGF0IGl0
+IG5lZWRlZCB0byBjb21wbGV0ZS4gQWxzbywgdGhpcw0KPj4+Pj4+PiBpcyBzdGlsbCBub3Qgd2F0
+ZXIgcHJvb2YgYXMgdGhlIGpvYiBtaWdodCBjb21wbGV0ZSBhbmQgc2lnbmFsIGl0J3MgSFcNCj4+
+Pj4+Pj4gZmVuY2UgZXhhY3RseSBhZnRlciB3ZSBjaGVja2VkIGZvciBjb21wbGV0aW9uIGJ1dCBi
+ZWZvcmUgc3RhcnRpbmcgdGhlDQo+Pj4+Pj4+IEhXIHJlc2V0IGNvZGUuDQo+Pj4+Pj4gSSBkb24n
+dCBzZWUgdGhpcyBhcyBhbiBvcHRpbWl6YXRpb24sIGJ1dCByYXRoZXIgYXMgbWFuZGF0b3J5IGZv
+ciBjb3JyZWN0DQo+Pj4+Pj4gb3BlcmF0aW9uLg0KPj4+Pj4+DQo+Pj4+Pj4gU2VlIHdpdGhvdXQg
+dGhpcyB3ZSBjYW4gcnVuIGludG8gaXNzdWVzIGJlY2F1c2Ugd2UgZXhlY3V0ZSBqb2JzIG11bHRp
+cGxlDQo+Pj4+Pj4gdGltZXMuIFRoYXQgY2FuIHN0aWxsIGhhcHBlbiB3aXRoIHRoaXMgY2xlYW4g
+aGFuZGxpbmcsIGJ1dCBpdCBpcyBtdWNoDQo+Pj4+Pj4gbW9yZSB1bmxpa2VseS4NCj4+Pj4+Pg0K
+Pj4+Pj4+IENocmlzdGlhbi4NCj4+Pj4+Pg0KPj4+Pj4+PiBBbmRyZXkNCj4+Pj4+Pj4NCj4+Pj4+
+Pj4+PiBCeSB1bmNoYW5nZWQgeW91IG1lYW4gd2hlbiB3ZSBkaWRuJ3QgcmVzdWJtaXQgdGhlIGpv
+YiBiZWNhdXNlIG9mIHRoZQ0KPj4+Pj4+Pj4+IG9wdGltaXplZCBub24gSFcgcmVzZXQsIHJpZ2h0
+ID8NCj4+Pj4+Pj4+IENvcnJlY3QsIHllcy4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+PiBBYm91dCBm
+bHVzaGluZyB0ZHIgam9icyBpbiBwcm9ncmVzcyBmcm9tIC5mcmVlX2pvYiBjYiAtIGxvb2tzIGxp
+a2UNCj4+Pj4+Pj4+Pj4+IGRybV9zY2hlZF9qb2JfZmluaXNoLT5jYW5jZWxfZGVsYXllZF93b3Jr
+X3N5bmMgaXMgbm90IGVub3VnaCwgd2UNCj4+Pj4+Pj4+Pj4+IHN0aWxsIG5lZWQgdG8gdGFrZSBj
+YXJlIG9mIGZsdXNoaW5nIGFsbCBzY2VkLT53b3JrX3RkciBmb3IgYQ0KPj4+Pj4+Pj4+Pj4gZGV2
+aWNlIGFuZCBmb3IgYWxsIGRldmljZXMgaW4gaGl2ZSBmb3IgWEdNSS4NCj4+Pj4+Pj4+Pj4+IFdo
+YXQgZG8geW91IHRoaW5rID8NCj4+Pj4+Pj4+Pj4gV2h5IHNob3VsZCB0aGF0IGJlIG5lY2Vzc2Fy
+eT8gV2Ugb25seSB3YWl0IGZvciB0aGUgZGVsYXllZCB3b3JrIHRvDQo+Pj4+Pj4+Pj4+IG1ha2Ug
+c3VyZSB0aGF0IHRoZSBqb2IgaXMgbm90IGRlc3Ryb3llZCB3aGlsZSBkZWFsaW5nIHdpdGggaXQu
+DQo+Pj4+Pj4+Pj4+DQo+Pj4+Pj4+Pj4+IENocmlzdGlhbi4NCj4+Pj4+Pj4+PiBCdXQgd2UgbWln
+aHQgbm90IGJlIHdhaXRpbmcgZm9yIHRoZSBjb3JyZWN0IHNjaGVkLT53b3JrX3Rkciwgd2UgZG8N
+Cj4+Pj4+Pj4+PiB0aGUgcmVzZXQgcm91dGluZSBmb3IgYWxsIHNjaGVkdWxlcnMgaW4gYSBkZXZp
+Y2UgYWNjZXNzaW5nIHRoZWlyDQo+Pj4+Pj4+Pj4gam9icyB0b28gYW5kIG5vdCBvbmx5IGZvciB0
+aGUgc2NoZWR1bGVyIHRvIHdoaWNoIHRoZSBqb2IgYmVsb25ncy4NCj4+Pj4+Pj4+PiBGb3IgWEdN
+SSBub3Qgb25seSB0aGF0LCB3ZSByZXNldCBhbGwgdGhlIGRldmljZXMgaW4gdGhlIGhpdmUuDQo+
+Pj4+Pj4+PiBUaGF0IGlzIGhhcm1sZXNzIHlvdSBvbmx5IG5lZWQgdG8gd2FpdCBmb3IgdGhlIHdv
+cmtfdGRyIG9mIHRoZQ0KPj4+Pj4+Pj4gY3VycmVudCBzY2hlZHVsZXIsIG5vdCBmb3IgYWxsIG9m
+IHRoZW0uDQo+Pj4+Pj4+Pg0KPj4+Pj4+Pj4+IEkgd2FzIHRoaW5raW5nLCBhbWRncHUgZHJpdmVy
+IGlzIG5vdCBldmVuIGludGVyZXN0ZWQgaW4gYWxsb3dpbmcNCj4+Pj4+Pj4+PiBtdWx0aXBsZSBz
+Y2VkLT50ZHIgdG8gZXhlY3V0ZSB0b2dldGhlciAtIHdlIGhhdmUgdG8gc2VyaWFsaXplIGFsbCBv
+Zg0KPj4+Pj4+Pj4+IHRoZW0gYW55d2F5IHdpdGggdGhlIHRyeWxvY2sgbXV0ZXggKGV2ZW4gd2l0
+aG91dCBYR01JKSwgdjNkIGluDQo+Pj4+Pj4+Pj4gdjNkX2pvYl90aW1lZG91dCBzZWVtcyBhbHNv
+IHRvIHJlc2V0IGFsbCBvZiBoaXMgc2NoZWR1bGVycyBmcm9tIHRoZQ0KPj4+Pj4+Pj4+IHRkciB3
+b3JrLiBXb3VsZCBpdCBtYWtlIHNlbnNlIHRvIHByb3ZpZGUgdGhlIHNjaGVkLT53b3JrX3RkIGFz
+IGluaXQNCj4+Pj4+Pj4+PiBwYXJhbWV0ZXIgdG8gc2NoZWR1bGVyIChzYW1lIG9uZSBmb3IgYWxs
+IHNjaGVkdWxlcnMpIHNvIHdlIGNhbg0KPj4+Pj4+Pj4+IGVuZm9yY2Ugc2VyaWFsaXphdGlvbiBi
+eSBkaXNhbGxvd2luZyBtb3JlIHRoZW4gMSB0ZHIgd29yayB0byBleGVjdXRlDQo+Pj4+Pj4+Pj4g
+aW4gdGhlIHNhbWUgdGltZSA/IE90aGVyIGRyaXZlcnMgaW50ZXJlc3RlZCB0byBkbyBpbiBwYXJh
+bGxlbCBjYW4NCj4+Pj4+Pj4+PiBwcm92aWRlIHVuaXF1ZSBzY2hlZC0+d29ya190ZHIgcGVyIHNj
+aGVkdWxlci4gVGhpcyBkb2VzwqAgaW1wbHkNCj4+Pj4+Pj4+PiBkcm1fc2NoZWRfam9iX3RpbWVk
+b3V0IGhhcyB0byByZW1vdmVkIGFuZCBkZWxlZ2F0ZWQgdG8gc3BlY2lmaWMNCj4+Pj4+Pj4+PiBk
+cml2ZXIgaW1wbGVtZW50YXRpb24gYXMgcHJvYmFibHkgb3RoZXIgY29kZSBkZWFsaW5nIHdpdGgN
+Cj4+Pj4+Pj4+PiBzY2hlZC0+d29ya190ZHIuLi4gTWF5YmUgZXZlbiBtb3ZlIHRkciBoYW5kbGlu
+ZyB0byB0aGUgZHJpdmVyIGFsbA0KPj4+Pj4+Pj4+IHRvZ2V0aGVyID8NCj4+Pj4+Pj4+IFllYWgs
+IEkgd2FzIHRoaW5raW5nIHNvbWV0aGluZyBzaW1pbGFyLiBUaGUgcHJvYmxlbSB3aXRoIHRoaXMN
+Cj4+Pj4+Pj4+IGFwcHJvYWNoIGlzIHRoYXQgYSBkZWxheWVkIHdvcmsgaXRlbSBjYW4gaGF2ZSBv
+bmx5IG9uZSBkZWxheSwgYnV0IGZvcg0KPj4+Pj4+Pj4gbXVsdGlwbGUgZW5naW5lcyB3ZSBuZWVk
+IG11bHRpcGxlIGRlbGF5cy4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBXaGF0IHdlIGNvdWxkIGRvIGlz
+IHRvIG1ha2UgaXQgYSB0aW1lciBpbnN0ZWFkIGFuZCByYWlzZSB0aGUgd29yaw0KPj4+Pj4+Pj4g
+aXRlbSBmcm9tIHRoZSBkZXZpY2Ugc3BlY2lmaWMgY2FsbGJhY2suDQo+Pj4+Pj4+Pg0KPj4+Pj4+
+Pj4gQnV0IHRoYXQgZG9lc24ndCByZWFsbHkgc2F2ZXMgdXMgdGhlIHN0b3AgYWxsIHNjaGVkdWxl
+cnMgdHJvdWJsZSwgc28NCj4+Pj4+Pj4+IGl0IGRvZXNuJ3QgYnV5IHVzIG11Y2ggaW4gdGhlIGVu
+ZCBpZiBJIHNlZSB0aGlzIGNvcnJlY3RseS4NCj4+Pj4+Pj4+DQo+Pj4+Pj4+PiBDaHJpc3RpYW4u
+DQo+Pj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18N
+Cj4+Pj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnDQo+Pj4+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
