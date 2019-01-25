@@ -1,69 +1,88 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: add -msse2 to prevent Clang from
- emitting libcalls to undefined SW FP routines
-Date: Thu, 24 Jan 2019 18:21:03 -0700
-Message-ID: <20190125012103.GA20106@archlinux-ryzen>
-References: <20190125005304.183322-1-ndesaulniers@google.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Expose connector VRR range via debugfs
+Date: Fri, 25 Jan 2019 08:13:31 +0000
+Message-ID: <77f8eba3-a673-1098-437a-bc4251f2a652@amd.com>
+References: <20190124170600.8801-1-nicholas.kazlauskas@amd.com>
+ <6d34000f-2d7f-7e49-8d2a-841388e4d488@gmail.com>
+ <aa72297e-9238-805a-9855-d77a84b34411@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190125005304.183322-1-ndesaulniers@google.com>
-Sender: stable-owner@vger.kernel.org
-To: ndesaulniers@google.com
-Cc: airlied@linux.ie, daniel@ffwll.ch, stable@vger.kernel.org, S@google.com, Shirish <Shirish.S@amd.com>, Matthias Kaehlcke <mka@google.com>, James Y Knight <jyknight@google.com>, Guenter Roeck <linux@roeck-us.net>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Matthias Kaehlcke <mka@chromium.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <aa72297e-9238-805a-9855-d77a84b34411-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <456E8C85137E2143B5E86F31F50AB245-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Jan 24, 2019 at 04:52:59PM -0800, ndesaulniers@google.com wrote:
-> arch/x86/Makefile disables SSE and SSE2 for the whole kernel.  The
-> AMDGPU drivers modified in this patch re-enable SSE but not SSE2.  Turn
-> on SSE2 to support emitting double precision floating point instructions
-> rather than calls to non-existent (usually available from gcc_s or
-> compiler_rt) floating point helper routines.
-> 
-> Link: https://gcc.gnu.org/onlinedocs/gccint/Soft-float-library-routines.html
-> Link: https://github.com/ClangBuiltLinux/linux/issues/327
-> Cc: stable@vger.kernel.org # 4.19
-> Reported-by: S, Shirish <Shirish.S@amd.com>
-> Reported-by: Matthias Kaehlcke <mka@google.com>
-> Suggested-by: James Y Knight <jyknight@google.com>
-> Suggested-by: Nathan Chancellor <natechancellor@gmail.com>
-> Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
-> Tested-by: Guenter Roeck <linux@roeck-us.net>
-
-Tested-by: Nathan Chancellor <natechancellor@gmail.com>
-
-> ---
->  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 2 +-
->  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> index 95f332ee3e7e..dc85a3c088af 100644
-> --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> @@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
->  	cc_stack_align := -mstack-alignment=16
->  endif
->  
-> -calcs_ccflags := -mhard-float -msse $(cc_stack_align)
-> +calcs_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
->  
->  CFLAGS_dcn_calcs.o := $(calcs_ccflags)
->  CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index d97ca6528f9d..33c7d7588712 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
->  	cc_stack_align := -mstack-alignment=16
->  endif
->  
-> -dml_ccflags := -mhard-float -msse $(cc_stack_align)
-> +dml_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
->  
->  CFLAGS_display_mode_lib.o := $(dml_ccflags)
->  CFLAGS_display_pipe_clocks.o := $(dml_ccflags)
-> -- 
-> 2.20.1.321.g9e740568ce-goog
-> 
+QW0gMjQuMDEuMTkgdW0gMTg6NTYgc2NocmllYiBXZW50bGFuZCwgSGFycnk6DQo+DQo+IE9uIDIw
+MTktMDEtMjQgMTI6NDEgcC5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4+IEFtIDI0LjAx
+LjE5IHVtIDE4OjA2IHNjaHJpZWIgTmljaG9sYXMgS2F6bGF1c2thczoNCj4+PiBbV2h5XQ0KPj4+
+IEl0J3MgdXNlZnVsIHRvIGtub3cgdGhlIG1pbiBhbmQgbWF4IHZyciByYW5nZSBmb3IgSUdUIHRl
+c3RpbmcuDQo+Pj4NCj4+PiBbSG93XQ0KPj4+IEV4cG9zZSB0aGUgbWluIGFuZCBtYXggdmZyZXEg
+Zm9yIHRoZSBjb25uZWN0b3IgdmlhIGEgZGVidWdmcyBmaWxlDQo+Pj4gb24gdGhlIGNvbm5lY3Rv
+ciwgInZycl9yYW5nZSIuDQo+Pj4NCj4+PiBFeGFtcGxlIHVzYWdlOiBjYXQgL3N5cy9rZXJuZWwv
+ZGVidWcvZHJpLzAvRFAtMS92cnJfcmFuZ2UNCj4+Pg0KPj4+IENjOiBIYXJyeSBXZW50bGFuZCA8
+aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCj4+PiBDYzogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5j
+b20+DQo+Pj4gU2lnbmVkLW9mZi1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6
+bGF1c2thc0BhbWQuY29tPg0KPj4gT2gsIG5pY2UgdGhhdCBpcyBpbmRlZWQgdXNlZnVsLiBBY2tl
+ZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPj4NCj4g
+RllJLCBJR1QgdGVzdCBjYXNlIG1ha2luZyB1c2Ugb2YgdGhpczogaHR0cHM6Ly9wYXRjaHdvcmsu
+ZnJlZWRlc2t0b3Aub3JnL3BhdGNoLzI3NTk4Mi8NCg0KQlRXOiBJIGhhdmUgYSBmbGFreSA0ayBW
+UlIgbW9uaXRvciBoZXJlIHdoaWNoIGF0IGFyb3VuZCA1MCUgb2YgYWxsIGJvb3RzIA0KaXMgbm90
+IGNvcnJlY3RseSBkZXRlY3RlZCBvbiBhIFZlZ2ExMC4NCg0KSXQgdXNlZCB0byB3b3JrIGZpbmUg
+YWJvdXQgYSBtb250aCBhZ28gYW5kIHNhbWUgY2FibGUvZXRjIHdvcmsgZmluZSBvbiBhIA0KVG9u
+Z2EsIHNvIG1vc3QgbGlrZWx5IGEgcmVncmVzc2lvbi4NCg0KTm90IG15IGhpZ2hlc3QgcHJpb3Jp
+dHkgYXQgdGhlIG1vbWVudCwgYnV0IGFyZSB5b3UgZ3V5cyBhbHJlYWR5IHdvcmtpbmcgDQpvbiB0
+aGlzPyBJZiBub3QgSSB3aWxsIHRyeSB0byBzdGFydCB0byBiaXNlY3Qgd2hlbiBJIGhhdmUgdGlt
+ZS4NCg0KQ2hyaXN0aWFuLg0KDQo+DQo+IFJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFy
+cnkud2VudGxhbmRAYW1kLmNvbT4NCj4NCj4gSGFycnkNCj4NCj4+PiAtLS0NCj4+PiAgwqAgLi4u
+L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jIHwgMjIgKysrKysrKysr
+KysrKysrKysrLQ0KPj4+ICDCoCAxIGZpbGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygrKSwgMSBk
+ZWxldGlvbigtKQ0KPj4+DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYw0KPj4+IGluZGV4IGNjYTNlMTZj
+ZGE0Zi4uNGE1NWNkZTAyN2NmIDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYw0KPj4+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYw0KPj4+IEBA
+IC02NzEsNiArNjcxLDI1IEBAIHN0YXRpYyBzc2l6ZV90IGRwX3BoeV90ZXN0X3BhdHRlcm5fZGVi
+dWdmc193cml0ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3QgY2hhciBfX3VzDQo+Pj4gIMKgwqDCoMKg
+wqAgcmV0dXJuIGJ5dGVzX2Zyb21fdXNlcjsNCj4+PiAgwqAgfQ0KPj4+ICDCoCArLyoNCj4+PiAr
+ICogUmV0dXJucyB0aGUgbWluIGFuZCBtYXggdnJyIHZmcmVxIHRocm91Z2ggdGhlIGNvbm5lY3Rv
+cidzIGRlYnVnZnMgZmlsZS4NCj4+PiArICogRXhhbXBsZSB1c2FnZTogY2F0IC9zeXMva2VybmVs
+L2RlYnVnL2RyaS8wL0RQLTEvdnJyX3JhbmdlDQo+Pj4gKyAqLw0KPj4+ICtzdGF0aWMgaW50IHZy
+cl9yYW5nZV9zaG93KHN0cnVjdCBzZXFfZmlsZSAqbSwgdm9pZCAqZGF0YSkNCj4+PiArew0KPj4+
+ICvCoMKgwqAgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciA9IG0tPnByaXZhdGU7DQo+
+Pj4gK8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciA9IHRvX2Ft
+ZGdwdV9kbV9jb25uZWN0b3IoY29ubmVjdG9yKTsNCj4+PiArDQo+Pj4gK8KgwqDCoCBpZiAoY29u
+bmVjdG9yLT5zdGF0dXMgIT0gY29ubmVjdG9yX3N0YXR1c19jb25uZWN0ZWQpDQo+Pj4gK8KgwqDC
+oMKgwqDCoMKgIHJldHVybiAtRU5PREVWOw0KPj4+ICsNCj4+PiArwqDCoMKgIHNlcV9wcmludGYo
+bSwgIk1pbjogJXVcbiIsICh1bnNpZ25lZCBpbnQpYWNvbm5lY3Rvci0+bWluX3ZmcmVxKTsNCj4+
+PiArwqDCoMKgIHNlcV9wcmludGYobSwgIk1heDogJXVcbiIsICh1bnNpZ25lZCBpbnQpYWNvbm5l
+Y3Rvci0+bWF4X3ZmcmVxKTsNCj4+PiArDQo+Pj4gK8KgwqDCoCByZXR1cm4gMDsNCj4+PiArfQ0K
+Pj4+ICtERUZJTkVfU0hPV19BVFRSSUJVVEUodnJyX3JhbmdlKTsNCj4+PiArDQo+Pj4gIMKgIHN0
+YXRpYyBjb25zdCBzdHJ1Y3QgZmlsZV9vcGVyYXRpb25zIGRwX2xpbmtfc2V0dGluZ3NfZGVidWdm
+c19mb3BzID0gew0KPj4+ICDCoMKgwqDCoMKgIC5vd25lciA9IFRISVNfTU9EVUxFLA0KPj4+ICDC
+oMKgwqDCoMKgIC5yZWFkID0gZHBfbGlua19zZXR0aW5nc19yZWFkLA0KPj4+IEBAIC02OTcsNyAr
+NzE2LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCB7DQo+Pj4gIMKgIH0gZHBfZGVidWdmc19lbnRy
+aWVzW10gPSB7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCB7Imxpbmtfc2V0dGluZ3MiLCAmZHBf
+bGlua19zZXR0aW5nc19kZWJ1Z2ZzX2ZvcHN9LA0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgeyJw
+aHlfc2V0dGluZ3MiLCAmZHBfcGh5X3NldHRpbmdzX2RlYnVnZnNfZm9wfSwNCj4+PiAtwqDCoMKg
+wqDCoMKgwqAgeyJ0ZXN0X3BhdHRlcm4iLCAmZHBfcGh5X3Rlc3RfcGF0dGVybl9mb3BzfQ0KPj4+
+ICvCoMKgwqDCoMKgwqDCoCB7InRlc3RfcGF0dGVybiIsICZkcF9waHlfdGVzdF9wYXR0ZXJuX2Zv
+cHN9LA0KPj4+ICvCoMKgwqDCoMKgwqDCoCB7InZycl9yYW5nZSIsICZ2cnJfcmFuZ2VfZm9wc30N
+Cj4+PiAgwqAgfTsNCj4+PiAgwqAgwqAgaW50IGNvbm5lY3Rvcl9kZWJ1Z2ZzX2luaXQoc3RydWN0
+IGFtZGdwdV9kbV9jb25uZWN0b3IgKmNvbm5lY3RvcikNCg0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4Cg==
