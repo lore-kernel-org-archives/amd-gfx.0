@@ -1,22 +1,11 @@
-From: Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [Linux-v4.18-rc6] modpost-errors when compiling with clang-7 and
- CONFIG_DRM_AMDGPU=m
-Date: Fri, 25 Jan 2019 10:54:15 -0800
-Message-ID: <CAKwvOdmyKkMCwRGo+RFf9PPaOS-jhFGp0cqAZc6o+O1MHw69ww@mail.gmail.com>
-References: <CA+icZUVLStTzEM0UN8Z7ddnrfGYh3-VRcHAQ8ijE-PiB=FZrNQ@mail.gmail.com>
- <0e782eaa-f495-61a2-b30e-61057dcfc611@amd.com>
- <CA+icZUUx5PLK5W7o2b8kpNiGKB+cZYxmLP2kxFGHHBPCaRTptQ@mail.gmail.com>
- <CA+icZUWykGWAH1MVLEDh7LsSm0=icC-_pvuUq8NyoQwN50ny1Q@mail.gmail.com>
- <3d044858-9df0-d872-0df1-db3c9573b2a5@amd.com>
- <CA+icZUWu90v048Ps8WkQUtDnGh7vDwKEquGGz86OZ+7VfUf_Ow@mail.gmail.com>
- <54cdfdd5-d889-5714-263f-a663f8649d42@amd.com>
- <4734cf99-629b-31e9-57be-9cd884c47ae3@amd.com>
- <CA+icZUXQAdrKjy=Kug3_e9rN1OdAsgTERC8AA5g7YCK97rbX2g@mail.gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix baco handling for soc15
+Date: Fri, 25 Jan 2019 15:31:22 -0500
+Message-ID: <20190125203122.19195-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CA+icZUXQAdrKjy=Kug3_e9rN1OdAsgTERC8AA5g7YCK97rbX2g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -27,27 +16,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: sedat.dilek-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-T24gRnJpLCBKYW4gMjUsIDIwMTkgYXQgODowNSBBTSBTZWRhdCBEaWxlayA8c2VkYXQuZGlsZWtA
-Z21haWwuY29tPiB3cm90ZToKPgo+IE9uIEZyaSwgSmFuIDI1LCAyMDE5IGF0IDQ6MTUgUE0gV2Vu
-dGxhbmQsIEhhcnJ5IDxIYXJyeS5XZW50bGFuZEBhbWQuY29tPiB3cm90ZToKPiA+Cj4gPiBPbiAy
-MDE5LTAxLTI1IDM6MjUgYS5tLiwgS29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6Cj4gPiA+IEFtIDI1
-LjAxLjE5IHVtIDA4OjQyIHNjaHJpZWIgU2VkYXQgRGlsZWs6Cj4gPiA+PiBbIENDIE5pY2sgRC4g
-XQo+ID4gPj4KPiA+ID4+IEhpIENocmlzdGlhbiwKPiA+ID4+Cj4gPiA+PiBOaWNrIGhhcyBwb3N0
-ZWQgYSBmaXggaW4gWzJdLgo+ID4gPj4gSXMgdGhhdCBPSyBmb3IgeW91Pwo+ID4gPgo+ID4gPiBJ
-J3ZlIHNlZW4gdGhhdCBhbmQgeWVhaCBJJ20gcGVyZmVjdGx5IGZpbmUgd2l0aCBpdCwgYnV0IEhh
-cnJ5IGlzIHRoZSBvbmUKPiA+ID4gd2hvIG5lZWRzIHRvIGRlY2lkZS4KPiA+ID4KPiA+Cj4gPiBM
-b29rcyBnb29kIHRvIG1lLgo+ID4KPiA+IFJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFy
-cnkud2VudGxhbmRAYW1kLmNvbT4KPiA+Cj4gPiBBbmQgYXBwbGllZC4KPiA+Cj4KPiBUaGFua3Mu
-Cj4KPiBDYW4geW91IHBvaW50IG1lIHRvIHRoZSBjb21taXQgYW5kIEdpdCB0cmVlPwoKSSBzdXNw
-ZWN0IHRoZSB0cmVlIGl0IHdpbGwgYmUgcHVzaGVkIHRvIGlzOgpodHRwczovL2NnaXQuZnJlZWRl
-c2t0b3Aub3JnL35hZ2Q1Zi9saW51eC8KQnV0IEkgc3VzcGVjdCBpdCBoYXMgbm90IGJlZW4gcHVz
-aGVkIHlldC4KCi0tIApUaGFua3MsCn5OaWNrIERlc2F1bG5pZXJzCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+TmVlZCB0byBjaGVjayBpZiB0aGUgb3BlcmF0aW9uIGlzIG9uZSB0aGF0IGludm9sdmVzCnJlZ2lz
+dGVycyBiZWZvcmUgZ2V0dGluZyB0aGUgcmVnaXN0ZXIgb2Zmc2V0LiAgRml4ZXMgYQpjcmFzaCBp
+biB3aGVuIGhhbmRsaW5nIGNvbW1hbmRzIHdpdGhvdXQgYSByZWdpc3RlciBvZmZzZXQsCmUuZy4s
+IHdhaXQuCgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY29tbW9uX2Jh
+Y28uYyB8IDkgKysrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgNiBpbnNlcnRpb25zKCspLCAzIGRl
+bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL2NvbW1vbl9iYWNvLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9j
+b21tb25fYmFjby5jCmluZGV4IDAwMjY5M2M0MjFkMi4uOWM1N2MxZjY3NzQ5IDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jb21tb25fYmFjby5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2NvbW1vbl9iYWNvLmMKQEAgLTg0
+LDExICs4NCwxNCBAQCBib29sIHNvYzE1X2JhY29fcHJvZ3JhbV9yZWdpc3RlcnMoc3RydWN0IHBw
+X2h3bWdyICpod21nciwKIAkJCQkgY29uc3QgdTMyIGFycmF5X3NpemUpCiB7CiAJc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKikoaHdtZ3ItPmFkZXYp
+OwotCXUzMiBpLCByZWc7CisJdTMyIGksIHJlZyA9IDA7CiAKIAlmb3IgKGkgPSAwOyBpIDwgYXJy
+YXlfc2l6ZTsgaSsrKSB7Ci0JCXJlZyA9IGFkZXYtPnJlZ19vZmZzZXRbZW50cnlbaV0uaHdpcF1b
+ZW50cnlbaV0uaW5zdF1bZW50cnlbaV0uc2VnXQotCQkJKyBlbnRyeVtpXS5yZWdfb2Zmc2V0Owor
+CQlpZiAoKGVudHJ5W2ldLmNtZCA9PSBDTURfV1JJVEUpIHx8CisJCSAgICAoZW50cnlbaV0uY21k
+ID09IENNRF9SRUFETU9ESUZZV1JJVEUpIHx8CisJCSAgICAoZW50cnlbaV0uY21kID09IENNRF9X
+QUlURk9SKSkKKwkJCXJlZyA9IGFkZXYtPnJlZ19vZmZzZXRbZW50cnlbaV0uaHdpcF1bZW50cnlb
+aV0uaW5zdF1bZW50cnlbaV0uc2VnXQorCQkJCSsgZW50cnlbaV0ucmVnX29mZnNldDsKIAkJaWYg
+KCFiYWNvX2NtZF9oYW5kbGVyKGh3bWdyLCBlbnRyeVtpXS5jbWQsIHJlZywgZW50cnlbaV0ubWFz
+aywKIAkJCQkgICAgIGVudHJ5W2ldLnNoaWZ0LCBlbnRyeVtpXS52YWwsIGVudHJ5W2ldLnRpbWVv
+dXQpKQogCQkJcmV0dXJuIGZhbHNlOwotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngK
