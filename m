@@ -1,56 +1,44 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix baco handling for soc15
-Date: Fri, 25 Jan 2019 21:03:30 +0000
-Message-ID: <d4dcee2e-fcda-3037-5293-769d37221f5f@amd.com>
-References: <20190125203122.19195-1-alexander.deucher@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/amd/powerplay: Fix missing break in switch
+Date: Fri, 25 Jan 2019 15:55:33 -0600
+Message-ID: <20190125215533.GA4878@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190125203122.19195-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <7C2B03DDA9CCC34C8698E76C0B7A7D6C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYW5kLVRlc3RlZC1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92
-c2t5QGFtZC5jb20+DQoNCkFuZHJleQ0KDQoNCk9uIDAxLzI1LzIwMTkgMDM6MzEgUE0sIEFsZXgg
-RGV1Y2hlciB3cm90ZToNCj4gTmVlZCB0byBjaGVjayBpZiB0aGUgb3BlcmF0aW9uIGlzIG9uZSB0
-aGF0IGludm9sdmVzDQo+IHJlZ2lzdGVycyBiZWZvcmUgZ2V0dGluZyB0aGUgcmVnaXN0ZXIgb2Zm
-c2V0LiAgRml4ZXMgYQ0KPiBjcmFzaCBpbiB3aGVuIGhhbmRsaW5nIGNvbW1hbmRzIHdpdGhvdXQg
-YSByZWdpc3RlciBvZmZzZXQsDQo+IGUuZy4sIHdhaXQuDQo+DQo+IFNpZ25lZC1vZmYtYnk6IEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY29tbW9uX2JhY28uYyB8IDkgKysrKysrLS0t
-DQo+ICAgMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4N
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2NvbW1v
-bl9iYWNvLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jb21tb25fYmFj
-by5jDQo+IGluZGV4IDAwMjY5M2M0MjFkMi4uOWM1N2MxZjY3NzQ5IDEwMDY0NA0KPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jb21tb25fYmFjby5jDQo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2NvbW1vbl9iYWNvLmMNCj4gQEAg
-LTg0LDExICs4NCwxNCBAQCBib29sIHNvYzE1X2JhY29fcHJvZ3JhbV9yZWdpc3RlcnMoc3RydWN0
-IHBwX2h3bWdyICpod21nciwNCj4gICAJCQkJIGNvbnN0IHUzMiBhcnJheV9zaXplKQ0KPiAgIHsN
-Cj4gICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KikoaHdtZ3ItPmFkZXYpOw0KPiAtCXUzMiBpLCByZWc7DQo+ICsJdTMyIGksIHJlZyA9IDA7DQo+
-ICAgDQo+ICAgCWZvciAoaSA9IDA7IGkgPCBhcnJheV9zaXplOyBpKyspIHsNCj4gLQkJcmVnID0g
-YWRldi0+cmVnX29mZnNldFtlbnRyeVtpXS5od2lwXVtlbnRyeVtpXS5pbnN0XVtlbnRyeVtpXS5z
-ZWddDQo+IC0JCQkrIGVudHJ5W2ldLnJlZ19vZmZzZXQ7DQo+ICsJCWlmICgoZW50cnlbaV0uY21k
-ID09IENNRF9XUklURSkgfHwNCj4gKwkJICAgIChlbnRyeVtpXS5jbWQgPT0gQ01EX1JFQURNT0RJ
-RllXUklURSkgfHwNCj4gKwkJICAgIChlbnRyeVtpXS5jbWQgPT0gQ01EX1dBSVRGT1IpKQ0KPiAr
-CQkJcmVnID0gYWRldi0+cmVnX29mZnNldFtlbnRyeVtpXS5od2lwXVtlbnRyeVtpXS5pbnN0XVtl
-bnRyeVtpXS5zZWddDQo+ICsJCQkJKyBlbnRyeVtpXS5yZWdfb2Zmc2V0Ow0KPiAgIAkJaWYgKCFi
-YWNvX2NtZF9oYW5kbGVyKGh3bWdyLCBlbnRyeVtpXS5jbWQsIHJlZywgZW50cnlbaV0ubWFzaywN
-Cj4gICAJCQkJICAgICBlbnRyeVtpXS5zaGlmdCwgZW50cnlbaV0udmFsLCBlbnRyeVtpXS50aW1l
-b3V0KSkNCj4gICAJCQlyZXR1cm4gZmFsc2U7DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+Add missing break statement in order to prevent the code from falling
+through to the default case.
+
+The resoning for this is that pclk_vol_table is an automatic variable.
+So, it makes no sense to update it just before falling through to the
+default case and return -EINVAL.
+
+This bug was found thanks to the ongoing efforts to enabling
+-Wimplicit-fallthrough.
+
+Fixes: cd70f3d6e3fa ("drm/amd/powerplay: PP/DAL interface changes for dynamic clock switch")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+index f95c5f50eb0f..5273de3c5b98 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+@@ -1033,6 +1033,7 @@ static int smu10_get_clock_by_type_with_latency(struct pp_hwmgr *hwmgr,
+ 		break;
+ 	case amd_pp_dpp_clock:
+ 		pclk_vol_table = pinfo->vdd_dep_on_dppclk;
++		break;
+ 	default:
+ 		return -EINVAL;
+ 	}
+-- 
+2.20.1
