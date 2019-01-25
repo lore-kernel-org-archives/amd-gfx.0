@@ -1,13 +1,16 @@
-From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 138/138] drm/amd/powerplay: enable amdgpu dpm for smu
-Date: Fri, 25 Jan 2019 18:25:45 +0800
-Message-ID: <1548411945-12396-139-git-send-email-ray.huang@amd.com>
-References: <1548411945-12396-1-git-send-email-ray.huang@amd.com>
+From: Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
+Subject: Re: [PATCH 01/26] drm/irq: Don't check for DRIVER_HAVE_IRQ in
+ drm_irq_(un)install
+Date: Fri, 25 Jan 2019 11:40:32 +0100
+Message-ID: <20190125104032.GA27214@ravnborg.org>
+References: <20190124165831.16427-1-daniel.vetter@ffwll.ch>
+ <20190124165831.16427-2-daniel.vetter@ffwll.ch>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1548411945-12396-1-git-send-email-ray.huang-5C7GfCeVMHo@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20190124165831.16427-2-daniel.vetter-/w4YWyX8dFk@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,21 +21,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Likun Gao <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>, Chengming Gui <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+To: Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>
+Cc: linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Intel Graphics Development <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, linux-renesas-soc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, DRI Development <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, linux-amlogic-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-arm-kernel-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org
 
-RnJvbTogS2V2aW4gV2FuZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4KCmVuYWJsZSBhbWRncHUgZHBt
-IGdsb2JhbCBmbGFnCgpTaWduZWQtb2ZmLWJ5OiBLZXZpbiBXYW5nIDxrZXZpbjEud2FuZ0BhbWQu
-Y29tPgpSZXZpZXdlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgfCAyICsrCiAxIGZpbGUgY2hh
-bmdlZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvYW1kZ3B1X3NtdS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1k
-Z3B1X3NtdS5jCmluZGV4IDVjOWM3ZTEuLmMzMTc2ZTQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9hbWRncHVfc211LmMKQEAgLTczNCw2ICs3MzQsOCBAQCBzdGF0aWMgaW50IHNt
-dV9od19pbml0KHZvaWQgKmhhbmRsZSkKIAogCW11dGV4X3VubG9jaygmc211LT5tdXRleCk7CiAK
-KwlhZGV2LT5wbS5kcG1fZW5hYmxlZCA9IHRydWU7CisKIAlwcl9pbmZvKCJTTVUgaXMgaW5pdGlh
-bGl6ZWQgc3VjY2Vzc2Z1bGx5IVxuIik7CiAKIAlyZXR1cm4gMDsKLS0gCjIuNy40CgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+SGkgRGFuaWVsLgoKT24gVGh1LCBKYW4gMjQsIDIwMTkgYXQgMDU6NTg6MDZQTSArMDEwMCwgRGFu
+aWVsIFZldHRlciB3cm90ZToKPiBJZiBhIG5vbi1sZWdhY3kgZHJpdmVyIGNhbGxzIHRoZXNlIGl0
+J3MgdmFsaWQgdG8gYXNzdW1lIHRoZXJlIGlzCj4gaW50ZXJydXB0IHN1cHBvcnQuIFRoZSBmbGFn
+IGlzIHJlYWxseSBvbmx5IG5lZWRlZCBmb3IgbGVnYWN5IGRyaXZlcnMuCj4gCj4gQWxzbyByZW1v
+dmUgYWxsIHRoZSBmbGFnIHVzYWdlIGZyb20gbm9uLWxlZ2FjeSBkcml2ZXJzLgo+IAo+IFNpZ25l
+ZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAaW50ZWwuY29tPgo+IENjOiBs
+aW51eC1hcm0ta2VybmVsQGxpc3RzLmluZnJhZGVhZC5vcmcKPiBDYzogaW50ZWwtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+IENjOiBsaW51eC1hbWxvZ2ljQGxpc3RzLmluZnJhZGVhZC5vcmcK
+PiBDYzogbGludXgtYXJtLW1zbUB2Z2VyLmtlcm5lbC5vcmcKPiBDYzogZnJlZWRyZW5vQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+IENjOiB2aXJ0dWFsaXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0
+aW9uLm9yZwo+IENjOiBzcGljZS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogbGludXgtcmVuZXNhcy1zb2NAdmdlci5r
+ZXJuZWwub3JnCgpUaGUgYWN0dWFsIGNvZGUgY2hhbmdlcyBsb29rcyBnb29kLgpCdXQgaWYgdGhp
+cyBpcyB0aGUgcmlnaHQgdGhpbmcgdG8gZG8gSSBjYW5ub3QgdGVsbC4KCk9uIHRoaXMgKGxpbWl0
+ZWQpIGJhc2lzIEkgcHJvdmlkZSBhbjoKUmV2aWV3ZWQtYnk6IFNhbSBSYXZuYm9yZyA8c2FtQHJh
+dm5ib3JnLm9yZz4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
