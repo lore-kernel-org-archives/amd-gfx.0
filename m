@@ -1,17 +1,17 @@
-From: Matthias Kaehlcke <mka@chromium.org>
+From: Nathan Chancellor <natechancellor@gmail.com>
 Subject: Re: [PATCH] drm/amd/display: add -msse2 to prevent Clang from
  emitting libcalls to undefined SW FP routines
-Date: Thu, 24 Jan 2019 17:03:47 -0800
-Message-ID: <20190125010347.GD81583@google.com>
+Date: Thu, 24 Jan 2019 18:21:03 -0700
+Message-ID: <20190125012103.GA20106@archlinux-ryzen>
 References: <20190125005304.183322-1-ndesaulniers@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <stable-owner@vger.kernel.org>
 Content-Disposition: inline
 In-Reply-To: <20190125005304.183322-1-ndesaulniers@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
+Sender: stable-owner@vger.kernel.org
 To: ndesaulniers@google.com
-Cc: airlied@linux.ie, daniel@ffwll.ch, stable@vger.kernel.org, S@google.com, Shirish <Shirish.S@amd.com>, James Y Knight <jyknight@google.com>, Nathan Chancellor <natechancellor@gmail.com>, Guenter Roeck <linux@roeck-us.net>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Michel =?utf-8?Q?D=C3=A4nzer?= <michel.daenzer@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: airlied@linux.ie, daniel@ffwll.ch, stable@vger.kernel.org, S@google.com, Shirish <Shirish.S@amd.com>, Matthias Kaehlcke <mka@google.com>, James Y Knight <jyknight@google.com>, Guenter Roeck <linux@roeck-us.net>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Matthias Kaehlcke <mka@chromium.org>, Michel =?iso-8859-1?Q?D=E4nzer?= <michel.daenzer@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
 On Thu, Jan 24, 2019 at 04:52:59PM -0800, ndesaulniers@google.com wrote:
@@ -30,6 +30,9 @@ On Thu, Jan 24, 2019 at 04:52:59PM -0800, ndesaulniers@google.com wrote:
 > Suggested-by: Nathan Chancellor <natechancellor@gmail.com>
 > Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
 > Tested-by: Guenter Roeck <linux@roeck-us.net>
+
+Tested-by: Nathan Chancellor <natechancellor@gmail.com>
+
 > ---
 >  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 2 +-
 >  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 2 +-
@@ -61,5 +64,6 @@ On Thu, Jan 24, 2019 at 04:52:59PM -0800, ndesaulniers@google.com wrote:
 >  
 >  CFLAGS_display_mode_lib.o := $(dml_ccflags)
 >  CFLAGS_display_pipe_clocks.o := $(dml_ccflags)
-
-Tested-by:  Matthias Kaehlcke <mka@chromium.org>
+> -- 
+> 2.20.1.321.g9e740568ce-goog
+> 
