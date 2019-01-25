@@ -1,16 +1,10 @@
-From: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: add -msse2 to prevent Clang from
- emitting libcalls to undefined SW FP routines
-Date: Fri, 25 Jan 2019 15:29:37 +0000
-Message-ID: <04bc6844-2a3b-2de8-60a7-a027149709fd@amd.com>
-References: <20190125005304.183322-1-ndesaulniers@google.com>
+From: Tom Seewald <tseewald-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [Bug Report] Polaris 11 hangs entire system - ring gfx timeout
+Date: Fri, 25 Jan 2019 10:37:50 -0600
+Message-ID: <CAARYdbg9YxBn4na1m+=Mb0ntn=p_vM0duuZFbKe+G=qai3dG=g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1283608528=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190125005304.183322-1-ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Content-Language: en-US
-Content-ID: <9FB46B220EC61A4DA9249E130EB5DAE5-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,58 +15,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org" <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "S@google.com" <S@google.com>, "Laktyushkin,
- Dmytro" <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng
- (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Daenzer,
- Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, Matthias Kaehlcke <mka-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Matthias Kaehlcke <mka-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, James Y Knight <jyknight-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Cheng,
- Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Guenter Roeck <linux-0h96xk9xTtrk1uMJSBkQmQ@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gMjAxOS0wMS0yNCA3OjUyIHAubS4sIG5kZXNhdWxuaWVyc0Bnb29nbGUuY29tIHdyb3RlOg0K
-PiBhcmNoL3g4Ni9NYWtlZmlsZSBkaXNhYmxlcyBTU0UgYW5kIFNTRTIgZm9yIHRoZSB3aG9sZSBr
-ZXJuZWwuICBUaGUNCj4gQU1ER1BVIGRyaXZlcnMgbW9kaWZpZWQgaW4gdGhpcyBwYXRjaCByZS1l
-bmFibGUgU1NFIGJ1dCBub3QgU1NFMi4gIFR1cm4NCj4gb24gU1NFMiB0byBzdXBwb3J0IGVtaXR0
-aW5nIGRvdWJsZSBwcmVjaXNpb24gZmxvYXRpbmcgcG9pbnQgaW5zdHJ1Y3Rpb25zDQo+IHJhdGhl
-ciB0aGFuIGNhbGxzIHRvIG5vbi1leGlzdGVudCAodXN1YWxseSBhdmFpbGFibGUgZnJvbSBnY2Nf
-cyBvcg0KPiBjb21waWxlcl9ydCkgZmxvYXRpbmcgcG9pbnQgaGVscGVyIHJvdXRpbmVzLg0KPiAN
-Cj4gTGluazogaHR0cHM6Ly9nY2MuZ251Lm9yZy9vbmxpbmVkb2NzL2djY2ludC9Tb2Z0LWZsb2F0
-LWxpYnJhcnktcm91dGluZXMuaHRtbA0KPiBMaW5rOiBodHRwczovL2dpdGh1Yi5jb20vQ2xhbmdC
-dWlsdExpbnV4L2xpbnV4L2lzc3Vlcy8zMjcNCj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcg
-IyA0LjE5DQo+IFJlcG9ydGVkLWJ5OiBTLCBTaGlyaXNoIDxTaGlyaXNoLlNAYW1kLmNvbT4NCj4g
-UmVwb3J0ZWQtYnk6IE1hdHRoaWFzIEthZWhsY2tlIDxta2FAZ29vZ2xlLmNvbT4NCj4gU3VnZ2Vz
-dGVkLWJ5OiBKYW1lcyBZIEtuaWdodCA8anlrbmlnaHRAZ29vZ2xlLmNvbT4NCj4gU3VnZ2VzdGVk
-LWJ5OiBOYXRoYW4gQ2hhbmNlbGxvciA8bmF0ZWNoYW5jZWxsb3JAZ21haWwuY29tPg0KPiBTaWdu
-ZWQtb2ZmLWJ5OiBOaWNrIERlc2F1bG5pZXJzIDxuZGVzYXVsbmllcnNAZ29vZ2xlLmNvbT4NCj4g
-VGVzdGVkLWJ5OiBHdWVudGVyIFJvZWNrIDxsaW51eEByb2Vjay11cy5uZXQ+DQoNClJldmlld2Vk
-LWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCg0KYW5kIGFwcGxp
-ZWQuDQoNCkhhcnJ5DQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-Y2FsY3MvTWFrZWZpbGUgfCAyICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZG1sL01ha2VmaWxlICAgfCAyICstDQo+ICAyIGZpbGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KSwgMiBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvY2FsY3MvTWFrZWZpbGUNCj4gaW5kZXggOTVmMzMyZWUzZTdlLi5kYzg1YTNjMDg4YWYgMTAw
-NjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmls
-ZQ0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUN
-Cj4gQEAgLTMwLDcgKzMwLDcgQEAgZWxzZSBpZm5lcSAoJChjYWxsIGNjLW9wdGlvbiwgLW1zdGFj
-ay1hbGlnbm1lbnQ9MTYpLCkNCj4gIAljY19zdGFja19hbGlnbiA6PSAtbXN0YWNrLWFsaWdubWVu
-dD0xNg0KPiAgZW5kaWYNCj4gIA0KPiAtY2FsY3NfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1z
-c2UgJChjY19zdGFja19hbGlnbikNCj4gK2NhbGNzX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1t
-c3NlIC1tc3NlMiAkKGNjX3N0YWNrX2FsaWduKQ0KPiAgDQo+ICBDRkxBR1NfZGNuX2NhbGNzLm8g
-Oj0gJChjYWxjc19jY2ZsYWdzKQ0KPiAgQ0ZMQUdTX2Rjbl9jYWxjX2F1dG8ubyA6PSAkKGNhbGNz
-X2NjZmxhZ3MpDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZG1sL01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmls
-ZQ0KPiBpbmRleCBkOTdjYTY1MjhmOWQuLjMzYzdkNzU4ODcxMiAxMDA2NDQNCj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQ0KPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlDQo+IEBAIC0zMCw3ICszMCw3IEBA
-IGVsc2UgaWZuZXEgKCQoY2FsbCBjYy1vcHRpb24sIC1tc3RhY2stYWxpZ25tZW50PTE2KSwpDQo+
-ICAJY2Nfc3RhY2tfYWxpZ24gOj0gLW1zdGFjay1hbGlnbm1lbnQ9MTYNCj4gIGVuZGlmDQo+ICAN
-Cj4gLWRtbF9jY2ZsYWdzIDo9IC1taGFyZC1mbG9hdCAtbXNzZSAkKGNjX3N0YWNrX2FsaWduKQ0K
-PiArZG1sX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlIC1tc3NlMiAkKGNjX3N0YWNrX2Fs
-aWduKQ0KPiAgDQo+ICBDRkxBR1NfZGlzcGxheV9tb2RlX2xpYi5vIDo9ICQoZG1sX2NjZmxhZ3Mp
-DQo+ICBDRkxBR1NfZGlzcGxheV9waXBlX2Nsb2Nrcy5vIDo9ICQoZG1sX2NjZmxhZ3MpDQo+IA0K
+--===============1283608528==
+Content-Type: multipart/alternative; boundary="00000000000050b88805804af301"
+
+--00000000000050b88805804af301
+Content-Type: text/plain; charset="UTF-8"
+
+Is there anything that I can do to help troubleshoot this issue[0] further?
+I've produced wave and gfx ring dumps via UMR, but I don't know what the
+next step should be.
+
+[0]https://bugs.freedesktop.org/show_bug.cgi?id=108854
+
+--00000000000050b88805804af301
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Is there anything that I can do to help troubleshoot =
+this issue[0] further?</div><div>I&#39;ve produced wave and gfx ring dumps =
+via UMR, but I don&#39;t know what the next step should be.</div><div><br><=
+/div><div dir=3D"ltr">[0]<a href=3D"https://bugs.freedesktop.org/show_bug.c=
+gi?id=3D108854">https://bugs.freedesktop.org/show_bug.cgi?id=3D108854</a><b=
+r></div></div>
+
+--00000000000050b88805804af301--
+
+--===============1283608528==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1283608528==--
