@@ -1,78 +1,61 @@
-From: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Expose connector VRR range via debugfs
-Date: Thu, 24 Jan 2019 17:56:35 +0000
-Message-ID: <aa72297e-9238-805a-9855-d77a84b34411@amd.com>
-References: <20190124170600.8801-1-nicholas.kazlauskas@amd.com>
- <6d34000f-2d7f-7e49-8d2a-841388e4d488@gmail.com>
+From: ndesaulniers@google.com
+Subject: [PATCH] drm/amd/display: add -msse2 to prevent Clang from emitting
+ libcalls to undefined SW FP routines
+Date: Thu, 24 Jan 2019 16:52:59 -0800
+Message-ID: <20190125005304.183322-1-ndesaulniers@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6d34000f-2d7f-7e49-8d2a-841388e4d488-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-Content-ID: <D1E4357BCEEDB741861E350E0AF77F74-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, daniel@ffwll.ch
+Cc: Nick Desaulniers <ndesaulniers@google.com>, stable@vger.kernel.org, S@google.com, Shirish <Shirish.S@amd.com>, Matthias Kaehlcke <mka@google.com>, James Y Knight <jyknight@google.com>, Nathan Chancellor <natechancellor@gmail.com>, Guenter Roeck <linux@roeck-us.net>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Matthias Kaehlcke <mka@chromium.org>, =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCk9uIDIwMTktMDEtMjQgMTI6NDEgcC5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4g
-QW0gMjQuMDEuMTkgdW0gMTg6MDYgc2NocmllYiBOaWNob2xhcyBLYXpsYXVza2FzOg0KPj4gW1do
-eV0NCj4+IEl0J3MgdXNlZnVsIHRvIGtub3cgdGhlIG1pbiBhbmQgbWF4IHZyciByYW5nZSBmb3Ig
-SUdUIHRlc3RpbmcuDQo+Pg0KPj4gW0hvd10NCj4+IEV4cG9zZSB0aGUgbWluIGFuZCBtYXggdmZy
-ZXEgZm9yIHRoZSBjb25uZWN0b3IgdmlhIGEgZGVidWdmcyBmaWxlDQo+PiBvbiB0aGUgY29ubmVj
-dG9yLCAidnJyX3JhbmdlIi4NCj4+DQo+PiBFeGFtcGxlIHVzYWdlOiBjYXQgL3N5cy9rZXJuZWwv
-ZGVidWcvZHJpLzAvRFAtMS92cnJfcmFuZ2UNCj4+DQo+PiBDYzogSGFycnkgV2VudGxhbmQgPGhh
-cnJ5LndlbnRsYW5kQGFtZC5jb20+DQo+PiBDYzogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+
-DQo+PiBTaWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVz
-a2FzQGFtZC5jb20+DQo+IA0KPiBPaCwgbmljZSB0aGF0IGlzIGluZGVlZCB1c2VmdWwuIEFja2Vk
-LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IA0KDQpG
-WUksIElHVCB0ZXN0IGNhc2UgbWFraW5nIHVzZSBvZiB0aGlzOiBodHRwczovL3BhdGNod29yay5m
-cmVlZGVza3RvcC5vcmcvcGF0Y2gvMjc1OTgyLw0KDQpSZXZpZXdlZC1ieTogSGFycnkgV2VudGxh
-bmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+DQoNCkhhcnJ5DQoNCj4+IC0tLQ0KPj4gwqAgLi4u
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jIHwgMjIgKysrKysrKysr
-KysrKysrKysrLQ0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jDQo+PiBpbmRleCBjY2EzZTE2Y2RhNGYu
-LjRhNTVjZGUwMjdjZiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jDQo+PiBAQCAtNjcxLDYg
-KzY3MSwyNSBAQCBzdGF0aWMgc3NpemVfdCBkcF9waHlfdGVzdF9wYXR0ZXJuX2RlYnVnZnNfd3Jp
-dGUoc3RydWN0IGZpbGUgKmYsIGNvbnN0IGNoYXIgX191cw0KPj4gwqDCoMKgwqDCoCByZXR1cm4g
-Ynl0ZXNfZnJvbV91c2VyOw0KPj4gwqAgfQ0KPj4gwqAgKy8qDQo+PiArICogUmV0dXJucyB0aGUg
-bWluIGFuZCBtYXggdnJyIHZmcmVxIHRocm91Z2ggdGhlIGNvbm5lY3RvcidzIGRlYnVnZnMgZmls
-ZS4NCj4+ICsgKiBFeGFtcGxlIHVzYWdlOiBjYXQgL3N5cy9rZXJuZWwvZGVidWcvZHJpLzAvRFAt
-MS92cnJfcmFuZ2UNCj4+ICsgKi8NCj4+ICtzdGF0aWMgaW50IHZycl9yYW5nZV9zaG93KHN0cnVj
-dCBzZXFfZmlsZSAqbSwgdm9pZCAqZGF0YSkNCj4+ICt7DQo+PiArwqDCoMKgIHN0cnVjdCBkcm1f
-Y29ubmVjdG9yICpjb25uZWN0b3IgPSBtLT5wcml2YXRlOw0KPj4gK8KgwqDCoCBzdHJ1Y3QgYW1k
-Z3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciA9IHRvX2FtZGdwdV9kbV9jb25uZWN0b3IoY29u
-bmVjdG9yKTsNCj4+ICsNCj4+ICvCoMKgwqAgaWYgKGNvbm5lY3Rvci0+c3RhdHVzICE9IGNvbm5l
-Y3Rvcl9zdGF0dXNfY29ubmVjdGVkKQ0KPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PREVW
-Ow0KPj4gKw0KPj4gK8KgwqDCoCBzZXFfcHJpbnRmKG0sICJNaW46ICV1XG4iLCAodW5zaWduZWQg
-aW50KWFjb25uZWN0b3ItPm1pbl92ZnJlcSk7DQo+PiArwqDCoMKgIHNlcV9wcmludGYobSwgIk1h
-eDogJXVcbiIsICh1bnNpZ25lZCBpbnQpYWNvbm5lY3Rvci0+bWF4X3ZmcmVxKTsNCj4+ICsNCj4+
-ICvCoMKgwqAgcmV0dXJuIDA7DQo+PiArfQ0KPj4gK0RFRklORV9TSE9XX0FUVFJJQlVURSh2cnJf
-cmFuZ2UpOw0KPj4gKw0KPj4gwqAgc3RhdGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJhdGlvbnMg
-ZHBfbGlua19zZXR0aW5nc19kZWJ1Z2ZzX2ZvcHMgPSB7DQo+PiDCoMKgwqDCoMKgIC5vd25lciA9
-IFRISVNfTU9EVUxFLA0KPj4gwqDCoMKgwqDCoCAucmVhZCA9IGRwX2xpbmtfc2V0dGluZ3NfcmVh
-ZCwNCj4+IEBAIC02OTcsNyArNzE2LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCB7DQo+PiDCoCB9
-IGRwX2RlYnVnZnNfZW50cmllc1tdID0gew0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHsibGlua19z
-ZXR0aW5ncyIsICZkcF9saW5rX3NldHRpbmdzX2RlYnVnZnNfZm9wc30sDQo+PiDCoMKgwqDCoMKg
-wqDCoMKgwqAgeyJwaHlfc2V0dGluZ3MiLCAmZHBfcGh5X3NldHRpbmdzX2RlYnVnZnNfZm9wfSwN
-Cj4+IC3CoMKgwqDCoMKgwqDCoCB7InRlc3RfcGF0dGVybiIsICZkcF9waHlfdGVzdF9wYXR0ZXJu
-X2ZvcHN9DQo+PiArwqDCoMKgwqDCoMKgwqAgeyJ0ZXN0X3BhdHRlcm4iLCAmZHBfcGh5X3Rlc3Rf
-cGF0dGVybl9mb3BzfSwNCj4+ICvCoMKgwqDCoMKgwqDCoCB7InZycl9yYW5nZSIsICZ2cnJfcmFu
-Z2VfZm9wc30NCj4+IMKgIH07DQo+PiDCoCDCoCBpbnQgY29ubmVjdG9yX2RlYnVnZnNfaW5pdChz
-dHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQ0KPiANCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+arch/x86/Makefile disables SSE and SSE2 for the whole kernel.  The
+AMDGPU drivers modified in this patch re-enable SSE but not SSE2.  Turn
+on SSE2 to support emitting double precision floating point instructions
+rather than calls to non-existent (usually available from gcc_s or
+compiler_rt) floating point helper routines.
+
+Link: https://gcc.gnu.org/onlinedocs/gccint/Soft-float-library-routines.html
+Link: https://github.com/ClangBuiltLinux/linux/issues/327
+Cc: stable@vger.kernel.org # 4.19
+Reported-by: S, Shirish <Shirish.S@amd.com>
+Reported-by: Matthias Kaehlcke <mka@google.com>
+Suggested-by: James Y Knight <jyknight@google.com>
+Suggested-by: Nathan Chancellor <natechancellor@gmail.com>
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+Tested-by: Guenter Roeck <linux@roeck-us.net>
+---
+ drivers/gpu/drm/amd/display/dc/calcs/Makefile | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+index 95f332ee3e7e..dc85a3c088af 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+@@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
+ 	cc_stack_align := -mstack-alignment=16
+ endif
+ 
+-calcs_ccflags := -mhard-float -msse $(cc_stack_align)
++calcs_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
+ 
+ CFLAGS_dcn_calcs.o := $(calcs_ccflags)
+ CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index d97ca6528f9d..33c7d7588712 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
+ 	cc_stack_align := -mstack-alignment=16
+ endif
+ 
+-dml_ccflags := -mhard-float -msse $(cc_stack_align)
++dml_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
+ 
+ CFLAGS_display_mode_lib.o := $(dml_ccflags)
+ CFLAGS_display_pipe_clocks.o := $(dml_ccflags)
+-- 
+2.20.1.321.g9e740568ce-goog
