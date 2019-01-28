@@ -1,53 +1,59 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 048/258] drm/amd/display: fix gamma not being
- applied correctly
-Date: Mon, 28 Jan 2019 10:55:54 -0500
-Message-ID: <20190128155924.51521-48-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 109/258] drm/amdgpu/powerplay: fix clock stretcher limits on polaris (v2)
+Date: Mon, 28 Jan 2019 10:56:55 -0500
+Message-ID: <20190128155924.51521-109-sashal@kernel.org>
 References: <20190128155924.51521-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20190128155924.51521-1-sashal@kernel.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, Murton Liu <murton.liu@amd.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTXVydG9uIExpdSA8bXVydG9uLmxpdUBhbWQuY29tPgoKWyBVcHN0cmVhbSBjb21taXQg
-OGNlNTA0YjkzODliZTg0NmJjZGY1MTJlZDViZThmNjYxYjNiZjA5NyBdCgpbd2h5XQpHYW1tYSB3
-YXMgYWx3YXlzIGJlaW5nIHNldCBhcyBpZGVudGl0eSBvbiBTRFIgbW9uaXRvciwKbGVhZGluZyB0
-byBubyBjaGFuZ2VzIGluIGdhbW1hLiBUaGlzIGNhdXNlZCBuaWdodGxpZ2h0IHRvCm5vdCBhcHBs
-eSBjb3JyZWN0bHkuCgpbaG93XQpBZGRlZCBhIGRlZmF1bHQgZ2FtbWEgc3RydWN0dXJlIHRvIGNv
-bXBhcmUgYWdhaW5zdAppbiB0aGUgc2RyIGNhc2UuCgpTaWduZWQtb2ZmLWJ5OiBNdXJ0b24gTGl1
-IDxtdXJ0b24ubGl1QGFtZC5jb20+ClJldmlld2VkLWJ5OiBLcnVub3NsYXYgS292YWMgPEtydW5v
-c2xhdi5Lb3ZhY0BhbWQuY29tPgpBY2tlZC1ieTogQmhhd2FucHJlZXQgTGFraGEgPEJoYXdhbnBy
-ZWV0Lkxha2hhQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
-LmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJu
-ZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9o
-d19zZXF1ZW5jZXIuYyB8IDMgKystCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAx
-IGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jCmluZGV4IGNmY2M1NGYyY2U2NS4uMzNhOWQw
-YzU4OTY2IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMTAv
-ZGNuMTBfaHdfc2VxdWVuY2VyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2RjbjEwL2RjbjEwX2h3X3NlcXVlbmNlci5jCkBAIC0xMTkwLDcgKzExOTAsOCBAQCBzdGF0aWMg
-Ym9vbCBkY24xMF9zZXRfaW5wdXRfdHJhbnNmZXJfZnVuYyhzdHJ1Y3QgcGlwZV9jdHggKnBpcGVf
-Y3R4LAogCQl0ZiA9IHBsYW5lX3N0YXRlLT5pbl90cmFuc2Zlcl9mdW5jOwogCiAJaWYgKHBsYW5l
-X3N0YXRlLT5nYW1tYV9jb3JyZWN0aW9uICYmCi0JCSFwbGFuZV9zdGF0ZS0+Z2FtbWFfY29ycmVj
-dGlvbi0+aXNfaWRlbnRpdHkKKwkJIWRwcF9iYXNlLT5jdHgtPmRjLT5kZWJ1Zy5hbHdheXNfdXNl
-X3JlZ2FtbWEKKwkJJiYgIXBsYW5lX3N0YXRlLT5nYW1tYV9jb3JyZWN0aW9uLT5pc19pZGVudGl0
-eQogCQkJJiYgZGNlX3VzZV9sdXQocGxhbmVfc3RhdGUtPmZvcm1hdCkpCiAJCWRwcF9iYXNlLT5m
-dW5jcy0+ZHBwX3Byb2dyYW1faW5wdXRfbHV0KGRwcF9iYXNlLCBwbGFuZV9zdGF0ZS0+Z2FtbWFf
-Y29ycmVjdGlvbik7CiAKLS0gCjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vZHJpLWRldmVsCg==
+From: Alex Deucher <alexander.deucher@amd.com>
+
+[ Upstream commit de4aaab5cc9770a8c4dc13d9bfb6a83b06bba57e ]
+
+Adjust limits for newer polaris variants.
+
+v2: fix polaris11 kicker (Jerry)
+
+Reviewed-by: Junwei Zhang <Jerry.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/powerplay/smumgr/polaris10_smumgr.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+index 5b67f575cd34..45629f26dbc2 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+@@ -1528,8 +1528,21 @@ static int polaris10_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
+ 	efuse = efuse >> 24;
+ 
+ 	if (hwmgr->chip_id == CHIP_POLARIS10) {
+-		min = 1000;
+-		max = 2300;
++		if (hwmgr->is_kicker) {
++			min = 1200;
++			max = 2500;
++		} else {
++			min = 1000;
++			max = 2300;
++		}
++	} else if (hwmgr->chip_id == CHIP_POLARIS11) {
++		if (hwmgr->is_kicker) {
++			min = 900;
++			max = 2100;
++		} else {
++			min = 1100;
++			max = 2100;
++		}
+ 	} else {
+ 		min = 1100;
+ 		max = 2100;
+-- 
+2.19.1
