@@ -1,191 +1,70 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Pass app_tf by value rather than by
- reference
-Date: Fri, 25 Jan 2019 20:42:14 -0700
-Message-ID: <20190126034214.GA24554@archlinux-ryzen>
-References: <20181210234201.4850-1-natechancellor@gmail.com>
- <CAKwvOdkOwdrsOAADGp9To2F5o2AAW7123yADFzYLMawwsinmug@mail.gmail.com>
- <20181211214240.GA31705@flashbox>
- <CAKwvOdn4467193YUMCboj+Z62m0+pVMAbjAc4avCsSsng7hpPg@mail.gmail.com>
- <61e435a1-6f54-ad91-50a6-9989cf75ba90@amd.com>
+From: "Qu, Jim" <Jim.Qu-5C7GfCeVMHo@public.gmane.org>
+Subject: =?gb2312?B?tPC4tDogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXggYmFjbyBoYW5kbGluZyBm?=
+ =?gb2312?Q?or_soc15?=
+Date: Mon, 28 Jan 2019 05:26:36 +0000
+Message-ID: <BYAPR12MB2791AAECF767D44D9B7B266899960@BYAPR12MB2791.namprd12.prod.outlook.com>
+References: <20190125203122.19195-1-alexander.deucher@amd.com>,
+ <d4dcee2e-fcda-3037-5293-769d37221f5f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <61e435a1-6f54-ad91-50a6-9989cf75ba90@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Wentland, Harry" <Harry.Wentland@amd.com>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <d4dcee2e-fcda-3037-5293-769d37221f5f-5C7GfCeVMHo@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Fri, Dec 14, 2018 at 08:09:00PM +0000, Wentland, Harry wrote:
-> On 2018-12-11 5:07 p.m., Nick Desaulniers wrote:
-> > On Tue, Dec 11, 2018 at 1:42 PM Nathan Chancellor
-> > <natechancellor@gmail.com> wrote:
-> >>
-> >> On Tue, Dec 11, 2018 at 01:25:00PM -0800, Nick Desaulniers wrote:
-> >>> On Mon, Dec 10, 2018 at 3:42 PM Nathan Chancellor
-> >>> <natechancellor@gmail.com> wrote:
-> >>>>
-> >>>> Clang warns when an expression that equals zero is used as a null
-> >>>> pointer constant (in lieu of NULL):
-> >>>>
-> >>>> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4435:3:
-> >>>> warning: expression which evaluates to zero treated as a null pointer
-> >>>> constant of type 'const enum color_transfer_func *'
-> >>>> [-Wnon-literal-null-conversion]
-> >>>>                 TRANSFER_FUNC_UNKNOWN,
-> >>>>                 ^~~~~~~~~~~~~~~~~~~~~
-> >>>> 1 warning generated.
-> >>>>
-> >>>> This warning is caused by commit bb47de736661 ("drm/amdgpu: Set FreeSync
-> >>>> state using drm VRR properties") and it could be solved by using NULL
-> >>>> instead of TRANSFER_FUNC_UNKNOWN or casting TRANSFER_FUNC_UNKNOWN as a
-> >>>> pointer. However, after looking into it, there doesn't appear to be a
-> >>>> good reason to pass app_tf by reference as it is never mutated along the
-> >>>> way. This is the only code path in which app_tf is used:
-> >>>>
-> >>>> mod_freesync_build_vrr_infopacket ->
-> >>>>     build_vrr_infopacket_v2 ->
-> >>>>         build_vrr_infopacket_fs2_data
-> >>>>
-> >>>> Neither mod_freesync_build_vrr_infopacket or build_vrr_infopacket_v2
-> >>>> modify app_tf's value and build_vrr_infopacket_fs2_data expects just
-> >>>> the value so we can avoid dereferencing anything by just passing in
-> >>>> app_tf's value to mod_freesync_build_vrr_infopacket and
-> >>>> build_vrr_infopacket_v2.
-> >>>>
-> >>>> There is no functional change because build_vrr_infopacket_fs2_data
-> >>>> doesn't do anything if TRANSFER_FUNC_UNKNOWN is passed to it, the same
-> >>>> as not calling build_vrr_infopacket_fs2_data at all like before this
-> >>>> change when NULL was used for app_tf.
-> >>>
-> >>> Nathan,
-> >>> Thanks for sending this patch.  I was hoping to provide review sooner,
-> >>> but have been quite busy lately.
-> >>>
-> >>
-> >> Late review is better than no review, I appeciate you taking the time to
-> >> do this!
-> >>
-> >>> Yeah, especially for LP64 targets, the pointer to enum is larger than
-> >>> just the enum, and if it's not being updated ("in/out paramter")
-> >>> there's no need to pass by pointer.
-> >>>
-> >>
-> >> Thanks for confirming!
-> >>
-> >>>>
-> >>>> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-> >>>> ---
-> >>>>  drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 7 +++----
-> >>>>  drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h  | 2 +-
-> >>>>  2 files changed, 4 insertions(+), 5 deletions(-)
-> >>>>
-> >>>> diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> >>>> index 620a171620ee..520665a9d81a 100644
-> >>>> --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> >>>> +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> >>>> @@ -656,7 +656,7 @@ static void build_vrr_infopacket_v1(enum signal_type signal,
-> >>>>
-> >>>>  static void build_vrr_infopacket_v2(enum signal_type signal,
-> >>>>                 const struct mod_vrr_params *vrr,
-> >>>> -               const enum color_transfer_func *app_tf,
-> >>>> +               enum color_transfer_func app_tf,
-> >>>>                 struct dc_info_packet *infopacket)
-> >>>>  {
-> >>>>         unsigned int payload_size = 0;
-> >>>> @@ -664,8 +664,7 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
-> >>>>         build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
-> >>>>         build_vrr_infopacket_data(vrr, infopacket);
-> >>>>
-> >>>> -       if (app_tf != NULL)
-> >>>> -               build_vrr_infopacket_fs2_data(*app_tf, infopacket);
-> >>>> +       build_vrr_infopacket_fs2_data(app_tf, infopacket);
-> >>>>
-> >>>>         build_vrr_infopacket_checksum(&payload_size, infopacket);
-> >>>>
-> >>>> @@ -676,7 +675,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
-> >>>>                 const struct dc_stream_state *stream,
-> >>>>                 const struct mod_vrr_params *vrr,
-> >>>>                 enum vrr_packet_type packet_type,
-> >>>> -               const enum color_transfer_func *app_tf,
-> >>>> +               enum color_transfer_func app_tf,
-> >>>>                 struct dc_info_packet *infopacket)
-> >>>>  {
-> >>>>         /* SPD info packet for FreeSync */
-> >>>> diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> >>>> index 949a8b62aa98..063af6258fd9 100644
-> >>>> --- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> >>>> +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> >>>> @@ -145,7 +145,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
-> >>>>                 const struct dc_stream_state *stream,
-> >>>>                 const struct mod_vrr_params *vrr,
-> >>>>                 enum vrr_packet_type packet_type,
-> >>>> -               const enum color_transfer_func *app_tf,
-> >>>> +               enum color_transfer_func app_tf,
-> >>>
-> >>> Don't you need to update the callsite of `mod_freesync_build_vrr_infopacket` in
-> >>>
-> >>> drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c#4949:
-> >>>
-> >>> -                                           NULL,
-> >>> +                                          transfer_func_unknown,
-> >>>
-> >>
-> >> That change in commit bb47de736661 ("drm/amdgpu: Set FreeSync state
-> >> using drm VRR properties") in -next is what prompted this patch (the
-> >> warning in the commit message is not present in mainline):
-> > 
-> > Ah! Sorry, I was looking at mainline.  I should have noticed
-> > bb47de736661 wasn't there.
-> > 
-> > Shouldn't that change fail to compile, as transfer_func_unknown is an
-> > `enum color_transfer_func` value, but
-> > mod_freesync_build_vrr_infopacket takes a *pointer* to an `enum
-> > color_transfer_func` value?
-> > https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/gpu/drm/amd/display/modules/freesync/freesync.c#n675
-> > 
-> >>
-> >>         mod_freesync_build_vrr_infopacket(
-> >>                 dm->freesync_module,
-> >>                 new_stream,
-> >>                 &vrr,
-> >>                 packet_type_vrr,
-> >>                 transfer_func_unknown,
-> >>                 &vrr_infopacket);
-> >>
-> >>> Maybe at that point the `if (app_tf != NULL)` could be replaced with
-> >>> `if (app_tf != transfer_func_unknown)` hoisted from
-> >>> `build_vrr_infopacket_fs2_data`? (There's only one caller of
-> >>> `build_vrr_infopacket_fs2_data` today, maybe fine to leave the
-> >>> unconditional call and check).
-> >>>
-> >>
-> >> Hmmm that's not unreasonable I suppose. I guess it depends on if
-> >> build_vrr_infopacket_fs2_data could ever be called from outside of
-> >> build_vrr_infopacket_v2; if it can, it makes sense to leave the
-> >> conditional check for 'app_tf != transfer_func_unknown' in
-> >> build_vrr_infopacket_fs2_data and leaving the unconditional call
-> >> to it in build_vrr_infopacket_v2 (since app_tf is no longer a pointer,
-> >> no need to check against NULL).
-> >>
-> >> I'm happy to do a v2 if the maintainers feel strongly about it, thank
-> >> you for bringing that up.
-> > 
-> > Don't worry about it, I think it's fine.
-> > Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
-> > 
-> 
-> Sorry for being late to the game. FWIW, code is also
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> 
-> We can change the comparison separately later.
-> 
-> Not sure why this was ever passed as a pointer.
-> 
-> Harry
-
-Thanks Harry, could you (or someone) pick this up? This warning is now in mainline.
-
-Nathan
+UmV2aWV3ZWQtYnk6IEppbSBRdSA8SmltLlF1QGFtZC5jb20+DQoNClRoYW5rcw0KSmltUXUNCg0K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K5Y+R5Lu25Lq6OiBhbWQt
+Z2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiDku6PooaggR3JvZHpv
+dnNreSwgQW5kcmV5IDxBbmRyZXkuR3JvZHpvdnNreUBhbWQuY29tPg0K5Y+R6YCB5pe26Ze0OiAy
+MDE55bm0MeaciDI25pelIDU6MDM6MzANCuaUtuS7tuS6ujogQWxleCBEZXVjaGVyOyBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K5oqE6YCBOiBEZXVjaGVyLCBBbGV4YW5kZXINCuS4u+mi
+mDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogZml4IGJhY28gaGFuZGxpbmcgZm9yIHNvYzE1DQoN
+ClJldmlld2VkLWFuZC1UZXN0ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpv
+dnNreUBhbWQuY29tPg0KDQpBbmRyZXkNCg0KDQpPbiAwMS8yNS8yMDE5IDAzOjMxIFBNLCBBbGV4
+IERldWNoZXIgd3JvdGU6DQo+IE5lZWQgdG8gY2hlY2sgaWYgdGhlIG9wZXJhdGlvbiBpcyBvbmUg
+dGhhdCBpbnZvbHZlcw0KPiByZWdpc3RlcnMgYmVmb3JlIGdldHRpbmcgdGhlIHJlZ2lzdGVyIG9m
+ZnNldC4gIEZpeGVzIGENCj4gY3Jhc2ggaW4gd2hlbiBoYW5kbGluZyBjb21tYW5kcyB3aXRob3V0
+IGEgcmVnaXN0ZXIgb2Zmc2V0LA0KPiBlLmcuLCB3YWl0Lg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBB
+bGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL2NvbW1vbl9iYWNvLmMgfCA5ICsrKysrKy0t
+LQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+
+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jb21t
+b25fYmFjby5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY29tbW9uX2Jh
+Y28uYw0KPiBpbmRleCAwMDI2OTNjNDIxZDIuLjljNTdjMWY2Nzc0OSAxMDA2NDQNCj4gLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvY29tbW9uX2JhY28uYw0KPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9jb21tb25fYmFjby5jDQo+IEBA
+IC04NCwxMSArODQsMTQgQEAgYm9vbCBzb2MxNV9iYWNvX3Byb2dyYW1fcmVnaXN0ZXJzKHN0cnVj
+dCBwcF9od21nciAqaHdtZ3IsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25z
+dCB1MzIgYXJyYXlfc2l6ZSkNCj4gICB7DQo+ICAgICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopKGh3bWdyLT5hZGV2KTsNCj4gLSAgICAgdTMy
+IGksIHJlZzsNCj4gKyAgICAgdTMyIGksIHJlZyA9IDA7DQo+DQo+ICAgICAgIGZvciAoaSA9IDA7
+IGkgPCBhcnJheV9zaXplOyBpKyspIHsNCj4gLSAgICAgICAgICAgICByZWcgPSBhZGV2LT5yZWdf
+b2Zmc2V0W2VudHJ5W2ldLmh3aXBdW2VudHJ5W2ldLmluc3RdW2VudHJ5W2ldLnNlZ10NCj4gLSAg
+ICAgICAgICAgICAgICAgICAgICsgZW50cnlbaV0ucmVnX29mZnNldDsNCj4gKyAgICAgICAgICAg
+ICBpZiAoKGVudHJ5W2ldLmNtZCA9PSBDTURfV1JJVEUpIHx8DQo+ICsgICAgICAgICAgICAgICAg
+IChlbnRyeVtpXS5jbWQgPT0gQ01EX1JFQURNT0RJRllXUklURSkgfHwNCj4gKyAgICAgICAgICAg
+ICAgICAgKGVudHJ5W2ldLmNtZCA9PSBDTURfV0FJVEZPUikpDQo+ICsgICAgICAgICAgICAgICAg
+ICAgICByZWcgPSBhZGV2LT5yZWdfb2Zmc2V0W2VudHJ5W2ldLmh3aXBdW2VudHJ5W2ldLmluc3Rd
+W2VudHJ5W2ldLnNlZ10NCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKyBlbnRyeVtp
+XS5yZWdfb2Zmc2V0Ow0KPiAgICAgICAgICAgICAgIGlmICghYmFjb19jbWRfaGFuZGxlcihod21n
+ciwgZW50cnlbaV0uY21kLCByZWcsIGVudHJ5W2ldLm1hc2ssDQo+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgZW50cnlbaV0uc2hpZnQsIGVudHJ5W2ldLnZhbCwgZW50cnlbaV0u
+dGltZW91dCkpDQo+ICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gZmFsc2U7DQoNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxp
+bmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
