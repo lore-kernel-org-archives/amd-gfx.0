@@ -1,88 +1,54 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.20 221/304] drm/amd/display: fix YCbCr420 blank color
-Date: Mon, 28 Jan 2019 10:42:18 -0500
-Message-ID: <20190128154341.47195-221-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.20 243/304] drm/amd/display: validate extended dongle caps
+Date: Mon, 28 Jan 2019 10:42:40 -0500
+Message-ID: <20190128154341.47195-243-sashal@kernel.org>
 References: <20190128154341.47195-1-sashal@kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Return-path: <stable-owner@vger.kernel.org>
 In-Reply-To: <20190128154341.47195-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
+Sender: stable-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Eric Yang <Eric.Yang2@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Wenjing Liu <Wenjing.Liu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Eric Yang <Eric.Yang2@amd.com>
+From: Wenjing Liu <Wenjing.Liu@amd.com>
 
-[ Upstream commit 12750d1647f118496f1da727146f255f5e44d500 ]
+[ Upstream commit 99b922f9ed6a6313c0d2247cde8aa1e4a0bd67e4 ]
 
-[Why]
-YCbCr420 packing format uses two chanels for luma, and 1
-channel for both chroma component. Our previous implementation
-did not account for this and results in every other pixel having
-very high luma value, showing greyish color instead of black.
+[why]
+Some dongle doesn't have a valid extended dongle caps,
+but we still set the extended dongle caps to be valid.
+This causes validation fails for all timing.
 
-YCbCr444 = <Y1, Cb1, Cr1>; <Y2, Cb2, Cr2> .....
-YCbCr420 = <Y1, Y2,  Cb1>; <Y3, Y4,  Cr1> .....
+[how]
+If no dp_hdmi_max_pixel_clk is provided,
+don't use extended dongle caps.
 
-[How]
-Program the second channel with the black color value for luma
-as well.
-
-Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
-Reviewed-by: Hugo Hu <Hugo.Hu@amd.com>
+Signed-off-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Abdoulaye Berthe <Abdoulaye.Berthe@amd.com>
 Acked-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/dce110/dce110_hw_sequencer.c   | 11 ++++++++++-
- .../gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c |  9 +++++++++
- 2 files changed, 19 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index a6bcb90e8419..4443a916a0fb 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1268,10 +1268,19 @@ static void program_scaler(const struct dc *dc,
- 		pipe_ctx->plane_res.scl_data.lb_params.depth,
- 		&pipe_ctx->stream->bit_depth_params);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index d91df5ef0cb3..d33a5ebe990b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -2240,7 +2240,8 @@ static void get_active_converter_info(
+ 					translate_dpcd_max_bpc(
+ 						hdmi_color_caps.bits.MAX_BITS_PER_COLOR_COMPONENT);
  
--	if (pipe_ctx->stream_res.tg->funcs->set_overscan_blank_color)
-+	if (pipe_ctx->stream_res.tg->funcs->set_overscan_blank_color) {
-+		/*
-+		 * The way 420 is packed, 2 channels carry Y component, 1 channel
-+		 * alternate between Cb and Cr, so both channels need the pixel
-+		 * value for Y
-+		 */
-+		if (pipe_ctx->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)
-+			color.color_r_cr = color.color_g_y;
-+
- 		pipe_ctx->stream_res.tg->funcs->set_overscan_blank_color(
- 				pipe_ctx->stream_res.tg,
- 				&color);
-+	}
+-				link->dpcd_caps.dongle_caps.extendedCapValid = true;
++				if (link->dpcd_caps.dongle_caps.dp_hdmi_max_pixel_clk != 0)
++					link->dpcd_caps.dongle_caps.extendedCapValid = true;
+ 			}
  
- 	pipe_ctx->plane_res.xfm->funcs->transform_set_scaler(pipe_ctx->plane_res.xfm,
- 		&pipe_ctx->plane_res.scl_data);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 32e4c653b1b4..220ba828748d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2165,6 +2165,15 @@ static void dcn10_blank_pixel_data(
- 	color_space = stream->output_color_space;
- 	color_space_to_black_color(dc, color_space, &black_color);
- 
-+	/*
-+	 * The way 420 is packed, 2 channels carry Y component, 1 channel
-+	 * alternate between Cb and Cr, so both channels need the pixel
-+	 * value for Y
-+	 */
-+	if (stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)
-+		black_color.color_r_cr = black_color.color_g_y;
-+
-+
- 	if (stream_res->tg->funcs->set_blank_color)
- 		stream_res->tg->funcs->set_blank_color(
- 				stream_res->tg,
+ 			break;
 -- 
 2.19.1
