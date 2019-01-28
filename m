@@ -1,59 +1,67 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 109/258] drm/amdgpu/powerplay: fix clock stretcher limits on polaris (v2)
-Date: Mon, 28 Jan 2019 10:56:55 -0500
-Message-ID: <20190128155924.51521-109-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 183/258] drm/amd/display: Add retry to read
+ ddc_clock pin
+Date: Mon, 28 Jan 2019 10:58:09 -0500
+Message-ID: <20190128155924.51521-183-sashal@kernel.org>
 References: <20190128155924.51521-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 In-Reply-To: <20190128155924.51521-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, Paul Hsieh <paul.hsieh@amd.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Alex Deucher <alexander.deucher@amd.com>
-
-[ Upstream commit de4aaab5cc9770a8c4dc13d9bfb6a83b06bba57e ]
-
-Adjust limits for newer polaris variants.
-
-v2: fix polaris11 kicker (Jerry)
-
-Reviewed-by: Junwei Zhang <Jerry.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../drm/amd/powerplay/smumgr/polaris10_smumgr.c | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-index 5b67f575cd34..45629f26dbc2 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-@@ -1528,8 +1528,21 @@ static int polaris10_populate_clock_stretcher_data_table(struct pp_hwmgr *hwmgr)
- 	efuse = efuse >> 24;
- 
- 	if (hwmgr->chip_id == CHIP_POLARIS10) {
--		min = 1000;
--		max = 2300;
-+		if (hwmgr->is_kicker) {
-+			min = 1200;
-+			max = 2500;
-+		} else {
-+			min = 1000;
-+			max = 2300;
-+		}
-+	} else if (hwmgr->chip_id == CHIP_POLARIS11) {
-+		if (hwmgr->is_kicker) {
-+			min = 900;
-+			max = 2100;
-+		} else {
-+			min = 1100;
-+			max = 2100;
-+		}
- 	} else {
- 		min = 1100;
- 		max = 2100;
--- 
-2.19.1
+RnJvbTogUGF1bCBIc2llaCA8cGF1bC5oc2llaEBhbWQuY29tPgoKWyBVcHN0cmVhbSBjb21taXQg
+YmQ0OTA1YTk1ODNjNzYwZGEzMWRlZDcyNTZkY2E2ZjcxNDgzYzNkYyBdCgpbV0hZXQpPbiBjdXN0
+b21lciBib2FyZCwgdGhlcmUgaXMgb25lIHBsdXNlICgxdiAsIDwgMW1zKSBvbgpERENfQ0xLIHBp
+biB3aGVuIHBsdWcgLyB1bnBsdWcgRFAgY2FibGUuIERyaXZlciB3aWxsIHJlYWQKaXQgYW5kIGNv
+bmZpZyBEUCB0byBIRE1JL0RWSSBkb25nbGUuCgpbSE9XXQpJZiB0aGVyZSBpcyBhIHJlYWwgZG9u
+Z2xlLCBERENfQ0xLIHNob3VsZCBiZSBhbHdheXMgcHVsbCBoaWdoLgpUcnkgdG8gcmVhZCBhZ2Fp
+biB0byByZWNvdmVyeSB0aGlzIHNwZWNpYWwgY2FzZS4gUmV0cnkgdGltZXMgPSAzLgpOZWVkIGFk
+ZGl0aW9uYWwgM21zIHRvIGRldGVjdCBEUCBwYXNzaXZlIGRvbmdsZSgzIGZhaWx1cmVzKQoKU2ln
+bmVkLW9mZi1ieTogUGF1bCBIc2llaCA8cGF1bC5oc2llaEBhbWQuY29tPgpSZXZpZXdlZC1ieTog
+RXJpYyBZYW5nIDxlcmljLnlhbmcyQGFtZC5jb20+CkFja2VkLWJ5OiBMZW8gTGkgPHN1bnBlbmcu
+bGlAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
+ckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+
+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jIHwgMjMg
+KysrKysrKysrKysrKystLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDYg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2NvcmUvZGNfbGluay5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNf
+bGluay5jCmluZGV4IDdjODk3ODVmZDczMS4uMjNhN2VmOTdhZmRkIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jCkBAIC0zMjQsNyArMzI0LDcgQEAg
+Ym9vbCBkY19saW5rX2lzX2RwX3NpbmtfcHJlc2VudChzdHJ1Y3QgZGNfbGluayAqbGluaykKIHsK
+IAllbnVtIGdwaW9fcmVzdWx0IGdwaW9fcmVzdWx0OwogCXVpbnQzMl90IGNsb2NrX3BpbiA9IDA7
+Ci0KKwl1aW50OF90IHJldHJ5ID0gMDsKIAlzdHJ1Y3QgZGRjICpkZGM7CiAKIAllbnVtIGNvbm5l
+Y3Rvcl9pZCBjb25uZWN0b3JfaWQgPQpAQCAtMzUzLDExICszNTMsMjIgQEAgYm9vbCBkY19saW5r
+X2lzX2RwX3NpbmtfcHJlc2VudChzdHJ1Y3QgZGNfbGluayAqbGluaykKIAkJcmV0dXJuIHByZXNl
+bnQ7CiAJfQogCi0JLyogUmVhZCBHUElPOiBEUCBzaW5rIGlzIHByZXNlbnQgaWYgYm90aCBjbG9j
+ayBhbmQgZGF0YSBwaW5zIGFyZSB6ZXJvICovCi0JLyogW2FuYXVtb3ZdIGluIERBTDIsIHRoZXJl
+IHdhcyBubyBjaGVjayBmb3IgR1BJTyBmYWlsdXJlICovCi0KLQlncGlvX3Jlc3VsdCA9IGRhbF9n
+cGlvX2dldF92YWx1ZShkZGMtPnBpbl9jbG9jaywgJmNsb2NrX3Bpbik7Ci0JQVNTRVJUKGdwaW9f
+cmVzdWx0ID09IEdQSU9fUkVTVUxUX09LKTsKKwkvKgorCSAqIFJlYWQgR1BJTzogRFAgc2luayBp
+cyBwcmVzZW50IGlmIGJvdGggY2xvY2sgYW5kIGRhdGEgcGlucyBhcmUgemVybworCSAqCisJICog
+W1cvQV0gcGx1Zy11bnBsdWcgRFAgY2FibGUsIHNvbWV0aW1lcyBjdXN0b21lciBib2FyZCBoYXMK
+KwkgKiBvbmUgc2hvcnQgcHVsc2Ugb24gY2xrX3BpbigxViwgPCAxbXMpLiBEUCB3aWxsIGJlIGNv
+bmZpZyB0byBIRE1JL0RWSQorCSAqIHRoZW4gbW9uaXRvciBjYW4ndCBiciBsaWdodCB1cC4gQWRk
+IHJldHJ5IDMgdGltZXMKKwkgKiBCdXQgaW4gcmVhbCBwYXNzaXZlIGRvbmdsZSwgaXQgbmVlZCBh
+ZGRpdGlvbmFsIDNtcyB0byBkZXRlY3QKKwkgKi8KKwlkbyB7CisJCWdwaW9fcmVzdWx0ID0gZGFs
+X2dwaW9fZ2V0X3ZhbHVlKGRkYy0+cGluX2Nsb2NrLCAmY2xvY2tfcGluKTsKKwkJQVNTRVJUKGdw
+aW9fcmVzdWx0ID09IEdQSU9fUkVTVUxUX09LKTsKKwkJaWYgKGNsb2NrX3BpbikKKwkJCXVkZWxh
+eSgxMDAwKTsKKwkJZWxzZQorCQkJYnJlYWs7CisJfSB3aGlsZSAocmV0cnkrKyA8IDMpOwogCiAJ
+cHJlc2VudCA9IChncGlvX3Jlc3VsdCA9PSBHUElPX1JFU1VMVF9PSykgJiYgIWNsb2NrX3BpbjsK
+IAotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2
+ZWwK
