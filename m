@@ -1,80 +1,53 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.20 218/304] drm/amd/display: Add retry to read ddc_clock pin
-Date: Mon, 28 Jan 2019 10:42:15 -0500
-Message-ID: <20190128154341.47195-218-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.20 219/304] drm/amd/display: Wait edp HPD to high in
+ detect_sink
+Date: Mon, 28 Jan 2019 10:42:16 -0500
+Message-ID: <20190128154341.47195-219-sashal@kernel.org>
 References: <20190128154341.47195-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 In-Reply-To: <20190128154341.47195-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Paul Hsieh <paul.hsieh@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, Dale Zhao <dale.zhao@amd.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Paul Hsieh <paul.hsieh@amd.com>
-
-[ Upstream commit bd4905a9583c760da31ded7256dca6f71483c3dc ]
-
-[WHY]
-On customer board, there is one pluse (1v , < 1ms) on
-DDC_CLK pin when plug / unplug DP cable. Driver will read
-it and config DP to HDMI/DVI dongle.
-
-[HOW]
-If there is a real dongle, DDC_CLK should be always pull high.
-Try to read again to recovery this special case. Retry times = 3.
-Need additional 3ms to detect DP passive dongle(3 failures)
-
-Signed-off-by: Paul Hsieh <paul.hsieh@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
-Acked-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 23 ++++++++++++++-----
- 1 file changed, 17 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 5141c1401889..ef1b350a45e0 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -332,7 +332,7 @@ bool dc_link_is_dp_sink_present(struct dc_link *link)
- {
- 	enum gpio_result gpio_result;
- 	uint32_t clock_pin = 0;
--
-+	uint8_t retry = 0;
- 	struct ddc *ddc;
- 
- 	enum connector_id connector_id =
-@@ -361,11 +361,22 @@ bool dc_link_is_dp_sink_present(struct dc_link *link)
- 		return present;
- 	}
- 
--	/* Read GPIO: DP sink is present if both clock and data pins are zero */
--	/* [anaumov] in DAL2, there was no check for GPIO failure */
--
--	gpio_result = dal_gpio_get_value(ddc->pin_clock, &clock_pin);
--	ASSERT(gpio_result == GPIO_RESULT_OK);
-+	/*
-+	 * Read GPIO: DP sink is present if both clock and data pins are zero
-+	 *
-+	 * [W/A] plug-unplug DP cable, sometimes customer board has
-+	 * one short pulse on clk_pin(1V, < 1ms). DP will be config to HDMI/DVI
-+	 * then monitor can't br light up. Add retry 3 times
-+	 * But in real passive dongle, it need additional 3ms to detect
-+	 */
-+	do {
-+		gpio_result = dal_gpio_get_value(ddc->pin_clock, &clock_pin);
-+		ASSERT(gpio_result == GPIO_RESULT_OK);
-+		if (clock_pin)
-+			udelay(1000);
-+		else
-+			break;
-+	} while (retry++ < 3);
- 
- 	present = (gpio_result == GPIO_RESULT_OK) && !clock_pin;
- 
--- 
-2.19.1
+RnJvbTogRGFsZSBaaGFvIDxkYWxlLnpoYW9AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDBh
+NjQxNGU3NWQyMzFlZTFiYjdmZmIyZjVlYjI0NmI2ODJhODg0Y2QgXQoKW1doeV0KSW4gOTklIHVz
+ZXIgY2FzZSwgZWRwIHdpbGwgYmUgcG9zdCBieSB2Ymlvcy4KSW4gMSUgLyBjdXJyZW50IGNhc2U6
+IExlbm92byBkb24ndCBsaWdodCB1cCBlZHAgcGFuZWwgaW4gdmJpb3MKcG9zdCBzdGFnZSwgdmJp
+b3Mgd29uJ3QgYmUgbGl0IHVwLiBUaHVzIGluIGRhbCB3aGVuIHdlIGluaXQgRENOCjEwIGh3LCB3
+ZSBwb3dlciB1cCBlZHAsIHRoZW4gd2Ugc3RhcnQgZGV0ZWN0X3NpbmssIGJ1dCBpbnRlcm5hbAp0
+aW1lIGlzIHRvbyBzaG9ydCwgd2hlbiB3ZSBkZXRlY3QgaXQsIEhQRCBpcyBzdGlsbCBsb3csIHNv
+IHdlIGRvbid0CmRldGVjdCB0aGUgZWRwLCBhbmQgZWRwIHNob3dzIGJsYWNrLgoKW0hvd10KV2hl
+biB3ZSBpbml0IGh3LCB3ZSB3YWl0IGVkcCBIUEQgdG8gaGlnaCBhZnRlciBwb3dlciB1cCBlZHAu
+CgpTaWduZWQtb2ZmLWJ5OiBEYWxlIFpoYW8gPGRhbGUuemhhb0BhbWQuY29tPgpSZXZpZXdlZC1i
+eTogRXJpYyBZYW5nIDxlcmljLnlhbmcyQGFtZC5jb20+CkFja2VkLWJ5OiBMZW8gTGkgPHN1bnBl
+bmcubGlAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
+Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5v
+cmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jIHwg
+MyArKysKIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMKaW5kZXggZWYxYjM1MGE0NWUwLi44YjY5
+OTEzYjY5NDMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
+L2RjX2xpbmsuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19s
+aW5rLmMKQEAgLTIwOCw2ICsyMDgsOSBAQCBib29sIGRjX2xpbmtfZGV0ZWN0X3Npbmsoc3RydWN0
+IGRjX2xpbmsgKmxpbmssIGVudW0gZGNfY29ubmVjdGlvbl90eXBlICp0eXBlKQogCQlyZXR1cm4g
+dHJ1ZTsKIAl9CiAKKwlpZiAobGluay0+Y29ubmVjdG9yX3NpZ25hbCA9PSBTSUdOQUxfVFlQRV9F
+RFApCisJCWxpbmstPmRjLT5od3NzLmVkcF93YWl0X2Zvcl9ocGRfcmVhZHkobGluaywgdHJ1ZSk7
+CisKIAkvKiB0b2RvOiBtYXkgbmVlZCB0byBsb2NrIGdwaW8gYWNjZXNzICovCiAJaHBkX3BpbiA9
+IGdldF9ocGRfZ3BpbyhsaW5rLT5jdHgtPmRjX2Jpb3MsIGxpbmstPmxpbmtfaWQsIGxpbmstPmN0
+eC0+Z3Bpb19zZXJ2aWNlKTsKIAlpZiAoaHBkX3BpbiA9PSBOVUxMKQotLSAKMi4xOS4xCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFp
+bGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
