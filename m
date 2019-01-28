@@ -1,50 +1,80 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.20 129/304] drm/amdgpu/powerplay: fix clock
- stretcher limits on polaris (v2)
-Date: Mon, 28 Jan 2019 10:40:46 -0500
-Message-ID: <20190128154341.47195-129-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.20 218/304] drm/amd/display: Add retry to read ddc_clock pin
+Date: Mon, 28 Jan 2019 10:42:15 -0500
+Message-ID: <20190128154341.47195-218-sashal@kernel.org>
 References: <20190128154341.47195-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190128154341.47195-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190128154341.47195-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Paul Hsieh <paul.hsieh@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKWyBVcHN0cmVh
-bSBjb21taXQgZGU0YWFhYjVjYzk3NzBhOGM0ZGMxM2Q5YmZiNmE4M2IwNmJiYTU3ZSBdCgpBZGp1
-c3QgbGltaXRzIGZvciBuZXdlciBwb2xhcmlzIHZhcmlhbnRzLgoKdjI6IGZpeCBwb2xhcmlzMTEg
-a2lja2VyIChKZXJyeSkKClJldmlld2VkLWJ5OiBKdW53ZWkgWmhhbmcgPEplcnJ5LlpoYW5nQGFt
-ZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
-LmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0K
-IC4uLi9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jIHwgMTcgKysr
-KysrKysrKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCAyIGRlbGV0
-aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1n
-ci9wb2xhcmlzMTBfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVt
-Z3IvcG9sYXJpczEwX3NtdW1nci5jCmluZGV4IGExZTBhYzlhZTI0OC4uOTBjMTIxNWM2ZjVlIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEw
-X3NtdW1nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xh
-cmlzMTBfc211bWdyLmMKQEAgLTE1MjksOCArMTUyOSwyMSBAQCBzdGF0aWMgaW50IHBvbGFyaXMx
-MF9wb3B1bGF0ZV9jbG9ja19zdHJldGNoZXJfZGF0YV90YWJsZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3
-bWdyKQogCWVmdXNlID0gZWZ1c2UgPj4gMjQ7CiAKIAlpZiAoaHdtZ3ItPmNoaXBfaWQgPT0gQ0hJ
-UF9QT0xBUklTMTApIHsKLQkJbWluID0gMTAwMDsKLQkJbWF4ID0gMjMwMDsKKwkJaWYgKGh3bWdy
-LT5pc19raWNrZXIpIHsKKwkJCW1pbiA9IDEyMDA7CisJCQltYXggPSAyNTAwOworCQl9IGVsc2Ug
-eworCQkJbWluID0gMTAwMDsKKwkJCW1heCA9IDIzMDA7CisJCX0KKwl9IGVsc2UgaWYgKGh3bWdy
-LT5jaGlwX2lkID09IENISVBfUE9MQVJJUzExKSB7CisJCWlmIChod21nci0+aXNfa2lja2VyKSB7
-CisJCQltaW4gPSA5MDA7CisJCQltYXggPSAyMTAwOworCQl9IGVsc2UgeworCQkJbWluID0gMTEw
-MDsKKwkJCW1heCA9IDIxMDA7CisJCX0KIAl9IGVsc2UgewogCQltaW4gPSAxMTAwOwogCQltYXgg
-PSAyMTAwOwotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+From: Paul Hsieh <paul.hsieh@amd.com>
+
+[ Upstream commit bd4905a9583c760da31ded7256dca6f71483c3dc ]
+
+[WHY]
+On customer board, there is one pluse (1v , < 1ms) on
+DDC_CLK pin when plug / unplug DP cable. Driver will read
+it and config DP to HDMI/DVI dongle.
+
+[HOW]
+If there is a real dongle, DDC_CLK should be always pull high.
+Try to read again to recovery this special case. Retry times = 3.
+Need additional 3ms to detect DP passive dongle(3 failures)
+
+Signed-off-by: Paul Hsieh <paul.hsieh@amd.com>
+Reviewed-by: Eric Yang <eric.yang2@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 23 ++++++++++++++-----
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 5141c1401889..ef1b350a45e0 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -332,7 +332,7 @@ bool dc_link_is_dp_sink_present(struct dc_link *link)
+ {
+ 	enum gpio_result gpio_result;
+ 	uint32_t clock_pin = 0;
+-
++	uint8_t retry = 0;
+ 	struct ddc *ddc;
+ 
+ 	enum connector_id connector_id =
+@@ -361,11 +361,22 @@ bool dc_link_is_dp_sink_present(struct dc_link *link)
+ 		return present;
+ 	}
+ 
+-	/* Read GPIO: DP sink is present if both clock and data pins are zero */
+-	/* [anaumov] in DAL2, there was no check for GPIO failure */
+-
+-	gpio_result = dal_gpio_get_value(ddc->pin_clock, &clock_pin);
+-	ASSERT(gpio_result == GPIO_RESULT_OK);
++	/*
++	 * Read GPIO: DP sink is present if both clock and data pins are zero
++	 *
++	 * [W/A] plug-unplug DP cable, sometimes customer board has
++	 * one short pulse on clk_pin(1V, < 1ms). DP will be config to HDMI/DVI
++	 * then monitor can't br light up. Add retry 3 times
++	 * But in real passive dongle, it need additional 3ms to detect
++	 */
++	do {
++		gpio_result = dal_gpio_get_value(ddc->pin_clock, &clock_pin);
++		ASSERT(gpio_result == GPIO_RESULT_OK);
++		if (clock_pin)
++			udelay(1000);
++		else
++			break;
++	} while (retry++ < 3);
+ 
+ 	present = (gpio_result == GPIO_RESULT_OK) && !clock_pin;
+ 
+-- 
+2.19.1
