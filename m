@@ -1,12 +1,13 @@
 From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: clean up memory/GDS/GWS/OA alignment code
-Date: Mon, 28 Jan 2019 12:25:21 -0500
-Message-ID: <CAAxE2A5iYwWCcrmUWxecoKtcjtuH=9sx==e3W3-kBnBwmfD1aA@mail.gmail.com>
-References: <20190122214532.1822-1-maraeo@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: add a workaround for GDS ordered append hangs
+ with compute queues
+Date: Mon, 28 Jan 2019 12:25:12 -0500
+Message-ID: <CAAxE2A7xs40YZvCQpMmv9X0Z98Sc7+ZEbFJDJLfmkMuWHzuprw@mail.gmail.com>
+References: <20190122200546.1575-1-maraeo@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1350293406=="
+Content-Type: multipart/mixed; boundary="===============1606201160=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190122214532.1822-1-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <20190122200546.1575-1-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,368 +20,1106 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1350293406==
-Content-Type: multipart/alternative; boundary="00000000000049e7eb058087f86a"
+--===============1606201160==
+Content-Type: multipart/alternative; boundary="000000000000cbf241058087f7a7"
 
---00000000000049e7eb058087f86a
+--000000000000cbf241058087f7a7
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Ping
 
-On Tue, Jan 22, 2019 at 4:45 PM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
+On Tue, Jan 22, 2019 at 3:05 PM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
 ote:
 
 > From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
 >
-> - move all adjustments into one place
-> - specify GDS/GWS/OA alignment in basic units of the heaps
-> - it looks like GDS alignment was 1 instead of 4
+> I'm not increasing the DRM version because GDS isn't totally without bugs
+> yet.
+>
+> v2: update emit_ib_size
 >
 > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  7 -------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 16 ++++++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c    |  6 +++---
->  3 files changed, 15 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h |  2 ++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 19 +++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   | 21 +++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 40 +++++++++++++++++++++++--
+>  include/uapi/drm/amdgpu_drm.h           |  5 ++++
+>  5 files changed, 82 insertions(+), 5 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index f4f00217546e..d21dd2f369da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -47,24 +47,20 @@ int amdgpu_gem_object_create(struct amdgpu_device
-> *adev, unsigned long size,
->                              u64 flags, enum ttm_bo_type type,
->                              struct reservation_object *resv,
->                              struct drm_gem_object **obj)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h
+> index ecbcefe49a98..f89f5734d985 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h
+> @@ -30,20 +30,22 @@ struct amdgpu_bo;
+>  struct amdgpu_gds_asic_info {
+>         uint32_t        total_size;
+>         uint32_t        gfx_partition_size;
+>         uint32_t        cs_partition_size;
+>  };
+>
+>  struct amdgpu_gds {
+>         struct amdgpu_gds_asic_info     mem;
+>         struct amdgpu_gds_asic_info     gws;
+>         struct amdgpu_gds_asic_info     oa;
+> +       uint32_t                        gds_compute_max_wave_id;
+> +
+>         /* At present, GDS, GWS and OA resources for gfx (graphics)
+>          * is always pre-allocated and available for graphics operation.
+>          * Such resource is shared between all gfx clients.
+>          * TODO: move this operation to user space
+>          * */
+>         struct amdgpu_bo*               gds_gfx_bo;
+>         struct amdgpu_bo*               gws_gfx_bo;
+>         struct amdgpu_bo*               oa_gfx_bo;
+>  };
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 7984292f9282..a59e0fdf5a97 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -2257,20 +2257,36 @@ static void gfx_v7_0_ring_emit_ib_gfx(struct
+> amdgpu_ring *ring,
+>  }
+>
+>  static void gfx_v7_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+>                                           struct amdgpu_job *job,
+>                                           struct amdgpu_ib *ib,
+>                                           uint32_t flags)
 >  {
->         struct amdgpu_bo *bo;
->         struct amdgpu_bo_param bp;
->         int r;
+>         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+>         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << =
+24);
 >
->         memset(&bp, 0, sizeof(bp));
->         *obj =3D NULL;
-> -       /* At least align on page size */
-> -       if (alignment < PAGE_SIZE) {
-> -               alignment =3D PAGE_SIZE;
-> -       }
->
->         bp.size =3D size;
->         bp.byte_align =3D alignment;
->         bp.type =3D type;
->         bp.resv =3D resv;
->         bp.preferred_domain =3D initial_domain;
->  retry:
->         bp.flags =3D flags;
->         bp.domain =3D initial_domain;
->         r =3D amdgpu_bo_create(adev, &bp, &bo);
-> @@ -237,23 +233,20 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev,
-> void *data,
->         if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
->             AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
->                 if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
->                         /* if gds bo is created from user space, it must =
-be
->                          * passed to bo list
->                          */
->                         DRM_ERROR("GDS bo cannot be per-vm-bo\n");
->                         return -EINVAL;
->                 }
->                 flags |=3D AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
-> -               /* GDS allocations must be DW aligned */
-> -               if (args->in.domains & AMDGPU_GEM_DOMAIN_GDS)
-> -                       size =3D ALIGN(size, 4);
->         }
->
->         if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
->                 r =3D amdgpu_bo_reserve(vm->root.base.bo, false);
->                 if (r)
->                         return r;
->
->                 resv =3D vm->root.base.bo->tbo.resv;
->         }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 728e15e5d68a..fd9c4beeaaa4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -419,26 +419,34 @@ static int amdgpu_bo_do_create(struct amdgpu_device
-> *adev,
->                 .interruptible =3D (bp->type !=3D ttm_bo_type_kernel),
->                 .no_wait_gpu =3D false,
->                 .resv =3D bp->resv,
->                 .flags =3D TTM_OPT_FLAG_ALLOW_RES_EVICT
->         };
->         struct amdgpu_bo *bo;
->         unsigned long page_align, size =3D bp->size;
->         size_t acc_size;
->         int r;
->
-> -       page_align =3D roundup(bp->byte_align, PAGE_SIZE) >> PAGE_SHIFT;
-> -       if (bp->domain & (AMDGPU_GEM_DOMAIN_GDS | AMDGPU_GEM_DOMAIN_GWS |
-> -                         AMDGPU_GEM_DOMAIN_OA))
-> +       /* Note that GDS/GWS/OA allocates 1 page per byte/resource. */
-> +       if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) =
-{
-> +               /* GWS and OA don't need any alignment. */
-> +               page_align =3D bp->byte_align;
->                 size <<=3D PAGE_SHIFT;
-> -       else
-> +       } else if (bp->domain & AMDGPU_GEM_DOMAIN_GDS) {
-> +               /* Both size and alignment must be a multiple of 4. */
-> +               page_align =3D ALIGN(bp->byte_align, 4);
-> +               size =3D ALIGN(size, 4) << PAGE_SHIFT;
-> +       } else {
-> +               /* Memory should be aligned at least to a page size. */
-> +               page_align =3D ALIGN(bp->byte_align, PAGE_SIZE) >>
-> PAGE_SHIFT;
->                 size =3D ALIGN(size, PAGE_SIZE);
+> +       /* Currently, there is a high possibility to get wave ID mismatch
+> +        * between ME and GDS, leading to a hw deadlock, because ME
+> generates
+> +        * different wave IDs than the GDS expects. This situation happen=
+s
+> +        * randomly when at least 5 compute pipes use GDS ordered append.
+> +        * The wave IDs generated by ME are also wrong after
+> suspend/resume.
+> +        * Those are probably bugs somewhere else in the kernel driver.
+> +        *
+> +        * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave ID counters in ME
+> and
+> +        * GDS to 0 for this ring (me/pipe).
+> +        */
+> +       if (ib->flags & AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID) {
+> +               amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONFIG_REG,
+> 1));
+> +               amdgpu_ring_write(ring, mmGDS_COMPUTE_MAX_WAVE_ID -
+> PACKET3_SET_CONFIG_REG_START);
+> +               amdgpu_ring_write(ring,
+> ring->adev->gds.gds_compute_max_wave_id);
 > +       }
+> +
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_INDIRECT_BUFFER, 2));
+>         amdgpu_ring_write(ring,
+>  #ifdef __BIG_ENDIAN
+>                                           (2 << 0) |
+>  #endif
+>                                           (ib->gpu_addr & 0xFFFFFFFC));
+>         amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr) & 0xFFFF);
+>         amdgpu_ring_write(ring, control);
+>  }
 >
->         if (!amdgpu_bo_validate_size(adev, size, bp->domain))
->                 return -ENOMEM;
+> @@ -4993,21 +5009,21 @@ static const struct amdgpu_ring_funcs
+> gfx_v7_0_ring_funcs_compute =3D {
+>         .get_rptr =3D gfx_v7_0_ring_get_rptr,
+>         .get_wptr =3D gfx_v7_0_ring_get_wptr_compute,
+>         .set_wptr =3D gfx_v7_0_ring_set_wptr_compute,
+>         .emit_frame_size =3D
+>                 20 + /* gfx_v7_0_ring_emit_gds_switch */
+>                 7 + /* gfx_v7_0_ring_emit_hdp_flush */
+>                 5 + /* hdp invalidate */
+>                 7 + /* gfx_v7_0_ring_emit_pipeline_sync */
+>                 CIK_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + /*
+> gfx_v7_0_ring_emit_vm_flush */
+>                 7 + 7 + 7, /* gfx_v7_0_ring_emit_fence_compute x3 for use=
+r
+> fence, vm fence */
+> -       .emit_ib_size =3D 4, /* gfx_v7_0_ring_emit_ib_compute */
+> +       .emit_ib_size =3D 7, /* gfx_v7_0_ring_emit_ib_compute */
+>         .emit_ib =3D gfx_v7_0_ring_emit_ib_compute,
+>         .emit_fence =3D gfx_v7_0_ring_emit_fence_compute,
+>         .emit_pipeline_sync =3D gfx_v7_0_ring_emit_pipeline_sync,
+>         .emit_vm_flush =3D gfx_v7_0_ring_emit_vm_flush,
+>         .emit_gds_switch =3D gfx_v7_0_ring_emit_gds_switch,
+>         .emit_hdp_flush =3D gfx_v7_0_ring_emit_hdp_flush,
+>         .test_ring =3D gfx_v7_0_ring_test_ring,
+>         .test_ib =3D gfx_v7_0_ring_test_ib,
+>         .insert_nop =3D amdgpu_ring_insert_nop,
+>         .pad_ib =3D amdgpu_ring_generic_pad_ib,
+> @@ -5050,20 +5066,21 @@ static void gfx_v7_0_set_irq_funcs(struct
+> amdgpu_device *adev)
+>         adev->gfx.priv_inst_irq.num_types =3D 1;
+>         adev->gfx.priv_inst_irq.funcs =3D &gfx_v7_0_priv_inst_irq_funcs;
+>  }
 >
->         *bo_ptr =3D NULL;
+>  static void gfx_v7_0_set_gds_init(struct amdgpu_device *adev)
+>  {
+>         /* init asci gds info */
+>         adev->gds.mem.total_size =3D RREG32(mmGDS_VMID0_SIZE);
+>         adev->gds.gws.total_size =3D 64;
+>         adev->gds.oa.total_size =3D 16;
+> +       adev->gds.gds_compute_max_wave_id =3D
+> RREG32(mmGDS_COMPUTE_MAX_WAVE_ID);
 >
->         acc_size =3D ttm_bo_dma_acc_size(&adev->mman.bdev, size,
->                                        sizeof(struct amdgpu_bo));
+>         if (adev->gds.mem.total_size =3D=3D 64 * 1024) {
+>                 adev->gds.mem.gfx_partition_size =3D 4096;
+>                 adev->gds.mem.cs_partition_size =3D 4096;
 >
->         bo =3D kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index b852abb9db0f..73e71e61dc99 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1749,47 +1749,47 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+>                 adev->gds.gws.gfx_partition_size =3D 4;
+>                 adev->gds.gws.cs_partition_size =3D 4;
 >
->         /* Initialize various on-chip memory pools */
->         r =3D ttm_bo_init_mm(&adev->mman.bdev, AMDGPU_PL_GDS,
->                            adev->gds.mem.total_size);
->         if (r) {
->                 DRM_ERROR("Failed initializing GDS heap.\n");
->                 return r;
+>                 adev->gds.oa.gfx_partition_size =3D 4;
+>                 adev->gds.oa.cs_partition_size =3D 1;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index a26747681ed6..b8e50a34bdb3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -6077,20 +6077,36 @@ static void gfx_v8_0_ring_emit_ib_gfx(struct
+> amdgpu_ring *ring,
+>  }
+>
+>  static void gfx_v8_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+>                                           struct amdgpu_job *job,
+>                                           struct amdgpu_ib *ib,
+>                                           uint32_t flags)
+>  {
+>         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+>         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << =
+24);
+>
+> +       /* Currently, there is a high possibility to get wave ID mismatch
+> +        * between ME and GDS, leading to a hw deadlock, because ME
+> generates
+> +        * different wave IDs than the GDS expects. This situation happen=
+s
+> +        * randomly when at least 5 compute pipes use GDS ordered append.
+> +        * The wave IDs generated by ME are also wrong after
+> suspend/resume.
+> +        * Those are probably bugs somewhere else in the kernel driver.
+> +        *
+> +        * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave ID counters in ME
+> and
+> +        * GDS to 0 for this ring (me/pipe).
+> +        */
+> +       if (ib->flags & AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID) {
+> +               amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONFIG_REG,
+> 1));
+> +               amdgpu_ring_write(ring, mmGDS_COMPUTE_MAX_WAVE_ID -
+> PACKET3_SET_CONFIG_REG_START);
+> +               amdgpu_ring_write(ring,
+> ring->adev->gds.gds_compute_max_wave_id);
+> +       }
+> +
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_INDIRECT_BUFFER, 2));
+>         amdgpu_ring_write(ring,
+>  #ifdef __BIG_ENDIAN
+>                                 (2 << 0) |
+>  #endif
+>                                 (ib->gpu_addr & 0xFFFFFFFC));
+>         amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr) & 0xFFFF);
+>         amdgpu_ring_write(ring, control);
+>  }
+>
+> @@ -6883,21 +6899,21 @@ static const struct amdgpu_ring_funcs
+> gfx_v8_0_ring_funcs_compute =3D {
+>         .get_rptr =3D gfx_v8_0_ring_get_rptr,
+>         .get_wptr =3D gfx_v8_0_ring_get_wptr_compute,
+>         .set_wptr =3D gfx_v8_0_ring_set_wptr_compute,
+>         .emit_frame_size =3D
+>                 20 + /* gfx_v8_0_ring_emit_gds_switch */
+>                 7 + /* gfx_v8_0_ring_emit_hdp_flush */
+>                 5 + /* hdp_invalidate */
+>                 7 + /* gfx_v8_0_ring_emit_pipeline_sync */
+>                 VI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + /*
+> gfx_v8_0_ring_emit_vm_flush */
+>                 7 + 7 + 7, /* gfx_v8_0_ring_emit_fence_compute x3 for use=
+r
+> fence, vm fence */
+> -       .emit_ib_size =3D 4, /* gfx_v8_0_ring_emit_ib_compute */
+> +       .emit_ib_size =3D 7, /* gfx_v8_0_ring_emit_ib_compute */
+>         .emit_ib =3D gfx_v8_0_ring_emit_ib_compute,
+>         .emit_fence =3D gfx_v8_0_ring_emit_fence_compute,
+>         .emit_pipeline_sync =3D gfx_v8_0_ring_emit_pipeline_sync,
+>         .emit_vm_flush =3D gfx_v8_0_ring_emit_vm_flush,
+>         .emit_gds_switch =3D gfx_v8_0_ring_emit_gds_switch,
+>         .emit_hdp_flush =3D gfx_v8_0_ring_emit_hdp_flush,
+>         .test_ring =3D gfx_v8_0_ring_test_ring,
+>         .test_ib =3D gfx_v8_0_ring_test_ib,
+>         .insert_nop =3D amdgpu_ring_insert_nop,
+>         .pad_ib =3D amdgpu_ring_generic_pad_ib,
+> @@ -6913,21 +6929,21 @@ static const struct amdgpu_ring_funcs
+> gfx_v8_0_ring_funcs_kiq =3D {
+>         .get_rptr =3D gfx_v8_0_ring_get_rptr,
+>         .get_wptr =3D gfx_v8_0_ring_get_wptr_compute,
+>         .set_wptr =3D gfx_v8_0_ring_set_wptr_compute,
+>         .emit_frame_size =3D
+>                 20 + /* gfx_v8_0_ring_emit_gds_switch */
+>                 7 + /* gfx_v8_0_ring_emit_hdp_flush */
+>                 5 + /* hdp_invalidate */
+>                 7 + /* gfx_v8_0_ring_emit_pipeline_sync */
+>                 17 + /* gfx_v8_0_ring_emit_vm_flush */
+>                 7 + 7 + 7, /* gfx_v8_0_ring_emit_fence_kiq x3 for user
+> fence, vm fence */
+> -       .emit_ib_size =3D 4, /* gfx_v8_0_ring_emit_ib_compute */
+> +       .emit_ib_size =3D 7, /* gfx_v8_0_ring_emit_ib_compute */
+>         .emit_fence =3D gfx_v8_0_ring_emit_fence_kiq,
+>         .test_ring =3D gfx_v8_0_ring_test_ring,
+>         .insert_nop =3D amdgpu_ring_insert_nop,
+>         .pad_ib =3D amdgpu_ring_generic_pad_ib,
+>         .emit_rreg =3D gfx_v8_0_ring_emit_rreg,
+>         .emit_wreg =3D gfx_v8_0_ring_emit_wreg,
+>  };
+>
+>  static void gfx_v8_0_set_ring_funcs(struct amdgpu_device *adev)
+>  {
+> @@ -6989,20 +7005,21 @@ static void gfx_v8_0_set_rlc_funcs(struct
+> amdgpu_device *adev)
+>  {
+>         adev->gfx.rlc.funcs =3D &iceland_rlc_funcs;
+>  }
+>
+>  static void gfx_v8_0_set_gds_init(struct amdgpu_device *adev)
+>  {
+>         /* init asci gds info */
+>         adev->gds.mem.total_size =3D RREG32(mmGDS_VMID0_SIZE);
+>         adev->gds.gws.total_size =3D 64;
+>         adev->gds.oa.total_size =3D 16;
+> +       adev->gds.gds_compute_max_wave_id =3D
+> RREG32(mmGDS_COMPUTE_MAX_WAVE_ID);
+>
+>         if (adev->gds.mem.total_size =3D=3D 64 * 1024) {
+>                 adev->gds.mem.gfx_partition_size =3D 4096;
+>                 adev->gds.mem.cs_partition_size =3D 4096;
+>
+>                 adev->gds.gws.gfx_partition_size =3D 4;
+>                 adev->gds.gws.cs_partition_size =3D 4;
+>
+>                 adev->gds.oa.gfx_partition_size =3D 4;
+>                 adev->gds.oa.cs_partition_size =3D 1;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 262ee3cf6f1c..5533f6e4f4a4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -4003,20 +4003,36 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct
+> amdgpu_ring *ring,
+>  }
+>
+>  static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+>                                           struct amdgpu_job *job,
+>                                           struct amdgpu_ib *ib,
+>                                           uint32_t flags)
+>  {
+>         unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+>         u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << =
+24);
+>
+> +       /* Currently, there is a high possibility to get wave ID mismatch
+> +        * between ME and GDS, leading to a hw deadlock, because ME
+> generates
+> +        * different wave IDs than the GDS expects. This situation happen=
+s
+> +        * randomly when at least 5 compute pipes use GDS ordered append.
+> +        * The wave IDs generated by ME are also wrong after
+> suspend/resume.
+> +        * Those are probably bugs somewhere else in the kernel driver.
+> +        *
+> +        * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave ID counters in ME
+> and
+> +        * GDS to 0 for this ring (me/pipe).
+> +        */
+> +       if (ib->flags & AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID) {
+> +               amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONFIG_REG,
+> 1));
+> +               amdgpu_ring_write(ring, mmGDS_COMPUTE_MAX_WAVE_ID);
+> +               amdgpu_ring_write(ring,
+> ring->adev->gds.gds_compute_max_wave_id);
+> +       }
+> +
+>         amdgpu_ring_write(ring, PACKET3(PACKET3_INDIRECT_BUFFER, 2));
+>         BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+>         amdgpu_ring_write(ring,
+>  #ifdef __BIG_ENDIAN
+>                                 (2 << 0) |
+>  #endif
+>                                 lower_32_bits(ib->gpu_addr));
+>         amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr));
+>         amdgpu_ring_write(ring, control);
+>  }
+> @@ -4722,21 +4738,21 @@ static const struct amdgpu_ring_funcs
+> gfx_v9_0_ring_funcs_compute =3D {
+>         .set_wptr =3D gfx_v9_0_ring_set_wptr_compute,
+>         .emit_frame_size =3D
+>                 20 + /* gfx_v9_0_ring_emit_gds_switch */
+>                 7 + /* gfx_v9_0_ring_emit_hdp_flush */
+>                 5 + /* hdp invalidate */
+>                 7 + /* gfx_v9_0_ring_emit_pipeline_sync */
+>                 SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
+>                 SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
+>                 2 + /* gfx_v9_0_ring_emit_vm_flush */
+>                 8 + 8 + 8, /* gfx_v9_0_ring_emit_fence x3 for user fence,
+> vm fence */
+> -       .emit_ib_size =3D 4, /* gfx_v9_0_ring_emit_ib_compute */
+> +       .emit_ib_size =3D 7, /* gfx_v9_0_ring_emit_ib_compute */
+>         .emit_ib =3D gfx_v9_0_ring_emit_ib_compute,
+>         .emit_fence =3D gfx_v9_0_ring_emit_fence,
+>         .emit_pipeline_sync =3D gfx_v9_0_ring_emit_pipeline_sync,
+>         .emit_vm_flush =3D gfx_v9_0_ring_emit_vm_flush,
+>         .emit_gds_switch =3D gfx_v9_0_ring_emit_gds_switch,
+>         .emit_hdp_flush =3D gfx_v9_0_ring_emit_hdp_flush,
+>         .test_ring =3D gfx_v9_0_ring_test_ring,
+>         .test_ib =3D gfx_v9_0_ring_test_ib,
+>         .insert_nop =3D amdgpu_ring_insert_nop,
+>         .pad_ib =3D amdgpu_ring_generic_pad_ib,
+> @@ -4757,21 +4773,21 @@ static const struct amdgpu_ring_funcs
+> gfx_v9_0_ring_funcs_kiq =3D {
+>         .set_wptr =3D gfx_v9_0_ring_set_wptr_compute,
+>         .emit_frame_size =3D
+>                 20 + /* gfx_v9_0_ring_emit_gds_switch */
+>                 7 + /* gfx_v9_0_ring_emit_hdp_flush */
+>                 5 + /* hdp invalidate */
+>                 7 + /* gfx_v9_0_ring_emit_pipeline_sync */
+>                 SOC15_FLUSH_GPU_TLB_NUM_WREG * 5 +
+>                 SOC15_FLUSH_GPU_TLB_NUM_REG_WAIT * 7 +
+>                 2 + /* gfx_v9_0_ring_emit_vm_flush */
+>                 8 + 8 + 8, /* gfx_v9_0_ring_emit_fence_kiq x3 for user
+> fence, vm fence */
+> -       .emit_ib_size =3D 4, /* gfx_v9_0_ring_emit_ib_compute */
+> +       .emit_ib_size =3D 7, /* gfx_v9_0_ring_emit_ib_compute */
+>         .emit_fence =3D gfx_v9_0_ring_emit_fence_kiq,
+>         .test_ring =3D gfx_v9_0_ring_test_ring,
+>         .insert_nop =3D amdgpu_ring_insert_nop,
+>         .pad_ib =3D amdgpu_ring_generic_pad_ib,
+>         .emit_rreg =3D gfx_v9_0_ring_emit_rreg,
+>         .emit_wreg =3D gfx_v9_0_ring_emit_wreg,
+>         .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,
+>         .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit_reg_write_reg_wai=
+t,
+>  };
+>
+> @@ -4839,20 +4855,40 @@ static void gfx_v9_0_set_gds_init(struct
+> amdgpu_device *adev)
+>                 adev->gds.mem.total_size =3D 0x10000;
+>                 break;
+>         case CHIP_RAVEN:
+>                 adev->gds.mem.total_size =3D 0x1000;
+>                 break;
+>         default:
+>                 adev->gds.mem.total_size =3D 0x10000;
+>                 break;
 >         }
 >
->         r =3D amdgpu_bo_create_kernel(adev, adev->gds.mem.gfx_partition_s=
-ize,
-> -                                   PAGE_SIZE, AMDGPU_GEM_DOMAIN_GDS,
-> +                                   4, AMDGPU_GEM_DOMAIN_GDS,
->                                     &adev->gds.gds_gfx_bo, NULL, NULL);
->         if (r)
->                 return r;
+> +       switch (adev->asic_type) {
+> +       case CHIP_VEGA10:
+> +       case CHIP_VEGA20:
+> +               adev->gds.gds_compute_max_wave_id =3D 0x7ff;
+> +               break;
+> +       case CHIP_VEGA12:
+> +               adev->gds.gds_compute_max_wave_id =3D 0x27f;
+> +               break;
+> +       case CHIP_RAVEN:
+> +               if (adev->rev_id >=3D 0x8)
+> +                       adev->gds.gds_compute_max_wave_id =3D 0x77; /*
+> raven2 */
+> +               else
+> +                       adev->gds.gds_compute_max_wave_id =3D 0x15f; /*
+> raven1 */
+> +               break;
+> +       default:
+> +               /* this really depends on the chip */
+> +               adev->gds.gds_compute_max_wave_id =3D 0x7ff;
+> +               break;
+> +       }
+> +
+>         adev->gds.gws.total_size =3D 64;
+>         adev->gds.oa.total_size =3D 16;
 >
->         r =3D ttm_bo_init_mm(&adev->mman.bdev, AMDGPU_PL_GWS,
->                            adev->gds.gws.total_size);
->         if (r) {
->                 DRM_ERROR("Failed initializing gws heap.\n");
->                 return r;
->         }
+>         if (adev->gds.mem.total_size =3D=3D 64 * 1024) {
+>                 adev->gds.mem.gfx_partition_size =3D 4096;
+>                 adev->gds.mem.cs_partition_size =3D 4096;
 >
->         r =3D amdgpu_bo_create_kernel(adev, adev->gds.gws.gfx_partition_s=
-ize,
-> -                                   PAGE_SIZE, AMDGPU_GEM_DOMAIN_GWS,
-> +                                   1, AMDGPU_GEM_DOMAIN_GWS,
->                                     &adev->gds.gws_gfx_bo, NULL, NULL);
->         if (r)
->                 return r;
+>                 adev->gds.gws.gfx_partition_size =3D 4;
+>                 adev->gds.gws.cs_partition_size =3D 4;
 >
->         r =3D ttm_bo_init_mm(&adev->mman.bdev, AMDGPU_PL_OA,
->                            adev->gds.oa.total_size);
->         if (r) {
->                 DRM_ERROR("Failed initializing oa heap.\n");
->                 return r;
->         }
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index faaad04814e4..662d379ea624 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -561,20 +561,25 @@ union drm_amdgpu_cs {
+>  /* Preamble flag, which means the IB could be dropped if no context
+> switch */
+>  #define AMDGPU_IB_FLAG_PREAMBLE (1<<1)
 >
->         r =3D amdgpu_bo_create_kernel(adev, adev->gds.oa.gfx_partition_si=
-ze,
-> -                                   PAGE_SIZE, AMDGPU_GEM_DOMAIN_OA,
-> +                                   1, AMDGPU_GEM_DOMAIN_OA,
->                                     &adev->gds.oa_gfx_bo, NULL, NULL);
->         if (r)
->                 return r;
+>  /* Preempt flag, IB should set Pre_enb bit if PREEMPT flag detected */
+>  #define AMDGPU_IB_FLAG_PREEMPT (1<<2)
 >
->         /* Register debugfs entries for amdgpu_ttm */
->         r =3D amdgpu_ttm_debugfs_init(adev);
->         if (r) {
->                 DRM_ERROR("Failed to init debugfs\n");
->                 return r;
->         }
+>  /* The IB fence should do the L2 writeback but not invalidate any shader
+>   * caches (L2/vL1/sL1/I$). */
+>  #define AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE (1 << 3)
+>
+> +/* Set GDS_COMPUTE_MAX_WAVE_ID =3D DEFAULT before PACKET3_INDIRECT_BUFFE=
+R.
+> + * This will reset wave ID counters for the IB.
+> + */
+> +#define AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID (1 << 4)
+> +
+>  struct drm_amdgpu_cs_chunk_ib {
+>         __u32 _pad;
+>         /** AMDGPU_IB_FLAG_* */
+>         __u32 flags;
+>         /** Virtual address to begin IB execution */
+>         __u64 va_start;
+>         /** Size of submission */
+>         __u32 ib_bytes;
+>         /** HW IP to submit to */
+>         __u32 ip_type;
 > --
 > 2.17.1
 >
 >
 
---00000000000049e7eb058087f86a
+--000000000000cbf241058087f7a7
 Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-PGRpdiBkaXI9Imx0ciI+UGluZzxicj48L2Rpdj48YnI+PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUi
-PjxkaXYgZGlyPSJsdHIiIGNsYXNzPSJnbWFpbF9hdHRyIj5PbiBUdWUsIEphbiAyMiwgMjAxOSBh
-dCA0OjQ1IFBNIE1hcmVrIE9sxaHDoWsgJmx0OzxhIGhyZWY9Im1haWx0bzptYXJhZW9AZ21haWwu
-Y29tIj5tYXJhZW9AZ21haWwuY29tPC9hPiZndDsgd3JvdGU6PGJyPjwvZGl2PjxibG9ja3F1b3Rl
-IGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHggMHB4IDBweCAwLjhleDtib3Jk
-ZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0KTtwYWRkaW5nLWxlZnQ6MWV4Ij5Gcm9t
-OiBNYXJlayBPbMWhw6FrICZsdDs8YSBocmVmPSJtYWlsdG86bWFyZWsub2xzYWtAYW1kLmNvbSIg
-dGFyZ2V0PSJfYmxhbmsiPm1hcmVrLm9sc2FrQGFtZC5jb208L2E+Jmd0Ozxicj4NCjxicj4NCi0g
-bW92ZSBhbGwgYWRqdXN0bWVudHMgaW50byBvbmUgcGxhY2U8YnI+DQotIHNwZWNpZnkgR0RTL0dX
-Uy9PQSBhbGlnbm1lbnQgaW4gYmFzaWMgdW5pdHMgb2YgdGhlIGhlYXBzPGJyPg0KLSBpdCBsb29r
-cyBsaWtlIEdEUyBhbGlnbm1lbnQgd2FzIDEgaW5zdGVhZCBvZiA0PGJyPg0KPGJyPg0KU2lnbmVk
-LW9mZi1ieTogTWFyZWsgT2zFocOhayAmbHQ7PGEgaHJlZj0ibWFpbHRvOm1hcmVrLm9sc2FrQGFt
-ZC5jb20iIHRhcmdldD0iX2JsYW5rIj5tYXJlay5vbHNha0BhbWQuY29tPC9hPiZndDs8YnI+DQot
-LS08YnI+DQrCoGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uY8KgIMKgIHzC
-oCA3IC0tLS0tLS08YnI+DQrCoGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmpl
-Y3QuYyB8IDE2ICsrKysrKysrKysrKy0tLS08YnI+DQrCoGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV90dG0uY8KgIMKgIHzCoCA2ICsrKy0tLTxicj4NCsKgMyBmaWxlcyBjaGFuZ2Vk
-LCAxNSBpbnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMoLSk8YnI+DQo8YnI+DQpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jPGJyPg0KaW5kZXggZjRmMDAyMTc1NDZlLi5kMjFk
-ZDJmMzY5ZGEgMTAwNjQ0PGJyPg0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2dlbS5jPGJyPg0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dl
-bS5jPGJyPg0KQEAgLTQ3LDI0ICs0NywyMCBAQCBpbnQgYW1kZ3B1X2dlbV9vYmplY3RfY3JlYXRl
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1bnNpZ25lZCBsb25nIHNpemUsPGJyPg0KwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB1NjQgZmxhZ3MsIGVudW0g
-dHRtX2JvX3R5cGUgdHlwZSw8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YsPGJyPg0KwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBzdHJ1Y3QgZHJtX2dlbV9vYmplY3Qg
-KipvYmopPGJyPg0KwqB7PGJyPg0KwqAgwqAgwqAgwqAgc3RydWN0IGFtZGdwdV9ibyAqYm87PGJy
-Pg0KwqAgwqAgwqAgwqAgc3RydWN0IGFtZGdwdV9ib19wYXJhbSBicDs8YnI+DQrCoCDCoCDCoCDC
-oCBpbnQgcjs8YnI+DQo8YnI+DQrCoCDCoCDCoCDCoCBtZW1zZXQoJmFtcDticCwgMCwgc2l6ZW9m
-KGJwKSk7PGJyPg0KwqAgwqAgwqAgwqAgKm9iaiA9IE5VTEw7PGJyPg0KLcKgIMKgIMKgIMKgLyog
-QXQgbGVhc3QgYWxpZ24gb24gcGFnZSBzaXplICovPGJyPg0KLcKgIMKgIMKgIMKgaWYgKGFsaWdu
-bWVudCAmbHQ7IFBBR0VfU0laRSkgezxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGFsaWdu
-bWVudCA9IFBBR0VfU0laRTs8YnI+DQotwqAgwqAgwqAgwqB9PGJyPg0KPGJyPg0KwqAgwqAgwqAg
-wqAgYnAuc2l6ZSA9IHNpemU7PGJyPg0KwqAgwqAgwqAgwqAgYnAuYnl0ZV9hbGlnbiA9IGFsaWdu
-bWVudDs8YnI+DQrCoCDCoCDCoCDCoCBicC50eXBlID0gdHlwZTs8YnI+DQrCoCDCoCDCoCDCoCBi
-cC5yZXN2ID0gcmVzdjs8YnI+DQrCoCDCoCDCoCDCoCBicC5wcmVmZXJyZWRfZG9tYWluID0gaW5p
-dGlhbF9kb21haW47PGJyPg0KwqByZXRyeTo8YnI+DQrCoCDCoCDCoCDCoCBicC5mbGFncyA9IGZs
-YWdzOzxicj4NCsKgIMKgIMKgIMKgIGJwLmRvbWFpbiA9IGluaXRpYWxfZG9tYWluOzxicj4NCsKg
-IMKgIMKgIMKgIHIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsICZhbXA7YnAsICZhbXA7Ym8pOzxi
-cj4NCkBAIC0yMzcsMjMgKzIzMywyMCBAQCBpbnQgYW1kZ3B1X2dlbV9jcmVhdGVfaW9jdGwoc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSw8YnI+DQrCoCDCoCDCoCDCoCBpZiAoYXJn
-cy0mZ3Q7aW4uZG9tYWlucyAmYW1wOyAoQU1ER1BVX0dFTV9ET01BSU5fR0RTIHw8YnI+DQrCoCDC
-oCDCoCDCoCDCoCDCoCBBTURHUFVfR0VNX0RPTUFJTl9HV1MgfCBBTURHUFVfR0VNX0RPTUFJTl9P
-QSkpIHs8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBpZiAoZmxhZ3MgJmFtcDsgQU1ER1BV
-X0dFTV9DUkVBVEVfVk1fQUxXQVlTX1ZBTElEKSB7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgLyogaWYgZ2RzIGJvIGlzIGNyZWF0ZWQgZnJvbSB1c2VyIHNwYWNlLCBp
-dCBtdXN0IGJlPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAqIHBh
-c3NlZCB0byBibyBsaXN0PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAqLzxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIERSTV9FUlJPUigm
-cXVvdDtHRFMgYm8gY2Fubm90IGJlIHBlci12bS1ib1xuJnF1b3Q7KTs8YnI+DQrCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gLUVJTlZBTDs8YnI+DQrCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCB9PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgZmxhZ3MgfD0gQU1E
-R1BVX0dFTV9DUkVBVEVfTk9fQ1BVX0FDQ0VTUzs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAvKiBHRFMgYWxsb2NhdGlvbnMgbXVzdCBiZSBEVyBhbGlnbmVkICovPGJyPg0KLcKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgaWYgKGFyZ3MtJmd0O2luLmRvbWFpbnMgJmFtcDsgQU1ER1BVX0dFTV9E
-T01BSU5fR0RTKTxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHNpemUg
-PSBBTElHTihzaXplLCA0KTs8YnI+DQrCoCDCoCDCoCDCoCB9PGJyPg0KPGJyPg0KwqAgwqAgwqAg
-wqAgaWYgKGZsYWdzICZhbXA7IEFNREdQVV9HRU1fQ1JFQVRFX1ZNX0FMV0FZU19WQUxJRCkgezxi
-cj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHIgPSBhbWRncHVfYm9fcmVzZXJ2ZSh2bS0mZ3Q7
-PGEgaHJlZj0iaHR0cDovL3Jvb3QuYmFzZS5ibyIgcmVsPSJub3JlZmVycmVyIiB0YXJnZXQ9Il9i
-bGFuayI+cm9vdC5iYXNlLmJvPC9hPiwgZmFsc2UpOzxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIGlmIChyKTxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHJldHVy
-biByOzxicj4NCjxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHJlc3YgPSB2bS0mZ3Q7cm9v
-dC5iYXNlLmJvLSZndDt0Ym8ucmVzdjs8YnI+DQrCoCDCoCDCoCDCoCB9PGJyPg0KPGJyPg0KZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYzxicj4NCmluZGV4IDcyOGUx
-NWU1ZDY4YS4uZmQ5YzRiZWVhYWE0IDEwMDY0NDxicj4NCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYzxicj4NCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9vYmplY3QuYzxicj4NCkBAIC00MTksMjYgKzQxOSwzNCBAQCBzdGF0aWMg
-aW50IGFtZGdwdV9ib19kb19jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsPGJyPg0K
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgLmludGVycnVwdGlibGUgPSAoYnAtJmd0O3R5cGUgIT0g
-dHRtX2JvX3R5cGVfa2VybmVsKSw8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAubm9fd2Fp
-dF9ncHUgPSBmYWxzZSw8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAucmVzdiA9IGJwLSZn
-dDtyZXN2LDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIC5mbGFncyA9IFRUTV9PUFRfRkxB
-R19BTExPV19SRVNfRVZJQ1Q8YnI+DQrCoCDCoCDCoCDCoCB9Ozxicj4NCsKgIMKgIMKgIMKgIHN0
-cnVjdCBhbWRncHVfYm8gKmJvOzxicj4NCsKgIMKgIMKgIMKgIHVuc2lnbmVkIGxvbmcgcGFnZV9h
-bGlnbiwgc2l6ZSA9IGJwLSZndDtzaXplOzxicj4NCsKgIMKgIMKgIMKgIHNpemVfdCBhY2Nfc2l6
-ZTs8YnI+DQrCoCDCoCDCoCDCoCBpbnQgcjs8YnI+DQo8YnI+DQotwqAgwqAgwqAgwqBwYWdlX2Fs
-aWduID0gcm91bmR1cChicC0mZ3Q7Ynl0ZV9hbGlnbiwgUEFHRV9TSVpFKSAmZ3Q7Jmd0OyBQQUdF
-X1NISUZUOzxicj4NCi3CoCDCoCDCoCDCoGlmIChicC0mZ3Q7ZG9tYWluICZhbXA7IChBTURHUFVf
-R0VNX0RPTUFJTl9HRFMgfCBBTURHUFVfR0VNX0RPTUFJTl9HV1MgfDxicj4NCi3CoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoEFNREdQVV9HRU1fRE9NQUlOX09BKSk8YnI+DQor
-wqAgwqAgwqAgwqAvKiBOb3RlIHRoYXQgR0RTL0dXUy9PQSBhbGxvY2F0ZXMgMSBwYWdlIHBlciBi
-eXRlL3Jlc291cmNlLiAqLzxicj4NCivCoCDCoCDCoCDCoGlmIChicC0mZ3Q7ZG9tYWluICZhbXA7
-IChBTURHUFVfR0VNX0RPTUFJTl9HV1MgfCBBTURHUFVfR0VNX0RPTUFJTl9PQSkpIHs8YnI+DQor
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAvKiBHV1MgYW5kIE9BIGRvbiYjMzk7dCBuZWVkIGFueSBh
-bGlnbm1lbnQuICovPGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgcGFnZV9hbGlnbiA9IGJw
-LSZndDtieXRlX2FsaWduOzxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHNpemUgJmx0OyZs
-dDs9IFBBR0VfU0hJRlQ7PGJyPg0KLcKgIMKgIMKgIMKgZWxzZTxicj4NCivCoCDCoCDCoCDCoH0g
-ZWxzZSBpZiAoYnAtJmd0O2RvbWFpbiAmYW1wOyBBTURHUFVfR0VNX0RPTUFJTl9HRFMpIHs8YnI+
-DQorwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAvKiBCb3RoIHNpemUgYW5kIGFsaWdubWVudCBtdXN0
-IGJlIGEgbXVsdGlwbGUgb2YgNC4gKi88YnI+DQorwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBwYWdl
-X2FsaWduID0gQUxJR04oYnAtJmd0O2J5dGVfYWxpZ24sIDQpOzxicj4NCivCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoHNpemUgPSBBTElHTihzaXplLCA0KSAmbHQ7Jmx0OyBQQUdFX1NISUZUOzxicj4N
-CivCoCDCoCDCoCDCoH0gZWxzZSB7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgLyogTWVt
-b3J5IHNob3VsZCBiZSBhbGlnbmVkIGF0IGxlYXN0IHRvIGEgcGFnZSBzaXplLiAqLzxicj4NCivC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoHBhZ2VfYWxpZ24gPSBBTElHTihicC0mZ3Q7Ynl0ZV9hbGln
-biwgUEFHRV9TSVpFKSAmZ3Q7Jmd0OyBQQUdFX1NISUZUOzxicj4NCsKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIHNpemUgPSBBTElHTihzaXplLCBQQUdFX1NJWkUpOzxicj4NCivCoCDCoCDCoCDCoH08
-YnI+DQo8YnI+DQrCoCDCoCDCoCDCoCBpZiAoIWFtZGdwdV9ib192YWxpZGF0ZV9zaXplKGFkZXYs
-IHNpemUsIGJwLSZndDtkb21haW4pKTxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHJldHVy
-biAtRU5PTUVNOzxicj4NCjxicj4NCsKgIMKgIMKgIMKgICpib19wdHIgPSBOVUxMOzxicj4NCjxi
-cj4NCsKgIMKgIMKgIMKgIGFjY19zaXplID0gdHRtX2JvX2RtYV9hY2Nfc2l6ZSgmYW1wO2FkZXYt
-Jmd0O21tYW4uYmRldiwgc2l6ZSw8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2JvKSk7PGJy
-Pg0KPGJyPg0KwqAgwqAgwqAgwqAgYm8gPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2Jv
-KSwgR0ZQX0tFUk5FTCk7PGJyPg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
-Yzxicj4NCmluZGV4IGI4NTJhYmI5ZGIwZi4uNzNlNzFlNjFkYzk5IDEwMDY0NDxicj4NCi0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYzxicj4NCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYzxicj4NCkBAIC0xNzQ5LDQ3ICsxNzQ5
-LDQ3IEBAIGludCBhbWRncHVfdHRtX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpPGJy
-Pg0KPGJyPg0KwqAgwqAgwqAgwqAgLyogSW5pdGlhbGl6ZSB2YXJpb3VzIG9uLWNoaXAgbWVtb3J5
-IHBvb2xzICovPGJyPg0KwqAgwqAgwqAgwqAgciA9IHR0bV9ib19pbml0X21tKCZhbXA7YWRldi0m
-Z3Q7bW1hbi5iZGV2LCBBTURHUFVfUExfR0RTLDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgYWRldi0mZ3Q7Z2RzLm1lbS50b3RhbF9zaXplKTs8YnI+DQrCoCDC
-oCDCoCDCoCBpZiAocikgezxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIERSTV9FUlJPUigm
-cXVvdDtGYWlsZWQgaW5pdGlhbGl6aW5nIEdEUyBoZWFwLlxuJnF1b3Q7KTs8YnI+DQrCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gcjs8YnI+DQrCoCDCoCDCoCDCoCB9PGJyPg0KPGJyPg0K
-wqAgwqAgwqAgwqAgciA9IGFtZGdwdV9ib19jcmVhdGVfa2VybmVsKGFkZXYsIGFkZXYtJmd0O2dk
-cy5tZW0uZ2Z4X3BhcnRpdGlvbl9zaXplLDxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoFBBR0VfU0laRSwgQU1ER1BVX0dFTV9ET01BSU5f
-R0RTLDxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoDQsIEFNREdQVV9HRU1fRE9NQUlOX0dEUyw8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAmYW1wO2FkZXYtJmd0O2dkcy5nZHNf
-Z2Z4X2JvLCBOVUxMLCBOVUxMKTs8YnI+DQrCoCDCoCDCoCDCoCBpZiAocik8YnI+DQrCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gcjs8YnI+DQo8YnI+DQrCoCDCoCDCoCDCoCByID0gdHRt
-X2JvX2luaXRfbW0oJmFtcDthZGV2LSZndDttbWFuLmJkZXYsIEFNREdQVV9QTF9HV1MsPGJyPg0K
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBhZGV2LSZndDtnZHMuZ3dz
-LnRvdGFsX3NpemUpOzxicj4NCsKgIMKgIMKgIMKgIGlmIChyKSB7PGJyPg0KwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgRFJNX0VSUk9SKCZxdW90O0ZhaWxlZCBpbml0aWFsaXppbmcgZ3dzIGhlYXAu
-XG4mcXVvdDspOzxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHJldHVybiByOzxicj4NCsKg
-IMKgIMKgIMKgIH08YnI+DQo8YnI+DQrCoCDCoCDCoCDCoCByID0gYW1kZ3B1X2JvX2NyZWF0ZV9r
-ZXJuZWwoYWRldiwgYWRldi0mZ3Q7Z2RzLmd3cy5nZnhfcGFydGl0aW9uX3NpemUsPGJyPg0KLcKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgUEFHRV9T
-SVpFLCBBTURHUFVfR0VNX0RPTUFJTl9HV1MsPGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMSwgQU1ER1BVX0dFTV9ET01BSU5fR1dTLDxi
-cj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-ICZhbXA7YWRldi0mZ3Q7Z2RzLmd3c19nZnhfYm8sIE5VTEwsIE5VTEwpOzxicj4NCsKgIMKgIMKg
-IMKgIGlmIChyKTxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHJldHVybiByOzxicj4NCjxi
-cj4NCsKgIMKgIMKgIMKgIHIgPSB0dG1fYm9faW5pdF9tbSgmYW1wO2FkZXYtJmd0O21tYW4uYmRl
-diwgQU1ER1BVX1BMX09BLDxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgYWRldi0mZ3Q7Z2RzLm9hLnRvdGFsX3NpemUpOzxicj4NCsKgIMKgIMKgIMKgIGlmIChy
-KSB7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgRFJNX0VSUk9SKCZxdW90O0ZhaWxlZCBp
-bml0aWFsaXppbmcgb2EgaGVhcC5cbiZxdW90Oyk7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgcmV0dXJuIHI7PGJyPg0KwqAgwqAgwqAgwqAgfTxicj4NCjxicj4NCsKgIMKgIMKgIMKgIHIg
-PSBhbWRncHVfYm9fY3JlYXRlX2tlcm5lbChhZGV2LCBhZGV2LSZndDtnZHMub2EuZ2Z4X3BhcnRp
-dGlvbl9zaXplLDxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoFBBR0VfU0laRSwgQU1ER1BVX0dFTV9ET01BSU5fT0EsPGJyPg0KK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgMSwgQU1ER1BV
-X0dFTV9ET01BSU5fT0EsPGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgJmFtcDthZGV2LSZndDtnZHMub2FfZ2Z4X2JvLCBOVUxMLCBOVUxM
-KTs8YnI+DQrCoCDCoCDCoCDCoCBpZiAocik8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBy
-ZXR1cm4gcjs8YnI+DQo8YnI+DQrCoCDCoCDCoCDCoCAvKiBSZWdpc3RlciBkZWJ1Z2ZzIGVudHJp
-ZXMgZm9yIGFtZGdwdV90dG0gKi88YnI+DQrCoCDCoCDCoCDCoCByID0gYW1kZ3B1X3R0bV9kZWJ1
-Z2ZzX2luaXQoYWRldik7PGJyPg0KwqAgwqAgwqAgwqAgaWYgKHIpIHs8YnI+DQrCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCBEUk1fRVJST1IoJnF1b3Q7RmFpbGVkIHRvIGluaXQgZGVidWdmc1xuJnF1
-b3Q7KTs8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXR1cm4gcjs8YnI+DQrCoCDCoCDC
-oCDCoCB9PGJyPg0KLS0gPGJyPg0KMi4xNy4xPGJyPg0KPGJyPg0KPC9ibG9ja3F1b3RlPjwvZGl2
-Pg0K
---00000000000049e7eb058087f86a--
+<div dir=3D"ltr">Ping<br></div><br><div class=3D"gmail_quote"><div dir=3D"l=
+tr" class=3D"gmail_attr">On Tue, Jan 22, 2019 at 3:05 PM Marek Ol=C5=A1=C3=
+=A1k &lt;<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.=
+8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: Marek Ol=
+=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">=
+marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<br>
+I&#39;m not increasing the DRM version because GDS isn&#39;t totally withou=
+t bugs yet.<br>
+<br>
+v2: update emit_ib_size<br>
+<br>
+Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak@amd.=
+com" target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h |=C2=A0 2 ++<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c=C2=A0 =C2=A0| 19 +++++++++++-<b=
+r>
+=C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c=C2=A0 =C2=A0| 21 +++++++++++--<=
+br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c=C2=A0 =C2=A0| 40 ++++++++++++++=
++++++++++--<br>
+=C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0|=C2=A0 5 ++++<br>
+=C2=A05 files changed, 82 insertions(+), 5 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_gds.h<br>
+index ecbcefe49a98..f89f5734d985 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gds.h<br>
+@@ -30,20 +30,22 @@ struct amdgpu_bo;<br>
+=C2=A0struct amdgpu_gds_asic_info {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 total_size;=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 gfx_partiti=
+on_size;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 cs_partitio=
+n_size;<br>
+=C2=A0};<br>
+<br>
+=C2=A0struct amdgpu_gds {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_gds_asic_info=C2=A0 =C2=A0 =C2=A0=
+mem;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_gds_asic_info=C2=A0 =C2=A0 =C2=A0=
+gws;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_gds_asic_info=C2=A0 =C2=A0 =C2=A0=
+oa;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 gds_compute_max_wave_id;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* At present, GDS, GWS and OA resources for gf=
+x (graphics)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* is always pre-allocated and available f=
+or graphics operation.<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Such resource is shared between all gfx=
+ clients.<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* TODO: move this operation to user space=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_bo*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0gds_gfx_bo;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_bo*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0gws_gfx_bo;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_bo*=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0oa_gfx_bo;<br>
+=C2=A0};<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v7_0.c<br>
+index 7984292f9282..a59e0fdf5a97 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+@@ -2257,20 +2257,36 @@ static void gfx_v7_0_ring_emit_ib_gfx(struct amdgpu=
+_ring *ring,<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v7_0_ring_emit_ib_compute(struct amdgpu_ring *ring,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 s=
+truct amdgpu_job *job,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 s=
+truct amdgpu_ib *ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 u=
+int32_t flags)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 control =3D INDIRECT_BUFFER_VALID | ib-&gt;=
+length_dw | (vmid &lt;&lt; 24);<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Currently, there is a high possibility to ge=
+t wave ID mismatch<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * between ME and GDS, leading to a hw deadlock=
+, because ME generates<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * different wave IDs than the GDS expects. Thi=
+s situation happens<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * randomly when at least 5 compute pipes use G=
+DS ordered append.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * The wave IDs generated by ME are also wrong =
+after suspend/resume.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Those are probably bugs somewhere else in th=
+e kernel driver.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave =
+ID counters in ME and<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * GDS to 0 for this ring (me/pipe).<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ib-&gt;flags &amp; AMDGPU_IB_FLAG_RESET_GDS=
+_MAX_WAVE_ID) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, PACKET3(PACKET3_SET_CONFIG_REG, 1));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, mmGDS_COMPUTE_MAX_WAVE_ID - PACKET3_SET_CONFIG_REG_START);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, ring-&gt;adev-&gt;gds.gds_compute_max_wave_id);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, PACKET3(PACKET3_INDIREC=
+T_BUFFER, 2));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring,<br>
+=C2=A0#ifdef __BIG_ENDIAN<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (=
+2 &lt;&lt; 0) |<br>
+=C2=A0#endif<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (=
+ib-&gt;gpu_addr &amp; 0xFFFFFFFC));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, upper_32_bits(ib-&gt;gp=
+u_addr) &amp; 0xFFFF);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, control);<br>
+=C2=A0}<br>
+<br>
+@@ -4993,21 +5009,21 @@ static const struct amdgpu_ring_funcs gfx_v7_0_ring=
+_funcs_compute =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .get_rptr =3D gfx_v7_0_ring_get_rptr,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .get_wptr =3D gfx_v7_0_ring_get_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .set_wptr =3D gfx_v7_0_ring_set_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_frame_size =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 20 + /* gfx_v7_0_ri=
+ng_emit_gds_switch */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v7_0_rin=
+g_emit_hdp_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 5 + /* hdp invalida=
+te */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v7_0_rin=
+g_emit_pipeline_sync */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 CIK_FLUSH_GPU_TLB_N=
+UM_WREG * 5 + 7 + /* gfx_v7_0_ring_emit_vm_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + 7 + 7, /* gfx_v=
+7_0_ring_emit_fence_compute x3 for user fence, vm fence */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 4, /* gfx_v7_0_ring_emit_ib_c=
+ompute */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 7, /* gfx_v7_0_ring_emit_ib_c=
+ompute */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_ib =3D gfx_v7_0_ring_emit_ib_compute,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_fence =3D gfx_v7_0_ring_emit_fence_comput=
+e,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_pipeline_sync =3D gfx_v7_0_ring_emit_pipe=
+line_sync,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_vm_flush =3D gfx_v7_0_ring_emit_vm_flush,=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_gds_switch =3D gfx_v7_0_ring_emit_gds_swi=
+tch,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_hdp_flush =3D gfx_v7_0_ring_emit_hdp_flus=
+h,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ring =3D gfx_v7_0_ring_test_ring,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ib =3D gfx_v7_0_ring_test_ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .insert_nop =3D amdgpu_ring_insert_nop,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .pad_ib =3D amdgpu_ring_generic_pad_ib,<br>
+@@ -5050,20 +5066,21 @@ static void gfx_v7_0_set_irq_funcs(struct amdgpu_de=
+vice *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.priv_inst_irq.num_types =3D 1;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.priv_inst_irq.funcs =3D &amp;gfx_v=
+7_0_priv_inst_irq_funcs;<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v7_0_set_gds_init(struct amdgpu_device *adev)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* init asci gds info */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.total_size =3D RREG32(mmGDS_VM=
+ID0_SIZE);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.total_size =3D 64;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa.total_size =3D 16;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_compute_max_wave_id =3D RREG32=
+(mmGDS_COMPUTE_MAX_WAVE_ID);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (adev-&gt;gds.mem.total_size =3D=3D 64 * 102=
+4) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.gf=
+x_partition_size =3D 4096;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.cs=
+_partition_size =3D 4096;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.gf=
+x_partition_size =3D 4;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.cs=
+_partition_size =3D 4;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa.gfx=
+_partition_size =3D 4;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa.cs_=
+partition_size =3D 1;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v8_0.c<br>
+index a26747681ed6..b8e50a34bdb3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+@@ -6077,20 +6077,36 @@ static void gfx_v8_0_ring_emit_ib_gfx(struct amdgpu=
+_ring *ring,<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v8_0_ring_emit_ib_compute(struct amdgpu_ring *ring,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 s=
+truct amdgpu_job *job,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 s=
+truct amdgpu_ib *ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 u=
+int32_t flags)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 control =3D INDIRECT_BUFFER_VALID | ib-&gt;=
+length_dw | (vmid &lt;&lt; 24);<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Currently, there is a high possibility to ge=
+t wave ID mismatch<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * between ME and GDS, leading to a hw deadlock=
+, because ME generates<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * different wave IDs than the GDS expects. Thi=
+s situation happens<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * randomly when at least 5 compute pipes use G=
+DS ordered append.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * The wave IDs generated by ME are also wrong =
+after suspend/resume.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Those are probably bugs somewhere else in th=
+e kernel driver.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave =
+ID counters in ME and<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * GDS to 0 for this ring (me/pipe).<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ib-&gt;flags &amp; AMDGPU_IB_FLAG_RESET_GDS=
+_MAX_WAVE_ID) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, PACKET3(PACKET3_SET_CONFIG_REG, 1));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, mmGDS_COMPUTE_MAX_WAVE_ID - PACKET3_SET_CONFIG_REG_START);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, ring-&gt;adev-&gt;gds.gds_compute_max_wave_id);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, PACKET3(PACKET3_INDIREC=
+T_BUFFER, 2));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring,<br>
+=C2=A0#ifdef __BIG_ENDIAN<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (2 &lt;&lt; 0) |<br>
+=C2=A0#endif<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (ib-&gt;gpu_addr &amp; 0xFFFFFFFC));=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, upper_32_bits(ib-&gt;gp=
+u_addr) &amp; 0xFFFF);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, control);<br>
+=C2=A0}<br>
+<br>
+@@ -6883,21 +6899,21 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring=
+_funcs_compute =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .get_rptr =3D gfx_v8_0_ring_get_rptr,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .get_wptr =3D gfx_v8_0_ring_get_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .set_wptr =3D gfx_v8_0_ring_set_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_frame_size =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 20 + /* gfx_v8_0_ri=
+ng_emit_gds_switch */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v8_0_rin=
+g_emit_hdp_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 5 + /* hdp_invalida=
+te */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v8_0_rin=
+g_emit_pipeline_sync */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 VI_FLUSH_GPU_TLB_NU=
+M_WREG * 5 + 7 + /* gfx_v8_0_ring_emit_vm_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + 7 + 7, /* gfx_v=
+8_0_ring_emit_fence_compute x3 for user fence, vm fence */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 4, /* gfx_v8_0_ring_emit_ib_c=
+ompute */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 7, /* gfx_v8_0_ring_emit_ib_c=
+ompute */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_ib =3D gfx_v8_0_ring_emit_ib_compute,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_fence =3D gfx_v8_0_ring_emit_fence_comput=
+e,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_pipeline_sync =3D gfx_v8_0_ring_emit_pipe=
+line_sync,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_vm_flush =3D gfx_v8_0_ring_emit_vm_flush,=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_gds_switch =3D gfx_v8_0_ring_emit_gds_swi=
+tch,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_hdp_flush =3D gfx_v8_0_ring_emit_hdp_flus=
+h,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ring =3D gfx_v8_0_ring_test_ring,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ib =3D gfx_v8_0_ring_test_ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .insert_nop =3D amdgpu_ring_insert_nop,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .pad_ib =3D amdgpu_ring_generic_pad_ib,<br>
+@@ -6913,21 +6929,21 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring=
+_funcs_kiq =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .get_rptr =3D gfx_v8_0_ring_get_rptr,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .get_wptr =3D gfx_v8_0_ring_get_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .set_wptr =3D gfx_v8_0_ring_set_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_frame_size =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 20 + /* gfx_v8_0_ri=
+ng_emit_gds_switch */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v8_0_rin=
+g_emit_hdp_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 5 + /* hdp_invalida=
+te */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v8_0_rin=
+g_emit_pipeline_sync */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 17 + /* gfx_v8_0_ri=
+ng_emit_vm_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + 7 + 7, /* gfx_v=
+8_0_ring_emit_fence_kiq x3 for user fence, vm fence */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 4, /* gfx_v8_0_ring_emit_ib_c=
+ompute */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 7, /* gfx_v8_0_ring_emit_ib_c=
+ompute */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_fence =3D gfx_v8_0_ring_emit_fence_kiq,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ring =3D gfx_v8_0_ring_test_ring,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .insert_nop =3D amdgpu_ring_insert_nop,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .pad_ib =3D amdgpu_ring_generic_pad_ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_rreg =3D gfx_v8_0_ring_emit_rreg,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_wreg =3D gfx_v8_0_ring_emit_wreg,<br>
+=C2=A0};<br>
+<br>
+=C2=A0static void gfx_v8_0_set_ring_funcs(struct amdgpu_device *adev)<br>
+=C2=A0{<br>
+@@ -6989,20 +7005,21 @@ static void gfx_v8_0_set_rlc_funcs(struct amdgpu_de=
+vice *adev)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.rlc.funcs =3D &amp;iceland_rlc_fun=
+cs;<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v8_0_set_gds_init(struct amdgpu_device *adev)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* init asci gds info */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.total_size =3D RREG32(mmGDS_VM=
+ID0_SIZE);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.total_size =3D 64;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa.total_size =3D 16;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_compute_max_wave_id =3D RREG32=
+(mmGDS_COMPUTE_MAX_WAVE_ID);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (adev-&gt;gds.mem.total_size =3D=3D 64 * 102=
+4) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.gf=
+x_partition_size =3D 4096;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.cs=
+_partition_size =3D 4096;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.gf=
+x_partition_size =3D 4;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.cs=
+_partition_size =3D 4;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa.gfx=
+_partition_size =3D 4;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa.cs_=
+partition_size =3D 1;<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
+dgpu/gfx_v9_0.c<br>
+index 262ee3cf6f1c..5533f6e4f4a4 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+@@ -4003,20 +4003,36 @@ static void gfx_v9_0_ring_emit_ib_gfx(struct amdgpu=
+_ring *ring,<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v9_0_ring_emit_ib_compute(struct amdgpu_ring *ring,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 s=
+truct amdgpu_job *job,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 s=
+truct amdgpu_ib *ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 u=
+int32_t flags)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 u32 control =3D INDIRECT_BUFFER_VALID | ib-&gt;=
+length_dw | (vmid &lt;&lt; 24);<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Currently, there is a high possibility to ge=
+t wave ID mismatch<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * between ME and GDS, leading to a hw deadlock=
+, because ME generates<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * different wave IDs than the GDS expects. Thi=
+s situation happens<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * randomly when at least 5 compute pipes use G=
+DS ordered append.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * The wave IDs generated by ME are also wrong =
+after suspend/resume.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Those are probably bugs somewhere else in th=
+e kernel driver.<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave =
+ID counters in ME and<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 * GDS to 0 for this ring (me/pipe).<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0if (ib-&gt;flags &amp; AMDGPU_IB_FLAG_RESET_GDS=
+_MAX_WAVE_ID) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, PACKET3(PACKET3_SET_CONFIG_REG, 1));<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, mmGDS_COMPUTE_MAX_WAVE_ID);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(r=
+ing, ring-&gt;adev-&gt;gds.gds_compute_max_wave_id);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, PACKET3(PACKET3_INDIREC=
+T_BUFFER, 2));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 BUG_ON(ib-&gt;gpu_addr &amp; 0x3); /* Dword ali=
+gn */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring,<br>
+=C2=A0#ifdef __BIG_ENDIAN<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (2 &lt;&lt; 0) |<br>
+=C2=A0#endif<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 lower_32_bits(ib-&gt;gpu_addr));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, upper_32_bits(ib-&gt;gp=
+u_addr));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_ring_write(ring, control);<br>
+=C2=A0}<br>
+@@ -4722,21 +4738,21 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring=
+_funcs_compute =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .set_wptr =3D gfx_v9_0_ring_set_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_frame_size =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 20 + /* gfx_v9_0_ri=
+ng_emit_gds_switch */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v9_0_rin=
+g_emit_hdp_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 5 + /* hdp invalida=
+te */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v9_0_rin=
+g_emit_pipeline_sync */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_FLUSH_GPU_TLB=
+_NUM_WREG * 5 +<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_FLUSH_GPU_TLB=
+_NUM_REG_WAIT * 7 +<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2 + /* gfx_v9_0_rin=
+g_emit_vm_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 8 + 8 + 8, /* gfx_v=
+9_0_ring_emit_fence x3 for user fence, vm fence */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 4, /* gfx_v9_0_ring_emit_ib_c=
+ompute */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 7, /* gfx_v9_0_ring_emit_ib_c=
+ompute */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_ib =3D gfx_v9_0_ring_emit_ib_compute,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_fence =3D gfx_v9_0_ring_emit_fence,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_pipeline_sync =3D gfx_v9_0_ring_emit_pipe=
+line_sync,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_vm_flush =3D gfx_v9_0_ring_emit_vm_flush,=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_gds_switch =3D gfx_v9_0_ring_emit_gds_swi=
+tch,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_hdp_flush =3D gfx_v9_0_ring_emit_hdp_flus=
+h,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ring =3D gfx_v9_0_ring_test_ring,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ib =3D gfx_v9_0_ring_test_ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .insert_nop =3D amdgpu_ring_insert_nop,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .pad_ib =3D amdgpu_ring_generic_pad_ib,<br>
+@@ -4757,21 +4773,21 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring=
+_funcs_kiq =3D {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .set_wptr =3D gfx_v9_0_ring_set_wptr_compute,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_frame_size =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 20 + /* gfx_v9_0_ri=
+ng_emit_gds_switch */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v9_0_rin=
+g_emit_hdp_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 5 + /* hdp invalida=
+te */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 7 + /* gfx_v9_0_rin=
+g_emit_pipeline_sync */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_FLUSH_GPU_TLB=
+_NUM_WREG * 5 +<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_FLUSH_GPU_TLB=
+_NUM_REG_WAIT * 7 +<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 2 + /* gfx_v9_0_rin=
+g_emit_vm_flush */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 8 + 8 + 8, /* gfx_v=
+9_0_ring_emit_fence_kiq x3 for user fence, vm fence */<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 4, /* gfx_v9_0_ring_emit_ib_c=
+ompute */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.emit_ib_size =3D 7, /* gfx_v9_0_ring_emit_ib_c=
+ompute */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_fence =3D gfx_v9_0_ring_emit_fence_kiq,<b=
+r>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .test_ring =3D gfx_v9_0_ring_test_ring,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .insert_nop =3D amdgpu_ring_insert_nop,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .pad_ib =3D amdgpu_ring_generic_pad_ib,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_rreg =3D gfx_v9_0_ring_emit_rreg,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_wreg =3D gfx_v9_0_ring_emit_wreg,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_reg_wait =3D gfx_v9_0_ring_emit_reg_wait,=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .emit_reg_write_reg_wait =3D gfx_v9_0_ring_emit=
+_reg_write_reg_wait,<br>
+=C2=A0};<br>
+<br>
+@@ -4839,20 +4855,40 @@ static void gfx_v9_0_set_gds_init(struct amdgpu_dev=
+ice *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.to=
+tal_size =3D 0x10000;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 case CHIP_RAVEN:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.to=
+tal_size =3D 0x1000;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.to=
+tal_size =3D 0x10000;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (adev-&gt;asic_type) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_VEGA10:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_VEGA20:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_co=
+mpute_max_wave_id =3D 0x7ff;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_VEGA12:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_co=
+mpute_max_wave_id =3D 0x27f;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_RAVEN:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (adev-&gt;rev_id=
+ &gt;=3D 0x8)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0adev-&gt;gds.gds_compute_max_wave_id =3D 0x77; /* raven2 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0adev-&gt;gds.gds_compute_max_wave_id =3D 0x15f; /* raven1 */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* this really depe=
+nds on the chip */<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_co=
+mpute_max_wave_id =3D 0x7ff;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.total_size =3D 64;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.oa.total_size =3D 16;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (adev-&gt;gds.mem.total_size =3D=3D 64 * 102=
+4) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.gf=
+x_partition_size =3D 4096;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.mem.cs=
+_partition_size =3D 4096;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.gf=
+x_partition_size =3D 4;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gds.gws.cs=
+_partition_size =3D 4;<br>
+<br>
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
+br>
+index faaad04814e4..662d379ea624 100644<br>
+--- a/include/uapi/drm/amdgpu_drm.h<br>
++++ b/include/uapi/drm/amdgpu_drm.h<br>
+@@ -561,20 +561,25 @@ union drm_amdgpu_cs {<br>
+=C2=A0/* Preamble flag, which means the IB could be dropped if no context s=
+witch */<br>
+=C2=A0#define AMDGPU_IB_FLAG_PREAMBLE (1&lt;&lt;1)<br>
+<br>
+=C2=A0/* Preempt flag, IB should set Pre_enb bit if PREEMPT flag detected *=
+/<br>
+=C2=A0#define AMDGPU_IB_FLAG_PREEMPT (1&lt;&lt;2)<br>
+<br>
+=C2=A0/* The IB fence should do the L2 writeback but not invalidate any sha=
+der<br>
+=C2=A0 * caches (L2/vL1/sL1/I$). */<br>
+=C2=A0#define AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE (1 &lt;&lt; 3)<br>
+<br>
++/* Set GDS_COMPUTE_MAX_WAVE_ID =3D DEFAULT before PACKET3_INDIRECT_BUFFER.=
+<br>
++ * This will reset wave ID counters for the IB.<br>
++ */<br>
++#define AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID (1 &lt;&lt; 4)<br>
++<br>
+=C2=A0struct drm_amdgpu_cs_chunk_ib {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 _pad;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** AMDGPU_IB_FLAG_* */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 flags;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** Virtual address to begin IB execution */<br=
+>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u64 va_start;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** Size of submission */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 ib_bytes;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /** HW IP to submit to */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32 ip_type;<br>
+-- <br>
+2.17.1<br>
+<br>
+</blockquote></div>
 
---===============1350293406==
+--000000000000cbf241058087f7a7--
+
+--===============1606201160==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -390,4 +1129,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1350293406==--
+--===============1606201160==--
