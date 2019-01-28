@@ -1,53 +1,88 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.20 219/304] drm/amd/display: Wait edp HPD to high in
- detect_sink
-Date: Mon, 28 Jan 2019 10:42:16 -0500
-Message-ID: <20190128154341.47195-219-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.20 221/304] drm/amd/display: fix YCbCr420 blank color
+Date: Mon, 28 Jan 2019 10:42:18 -0500
+Message-ID: <20190128154341.47195-221-sashal@kernel.org>
 References: <20190128154341.47195-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20190128154341.47195-1-sashal@kernel.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, Dale Zhao <dale.zhao@amd.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: Eric Yang <Eric.Yang2@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRGFsZSBaaGFvIDxkYWxlLnpoYW9AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDBh
-NjQxNGU3NWQyMzFlZTFiYjdmZmIyZjVlYjI0NmI2ODJhODg0Y2QgXQoKW1doeV0KSW4gOTklIHVz
-ZXIgY2FzZSwgZWRwIHdpbGwgYmUgcG9zdCBieSB2Ymlvcy4KSW4gMSUgLyBjdXJyZW50IGNhc2U6
-IExlbm92byBkb24ndCBsaWdodCB1cCBlZHAgcGFuZWwgaW4gdmJpb3MKcG9zdCBzdGFnZSwgdmJp
-b3Mgd29uJ3QgYmUgbGl0IHVwLiBUaHVzIGluIGRhbCB3aGVuIHdlIGluaXQgRENOCjEwIGh3LCB3
-ZSBwb3dlciB1cCBlZHAsIHRoZW4gd2Ugc3RhcnQgZGV0ZWN0X3NpbmssIGJ1dCBpbnRlcm5hbAp0
-aW1lIGlzIHRvbyBzaG9ydCwgd2hlbiB3ZSBkZXRlY3QgaXQsIEhQRCBpcyBzdGlsbCBsb3csIHNv
-IHdlIGRvbid0CmRldGVjdCB0aGUgZWRwLCBhbmQgZWRwIHNob3dzIGJsYWNrLgoKW0hvd10KV2hl
-biB3ZSBpbml0IGh3LCB3ZSB3YWl0IGVkcCBIUEQgdG8gaGlnaCBhZnRlciBwb3dlciB1cCBlZHAu
-CgpTaWduZWQtb2ZmLWJ5OiBEYWxlIFpoYW8gPGRhbGUuemhhb0BhbWQuY29tPgpSZXZpZXdlZC1i
-eTogRXJpYyBZYW5nIDxlcmljLnlhbmcyQGFtZC5jb20+CkFja2VkLWJ5OiBMZW8gTGkgPHN1bnBl
-bmcubGlAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1
-Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5v
-cmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jIHwg
-MyArKysKIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMKaW5kZXggZWYxYjM1MGE0NWUwLi44YjY5
-OTEzYjY5NDMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
-L2RjX2xpbmsuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19s
-aW5rLmMKQEAgLTIwOCw2ICsyMDgsOSBAQCBib29sIGRjX2xpbmtfZGV0ZWN0X3Npbmsoc3RydWN0
-IGRjX2xpbmsgKmxpbmssIGVudW0gZGNfY29ubmVjdGlvbl90eXBlICp0eXBlKQogCQlyZXR1cm4g
-dHJ1ZTsKIAl9CiAKKwlpZiAobGluay0+Y29ubmVjdG9yX3NpZ25hbCA9PSBTSUdOQUxfVFlQRV9F
-RFApCisJCWxpbmstPmRjLT5od3NzLmVkcF93YWl0X2Zvcl9ocGRfcmVhZHkobGluaywgdHJ1ZSk7
-CisKIAkvKiB0b2RvOiBtYXkgbmVlZCB0byBsb2NrIGdwaW8gYWNjZXNzICovCiAJaHBkX3BpbiA9
-IGdldF9ocGRfZ3BpbyhsaW5rLT5jdHgtPmRjX2Jpb3MsIGxpbmstPmxpbmtfaWQsIGxpbmstPmN0
-eC0+Z3Bpb19zZXJ2aWNlKTsKIAlpZiAoaHBkX3BpbiA9PSBOVUxMKQotLSAKMi4xOS4xCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFp
-bGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwK
+From: Eric Yang <Eric.Yang2@amd.com>
+
+[ Upstream commit 12750d1647f118496f1da727146f255f5e44d500 ]
+
+[Why]
+YCbCr420 packing format uses two chanels for luma, and 1
+channel for both chroma component. Our previous implementation
+did not account for this and results in every other pixel having
+very high luma value, showing greyish color instead of black.
+
+YCbCr444 = <Y1, Cb1, Cr1>; <Y2, Cb2, Cr2> .....
+YCbCr420 = <Y1, Y2,  Cb1>; <Y3, Y4,  Cr1> .....
+
+[How]
+Program the second channel with the black color value for luma
+as well.
+
+Signed-off-by: Eric Yang <Eric.Yang2@amd.com>
+Reviewed-by: Hugo Hu <Hugo.Hu@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/display/dc/dce110/dce110_hw_sequencer.c   | 11 ++++++++++-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c |  9 +++++++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index a6bcb90e8419..4443a916a0fb 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -1268,10 +1268,19 @@ static void program_scaler(const struct dc *dc,
+ 		pipe_ctx->plane_res.scl_data.lb_params.depth,
+ 		&pipe_ctx->stream->bit_depth_params);
+ 
+-	if (pipe_ctx->stream_res.tg->funcs->set_overscan_blank_color)
++	if (pipe_ctx->stream_res.tg->funcs->set_overscan_blank_color) {
++		/*
++		 * The way 420 is packed, 2 channels carry Y component, 1 channel
++		 * alternate between Cb and Cr, so both channels need the pixel
++		 * value for Y
++		 */
++		if (pipe_ctx->stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)
++			color.color_r_cr = color.color_g_y;
++
+ 		pipe_ctx->stream_res.tg->funcs->set_overscan_blank_color(
+ 				pipe_ctx->stream_res.tg,
+ 				&color);
++	}
+ 
+ 	pipe_ctx->plane_res.xfm->funcs->transform_set_scaler(pipe_ctx->plane_res.xfm,
+ 		&pipe_ctx->plane_res.scl_data);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 32e4c653b1b4..220ba828748d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -2165,6 +2165,15 @@ static void dcn10_blank_pixel_data(
+ 	color_space = stream->output_color_space;
+ 	color_space_to_black_color(dc, color_space, &black_color);
+ 
++	/*
++	 * The way 420 is packed, 2 channels carry Y component, 1 channel
++	 * alternate between Cb and Cr, so both channels need the pixel
++	 * value for Y
++	 */
++	if (stream->timing.pixel_encoding == PIXEL_ENCODING_YCBCR420)
++		black_color.color_r_cr = black_color.color_g_y;
++
++
+ 	if (stream_res->tg->funcs->set_blank_color)
+ 		stream_res->tg->funcs->set_blank_color(
+ 				stream_res->tg,
+-- 
+2.19.1
