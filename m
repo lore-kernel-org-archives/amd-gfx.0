@@ -1,14 +1,12 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add AMDGPU_IB_FLAG_GET_START_SYNCOBJ to
- expose scheduled fence
-Date: Tue, 29 Jan 2019 08:32:55 -0500
-Message-ID: <CAAxE2A6F+Wexxe_fY22P7iWk1DwKbP6DOmxyoUV164YQFTvdaA@mail.gmail.com>
-References: <20190128215239.32498-1-maraeo@gmail.com>
- <762485e9-7fe4-3ffb-16a4-f83436871451@gmail.com>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: regression in dcn linked to -msse2
+Date: Tue, 29 Jan 2019 13:44:03 +0000
+Message-ID: <c4dcefcd-1eab-1915-c3aa-30524e275bf7@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1828586409=="
+Content-Type: multipart/mixed;
+ boundary="_002_c4dcefcd1eab1915c3aa30524e275bf7amdcom_"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <762485e9-7fe4-3ffb-16a4-f83436871451-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,560 +17,414 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1828586409==
-Content-Type: multipart/alternative; boundary="000000000000688c63058098d512"
+--_002_c4dcefcd1eab1915c3aa30524e275bf7amdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6218B7BD969ED24D8CE7CC08974948E1-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
---000000000000688c63058098d512
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+VGVzdGluZyB3aXRoIHRoZSBuZXcgNS4wLjAtcmMxIGFtZC1zdGFnaW5nLWRybS1uZXh0IGJyYW5j
+aCByZXN1bHRzIGluIA0KdGhpcyBjb21taXQgY2F1c2luZyB0aGUgYXR0YWNoZWQgbG9ja3VwIG9u
+IGluaXQgd2l0aCBteSBSYXZlbiArIFBvbGFyaXMgDQpzeXN0ZW06DQoNCjEwMTE3NDUwNzM1Yzdh
+N2MwODU4MDk1ZmI0NmE4NjBlNzAzN2NiOWEgaXMgdGhlIGZpcnN0IGJhZCBjb21taXQNCmNvbW1p
+dCAxMDExNzQ1MDczNWM3YTdjMDg1ODA5NWZiNDZhODYwZTcwMzdjYjlhDQpBdXRob3I6IG5kZXNh
+dWxuaWVyc0Bnb29nbGUuY29tIDxuZGVzYXVsbmllcnNAZ29vZ2xlLmNvbT4NCkRhdGU6ICAgVGh1
+IEphbiAyNCAxNjo1Mjo1OSAyMDE5IC0wODAwDQoNCiAgICAgZHJtL2FtZC9kaXNwbGF5OiBhZGQg
+LW1zc2UyIHRvIHByZXZlbnQgQ2xhbmcgZnJvbSBlbWl0dGluZyBsaWJjYWxscyANCnRvIHVuZGVm
+aW5lZCBTVyBGUCByb3V0aW5lcw0KDQogICAgIGFyY2gveDg2L01ha2VmaWxlIGRpc2FibGVzIFNT
+RSBhbmQgU1NFMiBmb3IgdGhlIHdob2xlIGtlcm5lbC4gIFRoZQ0KICAgICBBTURHUFUgZHJpdmVy
+cyBtb2RpZmllZCBpbiB0aGlzIHBhdGNoIHJlLWVuYWJsZSBTU0UgYnV0IG5vdCBTU0UyLiAgVHVy
+bg0KICAgICBvbiBTU0UyIHRvIHN1cHBvcnQgZW1pdHRpbmcgZG91YmxlIHByZWNpc2lvbiBmbG9h
+dGluZyBwb2ludCANCmluc3RydWN0aW9ucw0KICAgICByYXRoZXIgdGhhbiBjYWxscyB0byBub24t
+ZXhpc3RlbnQgKHVzdWFsbHkgYXZhaWxhYmxlIGZyb20gZ2NjX3Mgb3INCiAgICAgY29tcGlsZXJf
+cnQpIGZsb2F0aW5nIHBvaW50IGhlbHBlciByb3V0aW5lcy4NCg0KICAgICBMaW5rOiANCmh0dHBz
+Oi8vZ2NjLmdudS5vcmcvb25saW5lZG9jcy9nY2NpbnQvU29mdC1mbG9hdC1saWJyYXJ5LXJvdXRp
+bmVzLmh0bWwNCiAgICAgTGluazogaHR0cHM6Ly9naXRodWIuY29tL0NsYW5nQnVpbHRMaW51eC9s
+aW51eC9pc3N1ZXMvMzI3DQogICAgIENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnICMgNC4xOQ0K
+ICAgICBSZXBvcnRlZC1ieTogUywgU2hpcmlzaCA8U2hpcmlzaC5TQGFtZC5jb20+DQogICAgIFJl
+cG9ydGVkLWJ5OiBNYXR0aGlhcyBLYWVobGNrZSA8bWthQGdvb2dsZS5jb20+DQogICAgIFN1Z2dl
+c3RlZC1ieTogSmFtZXMgWSBLbmlnaHQgPGp5a25pZ2h0QGdvb2dsZS5jb20+DQogICAgIFN1Z2dl
+c3RlZC1ieTogTmF0aGFuIENoYW5jZWxsb3IgPG5hdGVjaGFuY2VsbG9yQGdtYWlsLmNvbT4NCiAg
+ICAgU2lnbmVkLW9mZi1ieTogTmljayBEZXNhdWxuaWVycyA8bmRlc2F1bG5pZXJzQGdvb2dsZS5j
+b20+DQogICAgIFRlc3RlZC1ieTogR3VlbnRlciBSb2VjayA8bGludXhAcm9lY2stdXMubmV0Pg0K
+ICAgICBUZXN0ZWQtYnk6ICBNYXR0aGlhcyBLYWVobGNrZSA8bWthQGNocm9taXVtLm9yZz4NCiAg
+ICAgVGVzdGVkLWJ5OiBOYXRoYW4gQ2hhbmNlbGxvciA8bmF0ZWNoYW5jZWxsb3JAZ21haWwuY29t
+Pg0KICAgICBSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5j
+b20+DQogICAgIFNpZ25lZC1vZmYtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBh
+bWQuY29tPg0KICAgICBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
+aGVyQGFtZC5jb20+DQoNCjowNDAwMDAgMDQwMDAwIDM5Zjg5ZWExNzdiOGE2OWEzYTJhYTA5OGFl
+ZjhiMWE3ZTU4MDU2YjkgDQo3MWVkYjI2MmJlMDYwOGZmYWUwOTk2MjUzZjQ3NDkyYjJlNzE0YjVj
+IE0gICAgICBkcml2ZXJzDQoNCg0KQ2hlZXJzLA0KVG9tDQo=
 
-On Tue, Jan 29, 2019, 3:01 AM Christian K=C3=B6nig <
-ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org wrote:
+--_002_c4dcefcd1eab1915c3aa30524e275bf7amdcom_
+Content-Type: application/gzip; name="log.gz"
+Content-Description: log.gz
+Content-Disposition: attachment; filename="log.gz"; size=20254;
+	creation-date="Tue, 29 Jan 2019 13:44:02 GMT";
+	modification-date="Tue, 29 Jan 2019 13:44:02 GMT"
+Content-ID: <25DF53A577A7B24B8F4CC36D5DDCD747-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-> Am 28.01.19 um 22:52 schrieb Marek Ol=C5=A1=C3=A1k:
-> > From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-> >
-> > Normal syncobjs signal when an IB finishes. Start syncobjs signal when
-> > an IB starts.
->
-> That approach has quite a number of problems (for example you can't
-> allocate memory at this point).
->
-> Better add a flag that we should only sync on scheduling for a
-> dependency/syncobj instead.
->
+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
+byClDUdTv52U/h/FfGj180ABAA==
 
-I don't understand. Can you give me an example of the interface and how the
-implementation would look?
-
-Thanks,
-Marek
-
-
-> Christian.
->
-> >
-> > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  | 18 ++++++++++++++++++
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  3 ++-
-> >   include/uapi/drm/amdgpu_drm.h           | 13 ++++++++++++-
-> >   4 files changed, 33 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > index d67f8b1dfe80..8e2f7e558bc9 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> > @@ -453,20 +453,21 @@ struct amdgpu_cs_parser {
-> >       struct dma_fence                *fence;
-> >       uint64_t                        bytes_moved_threshold;
-> >       uint64_t                        bytes_moved_vis_threshold;
-> >       uint64_t                        bytes_moved;
-> >       uint64_t                        bytes_moved_vis;
-> >       struct amdgpu_bo_list_entry     *evictable;
-> >
-> >       /* user fence */
-> >       struct amdgpu_bo_list_entry     uf_entry;
-> >
-> > +     bool                            get_start_syncobj;
-> >       unsigned num_post_dep_syncobjs;
-> >       struct drm_syncobj **post_dep_syncobjs;
-> >   };
-> >
-> >   static inline u32 amdgpu_get_ib_value(struct amdgpu_cs_parser *p,
-> >                                     uint32_t ib_idx, int idx)
-> >   {
-> >       return p->job->ibs[ib_idx].ptr[idx];
-> >   }
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > index 1c49b8266d69..917f3818c61c 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -1022,20 +1022,23 @@ static int amdgpu_cs_ib_fill(struct
-> amdgpu_device *adev,
-> >               r =3D amdgpu_ctx_get_entity(parser->ctx, chunk_ib->ip_typ=
-e,
-> >                                         chunk_ib->ip_instance,
-> chunk_ib->ring,
-> >                                         &entity);
-> >               if (r)
-> >                       return r;
-> >
-> >               if (chunk_ib->flags & AMDGPU_IB_FLAG_PREAMBLE)
-> >                       parser->job->preamble_status |=3D
-> >                               AMDGPU_PREAMBLE_IB_PRESENT;
-> >
-> > +             if (chunk_ib->flags & AMDGPU_IB_FLAG_GET_START_SYNCOBJ)
-> > +                     parser->get_start_syncobj =3D true;
-> > +
-> >               if (parser->entity && parser->entity !=3D entity)
-> >                       return -EINVAL;
-> >
-> >               parser->entity =3D entity;
-> >
-> >               ring =3D to_amdgpu_ring(entity->rq->sched);
-> >               r =3D  amdgpu_ib_get(adev, vm, ring->funcs->parse_cs ?
-> >                                  chunk_ib->ib_bytes : 0, ib);
-> >               if (r) {
-> >                       DRM_ERROR("Failed to get ib !\n");
-> > @@ -1227,20 +1230,35 @@ static int amdgpu_cs_submit(struct
-> amdgpu_cs_parser *p,
-> >       amdgpu_mn_lock(p->mn);
-> >       amdgpu_bo_list_for_each_userptr_entry(e, p->bo_list) {
-> >               struct amdgpu_bo *bo =3D ttm_to_amdgpu_bo(e->tv.bo);
-> >
-> >               if (amdgpu_ttm_tt_userptr_needs_pages(bo->tbo.ttm)) {
-> >                       r =3D -ERESTARTSYS;
-> >                       goto error_abort;
-> >               }
-> >       }
-> >
-> > +     if (p->get_start_syncobj) {
-> > +             struct drm_syncobj *syncobj;
-> > +
-> > +             r =3D drm_syncobj_create(&syncobj, 0,
-> > +                                    &job->base.s_fence->scheduled);
-> > +             if (r)
-> > +                     goto error_abort;
-> > +
-> > +             r =3D drm_syncobj_get_handle(p->filp, syncobj,
-> > +                                        &cs->out.start_syncobj);
-> > +             if (r)
-> > +                     goto error_abort;
-> > +             drm_syncobj_put(syncobj);
-> > +     }
-> > +
-> >       job->owner =3D p->filp;
-> >       p->fence =3D dma_fence_get(&job->base.s_fence->finished);
-> >
-> >       amdgpu_ctx_add_fence(p->ctx, entity, p->fence, &seq);
-> >       amdgpu_cs_post_dependencies(p);
-> >
-> >       if ((job->preamble_status & AMDGPU_PREAMBLE_IB_PRESENT) &&
-> >           !p->ctx->preamble_presented) {
-> >               job->preamble_status |=3D AMDGPU_PREAMBLE_IB_PRESENT_FIRS=
-T;
-> >               p->ctx->preamble_presented =3D true;
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > index c806f984bcc5..a230a30722d4 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> > @@ -64,23 +64,24 @@
-> >    * - 3.18.0 - Export gpu always on cu bitmap
-> >    * - 3.19.0 - Add support for UVD MJPEG decode
-> >    * - 3.20.0 - Add support for local BOs
-> >    * - 3.21.0 - Add DRM_AMDGPU_FENCE_TO_HANDLE ioctl
-> >    * - 3.22.0 - Add DRM_AMDGPU_SCHED ioctl
-> >    * - 3.23.0 - Add query for VRAM lost counter
-> >    * - 3.24.0 - Add high priority compute support for gfx9
-> >    * - 3.25.0 - Add support for sensor query info (stable pstate
-> sclk/mclk).
-> >    * - 3.26.0 - GFX9: Process AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE.
-> >    * - 3.27.0 - Add new chunk to to AMDGPU_CS to enable BO_LIST creatio=
-n.
-> > + * - 3.28.0 - AMDGPU_IB_FLAG_GET_START_SYNCOBJ
-> >    */
-> >   #define KMS_DRIVER_MAJOR    3
-> > -#define KMS_DRIVER_MINOR     27
-> > +#define KMS_DRIVER_MINOR     28
-> >   #define KMS_DRIVER_PATCHLEVEL       0
-> >
-> >   int amdgpu_vram_limit =3D 0;
-> >   int amdgpu_vis_vram_limit =3D 0;
-> >   int amdgpu_gart_size =3D -1; /* auto */
-> >   int amdgpu_gtt_size =3D -1; /* auto */
-> >   int amdgpu_moverate =3D -1; /* auto */
-> >   int amdgpu_benchmarking =3D 0;
-> >   int amdgpu_testing =3D 0;
-> >   int amdgpu_audio =3D -1;
-> > diff --git a/include/uapi/drm/amdgpu_drm.h
-> b/include/uapi/drm/amdgpu_drm.h
-> > index 662d379ea624..d0e0c99cea32 100644
-> > --- a/include/uapi/drm/amdgpu_drm.h
-> > +++ b/include/uapi/drm/amdgpu_drm.h
-> > @@ -538,21 +538,23 @@ struct drm_amdgpu_cs_in {
-> >       __u32           ctx_id;
-> >       /**  Handle of resource list associated with CS */
-> >       __u32           bo_list_handle;
-> >       __u32           num_chunks;
-> >       __u32           _pad;
-> >       /** this points to __u64 * which point to cs chunks */
-> >       __u64           chunks;
-> >   };
-> >
-> >   struct drm_amdgpu_cs_out {
-> > -     __u64 handle;
-> > +     __u64 handle; /* sequence number */
-> > +     __u32 start_syncobj; /* signalled when IB execution begins */
-> > +     __u32 _pad;
-> >   };
-> >
-> >   union drm_amdgpu_cs {
-> >       struct drm_amdgpu_cs_in in;
-> >       struct drm_amdgpu_cs_out out;
-> >   };
-> >
-> >   /* Specify flags to be used for IB */
-> >
-> >   /* This IB should be submitted to CE */
-> > @@ -566,20 +568,29 @@ union drm_amdgpu_cs {
-> >
-> >   /* The IB fence should do the L2 writeback but not invalidate any
-> shader
-> >    * caches (L2/vL1/sL1/I$). */
-> >   #define AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE (1 << 3)
-> >
-> >   /* Set GDS_COMPUTE_MAX_WAVE_ID =3D DEFAULT before
-> PACKET3_INDIRECT_BUFFER.
-> >    * This will reset wave ID counters for the IB.
-> >    */
-> >   #define AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID (1 << 4)
-> >
-> > +/* The CS ioctl will return a syncobj representing when all IBs begin
-> > + * execution. If set, this applies to all IBs. The returned syncobj ca=
-n
-> be
-> > + * used as an IB dependency for other IBs.
-> > + *
-> > + * This is used for GPU deadlock prevention when userspace uses mid-IB
-> fences
-> > + * to wait for mid-IB work on other rings.
-> > + */
-> > +#define AMDGPU_IB_FLAG_GET_START_SYNCOBJ (1 << 5)
-> > +
-> >   struct drm_amdgpu_cs_chunk_ib {
-> >       __u32 _pad;
-> >       /** AMDGPU_IB_FLAG_* */
-> >       __u32 flags;
-> >       /** Virtual address to begin IB execution */
-> >       __u64 va_start;
-> >       /** Size of submission */
-> >       __u32 ib_bytes;
-> >       /** HW IP to submit to */
-> >       __u32 ip_type;
->
->
-
---000000000000688c63058098d512
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">=
-On Tue, Jan 29, 2019, 3:01 AM Christian K=C3=B6nig &lt;<a href=3D"mailto:ck=
-oenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a> wrote:=
-<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">Am 28.01.19 um 22:52 schrieb Marek=
- Ol=C5=A1=C3=A1k:<br>
-&gt; From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"=
- target=3D"_blank" rel=3D"noreferrer">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt;<br>
-&gt; Normal syncobjs signal when an IB finishes. Start syncobjs signal when=
-<br>
-&gt; an IB starts.<br>
-<br>
-That approach has quite a number of problems (for example you can&#39;t <br=
->
-allocate memory at this point).<br>
-<br>
-Better add a flag that we should only sync on scheduling for a <br>
-dependency/syncobj instead.<br></blockquote></div></div><div dir=3D"auto"><=
-br></div><div dir=3D"auto">I don&#39;t understand. Can you give me an examp=
-le of the interface and how the implementation would look?</div><div dir=3D=
-"auto"><br></div><div dir=3D"auto">Thanks,</div><div dir=3D"auto">Marek</di=
-v><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote">=
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak=
-@amd.com" target=3D"_blank" rel=3D"noreferrer">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<=
-br>
-&gt; ---<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu.h=C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 1 +<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0 | 18 ++++++++=
-++++++++++<br>
-&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |=C2=A0 3 ++-<br>
-&gt;=C2=A0 =C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0| 13 ++++++++++++-<br>
-&gt;=C2=A0 =C2=A04 files changed, 33 insertions(+), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu.h<br>
-&gt; index d67f8b1dfe80..8e2f7e558bc9 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&gt; @@ -453,20 +453,21 @@ struct amdgpu_cs_parser {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct dma_fence=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 *fence;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bytes_moved_threshold;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bytes_moved_vis_threshold;=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bytes_moved;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0uint64_t=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 bytes_moved_vis;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_bo_list_entry=C2=A0 =C2=A0 =C2=
-=A0*evictable;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* user fence */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_bo_list_entry=C2=A0 =C2=A0 =C2=
-=A0uf_entry;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 get_start_syncobj;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned num_post_dep_syncobjs;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_syncobj **post_dep_syncobjs;<br>
-&gt;=C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0static inline u32 amdgpu_get_ib_value(struct amdgpu_cs_par=
-ser *p,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t ib_i=
-dx, int idx)<br>
-&gt;=C2=A0 =C2=A0{<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0return p-&gt;job-&gt;ibs[ib_idx].ptr[idx];<b=
-r>
-&gt;=C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_cs.c<br>
-&gt; index 1c49b8266d69..917f3818c61c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-&gt; @@ -1022,20 +1022,23 @@ static int amdgpu_cs_ib_fill(struct amdgpu_dev=
-ice *adev,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgpu_ctx=
-_get_entity(parser-&gt;ctx, chunk_ib-&gt;ip_type,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0chunk_ib-&gt;ip_instance, chunk_ib-&gt;ring,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0&amp;entity);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return r;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk_ib-&gt=
-;flags &amp; AMDGPU_IB_FLAG_PREAMBLE)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0parser-&gt;job-&gt;preamble_status |=3D<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0AMDGPU_PREAMBLE_IB_PRESENT;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk_ib-&gt;flag=
-s &amp; AMDGPU_IB_FLAG_GET_START_SYNCOBJ)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0parser-&gt;get_start_syncobj =3D true;<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (parser-&gt;e=
-ntity &amp;&amp; parser-&gt;entity !=3D entity)<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0return -EINVAL;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0parser-&gt;entit=
-y =3D entity;<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ring =3D to_amdg=
-pu_ring(entity-&gt;rq-&gt;sched);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D=C2=A0 amdg=
-pu_ib_get(adev, vm, ring-&gt;funcs-&gt;parse_cs ?<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 chunk_ib-&gt;ib_bytes : 0,=
- ib);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0DRM_ERROR(&quot;Failed to get ib !\n&quot;);<br>
-&gt; @@ -1227,20 +1230,35 @@ static int amdgpu_cs_submit(struct amdgpu_cs_p=
-arser *p,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_mn_lock(p-&gt;mn);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_bo_list_for_each_userptr_entry(e, p-&=
-gt;bo_list) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_bo=
- *bo =3D ttm_to_amdgpu_bo(e-&gt;<a href=3D"http://tv.bo" rel=3D"noreferrer =
-noreferrer" target=3D"_blank">tv.bo</a>);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (amdgpu_ttm_t=
-t_userptr_needs_pages(bo-&gt;tbo.ttm)) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0r =3D -ERESTARTSYS;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0goto error_abort;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (p-&gt;get_start_syncobj) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_syncobj *s=
-yncobj;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D drm_syncobj_cre=
-ate(&amp;syncobj, 0,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;job-&gt;base.=
-s_fence-&gt;scheduled);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0goto error_abort;<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D drm_syncobj_get=
-_handle(p-&gt;filp, syncobj,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp=
-;cs-&gt;out.start_syncobj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0goto error_abort;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0drm_syncobj_put(synco=
-bj);<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0job-&gt;owner =3D p-&gt;filp;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0p-&gt;fence =3D dma_fence_get(&amp;job-&gt;b=
-ase.s_fence-&gt;finished);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ctx_add_fence(p-&gt;ctx, entity, p-&g=
-t;fence, &amp;seq);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_cs_post_dependencies(p);<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if ((job-&gt;preamble_status &amp; AMDGPU_PR=
-EAMBLE_IB_PRESENT) &amp;&amp;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0!p-&gt;ctx-&gt;preamble_presen=
-ted) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0job-&gt;preamble=
-_status |=3D AMDGPU_PREAMBLE_IB_PRESENT_FIRST;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0p-&gt;ctx-&gt;pr=
-eamble_presented =3D true;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_drv.c<br>
-&gt; index c806f984bcc5..a230a30722d4 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&gt; @@ -64,23 +64,24 @@<br>
-&gt;=C2=A0 =C2=A0 * - 3.18.0 - Export gpu always on cu bitmap<br>
-&gt;=C2=A0 =C2=A0 * - 3.19.0 - Add support for UVD MJPEG decode<br>
-&gt;=C2=A0 =C2=A0 * - 3.20.0 - Add support for local BOs<br>
-&gt;=C2=A0 =C2=A0 * - 3.21.0 - Add DRM_AMDGPU_FENCE_TO_HANDLE ioctl<br>
-&gt;=C2=A0 =C2=A0 * - 3.22.0 - Add DRM_AMDGPU_SCHED ioctl<br>
-&gt;=C2=A0 =C2=A0 * - 3.23.0 - Add query for VRAM lost counter<br>
-&gt;=C2=A0 =C2=A0 * - 3.24.0 - Add high priority compute support for gfx9<b=
-r>
-&gt;=C2=A0 =C2=A0 * - 3.25.0 - Add support for sensor query info (stable ps=
-tate sclk/mclk).<br>
-&gt;=C2=A0 =C2=A0 * - 3.26.0 - GFX9: Process AMDGPU_IB_FLAG_TC_WB_NOT_INVAL=
-IDATE.<br>
-&gt;=C2=A0 =C2=A0 * - 3.27.0 - Add new chunk to to AMDGPU_CS to enable BO_L=
-IST creation.<br>
-&gt; + * - 3.28.0 - AMDGPU_IB_FLAG_GET_START_SYNCOBJ<br>
-&gt;=C2=A0 =C2=A0 */<br>
-&gt;=C2=A0 =C2=A0#define KMS_DRIVER_MAJOR=C2=A0 =C2=A0 3<br>
-&gt; -#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A027<br>
-&gt; +#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A028<br>
-&gt;=C2=A0 =C2=A0#define KMS_DRIVER_PATCHLEVEL=C2=A0 =C2=A0 =C2=A0 =C2=A00<=
-br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0int amdgpu_vram_limit =3D 0;<br>
-&gt;=C2=A0 =C2=A0int amdgpu_vis_vram_limit =3D 0;<br>
-&gt;=C2=A0 =C2=A0int amdgpu_gart_size =3D -1; /* auto */<br>
-&gt;=C2=A0 =C2=A0int amdgpu_gtt_size =3D -1; /* auto */<br>
-&gt;=C2=A0 =C2=A0int amdgpu_moverate =3D -1; /* auto */<br>
-&gt;=C2=A0 =C2=A0int amdgpu_benchmarking =3D 0;<br>
-&gt;=C2=A0 =C2=A0int amdgpu_testing =3D 0;<br>
-&gt;=C2=A0 =C2=A0int amdgpu_audio =3D -1;<br>
-&gt; diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_d=
-rm.h<br>
-&gt; index 662d379ea624..d0e0c99cea32 100644<br>
-&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
-&gt; +++ b/include/uapi/drm/amdgpu_drm.h<br>
-&gt; @@ -538,21 +538,23 @@ struct drm_amdgpu_cs_in {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0ctx_id;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/**=C2=A0 Handle of resource list associated=
- with CS */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0bo_list_handle;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0num_chunks;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0_pad;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/** this points to __u64 * which point to cs=
- chunks */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u64=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0chunks;<br>
-&gt;=C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0struct drm_amdgpu_cs_out {<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0__u64 handle;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u64 handle; /* sequence number */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u32 start_syncobj; /* signalled when IB executi=
-on begins */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0__u32 _pad;<br>
-&gt;=C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0union drm_amdgpu_cs {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_amdgpu_cs_in in;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_amdgpu_cs_out out;<br>
-&gt;=C2=A0 =C2=A0};<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0/* Specify flags to be used for IB */<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0/* This IB should be submitted to CE */<br>
-&gt; @@ -566,20 +568,29 @@ union drm_amdgpu_cs {<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0/* The IB fence should do the L2 writeback but not invalid=
-ate any shader<br>
-&gt;=C2=A0 =C2=A0 * caches (L2/vL1/sL1/I$). */<br>
-&gt;=C2=A0 =C2=A0#define AMDGPU_IB_FLAG_TC_WB_NOT_INVALIDATE (1 &lt;&lt; 3)=
-<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt;=C2=A0 =C2=A0/* Set GDS_COMPUTE_MAX_WAVE_ID =3D DEFAULT before PACKET3_=
-INDIRECT_BUFFER.<br>
-&gt;=C2=A0 =C2=A0 * This will reset wave ID counters for the IB.<br>
-&gt;=C2=A0 =C2=A0 */<br>
-&gt;=C2=A0 =C2=A0#define AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID (1 &lt;&lt; 4=
-)<br>
-&gt;=C2=A0 =C2=A0<br>
-&gt; +/* The CS ioctl will return a syncobj representing when all IBs begin=
-<br>
-&gt; + * execution. If set, this applies to all IBs. The returned syncobj c=
-an be<br>
-&gt; + * used as an IB dependency for other IBs.<br>
-&gt; + *<br>
-&gt; + * This is used for GPU deadlock prevention when userspace uses mid-I=
-B fences<br>
-&gt; + * to wait for mid-IB work on other rings.<br>
-&gt; + */<br>
-&gt; +#define AMDGPU_IB_FLAG_GET_START_SYNCOBJ (1 &lt;&lt; 5)<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0struct drm_amdgpu_cs_chunk_ib {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 _pad;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/** AMDGPU_IB_FLAG_* */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 flags;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/** Virtual address to begin IB execution */=
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u64 va_start;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/** Size of submission */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 ib_bytes;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/** HW IP to submit to */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0__u32 ip_type;<br>
-<br>
-</blockquote></div></div></div>
-
---000000000000688c63058098d512--
-
---===============1828586409==
+--_002_c4dcefcd1eab1915c3aa30524e275bf7amdcom_
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -582,4 +434,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1828586409==--
+--_002_c4dcefcd1eab1915c3aa30524e275bf7amdcom_--
