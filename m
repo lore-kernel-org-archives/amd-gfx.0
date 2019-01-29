@@ -1,29 +1,50 @@
-From: Alex Deucher <alexdeucher@gmail.com>
+From: "Wentland, Harry" <Harry.Wentland@amd.com>
 Subject: Re: [PATCH] Revert "drm/amd/display: add -msse2 to prevent Clang from
  emitting libcalls to undefined SW FP routines"
-Date: Tue, 29 Jan 2019 13:07:45 -0500
-Message-ID: <CADnq5_O08E0T6g9n4N52=B14Yvh9XkcVR_7R+9M9ioKD7xTxzA@mail.gmail.com>
-References: <20190129165725.31062-1-alexander.deucher@amd.com> <20190129173827.GA16918@kroah.com>
+Date: Tue, 29 Jan 2019 18:28:08 +0000
+Message-ID: <05ee719f-ac7e-bcb0-59f0-920b72f65524@amd.com>
+References: <20190129165725.31062-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190129173827.GA16918@kroah.com>
+In-Reply-To: <20190129165725.31062-1-alexander.deucher@amd.com>
+Content-Language: en-US
+Content-ID: <771B2FEC8CDB7F4C82AE5018A2B55A03@namprd12.prod.outlook.com>
 Sender: stable-owner@vger.kernel.org
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, "for 3.8" <stable@vger.kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Jan 29, 2019 at 12:38 PM Greg KH <gregkh@linuxfoundation.org> wrote:
->
-> On Tue, Jan 29, 2019 at 11:57:25AM -0500, Alex Deucher wrote:
-> > This reverts commit 10117450735c7a7c0858095fb46a860e7037cb9a.
->
-> $ git show  10117450735c7a7c0858095fb46a860e7037cb9a
-> fatal: bad object 10117450735c7a7c0858095fb46a860e7037cb9a
->
-> odd...
->
-
-Sorry, it's queued up for drm-next, but hasn't made it to mainline yet.
-
-Alex
+T24gMjAxOS0wMS0yOSAxMTo1NyBhLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+IFRoaXMgcmV2
+ZXJ0cyBjb21taXQgMTAxMTc0NTA3MzVjN2E3YzA4NTgwOTVmYjQ2YTg2MGU3MDM3Y2I5YS4NCj4g
+DQo+IENhdXNlcyBhIGNyYXNoLg0KPiANCj4gQnVnOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Au
+b3JnL3Nob3dfYnVnLmNnaT9pZD0xMDk0ODcNCj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVy
+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9y
+ZyAjIDQuMTkNCg0KVGhhbmtzIGZvciBmaW5kaW5nIGFuZCByZXZlcnRpbmcuDQoNClJldmlld2Vk
+LWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCg0KSGFycnkNCg0K
+PiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZSB8
+IDIgKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFrZWZpbGUgICB8
+IDIgKy0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
+KQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxj
+cy9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmls
+ZQ0KPiBpbmRleCBkYzg1YTNjMDg4YWYuLjk1ZjMzMmVlM2U3ZSAxMDA2NDQNCj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlDQo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQ0KPiBAQCAtMzAsNyArMzAs
+NyBAQCBlbHNlIGlmbmVxICgkKGNhbGwgY2Mtb3B0aW9uLCAtbXN0YWNrLWFsaWdubWVudD0xNiks
+KQ0KPiAgCWNjX3N0YWNrX2FsaWduIDo9IC1tc3RhY2stYWxpZ25tZW50PTE2DQo+ICBlbmRpZg0K
+PiAgDQo+IC1jYWxjc19jY2ZsYWdzIDo9IC1taGFyZC1mbG9hdCAtbXNzZSAtbXNzZTIgJChjY19z
+dGFja19hbGlnbikNCj4gK2NhbGNzX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlICQoY2Nf
+c3RhY2tfYWxpZ24pDQo+ICANCj4gIENGTEFHU19kY25fY2FsY3MubyA6PSAkKGNhbGNzX2NjZmxh
+Z3MpDQo+ICBDRkxBR1NfZGNuX2NhbGNfYXV0by5vIDo9ICQoY2FsY3NfY2NmbGFncykNCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFrZWZpbGUgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlDQo+IGluZGV4IDMzYzdk
+NzU4ODcxMi4uZDk3Y2E2NTI4ZjlkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9kbWwvTWFrZWZpbGUNCj4gQEAgLTMwLDcgKzMwLDcgQEAgZWxzZSBpZm5lcSAoJChj
+YWxsIGNjLW9wdGlvbiwgLW1zdGFjay1hbGlnbm1lbnQ9MTYpLCkNCj4gIAljY19zdGFja19hbGln
+biA6PSAtbXN0YWNrLWFsaWdubWVudD0xNg0KPiAgZW5kaWYNCj4gIA0KPiAtZG1sX2NjZmxhZ3Mg
+Oj0gLW1oYXJkLWZsb2F0IC1tc3NlIC1tc3NlMiAkKGNjX3N0YWNrX2FsaWduKQ0KPiArZG1sX2Nj
+ZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlICQoY2Nfc3RhY2tfYWxpZ24pDQo+ICANCj4gIENG
+TEFHU19kaXNwbGF5X21vZGVfbGliLm8gOj0gJChkbWxfY2NmbGFncykNCj4gIENGTEFHU19kaXNw
+bGF5X3BpcGVfY2xvY2tzLm8gOj0gJChkbWxfY2NmbGFncykNCj4gDQo=
