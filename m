@@ -1,102 +1,89 @@
-From: Guenter Roeck <linux@roeck-us.net>
+From: "Wentland, Harry" <Harry.Wentland@amd.com>
 Subject: Re: [PATCH] drm/amd/display: add -msse2 to prevent Clang from
  emitting libcalls to undefined SW FP routines
-Date: Tue, 29 Jan 2019 10:56:01 -0800
-Message-ID: <20190129185601.GA17525@roeck-us.net>
+Date: Tue, 29 Jan 2019 19:01:51 +0000
+Message-ID: <da0beeff-96eb-5585-50ef-904c8fe8af4d@amd.com>
 References: <20190125005304.183322-1-ndesaulniers@google.com>
  <04bc6844-2a3b-2de8-60a7-a027149709fd@amd.com>
  <CADnq5_OuSD7Bmeg3CP0Y6JTo9Xso2FTZ3tKk-u1C+-B32eUGmQ@mail.gmail.com>
+ <20190129185601.GA17525@roeck-us.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CADnq5_OuSD7Bmeg3CP0Y6JTo9Xso2FTZ3tKk-u1C+-B32eUGmQ@mail.gmail.com>
+In-Reply-To: <20190129185601.GA17525@roeck-us.net>
+Content-Language: en-US
+Content-ID: <F0BD24C27C4C0A4C97113C0EECC9ED59@namprd12.prod.outlook.com>
 Sender: stable-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "Wentland, Harry" <Harry.Wentland@amd.com>, "ndesaulniers@google.com" <ndesaulniers@google.com>, "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "S@google.com" <S@google.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Daenzer, Michel" <Michel.Daenzer@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "S, Shirish" <Shirish.S@amd.com>, Matthias Kaehlcke <mka@google.com>, Matthias Kaehlcke <mka@chromium.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, James Y Knight <jyknight@googl>
+To: Guenter Roeck <linux@roeck-us.net>, Alex Deucher <alexdeucher@gmail.com>
+Cc: "ndesaulniers@google.com" <ndesaulniers@google.com>, "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "S@google.com" <S@google.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Daenzer, Michel" <Michel.Daenzer@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "S, Shirish" <Shirish.S@amd.com>, Matthias Kaehlcke <mka@google.com>, Matthias Kaehlcke <mka@chromium.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, James Y Knight <jyknight@google.com>, "Deucher, Alexander" <Alexander.Deuc>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Jan 29, 2019 at 10:30:31AM -0500, Alex Deucher wrote:
-> On Fri, Jan 25, 2019 at 10:29 AM Wentland, Harry <Harry.Wentland@amd.com> wrote:
-> >
-> > On 2019-01-24 7:52 p.m., ndesaulniers@google.com wrote:
-> > > arch/x86/Makefile disables SSE and SSE2 for the whole kernel.  The
-> > > AMDGPU drivers modified in this patch re-enable SSE but not SSE2.  Turn
-> > > on SSE2 to support emitting double precision floating point instructions
-> > > rather than calls to non-existent (usually available from gcc_s or
-> > > compiler_rt) floating point helper routines.
-> > >
-> > > Link: https://gcc.gnu.org/onlinedocs/gccint/Soft-float-library-routines.html
-> > > Link: https://github.com/ClangBuiltLinux/linux/issues/327
-> > > Cc: stable@vger.kernel.org # 4.19
-> > > Reported-by: S, Shirish <Shirish.S@amd.com>
-> > > Reported-by: Matthias Kaehlcke <mka@google.com>
-> > > Suggested-by: James Y Knight <jyknight@google.com>
-> > > Suggested-by: Nathan Chancellor <natechancellor@gmail.com>
-> > > Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
-> > > Tested-by: Guenter Roeck <linux@roeck-us.net>
-> >
-> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> >
-> > and applied.
-> >
-> 
-> This patch causes a segfault:
-> https://bugs.freedesktop.org/show_bug.cgi?id=109487
-> 
-> Any ideas?
-> 
-
-Set -msse2 only for clang ? I suspect, though, that this might only
-solve the compile problem. If I understand correctly, the first
-warning in the log is due to BREAK_TO_DEBUGGER(), suggesting that
-something is seriously wrong. Maybe enabling sse2 results in different
-results from floating point operations.
-
-Unfortunately I don't have a system with the affected GPU,
-so I can't run any tests on real hardware. Unless someone can test
-with real hardware, I think we have no choice but to revert the
-patch.
-
-Guenter
-
-> Alex
-> 
-> > Harry
-> >
-> > > ---
-> > >  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 2 +-
-> > >  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 2 +-
-> > >  2 files changed, 2 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> > > index 95f332ee3e7e..dc85a3c088af 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> > > +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> > > @@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
-> > >       cc_stack_align := -mstack-alignment=16
-> > >  endif
-> > >
-> > > -calcs_ccflags := -mhard-float -msse $(cc_stack_align)
-> > > +calcs_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
-> > >
-> > >  CFLAGS_dcn_calcs.o := $(calcs_ccflags)
-> > >  CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
-> > > diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> > > index d97ca6528f9d..33c7d7588712 100644
-> > > --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> > > +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> > > @@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
-> > >       cc_stack_align := -mstack-alignment=16
-> > >  endif
-> > >
-> > > -dml_ccflags := -mhard-float -msse $(cc_stack_align)
-> > > +dml_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
-> > >
-> > >  CFLAGS_display_mode_lib.o := $(dml_ccflags)
-> > >  CFLAGS_display_pipe_clocks.o := $(dml_ccflags)
-> > >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAxOS0wMS0yOSAxOjU2IHAubS4sIEd1ZW50ZXIgUm9lY2sgd3JvdGU6DQo+IE9uIFR1ZSwg
+SmFuIDI5LCAyMDE5IGF0IDEwOjMwOjMxQU0gLTA1MDAsIEFsZXggRGV1Y2hlciB3cm90ZToNCj4+
+IE9uIEZyaSwgSmFuIDI1LCAyMDE5IGF0IDEwOjI5IEFNIFdlbnRsYW5kLCBIYXJyeSA8SGFycnku
+V2VudGxhbmRAYW1kLmNvbT4gd3JvdGU6DQo+Pj4NCj4+PiBPbiAyMDE5LTAxLTI0IDc6NTIgcC5t
+LiwgbmRlc2F1bG5pZXJzQGdvb2dsZS5jb20gd3JvdGU6DQo+Pj4+IGFyY2gveDg2L01ha2VmaWxl
+IGRpc2FibGVzIFNTRSBhbmQgU1NFMiBmb3IgdGhlIHdob2xlIGtlcm5lbC4gIFRoZQ0KPj4+PiBB
+TURHUFUgZHJpdmVycyBtb2RpZmllZCBpbiB0aGlzIHBhdGNoIHJlLWVuYWJsZSBTU0UgYnV0IG5v
+dCBTU0UyLiAgVHVybg0KPj4+PiBvbiBTU0UyIHRvIHN1cHBvcnQgZW1pdHRpbmcgZG91YmxlIHBy
+ZWNpc2lvbiBmbG9hdGluZyBwb2ludCBpbnN0cnVjdGlvbnMNCj4+Pj4gcmF0aGVyIHRoYW4gY2Fs
+bHMgdG8gbm9uLWV4aXN0ZW50ICh1c3VhbGx5IGF2YWlsYWJsZSBmcm9tIGdjY19zIG9yDQo+Pj4+
+IGNvbXBpbGVyX3J0KSBmbG9hdGluZyBwb2ludCBoZWxwZXIgcm91dGluZXMuDQo+Pj4+DQo+Pj4+
+IExpbms6IGh0dHBzOi8vZ2NjLmdudS5vcmcvb25saW5lZG9jcy9nY2NpbnQvU29mdC1mbG9hdC1s
+aWJyYXJ5LXJvdXRpbmVzLmh0bWwNCj4+Pj4gTGluazogaHR0cHM6Ly9naXRodWIuY29tL0NsYW5n
+QnVpbHRMaW51eC9saW51eC9pc3N1ZXMvMzI3DQo+Pj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwu
+b3JnICMgNC4xOQ0KPj4+PiBSZXBvcnRlZC1ieTogUywgU2hpcmlzaCA8U2hpcmlzaC5TQGFtZC5j
+b20+DQo+Pj4+IFJlcG9ydGVkLWJ5OiBNYXR0aGlhcyBLYWVobGNrZSA8bWthQGdvb2dsZS5jb20+
+DQo+Pj4+IFN1Z2dlc3RlZC1ieTogSmFtZXMgWSBLbmlnaHQgPGp5a25pZ2h0QGdvb2dsZS5jb20+
+DQo+Pj4+IFN1Z2dlc3RlZC1ieTogTmF0aGFuIENoYW5jZWxsb3IgPG5hdGVjaGFuY2VsbG9yQGdt
+YWlsLmNvbT4NCj4+Pj4gU2lnbmVkLW9mZi1ieTogTmljayBEZXNhdWxuaWVycyA8bmRlc2F1bG5p
+ZXJzQGdvb2dsZS5jb20+DQo+Pj4+IFRlc3RlZC1ieTogR3VlbnRlciBSb2VjayA8bGludXhAcm9l
+Y2stdXMubmV0Pg0KPj4+DQo+Pj4gUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53
+ZW50bGFuZEBhbWQuY29tPg0KPj4+DQo+Pj4gYW5kIGFwcGxpZWQuDQo+Pj4NCj4+DQo+PiBUaGlz
+IHBhdGNoIGNhdXNlcyBhIHNlZ2ZhdWx0Og0KPj4gaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9y
+Zy9zaG93X2J1Zy5jZ2k/aWQ9MTA5NDg3DQo+Pg0KPj4gQW55IGlkZWFzPw0KPj4NCj4gDQo+IFNl
+dCAtbXNzZTIgb25seSBmb3IgY2xhbmcgPyBJIHN1c3BlY3QsIHRob3VnaCwgdGhhdCB0aGlzIG1p
+Z2h0IG9ubHkNCj4gc29sdmUgdGhlIGNvbXBpbGUgcHJvYmxlbS4gSWYgSSB1bmRlcnN0YW5kIGNv
+cnJlY3RseSwgdGhlIGZpcnN0DQo+IHdhcm5pbmcgaW4gdGhlIGxvZyBpcyBkdWUgdG8gQlJFQUtf
+VE9fREVCVUdHRVIoKSwgc3VnZ2VzdGluZyB0aGF0DQo+IHNvbWV0aGluZyBpcyBzZXJpb3VzbHkg
+d3JvbmcuIE1heWJlIGVuYWJsaW5nIHNzZTIgcmVzdWx0cyBpbiBkaWZmZXJlbnQNCj4gcmVzdWx0
+cyBmcm9tIGZsb2F0aW5nIHBvaW50IG9wZXJhdGlvbnMuDQo+IA0KPiBVbmZvcnR1bmF0ZWx5IEkg
+ZG9uJ3QgaGF2ZSBhIHN5c3RlbSB3aXRoIHRoZSBhZmZlY3RlZCBHUFUsDQo+IHNvIEkgY2FuJ3Qg
+cnVuIGFueSB0ZXN0cyBvbiByZWFsIGhhcmR3YXJlLiBVbmxlc3Mgc29tZW9uZSBjYW4gdGVzdA0K
+PiB3aXRoIHJlYWwgaGFyZHdhcmUsIEkgdGhpbmsgd2UgaGF2ZSBubyBjaG9pY2UgYnV0IHRvIHJl
+dmVydCB0aGUNCj4gcGF0Y2guDQo+IA0KDQpNaWdodCBiZSBhIGdvb2QgaWRlYS4gRXZlbiB0aG91
+Z2gsIGJlc3QgdG8gcmV2ZXJ0IGZvciBub3cgdW50aWwgd2UgdW5kZXJzdGFuZCB3aGF0J3MgZ29p
+bmcgb24uDQoNCkl0IHNlZW1zIGxpa2UgcGVvcGxlIGF0IEFNRCBidWlsZGluZyB3aXRoIGdjYyA1
+LjQgYXJlIGZpbmUsIGJ1dCB0aG9zZSB1c2luZyBnY2MgNy4zIG9yIDguMiBleHBlcmllbmNlIHRo
+ZSBjcmFzaC4NCg0KSGFycnkNCg0KPiBHdWVudGVyDQo+IA0KPj4gQWxleA0KPj4NCj4+PiBIYXJy
+eQ0KPj4+DQo+Pj4+IC0tLQ0KPj4+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Nh
+bGNzL01ha2VmaWxlIHwgMiArLQ0KPj4+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
+L2RtbC9NYWtlZmlsZSAgIHwgMiArLQ0KPj4+PiAgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlv
+bnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pj4+DQo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUNCj4+Pj4gaW5kZXggOTVmMzMyZWUzZTdlLi5kYzg1
+YTNjMDg4YWYgMTAwNjQ0DQo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9jYWxjcy9NYWtlZmlsZQ0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvY2FsY3MvTWFrZWZpbGUNCj4+Pj4gQEAgLTMwLDcgKzMwLDcgQEAgZWxzZSBpZm5lcSAoJChj
+YWxsIGNjLW9wdGlvbiwgLW1zdGFjay1hbGlnbm1lbnQ9MTYpLCkNCj4+Pj4gICAgICAgY2Nfc3Rh
+Y2tfYWxpZ24gOj0gLW1zdGFjay1hbGlnbm1lbnQ9MTYNCj4+Pj4gIGVuZGlmDQo+Pj4+DQo+Pj4+
+IC1jYWxjc19jY2ZsYWdzIDo9IC1taGFyZC1mbG9hdCAtbXNzZSAkKGNjX3N0YWNrX2FsaWduKQ0K
+Pj4+PiArY2FsY3NfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgLW1zc2UyICQoY2Nfc3Rh
+Y2tfYWxpZ24pDQo+Pj4+DQo+Pj4+ICBDRkxBR1NfZGNuX2NhbGNzLm8gOj0gJChjYWxjc19jY2Zs
+YWdzKQ0KPj4+PiAgQ0ZMQUdTX2Rjbl9jYWxjX2F1dG8ubyA6PSAkKGNhbGNzX2NjZmxhZ3MpDQo+
+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2Vm
+aWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQ0KPj4+PiBp
+bmRleCBkOTdjYTY1MjhmOWQuLjMzYzdkNzU4ODcxMiAxMDA2NDQNCj4+Pj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQ0KPj4+PiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlDQo+Pj4+IEBAIC0zMCw3ICszMCw3
+IEBAIGVsc2UgaWZuZXEgKCQoY2FsbCBjYy1vcHRpb24sIC1tc3RhY2stYWxpZ25tZW50PTE2KSwp
+DQo+Pj4+ICAgICAgIGNjX3N0YWNrX2FsaWduIDo9IC1tc3RhY2stYWxpZ25tZW50PTE2DQo+Pj4+
+ICBlbmRpZg0KPj4+Pg0KPj4+PiAtZG1sX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlICQo
+Y2Nfc3RhY2tfYWxpZ24pDQo+Pj4+ICtkbWxfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1zc2Ug
+LW1zc2UyICQoY2Nfc3RhY2tfYWxpZ24pDQo+Pj4+DQo+Pj4+ICBDRkxBR1NfZGlzcGxheV9tb2Rl
+X2xpYi5vIDo9ICQoZG1sX2NjZmxhZ3MpDQo+Pj4+ICBDRkxBR1NfZGlzcGxheV9waXBlX2Nsb2Nr
+cy5vIDo9ICQoZG1sX2NjZmxhZ3MpDQo+Pj4+DQo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18NCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4+IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo=
