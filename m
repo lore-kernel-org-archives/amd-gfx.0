@@ -1,82 +1,52 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: add -msse2 to prevent Clang from
- emitting libcalls to undefined SW FP routines
-Date: Tue, 29 Jan 2019 10:30:31 -0500
-Message-ID: <CADnq5_OuSD7Bmeg3CP0Y6JTo9Xso2FTZ3tKk-u1C+-B32eUGmQ@mail.gmail.com>
-References: <20190125005304.183322-1-ndesaulniers@google.com>
- <04bc6844-2a3b-2de8-60a7-a027149709fd@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: [PATCH] Revert "drm/amd/display: add -msse2 to prevent Clang from emitting libcalls to undefined SW FP routines"
+Date: Tue, 29 Jan 2019 11:57:25 -0500
+Message-ID: <20190129165725.31062-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <04bc6844-2a3b-2de8-60a7-a027149709fd-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: "S@google.com" <S@google.com>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "Daenzer,
- Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org" <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>, Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Laktyushkin,
- Dmytro" <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, "stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>, James Y Knight <jyknight-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Matthias Kaehlcke <mka-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "Cheng, Tony" <Tony.Cheng@amd.c>
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBKYW4gMjUsIDIwMTkgYXQgMTA6MjkgQU0gV2VudGxhbmQsIEhhcnJ5IDxIYXJyeS5X
-ZW50bGFuZEBhbWQuY29tPiB3cm90ZToKPgo+IE9uIDIwMTktMDEtMjQgNzo1MiBwLm0uLCBuZGVz
-YXVsbmllcnNAZ29vZ2xlLmNvbSB3cm90ZToKPiA+IGFyY2gveDg2L01ha2VmaWxlIGRpc2FibGVz
-IFNTRSBhbmQgU1NFMiBmb3IgdGhlIHdob2xlIGtlcm5lbC4gIFRoZQo+ID4gQU1ER1BVIGRyaXZl
-cnMgbW9kaWZpZWQgaW4gdGhpcyBwYXRjaCByZS1lbmFibGUgU1NFIGJ1dCBub3QgU1NFMi4gIFR1
-cm4KPiA+IG9uIFNTRTIgdG8gc3VwcG9ydCBlbWl0dGluZyBkb3VibGUgcHJlY2lzaW9uIGZsb2F0
-aW5nIHBvaW50IGluc3RydWN0aW9ucwo+ID4gcmF0aGVyIHRoYW4gY2FsbHMgdG8gbm9uLWV4aXN0
-ZW50ICh1c3VhbGx5IGF2YWlsYWJsZSBmcm9tIGdjY19zIG9yCj4gPiBjb21waWxlcl9ydCkgZmxv
-YXRpbmcgcG9pbnQgaGVscGVyIHJvdXRpbmVzLgo+ID4KPiA+IExpbms6IGh0dHBzOi8vZ2NjLmdu
-dS5vcmcvb25saW5lZG9jcy9nY2NpbnQvU29mdC1mbG9hdC1saWJyYXJ5LXJvdXRpbmVzLmh0bWwK
-PiA+IExpbms6IGh0dHBzOi8vZ2l0aHViLmNvbS9DbGFuZ0J1aWx0TGludXgvbGludXgvaXNzdWVz
-LzMyNwo+ID4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcgIyA0LjE5Cj4gPiBSZXBvcnRlZC1i
-eTogUywgU2hpcmlzaCA8U2hpcmlzaC5TQGFtZC5jb20+Cj4gPiBSZXBvcnRlZC1ieTogTWF0dGhp
-YXMgS2FlaGxja2UgPG1rYUBnb29nbGUuY29tPgo+ID4gU3VnZ2VzdGVkLWJ5OiBKYW1lcyBZIEtu
-aWdodCA8anlrbmlnaHRAZ29vZ2xlLmNvbT4KPiA+IFN1Z2dlc3RlZC1ieTogTmF0aGFuIENoYW5j
-ZWxsb3IgPG5hdGVjaGFuY2VsbG9yQGdtYWlsLmNvbT4KPiA+IFNpZ25lZC1vZmYtYnk6IE5pY2sg
-RGVzYXVsbmllcnMgPG5kZXNhdWxuaWVyc0Bnb29nbGUuY29tPgo+ID4gVGVzdGVkLWJ5OiBHdWVu
-dGVyIFJvZWNrIDxsaW51eEByb2Vjay11cy5uZXQ+Cj4KPiBSZXZpZXdlZC1ieTogSGFycnkgV2Vu
-dGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Cj4KPiBhbmQgYXBwbGllZC4KPgoKVGhpcyBw
-YXRjaCBjYXVzZXMgYSBzZWdmYXVsdDoKaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93
-X2J1Zy5jZ2k/aWQ9MTA5NDg3CgpBbnkgaWRlYXM/CgpBbGV4Cgo+IEhhcnJ5Cj4KPiA+IC0tLQo+
-ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZSB8IDIgKy0K
-PiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlICAgfCAyICst
-Cj4gPiAgMiBmaWxlcyBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4g
-Pgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9N
-YWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQo+
-ID4gaW5kZXggOTVmMzMyZWUzZTdlLi5kYzg1YTNjMDg4YWYgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUKPiA+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQo+ID4gQEAgLTMwLDcgKzMw
-LDcgQEAgZWxzZSBpZm5lcSAoJChjYWxsIGNjLW9wdGlvbiwgLW1zdGFjay1hbGlnbm1lbnQ9MTYp
-LCkKPiA+ICAgICAgIGNjX3N0YWNrX2FsaWduIDo9IC1tc3RhY2stYWxpZ25tZW50PTE2Cj4gPiAg
-ZW5kaWYKPiA+Cj4gPiAtY2FsY3NfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgJChjY19z
-dGFja19hbGlnbikKPiA+ICtjYWxjc19jY2ZsYWdzIDo9IC1taGFyZC1mbG9hdCAtbXNzZSAtbXNz
-ZTIgJChjY19zdGFja19hbGlnbikKPiA+Cj4gPiAgQ0ZMQUdTX2Rjbl9jYWxjcy5vIDo9ICQoY2Fs
-Y3NfY2NmbGFncykKPiA+ICBDRkxBR1NfZGNuX2NhbGNfYXV0by5vIDo9ICQoY2FsY3NfY2NmbGFn
-cykKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01h
-a2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQo+ID4g
-aW5kZXggZDk3Y2E2NTI4ZjlkLi4zM2M3ZDc1ODg3MTIgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCj4gPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlCj4gPiBAQCAtMzAsNyArMzAsNyBAQCBl
-bHNlIGlmbmVxICgkKGNhbGwgY2Mtb3B0aW9uLCAtbXN0YWNrLWFsaWdubWVudD0xNiksKQo+ID4g
-ICAgICAgY2Nfc3RhY2tfYWxpZ24gOj0gLW1zdGFjay1hbGlnbm1lbnQ9MTYKPiA+ICBlbmRpZgo+
-ID4KPiA+IC1kbWxfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgJChjY19zdGFja19hbGln
-bikKPiA+ICtkbWxfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgLW1zc2UyICQoY2Nfc3Rh
-Y2tfYWxpZ24pCj4gPgo+ID4gIENGTEFHU19kaXNwbGF5X21vZGVfbGliLm8gOj0gJChkbWxfY2Nm
-bGFncykKPiA+ICBDRkxBR1NfZGlzcGxheV9waXBlX2Nsb2Nrcy5vIDo9ICQoZG1sX2NjZmxhZ3Mp
-Cj4gPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+This reverts commit 10117450735c7a7c0858095fb46a860e7037cb9a.
+
+Causes a crash.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=109487
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org # 4.19
+---
+ drivers/gpu/drm/amd/display/dc/calcs/Makefile | 2 +-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+index dc85a3c088af..95f332ee3e7e 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+@@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
+ 	cc_stack_align := -mstack-alignment=16
+ endif
+ 
+-calcs_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
++calcs_ccflags := -mhard-float -msse $(cc_stack_align)
+ 
+ CFLAGS_dcn_calcs.o := $(calcs_ccflags)
+ CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+index 33c7d7588712..d97ca6528f9d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+@@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
+ 	cc_stack_align := -mstack-alignment=16
+ endif
+ 
+-dml_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
++dml_ccflags := -mhard-float -msse $(cc_stack_align)
+ 
+ CFLAGS_display_mode_lib.o := $(dml_ccflags)
+ CFLAGS_display_pipe_clocks.o := $(dml_ccflags)
+-- 
+2.20.1
