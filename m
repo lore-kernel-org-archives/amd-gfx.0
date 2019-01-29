@@ -1,50 +1,102 @@
-From: "Wentland, Harry" <Harry.Wentland@amd.com>
-Subject: Re: [PATCH] Revert "drm/amd/display: add -msse2 to prevent Clang from
- emitting libcalls to undefined SW FP routines"
-Date: Tue, 29 Jan 2019 18:28:08 +0000
-Message-ID: <05ee719f-ac7e-bcb0-59f0-920b72f65524@amd.com>
-References: <20190129165725.31062-1-alexander.deucher@amd.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [PATCH] drm/amd/display: add -msse2 to prevent Clang from
+ emitting libcalls to undefined SW FP routines
+Date: Tue, 29 Jan 2019 10:56:01 -0800
+Message-ID: <20190129185601.GA17525@roeck-us.net>
+References: <20190125005304.183322-1-ndesaulniers@google.com>
+ <04bc6844-2a3b-2de8-60a7-a027149709fd@amd.com>
+ <CADnq5_OuSD7Bmeg3CP0Y6JTo9Xso2FTZ3tKk-u1C+-B32eUGmQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=us-ascii
 Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190129165725.31062-1-alexander.deucher@amd.com>
-Content-Language: en-US
-Content-ID: <771B2FEC8CDB7F4C82AE5018A2B55A03@namprd12.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OuSD7Bmeg3CP0Y6JTo9Xso2FTZ3tKk-u1C+-B32eUGmQ@mail.gmail.com>
 Sender: stable-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Wentland, Harry" <Harry.Wentland@amd.com>, "ndesaulniers@google.com" <ndesaulniers@google.com>, "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "S@google.com" <S@google.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Daenzer, Michel" <Michel.Daenzer@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "S, Shirish" <Shirish.S@amd.com>, Matthias Kaehlcke <mka@google.com>, Matthias Kaehlcke <mka@chromium.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, James Y Knight <jyknight@googl>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wMS0yOSAxMTo1NyBhLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+IFRoaXMgcmV2
-ZXJ0cyBjb21taXQgMTAxMTc0NTA3MzVjN2E3YzA4NTgwOTVmYjQ2YTg2MGU3MDM3Y2I5YS4NCj4g
-DQo+IENhdXNlcyBhIGNyYXNoLg0KPiANCj4gQnVnOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Au
-b3JnL3Nob3dfYnVnLmNnaT9pZD0xMDk0ODcNCj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVy
-IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9y
-ZyAjIDQuMTkNCg0KVGhhbmtzIGZvciBmaW5kaW5nIGFuZCByZXZlcnRpbmcuDQoNClJldmlld2Vk
-LWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCg0KSGFycnkNCg0K
-PiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZSB8
-IDIgKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFrZWZpbGUgICB8
-IDIgKy0NCj4gIDIgZmlsZXMgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygt
-KQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxj
-cy9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmls
-ZQ0KPiBpbmRleCBkYzg1YTNjMDg4YWYuLjk1ZjMzMmVlM2U3ZSAxMDA2NDQNCj4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlDQo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jYWxjcy9NYWtlZmlsZQ0KPiBAQCAtMzAsNyArMzAs
-NyBAQCBlbHNlIGlmbmVxICgkKGNhbGwgY2Mtb3B0aW9uLCAtbXN0YWNrLWFsaWdubWVudD0xNiks
-KQ0KPiAgCWNjX3N0YWNrX2FsaWduIDo9IC1tc3RhY2stYWxpZ25tZW50PTE2DQo+ICBlbmRpZg0K
-PiAgDQo+IC1jYWxjc19jY2ZsYWdzIDo9IC1taGFyZC1mbG9hdCAtbXNzZSAtbXNzZTIgJChjY19z
-dGFja19hbGlnbikNCj4gK2NhbGNzX2NjZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlICQoY2Nf
-c3RhY2tfYWxpZ24pDQo+ICANCj4gIENGTEFHU19kY25fY2FsY3MubyA6PSAkKGNhbGNzX2NjZmxh
-Z3MpDQo+ICBDRkxBR1NfZGNuX2NhbGNfYXV0by5vIDo9ICQoY2FsY3NfY2NmbGFncykNCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFrZWZpbGUgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlDQo+IGluZGV4IDMzYzdk
-NzU4ODcxMi4uZDk3Y2E2NTI4ZjlkIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9kYy9kbWwvTWFrZWZpbGUNCj4gQEAgLTMwLDcgKzMwLDcgQEAgZWxzZSBpZm5lcSAoJChj
-YWxsIGNjLW9wdGlvbiwgLW1zdGFjay1hbGlnbm1lbnQ9MTYpLCkNCj4gIAljY19zdGFja19hbGln
-biA6PSAtbXN0YWNrLWFsaWdubWVudD0xNg0KPiAgZW5kaWYNCj4gIA0KPiAtZG1sX2NjZmxhZ3Mg
-Oj0gLW1oYXJkLWZsb2F0IC1tc3NlIC1tc3NlMiAkKGNjX3N0YWNrX2FsaWduKQ0KPiArZG1sX2Nj
-ZmxhZ3MgOj0gLW1oYXJkLWZsb2F0IC1tc3NlICQoY2Nfc3RhY2tfYWxpZ24pDQo+ICANCj4gIENG
-TEFHU19kaXNwbGF5X21vZGVfbGliLm8gOj0gJChkbWxfY2NmbGFncykNCj4gIENGTEFHU19kaXNw
-bGF5X3BpcGVfY2xvY2tzLm8gOj0gJChkbWxfY2NmbGFncykNCj4gDQo=
+On Tue, Jan 29, 2019 at 10:30:31AM -0500, Alex Deucher wrote:
+> On Fri, Jan 25, 2019 at 10:29 AM Wentland, Harry <Harry.Wentland@amd.com> wrote:
+> >
+> > On 2019-01-24 7:52 p.m., ndesaulniers@google.com wrote:
+> > > arch/x86/Makefile disables SSE and SSE2 for the whole kernel.  The
+> > > AMDGPU drivers modified in this patch re-enable SSE but not SSE2.  Turn
+> > > on SSE2 to support emitting double precision floating point instructions
+> > > rather than calls to non-existent (usually available from gcc_s or
+> > > compiler_rt) floating point helper routines.
+> > >
+> > > Link: https://gcc.gnu.org/onlinedocs/gccint/Soft-float-library-routines.html
+> > > Link: https://github.com/ClangBuiltLinux/linux/issues/327
+> > > Cc: stable@vger.kernel.org # 4.19
+> > > Reported-by: S, Shirish <Shirish.S@amd.com>
+> > > Reported-by: Matthias Kaehlcke <mka@google.com>
+> > > Suggested-by: James Y Knight <jyknight@google.com>
+> > > Suggested-by: Nathan Chancellor <natechancellor@gmail.com>
+> > > Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+> > > Tested-by: Guenter Roeck <linux@roeck-us.net>
+> >
+> > Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> >
+> > and applied.
+> >
+> 
+> This patch causes a segfault:
+> https://bugs.freedesktop.org/show_bug.cgi?id=109487
+> 
+> Any ideas?
+> 
+
+Set -msse2 only for clang ? I suspect, though, that this might only
+solve the compile problem. If I understand correctly, the first
+warning in the log is due to BREAK_TO_DEBUGGER(), suggesting that
+something is seriously wrong. Maybe enabling sse2 results in different
+results from floating point operations.
+
+Unfortunately I don't have a system with the affected GPU,
+so I can't run any tests on real hardware. Unless someone can test
+with real hardware, I think we have no choice but to revert the
+patch.
+
+Guenter
+
+> Alex
+> 
+> > Harry
+> >
+> > > ---
+> > >  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 2 +-
+> > >  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 2 +-
+> > >  2 files changed, 2 insertions(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+> > > index 95f332ee3e7e..dc85a3c088af 100644
+> > > --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+> > > +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
+> > > @@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
+> > >       cc_stack_align := -mstack-alignment=16
+> > >  endif
+> > >
+> > > -calcs_ccflags := -mhard-float -msse $(cc_stack_align)
+> > > +calcs_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
+> > >
+> > >  CFLAGS_dcn_calcs.o := $(calcs_ccflags)
+> > >  CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
+> > > diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > > index d97ca6528f9d..33c7d7588712 100644
+> > > --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > > +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
+> > > @@ -30,7 +30,7 @@ else ifneq ($(call cc-option, -mstack-alignment=16),)
+> > >       cc_stack_align := -mstack-alignment=16
+> > >  endif
+> > >
+> > > -dml_ccflags := -mhard-float -msse $(cc_stack_align)
+> > > +dml_ccflags := -mhard-float -msse -msse2 $(cc_stack_align)
+> > >
+> > >  CFLAGS_display_mode_lib.o := $(dml_ccflags)
+> > >  CFLAGS_display_pipe_clocks.o := $(dml_ccflags)
+> > >
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
