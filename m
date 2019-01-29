@@ -1,13 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix fclk idle state
-Date: Tue, 29 Jan 2019 20:55:44 +0000
-Message-ID: <BN6PR12MB18092D373D6ED5E16B5CC0AEF7970@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190129201653.4834-1-Roman.Li@amd.com>
+From: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Clean up coding style violations
+Date: Tue, 29 Jan 2019 16:03:36 -0500
+Message-ID: <20190129210336.27734-1-David.Francis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1095097491=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190129201653.4834-1-Roman.Li-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,182 +16,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Cc: "Chan, Carl" <Carl.Chan-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>
 
---===============1095097491==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18092D373D6ED5E16B5CC0AEF7970BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18092D373D6ED5E16B5CC0AEF7970BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Roman.Li=
-@amd.com <Roman.Li-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, January 29, 2019 3:16:53 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Xu, Feifei; Quan, Evan
-Cc: Chan, Carl; Wentland, Harry; Li, Roman
-Subject: [PATCH] drm/amd/display: Fix fclk idle state
-
-From: Roman Li <Roman.Li-5C7GfCeVMHo@public.gmane.org>
-
-[Why]
-The earlier change 'Fix 6x4K displays' led to fclk value
-idling at higher DPM level.
-
-[How]
-Apply the fix only to respective multi-display configuration.
-
-Signed-off-by: Roman Li <Roman.Li-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c b/drivers/gpu=
-/drm/amd/display/dc/dce/dce_clk_mgr.c
-index 3c52a4fc921d..bbe051736a18 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c
-@@ -627,7 +627,15 @@ static void dce11_pplib_apply_display_requirements(
-                         dc,
-                         context->bw.dce.sclk_khz);
-
--       pp_display_cfg->min_dcfclock_khz =3D pp_display_cfg->min_engine_clo=
-ck_khz;
-+       /*
-+        * As workaround for >4x4K lightup set dcfclock to min_engine_clock=
- value.
-+        * This is not required for less than 5 displays,
-+        * thus don't request decfclk in dc to avoid impact
-+        * on power saving.
-+        *
-+        */
-+       pp_display_cfg->min_dcfclock_khz =3D (context->stream_count > 4)?
-+                       pp_display_cfg->min_engine_clock_khz : 0;
-
-         pp_display_cfg->min_engine_clock_deep_sleep_khz
-                         =3D context->bw.dce.sclk_deep_sleep_khz;
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18092D373D6ED5E16B5CC0AEF7970BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Alex Deucher &lt;alexan=
-der.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Roman.Li-5C7GfCeVMHo@public.gmane.org &lt;Roman.Li=
-@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, January 29, 2019 3:16:53 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Xu, Feifei; Quan, Evan<br>
-<b>Cc:</b> Chan, Carl; Wentland, Harry; Li, Roman<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Fix fclk idle state</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Roman Li &lt;Roman.Li-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-[Why]<br>
-The earlier change 'Fix 6x4K displays' led to fclk value<br>
-idling at higher DPM level.<br>
-<br>
-[How]<br>
-Apply the fix only to respective multi-display configuration.<br>
-<br>
-Signed-off-by: Roman Li &lt;Roman.Li-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c | 10 &#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;&#43;-<br>
-&nbsp;1 file changed, 9 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c b/drivers/gpu=
-/drm/amd/display/dc/dce/dce_clk_mgr.c<br>
-index 3c52a4fc921d..bbe051736a18 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dce/dce_clk_mgr.c<br>
-@@ -627,7 &#43;627,15 @@ static void dce11_pplib_apply_display_requirements=
-(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dc,<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conte=
-xt-&gt;bw.dce.sclk_khz);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_display_cfg-&gt;min_dcfclock_khz =
-=3D pp_display_cfg-&gt;min_engine_clock_khz;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * As workaround for &gt;4x4=
-K lightup set dcfclock to min_engine_clock value.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * This is not required for =
-less than 5 displays,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * thus don't request decfcl=
-k in dc to avoid impact<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * on power saving.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_display_cfg-&gt;min_dcfclock_k=
-hz =3D (context-&gt;stream_count &gt; 4)?<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_display_c=
-fg-&gt;min_engine_clock_khz : 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pp_display_cfg-&gt;min_eng=
-ine_clock_deep_sleep_khz<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D c=
-ontext-&gt;bw.dce.sclk_deep_sleep_khz;<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18092D373D6ED5E16B5CC0AEF7970BN6PR12MB1809namp_--
-
---===============1095097491==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1095097491==--
+U29tZSBvZiB0aGUgZ3JhbmRmYXRoZXJlZCBhbWQgZGlzcGxheSBjb2RlIGRvZXMgbm90IGZvbGxv
+dwpMaW51eCBjb2Rpbmcgc3R5bGUgYW5kIGVtaXRzIHdhcm5pbmdzIG9yIGVycm9ycyBvbiBjaGVj
+a3BhdGNoCgpObyBmdW5jdGlvbmFsIGNoYW5nZXMgaGVyZSAtIGp1c3QgY2xlYW51cAoKU2lnbmVk
+LW9mZi1ieTogRGF2aWQgRnJhbmNpcyA8RGF2aWQuRnJhbmNpc0BhbWQuY29tPgotLS0KIC4uLi9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDk2ICsrKysrKysrKy0t
+LS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0NyBpbnNlcnRpb25zKCspLCA0OSBkZWxldGlvbnMo
+LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
+ZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
+ZG0uYwppbmRleCBjZGRhNjhhYmE3MGUuLjk3MzUxN2QzNWQ1YyAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC0xNzYsNTYgKzE3
+Niw1NiBAQCBzdGF0aWMgY29uc3QgZW51bSBkcm1fcGxhbmVfdHlwZSBkbV9wbGFuZV90eXBlX3N0
+b25leVtBTURHUFVfTUFYX1BMQU5FU10gPSB7CiAgKi8KIHN0YXRpYyB1MzIgZG1fdmJsYW5rX2dl
+dF9jb3VudGVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBpbnQgY3J0YykKIHsKKwlzdHJ1
+Y3QgYW1kZ3B1X2NydGMgKmFjcnRjOworCXN0cnVjdCBkbV9jcnRjX3N0YXRlICphY3J0Y19zdGF0
+ZTsKKwogCWlmIChjcnRjID49IGFkZXYtPm1vZGVfaW5mby5udW1fY3J0YykKIAkJcmV0dXJuIDA7
+Ci0JZWxzZSB7Ci0JCXN0cnVjdCBhbWRncHVfY3J0YyAqYWNydGMgPSBhZGV2LT5tb2RlX2luZm8u
+Y3J0Y3NbY3J0Y107Ci0JCXN0cnVjdCBkbV9jcnRjX3N0YXRlICphY3J0Y19zdGF0ZSA9IHRvX2Rt
+X2NydGNfc3RhdGUoCi0JCQkJYWNydGMtPmJhc2Uuc3RhdGUpOwogCisJYWNydGMgPSBhZGV2LT5t
+b2RlX2luZm8uY3J0Y3NbY3J0Y107CisJYWNydGNfc3RhdGUgPSB0b19kbV9jcnRjX3N0YXRlKGFj
+cnRjLT5iYXNlLnN0YXRlKTsKIAotCQlpZiAoYWNydGNfc3RhdGUtPnN0cmVhbSA9PSBOVUxMKSB7
+Ci0JCQlEUk1fRVJST1IoImRjX3N0cmVhbV9zdGF0ZSBpcyBOVUxMIGZvciBjcnRjICclZCchXG4i
+LAotCQkJCSAgY3J0Yyk7Ci0JCQlyZXR1cm4gMDsKLQkJfQotCi0JCXJldHVybiBkY19zdHJlYW1f
+Z2V0X3ZibGFua19jb3VudGVyKGFjcnRjX3N0YXRlLT5zdHJlYW0pOworCWlmIChhY3J0Y19zdGF0
+ZS0+c3RyZWFtID09IE5VTEwpIHsKKwkJRFJNX0VSUk9SKCJkY19zdHJlYW1fc3RhdGUgaXMgTlVM
+TCBmb3IgY3J0YyAnJWQnIVxuIiwKKwkJCSAgY3J0Yyk7CisJCXJldHVybiAwOwogCX0KKworCXJl
+dHVybiBkY19zdHJlYW1fZ2V0X3ZibGFua19jb3VudGVyKGFjcnRjX3N0YXRlLT5zdHJlYW0pOwog
+fQogCiBzdGF0aWMgaW50IGRtX2NydGNfZ2V0X3NjYW5vdXRwb3Moc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsIGludCBjcnRjLAogCQkJCSAgdTMyICp2YmwsIHUzMiAqcG9zaXRpb24pCiB7CiAJ
+dWludDMyX3Qgdl9ibGFua19zdGFydCwgdl9ibGFua19lbmQsIGhfcG9zaXRpb24sIHZfcG9zaXRp
+b247CisJc3RydWN0IGFtZGdwdV9jcnRjICphY3J0YzsKKwlzdHJ1Y3QgZG1fY3J0Y19zdGF0ZSAq
+YWNydGNfc3RhdGU7CiAKIAlpZiAoKGNydGMgPCAwKSB8fCAoY3J0YyA+PSBhZGV2LT5tb2RlX2lu
+Zm8ubnVtX2NydGMpKQogCQlyZXR1cm4gLUVJTlZBTDsKLQllbHNlIHsKLQkJc3RydWN0IGFtZGdw
+dV9jcnRjICphY3J0YyA9IGFkZXYtPm1vZGVfaW5mby5jcnRjc1tjcnRjXTsKLQkJc3RydWN0IGRt
+X2NydGNfc3RhdGUgKmFjcnRjX3N0YXRlID0gdG9fZG1fY3J0Y19zdGF0ZSgKLQkJCQkJCWFjcnRj
+LT5iYXNlLnN0YXRlKTsKLQotCQlpZiAoYWNydGNfc3RhdGUtPnN0cmVhbSA9PSAgTlVMTCkgewot
+CQkJRFJNX0VSUk9SKCJkY19zdHJlYW1fc3RhdGUgaXMgTlVMTCBmb3IgY3J0YyAnJWQnIVxuIiwK
+LQkJCQkgIGNydGMpOwotCQkJcmV0dXJuIDA7Ci0JCX0KIAotCQkvKgotCQkgKiBUT0RPIHJld29y
+ayBiYXNlIGRyaXZlciB0byB1c2UgdmFsdWVzIGRpcmVjdGx5LgotCQkgKiBmb3Igbm93IHBhcnNl
+IGl0IGJhY2sgaW50byByZWctZm9ybWF0Ci0JCSAqLwotCQlkY19zdHJlYW1fZ2V0X3NjYW5vdXRw
+b3MoYWNydGNfc3RhdGUtPnN0cmVhbSwKLQkJCQkJICZ2X2JsYW5rX3N0YXJ0LAotCQkJCQkgJnZf
+YmxhbmtfZW5kLAotCQkJCQkgJmhfcG9zaXRpb24sCi0JCQkJCSAmdl9wb3NpdGlvbik7CisJYWNy
+dGMgPSBhZGV2LT5tb2RlX2luZm8uY3J0Y3NbY3J0Y107CisJYWNydGNfc3RhdGUgPSB0b19kbV9j
+cnRjX3N0YXRlKGFjcnRjLT5iYXNlLnN0YXRlKTsKIAotCQkqcG9zaXRpb24gPSB2X3Bvc2l0aW9u
+IHwgKGhfcG9zaXRpb24gPDwgMTYpOwotCQkqdmJsID0gdl9ibGFua19zdGFydCB8ICh2X2JsYW5r
+X2VuZCA8PCAxNik7CisJaWYgKGFjcnRjX3N0YXRlLT5zdHJlYW0gPT0gIE5VTEwpIHsKKwkJRFJN
+X0VSUk9SKCJkY19zdHJlYW1fc3RhdGUgaXMgTlVMTCBmb3IgY3J0YyAnJWQnIVxuIiwKKwkJCSAg
+Y3J0Yyk7CisJCXJldHVybiAwOwogCX0KIAorCS8qCisJICogVE9ETyByZXdvcmsgYmFzZSBkcml2
+ZXIgdG8gdXNlIHZhbHVlcyBkaXJlY3RseS4KKwkgKiBmb3Igbm93IHBhcnNlIGl0IGJhY2sgaW50
+byByZWctZm9ybWF0CisJICovCisJZGNfc3RyZWFtX2dldF9zY2Fub3V0cG9zKGFjcnRjX3N0YXRl
+LT5zdHJlYW0sCisJCQkJICZ2X2JsYW5rX3N0YXJ0LAorCQkJCSAmdl9ibGFua19lbmQsCisJCQkJ
+ICZoX3Bvc2l0aW9uLAorCQkJCSAmdl9wb3NpdGlvbik7CisKKwkqcG9zaXRpb24gPSB2X3Bvc2l0
+aW9uIHwgKGhfcG9zaXRpb24gPDwgMTYpOworCSp2YmwgPSB2X2JsYW5rX3N0YXJ0IHwgKHZfYmxh
+bmtfZW5kIDw8IDE2KTsKKwogCXJldHVybiAwOwogfQogCkBAIC0yOTMsOCArMjkzLDggQEAgc3Rh
+dGljIHZvaWQgZG1fcGZsaXBfaGlnaF9pcnEodm9pZCAqaW50ZXJydXB0X3BhcmFtcykKIAogCXNw
+aW5fbG9ja19pcnFzYXZlKCZhZGV2LT5kZGV2LT5ldmVudF9sb2NrLCBmbGFncyk7CiAKLQlpZiAo
+YW1kZ3B1X2NydGMtPnBmbGlwX3N0YXR1cyAhPSBBTURHUFVfRkxJUF9TVUJNSVRURUQpewotCQlE
+Uk1fREVCVUdfRFJJVkVSKCJhbWRncHVfY3J0Yy0+cGZsaXBfc3RhdHVzID0gJWQgIT1BTURHUFVf
+RkxJUF9TVUJNSVRURUQoJWQpIG9uIGNydGM6JWRbJXBdIFxuIiwKKwlpZiAoYW1kZ3B1X2NydGMt
+PnBmbGlwX3N0YXR1cyAhPSBBTURHUFVfRkxJUF9TVUJNSVRURUQpIHsKKwkJRFJNX0RFQlVHX0RS
+SVZFUigiYW1kZ3B1X2NydGMtPnBmbGlwX3N0YXR1cyA9ICVkICE9QU1ER1BVX0ZMSVBfU1VCTUlU
+VEVEKCVkKSBvbiBjcnRjOiVkWyVwXVxuIiwKIAkJCQkJCSBhbWRncHVfY3J0Yy0+cGZsaXBfc3Rh
+dHVzLAogCQkJCQkJIEFNREdQVV9GTElQX1NVQk1JVFRFRCwKIAkJCQkJCSBhbWRncHVfY3J0Yy0+
+Y3J0Y19pZCwKQEAgLTM3MCw3ICszNzAsNyBAQCBzdGF0aWMgaW50IGRtX3NldF9wb3dlcmdhdGlu
+Z19zdGF0ZSh2b2lkICpoYW5kbGUsCiB9CiAKIC8qIFByb3RvdHlwZXMgb2YgcHJpdmF0ZSBmdW5j
+dGlvbnMgKi8KLXN0YXRpYyBpbnQgZG1fZWFybHlfaW5pdCh2b2lkKiBoYW5kbGUpOworc3RhdGlj
+IGludCBkbV9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSk7CiAKIC8qIEFsbG9jYXRlIG1lbW9yeSBm
+b3IgRkJDIGNvbXByZXNzZWQgZGF0YSAgKi8KIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9mYmNfaW5p
+dChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQpAQCAtNDE2LDYgKzQxNiw3IEBAIHN0
+YXRpYyB2b2lkIGFtZGdwdV9kbV9mYmNfaW5pdChzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVj
+dG9yKQogc3RhdGljIGludCBhbWRncHVfZG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+dikKIHsKIAlzdHJ1Y3QgZGNfaW5pdF9kYXRhIGluaXRfZGF0YTsKKwogCWFkZXYtPmRtLmRkZXYg
+PSBhZGV2LT5kZGV2OwogCWFkZXYtPmRtLmFkZXYgPSBhZGV2OwogCkBAIC00MjQsNyArNDI1LDcg
+QEAgc3RhdGljIGludCBhbWRncHVfZG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
+IAogCW11dGV4X2luaXQoJmFkZXYtPmRtLmRjX2xvY2spOwogCi0JaWYoYW1kZ3B1X2RtX2lycV9p
+bml0KGFkZXYpKSB7CisJaWYgKGFtZGdwdV9kbV9pcnFfaW5pdChhZGV2KSkgewogCQlEUk1fRVJS
+T1IoImFtZGdwdTogZmFpbGVkIHRvIGluaXRpYWxpemUgRE0gSVJRIHN1cHBvcnQuXG4iKTsKIAkJ
+Z290byBlcnJvcjsKIAl9CkBAIC01NDAsOCArNTQxLDYgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2Rt
+X2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJCWRjX2Rlc3Ryb3koJmFkZXYtPmRt
+LmRjKTsKIAogCW11dGV4X2Rlc3Ryb3koJmFkZXYtPmRtLmRjX2xvY2spOwotCi0JcmV0dXJuOwog
+fQogCiBzdGF0aWMgaW50IGxvYWRfZG1jdV9mdyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
+QEAgLTEwMjEsOCArMTAyMCw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kX2lwX2Z1bmNzIGFt
+ZGdwdV9kbV9mdW5jcyA9IHsKIAkuc2V0X3Bvd2VyZ2F0aW5nX3N0YXRlID0gZG1fc2V0X3Bvd2Vy
+Z2F0aW5nX3N0YXRlLAogfTsKIAotY29uc3Qgc3RydWN0IGFtZGdwdV9pcF9ibG9ja192ZXJzaW9u
+IGRtX2lwX2Jsb2NrID0KLXsKK2NvbnN0IHN0cnVjdCBhbWRncHVfaXBfYmxvY2tfdmVyc2lvbiBk
+bV9pcF9ibG9jayA9IHsKIAkudHlwZSA9IEFNRF9JUF9CTE9DS19UWVBFX0RDRSwKIAkubWFqb3Ig
+PSAxLAogCS5taW5vciA9IDAsCkBAIC0xMjQyLDYgKzEyNDAsNyBAQCBzdGF0aWMgdm9pZCBkbV9o
+YW5kbGVfaHBkX3J4X2lycShzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcikK
+IAl3aGlsZSAoZHJldCA9PSBkcGNkX2J5dGVzX3RvX3JlYWQgJiYKIAkJcHJvY2Vzc19jb3VudCA8
+IG1heF9wcm9jZXNzX2NvdW50KSB7CiAJCXVpbnQ4X3QgcmV0cnk7CisKIAkJZHJldCA9IDA7CiAK
+IAkJcHJvY2Vzc19jb3VudCsrOwpAQCAtMTM2Nyw3ICsxMzY2LDcgQEAgc3RhdGljIHZvaWQgcmVn
+aXN0ZXJfaHBkX2hhbmRsZXJzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQlhY29ubmVj
+dG9yID0gdG9fYW1kZ3B1X2RtX2Nvbm5lY3Rvcihjb25uZWN0b3IpOwogCQlkY19saW5rID0gYWNv
+bm5lY3Rvci0+ZGNfbGluazsKIAotCQlpZiAoRENfSVJRX1NPVVJDRV9JTlZBTElEICE9IGRjX2xp
+bmstPmlycV9zb3VyY2VfaHBkKSB7CisJCWlmIChkY19saW5rLT5pcnFfc291cmNlX2hwZCAhPSBE
+Q19JUlFfU09VUkNFX0lOVkFMSUQpIHsKIAkJCWludF9wYXJhbXMuaW50X2NvbnRleHQgPSBJTlRF
+UlJVUFRfTE9XX0lSUV9DT05URVhUOwogCQkJaW50X3BhcmFtcy5pcnFfc291cmNlID0gZGNfbGlu
+ay0+aXJxX3NvdXJjZV9ocGQ7CiAKQEAgLTEzNzYsNyArMTM3NSw3IEBAIHN0YXRpYyB2b2lkIHJl
+Z2lzdGVyX2hwZF9oYW5kbGVycyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJCQkJKHZv
+aWQgKikgYWNvbm5lY3Rvcik7CiAJCX0KIAotCQlpZiAoRENfSVJRX1NPVVJDRV9JTlZBTElEICE9
+IGRjX2xpbmstPmlycV9zb3VyY2VfaHBkX3J4KSB7CisJCWlmIChkY19saW5rLT5pcnFfc291cmNl
+X2hwZF9yeCAhPSBEQ19JUlFfU09VUkNFX0lOVkFMSUQpIHsKIAogCQkJLyogQWxzbyByZWdpc3Rl
+ciBmb3IgRFAgc2hvcnQgcHVsc2UgKGhwZF9yeCkuICovCiAJCQlpbnRfcGFyYW1zLmludF9jb250
+ZXh0ID0gSU5URVJSVVBUX0xPV19JUlFfQ09OVEVYVDsKQEAgLTEzOTcsNyArMTM5Niw3IEBAIHN0
+YXRpYyBpbnQgZGNlMTEwX3JlZ2lzdGVyX2lycV9oYW5kbGVycyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldikKIAlzdHJ1Y3QgZGNfaW50ZXJydXB0X3BhcmFtcyBpbnRfcGFyYW1zID0gezB9Owog
+CWludCByOwogCWludCBpOwotCXVuc2lnbmVkIGNsaWVudF9pZCA9IEFNREdQVV9JUlFfQ0xJRU5U
+SURfTEVHQUNZOworCXVuc2lnbmVkIGludCBjbGllbnRfaWQgPSBBTURHUFVfSVJRX0NMSUVOVElE
+X0xFR0FDWTsKIAogCWlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJUF9WRUdBMTAgfHwKIAkgICAg
+YWRldi0+YXNpY190eXBlID09IENISVBfVkVHQTEyIHx8CkBAIC0yMDM0LDcgKzIwMzMsNiBAQCBz
+dGF0aWMgdm9pZCBhbWRncHVfZG1fZGVzdHJveV9kcm1fZGV2aWNlKHN0cnVjdCBhbWRncHVfZGlz
+cGxheV9tYW5hZ2VyICpkbSkKIHsKIAlkcm1fbW9kZV9jb25maWdfY2xlYW51cChkbS0+ZGRldik7
+CiAJZHJtX2F0b21pY19wcml2YXRlX29ial9maW5pKCZkbS0+YXRvbWljX29iaik7Ci0JcmV0dXJu
+OwogfQogCiAvKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCkBAIC0zMDk0LDkgKzMwOTIsOSBAQCBjcmVh
+dGVfc3RyZWFtX2Zvcl9zaW5rKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9y
+LAogCQlkcm1fbW9kZV9zZXRfY3J0Y2luZm8oJm1vZGUsIDApOwogCiAJLyoKLQkqIElmIHNjYWxp
+bmcgaXMgZW5hYmxlZCBhbmQgcmVmcmVzaCByYXRlIGRpZG4ndCBjaGFuZ2UKLQkqIHdlIGNvcHkg
+dGhlIHZpYyBhbmQgcG9sYXJpdGllcyBvZiB0aGUgb2xkIHRpbWluZ3MKLQkqLworCSAqIElmIHNj
+YWxpbmcgaXMgZW5hYmxlZCBhbmQgcmVmcmVzaCByYXRlIGRpZG4ndCBjaGFuZ2UKKwkgKiB3ZSBj
+b3B5IHRoZSB2aWMgYW5kIHBvbGFyaXRpZXMgb2YgdGhlIG9sZCB0aW1pbmdzCisJICovCiAJaWYg
+KCFzY2FsZSB8fCBtb2RlX3JlZnJlc2ggIT0gcHJlZmVycmVkX3JlZnJlc2gpCiAJCWZpbGxfc3Ry
+ZWFtX3Byb3BlcnRpZXNfZnJvbV9kcm1fZGlzcGxheV9tb2RlKHN0cmVhbSwKIAkJCSZtb2RlLCAm
+YWNvbm5lY3Rvci0+YmFzZSwgTlVMTCk7CkBAIC01Njc4LDcgKzU2NzYsNyBAQCBzdGF0aWMgaW50
+IGRtX3VwZGF0ZV9jcnRjX3N0YXRlKHN0cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSwK
+IHNraXBfbW9kZXNldDoKIAkvKiBSZWxlYXNlIGV4dHJhIHJlZmVyZW5jZSAqLwogCWlmIChuZXdf
+c3RyZWFtKQotCQkgZGNfc3RyZWFtX3JlbGVhc2UobmV3X3N0cmVhbSk7CisJCWRjX3N0cmVhbV9y
+ZWxlYXNlKG5ld19zdHJlYW0pOwogCiAJLyoKIAkgKiBXZSB3YW50IHRvIGRvIGRjIHN0cmVhbSB1
+cGRhdGVzIHRoYXQgZG8gbm90IHJlcXVpcmUgYQpAQCAtNjE3OSw3ICs2MTc3LDcgQEAgc3RhdGlj
+IGludCBhbWRncHVfZG1fYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJZWxz
+ZSBpZiAocmV0ID09IC1FSU5UUiB8fCByZXQgPT0gLUVBR0FJTiB8fCByZXQgPT0gLUVSRVNUQVJU
+U1lTKQogCQlEUk1fREVCVUdfRFJJVkVSKCJBdG9taWMgY2hlY2sgc3RvcHBlZCBkdWUgdG8gc2ln
+bmFsLlxuIik7CiAJZWxzZQotCQlEUk1fREVCVUdfRFJJVkVSKCJBdG9taWMgY2hlY2sgZmFpbGVk
+IHdpdGggZXJyOiAlZCBcbiIsIHJldCk7CisJCURSTV9ERUJVR19EUklWRVIoIkF0b21pYyBjaGVj
+ayBmYWlsZWQgd2l0aCBlcnI6ICVkLlxuIiwgcmV0KTsKIAogCXJldHVybiByZXQ7CiB9Ci0tIAoy
+LjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
