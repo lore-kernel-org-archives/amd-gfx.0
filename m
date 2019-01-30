@@ -1,46 +1,49 @@
-From: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: Remove duplicate header
-Date: Wed, 30 Jan 2019 19:28:52 +0530
-Message-ID: <CAFqtX7kxWzxF9uMoQR2wRU-D0oS3+fHaFScWdVxdJbw51q8hiQ@mail.gmail.com>
-References: <20181221091853.GA2319@hp-pavilion-15-notebook-pc-brajeswar> <CAFqt6zbRVuJ2=5nMb1S3am86tPE6117cSU32Rtyrwf8Ajk_Xrg@mail.gmail.com>
+From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: partial revert cleanup setting bulk_movable
+Date: Wed, 30 Jan 2019 14:23:40 +0000
+Message-ID: <BYAPR12MB30168450C4BF0F693619D5D5EC900@BYAPR12MB3016.namprd12.prod.outlook.com>
+References: <20190130124651.4383-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAFqt6zbRVuJ2=5nMb1S3am86tPE6117cSU32Rtyrwf8Ajk_Xrg@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Souptick Joarder <jrdr.linux@gmail.com>
-Cc: rex.zhu@amd.com, evan.quan@amd.com, "Deucher, Alexander" <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, airlied@linux.ie, Hawking.Zhang@amd.com, ray.huang@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Sabyasachi Gupta <sabyasachi.linux@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190130124651.4383-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Fri, Dec 21, 2018 at 6:06 PM Souptick Joarder <jrdr.linux@gmail.com> wrote:
->
-> On Fri, Dec 21, 2018 at 2:49 PM Brajeswar Ghosh
-> <brajeswar.linux@gmail.com> wrote:
-> >
-> > Remove hwmgr_ppt.h which is included more than once
-> >
-> > Signed-off-by: Brajeswar Ghosh <brajeswar.linux@gmail.com>
-> > ---
-> Acked-by: Souptick Joarder <jrdr.linux@gmail.com>
-
-If no further comment, can we get this patch in queue for 5.1 ?
-
->
-> >  drivers/gpu/drm/amd/powerplay/inc/hwmgr.h | 1 -
-> >  1 file changed, 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-> > index e5a60aa44b5d..07d180ce4d18 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-> > +++ b/drivers/gpu/drm/amd/powerplay/inc/hwmgr.h
-> > @@ -28,7 +28,6 @@
-> >  #include "hardwaremanager.h"
-> >  #include "hwmgr_ppt.h"
-> >  #include "ppatomctrl.h"
-> > -#include "hwmgr_ppt.h"
-> >  #include "power_state.h"
-> >  #include "smu_helper.h"
-> >
-> > --
-> > 2.17.1
-> >
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IFttYWlsdG86YW1k
+LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZ10gT24gQmVoYWxmDQo+IE9mIENocmlz
+dGlhbiBLP25pZw0KPiBTZW50OiBXZWRuZXNkYXksIEphbnVhcnkgMzAsIDIwMTkgODo0NyBQTQ0K
+PiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDogW1BBVENIXSBk
+cm0vYW1kZ3B1OiBwYXJ0aWFsIHJldmVydCBjbGVhbnVwIHNldHRpbmcgYnVsa19tb3ZhYmxlDQo+
+IA0KPiBXZSBzdGlsbCBuZWVkIHRvIHNldCBidWxrX21vdmFibGUgdG8gZmFsc2Ugd2hlbiBuZXcg
+Qk9zIGFyZSBhZGRlZC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1
+YW5nQGFtZC5jb20+DQoNCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdm0uYyB8IDEgKw0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspDQo+IA0KPiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4gYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBpbmRleCA3OWY5ZGRlNzBi
+YzAuLjFlMTAxYTc3ZWVjOSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ZtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMNCj4gQEAgLTMzMiw2ICszMzIsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfdm1fYm9fYmFz
+ZV9pbml0KHN0cnVjdA0KPiBhbWRncHVfdm1fYm9fYmFzZSAqYmFzZSwNCj4gIAlpZiAoYm8tPnRi
+by5yZXN2ICE9IHZtLT5yb290LmJhc2UuYm8tPnRiby5yZXN2KQ0KPiAgCQlyZXR1cm47DQo+IA0K
+PiArCXZtLT5idWxrX21vdmVhYmxlID0gZmFsc2U7DQo+ICAJaWYgKGJvLT50Ym8udHlwZSA9PSB0
+dG1fYm9fdHlwZV9rZXJuZWwpDQo+ICAJCWFtZGdwdV92bV9ib19yZWxvY2F0ZWQoYmFzZSk7DQo+
+ICAJZWxzZQ0KPiAtLQ0KPiAyLjE3LjENCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
