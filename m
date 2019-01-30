@@ -1,16 +1,16 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add AMDGPU_IB_FLAG_GET_START_SYNCOBJ to
- expose scheduled fence
-Date: Wed, 30 Jan 2019 09:19:32 +0100
-Message-ID: <43ab9bb4-03a6-8837-8015-270f55e9418e@gmail.com>
-References: <20190128215239.32498-1-maraeo@gmail.com>
- <762485e9-7fe4-3ffb-16a4-f83436871451@gmail.com>
- <CAAxE2A4GaY4-osO6GfC-zG9ofxu2wjWZJ74Jds1ntqXZba_vQw@mail.gmail.com>
+Subject: Re: [PATCH] Revert "drm/amd/display: add -msse2 to prevent Clang from
+ emitting libcalls to undefined SW FP routines"
+Date: Wed, 30 Jan 2019 11:35:28 +0100
+Message-ID: <a66a5a9d-941f-38a9-0a34-8d8a066a3571@gmail.com>
+References: <20190129165725.31062-1-alexander.deucher@amd.com>
+ <05ee719f-ac7e-bcb0-59f0-920b72f65524@amd.com>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1683529961=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A4GaY4-osO6GfC-zG9ofxu2wjWZJ74Jds1ntqXZba_vQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <05ee719f-ac7e-bcb0-59f0-920b72f65524-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,163 +22,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============1683529961==
-Content-Type: multipart/alternative;
- boundary="------------552250F3AFDEE0B8DFA3C035"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------552250F3AFDEE0B8DFA3C035
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 29.01.19 um 22:54 schrieb Marek Olšák:
-> On Tue, Jan 29, 2019 at 3:01 AM Christian König 
-> <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
-> <mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->
->     Am 28.01.19 um 22:52 schrieb Marek Olšák:
->     > From: Marek Olšák <marek.olsak-5C7GfCeVMHo@public.gmane.org <mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org>>
->     >
->     > Normal syncobjs signal when an IB finishes. Start syncobjs
->     signal when
->     > an IB starts.
->
->     That approach has quite a number of problems (for example you can't
->     allocate memory at this point).
->
->
-> Even if I drop this patch, can you describe all the problems with it? 
-> Andrey and I would like to understand this.
-
-> amdgpu_mn_lock(p->mn);
-> ...
-> r = drm_syncobj_create(&syncobj, 0,...
-
-You can't allocate memory while holding the MN lock, so calling 
-drm_syncobj_create() here is forbidden.
-
-> r = drm_syncobj_get_handle(p->filp, syncobj,...
-
-This can fail which would result in a syncobj which is never signaled 
-nor freed.
-
-Regards,
-Christian.
-
->
-> Thanks,
-> Marek
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------552250F3AFDEE0B8DFA3C035
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 29.01.19 um 22:54 schrieb Marek
-      Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4GaY4-osO6GfC-zG9ofxu2wjWZJ74Jds1ntqXZba_vQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="ltr">
-        <div class="gmail_quote">
-          <div dir="ltr" class="gmail_attr">On Tue, Jan 29, 2019 at 3:01
-            AM Christian König &lt;<a
-              href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-              target="_blank" moz-do-not-send="true">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0px 0px 0px
-            0.8ex;border-left:1px solid
-            rgb(204,204,204);padding-left:1ex">Am 28.01.19 um 22:52
-            schrieb Marek Olšák:<br>
-            &gt; From: Marek Olšák &lt;<a
-              href="mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org" target="_blank"
-              moz-do-not-send="true">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-            &gt;<br>
-            &gt; Normal syncobjs signal when an IB finishes. Start
-            syncobjs signal when<br>
-            &gt; an IB starts.<br>
-            <br>
-            That approach has quite a number of problems (for example
-            you can't <br>
-            allocate memory at this point).<br>
-          </blockquote>
-          <div><br>
-          </div>
-          <div>Even if I drop this patch, can you describe all the
-            problems with it? Andrey and I would like to understand
-            this.<br>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-    <blockquote type="cite">amdgpu_mn_lock(p-&gt;mn);<br>
-      ...<br>
-      r = drm_syncobj_create(&amp;syncobj, 0,...<br>
-    </blockquote>
-    <br>
-    You can't allocate memory while holding the MN lock, so calling
-    drm_syncobj_create() here is forbidden.<br>
-    <br>
-    <blockquote type="cite">r = drm_syncobj_get_handle(p-&gt;filp,
-      syncobj,...<br>
-    </blockquote>
-    <br>
-    This can fail which would result in a syncobj which is never
-    signaled nor freed.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-cite="mid:CAAxE2A4GaY4-osO6GfC-zG9ofxu2wjWZJ74Jds1ntqXZba_vQw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-      <div dir="ltr">
-        <div class="gmail_quote">
-          <div><br>
-          </div>
-          <div>Thanks,</div>
-          <div>Marek</div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------552250F3AFDEE0B8DFA3C035--
-
---===============1683529961==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1683529961==--
+QW0gMjkuMDEuMTkgdW0gMTk6Mjggc2NocmllYiBXZW50bGFuZCwgSGFycnk6Cj4gT24gMjAxOS0w
+MS0yOSAxMTo1NyBhLm0uLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4+IFRoaXMgcmV2ZXJ0cyBjb21t
+aXQgMTAxMTc0NTA3MzVjN2E3YzA4NTgwOTVmYjQ2YTg2MGU3MDM3Y2I5YS4KPj4KPj4gQ2F1c2Vz
+IGEgY3Jhc2guCj4+Cj4+IEJ1ZzogaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1
+Zy5jZ2k/aWQ9MTA5NDg3Cj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
+LmRldWNoZXJAYW1kLmNvbT4KPj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcgIyA0LjE5Cj4g
+VGhhbmtzIGZvciBmaW5kaW5nIGFuZCByZXZlcnRpbmcuCj4KPiBSZXZpZXdlZC1ieTogSGFycnkg
+V2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFu
+IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKSSBmaW5kIGl0IHJlYWxseSB0cm91
+YmxpbmcgdGhhdCB3ZSBydW4gaW50byBzbyBtYW55IGlzc3VlcyB3aXRoIHRoYXQuCgpDaHJpc3Rp
+YW4uCgo+Cj4gSGFycnkKPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvY2FsY3MvTWFrZWZpbGUgfCAyICstCj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RtbC9NYWtlZmlsZSAgIHwgMiArLQo+PiAgIDIgZmlsZXMgY2hhbmdlZCwgMiBpbnNlcnRp
+b25zKCspLCAyIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2VmaWxlIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2NhbGNzL01ha2VmaWxlCj4+IGluZGV4IGRjODVhM2MwODhhZi4uOTVmMzMyZWUzZTdl
+IDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY2FsY3MvTWFr
+ZWZpbGUKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NhbGNzL01ha2Vm
+aWxlCj4+IEBAIC0zMCw3ICszMCw3IEBAIGVsc2UgaWZuZXEgKCQoY2FsbCBjYy1vcHRpb24sIC1t
+c3RhY2stYWxpZ25tZW50PTE2KSwpCj4+ICAgCWNjX3N0YWNrX2FsaWduIDo9IC1tc3RhY2stYWxp
+Z25tZW50PTE2Cj4+ICAgZW5kaWYKPj4gICAKPj4gLWNhbGNzX2NjZmxhZ3MgOj0gLW1oYXJkLWZs
+b2F0IC1tc3NlIC1tc3NlMiAkKGNjX3N0YWNrX2FsaWduKQo+PiArY2FsY3NfY2NmbGFncyA6PSAt
+bWhhcmQtZmxvYXQgLW1zc2UgJChjY19zdGFja19hbGlnbikKPj4gICAKPj4gICBDRkxBR1NfZGNu
+X2NhbGNzLm8gOj0gJChjYWxjc19jY2ZsYWdzKQo+PiAgIENGTEFHU19kY25fY2FsY19hdXRvLm8g
+Oj0gJChjYWxjc19jY2ZsYWdzKQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2RtbC9NYWtlZmlsZSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
+bWwvTWFrZWZpbGUKPj4gaW5kZXggMzNjN2Q3NTg4NzEyLi5kOTdjYTY1MjhmOWQgMTAwNjQ0Cj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvTWFrZWZpbGUKPj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQo+PiBAQCAtMzAs
+NyArMzAsNyBAQCBlbHNlIGlmbmVxICgkKGNhbGwgY2Mtb3B0aW9uLCAtbXN0YWNrLWFsaWdubWVu
+dD0xNiksKQo+PiAgIAljY19zdGFja19hbGlnbiA6PSAtbXN0YWNrLWFsaWdubWVudD0xNgo+PiAg
+IGVuZGlmCj4+ICAgCj4+IC1kbWxfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1zc2UgLW1zc2Uy
+ICQoY2Nfc3RhY2tfYWxpZ24pCj4+ICtkbWxfY2NmbGFncyA6PSAtbWhhcmQtZmxvYXQgLW1zc2Ug
+JChjY19zdGFja19hbGlnbikKPj4gICAKPj4gICBDRkxBR1NfZGlzcGxheV9tb2RlX2xpYi5vIDo9
+ICQoZG1sX2NjZmxhZ3MpCj4+ICAgQ0ZMQUdTX2Rpc3BsYXlfcGlwZV9jbG9ja3MubyA6PSAkKGRt
+bF9jY2ZsYWdzKQo+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
