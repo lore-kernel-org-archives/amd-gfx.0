@@ -1,14 +1,14 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: amd-staging-drm-next: Oops - BUG: unable to handle kernel NULL
  pointer dereference, bisected.
-Date: Wed, 30 Jan 2019 13:02:59 +0100
-Message-ID: <2c13e24c-6d53-a7f5-55ed-d44d7c58f655@gmail.com>
+Date: Wed, 30 Jan 2019 12:06:26 +0000
+Message-ID: <34e7e9b9-8d16-1055-cd08-68eac497743e@amd.com>
 References: <1631249.cbNX0rPzdC@eclipse>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <2c13e24c-6d53-a7f5-55ed-d44d7c58f655@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0794761007=="
+Content-Type: multipart/mixed; boundary="===============1522233024=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1631249.cbNX0rPzdC@eclipse>
+In-Reply-To: <2c13e24c-6d53-a7f5-55ed-d44d7c58f655-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,306 +20,283 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is a multi-part message in MIME format.
---===============0794761007==
-Content-Type: multipart/alternative;
- boundary="------------C0A150A4F0E676DE2DAC90D6"
+--===============1522233024==
 Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_34e7e9b98d161055cd0868eac497743eamdcom_"
 
-This is a multi-part message in MIME format.
---------------C0A150A4F0E676DE2DAC90D6
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+--_000_34e7e9b98d161055cd0868eac497743eamdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-This is a known issue, see here as well 
-https://bugs.freedesktop.org/show_bug.cgi?id=109487
+U29ycnkgSSBhY2NpZGVudGFsbHkgcmVwbGllZCB0byB0aGUgd3JvbmcgbWFpbC4NCg0KVGhpcyBp
+cyBhIG5ldyBpc3N1ZS4gR29pbmcgdG8gdGFrZSBhIGxvb2sgbm93Lg0KDQpDaHJpc3RpYW4uDQoN
+CkFtIDMwLjAxLjE5IHVtIDEzOjAyIHNjaHJpZWIgQ2hyaXN0aWFuIEvDtm5pZzoNClRoaXMgaXMg
+YSBrbm93biBpc3N1ZSwgc2VlIGhlcmUgYXMgd2VsbCBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Au
+b3JnL3Nob3dfYnVnLmNnaT9pZD0xMDk0ODcNCg0KQ2hyaXN0aWFuLg0KDQpBbSAzMC4wMS4xOSB1
+bSAxMjowNyBzY2hyaWViIFByemVtZWsgU29jaGE6DQoNCkdvb2QgbW9ybmluZywNCg0KYWZ0ZXIg
+bGFzdCBwdWxsIGZyb20gdGhlIGFtZC1zdGFnaW5nLWRybS1uZXh0IHRyZWUgKDI5dGggb2YgRmVi
+cnVhcnkpIEkgaGF2ZQ0KcmFuZG9tIE9vcHMgb24gQTYgNjMxMCBBUFUgd2l0aCByNCBNdWxsaW5z
+Lg0KDQpIZXJlIGlzIHRoZSBPb3BzIHBhcnQgb2YgdGhlIGxvZyB0YWtlbiBmcm9tIHBzdG9yZToN
+Cg0KPDE+WyAgIDU1LjE2NjI3MF0gQlVHOiB1bmFibGUgdG8gaGFuZGxlIGtlcm5lbCBOVUxMIHBv
+aW50ZXIgZGVyZWZlcmVuY2UgYXQNCjAwMDAwMDAwMDAwMDAyMDgNCjwxPlsgICA1NS4xNjYyODFd
+ICNQRiBlcnJvcjogW25vcm1hbCBrZXJuZWwgcmVhZCBmYXVsdF0NCjw2PlsgICA1NS4xNjYyODVd
+IFBHRCAwIFA0RCAwDQo8ND5bICAgNTUuMTY2MjkzXSBPb3BzOiAwMDAwIFsjMV0gUFJFRU1QVCBT
+TVANCjw0PlsgICA1NS4xNjYzMDFdIENQVTogMyBQSUQ6IDExMDA2IENvbW06IGt3aW5feDExOmNz
+MCBOb3QgdGFpbnRlZCA1LjAuMC1yYzErDQojNDQNCjw0PlsgICA1NS4xNjYzMDVdIEhhcmR3YXJl
+IG5hbWU6IExFTk9WTyA4MEUzL0xhbmNlciA1QjIsIEJJT1MgQTJDTjQ1V1coVjIuMTMpDQowOC8w
+NC8yMDE2DQo8ND5bICAgNTUuMTY2MzIwXSBSSVA6IDAwMTA6dHRtX2JvX2J1bGtfbW92ZV9scnVf
+dGFpbCsweGQzLzB4MTg4IFt0dG1dDQo8ND5bICAgNTUuMTY2MzI2XSBDb2RlOiAwMCA0YyA4YiAw
+YSA0OCA4YiA4MSBhOCAwMCAwMCAwMCA0OCA4MSBjMSBhOCAwMCAwMCAwMA0KNDkgODkgMDIgNGMg
+OGIgOTIgYjAgMDAgMDAgMDAgNGMgODkgNTAgMDggNDQgODkgYzAgNDggYzEgZTAgMDQgNGMgMDEg
+YzggPDRjPg0KOGIgOTAgMDggMDIgMDAgMDAgNGQgODkgMWEgNGMgOGIgOTAgMDggMDIgMDAgMDAg
+NGMgODkgOTIgYjAgMDANCjw0PlsgICA1NS4xNjYzMzBdIFJTUDogMDAxODpmZmZmYThiZGMwZjMz
+YjE4IEVGTEFHUzogMDAwMTAyNDYNCjw0PlsgICA1NS4xNjYzMzVdIFJBWDogMDAwMDAwMDAwMDAw
+MDAwMCBSQlg6IDAwMDAwMDAwMDAwMDAwMDAgUkNYOg0KZmZmZjljZmE5MzU3NzhmOA0KPDQ+WyAg
+IDU1LjE2NjMzOV0gUkRYOiBmZmZmOWNmYTk1MGM1MDUwIFJTSTogMDAwMDAwMDAwMDAwMDA3MCBS
+REk6DQpmZmZmOWNmYTkzNTc1ZGQwDQo8ND5bICAgNTUuMTY2MzQyXSBSQlA6IGZmZmY5Y2ZhNWQ0
+NGQ4MDAgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOToNCjAwMDAwMDAwMDAwMDAwMDANCjw0Plsg
+ICA1NS4xNjYzNDZdIFIxMDogZmZmZjljZmE4Zjc3MzBmOCBSMTE6IGZmZmY5Y2ZhOTUwYzUwZjgg
+UjEyOiBmZmZmOWNmYTkzNTc1ZGQwDQo8ND5bICAgNTUuMTY2MzUwXSBSMTM6IGZmZmY5Y2ZhOTM1
+NzU4MDAgUjE0OiAwMDAwMDAwMDAwMDAwMDAxIFIxNTogZmZmZmZmZmZjMDNhZGMxMA0KPDQ+WyAg
+IDU1LjE2NjM1NV0gRlM6ICAwMDAwN2ZiMzI3ZmZmNzAwKDAwMDApIEdTOmZmZmY5Y2ZhOTdiODAw
+MDAoMDAwMCkga25sR1M6DQowMDAwMDAwMDAwMDAwMDAwDQo8ND5bICAgNTUuMTY2MzU5XSBDUzog
+IDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzDQo8ND5bICAgNTUu
+MTY2MzYzXSBDUjI6IDAwMDAwMDAwMDAwMDAyMDggQ1IzOiAwMDAwMDAwMjE1MGYwMDAwIENSNDoN
+CjAwMDAwMDAwMDAwNDA2ZTANCjw0PlsgICA1NS4xNjYzNjZdIENhbGwgVHJhY2U6DQo8ND5bICAg
+NTUuMTY2NDc3XSAgYW1kZ3B1X3ZtX21vdmVfdG9fbHJ1X3RhaWwrMHhlNC8weDEwMCBbYW1kZ3B1
+XQ0KPDQ+WyAgIDU1LjE2NjU2M10gIGFtZGdwdV9jc19pb2N0bCsweDE0ZTcvMHgxYjA4IFthbWRn
+cHVdDQo8ND5bICAgNTUuMTY2NTg2XSAgPyBfX3N3aXRjaF90b19hc20rMHg0MC8weDcwDQo8ND5b
+ICAgNTUuMTY2Njg5XSAgPyBhbWRncHVfY3NfZmluZF9tYXBwaW5nKzB4MTEwLzB4MTEwIFthbWRn
+cHVdDQo8ND5bICAgNTUuMTY2Njk4XSAgZHJtX2lvY3RsX2tlcm5lbCsweGE0LzB4ZTgNCjw0Plsg
+ICA1NS4xNjY3MDddICBkcm1faW9jdGwrMHgxZGIvMHgzNTgNCjw0PlsgICA1NS4xNjY4MDVdICA/
+IGFtZGdwdV9jc19maW5kX21hcHBpbmcrMHgxMTAvMHgxMTAgW2FtZGdwdV0NCjw0PlsgICA1NS4x
+NjY5MDFdICBhbWRncHVfZHJtX2lvY3RsKzB4NDQvMHg3OCBbYW1kZ3B1XQ0KPDQ+WyAgIDU1LjE2
+NjkzMV0gIGRvX3Zmc19pb2N0bCsweDlmLzB4NjE4DQo8ND5bICAgNTUuMTY2OTQwXSAga3N5c19p
+b2N0bCsweDViLzB4ODgNCjw0PlsgICA1NS4xNjY5NDddICBfX3g2NF9zeXNfaW9jdGwrMHgxMS8w
+eDE4DQo8ND5bICAgNTUuMTY2OTU1XSAgZG9fc3lzY2FsbF82NCsweDUwLzB4MTY4DQo8ND5bICAg
+NTUuMTY2OTYzXSAgZW50cnlfU1lTQ0FMTF82NF9hZnRlcl9od2ZyYW1lKzB4NDQvMHhhOQ0KPDQ+
+WyAgIDU1LjE2Njk2OV0gUklQOiAwMDMzOjB4N2ZiMzRiMDM1ZmE3DQo8ND5bICAgNTUuMTY2OTc0
+XSBDb2RlOiAwMCAwMCAwMCA3NSAwYyA0OCBjNyBjMCBmZiBmZiBmZiBmZiA0OCA4MyBjNCAxOCBj
+MyBlOCA4ZA0KZGMgMDEgMDAgNjYgMmUgMGYgMWYgODQgMDAgMDAgMDAgMDAgMDAgMGYgMWYgMDAg
+YjggMTAgMDAgMDAgMDAgMGYgMDUgPDQ4PiAzZA0KMDEgZjAgZmYgZmYgNzMgMDEgYzMgNDggOGIg
+MGQgYTkgYWUgMGMgMDAgZjcgZDggNjQgODkgMDEgNDgNCjw0PlsgICA1NS4xNjY5NzhdIFJTUDog
+MDAyYjowMDAwN2ZiMzI3ZmZlYTg4IEVGTEFHUzogMDAwMDAyNDYgT1JJR19SQVg6DQowMDAwMDAw
+MDAwMDAwMDEwDQo8ND5bICAgNTUuMTY2OTg0XSBSQVg6IGZmZmZmZmZmZmZmZmZmZGEgUkJYOiAw
+MDAwN2ZiMzI3ZmZlYzU4IFJDWDogMDAwMDdmYjM0YjAzNWZhNw0KPDQ+WyAgIDU1LjE2Njk4N10g
+UkRYOiAwMDAwN2ZiMzI3ZmZlYjEwIFJTSTogMDAwMDAwMDBjMDE4NjQ0NCBSREk6DQowMDAwMDAw
+MDAwMDAwMDEwDQo8ND5bICAgNTUuMTY2OTkxXSBSQlA6IDAwMDA3ZmIzMjdmZmViMTAgUjA4OiAw
+MDAwN2ZiMzI3ZmZlYzgwIFIwOToNCjAwMDA3ZmIzMjdmZmVjNTgNCjw0PlsgICA1NS4xNjY5OTVd
+IFIxMDogMDAwMDdmYjMyN2ZmZWNhMCBSMTE6IDAwMDAwMDAwMDAwMDAyNDYgUjEyOg0KMDAwMDAw
+MDBjMDE4NjQ0NA0KPDQ+WyAgIDU1LjE2Njk5OF0gUjEzOiAwMDAwMDAwMDAwMDAwMDEwIFIxNDog
+MDAwMDU1ZWNkMjcwNWRjMCBSMTU6DQowMDAwMDAwMDAwMDAwMDAzDQo8ND5bICAgNTUuMTY3MDA0
+XSBNb2R1bGVzIGxpbmtlZCBpbjogcmZjb21tIG5mX3RhYmxlcyBlYnRhYmxlX25hdCBpcF9zZXQN
+Cm5mbmV0bGluayBlYnRhYmxlX2ZpbHRlciBlYnRhYmxlcyBpcDZ0YWJsZV9maWx0ZXIgaXA2X3Rh
+YmxlcyBvdmVybGF5IHNxdWFzaGZzDQpsb29wIGJuZXAgaXB2NiBydHN4X3VzYl9tcyBtZW1zdGlj
+ayBydHN4X3VzYl9zZG1tYyBydHN4X3VzYiB1dmN2aWRlbw0KdmlkZW9idWYyX3ZtYWxsb2Mgdmlk
+ZW9idWYyX21lbW9wcyB2aWRlb2J1ZjJfdjRsMiB2aWRlb2J1ZjJfY29tbW9uIHZpZGVvZGV2DQpt
+ZWRpYSBhdGgzayBidHVzYiBidGludGVsIGJsdWV0b290aCBlY2RoX2dlbmVyaWMgYXRoOWsgYXRo
+OWtfY29tbW9uIGt2bV9hbWQNCmF0aDlrX2h3IHNkaGNpX3BjaSBrdm0gY3FoY2kgaXJxYnlwYXNz
+IG1hYzgwMjExIHNkaGNpIGNyYzMyX3BjbG11bA0KZ2hhc2hfY2xtdWxuaV9pbnRlbCBhdGggc2Vy
+aW9fcmF3IG1tY19jb3JlIGNmZzgwMjExIGFtZGdwdSBtZmRfY29yZSBjaGFzaA0KZ3B1X3NjaGVk
+IHhoY2lfcGNpIHR0bSB4aGNpX2hjZCBlaGNpX3BjaSBlaGNpX2hjZCBzcDUxMDBfdGNvDQo8ND5b
+ICAgNTUuMTY3MDYzXSBDUjI6IDAwMDAwMDAwMDAwMDAyMDgNCjw0PlsgICA1NS4xNjcwNjldIC0t
+LVsgZW5kIHRyYWNlIGJmMWM0YmUwODkwMDIyMzYgXS0tLQ0KDQpCaXNlY3RlZCwgYW5kICBpdCBz
+ZWVtcyB0aGF0IHRoZSBiYWQgY29tbWl0IGlzICJkcm0vYW1kZ3B1OiBjbGVhbnVwIHNldHRpbmcN
+CmJ1bGtfbW92YWJsZSIuIEkgaG9wZSB0aGlzIGlzIHJlbGV2YW50Lg0KDQpmdWxsIGdpdCBiaXNl
+Y3QgbG9nOg0KDQpnaXQgYmlzZWN0IHN0YXJ0DQojIGdvb2Q6IFsxMDExNzQ1MDczNWM3YTdjMDg1
+ODA5NWZiNDZhODYwZTcwMzdjYjlhXSBkcm0vYW1kL2Rpc3BsYXk6IGFkZCAtbXNzZTINCnRvIHBy
+ZXZlbnQgQ2xhbmcgZnJvbSBlbWl0dGluZyBsaWJjYWxscyB0byB1bmRlZmluZWQgU1cgRlAgcm91
+dGluZXMNCmdpdCBiaXNlY3QgZ29vZCAxMDExNzQ1MDczNWM3YTdjMDg1ODA5NWZiNDZhODYwZTcw
+MzdjYjlhDQojIGJhZDogW2I5YzYyNTJiN2Y5ODBlN2UwM2MwYmY2NTlhMjUxNzk4YjM2YTgwOTRd
+IFJldmVydCAiZHJtL2FtZC9kaXNwbGF5OiBhZGQNCi1tc3NlMiB0byBwcmV2ZW50IENsYW5nIGZy
+b20gZW1pdHRpbmcgbGliY2FsbHMgdG8gdW5kZWZpbmVkIFNXIEZQIHJvdXRpbmVzIg0KZ2l0IGJp
+c2VjdCBiYWQgYjljNjI1MmI3Zjk4MGU3ZTAzYzBiZjY1OWEyNTE3OThiMzZhODA5NA0KIyBnb29k
+OiBbMWRlMjlkYTViNzI4MWM5YTg0MjdkODQ5NDhiZjNkNzdiYzRiOGQxNl0gZHJtOiBkaXNhYmxl
+IHVuY2FjaGVkIERNQQ0Kb3B0aW1pemF0aW9uIGZvciBBUk0gYW5kIGFybTY0DQpnaXQgYmlzZWN0
+IGdvb2QgMWRlMjlkYTViNzI4MWM5YTg0MjdkODQ5NDhiZjNkNzdiYzRiOGQxNg0KIyBnb29kOiBb
+YmJmNDhjYWU1NzJiMzljNGRmNjAyM2IwMWQ2ZjhkZTY2ZWY0MWIzNF0gUmV2ZXJ0ICJ0ZXN0IHBh
+dGNoIGZvciBocGQNCmRwbXMgY2hlY2siDQpnaXQgYmlzZWN0IGdvb2QgYmJmNDhjYWU1NzJiMzlj
+NGRmNjAyM2IwMWQ2ZjhkZTY2ZWY0MWIzNA0KIyBnb29kOiBbMjU3Yjc1ZDM3M2M3N2Q2NzkyZDAw
+MTFmNzM3OTM5OGJhNjA3OTllY10gZHJtL2FtZGdwdTogU2hvdyBYR01JIG5vZGUNCmFuZCBoaXZl
+IG1lc3NhZ2UgcGVyIGRldmljZSBvbmx5IG9uY2UNCmdpdCBiaXNlY3QgZ29vZCAyNTdiNzVkMzcz
+Yzc3ZDY3OTJkMDAxMWY3Mzc5Mzk4YmE2MDc5OWVjDQojIGdvb2Q6IFs0ZDc3MTY1N2M1MzNkOGZl
+M2I1NzRjNTYxMDg0ZjY2YWViYzc3YmI2XSBkcm0vYW1kZ3B1OiBjbGVhbnVwDQphbWRncHVfcHRl
+X3VwZGF0ZV9wYXJhbXMNCmdpdCBiaXNlY3QgZ29vZCA0ZDc3MTY1N2M1MzNkOGZlM2I1NzRjNTYx
+MDg0ZjY2YWViYzc3YmI2DQojIGJhZDogWzRlZjI3MDA1ZmVmZDRiZTEwMjAxMGI3ZDg1NTJmZWMx
+ZWUxMzQzNWFdIGRybS9hbWRncHU6IGNsZWFudXAgc2V0dGluZw0KYnVsa19tb3ZhYmxlDQpnaXQg
+YmlzZWN0IGJhZCA0ZWYyNzAwNWZlZmQ0YmUxMDIwMTBiN2Q4NTUyZmVjMWVlMTM0MzVhDQojIGZp
+cnN0IGJhZCBjb21taXQ6IFs0ZWYyNzAwNWZlZmQ0YmUxMDIwMTBiN2Q4NTUyZmVjMWVlMTM0MzVh
+XSBkcm0vYW1kZ3B1Og0KY2xlYW51cCBzZXR0aW5nIGJ1bGtfbW92YWJsZQ0KDQo0ZWYyNzAwNWZl
+ZmQ0YmUxMDIwMTBiN2Q4NTUyZmVjMWVlMTM0MzVhIGlzIHRoZSBmaXJzdCBiYWQgY29tbWl0DQpj
+b21taXQgNGVmMjcwMDVmZWZkNGJlMTAyMDEwYjdkODU1MmZlYzFlZTEzNDM1YQ0KQXV0aG9yOiBD
+aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+PG1haWx0bzpjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+DQpEYXRlOiAgIE1vbiBKYW4gMjggMTM6NDE6NTggMjAxOSArMDEw
+MA0KDQogICAgZHJtL2FtZGdwdTogY2xlYW51cCBzZXR0aW5nIGJ1bGtfbW92YWJsZQ0KDQogICAg
+V2Ugb25seSBuZWVkIHRvIHNldCB0aGlzIHRvIGZhbHNlIG5vdyB3aGVuIEJPcyBhcmUgcmVtb3Zl
+ZCBmcm9tIHRoZSBMUlUuDQoNCiAgICBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxj
+aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+PG1haWx0bzpjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
+DQogICAgUmV2aWV3ZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+PG1h
+aWx0bzpkYXZpZDEuemhvdUBhbWQuY29tPg0KDQpJZiBvdGhlciBpbmZvIGlzIG5lZWRlZCwgcGxl
+YXNlIGRvIG5vdCBoZXNpdGF0ZS4NCg0KVGhhbmtzLA0KUHJ6ZW1lay4NCg0KDQoNCg0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmc+DQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngNCg0KDQoNCg==
 
-Christian.
+--_000_34e7e9b98d161055cd0868eac497743eamdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <CC49AF0E71770A43A7FF9AC7C8C15215-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-Am 30.01.19 um 12:07 schrieb Przemek Socha:
-> Good morning,
->
-> after last pull from the amd-staging-drm-next tree (29th of February) I have
-> random Oops on A6 6310 APU with r4 Mullins.
->
-> Here is the Oops part of the log taken from pstore:
->
-> <1>[   55.166270] BUG: unable to handle kernel NULL pointer dereference at
-> 0000000000000208
-> <1>[   55.166281] #PF error: [normal kernel read fault]
-> <6>[   55.166285] PGD 0 P4D 0
-> <4>[   55.166293] Oops: 0000 [#1] PREEMPT SMP
-> <4>[   55.166301] CPU: 3 PID: 11006 Comm: kwin_x11:cs0 Not tainted 5.0.0-rc1+
-> #44
-> <4>[   55.166305] Hardware name: LENOVO 80E3/Lancer 5B2, BIOS A2CN45WW(V2.13)
-> 08/04/2016
-> <4>[   55.166320] RIP: 0010:ttm_bo_bulk_move_lru_tail+0xd3/0x188 [ttm]
-> <4>[   55.166326] Code: 00 4c 8b 0a 48 8b 81 a8 00 00 00 48 81 c1 a8 00 00 00
-> 49 89 02 4c 8b 92 b0 00 00 00 4c 89 50 08 44 89 c0 48 c1 e0 04 4c 01 c8 <4c>
-> 8b 90 08 02 00 00 4d 89 1a 4c 8b 90 08 02 00 00 4c 89 92 b0 00
-> <4>[   55.166330] RSP: 0018:ffffa8bdc0f33b18 EFLAGS: 00010246
-> <4>[   55.166335] RAX: 0000000000000000 RBX: 0000000000000000 RCX:
-> ffff9cfa935778f8
-> <4>[   55.166339] RDX: ffff9cfa950c5050 RSI: 0000000000000070 RDI:
-> ffff9cfa93575dd0
-> <4>[   55.166342] RBP: ffff9cfa5d44d800 R08: 0000000000000000 R09:
-> 0000000000000000
-> <4>[   55.166346] R10: ffff9cfa8f7730f8 R11: ffff9cfa950c50f8 R12: ffff9cfa93575dd0
-> <4>[   55.166350] R13: ffff9cfa93575800 R14: 0000000000000001 R15: ffffffffc03adc10
-> <4>[   55.166355] FS:  00007fb327fff700(0000) GS:ffff9cfa97b80000(0000) knlGS:
-> 0000000000000000
-> <4>[   55.166359] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> <4>[   55.166363] CR2: 0000000000000208 CR3: 00000002150f0000 CR4:
-> 00000000000406e0
-> <4>[   55.166366] Call Trace:
-> <4>[   55.166477]  amdgpu_vm_move_to_lru_tail+0xe4/0x100 [amdgpu]
-> <4>[   55.166563]  amdgpu_cs_ioctl+0x14e7/0x1b08 [amdgpu]
-> <4>[   55.166586]  ? __switch_to_asm+0x40/0x70
-> <4>[   55.166689]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-> <4>[   55.166698]  drm_ioctl_kernel+0xa4/0xe8
-> <4>[   55.166707]  drm_ioctl+0x1db/0x358
-> <4>[   55.166805]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-> <4>[   55.166901]  amdgpu_drm_ioctl+0x44/0x78 [amdgpu]
-> <4>[   55.166931]  do_vfs_ioctl+0x9f/0x618
-> <4>[   55.166940]  ksys_ioctl+0x5b/0x88
-> <4>[   55.166947]  __x64_sys_ioctl+0x11/0x18
-> <4>[   55.166955]  do_syscall_64+0x50/0x168
-> <4>[   55.166963]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> <4>[   55.166969] RIP: 0033:0x7fb34b035fa7
-> <4>[   55.166974] Code: 00 00 00 75 0c 48 c7 c0 ff ff ff ff 48 83 c4 18 c3 e8 8d
-> dc 01 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 b8 10 00 00 00 0f 05 <48> 3d
-> 01 f0 ff ff 73 01 c3 48 8b 0d a9 ae 0c 00 f7 d8 64 89 01 48
-> <4>[   55.166978] RSP: 002b:00007fb327ffea88 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000010
-> <4>[   55.166984] RAX: ffffffffffffffda RBX: 00007fb327ffec58 RCX: 00007fb34b035fa7
-> <4>[   55.166987] RDX: 00007fb327ffeb10 RSI: 00000000c0186444 RDI:
-> 0000000000000010
-> <4>[   55.166991] RBP: 00007fb327ffeb10 R08: 00007fb327ffec80 R09:
-> 00007fb327ffec58
-> <4>[   55.166995] R10: 00007fb327ffeca0 R11: 0000000000000246 R12:
-> 00000000c0186444
-> <4>[   55.166998] R13: 0000000000000010 R14: 000055ecd2705dc0 R15:
-> 0000000000000003
-> <4>[   55.167004] Modules linked in: rfcomm nf_tables ebtable_nat ip_set
-> nfnetlink ebtable_filter ebtables ip6table_filter ip6_tables overlay squashfs
-> loop bnep ipv6 rtsx_usb_ms memstick rtsx_usb_sdmmc rtsx_usb uvcvideo
-> videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common videodev
-> media ath3k btusb btintel bluetooth ecdh_generic ath9k ath9k_common kvm_amd
-> ath9k_hw sdhci_pci kvm cqhci irqbypass mac80211 sdhci crc32_pclmul
-> ghash_clmulni_intel ath serio_raw mmc_core cfg80211 amdgpu mfd_core chash
-> gpu_sched xhci_pci ttm xhci_hcd ehci_pci ehci_hcd sp5100_tco
-> <4>[   55.167063] CR2: 0000000000000208
-> <4>[   55.167069] ---[ end trace bf1c4be089002236 ]---
->
-> Bisected, and  it seems that the bad commit is "drm/amdgpu: cleanup setting
-> bulk_movable". I hope this is relevant.
->
-> full git bisect log:
->
-> git bisect start
-> # good: [10117450735c7a7c0858095fb46a860e7037cb9a] drm/amd/display: add -msse2
-> to prevent Clang from emitting libcalls to undefined SW FP routines
-> git bisect good 10117450735c7a7c0858095fb46a860e7037cb9a
-> # bad: [b9c6252b7f980e7e03c0bf659a251798b36a8094] Revert "drm/amd/display: add
-> -msse2 to prevent Clang from emitting libcalls to undefined SW FP routines"
-> git bisect bad b9c6252b7f980e7e03c0bf659a251798b36a8094
-> # good: [1de29da5b7281c9a8427d84948bf3d77bc4b8d16] drm: disable uncached DMA
-> optimization for ARM and arm64
-> git bisect good 1de29da5b7281c9a8427d84948bf3d77bc4b8d16
-> # good: [bbf48cae572b39c4df6023b01d6f8de66ef41b34] Revert "test patch for hpd
-> dpms check"
-> git bisect good bbf48cae572b39c4df6023b01d6f8de66ef41b34
-> # good: [257b75d373c77d6792d0011f7379398ba60799ec] drm/amdgpu: Show XGMI node
-> and hive message per device only once
-> git bisect good 257b75d373c77d6792d0011f7379398ba60799ec
-> # good: [4d771657c533d8fe3b574c561084f66aebc77bb6] drm/amdgpu: cleanup
-> amdgpu_pte_update_params
-> git bisect good 4d771657c533d8fe3b574c561084f66aebc77bb6
-> # bad: [4ef27005fefd4be102010b7d8552fec1ee13435a] drm/amdgpu: cleanup setting
-> bulk_movable
-> git bisect bad 4ef27005fefd4be102010b7d8552fec1ee13435a
-> # first bad commit: [4ef27005fefd4be102010b7d8552fec1ee13435a] drm/amdgpu:
-> cleanup setting bulk_movable
->
-> 4ef27005fefd4be102010b7d8552fec1ee13435a is the first bad commit
-> commit 4ef27005fefd4be102010b7d8552fec1ee13435a
-> Author: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> Date:   Mon Jan 28 13:41:58 2019 +0100
->
->      drm/amdgpu: cleanup setting bulk_movable
->      
->      We only need to set this to false now when BOs are removed from the LRU.
->      
->      Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->      Reviewed-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
->
-> If other info is needed, please do not hesitate.
->
-> Thanks,
-> Przemek.
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5Tb3JyeSBJ
+IGFjY2lkZW50YWxseSByZXBsaWVkIHRvIHRoZSB3cm9uZyBtYWlsLjxicj4NCjxicj4NClRoaXMg
+aXMgYSBuZXcgaXNzdWUuIEdvaW5nIHRvIHRha2UgYSBsb29rIG5vdy48YnI+DQo8YnI+DQpDaHJp
+c3RpYW4uPGJyPg0KPGJyPg0KQW0gMzAuMDEuMTkgdW0gMTM6MDIgc2NocmllYiBDaHJpc3RpYW4g
+S8O2bmlnOjxicj4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0ibWlkOjJj
+MTNlMjRjLTZkNTMtYTdmNS01NWVkLWQ0NGQ3YzU4ZjY1NUBnbWFpbC5jb20iPg0KPGRpdiBjbGFz
+cz0ibW96LWNpdGUtcHJlZml4Ij5UaGlzIGlzIGEga25vd24gaXNzdWUsIHNlZSBoZXJlIGFzIHdl
+bGwgPGEgY2xhc3M9Im1vei10eHQtbGluay1mcmVldGV4dCIgaHJlZj0iaHR0cHM6Ly9idWdzLmZy
+ZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTA5NDg3IiBtb3otZG8tbm90LXNlbmQ9InRy
+dWUiPg0KaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTA5NDg3
+PC9hPjxicj4NCjxicj4NCkNocmlzdGlhbi48YnI+DQo8YnI+DQpBbSAzMC4wMS4xOSB1bSAxMjow
+NyBzY2hyaWViIFByemVtZWsgU29jaGE6PGJyPg0KPC9kaXY+DQo8YmxvY2txdW90ZSB0eXBlPSJj
+aXRlIiBjaXRlPSJtaWQ6MTYzMTI0OS5jYk5YMHJQemRDQGVjbGlwc2UiPg0KPHByZSBjbGFzcz0i
+bW96LXF1b3RlLXByZSIgd3JhcD0iIj5Hb29kIG1vcm5pbmcsDQoNCmFmdGVyIGxhc3QgcHVsbCBm
+cm9tIHRoZSBhbWQtc3RhZ2luZy1kcm0tbmV4dCB0cmVlICgyOXRoIG9mIEZlYnJ1YXJ5KSBJIGhh
+dmUgDQpyYW5kb20gT29wcyBvbiBBNiA2MzEwIEFQVSB3aXRoIHI0IE11bGxpbnMuDQoNCkhlcmUg
+aXMgdGhlIE9vcHMgcGFydCBvZiB0aGUgbG9nIHRha2VuIGZyb20gcHN0b3JlOg0KDQombHQ7MSZn
+dDtbICAgNTUuMTY2MjcwXSBCVUc6IHVuYWJsZSB0byBoYW5kbGUga2VybmVsIE5VTEwgcG9pbnRl
+ciBkZXJlZmVyZW5jZSBhdCANCjAwMDAwMDAwMDAwMDAyMDgNCiZsdDsxJmd0O1sgICA1NS4xNjYy
+ODFdICNQRiBlcnJvcjogW25vcm1hbCBrZXJuZWwgcmVhZCBmYXVsdF0NCiZsdDs2Jmd0O1sgICA1
+NS4xNjYyODVdIFBHRCAwIFA0RCAwIA0KJmx0OzQmZ3Q7WyAgIDU1LjE2NjI5M10gT29wczogMDAw
+MCBbIzFdIFBSRUVNUFQgU01QDQombHQ7NCZndDtbICAgNTUuMTY2MzAxXSBDUFU6IDMgUElEOiAx
+MTAwNiBDb21tOiBrd2luX3gxMTpjczAgTm90IHRhaW50ZWQgNS4wLjAtcmMxJiM0MzsgDQojNDQN
+CiZsdDs0Jmd0O1sgICA1NS4xNjYzMDVdIEhhcmR3YXJlIG5hbWU6IExFTk9WTyA4MEUzL0xhbmNl
+ciA1QjIsIEJJT1MgQTJDTjQ1V1coVjIuMTMpIA0KMDgvMDQvMjAxNg0KJmx0OzQmZ3Q7WyAgIDU1
+LjE2NjMyMF0gUklQOiAwMDEwOnR0bV9ib19idWxrX21vdmVfbHJ1X3RhaWwmIzQzOzB4ZDMvMHgx
+ODggW3R0bV0NCiZsdDs0Jmd0O1sgICA1NS4xNjYzMjZdIENvZGU6IDAwIDRjIDhiIDBhIDQ4IDhi
+IDgxIGE4IDAwIDAwIDAwIDQ4IDgxIGMxIGE4IDAwIDAwIDAwIA0KNDkgODkgMDIgNGMgOGIgOTIg
+YjAgMDAgMDAgMDAgNGMgODkgNTAgMDggNDQgODkgYzAgNDggYzEgZTAgMDQgNGMgMDEgYzggJmx0
+OzRjJmd0OyANCjhiIDkwIDA4IDAyIDAwIDAwIDRkIDg5IDFhIDRjIDhiIDkwIDA4IDAyIDAwIDAw
+IDRjIDg5IDkyIGIwIDAwDQombHQ7NCZndDtbICAgNTUuMTY2MzMwXSBSU1A6IDAwMTg6ZmZmZmE4
+YmRjMGYzM2IxOCBFRkxBR1M6IDAwMDEwMjQ2DQombHQ7NCZndDtbICAgNTUuMTY2MzM1XSBSQVg6
+IDAwMDAwMDAwMDAwMDAwMDAgUkJYOiAwMDAwMDAwMDAwMDAwMDAwIFJDWDogDQpmZmZmOWNmYTkz
+NTc3OGY4DQombHQ7NCZndDtbICAgNTUuMTY2MzM5XSBSRFg6IGZmZmY5Y2ZhOTUwYzUwNTAgUlNJ
+OiAwMDAwMDAwMDAwMDAwMDcwIFJESTogDQpmZmZmOWNmYTkzNTc1ZGQwDQombHQ7NCZndDtbICAg
+NTUuMTY2MzQyXSBSQlA6IGZmZmY5Y2ZhNWQ0NGQ4MDAgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIw
+OTogDQowMDAwMDAwMDAwMDAwMDAwDQombHQ7NCZndDtbICAgNTUuMTY2MzQ2XSBSMTA6IGZmZmY5
+Y2ZhOGY3NzMwZjggUjExOiBmZmZmOWNmYTk1MGM1MGY4IFIxMjogZmZmZjljZmE5MzU3NWRkMA0K
+Jmx0OzQmZ3Q7WyAgIDU1LjE2NjM1MF0gUjEzOiBmZmZmOWNmYTkzNTc1ODAwIFIxNDogMDAwMDAw
+MDAwMDAwMDAwMSBSMTU6IGZmZmZmZmZmYzAzYWRjMTANCiZsdDs0Jmd0O1sgICA1NS4xNjYzNTVd
+IEZTOiAgMDAwMDdmYjMyN2ZmZjcwMCgwMDAwKSBHUzpmZmZmOWNmYTk3YjgwMDAwKDAwMDApIGtu
+bEdTOg0KMDAwMDAwMDAwMDAwMDAwMA0KJmx0OzQmZ3Q7WyAgIDU1LjE2NjM1OV0gQ1M6ICAwMDEw
+IERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMw0KJmx0OzQmZ3Q7WyAgIDU1
+LjE2NjM2M10gQ1IyOiAwMDAwMDAwMDAwMDAwMjA4IENSMzogMDAwMDAwMDIxNTBmMDAwMCBDUjQ6
+IA0KMDAwMDAwMDAwMDA0MDZlMA0KJmx0OzQmZ3Q7WyAgIDU1LjE2NjM2Nl0gQ2FsbCBUcmFjZToN
+CiZsdDs0Jmd0O1sgICA1NS4xNjY0NzddICBhbWRncHVfdm1fbW92ZV90b19scnVfdGFpbCYjNDM7
+MHhlNC8weDEwMCBbYW1kZ3B1XQ0KJmx0OzQmZ3Q7WyAgIDU1LjE2NjU2M10gIGFtZGdwdV9jc19p
+b2N0bCYjNDM7MHgxNGU3LzB4MWIwOCBbYW1kZ3B1XQ0KJmx0OzQmZ3Q7WyAgIDU1LjE2NjU4Nl0g
+ID8gX19zd2l0Y2hfdG9fYXNtJiM0MzsweDQwLzB4NzANCiZsdDs0Jmd0O1sgICA1NS4xNjY2ODld
+ICA/IGFtZGdwdV9jc19maW5kX21hcHBpbmcmIzQzOzB4MTEwLzB4MTEwIFthbWRncHVdDQombHQ7
+NCZndDtbICAgNTUuMTY2Njk4XSAgZHJtX2lvY3RsX2tlcm5lbCYjNDM7MHhhNC8weGU4DQombHQ7
+NCZndDtbICAgNTUuMTY2NzA3XSAgZHJtX2lvY3RsJiM0MzsweDFkYi8weDM1OA0KJmx0OzQmZ3Q7
+WyAgIDU1LjE2NjgwNV0gID8gYW1kZ3B1X2NzX2ZpbmRfbWFwcGluZyYjNDM7MHgxMTAvMHgxMTAg
+W2FtZGdwdV0NCiZsdDs0Jmd0O1sgICA1NS4xNjY5MDFdICBhbWRncHVfZHJtX2lvY3RsJiM0Mzsw
+eDQ0LzB4NzggW2FtZGdwdV0NCiZsdDs0Jmd0O1sgICA1NS4xNjY5MzFdICBkb192ZnNfaW9jdGwm
+IzQzOzB4OWYvMHg2MTgNCiZsdDs0Jmd0O1sgICA1NS4xNjY5NDBdICBrc3lzX2lvY3RsJiM0Mzsw
+eDViLzB4ODgNCiZsdDs0Jmd0O1sgICA1NS4xNjY5NDddICBfX3g2NF9zeXNfaW9jdGwmIzQzOzB4
+MTEvMHgxOA0KJmx0OzQmZ3Q7WyAgIDU1LjE2Njk1NV0gIGRvX3N5c2NhbGxfNjQmIzQzOzB4NTAv
+MHgxNjgNCiZsdDs0Jmd0O1sgICA1NS4xNjY5NjNdICBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3
+ZnJhbWUmIzQzOzB4NDQvMHhhOQ0KJmx0OzQmZ3Q7WyAgIDU1LjE2Njk2OV0gUklQOiAwMDMzOjB4
+N2ZiMzRiMDM1ZmE3DQombHQ7NCZndDtbICAgNTUuMTY2OTc0XSBDb2RlOiAwMCAwMCAwMCA3NSAw
+YyA0OCBjNyBjMCBmZiBmZiBmZiBmZiA0OCA4MyBjNCAxOCBjMyBlOCA4ZCANCmRjIDAxIDAwIDY2
+IDJlIDBmIDFmIDg0IDAwIDAwIDAwIDAwIDAwIDBmIDFmIDAwIGI4IDEwIDAwIDAwIDAwIDBmIDA1
+ICZsdDs0OCZndDsgM2QgDQowMSBmMCBmZiBmZiA3MyAwMSBjMyA0OCA4YiAwZCBhOSBhZSAwYyAw
+MCBmNyBkOCA2NCA4OSAwMSA0OA0KJmx0OzQmZ3Q7WyAgIDU1LjE2Njk3OF0gUlNQOiAwMDJiOjAw
+MDA3ZmIzMjdmZmVhODggRUZMQUdTOiAwMDAwMDI0NiBPUklHX1JBWDogDQowMDAwMDAwMDAwMDAw
+MDEwDQombHQ7NCZndDtbICAgNTUuMTY2OTg0XSBSQVg6IGZmZmZmZmZmZmZmZmZmZGEgUkJYOiAw
+MDAwN2ZiMzI3ZmZlYzU4IFJDWDogMDAwMDdmYjM0YjAzNWZhNw0KJmx0OzQmZ3Q7WyAgIDU1LjE2
+Njk4N10gUkRYOiAwMDAwN2ZiMzI3ZmZlYjEwIFJTSTogMDAwMDAwMDBjMDE4NjQ0NCBSREk6IA0K
+MDAwMDAwMDAwMDAwMDAxMA0KJmx0OzQmZ3Q7WyAgIDU1LjE2Njk5MV0gUkJQOiAwMDAwN2ZiMzI3
+ZmZlYjEwIFIwODogMDAwMDdmYjMyN2ZmZWM4MCBSMDk6IA0KMDAwMDdmYjMyN2ZmZWM1OA0KJmx0
+OzQmZ3Q7WyAgIDU1LjE2Njk5NV0gUjEwOiAwMDAwN2ZiMzI3ZmZlY2EwIFIxMTogMDAwMDAwMDAw
+MDAwMDI0NiBSMTI6IA0KMDAwMDAwMDBjMDE4NjQ0NA0KJmx0OzQmZ3Q7WyAgIDU1LjE2Njk5OF0g
+UjEzOiAwMDAwMDAwMDAwMDAwMDEwIFIxNDogMDAwMDU1ZWNkMjcwNWRjMCBSMTU6IA0KMDAwMDAw
+MDAwMDAwMDAwMw0KJmx0OzQmZ3Q7WyAgIDU1LjE2NzAwNF0gTW9kdWxlcyBsaW5rZWQgaW46IHJm
+Y29tbSBuZl90YWJsZXMgZWJ0YWJsZV9uYXQgaXBfc2V0IA0KbmZuZXRsaW5rIGVidGFibGVfZmls
+dGVyIGVidGFibGVzIGlwNnRhYmxlX2ZpbHRlciBpcDZfdGFibGVzIG92ZXJsYXkgc3F1YXNoZnMg
+DQpsb29wIGJuZXAgaXB2NiBydHN4X3VzYl9tcyBtZW1zdGljayBydHN4X3VzYl9zZG1tYyBydHN4
+X3VzYiB1dmN2aWRlbyANCnZpZGVvYnVmMl92bWFsbG9jIHZpZGVvYnVmMl9tZW1vcHMgdmlkZW9i
+dWYyX3Y0bDIgdmlkZW9idWYyX2NvbW1vbiB2aWRlb2RldiANCm1lZGlhIGF0aDNrIGJ0dXNiIGJ0
+aW50ZWwgYmx1ZXRvb3RoIGVjZGhfZ2VuZXJpYyBhdGg5ayBhdGg5a19jb21tb24ga3ZtX2FtZCAN
+CmF0aDlrX2h3IHNkaGNpX3BjaSBrdm0gY3FoY2kgaXJxYnlwYXNzIG1hYzgwMjExIHNkaGNpIGNy
+YzMyX3BjbG11bCANCmdoYXNoX2NsbXVsbmlfaW50ZWwgYXRoIHNlcmlvX3JhdyBtbWNfY29yZSBj
+Zmc4MDIxMSBhbWRncHUgbWZkX2NvcmUgY2hhc2ggDQpncHVfc2NoZWQgeGhjaV9wY2kgdHRtIHho
+Y2lfaGNkIGVoY2lfcGNpIGVoY2lfaGNkIHNwNTEwMF90Y28NCiZsdDs0Jmd0O1sgICA1NS4xNjcw
+NjNdIENSMjogMDAwMDAwMDAwMDAwMDIwOA0KJmx0OzQmZ3Q7WyAgIDU1LjE2NzA2OV0gLS0tWyBl
+bmQgdHJhY2UgYmYxYzRiZTA4OTAwMjIzNiBdLS0tDQoNCkJpc2VjdGVkLCBhbmQgIGl0IHNlZW1z
+IHRoYXQgdGhlIGJhZCBjb21taXQgaXMgJnF1b3Q7ZHJtL2FtZGdwdTogY2xlYW51cCBzZXR0aW5n
+IA0KYnVsa19tb3ZhYmxlJnF1b3Q7LiBJIGhvcGUgdGhpcyBpcyByZWxldmFudC4NCg0KZnVsbCBn
+aXQgYmlzZWN0IGxvZzoNCg0KZ2l0IGJpc2VjdCBzdGFydA0KIyBnb29kOiBbMTAxMTc0NTA3MzVj
+N2E3YzA4NTgwOTVmYjQ2YTg2MGU3MDM3Y2I5YV0gZHJtL2FtZC9kaXNwbGF5OiBhZGQgLW1zc2Uy
+IA0KdG8gcHJldmVudCBDbGFuZyBmcm9tIGVtaXR0aW5nIGxpYmNhbGxzIHRvIHVuZGVmaW5lZCBT
+VyBGUCByb3V0aW5lcw0KZ2l0IGJpc2VjdCBnb29kIDEwMTE3NDUwNzM1YzdhN2MwODU4MDk1ZmI0
+NmE4NjBlNzAzN2NiOWENCiMgYmFkOiBbYjljNjI1MmI3Zjk4MGU3ZTAzYzBiZjY1OWEyNTE3OThi
+MzZhODA5NF0gUmV2ZXJ0ICZxdW90O2RybS9hbWQvZGlzcGxheTogYWRkIA0KLW1zc2UyIHRvIHBy
+ZXZlbnQgQ2xhbmcgZnJvbSBlbWl0dGluZyBsaWJjYWxscyB0byB1bmRlZmluZWQgU1cgRlAgcm91
+dGluZXMmcXVvdDsNCmdpdCBiaXNlY3QgYmFkIGI5YzYyNTJiN2Y5ODBlN2UwM2MwYmY2NTlhMjUx
+Nzk4YjM2YTgwOTQNCiMgZ29vZDogWzFkZTI5ZGE1YjcyODFjOWE4NDI3ZDg0OTQ4YmYzZDc3YmM0
+YjhkMTZdIGRybTogZGlzYWJsZSB1bmNhY2hlZCBETUEgDQpvcHRpbWl6YXRpb24gZm9yIEFSTSBh
+bmQgYXJtNjQNCmdpdCBiaXNlY3QgZ29vZCAxZGUyOWRhNWI3MjgxYzlhODQyN2Q4NDk0OGJmM2Q3
+N2JjNGI4ZDE2DQojIGdvb2Q6IFtiYmY0OGNhZTU3MmIzOWM0ZGY2MDIzYjAxZDZmOGRlNjZlZjQx
+YjM0XSBSZXZlcnQgJnF1b3Q7dGVzdCBwYXRjaCBmb3IgaHBkIA0KZHBtcyBjaGVjayZxdW90Ow0K
+Z2l0IGJpc2VjdCBnb29kIGJiZjQ4Y2FlNTcyYjM5YzRkZjYwMjNiMDFkNmY4ZGU2NmVmNDFiMzQN
+CiMgZ29vZDogWzI1N2I3NWQzNzNjNzdkNjc5MmQwMDExZjczNzkzOThiYTYwNzk5ZWNdIGRybS9h
+bWRncHU6IFNob3cgWEdNSSBub2RlIA0KYW5kIGhpdmUgbWVzc2FnZSBwZXIgZGV2aWNlIG9ubHkg
+b25jZQ0KZ2l0IGJpc2VjdCBnb29kIDI1N2I3NWQzNzNjNzdkNjc5MmQwMDExZjczNzkzOThiYTYw
+Nzk5ZWMNCiMgZ29vZDogWzRkNzcxNjU3YzUzM2Q4ZmUzYjU3NGM1NjEwODRmNjZhZWJjNzdiYjZd
+IGRybS9hbWRncHU6IGNsZWFudXAgDQphbWRncHVfcHRlX3VwZGF0ZV9wYXJhbXMNCmdpdCBiaXNl
+Y3QgZ29vZCA0ZDc3MTY1N2M1MzNkOGZlM2I1NzRjNTYxMDg0ZjY2YWViYzc3YmI2DQojIGJhZDog
+WzRlZjI3MDA1ZmVmZDRiZTEwMjAxMGI3ZDg1NTJmZWMxZWUxMzQzNWFdIGRybS9hbWRncHU6IGNs
+ZWFudXAgc2V0dGluZyANCmJ1bGtfbW92YWJsZQ0KZ2l0IGJpc2VjdCBiYWQgNGVmMjcwMDVmZWZk
+NGJlMTAyMDEwYjdkODU1MmZlYzFlZTEzNDM1YQ0KIyBmaXJzdCBiYWQgY29tbWl0OiBbNGVmMjcw
+MDVmZWZkNGJlMTAyMDEwYjdkODU1MmZlYzFlZTEzNDM1YV0gZHJtL2FtZGdwdTogDQpjbGVhbnVw
+IHNldHRpbmcgYnVsa19tb3ZhYmxlDQoNCjRlZjI3MDA1ZmVmZDRiZTEwMjAxMGI3ZDg1NTJmZWMx
+ZWUxMzQzNWEgaXMgdGhlIGZpcnN0IGJhZCBjb21taXQNCmNvbW1pdCA0ZWYyNzAwNWZlZmQ0YmUx
+MDIwMTBiN2Q4NTUyZmVjMWVlMTM0MzVhDQpBdXRob3I6IENocmlzdGlhbiBLw7ZuaWcgPGEgY2xh
+c3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbSIgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIj4mbHQ7Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
+Y29tJmd0OzwvYT4NCkRhdGU6ICAgTW9uIEphbiAyOCAxMzo0MTo1OCAyMDE5ICYjNDM7MDEwMA0K
+DQogICAgZHJtL2FtZGdwdTogY2xlYW51cCBzZXR0aW5nIGJ1bGtfbW92YWJsZQ0KICAgIA0KICAg
+IFdlIG9ubHkgbmVlZCB0byBzZXQgdGhpcyB0byBmYWxzZSBub3cgd2hlbiBCT3MgYXJlIHJlbW92
+ZWQgZnJvbSB0aGUgTFJVLg0KICAgIA0KICAgIFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7Zu
+aWcgPGEgY2xhc3M9Im1vei10eHQtbGluay1yZmMyMzk2RSIgaHJlZj0ibWFpbHRvOmNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbSIgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIj4mbHQ7Y2hyaXN0aWFuLmtv
+ZW5pZ0BhbWQuY29tJmd0OzwvYT4NCiAgICBSZXZpZXdlZC1ieTogQ2h1bm1pbmcgWmhvdSA8YSBj
+bGFzcz0ibW96LXR4dC1saW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86ZGF2aWQxLnpob3VAYW1k
+LmNvbSIgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIj4mbHQ7ZGF2aWQxLnpob3VAYW1kLmNvbSZndDs8
+L2E+DQoNCklmIG90aGVyIGluZm8gaXMgbmVlZGVkLCBwbGVhc2UgZG8gbm90IGhlc2l0YXRlLg0K
+DQpUaGFua3MsDQpQcnplbWVrLg0KPC9wcmU+DQo8YnI+DQo8ZmllbGRzZXQgY2xhc3M9Im1pbWVB
+dHRhY2htZW50SGVhZGVyIj48L2ZpZWxkc2V0Pg0KPHByZSBjbGFzcz0ibW96LXF1b3RlLXByZSIg
+d3JhcD0iIj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QNCjxhIGNsYXNzPSJtb3otdHh0LWxpbmstYWJicmV2aWF0ZWQi
+IGhyZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyIgbW96LWRvLW5vdC1z
+ZW5kPSJ0cnVlIj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzwvYT4NCjxhIGNsYXNzPSJt
+b3otdHh0LWxpbmstZnJlZXRleHQiIGhyZWY9Imh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeCIgbW96LWRvLW5vdC1zZW5kPSJ0cnVlIj5odHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng8L2E+DQo8L3By
+ZT4NCjwvYmxvY2txdW90ZT4NCjxicj4NCjwvYmxvY2txdW90ZT4NCjxicj4NCjwvYm9keT4NCjwv
+aHRtbD4NCg==
 
+--_000_34e7e9b98d161055cd0868eac497743eamdcom_--
 
---------------C0A150A4F0E676DE2DAC90D6
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">This is a known issue, see here as well
-      <a class="moz-txt-link-freetext" href="https://bugs.freedesktop.org/show_bug.cgi?id=109487">https://bugs.freedesktop.org/show_bug.cgi?id=109487</a><br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 30.01.19 um 12:07 schrieb Przemek Socha:<br>
-    </div>
-    <blockquote type="cite" cite="mid:1631249.cbNX0rPzdC@eclipse">
-      <pre class="moz-quote-pre" wrap="">Good morning,
-
-after last pull from the amd-staging-drm-next tree (29th of February) I have 
-random Oops on A6 6310 APU with r4 Mullins.
-
-Here is the Oops part of the log taken from pstore:
-
-&lt;1&gt;[   55.166270] BUG: unable to handle kernel NULL pointer dereference at 
-0000000000000208
-&lt;1&gt;[   55.166281] #PF error: [normal kernel read fault]
-&lt;6&gt;[   55.166285] PGD 0 P4D 0 
-&lt;4&gt;[   55.166293] Oops: 0000 [#1] PREEMPT SMP
-&lt;4&gt;[   55.166301] CPU: 3 PID: 11006 Comm: kwin_x11:cs0 Not tainted 5.0.0-rc1+ 
-#44
-&lt;4&gt;[   55.166305] Hardware name: LENOVO 80E3/Lancer 5B2, BIOS A2CN45WW(V2.13) 
-08/04/2016
-&lt;4&gt;[   55.166320] RIP: 0010:ttm_bo_bulk_move_lru_tail+0xd3/0x188 [ttm]
-&lt;4&gt;[   55.166326] Code: 00 4c 8b 0a 48 8b 81 a8 00 00 00 48 81 c1 a8 00 00 00 
-49 89 02 4c 8b 92 b0 00 00 00 4c 89 50 08 44 89 c0 48 c1 e0 04 4c 01 c8 &lt;4c&gt; 
-8b 90 08 02 00 00 4d 89 1a 4c 8b 90 08 02 00 00 4c 89 92 b0 00
-&lt;4&gt;[   55.166330] RSP: 0018:ffffa8bdc0f33b18 EFLAGS: 00010246
-&lt;4&gt;[   55.166335] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 
-ffff9cfa935778f8
-&lt;4&gt;[   55.166339] RDX: ffff9cfa950c5050 RSI: 0000000000000070 RDI: 
-ffff9cfa93575dd0
-&lt;4&gt;[   55.166342] RBP: ffff9cfa5d44d800 R08: 0000000000000000 R09: 
-0000000000000000
-&lt;4&gt;[   55.166346] R10: ffff9cfa8f7730f8 R11: ffff9cfa950c50f8 R12: ffff9cfa93575dd0
-&lt;4&gt;[   55.166350] R13: ffff9cfa93575800 R14: 0000000000000001 R15: ffffffffc03adc10
-&lt;4&gt;[   55.166355] FS:  00007fb327fff700(0000) GS:ffff9cfa97b80000(0000) knlGS:
-0000000000000000
-&lt;4&gt;[   55.166359] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-&lt;4&gt;[   55.166363] CR2: 0000000000000208 CR3: 00000002150f0000 CR4: 
-00000000000406e0
-&lt;4&gt;[   55.166366] Call Trace:
-&lt;4&gt;[   55.166477]  amdgpu_vm_move_to_lru_tail+0xe4/0x100 [amdgpu]
-&lt;4&gt;[   55.166563]  amdgpu_cs_ioctl+0x14e7/0x1b08 [amdgpu]
-&lt;4&gt;[   55.166586]  ? __switch_to_asm+0x40/0x70
-&lt;4&gt;[   55.166689]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-&lt;4&gt;[   55.166698]  drm_ioctl_kernel+0xa4/0xe8
-&lt;4&gt;[   55.166707]  drm_ioctl+0x1db/0x358
-&lt;4&gt;[   55.166805]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
-&lt;4&gt;[   55.166901]  amdgpu_drm_ioctl+0x44/0x78 [amdgpu]
-&lt;4&gt;[   55.166931]  do_vfs_ioctl+0x9f/0x618
-&lt;4&gt;[   55.166940]  ksys_ioctl+0x5b/0x88
-&lt;4&gt;[   55.166947]  __x64_sys_ioctl+0x11/0x18
-&lt;4&gt;[   55.166955]  do_syscall_64+0x50/0x168
-&lt;4&gt;[   55.166963]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-&lt;4&gt;[   55.166969] RIP: 0033:0x7fb34b035fa7
-&lt;4&gt;[   55.166974] Code: 00 00 00 75 0c 48 c7 c0 ff ff ff ff 48 83 c4 18 c3 e8 8d 
-dc 01 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 b8 10 00 00 00 0f 05 &lt;48&gt; 3d 
-01 f0 ff ff 73 01 c3 48 8b 0d a9 ae 0c 00 f7 d8 64 89 01 48
-&lt;4&gt;[   55.166978] RSP: 002b:00007fb327ffea88 EFLAGS: 00000246 ORIG_RAX: 
-0000000000000010
-&lt;4&gt;[   55.166984] RAX: ffffffffffffffda RBX: 00007fb327ffec58 RCX: 00007fb34b035fa7
-&lt;4&gt;[   55.166987] RDX: 00007fb327ffeb10 RSI: 00000000c0186444 RDI: 
-0000000000000010
-&lt;4&gt;[   55.166991] RBP: 00007fb327ffeb10 R08: 00007fb327ffec80 R09: 
-00007fb327ffec58
-&lt;4&gt;[   55.166995] R10: 00007fb327ffeca0 R11: 0000000000000246 R12: 
-00000000c0186444
-&lt;4&gt;[   55.166998] R13: 0000000000000010 R14: 000055ecd2705dc0 R15: 
-0000000000000003
-&lt;4&gt;[   55.167004] Modules linked in: rfcomm nf_tables ebtable_nat ip_set 
-nfnetlink ebtable_filter ebtables ip6table_filter ip6_tables overlay squashfs 
-loop bnep ipv6 rtsx_usb_ms memstick rtsx_usb_sdmmc rtsx_usb uvcvideo 
-videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common videodev 
-media ath3k btusb btintel bluetooth ecdh_generic ath9k ath9k_common kvm_amd 
-ath9k_hw sdhci_pci kvm cqhci irqbypass mac80211 sdhci crc32_pclmul 
-ghash_clmulni_intel ath serio_raw mmc_core cfg80211 amdgpu mfd_core chash 
-gpu_sched xhci_pci ttm xhci_hcd ehci_pci ehci_hcd sp5100_tco
-&lt;4&gt;[   55.167063] CR2: 0000000000000208
-&lt;4&gt;[   55.167069] ---[ end trace bf1c4be089002236 ]---
-
-Bisected, and  it seems that the bad commit is "drm/amdgpu: cleanup setting 
-bulk_movable". I hope this is relevant.
-
-full git bisect log:
-
-git bisect start
-# good: [10117450735c7a7c0858095fb46a860e7037cb9a] drm/amd/display: add -msse2 
-to prevent Clang from emitting libcalls to undefined SW FP routines
-git bisect good 10117450735c7a7c0858095fb46a860e7037cb9a
-# bad: [b9c6252b7f980e7e03c0bf659a251798b36a8094] Revert "drm/amd/display: add 
--msse2 to prevent Clang from emitting libcalls to undefined SW FP routines"
-git bisect bad b9c6252b7f980e7e03c0bf659a251798b36a8094
-# good: [1de29da5b7281c9a8427d84948bf3d77bc4b8d16] drm: disable uncached DMA 
-optimization for ARM and arm64
-git bisect good 1de29da5b7281c9a8427d84948bf3d77bc4b8d16
-# good: [bbf48cae572b39c4df6023b01d6f8de66ef41b34] Revert "test patch for hpd 
-dpms check"
-git bisect good bbf48cae572b39c4df6023b01d6f8de66ef41b34
-# good: [257b75d373c77d6792d0011f7379398ba60799ec] drm/amdgpu: Show XGMI node 
-and hive message per device only once
-git bisect good 257b75d373c77d6792d0011f7379398ba60799ec
-# good: [4d771657c533d8fe3b574c561084f66aebc77bb6] drm/amdgpu: cleanup 
-amdgpu_pte_update_params
-git bisect good 4d771657c533d8fe3b574c561084f66aebc77bb6
-# bad: [4ef27005fefd4be102010b7d8552fec1ee13435a] drm/amdgpu: cleanup setting 
-bulk_movable
-git bisect bad 4ef27005fefd4be102010b7d8552fec1ee13435a
-# first bad commit: [4ef27005fefd4be102010b7d8552fec1ee13435a] drm/amdgpu: 
-cleanup setting bulk_movable
-
-4ef27005fefd4be102010b7d8552fec1ee13435a is the first bad commit
-commit 4ef27005fefd4be102010b7d8552fec1ee13435a
-Author: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>
-Date:   Mon Jan 28 13:41:58 2019 +0100
-
-    drm/amdgpu: cleanup setting bulk_movable
-    
-    We only need to set this to false now when BOs are removed from the LRU.
-    
-    Signed-off-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>
-    Reviewed-by: Chunming Zhou <a class="moz-txt-link-rfc2396E" href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>
-
-If other info is needed, please do not hesitate.
-
-Thanks,
-Przemek.
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------C0A150A4F0E676DE2DAC90D6--
-
---===============0794761007==
+--===============1522233024==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -329,4 +306,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0794761007==--
+--===============1522233024==--
