@@ -1,15 +1,12 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [PATCH v7 2/5] drm: Add vrr_enabled property to drm CRTC
-Date: Wed, 30 Jan 2019 12:02:03 +0100
-Message-ID: <CAKMK7uFcZWMbs98H3ks6yYMmjM7TVtaW4B4TVXMX8wSJMZbvVA@mail.gmail.com>
-References: <20181108144353.31363-1-nicholas.kazlauskas@amd.com>
- <20181108144353.31363-3-nicholas.kazlauskas@amd.com>
- <CAKMK7uHjOvivvK1_5yFV3miR=xQx7NHta11_etBSkGfr+Aor-g@mail.gmail.com>
+From: Przemek Socha <soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: amd-staging-drm-next: Oops - BUG: unable to handle kernel NULL
+ pointer dereference, bisected.
+Date: Wed, 30 Jan 2019 12:07:50 +0100
+Message-ID: <1631249.cbNX0rPzdC@eclipse>
+Reply-To: soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0675426293=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAKMK7uHjOvivvK1_5yFV3miR=xQx7NHta11_etBSkGfr+Aor-g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,118 +17,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Cc: Manasi Navare <manasi.d.navare-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gV2VkLCBKYW4gMzAsIDIwMTkgYXQgMTE6NDIgQU0gRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZm
-d2xsLmNoPiB3cm90ZToKPgo+IE9uIFRodSwgTm92IDgsIDIwMTggYXQgMzo0NCBQTSBOaWNob2xh
-cyBLYXpsYXVza2FzCj4gPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4gd3JvdGU6Cj4gPgo+
-ID4gVGhpcyBwYXRjaCBpbnRyb2R1Y2VzIHRoZSAndnJyX2VuYWJsZWQnIENSVEMgcHJvcGVydHkg
-dG8gYWxsb3cKPiA+IGR5bmFtaWMgY29udHJvbCBvdmVyIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBz
-dXBwb3J0IGZvciBhIENSVEMuCj4gPgo+ID4gVGhpcyBwcm9wZXJ0eSBzaG91bGQgYmUgdHJlYXRl
-ZCBsaWtlIGEgY29udGVudCBoaW50IHRvIHRoZSBkcml2ZXIgLQo+ID4gaWYgdGhlIGhhcmR3YXJl
-IG9yIGRyaXZlciBpcyBub3QgY2FwYWJsZSBvZiBkcml2aW5nIHZhcmlhYmxlIHJlZnJlc2gKPiA+
-IHRpbWluZ3MgdGhlbiB0aGlzIGlzIG5vdCBjb25zaWRlcmVkIGFuIGVycm9yLgo+ID4KPiA+IENh
-cGFiaWxpdHkgZm9yIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBzdXBwb3J0IHNob3VsZCBiZSBkZXRl
-cm1pbmVkCj4gPiBieSBxdWVyeWluZyB0aGUgdnJyX2NhcGFibGUgZHJtIGNvbm5lY3RvciBwcm9w
-ZXJ0eS4KPiA+Cj4gPiBJdCBpcyB3b3J0aCBub3RpbmcgdGhhdCB3aGlsZSB0aGUgcHJvcGVydHkg
-aXMgaW50ZW5kZWQgZm9yIGF0b21pYyB1c2UKPiA+IGl0IGlzbid0IGZpbHRlcmVkIGZyb20gbGVn
-YWN5IHVzZXJzcGFjZSBxdWVyaWVzLiBUaGlzIGFsbG93cyBmb3IgWG9yZwo+ID4gdXNlcnNwYWNl
-IGRyaXZlcnMgdG8gaW1wbGVtZW50IHN1cHBvcnQuCj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogTmlj
-aG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgo+ID4gUmV2aWV3
-ZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgo+ID4gQ2M6IE1h
-bmFzaSBOYXZhcmUgPG1hbmFzaS5kLm5hdmFyZUBpbnRlbC5jb20+Cj4gPiAtLS0KPiA+ICBkcml2
-ZXJzL2dwdS9kcm0vZHJtX2F0b21pY191YXBpLmMgfCA0ICsrKysKPiA+ICBkcml2ZXJzL2dwdS9k
-cm0vZHJtX2NydGMuYyAgICAgICAgfCAyICsrCj4gPiAgZHJpdmVycy9ncHUvZHJtL2RybV9tb2Rl
-X2NvbmZpZy5jIHwgNiArKysrKysKPiA+ICBpbmNsdWRlL2RybS9kcm1fY3J0Yy5oICAgICAgICAg
-ICAgfCA5ICsrKysrKysrKwo+ID4gIGluY2x1ZGUvZHJtL2RybV9tb2RlX2NvbmZpZy5oICAgICB8
-IDUgKysrKysKPiA+ICA1IGZpbGVzIGNoYW5nZWQsIDI2IGluc2VydGlvbnMoKykKPiA+Cj4gPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfdWFwaS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2RybV9hdG9taWNfdWFwaS5jCj4gPiBpbmRleCBkNWI3ZjMxNTA5OGMuLmVlYzM5NmE1
-N2I4OCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX3VhcGkuYwo+
-ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfdWFwaS5jCj4gPiBAQCAtNDMzLDYg
-KzQzMyw4IEBAIHN0YXRpYyBpbnQgZHJtX2F0b21pY19jcnRjX3NldF9wcm9wZXJ0eShzdHJ1Y3Qg
-ZHJtX2NydGMgKmNydGMsCj4gPiAgICAgICAgICAgICAgICAgcmV0ID0gZHJtX2F0b21pY19zZXRf
-bW9kZV9wcm9wX2Zvcl9jcnRjKHN0YXRlLCBtb2RlKTsKPiA+ICAgICAgICAgICAgICAgICBkcm1f
-cHJvcGVydHlfYmxvYl9wdXQobW9kZSk7Cj4gPiAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsK
-PiA+ICsgICAgICAgfSBlbHNlIGlmIChwcm9wZXJ0eSA9PSBjb25maWctPnByb3BfdnJyX2VuYWJs
-ZWQpIHsKPiA+ICsgICAgICAgICAgICAgICBzdGF0ZS0+dnJyX2VuYWJsZWQgPSB2YWw7Cj4gPiAg
-ICAgICAgIH0gZWxzZSBpZiAocHJvcGVydHkgPT0gY29uZmlnLT5kZWdhbW1hX2x1dF9wcm9wZXJ0
-eSkgewo+ID4gICAgICAgICAgICAgICAgIHJldCA9IGRybV9hdG9taWNfcmVwbGFjZV9wcm9wZXJ0
-eV9ibG9iX2Zyb21faWQoZGV2LAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICZzdGF0ZS0+ZGVnYW1tYV9sdXQsCj4gPiBAQCAtNDkxLDYgKzQ5Myw4IEBAIGRybV9h
-dG9taWNfY3J0Y19nZXRfcHJvcGVydHkoc3RydWN0IGRybV9jcnRjICpjcnRjLAo+ID4gICAgICAg
-ICAgICAgICAgICp2YWwgPSBzdGF0ZS0+YWN0aXZlOwo+ID4gICAgICAgICBlbHNlIGlmIChwcm9w
-ZXJ0eSA9PSBjb25maWctPnByb3BfbW9kZV9pZCkKPiA+ICAgICAgICAgICAgICAgICAqdmFsID0g
-KHN0YXRlLT5tb2RlX2Jsb2IpID8gc3RhdGUtPm1vZGVfYmxvYi0+YmFzZS5pZCA6IDA7Cj4gPiAr
-ICAgICAgIGVsc2UgaWYgKHByb3BlcnR5ID09IGNvbmZpZy0+cHJvcF92cnJfZW5hYmxlZCkKPiA+
-ICsgICAgICAgICAgICAgICAqdmFsID0gc3RhdGUtPnZycl9lbmFibGVkOwo+ID4gICAgICAgICBl
-bHNlIGlmIChwcm9wZXJ0eSA9PSBjb25maWctPmRlZ2FtbWFfbHV0X3Byb3BlcnR5KQo+ID4gICAg
-ICAgICAgICAgICAgICp2YWwgPSAoc3RhdGUtPmRlZ2FtbWFfbHV0KSA/IHN0YXRlLT5kZWdhbW1h
-X2x1dC0+YmFzZS5pZCA6IDA7Cj4gPiAgICAgICAgIGVsc2UgaWYgKHByb3BlcnR5ID09IGNvbmZp
-Zy0+Y3RtX3Byb3BlcnR5KQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fY3J0
-Yy5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjLmMKPiA+IGluZGV4IDI2OGExODJhZTE4OS4u
-NmY4ZGRmY2ZhYmE1IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9jcnRjLmMK
-PiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fY3J0Yy5jCj4gPiBAQCAtMzQwLDYgKzM0MCw4
-IEBAIGludCBkcm1fY3J0Y19pbml0X3dpdGhfcGxhbmVzKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKPiA+ICAgICAgICAgICAgICAgICBkcm1fb2JqZWN0X2F0
-dGFjaF9wcm9wZXJ0eSgmY3J0Yy0+YmFzZSwgY29uZmlnLT5wcm9wX21vZGVfaWQsIDApOwo+ID4g
-ICAgICAgICAgICAgICAgIGRybV9vYmplY3RfYXR0YWNoX3Byb3BlcnR5KCZjcnRjLT5iYXNlLAo+
-ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbmZpZy0+cHJv
-cF9vdXRfZmVuY2VfcHRyLCAwKTsKPiA+ICsgICAgICAgICAgICAgICBkcm1fb2JqZWN0X2F0dGFj
-aF9wcm9wZXJ0eSgmY3J0Yy0+YmFzZSwKPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBjb25maWctPnByb3BfdnJyX2VuYWJsZWQsIDApOwo+ID4gICAgICAgICB9
-Cj4gPgo+ID4gICAgICAgICByZXR1cm4gMDsKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vZHJtX21vZGVfY29uZmlnLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX21vZGVfY29uZmlnLmMK
-PiA+IGluZGV4IGVlODA3ODhmMmM0MC4uNTY3MGM2N2YyOGQ0IDEwMDY0NAo+ID4gLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2RybV9tb2RlX2NvbmZpZy5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-ZHJtX21vZGVfY29uZmlnLmMKPiA+IEBAIC0zMTAsNiArMzEwLDEyIEBAIHN0YXRpYyBpbnQgZHJt
-X21vZGVfY3JlYXRlX3N0YW5kYXJkX3Byb3BlcnRpZXMoc3RydWN0IGRybV9kZXZpY2UgKmRldikK
-PiA+ICAgICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsKPiA+ICAgICAgICAgZGV2LT5tb2Rl
-X2NvbmZpZy5wcm9wX21vZGVfaWQgPSBwcm9wOwo+ID4KPiA+ICsgICAgICAgcHJvcCA9IGRybV9w
-cm9wZXJ0eV9jcmVhdGVfYm9vbChkZXYsIDAsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAi
-VlJSX0VOQUJMRUQiKTsKPgo+IFZSUl9FTkFCTEVEIGRvZXNuJ3QgbWF0Y2ggdnJyX2VuYWJsZWQg
-aW4gdGhlIGRvY3MuIEJ1dCB0aGUgY29ubmVjdG9yCj4gb25lIHNlZW1zIHRvIGluZGVlZCBiZSBs
-b3dlcmNhc2UuIEFuZCBjYXNpbmcgbWF0dGVycyBmb3IgcHJvcGVydGllcwo+Cj4gQ2FuIHlvdSBw
-bHMgZmlndXJlIG91dCB3aG8ncyByaWdodCBoZXJlIGFuZCBmaXggdGhpcyBjb25mdXNpb24gdXA/
-CgpJIGNoZWNrZWQgdGhlIGlndCBxdWlja2x5LCBwYXRjaCBpcyB0eXBlZCwgd2lsbCBzZW5kIG91
-dCB0b2RheSBvciBzby4KLURhbmllbAoKPgo+IFRoYW5rcywgRGFuaWVsCj4KPiA+ICsgICAgICAg
-aWYgKCFwcm9wKQo+ID4gKyAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+ID4gKyAgICAg
-ICBkZXYtPm1vZGVfY29uZmlnLnByb3BfdnJyX2VuYWJsZWQgPSBwcm9wOwo+ID4gKwo+ID4gICAg
-ICAgICBwcm9wID0gZHJtX3Byb3BlcnR5X2NyZWF0ZShkZXYsCj4gPiAgICAgICAgICAgICAgICAg
-ICAgICAgICBEUk1fTU9ERV9QUk9QX0JMT0IsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAi
-REVHQU1NQV9MVVQiLCAwKTsKPiA+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fY3J0Yy5o
-IGIvaW5jbHVkZS9kcm0vZHJtX2NydGMuaAo+ID4gaW5kZXggYjIxNDM3YmM5NWJmLi4zOWMzOTAw
-YWFiM2MgMTAwNjQ0Cj4gPiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fY3J0Yy5oCj4gPiArKysgYi9p
-bmNsdWRlL2RybS9kcm1fY3J0Yy5oCj4gPiBAQCAtMjkwLDYgKzI5MCwxNSBAQCBzdHJ1Y3QgZHJt
-X2NydGNfc3RhdGUgewo+ID4gICAgICAgICAgKi8KPiA+ICAgICAgICAgdTMyIHBhZ2VmbGlwX2Zs
-YWdzOwo+ID4KPiA+ICsgICAgICAgLyoqCj4gPiArICAgICAgICAqIEB2cnJfZW5hYmxlZDoKPiA+
-ICsgICAgICAgICoKPiA+ICsgICAgICAgICogSW5kaWNhdGVzIGlmIHZhcmlhYmxlIHJlZnJlc2gg
-cmF0ZSBzaG91bGQgYmUgZW5hYmxlZCBmb3IgdGhlIENSVEMuCj4gPiArICAgICAgICAqIFN1cHBv
-cnQgZm9yIHRoZSByZXF1ZXN0ZWQgdnJyIHN0YXRlIHdpbGwgZGVwZW5kIG9uIGRyaXZlciBhbmQK
-PiA+ICsgICAgICAgICogaGFyZHdhcmUgY2FwYWJpbHRpeSAtIGxhY2tpbmcgc3VwcG9ydCBpcyBu
-b3QgdHJlYXRlZCBhcyBmYWlsdXJlLgo+ID4gKyAgICAgICAgKi8KPiA+ICsgICAgICAgYm9vbCB2
-cnJfZW5hYmxlZDsKPiA+ICsKPiA+ICAgICAgICAgLyoqCj4gPiAgICAgICAgICAqIEBldmVudDoK
-PiA+ICAgICAgICAgICoKPiA+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fbW9kZV9jb25m
-aWcuaCBiL2luY2x1ZGUvZHJtL2RybV9tb2RlX2NvbmZpZy5oCj4gPiBpbmRleCA5MjhlNDE3MmEw
-YmIuLjQ5ZjJmY2ZkYjVmYyAxMDA2NDQKPiA+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9tb2RlX2Nv
-bmZpZy5oCj4gPiArKysgYi9pbmNsdWRlL2RybS9kcm1fbW9kZV9jb25maWcuaAo+ID4gQEAgLTYz
-OSw2ICs2MzksMTEgQEAgc3RydWN0IGRybV9tb2RlX2NvbmZpZyB7Cj4gPiAgICAgICAgICAqIGNv
-bm5lY3RvcnMgbXVzdCBiZSBvZiBhbmQgYWN0aXZlIG11c3QgYmUgc2V0IHRvIGRpc2FibGVkLCB0
-b28uCj4gPiAgICAgICAgICAqLwo+ID4gICAgICAgICBzdHJ1Y3QgZHJtX3Byb3BlcnR5ICpwcm9w
-X21vZGVfaWQ7Cj4gPiArICAgICAgIC8qKgo+ID4gKyAgICAgICAgKiBAcHJvcF92cnJfZW5hYmxl
-ZDogRGVmYXVsdCBhdG9taWMgQ1JUQyBwcm9wZXJ0eSB0byBpbmRpY2F0ZQo+ID4gKyAgICAgICAg
-KiB3aGV0aGVyIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBzaG91bGQgYmUgZW5hYmxlZCBvbiB0aGUg
-Q1JUQy4KPiA+ICsgICAgICAgICovCj4gPiArICAgICAgIHN0cnVjdCBkcm1fcHJvcGVydHkgKnBy
-b3BfdnJyX2VuYWJsZWQ7Cj4gPgo+ID4gICAgICAgICAvKioKPiA+ICAgICAgICAgICogQGR2aV9p
-X3N1YmNvbm5lY3Rvcl9wcm9wZXJ0eTogT3B0aW9uYWwgRFZJLUkgcHJvcGVydHkgdG8KPiA+IC0t
-Cj4gPiAyLjE5LjEKPiA+Cj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwo+ID4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+ID4gZHJpLWRldmVsQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9kcmktZGV2ZWwKPgo+Cj4KPiAtLQo+IERhbmllbCBWZXR0ZXIKPiBTb2Z0d2Fy
-ZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPiArNDEgKDApIDc5IDM2NSA1NyA0OCAtIGh0
-dHA6Ly9ibG9nLmZmd2xsLmNoCgoKCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVy
-LCBJbnRlbCBDb3Jwb3JhdGlvbgorNDEgKDApIDc5IDM2NSA1NyA0OCAtIGh0dHA6Ly9ibG9nLmZm
-d2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0675426293==
+Content-Type: multipart/signed; boundary="nextPart4461825.jbOgiOjy93"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart4461825.jbOgiOjy93
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Good morning,
+
+after last pull from the amd-staging-drm-next tree (29th of February) I hav=
+e=20
+random Oops on A6 6310 APU with r4 Mullins.
+
+Here is the Oops part of the log taken from pstore:
+
+<1>[   55.166270] BUG: unable to handle kernel NULL pointer dereference at=
+=20
+0000000000000208
+<1>[   55.166281] #PF error: [normal kernel read fault]
+<6>[   55.166285] PGD 0 P4D 0=20
+<4>[   55.166293] Oops: 0000 [#1] PREEMPT SMP
+<4>[   55.166301] CPU: 3 PID: 11006 Comm: kwin_x11:cs0 Not tainted 5.0.0-rc=
+1+=20
+#44
+<4>[   55.166305] Hardware name: LENOVO 80E3/Lancer 5B2, BIOS A2CN45WW(V2.1=
+3)=20
+08/04/2016
+<4>[   55.166320] RIP: 0010:ttm_bo_bulk_move_lru_tail+0xd3/0x188 [ttm]
+<4>[   55.166326] Code: 00 4c 8b 0a 48 8b 81 a8 00 00 00 48 81 c1 a8 00 00 =
+00=20
+49 89 02 4c 8b 92 b0 00 00 00 4c 89 50 08 44 89 c0 48 c1 e0 04 4c 01 c8 <4c=
+>=20
+8b 90 08 02 00 00 4d 89 1a 4c 8b 90 08 02 00 00 4c 89 92 b0 00
+<4>[   55.166330] RSP: 0018:ffffa8bdc0f33b18 EFLAGS: 00010246
+<4>[   55.166335] RAX: 0000000000000000 RBX: 0000000000000000 RCX:=20
+ffff9cfa935778f8
+<4>[   55.166339] RDX: ffff9cfa950c5050 RSI: 0000000000000070 RDI:=20
+ffff9cfa93575dd0
+<4>[   55.166342] RBP: ffff9cfa5d44d800 R08: 0000000000000000 R09:=20
+0000000000000000
+<4>[   55.166346] R10: ffff9cfa8f7730f8 R11: ffff9cfa950c50f8 R12: ffff9cfa=
+93575dd0
+<4>[   55.166350] R13: ffff9cfa93575800 R14: 0000000000000001 R15: ffffffff=
+c03adc10
+<4>[   55.166355] FS:  00007fb327fff700(0000) GS:ffff9cfa97b80000(0000) knl=
+GS:
+0000000000000000
+<4>[   55.166359] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[   55.166363] CR2: 0000000000000208 CR3: 00000002150f0000 CR4:=20
+00000000000406e0
+<4>[   55.166366] Call Trace:
+<4>[   55.166477]  amdgpu_vm_move_to_lru_tail+0xe4/0x100 [amdgpu]
+<4>[   55.166563]  amdgpu_cs_ioctl+0x14e7/0x1b08 [amdgpu]
+<4>[   55.166586]  ? __switch_to_asm+0x40/0x70
+<4>[   55.166689]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
+<4>[   55.166698]  drm_ioctl_kernel+0xa4/0xe8
+<4>[   55.166707]  drm_ioctl+0x1db/0x358
+<4>[   55.166805]  ? amdgpu_cs_find_mapping+0x110/0x110 [amdgpu]
+<4>[   55.166901]  amdgpu_drm_ioctl+0x44/0x78 [amdgpu]
+<4>[   55.166931]  do_vfs_ioctl+0x9f/0x618
+<4>[   55.166940]  ksys_ioctl+0x5b/0x88
+<4>[   55.166947]  __x64_sys_ioctl+0x11/0x18
+<4>[   55.166955]  do_syscall_64+0x50/0x168
+<4>[   55.166963]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+<4>[   55.166969] RIP: 0033:0x7fb34b035fa7
+<4>[   55.166974] Code: 00 00 00 75 0c 48 c7 c0 ff ff ff ff 48 83 c4 18 c3 =
+e8 8d=20
+dc 01 00 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 00 b8 10 00 00 00 0f 05 <48> 3=
+d=20
+01 f0 ff ff 73 01 c3 48 8b 0d a9 ae 0c 00 f7 d8 64 89 01 48
+<4>[   55.166978] RSP: 002b:00007fb327ffea88 EFLAGS: 00000246 ORIG_RAX:=20
+0000000000000010
+<4>[   55.166984] RAX: ffffffffffffffda RBX: 00007fb327ffec58 RCX: 00007fb3=
+4b035fa7
+<4>[   55.166987] RDX: 00007fb327ffeb10 RSI: 00000000c0186444 RDI:=20
+0000000000000010
+<4>[   55.166991] RBP: 00007fb327ffeb10 R08: 00007fb327ffec80 R09:=20
+00007fb327ffec58
+<4>[   55.166995] R10: 00007fb327ffeca0 R11: 0000000000000246 R12:=20
+00000000c0186444
+<4>[   55.166998] R13: 0000000000000010 R14: 000055ecd2705dc0 R15:=20
+0000000000000003
+<4>[   55.167004] Modules linked in: rfcomm nf_tables ebtable_nat ip_set=20
+nfnetlink ebtable_filter ebtables ip6table_filter ip6_tables overlay squash=
+fs=20
+loop bnep ipv6 rtsx_usb_ms memstick rtsx_usb_sdmmc rtsx_usb uvcvideo=20
+videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 videobuf2_common videodev=
+=20
+media ath3k btusb btintel bluetooth ecdh_generic ath9k ath9k_common kvm_amd=
+=20
+ath9k_hw sdhci_pci kvm cqhci irqbypass mac80211 sdhci crc32_pclmul=20
+ghash_clmulni_intel ath serio_raw mmc_core cfg80211 amdgpu mfd_core chash=20
+gpu_sched xhci_pci ttm xhci_hcd ehci_pci ehci_hcd sp5100_tco
+<4>[   55.167063] CR2: 0000000000000208
+<4>[   55.167069] ---[ end trace bf1c4be089002236 ]---
+
+Bisected, and  it seems that the bad commit is "drm/amdgpu: cleanup setting=
+=20
+bulk_movable". I hope this is relevant.
+
+full git bisect log:
+
+git bisect start
+# good: [10117450735c7a7c0858095fb46a860e7037cb9a] drm/amd/display: add -ms=
+se2=20
+to prevent Clang from emitting libcalls to undefined SW FP routines
+git bisect good 10117450735c7a7c0858095fb46a860e7037cb9a
+# bad: [b9c6252b7f980e7e03c0bf659a251798b36a8094] Revert "drm/amd/display: =
+add=20
+=2Dmsse2 to prevent Clang from emitting libcalls to undefined SW FP routine=
+s"
+git bisect bad b9c6252b7f980e7e03c0bf659a251798b36a8094
+# good: [1de29da5b7281c9a8427d84948bf3d77bc4b8d16] drm: disable uncached DM=
+A=20
+optimization for ARM and arm64
+git bisect good 1de29da5b7281c9a8427d84948bf3d77bc4b8d16
+# good: [bbf48cae572b39c4df6023b01d6f8de66ef41b34] Revert "test patch for h=
+pd=20
+dpms check"
+git bisect good bbf48cae572b39c4df6023b01d6f8de66ef41b34
+# good: [257b75d373c77d6792d0011f7379398ba60799ec] drm/amdgpu: Show XGMI no=
+de=20
+and hive message per device only once
+git bisect good 257b75d373c77d6792d0011f7379398ba60799ec
+# good: [4d771657c533d8fe3b574c561084f66aebc77bb6] drm/amdgpu: cleanup=20
+amdgpu_pte_update_params
+git bisect good 4d771657c533d8fe3b574c561084f66aebc77bb6
+# bad: [4ef27005fefd4be102010b7d8552fec1ee13435a] drm/amdgpu: cleanup setti=
+ng=20
+bulk_movable
+git bisect bad 4ef27005fefd4be102010b7d8552fec1ee13435a
+# first bad commit: [4ef27005fefd4be102010b7d8552fec1ee13435a] drm/amdgpu:=
+=20
+cleanup setting bulk_movable
+
+4ef27005fefd4be102010b7d8552fec1ee13435a is the first bad commit
+commit 4ef27005fefd4be102010b7d8552fec1ee13435a
+Author: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Date:   Mon Jan 28 13:41:58 2019 +0100
+
+    drm/amdgpu: cleanup setting bulk_movable
+   =20
+    We only need to set this to false now when BOs are removed from the LRU.
+   =20
+    Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+    Reviewed-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+
+If other info is needed, please do not hesitate.
+
+Thanks,
+Przemek.
+
+--nextPart4461825.jbOgiOjy93
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEE2zcce+zboy/je1pmPMstj1lsVJMFAlxRhYYACgkQPMstj1ls
+VJOQFg//SGZrDJTsPBH4MCi1DrCpdNM9g5/NHSsZBTRkXF6Xpwk3RBGuTGgqgGc3
+QUf9f5XgfRs0BKLdNFje/K6cv1OURiacsZydWA5ognBrYMvnmd0dd3hw7WNerpA5
+j0wphAIPKyVjO1/kihKNdxNBMiTqrADHiXY7myh+QK6mbyu+VHZ6BxQLRMSPi6K+
+cADnNQ1ArWjVwEKSuX3J+Ty9sIl3hq7xpGkKSj6YHH3bbE4Tt4jEKYpJbEdzEdpH
+WfhCPb7cr/2TNILEYw8nqYyaDT7DfxYDIv7rhKs1yOOI8XNmNg161Bnx1K4GZC01
+MHswyX9+suKzWGl60HFkUclYWzo0KufhqxLm9r7rLvDd4nKDg1e7vd4nWqZZoNVN
+n7mZHkHCeS7fH7IpsFc4NBVtdft8rLSALDF15N3BquugAu8AYKUjJArXTJz8FbFr
+FONJnCniqAEnOfniUOPgbg+GwLeNo44NV3L3Os0J/NURRaaGAF0HoyFwFfyC2S/x
+b6SChMQjX0TrOP64aHu9vwCp2oBqDz/nS/lb/qlW8+5WRMUNwOi+jkZykKn00gwy
+XFmh9H1+TBlbhX2Bxkg+zoLwXh/BiL16BuprudaTkPHeQVoQw1Q1p0p4jPyaH9xE
+d7ZbYYypkYh7dJCawFFD/CCbFauRSHsDvzuYfCtErBf0Akca74w=
+=YNEs
+-----END PGP SIGNATURE-----
+
+--nextPart4461825.jbOgiOjy93--
+
+
+
+
+--===============0675426293==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============0675426293==--
