@@ -1,16 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: Bug#921004: downgrade to firmware-amd-graphics_20180825-1_all.deb
-Date: Thu, 31 Jan 2019 17:01:33 +0000
-Message-ID: <BN6PR12MB18093C89D32B548DFD16268AF7910@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: Bug#921004: downgrade to firmware-amd-graphics_20180825-1_all.deb
+Date: Thu, 31 Jan 2019 18:08:49 +0100
+Message-ID: <342b46fe-d8ad-a3b4-7931-86e531a30bde@daenzer.net>
 References: <1c2b5af4-ea57-0b07-723d-cb4ccb760219@free.fr>
  <2e69cb23-06ee-5bcd-4feb-0eb88c0f4143@free.fr>
  <4808c53d-927e-71a7-62fb-af46f9e87efc@daenzer.net>
+ <BN6PR12MB18093C89D32B548DFD16268AF7910@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4808c53d-927e-71a7-62fb-af46f9e87efc-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <BN6PR12MB18093C89D32B548DFD16268AF7910-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,22 +22,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SXMgdGhlcmUgYSBiaWcgcmVwb3J0PyAgSSBoYXZlbid0IGhlYXJkIG9mIGFueSBvdGhlciBpc3N1
-ZXMgYW5kIHRoZXNlIHVwZGF0ZXMgaGF2ZSBiZWVuIHVwc3RyZWFtIGluIGxpbnV4LWZpcm13YXJl
-IGZvciBvdmVyIGEgbW9udGggbm93Lg0KDQpBbGV4DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdl
-LS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZz4gT24gQmVoYWxmIE9mDQo+IE1pY2hlbCBEw6RuemVyDQo+IFNlbnQ6IFRodXJzZGF5LCBK
-YW51YXJ5IDMxLCAyMDE5IDExOjAzIEFNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZw0KPiBTdWJqZWN0OiBGd2Q6IEJ1ZyM5MjEwMDQ6IGRvd25ncmFkZSB0byBmaXJtd2FyZS1h
-bWQtZ3JhcGhpY3NfMjAxODA4MjUtDQo+IDFfYWxsLmRlYg0KPiANCj4gDQo+IEJhZCBuZXdzIEkn
-bSBhZnJhaWQsIGxvb2tzIGxpa2UgdGhlIGxhdGVzdCBmaXJtd2FyZSAoYmFzZWQgb24gbGludXgt
-ZmlybXdhcmUNCj4gY29tbWl0IGJjNjU2NTA5YTNjZmI2MGZjZGZjOTA1ZDdlMjNjMTg4NzNlNGU3
-YjkgZnJvbQ0KPiAyMDE5LTAxLTE0KSBicm9rZSBzb21lIFJYIDU4MCBjYXJkcy4NCj4gDQo+IA0K
-PiAtLQ0KPiBFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAg
-ICAgICAgaHR0cDovL3d3dy5hbWQuY29tDQo+IExpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAg
-ICAgICAgICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3Blcg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+T24gMjAxOS0wMS0zMSA2OjAxIHAubS4sIERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPiBJcyB0
+aGVyZSBhIGJpZyByZXBvcnQ/CgpZZWFoLCA5MjEwMDRAYnVncy5kZWJpYW4ub3JnID0+IGh0dHBz
+Oi8vYnVncy5kZWJpYW4ub3JnLzkyMTAwNCAuIERvZXNuJ3QKaGF2ZSBhbnkgbW9yZSBpbmZvcm1h
+dGlvbiBjdXJyZW50bHkgdGhvdWdoLCB3ZSdkIGhhdmUgdG8gZ2V0IGluIHRvdWNoCndpdGggdGhl
+IHJlcG9ydGVyLgoKCj4gSSBoYXZlbid0IGhlYXJkIG9mIGFueSBvdGhlciBpc3N1ZXMgYW5kIHRo
+ZXNlIHVwZGF0ZXMgaGF2ZSBiZWVuIHVwc3RyZWFtCj4gaW4gbGludXgtZmlybXdhcmUgZm9yIG92
+ZXIgYSBtb250aCBub3cuCgpJdCBlbnRlcmVkIERlYmlhbiBzaWQgYWJvdXQgdHdvIHdlZWtzIGFn
+bywgc28gbWlnaHQgaGF2ZSBvbmx5IGVudGVyZWQKRGViaWFuIHRlc3RpbmcgdGhpcyB3ZWVrLgoK
+Ci0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAg
+ICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAg
+ICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
