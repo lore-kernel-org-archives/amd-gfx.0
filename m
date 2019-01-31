@@ -1,17 +1,11 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: Bug#921004: downgrade to firmware-amd-graphics_20180825-1_all.deb
-Date: Thu, 31 Jan 2019 18:08:49 +0100
-Message-ID: <342b46fe-d8ad-a3b4-7931-86e531a30bde@daenzer.net>
-References: <1c2b5af4-ea57-0b07-723d-cb4ccb760219@free.fr>
- <2e69cb23-06ee-5bcd-4feb-0eb88c0f4143@free.fr>
- <4808c53d-927e-71a7-62fb-af46f9e87efc@daenzer.net>
- <BN6PR12MB18093C89D32B548DFD16268AF7910@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Attach VRR properties for eDP connectors
+Date: Thu, 31 Jan 2019 13:58:21 -0500
+Message-ID: <20190131185821.24798-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB18093C89D32B548DFD16268AF7910-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,20 +16,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOS0wMS0zMSA2OjAxIHAubS4sIERldWNoZXIsIEFsZXhhbmRlciB3cm90ZToKPiBJcyB0
-aGVyZSBhIGJpZyByZXBvcnQ/CgpZZWFoLCA5MjEwMDRAYnVncy5kZWJpYW4ub3JnID0+IGh0dHBz
-Oi8vYnVncy5kZWJpYW4ub3JnLzkyMTAwNCAuIERvZXNuJ3QKaGF2ZSBhbnkgbW9yZSBpbmZvcm1h
-dGlvbiBjdXJyZW50bHkgdGhvdWdoLCB3ZSdkIGhhdmUgdG8gZ2V0IGluIHRvdWNoCndpdGggdGhl
-IHJlcG9ydGVyLgoKCj4gSSBoYXZlbid0IGhlYXJkIG9mIGFueSBvdGhlciBpc3N1ZXMgYW5kIHRo
-ZXNlIHVwZGF0ZXMgaGF2ZSBiZWVuIHVwc3RyZWFtCj4gaW4gbGludXgtZmlybXdhcmUgZm9yIG92
-ZXIgYSBtb250aCBub3cuCgpJdCBlbnRlcmVkIERlYmlhbiBzaWQgYWJvdXQgdHdvIHdlZWtzIGFn
-bywgc28gbWlnaHQgaGF2ZSBvbmx5IGVudGVyZWQKRGViaWFuIHRlc3RpbmcgdGhpcyB3ZWVrLgoK
-Ci0tIApFYXJ0aGxpbmcgTWljaGVsIETDpG56ZXIgICAgICAgICAgICAgICB8ICAgICAgICAgICAg
-ICAgaHR0cDovL3d3dy5hbWQuY29tCkxpYnJlIHNvZnR3YXJlIGVudGh1c2lhc3QgICAgICAgICAg
-ICAgfCAgICAgICAgICAgICBNZXNhIGFuZCBYIGRldmVsb3BlcgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngK
+W1doeV0KZURQIHdhcyBtaXNzaW5nIGluIHRoZSBjaGVja3MgZm9yIHN1cHBvcnRlZCBWUlIgY29u
+bmVjdG9ycy4KCltIb3ddCkF0dGFjaCB0aGUgcHJvcGVydGllcyBmb3IgZURQIGNvbm5lY3RvcnMg
+dG9vLgoKQ2M6IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29tPgpDYzogSGFycnkgV2VudGxhbmQg
+PGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+CkJ1Z3ppbGxhOiBodHRwczovL2J1Z3ppbGxhLmtlcm5l
+bC5vcmcvc2hvd19idWcuY2dpP2lkPTIwMjQ0OQpTaWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXps
+YXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDMgKystCiAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKaW5kZXggY2RkYTY4YWJhNzBlLi40
+YzdjMzRjYWU4ODIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
+cHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG0uYwpAQCAtNDI0OSw3ICs0MjQ5LDggQEAgdm9pZCBhbWRncHVfZG1fY29u
+bmVjdG9yX2luaXRfaGVscGVyKHN0cnVjdCBhbWRncHVfZGlzcGxheV9tYW5hZ2VyICpkbSwKIAl9
+CiAKIAlpZiAoY29ubmVjdG9yX3R5cGUgPT0gRFJNX01PREVfQ09OTkVDVE9SX0hETUlBIHx8Ci0J
+ICAgIGNvbm5lY3Rvcl90eXBlID09IERSTV9NT0RFX0NPTk5FQ1RPUl9EaXNwbGF5UG9ydCkgewor
+CSAgICBjb25uZWN0b3JfdHlwZSA9PSBEUk1fTU9ERV9DT05ORUNUT1JfRGlzcGxheVBvcnQgfHwK
+KwkgICAgY29ubmVjdG9yX3R5cGUgPT0gRFJNX01PREVfQ09OTkVDVE9SX2VEUCkgewogCQlkcm1f
+Y29ubmVjdG9yX2F0dGFjaF92cnJfY2FwYWJsZV9wcm9wZXJ0eSgKIAkJCSZhY29ubmVjdG9yLT5i
+YXNlKTsKIAkJZHJtX29iamVjdF9hdHRhY2hfcHJvcGVydHkoJmFjb25uZWN0b3ItPmJhc2UuYmFz
+ZSwKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
