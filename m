@@ -1,53 +1,50 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH] drm/amd/display: Use memset to initialize variable in wait_for_training_aux_rd_interval
-Date: Fri,  1 Feb 2019 13:15:41 -0700
-Message-ID: <20190201201541.13680-1-natechancellor@gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH][drm-next] drm/amd/amdgpu: fix spelling mistake "matech"
+ -> "match"
+Date: Fri, 1 Feb 2019 15:27:57 -0500
+Message-ID: <CADnq5_ObHBu6=zZ3Lr0E1AvwwqA3bd8RCQyddc6n188karCTDQ@mail.gmail.com>
+References: <20190201104159.19215-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, John Barberiz <John.Barberiz@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190201104159.19215-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Cc: David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-Clang warns:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link_dp.c:50:57:
-warning: suggest braces around initialization of subobject
-[-Wmissing-braces]
-        union training_aux_rd_interval training_rd_interval = {0};
-                                                               ^
-                                                               {}
-1 warning generated.
-
-Previous efforts to fix this type of warning by adding or removing
-braces have been met with some pushback in favor of using memset [1][2].
-Do that here, mirroring commit 05794eff1aa6 ("drm/amdgpu/gmc: fix
-compiler errors [-Werror,-Wmissing-braces] (V2)") in this tree.
-
-[1]: https://lore.kernel.org/lkml/022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com/
-[2]: https://lore.kernel.org/lkml/20181128.215241.702406654469517539.davem@davemloft.net/
-
-Fixes: 3cec41769d21 ("drm/amd/display: Fix use of uninitialized union")
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 92f565ca1260..5ee36d6e0512 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -47,7 +47,9 @@ static void wait_for_training_aux_rd_interval(
- 	struct dc_link *link,
- 	uint32_t default_wait_in_micro_secs)
- {
--	union training_aux_rd_interval training_rd_interval = {0};
-+	union training_aux_rd_interval training_rd_interval;
-+
-+	memset(&training_rd_interval, 0, sizeof(training_rd_interval));
- 
- 	/* overwrite the delay if rev > 1.1*/
- 	if (link->dpcd_caps.dpcd_rev.raw >= DPCD_REV_12) {
--- 
-2.20.1
+T24gRnJpLCBGZWIgMSwgMjAxOSBhdCA1OjQyIEFNIENvbGluIEtpbmcgPGNvbGluLmtpbmdAY2Fu
+b25pY2FsLmNvbT4gd3JvdGU6Cj4KPiBGcm9tOiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0Bj
+YW5vbmljYWwuY29tPgo+Cj4gVGhlcmUgaXMgYSBzcGVsbGluZyBtaXN0YWtlIGluIGEgZGV2X2Vy
+ciBtZXNzYWdlLiBGaXggaXQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDb2xpbiBJYW4gS2luZyA8Y29s
+aW4ua2luZ0BjYW5vbmljYWwuY29tPgoKQXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCj4gLS0tCj4g
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgfCAyICstCj4gIDEgZmls
+ZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jCj4gaW5kZXggZGFjMTg3NDU0YjMzLi4yYWUyNTA5
+NWU1MDEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hn
+bWkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMKPiBA
+QCAtMTI5LDcgKzEyOSw3IEBAIGludCBhbWRncHVfeGdtaV9hZGRfZGV2aWNlKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2KQo+ICAgICAgICAgaWYgKCFoaXZlKSB7Cj4gICAgICAgICAgICAgICAg
+IHJldCA9IC1FSU5WQUw7Cj4gICAgICAgICAgICAgICAgIGRldl9lcnIoYWRldi0+ZGV2LAo+IC0g
+ICAgICAgICAgICAgICAgICAgICAgICJYR01JOiBub2RlIDB4JWxseCwgY2FuIG5vdCBtYXRlY2gg
+aGl2ZSAweCVsbHggaW4gdGhlIGhpdmUgbGlzdC5cbiIsCj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgIlhHTUk6IG5vZGUgMHglbGx4LCBjYW4gbm90IG1hdGNoIGhpdmUgMHglbGx4IGluIHRoZSBo
+aXZlIGxpc3QuXG4iLAo+ICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmdtYy54Z21pLm5v
+ZGVfaWQsIGFkZXYtPmdtYy54Z21pLmhpdmVfaWQpOwo+ICAgICAgICAgICAgICAgICBnb3RvIGV4
+aXQ7Cj4gICAgICAgICB9Cj4gLS0KPiAyLjIwLjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1k
+ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZngK
