@@ -1,15 +1,16 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/powerplay: add override pcie parameters for
  Vega20 (v2)
-Date: Fri, 1 Feb 2019 17:09:29 -0500
-Message-ID: <CADnq5_O5BcdjYyAx8_aj1PncKNbhVJwZF67sUyFKOrS9x_xLwg@mail.gmail.com>
+Date: Fri, 1 Feb 2019 22:28:46 +0000
+Message-ID: <BYAPR12MB338437F11284DF95CE3ACF9A8C920@BYAPR12MB3384.namprd12.prod.outlook.com>
 References: <1549055816-12976-1-git-send-email-Harish.Kasiviswanathan@amd.com>
- <1549055816-12976-2-git-send-email-Harish.Kasiviswanathan@amd.com>
+ <1549055816-12976-2-git-send-email-Harish.Kasiviswanathan@amd.com>,
+ <CADnq5_O5BcdjYyAx8_aj1PncKNbhVJwZF67sUyFKOrS9x_xLwg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1457817761=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1549055816-12976-2-git-send-email-Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_O5BcdjYyAx8_aj1PncKNbhVJwZF67sUyFKOrS9x_xLwg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,121 +21,610 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpLCBGZWIgMSwgMjAxOSBhdCA0OjE3IFBNIEthc2l2aXN3YW5hdGhhbiwgSGFyaXNoCjxI
-YXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+IHdyb3RlOgo+Cj4gdjI6IFVzZSBQQ0llIGxp
-bmsgc3RhdHVzIGluc3RlYWQgb2YgbGluayBjYXBhYmlsaXR5Cj4gICAgIFNlbmQgb3ZlcnJpZGUg
-bWVzc2FnZSBhZnRlciBTTVUgZW5hYmxlIGZlYXR1cmVzCj4KPiBDaGFuZ2UtSWQ6IEllYTJhMWFj
-NTk1Y2Y2M2E5NTI4ZmYxZTlhNjk1NWQxNGQ4YzNhNmQ1Cj4gU2lnbmVkLW9mZi1ieTogSGFyaXNo
-IEthc2l2aXN3YW5hdGhhbiA8SGFyaXNoLkthc2l2aXN3YW5hdGhhbkBhbWQuY29tPgo+IC0tLQo+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYyB8IDkz
-ICsrKysrKysrKysrKysrKy0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDY0IGluc2VydGlvbnMo
-KyksIDI5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMKPiBpbmRleCBkYTAyMmNhLi5kMTY2ZjhjIDEwMDY0
-NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21n
-ci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3
-bWdyLmMKPiBAQCAtNzcxLDQwICs3NzEsNzUgQEAgc3RhdGljIGludCB2ZWdhMjBfaW5pdF9zbWNf
-dGFibGUoc3RydWN0IHBwX2h3bWdyICpod21ncikKPiAgICAgICAgIHJldHVybiAwOwo+ICB9Cj4K
-PiArLyoKPiArICogT3ZlcnJpZGUgUENJZSBsaW5rIHNwZWVkIGFuZCBsaW5rIHdpZHRoIGZvciBE
-UE0gTGV2ZWwgMS4gUFBUYWJsZSBlbnRyaWVzCj4gKyAqIHJlZmxlY3QgdGhlIEFTSUMgY2FwYWJp
-bGl0aWVzIGFuZCBub3QgdGhlIHN5c3RlbSBjYXBhYmlsaXRpZXMuIEZvciBlLmcuCj4gKyAqIFZl
-Z2EyMCBib2FyZCBpbiBhIFBDSSBHZW4zIHN5c3RlbS4gSW4gdGhpcyBjYXNlLCB3aGVuIFNNVSdz
-IHRyaWVzIHRvIHN3aXRjaAo+ICsgKiB0byBEUE0xLCBpdCBmYWlscyBhcyBzeXN0ZW0gZG9lc24n
-dCBzdXBwb3J0IEdlbjQuCj4gKyAqLwo+ICBzdGF0aWMgaW50IHZlZ2EyMF9vdmVycmlkZV9wY2ll
-X3BhcmFtZXRlcnMoc3RydWN0IHBwX2h3bWdyICpod21ncikKPiAgewo+ICAgICAgICAgc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKikoaHdtZ3ItPmFk
-ZXYpOwo+IC0gICAgICAgdWludDMyX3QgcGNpZV9zcGVlZCA9IDAsIHBjaWVfd2lkdGggPSAwLCBw
-Y2llX2FyZzsKPiArICAgICAgIHVpbnQzMl90IHBjaWVfZ2VuID0gMCwgcGNpZV93aWR0aCA9IDAs
-IHNtdV9wY2llX2FyZzsKPiAgICAgICAgIGludCByZXQ7Cj4gKyAgICAgICB1aW50MTZfdCBsbmtz
-dGF0Owo+ICsKPiArICAgICAgIHBjaWVfY2FwYWJpbGl0eV9yZWFkX3dvcmQoYWRldi0+cGRldiwg
-UENJX0VYUF9MTktTVEEsICZsbmtzdGF0KTsKPgo+IC0gICAgICAgaWYgKGFkZXYtPnBtLnBjaWVf
-Z2VuX21hc2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQT1JUX0dFTjQpCj4gLSAgICAgICAg
-ICAgICAgIHBjaWVfc3BlZWQgPSAxNjsKPiAtICAgICAgIGVsc2UgaWYgKGFkZXYtPnBtLnBjaWVf
-Z2VuX21hc2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQT1JUX0dFTjMpCj4gLSAgICAgICAg
-ICAgICAgIHBjaWVfc3BlZWQgPSA4Owo+IC0gICAgICAgZWxzZSBpZiAoYWRldi0+cG0ucGNpZV9n
-ZW5fbWFzayAmIENBSUxfUENJRV9MSU5LX1NQRUVEX1NVUFBPUlRfR0VOMikKPiAtICAgICAgICAg
-ICAgICAgcGNpZV9zcGVlZCA9IDU7Cj4gLSAgICAgICBlbHNlIGlmIChhZGV2LT5wbS5wY2llX2dl
-bl9tYXNrICYgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4xKQo+IC0gICAgICAgICAg
-ICAgICBwY2llX3NwZWVkID0gMjsKPiAtCj4gLSAgICAgICBpZiAoYWRldi0+cG0ucGNpZV9tbHdf
-bWFzayAmIENBSUxfUENJRV9MSU5LX1dJRFRIX1NVUFBPUlRfWDMyKQo+IC0gICAgICAgICAgICAg
-ICBwY2llX3dpZHRoID0gMzI7Cj4gLSAgICAgICBlbHNlIGlmIChhZGV2LT5wbS5wY2llX21sd19t
-YXNrICYgQ0FJTF9QQ0lFX0xJTktfV0lEVEhfU1VQUE9SVF9YMTYpCj4gLSAgICAgICAgICAgICAg
-IHBjaWVfd2lkdGggPSAxNjsKPiAtICAgICAgIGVsc2UgaWYgKGFkZXYtPnBtLnBjaWVfbWx3X21h
-c2sgJiBDQUlMX1BDSUVfTElOS19XSURUSF9TVVBQT1JUX1gxMikKPiAtICAgICAgICAgICAgICAg
-cGNpZV93aWR0aCA9IDEyOwo+IC0gICAgICAgZWxzZSBpZiAoYWRldi0+cG0ucGNpZV9tbHdfbWFz
-ayAmIENBSUxfUENJRV9MSU5LX1dJRFRIX1NVUFBPUlRfWDgpCj4gLSAgICAgICAgICAgICAgIHBj
-aWVfd2lkdGggPSA4Owo+IC0gICAgICAgZWxzZSBpZiAoYWRldi0+cG0ucGNpZV9tbHdfbWFzayAm
-IENBSUxfUENJRV9MSU5LX1dJRFRIX1NVUFBPUlRfWDQpCj4gKyAgICAgICBzd2l0Y2ggKGxua3N0
-YXQgJiBQQ0lfRVhQX0xOS1NUQV9DTFMpIHsKPiArICAgICAgIGNhc2UgUENJX0VYUF9MTktTVEFf
-Q0xTXzJfNUdCOgo+ICsgICAgICAgICAgICAgICBwY2llX2dlbiA9IDA7Cj4gKyAgICAgICAgICAg
-ICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSBQQ0lfRVhQX0xOS1NUQV9DTFNfNV8wR0I6Cj4gKyAg
-ICAgICAgICAgICAgIHBjaWVfZ2VuID0gMTsKPiArICAgICAgICAgICAgICAgYnJlYWs7Cj4gKyAg
-ICAgICBjYXNlIFBDSV9FWFBfTE5LU1RBX0NMU184XzBHQjoKPiArICAgICAgICAgICAgICAgcGNp
-ZV9nZW4gPSAyOwo+ICsgICAgICAgICAgICAgICBicmVhazsKPiArICAgICAgIGNhc2UgUENJX0VY
-UF9MTktTVEFfQ0xTXzE2XzBHQjoKPiArICAgICAgICAgICAgICAgcGNpZV9nZW4gPSAzOwo+ICsg
-ICAgICAgICAgICAgICBicmVhazsKPiArICAgICAgIGRlZmF1bHQ6Cj4gKyAgICAgICAgICAgICAg
-IHByX3dhcm4oIlVua25vd24gUENJIGxpbmsgc3BlZWQgJXhcbiIsCj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgbG5rc3RhdCAmIFBDSV9FWFBfTE5LU1RBX0NMUyk7Cj4gKyAgICAgICB9Cj4gKwo+
-ICsKPiArICAgICAgIHN3aXRjaCAoKGxua3N0YXQgJiBQQ0lfRVhQX0xOS1NUQV9OTFcpID4+IFBD
-SV9FWFBfTE5LU1RBX05MV19TSElGVCkgewo+ICsgICAgICAgY2FzZSAzMjoKPiArICAgICAgICAg
-ICAgICAgcGNpZV93aWR0aCA9IDc7Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAg
-Y2FzZSAxNjoKPiArICAgICAgICAgICAgICAgcGNpZV93aWR0aCA9IDY7Cj4gKyAgICAgICAgICAg
-ICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSAxMjoKPiArICAgICAgICAgICAgICAgcGNpZV93aWR0
-aCA9IDU7Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSA4Ogo+ICAgICAg
-ICAgICAgICAgICBwY2llX3dpZHRoID0gNDsKPiAtICAgICAgIGVsc2UgaWYgKGFkZXYtPnBtLnBj
-aWVfbWx3X21hc2sgJiBDQUlMX1BDSUVfTElOS19XSURUSF9TVVBQT1JUX1gyKQo+ICsgICAgICAg
-ICAgICAgICBicmVhazsKPiArICAgICAgIGNhc2UgNDoKPiArICAgICAgICAgICAgICAgcGNpZV93
-aWR0aCA9IDM7Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgY2FzZSAyOgo+ICAg
-ICAgICAgICAgICAgICBwY2llX3dpZHRoID0gMjsKPiAtICAgICAgIGVsc2UgaWYgKGFkZXYtPnBt
-LnBjaWVfbWx3X21hc2sgJiBDQUlMX1BDSUVfTElOS19XSURUSF9TVVBQT1JUX1gxKQo+ICsgICAg
-ICAgICAgICAgICBicmVhazsKPiArICAgICAgIGNhc2UgMToKPiAgICAgICAgICAgICAgICAgcGNp
-ZV93aWR0aCA9IDE7Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgZGVmYXVsdDoK
-PiArICAgICAgICAgICAgICAgcHJfd2FybigiVW5rbm93biBQQ0kgbGluayB3aWR0aCAleFxuIiwK
-PiArICAgICAgICAgICAgICAgICAgICAgICBsbmtzdGF0ICYgUENJX0VYUF9MTktTVEFfQ0xTKTsK
-PiArICAgICAgIH0KPgoKV2UgYWxyZWFkeSBnZXQgdGhlIGxpbmsgY2FwcyBmb3IgYm90aCB0aGUg
-ZGV2aWNlIGFuZCB0aGUgcGxhdGZvcm0gaW4KYW1kZ3B1X2RldmljZV9nZXRfcGNpZV9pbmZvKCku
-ICBJcyB0aGF0IGluZm8gbm90IGFkZXF1YXRlPyAgSSdkIHJhdGhlcgpub3QgYWNjZXNzIHBjaSBj
-b25maWcgc3BhY2UgZnJvbSB0aGUgcG93ZXJwbGF5IGNvZGUgYmVjYXVzZSBpdCBkb2Vzbid0Cndv
-cmsgdW5kZXIgdmlydHVhbGl6YXRpb24uCgpBbGV4Cgo+IC0gICAgICAgcGNpZV9hcmcgPSBwY2ll
-X3dpZHRoIHwgKHBjaWVfc3BlZWQgPDwgOCk7Cj4gLQo+ICsgICAgICAgLyogQml0IDMxOjE2OiBM
-Q0xLIERQTSBsZXZlbC4gMCBpcyBEUE0wLCBhbmQgMSBpcyBEUE0xCj4gKyAgICAgICAgKiBCaXQg
-MTU6ODogIFBDSUUgR0VOLCAwIHRvIDMgY29ycmVzcG9uZHMgdG8gR0VOMSB0byBHRU40Cj4gKyAg
-ICAgICAgKiBCaXQgNzowOiAgIFBDSUUgbGFuZSB3aWR0aCwgMSB0byA3IGNvcnJlc3BvbmRzIGlz
-IHgxIHRvIHgzMgo+ICsgICAgICAgICovCj4gKyAgICAgICBzbXVfcGNpZV9hcmcgPSAoMSA8PCAx
-NikgfCAocGNpZV9nZW4gPDwgOCkgfCBwY2llX3dpZHRoOwo+ICAgICAgICAgcmV0ID0gc211bV9z
-ZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCj4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgUFBTTUNfTVNHX092ZXJyaWRlUGNpZVBhcmFtZXRlcnMsIHBjaWVfYXJnKTsKPiArICAg
-ICAgICAgICAgICAgICAgICAgICBQUFNNQ19NU0dfT3ZlcnJpZGVQY2llUGFyYW1ldGVycywgc211
-X3BjaWVfYXJnKTsKPiArCj4gICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXQsCj4gICAg
-ICAgICAgICAgICAgICJbT3ZlcnJpZGVQY2llUGFyYW1ldGVyc10gQXR0ZW1wdCB0byBvdmVycmlk
-ZSBwY2llIHBhcmFtcyBmYWlsZWQhIiwKPiAgICAgICAgICAgICAgICAgcmV0dXJuIHJldCk7Cj4g
-QEAgLTE2MTEsMTEgKzE2NDYsNiBAQCBzdGF0aWMgaW50IHZlZ2EyMF9lbmFibGVfZHBtX3Rhc2tz
-KHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCj4gICAgICAgICAgICAgICAgICAgICAgICAgIltFbmFi
-bGVEUE1UYXNrc10gRmFpbGVkIHRvIGluaXRpYWxpemUgU01DIHRhYmxlISIsCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgcmV0dXJuIHJlc3VsdCk7Cj4KPiAtICAgICAgIHJlc3VsdCA9IHZlZ2Ey
-MF9vdmVycmlkZV9wY2llX3BhcmFtZXRlcnMoaHdtZ3IpOwo+IC0gICAgICAgUFBfQVNTRVJUX1dJ
-VEhfQ09ERSghcmVzdWx0LAo+IC0gICAgICAgICAgICAgICAgICAgICAgICJbRW5hYmxlRFBNVGFz
-a3NdIEZhaWxlZCB0byBvdmVycmlkZSBwY2llIHBhcmFtZXRlcnMhIiwKPiAtICAgICAgICAgICAg
-ICAgICAgICAgICByZXR1cm4gcmVzdWx0KTsKPiAtCj4gICAgICAgICByZXN1bHQgPSB2ZWdhMjBf
-cnVuX2J0Yyhod21ncik7Cj4gICAgICAgICBQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXN1bHQsCj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgIltFbmFibGVEUE1UYXNrc10gRmFpbGVkIHRvIHJ1biBi
-dGMhIiwKPiBAQCAtMTYzMSw2ICsxNjYxLDExIEBAIHN0YXRpYyBpbnQgdmVnYTIwX2VuYWJsZV9k
-cG1fdGFza3Moc3RydWN0IHBwX2h3bWdyICpod21ncikKPiAgICAgICAgICAgICAgICAgICAgICAg
-ICAiW0VuYWJsZURQTVRhc2tzXSBGYWlsZWQgdG8gZW5hYmxlIGFsbCBzbXUgZmVhdHVyZXMhIiwK
-PiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcmVzdWx0KTsKPgo+ICsgICAgICAgcmVz
-dWx0ID0gdmVnYTIwX292ZXJyaWRlX3BjaWVfcGFyYW1ldGVycyhod21ncik7Cj4gKyAgICAgICBQ
-UF9BU1NFUlRfV0lUSF9DT0RFKCFyZXN1bHQsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgIltF
-bmFibGVEUE1UYXNrc10gRmFpbGVkIHRvIG92ZXJyaWRlIHBjaWUgcGFyYW1ldGVycyEiLAo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByZXN1bHQpOwo+ICsKPiAgICAgICAgIHJlc3Vs
-dCA9IHZlZ2EyMF9ub3RpZnlfc21jX2Rpc3BsYXlfY2hhbmdlKGh3bWdyKTsKPiAgICAgICAgIFBQ
-X0FTU0VSVF9XSVRIX0NPREUoIXJlc3VsdCwKPiAgICAgICAgICAgICAgICAgICAgICAgICAiW0Vu
-YWJsZURQTVRhc2tzXSBGYWlsZWQgdG8gbm90aWZ5IHNtYyBkaXNwbGF5IGNoYW5nZSEiLAo+IC0t
-Cj4gMi43LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1457817761==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BYAPR12MB338437F11284DF95CE3ACF9A8C920BYAPR12MB3384namp_"
+
+--_000_BYAPR12MB338437F11284DF95CE3ACF9A8C920BYAPR12MB3384namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Alex. I saw that function. It gets caps. The function requires link =
+status (PCI_EXP_LNKSTA), the value negotiated.
+
+
+> I'd rather not access pci config space from the powerplay code because it=
+ doesn't work under virtualization.
+
+[HK] I will then modify amdgpu_device_get_pcie_info() to read "PCI_EXP_LINK=
+STA" and store that information for future use.
+
+Best Regards,
+Harish
+
+
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Friday, February 1, 2019 5:09 PM
+To: Kasiviswanathan, Harish
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amd/powerplay: add override pcie parameters for Ve=
+ga20 (v2)
+
+On Fri, Feb 1, 2019 at 4:17 PM Kasiviswanathan, Harish
+<Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+> v2: Use PCIe link status instead of link capability
+>     Send override message after SMU enable features
+>
+> Change-Id: Iea2a1ac595cf63a9528ff1e9a6955d14d8c3a6d5
+> Signed-off-by: Harish Kasiviswanathan <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 93 +++++++++++++++-=
+------
+>  1 file changed, 64 insertions(+), 29 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers=
+/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> index da022ca..d166f8c 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+> @@ -771,40 +771,75 @@ static int vega20_init_smc_table(struct pp_hwmgr *h=
+wmgr)
+>         return 0;
+>  }
+>
+> +/*
+> + * Override PCIe link speed and link width for DPM Level 1. PPTable entr=
+ies
+> + * reflect the ASIC capabilities and not the system capabilities. For e.=
+g.
+> + * Vega20 board in a PCI Gen3 system. In this case, when SMU's tries to =
+switch
+> + * to DPM1, it fails as system doesn't support Gen4.
+> + */
+>  static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmgr)
+>  {
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)(hwmgr->ad=
+ev);
+> -       uint32_t pcie_speed =3D 0, pcie_width =3D 0, pcie_arg;
+> +       uint32_t pcie_gen =3D 0, pcie_width =3D 0, smu_pcie_arg;
+>         int ret;
+> +       uint16_t lnkstat;
+> +
+> +       pcie_capability_read_word(adev->pdev, PCI_EXP_LNKSTA, &lnkstat);
+>
+> -       if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)
+> -               pcie_speed =3D 16;
+> -       else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GE=
+N3)
+> -               pcie_speed =3D 8;
+> -       else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GE=
+N2)
+> -               pcie_speed =3D 5;
+> -       else if (adev->pm.pcie_gen_mask & CAIL_PCIE_LINK_SPEED_SUPPORT_GE=
+N1)
+> -               pcie_speed =3D 2;
+> -
+> -       if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X32)
+> -               pcie_width =3D 32;
+> -       else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X1=
+6)
+> -               pcie_width =3D 16;
+> -       else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X1=
+2)
+> -               pcie_width =3D 12;
+> -       else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X8=
+)
+> -               pcie_width =3D 8;
+> -       else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X4=
+)
+> +       switch (lnkstat & PCI_EXP_LNKSTA_CLS) {
+> +       case PCI_EXP_LNKSTA_CLS_2_5GB:
+> +               pcie_gen =3D 0;
+> +               break;
+> +       case PCI_EXP_LNKSTA_CLS_5_0GB:
+> +               pcie_gen =3D 1;
+> +               break;
+> +       case PCI_EXP_LNKSTA_CLS_8_0GB:
+> +               pcie_gen =3D 2;
+> +               break;
+> +       case PCI_EXP_LNKSTA_CLS_16_0GB:
+> +               pcie_gen =3D 3;
+> +               break;
+> +       default:
+> +               pr_warn("Unknown PCI link speed %x\n",
+> +                       lnkstat & PCI_EXP_LNKSTA_CLS);
+> +       }
+> +
+> +
+> +       switch ((lnkstat & PCI_EXP_LNKSTA_NLW) >> PCI_EXP_LNKSTA_NLW_SHIF=
+T) {
+> +       case 32:
+> +               pcie_width =3D 7;
+> +               break;
+> +       case 16:
+> +               pcie_width =3D 6;
+> +               break;
+> +       case 12:
+> +               pcie_width =3D 5;
+> +               break;
+> +       case 8:
+>                 pcie_width =3D 4;
+> -       else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X2=
+)
+> +               break;
+> +       case 4:
+> +               pcie_width =3D 3;
+> +               break;
+> +       case 2:
+>                 pcie_width =3D 2;
+> -       else if (adev->pm.pcie_mlw_mask & CAIL_PCIE_LINK_WIDTH_SUPPORT_X1=
+)
+> +               break;
+> +       case 1:
+>                 pcie_width =3D 1;
+> +               break;
+> +       default:
+> +               pr_warn("Unknown PCI link width %x\n",
+> +                       lnkstat & PCI_EXP_LNKSTA_CLS);
+> +       }
+>
+
+We already get the link caps for both the device and the platform in
+amdgpu_device_get_pcie_info().  Is that info not adequate?  I'd rather
+not access pci config space from the powerplay code because it doesn't
+work under virtualization.
+
+Alex
+
+> -       pcie_arg =3D pcie_width | (pcie_speed << 8);
+> -
+> +       /* Bit 31:16: LCLK DPM level. 0 is DPM0, and 1 is DPM1
+> +        * Bit 15:8:  PCIE GEN, 0 to 3 corresponds to GEN1 to GEN4
+> +        * Bit 7:0:   PCIE lane width, 1 to 7 corresponds is x1 to x32
+> +        */
+> +       smu_pcie_arg =3D (1 << 16) | (pcie_gen << 8) | pcie_width;
+>         ret =3D smum_send_msg_to_smc_with_parameter(hwmgr,
+> -                       PPSMC_MSG_OverridePcieParameters, pcie_arg);
+> +                       PPSMC_MSG_OverridePcieParameters, smu_pcie_arg);
+> +
+>         PP_ASSERT_WITH_CODE(!ret,
+>                 "[OverridePcieParameters] Attempt to override pcie params=
+ failed!",
+>                 return ret);
+> @@ -1611,11 +1646,6 @@ static int vega20_enable_dpm_tasks(struct pp_hwmgr=
+ *hwmgr)
+>                         "[EnableDPMTasks] Failed to initialize SMC table!=
+",
+>                         return result);
+>
+> -       result =3D vega20_override_pcie_parameters(hwmgr);
+> -       PP_ASSERT_WITH_CODE(!result,
+> -                       "[EnableDPMTasks] Failed to override pcie paramet=
+ers!",
+> -                       return result);
+> -
+>         result =3D vega20_run_btc(hwmgr);
+>         PP_ASSERT_WITH_CODE(!result,
+>                         "[EnableDPMTasks] Failed to run btc!",
+> @@ -1631,6 +1661,11 @@ static int vega20_enable_dpm_tasks(struct pp_hwmgr=
+ *hwmgr)
+>                         "[EnableDPMTasks] Failed to enable all smu featur=
+es!",
+>                         return result);
+>
+> +       result =3D vega20_override_pcie_parameters(hwmgr);
+> +       PP_ASSERT_WITH_CODE(!result,
+> +                       "[EnableDPMTasks] Failed to override pcie paramet=
+ers!",
+> +                       return result);
+> +
+>         result =3D vega20_notify_smc_display_change(hwmgr);
+>         PP_ASSERT_WITH_CODE(!result,
+>                         "[EnableDPMTasks] Failed to notify smc display ch=
+ange!",
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in the sections below.
+
+
+
+--_000_BYAPR12MB338437F11284DF95CE3ACF9A8C920BYAPR12MB3384namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Thanks Alex. I saw that function.=
+ It gets caps. The function requires link status (<font size=3D"2"><span st=
+yle=3D"font-size:11pt;">PCI_EXP_LNKSTA</span></font>), the value negotiated=
+.
+<br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0"><font size=3D"2"><span style=3D"f=
+ont-size:11pt;">&gt; I'd rather not access pci config space from the powerp=
+lay code because it doesn't work under virtualization.</span></font><br>
+</p>
+<div>[HK] I will then modify <font size=3D"2"><span style=3D"font-size:11pt=
+;">amdgpu_device_get_pcie_info()</span></font> to read &quot;PCI_EXP_LINKST=
+A&quot; and store that information for future use.</div>
+<div><br>
+</div>
+<div>Best Regards,</div>
+<div>Harish</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Alex Deucher &lt;al=
+exdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, February 1, 2019 5:09 PM<br>
+<b>To:</b> Kasiviswanathan, Harish<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: add override pcie parameters=
+ for Vega20 (v2)</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Fri, Feb 1, 2019 at 4:17 PM Kasiviswanathan, Ha=
+rish<br>
+&lt;Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org&gt; wrote:<br>
+&gt;<br>
+&gt; v2: Use PCIe link status instead of link capability<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; Send override message after SMU enable feature=
+s<br>
+&gt;<br>
+&gt; Change-Id: Iea2a1ac595cf63a9528ff1e9a6955d14d8c3a6d5<br>
+&gt; Signed-off-by: Harish Kasiviswanathan &lt;Harish.Kasiviswanathan@amd.c=
+om&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 93 &#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-------<=
+br>
+&gt;&nbsp; 1 file changed, 64 insertions(&#43;), 29 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/driv=
+ers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+&gt; index da022ca..d166f8c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<b=
+r>
+&gt; @@ -771,40 &#43;771,75 @@ static int vega20_init_smc_table(struct pp_h=
+wmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; &#43;/*<br>
+&gt; &#43; * Override PCIe link speed and link width for DPM Level 1. PPTab=
+le entries<br>
+&gt; &#43; * reflect the ASIC capabilities and not the system capabilities.=
+ For e.g.<br>
+&gt; &#43; * Vega20 board in a PCI Gen3 system. In this case, when SMU's tr=
+ies to switch<br>
+&gt; &#43; * to DPM1, it fails as system doesn't support Gen4.<br>
+&gt; &#43; */<br>
+&gt;&nbsp; static int vega20_override_pcie_parameters(struct pp_hwmgr *hwmg=
+r)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *=
+adev =3D (struct amdgpu_device *)(hwmgr-&gt;adev);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pcie_speed =3D 0, pcie_=
+width =3D 0, pcie_arg;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pcie_gen =3D 0, pci=
+e_width =3D 0, smu_pcie_arg;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t lnkstat;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pcie_capability_read_word(ad=
+ev-&gt;pdev, PCI_EXP_LNKSTA, &amp;lnkstat);<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pcie_gen_mask &a=
+mp; CAIL_PCIE_LINK_SPEED_SUPPORT_GEN4)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_speed =3D 16;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_gen_ma=
+sk &amp; CAIL_PCIE_LINK_SPEED_SUPPORT_GEN3)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_speed =3D 8;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_gen_ma=
+sk &amp; CAIL_PCIE_LINK_SPEED_SUPPORT_GEN2)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_speed =3D 5;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_gen_ma=
+sk &amp; CAIL_PCIE_LINK_SPEED_SUPPORT_GEN1)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_speed =3D 2;<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pcie_mlw_mask &a=
+mp; CAIL_PCIE_LINK_WIDTH_SUPPORT_X32)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_width =3D 32;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_mlw_ma=
+sk &amp; CAIL_PCIE_LINK_WIDTH_SUPPORT_X16)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_width =3D 16;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_mlw_ma=
+sk &amp; CAIL_PCIE_LINK_WIDTH_SUPPORT_X12)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_width =3D 12;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_mlw_ma=
+sk &amp; CAIL_PCIE_LINK_WIDTH_SUPPORT_X8)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; pcie_width =3D 8;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_mlw_ma=
+sk &amp; CAIL_PCIE_LINK_WIDTH_SUPPORT_X4)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (lnkstat &amp; PCI_EX=
+P_LNKSTA_CLS) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PCI_EXP_LNKSTA_CLS_2_5G=
+B:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_gen =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PCI_EXP_LNKSTA_CLS_5_0G=
+B:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_gen =3D 1;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PCI_EXP_LNKSTA_CLS_8_0G=
+B:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_gen =3D 2;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PCI_EXP_LNKSTA_CLS_16_0=
+GB:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_gen =3D 3;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Unknown PCI link speed %x\n&quot;,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lnkstat=
+ &amp; PCI_EXP_LNKSTA_CLS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch ((lnkstat &amp; PCI_E=
+XP_LNKSTA_NLW) &gt;&gt; PCI_EXP_LNKSTA_NLW_SHIFT) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 32:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_width =3D 7;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 16:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_width =3D 6;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 12:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_width =3D 5;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 8:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; pcie_width =3D 4;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_mlw_ma=
+sk &amp; CAIL_PCIE_LINK_WIDTH_SUPPORT_X2)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 4:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pcie_width =3D 3;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 2:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; pcie_width =3D 2;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;pm.pcie_mlw_ma=
+sk &amp; CAIL_PCIE_LINK_WIDTH_SUPPORT_X1)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 1:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; pcie_width =3D 1;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pr_warn(&quot;Unknown PCI link width %x\n&quot;,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lnkstat=
+ &amp; PCI_EXP_LNKSTA_CLS);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;<br>
+<br>
+We already get the link caps for both the device and the platform in<br>
+amdgpu_device_get_pcie_info().&nbsp; Is that info not adequate?&nbsp; I'd r=
+ather<br>
+not access pci config space from the powerplay code because it doesn't<br>
+work under virtualization.<br>
+<br>
+Alex<br>
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pcie_arg =3D pcie_width | (pcie_=
+speed &lt;&lt; 8);<br>
+&gt; -<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Bit 31:16: LCLK DPM level=
+. 0 is DPM0, and 1 is DPM1<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Bit 15:8:&nbsp; PCIE=
+ GEN, 0 to 3 corresponds to GEN1 to GEN4<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Bit 7:0:&nbsp;&nbsp;=
+ PCIE lane width, 1 to 7 corresponds is x1 to x32<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_pcie_arg =3D (1 &lt;&lt;=
+ 16) | (pcie_gen &lt;&lt; 8) | pcie_width;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smum_send_msg_=
+to_smc_with_parameter(hwmgr,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_MSG_O=
+verridePcieParameters, pcie_arg);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPSMC_M=
+SG_OverridePcieParameters, smu_pcie_arg);<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!r=
+et,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; &quot;[OverridePcieParameters] Attempt to overrid=
+e pcie params failed!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; return ret);<br>
+&gt; @@ -1611,11 &#43;1646,6 @@ static int vega20_enable_dpm_tasks(struct p=
+p_hwmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &=
+quot;[EnableDPMTasks] Failed to initialize SMC table!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=
+eturn result);<br>
+&gt;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D vega20_override_pcie_=
+parameters(hwmgr);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!result,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;[Enab=
+leDPMTasks] Failed to override pcie parameters!&quot;,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return resu=
+lt);<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D vega20_run_=
+btc(hwmgr);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!r=
+esult,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &=
+quot;[EnableDPMTasks] Failed to run btc!&quot;,<br>
+&gt; @@ -1631,6 &#43;1661,11 @@ static int vega20_enable_dpm_tasks(struct p=
+p_hwmgr *hwmgr)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &=
+quot;[EnableDPMTasks] Failed to enable all smu features!&quot;,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r=
+eturn result);<br>
+&gt;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D vega20_override_p=
+cie_parameters(hwmgr);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!result,=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;[=
+EnableDPMTasks] Failed to override pcie parameters!&quot;,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+result);<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result =3D vega20_noti=
+fy_smc_display_change(hwmgr);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_ASSERT_WITH_CODE(!r=
+esult,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &=
+quot;[EnableDPMTasks] Failed to notify smc display change!&quot;,<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=
+=3D"LPlnk741395" class=3D"OWAAutoLink" previewremoved=3D"true">
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
+<div id=3D"LPBorder_GT_15490596973030.8109052536501797" style=3D"margin-bot=
+tom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_15490596973000.9760548684631369" style=3D"width: 9=
+0%; background-color: rgb(255, 255, 255); position: relative; overflow: aut=
+o; padding-top: 20px; padding-bottom: 20px; margin-top: 20px; border-top: 1=
+px dotted rgb(200, 200, 200); border-bottom: 1px dotted rgb(200, 200, 200);=
+" role=3D"presentation" cellspacing=3D"0">
+<tbody>
+<tr style=3D"border-spacing: 0px;" valign=3D"top">
+<td id=3D"TextCell_15490596973010.8841707630863909" style=3D"vertical-align=
+: top; position: relative; padding: 0px; display: table-cell;" colspan=3D"2=
+">
+<div id=3D"LPRemovePreviewContainer_15490596973010.5097834543649797"></div>
+<div id=3D"LPTitle_15490596973010.6766157293160253" style=3D"top: 0px; colo=
+r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: &quot;=
+wf_segoe-ui_light&quot;, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&q=
+uot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif=
+; line-height: 21px;">
+<a id=3D"LPUrlAnchor_15490596973010.7296041712133615" style=3D"text-decorat=
+ion: none;" href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+ target=3D"_blank">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15490596973020.9257698477379372" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot=
+;wf_segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Taho=
+ma, Arial, sans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15490596973020.8919956792568361" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: 400; font-family: &quot;wf_=
+segoe-ui_normal&quot;, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, =
+Arial, sans-serif; font-size: 14px; line-height: 20px; max-height: 100px; o=
+verflow: hidden;">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in
+ the sections below.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BYAPR12MB338437F11284DF95CE3ACF9A8C920BYAPR12MB3384namp_--
+
+--===============1457817761==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1457817761==--
