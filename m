@@ -1,92 +1,37 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] ttm, amdgpu drm-next-5.1
-Date: Fri,  1 Feb 2019 01:23:45 -0500
-Message-ID: <20190201062345.7304-1-alexander.deucher@amd.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][drm-next] drm/amd/amdgpu: fix spelling mistake "matech" -> "match"
+Date: Fri,  1 Feb 2019 10:41:59 +0000
+Message-ID: <20190201104159.19215-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, daniel.vetter-/w4YWyX8dFk@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwgRGFuaWVsLAoKTW9yZSBzdHVmZiBmb3IgNS4xLiAgTW9zdGx5IGJ1ZyBmaXhlcy4K
-dHRtOgotIFJlcGxhY2UgcmVmL3VucmVmIG5hbWluZyB3aXRoIGdldC9wdXQKCmFtZGdwdToKLSBS
-ZXZlcnQgREMgY2xhbmcgZml4LCBjYXVzZXMgYSBzZWdmYXVsdCB3aXRoIHNvbWUgY29tcGlsZXIg
-dmVyc2lvbnMKLSBTUi1JT1YgZml4Ci0gUENJRSBmaXggZm9yIHZlZ2EyMAotIE1pc2MgREMgZml4
-ZXMKClRoZSBmb2xsb3dpbmcgY2hhbmdlcyBzaW5jZSBjb21taXQgMTAxMTc0NTA3MzVjN2E3YzA4
-NTgwOTVmYjQ2YTg2MGU3MDM3Y2I5YToKCiAgZHJtL2FtZC9kaXNwbGF5OiBhZGQgLW1zc2UyIHRv
-IHByZXZlbnQgQ2xhbmcgZnJvbSBlbWl0dGluZyBsaWJjYWxscyB0byB1bmRlZmluZWQgU1cgRlAg
-cm91dGluZXMgKDIwMTktMDEtMjUgMTY6MTU6MzcgLTA1MDApCgphcmUgYXZhaWxhYmxlIGluIHRo
-ZSBHaXQgcmVwb3NpdG9yeSBhdDoKCiAgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdk
-NWYvbGludXggZHJtLW5leHQtNS4xCgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gNDdk
-ZDgwNDhhMWJmNWIyZmI5NmU1YWJlOTliNGYxZGNkMjA4ZWE0ZDoKCiAgZHJtL2FtZGdwdTogU2hv
-dyBYR01JIG5vZGUgYW5kIGhpdmUgbWVzc2FnZSBwZXIgZGV2aWNlIG9ubHkgb25jZSAoMjAxOS0w
-MS0yOSAxNToxNjoxOCAtMDUwMCkKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KQWxleCBEZXVjaGVyICgxKToKICAgICAgUmV2
-ZXJ0ICJkcm0vYW1kL2Rpc3BsYXk6IGFkZCAtbXNzZTIgdG8gcHJldmVudCBDbGFuZyBmcm9tIGVt
-aXR0aW5nIGxpYmNhbGxzIHRvIHVuZGVmaW5lZCBTVyBGUCByb3V0aW5lcyIKCkVyaWMgSHVhbmcg
-KDEpOgogICAgICBkcm0vYW1kL3Bvd2VycGxheTogYWRkIG92ZXJyaWRlIHBjaWUgcGFyYW1ldGVy
-cyBmb3IgVmVnYTIwCgpGYXRlbWVoIERhcmJlaGFuaSAoMSk6CiAgICAgIGRybS9hbWQvZGlzcGxh
-eTogQWRkIFZsaW5lMSBpbnRlcnJ1cHQgc291cmNlIHRvIEludGVycnVwdE1hbmFnZXIKCk1hcnRp
-biBUc2FpICgxKToKICAgICAgZHJtL2FtZC9kaXNwbGF5OiBQb2xsIHBlbmRpbmcgZG93biByZXAg
-YmVmb3JlIGNsZWFyIHBheWxvYWQgYWxsb2NhdGlvbiB0YWJsZQoKTmljaG9sYXMgS2F6bGF1c2th
-cyAoMyk6CiAgICAgIGRybS9hbWQvZGlzcGxheTogRW5hYmxlIHZibGFuayBpbnRlcnJ1cHQgZHVy
-aW5nIENSQyBjYXB0dXJlCiAgICAgIGRybS9hbWQvZGlzcGxheTogUmUtZW5hYmxlIENSQyBjYXB0
-dXJlIGZvbGxvd2luZyBtb2Rlc2V0CiAgICAgIGRybS9hbWQvZGlzcGxheTogRG9uJ3QgbGVhayBt
-ZW1vcnkgd2hlbiB1cGRhdGluZyBzdHJlYW1zCgpUaG9tYXMgWmltbWVybWFubiAoNyk6CiAgICAg
-IGRybS9hc3Q6IFJlcGxhY2UgdHRtX2JvX3VucmVmIHdpdGggdHRtX2JvX3B1dAogICAgICBkcm0v
-bm91dmVhdTogUmVwbGFjZSB0dG1fYm9fcmVmZXJlbmNlIHdpdGggdHRtX2JvX2dldAogICAgICBk
-cm0vbm91dmVhdTogUmVwbGFjZSB0dG1fYm9fdW5yZWYgd2l0aCB0dG1fYm9fcHV0CiAgICAgIGRy
-bS92bXdnZng6IFJlcGxhY2UgdHRtX2JvX3JlZmVyZW5jZSB3aXRoIHR0bV9ib19nZXQKICAgICAg
-ZHJtL3Ztd2dmeDogUmVwbGFjZSB0dG1fYm9fdW5yZWYgd2l0aCB0dG1fYm9fcHV0CiAgICAgIGRy
-bS9tZ2FnMjAwOiBSZXBsYWNlIHR0bV9ib191bnJlZiB3aXRoIHR0bV9ib19wdXQKICAgICAgZHJt
-L3R0bTogUmVtb3ZlIHR0bV9ib19yZWZlcmVuY2UgYW5kIHR0bV9ib191bnJlZgoKc2hhb3l1bmwg
-KDEpOgogICAgICBkcm0vYW1kZ3B1OiBTaG93IFhHTUkgbm9kZSBhbmQgaGl2ZSBtZXNzYWdlIHBl
-ciBkZXZpY2Ugb25seSBvbmNlCgp3ZW50YWxvdSAoMik6CiAgICAgIGRybS9hbWRncHU6IGNzYV92
-YWRkciBzaG91bGQgbm90IGxhcmdlciB0aGFuIEFNREdQVV9HTUNfSE9MRV9TVEFSVAogICAgICBk
-cm0vYW1kZ3B1OiBzcmlvdiByZXN0cmljdCBtYXhfcGZuIGJlbG93IEFNREdQVV9HTUNfSE9MRQoK
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgICAgICAgICAgIHwgIDcg
-Ky0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jICAgICAgICAgICAgICB8
-ICA2ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-ICB8IDI5ICsrKysrKysrLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbV9jcmMuYyAgfCA0OCArKysrKysrKy0tLS0tLS0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMgIHwgIDcgKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvY2FsY3MvTWFrZWZpbGUgICAgICB8ICAyICstCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jICAgICAgICAgICB8IDEwICstLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jICAgICAgfCAgNSArKwogZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjX3N0cmVhbS5oICAgICAgICAgfCAxNCArKysrLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjEwL2RjbjEwX29wdGMuYyAgfCA3MiArKysr
-Ky0tLS0tLS0tLS0tLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMTAv
-ZGNuMTBfb3B0Yy5oICB8IDEyICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
-bV9oZWxwZXJzLmggICAgICAgIHwgIDcgKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvZG1sL01ha2VmaWxlICAgICAgICB8ICAyICstCiAuLi4vZHJtL2FtZC9kaXNwbGF5L2RjL2lu
-Yy9ody90aW1pbmdfZ2VuZXJhdG9yLmggICB8IDEzICsrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9pcnFfdHlwZXMuaCAgICAgICAgIHwgIDggKysrCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYyB8IDQ2ICsrKysrKysrKysrKysrCiBk
-cml2ZXJzL2dwdS9kcm0vYXN0L2FzdF9tYWluLmMgICAgICAgICAgICAgICAgICAgICB8ICA2ICst
-CiBkcml2ZXJzL2dwdS9kcm0vbWdhZzIwMC9tZ2FnMjAwX21haW4uYyAgICAgICAgICAgICB8ICA4
-ICstLQogZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9iby5oICAgICAgICAgICAgICAg
-fCAxMiArKy0tCiBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2dlbS5jICAgICAgICAg
-ICAgICB8ICAzICstCiBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jICAgICAgICAgICAgICAg
-ICAgICAgICB8ICA5IC0tLQogZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfYm8uYyAgICAg
-ICAgICAgICAgICAgfCAxMSArKy0tCiBkcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9jbWRi
-dWYuYyAgICAgICAgICAgICB8IDExICsrLS0KIGRyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4
-X2Rydi5oICAgICAgICAgICAgICAgIHwgIDkgKy0tCiBkcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Zt
-d2dmeF9tb2IuYyAgICAgICAgICAgICAgICB8IDIxICsrKystLS0KIGRyaXZlcnMvZ3B1L2RybS92
-bXdnZngvdm13Z2Z4X3Jlc291cmNlLmMgICAgICAgICAgIHwgIDkgKystCiBkcml2ZXJzL2dwdS9k
-cm0vdm13Z2Z4L3Ztd2dmeF92YWxpZGF0aW9uLmMgICAgICAgICB8ICA2ICstCiBpbmNsdWRlL2Ry
-bS90dG0vdHRtX2JvX2FwaS5oICAgICAgICAgICAgICAgICAgICAgICB8IDI4IC0tLS0tLS0tLQog
-MjggZmlsZXMgY2hhbmdlZCwgMjM5IGluc2VydGlvbnMoKyksIDE4MiBkZWxldGlvbnMoLSkKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Colin Ian King <colin.king@canonical.com>
+
+There is a spelling mistake in a dev_err message. Fix it.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index dac187454b33..2ae25095e501 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -129,7 +129,7 @@ int amdgpu_xgmi_add_device(struct amdgpu_device *adev)
+ 	if (!hive) {
+ 		ret = -EINVAL;
+ 		dev_err(adev->dev,
+-			"XGMI: node 0x%llx, can not matech hive 0x%llx in the hive list.\n",
++			"XGMI: node 0x%llx, can not match hive 0x%llx in the hive list.\n",
+ 			adev->gmc.xgmi.node_id, adev->gmc.xgmi.hive_id);
+ 		goto exit;
+ 	}
+-- 
+2.20.1
