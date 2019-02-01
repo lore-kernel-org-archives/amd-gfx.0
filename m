@@ -1,249 +1,59 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Add AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES
-Date: Fri, 1 Feb 2019 15:09:21 -0500
-Message-ID: <CAAxE2A6EnRR4OUJkspWqdhDqHiJuTevW+=G+YycyOrnxtLGiuw@mail.gmail.com>
-References: <1549050670-18395-1-git-send-email-andrey.grodzovsky@amd.com>
- <1549051196-25609-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: [PATCH] drm/amd/display: Use memset to initialize variables in fill_plane_dcc_attributes
+Date: Fri,  1 Feb 2019 13:12:26 -0700
+Message-ID: <20190201201226.12812-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0649257904=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1549051196-25609-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============0649257904==
-Content-Type: multipart/alternative; boundary="00000000000029ccbb0580dabac8"
+Clang warns:
 
---00000000000029ccbb0580dabac8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:2314:38:
+warning: suggest braces around initialization of subobject
+[-Wmissing-braces]
+        struct dc_surface_dcc_cap output = {0};
+                                            ^
+                                            {}
 
-Reviewed-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-Tested-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+Previous efforts to fix this type of warning by adding or removing
+braces have been met with some pushback in favor of using memset [1][2].
+Do that here, mirroring commit 05794eff1aa6 ("drm/amdgpu/gmc: fix
+compiler errors [-Werror,-Wmissing-braces] (V2)") in this tree.
 
-On Fri, Feb 1, 2019 at 3:00 PM Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org=
->
-wrote:
+[1]: https://lore.kernel.org/lkml/022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com/
+[2]: https://lore.kernel.org/lkml/20181128.215241.702406654469517539.davem@davemloft.net/
 
-> New chunk for dependency on start of job's execution instead on
-> the end. This is used for GPU deadlock prevention when
-> userspace uses mid-IB fences to wait for mid-IB work on other rings.
->
-> v2: Fix typo in AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-> Suggested-by: Christian Koenig <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++++-
->  include/uapi/drm/amdgpu_drm.h          |  1 +
->  2 files changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index 1c49b82..3f21eca 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -214,6 +214,7 @@ static int amdgpu_cs_parser_init(struct
-> amdgpu_cs_parser *p, union drm_amdgpu_cs
->                 case AMDGPU_CHUNK_ID_DEPENDENCIES:
->                 case AMDGPU_CHUNK_ID_SYNCOBJ_IN:
->                 case AMDGPU_CHUNK_ID_SYNCOBJ_OUT:
-> +               case AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES:
->                         break;
->
->                 default:
-> @@ -1090,6 +1091,14 @@ static int amdgpu_cs_process_fence_dep(struct
-> amdgpu_cs_parser *p,
->
->                 fence =3D amdgpu_ctx_get_fence(ctx, entity,
->                                              deps[i].handle);
-> +
-> +               if (chunk->chunk_id =3D=3D
-> AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {
-> +                       struct drm_sched_fence *s_fence =3D
-> to_drm_sched_fence(fence);
-> +
-> +                       dma_fence_put(fence);
-> +                       fence =3D dma_fence_get(&s_fence->scheduled);
-> +               }
-> +
->                 if (IS_ERR(fence)) {
->                         r =3D PTR_ERR(fence);
->                         amdgpu_ctx_put(ctx);
-> @@ -1177,7 +1186,8 @@ static int amdgpu_cs_dependencies(struct
-> amdgpu_device *adev,
->
->                 chunk =3D &p->chunks[i];
->
-> -               if (chunk->chunk_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES) =
-{
-> +               if (chunk->chunk_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES |=
-|
-> +                   chunk->chunk_id =3D=3D
-> AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {
->                         r =3D amdgpu_cs_process_fence_dep(p, chunk);
->                         if (r)
->                                 return r;
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
-h
-> index faaad04..43d03a2 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -526,6 +526,7 @@ struct drm_amdgpu_gem_va {
->  #define AMDGPU_CHUNK_ID_SYNCOBJ_IN      0x04
->  #define AMDGPU_CHUNK_ID_SYNCOBJ_OUT     0x05
->  #define AMDGPU_CHUNK_ID_BO_HANDLES      0x06
-> +#define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07
->
->  struct drm_amdgpu_cs_chunk {
->         __u32           chunk_id;
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
+Fixes: 7df7e505e82a ("drm/amd/display: Set requested plane state DCC params for GFX9")
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
---00000000000029ccbb0580dabac8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Reviewed-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mai=
-lto:marek.olsak-5C7GfCeVMHo@public.gmane.org">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;</div><div>Tested-by: M=
-arek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org">marek.olsak=
-@amd.com</a>&gt;</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
- class=3D"gmail_attr">On Fri, Feb 1, 2019 at 3:00 PM Andrey Grodzovsky &lt;=
-<a href=3D"mailto:andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&=
-gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">New c=
-hunk for dependency on start of job&#39;s execution instead on<br>
-the end. This is used for GPU deadlock prevention when<br>
-userspace uses mid-IB fences to wait for mid-IB work on other rings.<br>
-<br>
-v2: Fix typo in AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES<br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;<a href=3D"mailto:andrey.grodzovsky@am=
-d.com" target=3D"_blank">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Suggested-by: Christian Koenig &lt;<a href=3D"mailto:Christian.Koenig@amd.c=
-om" target=3D"_blank">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++++-<br>
-=C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 1 +<br>
-=C2=A02 files changed, 12 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_cs.c<br>
-index 1c49b82..3f21eca 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-@@ -214,6 +214,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parse=
-r *p, union drm_amdgpu_cs<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMDGPU_CHUNK_I=
-D_DEPENDENCIES:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMDGPU_CHUNK_I=
-D_SYNCOBJ_IN:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMDGPU_CHUNK_I=
-D_SYNCOBJ_OUT:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_CHUNK_I=
-D_SCHEDULED_DEPENDENCIES:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 break;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
-@@ -1090,6 +1091,14 @@ static int amdgpu_cs_process_fence_dep(struct amdgpu=
-_cs_parser *p,<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fence =3D amdgpu_ct=
-x_get_fence(ctx, entity,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0deps[i].handle);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk-&gt;chunk=
-_id =3D=3D AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0struct drm_sched_fence *s_fence =3D to_drm_sched_fence(fence);<br=
->
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0dma_fence_put(fence);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0fence =3D dma_fence_get(&amp;s_fence-&gt;scheduled);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (IS_ERR(fence)) =
-{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 r =3D PTR_ERR(fence);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 amdgpu_ctx_put(ctx);<br>
-@@ -1177,7 +1186,8 @@ static int amdgpu_cs_dependencies(struct amdgpu_devic=
-e *adev,<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 chunk =3D &amp;p-&g=
-t;chunks[i];<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk-&gt;chunk=
-_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk-&gt;chunk=
-_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES ||<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0chunk=
--&gt;chunk_id =3D=3D AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 r =3D amdgpu_cs_process_fence_dep(p, chunk);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 if (r)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return r;<br>
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
-br>
-index faaad04..43d03a2 100644<br>
---- a/include/uapi/drm/amdgpu_drm.h<br>
-+++ b/include/uapi/drm/amdgpu_drm.h<br>
-@@ -526,6 +526,7 @@ struct drm_amdgpu_gem_va {<br>
-=C2=A0#define AMDGPU_CHUNK_ID_SYNCOBJ_IN=C2=A0 =C2=A0 =C2=A0 0x04<br>
-=C2=A0#define AMDGPU_CHUNK_ID_SYNCOBJ_OUT=C2=A0 =C2=A0 =C2=A00x05<br>
-=C2=A0#define AMDGPU_CHUNK_ID_BO_HANDLES=C2=A0 =C2=A0 =C2=A0 0x06<br>
-+#define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07<br>
-<br>
-=C2=A0struct drm_amdgpu_cs_chunk {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c=
-hunk_id;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-
---00000000000029ccbb0580dabac8--
-
---===============0649257904==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0649257904==--
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index dccad2d207ce..1c1c162c4eee 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2310,12 +2310,15 @@ static bool fill_plane_dcc_attributes(struct amdgpu_device *adev,
+ 				      uint64_t info)
+ {
+ 	struct dc *dc = adev->dm.dc;
+-	struct dc_dcc_surface_param input = {0};
+-	struct dc_surface_dcc_cap output = {0};
++	struct dc_dcc_surface_param input;
++	struct dc_surface_dcc_cap output;
+ 	uint32_t offset = AMDGPU_TILING_GET(info, DCC_OFFSET_256B);
+ 	uint32_t i64b = AMDGPU_TILING_GET(info, DCC_INDEPENDENT_64B) != 0;
+ 	uint64_t dcc_address;
+ 
++	memset(&input, 0, sizeof(input));
++	memset(&output, 0, sizeof(output));
++
+ 	if (!offset)
+ 		return false;
+ 
+-- 
+2.20.1
