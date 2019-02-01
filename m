@@ -1,14 +1,15 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amdgpu: Add AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES
-Date: Fri, 1 Feb 2019 16:12:42 -0500
-Message-ID: <CAAxE2A7LKNXpqOafXuAV9tr79p00JdxE=pmee999g+wy_D0UcA@mail.gmail.com>
-References: <1549050670-18395-1-git-send-email-andrey.grodzovsky@amd.com>
- <1549051196-25609-1-git-send-email-andrey.grodzovsky@amd.com>
- <CAAxE2A6EnRR4OUJkspWqdhDqHiJuTevW+=G+YycyOrnxtLGiuw@mail.gmail.com>
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: add override pcie parameters for Vega20
+ (v2)
+Date: Fri, 1 Feb 2019 21:17:05 +0000
+Message-ID: <1549055816-12976-2-git-send-email-Harish.Kasiviswanathan@amd.com>
+References: <1549055816-12976-1-git-send-email-Harish.Kasiviswanathan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0661545900=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A6EnRR4OUJkspWqdhDqHiJuTevW+=G+YycyOrnxtLGiuw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1549055816-12976-1-git-send-email-Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,248 +20,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
 
---===============0661545900==
-Content-Type: multipart/alternative; boundary="000000000000ca900e0580db9c1f"
-
---000000000000ca900e0580db9c1f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Can you also bump the KMS version?
-
-Thanks,
-Marek
-
-On Fri, Feb 1, 2019 at 3:09 PM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wro=
-te:
-
-> Reviewed-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
-> Tested-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
->
-> On Fri, Feb 1, 2019 at 3:00 PM Andrey Grodzovsky <
-> andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org> wrote:
->
->> New chunk for dependency on start of job's execution instead on
->> the end. This is used for GPU deadlock prevention when
->> userspace uses mid-IB fences to wait for mid-IB work on other rings.
->>
->> v2: Fix typo in AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES
->>
->> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
->> Suggested-by: Christian Koenig <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++++-
->>  include/uapi/drm/amdgpu_drm.h          |  1 +
->>  2 files changed, 12 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> index 1c49b82..3f21eca 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->> @@ -214,6 +214,7 @@ static int amdgpu_cs_parser_init(struct
->> amdgpu_cs_parser *p, union drm_amdgpu_cs
->>                 case AMDGPU_CHUNK_ID_DEPENDENCIES:
->>                 case AMDGPU_CHUNK_ID_SYNCOBJ_IN:
->>                 case AMDGPU_CHUNK_ID_SYNCOBJ_OUT:
->> +               case AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES:
->>                         break;
->>
->>                 default:
->> @@ -1090,6 +1091,14 @@ static int amdgpu_cs_process_fence_dep(struct
->> amdgpu_cs_parser *p,
->>
->>                 fence =3D amdgpu_ctx_get_fence(ctx, entity,
->>                                              deps[i].handle);
->> +
->> +               if (chunk->chunk_id =3D=3D
->> AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {
->> +                       struct drm_sched_fence *s_fence =3D
->> to_drm_sched_fence(fence);
->> +
->> +                       dma_fence_put(fence);
->> +                       fence =3D dma_fence_get(&s_fence->scheduled);
->> +               }
->> +
->>                 if (IS_ERR(fence)) {
->>                         r =3D PTR_ERR(fence);
->>                         amdgpu_ctx_put(ctx);
->> @@ -1177,7 +1186,8 @@ static int amdgpu_cs_dependencies(struct
->> amdgpu_device *adev,
->>
->>                 chunk =3D &p->chunks[i];
->>
->> -               if (chunk->chunk_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES)=
- {
->> +               if (chunk->chunk_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES =
-||
->> +                   chunk->chunk_id =3D=3D
->> AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {
->>                         r =3D amdgpu_cs_process_fence_dep(p, chunk);
->>                         if (r)
->>                                 return r;
->> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm=
-.h
->> index faaad04..43d03a2 100644
->> --- a/include/uapi/drm/amdgpu_drm.h
->> +++ b/include/uapi/drm/amdgpu_drm.h
->> @@ -526,6 +526,7 @@ struct drm_amdgpu_gem_va {
->>  #define AMDGPU_CHUNK_ID_SYNCOBJ_IN      0x04
->>  #define AMDGPU_CHUNK_ID_SYNCOBJ_OUT     0x05
->>  #define AMDGPU_CHUNK_ID_BO_HANDLES      0x06
->> +#define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07
->>
->>  struct drm_amdgpu_cs_chunk {
->>         __u32           chunk_id;
->> --
->> 2.7.4
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
->
-
---000000000000ca900e0580db9c1f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Can you also bump the KMS version?</div><div><br></di=
-v><div>Thanks,</div><div>Marek<br></div></div><br><div class=3D"gmail_quote=
-"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Feb 1, 2019 at 3:09 PM Mare=
-k Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><=
-div dir=3D"ltr"><div>Reviewed-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mail=
-to:marek.olsak-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;</div>=
-<div>Tested-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak@amd=
-.com" target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;</div></div><br><div cla=
-ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Feb 1, 201=
-9 at 3:00 PM Andrey Grodzovsky &lt;<a href=3D"mailto:andrey.grodzovsky@amd.=
-com" target=3D"_blank">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">New chunk for dependency on=
- start of job&#39;s execution instead on<br>
-the end. This is used for GPU deadlock prevention when<br>
-userspace uses mid-IB fences to wait for mid-IB work on other rings.<br>
-<br>
-v2: Fix typo in AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES<br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;<a href=3D"mailto:andrey.grodzovsky@am=
-d.com" target=3D"_blank">andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-Suggested-by: Christian Koenig &lt;<a href=3D"mailto:Christian.Koenig@amd.c=
-om" target=3D"_blank">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 12 +++++++++++-<br>
-=C2=A0include/uapi/drm/amdgpu_drm.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 1 +<br>
-=C2=A02 files changed, 12 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_cs.c<br>
-index 1c49b82..3f21eca 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-@@ -214,6 +214,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parse=
-r *p, union drm_amdgpu_cs<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMDGPU_CHUNK_I=
-D_DEPENDENCIES:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMDGPU_CHUNK_I=
-D_SYNCOBJ_IN:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 case AMDGPU_CHUNK_I=
-D_SYNCOBJ_OUT:<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0case AMDGPU_CHUNK_I=
-D_SCHEDULED_DEPENDENCIES:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 break;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 default:<br>
-@@ -1090,6 +1091,14 @@ static int amdgpu_cs_process_fence_dep(struct amdgpu=
-_cs_parser *p,<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 fence =3D amdgpu_ct=
-x_get_fence(ctx, entity,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0deps[i].handle);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk-&gt;chunk=
-_id =3D=3D AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0struct drm_sched_fence *s_fence =3D to_drm_sched_fence(fence);<br=
->
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0dma_fence_put(fence);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0fence =3D dma_fence_get(&amp;s_fence-&gt;scheduled);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (IS_ERR(fence)) =
-{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 r =3D PTR_ERR(fence);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 amdgpu_ctx_put(ctx);<br>
-@@ -1177,7 +1186,8 @@ static int amdgpu_cs_dependencies(struct amdgpu_devic=
-e *adev,<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 chunk =3D &amp;p-&g=
-t;chunks[i];<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk-&gt;chunk=
-_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (chunk-&gt;chunk=
-_id =3D=3D AMDGPU_CHUNK_ID_DEPENDENCIES ||<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0chunk=
--&gt;chunk_id =3D=3D AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 r =3D amdgpu_cs_process_fence_dep(p, chunk);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 if (r)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return r;<br>
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h<=
-br>
-index faaad04..43d03a2 100644<br>
---- a/include/uapi/drm/amdgpu_drm.h<br>
-+++ b/include/uapi/drm/amdgpu_drm.h<br>
-@@ -526,6 +526,7 @@ struct drm_amdgpu_gem_va {<br>
-=C2=A0#define AMDGPU_CHUNK_ID_SYNCOBJ_IN=C2=A0 =C2=A0 =C2=A0 0x04<br>
-=C2=A0#define AMDGPU_CHUNK_ID_SYNCOBJ_OUT=C2=A0 =C2=A0 =C2=A00x05<br>
-=C2=A0#define AMDGPU_CHUNK_ID_BO_HANDLES=C2=A0 =C2=A0 =C2=A0 0x06<br>
-+#define AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES 0x07<br>
-<br>
-=C2=A0struct drm_amdgpu_cs_chunk {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __u32=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c=
-hunk_id;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a><br>
-</blockquote></div>
-</blockquote></div>
-
---000000000000ca900e0580db9c1f--
-
---===============0661545900==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0661545900==--
+djI6IFVzZSBQQ0llIGxpbmsgc3RhdHVzIGluc3RlYWQgb2YgbGluayBjYXBhYmlsaXR5CiAgICBT
+ZW5kIG92ZXJyaWRlIG1lc3NhZ2UgYWZ0ZXIgU01VIGVuYWJsZSBmZWF0dXJlcwoKQ2hhbmdlLUlk
+OiBJZWEyYTFhYzU5NWNmNjNhOTUyOGZmMWU5YTY5NTVkMTRkOGMzYTZkNQpTaWduZWQtb2ZmLWJ5
+OiBIYXJpc2ggS2FzaXZpc3dhbmF0aGFuIDxIYXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+
+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMg
+fCA5MyArKysrKysrKysrKysrKystLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNjQgaW5zZXJ0aW9u
+cygrKSwgMjkgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwppbmRleCBkYTAyMmNhLi5kMTY2ZjhjIDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYwpA
+QCAtNzcxLDQwICs3NzEsNzUgQEAgc3RhdGljIGludCB2ZWdhMjBfaW5pdF9zbWNfdGFibGUoc3Ry
+dWN0IHBwX2h3bWdyICpod21ncikKIAlyZXR1cm4gMDsKIH0KIAorLyoKKyAqIE92ZXJyaWRlIFBD
+SWUgbGluayBzcGVlZCBhbmQgbGluayB3aWR0aCBmb3IgRFBNIExldmVsIDEuIFBQVGFibGUgZW50
+cmllcworICogcmVmbGVjdCB0aGUgQVNJQyBjYXBhYmlsaXRpZXMgYW5kIG5vdCB0aGUgc3lzdGVt
+IGNhcGFiaWxpdGllcy4gRm9yIGUuZy4KKyAqIFZlZ2EyMCBib2FyZCBpbiBhIFBDSSBHZW4zIHN5
+c3RlbS4gSW4gdGhpcyBjYXNlLCB3aGVuIFNNVSdzIHRyaWVzIHRvIHN3aXRjaAorICogdG8gRFBN
+MSwgaXQgZmFpbHMgYXMgc3lzdGVtIGRvZXNuJ3Qgc3VwcG9ydCBHZW40LgorICovCiBzdGF0aWMg
+aW50IHZlZ2EyMF9vdmVycmlkZV9wY2llX3BhcmFtZXRlcnMoc3RydWN0IHBwX2h3bWdyICpod21n
+cikKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqKShod21nci0+YWRldik7Ci0JdWludDMyX3QgcGNpZV9zcGVlZCA9IDAsIHBjaWVfd2lkdGgg
+PSAwLCBwY2llX2FyZzsKKwl1aW50MzJfdCBwY2llX2dlbiA9IDAsIHBjaWVfd2lkdGggPSAwLCBz
+bXVfcGNpZV9hcmc7CiAJaW50IHJldDsKKwl1aW50MTZfdCBsbmtzdGF0OworCisJcGNpZV9jYXBh
+YmlsaXR5X3JlYWRfd29yZChhZGV2LT5wZGV2LCBQQ0lfRVhQX0xOS1NUQSwgJmxua3N0YXQpOwog
+Ci0JaWYgKGFkZXYtPnBtLnBjaWVfZ2VuX21hc2sgJiBDQUlMX1BDSUVfTElOS19TUEVFRF9TVVBQ
+T1JUX0dFTjQpCi0JCXBjaWVfc3BlZWQgPSAxNjsKLQllbHNlIGlmIChhZGV2LT5wbS5wY2llX2dl
+bl9tYXNrICYgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4zKQotCQlwY2llX3NwZWVk
+ID0gODsKLQllbHNlIGlmIChhZGV2LT5wbS5wY2llX2dlbl9tYXNrICYgQ0FJTF9QQ0lFX0xJTktf
+U1BFRURfU1VQUE9SVF9HRU4yKQotCQlwY2llX3NwZWVkID0gNTsKLQllbHNlIGlmIChhZGV2LT5w
+bS5wY2llX2dlbl9tYXNrICYgQ0FJTF9QQ0lFX0xJTktfU1BFRURfU1VQUE9SVF9HRU4xKQotCQlw
+Y2llX3NwZWVkID0gMjsKLQotCWlmIChhZGV2LT5wbS5wY2llX21sd19tYXNrICYgQ0FJTF9QQ0lF
+X0xJTktfV0lEVEhfU1VQUE9SVF9YMzIpCi0JCXBjaWVfd2lkdGggPSAzMjsKLQllbHNlIGlmIChh
+ZGV2LT5wbS5wY2llX21sd19tYXNrICYgQ0FJTF9QQ0lFX0xJTktfV0lEVEhfU1VQUE9SVF9YMTYp
+Ci0JCXBjaWVfd2lkdGggPSAxNjsKLQllbHNlIGlmIChhZGV2LT5wbS5wY2llX21sd19tYXNrICYg
+Q0FJTF9QQ0lFX0xJTktfV0lEVEhfU1VQUE9SVF9YMTIpCi0JCXBjaWVfd2lkdGggPSAxMjsKLQll
+bHNlIGlmIChhZGV2LT5wbS5wY2llX21sd19tYXNrICYgQ0FJTF9QQ0lFX0xJTktfV0lEVEhfU1VQ
+UE9SVF9YOCkKLQkJcGNpZV93aWR0aCA9IDg7Ci0JZWxzZSBpZiAoYWRldi0+cG0ucGNpZV9tbHdf
+bWFzayAmIENBSUxfUENJRV9MSU5LX1dJRFRIX1NVUFBPUlRfWDQpCisJc3dpdGNoIChsbmtzdGF0
+ICYgUENJX0VYUF9MTktTVEFfQ0xTKSB7CisJY2FzZSBQQ0lfRVhQX0xOS1NUQV9DTFNfMl81R0I6
+CisJCXBjaWVfZ2VuID0gMDsKKwkJYnJlYWs7CisJY2FzZSBQQ0lfRVhQX0xOS1NUQV9DTFNfNV8w
+R0I6CisJCXBjaWVfZ2VuID0gMTsKKwkJYnJlYWs7CisJY2FzZSBQQ0lfRVhQX0xOS1NUQV9DTFNf
+OF8wR0I6CisJCXBjaWVfZ2VuID0gMjsKKwkJYnJlYWs7CisJY2FzZSBQQ0lfRVhQX0xOS1NUQV9D
+TFNfMTZfMEdCOgorCQlwY2llX2dlbiA9IDM7CisJCWJyZWFrOworCWRlZmF1bHQ6CisJCXByX3dh
+cm4oIlVua25vd24gUENJIGxpbmsgc3BlZWQgJXhcbiIsCisJCQlsbmtzdGF0ICYgUENJX0VYUF9M
+TktTVEFfQ0xTKTsKKwl9CisKKworCXN3aXRjaCAoKGxua3N0YXQgJiBQQ0lfRVhQX0xOS1NUQV9O
+TFcpID4+IFBDSV9FWFBfTE5LU1RBX05MV19TSElGVCkgeworCWNhc2UgMzI6CisJCXBjaWVfd2lk
+dGggPSA3OworCQlicmVhazsKKwljYXNlIDE2OgorCQlwY2llX3dpZHRoID0gNjsKKwkJYnJlYWs7
+CisJY2FzZSAxMjoKKwkJcGNpZV93aWR0aCA9IDU7CisJCWJyZWFrOworCWNhc2UgODoKIAkJcGNp
+ZV93aWR0aCA9IDQ7Ci0JZWxzZSBpZiAoYWRldi0+cG0ucGNpZV9tbHdfbWFzayAmIENBSUxfUENJ
+RV9MSU5LX1dJRFRIX1NVUFBPUlRfWDIpCisJCWJyZWFrOworCWNhc2UgNDoKKwkJcGNpZV93aWR0
+aCA9IDM7CisJCWJyZWFrOworCWNhc2UgMjoKIAkJcGNpZV93aWR0aCA9IDI7Ci0JZWxzZSBpZiAo
+YWRldi0+cG0ucGNpZV9tbHdfbWFzayAmIENBSUxfUENJRV9MSU5LX1dJRFRIX1NVUFBPUlRfWDEp
+CisJCWJyZWFrOworCWNhc2UgMToKIAkJcGNpZV93aWR0aCA9IDE7CisJCWJyZWFrOworCWRlZmF1
+bHQ6CisJCXByX3dhcm4oIlVua25vd24gUENJIGxpbmsgd2lkdGggJXhcbiIsCisJCQlsbmtzdGF0
+ICYgUENJX0VYUF9MTktTVEFfQ0xTKTsKKwl9CiAKLQlwY2llX2FyZyA9IHBjaWVfd2lkdGggfCAo
+cGNpZV9zcGVlZCA8PCA4KTsKLQorCS8qIEJpdCAzMToxNjogTENMSyBEUE0gbGV2ZWwuIDAgaXMg
+RFBNMCwgYW5kIDEgaXMgRFBNMQorCSAqIEJpdCAxNTo4OiAgUENJRSBHRU4sIDAgdG8gMyBjb3Jy
+ZXNwb25kcyB0byBHRU4xIHRvIEdFTjQKKwkgKiBCaXQgNzowOiAgIFBDSUUgbGFuZSB3aWR0aCwg
+MSB0byA3IGNvcnJlc3BvbmRzIGlzIHgxIHRvIHgzMgorCSAqLworCXNtdV9wY2llX2FyZyA9ICgx
+IDw8IDE2KSB8IChwY2llX2dlbiA8PCA4KSB8IHBjaWVfd2lkdGg7CiAJcmV0ID0gc211bV9zZW5k
+X21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCi0JCQlQUFNNQ19NU0dfT3ZlcnJpZGVQ
+Y2llUGFyYW1ldGVycywgcGNpZV9hcmcpOworCQkJUFBTTUNfTVNHX092ZXJyaWRlUGNpZVBhcmFt
+ZXRlcnMsIHNtdV9wY2llX2FyZyk7CisKIAlQUF9BU1NFUlRfV0lUSF9DT0RFKCFyZXQsCiAJCSJb
+T3ZlcnJpZGVQY2llUGFyYW1ldGVyc10gQXR0ZW1wdCB0byBvdmVycmlkZSBwY2llIHBhcmFtcyBm
+YWlsZWQhIiwKIAkJcmV0dXJuIHJldCk7CkBAIC0xNjExLDExICsxNjQ2LDYgQEAgc3RhdGljIGlu
+dCB2ZWdhMjBfZW5hYmxlX2RwbV90YXNrcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCQkJIltF
+bmFibGVEUE1UYXNrc10gRmFpbGVkIHRvIGluaXRpYWxpemUgU01DIHRhYmxlISIsCiAJCQlyZXR1
+cm4gcmVzdWx0KTsKIAotCXJlc3VsdCA9IHZlZ2EyMF9vdmVycmlkZV9wY2llX3BhcmFtZXRlcnMo
+aHdtZ3IpOwotCVBQX0FTU0VSVF9XSVRIX0NPREUoIXJlc3VsdCwKLQkJCSJbRW5hYmxlRFBNVGFz
+a3NdIEZhaWxlZCB0byBvdmVycmlkZSBwY2llIHBhcmFtZXRlcnMhIiwKLQkJCXJldHVybiByZXN1
+bHQpOwotCiAJcmVzdWx0ID0gdmVnYTIwX3J1bl9idGMoaHdtZ3IpOwogCVBQX0FTU0VSVF9XSVRI
+X0NPREUoIXJlc3VsdCwKIAkJCSJbRW5hYmxlRFBNVGFza3NdIEZhaWxlZCB0byBydW4gYnRjISIs
+CkBAIC0xNjMxLDYgKzE2NjEsMTEgQEAgc3RhdGljIGludCB2ZWdhMjBfZW5hYmxlX2RwbV90YXNr
+cyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQogCQkJIltFbmFibGVEUE1UYXNrc10gRmFpbGVkIHRv
+IGVuYWJsZSBhbGwgc211IGZlYXR1cmVzISIsCiAJCQlyZXR1cm4gcmVzdWx0KTsKIAorCXJlc3Vs
+dCA9IHZlZ2EyMF9vdmVycmlkZV9wY2llX3BhcmFtZXRlcnMoaHdtZ3IpOworCVBQX0FTU0VSVF9X
+SVRIX0NPREUoIXJlc3VsdCwKKwkJCSJbRW5hYmxlRFBNVGFza3NdIEZhaWxlZCB0byBvdmVycmlk
+ZSBwY2llIHBhcmFtZXRlcnMhIiwKKwkJCXJldHVybiByZXN1bHQpOworCiAJcmVzdWx0ID0gdmVn
+YTIwX25vdGlmeV9zbWNfZGlzcGxheV9jaGFuZ2UoaHdtZ3IpOwogCVBQX0FTU0VSVF9XSVRIX0NP
+REUoIXJlc3VsdCwKIAkJCSJbRW5hYmxlRFBNVGFza3NdIEZhaWxlZCB0byBub3RpZnkgc21jIGRp
+c3BsYXkgY2hhbmdlISIsCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
