@@ -1,15 +1,16 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue
  doorbells mask on SOC15
-Date: Sat, 2 Feb 2019 00:04:08 +0000
-Message-ID: <BL0PR12MB250046784085018A70E34EC0F0920@BL0PR12MB2500.namprd12.prod.outlook.com>
+Date: Sat, 2 Feb 2019 15:01:56 +0000
+Message-ID: <DM5PR12MB25826F20FB8EF1E7E4B6348480930@DM5PR12MB2582.namprd12.prod.outlook.com>
 References: <20190131222703.3591-1-Yong.Zhao@amd.com>
  <20190131222703.3591-2-Yong.Zhao@amd.com>,
  <e01f29c1-74e8-4dd6-81fc-b25c0432798f@amd.com>
+ <BL0PR12MB250046784085018A70E34EC0F0920@BL0PR12MB2500.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1810721467=="
+Content-Type: multipart/mixed; boundary="===============0064705782=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e01f29c1-74e8-4dd6-81fc-b25c0432798f-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BL0PR12MB250046784085018A70E34EC0F0920-b4cIHhjg/p89/wkoUb0eEAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,16 +22,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1810721467==
+--===============0064705782==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BL0PR12MB250046784085018A70E34EC0F0920BL0PR12MB2500namp_"
+	boundary="_000_DM5PR12MB25826F20FB8EF1E7E4B6348480930DM5PR12MB2582namp_"
 
---_000_BL0PR12MB250046784085018A70E34EC0F0920BL0PR12MB2500namp_
+--_000_DM5PR12MB25826F20FB8EF1E7E4B6348480930DM5PR12MB2582namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Hi Yong,
+
+mmCP_MEC_DOORBELL_RANGE_LOWER/UPPER are used at CP to double check a doorbe=
+ll ringing routed to CP. It is a must to program. We have to keep userqueue=
+_start/end. Sorry for the confusion.
+
+Regards,
+Oak
+
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Zhao, Yo=
+ng
+Sent: Friday, February 1, 2019 7:04 PM
+To: Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+; Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue doorb=
+ells mask on SOC15
 
 Oak,
 
@@ -57,7 +75,8 @@ Yong
 ________________________________
 From: Kuehling, Felix
 Sent: Friday, February 1, 2019 3:03 PM
-To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org>
 Subject: Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue doorb=
 ells mask on SOC15
 
@@ -66,10 +85,11 @@ On 2019-01-31 5:27 p.m., Zhao, Yong wrote:
 > when allocating doorbells for CP user queues. This patch fixed that.
 >
 > Change-Id: I670adfc3fd7725d2ed0bd9665cb7f69f8b9023c2
-> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org<mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org>>
 
 One mostly cosmetic comment inline. With that fixed, the series is
-Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailto:Felix.Kuehling@a=
+md.com>>
 
 
 > ---
@@ -297,107 +317,211 @@ ll_val
 >        /* Base address of doorbell aperture. */
 >        phys_addr_t doorbell_physical_address;
 
---_000_BL0PR12MB250046784085018A70E34EC0F0920BL0PR12MB2500namp_
+--_000_DM5PR12MB25826F20FB8EF1E7E4B6348480930DM5PR12MB2582namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Oak,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi Yong,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">mmCP_ME=
+C_DOORBELL_RANGE_LOWER</span>/UPPER are used at CP to double check a doorbe=
+ll ringing routed to CP. It is a must to program. We have to keep userqueue=
+_start/end. Sorry for the confusion.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Oak<o:p></o:p></p>
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-It is a good idea to remove the userqueue_start/end. However, when doing so=
-, I came to the following code in gfx_v9_0_kiq_init_register() :</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span>&nbsp; &nbsp; &nbsp; &nbsp; /* enable the doorbell if requested */<br=
->
-</span>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; if (ring-&gt;use_doorbell) {<br>
-</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WREG32_SOC15(G=
-C, 0, mmCP_MEC_DOORBELL_RANGE_LOWER,<br>
-</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (adev=
--&gt;doorbell_index.kiq * 2) &lt;&lt; 2);<br>
-</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WREG32_SOC15(G=
-C, 0, mmCP_MEC_DOORBELL_RANGE_UPPER,<br>
-</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (adev=
--&gt;doorbell_index.userqueue_end * 2) &lt;&lt; 2);<br>
-</div>
-<span>&nbsp; &nbsp; &nbsp; &nbsp; }</span><br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span><br>
-</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span>I remember that you reached the conclusion in one email thread that&n=
-bsp;<span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; back=
-ground-color: rgb(255, 255, 255); display: inline !important">mmCP_MEC_DOOR=
-BELL_RANGE_UPPER/LOWER did not have effect
- at all on gfx9. Have we got any firm conclusions from HW engineer in the e=
-nd? If those two registers are still valid, we should enforce the range for=
- CP queues.</span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; ba=
-ckground-color: rgb(255, 255, 255); display: inline !important"><br>
-</span></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; ba=
-ckground-color: rgb(255, 255, 255); display: inline !important">Regards,</s=
-pan></span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span><span style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; ba=
-ckground-color: rgb(255, 255, 255); display: inline !important">Yong</span>=
-</span></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix<br>
-<b>Sent:</b> Friday, February 1, 2019 3:03 PM<br>
-<b>To:</b> Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org&gt;
+<b>On Behalf Of </b>Zhao, Yong<br>
+<b>Sent:</b> Friday, February 1, 2019 7:04 PM<br>
+<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32k@public.gmane.org=
+eedesktop.org; Zeng, Oak &lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queu=
-e doorbells mask on SOC15</font>
-<div>&nbsp;</div>
+e doorbells mask on SOC15<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2019-01-31 5:27 p.m., Zhao, Yong wrote:<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Oak,<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">It is a=
+ good idea to remove the userqueue_start/end. However, when doing so, I cam=
+e to the following code in gfx_v9_0_kiq_init_register() :<o:p></o:p></span>=
+</p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; /* enable the doorbell if requested */<o:p></o:p></spa=
+n></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; if (ring-&gt;use_doorbell) {<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WREG32_SOC15(GC, 0, mmCP_M=
+EC_DOORBELL_RANGE_LOWER,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (adev-&gt;doorbel=
+l_index.kiq * 2) &lt;&lt; 2);<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; WREG32_SOC15(GC, 0, mmCP_M=
+EC_DOORBELL_RANGE_UPPER,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (adev-&gt;doorbel=
+l_index.userqueue_end * 2) &lt;&lt; 2);<o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">&nbsp; =
+&nbsp; &nbsp; &nbsp; }<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">I remem=
+ber that you reached the conclusion in one email thread that&nbsp;<span sty=
+le=3D"background:white">mmCP_MEC_DOORBELL_RANGE_UPPER/LOWER did not have ef=
+fect at all on gfx9. Have we got any firm conclusions
+ from HW engineer in the end? If those two registers are still valid, we sh=
+ould enforce the range for CP queues.</span><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black;backgrou=
+nd:white">Regards,</span><span style=3D"font-size:12.0pt;color:black"><o:p>=
+</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black;backgrou=
+nd:white">Yong</span><span style=3D"font-size:12.0pt;color:black"><o:p></o:=
+p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"3" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Kuehling, Felix<br>
+<b>Sent:</b> Friday, February 1, 2019 3:03 PM<br>
+<b>To:</b> Zhao, Yong; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queu=
+e doorbells mask on SOC15</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">On 2019-01-31 5:27 p.m., Zhao, Yong wrote:<br>
 &gt; Reserved doorbells for SDMA IH and VCN were not properly masked out<br=
 >
 &gt; when allocating doorbells for CP user queues. This patch fixed that.<b=
 r>
 &gt;<br>
 &gt; Change-Id: I670adfc3fd7725d2ed0bd9665cb7f69f8b9023c2<br>
-&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Signed-off-by: Yong Zhao &lt;<a href=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org">Yong=
+.Zhao-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <br>
 One mostly cosmetic comment inline. With that fixed, the series is <br>
-Reviewed-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Reviewed-by: Felix Kuehling &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">F=
+elix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <br>
 <br>
 &gt; ---<br>
@@ -731,15 +855,16 @@ r>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Base address of doorbell =
 aperture. */<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phys_addr_t doorbell_physica=
-l_address;<br>
+l_address;<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </body>
 </html>
 
---_000_BL0PR12MB250046784085018A70E34EC0F0920BL0PR12MB2500namp_--
+--_000_DM5PR12MB25826F20FB8EF1E7E4B6348480930DM5PR12MB2582namp_--
 
---===============1810721467==
+--===============0064705782==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -749,4 +874,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1810721467==--
+--===============0064705782==--
