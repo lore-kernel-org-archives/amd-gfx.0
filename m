@@ -1,16 +1,17 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: add a workaround for GDS ordered append hangs
  with compute queues
-Date: Mon, 4 Feb 2019 11:00:47 -0500
-Message-ID: <CAAxE2A70p3_f+2AyXe7-m0nn2ZA7Zu57KLa9aPAAcH38Qa4EWw@mail.gmail.com>
+Date: Mon, 4 Feb 2019 16:09:30 +0000
+Message-ID: <44f785c1-16bf-289c-4502-0a7a3637aa30@amd.com>
 References: <20190122200546.1575-1-maraeo@gmail.com>
  <CAAxE2A7xs40YZvCQpMmv9X0Z98Sc7+ZEbFJDJLfmkMuWHzuprw@mail.gmail.com>
  <1b1294f7-1604-fe49-de7f-0e234656eecd@gmail.com>
  <CAAxE2A4vsMRL0FZYBknCTMEbDBNYJZOdOnR32EZqM5iaKX6j3g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1379064392=="
+Content-Type: multipart/mixed; boundary="===============1643318551=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <CAAxE2A4vsMRL0FZYBknCTMEbDBNYJZOdOnR32EZqM5iaKX6j3g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,93 +22,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: =?utf-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1379064392==
-Content-Type: multipart/alternative; boundary="000000000000bc389c0581139ac4"
+--===============1643318551==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_44f785c116bf289c45020a7a3637aa30amdcom_"
 
---000000000000bc389c0581139ac4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_000_44f785c116bf289c45020a7a3637aa30amdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-FYI, when I push this, I'll bump the DRM version.
+QW0gMDQuMDIuMTkgdW0gMTY6NTUgc2NocmllYiBNYXJlayBPbMWhw6FrOg0KT24gTW9uLCBGZWIg
+NCwgMjAxOSBhdCA3OjQyIEFNIENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJr
+ZW5AZ21haWwuY29tPG1haWx0bzpja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4+IHdy
+b3RlOg0KQXQgbGVhc3QgZnJvbSBjb2Rpbmcgc3R5bGUsIGJhY2t3YXJkIGNvbXBhdGliaWxpdHkg
+ZXRjLi4gdGhpcyBsb29rcyBzYW5lIHRvIG1lLCBzbyBmZWVsIGZyZWUgdG8gYWRkIGFuIEFja2Vk
+LWJ5Lg0KDQpCdXQgSSBhYnNvbHV0ZWx5IGNhbid0IGp1ZGdlIGlmIHRoYXQgaXMgY29ycmVjdCBm
+cm9tIHRoZSBoYXJkd2FyZSBwb2ludCBvZiB2aWV3IG9yIG5vdC4NCg0KT3VyIEdEUyBkb2NzIHNh
+eSB0aGF0IHdyaXRpbmcgdGhlIHJlZ2lzdGVyIHJlc2V0cyB0aGUgd2F2ZSBjb3VudGVyLg0KDQoN
+CkFuZCBJIHRoaW5rIHRoYXQgc29tZWJvZHkgZWxzZSBsb29raW5nIGF0IHRoaXMgaXMgbWFuZGF0
+b3J5IGZvciBpdCB0byBiZSBjb21taXR0ZWQuDQoNClRoZXJlIHdvbid0IGJlIGFueWJvZHkgZWxz
+ZS4gTm9ib2R5IGhlcmUgcmVhbGx5IHVuZGVyc3RhbmRzIEdEUywgbm9ib2R5IGhlcmUgcmVhbGx5
+IGNhcmVzIGFib3V0IEdEUywgYW5kIGh3IGd1eXMgd2VyZW4ndCBoZWxwZnVsIHdpdGggdGhlIGhh
+bmdzLiBJZiBJIGRpZG4ndCBkaXNjb3ZlciB0aGlzIGJ5IGx1Y2ssIEdEUyBPQSB3b3VsZCBiZSB1
+bnVzYWJsZSBvbiBMaW51eC4NCg0KR3JlYXQsIGFzIGxvbmcgYXMgQWxleCBpcyBvayB3aXRoIHRo
+aXMgZmVlbCBmcmVlIHRvIGdvIGFoZWFkLg0KDQpDaHJpc3RpYW4uDQoNCg0KTWFyZWsNCg0K
 
-Marek
+--_000_44f785c116bf289c45020a7a3637aa30amdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <D0E21B1BD1F1414FAEEABC59F74EA44B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: base64
 
-On Mon, Feb 4, 2019 at 10:55 AM Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
-ote:
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5BbSAwNC4w
+Mi4xOSB1bSAxNjo1NSBzY2hyaWViIE1hcmVrIE9sxaHDoWs6PGJyPg0KPC9kaXY+DQo8YmxvY2tx
+dW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6Q0FBeEUyQTR2c01STDBGWllCa25DVE1FYkRCTllK
+Wk9kT25SMzJFWnFNNWlhS1g2ajNnQG1haWwuZ21haWwuY29tIj4NCjxkaXYgZGlyPSJsdHIiPg0K
+PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPg0KPGRpdiBkaXI9Imx0ciIgY2xhc3M9ImdtYWlsX2F0
+dHIiPk9uIE1vbiwgRmViIDQsIDIwMTkgYXQgNzo0MiBBTSBDaHJpc3RpYW4gS8O2bmlnICZsdDs8
+YSBocmVmPSJtYWlsdG86Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20iIG1vei1kby1u
+b3Qtc2VuZD0idHJ1ZSI+Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb208L2E+Jmd0OyB3
+cm90ZTo8YnI+DQo8L2Rpdj4NCjxibG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9
+Im1hcmdpbjowcHggMHB4IDBweA0KICAgICAgICAgICAgMC44ZXg7Ym9yZGVyLWxlZnQ6MXB4IHNv
+bGlkDQogICAgICAgICAgICByZ2IoMjA0LDIwNCwyMDQpO3BhZGRpbmctbGVmdDoxZXgiPg0KPGRp
+diBiZ2NvbG9yPSIjRkZGRkZGIj4NCjxkaXYgY2xhc3M9ImdtYWlsLW1fNzAwMTQ0MTE5NDMzMzUz
+MDY4MW1vei1jaXRlLXByZWZpeCI+QXQgbGVhc3QgZnJvbSBjb2Rpbmcgc3R5bGUsIGJhY2t3YXJk
+IGNvbXBhdGliaWxpdHkgZXRjLi4gdGhpcyBsb29rcyBzYW5lIHRvIG1lLCBzbyBmZWVsIGZyZWUg
+dG8gYWRkIGFuIEFja2VkLWJ5Ljxicj4NCjxicj4NCkJ1dCBJIGFic29sdXRlbHkgY2FuJ3QganVk
+Z2UgaWYgdGhhdCBpcyBjb3JyZWN0IGZyb20gdGhlIGhhcmR3YXJlIHBvaW50IG9mIHZpZXcgb3Ig
+bm90Ljxicj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pjxicj4NCjwvZGl2
+Pg0KPGRpdj5PdXIgR0RTIGRvY3Mgc2F5IHRoYXQgd3JpdGluZyB0aGUgcmVnaXN0ZXIgcmVzZXRz
+IHRoZSB3YXZlIGNvdW50ZXIuPGJyPg0KPC9kaXY+DQo8ZGl2PiZuYnNwOzwvZGl2Pg0KPGJsb2Nr
+cXVvdGUgY2xhc3M9ImdtYWlsX3F1b3RlIiBzdHlsZT0ibWFyZ2luOjBweCAwcHggMHB4DQogICAg
+ICAgICAgICAwLjhleDtib3JkZXItbGVmdDoxcHggc29saWQNCiAgICAgICAgICAgIHJnYigyMDQs
+MjA0LDIwNCk7cGFkZGluZy1sZWZ0OjFleCI+DQo8ZGl2IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRp
+diBjbGFzcz0iZ21haWwtbV83MDAxNDQxMTk0MzMzNTMwNjgxbW96LWNpdGUtcHJlZml4Ij48YnI+
+DQpBbmQgSSB0aGluayB0aGF0IHNvbWVib2R5IGVsc2UgbG9va2luZyBhdCB0aGlzIGlzIG1hbmRh
+dG9yeSBmb3IgaXQgdG8gYmUgY29tbWl0dGVkLjxicj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2Nr
+cXVvdGU+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5UaGVyZSB3b24ndCBiZSBhbnlib2R5IGVs
+c2UuIE5vYm9keSBoZXJlIHJlYWxseSB1bmRlcnN0YW5kcyBHRFMsIG5vYm9keSBoZXJlIHJlYWxs
+eSBjYXJlcyBhYm91dCBHRFMsIGFuZCBodyBndXlzIHdlcmVuJ3QgaGVscGZ1bCB3aXRoIHRoZSBo
+YW5ncy4gSWYgSSBkaWRuJ3QgZGlzY292ZXIgdGhpcyBieSBsdWNrLCBHRFMgT0Egd291bGQgYmUg
+dW51c2FibGUgb24gTGludXguPGJyPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ibG9ja3F1
+b3RlPg0KPGJyPg0KR3JlYXQsIGFzIGxvbmcgYXMgQWxleCBpcyBvayB3aXRoIHRoaXMgZmVlbCBm
+cmVlIHRvIGdvIGFoZWFkLjxicj4NCjxicj4NCkNocmlzdGlhbi48YnI+DQo8YnI+DQo8YmxvY2tx
+dW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6Q0FBeEUyQTR2c01STDBGWllCa25DVE1FYkRCTllK
+Wk9kT25SMzJFWnFNNWlhS1g2ajNnQG1haWwuZ21haWwuY29tIj4NCjxkaXYgZGlyPSJsdHIiPg0K
+PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPg0KPGRpdj48YnI+DQo8L2Rpdj4NCjxkaXY+TWFyZWs8
+L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8YnI+DQo8L2JvZHk+DQo8L2h0
+bWw+DQo=
 
-> On Mon, Feb 4, 2019 at 7:42 AM Christian K=C3=B6nig <
-> ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
->
->> At least from coding style, backward compatibility etc.. this looks sane
->> to me, so feel free to add an Acked-by.
->>
->> But I absolutely can't judge if that is correct from the hardware point
->> of view or not.
->>
->
-> Our GDS docs say that writing the register resets the wave counter.
->
->
->>
->> And I think that somebody else looking at this is mandatory for it to be
->> committed.
->>
->
-> There won't be anybody else. Nobody here really understands GDS, nobody
-> here really cares about GDS, and hw guys weren't helpful with the hangs. =
-If
-> I didn't discover this by luck, GDS OA would be unusable on Linux.
->
-> Marek
->
+--_000_44f785c116bf289c45020a7a3637aa30amdcom_--
 
---000000000000bc389c0581139ac4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>FYI, when I push this, I&#39;ll bump the DRM version.=
-</div><div><br></div><div>Marek<br></div><br><div class=3D"gmail_quote"><di=
-v dir=3D"ltr" class=3D"gmail_attr">On Mon, Feb 4, 2019 at 10:55 AM Marek Ol=
-=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&=
-gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div =
-dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr=
-">On Mon, Feb 4, 2019 at 7:42 AM Christian K=C3=B6nig &lt;<a href=3D"mailto=
-:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">ckoenig.leichtzumerken=
-@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex">
- =20
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF">
-    <div class=3D"gmail-m_-4957765592598782426gmail-m_7001441194333530681mo=
-z-cite-prefix">At least from coding style, backward
-      compatibility etc.. this looks sane to me, so feel free to add an
-      Acked-by.<br>
-      <br>
-      But I absolutely can&#39;t judge if that is correct from the hardware
-      point of view or not.<br></div></div></blockquote><div><br></div><div=
->Our GDS docs say that writing the register resets the wave counter.<br></d=
-iv><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div =
-bgcolor=3D"#FFFFFF"><div class=3D"gmail-m_-4957765592598782426gmail-m_70014=
-41194333530681moz-cite-prefix">
-      <br>
-      And I think that somebody else looking at this is mandatory for it
-      to be committed.<br></div></div></blockquote><div><br></div><div>Ther=
-e won&#39;t be anybody else. Nobody here really understands GDS, nobody her=
-e really cares about GDS, and hw guys weren&#39;t helpful with the hangs. I=
-f I didn&#39;t discover this by luck, GDS OA would be unusable on Linux.<br=
-></div><div><br></div><div>Marek</div></div></div>
-</blockquote></div></div>
-
---000000000000bc389c0581139ac4--
-
---===============1379064392==
+--===============1643318551==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -117,4 +107,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============1379064392==--
+--===============1643318551==--
