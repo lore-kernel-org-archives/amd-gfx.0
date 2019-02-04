@@ -1,17 +1,13 @@
-From: sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Subject: Re: After upgrade mesa to 19.0.0~rc1 all vulkan based application
- stop working ["vulkan-cube" received SIGSEGV in
- radv_pipeline_init_blend_state at ../src/amd/vulkan/radv_pipeline.c:699]
-Date: Mon, 4 Feb 2019 14:58:29 +0000
-Message-ID: <20190204145829.GA476@freedom>
-References: <CABXGCsM7wFR+0V6MUAqLd+3_UKzWpdLVpjujrwDL13hAZOi5Aw@mail.gmail.com>
- <5d31c3a2-2290-b0d6-11ca-5eba46183941@daenzer.net>
+From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 0/3] Use HMM to replace get_user_pages
+Date: Mon, 4 Feb 2019 15:06:50 +0000
+Message-ID: <20190204150613.5837-1-Philip.Yang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <5d31c3a2-2290-b0d6-11ca-5eba46183941-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+Content-ID: <CE19C656C6FBC1478414D01E507EC239-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,21 +18,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Michel-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org, =?utf-8?Q?D=C3=A4nzer_=3Cmichel=40daenzer=2Enet=3E?=@freedesktop.org
-Cc: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
 
-PiA+IExpc3Qgb2YgdGVzdGVkIGFwcGxpY2F0aW9uOgo+ID4gLSBSaXNlIG9mIHRoZSBUb21iIFJh
-aWRlcgoKU29ycnkgdG8gcG9wIGluIHRoZSBidWcgcmVwb3J0LgoKSSBydW4gZ2l0IGxpbnV4KGFt
-ZC1zdGFnaW5nLWRybS1uZXh0KSwgZHJtLCBsbHZtIChlcmshKSwgbWVzYS1nbCwgbWVzYS12dWxr
-YW4sCnhzZXJ2ZXIsIHhmODYtdmlkZW8tYW1kZ3B1IGZyb20geWVzdGVyZGF5LCB0aGF0IG9uIEFN
-RCB0YWhpdGkgeHQuCgpJIGhhdmUgcnVuIGRvdGEgMiB2dWxrYW4sIGFydGlmYWN0ICh2dWxrYW4p
-LCBjczpnbyAoc3RpbGwgb3BlbmdsKSB3aXRob3V0Cmlzc3VlcyAoSSBkaWQgcGxheSBhbGwgb2Yg
-dGhlbSB5ZXN0ZXJkYXkgbmlnaHQpLiBJIGhhdmUgYSB2ZXJ5IG9sZCB2dWxrYW5sb2FkZXIKdGhv
-dWdoLgoKQ291bGQgeW91IHRyeSBkb3RhMiB2dWxrYW4gYW5kIGNzOmdvIChmcmVlIHRvIHBsYXkg
-Z2FtZXMpIGlmIHlvdSBoYXZlIHJvb20gb24KeW91ciBnYW1pbmcgc3RvcmFnZSBhbmQgZ29vZCBk
-b3dubG9hZCBzcGVlZD8KCkkgaGF2ZSBSaXNlIG9mIHRoZSBUb21iIFJhaWRlciwgSSdsbCBkb3du
-bG9hZCBpdCBhbmQgZ2l2ZSBpdCBhIHRyeSB0b25pZ2h0IHNpbmNlCkkgaGF2ZSByb29tIG9uIG15
-IGdhbWluZyBzc2QgKEkgZGlkIGNsZWFyIGl0IG1vbnRocyBhZ28pLgoKLS0gClN5bHZhaW4KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+SGkgQ2hyaXN0aWFuLA0KDQpUaGlzIHBhdGNoIGlzIHJlYmFzZWQgdG8gbGFzdGVzdCBITU0uIFBs
+ZWFzZSByZXZpZXcgdGhlIEdFTSBhbmQgQ1MgcGFydCBjaGFuZ2VzDQppbiBwYXRjaCAzLzMuDQoN
+ClJlZ2FyZHMsDQoNClBoaWxpcCBZYW5nICgzKToNCiAgZHJtL2FtZGdwdTogdXNlIEhNTSBtaXJy
+b3IgY2FsbGJhY2sgdG8gcmVwbGFjZSBtbXUgbm90aWZpZXIgdjYNCiAgZHJtL2FtZGtmZDogYXZv
+aWQgSE1NIGNoYW5nZSBjYXVzZSBjaXJjdWxhciBsb2NrIGRlcGVuZGVuY3kgdjINCiAgZHJtL2Ft
+ZGdwdTogcmVwbGFjZSBnZXRfdXNlcl9wYWdlcyB3aXRoIEhNTSBhZGRyZXNzIG1pcnJvciBoZWxw
+ZXJzIHY2DQoNCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnICAgICAgICAgICAg
+fCAgIDYgKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZSAgICAgICAgICAg
+fCAgIDIgKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmggICAg
+fCAgIDEgLQ0KIC4uLi9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jICB8
+ICA5NSArKystLS0tLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2JvX2xp
+c3QuaCAgIHwgICAyICstDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMg
+ICAgICAgIHwgMTU4ICsrKysrKystLS0tLS0tLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZ2VtLmMgICAgICAgfCAgMTQgKy0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfbW4uYyAgICAgICAgfCAxNjQgKysrKysrKysrLS0tLS0tLS0NCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaCAgICAgICAgfCAgIDYgKy0NCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgICAgICAgfCAxNzMgKysrKysrKystLS0tLS0t
+LS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oICAgICAgIHwgICAz
+ICstDQogLi4uL2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jIHwgIDMy
+ICsrLS0NCiAxMiBmaWxlcyBjaGFuZ2VkLCAyODIgaW5zZXJ0aW9ucygrKSwgMzc0IGRlbGV0aW9u
+cygtKQ0KDQotLSANCjIuMTcuMQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
