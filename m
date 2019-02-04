@@ -1,15 +1,14 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add a workaround for GDS ordered append hangs
- with compute queues
-Date: Mon, 4 Feb 2019 10:55:45 -0500
-Message-ID: <CAAxE2A4vsMRL0FZYBknCTMEbDBNYJZOdOnR32EZqM5iaKX6j3g@mail.gmail.com>
-References: <20190122200546.1575-1-maraeo@gmail.com>
- <CAAxE2A7xs40YZvCQpMmv9X0Z98Sc7+ZEbFJDJLfmkMuWHzuprw@mail.gmail.com>
- <1b1294f7-1604-fe49-de7f-0e234656eecd@gmail.com>
+From: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/display: Use context parameters to enable FBC
+Date: Mon, 4 Feb 2019 15:57:15 +0000
+Message-ID: <BL0PR12MB282020557F9899C8C2F37328896D0@BL0PR12MB2820.namprd12.prod.outlook.com>
+References: <1549272004-30469-1-git-send-email-shirish.s@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0559676125=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1b1294f7-1604-fe49-de7f-0e234656eecd-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1549272004-30469-1-git-send-email-shirish.s-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,84 +19,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
+ Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
 
---===============0559676125==
-Content-Type: multipart/alternative; boundary="000000000000b721420581138847"
-
---000000000000b721420581138847
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Feb 4, 2019 at 7:42 AM Christian K=C3=B6nig <
-ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
-
-> At least from coding style, backward compatibility etc.. this looks sane
-> to me, so feel free to add an Acked-by.
->
-> But I absolutely can't judge if that is correct from the hardware point o=
-f
-> view or not.
->
-
-Our GDS docs say that writing the register resets the wave counter.
-
-
->
-> And I think that somebody else looking at this is mandatory for it to be
-> committed.
->
-
-There won't be anybody else. Nobody here really understands GDS, nobody
-here really cares about GDS, and hw guys weren't helpful with the hangs. If
-I didn't discover this by luck, GDS OA would be unusable on Linux.
-
-Marek
-
---000000000000b721420581138847
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Mon, Feb 4, 2019 at 7:42 AM Christian K=C3=B6nig &lt;<a href=3D"m=
-ailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a=
->&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
- =20
-   =20
- =20
-  <div bgcolor=3D"#FFFFFF">
-    <div class=3D"gmail-m_7001441194333530681moz-cite-prefix">At least from=
- coding style, backward
-      compatibility etc.. this looks sane to me, so feel free to add an
-      Acked-by.<br>
-      <br>
-      But I absolutely can&#39;t judge if that is correct from the hardware
-      point of view or not.<br></div></div></blockquote><div><br></div><div=
->Our GDS docs say that writing the register resets the wave counter.<br></d=
-iv><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
-px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div =
-bgcolor=3D"#FFFFFF"><div class=3D"gmail-m_7001441194333530681moz-cite-prefi=
-x">
-      <br>
-      And I think that somebody else looking at this is mandatory for it
-      to be committed.<br></div></div></blockquote><div><br></div><div>Ther=
-e won&#39;t be anybody else. Nobody here really understands GDS, nobody her=
-e really cares about GDS, and hw guys weren&#39;t helpful with the hangs. I=
-f I didn&#39;t discover this by luck, GDS OA would be unusable on Linux.<br=
-></div><div><br></div><div>Marek</div></div></div>
-
---000000000000b721420581138847--
-
---===============0559676125==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0559676125==--
+UmV2aWV3ZWQtYnk6IFJvbWFuIExpIDxSb21hbi5MaUBhbWQuY29tPg0KDQotLS0tLU9yaWdpbmFs
+IE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIFMsIFNoaXJpc2gNClNlbnQ6IE1vbmRheSwgRmVicnVh
+cnkgNCwgMjAxOSA0OjIwIEFNDQpUbzogTGksIFN1biBwZW5nIChMZW8pIDxTdW5wZW5nLkxpQGFt
+ZC5jb20+OyBXdSwgSGVyc2VuIDxoZXJzZW54cy53dUBhbWQuY29tPjsgV2VudGxhbmQsIEhhcnJ5
+IDxIYXJyeS5XZW50bGFuZEBhbWQuY29tPg0KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnOyBTLCBTaGlyaXNoIDxTaGlyaXNoLlNAYW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSF0gZHJt
+L2FtZC9kaXNwbGF5OiBVc2UgY29udGV4dCBwYXJhbWV0ZXJzIHRvIGVuYWJsZSBGQkMNCg0KW1do
+YXRdDQpGQkMgZmFpbHMgdG8gZ2V0IGVuYWJsZWQgd2hlbiBzd2l0Y2hlZCBiZXR3ZWVuIExJTkVB
+Uihjb25zb2xlL1ZUKSBhbmQgbm9uLUxJTkVBUihHVUkpIGJhc2VkIHJlbmRlcmluZyBkdWUgdG8g
+ZGVmYXVsdCB2YWx1ZSBvZiB0aWxpbmcgaW5mbyBzdG9yZWQgaW4gdGhlIGN1cnJlbnRfc3RhdGUg
+d2hpY2ggaXMgdXNlZCBmb3IgZGVjaWRpbmcgd2hldGhlciBvciBub3QgdG8gdHVybiBGQkMgb24g
+b3Igb2ZmLg0KDQpbSG93XQ0KVXNlIGNvbnRleHQgc3RydWN0dXJlJ3MgdGlsaW5nIGluZm9ybWF0
+aW9uIHdoaWNoIGlzIGNvaGVyYW50IHdpdGggdGhlIHNjcmVlbiB1cGRhdGVzLg0KDQpTaWduZWQt
+b2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMgfCAyICstDQog
+MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQoNCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9od19zZXF1
+ZW5jZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3
+X3NlcXVlbmNlci5jDQppbmRleCBkYjBlZjQxLi5mZDdjZDViIDEwMDY0NA0KLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMNCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMTAvZGNlMTEwX2h3X3NlcXVl
+bmNlci5jDQpAQCAtMjUzNSw3ICsyNTM1LDcgQEAgc3RhdGljIHZvaWQgZGNlMTEwX2FwcGx5X2N0
+eF9mb3Jfc3VyZmFjZSgNCiAJfQ0KIA0KIAlpZiAoZGMtPmZiY19jb21wcmVzc29yKQ0KLQkJZW5h
+YmxlX2ZiYyhkYywgZGMtPmN1cnJlbnRfc3RhdGUpOw0KKwkJZW5hYmxlX2ZiYyhkYywgY29udGV4
+dCk7DQogfQ0KIA0KIHN0YXRpYyB2b2lkIGRjZTExMF9wb3dlcl9kb3duX2ZlKHN0cnVjdCBkYyAq
+ZGMsIHN0cnVjdCBwaXBlX2N0eCAqcGlwZV9jdHgpDQotLQ0KMi43LjQNCg0KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0
+DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
