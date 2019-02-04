@@ -1,8 +1,8 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue
  doorbells mask on SOC15
-Date: Mon, 4 Feb 2019 17:28:08 +0000
-Message-ID: <SN1PR12MB236591C1FC2D9D965C4DA304F06D0@SN1PR12MB2365.namprd12.prod.outlook.com>
+Date: Mon, 4 Feb 2019 17:32:59 +0000
+Message-ID: <BL0PR12MB258087862A30B28CBC9AC67E806D0@BL0PR12MB2580.namprd12.prod.outlook.com>
 References: <20190131222703.3591-1-Yong.Zhao@amd.com>
  <20190131222703.3591-2-Yong.Zhao@amd.com>
  <e01f29c1-74e8-4dd6-81fc-b25c0432798f@amd.com>
@@ -10,10 +10,11 @@ References: <20190131222703.3591-1-Yong.Zhao@amd.com>
  <DM5PR12MB25826F20FB8EF1E7E4B6348480930@DM5PR12MB2582.namprd12.prod.outlook.com>
  <5aca7b73-2ef6-8a33-4a1c-3f876459de40@amd.com>,
  <BL0PR12MB258041F4A571AE1356CA31B8806D0@BL0PR12MB2580.namprd12.prod.outlook.com>
+ <SN1PR12MB236591C1FC2D9D965C4DA304F06D0@SN1PR12MB2365.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0893864210=="
+Content-Type: multipart/mixed; boundary="===============1645782738=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BL0PR12MB258041F4A571AE1356CA31B8806D0-b4cIHhjg/p/XzH18dTCKOgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <SN1PR12MB236591C1FC2D9D965C4DA304F06D0-z7L1TMIYDg7+b/GE5JWDHAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,16 +26,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0893864210==
+--===============1645782738==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB236591C1FC2D9D965C4DA304F06D0SN1PR12MB2365namp_"
+	boundary="_000_BL0PR12MB258087862A30B28CBC9AC67E806D0BL0PR12MB2580namp_"
 
---_000_SN1PR12MB236591C1FC2D9D965C4DA304F06D0SN1PR12MB2365namp_
+--_000_BL0PR12MB258087862A30B28CBC9AC67E806D0BL0PR12MB2580namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+>then we should probably use 1024 for mmCP_MEC_DOORBELL_RANGE_UPPER.
+This is also what I thought.
+
+Thanks,
+Oak
+
+From: Zhao, Yong
+Sent: Monday, February 4, 2019 12:28 PM
+To: Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>; Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>;=
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue doorb=
+ells mask on SOC15
 
 The decision we need to make here is which value we should program mmCP_MEC=
 _DOORBELL_RANGE_UPPER. It is not very consistent right now throughout our c=
@@ -51,7 +65,8 @@ Yong
 ________________________________
 From: Zeng, Oak
 Sent: Monday, February 4, 2019 12:15 PM
-To: Kuehling, Felix; Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Kuehling, Felix; Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-g=
+fx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Subject: RE: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue doorb=
 ells mask on SOC15
 
@@ -65,8 +80,9 @@ Oak
 -----Original Message-----
 From: Kuehling, Felix
 Sent: Monday, February 4, 2019 11:35 AM
-To: Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>; Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>; amd-gfx@l=
-ists.freedesktop.org
+To: Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org<mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>>; Zhao, Yong <Yong=
+.Zhao-5C7GfCeVMHo@public.gmane.org<mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org>>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mai=
+lto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Subject: Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue doorb=
 ells mask on SOC15
 
@@ -92,11 +108,14 @@ On 2019-02-02 10:01 a.m., Zeng, Oak wrote:
 >
 > Oak
 >
-> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> *On Behalf Of
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bou=
+nces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>> *On Behalf Of
 > *Zhao, Yong
 > *Sent:* Friday, February 1, 2019 7:04 PM
-> *To:* Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>;
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zeng, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+> *To:* Kuehling, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org<mailto:Felix.Kuehling@amd.c=
+om>>;
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Zeng=
+, Oak <Oak.Zeng-5C7GfCeVMHo@public.gmane.org<mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org>>
 > *Subject:* Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user
 > queue doorbells mask on SOC15
 >
@@ -134,7 +153,8 @@ On 2019-02-02 10:01 a.m., Zeng, Oak wrote:
 >
 > *From:*Kuehling, Felix
 > *Sent:* Friday, February 1, 2019 3:03 PM
-> *To:* Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *To:* Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
+desktop.org>
 > <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > *Subject:* Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user
 > queue doorbells mask on SOC15
@@ -145,11 +165,11 @@ On 2019-02-02 10:01 a.m., Zeng, Oak wrote:
 > >
 > > Change-Id: I670adfc3fd7725d2ed0bd9665cb7f69f8b9023c2
 > > Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org
-> > <mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org>>
+<mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org%20%0b>> > <mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org>>
 >
 > One mostly cosmetic comment inline. With that fixed, the series is
 > Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org
-> <mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>
+<mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org%20%0b>> <mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>>
 >
 >
 > > ---
@@ -385,64 +405,150 @@ On 2019-02-02 10:01 a.m., Zeng, Oak wrote:
 > >        phys_addr_t doorbell_physical_address;
 >
 
---_000_SN1PR12MB236591C1FC2D9D965C4DA304F06D0SN1PR12MB2365namp_
+--_000_BL0PR12MB258087862A30B28CBC9AC67E806D0BL0PR12MB2580namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The decision we need to make here is which value we should program&nbsp;<sp=
-an style=3D"font-family: Calibri, sans-serif; background-color: rgb(255, 25=
-5, 255); display: inline !important">mmCP_MEC_DOORBELL_RANGE_UPPER. It is n=
-ot very consistent right now throughout
- our code. If we let CP to use all the doorbells left over by SDMA, IH and =
-VCN, then we should probably use 1024 for&nbsp;<span style=3D"font-family: =
-Calibri, sans-serif; background-color: rgb(255, 255, 255); display: inline =
-!important">mmCP_MEC_DOORBELL_RANGE_UPPER.
- If we continue to use&nbsp;<span style=3D"font-family: Calibri, sans-serif=
-; background-color: rgb(255, 255, 255); display: inline !important">adev-&g=
-t;doorbell_index.userqueue_end * 2, as is currently in the code, we should =
-limit the CP doorbells in the range of 0 to&nbsp;<span style=3D"font-family=
-: Calibri, sans-serif; background-color: rgb(255, 255, 255); display: inlin=
-e !important">adev-&gt;doorbell_index.userqueue_end
- * 2 when allocating CP user queue doorbells.&nbsp;</span></span></span></s=
-pan></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black;backgrou=
+nd:white">&gt;then we should probably use 1024 for&nbsp;mmCP_MEC_DOORBELL_R=
+ANGE_UPPER.</span><span style=3D"font-size:12.0pt;background:white"><o:p></=
+o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"background:white">This is also what I=
+ thought.</span><span style=3D"font-size:12.0pt;background:white"><o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Oak<o:p></o:p></p>
 </div>
-<div style=3D"font-size: 12pt; color: rgb(0, 0, 0);"><font face=3D"Calibri,=
- sans-serif">It seems to me that either way would work.&nbsp;</font></div>
-<div style=3D"font-size: 12pt; color: rgb(0, 0, 0);"><font face=3D"Calibri,=
- sans-serif"><br>
-</font></div>
-<div style=3D"font-size: 12pt; color: rgb(0, 0, 0);"><font face=3D"Calibri,=
- sans-serif">Regards,</font></div>
-<div style=3D"font-size: 12pt; color: rgb(0, 0, 0);"><font face=3D"Calibri,=
- sans-serif">Yong</font></div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zeng, Oak<br>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Zhao, Yong <br>
+<b>Sent:</b> Monday, February 4, 2019 12:28 PM<br>
+<b>To:</b> Zeng, Oak &lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;; Kuehling, Felix &lt;Felix.Ku=
+ehling-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queu=
+e doorbells mask on SOC15<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">The dec=
+ision we need to make here is which value we should program&nbsp;<span styl=
+e=3D"background:white">mmCP_MEC_DOORBELL_RANGE_UPPER. It is not very consis=
+tent right now throughout our code. If we let
+ CP to use all the doorbells left over by SDMA, IH and VCN, then we should =
+probably use 1024 for&nbsp;mmCP_MEC_DOORBELL_RANGE_UPPER. If we continue to=
+ use&nbsp;adev-&gt;doorbell_index.userqueue_end * 2, as is currently in the=
+ code, we should limit the CP doorbells in the
+ range of 0 to&nbsp;adev-&gt;doorbell_index.userqueue_end * 2 when allocati=
+ng CP user queue doorbells.&nbsp;</span><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">It seem=
+s to me that either way would work.&nbsp;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Regards=
+,<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Yong<o:=
+p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Zeng, Oak<br>
 <b>Sent:</b> Monday, February 4, 2019 12:15 PM<br>
-<b>To:</b> Kuehling, Felix; Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>To:</b> Kuehling, Felix; Zhao, Yong; <a href=3D"mailto:amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Subject:</b> RE: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queu=
-e doorbells mask on SOC15</font>
-<div>&nbsp;</div>
+e doorbells mask on SOC15</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Correct. MEC_DOORBELL_RANGE should cover both user=
- and kernel CP (KIQ/HIQ/DIQ/amdgpu kernel MEC rings)queues. USERQUEUE_START=
-/END should be renamed to USER_CP_QUEUE_START/END.<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">Correct. MEC_DOORBELL_RANGE should cover both user a=
+nd kernel CP (KIQ/HIQ/DIQ/amdgpu kernel MEC rings)queues. USERQUEUE_START/E=
+ND should be renamed to USER_CP_QUEUE_START/END.<br>
 <br>
 Thanks,<br>
 Oak<br>
@@ -450,8 +556,11 @@ Oak<br>
 -----Original Message-----<br>
 From: Kuehling, Felix <br>
 Sent: Monday, February 4, 2019 11:35 AM<br>
-To: Zeng, Oak &lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;; Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt=
-;; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+To: Zeng, Oak &lt;<a href=3D"mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org">Oak.Zeng-5C7GfCeVMHo@public.gmane.org</a>&=
+gt;; Zhao, Yong &lt;<a href=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org">Yong.Zhao-5C7GfCeVMHo@public.gmane.org<=
+/a>&gt;;
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 Subject: Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user queue doorb=
 ells mask on SOC15<br>
 <br>
@@ -479,12 +588,17 @@ br>
 &gt;<br>
 &gt; Oak<br>
 &gt;<br>
-&gt; *From:* amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; *On Beha=
-lf Of <br>
+&gt; *From:* amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9w@public.gmane.org=
+p.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; *On Behalf Of
+<br>
 &gt; *Zhao, Yong<br>
 &gt; *Sent:* Friday, February 1, 2019 7:04 PM<br>
-&gt; *To:* Kuehling, Felix &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;; <br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Zeng, Oak &lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; *To:* Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">Fe=
+lix.Kuehling-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+<br>
+&gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
+ktop.org</a>; Zeng, Oak &lt;<a href=3D"mailto:Oak.Zeng-5C7GfCeVMHo@public.gmane.org">Oak.Zeng@am=
+d.com</a>&gt;<br>
 &gt; *Subject:* Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user <br>
 &gt; queue doorbells mask on SOC15<br>
 &gt;<br>
@@ -529,7 +643,9 @@ br>
 &gt;<br>
 &gt; *From:*Kuehling, Felix<br>
 &gt; *Sent:* Friday, February 1, 2019 3:03 PM<br>
-&gt; *To:* Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <br>
+&gt; *To:* Zhao, Yong; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<br>
 &gt; &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">mailto:amd-gfx@li=
 sts.freedesktop.org</a>&gt;<br>
 &gt; *Subject:* Re: [PATCH 2/3] drm/amdkfd: Fix bugs regarding CP user <br>
@@ -542,14 +658,18 @@ ut <br>
 at.<br>
 &gt; &gt;<br>
 &gt; &gt; Change-Id: I670adfc3fd7725d2ed0bd9665cb7f69f8b9023c2<br>
-&gt; &gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org <br>
-&gt; &gt; &lt;<a href=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org">mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org=
-</a>&gt;&gt;<br>
+&gt; &gt; Signed-off-by: Yong Zhao &lt;<a href=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org%=
+20%0b">Yong.Zhao-5C7GfCeVMHo@public.gmane.org
+<br>
+</a>&gt; &gt; &lt;<a href=3D"mailto:Yong.Zhao-5C7GfCeVMHo@public.gmane.org">mailto:Yong.Zhao@amd=
+.com</a>&gt;&gt;<br>
 &gt;<br>
 &gt; One mostly cosmetic comment inline. With that fixed, the series is<br>
-&gt; Reviewed-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org <br>
-&gt; &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">mailto:Felix.Kuehling@am=
-d.com</a>&gt;&gt;<br>
+&gt; Reviewed-by: Felix Kuehling &lt;<a href=3D"mailto:Felix.Kuehling@amd.c=
+om%20%0b">Felix.Kuehling-5C7GfCeVMHo@public.gmane.org
+<br>
+</a>&gt; &lt;<a href=3D"mailto:Felix.Kuehling-5C7GfCeVMHo@public.gmane.org">mailto:Felix.Kuehlin=
+g@amd.com</a>&gt;&gt;<br>
 &gt;<br>
 &gt;<br>
 &gt; &gt; ---<br>
@@ -906,15 +1026,16 @@ rt;<br>
 bell aperture. */<br>
 &gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phys_addr_t doorbell_ph=
 ysical_address;<br>
-&gt;<br>
+&gt;<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </body>
 </html>
 
---_000_SN1PR12MB236591C1FC2D9D965C4DA304F06D0SN1PR12MB2365namp_--
+--_000_BL0PR12MB258087862A30B28CBC9AC67E806D0BL0PR12MB2580namp_--
 
---===============0893864210==
+--===============1645782738==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -924,4 +1045,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
 
---===============0893864210==--
+--===============1645782738==--
