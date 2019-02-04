@@ -1,12 +1,17 @@
-From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Don't re-enable CRC when CONFIG_DEBUG_FS
- isn't defined
-Date: Mon, 4 Feb 2019 09:32:07 -0500
-Message-ID: <20190204143207.6292-1-nicholas.kazlauskas@amd.com>
+From: sylvain.bertrand-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Subject: Re: After upgrade mesa to 19.0.0~rc1 all vulkan based application
+ stop working ["vulkan-cube" received SIGSEGV in
+ radv_pipeline_init_blend_state at ../src/amd/vulkan/radv_pipeline.c:699]
+Date: Mon, 4 Feb 2019 14:58:29 +0000
+Message-ID: <20190204145829.GA476@freedom>
+References: <CABXGCsM7wFR+0V6MUAqLd+3_UKzWpdLVpjujrwDL13hAZOi5Aw@mail.gmail.com>
+ <5d31c3a2-2290-b0d6-11ca-5eba46183941@daenzer.net>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <5d31c3a2-2290-b0d6-11ca-5eba46183941-otUistvHUpPR7s880joybQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,31 +22,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+To: Michel-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org, =?utf-8?Q?D=C3=A4nzer_=3Cmichel=40daenzer=2Enet=3E?=@freedesktop.org
+Cc: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-W1doeV0KV2hlbiBDT05GSUdfREVCVUdfRlMgaXNuJ3QgZGVmaW5lZCB0aGVuIGFtZGdwdV9kbV9j
-cnRjX3NldF9jcmNfc291cmNlCmlzIE5VTEwuIFRoaXMgY2F1c2VzIGEgY29tcGlsYXRpb24gZXJy
-b3Igc2luY2UgaXQncyBiZWluZyBjYWxsZWQKdW5jb25kaXRpb25hbGx5LgoKW0hvd10KR3VhcmQg
-dGhlIGNhbGwgYmFzZWQgb24gQ09ORklHX0RFQlVHX0ZTIC0gQ1JDIGNhcHR1cmUgaXNuJ3Qgc3Vw
-cG9ydGVkCndpdGhvdXQgdGhpcy4KCkNjOiBMZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KQ2M6
-IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgpGaXhlczogNDNhNmEwMmVi
-MzU1ICgiZHJtL2FtZC9kaXNwbGF5OiBSZS1lbmFibGUgQ1JDIGNhcHR1cmUgZm9sbG93aW5nIG1v
-ZGVzZXQiKQpTaWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXps
-YXVza2FzQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYyB8IDIgKysKIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpp
-bmRleCBhMjQ1MzkwMGUxNWEuLmNhY2I4ZmU1YTFhZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC01Mjg0LDkgKzUyODQsMTEg
-QEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RtX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgZHJtX2F0
-b21pY19zdGF0ZSAqc3RhdGUpCiAKIAkJbWFuYWdlX2RtX2ludGVycnVwdHMoYWRldiwgYWNydGMs
-IHRydWUpOwogCisjaWZkZWYgQ09ORklHX0RFQlVHX0ZTCiAJCS8qIFRoZSBzdHJlYW0gaGFzIGNo
-YW5nZWQgc28gQ1JDIGNhcHR1cmUgbmVlZHMgdG8gcmUtZW5hYmxlZC4gKi8KIAkJaWYgKGRtX25l
-d19jcnRjX3N0YXRlLT5jcmNfZW5hYmxlZCkKIAkJCWFtZGdwdV9kbV9jcnRjX3NldF9jcmNfc291
-cmNlKGNydGMsICJhdXRvIik7CisjZW5kaWYKIAl9CiAKIAkvKiB1cGRhdGUgcGxhbmVzIHdoZW4g
-bmVlZGVkIHBlciBjcnRjKi8KLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4Cg==
+PiA+IExpc3Qgb2YgdGVzdGVkIGFwcGxpY2F0aW9uOgo+ID4gLSBSaXNlIG9mIHRoZSBUb21iIFJh
+aWRlcgoKU29ycnkgdG8gcG9wIGluIHRoZSBidWcgcmVwb3J0LgoKSSBydW4gZ2l0IGxpbnV4KGFt
+ZC1zdGFnaW5nLWRybS1uZXh0KSwgZHJtLCBsbHZtIChlcmshKSwgbWVzYS1nbCwgbWVzYS12dWxr
+YW4sCnhzZXJ2ZXIsIHhmODYtdmlkZW8tYW1kZ3B1IGZyb20geWVzdGVyZGF5LCB0aGF0IG9uIEFN
+RCB0YWhpdGkgeHQuCgpJIGhhdmUgcnVuIGRvdGEgMiB2dWxrYW4sIGFydGlmYWN0ICh2dWxrYW4p
+LCBjczpnbyAoc3RpbGwgb3BlbmdsKSB3aXRob3V0Cmlzc3VlcyAoSSBkaWQgcGxheSBhbGwgb2Yg
+dGhlbSB5ZXN0ZXJkYXkgbmlnaHQpLiBJIGhhdmUgYSB2ZXJ5IG9sZCB2dWxrYW5sb2FkZXIKdGhv
+dWdoLgoKQ291bGQgeW91IHRyeSBkb3RhMiB2dWxrYW4gYW5kIGNzOmdvIChmcmVlIHRvIHBsYXkg
+Z2FtZXMpIGlmIHlvdSBoYXZlIHJvb20gb24KeW91ciBnYW1pbmcgc3RvcmFnZSBhbmQgZ29vZCBk
+b3dubG9hZCBzcGVlZD8KCkkgaGF2ZSBSaXNlIG9mIHRoZSBUb21iIFJhaWRlciwgSSdsbCBkb3du
+bG9hZCBpdCBhbmQgZ2l2ZSBpdCBhIHRyeSB0b25pZ2h0IHNpbmNlCkkgaGF2ZSByb29tIG9uIG15
+IGdhbWluZyBzc2QgKEkgZGlkIGNsZWFyIGl0IG1vbnRocyBhZ28pLgoKLS0gClN5bHZhaW4KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
