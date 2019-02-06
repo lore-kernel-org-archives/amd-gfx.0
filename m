@@ -1,13 +1,18 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Improve doorbell variable names
-Date: Wed, 6 Feb 2019 15:55:52 +0000
-Message-ID: <SN1PR12MB2365312DF1DC8162D69C44C5F06F0@SN1PR12MB2365.namprd12.prod.outlook.com>
-References: <20190206154921.14463-1-Yong.Zhao@amd.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: replace get_user_pages with HMM address
+ mirror helpers v7
+Date: Wed, 6 Feb 2019 16:05:27 +0000
+Message-ID: <e4468efd-26ed-ff50-2294-bf9922f31c58@amd.com>
+References: <20190205215953.11754-1-Philip.Yang@amd.com>
+ <15441d6d-e33c-230e-b14c-4bc5680ce391@gmail.com>
+ <a9b60a51-1192-2ed3-1620-2427765b0dde@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0698174539=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190206154921.14463-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <a9b60a51-1192-2ed3-1620-2427765b0dde-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
+Content-ID: <5AC0A795070A3141806F6155BAFFBDAC-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,1181 +23,762 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0698174539==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB2365312DF1DC8162D69C44C5F06F0SN1PR12MB2365namp_"
-
---_000_SN1PR12MB2365312DF1DC8162D69C44C5F06F0SN1PR12MB2365namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex,
-
-I only add the corresponding changes for IH, but not for GFX as GFX does no=
-t use the similar range functions.
-
-Regards,
-Yong
-________________________________
-From: Zhao, Yong
-Sent: Wednesday, February 6, 2019 10:49 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Zhao, Yong
-Subject: [PATCH 1/3] drm/amdgpu: Improve doorbell variable names
-
-Indicate that the doorbell offset and range is in dwords.
-
-Change-Id: Ib0f2564ffa7b1940ffb8725cdc03f662184f5436
-Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h          |  4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |  3 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h       |  2 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c       | 10 +++++-----
- drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c       | 10 +++++-----
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c       | 10 +++++-----
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c       |  3 ++-
- drivers/gpu/drm/amd/amdgpu/soc15.c           |  4 ++--
- drivers/gpu/drm/amd/amdgpu/tonga_ih.c        |  6 +++---
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c       |  6 +++---
- drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c |  6 +++++-
- drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c |  6 +++++-
- 12 files changed, 40 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h
-index d67f8b1dfe80..88b3bbcea756 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -642,13 +642,13 @@ struct amdgpu_nbio_funcs {
-         void (*hdp_flush)(struct amdgpu_device *adev, struct amdgpu_ring *=
-ring);
-         u32 (*get_memsize)(struct amdgpu_device *adev);
-         void (*sdma_doorbell_range)(struct amdgpu_device *adev, int instan=
-ce,
--                       bool use_doorbell, int doorbell_index, int doorbell=
-_size);
-+                       bool use_doorbell, int index_in_dw, int range_dw_si=
-ze);
-         void (*enable_doorbell_aperture)(struct amdgpu_device *adev,
-                                          bool enable);
-         void (*enable_doorbell_selfring_aperture)(struct amdgpu_device *ad=
-ev,
-                                                   bool enable);
-         void (*ih_doorbell_range)(struct amdgpu_device *adev,
--                                 bool use_doorbell, int doorbell_index);
-+                                 bool use_doorbell, int index_in_dw);
-         void (*update_medium_grain_clock_gating)(struct amdgpu_device *ade=
-v,
-                                                  bool enable);
-         void (*update_medium_grain_light_sleep)(struct amdgpu_device *adev=
-,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_doorbell.h
-index 1cfec06f81d4..5c8d04c353d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-@@ -39,6 +39,7 @@ struct amdgpu_doorbell {
-  * can be 64-bit, so the index defined is in qword.
-  */
- struct amdgpu_doorbell_index {
-+       uint32_t entry_dw_size;
-         uint32_t kiq;
-         uint32_t mec_ring0;
-         uint32_t mec_ring1;
-@@ -73,7 +74,7 @@ struct amdgpu_doorbell_index {
-         };
-         uint32_t max_assignment;
-         /* Per engine SDMA doorbell size in dword */
--       uint32_t sdma_doorbell_range;
-+       uint32_t dw_range_per_sdma_eng;
- };
-
- typedef enum _AMDGPU_DOORBELL_ASSIGNMENT
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_ih.h
-index 1ccb1831382a..2572191b394a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h
-@@ -33,7 +33,7 @@ struct amdgpu_iv_entry;
- struct amdgpu_ih_ring {
-         unsigned                ring_size;
-         uint32_t                ptr_mask;
--       u32                     doorbell_index;
-+       u32                     doorbell_idx_in_dw;
-         bool                    use_doorbell;
-         bool                    use_bus_addr;
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v6_1.c
-index cc967dbfd631..bcc41c957b24 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-@@ -68,7 +68,7 @@ static u32 nbio_v6_1_get_memsize(struct amdgpu_device *ad=
-ev)
- }
-
- static void nbio_v6_1_sdma_doorbell_range(struct amdgpu_device *adev, int =
-instance,
--                       bool use_doorbell, int doorbell_index, int doorbell=
-_size)
-+                       bool use_doorbell, int index_in_dw, int range_dw_si=
-ze)
- {
-         u32 reg =3D instance =3D=3D 0 ? SOC15_REG_OFFSET(NBIO, 0, mmBIF_SD=
-MA0_DOORBELL_RANGE) :
-                         SOC15_REG_OFFSET(NBIO, 0, mmBIF_SDMA1_DOORBELL_RAN=
-GE);
-@@ -76,8 +76,8 @@ static void nbio_v6_1_sdma_doorbell_range(struct amdgpu_d=
-evice *adev, int instan
-         u32 doorbell_range =3D RREG32(reg);
-
-         if (use_doorbell) {
--               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, OFFSET, doorbell_index);
--               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, SIZE, doorbell_size);
-+               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, OFFSET, index_in_dw);
-+               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, SIZE, range_dw_size);
-         } else
-                 doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0=
-_DOORBELL_RANGE, SIZE, 0);
-
-@@ -112,12 +112,12 @@ static void nbio_v6_1_enable_doorbell_selfring_apertu=
-re(struct amdgpu_device *ad
-
-
- static void nbio_v6_1_ih_doorbell_range(struct amdgpu_device *adev,
--                                       bool use_doorbell, int doorbell_ind=
-ex)
-+                                       bool use_doorbell, int index_in_dw)
- {
-         u32 ih_doorbell_range =3D RREG32_SOC15(NBIO, 0 , mmBIF_IH_DOORBELL=
-_RANGE);
-
-         if (use_doorbell) {
--               ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_=
-IH_DOORBELL_RANGE, OFFSET, doorbell_index);
-+               ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_=
-IH_DOORBELL_RANGE, OFFSET, index_in_dw);
-                 ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF=
-_IH_DOORBELL_RANGE, SIZE, 2);
-         } else
-                 ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF=
-_IH_DOORBELL_RANGE, SIZE, 0);
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_0.c
-index 1cdb98ad2db3..02a9093b464a 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-@@ -67,7 +67,7 @@ static u32 nbio_v7_0_get_memsize(struct amdgpu_device *ad=
-ev)
- }
-
- static void nbio_v7_0_sdma_doorbell_range(struct amdgpu_device *adev, int =
-instance,
--                       bool use_doorbell, int doorbell_index, int doorbell=
-_size)
-+                       bool use_doorbell, int index_in_dw, int range_dw_si=
-ze)
- {
-         u32 reg =3D instance =3D=3D 0 ? SOC15_REG_OFFSET(NBIO, 0, mmBIF_SD=
-MA0_DOORBELL_RANGE) :
-                         SOC15_REG_OFFSET(NBIO, 0, mmBIF_SDMA1_DOORBELL_RAN=
-GE);
-@@ -75,8 +75,8 @@ static void nbio_v7_0_sdma_doorbell_range(struct amdgpu_d=
-evice *adev, int instan
-         u32 doorbell_range =3D RREG32(reg);
-
-         if (use_doorbell) {
--               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, OFFSET, doorbell_index);
--               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, SIZE, doorbell_size);
-+               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, OFFSET, index_in_dw);
-+               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, SIZE, range_dw_size);
-         } else
-                 doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0=
-_DOORBELL_RANGE, SIZE, 0);
-
-@@ -96,12 +96,12 @@ static void nbio_v7_0_enable_doorbell_selfring_aperture=
-(struct amdgpu_device *ad
- }
-
- static void nbio_v7_0_ih_doorbell_range(struct amdgpu_device *adev,
--                                       bool use_doorbell, int doorbell_ind=
-ex)
-+                                       bool use_doorbell, int index_in_dw)
- {
-         u32 ih_doorbell_range =3D RREG32_SOC15(NBIO, 0 , mmBIF_IH_DOORBELL=
-_RANGE);
-
-         if (use_doorbell) {
--               ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_=
-IH_DOORBELL_RANGE, OFFSET, doorbell_index);
-+               ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_=
-IH_DOORBELL_RANGE, OFFSET, index_in_dw);
-                 ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF=
-_IH_DOORBELL_RANGE, SIZE, 2);
-         } else
-                 ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF=
-_IH_DOORBELL_RANGE, SIZE, 0);
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_4.c
-index 221f26e50322..c32a5bd055d9 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -65,7 +65,7 @@ static u32 nbio_v7_4_get_memsize(struct amdgpu_device *ad=
-ev)
- }
-
- static void nbio_v7_4_sdma_doorbell_range(struct amdgpu_device *adev, int =
-instance,
--                       bool use_doorbell, int doorbell_index, int doorbell=
-_size)
-+                       bool use_doorbell, int index_in_dw, int range_dw_si=
-ze)
- {
-         u32 reg =3D instance =3D=3D 0 ? SOC15_REG_OFFSET(NBIO, 0, mmBIF_SD=
-MA0_DOORBELL_RANGE) :
-                         SOC15_REG_OFFSET(NBIO, 0, mmBIF_SDMA1_DOORBELL_RAN=
-GE);
-@@ -73,8 +73,8 @@ static void nbio_v7_4_sdma_doorbell_range(struct amdgpu_d=
-evice *adev, int instan
-         u32 doorbell_range =3D RREG32(reg);
-
-         if (use_doorbell) {
--               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, OFFSET, doorbell_index);
--               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, SIZE, doorbell_size);
-+               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, OFFSET, index_in_dw);
-+               doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_=
-DOORBELL_RANGE, SIZE, range_dw_size);
-         } else
-                 doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0=
-_DOORBELL_RANGE, SIZE, 0);
-
-@@ -107,12 +107,12 @@ static void nbio_v7_4_enable_doorbell_selfring_apertu=
-re(struct amdgpu_device *ad
- }
-
- static void nbio_v7_4_ih_doorbell_range(struct amdgpu_device *adev,
--                                       bool use_doorbell, int doorbell_ind=
-ex)
-+                                       bool use_doorbell, int index_in_dw)
- {
-         u32 ih_doorbell_range =3D RREG32_SOC15(NBIO, 0 , mmBIF_IH_DOORBELL=
-_RANGE);
-
-         if (use_doorbell) {
--               ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_=
-IH_DOORBELL_RANGE, OFFSET, doorbell_index);
-+               ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_=
-IH_DOORBELL_RANGE, OFFSET, index_in_dw);
-                 ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF=
-_IH_DOORBELL_RANGE, SIZE, 2);
-         } else
-                 ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF=
-_IH_DOORBELL_RANGE, SIZE, 0);
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v4_0.c
-index 127b85983e8f..e65e9bc52bd4 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1520,7 +1520,8 @@ static int sdma_v4_0_sw_init(void *handle)
-                                 ring->use_doorbell?"true":"false");
-
-                 /* doorbell size is 2 dwords, get DWORD offset */
--               ring->doorbell_index =3D adev->doorbell_index.sdma_engine[i=
-] << 1;
-+               ring->doorbell_index =3D adev->doorbell_index.sdma_engine[i=
-]
-+                               * adev->doorbell_index.entry_dw_size;
-
-                 sprintf(ring->name, "sdma%d", i);
-                 r =3D amdgpu_ring_init(adev, ring, 1024,
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c
-index 99ebcf29dcb0..fbf4dde22f6c 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -980,11 +980,11 @@ static void soc15_doorbell_range_init(struct amdgpu_d=
-evice *adev)
-                 ring =3D &adev->sdma.instance[i].ring;
-                 adev->nbio_funcs->sdma_doorbell_range(adev, i,
-                         ring->use_doorbell, ring->doorbell_index,
--                       adev->doorbell_index.sdma_doorbell_range);
-+                       adev->doorbell_index.dw_range_per_sdma_eng);
-         }
-
-         adev->nbio_funcs->ih_doorbell_range(adev, adev->irq.ih.use_doorbel=
-l,
--                                               adev->irq.ih.doorbell_index=
-);
-+                                               adev->irq.ih.doorbell_idx_i=
-n_dw);
- }
-
- static int soc15_common_hw_init(void *handle)
-diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/am=
-dgpu/tonga_ih.c
-index a20b711a6756..96403ec5c98f 100644
---- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c
-@@ -143,7 +143,7 @@ static int tonga_ih_irq_init(struct amdgpu_device *adev=
-)
-         ih_doorbell_rtpr =3D RREG32(mmIH_DOORBELL_RPTR);
-         if (adev->irq.ih.use_doorbell) {
-                 ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr, IH_DO=
-ORBELL_RPTR,
--                                                OFFSET, adev->irq.ih.doorb=
-ell_index);
-+                                                OFFSET, adev->irq.ih.doorb=
-ell_idx_in_dw);
-                 ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr, IH_DO=
-ORBELL_RPTR,
-                                                  ENABLE, 1);
-         } else {
-@@ -254,7 +254,7 @@ static void tonga_ih_set_rptr(struct amdgpu_device *ade=
-v,
-         if (ih->use_doorbell) {
-                 /* XXX check if swapping is necessary on BE */
-                 *ih->rptr_cpu =3D ih->rptr;
--               WDOORBELL32(ih->doorbell_index, ih->rptr);
-+               WDOORBELL32(ih->doorbell_idx_in_dw, ih->rptr);
-         } else {
-                 WREG32(mmIH_RB_RPTR, ih->rptr);
-         }
-@@ -284,7 +284,7 @@ static int tonga_ih_sw_init(void *handle)
-                 return r;
-
-         adev->irq.ih.use_doorbell =3D true;
--       adev->irq.ih.doorbell_index =3D adev->doorbell_index.ih;
-+       adev->irq.ih.doorbell_idx_in_dw =3D adev->doorbell_index.ih;
-
-         r =3D amdgpu_irq_init(adev);
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/a=
-mdgpu/vega10_ih.c
-index 6d1f804277f8..796004896661 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
-@@ -184,7 +184,7 @@ static int vega10_ih_irq_init(struct amdgpu_device *ade=
-v)
-         if (adev->irq.ih.use_doorbell) {
-                 ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr,
-                                                  IH_DOORBELL_RPTR, OFFSET,
--                                                adev->irq.ih.doorbell_inde=
-x);
-+                                                adev->irq.ih.doorbell_idx_=
-in_dw);
-                 ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr,
-                                                  IH_DOORBELL_RPTR,
-                                                  ENABLE, 1);
-@@ -377,7 +377,7 @@ static void vega10_ih_set_rptr(struct amdgpu_device *ad=
-ev,
-         if (ih->use_doorbell) {
-                 /* XXX check if swapping is necessary on BE */
-                 *ih->rptr_cpu =3D ih->rptr;
--               WDOORBELL32(ih->doorbell_index, ih->rptr);
-+               WDOORBELL32(ih->doorbell_idx_in_dw, ih->rptr);
-         } else if (ih =3D=3D &adev->irq.ih) {
-                 WREG32_SOC15(OSSSYS, 0, mmIH_RB_RPTR, ih->rptr);
-         } else if (ih =3D=3D &adev->irq.ih1) {
-@@ -461,7 +461,7 @@ static int vega10_ih_sw_init(void *handle)
-
-         /* TODO add doorbell for IH1 & IH2 as well */
-         adev->irq.ih.use_doorbell =3D true;
--       adev->irq.ih.doorbell_index =3D adev->doorbell_index.ih << 1;
-+       adev->irq.ih.doorbell_idx_in_dw =3D adev->doorbell_index.ih << 1;
-
-         r =3D amdgpu_irq_init(adev);
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c b/drivers/gpu/drm=
-/amd/amdgpu/vega10_reg_init.c
-index 4b5d60ea3e78..d2409df2dde9 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c
-@@ -58,6 +58,7 @@ int vega10_reg_base_init(struct amdgpu_device *adev)
-
- void vega10_doorbell_index_init(struct amdgpu_device *adev)
- {
-+       adev->doorbell_index.entry_dw_size =3D 2;
-         adev->doorbell_index.kiq =3D AMDGPU_DOORBELL64_KIQ;
-         adev->doorbell_index.mec_ring0 =3D AMDGPU_DOORBELL64_MEC_RING0;
-         adev->doorbell_index.mec_ring1 =3D AMDGPU_DOORBELL64_MEC_RING1;
-@@ -83,6 +84,9 @@ void vega10_doorbell_index_init(struct amdgpu_device *ade=
-v)
-         adev->doorbell_index.uvd_vce.vce_ring6_7 =3D AMDGPU_DOORBELL64_VCE=
-_RING6_7;
-         /* In unit of dword doorbell */
-         adev->doorbell_index.max_assignment =3D AMDGPU_DOORBELL64_MAX_ASSI=
-GNMENT << 1;
--       adev->doorbell_index.sdma_doorbell_range =3D 4;
-+       adev->doorbell_index.dw_range_per_sdma_eng =3D
-+                       (adev->doorbell_index.sdma_engine[1]
-+                       - adev->doorbell_index.sdma_engine[0])
-+                       * adev->doorbell_index.entry_dw_size;
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c b/drivers/gpu/drm=
-/amd/amdgpu/vega20_reg_init.c
-index 53716c593b2b..b28c5999d8f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c
-@@ -56,6 +56,7 @@ int vega20_reg_base_init(struct amdgpu_device *adev)
-
- void vega20_doorbell_index_init(struct amdgpu_device *adev)
- {
-+       adev->doorbell_index.entry_dw_size =3D 2;
-         adev->doorbell_index.kiq =3D AMDGPU_VEGA20_DOORBELL_KIQ;
-         adev->doorbell_index.mec_ring0 =3D AMDGPU_VEGA20_DOORBELL_MEC_RING=
-0;
-         adev->doorbell_index.mec_ring1 =3D AMDGPU_VEGA20_DOORBELL_MEC_RING=
-1;
-@@ -86,6 +87,9 @@ void vega20_doorbell_index_init(struct amdgpu_device *ade=
-v)
-         adev->doorbell_index.uvd_vce.vce_ring4_5 =3D AMDGPU_VEGA20_DOORBEL=
-L64_VCE_RING4_5;
-         adev->doorbell_index.uvd_vce.vce_ring6_7 =3D AMDGPU_VEGA20_DOORBEL=
-L64_VCE_RING6_7;
-         adev->doorbell_index.max_assignment =3D AMDGPU_VEGA20_DOORBELL_MAX=
-_ASSIGNMENT << 1;
--       adev->doorbell_index.sdma_doorbell_range =3D 20;
-+       adev->doorbell_index.dw_range_per_sdma_eng =3D
-+                       (adev->doorbell_index.sdma_engine[1]
-+                       - adev->doorbell_index.sdma_engine[0])
-+                       * adev->doorbell_index.entry_dw_size;
- }
-
---
-2.17.1
-
-
---_000_SN1PR12MB2365312DF1DC8162D69C44C5F06F0SN1PR12MB2365namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi Alex,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I only add the corresponding changes for IH, but not for GFX as GFX does no=
-t use the similar range functions.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yong</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhao, Yong<br>
-<b>Sent:</b> Wednesday, February 6, 2019 10:49 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Zhao, Yong<br>
-<b>Subject:</b> [PATCH 1/3] drm/amdgpu: Improve doorbell variable names</fo=
-nt>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Indicate that the doorbell offset and range is in =
-dwords.<br>
-<br>
-Change-Id: Ib0f2564ffa7b1940ffb8725cdc03f662184f5436<br>
-Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h |&nbsp; 3 &#43;&#43;-<br=
->
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; |&nbsp; 2 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 10 &#43;&#43;&#43;&#43;&#43;-----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 10 &#43;&#43;&#43;&#43;&#43;-----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; | 10 &#43;&#43;&#43;&#43;&#43;-----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; |&nbsp; 3 &#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 4 &#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/tonga_ih.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vega10_ih.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; |&nbsp; 6 &#43;&#43;&#43;---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c |&nbsp; 6 &#43;&#43;&#43=
-;&#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c |&nbsp; 6 &#43;&#43;&#43=
-;&#43;&#43;-<br>
-&nbsp;12 files changed, 40 insertions(&#43;), 30 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu.h<br>
-index d67f8b1dfe80..88b3bbcea756 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-@@ -642,13 &#43;642,13 @@ struct amdgpu_nbio_funcs {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*hdp_flush)(struct a=
-mdgpu_device *adev, struct amdgpu_ring *ring);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 (*get_memsize)(struct =
-amdgpu_device *adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*sdma_doorbell_range=
-)(struct amdgpu_device *adev, int instance,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbel=
-l, int doorbell_index, int doorbell_size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doo=
-rbell, int index_in_dw, int range_dw_size);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*enable_doorbell_ape=
-rture)(struct amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; bool enable);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*enable_doorbell_sel=
-fring_aperture)(struct amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
- bool enable);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*ih_doorbell_range)(=
-struct amdgpu_device *adev,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbell, int doorbell=
-_index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbell, int inde=
-x_in_dw);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*update_medium_grain=
-_clock_gating)(struct amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool =
-enable);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*update_medium_grain=
-_light_sleep)(struct amdgpu_device *adev,<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_doorbell.h<br>
-index 1cfec06f81d4..5c8d04c353d0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h<br>
-@@ -39,6 &#43;39,7 @@ struct amdgpu_doorbell {<br>
-&nbsp; * can be 64-bit, so the index defined is in qword.<br>
-&nbsp; */<br>
-&nbsp;struct amdgpu_doorbell_index {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t entry_dw_size;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t kiq;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mec_ring0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mec_ring1;<br>
-@@ -73,7 &#43;74,7 @@ struct amdgpu_doorbell_index {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t max_assignment;<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Per engine SDMA doorbel=
-l size in dword */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sdma_doorbell_range;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t dw_range_per_sdma_eng;<b=
-r>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;typedef enum _AMDGPU_DOORBELL_ASSIGNMENT<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_ih.h<br>
-index 1ccb1831382a..2572191b394a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h<br>
-@@ -33,7 &#43;33,7 @@ struct amdgpu_iv_entry;<br>
-&nbsp;struct amdgpu_ih_ring {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ri=
-ng_size;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pt=
-r_mask;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; doorbell_index;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; doorbell_idx_in_dw;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; use_doorbell;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; use_bus_addr;<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v6_1.c<br>
-index cc967dbfd631..bcc41c957b24 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c<br>
-@@ -68,7 &#43;68,7 @@ static u32 nbio_v6_1_get_memsize(struct amdgpu_device=
- *adev)<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void nbio_v6_1_sdma_doorbell_range(struct amdgpu_device *adev,=
- int instance,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbel=
-l, int doorbell_index, int doorbell_size)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doo=
-rbell, int index_in_dw, int range_dw_size)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 reg =3D instance =3D=
-=3D 0 ? SOC15_REG_OFFSET(NBIO, 0, mmBIF_SDMA0_DOORBELL_RANGE) :<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15=
-_REG_OFFSET(NBIO, 0, mmBIF_SDMA1_DOORBELL_RANGE);<br>
-@@ -76,8 &#43;76,8 @@ static void nbio_v6_1_sdma_doorbell_range(struct amdg=
-pu_device *adev, int instan<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 doorbell_range =3D RRE=
-G32(reg);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_DOORB=
-ELL_RANGE, OFFSET, doorbell_index);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_DOORB=
-ELL_RANGE, SIZE, doorbell_size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_D=
-OORBELL_RANGE, OFFSET, index_in_dw);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_D=
-OORBELL_RANGE, SIZE, range_dw_size);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_=
-SDMA0_DOORBELL_RANGE, SIZE, 0);<br>
-&nbsp;<br>
-@@ -112,12 &#43;112,12 @@ static void nbio_v6_1_enable_doorbell_selfring_ap=
-erture(struct amdgpu_device *ad<br>
-&nbsp;<br>
-&nbsp;<br>
-&nbsp;static void nbio_v6_1_ih_doorbell_range(struct amdgpu_device *adev,<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; bool use_doorbell, int doorbell_index)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; bool use_doorbell, int index_in_dw)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 ih_doorbell_range =3D =
-RREG32_SOC15(NBIO, 0 , mmBIF_IH_DOORBELL_RANGE);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_IH_DO=
-ORBELL_RANGE, OFFSET, doorbell_index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_I=
-H_DOORBELL_RANGE, OFFSET, index_in_dw);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range=
-, BIF_IH_DOORBELL_RANGE, SIZE, 2);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range=
-, BIF_IH_DOORBELL_RANGE, SIZE, 0);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_0.c<br>
-index 1cdb98ad2db3..02a9093b464a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c<br>
-@@ -67,7 &#43;67,7 @@ static u32 nbio_v7_0_get_memsize(struct amdgpu_device=
- *adev)<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void nbio_v7_0_sdma_doorbell_range(struct amdgpu_device *adev,=
- int instance,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbel=
-l, int doorbell_index, int doorbell_size)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doo=
-rbell, int index_in_dw, int range_dw_size)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 reg =3D instance =3D=
-=3D 0 ? SOC15_REG_OFFSET(NBIO, 0, mmBIF_SDMA0_DOORBELL_RANGE) :<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15=
-_REG_OFFSET(NBIO, 0, mmBIF_SDMA1_DOORBELL_RANGE);<br>
-@@ -75,8 &#43;75,8 @@ static void nbio_v7_0_sdma_doorbell_range(struct amdg=
-pu_device *adev, int instan<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 doorbell_range =3D RRE=
-G32(reg);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_DOORB=
-ELL_RANGE, OFFSET, doorbell_index);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_DOORB=
-ELL_RANGE, SIZE, doorbell_size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_D=
-OORBELL_RANGE, OFFSET, index_in_dw);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_D=
-OORBELL_RANGE, SIZE, range_dw_size);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_=
-SDMA0_DOORBELL_RANGE, SIZE, 0);<br>
-&nbsp;<br>
-@@ -96,12 &#43;96,12 @@ static void nbio_v7_0_enable_doorbell_selfring_aper=
-ture(struct amdgpu_device *ad<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void nbio_v7_0_ih_doorbell_range(struct amdgpu_device *adev,<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; bool use_doorbell, int doorbell_index)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; bool use_doorbell, int index_in_dw)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 ih_doorbell_range =3D =
-RREG32_SOC15(NBIO, 0 , mmBIF_IH_DOORBELL_RANGE);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_IH_DO=
-ORBELL_RANGE, OFFSET, doorbell_index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_I=
-H_DOORBELL_RANGE, OFFSET, index_in_dw);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range=
-, BIF_IH_DOORBELL_RANGE, SIZE, 2);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range=
-, BIF_IH_DOORBELL_RANGE, SIZE, 0);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/a=
-mdgpu/nbio_v7_4.c<br>
-index 221f26e50322..c32a5bd055d9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c<br>
-@@ -65,7 &#43;65,7 @@ static u32 nbio_v7_4_get_memsize(struct amdgpu_device=
- *adev)<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void nbio_v7_4_sdma_doorbell_range(struct amdgpu_device *adev,=
- int instance,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doorbel=
-l, int doorbell_index, int doorbell_size)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool use_doo=
-rbell, int index_in_dw, int range_dw_size)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 reg =3D instance =3D=
-=3D 0 ? SOC15_REG_OFFSET(NBIO, 0, mmBIF_SDMA0_DOORBELL_RANGE) :<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SOC15=
-_REG_OFFSET(NBIO, 0, mmBIF_SDMA1_DOORBELL_RANGE);<br>
-@@ -73,8 &#43;73,8 @@ static void nbio_v7_4_sdma_doorbell_range(struct amdg=
-pu_device *adev, int instan<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 doorbell_range =3D RRE=
-G32(reg);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_DOORB=
-ELL_RANGE, OFFSET, doorbell_index);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_DOORB=
-ELL_RANGE, SIZE, doorbell_size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_D=
-OORBELL_RANGE, OFFSET, index_in_dw);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_SDMA0_D=
-OORBELL_RANGE, SIZE, range_dw_size);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; doorbell_range =3D REG_SET_FIELD(doorbell_range, BIF_=
-SDMA0_DOORBELL_RANGE, SIZE, 0);<br>
-&nbsp;<br>
-@@ -107,12 &#43;107,12 @@ static void nbio_v7_4_enable_doorbell_selfring_ap=
-erture(struct amdgpu_device *ad<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static void nbio_v7_4_ih_doorbell_range(struct amdgpu_device *adev,<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; bool use_doorbell, int doorbell_index)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; bool use_doorbell, int index_in_dw)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 ih_doorbell_range =3D =
-RREG32_SOC15(NBIO, 0 , mmBIF_IH_DOORBELL_RANGE);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (use_doorbell) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_IH_DO=
-ORBELL_RANGE, OFFSET, doorbell_index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range, BIF_I=
-H_DOORBELL_RANGE, OFFSET, index_in_dw);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range=
-, BIF_IH_DOORBELL_RANGE, SIZE, 2);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_range =3D REG_SET_FIELD(ih_doorbell_range=
-, BIF_IH_DOORBELL_RANGE, SIZE, 0);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/sdma_v4_0.c<br>
-index 127b85983e8f..e65e9bc52bd4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-@@ -1520,7 &#43;1520,8 @@ static int sdma_v4_0_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-&gt;use_doorbell?&quot;true=
-&quot;:&quot;false&quot;);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* doorbell size is 2 dwords, get DWORD offset */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ring-&gt;doorbell_index =3D adev-&gt;doorbell_index.sdma_engine[=
-i] &lt;&lt; 1;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ring-&gt;doorbell_index =3D adev-&gt;doorbell_index.sdma_eng=
-ine[i]<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * adev-&gt;doorbell_index.entry_dw_size=
-;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; sprintf(ring-&gt;name, &quot;sdma%d&quot;, i);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ring_init(adev, ring, 1024,<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
-u/soc15.c<br>
-index 99ebcf29dcb0..fbf4dde22f6c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
-@@ -980,11 &#43;980,11 @@ static void soc15_doorbell_range_init(struct amdg=
-pu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ring =3D &amp;adev-&gt;sdma.instance[i].ring;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio_funcs-&gt;sdma_doorbell_range(adev, i,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ring-=
-&gt;use_doorbell, ring-&gt;doorbell_index,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbel=
-l_index.sdma_doorbell_range);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doo=
-rbell_index.dw_range_per_sdma_eng);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;nbio_funcs-&gt;ih=
-_doorbell_range(adev, adev-&gt;irq.ih.use_doorbell,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.doorbe=
-ll_index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.do=
-orbell_idx_in_dw);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;static int soc15_common_hw_init(void *handle)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c b/drivers/gpu/drm/amd/am=
-dgpu/tonga_ih.c<br>
-index a20b711a6756..96403ec5c98f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/tonga_ih.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/tonga_ih.c<br>
-@@ -143,7 &#43;143,7 @@ static int tonga_ih_irq_init(struct amdgpu_device *=
-adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih_doorbell_rtpr =3D RREG3=
-2(mmIH_DOORBELL_RPTR);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;irq.ih.use_do=
-orbell) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr, =
-IH_DOORBELL_RPTR,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OFFSET, adev-&gt=
-;irq.ih.doorbell_index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OFFSET, adev=
--&gt;irq.ih.doorbell_idx_in_dw);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr, =
-IH_DOORBELL_RPTR,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ENABL=
-E, 1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-@@ -254,7 &#43;254,7 @@ static void tonga_ih_set_rptr(struct amdgpu_device =
-*adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih-&gt;use_doorbell) {=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* XXX check if swapping is necessary on BE */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *ih-&gt;rptr_cpu =3D ih-&gt;rptr;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WDOORBELL32(ih-&gt;doorbell_index, ih-&gt;rptr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; WDOORBELL32(ih-&gt;doorbell_idx_in_dw, ih-&gt;rptr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32(mmIH_RB_RPTR, ih-&gt;rptr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -284,7 &#43;284,7 @@ static int tonga_ih_sw_init(void *handle)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.use_doorbe=
-ll =3D true;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.doorbell_index =3D ad=
-ev-&gt;doorbell_index.ih;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.doorbell_idx_in_d=
-w =3D adev-&gt;doorbell_index.ih;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_irq_init(adev=
-);<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/amd/a=
-mdgpu/vega10_ih.c<br>
-index 6d1f804277f8..796004896661 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<br>
-@@ -184,7 &#43;184,7 @@ static int vega10_ih_irq_init(struct amdgpu_device =
-*adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;irq.ih.use_do=
-orbell) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IH_DO=
-ORBELL_RPTR, OFFSET,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.=
-doorbell_index);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq=
-.ih.doorbell_idx_in_dw);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ih_doorbell_rtpr =3D REG_SET_FIELD(ih_doorbell_rtpr,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IH_DO=
-ORBELL_RPTR,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ENABL=
-E, 1);<br>
-@@ -377,7 &#43;377,7 @@ static void vega10_ih_set_rptr(struct amdgpu_device=
- *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih-&gt;use_doorbell) {=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; /* XXX check if swapping is necessary on BE */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *ih-&gt;rptr_cpu =3D ih-&gt;rptr;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WDOORBELL32(ih-&gt;doorbell_index, ih-&gt;rptr);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; WDOORBELL32(ih-&gt;doorbell_idx_in_dw, ih-&gt;rptr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (ih =3D=3D &amp;=
-adev-&gt;irq.ih) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(OSSSYS, 0, mmIH_RB_RPTR, ih-&gt;rptr);<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (ih =3D=3D &amp;=
-adev-&gt;irq.ih1) {<br>
-@@ -461,7 &#43;461,7 @@ static int vega10_ih_sw_init(void *handle)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO add doorbell for I=
-H1 &amp; IH2 as well */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.use_doorbe=
-ll =3D true;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.doorbell_index =3D ad=
-ev-&gt;doorbell_index.ih &lt;&lt; 1;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;irq.ih.doorbell_idx_in_d=
-w =3D adev-&gt;doorbell_index.ih &lt;&lt; 1;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_irq_init(adev=
-);<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c b/drivers/gpu/drm=
-/amd/amdgpu/vega10_reg_init.c<br>
-index 4b5d60ea3e78..d2409df2dde9 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega10_reg_init.c<br>
-@@ -58,6 &#43;58,7 @@ int vega10_reg_base_init(struct amdgpu_device *adev)<=
-br>
-&nbsp;<br>
-&nbsp;void vega10_doorbell_index_init(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.entry_dw_=
-size =3D 2;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.ki=
-q =3D AMDGPU_DOORBELL64_KIQ;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.me=
-c_ring0 =3D AMDGPU_DOORBELL64_MEC_RING0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.me=
-c_ring1 =3D AMDGPU_DOORBELL64_MEC_RING1;<br>
-@@ -83,6 &#43;84,9 @@ void vega10_doorbell_index_init(struct amdgpu_device =
-*adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.uv=
-d_vce.vce_ring6_7 =3D AMDGPU_DOORBELL64_VCE_RING6_7;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* In unit of dword doorbe=
-ll */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.ma=
-x_assignment =3D AMDGPU_DOORBELL64_MAX_ASSIGNMENT &lt;&lt; 1;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.sdma_doorbell=
-_range =3D 4;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.dw_range_=
-per_sdma_eng =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;do=
-orbell_index.sdma_engine[1]<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - adev-&gt;d=
-oorbell_index.sdma_engine[0])<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * adev-&gt;d=
-oorbell_index.entry_dw_size;<br>
-&nbsp;}<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c b/drivers/gpu/drm=
-/amd/amdgpu/vega20_reg_init.c<br>
-index 53716c593b2b..b28c5999d8f0 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega20_reg_init.c<br>
-@@ -56,6 &#43;56,7 @@ int vega20_reg_base_init(struct amdgpu_device *adev)<=
-br>
-&nbsp;<br>
-&nbsp;void vega20_doorbell_index_init(struct amdgpu_device *adev)<br>
-&nbsp;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.entry_dw_=
-size =3D 2;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.ki=
-q =3D AMDGPU_VEGA20_DOORBELL_KIQ;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.me=
-c_ring0 =3D AMDGPU_VEGA20_DOORBELL_MEC_RING0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.me=
-c_ring1 =3D AMDGPU_VEGA20_DOORBELL_MEC_RING1;<br>
-@@ -86,6 &#43;87,9 @@ void vega20_doorbell_index_init(struct amdgpu_device =
-*adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.uv=
-d_vce.vce_ring4_5 =3D AMDGPU_VEGA20_DOORBELL64_VCE_RING4_5;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.uv=
-d_vce.vce_ring6_7 =3D AMDGPU_VEGA20_DOORBELL64_VCE_RING6_7;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.ma=
-x_assignment =3D AMDGPU_VEGA20_DOORBELL_MAX_ASSIGNMENT &lt;&lt; 1;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.sdma_doorbell=
-_range =3D 20;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;doorbell_index.dw_range_=
-per_sdma_eng =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;do=
-orbell_index.sdma_engine[1]<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - adev-&gt;d=
-oorbell_index.sdma_engine[0])<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * adev-&gt;d=
-oorbell_index.entry_dw_size;<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SN1PR12MB2365312DF1DC8162D69C44C5F06F0SN1PR12MB2365namp_--
-
---===============0698174539==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0698174539==--
+QW0gMDYuMDIuMTkgdW0gMTY6NTMgc2NocmllYiBZYW5nLCBQaGlsaXA6DQo+ICAgPj4gKyAgICAv
+KiBJZiB1c2VycHRyIGFyZSB1cGRhdGVkIGFmdGVyIGFtZGdwdV9jc19wYXJzZXJfYm9zKCksIHJl
+c3RhcnQNCj4gICA+PiBjcyAqLw0KPiAgID4+ICAgICAgIGFtZGdwdV9ib19saXN0X2Zvcl9lYWNo
+X3VzZXJwdHJfZW50cnkoZSwgcC0+Ym9fbGlzdCkgew0KPiAgID4+ICAgICAgICAgICBzdHJ1Y3Qg
+YW1kZ3B1X2JvICpibyA9IHR0bV90b19hbWRncHVfYm8oZS0+dHYuYm8pOw0KPiAgID4+IC0gICAg
+ICAgIGlmIChhbWRncHVfdHRtX3R0X3VzZXJwdHJfbmVlZHNfcGFnZXMoYm8tPnRiby50dG0pKSB7
+DQo+ICAgPj4gLSAgICAgICAgICAgIHIgPSAtRVJFU1RBUlRTWVM7DQo+ICAgPj4gLSAgICAgICAg
+ICAgIGdvdG8gZXJyb3JfYWJvcnQ7DQo+ICAgPj4gLSAgICAgICAgfQ0KPiAgID4+ICsgICAgICAg
+IHIgfD0gIWFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXNfZG9uZShiby0+dGJvLnR0bSk7DQo+
+ICAgPg0KPiAgID4gSnVzdCBhYm9ydCB3aGVuIHlvdSBzZWUgdGhlIGZpcnN0IG9uZSB3aXRoIGEg
+cHJvYmxlbSBoZXJlLg0KPiAgID4NCj4gICA+IFRoZXJlIGlzIG5vIHZhbHVlIGluIGNoZWNraW5n
+IGFsbCBvZiB0aGVtLg0KPiAgID4NCj4gTm8sIGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXNf
+ZG9uZSBjYWxscyBobW1fdm1hX3JhbmdlX2RvbmUgdG8gc3RvcA0KPiBITU0gdHJhY2sgYW5kIGZy
+ZWUgcmFuZ2Ugc3RydWN0dXJlIG1lbW9yeSwgdGhpcyBuZWVkcyBnbyB0aHJvdWdoIGFsbA0KPiB1
+c2VycHRyIEJPcy4NCg0KV2VsbCB0aGF0IGFjdHVhbGx5IHNvdW5kcyBsaWtlIGFuIHVnbGluZXNz
+IGluIHRoZSBobW1fdm1hX3JhbmdlX2RvbmUgDQppbnRlcmZhY2UuDQoNCk5lZWQgdG8gZG91Ymxl
+IGNoZWNrIHRoZSBjb2RlIGFuZCBtYXliZSBzeW5jIHVwIHdpdGggSmVyb21lIGlmIHRoYXQgaXMg
+DQpyZWFsbHkgYSBnb29kIGlkZWEuDQoNCkJ1dCB0aGF0IHdvbid0IGFmZmVjdCB5b3Ugd29yaywg
+c28gZmVlbCBmcmVlIHRvIGdvIGFoZWFkIGZvciBub3cuDQoNCj4NCj4gICA+PiArDQo+ICAgPj4g
+KyAgICBpZiAociA9PSAtRUFHQUlOKSB7DQo+ICAgPj4gKyAgICAgICAgaWYgKCEtLXRyaWVzKSB7
+DQo+ICAgPj4gKyAgICAgICAgICAgIERSTV9FUlJPUigiUG9zc2libGUgZGVhZGxvY2s/IFJldHJ5
+IHRvbyBtYW55IHRpbWVzXG4iKTsNCj4gICA+PiArICAgICAgICAgICAgcmV0dXJuIC1FREVBRExL
+Ow0KPiAgID4+ICsgICAgICAgIH0NCj4gICA+PiArICAgICAgICBnb3RvIHJlc3RhcnQ7DQo+ICAg
+Pj4gKyAgICB9DQo+ICAgPj4gKw0KPiAgID4NCj4gICA+IEkgd291bGQgc3RpbGwgc2F5IHRvIGJl
+dHRlciBqdXN0IHJldHVybiB0byB1c2Vyc3BhY2UgaGVyZS4NCj4gICA+DQo+ICAgPiBCZWNhdXNl
+IG9mIHRoZSB3YXkgSE1NIHdvcmtzIDEwIHJldHJpZXMgbWlnaHQgbm90IGJlIHN1ZmZpY2llbnQg
+YW55IG1vcmUuDQo+ICAgPg0KPiBZZXMsIGl0IGxvb2tzIGJldHRlciB0byBoYW5kbGUgcmV0cnkg
+ZnJvbSB1c2VyIHNwYWNlLiBUaGUgZXh0cmEgc3lzIGNhbGwNCj4gb3ZlcmhlYWQgY2FuIGJlIGln
+bm9yZWQgYmVjYXVzZSB0aGlzIGRvZXMgbm90IGhhcHBlbiBhbGwgdGhlIHRpbWUuIEkNCj4gd2ls
+bCBzdWJtaXQgbmV3IHBhdGNoIGZvciByZXZpZXcuDQoNClRoYW5rcywgYXBhcnQgZnJvbSB0aGUg
+aXNzdWVzIG1lbnRpb25lZCBzbyBmYXIgdGhpcyBsb29rcyBnb29kIHRvIG1lLg0KDQpGZWVsIGZy
+ZWUgdG8gYWRkIGFuIEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmln
+QGFtZC5jb20+IA0KdG8gdGhlIHBhdGNoLg0KDQpJIHN0aWxsIG5lZWQgdG8gZG91YmxlIGNoZWNr
+IGlmIHdlIGRvbid0IGhhdmUgYW55IGxvY2tpbmcgcHJvYmxlbXMgDQooaW52ZXJzaW9ucywgbWlz
+c2luZyBsb2NrcyBldGMuLi4pLiBXaGVuIHRoaXMgaXMgZG9uZSBJIGNhbiBhbHNvIGdpdmUgDQp5
+b3UgYW5kIHJiIGZvciB0aGUgcGF0Y2guDQoNCkNocmlzdGlhbi4NCg0KPg0KPiBUaGFua3MsDQo+
+IFBoaWxpcA0KPg0KPiBPbiAyMDE5LTAyLTA2IDQ6MjAgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3
+cm90ZToNCj4+IEFtIDA1LjAyLjE5IHVtIDIzOjAwIHNjaHJpZWIgWWFuZywgUGhpbGlwOg0KPj4+
+IFVzZSBITU0gaGVscGVyIGZ1bmN0aW9uIGhtbV92bWFfZmF1bHQoKSB0byBnZXQgcGh5c2ljYWwg
+cGFnZXMgYmFja2luZw0KPj4+IHVzZXJwdHIgYW5kIHN0YXJ0IENQVSBwYWdlIHRhYmxlIHVwZGF0
+ZSB0cmFjayBvZiB0aG9zZSBwYWdlcy4gVGhlbiB1c2UNCj4+PiBobW1fdm1hX3JhbmdlX2RvbmUo
+KSB0byBjaGVjayBpZiB0aG9zZSBwYWdlcyBhcmUgdXBkYXRlZCBiZWZvcmUNCj4+PiBhbWRncHVf
+Y3Nfc3VibWl0IGZvciBnZnggb3IgYmVmb3JlIHVzZXIgcXVldWVzIGFyZSByZXN1bWVkIGZvciBr
+ZmQuDQo+Pj4NCj4+PiBJZiB1c2VycHRyIHBhZ2VzIGFyZSB1cGRhdGVkLCBmb3IgZ2Z4LCBhbWRn
+cHVfY3NfaW9jdGwgd2lsbCByZXN0YXJ0DQo+Pj4gZnJvbSBzY3JhdGNoLCBmb3Iga2ZkLCByZXN0
+b3JlIHdvcmtlciBpcyByZXNjaGVkdWxlZCB0byByZXRyeS4NCj4+Pg0KPj4+IEhNTSBzaW1wbGlm
+eSB0aGUgQ1BVIHBhZ2UgdGFibGUgY29uY3VycmVudCB1cGRhdGUgY2hlY2ssIHNvIHJlbW92ZQ0K
+Pj4+IGd1cHRhc2tsb2NrLCBtbXVfaW52YWxpZGF0aW9ucywgbGFzdF9zZXRfcGFnZXMgZmllbGRz
+IGZyb20NCj4+PiBhbWRncHVfdHRtX3R0IHN0cnVjdC4NCj4+Pg0KPj4+IEhNTSBkb2VzIG5vdCBw
+aW4gdGhlIHBhZ2UgKGluY3JlYXNlIHBhZ2UgcmVmIGNvdW50KSwgc28gcmVtb3ZlIHJlbGF0ZWQN
+Cj4+PiBvcGVyYXRpb25zIGxpa2UgcmVsZWFzZV9wYWdlcygpLCBwdXRfcGFnZSgpLCBtYXJrX3Bh
+Z2VfZGlydHkoKS4NCj4+Pg0KPj4+IENoYW5nZS1JZDogSTJlOGMwYzZmMGQ4YzIxZTU1OTZhMzJk
+N2ZjOTE3NjI3NzhiYzllNjcNCj4+PiBTaWduZWQtb2ZmLWJ5OiBQaGlsaXAgWWFuZyA8UGhpbGlw
+LllhbmdAYW1kLmNvbT4NCj4+PiAtLS0NCj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2FtZGtmZC5owqDCoMKgIHzCoMKgIDEgLQ0KPj4+ICDCoCAuLi4vZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uY8KgIHzCoCA5NSArKystLS0tLS0tDQo+Pj4g
+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmjCoMKgIHzCoMKg
+IDIgKy0NCj4+PiAgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmPCoMKg
+wqDCoMKgwqDCoCB8IDE1OCArKysrKysrLS0tLS0tLS0tDQo+Pj4gIMKgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uY8KgwqDCoMKgwqDCoCB8wqAgMTQgKy0NCj4+PiAgwqAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21uLmPCoMKgwqDCoMKgwqDCoCB8wqAg
+MjUgKystDQo+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tbi5owqDC
+oMKgwqDCoMKgwqAgfMKgwqAgNCArLQ0KPj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdHRtLmPCoMKgwqDCoMKgwqAgfCAxNzggKysrKysrKy0tLS0tLS0tLS0tDQo+Pj4g
+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaMKgwqDCoMKgwqDCoCB8
+wqDCoCAzICstDQo+Pj4gIMKgIDkgZmlsZXMgY2hhbmdlZCwgMTk4IGluc2VydGlvbnMoKyksIDI4
+MiBkZWxldGlvbnMoLSkNCj4+Pg0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfYW1ka2ZkLmgNCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9hbWRrZmQuaA0KPj4+IGluZGV4IDBiMzFhMTg1OTAyMy4uMGUxNzExYTc1YjY4IDEw
+MDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQu
+aA0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaA0K
+Pj4+IEBAIC02MSw3ICs2MSw2IEBAIHN0cnVjdCBrZ2RfbWVtIHsNCj4+PiAgwqDCoMKgwqDCoCBh
+dG9taWNfdCBpbnZhbGlkOw0KPj4+ICDCoMKgwqDCoMKgIHN0cnVjdCBhbWRrZmRfcHJvY2Vzc19p
+bmZvICpwcm9jZXNzX2luZm87DQo+Pj4gLcKgwqDCoCBzdHJ1Y3QgcGFnZSAqKnVzZXJfcGFnZXM7
+DQo+Pj4gIMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9zeW5jIHN5bmM7DQo+Pj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYw0KPj4+
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+Pj4g
+aW5kZXggZDdiMTBkNzlmMWRlLi5hZTJkODM4ZDMxZWEgMTAwNjQ0DQo+Pj4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+Pj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+Pj4gQEAgLTU4
+MiwyOCArNTgyLDEyIEBAIHN0YXRpYyBpbnQgaW5pdF91c2VyX3BhZ2VzKHN0cnVjdCBrZ2RfbWVt
+ICptZW0sDQo+Pj4gc3RydWN0IG1tX3N0cnVjdCAqbW0sDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDC
+oCBnb3RvIG91dDsNCj4+PiAgwqDCoMKgwqDCoCB9DQo+Pj4gLcKgwqDCoCAvKiBJZiBubyByZXN0
+b3JlIHdvcmtlciBpcyBydW5uaW5nIGNvbmN1cnJlbnRseSwgdXNlcl9wYWdlcw0KPj4+IC3CoMKg
+wqDCoCAqIHNob3VsZCBub3QgYmUgYWxsb2NhdGVkDQo+Pj4gLcKgwqDCoMKgICovDQo+Pj4gLcKg
+wqDCoCBXQVJOKG1lbS0+dXNlcl9wYWdlcywgIkxlYWtpbmcgdXNlcl9wYWdlcyBhcnJheSIpOw0K
+Pj4+IC0NCj4+PiAtwqDCoMKgIG1lbS0+dXNlcl9wYWdlcyA9IGt2bWFsbG9jX2FycmF5KGJvLT50
+Ym8udHRtLT5udW1fcGFnZXMsDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHNpemVvZihzdHJ1Y3QgcGFnZSAqKSwNCj4+PiAtwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tFUk5FTCB8IF9fR0ZQX1pFUk8pOw0K
+Pj4+IC3CoMKgwqAgaWYgKCFtZW0tPnVzZXJfcGFnZXMpIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqAg
+cHJfZXJyKCIlczogRmFpbGVkIHRvIGFsbG9jYXRlIHBhZ2VzIGFycmF5XG4iLCBfX2Z1bmNfXyk7
+DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIHJldCA9IC1FTk9NRU07DQo+Pj4gLcKgwqDCoMKgwqDCoMKg
+IGdvdG8gdW5yZWdpc3Rlcl9vdXQ7DQo+Pj4gLcKgwqDCoCB9DQo+Pj4gLQ0KPj4+IC3CoMKgwqAg
+cmV0ID0gYW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlcyhiby0+dGJvLnR0bSwgbWVtLT51c2Vy
+X3BhZ2VzKTsNCj4+PiArwqDCoMKgIHJldCA9IGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXMo
+Ym8tPnRiby50dG0sIGJvLT50Ym8udHRtLT5wYWdlcyk7DQo+Pj4gIMKgwqDCoMKgwqAgaWYgKHJl
+dCkgew0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgcHJfZXJyKCIlczogRmFpbGVkIHRvIGdldCB1
+c2VyIHBhZ2VzOiAlZFxuIiwgX19mdW5jX18sIHJldCk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIGdv
+dG8gZnJlZV9vdXQ7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gdW5yZWdpc3Rlcl9vdXQ7DQo+
+Pj4gIMKgwqDCoMKgwqAgfQ0KPj4+IC3CoMKgwqAgYW1kZ3B1X3R0bV90dF9zZXRfdXNlcl9wYWdl
+cyhiby0+dGJvLnR0bSwgbWVtLT51c2VyX3BhZ2VzKTsNCj4+PiAtDQo+Pj4gIMKgwqDCoMKgwqAg
+cmV0ID0gYW1kZ3B1X2JvX3Jlc2VydmUoYm8sIHRydWUpOw0KPj4+ICDCoMKgwqDCoMKgIGlmIChy
+ZXQpIHsNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIHByX2VycigiJXM6IEZhaWxlZCB0byByZXNl
+cnZlIEJPXG4iLCBfX2Z1bmNfXyk7DQo+Pj4gQEAgLTYxNiwxMSArNjAwLDcgQEAgc3RhdGljIGlu
+dCBpbml0X3VzZXJfcGFnZXMoc3RydWN0IGtnZF9tZW0gKm1lbSwNCj4+PiBzdHJ1Y3QgbW1fc3Ry
+dWN0ICptbSwNCj4+PiAgwqDCoMKgwqDCoCBhbWRncHVfYm9fdW5yZXNlcnZlKGJvKTsNCj4+PiAg
+wqAgcmVsZWFzZV9vdXQ6DQo+Pj4gLcKgwqDCoCBpZiAocmV0KQ0KPj4+IC3CoMKgwqDCoMKgwqDC
+oCByZWxlYXNlX3BhZ2VzKG1lbS0+dXNlcl9wYWdlcywgYm8tPnRiby50dG0tPm51bV9wYWdlcyk7
+DQo+Pj4gLWZyZWVfb3V0Og0KPj4+IC3CoMKgwqAga3ZmcmVlKG1lbS0+dXNlcl9wYWdlcyk7DQo+
+Pj4gLcKgwqDCoCBtZW0tPnVzZXJfcGFnZXMgPSBOVUxMOw0KPj4+ICvCoMKgwqAgYW1kZ3B1X3R0
+bV90dF9nZXRfdXNlcl9wYWdlc19kb25lKGJvLT50Ym8udHRtKTsNCj4+PiAgwqAgdW5yZWdpc3Rl
+cl9vdXQ6DQo+Pj4gIMKgwqDCoMKgwqAgaWYgKHJldCkNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKg
+IGFtZGdwdV9tbl91bnJlZ2lzdGVyKGJvKTsNCj4+PiBAQCAtNjc5LDcgKzY1OSw2IEBAIHN0YXRp
+YyBpbnQgcmVzZXJ2ZV9ib19hbmRfdm0oc3RydWN0IGtnZF9tZW0gKm1lbSwNCj4+PiAgwqDCoMKg
+wqDCoCBjdHgtPmtmZF9iby5wcmlvcml0eSA9IDA7DQo+Pj4gIMKgwqDCoMKgwqAgY3R4LT5rZmRf
+Ym8udHYuYm8gPSAmYm8tPnRibzsNCj4+PiAgwqDCoMKgwqDCoCBjdHgtPmtmZF9iby50di5udW1f
+c2hhcmVkID0gMTsNCj4+PiAtwqDCoMKgIGN0eC0+a2ZkX2JvLnVzZXJfcGFnZXMgPSBOVUxMOw0K
+Pj4+ICDCoMKgwqDCoMKgIGxpc3RfYWRkKCZjdHgtPmtmZF9iby50di5oZWFkLCAmY3R4LT5saXN0
+KTsNCj4+PiAgwqDCoMKgwqDCoCBhbWRncHVfdm1fZ2V0X3BkX2JvKHZtLCAmY3R4LT5saXN0LCAm
+Y3R4LT52bV9wZFswXSk7DQo+Pj4gQEAgLTc0Myw3ICs3MjIsNiBAQCBzdGF0aWMgaW50IHJlc2Vy
+dmVfYm9fYW5kX2NvbmRfdm1zKHN0cnVjdCBrZ2RfbWVtDQo+Pj4gKm1lbSwNCj4+PiAgwqDCoMKg
+wqDCoCBjdHgtPmtmZF9iby5wcmlvcml0eSA9IDA7DQo+Pj4gIMKgwqDCoMKgwqAgY3R4LT5rZmRf
+Ym8udHYuYm8gPSAmYm8tPnRibzsNCj4+PiAgwqDCoMKgwqDCoCBjdHgtPmtmZF9iby50di5udW1f
+c2hhcmVkID0gMTsNCj4+PiAtwqDCoMKgIGN0eC0+a2ZkX2JvLnVzZXJfcGFnZXMgPSBOVUxMOw0K
+Pj4+ICDCoMKgwqDCoMKgIGxpc3RfYWRkKCZjdHgtPmtmZF9iby50di5oZWFkLCAmY3R4LT5saXN0
+KTsNCj4+PiAgwqDCoMKgwqDCoCBpID0gMDsNCj4+PiBAQCAtMTM3MSwxNSArMTM0OSw2IEBAIGlu
+dCBhbWRncHVfYW1ka2ZkX2dwdXZtX2ZyZWVfbWVtb3J5X29mX2dwdSgNCj4+PiAgwqDCoMKgwqDC
+oCBsaXN0X2RlbCgmYm9fbGlzdF9lbnRyeS0+aGVhZCk7DQo+Pj4gIMKgwqDCoMKgwqAgbXV0ZXhf
+dW5sb2NrKCZwcm9jZXNzX2luZm8tPmxvY2spOw0KPj4+IC3CoMKgwqAgLyogRnJlZSB1c2VyIHBh
+Z2VzIGlmIG5lY2Vzc2FyeSAqLw0KPj4+IC3CoMKgwqAgaWYgKG1lbS0+dXNlcl9wYWdlcykgew0K
+Pj4+IC3CoMKgwqDCoMKgwqDCoCBwcl9kZWJ1ZygiJXM6IEZyZWVpbmcgdXNlcl9wYWdlcyBhcnJh
+eVxuIiwgX19mdW5jX18pOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAobWVtLT51c2VyX3BhZ2Vz
+WzBdKQ0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJlbGVhc2VfcGFnZXMobWVtLT51c2Vy
+X3BhZ2VzLA0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtZW0t
+PmJvLT50Ym8udHRtLT5udW1fcGFnZXMpOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBrdmZyZWUobWVt
+LT51c2VyX3BhZ2VzKTsNCj4+PiAtwqDCoMKgIH0NCj4+PiAtDQo+Pj4gIMKgwqDCoMKgwqAgcmV0
+ID0gcmVzZXJ2ZV9ib19hbmRfY29uZF92bXMobWVtLCBOVUxMLCBCT19WTV9BTEwsICZjdHgpOw0K
+Pj4+ICDCoMKgwqDCoMKgIGlmICh1bmxpa2VseShyZXQpKQ0KPj4+ICDCoMKgwqDCoMKgwqDCoMKg
+wqAgcmV0dXJuIHJldDsNCj4+PiBAQCAtMTg1NSwyNSArMTgyNCwxMSBAQCBzdGF0aWMgaW50IHVw
+ZGF0ZV9pbnZhbGlkX3VzZXJfcGFnZXMoc3RydWN0DQo+Pj4gYW1ka2ZkX3Byb2Nlc3NfaW5mbyAq
+cHJvY2Vzc19pbmZvLA0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgYm8gPSBtZW0tPmJvOw0KPj4+
+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIW1lbS0+dXNlcl9wYWdlcykgew0KPj4+IC3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIG1lbS0+dXNlcl9wYWdlcyA9DQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBrdm1hbGxvY19hcnJheShiby0+dGJvLnR0bS0+bnVtX3BhZ2VzLA0KPj4+IC3C
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2l6ZW9mKHN0
+cnVjdCBwYWdlICopLA0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgR0ZQX0tFUk5FTCB8IF9fR0ZQX1pFUk8pOw0KPj4+IC3CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGlmICghbWVtLT51c2VyX3BhZ2VzKSB7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBwcl9lcnIoIiVzOiBGYWlsZWQgdG8gYWxsb2NhdGUgcGFnZXMgYXJyYXlc
+biIsDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIF9f
+ZnVuY19fKTsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5P
+TUVNOw0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+PiAtwqDCoMKgwqDCoMKgwqAg
+fSBlbHNlIGlmIChtZW0tPnVzZXJfcGFnZXNbMF0pIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCByZWxlYXNlX3BhZ2VzKG1lbS0+dXNlcl9wYWdlcywgYm8tPnRiby50dG0tPm51bV9wYWdl
+cyk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIH0NCj4+PiAtDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDC
+oCAvKiBHZXQgdXBkYXRlZCB1c2VyIHBhZ2VzICovDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBy
+ZXQgPSBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzKGJvLT50Ym8udHRtLA0KPj4+IC3CoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1lbS0+dXNl
+cl9wYWdlcyk7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgYm8tPnRiby50dG0tPnBhZ2VzKTsNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKg
+IGlmIChyZXQpIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtZW0tPnVzZXJfcGFnZXNb
+MF0gPSBOVUxMOw0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJvLT50Ym8udHRtLT5wYWdl
+c1swXSA9IE5VTEw7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByX2luZm8oIiVz
+OiBGYWlsZWQgdG8gZ2V0IHVzZXIgcGFnZXM6ICVkXG4iLA0KPj4+ICDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIF9fZnVuY19fLCByZXQpOw0KPj4+ICDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCAvKiBQcmV0ZW5kIGl0IHN1Y2NlZWRlZC4gSXQgd2lsbCBmYWlsIGxhdGVyDQo+
+Pj4gQEAgLTE4ODIsMTIgKzE4MzcsNiBAQCBzdGF0aWMgaW50IHVwZGF0ZV9pbnZhbGlkX3VzZXJf
+cGFnZXMoc3RydWN0DQo+Pj4gYW1ka2ZkX3Byb2Nlc3NfaW5mbyAqcHJvY2Vzc19pbmZvLA0KPj4+
+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICogc3RhbGxlZCB1c2VyIG1vZGUgcXVldWVz
+Lg0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICovDQo+Pj4gIMKgwqDCoMKgwqDC
+oMKgwqDCoCB9DQo+Pj4gLQ0KPj4+IC3CoMKgwqDCoMKgwqDCoCAvKiBNYXJrIHRoZSBCTyBhcyB2
+YWxpZCB1bmxlc3MgaXQgd2FzIGludmFsaWRhdGVkDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqAgKiBh
+Z2FpbiBjb25jdXJyZW50bHkNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoCAqLw0KPj4+IC3CoMKgwqDC
+oMKgwqDCoCBpZiAoYXRvbWljX2NtcHhjaGcoJm1lbS0+aW52YWxpZCwgaW52YWxpZCwgMCkgIT0g
+aW52YWxpZCkNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVBR0FJTjsNCj4+
+PiAgwqDCoMKgwqDCoCB9DQo+Pj4gIMKgwqDCoMKgwqAgcmV0dXJuIDA7DQo+Pj4gQEAgLTE5MTcs
+NyArMTg2Niw4IEBAIHN0YXRpYyBpbnQgdmFsaWRhdGVfaW52YWxpZF91c2VyX3BhZ2VzKHN0cnVj
+dA0KPj4+IGFtZGtmZF9wcm9jZXNzX2luZm8gKnByb2Nlc3NfaW5mbykNCj4+PiAgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tFUk5FTCk7DQo+Pj4gIMKg
+wqDCoMKgwqAgaWYgKCFwZF9ib19saXN0X2VudHJpZXMpIHsNCj4+PiAgwqDCoMKgwqDCoMKgwqDC
+oMKgIHByX2VycigiJXM6IEZhaWxlZCB0byBhbGxvY2F0ZSBQRCBCTyBsaXN0IGVudHJpZXNcbiIs
+DQo+Pj4gX19mdW5jX18pOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT01FTTsNCj4+
+PiArwqDCoMKgwqDCoMKgwqAgcmV0ID0gLUVOT01FTTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZ290
+byBvdXRfbm9fbWVtOw0KPj4+ICDCoMKgwqDCoMKgIH0NCj4+PiAgwqDCoMKgwqDCoCBJTklUX0xJ
+U1RfSEVBRCgmcmVzdl9saXN0KTsNCj4+PiBAQCAtMTk0MSw3ICsxODkxLDcgQEAgc3RhdGljIGlu
+dCB2YWxpZGF0ZV9pbnZhbGlkX3VzZXJfcGFnZXMoc3RydWN0DQo+Pj4gYW1ka2ZkX3Byb2Nlc3Nf
+aW5mbyAqcHJvY2Vzc19pbmZvKQ0KPj4+ICDCoMKgwqDCoMKgIHJldCA9IHR0bV9ldV9yZXNlcnZl
+X2J1ZmZlcnMoJnRpY2tldCwgJnJlc3ZfbGlzdCwgZmFsc2UsDQo+Pj4gJmR1cGxpY2F0ZXMpOw0K
+Pj4+ICDCoMKgwqDCoMKgIFdBUk4oIWxpc3RfZW1wdHkoJmR1cGxpY2F0ZXMpLCAiRHVwbGljYXRl
+cyBzaG91bGQgYmUgZW1wdHkiKTsNCj4+PiAgwqDCoMKgwqDCoCBpZiAocmV0KQ0KPj4+IC3CoMKg
+wqDCoMKgwqDCoCBnb3RvIG91dDsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBvdXRfZnJlZTsN
+Cj4+PiAgwqDCoMKgwqDCoCBhbWRncHVfc3luY19jcmVhdGUoJnN5bmMpOw0KPj4+IEBAIC0xOTY3
+LDEwICsxOTE3LDggQEAgc3RhdGljIGludCB2YWxpZGF0ZV9pbnZhbGlkX3VzZXJfcGFnZXMoc3Ry
+dWN0DQo+Pj4gYW1ka2ZkX3Byb2Nlc3NfaW5mbyAqcHJvY2Vzc19pbmZvKQ0KPj4+ICDCoMKgwqDC
+oMKgwqDCoMKgwqAgYm8gPSBtZW0tPmJvOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCAvKiBDb3B5IHBh
+Z2VzIGFycmF5IGFuZCB2YWxpZGF0ZSB0aGUgQk8gaWYgd2UgZ290IHVzZXIgcGFnZXMgKi8NCj4+
+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKG1lbS0+dXNlcl9wYWdlc1swXSkgew0KPj4+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGFtZGdwdV90dG1fdHRfc2V0X3VzZXJfcGFnZXMoYm8tPnRiby50dG0s
+DQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIG1lbS0+dXNlcl9wYWdlcyk7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIC8qIFZhbGlkYXRl
+IHRoZSBCTyBpZiB3ZSBnb3QgdXNlciBwYWdlcyAqLw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAo
+Ym8tPnRiby50dG0tPnBhZ2VzWzBdKSB7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGFtZGdwdV9ib19wbGFjZW1lbnRfZnJvbV9kb21haW4oYm8sIG1lbS0+ZG9tYWluKTsNCj4+PiAg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gdHRtX2JvX3ZhbGlkYXRlKCZiby0+dGJv
+LCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IGlmIChyZXQpIHsNCj4+PiBAQCAtMTk3OSwxNiArMTkyNywxNiBAQCBzdGF0aWMgaW50IHZhbGlk
+YXRlX2ludmFsaWRfdXNlcl9wYWdlcyhzdHJ1Y3QNCj4+PiBhbWRrZmRfcHJvY2Vzc19pbmZvICpw
+cm9jZXNzX2luZm8pDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+PiAgwqDC
+oMKgwqDCoMKgwqDCoMKgIH0NCj4+PiAtwqDCoMKgwqDCoMKgwqAgLyogVmFsaWRhdGUgc3VjY2Vl
+ZGVkLCBub3cgdGhlIEJPIG93bnMgdGhlIHBhZ2VzLCBmcmVlDQo+Pj4gLcKgwqDCoMKgwqDCoMKg
+wqAgKiBvdXIgY29weSBvZiB0aGUgcG9pbnRlciBhcnJheS4gUHV0IHRoaXMgQk8gYmFjayBvbg0K
+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgICogdGhlIHVzZXJwdHJfdmFsaWRfbGlzdC4gSWYgd2UgbmVl
+ZCB0byByZXZhbGlkYXRlDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqAgKiBpdCwgd2UgbmVlZCB0byBz
+dGFydCBmcm9tIHNjcmF0Y2guDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqAgKi8NCj4+PiAtwqDCoMKg
+wqDCoMKgwqAga3ZmcmVlKG1lbS0+dXNlcl9wYWdlcyk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIG1l
+bS0+dXNlcl9wYWdlcyA9IE5VTEw7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBsaXN0X21vdmVf
+dGFpbCgmbWVtLT52YWxpZGF0ZV9saXN0LmhlYWQsDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgJnByb2Nlc3NfaW5mby0+dXNlcnB0cl92YWxpZF9saXN0KTsN
+Cj4+PiArwqDCoMKgwqDCoMKgwqAgLyogU3RvcCBITU0gdHJhY2sgdGhlIHVzZXJwdHIgdXBkYXRl
+LiBXZSBkb250IGNoZWNrIHRoZSByZXR1cm4NCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAqIHZhbHVl
+IGZvciBjb25jdXJyZW50IENQVSBwYWdlIHRhYmxlIHVwZGF0ZSBiZWNhdXNlIHdlIHdpbGwNCj4+
+PiArwqDCoMKgwqDCoMKgwqDCoCAqIHJlc2NoZWR1bGUgdGhlIHJlc3RvcmUgd29ya2VyIGlmIHBy
+b2Nlc3NfaW5mby0+ZXZpY3RlZF9ib3MNCj4+PiArwqDCoMKgwqDCoMKgwqDCoCAqIGlzIHVwZGF0
+ZWQuDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqAgKi8NCj4+PiArwqDCoMKgwqDCoMKgwqAgYW1kZ3B1
+X3R0bV90dF9nZXRfdXNlcl9wYWdlc19kb25lKGJvLT50Ym8udHRtKTsNCj4+PiArDQo+Pj4gIMKg
+wqDCoMKgwqDCoMKgwqDCoCAvKiBVcGRhdGUgbWFwcGluZy4gSWYgdGhlIEJPIHdhcyBub3QgdmFs
+aWRhdGVkDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgICogKGJlY2F1c2Ugd2UgY291bGRuJ3Qg
+Z2V0IHVzZXIgcGFnZXMpLCB0aGlzIHdpbGwNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiBj
+bGVhciB0aGUgcGFnZSB0YWJsZSBlbnRyaWVzLCB3aGljaCB3aWxsIHJlc3VsdCBpbg0KPj4+IEBA
+IC0yMDIyLDggKzE5NzAsMTUgQEAgc3RhdGljIGludCB2YWxpZGF0ZV9pbnZhbGlkX3VzZXJfcGFn
+ZXMoc3RydWN0DQo+Pj4gYW1ka2ZkX3Byb2Nlc3NfaW5mbyAqcHJvY2Vzc19pbmZvKQ0KPj4+ICDC
+oMKgwqDCoMKgIHR0bV9ldV9iYWNrb2ZmX3Jlc2VydmF0aW9uKCZ0aWNrZXQsICZyZXN2X2xpc3Qp
+Ow0KPj4+ICDCoMKgwqDCoMKgIGFtZGdwdV9zeW5jX3dhaXQoJnN5bmMsIGZhbHNlKTsNCj4+PiAg
+wqDCoMKgwqDCoCBhbWRncHVfc3luY19mcmVlKCZzeW5jKTsNCj4+PiAtb3V0Og0KPj4+ICtvdXRf
+ZnJlZToNCj4+PiAgwqDCoMKgwqDCoCBrZnJlZShwZF9ib19saXN0X2VudHJpZXMpOw0KPj4+ICtv
+dXRfbm9fbWVtOg0KPj4+ICvCoMKgwqAgbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlKG1lbSwgdG1w
+X21lbSwNCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJnByb2Nlc3NfaW5m
+by0+dXNlcnB0cl9pbnZhbF9saXN0LA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCB2YWxpZGF0ZV9saXN0LmhlYWQpIHsNCj4+PiArwqDCoMKgwqDCoMKgwqAgYm8gPSBtZW0t
+PmJvOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzX2Rv
+bmUoYm8tPnRiby50dG0pOw0KPj4+ICvCoMKgwqAgfQ0KPj4+ICDCoMKgwqDCoMKgIHJldHVybiBy
+ZXQ7DQo+Pj4gIMKgIH0NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2JvX2xpc3QuaA0KPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2JvX2xpc3QuaA0KPj4+IGluZGV4IDdjNWY1ZDE2MDFlNi4uYTEzMGU3NjZjYmRiIDEwMDY0
+NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9ib19saXN0LmgN
+Cj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYm9fbGlzdC5oDQo+
+Pj4gQEAgLTM2LDcgKzM2LDcgQEAgc3RydWN0IGFtZGdwdV9ib19saXN0X2VudHJ5IHsNCj4+PiAg
+wqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhwqDCoMKgwqDCoMKgwqAgKmJvX3ZhOw0KPj4+
+ICDCoMKgwqDCoMKgIHVpbnQzMl90wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwcmlvcml0eTsNCj4+
+PiAgwqDCoMKgwqDCoCBzdHJ1Y3QgcGFnZcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKip1c2VyX3Bh
+Z2VzOw0KPj4+IC3CoMKgwqAgaW50wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVzZXJf
+aW52YWxpZGF0ZWQ7DQo+Pj4gK8KgwqDCoCBib29swqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIHVzZXJfaW52YWxpZGF0ZWQ7DQo+Pj4gIMKgIH07DQo+Pj4gIMKgIHN0cnVjdCBhbWRncHVf
+Ym9fbGlzdCB7DQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9jcy5jDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0K
+Pj4+IGluZGV4IDUyYTVlNGZkYzk1Yi4uNzBiZGY5ZmYwYmFiIDEwMDY0NA0KPj4+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+Pj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCj4+PiBAQCAtNTIsNyArNTIsNiBAQCBzdGF0
+aWMgaW50IGFtZGdwdV9jc191c2VyX2ZlbmNlX2NodW5rKHN0cnVjdA0KPj4+IGFtZGdwdV9jc19w
+YXJzZXIgKnAsDQo+Pj4gIMKgwqDCoMKgwqAgcC0+dWZfZW50cnkudHYuYm8gPSAmYm8tPnRibzsN
+Cj4+PiAgwqDCoMKgwqDCoCAvKiBPbmUgZm9yIFRUTSBhbmQgb25lIGZvciB0aGUgQ1Mgam9iICov
+DQo+Pj4gIMKgwqDCoMKgwqAgcC0+dWZfZW50cnkudHYubnVtX3NoYXJlZCA9IDI7DQo+Pj4gLcKg
+wqDCoCBwLT51Zl9lbnRyeS51c2VyX3BhZ2VzID0gTlVMTDsNCj4+PiAgwqDCoMKgwqDCoCBkcm1f
+Z2VtX29iamVjdF9wdXRfdW5sb2NrZWQoZ29iaik7DQo+Pj4gQEAgLTU0MCwxNCArNTM5LDE0IEBA
+IHN0YXRpYyBpbnQgYW1kZ3B1X2NzX2xpc3RfdmFsaWRhdGUoc3RydWN0DQo+Pj4gYW1kZ3B1X2Nz
+X3BhcnNlciAqcCwNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICh1c2VybW0gJiYgdXNlcm1t
+ICE9IGN1cnJlbnQtPm1tKQ0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4g
+LUVQRVJNOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCAvKiBDaGVjayBpZiB3ZSBoYXZlIHVzZXIgcGFn
+ZXMgYW5kIG5vYm9keSBib3VuZCB0aGUgQk8NCj4+PiBhbHJlYWR5ICovDQo+Pj4gLcKgwqDCoMKg
+wqDCoMKgIGlmIChhbWRncHVfdHRtX3R0X3VzZXJwdHJfbmVlZHNfcGFnZXMoYm8tPnRiby50dG0p
+ICYmDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbG9iai0+dXNlcl9wYWdlcykgew0KPj4+
+ICvCoMKgwqDCoMKgwqDCoCBpZiAoYW1kZ3B1X3R0bV90dF9pc191c2VycHRyKGJvLT50Ym8udHRt
+KSAmJg0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxvYmotPnVzZXJfaW52YWxpZGF0ZWQg
+JiYgbG9iai0+dXNlcl9wYWdlcykgew0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBh
+bWRncHVfYm9fcGxhY2VtZW50X2Zyb21fZG9tYWluKGJvLA0KPj4+ICDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9HRU1fRE9N
+QUlOX0NQVSk7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHIgPSB0dG1fYm9fdmFs
+aWRhdGUoJmJvLT50Ym8sICZiby0+cGxhY2VtZW50LCAmY3R4KTsNCj4+PiAgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgaWYgKHIpDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgcmV0dXJuIHI7DQo+Pj4gKw0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBh
+bWRncHVfdHRtX3R0X3NldF91c2VyX3BhZ2VzKGJvLT50Ym8udHRtLA0KPj4+ICDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbG9iai0+
+dXNlcl9wYWdlcyk7DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGJpbmRpbmdfdXNl
+cnB0ciA9IHRydWU7DQo+Pj4gQEAgLTU3OCw3ICs1NzcsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9j
+c19wYXJzZXJfYm9zKHN0cnVjdA0KPj4+IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+Pj4gIMKgwqDC
+oMKgwqAgc3RydWN0IGFtZGdwdV9ibyAqZ2RzOw0KPj4+ICDCoMKgwqDCoMKgIHN0cnVjdCBhbWRn
+cHVfYm8gKmd3czsNCj4+PiAgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvICpvYTsNCj4+PiAt
+wqDCoMKgIHVuc2lnbmVkIHRyaWVzID0gMTA7DQo+Pj4gIMKgwqDCoMKgwqAgaW50IHI7DQo+Pj4g
+IMKgwqDCoMKgwqAgSU5JVF9MSVNUX0hFQUQoJnAtPnZhbGlkYXRlZCk7DQo+Pj4gQEAgLTYxNCw3
+OSArNjEyLDQ1IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3BhcnNlcl9ib3Moc3RydWN0DQo+Pj4g
+YW1kZ3B1X2NzX3BhcnNlciAqcCwNCj4+PiAgwqDCoMKgwqDCoCBpZiAocC0+dWZfZW50cnkudHYu
+Ym8gJiYNCj4+PiAhdHRtX3RvX2FtZGdwdV9ibyhwLT51Zl9lbnRyeS50di5ibyktPnBhcmVudCkN
+Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGxpc3RfYWRkKCZwLT51Zl9lbnRyeS50di5oZWFkLCAm
+cC0+dmFsaWRhdGVkKTsNCj4+PiAtwqDCoMKgIHdoaWxlICgxKSB7DQo+Pj4gLcKgwqDCoMKgwqDC
+oMKgIHN0cnVjdCBsaXN0X2hlYWQgbmVlZF9wYWdlczsNCj4+PiAtDQo+Pj4gLcKgwqDCoMKgwqDC
+oMKgIHIgPSB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJzKCZwLT50aWNrZXQsICZwLT52YWxpZGF0ZWQs
+IHRydWUsDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+ICZkdXBsaWNhdGVzKTsNCj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKHVubGlrZWx5KHIgIT0gMCkp
+IHsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAociAhPSAtRVJFU1RBUlRTWVMpDQo+
+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBEUk1fRVJST1IoInR0bV9ldV9yZXNl
+cnZlX2J1ZmZlcnMgZmFpbGVkLlxuIik7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290
+byBlcnJvcl9mcmVlX3BhZ2VzOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCB9DQo+Pj4gLQ0KPj4+IC3C
+oMKgwqDCoMKgwqDCoCBJTklUX0xJU1RfSEVBRCgmbmVlZF9wYWdlcyk7DQo+Pj4gLcKgwqDCoMKg
+wqDCoMKgIGFtZGdwdV9ib19saXN0X2Zvcl9lYWNoX3VzZXJwdHJfZW50cnkoZSwgcC0+Ym9fbGlz
+dCkgew0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfYm8gKmJvID0g
+dHRtX3RvX2FtZGdwdV9ibyhlLT50di5ibyk7DQo+Pj4gLQ0KPj4+IC3CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGlmIChhbWRncHVfdHRtX3R0X3VzZXJwdHJfaW52YWxpZGF0ZWQoYm8tPnRiby50dG0s
+DQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZlLT51c2VyX2ludmFsaWRh
+dGVkKSAmJiBlLT51c2VyX3BhZ2VzKSB7DQo+Pj4gLQ0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgLyogV2UgYWNxdWlyZWQgYSBwYWdlIGFycmF5LCBidXQgc29tZWJvZHkNCj4+
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiBpbnZhbGlkYXRlZCBpdC4gRnJl
+ZSBpdCBhbmQgdHJ5IGFnYWluDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+ICovDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZWxlYXNlX3BhZ2VzKGUt
+PnVzZXJfcGFnZXMsDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGJvLT50Ym8udHRtLT5udW1fcGFnZXMpOw0KPj4+IC3CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAga3ZmcmVlKGUtPnVzZXJfcGFnZXMpOw0KPj4+IC3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZS0+dXNlcl9wYWdlcyA9IE5VTEw7DQo+Pj4gLcKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgfQ0KPj4+IC0NCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAo
+YW1kZ3B1X3R0bV90dF91c2VycHRyX25lZWRzX3BhZ2VzKGJvLT50Ym8udHRtKSAmJg0KPj4+IC3C
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgIWUtPnVzZXJfcGFnZXMpIHsNCj4+PiAtwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxpc3RfZGVsKCZlLT50di5oZWFkKTsNCj4+PiAt
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxpc3RfYWRkKCZlLT50di5oZWFkLCAmbmVl
+ZF9wYWdlcyk7DQo+Pj4gLQ0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1k
+Z3B1X2JvX3VucmVzZXJ2ZShibyk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQ0KPj4+
+ICvCoMKgwqAgLyogR2V0IHVzZXJwdHIgYmFja2luZyBwYWdlcy4gSWYgcGFnZXMgYXJlIHVwZGF0
+ZWQgYWZ0ZXIgcmVnaXN0ZXJlZA0KPj4+ICvCoMKgwqDCoCAqIGluIGFtZGdwdV9nZW1fdXNlcnB0
+cl9pb2N0bCgpLCBhbWRncHVfY3NfbGlzdF92YWxpZGF0ZSgpIHdpbGwgZG8NCj4+PiArwqDCoMKg
+wqAgKiBhbWRncHVfdHRtX2JhY2tlbmRfYmluZCgpIHRvIGZsdXNoIGFuZCBpbnZhbGlkYXRlIG5l
+dyBwYWdlcw0KPj4+ICvCoMKgwqDCoCAqLw0KPj4+ICvCoMKgwqAgYW1kZ3B1X2JvX2xpc3RfZm9y
+X2VhY2hfdXNlcnB0cl9lbnRyeShlLCBwLT5ib19saXN0KSB7DQo+Pj4gK8KgwqDCoMKgwqDCoMKg
+IHN0cnVjdCBhbWRncHVfYm8gKmJvID0gdHRtX3RvX2FtZGdwdV9ibyhlLT50di5ibyk7DQo+Pj4g
+K8KgwqDCoMKgwqDCoMKgIGJvb2wgdXNlcnBhZ2VfaW52YWxpZGF0ZWQgPSBmYWxzZTsNCj4+PiAr
+wqDCoMKgwqDCoMKgwqAgaW50IGk7DQo+Pj4gKw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBlLT51c2Vy
+X3BhZ2VzID0ga3ZtYWxsb2NfYXJyYXkoYm8tPnRiby50dG0tPm51bV9wYWdlcywNCj4+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2l6ZW9mKHN0cnVjdCBwYWdlICop
+LA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBHRlBfS0VSTkVM
+IHwgX19HRlBfWkVSTyk7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmICghZS0+dXNlcl9wYWdlcykg
+ew0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIERSTV9FUlJPUigiY2FsbG9jIGZhaWx1cmVc
+biIpOw0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOw0KPj4+ICDC
+oMKgwqDCoMKgwqDCoMKgwqAgfQ0KPj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAobGlzdF9lbXB0eSgm
+bmVlZF9wYWdlcykpDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7DQo+Pj4gLQ0K
+Pj4+IC3CoMKgwqDCoMKgwqDCoCAvKiBVbnJlc2VydmUgZXZlcnl0aGluZyBhZ2Fpbi4gKi8NCj4+
+PiAtwqDCoMKgwqDCoMKgwqAgdHRtX2V1X2JhY2tvZmZfcmVzZXJ2YXRpb24oJnAtPnRpY2tldCwg
+JnAtPnZhbGlkYXRlZCk7DQo+Pj4gLQ0KPj4+IC3CoMKgwqDCoMKgwqDCoCAvKiBXZSB0cmllZCB0
+b28gbWFueSB0aW1lcywganVzdCBhYm9ydCAqLw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIS0t
+dHJpZXMpIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByID0gLUVERUFETEs7DQo+Pj4g
+LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgRFJNX0VSUk9SKCJkZWFkbG9jayBpbiAlc1xuIiwgX19m
+dW5jX18pOw0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJyb3JfZnJlZV9wYWdl
+czsNCj4+PiArwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXMo
+Ym8tPnRiby50dG0sIGUtPnVzZXJfcGFnZXMpOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAocikg
+ew0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGt2ZnJlZShlLT51c2VyX3BhZ2VzKTsNCj4+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlLT51c2VyX3BhZ2VzID0gTlVMTDsNCj4+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIH0N
+Cj4+PiAtwqDCoMKgwqDCoMKgwqAgLyogRmlsbCB0aGUgcGFnZSBhcnJheXMgZm9yIGFsbCB1c2Vy
+cHRycy4gKi8NCj4+PiAtwqDCoMKgwqDCoMKgwqAgbGlzdF9mb3JfZWFjaF9lbnRyeShlLCAmbmVl
+ZF9wYWdlcywgdHYuaGVhZCkgew0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCB0
+dG1fdHQgKnR0bSA9IGUtPnR2LmJvLT50dG07DQo+Pj4gLQ0KPj4+IC3CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGUtPnVzZXJfcGFnZXMgPSBrdm1hbGxvY19hcnJheSh0dG0tPm51bV9wYWdlcywNCj4+
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgc2l6ZW9mKHN0cnVjdCBwYWdlKiksDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEdGUF9LRVJORUwgfCBfX0dGUF9aRVJPKTsN
+Cj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoIWUtPnVzZXJfcGFnZXMpIHsNCj4+PiAt
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHIgPSAtRU5PTUVNOw0KPj4+IC3CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgRFJNX0VSUk9SKCJjYWxsb2MgZmFpbHVyZSBpbiAlc1xu
+IiwgX19mdW5jX18pOw0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBl
+cnJvcl9mcmVlX3BhZ2VzOw0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+PiAtDQo+
+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFn
+ZXModHRtLCBlLT51c2VyX3BhZ2VzKTsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAo
+cikgew0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgRFJNX0VSUk9SKCJhbWRn
+cHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzIGZhaWxlZC5cbiIpOw0KPj4+IC3CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAga3ZmcmVlKGUtPnVzZXJfcGFnZXMpOw0KPj4+IC3CoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZS0+dXNlcl9wYWdlcyA9IE5VTEw7DQo+Pj4gLcKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX2ZyZWVfcGFnZXM7DQo+Pj4gK8KgwqDC
+oMKgwqDCoMKgIGZvciAoaSA9IDA7IGkgPCBiby0+dGJvLnR0bS0+bnVtX3BhZ2VzOyBpKyspIHsN
+Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoYm8tPnRiby50dG0tPnBhZ2VzW2ldICE9
+IGUtPnVzZXJfcGFnZXNbaV0pIHsNCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IHVzZXJwYWdlX2ludmFsaWRhdGVkID0gdHJ1ZTsNCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIGJyZWFrOw0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9DQo+Pj4g
+IMKgwqDCoMKgwqDCoMKgwqDCoCB9DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGUtPnVzZXJfaW52YWxp
+ZGF0ZWQgPSB1c2VycGFnZV9pbnZhbGlkYXRlZDsNCj4+PiArwqDCoMKgIH0NCj4+PiAtwqDCoMKg
+wqDCoMKgwqAgLyogQW5kIHRyeSBhZ2Fpbi4gKi8NCj4+PiAtwqDCoMKgwqDCoMKgwqAgbGlzdF9z
+cGxpY2UoJm5lZWRfcGFnZXMsICZwLT52YWxpZGF0ZWQpOw0KPj4+ICvCoMKgwqAgciA9IHR0bV9l
+dV9yZXNlcnZlX2J1ZmZlcnMoJnAtPnRpY2tldCwgJnAtPnZhbGlkYXRlZCwgdHJ1ZSwNCj4+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICZkdXBsaWNhdGVzKTsNCj4+PiAr
+wqDCoMKgIGlmICh1bmxpa2VseShyICE9IDApKSB7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChy
+ICE9IC1FUkVTVEFSVFNZUykNCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBEUk1fRVJST1Io
+InR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMgZmFpbGVkLlxuIik7DQo+Pj4gK8KgwqDCoMKgwqDCoMKg
+IGdvdG8gb3V0Ow0KPj4+ICDCoMKgwqDCoMKgIH0NCj4+PiAgwqDCoMKgwqDCoCBhbWRncHVfY3Nf
+Z2V0X3RocmVzaG9sZF9mb3JfbW92ZXMocC0+YWRldiwNCj4+PiAmcC0+Ynl0ZXNfbW92ZWRfdGhy
+ZXNob2xkLA0KPj4+IEBAIC03NTUsMTcgKzcxOSw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3Bh
+cnNlcl9ib3Moc3RydWN0DQo+Pj4gYW1kZ3B1X2NzX3BhcnNlciAqcCwNCj4+PiAgwqAgZXJyb3Jf
+dmFsaWRhdGU6DQo+Pj4gIMKgwqDCoMKgwqAgaWYgKHIpDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDC
+oCB0dG1fZXVfYmFja29mZl9yZXNlcnZhdGlvbigmcC0+dGlja2V0LCAmcC0+dmFsaWRhdGVkKTsN
+Cj4+PiAtDQo+Pj4gLWVycm9yX2ZyZWVfcGFnZXM6DQo+Pj4gLQ0KPj4+IC3CoMKgwqAgYW1kZ3B1
+X2JvX2xpc3RfZm9yX2VhY2hfdXNlcnB0cl9lbnRyeShlLCBwLT5ib19saXN0KSB7DQo+Pj4gLcKg
+wqDCoMKgwqDCoMKgIGlmICghZS0+dXNlcl9wYWdlcykNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBjb250aW51ZTsNCj4+PiAtDQo+Pj4gLcKgwqDCoMKgwqDCoMKgIHJlbGVhc2VfcGFnZXMo
+ZS0+dXNlcl9wYWdlcywgZS0+dHYuYm8tPnR0bS0+bnVtX3BhZ2VzKTsNCj4+PiAtwqDCoMKgwqDC
+oMKgwqAga3ZmcmVlKGUtPnVzZXJfcGFnZXMpOw0KPj4+IC3CoMKgwqAgfQ0KPj4+IC0NCj4+PiAr
+b3V0Og0KPj4+ICDCoMKgwqDCoMKgIHJldHVybiByOw0KPj4+ICDCoCB9DQo+Pj4gQEAgLTEyMjQs
+OCArMTE3OCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3N1Ym1pdChzdHJ1Y3QNCj4+PiBhbWRn
+cHVfY3NfcGFyc2VyICpwLA0KPj4+ICDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfYm9fbGlzdF9l
+bnRyeSAqZTsNCj4+PiAgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iOw0KPj4+ICDC
+oMKgwqDCoMKgIHVpbnQ2NF90IHNlcTsNCj4+PiAtDQo+Pj4gLcKgwqDCoCBpbnQgcjsNCj4+PiAr
+wqDCoMKgIGludCByID0gMDsNCj4+PiAgwqDCoMKgwqDCoCBqb2IgPSBwLT5qb2I7DQo+Pj4gIMKg
+wqDCoMKgwqAgcC0+am9iID0gTlVMTDsNCj4+PiBAQCAtMTIzNCwxNSArMTE4NywyMSBAQCBzdGF0
+aWMgaW50IGFtZGdwdV9jc19zdWJtaXQoc3RydWN0DQo+Pj4gYW1kZ3B1X2NzX3BhcnNlciAqcCwN
+Cj4+PiAgwqDCoMKgwqDCoCBpZiAocikNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJy
+b3JfdW5sb2NrOw0KPj4+IC3CoMKgwqAgLyogTm8gbWVtb3J5IGFsbG9jYXRpb24gaXMgYWxsb3dl
+ZCB3aGlsZSBob2xkaW5nIHRoZSBtbiBsb2NrICovDQo+Pj4gK8KgwqDCoCAvKiBObyBtZW1vcnkg
+YWxsb2NhdGlvbiBpcyBhbGxvd2VkIHdoaWxlIGhvbGRpbmcgdGhlIG1uIGxvY2suDQo+Pj4gK8Kg
+wqDCoMKgICogcC0+bW4gaXMgaG9sZCB1bnRpbCBhbWRncHVfY3Nfc3VibWl0IGlzIGZpbmlzaGVk
+IGFuZCBmZW5jZSBpcw0KPj4+IGFkZGVkDQo+Pj4gK8KgwqDCoMKgICogdG8gQk9zLg0KPj4+ICvC
+oMKgwqDCoCAqLw0KPj4+ICDCoMKgwqDCoMKgIGFtZGdwdV9tbl9sb2NrKHAtPm1uKTsNCj4+PiAr
+DQo+Pj4gK8KgwqDCoCAvKiBJZiB1c2VycHRyIGFyZSB1cGRhdGVkIGFmdGVyIGFtZGdwdV9jc19w
+YXJzZXJfYm9zKCksIHJlc3RhcnQNCj4+PiBjcyAqLw0KPj4+ICDCoMKgwqDCoMKgIGFtZGdwdV9i
+b19saXN0X2Zvcl9lYWNoX3VzZXJwdHJfZW50cnkoZSwgcC0+Ym9fbGlzdCkgew0KPj4+ICDCoMKg
+wqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9ibyAqYm8gPSB0dG1fdG9fYW1kZ3B1X2JvKGUt
+PnR2LmJvKTsNCj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKGFtZGdwdV90dG1fdHRfdXNlcnB0cl9u
+ZWVkc19wYWdlcyhiby0+dGJvLnR0bSkpIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBy
+ID0gLUVSRVNUQVJUU1lTOw0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJyb3Jf
+YWJvcnQ7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIH0NCj4+PiArwqDCoMKgwqDCoMKgwqAgciB8PSAh
+YW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlc19kb25lKGJvLT50Ym8udHRtKTsNCj4+IEp1c3Qg
+YWJvcnQgd2hlbiB5b3Ugc2VlIHRoZSBmaXJzdCBvbmUgd2l0aCBhIHByb2JsZW0gaGVyZS4NCj4+
+DQo+PiBUaGVyZSBpcyBubyB2YWx1ZSBpbiBjaGVja2luZyBhbGwgb2YgdGhlbS4NCj4+DQo+Pj4g
+K8KgwqDCoCB9DQo+Pj4gK8KgwqDCoCBpZiAocikgew0KPj4+ICvCoMKgwqDCoMKgwqDCoCByID0g
+LUVBR0FJTjsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBlcnJvcl9hYm9ydDsNCj4+PiAgwqDC
+oMKgwqDCoCB9DQo+Pj4gIMKgwqDCoMKgwqAgam9iLT5vd25lciA9IHAtPmZpbHA7DQo+Pj4gQEAg
+LTEyODksMTQgKzEyNDgsMjAgQEAgc3RhdGljIGludCBhbWRncHVfY3Nfc3VibWl0KHN0cnVjdA0K
+Pj4+IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+Pj4gIMKgIGludCBhbWRncHVfY3NfaW9jdGwoc3Ry
+dWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwgc3RydWN0DQo+Pj4gZHJtX2ZpbGUgKmZp
+bHApDQo+Pj4gIMKgIHsNCj4+PiAgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
+diA9IGRldi0+ZGV2X3ByaXZhdGU7DQo+Pj4gLcKgwqDCoCB1bmlvbiBkcm1fYW1kZ3B1X2NzICpj
+cyA9IGRhdGE7DQo+Pj4gLcKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2NzX3BhcnNlciBwYXJzZXIgPSB7
+fTsNCj4+PiAtwqDCoMKgIGJvb2wgcmVzZXJ2ZWRfYnVmZmVycyA9IGZhbHNlOw0KPj4+ICvCoMKg
+wqAgdW5pb24gZHJtX2FtZGdwdV9jcyAqY3M7DQo+Pj4gK8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2Nz
+X3BhcnNlciBwYXJzZXI7DQo+Pj4gK8KgwqDCoCBib29sIHJlc2VydmVkX2J1ZmZlcnM7DQo+Pj4g
+K8KgwqDCoCBpbnQgdHJpZXMgPSAxMDsNCj4+PiAgwqDCoMKgwqDCoCBpbnQgaSwgcjsNCj4+PiAg
+wqDCoMKgwqDCoCBpZiAoIWFkZXYtPmFjY2VsX3dvcmtpbmcpDQo+Pj4gIMKgwqDCoMKgwqDCoMKg
+wqDCoCByZXR1cm4gLUVCVVNZOw0KPj4+ICtyZXN0YXJ0Og0KPj4+ICvCoMKgwqAgbWVtc2V0KCZw
+YXJzZXIsIDAsIHNpemVvZihwYXJzZXIpKTsNCj4+PiArwqDCoMKgIGNzID0gZGF0YTsNCj4+PiAr
+wqDCoMKgIHJlc2VydmVkX2J1ZmZlcnMgPSBmYWxzZTsNCj4+PiArDQo+Pj4gIMKgwqDCoMKgwqAg
+cGFyc2VyLmFkZXYgPSBhZGV2Ow0KPj4+ICDCoMKgwqDCoMKgIHBhcnNlci5maWxwID0gZmlscDsN
+Cj4+PiBAQCAtMTMzOCw2ICsxMzAzLDE1IEBAIGludCBhbWRncHVfY3NfaW9jdGwoc3RydWN0IGRy
+bV9kZXZpY2UgKmRldiwNCj4+PiB2b2lkICpkYXRhLCBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbHApDQo+
+Pj4gIMKgIG91dDoNCj4+PiAgwqDCoMKgwqDCoCBhbWRncHVfY3NfcGFyc2VyX2ZpbmkoJnBhcnNl
+ciwgciwgcmVzZXJ2ZWRfYnVmZmVycyk7DQo+Pj4gKw0KPj4+ICvCoMKgwqAgaWYgKHIgPT0gLUVB
+R0FJTikgew0KPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoIS0tdHJpZXMpIHsNCj4+PiArwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBEUk1fRVJST1IoIlBvc3NpYmxlIGRlYWRsb2NrPyBSZXRyeSB0b28g
+bWFueSB0aW1lc1xuIik7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FREVB
+RExLOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCB9DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gcmVz
+dGFydDsNCj4+PiArwqDCoMKgIH0NCj4+PiArDQo+PiBJIHdvdWxkIHN0aWxsIHNheSB0byBiZXR0
+ZXIganVzdCByZXR1cm4gdG8gdXNlcnNwYWNlIGhlcmUuDQo+Pg0KPj4gQmVjYXVzZSBvZiB0aGUg
+d2F5IEhNTSB3b3JrcyAxMCByZXRyaWVzIG1pZ2h0IG5vdCBiZSBzdWZmaWNpZW50IGFueSBtb3Jl
+Lg0KPj4NCj4+IENocmlzdGlhbi4NCj4+DQo+Pj4gIMKgwqDCoMKgwqAgcmV0dXJuIHI7DQo+Pj4g
+IMKgIH0NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2dlbS5jDQo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4+
+PiBpbmRleCBkMjFkZDJmMzY5ZGEuLjU1NTI4NWUzMjllZCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4+PiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4+PiBAQCAtMzI5LDI2ICszMjksMjQgQEAg
+aW50IGFtZGdwdV9nZW1fdXNlcnB0cl9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZQ0KPj4+ICpkZXYs
+IHZvaWQgKmRhdGEsDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X2JvX3Jlc2Vy
+dmUoYm8sIHRydWUpOw0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIpDQo+Pj4gLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgZ290byBmcmVlX3BhZ2VzOw0KPj4+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGdvdG8gdXNlcl9wYWdlc19kb25lOw0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgYW1k
+Z3B1X2JvX3BsYWNlbWVudF9mcm9tX2RvbWFpbihibywgQU1ER1BVX0dFTV9ET01BSU5fR1RUKTsN
+Cj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIHIgPSB0dG1fYm9fdmFsaWRhdGUoJmJvLT50Ym8sICZi
+by0+cGxhY2VtZW50LCAmY3R4KTsNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9ib191
+bnJlc2VydmUoYm8pOw0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIpDQo+Pj4gLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgZ290byBmcmVlX3BhZ2VzOw0KPj4+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGdvdG8gdXNlcl9wYWdlc19kb25lOw0KPj4+ICDCoMKgwqDCoMKgIH0NCj4+PiAgwqDC
+oMKgwqDCoCByID0gZHJtX2dlbV9oYW5kbGVfY3JlYXRlKGZpbHAsIGdvYmosICZoYW5kbGUpOw0K
+Pj4+IC3CoMKgwqAgLyogZHJvcCByZWZlcmVuY2UgZnJvbSBhbGxvY2F0ZSAtIGhhbmRsZSBob2xk
+cyBpdCBub3cgKi8NCj4+PiAtwqDCoMKgIGRybV9nZW1fb2JqZWN0X3B1dF91bmxvY2tlZChnb2Jq
+KTsNCj4+PiAgwqDCoMKgwqDCoCBpZiAocikNCj4+PiAtwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7
+DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gdXNlcl9wYWdlc19kb25lOw0KPj4+ICDCoMKgwqDC
+oMKgIGFyZ3MtPmhhbmRsZSA9IGhhbmRsZTsNCj4+PiAtwqDCoMKgIHJldHVybiAwOw0KPj4+IC1m
+cmVlX3BhZ2VzOg0KPj4+IC3CoMKgwqAgcmVsZWFzZV9wYWdlcyhiby0+dGJvLnR0bS0+cGFnZXMs
+IGJvLT50Ym8udHRtLT5udW1fcGFnZXMpOw0KPj4+ICt1c2VyX3BhZ2VzX2RvbmU6DQo+Pj4gK8Kg
+wqDCoCBpZiAoYXJncy0+ZmxhZ3MgJiBBTURHUFVfR0VNX1VTRVJQVFJfVkFMSURBVEUpDQo+Pj4g
+K8KgwqDCoMKgwqDCoMKgIGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXNfZG9uZShiby0+dGJv
+LnR0bSk7DQo+Pj4gIMKgIHJlbGVhc2Vfb2JqZWN0Og0KPj4+ICDCoMKgwqDCoMKgIGRybV9nZW1f
+b2JqZWN0X3B1dF91bmxvY2tlZChnb2JqKTsNCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21uLmMNCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9tbi5jDQo+Pj4gaW5kZXggZTM1Njg2N2QyMzA4Li5mYTI1MTYwMTZjNDMgMTAw
+NjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21uLmMNCj4+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uYw0KPj4+IEBAIC0y
+MjIsOCArMjIyLDYgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X21uX2ludmFsaWRhdGVfbm9kZShzdHJ1
+Y3QNCj4+PiBhbWRncHVfbW5fbm9kZSAqbm9kZSwNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgdHJ1ZSwgZmFsc2UsIE1BWF9TQ0hFRFVMRV9USU1FT1VUKTsNCj4+PiAgwqDCoMKgwqDC
+oMKgwqDCoMKgIGlmIChyIDw9IDApDQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIERS
+TV9FUlJPUigiKCVsZCkgZmFpbGVkIHRvIHdhaXQgZm9yIHVzZXIgYm9cbiIsIHIpOw0KPj4+IC0N
+Cj4+PiAtwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X3R0bV90dF9tYXJrX3VzZXJfcGFnZXMoYm8tPnRi
+by50dG0pOw0KPj4+ICDCoMKgwqDCoMKgIH0NCj4+PiAgwqAgfQ0KPj4+IEBAIC01MDQsMyArNTAy
+LDI2IEBAIHZvaWQgYW1kZ3B1X21uX3VucmVnaXN0ZXIoc3RydWN0IGFtZGdwdV9ibyAqYm8pDQo+
+Pj4gIMKgwqDCoMKgwqAgbXV0ZXhfdW5sb2NrKCZhZGV2LT5tbl9sb2NrKTsNCj4+PiAgwqAgfQ0K
+Pj4+ICsvKiBmbGFncyB1c2VkIGJ5IEhNTSBpbnRlcm5hbCwgbm90IHJlbGF0ZWQgdG8gQ1BVL0dQ
+VSBQVEUgZmxhZ3MgKi8NCj4+PiArc3RhdGljIGNvbnN0IHVpbnQ2NF90IGhtbV9yYW5nZV9mbGFn
+c1tITU1fUEZOX0ZMQUdfTUFYXSA9IHsNCj4+PiArwqDCoMKgwqDCoMKgwqAgKDEgPDwgMCksIC8q
+IEhNTV9QRk5fVkFMSUQgKi8NCj4+PiArwqDCoMKgwqDCoMKgwqAgKDEgPDwgMSksIC8qIEhNTV9Q
+Rk5fV1JJVEUgKi8NCj4+PiArwqDCoMKgwqDCoMKgwqAgMCAvKiBITU1fUEZOX0RFVklDRV9QUklW
+QVRFICovDQo+Pj4gK307DQo+Pj4gKw0KPj4+ICtzdGF0aWMgY29uc3QgdWludDY0X3QgaG1tX3Jh
+bmdlX3ZhbHVlc1tITU1fUEZOX1ZBTFVFX01BWF0gPSB7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIDB4
+ZmZmZmZmZmZmZmZmZmZmZVVMLCAvKiBITU1fUEZOX0VSUk9SICovDQo+Pj4gK8KgwqDCoMKgwqDC
+oMKgIDAsIC8qIEhNTV9QRk5fTk9ORSAqLw0KPj4+ICvCoMKgwqDCoMKgwqDCoCAweGZmZmZmZmZm
+ZmZmZmZmZmNVTCAvKiBITU1fUEZOX1NQRUNJQUwgKi8NCj4+PiArfTsNCj4+PiArDQo+Pj4gK3Zv
+aWQgYW1kZ3B1X2htbV9pbml0X3JhbmdlKHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQ0KPj4+ICt7
+DQo+Pj4gK8KgwqDCoCBpZiAocmFuZ2UpIHsNCj4+PiArwqDCoMKgwqDCoMKgwqAgcmFuZ2UtPmZs
+YWdzID0gaG1tX3JhbmdlX2ZsYWdzOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCByYW5nZS0+dmFsdWVz
+ID0gaG1tX3JhbmdlX3ZhbHVlczsNCj4+PiArwqDCoMKgwqDCoMKgwqAgcmFuZ2UtPnBmbl9zaGlm
+dCA9IFBBR0VfU0hJRlQ7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJhbmdlLT5wZm5zID0gTlVMTDsN
+Cj4+PiArwqDCoMKgwqDCoMKgwqAgSU5JVF9MSVNUX0hFQUQoJnJhbmdlLT5saXN0KTsNCj4+PiAr
+wqDCoMKgIH0NCj4+PiArfQ0KPj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfbW4uaA0KPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X21uLmgNCj4+PiBpbmRleCAwYTUxZmQwMDAyMWMuLjQ4MDNlMjE2ZTE3NCAxMDA2NDQNCj4+PiAt
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaA0KPj4+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tbi5oDQo+Pj4gQEAgLTI1LDkgKzI1LDEw
+IEBADQo+Pj4gIMKgICNkZWZpbmUgX19BTURHUFVfTU5fSF9fDQo+Pj4gIMKgIC8qDQo+Pj4gLSAq
+IE1NVSBOb3RpZmllcg0KPj4+ICsgKiBITU0gbWlycm9yDQo+Pj4gIMKgwqAgKi8NCj4+PiAgwqAg
+c3RydWN0IGFtZGdwdV9tbjsNCj4+PiArc3RydWN0IGhtbV9yYW5nZTsNCj4+PiAgwqAgZW51bSBh
+bWRncHVfbW5fdHlwZSB7DQo+Pj4gIMKgwqDCoMKgwqAgQU1ER1BVX01OX1RZUEVfR0ZYLA0KPj4+
+IEBAIC00MSw2ICs0Miw3IEBAIHN0cnVjdCBhbWRncHVfbW4gKmFtZGdwdV9tbl9nZXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UNCj4+PiAqYWRldiwNCj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBlbnVtIGFtZGdwdV9tbl90eXBlIHR5cGUpOw0KPj4+ICDCoCBpbnQgYW1kZ3B1
+X21uX3JlZ2lzdGVyKHN0cnVjdCBhbWRncHVfYm8gKmJvLCB1bnNpZ25lZCBsb25nIGFkZHIpOw0K
+Pj4+ICDCoCB2b2lkIGFtZGdwdV9tbl91bnJlZ2lzdGVyKHN0cnVjdCBhbWRncHVfYm8gKmJvKTsN
+Cj4+PiArdm9pZCBhbWRncHVfaG1tX2luaXRfcmFuZ2Uoc3RydWN0IGhtbV9yYW5nZSAqcmFuZ2Up
+Ow0KPj4+ICDCoCAjZWxzZQ0KPj4+ICDCoCBzdGF0aWMgaW5saW5lIHZvaWQgYW1kZ3B1X21uX2xv
+Y2soc3RydWN0IGFtZGdwdV9tbiAqbW4pIHt9DQo+Pj4gIMKgIHN0YXRpYyBpbmxpbmUgdm9pZCBh
+bWRncHVfbW5fdW5sb2NrKHN0cnVjdCBhbWRncHVfbW4gKm1uKSB7fQ0KPj4+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCj4+PiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPj4+IGluZGV4IDczZTcxZTYxZGM5OS4u
+MWU2NzUwNDhmNzkwIDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90dG0uYw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV90dG0uYw0KPj4+IEBAIC00Myw2ICs0Myw3IEBADQo+Pj4gIMKgICNpbmNsdWRlIDxsaW51eC9w
+YWdlbWFwLmg+DQo+Pj4gIMKgICNpbmNsdWRlIDxsaW51eC9kZWJ1Z2ZzLmg+DQo+Pj4gIMKgICNp
+bmNsdWRlIDxsaW51eC9pb21tdS5oPg0KPj4+ICsjaW5jbHVkZSA8bGludXgvaG1tLmg+DQo+Pj4g
+IMKgICNpbmNsdWRlICJhbWRncHUuaCINCj4+PiAgwqAgI2luY2x1ZGUgImFtZGdwdV9vYmplY3Qu
+aCINCj4+PiAgwqAgI2luY2x1ZGUgImFtZGdwdV90cmFjZS5oIg0KPj4+IEBAIC03MDUsOTggKzcw
+NiwxMDIgQEAgc3RhdGljIHVuc2lnbmVkIGxvbmcNCj4+PiBhbWRncHVfdHRtX2lvX21lbV9wZm4o
+c3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywNCj4+PiAgwqAgLyoNCj4+PiAgwqDCoCAqIFRU
+TSBiYWNrZW5kIGZ1bmN0aW9ucy4NCj4+PiAgwqDCoCAqLw0KPj4+IC1zdHJ1Y3QgYW1kZ3B1X3R0
+bV9ndXBfdGFza19saXN0IHsNCj4+PiAtwqDCoMKgIHN0cnVjdCBsaXN0X2hlYWTCoMKgwqAgbGlz
+dDsNCj4+PiAtwqDCoMKgIHN0cnVjdCB0YXNrX3N0cnVjdMKgwqDCoCAqdGFzazsNCj4+PiAtfTsN
+Cj4+PiAtDQo+Pj4gIMKgIHN0cnVjdCBhbWRncHVfdHRtX3R0IHsNCj4+PiAgwqDCoMKgwqDCoCBz
+dHJ1Y3QgdHRtX2RtYV90dMKgwqDCoCB0dG07DQo+Pj4gIMKgwqDCoMKgwqAgdTY0wqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBvZmZzZXQ7DQo+Pj4gIMKgwqDCoMKgwqAgdWludDY0X3TCoMKgwqDCoMKg
+wqDCoCB1c2VycHRyOw0KPj4+ICDCoMKgwqDCoMKgIHN0cnVjdCB0YXNrX3N0cnVjdMKgwqDCoCAq
+dXNlcnRhc2s7DQo+Pj4gIMKgwqDCoMKgwqAgdWludDMyX3TCoMKgwqDCoMKgwqDCoCB1c2VyZmxh
+Z3M7DQo+Pj4gLcKgwqDCoCBzcGlubG9ja190wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ3Vw
+dGFza2xvY2s7DQo+Pj4gLcKgwqDCoCBzdHJ1Y3QgbGlzdF9oZWFkwqDCoMKgwqDCoMKgwqAgZ3Vw
+dGFza3M7DQo+Pj4gLcKgwqDCoCBhdG9taWNfdMKgwqDCoMKgwqDCoMKgIG1tdV9pbnZhbGlkYXRp
+b25zOw0KPj4+IC3CoMKgwqAgdWludDMyX3TCoMKgwqDCoMKgwqDCoCBsYXN0X3NldF9wYWdlczsN
+Cj4+PiArwqDCoMKgIHN0cnVjdCBobW1fcmFuZ2XCoMKgwqAgcmFuZ2U7DQo+Pj4gIMKgIH07DQo+
+Pj4gIMKgIC8qKg0KPj4+IC0gKiBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzIC0gUGluIHBh
+Z2VzIG9mIG1lbW9yeSBwb2ludGVkIHRvIGJ5IGENCj4+PiBVU0VSUFRSDQo+Pj4gLSAqIHBvaW50
+ZXIgdG8gbWVtb3J5DQo+Pj4gKyAqIGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXMgLSBnZXQg
+ZGV2aWNlIGFjY2Vzc2libGUgcGFnZXMgdGhhdA0KPj4+IGJhY2sgdXNlcg0KPj4+ICsgKiBtZW1v
+cnkgYW5kIHN0YXJ0IEhNTSB0cmFja2luZyBDUFUgcGFnZSB0YWJsZSB1cGRhdGUNCj4+PiAgwqDC
+oCAqDQo+Pj4gLSAqIENhbGxlZCBieSBhbWRncHVfZ2VtX3VzZXJwdHJfaW9jdGwoKSBhbmQgYW1k
+Z3B1X2NzX3BhcnNlcl9ib3MoKS4NCj4+PiAtICogVGhpcyBwcm92aWRlcyBhIHdyYXBwZXIgYXJv
+dW5kIHRoZSBnZXRfdXNlcl9wYWdlcygpIGNhbGwgdG8gcHJvdmlkZQ0KPj4+IC0gKiBkZXZpY2Ug
+YWNjZXNzaWJsZSBwYWdlcyB0aGF0IGJhY2sgdXNlciBtZW1vcnkuDQo+Pj4gKyAqIENhbGxpbmcg
+ZnVuY3Rpb24gbXVzdCBjYWxsIGFtZGdwdV90dG1fdHRfdXNlcnB0cl9yYW5nZV9kb25lKCkgb25j
+ZQ0KPj4+IGFuZCBvbmx5DQo+Pj4gKyAqIG9uY2UgYWZ0ZXJ3YXJkcyB0byBzdG9wIEhNTSB0cmFj
+a2luZw0KPj4+ICDCoMKgICovDQo+Pj4gIMKgIGludCBhbWRncHVfdHRtX3R0X2dldF91c2VyX3Bh
+Z2VzKHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHBhZ2UNCj4+PiAqKnBhZ2VzKQ0KPj4+ICDC
+oCB7DQo+Pj4gIMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV90dG1fdHQgKmd0dCA9ICh2b2lkICop
+dHRtOw0KPj4+ICDCoMKgwqDCoMKgIHN0cnVjdCBtbV9zdHJ1Y3QgKm1tID0gZ3R0LT51c2VydGFz
+ay0+bW07DQo+Pj4gLcKgwqDCoCB1bnNpZ25lZCBpbnQgZmxhZ3MgPSAwOw0KPj4+IC3CoMKgwqAg
+dW5zaWduZWQgcGlubmVkID0gMDsNCj4+PiAtwqDCoMKgIGludCByOw0KPj4+ICvCoMKgwqAgdW5z
+aWduZWQgbG9uZyBlbmQgPSBndHQtPnVzZXJwdHIgKyB0dG0tPm51bV9wYWdlcyAqIFBBR0VfU0la
+RTsNCj4+PiArwqDCoMKgIHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlID0gJmd0dC0+cmFuZ2U7DQo+
+Pj4gK8KgwqDCoCBpbnQgciA9IDAsIGk7DQo+Pj4gIMKgwqDCoMKgwqAgaWYgKCFtbSkgLyogSGFw
+cGVucyBkdXJpbmcgcHJvY2VzcyBzaHV0ZG93biAqLw0KPj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAg
+cmV0dXJuIC1FU1JDSDsNCj4+PiAtwqDCoMKgIGlmICghKGd0dC0+dXNlcmZsYWdzICYgQU1ER1BV
+X0dFTV9VU0VSUFRSX1JFQURPTkxZKSkNCj4+PiAtwqDCoMKgwqDCoMKgwqAgZmxhZ3MgfD0gRk9M
+TF9XUklURTsNCj4+PiArwqDCoMKgIGFtZGdwdV9obW1faW5pdF9yYW5nZShyYW5nZSk7DQo+Pj4g
+IMKgwqDCoMKgwqAgZG93bl9yZWFkKCZtbS0+bW1hcF9zZW0pOw0KPj4+IC3CoMKgwqAgaWYgKGd0
+dC0+dXNlcmZsYWdzICYgQU1ER1BVX0dFTV9VU0VSUFRSX0FOT05PTkxZKSB7DQo+Pj4gLcKgwqDC
+oMKgwqDCoMKgIC8qDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqAgKiBjaGVjayB0aGF0IHdlIG9ubHkg
+dXNlIGFub255bW91cyBtZW1vcnkgdG8gcHJldmVudCBwcm9ibGVtcw0KPj4+IC3CoMKgwqDCoMKg
+wqDCoMKgICogd2l0aCB3cml0ZWJhY2sNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoCAqLw0KPj4+IC3C
+oMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIGVuZCA9IGd0dC0+dXNlcnB0ciArIHR0bS0+bnVt
+X3BhZ2VzICogUEFHRV9TSVpFOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qgdm1fYXJlYV9z
+dHJ1Y3QgKnZtYTsNCj4+PiArwqDCoMKgIHJhbmdlLT52bWEgPSBmaW5kX3ZtYShtbSwgZ3R0LT51
+c2VycHRyKTsNCj4+PiArwqDCoMKgIGlmICghcmFuZ2VfaW5fdm1hKHJhbmdlLT52bWEsIGd0dC0+
+dXNlcnB0ciwgZW5kKSkNCj4+PiArwqDCoMKgwqDCoMKgwqAgciA9IC1FRkFVTFQ7DQo+Pj4gK8Kg
+wqDCoCBlbHNlIGlmICgoZ3R0LT51c2VyZmxhZ3MgJiBBTURHUFVfR0VNX1VTRVJQVFJfQU5PTk9O
+TFkpICYmDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJhbmdlLT52bWEtPnZtX2ZpbGUpDQo+Pj4gK8Kg
+wqDCoMKgwqDCoMKgIHIgPSAtRVBFUk07DQo+Pj4gK8KgwqDCoCBpZiAocikNCj4+PiArwqDCoMKg
+wqDCoMKgwqAgZ290byBvdXQ7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIHZtYSA9IGZpbmRfdm1hKG1t
+LCBndHQtPnVzZXJwdHIpOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAoIXZtYSB8fCB2bWEtPnZt
+X2ZpbGUgfHwgdm1hLT52bV9lbmQgPCBlbmQpIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCB1cF9yZWFkKCZtbS0+bW1hcF9zZW0pOw0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJl
+dHVybiAtRVBFUk07DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIH0NCj4+PiArwqDCoMKgIHJhbmdlLT5w
+Zm5zID0ga3ZtYWxsb2NfYXJyYXkodHRtLT5udW1fcGFnZXMsIHNpemVvZih1aW50NjRfdCksDQo+
+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tFUk5FTCk7
+DQo+Pj4gK8KgwqDCoCBpZiAocmFuZ2UtPnBmbnMgPT0gTlVMTCkgew0KPj4+ICvCoMKgwqDCoMKg
+wqDCoCByID0gLUVOT01FTTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZ290byBvdXQ7DQo+Pj4gIMKg
+wqDCoMKgwqAgfQ0KPj4+ICvCoMKgwqAgcmFuZ2UtPnN0YXJ0ID0gZ3R0LT51c2VycHRyOw0KPj4+
+ICvCoMKgwqAgcmFuZ2UtPmVuZCA9IGVuZDsNCj4+PiAtwqDCoMKgIC8qIGxvb3AgZW5vdWdoIHRp
+bWVzIHVzaW5nIGNvbnRpZ3VvdXMgcGFnZXMgb2YgbWVtb3J5ICovDQo+Pj4gLcKgwqDCoCBkbyB7
+DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIG51bV9wYWdlcyA9IHR0bS0+bnVtX3BhZ2Vz
+IC0gcGlubmVkOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCB1aW50NjRfdCB1c2VycHRyID0gZ3R0LT51
+c2VycHRyICsgcGlubmVkICogUEFHRV9TSVpFOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
+cGFnZSAqKnAgPSBwYWdlcyArIHBpbm5lZDsNCj4+PiAtwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFt
+ZGdwdV90dG1fZ3VwX3Rhc2tfbGlzdCBndXB0YXNrOw0KPj4+ICvCoMKgwqAgcmFuZ2UtPnBmbnNb
+MF0gPSByYW5nZS0+ZmxhZ3NbSE1NX1BGTl9WQUxJRF07DQo+Pj4gK8KgwqDCoCByYW5nZS0+cGZu
+c1swXSB8PSBhbWRncHVfdHRtX3R0X2lzX3JlYWRvbmx5KHR0bSkgPw0KPj4+ICvCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgMCA6IHJhbmdlLT5mbGFnc1tITU1fUEZOX1dSSVRFXTsNCj4+
+PiArwqDCoMKgIGZvciAoaSA9IDE7IGkgPCB0dG0tPm51bV9wYWdlczsgaSsrKQ0KPj4+ICvCoMKg
+wqDCoMKgwqDCoCByYW5nZS0+cGZuc1tpXSA9IHJhbmdlLT5wZm5zWzBdOw0KPj4+IC3CoMKgwqDC
+oMKgwqDCoCBndXB0YXNrLnRhc2sgPSBjdXJyZW50Ow0KPj4+IC3CoMKgwqDCoMKgwqDCoCBzcGlu
+X2xvY2soJmd0dC0+Z3VwdGFza2xvY2spOw0KPj4+IC3CoMKgwqDCoMKgwqDCoCBsaXN0X2FkZCgm
+Z3VwdGFzay5saXN0LCAmZ3R0LT5ndXB0YXNrcyk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIHNwaW5f
+dW5sb2NrKCZndHQtPmd1cHRhc2tsb2NrKTsNCj4+PiArwqDCoMKgIC8qIFRoaXMgbWF5IHRyaWdn
+ZXIgcGFnZSB0YWJsZSB1cGRhdGUgKi8NCj4+PiArwqDCoMKgIHIgPSBobW1fdm1hX2ZhdWx0KHJh
+bmdlLCB0cnVlKTsNCj4+PiArwqDCoMKgIGlmIChyKQ0KPj4+ICvCoMKgwqDCoMKgwqDCoCBnb3Rv
+IG91dF9mcmVlX3BmbnM7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIGlmIChtbSA9PSBjdXJyZW50LT5t
+bSkNCj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByID0gZ2V0X3VzZXJfcGFnZXModXNlcnB0
+ciwgbnVtX3BhZ2VzLCBmbGFncywgcCwgTlVMTCk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIGVsc2UN
+Cj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByID0gZ2V0X3VzZXJfcGFnZXNfcmVtb3RlKGd0
+dC0+dXNlcnRhc2ssDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IG1tLCB1c2VycHRyLCBudW1fcGFnZXMsDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGZsYWdzLCBwLCBOVUxMLCBOVUxMKTsNCj4+PiArwqDCoMKgIHVwX3JlYWQo
+Jm1tLT5tbWFwX3NlbSk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIHNwaW5fbG9jaygmZ3R0LT5ndXB0
+YXNrbG9jayk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgIGxpc3RfZGVsKCZndXB0YXNrLmxpc3QpOw0K
+Pj4+IC3CoMKgwqDCoMKgwqDCoCBzcGluX3VubG9jaygmZ3R0LT5ndXB0YXNrbG9jayk7DQo+Pj4g
+K8KgwqDCoCBmb3IgKGkgPSAwOyBpIDwgdHRtLT5udW1fcGFnZXM7IGkrKykNCj4+PiArwqDCoMKg
+wqDCoMKgwqAgcGFnZXNbaV0gPSBobW1fcGZuX3RvX3BhZ2UocmFuZ2UsIHJhbmdlLT5wZm5zW2ld
+KTsNCj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKHIgPCAwKQ0KPj4+IC3CoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIGdvdG8gcmVsZWFzZV9wYWdlczsNCj4+PiArwqDCoMKgIHJldHVybiAwOw0KPj4+IC3C
+oMKgwqDCoMKgwqDCoCBwaW5uZWQgKz0gcjsNCj4+PiArb3V0X2ZyZWVfcGZuczoNCj4+PiArwqDC
+oMKgIGt2ZnJlZShyYW5nZS0+cGZucyk7DQo+Pj4gK8KgwqDCoCByYW5nZS0+cGZucyA9IE5VTEw7
+DQo+Pj4gK291dDoNCj4+PiArwqDCoMKgIHVwX3JlYWQoJm1tLT5tbWFwX3NlbSk7DQo+Pj4gK8Kg
+wqDCoCByZXR1cm4gcjsNCj4+PiArfQ0KPj4+IC3CoMKgwqAgfSB3aGlsZSAocGlubmVkIDwgdHRt
+LT5udW1fcGFnZXMpOw0KPj4+ICsvKioNCj4+PiArICogYW1kZ3B1X3R0bV90dF91c2VycHRyX3Jh
+bmdlX2RvbmUgLSBzdG9wIEhNTSB0cmFjayB0aGUgQ1BVIHBhZ2UNCj4+PiB0YWJsZSBjaGFuZ2UN
+Cj4+PiArICogQ2hlY2sgaWYgdGhlIHBhZ2VzIGJhY2tpbmcgdGhpcyB0dG0gcmFuZ2UgaGF2ZSBi
+ZWVuIGludmFsaWRhdGVkDQo+Pj4gKyAqDQo+Pj4gKyAqIFJldHVybnM6IHRydWUgaWYgcGFnZXMg
+YXJlIHN0aWxsIHZhbGlkDQo+Pj4gKyAqLw0KPj4+ICtib29sIGFtZGdwdV90dG1fdHRfZ2V0X3Vz
+ZXJfcGFnZXNfZG9uZShzdHJ1Y3QgdHRtX3R0ICp0dG0pDQo+Pj4gK3sNCj4+PiArwqDCoMKgIHN0
+cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsNCj4+PiArwqDCoMKgIGJvb2wg
+ciA9IGZhbHNlOw0KPj4+IC3CoMKgwqAgdXBfcmVhZCgmbW0tPm1tYXBfc2VtKTsNCj4+PiAtwqDC
+oMKgIHJldHVybiAwOw0KPj4+ICvCoMKgwqAgaWYgKCFndHQgfHwgIWd0dC0+dXNlcnB0cikNCj4+
+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGZhbHNlOw0KPj4+ICsNCj4+PiArwqDCoMKgIFdBUk5f
+T05DRSghZ3R0LT5yYW5nZS5wZm5zLCAiTm8gdXNlciBwYWdlcyB0byBjaGVja1xuIik7DQo+Pj4g
+K8KgwqDCoCBpZiAoZ3R0LT5yYW5nZS5wZm5zKSB7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHIgPSBo
+bW1fdm1hX3JhbmdlX2RvbmUoJmd0dC0+cmFuZ2UpOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBrdmZy
+ZWUoZ3R0LT5yYW5nZS5wZm5zKTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZ3R0LT5yYW5nZS5wZm5z
+ID0gTlVMTDsNCj4+PiArwqDCoMKgIH0NCj4+PiAtcmVsZWFzZV9wYWdlczoNCj4+PiAtwqDCoMKg
+IHJlbGVhc2VfcGFnZXMocGFnZXMsIHBpbm5lZCk7DQo+Pj4gLcKgwqDCoCB1cF9yZWFkKCZtbS0+
+bW1hcF9zZW0pOw0KPj4+ICDCoMKgwqDCoMKgIHJldHVybiByOw0KPj4+ICDCoCB9DQo+Pj4gQEAg
+LTgwOSwxNiArODE0LDEwIEBAIGludCBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzKHN0cnVj
+dCB0dG1fdHQNCj4+PiAqdHRtLCBzdHJ1Y3QgcGFnZSAqKnBhZ2VzKQ0KPj4+ICDCoMKgICovDQo+
+Pj4gIMKgIHZvaWQgYW1kZ3B1X3R0bV90dF9zZXRfdXNlcl9wYWdlcyhzdHJ1Y3QgdHRtX3R0ICp0
+dG0sIHN0cnVjdCBwYWdlDQo+Pj4gKipwYWdlcykNCj4+PiAgwqAgew0KPj4+IC3CoMKgwqAgc3Ry
+dWN0IGFtZGdwdV90dG1fdHQgKmd0dCA9ICh2b2lkICopdHRtOw0KPj4+ICDCoMKgwqDCoMKgIHVu
+c2lnbmVkIGk7DQo+Pj4gLcKgwqDCoCBndHQtPmxhc3Rfc2V0X3BhZ2VzID0gYXRvbWljX3JlYWQo
+Jmd0dC0+bW11X2ludmFsaWRhdGlvbnMpOw0KPj4+IC3CoMKgwqAgZm9yIChpID0gMDsgaSA8IHR0
+bS0+bnVtX3BhZ2VzOyArK2kpIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKHR0bS0+cGFnZXNb
+aV0pDQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHV0X3BhZ2UodHRtLT5wYWdlc1tpXSk7
+DQo+Pj4gLQ0KPj4+ICvCoMKgwqAgZm9yIChpID0gMDsgaSA8IHR0bS0+bnVtX3BhZ2VzOyArK2kp
+DQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCB0dG0tPnBhZ2VzW2ldID0gcGFnZXMgPyBwYWdlc1tp
+XSA6IE5VTEw7DQo+Pj4gLcKgwqDCoCB9DQo+Pj4gIMKgIH0NCj4+PiAgwqAgLyoqDQo+Pj4gQEAg
+LTkwMywxMCArOTAyLDExIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV90dG1fdHRfdW5waW5fdXNlcnB0
+cihzdHJ1Y3QNCj4+PiB0dG1fdHQgKnR0bSkNCj4+PiAgwqDCoMKgwqDCoCAvKiB1bm1hcCB0aGUg
+cGFnZXMgbWFwcGVkIHRvIHRoZSBkZXZpY2UgKi8NCj4+PiAgwqDCoMKgwqDCoCBkbWFfdW5tYXBf
+c2coYWRldi0+ZGV2LCB0dG0tPnNnLT5zZ2wsIHR0bS0+c2ctPm5lbnRzLCBkaXJlY3Rpb24pOw0K
+Pj4+IC3CoMKgwqAgLyogbWFyayB0aGUgcGFnZXMgYXMgZGlydHkgKi8NCj4+PiAtwqDCoMKgIGFt
+ZGdwdV90dG1fdHRfbWFya191c2VyX3BhZ2VzKHR0bSk7DQo+Pj4gLQ0KPj4+ICDCoMKgwqDCoMKg
+IHNnX2ZyZWVfdGFibGUodHRtLT5zZyk7DQo+Pj4gKw0KPj4+ICvCoMKgwqAgaWYgKGd0dC0+cmFu
+Z2UucGZucyAmJg0KPj4+ICvCoMKgwqDCoMKgwqDCoCB0dG0tPnBhZ2VzWzBdID09IGhtbV9wZm5f
+dG9fcGFnZSgmZ3R0LT5yYW5nZSwNCj4+PiBndHQtPnJhbmdlLnBmbnNbMF0pKQ0KPj4+ICvCoMKg
+wqDCoMKgwqDCoCBXQVJOX09OQ0UoMSwgIk1pc3NpbmcgZ2V0X3VzZXJfcGFnZV9kb25lXG4iKTsN
+Cj4+PiAgwqAgfQ0KPj4+ICDCoCBpbnQgYW1kZ3B1X3R0bV9nYXJ0X2JpbmQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsDQo+Pj4gQEAgLTEyNTYsMTEgKzEyNTYsNiBAQCBpbnQgYW1kZ3B1X3R0
+bV90dF9zZXRfdXNlcnB0cihzdHJ1Y3QgdHRtX3R0DQo+Pj4gKnR0bSwgdWludDY0X3QgYWRkciwN
+Cj4+PiAgwqDCoMKgwqDCoCBndHQtPnVzZXJ0YXNrID0gY3VycmVudC0+Z3JvdXBfbGVhZGVyOw0K
+Pj4+ICDCoMKgwqDCoMKgIGdldF90YXNrX3N0cnVjdChndHQtPnVzZXJ0YXNrKTsNCj4+PiAtwqDC
+oMKgIHNwaW5fbG9ja19pbml0KCZndHQtPmd1cHRhc2tsb2NrKTsNCj4+PiAtwqDCoMKgIElOSVRf
+TElTVF9IRUFEKCZndHQtPmd1cHRhc2tzKTsNCj4+PiAtwqDCoMKgIGF0b21pY19zZXQoJmd0dC0+
+bW11X2ludmFsaWRhdGlvbnMsIDApOw0KPj4+IC3CoMKgwqAgZ3R0LT5sYXN0X3NldF9wYWdlcyA9
+IDA7DQo+Pj4gLQ0KPj4+ICDCoMKgwqDCoMKgIHJldHVybiAwOw0KPj4+ICDCoCB9DQo+Pj4gQEAg
+LTEyODksNyArMTI4NCw2IEBAIGJvb2wgYW1kZ3B1X3R0bV90dF9hZmZlY3RfdXNlcnB0cihzdHJ1
+Y3QgdHRtX3R0DQo+Pj4gKnR0bSwgdW5zaWduZWQgbG9uZyBzdGFydCwNCj4+PiAgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgbG9uZyBlbmQpDQo+Pj4gIMKg
+IHsNCj4+PiAgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3R0bV90dCAqZ3R0ID0gKHZvaWQgKil0
+dG07DQo+Pj4gLcKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3R0bV9ndXBfdGFza19saXN0ICplbnRyeTsN
+Cj4+PiAgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIHNpemU7DQo+Pj4gIMKgwqDCoMKgwqAgaWYg
+KGd0dCA9PSBOVUxMIHx8ICFndHQtPnVzZXJwdHIpDQo+Pj4gQEAgLTEzMDIsNDggKzEyOTYsMjAg
+QEAgYm9vbCBhbWRncHVfdHRtX3R0X2FmZmVjdF91c2VycHRyKHN0cnVjdA0KPj4+IHR0bV90dCAq
+dHRtLCB1bnNpZ25lZCBsb25nIHN0YXJ0LA0KPj4+ICDCoMKgwqDCoMKgIGlmIChndHQtPnVzZXJw
+dHIgPiBlbmQgfHwgZ3R0LT51c2VycHRyICsgc2l6ZSA8PSBzdGFydCkNCj4+PiAgwqDCoMKgwqDC
+oMKgwqDCoMKgIHJldHVybiBmYWxzZTsNCj4+PiAtwqDCoMKgIC8qIFNlYXJjaCB0aGUgbGlzdHMg
+b2YgdGFza3MgdGhhdCBob2xkIHRoaXMgbWFwcGluZyBhbmQgc2VlDQo+Pj4gLcKgwqDCoMKgICog
+aWYgY3VycmVudCBpcyBvbmUgb2YgdGhlbS7CoCBJZiBpdCBpcyByZXR1cm4gZmFsc2UuDQo+Pj4g
+LcKgwqDCoMKgICovDQo+Pj4gLcKgwqDCoCBzcGluX2xvY2soJmd0dC0+Z3VwdGFza2xvY2spOw0K
+Pj4+IC3CoMKgwqAgbGlzdF9mb3JfZWFjaF9lbnRyeShlbnRyeSwgJmd0dC0+Z3VwdGFza3MsIGxp
+c3QpIHsNCj4+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKGVudHJ5LT50YXNrID09IGN1cnJlbnQpIHsN
+Cj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzcGluX3VubG9jaygmZ3R0LT5ndXB0YXNrbG9j
+ayk7DQo+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIGZhbHNlOw0KPj4+IC3CoMKg
+wqDCoMKgwqDCoCB9DQo+Pj4gLcKgwqDCoCB9DQo+Pj4gLcKgwqDCoCBzcGluX3VubG9jaygmZ3R0
+LT5ndXB0YXNrbG9jayk7DQo+Pj4gLQ0KPj4+IC3CoMKgwqAgYXRvbWljX2luYygmZ3R0LT5tbXVf
+aW52YWxpZGF0aW9ucyk7DQo+Pj4gLQ0KPj4+ICDCoMKgwqDCoMKgIHJldHVybiB0cnVlOw0KPj4+
+ICDCoCB9DQo+Pj4gIMKgIC8qKg0KPj4+IC0gKiBhbWRncHVfdHRtX3R0X3VzZXJwdHJfaW52YWxp
+ZGF0ZWQgLSBIYXMgdGhlIHR0bV90dCBvYmplY3QgYmVlbg0KPj4+IGludmFsaWRhdGVkPw0KPj4+
+ICsgKiBhbWRncHVfdHRtX3R0X2lzX3VzZXJwdHIgLSBIYXZlIHRoZSBwYWdlcyBiYWNraW5nIGJ5
+IHVzZXJwdHI/DQo+Pj4gIMKgwqAgKi8NCj4+PiAtYm9vbCBhbWRncHVfdHRtX3R0X3VzZXJwdHJf
+aW52YWxpZGF0ZWQoc3RydWN0IHR0bV90dCAqdHRtLA0KPj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpbnQgKmxhc3RfaW52YWxpZGF0ZWQpDQo+Pj4gLXsN
+Cj4+PiAtwqDCoMKgIHN0cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsNCj4+
+PiAtwqDCoMKgIGludCBwcmV2X2ludmFsaWRhdGVkID0gKmxhc3RfaW52YWxpZGF0ZWQ7DQo+Pj4g
+LQ0KPj4+IC3CoMKgwqAgKmxhc3RfaW52YWxpZGF0ZWQgPSBhdG9taWNfcmVhZCgmZ3R0LT5tbXVf
+aW52YWxpZGF0aW9ucyk7DQo+Pj4gLcKgwqDCoCByZXR1cm4gcHJldl9pbnZhbGlkYXRlZCAhPSAq
+bGFzdF9pbnZhbGlkYXRlZDsNCj4+PiAtfQ0KPj4+IC0NCj4+PiAtLyoqDQo+Pj4gLSAqIGFtZGdw
+dV90dG1fdHRfdXNlcnB0cl9uZWVkc19wYWdlcyAtIEhhdmUgdGhlIHBhZ2VzIGJhY2tpbmcgdGhp
+cw0KPj4+IHR0bV90dCBvYmplY3QNCj4+PiAtICogYmVlbiBpbnZhbGlkYXRlZCBzaW5jZSB0aGUg
+bGFzdCB0aW1lIHRoZXkndmUgYmVlbiBzZXQ/DQo+Pj4gLSAqLw0KPj4+IC1ib29sIGFtZGdwdV90
+dG1fdHRfdXNlcnB0cl9uZWVkc19wYWdlcyhzdHJ1Y3QgdHRtX3R0ICp0dG0pDQo+Pj4gK2Jvb2wg
+YW1kZ3B1X3R0bV90dF9pc191c2VycHRyKHN0cnVjdCB0dG1fdHQgKnR0bSkNCj4+PiAgwqAgew0K
+Pj4+ICDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsN
+Cj4+PiAgwqDCoMKgwqDCoCBpZiAoZ3R0ID09IE5VTEwgfHwgIWd0dC0+dXNlcnB0cikNCj4+PiAg
+wqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBmYWxzZTsNCj4+PiAtwqDCoMKgIHJldHVybiBhdG9t
+aWNfcmVhZCgmZ3R0LT5tbXVfaW52YWxpZGF0aW9ucykgIT0gZ3R0LT5sYXN0X3NldF9wYWdlczsN
+Cj4+PiArwqDCoMKgIHJldHVybiB0cnVlOw0KPj4+ICDCoCB9DQo+Pj4gIMKgIC8qKg0KPj4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgNCj4+PiBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaA0KPj4+IGluZGV4IGI1YjJk
+MTAxZjdkYi4uODk4OGM4N2ZmZjlkIDEwMDY0NA0KPj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV90dG0uaA0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV90dG0uaA0KPj4+IEBAIC0xMDIsNiArMTAyLDcgQEAgaW50IGFtZGdwdV90dG1f
+YWxsb2NfZ2FydChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QNCj4+PiAqYm8pOw0KPj4+ICDCoCBp
+bnQgYW1kZ3B1X3R0bV9yZWNvdmVyX2dhcnQoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICp0Ym8p
+Ow0KPj4+ICDCoCBpbnQgYW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlcyhzdHJ1Y3QgdHRtX3R0
+ICp0dG0sIHN0cnVjdCBwYWdlDQo+Pj4gKipwYWdlcyk7DQo+Pj4gK2Jvb2wgYW1kZ3B1X3R0bV90
+dF9nZXRfdXNlcl9wYWdlc19kb25lKHN0cnVjdCB0dG1fdHQgKnR0bSk7DQo+Pj4gIMKgIHZvaWQg
+YW1kZ3B1X3R0bV90dF9zZXRfdXNlcl9wYWdlcyhzdHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdCBw
+YWdlDQo+Pj4gKipwYWdlcyk7DQo+Pj4gIMKgIHZvaWQgYW1kZ3B1X3R0bV90dF9tYXJrX3VzZXJf
+cGFnZXMoc3RydWN0IHR0bV90dCAqdHRtKTsNCj4+PiAgwqAgaW50IGFtZGdwdV90dG1fdHRfc2V0
+X3VzZXJwdHIoc3RydWN0IHR0bV90dCAqdHRtLCB1aW50NjRfdCBhZGRyLA0KPj4+IEBAIC0xMTIs
+NyArMTEzLDcgQEAgYm9vbCBhbWRncHVfdHRtX3R0X2FmZmVjdF91c2VycHRyKHN0cnVjdCB0dG1f
+dHQNCj4+PiAqdHRtLCB1bnNpZ25lZCBsb25nIHN0YXJ0LA0KPj4+ICDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIGVuZCk7DQo+Pj4gIMKgIGJvb2wg
+YW1kZ3B1X3R0bV90dF91c2VycHRyX2ludmFsaWRhdGVkKHN0cnVjdCB0dG1fdHQgKnR0bSwNCj4+
+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGludCAq
+bGFzdF9pbnZhbGlkYXRlZCk7DQo+Pj4gLWJvb2wgYW1kZ3B1X3R0bV90dF91c2VycHRyX25lZWRz
+X3BhZ2VzKHN0cnVjdCB0dG1fdHQgKnR0bSk7DQo+Pj4gK2Jvb2wgYW1kZ3B1X3R0bV90dF9pc191
+c2VycHRyKHN0cnVjdCB0dG1fdHQgKnR0bSk7DQo+Pj4gIMKgIGJvb2wgYW1kZ3B1X3R0bV90dF9p
+c19yZWFkb25seShzdHJ1Y3QgdHRtX3R0ICp0dG0pOw0KPj4+ICDCoCB1aW50NjRfdCBhbWRncHVf
+dHRtX3R0X3BkZV9mbGFncyhzdHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdA0KPj4+IHR0bV9tZW1f
+cmVnICptZW0pOw0KPj4+ICDCoCB1aW50NjRfdCBhbWRncHVfdHRtX3R0X3B0ZV9mbGFncyhzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0DQo+Pj4gdHRtX3R0ICp0dG0sDQoNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
