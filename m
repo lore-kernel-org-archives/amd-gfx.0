@@ -1,16 +1,17 @@
-From: "Knott, William" <William.Knott-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/5] drm/amdgpu: Fix a bug in setting
- CP_MEC_DOORBELL_RANGE_UPPER on SOC15
-Date: Wed, 6 Feb 2019 19:35:49 +0000
-Message-ID: <MN2PR12MB30401A4365C247051A060ABDE26F0@MN2PR12MB3040.namprd12.prod.outlook.com>
-References: <20190205203047.22586-1-Yong.Zhao@amd.com>
- <20190205203047.22586-2-Yong.Zhao@amd.com>
- <BL0PR12MB258079D4BB56B65F60C55C06806F0@BL0PR12MB2580.namprd12.prod.outlook.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_rptr()
+Date: Wed, 6 Feb 2019 20:08:52 +0000
+Message-ID: <SN1PR12MB2365B75DE8EE5EB4FF3724B3F06F0@SN1PR12MB2365.namprd12.prod.outlook.com>
+References: <20190206154921.14463-1-Yong.Zhao@amd.com>
+ <20190206154921.14463-2-Yong.Zhao@amd.com>
+ <DM5PR12MB1707AB38B8039A41F07FC1E7926F0@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <SN1PR12MB23657F8FB9109F776FD56F46F06F0@SN1PR12MB2365.namprd12.prod.outlook.com>
+ <CADnq5_P0VfVkk5cepB=Jbm0dJWDPCY00Gu+220yoCVfwP_qVHw@mail.gmail.com>,
+ <83f8b6a8-996b-fec5-54e9-ae402034cad6@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1543103565=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BL0PR12MB258079D4BB56B65F60C55C06806F0-b4cIHhjg/p/XzH18dTCKOgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <83f8b6a8-996b-fec5-54e9-ae402034cad6-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,105 +23,281 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Yang, Alice
- (SRDC 3D)" <Alice1.Yang-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGV5IE9haywNCg0KSW50ZXJlc3RpbmcgeW91IHNob3VsZCBhc2sgc2luY2UgdGhpcyBoYXMgYmVl
-biBkaXNjdXNzZWQgYSBsb3QgaGVyZSByZWNlbnRseS4gIFNvIEkgZGlkbid0IGtub3cgdW50aWwg
-cmVjZW50bHkgdGhhdCB0aGUgbmJpZiByb3V0ZXMgZG9vcmJlbGxzIG9ubHkgdXNpbmcgMTE6Mi4g
-IFNvIGluIGVhY2ggNGsgcGFnZSB0aGVyZSBpcyBhbiBhcmVhIGZvciB0aGUgdmFyaW91cyBkb29y
-YmVsbCByZWNpcGllbnRzIGluY2x1ZGluZyBjcCBnZnggYW5kIGNvbXB1dGUuICANCg0KVGhlIGRv
-b3JiZWxsIHVwcGVyL2xvd2VyIGluIHRoZSBDUCBvbmx5IGNvbnRyb2wgdGhlIHNldHRpbmcgb2Yg
-YSBkb29yYmVsbCB1cGRhdGVkIGJpdCBhbmQgY3VycmVudGx5IHVzZXMgdGhlIGZ1bGwgMjc6Mi4g
-IFRoZSBDUCBhbHNvIHVzZXMgdGhlIGZ1bGwgMjc6MiB0byBtYXRjaCB0aGUgZG9vcmJlbGwgdG8g
-YSBxdWV1ZSBzbG90IGFuZCBpbml0aWF0ZSB3b3JrLg0KDQpTbyBmb3IgeW91ciBleGFtcGxlIGlm
-IHlvdSBzZXQgdGhlIHJhbmdlcyB0byA0ayB0aGVuIHRoZSBDUCB3b3VsZCBub3QgY29uc2lkZXIg
-YSA2ayBhZGRyZXNzIHRvIG1hdGNoIHRoZSBNRUMgcmFuZ2UgYW5kIHdvdWxkIG5vdCBhY3R1YWxs
-eSB0cmlnZ2VyIHRoaXMgZG9vcmJlbGwgdXBkYXRlZCBsb2dpYy4gIFRoaXMgbG9naWMgaXMgb25s
-eSBuZWVkZWQgZm9yIHdha2luZyB1cCBhbiBpZGxlIHNjaGVkdWxlciBhbmQgZm9yIHBvd2VyIGdh
-dGluZyBzdXBwb3J0Lg0KDQpXZSBhcmUgY2hhbmdpbmcgdGhlIGhhcmR3YXJlIGluIHRoZSBkb29y
-YmVsbCByYW5nZSBjaGVjayB0byBvbmx5IGxvb2sgYXQgMTE6MiB0byBtYXRjaCB0aGUgbmJpZiBy
-b3V0aW5nIGxvZ2ljLiAgV2l0aCB0aGUgY3VycmVudCBoYXJkd2FyZSBJIGFtIG5vdCBldmVuIHN1
-cmUgaG93IHlvdSBjb25maWd1cmUgdGhlIHJhbmdlIHJlZ2lzdGVycyBpZiB5b3UgYXJlIHVzaW5n
-IFBBU0lEIGluIGJpdHMgMjc6MTIgb2YgdGhlIGRvb3JiZWxsLiAgVGhlIGRlZmF1bHQgZm9yIHRo
-b3NlIHJlZ2lzdGVycyBzYXlzIHRoYXQgY29tcHV0ZSBnZXRzIGV2ZXJ5dGhpbmcgZnJvbSBnZngg
-KDB4MTIpIHVwIHRvIDNmZmZmZi4NCg0KSG93IGRvIHlvdSBhY3R1YWxseSBjb25maWd1cmUgdGhl
-c2UgY3VycmVudGx5LCBkbyB5b3UgbGVhdmUgdGhlc2UgZGVmYXVsdHM/ICAgVGhhdCBzZWVtcyBs
-aWtlIHRoZSBvbmx5IHdheSB0byBoYXZlIGl0IHBzZXVkbyB3b3JrIHdpdGhvdXQgdGhlIGNvbWlu
-ZyBoYXJkd2FyZSBjaGFuZ2UuIA0KDQpUaGFua3MNCkNsaW50DQoNCg0KLS0tLS1PcmlnaW5hbCBN
-ZXNzYWdlLS0tLS0NCkZyb206IFplbmcsIE9hayANClNlbnQ6IFdlZG5lc2RheSwgRmVicnVhcnkg
-MDYsIDIwMTkgMTA6MjMgQU0NClRvOiBaaGFvLCBZb25nIDxZb25nLlpoYW9AYW1kLmNvbT47IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBLbm90dCwgV2lsbGlhbSA8V2lsbGlhbS5Lbm90
-dEBhbWQuY29tPjsgWWFuZywgQWxpY2UgKFNSREMgM0QpIDxBbGljZTEuWWFuZ0BhbWQuY29tPg0K
-Q2M6IFpoYW8sIFlvbmcgPFlvbmcuWmhhb0BhbWQuY29tPg0KU3ViamVjdDogUkU6IFtQQVRDSCAy
-LzVdIGRybS9hbWRncHU6IEZpeCBhIGJ1ZyBpbiBzZXR0aW5nIENQX01FQ19ET09SQkVMTF9SQU5H
-RV9VUFBFUiBvbiBTT0MxNQ0KDQorIENsaW50L0FsaWNlDQoNCkhpIENsaW50LA0KDQpXZSB0aGlu
-ayBDUF9NRUNfRE9PUkJFTExfUkFOR0VfTE9XRVIvVVBQRVIgcmVnaXN0ZXJzIGFyZSB1c2VkIGJ5
-IE1FQyB0byBjaGVjayB3aGV0aGVyIGEgZG9vcmJlbGwgcm91dGVkIHRvIE1FQyBiZWxvbmdzIHRv
-IE1FQywgaXMgdGhpcyB1bmRlcnN0YW5kaW5nIGNvcnJlY3Q/IA0KDQpGcm9tIHRoZSByZWdpc3Rl
-ciBzcGVjLCB0aG9zZSByZWdpc3RlcnMgYXJlIDI3IGJpdHMuIERvZXMgdGhpcyBtZWFuIE1FQyB1
-c2UgYWxsIDI3IGJpdHMgdG8gZGV0ZXJtaW5lPyBGb3IgZXhhbXBsZSwgaWYgd2Ugc2V0IGxvd2Vy
-L3VwcGVyIHRvIFswLCA0a10sIHdpbGwgYSBkb29yYmVsbCByaW5nIGF0IDZLIGFkZHJlc3MgYmUg
-aWdub3JlZCBieSBNRUM/DQoNClRoYW5rcywNCk9haw0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zz4gT24gQmVoYWxmIE9mIFpoYW8sIFlvbmcNClNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDUsIDIw
-MTkgMzozMSBQTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogWmhhbywg
-WW9uZyA8WW9uZy5aaGFvQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0ggMi81XSBkcm0vYW1kZ3B1
-OiBGaXggYSBidWcgaW4gc2V0dGluZyBDUF9NRUNfRE9PUkJFTExfUkFOR0VfVVBQRVIgb24gU09D
-MTUNCg0KQmVjYXVzZSBDUCBjYW4gdXNlIGFsbCBkb29yYmVsbHMgb3V0c2lkZSB0aGUgb25lcyBy
-ZXNlcnZlZCBmb3IgU0RNQSwgSUgsIGFuZCBWQ04sIHNvIHRoZSB2YWx1ZSBzZXQgdG8gQ1BfTUVD
-X0RPT1JCRUxMX1JBTkdFX1VQUEVSIHNob3VsZCBiZSB0aGUgbWF4aW1hbCBpbmRleCBwb3NzaWJs
-ZSBpbiBhIHBhZ2UuDQoNCkNoYW5nZS1JZDogSTQwMmE1NmNlOWE4MGU2YzJlZDJmOTZiZTQzMWFl
-NzFjYTg4ZTczYTQNClNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8WW9uZy5aaGFvQGFtZC5jb20+
-DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG9vcmJlbGwuaCB8IDEg
-Kw0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgICAgICAgIHwgMiArLQ0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9yZWdfaW5pdC5jIHwgMyArKysgIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2EyMF9yZWdfaW5pdC5jIHwgMyArKysNCiA0IGZp
-bGVzIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rvb3JiZWxsLmggYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG9vcmJlbGwuaA0KaW5kZXggNWM4ZDA0YzM1M2Qw
-Li45MGVjYTYzNjA1ZWEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZG9vcmJlbGwuaA0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2Rvb3JiZWxsLmgNCkBAIC03Myw2ICs3Myw3IEBAIHN0cnVjdCBhbWRncHVfZG9vcmJlbGxfaW5k
-ZXggew0KIAkJfSB1dmRfdmNlOw0KIAl9Ow0KIAl1aW50MzJfdCBtYXhfYXNzaWdubWVudDsNCisJ
-dWludDMyX3QgbGFzdF9pZHg7DQogCS8qIFBlciBlbmdpbmUgU0RNQSBkb29yYmVsbCBzaXplIGlu
-IGR3b3JkICovDQogCXVpbnQzMl90IGR3X3JhbmdlX3Blcl9zZG1hX2VuZzsNCiB9Ow0KZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jDQppbmRleCAyNjJlZTNjZjZmMWMuLjAyNzhlM2Fi
-NmI5NCAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMN
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCkBAIC0yOTk4LDcg
-KzI5OTgsNyBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2tpcV9pbml0X3JlZ2lzdGVyKHN0cnVjdCBh
-bWRncHVfcmluZyAqcmluZykNCiAJCVdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9NRUNfRE9PUkJF
-TExfUkFOR0VfTE9XRVIsDQogCQkJCQkoYWRldi0+ZG9vcmJlbGxfaW5kZXgua2lxICogMikgPDwg
-Mik7DQogCQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfTUVDX0RPT1JCRUxMX1JBTkdFX1VQUEVS
-LA0KLQkJCQkJKGFkZXYtPmRvb3JiZWxsX2luZGV4LnVzZXJxdWV1ZV9lbmQgKiAyKSA8PCAyKTsN
-CisJCQkJKGFkZXYtPmRvb3JiZWxsX2luZGV4Lmxhc3RfaWR4ICogMikgPDwgMik7DQogCX0NCiAN
-CiAJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX0hRRF9QUV9ET09SQkVMTF9DT05UUk9MLCBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX3JlZ19pbml0LmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfcmVnX2luaXQuYw0KaW5kZXggZDI0MDlk
-ZjJkZGU5Li45ZWI4YzkyMDkyMzEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS92ZWdhMTBfcmVnX2luaXQuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-dmVnYTEwX3JlZ19pbml0LmMNCkBAIC04OCw1ICs4OCw4IEBAIHZvaWQgdmVnYTEwX2Rvb3JiZWxs
-X2luZGV4X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQogCQkJKGFkZXYtPmRvb3Ji
-ZWxsX2luZGV4LnNkbWFfZW5naW5lWzFdDQogCQkJLSBhZGV2LT5kb29yYmVsbF9pbmRleC5zZG1h
-X2VuZ2luZVswXSkNCiAJCQkqIGFkZXYtPmRvb3JiZWxsX2luZGV4LmVudHJ5X2R3X3NpemU7DQor
-DQorCWFkZXYtPmRvb3JiZWxsX2luZGV4Lmxhc3RfaWR4ID0gUEFHRV9TSVpFDQorCQkvIChzaXpl
-b2YodWludDMyX3QpICogYWRldi0+ZG9vcmJlbGxfaW5kZXguZW50cnlfZHdfc2l6ZSkgLSAxOw0K
-IH0NCiANCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMjBfcmVn
-X2luaXQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2EyMF9yZWdfaW5pdC5jDQpp
-bmRleCBiMjhjNTk5OWQ4ZjAuLmFhOGM3Njk5YzY4OSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L3ZlZ2EyMF9yZWdfaW5pdC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS92ZWdhMjBfcmVnX2luaXQuYw0KQEAgLTkxLDUgKzkxLDggQEAgdm9pZCB2ZWdh
-MjBfZG9vcmJlbGxfaW5kZXhfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAJCQko
-YWRldi0+ZG9vcmJlbGxfaW5kZXguc2RtYV9lbmdpbmVbMV0NCiAJCQktIGFkZXYtPmRvb3JiZWxs
-X2luZGV4LnNkbWFfZW5naW5lWzBdKQ0KIAkJCSogYWRldi0+ZG9vcmJlbGxfaW5kZXguZW50cnlf
-ZHdfc2l6ZTsNCisNCisJYWRldi0+ZG9vcmJlbGxfaW5kZXgubGFzdF9pZHggPSBQQUdFX1NJWkUN
-CisJCS8gKHNpemVvZih1aW50MzJfdCkgKiBhZGV2LT5kb29yYmVsbF9pbmRleC5lbnRyeV9kd19z
-aXplKSAtIDE7DQogfQ0KIA0KLS0NCjIuMTcuMQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+--===============1543103565==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN1PR12MB2365B75DE8EE5EB4FF3724B3F06F0SN1PR12MB2365namp_"
+
+--_000_SN1PR12MB2365B75DE8EE5EB4FF3724B3F06F0SN1PR12MB2365namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+I see. I will drop this. How about the other two patches?
+
+Regards,
+Yong
+________________________________
+From: Christian K?nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Wednesday, February 6, 2019 1:20 PM
+To: Alex Deucher; Zhao, Yong
+Cc: Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_rptr()
+
+Am 06.02.19 um 19:17 schrieb Alex Deucher:
+> On Wed, Feb 6, 2019 at 12:01 PM Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org> wrote:
+>> Not too sure about this, but it looks strange in the code when all other=
+ similar code uses 64-bit.
+> It's worth double checking, but Felix is right.  A number of IPs still
+> used 32 bit doorbells on vega10.  E.g., multi-media for example.
+
+I agree, the IH is certainly a 32bit doorbell on Vega10.
+
+Christian.
+
+>
+> Alex
+>
+>> "Maybe it makes more sense to think of 64-bit doorbells as using 2 doorb=
+ell indexes". You mean the alternative is to multiply all the current 64 do=
+orbell index constants with 2, right? That might be easier and cleaner, and=
+ we need to make sure that the *2 and << 1 conversions from 64-bit index to=
+ dword index are all removed.
+>>
+>> Regards,
+>> Yong
+>> ________________________________
+>> From: Kuehling, Felix
+>> Sent: Wednesday, February 6, 2019 11:26 AM
+>> To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> Subject: Re: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_rptr()
+>>
+>> Are you sure about this? Typically 64-bit doorbells don't wrap around. B=
+ut this one does. If the IH doorbell wraps around, there is no reason why i=
+t needs to be 64-bit, so I suspect it may still be a 32-bit doorbell.
+>>
+>> AFAIK, not all doorbells on Vega10 are 64-bit. It depends on the IP bloc=
+k. Therefore, maybe some of your other renaming changes should be reconside=
+red if they assume that all doorbells are 64-bit. Maybe it makes more sense=
+ to think of 64-bit doorbells as using 2 doorbell indexes.
+>>
+>> Regards,
+>>    Felix
+>>
+>> ________________________________________
+>> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Zhao,=
+ Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+>> Sent: Wednesday, February 6, 2019 10:49 AM
+>> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> Cc: Zhao, Yong
+>> Subject: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_rptr()
+>>
+>> Clearly, it should be a 64-bit doorbell operation.
+>>
+>> Change-Id: I644a2ebcb18c2ede24ee15692a6189efad10a35c
+>> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/drm/am=
+d/amdgpu/vega10_ih.c
+>> index 796004896661..36f0e3cada30 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c
+>> @@ -377,7 +377,7 @@ static void vega10_ih_set_rptr(struct amdgpu_device =
+*adev,
+>>          if (ih->use_doorbell) {
+>>                  /* XXX check if swapping is necessary on BE */
+>>                  *ih->rptr_cpu =3D ih->rptr;
+>> -               WDOORBELL32(ih->doorbell_idx_in_dw, ih->rptr);
+>> +               WDOORBELL64(ih->doorbell_idx_in_dw, ih->rptr);
+>>          } else if (ih =3D=3D &adev->irq.ih) {
+>>                  WREG32_SOC15(OSSSYS, 0, mmIH_RB_RPTR, ih->rptr);
+>>          } else if (ih =3D=3D &adev->irq.ih1) {
+>> --
+>> 2.17.1
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--_000_SN1PR12MB2365B75DE8EE5EB4FF3724B3F06F0SN1PR12MB2365namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I see. I will drop this. How about the other two patches?</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yong</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K&ouml;nig =
+&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Wednesday, February 6, 2019 1:20 PM<br>
+<b>To:</b> Alex Deucher; Zhao, Yong<br>
+<b>Cc:</b> Kuehling, Felix; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_rpt=
+r()</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 06.02.19 um 19:17 schrieb Alex Deucher:<br>
+&gt; On Wed, Feb 6, 2019 at 12:01 PM Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt; w=
+rote:<br>
+&gt;&gt; Not too sure about this, but it looks strange in the code when all=
+ other similar code uses 64-bit.<br>
+&gt; It's worth double checking, but Felix is right.&nbsp; A number of IPs =
+still<br>
+&gt; used 32 bit doorbells on vega10.&nbsp; E.g., multi-media for example.<=
+br>
+<br>
+I agree, the IH is certainly a 32bit doorbell on Vega10.<br>
+<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Alex<br>
+&gt;<br>
+&gt;&gt; &quot;Maybe it makes more sense to think of 64-bit doorbells as us=
+ing 2 doorbell indexes&quot;. You mean the alternative is to multiply all t=
+he current 64 doorbell index constants with 2, right? That might be easier =
+and cleaner, and we need to make sure that the *2
+ and &lt;&lt; 1 conversions from 64-bit index to dword index are all remove=
+d.<br>
+&gt;&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt; Yong<br>
+&gt;&gt; ________________________________<br>
+&gt;&gt; From: Kuehling, Felix<br>
+&gt;&gt; Sent: Wednesday, February 6, 2019 11:26 AM<br>
+&gt;&gt; To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;&gt; Subject: Re: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_r=
+ptr()<br>
+&gt;&gt;<br>
+&gt;&gt; Are you sure about this? Typically 64-bit doorbells don't wrap aro=
+und. But this one does. If the IH doorbell wraps around, there is no reason=
+ why it needs to be 64-bit, so I suspect it may still be a 32-bit doorbell.=
+<br>
+&gt;&gt;<br>
+&gt;&gt; AFAIK, not all doorbells on Vega10 are 64-bit. It depends on the I=
+P block. Therefore, maybe some of your other renaming changes should be rec=
+onsidered if they assume that all doorbells are 64-bit. Maybe it makes more=
+ sense to think of 64-bit doorbells as
+ using 2 doorbell indexes.<br>
+&gt;&gt;<br>
+&gt;&gt; Regards,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp; Felix<br>
+&gt;&gt;<br>
+&gt;&gt; ________________________________________<br>
+&gt;&gt; From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on beh=
+alf of Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt; Sent: Wednesday, February 6, 2019 10:49 AM<br>
+&gt;&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;&gt; Cc: Zhao, Yong<br>
+&gt;&gt; Subject: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_rptr(=
+)<br>
+&gt;&gt;<br>
+&gt;&gt; Clearly, it should be a 64-bit doorbell operation.<br>
+&gt;&gt;<br>
+&gt;&gt; Change-Id: I644a2ebcb18c2ede24ee15692a6189efad10a35c<br>
+&gt;&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/vega10_ih.c | 2 &#43;-<br>
+&gt;&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c b/drivers/gpu/=
+drm/amd/amdgpu/vega10_ih.c<br>
+&gt;&gt; index 796004896661..36f0e3cada30 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<br>
+&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vega10_ih.c<br>
+&gt;&gt; @@ -377,7 &#43;377,7 @@ static void vega10_ih_set_rptr(struct amdg=
+pu_device *adev,<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih-&gt;u=
+se_doorbell) {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XXX check if swapping is necessary o=
+n BE */<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *ih-&gt;rptr_cpu =3D ih-&gt;rptr;<br>
+&gt;&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; WDOORBELL32(ih-&gt;doorbell_idx_in_dw, ih-&gt;rptr);<br=
+>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; WDOORBELL64(ih-&gt;doorbell_idx_in_dw, ih-&gt;rptr)=
+;<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (i=
+h =3D=3D &amp;adev-&gt;irq.ih) {<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(OSSSYS, 0, mmIH_RB_RPTR, i=
+h-&gt;rptr);<br>
+&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (i=
+h =3D=3D &amp;adev-&gt;irq.ih1) {<br>
+&gt;&gt; --<br>
+&gt;&gt; 2.17.1<br>
+&gt;&gt;<br>
+&gt;&gt; _______________________________________________<br>
+&gt;&gt; amd-gfx mailing list<br>
+&gt;&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+>https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+&gt;&gt; _______________________________________________<br>
+&gt;&gt; amd-gfx mailing list<br>
+&gt;&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx"=
+>https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SN1PR12MB2365B75DE8EE5EB4FF3724B3F06F0SN1PR12MB2365namp_--
+
+--===============1543103565==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1543103565==--
