@@ -1,21 +1,16 @@
-From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
-Subject: Re: [Intel-gfx] [PATCH 2/6] drm/drv: Prepare to remove
- drm_dev_unplug()
-Date: Wed, 06 Feb 2019 10:10:37 -0800
-Message-ID: <87y36sss82.fsf@anholt.net>
-References: <20190203154200.61479-1-noralf@tronnes.org>
- <20190203154200.61479-3-noralf@tronnes.org>
- <20190204154153.GT3271@phenom.ffwll.local>
- <fd6ab7d7-2f50-14bb-07f4-b25c9fe0892e@tronnes.org>
- <20190205091118.GC3271@phenom.ffwll.local>
- <2162dc93-7454-2358-3b4c-81eaa0e68821@tronnes.org>
- <20190205163144.GF3271@phenom.ffwll.local>
- <db04f763-3fc8-1e80-f184-141f190c472f@tronnes.org>
- <20190206152626.GI3271@phenom.ffwll.local>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: Fix a typo in vega10_ih_set_rptr()
+Date: Wed, 6 Feb 2019 13:17:41 -0500
+Message-ID: <CADnq5_P0VfVkk5cepB=Jbm0dJWDPCY00Gu+220yoCVfwP_qVHw@mail.gmail.com>
+References: <20190206154921.14463-1-Yong.Zhao@amd.com>
+ <20190206154921.14463-2-Yong.Zhao@amd.com>
+ <DM5PR12MB1707AB38B8039A41F07FC1E7926F0@DM5PR12MB1707.namprd12.prod.outlook.com>
+ <SN1PR12MB23657F8FB9109F776FD56F46F06F0@SN1PR12MB2365.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0987772487=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190206152626.GI3271-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+In-Reply-To: <SN1PR12MB23657F8FB9109F776FD56F46F06F0-z7L1TMIYDg7+b/GE5JWDHAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -26,56 +21,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Noralf =?utf-8?Q?Tr=C3=B8nnes?= <noralf-L59+Z2yzLopAfugRpC6u6w@public.gmane.org>
-Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, oleksandr_andrushchenko-uRwfk40T5oI@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0987772487==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain
-
-Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org> writes:
->
-> Zooming out more looking at the big picture I'd say all your work in the
-> past few years has enormously simplified drm for simple drivers already.
-> If we can't resolve this one here right now that just means you "only"
-> made drm 98% simpler instead of maybe 99%. It's still an epic win :-)
-
-I'd like to second this.  So many of Noralf's cleanups I think "oof,
-that's a lot of work for a little cleanup here".  But we've benefited
-immensely from it accumulating over the years.  Thanks again!
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlxbIx0ACgkQtdYpNtH8
-nugzUA//W9y9q2j/UFiPewtfKZX/glPh/3o0TAIBBLdKDb+I8AOQujtmbmodS/uE
-s420AfpFjAn/K3xLGx/Zcft4+JzVjgXmU2sYvFLF0sPIk0sknH3gvFiB8B5oHRuw
-rNostAQlwggBbQ9bC1ouZyq4KdhCo64RH/sg3W1PfdioSPCC5ePnJZMIUiRgpMHT
-JZBecr1OazDhZi2pNqGuj60Tdia1jo8L+d0VdESUlxgEqniO77Zzf98KCA0aJ5jD
-STEMxapKN8ZFzFqApTPqLBAwpyWtDY/KyKAnRMDJy9/7LmVLuKp1KhLLwtnz4zuw
-5SqTTB+fl+L8x8TQY94PsKMdHK9RQWZbSfuPouZDhyc5FsxZ3V95ZLEi7wpvUO/n
-FZ0plrLOF+LNMVBrym/j9mtFjeZ8O1dECrUPplMSkFLpwOqRrgmnRGIJCLUWUm6g
-VSYLxn8ymbI1jrQnrWH5hMqTmHtPwA2Avzj/V06f1rFjGriuQPQUXUVRqlzP5CMk
-KyfaC6gweE/pHW9vFe2dkDaBmZA7JugPKy33y28bmoBtS0694bExPZw6T8WYO1WT
-uz+JbN83gTEq55GvEocIK/6AtX1WzXrte6954L6flJq2Wh7IANIqdUOka048mC7e
-DCWk9plTujyyFsTHRFax4+2mRNqSFpXZxA/NC0GKftG39aY35xM=
-=CbhE
------END PGP SIGNATURE-----
---=-=-=--
-
---===============0987772487==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0987772487==--
+T24gV2VkLCBGZWIgNiwgMjAxOSBhdCAxMjowMSBQTSBaaGFvLCBZb25nIDxZb25nLlpoYW9AYW1k
+LmNvbT4gd3JvdGU6Cj4KPiBOb3QgdG9vIHN1cmUgYWJvdXQgdGhpcywgYnV0IGl0IGxvb2tzIHN0
+cmFuZ2UgaW4gdGhlIGNvZGUgd2hlbiBhbGwgb3RoZXIgc2ltaWxhciBjb2RlIHVzZXMgNjQtYml0
+LgoKSXQncyB3b3J0aCBkb3VibGUgY2hlY2tpbmcsIGJ1dCBGZWxpeCBpcyByaWdodC4gIEEgbnVt
+YmVyIG9mIElQcyBzdGlsbAp1c2VkIDMyIGJpdCBkb29yYmVsbHMgb24gdmVnYTEwLiAgRS5nLiwg
+bXVsdGktbWVkaWEgZm9yIGV4YW1wbGUuCgpBbGV4Cgo+Cj4gIk1heWJlIGl0IG1ha2VzIG1vcmUg
+c2Vuc2UgdG8gdGhpbmsgb2YgNjQtYml0IGRvb3JiZWxscyBhcyB1c2luZyAyIGRvb3JiZWxsIGlu
+ZGV4ZXMiLiBZb3UgbWVhbiB0aGUgYWx0ZXJuYXRpdmUgaXMgdG8gbXVsdGlwbHkgYWxsIHRoZSBj
+dXJyZW50IDY0IGRvb3JiZWxsIGluZGV4IGNvbnN0YW50cyB3aXRoIDIsIHJpZ2h0PyBUaGF0IG1p
+Z2h0IGJlIGVhc2llciBhbmQgY2xlYW5lciwgYW5kIHdlIG5lZWQgdG8gbWFrZSBzdXJlIHRoYXQg
+dGhlICoyIGFuZCA8PCAxIGNvbnZlcnNpb25zIGZyb20gNjQtYml0IGluZGV4IHRvIGR3b3JkIGlu
+ZGV4IGFyZSBhbGwgcmVtb3ZlZC4KPgo+IFJlZ2FyZHMsCj4gWW9uZwo+IF9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCj4gRnJvbTogS3VlaGxpbmcsIEZlbGl4Cj4gU2VudDogV2VkbmVz
+ZGF5LCBGZWJydWFyeSA2LCAyMDE5IDExOjI2IEFNCj4gVG86IFpoYW8sIFlvbmc7IGFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gU3ViamVjdDogUmU6IFtQQVRDSCAyLzNdIGRybS9hbWRn
+cHU6IEZpeCBhIHR5cG8gaW4gdmVnYTEwX2loX3NldF9ycHRyKCkKPgo+IEFyZSB5b3Ugc3VyZSBh
+Ym91dCB0aGlzPyBUeXBpY2FsbHkgNjQtYml0IGRvb3JiZWxscyBkb24ndCB3cmFwIGFyb3VuZC4g
+QnV0IHRoaXMgb25lIGRvZXMuIElmIHRoZSBJSCBkb29yYmVsbCB3cmFwcyBhcm91bmQsIHRoZXJl
+IGlzIG5vIHJlYXNvbiB3aHkgaXQgbmVlZHMgdG8gYmUgNjQtYml0LCBzbyBJIHN1c3BlY3QgaXQg
+bWF5IHN0aWxsIGJlIGEgMzItYml0IGRvb3JiZWxsLgo+Cj4gQUZBSUssIG5vdCBhbGwgZG9vcmJl
+bGxzIG9uIFZlZ2ExMCBhcmUgNjQtYml0LiBJdCBkZXBlbmRzIG9uIHRoZSBJUCBibG9jay4gVGhl
+cmVmb3JlLCBtYXliZSBzb21lIG9mIHlvdXIgb3RoZXIgcmVuYW1pbmcgY2hhbmdlcyBzaG91bGQg
+YmUgcmVjb25zaWRlcmVkIGlmIHRoZXkgYXNzdW1lIHRoYXQgYWxsIGRvb3JiZWxscyBhcmUgNjQt
+Yml0LiBNYXliZSBpdCBtYWtlcyBtb3JlIHNlbnNlIHRvIHRoaW5rIG9mIDY0LWJpdCBkb29yYmVs
+bHMgYXMgdXNpbmcgMiBkb29yYmVsbCBpbmRleGVzLgo+Cj4gUmVnYXJkcywKPiAgIEZlbGl4Cj4K
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gRnJvbTogYW1kLWdm
+eCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIFpo
+YW8sIFlvbmcgPFlvbmcuWmhhb0BhbWQuY29tPgo+IFNlbnQ6IFdlZG5lc2RheSwgRmVicnVhcnkg
+NiwgMjAxOSAxMDo0OSBBTQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENj
+OiBaaGFvLCBZb25nCj4gU3ViamVjdDogW1BBVENIIDIvM10gZHJtL2FtZGdwdTogRml4IGEgdHlw
+byBpbiB2ZWdhMTBfaWhfc2V0X3JwdHIoKQo+Cj4gQ2xlYXJseSwgaXQgc2hvdWxkIGJlIGEgNjQt
+Yml0IGRvb3JiZWxsIG9wZXJhdGlvbi4KPgo+IENoYW5nZS1JZDogSTY0NGEyZWJjYjE4YzJlZGUy
+NGVlMTU2OTJhNjE4OWVmYWQxMGEzNWMKPiBTaWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcu
+Wmhhb0BhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBf
+aWguYyB8IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9u
+KC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2lo
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYwo+IGluZGV4IDc5NjAw
+NDg5NjY2MS4uMzZmMGUzY2FkYTMwIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3ZlZ2ExMF9paC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVn
+YTEwX2loLmMKPiBAQCAtMzc3LDcgKzM3Nyw3IEBAIHN0YXRpYyB2b2lkIHZlZ2ExMF9paF9zZXRf
+cnB0cihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgIGlmIChpaC0+dXNlX2Rv
+b3JiZWxsKSB7Cj4gICAgICAgICAgICAgICAgIC8qIFhYWCBjaGVjayBpZiBzd2FwcGluZyBpcyBu
+ZWNlc3Nhcnkgb24gQkUgKi8KPiAgICAgICAgICAgICAgICAgKmloLT5ycHRyX2NwdSA9IGloLT5y
+cHRyOwo+IC0gICAgICAgICAgICAgICBXRE9PUkJFTEwzMihpaC0+ZG9vcmJlbGxfaWR4X2luX2R3
+LCBpaC0+cnB0cik7Cj4gKyAgICAgICAgICAgICAgIFdET09SQkVMTDY0KGloLT5kb29yYmVsbF9p
+ZHhfaW5fZHcsIGloLT5ycHRyKTsKPiAgICAgICAgIH0gZWxzZSBpZiAoaWggPT0gJmFkZXYtPmly
+cS5paCkgewo+ICAgICAgICAgICAgICAgICBXUkVHMzJfU09DMTUoT1NTU1lTLCAwLCBtbUlIX1JC
+X1JQVFIsIGloLT5ycHRyKTsKPiAgICAgICAgIH0gZWxzZSBpZiAoaWggPT0gJmFkZXYtPmlycS5p
+aDEpIHsKPiAtLQo+IDIuMTcuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
