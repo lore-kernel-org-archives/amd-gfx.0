@@ -1,15 +1,17 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Subject: Re: BUG - unable to handle null pointer, bisected - drm/amd/display:
  add gpio lock/unlock
-Date: Thu, 7 Feb 2019 10:37:28 -0500
-Message-ID: <CADnq5_NZMMGdPvzFt1y0XU1GX7KNTtqOwY9GZg7xKSqJCK2X9w@mail.gmail.com>
+Date: Thu, 7 Feb 2019 16:42:15 +0100
+Message-ID: <410bdfe2-8a0a-df13-0f7d-2c1191f23ab3@daenzer.net>
 References: <10341067.RRd0raRtKH@eclipse>
  <7284b267-cbcb-988f-f688-078f75f87a3d@daenzer.net>
+ <CADnq5_NZMMGdPvzFt1y0XU1GX7KNTtqOwY9GZg7xKSqJCK2X9w@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7284b267-cbcb-988f-f688-078f75f87a3d-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <CADnq5_NZMMGdPvzFt1y0XU1GX7KNTtqOwY9GZg7xKSqJCK2X9w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,26 +22,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, Chiawen Huang <chiawen.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Chiawen Huang <chiawen.huang-5C7GfCeVMHo@public.gmane.org>, Tony Cheng <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 
-T24gVGh1LCBGZWIgNywgMjAxOSBhdCAxMDozMyBBTSBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
-ZW56ZXIubmV0PiB3cm90ZToKPgo+IE9uIDIwMTktMDItMDYgMTA6NDggYS5tLiwgUHJ6ZW1layBT
-b2NoYSB3cm90ZToKPiA+IEdvb2QgbW9ybmluZywKPiA+Cj4gPiBvbiBteSBMZW5vdm8gRzUwLTQ1
-IGE2MzEwIEFQVSB3aXRoIFI0IE11bGxpbnMgY29tbWl0Cj4gPiBlMjYxNTY4Zjk0ZDZjMzdlYmI5
-NGQzYzRiM2Y4YTMwODUzNzVkZDlkIGlzIGNhdXNpbmcga2VybmVsIE9vcHMgKHVuYWJsZSB0bwo+
-ID4gaGFuZGxlIE5VTEwgcG9pbnRlcikuCj4gPiBDcm9zcy1jaGVja2VkIGJ5IHJldmVydGluZyB0
-cm91Ymxlc29tZSBjb21taXQgYW5kIG1hY2hpbmUgd2l0aG91dCBpdCBpcwo+ID4gd29ya2luZyBm
-aW5lLgo+Cj4gU2FtZSBmb3IgbWUgd2l0aCBUb25nYS4KPgoKV2VpcmQuICBJJ20gbm90IHNlZWlu
-ZyB0aGlzIG9uIG15IFRvbmdhLiAgV2hhdCBkaXNwbGF5cyBhcmUgeW91IHVzaW5nPwogRFZJIGhl
-cmUuCgpBbGV4Cgo+Cj4gQ2hpYXdlbiAvIFRvbnkgLyBvdGhlciBEQyBkZXZlbG9wZXJzLCBhbnkg
-aWRlYXM/IElmIGl0IGNhbm5vdCBiZSBmaXhlZAo+IHF1aWNrbHksIGxldCdzIHJldmVydCB0aGlz
-IGNoYW5nZSBmb3Igbm93Lgo+Cj4KPiAtLQo+IEVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAg
-ICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRwOi8vd3d3LmFtZC5jb20KPiBMaWJyZSBzb2Z0
-d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZl
-bG9wZXIKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+T24gMjAxOS0wMi0wNyA0OjM3IHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBUaHUsIEZl
+YiA3LCAyMDE5IGF0IDEwOjMzIEFNIE1pY2hlbCBEw6RuemVyIDxtaWNoZWxAZGFlbnplci5uZXQ+
+IHdyb3RlOgo+Pgo+PiBPbiAyMDE5LTAyLTA2IDEwOjQ4IGEubS4sIFByemVtZWsgU29jaGEgd3Jv
+dGU6Cj4+PiBHb29kIG1vcm5pbmcsCj4+Pgo+Pj4gb24gbXkgTGVub3ZvIEc1MC00NSBhNjMxMCBB
+UFUgd2l0aCBSNCBNdWxsaW5zIGNvbW1pdAo+Pj4gZTI2MTU2OGY5NGQ2YzM3ZWJiOTRkM2M0YjNm
+OGEzMDg1Mzc1ZGQ5ZCBpcyBjYXVzaW5nIGtlcm5lbCBPb3BzICh1bmFibGUgdG8KPj4+IGhhbmRs
+ZSBOVUxMIHBvaW50ZXIpLgo+Pj4gQ3Jvc3MtY2hlY2tlZCBieSByZXZlcnRpbmcgdHJvdWJsZXNv
+bWUgY29tbWl0IGFuZCBtYWNoaW5lIHdpdGhvdXQgaXQgaXMKPj4+IHdvcmtpbmcgZmluZS4KPj4K
+Pj4gU2FtZSBmb3IgbWUgd2l0aCBUb25nYS4KPj4KPiAKPiBXZWlyZC4gIEknbSBub3Qgc2VlaW5n
+IHRoaXMgb24gbXkgVG9uZ2EuICBXaGF0IGRpc3BsYXlzIGFyZSB5b3UgdXNpbmc/Cj4gIERWSSBo
+ZXJlLgoKRFZJIGhlcmUgYXMgd2VsbCwgYnV0IGl0J3MgYWN0dWFsbHkgYSBCb25haXJlLCBzb3Jy
+eSBmb3IgdGhlIGNvbmZ1c2lvbi4KCgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAg
+ICAgICAgICAgfCAgICAgICAgICAgICAgIGh0dHA6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2Fy
+ZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9w
+ZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
