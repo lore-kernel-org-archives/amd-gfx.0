@@ -1,16 +1,14 @@
-From: Przemek Socha <soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: BUG - unable to handle null pointer,
- bisected - drm/amd/display: add gpio lock/unlock
-Date: Thu, 07 Feb 2019 23:15:53 +0100
-Message-ID: <1970276.ZfjSEdBXdN@eclipse>
-References: <10341067.RRd0raRtKH@eclipse>
- <f06d3abf-7aab-f77a-9bf9-cb7c01376467@amd.com>
- <4eee91c0-17bd-150c-dd94-0d4521b26e4c@amd.com>
-Reply-To: soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/2] drm/amdgpu: Delete user queue doorbell variables
+Date: Thu, 7 Feb 2019 22:23:04 +0000
+Message-ID: <20190207222250.13221-2-Yong.Zhao@amd.com>
+References: <20190207222250.13221-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1836904203=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <4eee91c0-17bd-150c-dd94-0d4521b26e4c-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190207222250.13221-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,100 +19,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Michel =?ISO-8859-1?Q?D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Chiawen Huang <chiawen.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 
---===============1836904203==
-Content-Type: multipart/signed; boundary="nextPart1987767.9aE9yCvMWu"; micalg="pgp-sha256"; protocol="application/pgp-signature"
-
---nextPart1987767.9aE9yCvMWu
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="UTF-8"
-
-Dnia czwartek, 7 lutego 2019 22:59:59 CET piszesz:
-
-> > I'll post a fix shortly.
-> 
-> Fix merged to amd-staging-drm-next.
-> 
-> Harry
-> 
-
-
-I apologize for the late response, 
-and thank you very much.
-
-I had a problem with applying the patch on top of clean amd-staging-drm-next 
-because it is in one chunk,  I suppose ( but my patch-fu could be weak also) I 
-had t o modify it like this:
-"
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1127,10 +1127,11 @@
- 		link->dc->res_pool->funcs->link_init(link);
- 
- 	link->hpd_gpio = get_hpd_gpio(link->ctx->dc_bios, link->link_id, 
-link->ctx->gpio_service);
--	dal_gpio_open(link->hpd_gpio, GPIO_MODE_INTERRUPT);
--	dal_gpio_unlock_pin(link->hpd_gpio);
--	if (link->hpd_gpio != NULL)
--		link->irq_source_hpd = dal_irq_get_source(link-
->hpd_gpio);
-+if (link->hpd_gpio != NULL) {
-+               dal_gpio_open(link->hpd_gpio, GPIO_MODE_INTERRUPT);
-+               dal_gpio_unlock_pin(link->hpd_gpio);
-+                link->irq_source_hpd = dal_irq_get_source(link->hpd_gpio);
-+       }
- 
- 	switch (link->link_id.id) {
- 	case CONNECTOR_ID_HDMI_TYPE_A:
-"
-
-After that, machine works as it should.
-
-So this patch also works on Mullins apu.
-
-Once again, thank you all very much.
-
-Przemek.
-
-
-
---nextPart1987767.9aE9yCvMWu
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEE2zcce+zboy/je1pmPMstj1lsVJMFAlxcrhkACgkQPMstj1ls
-VJOZWg/8Ckl4to94wRyIkx6dyK4nZck/G5jqVfN7tos4chmI6NMx9SO0N0AOi+/3
-lFKP2nh4g+tbqU0P48zfuzzL539Poz1Q45qKIX8K41Adk4//gGTUqOAmnGNuHYqm
-ooN2hame5lYfiRG4FBcXI4LlTlbdyx0lbjC4lGcH8nGBvwWEfqbqIY+PXGEVVFPB
-3hTpCZ79plpigH0qDyYjCA5C8bdmratyPaTQ7S2YifwoZtgmY8tcD/vvY+ld5CRB
-offGBQh5Z0NBWeicPFtNabfB2GJHWy53rQlMOMjEMEtKHV/WGI7oRd946eQxx0+k
-NsRg4QOkai8GW1yqbegA9US/FNfK8MTgMSqp+/KOm0us36HxvMn1S7dfM35JMNOs
-lg4UNRZ1W+upR/xGNdpfa/jOd+XAVTVfGeg4kaAcLV4F1mGXKAWV+MkaFqigelR4
-0GKqWPNB2vGWtxy+kDNYOSOv9rvJR3EihZPr0KwBvXW6YtvpnMkyPwbk7DZOOwOL
-NV8rwW+CuV6zhuszMFKVGu64r0qpMOCPwjgjvmYfd7e/jPLzl2BozPX8oSJFKKOL
-aF7Pn2M4so4ZCQ4mxd/pJG21FBUZmqbrmIuB8hBjinCaXQ+6JpnavXpwewGTTe2q
-sjF7hHFE5gz5ZitaNmBUSh8Iin1p0+s/cCHhiRsgUw5qI4Ephpk=
-=HO2p
------END PGP SIGNATURE-----
-
---nextPart1987767.9aE9yCvMWu--
-
-
-
-
---===============1836904203==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============1836904203==--
+VGhleSBhcmUgbm8gbG9uZ2VyIHVzZWQsIHNvIGRlbGV0ZSB0aGVtIHRvIGF2b2lkIGNvbmZ1c2lv
+bi4KCkNoYW5nZS1JZDogSTNjZjIzZmU3MTEwZmY4OGY1M2MwYzI3OWIyYjRlYzhkMWE1M2I4N2MK
+U2lnbmVkLW9mZi1ieTogWW9uZyBaaGFvIDxZb25nLlpoYW9AYW1kLmNvbT4KLS0tCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG9vcmJlbGwuaCB8IDggLS0tLS0tLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9yZWdfaW5pdC5jIHwgMiAtLQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvdmVnYTIwX3JlZ19pbml0LmMgfCAyIC0tCiAzIGZpbGVzIGNoYW5n
+ZWQsIDEyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kb29yYmVsbC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rvb3JiZWxsLmgKaW5kZXggNGRlNDMxZjdmMzgwLi40Yzg3N2U1N2JhOTcgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kb29yYmVsbC5oCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kb29yYmVsbC5oCkBAIC00OCw4ICs0OCw2IEBA
+IHN0cnVjdCBhbWRncHVfZG9vcmJlbGxfaW5kZXggewogCXVpbnQzMl90IG1lY19yaW5nNTsKIAl1
+aW50MzJfdCBtZWNfcmluZzY7CiAJdWludDMyX3QgbWVjX3Jpbmc3OwotCXVpbnQzMl90IHVzZXJx
+dWV1ZV9zdGFydDsKLQl1aW50MzJfdCB1c2VycXVldWVfZW5kOwogCXVpbnQzMl90IGdmeF9yaW5n
+MDsKIAl1aW50MzJfdCBzZG1hX2VuZ2luZVs4XTsKIAl1aW50MzJfdCBpaDsKQEAgLTExMiw4ICsx
+MTAsNiBAQCB0eXBlZGVmIGVudW0gX0FNREdQVV9WRUdBMjBfRE9PUkJFTExfQVNTSUdOTUVOVAog
+CUFNREdQVV9WRUdBMjBfRE9PUkJFTExfTUVDX1JJTkc1ICAgICAgICAgICAgICAgPSAweDAwOCwK
+IAlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX01FQ19SSU5HNiAgICAgICAgICAgICAgID0gMHgwMDks
+CiAJQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklORzcgICAgICAgICAgICAgICA9IDB4MDBB
+LAotCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfVVNFUlFVRVVFX1NUQVJUCSAgICAgICA9IDB4MDBC
+LAotCUFNREdQVV9WRUdBMjBfRE9PUkJFTExfVVNFUlFVRVVFX0VORAkgICAgICAgPSAweDA4QSwK
+IAlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX0dGWF9SSU5HMCAgICAgICAgICAgICAgID0gMHgwOEIs
+CiAJLyogU0RNQToyNTZ+MzM1Ki8KIAlBTURHUFVfVkVHQTIwX0RPT1JCRUxMX3NETUFfRU5HSU5F
+MCAgICAgICAgICAgID0gMHgxMDAsCkBAIC0xNzgsMTAgKzE3NCw2IEBAIHR5cGVkZWYgZW51bSBf
+QU1ER1BVX0RPT1JCRUxMNjRfQVNTSUdOTUVOVAogCUFNREdQVV9ET09SQkVMTDY0X01FQ19SSU5H
+NiAgICAgICAgICAgICAgID0gMHgwOSwKIAlBTURHUFVfRE9PUkJFTEw2NF9NRUNfUklORzcgICAg
+ICAgICAgICAgICA9IDB4MGEsCiAKLQkvKiBVc2VyIHF1ZXVlIGRvb3JiZWxsIHJhbmdlICgxMjgg
+ZG9vcmJlbGxzKSAqLwotCUFNREdQVV9ET09SQkVMTDY0X1VTRVJRVUVVRV9TVEFSVCAgICAgICAg
+ID0gMHgwYiwKLQlBTURHUFVfRE9PUkJFTEw2NF9VU0VSUVVFVUVfRU5EICAgICAgICAgICA9IDB4
+OGEsCi0KIAkvKiBHcmFwaGljcyBlbmdpbmUgKi8KIAlBTURHUFVfRE9PUkJFTEw2NF9HRlhfUklO
+RzAgICAgICAgICAgICAgICA9IDB4OGIsCiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3ZlZ2ExMF9yZWdfaW5pdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+dmVnYTEwX3JlZ19pbml0LmMKaW5kZXggZmEwNDMzMTk5MjE1Li5mZmUwZTA1OTMyMDcgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9yZWdfaW5pdC5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2ExMF9yZWdfaW5pdC5jCkBAIC02Nyw4ICs2
+Nyw2IEBAIHZvaWQgdmVnYTEwX2Rvb3JiZWxsX2luZGV4X2luaXQoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpCiAJYWRldi0+ZG9vcmJlbGxfaW5kZXgubWVjX3Jpbmc1ID0gQU1ER1BVX0RPT1JC
+RUxMNjRfTUVDX1JJTkc1OwogCWFkZXYtPmRvb3JiZWxsX2luZGV4Lm1lY19yaW5nNiA9IEFNREdQ
+VV9ET09SQkVMTDY0X01FQ19SSU5HNjsKIAlhZGV2LT5kb29yYmVsbF9pbmRleC5tZWNfcmluZzcg
+PSBBTURHUFVfRE9PUkJFTEw2NF9NRUNfUklORzc7Ci0JYWRldi0+ZG9vcmJlbGxfaW5kZXgudXNl
+cnF1ZXVlX3N0YXJ0ID0gQU1ER1BVX0RPT1JCRUxMNjRfVVNFUlFVRVVFX1NUQVJUOwotCWFkZXYt
+PmRvb3JiZWxsX2luZGV4LnVzZXJxdWV1ZV9lbmQgPSBBTURHUFVfRE9PUkJFTEw2NF9VU0VSUVVF
+VUVfRU5EOwogCWFkZXYtPmRvb3JiZWxsX2luZGV4LmdmeF9yaW5nMCA9IEFNREdQVV9ET09SQkVM
+TDY0X0dGWF9SSU5HMDsKIAlhZGV2LT5kb29yYmVsbF9pbmRleC5zZG1hX2VuZ2luZVswXSA9IEFN
+REdQVV9ET09SQkVMTDY0X3NETUFfRU5HSU5FMDsKIAlhZGV2LT5kb29yYmVsbF9pbmRleC5zZG1h
+X2VuZ2luZVsxXSA9IEFNREdQVV9ET09SQkVMTDY0X3NETUFfRU5HSU5FMTsKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2EyMF9yZWdfaW5pdC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvdmVnYTIwX3JlZ19pbml0LmMKaW5kZXggYjEwNTJjYWFmZjVlLi43
+MDBmZjhhZWM5OTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2Ey
+MF9yZWdfaW5pdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3ZlZ2EyMF9yZWdf
+aW5pdC5jCkBAIC02NSw4ICs2NSw2IEBAIHZvaWQgdmVnYTIwX2Rvb3JiZWxsX2luZGV4X2luaXQo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJYWRldi0+ZG9vcmJlbGxfaW5kZXgubWVjX3Jp
+bmc1ID0gQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklORzU7CiAJYWRldi0+ZG9vcmJlbGxf
+aW5kZXgubWVjX3Jpbmc2ID0gQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNfUklORzY7CiAJYWRl
+di0+ZG9vcmJlbGxfaW5kZXgubWVjX3Jpbmc3ID0gQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9NRUNf
+UklORzc7Ci0JYWRldi0+ZG9vcmJlbGxfaW5kZXgudXNlcnF1ZXVlX3N0YXJ0ID0gQU1ER1BVX1ZF
+R0EyMF9ET09SQkVMTF9VU0VSUVVFVUVfU1RBUlQ7Ci0JYWRldi0+ZG9vcmJlbGxfaW5kZXgudXNl
+cnF1ZXVlX2VuZCA9IEFNREdQVV9WRUdBMjBfRE9PUkJFTExfVVNFUlFVRVVFX0VORDsKIAlhZGV2
+LT5kb29yYmVsbF9pbmRleC5nZnhfcmluZzAgPSBBTURHUFVfVkVHQTIwX0RPT1JCRUxMX0dGWF9S
+SU5HMDsKIAlhZGV2LT5kb29yYmVsbF9pbmRleC5zZG1hX2VuZ2luZVswXSA9IEFNREdQVV9WRUdB
+MjBfRE9PUkJFTExfc0RNQV9FTkdJTkUwOwogCWFkZXYtPmRvb3JiZWxsX2luZGV4LnNkbWFfZW5n
+aW5lWzFdID0gQU1ER1BVX1ZFR0EyMF9ET09SQkVMTF9zRE1BX0VOR0lORTE7Ci0tIAoyLjE3LjEK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
