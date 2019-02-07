@@ -1,15 +1,13 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
 Subject: Re: [PATCH 0/5] Clean up TTM mmap offsets
-Date: Thu, 7 Feb 2019 09:36:34 +0000
-Message-ID: <e03e4cff-557b-9d50-dba8-94835e768743@amd.com>
+Date: Thu, 7 Feb 2019 10:45:26 +0100
+Message-ID: <552aa321-98d4-344d-eda2-8441940b5811@suse.de>
 References: <20190207085931.29569-1-tzimmermann@suse.de>
+ <e03e4cff-557b-9d50-dba8-94835e768743@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1334058901=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190207085931.29569-1-tzimmermann-l3A5Bk7waGM@public.gmane.org>
-Content-Language: en-US
-Content-ID: <DFCEA3265F6B2C499E84EF7C4807B3AF-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <e03e4cff-557b-9d50-dba8-94835e768743-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,55 +18,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>, "hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "arnd-r2nGTMty4D4@public.gmane.org" <arnd-r2nGTMty4D4@public.gmane.org>, "gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org" <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: "spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>, "hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "arnd-r2nGTMty4D4@public.gmane.org" <arnd-r2nGTMty4D4@public.gmane.org>, "gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org" <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Cc: "spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
 
-QW0gMDcuMDIuMTkgdW0gMDk6NTkgc2NocmllYiBUaG9tYXMgWmltbWVybWFubjoNCj4gQWxtb3N0
-IGFsbCBUVE0tYmFzZWQgZHJpdmVycyB1c2UgdGhlIHNhbWUgdmFsdWVzIGZvciB0aGUgbW1hcC1h
-YmxlDQo+IHJhbmdlIG9mIEJPIGFkZHJlc3Nlcy4gRWFjaCBkcml2ZXIgdGhlcmVmb3JlIGR1cGxp
-Y2F0ZXMgdGhlDQo+IERSTV9GSUxFX1BBR0VfT0ZGU0VUIGNvbnN0YW50LiBPVE9ILCB0aGUgbW1h
-cCByYW5nZSdzIHNpemUgaXMgbm90DQo+IGNvbmZpZ3VyYWJsZSBieSBkcml2ZXJzLg0KPg0KPiBU
-aGlzIHBhdGNoIHNldCByZXBsYWNlcyBkcml2ZXItc3BlY2lmaWMgY29uZmlndXJhdGlvbiB3aXRo
-IGEgc2luZ2xlDQo+IHNldHVwLiBBbGwgY29kZSBpcyBsb2NhdGVkIHdpdGhpbiBUVE0uIFRUTSBh
-bmQgR0VNIHNoYXJlIHRoZSBzYW1lDQo+IHJhbmdlIGZvciBtbWFwLWFibGUgQk9zLg0KPg0KPiBU
-aG9tYXMgWmltbWVybWFubiAoNSk6DQo+ICAgIHN0YWdpbmcvdmJveHZpZGVvOiBVc2Ugc2FtZSBC
-TyBtbWFwIG9mZnNldCBhcyBvdGhlciBkcml2ZXJzDQo+ICAgIGRybS90dG06IERlZmluZSBhIHNp
-bmdsZSBEUk1fRklMRV9QQUdFX09GRlNFVCBjb25zdGFudA0KPiAgICBkcm0vdHRtOiBSZW1vdmUg
-ZmlsZV9wYWdlX29mZnNldCBwYXJhbWV0ZXIgZnJvbSB0dG1fYm9fZGV2aWNlX2luaXQoKQ0KPiAg
-ICBkcm0vdHRtOiBRdWljay10ZXN0IG1tYXAgb2Zmc2V0IGluIHR0bV9ib19tbWFwKCkNCj4gICAg
-ZHJtOiBVc2UgdGhlIHNhbWUgbW1hcC1yYW5nZSBvZmZzZXQgYW5kIHNpemUgZm9yIEdFTSBhbmQg
-VFRNDQoNClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
-ZC5jb20+IGZvciB0aGUgd2hvbGUgDQpzZXJpZXMuDQoNCk5pY2UgY2xlYW51cCEgVGhhbmtzLA0K
-Q2hyaXN0aWFuLg0KDQo+DQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
-bS5jICAgICB8IDEyICsrLS0tLS0tLS0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hc3QvYXN0X2Ry
-di5oICAgICAgICAgICAgICAgfCAgMiAtLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hc3QvYXN0X3R0
-bS5jICAgICAgICAgICAgICAgfCAxMCArKy0tLS0tLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Jv
-Y2hzL2JvY2hzLmggICAgICAgICAgICAgICB8ICAyIC0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2Jv
-Y2hzL2JvY2hzX21tLmMgICAgICAgICAgICB8IDEwICsrLS0tLS0tLS0NCj4gICBkcml2ZXJzL2dw
-dS9kcm0vY2lycnVzL2NpcnJ1c19kcnYuaCAgICAgICAgIHwgIDEgLQ0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9jaXJydXMvY2lycnVzX3R0bS5jICAgICAgICAgfCAxMCArKy0tLS0tLS0tDQo+ICAgZHJp
-dmVycy9ncHUvZHJtL2RybV9nZW0uYyAgICAgICAgICAgICAgICAgICB8IDE3IC0tLS0tLS0tLS0t
-LS0tLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2hpc2lsaWNvbi9oaWJtYy9oaWJtY190dG0uYyB8
-IDEyICsrLS0tLS0tLS0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9tZ2FnMjAwL21nYWcyMDBfZHJ2
-LmggICAgICAgfCAgMSAtDQo+ICAgZHJpdmVycy9ncHUvZHJtL21nYWcyMDAvbWdhZzIwMF90dG0u
-YyAgICAgICB8IDEwICsrLS0tLS0tLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2
-ZWF1X2Rydi5oICAgICAgIHwgIDIgLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2
-ZWF1X3R0bS5jICAgICAgIHwgIDQgLS0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9xeGwvcXhsX2Ry
-di5oICAgICAgICAgICAgICAgfCAgMyAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vcXhsL3F4bF90
-dG0uYyAgICAgICAgICAgICAgIHwgMTEgKysrLS0tLS0tLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0v
-cmFkZW9uL3JhZGVvbl90dG0uYyAgICAgICAgIHwgMTMgKystLS0tLS0tLS0tLQ0KPiAgIGRyaXZl
-cnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgICAgICAgICAgICAgICAgfCAgNiArKystLS0NCj4gICBk
-cml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib192bS5jICAgICAgICAgICAgIHwgIDMgKysrDQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL3ZpcnRpby92aXJ0Z3B1X3R0bS5jICAgICAgICB8ICA0ICstLS0NCj4g
-ICBkcml2ZXJzL2dwdS9kcm0vdm13Z2Z4L3Ztd2dmeF9kcnYuYyAgICAgICAgIHwgIDEgLQ0KPiAg
-IGRyaXZlcnMvZ3B1L2RybS92bXdnZngvdm13Z2Z4X2Rydi5oICAgICAgICAgfCAgMSAtDQo+ICAg
-ZHJpdmVycy9ncHUvZHJtL3Ztd2dmeC92bXdnZnhfdHRtX2dsdWUuYyAgICB8IDExICsrLS0tLS0t
-LS0tDQo+ICAgZHJpdmVycy9zdGFnaW5nL3Zib3h2aWRlby92Ym94X2Rydi5oICAgICAgICB8ICAy
-IC0tDQo+ICAgZHJpdmVycy9zdGFnaW5nL3Zib3h2aWRlby92Ym94X3R0bS5jICAgICAgICB8IDEy
-ICsrKy0tLS0tLS0tLQ0KPiAgIGluY2x1ZGUvZHJtL2RybV92bWFfbWFuYWdlci5oICAgICAgICAg
-ICAgICAgfCAxMiArKysrKysrKysrKysNCj4gICBpbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZl
-ci5oICAgICAgICAgICAgIHwgIDIgKy0NCj4gICAyNiBmaWxlcyBjaGFuZ2VkLCA0MiBpbnNlcnRp
-b25zKCspLCAxMzIgZGVsZXRpb25zKC0pDQo+DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeAo=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1334058901==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="Ph3dCPhyLO8rNzKBNrKknkwmOzQcKOxRr"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Ph3dCPhyLO8rNzKBNrKknkwmOzQcKOxRr
+Content-Type: multipart/mixed; boundary="hWl33hLGCoKgv2YV1Ka4BxzdlBFSIita6";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>,
+ "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>,
+ "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>,
+ "airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>,
+ "kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>,
+ "z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>,
+ "zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>,
+ "kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>,
+ "puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>,
+ "bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>,
+ "thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>,
+ "linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org"
+ <linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>,
+ "hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "arnd-r2nGTMty4D4@public.gmane.org"
+ <arnd-r2nGTMty4D4@public.gmane.org>, "gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org" <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>,
+ "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+Cc: "spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ "virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org"
+ <virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+Message-ID: <552aa321-98d4-344d-eda2-8441940b5811-l3A5Bk7waGM@public.gmane.org>
+Subject: Re: [PATCH 0/5] Clean up TTM mmap offsets
+References: <20190207085931.29569-1-tzimmermann-l3A5Bk7waGM@public.gmane.org>
+ <e03e4cff-557b-9d50-dba8-94835e768743-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <e03e4cff-557b-9d50-dba8-94835e768743-5C7GfCeVMHo@public.gmane.org>
+
+--hWl33hLGCoKgv2YV1Ka4BxzdlBFSIita6
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Am 07.02.19 um 10:36 schrieb Koenig, Christian:
+> Am 07.02.19 um 09:59 schrieb Thomas Zimmermann:
+>> Almost all TTM-based drivers use the same values for the mmap-able
+>> range of BO addresses. Each driver therefore duplicates the
+>> DRM_FILE_PAGE_OFFSET constant. OTOH, the mmap range's size is not
+>> configurable by drivers.
+>>
+>> This patch set replaces driver-specific configuration with a single
+>> setup. All code is located within TTM. TTM and GEM share the same
+>> range for mmap-able BOs.
+>>
+>> Thomas Zimmermann (5):
+>>    staging/vboxvideo: Use same BO mmap offset as other drivers
+>>    drm/ttm: Define a single DRM_FILE_PAGE_OFFSET constant
+>>    drm/ttm: Remove file_page_offset parameter from ttm_bo_device_init(=
+)
+>>    drm/ttm: Quick-test mmap offset in ttm_bo_mmap()
+>>    drm: Use the same mmap-range offset and size for GEM and TTM
+>=20
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org> for the wh=
+ole=20
+> series.
+
+That was quick! Thank you.
+
+>=20
+> Nice cleanup! Thanks,
+> Christian.
+>=20
+>>
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 12 ++----------
+>>   drivers/gpu/drm/ast/ast_drv.h               |  2 --
+>>   drivers/gpu/drm/ast/ast_ttm.c               | 10 ++--------
+>>   drivers/gpu/drm/bochs/bochs.h               |  2 --
+>>   drivers/gpu/drm/bochs/bochs_mm.c            | 10 ++--------
+>>   drivers/gpu/drm/cirrus/cirrus_drv.h         |  1 -
+>>   drivers/gpu/drm/cirrus/cirrus_ttm.c         | 10 ++--------
+>>   drivers/gpu/drm/drm_gem.c                   | 17 -----------------
+>>   drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c | 12 ++----------
+>>   drivers/gpu/drm/mgag200/mgag200_drv.h       |  1 -
+>>   drivers/gpu/drm/mgag200/mgag200_ttm.c       | 10 ++--------
+>>   drivers/gpu/drm/nouveau/nouveau_drv.h       |  2 --
+>>   drivers/gpu/drm/nouveau/nouveau_ttm.c       |  4 ----
+>>   drivers/gpu/drm/qxl/qxl_drv.h               |  3 ---
+>>   drivers/gpu/drm/qxl/qxl_ttm.c               | 11 +++--------
+>>   drivers/gpu/drm/radeon/radeon_ttm.c         | 13 ++-----------
+>>   drivers/gpu/drm/ttm/ttm_bo.c                |  6 +++---
+>>   drivers/gpu/drm/ttm/ttm_bo_vm.c             |  3 +++
+>>   drivers/gpu/drm/virtio/virtgpu_ttm.c        |  4 +---
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c         |  1 -
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.h         |  1 -
+>>   drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c    | 11 ++---------
+>>   drivers/staging/vboxvideo/vbox_drv.h        |  2 --
+>>   drivers/staging/vboxvideo/vbox_ttm.c        | 12 +++---------
+>>   include/drm/drm_vma_manager.h               | 12 ++++++++++++
+>>   include/drm/ttm/ttm_bo_driver.h             |  2 +-
+>>   26 files changed, 42 insertions(+), 132 deletions(-)
+>>
+>=20
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstr. 5, D-90409 N=C3=BCrnberg
+Tel: +49-911-74053-0; Fax: +49-911-7417755;  https://www.suse.com/
+SUSE Linux GmbH, GF: Felix Imend=C3=B6rffer, Jane Smithard,
+Graham Norton, HRB 21284 (AG N=C3=BCrnberg)
+
+
+--hWl33hLGCoKgv2YV1Ka4BxzdlBFSIita6--
+
+--Ph3dCPhyLO8rNzKBNrKknkwmOzQcKOxRr
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAlxb/jwACgkQaA3BHVML
+eiNFLwf/QGo9uOHxyfmRV+qktm3mje3M67fwMzxRlLyKBNrUYCTamu3kc1t1y7z6
+SNXP090LYPIA2q6Exs7Fo4spEef1kjzD9K7o8QMLxZjzGedxl8Akwp67Iq5VB588
+sb5ctBevfrATTNGzVF5GAXvgrK6Y59PDC3iozwLc+LjyVY0I3xXbNw7L0FUDxy4X
+6C0CXaODz5V4D012rokwqn5SaA3eTx49X1BevRb1f38F5ezYpcz0ltDOBEB3N79L
+KDSZP4oGpMMK6eLrU9Ac9gppLLM2U6Fcn6YJPjGg5b3Cf2sBUuHOPgoJMhsg2nfb
+GO4X5q4cBNBCzvw78yvGWfCqg3gtIQ==
+=smDB
+-----END PGP SIGNATURE-----
+
+--Ph3dCPhyLO8rNzKBNrKknkwmOzQcKOxRr--
+
+--===============1334058901==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+
+--===============1334058901==--
