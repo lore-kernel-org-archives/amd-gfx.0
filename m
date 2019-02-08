@@ -1,154 +1,108 @@
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Subject: Re: [PATCH 2/5] drm/ttm: Define a single DRM_FILE_PAGE_OFFSET constant
-Date: Fri, 8 Feb 2019 08:58:48 +0100
-Message-ID: <64feef09-062f-27ea-b35f-39a23644b4b6@suse.de>
-References: <20190207085931.29569-1-tzimmermann@suse.de>
- <20190207085931.29569-3-tzimmermann@suse.de>
- <67782273034c55fd14d7c5d20ba35309ade32afe.camel@vmware.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/4] drm/amdgpu: Add helper to wait for a reservation
+ using a sync object
+Date: Fri, 8 Feb 2019 08:31:05 +0000
+Message-ID: <a0821821-9b05-ef40-4105-4d1a924a7801@amd.com>
+References: <1549569222-13251-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0882135937=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <67782273034c55fd14d7c5d20ba35309ade32afe.camel@vmware.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Thomas Hellstrom <thellstrom@vmware.com>, "kraxel@redhat.com" <kraxel@redhat.com>, "zourongrong@gmail.com" <zourongrong@gmail.com>, "christian.koenig@amd.com" <christian.koenig@amd.com>, "hdegoede@redhat.com" <hdegoede@redhat.com>, "alexander.deucher@amd.com" <alexander.deucher@amd.com>, "David1.Zhou@amd.com" <David1.Zhou@amd.com>, "ray.huang@amd.com" <ray.huang@amd.com>, "bskeggs@redhat.com" <bskeggs@redhat.com>, "kong.kongxinwei@hisilicon.com" <kong.kongxinwei@hisilicon.com>, "airlied@redhat.com" <airlied@redhat.com>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "Jerry.Zhang@amd.com" <Jerry.Zhang@amd.com>, Linux-graphics-maintainer <Linux-graphics-maintainer@vmware.com>, "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "z.liuxinliang@hisilicon.com" <z.liuxinliang@hisilicon.com>, "puck.chen@hisilicon.com" <puck.chen@hisilicon.com>, "arnd@arndb.de" <arnd@arndb.de>
-Cc: "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "virtualization@lists.linux-foundation.org" <virtualization@lists.linux-foundation.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0882135937==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="q37wT5bRzWa9BCN4MrlybHzwM77ugnl2V"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---q37wT5bRzWa9BCN4MrlybHzwM77ugnl2V
-Content-Type: multipart/mixed; boundary="PoeV4raQ1gdDlWikQSvAPAQ0X8udAfekc";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Thomas Hellstrom <thellstrom@vmware.com>,
- "kraxel@redhat.com" <kraxel@redhat.com>,
- "zourongrong@gmail.com" <zourongrong@gmail.com>,
- "christian.koenig@amd.com" <christian.koenig@amd.com>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
- "David1.Zhou@amd.com" <David1.Zhou@amd.com>,
- "ray.huang@amd.com" <ray.huang@amd.com>,
- "bskeggs@redhat.com" <bskeggs@redhat.com>,
- "kong.kongxinwei@hisilicon.com" <kong.kongxinwei@hisilicon.com>,
- "airlied@redhat.com" <airlied@redhat.com>, "daniel@ffwll.ch"
- <daniel@ffwll.ch>, "Jerry.Zhang@amd.com" <Jerry.Zhang@amd.com>,
- Linux-graphics-maintainer <Linux-graphics-maintainer@vmware.com>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "z.liuxinliang@hisilicon.com" <z.liuxinliang@hisilicon.com>,
- "puck.chen@hisilicon.com" <puck.chen@hisilicon.com>,
- "arnd@arndb.de" <arnd@arndb.de>
-Cc: "spice-devel@lists.freedesktop.org" <spice-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>
-Message-ID: <64feef09-062f-27ea-b35f-39a23644b4b6@suse.de>
-Subject: Re: [PATCH 2/5] drm/ttm: Define a single DRM_FILE_PAGE_OFFSET
- constant
-References: <20190207085931.29569-1-tzimmermann@suse.de>
- <20190207085931.29569-3-tzimmermann@suse.de>
- <67782273034c55fd14d7c5d20ba35309ade32afe.camel@vmware.com>
-In-Reply-To: <67782273034c55fd14d7c5d20ba35309ade32afe.camel@vmware.com>
-
---PoeV4raQ1gdDlWikQSvAPAQ0X8udAfekc
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 07.02.19 um 20:07 schrieb Thomas Hellstrom:
->=20
->> diff --git a/include/drm/ttm/ttm_bo_driver.h
->> b/include/drm/ttm/ttm_bo_driver.h
->> index cbf3180cb612..c0bed72492f3 100644
->> --- a/include/drm/ttm/ttm_bo_driver.h
->> +++ b/include/drm/ttm/ttm_bo_driver.h
->> @@ -49,6 +49,8 @@
->>  #define TTM_MEMTYPE_FLAG_MAPPABLE      (1 << 1)	/* Memory
->> mappable */
->>  #define TTM_MEMTYPE_FLAG_CMA           (1 << 3)	/* Can't map
->> aperture */
->> =20
->> +#define DRM_FILE_PAGE_OFFSET (0x100000000ULL >> PAGE_SHIFT)
->> +
->=20
-> IMO strictly, the place in the drm file address space where a driver
-> chooses to insert the TTM bo address space is to be determined by DRM,
-> (as also the define indicates) rather than TTM. So I think the right
-> place for this define is a drm header, not a ttm header.
-
-I put this here temporarily for the cleanup. But it gets fixed by patch
-[05], which moves the constants into drm_vma_manager.h
-
-Best regards
-Thomas
-
->=20
-> Thanks,
-> Thomas
->=20
->=20
->>  struct ttm_mem_type_manager;
->> =20
->>  struct ttm_mem_type_manager_func {
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Linux GmbH, Maxfeldstr. 5, D-90409 N=C3=BCrnberg
-Tel: +49-911-74053-0; Fax: +49-911-7417755;  https://www.suse.com/
-SUSE Linux GmbH, GF: Felix Imend=C3=B6rffer, Jane Smithard,
-Graham Norton, HRB 21284 (AG N=C3=BCrnberg)
-
-
---PoeV4raQ1gdDlWikQSvAPAQ0X8udAfekc--
-
---q37wT5bRzWa9BCN4MrlybHzwM77ugnl2V
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAlxdNrwACgkQaA3BHVML
-eiOE4Qf+NdRTxA6wptm6DXWAixgevV2wczdvOuu3dRwj+RtbG1UMOOMBN03R7YRe
-CCXPQLmNFReFa829dDHS/jYUtgl9SUJIgaYXF6pZsd3FAsgWakUTwxn8O4WHYZ/O
-3yOr2BVSLHqLnQUxxblvo6ZtvjZAcsEPVtL2xa2gX6v4OUkBZvSEQldMCM5bOOEo
-VdiMI/kdOkx0FZG3fRccNcLRZ85BYQHN+JlyScNtZ1zuxRRrfQtMLsQl9aZXrgAm
-nrkVN8RpahQ87WsEBo3xhk+8UsU/3lOL7DxlunQXimFLDVQYvnQtdivk5cWcpcO4
-e7kT5lnqdSA0v5QWwkBdaNS0qVKFEw==
-=L64E
------END PGP SIGNATURE-----
-
---q37wT5bRzWa9BCN4MrlybHzwM77ugnl2V--
-
---===============0882135937==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1549569222-13251-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <BFB8205996D88245A5D6D7BEF8351D9F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCg==
-
---===============0882135937==--
+QW0gMDcuMDIuMTkgdW0gMjA6NTMgc2NocmllYiBLdWVobGluZywgRmVsaXg6DQo+IENyZWF0ZXMg
+YSB0ZW1wb3Jhcnkgc3luYyBvYmplY3QgdG8gd2FpdCBmb3IgdGhlIHJlc2VydmF0aW9uLiBUaGlz
+DQo+IGdlbmVyYWxpemVzIGFtZGdwdV92bV93YWl0X3BkLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBG
+ZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KRm9yIHRoaXMgb25lIGl0
+IG1pZ2h0IGJlIGJldHRlciB0byBuYW1lIHRoaXMgZnVuY3Rpb24gDQphbWRncHVfYm9fc3luY193
+YWl0IGFuZCBhZGQgaXQgdG8gYW1kZ3B1X29iamVjdC5jLg0KDQpKdXN0IGJlY2F1c2UgdGhlIG9i
+amVjdCB3ZSB3b3JrIHdpdGggaXMgdGhlIEJPL3Jlc3YgYW5kIG5vdCB0aGUgc3luYyANCmNvbnRh
+aW5lci4NCg0KQXBhcnQgZnJvbSB0aGF0IHRoZSBzZXJpZXMgbG9va3MgZ29vZCB0byBtZSBhbmQg
+cGF0Y2hlcyAjMiBhbmQgIzMgYXJlIA0KUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4gYW5kIHBhdGNoICM0IGlzIA0KQWNrZWQtYnk6IENocmlz
+dGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCg0KUmVnYXJkcywNCkNocmlz
+dGlhbi4NCg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc3lu
+Yy5jIHwgMjUgKysrKysrKysrKysrKysrKysrKysrKysrKw0KPiAgIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmggfCAgMyArKysNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdm0uYyAgIHwgMzEgKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LQ0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgMzIgaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0p
+DQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc3lu
+Yy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3N5bmMuYw0KPiBpbmRleCAy
+ZDZmNWVjLi5mNTZkMTA0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfc3luYy5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9zeW5jLmMNCj4gQEAgLTM3Nyw2ICszNzcsMzEgQEAgaW50IGFtZGdwdV9zeW5jX3dhaXQoc3Ry
+dWN0IGFtZGdwdV9zeW5jICpzeW5jLCBib29sIGludHIpDQo+ICAgfQ0KPiAgIA0KPiAgIC8qKg0K
+PiArICogYW1kZ3B1X3N5bmNfd2FpdF9yZXN2IC0gV2FpdCBmb3IgcmVzZXJ2YXRpb24gZmVuY2Vz
+DQo+ICsgKg0KPiArICogQHZtOiByZWxhdGVkIHZtDQo+ICsgKiBAb3duZXI6IGZlbmNlIG93bmVy
+DQo+ICsgKiBAaW50cjogV2hldGhlciB0aGUgd2FpdCBpcyBpbnRlcnJ1cHRpYmxlDQo+ICsgKg0K
+PiArICogUmV0dXJuczoNCj4gKyAqIDAgb24gc3VjY2VzcywgZXJybm8gb3RoZXJ3aXNlLg0KPiAr
+ICovDQo+ICtpbnQgYW1kZ3B1X3N5bmNfd2FpdF9yZXN2KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LA0KPiArCQkJICBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LA0KPiArCQkJICB2
+b2lkICpvd25lciwgYm9vbCBpbnRyKQ0KPiArew0KPiArCXN0cnVjdCBhbWRncHVfc3luYyBzeW5j
+Ow0KPiArCWludCByOw0KPiArDQo+ICsJYW1kZ3B1X3N5bmNfY3JlYXRlKCZzeW5jKTsNCj4gKwlh
+bWRncHVfc3luY19yZXN2KGFkZXYsICZzeW5jLCByZXN2LCBvd25lciwgZmFsc2UpOw0KPiArCXIg
+PSBhbWRncHVfc3luY193YWl0KCZzeW5jLCBpbnRyKTsNCj4gKwlhbWRncHVfc3luY19mcmVlKCZz
+eW5jKTsNCj4gKw0KPiArCXJldHVybiByOw0KPiArfQ0KPiArDQo+ICsvKioNCj4gICAgKiBhbWRn
+cHVfc3luY19mcmVlIC0gZnJlZSB0aGUgc3luYyBvYmplY3QNCj4gICAgKg0KPiAgICAqIEBzeW5j
+OiBzeW5jIG9iamVjdCB0byB1c2UNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9zeW5jLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+c3luYy5oDQo+IGluZGV4IDEwY2YyM2EuLmFmNmVlYTYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3N5bmMuaA0KPiBAQCAtNTIsNiArNTIsOSBAQCBzdHJ1Y3QgZG1h
+X2ZlbmNlICphbWRncHVfc3luY19wZWVrX2ZlbmNlKHN0cnVjdCBhbWRncHVfc3luYyAqc3luYywN
+Cj4gICBzdHJ1Y3QgZG1hX2ZlbmNlICphbWRncHVfc3luY19nZXRfZmVuY2Uoc3RydWN0IGFtZGdw
+dV9zeW5jICpzeW5jLCBib29sICpleHBsaWNpdCk7DQo+ICAgaW50IGFtZGdwdV9zeW5jX2Nsb25l
+KHN0cnVjdCBhbWRncHVfc3luYyAqc291cmNlLCBzdHJ1Y3QgYW1kZ3B1X3N5bmMgKmNsb25lKTsN
+Cj4gICBpbnQgYW1kZ3B1X3N5bmNfd2FpdChzdHJ1Y3QgYW1kZ3B1X3N5bmMgKnN5bmMsIGJvb2wg
+aW50cik7DQo+ICtpbnQgYW1kZ3B1X3N5bmNfd2FpdF9yZXN2KHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LA0KPiArCQkJICBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LA0KPiArCQkJ
+ICB2b2lkICpvd25lciwgYm9vbCBpbnRyKTsNCj4gICB2b2lkIGFtZGdwdV9zeW5jX2ZyZWUoc3Ry
+dWN0IGFtZGdwdV9zeW5jICpzeW5jKTsNCj4gICBpbnQgYW1kZ3B1X3N5bmNfaW5pdCh2b2lkKTsN
+Cj4gICB2b2lkIGFtZGdwdV9zeW5jX2Zpbmkodm9pZCk7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV92bS5jDQo+IGluZGV4IDVkN2MxOTEuLmVkMWNhMWQgMTAwNjQ0DQo+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+IEBAIC0xMzMwLDMxICsxMzMwLDYgQEAg
+c3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2NwdV9zZXRfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRh
+dGVfcGFyYW1zICpwYXJhbXMsDQo+ICAgCX0NCj4gICB9DQo+ICAgDQo+IC0NCj4gLS8qKg0KPiAt
+ICogYW1kZ3B1X3ZtX3dhaXRfcGQgLSBXYWl0IGZvciBQVCBCT3MgdG8gYmUgZnJlZS4NCj4gLSAq
+DQo+IC0gKiBAYWRldjogYW1kZ3B1X2RldmljZSBwb2ludGVyDQo+IC0gKiBAdm06IHJlbGF0ZWQg
+dm0NCj4gLSAqIEBvd25lcjogZmVuY2Ugb3duZXINCj4gLSAqDQo+IC0gKiBSZXR1cm5zOg0KPiAt
+ICogMCBvbiBzdWNjZXNzLCBlcnJubyBvdGhlcndpc2UuDQo+IC0gKi8NCj4gLXN0YXRpYyBpbnQg
+YW1kZ3B1X3ZtX3dhaXRfcGQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRn
+cHVfdm0gKnZtLA0KPiAtCQkJICAgICB2b2lkICpvd25lcikNCj4gLXsNCj4gLQlzdHJ1Y3QgYW1k
+Z3B1X3N5bmMgc3luYzsNCj4gLQlpbnQgcjsNCj4gLQ0KPiAtCWFtZGdwdV9zeW5jX2NyZWF0ZSgm
+c3luYyk7DQo+IC0JYW1kZ3B1X3N5bmNfcmVzdihhZGV2LCAmc3luYywgdm0tPnJvb3QuYmFzZS5i
+by0+dGJvLnJlc3YsIG93bmVyLCBmYWxzZSk7DQo+IC0JciA9IGFtZGdwdV9zeW5jX3dhaXQoJnN5
+bmMsIHRydWUpOw0KPiAtCWFtZGdwdV9zeW5jX2ZyZWUoJnN5bmMpOw0KPiAtDQo+IC0JcmV0dXJu
+IHI7DQo+IC19DQo+IC0NCj4gICAvKioNCj4gICAgKiBhbWRncHVfdm1fdXBkYXRlX2Z1bmMgLSBo
+ZWxwZXIgdG8gY2FsbCB1cGRhdGUgZnVuY3Rpb24NCj4gICAgKg0KPiBAQCAtMTQ0OSw3ICsxNDI0
+LDggQEAgaW50IGFtZGdwdV92bV91cGRhdGVfZGlyZWN0b3JpZXMoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsDQo+ICAgCXBhcmFtcy5hZGV2ID0gYWRldjsNCj4gICANCj4gICAJaWYgKHZtLT51
+c2VfY3B1X2Zvcl91cGRhdGUpIHsNCj4gLQkJciA9IGFtZGdwdV92bV93YWl0X3BkKGFkZXYsIHZt
+LCBBTURHUFVfRkVOQ0VfT1dORVJfVk0pOw0KPiArCQlyID0gYW1kZ3B1X3N5bmNfd2FpdF9yZXN2
+KGFkZXYsIHZtLT5yb290LmJhc2UuYm8tPnRiby5yZXN2LA0KPiArCQkJCQkgIEFNREdQVV9GRU5D
+RV9PV05FUl9WTSwgdHJ1ZSk7DQo+ICAgCQlpZiAodW5saWtlbHkocikpDQo+ICAgCQkJcmV0dXJu
+IHI7DQo+ICAgDQo+IEBAIC0xNzgyLDcgKzE3NTgsOCBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9i
+b191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICAJCS8qIFdh
+aXQgZm9yIFBUIEJPcyB0byBiZSBpZGxlLiBQVHMgc2hhcmUgdGhlIHNhbWUgcmVzdi4gb2JqZWN0
+DQo+ICAgCQkgKiBhcyB0aGUgcm9vdCBQRCBCTw0KPiAgIAkJICovDQo+IC0JCXIgPSBhbWRncHVf
+dm1fd2FpdF9wZChhZGV2LCB2bSwgb3duZXIpOw0KPiArCQlyID0gYW1kZ3B1X3N5bmNfd2FpdF9y
+ZXN2KGFkZXYsIHZtLT5yb290LmJhc2UuYm8tPnRiby5yZXN2LA0KPiArCQkJCQkgIG93bmVyLCB0
+cnVlKTsNCj4gICAJCWlmICh1bmxpa2VseShyKSkNCj4gICAJCQlyZXR1cm4gcjsNCj4gICANCg0K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
