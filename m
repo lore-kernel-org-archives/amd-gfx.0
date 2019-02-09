@@ -1,14 +1,16 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: The problem "ring gfx timeout" are experienced yet another AMD
- GPU Vega 8 user
-Date: Sat, 9 Feb 2019 12:01:06 -0500
-Message-ID: <CAAxE2A4tM-OoxcnLw14M8aZJLPLnPm2aN4fpTVQX_aUyJ9OBNw@mail.gmail.com>
-References: <CABXGCsMas72q52GYvH+5Po-KDPfqu74XO_YznqJKnp+-+1Mnww@mail.gmail.com>
- <e92cffb7-6627-6f52-70de-e09d9bdbbe0a@amd.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2 1/4] drm/amdgpu: Add helper to wait for BO fences using
+ a sync object
+Date: Sat, 9 Feb 2019 17:29:11 +0000
+Message-ID: <92ea1ff9-6f23-f691-a32f-6ec38a40b856@amd.com>
+References: <1549660894-4080-1-git-send-email-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0669174590=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <e92cffb7-6627-6f52-70de-e09d9bdbbe0a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1549660894-4080-1-git-send-email-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <2A970ED15AD9DC4DBD46998D300A6535-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,104 +21,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: mikhail <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0669174590==
-Content-Type: multipart/alternative; boundary="000000000000436abf058179060e"
-
---000000000000436abf058179060e
-Content-Type: text/plain; charset="UTF-8"
-
-I don't see any attachments here.
-
-Marek
-
-On Sat, Feb 9, 2019, 11:37 AM Grodzovsky, Andrey <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org
-wrote:
-
-> +Marek
->
-> Can't find the last fence seqno from mmCP_EOP_LAST_FENCE_LO in gfx ring
-> dump (probably that seqno wasn't really the last if the register was
-> dumped several times before) but since waves were dumped could be some
-> shader issue. Marek, could you please give it a quick look ?
->
-> Andrey
->
-> On 2/9/19 7:53 AM, Mikhail Gavrilov wrote:
-> > Hi Andrey,
-> > in our Linux chat yet another AMD GPU user complains on problem with
-> > `ring gfx timeout`.
-> > He said that problem happens when he played in the game "Hearts of Iron
-> 4".
-> > His config:
-> > - APU: Ryzen 2200G
-> > - Kernel: 4.20.6
-> > - LLVM: 7.0.0
-> > - MESA: 18.2.8
-> >
-> > All logs which he collected with UMR I attach it here.
-> >
-> > Can you look please what happened with his GPU?
-> >
-> > --
-> > Best Regards,
-> > Mike Gavrilov.
->
-
---000000000000436abf058179060e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">I don&#39;t see any attachments here.<div dir=3D"auto"><b=
-r></div><div dir=3D"auto">Marek</div></div><br><div class=3D"gmail_quote"><=
-div dir=3D"ltr">On Sat, Feb 9, 2019, 11:37 AM Grodzovsky, Andrey &lt;<a hre=
-f=3D"mailto:Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org">Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org</a> wrote:=
-<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bord=
-er-left:1px #ccc solid;padding-left:1ex">+Marek<br>
-<br>
-Can&#39;t find the last fence seqno from mmCP_EOP_LAST_FENCE_LO in gfx ring=
- <br>
-dump (probably that seqno wasn&#39;t really the last if the register was <b=
-r>
-dumped several times before) but since waves were dumped could be some <br>
-shader issue. Marek, could you please give it a quick look ?<br>
-<br>
-Andrey<br>
-<br>
-On 2/9/19 7:53 AM, Mikhail Gavrilov wrote:<br>
-&gt; Hi Andrey,<br>
-&gt; in our Linux chat yet another AMD GPU user complains on problem with<b=
-r>
-&gt; `ring gfx timeout`.<br>
-&gt; He said that problem happens when he played in the game &quot;Hearts o=
-f Iron 4&quot;.<br>
-&gt; His config:<br>
-&gt; - APU: Ryzen 2200G<br>
-&gt; - Kernel: 4.20.6<br>
-&gt; - LLVM: 7.0.0<br>
-&gt; - MESA: 18.2.8<br>
-&gt;<br>
-&gt; All logs which he collected with UMR I attach it here.<br>
-&gt;<br>
-&gt; Can you look please what happened with his GPU?<br>
-&gt;<br>
-&gt; --<br>
-&gt; Best Regards,<br>
-&gt; Mike Gavrilov.<br>
-</blockquote></div>
-
---000000000000436abf058179060e--
-
---===============0669174590==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
-
---===============0669174590==--
+QW0gMDguMDIuMTkgdW0gMjI6MjEgc2NocmllYiBLdWVobGluZywgRmVsaXg6DQo+IENyZWF0ZXMg
+YSB0ZW1wb3Jhcnkgc3luYyBvYmplY3QgdG8gd2FpdCBmb3IgdGhlIEJPIHJlc2VydmF0aW9uLiBU
+aGlzDQo+IGdlbmVyYWxpemVzIGFtZGdwdV92bV93YWl0X3BkLg0KPg0KPiBTaWduZWQtb2ZmLWJ5
+OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KUmV2aWV3ZWQtYnk6
+IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCg0KPiAtLS0NCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgfCAyNCArKysrKysr
+KysrKysrKysrKysrKysrKysNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+b2JqZWN0LmggfCAgMSArDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmMgICAgIHwgMzAgKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+ICAgMyBmaWxlcyBj
+aGFuZ2VkLCAyOCBpbnNlcnRpb25zKCspLCAyNyBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYw0KPiBpbmRleCBmZDljNGJlLi5lYzll
+NDUwIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
+ZWN0LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5j
+DQo+IEBAIC0xMjg1LDYgKzEyODUsMzAgQEAgdm9pZCBhbWRncHVfYm9fZmVuY2Uoc3RydWN0IGFt
+ZGdwdV9ibyAqYm8sIHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlLA0KPiAgIH0NCj4gICANCj4gICAv
+KioNCj4gKyAqIGFtZGdwdV9zeW5jX3dhaXRfcmVzdiAtIFdhaXQgZm9yIEJPIHJlc2VydmF0aW9u
+IGZlbmNlcw0KPiArICoNCj4gKyAqIEBibzogYnVmZmVyIG9iamVjdA0KPiArICogQG93bmVyOiBm
+ZW5jZSBvd25lcg0KPiArICogQGludHI6IFdoZXRoZXIgdGhlIHdhaXQgaXMgaW50ZXJydXB0aWJs
+ZQ0KPiArICoNCj4gKyAqIFJldHVybnM6DQo+ICsgKiAwIG9uIHN1Y2Nlc3MsIGVycm5vIG90aGVy
+d2lzZS4NCj4gKyAqLw0KPiAraW50IGFtZGdwdV9ib19zeW5jX3dhaXQoc3RydWN0IGFtZGdwdV9i
+byAqYm8sIHZvaWQgKm93bmVyLCBib29sIGludHIpDQo+ICt7DQo+ICsJc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYgPSBhbWRncHVfdHRtX2FkZXYoYm8tPnRiby5iZGV2KTsNCj4gKwlzdHJ1Y3Qg
+YW1kZ3B1X3N5bmMgc3luYzsNCj4gKwlpbnQgcjsNCj4gKw0KPiArCWFtZGdwdV9zeW5jX2NyZWF0
+ZSgmc3luYyk7DQo+ICsJYW1kZ3B1X3N5bmNfcmVzdihhZGV2LCAmc3luYywgYm8tPnRiby5yZXN2
+LCBvd25lciwgZmFsc2UpOw0KPiArCXIgPSBhbWRncHVfc3luY193YWl0KCZzeW5jLCBpbnRyKTsN
+Cj4gKwlhbWRncHVfc3luY19mcmVlKCZzeW5jKTsNCj4gKw0KPiArCXJldHVybiByOw0KPiArfQ0K
+PiArDQo+ICsvKioNCj4gICAgKiBhbWRncHVfYm9fZ3B1X29mZnNldCAtIHJldHVybiBHUFUgb2Zm
+c2V0IG9mIGJvDQo+ICAgICogQGJvOglhbWRncHUgb2JqZWN0IGZvciB3aGljaCB3ZSBxdWVyeSB0
+aGUgb2Zmc2V0DQo+ICAgICoNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9vYmplY3QuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9v
+YmplY3QuaA0KPiBpbmRleCA5MjkxYzJmLi4yMjBhNmE3IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oDQo+IEBAIC0yNjYsNiArMjY2LDcgQEAgdm9p
+ZCBhbWRncHVfYm9fbW92ZV9ub3RpZnkoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywNCj4g
+ICBpbnQgYW1kZ3B1X2JvX2ZhdWx0X3Jlc2VydmVfbm90aWZ5KHN0cnVjdCB0dG1fYnVmZmVyX29i
+amVjdCAqYm8pOw0KPiAgIHZvaWQgYW1kZ3B1X2JvX2ZlbmNlKHN0cnVjdCBhbWRncHVfYm8gKmJv
+LCBzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwNCj4gICAJCSAgICAgYm9vbCBzaGFyZWQpOw0KPiAr
+aW50IGFtZGdwdV9ib19zeW5jX3dhaXQoc3RydWN0IGFtZGdwdV9ibyAqYm8sIHZvaWQgKm93bmVy
+LCBib29sIGludHIpOw0KPiAgIHU2NCBhbWRncHVfYm9fZ3B1X29mZnNldChzdHJ1Y3QgYW1kZ3B1
+X2JvICpibyk7DQo+ICAgaW50IGFtZGdwdV9ib192YWxpZGF0ZShzdHJ1Y3QgYW1kZ3B1X2JvICpi
+byk7DQo+ICAgaW50IGFtZGdwdV9ib19yZXN0b3JlX3NoYWRvdyhzdHJ1Y3QgYW1kZ3B1X2JvICpz
+aGFkb3csDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+IGluZGV4IDVk
+N2MxOTEuLjQ4OGQ5MTMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+bS5jDQo+IEBAIC0xMzMwLDMxICsxMzMwLDYgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2NwdV9z
+ZXRfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3B0ZV91cGRhdGVfcGFyYW1zICpwYXJhbXMsDQo+ICAgCX0N
+Cj4gICB9DQo+ICAgDQo+IC0NCj4gLS8qKg0KPiAtICogYW1kZ3B1X3ZtX3dhaXRfcGQgLSBXYWl0
+IGZvciBQVCBCT3MgdG8gYmUgZnJlZS4NCj4gLSAqDQo+IC0gKiBAYWRldjogYW1kZ3B1X2Rldmlj
+ZSBwb2ludGVyDQo+IC0gKiBAdm06IHJlbGF0ZWQgdm0NCj4gLSAqIEBvd25lcjogZmVuY2Ugb3du
+ZXINCj4gLSAqDQo+IC0gKiBSZXR1cm5zOg0KPiAtICogMCBvbiBzdWNjZXNzLCBlcnJubyBvdGhl
+cndpc2UuDQo+IC0gKi8NCj4gLXN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3dhaXRfcGQoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRncHVfdm0gKnZtLA0KPiAtCQkJICAgICB2b2lk
+ICpvd25lcikNCj4gLXsNCj4gLQlzdHJ1Y3QgYW1kZ3B1X3N5bmMgc3luYzsNCj4gLQlpbnQgcjsN
+Cj4gLQ0KPiAtCWFtZGdwdV9zeW5jX2NyZWF0ZSgmc3luYyk7DQo+IC0JYW1kZ3B1X3N5bmNfcmVz
+dihhZGV2LCAmc3luYywgdm0tPnJvb3QuYmFzZS5iby0+dGJvLnJlc3YsIG93bmVyLCBmYWxzZSk7
+DQo+IC0JciA9IGFtZGdwdV9zeW5jX3dhaXQoJnN5bmMsIHRydWUpOw0KPiAtCWFtZGdwdV9zeW5j
+X2ZyZWUoJnN5bmMpOw0KPiAtDQo+IC0JcmV0dXJuIHI7DQo+IC19DQo+IC0NCj4gICAvKioNCj4g
+ICAgKiBhbWRncHVfdm1fdXBkYXRlX2Z1bmMgLSBoZWxwZXIgdG8gY2FsbCB1cGRhdGUgZnVuY3Rp
+b24NCj4gICAgKg0KPiBAQCAtMTQ0OSw3ICsxNDI0LDggQEAgaW50IGFtZGdwdV92bV91cGRhdGVf
+ZGlyZWN0b3JpZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAgCXBhcmFtcy5hZGV2
+ID0gYWRldjsNCj4gICANCj4gICAJaWYgKHZtLT51c2VfY3B1X2Zvcl91cGRhdGUpIHsNCj4gLQkJ
+ciA9IGFtZGdwdV92bV93YWl0X3BkKGFkZXYsIHZtLCBBTURHUFVfRkVOQ0VfT1dORVJfVk0pOw0K
+PiArCQlyID0gYW1kZ3B1X2JvX3N5bmNfd2FpdCh2bS0+cm9vdC5iYXNlLmJvLA0KPiArCQkJCQlB
+TURHUFVfRkVOQ0VfT1dORVJfVk0sIHRydWUpOw0KPiAgIAkJaWYgKHVubGlrZWx5KHIpKQ0KPiAg
+IAkJCXJldHVybiByOw0KPiAgIA0KPiBAQCAtMTc4Miw3ICsxNzU4LDcgQEAgc3RhdGljIGludCBh
+bWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+
+ICAgCQkvKiBXYWl0IGZvciBQVCBCT3MgdG8gYmUgaWRsZS4gUFRzIHNoYXJlIHRoZSBzYW1lIHJl
+c3YuIG9iamVjdA0KPiAgIAkJICogYXMgdGhlIHJvb3QgUEQgQk8NCj4gICAJCSAqLw0KPiAtCQly
+ID0gYW1kZ3B1X3ZtX3dhaXRfcGQoYWRldiwgdm0sIG93bmVyKTsNCj4gKwkJciA9IGFtZGdwdV9i
+b19zeW5jX3dhaXQodm0tPnJvb3QuYmFzZS5ibywgb3duZXIsIHRydWUpOw0KPiAgIAkJaWYgKHVu
+bGlrZWx5KHIpKQ0KPiAgIAkJCXJldHVybiByOw0KPiAgIA0KDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
