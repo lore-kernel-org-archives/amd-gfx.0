@@ -1,112 +1,150 @@
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Subject: [PATCH 1/3] drm/amdgpu: Fix get_crtc_scanoutpos behavior in vrr when vpos >= vtotal.
-Date: Mon, 11 Feb 2019 04:22:23 +0100
-Message-ID: <20190211032225.9488-2-mario.kleiner.de@gmail.com>
+From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/3] drm: Add basic helper to allow precise pageflip
+ timestamps in vrr.
+Date: Mon, 11 Feb 2019 04:22:24 +0100
+Message-ID: <20190211032225.9488-3-mario.kleiner.de@gmail.com>
 References: <20190211032225.9488-1-mario.kleiner.de@gmail.com>
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190211032225.9488-1-mario.kleiner.de@gmail.com>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: mario.kleiner.de@gmail.com, michel@daenzer.net, stable@vger.kernel.org, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Harry Wentland <harry.wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190211032225.9488-1-mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, michel-otUistvHUpPR7s880joybQ@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-This reverts commit 520f08df45fbe300ed650da786a74093d658b7e1
-("drm/amdgpu: Correct get_crtc_scanoutpos behavior when vpos >= vtotal")
-
-While the explanation in that commit is correct wrt. the hardware
-counter sometimes returning a position >= vtotal in vrr mode if
-the query happens while we are inside the "extended front porch",
-the math without this commit still returns the desired *vpos value
-for achieving a proper vblank timestamping behavior in vrr mode,
-according to the kernel documentation about how vblank timestamps
-should behave in vrr mode.
-
-According to the vrr mode docs, the vblank timestamp (calculated by
-drm_calc_vbltimestamp_from_scanoutpos()) is always supposed to be
-the one corresponding to the end of vblank as if vblank duration
-is == minimum vblank duration under vrr == vblank duration of the
-regular fixed refresh rate mode timing. Iow. it must be the same
-timestamp as would show up in non-vrr mode, even if the current
-vblank may be much longer (by an unknown amount of time), due to
-an extended front porch duration.
-
-Doing the math on this shows that we get the correct *vpos values
-to feed into the drm_calc_vbltimestamp_from_scanoutpos() helper
-for this to happen by using exactly the same correction:
-
-*vpos = *vpos - vtotal - vbl_end
-
-Therefore we don't need any special case for *vpos >= vtotal and
-the special case would cause wrong timestamps.
-
-The only quirk compared to non-vrr mode is that this can return
-a *vpos >= 0 despite being in vblank, ie. while returning the
-DRM_SCANOUTPOS_IN_VBLANK flag. Auditing all callers of the function
-shows this doesn't matter, as they all use the dedicated
-DRM_SCANOUTPOS_IN_VBLANK flag to check for "in vblank", but not
-the sign of *vpos.
-
-This patch should make sure that amdgpu_display_get_crtc_scanoutpos()
-always returns a *vpos value which leads to a stable vblank timestamp,
-regardless where the scanout position is during the function call.
-This stability is important to not confuse the vblank_disable_immediate
-logic in DRM cores vblank counting, and to provide some stable
-timestamp for future improvements of the pageflip timestamping under
-vrr.
-
-Fixes: 520f08df45fb ("drm/amdgpu: Correct get_crtc_scanoutpos behavior
-when vpos >= vtotal")
-Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-Cc: <stable@vger.kernel.org>
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 21 +++++++++++++--------
- 1 file changed, 13 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-index 4e944737b708..13da4e3549f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
-@@ -779,12 +779,22 @@ bool amdgpu_display_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
-  * Returns vpos as a positive number while in active scanout area.
-  * Returns vpos as a negative number inside vblank, counting the number
-  * of scanlines to go until end of vblank, e.g., -1 means "one scanline
-- * until start of active scanout / end of vblank."
-+ * until start of active scanout / end of vblank." Note that in variable
-+ * refresh rate mode (vrr), vpos may be positive inside the extended front
-+ * porch, despite being inside vblank, and a negative number does not
-+ * always define the number of scanline to true end of vblank. Instead
-+ * the vpos values behave as if the crtc would operate in fixed refresh
-+ * rate mode. This allows the drm_calc_vbltimestamp_from_scanoutpos()
-+ * helper to calculate appropriate and stable vblank timestamps as specified
-+ * for vrr mode - corresponding to the shortest vblank duration under vrr.
-+ * In vrr mode therefore check the returned Flags for presence of
-+ * DRM_SCANOUTPOS_IN_VBLANK to detect if the scanout is currently inside
-+ * or outside true vblank.
-  *
-  * \return Flags, or'ed together as follows:
-  *
-  * DRM_SCANOUTPOS_VALID = Query successful.
-- * DRM_SCANOUTPOS_INVBL = Inside vblank.
-+ * DRM_SCANOUTPOS_IN_VBLANK = Inside vblank.
-  * DRM_SCANOUTPOS_ACCURATE = Returned position is accurate. A lack of
-  * this flag means that returned position may be offset by a constant but
-  * unknown small number of scanlines wrt. real scanout position.
-@@ -876,12 +886,7 @@ int amdgpu_display_get_crtc_scanoutpos(struct drm_device *dev,
- 	/* Inside "upper part" of vblank area? Apply corrective offset if so: */
- 	if (in_vbl && (*vpos >= vbl_start)) {
- 		vtotal = mode->crtc_vtotal;
--
--		/* With variable refresh rate displays the vpos can exceed
--		 * the vtotal value. Clamp to 0 to return -vbl_end instead
--		 * of guessing the remaining number of lines until scanout.
--		 */
--		*vpos = (*vpos < vtotal) ? (*vpos - vtotal) : 0;
-+		*vpos = *vpos - vtotal;
- 	}
- 
- 	/* Correct for shifted end of vbl at vbl_end. */
--- 
-2.17.1
+VGhlIHBhZ2VmbGlwIGNvbXBsZXRpb24gdGltZXN0YW1wcyB0cmFuc21pdHRlZCB0byB1c2Vyc3Bh
+Y2UKdmlhIHBhZ2VmbGlwIGNvbXBsZXRpb24gZXZlbnRzIGFyZSBzdXBwb3NlZCB0byBkZXNjcmli
+ZSB0aGUKdGltZSBhdCB3aGljaCB0aGUgZmlyc3QgcGl4ZWwgb2YgdGhlIG5ldyBwb3N0LXBhZ2Vm
+bGlwIHNjYW5vdXQKYnVmZmVyIGxlYXZlcyB0aGUgdmlkZW8gb3V0cHV0IG9mIHRoZSBncHUuIFRo
+aXMgdGltZSBpcwppZGVudGljYWwgdG8gZW5kIG9mIHZibGFuaywgd2hlbiBhY3RpdmUgc2Nhbm91
+dCBzdGFydHMuCgpGb3IgYSBjcnRjIGluIHN0YW5kYXJkIGZpeGVkIHJlZnJlc2ggcmF0ZSwgdGhl
+IGVuZCBvZiB2YmxhbmsKaXMgaWRlbnRpY2FsIHRvIHRoZSB2YmxhbmsgdGltZXN0YW1wcyBjYWxj
+dWxhdGVkIGJ5CmRybV91cGRhdGVfdmJsYW5rX2NvdW50KCkgYXQgZWFjaCB2YmxhbmsgaW50ZXJy
+dXB0LCBvciBlYWNoCnZibGFuayBkaXMtL2VuYWJsZS4gVGhlcmVmb3JlIHBhZ2VmbGlwIGV2ZW50
+cyBqdXN0IGNhcnJ5CnRoYXQgdmJsYW5rIHRpbWVzdGFtcCBhcyB0aGVpciBwYWdlZmxpcCB0aW1l
+c3RhbXAuCgpGb3IgYSBjcnRjIHN3aXRjaGVkIHRvIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBtb2Rl
+ICh2cnIpLCB0aGUKcGFnZWZsaXAgY29tcGxldGlvbiB0aW1lc3RhbXBzIGFyZSBpZGVudGljYWwg
+dG8gdGhlIHZibGFuawp0aW1lc3RhbXBzIGlmZiB0aGUgcGFnZWZsaXAgd2FzIGV4ZWN1dGVkIGVh
+cmx5IGluIHZibGFuaywKYmVmb3JlIHRoZSBtaW5pbXVtIHZibGFuayBkdXJhdGlvbiBlbGFwc2Vk
+LiBJbiB0aGlzIGNhc2UKdGhlIHRpbWUgb2YgZGlzcGxheSBvbnNldCBpcyBpZGVudGljYWwgdG8g
+d2hlbiB0aGUgY3J0YwppcyBydW5uaW5nIGluIGZpeGVkIHJlZnJlc2ggcmF0ZS4KCkhvd2V2ZXIs
+IGlmIGEgcGFnZWZsaXAgY29tcGxldGVzIGxhdGVyIGluIHRoZSB2YmxhbmssIGluc2lkZQp0aGUg
+ImV4dGVuZGVkIGZyb250IHBvcmNoIiBpbiB2cnIgbW9kZSwgdGhlbiB0aGUgdmJsYW5rIHdpbGwK
+dGVybWluYXRlIGF0IGEgZml4ZWQgKGJhY2sgcG9yY2gpIGR1cmF0aW9uIGFmdGVyIGZsaXAsIHNv
+CnRoZSBkaXNwbGF5IG9uc2V0IHRpbWUgaXMgZGVsYXllZCBjb3JyZXNwb25kaW5nbHkuIEluIHRo
+aXMKY2FzZSB0aGUgdmJsYW5rIHRpbWVzdGFtcCBjb21wdXRlZCBhdCB2YmxhbmsgaXJxIHRpbWUg
+d291bGQKYmUgdG9vIGVhcmx5LCBhbmQgd2UgbmVlZCBhIHdheSB0byBjYWxjdWxhdGUgYW4gZXN0
+aW1hdGVkCnBhZ2VmbGlwIHRpbWVzdGFtcCB0aGF0IHdpbGwgYmUgbGF0ZXIgdGhhbiB0aGUgdmJs
+YW5rIHRpbWVzdGFtcC4KCkhvdyBhIGRyaXZlciBkZXRlcm1pbmVzIHN1Y2ggYSAibGF0ZSBmbGlw
+IiB0aW1lc3RhbXAgaXMgaHcKYW5kIGRyaXZlciBzcGVjaWZpYywgYnV0IHRoaXMgcGF0Y2ggYWRk
+cyBhIG5ldyBoZWxwZXIgZnVuY3Rpb24KdGhhdCBhbGxvd3MgdGhlIGRyaXZlciB0byBwcm9wb3Nl
+IHN1Y2ggYW4gYWx0ZXJuYXRlICJsYXRlIGZsaXAiCnRpbWVzdGFtcCBmb3IgdXNlIGluIHBhZ2Vm
+bGlwIGV2ZW50czoKCmRybV9jcnRjX3NldF92cnJfcGFnZWZsaXBfdGltZXN0YW1wKGNydGMsIGZs
+aXBfdGltZXN0YW1wKTsKCldoZW4gc2VuZGluZyBvdXQgcGFnZWZsaXAgZXZlbnRzLCB3ZSBub3cg
+Y29tcGFyZSB0aGF0IHByb3Bvc2VkCmZsaXBfdGltZXN0YW1wIGFnYWluc3QgdGhlIHZibGFuayB0
+aW1lc3RhbXAgb2YgdGhlIGN1cnJlbnQKdmJsYW5rIG9mIGZsaXAgY29tcGxldGlvbiBhbmQgY2hv
+b3NlIHRvIHNlbmQgb3V0IHRoZSBncmVhdGVyLwpsYXRlciB0aW1lc3RhbXAgYXMgZmxpcCBjb21w
+bGV0aW9uIHRpbWVzdGFtcC4KClRoZSBtb3N0IHNpbXBsZSB3YXkgZm9yIGEga21zIGRyaXZlciB0
+byBzdXBwbHkgYSBzdWl0YWJsZQpmbGlwX3RpbWVzdGFtcCBpbiB2cnIgbW9kZSB3b3VsZCBiZSB0
+byBzaW1wbHkgdGFrZSBhIHRpbWVzdGFtcAphdCBzdGFydCBvZiB0aGUgcGFnZWZsaXAgY29tcGxl
+dGlvbiBoYW5kbGVyLCBlLmcuLCBwYWdlZmxpcAppcnEgaGFuZGxlcjogZmxpcF90aW1lc3RhbXAg
+PSBrdGltZV9nZXQoKTsgYW5kIHRoZW4gc2V0IHRoYXQKYXMgcHJvcG9zZWQgImxhdGUiIGFsdGVy
+bmF0aXZlIHRpbWVzdGFtcCB2aWEgLi4uCmRybV9jcnRjX3NldF92cnJfcGFnZWZsaXBfdGltZXN0
+YW1wKGNydGMsIGZsaXBfdGltZXN0YW1wKTsKCk1vcmUgY2xldmVyIGFwcHJvYWNoZXMgY291bGQg
+dHJ5IHRvIGFkZCBzb21lIGNvcnJlY3RpdmUgb2Zmc2V0CmZvciBmaXhlZCBiYWNrIHBvcmNoIGR1
+cmF0aW9uLCBvciBpZGVhbGx5IHVzZSBoYXJkd2FyZSBmZWF0dXJlcwpsaWtlIGh3IHRpbWVzdGFt
+cHMgdG8gY2FsY3VsYXRlIHRoZSBleGFjdCBlbmQgdGltZSBvZiB2YmxhbmsuCgpTaWduZWQtb2Zm
+LWJ5OiBNYXJpbyBLbGVpbmVyIDxtYXJpby5rbGVpbmVyLmRlQGdtYWlsLmNvbT4KQ2M6IE5pY2hv
+bGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4KQ2M6IEhhcnJ5IFdl
+bnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgpDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMgfCA0
+OSArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0KIGluY2x1ZGUvZHJtL2RybV92
+YmxhbmsuaCAgICAgfCAgOCArKysrKysKIDIgZmlsZXMgY2hhbmdlZCwgNTYgaW5zZXJ0aW9ucygr
+KSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5r
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3ZibGFuay5jCmluZGV4IDk4ZTA5MTE3NTkyMS4uNGIz
+YTRjMzhmYWJlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3ZibGFuay5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9kcm1fdmJsYW5rLmMKQEAgLTgxNCwxMCArODE0LDIxIEBAIHN0YXRp
+YyB2b2lkIHNlbmRfdmJsYW5rX2V2ZW50KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJCXU2NCBz
+ZXEsIGt0aW1lX3Qgbm93KQogewogCXN0cnVjdCB0aW1lc3BlYzY0IHR2OworCWt0aW1lX3QgYWx0
+X2ZsaXBfdGltZTsKIAogCXN3aXRjaCAoZS0+ZXZlbnQuYmFzZS50eXBlKSB7Ci0JY2FzZSBEUk1f
+RVZFTlRfVkJMQU5LOgogCWNhc2UgRFJNX0VWRU5UX0ZMSVBfQ09NUExFVEU6CisJCS8qCisJCSAq
+IEZvciBmbGlwIGNvbXBsZXRpb24gZXZlbnRzLCBvdmVycmlkZSAibm93IiB0aW1lCisJCSAqIHdp
+dGggYWx0X2ZsaXBfdGltZSBwcm92aWRlZCBieSB0aGUgZHJpdmVyIHZpYQorCQkgKiBkcm1fY3J0
+Y19zZXRfdnJyX3BhZ2VmbGlwX3RpbWVzdGFtcCgpIGluIFZSUiBtb2RlCisJCSAqIGlmIHRoYXQg
+dGltZSBpcyBsYXRlciB0aGFuIGdpdmVuICJub3ciIHZibGFuayB0aW1lLgorCQkgKi8KKwkJYWx0
+X2ZsaXBfdGltZSA9IGRldi0+dmJsYW5rW2UtPnBpcGVdLmFsdF9mbGlwX3RpbWU7CisJCWlmIChh
+bHRfZmxpcF90aW1lID4gbm93KQorCQkJbm93ID0gYWx0X2ZsaXBfdGltZTsKKwkJLyogRmFsbHRo
+cm91Z2ggKi8KKwljYXNlIERSTV9FVkVOVF9WQkxBTks6CiAJCXR2ID0ga3RpbWVfdG9fdGltZXNw
+ZWM2NChub3cpOwogCQllLT5ldmVudC52Ymwuc2VxdWVuY2UgPSBzZXE7CiAJCS8qCkBAIC05MTYs
+MTEgKzkyNyw0NyBAQCB2b2lkIGRybV9jcnRjX3NlbmRfdmJsYW5rX2V2ZW50KHN0cnVjdCBkcm1f
+Y3J0YyAqY3J0YywKIAogCQlub3cgPSBrdGltZV9nZXQoKTsKIAl9CisKIAllLT5waXBlID0gcGlw
+ZTsKIAlzZW5kX3ZibGFua19ldmVudChkZXYsIGUsIHNlcSwgbm93KTsKIH0KIEVYUE9SVF9TWU1C
+T0woZHJtX2NydGNfc2VuZF92YmxhbmtfZXZlbnQpOwogCisvKioKKyAqIGRybV9jcnRjX3NldF92
+cnJfcGFnZWZsaXBfdGltZXN0YW1wIC0gaGVscGVyIHRvIHNldCBhbHRlcm5hdGUgcGFnZWZsaXAg
+dGltZQorICogQGNydGM6IHRoZSBzb3VyY2UgQ1JUQyBvZiB0aGUgcGFnZWZsaXAgY29tcGxldGlv
+biBldmVudAorICogQGZsaXBfdGltZTogVGhlIGFsdGVybmF0ZSBwYWdlZmxpcCBjb21wbGV0aW9u
+IHRpbWVzdGFtcCBpbiBWUlIgbW9kZQorICoKKyAqIEluIHZhcmlhYmxlIHJlZnJlc2ggcmF0ZSBt
+b2RlIChWUlIpLCBhIHBhZ2VmbGlwIGNvbXBsZXRpb24gdGltZXN0YW1wIGNhcnJpZWQKKyAqIGJ5
+IHRoZSBwYWdlZmxpcCBldmVudCBjYW4gbmV2ZXIgYmUgZWFybGllciB0aGFuIHRoZSB2Ymxhbmsg
+dGltZXN0YW1wIG9mIHRoZQorICogdmJsYW5rIG9mIGZsaXAgY29tcGxldGlvbiwgYXMgdGhhdCB2
+YmxhbmsgdGltZXN0YW1wIGRlZmluZXMgdGhlIGVuZCBvZiB0aGUKKyAqIHNob3J0ZXN0IHBvc3Np
+YmxlIHZibGFuayBkdXJhdGlvbi4gSW4gY2FzZSBvZiBhIGRlbGF5ZWQgZmxpcCBjb21wbGV0aW9u
+CisgKiBpbnNpZGUgdGhlIGV4dGVuZGVkIFZSUiBmcm9udCBwb3JjaCBob3dldmVyLCB0aGUgZW5k
+IG9mIHZibGFuayBjYW4gYmUgbXVjaAorICogbGF0ZXIsIHNvIHRoZSBkcml2ZXIgbXVzdCBhc3Np
+Z24gYW4gZXN0aW1hdGVkIHRpbWVzdGFtcCBvZiB0aGF0IGxhdGVyIGVuZCBvZgorICogdmJsYW5r
+LiBGb3IgYSBDUlRDIGluIFZSUiBtb2RlLCB0aGUgZHJpdmVyIHNob3VsZCB1c2UgdGhpcyBoZWxw
+ZXIgZnVuY3Rpb24gdG8KKyAqIHNldCBhbiBhbHRlcm5hdGUgZmxpcCBjb21wbGV0aW9uIHRpbWVz
+dGFtcCBpbiBjYXNlIG9mIGxhdGUgZmxpcCBjb21wbGV0aW9ucworICogaW4gZXh0ZW5kZWQgdmJs
+YW5rLiBJbiB0aGUgbW9zdCBzaW1wbGUgY2FzZSwgdGhpcyBAZmxpcF90aW1lIHRpbWVzdGFtcCBj
+b3VsZAorICogc2ltcGx5IGJlIGEga3RpbWVfZ2V0KCkgdGltZXN0YW1wIHRha2VuIGF0IHRoZSBz
+dGFydCBvZiB0aGUgcGFnZWZsaXAKKyAqIGNvbXBsZXRpb24gcm91dGluZSwgd2l0aCBzb21lIGNv
+bnN0YW50IGR1cmF0aW9uIG9mIHRoZSBiYWNrIHBvcmNoIGludGVydmFsCisgKiBhZGRlZCwgYWx0
+aG91Z2ggbW9yZSBwcmVjaXNlIGVzdGltYXRlcyBtYXkgYmUgcG9zc2libGUgb24gc29tZSBoYXJk
+d2FyZSBpZgorICogdGhlIGhhcmR3YXJlIHByb3ZpZGVzIHNvbWUgbWVhbnMgb2YgdGltZXN0YW1w
+aW5nIHRoZSB0cnVlIGVuZCBvZiB2YmxhbmsuCisgKgorICogV2hlbiBzZW5kaW5nIG91dCBwYWdl
+ZmxpcCBldmVudHMsIGUuZy4sIHZpYSBkcm1fY3J0Y19zZW5kX3ZibGFua19ldmVudCgpLCBpdAor
+ICogd2lsbCB1c2UgZWl0aGVyIHRoZSBzdGFuZGFyZCB2YmxhbmsgdGltZXN0YW1wLCBjYWxjdWxh
+dGVkIGZvciBhIG1pbmltdW0KKyAqIGR1cmF0aW9uIHZibGFuaywgb3IgdGhlIHByb3ZpZGVkIEBm
+bGlwX3RpbWUgaWYgdGhhdCB0aW1lIGlzIGxhdGVyIHRoYW4gdGhlCisgKiB2YmxhbmsgdGltZXN0
+YW1wLCB0byBnZXQgdGhlIGJlc3QgcG9zc2libGUgZXN0aW1hdGUgb2Ygc3RhcnQgb2YgZGlzcGxh
+eSBvZgorICogdGhlIG5ldyBwb3N0LXBhZ2VmbGlwIHNjYW5vdXQgYnVmZmVyLgorICovCit2b2lk
+IGRybV9jcnRjX3NldF92cnJfcGFnZWZsaXBfdGltZXN0YW1wKHN0cnVjdCBkcm1fY3J0YyAqY3J0
+YywKKwkJCQkJIGt0aW1lX3QgZmxpcF90aW1lKQoreworCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYg
+PSBjcnRjLT5kZXY7CisJc3RydWN0IGRybV92YmxhbmtfY3J0YyAqdmJsYW5rID0gJmRldi0+dmJs
+YW5rW2RybV9jcnRjX2luZGV4KGNydGMpXTsKKworCXZibGFuay0+YWx0X2ZsaXBfdGltZSA9IGZs
+aXBfdGltZTsKK30KK0VYUE9SVF9TWU1CT0woZHJtX2NydGNfc2V0X3Zycl9wYWdlZmxpcF90aW1l
+c3RhbXApOworCiBzdGF0aWMgaW50IF9fZW5hYmxlX3ZibGFuayhzdHJ1Y3QgZHJtX2RldmljZSAq
+ZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSkKIHsKIAlpZiAoZHJtX2NvcmVfY2hlY2tfZmVhdHVyZShk
+ZXYsIERSSVZFUl9NT0RFU0VUKSkgewpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX3ZibGFu
+ay5oIGIvaW5jbHVkZS9kcm0vZHJtX3ZibGFuay5oCmluZGV4IDZhZDk2MzBkNGY0OC4uYWFjZjQ0
+Njk0YWI2IDEwMDY0NAotLS0gYS9pbmNsdWRlL2RybS9kcm1fdmJsYW5rLmgKKysrIGIvaW5jbHVk
+ZS9kcm0vZHJtX3ZibGFuay5oCkBAIC0xMTcsNiArMTE3LDEyIEBAIHN0cnVjdCBkcm1fdmJsYW5r
+X2NydGMgewogCSAqIEB0aW1lOiBWYmxhbmsgdGltZXN0YW1wIGNvcnJlc3BvbmRpbmcgdG8gQGNv
+dW50LgogCSAqLwogCWt0aW1lX3QgdGltZTsKKwkvKioKKwkgKiBAYWx0X2ZsaXBfdGltZTogVmJs
+YW5rIHRpbWVzdGFtcCBmb3IgZW5kIG9mIGV4dGVuZGVkIHZibGFuayBkdWUgdG8KKwkgKiBhIGxh
+dGUgcGFnZWZsaXAgY29tcGxldGlvbiBpbiB2YXJpYWJsZSByZWZyZXNoIHJhdGUgbW9kZS4gUGFn
+ZWZsaXAKKwkgKiBldmVudHMgd2lsbCBjYXJyeSB0aGUgbGF0ZXIgb25lIG9mIEB0aW1lIGFuZCBA
+YWx0X2ZsaXBfdGltZS4KKwkgKi8KKwlrdGltZV90IGFsdF9mbGlwX3RpbWU7CiAKIAkvKioKIAkg
+KiBAcmVmY291bnQ6IE51bWJlciBvZiB1c2Vycy93YWl0ZXJzIG9mIHRoZSB2YmxhbmsgaW50ZXJy
+dXB0LiBPbmx5IHdoZW4KQEAgLTE3OSw2ICsxODUsOCBAQCBpbnQgZHJtX3ZibGFua19pbml0KHN0
+cnVjdCBkcm1fZGV2aWNlICpkZXYsIHVuc2lnbmVkIGludCBudW1fY3J0Y3MpOwogdTY0IGRybV9j
+cnRjX3ZibGFua19jb3VudChzdHJ1Y3QgZHJtX2NydGMgKmNydGMpOwogdTY0IGRybV9jcnRjX3Zi
+bGFua19jb3VudF9hbmRfdGltZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsCiAJCQkJICAga3RpbWVf
+dCAqdmJsYW5rdGltZSk7Cit2b2lkIGRybV9jcnRjX3NldF92cnJfcGFnZWZsaXBfdGltZXN0YW1w
+KHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKKwkJCQkJIGt0aW1lX3QgZmxpcF90aW1lKTsKIHZvaWQg
+ZHJtX2NydGNfc2VuZF92YmxhbmtfZXZlbnQoc3RydWN0IGRybV9jcnRjICpjcnRjLAogCQkJICAg
+ICAgIHN0cnVjdCBkcm1fcGVuZGluZ192YmxhbmtfZXZlbnQgKmUpOwogdm9pZCBkcm1fY3J0Y19h
+cm1fdmJsYW5rX2V2ZW50KHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKLS0gCjIuMTcuMQoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
