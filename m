@@ -1,123 +1,110 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Use vrr friendly pageflip throttling in
- DC.
-Date: Mon, 11 Feb 2019 18:44:50 +0000
-Message-ID: <6fc4d9c5-e5aa-5879-6f05-09a8aceb56de@amd.com>
-References: <20190209065255.9480-1-mario.kleiner.de@gmail.com>
- <5df863c3-2008-b644-a07f-e34b5f9c1ad2@daenzer.net>
+From: Meelis Roos <mroos@linux.ee>
+Subject: Undefined behaviour in drivers/gpu/drm/radeon/r200.c:480:34 - shift
+ exponent 4096 is too large
+Date: Mon, 11 Feb 2019 23:10:08 +0200
+Message-ID: <c49920e2-adf8-515c-89ae-9f6ffe7752f7@linux.ee>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <5df863c3-2008-b644-a07f-e34b5f9c1ad2-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-Content-ID: <9139F2E63BD8CE4E95DD2010946342F5-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Language: et-EE
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMi8xMS8xOSAxMDowMSBBTSwgTWljaGVsIETDpG56ZXIgd3JvdGU6DQo+IE9uIDIwMTktMDIt
-MDkgNzo1MiBhLm0uLCBNYXJpbyBLbGVpbmVyIHdyb3RlOg0KPj4gSW4gVlJSIG1vZGUsIGtlZXAg
-dHJhY2sgb2YgdGhlIHZibGFuayBjb3VudCBvZiB0aGUgbGFzdA0KPj4gY29tcGxldGVkIHBhZ2Vm
-bGlwIGluIGFtZGdwdV9jcnRjLT5sYXN0X2ZsaXBfdmJsYW5rLCBhcw0KPj4gcmVjb3JkZWQgaW4g
-dGhlIHBhZ2VmbGlwIGNvbXBsZXRpb24gaGFuZGxlciBhZnRlciBlYWNoDQo+PiBjb21wbGV0ZWQg
-ZmxpcC4NCj4+DQo+PiBVc2UgdGhhdCBjb3VudCB0byBwcmV2ZW50IG1taW8gcHJvZ3JhbW1pbmcg
-YSBuZXcgcGFnZWZsaXANCj4+IHdpdGhpbiB0aGUgc2FtZSB2YmxhbmsgaW4gd2hpY2ggdGhlIGxh
-c3QgcGFnZWZsaXAgY29tcGxldGVkLA0KPj4gaW93LiB0byB0aHJvdHRsZSBwYWdlZmxpcHMgdG8g
-YXQgbW9zdCBvbmUgZmxpcCBwZXIgdmlkZW8NCj4+IGZyYW1lLCB3aGlsZSBhdCB0aGUgc2FtZSB0
-aW1lIGFsbG93aW5nIHRvIHJlcXVlc3QgYSBmbGlwDQo+PiBub3Qgb25seSBiZWZvcmUgc3RhcnQg
-b2YgdmJsYW5rLCBidXQgYWxzbyBhbnl3aGVyZSB3aXRoaW4NCj4+IHZibGFuay4NCj4+DQo+PiBU
-aGUgb2xkIGxvZ2ljIGRpZCB0aGUgc2FtZSwgYW5kIG1hZGUgc2Vuc2UgZm9yIHJlZ3VsYXIgZml4
-ZWQNCj4+IHJlZnJlc2ggcmF0ZSBmbGlwcGluZywgYnV0IGluIHZyciBtb2RlIGl0IHByZXZlbnRz
-IHJlcXVlc3RpbmcNCj4+IGEgZmxpcCBhbnl3aGVyZSBpbnNpZGUgdGhlIHBvc3NpYmx5IGh1Z2Ug
-dmJsYW5rLCB0aGVyZWJ5DQo+PiByZWR1Y2luZyBmcmFtZXJhdGUgaW4gdnJyIG1vZGUgaW5zdGVh
-ZCBvZiBpbXByb3ZpbmcgaXQsIGJ5DQo+PiBkZWxheWluZyBhIHNsaWdodGx5IGRlbGF5ZWQgZmxp
-cCByZXF1ZXN0cyB1cCB0byBhIG1heGltdW0NCj4+IHZibGFuayBkdXJhdGlvbiArIDEgc2Nhbm91
-dCBkdXJhdGlvbi4gVGhpcyB3b3VsZCBsaW1pdCBWUlINCj4+IHVzZWZ1bG5lc3MgdG8gb25seSBo
-ZWxwIGFwcGxpY2F0aW9ucyB3aXRoIGEgdmVyeSBoaWdoIEdQVQ0KPj4gZGVtYW5kLCB3aGljaCBj
-YW4gc3VibWl0IHRoZSBmbGlwIHJlcXVlc3QgYmVmb3JlIHN0YXJ0IG9mDQo+PiB2YmxhbmssIGJ1
-dCB0aGVuIGhhdmUgdG8gd2FpdCBsb25nIGZvciBmZW5jZXMgdG8gY29tcGxldGUuDQo+Pg0KPj4g
-V2l0aCB0aGlzIG1ldGhvZCBhIGZsaXAgY2FuIGJlIGJvdGggcmVxdWVzdGVkIGFuZCAtIGFmdGVy
-DQo+PiBmZW5jZXMgaGF2ZSBjb21wbGV0ZWQgLSBleGVjdXRlZCwgaWUuIGl0IGRvZXNuJ3QgbWF0
-dGVyIGlmDQo+PiB0aGUgcmVxdWVzdCAoYW1kZ3B1X2RtX2RvX2ZsaXAoKSkgZ2V0cyBkZWxheWVk
-IHVudGlsIGRlZXANCj4+IGludG8gdGhlIGV4dGVuZGVkIHZibGFuayBkdWUgdG8gY3B1IGV4ZWN1
-dGlvbiBkZWxheXMuIFRoaXMNCj4+IGFsc28gYWxsb3dzIGNsaWVudHMgd2hpY2ggd2FudCB0byBy
-ZWd1bGF0ZSBmcmFtZXJhdGUgd2l0aGluDQo+PiB0aGUgdnJyIHJhbmdlIGEgbXVjaCBtb3JlIGZp
-bmUtZ3JhaW5lZCBjb250cm9sIG9mIGZsaXAgdGltaW5nLA0KPj4gYSBmZWF0dXJlIHRoYXQgbWln
-aHQgYmUgdXNlZnVsIGZvciB2aWRlbyBwbGF5YmFjaywgYW5kIGlzDQo+PiB2ZXJ5IHVzZWZ1bCBm
-b3IgbmV1cm9zY2llbmNlL3Zpc2lvbiByZXNlYXJjaCBhcHBsaWNhdGlvbnMuDQo+Pg0KPj4gSW4g
-cmVndWxhciBub24tVlJSIG1vZGUsIHJldGFpbiB0aGUgb2xkIGZsaXAgc3VibWlzc2lvbg0KPj4g
-YmVoYXZpb3IuIFRoaXMgdG8ga2VlcCBmbGlwIHNjaGVkdWxpbmcgZm9yIGZ1bGxzY3JlZW4gWDEx
-L0dMWA0KPj4gT3BlbkdMIGNsaWVudHMgaW50YWN0LCBpZiB0aGV5IHVzZSB0aGUgR0xYX09NTF9z
-eW5jX2NvbnRyb2wNCj4+IGV4dGVuc2lvbnMgZ2xYU3dhcEJ1ZmZlck1zY09NTCgsIC4uLiwgdGFy
-Z2V0X21zYywuLi4pIGZ1bmN0aW9uDQo+PiB3aXRoIGEgc3BlY2lmaWMgdGFyZ2V0X21zYyB0YXJn
-ZXQgdmJsYW5rIGNvdW50Lg0KPj4NCj4+IGdsWFN3YXBCdWZmZXJzTXNjT01MKCkgb3IgRFJJMy9Q
-cmVzZW50IFByZXNlbnRQaXhtYXAoKSB3aWxsDQo+PiBub3QgZmxpcCBhdCB0aGUgcHJvcGVyIHRh
-cmdldF9tc2MgZm9yIGEgbm9uLXplcm8gdGFyZ2V0X21zYw0KPj4gaWYgVlJSIG1vZGUgaXMgYWN0
-aXZlIHdpdGggdGhpcyBwYXRjaC4gVGhleSdkIG9mdGVuIGZsaXAgb25lDQo+PiBmcmFtZSB0b28g
-ZWFybHkuIEhvd2V2ZXIsIHRoaXMgbGltaXRhdGlvbiBzaG91bGQgbm90IG1hdHRlcg0KPj4gbXVj
-aCBpbiBWUlIgbW9kZSwgYXMgc2NoZWR1bGluZyBiYXNlZCBvbiB2YmxhbmsgY291bnRzIGlzDQo+
-PiBwcmV0dHkgZnV0aWxlL3VudXNhYmxlIHVuZGVyIHZhcmlhYmxlIHJlZnJlc2ggZHVyYXRpb24N
-Cj4+IGFueXdheSwgc28gbm8gcmVhbCBleHRyYSBoYXJtIGlzIGRvbmUuDQo+Pg0KPj4gQWNjb3Jk
-aW5nIHRvIHNvbWUgdGVzdGluZyBhbHJlYWR5IGRvbmUgd2l0aCB0aGlzIHBhdGNoIGJ5DQo+PiBO
-aWNob2xhcyBvbiB0b3Agb2YgbXkgdGVzdHMsIElHVCB0ZXN0cyBkaWRuJ3QgcmVwb3J0IGFueQ0K
-Pj4gcHJvYmxlbXMuIElmIGZpeGVzIHN0dXR0ZXJpbmcgYW5kIGZsaWNrZXJpbmcgd2hlbiBmbGlw
-cGluZw0KPj4gYXQgcmF0ZXMgYmVsb3cgdGhlIG1pbmltdW0gdnJyIHJlZnJlc2ggcmF0ZS4NCj4+
-DQo+PiBGaXhlczogYmI0N2RlNzM2NjYxICgiZHJtL2FtZGdwdTogU2V0IEZyZWVTeW5jIHN0YXRl
-IHVzaW5nIGRybSBWUlINCj4+IHByb3BlcnRpZXMiKQ0KPj4gU2lnbmVkLW9mZi1ieTogTWFyaW8g
-S2xlaW5lciA8bWFyaW8ua2xlaW5lci5kZUBnbWFpbC5jb20+DQo+PiBDYzogPHN0YWJsZUB2Z2Vy
-Lmtlcm5lbC5vcmc+DQo+PiBDYzogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1
-c2thc0BhbWQuY29tPg0KPj4gQ2M6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQu
-Y29tPg0KPj4gQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4+
-IENjOiBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0Pg0KPiANCj4gSSB3b25kZXIg
-aWYgdGhpcyBjb3VsZG4ndCBiZSBzb2x2ZWQgaW4gYSBzaW1wbGVyIC8gY2xlYW5lciB3YXkgYnkg
-bWFraW5nDQo+IHVzZSBvZiB0aGUgdGFyZ2V0IE1TQyBwYXNzZWQgdG8gdGhlIHBhZ2VfZmxpcF90
-YXJnZXQgaG9vay4NCj4gDQo+IA0KDQpJJ20gbm90IHN1cmUgaWYgdGhpcyBoYXMgYSBnb29kIHVz
-ZXJzcGFjZSBzb2x1dGlvbi4NCg0KSSB0aGluayB0aGUgcHJvYmxlbSB3aXRoIGFsbCBvZiB0aGlz
-IGlzIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gdGhlIA0KaGFyZHdhcmUgdmJsYW5rIGFuZCB0aGUg
-RFJNIHZibGFuay4NCg0KVGhlIGhhcmR3YXJlIHZibGFuayBjb3VudGVyIHdyYXBzIGFyb3VuZCBh
-dCB0aGUgZnJvbnQgcG9yY2gsIERSTSB3cmFwcyANCmFyb3VuZCBhdCB0aGUgYmFjayBwb3JjaC4g
-VGhlIGJlaGF2aW9yIGluIGFtZGdwdV9nZXRfdmJsYW5rX2NvdW50ZXJfa21zIA0KaXMgdG8gcmV0
-dXJuIHRoZSBoYXJkd2FyZSBjb3VudCBpZiB2cG9zIDwgMCBhbmQgcmV0dXJuIHRoZSANCmhhcmR3
-YXJlX2NvdW50ICsgMSBpZiB2cG9zID49IDAuDQoNClRoZSB2YWx1ZSBmb3IgdnBvcyBiZWluZyB1
-c2VkIGhlcmUgaXMgZnJvbSANCmFtZGdwdV9kaXNwbGF5X3ZibGFua19nZXRfY291bnRlciB3aGlj
-aCByZXR1cm5zIGEgdmFsdWUgPCAwIGlmIHdlJ3JlIGluIA0KdmJsYW5rIGFuZCA+PSAwIGlmIHdl
-J3JlIGluIHNjYW5vdXQuIFRoZSB2YWx1ZSByZXR1cm5lZCBpbiB0aGUgZXh0ZW5kZWQgDQpmcm9u
-dCBwb3JjaCB3aWxsIGFsd2F5cyBiZSBjb25zaWRlcmVkIC12YmxfZW5kIHNvIGl0J2xsIG5ldmVy
-IGJlIA0KY29uc2lkZXJlZCB3aXRoaW4gc2Nhbm91dC4NCg0KVGhlIHRhcmdldCB2YmxhbmsgZm9y
-IHRoZSAid2FpdCBmb3IgdmJsYW5rIiBsb2dpYyBpcyANCmFtZGdwdV9nZXRfdmJsYW5rX2NvdW50
-ZXJfa21zKC4uLikgKyAxLg0KDQpUaGUgIndhaXQgZm9yIHZibGFuayIgbG9naWMgd2FpdHMgd2hp
-bGUgd2UncmUgd2l0aGluIHZibGFuayBhbmQgaWYgdGhlIA0KdGFyZ2V0IC0gYW1kZ3B1X2dldF92
-YmxhbmtfY291bnRlcl9rbXMoLi4uKSA+IDAuDQoNClRoZXJlIGFyZSAzIGNhc2VzIHRoYXQgY2Fu
-IGhhcHBlbiBoZXJlOg0KKDEpIFRoZSB3YWl0IHN0YXJ0cyBpbiB0aGUgc2FtZSB2YmxhbmsgaW50
-ZXJ2YWwgYXMgdGhlIGxhc3QgZmxpcA0KKDIpIFRoZSB3YWl0IHN0YXJ0cyBpbiBzY2Fub3V0DQoo
-MykgVGhlIHdhaXQgc3RhcnRzIGluIHRoZSBuZXh0IHZibGFuayBpbnRlcnZhbCBhcyB0aGUgbGFz
-dCBmbGlwDQoNCkluIGNhc2UgKDEpIHRoZSB3YWl0IGJyZWFrcyBhcyBzb29uIGFzIHdlIGVudGVy
-IHNjYW5vdXQuDQpJbiBjYXNlICgyKSB0aGUgd2FpdCBicmVha3MgaW1tZWRpYXRlbHkuDQpJbiBj
-YXNlICgzKSB3ZSB3YWl0IGZvciB0aGUgbmV4dCBzY2Fub3V0Lg0KDQpCeSBEUk0gbG9naWMgdGhl
-IHByb2dyYW1taW5nIHNob3VsZCBiZSBoYXBwZW5pbmcgYXQgdGhlIHN0YXJ0IG9mIHRoZSANCmJh
-Y2sgcG9yY2gsIGJ1dCBpdCBkb2Vzbid0IHJlYWxseSBtYXR0ZXIgc2luY2UgaXQncyBib3RoIHRh
-cmdldGluZyB0aGUgDQpyaWdodCBzY2Fub3V0IGZvciBjYXNlcyAoMSkgYW5kICgyKS4NCg0KSG93
-ZXZlciwgZm9yIGNhc2UgKDMpIHdlIGhhdmUgYW4gaXNzdWUuIElmIHRoZSB3YWl0IHN0YXJ0cyB3
-aXRoaW4gdmJsYW5rIA0KZnJvbnQgcG9yY2ggdGhlbiBpdCdzIG5vdCBnb2luZyB0byBiZSBwcm9n
-cmFtbWVkIGZvciB0aGUgdXBjb21pbmcgDQpzY2Fub3V0LCBidXQgdGhlIG9uZSBhZnRlciB0aGF0
-Lg0KDQpUaGlzIGlzIHRoZSBjYXNlIHRoYXQncyB0cnlpbmcgdG8gYmUgYWRkcmVzc2VkIHdpdGgg
-dGhlIHBhdGNoIC0gd2l0aCBhIA0KY2F2ZWF0Lg0KDQpJZiB0aGUgbGFzdF9mbGlwX3ZibGFuayAh
-PSBkcm1fY3J0Y192YmxhbmtfY291bnQgdGhlbiB0aGUgdGFyZ2V0X3ZibGFuayANCnNob3VsZCBi
-ZSA8IGFtZGdwdV9nZXRfdmJsYW5rX2NvdW50ZXJfa21zIHdoaWNoIHdvdWxkIGNhdXNlIHRoZSB3
-YWl0IHRvIA0KZXhpdCBpbW1lZGlhdGVseS4gSWYgd2UncmUgaW4gdGhlIGJhY2sgcG9yY2ggb2Yg
-dGhlIHZibGFuayBpbiB0aGlzIA0KaW5zdGFuY2UgdGhlbiB3ZSBzaG91bGQgYmUgd2FpdGluZyB1
-bnRpbCBzY2Fub3V0IHRvIGJlZ2luIHByb2dyYW1taW5nIA0KKGFuZCB0YXJnZXQgdGhlIHNjYW5v
-dXQgYWZ0ZXIgbmV4dCkuDQoNCk5pY2hvbGFzIEthemxhdXNrYXMNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Got UBSAN warning from Dell D600 running 5.0.0-rc4-00218-g12491ed354d2.
+The warning did not happen on bootup but during xfce session start or console switch.
+
+[   15.323113] radeon 0000:01:00.0: putting AGP V2 device into 4x mode
+[   15.323134] radeon 0000:01:00.0: GTT: 128M 0xE0000000 - 0xE7FFFFFF
+[   15.323142] radeon 0000:01:00.0: VRAM: 128M 0x00000000E8000000 - 0x00000000EFFFFFFF (32M used)
+[   15.323459] [drm] Detected VRAM RAM=128M, BAR=128M
+[   15.323463] [drm] RAM width 64bits DDR
+[   15.323566] [TTM] Zone  kernel: Available graphics memory: 412446 kiB
+[   15.323567] [TTM] Initializing pool allocator
+[   15.323580] [TTM] Initializing DMA pool allocator
+[   15.323609] [drm] radeon: 32M of VRAM memory ready
+[   15.323611] [drm] radeon: 128M of GTT memory ready.
+[   15.323621] [drm] radeon: power management initialized
+[   15.331289] radeon 0000:01:00.0: WB disabled
+[   15.331296] radeon 0000:01:00.0: fence driver on ring 0 use gpu addr 0x00000000e0000000 and cpu addr 0x712386dd
+[   15.331299] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+[   15.331300] [drm] Driver supports precise vblank timestamp query.
+[   15.331315] [drm] radeon: irq initialized.
+[   15.331317] [drm] Loading R200 Microcode
+[...]
+[   15.795041] [drm] radeon: ring at 0x00000000E0001000
+[   15.795073] [drm] ring test succeeded in 1 usecs
+[   15.795316] [drm] ib test succeeded in 0 usecs
+[   15.801857] [drm] Panel ID String: 2K077141X13
+[   15.801861] [drm] Panel Size 1024x768
+[   15.801938] [drm] No TV DAC info found in BIOS
+[   15.802012] [drm] Radeon Display Connectors
+[   15.802015] [drm] Connector 0:
+[   15.802017] [drm]   VGA-1
+[   15.802023] [drm]   DDC: 0x60 0x60 0x60 0x60 0x60 0x60 0x60 0x60
+[   15.802024] [drm]   Encoders:
+[   15.802027] [drm]     CRT1: INTERNAL_DAC1
+[   15.802030] [drm] Connector 1:
+[   15.802031] [drm]   DVI-D-1
+[   15.802033] [drm]   HPD1
+[   15.802038] [drm]   DDC: 0x64 0x64 0x64 0x64 0x64 0x64 0x64 0x64
+[   15.802040] [drm]   Encoders:
+[   15.802042] [drm]     DFP1: INTERNAL_TMDS1
+[   15.802044] [drm] Connector 2:
+[   15.802046] [drm]   LVDS-1
+[   15.802047] [drm]   Encoders:
+[   15.802049] [drm]     LCD1: INTERNAL_LVDS
+[   15.802051] [drm] Connector 3:
+[   15.802053] [drm]   SVIDEO-1
+[   15.802054] [drm]   Encoders:
+[   15.802056] [drm]     TV1: INTERNAL_DAC2
+[   15.845987] [drm] fb mappable at 0xE8040000
+[   15.845988] [drm] vram apper at 0xE8000000
+[   15.845989] [drm] size 1572864
+[   15.845990] [drm] fb depth is 16
+[   15.845990] [drm]    pitch is 2048
+[   15.848183] fbcon: radeondrmfb (fb0) is primary device
+[   15.892233] Console: switching to colour frame buffer device 128x48
+[   15.901408] radeon 0000:01:00.0: fb0: radeondrmfb frame buffer device
+[   15.905786] [drm] Initialized radeon 2.50.0 20080528 for 0000:01:00.0 on minor 0
+[...]
+[  447.146334] ================================================================================
+[  447.146347] UBSAN: Undefined behaviour in drivers/gpu/drm/radeon/r200.c:480:34
+[  447.146351] shift exponent 4096 is too large for 32-bit type 'int'
+[  447.146357] CPU: 0 PID: 386 Comm: Xorg Not tainted 5.0.0-rc4-00218-g12491ed354d2 #7
+[  447.146358] Hardware name: Dell Computer Corporation Latitude D600                   /0X2034, BIOS A16 06/29/2005
+[  447.146359] Call Trace:
+[  447.146375]  dump_stack+0x16/0x19
+[  447.146379]  ubsan_epilogue+0xb/0x29
+[  447.146381]  __ubsan_handle_shift_out_of_bounds.cold.14+0x26/0x80
+[  447.146486]  ? radeon_cs_packet_next_reloc+0x3c/0x150 [radeon]
+[  447.146521]  ? r100_reloc_pitch_offset+0x27/0x150 [radeon]
+[  447.146551]  r200_packet0_check.cold.0+0xf/0x45 [radeon]
+[  447.146592]  ? r200_copy_dma+0x430/0x430 [radeon]
+[  447.146626]  r100_cs_parse_packet0+0x53/0xe0 [radeon]
+[  447.146661]  r100_cs_parse+0x12e/0x440 [radeon]
+[  447.146700]  ? r200_copy_dma+0x430/0x430 [radeon]
+[  447.146734]  radeon_cs_ioctl+0x256/0x890 [radeon]
+[  447.146743]  ? ttm_bo_init_reserved+0x338/0x390 [ttm]
+[  447.146779]  ? radeon_cs_parser_init+0x550/0x550 [radeon]
+[  447.146804]  drm_ioctl_kernel+0x96/0xe0 [drm]
+[  447.146816]  drm_ioctl+0x25f/0x530 [drm]
+[  447.146850]  ? radeon_cs_parser_init+0x550/0x550 [radeon]
+[  447.146855]  ? ktime_get_mono_fast_ns+0xb6/0x1f0
+[  447.146880]  radeon_drm_ioctl+0x40/0x80 [radeon]
+[  447.146905]  ? radeon_pci_shutdown+0x30/0x30 [radeon]
+[  447.146909]  do_vfs_ioctl+0x90/0x6c0
+[  447.146913]  ? handle_mm_fault+0xa48/0xfe0
+[  447.146918]  ? vm_mmap_pgoff+0x88/0xd0
+[  447.146923]  ? ktime_get_ts64+0x5f/0x1e0
+[  447.146925]  ksys_ioctl+0x39/0x70
+[  447.146927]  sys_ioctl+0x11/0x13
+[  447.146930]  do_fast_syscall_32+0x95/0x1d0
+[  447.146934]  entry_SYSENTER_32+0x6b/0xbd
+[  447.146936] EIP: 0xb7f937cd
+[  447.146939] Code: 54 cd ff ff 85 d2 8b 98 58 cd ff ff 89 c8 74 02 89 0a 5b 5d c3 8b 04 24 c3 8b 14 24 c3 8b 3c 24 c3 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 8d 76 00 58 b8 77 00 00 00 cd 80 90 8d 76
+[  447.146941] EAX: ffffffda EBX: 0000000e ECX: c0206466 EDX: 02311c40
+[  447.146943] ESI: 02311a00 EDI: c0206466 EBP: 0000000e ESP: bff73058
+[  447.146945] DS: 007b ES: 007b FS: 0000 GS: 0033 SS: 007b EFLAGS: 00203292
+[  447.146947] ================================================================================
