@@ -1,107 +1,71 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH] drm/amdgpu: fix several indentation issues
-Date: Tue, 12 Feb 2019 14:05:08 +0000
-Message-ID: <20190212140508.9296-1-colin.king@canonical.com>
+From: Alex Deucher via amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/psp11: TA firmware is optional (v2)
+Date: Tue, 12 Feb 2019 10:08:49 -0500
+Message-ID: <20190212150849.22953-1-alexander.deucher@amd.com>
+Reply-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-From: Colin Ian King <colin.king@canonical.com>
-
-There are several statements that are incorrectly indented. Fix these.
-
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c              | 2 +-
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c                | 2 +-
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c               | 2 +-
- drivers/gpu/drm/amd/amdgpu/si.c                      | 2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c | 2 +-
- drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c   | 2 +-
- 6 files changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index bc62bf41b7e9..b65e18101108 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -207,7 +207,7 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
- 	if (!r) {
- 		acpi_status = amdgpu_acpi_init(adev);
- 		if (acpi_status)
--		dev_dbg(&dev->pdev->dev,
-+			dev_dbg(&dev->pdev->dev,
- 				"Error during ACPI methods call\n");
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-index db443ec53d3a..bea32f076b91 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -2980,7 +2980,7 @@ static int dce_v6_0_pageflip_irq(struct amdgpu_device *adev,
- 				 struct amdgpu_irq_src *source,
- 				 struct amdgpu_iv_entry *entry)
- {
--		unsigned long flags;
-+	unsigned long flags;
- 	unsigned crtc_id;
- 	struct amdgpu_crtc *amdgpu_crtc;
- 	struct amdgpu_flip_work *works;
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-index 221f26e50322..c69d51598cfe 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -32,7 +32,7 @@
- 
- static u32 nbio_v7_4_get_rev_id(struct amdgpu_device *adev)
- {
--    u32 tmp = RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_STRAP0);
-+	u32 tmp = RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_STRAP0);
- 
- 	tmp &= RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0_MASK;
- 	tmp >>= RCC_DEV0_EPF0_STRAP0__STRAP_ATI_REV_ID_DEV0_F0__SHIFT;
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 79c1a9bbcc21..9d8df68893b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1436,7 +1436,7 @@ static int si_common_early_init(void *handle)
- 			AMD_CG_SUPPORT_UVD_MGCG |
- 			AMD_CG_SUPPORT_HDP_LS |
- 			AMD_CG_SUPPORT_HDP_MGCG;
--			adev->pg_flags = 0;
-+		adev->pg_flags = 0;
- 		adev->external_rev_id = (adev->rev_id == 0) ? 1 :
- 					(adev->rev_id == 1) ? 5 : 6;
- 		break;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
-index d138ddae563d..58f5589aaf12 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_powertune.c
-@@ -1211,7 +1211,7 @@ int smu7_power_control_set_level(struct pp_hwmgr *hwmgr)
- 				hwmgr->platform_descriptor.TDPAdjustment :
- 				(-1 * hwmgr->platform_descriptor.TDPAdjustment);
- 
--		 if (hwmgr->chip_id > CHIP_TONGA)
-+		if (hwmgr->chip_id > CHIP_TONGA)
- 			target_tdp = ((100 + adjust_percent) * (int)(cac_table->usTDP * 256)) / 100;
- 		else
- 			target_tdp = ((100 + adjust_percent) * (int)(cac_table->usConfigurableTDP * 256)) / 100;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-index 0769b1ec562b..aad79affb081 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-@@ -3456,7 +3456,7 @@ static int vega20_apply_clocks_adjust_rules(struct pp_hwmgr *hwmgr)
- 	disable_mclk_switching = ((1 < hwmgr->display_config->num_display) &&
-                            !hwmgr->display_config->multi_monitor_in_sync) ||
-                             vblank_too_short;
--    latency = hwmgr->display_config->dce_tolerable_mclk_in_active_latency;
-+	latency = hwmgr->display_config->dce_tolerable_mclk_in_active_latency;
- 
- 	/* gfxclk */
- 	dpm_table = &(data->dpm_table.gfx_table);
--- 
-2.20.1
+RG9uJ3Qgd2FybiBvciBmYWlsIGlmIGl0J3MgbWlzc2luZy4KCnYyOiBoYW5kbGUgeGdtaSBjYXNl
+IG1vcmUgZ3JhY2VmdWxseS4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
+LmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+cHNwLmMgfCAgOSArKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8w
+LmMgIHwgMjggKysrKysrKysrKysrKystLS0tLS0tLS0tLQogMiBmaWxlcyBjaGFuZ2VkLCAyMyBp
+bnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcHNwLmMKaW5kZXggZDg3ZjE2NWUzYTIzLi41ZGY3NDEzMTY3OGUgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNwLmMKQEAgLTg0LDggKzg0LDEwIEBAIHN0YXRpYyBp
+bnQgcHNwX3N3X2Zpbmkodm9pZCAqaGFuZGxlKQogCWFkZXYtPnBzcC5zb3NfZncgPSBOVUxMOwog
+CXJlbGVhc2VfZmlybXdhcmUoYWRldi0+cHNwLmFzZF9mdyk7CiAJYWRldi0+cHNwLmFzZF9mdyA9
+IE5VTEw7Ci0JcmVsZWFzZV9maXJtd2FyZShhZGV2LT5wc3AudGFfZncpOwotCWFkZXYtPnBzcC50
+YV9mdyA9IE5VTEw7CisJaWYgKGFkZXYtPnBzcC50YV9mdykgeworCQlyZWxlYXNlX2Zpcm13YXJl
+KGFkZXYtPnBzcC50YV9mdyk7CisJCWFkZXYtPnBzcC50YV9mdyA9IE5VTEw7CisJfQogCXJldHVy
+biAwOwogfQogCkBAIC00NDAsNiArNDQyLDkgQEAgc3RhdGljIGludCBwc3BfeGdtaV9pbml0aWFs
+aXplKHN0cnVjdCBwc3BfY29udGV4dCAqcHNwKQogCXN0cnVjdCB0YV94Z21pX3NoYXJlZF9tZW1v
+cnkgKnhnbWlfY21kOwogCWludCByZXQ7CiAKKwlpZiAoIWFkZXYtPnBzcC50YV9mdykKKwkJcmV0
+dXJuIC1FTk9FTlQ7CisKIAlpZiAoIXBzcC0+eGdtaV9jb250ZXh0LmluaXRpYWxpemVkKSB7CiAJ
+CXJldCA9IHBzcF94Z21pX2luaXRfc2hhcmVkX2J1Zihwc3ApOwogCQlpZiAocmV0KQpkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYwppbmRleCBmNzEzODRiZTFmOTcuLjg2MGI3MGQ4
+MGQzYyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMK
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMKQEAgLTk4LDE4ICs5
+OCwyMiBAQCBzdGF0aWMgaW50IHBzcF92MTFfMF9pbml0X21pY3JvY29kZShzdHJ1Y3QgcHNwX2Nv
+bnRleHQgKnBzcCkKIAogCXNucHJpbnRmKGZ3X25hbWUsIHNpemVvZihmd19uYW1lKSwgImFtZGdw
+dS8lc190YS5iaW4iLCBjaGlwX25hbWUpOwogCWVyciA9IHJlcXVlc3RfZmlybXdhcmUoJmFkZXYt
+PnBzcC50YV9mdywgZndfbmFtZSwgYWRldi0+ZGV2KTsKLQlpZiAoZXJyKQotCQlnb3RvIG91dDI7
+Ci0KLQllcnIgPSBhbWRncHVfdWNvZGVfdmFsaWRhdGUoYWRldi0+cHNwLnRhX2Z3KTsKLQlpZiAo
+ZXJyKQotCQlnb3RvIG91dDI7Ci0KLQl0YV9oZHIgPSAoY29uc3Qgc3RydWN0IHRhX2Zpcm13YXJl
+X2hlYWRlcl92MV8wICopYWRldi0+cHNwLnRhX2Z3LT5kYXRhOwotCWFkZXYtPnBzcC50YV94Z21p
+X3Vjb2RlX3ZlcnNpb24gPSBsZTMyX3RvX2NwdSh0YV9oZHItPnRhX3hnbWlfdWNvZGVfdmVyc2lv
+bik7Ci0JYWRldi0+cHNwLnRhX3hnbWlfdWNvZGVfc2l6ZSA9IGxlMzJfdG9fY3B1KHRhX2hkci0+
+dGFfeGdtaV9zaXplX2J5dGVzKTsKLQlhZGV2LT5wc3AudGFfeGdtaV9zdGFydF9hZGRyID0gKHVp
+bnQ4X3QgKil0YV9oZHIgKwotCQlsZTMyX3RvX2NwdSh0YV9oZHItPmhlYWRlci51Y29kZV9hcnJh
+eV9vZmZzZXRfYnl0ZXMpOworCWlmIChlcnIpIHsKKwkJcmVsZWFzZV9maXJtd2FyZShhZGV2LT5w
+c3AudGFfZncpOworCQlhZGV2LT5wc3AudGFfZncgPSBOVUxMOworCQlkZXZfaW5mbyhhZGV2LT5k
+ZXYsCisJCQkgInBzcCB2MTEuMDogRmFpbGVkIHRvIGxvYWQgZmlybXdhcmUgXCIlc1wiXG4iLCBm
+d19uYW1lKTsKKwl9IGVsc2UgeworCQllcnIgPSBhbWRncHVfdWNvZGVfdmFsaWRhdGUoYWRldi0+
+cHNwLnRhX2Z3KTsKKwkJaWYgKGVycikKKwkJCWdvdG8gb3V0MjsKKworCQl0YV9oZHIgPSAoY29u
+c3Qgc3RydWN0IHRhX2Zpcm13YXJlX2hlYWRlcl92MV8wICopYWRldi0+cHNwLnRhX2Z3LT5kYXRh
+OworCQlhZGV2LT5wc3AudGFfeGdtaV91Y29kZV92ZXJzaW9uID0gbGUzMl90b19jcHUodGFfaGRy
+LT50YV94Z21pX3Vjb2RlX3ZlcnNpb24pOworCQlhZGV2LT5wc3AudGFfeGdtaV91Y29kZV9zaXpl
+ID0gbGUzMl90b19jcHUodGFfaGRyLT50YV94Z21pX3NpemVfYnl0ZXMpOworCQlhZGV2LT5wc3Au
+dGFfeGdtaV9zdGFydF9hZGRyID0gKHVpbnQ4X3QgKil0YV9oZHIgKworCQkJbGUzMl90b19jcHUo
+dGFfaGRyLT5oZWFkZXIudWNvZGVfYXJyYXlfb2Zmc2V0X2J5dGVzKTsKKwl9CiAKIAlyZXR1cm4g
+MDsKIAotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
