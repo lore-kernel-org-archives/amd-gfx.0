@@ -1,64 +1,64 @@
-From: Sasha Levin via dri-devel <dri-devel@lists.freedesktop.org>
-Subject: [PATCH AUTOSEL 4.19 59/83] drm/amdkfd: Don't assign dGPUs to APU
- topology devices
-Date: Tue, 12 Feb 2019 21:36:37 -0500
-Message-ID: <20190213023701.20286-59-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 60/83] drm/amd/display: fix PME notification not working in RV desktop
+Date: Tue, 12 Feb 2019 21:36:38 -0500
+Message-ID: <20190213023701.20286-60-sashal@kernel.org>
 References: <20190213023701.20286-1-sashal@kernel.org>
-Reply-To: Sasha Levin <sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
 In-Reply-To: <20190213023701.20286-1-sashal@kernel.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Sender: stable-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Charlene Liu <charlene.liu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpbIFVwc3RyZWFt
-IGNvbW1pdCBiYmRmNTE0ZmU1NjQ4NTY2YjA3NTQ0NzZjYmNiOTJhYzM0MjJkZGUyIF0KCmRHUFVz
-IG5lZWQgdGhlaXIgb3duIHRvcG9sb2d5IGRldmljZXMuIERvbid0IGFzc2lnbiB0aGVtIHRvIEFQ
-VSB0b3BvbG9neQpkZXZpY2VzIHdpdGggQ1BVIGNvcmVzLgoKQnVnOiBodHRwczovL2dpdGh1Yi5j
-b20vUmFkZW9uT3BlbkNvbXB1dGUvUk9DSy1LZXJuZWwtRHJpdmVyL2lzc3Vlcy82NgpTaWduZWQt
-b2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KVGVzdGVkLWJ5
-OiBFbGlhcyBLb25zdGFudGluaWRpcyA8ZWtvbmRpc0BnbWFpbC5jb20+CkFja2VkLWJ5OiBBbGV4
-IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXgg
-RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEg
-TGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF90b3BvbG9neS5jIHwgMTIgKysrKysrKysrLS0tCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNl
-cnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X3RvcG9sb2d5LmMKaW5kZXggODBmNWRiNGVmNzVmLi4wODA1YzQyM2E1Y2UgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jCkBAIC0xMDcyLDggKzEwNzIsNiBAQCBz
-dGF0aWMgdWludDMyX3Qga2ZkX2dlbmVyYXRlX2dwdV9pZChzdHJ1Y3Qga2ZkX2RldiAqZ3B1KQog
-ICoJCXRoZSBHUFUgZGV2aWNlIGlzIG5vdCBhbHJlYWR5IHByZXNlbnQgaW4gdGhlIHRvcG9sb2d5
-IGRldmljZQogICoJCWxpc3QgdGhlbiByZXR1cm4gTlVMTC4gVGhpcyBtZWFucyBhIG5ldyB0b3Bv
-bG9neSBkZXZpY2UgaGFzIHRvCiAgKgkJYmUgY3JlYXRlZCBmb3IgdGhpcyBHUFUuCi0gKiBUT0RP
-OiBSYXRoZXIgdGhhbiBhc3NpZ2luZyBAZ3B1IHRvIGZpcnN0IHRvcG9sb2d5IGRldmljZSB3aXRo
-dG91dAotICoJCWdwdSBhdHRhY2hlZCwgaXQgd2lsbCBiZXR0ZXIgdG8gaGF2ZSBtb3JlIHN0cmlu
-Z2VudCBjaGVjay4KICAqLwogc3RhdGljIHN0cnVjdCBrZmRfdG9wb2xvZ3lfZGV2aWNlICprZmRf
-YXNzaWduX2dwdShzdHJ1Y3Qga2ZkX2RldiAqZ3B1KQogewpAQCAtMTA4MSwxMiArMTA3OSwyMCBA
-QCBzdGF0aWMgc3RydWN0IGtmZF90b3BvbG9neV9kZXZpY2UgKmtmZF9hc3NpZ25fZ3B1KHN0cnVj
-dCBrZmRfZGV2ICpncHUpCiAJc3RydWN0IGtmZF90b3BvbG9neV9kZXZpY2UgKm91dF9kZXYgPSBO
-VUxMOwogCiAJZG93bl93cml0ZSgmdG9wb2xvZ3lfbG9jayk7Ci0JbGlzdF9mb3JfZWFjaF9lbnRy
-eShkZXYsICZ0b3BvbG9neV9kZXZpY2VfbGlzdCwgbGlzdCkKKwlsaXN0X2Zvcl9lYWNoX2VudHJ5
-KGRldiwgJnRvcG9sb2d5X2RldmljZV9saXN0LCBsaXN0KSB7CisJCS8qIERpc2NyZXRlIEdQVXMg
-bmVlZCB0aGVpciBvd24gdG9wb2xvZ3kgZGV2aWNlIGxpc3QKKwkJICogZW50cmllcy4gRG9uJ3Qg
-YXNzaWduIHRoZW0gdG8gQ1BVL0FQVSBub2Rlcy4KKwkJICovCisJCWlmICghZ3B1LT5kZXZpY2Vf
-aW5mby0+bmVlZHNfaW9tbXVfZGV2aWNlICYmCisJCSAgICBkZXYtPm5vZGVfcHJvcHMuY3B1X2Nv
-cmVzX2NvdW50KQorCQkJY29udGludWU7CisKIAkJaWYgKCFkZXYtPmdwdSAmJiAoZGV2LT5ub2Rl
-X3Byb3BzLnNpbWRfY291bnQgPiAwKSkgewogCQkJZGV2LT5ncHUgPSBncHU7CiAJCQlvdXRfZGV2
-ID0gZGV2OwogCQkJYnJlYWs7CiAJCX0KKwl9CiAJdXBfd3JpdGUoJnRvcG9sb2d5X2xvY2spOwog
-CXJldHVybiBvdXRfZGV2OwogfQotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9kcmktZGV2ZWw=
+From: Charlene Liu <charlene.liu@amd.com>
+
+[ Upstream commit 20300db4aec5ba5edf6f0ad6f7111a51fbea7e10 ]
+
+[Why]
+PPLIB not receive the PME when unplug.
+
+Signed-off-by: Charlene Liu <charlene.liu@amd.com>
+Reviewed-by: Chris Park <Chris.Park@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c    | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 0941f3c689bc..5f9492d8f0aa 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -1000,7 +1000,7 @@ void dce110_enable_audio_stream(struct pipe_ctx *pipe_ctx)
+ 
+ 		pipe_ctx->stream_res.audio->funcs->az_enable(pipe_ctx->stream_res.audio);
+ 
+-		if (num_audio == 1 && pp_smu != NULL && pp_smu->set_pme_wa_enable != NULL)
++		if (num_audio >= 1 && pp_smu != NULL && pp_smu->set_pme_wa_enable != NULL)
+ 			/*this is the first audio. apply the PME w/a in order to wake AZ from D3*/
+ 			pp_smu->set_pme_wa_enable(&pp_smu->pp_smu);
+ 		/* un-mute audio */
+@@ -1017,6 +1017,8 @@ void dce110_disable_audio_stream(struct pipe_ctx *pipe_ctx, int option)
+ 	pipe_ctx->stream_res.stream_enc->funcs->audio_mute_control(
+ 			pipe_ctx->stream_res.stream_enc, true);
+ 	if (pipe_ctx->stream_res.audio) {
++		struct pp_smu_funcs_rv *pp_smu = dc->res_pool->pp_smu;
++
+ 		if (option != KEEP_ACQUIRED_RESOURCE ||
+ 				!dc->debug.az_endpoint_mute_only) {
+ 			/*only disalbe az_endpoint if power down or free*/
+@@ -1036,6 +1038,9 @@ void dce110_disable_audio_stream(struct pipe_ctx *pipe_ctx, int option)
+ 			update_audio_usage(&dc->current_state->res_ctx, dc->res_pool, pipe_ctx->stream_res.audio, false);
+ 			pipe_ctx->stream_res.audio = NULL;
+ 		}
++		if (pp_smu != NULL && pp_smu->set_pme_wa_enable != NULL)
++			/*this is the first audio. apply the PME w/a in order to wake AZ from D3*/
++			pp_smu->set_pme_wa_enable(&pp_smu->pp_smu);
+ 
+ 		/* TODO: notify audio driver for if audio modes list changed
+ 		 * add audio mode list change flag */
+-- 
+2.19.1
