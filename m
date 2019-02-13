@@ -1,64 +1,85 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 60/83] drm/amd/display: fix PME notification not working in RV desktop
-Date: Tue, 12 Feb 2019 21:36:38 -0500
-Message-ID: <20190213023701.20286-60-sashal@kernel.org>
-References: <20190213023701.20286-1-sashal@kernel.org>
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu/psp11: TA firmware is optional (v3)
+Date: Wed, 13 Feb 2019 03:29:15 +0000
+Message-ID: <BYAPR12MB263267B5A8CC64B2A6E7E90FFC660@BYAPR12MB2632.namprd12.prod.outlook.com>
+References: <20190212211047.16894-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190213023701.20286-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Charlene Liu <charlene.liu@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190212211047.16894-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-From: Charlene Liu <charlene.liu@amd.com>
-
-[ Upstream commit 20300db4aec5ba5edf6f0ad6f7111a51fbea7e10 ]
-
-[Why]
-PPLIB not receive the PME when unplug.
-
-Signed-off-by: Charlene Liu <charlene.liu@amd.com>
-Reviewed-by: Chris Park <Chris.Park@amd.com>
-Acked-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c    | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 0941f3c689bc..5f9492d8f0aa 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -1000,7 +1000,7 @@ void dce110_enable_audio_stream(struct pipe_ctx *pipe_ctx)
- 
- 		pipe_ctx->stream_res.audio->funcs->az_enable(pipe_ctx->stream_res.audio);
- 
--		if (num_audio == 1 && pp_smu != NULL && pp_smu->set_pme_wa_enable != NULL)
-+		if (num_audio >= 1 && pp_smu != NULL && pp_smu->set_pme_wa_enable != NULL)
- 			/*this is the first audio. apply the PME w/a in order to wake AZ from D3*/
- 			pp_smu->set_pme_wa_enable(&pp_smu->pp_smu);
- 		/* un-mute audio */
-@@ -1017,6 +1017,8 @@ void dce110_disable_audio_stream(struct pipe_ctx *pipe_ctx, int option)
- 	pipe_ctx->stream_res.stream_enc->funcs->audio_mute_control(
- 			pipe_ctx->stream_res.stream_enc, true);
- 	if (pipe_ctx->stream_res.audio) {
-+		struct pp_smu_funcs_rv *pp_smu = dc->res_pool->pp_smu;
-+
- 		if (option != KEEP_ACQUIRED_RESOURCE ||
- 				!dc->debug.az_endpoint_mute_only) {
- 			/*only disalbe az_endpoint if power down or free*/
-@@ -1036,6 +1038,9 @@ void dce110_disable_audio_stream(struct pipe_ctx *pipe_ctx, int option)
- 			update_audio_usage(&dc->current_state->res_ctx, dc->res_pool, pipe_ctx->stream_res.audio, false);
- 			pipe_ctx->stream_res.audio = NULL;
- 		}
-+		if (pp_smu != NULL && pp_smu->set_pme_wa_enable != NULL)
-+			/*this is the first audio. apply the PME w/a in order to wake AZ from D3*/
-+			pp_smu->set_pme_wa_enable(&pp_smu->pp_smu);
- 
- 		/* TODO: notify audio driver for if audio modes list changed
- 		 * add audio mode list change flag */
--- 
-2.19.1
+UmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCg0KUmVn
+YXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4
+IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgQWxl
+eCBEZXVjaGVyIHZpYSBhbWQtZ2Z4DQpTZW50OiAyMDE55bm0MuaciDEz5pelIDU6MTENClRvOiBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxl
+eGFuZGVyLkRldWNoZXJAYW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdS9wc3Ax
+MTogVEEgZmlybXdhcmUgaXMgb3B0aW9uYWwgKHYzKQ0KDQpEb24ndCB3YXJuIG9yIGZhaWwgaWYg
+aXQncyBtaXNzaW5nLg0KDQp2MjogaGFuZGxlIHhnbWkgY2FzZSBtb3JlIGdyYWNlZnVsbHkuDQp2
+MzogaGFuZGxlIG9sZGVyIGtlcm5lbHMgcHJvcGVybHkNCg0KU2lnbmVkLW9mZi1ieTogQWxleCBE
+ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIHwgIDkgKysrKysrLS0gIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L3BzcF92MTFfMC5jICB8IDI4ICsrKysrKysrKysrKysrLS0tLS0tLS0tLS0NCiAy
+IGZpbGVzIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDE0IGRlbGV0aW9ucygtKQ0KDQpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jDQppbmRleCA4ZmFiMGQ2MzdlZTUuLjNh
+OWI0OGIyMjdhYyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9wc3AuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jDQpA
+QCAtOTAsOCArOTAsMTAgQEAgc3RhdGljIGludCBwc3Bfc3dfZmluaSh2b2lkICpoYW5kbGUpDQog
+CWFkZXYtPnBzcC5zb3NfZncgPSBOVUxMOw0KIAlyZWxlYXNlX2Zpcm13YXJlKGFkZXYtPnBzcC5h
+c2RfZncpOw0KIAlhZGV2LT5wc3AuYXNkX2Z3ID0gTlVMTDsNCi0JcmVsZWFzZV9maXJtd2FyZShh
+ZGV2LT5wc3AudGFfZncpOw0KLQlhZGV2LT5wc3AudGFfZncgPSBOVUxMOw0KKwlpZiAoYWRldi0+
+cHNwLnRhX2Z3KSB7DQorCQlyZWxlYXNlX2Zpcm13YXJlKGFkZXYtPnBzcC50YV9mdyk7DQorCQlh
+ZGV2LT5wc3AudGFfZncgPSBOVUxMOw0KKwl9DQogCXJldHVybiAwOw0KIH0NCiANCkBAIC00MzUs
+NiArNDM3LDkgQEAgc3RhdGljIGludCBwc3BfeGdtaV9pbml0aWFsaXplKHN0cnVjdCBwc3BfY29u
+dGV4dCAqcHNwKQ0KIAlzdHJ1Y3QgdGFfeGdtaV9zaGFyZWRfbWVtb3J5ICp4Z21pX2NtZDsNCiAJ
+aW50IHJldDsNCiANCisJaWYgKCFwc3AtPmFkZXYtPnBzcC50YV9mdykNCisJCXJldHVybiAtRU5P
+RU5UOw0KKw0KIAlpZiAoIXBzcC0+eGdtaV9jb250ZXh0LmluaXRpYWxpemVkKSB7DQogCQlyZXQg
+PSBwc3BfeGdtaV9pbml0X3NoYXJlZF9idWYocHNwKTsNCiAJCWlmIChyZXQpDQpkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYw0KaW5kZXggMGM2ZTdmOWIxNDNmLi4xODlmY2IwMDQ1
+NzkgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYw0K
+KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMNCkBAIC0xNTIsMTgg
+KzE1MiwyMiBAQCBzdGF0aWMgaW50IHBzcF92MTFfMF9pbml0X21pY3JvY29kZShzdHJ1Y3QgcHNw
+X2NvbnRleHQgKnBzcCkNCiANCiAJc25wcmludGYoZndfbmFtZSwgc2l6ZW9mKGZ3X25hbWUpLCAi
+YW1kZ3B1LyVzX3RhLmJpbiIsIGNoaXBfbmFtZSk7DQogCWVyciA9IHJlcXVlc3RfZmlybXdhcmUo
+JmFkZXYtPnBzcC50YV9mdywgZndfbmFtZSwgYWRldi0+ZGV2KTsNCi0JaWYgKGVycikNCi0JCWdv
+dG8gb3V0MjsNCi0NCi0JZXJyID0gYW1kZ3B1X3Vjb2RlX3ZhbGlkYXRlKGFkZXYtPnBzcC50YV9m
+dyk7DQotCWlmIChlcnIpDQotCQlnb3RvIG91dDI7DQotDQotCXRhX2hkciA9IChjb25zdCBzdHJ1
+Y3QgdGFfZmlybXdhcmVfaGVhZGVyX3YxXzAgKilhZGV2LT5wc3AudGFfZnctPmRhdGE7DQotCWFk
+ZXYtPnBzcC50YV94Z21pX3Vjb2RlX3ZlcnNpb24gPSBsZTMyX3RvX2NwdSh0YV9oZHItPnRhX3hn
+bWlfdWNvZGVfdmVyc2lvbik7DQotCWFkZXYtPnBzcC50YV94Z21pX3Vjb2RlX3NpemUgPSBsZTMy
+X3RvX2NwdSh0YV9oZHItPnRhX3hnbWlfc2l6ZV9ieXRlcyk7DQotCWFkZXYtPnBzcC50YV94Z21p
+X3N0YXJ0X2FkZHIgPSAodWludDhfdCAqKXRhX2hkciArDQotCQlsZTMyX3RvX2NwdSh0YV9oZHIt
+PmhlYWRlci51Y29kZV9hcnJheV9vZmZzZXRfYnl0ZXMpOw0KKwlpZiAoZXJyKSB7DQorCQlyZWxl
+YXNlX2Zpcm13YXJlKGFkZXYtPnBzcC50YV9mdyk7DQorCQlhZGV2LT5wc3AudGFfZncgPSBOVUxM
+Ow0KKwkJZGV2X2luZm8oYWRldi0+ZGV2LA0KKwkJCSAicHNwIHYxMS4wOiBGYWlsZWQgdG8gbG9h
+ZCBmaXJtd2FyZSBcIiVzXCJcbiIsIGZ3X25hbWUpOw0KKwl9IGVsc2Ugew0KKwkJZXJyID0gYW1k
+Z3B1X3Vjb2RlX3ZhbGlkYXRlKGFkZXYtPnBzcC50YV9mdyk7DQorCQlpZiAoZXJyKQ0KKwkJCWdv
+dG8gb3V0MjsNCisNCisJCXRhX2hkciA9IChjb25zdCBzdHJ1Y3QgdGFfZmlybXdhcmVfaGVhZGVy
+X3YxXzAgKilhZGV2LT5wc3AudGFfZnctPmRhdGE7DQorCQlhZGV2LT5wc3AudGFfeGdtaV91Y29k
+ZV92ZXJzaW9uID0gbGUzMl90b19jcHUodGFfaGRyLT50YV94Z21pX3Vjb2RlX3ZlcnNpb24pOw0K
+KwkJYWRldi0+cHNwLnRhX3hnbWlfdWNvZGVfc2l6ZSA9IGxlMzJfdG9fY3B1KHRhX2hkci0+dGFf
+eGdtaV9zaXplX2J5dGVzKTsNCisJCWFkZXYtPnBzcC50YV94Z21pX3N0YXJ0X2FkZHIgPSAodWlu
+dDhfdCAqKXRhX2hkciArDQorCQkJbGUzMl90b19jcHUodGFfaGRyLT5oZWFkZXIudWNvZGVfYXJy
+YXlfb2Zmc2V0X2J5dGVzKTsNCisJfQ0KIA0KIAlyZXR1cm4gMDsNCiANCi0tDQoyLjIwLjENCg0K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCmFtZC1nZngg
+bWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
