@@ -1,90 +1,52 @@
-From: Alex Deucher via amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: remove some old unused dpm helpers
-Date: Thu, 14 Feb 2019 15:58:54 -0500
-Message-ID: <20190214205854.17037-1-alexander.deucher@amd.com>
-Reply-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
+Subject: [PATCH] gpu: drm: radeon: Set DPM_FLAG_NEVER_SKIP when enabling PM-runtime
+Date: Thu, 14 Feb 2019 23:46:19 +0100
+Message-ID: <2281684.8tZHfIXjiu@aspire.rjw.lan>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, =?utf-8?B?0K/RgNC+0YHQu9Cw0LIg0KHQtdC80YfQtdC90LrQvg==?= <ukrkyi@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2FycmllZCBvdmVyIGZyb20gcmFkZW9uLCBidXQgbm8gbG9uZ2VyIHVzZWQuCgpTaWduZWQtb2Zm
-LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RwbS5jIHwgODggLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RwbS5oIHwgIDkgLS0t
-CiAyIGZpbGVzIGNoYW5nZWQsIDk3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kcG0uYwppbmRleCAxYzQ1OTU1NjJmOGYuLjM0NDk2N2RmMzEzNyAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RwbS5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uYwpAQCAtMTg0LDYxICsxODQsNiBAQCB1
-MzIgYW1kZ3B1X2RwbV9nZXRfdnJlZnJlc2goc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJ
-cmV0dXJuIHZyZWZyZXNoOwogfQogCi12b2lkIGFtZGdwdV9jYWxjdWxhdGVfdV9hbmRfcCh1MzIg
-aSwgdTMyIHJfYywgdTMyIHBfYiwKLQkJCSAgICAgIHUzMiAqcCwgdTMyICp1KQotewotCXUzMiBi
-X2MgPSAwOwotCXUzMiBpX2M7Ci0JdTMyIHRtcDsKLQotCWlfYyA9IChpICogcl9jKSAvIDEwMDsK
-LQl0bXAgPSBpX2MgPj4gcF9iOwotCi0Jd2hpbGUgKHRtcCkgewotCQliX2MrKzsKLQkJdG1wID4+
-PSAxOwotCX0KLQotCSp1ID0gKGJfYyArIDEpIC8gMjsKLQkqcCA9IGlfYyAvICgxIDw8ICgyICog
-KCp1KSkpOwotfQotCi1pbnQgYW1kZ3B1X2NhbGN1bGF0ZV9hdCh1MzIgdCwgdTMyIGgsIHUzMiBm
-aCwgdTMyIGZsLCB1MzIgKnRsLCB1MzIgKnRoKQotewotCXUzMiBrLCBhLCBhaCwgYWw7Ci0JdTMy
-IHQxOwotCi0JaWYgKChmbCA9PSAwKSB8fCAoZmggPT0gMCkgfHwgKGZsID4gZmgpKQotCQlyZXR1
-cm4gLUVJTlZBTDsKLQotCWsgPSAoMTAwICogZmgpIC8gZmw7Ci0JdDEgPSAodCAqIChrIC0gMTAw
-KSk7Ci0JYSA9ICgxMDAwICogKDEwMCAqIGggKyB0MSkpIC8gKDEwMDAwICsgKHQxIC8gMTAwKSk7
-Ci0JYSA9IChhICsgNSkgLyAxMDsKLQlhaCA9ICgoYSAqIHQpICsgNTAwMCkgLyAxMDAwMDsKLQlh
-bCA9IGEgLSBhaDsKLQotCSp0aCA9IHQgLSBhaDsKLQkqdGwgPSB0ICsgYWw7Ci0KLQlyZXR1cm4g
-MDsKLX0KLQotYm9vbCBhbWRncHVfaXNfdXZkX3N0YXRlKHUzMiBjbGFzcywgdTMyIGNsYXNzMikK
-LXsKLQlpZiAoY2xhc3MgJiBBVE9NX1BQTElCX0NMQVNTSUZJQ0FUSU9OX1VWRFNUQVRFKQotCQly
-ZXR1cm4gdHJ1ZTsKLQlpZiAoY2xhc3MgJiBBVE9NX1BQTElCX0NMQVNTSUZJQ0FUSU9OX0hEMlNU
-QVRFKQotCQlyZXR1cm4gdHJ1ZTsKLQlpZiAoY2xhc3MgJiBBVE9NX1BQTElCX0NMQVNTSUZJQ0FU
-SU9OX0hEU1RBVEUpCi0JCXJldHVybiB0cnVlOwotCWlmIChjbGFzcyAmIEFUT01fUFBMSUJfQ0xB
-U1NJRklDQVRJT05fU0RTVEFURSkKLQkJcmV0dXJuIHRydWU7Ci0JaWYgKGNsYXNzMiAmIEFUT01f
-UFBMSUJfQ0xBU1NJRklDQVRJT04yX01WQykKLQkJcmV0dXJuIHRydWU7Ci0JcmV0dXJuIGZhbHNl
-OwotfQotCiBib29sIGFtZGdwdV9pc19pbnRlcm5hbF90aGVybWFsX3NlbnNvcihlbnVtIGFtZGdw
-dV9pbnRfdGhlcm1hbF90eXBlIHNlbnNvcikKIHsKIAlzd2l0Y2ggKHNlbnNvcikgewpAQCAtOTQ5
-LDM5ICs4OTQsNiBAQCBlbnVtIGFtZGdwdV9wY2llX2dlbiBhbWRncHVfZ2V0X3BjaWVfZ2VuX3N1
-cHBvcnQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJcmV0dXJuIEFNREdQVV9QQ0lFX0dF
-TjE7CiB9CiAKLXUxNiBhbWRncHVfZ2V0X3BjaWVfbGFuZV9zdXBwb3J0KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LAotCQkJCSB1MTYgYXNpY19sYW5lcywKLQkJCQkgdTE2IGRlZmF1bHRfbGFu
-ZXMpCi17Ci0Jc3dpdGNoIChhc2ljX2xhbmVzKSB7Ci0JY2FzZSAwOgotCWRlZmF1bHQ6Ci0JCXJl
-dHVybiBkZWZhdWx0X2xhbmVzOwotCWNhc2UgMToKLQkJcmV0dXJuIDE7Ci0JY2FzZSAyOgotCQly
-ZXR1cm4gMjsKLQljYXNlIDQ6Ci0JCXJldHVybiA0OwotCWNhc2UgODoKLQkJcmV0dXJuIDg7Ci0J
-Y2FzZSAxMjoKLQkJcmV0dXJuIDEyOwotCWNhc2UgMTY6Ci0JCXJldHVybiAxNjsKLQl9Ci19Ci0K
-LXU4IGFtZGdwdV9lbmNvZGVfcGNpX2xhbmVfd2lkdGgodTMyIGxhbmVzKQotewotCXU4IGVuY29k
-ZWRfbGFuZXNbXSA9IHsgMCwgMSwgMiwgMCwgMywgMCwgMCwgMCwgNCwgMCwgMCwgMCwgNSwgMCwg
-MCwgMCwgNiB9OwotCi0JaWYgKGxhbmVzID4gMTYpCi0JCXJldHVybiAwOwotCi0JcmV0dXJuIGVu
-Y29kZWRfbGFuZXNbbGFuZXNdOwotfQotCiBzdHJ1Y3QgYW1kX3ZjZV9zdGF0ZSoKIGFtZGdwdV9n
-ZXRfdmNlX2Nsb2NrX3N0YXRlKHZvaWQgKmhhbmRsZSwgdTMyIGlkeCkKIHsKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uaAppbmRleCAyZjYxZTllZGIxYzEuLmU4NzFlMDIyYzEy
-OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RwbS5oCisr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcG0uaApAQCAtNDg2LDEwICs0
-ODYsNiBAQCB2b2lkIGFtZGdwdV9kcG1fcHJpbnRfcHNfc3RhdHVzKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LAogdTMyIGFtZGdwdV9kcG1fZ2V0X3ZibGFua190aW1lKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KTsKIHUzMiBhbWRncHVfZHBtX2dldF92cmVmcmVzaChzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldik7CiB2b2lkIGFtZGdwdV9kcG1fZ2V0X2FjdGl2ZV9kaXNwbGF5cyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7Ci1ib29sIGFtZGdwdV9pc191dmRfc3RhdGUodTMyIGNs
-YXNzLCB1MzIgY2xhc3MyKTsKLXZvaWQgYW1kZ3B1X2NhbGN1bGF0ZV91X2FuZF9wKHUzMiBpLCB1
-MzIgcl9jLCB1MzIgcF9iLAotCQkJICAgICAgdTMyICpwLCB1MzIgKnUpOwotaW50IGFtZGdwdV9j
-YWxjdWxhdGVfYXQodTMyIHQsIHUzMiBoLCB1MzIgZmgsIHUzMiBmbCwgdTMyICp0bCwgdTMyICp0
-aCk7CiAKIGJvb2wgYW1kZ3B1X2lzX2ludGVybmFsX3RoZXJtYWxfc2Vuc29yKGVudW0gYW1kZ3B1
-X2ludF90aGVybWFsX3R5cGUgc2Vuc29yKTsKIApAQCAtNTA1LDExICs1MDEsNiBAQCBlbnVtIGFt
-ZGdwdV9wY2llX2dlbiBhbWRncHVfZ2V0X3BjaWVfZ2VuX3N1cHBvcnQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsCiAJCQkJCQkgZW51bSBhbWRncHVfcGNpZV9nZW4gYXNpY19nZW4sCiAJCQkJ
-CQkgZW51bSBhbWRncHVfcGNpZV9nZW4gZGVmYXVsdF9nZW4pOwogCi11MTYgYW1kZ3B1X2dldF9w
-Y2llX2xhbmVfc3VwcG9ydChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKLQkJCQkgdTE2IGFz
-aWNfbGFuZXMsCi0JCQkJIHUxNiBkZWZhdWx0X2xhbmVzKTsKLXU4IGFtZGdwdV9lbmNvZGVfcGNp
-X2xhbmVfd2lkdGgodTMyIGxhbmVzKTsKLQogc3RydWN0IGFtZF92Y2Vfc3RhdGUqCiBhbWRncHVf
-Z2V0X3ZjZV9jbG9ja19zdGF0ZSh2b2lkICpoYW5kbGUsIHUzMiBpZHgpOwogCi0tIAoyLjIwLjEK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+On HP ProBook 4540s, if PM-runtime is enabled in the radeon driver
+and the direct-complete optimization is used for the radeon device
+during system-wide suspend, the system doesn't resume.
+
+Preventing direct-complete from being used with the radeon device by
+setting the DPM_FLAG_NEVER_SKIP driver flag for it makes the problem
+go away, which indicates that direct-complete is not safe for the
+radeon driver in general and should not be used with it (at least
+for now).
+
+This fixes a regression introduced by commit c62ec4610c40
+("PM / core: Fix direct_complete handling for devices with no
+callbacks") which allowed direct-complete to be applied to
+devices without PM callbacks (again) which in turn unlocked
+direct-complete for radeon on HP ProBook 4540s.
+
+Fixes: c62ec4610c40 ("PM / core: Fix direct_complete handling for devices with no callbacks")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=201519
+Reported-by: Ярослав Семченко <ukrkyi@gmail.com>
+Tested-by: Ярослав Семченко <ukrkyi@gmail.com>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+---
+ drivers/gpu/drm/radeon/radeon_kms.c |    1 +
+ 1 file changed, 1 insertion(+)
+
+Index: linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
+===================================================================
+--- linux-pm.orig/drivers/gpu/drm/radeon/radeon_kms.c
++++ linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
+@@ -172,6 +172,7 @@ int radeon_driver_load_kms(struct drm_de
+ 	}
+ 
+ 	if (radeon_is_px(dev)) {
++		dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
+ 		pm_runtime_use_autosuspend(dev->dev);
+ 		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
+ 		pm_runtime_set_active(dev->dev);
