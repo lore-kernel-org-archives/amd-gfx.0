@@ -1,71 +1,45 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 35/65] drm/amd/powerplay: OD setting fix on Vega10
-Date: Thu, 14 Feb 2019 21:10:51 -0500
-Message-ID: <20190215021121.177674-35-sashal@kernel.org>
-References: <20190215021121.177674-1-sashal@kernel.org>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/4] drm/amdkfd: Move a constant definition around
+Date: Thu, 14 Feb 2019 23:45:51 +0000
+Message-ID: <20190214234537.31249-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190215021121.177674-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 
-From: Kenneth Feng <kenneth.feng@amd.com>
-
-[ Upstream commit 6d87dc97eb3341de3f7b1efa3156cb0e014f4a96 ]
-
-gfxclk for OD setting is limited to 1980M for non-acg
-ASICs of Vega10
-
-Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Evan Quan <evan.quan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../powerplay/hwmgr/vega10_processpptables.c  | 22 ++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
-index 16b1a9cf6cf0..743d3c983082 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
-@@ -32,6 +32,7 @@
- #include "vega10_pptable.h"
- 
- #define NUM_DSPCLK_LEVELS 8
-+#define VEGA10_ENGINECLOCK_HARDMAX 198000
- 
- static void set_hw_cap(struct pp_hwmgr *hwmgr, bool enable,
- 		enum phm_platform_caps cap)
-@@ -258,7 +259,26 @@ static int init_over_drive_limits(
- 		struct pp_hwmgr *hwmgr,
- 		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table)
- {
--	hwmgr->platform_descriptor.overdriveLimit.engineClock =
-+	const ATOM_Vega10_GFXCLK_Dependency_Table *gfxclk_dep_table =
-+			(const ATOM_Vega10_GFXCLK_Dependency_Table *)
-+			(((unsigned long) powerplay_table) +
-+			le16_to_cpu(powerplay_table->usGfxclkDependencyTableOffset));
-+	bool is_acg_enabled = false;
-+	ATOM_Vega10_GFXCLK_Dependency_Record_V2 *patom_record_v2;
-+
-+	if (gfxclk_dep_table->ucRevId == 1) {
-+		patom_record_v2 =
-+			(ATOM_Vega10_GFXCLK_Dependency_Record_V2 *)gfxclk_dep_table->entries;
-+		is_acg_enabled =
-+			(bool)patom_record_v2[gfxclk_dep_table->ucNumEntries-1].ucACGEnable;
-+	}
-+
-+	if (powerplay_table->ulMaxODEngineClock > VEGA10_ENGINECLOCK_HARDMAX &&
-+		!is_acg_enabled)
-+		hwmgr->platform_descriptor.overdriveLimit.engineClock =
-+			VEGA10_ENGINECLOCK_HARDMAX;
-+	else
-+		hwmgr->platform_descriptor.overdriveLimit.engineClock =
- 			le32_to_cpu(powerplay_table->ulMaxODEngineClock);
- 	hwmgr->platform_descriptor.overdriveLimit.memoryClock =
- 			le32_to_cpu(powerplay_table->ulMaxODMemoryClock);
--- 
-2.19.1
+VGhlIHNpbWlsYXIgZGVmaW5pdGlvbnMgc2hvdWxkIGJlIGNvbnNlY3V0aXZlLgoKQ2hhbmdlLUlk
+OiBJOTM2Y2YwNzYzNjNlNjQxYzYwZTA3MDRkODQwNWFlOTQ5MzcxOGUxOApTaWduZWQtb2ZmLWJ5
+OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9wcml2LmggfCAxMSArKysrKystLS0tLQogMSBmaWxlIGNoYW5nZWQsIDYgaW5z
+ZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGtmZC9rZmRfcHJpdi5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3By
+aXYuaAppbmRleCAxMmI2NjMzMGZjNmQuLmU1ZWJjY2E3ZjAzMSAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfcHJpdi5oCkBAIC05NywxNyArOTcsMTggQEAKICNkZWZpbmUgS0ZEX0NXU1Jf
+VEJBX1RNQV9TSVpFIChQQUdFX1NJWkUgKiAyKQogI2RlZmluZSBLRkRfQ1dTUl9UTUFfT0ZGU0VU
+IFBBR0VfU0laRQogCisjZGVmaW5lIEtGRF9NQVhfTlVNX09GX1FVRVVFU19QRVJfREVWSUNFCQlc
+CisJKEtGRF9NQVhfTlVNX09GX1BST0NFU1NFUyAqCQkJXAorCQkJS0ZEX01BWF9OVU1fT0ZfUVVF
+VUVTX1BFUl9QUk9DRVNTKQorCisjZGVmaW5lIEtGRF9LRVJORUxfUVVFVUVfU0laRSAyMDQ4CisK
+IC8qCiAgKiBLZXJuZWwgbW9kdWxlIHBhcmFtZXRlciB0byBzcGVjaWZ5IG1heGltdW0gbnVtYmVy
+IG9mIHN1cHBvcnRlZCBxdWV1ZXMgcGVyCiAgKiBkZXZpY2UKICAqLwogZXh0ZXJuIGludCBtYXhf
+bnVtX29mX3F1ZXVlc19wZXJfZGV2aWNlOwogCi0jZGVmaW5lIEtGRF9NQVhfTlVNX09GX1FVRVVF
+U19QRVJfREVWSUNFCQlcCi0JKEtGRF9NQVhfTlVNX09GX1BST0NFU1NFUyAqCQkJXAotCQkJS0ZE
+X01BWF9OVU1fT0ZfUVVFVUVTX1BFUl9QUk9DRVNTKQotCi0jZGVmaW5lIEtGRF9LRVJORUxfUVVF
+VUVfU0laRSAyMDQ4CiAKIC8qIEtlcm5lbCBtb2R1bGUgcGFyYW1ldGVyIHRvIHNwZWNpZnkgdGhl
+IHNjaGVkdWxpbmcgcG9saWN5ICovCiBleHRlcm4gaW50IHNjaGVkX3BvbGljeTsKLS0gCjIuMTcu
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
