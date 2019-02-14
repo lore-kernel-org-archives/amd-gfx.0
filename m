@@ -1,228 +1,187 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= via amd-gfx
- <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: "ring gfx timeout" with Vega 64 on mesa 19.0.0-rc2 and kernel
- 5.0.0-rc6 (GPU reset still not works)
-Date: Thu, 14 Feb 2019 10:32:23 +0100
-Message-ID: <936118e1-ec6a-2af4-7cea-c26bd2d5ffc8@gmail.com>
-References: <CABXGCsOakru4=RMrhpocLhN99LwKp4q1-UfFJrEUh7q4UeKJ_g@mail.gmail.com>
- <47477f0a-76dd-2f33-ff38-01f8216cffcc@amd.com>
- <CABXGCsMMOx+Ay7Dkjfy1bKcvnsqEE0v2XnZzLNVM3ygM4G2PWg@mail.gmail.com>
- <0349a887-b5b2-827a-830a-91c93dc9628d@amd.com>
- <CABXGCsMWKw2wkQmKeRj1CNwx2=EMMcBG=XvVqGMKshOXiQ7ZsQ@mail.gmail.com>
- <024290f1-97e2-ee24-6f54-3fe14a3855cf@amd.com>
- <CABXGCsOngQCDrG2GhuXTO0FaonXzK7qwe3wRdW_oPg_OLGryDg@mail.gmail.com>
- <12b7ac94-f093-d606-ead4-463c747a716c@amd.com>
- <CABXGCsM4a0XuFbhLobJriRxa55C_zgWtexg=t_6A9Dwn1vt9bg@mail.gmail.com>
- <b10e4e75-921d-e89f-2a32-68aa8437854b@amd.com>
- <CABXGCsO-shqmH1ZLsT0M+AfyHkOJDN986DeV0SF+8vLG63=0Zw@mail.gmail.com>
- <249fa2ee-136f-3d6a-5f81-f768fe234000@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Dan Carpenter via dri-devel <dri-devel@lists.freedesktop.org>
+Subject: Re: [Intel-gfx] [PATCH 1/3] drm/i915: Move dsc rate params compute
+ into drm
+Date: Thu, 14 Feb 2019 14:09:13 +0300
+Message-ID: <20190214110913.GD2304@kadam>
+References: <20190213144536.21661-2-David.Francis@amd.com>
+Reply-To: Dan Carpenter <dan.carpenter@oracle.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1320333509=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <249fa2ee-136f-3d6a-5f81-f768fe234000-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============1320333509==
-Content-Type: multipart/alternative;
- boundary="------------47441CE2A7F38F3A776CE3EF"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------47441CE2A7F38F3A776CE3EF
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hey Andrey,
-
-this is on Vega10, so the ASIC always stops after it sees the first fault.
-
-I'm actually working on implementing that it should continue without 
-interruption.
-
-Regards,
-Christian.
-
-Am 13.02.19 um 22:47 schrieb Grodzovsky, Andrey:
->
-> Looks like you are still running this without the latest hang fix 
-> since i see the deadlock again, but actually what i forgot to ask you 
-> is to load amdgpu with vm_fault_stop=2 to freeze the ASIC once 
-> VM_FAULT is encountered - sorry about that. So please retest with 
-> amdgpu.vm_fault_stop=2 parameter in GRUB loader.
->
-> Andrey
->
-> On 2/13/19 3:08 PM, Mikhail Gavrilov wrote:
->> On Wed, 13 Feb 2019 at 23:40, Grodzovsky, Andrey 
->> <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org <mailto:Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>> wrote:
->> >
->> > Regarding the original VM_FAULT we can try to debug that a bit to - 
->> enable this from trace-cmd
->> >
->> > sudo trace-cmd start -e dma_fence -e gpu_scheduler -e amdgpu -v -e 
->> "amdgpu:amdgpu_mm_rreg" -e "amdgpu:amdgpu_mm_wreg" -e "amdgpu:amdgpu_iv"
->> >
->> > and when the hang happens
->> >
->> > as root
->> > cd /sys/kernel/debug/tracing && cat trace > event_dump
->> >
->> > + as usual would be nice to have the relevant wave dump and 
->> registers from UMR + dmesg.
->> >
->> > Andrey
->> gfx.tar.xz 
->> <https://drive.google.com/file/d/1lgNu_JSfmhnnRGgHUQu2V39fhspOW4i8/view?usp=drive_web>
->>
->>
->> Just in case, I duplicated all the files on the  file sharing service 
->> Mega:
->> https://mega.nz/#F!pgYCjYrS!NkeTFIja_qwmxqLoSEUyzA
->>
->>
->> --
->> Best Regards,
->> Mike Gavrilov.
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------47441CE2A7F38F3A776CE3EF
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hey Andrey,<br>
-      <br>
-      this is on Vega10, so the ASIC always stops after it sees the
-      first fault.<br>
-      <br>
-      I'm actually working on implementing that it should continue
-      without interruption.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 13.02.19 um 22:47 schrieb Grodzovsky, Andrey:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:249fa2ee-136f-3d6a-5f81-f768fe234000-5C7GfCeVMHo@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p>Looks like you are still running this without the latest hang
-        fix since i see the deadlock again, but actually what i forgot
-        to ask you is to load amdgpu with vm_fault_stop=2 to freeze the
-        ASIC once VM_FAULT is encountered - sorry about that. So please
-        retest with amdgpu.vm_fault_stop=2 parameter in GRUB loader.</p>
-      <p>Andrey<br>
-      </p>
-      <div class="moz-cite-prefix">On 2/13/19 3:08 PM, Mikhail Gavrilov
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-cite="mid:CABXGCsO-shqmH1ZLsT0M+AfyHkOJDN986DeV0SF+8vLG63=0Zw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
-        <div dir="ltr">
-          <div dir="ltr">
-            <div dir="ltr">
-              <div dir="ltr">
-                <div dir="ltr">On Wed, 13 Feb 2019 at 23:40, Grodzovsky,
-                  Andrey &lt;<a href="mailto:Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org"
-                    target="_blank" moz-do-not-send="true">Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org</a>&gt;
-                  wrote:<br>
-                  &gt;<br>
-                  &gt; <span class="gmail_default"
-                    style="font-family:verdana,sans-serif"></span>Regarding
-                  the original VM_FAULT we can try to debug that a bit
-                  to - enable this from trace-cmd<br>
-                  &gt;<br>
-                  &gt; sudo trace-cmd start -e dma_fence -e
-                  gpu_scheduler -e amdgpu -v -e "amdgpu:amdgpu_mm_rreg"
-                  -e "amdgpu:amdgpu_mm_wreg" -e "amdgpu:amdgpu_iv"<br>
-                  &gt;<br>
-                  &gt; and when the hang happens<br>
-                  &gt;<br>
-                  &gt; as root<br>
-                  &gt; cd /sys/kernel/debug/tracing &amp;&amp; cat trace
-                  &gt; event_dump<br>
-                  &gt;<br>
-                  &gt; + as usual would be nice to have the relevant
-                  wave dump and registers from UMR + dmesg.<br>
-                  &gt;<br>
-                  &gt; Andrey<br>
-                  <div class="gmail_chip gmail_drive_chip"
-style="width:396px;height:18px;max-height:18px;background-color:#f5f5f5;padding:5px;color:#222;font-family:arial;font-style:normal;font-weight:bold;font-size:13px;border:1px
-                    solid #ddd;line-height:1">
-                    <a
-href="https://drive.google.com/file/d/1lgNu_JSfmhnnRGgHUQu2V39fhspOW4i8/view?usp=drive_web"
-                      target="_blank"
-style="display:inline-block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-decoration:none;padding:1px
-                      0px;border:none;width:100%" moz-do-not-send="true"><img
-                        style="vertical-align: bottom; border: none;"
-src="https://ssl.gstatic.com/docs/doclist/images/icon_10_generic_list.png"
-                        moz-do-not-send="true"> <span dir="ltr"
-                        style="color:#15c;text-decoration:none;vertical-align:bottom">gfx.tar.xz</span></a></div>
-                  <br>
-                  <br>
-                  <div class="gmail_default"
-                    style="font-family:verdana,sans-serif">Just in case,
-                    I duplicated all the files on the  file sharing
-                    service Mega:</div>
-                  <div class="gmail_default"><font face="verdana,
-                      sans-serif"><a
-                        href="https://mega.nz/#F!pgYCjYrS!NkeTFIja_qwmxqLoSEUyzA"
-                        moz-do-not-send="true">https://mega.nz/#F!pgYCjYrS!NkeTFIja_qwmxqLoSEUyzA</a></font><br>
-                  </div>
-                  <br>
-                  <br>
-                  --<br>
-                  Best Regards,<br>
-                  Mike Gavrilov.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </blockquote>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------47441CE2A7F38F3A776CE3EF--
-
---===============1320333509==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
+In-Reply-To: <20190213144536.21661-2-David.Francis@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: kbuild@01.org
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, nikola.cornij@amd.com, kbuild-all@01.org, David Francis <David.Francis@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1320333509==--
+SGkgRGF2aWQsCgp1cmw6ICAgIGh0dHBzOi8vZ2l0aHViLmNvbS8wZGF5LWNpL2xpbnV4L2NvbW1p
+dHMvRGF2aWQtRnJhbmNpcy9NYWtlLURSTS1EU0MtaGVscGVycy1tb3JlLWdlbmVyYWxseS11c2Fi
+bGUvMjAxOTAyMTQtMDUyNTQxCgpzbWF0Y2ggd2FybmluZ3M6CmRyaXZlcnMvZ3B1L2RybS9kcm1f
+ZHNjLmM6MzA2IGRybV9kc2NfY29tcHV0ZV9yY19wYXJhbWV0ZXJzKCkgd2FybjogaW1wb3NzaWJs
+ZSBjb25kaXRpb24gJyh2ZHNjX2NmZy0+bmZsX2JwZ19vZmZzZXQgPiA2NTUzNSkgPT4gKDAtdTE2
+bWF4ID4gdTE2bWF4KScKZHJpdmVycy9ncHUvZHJtL2RybV9kc2MuYzozNDAgZHJtX2RzY19jb21w
+dXRlX3JjX3BhcmFtZXRlcnMoKSB3YXJuOiBpbXBvc3NpYmxlIGNvbmRpdGlvbiAnKHZkc2NfY2Zn
+LT5zY2FsZV9pbmNyZW1lbnRfaW50ZXJ2YWwgPiA2NTUzNSkgPT4gKDAtdTE2bWF4ID4gdTE2bWF4
+KScKCiMgaHR0cHM6Ly9naXRodWIuY29tLzBkYXktY2kvbGludXgvY29tbWl0LzkzMmUyMDRjOWNi
+ZTI5OTU0NTFhODAwMzUxYmNkNzgxZmE3Y2IxYzUKZ2l0IHJlbW90ZSBhZGQgbGludXgtcmV2aWV3
+IGh0dHBzOi8vZ2l0aHViLmNvbS8wZGF5LWNpL2xpbnV4CmdpdCByZW1vdGUgdXBkYXRlIGxpbnV4
+LXJldmlldwpnaXQgY2hlY2tvdXQgOTMyZTIwNGM5Y2JlMjk5NTQ1MWE4MDAzNTFiY2Q3ODFmYTdj
+YjFjNQp2aW0gKzMwNiBkcml2ZXJzL2dwdS9kcm0vZHJtX2RzYy5jCgo5MzJlMjA0YyBEYXZpZCBG
+cmFuY2lzIDIwMTktMDItMTMgIDIzMCAgCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0x
+MyAgMjMxICAvKioKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyMzIgICAqIGRy
+bV9kc2NfY29tcHV0ZV9yY19wYXJhbWV0ZXJzKCkgLSBXcml0ZSByYXRlIGNvbnRyb2wKOTMyZTIw
+NGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyMzMgICAqIHBhcmFtZXRlcnMgdG8gdGhlIGRz
+YyBjb25maWd1cmF0aW9uLiBTb21lIGNvbmZpZ3VyYXRpb24KOTMyZTIwNGMgRGF2aWQgRnJhbmNp
+cyAyMDE5LTAyLTEzICAyMzQgICAqIGZpZWxkcyBtdXN0IGJlIHByZXNlbnQgYmVmb3JlaGFuZC4K
+OTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyMzUgICAqCjkzMmUyMDRjIERhdmlk
+IEZyYW5jaXMgMjAxOS0wMi0xMyAgMjM2ICAgKiBAZHNjX2NmZzoKOTMyZTIwNGMgRGF2aWQgRnJh
+bmNpcyAyMDE5LTAyLTEzICAyMzcgICAqIERTQyBDb25maWd1cmF0aW9uIGRhdGEgcGFydGlhbGx5
+IGZpbGxlZCBieSBkcml2ZXIKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyMzgg
+ICAqLwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDIzOSAgaW50IGRybV9kc2Nf
+Y29tcHV0ZV9yY19wYXJhbWV0ZXJzKHN0cnVjdCBkcm1fZHNjX2NvbmZpZyAqdmRzY19jZmcpCjkz
+MmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjQwICB7CjkzMmUyMDRjIERhdmlkIEZy
+YW5jaXMgMjAxOS0wMi0xMyAgMjQxICAJdW5zaWduZWQgbG9uZyBncm91cHNfcGVyX2xpbmUgPSAw
+Owo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI0MiAgCXVuc2lnbmVkIGxvbmcg
+Z3JvdXBzX3RvdGFsID0gMDsKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyNDMg
+IAl1bnNpZ25lZCBsb25nIG51bV9leHRyYV9tdXhfYml0cyA9IDA7CjkzMmUyMDRjIERhdmlkIEZy
+YW5jaXMgMjAxOS0wMi0xMyAgMjQ0ICAJdW5zaWduZWQgbG9uZyBzbGljZV9iaXRzID0gMDsKOTMy
+ZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyNDUgIAl1bnNpZ25lZCBsb25nIGhyZF9k
+ZWxheSA9IDA7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjQ2ICAJdW5zaWdu
+ZWQgbG9uZyBmaW5hbF9zY2FsZSA9IDA7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0x
+MyAgMjQ3ICAJdW5zaWduZWQgbG9uZyByYnNfbWluID0gMDsKOTMyZTIwNGMgRGF2aWQgRnJhbmNp
+cyAyMDE5LTAyLTEzICAyNDggIAo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI0
+OSAgCS8qIE51bWJlciBvZiBncm91cHMgdXNlZCB0byBjb2RlIGVhY2ggbGluZSBvZiBhIHNsaWNl
+ICovCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjUwICAJZ3JvdXBzX3Blcl9s
+aW5lID0gRElWX1JPVU5EX1VQKHZkc2NfY2ZnLT5zbGljZV93aWR0aCwKOTMyZTIwNGMgRGF2aWQg
+RnJhbmNpcyAyMDE5LTAyLTEzICAyNTEgIAkJCQkgICAgICAgRFNDX1JDX1BJWEVMU19QRVJfR1JP
+VVApOwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI1MiAgCjkzMmUyMDRjIERh
+dmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjUzICAJLyogY2h1bmtzaXplIGluIEJ5dGVzICovCjkz
+MmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjU0ICAJdmRzY19jZmctPnNsaWNlX2No
+dW5rX3NpemUgPSBESVZfUk9VTkRfVVAodmRzY19jZmctPnNsaWNlX3dpZHRoICoKOTMyZTIwNGMg
+RGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyNTUgIAkJCQkJCSAgdmRzY19jZmctPmJpdHNfcGVy
+X3BpeGVsLAo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI1NiAgCQkJCQkJICAo
+OCAqIDE2KSk7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjU3ICAKOTMyZTIw
+NGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyNTggIAlpZiAodmRzY19jZmctPmNvbnZlcnRf
+cmdiKQo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI1OSAgCQludW1fZXh0cmFf
+bXV4X2JpdHMgPSAzICogKHZkc2NfY2ZnLT5tdXhfd29yZF9zaXplICsKOTMyZTIwNGMgRGF2aWQg
+RnJhbmNpcyAyMDE5LTAyLTEzICAyNjAgIAkJCQkJICAoNCAqIHZkc2NfY2ZnLT5iaXRzX3Blcl9j
+b21wb25lbnQgKyA0KQo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI2MSAgCQkJ
+CQkgIC0gMik7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjYyICAJZWxzZQo5
+MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI2MyAgCQludW1fZXh0cmFfbXV4X2Jp
+dHMgPSAzICogdmRzY19jZmctPm11eF93b3JkX3NpemUgKwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lz
+IDIwMTktMDItMTMgIDI2NCAgCQkJKDQgKiB2ZHNjX2NmZy0+Yml0c19wZXJfY29tcG9uZW50ICsg
+NCkgKwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI2NSAgCQkJMiAqICg0ICog
+dmRzY19jZmctPmJpdHNfcGVyX2NvbXBvbmVudCkgLSAyOwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lz
+IDIwMTktMDItMTMgIDI2NiAgCS8qIE51bWJlciBvZiBiaXRzIGluIG9uZSBTbGljZSAqLwo5MzJl
+MjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI2NyAgCXNsaWNlX2JpdHMgPSA4ICogdmRz
+Y19jZmctPnNsaWNlX2NodW5rX3NpemUgKiB2ZHNjX2NmZy0+c2xpY2VfaGVpZ2h0Owo5MzJlMjA0
+YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI2OCAgCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMg
+MjAxOS0wMi0xMyAgMjY5ICAJd2hpbGUgKChudW1fZXh0cmFfbXV4X2JpdHMgPiAwKSAmJgo5MzJl
+MjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI3MCAgCSAgICAgICAoKHNsaWNlX2JpdHMg
+LSBudW1fZXh0cmFfbXV4X2JpdHMpICUgdmRzY19jZmctPm11eF93b3JkX3NpemUpKQo5MzJlMjA0
+YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI3MSAgCQludW1fZXh0cmFfbXV4X2JpdHMtLTsK
+OTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyNzIgIAo5MzJlMjA0YyBEYXZpZCBG
+cmFuY2lzIDIwMTktMDItMTMgIDI3MyAgCWlmIChncm91cHNfcGVyX2xpbmUgPCB2ZHNjX2NmZy0+
+aW5pdGlhbF9zY2FsZV92YWx1ZSAtIDgpCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0x
+MyAgMjc0ICAJCXZkc2NfY2ZnLT5pbml0aWFsX3NjYWxlX3ZhbHVlID0gZ3JvdXBzX3Blcl9saW5l
+ICsgODsKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyNzUgIAo5MzJlMjA0YyBE
+YXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI3NiAgCS8qIHNjYWxlX2RlY3JlbWVudF9pbnRlcnZh
+bCBjYWxjdWxhdGlvbiBhY2NvcmRpbmcgdG8gRFNDIHNwZWMgMS4xMSAqLwo5MzJlMjA0YyBEYXZp
+ZCBGcmFuY2lzIDIwMTktMDItMTMgIDI3NyAgCWlmICh2ZHNjX2NmZy0+aW5pdGlhbF9zY2FsZV92
+YWx1ZSA+IDgpCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjc4ICAJCXZkc2Nf
+Y2ZnLT5zY2FsZV9kZWNyZW1lbnRfaW50ZXJ2YWwgPSBncm91cHNfcGVyX2xpbmUgLwo5MzJlMjA0
+YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI3OSAgCQkJKHZkc2NfY2ZnLT5pbml0aWFsX3Nj
+YWxlX3ZhbHVlIC0gOCk7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjgwICAJ
+ZWxzZQo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI4MSAgCQl2ZHNjX2NmZy0+
+c2NhbGVfZGVjcmVtZW50X2ludGVydmFsID0gRFNDX1NDQUxFX0RFQ1JFTUVOVF9JTlRFUlZBTF9N
+QVg7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjgyICAKOTMyZTIwNGMgRGF2
+aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyODMgIAl2ZHNjX2NmZy0+ZmluYWxfb2Zmc2V0ID0gdmRz
+Y19jZmctPnJjX21vZGVsX3NpemUgLQo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMg
+IDI4NCAgCQkodmRzY19jZmctPmluaXRpYWxfeG1pdF9kZWxheSAqCjkzMmUyMDRjIERhdmlkIEZy
+YW5jaXMgMjAxOS0wMi0xMyAgMjg1ICAJCSB2ZHNjX2NmZy0+Yml0c19wZXJfcGl4ZWwgKyA4KSAv
+IDE2ICsgbnVtX2V4dHJhX211eF9iaXRzOwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDIt
+MTMgIDI4NiAgCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjg3ICAJaWYgKHZk
+c2NfY2ZnLT5maW5hbF9vZmZzZXQgPj0gdmRzY19jZmctPnJjX21vZGVsX3NpemUpIHsKOTMyZTIw
+NGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyODggIAkJRFJNX0RFQlVHX0tNUygiRmluYWxP
+ZnMgPCBSY01vZGVsU3plIGZvciB0aGlzIEluaXRpYWxYbWl0RGVsYXlcbiIpOwo5MzJlMjA0YyBE
+YXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI4OSAgCQlyZXR1cm4gLUVSQU5HRTsKOTMyZTIwNGMg
+RGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyOTAgIAl9CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMg
+MjAxOS0wMi0xMyAgMjkxICAKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyOTIg
+IAlmaW5hbF9zY2FsZSA9ICh2ZHNjX2NmZy0+cmNfbW9kZWxfc2l6ZSAqIDgpIC8KOTMyZTIwNGMg
+RGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAyOTMgIAkJKHZkc2NfY2ZnLT5yY19tb2RlbF9zaXpl
+IC0gdmRzY19jZmctPmZpbmFsX29mZnNldCk7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0w
+Mi0xMyAgMjk0ICAJaWYgKHZkc2NfY2ZnLT5zbGljZV9oZWlnaHQgPiAxKQo5MzJlMjA0YyBEYXZp
+ZCBGcmFuY2lzIDIwMTktMDItMTMgIDI5NSAgCQkvKgo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIw
+MTktMDItMTMgIDI5NiAgCQkgKiBOZmxCcGdPZmZzZXQgaXMgMTYgYml0IHZhbHVlIHdpdGggMTEg
+ZnJhY3Rpb25hbCBiaXRzCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjk3ICAJ
+CSAqIGhlbmNlIHdlIG11bHRpcGx5IGJ5IDJeMTEgZm9yIHByZXNlcnZpbmcgdGhlCjkzMmUyMDRj
+IERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMjk4ICAJCSAqIGZyYWN0aW9uYWwgcGFydAo5MzJl
+MjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDI5OSAgCQkgKi8KOTMyZTIwNGMgRGF2aWQg
+RnJhbmNpcyAyMDE5LTAyLTEzICAzMDAgIAkJdmRzY19jZmctPm5mbF9icGdfb2Zmc2V0ID0gRElW
+X1JPVU5EX1VQKCh2ZHNjX2NmZy0+Zmlyc3RfbGluZV9icGdfb2Zmc2V0IDw8IDExKSwKOTMyZTIw
+NGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAzMDEgIAkJCQkJCQkodmRzY19jZmctPnNsaWNl
+X2hlaWdodCAtIDEpKTsKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAzMDIgIAll
+bHNlCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzAzICAJCXZkc2NfY2ZnLT5u
+ZmxfYnBnX29mZnNldCA9IDA7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzA0
+ICAKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAzMDUgIAkvKiAyXjE2IC0gMSAq
+Lwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgQDMwNiAgCWlmICh2ZHNjX2NmZy0+
+bmZsX2JwZ19vZmZzZXQgPiA2NTUzNSkgewo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDIt
+MTMgIDMwNyAgCQlEUk1fREVCVUdfS01TKCJOZmxCcGdPZmZzZXQgaXMgdG9vIGxhcmdlIGZvciB0
+aGlzIHNsaWNlIGhlaWdodFxuIik7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAg
+MzA4ICAJCXJldHVybiAtRVJBTkdFOwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMg
+IDMwOSAgCX0KOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAzMTAgIAo5MzJlMjA0
+YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMxMSAgCS8qIE51bWJlciBvZiBncm91cHMgdXNl
+ZCB0byBjb2RlIHRoZSBlbnRpcmUgc2xpY2UgKi8KOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5
+LTAyLTEzICAzMTIgIAlncm91cHNfdG90YWwgPSBncm91cHNfcGVyX2xpbmUgKiB2ZHNjX2NmZy0+
+c2xpY2VfaGVpZ2h0Owo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMxMyAgCjkz
+MmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzE0ICAJLyogc2xpY2VfYnBnX29mZnNl
+dCBpcyAxNiBiaXQgdmFsdWUgd2l0aCAxMSBmcmFjdGlvbmFsIGJpdHMgKi8KOTMyZTIwNGMgRGF2
+aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAzMTUgIAl2ZHNjX2NmZy0+c2xpY2VfYnBnX29mZnNldCA9
+IERJVl9ST1VORF9VUCgoKHZkc2NfY2ZnLT5yY19tb2RlbF9zaXplIC0KOTMyZTIwNGMgRGF2aWQg
+RnJhbmNpcyAyMDE5LTAyLTEzICAzMTYgIAkJCQkJCSAgICB2ZHNjX2NmZy0+aW5pdGlhbF9vZmZz
+ZXQgKwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMxNyAgCQkJCQkJICAgIG51
+bV9leHRyYV9tdXhfYml0cykgPDwgMTEpLAo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDIt
+MTMgIDMxOCAgCQkJCQkJICBncm91cHNfdG90YWwpOwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIw
+MTktMDItMTMgIDMxOSAgCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzIwICAJ
+aWYgKGZpbmFsX3NjYWxlID4gOSkgewo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMg
+IDMyMSAgCQkvKgo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMyMiAgCQkgKiBT
+Y2FsZUluY3JlbWVudEludGVydmFsID0KOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEz
+ICAzMjMgIAkJICogZmluYWxvZmZzZXQvKChOZmxCcGdPZmZzZXQgKyBTbGljZUJwZ09mZnNldCkq
+OChmaW5hbHNjYWxlIC0gMS4xMjUpKQo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMg
+IDMyNCAgCQkgKiBhcyAoTmZsQnBnT2Zmc2V0ICsgU2xpY2VCcGdPZmZzZXQpIGhhcyAxMSBiaXQg
+ZnJhY3Rpb25hbCB2YWx1ZSwKOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAzMjUg
+IAkJICogd2UgbmVlZCBkaXZpZGUgYnkgMl4xMSBmcm9tIHBzdERzY0NmZyB2YWx1ZXMKOTMyZTIw
+NGMgRGF2aWQgRnJhbmNpcyAyMDE5LTAyLTEzICAzMjYgIAkJICovCjkzMmUyMDRjIERhdmlkIEZy
+YW5jaXMgMjAxOS0wMi0xMyAgMzI3ICAJCXZkc2NfY2ZnLT5zY2FsZV9pbmNyZW1lbnRfaW50ZXJ2
+YWwgPQo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMyOCAgCQkJCSh2ZHNjX2Nm
+Zy0+ZmluYWxfb2Zmc2V0ICogKDEgPDwgMTEpKSAvCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAx
+OS0wMi0xMyAgMzI5ICAJCQkJKCh2ZHNjX2NmZy0+bmZsX2JwZ19vZmZzZXQgKwo5MzJlMjA0YyBE
+YXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMzMCAgCQkJCXZkc2NfY2ZnLT5zbGljZV9icGdfb2Zm
+c2V0KSAqCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzMxICAJCQkJKGZpbmFs
+X3NjYWxlIC0gOSkpOwo5MzJlMjA0YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMzMiAgCX0g
+ZWxzZSB7CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzMzICAJCS8qCjkzMmUy
+MDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzM0ICAJCSAqIElmIGZpbmFsU2NhbGVWYWx1
+ZSBpcyBsZXNzIHRoYW4gb3IgZXF1YWwgdG8gOSwgYSB2YWx1ZSBvZiAwIHNob3VsZAo5MzJlMjA0
+YyBEYXZpZCBGcmFuY2lzIDIwMTktMDItMTMgIDMzNSAgCQkgKiBiZSB1c2VkIHRvIGRpc2FibGUg
+dGhlIHNjYWxlIGluY3JlbWVudCBhdCB0aGUgZW5kIG9mIHRoZSBzbGljZQo5MzJlMjA0YyBEYXZp
+ZCBGcmFuY2lzIDIwMTktMDItMTMgIDMzNiAgCQkgKi8KOTMyZTIwNGMgRGF2aWQgRnJhbmNpcyAy
+MDE5LTAyLTEzICAzMzcgIAkJdmRzY19jZmctPnNjYWxlX2luY3JlbWVudF9pbnRlcnZhbCA9IDA7
+CjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0wMi0xMyAgMzM4ICAJfQo5MzJlMjA0YyBEYXZp
+ZCBGcmFuY2lzIDIwMTktMDItMTMgIDMzOSAgCjkzMmUyMDRjIERhdmlkIEZyYW5jaXMgMjAxOS0w
+Mi0xMyBAMzQwICAJaWYgKHZkc2NfY2ZnLT5zY2FsZV9pbmNyZW1lbnRfaW50ZXJ2YWwgPiA2NTUz
+NSkgewoKLS0tCjAtREFZIGtlcm5lbCB0ZXN0IGluZnJhc3RydWN0dXJlICAgICAgICAgICAgICAg
+IE9wZW4gU291cmNlIFRlY2hub2xvZ3kgQ2VudGVyCmh0dHBzOi8vbGlzdHMuMDEub3JnL3BpcGVy
+bWFpbC9rYnVpbGQtYWxsICAgICAgICAgICAgICAgICAgIEludGVsIENvcnBvcmF0aW9uCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWls
+aW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
