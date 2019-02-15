@@ -1,55 +1,46 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Update sdma golden setting for vega20
-Date: Fri, 15 Feb 2019 16:56:08 +0000
-Message-ID: <1550249758-3793-1-git-send-email-shaoyun.liu@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/amd/powerplay/smu7_hwmgr: Mark expected switch
+ fall-throughs
+Date: Fri, 15 Feb 2019 10:57:17 -0600
+Message-ID: <20190215165717.GA30554@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWNjb3JkaW5nIHRvIGhhcmR3YXJlIGVuZ2luZWVyLCBXVElURV9CVVNUX0xFTkdUSCBbOTo4XSBp
-biByZWdpc3RlcgpTRE1BMF9DSElDS0VOX0JJVFMgbmVlZCB0byBjaGFuZ2UgdG8gMyBmb3IgYmV0
-dGVyIHBlcmZvcm1hbmNlCgpDaGFuZ2UtSWQ6IEkzMjEyMWFjMTlhNjJjMDc5NGI0Mzc1NTA3OGU4
-OWQ0NDc3MjRiZjA3ClNpZ25lZC1vZmYtYnk6IHNoYW95dW5sIDxzaGFveXVuLmxpdUBhbWQuY29t
-PgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jIHwgNCArKy0tCiAx
-IGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKaW5kZXggMTI3Yjg1OS4uYzgxNmU1NSAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvc2RtYV92NF8wLmMKQEAgLTEyOCw3ICsxMjgsNyBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29sZGVuX3NldHRpbmdzX3NkbWEwXzRf
-Ml9pbml0W10gPSB7CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc29jMTVfcmVnX2dvbGRlbiBnb2xk
-ZW5fc2V0dGluZ3Nfc2RtYTBfNF8yW10gPQogewotCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoU0RN
-QTAsIDAsIG1tU0RNQTBfQ0hJQ0tFTl9CSVRTLCAweGZlOTMxZjA3LCAweDAyODMxZDA3KSwKKwlT
-T0MxNV9SRUdfR09MREVOX1ZBTFVFKFNETUEwLCAwLCBtbVNETUEwX0NISUNLRU5fQklUUywgMHhm
-ZTkzMWYwNywgMHgwMjgzMWYwNyksCiAJU09DMTVfUkVHX0dPTERFTl9WQUxVRShTRE1BMCwgMCwg
-bW1TRE1BMF9DTEtfQ1RSTCwgMHhmZmZmZmZmZiwgMHgzZjAwMDEwMCksCiAJU09DMTVfUkVHX0dP
-TERFTl9WQUxVRShTRE1BMCwgMCwgbW1TRE1BMF9HQl9BRERSX0NPTkZJRywgMHgwMDAwNzczZiwg
-MHgwMDAwNDAwMiksCiAJU09DMTVfUkVHX0dPTERFTl9WQUxVRShTRE1BMCwgMCwgbW1TRE1BMF9H
-Ql9BRERSX0NPTkZJR19SRUFELCAweDAwMDA3NzNmLCAweDAwMDA0MDAyKSwKQEAgLTE1OCw3ICsx
-NTgsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29sZGVuX3NldHRp
-bmdzX3NkbWEwXzRfMltdID0KIH07CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc29jMTVfcmVnX2dv
-bGRlbiBnb2xkZW5fc2V0dGluZ3Nfc2RtYTFfNF8yW10gPSB7Ci0JU09DMTVfUkVHX0dPTERFTl9W
-QUxVRShTRE1BMSwgMCwgbW1TRE1BMV9DSElDS0VOX0JJVFMsIDB4ZmU5MzFmMDcsIDB4MDI4MzFk
-MDcpLAorCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoU0RNQTEsIDAsIG1tU0RNQTFfQ0hJQ0tFTl9C
-SVRTLCAweGZlOTMxZjA3LCAweDAyODMxZjA3KSwKIAlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKFNE
-TUExLCAwLCBtbVNETUExX0NMS19DVFJMLCAweGZmZmZmZmZmLCAweDNmMDAwMTAwKSwKIAlTT0Mx
-NV9SRUdfR09MREVOX1ZBTFVFKFNETUExLCAwLCBtbVNETUExX0dCX0FERFJfQ09ORklHLCAweDAw
-MDA3NzNmLCAweDAwMDA0MDAyKSwKIAlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKFNETUExLCAwLCBt
-bVNETUExX0dCX0FERFJfQ09ORklHX1JFQUQsIDB4MDAwMDc3M2YsIDB4MDAwMDQwMDIpLAotLSAK
-Mi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+In preparation to enabling -Wimplicit-fallthrough, mark switch
+cases where we are expecting to fall through.
+
+Warning level 3 was used: -Wimplicit-fallthrough=3
+
+This patch is part of the ongoing efforts to enable
+-Wimplicit-fallthrough.
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index c8f5c00dd1e7..48187acac59e 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -3681,10 +3681,12 @@ static int smu7_request_link_speed_change_before_state_change(
+ 			data->force_pcie_gen = PP_PCIEGen2;
+ 			if (current_link_speed == PP_PCIEGen2)
+ 				break;
++			/* fall through */
+ 		case PP_PCIEGen2:
+ 			if (0 == amdgpu_acpi_pcie_performance_request(hwmgr->adev, PCIE_PERF_REQ_GEN2, false))
+ 				break;
+ #endif
++			/* fall through */
+ 		default:
+ 			data->force_pcie_gen = smu7_get_current_pcie_speed(hwmgr);
+ 			break;
+-- 
+2.20.1
