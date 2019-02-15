@@ -1,220 +1,248 @@
-From: Alex Deucher via dri-devel <dri-devel@lists.freedesktop.org>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
 Subject: Re: [PATCH] drm: Mark expected switch fall-throughs
-Date: Fri, 15 Feb 2019 11:11:34 -0500
-Message-ID: <CADnq5_PZDS4aA6p8zA6WvT5Tkh+JZh+YirsycQawEiwPc-x3cg@mail.gmail.com>
+Date: Fri, 15 Feb 2019 10:16:53 -0600
+Message-ID: <c63b48ff-0aa3-ffe4-2d67-0cce13e344b1@embeddedor.com>
 References: <20190215154554.GA27081@embeddedor>
-Reply-To: Alex Deucher <alexdeucher@gmail.com>
+ <CADnq5_PZDS4aA6p8zA6WvT5Tkh+JZh+YirsycQawEiwPc-x3cg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190215154554.GA27081@embeddedor>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Cc: Sean Paul <sean@poorly.run>, Maxime Ripard <maxime.ripard@bootlin.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Kees Cook <keescook@chromium.org>, David Airlie <airlied@linux.ie>, Rex Zhu <rex.zhu@amd.com>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>, Ben Skeggs <bskeggs@redhat.com>, nouveau <nouveau@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_PZDS4aA6p8zA6WvT5Tkh+JZh+YirsycQawEiwPc-x3cg@mail.gmail.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, Ben Skeggs <bskeggs@redhat.com>, Kees Cook <keescook@chromium.org>, nouveau <nouveau@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBGZWIgMTUsIDIwMTkgYXQgMTE6MDggQU0gR3VzdGF2byBBLiBSLiBTaWx2YQo8Z3Vz
-dGF2b0BlbWJlZGRlZG9yLmNvbT4gd3JvdGU6Cj4KPiBJbiBwcmVwYXJhdGlvbiB0byBlbmFibGlu
-ZyAtV2ltcGxpY2l0LWZhbGx0aHJvdWdoLCBtYXJrIHN3aXRjaAo+IGNhc2VzIHdoZXJlIHdlIGFy
-ZSBleHBlY3RpbmcgdG8gZmFsbCB0aHJvdWdoLgo+Cj4gV2FybmluZyBsZXZlbCAzIHdhcyB1c2Vk
-OiAtV2ltcGxpY2l0LWZhbGx0aHJvdWdoPTMKPgo+IE5vdGljZSB0aGF0LCBpbiBzb21lIGNhc2Vz
-LCB0aGUgY29kZSBjb21tZW50IGlzIG1vZGlmaWVkCj4gaW4gYWNjb3JkYW5jZSB3aXRoIHdoYXQg
-R0NDIGlzIGV4cGVjdGluZyB0byBmaW5kLgo+Cj4gVGhpcyBwYXRjaCBpcyBwYXJ0IG9mIHRoZSBv
-bmdvaW5nIGVmZm9ydHMgdG8gZW5hYmxlCj4gLVdpbXBsaWNpdC1mYWxsdGhyb3VnaC4KPgo+IFNp
-Z25lZC1vZmYtYnk6IEd1c3Rhdm8gQS4gUi4gU2lsdmEgPGd1c3Rhdm9AZW1iZWRkZWRvci5jb20+
-CgpDYW4geW91IHBsZWFzZSBzcGxpdCB0aGlzIHVwIHBlciBkcml2ZXI/ICBBIGNvbW1lbnQgYmVs
-b3cgYXMgd2VsbC4KCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8w
-LmMgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-c2lfZHBtLmMgICAgICAgICAgICAgICAgICAgICB8IDIgKysKPiAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2Jpb3MvYmlvc19wYXJzZXIyLmMgICAgICB8IDIgKysKPiAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfbWVtX2lucHV0LmMgICAgICB8IDIgKy0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jICAgICAgICB8
-IDIgKysKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9z
-bXVtZ3IuYyB8IDEgKwo+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX3ZtLmMgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHwgNCArKy0tCj4gIGRyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L25vdXZl
-YXVfYm8uYyAgICAgICAgICAgICAgICAgICAgfCAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRl
-b24vY2lfZHBtLmMgICAgICAgICAgICAgICAgICAgICAgICAgfCAyICsrCj4gIGRyaXZlcnMvZ3B1
-L2RybS9yYWRlb24vZXZlcmdyZWVuX2NzLmMgICAgICAgICAgICAgICAgICAgfCAxICsKPiAgZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9zaV9kcG0uYyAgICAgICAgICAgICAgICAgICAgICAgICB8IDIg
-KysKPiAgMTEgZmlsZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkK
-Pgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+IGluZGV4IGI4ZTUwYTM0YmRi
-My4uMDI5NTVlNmU5ZGQ5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dmeF92OF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5j
-Cj4gQEAgLTMyMzYsNiArMzIzNiw3IEBAIHN0YXRpYyB2b2lkIGdmeF92OF8wX3RpbGluZ19tb2Rl
-X3RhYmxlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAgICAgICAgICAgICAg
-IGRldl93YXJuKGFkZXYtPmRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgIlVua25vd24g
-Y2hpcCB0eXBlICglZCkgaW4gZnVuY3Rpb24gZ2Z4X3Y4XzBfdGlsaW5nX21vZGVfdGFibGVfaW5p
-dCgpIGZhbGxpbmcgdGhyb3VnaCB0byBDSElQX0NBUlJJWk9cbiIsCj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgIGFkZXYtPmFzaWNfdHlwZSk7Cj4gKyAgICAgICAgICAgICAgIC8qIGZhbGwgdGhy
-b3VnaCAqLwo+Cj4gICAgICAgICBjYXNlIENISVBfQ0FSUklaTzoKPiAgICAgICAgICAgICAgICAg
-bW9kZWFycmF5WzBdID0gKEFSUkFZX01PREUoQVJSQVlfMkRfVElMRURfVEhJTjEpIHwKPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZHBtLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9zaV9kcG0uYwo+IGluZGV4IGRhNTgwNDBmZGJkYy4uNDFlMDFhN2Y1
-N2E0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RwbS5jCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZHBtLmMKPiBAQCAtNjIxNiwxMCAr
-NjIxNiwxMiBAQCBzdGF0aWMgdm9pZCBzaV9yZXF1ZXN0X2xpbmtfc3BlZWRfY2hhbmdlX2JlZm9y
-ZV9zdGF0ZV9jaGFuZ2Uoc3RydWN0IGFtZGdwdV9kZXZpYwo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgIHNpX3BpLT5mb3JjZV9wY2llX2dlbiA9IEFNREdQVV9QQ0lFX0dFTjI7Cj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgaWYgKGN1cnJlbnRfbGlua19zcGVlZCA9PSBBTURHUFVfUENJRV9HRU4y
-KQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgLyogZmFsbCB0aHJvdWdoICovCj4gICAgICAgICAgICAgICAgIGNhc2UgQU1E
-R1BVX1BDSUVfR0VOMjoKPiAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoYW1kZ3B1X2FjcGlf
-cGNpZV9wZXJmb3JtYW5jZV9yZXF1ZXN0KGFkZXYsIFBDSUVfUEVSRl9SRVFfUEVDSV9HRU4yLCBm
-YWxzZSkgPT0gMCkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+ICAj
-ZW5kaWYKPiArICAgICAgICAgICAgICAgICAgICAgICAvKiBmYWxsIHRocm91Z2ggKi8KPiAgICAg
-ICAgICAgICAgICAgZGVmYXVsdDoKPiAgICAgICAgICAgICAgICAgICAgICAgICBzaV9waS0+Zm9y
-Y2VfcGNpZV9nZW4gPSBzaV9nZXRfY3VycmVudF9wY2llX3NwZWVkKGFkZXYpOwo+ICAgICAgICAg
-ICAgICAgICAgICAgICAgIGJyZWFrOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvYmlvcy9iaW9zX3BhcnNlcjIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9kYy9iaW9zL2Jpb3NfcGFyc2VyMi5jCj4gaW5kZXggYTFjNTZmMjljZmViLi5mZDUyNjZh
-NTgyOTcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Jpb3Mv
-Ymlvc19wYXJzZXIyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvYmlv
-cy9iaW9zX3BhcnNlcjIuYwo+IEBAIC0yNjUsNiArMjY1LDcgQEAgc3RhdGljIHN0cnVjdCBhdG9t
-X2Rpc3BsYXlfb2JqZWN0X3BhdGhfdjIgKmdldF9iaW9zX29iamVjdCgKPiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgJiYgaWQuZW51bV9pZCA9PSBvYmpfaWQuZW51bV9p
-ZCkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAmYnAtPm9iamVjdF9p
-bmZvX3RibC52MV80LT5kaXNwbGF5X3BhdGhbaV07Cj4gICAgICAgICAgICAgICAgIH0KPiArICAg
-ICAgICAgICAgICAgLyogZmFsbCB0aHJvdWdoICovCj4gICAgICAgICBjYXNlIE9CSkVDVF9UWVBF
-X0NPTk5FQ1RPUjoKPiAgICAgICAgIGNhc2UgT0JKRUNUX1RZUEVfR0VORVJJQzoKPiAgICAgICAg
-ICAgICAgICAgLyogQm90aCBHZW5lcmljIGFuZCBDb25uZWN0b3IgT2JqZWN0IElECj4gQEAgLTI3
-Nyw2ICsyNzgsNyBAQCBzdGF0aWMgc3RydWN0IGF0b21fZGlzcGxheV9vYmplY3RfcGF0aF92MiAq
-Z2V0X2Jpb3Nfb2JqZWN0KAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAmJiBpZC5lbnVtX2lkID09IG9ial9pZC5lbnVtX2lkKQo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcmV0dXJuICZicC0+b2JqZWN0X2luZm9fdGJsLnYxXzQtPmRpc3BsYXlfcGF0
-aFtpXTsKPiAgICAgICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICAvKiBmYWxsIHRocm91
-Z2ggKi8KPiAgICAgICAgIGRlZmF1bHQ6Cj4gICAgICAgICAgICAgICAgIHJldHVybiBOVUxMOwo+
-ICAgICAgICAgfQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMv
-ZGNlL2RjZV9tZW1faW5wdXQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY2Uv
-ZGNlX21lbV9pbnB1dC5jCj4gaW5kZXggODU2ODZkOTE3NjM2Li5hMjRhMmJkYTg2NTYgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZS9kY2VfbWVtX2lucHV0
-LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlL2RjZV9tZW1faW5w
-dXQuYwo+IEBAIC00NzksNyArNDc5LDcgQEAgc3RhdGljIHZvaWQgcHJvZ3JhbV9ncnBoX3BpeGVs
-X2Zvcm1hdCgKPiAgICAgICAgIGNhc2UgU1VSRkFDRV9QSVhFTF9GT1JNQVRfR1JQSF9BQkdSMTYx
-NjE2MTZGOgo+ICAgICAgICAgICAgICAgICBzaWduID0gMTsKPiAgICAgICAgICAgICAgICAgZmxv
-YXRpbmcgPSAxOwo+IC0gICAgICAgICAgICAgICAvKiBubyBicmVhayAqLwo+ICsgICAgICAgICAg
-ICAgICAvKiBmYWxsIHRocm91Z2ggKi8KPiAgICAgICAgIGNhc2UgU1VSRkFDRV9QSVhFTF9GT1JN
-QVRfR1JQSF9BUkdCMTYxNjE2MTZGOiAvKiBzaG91bGRuJ3QgdGhpcyBnZXQgZmxvYXQgdG9vPyAq
-Lwo+ICAgICAgICAgY2FzZSBTVVJGQUNFX1BJWEVMX0ZPUk1BVF9HUlBIX0FSR0IxNjE2MTYxNjoK
-PiAgICAgICAgICAgICAgICAgZ3JwaF9kZXB0aCA9IDM7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYwo+IGluZGV4IGM4ZjVjMDBkZDFlNy4u
-NDgxODdhY2FjNTllIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL3NtdTdfaHdtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2h3bWdyL3NtdTdfaHdtZ3IuYwo+IEBAIC0zNjgxLDEwICszNjgxLDEyIEBAIHN0YXRpYyBpbnQg
-c211N19yZXF1ZXN0X2xpbmtfc3BlZWRfY2hhbmdlX2JlZm9yZV9zdGF0ZV9jaGFuZ2UoCj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgZGF0YS0+Zm9yY2VfcGNpZV9nZW4gPSBQUF9QQ0lFR2VuMjsK
-PiAgICAgICAgICAgICAgICAgICAgICAgICBpZiAoY3VycmVudF9saW5rX3NwZWVkID09IFBQX1BD
-SUVHZW4yKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgLyogZmFsbCB0aHJvdWdoICovCj4gICAgICAgICAgICAgICAgIGNh
-c2UgUFBfUENJRUdlbjI6Cj4gICAgICAgICAgICAgICAgICAgICAgICAgaWYgKDAgPT0gYW1kZ3B1
-X2FjcGlfcGNpZV9wZXJmb3JtYW5jZV9yZXF1ZXN0KGh3bWdyLT5hZGV2LCBQQ0lFX1BFUkZfUkVR
-X0dFTjIsIGZhbHNlKSkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+
-ICAjZW5kaWYKPiArICAgICAgICAgICAgICAgICAgICAgICAvKiBmYWxsIHRocm91Z2ggKi8KPiAg
-ICAgICAgICAgICAgICAgZGVmYXVsdDoKPiAgICAgICAgICAgICAgICAgICAgICAgICBkYXRhLT5m
-b3JjZV9wY2llX2dlbiA9IHNtdTdfZ2V0X2N1cnJlbnRfcGNpZV9zcGVlZChod21ncik7Cj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCj4gaW5kZXggNTJhYmNh
-MDY1NzY0Li45MmRlMWJiYjJlMzMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKPiBAQCAtMjMzMCw2ICsy
-MzMwLDcgQEAgc3RhdGljIHVpbnQzMl90IHBvbGFyaXMxMF9nZXRfb2Zmc2V0b2YodWludDMyX3Qg
-dHlwZSwgdWludDMyX3QgbWVtYmVyKQo+ICAgICAgICAgICAgICAgICBjYXNlIERSQU1fTE9HX0JV
-RkZfU0laRToKPiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gb2Zmc2V0b2YoU01VNzRf
-U29mdFJlZ2lzdGVycywgRFJBTV9MT0dfQlVGRl9TSVpFKTsKPiAgICAgICAgICAgICAgICAgfQo+
-ICsgICAgICAgICAgICAgICAvKiBmYWxsIHRocm91Z2ggKi8KPiAgICAgICAgIGNhc2UgU01VX0Rp
-c2NyZXRlX0RwbVRhYmxlOgo+ICAgICAgICAgICAgICAgICBzd2l0Y2ggKG1lbWJlcikgewo+ICAg
-ICAgICAgICAgICAgICBjYXNlIFV2ZEJvb3RMZXZlbDoKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2RybV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV92bS5jCj4gaW5kZXggYzMzMDEw
-NDZkZmFhLi44OTg3NTAxZjUzYjIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV92
-bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV92bS5jCj4gQEAgLTU4NCw4ICs1ODQsOCBA
-QCBzdGF0aWMgaW50IGRybV9tbWFwX2xvY2tlZChzdHJ1Y3QgZmlsZSAqZmlscCwgc3RydWN0IHZt
-X2FyZWFfc3RydWN0ICp2bWEpCj4gICAgICAgICAgICAgICAgICAgICAgICAgdm1hLT52bV9vcHMg
-PSAmZHJtX3ZtX29wczsKPiAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsKPiAgICAgICAg
-ICAgICAgICAgfQo+IC0gICAgICAgICAgICAgICAvKiBmYWxsIHRocm91Z2ggdG8gX0RSTV9GUkFN
-RV9CVUZGRVIuLi4gKi8KPiAgI2VuZGlmCj4gKyAgICAgICAgICAgICAgIC8qIGZhbGwgdGhyb3Vn
-aCAtIHRvIF9EUk1fRlJBTUVfQlVGRkVSLi4uICovCj4gICAgICAgICBjYXNlIF9EUk1fRlJBTUVf
-QlVGRkVSOgo+ICAgICAgICAgY2FzZSBfRFJNX1JFR0lTVEVSUzoKPiAgICAgICAgICAgICAgICAg
-b2Zmc2V0ID0gZHJtX2NvcmVfZ2V0X3JlZ19vZnMoZGV2KTsKPiBAQCAtNjEwLDcgKzYxMCw3IEBA
-IHN0YXRpYyBpbnQgZHJtX21tYXBfbG9ja2VkKHN0cnVjdCBmaWxlICpmaWxwLCBzdHJ1Y3Qgdm1f
-YXJlYV9zdHJ1Y3QgKnZtYSkKPiAgICAgICAgICAgICAgICAgICAgIHZtYS0+dm1fZW5kIC0gdm1h
-LT52bV9zdGFydCwgdm1hLT52bV9wYWdlX3Byb3QpKQo+ICAgICAgICAgICAgICAgICAgICAgICAg
-IHJldHVybiAtRUFHQUlOOwo+ICAgICAgICAgICAgICAgICB2bWEtPnZtX3BhZ2VfcHJvdCA9IGRy
-bV9kbWFfcHJvdChtYXAtPnR5cGUsIHZtYSk7Cj4gLSAgICAgICAvKiBmYWxsIHRocm91Z2ggdG8g
-X0RSTV9TSE0gKi8KPiArICAgICAgICAgICAgICAgLyogZmFsbCB0aHJvdWdoIC0gdG8gX0RSTV9T
-SE0gKi8KPiAgICAgICAgIGNhc2UgX0RSTV9TSE06Cj4gICAgICAgICAgICAgICAgIHZtYS0+dm1f
-b3BzID0gJmRybV92bV9zaG1fb3BzOwo+ICAgICAgICAgICAgICAgICB2bWEtPnZtX3ByaXZhdGVf
-ZGF0YSA9ICh2b2lkICopbWFwOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVh
-dS9ub3V2ZWF1X2JvLmMgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2JvLmMKPiBp
-bmRleCA3M2VmZjUyMDM2ZDIuLmE3MmJlNzFjNDViNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vbm91dmVhdS9ub3V2ZWF1X2JvLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vbm91dmVh
-dS9ub3V2ZWF1X2JvLmMKPiBAQCAtMTQzNCw3ICsxNDM0LDcgQEAgbm91dmVhdV90dG1faW9fbWVt
-X3Jlc2VydmUoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsIHN0cnVjdCB0dG1fbWVtX3JlZyAq
-cmVnKQo+ICAgICAgICAgICAgICAgICBpZiAoZHJtLT5jbGllbnQubWVtLT5vY2xhc3MgPCBOVklG
-X0NMQVNTX01FTV9OVjUwIHx8ICFtZW0tPmtpbmQpCj4gICAgICAgICAgICAgICAgICAgICAgICAg
-LyogdW50aWxlZCAqLwo+ICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+IC0gICAgICAg
-ICAgICAgICAvKiBmYWxsdGhyb3VnaCwgdGlsZWQgbWVtb3J5ICovCj4gKyAgICAgICAgICAgICAg
-IC8qIGZhbGwgdGhyb3VnaCAtIHRpbGVkIG1lbW9yeSAqLwo+ICAgICAgICAgY2FzZSBUVE1fUExf
-VlJBTToKPiAgICAgICAgICAgICAgICAgcmVnLT5idXMub2Zmc2V0ID0gcmVnLT5zdGFydCA8PCBQ
-QUdFX1NISUZUOwo+ICAgICAgICAgICAgICAgICByZWctPmJ1cy5iYXNlID0gZGV2aWNlLT5mdW5j
-LT5yZXNvdXJjZV9hZGRyKGRldmljZSwgMSk7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9yYWRlb24vY2lfZHBtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2NpX2RwbS5jCj4gaW5k
-ZXggYTk3Mjk0YWM5NmQ1Li5hMTI0MzkyNjZiYjAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9jaV9kcG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vY2lfZHBt
-LmMKPiBAQCAtNDg2OSwxMCArNDg2OSwxMiBAQCBzdGF0aWMgdm9pZCBjaV9yZXF1ZXN0X2xpbmtf
-c3BlZWRfY2hhbmdlX2JlZm9yZV9zdGF0ZV9jaGFuZ2Uoc3RydWN0IHJhZGVvbl9kZXZpYwo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBpLT5mb3JjZV9wY2llX2dlbiA9IFJBREVPTl9QQ0lFX0dF
-TjI7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgaWYgKGN1cnJlbnRfbGlua19zcGVlZCA9PSBS
-QURFT05fUENJRV9HRU4yKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7
-Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgLyogZmFsbCB0aHJvdWdoICovCj4gICAgICAgICAg
-ICAgICAgIGNhc2UgUkFERU9OX1BDSUVfR0VOMjoKPiAgICAgICAgICAgICAgICAgICAgICAgICBp
-ZiAocmFkZW9uX2FjcGlfcGNpZV9wZXJmb3JtYW5jZV9yZXF1ZXN0KHJkZXYsIFBDSUVfUEVSRl9S
-RVFfUEVDSV9HRU4yLCBmYWxzZSkgPT0gMCkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGJyZWFrOwo+ICAjZW5kaWYKPiArICAgICAgICAgICAgICAgICAgICAgICAvKiBmYWxsIHRo
-cm91Z2ggKi8KPiAgICAgICAgICAgICAgICAgZGVmYXVsdDoKPiAgICAgICAgICAgICAgICAgICAg
-ICAgICBwaS0+Zm9yY2VfcGNpZV9nZW4gPSBjaV9nZXRfY3VycmVudF9wY2llX3NwZWVkKHJkZXYp
-Owo+ICAgICAgICAgICAgICAgICAgICAgICAgIGJyZWFrOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9l
-dmVyZ3JlZW5fY3MuYwo+IGluZGV4IGY0NzE1MzdjODUyZi4uZmJmMzQ2MTg1NzkwIDEwMDY0NAo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vZXZlcmdyZWVuX2NzLmMKPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jCj4gQEAgLTEyOTksNiArMTI5OSw3IEBA
-IHN0YXRpYyBpbnQgZXZlcmdyZWVuX2NzX2hhbmRsZV9yZWcoc3RydWN0IHJhZGVvbl9jc19wYXJz
-ZXIgKnAsIHUzMiByZWcsIHUzMiBpZHgpCj4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7Cj4gICAgICAgICAgICAgICAgIH0KPiAgICAgICAgICAgICAgICAgaWJbaWR4XSAr
-PSAodTMyKSgocmVsb2MtPmdwdV9vZmZzZXQgPj4gOCkgJiAweGZmZmZmZmZmKTsKPiArICAgICAg
-ICAgICAgICAgLyogZmFsbCB0aHJvdWdoICovCj4gICAgICAgICBjYXNlIENCX1RBUkdFVF9NQVNL
-Ogo+ICAgICAgICAgICAgICAgICB0cmFjay0+Y2JfdGFyZ2V0X21hc2sgPSByYWRlb25fZ2V0X2li
-X3ZhbHVlKHAsIGlkeCk7Cj4gICAgICAgICAgICAgICAgIHRyYWNrLT5jYl9kaXJ0eSA9IHRydWU7
-CgpUaGlzIHNob3VsZCBiZSBhIGJyZWFrIEkgdGhpbmsuCgpBbGV4Cgo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3NpX2RwbS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9z
-aV9kcG0uYwo+IGluZGV4IDBhNzg1ZWYwYWI2Ni4uYzlmNmNiNzdlODU3IDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vc2lfZHBtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-cmFkZW9uL3NpX2RwbS5jCj4gQEAgLTU3NjIsMTAgKzU3NjIsMTIgQEAgc3RhdGljIHZvaWQgc2lf
-cmVxdWVzdF9saW5rX3NwZWVkX2NoYW5nZV9iZWZvcmVfc3RhdGVfY2hhbmdlKHN0cnVjdCByYWRl
-b25fZGV2aWMKPiAgICAgICAgICAgICAgICAgICAgICAgICBzaV9waS0+Zm9yY2VfcGNpZV9nZW4g
-PSBSQURFT05fUENJRV9HRU4yOwo+ICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChjdXJyZW50
-X2xpbmtfc3BlZWQgPT0gUkFERU9OX1BDSUVfR0VOMikKPiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAgICAgICAgICAgICAgICAgIC8qIGZhbGwgdGhyb3Vn
-aCAqLwo+ICAgICAgICAgICAgICAgICBjYXNlIFJBREVPTl9QQ0lFX0dFTjI6Cj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgaWYgKHJhZGVvbl9hY3BpX3BjaWVfcGVyZm9ybWFuY2VfcmVxdWVzdChy
-ZGV2LCBQQ0lFX1BFUkZfUkVRX1BFQ0lfR0VOMiwgZmFsc2UpID09IDApCj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBicmVhazsKPiAgI2VuZGlmCj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgLyogZmFsbCB0aHJvdWdoICovCj4gICAgICAgICAgICAgICAgIGRlZmF1bHQ6Cj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgc2lfcGktPmZvcmNlX3BjaWVfZ2VuID0gc2lfZ2V0X2N1cnJl
-bnRfcGNpZV9zcGVlZChyZGV2KTsKPiAgICAgICAgICAgICAgICAgICAgICAgICBicmVhazsKPiAt
-LQo+IDIuMjAuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1k
-ZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+
+
+On 2/15/19 10:11 AM, Alex Deucher wrote:
+> On Fri, Feb 15, 2019 at 11:08 AM Gustavo A. R. Silva
+> <gustavo@embeddedor.com> wrote:
+>>
+>> In preparation to enabling -Wimplicit-fallthrough, mark switch
+>> cases where we are expecting to fall through.
+>>
+>> Warning level 3 was used: -Wimplicit-fallthrough=3
+>>
+>> Notice that, in some cases, the code comment is modified
+>> in accordance with what GCC is expecting to find.
+>>
+>> This patch is part of the ongoing efforts to enable
+>> -Wimplicit-fallthrough.
+>>
+>> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+> 
+> Can you please split this up per driver?  A comment below as well.
+> 
+
+OK. Sure.
+
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c                   | 1 +
+>>  drivers/gpu/drm/amd/amdgpu/si_dpm.c                     | 2 ++
+>>  drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c      | 2 ++
+>>  drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c      | 2 +-
+>>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c        | 2 ++
+>>  drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 +
+>>  drivers/gpu/drm/drm_vm.c                                | 4 ++--
+>>  drivers/gpu/drm/nouveau/nouveau_bo.c                    | 2 +-
+>>  drivers/gpu/drm/radeon/ci_dpm.c                         | 2 ++
+>>  drivers/gpu/drm/radeon/evergreen_cs.c                   | 1 +
+>>  drivers/gpu/drm/radeon/si_dpm.c                         | 2 ++
+>>  11 files changed, 17 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>> index b8e50a34bdb3..02955e6e9dd9 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>> @@ -3236,6 +3236,7 @@ static void gfx_v8_0_tiling_mode_table_init(struct amdgpu_device *adev)
+>>                 dev_warn(adev->dev,
+>>                          "Unknown chip type (%d) in function gfx_v8_0_tiling_mode_table_init() falling through to CHIP_CARRIZO\n",
+>>                          adev->asic_type);
+>> +               /* fall through */
+>>
+>>         case CHIP_CARRIZO:
+>>                 modearray[0] = (ARRAY_MODE(ARRAY_2D_TILED_THIN1) |
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+>> index da58040fdbdc..41e01a7f57a4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+>> @@ -6216,10 +6216,12 @@ static void si_request_link_speed_change_before_state_change(struct amdgpu_devic
+>>                         si_pi->force_pcie_gen = AMDGPU_PCIE_GEN2;
+>>                         if (current_link_speed == AMDGPU_PCIE_GEN2)
+>>                                 break;
+>> +                       /* fall through */
+>>                 case AMDGPU_PCIE_GEN2:
+>>                         if (amdgpu_acpi_pcie_performance_request(adev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
+>>                                 break;
+>>  #endif
+>> +                       /* fall through */
+>>                 default:
+>>                         si_pi->force_pcie_gen = si_get_current_pcie_speed(adev);
+>>                         break;
+>> diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+>> index a1c56f29cfeb..fd5266a58297 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+>> @@ -265,6 +265,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
+>>                                         && id.enum_id == obj_id.enum_id)
+>>                                 return &bp->object_info_tbl.v1_4->display_path[i];
+>>                 }
+>> +               /* fall through */
+>>         case OBJECT_TYPE_CONNECTOR:
+>>         case OBJECT_TYPE_GENERIC:
+>>                 /* Both Generic and Connector Object ID
+>> @@ -277,6 +278,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
+>>                                         && id.enum_id == obj_id.enum_id)
+>>                                 return &bp->object_info_tbl.v1_4->display_path[i];
+>>                 }
+>> +               /* fall through */
+>>         default:
+>>                 return NULL;
+>>         }
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+>> index 85686d917636..a24a2bda8656 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+>> @@ -479,7 +479,7 @@ static void program_grph_pixel_format(
+>>         case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F:
+>>                 sign = 1;
+>>                 floating = 1;
+>> -               /* no break */
+>> +               /* fall through */
+>>         case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616F: /* shouldn't this get float too? */
+>>         case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
+>>                 grph_depth = 3;
+>> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+>> index c8f5c00dd1e7..48187acac59e 100644
+>> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+>> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+>> @@ -3681,10 +3681,12 @@ static int smu7_request_link_speed_change_before_state_change(
+>>                         data->force_pcie_gen = PP_PCIEGen2;
+>>                         if (current_link_speed == PP_PCIEGen2)
+>>                                 break;
+>> +                       /* fall through */
+>>                 case PP_PCIEGen2:
+>>                         if (0 == amdgpu_acpi_pcie_performance_request(hwmgr->adev, PCIE_PERF_REQ_GEN2, false))
+>>                                 break;
+>>  #endif
+>> +                       /* fall through */
+>>                 default:
+>>                         data->force_pcie_gen = smu7_get_current_pcie_speed(hwmgr);
+>>                         break;
+>> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+>> index 52abca065764..92de1bbb2e33 100644
+>> --- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+>> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+>> @@ -2330,6 +2330,7 @@ static uint32_t polaris10_get_offsetof(uint32_t type, uint32_t member)
+>>                 case DRAM_LOG_BUFF_SIZE:
+>>                         return offsetof(SMU74_SoftRegisters, DRAM_LOG_BUFF_SIZE);
+>>                 }
+>> +               /* fall through */
+>>         case SMU_Discrete_DpmTable:
+>>                 switch (member) {
+>>                 case UvdBootLevel:
+>> diff --git a/drivers/gpu/drm/drm_vm.c b/drivers/gpu/drm/drm_vm.c
+>> index c3301046dfaa..8987501f53b2 100644
+>> --- a/drivers/gpu/drm/drm_vm.c
+>> +++ b/drivers/gpu/drm/drm_vm.c
+>> @@ -584,8 +584,8 @@ static int drm_mmap_locked(struct file *filp, struct vm_area_struct *vma)
+>>                         vma->vm_ops = &drm_vm_ops;
+>>                         break;
+>>                 }
+>> -               /* fall through to _DRM_FRAME_BUFFER... */
+>>  #endif
+>> +               /* fall through - to _DRM_FRAME_BUFFER... */
+>>         case _DRM_FRAME_BUFFER:
+>>         case _DRM_REGISTERS:
+>>                 offset = drm_core_get_reg_ofs(dev);
+>> @@ -610,7 +610,7 @@ static int drm_mmap_locked(struct file *filp, struct vm_area_struct *vma)
+>>                     vma->vm_end - vma->vm_start, vma->vm_page_prot))
+>>                         return -EAGAIN;
+>>                 vma->vm_page_prot = drm_dma_prot(map->type, vma);
+>> -       /* fall through to _DRM_SHM */
+>> +               /* fall through - to _DRM_SHM */
+>>         case _DRM_SHM:
+>>                 vma->vm_ops = &drm_vm_shm_ops;
+>>                 vma->vm_private_data = (void *)map;
+>> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+>> index 73eff52036d2..a72be71c45b4 100644
+>> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
+>> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+>> @@ -1434,7 +1434,7 @@ nouveau_ttm_io_mem_reserve(struct ttm_bo_device *bdev, struct ttm_mem_reg *reg)
+>>                 if (drm->client.mem->oclass < NVIF_CLASS_MEM_NV50 || !mem->kind)
+>>                         /* untiled */
+>>                         break;
+>> -               /* fallthrough, tiled memory */
+>> +               /* fall through - tiled memory */
+>>         case TTM_PL_VRAM:
+>>                 reg->bus.offset = reg->start << PAGE_SHIFT;
+>>                 reg->bus.base = device->func->resource_addr(device, 1);
+>> diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
+>> index a97294ac96d5..a12439266bb0 100644
+>> --- a/drivers/gpu/drm/radeon/ci_dpm.c
+>> +++ b/drivers/gpu/drm/radeon/ci_dpm.c
+>> @@ -4869,10 +4869,12 @@ static void ci_request_link_speed_change_before_state_change(struct radeon_devic
+>>                         pi->force_pcie_gen = RADEON_PCIE_GEN2;
+>>                         if (current_link_speed == RADEON_PCIE_GEN2)
+>>                                 break;
+>> +                       /* fall through */
+>>                 case RADEON_PCIE_GEN2:
+>>                         if (radeon_acpi_pcie_performance_request(rdev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
+>>                                 break;
+>>  #endif
+>> +                       /* fall through */
+>>                 default:
+>>                         pi->force_pcie_gen = ci_get_current_pcie_speed(rdev);
+>>                         break;
+>> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+>> index f471537c852f..fbf346185790 100644
+>> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
+>> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+>> @@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
+>>                         return -EINVAL;
+>>                 }
+>>                 ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
+>> +               /* fall through */
+>>         case CB_TARGET_MASK:
+>>                 track->cb_target_mask = radeon_get_ib_value(p, idx);
+>>                 track->cb_dirty = true;
+> 
+> This should be a break I think.
+> 
+
+OK. I'll send this as a separate patch.
+
+Thanks for the feedback.
+
+--
+Gustavo
+
+> Alex
+> 
+>> diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+>> index 0a785ef0ab66..c9f6cb77e857 100644
+>> --- a/drivers/gpu/drm/radeon/si_dpm.c
+>> +++ b/drivers/gpu/drm/radeon/si_dpm.c
+>> @@ -5762,10 +5762,12 @@ static void si_request_link_speed_change_before_state_change(struct radeon_devic
+>>                         si_pi->force_pcie_gen = RADEON_PCIE_GEN2;
+>>                         if (current_link_speed == RADEON_PCIE_GEN2)
+>>                                 break;
+>> +                       /* fall through */
+>>                 case RADEON_PCIE_GEN2:
+>>                         if (radeon_acpi_pcie_performance_request(rdev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
+>>                                 break;
+>>  #endif
+>> +                       /* fall through */
+>>                 default:
+>>                         si_pi->force_pcie_gen = si_get_current_pcie_speed(rdev);
+>>                         break;
+>> --
+>> 2.20.1
+>>
+>> _______________________________________________
+>> amd-gfx mailing list
+>> amd-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
