@@ -1,44 +1,51 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/radeon/evergreen_cs: fix missing break in switch
- statement
-Date: Fri, 15 Feb 2019 14:29:26 -0600
-Message-ID: <20190215202926.GA4578@embeddedor>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/4] drm/amdkfd: Move a constant definition around
+Date: Fri, 15 Feb 2019 21:14:53 +0000
+Message-ID: <5c5c8893-970a-023a-2702-d75d492dc352@amd.com>
+References: <20190214234537.31249-1-Yong.Zhao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190214234537.31249-1-Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <C0E80F9F4E0D04459A57A629FF70276A-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Add missing break statement in order to prevent the code from falling
-through to case CB_TARGET_MASK.
-
-This bug was found thanks to the ongoing efforts to enable
--Wimplicit-fallthrough.
-
-Fixes: dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
-NOTE: Notice that this code has been out there since 2012. So, it
-would be helpful if someone can double-check this.
-
- drivers/gpu/drm/radeon/evergreen_cs.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
-index f471537c852f..1e14c6921454 100644
---- a/drivers/gpu/drm/radeon/evergreen_cs.c
-+++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-@@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
- 			return -EINVAL;
- 		}
- 		ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
-+		break;
- 	case CB_TARGET_MASK:
- 		track->cb_target_mask = radeon_get_ib_value(p, idx);
- 		track->cb_dirty = true;
--- 
-2.20.1
+VGhlIHNlcmllcyBpcyBSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5n
+QGFtZC5jb20+DQoNCk9uIDIwMTktMDItMTQgNjo0NSBwLm0uLCBaaGFvLCBZb25nIHdyb3RlOg0K
+PiBUaGUgc2ltaWxhciBkZWZpbml0aW9ucyBzaG91bGQgYmUgY29uc2VjdXRpdmUuDQo+DQo+IENo
+YW5nZS1JZDogSTkzNmNmMDc2MzYzZTY0MWM2MGUwNzA0ZDg0MDVhZTk0OTM3MThlMTgNCj4gU2ln
+bmVkLW9mZi1ieTogWW9uZyBaaGFvIDxZb25nLlpoYW9AYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaCB8IDExICsrKysrKy0tLS0tDQo+ICAg
+MSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4NCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oDQo+IGluZGV4IDEyYjY2MzMwZmM2ZC4uZTVl
+YmNjYTdmMDMxIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
+cHJpdi5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4g
+QEAgLTk3LDE3ICs5NywxOCBAQA0KPiAgICNkZWZpbmUgS0ZEX0NXU1JfVEJBX1RNQV9TSVpFIChQ
+QUdFX1NJWkUgKiAyKQ0KPiAgICNkZWZpbmUgS0ZEX0NXU1JfVE1BX09GRlNFVCBQQUdFX1NJWkUN
+Cj4gICANCj4gKyNkZWZpbmUgS0ZEX01BWF9OVU1fT0ZfUVVFVUVTX1BFUl9ERVZJQ0UJCVwNCj4g
+KwkoS0ZEX01BWF9OVU1fT0ZfUFJPQ0VTU0VTICoJCQlcDQo+ICsJCQlLRkRfTUFYX05VTV9PRl9R
+VUVVRVNfUEVSX1BST0NFU1MpDQo+ICsNCj4gKyNkZWZpbmUgS0ZEX0tFUk5FTF9RVUVVRV9TSVpF
+IDIwNDgNCj4gKw0KPiAgIC8qDQo+ICAgICogS2VybmVsIG1vZHVsZSBwYXJhbWV0ZXIgdG8gc3Bl
+Y2lmeSBtYXhpbXVtIG51bWJlciBvZiBzdXBwb3J0ZWQgcXVldWVzIHBlcg0KPiAgICAqIGRldmlj
+ZQ0KPiAgICAqLw0KPiAgIGV4dGVybiBpbnQgbWF4X251bV9vZl9xdWV1ZXNfcGVyX2RldmljZTsN
+Cj4gICANCj4gLSNkZWZpbmUgS0ZEX01BWF9OVU1fT0ZfUVVFVUVTX1BFUl9ERVZJQ0UJCVwNCj4g
+LQkoS0ZEX01BWF9OVU1fT0ZfUFJPQ0VTU0VTICoJCQlcDQo+IC0JCQlLRkRfTUFYX05VTV9PRl9R
+VUVVRVNfUEVSX1BST0NFU1MpDQo+IC0NCj4gLSNkZWZpbmUgS0ZEX0tFUk5FTF9RVUVVRV9TSVpF
+IDIwNDgNCj4gICANCj4gICAvKiBLZXJuZWwgbW9kdWxlIHBhcmFtZXRlciB0byBzcGVjaWZ5IHRo
+ZSBzY2hlZHVsaW5nIHBvbGljeSAqLw0KPiAgIGV4dGVybiBpbnQgc2NoZWRfcG9saWN5Ow0KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
