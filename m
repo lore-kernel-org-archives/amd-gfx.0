@@ -1,46 +1,214 @@
-From: Hans de Goede via dri-devel <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 0/5] Clean up TTM mmap offsets
-Date: Fri, 15 Feb 2019 16:25:37 +0100
-Message-ID: <0185f2a8-da60-f88f-1a45-5d20ab1b241a@redhat.com>
-References: <20190207085931.29569-1-tzimmermann@suse.de>
-Reply-To: Hans de Goede <hdegoede@redhat.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm: Mark expected switch fall-throughs
+Date: Fri, 15 Feb 2019 09:45:54 -0600
+Message-ID: <20190215154554.GA27081@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190207085931.29569-1-tzimmermann@suse.de>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@redhat.com, kraxel@redhat.com, z.liuxinliang@hisilicon.com, zourongrong@gmail.com, kong.kongxinwei@hisilicon.com, puck.chen@hisilicon.com, bskeggs@redhat.com, thellstrom@vmware.com, linux-graphics-maintainer@vmware.com, daniel@ffwll.ch, arnd@arndb.de, gregkh@linuxfoundation.org, ray.huang@amd.com, Jerry.Zhang@amd.com
-Cc: spice-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>, Ben Skeggs <bskeggs@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGksCgpPbiAyLzcvMTkgOTo1OSBBTSwgVGhvbWFzIFppbW1lcm1hbm4gd3JvdGU6Cj4gQWxtb3N0
-IGFsbCBUVE0tYmFzZWQgZHJpdmVycyB1c2UgdGhlIHNhbWUgdmFsdWVzIGZvciB0aGUgbW1hcC1h
-YmxlCj4gcmFuZ2Ugb2YgQk8gYWRkcmVzc2VzLiBFYWNoIGRyaXZlciB0aGVyZWZvcmUgZHVwbGlj
-YXRlcyB0aGUKPiBEUk1fRklMRV9QQUdFX09GRlNFVCBjb25zdGFudC4gT1RPSCwgdGhlIG1tYXAg
-cmFuZ2UncyBzaXplIGlzIG5vdAo+IGNvbmZpZ3VyYWJsZSBieSBkcml2ZXJzLgo+IAo+IFRoaXMg
-cGF0Y2ggc2V0IHJlcGxhY2VzIGRyaXZlci1zcGVjaWZpYyBjb25maWd1cmF0aW9uIHdpdGggYSBz
-aW5nbGUKPiBzZXR1cC4gQWxsIGNvZGUgaXMgbG9jYXRlZCB3aXRoaW4gVFRNLiBUVE0gYW5kIEdF
-TSBzaGFyZSB0aGUgc2FtZQo+IHJhbmdlIGZvciBtbWFwLWFibGUgQk9zLgo+IAo+IFRob21hcyBa
-aW1tZXJtYW5uICg1KToKPiAgICBzdGFnaW5nL3Zib3h2aWRlbzogVXNlIHNhbWUgQk8gbW1hcCBv
-ZmZzZXQgYXMgb3RoZXIgZHJpdmVycwo+ICAgIGRybS90dG06IERlZmluZSBhIHNpbmdsZSBEUk1f
-RklMRV9QQUdFX09GRlNFVCBjb25zdGFudAo+ICAgIGRybS90dG06IFJlbW92ZSBmaWxlX3BhZ2Vf
-b2Zmc2V0IHBhcmFtZXRlciBmcm9tIHR0bV9ib19kZXZpY2VfaW5pdCgpCj4gICAgZHJtL3R0bTog
-UXVpY2stdGVzdCBtbWFwIG9mZnNldCBpbiB0dG1fYm9fbW1hcCgpCj4gICAgZHJtOiBVc2UgdGhl
-IHNhbWUgbW1hcC1yYW5nZSBvZmZzZXQgYW5kIHNpemUgZm9yIEdFTSBhbmQgVFRNCgpUaGUgZmly
-c3QgcGF0Y2ggbG9va3MgZ29vZCB0byBtZToKClJldmlld2VkLWJ5OiBIYW5zIGRlIEdvZWRlIDxo
-ZGVnb2VkZUByZWRoYXQuY29tPgoKVGhlIHZib3h2aWRlbyBiaXRzIGluIHRoZSBvdGhlciBwYXRj
-aGVzIGxvb2sgZ29vZCB0byBtZSB0bzoKCkFja2VkLWJ5OiBIYW5zIGRlIEdvZWRlIDxoZGVnb2Vk
-ZUByZWRoYXQuY29tPgoKRm9yIHRoZSBvdGhlciBwYXRjaGVzIGluIHRoZSBzZXJpZXMuCgpSZWdh
-cmRzLAoKSGFucwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+In preparation to enabling -Wimplicit-fallthrough, mark switch
+cases where we are expecting to fall through.
+
+Warning level 3 was used: -Wimplicit-fallthrough=3
+
+Notice that, in some cases, the code comment is modified
+in accordance with what GCC is expecting to find.
+
+This patch is part of the ongoing efforts to enable
+-Wimplicit-fallthrough.
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c                   | 1 +
+ drivers/gpu/drm/amd/amdgpu/si_dpm.c                     | 2 ++
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c      | 2 ++
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c      | 2 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c        | 2 ++
+ drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 +
+ drivers/gpu/drm/drm_vm.c                                | 4 ++--
+ drivers/gpu/drm/nouveau/nouveau_bo.c                    | 2 +-
+ drivers/gpu/drm/radeon/ci_dpm.c                         | 2 ++
+ drivers/gpu/drm/radeon/evergreen_cs.c                   | 1 +
+ drivers/gpu/drm/radeon/si_dpm.c                         | 2 ++
+ 11 files changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index b8e50a34bdb3..02955e6e9dd9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -3236,6 +3236,7 @@ static void gfx_v8_0_tiling_mode_table_init(struct amdgpu_device *adev)
+ 		dev_warn(adev->dev,
+ 			 "Unknown chip type (%d) in function gfx_v8_0_tiling_mode_table_init() falling through to CHIP_CARRIZO\n",
+ 			 adev->asic_type);
++		/* fall through */
+ 
+ 	case CHIP_CARRIZO:
+ 		modearray[0] = (ARRAY_MODE(ARRAY_2D_TILED_THIN1) |
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+index da58040fdbdc..41e01a7f57a4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+@@ -6216,10 +6216,12 @@ static void si_request_link_speed_change_before_state_change(struct amdgpu_devic
+ 			si_pi->force_pcie_gen = AMDGPU_PCIE_GEN2;
+ 			if (current_link_speed == AMDGPU_PCIE_GEN2)
+ 				break;
++			/* fall through */
+ 		case AMDGPU_PCIE_GEN2:
+ 			if (amdgpu_acpi_pcie_performance_request(adev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
+ 				break;
+ #endif
++			/* fall through */
+ 		default:
+ 			si_pi->force_pcie_gen = si_get_current_pcie_speed(adev);
+ 			break;
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index a1c56f29cfeb..fd5266a58297 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -265,6 +265,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
+ 					&& id.enum_id == obj_id.enum_id)
+ 				return &bp->object_info_tbl.v1_4->display_path[i];
+ 		}
++		/* fall through */
+ 	case OBJECT_TYPE_CONNECTOR:
+ 	case OBJECT_TYPE_GENERIC:
+ 		/* Both Generic and Connector Object ID
+@@ -277,6 +278,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
+ 					&& id.enum_id == obj_id.enum_id)
+ 				return &bp->object_info_tbl.v1_4->display_path[i];
+ 		}
++		/* fall through */
+ 	default:
+ 		return NULL;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+index 85686d917636..a24a2bda8656 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+@@ -479,7 +479,7 @@ static void program_grph_pixel_format(
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F:
+ 		sign = 1;
+ 		floating = 1;
+-		/* no break */
++		/* fall through */
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616F: /* shouldn't this get float too? */
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
+ 		grph_depth = 3;
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+index c8f5c00dd1e7..48187acac59e 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+@@ -3681,10 +3681,12 @@ static int smu7_request_link_speed_change_before_state_change(
+ 			data->force_pcie_gen = PP_PCIEGen2;
+ 			if (current_link_speed == PP_PCIEGen2)
+ 				break;
++			/* fall through */
+ 		case PP_PCIEGen2:
+ 			if (0 == amdgpu_acpi_pcie_performance_request(hwmgr->adev, PCIE_PERF_REQ_GEN2, false))
+ 				break;
+ #endif
++			/* fall through */
+ 		default:
+ 			data->force_pcie_gen = smu7_get_current_pcie_speed(hwmgr);
+ 			break;
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+index 52abca065764..92de1bbb2e33 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+@@ -2330,6 +2330,7 @@ static uint32_t polaris10_get_offsetof(uint32_t type, uint32_t member)
+ 		case DRAM_LOG_BUFF_SIZE:
+ 			return offsetof(SMU74_SoftRegisters, DRAM_LOG_BUFF_SIZE);
+ 		}
++		/* fall through */
+ 	case SMU_Discrete_DpmTable:
+ 		switch (member) {
+ 		case UvdBootLevel:
+diff --git a/drivers/gpu/drm/drm_vm.c b/drivers/gpu/drm/drm_vm.c
+index c3301046dfaa..8987501f53b2 100644
+--- a/drivers/gpu/drm/drm_vm.c
++++ b/drivers/gpu/drm/drm_vm.c
+@@ -584,8 +584,8 @@ static int drm_mmap_locked(struct file *filp, struct vm_area_struct *vma)
+ 			vma->vm_ops = &drm_vm_ops;
+ 			break;
+ 		}
+-		/* fall through to _DRM_FRAME_BUFFER... */
+ #endif
++		/* fall through - to _DRM_FRAME_BUFFER... */
+ 	case _DRM_FRAME_BUFFER:
+ 	case _DRM_REGISTERS:
+ 		offset = drm_core_get_reg_ofs(dev);
+@@ -610,7 +610,7 @@ static int drm_mmap_locked(struct file *filp, struct vm_area_struct *vma)
+ 		    vma->vm_end - vma->vm_start, vma->vm_page_prot))
+ 			return -EAGAIN;
+ 		vma->vm_page_prot = drm_dma_prot(map->type, vma);
+-	/* fall through to _DRM_SHM */
++		/* fall through - to _DRM_SHM */
+ 	case _DRM_SHM:
+ 		vma->vm_ops = &drm_vm_shm_ops;
+ 		vma->vm_private_data = (void *)map;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
+index 73eff52036d2..a72be71c45b4 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bo.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
+@@ -1434,7 +1434,7 @@ nouveau_ttm_io_mem_reserve(struct ttm_bo_device *bdev, struct ttm_mem_reg *reg)
+ 		if (drm->client.mem->oclass < NVIF_CLASS_MEM_NV50 || !mem->kind)
+ 			/* untiled */
+ 			break;
+-		/* fallthrough, tiled memory */
++		/* fall through - tiled memory */
+ 	case TTM_PL_VRAM:
+ 		reg->bus.offset = reg->start << PAGE_SHIFT;
+ 		reg->bus.base = device->func->resource_addr(device, 1);
+diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
+index a97294ac96d5..a12439266bb0 100644
+--- a/drivers/gpu/drm/radeon/ci_dpm.c
++++ b/drivers/gpu/drm/radeon/ci_dpm.c
+@@ -4869,10 +4869,12 @@ static void ci_request_link_speed_change_before_state_change(struct radeon_devic
+ 			pi->force_pcie_gen = RADEON_PCIE_GEN2;
+ 			if (current_link_speed == RADEON_PCIE_GEN2)
+ 				break;
++			/* fall through */
+ 		case RADEON_PCIE_GEN2:
+ 			if (radeon_acpi_pcie_performance_request(rdev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
+ 				break;
+ #endif
++			/* fall through */
+ 		default:
+ 			pi->force_pcie_gen = ci_get_current_pcie_speed(rdev);
+ 			break;
+diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+index f471537c852f..fbf346185790 100644
+--- a/drivers/gpu/drm/radeon/evergreen_cs.c
++++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+@@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
+ 			return -EINVAL;
+ 		}
+ 		ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
++		/* fall through */
+ 	case CB_TARGET_MASK:
+ 		track->cb_target_mask = radeon_get_ib_value(p, idx);
+ 		track->cb_dirty = true;
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index 0a785ef0ab66..c9f6cb77e857 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -5762,10 +5762,12 @@ static void si_request_link_speed_change_before_state_change(struct radeon_devic
+ 			si_pi->force_pcie_gen = RADEON_PCIE_GEN2;
+ 			if (current_link_speed == RADEON_PCIE_GEN2)
+ 				break;
++			/* fall through */
+ 		case RADEON_PCIE_GEN2:
+ 			if (radeon_acpi_pcie_performance_request(rdev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
+ 				break;
+ #endif
++			/* fall through */
+ 		default:
+ 			si_pi->force_pcie_gen = si_get_current_pcie_speed(rdev);
+ 			break;
+-- 
+2.20.1
