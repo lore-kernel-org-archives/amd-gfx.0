@@ -1,13 +1,13 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.14 23/40] drm/amd/powerplay: OD setting fix on Vega10
-Date: Thu, 14 Feb 2019 21:12:56 -0500
-Message-ID: <20190215021313.178476-23-sashal@kernel.org>
-References: <20190215021313.178476-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 35/65] drm/amd/powerplay: OD setting fix on Vega10
+Date: Thu, 14 Feb 2019 21:10:51 -0500
+Message-ID: <20190215021121.177674-35-sashal@kernel.org>
+References: <20190215021121.177674-1-sashal@kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190215021313.178476-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190215021121.177674-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Cc: Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
@@ -28,7 +28,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 21 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
-index e343df190375..05bb87a54e90 100644
+index 16b1a9cf6cf0..743d3c983082 100644
 --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
 +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
 @@ -32,6 +32,7 @@
