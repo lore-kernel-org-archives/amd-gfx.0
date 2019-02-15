@@ -1,52 +1,71 @@
-From: "Rafael J. Wysocki" <rjw@rjwysocki.net>
-Subject: [PATCH] gpu: drm: radeon: Set DPM_FLAG_NEVER_SKIP when enabling PM-runtime
-Date: Thu, 14 Feb 2019 23:46:19 +0100
-Message-ID: <2281684.8tZHfIXjiu@aspire.rjw.lan>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.20 43/77] drm/amd/powerplay: OD setting fix on Vega10
+Date: Thu, 14 Feb 2019 21:08:21 -0500
+Message-ID: <20190215020855.176727-43-sashal@kernel.org>
+References: <20190215020855.176727-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8BIT
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190215020855.176727-1-sashal@kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, LKML <linux-kernel@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, =?utf-8?B?0K/RgNC+0YHQu9Cw0LIg0KHQtdC80YfQtdC90LrQvg==?= <ukrkyi@gmail.com>
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-On HP ProBook 4540s, if PM-runtime is enabled in the radeon driver
-and the direct-complete optimization is used for the radeon device
-during system-wide suspend, the system doesn't resume.
+[ Upstream commit 6d87dc97eb3341de3f7b1efa3156cb0e014f4a96 ]
 
-Preventing direct-complete from being used with the radeon device by
-setting the DPM_FLAG_NEVER_SKIP driver flag for it makes the problem
-go away, which indicates that direct-complete is not safe for the
-radeon driver in general and should not be used with it (at least
-for now).
+gfxclk for OD setting is limited to 1980M for non-acg
+ASICs of Vega10
 
-This fixes a regression introduced by commit c62ec4610c40
-("PM / core: Fix direct_complete handling for devices with no
-callbacks") which allowed direct-complete to be applied to
-devices without PM callbacks (again) which in turn unlocked
-direct-complete for radeon on HP ProBook 4540s.
-
-Fixes: c62ec4610c40 ("PM / core: Fix direct_complete handling for devices with no callbacks")
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=201519
-Reported-by: Ярослав Семченко <ukrkyi@gmail.com>
-Tested-by: Ярослав Семченко <ukrkyi@gmail.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_kms.c |    1 +
- 1 file changed, 1 insertion(+)
+ .../powerplay/hwmgr/vega10_processpptables.c  | 22 ++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-Index: linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
-===================================================================
---- linux-pm.orig/drivers/gpu/drm/radeon/radeon_kms.c
-+++ linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -172,6 +172,7 @@ int radeon_driver_load_kms(struct drm_de
- 	}
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
+index b8747a5c9204..99d596dc0e89 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_processpptables.c
+@@ -32,6 +32,7 @@
+ #include "vega10_pptable.h"
  
- 	if (radeon_is_px(dev)) {
-+		dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
- 		pm_runtime_use_autosuspend(dev->dev);
- 		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
- 		pm_runtime_set_active(dev->dev);
+ #define NUM_DSPCLK_LEVELS 8
++#define VEGA10_ENGINECLOCK_HARDMAX 198000
+ 
+ static void set_hw_cap(struct pp_hwmgr *hwmgr, bool enable,
+ 		enum phm_platform_caps cap)
+@@ -258,7 +259,26 @@ static int init_over_drive_limits(
+ 		struct pp_hwmgr *hwmgr,
+ 		const ATOM_Vega10_POWERPLAYTABLE *powerplay_table)
+ {
+-	hwmgr->platform_descriptor.overdriveLimit.engineClock =
++	const ATOM_Vega10_GFXCLK_Dependency_Table *gfxclk_dep_table =
++			(const ATOM_Vega10_GFXCLK_Dependency_Table *)
++			(((unsigned long) powerplay_table) +
++			le16_to_cpu(powerplay_table->usGfxclkDependencyTableOffset));
++	bool is_acg_enabled = false;
++	ATOM_Vega10_GFXCLK_Dependency_Record_V2 *patom_record_v2;
++
++	if (gfxclk_dep_table->ucRevId == 1) {
++		patom_record_v2 =
++			(ATOM_Vega10_GFXCLK_Dependency_Record_V2 *)gfxclk_dep_table->entries;
++		is_acg_enabled =
++			(bool)patom_record_v2[gfxclk_dep_table->ucNumEntries-1].ucACGEnable;
++	}
++
++	if (powerplay_table->ulMaxODEngineClock > VEGA10_ENGINECLOCK_HARDMAX &&
++		!is_acg_enabled)
++		hwmgr->platform_descriptor.overdriveLimit.engineClock =
++			VEGA10_ENGINECLOCK_HARDMAX;
++	else
++		hwmgr->platform_descriptor.overdriveLimit.engineClock =
+ 			le32_to_cpu(powerplay_table->ulMaxODEngineClock);
+ 	hwmgr->platform_descriptor.overdriveLimit.memoryClock =
+ 			le32_to_cpu(powerplay_table->ulMaxODMemoryClock);
+-- 
+2.19.1
