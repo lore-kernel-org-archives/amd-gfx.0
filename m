@@ -1,41 +1,55 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amdgpu/powerplay/polaris10_smumgr: Mark expected switch
- fall-through
-Date: Fri, 15 Feb 2019 11:02:53 -0600
-Message-ID: <20190215170253.GA30719@embeddedor>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Update sdma golden setting for vega20
+Date: Fri, 15 Feb 2019 17:44:43 +0000
+Message-ID: <1550252677-4723-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-In preparation to enabling -Wimplicit-fallthrough, mark switch
-cases where we are expecting to fall through.
-
-Warning level 3 was used: -Wimplicit-fallthrough=3
-
-This patch is part of the ongoing efforts to enable
--Wimplicit-fallthrough.
-
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-index 52abca065764..92de1bbb2e33 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-@@ -2330,6 +2330,7 @@ static uint32_t polaris10_get_offsetof(uint32_t type, uint32_t member)
- 		case DRAM_LOG_BUFF_SIZE:
- 			return offsetof(SMU74_SoftRegisters, DRAM_LOG_BUFF_SIZE);
- 		}
-+		/* fall through */
- 	case SMU_Discrete_DpmTable:
- 		switch (member) {
- 		case UvdBootLevel:
--- 
-2.20.1
+QWNjb3JkaW5nIHRvIGhhcmR3YXJlIGVuZ2luZWVyLCBXUklURV9CVVJTVF9MRU5HVEggWzk6OF0g
+aW4gcmVnaXN0ZXIKU0RNQTBfQ0hJQ0tFTl9CSVRTIG5lZWQgdG8gY2hhbmdlIHRvIDMgZm9yIGJl
+dHRlciBwZXJmb3JtYW5jZQoKQ2hhbmdlLUlkOiBJMzIxMjFhYzE5YTYyYzA3OTRiNDM3NTUwNzhl
+ODlkNDQ3NzI0YmYwNwpTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1kLmNv
+bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYyB8IDQgKystLQog
+MSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zZG1hX3Y0XzAuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCmluZGV4IDEyN2I4NTkuLmM4MTZlNTUgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCisrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jCkBAIC0xMjgsNyArMTI4LDcgQEAgc3Rh
+dGljIGNvbnN0IHN0cnVjdCBzb2MxNV9yZWdfZ29sZGVuIGdvbGRlbl9zZXR0aW5nc19zZG1hMF80
+XzJfaW5pdFtdID0gewogCiBzdGF0aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29s
+ZGVuX3NldHRpbmdzX3NkbWEwXzRfMltdID0KIHsKLQlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKFNE
+TUEwLCAwLCBtbVNETUEwX0NISUNLRU5fQklUUywgMHhmZTkzMWYwNywgMHgwMjgzMWQwNyksCisJ
+U09DMTVfUkVHX0dPTERFTl9WQUxVRShTRE1BMCwgMCwgbW1TRE1BMF9DSElDS0VOX0JJVFMsIDB4
+ZmU5MzFmMDcsIDB4MDI4MzFmMDcpLAogCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoU0RNQTAsIDAs
+IG1tU0RNQTBfQ0xLX0NUUkwsIDB4ZmZmZmZmZmYsIDB4M2YwMDAxMDApLAogCVNPQzE1X1JFR19H
+T0xERU5fVkFMVUUoU0RNQTAsIDAsIG1tU0RNQTBfR0JfQUREUl9DT05GSUcsIDB4MDAwMDc3M2Ys
+IDB4MDAwMDQwMDIpLAogCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoU0RNQTAsIDAsIG1tU0RNQTBf
+R0JfQUREUl9DT05GSUdfUkVBRCwgMHgwMDAwNzczZiwgMHgwMDAwNDAwMiksCkBAIC0xNTgsNyAr
+MTU4LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzb2MxNV9yZWdfZ29sZGVuIGdvbGRlbl9zZXR0
+aW5nc19zZG1hMF80XzJbXSA9CiB9OwogCiBzdGF0aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19n
+b2xkZW4gZ29sZGVuX3NldHRpbmdzX3NkbWExXzRfMltdID0gewotCVNPQzE1X1JFR19HT0xERU5f
+VkFMVUUoU0RNQTEsIDAsIG1tU0RNQTFfQ0hJQ0tFTl9CSVRTLCAweGZlOTMxZjA3LCAweDAyODMx
+ZDA3KSwKKwlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKFNETUExLCAwLCBtbVNETUExX0NISUNLRU5f
+QklUUywgMHhmZTkzMWYwNywgMHgwMjgzMWYwNyksCiAJU09DMTVfUkVHX0dPTERFTl9WQUxVRShT
+RE1BMSwgMCwgbW1TRE1BMV9DTEtfQ1RSTCwgMHhmZmZmZmZmZiwgMHgzZjAwMDEwMCksCiAJU09D
+MTVfUkVHX0dPTERFTl9WQUxVRShTRE1BMSwgMCwgbW1TRE1BMV9HQl9BRERSX0NPTkZJRywgMHgw
+MDAwNzczZiwgMHgwMDAwNDAwMiksCiAJU09DMTVfUkVHX0dPTERFTl9WQUxVRShTRE1BMSwgMCwg
+bW1TRE1BMV9HQl9BRERSX0NPTkZJR19SRUFELCAweDAwMDA3NzNmLCAweDAwMDA0MDAyKSwKLS0g
+CjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
