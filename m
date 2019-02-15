@@ -1,28 +1,14 @@
-From: Mikhail Gavrilov via amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: "ring gfx timeout" with Vega 64 on mesa 19.0.0-rc2 and kernel
- 5.0.0-rc6 (GPU reset still not works)
-Date: Fri, 15 Feb 2019 09:18:22 +0500
-Message-ID: <CABXGCsO-mx1GbV+JmKcMzcgWwTEqGo7_-ZD7Zo9BOe55Hsd3Cg@mail.gmail.com>
-References: <CABXGCsOakru4=RMrhpocLhN99LwKp4q1-UfFJrEUh7q4UeKJ_g@mail.gmail.com>
- <47477f0a-76dd-2f33-ff38-01f8216cffcc@amd.com>
- <CABXGCsMMOx+Ay7Dkjfy1bKcvnsqEE0v2XnZzLNVM3ygM4G2PWg@mail.gmail.com>
- <0349a887-b5b2-827a-830a-91c93dc9628d@amd.com>
- <CABXGCsMWKw2wkQmKeRj1CNwx2=EMMcBG=XvVqGMKshOXiQ7ZsQ@mail.gmail.com>
- <024290f1-97e2-ee24-6f54-3fe14a3855cf@amd.com>
- <CABXGCsOngQCDrG2GhuXTO0FaonXzK7qwe3wRdW_oPg_OLGryDg@mail.gmail.com>
- <12b7ac94-f093-d606-ead4-463c747a716c@amd.com>
- <CABXGCsM4a0XuFbhLobJriRxa55C_zgWtexg=t_6A9Dwn1vt9bg@mail.gmail.com>
- <b10e4e75-921d-e89f-2a32-68aa8437854b@amd.com>
- <CABXGCsO-shqmH1ZLsT0M+AfyHkOJDN986DeV0SF+8vLG63=0Zw@mail.gmail.com>
- <249fa2ee-136f-3d6a-5f81-f768fe234000@amd.com>
- <936118e1-ec6a-2af4-7cea-c26bd2d5ffc8@gmail.com>
- <6cc267ec-6899-9fdf-1adc-57b96330d2d8@amd.com>
-Reply-To: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: remove some old unused dpm helpers
+Date: Fri, 15 Feb 2019 09:11:29 +0100
+Message-ID: <c6b4f0fd-003b-f75a-be5a-d71f7278e5a8@daenzer.net>
+References: <20190214205854.17037-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <6cc267ec-6899-9fdf-1adc-57b96330d2d8-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190214205854.17037-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -33,13 +19,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T24gVGh1LCAxNCBGZWIgMjAxOSBhdCAyMDo1MSwgR3JvZHpvdnNreSwgQW5kcmV5CjxBbmRyZXku
-R3JvZHpvdnNreUBhbWQuY29tPiB3cm90ZToKPgo+IEdvdCBpdC4KPgo+IEFuZHJleQo+CgpDb29s
-LCBwbGVhc2UgZG9uJ3QgZm9yZ2V0IGdpdmUgbWUgcGF0Y2ggZm9yIHRlc3RpbmcuCgoKLS0KQmVz
-dCBSZWdhcmRzLApNaWtlIEdhdnJpbG92LgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZng=
+T24gMjAxOS0wMi0xNCA5OjU4IHAubS4sIEFsZXggRGV1Y2hlciB2aWEgYW1kLWdmeCB3cm90ZToK
+PiBDYXJyaWVkIG92ZXIgZnJvbSByYWRlb24sIGJ1dCBubyBsb25nZXIgdXNlZC4KPiAKPiBTaWdu
+ZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpSZXZp
+ZXdlZC1ieTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgoKLS0gCkVh
+cnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICBodHRw
+Oi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAg
+ICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA==
