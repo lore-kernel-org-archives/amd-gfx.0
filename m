@@ -1,8 +1,8 @@
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amd/display/dc/bios_parser2: Mark expected switch
- fall-throughs
-Date: Fri, 15 Feb 2019 10:50:23 -0600
-Message-ID: <20190215165023.GA30190@embeddedor>
+Subject: [PATCH] drm/amd/display/dce_mem_input: Mark expected switch
+ fall-through
+Date: Fri, 15 Feb 2019 10:54:42 -0600
+Message-ID: <20190215165442.GA30381@embeddedor>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
@@ -17,33 +17,29 @@ cases where we are expecting to fall through.
 
 Warning level 3 was used: -Wimplicit-fallthrough=3
 
+Notice that, in this particular case, the code comment is modified
+in accordance with what GCC is expecting to find.
+
 This patch is part of the ongoing efforts to enable
 -Wimplicit-fallthrough.
 
 Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
 ---
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index a1c56f29cfeb..fd5266a58297 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -265,6 +265,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
- 					&& id.enum_id == obj_id.enum_id)
- 				return &bp->object_info_tbl.v1_4->display_path[i];
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+index 85686d917636..a24a2bda8656 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+@@ -479,7 +479,7 @@ static void program_grph_pixel_format(
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F:
+ 		sign = 1;
+ 		floating = 1;
+-		/* no break */
 +		/* fall through */
- 	case OBJECT_TYPE_CONNECTOR:
- 	case OBJECT_TYPE_GENERIC:
- 		/* Both Generic and Connector Object ID
-@@ -277,6 +278,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
- 					&& id.enum_id == obj_id.enum_id)
- 				return &bp->object_info_tbl.v1_4->display_path[i];
- 		}
-+		/* fall through */
- 	default:
- 		return NULL;
- 	}
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616F: /* shouldn't this get float too? */
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
+ 		grph_depth = 3;
 -- 
 2.20.1
