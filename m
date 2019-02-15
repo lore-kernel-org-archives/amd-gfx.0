@@ -1,117 +1,44 @@
-From: Lionel Landwerlin via amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: Re: [PATCH 06/11] drm/syncobj: add timeline payload query ioctl v4
-Date: Fri, 15 Feb 2019 19:31:35 +0000
-Message-ID: <157f8231-57e2-0492-de5d-f9ba4761c4c9@intel.com>
-References: <20181207095601.2058-1-david1.zhou@amd.com>
- <20181207095601.2058-6-david1.zhou@amd.com>
-Reply-To: Lionel Landwerlin <lionel.g.landwerlin-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/radeon/evergreen_cs: fix missing break in switch
+ statement
+Date: Fri, 15 Feb 2019 14:29:26 -0600
+Message-ID: <20190215202926.GA4578@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20181207095601.2058-6-david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Daniel Rakos <Daniel.Rakos-5C7GfCeVMHo@public.gmane.org>, Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMDcvMTIvMjAxOCAwOTo1NSwgQ2h1bm1pbmcgWmhvdSB3cm90ZToKPiB1c2VyIG1vZGUgY2Fu
-IHF1ZXJ5IHRpbWVsaW5lIHBheWxvYWQuCj4gdjI6IGNoZWNrIHJldHVybiB2YWx1ZSBvZiBjb3B5
-X3RvX3VzZXIKPiB2MzogaGFuZGxlIHF1ZXJ5aW5nIGVudHJ5IGJ5IGVudHJ5Cj4gdjQ6IHJlYmFz
-ZSBvbiBuZXcgY2hhaW4gY29udGFpbmVyLCBzaW1wbGlmeSBpbnRlcmZhY2UKPgo+IFNpZ25lZC1v
-ZmYtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+Cj4gQ2M6IERhbmllbCBS
-YWtvcyA8RGFuaWVsLlJha29zQGFtZC5jb20+Cj4gQ2M6IEphc29uIEVrc3RyYW5kIDxqYXNvbkBq
-bGVrc3RyYW5kLm5ldD4KPiBDYzogQmFzIE5pZXV3ZW5odWl6ZW4gPGJhc0BiYXNuaWV1d2VuaHVp
-emVuLm5sPgo+IENjOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgo+IENjOiBDaHJp
-c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ2M6IENocmlzIFdpbHNv
-biA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVrPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ry
-bV9pbnRlcm5hbC5oIHwgIDIgKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1faW9jdGwuYyAgICB8
-ICAyICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYyAgfCA0MyArKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrCj4gICBpbmNsdWRlL3VhcGkvZHJtL2RybS5oICAgICAg
-ICAgfCAxMCArKysrKysrKwo+ICAgNCBmaWxlcyBjaGFuZ2VkLCA1NyBpbnNlcnRpb25zKCspCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oIGIvZHJpdmVycy9n
-cHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gaW5kZXggMThiNDFlMTAxOTVjLi5kYWI0ZDU5MzY0NDEg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gQEAgLTE4NCw2ICsxODQsOCBAQCBpbnQgZHJt
-X3N5bmNvYmpfcmVzZXRfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwK
-PiAgIAkJCSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7Cj4gICBpbnQgZHJtX3N5
-bmNvYmpfc2lnbmFsX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4g
-ICAJCQkgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKTsKPiAraW50IGRybV9zeW5j
-b2JqX3F1ZXJ5X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gKwkJ
-CSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7Cj4gICAKPiAgIC8qIGRybV9mcmFt
-ZWJ1ZmZlci5jICovCj4gICB2b2lkIGRybV9mcmFtZWJ1ZmZlcl9wcmludF9pbmZvKHN0cnVjdCBk
-cm1fcHJpbnRlciAqcCwgdW5zaWduZWQgaW50IGluZGVudCwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2RybV9pb2N0bC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gaW5k
-ZXggYTlhMTdlZDM1Y2M0Li43NTc4ZWY2ZGMxZDEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2RybV9pb2N0bC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gQEAg
-LTY4MSw2ICs2ODEsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9pb2N0bF9kZXNjIGRybV9p
-b2N0bHNbXSA9IHsKPiAgIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxMT1cpLAo+
-ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfU0lHTkFMLCBkcm1fc3luY29ial9z
-aWduYWxfaW9jdGwsCj4gICAJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVSX0FMTE9XKSwK
-PiArCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfUVVFUlksIGRybV9zeW5jb2JqX3F1
-ZXJ5X2lvY3RsLAo+ICsJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVSX0FMTE9XKSwKPiAg
-IAlEUk1fSU9DVExfREVGKERSTV9JT0NUTF9DUlRDX0dFVF9TRVFVRU5DRSwgZHJtX2NydGNfZ2V0
-X3NlcXVlbmNlX2lvY3RsLCBEUk1fVU5MT0NLRUQpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lP
-Q1RMX0NSVENfUVVFVUVfU0VRVUVOQ0UsIGRybV9jcnRjX3F1ZXVlX3NlcXVlbmNlX2lvY3RsLCBE
-Uk1fVU5MT0NLRUQpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX01PREVfQ1JFQVRFX0xF
-QVNFLCBkcm1fbW9kZV9jcmVhdGVfbGVhc2VfaW9jdGwsIERSTV9NQVNURVJ8RFJNX1VOTE9DS0VE
-KSwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vZHJtX3N5bmNvYmouYwo+IGluZGV4IDM0ODA3OWJiMDk2NS4uZjk3ZmEwMGNhMWQw
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKPiBAQCAtMTA2MSwzICsxMDYxLDQ2IEBAIGRybV9z
-eW5jb2JqX3NpZ25hbF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+
-ICAgCj4gICAJcmV0dXJuIHJldDsKPiAgIH0KPiArCj4gK2ludCBkcm1fc3luY29ial9xdWVyeV9p
-b2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICsJCQkgICAgc3RydWN0
-IGRybV9maWxlICpmaWxlX3ByaXZhdGUpCj4gK3sKPiArCXN0cnVjdCBkcm1fc3luY29ial90aW1l
-bGluZV9hcnJheSAqYXJncyA9IGRhdGE7Cj4gKwlzdHJ1Y3QgZHJtX3N5bmNvYmogKipzeW5jb2Jq
-czsKPiArCXVpbnQ2NF90IF9fdXNlciAqcG9pbnRzID0gdTY0X3RvX3VzZXJfcHRyKGFyZ3MtPnBv
-aW50cyk7Cj4gKwl1aW50MzJfdCBpOwo+ICsJaW50IHJldDsKPiArCj4gKwlpZiAoIWRybV9jb3Jl
-X2NoZWNrX2ZlYXR1cmUoZGV2LCBEUklWRVJfU1lOQ09CSikpCj4gKwkJcmV0dXJuIC1FTk9ERVY7
-Cj4gKwo+ICsJaWYgKGFyZ3MtPnBhZCAhPSAwKQo+ICsJCXJldHVybiAtRUlOVkFMOwo+ICsKPiAr
-CWlmIChhcmdzLT5jb3VudF9oYW5kbGVzID09IDApCj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gKwo+
-ICsJcmV0ID0gZHJtX3N5bmNvYmpfYXJyYXlfZmluZChmaWxlX3ByaXZhdGUsCj4gKwkJCQkgICAg
-IHU2NF90b191c2VyX3B0cihhcmdzLT5oYW5kbGVzKSwKPiArCQkJCSAgICAgYXJncy0+Y291bnRf
-aGFuZGxlcywKPiArCQkJCSAgICAgJnN5bmNvYmpzKTsKPiArCWlmIChyZXQgPCAwKQo+ICsJCXJl
-dHVybiByZXQ7Cj4gKwo+ICsJZm9yIChpID0gMDsgaSA8IGFyZ3MtPmNvdW50X2hhbmRsZXM7IGkr
-Kykgewo+ICsJCXN0cnVjdCBkbWFfZmVuY2VfY2hhaW4gKmNoYWluOwo+ICsJCXN0cnVjdCBkbWFf
-ZmVuY2UgKmZlbmNlOwo+ICsJCXVpbnQ2NF90IHBvaW50Owo+ICsKPiArCQlmZW5jZSA9IGRybV9z
-eW5jb2JqX2ZlbmNlX2dldChzeW5jb2Jqc1tpXSk7Cj4gKwkJY2hhaW4gPSB0b19kbWFfZmVuY2Vf
-Y2hhaW4oZmVuY2UpOwo+ICsJCXBvaW50ID0gY2hhaW4gPyBmZW5jZS0+c2Vxbm8gOiAwOwoKClNv
-cnJ5LCBJIGRvbicgdCB3YW50IHRvIHNvdW5kIGFubm95aW5nLCBidXQgdGhpcyBsb29rcyBsaWtl
-IHRoaXMgY291bGQgCnJlcG9ydCB2YWx1ZXMgZ29pbmcgYmFja3dhcmQuCgpBbnl0aGluZyBhZGQg
-YSBwb2ludCBYIHRvIGEgdGltZWxpbmUgdGhhdCBoYXMgcmVhY2hlZCB2YWx1ZSBZIHdpdGggWCA8
-IFkgCndvdWxkIHRyaWdnZXIgdGhhdC4KCkVpdGhlciB0aHJvdWdoIHRoZSBzdWJtaXNzaW9uIG9y
-IHVzZXJzcGFjZSBzaWduYWxpbmcgb3IgaW1wb3J0aW5nIAphbm90aGVyIHN5bmNwb2ludCdzIGZl
-bmNlLgoKCi1MaW9uZWwKCgo+ICsJCXJldCA9IGNvcHlfdG9fdXNlcigmcG9pbnRzW2ldLCAmcG9p
-bnQsIHNpemVvZih1aW50NjRfdCkpOwo+ICsJCXJldCA9IHJldCA/IC1FRkFVTFQgOiAwOwo+ICsJ
-CWlmIChyZXQpCj4gKwkJCWJyZWFrOwo+ICsJfQo+ICsJZHJtX3N5bmNvYmpfYXJyYXlfZnJlZShz
-eW5jb2JqcywgYXJncy0+Y291bnRfaGFuZGxlcyk7Cj4gKwo+ICsJcmV0dXJuIHJldDsKPiArfQo+
-IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2RybS5oIGIvaW5jbHVkZS91YXBpL2RybS9k
-cm0uaAo+IGluZGV4IDAwOTIxMTFkMDAyYy4uYjJjMzZmMmIyNTk5IDEwMDY0NAo+IC0tLSBhL2lu
-Y2x1ZGUvdWFwaS9kcm0vZHJtLmgKPiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2RybS5oCj4gQEAg
-LTc2Nyw2ICs3NjcsMTQgQEAgc3RydWN0IGRybV9zeW5jb2JqX2FycmF5IHsKPiAgIAlfX3UzMiBw
-YWQ7Cj4gICB9Owo+ICAgCj4gK3N0cnVjdCBkcm1fc3luY29ial90aW1lbGluZV9hcnJheSB7Cj4g
-KwlfX3U2NCBoYW5kbGVzOwo+ICsJX191NjQgcG9pbnRzOwo+ICsJX191MzIgY291bnRfaGFuZGxl
-czsKPiArCV9fdTMyIHBhZDsKPiArfTsKPiArCj4gKwo+ICAgLyogUXVlcnkgY3VycmVudCBzY2Fu
-b3V0IHNlcXVlbmNlIG51bWJlciAqLwo+ICAgc3RydWN0IGRybV9jcnRjX2dldF9zZXF1ZW5jZSB7
-Cj4gICAJX191MzIgY3J0Y19pZDsJCS8qIHJlcXVlc3RlZCBjcnRjX2lkICovCj4gQEAgLTkyNCw2
-ICs5MzIsOCBAQCBleHRlcm4gIkMiIHsKPiAgICNkZWZpbmUgRFJNX0lPQ1RMX01PREVfUkVWT0tF
-X0xFQVNFCURSTV9JT1dSKDB4QzksIHN0cnVjdCBkcm1fbW9kZV9yZXZva2VfbGVhc2UpCj4gICAK
-PiAgICNkZWZpbmUgRFJNX0lPQ1RMX1NZTkNPQkpfVElNRUxJTkVfV0FJVAlEUk1fSU9XUigweENB
-LCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxpbmVfd2FpdCkKPiArI2RlZmluZSBEUk1fSU9DVExf
-U1lOQ09CSl9RVUVSWQkJRFJNX0lPV1IoMHhDQiwgc3RydWN0IGRybV9zeW5jb2JqX3RpbWVsaW5l
-X2FycmF5KQo+ICsKPiAgIC8qKgo+ICAgICogRGV2aWNlIHNwZWNpZmljIGlvY3RscyBzaG91bGQg
-b25seSBiZSBpbiB0aGVpciByZXNwZWN0aXZlIGhlYWRlcnMKPiAgICAqIFRoZSBkZXZpY2Ugc3Bl
-Y2lmaWMgaW9jdGwgcmFuZ2UgaXMgZnJvbSAweDQwIHRvIDB4OWYuCgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Add missing break statement in order to prevent the code from falling
+through to case CB_TARGET_MASK.
+
+This bug was found thanks to the ongoing efforts to enable
+-Wimplicit-fallthrough.
+
+Fixes: dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+NOTE: Notice that this code has been out there since 2012. So, it
+would be helpful if someone can double-check this.
+
+ drivers/gpu/drm/radeon/evergreen_cs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
+index f471537c852f..1e14c6921454 100644
+--- a/drivers/gpu/drm/radeon/evergreen_cs.c
++++ b/drivers/gpu/drm/radeon/evergreen_cs.c
+@@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
+ 			return -EINVAL;
+ 		}
+ 		ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
++		break;
+ 	case CB_TARGET_MASK:
+ 		track->cb_target_mask = radeon_get_ib_value(p, idx);
+ 		track->cb_dirty = true;
+-- 
+2.20.1
