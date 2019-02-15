@@ -1,20 +1,16 @@
-From: Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>
-Subject: Re: [PATCH 02/11] dma-buf: add new dma_fence_chain container v4
-Date: Fri, 15 Feb 2019 13:11:30 -0600
-Message-ID: <CAOFGe977e+vyJFaYs9F07ydL0+r387t43_d4qcwCf-HT+ToF=A@mail.gmail.com>
+From: Lionel Landwerlin via amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Re: [PATCH 06/11] drm/syncobj: add timeline payload query ioctl v4
+Date: Fri, 15 Feb 2019 19:31:35 +0000
+Message-ID: <157f8231-57e2-0492-de5d-f9ba4761c4c9@intel.com>
 References: <20181207095601.2058-1-david1.zhou@amd.com>
- <20181207095601.2058-2-david1.zhou@amd.com>
- <6c2adaf5-6871-20be-a26d-182f8ca8ab8a@intel.com>
- <e170ceed-fdb7-8b4a-93d7-e565641390b3@amd.com>
- <bbae2023-8dee-692e-9549-40779a202587@intel.com>
- <CAOFGe96HUkzHPJKYT-07X3vMvCRD-=Hba1=Ke24qt_PY2vn0YQ@mail.gmail.com>
- <a0b27d87-50f2-56ce-1db7-5a1dc005a798@gmail.com>
- <CAOFGe9611MqmsvdvZS4_vuJjrrUAmjK5-41Z6tpaxTHJsB8CwA@mail.gmail.com>
- <f933f9ec-6e69-f9df-f12f-5f1844a2ad37@amd.com>
+ <20181207095601.2058-6-david1.zhou@amd.com>
+Reply-To: Lionel Landwerlin <lionel.g.landwerlin-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1192149333=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f933f9ec-6e69-f9df-f12f-5f1844a2ad37-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20181207095601.2058-6-david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,410 +21,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Lionel Landwerlin <lionel.g.landwerlin-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Daniel Rakos <Daniel.Rakos-5C7GfCeVMHo@public.gmane.org>, Jason Ekstrand <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>
 
---===============1192149333==
-Content-Type: multipart/alternative; boundary="0000000000009504720581f38b41"
-
---0000000000009504720581f38b41
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Feb 15, 2019 at 12:33 PM Koenig, Christian <Christian.Koenig-urvtwAKJhsc@public.gmane.org=
-m>
-wrote:
-
-> Am 15.02.19 um 19:16 schrieb Jason Ekstrand:
->
-> On Fri, Feb 15, 2019 at 11:51 AM Christian K=C3=B6nig <
-> ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
->
->> Am 15.02.19 um 17:49 schrieb Jason Ekstrand:
->>
->> On Fri, Feb 15, 2019 at 9:52 AM Lionel Landwerlin via dri-devel <
->> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> wrote:
->>
->>> On 15/02/2019 14:32, Koenig, Christian wrote:
->>> > Am 15.02.19 um 15:23 schrieb Lionel Landwerlin:
->>> >> Hi Christian, David,
->>> >>
->>> >> For timeline semaphore we need points to signaled in order.
->>> >> I'm struggling to understand how this fence-chain implementation
->>> >> preserves ordering of the seqnos.
->>> >>
->>> >> One of the scenario I can see an issue happening is when you have a
->>> >> timeline with points 1 & 2 and userspace submits for 2 different
->>> >> engines :
->>> >>      - first with let's say a blitter style engine on point 2
->>> >>      - then a 3d style engine on point 1
->>> > Yeah, and where exactly is the problem?
->>> >
->>> > Seqno 1 will signal when the 3d style engine finishes work.
->>> >
->>> > And seqno 2 will signal when both seqno 1 is signaled and the blitter
->>> > style engine has finished its work.
->>>
->>
->> That's an interesting interpretation of the spec.  I think it's legal an=
-d
->> I could see that behavior may be desirable in some ways.
->>
->>
->> Well we actually had this discussion multiple times now, both internally
->> as well as on the mailing list. Please also see the previous mails with
->> Daniel on this topic.
->>
->
-> I dug through dri-devel and read everything I could find with a search fo=
-r
-> "timeline semaphore"  I didn't find all that much but this did come up on=
-ce.
->
->
-> Need to dig through my mails as well, that was back in November/December
-> last year.
->
->
->
->> My initial suggestion was actually to exactly what Leonid suggested as
->> well.
->>
->> And following this I used a rather simple container for the
->> implementation, e.g. just a ring buffer indexed by the sequence number. =
-In
->> this scenario userspace can specify on syncobj creation time how big the
->> window for sequence numbers should be, e.g. in this implementation how b=
-ig
->> the ring buffer would be.
->>
->> This was rejected by our guys who actually wrote a good part of the
->> Vulkan specification. Daniel then has gone into the same direction durin=
-g
->> the public discussion.
->>
->
-> I agree with whoever said that specifying a ringbuffer size is
-> unacceptable.  I'm not really sure how that's relevant though.  Is a
-> ringbuffer required to implement the behavior that is being suggested
-> here?  Genuine question; I'm trying to get back up to speed.
->
->
-> Using a ring buffer was just an example how we could do it if we follow m=
-y
-> and Lionel's suggestion.
->
-> Key point is that we could simplify the implementation massively if
-> sequence numbers don't need to depend on each other.
->
-> In other words we just see the syncobj as container where fences are adde=
-d
-> and retrieved from instead of something actively involved in the signalin=
-g.
->
-
-In principal, I think this is a reasonable argument.  Having it involved in
-signalling doesn't seem terrible to me but it would mean that a driver
-wouldn't be able to detect that the fence it's waiting on actually belongs
-to itself and optimize things.
-
-
-> Main reason we didn't do it this way is because the AMD Vulkan team has
-> rejected this approach.
->
-
-Clearly, there's not quite as much agreement as I'd thought there was.  Oh,
-well, that's why we have these discussions.
-
-
-> Additional to that chaining sequence numbers together is really the more
-> defensive approach, e.g. it is less likely that applications can shoot
-> themselves in the foot.
->
-
-Yeah, I can see how the "everything prior to n must be signalled" could be
-safer.  I think both wait-any and wait-all have their ups and downs.  It
-just took me by surprise.
-
-
->
->  4. If you do get into a sticky situation, you can unblock an entire
->> timeline by using the CPU signal ioctl to set it to a high value.
->>
->>
->> Well I think that this could be problematic as well. Keep in mind that
->> main use case for this is sharing timelines between processes.
->>
->> In other words you don't want applications to be able to mess with it to
->> much.
->>
->
-> Cross-process is exactly why you want it.  Suppose you're a compositor an=
-d
-> you have a timeline shared with another application and you've submitted
-> work which waits on it.  Then you get a notification somehow (SIGHUP?) th=
-at
-> the client has died leaving you hanging.  What do you do?  You take the
-> semaphore that's shared with you and the client and whack it to UINT64_MA=
-X
-> to unblock yourself.  Of course, this can be abused and that's always the
-> risk you take with timelines.
->
->
-> My last status is that basically everybody agrees now that wait before
-> signal in the kernel is forbidden.
->
-
-Agreed.  I'm not saying that wait before signal in the kernel should be a
-thing.  I think we're all agreed that wait-before-signal with the current
-GEM infrastructure is utter insanity.
-
-However, timeline syncobjs are both a kernel wait mechanism (only for time
-points that already have a known-to-signal dma_fence) and a userspace wait
-mechanism (which can wait for things which haven't materialized yet).  The
-whacking to UINT64_MAX would be to unblock waiting userspace threads as you
-mentioned below.
-
-That said, in the case that I suggested here, if the client process died,
-got kicked off the GPU, or whatever, then the kernel has likely declared
-it's context a loss and signalled all dma_fences associated with it.  If
-this is true, then whacking it to UINT64_MAX still works to unblock the
-timeline because there would be nothing else pending to signal time
-points.  Worst case, the process crashed and left valid GPU work pending in
-the kernel and the compositor ends up waiting a little while longer for
-said work to complete.
-
-Ok, I think I'm reasonably convinced that the wait-all behaviour implied by
-the chaining approach, while unexpected, isn't harmful.
-
---Jason
-
---0000000000009504720581f38b41
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Fri, Feb 15, 2019 at 12:33 PM Koenig, Christian &lt;<a href=3D"ma=
-ilto:Christian.Koenig-5C7GfCeVMHo@public.gmane.org">Christian.Koenig-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
-rder-left:1px solid rgb(204,204,204);padding-left:1ex">
-
-
-
-<div bgcolor=3D"#FFFFFF">
-<div class=3D"gmail-m_-4383219934271622999moz-cite-prefix">Am 15.02.19 um 1=
-9:16 schrieb Jason Ekstrand:<br>
-</div>
-<blockquote type=3D"cite">
-<div dir=3D"ltr">
-<div class=3D"gmail_quote">
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Feb 15, 2019 at 11:51 AM Chri=
-stian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" ta=
-rget=3D"_blank">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
-</div>
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">
-<div bgcolor=3D"#FFFFFF">
-<div class=3D"gmail-m_-4383219934271622999gmail-m_5249618168223624859moz-ci=
-te-prefix">Am 15.02.19 um 17:49 schrieb Jason Ekstrand:<br>
-</div>
-<blockquote type=3D"cite">
-<div dir=3D"ltr">
-<div class=3D"gmail_quote">
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Feb 15, 2019 at 9:52 AM Lione=
-l Landwerlin via dri-devel &lt;<a href=3D"mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9w@public.gmane.org=
-p.org" target=3D"_blank">dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; wrote:<br>
-</div>
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">
-On 15/02/2019 14:32, Koenig, Christian wrote:<br>
-&gt; Am 15.02.19 um 15:23 schrieb Lionel Landwerlin:<br>
-&gt;&gt; Hi Christian, David,<br>
-&gt;&gt;<br>
-&gt;&gt; For timeline semaphore we need points to signaled in order.<br>
-&gt;&gt; I&#39;m struggling to understand how this fence-chain implementati=
-on<br>
-&gt;&gt; preserves ordering of the seqnos.<br>
-&gt;&gt;<br>
-&gt;&gt; One of the scenario I can see an issue happening is when you have =
-a<br>
-&gt;&gt; timeline with points 1 &amp; 2 and userspace submits for 2 differe=
-nt<br>
-&gt;&gt; engines :<br>
-&gt;&gt;=C2=A0 =C2=A0=C2=A0=C2=A0 - first with let&#39;s say a blitter styl=
-e engine on point 2<br>
-&gt;&gt;=C2=A0 =C2=A0=C2=A0=C2=A0 - then a 3d style engine on point 1<br>
-&gt; Yeah, and where exactly is the problem?<br>
-&gt;<br>
-&gt; Seqno 1 will signal when the 3d style engine finishes work.<br>
-&gt;<br>
-&gt; And seqno 2 will signal when both seqno 1 is signaled and the blitter<=
-br>
-&gt; style engine has finished its work.<br>
-</blockquote>
-<div><br>
-</div>
-<div>That&#39;s an interesting interpretation of the spec.=C2=A0 I think it=
-&#39;s legal and I could see that behavior may be desirable in some ways.<b=
-r>
-</div>
-</div>
-</div>
-</blockquote>
-<br>
-Well we actually had this discussion multiple times now, both internally as=
- well as on the mailing list. Please also see the previous mails with Danie=
-l on this topic.<br>
-</div>
-</blockquote>
-<div><br>
-</div>
-<div>I dug through dri-devel and read everything I could find with a search=
- for &quot;timeline semaphore&quot;=C2=A0 I didn&#39;t find all that much b=
-ut this did come up once.<br>
-</div>
-</div>
-</div>
-</blockquote>
-<br>
-Need to dig through my mails as well, that was back in November/December la=
-st year.<br>
-<br>
-<blockquote type=3D"cite">
-<div dir=3D"ltr">
-<div class=3D"gmail_quote">
-<div>=C2=A0</div>
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">
-<div bgcolor=3D"#FFFFFF">My initial suggestion was actually to exactly what=
- Leonid suggested as well.<br>
-<br>
-And following this I used a rather simple container for the implementation,=
- e.g. just a ring buffer indexed by the sequence number. In this scenario u=
-serspace can specify on syncobj creation time how big the window for sequen=
-ce numbers should be, e.g. in this
- implementation how big the ring buffer would be.<br>
-<br>
-This was rejected by our guys who actually wrote a good part of the Vulkan =
-specification. Daniel then has gone into the same direction during the publ=
-ic discussion.<br>
-</div>
-</blockquote>
-<div><br>
-</div>
-<div>I agree with whoever said that specifying a ringbuffer size is unaccep=
-table.=C2=A0 I&#39;m not really sure how that&#39;s relevant though.=C2=A0 =
-Is a ringbuffer required to implement the behavior that is being suggested =
-here?=C2=A0 Genuine question; I&#39;m trying to get back up
- to speed.<br>
-</div>
-</div>
-</div>
-</blockquote>
-<br>
-Using a ring buffer was just an example how we could do it if we follow my =
-and Lionel&#39;s suggestion.<br>
-<br>
-Key point is that we could simplify the implementation massively if sequenc=
-e numbers don&#39;t need to depend on each other.<br>
-<br>
-In other words we just see the syncobj as container where fences are added =
-and retrieved from instead of something actively involved in the signaling.
-<br></div></blockquote><div><br></div><div>In principal, I think this is a =
-reasonable argument.=C2=A0 Having it involved in signalling doesn&#39;t see=
-m terrible to me but it would mean that a driver wouldn&#39;t be able to de=
-tect that the fence it&#39;s waiting on actually belongs to itself and opti=
-mize things.<br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
-ing-left:1ex"><div bgcolor=3D"#FFFFFF">
-Main reason we didn&#39;t do it this way is because the AMD Vulkan team has=
- rejected this approach.<br></div></blockquote><div><br></div><div>Clearly,=
- there&#39;s not quite as much agreement as I&#39;d thought there was.=C2=
-=A0 Oh, well, that&#39;s why we have these discussions.<br></div><div>=C2=
-=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div bgcolor=3D"=
-#FFFFFF">
-Additional to that chaining sequence numbers together is really the more de=
-fensive approach, e.g. it is less likely that applications can shoot themse=
-lves in the foot.<br></div></blockquote><div><br></div><div>Yeah, I can see=
- how the &quot;everything prior to n must be signalled&quot; could be safer=
-.=C2=A0 I think both wait-any and wait-all have their ups and downs.=C2=A0 =
-It just took me by surprise.<br></div><div>=C2=A0</div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex"><div bgcolor=3D"#FFFFFF">
-<blockquote type=3D"cite">
-<div dir=3D"ltr">
-<div class=3D"gmail_quote">
-<div><br>
-</div>
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">
-<div bgcolor=3D"#FFFFFF">
-<blockquote type=3D"cite">
-<div dir=3D"ltr">
-<div class=3D"gmail_quote">
-<div>=C2=A04. If you do get into a sticky situation, you can unblock an ent=
-ire timeline by using the CPU signal ioctl to set it to a high value.
-<br>
-</div>
-</div>
-</div>
-</blockquote>
-<br>
-Well I think that this could be problematic as well. Keep in mind that main=
- use case for this is sharing timelines between processes.<br>
-<br>
-In other words you don&#39;t want applications to be able to mess with it t=
-o much.<br>
-</div>
-</blockquote>
-<div><br>
-</div>
-<div>Cross-process is exactly why you want it.=C2=A0 Suppose you&#39;re a c=
-ompositor and you have a timeline shared with another application and you&#=
-39;ve submitted work which waits on it.=C2=A0 Then you get a notification s=
-omehow (SIGHUP?) that the client has died leaving
- you hanging.=C2=A0 What do you do?=C2=A0 You take the semaphore that&#39;s=
- shared with you and the client and whack it to UINT64_MAX to unblock yours=
-elf.=C2=A0 Of course, this can be abused and that&#39;s always the risk you=
- take with timelines.<br>
-</div>
-</div>
-</div>
-</blockquote>
-<br>
-My last status is that basically everybody agrees now that wait before sign=
-al in the kernel is forbidden.<br></div></blockquote><div><br></div><div>Ag=
-reed.=C2=A0 I&#39;m not saying that wait before signal in the kernel should=
- be a thing.=C2=A0 I think we&#39;re all agreed that wait-before-signal wit=
-h the current GEM infrastructure is utter insanity.</div><div><br></div><di=
-v>However, timeline syncobjs are both a kernel wait mechanism (only for tim=
-e points that already have a known-to-signal dma_fence) and a userspace wai=
-t mechanism (which can wait for things which haven&#39;t materialized yet).=
-=C2=A0 The whacking to UINT64_MAX would be to unblock waiting userspace thr=
-eads as you mentioned below.<br></div><div><br></div><div>That said, in the=
- case that I suggested here, if the client process died, got kicked off the=
- GPU, or whatever, then the kernel has likely declared it&#39;s context a l=
-oss and signalled all dma_fences associated with it.=C2=A0 If this is true,=
- then whacking it to UINT64_MAX still works to unblock the timeline because=
- there would be nothing else pending to signal time points.=C2=A0 Worst cas=
-e, the process crashed and left valid GPU work pending in the kernel and th=
-e compositor ends up waiting a little while longer for said work to complet=
-e.<br></div><div><br></div><div>Ok, I think I&#39;m reasonably convinced th=
-at the wait-all behaviour implied by the chaining approach, while unexpecte=
-d, isn&#39;t harmful.</div><div><br></div><div>--Jason<br></div></div></div=
->
-
---0000000000009504720581f38b41--
-
---===============1192149333==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1192149333==--
+T24gMDcvMTIvMjAxOCAwOTo1NSwgQ2h1bm1pbmcgWmhvdSB3cm90ZToKPiB1c2VyIG1vZGUgY2Fu
+IHF1ZXJ5IHRpbWVsaW5lIHBheWxvYWQuCj4gdjI6IGNoZWNrIHJldHVybiB2YWx1ZSBvZiBjb3B5
+X3RvX3VzZXIKPiB2MzogaGFuZGxlIHF1ZXJ5aW5nIGVudHJ5IGJ5IGVudHJ5Cj4gdjQ6IHJlYmFz
+ZSBvbiBuZXcgY2hhaW4gY29udGFpbmVyLCBzaW1wbGlmeSBpbnRlcmZhY2UKPgo+IFNpZ25lZC1v
+ZmYtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+Cj4gQ2M6IERhbmllbCBS
+YWtvcyA8RGFuaWVsLlJha29zQGFtZC5jb20+Cj4gQ2M6IEphc29uIEVrc3RyYW5kIDxqYXNvbkBq
+bGVrc3RyYW5kLm5ldD4KPiBDYzogQmFzIE5pZXV3ZW5odWl6ZW4gPGJhc0BiYXNuaWV1d2VuaHVp
+emVuLm5sPgo+IENjOiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgo+IENjOiBDaHJp
+c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gQ2M6IENocmlzIFdpbHNv
+biA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVrPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2Ry
+bV9pbnRlcm5hbC5oIHwgIDIgKysKPiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1faW9jdGwuYyAgICB8
+ICAyICsrCj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYyAgfCA0MyArKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrCj4gICBpbmNsdWRlL3VhcGkvZHJtL2RybS5oICAgICAg
+ICAgfCAxMCArKysrKysrKwo+ICAgNCBmaWxlcyBjaGFuZ2VkLCA1NyBpbnNlcnRpb25zKCspCj4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oIGIvZHJpdmVycy9n
+cHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gaW5kZXggMThiNDFlMTAxOTVjLi5kYWI0ZDU5MzY0NDEg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2RybV9pbnRlcm5hbC5oCj4gQEAgLTE4NCw2ICsxODQsOCBAQCBpbnQgZHJt
+X3N5bmNvYmpfcmVzZXRfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwK
+PiAgIAkJCSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7Cj4gICBpbnQgZHJtX3N5
+bmNvYmpfc2lnbmFsX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4g
+ICAJCQkgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKTsKPiAraW50IGRybV9zeW5j
+b2JqX3F1ZXJ5X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCj4gKwkJ
+CSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7Cj4gICAKPiAgIC8qIGRybV9mcmFt
+ZWJ1ZmZlci5jICovCj4gICB2b2lkIGRybV9mcmFtZWJ1ZmZlcl9wcmludF9pbmZvKHN0cnVjdCBk
+cm1fcHJpbnRlciAqcCwgdW5zaWduZWQgaW50IGluZGVudCwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9ncHUvZHJtL2RybV9pb2N0bC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gaW5k
+ZXggYTlhMTdlZDM1Y2M0Li43NTc4ZWY2ZGMxZDEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2RybV9pb2N0bC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCj4gQEAg
+LTY4MSw2ICs2ODEsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9pb2N0bF9kZXNjIGRybV9p
+b2N0bHNbXSA9IHsKPiAgIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxMT1cpLAo+
+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfU0lHTkFMLCBkcm1fc3luY29ial9z
+aWduYWxfaW9jdGwsCj4gICAJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVSX0FMTE9XKSwK
+PiArCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfUVVFUlksIGRybV9zeW5jb2JqX3F1
+ZXJ5X2lvY3RsLAo+ICsJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVSX0FMTE9XKSwKPiAg
+IAlEUk1fSU9DVExfREVGKERSTV9JT0NUTF9DUlRDX0dFVF9TRVFVRU5DRSwgZHJtX2NydGNfZ2V0
+X3NlcXVlbmNlX2lvY3RsLCBEUk1fVU5MT0NLRUQpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lP
+Q1RMX0NSVENfUVVFVUVfU0VRVUVOQ0UsIGRybV9jcnRjX3F1ZXVlX3NlcXVlbmNlX2lvY3RsLCBE
+Uk1fVU5MT0NLRUQpLAo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX01PREVfQ1JFQVRFX0xF
+QVNFLCBkcm1fbW9kZV9jcmVhdGVfbGVhc2VfaW9jdGwsIERSTV9NQVNURVJ8RFJNX1VOTE9DS0VE
+KSwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vZHJtX3N5bmNvYmouYwo+IGluZGV4IDM0ODA3OWJiMDk2NS4uZjk3ZmEwMGNhMWQw
+IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jCj4gKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMKPiBAQCAtMTA2MSwzICsxMDYxLDQ2IEBAIGRybV9z
+eW5jb2JqX3NpZ25hbF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+
+ICAgCj4gICAJcmV0dXJuIHJldDsKPiAgIH0KPiArCj4gK2ludCBkcm1fc3luY29ial9xdWVyeV9p
+b2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICsJCQkgICAgc3RydWN0
+IGRybV9maWxlICpmaWxlX3ByaXZhdGUpCj4gK3sKPiArCXN0cnVjdCBkcm1fc3luY29ial90aW1l
+bGluZV9hcnJheSAqYXJncyA9IGRhdGE7Cj4gKwlzdHJ1Y3QgZHJtX3N5bmNvYmogKipzeW5jb2Jq
+czsKPiArCXVpbnQ2NF90IF9fdXNlciAqcG9pbnRzID0gdTY0X3RvX3VzZXJfcHRyKGFyZ3MtPnBv
+aW50cyk7Cj4gKwl1aW50MzJfdCBpOwo+ICsJaW50IHJldDsKPiArCj4gKwlpZiAoIWRybV9jb3Jl
+X2NoZWNrX2ZlYXR1cmUoZGV2LCBEUklWRVJfU1lOQ09CSikpCj4gKwkJcmV0dXJuIC1FTk9ERVY7
+Cj4gKwo+ICsJaWYgKGFyZ3MtPnBhZCAhPSAwKQo+ICsJCXJldHVybiAtRUlOVkFMOwo+ICsKPiAr
+CWlmIChhcmdzLT5jb3VudF9oYW5kbGVzID09IDApCj4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gKwo+
+ICsJcmV0ID0gZHJtX3N5bmNvYmpfYXJyYXlfZmluZChmaWxlX3ByaXZhdGUsCj4gKwkJCQkgICAg
+IHU2NF90b191c2VyX3B0cihhcmdzLT5oYW5kbGVzKSwKPiArCQkJCSAgICAgYXJncy0+Y291bnRf
+aGFuZGxlcywKPiArCQkJCSAgICAgJnN5bmNvYmpzKTsKPiArCWlmIChyZXQgPCAwKQo+ICsJCXJl
+dHVybiByZXQ7Cj4gKwo+ICsJZm9yIChpID0gMDsgaSA8IGFyZ3MtPmNvdW50X2hhbmRsZXM7IGkr
+Kykgewo+ICsJCXN0cnVjdCBkbWFfZmVuY2VfY2hhaW4gKmNoYWluOwo+ICsJCXN0cnVjdCBkbWFf
+ZmVuY2UgKmZlbmNlOwo+ICsJCXVpbnQ2NF90IHBvaW50Owo+ICsKPiArCQlmZW5jZSA9IGRybV9z
+eW5jb2JqX2ZlbmNlX2dldChzeW5jb2Jqc1tpXSk7Cj4gKwkJY2hhaW4gPSB0b19kbWFfZmVuY2Vf
+Y2hhaW4oZmVuY2UpOwo+ICsJCXBvaW50ID0gY2hhaW4gPyBmZW5jZS0+c2Vxbm8gOiAwOwoKClNv
+cnJ5LCBJIGRvbicgdCB3YW50IHRvIHNvdW5kIGFubm95aW5nLCBidXQgdGhpcyBsb29rcyBsaWtl
+IHRoaXMgY291bGQgCnJlcG9ydCB2YWx1ZXMgZ29pbmcgYmFja3dhcmQuCgpBbnl0aGluZyBhZGQg
+YSBwb2ludCBYIHRvIGEgdGltZWxpbmUgdGhhdCBoYXMgcmVhY2hlZCB2YWx1ZSBZIHdpdGggWCA8
+IFkgCndvdWxkIHRyaWdnZXIgdGhhdC4KCkVpdGhlciB0aHJvdWdoIHRoZSBzdWJtaXNzaW9uIG9y
+IHVzZXJzcGFjZSBzaWduYWxpbmcgb3IgaW1wb3J0aW5nIAphbm90aGVyIHN5bmNwb2ludCdzIGZl
+bmNlLgoKCi1MaW9uZWwKCgo+ICsJCXJldCA9IGNvcHlfdG9fdXNlcigmcG9pbnRzW2ldLCAmcG9p
+bnQsIHNpemVvZih1aW50NjRfdCkpOwo+ICsJCXJldCA9IHJldCA/IC1FRkFVTFQgOiAwOwo+ICsJ
+CWlmIChyZXQpCj4gKwkJCWJyZWFrOwo+ICsJfQo+ICsJZHJtX3N5bmNvYmpfYXJyYXlfZnJlZShz
+eW5jb2JqcywgYXJncy0+Y291bnRfaGFuZGxlcyk7Cj4gKwo+ICsJcmV0dXJuIHJldDsKPiArfQo+
+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2RybS5oIGIvaW5jbHVkZS91YXBpL2RybS9k
+cm0uaAo+IGluZGV4IDAwOTIxMTFkMDAyYy4uYjJjMzZmMmIyNTk5IDEwMDY0NAo+IC0tLSBhL2lu
+Y2x1ZGUvdWFwaS9kcm0vZHJtLmgKPiArKysgYi9pbmNsdWRlL3VhcGkvZHJtL2RybS5oCj4gQEAg
+LTc2Nyw2ICs3NjcsMTQgQEAgc3RydWN0IGRybV9zeW5jb2JqX2FycmF5IHsKPiAgIAlfX3UzMiBw
+YWQ7Cj4gICB9Owo+ICAgCj4gK3N0cnVjdCBkcm1fc3luY29ial90aW1lbGluZV9hcnJheSB7Cj4g
+KwlfX3U2NCBoYW5kbGVzOwo+ICsJX191NjQgcG9pbnRzOwo+ICsJX191MzIgY291bnRfaGFuZGxl
+czsKPiArCV9fdTMyIHBhZDsKPiArfTsKPiArCj4gKwo+ICAgLyogUXVlcnkgY3VycmVudCBzY2Fu
+b3V0IHNlcXVlbmNlIG51bWJlciAqLwo+ICAgc3RydWN0IGRybV9jcnRjX2dldF9zZXF1ZW5jZSB7
+Cj4gICAJX191MzIgY3J0Y19pZDsJCS8qIHJlcXVlc3RlZCBjcnRjX2lkICovCj4gQEAgLTkyNCw2
+ICs5MzIsOCBAQCBleHRlcm4gIkMiIHsKPiAgICNkZWZpbmUgRFJNX0lPQ1RMX01PREVfUkVWT0tF
+X0xFQVNFCURSTV9JT1dSKDB4QzksIHN0cnVjdCBkcm1fbW9kZV9yZXZva2VfbGVhc2UpCj4gICAK
+PiAgICNkZWZpbmUgRFJNX0lPQ1RMX1NZTkNPQkpfVElNRUxJTkVfV0FJVAlEUk1fSU9XUigweENB
+LCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxpbmVfd2FpdCkKPiArI2RlZmluZSBEUk1fSU9DVExf
+U1lOQ09CSl9RVUVSWQkJRFJNX0lPV1IoMHhDQiwgc3RydWN0IGRybV9zeW5jb2JqX3RpbWVsaW5l
+X2FycmF5KQo+ICsKPiAgIC8qKgo+ICAgICogRGV2aWNlIHNwZWNpZmljIGlvY3RscyBzaG91bGQg
+b25seSBiZSBpbiB0aGVpciByZXNwZWN0aXZlIGhlYWRlcnMKPiAgICAqIFRoZSBkZXZpY2Ugc3Bl
+Y2lmaWMgaW9jdGwgcmFuZ2UgaXMgZnJvbSAweDQwIHRvIDB4OWYuCgoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
