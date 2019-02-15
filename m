@@ -1,13 +1,14 @@
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/radeon/si_dpm: Mark expected switch fall-throughs
-Date: Fri, 15 Feb 2019 11:10:31 -0600
-Message-ID: <20190215171031.GA31263@embeddedor>
+Subject: [PATCH] drm/amdgpu/powerplay/polaris10_smumgr: Mark expected switch
+ fall-through
+Date: Fri, 15 Feb 2019 11:02:53 -0600
+Message-ID: <20190215170253.GA30719@embeddedor>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
 Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
@@ -21,25 +22,20 @@ This patch is part of the ongoing efforts to enable
 
 Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
 ---
- drivers/gpu/drm/radeon/si_dpm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index 0a785ef0ab66..c9f6cb77e857 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -5762,10 +5762,12 @@ static void si_request_link_speed_change_before_state_change(struct radeon_devic
- 			si_pi->force_pcie_gen = RADEON_PCIE_GEN2;
- 			if (current_link_speed == RADEON_PCIE_GEN2)
- 				break;
-+			/* fall through */
- 		case RADEON_PCIE_GEN2:
- 			if (radeon_acpi_pcie_performance_request(rdev, PCIE_PERF_REQ_PECI_GEN2, false) == 0)
- 				break;
- #endif
-+			/* fall through */
- 		default:
- 			si_pi->force_pcie_gen = si_get_current_pcie_speed(rdev);
- 			break;
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+index 52abca065764..92de1bbb2e33 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
+@@ -2330,6 +2330,7 @@ static uint32_t polaris10_get_offsetof(uint32_t type, uint32_t member)
+ 		case DRAM_LOG_BUFF_SIZE:
+ 			return offsetof(SMU74_SoftRegisters, DRAM_LOG_BUFF_SIZE);
+ 		}
++		/* fall through */
+ 	case SMU_Discrete_DpmTable:
+ 		switch (member) {
+ 		case UvdBootLevel:
 -- 
 2.20.1
