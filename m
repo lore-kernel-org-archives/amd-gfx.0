@@ -1,91 +1,163 @@
-From: Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH] gpu: drm: radeon: Set DPM_FLAG_NEVER_SKIP when enabling
- PM-runtime
-Date: Sat, 16 Feb 2019 07:00:58 +0100
-Message-ID: <20190216060058.gsiddsmj3f27e6v7@wunner.de>
-References: <2281684.8tZHfIXjiu@aspire.rjw.lan>
- <CADnq5_NmDYzZZPUh5Wp+a8bycRWFDt3Lhzf0AKx9BECJ_U-Kyg@mail.gmail.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH RFC] drm: add func to better detect wether swiotlb is
+ needed
+Date: Sat, 16 Feb 2019 19:00:00 +0000
+Message-ID: <bd825cbe-dfe0-0990-01cc-8cf15e514711@amd.com>
+References: <1550266182-4061-1-git-send-email-michael.d.labriola@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CADnq5_NmDYzZZPUh5Wp+a8bycRWFDt3Lhzf0AKx9BECJ_U-Kyg@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, ?????????????? ???????????????? <ukrkyi@gmail.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1550266182-4061-1-git-send-email-michael.d.labriola-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+Content-ID: <0F88F5D4AD59B8498AA39B5FA2A543D0-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Michael D Labriola <michael.d.labriola-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: Juergen Gross <jgross-IBi9RG/b67k@public.gmane.org>, Konrad Rzeszutek Wilk <konrad.wilk-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, Andrew Cooper <andrew.cooper3-Sxgqhf6Nn4DQT0dZR+AlfA@public.gmane.org>, "xen-devel-GuqFBffKawuEi8DpZVb4nw@public.gmane.org" <xen-devel-GuqFBffKawuEi8DpZVb4nw@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, Paul Durrant <Paul.Durrant-Sxgqhf6Nn4DQT0dZR+AlfA@public.gmane.org>, Jan Beulich <JBeulich-IBi9RG/b67k@public.gmane.org>
 
-On Fri, Feb 15, 2019 at 11:01:04AM -0500, Alex Deucher wrote:
-> On Fri, Feb 15, 2019 at 10:39 AM Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > On HP ProBook 4540s, if PM-runtime is enabled in the radeon driver
-> > and the direct-complete optimization is used for the radeon device
-> > during system-wide suspend, the system doesn't resume.
-> >
-> > Preventing direct-complete from being used with the radeon device by
-> > setting the DPM_FLAG_NEVER_SKIP driver flag for it makes the problem
-> > go away, which indicates that direct-complete is not safe for the
-> > radeon driver in general and should not be used with it (at least
-> > for now).
-> >
-> > This fixes a regression introduced by commit c62ec4610c40
-> > ("PM / core: Fix direct_complete handling for devices with no
-> > callbacks") which allowed direct-complete to be applied to
-> > devices without PM callbacks (again) which in turn unlocked
-> > direct-complete for radeon on HP ProBook 4540s.
-> 
-> Do other similar drivers like amdgpu and nouveau need the same fix?
-> I'm not too familiar with the direct_complete feature in general.
-
-direct_complete means that a discrete GPU which is in D3cold upon
-entering system sleep is left as is, i.e. it is not woken.  It is
-also expected to still be in D3cold when resuming from system sleep
-from the PM core's point of view.  (If it is in D0uninitialized, the
-GPU's driver needs to ensure it is transitioned to D3cold again.)
-
-I know for a fact that resuming the discrete GPU is not necessary
-on my MacBook Pro with Nvidia GPU.  I'd expect those with AMD GPUs
-to behave the same.  The apple-gmux driver takes care of putting
-the GPU into D3cold on resume from system sleep if it was in D3cold
-when entering system sleep (see drivers/platform/x86/apple-gmux.c,
-gmux_resume()).
-
-I think it is desirable to use direct_complete because it saves power
-(no need to gratuitously wake the GPU upon entering system sleep,
-only to immediately cut its power) and it also speeds up the suspend
-process by about half a second.
-
-The root cause on the HP ProBook 4540s needs to be debugged, I'd
-suspect a BIOS issue which could be adressed by a quirk, either for
-this particular machine or for a certain class of devices (e.g. all
-machines which use PR3 to transition to D3cold) if that is necessary
-to behave identically to Windows.  Or maybe the atpx vga_switcheroo
-handler needs to be amended to put the GPU into D3cold on resume from
-system sleep if it was runtime suspended before.
-
-Is this machine using s2idle or does it suspend to S3?
-
-Thanks,
-
-Lukas
-
-> > Fixes: c62ec4610c40 ("PM / core: Fix direct_complete handling for devices with no callbacks")
-> > Link: https://bugzilla.kernel.org/show_bug.cgi?id=201519
-> > Reported-by: ?????????????? ???????????????? <ukrkyi@gmail.com>
-> > Tested-by: ?????????????? ???????????????? <ukrkyi@gmail.com>
-> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> > ---
-> >  drivers/gpu/drm/radeon/radeon_kms.c |    1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > Index: linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
-> > ===================================================================
-> > --- linux-pm.orig/drivers/gpu/drm/radeon/radeon_kms.c
-> > +++ linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
-> > @@ -172,6 +172,7 @@ int radeon_driver_load_kms(struct drm_de
-> >         }
-> >
-> >         if (radeon_is_px(dev)) {
-> > +               dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
-> >                 pm_runtime_use_autosuspend(dev->dev);
-> >                 pm_runtime_set_autosuspend_delay(dev->dev, 5000);
-> >                 pm_runtime_set_active(dev->dev);
+QW0gMTUuMDIuMTkgdW0gMjI6Mjkgc2NocmllYiBNaWNoYWVsIEQgTGFicmlvbGE6DQo+IFRoaXMg
+Y29tbWl0IGZpeGVzIERSTSBmYWlsdXJlcyBvbiBYZW4gUFYgc3lzdGVtcyB0aGF0IHdlcmUgaW50
+cm9kdWNlZCBpbg0KPiB2NC4xNyBieSB0aGUgZm9sbG93aW5nIGNvbW1pdHM6DQo+DQo+IDgyNjI2
+MzYzIGRybTogYWRkIGZ1bmMgdG8gZ2V0IG1heCBpb21lbSBhZGRyZXNzIHYyDQo+IGZkNWZkNDgw
+IGRybS9hbWRncHU6IG9ubHkgZW5hYmxlIHN3aW90bGIgYWxsb2Mgd2hlbiBuZWVkIHYyDQo+IDFi
+YzNkM2NjIGRybS9yYWRlb246IG9ubHkgZW5hYmxlIHN3aW90bGIgcGF0aCB3aGVuIG5lZWQgdjIN
+Cj4NCj4gVGhlIGludHJvZHVjdGlvbiBvZiAtPm5lZWRfc3dpb3RsYiB0byB0aGUgdHRtX2RtYV9w
+b3B1bGF0ZSgpIGNvbmRpdGlvbmFscw0KPiBpbiB0aGUgcmFkZW9uIGFuZCBhbWRncHUgZGV2aWNl
+IGRyaXZlcnMgY2F1c2VzIEdub21lIHRvIGltbWVkaWF0ZWx5IGNyYXNoDQo+IG9uIFhlbiBQViBz
+eXN0ZW1zLCByZXR1cm5pbmcgdGhlIHVzZXIgdG8gdGhlIGxvZ2luIHNjcmVlbi4gIFRoZSBmb2xs
+b3dpbmcNCj4ga2VybmVsIGVycm9ycyBnZXQgbG9nZ2VkOg0KPg0KPiBbICAgMjguNTU0MjU5XSBy
+YWRlb25fZHBfYXV4X3RyYW5zZmVyX25hdGl2ZTogMjAwIGNhbGxiYWNrcyBzdXBwcmVzc2VkDQo+
+IFsgICAzMS4yMTk4MjFdIHJhZGVvbiAwMDAwOjAxOjAwLjA6IHN3aW90bGIgYnVmZmVyIGlzIGZ1
+bGwgKHN6OiAyMDk3MTUyIGJ5dGVzKQ0KPiBbICAgMzEuMjIwMDMwXSBbZHJtOnJhZGVvbl9nZW1f
+b2JqZWN0X2NyZWF0ZSBbcmFkZW9uXV0gKkVSUk9SKiBGYWlsZWQgdG8gYWxsb2NhdGUgR0VNIG9i
+amVjdCAoMTYzODQwMDAsIDIsIDQwOTYsIC0xNCkNCj4gWyAgIDMxLjIyNjEwOV0gcmFkZW9uIDAw
+MDA6MDE6MDAuMDogc3dpb3RsYiBidWZmZXIgaXMgZnVsbCAoc3o6IDIwOTcxNTIgYnl0ZXMpDQo+
+IFsgICAzMS4yMjYzMDBdIFtkcm06cmFkZW9uX2dlbV9vYmplY3RfY3JlYXRlIFtyYWRlb25dXSAq
+RVJST1IqIEZhaWxlZCB0byBhbGxvY2F0ZSBHRU0gb2JqZWN0ICgxNjM4NDAwMCwgMiwgNDA5Niwg
+LTE0KQ0KPiBbICAgMzEuMzAwNzM0XSBnbm9tZS1zaGVsbFsxOTM1XTogc2VnZmF1bHQgYXQgODgg
+aXAgMDAwMDdmMzkxNTFjZDkwNCBzcCAwMDAwN2ZmYzk3NjExYWQ4IGVycm9yIDQgaW4gbGlibXV0
+dGVyLWNvZ2wuc29bN2YzOTE1MTc4MDAwK2FhMDAwXQ0KPiBbICAgMzEuMzAwNzQ1XSBDb2RlOiA1
+ZiBjMyAwZiAxZiA0MCAwMCA0OCA4YiA0NyA3OCA0OCA4YiA0MCA0MCBmZiBlMCA2NiAwZiAxZiA0
+NCAwMCAwMCA0OCA4YiA0NyA3OCA0OCA4YiA0MCA0OCBmZiBlMCA2NiAwZiAxZiA0NCAwMCAwMCA0
+OCA4YiA0NyA3OCA8NDg+IDhiIDgwIDg4IDAwIDAwIDAwIGZmIGUwIDBmIDFmIDAwIDQ4IDhiIDQ3
+IDc4IDQ4IDhiIDQwIDY4IGZmIGUwDQo+IFsgICAzOC4xOTMzMDJdIHJhZGVvbl9kcF9hdXhfdHJh
+bnNmZXJfbmF0aXZlOiAxMTYgY2FsbGJhY2tzIHN1cHByZXNzZWQNCj4gWyAgIDQwLjAwOTMxN10g
+cmFkZW9uIDAwMDA6MDE6MDAuMDogc3dpb3RsYiBidWZmZXIgaXMgZnVsbCAoc3o6IDIwOTcxNTIg
+Ynl0ZXMpDQo+IFsgICA0MC4wMDk0ODhdIFtkcm06cmFkZW9uX2dlbV9vYmplY3RfY3JlYXRlIFty
+YWRlb25dXSAqRVJST1IqIEZhaWxlZCB0byBhbGxvY2F0ZSBHRU0gb2JqZWN0ICgxNjM4NDAwMCwg
+MiwgNDA5NiwgLTE0KQ0KPiBbICAgNDAuMDE1MTE0XSByYWRlb24gMDAwMDowMTowMC4wOiBzd2lv
+dGxiIGJ1ZmZlciBpcyBmdWxsIChzejogMjA5NzE1MiBieXRlcykNCj4gWyAgIDQwLjAxNTI5N10g
+W2RybTpyYWRlb25fZ2VtX29iamVjdF9jcmVhdGUgW3JhZGVvbl1dICpFUlJPUiogRmFpbGVkIHRv
+IGFsbG9jYXRlIEdFTSBvYmplY3QgKDE2Mzg0MDAwLCAyLCA0MDk2LCAtMTQpDQo+IFsgICA0MC4w
+MjgzMDJdIGdub21lLXNoZWxsWzI0MzFdOiBzZWdmYXVsdCBhdCAyZGFkZjQwIGlwIDAwMDAwMDAw
+MDJkYWRmNDAgc3AgMDAwMDdmZmNkMjRlYTVmOCBlcnJvciAxNQ0KPiBbICAgNDAuMDI4MzA2XSBD
+b2RlOiAyMCA2ZSAzMSAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAzNyBlMyAzZCAyZCA3ZiAwMCAw
+MCA4MCBmNCBlNiAzZCAyZCA3ZiAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAwMCAw
+MCAwMCAwMCAwMCAwMCAwMCA8MDA+IDAwIDAwIDAwIDAwIDAwIDAwIDAwIGMxIDAwIDAwIDAwIDAw
+IDAwIDAwIDAwIDgwIGUxIGQyIDAzIDAwIDAwDQo+DQo+IFRoaXMgY29tbWl0IHJlbmFtZXMgZHJt
+X2dldF9tYXhfaW9tZW0oKSB0byBkcm1fbmVlZF9zd2lvdGxiKCksIGFkZHMgYQ0KPiB4ZW5fcHZf
+ZG9tYWluKCkgY2hlY2sgdG8gaXQsIGFuZCBtb3ZlcyB0aGUgYml0IHNoaWZ0aW5nIGNvbXBhcmlz
+b24gdGhhdA0KPiBhbHdheXMgZm9sbG93cyBpdHMgdXNhZ2UgaW50byB0aGUgZnVuY3Rpb24gKHNp
+bXBsaWZ5aW5nIHRoZSBkcm0gZHJpdmVyDQo+IGNvZGUpLg0KDQpZb3Ugc2lnbmVkIG9mIGJ5IGxp
+bmUgaXMgbWlzc2luZy4gQXBhcnQgZnJvbSB0aGF0IGl0IGxvb2tzIGxpa2UgYSBnb29kIA0KZml4
+IHRvIG1lLg0KDQpCdXQgdGhlIHF1ZXN0aW9uIGlzIHdoeSBkb2VzIFhlbiBuZWVkcyBkbWFfYWxs
+b2NfY29oZXJlbnQoKSA/DQoNClVzaW5nIGRtYV9hbGxvY19jb2hlcmVudCgpIGlzIHJlYWxseSBq
+dXN0IGEgZmFsbGJhY2sgcGF0aCBhbmQgd2UgbmVlZCB0byANCmRpc2FibGUgYSBidW5jaCBvZiB1
+c2Vyc3BhY2UgZmVhdHVyZXMgd2hlbiBnb2luZyBkb3duIHRoYXQgcm91dGUuDQoNClJlZ2FyZHMs
+DQpDaHJpc3RpYW4uDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21j
+X3Y3XzAuYyAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8w
+LmMgIHwgIDIgKy0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jICB8
+ICAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL2RybV9tZW1vcnkuYyAgICAgICAgICAgfCAxOSAr
+KysrKysrKysrKysrKysrLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGV2
+aWNlLmMgfCAgMiArLQ0KPiAgIGluY2x1ZGUvZHJtL2RybV9jYWNoZS5oICAgICAgICAgICAgICAg
+IHwgIDIgKy0NCj4gICA2IGZpbGVzIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDggZGVsZXRp
+b25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
+djdfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYw0KPiBpbmRleCA5
+MTBjNGNlLi42YmMwMjY2IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nbWNfdjdfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18w
+LmMNCj4gQEAgLTEwMjksNyArMTAyOSw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfc3dfaW5pdCh2
+b2lkICpoYW5kbGUpDQo+ICAgCQlwY2lfc2V0X2NvbnNpc3RlbnRfZG1hX21hc2soYWRldi0+cGRl
+diwgRE1BX0JJVF9NQVNLKDMyKSk7DQo+ICAgCQlwcl93YXJuKCJhbWRncHU6IE5vIGNvaGVyZW50
+IERNQSBhdmFpbGFibGVcbiIpOw0KPiAgIAl9DQo+IC0JYWRldi0+bmVlZF9zd2lvdGxiID0gZHJt
+X2dldF9tYXhfaW9tZW0oKSA+ICgodTY0KTEgPDwgZG1hX2JpdHMpOw0KPiArCWFkZXYtPm5lZWRf
+c3dpb3RsYiA9IGRybV9uZWVkX3N3aW90bGIoZG1hX2JpdHMpOw0KPiAgIA0KPiAgIAlyID0gZ21j
+X3Y3XzBfaW5pdF9taWNyb2NvZGUoYWRldik7DQo+ICAgCWlmIChyKSB7DQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ21jX3Y4XzAuYw0KPiBpbmRleCA3NDdjMDY4Li44NjM4YWRmIDEwMDY0NA0K
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jDQo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMNCj4gQEAgLTExNTUsNyArMTE1NSw3
+IEBAIHN0YXRpYyBpbnQgZ21jX3Y4XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpDQo+ICAgCQlwY2lf
+c2V0X2NvbnNpc3RlbnRfZG1hX21hc2soYWRldi0+cGRldiwgRE1BX0JJVF9NQVNLKDMyKSk7DQo+
+ICAgCQlwcl93YXJuKCJhbWRncHU6IE5vIGNvaGVyZW50IERNQSBhdmFpbGFibGVcbiIpOw0KPiAg
+IAl9DQo+IC0JYWRldi0+bmVlZF9zd2lvdGxiID0gZHJtX2dldF9tYXhfaW9tZW0oKSA+ICgodTY0
+KTEgPDwgZG1hX2JpdHMpOw0KPiArCWFkZXYtPm5lZWRfc3dpb3RsYiA9IGRybV9uZWVkX3N3aW90
+bGIoZG1hX2JpdHMpOw0KPiAgIA0KPiAgIAlyID0gZ21jX3Y4XzBfaW5pdF9taWNyb2NvZGUoYWRl
+dik7DQo+ICAgCWlmIChyKSB7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYw0K
+PiBpbmRleCBmMzVkN2E1Li40ZjY3MDkzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nbWNfdjlfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dtY192OV8wLmMNCj4gQEAgLTk4OSw3ICs5ODksNyBAQCBzdGF0aWMgaW50IGdtY192OV8wX3N3
+X2luaXQodm9pZCAqaGFuZGxlKQ0KPiAgIAkJcGNpX3NldF9jb25zaXN0ZW50X2RtYV9tYXNrKGFk
+ZXYtPnBkZXYsIERNQV9CSVRfTUFTSygzMikpOw0KPiAgIAkJcHJpbnRrKEtFUk5fV0FSTklORyAi
+YW1kZ3B1OiBObyBjb2hlcmVudCBETUEgYXZhaWxhYmxlLlxuIik7DQo+ICAgCX0NCj4gLQlhZGV2
+LT5uZWVkX3N3aW90bGIgPSBkcm1fZ2V0X21heF9pb21lbSgpID4gKCh1NjQpMSA8PCBkbWFfYml0
+cyk7DQo+ICsJYWRldi0+bmVlZF9zd2lvdGxiID0gZHJtX25lZWRfc3dpb3RsYihkbWFfYml0cyk7
+DQo+ICAgDQo+ICAgCWlmIChhZGV2LT5hc2ljX3R5cGUgPT0gQ0hJUF9WRUdBMjApIHsNCj4gICAJ
+CXIgPSBnZnhodWJfdjFfMV9nZXRfeGdtaV9pbmZvKGFkZXYpOw0KPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2RybV9tZW1vcnkuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fbWVtb3J5LmMN
+Cj4gaW5kZXggZDY5ZTRmYy4uNmFmNTlhNiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2RybV9tZW1vcnkuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX21lbW9yeS5jDQo+IEBA
+IC0zNSw2ICszNSw3IEBADQo+ICAgDQo+ICAgI2luY2x1ZGUgPGxpbnV4L2hpZ2htZW0uaD4NCj4g
+ICAjaW5jbHVkZSA8bGludXgvZXhwb3J0Lmg+DQo+ICsjaW5jbHVkZSA8eGVuL3hlbi5oPg0KPiAg
+ICNpbmNsdWRlIDxkcm0vZHJtUC5oPg0KPiAgICNpbmNsdWRlICJkcm1fbGVnYWN5LmgiDQo+ICAg
+DQo+IEBAIC0xNTAsMTUgKzE1MSwyNyBAQCB2b2lkIGRybV9sZWdhY3lfaW9yZW1hcGZyZWUoc3Ry
+dWN0IGRybV9sb2NhbF9tYXAgKm1hcCwgc3RydWN0IGRybV9kZXZpY2UgKmRldikNCj4gICB9DQo+
+ICAgRVhQT1JUX1NZTUJPTChkcm1fbGVnYWN5X2lvcmVtYXBmcmVlKTsNCj4gICANCj4gLXU2NCBk
+cm1fZ2V0X21heF9pb21lbSh2b2lkKQ0KPiArYm9vbCBkcm1fbmVlZF9zd2lvdGxiKGludCBkbWFf
+Yml0cykNCj4gICB7DQo+ICAgCXN0cnVjdCByZXNvdXJjZSAqdG1wOw0KPiAgIAlyZXNvdXJjZV9z
+aXplX3QgbWF4X2lvbWVtID0gMDsNCj4gICANCj4gKwkvKg0KPiArCSAqIFhlbiBwYXJhdmlydHVh
+bCBob3N0cyByZXF1aXJlIHN3aW90bGIgcmVnYXJkbGVzcyBvZiByZXF1ZXN0ZWQgZG1hDQo+ICsJ
+ICogdHJhbnNmZXIgc2l6ZS4NCj4gKwkgKg0KPiArCSAqIE5PVEU6IFJlYWxseSwgd2hhdCBpdCBy
+ZXF1aXJlcyBpcyB1c2Ugb2YgdGhlIGRtYV9hbGxvY19jb2hlcmVudA0KPiArCSAqICAgICAgIGFs
+bG9jYXRvciB1c2VkIGluIHR0bV9kbWFfcG9wdWxhdGUoKSBpbnN0ZWFkIG9mDQo+ICsJICogICAg
+ICAgdHRtX3BvcHVsYXRlX2FuZF9tYXBfcGFnZXMoKSwgd2hpY2ggYm91bmNlIGJ1ZmZlcnMgc28g
+bXVjaCBpbg0KPiArCSAqICAgICAgIFhlbiBpdCBsZWFkcyB0byBzd2lvdGxiIGJ1ZmZlciBleGhh
+dXN0aW9uLg0KPiArCSAqLw0KPiArCWlmICh4ZW5fcHZfZG9tYWluKCkpDQo+ICsJCXJldHVybiB0
+cnVlOw0KPiArDQo+ICAgCWZvciAodG1wID0gaW9tZW1fcmVzb3VyY2UuY2hpbGQ7IHRtcDsgdG1w
+ID0gdG1wLT5zaWJsaW5nKSB7DQo+ICAgCQltYXhfaW9tZW0gPSBtYXgobWF4X2lvbWVtLCAgdG1w
+LT5lbmQpOw0KPiAgIAl9DQo+ICAgDQo+IC0JcmV0dXJuIG1heF9pb21lbTsNCj4gKwlyZXR1cm4g
+bWF4X2lvbWVtID4gKCh1NjQpMSA8PCBkbWFfYml0cyk7DQo+ICAgfQ0KPiAtRVhQT1JUX1NZTUJP
+TChkcm1fZ2V0X21heF9pb21lbSk7DQo+ICtFWFBPUlRfU1lNQk9MKGRybV9uZWVkX3N3aW90bGIp
+Ow0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGV2aWNlLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYw0KPiBpbmRleCA1OWM4YTY2
+Li5hMWQzYzYyIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9k
+ZXZpY2UuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYw0K
+PiBAQCAtMTM4Nyw3ICsxMzg3LDcgQEAgaW50IHJhZGVvbl9kZXZpY2VfaW5pdChzdHJ1Y3QgcmFk
+ZW9uX2RldmljZSAqcmRldiwNCj4gICAJCXBjaV9zZXRfY29uc2lzdGVudF9kbWFfbWFzayhyZGV2
+LT5wZGV2LCBETUFfQklUX01BU0soMzIpKTsNCj4gICAJCXByX3dhcm4oInJhZGVvbjogTm8gY29o
+ZXJlbnQgRE1BIGF2YWlsYWJsZVxuIik7DQo+ICAgCX0NCj4gLQlyZGV2LT5uZWVkX3N3aW90bGIg
+PSBkcm1fZ2V0X21heF9pb21lbSgpID4gKCh1NjQpMSA8PCBkbWFfYml0cyk7DQo+ICsJcmRldi0+
+bmVlZF9zd2lvdGxiID0gZHJtX25lZWRfc3dpb3RsYihkbWFfYml0cyk7DQo+ICAgDQo+ICAgCS8q
+IFJlZ2lzdGVycyBtYXBwaW5nICovDQo+ICAgCS8qIFRPRE86IGJsb2NrIHVzZXJzcGFjZSBtYXBw
+aW5nIG9mIGlvIHJlZ2lzdGVyICovDQo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fY2Fj
+aGUuaCBiL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5oDQo+IGluZGV4IGJmZTE2MzkuLjYzM2VhYWYg
+MTAwNjQ0DQo+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5oDQo+ICsrKyBiL2luY2x1ZGUv
+ZHJtL2RybV9jYWNoZS5oDQo+IEBAIC0zOCw3ICszOCw3IEBADQo+ICAgdm9pZCBkcm1fY2xmbHVz
+aF9wYWdlcyhzdHJ1Y3QgcGFnZSAqcGFnZXNbXSwgdW5zaWduZWQgbG9uZyBudW1fcGFnZXMpOw0K
+PiAgIHZvaWQgZHJtX2NsZmx1c2hfc2coc3RydWN0IHNnX3RhYmxlICpzdCk7DQo+ICAgdm9pZCBk
+cm1fY2xmbHVzaF92aXJ0X3JhbmdlKHZvaWQgKmFkZHIsIHVuc2lnbmVkIGxvbmcgbGVuZ3RoKTsN
+Cj4gLXU2NCBkcm1fZ2V0X21heF9pb21lbSh2b2lkKTsNCj4gK2Jvb2wgZHJtX25lZWRfc3dpb3Rs
+YihpbnQgZG1hX2JpdHMpOw0KPiAgIA0KPiAgIA0KPiAgIHN0YXRpYyBpbmxpbmUgYm9vbCBkcm1f
+YXJjaF9jYW5fd2NfbWVtb3J5KHZvaWQpDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
