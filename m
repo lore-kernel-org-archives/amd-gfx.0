@@ -1,51 +1,91 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/1] [RFC] drm/ttm: Don't init dma32_zone on 64-bit systems
-Date: Fri, 15 Feb 2019 23:02:08 +0000
-Message-ID: <1550271712-13069-1-git-send-email-Felix.Kuehling@amd.com>
+From: Lukas Wunner <lukas@wunner.de>
+Subject: Re: [PATCH] gpu: drm: radeon: Set DPM_FLAG_NEVER_SKIP when enabling
+ PM-runtime
+Date: Sat, 16 Feb 2019 07:00:58 +0100
+Message-ID: <20190216060058.gsiddsmj3f27e6v7@wunner.de>
+References: <2281684.8tZHfIXjiu@aspire.rjw.lan>
+ <CADnq5_NmDYzZZPUh5Wp+a8bycRWFDt3Lhzf0AKx9BECJ_U-Kyg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CADnq5_NmDYzZZPUh5Wp+a8bycRWFDt3Lhzf0AKx9BECJ_U-Kyg@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Rafael J. Wysocki" <rjw@rjwysocki.net>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, ?????????????? ???????????????? <ukrkyi@gmail.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyBpcyBhbiBSRkMuIEknbSBub3Qgc3VyZSB0aGlzIGlzIHRoZSByaWdodCBzb2x1dGlvbiwg
-YnV0IGl0CmhpZ2hsaWdodHMgdGhlIHByb2JsZW0gSSdtIHRyeWluZyB0byBzb2x2ZS4KClRoZSBk
-bWEzMl96b25lIGxpbWl0cyB0aGUgYWNjX3NpemUgb2YgYWxsIGFsbG9jYXRlZCBCT3MgdG8gMkdC
-LiBPbiBhCjY0LWJpdCBzeXN0ZW0gd2l0aCBodW5kcmVkcyBvZiBHQiBvZiBzeXN0ZW0gbWVtb3J5
-IGFuZCBHUFUgbWVtb3J5LAp0aGlzIGNhbiBiZWNvbWUgYSBib3R0bGUgbmVjay4gV2UncmUgc2Vl
-aW5nIFRUTSBtZW1vcnkgYWxsb2NhdGlvbgpmYWlsdXJlcyBub3QgYmVjYXVzZSB3ZSdyZSB0cnVs
-eSBvdXQgb2YgbWVtb3J5LCBidXQgYmVjYXVzZSB3ZSdyZQpvdXQgb2Ygc3BhY2UgaW4gdGhlIGRt
-YTMyX3pvbmUgZm9yIHRoZSBhY2Nfc2l6ZSBuZWVkZWQgZm9yIG91ciBCTwpib29rLWtlZXBpbmcu
-CgpTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4K
-Q0M6IHRoZWxsc3Ryb21Adm13YXJlLmNvbQpDQzogY2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tCi0t
-LQogZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fbWVtb3J5LmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFu
-Z2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL3R0bS90dG1fbWVtb3J5LmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1v
-cnkuYwppbmRleCBmMTU2N2MzLi5iYjA1MzY1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-dHRtL3R0bV9tZW1vcnkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1vcnkuYwpA
-QCAtMzYzLDcgKzM2Myw3IEBAIHN0YXRpYyBpbnQgdHRtX21lbV9pbml0X2hpZ2htZW1fem9uZShz
-dHJ1Y3QgdHRtX21lbV9nbG9iYWwgKmdsb2IsCiAJZ2xvYi0+em9uZXNbZ2xvYi0+bnVtX3pvbmVz
-KytdID0gem9uZTsKIAlyZXR1cm4gMDsKIH0KLSNlbHNlCisjZWxpZm5kZWYgQ09ORklHXzY0QklU
-CiBzdGF0aWMgaW50IHR0bV9tZW1faW5pdF9kbWEzMl96b25lKHN0cnVjdCB0dG1fbWVtX2dsb2Jh
-bCAqZ2xvYiwKIAkJCQkgICBjb25zdCBzdHJ1Y3Qgc3lzaW5mbyAqc2kpCiB7CkBAIC00NDEsNyAr
-NDQxLDcgQEAgaW50IHR0bV9tZW1fZ2xvYmFsX2luaXQoc3RydWN0IHR0bV9tZW1fZ2xvYmFsICpn
-bG9iKQogCXJldCA9IHR0bV9tZW1faW5pdF9oaWdobWVtX3pvbmUoZ2xvYiwgJnNpKTsKIAlpZiAo
-dW5saWtlbHkocmV0ICE9IDApKQogCQlnb3RvIG91dF9ub196b25lOwotI2Vsc2UKKyNlbGlmbmRl
-ZiBDT05GSUdfNjRCSVQKIAlyZXQgPSB0dG1fbWVtX2luaXRfZG1hMzJfem9uZShnbG9iLCAmc2kp
-OwogCWlmICh1bmxpa2VseShyZXQgIT0gMCkpCiAJCWdvdG8gb3V0X25vX3pvbmU7Ci0tIAoyLjcu
-NAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Fri, Feb 15, 2019 at 11:01:04AM -0500, Alex Deucher wrote:
+> On Fri, Feb 15, 2019 at 10:39 AM Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> > On HP ProBook 4540s, if PM-runtime is enabled in the radeon driver
+> > and the direct-complete optimization is used for the radeon device
+> > during system-wide suspend, the system doesn't resume.
+> >
+> > Preventing direct-complete from being used with the radeon device by
+> > setting the DPM_FLAG_NEVER_SKIP driver flag for it makes the problem
+> > go away, which indicates that direct-complete is not safe for the
+> > radeon driver in general and should not be used with it (at least
+> > for now).
+> >
+> > This fixes a regression introduced by commit c62ec4610c40
+> > ("PM / core: Fix direct_complete handling for devices with no
+> > callbacks") which allowed direct-complete to be applied to
+> > devices without PM callbacks (again) which in turn unlocked
+> > direct-complete for radeon on HP ProBook 4540s.
+> 
+> Do other similar drivers like amdgpu and nouveau need the same fix?
+> I'm not too familiar with the direct_complete feature in general.
+
+direct_complete means that a discrete GPU which is in D3cold upon
+entering system sleep is left as is, i.e. it is not woken.  It is
+also expected to still be in D3cold when resuming from system sleep
+from the PM core's point of view.  (If it is in D0uninitialized, the
+GPU's driver needs to ensure it is transitioned to D3cold again.)
+
+I know for a fact that resuming the discrete GPU is not necessary
+on my MacBook Pro with Nvidia GPU.  I'd expect those with AMD GPUs
+to behave the same.  The apple-gmux driver takes care of putting
+the GPU into D3cold on resume from system sleep if it was in D3cold
+when entering system sleep (see drivers/platform/x86/apple-gmux.c,
+gmux_resume()).
+
+I think it is desirable to use direct_complete because it saves power
+(no need to gratuitously wake the GPU upon entering system sleep,
+only to immediately cut its power) and it also speeds up the suspend
+process by about half a second.
+
+The root cause on the HP ProBook 4540s needs to be debugged, I'd
+suspect a BIOS issue which could be adressed by a quirk, either for
+this particular machine or for a certain class of devices (e.g. all
+machines which use PR3 to transition to D3cold) if that is necessary
+to behave identically to Windows.  Or maybe the atpx vga_switcheroo
+handler needs to be amended to put the GPU into D3cold on resume from
+system sleep if it was runtime suspended before.
+
+Is this machine using s2idle or does it suspend to S3?
+
+Thanks,
+
+Lukas
+
+> > Fixes: c62ec4610c40 ("PM / core: Fix direct_complete handling for devices with no callbacks")
+> > Link: https://bugzilla.kernel.org/show_bug.cgi?id=201519
+> > Reported-by: ?????????????? ???????????????? <ukrkyi@gmail.com>
+> > Tested-by: ?????????????? ???????????????? <ukrkyi@gmail.com>
+> > Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+> > ---
+> >  drivers/gpu/drm/radeon/radeon_kms.c |    1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > Index: linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
+> > ===================================================================
+> > --- linux-pm.orig/drivers/gpu/drm/radeon/radeon_kms.c
+> > +++ linux-pm/drivers/gpu/drm/radeon/radeon_kms.c
+> > @@ -172,6 +172,7 @@ int radeon_driver_load_kms(struct drm_de
+> >         }
+> >
+> >         if (radeon_is_px(dev)) {
+> > +               dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
+> >                 pm_runtime_use_autosuspend(dev->dev);
+> >                 pm_runtime_set_autosuspend_delay(dev->dev, 5000);
+> >                 pm_runtime_set_active(dev->dev);
