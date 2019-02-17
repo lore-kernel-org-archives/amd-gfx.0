@@ -1,78 +1,115 @@
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Subject: Re: [PATCH] gpu: drm: radeon: Set DPM_FLAG_NEVER_SKIP when enabling PM-runtime
-Date: Sun, 17 Feb 2019 22:25:57 +0100
-Message-ID: <CAJZ5v0g8-+cqQFspwYytTbzptZrt+GhT2RUX_nQnFD-rDbA7sA@mail.gmail.com>
-References: <2281684.8tZHfIXjiu@aspire.rjw.lan> <CADnq5_NmDYzZZPUh5Wp+a8bycRWFDt3Lhzf0AKx9BECJ_U-Kyg@mail.gmail.com>
- <20190216060058.gsiddsmj3f27e6v7@wunner.de> <CADnq5_OqaQA2HNcy+ZZvsN5MTEWLXoFEuirX4f4nzEOJ6NrdVA@mail.gmail.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH] drm/amdgpu/powerplay: fix spelling mistake: "Attemp" ->
+ "Attempt"
+Date: Sun, 17 Feb 2019 22:15:15 +0000
+Message-ID: <20190217221515.15575-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_OqaQA2HNcy+ZZvsN5MTEWLXoFEuirX4f4nzEOJ6NrdVA@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Lukas Wunner <lukas@wunner.de>, "Rafael J. Wysocki" <rjw@rjwysocki.net>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, ?????????????? ???????????????? <ukrkyi@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Sun, Feb 17, 2019 at 12:37 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Sat, Feb 16, 2019 at 1:01 AM Lukas Wunner <lukas@wunner.de> wrote:
-> >
-> > On Fri, Feb 15, 2019 at 11:01:04AM -0500, Alex Deucher wrote:
-> > > On Fri, Feb 15, 2019 at 10:39 AM Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > > > On HP ProBook 4540s, if PM-runtime is enabled in the radeon driver
-> > > > and the direct-complete optimization is used for the radeon device
-> > > > during system-wide suspend, the system doesn't resume.
-> > > >
-> > > > Preventing direct-complete from being used with the radeon device by
-> > > > setting the DPM_FLAG_NEVER_SKIP driver flag for it makes the problem
-> > > > go away, which indicates that direct-complete is not safe for the
-> > > > radeon driver in general and should not be used with it (at least
-> > > > for now).
-> > > >
-> > > > This fixes a regression introduced by commit c62ec4610c40
-> > > > ("PM / core: Fix direct_complete handling for devices with no
-> > > > callbacks") which allowed direct-complete to be applied to
-> > > > devices without PM callbacks (again) which in turn unlocked
-> > > > direct-complete for radeon on HP ProBook 4540s.
-> > >
-> > > Do other similar drivers like amdgpu and nouveau need the same fix?
-> > > I'm not too familiar with the direct_complete feature in general.
-> >
-> > direct_complete means that a discrete GPU which is in D3cold upon
-> > entering system sleep is left as is, i.e. it is not woken.  It is
-> > also expected to still be in D3cold when resuming from system sleep
-> > from the PM core's point of view.  (If it is in D0uninitialized, the
-> > GPU's driver needs to ensure it is transitioned to D3cold again.)
-> >
-> > I know for a fact that resuming the discrete GPU is not necessary
-> > on my MacBook Pro with Nvidia GPU.  I'd expect those with AMD GPUs
-> > to behave the same.  The apple-gmux driver takes care of putting
-> > the GPU into D3cold on resume from system sleep if it was in D3cold
-> > when entering system sleep (see drivers/platform/x86/apple-gmux.c,
-> > gmux_resume()).
-> >
-> > I think it is desirable to use direct_complete because it saves power
-> > (no need to gratuitously wake the GPU upon entering system sleep,
-> > only to immediately cut its power) and it also speeds up the suspend
-> > process by about half a second.
->
-> Thanks for the info.  It sounds like we need a similar patch for
-> amdgpu.  With dGPUs controlled by the ACPI ATPX method, I believe the
-> dGPU is powered by automatically on resume from S3/S4.  I think there
-> may be a way to change that behavior in some revisions of ATPX (i.e.,
-> to keep the state across suspend cycles), but it's not the default.
-> I'm not sure about the newer _PR3 stuff in Hybrid Graphics laptops.  I
-> think it retains state.  In both radeon and amdgpu we probably need to
-> check if the system is using ATPX or _PR3 and disable direct complete
-> for ATPX at least.
-
-I would disable direct-complete entirely for them then and possibly
-consider using DPM_FLAG_SMART_SUSPEND in the cases when that would be
-safe.
-
-Anyway, I posted this patch for radeon, because it addresses a
-specific regression and I'm not super-familiar with GPU drivers in
-general.
-
-Cheers,
-Rafael
+RnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KClRoZXJlIGFy
+ZSBtdWx0aXBsZSBvY2N1cnJhbmNlcyBvZiB0aGUgc2FtZSBzcGVsbGluZyBtaXN0YWtlIGluCm1l
+c3NhZ2VzIGluIFBQX0FTU0VSVF9XSVRIX0NPREUgbWFjcm9zLiBGaXggdGhlc2UuCgpTaWduZWQt
+b2ZmLWJ5OiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0BjYW5vbmljYWwuY29tPgotLS0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhMTJfc211bWdyLmMgfCAxMiAr
+KysrKystLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92ZWdhMjBf
+c211bWdyLmMgfCAxMiArKysrKystLS0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgMTIgaW5zZXJ0aW9u
+cygrKSwgMTIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvc211bWdyL3ZlZ2ExMl9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
+ZXJwbGF5L3NtdW1nci92ZWdhMTJfc211bWdyLmMKaW5kZXggZGRiODAxNTE3NjY3Li43MzMxYTVl
+ZjE5OWYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci92
+ZWdhMTJfc211bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdy
+L3ZlZ2ExMl9zbXVtZ3IuYwpAQCAtMTIxLDIwICsxMjEsMjAgQEAgaW50IHZlZ2ExMl9lbmFibGVf
+c21jX2ZlYXR1cmVzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJaWYgKGVuYWJsZSkgewogCQlQ
+UF9BU1NFUlRfV0lUSF9DT0RFKHNtdTlfc2VuZF9tc2dfdG9fc21jX3dpdGhfcGFyYW1ldGVyKGh3
+bWdyLAogCQkJCVBQU01DX01TR19FbmFibGVTbXVGZWF0dXJlc0xvdywgc211X2ZlYXR1cmVzX2xv
+dykgPT0gMCwKLQkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0dXJlc10gQXR0ZW1wIHRvIGVuYWJs
+ZSBTTVUgZmVhdHVyZXMgTG93IGZhaWxlZCEiLAorCQkJCSJbRW5hYmxlRGlzYWJsZVNNQ0ZlYXR1
+cmVzXSBBdHRlbXB0IHRvIGVuYWJsZSBTTVUgZmVhdHVyZXMgTG93IGZhaWxlZCEiLAogCQkJCXJl
+dHVybiAtRUlOVkFMKTsKIAkJUFBfQVNTRVJUX1dJVEhfQ09ERShzbXU5X3NlbmRfbXNnX3RvX3Nt
+Y193aXRoX3BhcmFtZXRlcihod21nciwKIAkJCQlQUFNNQ19NU0dfRW5hYmxlU211RmVhdHVyZXNI
+aWdoLCBzbXVfZmVhdHVyZXNfaGlnaCkgPT0gMCwKLQkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0
+dXJlc10gQXR0ZW1wIHRvIGVuYWJsZSBTTVUgZmVhdHVyZXMgSGlnaCBmYWlsZWQhIiwKKwkJCQki
+W0VuYWJsZURpc2FibGVTTUNGZWF0dXJlc10gQXR0ZW1wdCB0byBlbmFibGUgU01VIGZlYXR1cmVz
+IEhpZ2ggZmFpbGVkISIsCiAJCQkJcmV0dXJuIC1FSU5WQUwpOwogCX0gZWxzZSB7CiAJCVBQX0FT
+U0VSVF9XSVRIX0NPREUoc211OV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3Is
+CiAJCQkJUFBTTUNfTVNHX0Rpc2FibGVTbXVGZWF0dXJlc0xvdywgc211X2ZlYXR1cmVzX2xvdykg
+PT0gMCwKLQkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0dXJlc10gQXR0ZW1wIHRvIGRpc2FibGUg
+U01VIGZlYXR1cmVzIExvdyBmYWlsZWQhIiwKKwkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0dXJl
+c10gQXR0ZW1wdCB0byBkaXNhYmxlIFNNVSBmZWF0dXJlcyBMb3cgZmFpbGVkISIsCiAJCQkJcmV0
+dXJuIC1FSU5WQUwpOwogCQlQUF9BU1NFUlRfV0lUSF9DT0RFKHNtdTlfc2VuZF9tc2dfdG9fc21j
+X3dpdGhfcGFyYW1ldGVyKGh3bWdyLAogCQkJCVBQU01DX01TR19EaXNhYmxlU211RmVhdHVyZXNI
+aWdoLCBzbXVfZmVhdHVyZXNfaGlnaCkgPT0gMCwKLQkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0
+dXJlc10gQXR0ZW1wIHRvIGRpc2FibGUgU01VIGZlYXR1cmVzIEhpZ2ggZmFpbGVkISIsCisJCQkJ
+IltFbmFibGVEaXNhYmxlU01DRmVhdHVyZXNdIEF0dGVtcHQgdG8gZGlzYWJsZSBTTVUgZmVhdHVy
+ZXMgSGlnaCBmYWlsZWQhIiwKIAkJCQlyZXR1cm4gLUVJTlZBTCk7CiAJfQogCkBAIC0xNTEsMTMg
+KzE1MSwxMyBAQCBpbnQgdmVnYTEyX2dldF9lbmFibGVkX3NtY19mZWF0dXJlcyhzdHJ1Y3QgcHBf
+aHdtZ3IgKmh3bWdyLAogCiAJUFBfQVNTRVJUX1dJVEhfQ09ERShzbXU5X3NlbmRfbXNnX3RvX3Nt
+Yyhod21nciwKIAkJCVBQU01DX01TR19HZXRFbmFibGVkU211RmVhdHVyZXNMb3cpID09IDAsCi0J
+CQkiW0dldEVuYWJsZWRTTUNGZWF0dXJlc10gQXR0ZW1wIHRvIGdldCBTTVUgZmVhdHVyZXMgTG93
+IGZhaWxlZCEiLAorCQkJIltHZXRFbmFibGVkU01DRmVhdHVyZXNdIEF0dGVtcHQgdG8gZ2V0IFNN
+VSBmZWF0dXJlcyBMb3cgZmFpbGVkISIsCiAJCQlyZXR1cm4gLUVJTlZBTCk7CiAJc21jX2ZlYXR1
+cmVzX2xvdyA9IHNtdTlfZ2V0X2FyZ3VtZW50KGh3bWdyKTsKIAogCVBQX0FTU0VSVF9XSVRIX0NP
+REUoc211OV9zZW5kX21zZ190b19zbWMoaHdtZ3IsCiAJCQlQUFNNQ19NU0dfR2V0RW5hYmxlZFNt
+dUZlYXR1cmVzSGlnaCkgPT0gMCwKLQkJCSJbR2V0RW5hYmxlZFNNQ0ZlYXR1cmVzXSBBdHRlbXAg
+dG8gZ2V0IFNNVSBmZWF0dXJlcyBIaWdoIGZhaWxlZCEiLAorCQkJIltHZXRFbmFibGVkU01DRmVh
+dHVyZXNdIEF0dGVtcHQgdG8gZ2V0IFNNVSBmZWF0dXJlcyBIaWdoIGZhaWxlZCEiLAogCQkJcmV0
+dXJuIC1FSU5WQUwpOwogCXNtY19mZWF0dXJlc19oaWdoID0gc211OV9nZXRfYXJndW1lbnQoaHdt
+Z3IpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Iv
+dmVnYTIwX3NtdW1nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3Zl
+Z2EyMF9zbXVtZ3IuYwppbmRleCBiN2ZmN2Q0ZDZmNDQuLmJlOGE0OTcwMmU4MiAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3ZlZ2EyMF9zbXVtZ3IuYwor
+KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYTIwX3NtdW1nci5j
+CkBAIC0zMDQsMjAgKzMwNCwyMCBAQCBpbnQgdmVnYTIwX2VuYWJsZV9zbWNfZmVhdHVyZXMoc3Ry
+dWN0IHBwX2h3bWdyICpod21nciwKIAlpZiAoZW5hYmxlKSB7CiAJCVBQX0FTU0VSVF9XSVRIX0NP
+REUoKHJldCA9IHZlZ2EyMF9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCiAJ
+CQkJUFBTTUNfTVNHX0VuYWJsZVNtdUZlYXR1cmVzTG93LCBzbXVfZmVhdHVyZXNfbG93KSkgPT0g
+MCwKLQkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0dXJlc10gQXR0ZW1wIHRvIGVuYWJsZSBTTVUg
+ZmVhdHVyZXMgTG93IGZhaWxlZCEiLAorCQkJCSJbRW5hYmxlRGlzYWJsZVNNQ0ZlYXR1cmVzXSBB
+dHRlbXB0IHRvIGVuYWJsZSBTTVUgZmVhdHVyZXMgTG93IGZhaWxlZCEiLAogCQkJCXJldHVybiBy
+ZXQpOwogCQlQUF9BU1NFUlRfV0lUSF9DT0RFKChyZXQgPSB2ZWdhMjBfc2VuZF9tc2dfdG9fc21j
+X3dpdGhfcGFyYW1ldGVyKGh3bWdyLAogCQkJCVBQU01DX01TR19FbmFibGVTbXVGZWF0dXJlc0hp
+Z2gsIHNtdV9mZWF0dXJlc19oaWdoKSkgPT0gMCwKLQkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0
+dXJlc10gQXR0ZW1wIHRvIGVuYWJsZSBTTVUgZmVhdHVyZXMgSGlnaCBmYWlsZWQhIiwKKwkJCQki
+W0VuYWJsZURpc2FibGVTTUNGZWF0dXJlc10gQXR0ZW1wdCB0byBlbmFibGUgU01VIGZlYXR1cmVz
+IEhpZ2ggZmFpbGVkISIsCiAJCQkJcmV0dXJuIHJldCk7CiAJfSBlbHNlIHsKIAkJUFBfQVNTRVJU
+X1dJVEhfQ09ERSgocmV0ID0gdmVnYTIwX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlciho
+d21nciwKIAkJCQlQUFNNQ19NU0dfRGlzYWJsZVNtdUZlYXR1cmVzTG93LCBzbXVfZmVhdHVyZXNf
+bG93KSkgPT0gMCwKLQkJCQkiW0VuYWJsZURpc2FibGVTTUNGZWF0dXJlc10gQXR0ZW1wIHRvIGRp
+c2FibGUgU01VIGZlYXR1cmVzIExvdyBmYWlsZWQhIiwKKwkJCQkiW0VuYWJsZURpc2FibGVTTUNG
+ZWF0dXJlc10gQXR0ZW1wdCB0byBkaXNhYmxlIFNNVSBmZWF0dXJlcyBMb3cgZmFpbGVkISIsCiAJ
+CQkJcmV0dXJuIHJldCk7CiAJCVBQX0FTU0VSVF9XSVRIX0NPREUoKHJldCA9IHZlZ2EyMF9zZW5k
+X21zZ190b19zbWNfd2l0aF9wYXJhbWV0ZXIoaHdtZ3IsCiAJCQkJUFBTTUNfTVNHX0Rpc2FibGVT
+bXVGZWF0dXJlc0hpZ2gsIHNtdV9mZWF0dXJlc19oaWdoKSkgPT0gMCwKLQkJCQkiW0VuYWJsZURp
+c2FibGVTTUNGZWF0dXJlc10gQXR0ZW1wIHRvIGRpc2FibGUgU01VIGZlYXR1cmVzIEhpZ2ggZmFp
+bGVkISIsCisJCQkJIltFbmFibGVEaXNhYmxlU01DRmVhdHVyZXNdIEF0dGVtcHQgdG8gZGlzYWJs
+ZSBTTVUgZmVhdHVyZXMgSGlnaCBmYWlsZWQhIiwKIAkJCQlyZXR1cm4gcmV0KTsKIAl9CiAKQEAg
+LTMzNSwxMiArMzM1LDEyIEBAIGludCB2ZWdhMjBfZ2V0X2VuYWJsZWRfc21jX2ZlYXR1cmVzKHN0
+cnVjdCBwcF9od21nciAqaHdtZ3IsCiAKIAlQUF9BU1NFUlRfV0lUSF9DT0RFKChyZXQgPSB2ZWdh
+MjBfc2VuZF9tc2dfdG9fc21jKGh3bWdyLAogCQkJUFBTTUNfTVNHX0dldEVuYWJsZWRTbXVGZWF0
+dXJlc0xvdykpID09IDAsCi0JCQkiW0dldEVuYWJsZWRTTUNGZWF0dXJlc10gQXR0ZW1wIHRvIGdl
+dCBTTVUgZmVhdHVyZXMgTG93IGZhaWxlZCEiLAorCQkJIltHZXRFbmFibGVkU01DRmVhdHVyZXNd
+IEF0dGVtcHQgdG8gZ2V0IFNNVSBmZWF0dXJlcyBMb3cgZmFpbGVkISIsCiAJCQlyZXR1cm4gcmV0
+KTsKIAlzbWNfZmVhdHVyZXNfbG93ID0gdmVnYTIwX2dldF9hcmd1bWVudChod21ncik7CiAJUFBf
+QVNTRVJUX1dJVEhfQ09ERSgocmV0ID0gdmVnYTIwX3NlbmRfbXNnX3RvX3NtYyhod21nciwKIAkJ
+CVBQU01DX01TR19HZXRFbmFibGVkU211RmVhdHVyZXNIaWdoKSkgPT0gMCwKLQkJCSJbR2V0RW5h
+YmxlZFNNQ0ZlYXR1cmVzXSBBdHRlbXAgdG8gZ2V0IFNNVSBmZWF0dXJlcyBIaWdoIGZhaWxlZCEi
+LAorCQkJIltHZXRFbmFibGVkU01DRmVhdHVyZXNdIEF0dGVtcHQgdG8gZ2V0IFNNVSBmZWF0dXJl
+cyBIaWdoIGZhaWxlZCEiLAogCQkJcmV0dXJuIHJldCk7CiAJc21jX2ZlYXR1cmVzX2hpZ2ggPSB2
+ZWdhMjBfZ2V0X2FyZ3VtZW50KGh3bWdyKTsKIAotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRy
+aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
