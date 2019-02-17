@@ -1,84 +1,78 @@
-From: =?UTF-8?Q?Dieter_N=C3=BCtzel?= <Dieter-0hun7QTegEsDD4udEopG9Q@public.gmane.org>
-Subject: Fw: [Bug 109650] [amd-staging-drm-next] - Polaris 20 dc - idle power
- regession 3x [bisected]
-Date: Sun, 17 Feb 2019 00:41:19 +0100
-Message-ID: <40d376ee2af95cd76394281520c381fe@nuetzel-hh.de>
-References: <bug-109650-502@http.bugs.freedesktop.org/>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Subject: Re: [PATCH] gpu: drm: radeon: Set DPM_FLAG_NEVER_SKIP when enabling PM-runtime
+Date: Sun, 17 Feb 2019 22:25:57 +0100
+Message-ID: <CAJZ5v0g8-+cqQFspwYytTbzptZrt+GhT2RUX_nQnFD-rDbA7sA@mail.gmail.com>
+References: <2281684.8tZHfIXjiu@aspire.rjw.lan> <CADnq5_NmDYzZZPUh5Wp+a8bycRWFDt3Lhzf0AKx9BECJ_U-Kyg@mail.gmail.com>
+ <20190216060058.gsiddsmj3f27e6v7@wunner.de> <CADnq5_OqaQA2HNcy+ZZvsN5MTEWLXoFEuirX4f4nzEOJ6NrdVA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bug-109650-502-V0hAGp6uBxMKqLRl/0Ahz6D7qz1kEfGD2LY78lusg7I@public.gmane.org/>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-devel <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_OqaQA2HNcy+ZZvsN5MTEWLXoFEuirX4f4nzEOJ6NrdVA@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Lukas Wunner <lukas@wunner.de>, "Rafael J. Wysocki" <rjw@rjwysocki.net>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, ?????????????? ???????????????? <ukrkyi@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGVsbG8gWW9uZywKCnRoaXMgd2FzIHlvdXIgY29tbWl0IDstKQoKR3JlZXRpbmdzLApEaWV0ZXIK
-Ci0tLS0tLS0tIE9yaWdpbmFsbmFjaHJpY2h0IC0tLS0tLS0tCkJldHJlZmY6IFtCdWcgMTA5NjUw
-XSBbYW1kLXN0YWdpbmctZHJtLW5leHRdIC0gUG9sYXJpcyAyMCBkYyAtIGlkbGUgCnBvd2VyIHJl
-Z2Vzc2lvbiAzeCBbYmlzZWN0ZWRdCkRhdHVtOiAxNi4wMi4yMDE5IDAwOjQyClZvbjogYnVnemls
-bGEtZGFlbW9uQGZyZWVkZXNrdG9wLm9yZwpBbjogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwoKICAJCUJVRyBJRAogIAkJMTA5NjUwIFsxXQoKICAJCVNVTU1BUlkKICAJCVthbWQtc3Rh
-Z2luZy1kcm0tbmV4dF0gLSBQb2xhcmlzIDIwIGRjIC0gaWRsZSBwb3dlciByZWdlc3Npb24gM3gK
-W2Jpc2VjdGVkXQoKICAJCVBST0RVQ1QKICAJCURSSQoKICAJCVZFUlNJT04KICAJCURSSSBnaXQK
-CiAgCQlIQVJEV0FSRQogIAkJeDg2LTY0IChBTUQ2NCkKCiAgCQlPUwogIAkJTGludXggKEFsbCkK
-CiAgCQlTVEFUVVMKICAJCU5FVwoKICAJCVNFVkVSSVRZCiAgCQlub3JtYWwKCiAgCQlQUklPUklU
-WQogIAkJbWVkaXVtCgogIAkJQ09NUE9ORU5UCiAgCQlEUk0vQU1EZ3B1CgogIAkJQVNTSUdORUUK
-ICAJCWRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKCiAgCQlSRVBPUlRFUgogIAkJRGll
-dGVyQG51ZXR6ZWwtaGguZGUKClBvbGFyaXMgMjAKCklkbGUgcG93ZXIgd2VudCB1cCBmcm9tIH4z
-MiBXIHRvIH45NiBXLgoKV2l0aCBicm9rZW4gY29tbWl0czoKCmFtZGdwdS1wY2ktMDEwMApBZGFw
-dGVyOiBQQ0kgYWRhcHRlcgp2ZGRnZng6ICAgICAgICsxLjIwIFYKZmFuMTogICAgICAgICA4ODgg
-UlBNICAobWluID0gICAgMCBSUE0sIG1heCA9IDMyMDAgUlBNKQp0ZW1wMTogICAgICAgICs1NS4w
-wrBDICAoY3JpdCA9ICs5NC4wwrBDLCBoeXN0ID0gLTI3My4xwrBDKQpwb3dlcjE6ICAgICAgIDk2
-LjA0IFcgIChjYXAgPSAxNzUuMDAgVykKCkJpc2VjdGVkIHRvOgoKNzY0Yzg1ZmVmNDE3MjJkYjBm
-MjE1NThjNmMyZmIzOGJlZTE3MmQxOSBpcyB0aGUgZmlyc3QgYmFkIGNvbW1pdApjb21taXQgNzY0
-Yzg1ZmVmNDE3MjJkYjBmMjE1NThjNmMyZmIzOGJlZTE3MmQxOQpBdXRob3I6IFlvbmcgWmhhbyA8
-WW9uZy5aaGFvQGFtZC5jb20+CkRhdGU6ICAgVHVlIEZlYiA1IDE1OjE3OjQwIDIwMTkgLTA1MDAK
-CiAgICAgZHJtL2FtZGdwdTogRml4IGJ1Z3MgaW4gc2V0dGluZyBDUCBSQi9NRUMgRE9PUkJFTExf
-UkFOR0UgcmVnaXN0ZXJzCgogICAgIENQX1JCX0RPT1JCRUxMX1JBTkdFX0xPV0VSL1VQUEVSIGFu
-ZApDUF9NRUNfRE9PUkJFTExfUkFOR0VfTE9XRVIvVVBQRVIKICAgICBhcmUgdXNlZCBmb3Igd2Fr
-aW5nIHVwIGFuIGlkbGUgc2NoZWR1bGVyIGFuZCBmb3IgcG93ZXIgZ2F0aW5nCnN1cHBvcnQuCiAg
-ICAgVXN1YWxseSB0aGUgZmlyc3QgZmV3IGRvb3JiZWxscyBpbiBwY2kgZG9vcmJlbGwgYmFyIGFy
-ZSB1c2VkIGZvciBSQgogICAgIGFuZCBhbGwgbGVmdG92ZXIgZm9yIE1FQy4gVGhpcyBwYXRjaCBm
-aXhlcyB0aGUgaW5jb3JyZWN0IHNldHRpbmdzLgoKICAgICBUaGVvcmV0aWNhbGx5LCBnZnggcmlu
-ZyBkb29yYmVsbHMgc2hvdWxkIGNvbWUgYmVmb3JlIGFsbCBNRUMKZG9vcmJlbGxzCiAgICAgdG8g
-YmUgY29uc2lzdGVudCB3aXRoIHRoZSBkZXNpZ24uIEhvd2V2ZXIsIHNpbmNlIHRoZSBkb29yYmVs
-bAogICAgIGFsbG9jYXRpb25zIGFyZSBhZ3JlZWQgYnkgYWxsIGFuZCB3ZSBhcmUgbm90IGZyZWUg
-dG8gY2hhbmdlIHRoZW0sCmFsc28KICAgICBjb25zaWRlcmluZyB0aGUga2VybmVsIE1FQyByaW5n
-IGRvb3JiZWxscyB3aGljaCBhcmUgYmVmb3JlIGdmeCByaW5nCiAgICAgZG9vcmJlbGxzIGFyZSBu
-b3QgdXNlZCBvZnRlbiwgd2UgY29tcHJvbWlzZSBieSBsZWF2aW5nIHRoZSBkb29yYmVsbAogICAg
-IGFsbG9jYXRpb25zIHVuY2hhbmdlZC4KCiAgICAgQ2hhbmdlLUlkOiBJNDAyYTU2Y2U5YTgwZTZj
-MmVkMmY5NmJlNDMxYWU3MWNhODhlNzNhNAogICAgIFNpZ25lZC1vZmYtYnk6IFlvbmcgWmhhbyA8
-WW9uZy5aaGFvQGFtZC5jb20+CiAgICAgUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxp
-eC5LdWVobGluZ0BhbWQuY29tPgoKOjA0MDAwMCAwNDAwMDAgYTU3NDdhNmJlM2QzODhhZTg1MTg1
-NWVlYmU3ZWJiZjIwNDg4YmEyMgo3YjUxNjI5MWRlYjg0OWM1OTMxOTlhNGM4ZGYzYWQwOGM1Yjdh
-NzY5IE0gZHJpdmVycwoKQWZ0ZXIgcmV2ZXJ0aW5nIGJvdGggcmVsYXRlZCBjb21taXRzIGZyb20g
-Y3VycmVudAphbWQtc3RhZ2luZy1kcm0tbmV4dCAoMjU2NDQ1YWVlMTNmKQoKOWFmZmRlMGU0NGFm
-IChIRUFEIC0+IGFtZC1zdGFnaW5nLWRybS1uZXh0KSBSZXZlcnQgImRybS9hbWRncHU6IEZpeCBi
-dWdzCmluCnNldHRpbmcgQ1AgUkIvTUVDIERPT1JCRUxMX1JBTkdFIHJlZ2lzdGVycyIKOGU3MzA1
-OTE1OGQ4IFJldmVydCAiZHJtL2FtZGdwdTogRGVsZXRlIHVzZXIgcXVldWUgZG9vcmJlbGwgdmFy
-aWFibGVzIgoyNTY0NDVhZWUxM2YgKG9yaWdpbi9hbWQtc3RhZ2luZy1kcm0tbmV4dCkgZHJtL2Ft
-ZGdwdTogcmVtb3ZlIHNvbWUgb2xkCnVudXNlZApkcG0gaGVscGVycwoKSSBnZXQgdGhlc2UgbnVt
-YmVycywgYWdhaW4gKHNvbWV3aGF0IGhpZ2hlciB0aGVuIFdpbi4uLiBhcyBzb21lIG90aGVyCnBv
-aW50ZWQKb3V0KToKCmFtZGdwdS1wY2ktMDEwMApBZGFwdGVyOiBQQ0kgYWRhcHRlcgp2ZGRnZng6
-ICAgICAgICswLjc1IFYKZmFuMTogICAgICAgICA5MDAgUlBNICAobWluID0gICAgMCBSUE0sIG1h
-eCA9IDMyMDAgUlBNKQp0ZW1wMTogICAgICAgICszMC4wwrBDICAoY3JpdCA9ICs5NC4wwrBDLCBo
-eXN0ID0gLTI3My4xwrBDKQpwb3dlcjE6ICAgICAgIDMyLjE2IFcgIChjYXAgPSAxNzUuMDAgVykK
-Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KICBZb3UgYXJlIHJlY2VpdmluZyB0aGlzIG1haWwg
-YmVjYXVzZToKCiAgCSogWW91IGFyZSB0aGUgYXNzaWduZWUgZm9yIHRoZSBidWcuCgoKCkxpbmtz
-OgotLS0tLS0KWzFdIGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvc2hvd19idWcuY2dpP2lk
-PTEwOTY1MApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpk
-cmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Sun, Feb 17, 2019 at 12:37 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Sat, Feb 16, 2019 at 1:01 AM Lukas Wunner <lukas@wunner.de> wrote:
+> >
+> > On Fri, Feb 15, 2019 at 11:01:04AM -0500, Alex Deucher wrote:
+> > > On Fri, Feb 15, 2019 at 10:39 AM Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
+> > > > On HP ProBook 4540s, if PM-runtime is enabled in the radeon driver
+> > > > and the direct-complete optimization is used for the radeon device
+> > > > during system-wide suspend, the system doesn't resume.
+> > > >
+> > > > Preventing direct-complete from being used with the radeon device by
+> > > > setting the DPM_FLAG_NEVER_SKIP driver flag for it makes the problem
+> > > > go away, which indicates that direct-complete is not safe for the
+> > > > radeon driver in general and should not be used with it (at least
+> > > > for now).
+> > > >
+> > > > This fixes a regression introduced by commit c62ec4610c40
+> > > > ("PM / core: Fix direct_complete handling for devices with no
+> > > > callbacks") which allowed direct-complete to be applied to
+> > > > devices without PM callbacks (again) which in turn unlocked
+> > > > direct-complete for radeon on HP ProBook 4540s.
+> > >
+> > > Do other similar drivers like amdgpu and nouveau need the same fix?
+> > > I'm not too familiar with the direct_complete feature in general.
+> >
+> > direct_complete means that a discrete GPU which is in D3cold upon
+> > entering system sleep is left as is, i.e. it is not woken.  It is
+> > also expected to still be in D3cold when resuming from system sleep
+> > from the PM core's point of view.  (If it is in D0uninitialized, the
+> > GPU's driver needs to ensure it is transitioned to D3cold again.)
+> >
+> > I know for a fact that resuming the discrete GPU is not necessary
+> > on my MacBook Pro with Nvidia GPU.  I'd expect those with AMD GPUs
+> > to behave the same.  The apple-gmux driver takes care of putting
+> > the GPU into D3cold on resume from system sleep if it was in D3cold
+> > when entering system sleep (see drivers/platform/x86/apple-gmux.c,
+> > gmux_resume()).
+> >
+> > I think it is desirable to use direct_complete because it saves power
+> > (no need to gratuitously wake the GPU upon entering system sleep,
+> > only to immediately cut its power) and it also speeds up the suspend
+> > process by about half a second.
+>
+> Thanks for the info.  It sounds like we need a similar patch for
+> amdgpu.  With dGPUs controlled by the ACPI ATPX method, I believe the
+> dGPU is powered by automatically on resume from S3/S4.  I think there
+> may be a way to change that behavior in some revisions of ATPX (i.e.,
+> to keep the state across suspend cycles), but it's not the default.
+> I'm not sure about the newer _PR3 stuff in Hybrid Graphics laptops.  I
+> think it retains state.  In both radeon and amdgpu we probably need to
+> check if the system is using ATPX or _PR3 and disable direct complete
+> for ATPX at least.
+
+I would disable direct-complete entirely for them then and possibly
+consider using DPM_FLAG_SMART_SUSPEND in the cases when that would be
+safe.
+
+Anyway, I posted this patch for radeon, because it addresses a
+specific regression and I'm not super-familiar with GPU drivers in
+general.
+
+Cheers,
+Rafael
