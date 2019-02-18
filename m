@@ -1,82 +1,54 @@
 From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] gpu: drm: radeon: Set DPM_FLAG_NEVER_SKIP when enabling PM-runtime
-Date: Mon, 18 Feb 2019 17:21:19 -0500
-Message-ID: <CADnq5_O+2i5jC_0DRQvfkMtmfMGLgMzRDo+aSZHXeewhDPVhOg@mail.gmail.com>
-References: <2281684.8tZHfIXjiu@aspire.rjw.lan> <CADnq5_NmDYzZZPUh5Wp+a8bycRWFDt3Lhzf0AKx9BECJ_U-Kyg@mail.gmail.com>
- <20190216060058.gsiddsmj3f27e6v7@wunner.de> <CADnq5_OqaQA2HNcy+ZZvsN5MTEWLXoFEuirX4f4nzEOJ6NrdVA@mail.gmail.com>
- <CAJZ5v0g8-+cqQFspwYytTbzptZrt+GhT2RUX_nQnFD-rDbA7sA@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon/evergreen_cs: fix missing break in switch
+ statement
+Date: Mon, 18 Feb 2019 17:23:19 -0500
+Message-ID: <CADnq5_PoxekMe1OMq-CFqMWjxdCC=ZG9OHY_MEiEeNWJTHhKAw@mail.gmail.com>
+References: <20190215202926.GA4578@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAJZ5v0g8-+cqQFspwYytTbzptZrt+GhT2RUX_nQnFD-rDbA7sA@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Lukas Wunner <lukas@wunner.de>, "Rafael J. Wysocki" <rjw@rjwysocki.net>, Alex Deucher <alexander.deucher@amd.com>, David Zhou <David1.Zhou@amd.com>, Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, ?????????????? ???????????????? <ukrkyi@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190215202926.GA4578@embeddedor>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Cc: Kees Cook <keescook@chromium.org>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Sun, Feb 17, 2019 at 4:26 PM Rafael J. Wysocki <rafael@kernel.org> wrote:
->
-> On Sun, Feb 17, 2019 at 12:37 AM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Sat, Feb 16, 2019 at 1:01 AM Lukas Wunner <lukas@wunner.de> wrote:
-> > >
-> > > On Fri, Feb 15, 2019 at 11:01:04AM -0500, Alex Deucher wrote:
-> > > > On Fri, Feb 15, 2019 at 10:39 AM Rafael J. Wysocki <rjw@rjwysocki.net> wrote:
-> > > > > On HP ProBook 4540s, if PM-runtime is enabled in the radeon driver
-> > > > > and the direct-complete optimization is used for the radeon device
-> > > > > during system-wide suspend, the system doesn't resume.
-> > > > >
-> > > > > Preventing direct-complete from being used with the radeon device by
-> > > > > setting the DPM_FLAG_NEVER_SKIP driver flag for it makes the problem
-> > > > > go away, which indicates that direct-complete is not safe for the
-> > > > > radeon driver in general and should not be used with it (at least
-> > > > > for now).
-> > > > >
-> > > > > This fixes a regression introduced by commit c62ec4610c40
-> > > > > ("PM / core: Fix direct_complete handling for devices with no
-> > > > > callbacks") which allowed direct-complete to be applied to
-> > > > > devices without PM callbacks (again) which in turn unlocked
-> > > > > direct-complete for radeon on HP ProBook 4540s.
-> > > >
-> > > > Do other similar drivers like amdgpu and nouveau need the same fix?
-> > > > I'm not too familiar with the direct_complete feature in general.
-> > >
-> > > direct_complete means that a discrete GPU which is in D3cold upon
-> > > entering system sleep is left as is, i.e. it is not woken.  It is
-> > > also expected to still be in D3cold when resuming from system sleep
-> > > from the PM core's point of view.  (If it is in D0uninitialized, the
-> > > GPU's driver needs to ensure it is transitioned to D3cold again.)
-> > >
-> > > I know for a fact that resuming the discrete GPU is not necessary
-> > > on my MacBook Pro with Nvidia GPU.  I'd expect those with AMD GPUs
-> > > to behave the same.  The apple-gmux driver takes care of putting
-> > > the GPU into D3cold on resume from system sleep if it was in D3cold
-> > > when entering system sleep (see drivers/platform/x86/apple-gmux.c,
-> > > gmux_resume()).
-> > >
-> > > I think it is desirable to use direct_complete because it saves power
-> > > (no need to gratuitously wake the GPU upon entering system sleep,
-> > > only to immediately cut its power) and it also speeds up the suspend
-> > > process by about half a second.
-> >
-> > Thanks for the info.  It sounds like we need a similar patch for
-> > amdgpu.  With dGPUs controlled by the ACPI ATPX method, I believe the
-> > dGPU is powered by automatically on resume from S3/S4.  I think there
-> > may be a way to change that behavior in some revisions of ATPX (i.e.,
-> > to keep the state across suspend cycles), but it's not the default.
-> > I'm not sure about the newer _PR3 stuff in Hybrid Graphics laptops.  I
-> > think it retains state.  In both radeon and amdgpu we probably need to
-> > check if the system is using ATPX or _PR3 and disable direct complete
-> > for ATPX at least.
->
-> I would disable direct-complete entirely for them then and possibly
-> consider using DPM_FLAG_SMART_SUSPEND in the cases when that would be
-> safe.
->
-> Anyway, I posted this patch for radeon, because it addresses a
-> specific regression and I'm not super-familiar with GPU drivers in
-> general.
-
-Thanks.  I've applied this patch and sent out a patch for amdgpu.
-
-Alex
+T24gRnJpLCBGZWIgMTUsIDIwMTkgYXQgNTo0MCBQTSBHdXN0YXZvIEEuIFIuIFNpbHZhCjxndXN0
+YXZvQGVtYmVkZGVkb3IuY29tPiB3cm90ZToKPgo+IEFkZCBtaXNzaW5nIGJyZWFrIHN0YXRlbWVu
+dCBpbiBvcmRlciB0byBwcmV2ZW50IHRoZSBjb2RlIGZyb20gZmFsbGluZwo+IHRocm91Z2ggdG8g
+Y2FzZSBDQl9UQVJHRVRfTUFTSy4KPgo+IFRoaXMgYnVnIHdhcyBmb3VuZCB0aGFua3MgdG8gdGhl
+IG9uZ29pbmcgZWZmb3J0cyB0byBlbmFibGUKPiAtV2ltcGxpY2l0LWZhbGx0aHJvdWdoLgo+Cj4g
+Rml4ZXM6IGRkMjIwYTAwZThiZCAoImRybS9yYWRlb24va21zOiBhZGQgc3VwcG9ydCBmb3Igc3Ry
+ZWFtb3V0IHY3IikKPiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+IFNpZ25lZC1vZmYtYnk6
+IEd1c3Rhdm8gQS4gUi4gU2lsdmEgPGd1c3Rhdm9AZW1iZWRkZWRvci5jb20+Cj4gLS0tCj4gTk9U
+RTogTm90aWNlIHRoYXQgdGhpcyBjb2RlIGhhcyBiZWVuIG91dCB0aGVyZSBzaW5jZSAyMDEyLiBT
+bywgaXQKPiB3b3VsZCBiZSBoZWxwZnVsIGlmIHNvbWVvbmUgY2FuIGRvdWJsZS1jaGVjayB0aGlz
+LgoKQXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCj4KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9l
+dmVyZ3JlZW5fY3MuYyB8IDEgKwo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPgo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jIGIvZHJp
+dmVycy9ncHUvZHJtL3JhZGVvbi9ldmVyZ3JlZW5fY3MuYwo+IGluZGV4IGY0NzE1MzdjODUyZi4u
+MWUxNGM2OTIxNDU0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vZXZlcmdy
+ZWVuX2NzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2V2ZXJncmVlbl9jcy5jCj4g
+QEAgLTEyOTksNiArMTI5OSw3IEBAIHN0YXRpYyBpbnQgZXZlcmdyZWVuX2NzX2hhbmRsZV9yZWco
+c3RydWN0IHJhZGVvbl9jc19wYXJzZXIgKnAsIHUzMiByZWcsIHUzMiBpZHgpCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gICAgICAgICAgICAgICAgIH0KPiAgICAg
+ICAgICAgICAgICAgaWJbaWR4XSArPSAodTMyKSgocmVsb2MtPmdwdV9vZmZzZXQgPj4gOCkgJiAw
+eGZmZmZmZmZmKTsKPiArICAgICAgICAgICAgICAgYnJlYWs7Cj4gICAgICAgICBjYXNlIENCX1RB
+UkdFVF9NQVNLOgo+ICAgICAgICAgICAgICAgICB0cmFjay0+Y2JfdGFyZ2V0X21hc2sgPSByYWRl
+b25fZ2V0X2liX3ZhbHVlKHAsIGlkeCk7Cj4gICAgICAgICAgICAgICAgIHRyYWNrLT5jYl9kaXJ0
+eSA9IHRydWU7Cj4gLS0KPiAyLjIwLjEKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
+ZGV2ZWw=
