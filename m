@@ -1,66 +1,46 @@
-From: Thomas Hellstrom <thomas@shipmail.org>
-Subject: Re: [PATCH 1/1] [RFC] drm/ttm: Don't init dma32_zone on 64-bit systems
-Date: Mon, 18 Feb 2019 09:02:44 +0100
-Message-ID: <8538a294-eeab-9c87-ae10-83695149f808@shipmail.org>
-References: <1550271712-13069-1-git-send-email-Felix.Kuehling@amd.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/radeon: remove set but not used variable 'vbi_time_out'
+Date: Mon, 18 Feb 2019 08:45:14 +0000
+Message-ID: <20190218084514.194011-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1550271712-13069-1-git-send-email-Felix.Kuehling@amd.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "thellstrom@vmware.com" <thellstrom@vmware.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
+Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-SG1tLAoKVGhpcyB6b25lIHdhcyBpbnRlbmRlZCB0byBzdG9wIFRUTSBwYWdlIGFsbG9jYXRpb25z
-IGZyb20gZXhoYXVzdGluZyB0aGUgCkRNQTMyIHpvbmUuIElJUkMgZG1hX2FsbG9jX2NvaGVyZW50
-KCkgdXNlcyBETUEzMiBieSBkZWZhdWx0LCB3aGljaCBtZWFucyAKaWYgd2UgZHJvcCB0aGlzIGNo
-ZWNrLCBvdGhlciBkZXZpY2VzIG1heSBzdG9wIGZ1bmN0aW9uaW5nIHVuZXhwZWN0ZWRseT8KCkhv
-d2V2ZXIsIGluIHRoZSBlbmQgSSdkIGV4cGVjdCB0aGUga2VybmVsIHBhZ2UgYWxsb2NhdGlvbiBz
-eXN0ZW0gdG8gbWFrZSAKc3VyZSB0aGVyZSBhcmUgc29tZSBwYWdlcyBsZWZ0IGluIHRoZSBETUEz
-MiB6b25lLCBvdGhlcndpc2UgcmFuZG9tIApub24tSU8gcGFnZSBhbGxvY2F0aW9ucyB3b3VsZCBh
-bHNvIHBvdGVudGlhbGx5IGV4aGF1c3QgdGhlIERNQTMyIHpvbmUgCndpdGhvdXQgYW55Ym9keSBj
-YXJpbmcsIHdoaWNoIG1lYW5zIHJlbW92aW5nIHRoaXMgem9uZSB3b3VsZG4ndCBiZSBhbnkgCndv
-cnNlIHRoYW4gd2hhdGV2ZXIgb3RoZXIgc3Vic3lzdGVtcyBtYXkgYmUgZG9pbmcgYWxyZWFkeS4u
-LgoKL1Rob21hcwoKCk9uIDIvMTYvMTkgMTI6MDIgQU0sIEt1ZWhsaW5nLCBGZWxpeCB3cm90ZToK
-PiBUaGlzIGlzIGFuIFJGQy4gSSdtIG5vdCBzdXJlIHRoaXMgaXMgdGhlIHJpZ2h0IHNvbHV0aW9u
-LCBidXQgaXQKPiBoaWdobGlnaHRzIHRoZSBwcm9ibGVtIEknbSB0cnlpbmcgdG8gc29sdmUuCj4K
-PiBUaGUgZG1hMzJfem9uZSBsaW1pdHMgdGhlIGFjY19zaXplIG9mIGFsbCBhbGxvY2F0ZWQgQk9z
-IHRvIDJHQi4gT24gYQo+IDY0LWJpdCBzeXN0ZW0gd2l0aCBodW5kcmVkcyBvZiBHQiBvZiBzeXN0
-ZW0gbWVtb3J5IGFuZCBHUFUgbWVtb3J5LAo+IHRoaXMgY2FuIGJlY29tZSBhIGJvdHRsZSBuZWNr
-LiBXZSdyZSBzZWVpbmcgVFRNIG1lbW9yeSBhbGxvY2F0aW9uCj4gZmFpbHVyZXMgbm90IGJlY2F1
-c2Ugd2UncmUgdHJ1bHkgb3V0IG9mIG1lbW9yeSwgYnV0IGJlY2F1c2Ugd2UncmUKPiBvdXQgb2Yg
-c3BhY2UgaW4gdGhlIGRtYTMyX3pvbmUgZm9yIHRoZSBhY2Nfc2l6ZSBuZWVkZWQgZm9yIG91ciBC
-Two+IGJvb2sta2VlcGluZy4KPgo+IFNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxp
-eC5LdWVobGluZ0BhbWQuY29tPgo+IENDOiB0aGVsbHN0cm9tQHZtd2FyZS5jb20KPiBDQzogY2hy
-aXN0aWFuLmtvZW5pZ0BhbWQuY29tCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9t
-ZW1vcnkuYyB8IDQgKystLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBk
-ZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1v
-cnkuYyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX21lbW9yeS5jCj4gaW5kZXggZjE1NjdjMy4u
-YmIwNTM2NSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1vcnkuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX21lbW9yeS5jCj4gQEAgLTM2Myw3ICszNjMs
-NyBAQCBzdGF0aWMgaW50IHR0bV9tZW1faW5pdF9oaWdobWVtX3pvbmUoc3RydWN0IHR0bV9tZW1f
-Z2xvYmFsICpnbG9iLAo+ICAgCWdsb2ItPnpvbmVzW2dsb2ItPm51bV96b25lcysrXSA9IHpvbmU7
-Cj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gLSNlbHNlCj4gKyNlbGlmbmRlZiBDT05GSUdfNjRCSVQK
-PiAgIHN0YXRpYyBpbnQgdHRtX21lbV9pbml0X2RtYTMyX3pvbmUoc3RydWN0IHR0bV9tZW1fZ2xv
-YmFsICpnbG9iLAo+ICAgCQkJCSAgIGNvbnN0IHN0cnVjdCBzeXNpbmZvICpzaSkKPiAgIHsKPiBA
-QCAtNDQxLDcgKzQ0MSw3IEBAIGludCB0dG1fbWVtX2dsb2JhbF9pbml0KHN0cnVjdCB0dG1fbWVt
-X2dsb2JhbCAqZ2xvYikKPiAgIAlyZXQgPSB0dG1fbWVtX2luaXRfaGlnaG1lbV96b25lKGdsb2Is
-ICZzaSk7Cj4gICAJaWYgKHVubGlrZWx5KHJldCAhPSAwKSkKPiAgIAkJZ290byBvdXRfbm9fem9u
-ZTsKPiAtI2Vsc2UKPiArI2VsaWZuZGVmIENPTkZJR182NEJJVAo+ICAgCXJldCA9IHR0bV9tZW1f
-aW5pdF9kbWEzMl96b25lKGdsb2IsICZzaSk7Cj4gICAJaWYgKHVubGlrZWx5KHJldCAhPSAwKSkK
-PiAgIAkJZ290byBvdXRfbm9fem9uZTsKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWw=
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/radeon/si_dpm.c: In function 'si_program_response_times':
+drivers/gpu/drm/radeon/si_dpm.c:3640:29: warning:
+ variable 'backbias_response_time' set but not used [-Wunused-but-set-variable]
+
+It never used since introduction.
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/radeon/si_dpm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index 0a785ef0ab66..de8bd245497f 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -3637,14 +3637,13 @@ static int si_notify_smc_display_change(struct radeon_device *rdev,
+ 
+ static void si_program_response_times(struct radeon_device *rdev)
+ {
+-	u32 voltage_response_time, backbias_response_time, acpi_delay_time, vbi_time_out;
++	u32 voltage_response_time, acpi_delay_time, vbi_time_out;
+ 	u32 vddc_dly, acpi_dly, vbi_dly;
+ 	u32 reference_clock;
+ 
+ 	si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_mvdd_chg_time, 1);
+ 
+ 	voltage_response_time = (u32)rdev->pm.dpm.voltage_response_time;
+-	backbias_response_time = (u32)rdev->pm.dpm.backbias_response_time;
+ 
+ 	if (voltage_response_time == 0)
+ 		voltage_response_time = 1000;
