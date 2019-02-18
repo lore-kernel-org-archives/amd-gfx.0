@@ -1,46 +1,76 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/radeon: remove set but not used variable 'vbi_time_out'
-Date: Mon, 18 Feb 2019 08:45:14 +0000
-Message-ID: <20190218084514.194011-1-yuehaibing@huawei.com>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: Re: [PATCH 1/1] [RFC] drm/ttm: Don't init dma32_zone on 64-bit systems
+Date: Mon, 18 Feb 2019 09:20:11 +0000
+Message-ID: <254ca765-adc2-5ddf-280f-6cb3643f6e1f@amd.com>
+References: <1550271712-13069-1-git-send-email-Felix.Kuehling@amd.com>
+ <8538a294-eeab-9c87-ae10-83695149f808@shipmail.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <8538a294-eeab-9c87-ae10-83695149f808@shipmail.org>
+Content-Language: en-US
+Content-ID: <DA37F1AA3779804D84FC9684E5DACFD5@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Thomas Hellstrom <thomas@shipmail.org>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "thellstrom@vmware.com" <thellstrom@vmware.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/radeon/si_dpm.c: In function 'si_program_response_times':
-drivers/gpu/drm/radeon/si_dpm.c:3640:29: warning:
- variable 'backbias_response_time' set but not used [-Wunused-but-set-variable]
-
-It never used since introduction.
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/radeon/si_dpm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index 0a785ef0ab66..de8bd245497f 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -3637,14 +3637,13 @@ static int si_notify_smc_display_change(struct radeon_device *rdev,
- 
- static void si_program_response_times(struct radeon_device *rdev)
- {
--	u32 voltage_response_time, backbias_response_time, acpi_delay_time, vbi_time_out;
-+	u32 voltage_response_time, acpi_delay_time, vbi_time_out;
- 	u32 vddc_dly, acpi_dly, vbi_dly;
- 	u32 reference_clock;
- 
- 	si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_mvdd_chg_time, 1);
- 
- 	voltage_response_time = (u32)rdev->pm.dpm.voltage_response_time;
--	backbias_response_time = (u32)rdev->pm.dpm.backbias_response_time;
- 
- 	if (voltage_response_time == 0)
- 		voltage_response_time = 1000;
+QW5vdGhlciBnb29kIHF1ZXN0aW9uIGlzIGFsc28gd2h5IHRoZSBoZWNrIHRoZSBhY2Nfc2l6ZSBj
+b3VudHMgdG93YXJkcyANCnRoZSBETUEzMiB6b25lPw0KDQpJbiBvdGhlciB3b3JkcyB3aHkgc2hv
+dWxkIHRoZSBpbnRlcm5hbCBib29ra2VlcGluZyBwYWdlcyBiZSBhbGxvY2F0ZWQgaW4gDQp0aGUg
+RE1BMzIgem9uZT8NCg0KVGhhdCBkb2Vzbid0IHNvdW5kcyB2YWxpZCB0byBtZSBpbiBhbnkgd2F5
+LA0KQ2hyaXN0aWFuLg0KDQpBbSAxOC4wMi4xOSB1bSAwOTowMiBzY2hyaWViIFRob21hcyBIZWxs
+c3Ryb206DQo+IEhtbSwNCj4NCj4gVGhpcyB6b25lIHdhcyBpbnRlbmRlZCB0byBzdG9wIFRUTSBw
+YWdlIGFsbG9jYXRpb25zIGZyb20gZXhoYXVzdGluZyANCj4gdGhlIERNQTMyIHpvbmUuIElJUkMg
+ZG1hX2FsbG9jX2NvaGVyZW50KCkgdXNlcyBETUEzMiBieSBkZWZhdWx0LCB3aGljaCANCj4gbWVh
+bnMgaWYgd2UgZHJvcCB0aGlzIGNoZWNrLCBvdGhlciBkZXZpY2VzIG1heSBzdG9wIGZ1bmN0aW9u
+aW5nIA0KPiB1bmV4cGVjdGVkbHk/DQo+DQo+IEhvd2V2ZXIsIGluIHRoZSBlbmQgSSdkIGV4cGVj
+dCB0aGUga2VybmVsIHBhZ2UgYWxsb2NhdGlvbiBzeXN0ZW0gdG8gDQo+IG1ha2Ugc3VyZSB0aGVy
+ZSBhcmUgc29tZSBwYWdlcyBsZWZ0IGluIHRoZSBETUEzMiB6b25lLCBvdGhlcndpc2UgDQo+IHJh
+bmRvbSBub24tSU8gcGFnZSBhbGxvY2F0aW9ucyB3b3VsZCBhbHNvIHBvdGVudGlhbGx5IGV4aGF1
+c3QgdGhlIA0KPiBETUEzMiB6b25lIHdpdGhvdXQgYW55Ym9keSBjYXJpbmcsIHdoaWNoIG1lYW5z
+IHJlbW92aW5nIHRoaXMgem9uZSANCj4gd291bGRuJ3QgYmUgYW55IHdvcnNlIHRoYW4gd2hhdGV2
+ZXIgb3RoZXIgc3Vic3lzdGVtcyBtYXkgYmUgZG9pbmcgDQo+IGFscmVhZHkuLi4NCj4NCj4gL1Ro
+b21hcw0KPg0KPg0KPiBPbiAyLzE2LzE5IDEyOjAyIEFNLCBLdWVobGluZywgRmVsaXggd3JvdGU6
+DQo+PiBUaGlzIGlzIGFuIFJGQy4gSSdtIG5vdCBzdXJlIHRoaXMgaXMgdGhlIHJpZ2h0IHNvbHV0
+aW9uLCBidXQgaXQNCj4+IGhpZ2hsaWdodHMgdGhlIHByb2JsZW0gSSdtIHRyeWluZyB0byBzb2x2
+ZS4NCj4+DQo+PiBUaGUgZG1hMzJfem9uZSBsaW1pdHMgdGhlIGFjY19zaXplIG9mIGFsbCBhbGxv
+Y2F0ZWQgQk9zIHRvIDJHQi4gT24gYQ0KPj4gNjQtYml0IHN5c3RlbSB3aXRoIGh1bmRyZWRzIG9m
+IEdCIG9mIHN5c3RlbSBtZW1vcnkgYW5kIEdQVSBtZW1vcnksDQo+PiB0aGlzIGNhbiBiZWNvbWUg
+YSBib3R0bGUgbmVjay4gV2UncmUgc2VlaW5nIFRUTSBtZW1vcnkgYWxsb2NhdGlvbg0KPj4gZmFp
+bHVyZXMgbm90IGJlY2F1c2Ugd2UncmUgdHJ1bHkgb3V0IG9mIG1lbW9yeSwgYnV0IGJlY2F1c2Ug
+d2UncmUNCj4+IG91dCBvZiBzcGFjZSBpbiB0aGUgZG1hMzJfem9uZSBmb3IgdGhlIGFjY19zaXpl
+IG5lZWRlZCBmb3Igb3VyIEJPDQo+PiBib29rLWtlZXBpbmcuDQo+Pg0KPj4gU2lnbmVkLW9mZi1i
+eTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+PiBDQzogdGhlbGxz
+dHJvbUB2bXdhcmUuY29tDQo+PiBDQzogY2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tDQo+PiAtLS0N
+Cj4+IMKgIGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX21lbW9yeS5jIHwgNCArKy0tDQo+PiDCoCAx
+IGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1vcnkuYyANCj4+IGIvZHJpdmVy
+cy9ncHUvZHJtL3R0bS90dG1fbWVtb3J5LmMNCj4+IGluZGV4IGYxNTY3YzMuLmJiMDUzNjUgMTAw
+NjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1vcnkuYw0KPj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fbWVtb3J5LmMNCj4+IEBAIC0zNjMsNyArMzYzLDcgQEAg
+c3RhdGljIGludCB0dG1fbWVtX2luaXRfaGlnaG1lbV96b25lKHN0cnVjdCANCj4+IHR0bV9tZW1f
+Z2xvYmFsICpnbG9iLA0KPj4gwqDCoMKgwqDCoCBnbG9iLT56b25lc1tnbG9iLT5udW1fem9uZXMr
+K10gPSB6b25lOw0KPj4gwqDCoMKgwqDCoCByZXR1cm4gMDsNCj4+IMKgIH0NCj4+IC0jZWxzZQ0K
+Pj4gKyNlbGlmbmRlZiBDT05GSUdfNjRCSVQNCj4+IMKgIHN0YXRpYyBpbnQgdHRtX21lbV9pbml0
+X2RtYTMyX3pvbmUoc3RydWN0IHR0bV9tZW1fZ2xvYmFsICpnbG9iLA0KPj4gwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdCBzdHJ1Y3Qgc3lzaW5mbyAqc2kpDQo+
+PiDCoCB7DQo+PiBAQCAtNDQxLDcgKzQ0MSw3IEBAIGludCB0dG1fbWVtX2dsb2JhbF9pbml0KHN0
+cnVjdCB0dG1fbWVtX2dsb2JhbCAqZ2xvYikNCj4+IMKgwqDCoMKgwqAgcmV0ID0gdHRtX21lbV9p
+bml0X2hpZ2htZW1fem9uZShnbG9iLCAmc2kpOw0KPj4gwqDCoMKgwqDCoCBpZiAodW5saWtlbHko
+cmV0ICE9IDApKQ0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gb3V0X25vX3pvbmU7DQo+PiAt
+I2Vsc2UNCj4+ICsjZWxpZm5kZWYgQ09ORklHXzY0QklUDQo+PiDCoMKgwqDCoMKgIHJldCA9IHR0
+bV9tZW1faW5pdF9kbWEzMl96b25lKGdsb2IsICZzaSk7DQo+PiDCoMKgwqDCoMKgIGlmICh1bmxp
+a2VseShyZXQgIT0gMCkpDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBvdXRfbm9fem9uZTsN
+Cj4NCj4NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+ZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
