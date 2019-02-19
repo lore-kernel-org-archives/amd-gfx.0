@@ -1,50 +1,62 @@
-From: "Rafael J. Wysocki" <rafael.j.wysocki-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Set DPM_FLAG_NEVER_SKIP when enabling
- PM-runtime
-Date: Tue, 19 Feb 2019 18:20:43 +0100
-Message-ID: <c2877e3b-e207-488f-521a-1322162b0f9b@intel.com>
-References: <20190218221948.3602-1-alexander.deucher@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/amd/powerplay/smu8_hwmgr: use struct_size() in kzalloc()
+Date: Tue, 19 Feb 2019 12:42:32 -0600
+Message-ID: <20190219184232.GA20672@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190218221948.3602-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMi8xOC8yMDE5IDExOjE5IFBNLCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gQmFzZWQgb24gYSBz
-aW1pbGFyIHBhdGNoIGZyb20gUmFmYWVsIGZvciByYWRlb24uCj4KPiBXaGVuIHVzaW5nIEFUUFgg
-dG8gY29udHJvbCBkR1BVIHBvd2VyLCB0aGUgc3RhdGUgaXMgbm90IHJldGFpbmVkCj4gYWNyb3Nz
-IHN1c3BlbmQgYW5kIHJlc3VtZSBjeWNsZXMgYnkgZGVmYXVsdC4gIFRoaXMgY2FuIHByb2JhYmx5
-Cj4gYmUgbG9vc2VuZWQgZm9yIEh5YnJpZCBHcmFwaGljcyAoX1BSMykgbGFwdG9wcyB3aGVyZSBJ
-IHRoaW5rIHRoZQo+IHN0YXRlIGlzIHByb3Blcmx5IHJldGFpbmVkLgo+Cj4gRml4ZXM6IGM2MmVj
-NDYxMGM0MCAoIlBNIC8gY29yZTogRml4IGRpcmVjdF9jb21wbGV0ZSBoYW5kbGluZyBmb3IgZGV2
-aWNlcyB3aXRoIG5vIGNhbGxiYWNrcyIpCj4gQ2M6IFJhZmFlbCBKLiBXeXNvY2tpIDxyYWZhZWwu
-ai53eXNvY2tpQGludGVsLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhh
-bmRlci5kZXVjaGVyQGFtZC5jb20+CgpBY2tlZC1ieTogUmFmYWVsIEouIFd5c29ja2kgPHJhZmFl
-bC5qLnd5c29ja2lAaW50ZWwuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9rbXMuYyB8IDEgKwo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
-Cj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jCj4gaW5kZXggZDYzY2I1
-M2ZmMmJiLi5lYWY5MGNkYzg0OGQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2ttcy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ttcy5jCj4gQEAgLTIxMiw2ICsyMTIsNyBAQCBpbnQgYW1kZ3B1X2RyaXZlcl9sb2FkX2tt
-cyhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBsb25nIGZsYWdzKQo+ICAgCX0KPiAg
-IAo+ICAgCWlmIChhbWRncHVfZGV2aWNlX2lzX3B4KGRldikpIHsKPiArCQlkZXZfcG1fc2V0X2Ry
-aXZlcl9mbGFncyhkZXYtPmRldiwgRFBNX0ZMQUdfTkVWRVJfU0tJUCk7Cj4gICAJCXBtX3J1bnRp
-bWVfdXNlX2F1dG9zdXNwZW5kKGRldi0+ZGV2KTsKPiAgIAkJcG1fcnVudGltZV9zZXRfYXV0b3N1
-c3BlbmRfZGVsYXkoZGV2LT5kZXYsIDUwMDApOwo+ICAgCQlwbV9ydW50aW1lX3NldF9hY3RpdmUo
-ZGV2LT5kZXYpOwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+One of the more common cases of allocation size calculations is finding
+the size of a structure that has a zero-sized array at the end, along
+with memory for some number of elements for that array. For example:
+
+struct foo {
+    int stuff;
+    struct boo entry[];
+};
+
+size = sizeof(struct foo) + count * sizeof(struct boo);
+instance = kzalloc(size, GFP_KERNEL);
+
+Instead of leaving these open-coded and prone to type mistakes, we can
+now use the new struct_size() helper:
+
+instance = kzalloc(struct_size(instance, entry, count), GFP_KERNEL);
+
+Notice that, in this case, variable table_size is not necessary, hence
+it is removed.
+
+This code was detected with the help of Coccinelle.
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+index 553a203ac47c..019d6a206492 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
+@@ -272,12 +272,10 @@ static int smu8_init_dynamic_state_adjustment_rule_settings(
+ 			struct pp_hwmgr *hwmgr,
+ 			ATOM_CLK_VOLT_CAPABILITY *disp_voltage_table)
+ {
+-	uint32_t table_size =
+-		sizeof(struct phm_clock_voltage_dependency_table) +
+-		(7 * sizeof(struct phm_clock_voltage_dependency_record));
++	struct phm_clock_voltage_dependency_table *table_clk_vlt;
+ 
+-	struct phm_clock_voltage_dependency_table *table_clk_vlt =
+-					kzalloc(table_size, GFP_KERNEL);
++	table_clk_vlt = kzalloc(struct_size(table_clk_vlt, entries, 7),
++				GFP_KERNEL);
+ 
+ 	if (NULL == table_clk_vlt) {
+ 		pr_err("Can not allocate memory!\n");
+-- 
+2.20.1
