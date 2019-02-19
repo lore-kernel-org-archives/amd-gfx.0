@@ -1,62 +1,86 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amd/powerplay/smu10_hwmgr: use struct_size() in kzalloc()
-Date: Tue, 19 Feb 2019 12:55:09 -0600
-Message-ID: <20190219185509.GA23853@embeddedor>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/powerplay: Get fix clock info when dpm is disabled
+ for the clock
+Date: Tue, 19 Feb 2019 19:51:29 +0000
+Message-ID: <81292437-4c40-7428-fa87-d67f04868f4f@amd.com>
+References: <1550265947-27948-1-git-send-email-shaoyun.liu@amd.com>
+ <46cb8d19-c218-a4b4-fd4d-b84d227eb16f@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <46cb8d19-c218-a4b4-fd4d-b84d227eb16f-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <68599D34179F1A468B31122078D7F265-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Russell,
+ Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
 
-One of the more common cases of allocation size calculations is finding
-the size of a structure that has a zero-sized array at the end, along
-with memory for some number of elements for that array. For example:
-
-struct foo {
-    int stuff;
-    struct boo entry[];
-};
-
-size = sizeof(struct foo) + count * sizeof(struct boo);
-instance = kzalloc(size, GFP_KERNEL);
-
-Instead of leaving these open-coded and prone to type mistakes, we can
-now use the new struct_size() helper:
-
-instance = kzalloc(struct_size(instance, entry, count), GFP_KERNEL);
-
-Notice that, in this case, variable table_size is not necessary, hence
-it is removed.
-
-This code was detected with the help of Coccinelle.
-
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-index 5273de3c5b98..0ad8fe4a6277 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-@@ -139,12 +139,10 @@ static int smu10_construct_max_power_limits_table(struct pp_hwmgr *hwmgr,
- static int smu10_init_dynamic_state_adjustment_rule_settings(
- 							struct pp_hwmgr *hwmgr)
- {
--	uint32_t table_size =
--		sizeof(struct phm_clock_voltage_dependency_table) +
--		(7 * sizeof(struct phm_clock_voltage_dependency_record));
-+	struct phm_clock_voltage_dependency_table *table_clk_vlt;
- 
--	struct phm_clock_voltage_dependency_table *table_clk_vlt =
--					kzalloc(table_size, GFP_KERNEL);
-+	table_clk_vlt = kzalloc(struct_size(table_clk_vlt, entries, 7),
-+				GFP_KERNEL);
- 
- 	if (NULL == table_clk_vlt) {
- 		pr_err("Can not allocate memory!\n");
--- 
-2.20.1
+WytLZW50XQ0KDQpPbiAyMDE5LTAyLTE5IDEyOjA4IHAubS4sIEh1YW5nLCBKaW5IdWlFcmljIHdy
+b3RlOg0KDQo+IEl0IHNlZW1zIHJlZHVuZGFudCB0byBwcmludCBvdXQgYWxsIERQTSBsZXZlbHMg
+d2hlbiBEUE0gaXMgZGlzYWJsZWQuDQo+IFByb2JhYmx5IGl0IGxvb2tzIG1lYW5pbmdmdWwgdG8g
+cHJpbnQgb3V0ICI8Y3VycmVudCBjbG9jaz5NaHogKERQTQ0KPiBkaXNhYmxlZCkiLg0KSWYgeW91
+IGNoYW5nZSB0aGUgZm9ybWF0LCB5b3UgcmlzayBicmVha2luZyB0b29scyBzdWNoIGFzIHJvY20t
+c21pLiBJcyANCnRoZXJlIHNvbWUgb3RoZXIgd2F5IGZvciByb2NtLXNtaSB0byB0ZWxsIHRoYXQg
+RFBNIGlzIGRpc2FibGVkPw0KDQpSZWdhcmRzLA0KIMKgIEZlbGl4DQoNCg0KPg0KPiBSZWdhcmRz
+LA0KPg0KPiBFcmljDQo+DQo+IE9uIDIwMTktMDItMTUgNDoyNSBwLm0uLCBMaXUsIFNoYW95dW4g
+d3JvdGU6DQo+PiBXaGVuIERQTSBmb3IgdGhlIHNwZWNpZmljIGNsb2NrIGlzIGRpZmFibGVkLCBk
+cml2ZXIgc2hvdWxkIHN0aWxsIGFibGUgdG8NCj4+IGdldCBmaXggY2xvY2sgaW5mbyBmcm9tIHRo
+ZSBwcHRhYmxlDQo+Pg0KPj4gQ2hhbmdlLUlkOiBJYzYwOTIwM2IzYjg3YWE3NWIwY2ZkNTdiNTc3
+MTdiM2JiODlkYWY0OA0KPj4gU2lnbmVkLW9mZi1ieTogc2hhb3l1bmwgPHNoYW95dW4ubGl1QGFt
+ZC5jb20+DQo+PiAtLS0NCj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdy
+L3ZlZ2EyMF9od21nci5jIHwgMTYgLS0tLS0tLS0tLS0tLS0tLQ0KPj4gICAgMSBmaWxlIGNoYW5n
+ZWQsIDE2IGRlbGV0aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jDQo+PiBpbmRleCBhYWQ3OWFmZi4uMmVhZTBi
+NCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Zl
+Z2EyMF9od21nci5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMjBfaHdtZ3IuYw0KPj4gQEAgLTI2NDEsMTAgKzI2NDEsNiBAQCBzdGF0aWMgaW50IHZl
+Z2EyMF9nZXRfc2Nsa3Moc3RydWN0IHBwX2h3bWdyICpod21nciwNCj4+ICAgIAlzdHJ1Y3QgdmVn
+YTIwX3NpbmdsZV9kcG1fdGFibGUgKmRwbV90YWJsZSA9ICYoZGF0YS0+ZHBtX3RhYmxlLmdmeF90
+YWJsZSk7DQo+PiAgICAJaW50IGksIGNvdW50Ow0KPj4gICAgDQo+PiAtCVBQX0FTU0VSVF9XSVRI
+X0NPREUoZGF0YS0+c211X2ZlYXR1cmVzW0dOTERfRFBNX0dGWENMS10uZW5hYmxlZCwNCj4+IC0J
+CSJbR2V0U2Nsa3NdOiBnZnhjbGsgZHBtIG5vdCBlbmFibGVkIVxuIiwNCj4+IC0JCXJldHVybiAt
+RVBFUk0pOw0KPj4gLQ0KPj4gICAgCWNvdW50ID0gKGRwbV90YWJsZS0+Y291bnQgPiBNQVhfTlVN
+X0NMT0NLUykgPyBNQVhfTlVNX0NMT0NLUyA6IGRwbV90YWJsZS0+Y291bnQ7DQo+PiAgICAJY2xv
+Y2tzLT5udW1fbGV2ZWxzID0gY291bnQ7DQo+PiAgICANCj4+IEBAIC0yNjcwLDEwICsyNjY2LDYg
+QEAgc3RhdGljIGludCB2ZWdhMjBfZ2V0X21lbWNsb2NrcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdy
+LA0KPj4gICAgCXN0cnVjdCB2ZWdhMjBfc2luZ2xlX2RwbV90YWJsZSAqZHBtX3RhYmxlID0gJihk
+YXRhLT5kcG1fdGFibGUubWVtX3RhYmxlKTsNCj4+ICAgIAlpbnQgaSwgY291bnQ7DQo+PiAgICAN
+Cj4+IC0JUFBfQVNTRVJUX1dJVEhfQ09ERShkYXRhLT5zbXVfZmVhdHVyZXNbR05MRF9EUE1fVUNM
+S10uZW5hYmxlZCwNCj4+IC0JCSJbR2V0TWNsa3NdOiB1Y2xrIGRwbSBub3QgZW5hYmxlZCFcbiIs
+DQo+PiAtCQlyZXR1cm4gLUVQRVJNKTsNCj4+IC0NCj4+ICAgIAljb3VudCA9IChkcG1fdGFibGUt
+PmNvdW50ID4gTUFYX05VTV9DTE9DS1MpID8gTUFYX05VTV9DTE9DS1MgOiBkcG1fdGFibGUtPmNv
+dW50Ow0KPj4gICAgCWNsb2Nrcy0+bnVtX2xldmVscyA9IGRhdGEtPm1jbGtfbGF0ZW5jeV90YWJs
+ZS5jb3VudCA9IGNvdW50Ow0KPj4gICAgDQo+PiBAQCAtMjY5NiwxMCArMjY4OCw2IEBAIHN0YXRp
+YyBpbnQgdmVnYTIwX2dldF9kY2VmY2xvY2tzKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsDQo+PiAg
+ICAJc3RydWN0IHZlZ2EyMF9zaW5nbGVfZHBtX3RhYmxlICpkcG1fdGFibGUgPSAmKGRhdGEtPmRw
+bV90YWJsZS5kY2VmX3RhYmxlKTsNCj4+ICAgIAlpbnQgaSwgY291bnQ7DQo+PiAgICANCj4+IC0J
+UFBfQVNTRVJUX1dJVEhfQ09ERShkYXRhLT5zbXVfZmVhdHVyZXNbR05MRF9EUE1fRENFRkNMS10u
+ZW5hYmxlZCwNCj4+IC0JCSJbR2V0RGNmY2xvY2tzXTogZGNlZmNsayBkcG0gbm90IGVuYWJsZWQh
+XG4iLA0KPj4gLQkJcmV0dXJuIC1FUEVSTSk7DQo+PiAtDQo+PiAgICAJY291bnQgPSAoZHBtX3Rh
+YmxlLT5jb3VudCA+IE1BWF9OVU1fQ0xPQ0tTKSA/IE1BWF9OVU1fQ0xPQ0tTIDogZHBtX3RhYmxl
+LT5jb3VudDsNCj4+ICAgIAljbG9ja3MtPm51bV9sZXZlbHMgPSBjb3VudDsNCj4+ICAgIA0KPj4g
+QEAgLTI3MTksMTAgKzI3MDcsNiBAQCBzdGF0aWMgaW50IHZlZ2EyMF9nZXRfc29jY2xvY2tzKHN0
+cnVjdCBwcF9od21nciAqaHdtZ3IsDQo+PiAgICAJc3RydWN0IHZlZ2EyMF9zaW5nbGVfZHBtX3Rh
+YmxlICpkcG1fdGFibGUgPSAmKGRhdGEtPmRwbV90YWJsZS5zb2NfdGFibGUpOw0KPj4gICAgCWlu
+dCBpLCBjb3VudDsNCj4+ICAgIA0KPj4gLQlQUF9BU1NFUlRfV0lUSF9DT0RFKGRhdGEtPnNtdV9m
+ZWF0dXJlc1tHTkxEX0RQTV9TT0NDTEtdLmVuYWJsZWQsDQo+PiAtCQkiW0dldFNvY2Nsa3NdOiBz
+b2NjbGsgZHBtIG5vdCBlbmFibGVkIVxuIiwNCj4+IC0JCXJldHVybiAtRVBFUk0pOw0KPj4gLQ0K
+Pj4gICAgCWNvdW50ID0gKGRwbV90YWJsZS0+Y291bnQgPiBNQVhfTlVNX0NMT0NLUykgPyBNQVhf
+TlVNX0NMT0NLUyA6IGRwbV90YWJsZS0+Y291bnQ7DQo+PiAgICAJY2xvY2tzLT5udW1fbGV2ZWxz
+ID0gY291bnQ7DQo+PiAgICANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
