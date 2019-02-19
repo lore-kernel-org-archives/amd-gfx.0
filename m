@@ -1,122 +1,62 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] Revert "drm/amdgpu: Fix bugs in setting CP RB/MEC
- DOORBELL_RANGE registers"
-Date: Tue, 19 Feb 2019 13:48:24 -0500
-Message-ID: <CADnq5_PADjwxFrLCat-0tBFC21V8GZshSNAcH+5Q=PA1cU+yGA@mail.gmail.com>
-References: <20190219162848.16824-1-Yong.Zhao@amd.com>
- <20190219162848.16824-2-Yong.Zhao@amd.com>
- <CADnq5_NyHKfZhw0Tj1zY2vcbAbVK0qkqkeswkxFA3eLs+tHRdw@mail.gmail.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [PATCH] drm/amd/powerplay/smu10_hwmgr: use struct_size() in kzalloc()
+Date: Tue, 19 Feb 2019 12:55:09 -0600
+Message-ID: <20190219185509.GA23853@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NyHKfZhw0Tj1zY2vcbAbVK0qkqkeswkxFA3eLs+tHRdw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBGZWIgMTksIDIwMTkgYXQgMTo0NyBQTSBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVy
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBPbiBUdWUsIEZlYiAxOSwgMjAxOSBhdCAxMToyOSBBTSBa
-aGFvLCBZb25nIDxZb25nLlpoYW9AYW1kLmNvbT4gd3JvdGU6Cj4gPgo+ID4gVGhlIG9yaWdpbmFs
-IGNoYW5nZSBjYXVzZWQgcmVncmVzc2lvbiwgc28gcmV2ZXJ0IGl0IHVudGlsIHRoZSBuZXcgZml4
-IGlzCj4gPiByZWFkeS4KPiA+IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvc2hvd19idWcu
-Y2dpP2lkPTEwOTY1MAo+Cj4gTWFrZSB0aGlzOgo+IEJ1ZzogaHR0cHM6Ly9idWdzLmZyZWVkZXNr
-dG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTA5NjUwCj4KPiBXaXRoIHRoYXQgZml4ZWQ6CgpXaXRo
-IHRoYXQgZml4ZWQsICBGb3IgdGhlIHNlcmllcywKCj4gQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8
-YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPgo+ID4KPiA+IFRoaXMgcmV2ZXJ0cyBjb21taXQg
-NzY0Yzg1ZmVmNDE3MjJkYjBmMjE1NThjNmMyZmIzOGJlZTE3MmQxOS4KPiA+Cj4gPiBDaGFuZ2Ut
-SWQ6IEk2YzYzNGQ4YmRiOThlZmNmZGVjMzM1ODFkOTJmN2JhMDI0MTYwNjFiCj4gPiBTaWduZWQt
-b2ZmLWJ5OiBZb25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPgo+ID4gLS0tCj4gPiAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyB8IDE5ICsrKystLS0tLS0tLS0tLS0tLS0K
-PiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgMTkgKysrKystLS0t
-LS0tLS0tLS0tLQo+ID4gIDIgZmlsZXMgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAyOSBkZWxl
-dGlvbnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKPiA+IGlu
-ZGV4IDQxY2Y5ZDAyMjRkOS4uYjhlNTBhMzRiZGIzIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+ID4gQEAgLTQyMjMsOCArNDIyMyw4IEBAIHN0YXRpYyB2b2lk
-IGdmeF92OF8wX3NldF9jcGdfZG9vcl9iZWxsKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBz
-dHJ1Y3QgYW1kZ3B1Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-YWRldi0+ZG9vcmJlbGxfaW5kZXguZ2Z4X3JpbmcwKTsKPiA+ICAgICAgICAgV1JFRzMyKG1tQ1Bf
-UkJfRE9PUkJFTExfUkFOR0VfTE9XRVIsIHRtcCk7Cj4gPgo+ID4gLSAgICAgICAvKiBUaGVyZSBp
-cyBvbmx5IG9uZSBHRlggcXVldWUgKi8KPiA+IC0gICAgICAgV1JFRzMyKG1tQ1BfUkJfRE9PUkJF
-TExfUkFOR0VfVVBQRVIsIHRtcCk7Cj4gPiArICAgICAgIFdSRUczMihtbUNQX1JCX0RPT1JCRUxM
-X1JBTkdFX1VQUEVSLAo+ID4gKyAgICAgICAgICAgICAgIENQX1JCX0RPT1JCRUxMX1JBTkdFX1VQ
-UEVSX19ET09SQkVMTF9SQU5HRV9VUFBFUl9NQVNLKTsKPiA+ICB9Cj4gPgo+ID4gIHN0YXRpYyBp
-bnQgZ2Z4X3Y4XzBfY3BfZ2Z4X3Jlc3VtZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiA+
-IEBAIC00NjQ2LDE5ICs0NjQ2LDggQEAgc3RhdGljIGludCBnZnhfdjhfMF9rY3FfaW5pdF9xdWV1
-ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCj4gPiAgc3RhdGljIHZvaWQgZ2Z4X3Y4XzBfc2V0
-X21lY19kb29yYmVsbF9yYW5nZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiA+ICB7Cj4g
-PiAgICAgICAgIGlmIChhZGV2LT5hc2ljX3R5cGUgPiBDSElQX1RPTkdBKSB7Cj4gPiAtICAgICAg
-ICAgICAgICAgLyogVGhlIGZpcnN0IGZldyBkb29yYmVsbHMgaW4gcGNpIGRvb3JiZWxsIGJhciBh
-cmUgZm9yIEdGWCBSQgo+ID4gLSAgICAgICAgICAgICAgICAqIHJpbmdzIGFuZCBhbGwgdGhlIGxl
-ZnRvdmVyIGZvciBNRUMuCj4gPiAtICAgICAgICAgICAgICAgICogU28gQ1BfTUVDX0RPT1JCRUxM
-X1JBTkdFX0xPV0VSIHNob3VsZCBiZSBzZXQgb25lIGluZGV4IGFmdGVyCj4gPiAtICAgICAgICAg
-ICAgICAgICogQ1BfUkJfRE9PUkJFTExfUkFOR0VfVVBQRVIsIGFzIHdlIGFzc3VtZSB0aGVyZSBp
-cyBvbmx5IG9uZQo+ID4gLSAgICAgICAgICAgICAgICAqIEdGWCBSQiByaW5ncy4KPiA+IC0gICAg
-ICAgICAgICAgICAgKi8KPiA+IC0gICAgICAgICAgICAgICB1MzIgdG1wID0gUkVHX1NFVF9GSUVM
-RCgwLCBDUF9NRUNfRE9PUkJFTExfUkFOR0VfTE9XRVIsCj4gPiAtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIERPT1JCRUxMX1JBTkdFX0xPV0VSLAo+ID4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBhZGV2LT5nZnguZ2Z4X3JpbmdbMF0uZG9vcmJlbGxfaW5kZXggKyAxKTsK
-PiA+IC0KPiA+IC0gICAgICAgICAgICAgICBXUkVHMzIobW1DUF9NRUNfRE9PUkJFTExfUkFOR0Vf
-TE9XRVIsIHRtcCk7Cj4gPiAtICAgICAgICAgICAgICAgV1JFRzMyKG1tQ1BfTUVDX0RPT1JCRUxM
-X1JBTkdFX1VQUEVSLAo+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDUF9NRUNf
-RE9PUkJFTExfUkFOR0VfVVBQRVJfX0RPT1JCRUxMX1JBTkdFX1VQUEVSX01BU0spOwo+ID4gKyAg
-ICAgICAgICAgICAgIFdSRUczMihtbUNQX01FQ19ET09SQkVMTF9SQU5HRV9MT1dFUiwgYWRldi0+
-ZG9vcmJlbGxfaW5kZXgua2lxIDw8IDIpOwo+ID4gKyAgICAgICAgICAgICAgIFdSRUczMihtbUNQ
-X01FQ19ET09SQkVMTF9SQU5HRV9VUFBFUiwgYWRldi0+ZG9vcmJlbGxfaW5kZXgubWVjX3Jpbmc3
-IDw8IDIpOwo+ID4gICAgICAgICB9Cj4gPiAgICAgICAgIC8qIGVuYWJsZSBkb29yYmVsbHMgKi8K
-PiA+ICAgICAgICAgV1JFRzMyX0ZJRUxEKENQX1BRX1NUQVRVUywgRE9PUkJFTExfRU5BQkxFLCAx
-KTsKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+ID4gaW5kZXggMzZmNDE3
-ZmQ2YmE5Li41NTMzZjZlNGY0YTQgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjlfMC5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjlfMC5jCj4gPiBAQCAtMjYzMSw4ICsyNjMxLDggQEAgc3RhdGljIGludCBnZnhfdjlfMF9j
-cF9nZnhfcmVzdW1lKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ID4gICAgICAgICAgICAg
-ICAgICAgICAgICAgRE9PUkJFTExfUkFOR0VfTE9XRVIsIHJpbmctPmRvb3JiZWxsX2luZGV4KTsK
-PiA+ICAgICAgICAgV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX1JCX0RPT1JCRUxMX1JBTkdFX0xP
-V0VSLCB0bXApOwo+ID4KPiA+IC0gICAgICAgLyogVGhlcmUgaXMgb25seSBvbmUgR0ZYIHF1ZXVl
-ICovCj4gPiAtICAgICAgIFdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9SQl9ET09SQkVMTF9SQU5H
-RV9VUFBFUiwgdG1wKTsKPiA+ICsgICAgICAgV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX1JCX0RP
-T1JCRUxMX1JBTkdFX1VQUEVSLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICBDUF9SQl9ET09S
-QkVMTF9SQU5HRV9VUFBFUl9fRE9PUkJFTExfUkFOR0VfVVBQRVJfTUFTSyk7Cj4gPgo+ID4KPiA+
-ICAgICAgICAgLyogc3RhcnQgdGhlIHJpbmcgKi8KPiA+IEBAIC0yOTk1LDE5ICsyOTk1LDEwIEBA
-IHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfa2lxX2luaXRfcmVnaXN0ZXIoc3RydWN0IGFtZGdwdV9yaW5n
-ICpyaW5nKQo+ID4KPiA+ICAgICAgICAgLyogZW5hYmxlIHRoZSBkb29yYmVsbCBpZiByZXF1ZXN0
-ZWQgKi8KPiA+ICAgICAgICAgaWYgKHJpbmctPnVzZV9kb29yYmVsbCkgewo+ID4gLSAgICAgICAg
-ICAgICAgIC8qIFRoZSBmaXJzdCBmZXcgZG9vcmJlbGxzIGluIHBjaSBkb29yYmVsbCBiYXIgYXJl
-IGZvciBHRlggUkIKPiA+IC0gICAgICAgICAgICAgICAgKiByaW5ncyBhbmQgYWxsIHRoZSBsZWZ0
-b3ZlciBmb3IgTUVDLgo+ID4gLSAgICAgICAgICAgICAgICAqIFNvIENQX01FQ19ET09SQkVMTF9S
-QU5HRV9MT1dFUiBzaG91bGQgYmUgc2V0IG9uZSBpbmRleCBhZnRlcgo+ID4gLSAgICAgICAgICAg
-ICAgICAqIENQX1JCX0RPT1JCRUxMX1JBTkdFX1VQUEVSLCBhcyB3ZSBhc3N1bWUgdGhlcmUgaXMg
-b25seSBvbmUKPiA+IC0gICAgICAgICAgICAgICAgKiBHRlggUkIgcmluZ3MuCj4gPiAtICAgICAg
-ICAgICAgICAgICovCj4gPiAtICAgICAgICAgICAgICAgdTMyIHRtcCA9IFJFR19TRVRfRklFTEQo
-MCwgQ1BfTUVDX0RPT1JCRUxMX1JBTkdFX0xPV0VSLAo+ID4gLSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBET09SQkVMTF9SQU5HRV9MT1dFUiwKPiA+IC0gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYWRldi0+Z2Z4LmdmeF9yaW5nWzBdLmRvb3JiZWxsX2luZGV4ICsgMik7Cj4g
-PiAtCj4gPiAtICAgICAgICAgICAgICAgV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUNQX01FQ19ET09S
-QkVMTF9SQU5HRV9MT1dFUiwgdG1wKTsKPiA+ICsgICAgICAgICAgICAgICBXUkVHMzJfU09DMTUo
-R0MsIDAsIG1tQ1BfTUVDX0RPT1JCRUxMX1JBTkdFX0xPV0VSLAo+ID4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIChhZGV2LT5kb29yYmVsbF9pbmRleC5raXEgKiAyKSA8
-PCAyKTsKPiA+ICAgICAgICAgICAgICAgICBXUkVHMzJfU09DMTUoR0MsIDAsIG1tQ1BfTUVDX0RP
-T1JCRUxMX1JBTkdFX1VQUEVSLAo+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBD
-UF9NRUNfRE9PUkJFTExfUkFOR0VfVVBQRVJfX0RPT1JCRUxMX1JBTkdFX1VQUEVSX01BU0spOwo+
-ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIChhZGV2LT5kb29yYmVs
-bF9pbmRleC51c2VycXVldWVfZW5kICogMikgPDwgMik7Cj4gPiAgICAgICAgIH0KPiA+Cj4gPiAg
-ICAgICAgIFdSRUczMl9TT0MxNShHQywgMCwgbW1DUF9IUURfUFFfRE9PUkJFTExfQ09OVFJPTCwK
-PiA+IC0tCj4gPiAyLjE3LjEKPiA+Cj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwo+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiA+IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4
+One of the more common cases of allocation size calculations is finding
+the size of a structure that has a zero-sized array at the end, along
+with memory for some number of elements for that array. For example:
+
+struct foo {
+    int stuff;
+    struct boo entry[];
+};
+
+size = sizeof(struct foo) + count * sizeof(struct boo);
+instance = kzalloc(size, GFP_KERNEL);
+
+Instead of leaving these open-coded and prone to type mistakes, we can
+now use the new struct_size() helper:
+
+instance = kzalloc(struct_size(instance, entry, count), GFP_KERNEL);
+
+Notice that, in this case, variable table_size is not necessary, hence
+it is removed.
+
+This code was detected with the help of Coccinelle.
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+index 5273de3c5b98..0ad8fe4a6277 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+@@ -139,12 +139,10 @@ static int smu10_construct_max_power_limits_table(struct pp_hwmgr *hwmgr,
+ static int smu10_init_dynamic_state_adjustment_rule_settings(
+ 							struct pp_hwmgr *hwmgr)
+ {
+-	uint32_t table_size =
+-		sizeof(struct phm_clock_voltage_dependency_table) +
+-		(7 * sizeof(struct phm_clock_voltage_dependency_record));
++	struct phm_clock_voltage_dependency_table *table_clk_vlt;
+ 
+-	struct phm_clock_voltage_dependency_table *table_clk_vlt =
+-					kzalloc(table_size, GFP_KERNEL);
++	table_clk_vlt = kzalloc(struct_size(table_clk_vlt, entries, 7),
++				GFP_KERNEL);
+ 
+ 	if (NULL == table_clk_vlt) {
+ 		pr_err("Can not allocate memory!\n");
+-- 
+2.20.1
