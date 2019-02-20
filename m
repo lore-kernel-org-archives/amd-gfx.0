@@ -1,863 +1,271 @@
-From: zhoucm1 <zhoucm1@amd.com>
-Subject: Re: [PATCH 09/11] drm/syncobj: add transition iotcls between binary
- and timeline
-Date: Wed, 20 Feb 2019 12:53:32 +0800
-Message-ID: <57565db1-d521-6c6d-1729-69daa98bce99@amd.com>
-References: <20181207095601.2058-1-david1.zhou@amd.com>
- <20181207095601.2058-9-david1.zhou@amd.com>
- <95b9b990-fd69-197c-97c5-a8a1bfa4c6e6@intel.com>
- <e3d6b775-01b0-c694-5abe-47a91ce2e0ba@amd.com>
- <27a38e11-0c77-4340-aac9-b02e816c6f58@email.android.com>
- <83890a08-769a-b52a-f2f6-9fe425f2562c@intel.com>
- <64c548d0-b062-f937-30a5-5a4d3f296f91@amd.com>
- <c2c12849-d26b-3212-40ca-682d6f8006fa@amd.com>
- <c4b16127-a9a0-8dda-5a08-bc6597da5c79@amd.com>
+From: Mathias =?ISO-8859-1?Q?Fr=F6hlich?= <Mathias.Froehlich-hi6Y0CQ0nG0@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Fix reference counting for struct
+ dc_sink.
+Date: Wed, 20 Feb 2019 06:24:54 +0100
+Message-ID: <19888642.k12MuCASrQ@notebook.internal>
+References: <20190210101301.5940-1-Mathias.Froehlich@gmx.net>
+ <CADnq5_OvyMPZ-QogBbCWLBA=Ez39tt5hb1Hh2jNJt0Rw+MkuCw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1257131734=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <c4b16127-a9a0-8dda-5a08-bc6597da5c79@amd.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1257131734==
-Content-Type: multipart/alternative;
-	boundary="------------DC9A84B4AB5E1D06F268BE4D"
-Content-Language: en-US
-
---------------DC9A84B4AB5E1D06F268BE4D
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 2019年02月19日 19:32, Koenig, Christian wrote:
-> Hi David,
->
->> Could you have a look if it's reasonable?
->
-> Patch #1 is also something I already fixed on my local branch.
->
-> But patch #2 won't work like this.
->
-> We can't return an error from drm_syncobj_add_point() because we 
-> already submitted work to the hardware. And just dropping the fence 
-> like you do in the patch is a clearly no-go as well.
-
-Then do you have any idea to skip the messed order signal point?
-
--David
->
-> Regards,
-> Christian.
->
-> Am 19.02.19 um 11:46 schrieb zhoucm1:
->>
->> Hi Lionel,
->>
->> the attached should fix your problem and also messed signal order.
->>
->> Hi Christian,
->>
->> Could you have a look if it's reasonable?
->>
->>
->> btw: I pushed to change to 
->> https://github.com/amingriyue/timeline-syncobj-kernel, which is 
->> already rebased to latest drm-misc(kernel 5.0). You can directly use 
->> that branch.
->>
->>
->> -David
->>
->>
->> On 2019年02月19日 01:01, Koenig, Christian wrote:
->>> Am 18.02.19 um 13:07 schrieb Lionel Landwerlin:
->>>> Thanks guys :)
->>>>
->>>> You mentioned that signaling out of order is illegal.
->>>> Is this illegal with regard to the vulkan spec or to the syncobj 
->>>> implementation?
->>>
->>> David is the expert on that, but as far as I know that is forbidden 
->>> by the vulkan spec.
->>>
->>>> I'm not finding anything in the vulkan spec that makes out of order 
->>>> signaling illegal.
->>>> That's why I came up with this test, just verifying that the 
->>>> timeline does not go backward in term of its payload.
->>>
->>> Well we need to handle this case gracefully in the kernel, so it is 
->>> still a good testcase.
->>>
->>> Christian.
->>>
->>>>
->>>> -Lionel
->>>>
->>>> On 18/02/2019 11:01, Koenig, Christian wrote:
->>>>> Hi David,
->>>>>
->>>>> well I think Lionel is testing the invalid signal order on purpose :)
->>>>>
->>>>> Anyway we really need to handle invalid order graceful here. E.g. 
->>>>> either the same way as during CS or we abort and return an error 
->>>>> message.
->>>>>
->>>>> I think just using the same approach as during CS ist the best we 
->>>>> can do.
->>>>>
->>>>> Regards,
->>>>> Christian
->>>>>
->>>>>
->>>>> Am 18.02.2019 11:35 schrieb "Zhou, David(ChunMing)" 
->>>>> <David1.Zhou@amd.com>:
->>>>>
->>>>> Hi Lionel,
->>>>>
->>>>> I checked your igt test case,
->>>>>
->>>>> uint64_t points[5] = { 1, 5, 3, 7, 6 };
->>>>>
->>>>> which is illegal signal order.
->>>>>
->>>>> I must admit we should handle it gracefully if signal isn't 
->>>>> in-order, and we shouldn't lead to deadlock.
->>>>>
->>>>> Hi Christian,
->>>>>
->>>>> Can we just ignore when signal point X <= timeline Y? Or just give 
->>>>> a warning?
->>>>>
->>>>> Otherwise like Lionel's unexpected use cases, which easily leads 
->>>>> to deadlock.
->>>>>
->>>>>
->>>>> -David
->>>>>
->>>>>
->>>>> On 2019年02月15日 22:28, Lionel Landwerlin wrote:
->>>>>> Hi David,
->>>>>>
->>>>>> Thanks a lot for point me to the tests you've added in IGT.
->>>>>> While adding a test with that signals fences imported into a timeline
->>>>>> syncobj out of order, I ran into a deadlock.
->>>>>> Here is the test :
->>>>>> https://github.com/djdeath/intel-gpu-tools/commit/1e46cf7e7bff09b78a24367ddc2314f97eb0a1b9
->>>>>>
->>>>>> Trying to kill the deadlocked process I got this backtrace :
->>>>>>
->>>>>>
->>>>>> [   33.969136] [IGT] syncobj_timeline: starting subtest signal-order
->>>>>> [   60.452823] watchdog: BUG: soft lockup - CPU#6 stuck for 23s!
->>>>>> [syncobj_timelin:2021]
->>>>>> [   60.452826] Modules linked in: rfcomm cmac bnep binfmt_misc
->>>>>> nls_iso8859_1 snd_hda_codec_hdmi snd_hda_codec_realtek
->>>>>> snd_hda_codec_generic ledtrig_audio sch_fq_codel ib_iser snd_hda_intel
->>>>>> rdma_cm iw_cm snd_hda_codec ib_cm snd_hda_core snd_hwdep intel_rapl
->>>>>> snd_pcm ib_core x86_pkg_temp_thermal intel_powerclamp configf
->>>>>> s coretemp iscsi_tcp snd_seq_midi libiscsi_tcp snd_seq_midi_event
->>>>>> libiscsi kvm_intel scsi_transport_iscsi kvm btusb snd_rawmidi irqbypass
->>>>>> btrtl intel_cstate intel_rapl_perf btbcm btintel bluetooth snd_seq
->>>>>> snd_seq_device snd_timer input_leds ecdh_generic snd soundcore mei_me
->>>>>> mei intel_pch_thermal mac_hid acpi_pad parp
->>>>>> ort_pc ppdev lp parport ip_tables x_tables autofs4 btrfs zstd_decompress
->>>>>> zstd_compress raid10 raid456 async_raid6_recov async_memcpy async_pq
->>>>>> async_xor async_tx xor raid6_pq libcrc32c raid1 raid0 multipath linear
->>>>>> hid_generic usbhid hid i915 crct10dif_pclmul crc32_pclmul i2c_algo_bit
->>>>>> ghash_clmulni_intel prime_numbers
->>>>>> drm_kms_helper aesni_intel syscopyarea sysfillrect
->>>>>> [   60.452876]  sysimgblt fb_sys_fops aes_x86_64 crypto_simd sdhci_pci
->>>>>> cryptd drm e1000e glue_helper cqhci sdhci wmi video
->>>>>> [   60.452881] CPU: 6 PID: 2021 Comm: syncobj_timelin Tainted: G
->>>>>> U            5.0.0-rc5+ #337
->>>>>> [   60.452882] Hardware name:  /NUC6i7KYB, BIOS
->>>>>> KYSKLi70.86A.0042.2016.0929.1933 09/29/2016
->>>>>> [   60.452886] RIP: 0010:dma_fence_chain_walk+0x22c/0x260
->>>>>> [   60.452888] Code: ff e9 93 fe ff ff 48 8b 45 08 48 8b 40 18 48 85 c0
->>>>>> 74 0c 48 89 ef e8 33 0f 58 00 84 c0 75 23 f0 41 ff 4d 00 0f 88 99 87 2f
->>>>>> 00 <0f> 85 05 fe ff ff 4c 89 ef e8 56 ea ff ff 48 89 d8 5b 5d 41 5c 41
->>>>>> [   60.452888] RSP: 0018:ffff9a5804653ca8 EFLAGS: 00010296 ORIG_RAX:
->>>>>> ffffffffffffff13
->>>>>> [   60.452889] RAX: 0000000000000000 RBX: ffff8f5690fb2480 RCX:
->>>>>> ffff8f5690fb2f00
->>>>>> [   60.452890] RDX: 00000000003e3730 RSI: 0000000000000000 RDI:
->>>>>> ffff8f5690fb2180
->>>>>> [   60.452891] RBP: ffff8f5690fb2180 R08: 0000000000000000 R09:
->>>>>> ffff8f5690fb2eb0
->>>>>> [   60.452891] R10: 0000000000000000 R11: ffff8f5660469860 R12:
->>>>>> ffff8f5690fb2f68
->>>>>> [   60.452892] R13: ffff8f5690fb2f00 R14: 0000000000000003 R15:
->>>>>> ffff8f5655a45fc0
->>>>>> [   60.452913] FS:  00007fdc5c459980(0000) GS:ffff8f569eb80000(0000)
->>>>>> knlGS:0000000000000000
->>>>>> [   60.452913] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>>>>> [   60.452914] CR2: 00007f9d74336dd8 CR3: 000000084a67e004 CR4:
->>>>>> 00000000003606e0
->>>>>> [   60.452915] DR0: 0000000000000000 DR1: 0000000000000000 DR2:
->>>>>> 0000000000000000
->>>>>> [   60.452915] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7:
->>>>>> 0000000000000400
->>>>>> [   60.452916] Call Trace:
->>>>>> [   60.452958]  drm_syncobj_add_point+0x102/0x160 [drm]
->>>>>> [   60.452965]  ? drm_syncobj_fd_to_handle_ioctl+0x1b0/0x1b0 [drm]
->>>>>> [   60.452971]  drm_syncobj_transfer_ioctl+0x10f/0x180 [drm]
->>>>>> [   60.452978]  drm_ioctl_kernel+0xac/0xf0 [drm]
->>>>>> [   60.452984]  drm_ioctl+0x2eb/0x3b0 [drm]
->>>>>> [   60.452990]  ? drm_syncobj_fd_to_handle_ioctl+0x1b0/0x1b0 [drm]
->>>>>> [   60.452992]  ? sw_sync_ioctl+0x347/0x370
->>>>>> [   60.452994]  do_vfs_ioctl+0xa4/0x640
->>>>>> [   60.452995]  ? __fput+0x134/0x220
->>>>>> [   60.452997]  ? do_fcntl+0x1a5/0x650
->>>>>> [   60.452998]  ksys_ioctl+0x70/0x80
->>>>>> [   60.452999]  __x64_sys_ioctl+0x16/0x20
->>>>>> [   60.453002]  do_syscall_64+0x55/0x110
->>>>>> [   60.453004]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
->>>>>> [   60.453005] RIP: 0033:0x7fdc5b6e45d7
->>>>>> [   60.453006] Code: b3 66 90 48 8b 05 b1 48 2d 00 64 c7 00 26 00 00 00
->>>>>> 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f
->>>>>> 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d 81 48 2d 00 f7 d8 64 89 01 48
->>>>>> [   60.453007] RSP: 002b:00007fff25c4d198 EFLAGS: 00000206 ORIG_RAX:
->>>>>> 0000000000000010
->>>>>> [   60.453008] RAX: ffffffffffffffda RBX: 0000000000000000 RCX:
->>>>>> 00007fdc5b6e45d7
->>>>>> [   60.453008] RDX: 00007fff25c4d200 RSI: 00000000c02064cc RDI:
->>>>>> 0000000000000003
->>>>>> [   60.453009] RBP: 00007fff25c4d1d0 R08: 0000000000000000 R09:
->>>>>> 000000000000001e
->>>>>> [   60.453010] R10: 0000000000000000 R11: 0000000000000206 R12:
->>>>>> 0000563d3959e4d0
->>>>>> [   60.453010] R13: 00007fff25c4d620 R14: 0000000000000000 R15:
->>>>>> 0000000000000000
->>>>>> [   88.447359] watchdog: BUG: soft lockup - CPU#6 stuck for 22s!
->>>>>> [syncobj_timelin:2021]
->>>>>>
->>>>>>
->>>>>> -Lionel
->>>>>>
->>>>>>
->>>>>> On 07/12/2018 09:55, Chunming Zhou wrote:
->>>>>>> we need to import/export timeline point
->>>>>>>
->>>>>>> Signed-off-by: Chunming Zhou<david1.zhou@amd.com>
->>>>>>> ---
->>>>>>>    drivers/gpu/drm/drm_internal.h |  4 +++
->>>>>>>    drivers/gpu/drm/drm_ioctl.c    |  6 ++++
->>>>>>>    drivers/gpu/drm/drm_syncobj.c  | 66 ++++++++++++++++++++++++++++++++++
->>>>>>>    include/uapi/drm/drm.h         | 10 ++++++
->>>>>>>    4 files changed, 86 insertions(+)
->>>>>>>
->>>>>>> diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
->>>>>>> index dab4d5936441..ecbe3d51a702 100644
->>>>>>> --- a/drivers/gpu/drm/drm_internal.h
->>>>>>> +++ b/drivers/gpu/drm/drm_internal.h
->>>>>>> @@ -176,6 +176,10 @@ int drm_syncobj_handle_to_fd_ioctl(struct drm_device *dev, void *data,
->>>>>>>    				   struct drm_file *file_private);
->>>>>>>    int drm_syncobj_fd_to_handle_ioctl(struct drm_device *dev, void *data,
->>>>>>>    				   struct drm_file *file_private);
->>>>>>> +int drm_syncobj_binary_to_timeline_ioctl(struct drm_device *dev, void *data,
->>>>>>> +					 struct drm_file *file_private);
->>>>>>> +int drm_syncobj_timeline_to_binary_ioctl(struct drm_device *dev, void *data,
->>>>>>> +					 struct drm_file *file_private);
->>>>>>>    int drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
->>>>>>>    			   struct drm_file *file_private);
->>>>>>>    int drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
->>>>>>> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
->>>>>>> index 7578ef6dc1d1..6b417e3c3ea5 100644
->>>>>>> --- a/drivers/gpu/drm/drm_ioctl.c
->>>>>>> +++ b/drivers/gpu/drm/drm_ioctl.c
->>>>>>> @@ -673,6 +673,12 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
->>>>>>>    		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
->>>>>>>    	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE, drm_syncobj_fd_to_handle_ioctl,
->>>>>>>    		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
->>>>>>> +	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_BINARY_TO_TIMELINE,
->>>>>>> +		      drm_syncobj_binary_to_timeline_ioctl,
->>>>>>> +		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
->>>>>>> +	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_TIMELINE_TO_BINARY,
->>>>>>> +		      drm_syncobj_timeline_to_binary_ioctl,
->>>>>>> +		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
->>>>>>>    	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_WAIT, drm_syncobj_wait_ioctl,
->>>>>>>    		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
->>>>>>>    	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT, drm_syncobj_timeline_wait_ioctl,
->>>>>>> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
->>>>>>> index 282982e58dbd..cf4daa670252 100644
->>>>>>> --- a/drivers/gpu/drm/drm_syncobj.c
->>>>>>> +++ b/drivers/gpu/drm/drm_syncobj.c
->>>>>>> @@ -670,6 +670,72 @@ drm_syncobj_fd_to_handle_ioctl(struct drm_device *dev, void *data,
->>>>>>>    					&args->handle);
->>>>>>>    }
->>>>>>>    
->>>>>>> +int
->>>>>>> +drm_syncobj_binary_to_timeline_ioctl(struct drm_device *dev, void *data,
->>>>>>> +				     struct drm_file *file_private)
->>>>>>> +{
->>>>>>> +	struct drm_syncobj_transfer *args = data;
->>>>>>> +	struct drm_syncobj *timeline_syncobj = NULL;
->>>>>>> +	struct dma_fence *fence;
->>>>>>> +	struct dma_fence_chain *chain;
->>>>>>> +	int ret;
->>>>>>> +
->>>>>>> +	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
->>>>>>> +		return -ENODEV;
->>>>>>> +
->>>>>>> +	if (args->pad)
->>>>>>> +		return -EINVAL;
->>>>>>> +
->>>>>>> +	timeline_syncobj = drm_syncobj_find(file_private, args->timeline_handle);
->>>>>>> +	if (!timeline_syncobj) {
->>>>>>> +		return -ENOENT;
->>>>>>> +	}
->>>>>>> +	ret = drm_syncobj_find_fence(file_private, args->binary_handle, 0, 0,
->>>>>>> +				     &fence);
->>>>>>> +	if (ret)
->>>>>>> +		goto err;
->>>>>>> +	chain = kzalloc(sizeof(struct dma_fence_chain), GFP_KERNEL);
->>>>>>> +	if (!chain)
->>>>>>> +		goto err1;
->>>>>>> +	drm_syncobj_add_point(timeline_syncobj, chain, fence, args->point);
->>>>>>> +err1:
->>>>>>> +	dma_fence_put(fence);
->>>>>>> +err:
->>>>>>> +	drm_syncobj_put(timeline_syncobj);
->>>>>>> +
->>>>>>> +	return ret;
->>>>>>> +}
->>>>>>> +
->>>>>>> +int
->>>>>>> +drm_syncobj_timeline_to_binary_ioctl(struct drm_device *dev, void *data,
->>>>>>> +				     struct drm_file *file_private)
->>>>>>> +{
->>>>>>> +	struct drm_syncobj_transfer *args = data;
->>>>>>> +	struct drm_syncobj *binary_syncobj = NULL;
->>>>>>> +	struct dma_fence *fence;
->>>>>>> +	int ret;
->>>>>>> +
->>>>>>> +	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
->>>>>>> +		return -ENODEV;
->>>>>>> +
->>>>>>> +	if (args->pad)
->>>>>>> +		return -EINVAL;
->>>>>>> +
->>>>>>> +	binary_syncobj = drm_syncobj_find(file_private, args->binary_handle);
->>>>>>> +	if (!binary_syncobj)
->>>>>>> +		return -ENOENT;
->>>>>>> +	ret = drm_syncobj_find_fence(file_private, args->timeline_handle,
->>>>>>> +				     args->point, args->flags, &fence);
->>>>>>> +	if (ret)
->>>>>>> +		goto err;
->>>>>>> +	drm_syncobj_replace_fence(binary_syncobj, fence);
->>>>>>> +	dma_fence_put(fence);
->>>>>>> +err:
->>>>>>> +	drm_syncobj_put(binary_syncobj);
->>>>>>> +
->>>>>>> +	return ret;
->>>>>>> +}
->>>>>>> +
->>>>>>>    static void syncobj_wait_fence_func(struct dma_fence *fence,
->>>>>>>    				    struct dma_fence_cb *cb)
->>>>>>>    {
->>>>>>> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
->>>>>>> index b2c36f2b2599..88d6129d4a18 100644
->>>>>>> --- a/include/uapi/drm/drm.h
->>>>>>> +++ b/include/uapi/drm/drm.h
->>>>>>> @@ -735,6 +735,14 @@ struct drm_syncobj_handle {
->>>>>>>    	__u32 pad;
->>>>>>>    };
->>>>>>>    
->>>>>>> +struct drm_syncobj_transfer {
->>>>>>> +	__u32 binary_handle;
->>>>>>> +	__u32 timeline_handle;
->>>>>>> +	__u64 point;
->>>>>>> +	__u32 flags;
->>>>>>> +	__u32 pad;
->>>>>>> +};
->>>>>>> +
->>>>>>>    #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL (1 << 0)
->>>>>>>    #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT (1 << 1)
->>>>>>>    #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE (1 << 2)
->>>>>>> @@ -933,6 +941,8 @@ extern "C" {
->>>>>>>    
->>>>>>>    #define DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT	DRM_IOWR(0xCA, struct drm_syncobj_timeline_wait)
->>>>>>>    #define DRM_IOCTL_SYNCOBJ_QUERY		DRM_IOWR(0xCB, struct drm_syncobj_timeline_array)
->>>>>>> +#define DRM_IOCTL_SYNCOBJ_BINARY_TO_TIMELINE	DRM_IOWR(0xCC, struct drm_syncobj_transfer)
->>>>>>> +#define DRM_IOCTL_SYNCOBJ_TIMELINE_TO_BINARY	DRM_IOWR(0xCD, struct drm_syncobj_transfer)
->>>>>>>    
->>>>>>>    /**
->>>>>>>     * Device specific ioctls should only be in their respective headers
->>>>>
->>>>
->>>
->>
->
-
-
---------------DC9A84B4AB5E1D06F268BE4D
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 2019年02月19日 19:32, Koenig, Christian
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:c4b16127-a9a0-8dda-5a08-bc6597da5c79@amd.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div class="moz-cite-prefix">Hi David,<br>
-        <br>
-        <blockquote type="cite">Could you have a look if it's
-          reasonable?</blockquote>
-        <br>
-        Patch #1 is also something I already fixed on my local branch.<br>
-        <br>
-        But patch #2 won't work like this.<br>
-        <br>
-        We can't return an error from drm_syncobj_add_point() because we
-        already submitted work to the hardware. And just dropping the
-        fence like you do in the patch is a clearly no-go as well.<br>
-      </div>
-    </blockquote>
-    <br>
-    Then do you have any idea to skip the messed order signal point?<br>
-    <br>
-    -David<br>
-    <blockquote type="cite"
-      cite="mid:c4b16127-a9a0-8dda-5a08-bc6597da5c79@amd.com">
-      <div class="moz-cite-prefix">
-        <br>
-        Regards,<br>
-        Christian.<br>
-        <br>
-        Am 19.02.19 um 11:46 schrieb zhoucm1:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:c2c12849-d26b-3212-40ca-682d6f8006fa@amd.com">
-        <p>Hi Lionel,</p>
-        <p>the attached should fix your problem and also messed signal
-          order.</p>
-        <p>Hi Christian,</p>
-        <p>Could you have a look if it's reasonable?</p>
-        <p><br>
-        </p>
-        <p>btw: I pushed to change to <a class="moz-txt-link-freetext"
-            href="https://github.com/amingriyue/timeline-syncobj-kernel"
-            moz-do-not-send="true">
-            https://github.com/amingriyue/timeline-syncobj-kernel</a>,
-          which is already rebased to latest drm-misc(kernel 5.0). You
-          can directly use that branch.<br>
-        </p>
-        <p><br>
-        </p>
-        <p>-David<br>
-        </p>
-        <br>
-        <div class="moz-cite-prefix">On 2019年02月19日 01:01, Koenig,
-          Christian wrote:<br>
-        </div>
-        <blockquote type="cite"
-          cite="mid:64c548d0-b062-f937-30a5-5a4d3f296f91@amd.com">
-          <div class="moz-cite-prefix">Am 18.02.19 um 13:07 schrieb
-            Lionel Landwerlin:<br>
-          </div>
-          <blockquote type="cite"
-            cite="mid:83890a08-769a-b52a-f2f6-9fe425f2562c@intel.com">
-            <div class="moz-cite-prefix">Thanks guys :)</div>
-            <div class="moz-cite-prefix"><br>
-            </div>
-            <div class="moz-cite-prefix">You mentioned that signaling
-              out of order is illegal.</div>
-            <div class="moz-cite-prefix">Is this illegal with regard to
-              the vulkan spec or to the syncobj implementation?</div>
-          </blockquote>
-          <br>
-          David is the expert on that, but as far as I know that is
-          forbidden by the vulkan spec.<br>
-          <br>
-          <blockquote type="cite"
-            cite="mid:83890a08-769a-b52a-f2f6-9fe425f2562c@intel.com">
-            <div class="moz-cite-prefix">I'm not finding anything in the
-              vulkan spec that makes out of order signaling illegal.
-            </div>
-            <div class="moz-cite-prefix">That's why I came up with this
-              test, just verifying that the timeline does not go
-              backward in term of its payload.<br>
-            </div>
-          </blockquote>
-          <br>
-          Well we need to handle this case gracefully in the kernel, so
-          it is still a good testcase.<br>
-          <br>
-          Christian.<br>
-          <br>
-          <blockquote type="cite"
-            cite="mid:83890a08-769a-b52a-f2f6-9fe425f2562c@intel.com">
-            <div class="moz-cite-prefix"><br>
-            </div>
-            <div class="moz-cite-prefix">-Lionel<br>
-            </div>
-            <br>
-            <div class="moz-cite-prefix">On 18/02/2019 11:01, Koenig,
-              Christian wrote:<br>
-            </div>
-            <blockquote type="cite"
-              cite="mid:27a38e11-0c77-4340-aac9-b02e816c6f58@email.android.com">
-              <meta content="text/html; charset=utf-8">
-              <div dir="auto">Hi David,
-                <div dir="auto"><br>
-                </div>
-                <div dir="auto">well I think Lionel is testing the
-                  invalid signal order on purpose :)</div>
-                <div dir="auto"><br>
-                </div>
-                <div dir="auto">Anyway we really need to handle invalid
-                  order graceful here. E.g. either the same way as
-                  during CS or we abort and return an error message.</div>
-                <div dir="auto"><br>
-                </div>
-                <div dir="auto">I think just using the same approach as
-                  during CS ist the best we can do.</div>
-                <div dir="auto"><br>
-                </div>
-                <div dir="auto">Regards,</div>
-                <div dir="auto">Christian</div>
-                <div dir="auto"><br>
-                </div>
-              </div>
-              <div class="gmail_extra"><br>
-                <div class="gmail_quote">Am 18.02.2019 11:35 schrieb
-                  "Zhou, David(ChunMing)" <a
-                    class="moz-txt-link-rfc2396E"
-                    href="mailto:David1.Zhou@amd.com"
-                    moz-do-not-send="true">
-                    &lt;David1.Zhou@amd.com&gt;</a>:<br
-                    type="attribution">
-                </div>
-              </div>
-              <div>
-                <p>Hi Lionel,</p>
-                <p>I checked your igt test case,</p>
-                <p><span class="blob-code-inner"><span class="pl-c1">uint64_t</span>
-                    points[<span class="pl-c1">5</span>] = {
-                    <span class="pl-c1">1</span>, <span class="pl-c1">5</span>,
-                    <span class="pl-c1">3</span>,
-                    <span class="pl-c1">7</span>, <span class="pl-c1">6</span>
-                    };</span></p>
-                <p><span class="blob-code-inner">which is illegal signal
-                    order.</span></p>
-                <p><span class="blob-code-inner">I must admit we should
-                    handle it gracefully if signal isn't in-order, and
-                    we shouldn't lead to deadlock.</span></p>
-                <p><span class="blob-code-inner">Hi Christian,</span></p>
-                <p><span class="blob-code-inner">Can we just ignore when
-                    signal point X &lt;= timeline Y? Or just give a
-                    warning?</span></p>
-                <p><span class="blob-code-inner">Otherwise like Lionel's
-                    unexpected use cases, which easily leads to
-                    deadlock.</span></p>
-                <p><span class="blob-code-inner"><br>
-                  </span></p>
-                <p><span class="blob-code-inner">-David<br>
-                  </span></p>
-                <br>
-                <div class="moz-cite-prefix">On 2019年02月15日 22:28,
-                  Lionel Landwerlin wrote:<br>
-                </div>
-                <blockquote type="cite">
-                  <pre>Hi David,
-
-Thanks a lot for point me to the tests you've added in IGT.
-While adding a test with that signals fences imported into a timeline 
-syncobj out of order, I ran into a deadlock.
-Here is the test : 
-<a class="moz-txt-link-freetext" href="https://github.com/djdeath/intel-gpu-tools/commit/1e46cf7e7bff09b78a24367ddc2314f97eb0a1b9" moz-do-not-send="true">https://github.com/djdeath/intel-gpu-tools/commit/1e46cf7e7bff09b78a24367ddc2314f97eb0a1b9</a>
-
-Trying to kill the deadlocked process I got this backtrace :
-
-
-[   33.969136] [IGT] syncobj_timeline: starting subtest signal-order
-[   60.452823] watchdog: BUG: soft lockup - CPU#6 stuck for 23s! 
-[syncobj_timelin:2021]
-[   60.452826] Modules linked in: rfcomm cmac bnep binfmt_misc 
-nls_iso8859_1 snd_hda_codec_hdmi snd_hda_codec_realtek 
-snd_hda_codec_generic ledtrig_audio sch_fq_codel ib_iser snd_hda_intel 
-rdma_cm iw_cm snd_hda_codec ib_cm snd_hda_core snd_hwdep intel_rapl 
-snd_pcm ib_core x86_pkg_temp_thermal intel_powerclamp configf
-s coretemp iscsi_tcp snd_seq_midi libiscsi_tcp snd_seq_midi_event 
-libiscsi kvm_intel scsi_transport_iscsi kvm btusb snd_rawmidi irqbypass 
-btrtl intel_cstate intel_rapl_perf btbcm btintel bluetooth snd_seq 
-snd_seq_device snd_timer input_leds ecdh_generic snd soundcore mei_me 
-mei intel_pch_thermal mac_hid acpi_pad parp
-ort_pc ppdev lp parport ip_tables x_tables autofs4 btrfs zstd_decompress 
-zstd_compress raid10 raid456 async_raid6_recov async_memcpy async_pq 
-async_xor async_tx xor raid6_pq libcrc32c raid1 raid0 multipath linear 
-hid_generic usbhid hid i915 crct10dif_pclmul crc32_pclmul i2c_algo_bit 
-ghash_clmulni_intel prime_numbers
-drm_kms_helper aesni_intel syscopyarea sysfillrect
-[   60.452876]  sysimgblt fb_sys_fops aes_x86_64 crypto_simd sdhci_pci 
-cryptd drm e1000e glue_helper cqhci sdhci wmi video
-[   60.452881] CPU: 6 PID: 2021 Comm: syncobj_timelin Tainted: G     
-U            5.0.0-rc5+ #337
-[   60.452882] Hardware name:  /NUC6i7KYB, BIOS 
-KYSKLi70.86A.0042.2016.0929.1933 09/29/2016
-[   60.452886] RIP: 0010:dma_fence_chain_walk+0x22c/0x260
-[   60.452888] Code: ff e9 93 fe ff ff 48 8b 45 08 48 8b 40 18 48 85 c0 
-74 0c 48 89 ef e8 33 0f 58 00 84 c0 75 23 f0 41 ff 4d 00 0f 88 99 87 2f 
-00 &lt;0f&gt; 85 05 fe ff ff 4c 89 ef e8 56 ea ff ff 48 89 d8 5b 5d 41 5c 41
-[   60.452888] RSP: 0018:ffff9a5804653ca8 EFLAGS: 00010296 ORIG_RAX: 
-ffffffffffffff13
-[   60.452889] RAX: 0000000000000000 RBX: ffff8f5690fb2480 RCX: 
-ffff8f5690fb2f00
-[   60.452890] RDX: 00000000003e3730 RSI: 0000000000000000 RDI: 
-ffff8f5690fb2180
-[   60.452891] RBP: ffff8f5690fb2180 R08: 0000000000000000 R09: 
-ffff8f5690fb2eb0
-[   60.452891] R10: 0000000000000000 R11: ffff8f5660469860 R12: 
-ffff8f5690fb2f68
-[   60.452892] R13: ffff8f5690fb2f00 R14: 0000000000000003 R15: 
-ffff8f5655a45fc0
-[   60.452913] FS:  00007fdc5c459980(0000) GS:ffff8f569eb80000(0000) 
-knlGS:0000000000000000
-[   60.452913] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[   60.452914] CR2: 00007f9d74336dd8 CR3: 000000084a67e004 CR4: 
-00000000003606e0
-[   60.452915] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 
-0000000000000000
-[   60.452915] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 
-0000000000000400
-[   60.452916] Call Trace:
-[   60.452958]  drm_syncobj_add_point+0x102/0x160 [drm]
-[   60.452965]  ? drm_syncobj_fd_to_handle_ioctl+0x1b0/0x1b0 [drm]
-[   60.452971]  drm_syncobj_transfer_ioctl+0x10f/0x180 [drm]
-[   60.452978]  drm_ioctl_kernel+0xac/0xf0 [drm]
-[   60.452984]  drm_ioctl+0x2eb/0x3b0 [drm]
-[   60.452990]  ? drm_syncobj_fd_to_handle_ioctl+0x1b0/0x1b0 [drm]
-[   60.452992]  ? sw_sync_ioctl+0x347/0x370
-[   60.452994]  do_vfs_ioctl+0xa4/0x640
-[   60.452995]  ? __fput+0x134/0x220
-[   60.452997]  ? do_fcntl+0x1a5/0x650
-[   60.452998]  ksys_ioctl+0x70/0x80
-[   60.452999]  __x64_sys_ioctl+0x16/0x20
-[   60.453002]  do_syscall_64+0x55/0x110
-[   60.453004]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-[   60.453005] RIP: 0033:0x7fdc5b6e45d7
-[   60.453006] Code: b3 66 90 48 8b 05 b1 48 2d 00 64 c7 00 26 00 00 00 
-48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 
-05 &lt;48&gt; 3d 01 f0 ff ff 73 01 c3 48 8b 0d 81 48 2d 00 f7 d8 64 89 01 48
-[   60.453007] RSP: 002b:00007fff25c4d198 EFLAGS: 00000206 ORIG_RAX: 
-0000000000000010
-[   60.453008] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 
-00007fdc5b6e45d7
-[   60.453008] RDX: 00007fff25c4d200 RSI: 00000000c02064cc RDI: 
-0000000000000003
-[   60.453009] RBP: 00007fff25c4d1d0 R08: 0000000000000000 R09: 
-000000000000001e
-[   60.453010] R10: 0000000000000000 R11: 0000000000000206 R12: 
-0000563d3959e4d0
-[   60.453010] R13: 00007fff25c4d620 R14: 0000000000000000 R15: 
-0000000000000000
-[   88.447359] watchdog: BUG: soft lockup - CPU#6 stuck for 22s! 
-[syncobj_timelin:2021]
-
-
--Lionel
-
-
-On 07/12/2018 09:55, Chunming Zhou wrote:
-</pre>
-                  <blockquote type="cite">
-                    <pre>we need to import/export timeline point
-
-Signed-off-by: Chunming Zhou <a class="moz-txt-link-rfc2396E" href="mailto:david1.zhou@amd.com" moz-do-not-send="true">&lt;david1.zhou@amd.com&gt;</a>
----
-  drivers/gpu/drm/drm_internal.h |  4 +++
-  drivers/gpu/drm/drm_ioctl.c    |  6 ++++
-  drivers/gpu/drm/drm_syncobj.c  | 66 ++++++++++++++++++++++++++++++++++
-  include/uapi/drm/drm.h         | 10 ++++++
-  4 files changed, 86 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_internal.h b/drivers/gpu/drm/drm_internal.h
-index dab4d5936441..ecbe3d51a702 100644
---- a/drivers/gpu/drm/drm_internal.h
-+++ b/drivers/gpu/drm/drm_internal.h
-@@ -176,6 +176,10 @@ int drm_syncobj_handle_to_fd_ioctl(struct drm_device *dev, void *data,
-  				   struct drm_file *file_private);
-  int drm_syncobj_fd_to_handle_ioctl(struct drm_device *dev, void *data,
-  				   struct drm_file *file_private);
-+int drm_syncobj_binary_to_timeline_ioctl(struct drm_device *dev, void *data,
-+					 struct drm_file *file_private);
-+int drm_syncobj_timeline_to_binary_ioctl(struct drm_device *dev, void *data,
-+					 struct drm_file *file_private);
-  int drm_syncobj_wait_ioctl(struct drm_device *dev, void *data,
-  			   struct drm_file *file_private);
-  int drm_syncobj_timeline_wait_ioctl(struct drm_device *dev, void *data,
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index 7578ef6dc1d1..6b417e3c3ea5 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -673,6 +673,12 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
-  		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
-  	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_FD_TO_HANDLE, drm_syncobj_fd_to_handle_ioctl,
-  		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_BINARY_TO_TIMELINE,
-+		      drm_syncobj_binary_to_timeline_ioctl,
-+		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_TIMELINE_TO_BINARY,
-+		      drm_syncobj_timeline_to_binary_ioctl,
-+		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
-  	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_WAIT, drm_syncobj_wait_ioctl,
-  		      DRM_UNLOCKED|DRM_RENDER_ALLOW),
-  	DRM_IOCTL_DEF(DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT, drm_syncobj_timeline_wait_ioctl,
-diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index 282982e58dbd..cf4daa670252 100644
---- a/drivers/gpu/drm/drm_syncobj.c
-+++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -670,6 +670,72 @@ drm_syncobj_fd_to_handle_ioctl(struct drm_device *dev, void *data,
-  					&amp;args-&gt;handle);
-  }
-  
-+int
-+drm_syncobj_binary_to_timeline_ioctl(struct drm_device *dev, void *data,
-+				     struct drm_file *file_private)
-+{
-+	struct drm_syncobj_transfer *args = data;
-+	struct drm_syncobj *timeline_syncobj = NULL;
-+	struct dma_fence *fence;
-+	struct dma_fence_chain *chain;
-+	int ret;
-+
-+	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
-+		return -ENODEV;
-+
-+	if (args-&gt;pad)
-+		return -EINVAL;
-+
-+	timeline_syncobj = drm_syncobj_find(file_private, args-&gt;timeline_handle);
-+	if (!timeline_syncobj) {
-+		return -ENOENT;
-+	}
-+	ret = drm_syncobj_find_fence(file_private, args-&gt;binary_handle, 0, 0,
-+				     &amp;fence);
-+	if (ret)
-+		goto err;
-+	chain = kzalloc(sizeof(struct dma_fence_chain), GFP_KERNEL);
-+	if (!chain)
-+		goto err1;
-+	drm_syncobj_add_point(timeline_syncobj, chain, fence, args-&gt;point);
-+err1:
-+	dma_fence_put(fence);
-+err:
-+	drm_syncobj_put(timeline_syncobj);
-+
-+	return ret;
-+}
-+
-+int
-+drm_syncobj_timeline_to_binary_ioctl(struct drm_device *dev, void *data,
-+				     struct drm_file *file_private)
-+{
-+	struct drm_syncobj_transfer *args = data;
-+	struct drm_syncobj *binary_syncobj = NULL;
-+	struct dma_fence *fence;
-+	int ret;
-+
-+	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
-+		return -ENODEV;
-+
-+	if (args-&gt;pad)
-+		return -EINVAL;
-+
-+	binary_syncobj = drm_syncobj_find(file_private, args-&gt;binary_handle);
-+	if (!binary_syncobj)
-+		return -ENOENT;
-+	ret = drm_syncobj_find_fence(file_private, args-&gt;timeline_handle,
-+				     args-&gt;point, args-&gt;flags, &amp;fence);
-+	if (ret)
-+		goto err;
-+	drm_syncobj_replace_fence(binary_syncobj, fence);
-+	dma_fence_put(fence);
-+err:
-+	drm_syncobj_put(binary_syncobj);
-+
-+	return ret;
-+}
-+
-  static void syncobj_wait_fence_func(struct dma_fence *fence,
-  				    struct dma_fence_cb *cb)
-  {
-diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-index b2c36f2b2599..88d6129d4a18 100644
---- a/include/uapi/drm/drm.h
-+++ b/include/uapi/drm/drm.h
-@@ -735,6 +735,14 @@ struct drm_syncobj_handle {
-  	__u32 pad;
-  };
-  
-+struct drm_syncobj_transfer {
-+	__u32 binary_handle;
-+	__u32 timeline_handle;
-+	__u64 point;
-+	__u32 flags;
-+	__u32 pad;
-+};
-+
-  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL (1 &lt;&lt; 0)
-  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT (1 &lt;&lt; 1)
-  #define DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE (1 &lt;&lt; 2)
-@@ -933,6 +941,8 @@ extern "C" {
-  
-  #define DRM_IOCTL_SYNCOBJ_TIMELINE_WAIT	DRM_IOWR(0xCA, struct drm_syncobj_timeline_wait)
-  #define DRM_IOCTL_SYNCOBJ_QUERY		DRM_IOWR(0xCB, struct drm_syncobj_timeline_array)
-+#define DRM_IOCTL_SYNCOBJ_BINARY_TO_TIMELINE	DRM_IOWR(0xCC, struct drm_syncobj_transfer)
-+#define DRM_IOCTL_SYNCOBJ_TIMELINE_TO_BINARY	DRM_IOWR(0xCD, struct drm_syncobj_transfer)
-  
-  /**
-   * Device specific ioctls should only be in their respective headers
-</pre>
-                  </blockquote>
-                </blockquote>
-                <br>
-              </div>
-            </blockquote>
-            <p><br>
-            </p>
-          </blockquote>
-          <br>
-        </blockquote>
-        <br>
-      </blockquote>
-      <br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------DC9A84B4AB5E1D06F268BE4D--
-
---===============1257131734==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_OvyMPZ-QogBbCWLBA=Ez39tt5hb1Hh2jNJt0Rw+MkuCw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Daenzer, Michel" <michel.daenzer-5C7GfCeVMHo@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas,
+ Nicholas" <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============1257131734==--
+SGksCgpwaW5nPwouLi4gdG8gdGhlIGRjIGZvbGtzPwoKYmVzdApNYXRoaWFzCgpPbiBXZWRuZXNk
+YXksIDEzIEZlYnJ1YXJ5IDIwMTkgMjE6Mzg6MDMgQ0VUIEFsZXggRGV1Y2hlciB3cm90ZToKPiBB
+ZGQgYW1kLWdmeCBhbmQgc29tZSBEQyBwZW9wbGUuCj4gCj4gQWxleAo+IAo+IE9uIFN1biwgRmVi
+IDEwLCAyMDE5IGF0IDU6MTMgQU0gPE1hdGhpYXMuRnJvZWhsaWNoQGdteC5uZXQ+IHdyb3RlOgo+
+ID4KPiA+IEZyb206IE1hdGhpYXMgRnLDtmhsaWNoIDxNYXRoaWFzLkZyb2VobGljaEBnbXgubmV0
+Pgo+ID4KPiA+IFJlZmVyZW5jZSBjb3VudGluZyBpbiBhbWRncHVfZG1fY29ubmVjdG9yIGZvciBh
+bWRncHVfZG1fY29ubmVjdG9yOjpkY19zaW5rCj4gPiBhbmQgYW1kZ3B1X2RtX2Nvbm5lY3Rvcjo6
+ZGNfZW1fc2luayBhcyB3ZWxsIGFzIGluIGRjX2xpbms6OmxvY2FsX3Npbmsgc2VlbXMKPiA+IHRv
+IGJlIG91dCBvZiBzaGFwZS4gVGh1cyBtYWtlIHJlZmVyZW5jZSBjb3VudGluZyBjb25zaXN0ZW50
+IGZvciB0aGVzZQo+ID4gbWVtYmVycyBhbmQganVzdCBwbGFpbiBpbmNyZW1lbnQgdGhlIHJlZmVy
+ZW5jZSBjb3VudCB3aGVuIHRoZSB2YXJpYWJsZQo+ID4gZ2V0cyBhc3NpZ25lZCBhbmQgZGVjcmVt
+ZW50IHdoZW4gdGhlIHBvaW50ZXIgaXMgc2V0IHRvIHplcm8gb3IgcmVwbGFjZWQuCj4gPiBBbHNv
+IHNpbXBsaWZ5IHJlZmVyZW5jZSBjb3VudGluZyBpbiBzZWxlY3RlZCBmdW5jdGlvbiBzb3BlcyB0
+byBiZSBzdXJlIHRoZQo+ID4gcmVmZXJlbmNlIGlzIHJlbGVhc2VkIGluIGFueSBjYXNlLiBJbiBz
+b21lIGNhc2VzIGFkZCBOVUxMIHBvaW50ZXIgY2hlY2sKPiA+IGJlZm9yZSBkZXJlZmVyZW5jaW5n
+Lgo+ID4gQXQgYSBoYW5kIGZ1bGwgb2YgcGxhY2VzIGEgY29tbWVudCBpcyBwbGFjZWQgdG8gc3Rh
+dCB0aGF0IHRoZSByZWZlcmVuY2UKPiA+IGluY3JlbWVudCBoYXBwZW5lZCBhbHJlYWR5IHNvbWV3
+aGVyZSBlbHNlLgo+ID4KPiA+IFRoaXMgYWN0dWFsbHkgZml4ZXMgdGhlIGZvbGxvd2luZyBrZXJu
+ZWwgYnVnIG9uIG15IHN5c3RlbSB3aGVuIGVuYWJsaW5nCj4gPiBkaXNwbGF5IGNvcmUgaW4gYW1k
+Z3B1LiBUaGVyZSBhcmUgc29tZSBtb3JlIHNpbWlsYXIgYnVnIHJlcG9ydHMgYXJvdW5kLAo+ID4g
+c28gaXQgcHJvYmFibHkgaGVscHMgYXQgbW9yZSBwbGFjZXMuCj4gPgo+ID4gICAga2VybmVsIEJV
+RyBhdCBtbS9zbHViLmM6Mjk0IQo+ID4gICAgaW52YWxpZCBvcGNvZGU6IDAwMDAgWyMxXSBTTVAg
+UFRJCj4gPiAgICBDUFU6IDkgUElEOiAxMTgwIENvbW06IFhvcmcgTm90IHRhaW50ZWQgNS4wLjAt
+cmMxKyAjMgo+ID4gICAgSGFyZHdhcmUgbmFtZTogU3VwZXJtaWNybyBYMTBEQWkvWDEwREFJLCBC
+SU9TIDMuMGEgMDIvMDUvMjAxOAo+ID4gICAgUklQOiAwMDEwOl9fc2xhYl9mcmVlKzB4MWUyLzB4
+M2QwCj4gPiAgICBDb2RlOiA4YiA1NCAyNCAzMCA0OCA4OSA0YyAyNCAyOCBlOCBkYSBmYiBmZiBm
+ZiA0YyA4YiA1NCAyNCAyOCA4NSBjMCAwZiA4NSA2NyBmZSBmZiBmZiA0OCA4ZCA2NSBkOCA1YiA0
+MSA1YyA0MSA1ZCA0MSA1ZSA0MSA1ZiA1ZCBjMyA8MGY+IDBiIDQ5IDNiIDVjIDI0IDI4IDc1IGFi
+IDQ4IDhiIDQ0IDI0IDMwIDQ5IDg5IDRjIDI0IDI4IDQ5IDg5IDQ0Cj4gPiAgICBSU1A6IDAwMTg6
+ZmZmZmIwOTc4NTg5ZmE5MCBFRkxBR1M6IDAwMDEwMjQ2Cj4gPiAgICBSQVg6IGZmZmY5MmYxMjgw
+NmM0MDAgUkJYOiAwMDAwMDAwMDgwMjAwMDE5IFJDWDogZmZmZjkyZjEyODA2YzQwMAo+ID4gICAg
+UkRYOiBmZmZmOTJmMTI4MDZjNDAwIFJTSTogZmZmZmRkNjQyMWEwMWEwMCBSREk6IGZmZmY5MmVk
+MmY0MDZlODAKPiA+ICAgIFJCUDogZmZmZmIwOTc4NTg5ZmI0MCBSMDg6IDAwMDAwMDAwMDAwMDAw
+MDEgUjA5OiBmZmZmZmZmZmMwZWU0NzQ4Cj4gPiAgICBSMTA6IGZmZmY5MmYxMjgwNmM0MDAgUjEx
+OiAwMDAwMDAwMDAwMDAwMDAxIFIxMjogZmZmZmRkNjQyMWEwMWEwMAo+ID4gICAgUjEzOiBmZmZm
+OTJmMTI4MDZjNDAwIFIxNDogZmZmZjkyZWQyZjQwNmU4MCBSMTU6IGZmZmZkZDY0MjFhMDFhMjAK
+PiA+ICAgIEZTOiAgMDAwMDdmNDE3MGJlMGFjMCgwMDAwKSBHUzpmZmZmOTJlZDJmYjQwMDAwKDAw
+MDApIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAKPiA+ICAgIENTOiAgMDAxMCBEUzogMDAwMCBFUzog
+MDAwMCBDUjA6IDAwMDAwMDAwODAwNTAwMzMKPiA+ICAgIENSMjogMDAwMDU2MjgxOGFhYTAwMCBD
+UjM6IDAwMDAwMDA0NTc0NWEwMDIgQ1I0OiAwMDAwMDAwMDAwMzYwNmUwCj4gPiAgICBEUjA6IDAw
+MDAwMDAwMDAwMDAwMDAgRFIxOiAwMDAwMDAwMDAwMDAwMDAwIERSMjogMDAwMDAwMDAwMDAwMDAw
+MAo+ID4gICAgRFIzOiAwMDAwMDAwMDAwMDAwMDAwIERSNjogMDAwMDAwMDBmZmZlMGZmMCBEUjc6
+IDAwMDAwMDAwMDAwMDA0MDAKPiA+ICAgIENhbGwgVHJhY2U6Cj4gPiAgICAgPyBkcm1fZGJnKzB4
+ODcvMHg5MCBbZHJtXQo+ID4gICAgIGRjX3N0cmVhbV9yZWxlYXNlKzB4MjgvMHg1MCBbYW1kZ3B1
+XQo+ID4gICAgIGFtZGdwdV9kbV9jb25uZWN0b3JfbW9kZV92YWxpZCsweGI0LzB4MWYwIFthbWRn
+cHVdCj4gPiAgICAgZHJtX2hlbHBlcl9wcm9iZV9zaW5nbGVfY29ubmVjdG9yX21vZGVzKzB4NDky
+LzB4NmIwIFtkcm1fa21zX2hlbHBlcl0KPiA+ICAgICBkcm1fbW9kZV9nZXRjb25uZWN0b3IrMHg0
+NTcvMHg0OTAgW2RybV0KPiA+ICAgICA/IGRybV9jb25uZWN0b3JfcHJvcGVydHlfc2V0X2lvY3Rs
+KzB4NjAvMHg2MCBbZHJtXQo+ID4gICAgIGRybV9pb2N0bF9rZXJuZWwrMHhhOS8weGYwIFtkcm1d
+Cj4gPiAgICAgZHJtX2lvY3RsKzB4MjAxLzB4M2EwIFtkcm1dCj4gPiAgICAgPyBkcm1fY29ubmVj
+dG9yX3Byb3BlcnR5X3NldF9pb2N0bCsweDYwLzB4NjAgW2RybV0KPiA+ICAgICBhbWRncHVfZHJt
+X2lvY3RsKzB4NDkvMHg4MCBbYW1kZ3B1XQo+ID4gICAgIGRvX3Zmc19pb2N0bCsweGE0LzB4NjMw
+Cj4gPiAgICAgPyBfX3N5c19yZWN2bXNnKzB4ODMvMHhhMAo+ID4gICAgIGtzeXNfaW9jdGwrMHg2
+MC8weDkwCj4gPiAgICAgX194NjRfc3lzX2lvY3RsKzB4MTYvMHgyMAo+ID4gICAgIGRvX3N5c2Nh
+bGxfNjQrMHg1Yi8weDE2MAo+ID4gICAgIGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsw
+eDQ0LzB4YTkKPiA+ICAgIFJJUDogMDAzMzoweDdmNDE3MTEwODA5Ygo+ID4gICAgQ29kZTogMGYg
+MWUgZmEgNDggOGIgMDUgZWQgYmQgMGMgMDAgNjQgYzcgMDAgMjYgMDAgMDAgMDAgNDggYzcgYzAg
+ZmYgZmYgZmYgZmYgYzMgNjYgMGYgMWYgNDQgMDAgMDAgZjMgMGYgMWUgZmEgYjggMTAgMDAgMDAg
+MDAgMGYgMDUgPDQ4PiAzZCAwMSBmMCBmZiBmZiA3MyAwMSBjMyA0OCA4YiAwZCBiZCBiZCAwYyAw
+MCBmNyBkOCA2NCA4OSAwMSA0OAo+ID4gICAgUlNQOiAwMDJiOjAwMDA3ZmZkZDhkMWMyNjggRUZM
+QUdTOiAwMDAwMDI0NiBPUklHX1JBWDogMDAwMDAwMDAwMDAwMDAxMAo+ID4gICAgUkFYOiBmZmZm
+ZmZmZmZmZmZmZmRhIFJCWDogMDAwMDU2MjgxOGE4ZWJjMCBSQ1g6IDAwMDA3ZjQxNzExMDgwOWIK
+PiA+ICAgIFJEWDogMDAwMDdmZmRkOGQxYzJhMCBSU0k6IDAwMDAwMDAwYzA1MDY0YTcgUkRJOiAw
+MDAwMDAwMDAwMDAwMDEyCj4gPiAgICBSQlA6IDAwMDA3ZmZkZDhkMWMyYTAgUjA4OiAwMDAwNTYy
+ODE5MDEyMjgwIFIwOTogMDAwMDAwMDAwMDAwMDAwNwo+ID4gICAgUjEwOiAwMDAwMDAwMDAwMDAw
+MDAwIFIxMTogMDAwMDAwMDAwMDAwMDI0NiBSMTI6IDAwMDAwMDAwYzA1MDY0YTcKPiA+ICAgIFIx
+MzogMDAwMDAwMDAwMDAwMDAxMiBSMTQ6IDAwMDAwMDAwMDAwMDAwMTIgUjE1OiAwMDAwN2ZmZGQ4
+ZDFjMmEwCj4gPiAgICBNb2R1bGVzIGxpbmtlZCBpbjogbmZzdjQgZG5zX3Jlc29sdmVyIG5mcyBs
+b2NrZCBncmFjZSBmc2NhY2hlIGZ1c2UgdmZhdCBmYXQgYW1kZ3B1IGludGVsX3JhcGwgc2JfZWRh
+YyB4ODZfcGtnX3RlbXBfdGhlcm1hbCBpbnRlbF9wb3dlcmNsYW1wIGNvcmV0ZW1wIGt2bV9pbnRl
+bCBrdm0gaXJxYnlwYXNzIGNyY3QxMGRpZl9wY2xtdWwgY2hhc2ggZ3B1X3NjaGVkIGNyYzMyX3Bj
+bG11bCBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgZ2hhc2hfY2xtdWxuaV9pbnRlbCBhbWRfaW9tbXVf
+djIgaVRDT193ZHQgaVRDT192ZW5kb3Jfc3VwcG9ydCB0dG0gc25kX2hkYV9jb2RlY19nZW5lcmlj
+IHNuZF9oZGFfY29kZWNfaGRtaSBsZWR0cmlnX2F1ZGlvIHNuZF9oZGFfaW50ZWwgZHJtX2ttc19o
+ZWxwZXIgc25kX2hkYV9jb2RlYyBpbnRlbF9jc3RhdGUgc25kX2hkYV9jb3JlIGRybSBzbmRfaHdk
+ZXAgc25kX3NlcSBzbmRfc2VxX2RldmljZSBpbnRlbF91bmNvcmUgc25kX3BjbSBpbnRlbF9yYXBs
+X3BlcmYgc25kX3RpbWVyIHNuZCBzb3VuZGNvcmUgaW9hdGRtYSBwY3Nwa3IgaW50ZWxfd21pX3Ro
+dW5kZXJib2x0IG14bV93bWkgaTJjX2k4MDEgbHBjX2ljaCBwY2NfY3B1ZnJlcSBhdXRoX3JwY2dz
+cyBzdW5ycGMgaWdiIGNyYzMyY19pbnRlbCBpMmNfYWxnb19iaXQgZGNhIHdtaSBoaWRfY2hlcnJ5
+IGFuYWxvZyBnYW1lcG9ydCBqb3lkZXYKPiA+Cj4gPiBUaGlzIHBhdGNoIGlzIGJhc2VkIG9uIGFn
+ZDVmL2RybS1uZXh0LTUuMS13aXAuIFRoaXMgcGF0Y2ggZG9lcyBub3QgcmVxdWlyZQo+ID4gYWxs
+IG9mIHRoYXQsIGJ1dCBhZ2Q1Zi9kcm0tbmV4dC01LjEtd2lwIGNvbnRhaW5zIGF0IGxlYXN0IG9u
+ZSBtb3JlIGRjX3NpbmsKPiA+IGNvdW50aW5nIGZpeCB0aGF0IEkgY291bGQgc3BvdC4KPiA+Cj4g
+PiBTaWduZWQtb2ZmLWJ5OiBNYXRoaWFzIEZyw7ZobGljaCA8TWF0aGlhcy5Gcm9laGxpY2hAd2Vi
+LmRlPgo+ID4gLS0tCj4gPiAgLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jIHwgNDMgKysrKysrKysrKysrKysrLS0tLQo+ID4gIC4uLi9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG1fbXN0X3R5cGVzLmMgICB8ICAxICsKPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgfCAgMSArCj4gPiAgMyBmaWxlcyBjaGFuZ2VkLCAz
+NyBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+ID4gaW5kZXggM2E2ZjU5
+NWYyOTVlLi4yMGZhMDFiZmY2ODUgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gPiBAQCAtODg2LDYgKzg4Niw3IEBA
+IHN0YXRpYyB2b2lkIGVtdWxhdGVkX2xpbmtfZGV0ZWN0KHN0cnVjdCBkY19saW5rICpsaW5rKQo+
+ID4gICAgICAgICAgICAgICAgIHJldHVybjsKPiA+ICAgICAgICAgfQo+ID4KPiA+ICsgICAgICAg
+LyogZGNfc2lua19jcmVhdGUgcmV0dXJucyBhIG5ldyByZWZlcmVuY2UgKi8KPiA+ICAgICAgICAg
+bGluay0+bG9jYWxfc2luayA9IHNpbms7Cj4gPgo+ID4gICAgICAgICBlZGlkX3N0YXR1cyA9IGRt
+X2hlbHBlcnNfcmVhZF9sb2NhbF9lZGlkKAo+ID4gQEAgLTk1Miw2ICs5NTMsOCBAQCBzdGF0aWMg
+aW50IGRtX3Jlc3VtZSh2b2lkICpoYW5kbGUpCj4gPiAgICAgICAgICAgICAgICAgaWYgKGFjb25u
+ZWN0b3ItPmZha2VfZW5hYmxlICYmIGFjb25uZWN0b3ItPmRjX2xpbmstPmxvY2FsX3NpbmspCj4g
+PiAgICAgICAgICAgICAgICAgICAgICAgICBhY29ubmVjdG9yLT5mYWtlX2VuYWJsZSA9IGZhbHNl
+Owo+ID4KPiA+ICsgICAgICAgICAgICAgICBpZiAoYWNvbm5lY3Rvci0+ZGNfc2luaykKPiA+ICsg
+ICAgICAgICAgICAgICAgICAgICAgIGRjX3NpbmtfcmVsZWFzZShhY29ubmVjdG9yLT5kY19zaW5r
+KTsKPiA+ICAgICAgICAgICAgICAgICBhY29ubmVjdG9yLT5kY19zaW5rID0gTlVMTDsKPiA+ICAg
+ICAgICAgICAgICAgICBhbWRncHVfZG1fdXBkYXRlX2Nvbm5lY3Rvcl9hZnRlcl9kZXRlY3QoYWNv
+bm5lY3Rvcik7Cj4gPiAgICAgICAgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZhY29ubmVjdG9yLT5o
+cGRfbG9jayk7Cj4gPiBAQCAtMTA2MSw2ICsxMDY0LDggQEAgYW1kZ3B1X2RtX3VwZGF0ZV9jb25u
+ZWN0b3JfYWZ0ZXJfZGV0ZWN0KHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9y
+KQo+ID4KPiA+Cj4gPiAgICAgICAgIHNpbmsgPSBhY29ubmVjdG9yLT5kY19saW5rLT5sb2NhbF9z
+aW5rOwo+ID4gKyAgICAgICBpZiAoc2luaykKPiA+ICsgICAgICAgICAgICAgICBkY19zaW5rX3Jl
+dGFpbihzaW5rKTsKPiA+Cj4gPiAgICAgICAgIC8qCj4gPiAgICAgICAgICAqIEVkaWQgbWdtdCBj
+b25uZWN0b3IgZ2V0cyBmaXJzdCB1cGRhdGUgb25seSBpbiBtb2RlX3ZhbGlkIGhvb2sgYW5kIHRo
+ZW4KPiA+IEBAIC0xMDg1LDIxICsxMDkwLDI0IEBAIGFtZGdwdV9kbV91cGRhdGVfY29ubmVjdG9y
+X2FmdGVyX2RldGVjdChzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcikKPiA+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICogdG8gaXQgYW55bW9yZSBhZnRlciBk
+aXNjb25uZWN0LCBzbyBvbiBuZXh0IGNydGMgdG8gY29ubmVjdG9yCj4gPiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAqIHJlc2h1ZmZsZSBieSBVTUQgd2Ugd2lsbCBnZXQgaW50byB1
+bndhbnRlZCBkY19zaW5rIHJlbGVhc2UKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICovCj4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChhY29ubmVjdG9y
+LT5kY19zaW5rICE9IGFjb25uZWN0b3ItPmRjX2VtX3NpbmspCj4gPiAtICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZGNfc2lua19yZWxlYXNlKGFjb25uZWN0b3ItPmRjX3Np
+bmspOwo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkY19zaW5rX3JlbGVhc2Uo
+YWNvbm5lY3Rvci0+ZGNfc2luayk7Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgICB9Cj4gPiAg
+ICAgICAgICAgICAgICAgICAgICAgICBhY29ubmVjdG9yLT5kY19zaW5rID0gc2luazsKPiA+ICsg
+ICAgICAgICAgICAgICAgICAgICAgIGRjX3NpbmtfcmV0YWluKGFjb25uZWN0b3ItPmRjX3Npbmsp
+Owo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2RtX3VwZGF0ZV9mcmVlc3luY19j
+YXBzKGNvbm5lY3RvciwKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBhY29ubmVjdG9yLT5lZGlkKTsKPiA+ICAgICAgICAgICAgICAgICB9IGVsc2Ugewo+ID4gICAg
+ICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2RtX3VwZGF0ZV9mcmVlc3luY19jYXBzKGNvbm5l
+Y3RvciwgTlVMTCk7Cj4gPiAtICAgICAgICAgICAgICAgICAgICAgICBpZiAoIWFjb25uZWN0b3It
+PmRjX3NpbmspCj4gPiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoIWFjb25uZWN0b3ItPmRj
+X3NpbmspIHsKPiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYWNvbm5lY3Rvci0+
+ZGNfc2luayA9IGFjb25uZWN0b3ItPmRjX2VtX3Npbms7Cj4gPiAtICAgICAgICAgICAgICAgICAg
+ICAgICBlbHNlIGlmIChhY29ubmVjdG9yLT5kY19zaW5rICE9IGFjb25uZWN0b3ItPmRjX2VtX3Np
+bmspCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRjX3NpbmtfcmV0YWluKGFj
+b25uZWN0b3ItPmRjX3NpbmspOwo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgfQo+ID4gICAg
+ICAgICAgICAgICAgIH0KPiA+Cj4gPiAgICAgICAgICAgICAgICAgbXV0ZXhfdW5sb2NrKCZkZXYt
+Pm1vZGVfY29uZmlnLm11dGV4KTsKPiA+ICsKPiA+ICsgICAgICAgICAgICAgICBpZiAoc2luaykK
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGRjX3NpbmtfcmVsZWFzZShzaW5rKTsKPiA+ICAg
+ICAgICAgICAgICAgICByZXR1cm47Cj4gPiAgICAgICAgIH0KPiA+Cj4gPiBAQCAtMTEwNyw4ICsx
+MTE1LDEwIEBAIGFtZGdwdV9kbV91cGRhdGVfY29ubmVjdG9yX2FmdGVyX2RldGVjdChzdHJ1Y3Qg
+YW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcikKPiA+ICAgICAgICAgICogVE9ETzogdGVt
+cG9yYXJ5IGd1YXJkIHRvIGxvb2sgZm9yIHByb3BlciBmaXgKPiA+ICAgICAgICAgICogaWYgdGhp
+cyBzaW5rIGlzIE1TVCBzaW5rLCB3ZSBzaG91bGQgbm90IGRvIGFueXRoaW5nCj4gPiAgICAgICAg
+ICAqLwo+ID4gLSAgICAgICBpZiAoc2luayAmJiBzaW5rLT5zaW5rX3NpZ25hbCA9PSBTSUdOQUxf
+VFlQRV9ESVNQTEFZX1BPUlRfTVNUKQo+ID4gKyAgICAgICBpZiAoc2luayAmJiBzaW5rLT5zaW5r
+X3NpZ25hbCA9PSBTSUdOQUxfVFlQRV9ESVNQTEFZX1BPUlRfTVNUKSB7Cj4gPiArICAgICAgICAg
+ICAgICAgZGNfc2lua19yZWxlYXNlKHNpbmspOwo+ID4gICAgICAgICAgICAgICAgIHJldHVybjsK
+PiA+ICsgICAgICAgfQo+ID4KPiA+ICAgICAgICAgaWYgKGFjb25uZWN0b3ItPmRjX3NpbmsgPT0g
+c2luaykgewo+ID4gICAgICAgICAgICAgICAgIC8qCj4gPiBAQCAtMTExNyw2ICsxMTI3LDggQEAg
+YW1kZ3B1X2RtX3VwZGF0ZV9jb25uZWN0b3JfYWZ0ZXJfZGV0ZWN0KHN0cnVjdCBhbWRncHVfZG1f
+Y29ubmVjdG9yICphY29ubmVjdG9yKQo+ID4gICAgICAgICAgICAgICAgICAqLwo+ID4gICAgICAg
+ICAgICAgICAgIERSTV9ERUJVR19EUklWRVIoIkRDSFBEOiBjb25uZWN0b3JfaWQ9JWQ6IGRjX3Np
+bmsgZGlkbid0IGNoYW5nZS5cbiIsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGFjb25uZWN0b3ItPmNvbm5lY3Rvcl9pZCk7Cj4gPiArICAgICAgICAgICAgICAgaWYgKHNpbmsp
+Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICBkY19zaW5rX3JlbGVhc2Uoc2luayk7Cj4gPiAg
+ICAgICAgICAgICAgICAgcmV0dXJuOwo+ID4gICAgICAgICB9Cj4gPgo+ID4gQEAgLTExMzgsNiAr
+MTE1MCw3IEBAIGFtZGdwdV9kbV91cGRhdGVfY29ubmVjdG9yX2FmdGVyX2RldGVjdChzdHJ1Y3Qg
+YW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcikKPiA+ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGFtZGdwdV9kbV91cGRhdGVfZnJlZXN5bmNfY2Fwcyhjb25uZWN0b3IsIE5VTEwpOwo+ID4K
+PiA+ICAgICAgICAgICAgICAgICBhY29ubmVjdG9yLT5kY19zaW5rID0gc2luazsKPiA+ICsgICAg
+ICAgICAgICAgICBkY19zaW5rX3JldGFpbihhY29ubmVjdG9yLT5kY19zaW5rKTsKPiA+ICAgICAg
+ICAgICAgICAgICBpZiAoc2luay0+ZGNfZWRpZC5sZW5ndGggPT0gMCkgewo+ID4gICAgICAgICAg
+ICAgICAgICAgICAgICAgYWNvbm5lY3Rvci0+ZWRpZCA9IE5VTEw7Cj4gPiAgICAgICAgICAgICAg
+ICAgICAgICAgICBkcm1fZHBfY2VjX3Vuc2V0X2VkaWQoJmFjb25uZWN0b3ItPmRtX2RwX2F1eC5h
+dXgpOwo+ID4gQEAgLTExNTgsMTEgKzExNzEsMTUgQEAgYW1kZ3B1X2RtX3VwZGF0ZV9jb25uZWN0
+b3JfYWZ0ZXJfZGV0ZWN0KHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yKQo+
+ID4gICAgICAgICAgICAgICAgIGFtZGdwdV9kbV91cGRhdGVfZnJlZXN5bmNfY2Fwcyhjb25uZWN0
+b3IsIE5VTEwpOwo+ID4gICAgICAgICAgICAgICAgIGRybV9jb25uZWN0b3JfdXBkYXRlX2VkaWRf
+cHJvcGVydHkoY29ubmVjdG9yLCBOVUxMKTsKPiA+ICAgICAgICAgICAgICAgICBhY29ubmVjdG9y
+LT5udW1fbW9kZXMgPSAwOwo+ID4gKyAgICAgICAgICAgICAgIGRjX3NpbmtfcmVsZWFzZShhY29u
+bmVjdG9yLT5kY19zaW5rKTsKPiA+ICAgICAgICAgICAgICAgICBhY29ubmVjdG9yLT5kY19zaW5r
+ID0gTlVMTDsKPiA+ICAgICAgICAgICAgICAgICBhY29ubmVjdG9yLT5lZGlkID0gTlVMTDsKPiA+
+ICAgICAgICAgfQo+ID4KPiA+ICAgICAgICAgbXV0ZXhfdW5sb2NrKCZkZXYtPm1vZGVfY29uZmln
+Lm11dGV4KTsKPiA+ICsKPiA+ICsgICAgICAgaWYgKHNpbmspCj4gPiArICAgICAgICAgICAgICAg
+ZGNfc2lua19yZWxlYXNlKHNpbmspOwo+ID4gIH0KPiA+Cj4gPiAgc3RhdGljIHZvaWQgaGFuZGxl
+X2hwZF9pcnEodm9pZCAqcGFyYW0pCj4gPiBAQCAtMjk3Nyw2ICsyOTk0LDcgQEAgY3JlYXRlX3N0
+cmVhbV9mb3Jfc2luayhzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciwKPiA+
+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBzdHJlYW07Cj4gPiAgICAgICAgIH0gZWxz
+ZSB7Cj4gPiAgICAgICAgICAgICAgICAgc2luayA9IGFjb25uZWN0b3ItPmRjX3Npbms7Cj4gPiAr
+ICAgICAgICAgICAgICAgZGNfc2lua19yZXRhaW4oc2luayk7Cj4gPiAgICAgICAgIH0KPiA+Cj4g
+PiAgICAgICAgIHN0cmVhbSA9IGRjX2NyZWF0ZV9zdHJlYW1fZm9yX3Npbmsoc2luayk7Cj4gPiBA
+QCAtMzA0Miw4ICszMDYwLDcgQEAgY3JlYXRlX3N0cmVhbV9mb3Jfc2luayhzdHJ1Y3QgYW1kZ3B1
+X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvciwKPiA+ICAgICAgICAgdXBkYXRlX3N0cmVhbV9zaWdu
+YWwoc3RyZWFtLCBzaW5rKTsKPiA+Cj4gPiAgZmluaXNoOgo+ID4gLSAgICAgICBpZiAoc2luayAm
+JiBzaW5rLT5zaW5rX3NpZ25hbCA9PSBTSUdOQUxfVFlQRV9WSVJUVUFMICYmIGFjb25uZWN0b3It
+PmJhc2UuZm9yY2UgIT0gRFJNX0ZPUkNFX09OKQo+ID4gLSAgICAgICAgICAgICAgIGRjX3Npbmtf
+cmVsZWFzZShzaW5rKTsKPiA+ICsgICAgICAgZGNfc2lua19yZWxlYXNlKHNpbmspOwo+ID4KPiA+
+ICAgICAgICAgcmV0dXJuIHN0cmVhbTsKPiA+ICB9Cj4gPiBAQCAtMzMwMSw2ICszMzE4LDE0IEBA
+IHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb25uZWN0b3JfZGVzdHJveShzdHJ1Y3QgZHJtX2Nvbm5l
+Y3RvciAqY29ubmVjdG9yKQo+ID4gICAgICAgICAgICAgICAgIGRtLT5iYWNrbGlnaHRfZGV2ID0g
+TlVMTDsKPiA+ICAgICAgICAgfQo+ID4gICNlbmRpZgo+ID4gKwo+ID4gKyAgICAgICBpZiAoYWNv
+bm5lY3Rvci0+ZGNfZW1fc2luaykKPiA+ICsgICAgICAgICAgICAgICBkY19zaW5rX3JlbGVhc2Uo
+YWNvbm5lY3Rvci0+ZGNfZW1fc2luayk7Cj4gPiArICAgICAgIGFjb25uZWN0b3ItPmRjX2VtX3Np
+bmsgPSBOVUxMOwo+ID4gKyAgICAgICBpZiAoYWNvbm5lY3Rvci0+ZGNfc2luaykKPiA+ICsgICAg
+ICAgICAgICAgICBkY19zaW5rX3JlbGVhc2UoYWNvbm5lY3Rvci0+ZGNfc2luayk7Cj4gPiArICAg
+ICAgIGFjb25uZWN0b3ItPmRjX3NpbmsgPSBOVUxMOwo+ID4gKwo+ID4gICAgICAgICBkcm1fZHBf
+Y2VjX3VucmVnaXN0ZXJfY29ubmVjdG9yKCZhY29ubmVjdG9yLT5kbV9kcF9hdXguYXV4KTsKPiA+
+ICAgICAgICAgZHJtX2Nvbm5lY3Rvcl91bnJlZ2lzdGVyKGNvbm5lY3Rvcik7Cj4gPiAgICAgICAg
+IGRybV9jb25uZWN0b3JfY2xlYW51cChjb25uZWN0b3IpOwo+ID4gQEAgLTMzOTgsMTAgKzM0MjMs
+MTIgQEAgc3RhdGljIHZvaWQgY3JlYXRlX2VtbF9zaW5rKHN0cnVjdCBhbWRncHVfZG1fY29ubmVj
+dG9yICphY29ubmVjdG9yKQo+ID4gICAgICAgICAgICAgICAgIChlZGlkLT5leHRlbnNpb25zICsg
+MSkgKiBFRElEX0xFTkdUSCwKPiA+ICAgICAgICAgICAgICAgICAmaW5pdF9wYXJhbXMpOwo+ID4K
+PiA+IC0gICAgICAgaWYgKGFjb25uZWN0b3ItPmJhc2UuZm9yY2UgPT0gRFJNX0ZPUkNFX09OKQo+
+ID4gKyAgICAgICBpZiAoYWNvbm5lY3Rvci0+YmFzZS5mb3JjZSA9PSBEUk1fRk9SQ0VfT04pIHsK
+PiA+ICAgICAgICAgICAgICAgICBhY29ubmVjdG9yLT5kY19zaW5rID0gYWNvbm5lY3Rvci0+ZGNf
+bGluay0+bG9jYWxfc2luayA/Cj4gPiAgICAgICAgICAgICAgICAgYWNvbm5lY3Rvci0+ZGNfbGlu
+ay0+bG9jYWxfc2luayA6Cj4gPiAgICAgICAgICAgICAgICAgYWNvbm5lY3Rvci0+ZGNfZW1fc2lu
+azsKPiA+ICsgICAgICAgICAgICAgICBkY19zaW5rX3JldGFpbihhY29ubmVjdG9yLT5kY19zaW5r
+KTsKPiA+ICsgICAgICAgfQo+ID4gIH0KPiA+Cj4gPiAgc3RhdGljIHZvaWQgaGFuZGxlX2VkaWRf
+bWdtdChzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcikKPiA+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9tc3Rf
+dHlwZXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
+X21zdF90eXBlcy5jCj4gPiBpbmRleCA0NGMxYTAyZTY0NTIuLjVlNTI0ZDczMzI0OSAxMDA2NDQK
+PiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
+X21zdF90eXBlcy5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1
+X2RtL2FtZGdwdV9kbV9tc3RfdHlwZXMuYwo+ID4gQEAgLTE5MCw2ICsxOTAsNyBAQCBzdGF0aWMg
+aW50IGRtX2RwX21zdF9nZXRfbW9kZXMoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikK
+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICZpbml0X3BhcmFtcyk7Cj4gPgo+ID4gICAgICAg
+ICAgICAgICAgIGRjX3NpbmstPnByaXYgPSBhY29ubmVjdG9yOwo+ID4gKyAgICAgICAgICAgICAg
+IC8qIGRjX2xpbmtfYWRkX3JlbW90ZV9zaW5rIHJldHVybnMgYSBuZXcgcmVmZXJlbmNlICovCj4g
+PiAgICAgICAgICAgICAgICAgYWNvbm5lY3Rvci0+ZGNfc2luayA9IGRjX3Npbms7Cj4gPgo+ID4g
+ICAgICAgICAgICAgICAgIGlmIChhY29ubmVjdG9yLT5kY19zaW5rKQo+ID4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYwo+ID4gaW5kZXggN2Y1YTk0N2Fk
+MzFkLi43OTIxMTRlNzM3Y2UgMTAwNjQ0Cj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvZGMvY29yZS9kY19saW5rLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9jb3JlL2RjX2xpbmsuYwo+ID4gQEAgLTc5NCw2ICs3OTQsNyBAQCBib29sIGRjX2xp
+bmtfZGV0ZWN0KHN0cnVjdCBkY19saW5rICpsaW5rLCBlbnVtIGRjX2RldGVjdF9yZWFzb24gcmVh
+c29uKQo+ID4gICAgICAgICAgICAgICAgIHNpbmstPmxpbmstPmRvbmdsZV9tYXhfcGl4X2NsayA9
+IHNpbmtfY2Fwcy5tYXhfaGRtaV9waXhlbF9jbG9jazsKPiA+ICAgICAgICAgICAgICAgICBzaW5r
+LT5jb252ZXJ0ZXJfZGlzYWJsZV9hdWRpbyA9IGNvbnZlcnRlcl9kaXNhYmxlX2F1ZGlvOwo+ID4K
+PiA+ICsgICAgICAgICAgICAgICAvKiBkY19zaW5rX2NyZWF0ZSByZXR1cm5zIGEgbmV3IHJlZmVy
+ZW5jZSAqLwo+ID4gICAgICAgICAgICAgICAgIGxpbmstPmxvY2FsX3NpbmsgPSBzaW5rOwo+ID4K
+PiA+ICAgICAgICAgICAgICAgICBlZGlkX3N0YXR1cyA9IGRtX2hlbHBlcnNfcmVhZF9sb2NhbF9l
+ZGlkKAo+ID4gLS0KPiA+IDIuMjAuMQo+ID4KPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCj4gPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gPiBkcmkt
+ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbAoKCgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
