@@ -1,82 +1,49 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/powerplay: Get fix clock info when dpm is disabled
- for the clock
-Date: Wed, 20 Feb 2019 02:25:18 +0000
-Message-ID: <MN2PR12MB334479CD67E624FAC6BF74F0E47D0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1550265947-27948-1-git-send-email-shaoyun.liu@amd.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amdgpu: remove set but not used variables 'vm, bo'
+Date: Wed, 20 Feb 2019 03:31:50 +0000
+Message-ID: <20190220033150.163019-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1550265947-27948-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Oded Gabbay <oded.gabbay@gmail.com>, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
+Cc: YueHaibing <yuehaibing@huawei.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIExpdSwNCj4gU2hhb3l1bg0KPiBTZW50OiAy
-MDE55bm0MuaciDE25pelIDU6MjYNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IENjOiBMaXUsIFNoYW95dW4gPFNoYW95dW4uTGl1QGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQ
-QVRDSF0gZHJtL3Bvd2VycGxheTogR2V0IGZpeCBjbG9jayBpbmZvIHdoZW4gZHBtIGlzIGRpc2Fi
-bGVkIGZvcg0KPiB0aGUgY2xvY2sNCj4gDQo+IFdoZW4gRFBNIGZvciB0aGUgc3BlY2lmaWMgY2xv
-Y2sgaXMgZGlmYWJsZWQsIGRyaXZlciBzaG91bGQgc3RpbGwgYWJsZSB0byBnZXQgZml4DQo+IGNs
-b2NrIGluZm8gZnJvbSB0aGUgcHB0YWJsZQ0KPiANCj4gQ2hhbmdlLUlkOiBJYzYwOTIwM2IzYjg3
-YWE3NWIwY2ZkNTdiNTc3MTdiM2JiODlkYWY0OA0KPiBTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8
-c2hhb3l1bi5saXVAYW1kLmNvbT4NCj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9od21nci92ZWdhMjBfaHdtZ3IuYyB8IDE2IC0tLS0tLS0tLS0tLS0tDQo+IC0tDQo+ICAx
-IGZpbGUgY2hhbmdlZCwgMTYgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMNCj4gYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBfaHdtZ3IuYw0KPiBpbmRleCBhYWQ3
-OWFmZi4uMmVhZTBiNCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMNCj4gQEAgLTI2NDEsMTAgKzI2NDEsNiBAQCBzdGF0
-aWMgaW50IHZlZ2EyMF9nZXRfc2Nsa3Moc3RydWN0IHBwX2h3bWdyDQo+ICpod21nciwNCj4gIAlz
-dHJ1Y3QgdmVnYTIwX3NpbmdsZV9kcG1fdGFibGUgKmRwbV90YWJsZSA9ICYoZGF0YS0NCj4gPmRw
-bV90YWJsZS5nZnhfdGFibGUpOw0KPiAgCWludCBpLCBjb3VudDsNCj4gDQo+IC0JUFBfQVNTRVJU
-X1dJVEhfQ09ERShkYXRhLQ0KPiA+c211X2ZlYXR1cmVzW0dOTERfRFBNX0dGWENMS10uZW5hYmxl
-ZCwNCj4gLQkJIltHZXRTY2xrc106IGdmeGNsayBkcG0gbm90IGVuYWJsZWQhXG4iLA0KPiAtCQly
-ZXR1cm4gLUVQRVJNKTsNCj4gLQ0KPiAgCWNvdW50ID0gKGRwbV90YWJsZS0+Y291bnQgPiBNQVhf
-TlVNX0NMT0NLUykgPw0KPiBNQVhfTlVNX0NMT0NLUyA6IGRwbV90YWJsZS0+Y291bnQ7DQo+ICAJ
-Y2xvY2tzLT5udW1fbGV2ZWxzID0gY291bnQ7DQo+IA0KPiBAQCAtMjY3MCwxMCArMjY2Niw2IEBA
-IHN0YXRpYyBpbnQgdmVnYTIwX2dldF9tZW1jbG9ja3Moc3RydWN0DQo+IHBwX2h3bWdyICpod21n
-ciwNCj4gIAlzdHJ1Y3QgdmVnYTIwX3NpbmdsZV9kcG1fdGFibGUgKmRwbV90YWJsZSA9ICYoZGF0
-YS0NCj4gPmRwbV90YWJsZS5tZW1fdGFibGUpOw0KPiAgCWludCBpLCBjb3VudDsNCj4gDQo+IC0J
-UFBfQVNTRVJUX1dJVEhfQ09ERShkYXRhLQ0KPiA+c211X2ZlYXR1cmVzW0dOTERfRFBNX1VDTEtd
-LmVuYWJsZWQsDQo+IC0JCSJbR2V0TWNsa3NdOiB1Y2xrIGRwbSBub3QgZW5hYmxlZCFcbiIsDQo+
-IC0JCXJldHVybiAtRVBFUk0pOw0KPiAtDQo+ICAJY291bnQgPSAoZHBtX3RhYmxlLT5jb3VudCA+
-IE1BWF9OVU1fQ0xPQ0tTKSA/DQo+IE1BWF9OVU1fQ0xPQ0tTIDogZHBtX3RhYmxlLT5jb3VudDsN
-Cj4gIAljbG9ja3MtPm51bV9sZXZlbHMgPSBkYXRhLT5tY2xrX2xhdGVuY3lfdGFibGUuY291bnQg
-PSBjb3VudDsNCj4gDQo+IEBAIC0yNjk2LDEwICsyNjg4LDYgQEAgc3RhdGljIGludCB2ZWdhMjBf
-Z2V0X2RjZWZjbG9ja3Moc3RydWN0IHBwX2h3bWdyDQo+ICpod21nciwNCj4gIAlzdHJ1Y3QgdmVn
-YTIwX3NpbmdsZV9kcG1fdGFibGUgKmRwbV90YWJsZSA9ICYoZGF0YS0NCj4gPmRwbV90YWJsZS5k
-Y2VmX3RhYmxlKTsNCj4gIAlpbnQgaSwgY291bnQ7DQo+IA0KPiAtCVBQX0FTU0VSVF9XSVRIX0NP
-REUoZGF0YS0NCj4gPnNtdV9mZWF0dXJlc1tHTkxEX0RQTV9EQ0VGQ0xLXS5lbmFibGVkLA0KPiAt
-CQkiW0dldERjZmNsb2Nrc106IGRjZWZjbGsgZHBtIG5vdCBlbmFibGVkIVxuIiwNCj4gLQkJcmV0
-dXJuIC1FUEVSTSk7DQo+IC0NCj4gIAljb3VudCA9IChkcG1fdGFibGUtPmNvdW50ID4gTUFYX05V
-TV9DTE9DS1MpID8NCj4gTUFYX05VTV9DTE9DS1MgOiBkcG1fdGFibGUtPmNvdW50Ow0KPiAgCWNs
-b2Nrcy0+bnVtX2xldmVscyA9IGNvdW50Ow0KPiANCj4gQEAgLTI3MTksMTAgKzI3MDcsNiBAQCBz
-dGF0aWMgaW50IHZlZ2EyMF9nZXRfc29jY2xvY2tzKHN0cnVjdCBwcF9od21ncg0KPiAqaHdtZ3Is
-DQo+ICAJc3RydWN0IHZlZ2EyMF9zaW5nbGVfZHBtX3RhYmxlICpkcG1fdGFibGUgPSAmKGRhdGEt
-DQo+ID5kcG1fdGFibGUuc29jX3RhYmxlKTsNCj4gIAlpbnQgaSwgY291bnQ7DQo+IA0KPiAtCVBQ
-X0FTU0VSVF9XSVRIX0NPREUoZGF0YS0NCj4gPnNtdV9mZWF0dXJlc1tHTkxEX0RQTV9TT0NDTEtd
-LmVuYWJsZWQsDQo+IC0JCSJbR2V0U29jY2xrc106IHNvY2NsayBkcG0gbm90IGVuYWJsZWQhXG4i
-LA0KPiAtCQlyZXR1cm4gLUVQRVJNKTsNCj4gLQ0KPiAgCWNvdW50ID0gKGRwbV90YWJsZS0+Y291
-bnQgPiBNQVhfTlVNX0NMT0NLUykgPw0KPiBNQVhfTlVNX0NMT0NLUyA6IGRwbV90YWJsZS0+Y291
-bnQ7DQo+ICAJY2xvY2tzLT5udW1fbGV2ZWxzID0gY291bnQ7DQo+IA0KPiAtLQ0KPiAyLjcuNA0K
-PiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c: In function 'update_gpuvm_pte':
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:840:20: warning:
+ variable 'bo' set but not used [-Wunused-but-set-variable]
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:838:20: warning:
+ variable 'vm' set but not used [-Wunused-but-set-variable]
+
+They're never used since introduction in a46a2cd103a8 ("drm/amdgpu: Add GPUVM
+memory management functions for KFD")
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index d7b10d79f1de..63daf758cd03 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -837,13 +837,7 @@ static int update_gpuvm_pte(struct amdgpu_device *adev,
+ 		struct amdgpu_sync *sync)
+ {
+ 	int ret;
+-	struct amdgpu_vm *vm;
+-	struct amdgpu_bo_va *bo_va;
+-	struct amdgpu_bo *bo;
+-
+-	bo_va = entry->bo_va;
+-	vm = bo_va->base.vm;
+-	bo = bo_va->base.bo;
++	struct amdgpu_bo_va *bo_va = entry->bo_va;
+ 
+ 	/* Update the page tables  */
+ 	ret = amdgpu_vm_bo_update(adev, bo_va, false);
