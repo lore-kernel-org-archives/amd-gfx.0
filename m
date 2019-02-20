@@ -1,38 +1,45 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: disable userptr if swiotlb is active
-Date: Wed, 20 Feb 2019 14:46:54 +0100
-Message-ID: <20190220134654.15406-1-christian.koenig@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?="
+        <ckoenig.leichtzumerken@gmail.com>
+Subject: [PATCH] drm/amdgpu: disable bulk moves for now
+Date: Wed, 20 Feb 2019 15:16:06 +0100
+Message-ID: <20190220141606.8832-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T3RoZXJ3aXNlIHdlIGNhbid0IGJlIHN1cmUgdGhhdCB3ZSB3b24ndCBlbmQgdXAgd2l0aCBhIGJv
-dW5jZSBidWZmZXIuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
-a29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dl
-bS5jIHwgNCArKysrCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCmluZGV4IGQyMWRkMmYzNjlkYS4uYWJjNjU2MzMx
-MTliIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCkBAIC0yODksNiAr
-Mjg5LDEwIEBAIGludCBhbWRncHVfZ2VtX3VzZXJwdHJfaW9jdGwoc3RydWN0IGRybV9kZXZpY2Ug
-KmRldiwgdm9pZCAqZGF0YSwKIAlpZiAob2Zmc2V0X2luX3BhZ2UoYXJncy0+YWRkciB8IGFyZ3Mt
-PnNpemUpKQogCQlyZXR1cm4gLUVJTlZBTDsKIAorCS8qIFdlIGNhbid0IGRvIHRoaXMgd2hlbiBz
-d2lvdGxiIGlzIGFjdGl2ZSAqLworCWlmIChhZGV2LT5uZWVkc19zd2lvdGxiKQorCQlyZXR1cm4g
-LUVOWElPOworCiAJLyogcmVqZWN0IHVua25vd24gZmxhZyB2YWx1ZXMgKi8KIAlpZiAoYXJncy0+
-ZmxhZ3MgJiB+KEFNREdQVV9HRU1fVVNFUlBUUl9SRUFET05MWSB8CiAJICAgIEFNREdQVV9HRU1f
-VVNFUlBUUl9BTk9OT05MWSB8IEFNREdQVV9HRU1fVVNFUlBUUl9WQUxJREFURSB8Ci0tIAoyLjE3
-LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+The changes to fix those are two invasive for backporting.
+
+Just disable the feature in 4.20 and 5.0.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Cc: <stable@vger.kernel.org>    [4.20+]
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 0877ff9a9594..c3643dde3e9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -637,12 +637,14 @@ void amdgpu_vm_move_to_lru_tail(struct amdgpu_device *adev,
+ 	struct ttm_bo_global *glob = adev->mman.bdev.glob;
+ 	struct amdgpu_vm_bo_base *bo_base;
+ 
++#if 0
+ 	if (vm->bulk_moveable) {
+ 		spin_lock(&glob->lru_lock);
+ 		ttm_bo_bulk_move_lru_tail(&vm->lru_bulk_move);
+ 		spin_unlock(&glob->lru_lock);
+ 		return;
+ 	}
++#endif
+ 
+ 	memset(&vm->lru_bulk_move, 0, sizeof(vm->lru_bulk_move));
+ 
+-- 
+2.14.1
