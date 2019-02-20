@@ -1,15 +1,31 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: disable userptr if swiotlb is active
-Date: Wed, 20 Feb 2019 17:02:35 +0000
-Message-ID: <257989f9-7c9c-367b-3529-36b0bf81cfbc@amd.com>
-References: <20190220134654.15406-1-christian.koenig@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: "ring gfx timeout" with Vega 64 on mesa 19.0.0-rc2 and kernel
+ 5.0.0-rc6 (GPU reset still not works)
+Date: Wed, 20 Feb 2019 22:34:02 +0500
+Message-ID: <CABXGCsM0WSWAxKLeT2fwvc9noPmB_=Wpzm6M32pFAuAGet-jgg@mail.gmail.com>
+References: <CABXGCsOakru4=RMrhpocLhN99LwKp4q1-UfFJrEUh7q4UeKJ_g@mail.gmail.com>
+ <47477f0a-76dd-2f33-ff38-01f8216cffcc@amd.com>
+ <CABXGCsMMOx+Ay7Dkjfy1bKcvnsqEE0v2XnZzLNVM3ygM4G2PWg@mail.gmail.com>
+ <0349a887-b5b2-827a-830a-91c93dc9628d@amd.com>
+ <CABXGCsMWKw2wkQmKeRj1CNwx2=EMMcBG=XvVqGMKshOXiQ7ZsQ@mail.gmail.com>
+ <024290f1-97e2-ee24-6f54-3fe14a3855cf@amd.com>
+ <CABXGCsOngQCDrG2GhuXTO0FaonXzK7qwe3wRdW_oPg_OLGryDg@mail.gmail.com>
+ <12b7ac94-f093-d606-ead4-463c747a716c@amd.com>
+ <CABXGCsM4a0XuFbhLobJriRxa55C_zgWtexg=t_6A9Dwn1vt9bg@mail.gmail.com>
+ <b10e4e75-921d-e89f-2a32-68aa8437854b@amd.com>
+ <CABXGCsO-shqmH1ZLsT0M+AfyHkOJDN986DeV0SF+8vLG63=0Zw@mail.gmail.com>
+ <249fa2ee-136f-3d6a-5f81-f768fe234000@amd.com>
+ <936118e1-ec6a-2af4-7cea-c26bd2d5ffc8@gmail.com>
+ <6cc267ec-6899-9fdf-1adc-57b96330d2d8@amd.com>
+ <CABXGCsO-mx1GbV+JmKcMzcgWwTEqGo7_-ZD7Zo9BOe55Hsd3Cg@mail.gmail.com>
+ <9b306b4d-52de-4e47-0755-6e5ab3a7b1c8@amd.com>
+ <CABXGCsNpZ_JvzBpfsbSB8CFQjkqishqwjZLbzDO9WVHFk9A_+A@mail.gmail.com>
+ <df559e42-51c0-59c9-f419-96448bc48320@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190220134654.15406-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <5DB207AC2BBC5A4381E91B7098B36597-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <df559e42-51c0-59c9-f419-96448bc48320-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,29 +36,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SSBndWVzcyB3ZSdsbCBuZWVkIHNvbWV0aGluZyBzaW1pbGFyIGZvciBLRkQ/IEkgZG9uJ3QgdGhp
-bmsgd2UndmUgZXZlciANCmludGVudGlvbmFsbHkgdGVzdGVkIEtGRCB3aXRoIHN3aW90bGIuIEJ1
-dCBJJ3ZlIHNlZW4gc29tZSBiYWNrdHJhY2VzIA0Kd2l0aCBzd2lvdGxiIGluIHRoZW0gYmVmb3Jl
-LiBJIHdvbmRlciBob3cgYmFkbHkgYnJva2VuIGl0IGlzIC4uLg0KDQpSZWdhcmRzLA0KIMKgIEZl
-bGl4DQoNCk9uIDIwMTktMDItMjAgODo0NiBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0K
-PiBPdGhlcndpc2Ugd2UgY2FuJ3QgYmUgc3VyZSB0aGF0IHdlIHdvbid0IGVuZCB1cCB3aXRoIGEg
-Ym91bmNlIGJ1ZmZlci4NCj4NCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hy
-aXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZ2VtLmMgfCA0ICsrKysNCj4gICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRp
-b25zKCspDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZ2VtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gaW5k
-ZXggZDIxZGQyZjM2OWRhLi5hYmM2NTYzMzExOWIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gQEAgLTI4OSw2ICsyODksMTAgQEAgaW50IGFtZGdwdV9n
-ZW1fdXNlcnB0cl9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLA0KPiAg
-IAlpZiAob2Zmc2V0X2luX3BhZ2UoYXJncy0+YWRkciB8IGFyZ3MtPnNpemUpKQ0KPiAgIAkJcmV0
-dXJuIC1FSU5WQUw7DQo+ICAgDQo+ICsJLyogV2UgY2FuJ3QgZG8gdGhpcyB3aGVuIHN3aW90bGIg
-aXMgYWN0aXZlICovDQo+ICsJaWYgKGFkZXYtPm5lZWRzX3N3aW90bGIpDQo+ICsJCXJldHVybiAt
-RU5YSU87DQo+ICsNCj4gICAJLyogcmVqZWN0IHVua25vd24gZmxhZyB2YWx1ZXMgKi8NCj4gICAJ
-aWYgKGFyZ3MtPmZsYWdzICYgfihBTURHUFVfR0VNX1VTRVJQVFJfUkVBRE9OTFkgfA0KPiAgIAkg
-ICAgQU1ER1BVX0dFTV9VU0VSUFRSX0FOT05PTkxZIHwgQU1ER1BVX0dFTV9VU0VSUFRSX1ZBTElE
-QVRFIHwNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+T24gV2VkLCAyMCBGZWIgMjAxOSBhdCAyMDozOSwgR3JvZHpvdnNreSwgQW5kcmV5CjxBbmRyZXku
+R3JvZHpvdnNreUBhbWQuY29tPiB3cm90ZToKPiBObywgd2Ugb25seSBmaXhlZCB0aGUgb3JpZ2lu
+YWwgZGVhZGxvY2sgd2l0aCBkaXNwbGF5IGRyaXZlciBkdXJpbmcgR1BVCj4gcmVzZXQuIEkgc3Rp
+bGwgZGlkbid0IGhhdmUgdGltZSB0byBnbyBvdmVyIHlvdXIgY2FwdHVyZXMgZm9yIHRoZSBHUFUK
+PiBwYWdlIGZhdWx0Lgo+Cj4gVGhlIGRlYWRsb2NrIHdlIHNlZSBoZXJlIGlzIGFub3RoZXIgZGVh
+ZGxvY2ssIGRpZmZlcmVudCBmcm9tIHRoZSBvbmUKPiBhbHJlYWR5IGZpeGVkLiBJIHN1Z2dlc3Qg
+eW91IG9wZW4gYSBidWd6aWxsYSB0aWNrZXQgZm9yIHRoaXMgYW5kIGFkZCBtZQo+IHRoZXJlIHNv
+IHdlIGNhbiB0cmFjayBpdCBhbmQgdGFrZSBjYXJlIG9mIGl0Lgo+Cj4gQW5kcmV5Cj4KCk9rLCBo
+ZXJlIEkgZmlsbGVkIGJ1ZyByZXBvcnQgYWJvdXQgbmV3IGRlYWRsb2NrOgpodHRwczovL2J1Z3Mu
+ZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD0xMDk2OTIKCi0tCkJlc3QgUmVnYXJkcywK
+TWlrZSBHYXZyaWxvdi4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
