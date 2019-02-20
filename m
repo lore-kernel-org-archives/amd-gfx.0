@@ -1,12 +1,12 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: disable userptr if swiotlb is active
-Date: Wed, 20 Feb 2019 14:47:05 +0000
-Message-ID: <BN6PR12MB1809CDD3FF089D4B1F7FD024F77D0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190220134654.15406-1-christian.koenig@amd.com>
+From: "S, Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: s2idle not working
+Date: Wed, 20 Feb 2019 14:59:42 +0000
+Message-ID: <BN8PR12MB323382DDE09FE3CC33E3AD74F27D0@BN8PR12MB3233.namprd12.prod.outlook.com>
+References: <CAHD83Qc9D5L-B-2R9nYWtckK=WrKkw9Hha5dwDqWt4DCAhAPSQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0995442303=="
+Content-Type: multipart/mixed; boundary="===============1788085537=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190220134654.15406-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAHD83Qc9D5L-B-2R9nYWtckK=WrKkw9Hha5dwDqWt4DCAhAPSQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,134 +18,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: shahul hameed <shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0995442303==
+--===============1788085537==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809CDD3FF089D4B1F7FD024F77D0BN6PR12MB1809namp_"
+	boundary="_000_BN8PR12MB323382DDE09FE3CC33E3AD74F27D0BN8PR12MB3233namp_"
 
---_000_BN6PR12MB1809CDD3FF089D4B1F7FD024F77D0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--_000_BN8PR12MB323382DDE09FE3CC33E3AD74F27D0BN8PR12MB3233namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Christia=
-n K=F6nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Wednesday, February 20, 2019 8:46 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [PATCH] drm/amdgpu: disable userptr if swiotlb is active
+UGxlYXNlIG1haWwgeW91ciBxdWVyeSB0byBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxt
+YWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+IC4NCg0KDQoNClJlZ2FyZHMsDQpT
+aGlyaXNoIFMNCg0KRnJvbTogc2hhaHVsIGhhbWVlZCA8c2hhaHVsaGFtZWVkLjQ4MUBnbWFpbC5j
+b20+DQpTZW50OiBXZWRuZXNkYXksIEZlYnJ1YXJ5IDIwLCAyMDE5IDM6MTQgUE0NClRvOiBTLCBT
+aGlyaXNoIDxTaGlyaXNoLlNAYW1kLmNvbT4NClN1YmplY3Q6IHMyaWRsZSBub3Qgd29ya2luZw0K
+DQpIaSBTaGlyaXNoDQoNCkkgYW0gcG9ydGluZyBBbmRyb2lkX04gYW5kIGtlZW5lbCA0LjE5LjIg
+dG8gUnl6ZW4gcGxhdGZvcm0uIEdyYXBoaWMgY2FyZCBpcyBnZng5Lg0KUG9ydGluZyBpcyBkb25l
+IHN1Y2Nlc3NmdWxseS4gTm93IGkgYW0gd29ya2luZyBvbiBzdXNwZW5kL3Jlc3VtZS4NClN1c3Bl
+bmQvcmVzdW1lIGlzIHdvcmtpbmcgZmluZSBpbiBkZWVwIG1vZGUuDQpCdXQgc3VzcGVuZC9yZXN1
+bWUgaXMgbm90IHdvcmtpbmcgaW4gczJpZGxlIChTdXNwZW5kIHRvIGlkbGUpIG1vZGUuDQoNCmR1
+cmluZyByZXN1bWUgaSBmb3VuZCBlcnJvciBpbiBncHUgZHJpdmVyLg0KDQpbICAxMDUuODYyMTYx
+XSBbZHJtOmdmeF92OV8wX2h3X2luaXQgW2FtZGdwdV1dICpFUlJPUiogS0NRIGVuYWJsZSBmYWls
+ZWQgKHNjcmF0Y2goMHhDMDQwKT0weENBRkVERUFEKQ0KWyAgMTA1Ljg2MjE4N10gW2RybTphbWRn
+cHVfZGV2aWNlX2lwX3Jlc3VtZV9waGFzZTIgW2FtZGdwdV1dICpFUlJPUiogcmVzdW1lIG9mIElQ
+IGJsb2NrIDxnZnhfdjlfMD4gZmFpbGVkIC0yMg0KWyAgMTA1Ljg2MjIxMF0gW2RybTphbWRncHVf
+ZGV2aWNlX3Jlc3VtZSBbYW1kZ3B1XV0gKkVSUk9SKiBhbWRncHVfZGV2aWNlX2lwX3Jlc3VtZSBm
+YWlsZWQgKC0yMikuDQpbICAxMDUuODYyMjE1XSBkcG1fcnVuX2NhbGxiYWNrKCk6IHBjaV9wbV9y
+ZXN1bWUrMHgwLzB4ZDYgcmV0dXJucyAtMjINClsgIDEwNS44NjIzNDVdIFBNOiBEZXZpY2UgMDAw
+MDowMzowMC4wIGZhaWxlZCB0byByZXN1bWUgYXN5bmM6IGVycm9yIC0yMg0KDQpzYW1lIGlzc3Vl
+IGlzIHJlcHJvZHVjZWQgd2l0aCB1YnVudHUxNi4wNC4NCg0KQ2FuIHlvdSBwbGVhc2UgaGVscCBt
+ZSB0byByZXNvbHZlIHRoaXMgaXNzdWUuDQpUaGFua3MgaW4gQWR2YW5jZSwNClJlZ2FyZHMsDQpT
+ayBzaGFodWwuDQo=
 
-Otherwise we can't be sure that we won't end up with a bounce buffer.
+--_000_BN8PR12MB323382DDE09FE3CC33E3AD74F27D0BN8PR12MB3233namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 ++++
- 1 file changed, 4 insertions(+)
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQph
+OmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xv
+cjojMDU2M0MxOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
+Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjoj
+OTU0RjcyOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcC5tc29ub3JtYWwwLCBsaS5t
+c29ub3JtYWwwLCBkaXYubXNvbm9ybWFsMA0KCXttc28tc3R5bGUtbmFtZTptc29ub3JtYWw7DQoJ
+bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFyZ2luLXJpZ2h0OjBpbjsNCgltc28tbWFyZ2lu
+LWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVmdDowaW47DQoJZm9udC1zaXplOjExLjBwdDsN
+Cglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpzcGFuLkVtYWlsU3R5bGUxOA0K
+CXttc28tc3R5bGUtdHlwZTpwZXJzb25hbDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1z
+ZXJpZjt9DQpzcGFuLkVtYWlsU3R5bGUyMA0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21w
+b3NlOw0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCi5Nc29DaHBEZWZhdWx0
+DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixz
+YW5zLXNlcmlmO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCglt
+YXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdl
+OldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86
+c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1heD0iMTAyNiIgLz4NCjwveG1sPjwhW2Vu
+ZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVsYXlvdXQgdjpleHQ9ImVk
+aXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+
+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iIzA1
+NjNDMSIgdmxpbms9IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNs
+YXNzPSJNc29Ob3JtYWwiPlBsZWFzZSBtYWlsIHlvdXIgcXVlcnkgdG8gPGEgaHJlZj0ibWFpbHRv
+OmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj4NCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnPC9hPiAuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZu
+YnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9w
+Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj5SZWdhcmRzLDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+U2hpcmlzaCBTPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNw
+OzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPkZyb206PC9iPiBzaGFodWwgaGFt
+ZWVkICZsdDtzaGFodWxoYW1lZWQuNDgxQGdtYWlsLmNvbSZndDsgPGJyPg0KPGI+U2VudDo8L2I+
+IFdlZG5lc2RheSwgRmVicnVhcnkgMjAsIDIwMTkgMzoxNCBQTTxicj4NCjxiPlRvOjwvYj4gUywg
+U2hpcmlzaCAmbHQ7U2hpcmlzaC5TQGFtZC5jb20mZ3Q7PGJyPg0KPGI+U3ViamVjdDo8L2I+IHMy
+aWRsZSBub3Qgd29ya2luZzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86
+cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj5IaSBTaGlyaXNoPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiPkkgYW0gcG9ydGluZyBBbmRyb2lkX04gYW5kIGtlZW5lbCA0LjE5LjIgdG8g
+Unl6ZW4gcGxhdGZvcm0uIEdyYXBoaWMgY2FyZCBpcyBnZng5LjxvOnA+PC9vOnA+PC9wPg0KPC9k
+aXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+UG9ydGluZyBpcyBkb25lIHN1Y2Nlc3Nm
+dWxseS4gTm93IGkgYW0gd29ya2luZyBvbiBzdXNwZW5kL3Jlc3VtZS48bzpwPjwvbzpwPjwvcD4N
+CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlN1c3BlbmQvcmVzdW1lIGlzIHdv
+cmtpbmcgZmluZSBpbiBkZWVwIG1vZGUuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj5CdXQgc3VzcGVuZC9yZXN1bWUgaXMgbm90IHdvcmtpbmcgaW4g
+czJpZGxlIChTdXNwZW5kIHRvIGlkbGUpIG1vZGUuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxk
+aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0K
+PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPmR1cmluZyByZXN1bWUgaSBmb3VuZCBlcnJvciBp
+biBncHUgZHJpdmVyLjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj5bJm5ic3A7IDEwNS44NjIxNjFdIFtkcm06Z2Z4X3Y5XzBfaHdfaW5pdCBbYW1k
+Z3B1XV0gKkVSUk9SKiBLQ1EgZW5hYmxlIGZhaWxlZCAoc2NyYXRjaCgweEMwNDApPTB4Q0FGRURF
+QUQpPGJyPg0KWyZuYnNwOyAxMDUuODYyMTg3XSBbZHJtOmFtZGdwdV9kZXZpY2VfaXBfcmVzdW1l
+X3BoYXNlMiBbYW1kZ3B1XV0gKkVSUk9SKiByZXN1bWUgb2YgSVAgYmxvY2sgJmx0O2dmeF92OV8w
+Jmd0OyBmYWlsZWQgLTIyPGJyPg0KWyZuYnNwOyAxMDUuODYyMjEwXSBbZHJtOmFtZGdwdV9kZXZp
+Y2VfcmVzdW1lIFthbWRncHVdXSAqRVJST1IqIGFtZGdwdV9kZXZpY2VfaXBfcmVzdW1lIGZhaWxl
+ZCAoLTIyKS48YnI+DQpbJm5ic3A7IDEwNS44NjIyMTVdIGRwbV9ydW5fY2FsbGJhY2soKTogcGNp
+X3BtX3Jlc3VtZSYjNDM7MHgwLzB4ZDYgcmV0dXJucyAtMjI8YnI+DQpbJm5ic3A7IDEwNS44NjIz
+NDVdIFBNOiBEZXZpY2UgMDAwMDowMzowMC4wIGZhaWxlZCB0byByZXN1bWUgYXN5bmM6IGVycm9y
+IC0yMjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij5zYW1lIGlzc3VlIGlzIHJlcHJvZHVjZWQgd2l0aCB1YnVudHUxNi4wNC48bzpwPjwvbzpwPjwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Q2FuIHlvdSBwbGVhc2Ug
+aGVscCBtZSB0byByZXNvbHZlIHRoaXMgaXNzdWUuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxk
+aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5UaGFua3MgaW4gQWR2YW5jZSw8bzpwPjwvbzpwPjwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlJlZ2FyZHMsPG86cD48L286
+cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5TayBzaGFodWwuPG86
+cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwv
+aHRtbD4NCg==
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gem.c
-index d21dd2f369da..abc65633119b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -289,6 +289,10 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, v=
-oid *data,
-         if (offset_in_page(args->addr | args->size))
-                 return -EINVAL;
+--_000_BN8PR12MB323382DDE09FE3CC33E3AD74F27D0BN8PR12MB3233namp_--
 
-+       /* We can't do this when swiotlb is active */
-+       if (adev->needs_swiotlb)
-+               return -ENXIO;
-+
-         /* reject unknown flag values */
-         if (args->flags & ~(AMDGPU_GEM_USERPTR_READONLY |
-             AMDGPU_GEM_USERPTR_ANONONLY | AMDGPU_GEM_USERPTR_VALIDATE |
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809CDD3FF089D4B1F7FD024F77D0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Christian K=F6nig &lt;ckoenig=
-.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Wednesday, February 20, 2019 8:46 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: disable userptr if swiotlb is active</f=
-ont>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Otherwise we can't be sure that we won't end up wi=
-th a bounce buffer.<br>
-<br>
-Signed-off-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 4 &#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 4 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_gem.c<br>
-index d21dd2f369da..abc65633119b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-@@ -289,6 &#43;289,10 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *de=
-v, void *data,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (offset_in_page(args-&g=
-t;addr | args-&gt;size))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* We can't do this when swiotlb =
-is active */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;needs_swiotlb)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -ENXIO;<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* reject unknown flag val=
-ues */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;flags &amp; ~=
-(AMDGPU_GEM_USERPTR_READONLY |<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AM=
-DGPU_GEM_USERPTR_ANONONLY | AMDGPU_GEM_USERPTR_VALIDATE |<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809CDD3FF089D4B1F7FD024F77D0BN6PR12MB1809namp_--
-
---===============0995442303==
+--===============1788085537==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -155,4 +150,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0995442303==--
+--===============1788085537==--
