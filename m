@@ -1,70 +1,26 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/powerplay: add missing breaks in
- polaris10_smumgr
-Date: Thu, 21 Feb 2019 03:04:33 +0000
-Message-ID: <MN2PR12MB3344CD6C35058F24621DA605E47E0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190218223546.12581-1-alexander.deucher@amd.com>
- <CADnq5_NqCJExqxhxPFLnX+PniE0hjHHOSEkJdReSi7Sm8XSKGA@mail.gmail.com>
+From: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH] drm/amdgpu: disable bulk moves for now
+Date: Wed, 20 Feb 2019 22:09:39 -0500
+Message-ID: <20190221030938.GY10616@sasha-vm>
+References: <20190220141606.8832-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NqCJExqxhxPFLnX+PniE0hjHHOSEkJdReSi7Sm8XSKGA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190220141606.8832-1-christian.koenig@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXgNCj4gRGV1Y2hlcg0KPiBTZW50OiAy
-MDE55bm0MuaciDIx5pelIDExOjAxDQo+IFRvOiBhbWQtZ2Z4IGxpc3QgPGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPg0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1
-Y2hlckBhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1L3Bvd2VycGxh
-eTogYWRkIG1pc3NpbmcgYnJlYWtzIGluDQo+IHBvbGFyaXMxMF9zbXVtZ3INCj4gDQo+IFBpbmc/
-DQo+IA0KPiBBbGV4DQo+IA0KPiBPbiBNb24sIEZlYiAxOCwgMjAxOSBhdCA1OjM1IFBNIEFsZXgg
-RGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0KPiB3cm90ZToNCj4gPg0KPiA+IFRoaXMg
-d2FzIG5vdGljZWQgYnkgR3VzdGF2byBhbmQgaGlzIC1XaW1wbGljaXQtZmFsbHRocm91Z2ggcGF0
-Y2hlcy4NCj4gPiBIb3dldmVyLCBpbiB0aGlzIGNhc2UsIEkgYmVsaWV2ZSB3ZSBzaG91bGQgaGF2
-ZSBicmVha3MgcmF0aGVyIHRoYW4NCj4gPiBmYWxsaW5nIHRob3VnaCwgdGhhdCBzYWlkLCBpbiBw
-cmFjdGljZSB3ZSBzaG91bGQgbmV2ZXIgZmFsbCB0aHJvdWdoIGluDQo+ID4gdGhlIGZpcnN0IHBs
-YWNlIHNvIHRoZXJlIHNob3VsZCBiZSBubyBjaGFuZ2UgaW4gYmVoYXZpb3IuDQo+ID4NCj4gPiBT
-aWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+
-ID4gLS0tDQo+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlz
-MTBfc211bWdyLmMgfCAyICsrDQo+ID4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKykN
-Cj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVt
-Z3IvcG9sYXJpczEwX3NtdW1nci5jDQo+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jDQo+ID4gaW5kZXggNTJhYmNhMDY1NzY0Li4yZDRj
-ZmUxNGY3MmUgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-c211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMNCj4gPiBAQCAtMjMzMCw2ICsyMzMw
-LDcgQEAgc3RhdGljIHVpbnQzMl90IHBvbGFyaXMxMF9nZXRfb2Zmc2V0b2YodWludDMyX3QNCj4g
-dHlwZSwgdWludDMyX3QgbWVtYmVyKQ0KPiA+ICAgICAgICAgICAgICAgICBjYXNlIERSQU1fTE9H
-X0JVRkZfU0laRToNCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gb2Zmc2V0b2Yo
-U01VNzRfU29mdFJlZ2lzdGVycywNCj4gRFJBTV9MT0dfQlVGRl9TSVpFKTsNCj4gPiAgICAgICAg
-ICAgICAgICAgfQ0KPiA+ICsgICAgICAgICAgICAgICBicmVhazsNCj4gPiAgICAgICAgIGNhc2Ug
-U01VX0Rpc2NyZXRlX0RwbVRhYmxlOg0KPiA+ICAgICAgICAgICAgICAgICBzd2l0Y2ggKG1lbWJl
-cikgew0KPiA+ICAgICAgICAgICAgICAgICBjYXNlIFV2ZEJvb3RMZXZlbDoNCj4gPiBAQCAtMjMz
-OSw2ICsyMzQwLDcgQEAgc3RhdGljIHVpbnQzMl90IHBvbGFyaXMxMF9nZXRfb2Zmc2V0b2YodWlu
-dDMyX3QNCj4gdHlwZSwgdWludDMyX3QgbWVtYmVyKQ0KPiA+ICAgICAgICAgICAgICAgICBjYXNl
-IExvd1NjbGtJbnRlcnJ1cHRUaHJlc2hvbGQ6DQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAg
-cmV0dXJuIG9mZnNldG9mKFNNVTc0X0Rpc2NyZXRlX0RwbVRhYmxlLA0KPiBMb3dTY2xrSW50ZXJy
-dXB0VGhyZXNob2xkKTsNCj4gPiAgICAgICAgICAgICAgICAgfQ0KPiA+ICsgICAgICAgICAgICAg
-ICBicmVhazsNCj4gPiAgICAgICAgIH0NCj4gPiAgICAgICAgIHByX3dhcm4oImNhbid0IGdldCB0
-aGUgb2Zmc2V0IG9mIHR5cGUgJXggbWVtYmVyICV4XG4iLCB0eXBlLA0KPiBtZW1iZXIpOw0KPiA+
-ICAgICAgICAgcmV0dXJuIDA7DQo+ID4gLS0NCj4gPiAyLjIwLjENCj4gPg0KPiBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcg
-bGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Wed, Feb 20, 2019 at 03:16:06PM +0100, Christian König wrote:
+>The changes to fix those are two invasive for backporting.
+>
+>Just disable the feature in 4.20 and 5.0.
+>
+>Signed-off-by: Christian König <christian.koenig@amd.com>
+>Cc: <stable@vger.kernel.org>    [4.20+]
+
+For the sake of having it in the log, could you point to the upstream
+commit(s) that fix it?
