@@ -1,93 +1,39 @@
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH 1/1] [RFC] drm/ttm: Don't init dma32_zone on 64-bit systems
-Date: Thu, 21 Feb 2019 07:59:19 +0000
-Message-ID: <4423e7aa-2153-5305-91c2-8d212ae1786b@amd.com>
-References: <1550271712-13069-1-git-send-email-Felix.Kuehling@amd.com>
- <8538a294-eeab-9c87-ae10-83695149f808@shipmail.org>
- <254ca765-adc2-5ddf-280f-6cb3643f6e1f@amd.com>
- <d90f7ab569b636db0968c80dad9eb16ce7bf1eab.camel@vmware.com>
- <89c4b66a-152a-d0f3-4ce0-d89f6ef822bb@gmail.com>
- <eaad8f2dc24e98c68036801ccd6a871586033d31.camel@vmware.com>
- <2be5739a-fe9a-f436-48a2-fb420cb97a13@amd.com>
- <19a0abdbd60c251a63975a7ddff31c35a5eb0a31.camel@vmware.com>
- <71b105f0-c350-a957-74b4-57066e39e047@amd.com>
- <02031c0fe1b4af05bdc07155647cc88c445dcccf.camel@vmware.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: disable bulk moves for now
+Date: Thu, 21 Feb 2019 09:11:04 +0100
+Message-ID: <023b3804-30d8-ac8b-c221-ff91e5146260@gmail.com>
+References: <20190220141606.8832-1-christian.koenig@amd.com>
+ <20190221030938.GY10616@sasha-vm>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <02031c0fe1b4af05bdc07155647cc88c445dcccf.camel@vmware.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190221030938.GY10616@sasha-vm>
 Content-Language: en-US
-Content-ID: <477D7BC8DBD16D49A3B1E0346D5CB245@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Thomas Hellstrom <thellstrom@vmware.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "thomas@shipmail.org" <thomas@shipmail.org>
+Sender: stable-owner@vger.kernel.org
+To: Sasha Levin <sashal@kernel.org>
+Cc: amd-gfx@lists.freedesktop.org, stable@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjEuMDIuMTkgdW0gMDc6NDcgc2NocmllYiBUaG9tYXMgSGVsbHN0cm9tOg0KPiBPbiBXZWQs
-IDIwMTktMDItMjAgYXQgMTk6MjMgKzAwMDAsIEt1ZWhsaW5nLCBGZWxpeCB3cm90ZToNCj4+IE9u
-IDIwMTktMDItMjAgMTo0MSBhLm0uLCBUaG9tYXMgSGVsbHN0cm9tIHdyb3RlOg0KPj4+IE9uIFR1
-ZSwgMjAxOS0wMi0xOSBhdCAxNzowNiArMDAwMCwgS3VlaGxpbmcsIEZlbGl4IHdyb3RlOg0KPj4+
-PiBPbiAyMDE5LTAyLTE4IDM6MzkgcC5tLiwgVGhvbWFzIEhlbGxzdHJvbSB3cm90ZToNCj4+Pj4+
-IE9uIE1vbiwgMjAxOS0wMi0xOCBhdCAxODowNyArMDEwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90
-ZToNCj4+Pj4+PiBBbSAxOC4wMi4xOSB1bSAxMDo0NyBzY2hyaWViIFRob21hcyBIZWxsc3Ryb206
-DQo+Pj4+Pj4+IE9uIE1vbiwgMjAxOS0wMi0xOCBhdCAwOToyMCArMDAwMCwgS29lbmlnLCBDaHJp
-c3RpYW4gd3JvdGU6DQo+Pj4+Pj4+PiBBbm90aGVyIGdvb2QgcXVlc3Rpb24gaXMgYWxzbyB3aHkg
-dGhlIGhlY2sgdGhlIGFjY19zaXplDQo+Pj4+Pj4+PiBjb3VudHMNCj4+Pj4+Pj4+IHRvd2FyZHMN
-Cj4+Pj4+Pj4+IHRoZSBETUEzMiB6b25lPw0KPj4+Pj4+PiBETUEzMiBUVE0gcGFnZXMgYXJlIGFj
-Y291bnRlZCBpbiB0aGUgRE1BMzIgem9uZS4gT3RoZXINCj4+Pj4+Pj4gcGFnZXMNCj4+Pj4+Pj4g
-YXJlDQo+Pj4+Pj4+IG5vdC4NCj4+Pj4+PiBZZWFoLCBJJ20gcGVyZmVjdGx5IGF3YXJlIG9mIHRo
-aXMuIEJ1dCB0aGlzIGlzIGZvciB0aGUNCj4+Pj4+PiBhY2NvdW50aW5nDQo+Pj4+Pj4gc2l6ZSEN
-Cj4+Pj4+Pg0KPj4+Pj4+IFdlIGhhdmUgYW4gYWNjb3VudGluZyBmb3IgdGhlIHN0dWZmIG5lZWRl
-ZCBhZGRpdGlvbmFsIHRvIHRoZQ0KPj4+Pj4+IHBhZ2VzDQo+Pj4+Pj4gYmFja2luZyB0aGUgQk8g
-KGUuZy4gdGhlIHBhZ2UgYW5kIERNQSBhZGRyIGFycmF5KS4NCj4+Pj4+Pg0KPj4+Pj4+IEFuZCBm
-cm9tIHRoZSBidWcgZGVzY3JpcHRpb24gaXQgc291bmRzIGxpa2Ugd2UgdXNlIHRoZSBETUEzMg0K
-Pj4+Pj4+IHpvbmUNCj4+Pj4+PiBmb3INCj4+Pj4+PiB0aGlzIGFjY291bnRpbmcgd2hpY2ggb2Yg
-Y291cnNlIGlzIGNvbXBsZXRlbHkgbm9uc2Vuc2UuDQo+Pj4+PiBJdCdzIGFjdHVhbGx5IGFjY291
-bnRlZCBpbiBhbGwgYXZhaWxhYmxlIHpvbmVzLCBzaW5jZSBpdCB3b3VsZA0KPj4+Pj4gYmUNCj4+
-Pj4+IHByZXR0eSBoYXJkIHRvIGRldGVybWluZSBleGFjdGx5IHdoZXJlIHRoYXQgbWVtb3J5IHNo
-b3VsZCBiZQ0KPj4+Pj4gYWNjb3VudGVkLg0KPj4+Pj4gSW4gcGFydGljdWxhciBpZiBpdCdzIHZt
-YWxsb2NlZC4gSXQgbWlnaHQgYmUgRE1BMzIsIGl0IG1pZ2h0DQo+Pj4+PiBub3QuDQo+Pj4+PiBH
-aXZlbg0KPj4+Pj4gdGhlIG9iamVjdGl2ZSBvZiBzdG9wcGluZyBtYWxpY2lvdXMgdXNlci1zcGFj
-ZSBmcm9tIGV4aGF1c3RpbmcNCj4+Pj4+IHRoZQ0KPj4+Pj4gRE1BMzIgem9uZSBpdCB3YXMsIGF0
-IHRoZSB0aW1lIHRoZSBjb2RlIHdhcyB3cml0dGVuLCBhDQo+Pj4+PiByZWFzb25hYmxlDQo+Pj4+
-PiBhcHByb3hpbWF0aW9uLiBXaXRoIGV2ZXIgaW5jcmVhc2luZyBtZW1vcnkgc2l6ZXMsIHRoZXJl
-IG1pZ2h0DQo+Pj4+PiBiZQ0KPj4+Pj4gYmV0dGVyDQo+Pj4+PiBzb2x1dGlvbnM/DQo+Pj4+IEFz
-IGZhciBhcyBJIGNhbiBzZWUsIGluIFRUTSwgdHRtX21lbV9nbG9iYWxfYWxsb2MgaXMgb25seSB1
-c2VkDQo+Pj4+IGZvcg0KPj4+PiB0aGUNCj4+Pj4gYWNjX3NpemUgaW4gdHRtX2JvX2luaXRfcmVz
-ZXJ2ZWQuIE90aGVyIHRoYW4gdGhhdCB2bXdnZnggYWxzbw0KPj4+PiBzZWVtcw0KPj4+PiB0bw0K
-Pj4+PiB1c2UgaXQgdG8gYWNjb3VudCBmb3IgYSBmZXcgdGhpbmdzIHRoYXQgYXJlIGFsbG9jYXRl
-ZCB3aXRoDQo+Pj4+IGttYWxsb2MuDQo+Pj4+DQo+Pj4+IFNvIHdvdWxkIGEgYmV0dGVyIHNvbHV0
-aW9uIGJlIHRvIGNoYW5nZSB0dG1fbWVtX2dsb2JhbF9hbGxvYyB0bw0KPj4+PiB1c2UNCj4+Pj4g
-b25seQ0KPj4+PiB0aGUga2VybmVsIHpvbmU/DQo+Pj4+DQo+Pj4gSU1PIHdlIG5lZWQgdG8gZGV0
-ZXJtaW5lIHdoYXQgZnVuY3Rpb25hbGl0eSB0byBrZWVwIGFuZCB0aGVuIHRoZQ0KPj4+IGJlc3QN
-Cj4+PiBzb2x1dGlvbi4gVGhlIGN1cnJlbnQgY29kZSBkb2VzIGl0cyBqb2IsIGJ1dCBpcyBvYnZp
-b3VzbHkgdG9vDQo+Pj4gcmVzdHJpY3RpdmUuIEJvdGggb2YgdGhlIHNvbHV0aW9ucyB5b3Ugc3Vn
-Z2VzdCBvcGVuIHVwIGZvcg0KPj4+IHBvdGVudGlhbA0KPj4+IERPUyBhdHRhY2tzIChETUEzMiBh
-bmQga2VybmVsIHpvbmVzIGFyZSBub3QgbXV0dWFsbHkgZXhjbHVzaXZlLg0KPj4+IFRoZXkNCj4+
-PiBvdmVybGFwKS4NCj4+IE9uIHg4NiB3aXRoIEhJR0hNRU0gdGhlcmUgaXMgbm8gZG1hMzIgem9u
-ZS4gV2h5IGRvIHdlIG5lZWQgb25lIG9uDQo+PiB4ODZfNjQ/IENhbiB3ZSBtYWtlIHg4Nl82NCBt
-b3JlIGxpa2UgSElHSE1FTSBpbnN0ZWFkPw0KPj4NCj4+IFJlZ2FyZHMsDQo+PiAgICAgRmVsaXgN
-Cj4+DQo+IElJUkMgd2l0aCB4ODYsIHRoZSBrZXJuZWwgem9uZSBpcyBhbHdheXMgc21hbGxlciB0
-aGFuIGFueSBkbWEzMiB6b25lLA0KPiBzbyB3ZSdkIGFsd2F5cyBleGhhdXN0IHRoZSBrZXJuZWwg
-em9uZSBiZWZvcmUgZG1hMzIgYW55d2F5Lg0KPg0KPiBOb3Qgc3VyZSB3aHkgd2UgaGF2ZSBkbWEz
-MiBvbiB4ODYgd2l0aG91dCBoaWdobWVtLCB0aG91Z2guIHNvdW5kcw0KPiBzdXBlcmZsb3VzIGJ1
-dCBoYXJtbGVzcy4NCg0KV2VsbCBETUEzMiBkZW5vdGVzIG1lbW9yeSB3aGljaCBpcyBhY2Nlc3Np
-YmxlIGJ5IGRldmljZXMgd2hvIGNhbiBvbmx5IGRvIA0KMzJiaXQgYWRkcmVzc2luZy4gQW5kIElJ
-UkMgd2UgY2FuIGFjdHVhbGx5IGRvIERNQTMyIHRvIGhpZ2htZW0gc2luY2UgDQpzb21ldGhpbmcg
-bGlrZSAyLjQuKi4NCg0KQmVjYXVzZSBvZiB0aGlzIGl0IGlzIGFjdHVhbGx5IGlycmVsZXZhbnQg
-aWYgeW91IGhhdmUgaGlnaG1lbSBvciBub3QsIA0Kd2hhdCBtYXR0ZXJzIGZvciBETUEzMiBpcyBp
-ZiB5b3UgaGF2ZSBhbiBJT01NVSBvciBub3QuDQoNClNvIGV2ZW4gb24geDg2XzY0IHlvdSBhY3R1
-YWxseSBkbyBuZWVkIHRoZSBETUEzMiB6b25lIGlmIHlvdSBkb24ndCBoYXZlIA0KYW4gSU9NTVUg
-d2hpY2ggcmVtYXBzIGFsbCBtZW1vcnkgZm9yIGRldmljZXMgd2hpY2ggY2FuJ3QgZGlyZWN0bHkg
-DQphZGRyZXNzIGl0Lg0KDQpSZWdhcmRzLA0KQ2hyaXN0aWFuLg0KDQo+DQo+IC9UaG9tYXMNCj4N
-Cj4NCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
-LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+Am 21.02.19 um 04:09 schrieb Sasha Levin:
+> On Wed, Feb 20, 2019 at 03:16:06PM +0100, Christian König wrote:
+>> The changes to fix those are two invasive for backporting.
+>>
+>> Just disable the feature in 4.20 and 5.0.
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> Cc: <stable@vger.kernel.org>    [4.20+]
+>
+> For the sake of having it in the log, could you point to the upstream
+> commit(s) that fix it?
+
+That turned out to be a larger set of patches and won't go upstream 
+before the 5.1 cycle.
+
+Christian.
+
+>
+> -- 
+> Thanks,
+> Sasha
