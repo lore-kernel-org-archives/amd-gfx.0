@@ -1,171 +1,267 @@
-From: Paul Durrant <Paul.Durrant@citrix.com>
-Subject: Re: [PATCH] drm: add func to better detect wether
- swiotlb is needed
-Date: Thu, 21 Feb 2019 09:59:06 +0000
-Message-ID: <ba6812cbb26341bd9b5d3a0981f7d64b@AMSPEX02CL03.citrite.net>
-References: <1550617692-27306-1-git-send-email-michael.d.labriola@gmail.com>
+From: shahul hameed <shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: s2idle not working
+Date: Thu, 21 Feb 2019 15:39:17 +0530
+Message-ID: <CAHD83QeMtLVmCo_guJq2Jhyyo9FnTepd5L2agmT4taPPeWtbDg@mail.gmail.com>
+References: <CAHD83Qc9D5L-B-2R9nYWtckK=WrKkw9Hha5dwDqWt4DCAhAPSQ@mail.gmail.com>
+ <CAHD83Qdhw5Jn1Wh1Q52i5UoGMCmNqnYXV=DqmZWCB28606U1iw@mail.gmail.com>
+ <CADnq5_N9okwWV0B+D9p6p9D6DPToGpk_a1LbH9xFSTcxVXXA2Q@mail.gmail.com>
+ <CAHD83QdHAd5Q5HCiOOg4JU2g9=Bp3uGzTstQY2sst7xQt+jFNg@mail.gmail.com>
+ <CADnq5_Oxy_16yGqcfy8eyOYMaCkdL6d_Ny3qZTXdKi3bizwc1A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <xen-devel-bounces@lists.xenproject.org>
-In-Reply-To: <1550617692-27306-1-git-send-email-michael.d.labriola@gmail.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
- <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
-List-Post: <mailto:xen-devel@lists.xenproject.org>
-List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
-List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
- <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Errors-To: xen-devel-bounces@lists.xenproject.org
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-To: 'Michael D Labriola' <michael.d.labriola@gmail.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Alex
- Deucher <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <david1.zhou@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Monk Liu <monk.liu@amd.com>
-Cc: Juergen Gross <jgross@suse.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>, "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>, Christoph Hellwig <hch@infradead.org>, Jan Beulich <JBeulich@suse.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1973219318=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_Oxy_16yGqcfy8eyOYMaCkdL6d_Ny3qZTXdKi3bizwc1A-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IE1pY2hhZWwgRCBMYWJyaW9sYSBb
-bWFpbHRvOm1pY2hhZWwuZC5sYWJyaW9sYUBnbWFpbC5jb21dCj4gU2VudDogMTkgRmVicnVhcnkg
-MjAxOSAyMzowOAo+IFRvOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBBbGV4IERl
-dWNoZXIKPiA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT47IENocmlzdGlhbiBLb2VuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT47Cj4gQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VAYW1k
-LmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBNb25rCj4gTGl1IDxtb25rLmxp
-dUBhbWQuY29tPgo+IENjOiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+OyBDaHJpc3Rv
-cGggSGVsbHdpZwo+IDxoY2hAaW5mcmFkZWFkLm9yZz47IEFuZHJldyBDb29wZXIgPEFuZHJldy5D
-b29wZXIzQGNpdHJpeC5jb20+OyBQYXVsCj4gRHVycmFudCA8UGF1bC5EdXJyYW50QGNpdHJpeC5j
-b20+OyB4ZW4tZGV2ZWxAbGlzdHMueGVuLm9yZzsgSmFuIEJldWxpY2gKPiA8SkJldWxpY2hAc3Vz
-ZS5jb20+OyBLb25yYWQgUnplc3p1dGVrIFdpbGsgPGtvbnJhZC53aWxrQG9yYWNsZS5jb20+Owo+
-IE1pY2hhZWwgRCBMYWJyaW9sYSA8bWljaGFlbC5kLmxhYnJpb2xhQGdtYWlsLmNvbT4KPiBTdWJq
-ZWN0OiBbUEFUQ0hdIGRybTogYWRkIGZ1bmMgdG8gYmV0dGVyIGRldGVjdCB3ZXRoZXIgc3dpb3Rs
-YiBpcyBuZWVkZWQKPiAKPiBUaGlzIGNvbW1pdCBmaXhlcyBEUk0gZmFpbHVyZXMgb24gWGVuIFBW
-IHN5c3RlbXMgdGhhdCB3ZXJlIGludHJvZHVjZWQgaW4KPiB2NC4xNyBieSB0aGUgZm9sbG93aW5n
-IGNvbW1pdHM6Cj4gCj4gODI2MjYzNjMgZHJtOiBhZGQgZnVuYyB0byBnZXQgbWF4IGlvbWVtIGFk
-ZHJlc3MgdjIKPiBmZDVmZDQ4MCBkcm0vYW1kZ3B1OiBvbmx5IGVuYWJsZSBzd2lvdGxiIGFsbG9j
-IHdoZW4gbmVlZCB2Mgo+IDFiYzNkM2NjIGRybS9yYWRlb246IG9ubHkgZW5hYmxlIHN3aW90bGIg
-cGF0aCB3aGVuIG5lZWQgdjIKPiAKPiBUaGUgaW50cm9kdWN0aW9uIG9mIC0+bmVlZF9zd2lvdGxi
-IHRvIHRoZSB0dG1fZG1hX3BvcHVsYXRlKCkgY29uZGl0aW9uYWxzCj4gaW4gdGhlIHJhZGVvbiBh
-bmQgYW1kZ3B1IGRldmljZSBkcml2ZXJzIGNhdXNlcyBHbm9tZSB0byBpbW1lZGlhdGVseSBjcmFz
-aAo+IG9uIFhlbiBQViBzeXN0ZW1zLCByZXR1cm5pbmcgdGhlIHVzZXIgdG8gdGhlIGxvZ2luIHNj
-cmVlbi4gIFRoZSBmb2xsb3dpbmcKPiBrZXJuZWwgZXJyb3JzIGdldCBsb2dnZWQ6Cj4gCj4gWyAg
-IDI4LjU1NDI1OV0gcmFkZW9uX2RwX2F1eF90cmFuc2Zlcl9uYXRpdmU6IDIwMCBjYWxsYmFja3Mg
-c3VwcHJlc3NlZAo+IFsgICAzMS4yMTk4MjFdIHJhZGVvbiAwMDAwOjAxOjAwLjA6IHN3aW90bGIg
-YnVmZmVyIGlzIGZ1bGwgKHN6OiAyMDk3MTUyCj4gYnl0ZXMpCj4gWyAgIDMxLjIyMDAzMF0gW2Ry
-bTpyYWRlb25fZ2VtX29iamVjdF9jcmVhdGUgW3JhZGVvbl1dICpFUlJPUiogRmFpbGVkIHRvCj4g
-YWxsb2NhdGUgR0VNIG9iamVjdCAoMTYzODQwMDAsIDIsIDQwOTYsIC0xNCkKPiBbICAgMzEuMjI2
-MTA5XSByYWRlb24gMDAwMDowMTowMC4wOiBzd2lvdGxiIGJ1ZmZlciBpcyBmdWxsIChzejogMjA5
-NzE1Mgo+IGJ5dGVzKQo+IFsgICAzMS4yMjYzMDBdIFtkcm06cmFkZW9uX2dlbV9vYmplY3RfY3Jl
-YXRlIFtyYWRlb25dXSAqRVJST1IqIEZhaWxlZCB0bwo+IGFsbG9jYXRlIEdFTSBvYmplY3QgKDE2
-Mzg0MDAwLCAyLCA0MDk2LCAtMTQpCj4gWyAgIDMxLjMwMDczNF0gZ25vbWUtc2hlbGxbMTkzNV06
-IHNlZ2ZhdWx0IGF0IDg4IGlwIDAwMDA3ZjM5MTUxY2Q5MDQgc3AKPiAwMDAwN2ZmYzk3NjExYWQ4
-IGVycm9yIDQgaW4gbGlibXV0dGVyLWNvZ2wuc29bN2YzOTE1MTc4MDAwK2FhMDAwXQo+IFsgICAz
-MS4zMDA3NDVdIENvZGU6IDVmIGMzIDBmIDFmIDQwIDAwIDQ4IDhiIDQ3IDc4IDQ4IDhiIDQwIDQw
-IGZmIGUwIDY2IDBmCj4gMWYgNDQgMDAgMDAgNDggOGIgNDcgNzggNDggOGIgNDAgNDggZmYgZTAg
-NjYgMGYgMWYgNDQgMDAgMDAgNDggOGIgNDcgNzgKPiA8NDg+IDhiIDgwIDg4IDAwIDAwIDAwIGZm
-IGUwIDBmIDFmIDAwIDQ4IDhiIDQ3IDc4IDQ4IDhiIDQwIDY4IGZmIGUwCj4gWyAgIDM4LjE5MzMw
-Ml0gcmFkZW9uX2RwX2F1eF90cmFuc2Zlcl9uYXRpdmU6IDExNiBjYWxsYmFja3Mgc3VwcHJlc3Nl
-ZAo+IFsgICA0MC4wMDkzMTddIHJhZGVvbiAwMDAwOjAxOjAwLjA6IHN3aW90bGIgYnVmZmVyIGlz
-IGZ1bGwgKHN6OiAyMDk3MTUyCj4gYnl0ZXMpCj4gWyAgIDQwLjAwOTQ4OF0gW2RybTpyYWRlb25f
-Z2VtX29iamVjdF9jcmVhdGUgW3JhZGVvbl1dICpFUlJPUiogRmFpbGVkIHRvCj4gYWxsb2NhdGUg
-R0VNIG9iamVjdCAoMTYzODQwMDAsIDIsIDQwOTYsIC0xNCkKPiBbICAgNDAuMDE1MTE0XSByYWRl
-b24gMDAwMDowMTowMC4wOiBzd2lvdGxiIGJ1ZmZlciBpcyBmdWxsIChzejogMjA5NzE1Mgo+IGJ5
-dGVzKQo+IFsgICA0MC4wMTUyOTddIFtkcm06cmFkZW9uX2dlbV9vYmplY3RfY3JlYXRlIFtyYWRl
-b25dXSAqRVJST1IqIEZhaWxlZCB0bwo+IGFsbG9jYXRlIEdFTSBvYmplY3QgKDE2Mzg0MDAwLCAy
-LCA0MDk2LCAtMTQpCj4gWyAgIDQwLjAyODMwMl0gZ25vbWUtc2hlbGxbMjQzMV06IHNlZ2ZhdWx0
-IGF0IDJkYWRmNDAgaXAgMDAwMDAwMDAwMmRhZGY0MAo+IHNwIDAwMDA3ZmZjZDI0ZWE1ZjggZXJy
-b3IgMTUKPiBbICAgNDAuMDI4MzA2XSBDb2RlOiAyMCA2ZSAzMSAwMCAwMCAwMCAwMCAwMCAwMCAw
-MCAwMCAzNyBlMyAzZCAyZCA3ZiAwMCAwMAo+IDgwIGY0IGU2IDNkIDJkIDdmIDAwIDAwIDAwIDAw
-IDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwIDAwCj4gPDAwPiAwMCAwMCAw
-MCAwMCAwMCAwMCAwMCBjMSAwMCAwMCAwMCAwMCAwMCAwMCAwMCA4MCBlMSBkMiAwMyAwMCAwMAo+
-IAo+IFRoaXMgY29tbWl0IHJlbmFtZXMgZHJtX2dldF9tYXhfaW9tZW0oKSB0byBkcm1fbmVlZF9z
-d2lvdGxiKCksIGFkZHMgYQo+IHhlbl9wdl9kb21haW4oKSBjaGVjayB0byBpdCwgYW5kIG1vdmVz
-IHRoZSBiaXQgc2hpZnRpbmcgY29tcGFyaXNvbiB0aGF0Cj4gYWx3YXlzIGZvbGxvd3MgaXRzIHVz
-YWdlIGludG8gdGhlIGZ1bmN0aW9uIChzaW1wbGlmeWluZyB0aGUgZHJtIGRyaXZlcgo+IGNvZGUp
-Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IE1pY2hhZWwgRCBMYWJyaW9sYSA8bWljaGFlbC5kLmxhYnJp
-b2xhQGdtYWlsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3
-XzAuYyAgfCAgMiArLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5jICB8
-ICAyICstCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgIHwgIDIgKy0K
-PiAgZHJpdmVycy9ncHUvZHJtL2RybV9tZW1vcnkuYyAgICAgICAgICAgfCAxOSArKysrKysrKysr
-KysrKysrLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jIHwgIDIg
-Ky0KPiAgaW5jbHVkZS9kcm0vZHJtX2NhY2hlLmggICAgICAgICAgICAgICAgfCAgMiArLQo+ICA2
-IGZpbGVzIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pCj4gCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKPiBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKPiBpbmRleCA5MTBjNGNlLi42YmMwMjY2
-IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jCj4gQEAgLTEwMjksNyAr
-MTAyOSw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y3XzBfc3dfaW5pdCh2b2lkICpoYW5kbGUpCj4gIAkJ
-cGNpX3NldF9jb25zaXN0ZW50X2RtYV9tYXNrKGFkZXYtPnBkZXYsIERNQV9CSVRfTUFTSygzMikp
-Owo+ICAJCXByX3dhcm4oImFtZGdwdTogTm8gY29oZXJlbnQgRE1BIGF2YWlsYWJsZVxuIik7Cj4g
-IAl9Cj4gLQlhZGV2LT5uZWVkX3N3aW90bGIgPSBkcm1fZ2V0X21heF9pb21lbSgpID4gKCh1NjQp
-MSA8PCBkbWFfYml0cyk7Cj4gKwlhZGV2LT5uZWVkX3N3aW90bGIgPSBkcm1fbmVlZF9zd2lvdGxi
-KGRtYV9iaXRzKTsKPiAKPiAgCXIgPSBnbWNfdjdfMF9pbml0X21pY3JvY29kZShhZGV2KTsKPiAg
-CWlmIChyKSB7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-OF8wLmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OF8wLmMKPiBpbmRleCA3
-NDdjMDY4Li44NjM4YWRmIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2dtY192OF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjhfMC5j
-Cj4gQEAgLTExNTUsNyArMTE1NSw3IEBAIHN0YXRpYyBpbnQgZ21jX3Y4XzBfc3dfaW5pdCh2b2lk
-ICpoYW5kbGUpCj4gIAkJcGNpX3NldF9jb25zaXN0ZW50X2RtYV9tYXNrKGFkZXYtPnBkZXYsIERN
-QV9CSVRfTUFTSygzMikpOwo+ICAJCXByX3dhcm4oImFtZGdwdTogTm8gY29oZXJlbnQgRE1BIGF2
-YWlsYWJsZVxuIik7Cj4gIAl9Cj4gLQlhZGV2LT5uZWVkX3N3aW90bGIgPSBkcm1fZ2V0X21heF9p
-b21lbSgpID4gKCh1NjQpMSA8PCBkbWFfYml0cyk7Cj4gKwlhZGV2LT5uZWVkX3N3aW90bGIgPSBk
-cm1fbmVlZF9zd2lvdGxiKGRtYV9iaXRzKTsKPiAKPiAgCXIgPSBnbWNfdjhfMF9pbml0X21pY3Jv
-Y29kZShhZGV2KTsKPiAgCWlmIChyKSB7Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dtY192OV8wLmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-OV8wLmMKPiBpbmRleCBmMzVkN2E1Li40ZjY3MDkzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nbWNfdjlfMC5jCj4gQEAgLTk4OSw3ICs5ODksNyBAQCBzdGF0aWMgaW50IGdtY192OV8w
-X3N3X2luaXQodm9pZCAqaGFuZGxlKQo+ICAJCXBjaV9zZXRfY29uc2lzdGVudF9kbWFfbWFzayhh
-ZGV2LT5wZGV2LCBETUFfQklUX01BU0soMzIpKTsKPiAgCQlwcmludGsoS0VSTl9XQVJOSU5HICJh
-bWRncHU6IE5vIGNvaGVyZW50IERNQSBhdmFpbGFibGUuXG4iKTsKPiAgCX0KPiAtCWFkZXYtPm5l
-ZWRfc3dpb3RsYiA9IGRybV9nZXRfbWF4X2lvbWVtKCkgPiAoKHU2NCkxIDw8IGRtYV9iaXRzKTsK
-PiArCWFkZXYtPm5lZWRfc3dpb3RsYiA9IGRybV9uZWVkX3N3aW90bGIoZG1hX2JpdHMpOwo+IAo+
-ICAJaWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1ZFR0EyMCkgewo+ICAJCXIgPSBnZnhodWJf
-djFfMV9nZXRfeGdtaV9pbmZvKGFkZXYpOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-ZHJtX21lbW9yeS5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9tZW1vcnkuYwo+IGluZGV4IGQ2OWU0
-ZmMuLjZhZjU5YTYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9tZW1vcnkuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fbWVtb3J5LmMKPiBAQCAtMzUsNiArMzUsNyBAQAo+
-IAo+ICAjaW5jbHVkZSA8bGludXgvaGlnaG1lbS5oPgo+ICAjaW5jbHVkZSA8bGludXgvZXhwb3J0
-Lmg+Cj4gKyNpbmNsdWRlIDx4ZW4veGVuLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtUC5oPgo+ICAj
-aW5jbHVkZSAiZHJtX2xlZ2FjeS5oIgo+IAo+IEBAIC0xNTAsMTUgKzE1MSwyNyBAQCB2b2lkIGRy
-bV9sZWdhY3lfaW9yZW1hcGZyZWUoc3RydWN0IGRybV9sb2NhbF9tYXAKPiAqbWFwLCBzdHJ1Y3Qg
-ZHJtX2RldmljZSAqZGV2KQo+ICB9Cj4gIEVYUE9SVF9TWU1CT0woZHJtX2xlZ2FjeV9pb3JlbWFw
-ZnJlZSk7Cj4gCj4gLXU2NCBkcm1fZ2V0X21heF9pb21lbSh2b2lkKQo+ICtib29sIGRybV9uZWVk
-X3N3aW90bGIoaW50IGRtYV9iaXRzKQo+ICB7Cj4gIAlzdHJ1Y3QgcmVzb3VyY2UgKnRtcDsKPiAg
-CXJlc291cmNlX3NpemVfdCBtYXhfaW9tZW0gPSAwOwo+IAo+ICsJLyoKPiArCSAqIFhlbiBwYXJh
-dmlydHVhbCBob3N0cyByZXF1aXJlIHN3aW90bGIgcmVnYXJkbGVzcyBvZiByZXF1ZXN0ZWQgZG1h
-Cj4gKwkgKiB0cmFuc2ZlciBzaXplLgo+ICsJICoKPiArCSAqIE5PVEU6IFJlYWxseSwgd2hhdCBp
-dCByZXF1aXJlcyBpcyB1c2Ugb2YgdGhlIGRtYV9hbGxvY19jb2hlcmVudAo+ICsJICogICAgICAg
-YWxsb2NhdG9yIHVzZWQgaW4gdHRtX2RtYV9wb3B1bGF0ZSgpIGluc3RlYWQgb2YKPiArCSAqICAg
-ICAgIHR0bV9wb3B1bGF0ZV9hbmRfbWFwX3BhZ2VzKCksIHdoaWNoIGJvdW5jZSBidWZmZXJzIHNv
-IG11Y2gKPiBpbgo+ICsJICogICAgICAgWGVuIGl0IGxlYWRzIHRvIHN3aW90bGIgYnVmZmVyIGV4
-aGF1c3Rpb24uCj4gKwkgKi8KPiArCWlmICh4ZW5fcHZfZG9tYWluKCkpCgpJJ3ZlIG5vdCBiZWVu
-IGZvbGxvd2luZyBhbGwgb2YgdGhlIGlucyBhbmQgb3V0cyBvZiB0aGUgZGlzY3Vzc2lvbiBvbiB0
-aGlzIHNvIGFwb2xvZ2llcyBpZiBJJ20gbWlzc2luZyBzb21lIGNvbnRleHQsIGJ1dC4uLgoKVGhp
-cyBsb29rcyBsaWtlIHRoZSB3cm9uZyB0ZXN0IHRvIG1lLiBJIHRoaW5rIGl0IHNob3VsZCBiZToK
-CmlmICggeGVuX3N3aW90bGIgKQoKPiArCQlyZXR1cm4gdHJ1ZTsKPiArCgogIFBhdWwKCj4gIAlm
-b3IgKHRtcCA9IGlvbWVtX3Jlc291cmNlLmNoaWxkOyB0bXA7IHRtcCA9IHRtcC0+c2libGluZykg
-ewo+ICAJCW1heF9pb21lbSA9IG1heChtYXhfaW9tZW0sICB0bXAtPmVuZCk7Cj4gIAl9Cj4gCj4g
-LQlyZXR1cm4gbWF4X2lvbWVtOwo+ICsJcmV0dXJuIG1heF9pb21lbSA+ICgodTY0KTEgPDwgZG1h
-X2JpdHMpOwo+ICB9Cj4gLUVYUE9SVF9TWU1CT0woZHJtX2dldF9tYXhfaW9tZW0pOwo+ICtFWFBP
-UlRfU1lNQk9MKGRybV9uZWVkX3N3aW90bGIpOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3JhZGVvbl9kZXZpY2UuYwo+IGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
-b25fZGV2aWNlLmMKPiBpbmRleCA1OWM4YTY2Li5hMWQzYzYyIDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2RldmljZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
-L3JhZGVvbi9yYWRlb25fZGV2aWNlLmMKPiBAQCAtMTM4Nyw3ICsxMzg3LDcgQEAgaW50IHJhZGVv
-bl9kZXZpY2VfaW5pdChzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwKPiAgCQlwY2lfc2V0X2Nv
-bnNpc3RlbnRfZG1hX21hc2socmRldi0+cGRldiwgRE1BX0JJVF9NQVNLKDMyKSk7Cj4gIAkJcHJf
-d2FybigicmFkZW9uOiBObyBjb2hlcmVudCBETUEgYXZhaWxhYmxlXG4iKTsKPiAgCX0KPiAtCXJk
-ZXYtPm5lZWRfc3dpb3RsYiA9IGRybV9nZXRfbWF4X2lvbWVtKCkgPiAoKHU2NCkxIDw8IGRtYV9i
-aXRzKTsKPiArCXJkZXYtPm5lZWRfc3dpb3RsYiA9IGRybV9uZWVkX3N3aW90bGIoZG1hX2JpdHMp
-Owo+IAo+ICAJLyogUmVnaXN0ZXJzIG1hcHBpbmcgKi8KPiAgCS8qIFRPRE86IGJsb2NrIHVzZXJz
-cGFjZSBtYXBwaW5nIG9mIGlvIHJlZ2lzdGVyICovCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJt
-L2RybV9jYWNoZS5oIGIvaW5jbHVkZS9kcm0vZHJtX2NhY2hlLmgKPiBpbmRleCBiZmUxNjM5Li42
-MzNlYWFmIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5oCj4gKysrIGIvaW5j
-bHVkZS9kcm0vZHJtX2NhY2hlLmgKPiBAQCAtMzgsNyArMzgsNyBAQAo+ICB2b2lkIGRybV9jbGZs
-dXNoX3BhZ2VzKHN0cnVjdCBwYWdlICpwYWdlc1tdLCB1bnNpZ25lZCBsb25nIG51bV9wYWdlcyk7
-Cj4gIHZvaWQgZHJtX2NsZmx1c2hfc2coc3RydWN0IHNnX3RhYmxlICpzdCk7Cj4gIHZvaWQgZHJt
-X2NsZmx1c2hfdmlydF9yYW5nZSh2b2lkICphZGRyLCB1bnNpZ25lZCBsb25nIGxlbmd0aCk7Cj4g
-LXU2NCBkcm1fZ2V0X21heF9pb21lbSh2b2lkKTsKPiArYm9vbCBkcm1fbmVlZF9zd2lvdGxiKGlu
-dCBkbWFfYml0cyk7Cj4gCj4gCj4gIHN0YXRpYyBpbmxpbmUgYm9vbCBkcm1fYXJjaF9jYW5fd2Nf
-bWVtb3J5KHZvaWQpCj4gLS0KPiAxLjguMy4xCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlz
-dHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL3hlbi1kZXZlbA==
+--===============1973219318==
+Content-Type: multipart/alternative; boundary="00000000000058c2d1058264ab82"
+
+--00000000000058c2d1058264ab82
+Content-Type: text/plain; charset="UTF-8"
+
+HI Alex,
+
+I will check with your patch. if it doesn't work i will raise bug .
+
+Regards,
+Sk shahul.
+
+On Thu, Feb 21, 2019 at 12:01 PM Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> On Wed, Feb 20, 2019 at 11:56 PM shahul hameed
+> <shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+> >
+> > Hi All,
+> >
+> > I did below exoeriments:
+> >
+> > -> S2idle is working in software rendering mode(disable AMDGPU driver).
+> >
+> > -> For experiment purpose i commented suspend/resume calls of amdgpu
+> driver, in this case S2idle worked.
+> >
+> > With above experiments it is clear that my platform supports s2idel.
+> > Some issue in AMDGPU suspend/resume sequence for s2idle.
+> > So can you please help me.
+>
+> I'd suggest filing a bug (https://bugs.freedesktop.org) and attaching
+> your full dmesg output.  I'm not too familiar with s2idle and what
+> pmops paths it uses.  I suspect what is happening is that the power is
+> not getting fully cut the the device when s2idle is invoked, and it's
+> left in a bad state on resume.  Maybe something like the attached
+> patch might help.  That said, if the platform is not properly cutting
+> power to the device at s2idle time, you probably aren't saving any
+> power anyway.
+>
+> Alex
+>
+> >
+> > Thanks & Regards,
+> > Sk shahul.
+> >
+> > On Thu, Feb 21, 2019 at 3:32 AM Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> wrote:
+> >>
+> >> On Wed, Feb 20, 2019 at 4:59 PM shahul hameed
+> >> <shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+> >> >
+> >> > Hi
+> >> >
+> >> > I am facing below issue. Can any one please help me to resolve it.
+> >>
+> >> As I mentioned previously, please make sure the platform supports
+> >> s2idle and that it is enabled in the sbios.  Does s2idle work on other
+> >> devices and the platform itself?
+> >>
+> >> Alex
+> >>
+> >> >
+> >> > Regards,
+> >> > Sk shahul
+> >> >
+> >> > ---------- Forwarded message ---------
+> >> > From: shahul hameed <shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+> >> > Date: Wed, Feb 20, 2019, 3:13 PM
+> >> > Subject: s2idle not working
+> >> > To: <shirish.s-5C7GfCeVMHo@public.gmane.org>
+> >> >
+> >> >
+> >> > Hi Shirish
+> >> >
+> >> > I am porting Android_N and keenel 4.19.2 to Ryzen platform. Graphic
+> card is gfx9.
+> >> > Porting is done successfully. Now i am working on suspend/resume.
+> >> > Suspend/resume is working fine in deep mode.
+> >> > But suspend/resume is not working in s2idle (Suspend to idle) mode.
+> >> >
+> >> > during resume i found error in gpu driver.
+> >> >
+> >> > [  105.862161] [drm:gfx_v9_0_hw_init [amdgpu]] *ERROR* KCQ enable
+> failed (scratch(0xC040)=0xCAFEDEAD)
+> >> > [  105.862187] [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR*
+> resume of IP block <gfx_v9_0> failed -22
+> >> > [  105.862210] [drm:amdgpu_device_resume [amdgpu]] *ERROR*
+> amdgpu_device_ip_resume failed (-22).
+> >> > [  105.862215] dpm_run_callback(): pci_pm_resume+0x0/0xd6 returns -22
+> >> > [  105.862345] PM: Device 0000:03:00.0 failed to resume async: error
+> -22
+> >> >
+> >> > same issue is reproduced with ubuntu16.04.
+> >> >
+> >> > Can you please help me to resolve this issue.
+> >> > Thanks in Advance,
+> >> > Regards,
+> >> > Sk shahul.
+> >> > _______________________________________________
+> >> > amd-gfx mailing list
+> >> > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> >> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--00000000000058c2d1058264ab82
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>HI Alex,</div><div><br></div><div>I will check with y=
+our patch. if it doesn&#39;t work i will raise bug .</div><div><br></div><d=
+iv>Regards,</div><div>Sk shahul.<br></div></div><br><div class=3D"gmail_quo=
+te"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Feb 21, 2019 at 12:01 PM =
+Alex Deucher &lt;<a href=3D"mailto:alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">alexdeucher@gmail=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">On Wed, Feb 20, 2019 at 11:56 PM shahul hameed<br>
+&lt;<a href=3D"mailto:shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">shahulh=
+ameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Hi All,<br>
+&gt;<br>
+&gt; I did below exoeriments:<br>
+&gt;<br>
+&gt; -&gt; S2idle is working in software rendering mode(disable AMDGPU driv=
+er).<br>
+&gt;<br>
+&gt; -&gt; For experiment purpose i commented suspend/resume calls of amdgp=
+u driver, in this case S2idle worked.<br>
+&gt;<br>
+&gt; With above experiments it is clear that my platform supports s2idel.<b=
+r>
+&gt; Some issue in AMDGPU suspend/resume sequence for s2idle.<br>
+&gt; So can you please help me.<br>
+<br>
+I&#39;d suggest filing a bug (<a href=3D"https://bugs.freedesktop.org" rel=
+=3D"noreferrer" target=3D"_blank">https://bugs.freedesktop.org</a>) and att=
+aching<br>
+your full dmesg output.=C2=A0 I&#39;m not too familiar with s2idle and what=
+<br>
+pmops paths it uses.=C2=A0 I suspect what is happening is that the power is=
+<br>
+not getting fully cut the the device when s2idle is invoked, and it&#39;s<b=
+r>
+left in a bad state on resume.=C2=A0 Maybe something like the attached<br>
+patch might help.=C2=A0 That said, if the platform is not properly cutting<=
+br>
+power to the device at s2idle time, you probably aren&#39;t saving any<br>
+power anyway.<br>
+<br>
+Alex<br>
+<br>
+&gt;<br>
+&gt; Thanks &amp; Regards,<br>
+&gt; Sk shahul.<br>
+&gt;<br>
+&gt; On Thu, Feb 21, 2019 at 3:32 AM Alex Deucher &lt;<a href=3D"mailto:ale=
+xdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank">alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<=
+br>
+&gt;&gt;<br>
+&gt;&gt; On Wed, Feb 20, 2019 at 4:59 PM shahul hameed<br>
+&gt;&gt; &lt;<a href=3D"mailto:shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" target=3D"_blank=
+">shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Hi<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; I am facing below issue. Can any one please help me to resolv=
+e it.<br>
+&gt;&gt;<br>
+&gt;&gt; As I mentioned previously, please make sure the platform supports<=
+br>
+&gt;&gt; s2idle and that it is enabled in the sbios.=C2=A0 Does s2idle work=
+ on other<br>
+&gt;&gt; devices and the platform itself?<br>
+&gt;&gt;<br>
+&gt;&gt; Alex<br>
+&gt;&gt;<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Regards,<br>
+&gt;&gt; &gt; Sk shahul<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; ---------- Forwarded message ---------<br>
+&gt;&gt; &gt; From: shahul hameed &lt;<a href=3D"mailto:shahulhameed.481@gm=
+ail.com" target=3D"_blank">shahulhameed.481-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;<br>
+&gt;&gt; &gt; Date: Wed, Feb 20, 2019, 3:13 PM<br>
+&gt;&gt; &gt; Subject: s2idle not working<br>
+&gt;&gt; &gt; To: &lt;<a href=3D"mailto:shirish.s-5C7GfCeVMHo@public.gmane.org" target=3D"_blank=
+">shirish.s-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Hi Shirish<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; I am porting Android_N and keenel 4.19.2 to Ryzen platform. G=
+raphic card is gfx9.<br>
+&gt;&gt; &gt; Porting is done successfully. Now i am working on suspend/res=
+ume.<br>
+&gt;&gt; &gt; Suspend/resume is working fine in deep mode.<br>
+&gt;&gt; &gt; But suspend/resume is not working in s2idle (Suspend to idle)=
+ mode.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; during resume i found error in gpu driver.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; [=C2=A0 105.862161] [drm:gfx_v9_0_hw_init [amdgpu]] *ERROR* K=
+CQ enable failed (scratch(0xC040)=3D0xCAFEDEAD)<br>
+&gt;&gt; &gt; [=C2=A0 105.862187] [drm:amdgpu_device_ip_resume_phase2 [amdg=
+pu]] *ERROR* resume of IP block &lt;gfx_v9_0&gt; failed -22<br>
+&gt;&gt; &gt; [=C2=A0 105.862210] [drm:amdgpu_device_resume [amdgpu]] *ERRO=
+R* amdgpu_device_ip_resume failed (-22).<br>
+&gt;&gt; &gt; [=C2=A0 105.862215] dpm_run_callback(): pci_pm_resume+0x0/0xd=
+6 returns -22<br>
+&gt;&gt; &gt; [=C2=A0 105.862345] PM: Device 0000:03:00.0 failed to resume =
+async: error -22<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; same issue is reproduced with ubuntu16.04.<br>
+&gt;&gt; &gt;<br>
+&gt;&gt; &gt; Can you please help me to resolve this issue.<br>
+&gt;&gt; &gt; Thanks in Advance,<br>
+&gt;&gt; &gt; Regards,<br>
+&gt;&gt; &gt; Sk shahul.<br>
+&gt;&gt; &gt; _______________________________________________<br>
+&gt;&gt; &gt; amd-gfx mailing list<br>
+&gt;&gt; &gt; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_b=
+lank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+&gt;&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd=
+-gfx" rel=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/ma=
+ilman/listinfo/amd-gfx</a><br>
+</blockquote></div>
+
+--00000000000058c2d1058264ab82--
+
+--===============1973219318==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1973219318==--
