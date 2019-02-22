@@ -1,115 +1,61 @@
-From: Thomas Hellstrom <thellstrom@vmware.com>
-Subject: Re: [PATCH 1/1] [RFC] drm/ttm: Don't init dma32_zone on 64-bit systems
-Date: Fri, 22 Feb 2019 13:45:12 +0000
-Message-ID: <0c5e5ad70e2acbf2efd9fd0878768dcd5e008cd3.camel@vmware.com>
-References: <1550271712-13069-1-git-send-email-Felix.Kuehling@amd.com>
- <8538a294-eeab-9c87-ae10-83695149f808@shipmail.org>
- <254ca765-adc2-5ddf-280f-6cb3643f6e1f@amd.com>
- <d90f7ab569b636db0968c80dad9eb16ce7bf1eab.camel@vmware.com>
- <89c4b66a-152a-d0f3-4ce0-d89f6ef822bb@gmail.com>
- <eaad8f2dc24e98c68036801ccd6a871586033d31.camel@vmware.com>
- <2be5739a-fe9a-f436-48a2-fb420cb97a13@amd.com>
- <19a0abdbd60c251a63975a7ddff31c35a5eb0a31.camel@vmware.com>
- <71b105f0-c350-a957-74b4-57066e39e047@amd.com>
- <02031c0fe1b4af05bdc07155647cc88c445dcccf.camel@vmware.com>
- <4423e7aa-2153-5305-91c2-8d212ae1786b@amd.com>
- <2a76cb48-10f1-6df2-5b40-8d5b4c52acc4@amd.com>
- <39a4a5534ea3d5fa9ba94714e80f919c5a43aea9.camel@vmware.com>
- <2b4ea7ed-08e6-6dd3-7b56-e7c1713fc357@amd.com>
- <0f1a3b818a4f6b426dff5c641332a456b08136f8.camel@vmware.com>
- <0b52e5ed-aeac-16df-41a1-b64c050df485@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: don't call dm_pp_ function from an fpu block
+Date: Fri, 22 Feb 2019 10:39:06 -0500
+Message-ID: <20190222153906.661-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <0b52e5ed-aeac-16df-41a1-b64c050df485@amd.com>
-Content-Language: en-US
-Content-ID: <E10FAC802C95B9498E42F28929787C2C@namprd05.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>, "Christian.Koenig@amd.com" <Christian.Koenig@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "thomas@shipmail.org" <thomas@shipmail.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: robdclark@gmail.com, Harry Wentland <harry.wentland@amd.com>, stable@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCAyMDE5LTAyLTIyIGF0IDA3OjEwICswMDAwLCBLb2VuaWcsIENocmlzdGlhbiB3cm90
-ZToNCj4gQW0gMjEuMDIuMTkgdW0gMjI6MDIgc2NocmllYiBUaG9tYXMgSGVsbHN0cm9tOg0KPiA+
-IEhpLA0KPiA+IA0KPiA+IE9uIFRodSwgMjAxOS0wMi0yMSBhdCAyMDoyNCArMDAwMCwgS3VlaGxp
-bmcsIEZlbGl4IHdyb3RlOg0KPiA+ID4gT24gMjAxOS0wMi0yMSAxMjozNCBwLm0uLCBUaG9tYXMg
-SGVsbHN0cm9tIHdyb3RlOg0KPiA+ID4gPiBPbiBUaHUsIDIwMTktMDItMjEgYXQgMTY6NTcgKzAw
-MDAsIEt1ZWhsaW5nLCBGZWxpeCB3cm90ZToNCj4gPiA+ID4gPiBPbiAyMDE5LTAyLTIxIDI6NTkg
-YS5tLiwgS29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6DQo+ID4gPiA+ID4gPiBPbiB4ODYgd2l0aCBI
-SUdITUVNIHRoZXJlIGlzIG5vIGRtYTMyIHpvbmUuIFdoeSBkbyB3ZSBuZWVkDQo+ID4gPiA+ID4g
-PiBvbmUNCj4gPiA+ID4gPiA+IG9uDQo+ID4gPiA+ID4gPiA+ID4geDg2XzY0PyBDYW4gd2UgbWFr
-ZSB4ODZfNjQgbW9yZSBsaWtlIEhJR0hNRU0gaW5zdGVhZD8NCj4gPiA+ID4gPiA+ID4gPiANCj4g
-PiA+ID4gPiA+ID4gPiBSZWdhcmRzLA0KPiA+ID4gPiA+ID4gPiA+ICAgICAgICBGZWxpeA0KPiA+
-ID4gPiA+ID4gPiA+IA0KPiA+ID4gPiA+ID4gPiBJSVJDIHdpdGggeDg2LCB0aGUga2VybmVsIHpv
-bmUgaXMgYWx3YXlzIHNtYWxsZXIgdGhhbiBhbnkNCj4gPiA+ID4gPiA+ID4gZG1hMzINCj4gPiA+
-ID4gPiA+ID4gem9uZSwNCj4gPiA+ID4gPiA+ID4gc28gd2UnZCBhbHdheXMgZXhoYXVzdCB0aGUg
-a2VybmVsIHpvbmUgYmVmb3JlIGRtYTMyDQo+ID4gPiA+ID4gPiA+IGFueXdheS4NCj4gPiA+ID4g
-PiA+ID4gDQo+ID4gPiA+ID4gPiA+IE5vdCBzdXJlIHdoeSB3ZSBoYXZlIGRtYTMyIG9uIHg4NiB3
-aXRob3V0IGhpZ2htZW0sDQo+ID4gPiA+ID4gPiA+IHRob3VnaC4NCj4gPiA+ID4gPiA+ID4gc291
-bmRzDQo+ID4gPiA+ID4gPiA+IHN1cGVyZmxvdXMgYnV0IGhhcm1sZXNzLg0KPiA+ID4gPiA+ID4g
-V2VsbCBETUEzMiBkZW5vdGVzIG1lbW9yeSB3aGljaCBpcyBhY2Nlc3NpYmxlIGJ5IGRldmljZXMN
-Cj4gPiA+ID4gPiA+IHdobw0KPiA+ID4gPiA+ID4gY2FuDQo+ID4gPiA+ID4gPiBvbmx5IGRvDQo+
-ID4gPiA+ID4gPiAzMmJpdCBhZGRyZXNzaW5nLiBBbmQgSUlSQyB3ZSBjYW4gYWN0dWFsbHkgZG8g
-RE1BMzIgdG8NCj4gPiA+ID4gPiA+IGhpZ2htZW0NCj4gPiA+ID4gPiA+IHNpbmNlDQo+ID4gPiA+
-ID4gPiBzb21ldGhpbmcgbGlrZSAyLjQuKi4NCj4gPiA+ID4gPiA+IA0KPiA+ID4gPiA+ID4gQmVj
-YXVzZSBvZiB0aGlzIGl0IGlzIGFjdHVhbGx5IGlycmVsZXZhbnQgaWYgeW91IGhhdmUNCj4gPiA+
-ID4gPiA+IGhpZ2htZW0NCj4gPiA+ID4gPiA+IG9yDQo+ID4gPiA+ID4gPiBub3QsDQo+ID4gPiA+
-ID4gPiB3aGF0IG1hdHRlcnMgZm9yIERNQTMyIGlzIGlmIHlvdSBoYXZlIGFuIElPTU1VIG9yIG5v
-dC4NCj4gPiA+ID4gPiBBcmUgeW91IHNheWluZyB3ZSBzaG91bGQgaGF2ZSBhIGRtYTMyX3pvbmUg
-ZXZlbiBvbiB4ODYgd2l0aA0KPiA+ID4gPiA+IEhJR0hNRU0/DQo+ID4gPiA+ID4gDQo+ID4gPiA+
-ID4gDQo+ID4gPiA+ID4gPiBTbyBldmVuIG9uIHg4Nl82NCB5b3UgYWN0dWFsbHkgZG8gbmVlZCB0
-aGUgRE1BMzIgem9uZSBpZg0KPiA+ID4gPiA+ID4geW91DQo+ID4gPiA+ID4gPiBkb24ndA0KPiA+
-ID4gPiA+ID4gaGF2ZQ0KPiA+ID4gPiA+ID4gYW4gSU9NTVUgd2hpY2ggcmVtYXBzIGFsbCBtZW1v
-cnkgZm9yIGRldmljZXMgd2hpY2ggY2FuJ3QNCj4gPiA+ID4gPiA+IGRpcmVjdGx5DQo+ID4gPiA+
-ID4gPiBhZGRyZXNzIGl0Lg0KPiA+ID4gPiA+IFdoeSBpcyBETUEzMiBzcGVjaWFsIGluIHRoaXMg
-d2F5PyBGb3IgZXhhbXBsZSBBTUQgR0ZYOCBHUFVzDQo+ID4gPiA+ID4gc3VwcG9ydA0KPiA+ID4g
-PiA+IDQwLWJpdCBETUEuIEJ1dCB3ZSBkb24ndCBoYXZlIGEgc3BlY2lhbCB6b25lIGZvciB0aGF0
-Lg0KPiA+ID4gPiBJZiB5b3UncmUgcnVubmluZyBvbiBhIG5vbi1JT01NVSBzeXN0ZW0gd2l0aCBw
-aHlzaWNhbCBtZW1vcnkNCj4gPiA+ID4gYWRkcmVzc2VzDQo+ID4gPiA+ID4gNDAgYml0cywgYW5k
-IHRlbGwgdGhlIERNQSBzdWJzeXN0ZW0gdGhhdCB5b3UgbmVlZCB0byByZXN0cmljdA0KPiA+ID4g
-PiA+IHRvDQo+ID4gPiA+ID4gNDANCj4gPiA+ID4gYml0cywgaXQgd2lsbCBwcm9iYWJseSBzdGFy
-dCB1c2luZyBib3VuY2UgYnVmZmVycyBmb3Igc3RyZWFtaW5nDQo+ID4gPiA+IERNQQ0KPiA+ID4g
-PiAod2hpY2ggd29uJ3Qgd29yayB3aXRoIG1vc3QgZ3JhcGhpY3MgZHJpdmVycyksIG9yIGZvcg0K
-PiA+ID4gPiBkbWFfYWxsb2NfY29oZXJlbnQoKSwgaXQgd2lsbCBwcm9iYWJseSB1c2UgbWVtb3J5
-IGZyb20gdGhlDQo+ID4gPiA+IERNQTMyDQo+ID4gPiA+IHpvbmUuDQo+ID4gPiBPSywgdGhlbiB3
-aHkgaXMgaXQgbm90IG5lZWRlZCB3aGVuIENPTkZJR19ISUdITUVNIGlzIGRlZmluZWQ/DQo+ID4g
-PiANCj4gPiA+IEkgZm91bmQgdGhhdCB0aGVyZSBpcyBhIENPTkZJR19aT05FX0RNQTMyIHBhcmFt
-ZXRlci4gTWF5YmUgd2UNCj4gPiA+IHNob3VsZA0KPiA+ID4gdXNlDQo+ID4gPiB0aGF0IHRvIGRl
-Y2lkZSB3aGV0aGVyIHRvIGFjY291bnQgZm9yIHRoZSBETUEzMiB6b25lIGluIFRUTS4gSXQNCj4g
-PiA+IGlzDQo+ID4gPiBzZXQNCj4gPiA+IG9uIHg4Nl82NCBhbmQgYSBudW1iZXIgb2Ygb3RoZXIg
-NjQtYml0IGFyY2hpdGVjdHVyZXMuDQo+ID4gPiANCj4gPiA+IA0KPiA+ID4gPiA+IEhvdyBjb21t
-b24gaXMgaXQgdG8gaGF2ZSBkZXZpY2VzIHRoYXQgbmVlZCBETUEzMiBvbiBhbiB4ODZfNjQNCj4g
-PiA+ID4gPiBzeXN0ZW0/DQo+ID4gPiA+IElJUkMgQWxsIGRldmljZXMgdXNpbmcgZG1hX2FsbG9j
-X2NvaGVyZW50KCkgYWxsb2NhdGUgRE1BMzINCj4gPiA+ID4gbWVtb3J5DQo+ID4gPiA+IHVubGVz
-cyB0aGV5IGV4cGxpY2l0bHkgc2V0IHRoZSBkbWEgY29oZXJlbnQgbWFzayB0byBzb21ldGhpbmcN
-Cj4gPiA+ID4gbGFyZ2VyLg0KPiA+ID4gPiBMaWtlIENocmlzdGlhbiBzYXlzLCBpZiBhbiBJT01N
-VSBpcyBwcmVzZW50IGFuZCBlbmFibGVkLCB0aGUNCj4gPiA+ID4gbmVlZA0KPiA+ID4gPiBmb3IN
-Cj4gPiA+ID4gdGhlIERNQTMyIHpvbmUgZ29lcyBhd2F5LiBJbiB0aGVvcnkgYXQgbGVhc3QuDQo+
-ID4gPiBUaGFua3MuIEkgcmVhZCB1cCBhIGJpdCBvbiBETUEzMiBhbmQgbWVtb3J5IHpvbmVzIGlu
-IGdlbmVyYWwuIEkNCj4gPiA+IGZvdW5kDQo+ID4gPiB0aGF0IHRoZXJlIGlzIGEgbG93bWVtX3Jl
-c2VydmVfcmF0aW8gZmVhdHVyZSB0aGF0IHByb3RlY3RzDQo+ID4gPiBhZ2FpbnN0DQo+ID4gPiBu
-b3JtYWwgcGFnZSBhbGxvY2F0aW9ucyBvdmVyZmxvd2luZyBpbnRvIGxvd21lbSB6b25lcy4gVGhl
-cmUgaXMNCj4gPiA+IHNvbWUNCj4gPiA+IGRvY3VtZW50YXRpb24gaW4gRG9jdW1lbnRhdGlvbi9z
-Y3NjdGwvdm0udHh0IChzZWFyY2ggZm9yDQo+ID4gPiBsb3dtZW1fcmVzZXJ2ZV9yYXRpbykuIFRo
-ZSBwcm90ZWN0ZWQgYW1vdW50IG9mIG1lbW9yeSBpbiBlYWNoDQo+ID4gPiB6b25lDQo+ID4gPiBj
-YW4NCj4gPiA+IGJlIHNlZW4gaW4gL3Byb2Mvem9uZWluZm8uDQo+ID4gPiANCj4gPiA+IFdpdGgg
-dGhhdCwgY2FuIHdlIGNvbmNsdWRlIHRoYXQgd2UgZG9uJ3QgbmVlZCB0byBjb3VudA0KPiA+ID4g
-dHRtX21lbV9nbG9iYWxfYWxsb2MgYWdhaW5zdCB0aGUgZG1hMzIgem9uZS4NCj4gPiBZZXMsIGl0
-IGluZGVlZCBsb29rcyBsaWtlIHRoYXQuDQo+ID4gQnV0IHRoZW4gSSB3b3VsZCBzdWdnZXN0IHJl
-bW92aW5nIHRoZSBETUEzMiB6b25lIGVudGlyZWx5Lg0KPiANCj4gV2Ugc3RpbGwgbmVlZCBpdCBm
-b3IgdGhlIHBhZ2VzIHdlIGFsbG9jYXRlLCBidXQgd2Ugc2hvdWxkIGp1c3Qgc3RvcCANCj4gYWNj
-b3VudGluZyBhbGwgdGhlIGhvdXNla2VlcGluZyB0byBpdC4NCg0KV2h5IGlzIHRoYXQ/IENhbid0
-IHdlIGp1c3QgYWNjb3VudCBhbGwgcGFnZXMgaW4gdGhlIGtlcm5lbCB6b25lLCBhbmQNCmxlYXZl
-IGl0IHVwIHRvIHRoZSBrZXJuZWwgdG8gbWFrZSBzdXJlIHRoZXJlIGFyZSBzdGlsbCBETUEzMiBw
-YWdlcw0KbGVmdD8NCg0KL1Rob21hcw0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWw=
+Powerplay functions called from dm_pp_* functions tend to do a
+mutex_lock which isn't safe to do inside a kernel_fpu_begin/end block as
+those will disable/enable preemption.
+
+Rearrange the dm_pp_get_clock_levels_by_type_with_voltage calls to make
+sure they happen outside of kernel_fpu_begin/end.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+index 2a807b9f77f7..5955634f6e27 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+@@ -1348,12 +1348,12 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+ 	struct dm_pp_clock_levels_with_voltage fclks = {0}, dcfclks = {0};
+ 	bool res;
+ 
+-	kernel_fpu_begin();
+-
+ 	/* TODO: This is not the proper way to obtain fabric_and_dram_bandwidth, should be min(fclk, memclk) */
+ 	res = dm_pp_get_clock_levels_by_type_with_voltage(
+ 			ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
+ 
++	kernel_fpu_begin();
++
+ 	if (res)
+ 		res = verify_clock_values(&fclks);
+ 
+@@ -1372,9 +1372,13 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+ 	} else
+ 		BREAK_TO_DEBUGGER();
+ 
++	kernel_fpu_end();
++
+ 	res = dm_pp_get_clock_levels_by_type_with_voltage(
+ 			ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
+ 
++	kernel_fpu_begin();
++
+ 	if (res)
+ 		res = verify_clock_values(&dcfclks);
+ 
+-- 
+2.19.1
