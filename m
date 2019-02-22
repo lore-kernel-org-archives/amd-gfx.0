@@ -1,61 +1,90 @@
-From: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH] drm/amd/display: don't call dm_pp_ function from an fpu block
-Date: Fri, 22 Feb 2019 10:39:06 -0500
-Message-ID: <20190222153906.661-1-harry.wentland@amd.com>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/7] drm/amdgpu: rework shadow handling during PD clear
+Date: Fri, 22 Feb 2019 15:51:34 +0000
+Message-ID: <BL0PR12MB258008B300413D2A0052EE5F807F0@BL0PR12MB2580.namprd12.prod.outlook.com>
+References: <20190219134103.1531-1-christian.koenig@amd.com>
+ <20190219134103.1531-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: robdclark@gmail.com, Harry Wentland <harry.wentland@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190219134103.1531-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Powerplay functions called from dm_pp_* functions tend to do a
-mutex_lock which isn't safe to do inside a kernel_fpu_begin/end block as
-those will disable/enable preemption.
-
-Rearrange the dm_pp_get_clock_levels_by_type_with_voltage calls to make
-sure they happen outside of kernel_fpu_begin/end.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-index 2a807b9f77f7..5955634f6e27 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-@@ -1348,12 +1348,12 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 	struct dm_pp_clock_levels_with_voltage fclks = {0}, dcfclks = {0};
- 	bool res;
- 
--	kernel_fpu_begin();
--
- 	/* TODO: This is not the proper way to obtain fabric_and_dram_bandwidth, should be min(fclk, memclk) */
- 	res = dm_pp_get_clock_levels_by_type_with_voltage(
- 			ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
- 
-+	kernel_fpu_begin();
-+
- 	if (res)
- 		res = verify_clock_values(&fclks);
- 
-@@ -1372,9 +1372,13 @@ void dcn_bw_update_from_pplib(struct dc *dc)
- 	} else
- 		BREAK_TO_DEBUGGER();
- 
-+	kernel_fpu_end();
-+
- 	res = dm_pp_get_clock_levels_by_type_with_voltage(
- 			ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
- 
-+	kernel_fpu_begin();
-+
- 	if (res)
- 		res = verify_clock_values(&dcfclks);
- 
--- 
-2.19.1
+U2VlIG9uZSBjb21tZW50IGlubGluZSBbT2FrXQ0KDQpUaGFua3MsDQpPYWsNCg0KLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5m
+cmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBDaHJpc3RpYW4gS8O2bmlnDQpTZW50OiBUdWVz
+ZGF5LCBGZWJydWFyeSAxOSwgMjAxOSA4OjQxIEFNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcNClN1YmplY3Q6IFtQQVRDSCAyLzddIGRybS9hbWRncHU6IHJld29yayBzaGFkb3cg
+aGFuZGxpbmcgZHVyaW5nIFBEIGNsZWFyDQoNClRoaXMgd2F5IHdlIG9ubHkgZGVhbCB3aXRoIHRo
+ZSByZWFsIEJPIGluIGhlcmUuDQoNClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5jIHwgNjQgKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0NCiAxIGZpbGUgY2hh
+bmdlZCwgMzkgaW5zZXJ0aW9ucygrKSwgMjUgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92bS5jDQppbmRleCAxMmQ1MWQ5NjQ5MWUuLjNjN2I5OGE3NThjOSAx
+MDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQorKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KQEAgLTc4OCwzOCArNzg4
+LDU4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2NsZWFyX2JvKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LA0KIA0KIAlyID0gdHRtX2JvX3ZhbGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVu
+dCwgJmN0eCk7DQogCWlmIChyKQ0KLQkJZ290byBlcnJvcjsNCisJCXJldHVybiByOw0KIA0KIAly
+ID0gYW1kZ3B1X3R0bV9hbGxvY19nYXJ0KCZiby0+dGJvKTsNCiAJaWYgKHIpDQogCQlyZXR1cm4g
+cjsNCiANCisJaWYgKGJvLT5zaGFkb3cpIHsNCisJCXIgPSB0dG1fYm9fdmFsaWRhdGUoJmJvLT5z
+aGFkb3ctPnRibywgJmJvLT5zaGFkb3ctPnBsYWNlbWVudCwNCisJCQkJICAgICZjdHgpOw0KKwkJ
+aWYgKHIpDQorCQkJcmV0dXJuIHI7DQorDQorCQlyID0gYW1kZ3B1X3R0bV9hbGxvY19nYXJ0KCZi
+by0+c2hhZG93LT50Ym8pOw0KKwkJaWYgKHIpDQorCQkJcmV0dXJuIHI7DQorDQorCX0NCltPYWtd
+IEkgZG9uJ3QgaGF2ZSB0aGUgY29udGV4dCB3aGF0IGEgc2hhZG93IGJvIGlzIHVzZWQgZm9yLCBi
+dXQgaXMgaXQgcG9zc2libGUgdGhhdCBhIHNoYWRvdyBibyBjYW4gaGF2ZSBpdCBvd24gc2hhZG93
+PyBJZiB5ZXMsIGhlcmUgeW91IHdhbnQgdG8gZG8gaXQgaW4gYSBkby4uLndoaWxlIGxvb3AuIEFs
+c28gYWx0aG91Z2ggdGhpcyByZXdvcmsgaXMgcGVyZm9ybWFuY2UgYmV0dGVyIGFzIHlvdSBvbmx5
+IG5lZWQgb25lIGpvYiBzdWJtaXNzaW9uLCBpdCBtYWtlcyB0aGUgY29kZXMgaGFyZGVyIHRvIHJl
+YWQuIFRoZSBvcmlnaW5hbCByZWN1cnNpdmUgd2F5IGlzIGVhc2llciB0byB1bmRlcnN0YW5kLg0K
+Kw0KIAlyID0gYW1kZ3B1X2pvYl9hbGxvY193aXRoX2liKGFkZXYsIDY0LCAmam9iKTsNCiAJaWYg
+KHIpDQotCQlnb3RvIGVycm9yOw0KKwkJcmV0dXJuIHI7DQogDQotCWFkZHIgPSBhbWRncHVfYm9f
+Z3B1X29mZnNldChibyk7DQotCWlmIChhdHNfZW50cmllcykgew0KLQkJdWludDY0X3QgYXRzX3Zh
+bHVlOw0KKwl3aGlsZSAoMSkgew0KKwkJYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KGJvKTsN
+CisJCWlmIChhdHNfZW50cmllcykgew0KKwkJCXVpbnQ2NF90IGF0c192YWx1ZTsNCiANCi0JCWF0
+c192YWx1ZSA9IEFNREdQVV9QVEVfREVGQVVMVF9BVEM7DQotCQlpZiAobGV2ZWwgIT0gQU1ER1BV
+X1ZNX1BUQikNCi0JCQlhdHNfdmFsdWUgfD0gQU1ER1BVX1BERV9QVEU7DQorCQkJYXRzX3ZhbHVl
+ID0gQU1ER1BVX1BURV9ERUZBVUxUX0FUQzsNCisJCQlpZiAobGV2ZWwgIT0gQU1ER1BVX1ZNX1BU
+QikNCisJCQkJYXRzX3ZhbHVlIHw9IEFNREdQVV9QREVfUFRFOw0KIA0KLQkJYW1kZ3B1X3ZtX3Nl
+dF9wdGVfcGRlKGFkZXYsICZqb2ItPmlic1swXSwgYWRkciwgMCwNCi0JCQkJICAgICAgYXRzX2Vu
+dHJpZXMsIDAsIGF0c192YWx1ZSk7DQotCQlhZGRyICs9IGF0c19lbnRyaWVzICogODsNCi0JfQ0K
+KwkJCWFtZGdwdV92bV9zZXRfcHRlX3BkZShhZGV2LCAmam9iLT5pYnNbMF0sIGFkZHIsIDAsDQor
+CQkJCQkgICAgICBhdHNfZW50cmllcywgMCwgYXRzX3ZhbHVlKTsNCisJCQlhZGRyICs9IGF0c19l
+bnRyaWVzICogODsNCisJCX0NCiANCi0JaWYgKGVudHJpZXMpIHsNCi0JCXVpbnQ2NF90IHZhbHVl
+ID0gMDsNCisJCWlmIChlbnRyaWVzKSB7DQorCQkJdWludDY0X3QgdmFsdWUgPSAwOw0KIA0KLQkJ
+LyogV29ya2Fyb3VuZCBmb3IgZmF1bHQgcHJpb3JpdHkgcHJvYmxlbSBvbiBHTUM5ICovDQotCQlp
+ZiAobGV2ZWwgPT0gQU1ER1BVX1ZNX1BUQiAmJiBhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9WRUdB
+MTApDQotCQkJdmFsdWUgPSBBTURHUFVfUFRFX0VYRUNVVEFCTEU7DQorCQkJLyogV29ya2Fyb3Vu
+ZCBmb3IgZmF1bHQgcHJpb3JpdHkgcHJvYmxlbSBvbiBHTUM5ICovDQorCQkJaWYgKGxldmVsID09
+IEFNREdQVV9WTV9QVEIgJiYNCisJCQkgICAgYWRldi0+YXNpY190eXBlID49IENISVBfVkVHQTEw
+KQ0KKwkJCQl2YWx1ZSA9IEFNREdQVV9QVEVfRVhFQ1VUQUJMRTsNCisNCisJCQlhbWRncHVfdm1f
+c2V0X3B0ZV9wZGUoYWRldiwgJmpvYi0+aWJzWzBdLCBhZGRyLCAwLA0KKwkJCQkJICAgICAgZW50
+cmllcywgMCwgdmFsdWUpOw0KKwkJfQ0KIA0KLQkJYW1kZ3B1X3ZtX3NldF9wdGVfcGRlKGFkZXYs
+ICZqb2ItPmlic1swXSwgYWRkciwgMCwNCi0JCQkJICAgICAgZW50cmllcywgMCwgdmFsdWUpOw0K
+KwkJaWYgKGJvLT5zaGFkb3cpDQorCQkJYm8gPSBiby0+c2hhZG93Ow0KKwkJZWxzZQ0KKwkJCWJy
+ZWFrOw0KIAl9DQogDQogCWFtZGdwdV9yaW5nX3BhZF9pYihyaW5nLCAmam9iLT5pYnNbMF0pOyBA
+QCAtODM4LDE2ICs4NTgsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdm1fY2xlYXJfYm8oc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogCWFtZGdwdV9ib19mZW5jZShibywgZmVuY2UsIHRydWUp
+Ow0KIAlkbWFfZmVuY2VfcHV0KGZlbmNlKTsNCiANCi0JaWYgKGJvLT5zaGFkb3cpDQotCQlyZXR1
+cm4gYW1kZ3B1X3ZtX2NsZWFyX2JvKGFkZXYsIHZtLCBiby0+c2hhZG93LA0KLQkJCQkJICBsZXZl
+bCwgcHRlX3N1cHBvcnRfYXRzKTsNCi0NCiAJcmV0dXJuIDA7DQogDQogZXJyb3JfZnJlZToNCiAJ
+YW1kZ3B1X2pvYl9mcmVlKGpvYik7DQotDQotZXJyb3I6DQogCXJldHVybiByOw0KIH0NCiANCi0t
+DQoyLjE3LjENCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
