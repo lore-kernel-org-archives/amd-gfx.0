@@ -1,108 +1,110 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/1] [RFC] drm/ttm: Don't init dma32_zone on 64-bit systems
-Date: Fri, 22 Feb 2019 07:10:09 +0000
-Message-ID: <0b52e5ed-aeac-16df-41a1-b64c050df485@amd.com>
-References: <1550271712-13069-1-git-send-email-Felix.Kuehling@amd.com>
- <8538a294-eeab-9c87-ae10-83695149f808@shipmail.org>
- <254ca765-adc2-5ddf-280f-6cb3643f6e1f@amd.com>
- <d90f7ab569b636db0968c80dad9eb16ce7bf1eab.camel@vmware.com>
- <89c4b66a-152a-d0f3-4ce0-d89f6ef822bb@gmail.com>
- <eaad8f2dc24e98c68036801ccd6a871586033d31.camel@vmware.com>
- <2be5739a-fe9a-f436-48a2-fb420cb97a13@amd.com>
- <19a0abdbd60c251a63975a7ddff31c35a5eb0a31.camel@vmware.com>
- <71b105f0-c350-a957-74b4-57066e39e047@amd.com>
- <02031c0fe1b4af05bdc07155647cc88c445dcccf.camel@vmware.com>
- <4423e7aa-2153-5305-91c2-8d212ae1786b@amd.com>
- <2a76cb48-10f1-6df2-5b40-8d5b4c52acc4@amd.com>
- <39a4a5534ea3d5fa9ba94714e80f919c5a43aea9.camel@vmware.com>
- <2b4ea7ed-08e6-6dd3-7b56-e7c1713fc357@amd.com>
- <0f1a3b818a4f6b426dff5c641332a456b08136f8.camel@vmware.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Pass app_tf by value rather than by
+ reference
+Date: Fri, 22 Feb 2019 05:48:45 -0700
+Message-ID: <20190222124845.GA18614@archlinux-ryzen>
+References: <20181210234201.4850-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0f1a3b818a4f6b426dff5c641332a456b08136f8.camel-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>
-Content-Language: en-US
-Content-ID: <04C468A1DD90F245B37A37E71A287A38-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Thomas Hellstrom <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "thomas-4+hqylr40dJg9hUCZPvPmw@public.gmane.org" <thomas-4+hqylr40dJg9hUCZPvPmw@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20181210234201.4850-1-natechancellor@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Nick Desaulniers <ndesaulniers@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjEuMDIuMTkgdW0gMjI6MDIgc2NocmllYiBUaG9tYXMgSGVsbHN0cm9tOg0KPiBIaSwNCj4N
-Cj4gT24gVGh1LCAyMDE5LTAyLTIxIGF0IDIwOjI0ICswMDAwLCBLdWVobGluZywgRmVsaXggd3Jv
-dGU6DQo+PiBPbiAyMDE5LTAyLTIxIDEyOjM0IHAubS4sIFRob21hcyBIZWxsc3Ryb20gd3JvdGU6
-DQo+Pj4gT24gVGh1LCAyMDE5LTAyLTIxIGF0IDE2OjU3ICswMDAwLCBLdWVobGluZywgRmVsaXgg
-d3JvdGU6DQo+Pj4+IE9uIDIwMTktMDItMjEgMjo1OSBhLm0uLCBLb2VuaWcsIENocmlzdGlhbiB3
-cm90ZToNCj4+Pj4+IE9uIHg4NiB3aXRoIEhJR0hNRU0gdGhlcmUgaXMgbm8gZG1hMzIgem9uZS4g
-V2h5IGRvIHdlIG5lZWQgb25lDQo+Pj4+PiBvbg0KPj4+Pj4+PiB4ODZfNjQ/IENhbiB3ZSBtYWtl
-IHg4Nl82NCBtb3JlIGxpa2UgSElHSE1FTSBpbnN0ZWFkPw0KPj4+Pj4+Pg0KPj4+Pj4+PiBSZWdh
-cmRzLA0KPj4+Pj4+PiAgICAgICAgRmVsaXgNCj4+Pj4+Pj4NCj4+Pj4+PiBJSVJDIHdpdGggeDg2
-LCB0aGUga2VybmVsIHpvbmUgaXMgYWx3YXlzIHNtYWxsZXIgdGhhbiBhbnkNCj4+Pj4+PiBkbWEz
-Mg0KPj4+Pj4+IHpvbmUsDQo+Pj4+Pj4gc28gd2UnZCBhbHdheXMgZXhoYXVzdCB0aGUga2VybmVs
-IHpvbmUgYmVmb3JlIGRtYTMyIGFueXdheS4NCj4+Pj4+Pg0KPj4+Pj4+IE5vdCBzdXJlIHdoeSB3
-ZSBoYXZlIGRtYTMyIG9uIHg4NiB3aXRob3V0IGhpZ2htZW0sIHRob3VnaC4NCj4+Pj4+PiBzb3Vu
-ZHMNCj4+Pj4+PiBzdXBlcmZsb3VzIGJ1dCBoYXJtbGVzcy4NCj4+Pj4+IFdlbGwgRE1BMzIgZGVu
-b3RlcyBtZW1vcnkgd2hpY2ggaXMgYWNjZXNzaWJsZSBieSBkZXZpY2VzIHdobw0KPj4+Pj4gY2Fu
-DQo+Pj4+PiBvbmx5IGRvDQo+Pj4+PiAzMmJpdCBhZGRyZXNzaW5nLiBBbmQgSUlSQyB3ZSBjYW4g
-YWN0dWFsbHkgZG8gRE1BMzIgdG8gaGlnaG1lbQ0KPj4+Pj4gc2luY2UNCj4+Pj4+IHNvbWV0aGlu
-ZyBsaWtlIDIuNC4qLg0KPj4+Pj4NCj4+Pj4+IEJlY2F1c2Ugb2YgdGhpcyBpdCBpcyBhY3R1YWxs
-eSBpcnJlbGV2YW50IGlmIHlvdSBoYXZlIGhpZ2htZW0NCj4+Pj4+IG9yDQo+Pj4+PiBub3QsDQo+
-Pj4+PiB3aGF0IG1hdHRlcnMgZm9yIERNQTMyIGlzIGlmIHlvdSBoYXZlIGFuIElPTU1VIG9yIG5v
-dC4NCj4+Pj4gQXJlIHlvdSBzYXlpbmcgd2Ugc2hvdWxkIGhhdmUgYSBkbWEzMl96b25lIGV2ZW4g
-b24geDg2IHdpdGgNCj4+Pj4gSElHSE1FTT8NCj4+Pj4NCj4+Pj4NCj4+Pj4+IFNvIGV2ZW4gb24g
-eDg2XzY0IHlvdSBhY3R1YWxseSBkbyBuZWVkIHRoZSBETUEzMiB6b25lIGlmIHlvdQ0KPj4+Pj4g
-ZG9uJ3QNCj4+Pj4+IGhhdmUNCj4+Pj4+IGFuIElPTU1VIHdoaWNoIHJlbWFwcyBhbGwgbWVtb3J5
-IGZvciBkZXZpY2VzIHdoaWNoIGNhbid0DQo+Pj4+PiBkaXJlY3RseQ0KPj4+Pj4gYWRkcmVzcyBp
-dC4NCj4+Pj4gV2h5IGlzIERNQTMyIHNwZWNpYWwgaW4gdGhpcyB3YXk/IEZvciBleGFtcGxlIEFN
-RCBHRlg4IEdQVXMNCj4+Pj4gc3VwcG9ydA0KPj4+PiA0MC1iaXQgRE1BLiBCdXQgd2UgZG9uJ3Qg
-aGF2ZSBhIHNwZWNpYWwgem9uZSBmb3IgdGhhdC4NCj4+PiBJZiB5b3UncmUgcnVubmluZyBvbiBh
-IG5vbi1JT01NVSBzeXN0ZW0gd2l0aCBwaHlzaWNhbCBtZW1vcnkNCj4+PiBhZGRyZXNzZXMNCj4+
-Pj4gNDAgYml0cywgYW5kIHRlbGwgdGhlIERNQSBzdWJzeXN0ZW0gdGhhdCB5b3UgbmVlZCB0byBy
-ZXN0cmljdCB0bw0KPj4+PiA0MA0KPj4+IGJpdHMsIGl0IHdpbGwgcHJvYmFibHkgc3RhcnQgdXNp
-bmcgYm91bmNlIGJ1ZmZlcnMgZm9yIHN0cmVhbWluZyBETUENCj4+PiAod2hpY2ggd29uJ3Qgd29y
-ayB3aXRoIG1vc3QgZ3JhcGhpY3MgZHJpdmVycyksIG9yIGZvcg0KPj4+IGRtYV9hbGxvY19jb2hl
-cmVudCgpLCBpdCB3aWxsIHByb2JhYmx5IHVzZSBtZW1vcnkgZnJvbSB0aGUgRE1BMzINCj4+PiB6
-b25lLg0KPj4gT0ssIHRoZW4gd2h5IGlzIGl0IG5vdCBuZWVkZWQgd2hlbiBDT05GSUdfSElHSE1F
-TSBpcyBkZWZpbmVkPw0KPj4NCj4+IEkgZm91bmQgdGhhdCB0aGVyZSBpcyBhIENPTkZJR19aT05F
-X0RNQTMyIHBhcmFtZXRlci4gTWF5YmUgd2Ugc2hvdWxkDQo+PiB1c2UNCj4+IHRoYXQgdG8gZGVj
-aWRlIHdoZXRoZXIgdG8gYWNjb3VudCBmb3IgdGhlIERNQTMyIHpvbmUgaW4gVFRNLiBJdCBpcw0K
-Pj4gc2V0DQo+PiBvbiB4ODZfNjQgYW5kIGEgbnVtYmVyIG9mIG90aGVyIDY0LWJpdCBhcmNoaXRl
-Y3R1cmVzLg0KPj4NCj4+DQo+Pj4+IEhvdyBjb21tb24gaXMgaXQgdG8gaGF2ZSBkZXZpY2VzIHRo
-YXQgbmVlZCBETUEzMiBvbiBhbiB4ODZfNjQNCj4+Pj4gc3lzdGVtPw0KPj4+IElJUkMgQWxsIGRl
-dmljZXMgdXNpbmcgZG1hX2FsbG9jX2NvaGVyZW50KCkgYWxsb2NhdGUgRE1BMzIgbWVtb3J5DQo+
-Pj4gdW5sZXNzIHRoZXkgZXhwbGljaXRseSBzZXQgdGhlIGRtYSBjb2hlcmVudCBtYXNrIHRvIHNv
-bWV0aGluZw0KPj4+IGxhcmdlci4NCj4+PiBMaWtlIENocmlzdGlhbiBzYXlzLCBpZiBhbiBJT01N
-VSBpcyBwcmVzZW50IGFuZCBlbmFibGVkLCB0aGUgbmVlZA0KPj4+IGZvcg0KPj4+IHRoZSBETUEz
-MiB6b25lIGdvZXMgYXdheS4gSW4gdGhlb3J5IGF0IGxlYXN0Lg0KPj4gVGhhbmtzLiBJIHJlYWQg
-dXAgYSBiaXQgb24gRE1BMzIgYW5kIG1lbW9yeSB6b25lcyBpbiBnZW5lcmFsLiBJDQo+PiBmb3Vu
-ZA0KPj4gdGhhdCB0aGVyZSBpcyBhIGxvd21lbV9yZXNlcnZlX3JhdGlvIGZlYXR1cmUgdGhhdCBw
-cm90ZWN0cyBhZ2FpbnN0DQo+PiBub3JtYWwgcGFnZSBhbGxvY2F0aW9ucyBvdmVyZmxvd2luZyBp
-bnRvIGxvd21lbSB6b25lcy4gVGhlcmUgaXMgc29tZQ0KPj4gZG9jdW1lbnRhdGlvbiBpbiBEb2N1
-bWVudGF0aW9uL3Njc2N0bC92bS50eHQgKHNlYXJjaCBmb3INCj4+IGxvd21lbV9yZXNlcnZlX3Jh
-dGlvKS4gVGhlIHByb3RlY3RlZCBhbW91bnQgb2YgbWVtb3J5IGluIGVhY2ggem9uZQ0KPj4gY2Fu
-DQo+PiBiZSBzZWVuIGluIC9wcm9jL3pvbmVpbmZvLg0KPj4NCj4+IFdpdGggdGhhdCwgY2FuIHdl
-IGNvbmNsdWRlIHRoYXQgd2UgZG9uJ3QgbmVlZCB0byBjb3VudA0KPj4gdHRtX21lbV9nbG9iYWxf
-YWxsb2MgYWdhaW5zdCB0aGUgZG1hMzIgem9uZS4NCj4gWWVzLCBpdCBpbmRlZWQgbG9va3MgbGlr
-ZSB0aGF0Lg0KPiBCdXQgdGhlbiBJIHdvdWxkIHN1Z2dlc3QgcmVtb3ZpbmcgdGhlIERNQTMyIHpv
-bmUgZW50aXJlbHkuDQoNCldlIHN0aWxsIG5lZWQgaXQgZm9yIHRoZSBwYWdlcyB3ZSBhbGxvY2F0
-ZSwgYnV0IHdlIHNob3VsZCBqdXN0IHN0b3AgDQphY2NvdW50aW5nIGFsbCB0aGUgaG91c2VrZWVw
-aW5nIHRvIGl0Lg0KDQpUbyBhbnN3ZXIgRmVsaXggZWFybGllciBxdWVzdGlvbiB3ZSByZWFsbHkg
-c3RpbGwgbmVlZCBETUEzMiB3aXRob3V0IA0KSU9NTVUgZXZlbiBvbiBhIDY0Yml0IHN5c3RlbS4g
-VGhlIHByb2JsZW0gaXMgc2ltcGx5IHRoYXQgeW91IGhhdmUgdG9ucyANCm9mIFBDSWUgaGFyZHdh
-cmUgd2hpY2ggY2FuIGRvIG9ubHkgMzJiaXQgYWRkcmVzc2luZywgZm9yIGV4YW1wbGUgdGhlIA0K
-YXVkaW8gY29kZWNzIGV2ZW4gb24gb3VyIG5ld2VzdCBWZWdhIGNoaXBzLg0KDQpSZWdhcmRzLA0K
-Q2hyaXN0aWFuLg0KDQo+DQo+IC9UaG9tYXMNCj4NCj4NCj4+IFRoYW5rcywNCj4+ICAgICBGZWxp
-eA0KPj4NCj4+DQo+Pj4gL1Rob21hcw0KPj4+DQo+Pj4NCj4+Pj4gUmVnYXJkcywNCj4+Pj4gICAg
-ICBGZWxpeA0KPj4+Pg0KPj4+Pg0KPj4+Pj4gUmVnYXJkcywNCj4+Pj4+IENocmlzdGlhbi4NCj4+
-Pj4+DQo+Pj4+Pj4gL1Rob21hcw0KPj4+Pj4+DQo+Pj4+Pj4NCg0KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Mon, Dec 10, 2018 at 04:42:01PM -0700, Nathan Chancellor wrote:
+> Clang warns when an expression that equals zero is used as a null
+> pointer constant (in lieu of NULL):
+> 
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4435:3:
+> warning: expression which evaluates to zero treated as a null pointer
+> constant of type 'const enum color_transfer_func *'
+> [-Wnon-literal-null-conversion]
+>                 TRANSFER_FUNC_UNKNOWN,
+>                 ^~~~~~~~~~~~~~~~~~~~~
+> 1 warning generated.
+> 
+> This warning is caused by commit bb47de736661 ("drm/amdgpu: Set FreeSync
+> state using drm VRR properties") and it could be solved by using NULL
+> instead of TRANSFER_FUNC_UNKNOWN or casting TRANSFER_FUNC_UNKNOWN as a
+> pointer. However, after looking into it, there doesn't appear to be a
+> good reason to pass app_tf by reference as it is never mutated along the
+> way. This is the only code path in which app_tf is used:
+> 
+> mod_freesync_build_vrr_infopacket ->
+>     build_vrr_infopacket_v2 ->
+>         build_vrr_infopacket_fs2_data
+> 
+> Neither mod_freesync_build_vrr_infopacket or build_vrr_infopacket_v2
+> modify app_tf's value and build_vrr_infopacket_fs2_data expects just
+> the value so we can avoid dereferencing anything by just passing in
+> app_tf's value to mod_freesync_build_vrr_infopacket and
+> build_vrr_infopacket_v2.
+> 
+> There is no functional change because build_vrr_infopacket_fs2_data
+> doesn't do anything if TRANSFER_FUNC_UNKNOWN is passed to it, the same
+> as not calling build_vrr_infopacket_fs2_data at all like before this
+> change when NULL was used for app_tf.
+> 
+> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 7 +++----
+>  drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h  | 2 +-
+>  2 files changed, 4 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> index 620a171620ee..520665a9d81a 100644
+> --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> @@ -656,7 +656,7 @@ static void build_vrr_infopacket_v1(enum signal_type signal,
+>  
+>  static void build_vrr_infopacket_v2(enum signal_type signal,
+>  		const struct mod_vrr_params *vrr,
+> -		const enum color_transfer_func *app_tf,
+> +		enum color_transfer_func app_tf,
+>  		struct dc_info_packet *infopacket)
+>  {
+>  	unsigned int payload_size = 0;
+> @@ -664,8 +664,7 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
+>  	build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
+>  	build_vrr_infopacket_data(vrr, infopacket);
+>  
+> -	if (app_tf != NULL)
+> -		build_vrr_infopacket_fs2_data(*app_tf, infopacket);
+> +	build_vrr_infopacket_fs2_data(app_tf, infopacket);
+>  
+>  	build_vrr_infopacket_checksum(&payload_size, infopacket);
+>  
+> @@ -676,7 +675,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+>  		const struct dc_stream_state *stream,
+>  		const struct mod_vrr_params *vrr,
+>  		enum vrr_packet_type packet_type,
+> -		const enum color_transfer_func *app_tf,
+> +		enum color_transfer_func app_tf,
+>  		struct dc_info_packet *infopacket)
+>  {
+>  	/* SPD info packet for FreeSync */
+> diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+> index 949a8b62aa98..063af6258fd9 100644
+> --- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+> +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+> @@ -145,7 +145,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+>  		const struct dc_stream_state *stream,
+>  		const struct mod_vrr_params *vrr,
+>  		enum vrr_packet_type packet_type,
+> -		const enum color_transfer_func *app_tf,
+> +		enum color_transfer_func app_tf,
+>  		struct dc_info_packet *infopacket);
+>  
+>  void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
+> -- 
+> 2.20.0
+> 
+
+Gentle ping on this patch, it would be nice to get this fixed and into
+5.1!
+
+Thanks,
+Nathan
