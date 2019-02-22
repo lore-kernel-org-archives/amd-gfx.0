@@ -1,17 +1,14 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/7] drm/amdgpu: rework shadow handling during PD clear
-Date: Fri, 22 Feb 2019 16:34:54 +0000
-Message-ID: <0d08df94-0d51-289d-1135-9dd381b4ef49@amd.com>
-References: <20190219134103.1531-1-christian.koenig@amd.com>
- <20190219134103.1531-2-christian.koenig@amd.com>
- <BL0PR12MB258008B300413D2A0052EE5F807F0@BL0PR12MB2580.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: don't call dm_pp_ function from an fpu
+ block
+Date: Fri, 22 Feb 2019 17:31:34 +0000
+Message-ID: <BN6PR12MB1809380DCD0FDADBA9F6D286F77F0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190222153906.661-1-harry.wentland@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1650784972=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BL0PR12MB258008B300413D2A0052EE5F807F0-b4cIHhjg/p/XzH18dTCKOgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20190222153906.661-1-harry.wentland-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <027B4BEC4553B14C8560A9E425C989B1-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,82 +19,201 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-DQpPbiAyLzIyLzE5IDEwOjUxIEFNLCBaZW5nLCBPYWsgd3JvdGU6DQo+IFNlZSBvbmUgY29tbWVu
-dCBpbmxpbmUgW09ha10NCj4NCj4gVGhhbmtzLA0KPiBPYWsNCj4NCj4gLS0tLS1PcmlnaW5hbCBN
-ZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIENocmlzdGlhbiBLw7ZuaWcNCj4gU2VudDogVHVlc2Rh
-eSwgRmVicnVhcnkgMTksIDIwMTkgODo0MSBBTQ0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcNCj4gU3ViamVjdDogW1BBVENIIDIvN10gZHJtL2FtZGdwdTogcmV3b3JrIHNoYWRv
-dyBoYW5kbGluZyBkdXJpbmcgUEQgY2xlYXINCj4NCj4gVGhpcyB3YXkgd2Ugb25seSBkZWFsIHdp
-dGggdGhlIHJlYWwgQk8gaW4gaGVyZS4NCj4NCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvD
-tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDY0ICsrKysrKysrKysrKysrKystLS0tLS0tLS0t
-DQo+ICAgMSBmaWxlIGNoYW5nZWQsIDM5IGluc2VydGlvbnMoKyksIDI1IGRlbGV0aW9ucygtKQ0K
-Pg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBpbmRleCAxMmQ1MWQ5
-NjQ5MWUuLjNjN2I5OGE3NThjOSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMNCj4gQEAgLTc4OCwzOCArNzg4LDU4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2Ns
-ZWFyX2JvKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgIA0KPiAgIAlyID0gdHRtX2Jv
-X3ZhbGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7DQo+ICAgCWlmIChyKQ0K
-PiAtCQlnb3RvIGVycm9yOw0KPiArCQlyZXR1cm4gcjsNCj4gICANCj4gICAJciA9IGFtZGdwdV90
-dG1fYWxsb2NfZ2FydCgmYm8tPnRibyk7DQo+ICAgCWlmIChyKQ0KPiAgIAkJcmV0dXJuIHI7DQo+
-ICAgDQo+ICsJaWYgKGJvLT5zaGFkb3cpIHsNCj4gKwkJciA9IHR0bV9ib192YWxpZGF0ZSgmYm8t
-PnNoYWRvdy0+dGJvLCAmYm8tPnNoYWRvdy0+cGxhY2VtZW50LA0KPiArCQkJCSAgICAmY3R4KTsN
-Cj4gKwkJaWYgKHIpDQo+ICsJCQlyZXR1cm4gcjsNCj4gKw0KPiArCQlyID0gYW1kZ3B1X3R0bV9h
-bGxvY19nYXJ0KCZiby0+c2hhZG93LT50Ym8pOw0KPiArCQlpZiAocikNCj4gKwkJCXJldHVybiBy
-Ow0KPiArDQo+ICsJfQ0KPiBbT2FrXSBJIGRvbid0IGhhdmUgdGhlIGNvbnRleHQgd2hhdCBhIHNo
-YWRvdyBibyBpcyB1c2VkIGZvciwgYnV0IGlzIGl0IHBvc3NpYmxlIHRoYXQgYSBzaGFkb3cgYm8g
-Y2FuIGhhdmUgaXQgb3duIHNoYWRvdz8gSWYgeWVzLCBoZXJlIHlvdSB3YW50IHRvIGRvIGl0IGlu
-IGEgZG8uLi53aGlsZSBsb29wLiBBbHNvIGFsdGhvdWdoIHRoaXMgcmV3b3JrIGlzIHBlcmZvcm1h
-bmNlIGJldHRlciBhcyB5b3Ugb25seSBuZWVkIG9uZSBqb2Igc3VibWlzc2lvbiwgaXQgbWFrZXMg
-dGhlIGNvZGVzIGhhcmRlciB0byByZWFkLiBUaGUgb3JpZ2luYWwgcmVjdXJzaXZlIHdheSBpcyBl
-YXNpZXIgdG8gdW5kZXJzdGFuZC4NCg0KQUZBSUsgc2hhZG93IEJPcyBhcmUgdXNlZCBvbmx5IGZv
-ciBwYWdlIHRhYmxlcyBCT3MgKHN5c3RlbSBtZW1vcnkgDQpiYWNrdXBzIGZvciBWUkFNIHJlc2lk
-ZW50IEJPcykgYW5kIGNhbm5vdCBoYXZlIHRoZWlyIG93biBzaGFkb3cgQk9zLg0KDQpBbmRyZXkN
-Cg0KDQo+ICsNCj4gICAJciA9IGFtZGdwdV9qb2JfYWxsb2Nfd2l0aF9pYihhZGV2LCA2NCwgJmpv
-Yik7DQo+ICAgCWlmIChyKQ0KPiAtCQlnb3RvIGVycm9yOw0KPiArCQlyZXR1cm4gcjsNCj4gICAN
-Cj4gLQlhZGRyID0gYW1kZ3B1X2JvX2dwdV9vZmZzZXQoYm8pOw0KPiAtCWlmIChhdHNfZW50cmll
-cykgew0KPiAtCQl1aW50NjRfdCBhdHNfdmFsdWU7DQo+ICsJd2hpbGUgKDEpIHsNCj4gKwkJYWRk
-ciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KGJvKTsNCj4gKwkJaWYgKGF0c19lbnRyaWVzKSB7DQo+
-ICsJCQl1aW50NjRfdCBhdHNfdmFsdWU7DQo+ICAgDQo+IC0JCWF0c192YWx1ZSA9IEFNREdQVV9Q
-VEVfREVGQVVMVF9BVEM7DQo+IC0JCWlmIChsZXZlbCAhPSBBTURHUFVfVk1fUFRCKQ0KPiAtCQkJ
-YXRzX3ZhbHVlIHw9IEFNREdQVV9QREVfUFRFOw0KPiArCQkJYXRzX3ZhbHVlID0gQU1ER1BVX1BU
-RV9ERUZBVUxUX0FUQzsNCj4gKwkJCWlmIChsZXZlbCAhPSBBTURHUFVfVk1fUFRCKQ0KPiArCQkJ
-CWF0c192YWx1ZSB8PSBBTURHUFVfUERFX1BURTsNCj4gICANCj4gLQkJYW1kZ3B1X3ZtX3NldF9w
-dGVfcGRlKGFkZXYsICZqb2ItPmlic1swXSwgYWRkciwgMCwNCj4gLQkJCQkgICAgICBhdHNfZW50
-cmllcywgMCwgYXRzX3ZhbHVlKTsNCj4gLQkJYWRkciArPSBhdHNfZW50cmllcyAqIDg7DQo+IC0J
-fQ0KPiArCQkJYW1kZ3B1X3ZtX3NldF9wdGVfcGRlKGFkZXYsICZqb2ItPmlic1swXSwgYWRkciwg
-MCwNCj4gKwkJCQkJICAgICAgYXRzX2VudHJpZXMsIDAsIGF0c192YWx1ZSk7DQo+ICsJCQlhZGRy
-ICs9IGF0c19lbnRyaWVzICogODsNCj4gKwkJfQ0KPiAgIA0KPiAtCWlmIChlbnRyaWVzKSB7DQo+
-IC0JCXVpbnQ2NF90IHZhbHVlID0gMDsNCj4gKwkJaWYgKGVudHJpZXMpIHsNCj4gKwkJCXVpbnQ2
-NF90IHZhbHVlID0gMDsNCj4gICANCj4gLQkJLyogV29ya2Fyb3VuZCBmb3IgZmF1bHQgcHJpb3Jp
-dHkgcHJvYmxlbSBvbiBHTUM5ICovDQo+IC0JCWlmIChsZXZlbCA9PSBBTURHUFVfVk1fUFRCICYm
-IGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1ZFR0ExMCkNCj4gLQkJCXZhbHVlID0gQU1ER1BVX1BU
-RV9FWEVDVVRBQkxFOw0KPiArCQkJLyogV29ya2Fyb3VuZCBmb3IgZmF1bHQgcHJpb3JpdHkgcHJv
-YmxlbSBvbiBHTUM5ICovDQo+ICsJCQlpZiAobGV2ZWwgPT0gQU1ER1BVX1ZNX1BUQiAmJg0KPiAr
-CQkJICAgIGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1ZFR0ExMCkNCj4gKwkJCQl2YWx1ZSA9IEFN
-REdQVV9QVEVfRVhFQ1VUQUJMRTsNCj4gKw0KPiArCQkJYW1kZ3B1X3ZtX3NldF9wdGVfcGRlKGFk
-ZXYsICZqb2ItPmlic1swXSwgYWRkciwgMCwNCj4gKwkJCQkJICAgICAgZW50cmllcywgMCwgdmFs
-dWUpOw0KPiArCQl9DQo+ICAgDQo+IC0JCWFtZGdwdV92bV9zZXRfcHRlX3BkZShhZGV2LCAmam9i
-LT5pYnNbMF0sIGFkZHIsIDAsDQo+IC0JCQkJICAgICAgZW50cmllcywgMCwgdmFsdWUpOw0KPiAr
-CQlpZiAoYm8tPnNoYWRvdykNCj4gKwkJCWJvID0gYm8tPnNoYWRvdzsNCj4gKwkJZWxzZQ0KPiAr
-CQkJYnJlYWs7DQo+ICAgCX0NCj4gICANCj4gICAJYW1kZ3B1X3JpbmdfcGFkX2liKHJpbmcsICZq
-b2ItPmlic1swXSk7IEBAIC04MzgsMTYgKzg1OCwxMCBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9j
-bGVhcl9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICAJYW1kZ3B1X2JvX2ZlbmNl
-KGJvLCBmZW5jZSwgdHJ1ZSk7DQo+ICAgCWRtYV9mZW5jZV9wdXQoZmVuY2UpOw0KPiAgIA0KPiAt
-CWlmIChiby0+c2hhZG93KQ0KPiAtCQlyZXR1cm4gYW1kZ3B1X3ZtX2NsZWFyX2JvKGFkZXYsIHZt
-LCBiby0+c2hhZG93LA0KPiAtCQkJCQkgIGxldmVsLCBwdGVfc3VwcG9ydF9hdHMpOw0KPiAtDQo+
-ICAgCXJldHVybiAwOw0KPiAgIA0KPiAgIGVycm9yX2ZyZWU6DQo+ICAgCWFtZGdwdV9qb2JfZnJl
-ZShqb2IpOw0KPiAtDQo+IC1lcnJvcjoNCj4gICAJcmV0dXJuIHI7DQo+ICAgfQ0KPiAgIA0KPiAt
-LQ0KPiAyLjE3LjENCj4NCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
-aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============1650784972==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809380DCD0FDADBA9F6D286F77F0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809380DCD0FDADBA9F6D286F77F0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Harry We=
+ntland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, February 22, 2019 10:39 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; Wentland, Harry; stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Subject: [PATCH] drm/amd/display: don't call dm_pp_ function from an fpu bl=
+ock
+
+Powerplay functions called from dm_pp_* functions tend to do a
+mutex_lock which isn't safe to do inside a kernel_fpu_begin/end block as
+those will disable/enable preemption.
+
+Rearrange the dm_pp_get_clock_levels_by_type_with_voltage calls to make
+sure they happen outside of kernel_fpu_begin/end.
+
+Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Signed-off-by: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu=
+/drm/amd/display/dc/calcs/dcn_calcs.c
+index 2a807b9f77f7..5955634f6e27 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+@@ -1348,12 +1348,12 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+         struct dm_pp_clock_levels_with_voltage fclks =3D {0}, dcfclks =3D =
+{0};
+         bool res;
+
+-       kernel_fpu_begin();
+-
+         /* TODO: This is not the proper way to obtain fabric_and_dram_band=
+width, should be min(fclk, memclk) */
+         res =3D dm_pp_get_clock_levels_by_type_with_voltage(
+                         ctx, DM_PP_CLOCK_TYPE_FCLK, &fclks);
+
++       kernel_fpu_begin();
++
+         if (res)
+                 res =3D verify_clock_values(&fclks);
+
+@@ -1372,9 +1372,13 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+         } else
+                 BREAK_TO_DEBUGGER();
+
++       kernel_fpu_end();
++
+         res =3D dm_pp_get_clock_levels_by_type_with_voltage(
+                         ctx, DM_PP_CLOCK_TYPE_DCFCLK, &dcfclks);
+
++       kernel_fpu_begin();
++
+         if (res)
+                 res =3D verify_clock_values(&dcfclks);
+
+--
+2.19.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809380DCD0FDADBA9F6D286F77F0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Harry Wentland &lt;harry.went=
+land-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Friday, February 22, 2019 10:39 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org; Wentland, Harry; stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br>
+<b>Subject:</b> [PATCH] drm/amd/display: don't call dm_pp_ function from an=
+ fpu block</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Powerplay functions called from dm_pp_* functions =
+tend to do a<br>
+mutex_lock which isn't safe to do inside a kernel_fpu_begin/end block as<br=
+>
+those will disable/enable preemption.<br>
+<br>
+Rearrange the dm_pp_get_clock_levels_by_type_with_voltage calls to make<br>
+sure they happen outside of kernel_fpu_begin/end.<br>
+<br>
+Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br>
+Signed-off-by: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c | 8 &#43;&#43;&#43;&=
+#43;&#43;&#43;--<br>
+&nbsp;1 file changed, 6 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu=
+/drm/amd/display/dc/calcs/dcn_calcs.c<br>
+index 2a807b9f77f7..5955634f6e27 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c<br>
+@@ -1348,12 &#43;1348,12 @@ void dcn_bw_update_from_pplib(struct dc *dc)<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dm_pp_clock_levels_=
+with_voltage fclks =3D {0}, dcfclks =3D {0};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool res;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel_fpu_begin();<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* TODO: This is not the p=
+roper way to obtain fabric_and_dram_bandwidth, should be min(fclk, memclk) =
+*/<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res =3D dm_pp_get_clock_le=
+vels_by_type_with_voltage(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx, =
+DM_PP_CLOCK_TYPE_FCLK, &amp;fclks);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel_fpu_begin();<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (res)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; res =3D verify_clock_values(&amp;fclks);<br>
+&nbsp;<br>
+@@ -1372,9 &#43;1372,13 @@ void dcn_bw_update_from_pplib(struct dc *dc)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; BREAK_TO_DEBUGGER();<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel_fpu_end();<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; res =3D dm_pp_get_clock_le=
+vels_by_type_with_voltage(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctx, =
+DM_PP_CLOCK_TYPE_DCFCLK, &amp;dcfclks);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel_fpu_begin();<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (res)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; res =3D verify_clock_values(&amp;dcfclks);<br>
+&nbsp;<br>
+-- <br>
+2.19.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809380DCD0FDADBA9F6D286F77F0BN6PR12MB1809namp_--
+
+--===============1650784972==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1650784972==--
