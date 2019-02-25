@@ -1,13 +1,11 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] Revert "drm/amdgpu: use BACO reset on vega20 if platform
-Date: Mon, 25 Feb 2019 03:20:43 +0000
-Message-ID: <DM6PR12MB2635FA9BEF18591F784A2BC3FC7A0@DM6PR12MB2635.namprd12.prod.outlook.com>
-References: <DM6PR12MB2603A151C5256DAC80C8469C917A0@DM6PR12MB2603.namprd12.prod.outlook.com>
+From: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 00/26] Updates for SW SMU driver
+Date: Mon, 25 Feb 2019 20:12:06 +0800
+Message-ID: <1551096752-18205-1-git-send-email-ray.huang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0288185292=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB2603A151C5256DAC80C8469C917A0-lmeGfMZKVrHxlWl8GjgjngdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,208 +16,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>, "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: brahma_sw_dev <brahma_sw_dev-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Likun Gao <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, Kevin Wang <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Chengming Gui <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
 
---===============0288185292==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2635FA9BEF18591F784A2BC3FC7A0DM6PR12MB2635namp_"
-
---_000_DM6PR12MB2635FA9BEF18591F784A2BC3FC7A0DM6PR12MB2635namp_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
-
-QWRkIGFtZC1nZnguIFRoYW5rcyBDYW5kaWNlLiBQbGVhc2UgY2hlY2sgeW91ciBjb2RlIGFsaWdu
-bWVudCBiZWZvcmUgY29tbWl0dGVkIHRoZSBwYXRjaC4NCg0KUmV2aWV3ZWQtYnk6IEhhd2tpbmcg
-WmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCg0KUmVnYXJkcywNCkhhd2tpbmcNCkZyb206
-IExpLCBDYW5kaWNlIDxDYW5kaWNlLkxpQGFtZC5jb20+DQpTZW50OiAyMDE5xOoy1MIyNcjVIDEx
-OjA5DQpUbzogWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT47IFh1LCBGZWlm
-ZWkgPEZlaWZlaS5YdUBhbWQuY29tPg0KQ2M6IGJyYWhtYV9zd19kZXYgPGJyYWhtYV9zd19kZXZA
-YW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSF0gUmV2ZXJ0ICJkcm0vYW1kZ3B1OiB1c2UgQkFDTyBy
-ZXNldCBvbiB2ZWdhMjAgaWYgcGxhdGZvcm0NCg0KRGlzYWJsZSBCQUNPIG9uIFZlZ2EyMCBhdCB0
-aGUgbW9tZW50IGR1ZSB0byB0aGUgZXhpc3RpbmcgSFcgaXNzdWUgc3RpbGwgY2F1c2luZyBoYW5n
-cyBvbiBCQUNPIGV4aXQuDQoNClNpZ25lZC1vZmYtYnk6IENhbmRpY2UgTGkgPGNhbmRpY2UubGlA
-YW1kLmNvbTxtYWlsdG86Y2FuZGljZS5saUBhbWQuY29tPj4NCi0tLQ0KZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvc29jMTUuYyB8IDEgLQ0KMSBmaWxlIGNoYW5nZWQsIDEgZGVsZXRpb24oLSkN
-Cg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQppbmRleCBiMmNiZTRiLi4zNjE1OGRiIDEw
-MDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KQEAgLTQ2Miw3ICs0NjIsNiBAQCBzdGF0
-aWMgaW50IHNvYzE1X2FzaWNfcmVzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQogICAg
-ICAgICAgICAgIHN3aXRjaCAoYWRldi0+YXNpY190eXBlKSB7DQogICAgICAgICAgICAgIGNhc2Ug
-Q0hJUF9WRUdBMTA6DQogICAgICAgICAgICAgIGNhc2UgQ0hJUF9WRUdBMTI6DQotICAgICAgICAg
-ICAgICBjYXNlIENISVBfVkVHQTIwOg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzb2Mx
-NV9hc2ljX2dldF9iYWNvX2NhcGFiaWxpdHkoYWRldiwgJmJhY29fcmVzZXQpOw0KICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgICAgICAgZGVmYXVsdDoNCi0tDQoy
-LjcuNA0KDQoNCg0KVGhhbmtzLA0KQ2FuZGljZSBMaQ0KDQo=
-
---_000_DM6PR12MB2635FA9BEF18591F784A2BC3FC7A0DM6PR12MB2635namp_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:=B5=C8=CF=DF;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:=CE=A2=C8=ED=D1=C5=BA=DA;
-	panose-1:2 11 5 3 2 2 4 2 2 4;}
-@font-face
-	{font-family:"\@=CE=A2=C8=ED=D1=C5=BA=DA";}
-@font-face
-	{font-family:"\@=B5=C8=CF=DF";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle18
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;
-	font-weight:normal;
-	font-style:normal;
-	text-decoration:none none;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Add amd-gfx. Thanks Candice. Please check your code =
-alignment before committed the patch.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org=
-&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<br>
-Hawking<o:p></o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b>From:</b> Li, Candice &lt;Candice.Li-5C7GfCeVMHo@public.gmane.org&gt; =
-<br>
-<b>Sent:</b> 2019<span lang=3D"ZH-CN" style=3D"font-family:&quot;=CE=A2=C8=
-=ED=D1=C5=BA=DA&quot;,sans-serif">=C4=EA</span>2<span lang=3D"ZH-CN" style=
-=3D"font-family:&quot;=CE=A2=C8=ED=D1=C5=BA=DA&quot;,sans-serif">=D4=C2</sp=
-an>25<span lang=3D"ZH-CN" style=3D"font-family:&quot;=CE=A2=C8=ED=D1=C5=BA=
-=DA&quot;,sans-serif">=C8=D5</span> 11:09<br>
-<b>To:</b> Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Xu, Feifei &lt;Fei=
-fei.Xu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Cc:</b> brahma_sw_dev &lt;brahma_sw_dev-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH] Revert &quot;drm/amdgpu: use BACO reset on vega20 i=
-f platform<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Disable BACO on Vega20 at the moment due to the exis=
-ting HW issue still causing hangs on BACO exit.&nbsp;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Signed-off-by: Candice Li &lt;<a href=3D"mailto:cand=
-ice.li-5C7GfCeVMHo@public.gmane.org">candice.li-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal">---<o:p></o:p></p>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdgpu/soc15.c | 1 -<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">1 file changed, 1 deletion(-)<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/dr=
-ivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p></p>
-<p class=3D"MsoNormal">index b2cbe4b..36158db 100644<o:p></o:p></p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -462,7 &#43;462,6 @@ static int soc15_asic_reset(=
-struct amdgpu_device *adev)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA10:<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA12:<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA20:<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; soc15_asic_get_baco_capability(ad=
-ev, &amp;baco_reset);<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; default:<o:p></o:p></p>
-<p class=3D"MsoNormal">-- <o:p></o:p></p>
-<p class=3D"MsoNormal">2.7.4<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><span style=3D"color:#00B050">Thanks,<o:p></o:p></sp=
-an></p>
-<p class=3D"MsoNormal"><span style=3D"color:#00B050">Candice Li<o:p></o:p><=
-/span></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB2635FA9BEF18591F784A2BC3FC7A0DM6PR12MB2635namp_--
-
---===============0288185292==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0288185292==--
+SGkgYWxsLAoKVGhlc2Ugc2VyaWVzIGFyZSB0aGUgdXBkYXRlcyBmb3IgU1cgU01VIGRyaXZlci4g
+SXQgYWRkcyBtb3JlIGludGVyZmFjZXMgZm9yCnN5c2ZzIGFuZCBod21vbiBhbmQgZml4IHNvbWUg
+Y29kaW5nIGVycm9ycy4gQW5kIGFkZCBzdXNwZW5kL3Jlc3VtZSBmdW5jdGlvbiwgZm9yCm5vdywg
+aXQgYWxyZWFkeSBwYXNzZWQgUzMgdGVzdCB3aXRoIFNXIFNNVS4KClRoYW5rcywKUmF5CgpDaGVu
+Z21pbmcgR3VpICg3KToKICBkcm0vYW1kL3Bvd2VycGxheTogaW1wbGVtZW50IHBvd2VyMV9jYXAg
+YW5kIHBvd2VyMV9jYXBfbWF4IGludGVyZmFjZQogICAgZm9yIFNNVTExLgogIGRybS9hbWQvcG93
+ZXJwbGF5OiBhZGQgU1RBQkxFX1BTVEFURV9TQ0xLIGFuZCBTVEFCTEVfUFNUQVRFX01DTEsgd2hl
+bgogICAgcmVhZCBzZW5zb3IgZm9yIFNNVTExCiAgZHJtL2FtZC9wb3dlcnBsYXk6IGltcGxlbWVu
+dCBwd20xIGh3bW9uIGludGVyZmFjZSBmb3IgU01VMTEKICBkcm0vYW1kL3Bvd2VycGxheTogaW1w
+bGVtZW50IHB3bTFfZW5hYmxlIGh3bW9uIGludGVyZmFjZSBmb3IgU01VMTEKICBkcm0vYW1kL3Bv
+d2VycGxheTogaW1wbGVtZW50IGZhbjFfZW5hYmxlIGh3bW9uIGludGVyZmFjZSBmb3IgU01VMTEK
+ICAgICh2MikKICBkcm0vYW1kL3Bvd2VycGxheTogYWRkIHNtdV9sYXRlX2luaXQgZm9yIFNNVTEx
+LgogIGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgaXNfZHBtX3J1bm5pbmcgZm9yIFNNVTExCgpIdWFu
+ZyBSdWkgKDUpOgogIGRybS9hbWQvcG93ZXJwbGF5OiBmaXggc21jIG1lc3NzYWdlIGluZGV4IHJl
+cG9ydAogIGRybS9hbWQvcG93ZXJwbGF5OiBmaXggYnl0ZSBhbGlnbm1lbnQgaXNzdWUgb2Ygc211
+MTEgcHB0YWJsZQogIGRybS9hbWQvcG93ZXJwbGF5OiBtb3ZlIHNldHRpbmcgYWxsb3dlZCBtYXNr
+IGFuZCBmZWF0dXJlIGVuYWJsaW5nCiAgICB0b2dldGhlcgogIGRybS9hbWQvcG93ZXJwbGF5OiBm
+aXggdGhlIGlzc3VlIG9mIGNoZWNraW5nIG9uIG1lc3NhZ2UgbWFwcGluZwogIGRybS9hbWQvcG93
+ZXJwbGF5OiB1c2UgUkVHMzJfUENJRSB3cmFwcGVyIGluc3RlYWQgZm9yIHN3IHNtdQoKS2V2aW4g
+V2FuZyAoMSk6CiAgZHJtL2FtZC9wb3dlcnBsYXk6IGRlYnVnZnMgZG9uJ3QgY2hlY2sgcG93ZXJw
+bGF5IHdoZW4gU1cgU01VIGlzCiAgICBlbmFibGVkLgoKTGlrdW4gR2FvICgxMyk6CiAgZHJtL2Ft
+ZC9wb3dlcnBsYXk6IGFkZCBmYW4gcnBtIGxpbWl0IGludGVyZmFjZSBmb3IgaHdtb24KICBkcm0v
+YW1kL3Bvd2VycGxheTogYWRkIGZhbiBpbnB1dCBpbnRlcmZhY2UgZm9yIGh3bW9uCiAgZHJtL2Ft
+ZC9wb3dlcnBsYXk6IHNldCBmYW4gdGFyZ2V0IGludGVyZmFjZSBmb3IgaHdtb24KICBkcm0vYW1k
+L3Bvd2VycGxheTogZ2V0IGVjbGsvdmNsay9kY2xrIGZvciBzbXUxMQogIGRybS9hbWQvcG93ZXJw
+bGF5OiBzZXQgZHBtIHRhYmxlIG9mIHZjbGsvZGNsay9lY2xrIGZvciBzbXUxMSAodjIpCiAgZHJt
+L2FtZC9wb3dlcnBsYXk6IGFkZCBsaW1pdCBvZiBwcF9mZWF0dXJlIGZvciBzbXUKICBkcm0vYW1k
+L3Bvd2VycGxheTogYWRkIG9kIGNvbmRpdGlvbiBmb3IgcG93ZXIgbGltaXQKICBkcm0vYW1kL3Bv
+d2VycGxheTogYWRkIHN1c3BlbmQgYW5kIHJlc3VtZSBmdW5jdGlvbiBmb3Igc211CiAgZHJtL2Ft
+ZC9wb3dlcnBsYXk6IGFkZCBjb25kaXRpb24gZm9yIHNtYyB0YWJsZSBodyBpbml0CiAgZHJtL2Ft
+ZC9wb3dlcnBsYXk6IHN1cHBvcnQgc3lzZnMgdG8gZ2V0IHNvY2NsaywgZmNsaywgZGNlZmNsawog
+IGRybS9hbWQvcG93ZXJwbGF5OiBzdXBwb3J0IHN5c2ZzIHRvIHNldCBzb2NjbGssIGZjbGssIGRj
+ZWZjbGsKICBkcm0vYW1kL3Bvd2VycGxheTogYWRkIG92ZXJyaWRlIHBjaWUgcGFyYW1ldGVycwog
+IGRybS9hbWQvcG93ZXJwbGF5OiBzdXBwb3J0IHN5c2ZzIHRvIHNldC9nZXQgcGNpZQoKIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICAgICAgIHwgICA0ICstCiBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAgICAgICB8ICAgMiAr
+LQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jICAgICAgICAgICAgfCAg
+IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jICAgICAgICAgICAg
+IHwgMTQzICsrKysrKy0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUva3ZfZHBtLmMgICAg
+ICAgICAgICAgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMg
+ICAgICAgICAgICAgICAgIHwgICAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9h
+bWRfcG93ZXJwbGF5LmMgICAgICB8ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvYW1kZ3B1X3NtdS5jICAgICAgICAgfCAyNjIgKysrKysrKysrLS0tLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oICAgICB8ICA2MSArKystCiAuLi4v
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdjExXzBfcHB0YWJsZS5oICB8ICAgNiArLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMgICAgICAgICAgfCAzNTcg
+KysrKysrKysrKysrKysrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdh
+MjBfcHB0LmMgICAgICAgICB8IDMxNyArKysrKysrKysrKysrKysrLS0KIDEyIGZpbGVzIGNoYW5n
+ZWQsIDkxNCBpbnNlcnRpb25zKCspLCAyNDYgZGVsZXRpb25zKC0pCgotLSAKMi43LjQKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
