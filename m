@@ -1,15 +1,16 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Differentiate two set_pte_pde function
- pointers
-Date: Mon, 25 Feb 2019 18:00:55 +0000
-Message-ID: <SN1PR12MB23656AEF11DEB92F8AC858FEF07A0@SN1PR12MB2365.namprd12.prod.outlook.com>
-References: <20190221225831.10193-1-Yong.Zhao@amd.com>,
- <61a1ea5e-0957-394a-be33-a7bca485e70c@gmail.com>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Enable XGMI mapping for peer device
+Date: Mon, 25 Feb 2019 18:47:41 +0000
+Message-ID: <dd0a6818-e430-3439-0d66-4642a4cc4628@amd.com>
+References: <1550870874-1213-1-git-send-email-shaoyun.liu@amd.com>
+ <413211ff-8436-ee75-95b6-258967854026@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0362089430=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <61a1ea5e-0957-394a-be33-a7bca485e70c-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <413211ff-8436-ee75-95b6-258967854026-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
+Content-ID: <4269B1D501615441AFB7C92B1D2E43DC-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,739 +21,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0362089430==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB23656AEF11DEB92F8AC858FEF07A0SN1PR12MB2365namp_"
-
---_000_SN1PR12MB23656AEF11DEB92F8AC858FEF07A0SN1PR12MB2365namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Agree. That's much better actually.
-
-Yong
-________________________________
-From: Christian K?nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Monday, February 25, 2019 10:44 AM
-To: Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amdgpu: Differentiate two set_pte_pde function poi=
-nters
-
-Am 21.02.19 um 23:58 schrieb Zhao, Yong:
-> There were two set_pte_pde function pointers in amdgpu_gmc_funcs and
-> amdgpu_vm_pte_funcs respectively. Because they are so similar, sometimes
-> it is confusing. So Rename the one in amdgpu_vm_pte_funcs to
-> write_pte_pde.
-
-NAK, we also already have a write_pte function. So this only increases
-the confusion.
-
-Instead we should rather just completely remove the gmc_*_set_pte_pde()
-functions because they actually do exactly the same on all generations.
-
-Christian.
-
->
-> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 4 ++--
->   drivers/gpu/drm/amd/amdgpu/cik_sdma.c  | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/si_dma.c    | 6 +++---
->   7 files changed, 20 insertions(+), 20 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index 942b5ebc6dc2..fa86be694e48 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -806,7 +806,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *a=
-dev,
->                if (level !=3D AMDGPU_VM_PTB)
->                        ats_value |=3D AMDGPU_PDE_PTE;
->
-> -             amdgpu_vm_set_pte_pde(adev, &job->ibs[0], addr, 0,
-> +             amdgpu_vm_write_pte_pde(adev, &job->ibs[0], addr, 0,
->                                      ats_entries, 0, ats_value);
->                addr +=3D ats_entries * 8;
->        }
-> @@ -818,7 +818,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_device *a=
-dev,
->                if (level =3D=3D AMDGPU_VM_PTB && adev->asic_type >=3D CHI=
-P_VEGA10)
->                        value =3D AMDGPU_PTE_EXECUTABLE;
->
-> -             amdgpu_vm_set_pte_pde(adev, &job->ibs[0], addr, 0,
-> +             amdgpu_vm_write_pte_pde(adev, &job->ibs[0], addr, 0,
->                                      entries, 0, value);
->        }
->
-> @@ -1235,7 +1235,7 @@ static void amdgpu_vm_do_set_ptes(struct amdgpu_pte=
-_update_params *params,
->                                    addr | flags, count, incr);
->
->        } else {
-> -             amdgpu_vm_set_pte_pde(params->adev, params->ib, pe, addr,
-> +             amdgpu_vm_write_pte_pde(params->adev, params->ib, pe, addr,
->                                      count, incr, flags);
->        }
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.h
-> index 81ff8177f092..7e345ec2671f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -161,7 +161,7 @@ struct amdgpu_vm_pte_funcs {
->                          uint64_t value, unsigned count,
->                          uint32_t incr);
->        /* for linear pte/pde updates without addr mapping */
-> -     void (*set_pte_pde)(struct amdgpu_ib *ib,
-> +     void (*write_pte_pde)(struct amdgpu_ib *ib,
->                            uint64_t pe,
->                            uint64_t addr, unsigned count,
->                            uint32_t incr, uint64_t flags);
-> @@ -287,7 +287,7 @@ struct amdgpu_vm_manager {
->
->   #define amdgpu_vm_copy_pte(adev, ib, pe, src, count) ((adev)->vm_manage=
-r.vm_pte_funcs->copy_pte((ib), (pe), (src), (count)))
->   #define amdgpu_vm_write_pte(adev, ib, pe, value, count, incr) ((adev)->=
-vm_manager.vm_pte_funcs->write_pte((ib), (pe), (value), (count), (incr)))
-> -#define amdgpu_vm_set_pte_pde(adev, ib, pe, addr, count, incr, flags) ((=
-adev)->vm_manager.vm_pte_funcs->set_pte_pde((ib), (pe), (addr), (count), (i=
-ncr), (flags)))
-> +#define amdgpu_vm_write_pte_pde(adev, ib, pe, addr, count, incr, flags) =
-((adev)->vm_manager.vm_pte_funcs->write_pte_pde((ib), (pe), (addr), (count)=
-, (incr), (flags)))
->
->   void amdgpu_vm_manager_init(struct amdgpu_device *adev);
->   void amdgpu_vm_manager_fini(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/=
-amdgpu/cik_sdma.c
-> index 189599b694e8..07b874a44ddf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
-> @@ -769,7 +769,7 @@ static void cik_sdma_vm_write_pte(struct amdgpu_ib *i=
-b, uint64_t pe,
->   }
->
->   /**
-> - * cik_sdma_vm_set_pages - update the page tables using sDMA
-> + * cik_sdma_vm_write_pte_pde - update the page tables using sDMA
->    *
->    * @ib: indirect buffer to fill with commands
->    * @pe: addr of the page entry
-> @@ -780,7 +780,7 @@ static void cik_sdma_vm_write_pte(struct amdgpu_ib *i=
-b, uint64_t pe,
->    *
->    * Update the page tables using sDMA (CIK).
->    */
-> -static void cik_sdma_vm_set_pte_pde(struct amdgpu_ib *ib, uint64_t pe,
-> +static void cik_sdma_vm_write_pte_pde(struct amdgpu_ib *ib, uint64_t pe,
->                                    uint64_t addr, unsigned count,
->                                    uint32_t incr, uint64_t flags)
->   {
-> @@ -1365,7 +1365,7 @@ static const struct amdgpu_vm_pte_funcs cik_sdma_vm=
-_pte_funcs =3D {
->        .copy_pte =3D cik_sdma_vm_copy_pte,
->
->        .write_pte =3D cik_sdma_vm_write_pte,
-> -     .set_pte_pde =3D cik_sdma_vm_set_pte_pde,
-> +     .write_pte_pde =3D cik_sdma_vm_write_pte_pde,
->   };
->
->   static void cik_sdma_set_vm_pte_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v2_4.c
-> index cca3552b36ed..3161871c1a57 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
-> @@ -707,7 +707,7 @@ static void sdma_v2_4_vm_write_pte(struct amdgpu_ib *=
-ib, uint64_t pe,
->   }
->
->   /**
-> - * sdma_v2_4_vm_set_pte_pde - update the page tables using sDMA
-> + * sdma_v2_4_vm_write_pte_pde - update the page tables using sDMA
->    *
->    * @ib: indirect buffer to fill with commands
->    * @pe: addr of the page entry
-> @@ -718,7 +718,7 @@ static void sdma_v2_4_vm_write_pte(struct amdgpu_ib *=
-ib, uint64_t pe,
->    *
->    * Update the page tables using sDMA (CIK).
->    */
-> -static void sdma_v2_4_vm_set_pte_pde(struct amdgpu_ib *ib, uint64_t pe,
-> +static void sdma_v2_4_vm_write_pte_pde(struct amdgpu_ib *ib, uint64_t pe=
-,
->                                     uint64_t addr, unsigned count,
->                                     uint32_t incr, uint64_t flags)
->   {
-> @@ -1252,7 +1252,7 @@ static const struct amdgpu_vm_pte_funcs sdma_v2_4_v=
-m_pte_funcs =3D {
->        .copy_pte =3D sdma_v2_4_vm_copy_pte,
->
->        .write_pte =3D sdma_v2_4_vm_write_pte,
-> -     .set_pte_pde =3D sdma_v2_4_vm_set_pte_pde,
-> +     .write_pte_pde =3D sdma_v2_4_vm_write_pte_pde,
->   };
->
->   static void sdma_v2_4_set_vm_pte_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v3_0.c
-> index 0ce8331baeb2..e369013a6bce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
-> @@ -978,7 +978,7 @@ static void sdma_v3_0_vm_write_pte(struct amdgpu_ib *=
-ib, uint64_t pe,
->   }
->
->   /**
-> - * sdma_v3_0_vm_set_pte_pde - update the page tables using sDMA
-> + * sdma_v3_0_vm_write_pte_pde - update the page tables using sDMA
->    *
->    * @ib: indirect buffer to fill with commands
->    * @pe: addr of the page entry
-> @@ -989,7 +989,7 @@ static void sdma_v3_0_vm_write_pte(struct amdgpu_ib *=
-ib, uint64_t pe,
->    *
->    * Update the page tables using sDMA (CIK).
->    */
-> -static void sdma_v3_0_vm_set_pte_pde(struct amdgpu_ib *ib, uint64_t pe,
-> +static void sdma_v3_0_vm_write_pte_pde(struct amdgpu_ib *ib, uint64_t pe=
-,
->                                     uint64_t addr, unsigned count,
->                                     uint32_t incr, uint64_t flags)
->   {
-> @@ -1690,7 +1690,7 @@ static const struct amdgpu_vm_pte_funcs sdma_v3_0_v=
-m_pte_funcs =3D {
->        .copy_pte =3D sdma_v3_0_vm_copy_pte,
->
->        .write_pte =3D sdma_v3_0_vm_write_pte,
-> -     .set_pte_pde =3D sdma_v3_0_vm_set_pte_pde,
-> +     .write_pte_pde =3D sdma_v3_0_vm_write_pte_pde,
->   };
->
->   static void sdma_v3_0_set_vm_pte_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd=
-/amdgpu/sdma_v4_0.c
-> index c816e55d43a9..e5e9eac1758d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> @@ -1343,7 +1343,7 @@ static void sdma_v4_0_vm_write_pte(struct amdgpu_ib=
- *ib, uint64_t pe,
->   }
->
->   /**
-> - * sdma_v4_0_vm_set_pte_pde - update the page tables using sDMA
-> + * sdma_v4_0_vm_write_pte_pde - update the page tables using sDMA
->    *
->    * @ib: indirect buffer to fill with commands
->    * @pe: addr of the page entry
-> @@ -1354,7 +1354,7 @@ static void sdma_v4_0_vm_write_pte(struct amdgpu_ib=
- *ib, uint64_t pe,
->    *
->    * Update the page tables using sDMA (VEGA10).
->    */
-> -static void sdma_v4_0_vm_set_pte_pde(struct amdgpu_ib *ib,
-> +static void sdma_v4_0_vm_write_pte_pde(struct amdgpu_ib *ib,
->                                     uint64_t pe,
->                                     uint64_t addr, unsigned count,
->                                     uint32_t incr, uint64_t flags)
-> @@ -2088,7 +2088,7 @@ static const struct amdgpu_vm_pte_funcs sdma_v4_0_v=
-m_pte_funcs =3D {
->        .copy_pte =3D sdma_v4_0_vm_copy_pte,
->
->        .write_pte =3D sdma_v4_0_vm_write_pte,
-> -     .set_pte_pde =3D sdma_v4_0_vm_set_pte_pde,
-> +     .write_pte_pde =3D sdma_v4_0_vm_write_pte_pde,
->   };
->
->   static void sdma_v4_0_set_vm_pte_funcs(struct amdgpu_device *adev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/am=
-dgpu/si_dma.c
-> index f15f196684ba..4c1e1ce895f7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
-> @@ -353,7 +353,7 @@ static void si_dma_vm_write_pte(struct amdgpu_ib *ib,=
- uint64_t pe,
->   }
->
->   /**
-> - * si_dma_vm_set_pte_pde - update the page tables using sDMA
-> + * si_dma_vm_write_pte_pde - update the page tables using sDMA
->    *
->    * @ib: indirect buffer to fill with commands
->    * @pe: addr of the page entry
-> @@ -364,7 +364,7 @@ static void si_dma_vm_write_pte(struct amdgpu_ib *ib,=
- uint64_t pe,
->    *
->    * Update the page tables using sDMA (CIK).
->    */
-> -static void si_dma_vm_set_pte_pde(struct amdgpu_ib *ib,
-> +static void si_dma_vm_write_pte_pde(struct amdgpu_ib *ib,
->                                     uint64_t pe,
->                                     uint64_t addr, unsigned count,
->                                     uint32_t incr, uint64_t flags)
-> @@ -829,7 +829,7 @@ static const struct amdgpu_vm_pte_funcs si_dma_vm_pte=
-_funcs =3D {
->        .copy_pte =3D si_dma_vm_copy_pte,
->
->        .write_pte =3D si_dma_vm_write_pte,
-> -     .set_pte_pde =3D si_dma_vm_set_pte_pde,
-> +     .write_pte_pde =3D si_dma_vm_write_pte_pde,
->   };
->
->   static void si_dma_set_vm_pte_funcs(struct amdgpu_device *adev)
-
-
---_000_SN1PR12MB23656AEF11DEB92F8AC858FEF07A0SN1PR12MB2365namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Agree. That's much better actually.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yong</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K&ouml;nig =
-&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Monday, February 25, 2019 10:44 AM<br>
-<b>To:</b> Zhao, Yong; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Differentiate two set_pte_pde funct=
-ion pointers</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Am 21.02.19 um 23:58 schrieb Zhao, Yong:<br>
-&gt; There were two set_pte_pde function pointers in amdgpu_gmc_funcs and<b=
-r>
-&gt; amdgpu_vm_pte_funcs respectively. Because they are so similar, sometim=
-es<br>
-&gt; it is confusing. So Rename the one in amdgpu_vm_pte_funcs to<br>
-&gt; write_pte_pde.<br>
-<br>
-NAK, we also already have a write_pte function. So this only increases <br>
-the confusion.<br>
-<br>
-Instead we should rather just completely remove the gmc_*_set_pte_pde() <br=
->
-functions because they actually do exactly the same on all generations.<br>
-<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 6 &#43;&#43;&#43;=
----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h | 4 &#43;&#43;--<br=
->
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/cik_sdma.c&nbsp; | 6 &#43;&#43;=
-&#43;---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c | 6 &#43;&#43;&#43;=
----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c | 6 &#43;&#43;&#43;=
----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 6 &#43;&#43;&#43;=
----<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/si_dma.c&nbsp;&nbsp;&nbsp; | 6 =
-&#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; 7 files changed, 20 insertions(&#43;), 20 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm.c<br>
-&gt; index 942b5ebc6dc2..fa86be694e48 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt; @@ -806,7 &#43;806,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_de=
-vice *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (level !=3D AMDGPU_VM_PTB)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ats_val=
-ue |=3D AMDGPU_PDE_PTE;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_vm_set_pte_pde(adev, &amp;job-&gt;ibs[0], addr, 0,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; amdgpu_vm_write_pte_pde(adev, &amp;job-&gt;ibs[0], addr, 0,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; ats_entries, 0, ats_value);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; addr &#43;=3D ats_entries * 8;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; @@ -818,7 &#43;818,7 @@ static int amdgpu_vm_clear_bo(struct amdgpu_de=
-vice *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (level =3D=3D AMDGPU_VM_PTB &amp;&amp; adev-&gt;asic=
-_type &gt;=3D CHIP_VEGA10)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; value =
-=3D AMDGPU_PTE_EXECUTABLE;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_vm_set_pte_pde(adev, &amp;job-&gt;ibs[0], addr, 0,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; amdgpu_vm_write_pte_pde(adev, &amp;job-&gt;ibs[0], addr, 0,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; entries, 0, value);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; @@ -1235,7 &#43;1235,7 @@ static void amdgpu_vm_do_set_ptes(struct amd=
-gpu_pte_update_params *params,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr | fla=
-gs, count, incr);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; amdgpu_vm_set_pte_pde(params-&gt;adev, params-&gt;ib, pe, addr,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; amdgpu_vm_write_pte_pde(params-&gt;adev, params-&gt;ib, pe, addr,<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; count, incr, flags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_vm.h<br>
-&gt; index 81ff8177f092..7e345ec2671f 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
-&gt; @@ -161,7 &#43;161,7 @@ struct amdgpu_vm_pte_funcs {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; uint64_t value, unsigned count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp; uint32_t incr);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* for linear pte/pde update=
-s without addr mapping */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; void (*set_pte_pde)(struct amdgpu_ib *ib,<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; void (*write_pte_pde)(struct amdgpu_ib *=
-ib,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; uint64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; uint64_t addr, unsigned count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; uint32_t incr, uint64_t flags);<br>
-&gt; @@ -287,7 &#43;287,7 @@ struct amdgpu_vm_manager {<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; #define amdgpu_vm_copy_pte(adev, ib, pe, src, count) ((ade=
-v)-&gt;vm_manager.vm_pte_funcs-&gt;copy_pte((ib), (pe), (src), (count)))<br=
->
-&gt;&nbsp;&nbsp; #define amdgpu_vm_write_pte(adev, ib, pe, value, count, in=
-cr) ((adev)-&gt;vm_manager.vm_pte_funcs-&gt;write_pte((ib), (pe), (value), =
-(count), (incr)))<br>
-&gt; -#define amdgpu_vm_set_pte_pde(adev, ib, pe, addr, count, incr, flags)=
- ((adev)-&gt;vm_manager.vm_pte_funcs-&gt;set_pte_pde((ib), (pe), (addr), (c=
-ount), (incr), (flags)))<br>
-&gt; &#43;#define amdgpu_vm_write_pte_pde(adev, ib, pe, addr, count, incr, =
-flags) ((adev)-&gt;vm_manager.vm_pte_funcs-&gt;write_pte_pde((ib), (pe), (a=
-ddr), (count), (incr), (flags)))<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; void amdgpu_vm_manager_init(struct amdgpu_device *adev);<b=
-r>
-&gt;&nbsp;&nbsp; void amdgpu_vm_manager_fini(struct amdgpu_device *adev);<b=
-r>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/a=
-md/amdgpu/cik_sdma.c<br>
-&gt; index 189599b694e8..07b874a44ddf 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c<br>
-&gt; @@ -769,7 &#43;769,7 @@ static void cik_sdma_vm_write_pte(struct amdgp=
-u_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; - * cik_sdma_vm_set_pages - update the page tables using sDMA<br>
-&gt; &#43; * cik_sdma_vm_write_pte_pde - update the page tables using sDMA<=
-br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @ib: indirect buffer to fill with commands<br>
-&gt;&nbsp;&nbsp;&nbsp; * @pe: addr of the page entry<br>
-&gt; @@ -780,7 &#43;780,7 @@ static void cik_sdma_vm_write_pte(struct amdgp=
-u_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * Update the page tables using sDMA (CIK).<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -static void cik_sdma_vm_set_pte_pde(struct amdgpu_ib *ib, uint64_t pe=
-,<br>
-&gt; &#43;static void cik_sdma_vm_write_pte_pde(struct amdgpu_ib *ib, uint6=
-4_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t a=
-ddr, unsigned count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t i=
-ncr, uint64_t flags)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; @@ -1365,7 &#43;1365,7 @@ static const struct amdgpu_vm_pte_funcs cik_=
-sdma_vm_pte_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .copy_pte =3D cik_sdma_vm_co=
-py_pte,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte =3D cik_sdma_vm_w=
-rite_pte,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .set_pte_pde =3D cik_sdma_vm_set_pte_pde,<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte_pde =3D cik_sdma_vm_write_pte=
-_pde,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static void cik_sdma_set_vm_pte_funcs(struct amdgpu_device=
- *adev)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/=
-amd/amdgpu/sdma_v2_4.c<br>
-&gt; index cca3552b36ed..3161871c1a57 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c<br>
-&gt; @@ -707,7 &#43;707,7 @@ static void sdma_v2_4_vm_write_pte(struct amdg=
-pu_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; - * sdma_v2_4_vm_set_pte_pde - update the page tables using sDMA<br>
-&gt; &#43; * sdma_v2_4_vm_write_pte_pde - update the page tables using sDMA=
-<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @ib: indirect buffer to fill with commands<br>
-&gt;&nbsp;&nbsp;&nbsp; * @pe: addr of the page entry<br>
-&gt; @@ -718,7 &#43;718,7 @@ static void sdma_v2_4_vm_write_pte(struct amdg=
-pu_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * Update the page tables using sDMA (CIK).<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -static void sdma_v2_4_vm_set_pte_pde(struct amdgpu_ib *ib, uint64_t p=
-e,<br>
-&gt; &#43;static void sdma_v2_4_vm_write_pte_pde(struct amdgpu_ib *ib, uint=
-64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-64_t addr, unsigned count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t incr, uint64_t flags)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; @@ -1252,7 &#43;1252,7 @@ static const struct amdgpu_vm_pte_funcs sdma=
-_v2_4_vm_pte_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .copy_pte =3D sdma_v2_4_vm_c=
-opy_pte,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte =3D sdma_v2_4_vm_=
-write_pte,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .set_pte_pde =3D sdma_v2_4_vm_set_pte_pde,<b=
-r>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte_pde =3D sdma_v2_4_vm_write_pt=
-e_pde,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static void sdma_v2_4_set_vm_pte_funcs(struct amdgpu_devic=
-e *adev)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/=
-amd/amdgpu/sdma_v3_0.c<br>
-&gt; index 0ce8331baeb2..e369013a6bce 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c<br>
-&gt; @@ -978,7 &#43;978,7 @@ static void sdma_v3_0_vm_write_pte(struct amdg=
-pu_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; - * sdma_v3_0_vm_set_pte_pde - update the page tables using sDMA<br>
-&gt; &#43; * sdma_v3_0_vm_write_pte_pde - update the page tables using sDMA=
-<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @ib: indirect buffer to fill with commands<br>
-&gt;&nbsp;&nbsp;&nbsp; * @pe: addr of the page entry<br>
-&gt; @@ -989,7 &#43;989,7 @@ static void sdma_v3_0_vm_write_pte(struct amdg=
-pu_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * Update the page tables using sDMA (CIK).<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -static void sdma_v3_0_vm_set_pte_pde(struct amdgpu_ib *ib, uint64_t p=
-e,<br>
-&gt; &#43;static void sdma_v3_0_vm_write_pte_pde(struct amdgpu_ib *ib, uint=
-64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-64_t addr, unsigned count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t incr, uint64_t flags)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; @@ -1690,7 &#43;1690,7 @@ static const struct amdgpu_vm_pte_funcs sdma=
-_v3_0_vm_pte_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .copy_pte =3D sdma_v3_0_vm_c=
-opy_pte,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte =3D sdma_v3_0_vm_=
-write_pte,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .set_pte_pde =3D sdma_v3_0_vm_set_pte_pde,<b=
-r>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte_pde =3D sdma_v3_0_vm_write_pt=
-e_pde,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static void sdma_v3_0_set_vm_pte_funcs(struct amdgpu_devic=
-e *adev)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/=
-amd/amdgpu/sdma_v4_0.c<br>
-&gt; index c816e55d43a9..e5e9eac1758d 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
-&gt; @@ -1343,7 &#43;1343,7 @@ static void sdma_v4_0_vm_write_pte(struct am=
-dgpu_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; - * sdma_v4_0_vm_set_pte_pde - update the page tables using sDMA<br>
-&gt; &#43; * sdma_v4_0_vm_write_pte_pde - update the page tables using sDMA=
-<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @ib: indirect buffer to fill with commands<br>
-&gt;&nbsp;&nbsp;&nbsp; * @pe: addr of the page entry<br>
-&gt; @@ -1354,7 &#43;1354,7 @@ static void sdma_v4_0_vm_write_pte(struct am=
-dgpu_ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * Update the page tables using sDMA (VEGA10).<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -static void sdma_v4_0_vm_set_pte_pde(struct amdgpu_ib *ib,<br>
-&gt; &#43;static void sdma_v4_0_vm_write_pte_pde(struct amdgpu_ib *ib,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-64_t addr, unsigned count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t incr, uint64_t flags)<br>
-&gt; @@ -2088,7 &#43;2088,7 @@ static const struct amdgpu_vm_pte_funcs sdma=
-_v4_0_vm_pte_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .copy_pte =3D sdma_v4_0_vm_c=
-opy_pte,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte =3D sdma_v4_0_vm_=
-write_pte,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .set_pte_pde =3D sdma_v4_0_vm_set_pte_pde,<b=
-r>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte_pde =3D sdma_v4_0_vm_write_pt=
-e_pde,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static void sdma_v4_0_set_vm_pte_funcs(struct amdgpu_devic=
-e *adev)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd=
-/amdgpu/si_dma.c<br>
-&gt; index f15f196684ba..4c1e1ce895f7 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/si_dma.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si_dma.c<br>
-&gt; @@ -353,7 &#43;353,7 @@ static void si_dma_vm_write_pte(struct amdgpu_=
-ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt; - * si_dma_vm_set_pte_pde - update the page tables using sDMA<br>
-&gt; &#43; * si_dma_vm_write_pte_pde - update the page tables using sDMA<br=
->
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @ib: indirect buffer to fill with commands<br>
-&gt;&nbsp;&nbsp;&nbsp; * @pe: addr of the page entry<br>
-&gt; @@ -364,7 &#43;364,7 @@ static void si_dma_vm_write_pte(struct amdgpu_=
-ib *ib, uint64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * Update the page tables using sDMA (CIK).<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -static void si_dma_vm_set_pte_pde(struct amdgpu_ib *ib,<br>
-&gt; &#43;static void si_dma_vm_write_pte_pde(struct amdgpu_ib *ib,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-64_t pe,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-64_t addr, unsigned count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t incr, uint64_t flags)<br>
-&gt; @@ -829,7 &#43;829,7 @@ static const struct amdgpu_vm_pte_funcs si_dma=
-_vm_pte_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .copy_pte =3D si_dma_vm_copy=
-_pte,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte =3D si_dma_vm_wri=
-te_pte,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .set_pte_pde =3D si_dma_vm_set_pte_pde,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .write_pte_pde =3D si_dma_vm_write_pte_p=
-de,<br>
-&gt;&nbsp;&nbsp; };<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static void si_dma_set_vm_pte_funcs(struct amdgpu_device *=
-adev)<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SN1PR12MB23656AEF11DEB92F8AC858FEF07A0SN1PR12MB2365namp_--
-
---===============0362089430==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0362089430==--
+DQpPbiAyMDE5LTAyLTI1IDEwOjUwIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFt
+IDIyLjAyLjE5IHVtIDIyOjI4IHNjaHJpZWIgTGl1LCBTaGFveXVuOg0KPj4gQWRqdXN0IHZyYW0g
+YmFzZSBvZmZzZXQgZm9yIFhHTUkgbWFwcGluZyB3aGVuIHVwZGF0ZSB0aGUgUFQgZW50cnkgc28N
+Cj4+IHRoZSBhZGRyZXNzIHdpbGwgZmFsbCBpbnRvIGNvcnJlY3QgWEdNSSBhcGVydHVyZSBmb3Ig
+cGVlciBkZXZpY2UNCj4+DQo+PiBDaGFuZ2UtSWQ6IEk3OGJkZjI0NGRhNjk5ZDI1NTk0ODFlZjVh
+ZmU5NjYzYjNlNzUyMjM2DQo+PiBTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVA
+YW1kLmNvbT4NCj4+IC0tLQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3ZtLmMgfCAzNSANCj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0NCj4+IMKg
+IDEgZmlsZSBjaGFuZ2VkLCAzMCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQ0KPj4NCj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyANCj4+
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4+IGluZGV4IDk0MmI1
+ZWIuLmU0MTU2M2IgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdm0uYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
+LmMNCj4+IEBAIC0xODkwLDYgKzE4OTAsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib19zcGxp
+dF9tYXBwaW5nKHN0cnVjdCANCj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRtYV9hZGRyX3QgKnBhZ2VzX2Fk
+ZHIsDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0
+cnVjdCBhbWRncHVfdm0gKnZtLA0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcgKm1hcHBpbmcsDQo+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVpbnQ2NF90IHZyYW1f
+YmFzZV9vZmZzZXQsDQo+DQo+IE5BSywgcGxlYXNlIGp1c3QgbWFrZSBzdXJlIHRoYXQgdGhlIGNv
+cnJlY3QgYWRldiBpcyB1c2VkIGRvd24gYmVsb3cuDQoNCltzaGFveXVuXcKgIFRoZSBhZGV2IG5v
+dCBvbmx5IGJlwqAgdXNlZCB0byBnZXQgdnJhbV9iYXNlX29mZnNldCAuIEl0J3MgDQphbHNvIHVz
+ZWQgdG8gZm9yIGFsbCBvdGhlciBkZXZpY2Ugc3BlY2lmaWMgc3R1ZmYgaW5jbHVkaW5nIHRoZSBQ
+VEUgLCBQREUgDQphZGRyZXNzwqAgZXRjIC7CoCBXaGF0IHdlIHdhbnQgaXMgdGhlIG9mZnNldCB0
+aGF0IGZhbGwgaW50byBwZWVyIGRldmljZSBGQiANCnRvIGJlIHByb2dyYW1tZWQgaW50byBsb2Nh
+bCBkZXZpY2UncyBQVCBlbnRyeSAuwqAgSSBkb24ndCBzZWUgYSBiZXR0ZXIgDQpzb2x1dGlvbiB0
+aGFuIGFkZCB0aGUgdnJhbV9iYXNlX29mZnNldCBhcyBhIHBhcmFtZXRlciBoZXJlIC4NCg0KPg0K
+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50NjRf
+dCBmbGFncywNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgc3RydWN0IGRybV9tbV9ub2RlICpub2RlcywNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlKQ0KPj4gQEAg
+LTE5NjUsNyArMTk2Niw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2JvX3NwbGl0X21hcHBpbmco
+c3RydWN0IA0KPj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIH0NCj4+IMKgIMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2UgaWYgKGZsYWdzICYgQU1E
+R1BVX1BURV9WQUxJRCkgew0KPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYWRkciArPSBhZGV2
+LT52bV9tYW5hZ2VyLnZyYW1fYmFzZV9vZmZzZXQ7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBhZGRyICs9IHZyYW1fYmFzZV9vZmZzZXQ7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCBhZGRyICs9IHBmbiA8PCBQQUdFX1NISUZUOw0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+
+IMKgIEBAIC0yMDEyLDYgKzIwMTMsOCBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZShzdHJ1Y3Qg
+YW1kZ3B1X2RldmljZSANCj4+ICphZGV2LA0KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgZHJtX21tX25v
+ZGUgKm5vZGVzOw0KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpleGNsdXNpdmUsICoq
+bGFzdF91cGRhdGU7DQo+PiDCoMKgwqDCoMKgIHVpbnQ2NF90IGZsYWdzOw0KPj4gK8KgwqDCoCB1
+aW50NjRfdCB2cmFtX2Jhc2Vfb2Zmc2V0ID0gYWRldi0+dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zm
+c2V0Ow0KPj4gK8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYm9fYWRldjsNCj4+IMKgwqDC
+oMKgwqAgaW50IHI7DQo+PiDCoCDCoMKgwqDCoMKgIGlmIChjbGVhciB8fCAhYm8pIHsNCj4+IEBA
+IC0yMDMwLDkgKzIwMzMsMzEgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgDQo+PiAqYWRldiwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBleGNsdXNpdmUgPSBy
+ZXNlcnZhdGlvbl9vYmplY3RfZ2V0X2V4Y2woYm8tPnRiby5yZXN2KTsNCj4+IMKgwqDCoMKgwqAg
+fQ0KPj4gwqAgLcKgwqDCoCBpZiAoYm8pDQo+PiArwqDCoMKgIGlmIChibykgew0KPj4gwqDCoMKg
+wqDCoMKgwqDCoMKgIGZsYWdzID0gYW1kZ3B1X3R0bV90dF9wdGVfZmxhZ3MoYWRldiwgYm8tPnRi
+by50dG0sIG1lbSk7DQo+PiAtwqDCoMKgIGVsc2UNCj4+ICvCoMKgwqDCoMKgwqDCoCBib19hZGV2
+ID0gYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldik7DQo+PiArwqDCoMKgwqDCoMKgwqAgaWYg
+KG1lbSAmJiBtZW0tPm1lbV90eXBlID09IFRUTV9QTF9WUkFNICYmIGFkZXYgIT0gYm9fYWRldikg
+ew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGRybV9kZWJ1ZyAmIERSTV9VVF9EUklW
+RVIpIHsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbGlzdF9mb3JfZWFjaF9l
+bnRyeShtYXBwaW5nLCAmYm9fdmEtPmludmFsaWRzLCBsaXN0KSB7DQo+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgRFJNX0RFQlVHX0RSSVZFUigiVHJ5IG1hcCBWUkFN
+IHZhIDB4JWxseCAtIA0KPj4gMHglbGx4LCBvZmZzZXQgMHglbGx4LCBmcm9tIGRldiAlcyBmb3Ig
+cGVlciBHUFUgJXMgYWNjZXNzLlxuIiwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgIG1hcHBpbmctPnN0YXJ0IDw8IFBBR0VfU0hJRlQsDQo+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAoKG1hcHBpbmctPmxh
+c3QgKyAxKSA8PCBQQUdFX1NISUZUKSAtIDEsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBub2RlcyA/IG5vZGVzLT5zdGFydCA8PCBQQUdFX1NISUZU
+IDogMGxsLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgZGV2X25hbWUoYm9fYWRldi0+ZGV2KSwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRldl9uYW1lKGFkZXYtPmRldikpOw0KPg0KPiBCaWcgTkFL
+IGFzIHdlbGwuIElmIHlvdSB3YW50IHRvIG1ha2UgdGhhdCBraW5kIG9mIGRlYnVnZ2luZyB0aGUg
+cGxlYXNlIA0KPiB1c2UgdHJhY2UgcG9pbnRzIGZvciBpdCBhbmQgbm90IHN1Y2ggZXh0ZW5zaXZl
+IGRlYnVnIG1lc3NhZ2VzLg0KDQpbc2hhb3l1bmxdIFRoaXMgZGVidWcgbWVzc2FnZSBjYW4gaGVs
+cCBtZSBkZWJ1ZyBvbiBzb21lIFZNIGZhdWx0IGR1cmluZyANClhHTUkgYnJpbmcgdXAgLiBOb3Qg
+c3VyZSB3aGV0aGVyIEkgY2FuIGdldCBzYW1lwqAgaWYgSSBtb3ZlIGl0IGludG8gdHJhY2UgDQpz
+aW5jZSBpdCBtYXkgbG9zZSBzb21lIHNlcXVlbmNlIGluZm9ybWF0aW9uIGVzcGVjaWFsbHkgd2hl
+bsKgIEkgbmVlZCB0byANCmNvb3JkaW5hdGUgd2l0aCBLRkQgKG9yIGV2ZW7CoCB1c2VyIGxldmVs
+KSBwcmludCBtZXNzYWdlIGZvciBtZW1vcnkgDQphbGxvY2F0aW9uIGFuZCBtYXBwaW5nIC7CoCBC
+dXQgYW55d2F5ICwgaWYgeW91IHN0cm9uZ2x5IGFnYWluc3QgdGhpcyANCmRlYnVnIG1lc3NhZ2Ug
+LCBJIGNhbiByZW1vdmUgaXQgLg0KDQpSZWdhcmRzDQoNCnNoYW95dW4ubGl1DQoNCg0KPiBSZWdh
+cmRzLA0KPiBDaHJpc3RpYW4uDQo+DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IH0NCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGlmIChhZGV2LT5nbWMueGdtaS5oaXZlX2lkICYmDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIGFkZXYtPmdtYy54Z21pLmhpdmVfaWQgPT0gYm9fYWRldi0+Z21jLnhnbWku
+aGl2ZV9pZCkgew0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB2cmFtX2Jhc2Vf
+b2Zmc2V0ID0gDQo+PiBib19hZGV2LT52bV9tYW5hZ2VyLnZyYW1fYmFzZV9vZmZzZXQ7DQo+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIERSTV9ERUJVR19EUklWRVIoIlVzZWQgWEdN
+SSBtYXBwaW5nLCANCj4+IHZyYW1fYmFzZV9vZmZzZXQgMHglbGx4LlxuIiwNCj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB2cmFtX2Jhc2Vfb2Zmc2V0KTsNCj4+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0gZWxzZSB7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIERSTV9ERUJVR19EUklWRVIoIkZhaWxlZCB0byBtYXAgdGhlIFZSQU0gZm9yIG90
+aGVyIA0KPj4gZGV2aWNlIGFjY2Vzcy5cbiIpOw0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gLUVJTlZBTDsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+
+ICvCoMKgwqDCoMKgwqDCoCB9DQo+PiArwqDCoMKgIH0gZWxzZQ0KPj4gwqDCoMKgwqDCoMKgwqDC
+oMKgIGZsYWdzID0gMHgwOw0KPj4gwqAgwqDCoMKgwqDCoCBpZiAoY2xlYXIgfHwgKGJvICYmIGJv
+LT50Ym8ucmVzdiA9PSB2bS0+cm9vdC5iYXNlLmJvLT50Ym8ucmVzdikpDQo+PiBAQCAtMjA1MCw4
+ICsyMDc1LDggQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+DQo+PiAqYWRldiwNCj4+IMKgIMKgwqDCoMKgwqAgbGlzdF9mb3JfZWFjaF9lbnRyeShtYXBwaW5n
+LCAmYm9fdmEtPmludmFsaWRzLCBsaXN0KSB7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgciA9IGFt
+ZGdwdV92bV9ib19zcGxpdF9tYXBwaW5nKGFkZXYsIGV4Y2x1c2l2ZSwgcGFnZXNfYWRkciwgDQo+
+PiB2bSwNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIG1hcHBpbmcsIGZsYWdzLCBub2RlcywNCj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxhc3RfdXBkYXRlKTsNCj4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1hcHBpbmcsIHZy
+YW1fYmFzZV9vZmZzZXQsIGZsYWdzLA0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbm9kZXMsIGxhc3RfdXBkYXRlKTsNCj4+IMKgwqDCoMKg
+wqDCoMKgwqDCoCBpZiAocikNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiBy
+Ow0KPj4gwqDCoMKgwqDCoCB9DQo+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZng=
