@@ -1,16 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 0/5] Clean up TTM mmap offsets
-Date: Tue, 26 Feb 2019 14:01:04 +0100
-Message-ID: <387dcf10-77a2-1ba9-c63e-a925d11fd091@gmail.com>
-References: <20190207085931.29569-1-tzimmermann@suse.de>
- <e03e4cff-557b-9d50-dba8-94835e768743@amd.com>
- <552aa321-98d4-344d-eda2-8441940b5811@suse.de>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH 2/3] drm/amdgpu: wait for VM to become idle during flush
+Date: Tue, 26 Feb 2019 14:05:42 +0100
+Message-ID: <20190226130543.1883-2-christian.koenig@amd.com>
+References: <20190226130543.1883-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0757250819=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <552aa321-98d4-344d-eda2-8441940b5811-l3A5Bk7waGM@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20190226130543.1883-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,218 +18,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <z.liuxinliang-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <zourongrong-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <kong.kongxinwei-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org" <puck.chen-C8/M+/jPZTeaMJb+Lgu22Q@public.gmane.org>, "bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org" <linux-graphics-maintainer-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>, "hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org" <hdegoede-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "arnd-r2nGTMty4D4@public.gmane.org" <arnd-r2nGTMty4D4@public.gmane.org>, "gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org" <gregkh-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>Zh
-Cc: "spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <spice-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org" <virtualization-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0757250819==
-Content-Type: multipart/alternative;
- boundary="------------519B1619873C07614C46F7E4"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------519B1619873C07614C46F7E4
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 07.02.19 um 10:45 schrieb Thomas Zimmermann:
-> Am 07.02.19 um 10:36 schrieb Koenig, Christian:
->> Am 07.02.19 um 09:59 schrieb Thomas Zimmermann:
->>> Almost all TTM-based drivers use the same values for the mmap-able
->>> range of BO addresses. Each driver therefore duplicates the
->>> DRM_FILE_PAGE_OFFSET constant. OTOH, the mmap range's size is not
->>> configurable by drivers.
->>>
->>> This patch set replaces driver-specific configuration with a single
->>> setup. All code is located within TTM. TTM and GEM share the same
->>> range for mmap-able BOs.
->>>
->>> Thomas Zimmermann (5):
->>>     staging/vboxvideo: Use same BO mmap offset as other drivers
->>>     drm/ttm: Define a single DRM_FILE_PAGE_OFFSET constant
->>>     drm/ttm: Remove file_page_offset parameter from ttm_bo_device_init()
->>>     drm/ttm: Quick-test mmap offset in ttm_bo_mmap()
->>>     drm: Use the same mmap-range offset and size for GEM and TTM
->> Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org> for the whole
->> series.
-> That was quick! Thank you.
-
-FYI I just pushed this series into our internal branch for upstreaming.
-
-Regards,
-Christian.
-
->
->> Nice cleanup! Thanks,
->> Christian.
->>
->>>    drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 12 ++----------
->>>    drivers/gpu/drm/ast/ast_drv.h               |  2 --
->>>    drivers/gpu/drm/ast/ast_ttm.c               | 10 ++--------
->>>    drivers/gpu/drm/bochs/bochs.h               |  2 --
->>>    drivers/gpu/drm/bochs/bochs_mm.c            | 10 ++--------
->>>    drivers/gpu/drm/cirrus/cirrus_drv.h         |  1 -
->>>    drivers/gpu/drm/cirrus/cirrus_ttm.c         | 10 ++--------
->>>    drivers/gpu/drm/drm_gem.c                   | 17 -----------------
->>>    drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c | 12 ++----------
->>>    drivers/gpu/drm/mgag200/mgag200_drv.h       |  1 -
->>>    drivers/gpu/drm/mgag200/mgag200_ttm.c       | 10 ++--------
->>>    drivers/gpu/drm/nouveau/nouveau_drv.h       |  2 --
->>>    drivers/gpu/drm/nouveau/nouveau_ttm.c       |  4 ----
->>>    drivers/gpu/drm/qxl/qxl_drv.h               |  3 ---
->>>    drivers/gpu/drm/qxl/qxl_ttm.c               | 11 +++--------
->>>    drivers/gpu/drm/radeon/radeon_ttm.c         | 13 ++-----------
->>>    drivers/gpu/drm/ttm/ttm_bo.c                |  6 +++---
->>>    drivers/gpu/drm/ttm/ttm_bo_vm.c             |  3 +++
->>>    drivers/gpu/drm/virtio/virtgpu_ttm.c        |  4 +---
->>>    drivers/gpu/drm/vmwgfx/vmwgfx_drv.c         |  1 -
->>>    drivers/gpu/drm/vmwgfx/vmwgfx_drv.h         |  1 -
->>>    drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c    | 11 ++---------
->>>    drivers/staging/vboxvideo/vbox_drv.h        |  2 --
->>>    drivers/staging/vboxvideo/vbox_ttm.c        | 12 +++---------
->>>    include/drm/drm_vma_manager.h               | 12 ++++++++++++
->>>    include/drm/ttm/ttm_bo_driver.h             |  2 +-
->>>    26 files changed, 42 insertions(+), 132 deletions(-)
->>>
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->>
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------519B1619873C07614C46F7E4
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 07.02.19 um 10:45 schrieb Thomas
-      Zimmermann:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:552aa321-98d4-344d-eda2-8441940b5811-l3A5Bk7waGM@public.gmane.org">
-      <pre class="moz-quote-pre" wrap="">Am 07.02.19 um 10:36 schrieb Koenig, Christian:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">Am 07.02.19 um 09:59 schrieb Thomas Zimmermann:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Almost all TTM-based drivers use the same values for the mmap-able
-range of BO addresses. Each driver therefore duplicates the
-DRM_FILE_PAGE_OFFSET constant. OTOH, the mmap range's size is not
-configurable by drivers.
-
-This patch set replaces driver-specific configuration with a single
-setup. All code is located within TTM. TTM and GEM share the same
-range for mmap-able BOs.
-
-Thomas Zimmermann (5):
-   staging/vboxvideo: Use same BO mmap offset as other drivers
-   drm/ttm: Define a single DRM_FILE_PAGE_OFFSET constant
-   drm/ttm: Remove file_page_offset parameter from ttm_bo_device_init()
-   drm/ttm: Quick-test mmap offset in ttm_bo_mmap()
-   drm: Use the same mmap-range offset and size for GEM and TTM
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-Reviewed-by: Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a> for the whole 
-series.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-That was quick! Thank you.</pre>
-    </blockquote>
-    <br>
-    FYI I just pushed this series into our internal branch for
-    upstreaming.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:552aa321-98d4-344d-eda2-8441940b5811-l3A5Bk7waGM@public.gmane.org">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Nice cleanup! Thanks,
-Christian.
-
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 12 ++----------
-  drivers/gpu/drm/ast/ast_drv.h               |  2 --
-  drivers/gpu/drm/ast/ast_ttm.c               | 10 ++--------
-  drivers/gpu/drm/bochs/bochs.h               |  2 --
-  drivers/gpu/drm/bochs/bochs_mm.c            | 10 ++--------
-  drivers/gpu/drm/cirrus/cirrus_drv.h         |  1 -
-  drivers/gpu/drm/cirrus/cirrus_ttm.c         | 10 ++--------
-  drivers/gpu/drm/drm_gem.c                   | 17 -----------------
-  drivers/gpu/drm/hisilicon/hibmc/hibmc_ttm.c | 12 ++----------
-  drivers/gpu/drm/mgag200/mgag200_drv.h       |  1 -
-  drivers/gpu/drm/mgag200/mgag200_ttm.c       | 10 ++--------
-  drivers/gpu/drm/nouveau/nouveau_drv.h       |  2 --
-  drivers/gpu/drm/nouveau/nouveau_ttm.c       |  4 ----
-  drivers/gpu/drm/qxl/qxl_drv.h               |  3 ---
-  drivers/gpu/drm/qxl/qxl_ttm.c               | 11 +++--------
-  drivers/gpu/drm/radeon/radeon_ttm.c         | 13 ++-----------
-  drivers/gpu/drm/ttm/ttm_bo.c                |  6 +++---
-  drivers/gpu/drm/ttm/ttm_bo_vm.c             |  3 +++
-  drivers/gpu/drm/virtio/virtgpu_ttm.c        |  4 +---
-  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c         |  1 -
-  drivers/gpu/drm/vmwgfx/vmwgfx_drv.h         |  1 -
-  drivers/gpu/drm/vmwgfx/vmwgfx_ttm_glue.c    | 11 ++---------
-  drivers/staging/vboxvideo/vbox_drv.h        |  2 --
-  drivers/staging/vboxvideo/vbox_ttm.c        | 12 +++---------
-  include/drm/drm_vma_manager.h               | 12 ++++++++++++
-  include/drm/ttm/ttm_bo_driver.h             |  2 +-
-  26 files changed, 42 insertions(+), 132 deletions(-)
-
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-_______________________________________________
-dri-devel mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/dri-devel">https://lists.freedesktop.org/mailman/listinfo/dri-devel</a>
-
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------519B1619873C07614C46F7E4--
-
---===============0757250819==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0757250819==--
+TWFrZSBzdXJlIHRoYXQgbm90IG9ubHkgdGhlIGVudGl0aWVzIGFyZSBmbHVzaCwgYnV0IHRoYXQK
+d2UgYWxzbyB3YWl0IGZvciB0aGUgSFcgdG8gZmluaXNoIGFsbCBwcm9jZXNzaW5nLgoKU2lnbmVk
+LW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYyB8ICA2ICsrKy0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5oIHwgIDIgKy0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyB8ICA3ICsrKystLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICB8IDEyICsrKysrKysrKysrKwogZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmggIHwgIDIgKysKIDUgZmlsZXMgY2hhbmdlZCwgMjIg
+aW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfY3R4LmMKaW5kZXggMjkyMzYxYWY0Y2EyLi42MDkxMjM1ZjlmZGQgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3R4LmMKQEAgLTU0MSwxMyArNTQxLDEyIEBAIHZvaWQg
+YW1kZ3B1X2N0eF9tZ3JfaW5pdChzdHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgKm1ncikKIAlpZHJfaW5p
+dCgmbWdyLT5jdHhfaGFuZGxlcyk7CiB9CiAKLXZvaWQgYW1kZ3B1X2N0eF9tZ3JfZW50aXR5X2Zs
+dXNoKHN0cnVjdCBhbWRncHVfY3R4X21nciAqbWdyKQorbG9uZyBhbWRncHVfY3R4X21ncl9lbnRp
+dHlfZmx1c2goc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IsIGxvbmcgdGltZW91dCkKIHsKIAl1
+bnNpZ25lZCBudW1fZW50aXRpZXMgPSBhbWRncHV0X2N0eF90b3RhbF9udW1fZW50aXRpZXMoKTsK
+IAlzdHJ1Y3QgYW1kZ3B1X2N0eCAqY3R4OwogCXN0cnVjdCBpZHIgKmlkcDsKIAl1aW50MzJfdCBp
+ZCwgaTsKLQlsb25nIG1heF93YWl0ID0gTUFYX1dBSVRfU0NIRURfRU5USVRZX1FfRU1QVFk7CiAK
+IAlpZHAgPSAmbWdyLT5jdHhfaGFuZGxlczsKIApAQCAtNTU3LDEwICs1NTYsMTEgQEAgdm9pZCBh
+bWRncHVfY3R4X21ncl9lbnRpdHlfZmx1c2goc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IpCiAJ
+CQlzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5OwogCiAJCQllbnRpdHkgPSAmY3R4LT5l
+bnRpdGllc1swXVtpXS5lbnRpdHk7Ci0JCQltYXhfd2FpdCA9IGRybV9zY2hlZF9lbnRpdHlfZmx1
+c2goZW50aXR5LCBtYXhfd2FpdCk7CisJCQl0aW1lb3V0ID0gZHJtX3NjaGVkX2VudGl0eV9mbHVz
+aChlbnRpdHksIHRpbWVvdXQpOwogCQl9CiAJfQogCW11dGV4X3VubG9jaygmbWdyLT5sb2NrKTsK
+KwlyZXR1cm4gdGltZW91dDsKIH0KIAogdm9pZCBhbWRncHVfY3R4X21ncl9lbnRpdHlfZmluaShz
+dHJ1Y3QgYW1kZ3B1X2N0eF9tZ3IgKm1ncikKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9jdHguaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9jdHguaAppbmRleCBiM2IwMTJjMGE3ZGEuLjc4MDNiZGFjNThhMCAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2N0eC5oCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9jdHguaApAQCAtODIsNyArODIsNyBAQCBpbnQgYW1kZ3B1X2N0
+eF93YWl0X3ByZXZfZmVuY2Uoc3RydWN0IGFtZGdwdV9jdHggKmN0eCwKIAogdm9pZCBhbWRncHVf
+Y3R4X21ncl9pbml0KHN0cnVjdCBhbWRncHVfY3R4X21nciAqbWdyKTsKIHZvaWQgYW1kZ3B1X2N0
+eF9tZ3JfZW50aXR5X2Zpbmkoc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IpOwotdm9pZCBhbWRn
+cHVfY3R4X21ncl9lbnRpdHlfZmx1c2goc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3IpOworbG9u
+ZyBhbWRncHVfY3R4X21ncl9lbnRpdHlfZmx1c2goc3RydWN0IGFtZGdwdV9jdHhfbWdyICptZ3Is
+IGxvbmcgdGltZW91dCk7CiB2b2lkIGFtZGdwdV9jdHhfbWdyX2Zpbmkoc3RydWN0IGFtZGdwdV9j
+dHhfbWdyICptZ3IpOwogCiAjZW5kaWYKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+cnYuYwppbmRleCAyMjMwMTNlZjg0NjYuLmVlMmNhMjRjMTVlYiAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpAQCAtMTE1OCwxMyArMTE1OCwxNCBAQCBzdGF0aWMgaW50
+IGFtZGdwdV9mbHVzaChzdHJ1Y3QgZmlsZSAqZiwgZmxfb3duZXJfdCBpZCkKIHsKIAlzdHJ1Y3Qg
+ZHJtX2ZpbGUgKmZpbGVfcHJpdiA9IGYtPnByaXZhdGVfZGF0YTsKIAlzdHJ1Y3QgYW1kZ3B1X2Zw
+cml2ICpmcHJpdiA9IGZpbGVfcHJpdi0+ZHJpdmVyX3ByaXY7CisJbG9uZyB0aW1lb3V0ID0gTUFY
+X1dBSVRfU0NIRURfRU5USVRZX1FfRU1QVFk7CiAKLQlhbWRncHVfY3R4X21ncl9lbnRpdHlfZmx1
+c2goJmZwcml2LT5jdHhfbWdyKTsKKwl0aW1lb3V0ID0gYW1kZ3B1X2N0eF9tZ3JfZW50aXR5X2Zs
+dXNoKCZmcHJpdi0+Y3R4X21nciwgdGltZW91dCk7CisJdGltZW91dCA9IGFtZGdwdV92bV93YWl0
+X2lkbGUoJmZwcml2LT52bSwgdGltZW91dCk7CiAKLQlyZXR1cm4gMDsKKwlyZXR1cm4gdGltZW91
+dCA+PSAwID8gMCA6IHRpbWVvdXQ7CiB9CiAKLQogc3RhdGljIGNvbnN0IHN0cnVjdCBmaWxlX29w
+ZXJhdGlvbnMgYW1kZ3B1X2RyaXZlcl9rbXNfZm9wcyA9IHsKIAkub3duZXIgPSBUSElTX01PRFVM
+RSwKIAkub3BlbiA9IGRybV9vcGVuLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
+YwppbmRleCBmODliMjljZmIzZTIuLjYyZDdlMGI4YjgwOCAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3ZtLmMKQEAgLTI5NDQsNiArMjk0NCwxOCBAQCBzdGF0aWMgc3RydWN0IGFt
+ZGdwdV9yZXRyeWZhdWx0X2hhc2h0YWJsZSAqaW5pdF9mYXVsdF9oYXNoKHZvaWQpCiAJcmV0dXJu
+IGZhdWx0X2hhc2g7CiB9CiAKKy8qKgorICogYW1kZ3B1X3ZtX3dhaXRfaWRsZSAtIHdhaXQgZm9y
+IHRoZSBWTSB0byBiZWNvbWUgaWRsZQorICoKKyAqIEB2bTogVk0gb2JqZWN0IHRvIHdhaXQgZm9y
+CisgKiBAdGltZW91dDogdGltZW91dCB0byB3YWl0IGZvciBWTSB0byBiZWNvbWUgaWRsZQorICov
+Citsb25nIGFtZGdwdV92bV93YWl0X2lkbGUoc3RydWN0IGFtZGdwdV92bSAqdm0sIGxvbmcgdGlt
+ZW91dCkKK3sKKwlyZXR1cm4gcmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGltZW91dF9yY3Uodm0t
+PnJvb3QuYmFzZS5iby0+dGJvLnJlc3YsCisJCQkJCQkgICB0cnVlLCB0cnVlLCB0aW1lb3V0KTsK
+K30KKwogLyoqCiAgKiBhbWRncHVfdm1faW5pdCAtIGluaXRpYWxpemUgYSB2bSBpbnN0YW5jZQog
+ICoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgKaW5kZXggM2M2NTM3ZWY2NTlj
+Li4zYjAyYTYyZTcyZDAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV92bS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCkBA
+IC0yOTAsNiArMjkwLDggQEAgc3RydWN0IGFtZGdwdV92bV9tYW5hZ2VyIHsKIAogdm9pZCBhbWRn
+cHVfdm1fbWFuYWdlcl9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIHZvaWQgYW1k
+Z3B1X3ZtX21hbmFnZXJfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CisKK2xvbmcg
+YW1kZ3B1X3ZtX3dhaXRfaWRsZShzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwgbG9uZyB0aW1lb3V0KTsK
+IGludCBhbWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFt
+ZGdwdV92bSAqdm0sCiAJCSAgIGludCB2bV9jb250ZXh0LCB1bnNpZ25lZCBpbnQgcGFzaWQpOwog
+aW50IGFtZGdwdV92bV9tYWtlX2NvbXB1dGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0
+cnVjdCBhbWRncHVfdm0gKnZtLCB1bnNpZ25lZCBpbnQgcGFzaWQpOwotLSAKMi4xNy4xCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
