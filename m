@@ -1,73 +1,47 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/ttm: Account for kernel allocations in kernel
- zone only
-Date: Tue, 26 Feb 2019 04:25:01 +0000
-Message-ID: <bb790c95-469f-470c-0a53-014d8c326e3d@amd.com>
-References: <1550877522-15317-1-git-send-email-Felix.Kuehling@amd.com>
- <a0f6aa85-ab0e-e809-5e05-98056b9c7185@amd.com>
- <a2fcbc0155a7f1eea9a6df9669dc2de75315e937.camel@vmware.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amdgpu: remove set but not used variable 'vbi_time_out'
+Date: Tue, 26 Feb 2019 05:48:28 +0000
+Message-ID: <20190226054828.120809-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a2fcbc0155a7f1eea9a6df9669dc2de75315e937.camel-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>
-Content-Language: en-US
-Content-ID: <A16EBF5B9ADB054B9D4AB7F50901CA67-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Thomas Hellstrom <thellstrom-pghWNbHTmq7QT0dZR+AlfA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, gustavo@embeddedor.com, keescook@chromium.org, Rex.Zhu@amd.com, evan.quan@amd.com, ray.huang@amd.com
+Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMi8yNS8yMDE5IDI6NTggUE0sIFRob21hcyBIZWxsc3Ryb20gd3JvdGU6DQo+IE9uIE1vbiwg
-MjAxOS0wMi0yNSBhdCAxNDoyMCArMDAwMCwgS29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6DQo+PiBB
-bSAyMy4wMi4xOSB1bSAwMDoxOSBzY2hyaWViIEt1ZWhsaW5nLCBGZWxpeDoNCj4+PiBEb24ndCBh
-Y2NvdW50IGZvciB0aGVtIGluIG90aGVyIHpvbmVzIHN1Y2ggYXMgZG1hMzIuIFRoZSBrZXJuZWwN
-Cj4+PiBwYWdlDQo+Pj4gYWxsb2NhdG9yIGhhcyBpdHMgb3duIGhldXJpc3RpY3MgdG8gYXZvaWQg
-ZXhoYXVzdGluZyBzcGVjaWFsIHpvbmVzDQo+Pj4gZm9yIHJlZ3VsYXIga2VybmVsIGFsbG9jYXRp
-b25zLg0KPj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhs
-aW5nQGFtZC5jb20+DQo+Pj4gQ0M6IHRoZWxsc3Ryb21Adm13YXJlLmNvbQ0KPj4+IENDOiBjaHJp
-c3RpYW4ua29lbmlnQGFtZC5jb20NCj4+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IEhtbSwNCj4NCj4gU28gYWN0dWFsbHkgd2l0aCB0
-aGlzIHBhdGNoIHdlIHRoZW9yZXRpY2FsbHkgc3RpbGwgY2FuIGV4aGF1c3QgdGhlDQo+IERNQTMy
-IHpvbmUgYnkgZmlyc3QgcGVyZm9ybWluZyBrZXJuZWwgYWxsb2NhdGlvbnMgdGhhdCBETyBzcGFy
-ZSBhDQo+IG51bWJlciBvZiBETUEzMiBwYWdlcyAgYWNjb3JkaW5nIHRvIHRoZSBrZXJuZWwgYWxs
-b2NhdG9yIGhldXJpc3RpY3MsDQo+IGFuZCB0aGVuIHBvcHVsYXRlIFRUTSBidWZmZXJzIHdpdGgg
-RE1BMzIgcGFnZXMgb25seS4NCj4NCj4gSG93ZXZlciwgc2luY2Ugdm13Z2Z4IGJvJ3MgZG9uJ3Qg
-cmVxdWVzdCBETUEzMiBwYWdlcywgd2UncmUgT0sgd2l0aA0KPiB0aGlzLCBhbmQgaXQncyByZWFs
-bHkgdXAgdG8gQ2hyaXN0aWFuIHRvIGRlY2lkZS4gU286DQo+DQo+IEFja2VkLWJ5OiBUaG9tYXMg
-SGVsbHN0cm9tIDx0aGVsbHN0cm9tQHZtd2FyZS5jb20+DQoNClRoYW5rcy4gV2hhdCdzIHRoZSBi
-ZXN0IGJyYW5jaCB0byBzdWJtaXQgdGhpcyB0bz8gTXkgcGF0Y2hlcyB3ZXJlIGJhc2VkIA0Kb24g
-YW1kLXN0YWdpbmctZHJtLW5leHQuDQoNClJlZ2FyZHMsDQogwqAgRmVsaXgNCg0KPg0KPiBUaGFu
-a3MsDQo+IFRob21hcw0KPg0KPg0KPg0KPg0KPg0KPg0KPg0KPg0KPj4+IC0tLQ0KPj4+ICAgIGRy
-aXZlcnMvZ3B1L2RybS90dG0vdHRtX21lbW9yeS5jIHwgNiArKystLS0NCj4+PiAgICAxIGZpbGUg
-Y2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KPj4+DQo+Pj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX21lbW9yeS5jDQo+Pj4gYi9kcml2ZXJzL2dw
-dS9kcm0vdHRtL3R0bV9tZW1vcnkuYw0KPj4+IGluZGV4IGYxNTY3YzMuLjkwZDFlMjQgMTAwNjQ0
-DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fbWVtb3J5LmMNCj4+PiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1vcnkuYw0KPj4+IEBAIC01MjIsNyArNTIyLDcgQEAg
-c3RhdGljIHZvaWQgdHRtX21lbV9nbG9iYWxfZnJlZV96b25lKHN0cnVjdA0KPj4+IHR0bV9tZW1f
-Z2xvYmFsICpnbG9iLA0KPj4+ICAgIHZvaWQgdHRtX21lbV9nbG9iYWxfZnJlZShzdHJ1Y3QgdHRt
-X21lbV9nbG9iYWwgKmdsb2IsDQo+Pj4gICAgCQkJIHVpbnQ2NF90IGFtb3VudCkNCj4+PiAgICB7
-DQo+Pj4gLQlyZXR1cm4gdHRtX21lbV9nbG9iYWxfZnJlZV96b25lKGdsb2IsIE5VTEwsIGFtb3Vu
-dCk7DQo+Pj4gKwlyZXR1cm4gdHRtX21lbV9nbG9iYWxfZnJlZV96b25lKGdsb2IsIGdsb2ItPnpv
-bmVfa2VybmVsLA0KPj4+IGFtb3VudCk7DQo+Pj4gICAgfQ0KPj4+ICAgIEVYUE9SVF9TWU1CT0wo
-dHRtX21lbV9nbG9iYWxfZnJlZSk7DQo+Pj4gICAgDQo+Pj4gQEAgLTYyMSwxMCArNjIxLDEwIEBA
-IGludCB0dG1fbWVtX2dsb2JhbF9hbGxvYyhzdHJ1Y3QNCj4+PiB0dG1fbWVtX2dsb2JhbCAqZ2xv
-YiwgdWludDY0X3QgbWVtb3J5LA0KPj4+ICAgIHsNCj4+PiAgICAJLyoqDQo+Pj4gICAgCSAqIE5v
-cm1hbCBhbGxvY2F0aW9ucyBvZiBrZXJuZWwgbWVtb3J5IGFyZSByZWdpc3RlcmVkIGluDQo+Pj4g
-LQkgKiBhbGwgem9uZXMuDQo+Pj4gKwkgKiB0aGUga2VybmVsIHpvbmUuDQo+Pj4gICAgCSAqLw0K
-Pj4+ICAgIA0KPj4+IC0JcmV0dXJuIHR0bV9tZW1fZ2xvYmFsX2FsbG9jX3pvbmUoZ2xvYiwgTlVM
-TCwgbWVtb3J5LCBjdHgpOw0KPj4+ICsJcmV0dXJuIHR0bV9tZW1fZ2xvYmFsX2FsbG9jX3pvbmUo
-Z2xvYiwgZ2xvYi0+em9uZV9rZXJuZWwsDQo+Pj4gbWVtb3J5LCBjdHgpOw0KPj4+ICAgIH0NCj4+
-PiAgICBFWFBPUlRfU1lNQk9MKHR0bV9tZW1fZ2xvYmFsX2FsbG9jKTsNCj4+PiAgICANCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/amdgpu/si_dpm.c: In function 'si_program_response_times':
+drivers/gpu/drm/amd/amdgpu/si_dpm.c:4101:29: warning:
+ variable 'backbias_response_time' set but not used [-Wunused-but-set-variable]
+
+It's never used since introduction in 841686df9f7d ("drm/amdgpu: add SI DPM
+support (v4)"), so can be removed
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/si_dpm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+index 41e01a7f57a4..d57e75e5c71f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+@@ -4098,14 +4098,13 @@ static int si_notify_smc_display_change(struct amdgpu_device *adev,
+ 
+ static void si_program_response_times(struct amdgpu_device *adev)
+ {
+-	u32 voltage_response_time, backbias_response_time, acpi_delay_time, vbi_time_out;
++	u32 voltage_response_time, acpi_delay_time, vbi_time_out;
+ 	u32 vddc_dly, acpi_dly, vbi_dly;
+ 	u32 reference_clock;
+ 
+ 	si_write_smc_soft_register(adev, SI_SMC_SOFT_REGISTER_mvdd_chg_time, 1);
+ 
+ 	voltage_response_time = (u32)adev->pm.dpm.voltage_response_time;
+-	backbias_response_time = (u32)adev->pm.dpm.backbias_response_time;
+ 
+ 	if (voltage_response_time == 0)
+ 		voltage_response_time = 1000;
