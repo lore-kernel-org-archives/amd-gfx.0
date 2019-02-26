@@ -1,19 +1,18 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Enable XGMI mapping for peer device
-Date: Tue, 26 Feb 2019 20:00:44 +0100
-Message-ID: <31f9d5b6-e02f-81b5-0398-dedf27c3ed69@gmail.com>
-References: <1550870874-1213-1-git-send-email-shaoyun.liu@amd.com>
- <413211ff-8436-ee75-95b6-258967854026@gmail.com>
- <dd0a6818-e430-3439-0d66-4642a4cc4628@amd.com>
- <1fb9457c-c912-3fd6-18e8-99fdff91c6e5@gmail.com>
- <8ff6d4f9-c2a6-9186-a906-85fe072f5974@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: The problem "ring gfx timeout" are experienced yet another AMD
+ GPU Vega 8 user
+Date: Tue, 26 Feb 2019 14:56:29 -0500
+Message-ID: <CAAxE2A4Xdsutk=teU=vi_Gnr2tuwinu6_JSfkoqTGwd1NrSpxQ@mail.gmail.com>
+References: <CABXGCsMas72q52GYvH+5Po-KDPfqu74XO_YznqJKnp+-+1Mnww@mail.gmail.com>
+ <e92cffb7-6627-6f52-70de-e09d9bdbbe0a@amd.com>
+ <CAAxE2A4tM-OoxcnLw14M8aZJLPLnPm2aN4fpTVQX_aUyJ9OBNw@mail.gmail.com>
+ <CABXGCsMJKKu6DxvKvD8U6Ffkmt8KinNS96w4ygZ7xaemvEhocg@mail.gmail.com>
+ <CAAxE2A6US6YBpESnwqm-EGsDapOVVfbHXxdrkjG1UddFPO0mOQ@mail.gmail.com>
+ <CABXGCsOWGpop=5_a6nrRoqWSWagkMg_sYCPL8ZuSuByvcDDu+w@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1453893482=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8ff6d4f9-c2a6-9186-a906-85fe072f5974-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <CABXGCsOWGpop=5_a6nrRoqWSWagkMg_sYCPL8ZuSuByvcDDu+w-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,137 +23,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMjYuMDIuMTkgdW0gMTk6MTAgc2NocmllYiBMaXUsIFNoYW95dW46Cj4gT24gMjAxOS0wMi0y
-NiAyOjU1IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDI1LjAyLjE5IHVtIDE5
-OjQ3IHNjaHJpZWIgTGl1LCBTaGFveXVuOgo+Pj4gT24gMjAxOS0wMi0yNSAxMDo1MCBhLm0uLCBD
-aHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+IEFtIDIyLjAyLjE5IHVtIDIyOjI4IHNjaHJpZWIg
-TGl1LCBTaGFveXVuOgo+Pj4+PiBBZGp1c3QgdnJhbSBiYXNlIG9mZnNldCBmb3IgWEdNSSBtYXBw
-aW5nIHdoZW4gdXBkYXRlIHRoZSBQVCBlbnRyeSBzbwo+Pj4+PiB0aGUgYWRkcmVzcyB3aWxsIGZh
-bGwgaW50byBjb3JyZWN0IFhHTUkgYXBlcnR1cmUgZm9yIHBlZXIgZGV2aWNlCj4+Pj4+Cj4+Pj4+
-IENoYW5nZS1JZDogSTc4YmRmMjQ0ZGE2OTlkMjU1OTQ4MWVmNWFmZTk2NjNiM2U3NTIyMzYKPj4+
-Pj4gU2lnbmVkLW9mZi1ieTogc2hhb3l1bmwgPHNoYW95dW4ubGl1QGFtZC5jb20+Cj4+Pj4+IC0t
-LQo+Pj4+PiAgwqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDM1
-Cj4+Pj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0KPj4+Pj4gIMKgwqAgMSBm
-aWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4+Pj4+Cj4+Pj4+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+Pj4+
-PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+Pj4+IGluZGV4IDk0
-MmI1ZWIuLmU0MTU2M2IgMTAwNjQ0Cj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jCj4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jCj4+Pj4+IEBAIC0xODkwLDYgKzE4OTAsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92
-bV9ib19zcGxpdF9tYXBwaW5nKHN0cnVjdAo+Pj4+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+
-PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRtYV9h
-ZGRyX3QgKnBhZ2VzX2FkZHIsCj4+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4+Pj4+ICDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9ib192
-YV9tYXBwaW5nICptYXBwaW5nLAo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHVpbnQ2NF90IHZyYW1fYmFzZV9vZmZzZXQsCj4+Pj4gTkFLLCBwbGVhc2Ug
-anVzdCBtYWtlIHN1cmUgdGhhdCB0aGUgY29ycmVjdCBhZGV2IGlzIHVzZWQgZG93biBiZWxvdy4K
-Pj4+IFtzaGFveXVuXcKgIFRoZSBhZGV2IG5vdCBvbmx5IGJlwqAgdXNlZCB0byBnZXQgdnJhbV9i
-YXNlX29mZnNldCAuIEl0J3MKPj4+IGFsc28gdXNlZCB0byBmb3IgYWxsIG90aGVyIGRldmljZSBz
-cGVjaWZpYyBzdHVmZiBpbmNsdWRpbmcgdGhlIFBURSAsIFBERQo+Pj4gYWRkcmVzc8KgIGV0YyAu
-wqAgV2hhdCB3ZSB3YW50IGlzIHRoZSBvZmZzZXQgdGhhdCBmYWxsIGludG8gcGVlciBkZXZpY2Ug
-RkIKPj4+IHRvIGJlIHByb2dyYW1tZWQgaW50byBsb2NhbCBkZXZpY2UncyBQVCBlbnRyeSAuwqAg
-SSBkb24ndCBzZWUgYSBiZXR0ZXIKPj4+IHNvbHV0aW9uIHRoYW4gYWRkIHRoZSB2cmFtX2Jhc2Vf
-b2Zmc2V0IGFzIGEgcGFyYW1ldGVyIGhlcmUgLgo+PiBTb3VuZHMgbGlrZSB5b3UgZGlkbid0IHVu
-ZGVyc3Rvb2QgbWUuIFlvdSBzaG91bGQganVzdCBub3QgYWRkIHRoZQo+PiB2cmFtX2Jhc2Vfb2Zm
-c2V0IGFzIHRoZSBwYXJhbWV0ZXIsIGJ1dCB0aGUgYWRldiB0byB1c2UuCj4+Cj4+IEUuZy4gc29t
-ZXRoaW5nIGxpa2UgYm9fYWRldiwgc3JjX2FkZXYgb3IgbWVtX2FkZXYgb3Igc29tZXRoaW5nIGxp
-a2UgdGhhdC4KPj4KPj4gQ2hyaXN0aWFuLgo+Cj4gW3NoYW95dW5sXSBEbyB5b3UgcGxhbiB0byBk
-byBzb21lIGV4dHJhIHdpdGggdGhpcyBhZGV2KCBib19hZGV2IGFzIHlvdQo+IHN1Z2dlc3RlZCnC
-oCBvdGhlciB0aGFuIGdldCB0aGXCoCB2cmFtX2Jhc2Vfb2Zmc2V0ID8KPgo+IE90aGVyd2lzZSBJ
-IHN0aWxsIGRvbid0wqAgc2VlIHdoeSBpdCdzIGJldHRlciB0aGFuIGp1c3QgcGFzcyBpbiB0aGUK
-PiBvZmZzZXQgZGlyZWN0bHkgLgoKUXVpdGUgc2ltcGxlIGl0IGlzIG11Y2ggbW9yZSBkZXNjcmlw
-dGl2ZSB0byBkbyBzby4KCkJUVyB3aGlsZSBhdCBpdCBwbGVhc2UgcHV0IGl0IGJlZm9yZSB0byB0
-aGUgbW0gbm9kZXMsIGJlY2F1c2UgaXQgaXMgCmFjdHVhbGx5IGFuIGF0dHJpYnV0ZSBkZXNjcmli
-aW5nIHRob3NlLgoKQ2hyaXN0aWFuLgoKPgo+Cj4+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdWludDY0X3QgZmxhZ3MsCj4+Pj4+ICDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGRybV9tbV9u
-b2RlICpub2RlcywKPj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICoqZmVuY2UpCj4+Pj4+IEBAIC0xOTY1LDcgKzE5
-NjYsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib19zcGxpdF9tYXBwaW5nKHN0cnVjdAo+Pj4+
-PiBhbWRncHVfZGV2aWNlICphZGV2LAo+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCB9Cj4+Pj4+ICDCoMKgIMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2UgaWYgKGZsYWdzICYgQU1E
-R1BVX1BURV9WQUxJRCkgewo+Pj4+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGRyICs9IGFk
-ZXYtPnZtX21hbmFnZXIudnJhbV9iYXNlX29mZnNldDsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgYWRkciArPSB2cmFtX2Jhc2Vfb2Zmc2V0Owo+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBhZGRyICs9IHBmbiA8PCBQQUdFX1NISUZUOwo+Pj4+PiAgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgfQo+Pj4+PiAgwqDCoCBAQCAtMjAxMiw2ICsyMDEzLDggQEAgaW50IGFtZGdwdV92
-bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UKPj4+Pj4gKmFkZXYsCj4+Pj4+ICDCoMKg
-wqDCoMKgwqAgc3RydWN0IGRybV9tbV9ub2RlICpub2RlczsKPj4+Pj4gIMKgwqDCoMKgwqDCoCBz
-dHJ1Y3QgZG1hX2ZlbmNlICpleGNsdXNpdmUsICoqbGFzdF91cGRhdGU7Cj4+Pj4+ICDCoMKgwqDC
-oMKgwqAgdWludDY0X3QgZmxhZ3M7Cj4+Pj4+ICvCoMKgwqAgdWludDY0X3QgdnJhbV9iYXNlX29m
-ZnNldCA9IGFkZXYtPnZtX21hbmFnZXIudnJhbV9iYXNlX29mZnNldDsKPj4+Pj4gK8KgwqDCoCBz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYm9fYWRldjsKPj4+Pj4gIMKgwqDCoMKgwqDCoCBpbnQgcjsK
-Pj4+Pj4gIMKgwqAgwqDCoMKgwqDCoCBpZiAoY2xlYXIgfHwgIWJvKSB7Cj4+Pj4+IEBAIC0yMDMw
-LDkgKzIwMzMsMzEgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UKPj4+Pj4gKmFkZXYsCj4+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoCBleGNsdXNpdmUgPSBy
-ZXNlcnZhdGlvbl9vYmplY3RfZ2V0X2V4Y2woYm8tPnRiby5yZXN2KTsKPj4+Pj4gIMKgwqDCoMKg
-wqDCoCB9Cj4+Pj4+ICDCoMKgIC3CoMKgwqAgaWYgKGJvKQo+Pj4+PiArwqDCoMKgIGlmIChibykg
-ewo+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZmxhZ3MgPSBhbWRncHVfdHRtX3R0X3B0ZV9m
-bGFncyhhZGV2LCBiby0+dGJvLnR0bSwgbWVtKTsKPj4+Pj4gLcKgwqDCoCBlbHNlCj4+Pj4+ICvC
-oMKgwqDCoMKgwqDCoCBib19hZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldik7Cj4+
-Pj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAobWVtICYmIG1lbS0+bWVtX3R5cGUgPT0gVFRNX1BMX1ZS
-QU0gJiYgYWRldiAhPSBib19hZGV2KSB7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
-IChkcm1fZGVidWcgJiBEUk1fVVRfRFJJVkVSKSB7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgbGlzdF9mb3JfZWFjaF9lbnRyeShtYXBwaW5nLCAmYm9fdmEtPmludmFsaWRz
-LAo+Pj4+PiBsaXN0KSB7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBEUk1fREVCVUdfRFJJVkVSKCJUcnkgbWFwIFZSQU0gdmEgMHglbGx4IC0KPj4+Pj4gMHgl
-bGx4LCBvZmZzZXQgMHglbGx4LCBmcm9tIGRldiAlcyBmb3IgcGVlciBHUFUgJXMgYWNjZXNzLlxu
-IiwKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-bWFwcGluZy0+c3RhcnQgPDwgUEFHRV9TSElGVCwKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKChtYXBwaW5nLT5sYXN0ICsgMSkgPDwgUEFHRV9T
-SElGVCkgLSAxLAo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBub2RlcyA/IG5vZGVzLT5zdGFydCA8PCBQQUdFX1NISUZUIDogMGxsLAo+Pj4+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZXZfbmFtZShi
-b19hZGV2LT5kZXYpLAo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBkZXZfbmFtZShhZGV2LT5kZXYpKTsKPj4+PiBCaWcgTkFLIGFzIHdlbGwuIElm
-IHlvdSB3YW50IHRvIG1ha2UgdGhhdCBraW5kIG9mIGRlYnVnZ2luZyB0aGUgcGxlYXNlCj4+Pj4g
-dXNlIHRyYWNlIHBvaW50cyBmb3IgaXQgYW5kIG5vdCBzdWNoIGV4dGVuc2l2ZSBkZWJ1ZyBtZXNz
-YWdlcy4KPj4+IFtzaGFveXVubF0gVGhpcyBkZWJ1ZyBtZXNzYWdlIGNhbiBoZWxwIG1lIGRlYnVn
-IG9uIHNvbWUgVk0gZmF1bHQgZHVyaW5nCj4+PiBYR01JIGJyaW5nIHVwIC4gTm90IHN1cmUgd2hl
-dGhlciBJIGNhbiBnZXQgc2FtZcKgIGlmIEkgbW92ZSBpdCBpbnRvIHRyYWNlCj4+PiBzaW5jZSBp
-dCBtYXkgbG9zZSBzb21lIHNlcXVlbmNlIGluZm9ybWF0aW9uIGVzcGVjaWFsbHkgd2hlbsKgIEkg
-bmVlZCB0bwo+Pj4gY29vcmRpbmF0ZSB3aXRoIEtGRCAob3IgZXZlbsKgIHVzZXIgbGV2ZWwpIHBy
-aW50IG1lc3NhZ2UgZm9yIG1lbW9yeQo+Pj4gYWxsb2NhdGlvbiBhbmQgbWFwcGluZyAuwqAgQnV0
-IGFueXdheSAsIGlmIHlvdSBzdHJvbmdseSBhZ2FpbnN0IHRoaXMKPj4+IGRlYnVnIG1lc3NhZ2Ug
-LCBJIGNhbiByZW1vdmUgaXQgLgo+Pj4KPj4+IFJlZ2FyZHMKPj4+Cj4+PiBzaGFveXVuLmxpdQo+
-Pj4KPj4+Cj4+Pj4gUmVnYXJkcywKPj4+PiBDaHJpc3RpYW4uCj4+Pj4KPj4+Pj4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0K
-Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGFkZXYtPmdtYy54Z21pLmhpdmVfaWQg
-JiYKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LT5nbWMueGdtaS5o
-aXZlX2lkID09Cj4+Pj4+IGJvX2FkZXYtPmdtYy54Z21pLmhpdmVfaWQpIHsKPj4+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB2cmFtX2Jhc2Vfb2Zmc2V0ID0KPj4+Pj4gYm9fYWRl
-di0+dm1fbWFuYWdlci52cmFtX2Jhc2Vfb2Zmc2V0Owo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIERSTV9ERUJVR19EUklWRVIoIlVzZWQgWEdNSSBtYXBwaW5nLAo+Pj4+PiB2
-cmFtX2Jhc2Vfb2Zmc2V0IDB4JWxseC5cbiIsCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCB2cmFtX2Jhc2Vfb2Zmc2V0KTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgfSBlbHNlIHsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBE
-Uk1fREVCVUdfRFJJVkVSKCJGYWlsZWQgdG8gbWFwIHRoZSBWUkFNIGZvciBvdGhlcgo+Pj4+PiBk
-ZXZpY2UgYWNjZXNzLlxuIik7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-cmV0dXJuIC1FSU5WQUw7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPj4+Pj4gK8Kg
-wqDCoMKgwqDCoMKgIH0KPj4+Pj4gK8KgwqDCoCB9IGVsc2UKPj4+Pj4gIMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIGZsYWdzID0gMHgwOwo+Pj4+PiAgwqDCoCDCoMKgwqDCoMKgIGlmIChjbGVhciB8fCAo
-Ym8gJiYgYm8tPnRiby5yZXN2ID09Cj4+Pj4+IHZtLT5yb290LmJhc2UuYm8tPnRiby5yZXN2KSkK
-Pj4+Pj4gQEAgLTIwNTAsOCArMjA3NSw4IEBAIGludCBhbWRncHVfdm1fYm9fdXBkYXRlKHN0cnVj
-dCBhbWRncHVfZGV2aWNlCj4+Pj4+ICphZGV2LAo+Pj4+PiAgwqDCoCDCoMKgwqDCoMKgIGxpc3Rf
-Zm9yX2VhY2hfZW50cnkobWFwcGluZywgJmJvX3ZhLT5pbnZhbGlkcywgbGlzdCkgewo+Pj4+PiAg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV92bV9ib19zcGxpdF9tYXBwaW5nKGFkZXYs
-IGV4Y2x1c2l2ZSwgcGFnZXNfYWRkciwKPj4+Pj4gdm0sCj4+Pj4+IC3CoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1hcHBpbmcsIGZsYWdzLCBub2Rl
-cywKPj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqAgbGFzdF91cGRhdGUpOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtYXBwaW5nLCB2cmFtX2Jhc2Vfb2Zmc2V0LCBmbGFncywK
-Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqAgbm9kZXMsIGxhc3RfdXBkYXRlKTsKPj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChy
-KQo+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4+Pj4gIMKg
-wqDCoMKgwqDCoCB9Cj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwo+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============1453893482==
+Content-Type: multipart/alternative; boundary="0000000000002e69210582d176f5"
+
+--0000000000002e69210582d176f5
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Sadly, the logs don't contain any clue as to why it hangs.
+
+It would be helpful to check if the hang can be reproduced on Vega 56 or 64
+as well.
+
+Marek
+
+On Tue, Feb 26, 2019 at 7:51 AM Mikhail Gavrilov <
+mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> On Tue, 26 Feb 2019 at 00:40, Marek Ol=C5=A1=C3=A1k <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wr=
+ote:
+> >
+> > Some shaders are stuck at "s_load_dwordx4 s[32:35], s[36:37], 0x0", but
+> that might mean all sorts of things.
+> >
+> > Do you also have the dmesg log?
+> >
+> > Marek
+>
+> All files together here:
+> https://mega.nz/#F!c4RwAYDJ!0ds-bVIftIDV4KCQOaDIsw
+>
+> --
+> Best Regards,
+> Mike Gavrilov.
+>
+
+--0000000000002e69210582d176f5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Sadly, the logs don&#39;t contain any clue as to why =
+it hangs.</div><div><br></div><div>It would be helpful to check if the hang=
+ can be reproduced on Vega 56 or 64 as well.<br></div><div><br></div><div>M=
+arek<br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Tue, Feb 26, 2019 at 7:51 AM Mikhail Gavrilov &lt;<a hre=
+f=3D"mailto:mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&=
+gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0=
+px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Tu=
+e, 26 Feb 2019 at 00:40, Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:maraeo=
+@gmail.com" target=3D"_blank">maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Some shaders are stuck at &quot;s_load_dwordx4 s[32:35], s[36:37], 0x0=
+&quot;, but that might mean all sorts of things.<br>
+&gt;<br>
+&gt; Do you also have the dmesg log?<br>
+&gt;<br>
+&gt; Marek<br>
+<br>
+All files together here:<br>
+<a href=3D"https://mega.nz/#F!c4RwAYDJ!0ds-bVIftIDV4KCQOaDIsw" rel=3D"noref=
+errer" target=3D"_blank">https://mega.nz/#F!c4RwAYDJ!0ds-bVIftIDV4KCQOaDIsw=
+</a><br>
+<br>
+--<br>
+Best Regards,<br>
+Mike Gavrilov.<br>
+</blockquote></div>
+
+--0000000000002e69210582d176f5--
+
+--===============1453893482==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1453893482==--
