@@ -1,16 +1,11 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Set VM_L2_CNTL.PDE_FAULT_CLASSIFICATION to 0
-Date: Wed, 27 Feb 2019 16:52:06 +0000
-Message-ID: <SN1PR12MB23650C66AACF7D0DB1822955F0740@SN1PR12MB2365.namprd12.prod.outlook.com>
-References: <20190225230257.18676-1-Yong.Zhao@amd.com>
- <0f3d8a85-e01b-625d-b591-205f7f28af8e@gmail.com>
- <d107229a-062b-8535-87c8-17110d2223ea@amd.com>,
- <CADnq5_O55w2btKnNK7TWvgRmOuE3wC0rGXUXg+u06SdJeOSZ4Q@mail.gmail.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: KASAN caught amdgpu / HMM use-after-free
+Date: Wed, 27 Feb 2019 18:02:49 +0100
+Message-ID: <e8466985-a66b-468b-5fff-6e743180da67@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1127536778=="
+Content-Type: multipart/mixed; boundary="------------F44DAA55B53BA30728B159A3"
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_O55w2btKnNK7TWvgRmOuE3wC0rGXUXg+u06SdJeOSZ4Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,256 +16,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Philip Yang <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Cc: linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============1127536778==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_"
+This is a multi-part message in MIME format.
+--------------F44DAA55B53BA30728B159A3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
---_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
 
-Pushed. Thanks.
+See the attached dmesg excerpt. I've hit this a few times running piglit
+with amd-staging-drm-next, first on February 22nd.
 
-Yong
-________________________________
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Tuesday, February 26, 2019 10:53 PM
-To: Zhao, Yong
-Cc: Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amdgpu: Set VM_L2_CNTL.PDE_FAULT_CLASSIFICATION to=
- 0
+The memory was freed after calling hmm_mirror_unregister in
+amdgpu_mn_destroy.
 
-yes, go ahead.
 
-Alex
+-- 
+Earthling Michel Dänzer               |              https://www.amd.com
+Libre software enthusiast             |             Mesa and X developer
 
-On Tue, Feb 26, 2019 at 6:18 PM Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org> wrote:
->
-> So can I submit it only with the ACKs?
->
-> Yong
->
-> On 2019-02-26 5:29 a.m., Christian K=F6nig wrote:
-> > Am 26.02.19 um 00:03 schrieb Zhao, Yong:
-> >> This is recommended by HW designers. Previously when it was set to 1,
-> >> the PDE walk error in VM fault will be treated as
-> >> PERMISSION_OR_INVALID_PAGE_FAULT rather than usually expected
-> >> OTHER_FAULT.
-> >> As a result, the retry control in VM_CONTEXT*_CNTL will change
-> >> accordingly.
-> >>
-> >> The above behavior is kind of abnormal. Furthermore, the
-> >> PDE_FAULT_CLASSIFICATION =3D=3D 1 feature was targeted for very old AS=
-ICs
-> >> and it never made it way to production. Therefore, we should set it
-> >> to 0.
-> >>
-> >> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-> >
-> > Acked-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> >
-> >> ---
-> >>   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 2 +-
-> >>   drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 2 +-
-> >>   2 files changed, 2 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> >> b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> >> index f5edddf3b29d..c10ed568ca6c 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
-> >> @@ -143,7 +143,7 @@ static void gfxhub_v1_0_init_cache_regs(struct
-> >> amdgpu_device *adev)
-> >>       /* XXX for emulation, Refer to closed source code.*/
-> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
-> >> L2_PDE0_CACHE_TAG_GENERATION_MODE,
-> >>                   0);
-> >> -    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
-1);
-> >> +    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
-0);
-> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
-> >> CONTEXT1_IDENTITY_ACCESS_MODE, 1);
-> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
-> >> IDENTITY_MODE_FRAGMENT_SIZE, 0);
-> >>       WREG32_SOC15(GC, 0, mmVM_L2_CNTL, tmp);
-> >> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> >> b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> >> index d0d966d6080a..2a039946a549 100644
-> >> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> >> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
-> >> @@ -163,7 +163,7 @@ static void mmhub_v1_0_init_cache_regs(struct
-> >> amdgpu_device *adev)
-> >>       /* XXX for emulation, Refer to closed source code.*/
-> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
-> >> L2_PDE0_CACHE_TAG_GENERATION_MODE,
-> >>                   0);
-> >> -    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
-1);
-> >> +    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
-0);
-> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
-> >> CONTEXT1_IDENTITY_ACCESS_MODE, 1);
-> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
-> >> IDENTITY_MODE_FRAGMENT_SIZE, 0);
-> >>       WREG32_SOC15(MMHUB, 0, mmVM_L2_CNTL, tmp);
-> >
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+--------------F44DAA55B53BA30728B159A3
+Content-Type: text/x-log;
+ name="kern.log"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename="kern.log"
 
---_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Feb 27 16:58:54 kaveri kernel: [ 2184.979558] ==================================================================
+Feb 27 16:58:54 kaveri kernel: [ 2184.979574] BUG: KASAN: use-after-free in __lock_acquire+0x3291/0x4650
+Feb 27 16:58:54 kaveri kernel: [ 2184.979579] Read of size 8 at addr ffff8881c7179ed8 by task amd_pinned_memo/21960
+Feb 27 16:58:54 kaveri kernel: [ 2184.979581] 
+Feb 27 16:58:54 kaveri kernel: [ 2184.979587] CPU: 13 PID: 21960 Comm: amd_pinned_memo Tainted: G        W  OE     5.0.0-rc1-00409-gdbb4a1266c83-dirty #120
+Feb 27 16:58:54 kaveri kernel: [ 2184.979591] Hardware name: Micro-Star International Co., Ltd. MS-7A34/B350 TOMAHAWK (MS-7A34), BIOS 1.80 09/13/2017
+Feb 27 16:58:54 kaveri kernel: [ 2184.979594] Call Trace:
+Feb 27 16:58:54 kaveri kernel: [ 2184.979602]  dump_stack+0x7c/0xc0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979606]  ? __lock_acquire+0x3291/0x4650
+Feb 27 16:58:54 kaveri kernel: [ 2184.979612]  print_address_description+0x65/0x22e
+Feb 27 16:58:54 kaveri kernel: [ 2184.979616]  ? __lock_acquire+0x3291/0x4650
+Feb 27 16:58:54 kaveri kernel: [ 2184.979619]  ? __lock_acquire+0x3291/0x4650
+Feb 27 16:58:54 kaveri kernel: [ 2184.979623]  kasan_report.cold.3+0x1a/0x40
+Feb 27 16:58:54 kaveri kernel: [ 2184.979628]  ? __lock_acquire+0x3291/0x4650
+Feb 27 16:58:54 kaveri kernel: [ 2184.979632]  __lock_acquire+0x3291/0x4650
+Feb 27 16:58:54 kaveri kernel: [ 2184.979636]  ? find_held_lock+0x33/0x1c0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979642]  ? finish_task_switch+0x12b/0x630
+Feb 27 16:58:54 kaveri kernel: [ 2184.979647]  ? mark_held_locks+0x140/0x140
+Feb 27 16:58:54 kaveri kernel: [ 2184.979651]  ? finish_task_switch+0xf4/0x630
+Feb 27 16:58:54 kaveri kernel: [ 2184.979656]  ? _raw_spin_unlock_irq+0x29/0x30
+Feb 27 16:58:54 kaveri kernel: [ 2184.979660]  ? lockdep_hardirqs_on+0x37c/0x560
+Feb 27 16:58:54 kaveri kernel: [ 2184.979664]  ? finish_task_switch+0x191/0x630
+Feb 27 16:58:54 kaveri kernel: [ 2184.979668]  ? __switch_to_asm+0x34/0x70
+Feb 27 16:58:54 kaveri kernel: [ 2184.979671]  ? __switch_to_asm+0x40/0x70
+Feb 27 16:58:54 kaveri kernel: [ 2184.979676]  ? __schedule+0x800/0x1cb0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979681]  lock_acquire+0x103/0x2c0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979687]  ? hmm_release+0x1c3/0x2d0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979692]  down_write+0x2b/0x80
+Feb 27 16:58:54 kaveri kernel: [ 2184.979696]  ? hmm_release+0x1c3/0x2d0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979700]  hmm_release+0x1c3/0x2d0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979706]  ? uprobe_clear_state+0x5e/0x200
+Feb 27 16:58:54 kaveri kernel: [ 2184.979711]  __mmu_notifier_release+0xef/0x3d0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979717]  exit_mmap+0x93/0x400
+Feb 27 16:58:54 kaveri kernel: [ 2184.979720]  ? quarantine_put+0xb7/0x150
+Feb 27 16:58:54 kaveri kernel: [ 2184.979724]  ? do_munmap+0x10/0x10
+Feb 27 16:58:54 kaveri kernel: [ 2184.979727]  ? lockdep_hardirqs_on+0x37c/0x560
+Feb 27 16:58:54 kaveri kernel: [ 2184.979732]  ? __khugepaged_exit+0x2af/0x3e0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979735]  ? __khugepaged_exit+0x2af/0x3e0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979738]  ? __khugepaged_exit+0x2af/0x3e0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979744]  ? rcu_read_lock_sched_held+0xd8/0x110
+Feb 27 16:58:54 kaveri kernel: [ 2184.979748]  ? kmem_cache_free+0x27c/0x2c0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979751]  ? __khugepaged_exit+0x2be/0x3e0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979756]  mmput+0xb2/0x390
+Feb 27 16:58:54 kaveri kernel: [ 2184.979760]  do_exit+0x899/0x2840
+Feb 27 16:58:54 kaveri kernel: [ 2184.979765]  ? mm_update_next_owner+0x600/0x600
+Feb 27 16:58:54 kaveri kernel: [ 2184.979770]  ? __do_page_fault+0x424/0x9e0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979774]  ? lock_downgrade+0x5d0/0x5d0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979778]  ? handle_mm_fault+0x4e7/0x750
+Feb 27 16:58:54 kaveri kernel: [ 2184.979784]  do_group_exit+0xf0/0x2e0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979788]  __x64_sys_exit_group+0x3a/0x50
+Feb 27 16:58:54 kaveri kernel: [ 2184.979793]  do_syscall_64+0x9c/0x3d0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979797]  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+Feb 27 16:58:54 kaveri kernel: [ 2184.979802] RIP: 0033:0x7fcfc943bcf6
+Feb 27 16:58:54 kaveri kernel: [ 2184.979806] Code: 00 4c 8b 0d 9c 41 0f 00 eb 19 66 2e 0f 1f 84 00 00 00 00 00 89 d7 89 f0 0f 05 48 3d 00 f0 ff ff 77 22 f4 89 d7 44 89 c0 0f 05 <48> 3d 00 f0 ff ff 76 e2 f7 d8 64 41 89 01 eb da 66 2e 0f 1f 84 00
+Feb 27 16:58:54 kaveri kernel: [ 2184.979810] RSP: 002b:00007ffdb68de6e8 EFLAGS: 00000246 ORIG_RAX: 00000000000000e7
+Feb 27 16:58:54 kaveri kernel: [ 2184.979815] RAX: ffffffffffffffda RBX: 00007fcfc952c760 RCX: 00007fcfc943bcf6
+Feb 27 16:58:54 kaveri kernel: [ 2184.979818] RDX: 0000000000000000 RSI: 000000000000003c RDI: 0000000000000000
+Feb 27 16:58:54 kaveri kernel: [ 2184.979821] RBP: 0000000000000000 R08: 00000000000000e7 R09: ffffffffffffff48
+Feb 27 16:58:54 kaveri kernel: [ 2184.979824] R10: 0000000000000000 R11: 0000000000000246 R12: 00007fcfc952c760
+Feb 27 16:58:54 kaveri kernel: [ 2184.979827] R13: 00000000000004c5 R14: 00007fcfc9535428 R15: 0000000000000000
+Feb 27 16:58:54 kaveri kernel: [ 2184.979832] 
+Feb 27 16:58:54 kaveri kernel: [ 2184.979835] Allocated by task 21960:
+Feb 27 16:58:54 kaveri kernel: [ 2184.979839]  kasan_kmalloc+0xc6/0xd0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979843]  hmm_register.part.12+0x48/0x2e0
+Feb 27 16:58:54 kaveri kernel: [ 2184.979846]  hmm_mirror_register+0xf5/0x320
+Feb 27 16:58:54 kaveri kernel: [ 2184.979948]  amdgpu_mn_get+0x37b/0x6c0 [amdgpu]
+Feb 27 16:58:54 kaveri kernel: [ 2184.980040]  amdgpu_mn_register+0xf6/0x710 [amdgpu]
+Feb 27 16:58:54 kaveri kernel: [ 2184.980126]  amdgpu_gem_userptr_ioctl+0x656/0x960 [amdgpu]
+Feb 27 16:58:54 kaveri kernel: [ 2184.980146]  drm_ioctl_kernel+0x1c6/0x260 [drm]
+Feb 27 16:58:54 kaveri kernel: [ 2184.980165]  drm_ioctl+0x42d/0x920 [drm]
+Feb 27 16:58:54 kaveri kernel: [ 2184.980242]  amdgpu_drm_ioctl+0xd0/0x1b0 [amdgpu]
+Feb 27 16:58:54 kaveri kernel: [ 2184.980246]  do_vfs_ioctl+0x193/0xfd0
+Feb 27 16:58:54 kaveri kernel: [ 2184.980249]  ksys_ioctl+0x60/0x90
+Feb 27 16:58:54 kaveri kernel: [ 2184.980252]  __x64_sys_ioctl+0x6f/0xb0
+Feb 27 16:58:54 kaveri kernel: [ 2184.980255]  do_syscall_64+0x9c/0x3d0
+Feb 27 16:58:54 kaveri kernel: [ 2184.980258]  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+Feb 27 16:58:54 kaveri kernel: [ 2184.980260] 
+Feb 27 16:58:54 kaveri kernel: [ 2184.980263] Freed by task 14381:
+Feb 27 16:58:54 kaveri kernel: [ 2184.980266]  __kasan_slab_free+0x12a/0x170
+Feb 27 16:58:54 kaveri kernel: [ 2184.980269]  kfree+0xe2/0x290
+Feb 27 16:58:54 kaveri kernel: [ 2184.980368]  amdgpu_mn_destroy+0x2f0/0x440 [amdgpu]
+Feb 27 16:58:54 kaveri kernel: [ 2184.980372]  process_one_work+0x815/0x1490
+Feb 27 16:58:54 kaveri kernel: [ 2184.980375]  worker_thread+0x87/0xb10
+Feb 27 16:58:54 kaveri kernel: [ 2184.980379]  kthread+0x2e2/0x3a0
+Feb 27 16:58:54 kaveri kernel: [ 2184.980382]  ret_from_fork+0x27/0x50
+Feb 27 16:58:54 kaveri kernel: [ 2184.980384] 
+Feb 27 16:58:54 kaveri kernel: [ 2184.980387] The buggy address belongs to the object at ffff8881c7179e00
+Feb 27 16:58:54 kaveri kernel: [ 2184.980387]  which belongs to the cache kmalloc-256 of size 256
+Feb 27 16:58:54 kaveri kernel: [ 2184.980391] The buggy address is located 216 bytes inside of
+Feb 27 16:58:54 kaveri kernel: [ 2184.980391]  256-byte region [ffff8881c7179e00, ffff8881c7179f00)
+Feb 27 16:58:54 kaveri kernel: [ 2184.980394] The buggy address belongs to the page:
+Feb 27 16:58:54 kaveri kernel: [ 2184.980397] page:ffffea00071c5e00 count:1 mapcount:0 mapping:ffff8883bd80ee00 index:0x0 compound_mapcount: 0
+Feb 27 16:58:54 kaveri kernel: [ 2184.980403] flags: 0x17fffc000010200(slab|head)
+Feb 27 16:58:54 kaveri kernel: [ 2184.980409] raw: 017fffc000010200 ffffea000a4f7900 0000000300000003 ffff8883bd80ee00
+Feb 27 16:58:54 kaveri kernel: [ 2184.980413] raw: 0000000000000000 0000000000190019 00000001ffffffff 0000000000000000
+Feb 27 16:58:54 kaveri kernel: [ 2184.980416] page dumped because: kasan: bad access detected
+Feb 27 16:58:54 kaveri kernel: [ 2184.980418] 
+Feb 27 16:58:54 kaveri kernel: [ 2184.980420] Memory state around the buggy address:
+Feb 27 16:58:54 kaveri kernel: [ 2184.980423]  ffff8881c7179d80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+Feb 27 16:58:54 kaveri kernel: [ 2184.980426]  ffff8881c7179e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+Feb 27 16:58:54 kaveri kernel: [ 2184.980429] >ffff8881c7179e80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+Feb 27 16:58:54 kaveri kernel: [ 2184.980432]                                                     ^
+Feb 27 16:58:54 kaveri kernel: [ 2184.980435]  ffff8881c7179f00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+Feb 27 16:58:54 kaveri kernel: [ 2184.980438]  ffff8881c7179f80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+Feb 27 16:58:54 kaveri kernel: [ 2184.980440] ==================================================================
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Pushed. Thanks.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yong</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
-deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, February 26, 2019 10:53 PM<br>
-<b>To:</b> Zhao, Yong<br>
-<b>Cc:</b> Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: Set VM_L2_CNTL.PDE_FAULT_CLASSIFICA=
-TION to 0</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">yes, go ahead.<br>
-<br>
-Alex<br>
-<br>
-On Tue, Feb 26, 2019 at 6:18 PM Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt; wrote:=
-<br>
-&gt;<br>
-&gt; So can I submit it only with the ACKs?<br>
-&gt;<br>
-&gt; Yong<br>
-&gt;<br>
-&gt; On 2019-02-26 5:29 a.m., Christian K=F6nig wrote:<br>
-&gt; &gt; Am 26.02.19 um 00:03 schrieb Zhao, Yong:<br>
-&gt; &gt;&gt; This is recommended by HW designers. Previously when it was s=
-et to 1,<br>
-&gt; &gt;&gt; the PDE walk error in VM fault will be treated as<br>
-&gt; &gt;&gt; PERMISSION_OR_INVALID_PAGE_FAULT rather than usually expected=
-<br>
-&gt; &gt;&gt; OTHER_FAULT.<br>
-&gt; &gt;&gt; As a result, the retry control in VM_CONTEXT*_CNTL will chang=
-e<br>
-&gt; &gt;&gt; accordingly.<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; The above behavior is kind of abnormal. Furthermore, the<br>
-&gt; &gt;&gt; PDE_FAULT_CLASSIFICATION =3D=3D 1 feature was targeted for ve=
-ry old ASICs<br>
-&gt; &gt;&gt; and it never made it way to production. Therefore, we should =
-set it<br>
-&gt; &gt;&gt; to 0.<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; &gt;<br>
-&gt; &gt; Acked-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; &gt;<br>
-&gt; &gt;&gt; ---<br>
-&gt; &gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 2 &#43=
-;-<br>
-&gt; &gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c&nbsp; | 2=
- &#43;-<br>
-&gt; &gt;&gt;&nbsp;&nbsp; 2 files changed, 2 insertions(&#43;), 2 deletions=
-(-)<br>
-&gt; &gt;&gt;<br>
-&gt; &gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
-&gt; &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
-&gt; &gt;&gt; index f5edddf3b29d..c10ed568ca6c 100644<br>
-&gt; &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
-&gt; &gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br=
->
-&gt; &gt;&gt; @@ -143,7 &#43;143,7 @@ static void gfxhub_v1_0_init_cache_re=
-gs(struct<br>
-&gt; &gt;&gt; amdgpu_device *adev)<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XXX for emulation, Ref=
-er to closed source code.*/<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
-, VM_L2_CNTL,<br>
-&gt; &gt;&gt; L2_PDE0_CACHE_TAG_GENERATION_MODE,<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0);<br>
-&gt; &gt;&gt; -&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PD=
-E_FAULT_CLASSIFICATION, 1);<br>
-&gt; &gt;&gt; &#43;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL=
-, PDE_FAULT_CLASSIFICATION, 0);<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
-, VM_L2_CNTL,<br>
-&gt; &gt;&gt; CONTEXT1_IDENTITY_ACCESS_MODE, 1);<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
-, VM_L2_CNTL,<br>
-&gt; &gt;&gt; IDENTITY_MODE_FRAGMENT_SIZE, 0);<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmVM_=
-L2_CNTL, tmp);<br>
-&gt; &gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-&gt; &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-&gt; &gt;&gt; index d0d966d6080a..2a039946a549 100644<br>
-&gt; &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-&gt; &gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
-&gt; &gt;&gt; @@ -163,7 &#43;163,7 @@ static void mmhub_v1_0_init_cache_reg=
-s(struct<br>
-&gt; &gt;&gt; amdgpu_device *adev)<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XXX for emulation, Ref=
-er to closed source code.*/<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
-, VM_L2_CNTL,<br>
-&gt; &gt;&gt; L2_PDE0_CACHE_TAG_GENERATION_MODE,<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0);<br>
-&gt; &gt;&gt; -&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PD=
-E_FAULT_CLASSIFICATION, 1);<br>
-&gt; &gt;&gt; &#43;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL=
-, PDE_FAULT_CLASSIFICATION, 0);<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
-, VM_L2_CNTL,<br>
-&gt; &gt;&gt; CONTEXT1_IDENTITY_ACCESS_MODE, 1);<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
-, VM_L2_CNTL,<br>
-&gt; &gt;&gt; IDENTITY_MODE_FRAGMENT_SIZE, 0);<br>
-&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mm=
-VM_L2_CNTL, tmp);<br>
-&gt; &gt;<br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_--
-
---===============1127536778==
+--------------F44DAA55B53BA30728B159A3
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -280,4 +159,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1127536778==--
+--------------F44DAA55B53BA30728B159A3--
