@@ -1,17 +1,16 @@
-From: Nicholas Kazlauskas <nkazlaus-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 07/18] drm/amd/display: Create overlay planes
-Date: Wed, 27 Feb 2019 12:50:45 +0000
-Message-ID: <47a4a4a3-1bf4-6e25-e39e-a00b42ae0e6a@amd.com>
-References: <20190225224615.4507-1-Bhawanpreet.Lakha@amd.com>
- <20190225224615.4507-8-Bhawanpreet.Lakha@amd.com>
- <390d83da-8de3-08df-4215-e9f2e4502ee8@amd.com>
+From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Set VM_L2_CNTL.PDE_FAULT_CLASSIFICATION to 0
+Date: Wed, 27 Feb 2019 16:52:06 +0000
+Message-ID: <SN1PR12MB23650C66AACF7D0DB1822955F0740@SN1PR12MB2365.namprd12.prod.outlook.com>
+References: <20190225230257.18676-1-Yong.Zhao@amd.com>
+ <0f3d8a85-e01b-625d-b591-205f7f28af8e@gmail.com>
+ <d107229a-062b-8535-87c8-17110d2223ea@amd.com>,
+ <CADnq5_O55w2btKnNK7TWvgRmOuE3wC0rGXUXg+u06SdJeOSZ4Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1127536778=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <390d83da-8de3-08df-4215-e9f2e4502ee8-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CADnq5_O55w2btKnNK7TWvgRmOuE3wC0rGXUXg+u06SdJeOSZ4Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 Content-Language: en-US
-Content-ID: <51AB298705144E408BC8955ACB0938C4-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,98 +21,263 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Vishwakarma, Pratik" <Pratik.Vishwakarma-5C7GfCeVMHo@public.gmane.org>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOS0wMi0yNiAxMTowMyBwLm0uLCBWaXNod2FrYXJtYSwgUHJhdGlrIHdyb3RlOg0KPiAN
-Cj4gT24gMi8yNi8yMDE5IDQ6MTYgQU0sIEJoYXdhbnByZWV0IExha2hhIHdyb3RlOg0KPj4gRnJv
-bTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPg0KPj4N
-Cj4+IFtXaHldDQo+PiBSYXZlbiBoYXMgc3VwcG9ydCBmb3IgY29tYmluaW5nIHBpcGVzIGZvciBE
-Uk1fUExBTkVfVFlQRV9PVkVSTEFZIHVzZQ0KPj4gYnV0IG5vIG92ZXJsYXlzIGFyZSBleHBvc2Vk
-IHRvIHVzZXJzcGFjZS4NCj4+DQo+PiBbSG93XQ0KPj4gRXhwb3NlIG92ZXJsYXkgcGxhbmVzIGJh
-c2VkIG9uIERDIHBsYW5lIGNhcHMuDQo+Pg0KPj4gSWYgYWxsIHRoZSBwaXBlcyBhcmUgaW4gdXNl
-IHRoZW4gdGhlIGF0b21pYyBjb21taXRzIGNhbiBmYWlsLCBidXQgdGhpcw0KPj4gaXMgZXhwZWN0
-ZWQgYmVoYXZpb3IgZm9yIHVzZXJzcGFjZS4NCj4+DQo+PiBPbmx5IHN1cHBvcnQgUkdCIG9uIG92
-ZXJsYXlzIGZvciBub3cuDQo+Pg0KPj4gQ2hhbmdlLUlkOiBJZGNhNzhmYWZlZmQ3Y2NiMmJkNWYx
-YTA1OTAxZDFjOWRhMWEyZGVjYg0KPj4gU2lnbmVkLW9mZi1ieTogTmljaG9sYXMgS2F6bGF1c2th
-cyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPg0KPj4gUmV2aWV3ZWQtYnk6IFRvbnkgQ2hl
-bmcgPFRvbnkuQ2hlbmdAYW1kLmNvbT4NCj4+IEFja2VkLWJ5OiBCaGF3YW5wcmVldCBMYWtoYSA8
-Qmhhd2FucHJlZXQuTGFraGFAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICAgLi4uL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNTEgKysrKysrKysrKysrKysrKy0tLQ0K
-Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDQ0IGluc2VydGlvbnMoKyksIDcgZGVsZXRpb25zKC0pDQo+
-Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbS5jDQo+PiBpbmRleCBkYzcxMjRlNjBiMjcuLjI1Y2Q3OTcwMTE0ZCAxMDA2NDQNCj4+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMN
-Cj4+IEBAIC0xODkyLDcgKzE4OTIsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9kbV9pbml0aWFsaXpl
-X2RybV9kZXZpY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+PiAgICAJc3RydWN0IGFt
-ZGdwdV9lbmNvZGVyICphZW5jb2RlciA9IE5VTEw7DQo+PiAgICAJc3RydWN0IGFtZGdwdV9tb2Rl
-X2luZm8gKm1vZGVfaW5mbyA9ICZhZGV2LT5tb2RlX2luZm87DQo+PiAgICAJdWludDMyX3QgbGlu
-a19jbnQ7DQo+PiAtCWludDMyX3QgcHJpbWFyeV9wbGFuZXM7DQo+PiArCWludDMyX3Qgb3Zlcmxh
-eV9wbGFuZXMsIHByaW1hcnlfcGxhbmVzLCB0b3RhbF9wbGFuZXM7DQo+PiAgICAJZW51bSBkY19j
-b25uZWN0aW9uX3R5cGUgbmV3X2Nvbm5lY3Rpb25fdHlwZSA9IGRjX2Nvbm5lY3Rpb25fbm9uZTsN
-Cj4+ICAgIA0KPj4gICAgCWxpbmtfY250ID0gZG0tPmRjLT5jYXBzLm1heF9saW5rczsNCj4+IEBA
-IC0xOTAxLDkgKzE5MDEsMjkgQEAgc3RhdGljIGludCBhbWRncHVfZG1faW5pdGlhbGl6ZV9kcm1f
-ZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPj4gICAgCQlyZXR1cm4gLUVJTlZB
-TDsNCj4+ICAgIAl9DQo+PiAgICANCj4+ICsJLyoNCj4+ICsJICogRGV0ZXJtaW5lIHRoZSBudW1i
-ZXIgb2Ygb3ZlcmxheSBwbGFuZXMgc3VwcG9ydGVkLg0KPj4gKwkgKiBPbmx5IHN1cHBvcnQgRENO
-IGZvciBub3csIGFuZCBjYXAgc28gd2UgZG9uJ3QgZW5jb3VyYWdlDQo+PiArCSAqIHVzZXJzcGFj
-ZSB0byB1c2UgdXAgYWxsIHRoZSBwbGFuZXMuDQo+PiArCSAqLw0KPj4gKwlvdmVybGF5X3BsYW5l
-cyA9IDA7DQo+PiArDQo+PiArCWZvciAoaSA9IDA7IGkgPCBkbS0+ZGMtPmNhcHMubWF4X3BsYW5l
-czsgKytpKSB7DQo+PiArCQlzdHJ1Y3QgZGNfcGxhbmVfY2FwICpwbGFuZSA9ICZkbS0+ZGMtPmNh
-cHMucGxhbmVzW2ldOw0KPj4gKw0KPj4gKwkJaWYgKHBsYW5lLT50eXBlID09IERDX1BMQU5FX1RZ
-UEVfRENOX1VOSVZFUlNBTCAmJg0KPj4gKwkJICAgIHBsYW5lLT5ibGVuZHNfd2l0aF9hYm92ZSAm
-JiBwbGFuZS0+YmxlbmRzX3dpdGhfYmVsb3cgJiYNCj4+ICsJCSAgICBwbGFuZS0+c3VwcG9ydHNf
-YXJnYjg4ODgpDQo+PiArCQkJb3ZlcmxheV9wbGFuZXMgKz0gMTsNCj4+ICsJfQ0KPj4gKw0KPj4g
-KwlvdmVybGF5X3BsYW5lcyA9IG1pbihvdmVybGF5X3BsYW5lcywgMSk7DQo+PiArDQo+PiAgICAJ
-LyogVGhlcmUgaXMgb25lIHByaW1hcnkgcGxhbmUgcGVyIENSVEMgKi8NCj4+ICAgIAlwcmltYXJ5
-X3BsYW5lcyA9IGRtLT5kYy0+Y2Fwcy5tYXhfc3RyZWFtczsNCj4+IC0JQVNTRVJUKHByaW1hcnlf
-cGxhbmVzIDwgQU1ER1BVX01BWF9QTEFORVMpOw0KPj4gKw0KPj4gKwl0b3RhbF9wbGFuZXMgPSBw
-cmltYXJ5X3BsYW5lcyArIG92ZXJsYXlfcGxhbmVzOw0KPj4gKwlBU1NFUlQodG90YWxfcGxhbmVz
-IDwgQU1ER1BVX01BWF9QTEFORVMpOw0KPj4gICAgDQo+PiAgICAJLyoNCj4+ICAgIAkgKiBJbml0
-aWFsaXplIHByaW1hcnkgcGxhbmVzLCBpbXBsaWNpdCBwbGFuZXMgZm9yIGxlZ2FjeSBJT0NUTFMu
-DQo+PiBAQCAtMTkxNyw2ICsxOTM3LDIwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RtX2luaXRpYWxp
-emVfZHJtX2RldmljZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4+ICAgIAkJfQ0KPj4g
-ICAgCX0NCj4+ICAgIA0KPj4gKwkvKg0KPj4gKwkgKiBJbml0aWFsaXplIG92ZXJsYXkgcGxhbmVz
-LCBpbmRleCBzdGFydGluZyBhZnRlciBwcmltYXJ5IHBsYW5lcy4NCj4+ICsJICogVGhlc2UgcGxh
-bmVzIGhhdmUgYSBoaWdoZXIgRFJNIGluZGV4IHRoYW4gdGhlIHByaW1hcnkgcGxhbmVzIHNpbmNl
-DQo+PiArCSAqIHRoZXkgc2hvdWxkIGJlIGNvbnNpZGVyZWQgYXMgaGF2aW5nIGEgaGlnaGVyIHot
-b3JkZXIuDQo+PiArCSAqIE9yZGVyIGlzIHJldmVyc2VkIHRvIG1hdGNoIGl0ZXJhdGlvbiBvcmRl
-ciBpbiBhdG9taWMgY2hlY2suDQo+PiArCSAqLw0KPj4gKwlmb3IgKGkgPSAob3ZlcmxheV9wbGFu
-ZXMgLSAxKTsgaSA+PSAwOyBpLS0pIHsNCj4+ICsJCWlmIChpbml0aWFsaXplX3BsYW5lKGRtLCBt
-b2RlX2luZm8sIHByaW1hcnlfcGxhbmVzICsgaSwNCj4+ICsJCQkJICAgICBEUk1fUExBTkVfVFlQ
-RV9PVkVSTEFZKSkgew0KPj4gKwkJCURSTV9FUlJPUigiS01TOiBGYWlsZWQgdG8gaW5pdGlhbGl6
-ZSBvdmVybGF5IHBsYW5lXG4iKTsNCj4+ICsJCQlnb3RvIGZhaWw7DQo+PiArCQl9DQo+PiArCX0N
-Cj4+ICsNCj4gV291bGRuJ3QgdGhlIGFib3ZlIGNoYW5nZSBhZmZlY3QgZG1fdXBkYXRlX3BsYW5l
-c19zdGF0ZSB3aGljaCB1c2VzDQo+IGZvcl9lYWNoX29sZG5ld19wbGFuZV9pbl9zdGF0ZV9yZXZl
-cnNlIHRvIGFkZCBwbGFuZXMgaW4gcmV2ZXJzZSBvcmRlcj8NCg0KSXQncyBpbnRlbnRpb25hbCBm
-b3IgY29ycmVjdCB6LW9yZGVyaW5nLiBXaGVuIGFkZGluZyBwbGFuZXMgdG8gREMgDQp0aGV5J3Jl
-IGFkZGVkIGZyb20gaGlnaGVzdCB6LW9yZGVyIHRvIGxvd2VzdCB6LW9yZGVyLg0KDQpUaGVzZSBv
-dmVybGF5IHBsYW5lcyBoYXZlIGEgaGlnaGVyIERSTSBpbmRleCB0aGFuIHRoZSBwcmltYXJ5IHBs
-YW5lcyBzbyANCnRoZXknbGwgYmUgYWRkZWQgZmlyc3QuDQoNClRoZSB1bmRlcmxheSBwbGFuZXMg
-ZnJvbSBiZWZvcmUgaGFkIGEgbG93ZXIgRFJNIGluZGV4IHRoYW4gdGhlIHByaW1hcnkgDQpwbGFu
-ZXMgc28gdGhleSB3ZXJlIGFkZGVkIGxhc3QuIFRoaXMgYWxzbyB3YXMgcmVxdWlyZWQgd2l0aCB1
-bmRlcmxheXMgDQpzaW5jZSBEQyB3b3VsZCBvbmx5IGFjcXVpcmUgdGhlIHVuZGVybGF5IHBpcGUg
-bGFzdCBhcyB3ZWxsLg0KDQpOaWNob2xhcyBLYXpsYXVza2FzDQoNCj4+ICAgIAlmb3IgKGkgPSAw
-OyBpIDwgZG0tPmRjLT5jYXBzLm1heF9zdHJlYW1zOyBpKyspDQo+PiAgICAJCWlmIChhbWRncHVf
-ZG1fY3J0Y19pbml0KGRtLCBtb2RlX2luZm8tPnBsYW5lc1tpXSwgaSkpIHsNCj4+ICAgIAkJCURS
-TV9FUlJPUigiS01TOiBGYWlsZWQgdG8gaW5pdGlhbGl6ZSBjcnRjXG4iKTsNCj4+IEBAIC0zODc2
-LDkgKzM5MTAsMTIgQEAgc3RhdGljIGNvbnN0IHVpbnQzMl90IHJnYl9mb3JtYXRzW10gPSB7DQo+
-PiAgICAJRFJNX0ZPUk1BVF9BQkdSODg4OCwNCj4+ICAgIH07DQo+PiAgICANCj4+IC1zdGF0aWMg
-Y29uc3QgdWludDMyX3QgeXV2X2Zvcm1hdHNbXSA9IHsNCj4+IC0JRFJNX0ZPUk1BVF9OVjEyLA0K
-Pj4gLQlEUk1fRk9STUFUX05WMjEsDQo+PiArc3RhdGljIGNvbnN0IHVpbnQzMl90IG92ZXJsYXlf
-Zm9ybWF0c1tdID0gew0KPj4gKwlEUk1fRk9STUFUX1hSR0I4ODg4LA0KPj4gKwlEUk1fRk9STUFU
-X0FSR0I4ODg4LA0KPj4gKwlEUk1fRk9STUFUX1JHQkE4ODg4LA0KPj4gKwlEUk1fRk9STUFUX1hC
-R1I4ODg4LA0KPj4gKwlEUk1fRk9STUFUX0FCR1I4ODg4LA0KPj4gICAgfTsNCj4+ICAgIA0KPj4g
-ICAgc3RhdGljIGNvbnN0IHUzMiBjdXJzb3JfZm9ybWF0c1tdID0gew0KPj4gQEAgLTM5MDgsOCAr
-Mzk0NSw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RtX3BsYW5lX2luaXQoc3RydWN0IGFtZGdwdV9k
-aXNwbGF5X21hbmFnZXIgKmRtLA0KPj4gICAgCQkJCXBsYW5lLA0KPj4gICAgCQkJCXBvc3NpYmxl
-X2NydGNzLA0KPj4gICAgCQkJCSZkbV9wbGFuZV9mdW5jcywNCj4+IC0JCQkJeXV2X2Zvcm1hdHMs
-DQo+PiAtCQkJCUFSUkFZX1NJWkUoeXV2X2Zvcm1hdHMpLA0KPj4gKwkJCQlvdmVybGF5X2Zvcm1h
-dHMsDQo+PiArCQkJCUFSUkFZX1NJWkUob3ZlcmxheV9mb3JtYXRzKSwNCj4+ICAgIAkJCQlOVUxM
-LCBwbGFuZS0+dHlwZSwgTlVMTCk7DQo+PiAgICAJCWJyZWFrOw0KPj4gICAgCWNhc2UgRFJNX1BM
-QU5FX1RZUEVfQ1VSU09SOg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+--===============1127536778==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_"
+
+--_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Pushed. Thanks.
+
+Yong
+________________________________
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Tuesday, February 26, 2019 10:53 PM
+To: Zhao, Yong
+Cc: Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amdgpu: Set VM_L2_CNTL.PDE_FAULT_CLASSIFICATION to=
+ 0
+
+yes, go ahead.
+
+Alex
+
+On Tue, Feb 26, 2019 at 6:18 PM Zhao, Yong <Yong.Zhao-5C7GfCeVMHo@public.gmane.org> wrote:
+>
+> So can I submit it only with the ACKs?
+>
+> Yong
+>
+> On 2019-02-26 5:29 a.m., Christian K=F6nig wrote:
+> > Am 26.02.19 um 00:03 schrieb Zhao, Yong:
+> >> This is recommended by HW designers. Previously when it was set to 1,
+> >> the PDE walk error in VM fault will be treated as
+> >> PERMISSION_OR_INVALID_PAGE_FAULT rather than usually expected
+> >> OTHER_FAULT.
+> >> As a result, the retry control in VM_CONTEXT*_CNTL will change
+> >> accordingly.
+> >>
+> >> The above behavior is kind of abnormal. Furthermore, the
+> >> PDE_FAULT_CLASSIFICATION =3D=3D 1 feature was targeted for very old AS=
+ICs
+> >> and it never made it way to production. Therefore, we should set it
+> >> to 0.
+> >>
+> >> Signed-off-by: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
+> >
+> > Acked-by: Christian K=F6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> >
+> >> ---
+> >>   drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 2 +-
+> >>   drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  | 2 +-
+> >>   2 files changed, 2 insertions(+), 2 deletions(-)
+> >>
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> >> b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> >> index f5edddf3b29d..c10ed568ca6c 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c
+> >> @@ -143,7 +143,7 @@ static void gfxhub_v1_0_init_cache_regs(struct
+> >> amdgpu_device *adev)
+> >>       /* XXX for emulation, Refer to closed source code.*/
+> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
+> >> L2_PDE0_CACHE_TAG_GENERATION_MODE,
+> >>                   0);
+> >> -    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
+1);
+> >> +    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
+0);
+> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
+> >> CONTEXT1_IDENTITY_ACCESS_MODE, 1);
+> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
+> >> IDENTITY_MODE_FRAGMENT_SIZE, 0);
+> >>       WREG32_SOC15(GC, 0, mmVM_L2_CNTL, tmp);
+> >> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> >> b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> >> index d0d966d6080a..2a039946a549 100644
+> >> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> >> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> >> @@ -163,7 +163,7 @@ static void mmhub_v1_0_init_cache_regs(struct
+> >> amdgpu_device *adev)
+> >>       /* XXX for emulation, Refer to closed source code.*/
+> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
+> >> L2_PDE0_CACHE_TAG_GENERATION_MODE,
+> >>                   0);
+> >> -    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
+1);
+> >> +    tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PDE_FAULT_CLASSIFICATION, =
+0);
+> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
+> >> CONTEXT1_IDENTITY_ACCESS_MODE, 1);
+> >>       tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL,
+> >> IDENTITY_MODE_FRAGMENT_SIZE, 0);
+> >>       WREG32_SOC15(MMHUB, 0, mmVM_L2_CNTL, tmp);
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Pushed. Thanks.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yong</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Alex Deucher &lt;alex=
+deucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, February 26, 2019 10:53 PM<br>
+<b>To:</b> Zhao, Yong<br>
+<b>Cc:</b> Koenig, Christian; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Set VM_L2_CNTL.PDE_FAULT_CLASSIFICA=
+TION to 0</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">yes, go ahead.<br>
+<br>
+Alex<br>
+<br>
+On Tue, Feb 26, 2019 at 6:18 PM Zhao, Yong &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt; wrote:=
+<br>
+&gt;<br>
+&gt; So can I submit it only with the ACKs?<br>
+&gt;<br>
+&gt; Yong<br>
+&gt;<br>
+&gt; On 2019-02-26 5:29 a.m., Christian K=F6nig wrote:<br>
+&gt; &gt; Am 26.02.19 um 00:03 schrieb Zhao, Yong:<br>
+&gt; &gt;&gt; This is recommended by HW designers. Previously when it was s=
+et to 1,<br>
+&gt; &gt;&gt; the PDE walk error in VM fault will be treated as<br>
+&gt; &gt;&gt; PERMISSION_OR_INVALID_PAGE_FAULT rather than usually expected=
+<br>
+&gt; &gt;&gt; OTHER_FAULT.<br>
+&gt; &gt;&gt; As a result, the retry control in VM_CONTEXT*_CNTL will chang=
+e<br>
+&gt; &gt;&gt; accordingly.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; The above behavior is kind of abnormal. Furthermore, the<br>
+&gt; &gt;&gt; PDE_FAULT_CLASSIFICATION =3D=3D 1 feature was targeted for ve=
+ry old ASICs<br>
+&gt; &gt;&gt; and it never made it way to production. Therefore, we should =
+set it<br>
+&gt; &gt;&gt; to 0.<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; &gt;<br>
+&gt; &gt; Acked-by: Christian K=F6nig &lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; &gt;<br>
+&gt; &gt;&gt; ---<br>
+&gt; &gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c | 2 &#43=
+;-<br>
+&gt; &gt;&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c&nbsp; | 2=
+ &#43;-<br>
+&gt; &gt;&gt;&nbsp;&nbsp; 2 files changed, 2 insertions(&#43;), 2 deletions=
+(-)<br>
+&gt; &gt;&gt;<br>
+&gt; &gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
+&gt; &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
+&gt; &gt;&gt; index f5edddf3b29d..c10ed568ca6c 100644<br>
+&gt; &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br>
+&gt; &gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c<br=
+>
+&gt; &gt;&gt; @@ -143,7 &#43;143,7 @@ static void gfxhub_v1_0_init_cache_re=
+gs(struct<br>
+&gt; &gt;&gt; amdgpu_device *adev)<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XXX for emulation, Ref=
+er to closed source code.*/<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
+, VM_L2_CNTL,<br>
+&gt; &gt;&gt; L2_PDE0_CACHE_TAG_GENERATION_MODE,<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0);<br>
+&gt; &gt;&gt; -&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PD=
+E_FAULT_CLASSIFICATION, 1);<br>
+&gt; &gt;&gt; &#43;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL=
+, PDE_FAULT_CLASSIFICATION, 0);<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
+, VM_L2_CNTL,<br>
+&gt; &gt;&gt; CONTEXT1_IDENTITY_ACCESS_MODE, 1);<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
+, VM_L2_CNTL,<br>
+&gt; &gt;&gt; IDENTITY_MODE_FRAGMENT_SIZE, 0);<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmVM_=
+L2_CNTL, tmp);<br>
+&gt; &gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
+&gt; &gt;&gt; b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
+&gt; &gt;&gt; index d0d966d6080a..2a039946a549 100644<br>
+&gt; &gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
+&gt; &gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c<br>
+&gt; &gt;&gt; @@ -163,7 &#43;163,7 @@ static void mmhub_v1_0_init_cache_reg=
+s(struct<br>
+&gt; &gt;&gt; amdgpu_device *adev)<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* XXX for emulation, Ref=
+er to closed source code.*/<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
+, VM_L2_CNTL,<br>
+&gt; &gt;&gt; L2_PDE0_CACHE_TAG_GENERATION_MODE,<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0);<br>
+&gt; &gt;&gt; -&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL, PD=
+E_FAULT_CLASSIFICATION, 1);<br>
+&gt; &gt;&gt; &#43;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp, VM_L2_CNTL=
+, PDE_FAULT_CLASSIFICATION, 0);<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
+, VM_L2_CNTL,<br>
+&gt; &gt;&gt; CONTEXT1_IDENTITY_ACCESS_MODE, 1);<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp=
+, VM_L2_CNTL,<br>
+&gt; &gt;&gt; IDENTITY_MODE_FRAGMENT_SIZE, 0);<br>
+&gt; &gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(MMHUB, 0, mm=
+VM_L2_CNTL, tmp);<br>
+&gt; &gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SN1PR12MB23650C66AACF7D0DB1822955F0740SN1PR12MB2365namp_--
+
+--===============1127536778==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1127536778==--
