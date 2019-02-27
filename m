@@ -1,43 +1,47 @@
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Subject: Re: [PATCH] drm: add func to better detect wether swiotlb is needed
-Date: Wed, 27 Feb 2019 14:25:50 -0500
-Message-ID: <20190227192550.GB24946@char.us.oracle.com>
-References: <1550617692-27306-1-git-send-email-michael.d.labriola@gmail.com>
- <ba6812cbb26341bd9b5d3a0981f7d64b@AMSPEX02CL03.citrite.net>
+From: Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
+Subject: Re: [PATCH] drm: prefix header search paths with
+ $(srctree)/
+Date: Wed, 27 Feb 2019 21:05:24 +0100
+Message-ID: <20190227200524.GA26912@ravnborg.org>
+References: <1548906999-22143-1-git-send-email-yamada.masahiro@socionext.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Return-path: <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <ba6812cbb26341bd9b5d3a0981f7d64b@AMSPEX02CL03.citrite.net>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Paul Durrant <Paul.Durrant@citrix.com>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>, 'Michael D Labriola' <michael.d.labriola@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>, Christoph Hellwig <hch@infradead.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Jan Beulich <JBeulich@suse.com>, Alex Deucher <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Monk Liu <monk.liu@amd.com>
+In-Reply-To: <1548906999-22143-1-git-send-email-yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
+ <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/freedreno>
+List-Post: <mailto:freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
+ <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Freedreno" <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>
+Cc: freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, intel-gvt-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Zhi Wang <zhi.a.wang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-LnNuaXAuLgo+ID4gLXU2NCBkcm1fZ2V0X21heF9pb21lbSh2b2lkKQo+ID4gK2Jvb2wgZHJtX25l
-ZWRfc3dpb3RsYihpbnQgZG1hX2JpdHMpCj4gPiAgewo+ID4gIAlzdHJ1Y3QgcmVzb3VyY2UgKnRt
-cDsKPiA+ICAJcmVzb3VyY2Vfc2l6ZV90IG1heF9pb21lbSA9IDA7Cj4gPiAKPiA+ICsJLyoKPiA+
-ICsJICogWGVuIHBhcmF2aXJ0dWFsIGhvc3RzIHJlcXVpcmUgc3dpb3RsYiByZWdhcmRsZXNzIG9m
-IHJlcXVlc3RlZCBkbWEKPiA+ICsJICogdHJhbnNmZXIgc2l6ZS4KPiA+ICsJICoKPiA+ICsJICog
-Tk9URTogUmVhbGx5LCB3aGF0IGl0IHJlcXVpcmVzIGlzIHVzZSBvZiB0aGUgZG1hX2FsbG9jX2Nv
-aGVyZW50Cj4gPiArCSAqICAgICAgIGFsbG9jYXRvciB1c2VkIGluIHR0bV9kbWFfcG9wdWxhdGUo
-KSBpbnN0ZWFkIG9mCj4gPiArCSAqICAgICAgIHR0bV9wb3B1bGF0ZV9hbmRfbWFwX3BhZ2VzKCks
-IHdoaWNoIGJvdW5jZSBidWZmZXJzIHNvIG11Y2gKPiA+IGluCj4gPiArCSAqICAgICAgIFhlbiBp
-dCBsZWFkcyB0byBzd2lvdGxiIGJ1ZmZlciBleGhhdXN0aW9uLgo+ID4gKwkgKi8KPiA+ICsJaWYg
-KHhlbl9wdl9kb21haW4oKSkKPiAKPiBJJ3ZlIG5vdCBiZWVuIGZvbGxvd2luZyBhbGwgb2YgdGhl
-IGlucyBhbmQgb3V0cyBvZiB0aGUgZGlzY3Vzc2lvbiBvbiB0aGlzIHNvIGFwb2xvZ2llcyBpZiBJ
-J20gbWlzc2luZyBzb21lIGNvbnRleHQsIGJ1dC4uLgo+IAo+IFRoaXMgbG9va3MgbGlrZSB0aGUg
-d3JvbmcgdGVzdCB0byBtZS4gSSB0aGluayBpdCBzaG91bGQgYmU6Cj4gCj4gaWYgKCB4ZW5fc3dp
-b3RsYiApCgpBaCwgdGhhdCBjb3VsZCBiZSBhcyB3ZWxsLiAKPiAKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmkt
-ZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+SGkgTWFzYWhpcm8uCgpPbiBUaHUsIEphbiAzMSwgMjAxOSBhdCAxMjo1NjozOVBNICswOTAwLCBN
+YXNhaGlybyBZYW1hZGEgd3JvdGU6Cj4gQ3VycmVudGx5LCB0aGUgS2J1aWxkIGNvcmUgbWFuaXB1
+bGF0ZXMgaGVhZGVyIHNlYXJjaCBwYXRocyBpbiBhIGNyYXp5Cj4gd2F5IFsxXS4KPiAKPiBUbyBm
+aXggdGhpcyBtZXNzLCBJIHdhbnQgYWxsIE1ha2VmaWxlcyB0byBhZGQgZXhwbGljaXQgJChzcmN0
+cmVlKS8gdG8KPiB0aGUgc2VhcmNoIHBhdGhzIGluIHRoZSBzcmN0cmVlLiBTb21lIE1ha2VmaWxl
+cyBhcmUgYWxyZWFkeSB3cml0dGVuIGluCj4gdGhhdCB3YXksIGJ1dCBub3QgYWxsLiBUaGUgZ29h
+bCBvZiB0aGlzIHdvcmsgaXMgdG8gbWFrZSB0aGUgbm90YXRpb24KPiBjb25zaXN0ZW50LCBhbmQg
+ZmluYWxseSBnZXQgcmlkIG9mIHRoZSBncm9zcyBoYWNrcy4KPiAKPiBIYXZpbmcgd2hpdGVzcGFj
+ZXMgYWZ0ZXIgLUkgZG9lcyBub3QgbWF0dGVyIHNpbmNlIGNvbW1pdCA0OGY2ZTNjZjViYzYKPiAo
+ImtidWlsZDogZG8gbm90IGRyb3AgLUkgd2l0aG91dCBwYXJhbWV0ZXIiKS4KPiAKPiBbMV06IGh0
+dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcGF0Y2gvOTYzMjM0Ny8KPiAKPiBTaWduZWQtb2Zm
+LWJ5OiBNYXNhaGlybyBZYW1hZGEgPHlhbWFkYS5tYXNhaGlyb0Bzb2Npb25leHQuY29tPgoKUGF0
+Y2ggbG9va3MgZ29vZDoKUmV2aWV3ZWQtYnk6IFNhbSBSYXZuYm9yZyA8c2FtQHJhdm5ib3JnLm9y
+Zz4KCj4gLS0tCj4gCj4gSSBwdXQgYWxsIGdwdS9kcm0gY2hhbmdlcyBpbnRvIGEgc2luZ2xlIHBh
+dGNoIGJlY2F1c2UKPiB0aGV5IGFyZSB0cml2aWFsIGNvbnZlcnNpb24uCj4KPiBQbGVhc2UgbGV0
+IG1lIGtub3cgaWYgSSBuZWVkIHRvIHNwbGl0IHRoaXMgaW50byBwZXItZHJpdmVyIHBhdGNoZXMu
+CkFncmVlIHRoYXQgaXQgaXMgZ29vZCB0byBoYXZlIHRob3NlIHJlbGF0ZWQgY2huZ2VzIHRvZ2V0
+aGVyIGluIG9uZSBwYXRjaC4KCkkgc3RpbGwgbmVlZCB0byBsb29rIGludG8gZ2V0dGluZyBjb21t
+aXQtcmlnaHRzLgpEYW5pZWwgLSBjYW4geW91IHRha2UgdGhpcyB0byBkcm0tbWlzYz8KCglTYW0K
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
+IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
