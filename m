@@ -1,47 +1,119 @@
-From: Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
-Subject: Re: [PATCH] drm: prefix header search paths with
- $(srctree)/
-Date: Wed, 27 Feb 2019 21:05:24 +0100
-Message-ID: <20190227200524.GA26912@ravnborg.org>
-References: <1548906999-22143-1-git-send-email-yamada.masahiro@socionext.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Pass app_tf by value rather than by reference
+Date: Wed, 27 Feb 2019 21:34:59 -0500
+Message-ID: <CADnq5_NC_3zeMN2EE5T-eQy2JY1cAxHxdcGsUiP-vs-Du0Q=Eg@mail.gmail.com>
+References: <20181210234201.4850-1-natechancellor@gmail.com> <20190222124845.GA18614@archlinux-ryzen>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <1548906999-22143-1-git-send-email-yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
- <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/freedreno>
-List-Post: <mailto:freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
- <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Freedreno" <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>
-Cc: freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Rodrigo Vivi <rodrigo.vivi-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, intel-gvt-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Zhi Wang <zhi.a.wang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190222124845.GA18614@archlinux-ryzen>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nathan Chancellor <natechancellor@gmail.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Nick Desaulniers <ndesaulniers@google.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgTWFzYWhpcm8uCgpPbiBUaHUsIEphbiAzMSwgMjAxOSBhdCAxMjo1NjozOVBNICswOTAwLCBN
-YXNhaGlybyBZYW1hZGEgd3JvdGU6Cj4gQ3VycmVudGx5LCB0aGUgS2J1aWxkIGNvcmUgbWFuaXB1
-bGF0ZXMgaGVhZGVyIHNlYXJjaCBwYXRocyBpbiBhIGNyYXp5Cj4gd2F5IFsxXS4KPiAKPiBUbyBm
-aXggdGhpcyBtZXNzLCBJIHdhbnQgYWxsIE1ha2VmaWxlcyB0byBhZGQgZXhwbGljaXQgJChzcmN0
-cmVlKS8gdG8KPiB0aGUgc2VhcmNoIHBhdGhzIGluIHRoZSBzcmN0cmVlLiBTb21lIE1ha2VmaWxl
-cyBhcmUgYWxyZWFkeSB3cml0dGVuIGluCj4gdGhhdCB3YXksIGJ1dCBub3QgYWxsLiBUaGUgZ29h
-bCBvZiB0aGlzIHdvcmsgaXMgdG8gbWFrZSB0aGUgbm90YXRpb24KPiBjb25zaXN0ZW50LCBhbmQg
-ZmluYWxseSBnZXQgcmlkIG9mIHRoZSBncm9zcyBoYWNrcy4KPiAKPiBIYXZpbmcgd2hpdGVzcGFj
-ZXMgYWZ0ZXIgLUkgZG9lcyBub3QgbWF0dGVyIHNpbmNlIGNvbW1pdCA0OGY2ZTNjZjViYzYKPiAo
-ImtidWlsZDogZG8gbm90IGRyb3AgLUkgd2l0aG91dCBwYXJhbWV0ZXIiKS4KPiAKPiBbMV06IGh0
-dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcGF0Y2gvOTYzMjM0Ny8KPiAKPiBTaWduZWQtb2Zm
-LWJ5OiBNYXNhaGlybyBZYW1hZGEgPHlhbWFkYS5tYXNhaGlyb0Bzb2Npb25leHQuY29tPgoKUGF0
-Y2ggbG9va3MgZ29vZDoKUmV2aWV3ZWQtYnk6IFNhbSBSYXZuYm9yZyA8c2FtQHJhdm5ib3JnLm9y
-Zz4KCj4gLS0tCj4gCj4gSSBwdXQgYWxsIGdwdS9kcm0gY2hhbmdlcyBpbnRvIGEgc2luZ2xlIHBh
-dGNoIGJlY2F1c2UKPiB0aGV5IGFyZSB0cml2aWFsIGNvbnZlcnNpb24uCj4KPiBQbGVhc2UgbGV0
-IG1lIGtub3cgaWYgSSBuZWVkIHRvIHNwbGl0IHRoaXMgaW50byBwZXItZHJpdmVyIHBhdGNoZXMu
-CkFncmVlIHRoYXQgaXQgaXMgZ29vZCB0byBoYXZlIHRob3NlIHJlbGF0ZWQgY2huZ2VzIHRvZ2V0
-aGVyIGluIG9uZSBwYXRjaC4KCkkgc3RpbGwgbmVlZCB0byBsb29rIGludG8gZ2V0dGluZyBjb21t
-aXQtcmlnaHRzLgpEYW5pZWwgLSBjYW4geW91IHRha2UgdGhpcyB0byBkcm0tbWlzYz8KCglTYW0K
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJlZWRyZW5v
-IG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+Applied.  Sorry for the delay.
+
+Alex
+
+On Fri, Feb 22, 2019 at 10:36 AM Nathan Chancellor
+<natechancellor@gmail.com> wrote:
+>
+> On Mon, Dec 10, 2018 at 04:42:01PM -0700, Nathan Chancellor wrote:
+> > Clang warns when an expression that equals zero is used as a null
+> > pointer constant (in lieu of NULL):
+> >
+> > drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4435:3:
+> > warning: expression which evaluates to zero treated as a null pointer
+> > constant of type 'const enum color_transfer_func *'
+> > [-Wnon-literal-null-conversion]
+> >                 TRANSFER_FUNC_UNKNOWN,
+> >                 ^~~~~~~~~~~~~~~~~~~~~
+> > 1 warning generated.
+> >
+> > This warning is caused by commit bb47de736661 ("drm/amdgpu: Set FreeSync
+> > state using drm VRR properties") and it could be solved by using NULL
+> > instead of TRANSFER_FUNC_UNKNOWN or casting TRANSFER_FUNC_UNKNOWN as a
+> > pointer. However, after looking into it, there doesn't appear to be a
+> > good reason to pass app_tf by reference as it is never mutated along the
+> > way. This is the only code path in which app_tf is used:
+> >
+> > mod_freesync_build_vrr_infopacket ->
+> >     build_vrr_infopacket_v2 ->
+> >         build_vrr_infopacket_fs2_data
+> >
+> > Neither mod_freesync_build_vrr_infopacket or build_vrr_infopacket_v2
+> > modify app_tf's value and build_vrr_infopacket_fs2_data expects just
+> > the value so we can avoid dereferencing anything by just passing in
+> > app_tf's value to mod_freesync_build_vrr_infopacket and
+> > build_vrr_infopacket_v2.
+> >
+> > There is no functional change because build_vrr_infopacket_fs2_data
+> > doesn't do anything if TRANSFER_FUNC_UNKNOWN is passed to it, the same
+> > as not calling build_vrr_infopacket_fs2_data at all like before this
+> > change when NULL was used for app_tf.
+> >
+> > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 7 +++----
+> >  drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h  | 2 +-
+> >  2 files changed, 4 insertions(+), 5 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> > index 620a171620ee..520665a9d81a 100644
+> > --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> > +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+> > @@ -656,7 +656,7 @@ static void build_vrr_infopacket_v1(enum signal_type signal,
+> >
+> >  static void build_vrr_infopacket_v2(enum signal_type signal,
+> >               const struct mod_vrr_params *vrr,
+> > -             const enum color_transfer_func *app_tf,
+> > +             enum color_transfer_func app_tf,
+> >               struct dc_info_packet *infopacket)
+> >  {
+> >       unsigned int payload_size = 0;
+> > @@ -664,8 +664,7 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
+> >       build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
+> >       build_vrr_infopacket_data(vrr, infopacket);
+> >
+> > -     if (app_tf != NULL)
+> > -             build_vrr_infopacket_fs2_data(*app_tf, infopacket);
+> > +     build_vrr_infopacket_fs2_data(app_tf, infopacket);
+> >
+> >       build_vrr_infopacket_checksum(&payload_size, infopacket);
+> >
+> > @@ -676,7 +675,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+> >               const struct dc_stream_state *stream,
+> >               const struct mod_vrr_params *vrr,
+> >               enum vrr_packet_type packet_type,
+> > -             const enum color_transfer_func *app_tf,
+> > +             enum color_transfer_func app_tf,
+> >               struct dc_info_packet *infopacket)
+> >  {
+> >       /* SPD info packet for FreeSync */
+> > diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+> > index 949a8b62aa98..063af6258fd9 100644
+> > --- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+> > +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+> > @@ -145,7 +145,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+> >               const struct dc_stream_state *stream,
+> >               const struct mod_vrr_params *vrr,
+> >               enum vrr_packet_type packet_type,
+> > -             const enum color_transfer_func *app_tf,
+> > +             enum color_transfer_func app_tf,
+> >               struct dc_info_packet *infopacket);
+> >
+> >  void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
+> > --
+> > 2.20.0
+> >
+>
+> Gentle ping on this patch, it would be nice to get this fixed and into
+> 5.1!
+>
+> Thanks,
+> Nathan
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
