@@ -1,63 +1,59 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH -next] drm/amdgpu: remove set but not used variables 'vm, bo'
-Date: Wed, 27 Feb 2019 21:43:41 -0500
-Message-ID: <CADnq5_PVY+m7eTVSZU2kHxE5FiVSgfGccVyshCcQoagj1UWG1A@mail.gmail.com>
-References: <20190220033150.163019-1-yuehaibing@huawei.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH -next] drm/amdgpu: remove set but not used variable
+ 'vbi_time_out'
+Date: Wed, 27 Feb 2019 21:47:23 -0500
+Message-ID: <CADnq5_McbtEZVjyrP+E1ORx8UKMhmPmK2C5rSmcbDCothx0g-w@mail.gmail.com>
+References: <20190226054828.120809-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190220033150.163019-1-yuehaibing@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: YueHaibing <yuehaibing@huawei.com>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, kernel-janitors@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190226054828.120809-1-yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: YueHaibing <yuehaibing-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
+Cc: Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Kees Cook <keescook-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, "Gustavo A. R. Silva" <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
+ Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-Applied.  thanks!
-
-On Wed, Feb 20, 2019 at 3:05 AM YueHaibing <yuehaibing@huawei.com> wrote:
->
-> Fixes gcc '-Wunused-but-set-variable' warning:
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c: In function 'update_gpuvm_pte':
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:840:20: warning:
->  variable 'bo' set but not used [-Wunused-but-set-variable]
->
-> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:838:20: warning:
->  variable 'vm' set but not used [-Wunused-but-set-variable]
->
-> They're never used since introduction in a46a2cd103a8 ("drm/amdgpu: Add GPUVM
-> memory management functions for KFD")
->
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 8 +-------
->  1 file changed, 1 insertion(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index d7b10d79f1de..63daf758cd03 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -837,13 +837,7 @@ static int update_gpuvm_pte(struct amdgpu_device *adev,
->                 struct amdgpu_sync *sync)
->  {
->         int ret;
-> -       struct amdgpu_vm *vm;
-> -       struct amdgpu_bo_va *bo_va;
-> -       struct amdgpu_bo *bo;
-> -
-> -       bo_va = entry->bo_va;
-> -       vm = bo_va->base.vm;
-> -       bo = bo_va->base.bo;
-> +       struct amdgpu_bo_va *bo_va = entry->bo_va;
->
->         /* Update the page tables  */
->         ret = amdgpu_vm_bo_update(adev, bo_va, false);
->
->
->
->
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+QXBwbGllZC4gIHRoYW5rcyEKCk9uIFR1ZSwgRmViIDI2LCAyMDE5IGF0IDEyOjM2IEFNIFl1ZUhh
+aWJpbmcgPHl1ZWhhaWJpbmdAaHVhd2VpLmNvbT4gd3JvdGU6Cj4KPiBGaXhlcyBnY2MgJy1XdW51
+c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cj4KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9zaV9kcG0uYzogSW4gZnVuY3Rpb24gJ3NpX3Byb2dyYW1fcmVzcG9uc2VfdGltZXMnOgo+
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2RwbS5jOjQxMDE6Mjk6IHdhcm5pbmc6Cj4g
+IHZhcmlhYmxlICdiYWNrYmlhc19yZXNwb25zZV90aW1lJyBzZXQgYnV0IG5vdCB1c2VkIFstV3Vu
+dXNlZC1idXQtc2V0LXZhcmlhYmxlXQo+Cj4gSXQncyBuZXZlciB1c2VkIHNpbmNlIGludHJvZHVj
+dGlvbiBpbiA4NDE2ODZkZjlmN2QgKCJkcm0vYW1kZ3B1OiBhZGQgU0kgRFBNCj4gc3VwcG9ydCAo
+djQpIiksIHNvIGNhbiBiZSByZW1vdmVkCj4KPiBTaWduZWQtb2ZmLWJ5OiBZdWVIYWliaW5nIDx5
+dWVoYWliaW5nQGh1YXdlaS5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L3NpX2RwbS5jIHwgMyArLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAyIGRl
+bGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Np
+X2RwbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc2lfZHBtLmMKPiBpbmRleCA0MWUw
+MWE3ZjU3YTQuLmQ1N2U3NWU1YzcxZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9zaV9kcG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NpX2Rw
+bS5jCj4gQEAgLTQwOTgsMTQgKzQwOTgsMTMgQEAgc3RhdGljIGludCBzaV9ub3RpZnlfc21jX2Rp
+c3BsYXlfY2hhbmdlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+Cj4gIHN0YXRpYyB2b2lk
+IHNpX3Byb2dyYW1fcmVzcG9uc2VfdGltZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4g
+IHsKPiAtICAgICAgIHUzMiB2b2x0YWdlX3Jlc3BvbnNlX3RpbWUsIGJhY2tiaWFzX3Jlc3BvbnNl
+X3RpbWUsIGFjcGlfZGVsYXlfdGltZSwgdmJpX3RpbWVfb3V0Owo+ICsgICAgICAgdTMyIHZvbHRh
+Z2VfcmVzcG9uc2VfdGltZSwgYWNwaV9kZWxheV90aW1lLCB2YmlfdGltZV9vdXQ7Cj4gICAgICAg
+ICB1MzIgdmRkY19kbHksIGFjcGlfZGx5LCB2YmlfZGx5Owo+ICAgICAgICAgdTMyIHJlZmVyZW5j
+ZV9jbG9jazsKPgo+ICAgICAgICAgc2lfd3JpdGVfc21jX3NvZnRfcmVnaXN0ZXIoYWRldiwgU0lf
+U01DX1NPRlRfUkVHSVNURVJfbXZkZF9jaGdfdGltZSwgMSk7Cj4KPiAgICAgICAgIHZvbHRhZ2Vf
+cmVzcG9uc2VfdGltZSA9ICh1MzIpYWRldi0+cG0uZHBtLnZvbHRhZ2VfcmVzcG9uc2VfdGltZTsK
+PiAtICAgICAgIGJhY2tiaWFzX3Jlc3BvbnNlX3RpbWUgPSAodTMyKWFkZXYtPnBtLmRwbS5iYWNr
+Ymlhc19yZXNwb25zZV90aW1lOwo+Cj4gICAgICAgICBpZiAodm9sdGFnZV9yZXNwb25zZV90aW1l
+ID09IDApCj4gICAgICAgICAgICAgICAgIHZvbHRhZ2VfcmVzcG9uc2VfdGltZSA9IDEwMDA7Cj4K
+Pgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
