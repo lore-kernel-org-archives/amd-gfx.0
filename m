@@ -1,48 +1,79 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.20 32/81] drm/amdgpu: Add missing power attribute to
- APU check
-Date: Thu, 28 Feb 2019 10:07:24 -0500
-Message-ID: <20190228150813.10256-32-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.20 33/81] drm/radeon: check if device is root before getting pci speed caps
+Date: Thu, 28 Feb 2019 10:07:25 -0500
+Message-ID: <20190228150813.10256-33-sashal@kernel.org>
 References: <20190228150813.10256-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190228150813.10256-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190228150813.10256-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKWyBVcHN0cmVh
-bSBjb21taXQgZGMxNGViMTJmNmJiM2U3NzljNTQ2MTQyOWMxODg5YTMzOWM2N2FhYiBdCgpBZGQg
-bWlzc2luZyBwb3dlcl9hdmVyYWdlIHRvIHZpc2libGUgY2hlY2sgZm9yIHBvd2VyCmF0dHJpYnV0
-ZXMgZm9yIEFQVXMuICBXYXMgbWlzc2VkIGJlZm9yZS4KClJldmlld2VkLWJ5OiBFdmFuIFF1YW4g
-PGV2YW4ucXVhbkBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRl
-ci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2Vy
-bmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDMg
-KystCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwppbmRleCA1OWNjNjc4ZGU4YzE1Li5iYmFj
-MTVmZDhjYWFjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-cG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwpAQCAtMTY3
-MSw3ICsxNjcxLDggQEAgc3RhdGljIHVtb2RlX3QgaHdtb25fYXR0cmlidXRlc192aXNpYmxlKHN0
-cnVjdCBrb2JqZWN0ICprb2JqLAogCQllZmZlY3RpdmVfbW9kZSAmPSB+U19JV1VTUjsKIAogCWlm
-ICgoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSAmJgotCSAgICAoYXR0ciA9PSAmc2Vuc29yX2Rl
-dl9hdHRyX3Bvd2VyMV9jYXBfbWF4LmRldl9hdHRyLmF0dHIgfHwKKwkgICAgKGF0dHIgPT0gJnNl
-bnNvcl9kZXZfYXR0cl9wb3dlcjFfYXZlcmFnZS5kZXZfYXR0ci5hdHRyIHx8CisJICAgICBhdHRy
-ID09ICZzZW5zb3JfZGV2X2F0dHJfcG93ZXIxX2NhcF9tYXguZGV2X2F0dHIuYXR0ciB8fAogCSAg
-ICAgYXR0ciA9PSAmc2Vuc29yX2Rldl9hdHRyX3Bvd2VyMV9jYXBfbWluLmRldl9hdHRyLmF0dHJ8
-fAogCSAgICAgYXR0ciA9PSAmc2Vuc29yX2Rldl9hdHRyX3Bvd2VyMV9jYXAuZGV2X2F0dHIuYXR0
-cikpCiAJCXJldHVybiAwOwotLSAKMi4xOS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+From: Alex Deucher <alexander.deucher@amd.com>
+
+[ Upstream commit afeff4c16edaa6275b903f82b0561406259aa3a3 ]
+
+Check if the device is root rather before attempting to see what
+speeds the pcie port supports.  Fixes a crash with pci passthrough
+in a VM.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=109366
+Reviewed-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/radeon/ci_dpm.c | 5 +++--
+ drivers/gpu/drm/radeon/si_dpm.c | 5 +++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
+index d587779a80b4d..a97294ac96d59 100644
+--- a/drivers/gpu/drm/radeon/ci_dpm.c
++++ b/drivers/gpu/drm/radeon/ci_dpm.c
+@@ -5676,7 +5676,7 @@ int ci_dpm_init(struct radeon_device *rdev)
+ 	u16 data_offset, size;
+ 	u8 frev, crev;
+ 	struct ci_power_info *pi;
+-	enum pci_bus_speed speed_cap;
++	enum pci_bus_speed speed_cap = PCI_SPEED_UNKNOWN;
+ 	struct pci_dev *root = rdev->pdev->bus->self;
+ 	int ret;
+ 
+@@ -5685,7 +5685,8 @@ int ci_dpm_init(struct radeon_device *rdev)
+ 		return -ENOMEM;
+ 	rdev->pm.dpm.priv = pi;
+ 
+-	speed_cap = pcie_get_speed_cap(root);
++	if (!pci_is_root_bus(rdev->pdev->bus))
++		speed_cap = pcie_get_speed_cap(root);
+ 	if (speed_cap == PCI_SPEED_UNKNOWN) {
+ 		pi->sys_pcie_mask = 0;
+ 	} else {
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index 8fb60b3af0158..0a785ef0ab660 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -6899,7 +6899,7 @@ int si_dpm_init(struct radeon_device *rdev)
+ 	struct ni_power_info *ni_pi;
+ 	struct si_power_info *si_pi;
+ 	struct atom_clock_dividers dividers;
+-	enum pci_bus_speed speed_cap;
++	enum pci_bus_speed speed_cap = PCI_SPEED_UNKNOWN;
+ 	struct pci_dev *root = rdev->pdev->bus->self;
+ 	int ret;
+ 
+@@ -6911,7 +6911,8 @@ int si_dpm_init(struct radeon_device *rdev)
+ 	eg_pi = &ni_pi->eg;
+ 	pi = &eg_pi->rv7xx;
+ 
+-	speed_cap = pcie_get_speed_cap(root);
++	if (!pci_is_root_bus(rdev->pdev->bus))
++		speed_cap = pcie_get_speed_cap(root);
+ 	if (speed_cap == PCI_SPEED_UNKNOWN) {
+ 		si_pi->sys_pcie_mask = 0;
+ 	} else {
+-- 
+2.19.1
