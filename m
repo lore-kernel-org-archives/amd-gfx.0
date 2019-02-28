@@ -1,14 +1,19 @@
-From: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amd/powerplay: correct power reading on fiji
-Date: Thu, 28 Feb 2019 10:47:48 +0000
-Message-ID: <BYAPR12MB3048D49F85E48E84EA9462F3FE750@BYAPR12MB3048.namprd12.prod.outlook.com>
-References: <20190228103143.32296-1-evan.quan@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: KASAN caught amdgpu / HMM use-after-free
+Date: Thu, 28 Feb 2019 12:51:02 +0100
+Message-ID: <f26e40c8-d981-03ca-839a-6f2340a29b97@daenzer.net>
+References: <e8466985-a66b-468b-5fff-6e743180da67@daenzer.net>
+ <83fde7eb-abab-e770-efd5-89bc9c39fdff@amd.com>
+ <c26fa310-38d1-acba-cf82-bc6dc2f782c0@daenzer.net>
+ <35d7e134-6eef-9732-8ebf-83256e40eb65@amd.com>
+ <BN6PR12MB18090BDFE1DD800785C5ED76F7740@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <b81bd33a-0041-392e-2c85-19036fc1c91d@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190228103143.32296-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <b81bd33a-0041-392e-2c85-19036fc1c91d-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,39 +24,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+To: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IEZlaWZlaSBYdSA8RmVpZmVpLlh1QGFtZC5jb20+DQoNCi0tLS0tT3JpZ2lu
-YWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgRXZhbiBRdWFuDQpTZW50OiBUaHVyc2RheSwgRmVi
-cnVhcnkgMjgsIDIwMTkgNjozMiBQTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQpDYzogUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0ggMS8y
-XSBkcm0vYW1kL3Bvd2VycGxheTogY29ycmVjdCBwb3dlciByZWFkaW5nIG9uIGZpamkNCg0KU2V0
-IHNhbXBsaW5nIHBlcmlvZCBhcyA1MDBtcyB0byBwcm92aWRlIGEgc21vb3RoIHBvd2VyIHJlYWRp
-bmcgb3V0cHV0LiBBbHNvLCBjb3JyZWN0IHRoZSByZWdpc3RlciBmb3IgcG93ZXIgcmVhZGluZy4N
-Cg0KQ2hhbmdlLUlkOiBJMTM5MzVmM2U3ZmNkMDI2ZDM0YWE2YTY4Y2Y3ZjY4M2RjNjc4NWFiNw0K
-U2lnbmVkLW9mZi1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4NCi0tLQ0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyB8IDYgKysrLS0tDQog
-MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCg0KZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYw0KaW5kZXgg
-NDgxODdhY2FjNTllLi44M2QzZDkzNWYzYWMgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3NtdTdfaHdtZ3IuYw0KQEAgLTM0OTEsMTQgKzM0OTEsMTQgQEAg
-c3RhdGljIGludCBzbXU3X2dldF9ncHVfcG93ZXIoc3RydWN0IHBwX2h3bWdyICpod21nciwgdTMy
-ICpxdWVyeSkNCiANCiAJc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsIFBQU01DX01TR19QbVN0
-YXR1c0xvZ1N0YXJ0KTsNCiAJY2dzX3dyaXRlX2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLCBD
-R1NfSU5EX1JFR19fU01DLA0KLQkJCQkJCQlpeFNNVV9QTV9TVEFUVVNfOTQsIDApOw0KKwkJCQkJ
-CQlpeFNNVV9QTV9TVEFUVVNfOTUsIDApOw0KIA0KIAlmb3IgKGkgPSAwOyBpIDwgMTA7IGkrKykg
-ew0KLQkJbWRlbGF5KDEpOw0KKwkJbWRlbGF5KDUwMCk7DQogCQlzbXVtX3NlbmRfbXNnX3RvX3Nt
-Yyhod21nciwgUFBTTUNfTVNHX1BtU3RhdHVzTG9nU2FtcGxlKTsNCiAJCXRtcCA9IGNnc19yZWFk
-X2luZF9yZWdpc3Rlcihod21nci0+ZGV2aWNlLA0KIAkJCQkJCUNHU19JTkRfUkVHX19TTUMsDQot
-CQkJCQkJaXhTTVVfUE1fU1RBVFVTXzk0KTsNCisJCQkJCQlpeFNNVV9QTV9TVEFUVVNfOTUpOw0K
-IAkJaWYgKHRtcCAhPSAwKQ0KIAkJCWJyZWFrOw0KIAl9DQotLQ0KMi4yMS4wDQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcg
-bGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4
+ClsgRHJvcHBpbmcgSsOpcsO0bWUgYW5kIHRoZSBsaW51eC1tbSBsaXN0IF0KCk9uIDIwMTktMDIt
+MjcgNzo0OCBwLm0uLCBZYW5nLCBQaGlsaXAgd3JvdGU6Cj4gSGkgQWxleCwKPiAKPiBQdXNoZWQs
+IHRoYW5rcy4KPiAKPiBtbS9obW06IHVzZSByZWZlcmVuY2UgY291bnRpbmcgZm9yIEhNTSBzdHJ1
+Y3QKClRoYW5rcywgYnV0IEknbSBub3Qgc2VlaW5nIGl0IHlldC4gTWF5YmUgaXQgbmVlZHMgc29t
+ZSBzcGVjaWFsCnRyZWF0bWVudCwgYmVjYXVzZSBpdCdzIG5vdCBhIERSTSBjb2RlIGNoYW5nZT8K
+CgotLSAKRWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAg
+ICAgaHR0cHM6Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAg
+ICAgIHwgICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
