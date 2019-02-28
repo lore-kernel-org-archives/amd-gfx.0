@@ -1,79 +1,101 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.20 33/81] drm/radeon: check if device is root before getting pci speed caps
-Date: Thu, 28 Feb 2019 10:07:25 -0500
-Message-ID: <20190228150813.10256-33-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 4.20 37/81] drm/amdgpu: Transfer fences to dmabuf
+ importer
+Date: Thu, 28 Feb 2019 10:07:29 -0500
+Message-ID: <20190228150813.10256-37-sashal@kernel.org>
 References: <20190228150813.10256-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190228150813.10256-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190228150813.10256-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-From: Alex Deucher <alexander.deucher@amd.com>
-
-[ Upstream commit afeff4c16edaa6275b903f82b0561406259aa3a3 ]
-
-Check if the device is root rather before attempting to see what
-speeds the pcie port supports.  Fixes a crash with pci passthrough
-in a VM.
-
-Bug: https://bugs.freedesktop.org/show_bug.cgi?id=109366
-Reviewed-by: Evan Quan <evan.quan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/radeon/ci_dpm.c | 5 +++--
- drivers/gpu/drm/radeon/si_dpm.c | 5 +++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index d587779a80b4d..a97294ac96d59 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -5676,7 +5676,7 @@ int ci_dpm_init(struct radeon_device *rdev)
- 	u16 data_offset, size;
- 	u8 frev, crev;
- 	struct ci_power_info *pi;
--	enum pci_bus_speed speed_cap;
-+	enum pci_bus_speed speed_cap = PCI_SPEED_UNKNOWN;
- 	struct pci_dev *root = rdev->pdev->bus->self;
- 	int ret;
- 
-@@ -5685,7 +5685,8 @@ int ci_dpm_init(struct radeon_device *rdev)
- 		return -ENOMEM;
- 	rdev->pm.dpm.priv = pi;
- 
--	speed_cap = pcie_get_speed_cap(root);
-+	if (!pci_is_root_bus(rdev->pdev->bus))
-+		speed_cap = pcie_get_speed_cap(root);
- 	if (speed_cap == PCI_SPEED_UNKNOWN) {
- 		pi->sys_pcie_mask = 0;
- 	} else {
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index 8fb60b3af0158..0a785ef0ab660 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -6899,7 +6899,7 @@ int si_dpm_init(struct radeon_device *rdev)
- 	struct ni_power_info *ni_pi;
- 	struct si_power_info *si_pi;
- 	struct atom_clock_dividers dividers;
--	enum pci_bus_speed speed_cap;
-+	enum pci_bus_speed speed_cap = PCI_SPEED_UNKNOWN;
- 	struct pci_dev *root = rdev->pdev->bus->self;
- 	int ret;
- 
-@@ -6911,7 +6911,8 @@ int si_dpm_init(struct radeon_device *rdev)
- 	eg_pi = &ni_pi->eg;
- 	pi = &eg_pi->rv7xx;
- 
--	speed_cap = pcie_get_speed_cap(root);
-+	if (!pci_is_root_bus(rdev->pdev->bus))
-+		speed_cap = pcie_get_speed_cap(root);
- 	if (speed_cap == PCI_SPEED_UNKNOWN) {
- 		si_pi->sys_pcie_mask = 0;
- 	} else {
--- 
-2.19.1
+RnJvbTogQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+CgpbIFVwc3RyZWFt
+IGNvbW1pdCA2ZTExZWE5ZGU5NTc2YTY0NDA0NWZmZGMyMDY3YzA5YmMyMDEyZWRhIF0KCmFtZGdw
+dSBvbmx5IHVzZXMgc2hhcmVkLWZlbmNlcyBpbnRlcm5hbGx5LCBidXQgZG1hYnVmIGltcG9ydGVy
+cyByZWx5IG9uCmltcGxpY2l0IHdyaXRlIGhhemFyZCB0cmFja2luZyB2aWEgdGhlIHJlc2VydmF0
+aW9uX29iamVjdC5mZW5jZV9leGNsLgpGb3IgZXhhbXBsZSwgdGhlIGltcG9ydGVyIHVzZSB0aGUg
+d3JpdGUgaGF6YXJkIGZvciB0aW1pbmcgYSBwYWdlIGZsaXAgdG8Kb25seSBvY2N1ciBhZnRlciB0
+aGUgZXhwb3J0ZXIgaGFzIGZpbmlzaGVkIGZsdXNoaW5nIGl0cyB3cml0ZSBpbnRvIHRoZQpzdXJm
+YWNlLiBBcyBzdWNoLCBvbiBleHBvcnRpbmcgYSBkbWFidWYsIHdlIG11c3QgZWl0aGVyIGZsdXNo
+IGFsbApvdXRzdGFuZGluZyBmZW5jZXMgKGZvciB3ZSBkbyBub3Qga25vdyB3aGljaCBhcmUgd3Jp
+dGVzIGFuZCBzaG91bGQgaGF2ZQpiZWVuIGV4Y2x1c2l2ZSkgb3IgYWx0ZXJuYXRpdmVseSBjcmVh
+dGUgYSBuZXcgZXhjbHVzaXZlIGZlbmNlIHRoYXQgaXMKdGhlIGNvbXBvc2l0ZSBvZiBhbGwgdGhl
+IGV4aXN0aW5nIHNoYXJlZCBmZW5jZXMsIGFuZCBzbyB3aWxsIG9ubHkgYmUKc2lnbmFsZWQgd2hl
+biBhbGwgZWFybGllciBmZW5jZXMgYXJlIHNpZ25hbGVkIChlbnN1cmluZyB0aGF0IHdlIGNhbiBu
+b3QKYmUgc2lnbmFsZWQgYmVmb3JlIHRoZSBjb21wbGV0aW9uIG9mIGFueSBlYXJsaWVyIHdyaXRl
+KS4KCnYyOiByZXNlcnZhdGlvbl9vYmplY3QgaXMgYWxyZWFkeSBsb2NrZWQgYnkgYW1kZ3B1X2Jv
+X3Jlc2VydmUoKQp2MzogUmVwbGFjZSBsb29waW5nIHdpdGggZ2V0X2ZlbmNlc19yY3UgYW5kIHNw
+ZWNpYWwgY2FzZSB0aGUgcHJvbW90aW9uCm9mIGEgc2luZ2xlIHNoYXJlZCBmZW5jZSBkaXJlY3Rs
+eSB0byBhbiBleGNsdXNpdmUgZmVuY2UsIGJ5cGFzc2luZyB0aGUKZmVuY2UgYXJyYXkuCnY0OiBE
+cm9wIHRoZSBmZW5jZSBhcnJheSByZWYgYWZ0ZXIgYXNzaWduaW5nIHRvIHJlc2VydmF0aW9uX29i
+amVjdAoKQnVnemlsbGE6IGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvc2hvd19idWcuY2dp
+P2lkPTEwNzM0MQpUZXN0Y2FzZTogaWd0L2FtZF9wcmltZS9hbWQtdG8taTkxNQpSZWZlcmVuY2Vz
+OiA4ZTk0YTQ2YzE3NzAgKCJkcm0vYW1kZ3B1OiBBdHRhY2ggZXhjbHVzaXZlIGZlbmNlIHRvIHBy
+aW1lIGV4cG9ydGVkIGJvJ3MuICh2NSkiKQpTaWduZWQtb2ZmLWJ5OiBDaHJpcyBXaWxzb24gPGNo
+cmlzQGNocmlzLXdpbHNvbi5jby51az4KQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
+ZXJAYW1kLmNvbT4KQ2M6ICJDaHJpc3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
+Y29tPgpSZXZpZXdlZC1ieTogIkNocmlzdGlhbiBLw7ZuaWciIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
+LmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jIHwgNTkgKysrKysrKysr
+KysrKysrKysrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCA1MSBpbnNlcnRpb25zKCspLCA4IGRlbGV0
+aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9w
+cmltZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKaW5kZXgg
+ZTQ1ZTkyOWFhYWI1Yi4uOTBhNTk3MGFmNGI3ZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ByaW1lLmMKQEAgLTM4LDYgKzM4LDcgQEAKICNpbmNsdWRlICJhbWRncHVfZ2Vt
+LmgiCiAjaW5jbHVkZSA8ZHJtL2FtZGdwdV9kcm0uaD4KICNpbmNsdWRlIDxsaW51eC9kbWEtYnVm
+Lmg+CisjaW5jbHVkZSA8bGludXgvZG1hLWZlbmNlLWFycmF5Lmg+CiAKIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgZG1hX2J1Zl9vcHMgYW1kZ3B1X2RtYWJ1Zl9vcHM7CiAKQEAgLTE4OSw2ICsxOTAsNDgg
+QEAgYW1kZ3B1X2dlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwKIAlyZXR1cm4gRVJSX1BUUihyZXQpOwogfQogCitzdGF0aWMgaW50CitfX3Jlc2VydmF0aW9u
+X29iamVjdF9tYWtlX2V4Y2x1c2l2ZShzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpvYmopCit7
+CisJc3RydWN0IGRtYV9mZW5jZSAqKmZlbmNlczsKKwl1bnNpZ25lZCBpbnQgY291bnQ7CisJaW50
+IHI7CisKKwlpZiAoIXJlc2VydmF0aW9uX29iamVjdF9nZXRfbGlzdChvYmopKSAvKiBubyBzaGFy
+ZWQgZmVuY2VzIHRvIGNvbnZlcnQgKi8KKwkJcmV0dXJuIDA7CisKKwlyID0gcmVzZXJ2YXRpb25f
+b2JqZWN0X2dldF9mZW5jZXNfcmN1KG9iaiwgTlVMTCwgJmNvdW50LCAmZmVuY2VzKTsKKwlpZiAo
+cikKKwkJcmV0dXJuIHI7CisKKwlpZiAoY291bnQgPT0gMCkgeworCQkvKiBOb3cgdGhhdCB3YXMg
+dW5leHBlY3RlZC4gKi8KKwl9IGVsc2UgaWYgKGNvdW50ID09IDEpIHsKKwkJcmVzZXJ2YXRpb25f
+b2JqZWN0X2FkZF9leGNsX2ZlbmNlKG9iaiwgZmVuY2VzWzBdKTsKKwkJZG1hX2ZlbmNlX3B1dChm
+ZW5jZXNbMF0pOworCQlrZnJlZShmZW5jZXMpOworCX0gZWxzZSB7CisJCXN0cnVjdCBkbWFfZmVu
+Y2VfYXJyYXkgKmFycmF5OworCisJCWFycmF5ID0gZG1hX2ZlbmNlX2FycmF5X2NyZWF0ZShjb3Vu
+dCwgZmVuY2VzLAorCQkJCQkgICAgICAgZG1hX2ZlbmNlX2NvbnRleHRfYWxsb2MoMSksIDAsCisJ
+CQkJCSAgICAgICBmYWxzZSk7CisJCWlmICghYXJyYXkpCisJCQlnb3RvIGVycl9mZW5jZXNfcHV0
+OworCisJCXJlc2VydmF0aW9uX29iamVjdF9hZGRfZXhjbF9mZW5jZShvYmosICZhcnJheS0+YmFz
+ZSk7CisJCWRtYV9mZW5jZV9wdXQoJmFycmF5LT5iYXNlKTsKKwl9CisKKwlyZXR1cm4gMDsKKwor
+ZXJyX2ZlbmNlc19wdXQ6CisJd2hpbGUgKGNvdW50LS0pCisJCWRtYV9mZW5jZV9wdXQoZmVuY2Vz
+W2NvdW50XSk7CisJa2ZyZWUoZmVuY2VzKTsKKwlyZXR1cm4gLUVOT01FTTsKK30KKwogLyoqCiAg
+KiBhbWRncHVfZ2VtX21hcF9hdHRhY2ggLSAmZG1hX2J1Zl9vcHMuYXR0YWNoIGltcGxlbWVudGF0
+aW9uCiAgKiBAZG1hX2J1ZjogU2hhcmVkIERNQSBidWZmZXIKQEAgLTIyMCwxNiArMjYzLDE2IEBA
+IHN0YXRpYyBpbnQgYW1kZ3B1X2dlbV9tYXBfYXR0YWNoKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVm
+LAogCiAJaWYgKGF0dGFjaC0+ZGV2LT5kcml2ZXIgIT0gYWRldi0+ZGV2LT5kcml2ZXIpIHsKIAkJ
+LyoKLQkJICogV2FpdCBmb3IgYWxsIHNoYXJlZCBmZW5jZXMgdG8gY29tcGxldGUgYmVmb3JlIHdl
+IHN3aXRjaCB0byBmdXR1cmUKLQkJICogdXNlIG9mIGV4Y2x1c2l2ZSBmZW5jZSBvbiB0aGlzIHBy
+aW1lIHNoYXJlZCBiby4KKwkJICogV2Ugb25seSBjcmVhdGUgc2hhcmVkIGZlbmNlcyBmb3IgaW50
+ZXJuYWwgdXNlLCBidXQgaW1wb3J0ZXJzCisJCSAqIG9mIHRoZSBkbWFidWYgcmVseSBvbiBleGNs
+dXNpdmUgZmVuY2VzIGZvciBpbXBsaWNpdGx5CisJCSAqIHRyYWNraW5nIHdyaXRlIGhhemFyZHMu
+IEFzIGFueSBvZiB0aGUgY3VycmVudCBmZW5jZXMgbWF5CisJCSAqIGNvcnJlc3BvbmQgdG8gYSB3
+cml0ZSwgd2UgbmVlZCB0byBjb252ZXJ0IGFsbCBleGlzdGluZworCQkgKiBmZW5jZXMgb24gdGhl
+IHJlc2VydmF0aW9uIG9iamVjdCBpbnRvIGEgc2luZ2xlIGV4Y2x1c2l2ZQorCQkgKiBmZW5jZS4K
+IAkJICovCi0JCXIgPSByZXNlcnZhdGlvbl9vYmplY3Rfd2FpdF90aW1lb3V0X3JjdShiby0+dGJv
+LnJlc3YsCi0JCQkJCQkJdHJ1ZSwgZmFsc2UsCi0JCQkJCQkJTUFYX1NDSEVEVUxFX1RJTUVPVVQp
+OwotCQlpZiAodW5saWtlbHkociA8IDApKSB7Ci0JCQlEUk1fREVCVUdfUFJJTUUoIkZlbmNlIHdh
+aXQgZmFpbGVkOiAlbGlcbiIsIHIpOworCQlyID0gX19yZXNlcnZhdGlvbl9vYmplY3RfbWFrZV9l
+eGNsdXNpdmUoYm8tPnRiby5yZXN2KTsKKwkJaWYgKHIpCiAJCQlnb3RvIGVycm9yX3VucmVzZXJ2
+ZTsKLQkJfQogCX0KIAogCS8qIHBpbiBidWZmZXIgaW50byBHVFQgKi8KLS0gCjIuMTkuMQoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
