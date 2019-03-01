@@ -1,40 +1,77 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amdgpu/powerplay: Fix missing break in switch statement
-Date: Fri, 1 Mar 2019 15:29:43 -0600
-Message-ID: <20190301212943.GA21585@embeddedor>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: fix semicolon code style issue
+Date: Fri, 1 Mar 2019 18:47:01 -0500
+Message-ID: <CADnq5_OiQWOb6mA3o-agvOpe+m+YCBJsi6Kz6f0ZTDa8KVwQfw@mail.gmail.com>
+References: <1551365284-4459-1-git-send-email-albin_yang@163.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Kees Cook <keescook@chromium.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1551365284-4459-1-git-send-email-albin_yang-9Onoh4P/yGk@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Yang Wei <albin_yang-9Onoh4P/yGk@public.gmane.org>
+Cc: Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, yang.wei9-Th6q7B73Y6EnDS1+zs4M5A@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
+ Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>
 
-Add missing break statement in order to prevent the code from falling
-through to case SMU_Discrete_DpmTable.
-
-This bug was found thanks to the ongoing efforts to enable
--Wimplicit-fallthrough.
-
-Fixes: 34a564eaf528 ("drm/amd/powerplay: implement fw image related smum interface for Polaris.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-index 52abca065764..222fb79d319e 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/polaris10_smumgr.c
-@@ -2330,6 +2330,7 @@ static uint32_t polaris10_get_offsetof(uint32_t type, uint32_t member)
- 		case DRAM_LOG_BUFF_SIZE:
- 			return offsetof(SMU74_SoftRegisters, DRAM_LOG_BUFF_SIZE);
- 		}
-+		break;
- 	case SMU_Discrete_DpmTable:
- 		switch (member) {
- 		case UvdBootLevel:
--- 
-2.21.0
+T24gVGh1LCBGZWIgMjgsIDIwMTkgYXQgODoxMiBQTSBZYW5nIFdlaSA8YWxiaW5feWFuZ0AxNjMu
+Y29tPiB3cm90ZToKPgo+IEZyb206IFlhbmcgV2VpIDx5YW5nLndlaTlAenRlLmNvbS5jbj4KPgo+
+IERlbGV0ZSBzdXBlcmZsdW91cyBzZW1pY29sb25zLgo+Cj4gU2lnbmVkLW9mZi1ieTogWWFuZyBX
+ZWkgPHlhbmcud2VpOUB6dGUuY29tLmNuPgoKQXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCj4gLS0t
+Cj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYyAgICAgICAg
+IHwgOCArKysrLS0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9oYXJk
+d2FyZW1hbmFnZXIuYyB8IDIgKy0KPiAgMiBmaWxlcyBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyks
+IDUgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvYW1kX3Bvd2VycGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1k
+X3Bvd2VycGxheS5jCj4gaW5kZXggOWJjMjdmNC4uYjEyYzgyOCAxMDA2NDQKPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRfcG93ZXJwbGF5LmMKPiBAQCAtMTMwNCw3ICsxMzA0
+LDcgQEAgc3RhdGljIGludCBwcF9ub3RpZnlfc211X2VuYWJsZV9wd2Uodm9pZCAqaGFuZGxlKQo+
+Cj4gICAgICAgICBpZiAoaHdtZ3ItPmh3bWdyX2Z1bmMtPnNtdXNfbm90aWZ5X3B3ZSA9PSBOVUxM
+KSB7Cj4gICAgICAgICAgICAgICAgIHByX2luZm9fcmF0ZWxpbWl0ZWQoIiVzIHdhcyBub3QgaW1w
+bGVtZW50ZWQuXG4iLCBfX2Z1bmNfXyk7Cj4gLSAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFM
+OzsKPiArICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gICAgICAgICB9Cj4KPiAgICAg
+ICAgIG11dGV4X2xvY2soJmh3bWdyLT5zbXVfbG9jayk7Cj4gQEAgLTEzNDEsNyArMTM0MSw3IEBA
+IHN0YXRpYyBpbnQgcHBfc2V0X21pbl9kZWVwX3NsZWVwX2RjZWZjbGsodm9pZCAqaGFuZGxlLCB1
+aW50MzJfdCBjbG9jaykKPgo+ICAgICAgICAgaWYgKGh3bWdyLT5od21ncl9mdW5jLT5zZXRfbWlu
+X2RlZXBfc2xlZXBfZGNlZmNsayA9PSBOVUxMKSB7Cj4gICAgICAgICAgICAgICAgIHByX2RlYnVn
+KCIlcyB3YXMgbm90IGltcGxlbWVudGVkLlxuIiwgX19mdW5jX18pOwo+IC0gICAgICAgICAgICAg
+ICByZXR1cm4gLUVJTlZBTDs7Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOwo+ICAg
+ICAgICAgfQo+Cj4gICAgICAgICBtdXRleF9sb2NrKCZod21nci0+c211X2xvY2spOwo+IEBAIC0x
+MzYwLDcgKzEzNjAsNyBAQCBzdGF0aWMgaW50IHBwX3NldF9oYXJkX21pbl9kY2VmY2xrX2J5X2Zy
+ZXEodm9pZCAqaGFuZGxlLCB1aW50MzJfdCBjbG9jaykKPgo+ICAgICAgICAgaWYgKGh3bWdyLT5o
+d21ncl9mdW5jLT5zZXRfaGFyZF9taW5fZGNlZmNsa19ieV9mcmVxID09IE5VTEwpIHsKPiAgICAg
+ICAgICAgICAgICAgcHJfZGVidWcoIiVzIHdhcyBub3QgaW1wbGVtZW50ZWQuXG4iLCBfX2Z1bmNf
+Xyk7Cj4gLSAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOzsKPiArICAgICAgICAgICAgICAg
+cmV0dXJuIC1FSU5WQUw7Cj4gICAgICAgICB9Cj4KPiAgICAgICAgIG11dGV4X2xvY2soJmh3bWdy
+LT5zbXVfbG9jayk7Cj4gQEAgLTEzNzksNyArMTM3OSw3IEBAIHN0YXRpYyBpbnQgcHBfc2V0X2hh
+cmRfbWluX2ZjbGtfYnlfZnJlcSh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGNsb2NrKQo+Cj4gICAg
+ICAgICBpZiAoaHdtZ3ItPmh3bWdyX2Z1bmMtPnNldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEgPT0g
+TlVMTCkgewo+ICAgICAgICAgICAgICAgICBwcl9kZWJ1ZygiJXMgd2FzIG5vdCBpbXBsZW1lbnRl
+ZC5cbiIsIF9fZnVuY19fKTsKPiAtICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Owo+ICsg
+ICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsKPiAgICAgICAgIH0KPgo+ICAgICAgICAgbXV0
+ZXhfbG9jaygmaHdtZ3ItPnNtdV9sb2NrKTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvaHdtZ3IvaGFyZHdhcmVtYW5hZ2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9od21nci9oYXJkd2FyZW1hbmFnZXIuYwo+IGluZGV4IDFmOTJhOWYuLmZm
+YTdkNDYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Iv
+aGFyZHdhcmVtYW5hZ2VyLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9o
+d21nci9oYXJkd2FyZW1hbmFnZXIuYwo+IEBAIC03Niw3ICs3Niw3IEBAIGludCBwaG1fc2V0X3Bv
+d2VyX3N0YXRlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCj4gIGludCBwaG1fZW5hYmxlX2R5bmFt
+aWNfc3RhdGVfbWFuYWdlbWVudChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQo+ICB7Cj4gICAgICAg
+ICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IE5VTEw7Cj4gLSAgICAgICBpbnQgcmV0ID0g
+LUVJTlZBTDs7Cj4gKyAgICAgICBpbnQgcmV0ID0gLUVJTlZBTDsKPiAgICAgICAgIFBITV9GVU5D
+X0NIRUNLKGh3bWdyKTsKPiAgICAgICAgIGFkZXYgPSBod21nci0+YWRldjsKPgo+IC0tCj4gMi43
+LjQKPgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4g
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
