@@ -1,11 +1,14 @@
-From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: handle userptr corner cases with HMM path
-Date: Fri, 1 Mar 2019 18:30:10 +0000
-Message-ID: <20190301182944.1427-1-Philip.Yang@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati 2/2] dri2: Call drm_queue_handle_deferred
+ in dri2_deferred_event
+Date: Fri, 1 Mar 2019 20:40:38 +0000
+Message-ID: <BN6PR12MB1809DD3A7F44450038E9385CF7760@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190301173550.21762-1-michel@daenzer.net>,
+ <20190301173550.21762-2-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1252286494=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190301173550.21762-2-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -17,121 +20,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhvc2UgY29ybmVyIGNhc2VzIGFyZSBmb3VuZCBieSBrZmR0ZXN0LktGRElQQ1Rlc3QuCgp1c2Vy
-cHRyIG1heSBjcm9zcyB0d28gdm1hcyBpZiB0aGUgZm9ya2VkIGNoaWxkIHByb2Nlc3MgKG5vdCBj
-YWxsIGV4ZWMKYWZ0ZXIgZm9yaykgbWFsbG9jIGJ1ZmZlciwgdGhlbiBmcmVlIGl0LCBhbmQgdGhl
-biBtYWxsb2MgbGFyZ2VyIHNpemUKYnVmLCBrZXJlbmwgd2lsbCBjcmVhdGUgbmV3IHZtYSBhZGph
-Y2VudCB0byBvbGQgdm1hIHdoaWNoIHdhcyBjbG9uZWQKZnJvbSBwYXJlbnQgcHJvY2Vzcywgc29t
-ZSBwYWdlcyBvZiB1c2VycHRyIGFyZSBpbiB0aGUgZmlyc3Qgdm1hLCB0aGUKcmVzdCBwYWdlcyBh
-cmUgaW4gdGhlIHNlY29uZCB2bWEuIEhNTSBleHBlY3RzIHJhbmdlIG9ubHkgaGF2ZSBvbmUgdm1h
-LAp3ZSBoYXZlIHRvIHVzZSB0d28gcmFuZ2VzIHRvIGhhbmRsZSB0aGlzIGNhc2UuIFNlZSBpc19t
-ZXJnZWFibGVfYW5vbl92bWEKaW4gbW0vbW1hcC5jIGZvciBkZXRhaWxzLgoKa2ZkIHVzZXJwdHIg
-cmVzdG9yZSBtYXkgaGF2ZSBjb25jdXJyZW50IHVzZXJwdHIgaW52YWxpZGF0aW9uLCByZXNjaGVk
-dWxlCnRvIHJlc3RvcmUgYW5kIHRoZW4gbmVlZHMgY2FsbCBobW1fdm1hX3JhbmdlX2RvbmUgdG8g
-cmVtb3ZlIHJhbmdlIGZyb20KaG1tLT5yYW5nZXMgbGlzdCwgb3RoZXJ3aXNlIGhtbV92bWFfZmF1
-bHQgYWRkIHNhbWUgcmFuZ2UgdG8gdGhlIGxpc3QKd2lsbCBjYXVzZSBsb29wIGluIHRoZSBsaXN0
-IGJlY2F1c2UgcmFuZ2UtPm5leHQgcG9pbnQgdG8gcmFuZ2UgaXRzZWxmLgoKQ2hhbmdlLUlkOiBJ
-NjQxYmE3NDA2YzMyYmQ4YjdhZTcxNWY1MmJkODk2ZDUzZmU1NjgwMQpTaWduZWQtb2ZmLWJ5OiBQ
-aGlsaXAgWWFuZyA8UGhpbGlwLllhbmdAYW1kLmNvbT4KLS0tCiAuLi4vZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgfCAyOCArKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgICAgICAgfCA3MyArKysrKysrKysrKysrLS0tLS0tCiAy
-IGZpbGVzIGNoYW5nZWQsIDcxIGluc2VydGlvbnMoKyksIDMwIGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwppbmRleCBm
-ODEwNDc2MGYxZTYuLjE3OWFmOWQzYWIxOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwpAQCAtMTczOCw2ICsxNzM4LDIzIEBAIHN0YXRp
-YyBpbnQgdXBkYXRlX2ludmFsaWRfdXNlcl9wYWdlcyhzdHJ1Y3QgYW1ka2ZkX3Byb2Nlc3NfaW5m
-byAqcHJvY2Vzc19pbmZvLAogCXJldHVybiAwOwogfQogCisvKiBVbnRyYWNrIGludmFsaWQgdXNl
-cnB0ciBCT3MKKyAqCisgKiBTdG9wIEhNTSB0cmFjayB0aGUgdXNlcnB0ciB1cGRhdGUKKyAqLwor
-c3RhdGljIHZvaWQgdW50cmFja19pbnZhbGlkX3VzZXJfcGFnZXMoc3RydWN0IGFtZGtmZF9wcm9j
-ZXNzX2luZm8gKnByb2Nlc3NfaW5mbykKK3sKKwlzdHJ1Y3Qga2dkX21lbSAqbWVtLCAqdG1wX21l
-bTsKKwlzdHJ1Y3QgYW1kZ3B1X2JvICpibzsKKworCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZSht
-ZW0sIHRtcF9tZW0sCisJCQkJICZwcm9jZXNzX2luZm8tPnVzZXJwdHJfaW52YWxfbGlzdCwKKwkJ
-CQkgdmFsaWRhdGVfbGlzdC5oZWFkKSB7CisJCWJvID0gbWVtLT5ibzsKKwkJYW1kZ3B1X3R0bV90
-dF9nZXRfdXNlcl9wYWdlc19kb25lKGJvLT50Ym8udHRtKTsKKwl9Cit9CisKIC8qIFZhbGlkYXRl
-IGludmFsaWQgdXNlcnB0ciBCT3MKICAqCiAgKiBWYWxpZGF0ZXMgQk9zIG9uIHRoZSB1c2VycHRy
-X2ludmFsX2xpc3QsIGFuZCBtb3ZlcyB0aGVtIGJhY2sgdG8gdGhlCkBAIC0xODU1LDEyICsxODcy
-LDcgQEAgc3RhdGljIGludCB2YWxpZGF0ZV9pbnZhbGlkX3VzZXJfcGFnZXMoc3RydWN0IGFtZGtm
-ZF9wcm9jZXNzX2luZm8gKnByb2Nlc3NfaW5mbykKIG91dF9mcmVlOgogCWtmcmVlKHBkX2JvX2xp
-c3RfZW50cmllcyk7CiBvdXRfbm9fbWVtOgotCWxpc3RfZm9yX2VhY2hfZW50cnlfc2FmZShtZW0s
-IHRtcF9tZW0sCi0JCQkJICZwcm9jZXNzX2luZm8tPnVzZXJwdHJfaW52YWxfbGlzdCwKLQkJCQkg
-dmFsaWRhdGVfbGlzdC5oZWFkKSB7Ci0JCWJvID0gbWVtLT5ibzsKLQkJYW1kZ3B1X3R0bV90dF9n
-ZXRfdXNlcl9wYWdlc19kb25lKGJvLT50Ym8udHRtKTsKLQl9CisJdW50cmFja19pbnZhbGlkX3Vz
-ZXJfcGFnZXMocHJvY2Vzc19pbmZvKTsKIAogCXJldHVybiByZXQ7CiB9CkBAIC0xOTA0LDggKzE5
-MTYsMTAgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2FtZGtmZF9yZXN0b3JlX3VzZXJwdHJfd29ya2Vy
-KHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIAkgKiBhbmQgd2UgY2FuIGp1c3QgcmVzdGFydCB0
-aGUgcXVldWVzLgogCSAqLwogCWlmICghbGlzdF9lbXB0eSgmcHJvY2Vzc19pbmZvLT51c2VycHRy
-X2ludmFsX2xpc3QpKSB7Ci0JCWlmIChhdG9taWNfcmVhZCgmcHJvY2Vzc19pbmZvLT5ldmljdGVk
-X2JvcykgIT0gZXZpY3RlZF9ib3MpCisJCWlmIChhdG9taWNfcmVhZCgmcHJvY2Vzc19pbmZvLT5l
-dmljdGVkX2JvcykgIT0gZXZpY3RlZF9ib3MpIHsKKwkJCXVudHJhY2tfaW52YWxpZF91c2VyX3Bh
-Z2VzKHByb2Nlc3NfaW5mbyk7CiAJCQlnb3RvIHVubG9ja19vdXQ7IC8qIENvbmN1cnJlbnQgZXZp
-Y3Rpb24sIHRyeSBhZ2FpbiAqLworCQl9CiAKIAkJaWYgKHZhbGlkYXRlX2ludmFsaWRfdXNlcl9w
-YWdlcyhwcm9jZXNzX2luZm8pKQogCQkJZ290byB1bmxvY2tfb3V0OwpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3R0bS5jCmluZGV4IGNkMGNjZmJiY2I4NC4uZTU3MzYyMjVmNTEzIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCkBAIC03MTEsNyArNzExLDcg
-QEAgc3RydWN0IGFtZGdwdV90dG1fdHQgewogCXN0cnVjdCB0YXNrX3N0cnVjdAkqdXNlcnRhc2s7
-CiAJdWludDMyX3QJCXVzZXJmbGFnczsKICNpZiBJU19FTkFCTEVEKENPTkZJR19EUk1fQU1ER1BV
-X1VTRVJQVFIpCi0Jc3RydWN0IGhtbV9yYW5nZQlyYW5nZTsKKwlzdHJ1Y3QgaG1tX3JhbmdlCXJh
-bmdlLCByYW5nZTI7CiAjZW5kaWYKIH07CiAKQEAgLTcyNyw1OCArNzI3LDgxIEBAIGludCBhbWRn
-cHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzKHN0cnVjdCB0dG1fdHQgKnR0bSwgc3RydWN0IHBhZ2Ug
-KipwYWdlcykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X3R0bV90dCAqZ3R0ID0gKHZvaWQgKil0dG07CiAJ
-c3RydWN0IG1tX3N0cnVjdCAqbW0gPSBndHQtPnVzZXJ0YXNrLT5tbTsKLQl1bnNpZ25lZCBsb25n
-IGVuZCA9IGd0dC0+dXNlcnB0ciArIHR0bS0+bnVtX3BhZ2VzICogUEFHRV9TSVpFOworCXVuc2ln
-bmVkIGxvbmcgc3RhcnQgPSBndHQtPnVzZXJwdHI7CisJdW5zaWduZWQgbG9uZyBlbmQgPSBzdGFy
-dCArIHR0bS0+bnVtX3BhZ2VzICogUEFHRV9TSVpFOwogCXN0cnVjdCBobW1fcmFuZ2UgKnJhbmdl
-ID0gJmd0dC0+cmFuZ2U7CisJc3RydWN0IGhtbV9yYW5nZSAqcmFuZ2UyID0gJmd0dC0+cmFuZ2Uy
-OworCXN0cnVjdCB2bV9hcmVhX3N0cnVjdCAqdm1hLCAqdm1hX25leHQgPSBOVUxMOworCXVpbnQ2
-NF90ICpwZm5zLCBmOwogCWludCByID0gMCwgaTsKIAogCWlmICghbW0pIC8qIEhhcHBlbnMgZHVy
-aW5nIHByb2Nlc3Mgc2h1dGRvd24gKi8KIAkJcmV0dXJuIC1FU1JDSDsKIAotCWFtZGdwdV9obW1f
-aW5pdF9yYW5nZShyYW5nZSk7Ci0KIAlkb3duX3JlYWQoJm1tLT5tbWFwX3NlbSk7CiAKLQlyYW5n
-ZS0+dm1hID0gZmluZF92bWEobW0sIGd0dC0+dXNlcnB0cik7Ci0JaWYgKCFyYW5nZV9pbl92bWEo
-cmFuZ2UtPnZtYSwgZ3R0LT51c2VycHRyLCBlbmQpKQotCQlyID0gLUVGQVVMVDsKLQllbHNlIGlm
-ICgoZ3R0LT51c2VyZmxhZ3MgJiBBTURHUFVfR0VNX1VTRVJQVFJfQU5PTk9OTFkpICYmCi0JCXJh
-bmdlLT52bWEtPnZtX2ZpbGUpCisJLyogdXNlciBwYWdlcyBtYXkgY3Jvc3Mgdm1hIGJvdW5kICov
-CisJdm1hID0gZmluZF92bWEobW0sIHN0YXJ0KTsKKwlpZiAodW5saWtlbHkoIXJhbmdlX2luX3Zt
-YSh2bWEsIHN0YXJ0LCBlbmQpKSkgeworCQl2bWFfbmV4dCA9IGZpbmRfZXh0ZW5kX3ZtYShtbSwg
-ZW5kKTsKKwkJaWYgKHVubGlrZWx5KCF2bWFfbmV4dCkpIHsKKwkJCXIgPSAtRUZBVUxUOworCQkJ
-Z290byBvdXQ7CisJCX0KKwkJYW1kZ3B1X2htbV9pbml0X3JhbmdlKHJhbmdlMik7CisJfQorCWFt
-ZGdwdV9obW1faW5pdF9yYW5nZShyYW5nZSk7CisKKwlpZiAodW5saWtlbHkoKGd0dC0+dXNlcmZs
-YWdzICYgQU1ER1BVX0dFTV9VU0VSUFRSX0FOT05PTkxZKSAmJgorCQl2bWEtPnZtX2ZpbGUpKSB7
-CiAJCXIgPSAtRVBFUk07Ci0JaWYgKHIpCiAJCWdvdG8gb3V0OworCX0KIAotCXJhbmdlLT5wZm5z
-ID0ga3ZtYWxsb2NfYXJyYXkodHRtLT5udW1fcGFnZXMsIHNpemVvZih1aW50NjRfdCksCi0JCQkJ
-ICAgICBHRlBfS0VSTkVMKTsKLQlpZiAocmFuZ2UtPnBmbnMgPT0gTlVMTCkgeworCXBmbnMgPSBr
-dm1hbGxvY19hcnJheSh0dG0tPm51bV9wYWdlcywgc2l6ZW9mKHVpbnQ2NF90KSwgR0ZQX0tFUk5F
-TCk7CisJaWYgKHVubGlrZWx5KCFwZm5zKSkgewogCQlyID0gLUVOT01FTTsKIAkJZ290byBvdXQ7
-CiAJfQotCXJhbmdlLT5zdGFydCA9IGd0dC0+dXNlcnB0cjsKLQlyYW5nZS0+ZW5kID0gZW5kOwog
-Ci0JcmFuZ2UtPnBmbnNbMF0gPSByYW5nZS0+ZmxhZ3NbSE1NX1BGTl9WQUxJRF07Ci0JcmFuZ2Ut
-PnBmbnNbMF0gfD0gYW1kZ3B1X3R0bV90dF9pc19yZWFkb25seSh0dG0pID8KLQkJCQkwIDogcmFu
-Z2UtPmZsYWdzW0hNTV9QRk5fV1JJVEVdOwotCWZvciAoaSA9IDE7IGkgPCB0dG0tPm51bV9wYWdl
-czsgaSsrKQotCQlyYW5nZS0+cGZuc1tpXSA9IHJhbmdlLT5wZm5zWzBdOworCWYgPSByYW5nZS0+
-ZmxhZ3NbSE1NX1BGTl9WQUxJRF07CisJZiB8PSBhbWRncHVfdHRtX3R0X2lzX3JlYWRvbmx5KHR0
-bSkgPyAwIDogcmFuZ2UtPmZsYWdzW0hNTV9QRk5fV1JJVEVdOworCW1lbXNldDY0KHBmbnMsIGYs
-IHR0bS0+bnVtX3BhZ2VzKTsKIAorCXJhbmdlLT5wZm5zID0gcGZuczsKKwlyYW5nZS0+dm1hID0g
-dm1hOworCXJhbmdlLT5zdGFydCA9IHN0YXJ0OworCXJhbmdlLT5lbmQgPSBtaW4oZW5kLCB2bWEt
-PnZtX2VuZCk7CiAJLyogVGhpcyBtYXkgdHJpZ2dlciBwYWdlIHRhYmxlIHVwZGF0ZSAqLwogCXIg
-PSBobW1fdm1hX2ZhdWx0KHJhbmdlLCB0cnVlKTsKLQlpZiAocikKKwlpZiAodW5saWtlbHkocikp
-CiAJCWdvdG8gb3V0X2ZyZWVfcGZuczsKIAorCWlmICh1bmxpa2VseSh2bWFfbmV4dCkpIHsKKwkJ
-cmFuZ2UyLT5wZm5zID0gcGZucyArIChyYW5nZS0+ZW5kIC0gcmFuZ2UtPnN0YXJ0KSAvIFBBR0Vf
-U0laRTsKKwkJcmFuZ2UyLT52bWEgPSB2bWFfbmV4dDsKKwkJcmFuZ2UyLT5zdGFydCA9IHJhbmdl
-LT5lbmQ7CisJCXJhbmdlMi0+ZW5kID0gZW5kOworCQlyID0gaG1tX3ZtYV9mYXVsdChyYW5nZTIs
-IHRydWUpOworCQlpZiAodW5saWtlbHkocikpCisJCQlnb3RvIG91dF9mcmVlX3BmbnM7CisJfQor
-CiAJdXBfcmVhZCgmbW0tPm1tYXBfc2VtKTsKIAogCWZvciAoaSA9IDA7IGkgPCB0dG0tPm51bV9w
-YWdlczsgaSsrKQotCQlwYWdlc1tpXSA9IGhtbV9wZm5fdG9fcGFnZShyYW5nZSwgcmFuZ2UtPnBm
-bnNbaV0pOworCQlwYWdlc1tpXSA9IGhtbV9wZm5fdG9fcGFnZShyYW5nZSwgcGZuc1tpXSk7CiAK
-IAlyZXR1cm4gMDsKIAogb3V0X2ZyZWVfcGZuczoKLQlrdmZyZWUocmFuZ2UtPnBmbnMpOworCWt2
-ZnJlZShwZm5zKTsKIAlyYW5nZS0+cGZucyA9IE5VTEw7CisJaWYgKHVubGlrZWx5KHZtYV9uZXh0
-KSkKKwkJcmFuZ2UyLT5wZm5zID0gTlVMTDsKIG91dDoKIAl1cF9yZWFkKCZtbS0+bW1hcF9zZW0p
-OworCiAJcmV0dXJuIHI7CiB9CiAKQEAgLTgwMiw2ICs4MjUsMTAgQEAgYm9vbCBhbWRncHVfdHRt
-X3R0X2dldF91c2VyX3BhZ2VzX2RvbmUoc3RydWN0IHR0bV90dCAqdHRtKQogCQlrdmZyZWUoZ3R0
-LT5yYW5nZS5wZm5zKTsKIAkJZ3R0LT5yYW5nZS5wZm5zID0gTlVMTDsKIAl9CisJaWYgKGd0dC0+
-cmFuZ2UyLnBmbnMpIHsKKwkJciA9IGhtbV92bWFfcmFuZ2VfZG9uZSgmZ3R0LT5yYW5nZTIpOwor
-CQlndHQtPnJhbmdlMi5wZm5zID0gTlVMTDsKKwl9CiAKIAlyZXR1cm4gcjsKIH0KLS0gCjIuMTcu
-MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============1252286494==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809DD3A7F44450038E9385CF7760BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809DD3A7F44450038E9385CF7760BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
+=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Sent: Friday, March 1, 2019 12:35 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH xf86-video-ati 2/2] dri2: Call drm_queue_handle_deferred in=
+ dri2_deferred_event
+
+From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+
+drm_queue_handler just puts the event on the signalled list; without
+calling drm_queue_handle_deferred, actual processing of the event may be
+delayed indefinitely, e.g. until another event arrives from the kernel.
+
+This could result in DRI2 clients hanging during DPMS off.
+
+Fixes: ba83a866af5a "Add radeon_drm_handle_event wrapper for
+                     drmHandleEvent"
+(Ported from amdgpu commit 09be74a3d1dd9604336d9a27f98d132b262dcbaf)
+
+Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+---
+ src/radeon_dri2.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/src/radeon_dri2.c b/src/radeon_dri2.c
+index b5d6835c9..a9f14e8d8 100644
+--- a/src/radeon_dri2.c
++++ b/src/radeon_dri2.c
+@@ -979,12 +979,18 @@ CARD32 radeon_dri2_deferred_event(OsTimerPtr timer, C=
+ARD32 now, pointer data)
+     if (ret) {
+         xf86DrvMsg(scrn->scrnIndex, X_ERROR,
+                    "%s cannot get current time\n", __func__);
+-       if (event_info->drm_queue_seq)
++
++       if (event_info->drm_queue_seq) {
+             drmmode_crtc->drmmode->event_context.
+                 vblank_handler(pRADEONEnt->fd, 0, 0, 0,
+                                (void*)event_info->drm_queue_seq);
+-       else
++           drmmode_crtc->wait_flip_nesting_level++;
++           radeon_drm_queue_handle_deferred(crtc);
++
++       } else {
+             radeon_dri2_frame_event_handler(crtc, 0, 0, data);
++       }
++
+         return 0;
+     }
+     /*
+@@ -995,13 +1001,18 @@ CARD32 radeon_dri2_deferred_event(OsTimerPtr timer, =
+CARD32 now, pointer data)
+     delta_seq =3D delta_t * drmmode_crtc->dpms_last_fps;
+     delta_seq /=3D 1000000;
+     frame =3D (CARD64)drmmode_crtc->dpms_last_seq + delta_seq;
+-    if (event_info->drm_queue_seq)
++
++    if (event_info->drm_queue_seq) {
+         drmmode_crtc->drmmode->event_context.
+             vblank_handler(pRADEONEnt->fd, frame, drm_now / 1000000,
+                            drm_now % 1000000,
+                            (void*)event_info->drm_queue_seq);
+-    else
++       drmmode_crtc->wait_flip_nesting_level++;
++       radeon_drm_queue_handle_deferred(crtc);
++    } else {
+         radeon_dri2_frame_event_handler(crtc, frame, drm_now, data);
++    }
++
+     return 0;
+ }
+
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809DD3A7F44450038E9385CF7760BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
+enzer.net&gt;<br>
+<b>Sent:</b> Friday, March 1, 2019 12:35 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH xf86-video-ati 2/2] dri2: Call drm_queue_handle_defe=
+rred in dri2_deferred_event</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<br>
+drm_queue_handler just puts the event on the signalled list; without<br>
+calling drm_queue_handle_deferred, actual processing of the event may be<br=
+>
+delayed indefinitely, e.g. until another event arrives from the kernel.<br>
+<br>
+This could result in DRI2 clients hanging during DPMS off.<br>
+<br>
+Fixes: ba83a866af5a &quot;Add radeon_drm_handle_event wrapper for<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmHandleEvent&quot;<br>
+(Ported from amdgpu commit 09be74a3d1dd9604336d9a27f98d132b262dcbaf)<br>
+<br>
+Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;src/radeon_dri2.c | 19 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;----<br>
+&nbsp;1 file changed, 15 insertions(&#43;), 4 deletions(-)<br>
+<br>
+diff --git a/src/radeon_dri2.c b/src/radeon_dri2.c<br>
+index b5d6835c9..a9f14e8d8 100644<br>
+--- a/src/radeon_dri2.c<br>
+&#43;&#43;&#43; b/src/radeon_dri2.c<br>
+@@ -979,12 &#43;979,18 @@ CARD32 radeon_dri2_deferred_event(OsTimerPtr time=
+r, CARD32 now, pointer data)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xf86DrvMsg(scrn-&gt;scrnIn=
+dex, X_ERROR,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;%s cannot get current time\n&=
+quot;, __func__);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (event_info-&gt;drm_queue_seq)<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (event_info-&gt;drm_queue_seq)=
+ {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dr=
+mmode_crtc-&gt;drmmode-&gt;event_context.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; vblank_handler(pRADEONEnt-&gt;fd, 0, 0, 0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (void*)event_info-&gt;drm_queue_seq);<=
+br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_c=
+rtc-&gt;wait_flip_nesting_level&#43;&#43;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_dr=
+m_queue_handle_deferred(crtc);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ra=
+deon_dri2_frame_event_handler(crtc, 0, 0, data);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+@@ -995,13 &#43;1001,18 @@ CARD32 radeon_dri2_deferred_event(OsTimerPtr tim=
+er, CARD32 now, pointer data)<br>
+&nbsp;&nbsp;&nbsp;&nbsp; delta_seq =3D delta_t * drmmode_crtc-&gt;dpms_last=
+_fps;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; delta_seq /=3D 1000000;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; frame =3D (CARD64)drmmode_crtc-&gt;dpms_last_seq &=
+#43; delta_seq;<br>
+-&nbsp;&nbsp;&nbsp; if (event_info-&gt;drm_queue_seq)<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp; if (event_info-&gt;drm_queue_seq) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_crtc-&gt;drmmode-&=
+gt;event_context.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vb=
+lank_handler(pRADEONEnt-&gt;fd, frame, drm_now / 1000000,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; drm_now % 1000000,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; (void*)event_info-&gt;drm_queue_seq);<br>
+-&nbsp;&nbsp;&nbsp; else<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_crtc-&gt;wait_flip_nestin=
+g_level&#43;&#43;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_drm_queue_handle_deferred(=
+crtc);<br>
+&#43;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_dri2_frame_event_ha=
+ndler(crtc, frame, drm_now, data);<br>
+&#43;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809DD3A7F44450038E9385CF7760BN6PR12MB1809namp_--
+
+--===============1252286494==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1252286494==--
