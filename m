@@ -1,55 +1,49 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
 Subject: Re: [PATCH] drm/amdgpu/powerplay: Fix missing break in switch
  statement
-Date: Fri, 1 Mar 2019 18:54:18 -0500
-Message-ID: <CADnq5_NdT3R141uSGxYd7yZ0nimo2uW_WgfWF8jGxYr68F4Kqg@mail.gmail.com>
+Date: Fri, 1 Mar 2019 18:00:32 -0600
+Message-ID: <37efca9b-c949-efb9-c336-f1fb910d81f3@embeddedor.com>
 References: <20190301212943.GA21585@embeddedor>
+ <CADnq5_NdT3R141uSGxYd7yZ0nimo2uW_WgfWF8jGxYr68F4Kqg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190301212943.GA21585@embeddedor>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Gustavo A. R. Silva" <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Kees Cook <keescook-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_NdT3R141uSGxYd7yZ0nimo2uW_WgfWF8jGxYr68F4Kqg@mail.gmail.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Kees Cook <keescook@chromium.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBNYXIgMSwgMjAxOSBhdCA0OjUxIFBNIEd1c3Rhdm8gQS4gUi4gU2lsdmEKPGd1c3Rh
-dm9AZW1iZWRkZWRvci5jb20+IHdyb3RlOgo+Cj4gQWRkIG1pc3NpbmcgYnJlYWsgc3RhdGVtZW50
-IGluIG9yZGVyIHRvIHByZXZlbnQgdGhlIGNvZGUgZnJvbSBmYWxsaW5nCj4gdGhyb3VnaCB0byBj
-YXNlIFNNVV9EaXNjcmV0ZV9EcG1UYWJsZS4KPgo+IFRoaXMgYnVnIHdhcyBmb3VuZCB0aGFua3Mg
-dG8gdGhlIG9uZ29pbmcgZWZmb3J0cyB0byBlbmFibGUKPiAtV2ltcGxpY2l0LWZhbGx0aHJvdWdo
-Lgo+Cj4gRml4ZXM6IDM0YTU2NGVhZjUyOCAoImRybS9hbWQvcG93ZXJwbGF5OiBpbXBsZW1lbnQg
-ZncgaW1hZ2UgcmVsYXRlZCBzbXVtIGludGVyZmFjZSBmb3IgUG9sYXJpcy4iKQo+IENjOiBzdGFi
-bGVAdmdlci5rZXJuZWwub3JnCj4gU2lnbmVkLW9mZi1ieTogR3VzdGF2byBBLiBSLiBTaWx2YSA8
-Z3VzdGF2b0BlbWJlZGRlZG9yLmNvbT4KCkFscmVhZHkgZml4ZWQ6Cmh0dHBzOi8vY2dpdC5mcmVl
-ZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4L2NvbW1pdC8/aD1kcm0tbmV4dC01LjItd2lwJmlkPTZm
-ZWFhNDE5NGMxODU3ODYyMzU2NTAxN2Y5NWQxYjJmNmIyNDM1NjcKCkFsZXgKCj4gLS0tCj4gIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMgfCAx
-ICsKPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9wb2xhcmlzMTBfc211bWdyLmMKPiBp
-bmRleCA1MmFiY2EwNjU3NjQuLjIyMmZiNzlkMzE5ZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYwo+IEBA
-IC0yMzMwLDYgKzIzMzAsNyBAQCBzdGF0aWMgdWludDMyX3QgcG9sYXJpczEwX2dldF9vZmZzZXRv
-Zih1aW50MzJfdCB0eXBlLCB1aW50MzJfdCBtZW1iZXIpCj4gICAgICAgICAgICAgICAgIGNhc2Ug
-RFJBTV9MT0dfQlVGRl9TSVpFOgo+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBvZmZz
-ZXRvZihTTVU3NF9Tb2Z0UmVnaXN0ZXJzLCBEUkFNX0xPR19CVUZGX1NJWkUpOwo+ICAgICAgICAg
-ICAgICAgICB9Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICAgICAgICAgY2FzZSBTTVVfRGlz
-Y3JldGVfRHBtVGFibGU6Cj4gICAgICAgICAgICAgICAgIHN3aXRjaCAobWVtYmVyKSB7Cj4gICAg
-ICAgICAgICAgICAgIGNhc2UgVXZkQm9vdExldmVsOgo+IC0tCj4gMi4yMS4wCj4KPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGRyaS1kZXZlbCBtYWls
-aW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWwKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+
+On 3/1/19 5:54 PM, Alex Deucher wrote:
+> On Fri, Mar 1, 2019 at 4:51 PM Gustavo A. R. Silva
+> <gustavo@embeddedor.com> wrote:
+>>
+>> Add missing break statement in order to prevent the code from falling
+>> through to case SMU_Discrete_DpmTable.
+>>
+>> This bug was found thanks to the ongoing efforts to enable
+>> -Wimplicit-fallthrough.
+>>
+>> Fixes: 34a564eaf528 ("drm/amd/powerplay: implement fw image related smum interface for Polaris.")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+> 
+> Already fixed:
+> https://cgit.freedesktop.org/~agd5f/linux/commit/?h=drm-next-5.2-wip&id=6feaa4194c18578623565017f95d1b2f6b243567
+> 
+
+Awesome. :)
+
+I was looking for that link, but I didn't find it.  That's why
+I sent this patch.
+
+Happy to see it is fixed now.
+
+Thanks, Alex.
+
+--
+Gustavo
