@@ -1,43 +1,81 @@
-From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix typing in amdgpu_virt_ops::trans_msg
-Date: Mon, 4 Mar 2019 23:54:20 +0100
-Message-ID: <20190304225419.7j5iiqrqm7msyvd7@ltop.local>
-References: <20190304131000.17994-1-luc.vanoostenryck@gmail.com>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Enable XGMI mapping for peer device
+Date: Mon, 4 Mar 2019 23:27:02 +0000
+Message-ID: <1551742016-12874-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190304131000.17994-1-luc.vanoostenryck@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Monk Liu <Monk.Liu@amd.com>, Emily Deng <Emily.Deng@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Mar 04, 2019 at 02:10:00PM +0100, Luc Van Oostenryck wrote:
-> The method in struct amdgpu_virt_ops::trans_msg() is defined as
-> using an 'u32' for its 2nd argument (the request) but the actual
-> implementation()s and calls use an 'enum idh_request' for it.
-> 
-> Fix this by using 'enum idh_request' for the method declaration too.
-> 
-> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> index 722deefc0a7e..3e9aec6f2795 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-> @@ -56,7 +56,7 @@ struct amdgpu_virt_ops {
->  	int (*rel_full_gpu)(struct amdgpu_device *adev, bool init);
->  	int (*reset_gpu)(struct amdgpu_device *adev);
->  	int (*wait_reset)(struct amdgpu_device *adev);
-> -	void (*trans_msg)(struct amdgpu_device *adev, u32 req, u32 data1, u32 data2, u32 data3);
-> +	void (*trans_msg)(struct amdgpu_device *adev, enum idh_request req, u32 data1, u32 data2, u32 data3);
->  };
-
-
-Sorry, this is patch is incorrect. Please ignore it.
-
--- Luc
+QWRqdXN0IHZyYW0gYmFzZSBvZmZzZXQgZm9yIFhHTUkgbWFwcGluZyB3aGVuIHVwZGF0ZSB0aGUg
+UFQgZW50cnkgc28KdGhlIGFkZHJlc3Mgd2lsbCBmYWxsIGludG8gY29ycmVjdCBYR01JIGFwZXJ0
+dXJlIGZvciBwZWVyIGRldmljZQoKQ2hhbmdlLUlkOiBJNzhiZGYyNDRkYTY5OWQyNTU5NDgxZWY1
+YWZlOTY2M2IzZTc1MjIzNgpTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1k
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDIxICsr
+KysrKysrKysrKysrKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDQg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCAx
+MmQ1MWQ5Li4wYmMzMmM5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdm0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwpA
+QCAtMTg3Niw2ICsxODc2LDcgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBp
+bmcoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAgKiBAdm06IHJlcXVlc3RlZCB2bQogICog
+QG1hcHBpbmc6IG1hcHBlZCByYW5nZSBhbmQgZmxhZ3MgdG8gdXNlIGZvciB0aGUgdXBkYXRlCiAg
+KiBAZmxhZ3M6IEhXIGZsYWdzIGZvciB0aGUgbWFwcGluZworICogQGJvX2FkZXY6IGFtZGdwdV9k
+ZXZpY2UgcG9pbnRlciB0aGF0IGJvIGFjdHVhbGx5IGJlZW4gYWxsb2NhdGVkCiAgKiBAbm9kZXM6
+IGFycmF5IG9mIGRybV9tbV9ub2RlcyB3aXRoIHRoZSBNQyBhZGRyZXNzZXMKICAqIEBmZW5jZTog
+b3B0aW9uYWwgcmVzdWx0aW5nIGZlbmNlCiAgKgpAQCAtMTg5MSwxMSArMTg5MiwxMyBAQCBzdGF0
+aWMgaW50IGFtZGdwdV92bV9ib19zcGxpdF9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2LAogCQkJCSAgICAgIHN0cnVjdCBhbWRncHVfdm0gKnZtLAogCQkJCSAgICAgIHN0cnVjdCBh
+bWRncHVfYm9fdmFfbWFwcGluZyAqbWFwcGluZywKIAkJCQkgICAgICB1aW50NjRfdCBmbGFncywK
+KwkJCQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYm9fYWRldiwKIAkJCQkgICAgICBzdHJ1
+Y3QgZHJtX21tX25vZGUgKm5vZGVzLAogCQkJCSAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5j
+ZSkKIHsKIAl1bnNpZ25lZCBtaW5fbGluZWFyX3BhZ2VzID0gMSA8PCBhZGV2LT52bV9tYW5hZ2Vy
+LmZyYWdtZW50X3NpemU7CiAJdWludDY0X3QgcGZuLCBzdGFydCA9IG1hcHBpbmctPnN0YXJ0Owor
+CWJvb2wgaXNfeGdtaSA9IGZhbHNlOwogCWludCByOwogCiAJLyogbm9ybWFsbHksYm9fdmEtPmZs
+YWdzIG9ubHkgY29udGlhbnMgUkVBREFCTEUgYW5kIFdJUlRFQUJMRSBiaXQgZ28gaGVyZQpAQCAt
+MTkxNyw2ICsxOTIwLDEwIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2JvX3NwbGl0X21hcHBpbmco
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCWZsYWdzIHw9IEFNREdQVV9QVEVfUFJUOwog
+CQlmbGFncyAmPSB+QU1ER1BVX1BURV9WQUxJRDsKIAl9CisJaWYgKGFkZXYgIT0gYm9fYWRldiAm
+JgorCSAgICBhZGV2LT5nbWMueGdtaS5oaXZlX2lkICYmCisJICAgIGFkZXYtPmdtYy54Z21pLmhp
+dmVfaWQgPT0gYm9fYWRldi0+Z21jLnhnbWkuaGl2ZV9pZCkKKwkJaXNfeGdtaSA9IHRydWU7CiAK
+IAl0cmFjZV9hbWRncHVfdm1fYm9fdXBkYXRlKG1hcHBpbmcpOwogCkBAIC0xOTY1LDcgKzE5NzIs
+MTEgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fc3BsaXRfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwKIAkJCX0KIAogCQl9IGVsc2UgaWYgKGZsYWdzICYgQU1ER1BVX1BURV9W
+QUxJRCkgewotCQkJYWRkciArPSBhZGV2LT52bV9tYW5hZ2VyLnZyYW1fYmFzZV9vZmZzZXQ7CisJ
+CQlpZiAoaXNfeGdtaSA9PSBmYWxzZSkgeworCQkJCURSTV9FUlJPUigiRmFpbGVkIHRvIG1hcCB0
+aGUgVlJBTSBmb3Igb3RoZXIgZGV2aWNlIGFjY2Vzcy5cbiIpOworCQkJCXJldHVybiAtRUlOVkFM
+OworCQkJfQorCQkJYWRkciArPSBib19hZGV2LT52bV9tYW5hZ2VyLnZyYW1fYmFzZV9vZmZzZXQ7
+CiAJCQlhZGRyICs9IHBmbiA8PCBQQUdFX1NISUZUOwogCQl9CiAKQEAgLTIwMTIsNiArMjAyMyw3
+IEBAIGludCBhbWRncHVfdm1fYm9fdXBkYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAog
+CXN0cnVjdCBkcm1fbW1fbm9kZSAqbm9kZXM7CiAJc3RydWN0IGRtYV9mZW5jZSAqZXhjbHVzaXZl
+LCAqKmxhc3RfdXBkYXRlOwogCXVpbnQ2NF90IGZsYWdzOworCXN0cnVjdCBhbWRncHVfZGV2aWNl
+ICpib19hZGV2ID0gYWRldjsKIAlpbnQgcjsKIAogCWlmIChjbGVhciB8fCAhYm8pIHsKQEAgLTIw
+MzAsOSArMjA0MiwxMCBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwKIAkJZXhjbHVzaXZlID0gcmVzZXJ2YXRpb25fb2JqZWN0X2dldF9leGNsKGJv
+LT50Ym8ucmVzdik7CiAJfQogCi0JaWYgKGJvKQorCWlmIChibykgewogCQlmbGFncyA9IGFtZGdw
+dV90dG1fdHRfcHRlX2ZsYWdzKGFkZXYsIGJvLT50Ym8udHRtLCBtZW0pOwotCWVsc2UKKwkJYm9f
+YWRldiA9IGFtZGdwdV90dG1fYWRldihiby0+dGJvLmJkZXYpOworCX0gZWxzZQogCQlmbGFncyA9
+IDB4MDsKIAogCWlmIChjbGVhciB8fCAoYm8gJiYgYm8tPnRiby5yZXN2ID09IHZtLT5yb290LmJh
+c2UuYm8tPnRiby5yZXN2KSkKQEAgLTIwNTAsNyArMjA2Myw3IEBAIGludCBhbWRncHVfdm1fYm9f
+dXBkYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCiAJbGlzdF9mb3JfZWFjaF9lbnRy
+eShtYXBwaW5nLCAmYm9fdmEtPmludmFsaWRzLCBsaXN0KSB7CiAJCXIgPSBhbWRncHVfdm1fYm9f
+c3BsaXRfbWFwcGluZyhhZGV2LCBleGNsdXNpdmUsIHBhZ2VzX2FkZHIsIHZtLAotCQkJCQkgICAg
+ICAgbWFwcGluZywgZmxhZ3MsIG5vZGVzLAorCQkJCQkgICAgICAgbWFwcGluZywgZmxhZ3MsIGJv
+X2FkZXYsIG5vZGVzLAogCQkJCQkgICAgICAgbGFzdF91cGRhdGUpOwogCQlpZiAocikKIAkJCXJl
+dHVybiByOwotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA==
