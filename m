@@ -1,73 +1,43 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Enable XGMI mapping for peer device
-Date: Mon, 4 Mar 2019 20:38:36 +0000
-Message-ID: <1551731908-14410-1-git-send-email-shaoyun.liu@amd.com>
+From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix typing in amdgpu_virt_ops::trans_msg
+Date: Mon, 4 Mar 2019 23:54:20 +0100
+Message-ID: <20190304225419.7j5iiqrqm7msyvd7@ltop.local>
+References: <20190304131000.17994-1-luc.vanoostenryck@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190304131000.17994-1-luc.vanoostenryck@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Monk Liu <Monk.Liu@amd.com>, Emily Deng <Emily.Deng@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWRqdXN0IHZyYW0gYmFzZSBvZmZzZXQgZm9yIFhHTUkgbWFwcGluZyB3aGVuIHVwZGF0ZSB0aGUg
-UFQgZW50cnkgc28KdGhlIGFkZHJlc3Mgd2lsbCBmYWxsIGludG8gY29ycmVjdCBYR01JIGFwZXJ0
-dXJlIGZvciBwZWVyIGRldmljZQoKQ2hhbmdlLUlkOiBJNzhiZGYyNDRkYTY5OWQyNTU5NDgxZWY1
-YWZlOTY2M2IzZTc1MjIzNgpTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1k
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDE4ICsr
-KysrKysrKysrKysrLS0tLQogMSBmaWxlIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDQgZGVs
-ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCAxMmQ1
-MWQ5Li5jOGY5OGIyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwpAQCAt
-MTg3Niw2ICsxODc2LDcgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmco
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAgKiBAdm06IHJlcXVlc3RlZCB2bQogICogQG1h
-cHBpbmc6IG1hcHBlZCByYW5nZSBhbmQgZmxhZ3MgdG8gdXNlIGZvciB0aGUgdXBkYXRlCiAgKiBA
-ZmxhZ3M6IEhXIGZsYWdzIGZvciB0aGUgbWFwcGluZworICogQGJvX2FkZXY6IGFtZGdwdV9kZXZp
-Y2UgcG9pbnRlciB0byB0aGUgYm8gYmVlbiBhY3R1YWxseSBhbGxvY2F0ZWQKICAqIEBub2Rlczog
-YXJyYXkgb2YgZHJtX21tX25vZGVzIHdpdGggdGhlIE1DIGFkZHJlc3NlcwogICogQGZlbmNlOiBv
-cHRpb25hbCByZXN1bHRpbmcgZmVuY2UKICAqCkBAIC0xODkxLDYgKzE4OTIsNyBAQCBzdGF0aWMg
-aW50IGFtZGdwdV92bV9ib19zcGxpdF9tYXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-LAogCQkJCSAgICAgIHN0cnVjdCBhbWRncHVfdm0gKnZtLAogCQkJCSAgICAgIHN0cnVjdCBhbWRn
-cHVfYm9fdmFfbWFwcGluZyAqbWFwcGluZywKIAkJCQkgICAgICB1aW50NjRfdCBmbGFncywKKwkJ
-CQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYm9fYWRldiwKIAkJCQkgICAgICBzdHJ1Y3Qg
-ZHJtX21tX25vZGUgKm5vZGVzLAogCQkJCSAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSkK
-IHsKQEAgLTE5NjUsNyArMTk2NywxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib19zcGxpdF9t
-YXBwaW5nKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkJfQogCiAJCX0gZWxzZSBpZiAo
-ZmxhZ3MgJiBBTURHUFVfUFRFX1ZBTElEKSB7Ci0JCQlhZGRyICs9IGFkZXYtPnZtX21hbmFnZXIu
-dnJhbV9iYXNlX29mZnNldDsKKwkJCWlmICgoYWRldiAhPSBib19hZGV2KSAmJgorCQkJICAgICgh
-YWRldi0+Z21jLnhnbWkuaGl2ZV9pZCB8fAorCQkJICAgICBhZGV2LT5nbWMueGdtaS5oaXZlX2lk
-ICE9IGJvX2FkZXYtPmdtYy54Z21pLmhpdmVfaWQpKSB7CisJCQkJRFJNX0VSUk9SKCJGYWlsZWQg
-dG8gbWFwIHRoZSBWUkFNIGZvciBvdGhlciBkZXZpY2UgYWNjZXNzLlxuIik7CisJCQkJcmV0dXJu
-IC1FSU5WQUw7CisJCQl9CisJCQlhZGRyICs9IGJvX2FkZXYtPnZtX21hbmFnZXIudnJhbV9iYXNl
-X29mZnNldDsKIAkJCWFkZHIgKz0gcGZuIDw8IFBBR0VfU0hJRlQ7CiAJCX0KIApAQCAtMjAxMiw2
-ICsyMDIwLDcgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYsCiAJc3RydWN0IGRybV9tbV9ub2RlICpub2RlczsKIAlzdHJ1Y3QgZG1hX2ZlbmNlICpl
-eGNsdXNpdmUsICoqbGFzdF91cGRhdGU7CiAJdWludDY0X3QgZmxhZ3M7CisJc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmJvX2FkZXYgPSBhZGV2OwogCWludCByOwogCiAJaWYgKGNsZWFyIHx8ICFibykg
-ewpAQCAtMjAzMCw5ICsyMDM5LDEwIEBAIGludCBhbWRncHVfdm1fYm9fdXBkYXRlKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LAogCQlleGNsdXNpdmUgPSByZXNlcnZhdGlvbl9vYmplY3RfZ2V0
-X2V4Y2woYm8tPnRiby5yZXN2KTsKIAl9CiAKLQlpZiAoYm8pCisJaWYgKGJvKSB7CiAJCWZsYWdz
-ID0gYW1kZ3B1X3R0bV90dF9wdGVfZmxhZ3MoYWRldiwgYm8tPnRiby50dG0sIG1lbSk7Ci0JZWxz
-ZQorCQlib19hZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldik7CisJfSBlbHNlCiAJ
-CWZsYWdzID0gMHgwOwogCiAJaWYgKGNsZWFyIHx8IChibyAmJiBiby0+dGJvLnJlc3YgPT0gdm0t
-PnJvb3QuYmFzZS5iby0+dGJvLnJlc3YpKQpAQCAtMjA1MCw3ICsyMDYwLDcgQEAgaW50IGFtZGdw
-dV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAKIAlsaXN0X2Zvcl9l
-YWNoX2VudHJ5KG1hcHBpbmcsICZib192YS0+aW52YWxpZHMsIGxpc3QpIHsKIAkJciA9IGFtZGdw
-dV92bV9ib19zcGxpdF9tYXBwaW5nKGFkZXYsIGV4Y2x1c2l2ZSwgcGFnZXNfYWRkciwgdm0sCi0J
-CQkJCSAgICAgICBtYXBwaW5nLCBmbGFncywgbm9kZXMsCisJCQkJCSAgICAgICBtYXBwaW5nLCBm
-bGFncywgYm9fYWRldiwgbm9kZXMsCiAJCQkJCSAgICAgICBsYXN0X3VwZGF0ZSk7CiAJCWlmIChy
-KQogCQkJcmV0dXJuIHI7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+On Mon, Mar 04, 2019 at 02:10:00PM +0100, Luc Van Oostenryck wrote:
+> The method in struct amdgpu_virt_ops::trans_msg() is defined as
+> using an 'u32' for its 2nd argument (the request) but the actual
+> implementation()s and calls use an 'enum idh_request' for it.
+> 
+> Fix this by using 'enum idh_request' for the method declaration too.
+> 
+> Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index 722deefc0a7e..3e9aec6f2795 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -56,7 +56,7 @@ struct amdgpu_virt_ops {
+>  	int (*rel_full_gpu)(struct amdgpu_device *adev, bool init);
+>  	int (*reset_gpu)(struct amdgpu_device *adev);
+>  	int (*wait_reset)(struct amdgpu_device *adev);
+> -	void (*trans_msg)(struct amdgpu_device *adev, u32 req, u32 data1, u32 data2, u32 data3);
+> +	void (*trans_msg)(struct amdgpu_device *adev, enum idh_request req, u32 data1, u32 data2, u32 data3);
+>  };
+
+
+Sorry, this is patch is incorrect. Please ignore it.
+
+-- Luc
