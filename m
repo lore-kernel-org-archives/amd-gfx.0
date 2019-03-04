@@ -1,98 +1,38 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix compile warnings
-Date: Mon, 4 Mar 2019 13:27:06 +0100
-Message-ID: <df55b004-010f-4b8b-50d5-8c3ba78c3b25@gmail.com>
-References: <20190301164321.9080-1-Bhawanpreet.Lakha@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix typing in amdgpu_virt_ops::trans_msg
+Date: Mon,  4 Mar 2019 14:10:00 +0100
+Message-ID: <20190304131000.17994-1-luc.vanoostenryck@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190301164321.9080-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <Rex.Zhu@amd.com>, Monk Liu <Monk.Liu@amd.com>, Emily Deng <Emily.Deng@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDEuMDMuMTkgdW0gMTc6NDMgc2NocmllYiBCaGF3YW5wcmVldCBMYWtoYToKPiBGaXhlcyB0
-aGUgd2FybmluZ3MgYmVsb3cKPgo+IHdhcm5pbmc6IOKAmHRhX2hkcuKAmSBtYXkgYmUgdXNlZCB1
-bmluaXRpYWxpemVkIGluIHRoaXMgZnVuY3Rpb24gWy1XbWF5YmUtdW5pbml0aWFsaXplZF0KPiB3
-YXJuaW5nOiBJU08gQzkwIGZvcmJpZHMgbWl4ZWQgZGVjbGFyYXRpb25zIGFuZCBjb2RlIFstV2Rl
-Y2xhcmF0aW9uLWFmdGVyLXN0YXRlbWVudF0KPiB3YXJuaW5nOiB1bnVzZWQgdmFyaWFibGUg4oCY
-cmFzX2NtZOKAmSBbLVd1bnVzZWQtdmFyaWFibGVdCj4gd2FybmluZzogY29tcGFyaXNvbiBvZiBk
-aXN0aW5jdCBwb2ludGVyIHR5cGVzIGxhY2tzIGEgY2FzdAo+IFNpZ25lZC1vZmYtYnk6IEJoYXdh
-bnByZWV0IExha2hhIDxCaGF3YW5wcmVldC5MYWtoYUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ttcy5jIHwgMiArLQo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jIHwgMSAtCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcmFzLmMgfCA0ICsrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2dmeF92OV8wLmMgICB8IDIgKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Bz
-cF92MTFfMC5jICB8IDIgKy0KPiAgIDUgZmlsZXMgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA2
-IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9rbXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+
-IGluZGV4IDkzMzgyMmViMTIyNy4uMGJiYmM3Y2QyYmVhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9rbXMuYwo+IEBAIC05MjcsNyArOTI3LDcgQEAgc3RhdGljIGludCBh
-bWRncHVfaW5mb19pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLCBzdHJ1
-Y3QgZHJtX2ZpbGUKPiAgIAkJaWYgKCFyYXMpCj4gICAJCQlyZXR1cm4gLUVJTlZBTDsKPiAgIAkJ
-cmV0dXJuIGNvcHlfdG9fdXNlcihvdXQsICZyYXMtPmZlYXR1cmVzLAo+IC0JCQkJbWluKHNpemUs
-IHNpemVvZihyYXMtPmZlYXR1cmVzKSkpID8gLUVGQVVMVCA6IDA7Cj4gKwkJCQltaW4oKHNpemVf
-dClzaXplLCBzaXplb2YocmFzLT5mZWF0dXJlcykpKSA/IC1FRkFVTFQgOiAwOwo+ICAgCX0KPiAg
-IAlkZWZhdWx0Ogo+ICAgCQlEUk1fREVCVUdfS01TKCJJbnZhbGlkIHJlcXVlc3QgJWRcbiIsIGlu
-Zm8tPnF1ZXJ5KTsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BzcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gaW5k
-ZXggNjA3YzY5NmRiNTZiLi43ZTNlMWQ1ODhkNzQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3BzcC5jCj4gQEAgLTY1NCw3ICs2NTQsNiBAQCBzdGF0aWMgaW50IHBzcF9y
-YXNfdGVybWluYXRlKHN0cnVjdCBwc3BfY29udGV4dCAqcHNwKQo+ICAgCj4gICBzdGF0aWMgaW50
-IHBzcF9yYXNfaW5pdGlhbGl6ZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkKPiAgIHsKPiAtCXN0
-cnVjdCB0YV9yYXNfc2hhcmVkX21lbW9yeSAqcmFzX2NtZDsKPiAgIAlpbnQgcmV0Owo+ICAgCj4g
-ICAJaWYgKCFwc3AtPnJhcy5yYXNfaW5pdGlhbGl6ZWQpIHsKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3Jhcy5jCj4gaW5kZXggNjA0NzYyMjYzMjIxLi4yOTU1MmUzOTgxNmMgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4gQEAgLTE0Miw3ICsx
-NDIsNyBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfcmFzX2RlYnVnZnNfcmVhZChzdHJ1Y3QgZmls
-ZSAqZiwgY2hhciBfX3VzZXIgKmJ1ZiwKPiAgIAkJcmV0dXJuIDA7Cj4gICAKPiAgIAlzIC09ICpw
-b3M7Cj4gLQlzID0gbWluKHMsIHNpemUpOwo+ICsJcyA9IG1pbigoc2l6ZV90KXMsIHNpemUpOwo+
-ICAgCj4gICAJaWYgKGNvcHlfdG9fdXNlcihidWYsICZ2YWxbKnBvc10sIHMpKQo+ICAgCQlyZXR1
-cm4gLUVJTlZBTDsKPiBAQCAtMTU5LDcgKzE1OSw3IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9y
-YXNfZGVidWdmc193cml0ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3QgY2hhciBfX3VzZXIgKmJ1ZiwK
-PiAgIAlzdHJ1Y3QgcmFzX2luamVjdF9pZiBpbmZvID0gewo+ICAgCQkuaGVhZCA9IG9iai0+aGVh
-ZCwKPiAgIAl9Owo+IC0Jc3NpemVfdCBzID0gbWluKDY0VUxMLCBzaXplKTsKPiArCXNzaXplX3Qg
-cyA9IG1pbigoc2l6ZV90KTY0VUxMLCBzaXplKTsKCldoZW4geW91IGNhc3QgaXQgYW55d2F5LCB5
-b3UgY2FuIGRyb3AgdGhlIFVMTC4KCj4gICAJY2hhciB2YWxbNjRdOwo+ICAgCWNoYXIgKnN0ciA9
-IHZhbDsKPiAgIAltZW1zZXQodmFsLCAwLCBzaXplb2YodmFsKSk7Cj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggZTFkM2JlZjVhNjBjLi44OGM0NWY5OTBmMDUgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBAQCAtNDgxMywxMSArNDgx
-MywxMSBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2NwX2VjY19lcnJvcl9pcnEoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYsCj4gICAJCQkJICBzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgKnNvdXJjZSwK
-PiAgIAkJCQkgIHN0cnVjdCBhbWRncHVfaXZfZW50cnkgKmVudHJ5KQo+ICAgewo+IC0JRFJNX0VS
-Uk9SKCJDUCBFQ0MgRVJST1IgSVJRXG4iKTsKPiAgIAlzdHJ1Y3QgcmFzX2Rpc3BhdGNoX2lmIGlo
-X2RhdGEgPSB7Cj4gICAJCS5oZWFkID0gKmFkZXYtPmdmeC5yYXNfaWYsCj4gICAJCS5lbnRyeSA9
-IGVudHJ5LAo+ICAgCX07Cj4gKwlEUk1fRVJST1IoIkNQIEVDQyBFUlJPUiBJUlFcbiIpOwoKQSBu
-ZXdsaW5lIGJldHdlZW4gZGVjbGFyYXRpb24gYW5kIGNvZGUgcGxlYXNlLgoKQ2hyaXN0aWFuLgoK
-PiAgIAlhbWRncHVfcmFzX2ludGVycnVwdF9kaXNwYXRjaChhZGV2LCAmaWhfZGF0YSk7Cj4gICAJ
-cmV0dXJuIDA7Cj4gICB9Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L3BzcF92MTFfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMKPiBp
-bmRleCA4ZjY5NDk2OGMwYWQuLjJmNmY4MmQxM2NjOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3BzcF92MTFfMC5jCj4gQEAgLTQ4LDcgKzQ4LDcgQEAgc3RhdGljIGludCBwc3BfdjEx
-XzBfaW5pdF9taWNyb2NvZGUoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCj4gICAJaW50IGVyciA9
-IDA7Cj4gICAJY29uc3Qgc3RydWN0IHBzcF9maXJtd2FyZV9oZWFkZXJfdjFfMCAqc29zX2hkcjsK
-PiAgIAljb25zdCBzdHJ1Y3QgcHNwX2Zpcm13YXJlX2hlYWRlcl92MV8wICphc2RfaGRyOwo+IC0J
-Y29uc3Qgc3RydWN0IHRhX2Zpcm13YXJlX2hlYWRlcl92MV8wICp0YV9oZHI7Cj4gKwljb25zdCBz
-dHJ1Y3QgdGFfZmlybXdhcmVfaGVhZGVyX3YxXzAgKnRhX2hkciA9IE5VTEw7Cj4gICAKPiAgIAlE
-Uk1fREVCVUcoIlxuIik7Cj4gICAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA==
+The method in struct amdgpu_virt_ops::trans_msg() is defined as
+using an 'u32' for its 2nd argument (the request) but the actual
+implementation()s and calls use an 'enum idh_request' for it.
+
+Fix this by using 'enum idh_request' for the method declaration too.
+
+Signed-off-by: Luc Van Oostenryck <luc.vanoostenryck@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+index 722deefc0a7e..3e9aec6f2795 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+@@ -56,7 +56,7 @@ struct amdgpu_virt_ops {
+ 	int (*rel_full_gpu)(struct amdgpu_device *adev, bool init);
+ 	int (*reset_gpu)(struct amdgpu_device *adev);
+ 	int (*wait_reset)(struct amdgpu_device *adev);
+-	void (*trans_msg)(struct amdgpu_device *adev, u32 req, u32 data1, u32 data2, u32 data3);
++	void (*trans_msg)(struct amdgpu_device *adev, enum idh_request req, u32 data1, u32 data2, u32 data3);
+ };
+ 
+ /*
+-- 
+2.21.0
