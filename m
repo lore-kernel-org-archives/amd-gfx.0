@@ -1,13 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Add ENGINE_CNTL register to vcn10 headers
-Date: Tue, 5 Mar 2019 15:26:21 +0000
-Message-ID: <BN6PR12MB1809ABD3464A414AACE5B723F7720@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190304155924.9436-1-tom.stdenis@amd.com>,
- <CAAzXoRLtZG_A4GgscVRo5aGL11i1PqUTrdTtOGyYvNjSgYCpLQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: reroute VMC and UMD to IH ring 1
+Date: Tue, 5 Mar 2019 16:27:55 +0100
+Message-ID: <7bf05586-afb8-f94d-9f9d-66194b2eaae3@gmail.com>
+References: <20190304131522.12223-1-christian.koenig@amd.com>
+ <BL0PR12MB2580610D0523E38A4F8DE2E780720@BL0PR12MB2580.namprd12.prod.outlook.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0707413084=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAzXoRLtZG_A4GgscVRo5aGL11i1PqUTrdTtOGyYvNjSgYCpLQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <BL0PR12MB2580610D0523E38A4F8DE2E780720-b4cIHhjg/p/XzH18dTCKOgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,246 +21,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0707413084==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809ABD3464A414AACE5B723F7720BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809ABD3464A414AACE5B723F7720BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tom St D=
-enis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Tuesday, March 5, 2019 10:17 AM
-To: amd-gfx mailing list
-Subject: Re: [PATCH] drm/amd/amdgpu: Add ENGINE_CNTL register to vcn10 head=
-ers
-
-Hi,
-
-Alex can I get an RB on this :-)
-
-Thanks,
-Tom
-
-On Mon, Mar 4, 2019 at 10:59 AM StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org<mailto:To=
-m.StDenis-5C7GfCeVMHo@public.gmane.org>> wrote:
-Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org<mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org=
->>
----
- drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h  | 2 ++
- drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h | 5 +++++
- 2 files changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h b/dr=
-ivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h
-index 442ca7c471a5..6109f5ad25ad 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h
-@@ -141,6 +141,8 @@
- #define mmUVD_GPCOM_VCPU_DATA0_BASE_IDX                                   =
-                             1
- #define mmUVD_GPCOM_VCPU_DATA1                                            =
-                             0x03c5
- #define mmUVD_GPCOM_VCPU_DATA1_BASE_IDX                                   =
-                             1
-+#define mmUVD_ENGINE_CNTL                                                 =
-                             0x03c6
-+#define mmUVD_ENGINE_CNTL_BASE_IDX                                        =
-                             1
- #define mmUVD_UDEC_DBW_UV_ADDR_CONFIG                                     =
-                             0x03d2
- #define mmUVD_UDEC_DBW_UV_ADDR_CONFIG_BASE_IDX                            =
-                             1
- #define mmUVD_UDEC_ADDR_CONFIG                                            =
-                             0x03d3
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h b/d=
-rivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h
-index 63457f9df4c5..f84bed6eecb9 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h
-@@ -312,6 +312,11 @@
- //UVD_GPCOM_VCPU_DATA1
- #define UVD_GPCOM_VCPU_DATA1__DATA1__SHIFT                                =
-                                    0x0
- #define UVD_GPCOM_VCPU_DATA1__DATA1_MASK                                  =
-                                    0xFFFFFFFFL
-+//UVD_ENGINE_CNTL
-+#define UVD_ENGINE_CNTL__ENGINE_START_MASK 0x1
-+#define UVD_ENGINE_CNTL__ENGINE_START__SHIFT 0x0
-+#define UVD_ENGINE_CNTL__ENGINE_START_MODE_MASK 0x2
-+#define UVD_ENGINE_CNTL__ENGINE_START_MODE__SHIFT 0x1
- //UVD_UDEC_DBW_UV_ADDR_CONFIG
- #define UVD_UDEC_DBW_UV_ADDR_CONFIG__NUM_PIPES__SHIFT                     =
-                                    0x0
- #define UVD_UDEC_DBW_UV_ADDR_CONFIG__PIPE_INTERLEAVE_SIZE__SHIFT          =
-                                    0x3
---
-2.17.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809ABD3464A414AACE5B723F7720BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Tom St Denis &lt;tstdenis82@g=
-mail.com&gt;<br>
-<b>Sent:</b> Tuesday, March 5, 2019 10:17 AM<br>
-<b>To:</b> amd-gfx mailing list<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/amdgpu: Add ENGINE_CNTL register to vcn=
-10 headers</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"ltr">Hi,
-<div><br>
-</div>
-<div>Alex can I get an RB on this :-)</div>
-<div><br>
-</div>
-<div>Thanks,</div>
-<div>Tom</div>
-</div>
-<br>
-<div class=3D"x_gmail_quote">
-<div dir=3D"ltr" class=3D"x_gmail_attr">On Mon, Mar 4, 2019 at 10:59 AM StD=
-enis, Tom &lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org">Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a=
->&gt; wrote:<br>
-</div>
-<blockquote class=3D"x_gmail_quote" style=3D"margin:0px 0px 0px 0.8ex; bord=
-er-left:1px solid rgb(204,204,204); padding-left:1ex">
-Signed-off-by: Tom St Denis &lt;<a href=3D"mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org" targ=
-et=3D"_blank">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h&nbsp; | 2 &=
-#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h | 5 &#43;&=
-#43;&#43;&#43;&#43;<br>
-&nbsp;2 files changed, 7 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h b/dr=
-ivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h<br>
-index 442ca7c471a5..6109f5ad25ad 100644<br>
---- a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_offset.h=
-<br>
-@@ -141,6 &#43;141,8 @@<br>
-&nbsp;#define mmUVD_GPCOM_VCPU_DATA0_BASE_IDX&nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1<br>
-&nbsp;#define mmUVD_GPCOM_VCPU_DATA1&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0x03c5=
-<br>
-&nbsp;#define mmUVD_GPCOM_VCPU_DATA1_BASE_IDX&nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 1<br>
-&#43;#define mmUVD_ENGINE_CNTL&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; 0x03c6<br>
-&#43;#define mmUVD_ENGINE_CNTL_BASE_IDX&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;1<br>
-&nbsp;#define mmUVD_UDEC_DBW_UV_ADDR_CONFIG&nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x03d2<br>
-&nbsp;#define mmUVD_UDEC_DBW_UV_ADDR_CONFIG_BASE_IDX&nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp;1<br>
-&nbsp;#define mmUVD_UDEC_ADDR_CONFIG&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0x03d3=
-<br>
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h b/d=
-rivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h<br>
-index 63457f9df4c5..f84bed6eecb9 100644<br>
---- a/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_1_0_sh_mask.=
-h<br>
-@@ -312,6 &#43;312,11 @@<br>
-&nbsp;//UVD_GPCOM_VCPU_DATA1<br>
-&nbsp;#define UVD_GPCOM_VCPU_DATA1__DATA1__SHIFT&nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0x0<br>
-&nbsp;#define UVD_GPCOM_VCPU_DATA1__DATA1_MASK&nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0xFFFFFFF=
-FL<br>
-&#43;//UVD_ENGINE_CNTL<br>
-&#43;#define UVD_ENGINE_CNTL__ENGINE_START_MASK 0x1<br>
-&#43;#define UVD_ENGINE_CNTL__ENGINE_START__SHIFT 0x0<br>
-&#43;#define UVD_ENGINE_CNTL__ENGINE_START_MODE_MASK 0x2<br>
-&#43;#define UVD_ENGINE_CNTL__ENGINE_START_MODE__SHIFT 0x1<br>
-&nbsp;//UVD_UDEC_DBW_UV_ADDR_CONFIG<br>
-&nbsp;#define UVD_UDEC_DBW_UV_ADDR_CONFIG__NUM_PIPES__SHIFT&nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;0x0<br>
-&nbsp;#define UVD_UDEC_DBW_UV_ADDR_CONFIG__PIPE_INTERLEAVE_SIZE__SHIFT&nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; 0x3<br>
--- <br>
-2.17.2<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a></blockquote>
-</div>
-</div>
-</body>
-</html>
-
---_000_BN6PR12MB1809ABD3464A414AACE5B723F7720BN6PR12MB1809namp_--
-
---===============0707413084==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0707413084==--
+T2gsIGluZGVlZC4gTm9ib2R5IG5vdGljZWQgc28gZmFyIGFuZCB0aGUgcGF0Y2ggaXMgYWxyZWFk
+eSBjb21taXR0ZWQuCgpDaHJpc3RpYW4uCgpBbSAwNS4wMy4xOSB1bSAxNjoyNSBzY2hyaWViIFpl
+bmcsIE9hazoKPiBJcyB0aGUgIlVNRCIgaW4gdGhlIHRpdGxlIGEgdHlwbz8gRnJvbSB0aGUgY29t
+bWVudHMgaW4gdGhlIGNvZGUgaXQgaXMgIlVNQyIKPgo+IFJlZ2FyZHMsCj4gT2FrCj4KPiAtLS0t
+LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0Bs
+aXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBDaHJpc3RpYW4gS8O2bmlnCj4gU2Vu
+dDogTW9uZGF5LCBNYXJjaCA0LCAyMDE5IDg6MTUgQU0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IHJlcm91dGUgVk1DIGFu
+ZCBVTUQgdG8gSUggcmluZyAxCj4KPiBQYWdlIGZhdWx0cyBjYW4gZWFzaWx5IG92ZXJ3aGVsbSB0
+aGUgaW50ZXJydXB0IGhhbmRsZXIuCj4KPiBTbyB0byBtYWtlIHN1cmUgdGhhdCB3ZSBuZXZlciBs
+b3NlIHZhbHVhYmxlIGludGVycnVwdHMgb24gdGhlIHByaW1hcnkgcmluZyB3ZSByZS1yb3V0ZSBw
+YWdlIGZhdWx0cyB0byBJSCByaW5nIDEuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9wc3BfZ2Z4X2lmLmggfCAgMSArCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9wc3BfdjNfMS5jICAgfCAzNiArKysrKysrKysrKysrKysrKysrKysrKysrCj4gICAyIGZp
+bGVzIGNoYW5nZWQsIDM3IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9wc3BfZ2Z4X2lmLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9wc3BfZ2Z4X2lmLmgKPiBpbmRleCBmM2E3ZDIwN2FmMDcuLjJmNzk3NjViNGJkYiAxMDA2NDQK
+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfZ2Z4X2lmLmgKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfZ2Z4X2lmLmgKPiBAQCAtNDMsNiArNDMsNyBA
+QCBlbnVtIHBzcF9nZnhfY3J0bF9jbWRfaWQKPiAgICAgICBHRlhfQ1RSTF9DTURfSURfRU5BQkxF
+X0lOVCAgICAgID0gMHgwMDA1MDAwMCwgICAvKiBlbmFibGUgUFNQLXRvLUdmeCBpbnRlcnJ1cHQg
+Ki8KPiAgICAgICBHRlhfQ1RSTF9DTURfSURfRElTQUJMRV9JTlQgICAgID0gMHgwMDA2MDAwMCwg
+ICAvKiBkaXNhYmxlIFBTUC10by1HZnggaW50ZXJydXB0ICovCj4gICAgICAgR0ZYX0NUUkxfQ01E
+X0lEX01PREUxX1JTVCAgICAgICA9IDB4MDAwNzAwMDAsICAgLyogdHJpZ2dlciB0aGUgTW9kZSAx
+IHJlc2V0ICovCj4gKyAgICBHRlhfQ1RSTF9DTURfSURfR0JSX0lIX1NFVCAgICAgID0gMHgwMDA4
+MDAwMCwgICAvKiBzZXQgR2JyIElIX1JCX0NOVEwgcmVnaXN0ZXJzICovCj4gICAgICAgR0ZYX0NU
+UkxfQ01EX0lEX0NPTlNVTUVfQ01EICAgICA9IDB4MDAwQTAwMDAsICAgLyogc2VuZCBpbnRlcnJ1
+cHQgdG8gcHNwIGZvciB1cGRhdGluZyB3cml0ZSBwb2ludGVyIG9mIHZmICovCj4gICAgICAgR0ZY
+X0NUUkxfQ01EX0lEX0RFU1RST1lfR1BDT01fUklORyA9IDB4MDAwQzAwMDAsIC8qIGRlc3Ryb3kg
+R1BDT00gcmluZyAqLwo+ICAgCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3BzcF92M18xLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjNfMS5jCj4g
+aW5kZXggMDQ4N2UzYTRlOWU3Li4xNDNmMGZhZTY5ZDUgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvcHNwX3YzXzEuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3BzcF92M18xLmMKPiBAQCAtMzcsNiArMzcsOSBAQAo+ICAgI2luY2x1ZGUgInNkbWEw
+L3NkbWEwXzRfMF9vZmZzZXQuaCIKPiAgICNpbmNsdWRlICJuYmlvL25iaW9fNl8xX29mZnNldC5o
+Igo+ICAgCj4gKyNpbmNsdWRlICJvc3Mvb3Nzc3lzXzRfMF9vZmZzZXQuaCIKPiArI2luY2x1ZGUg
+Im9zcy9vc3NzeXNfNF8wX3NoX21hc2suaCIKPiArCj4gICBNT0RVTEVfRklSTVdBUkUoImFtZGdw
+dS92ZWdhMTBfc29zLmJpbiIpOwo+ICAgTU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvdmVnYTEwX2Fz
+ZC5iaW4iKTsKPiAgIE1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L3ZlZ2ExMl9zb3MuYmluIik7Cj4g
+QEAgLTI1Miw2ICsyNTUsMzcgQEAgc3RhdGljIGludCBwc3BfdjNfMV9yaW5nX2luaXQoc3RydWN0
+IHBzcF9jb250ZXh0ICpwc3AsCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiArc3RhdGljIHZv
+aWQgcHNwX3YzXzFfcmVyb3V0ZV9paChzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCkgewo+ICsJc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBwc3AtPmFkZXY7Cj4gKwl1aW50MzJfdCB0bXA7Cj4g
+Kwo+ICsJLyogQ2hhbmdlIElIIHJpbmcgZm9yIFZNQyAqLwo+ICsJdG1wID0gUkVHX1NFVF9GSUVM
+RCgwLCBJSF9DTElFTlRfQ0ZHX0RBVEEsIENSRURJVF9SRVRVUk5fQUREUiwgMHgxMjQ0Yik7Cj4g
+Kwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSUhfQ0xJRU5UX0NGR19EQVRBLCBDTElFTlRfVFlQ
+RSwgMSk7Cj4gKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSUhfQ0xJRU5UX0NGR19EQVRBLCBS
+SU5HX0lELCAxKTsKPiArCj4gKwlXUkVHMzJfU09DMTUoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNH
+XzY5LCAzKTsKPiArCVdSRUczMl9TT0MxNShNUDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfNzAsIHRt
+cCk7Cj4gKwlXUkVHMzJfU09DMTUoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNHXzY0LCBHRlhfQ1RS
+TF9DTURfSURfR0JSX0lIX1NFVCk7Cj4gKwo+ICsJbWRlbGF5KDIwKTsKPiArCXBzcF93YWl0X2Zv
+cihwc3AsIFNPQzE1X1JFR19PRkZTRVQoTVAwLCAwLCBtbU1QMF9TTU5fQzJQTVNHXzY0KSwKPiAr
+CQkgICAgIDB4ODAwMDAwMDAsIDB4ODAwMEZGRkYsIGZhbHNlKTsKPiArCj4gKwkvKiBDaGFuZ2Ug
+SUggcmluZyBmb3IgVU1DICovCj4gKwl0bXAgPSBSRUdfU0VUX0ZJRUxEKDAsIElIX0NMSUVOVF9D
+RkdfREFUQSwgQ1JFRElUX1JFVFVSTl9BRERSLCAweDEyMTZiKTsKPiArCXRtcCA9IFJFR19TRVRf
+RklFTEQodG1wLCBJSF9DTElFTlRfQ0ZHX0RBVEEsIFJJTkdfSUQsIDEpOwo+ICsKPiArCVdSRUcz
+Ml9TT0MxNShNUDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfNjksIDQpOwo+ICsJV1JFRzMyX1NPQzE1
+KE1QMCwgMCwgbW1NUDBfU01OX0MyUE1TR183MCwgdG1wKTsKPiArCVdSRUczMl9TT0MxNShNUDAs
+IDAsIG1tTVAwX1NNTl9DMlBNU0dfNjQsIEdGWF9DVFJMX0NNRF9JRF9HQlJfSUhfU0VUKTsKPiAr
+Cj4gKwltZGVsYXkoMjApOwo+ICsJcHNwX3dhaXRfZm9yKHBzcCwgU09DMTVfUkVHX09GRlNFVChN
+UDAsIDAsIG1tTVAwX1NNTl9DMlBNU0dfNjQpLAo+ICsJCSAgICAgMHg4MDAwMDAwMCwgMHg4MDAw
+RkZGRiwgZmFsc2UpOwo+ICt9Cj4gKwo+ICAgc3RhdGljIGludCBwc3BfdjNfMV9yaW5nX2NyZWF0
+ZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwKPiAgIAkJCQllbnVtIHBzcF9yaW5nX3R5cGUgcmlu
+Z190eXBlKQo+ICAgewo+IEBAIC0yNjAsNiArMjk0LDggQEAgc3RhdGljIGludCBwc3BfdjNfMV9y
+aW5nX2NyZWF0ZShzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwKPiAgIAlzdHJ1Y3QgcHNwX3Jpbmcg
+KnJpbmcgPSAmcHNwLT5rbV9yaW5nOwo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0g
+cHNwLT5hZGV2Owo+ICAgCj4gKwlwc3BfdjNfMV9yZXJvdXRlX2loKHBzcCk7Cj4gKwo+ICAgCS8q
+IFdyaXRlIGxvdyBhZGRyZXNzIG9mIHRoZSByaW5nIHRvIEMyUE1TR182OSAqLwo+ICAgCXBzcF9y
+aW5nX3JlZyA9IGxvd2VyXzMyX2JpdHMocmluZy0+cmluZ19tZW1fbWNfYWRkcik7Cj4gICAJV1JF
+RzMyX1NPQzE1KE1QMCwgMCwgbW1NUDBfU01OX0MyUE1TR182OSwgcHNwX3JpbmdfcmVnKTsKPiAt
+LQo+IDIuMTcuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
