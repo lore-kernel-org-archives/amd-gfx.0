@@ -1,14 +1,11 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 18/20] drm/amdgpu: add human readable debugfs control support
- (v2)
-Date: Tue,  5 Mar 2019 15:41:34 -0500
-Message-ID: <20190305204136.17587-19-alexander.deucher@amd.com>
-References: <20190305204136.17587-1-alexander.deucher@amd.com>
+From: Oscar Megia <megia.oscar-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Screen goes sleep on Xorg randomly and system freezes with radeon
+ RV515 driver
+Date: Tue, 5 Mar 2019 21:13:14 +0100
+Message-ID: <CABoTn5REz1QZZEc9K9TMvT0QUMLpdUcoK1FnfQhXJJU=5MehuQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1220712220=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190305204136.17587-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,96 +16,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, xinhui pan <xinhui.pan-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-RnJvbTogeGluaHVpIHBhbiA8eGluaHVpLnBhbkBhbWQuY29tPgoKQ3VycmVudGx5LCB0aGUgZGVi
-dWdmcyBjb250cm9sIG5vZGUgY2FuJ3QgcGFyc2UgYmFzaC1saWtlIGNvbW1hbmRzLgpOb3cgYWRk
-IHN1Y2ggc3VwcG9ydCBmb3IgYW55IHRlc3RlciB0aGF0IHVzZXMgc2NyaXB0cy4KCnYyOiBzcXVh
-c2ggaW4gZml4ZXMgZm9yIGlucHV0IHZhbGlkYXRpb24KClNpZ25lZC1vZmYtYnk6IHhpbmh1aSBw
-YW4gPHhpbmh1aS5wYW5AYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
-ZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9yYXMuYyB8IDExNSArKysrKysrKysrKysrKysrKysrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAx
-MDIgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3Jhcy5jCmluZGV4IGNhOWM3ZDFlZGUyZi4uMWRmNmIwM2EzNjgwIDEwMDY0NAot
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCkBAIC0yMDAsMTQgKzIwMCw4NyBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IGZpbGVfb3BlcmF0aW9ucyBhbWRncHVfcmFzX2RlYnVnZnNfb3Bz
-ID0gewogCS5sbHNlZWsgPSBkZWZhdWx0X2xsc2VlawogfTsKIAorc3RhdGljIGludCBhbWRncHVf
-cmFzX2ZpbmRfYmxvY2tfaWRfYnlfbmFtZShjb25zdCBjaGFyICpuYW1lLCBpbnQgKmJsb2NrX2lk
-KQoreworCWludCBpOworCisJZm9yIChpID0gMDsgaSA8IEFSUkFZX1NJWkUocmFzX2Jsb2NrX3N0
-cmluZyk7IGkrKykgeworCQkqYmxvY2tfaWQgPSBpOworCQlpZiAoc3RyY21wKG5hbWUsIHJhc19i
-bG9ja19zdHIoaSkpID09IDApCisJCQlyZXR1cm4gMDsKKwl9CisJcmV0dXJuIC1FSU5WQUw7Cit9
-CisKK3N0YXRpYyBpbnQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2N0cmxfcGFyc2VfZGF0YShzdHJ1Y3Qg
-ZmlsZSAqZiwKKwkJY29uc3QgY2hhciBfX3VzZXIgKmJ1Ziwgc2l6ZV90IHNpemUsCisJCWxvZmZf
-dCAqcG9zLCBzdHJ1Y3QgcmFzX2RlYnVnX2lmICpkYXRhKQoreworCXNzaXplX3QgcyA9IG1pbl90
-KHU2NCwgNjQsIHNpemUpOworCWNoYXIgc3RyWzY1XTsKKwljaGFyIGJsb2NrX25hbWVbMzNdOwor
-CWNoYXIgZXJyWzldID0gInVlIjsKKwlpbnQgb3AgPSAtMTsKKwlpbnQgYmxvY2tfaWQ7CisJdTY0
-IGFkZHJlc3MsIHZhbHVlOworCisJaWYgKCpwb3MpCisJCXJldHVybiAtRUlOVkFMOworCSpwb3Mg
-PSBzaXplOworCisJbWVtc2V0KHN0ciwgMCwgc2l6ZW9mKHN0cikpOworCW1lbXNldChkYXRhLCAw
-LCBzaXplb2YoKmRhdGEpKTsKKworCWlmIChjb3B5X2Zyb21fdXNlcihzdHIsIGJ1ZiwgcykpCisJ
-CXJldHVybiAtRUlOVkFMOworCisJaWYgKHNzY2FuZihzdHIsICJkaXNhYmxlICUzMnMiLCBibG9j
-a19uYW1lKSA9PSAxKQorCQlvcCA9IDA7CisJZWxzZSBpZiAoc3NjYW5mKHN0ciwgImVuYWJsZSAl
-MzJzICU4cyIsIGJsb2NrX25hbWUsIGVycikgPT0gMikKKwkJb3AgPSAxOworCWVsc2UgaWYgKHNz
-Y2FuZihzdHIsICJpbmplY3QgJTMycyAlOHMiLCBibG9ja19uYW1lLCBlcnIpID09IDIpCisJCW9w
-ID0gMjsKKwllbHNlIGlmIChzc2NhbmYoc3RyLCAiJTMycyIsIGJsb2NrX25hbWUpID09IDEpCisJ
-CS8qIGFzY2lpIHN0cmluZywgYnV0IGNvbW1hbmRzIGFyZSBub3QgbWF0Y2hlZC4gKi8KKwkJcmV0
-dXJuIC1FSU5WQUw7CisKKwlpZiAob3AgIT0gLTEpIHsKKwkJaWYgKGFtZGdwdV9yYXNfZmluZF9i
-bG9ja19pZF9ieV9uYW1lKGJsb2NrX25hbWUsICZibG9ja19pZCkpCisJCQlyZXR1cm4gLUVJTlZB
-TDsKKworCQlkYXRhLT5oZWFkLmJsb2NrID0gYmxvY2tfaWQ7CisJCWRhdGEtPmhlYWQudHlwZSA9
-IG1lbWNtcCgidWUiLCBlcnIsIDIpID09IDAgPworCQkJQU1ER1BVX1JBU19FUlJPUl9fTVVMVElf
-VU5DT1JSRUNUQUJMRSA6CisJCQlBTURHUFVfUkFTX0VSUk9SX19TSU5HTEVfQ09SUkVDVEFCTEU7
-CisJCWRhdGEtPm9wID0gb3A7CisKKwkJaWYgKG9wID09IDIpIHsKKwkJCWlmIChzc2NhbmYoc3Ry
-LCAiJSpzICUqcyAlKnMgJWxsdSAlbGx1IiwKKwkJCQkJCSZhZGRyZXNzLCAmdmFsdWUpICE9IDIp
-CisJCQkJaWYgKHNzY2FuZihzdHIsICIlKnMgJSpzICUqcyAweCVsbHggMHglbGx4IiwKKwkJCQkJ
-CQkmYWRkcmVzcywgJnZhbHVlKSAhPSAyKQorCQkJCQlyZXR1cm4gLUVJTlZBTDsKKwkJCWRhdGEt
-PmluamVjdC5hZGRyZXNzID0gYWRkcmVzczsKKwkJCWRhdGEtPmluamVjdC52YWx1ZSA9IHZhbHVl
-OworCQl9CisJfSBlbHNlIHsKKwkJaWYgKHNpemUgPCBzaXplb2YoZGF0YSkpCisJCQlyZXR1cm4g
-LUVJTlZBTDsKKworCQlpZiAoY29weV9mcm9tX3VzZXIoZGF0YSwgYnVmLCBzaXplb2YoKmRhdGEp
-KSkKKwkJCXJldHVybiAtRUlOVkFMOworCX0KKworCXJldHVybiAwOworfQogLyoKICAqIERPQzog
-cmFzIGRlYnVnZnMgY29udHJvbCBpbnRlcmZhY2UKICAqCiAgKiBJdCBhY2NlcHRzIHN0cnVjdCBy
-YXNfZGVidWdfaWYgd2hvIGhhcyB0d28gbWVtYmVycy4KICAqCiAgKiBGaXJzdCBtZW1iZXI6IHJh
-c19kZWJ1Z19pZjo6aGVhZCBvciByYXNfZGVidWdfaWY6OmluamVjdC4KLSAqIEl0IGlzIHVzZWQg
-dG8gaW5kaWNhdGUgd2hpY2ggSVAgYmxvY2sgd2lsbCBiZSB1bmRlciBjb250cm9sLgotICogSXRz
-IGNvbnRlbnRzIGFyZSBub3QgaHVtYW4gcmVhZGFibGUsIElPVywgd3JpdGUgaXQgYnkgeW91ciBw
-cm9ncmFtcy4KKyAqCisgKiBoZWFkIGlzIHVzZWQgdG8gaW5kaWNhdGUgd2hpY2ggSVAgYmxvY2sg
-d2lsbCBiZSB1bmRlciBjb250cm9sLgogICoKICAqIGhlYWQgaGFzIGZvdXIgbWVtYmVycywgdGhl
-eSBhcmUgYmxvY2ssIHR5cGUsIHN1Yl9ibG9ja19pbmRleCwgbmFtZS4KICAqIGJsb2NrOiB3aGlj
-aCBJUCB3aWxsIGJlIHVuZGVyIGNvbnRyb2wuCkBAIC0yMjUsNiArMjk4LDI4IEBAIHN0YXRpYyBj
-b25zdCBzdHJ1Y3QgZmlsZV9vcGVyYXRpb25zIGFtZGdwdV9yYXNfZGVidWdmc19vcHMgPSB7CiAg
-KiAgMTogZW5hYmxlIFJBUyBvbiB0aGUgYmxvY2suIFRha2UgOjpoZWFkIGFzIGl0cyBkYXRhLgog
-ICogIDI6IGluamVjdCBlcnJvcnMgb24gdGhlIGJsb2NrLiBUYWtlIDo6aW5qZWN0IGFzIGl0cyBk
-YXRhLgogICoKKyAqIEhvdyB0byB1c2UgdGhlIGludGVyZmFjZT8KKyAqIHByb2dyYW1zOgorICog
-Y29weSB0aGUgc3RydWN0IHJhc19kZWJ1Z19pZiBpbiB5b3VyIGNvZGVzIGFuZCBpbml0aWFsaXpl
-IGl0LgorICogd3JpdGUgdGhlIHN0cnVjdCB0byB0aGUgY29udHJvbCBub2RlLgorICoKKyAqIGJh
-c2g6CisgKiBlY2hvIG9wIGJsb2NrIFtlcnJvciBbYWRkcmVzcyB2YWx1ZV1dID4gLi4uL3Jhcy9y
-YXNfY3RybAorICoJb3A6IGRpc2FibGUsIGVuYWJsZSwgaW5qZWN0CisgKgkJZGlzYWJsZTogb25s
-eSBibG9jayBpcyBuZWVkZWQKKyAqCQllbmFibGU6IGJsb2NrIGFuZCBlcnJvciBhcmUgbmVlZGVk
-CisgKgkJaW5qZWN0OiBlcnJvciwgYWRkcmVzcywgdmFsdWUgYXJlIG5lZWRlZAorICoJYmxvY2s6
-IHVtYywgc21kYSwgZ2Z4LCAuLi4uLi4uLi4KKyAqCQlzZWUgcmFzX2Jsb2NrX3N0cmluZ1tdIGZv
-ciBkZXRhaWxzCisgKgllcnJvcjogdWUsIGNlCisgKgkJdWU6IG11bHRpX3VuY29ycmVjdGFibGUK
-KyAqCQljZTogc2luZ2xlX2NvcnJlY3RhYmxlCisgKgorICogaGVyZSBhcmUgc29tZSBleGFtcGxl
-cyBmb3IgYmFzaCBjb21tYW5kcywKKyAqCWVjaG8gaW5qZWN0IHVtYyB1ZSAweDAgMHgwID4gL3N5
-cy9rZXJuZWwvZGVidWcvZHJpLzAvcmFzL3Jhc19jdHJsCisgKgllY2hvIGluamVjdCB1bWMgY2Ug
-MCAwID4gL3N5cy9rZXJuZWwvZGVidWcvZHJpLzAvcmFzL3Jhc19jdHJsCisgKgllY2hvIGRpc2Fi
-bGUgdW1jID4gL3N5cy9rZXJuZWwvZGVidWcvZHJpLzAvcmFzL3Jhc19jdHJsCisgKgogICogSG93
-IHRvIGNoZWNrIHRoZSByZXN1bHQ/CiAgKgogICogRm9yIGRpc2FibGUvZW5hYmxlLCBwbGVhc2Ug
-Y2hlY2sgcmFzIGZlYXR1cmVzIGF0CkBAIC0yNDMsMTkgKzMzOCwxMCBAQCBzdGF0aWMgc3NpemVf
-dCBhbWRncHVfcmFzX2RlYnVnZnNfY3RybF93cml0ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3QgY2hh
-ciBfX3VzZXIgKgogCXN0cnVjdCByYXNfZGVidWdfaWYgZGF0YTsKIAlpbnQgcmV0ID0gMDsKIAot
-CWlmIChzaXplIDwgc2l6ZW9mKGRhdGEpKQotCQlyZXR1cm4gLUVJTlZBTDsKLQotCW1lbXNldCgm
-ZGF0YSwgMCwgc2l6ZW9mKGRhdGEpKTsKLQotCWlmICgqcG9zKQotCQlyZXR1cm4gLUVJTlZBTDsK
-LQotCWlmIChjb3B5X2Zyb21fdXNlcigmZGF0YSwgYnVmLCBzaXplb2YoZGF0YSkpKQorCXJldCA9
-IGFtZGdwdV9yYXNfZGVidWdmc19jdHJsX3BhcnNlX2RhdGEoZiwgYnVmLCBzaXplLCBwb3MsICZk
-YXRhKTsKKwlpZiAocmV0KQogCQlyZXR1cm4gLUVJTlZBTDsKIAotCSpwb3MgPSBzaXplOwotCiAJ
-aWYgKCFhbWRncHVfcmFzX2lzX3N1cHBvcnRlZChhZGV2LCBkYXRhLmhlYWQuYmxvY2spKQogCQly
-ZXR1cm4gLUVJTlZBTDsKIApAQCAtMjY5LDYgKzM1NSw5IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdw
-dV9yYXNfZGVidWdmc19jdHJsX3dyaXRlKHN0cnVjdCBmaWxlICpmLCBjb25zdCBjaGFyIF9fdXNl
-ciAqCiAJY2FzZSAyOgogCQlyZXQgPSBhbWRncHVfcmFzX2Vycm9yX2luamVjdChhZGV2LCAmZGF0
-YS5pbmplY3QpOwogCQlicmVhazsKKwlkZWZhdWx0OgorCQlyZXQgPSAtRUlOVkFMOworCQlicmVh
-azsKIAl9OwogCiAJaWYgKHJldCkKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+--===============1220712220==
+Content-Type: multipart/alternative; boundary="000000000000f88e8705835e827b"
+
+--000000000000f88e8705835e827b
+Content-Type: text/plain; charset="UTF-8"
+
+Hi
+
+I filled up a bug at https://bugzilla.kernel.org/show_bug.cgi?id=202599 but
+nobody answer. I think that all information you need is there.
+
+You are in MAINTAINERS file for RADEON and AMDGPU DRM DRIVERS.
+
+I guess that all users with my video card will have the same issue, so is
+important to solve this issue.
+
+If you need more information don't hesitate to contact me by email or bug
+at bugzilla.kernel.org
+
+Regards
+Oscar Megia
+
+--000000000000f88e8705835e827b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>Hi</div><div><br></=
+div><div>I filled up a bug at <a href=3D"https://bugzilla.kernel.org/show_b=
+ug.cgi?id=3D202599">https://bugzilla.kernel.org/show_bug.cgi?id=3D202599</a=
+> but nobody answer. I think that all information you need is there.<br></d=
+iv><div><br></div><div>You are in MAINTAINERS file for RADEON and AMDGPU DR=
+M DRIVERS.</div><div><br></div><div>I guess that all users with my video ca=
+rd will have the same issue, so is important to solve this issue.<br></div>=
+<div><br></div><div>If you need more information don&#39;t hesitate to cont=
+act me by email or bug at <a href=3D"http://bugzilla.kernel.org">bugzilla.k=
+ernel.org</a></div><div><br></div><div>Regards</div><div>Oscar Megia<br></d=
+iv></div></div></div>
+
+--000000000000f88e8705835e827b--
+
+--===============1220712220==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1220712220==--
