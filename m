@@ -1,15 +1,10 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu: rework shadow handling during PD clear v3
-Date: Mon, 4 Mar 2019 23:35:54 +0000
-Message-ID: <5612c158-ea30-fd5f-ff77-f615279ed40b@amd.com>
-References: <20190304162813.2625-1-christian.koenig@amd.com>
+From: =?UTF-8?B?5ZGo56OK?= <mfk530-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: fix kernel Oops caused by change_bit in ARM64
+Date: Tue, 5 Mar 2019 10:37:42 +0800
+Message-ID: <CALKDN1PRNNDMhNKYaNsFdkYCKM4R4tUtQ9svXdmPwBQL6=AzFA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0046881164=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190304162813.2625-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <CE23D562F51D3A4E8B6672C5AC8CC9B4-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,79 +15,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-T25lIG5vdCBzbyBvYnZpb3VzIGNoYW5nZSBoZXJlOiBUaGUgZmVuY2Ugb24gdGhlIHBhZ2UgdGFi
-bGUgYWZ0ZXIgDQpjbGVhcl9ibyBub3cgd2FpdHMgZm9yIGNsZWFyaW5nIGJvdGggdGhlIHBhZ2Ug
-dGFibGUgYW5kIHRoZSBzaGFkb3cuIFRoYXQgDQptYXkgbWFrZSBjbGVhcmluZyBvZiBwYWdlIHRh
-YmxlcyBhcHBlYXIgYSBiaXQgc2xvd2VyLiBPbiB0aGUgb3RoZXIgaGFuZCwgDQppZiB5b3UncmUg
-Y2xlYXJpbmcgYSBidW5jaCBvZiBwYWdlIHRhYmxlcyBhdCBvbmNlLCB0aGVuIGRpZmZlcmVuY2Ug
-d2lsbCANCmJlIG1pbmltYWwgYmVjYXVzZSBjbGVhcmluZyB0aGUgc2Vjb25kIHBhZ2UgdGFibGUg
-d2lsbCBoYXZlIHRvIHdhaXQgZm9yIA0KY2xlYXJpbmcgdGhlIGZpcnN0IHNoYWRvdyBlaXRoZXIg
-d2F5Lg0KDQpJZiB0aGF0IGlzIGFjY2VwdGFibGUsIHRoZW4gdGhlIHNlcmllcyBpcyBSZXZpZXdl
-ZC1ieTogRmVsaXggS3VlaGxpbmcgDQo8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KUmVnYXJk
-cywNCiDCoCBGZWxpeA0KDQpPbiAyMDE5LTAzLTA0IDExOjI4IGEubS4sIENocmlzdGlhbiBLw7Zu
-aWcgd3JvdGU6DQo+IFRoaXMgd2F5IHdlIG9ubHkgZGVhbCB3aXRoIHRoZSByZWFsIEJPIGluIGhl
-cmUuDQo+DQo+IHYyOiB1c2UgYSBkbyB7IC4uLiB9IHdoaWxlIGxvb3AgaW5zdGVhZA0KPiB2Mzog
-Zml4IE5VTEwgcG9pbnRlciBpbiB2Mg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IEFja2VkLWJ5OiBIdWFuZyBSdWkgPHJh
-eS5odWFuZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uYyB8IDY3ICsrKysrKysrKysrKysrKy0tLS0tLS0tLS0tDQo+ICAgMSBmaWxlIGNo
-YW5nZWQsIDM5IGluc2VydGlvbnMoKyksIDI4IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBpbmRleCAxMmQ1MWQ5NjQ5MWUuLmQ5YTBhYzE0
-YzRjYSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zt
-LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4gQEAg
-LTc4OCw0NCArNzg4LDYxIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2NsZWFyX2JvKHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2LA0KPiAgIA0KPiAgIAlyID0gdHRtX2JvX3ZhbGlkYXRlKCZiby0+
-dGJvLCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7DQo+ICAgCWlmIChyKQ0KPiAtCQlnb3RvIGVycm9y
-Ow0KPiArCQlyZXR1cm4gcjsNCj4gICANCj4gICAJciA9IGFtZGdwdV90dG1fYWxsb2NfZ2FydCgm
-Ym8tPnRibyk7DQo+ICAgCWlmIChyKQ0KPiAgIAkJcmV0dXJuIHI7DQo+ICAgDQo+ICsJaWYgKGJv
-LT5zaGFkb3cpIHsNCj4gKwkJciA9IHR0bV9ib192YWxpZGF0ZSgmYm8tPnNoYWRvdy0+dGJvLCAm
-Ym8tPnNoYWRvdy0+cGxhY2VtZW50LA0KPiArCQkJCSAgICAmY3R4KTsNCj4gKwkJaWYgKHIpDQo+
-ICsJCQlyZXR1cm4gcjsNCj4gKw0KPiArCQlyID0gYW1kZ3B1X3R0bV9hbGxvY19nYXJ0KCZiby0+
-c2hhZG93LT50Ym8pOw0KPiArCQlpZiAocikNCj4gKwkJCXJldHVybiByOw0KPiArDQo+ICsJfQ0K
-PiArDQo+ICAgCXIgPSBhbWRncHVfam9iX2FsbG9jX3dpdGhfaWIoYWRldiwgNjQsICZqb2IpOw0K
-PiAgIAlpZiAocikNCj4gLQkJZ290byBlcnJvcjsNCj4gKwkJcmV0dXJuIHI7DQo+ICsNCj4gKwlk
-byB7DQo+ICsJCWFkZHIgPSBhbWRncHVfYm9fZ3B1X29mZnNldChibyk7DQo+ICsJCWlmIChhdHNf
-ZW50cmllcykgew0KPiArCQkJdWludDY0X3QgYXRzX3ZhbHVlOw0KPiAgIA0KPiAtCWFkZHIgPSBh
-bWRncHVfYm9fZ3B1X29mZnNldChibyk7DQo+IC0JaWYgKGF0c19lbnRyaWVzKSB7DQo+IC0JCXVp
-bnQ2NF90IGF0c192YWx1ZTsNCj4gKwkJCWF0c192YWx1ZSA9IEFNREdQVV9QVEVfREVGQVVMVF9B
-VEM7DQo+ICsJCQlpZiAobGV2ZWwgIT0gQU1ER1BVX1ZNX1BUQikNCj4gKwkJCQlhdHNfdmFsdWUg
-fD0gQU1ER1BVX1BERV9QVEU7DQo+ICAgDQo+IC0JCWF0c192YWx1ZSA9IEFNREdQVV9QVEVfREVG
-QVVMVF9BVEM7DQo+IC0JCWlmIChsZXZlbCAhPSBBTURHUFVfVk1fUFRCKQ0KPiAtCQkJYXRzX3Zh
-bHVlIHw9IEFNREdQVV9QREVfUFRFOw0KPiArCQkJYW1kZ3B1X3ZtX3NldF9wdGVfcGRlKGFkZXYs
-ICZqb2ItPmlic1swXSwgYWRkciwgMCwNCj4gKwkJCQkJICAgICAgYXRzX2VudHJpZXMsIDAsIGF0
-c192YWx1ZSk7DQo+ICsJCQlhZGRyICs9IGF0c19lbnRyaWVzICogODsNCj4gKwkJfQ0KPiAgIA0K
-PiAtCQlhbWRncHVfdm1fc2V0X3B0ZV9wZGUoYWRldiwgJmpvYi0+aWJzWzBdLCBhZGRyLCAwLA0K
-PiAtCQkJCSAgICAgIGF0c19lbnRyaWVzLCAwLCBhdHNfdmFsdWUpOw0KPiAtCQlhZGRyICs9IGF0
-c19lbnRyaWVzICogODsNCj4gLQl9DQo+ICsJCWlmIChlbnRyaWVzKSB7DQo+ICsJCQl1aW50NjRf
-dCB2YWx1ZSA9IDA7DQo+ICAgDQo+IC0JaWYgKGVudHJpZXMpIHsNCj4gLQkJdWludDY0X3QgdmFs
-dWUgPSAwOw0KPiArCQkJLyogV29ya2Fyb3VuZCBmb3IgZmF1bHQgcHJpb3JpdHkgcHJvYmxlbSBv
-biBHTUM5ICovDQo+ICsJCQlpZiAobGV2ZWwgPT0gQU1ER1BVX1ZNX1BUQiAmJg0KPiArCQkJICAg
-IGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1ZFR0ExMCkNCj4gKwkJCQl2YWx1ZSA9IEFNREdQVV9Q
-VEVfRVhFQ1VUQUJMRTsNCj4gICANCj4gLQkJLyogV29ya2Fyb3VuZCBmb3IgZmF1bHQgcHJpb3Jp
-dHkgcHJvYmxlbSBvbiBHTUM5ICovDQo+IC0JCWlmIChsZXZlbCA9PSBBTURHUFVfVk1fUFRCICYm
-IGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX1ZFR0ExMCkNCj4gLQkJCXZhbHVlID0gQU1ER1BVX1BU
-RV9FWEVDVVRBQkxFOw0KPiArCQkJYW1kZ3B1X3ZtX3NldF9wdGVfcGRlKGFkZXYsICZqb2ItPmli
-c1swXSwgYWRkciwgMCwNCj4gKwkJCQkJICAgICAgZW50cmllcywgMCwgdmFsdWUpOw0KPiArCQl9
-DQo+ICAgDQo+IC0JCWFtZGdwdV92bV9zZXRfcHRlX3BkZShhZGV2LCAmam9iLT5pYnNbMF0sIGFk
-ZHIsIDAsDQo+IC0JCQkJICAgICAgZW50cmllcywgMCwgdmFsdWUpOw0KPiAtCX0NCj4gKwkJYm8g
-PSBiby0+c2hhZG93Ow0KPiArCX0gd2hpbGUgKGJvKTsNCj4gICANCj4gICAJYW1kZ3B1X3Jpbmdf
-cGFkX2liKHJpbmcsICZqb2ItPmlic1swXSk7DQo+ICAgDQo+ICAgCVdBUk5fT04oam9iLT5pYnNb
-MF0ubGVuZ3RoX2R3ID4gNjQpOw0KPiAtCXIgPSBhbWRncHVfc3luY19yZXN2KGFkZXYsICZqb2It
-PnN5bmMsIGJvLT50Ym8ucmVzdiwNCj4gKwlyID0gYW1kZ3B1X3N5bmNfcmVzdihhZGV2LCAmam9i
-LT5zeW5jLCB2bS0+cm9vdC5iYXNlLmJvLT50Ym8ucmVzdiwNCj4gICAJCQkgICAgIEFNREdQVV9G
-RU5DRV9PV05FUl9LRkQsIGZhbHNlKTsNCj4gICAJaWYgKHIpDQo+ICAgCQlnb3RvIGVycm9yX2Zy
-ZWU7DQo+IEBAIC04MzUsMTkgKzg1MiwxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9jbGVhcl9i
-byhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICAJaWYgKHIpDQo+ICAgCQlnb3RvIGVy
-cm9yX2ZyZWU7DQo+ICAgDQo+IC0JYW1kZ3B1X2JvX2ZlbmNlKGJvLCBmZW5jZSwgdHJ1ZSk7DQo+
-ICsJYW1kZ3B1X2JvX2ZlbmNlKHZtLT5yb290LmJhc2UuYm8sIGZlbmNlLCB0cnVlKTsNCj4gICAJ
-ZG1hX2ZlbmNlX3B1dChmZW5jZSk7DQo+ICAgDQo+IC0JaWYgKGJvLT5zaGFkb3cpDQo+IC0JCXJl
-dHVybiBhbWRncHVfdm1fY2xlYXJfYm8oYWRldiwgdm0sIGJvLT5zaGFkb3csDQo+IC0JCQkJCSAg
-bGV2ZWwsIHB0ZV9zdXBwb3J0X2F0cyk7DQo+IC0NCj4gICAJcmV0dXJuIDA7DQo+ICAgDQo+ICAg
-ZXJyb3JfZnJlZToNCj4gICAJYW1kZ3B1X2pvYl9mcmVlKGpvYik7DQo+IC0NCj4gLWVycm9yOg0K
-PiAgIAlyZXR1cm4gcjsNCj4gICB9DQo+ICAgDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+--===============0046881164==
+Content-Type: multipart/alternative; boundary="00000000000087c5c905834fc277"
+
+--00000000000087c5c905834fc277
+Content-Type: text/plain; charset="UTF-8"
+
+I got this kernel Oops when running ROCm kernel in a ARM64 machine with
+Vega64 card.
+
+---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 20d7e4775d49..b6945af39b95 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -726,8 +726,8 @@ static bool gmc_v9_0_keep_stolen_memory(struct
+amdgpu_device *adev)
+ static int gmc_v9_0_allocate_vm_inv_eng(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ring *ring;
+-	unsigned vm_inv_engs[AMDGPU_MAX_VMHUBS] =
+-		{GFXHUB_FREE_VM_INV_ENGS_BITMAP, MMHUB_FREE_VM_INV_ENGS_BITMAP};
++	unsigned long vm_inv_engs[AMDGPU_MAX_VMHUBS] =
++		      {GFXHUB_FREE_VM_INV_ENGS_BITMAP, MMHUB_FREE_VM_INV_ENGS_BITMAP};
+ 	unsigned i;
+ 	unsigned vmhub, inv_eng;
+
+@@ -743,7 +743,7 @@ static int gmc_v9_0_allocate_vm_inv_eng(struct
+amdgpu_device *adev)
+ 		}
+
+ 		ring->vm_inv_eng = inv_eng - 1;
+-		change_bit(inv_eng - 1, (unsigned long *)(&vm_inv_engs[vmhub]));
++		change_bit(inv_eng - 1, &vm_inv_engs[vmhub]);
+
+ 		dev_info(adev->dev, "ring %s uses VM inv eng %u on hub %u\n",
+ 			 ring->name, ring->vm_inv_eng, ring->funcs->vmhub);
+
+--00000000000087c5c905834fc277
+Content-Type: text/html; charset="UTF-8"
+
+<div dir="ltr">I got this kernel Oops when running ROCm kernel in a ARM64 machine with Vega64 card.<div><br><div><pre style="color:rgb(0,0,0);white-space:pre-wrap">---
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 20d7e4775d49..b6945af39b95 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -726,8 +726,8 @@ static bool gmc_v9_0_keep_stolen_memory(struct amdgpu_device *adev)
+ static int gmc_v9_0_allocate_vm_inv_eng(struct amdgpu_device *adev)
+ {
+ 	struct amdgpu_ring *ring;
+-	unsigned vm_inv_engs[AMDGPU_MAX_VMHUBS] =
+-		{GFXHUB_FREE_VM_INV_ENGS_BITMAP, MMHUB_FREE_VM_INV_ENGS_BITMAP};
++	unsigned long vm_inv_engs[AMDGPU_MAX_VMHUBS] =
++		      {GFXHUB_FREE_VM_INV_ENGS_BITMAP, MMHUB_FREE_VM_INV_ENGS_BITMAP};
+ 	unsigned i;
+ 	unsigned vmhub, inv_eng;
+ 
+@@ -743,7 +743,7 @@ static int gmc_v9_0_allocate_vm_inv_eng(struct amdgpu_device *adev)
+ 		}
+ 
+ 		ring-&gt;vm_inv_eng = inv_eng - 1;
+-		change_bit(inv_eng - 1, (unsigned long *)(&amp;vm_inv_engs[vmhub]));
++		change_bit(inv_eng - 1, &amp;vm_inv_engs[vmhub]);
+ 
+ 		dev_info(adev-&gt;dev, &quot;ring %s uses VM inv eng %u on hub %u\n&quot;,
+ 			 ring-&gt;name, ring-&gt;vm_inv_eng, ring-&gt;funcs-&gt;vmhub);</pre></div></div></div>
+
+--00000000000087c5c905834fc277--
+
+--===============0046881164==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0046881164==--
