@@ -1,13 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: Add curly braces around
- idr_for_each_entry_continue loop
-Date: Tue, 5 Mar 2019 16:17:17 +0000
-Message-ID: <BN6PR12MB18090A1A16094239EBEAF109F7720@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190305112004.12369-1-michel@daenzer.net>
+From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: XGMI pstate switch initial support
+Date: Tue, 5 Mar 2019 16:25:11 +0000
+Message-ID: <1551803104-18651-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0035035618=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190305112004.12369-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,242 +17,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?Windows-1252?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============0035035618==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18090A1A16094239EBEAF109F7720BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18090A1A16094239EBEAF109F7720BN6PR12MB1809namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
-=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Tuesday, March 5, 2019 6:20 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [PATCH] drm/amdkfd: Add curly braces around idr_for_each_entry_con=
-tinue loop
-
-From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
-
-The compiler pointed out that one if block unintentionally wasn't part
-of the loop:
-
-In file included from ./include/linux/kernfs.h:14,
-                 from ./include/linux/sysfs.h:16,
-                 from ./include/linux/kobject.h:20,
-                 from ./include/linux/device.h:16,
-                 from ./include/linux/node.h:18,
-                 from ./include/linux/memory.h:19,
-                 from drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events.c:30=
-:
-drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events.c: In function =91kfd_sign=
-al_reset_event=92:
-./include/linux/idr.h:212:2: warning: this =91for=92 clause does not guard.=
-.. [-Wmisleading-indentation]
-  for ((entry) =3D idr_get_next((idr), &(id));   \
-  ^~~
-drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events.c:1038:3: note: in expansi=
-on of macro =91idr_for_each_entry_continue=92
-   idr_for_each_entry_continue(&p->event_idr, ev, id)
-   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events.c:1043:4: note: ...this st=
-atement, but the latter is misleadingly indented as if it were guarded by t=
-he =91for=92
-    if (ev->type =3D=3D KFD_EVENT_TYPE_MEMORY &&
-    ^~
-
-Fixes: "drm/amdkfd: add RAS ECC event support"
-Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
----
-
-This is one reason why I think it's better to always use curly braces
-around multiple lines, even if it happens to be a single statement.
-
- drivers/gpu/drm/amd/amdkfd/kfd_events.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_events.c
-index 97c984684973..6e1d41c5bf86 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-@@ -1035,7 +1035,7 @@ void kfd_signal_reset_event(struct kfd_dev *dev)
-         hash_for_each_rcu(kfd_processes_table, temp, p, kfd_processes) {
-                 mutex_lock(&p->event_mutex);
-                 id =3D KFD_FIRST_NONSIGNAL_EVENT_ID;
--               idr_for_each_entry_continue(&p->event_idr, ev, id)
-+               idr_for_each_entry_continue(&p->event_idr, ev, id) {
-                         if (ev->type =3D=3D KFD_EVENT_TYPE_HW_EXCEPTION) {
-                                 ev->hw_exception_data =3D hw_exception_dat=
-a;
-                                 set_event(ev);
-@@ -1045,6 +1045,7 @@ void kfd_signal_reset_event(struct kfd_dev *dev)
-                                 ev->memory_exception_data =3D memory_excep=
-tion_data;
-                                 set_event(ev);
-                         }
-+               }
-                 mutex_unlock(&p->event_mutex);
-         }
-         srcu_read_unlock(&kfd_processes_srcu, idx);
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18090A1A16094239EBEAF109F7720BN6PR12MB1809namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
-enzer.net&gt;<br>
-<b>Sent:</b> Tuesday, March 5, 2019 6:20 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> [PATCH] drm/amdkfd: Add curly braces around idr_for_each_en=
-try_continue loop</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<br>
-The compiler pointed out that one if block unintentionally wasn't part<br>
-of the loop:<br>
-<br>
-In file included from ./include/linux/kernfs.h:14,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; from ./include/linux/sysfs.h:16,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; from ./include/linux/kobject.h:20,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; from ./include/linux/device.h:16,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; from ./include/linux/node.h:18,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; from ./include/linux/memory.h:19,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; from drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events=
-.c:30:<br>
-drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events.c: In function =91kfd_sign=
-al_reset_event=92:<br>
-./include/linux/idr.h:212:2: warning: this =91for=92 clause does not guard.=
-.. [-Wmisleading-indentation]<br>
-&nbsp; for ((entry) =3D idr_get_next((idr), &amp;(id));&nbsp;&nbsp; \<br>
-&nbsp; ^~~<br>
-drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events.c:1038:3: note: in expansi=
-on of macro =91idr_for_each_entry_continue=92<br>
-&nbsp;&nbsp; idr_for_each_entry_continue(&amp;p-&gt;event_idr, ev, id)<br>
-&nbsp;&nbsp; ^~~~~~~~~~~~~~~~~~~~~~~~~~~<br>
-drivers/gpu/drm//amd/amdgpu/../amdkfd/kfd_events.c:1043:4: note: ...this st=
-atement, but the latter is misleadingly indented as if it were guarded by t=
-he =91for=92<br>
-&nbsp;&nbsp;&nbsp; if (ev-&gt;type =3D=3D KFD_EVENT_TYPE_MEMORY &amp;&amp;<=
-br>
-&nbsp;&nbsp;&nbsp; ^~<br>
-<br>
-Fixes: &quot;drm/amdkfd: add RAS ECC event support&quot;<br>
-Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-<br>
-This is one reason why I think it's better to always use curly braces<br>
-around multiple lines, even if it happens to be a single statement.<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_events.c | 3 &#43;&#43;-<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/=
-amdkfd/kfd_events.c<br>
-index 97c984684973..6e1d41c5bf86 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_events.c<br>
-@@ -1035,7 &#43;1035,7 @@ void kfd_signal_reset_event(struct kfd_dev *dev)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hash_for_each_rcu(kfd_proc=
-esses_table, temp, p, kfd_processes) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;p-&gt;event_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; id =3D KFD_FIRST_NONSIGNAL_EVENT_ID;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; idr_for_each_entry_continue(&amp;p-&gt;event_idr, ev, id)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; idr_for_each_entry_continue(&amp;p-&gt;event_idr, ev, id) {<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (e=
-v-&gt;type =3D=3D KFD_EVENT_TYPE_HW_EXCEPTION) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ev-&gt;hw_exception_data =3D hw_=
-exception_data;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_event(ev);<br>
-@@ -1045,6 &#43;1045,7 @@ void kfd_signal_reset_event(struct kfd_dev *dev)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ev-&gt;memory_exception_data =3D=
- memory_exception_data;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_event(ev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;p-&gt;event_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; srcu_read_unlock(&amp;kfd_=
-processes_srcu, idx);<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18090A1A16094239EBEAF109F7720BN6PR12MB1809namp_--
-
---===============0035035618==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0035035618==--
+RHJpdmVyIHZvdGUgbG93IHRvIGhpZ2ggcHN0YXRlIHN3aXRjaCB3aGVuZXZlciB0aGVyZSBpcyBh
+biBvdXRzdGFuZGluZwpYR01JIG1hcHBpbmcgcmVxdWVzdC4gRHJpdmVyIHZvdGUgaGlnaCB0byBs
+b3cgcHN0YXRlIHdoZW4gYWxsIHRoZQpvdXRzdGFuZGluZyBYR01JIG1hcHBpbmcgaXMgdGVybWlu
+YXRlZC4KCkNoYW5nZS1JZDogSTQ5OWZiMWMzODkwNzc2MzJmZTljZmNlNGI2ZGM5YTMzZGVmZjY4
+NzUKU2lnbmVkLW9mZi1ieTogc2hhb3l1bmwgPHNoYW95dW4ubGl1QGFtZC5jb20+Ci0tLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDQgKysrKwogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgIDMgKysrCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdm0uYyAgICAgfCAyOSArKysrKysrKysrKysrKysrKysrKysrKysr
+KysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYyAgIHwgMTUgKysr
+KysrKysrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5oICAg
+fCAgMiArKwogNiBmaWxlcyBjaGFuZ2VkLCA1MyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0p
+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAppbmRleCBmMGRhZGE5Li5jM2M4MzkyIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaAorKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaApAQCAtOTMwLDYgKzkzMCwxMCBAQCBzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSB7CiAKIAlpbnQgYXNpY19yZXNldF9yZXM7CiAJc3RydWN0IHdvcmtf
+c3RydWN0CQl4Z21pX3Jlc2V0X3dvcms7CisKKwkvKiBjb3VudGVyIG9mIG1hcHBlZCBtZW1vcnkg
+dGhyb3VnaCB4Z21pICovCisJYXRvbWljX3QJCQl4Z21pX21hcF9jb3VudGVyOworCiB9OwogCiBz
+dGF0aWMgaW5saW5lIHN0cnVjdCBhbWRncHVfZGV2aWNlICphbWRncHVfdHRtX2FkZXYoc3RydWN0
+IHR0bV9ib19kZXZpY2UgKmJkZXYpCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZGV2aWNlLmMKaW5kZXggMDBkZWY1Ny4uZjI4YWJiMyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMjAwOCw2ICsyMDA4LDkgQEAgc3RhdGljIHZvaWQg
+YW1kZ3B1X2RldmljZV9pcF9sYXRlX2luaXRfZnVuY19oYW5kbGVyKHN0cnVjdCB3b3JrX3N0cnVj
+dCAqd29yaykKIAlyID0gYW1kZ3B1X2RldmljZV9lbmFibGVfbWdwdV9mYW5fYm9vc3QoKTsKIAlp
+ZiAocikKIAkJRFJNX0VSUk9SKCJlbmFibGUgbWdwdSBmYW4gYm9vc3QgZmFpbGVkICglZCkuXG4i
+LCByKTsKKworCS8qc2V0IHRvIGxvdyBwc3RhdGUgYnkgZGVmYXVsdCAqLworCWFtZGdwdV94Z21p
+X3NldF9wc3RhdGUoYWRldiwgMCk7CiB9CiAKIHN0YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2VfZGVs
+YXlfZW5hYmxlX2dmeF9vZmYoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCmluZGV4IDIyMGE2YTcuLjZmMTc2YmIgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaAorKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKQEAgLTU0LDYgKzU0
+LDcgQEAgc3RydWN0IGFtZGdwdV9ib192YV9tYXBwaW5nIHsKIAl1aW50NjRfdAkJCV9fc3VidHJl
+ZV9sYXN0OwogCXVpbnQ2NF90CQkJb2Zmc2V0OwogCXVpbnQ2NF90CQkJZmxhZ3M7CisJYm9vbAkJ
+CQlpc194Z21pOwogfTsKIAogLyogVXNlciBzcGFjZSBhbGxvY2F0ZWQgQk8gaW4gYSBWTSAqLwpk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCBjMGYzMTViLi41NzY1NzYx
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYworKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwpAQCAtMzQsNiArMzQsNyBA
+QAogI2luY2x1ZGUgImFtZGdwdV90cmFjZS5oIgogI2luY2x1ZGUgImFtZGdwdV9hbWRrZmQuaCIK
+ICNpbmNsdWRlICJhbWRncHVfZ21jLmgiCisjaW5jbHVkZSAiYW1kZ3B1X3hnbWkuaCIKIAogLyoq
+CiAgKiBET0M6IEdQVVZNCkBAIC0yMDEzLDggKzIwMTQsOSBAQCBpbnQgYW1kZ3B1X3ZtX2JvX3Vw
+ZGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAlzdHJ1Y3QgdHRtX21lbV9yZWcgKm1l
+bTsKIAlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzOwogCXN0cnVjdCBkbWFfZmVuY2UgKmV4Y2x1
+c2l2ZSwgKipsYXN0X3VwZGF0ZTsKLQl1aW50NjRfdCBmbGFnczsKIAlzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYm9fYWRldiA9IGFkZXY7CisJYm9vbCBpc194Z21pID0gZmFsc2U7CisJdWludDY0X3Qg
+ZmxhZ3M7CiAJaW50IHI7CiAKIAlpZiAoY2xlYXIgfHwgIWJvKSB7CkBAIC0yMDM2LDYgKzIwMzgs
+MTAgQEAgaW50IGFtZGdwdV92bV9ib191cGRhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+CiAJaWYgKGJvKSB7CiAJCWZsYWdzID0gYW1kZ3B1X3R0bV90dF9wdGVfZmxhZ3MoYWRldiwgYm8t
+PnRiby50dG0sIG1lbSk7CiAJCWJvX2FkZXYgPSBhbWRncHVfdHRtX2FkZXYoYm8tPnRiby5iZGV2
+KTsKKwkJaWYgKGFkZXYgIT0gYm9fYWRldiAmJgorCQkgICAgYWRldi0+Z21jLnhnbWkuaGl2ZV9p
+ZCAmJgorCQkgICAgYWRldi0+Z21jLnhnbWkuaGl2ZV9pZCA9PSBib19hZGV2LT5nbWMueGdtaS5o
+aXZlX2lkKQorCQkJaXNfeGdtaSA9IHRydWU7CiAJfSBlbHNlIHsKIAkJZmxhZ3MgPSAweDA7CiAJ
+fQpAQCAtMjA1NCw2ICsyMDYwLDE5IEBAIGludCBhbWRncHVfdm1fYm9fdXBkYXRlKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2LAogCX0KIAogCWxpc3RfZm9yX2VhY2hfZW50cnkobWFwcGluZywg
+JmJvX3ZhLT5pbnZhbGlkcywgbGlzdCkgeworCQlpZiAobWFwcGluZy0+aXNfeGdtaSAhPSBpc194
+Z21pKSB7CisJCQlpZiAoaXNfeGdtaSkgeworCQkJCS8qIEFkZGluZyBhbiBYR01JIG1hcHBpbmcg
+dG8gdGhlIFBUICovCisJCQkJaWYgKGF0b21pY19pbmNfcmV0dXJuKCZhZGV2LT54Z21pX21hcF9j
+b3VudGVyKSA9PSAxKQorCQkJCQlhbWRncHVfeGdtaV9zZXRfcHN0YXRlKGFkZXYsIDEpOworCQkJ
+fSBlbHNlIHsKKwkJCQkvKiBSZW1vdmluZyBhbiBYR01JIG1hcHBpbmcgZnJvbSB0aGUgUFQgKi8K
+KwkJCQlpZiAoYXRvbWljX2RlY19yZXR1cm4oJmFkZXYtPnhnbWlfbWFwX2NvdW50ZXIpID09IDAp
+CisJCQkJCWFtZGdwdV94Z21pX3NldF9wc3RhdGUoYWRldiwgMCk7CisJCQl9CisJCQltYXBwaW5n
+LT5pc194Z21pID0gaXNfeGdtaTsKKwkJfQorCiAJCXIgPSBhbWRncHVfdm1fYm9fc3BsaXRfbWFw
+cGluZyhhZGV2LCBleGNsdXNpdmUsIHBhZ2VzX2FkZHIsIHZtLAogCQkJCQkgICAgICAgbWFwcGlu
+ZywgZmxhZ3MsIGJvX2FkZXYsIG5vZGVzLAogCQkJCQkgICAgICAgbGFzdF91cGRhdGUpOwpAQCAt
+MjI3MSw2ICsyMjkwLDEzIEBAIGludCBhbWRncHVfdm1fY2xlYXJfZnJlZWQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsCiAJCXIgPSBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmcoYWRldiwg
+TlVMTCwgTlVMTCwgdm0sCiAJCQkJCQltYXBwaW5nLT5zdGFydCwgbWFwcGluZy0+bGFzdCwKIAkJ
+CQkJCWluaXRfcHRlX3ZhbHVlLCAwLCAmZik7CisKKwkJaWYgKG1hcHBpbmctPmlzX3hnbWkpIHsK
+KwkJCS8qIFJlbW92aW5nIGFuIFhHTUkgbWFwcGluZyBmcm9tIHRoZSBQVCAqLworCQkJaWYgKGF0
+b21pY19kZWNfcmV0dXJuKCZhZGV2LT54Z21pX21hcF9jb3VudGVyKSA9PSAwKQorCQkJCWFtZGdw
+dV94Z21pX3NldF9wc3RhdGUoYWRldiwgMCk7CisJCX0KKwogCQlhbWRncHVfdm1fZnJlZV9tYXBw
+aW5nKGFkZXYsIHZtLCBtYXBwaW5nLCBmKTsKIAkJaWYgKHIpIHsKIAkJCWRtYV9mZW5jZV9wdXQo
+Zik7CkBAIC0yNDY3LDYgKzI0OTMsNyBAQCBpbnQgYW1kZ3B1X3ZtX2JvX21hcChzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwKIAltYXBwaW5nLT5sYXN0ID0gZWFkZHI7CiAJbWFwcGluZy0+b2Zm
+c2V0ID0gb2Zmc2V0OwogCW1hcHBpbmctPmZsYWdzID0gZmxhZ3M7CisJbWFwcGluZy0+aXNfeGdt
+aSA9IGZhbHNlOwogCiAJYW1kZ3B1X3ZtX2JvX2luc2VydF9tYXAoYWRldiwgYm9fdmEsIG1hcHBp
+bmcpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdt
+aS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYwppbmRleCA0MDdk
+ZDE2Yy4uY2I0MDNjZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3hnbWkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5j
+CkBAIC03Miw2ICs3Miw3IEBAIHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICphbWRncHVfZ2V0X3hn
+bWlfaGl2ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IGxvCiAJbXV0ZXhfaW5pdCgm
+dG1wLT5yZXNldF9sb2NrKTsKIAlpZiAobG9jaykKIAkJbXV0ZXhfbG9jaygmdG1wLT5oaXZlX2xv
+Y2spOworCXRtcC0+cHN0YXRlID0gLTE7CiAKIAltdXRleF91bmxvY2soJnhnbWlfbXV0ZXgpOwog
+CkBAIC0xODIsMyArMTgzLDE3IEBAIHZvaWQgYW1kZ3B1X3hnbWlfcmVtb3ZlX2RldmljZShzdHJ1
+Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJbXV0ZXhfdW5sb2NrKCZoaXZlLT5oaXZlX2xvY2sp
+OwogCX0KIH0KKworaW50IGFtZGdwdV94Z21pX3NldF9wc3RhdGUoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsIGludCBwc3RhdGUpCit7CisJaW50IHJldCA9IDA7CisJc3RydWN0IGFtZGdwdV9o
+aXZlX2luZm8gKmhpdmUgPSBhbWRncHVfZ2V0X3hnbWlfaGl2ZShhZGV2LCAwKTsKKworCWlmICgh
+aGl2ZSkKKwkJcmV0dXJuIDA7CisKKwlpZiAoaGl2ZS0+cHN0YXRlID09IHBzdGF0ZSkKKwkJcmV0
+dXJuIDA7CisJLyogVG9kbyA6IHNlbnQgdGhlIG1lc3NhZ2UgdG8gU01VIGZvciBwc3RhdGUgY2hh
+bmdlICovCisJcmV0dXJuIHJldDsKK30KXCBObyBuZXdsaW5lIGF0IGVuZCBvZiBmaWxlCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuaAppbmRleCAxNGJjNjA2Li42ODU5NzAy
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5oCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmgKQEAgLTMxLDExICsz
+MSwxMyBAQCBzdHJ1Y3QgYW1kZ3B1X2hpdmVfaW5mbyB7CiAJaW50IG51bWJlcl9kZXZpY2VzOwog
+CXN0cnVjdCBtdXRleCBoaXZlX2xvY2ssCiAJCSAgICAgcmVzZXRfbG9jazsKKwlpbnQgcHN0YXRl
+OyAvKjAgLS0gbG93ICwgMSAtLSBoaWdoICwgLTEgdW5rbm93biovCiB9OwogCiBzdHJ1Y3QgYW1k
+Z3B1X2hpdmVfaW5mbyAqYW1kZ3B1X2dldF94Z21pX2hpdmUoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
+KmFkZXYsIGludCBsb2NrKTsKIGludCBhbWRncHVfeGdtaV91cGRhdGVfdG9wb2xvZ3koc3RydWN0
+IGFtZGdwdV9oaXZlX2luZm8gKmhpdmUsIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIGlu
+dCBhbWRncHVfeGdtaV9hZGRfZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKIHZv
+aWQgYW1kZ3B1X3hnbWlfcmVtb3ZlX2RldmljZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7
+CitpbnQgYW1kZ3B1X3hnbWlfc2V0X3BzdGF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
+aW50IHBzdGF0ZSk7CiAKICNlbmRpZgotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
