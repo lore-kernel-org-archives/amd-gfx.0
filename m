@@ -1,11 +1,16 @@
-From: Oscar Megia <megia.oscar-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Screen goes sleep on Xorg randomly and system freezes with radeon
- RV515 driver
-Date: Tue, 5 Mar 2019 21:13:14 +0100
-Message-ID: <CABoTn5REz1QZZEc9K9TMvT0QUMLpdUcoK1FnfQhXJJU=5MehuQ@mail.gmail.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd: Add curly braces around
+ idr_for_each_entry_continue loop
+Date: Tue, 5 Mar 2019 21:22:05 +0000
+Message-ID: <c5396780-0614-7366-9763-dc7a31d92fd4@amd.com>
+References: <20190305112004.12369-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1220712220=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190305112004.12369-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+Content-ID: <9331640F4F18CB4FB6A86D9254C93EBB-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,57 +21,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1220712220==
-Content-Type: multipart/alternative; boundary="000000000000f88e8705835e827b"
-
---000000000000f88e8705835e827b
-Content-Type: text/plain; charset="UTF-8"
-
-Hi
-
-I filled up a bug at https://bugzilla.kernel.org/show_bug.cgi?id=202599 but
-nobody answer. I think that all information you need is there.
-
-You are in MAINTAINERS file for RADEON and AMDGPU DRM DRIVERS.
-
-I guess that all users with my video card will have the same issue, so is
-important to solve this issue.
-
-If you need more information don't hesitate to contact me by email or bug
-at bugzilla.kernel.org
-
-Regards
-Oscar Megia
-
---000000000000f88e8705835e827b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>Hi</div><div><br></=
-div><div>I filled up a bug at <a href=3D"https://bugzilla.kernel.org/show_b=
-ug.cgi?id=3D202599">https://bugzilla.kernel.org/show_bug.cgi?id=3D202599</a=
-> but nobody answer. I think that all information you need is there.<br></d=
-iv><div><br></div><div>You are in MAINTAINERS file for RADEON and AMDGPU DR=
-M DRIVERS.</div><div><br></div><div>I guess that all users with my video ca=
-rd will have the same issue, so is important to solve this issue.<br></div>=
-<div><br></div><div>If you need more information don&#39;t hesitate to cont=
-act me by email or bug at <a href=3D"http://bugzilla.kernel.org">bugzilla.k=
-ernel.org</a></div><div><br></div><div>Regards</div><div>Oscar Megia<br></d=
-iv></div></div></div>
-
---000000000000f88e8705835e827b--
-
---===============1220712220==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1220712220==--
+T24gMjAxOS0wMy0wNSA2OjIwIGEubS4sIE1pY2hlbCBEw6RuemVyIHdyb3RlOg0KPiBGcm9tOiBN
+aWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4NCj4NCj4gVGhlIGNvbXBpbGVy
+IHBvaW50ZWQgb3V0IHRoYXQgb25lIGlmIGJsb2NrIHVuaW50ZW50aW9uYWxseSB3YXNuJ3QgcGFy
+dA0KPiBvZiB0aGUgbG9vcDoNCj4NCj4gSW4gZmlsZSBpbmNsdWRlZCBmcm9tIC4vaW5jbHVkZS9s
+aW51eC9rZXJuZnMuaDoxNCwNCj4gICAgICAgICAgICAgICAgICAgZnJvbSAuL2luY2x1ZGUvbGlu
+dXgvc3lzZnMuaDoxNiwNCj4gICAgICAgICAgICAgICAgICAgZnJvbSAuL2luY2x1ZGUvbGludXgv
+a29iamVjdC5oOjIwLA0KPiAgICAgICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC9k
+ZXZpY2UuaDoxNiwNCj4gICAgICAgICAgICAgICAgICAgZnJvbSAuL2luY2x1ZGUvbGludXgvbm9k
+ZS5oOjE4LA0KPiAgICAgICAgICAgICAgICAgICBmcm9tIC4vaW5jbHVkZS9saW51eC9tZW1vcnku
+aDoxOSwNCj4gICAgICAgICAgICAgICAgICAgZnJvbSBkcml2ZXJzL2dwdS9kcm0vL2FtZC9hbWRn
+cHUvLi4vYW1ka2ZkL2tmZF9ldmVudHMuYzozMDoNCj4gZHJpdmVycy9ncHUvZHJtLy9hbWQvYW1k
+Z3B1Ly4uL2FtZGtmZC9rZmRfZXZlbnRzLmM6IEluIGZ1bmN0aW9uIOKAmGtmZF9zaWduYWxfcmVz
+ZXRfZXZlbnTigJk6DQo+IC4vaW5jbHVkZS9saW51eC9pZHIuaDoyMTI6Mjogd2FybmluZzogdGhp
+cyDigJhmb3LigJkgY2xhdXNlIGRvZXMgbm90IGd1YXJkLi4uIFstV21pc2xlYWRpbmctaW5kZW50
+YXRpb25dDQo+ICAgIGZvciAoKGVudHJ5KSA9IGlkcl9nZXRfbmV4dCgoaWRyKSwgJihpZCkpOyAg
+IFwNCj4gICAgXn5+DQo+IGRyaXZlcnMvZ3B1L2RybS8vYW1kL2FtZGdwdS8uLi9hbWRrZmQva2Zk
+X2V2ZW50cy5jOjEwMzg6Mzogbm90ZTogaW4gZXhwYW5zaW9uIG9mIG1hY3JvIOKAmGlkcl9mb3Jf
+ZWFjaF9lbnRyeV9jb250aW51ZeKAmQ0KPiAgICAgaWRyX2Zvcl9lYWNoX2VudHJ5X2NvbnRpbnVl
+KCZwLT5ldmVudF9pZHIsIGV2LCBpZCkNCj4gICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fg0KPiBkcml2ZXJzL2dwdS9kcm0vL2FtZC9hbWRncHUvLi4vYW1ka2ZkL2tmZF9ldmVudHMuYzox
+MDQzOjQ6IG5vdGU6IC4uLnRoaXMgc3RhdGVtZW50LCBidXQgdGhlIGxhdHRlciBpcyBtaXNsZWFk
+aW5nbHkgaW5kZW50ZWQgYXMgaWYgaXQgd2VyZSBndWFyZGVkIGJ5IHRoZSDigJhmb3LigJkNCj4g
+ICAgICBpZiAoZXYtPnR5cGUgPT0gS0ZEX0VWRU5UX1RZUEVfTUVNT1JZICYmDQo+ICAgICAgXn4N
+Cj4NCj4gRml4ZXM6ICJkcm0vYW1ka2ZkOiBhZGQgUkFTIEVDQyBldmVudCBzdXBwb3J0Ig0KPiBT
+aWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWljaGVsLmRhZW56ZXJAYW1kLmNvbT4NCg0K
+UmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0KDQoN
+Cj4gLS0tDQo+DQo+IFRoaXMgaXMgb25lIHJlYXNvbiB3aHkgSSB0aGluayBpdCdzIGJldHRlciB0
+byBhbHdheXMgdXNlIGN1cmx5IGJyYWNlcw0KPiBhcm91bmQgbXVsdGlwbGUgbGluZXMsIGV2ZW4g
+aWYgaXQgaGFwcGVucyB0byBiZSBhIHNpbmdsZSBzdGF0ZW1lbnQuDQo+DQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jIHwgMyArKy0NCj4gICAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZXZlbnRzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfZXZlbnRzLmMNCj4gaW5kZXggOTdjOTg0Njg0OTczLi42ZTFkNDFjNWJmODYg
+MTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYw0K
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZXZlbnRzLmMNCj4gQEAgLTEw
+MzUsNyArMTAzNSw3IEBAIHZvaWQga2ZkX3NpZ25hbF9yZXNldF9ldmVudChzdHJ1Y3Qga2ZkX2Rl
+diAqZGV2KQ0KPiAgIAloYXNoX2Zvcl9lYWNoX3JjdShrZmRfcHJvY2Vzc2VzX3RhYmxlLCB0ZW1w
+LCBwLCBrZmRfcHJvY2Vzc2VzKSB7DQo+ICAgCQltdXRleF9sb2NrKCZwLT5ldmVudF9tdXRleCk7
+DQo+ICAgCQlpZCA9IEtGRF9GSVJTVF9OT05TSUdOQUxfRVZFTlRfSUQ7DQo+IC0JCWlkcl9mb3Jf
+ZWFjaF9lbnRyeV9jb250aW51ZSgmcC0+ZXZlbnRfaWRyLCBldiwgaWQpDQo+ICsJCWlkcl9mb3Jf
+ZWFjaF9lbnRyeV9jb250aW51ZSgmcC0+ZXZlbnRfaWRyLCBldiwgaWQpIHsNCj4gICAJCQlpZiAo
+ZXYtPnR5cGUgPT0gS0ZEX0VWRU5UX1RZUEVfSFdfRVhDRVBUSU9OKSB7DQo+ICAgCQkJCWV2LT5o
+d19leGNlcHRpb25fZGF0YSA9IGh3X2V4Y2VwdGlvbl9kYXRhOw0KPiAgIAkJCQlzZXRfZXZlbnQo
+ZXYpOw0KPiBAQCAtMTA0NSw2ICsxMDQ1LDcgQEAgdm9pZCBrZmRfc2lnbmFsX3Jlc2V0X2V2ZW50
+KHN0cnVjdCBrZmRfZGV2ICpkZXYpDQo+ICAgCQkJCWV2LT5tZW1vcnlfZXhjZXB0aW9uX2RhdGEg
+PSBtZW1vcnlfZXhjZXB0aW9uX2RhdGE7DQo+ICAgCQkJCXNldF9ldmVudChldik7DQo+ICAgCQkJ
+fQ0KPiArCQl9DQo+ICAgCQltdXRleF91bmxvY2soJnAtPmV2ZW50X211dGV4KTsNCj4gICAJfQ0K
+PiAgIAlzcmN1X3JlYWRfdW5sb2NrKCZrZmRfcHJvY2Vzc2VzX3NyY3UsIGlkeCk7DQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
