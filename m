@@ -1,82 +1,79 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: enable bo priority setting from user space
-Date: Thu, 7 Mar 2019 10:55:20 +0100
-Message-ID: <a8803c5e-d911-992e-2b67-13ed6ca29ccf@daenzer.net>
-References: <20190307091528.22788-1-david1.zhou@amd.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] drm/amd/display: avoid passing enum as NULL pointer
+Date: Thu,  7 Mar 2019 11:34:29 +0100
+Message-ID: <20190307103454.1637485-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190307091528.22788-1-david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: Nick Desaulniers <ndesaulniers@google.com>, Arnd Bergmann <arnd@arndb.de>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Anthony Koo <Anthony.Koo@amd.com>, Aric Cyr <Aric.Cyr@amd.com>, Harmanprit Tatla <Harmanprit.Tatla@amd.com>, Ken Chalmers <ken.chalmers@amd.com>, SivapiriyanKumarasamy <sivapiriyan.kumarasamy@amd.com>, Kees Cook <keescook@chromium.org>, Bayan Zabihiyan <Bayan.Zabihiyan@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wMy0wNyAxMDoxNSBhLm0uLCBDaHVubWluZyBaaG91IHdyb3RlOgo+IFNpZ25lZC1v
-ZmYtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+CgpQbGVhc2UgcHJvdmlk
-ZSBjb3JyZXNwb25kaW5nIFVNRCBwYXRjaGVzIHNob3dpbmcgaG93IHRoaXMgaXMgdG8gYmUgdXNl
-ZC4KCgo+IEBAIC0yMjksNiArMjMxLDE0IEBAIGludCBhbWRncHVfZ2VtX2NyZWF0ZV9pb2N0bChz
-dHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAJaWYgKGFyZ3MtPmluLmRvbWFp
-bnMgJiB+QU1ER1BVX0dFTV9ET01BSU5fTUFTSykKPiAgCQlyZXR1cm4gLUVJTlZBTDsKPiAgCj4g
-KwkvKiBjaGVjayBwcmlvcml0eSAqLwo+ICsJaWYgKGFyZ3MtPmluLnByaW9yaXR5ID09IDApIHsK
-CkRpZCB5b3UgdmVyaWZ5IHRoYXQgdGhpcyBpcyAwIHdpdGggb2xkIHVzZXJzcGFjZSBjb21waWxl
-ZCBhZ2FpbnN0IHN0cnVjdApkcm1fYW1kZ3B1X2dlbV9jcmVhdGVfaW4gd2l0aG91dCB0aGUgcHJp
-b3JpdHkgZmllbGQ/CgoKPiArCQkvKiBkZWZhdWx0IGlzIG5vcm1hbCAqLwo+ICsJCWFyZ3MtPmlu
-LnByaW9yaXR5ID0gVFRNX0JPX1BSSU9SSVRZX05PUk1BTDsKPiArCX0gZWxzZSBpZiAoYXJncy0+
-aW4ucHJpb3JpdHkgPiBUVE1fTUFYX0JPX1BSSU9SSVRZKSB7Cj4gKwkJYXJncy0+aW4ucHJpb3Jp
-dHkgPSBUVE1fTUFYX0JPX1BSSU9SSVRZOwo+ICsJCURSTV9FUlJPUigicHJpb3JpdHkgc3BlY2lm
-aWVkIGZyb20gdXNlciBzcGFjZSBpcyBvdmVyIE1BWCBwcmlvcml0eVxuIik7CgpUaGlzIG11c3Qg
-YmUgRFJNX0RFQlVHLCBvciBidWdneS9tYWxpY2lvdXMgdXNlcnNwYWNlIGNhbiBzcGFtIGRtZXNn
-LgoKCj4gQEAgLTI1Miw2ICsyNjIsNyBAQCBpbnQgYW1kZ3B1X2dlbV9jcmVhdGVfaW9jdGwoc3Ry
-dWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgCj4gIAlyID0gYW1kZ3B1X2dlbV9v
-YmplY3RfY3JlYXRlKGFkZXYsIHNpemUsIGFyZ3MtPmluLmFsaWdubWVudCwKPiAgCQkJCSAgICAg
-KHUzMikoMHhmZmZmZmZmZiAmIGFyZ3MtPmluLmRvbWFpbnMpLAo+ICsJCQkJICAgICBhcmdzLT5p
-bi5wcmlvcml0eSAtIDEsCj4gIAkJCQkgICAgIGZsYWdzLCB0dG1fYm9fdHlwZV9kZXZpY2UsIHJl
-c3YsICZnb2JqKTsKCkl0IG1pZ2h0IGJlIGxlc3MgY29uZnVzaW5nIHRvIHN1YnRyYWN0IDEgYWZ0
-ZXIgY2hlY2tpbmcgYWdhaW5zdApUVE1fTUFYX0JPX1BSSU9SSVRZIGluc3RlYWQgb2YgaGVyZS4g
-U3RpbGwga2luZCBvZiBjb25mdXNpbmcgdGhvdWdoLiBIb3cKYWJvdXQgdGhpcyBpbnN0ZWFkOgoK
-TWFrZSB0aGUgcHJpb3JpdHkgZmllbGQgb2Ygc3RydWN0IGRybV9hbWRncHVfZ2VtX2NyZWF0ZV9p
-biBzaWduZWQuIEluCmFtZGdwdV9nZW1fY3JlYXRlX2lvY3RsLCBjbGFtcCB0aGUgcHJpb3JpdHkg
-dG8gdGhlIHN1cHBvcnRlZCByYW5nZToKCglhcmdzLT5pbi5wcmlvcml0eSArPSBUVE1fQk9fUFJJ
-T1JJVFlfTk9STUFMOwoJYXJncy0+aW4ucHJpb3JpdHkgPSBtYXgoYXJncy0+aW4ucHJpb3JpdHks
-IDApOwoJYXJncy0+aW4ucHJpb3JpdHkgPSBtaW4oYXJncy0+aW4ucHJpb3JpdHksCgkJCQlUVE1f
-Qk9fUFJJT1JJVFlfTk9STUFMIC0gMSk7CgpUaGlzIHdheSB1c2Vyc3BhY2UgZG9lc24ndCBuZWVk
-IHRvIGRvIGEgd2VpcmQgbWFwcGluZyBvZiB0aGUgcHJpb3JpdHkKdmFsdWVzICh3aGVyZSAwIGFu
-ZCAyIGhhdmUgdGhlIHNhbWUgbWVhbmluZyksIGFuZCB0aGUgcmFuZ2Ugb2Ygc3VwcG9ydGVkCnBy
-aW9yaXRpZXMgY291bGQgYXQgbGVhc3QgdGhlb3JldGljYWxseSBiZSBleHRlbmRlZCB3aXRob3V0
-IGJyZWFraW5nCnVzZXJzcGFjZS4KCgo+IEBAIC0zMDQsNiArMzE1LDcgQEAgaW50IGFtZGdwdV9n
-ZW1fdXNlcnB0cl9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAo+ICAK
-PiAgCS8qIGNyZWF0ZSBhIGdlbSBvYmplY3QgdG8gY29udGFpbiB0aGlzIG9iamVjdCBpbiAqLwo+
-ICAJciA9IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShhZGV2LCBhcmdzLT5zaXplLCAwLCBBTURH
-UFVfR0VNX0RPTUFJTl9DUFUsCj4gKwkJCQkgICAgIFRUTV9CT19QUklPUklUWV9OT1JNQUwsCj4g
-IAkJCQkgICAgIDAsIHR0bV9ib190eXBlX2RldmljZSwgTlVMTCwgJmdvYmopOwoKU2hvdWxkIHRo
-ZSB1c2VycHRyIGlvY3RsIGFsc28gYWxsb3cgc2V0dGluZyB0aGUgcHJpb3JpdHk/CgoKPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gaW5kZXggZmQ5YzRiZWVh
-YWE0Li5jODUzMDRlMDMwMjEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X29iamVjdC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X29iamVjdC5jCj4gQEAgLTQ5NCw4ICs0OTQsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9ib19k
-b19jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gIAo+ICAJYm8tPnRiby5iZGV2
-ID0gJmFkZXYtPm1tYW4uYmRldjsKPiAgCWFtZGdwdV9ib19wbGFjZW1lbnRfZnJvbV9kb21haW4o
-Ym8sIGJwLT5kb21haW4pOwo+ICsJYm8tPnRiby5wcmlvcml0eSA9IGJwLT5wcmlvcml0eTsKPiAg
-CWlmIChicC0+dHlwZSA9PSB0dG1fYm9fdHlwZV9rZXJuZWwpCj4gLQkJYm8tPnRiby5wcmlvcml0
-eSA9IDE7Cj4gKwkJYm8tPnRiby5wcmlvcml0eSA9IFRUTV9CT19QUklPUklUWV9WRVJZSElHSDsK
-CglpZiAoYnAtPnR5cGUgPT0gdHRtX2JvX3R5cGVfa2VybmVsKQoJCWJvLT50Ym8ucHJpb3JpdHkg
-PSBUVE1fQk9fUFJJT1JJVFlfVkVSWUhJR0g7CgllbHNlCgkJYm8tPnRiby5wcmlvcml0eSA9IGJw
-LT5wcmlvcml0eTsKCndvdWxkIGJlIGNsZWFyZXIgSSB0aGluay4KCgotLSAKRWFydGhsaW5nIE1p
-Y2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgaHR0cHM6Ly93d3cuYW1k
-LmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAg
-TWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4
+The mod_freesync_build_vrr_infopacket() function uses rather obscure
+calling conventions, where an enum is passed in through a pointer,
+and a NULL pointer is expected to behave the same way as the zero-value
+(TRANSFER_FUNC_UNKNOWN).
+
+Trying to build this with clang results in a warning:
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4601:3: error: expression which evaluates to zero treated
+      as a null pointer constant of type 'const enum color_transfer_func *' [-Werror,-Wnon-literal-null-conversion]
+
+Passing it by value instead of by reference makes the code simpler
+and more conventional but should not change the behavior at all.
+
+Fixes: c2791297013e ("drm/amd/display: Add color bit info to freesync infoframe")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 7 +++----
+ drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h  | 2 +-
+ 2 files changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index 94a84bc57c7a..6f32fe129880 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -724,7 +724,7 @@ static void build_vrr_infopacket_v1(enum signal_type signal,
+ 
+ static void build_vrr_infopacket_v2(enum signal_type signal,
+ 		const struct mod_vrr_params *vrr,
+-		const enum color_transfer_func *app_tf,
++		const enum color_transfer_func app_tf,
+ 		struct dc_info_packet *infopacket)
+ {
+ 	unsigned int payload_size = 0;
+@@ -732,8 +732,7 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
+ 	build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
+ 	build_vrr_infopacket_data(vrr, infopacket);
+ 
+-	if (app_tf != NULL)
+-		build_vrr_infopacket_fs2_data(*app_tf, infopacket);
++	build_vrr_infopacket_fs2_data(app_tf, infopacket);
+ 
+ 	build_vrr_infopacket_checksum(&payload_size, infopacket);
+ 
+@@ -757,7 +756,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+ 		const struct dc_stream_state *stream,
+ 		const struct mod_vrr_params *vrr,
+ 		enum vrr_packet_type packet_type,
+-		const enum color_transfer_func *app_tf,
++		const enum color_transfer_func app_tf,
+ 		struct dc_info_packet *infopacket)
+ {
+ 	/* SPD info packet for FreeSync
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+index 4222e403b151..645793b924cf 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
+@@ -145,7 +145,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
+ 		const struct dc_stream_state *stream,
+ 		const struct mod_vrr_params *vrr,
+ 		enum vrr_packet_type packet_type,
+-		const enum color_transfer_func *app_tf,
++		const enum color_transfer_func app_tf,
+ 		struct dc_info_packet *infopacket);
+ 
+ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
+-- 
+2.20.0
