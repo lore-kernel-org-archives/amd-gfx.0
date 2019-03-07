@@ -1,13 +1,14 @@
-From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: enable bo priority setting from user space
-Date: Thu, 7 Mar 2019 18:48:55 +0800
-Message-ID: <1d4f0b7d-f726-3cad-13c3-36e670f35baf@amd.com>
-References: <20190307091528.22788-1-david1.zhou@amd.com>
- <a8803c5e-d911-992e-2b67-13ed6ca29ccf@daenzer.net>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Move IB pool init and fini.
+Date: Thu, 7 Mar 2019 12:29:24 +0100
+Message-ID: <1125fa61-3c2c-4906-954b-ada263f383d1@gmail.com>
+References: <1551907512-12582-1-git-send-email-andrey.grodzovsky@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1909917878=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <1551907512-12582-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,397 +20,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Felix.Kuehling-5C7GfCeVMHo@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
---===============1909917878==
-Content-Type: multipart/alternative;
-	boundary="------------A2AE8D134702821931A6CED2"
-Content-Language: en-US
-
---------------A2AE8D134702821931A6CED2
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On 2019年03月07日 17:55, Michel Dänzer wrote:
-> On 2019-03-07 10:15 a.m., Chunming Zhou wrote:
->> Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
-> Please provide corresponding UMD patches showing how this is to be used.
-spec is here:
-https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html, 
-please search "|VkMemoryPriorityAllocateInfoEXT|".
-
-Fortunately, Windows guy already implemented it before, otherwise, I 
-cannot find ready code on opensource, I hate this chicken first and egg 
-first question :
-https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/gpuMemory.cpp, 
-please search "createInfo.priority".
-https://github.com/GPUOpen-Drivers/pal/blob/dev/inc/core/palGpuMemory.h, 
-priority definition is here.
-
->
->
->> @@ -229,6 +231,14 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->>   	if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK)
->>   		return -EINVAL;
->>   
->> +	/* check priority */
->> +	if (args->in.priority == 0) {
-> Did you verify that this is 0 with old userspace compiled against struct
-> drm_amdgpu_gem_create_in without the priority field?
-Without priority field, I don't think we can check here. Do you mean we 
-need to add a new args struct?
-
->
->
->> +		/* default is normal */
->> +		args->in.priority = TTM_BO_PRIORITY_NORMAL;
->> +	} else if (args->in.priority > TTM_MAX_BO_PRIORITY) {
->> +		args->in.priority = TTM_MAX_BO_PRIORITY;
->> +		DRM_ERROR("priority specified from user space is over MAX priority\n");
-> This must be DRM_DEBUG, or buggy/malicious userspace can spam dmesg.
-Will change.
-
->
->
->> @@ -252,6 +262,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->>   
->>   	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
->>   				     (u32)(0xffffffff & args->in.domains),
->> +				     args->in.priority - 1,
->>   				     flags, ttm_bo_type_device, resv, &gobj);
-> It might be less confusing to subtract 1 after checking against
-> TTM_MAX_BO_PRIORITY instead of here. Still kind of confusing though. How
-> about this instead:
->
-> Make the priority field of struct drm_amdgpu_gem_create_in signed. In
-> amdgpu_gem_create_ioctl, clamp the priority to the supported range:
->
-> 	args->in.priority += TTM_BO_PRIORITY_NORMAL;
-> 	args->in.priority = max(args->in.priority, 0);
-> 	args->in.priority = min(args->in.priority,
-> 				TTM_BO_PRIORITY_NORMAL - 1);
->
-> This way userspace doesn't need to do a weird mapping of the priority
-> values (where 0 and 2 have the same meaning), and the range of supported
-> priorities could at least theoretically be extended without breaking
-> userspace.
-First, I want to explain a bit the priority value from vulkan:
-"    From Vulkan Spec, 0.0 <= value <= 1.0, and the granularity of the 
-priorities is implementation-dependent.
-      One thing Spec forced is that if VkMemoryPriority not specified as 
-default behavior, it is as if the
-      priority value is 0.5. Our strategy is that map 0.5 to 
-GpuMemPriority::Normal-GpuMemPriorityOffset::Offset0,
-      which is consistent to MemoryPriorityDefault. We adopts 
-GpuMemPriority::VeryLow, GpuMemPriority::Low,
-      GpuMemPriority::Normal, GpuMemPriority::High, 4 priority grades, 
-each of which contains 8 steps of offests.
-      This maps [0.0-1.0) to totally 32 steps. Finally, 1.0 maps to 
-GpuMemPriority::VeryHigh.
-"
-
-So my original purpose is directly use Priority enum defined in PAL, 
-like this:
-  "
-/// Specifies Base Level priority per GPU memory allocation as a hint to 
-the memory manager in the event it needs to
-/// select allocations to page out of their preferred heaps.
-enum class GpuMemPriority : uint32
-{
-     Unused    = 0x0,  ///< Indicates that the allocation is not 
-currently being used at all, and should be the first
-                       ///  choice to be paged out.
-     VeryLow   = 0x1,  ///< Lowest priority to keep in its preferred heap.
-     Low       = 0x2,  ///< Low priority to keep in its preferred heap.
-     Normal    = 0x3,  ///< Normal priority to keep in its preferred heap.
-     High      = 0x4,  ///< High priority to keep in its preferred heap 
-(e.g., render targets).
-     VeryHigh  = 0x5,  ///< Highest priority to keep in its preferred 
-heap.  Last choice to be paged out (e.g., page
-                       ///  tables, displayable allocations).
-     Count
-};
-"
-
-If according your idea, we will need to convert it again when hooking 
-linux implementation.
-So what do think we still use unsigned?
-
->
->
->> @@ -304,6 +315,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
->>   
->>   	/* create a gem object to contain this object in */
->>   	r = amdgpu_gem_object_create(adev, args->size, 0, AMDGPU_GEM_DOMAIN_CPU,
->> +				     TTM_BO_PRIORITY_NORMAL,
->>   				     0, ttm_bo_type_device, NULL, &gobj);
-> Should the userptr ioctl also allow setting the priority?
-
-We can.
-
->
->
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> index fd9c4beeaaa4..c85304e03021 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->> @@ -494,8 +494,9 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
->>   
->>   	bo->tbo.bdev = &adev->mman.bdev;
->>   	amdgpu_bo_placement_from_domain(bo, bp->domain);
->> +	bo->tbo.priority = bp->priority;
->>   	if (bp->type == ttm_bo_type_kernel)
->> -		bo->tbo.priority = 1;
->> +		bo->tbo.priority = TTM_BO_PRIORITY_VERYHIGH;
-> 	if (bp->type == ttm_bo_type_kernel)
-> 		bo->tbo.priority = TTM_BO_PRIORITY_VERYHIGH;
-> 	else
-> 		bo->tbo.priority = bp->priority;
->
-> would be clearer I think.
-Agree.
-
--David
-
->
->
-
-
---------------A2AE8D134702821931A6CED2
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On 2019年03月07日 17:55, Michel Dänzer
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">On 2019-03-07 10:15 a.m., Chunming Zhou wrote:
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">Signed-off-by: Chunming Zhou <a class="moz-txt-link-rfc2396E" href="mailto:david1.zhou-5C7GfCeVMHo@public.gmane.org">&lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>
-</pre>
-      </blockquote>
-      <pre wrap="">
-Please provide corresponding UMD patches showing how this is to be used.</pre>
-    </blockquote>
-    spec is here:<br>
-<a class="moz-txt-link-freetext" href="https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html">https://www.khronos.org/registry/vulkan/specs/1.1-extensions/html/vkspec.html</a>,
-    please search "<code data-lang="c++">VkMemoryPriorityAllocateInfoEXT</code>".<br>
-    <br>
-    Fortunately, Windows guy already implemented it before, otherwise, I
-    cannot find ready code on opensource, I hate this chicken first and
-    egg first question :<br>
-<a class="moz-txt-link-freetext" href="https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/gpuMemory.cpp">https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/gpuMemory.cpp</a>,
-    please search "createInfo.<span class="pl-smi">priority</span>".<br>
-<a class="moz-txt-link-freetext" href="https://github.com/GPUOpen-Drivers/pal/blob/dev/inc/core/palGpuMemory.h">https://github.com/GPUOpen-Drivers/pal/blob/dev/inc/core/palGpuMemory.h</a>,
-    priority definition is here.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">@@ -229,6 +231,14 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 	if (args-&gt;in.domains &amp; ~AMDGPU_GEM_DOMAIN_MASK)
- 		return -EINVAL;
- 
-+	/* check priority */
-+	if (args-&gt;in.priority == 0) {
-</pre>
-      </blockquote>
-      <pre wrap="">
-Did you verify that this is 0 with old userspace compiled against struct
-drm_amdgpu_gem_create_in without the priority field?</pre>
-    </blockquote>
-    Without priority field, I don't think we can check here. Do you mean
-    we need to add a new args struct?<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">+		/* default is normal */
-+		args-&gt;in.priority = TTM_BO_PRIORITY_NORMAL;
-+	} else if (args-&gt;in.priority &gt; TTM_MAX_BO_PRIORITY) {
-+		args-&gt;in.priority = TTM_MAX_BO_PRIORITY;
-+		DRM_ERROR("priority specified from user space is over MAX priority\n");
-</pre>
-      </blockquote>
-      <pre wrap="">
-This must be DRM_DEBUG, or buggy/malicious userspace can spam dmesg.</pre>
-    </blockquote>
-    Will change.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">@@ -252,6 +262,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
- 
- 	r = amdgpu_gem_object_create(adev, size, args-&gt;in.alignment,
- 				     (u32)(0xffffffff &amp; args-&gt;in.domains),
-+				     args-&gt;in.priority - 1,
- 				     flags, ttm_bo_type_device, resv, &amp;gobj);
-</pre>
-      </blockquote>
-      <pre wrap="">
-It might be less confusing to subtract 1 after checking against
-TTM_MAX_BO_PRIORITY instead of here. Still kind of confusing though. How
-about this instead:
-
-Make the priority field of struct drm_amdgpu_gem_create_in signed. In
-amdgpu_gem_create_ioctl, clamp the priority to the supported range:
-
-	args-&gt;in.priority += TTM_BO_PRIORITY_NORMAL;
-	args-&gt;in.priority = max(args-&gt;in.priority, 0);
-	args-&gt;in.priority = min(args-&gt;in.priority,
-				TTM_BO_PRIORITY_NORMAL - 1);
-
-This way userspace doesn't need to do a weird mapping of the priority
-values (where 0 and 2 have the same meaning), and the range of supported
-priorities could at least theoretically be extended without breaking
-userspace.</pre>
-    </blockquote>
-    First, I want to explain a bit the priority value from vulkan:<br>
-    "    From Vulkan Spec, 0.0 &lt;= value &lt;= 1.0, and the
-    granularity of the priorities is implementation-dependent.<br>
-         One thing Spec forced is that if VkMemoryPriority not specified
-    as default behavior, it is as if the<br>
-         priority value is 0.5. Our strategy is that map 0.5 to
-    GpuMemPriority::Normal-GpuMemPriorityOffset::Offset0,<br>
-         which is consistent to MemoryPriorityDefault. We adopts
-    GpuMemPriority::VeryLow, GpuMemPriority::Low,<br>
-         GpuMemPriority::Normal, GpuMemPriority::High, 4 priority
-    grades, each of which contains 8 steps of offests.<br>
-         This maps [0.0-1.0) to totally 32 steps. Finally, 1.0 maps to
-    GpuMemPriority::VeryHigh.<br>
-    "<br>
-    <br>
-    So my original purpose is directly use Priority enum defined in PAL,
-    like this:<br>
-     "<br>
-    /// Specifies Base Level priority per GPU memory allocation as a
-    hint to the memory manager in the event it needs to<br>
-    /// select allocations to page out of their preferred heaps.<br>
-    enum class GpuMemPriority : uint32<br>
-    {<br>
-        Unused    = 0x0,  ///&lt; Indicates that the allocation is not
-    currently being used at all, and should be the first<br>
-                          ///  choice to be paged out.<br>
-        VeryLow   = 0x1,  ///&lt; Lowest priority to keep in its
-    preferred heap.<br>
-        Low       = 0x2,  ///&lt; Low priority to keep in its preferred
-    heap.<br>
-        Normal    = 0x3,  ///&lt; Normal priority to keep in its
-    preferred heap.<br>
-        High      = 0x4,  ///&lt; High priority to keep in its preferred
-    heap (e.g., render targets).<br>
-        VeryHigh  = 0x5,  ///&lt; Highest priority to keep in its
-    preferred heap.  Last choice to be paged out (e.g., page<br>
-                          ///  tables, displayable allocations).<br>
-        Count<br>
-    };<br>
-    "<br>
-    <br>
-    If according your idea, we will need to convert it again when
-    hooking linux implementation.<br>
-    So what do think we still use unsigned?<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">@@ -304,6 +315,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
- 
- 	/* create a gem object to contain this object in */
- 	r = amdgpu_gem_object_create(adev, args-&gt;size, 0, AMDGPU_GEM_DOMAIN_CPU,
-+				     TTM_BO_PRIORITY_NORMAL,
- 				     0, ttm_bo_type_device, NULL, &amp;gobj);
-</pre>
-      </blockquote>
-      <pre wrap="">
-Should the userptr ioctl also allow setting the priority?</pre>
-    </blockquote>
-    <br>
-    We can.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index fd9c4beeaaa4..c85304e03021 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -494,8 +494,9 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
- 
- 	bo-&gt;tbo.bdev = &amp;adev-&gt;mman.bdev;
- 	amdgpu_bo_placement_from_domain(bo, bp-&gt;domain);
-+	bo-&gt;tbo.priority = bp-&gt;priority;
- 	if (bp-&gt;type == ttm_bo_type_kernel)
--		bo-&gt;tbo.priority = 1;
-+		bo-&gt;tbo.priority = TTM_BO_PRIORITY_VERYHIGH;
-</pre>
-      </blockquote>
-      <pre wrap="">
-	if (bp-&gt;type == ttm_bo_type_kernel)
-		bo-&gt;tbo.priority = TTM_BO_PRIORITY_VERYHIGH;
-	else
-		bo-&gt;tbo.priority = bp-&gt;priority;
-
-would be clearer I think.</pre>
-    </blockquote>
-    Agree.<br>
-    <br>
-    -David<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:a8803c5e-d911-992e-2b67-13ed6ca29ccf-otUistvHUpPR7s880joybQ@public.gmane.org">
-      <pre wrap="">
-
-
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------A2AE8D134702821931A6CED2--
-
---===============1909917878==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+QW0gMDYuMDMuMTkgdW0gMjI6MjUgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPiBQcm9ibGVt
+Ogo+IFVzaW5nIFNETUEgZm9yIFRMQiBpbnZhbGlkYXRpb24gaW4gY2VydGFpbiBBU0lDcyBleHBv
+c2VkIGEgcHJvYmxlbQo+IG9mIElCIHBvb2wgbm90IGJlaW5nIHJlYWR5IHdoaWxlIFNETUEgYWxy
+ZWFkeSB1cCBvbiBJbml0IGFuZCBhbHJlYWR5Cj4gc2h1dHQgZG93biB3aGlsZSBTRE1BIHN0aWxs
+IHJ1bm5pbmcgb24gRmluaS4gVGhpcyBjYXVzZWQKPiBJQiBhbGxvY2F0aW9uIGZhaWx1cmUuIFRl
+bXByb2FyeSBmaXggd2FzIGNvbW1pdGVkIGludG8gYQo+IGJyaW5ndXAgYnJhbmNoIGJ1dCB0aGlz
+IGlzIHRoZSBnZW5lcmljIGZpeC4KPgo+IEZpeDoKPiBJbml0IElCIHBvb2wgcmlndGggYWZ0ZXIg
+R01DIGlzIHJlYWR5IGJ1dCBiZWZvcmUgU0RNQSBpcyByZWFkeS4KPiBEbyB0aCBvcHBvc2l0ZSBm
+b3IgRmluaS4KPgo+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3Jv
+ZHpvdnNreUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jIHwgMjAgKysrKysrKysrKystLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2Vk
+LCAxMSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+IGluZGV4IDAwZGVmNTcuLmMwNWE1NTEgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4gQEAgLTE2ODYs
+NiArMTY4NiwxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBfaW5pdChzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldikKPiAgIAkJfQo+ICAgCX0KPiAgIAo+ICsJciA9IGFtZGdwdV9pYl9w
+b29sX2luaXQoYWRldik7Cj4gKwlpZiAocikgewo+ICsJCWRldl9lcnIoYWRldi0+ZGV2LCAiSUIg
+aW5pdGlhbGl6YXRpb24gZmFpbGVkICglZCkuXG4iLCByKTsKPiArCQlhbWRncHVfdmZfZXJyb3Jf
+cHV0KGFkZXYsIEFNREdJTV9FUlJPUl9WRl9JQl9JTklUX0ZBSUwsIDAsIHIpOwo+ICsJCWdvdG8g
+aW5pdF9mYWlsZWQ7Cj4gKwl9Cj4gKwo+ICAgCXIgPSBhbWRncHVfdWNvZGVfY3JlYXRlX2JvKGFk
+ZXYpOyAvKiBjcmVhdGUgdWNvZGUgYm8gd2hlbiBzd19pbml0IGNvbXBsZXRlKi8KPiAgIAlpZiAo
+cikKPiAgIAkJZ290byBpbml0X2ZhaWxlZDsKPiBAQCAtMTg4OCw3ICsxODk1LDggQEAgc3RhdGlj
+IGludCBhbWRncHVfZGV2aWNlX2lwX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4g
+ICAJZm9yIChpID0gMDsgaSA8IGFkZXYtPm51bV9pcF9ibG9ja3M7IGkrKykgewo+ICAgCQlpZiAo
+IWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMuaHcpCj4gICAJCQljb250aW51ZTsKPiAtCQlpZiAo
+YWRldi0+aXBfYmxvY2tzW2ldLnZlcnNpb24tPnR5cGUgPT0gQU1EX0lQX0JMT0NLX1RZUEVfU01D
+KSB7Cj4gKwkJaWYgKGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50eXBlID09IEFNRF9JUF9C
+TE9DS19UWVBFX1NNQyB8fAo+ICsJCSAgICBhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+dHlw
+ZSA9PSBBTURfSVBfQkxPQ0tfVFlQRV9TRE1BKSB7CgpXaHkgaXMgdGhhdCBuZWNlc3Nhcnk/Cgo+
+ICAgCQkJciA9IGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+aHdfZmluaSgodm9p
+ZCAqKWFkZXYpOwo+ICAgCQkJLyogWFhYIGhhbmRsZSBlcnJvcnMgKi8KPiAgIAkJCWlmIChyKSB7
+Cj4gQEAgLTE5MDAsNiArMTkwOCw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9pcF9maW5p
+KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCQl9Cj4gICAJfQo+ICAgCj4gKwlhbWRn
+cHVfaWJfcG9vbF9maW5pKGFkZXYpOwoKVGhpbmtpbmcgbW9yZSBhYm91dCBpdCB0aGlzIHNob3Vs
+ZCBwcm9iYWJseSBiZSBkb25lIHJpZ2h0IGJlZm9yZSBHTUMgU1cgCmZpbmkuCgpJSVJDIHdlIGFs
+cmVhZHkgaGF2ZSBhbiBleHRyYSBjYXNlIGZvciB0aGlzIHNvbWV3aGVyZS4KCkNocmlzdGlhbi4K
+Cj4gKwo+ICAgCWZvciAoaSA9IGFkZXYtPm51bV9pcF9ibG9ja3MgLSAxOyBpID49IDA7IGktLSkg
+ewo+ICAgCQlpZiAoIWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMuaHcpCj4gICAJCQljb250aW51
+ZTsKPiBAQCAtMjY1MSwxMyArMjY2MSw2IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0
+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAJLyogR2V0IGEgbG9nMiBmb3IgZWFzeSBkaXZpc2lv
+bnMuICovCj4gICAJYWRldi0+bW1fc3RhdHMubG9nMl9tYXhfTUJwcyA9IGlsb2cyKG1heCgxdSwg
+bWF4X01CcHMpKTsKPiAgIAo+IC0JciA9IGFtZGdwdV9pYl9wb29sX2luaXQoYWRldik7Cj4gLQlp
+ZiAocikgewo+IC0JCWRldl9lcnIoYWRldi0+ZGV2LCAiSUIgaW5pdGlhbGl6YXRpb24gZmFpbGVk
+ICglZCkuXG4iLCByKTsKPiAtCQlhbWRncHVfdmZfZXJyb3JfcHV0KGFkZXYsIEFNREdJTV9FUlJP
+Ul9WRl9JQl9JTklUX0ZBSUwsIDAsIHIpOwo+IC0JCWdvdG8gZmFpbGVkOwo+IC0JfQo+IC0KPiAg
+IAlhbWRncHVfZmJkZXZfaW5pdChhZGV2KTsKPiAgIAo+ICAgCXIgPSBhbWRncHVfcG1fc3lzZnNf
+aW5pdChhZGV2KTsKPiBAQCAtMjczNSw3ICsyNzM4LDYgQEAgdm9pZCBhbWRncHVfZGV2aWNlX2Zp
+bmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJCWVsc2UKPiAgIAkJCWRybV9hdG9t
+aWNfaGVscGVyX3NodXRkb3duKGFkZXYtPmRkZXYpOwo+ICAgCX0KPiAtCWFtZGdwdV9pYl9wb29s
+X2ZpbmkoYWRldik7Cj4gICAJYW1kZ3B1X2ZlbmNlX2RyaXZlcl9maW5pKGFkZXYpOwo+ICAgCWFt
+ZGdwdV9wbV9zeXNmc19maW5pKGFkZXYpOwo+ICAgCWFtZGdwdV9mYmRldl9maW5pKGFkZXYpOwoK
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1909917878==--
