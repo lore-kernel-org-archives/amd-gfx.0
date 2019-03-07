@@ -1,14 +1,13 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: enable bo priority setting from user space
-Date: Thu, 7 Mar 2019 12:36:49 +0100
-Message-ID: <a1efec4e-0cb9-f92f-2688-ecfd4ed7ad12@gmail.com>
-References: <20190307091528.22788-1-david1.zhou@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: Re:[PATCH] drm/amdgpu: enable bo priority setting from user space
+Date: Thu, 7 Mar 2019 13:09:14 +0000
+Message-ID: <-o8xodt-v7ma50s620vm-x3ufrzt16m3ru4l9qc4l8rct-ppumfj-lgzfos2xnj696p97zq-q88klx-1xor439yr648-3s2lfc-pglvz8-9du7dn8goc66-3zd1sv-cy6o2qkurchc-gpwxlg-c9iov0a657ue.1551963984191@email.android.com>
+References: <20190307091528.22788-1-david1.zhou@amd.com>,
+ <a1efec4e-0cb9-f92f-2688-ecfd4ed7ad12@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1177121068=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190307091528.22788-1-david1.zhou-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <a1efec4e-0cb9-f92f-2688-ecfd4ed7ad12-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,135 +19,586 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QW0gMDcuMDMuMTkgdW0gMTA6MTUgc2NocmllYiBDaHVubWluZyBaaG91Ogo+IFNpZ25lZC1vZmYt
-Ynk6IENodW5taW5nIFpob3UgPGRhdmlkMS56aG91QGFtZC5jb20+CgpXZWxsIE5BSyB0byB0aGUg
-d2hvbGUgYXBwcm9hY2guCgpUaGUgVFRNIHByaW9yaXR5IGlzIGEgZ2xvYmFsIHByaW9yaXR5LCBi
-dXQgcHJvY2Vzc2VzIGFyZSBvbmx5IGFsbG93ZWQgdG8gCnNwZWNpZmljIHRoZSBwcmlvcml0eSBp
-bnNpZGUgdGhlaXIgb3duIGFsbG9jYXRpb25zLiBTbyB0aGlzIGFwcHJvYWNoIAp3aWxsIG5ldmVy
-IGZseSB1cHN0cmVhbS4KCldoYXQgeW91IGNhbiBkbyBpcyB0byBhZGQgYSBwcmlvcml0eSBmb3Ig
-cGVyIHZtIEJPcyB0byBhZmZlY3QgdGhlaXIgc29ydCAKb3JkZXIgb24gdGhlIExSVSwgYnV0IEkg
-ZG91YnQgdGhhdCB0aGlzIHdpbGwgaGF2ZSBtdWNoIG9mIGFuIGVmZmVjdC4KClJlZ2FyZHMsCkNo
-cmlzdGlhbi4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIu
-YyAgICAgfCAgMSArCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMg
-ICAgfCAxMyArKysrKysrKysrKysrCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZ2VtLmggICAgfCAgMiArLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X29iamVjdC5jIHwgIDMgKystCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-b2JqZWN0LmggfCAgMSArCj4gICBpbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oICAgICAg
-ICAgICAgfCAgOSArKysrKysrKy0KPiAgIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oICAg
-ICAgICAgICAgICB8ICAzICsrKwo+ICAgNyBmaWxlcyBjaGFuZ2VkLCAyOSBpbnNlcnRpb25zKCsp
-LCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9mYi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZiLmMK
-PiBpbmRleCA1Y2JkZTc0Yjk3ZGQuLjcwYTZiYWYyMGMyMiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmIuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9mYi5jCj4gQEAgLTE0NCw2ICsxNDQsNyBAQCBzdGF0aWMgaW50IGFt
-ZGdwdWZiX2NyZWF0ZV9waW5uZWRfb2JqZWN0KHN0cnVjdCBhbWRncHVfZmJkZXYgKnJmYmRldiwK
-PiAgIAlzaXplID0gbW9kZV9jbWQtPnBpdGNoZXNbMF0gKiBoZWlnaHQ7Cj4gICAJYWxpZ25lZF9z
-aXplID0gQUxJR04oc2l6ZSwgUEFHRV9TSVpFKTsKPiAgIAlyZXQgPSBhbWRncHVfZ2VtX29iamVj
-dF9jcmVhdGUoYWRldiwgYWxpZ25lZF9zaXplLCAwLCBkb21haW4sCj4gKwkJCQkgICAgICAgVFRN
-X0JPX1BSSU9SSVRZX05PUk1BTCwKPiAgIAkJCQkgICAgICAgQU1ER1BVX0dFTV9DUkVBVEVfQ1BV
-X0FDQ0VTU19SRVFVSVJFRCB8Cj4gICAJCQkJICAgICAgIEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1f
-Q09OVElHVU9VUyB8Cj4gICAJCQkJICAgICAgIEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ0xFQVJF
-RCwKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCj4gaW5kZXggZDIxZGQy
-ZjM2OWRhLi43YzFjMjM2MmM2N2UgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2dlbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2dlbS5jCj4gQEAgLTQ0LDYgKzQ0LDcgQEAgdm9pZCBhbWRncHVfZ2VtX29iamVjdF9mcmVl
-KHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqZ29iaikKPiAgIAo+ICAgaW50IGFtZGdwdV9nZW1fb2Jq
-ZWN0X2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQgbG9uZyBzaXpl
-LAo+ICAgCQkJICAgICBpbnQgYWxpZ25tZW50LCB1MzIgaW5pdGlhbF9kb21haW4sCj4gKwkJCSAg
-ICAgZW51bSB0dG1fYm9fcHJpb3JpdHkgcHJpb3JpdHksCj4gICAJCQkgICAgIHU2NCBmbGFncywg
-ZW51bSB0dG1fYm9fdHlwZSB0eXBlLAo+ICAgCQkJICAgICBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2Jq
-ZWN0ICpyZXN2LAo+ICAgCQkJICAgICBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKipvYmopCj4gQEAg
-LTYwLDYgKzYxLDcgQEAgaW50IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiwgdW5zaWduZWQgbG9uZyBzaXplLAo+ICAgCWJwLnR5cGUgPSB0eXBlOwo+
-ICAgCWJwLnJlc3YgPSByZXN2Owo+ICAgCWJwLnByZWZlcnJlZF9kb21haW4gPSBpbml0aWFsX2Rv
-bWFpbjsKPiArCWJwLnByaW9yaXR5ID0gcHJpb3JpdHk7Cj4gICByZXRyeToKPiAgIAlicC5mbGFn
-cyA9IGZsYWdzOwo+ICAgCWJwLmRvbWFpbiA9IGluaXRpYWxfZG9tYWluOwo+IEBAIC0yMjksNiAr
-MjMxLDE0IEBAIGludCBhbWRncHVfZ2VtX2NyZWF0ZV9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAq
-ZGV2LCB2b2lkICpkYXRhLAo+ICAgCWlmIChhcmdzLT5pbi5kb21haW5zICYgfkFNREdQVV9HRU1f
-RE9NQUlOX01BU0spCj4gICAJCXJldHVybiAtRUlOVkFMOwo+ICAgCj4gKwkvKiBjaGVjayBwcmlv
-cml0eSAqLwo+ICsJaWYgKGFyZ3MtPmluLnByaW9yaXR5ID09IDApIHsKPiArCQkvKiBkZWZhdWx0
-IGlzIG5vcm1hbCAqLwo+ICsJCWFyZ3MtPmluLnByaW9yaXR5ID0gVFRNX0JPX1BSSU9SSVRZX05P
-Uk1BTDsKPiArCX0gZWxzZSBpZiAoYXJncy0+aW4ucHJpb3JpdHkgPiBUVE1fTUFYX0JPX1BSSU9S
-SVRZKSB7Cj4gKwkJYXJncy0+aW4ucHJpb3JpdHkgPSBUVE1fTUFYX0JPX1BSSU9SSVRZOwo+ICsJ
-CURSTV9FUlJPUigicHJpb3JpdHkgc3BlY2lmaWVkIGZyb20gdXNlciBzcGFjZSBpcyBvdmVyIE1B
-WCBwcmlvcml0eVxuIik7Cj4gKwl9Cj4gICAJLyogY3JlYXRlIGEgZ2VtIG9iamVjdCB0byBjb250
-YWluIHRoaXMgb2JqZWN0IGluICovCj4gICAJaWYgKGFyZ3MtPmluLmRvbWFpbnMgJiAoQU1ER1BV
-X0dFTV9ET01BSU5fR0RTIHwKPiAgIAkgICAgQU1ER1BVX0dFTV9ET01BSU5fR1dTIHwgQU1ER1BV
-X0dFTV9ET01BSU5fT0EpKSB7Cj4gQEAgLTI1Miw2ICsyNjIsNyBAQCBpbnQgYW1kZ3B1X2dlbV9j
-cmVhdGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKPiAgIAo+ICAg
-CXIgPSBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUoYWRldiwgc2l6ZSwgYXJncy0+aW4uYWxpZ25t
-ZW50LAo+ICAgCQkJCSAgICAgKHUzMikoMHhmZmZmZmZmZiAmIGFyZ3MtPmluLmRvbWFpbnMpLAo+
-ICsJCQkJICAgICBhcmdzLT5pbi5wcmlvcml0eSAtIDEsCj4gICAJCQkJICAgICBmbGFncywgdHRt
-X2JvX3R5cGVfZGV2aWNlLCByZXN2LCAmZ29iaik7Cj4gICAJaWYgKGZsYWdzICYgQU1ER1BVX0dF
-TV9DUkVBVEVfVk1fQUxXQVlTX1ZBTElEKSB7Cj4gICAJCWlmICghcikgewo+IEBAIC0zMDQsNiAr
-MzE1LDcgQEAgaW50IGFtZGdwdV9nZW1fdXNlcnB0cl9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAq
-ZGV2LCB2b2lkICpkYXRhLAo+ICAgCj4gICAJLyogY3JlYXRlIGEgZ2VtIG9iamVjdCB0byBjb250
-YWluIHRoaXMgb2JqZWN0IGluICovCj4gICAJciA9IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShh
-ZGV2LCBhcmdzLT5zaXplLCAwLCBBTURHUFVfR0VNX0RPTUFJTl9DUFUsCj4gKwkJCQkgICAgIFRU
-TV9CT19QUklPUklUWV9OT1JNQUwsCj4gICAJCQkJICAgICAwLCB0dG1fYm9fdHlwZV9kZXZpY2Us
-IE5VTEwsICZnb2JqKTsKPiAgIAlpZiAocikKPiAgIAkJcmV0dXJuIHI7Cj4gQEAgLTc1NSw2ICs3
-NjcsNyBAQCBpbnQgYW1kZ3B1X21vZGVfZHVtYl9jcmVhdGUoc3RydWN0IGRybV9maWxlICpmaWxl
-X3ByaXYsCj4gICAJZG9tYWluID0gYW1kZ3B1X2JvX2dldF9wcmVmZXJyZWRfcGluX2RvbWFpbihh
-ZGV2LAo+ICAgCQkJCWFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zKGFkZXYpKTsKPiAg
-IAlyID0gYW1kZ3B1X2dlbV9vYmplY3RfY3JlYXRlKGFkZXYsIGFyZ3MtPnNpemUsIDAsIGRvbWFp
-biwKPiArCQkJCSAgICAgVFRNX0JPX1BSSU9SSVRZX05PUk1BTCwKPiAgIAkJCQkgICAgIEFNREdQ
-VV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQsCj4gICAJCQkJICAgICB0dG1fYm9fdHlw
-ZV9kZXZpY2UsIE5VTEwsICZnb2JqKTsKPiAgIAlpZiAocikKPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2dlbS5oCj4gaW5kZXggZjFkZGZjNTBiY2M3Li40N2IwYTgxOTA5NDggMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5oCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5oCj4gQEAgLTYxLDcgKzYx
-LDcgQEAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBkbWFfYnVmX29wcyBhbWRncHVfZG1hYnVmX29wczsK
-PiAgICAqLwo+ICAgdm9pZCBhbWRncHVfZ2VtX2ZvcmNlX3JlbGVhc2Uoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpOwo+ICAgaW50IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwgdW5zaWduZWQgbG9uZyBzaXplLAo+IC0JCQkgICAgIGludCBhbGln
-bm1lbnQsIHUzMiBpbml0aWFsX2RvbWFpbiwKPiArCQkJICAgICBpbnQgYWxpZ25tZW50LCB1MzIg
-aW5pdGlhbF9kb21haW4sIHUzMiBwcmlvcml0eSwKPiAgIAkJCSAgICAgdTY0IGZsYWdzLCBlbnVt
-IHR0bV9ib190eXBlIHR5cGUsCj4gICAJCQkgICAgIHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3Qg
-KnJlc3YsCj4gICAJCQkgICAgIHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqKm9iaik7Cj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+IGluZGV4IGZkOWM0YmVlYWFh
-NC4uYzg1MzA0ZTAzMDIxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9vYmplY3QuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9vYmplY3QuYwo+IEBAIC00OTQsOCArNDk0LDkgQEAgc3RhdGljIGludCBhbWRncHVfYm9fZG9f
-Y3JlYXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICAgCj4gICAJYm8tPnRiby5iZGV2
-ID0gJmFkZXYtPm1tYW4uYmRldjsKPiAgIAlhbWRncHVfYm9fcGxhY2VtZW50X2Zyb21fZG9tYWlu
-KGJvLCBicC0+ZG9tYWluKTsKPiArCWJvLT50Ym8ucHJpb3JpdHkgPSBicC0+cHJpb3JpdHk7Cj4g
-ICAJaWYgKGJwLT50eXBlID09IHR0bV9ib190eXBlX2tlcm5lbCkKPiAtCQliby0+dGJvLnByaW9y
-aXR5ID0gMTsKPiArCQliby0+dGJvLnByaW9yaXR5ID0gVFRNX0JPX1BSSU9SSVRZX1ZFUllISUdI
-Owo+ICAgCj4gICAJciA9IHR0bV9ib19pbml0X3Jlc2VydmVkKCZhZGV2LT5tbWFuLmJkZXYsICZi
-by0+dGJvLCBzaXplLCBicC0+dHlwZSwKPiAgIAkJCQkgJmJvLT5wbGFjZW1lbnQsIHBhZ2VfYWxp
-Z24sICZjdHgsIGFjY19zaXplLAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfb2JqZWN0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-b2JqZWN0LmgKPiBpbmRleCA5MjkxYzJmODM3ZTkuLjA5MWE3ODg0YTgyMSAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKPiBAQCAtMzksNiArMzksNyBA
-QCBzdHJ1Y3QgYW1kZ3B1X2JvX3BhcmFtIHsKPiAgIAlpbnQJCQkJYnl0ZV9hbGlnbjsKPiAgIAl1
-MzIJCQkJZG9tYWluOwo+ICAgCXUzMgkJCQlwcmVmZXJyZWRfZG9tYWluOwo+ICsJdTMyCQkJCXBy
-aW9yaXR5Owo+ICAgCXU2NAkJCQlmbGFnczsKPiAgIAllbnVtIHR0bV9ib190eXBlCQl0eXBlOwo+
-ICAgCXN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QJKnJlc3Y7Cj4gZGlmZiAtLWdpdCBhL2luY2x1
-ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmggYi9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZl
-ci5oCj4gaW5kZXggY2JmMzE4MGNiNjEyLi41M2YzOWVkNTQwZDcgMTAwNjQ0Cj4gLS0tIGEvaW5j
-bHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL3R0bS90dG1f
-Ym9fZHJpdmVyLmgKPiBAQCAtNDMsNyArNDMsMTQgQEAKPiAgICNpbmNsdWRlICJ0dG1fcGxhY2Vt
-ZW50LmgiCj4gICAjaW5jbHVkZSAidHRtX3R0LmgiCj4gICAKPiAtI2RlZmluZSBUVE1fTUFYX0JP
-X1BSSU9SSVRZCTRVCj4gK2VudW0gdHRtX2JvX3ByaW9yaXR5IHsKPiArCVRUTV9CT19QUklPUklU
-WV9WRVJZTE9XID0gMCwKPiArCVRUTV9CT19QUklPUklUWV9MT1csCj4gKwlUVE1fQk9fUFJJT1JJ
-VFlfTk9STUFMLAo+ICsJVFRNX0JPX1BSSU9SSVRZX0hJR0gsCj4gKwlUVE1fQk9fUFJJT1JJVFlf
-VkVSWUhJR0gsCj4gKwlUVE1fTUFYX0JPX1BSSU9SSVRZCj4gK307Cj4gICAKPiAgICNkZWZpbmUg
-VFRNX01FTVRZUEVfRkxBR19GSVhFRCAgICAgICAgICgxIDw8IDApCS8qIEZpeGVkIChvbi1jYXJk
-KSBQQ0kgbWVtb3J5ICovCj4gICAjZGVmaW5lIFRUTV9NRU1UWVBFX0ZMQUdfTUFQUEFCTEUgICAg
-ICAoMSA8PCAxKQkvKiBNZW1vcnkgbWFwcGFibGUgKi8KPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91
-YXBpL2RybS9hbWRncHVfZHJtLmggYi9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaAo+IGlu
-ZGV4IGI3NzE4YmZkZjhhZC4uYjc0YTc1ODNkN2YzIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvdWFw
-aS9kcm0vYW1kZ3B1X2RybS5oCj4gKysrIGIvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgK
-PiBAQCAtMTM4LDYgKzEzOCw5IEBAIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV9jcmVhdGVfaW4gIHsK
-PiAgIAlfX3U2NCBkb21haW5zOwo+ICAgCS8qKiBhbGxvY2F0aW9uIGZsYWdzICovCj4gICAJX191
-NjQgZG9tYWluX2ZsYWdzOwo+ICsJLyoqIHByaW9yaXR5ICovCj4gKwlfX3UzMiBwcmlvcml0eTsK
-PiArCV9fdTMyIHBhZDsKPiAgIH07Cj4gICAKPiAgIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV9jcmVh
-dGVfb3V0ICB7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============1177121068==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_o8xodtv7ma50s620vmx3ufrzt16m3ru4l9qc4l8rctppumfjlgzfos2_"
+
+--_000_o8xodtv7ma50s620vmx3ufrzt16m3ru4l9qc4l8rctppumfjlgzfos2_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Yes, you are right, thanks to point it out. Will see if there is other way.
+
+-David
+
+send from my phone
+
+-------- Original Message --------
+Subject: Re: [PATCH] drm/amdgpu: enable bo priority setting from user space
+From: Christian K=F6nig
+To: "Zhou, David(ChunMing)" ,amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+CC:
+
+Am 07.03.19 um 10:15 schrieb Chunming Zhou:
+> Signed-off-by: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+
+Well NAK to the whole approach.
+
+The TTM priority is a global priority, but processes are only allowed to
+specific the priority inside their own allocations. So this approach
+will never fly upstream.
+
+What you can do is to add a priority for per vm BOs to affect their sort
+order on the LRU, but I doubt that this will have much of an effect.
+
+Regards,
+Christian.
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c     |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    | 13 +++++++++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h    |  2 +-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  1 +
+>   include/drm/ttm/ttm_bo_driver.h            |  9 ++++++++-
+>   include/uapi/drm/amdgpu_drm.h              |  3 +++
+>   7 files changed, 29 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_fb.c
+> index 5cbde74b97dd..70a6baf20c22 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
+> @@ -144,6 +144,7 @@ static int amdgpufb_create_pinned_object(struct amdgp=
+u_fbdev *rfbdev,
+>        size =3D mode_cmd->pitches[0] * height;
+>        aligned_size =3D ALIGN(size, PAGE_SIZE);
+>        ret =3D amdgpu_gem_object_create(adev, aligned_size, 0, domain,
+> +                                    TTM_BO_PRIORITY_NORMAL,
+>                                       AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIR=
+ED |
+>                                       AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |
+>                                       AMDGPU_GEM_CREATE_VRAM_CLEARED,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.c
+> index d21dd2f369da..7c1c2362c67e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -44,6 +44,7 @@ void amdgpu_gem_object_free(struct drm_gem_object *gobj=
+)
+>
+>   int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long =
+size,
+>                             int alignment, u32 initial_domain,
+> +                          enum ttm_bo_priority priority,
+>                             u64 flags, enum ttm_bo_type type,
+>                             struct reservation_object *resv,
+>                             struct drm_gem_object **obj)
+> @@ -60,6 +61,7 @@ int amdgpu_gem_object_create(struct amdgpu_device *adev=
+, unsigned long size,
+>        bp.type =3D type;
+>        bp.resv =3D resv;
+>        bp.preferred_domain =3D initial_domain;
+> +     bp.priority =3D priority;
+>   retry:
+>        bp.flags =3D flags;
+>        bp.domain =3D initial_domain;
+> @@ -229,6 +231,14 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, =
+void *data,
+>        if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK)
+>                return -EINVAL;
+>
+> +     /* check priority */
+> +     if (args->in.priority =3D=3D 0) {
+> +             /* default is normal */
+> +             args->in.priority =3D TTM_BO_PRIORITY_NORMAL;
+> +     } else if (args->in.priority > TTM_MAX_BO_PRIORITY) {
+> +             args->in.priority =3D TTM_MAX_BO_PRIORITY;
+> +             DRM_ERROR("priority specified from user space is over MAX p=
+riority\n");
+> +     }
+>        /* create a gem object to contain this object in */
+>        if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
+>            AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
+> @@ -252,6 +262,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, v=
+oid *data,
+>
+>        r =3D amdgpu_gem_object_create(adev, size, args->in.alignment,
+>                                     (u32)(0xffffffff & args->in.domains),
+> +                                  args->in.priority - 1,
+>                                     flags, ttm_bo_type_device, resv, &gob=
+j);
+>        if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
+>                if (!r) {
+> @@ -304,6 +315,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, =
+void *data,
+>
+>        /* create a gem object to contain this object in */
+>        r =3D amdgpu_gem_object_create(adev, args->size, 0, AMDGPU_GEM_DOM=
+AIN_CPU,
+> +                                  TTM_BO_PRIORITY_NORMAL,
+>                                     0, ttm_bo_type_device, NULL, &gobj);
+>        if (r)
+>                return r;
+> @@ -755,6 +767,7 @@ int amdgpu_mode_dumb_create(struct drm_file *file_pri=
+v,
+>        domain =3D amdgpu_bo_get_preferred_pin_domain(adev,
+>                                amdgpu_display_supported_domains(adev));
+>        r =3D amdgpu_gem_object_create(adev, args->size, 0, domain,
+> +                                  TTM_BO_PRIORITY_NORMAL,
+>                                     AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED=
+,
+>                                     ttm_bo_type_device, NULL, &gobj);
+>        if (r)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gem.h
+> index f1ddfc50bcc7..47b0a8190948 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+> @@ -61,7 +61,7 @@ extern const struct dma_buf_ops amdgpu_dmabuf_ops;
+>    */
+>   void amdgpu_gem_force_release(struct amdgpu_device *adev);
+>   int amdgpu_gem_object_create(struct amdgpu_device *adev, unsigned long =
+size,
+> -                          int alignment, u32 initial_domain,
+> +                          int alignment, u32 initial_domain, u32 priorit=
+y,
+>                             u64 flags, enum ttm_bo_type type,
+>                             struct reservation_object *resv,
+>                             struct drm_gem_object **obj);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_object.c
+> index fd9c4beeaaa4..c85304e03021 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -494,8 +494,9 @@ static int amdgpu_bo_do_create(struct amdgpu_device *=
+adev,
+>
+>        bo->tbo.bdev =3D &adev->mman.bdev;
+>        amdgpu_bo_placement_from_domain(bo, bp->domain);
+> +     bo->tbo.priority =3D bp->priority;
+>        if (bp->type =3D=3D ttm_bo_type_kernel)
+> -             bo->tbo.priority =3D 1;
+> +             bo->tbo.priority =3D TTM_BO_PRIORITY_VERYHIGH;
+>
+>        r =3D ttm_bo_init_reserved(&adev->mman.bdev, &bo->tbo, size, bp->t=
+ype,
+>                                 &bo->placement, page_align, &ctx, acc_siz=
+e,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_object.h
+> index 9291c2f837e9..091a7884a821 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+> @@ -39,6 +39,7 @@ struct amdgpu_bo_param {
+>        int                             byte_align;
+>        u32                             domain;
+>        u32                             preferred_domain;
+> +     u32                             priority;
+>        u64                             flags;
+>        enum ttm_bo_type                type;
+>        struct reservation_object       *resv;
+> diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_dri=
+ver.h
+> index cbf3180cb612..53f39ed540d7 100644
+> --- a/include/drm/ttm/ttm_bo_driver.h
+> +++ b/include/drm/ttm/ttm_bo_driver.h
+> @@ -43,7 +43,14 @@
+>   #include "ttm_placement.h"
+>   #include "ttm_tt.h"
+>
+> -#define TTM_MAX_BO_PRIORITY  4U
+> +enum ttm_bo_priority {
+> +     TTM_BO_PRIORITY_VERYLOW =3D 0,
+> +     TTM_BO_PRIORITY_LOW,
+> +     TTM_BO_PRIORITY_NORMAL,
+> +     TTM_BO_PRIORITY_HIGH,
+> +     TTM_BO_PRIORITY_VERYHIGH,
+> +     TTM_MAX_BO_PRIORITY
+> +};
+>
+>   #define TTM_MEMTYPE_FLAG_FIXED         (1 << 0)     /* Fixed (on-card) =
+PCI memory */
+>   #define TTM_MEMTYPE_FLAG_MAPPABLE      (1 << 1)     /* Memory mappable =
+*/
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.=
+h
+> index b7718bfdf8ad..b74a7583d7f3 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -138,6 +138,9 @@ struct drm_amdgpu_gem_create_in  {
+>        __u64 domains;
+>        /** allocation flags */
+>        __u64 domain_flags;
+> +     /** priority */
+> +     __u32 priority;
+> +     __u32 pad;
+>   };
+>
+>   struct drm_amdgpu_gem_create_out  {
+
+
+--_000_o8xodtv7ma50s620vmx3ufrzt16m3ru4l9qc4l8rctppumfjlgzfos2_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>Yes, you are right, thanks to point it out. Will see if there is other=
+ way.<br>
+<br>
+-David<br>
+<br>
+send from my phone<br>
+<br>
+-------- Original Message --------<br>
+Subject: Re: [PATCH] drm/amdgpu: enable bo priority setting from user space=
+<br>
+From: Christian K=F6nig <br>
+To: &quot;Zhou, David(ChunMing)&quot; ,amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+CC: <br>
+<br>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">Am 07.03.19 um 10:15 schrieb Chunming Zhou:<br>
+&gt; Signed-off-by: Chunming Zhou &lt;david1.zhou-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+Well NAK to the whole approach.<br>
+<br>
+The TTM priority is a global priority, but processes are only allowed to <b=
+r>
+specific the priority inside their own allocations. So this approach <br>
+will never fly upstream.<br>
+<br>
+What you can do is to add a priority for per vm BOs to affect their sort <b=
+r>
+order on the LRU, but I doubt that this will have much of an effect.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c&nbsp;&nbsp;&nbsp;&n=
+bsp; |&nbsp; 1 &#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c&nbsp;&nbsp;&nbsp; =
+| 13 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h&nbsp;&nbsp;&nbsp; =
+|&nbsp; 2 &#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |&nbsp; 3 &#43;=
+&#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |&nbsp; 1 &#43;=
+<br>
+&gt;&nbsp;&nbsp; include/drm/ttm/ttm_bo_driver.h&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 9 &#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;-<br>
+&gt;&nbsp;&nbsp; include/uapi/drm/amdgpu_drm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 3 &#43;&#43;&#43;=
+<br>
+&gt;&nbsp;&nbsp; 7 files changed, 29 insertions(&#43;), 3 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_fb.c<br>
+&gt; index 5cbde74b97dd..70a6baf20c22 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c<br>
+&gt; @@ -144,6 &#43;144,7 @@ static int amdgpufb_create_pinned_object(struc=
+t amdgpu_fbdev *rfbdev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size =3D mode_cmd-&gt;pitche=
+s[0] * height;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; aligned_size =3D ALIGN(size,=
+ PAGE_SIZE);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_gem_object_cr=
+eate(adev, aligned_size, 0, domain,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TTM_=
+BO_PRIORITY_NORMAL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS |<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; AMDGPU_GEM_CREATE_VRAM_CLEARED,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_gem.c<br>
+&gt; index d21dd2f369da..7c1c2362c67e 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt; @@ -44,6 &#43;44,7 @@ void amdgpu_gem_object_free(struct drm_gem_objec=
+t *gobj)<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; int amdgpu_gem_object_create(struct amdgpu_device *adev, u=
+nsigned long size,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; int alignment, u32 initial_domain,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; enum ttm_bo_priority priority,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; u64 flags, enum ttm_bo_type type,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; struct reservation_object *resv,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; struct drm_gem_object **obj)<br>
+&gt; @@ -60,6 &#43;61,7 @@ int amdgpu_gem_object_create(struct amdgpu_devic=
+e *adev, unsigned long size,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.type =3D type;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.resv =3D resv;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.preferred_domain =3D init=
+ial_domain;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bp.priority =3D priority;<br>
+&gt;&nbsp;&nbsp; retry:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.flags =3D flags;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bp.domain =3D initial_domain=
+;<br>
+&gt; @@ -229,6 &#43;231,14 @@ int amdgpu_gem_create_ioctl(struct drm_device=
+ *dev, void *data,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;in.domains &amp=
+; ~AMDGPU_GEM_DOMAIN_MASK)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* check priority */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;in.priority =3D=3D 0) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; /* default is normal */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; args-&gt;in.priority =3D TTM_BO_PRIORITY_NORMAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (args-&gt;in.priority &gt; TTM=
+_MAX_BO_PRIORITY) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; args-&gt;in.priority =3D TTM_MAX_BO_PRIORITY;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; DRM_ERROR(&quot;priority specified from user space is over MAX prio=
+rity\n&quot;);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* create a gem object to co=
+ntain this object in */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args-&gt;in.domains &amp=
+; (AMDGPU_GEM_DOMAIN_GDS |<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDG=
+PU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {<br>
+&gt; @@ -252,6 &#43;262,7 @@ int amdgpu_gem_create_ioctl(struct drm_device =
+*dev, void *data,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gem_object_crea=
+te(adev, size, args-&gt;in.alignment,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (u32=
+)(0xffffffff &amp; args-&gt;in.domains),<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;in.prio=
+rity - 1,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flag=
+s, ttm_bo_type_device, resv, &amp;gobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; AMDGPU_GEM_C=
+REATE_VM_ALWAYS_VALID) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!r) {<br>
+&gt; @@ -304,6 &#43;315,7 @@ int amdgpu_gem_userptr_ioctl(struct drm_device=
+ *dev, void *data,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* create a gem object to co=
+ntain this object in */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gem_object_crea=
+te(adev, args-&gt;size, 0, AMDGPU_GEM_DOMAIN_CPU,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TTM_BO_PRIORITY_=
+NORMAL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0, t=
+tm_bo_type_device, NULL, &amp;gobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return r;<br>
+&gt; @@ -755,6 &#43;767,7 @@ int amdgpu_mode_dumb_create(struct drm_file *f=
+ile_priv,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; domain =3D amdgpu_bo_get_pre=
+ferred_pin_domain(adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_display_supported_domains(a=
+dev));<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_gem_object_crea=
+te(adev, args-&gt;size, 0, domain,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TTM_BO_PRIORITY_=
+NORMAL,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDG=
+PU_GEM_CREATE_CPU_ACCESS_REQUIRED,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_=
+bo_type_device, NULL, &amp;gobj);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_gem.h<br>
+&gt; index f1ddfc50bcc7..47b0a8190948 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h<br>
+&gt; @@ -61,7 &#43;61,7 @@ extern const struct dma_buf_ops amdgpu_dmabuf_op=
+s;<br>
+&gt;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp; void amdgpu_gem_force_release(struct amdgpu_device *adev);=
+<br>
+&gt;&nbsp;&nbsp; int amdgpu_gem_object_create(struct amdgpu_device *adev, u=
+nsigned long size,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; int alignment, u32 initial_domain,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; int alignment, u32 initial_domain, u32 priority,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; u64 flags, enum ttm_bo_type type,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; struct reservation_object *resv,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp; struct drm_gem_object **obj);<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_object.c<br>
+&gt; index fd9c4beeaaa4..c85304e03021 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<br>
+&gt; @@ -494,8 &#43;494,9 @@ static int amdgpu_bo_do_create(struct amdgpu_d=
+evice *adev,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo-&gt;tbo.bdev =3D &amp;ade=
+v-&gt;mman.bdev;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_placement_from_dom=
+ain(bo, bp-&gt;domain);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bo-&gt;tbo.priority =3D bp-&gt;priority;=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bp-&gt;type =3D=3D ttm_b=
+o_type_kernel)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; bo-&gt;tbo.priority =3D 1;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; bo-&gt;tbo.priority =3D TTM_BO_PRIORITY_VERYHIGH;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D ttm_bo_init_reserved(&=
+amp;adev-&gt;mman.bdev, &amp;bo-&gt;tbo, size, bp-&gt;type,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;bo-&gt;placement, page_=
+align, &amp;ctx, acc_size,<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_object.h<br>
+&gt; index 9291c2f837e9..091a7884a821 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h<br>
+&gt; @@ -39,6 &#43;39,7 @@ struct amdgpu_bo_param {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; byte_a=
+lign;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; domain=
+;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prefer=
+red_domain;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; u32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; priority;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; flags;=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum ttm_bo_type&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; type;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct reservation_object&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *resv;<br>
+&gt; diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_=
+driver.h<br>
+&gt; index cbf3180cb612..53f39ed540d7 100644<br>
+&gt; --- a/include/drm/ttm/ttm_bo_driver.h<br>
+&gt; &#43;&#43;&#43; b/include/drm/ttm/ttm_bo_driver.h<br>
+&gt; @@ -43,7 &#43;43,14 @@<br>
+&gt;&nbsp;&nbsp; #include &quot;ttm_placement.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;ttm_tt.h&quot;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -#define TTM_MAX_BO_PRIORITY&nbsp; 4U<br>
+&gt; &#43;enum ttm_bo_priority {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; TTM_BO_PRIORITY_VERYLOW =3D 0,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; TTM_BO_PRIORITY_LOW,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; TTM_BO_PRIORITY_NORMAL,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; TTM_BO_PRIORITY_HIGH,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; TTM_BO_PRIORITY_VERYHIGH,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; TTM_MAX_BO_PRIORITY<br>
+&gt; &#43;};<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; #define TTM_MEMTYPE_FLAG_FIXED&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 0)&nbsp;&nbsp;&nbsp;&nbsp; /* Fixed (on-ca=
+rd) PCI memory */<br>
+&gt;&nbsp;&nbsp; #define TTM_MEMTYPE_FLAG_MAPPABLE&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; (1 &lt;&lt; 1)&nbsp;&nbsp;&nbsp;&nbsp; /* Memory mappable */<br>
+&gt; diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_d=
+rm.h<br>
+&gt; index b7718bfdf8ad..b74a7583d7f3 100644<br>
+&gt; --- a/include/uapi/drm/amdgpu_drm.h<br>
+&gt; &#43;&#43;&#43; b/include/uapi/drm/amdgpu_drm.h<br>
+&gt; @@ -138,6 &#43;138,9 @@ struct drm_amdgpu_gem_create_in&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u64 domains;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /** allocation flags */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u64 domain_flags;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /** priority */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; __u32 priority;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; __u32 pad;<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; struct drm_amdgpu_gem_create_out&nbsp; {<br>
+<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_o8xodtv7ma50s620vmx3ufrzt16m3ru4l9qc4l8rctppumfjlgzfos2_--
+
+--===============1177121068==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1177121068==--
