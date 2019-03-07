@@ -1,94 +1,64 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: avoid passing enum as NULL pointer
-Date: Thu, 7 Mar 2019 08:34:20 -0700
-Message-ID: <20190307153420.GJ20201@archlinux-ryzen>
-References: <20190307103454.1637485-1-arnd@arndb.de>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2] drm/amdgpu: Move IB pool init and fini v2
+Date: Thu, 7 Mar 2019 11:57:53 -0500
+Message-ID: <1551977873-19926-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190307103454.1637485-1-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Nick Desaulniers <ndesaulniers@google.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Anthony Koo <Anthony.Koo@amd.com>, Aric Cyr <Aric.Cyr@amd.com>, Harmanprit Tatla <Harmanprit.Tatla@amd.com>, Ken Chalmers <ken.chalmers@amd.com>, SivapiriyanKumarasamy <sivapiriyan.kumarasamy@amd.com>, Kees Cook <keescook@chromium.org>, Bayan Zabihiyan <Bayan.Zabihiyan@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Felix.Kuehling-5C7GfCeVMHo@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
 
-On Thu, Mar 07, 2019 at 11:34:29AM +0100, Arnd Bergmann wrote:
-> The mod_freesync_build_vrr_infopacket() function uses rather obscure
-> calling conventions, where an enum is passed in through a pointer,
-> and a NULL pointer is expected to behave the same way as the zero-value
-> (TRANSFER_FUNC_UNKNOWN).
-> 
-> Trying to build this with clang results in a warning:
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm.c:4601:3: error: expression which evaluates to zero treated
->       as a null pointer constant of type 'const enum color_transfer_func *' [-Werror,-Wnon-literal-null-conversion]
-> 
-> Passing it by value instead of by reference makes the code simpler
-> and more conventional but should not change the behavior at all.
-> 
-> Fixes: c2791297013e ("drm/amd/display: Add color bit info to freesync infoframe")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 7 +++----
->  drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h  | 2 +-
->  2 files changed, 4 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> index 94a84bc57c7a..6f32fe129880 100644
-> --- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> +++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-> @@ -724,7 +724,7 @@ static void build_vrr_infopacket_v1(enum signal_type signal,
->  
->  static void build_vrr_infopacket_v2(enum signal_type signal,
->  		const struct mod_vrr_params *vrr,
-> -		const enum color_transfer_func *app_tf,
-> +		const enum color_transfer_func app_tf,
->  		struct dc_info_packet *infopacket)
->  {
->  	unsigned int payload_size = 0;
-> @@ -732,8 +732,7 @@ static void build_vrr_infopacket_v2(enum signal_type signal,
->  	build_vrr_infopacket_header_v2(signal, infopacket, &payload_size);
->  	build_vrr_infopacket_data(vrr, infopacket);
->  
-> -	if (app_tf != NULL)
-> -		build_vrr_infopacket_fs2_data(*app_tf, infopacket);
-> +	build_vrr_infopacket_fs2_data(app_tf, infopacket);
->  
->  	build_vrr_infopacket_checksum(&payload_size, infopacket);
->  
-> @@ -757,7 +756,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
->  		const struct dc_stream_state *stream,
->  		const struct mod_vrr_params *vrr,
->  		enum vrr_packet_type packet_type,
-> -		const enum color_transfer_func *app_tf,
-> +		const enum color_transfer_func app_tf,
->  		struct dc_info_packet *infopacket)
->  {
->  	/* SPD info packet for FreeSync
-> diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> index 4222e403b151..645793b924cf 100644
-> --- a/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> +++ b/drivers/gpu/drm/amd/display/modules/inc/mod_freesync.h
-> @@ -145,7 +145,7 @@ void mod_freesync_build_vrr_infopacket(struct mod_freesync *mod_freesync,
->  		const struct dc_stream_state *stream,
->  		const struct mod_vrr_params *vrr,
->  		enum vrr_packet_type packet_type,
-> -		const enum color_transfer_func *app_tf,
-> +		const enum color_transfer_func app_tf,
->  		struct dc_info_packet *infopacket);
->  
->  void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
-> -- 
-> 2.20.0
-> 
-
-Just as an FYI, I sent the same fix when the warning first hit which was
-recently accepted:
-
-https://cgit.freedesktop.org/~agd5f/linux/commit/?id=672e78cab819ebe31e3b9b8abac367be8a110472
-
-Just waiting for it to hit mainline.
-
-Cheers,
-Nathan
+UHJvYmxlbToKVXNpbmcgU0RNQSBmb3IgVExCIGludmFsaWRhdGlvbiBpbiBjZXJ0YWluIEFTSUNz
+IGV4cG9zZWQgYSBwcm9ibGVtCm9mIElCIHBvb2wgbm90IGJlaW5nIHJlYWR5IHdoaWxlIFNETUEg
+YWxyZWFkeSB1cCBvbiBJbml0IGFuZCBhbHJlYWR5CnNodXR0IGRvd24gd2hpbGUgU0RNQSBzdGls
+bCBydW5uaW5nIG9uIEZpbmkuIFRoaXMgY2F1c2VkCklCIGFsbG9jYXRpb24gZmFpbHVyZS4gVGVt
+cHJvYXJ5IGZpeCB3YXMgY29tbWl0ZWQgaW50byBhCmJyaW5ndXAgYnJhbmNoIGJ1dCB0aGlzIGlz
+IHRoZSBnZW5lcmljIGZpeC4KCkZpeDoKSW5pdCBJQiBwb29sIHJpZ3RoIGFmdGVyIEdNQyBpcyBy
+ZWFkeSBidXQgYmVmb3JlIFNETUEgaXMgcmVhZHkuCkRvIHRoIG9wcG9zaXRlIGZvciBGaW5pLgoK
+djI6IFJlbW92ZSByZXN0cmljdGlvbiBvbiBTRE1BIGVhcmx5IGluaXQgYW5kIG1vdmUgYW1kZ3B1
+X2liX3Bvb2xfZmluaQoKU2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5n
+cm9kem92c2t5QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2RldmljZS5jIHwgMTYgKysrKysrKystLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0
+aW9ucygrKSwgOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMKaW5kZXggMDBkZWY1Ny4uMGM0YTU4MCAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMTY4Niw2ICsxNjg2LDEzIEBAIHN0YXRpYyBp
+bnQgYW1kZ3B1X2RldmljZV9pcF9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQl9
+CiAJfQogCisJciA9IGFtZGdwdV9pYl9wb29sX2luaXQoYWRldik7CisJaWYgKHIpIHsKKwkJZGV2
+X2VycihhZGV2LT5kZXYsICJJQiBpbml0aWFsaXphdGlvbiBmYWlsZWQgKCVkKS5cbiIsIHIpOwor
+CQlhbWRncHVfdmZfZXJyb3JfcHV0KGFkZXYsIEFNREdJTV9FUlJPUl9WRl9JQl9JTklUX0ZBSUws
+IDAsIHIpOworCQlnb3RvIGluaXRfZmFpbGVkOworCX0KKwogCXIgPSBhbWRncHVfdWNvZGVfY3Jl
+YXRlX2JvKGFkZXYpOyAvKiBjcmVhdGUgdWNvZGUgYm8gd2hlbiBzd19pbml0IGNvbXBsZXRlKi8K
+IAlpZiAocikKIAkJZ290byBpbml0X2ZhaWxlZDsKQEAgLTE5MjQsNiArMTkzMSw3IEBAIHN0YXRp
+YyBpbnQgYW1kZ3B1X2RldmljZV9pcF9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
+CQkJYW1kZ3B1X2ZyZWVfc3RhdGljX2NzYSgmYWRldi0+dmlydC5jc2Ffb2JqKTsKIAkJCWFtZGdw
+dV9kZXZpY2Vfd2JfZmluaShhZGV2KTsKIAkJCWFtZGdwdV9kZXZpY2VfdnJhbV9zY3JhdGNoX2Zp
+bmkoYWRldik7CisJCQlhbWRncHVfaWJfcG9vbF9maW5pKGFkZXYpOwogCQl9CiAKIAkJciA9IGFk
+ZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT5mdW5jcy0+c3dfZmluaSgodm9pZCAqKWFkZXYpOwpA
+QCAtMjY1MSwxMyArMjY1OSw2IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsCiAJLyogR2V0IGEgbG9nMiBmb3IgZWFzeSBkaXZpc2lvbnMuICovCiAJ
+YWRldi0+bW1fc3RhdHMubG9nMl9tYXhfTUJwcyA9IGlsb2cyKG1heCgxdSwgbWF4X01CcHMpKTsK
+IAotCXIgPSBhbWRncHVfaWJfcG9vbF9pbml0KGFkZXYpOwotCWlmIChyKSB7Ci0JCWRldl9lcnIo
+YWRldi0+ZGV2LCAiSUIgaW5pdGlhbGl6YXRpb24gZmFpbGVkICglZCkuXG4iLCByKTsKLQkJYW1k
+Z3B1X3ZmX2Vycm9yX3B1dChhZGV2LCBBTURHSU1fRVJST1JfVkZfSUJfSU5JVF9GQUlMLCAwLCBy
+KTsKLQkJZ290byBmYWlsZWQ7Ci0JfQotCiAJYW1kZ3B1X2ZiZGV2X2luaXQoYWRldik7CiAKIAly
+ID0gYW1kZ3B1X3BtX3N5c2ZzX2luaXQoYWRldik7CkBAIC0yNzM1LDcgKzI3MzYsNiBAQCB2b2lk
+IGFtZGdwdV9kZXZpY2VfZmluaShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJZWxzZQog
+CQkJZHJtX2F0b21pY19oZWxwZXJfc2h1dGRvd24oYWRldi0+ZGRldik7CiAJfQotCWFtZGdwdV9p
+Yl9wb29sX2ZpbmkoYWRldik7CiAJYW1kZ3B1X2ZlbmNlX2RyaXZlcl9maW5pKGFkZXYpOwogCWFt
+ZGdwdV9wbV9zeXNmc19maW5pKGFkZXYpOwogCWFtZGdwdV9mYmRldl9maW5pKGFkZXYpOwotLSAK
+Mi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
