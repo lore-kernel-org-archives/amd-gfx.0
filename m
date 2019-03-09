@@ -1,35 +1,34 @@
 From: Kangjie Lu <kjlu@umn.edu>
-Subject: [PATCH] gpu: amdkfd: fix a missing check of kmemdup
-Date: Fri,  8 Mar 2019 22:19:49 -0600
-Message-ID: <20190309041949.3176-1-kjlu@umn.edu>
+Subject: [PATCH] drm: check if alloc_workqueue fails
+Date: Fri,  8 Mar 2019 22:33:31 -0600
+Message-ID: <20190309043331.5210-1-kjlu@umn.edu>
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
 To: kjlu@umn.edu
-Cc: pakki001@umn.edu, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: pakki001@umn.edu, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-kmemdup could fail and return NULL. To avoid null pointer
-dereference, the fix checkes its return value and returns
-ENOMEM upon failures.
+alloc_workqueue may fail. The fix checks its status. We probably
+need to add a return value for radeon_crtc_init, so that we can
+pass an error code upstream.
 
 Signed-off-by: Kangjie Lu <kjlu@umn.edu>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/radeon/radeon_display.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 2e7c44955f43..7ef62d4e7598 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -404,6 +404,9 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
- 			return -ENODEV;
- 		/* same everything but the other direction */
- 		props2 = kmemdup(props, sizeof(*props2), GFP_KERNEL);
-+		if (!props2)
-+			return -ENOMEM;
-+
- 		props2->node_from = id_to;
- 		props2->node_to = id_from;
- 		props2->kobj = NULL;
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index aa898c699101..16f95bde8c2e 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -678,6 +678,8 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
+ 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
+ 	radeon_crtc->crtc_id = index;
+ 	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
++	if (!radeon_crtc->flip_queue)
++		DRM_ERROR("failed to allocate the flip queue\n");
+ 	rdev->mode_info.crtcs[index] = radeon_crtc;
+ 
+ 	if (rdev->family >= CHIP_BONAIRE) {
 -- 
 2.17.1
