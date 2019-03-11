@@ -1,80 +1,80 @@
-From: Daniel Vetter <daniel@ffwll.ch>
-Subject: Re: [PATCH 0/5] Clean up TTM mmap offsets
-Date: Mon, 11 Mar 2019 18:02:29 +0100
-Message-ID: <20190311170229.GM2665@phenom.ffwll.local>
-References: <20190207085931.29569-1-tzimmermann@suse.de>
-	<2509b876-8335-4be6-b33b-bbf11a73145f@redhat.com>
-	<0ac91c9b-5b8e-b27c-286b-7b9697a4f1c2@gmail.com>
+From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Clear VRAM for DRM dumb_create buffers
+Date: Mon, 11 Mar 2019 17:04:43 +0000
+Message-ID: <a5aa3caf-253e-8832-c63e-77269d4e865f@amd.com>
+References: <20190308153816.7978-1-nicholas.kazlauskas@amd.com>
+ <CADnq5_PxyfDKVLgQ9iBqEsSGX-jYMbr-RsxrvM5j=0N7AF-w5Q@mail.gmail.com>
+ <73f25762-0277-7e12-dfff-a016d245478c@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <virtualization-bounces@lists.linux-foundation.org>
-Content-Disposition: inline
-In-Reply-To: <0ac91c9b-5b8e-b27c-286b-7b9697a4f1c2@gmail.com>
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/virtualization/>
-List-Post: <mailto:virtualization@lists.linux-foundation.org>
-List-Help: <mailto:virtualization-request@lists.linux-foundation.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=subscribe>
-Sender: virtualization-bounces@lists.linux-foundation.org
-Errors-To: virtualization-bounces@lists.linux-foundation.org
-To: christian.koenig@amd.com
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org, ray.huang@amd.com, alexander.deucher@amd.com, David1.Zhou@amd.com, thellstrom@vmware.com, amd-gfx@lists.freedesktop.org, z.liuxinliang@hisilicon.com, kong.kongxinwei@hisilicon.com, linux-graphics-maintainer@vmware.com, bskeggs@redhat.com, spice-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>, arnd@arndb.de, puck.chen@hisilicon.com, Hans de Goede <hdegoede@redhat.com>, airlied@redhat.com, Jerry.Zhang@amd.com, gregkh@linuxfoundation.org, daniel@ffwll.ch, zourongrong@gmail.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <73f25762-0277-7e12-dfff-a016d245478c-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+Content-ID: <2E4EC97DDA3B0F43A81F5362D1882C3F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, Mar 11, 2019 at 05:51:39PM +0100, Christian K=F6nig wrote:
-> Am 11.03.19 um 17:39 schrieb Hans de Goede:
-> > Hi,
-> > =
-
-> > On 07-02-19 09:59, Thomas Zimmermann wrote:
-> > > Almost all TTM-based drivers use the same values for the mmap-able
-> > > range of BO addresses. Each driver therefore duplicates the
-> > > DRM_FILE_PAGE_OFFSET constant. OTOH, the mmap range's size is not
-> > > configurable by drivers.
-> > > =
-
-> > > This patch set replaces driver-specific configuration with a single
-> > > setup. All code is located within TTM. TTM and GEM share the same
-> > > range for mmap-able BOs.
-> > > =
-
-> > > Thomas Zimmermann (5):
-> > > =A0=A0 staging/vboxvideo: Use same BO mmap offset as other drivers
-> > > =A0=A0 drm/ttm: Define a single DRM_FILE_PAGE_OFFSET constant
-> > > =A0=A0 drm/ttm: Remove file_page_offset parameter from ttm_bo_device_=
-init()
-> > > =A0=A0 drm/ttm: Quick-test mmap offset in ttm_bo_mmap()
-> > > =A0=A0 drm: Use the same mmap-range offset and size for GEM and TTM
-> > =
-
-> > Note I'm about to push a patch-series to drm-misc-next which moves
-> > vboxvideo out of staging and I see that this series has not landed
-> > in drm-misc-next yet, so it will needs to be rebased.
-> =
-
-> Mhm, TTM is usually not pushed upstream through drm-misc-next, so that wi=
-ll
-> certainly collide with the next TTM pull request.
-> =
-
-> So can you wait with that or should I make an exception and merge this
-> change though drm-misc-next?
-
-Other options:
-- Get amdgpu added to drm-tip and linux-next so we have a heads-up about
-  the conflict. That's usually good enough to avoid the broken merge
-  conflict.
-- Do a topic branch, pull it into both trees.
-- Really stuff ttm into a shared tree if it's meant to be shared
-  infrastructure :-P
-
-Waiting+rebasing is imo the worst option, and usually not needed.
--Daniel
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
+T24gMy8xMS8xOSAxMjo1OCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4gQW0gMDguMDMu
+MTkgdW0gMTc6NDcgc2NocmllYiBBbGV4IERldWNoZXI6DQo+PiBPbiBGcmksIE1hciA4LCAyMDE5
+IGF0IDEwOjM4IEFNIE5pY2hvbGFzIEthemxhdXNrYXMNCj4+IDxuaWNob2xhcy5rYXpsYXVza2Fz
+QGFtZC5jb20+IHdyb3RlOg0KPj4+IFRoZSBkdW1iX2NyZWF0ZSBBUEkgaXNuJ3QgaW50ZW5kZWQg
+Zm9yIGhpZ2ggcGVyZm9ybWFuY2UgcmVuZGVyaW5nDQo+Pj4gYW5kIGl0J3MgbW9yZSB1c2VmdWwg
+Zm9yIHVzZXJzcGFjZSAoaWUuIElHVCkgdG8gaGF2ZSB0aGVtIHByZWNsZWFyZWQuDQo+Pj4NCj4+
+PiBUaGUgYm9udXMgaGVyZSBpcyB0aGF0IHdlIGFsc28gd29uJ3QgbmVlZGxlc3NseSBsZWFrIHdo
+YXRldmVyIHdhcw0KPj4+IHByZXZpb3VzbHkgaW4gVlJBTSwgYnV0IGl0IGFsc28gcHJvYmFibHkg
+d2Fzbid0IHNlbnNpdGl2ZSBpZiBpdCB3YXMNCj4+PiBnb2luZyB0aHJvdWdoIHRoaXMgQVBJLg0K
+Pj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6
+bGF1c2thc0BhbWQuY29tPg0KPj4gUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVy
+LmRldWNoZXJAYW1kLmNvbT4NCj4gDQo+IE5BSywgSUlSQyB3ZSB1c2VkIHRvIGhhdmUgdGhpcyBi
+aXQgaGVyZSBiZWZvcmUuDQo+IA0KPiBJbiBnZW5lcmFsIEkgYWdyZWUgdGhhdCB0aGlzIHdvdWxk
+IGJlIGEgZ29vZCBpZGVhLCBidXQgdGhlIHByb2JsZW0gaXMgDQo+IHRoZSB0aGF0IGZpcnN0IGR1
+bXAgYnVmZmVyIGlzIHNvbWV0aW1lcyBjcmVhdGVkIGJlZm9yZSB0aGUgZW5naW5lIA0KPiAodXN1
+YWxseSBTRE1BKSB0byBjbGVhciBWUkFNIGlzIGluaXRpYWxpemVkLg0KPiANCj4gU28geW91IGNh
+biBydW4gaW50byBhIG5pY2UgY3Jhc2ggb24gc3VzcGVuZC9yZXN1bWUuDQo+IA0KPiBDaHJpc3Rp
+YW4uDQoNCkZXSVcgSSBuZXZlciBoaXQgaXQgbXlzZWxmIGR1cmluZyBhbnkgc3VzcGVuZC9yZXN1
+bWUgdGVzdHMgSSBkaWQgYnV0IA0KSSdsbCB0YWtlIHlvdXIgd29yZCBmb3IgaXQuDQoNCkhvdyBh
+Ym91dCBkb2luZyBhIG1hcC9tZW1zZXQvdW5tYXAgaW1tZWRpYXRlbHkgYWZ0ZXIgYnVmZmVyIGNy
+ZWF0aW9uIA0KaGVyZT8gSXQnZCBiZSBtdWNoIHNsb3dlciwgYnV0IGl0J3MgYWxzbyB3aGF0IHdl
+J2QgYmUgZG9pbmcgaW4gdXNlcnNwYWNlIA0KYW55d2F5Lg0KDQpOaWNob2xhcyBLYXpsYXVza2Fz
+DQoNCg0KPiANCj4+DQo+Pj4gLS0tDQo+Pj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2dlbS5jIHwgMyArKy0NCj4+PiDCoCAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
+KCspLCAxIGRlbGV0aW9uKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIA0KPj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2dlbS5jDQo+Pj4gaW5kZXggZmNhYWFjMzBlODRiLi5hNTgwNzJiYmM5YjggMTAw
+NjQ0DQo+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQo+
+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQo+Pj4gQEAg
+LTc0Myw3ICs3NDMsOCBAQCBpbnQgYW1kZ3B1X21vZGVfZHVtYl9jcmVhdGUoc3RydWN0IGRybV9m
+aWxlIA0KPj4+ICpmaWxlX3ByaXYsDQo+Pj4gwqDCoMKgwqDCoMKgwqDCoCBkb21haW4gPSBhbWRn
+cHVfYm9fZ2V0X3ByZWZlcnJlZF9waW5fZG9tYWluKGFkZXYsDQo+Pj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgDQo+Pj4gYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMo
+YWRldikpOw0KPj4+IMKgwqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV9nZW1fb2JqZWN0X2NyZWF0
+ZShhZGV2LCBhcmdzLT5zaXplLCAwLCBkb21haW4sDQo+Pj4gLSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIA0KPj4+IEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlS
+RUQsDQo+Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA0KPj4+IEFNREdQ
+VV9HRU1fQ1JFQVRFX0NQVV9BQ0NFU1NfUkVRVUlSRUQgfA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFN
+REdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ0xFQVJFRCwNCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0dG1f
+Ym9fdHlwZV9kZXZpY2UsIE5VTEwsICZnb2JqKTsNCj4+PiDCoMKgwqDCoMKgwqDCoMKgIGlmIChy
+KQ0KPj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOw0K
+Pj4+IC0tIA0KPj4+IDIuMTcuMQ0KPj4+DQo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18NCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPj4+IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+Pj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQo+PiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXw0KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4+IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCj4gDQoNCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
