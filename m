@@ -1,91 +1,70 @@
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 4.9 91/96] drm: disable uncached DMA optimization for ARM and
- arm64
-Date: Tue, 12 Mar 2019 10:10:49 -0700
-Message-ID: <20190312171041.331838640@linuxfoundation.org>
-References: <20190312171034.530434962@linuxfoundation.org>
+From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
+Subject: Re: [PATCH] drm/v3d: Fix calling drm_sched_resubmit_jobs for same
+ sched.
+Date: Tue, 12 Mar 2019 10:33:16 -0700
+Message-ID: <87imworo9v.fsf@anholt.net>
+References: <1552409822-17230-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190312171034.530434962@linuxfoundation.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: linux-kernel@vger.kernel.org
-Cc: Maxime Ripard <maxime.ripard@bootlin.com>, Will Deacon <will.deacon@arm.com>, dri-devel <dri-devel@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Sasha Levin <sashal@kernel.org>, Carsten Haitzler <Carsten.Haitzler@arm.com>, Michael Ellerman <mpe@ellerman.id.au>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, David Airlie <airlied@linux.ie>, Junwei Zhang <Jerry.Zhang@amd.com>, Sean Paul <sean@poorly.run>, Ard Biesheuvel <ard.biesheuvel@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Michel Daenzer <michel.daenzer@amd.com>, stable@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>, Christian Koenig <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0082466188=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1552409822-17230-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, tomeu-XCtybt49RKsYaV1qd6yewg@public.gmane.org
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 
-NC45LXN0YWJsZSByZXZpZXcgcGF0Y2guICBJZiBhbnlvbmUgaGFzIGFueSBvYmplY3Rpb25zLCBw
-bGVhc2UgbGV0IG1lIGtub3cuCgotLS0tLS0tLS0tLS0tLS0tLS0KClsgVXBzdHJlYW0gY29tbWl0
-IGUwMmY1YzFiYjIyODNjZmNlZTY4ZjJmMGZlZGRjYzA2MTUwZjEzYWEgXQoKVGhlIERSTSBkcml2
-ZXIgc3RhY2sgaXMgZGVzaWduZWQgdG8gd29yayB3aXRoIGNhY2hlIGNvaGVyZW50IGRldmljZXMK
-b25seSwgYnV0IHBlcm1pdHMgYW4gb3B0aW1pemF0aW9uIHRvIGJlIGVuYWJsZWQgaW4gc29tZSBj
-YXNlcywgd2hlcmUKZm9yIHNvbWUgYnVmZmVycywgYm90aCB0aGUgQ1BVIGFuZCB0aGUgR1BVIHVz
-ZSB1bmNhY2hlZCBtYXBwaW5ncywKcmVtb3ZpbmcgdGhlIG5lZWQgZm9yIERNQSBzbm9vcGluZyBh
-bmQgYWxsb2NhdGlvbiBpbiB0aGUgQ1BVIGNhY2hlcy4KClRoZSB1c2Ugb2YgdW5jYWNoZWQgR1BV
-IG1hcHBpbmdzIHJlbGllcyBvbiB0aGUgY29ycmVjdCBpbXBsZW1lbnRhdGlvbgpvZiB0aGUgUENJ
-ZSBOb1Nub29wIFRMUCBhdHRyaWJ1dGUgYnkgdGhlIHBsYXRmb3JtLCBvdGhlcndpc2UgdGhlIEdQ
-VQp3aWxsIHVzZSBjYWNoZWQgbWFwcGluZ3Mgbm9uZXRoZWxlc3MuIE9uIHg4NiBwbGF0Zm9ybXMs
-IHRoaXMgZG9lcyBub3QKc2VlbSB0byBtYXR0ZXIsIGFzIHVuY2FjaGVkIENQVSBtYXBwaW5ncyB3
-aWxsIHNub29wIHRoZSBjYWNoZXMgaW4gYW55CmNhc2UuIEhvd2V2ZXIsIG9uIEFSTSBhbmQgYXJt
-NjQsIGVuYWJsaW5nIHRoaXMgb3B0aW1pemF0aW9uIG9uIGEKcGxhdGZvcm0gd2hlcmUgTm9Tbm9v
-cCBpcyBpZ25vcmVkIHJlc3VsdHMgaW4gbG9zcyBvZiBjb2hlcmVuY3ksIHdoaWNoCmJyZWFrcyBj
-b3JyZWN0IG9wZXJhdGlvbiBvZiB0aGUgZGV2aWNlLiBTaW5jZSB3ZSBoYXZlIG5vIHdheSBvZgpk
-ZXRlY3Rpbmcgd2hldGhlciBOb1Nub29wIHdvcmtzIG9yIG5vdCwganVzdCBkaXNhYmxlIHRoaXMK
-b3B0aW1pemF0aW9uIGVudGlyZWx5IGZvciBBUk0gYW5kIGFybTY0LgoKQ2M6IENocmlzdGlhbiBL
-b2VuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFu
-ZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6IERhdmlkIFpob3UgPERhdmlkMS5aaG91QGFtZC5jb20+
-CkNjOiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgpDYzogSnVud2VpIFpoYW5nIDxKZXJy
-eS5aaGFuZ0BhbWQuY29tPgpDYzogTWljaGVsIERhZW56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5j
-b20+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+CkNjOiBEYW5pZWwgVmV0dGVy
-IDxkYW5pZWxAZmZ3bGwuY2g+CkNjOiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9y
-c3RAbGludXguaW50ZWwuY29tPgpDYzogTWF4aW1lIFJpcGFyZCA8bWF4aW1lLnJpcGFyZEBib290
-bGluLmNvbT4KQ2M6IFNlYW4gUGF1bCA8c2VhbkBwb29ybHkucnVuPgpDYzogTWljaGFlbCBFbGxl
-cm1hbiA8bXBlQGVsbGVybWFuLmlkLmF1PgpDYzogQmVuamFtaW4gSGVycmVuc2NobWlkdCA8YmVu
-aEBrZXJuZWwuY3Jhc2hpbmcub3JnPgpDYzogV2lsbCBEZWFjb24gPHdpbGwuZGVhY29uQGFybS5j
-b20+CkNjOiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGluZnJhZGVhZC5vcmc+CkNjOiBSb2JpbiBN
-dXJwaHkgPHJvYmluLm11cnBoeUBhcm0uY29tPgpDYzogYW1kLWdmeCBsaXN0IDxhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZz4KQ2M6IGRyaS1kZXZlbCA8ZHJpLWRldmVsQGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZz4KUmVwb3J0ZWQtYnk6IENhcnN0ZW4gSGFpdHpsZXIgPENhcnN0ZW4uSGFpdHps
-ZXJAYXJtLmNvbT4KU2lnbmVkLW9mZi1ieTogQXJkIEJpZXNoZXV2ZWwgPGFyZC5iaWVzaGV1dmVs
-QGxpbmFyby5vcmc+ClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
-bmlnQGFtZC5jb20+ClJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVy
-QGFtZC5jb20+Ckxpbms6IGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcGF0Y2gvMTA3Nzg4
-MTUvClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
-LmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0K
-IGluY2x1ZGUvZHJtL2RybV9jYWNoZS5oIHwgMTggKysrKysrKysrKysrKysrKysrCiAxIGZpbGUg
-Y2hhbmdlZCwgMTggaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2RybV9j
-YWNoZS5oIGIvaW5jbHVkZS9kcm0vZHJtX2NhY2hlLmgKaW5kZXggY2ViZWNmZjUzNmEzLi5jNWZi
-NmY4NzE5MzAgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvZHJtL2RybV9jYWNoZS5oCisrKyBiL2luY2x1
-ZGUvZHJtL2RybV9jYWNoZS5oCkBAIC00MSw2ICs0MSwyNCBAQCBzdGF0aWMgaW5saW5lIGJvb2wg
-ZHJtX2FyY2hfY2FuX3djX21lbW9yeSh2b2lkKQogCXJldHVybiBmYWxzZTsKICNlbGlmIGRlZmlu
-ZWQoQ09ORklHX01JUFMpICYmIGRlZmluZWQoQ09ORklHX0NQVV9MT09OR1NPTjMpCiAJcmV0dXJu
-IGZhbHNlOworI2VsaWYgZGVmaW5lZChDT05GSUdfQVJNKSB8fCBkZWZpbmVkKENPTkZJR19BUk02
-NCkKKwkvKgorCSAqIFRoZSBEUk0gZHJpdmVyIHN0YWNrIGlzIGRlc2lnbmVkIHRvIHdvcmsgd2l0
-aCBjYWNoZSBjb2hlcmVudCBkZXZpY2VzCisJICogb25seSwgYnV0IHBlcm1pdHMgYW4gb3B0aW1p
-emF0aW9uIHRvIGJlIGVuYWJsZWQgaW4gc29tZSBjYXNlcywgd2hlcmUKKwkgKiBmb3Igc29tZSBi
-dWZmZXJzLCBib3RoIHRoZSBDUFUgYW5kIHRoZSBHUFUgdXNlIHVuY2FjaGVkIG1hcHBpbmdzLAor
-CSAqIHJlbW92aW5nIHRoZSBuZWVkIGZvciBETUEgc25vb3BpbmcgYW5kIGFsbG9jYXRpb24gaW4g
-dGhlIENQVSBjYWNoZXMuCisJICoKKwkgKiBUaGUgdXNlIG9mIHVuY2FjaGVkIEdQVSBtYXBwaW5n
-cyByZWxpZXMgb24gdGhlIGNvcnJlY3QgaW1wbGVtZW50YXRpb24KKwkgKiBvZiB0aGUgUENJZSBO
-b1Nub29wIFRMUCBhdHRyaWJ1dGUgYnkgdGhlIHBsYXRmb3JtLCBvdGhlcndpc2UgdGhlIEdQVQor
-CSAqIHdpbGwgdXNlIGNhY2hlZCBtYXBwaW5ncyBub25ldGhlbGVzcy4gT24geDg2IHBsYXRmb3Jt
-cywgdGhpcyBkb2VzIG5vdAorCSAqIHNlZW0gdG8gbWF0dGVyLCBhcyB1bmNhY2hlZCBDUFUgbWFw
-cGluZ3Mgd2lsbCBzbm9vcCB0aGUgY2FjaGVzIGluIGFueQorCSAqIGNhc2UuIEhvd2V2ZXIsIG9u
-IEFSTSBhbmQgYXJtNjQsIGVuYWJsaW5nIHRoaXMgb3B0aW1pemF0aW9uIG9uIGEKKwkgKiBwbGF0
-Zm9ybSB3aGVyZSBOb1Nub29wIGlzIGlnbm9yZWQgcmVzdWx0cyBpbiBsb3NzIG9mIGNvaGVyZW5j
-eSwgd2hpY2gKKwkgKiBicmVha3MgY29ycmVjdCBvcGVyYXRpb24gb2YgdGhlIGRldmljZS4gU2lu
-Y2Ugd2UgaGF2ZSBubyB3YXkgb2YKKwkgKiBkZXRlY3Rpbmcgd2hldGhlciBOb1Nub29wIHdvcmtz
-IG9yIG5vdCwganVzdCBkaXNhYmxlIHRoaXMKKwkgKiBvcHRpbWl6YXRpb24gZW50aXJlbHkgZm9y
-IEFSTSBhbmQgYXJtNjQuCisJICovCisJcmV0dXJuIGZhbHNlOwogI2Vsc2UKIAlyZXR1cm4gdHJ1
-ZTsKICNlbmRpZgotLSAKMi4xOS4xCgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2RyaS1kZXZlbA==
+--===============0082466188==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain
+
+Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org> writes:
+
+> Also stop calling drm_sched_increase_karma multiple times.
+
+Each v3d->queue[q].sched was initialized with a separate
+drm_sched_init().  I wouldn't have thought they were all the "same
+sched".
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAlyH7VwACgkQtdYpNtH8
+nugc4w/+KemO75rW4QfPkkTpMaaZ3gb3f9p2Ea5sM4SymyBysflvgHcDh5ZqSwqP
+kauAbj7qbadONZkrxUQkdOS9IQroYSDOwKjLpC/dz0asJY6v6DR/5Vda7shHHQe1
+uN31RpFeYsczfwzomoMcW4Wprslm89CmzJmh3SmPlfZe8LMtP+/AAS2FbaCroXPp
+KeH1iW2tzqYv4uBdg/lAkeH/zXbt+Co6VorKIvuSwpMYkIKSujn4onXjyN3KOTKP
+aJEh5/qAPkIBGULGwFZA520TKq8eGUoqdfb/hAUX+ndaORJ3jFxKn7hP03DC2/Ci
+IZWgCxWNQcvoqeBeNjdql0qf4mm6foj9QWBo8oeNAvJ0nbvwDTZuOWQVmGFpB6vL
+riL+QVd8AvLioqTyxCLPGtQ82efJCAjTeQ3GyFknJUIDmZhgVKzOUSLjDqMfonMP
+BhKWSy7DuouylJMI2IO52P9CgxbNCFhquWc+oAB/JGiRFbtK6h4BpaXPfPE3vF8t
+7UW/KSRnqebvVJNCtIRDZ+BlO9w/aPw85aV7SelcAaEwQ1M/qlp5kt1lL9fShw/O
+leh828iVqc4z5q2xawokvnD9xqLru4mfFLNuSFjXMbzf6gVYSG+rqOrJtkf5AgrT
+diN04entV99f99Mq6T9cg9Lo3dxzPdMan5SGmQSugltlDw4nKbw=
+=v6/X
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============0082466188==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0082466188==--
