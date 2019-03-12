@@ -1,62 +1,63 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Only clear dumb buffers if ring is enabled
-Date: Mon, 11 Mar 2019 19:40:06 +0100
-Message-ID: <a8e4c5fd-a595-6a02-62eb-2586cbef7bd2@gmail.com>
-References: <20190311181629.14126-1-nicholas.kazlauskas@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Helen Koike <helen.koike@collabora.com>
+Subject: [PATCH v2 0/5] drm: Fix fb changes for async updates
+Date: Mon, 11 Mar 2019 23:21:58 -0300
+Message-ID: <20190312022204.2775-1-helen.koike@collabora.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190311181629.14126-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com
+Cc: andrey.grodzovsky@amd.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, boris.brezillon@collabora.com, David Airlie <airlied@linux.ie>, Sean Paul <seanpaul@google.com>, kernel@collabora.com, harry.wentland@amd.com, =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@google.com>, Helen Koike <helen.koike@collabora.com>, Sean Paul <sean@poorly.run>, Sandy Huang <hjc@rock-chips.com>, Russell King <rmk+kernel@armlinux.org.uk>, eric@anholt.net, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@li>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTEuMDMuMTkgdW0gMTk6MTYgc2NocmllYiBOaWNob2xhcyBLYXpsYXVza2FzOgo+IFRoZSBi
-dWZmZXJzIHNob3VsZCBiZSBjbGVhcmVkIHdoZW4gcG9zc2libGUgYnV0IHdlIGFsc28gZG9uJ3Qg
-d2FudAo+IGJ1ZmZlciBjcmVhdGlvbiB0byBmYWlsIGluIHRoZSByYXJlIGNhc2Ugd2hlcmUgdGhl
-IHJpbmcgaXNuJ3QgcmVhZHkKPiBkdXJpbmcgdGhlIGNhbGwuIFRoaXMgY291bGQgaGFwcGVuIGR1
-cmluZyBzb21lIHN1c3BlbmQvcmVzdW1lIHNlcXVlbmNlcy4KPgo+IENjOiBDaHJpc3RpYW4gS8O2
-bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBO
-aWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+CgpSZXZpZXdl
-ZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyB8IDEzICsrKysrKysr
-KystLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygt
-KQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0u
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwo+IGluZGV4IGE1ODA3
-MmJiYzliOC4uOWVlOGQ3YTNjNmQ0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nZW0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9nZW0uYwo+IEBAIC03MzMsMTggKzczMywyNSBAQCBpbnQgYW1kZ3B1X21vZGVfZHVtYl9j
-cmVhdGUoc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXYsCj4gICAJc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOwo+ICAgCXN0cnVjdCBkcm1fZ2VtX29iamVjdCAq
-Z29iajsKPiAgIAl1aW50MzJfdCBoYW5kbGU7Cj4gKwl1NjQgZmxhZ3MgPSBBTURHUFVfR0VNX0NS
-RUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEOwo+ICAgCXUzMiBkb21haW47Cj4gICAJaW50IHI7Cj4g
-ICAKPiArCS8qCj4gKwkgKiBUaGUgYnVmZmVyIHJldHVybmVkIGZyb20gdGhpcyBmdW5jdGlvbiBz
-aG91bGQgYmUgY2xlYXJlZCwgYnV0Cj4gKwkgKiBpdCBjYW4gb25seSBiZSBkb25lIGlmIHRoZSBy
-aW5nIGlzIGVuYWJsZWQgb3Igd2UnbGwgZmFpbCB0bwo+ICsJICogY3JlYXRlIHRoZSBidWZmZXIu
-Cj4gKwkgKi8KPiArCWlmIChhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19lbmFibGVkKQo+ICsJCWZs
-YWdzIHw9IEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ0xFQVJFRDsKPiArCj4gICAJYXJncy0+cGl0
-Y2ggPSBhbWRncHVfYWxpZ25fcGl0Y2goYWRldiwgYXJncy0+d2lkdGgsCj4gICAJCQkJCSBESVZf
-Uk9VTkRfVVAoYXJncy0+YnBwLCA4KSwgMCk7Cj4gICAJYXJncy0+c2l6ZSA9ICh1NjQpYXJncy0+
-cGl0Y2ggKiBhcmdzLT5oZWlnaHQ7Cj4gICAJYXJncy0+c2l6ZSA9IEFMSUdOKGFyZ3MtPnNpemUs
-IFBBR0VfU0laRSk7Cj4gICAJZG9tYWluID0gYW1kZ3B1X2JvX2dldF9wcmVmZXJyZWRfcGluX2Rv
-bWFpbihhZGV2LAo+ICAgCQkJCWFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zKGFkZXYp
-KTsKPiAtCXIgPSBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUoYWRldiwgYXJncy0+c2l6ZSwgMCwg
-ZG9tYWluLAo+IC0JCQkJICAgICBBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVE
-IHwKPiAtCQkJCSAgICAgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9DTEVBUkVELAo+ICsJciA9IGFt
-ZGdwdV9nZW1fb2JqZWN0X2NyZWF0ZShhZGV2LCBhcmdzLT5zaXplLCAwLCBkb21haW4sIGZsYWdz
-LAo+ICAgCQkJCSAgICAgdHRtX2JvX3R5cGVfZGV2aWNlLCBOVUxMLCAmZ29iaik7Cj4gICAJaWYg
-KHIpCj4gICAJCXJldHVybiAtRU5PTUVNOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+Hello,
+
+This series fixes the slow down in performance introduced by
+"[PATCH v2] drm: Block fb changes for async plane updates" where async update
+falls back to a sync update, causing igt failures of type:
+
+    "CRITICAL: completed 97 cursor updated in a period of 30 flips, we
+    expect to complete approximately 15360 updates, with the threshold set
+    at 7680"
+
+Please read the commit message of "drm: don't block fb changes for async
+plane updates" to understand how it works.
+
+I tested on the rockchip, on i915 and on vc4 with igt plane_cursor_legacy and
+kms_cursor_legacy and I didn't see any regressions.
+
+I couldn't test on MSM and AMD because I don't have the hardware
+I would appreciate if anyone could help me testing those.
+
+v1 link: https://patchwork.kernel.org/cover/10837847/
+
+Thanks!
+Helen
+
+Changes in v2:
+- added reviewed-by tag
+- update CC stable and Fixes tag
+- Added reviewed-by tag
+- updated CC stable and Fixes tag
+- Change the order of the patch in the series, add this as the last one.
+- Add documentation
+- s/ballanced/balanced
+
+Helen Koike (5):
+  drm/rockchip: fix fb references in async update
+  drm/amd: fix fb references in async update
+  drm/msm: fix fb references in async update
+  drm/vc4: fix fb references in async update
+  drm: don't block fb changes for async plane updates
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  3 +-
+ drivers/gpu/drm/drm_atomic_helper.c           | 20 ++++-----
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    |  4 ++
+ drivers/gpu/drm/rockchip/rockchip_drm_vop.c   | 42 +++++++++++--------
+ drivers/gpu/drm/vc4/vc4_plane.c               |  2 +-
+ include/drm/drm_modeset_helper_vtables.h      |  5 +++
+ 6 files changed, 45 insertions(+), 31 deletions(-)
+
+-- 
+2.20.1
