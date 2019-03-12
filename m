@@ -1,14 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: add new ras workflow control flags
-Date: Tue, 12 Mar 2019 13:48:54 +0000
-Message-ID: <BN6PR12MB18090A9389F9E242E356B09EF7490@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <SN6PR12MB280047D0F0E06E88C28F7D4387490@SN6PR12MB2800.namprd12.prod.outlook.com>
+From: Harinath Reddy <harinath428-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: will xf86-video-amdgpu is capable to drive AMD readeon Pro wx2100
+Date: Tue, 12 Mar 2019 19:32:33 +0530
+Message-ID: <CAPLU1JiSujTrdXsRGzZd0c2=icVckZO4Ejg6uMXXaM3LRKp_4Q@mail.gmail.com>
+References: <CAPLU1JgPzbw4rf5gACmB1muk=aPdP7Dft1C3zvf3oCdk4uVimQ@mail.gmail.com>
+ <f4a8e262-ce12-9e73-50c4-4099cd5eeee7@daenzer.net>
+ <c19688e9-6da9-cf1b-2a3e-e1b804457b93@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0963466381=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <SN6PR12MB280047D0F0E06E88C28F7D4387490-kxOKjb6HO/EqkY47FTA1ogdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <c19688e9-6da9-cf1b-2a3e-e1b804457b93-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,90 +19,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZyb206IFBhbiwgWGluaHVpIDxYaW5odWku
-UGFuQGFtZC5jb20+Cj4gU2VudDogVHVlc2RheSwgTWFyY2ggMTIsIDIwMTkgNjoxNCBBTQo+IFRv
-OiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIg
-PEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBRdWFuLCBFdmFuCj4gPEV2YW4uUXVhbkBhbWQu
-Y29tPjsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4KPiBTdWJqZWN0OiBb
-UEFUQ0ggMi8yXSBkcm0vYW1kZ3B1OiBhZGQgbmV3IHJhcyB3b3JrZmxvdyBjb250cm9sIGZsYWdz
-Cj4gCj4gYWRkIHJhcyBwb3N0IGluaXQgZnVuY3Rpb24uCj4gRG8gc29tZSBpbml0aWFsaXphdGlv
-biBhZnRlciBhbGwgSVAgaGF2ZSBmaW5pc2hlZCB0aGVpciBsYXRlIGluaXQuCj4gCj4gQWRkIG5l
-dyBtZW1iZXIgZmxhZ3Mgd2hpY2ggd2lsbCBjb250cm9sIHRoZSByYXMgd29yayBmbG93Lgo+IEZv
-ciBub3csIHZiaW9zIGVuYWJsZSByYXMgZm9yIHVzIG9uIGJvb3QuIFRoYXQgbWlnaHQgY2hhbmdl
-IGluIHRoZSBmdXR1cmUuCj4gU28gdGhlcmUgc2hvdWxkIGJlIGEgZmxhZyBmcm9tIHZiaW9zIHRv
-IHRlbGwgdXMgaWYgcmFzIGlzIGVuYWJsZWQgb3Igbm90IG9uIGJvb3QuCj4gTG9va3MgbGlrZSB0
-aGVyZSBpcyBubyBzdWNoIGluZm8gbm93Lgo+IAo+IE90aGVyIGJpdHMgb2YgdGhlIGZsYWdzIGFy
-ZSByZXNlcnZlZCB0byBjb250cm9sIG90aGVyIHBhcnRzIG9mIHJhcy4KPiAKPiBTaWduZWQtb2Zm
-LWJ5OiB4aW5odWkgcGFuIDx4aW5odWkucGFuQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICAzICsrCj4gIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyAgICB8IDM0Cj4gKysrKysrKysrKysrKysrKysrKysr
-LQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmggICAgfCAgMyArKwo+
-ICAzIGZpbGVzIGNoYW5nZWQsIDM5IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiAKPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCAyOWM0
-NGEyZWFiY2YuLjk1Y2QzYjc4ODZmZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGV2aWNlLmMKPiBAQCAtMjcwNyw2ICsyNzA3LDkgQEAgaW50IGFtZGdwdV9kZXZp
-Y2VfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZQo+ICphZGV2LAo+ICAJCWdvdG8gZmFpbGVkOwo+
-ICAJfQo+IAo+ICsJLyogbXVzdCBzdWNjZWVkLiAqLwo+ICsJYW1kZ3B1X3Jhc19wb3N0X2luaXQo
-YWRldik7Cj4gKwo+ICAJcmV0dXJuIDA7Cj4gCj4gIGZhaWxlZDoKPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4gYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKPiBpbmRleCAxMGNlNDBkMmMwNDAuLjIzOGI0NmMzMDRj
-YyAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMK
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKPiBAQCAtMTE4
-LDYgKzExOCwxMSBAQCBjb25zdCBjaGFyICpyYXNfYmxvY2tfc3RyaW5nW10gPSB7ICAjZGVmaW5l
-Cj4gcmFzX2Vycl9zdHIoaSkgKHJhc19lcnJvcl9zdHJpbmdbZmZzKGkpXSkgICNkZWZpbmUgcmFz
-X2Jsb2NrX3N0cihpKQo+IChyYXNfYmxvY2tfc3RyaW5nW2ldKQo+IAo+ICtlbnVtIGFtZGdwdV9y
-YXNfZmxhZ3Mgewo+ICsJQU1ER1BVX1JBU19GTEFHX0lOSVRfQllfVkJJT1MgPSAxLAo+ICt9Owo+
-ICsjZGVmaW5lIFJBU19ERUZBVUxUX0ZMQUdTIChBTURHUFVfUkFTX0ZMQUdfSU5JVF9CWV9WQklP
-UykKPiArCgpNb3ZlIHRoaXMgZW51bSB0byBhbWRncHVfcmFzLmg/ICBBbHRob3VnaCBpZiB5b3Ug
-YXJlIGdvaW5nIHRvIGJlIHVzaW5nIHRoaXMgYXMgZmxhZ3MsIG1heWJlIGRlZmluZXMgd291bGQg
-YmUgYmV0dGVyLgoKPiAgc3RhdGljIHZvaWQgYW1kZ3B1X3Jhc19zZWxmX3Rlc3Qoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpICB7Cj4gIAkvKiBUT0RPICovCj4gQEAgLTEzODcsMTMgKzEzOTIs
-MTYgQEAgaW50IGFtZGdwdV9yYXNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZQo+ICphZGV2KQo+
-ICAJCQkmY29uLT5zdXBwb3J0ZWQpOwo+ICAJY29uLT5mZWF0dXJlcyA9IDA7Cj4gIAlJTklUX0xJ
-U1RfSEVBRCgmY29uLT5oZWFkKTsKPiArCS8qIE1pZ2h0IG5lZWQgZ2V0IHRoaXMgZmxhZyBmcm9t
-IHZiaW9zLiAqLwo+ICsJY29uLT5mbGFncyA9IFJBU19ERUZBVUxUX0ZMQUdTOwo+IAo+ICAJaWYg
-KGFtZGdwdV9yYXNfcmVjb3ZlcnlfaW5pdChhZGV2KSkKPiAgCQlnb3RvIHJlY292ZXJ5X291dDsK
-PiAKPiAgCWFtZGdwdV9yYXNfbWFzayAmPSBBTURHUFVfUkFTX0JMT0NLX01BU0s7Cj4gCj4gLQlh
-bWRncHVfcmFzX2VuYWJsZV9hbGxfZmVhdHVyZXMoYWRldiwgMSk7Cj4gKwlpZiAoY29uLT5mbGFn
-cyAmIEFNREdQVV9SQVNfRkxBR19JTklUX0JZX1ZCSU9TKQo+ICsJCWFtZGdwdV9yYXNfZW5hYmxl
-X2FsbF9mZWF0dXJlcyhhZGV2LCAxKTsKPiAKPiAgCWlmIChhbWRncHVfcmFzX2ZzX2luaXQoYWRl
-dikpCj4gIAkJZ290byBmc19vdXQ7Cj4gQEAgLTE0MTMsNiArMTQyMSwzMCBAQCBpbnQgYW1kZ3B1
-X3Jhc19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlCj4gKmFkZXYpCj4gIAlyZXR1cm4gLUVJTlZB
-TDsKPiAgfQo+IAo+ICsvKiBkbyBzb21lIGluaXQgd29yayBhZnRlciBJUCBsYXRlIGluaXQgYXMg
-ZGVwZW5kZW5jZSAqLyB2b2lkCj4gK2FtZGdwdV9yYXNfcG9zdF9pbml0KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2KSB7Cj4gKwlzdHJ1Y3QgYW1kZ3B1X3JhcyAqY29uID0gYW1kZ3B1X3Jhc19n
-ZXRfY29udGV4dChhZGV2KTsKPiArCXN0cnVjdCByYXNfbWFuYWdlciAqb2JqLCAqdG1wOwo+ICsK
-PiArCWlmICghY29uKQo+ICsJCXJldHVybjsKPiArCj4gKwkvKiBXZSBlbmFibGUgcmFzIG9uIGFs
-bCBod19zdXBwb3J0ZWQgYmxvY2ssIGJ1dCBhcyBib290IHBhcmFtZXRlcgo+IG1pZ2h0Cj4gKwkg
-KiBkaXNhYmxlIHNvbWUgb2YgdGhlbSBhbmQgb25lIG9yIG1vcmUgSVAgaGFzIG5vdCBpbXBsZW1l
-bnRlZAo+IHlldC4KPiArCSAqIFNvIHdlIGRpc2FibGUgdGhlbSBvbiBiZWhhbGYuCj4gKwkgKi8K
-PiArCWlmIChjb24tPmZsYWdzICYgQU1ER1BVX1JBU19GTEFHX0lOSVRfQllfVkJJT1MpIHsKPiAr
-CQlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUob2JqLCB0bXAsICZjb24tPmhlYWQsIG5vZGUpIHsK
-PiArCQkJaWYgKCFhbWRncHVfcmFzX2lzX3N1cHBvcnRlZChhZGV2LCBvYmotCj4gPmhlYWQuYmxv
-Y2spKSB7Cj4gKwkJCQlhbWRncHVfcmFzX2ZlYXR1cmVfZW5hYmxlKGFkZXYsICZvYmotCj4gPmhl
-YWQsIDApOwo+ICsJCQkJLyogdGhlcmUgc2hvdWxkIGJlIG5vIGFueSByZWZlcmVuY2UuICovCj4g
-KwkJCQlXQVJOX09OKGFsaXZlX29iaihvYmopKTsKPiArCQkJfQo+ICsJCX07Cj4gKwl9Cj4gK30K
-PiArCj4gIC8qIGRvIHNvbWUgZmluaSB3b3JrIGJlZm9yZSBJUCBmaW5pIGFzIGRlcGVuZGVuY2Ug
-Ki8gIGludAo+IGFtZGdwdV9yYXNfcHJlX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-ICB7IGRpZmYgLS1naXQKPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMu
-aAo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oCj4gaW5kZXggMmI2
-MDc3NzYyYjkxLi43YTM1MzE2YmFhYjAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3Jhcy5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3Jhcy5oCj4gQEAgLTEwMyw2ICsxMDMsOCBAQCBzdHJ1Y3QgYW1kZ3B1X3JhcyB7Cj4g
-IAkvKiBlcnJvciBoYW5kbGVyIGRhdGEgKi8KPiAgCXN0cnVjdCByYXNfZXJyX2hhbmRsZXJfZGF0
-YSAqZWhfZGF0YTsKPiAgCXN0cnVjdCBtdXRleCByZWNvdmVyeV9sb2NrOwo+ICsKPiArCXVpbnQz
-Ml90IGZsYWdzOwo+ICB9Owo+IAo+ICAvKiBpbnRlcmZhY2VzIGZvciBJUCAqLwo+IEBAIC0xOTcs
-NiArMTk5LDcgQEAgc3RhdGljIGlubGluZSBpbnQgYW1kZ3B1X3Jhc19yZXNldF9ncHUoc3RydWN0
-Cj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPiAKPiAgLyogY2FsbGVkIGluIGlwX2luaXQgYW5kIGlw
-X2ZpbmkgKi8KPiAgaW50IGFtZGdwdV9yYXNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dik7Cj4gK3ZvaWQgYW1kZ3B1X3Jhc19wb3N0X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpOwo+ICBpbnQgYW1kZ3B1X3Jhc19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsg
-IGludAo+IGFtZGdwdV9yYXNfcHJlX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+
-IAo+IC0tCj4gMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0963466381==
+Content-Type: multipart/alternative; boundary="000000000000c24c1c0583e6240f"
+
+--000000000000c24c1c0583e6240f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hope it is different from xorg-video-radeon/hd  driver which is not require
+any kernel component to drive the FireMV2250 card, except card
+initialization( ATOMBIOS run from the HP-UX kernel on behalf of the xf86
+request ).
+
+If it is tightly coupled with amdgpu  kernel module, and it is again depend
+on the linux kernel drm module. HP-UX is not using the drm facilities as i
+am aware , so is that possible to port to hp-ux.
+
+
+Thanks and Regards,
+Harinath
+
+On Tue, Mar 12, 2019 at 2:37 PM Christian K=C3=B6nig <
+ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org> wrote:
+
+> Am 12.03.19 um 09:35 schrieb Michel D=C3=A4nzer:
+> > On 2019-03-12 4:14 a.m., Harinath Reddy wrote:
+> >> Hi,
+> >>
+> >> Present we are using the radeon HD driver from xorg to driver
+> AMDFirMV2250
+> >> card. We would like to replace AMD FireMV2250 with AMD Radeon Pro Wx21=
+00
+> >> card.
+> >>
+> >> I saw xf86-video-amdgpu xorg driver is available, but we are not sure
+> >> whether that would be sufficient or not, if not what else require to
+> use
+> >> that card.  If you can help that  would be great
+> >> I am naive to the graphics world .
+> >>
+> >>
+> >> We are using HP_UX operating system, Xserver (Xfree86) is  as a
+> graphics
+> >> server.
+> > xf86-video-amdgpu requires the amdgpu kernel driver. Assuming the latte=
+r
+> > is working with your card, the former will work (as well as the generic
+> > modesetting Xorg driver).
+>
+> To answer the original question a bit more direct: The amdgpu kernel
+> driver is NOT available for HP_UX.
+>
+> Regards,
+> Christian.
+>
+
+--000000000000c24c1c0583e6240f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hope it is different from xorg-video-radeon/hd=C2=A0 drive=
+r which is not require any kernel component to drive the FireMV2250 card, e=
+xcept card initialization( ATOMBIOS run from the HP-UX kernel on behalf of =
+the xf86 request ).=C2=A0<div><br></div><div>If it is tightly coupled with =
+amdgpu=C2=A0 kernel module, and it is again depend on the linux kernel drm =
+module. HP-UX is not using the drm facilities as i am aware , so is that po=
+ssible to port to hp-ux.</div><div><br></div><div><br></div><div>Thanks and=
+ Regards,</div><div>Harinath</div></div><br><div class=3D"gmail_quote"><div=
+ dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 12, 2019 at 2:37 PM Christian=
+ K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">ckoenig=
+.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">Am 12.03.19 um 09:35 schrieb Michel D=C3=A4nzer:<b=
+r>
+&gt; On 2019-03-12 4:14 a.m., Harinath Reddy wrote:<br>
+&gt;&gt; Hi,<br>
+&gt;&gt;<br>
+&gt;&gt; Present we are using the radeon HD driver from xorg to driver AMDF=
+irMV2250<br>
+&gt;&gt; card. We would like to replace AMD FireMV2250 with AMD Radeon Pro =
+Wx2100<br>
+&gt;&gt; card.<br>
+&gt;&gt;<br>
+&gt;&gt; I saw xf86-video-amdgpu xorg driver is available, but we are not s=
+ure<br>
+&gt;&gt; whether that would be sufficient or not, if not what else require =
+to=C2=A0 use<br>
+&gt;&gt; that card.=C2=A0 If you can help that=C2=A0 would be great<br>
+&gt;&gt; I am naive to the graphics world .<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; We are using HP_UX operating system, Xserver (Xfree86) is=C2=A0 as=
+ a=C2=A0 graphics<br>
+&gt;&gt; server.<br>
+&gt; xf86-video-amdgpu requires the amdgpu kernel driver. Assuming the latt=
+er<br>
+&gt; is working with your card, the former will work (as well as the generi=
+c<br>
+&gt; modesetting Xorg driver).<br>
+<br>
+To answer the original question a bit more direct: The amdgpu kernel <br>
+driver is NOT available for HP_UX.<br>
+<br>
+Regards,<br>
+Christian.<br>
+</blockquote></div>
+
+--000000000000c24c1c0583e6240f--
+
+--===============0963466381==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0963466381==--
