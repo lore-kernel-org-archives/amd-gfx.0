@@ -1,123 +1,74 @@
-From: Chunming Zhou <david1.zhou@amd.com>
-Subject: [PATCH 8/9] drm/syncobj: add timeline signal ioctl for syncobj v3
-Date: Tue, 12 Mar 2019 11:10:48 +0800
-Message-ID: <20190312031049.23647-8-david1.zhou@amd.com>
-References: <20190312031049.23647-1-david1.zhou@amd.com>
+From: Harinath Reddy <harinath428-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: will xf86-video-amdgpu is capable to drive AMD readeon Pro wx2100
+Date: Tue, 12 Mar 2019 08:44:49 +0530
+Message-ID: <CAPLU1JgPzbw4rf5gACmB1muk=aPdP7Dft1C3zvf3oCdk4uVimQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190312031049.23647-1-david1.zhou@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, lionel.g.landwerlin@intel.com, jason@jlekstrand.net, Christian.Koenig@amd.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1746555066=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-djI6IGluZGl2aWR1YWxseSBhbGxvY2F0ZSBjaGFpbiBhcnJheSwgc2luY2UgY2hhaW4gbm9kZSBp
-cyBmcmVlIGluZGVwZW5kZW50bHkuCnYzOiBhbGwgZXhpc3RpbmcgcG9pbnRzIG11c3QgYmUgYWxy
-ZWFkeSBzaWduYWxlZCBiZWZvcmUgY3B1IHBlcmZvcm0gc2lnbmFsIG9wZXJhdGlvbiwKICAgIHNv
-IGFkZCBjaGVjayBjb25kaXRpb24gZm9yIHRoYXQuCgpTaWduZWQtb2ZmLWJ5OiBDaHVubWluZyBa
-aG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9kcm1faW50ZXJu
-YWwuaCB8ICAgMiArCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMgICAgfCAgIDIgKwogZHJp
-dmVycy9ncHUvZHJtL2RybV9zeW5jb2JqLmMgIHwgMTAzICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKwogaW5jbHVkZS91YXBpL2RybS9kcm0uaCAgICAgICAgIHwgICAxICsKIDQgZmls
-ZXMgY2hhbmdlZCwgMTA4IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2ludGVybmFsLmggYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2ludGVybmFsLmgKaW5kZXgg
-ZGQxMWFlNWYxZWVmLi5kOWE0ODNhNWZjZTAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9k
-cm1faW50ZXJuYWwuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2ludGVybmFsLmgKQEAgLTE5
-MCw2ICsxOTAsOCBAQCBpbnQgZHJtX3N5bmNvYmpfcmVzZXRfaW9jdGwoc3RydWN0IGRybV9kZXZp
-Y2UgKmRldiwgdm9pZCAqZGF0YSwKIAkJCSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0
-ZSk7CiBpbnQgZHJtX3N5bmNvYmpfc2lnbmFsX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-IHZvaWQgKmRhdGEsCiAJCQkgICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9wcml2YXRlKTsKK2lu
-dCBkcm1fc3luY29ial90aW1lbGluZV9zaWduYWxfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRl
-diwgdm9pZCAqZGF0YSwKKwkJCQkgICAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7
-CiBpbnQgZHJtX3N5bmNvYmpfcXVlcnlfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9p
-ZCAqZGF0YSwKIAkJCSAgICBzdHJ1Y3QgZHJtX2ZpbGUgKmZpbGVfcHJpdmF0ZSk7CiAKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1faW9jdGwuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1f
-aW9jdGwuYwppbmRleCA5MmIzYjdiMmZkODEuLmQzMzdmMTYxOTA5YyAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1faW9jdGwu
-YwpAQCAtNjk2LDYgKzY5Niw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2lvY3RsX2Rlc2Mg
-ZHJtX2lvY3Rsc1tdID0gewogCQkgICAgICBEUk1fVU5MT0NLRUR8RFJNX1JFTkRFUl9BTExPVyks
-CiAJRFJNX0lPQ1RMX0RFRihEUk1fSU9DVExfU1lOQ09CSl9TSUdOQUwsIGRybV9zeW5jb2JqX3Np
-Z25hbF9pb2N0bCwKIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxMT1cpLAorCURS
-TV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1NZTkNPQkpfVElNRUxJTkVfU0lHTkFMLCBkcm1fc3luY29i
-al90aW1lbGluZV9zaWduYWxfaW9jdGwsCisJCSAgICAgIERSTV9VTkxPQ0tFRHxEUk1fUkVOREVS
-X0FMTE9XKSwKIAlEUk1fSU9DVExfREVGKERSTV9JT0NUTF9TWU5DT0JKX1FVRVJZLCBkcm1fc3lu
-Y29ial9xdWVyeV9pb2N0bCwKIAkJICAgICAgRFJNX1VOTE9DS0VEfERSTV9SRU5ERVJfQUxMT1cp
-LAogCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX0NSVENfR0VUX1NFUVVFTkNFLCBkcm1fY3J0Y19n
-ZXRfc2VxdWVuY2VfaW9jdGwsIERSTV9VTkxPQ0tFRCksCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vZHJtX3N5bmNvYmouYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fc3luY29iai5jCmluZGV4
-IGYxZDE4ZDEwZDFmMi4uNzhmYzFjMDI5MzM5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-ZHJtX3N5bmNvYmouYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5bmNvYmouYwpAQCAtMTE3
-NCw2ICsxMTc0LDEwOSBAQCBkcm1fc3luY29ial9zaWduYWxfaW9jdGwoc3RydWN0IGRybV9kZXZp
-Y2UgKmRldiwgdm9pZCAqZGF0YSwKIAlyZXR1cm4gcmV0OwogfQogCitpbnQKK2RybV9zeW5jb2Jq
-X3RpbWVsaW5lX3NpZ25hbF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCB2b2lkICpkYXRh
-LAorCQkJCSAgc3RydWN0IGRybV9maWxlICpmaWxlX3ByaXZhdGUpCit7CisJc3RydWN0IGRybV9z
-eW5jb2JqX3RpbWVsaW5lX2FycmF5ICphcmdzID0gZGF0YTsKKwlzdHJ1Y3QgZHJtX3N5bmNvYmog
-KipzeW5jb2JqczsKKwlzdHJ1Y3QgZG1hX2ZlbmNlX2NoYWluICoqY2hhaW5zOworCXVpbnQ2NF90
-ICpwb2ludHM7CisJdWludDMyX3QgaSwgaiwgdGltZWxpbmVfY291bnQgPSAwOworCWludCByZXQ7
-CisKKwlpZiAoIWRybV9jb3JlX2NoZWNrX2ZlYXR1cmUoZGV2LCBEUklWRVJfU1lOQ09CSikpCisJ
-CXJldHVybiAtRU9QTk9UU1VQUDsKKworCWlmIChhcmdzLT5wYWQgIT0gMCkKKwkJcmV0dXJuIC1F
-SU5WQUw7CisKKwlpZiAoYXJncy0+Y291bnRfaGFuZGxlcyA9PSAwKQorCQlyZXR1cm4gLUVJTlZB
-TDsKKworCXJldCA9IGRybV9zeW5jb2JqX2FycmF5X2ZpbmQoZmlsZV9wcml2YXRlLAorCQkJCSAg
-ICAgdTY0X3RvX3VzZXJfcHRyKGFyZ3MtPmhhbmRsZXMpLAorCQkJCSAgICAgYXJncy0+Y291bnRf
-aGFuZGxlcywKKwkJCQkgICAgICZzeW5jb2Jqcyk7CisJaWYgKHJldCA8IDApCisJCXJldHVybiBy
-ZXQ7CisKKwlmb3IgKGkgPSAwOyBpIDwgYXJncy0+Y291bnRfaGFuZGxlczsgaSsrKSB7CisJCXN0
-cnVjdCBkbWFfZmVuY2VfY2hhaW4gKmNoYWluOworICAgICAgICAgICAgICAgIHN0cnVjdCBkbWFf
-ZmVuY2UgKmZlbmNlOworCisgICAgICAgICAgICAgICAgZmVuY2UgPSBkcm1fc3luY29ial9mZW5j
-ZV9nZXQoc3luY29ianNbaV0pOworICAgICAgICAgICAgICAgIGNoYWluID0gdG9fZG1hX2ZlbmNl
-X2NoYWluKGZlbmNlKTsKKyAgICAgICAgICAgICAgICBpZiAoY2hhaW4pIHsKKyAgICAgICAgICAg
-ICAgICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKml0ZXI7CisKKyAgICAgICAgICAgICAgICAg
-ICAgICAgIGRtYV9mZW5jZV9jaGFpbl9mb3JfZWFjaChpdGVyLCBmZW5jZSkgeworICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBpZiAoIWl0ZXIpCisgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgYnJlYWs7CisJCQkJaWYgKCFkbWFfZmVuY2VfaXNfc2lnbmFsZWQo
-aXRlcikpIHsKKwkJCQkJZG1hX2ZlbmNlX3B1dChpdGVyKTsKKwkJCQkJRFJNX0VSUk9SKCJDbGll
-bnQgbXVzdCBndWFyYW50ZWUgYWxsIGV4aXN0aW5nIHRpbWVsaW5lIHBvaW50cyBzaWduYWxlZCBi
-ZWZvcmUgcGVyZm9ybWluZyBob3N0IHNpZ25hbCBvcGVyYXRpb24hIik7CisJCQkJCXJldCA9IC1F
-UEVSTTsKKwkJCQkJZ290byBvdXQ7CisJCQkJfQorICAgICAgICAgICAgICAgICAgICAgICAgfQor
-ICAgICAgICAgICAgICAgIH0KKyAgICAgICAgfQorCisJcG9pbnRzID0ga21hbGxvY19hcnJheShh
-cmdzLT5jb3VudF9oYW5kbGVzLCBzaXplb2YoKnBvaW50cyksCisJCQkgICAgICAgR0ZQX0tFUk5F
-TCk7CisJaWYgKCFwb2ludHMpIHsKKwkJcmV0ID0gLUVOT01FTTsKKwkJZ290byBvdXQ7CisJfQor
-CWlmICghdTY0X3RvX3VzZXJfcHRyKGFyZ3MtPnBvaW50cykpIHsKKwkJbWVtc2V0KHBvaW50cywg
-MCwgYXJncy0+Y291bnRfaGFuZGxlcyAqIHNpemVvZih1aW50NjRfdCkpOworCX0gZWxzZSBpZiAo
-Y29weV9mcm9tX3VzZXIocG9pbnRzLCB1NjRfdG9fdXNlcl9wdHIoYXJncy0+cG9pbnRzKSwKKwkJ
-CQkgIHNpemVvZih1aW50NjRfdCkgKiBhcmdzLT5jb3VudF9oYW5kbGVzKSkgeworCQlyZXQgPSAt
-RUZBVUxUOworCQlnb3RvIGVycl9wb2ludHM7CisJfQorCisKKwlmb3IgKGkgPSAwOyBpIDwgYXJn
-cy0+Y291bnRfaGFuZGxlczsgaSsrKSB7CisJCWlmIChwb2ludHNbaV0pCisJCQl0aW1lbGluZV9j
-b3VudCsrOworCX0KKwljaGFpbnMgPSBrbWFsbG9jX2FycmF5KHRpbWVsaW5lX2NvdW50LCBzaXpl
-b2Yodm9pZCAqKSwgR0ZQX0tFUk5FTCk7CisJaWYgKCFjaGFpbnMpIHsKKwkJcmV0ID0gLUVOT01F
-TTsKKwkJZ290byBlcnJfcG9pbnRzOworCX0KKwlmb3IgKGkgPSAwOyBpIDwgdGltZWxpbmVfY291
-bnQ7IGkrKykgeworCQljaGFpbnNbaV0gPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgZG1hX2ZlbmNl
-X2NoYWluKSwgR0ZQX0tFUk5FTCk7CisJCWlmICghY2hhaW5zW2ldKSB7CisJCQlmb3IgKGogPSAw
-OyBqIDwgaTsgaisrKQorCQkJCWtmcmVlKGNoYWluc1tqXSk7CisJCQlyZXQgPSAtRU5PTUVNOwor
-CQkJZ290byBlcnJfY2hhaW5zOworCQl9CisJfQorCisJZm9yIChpID0gMCwgaiA9IDA7IGkgPCBh
-cmdzLT5jb3VudF9oYW5kbGVzOyBpKyspIHsKKwkJaWYgKHBvaW50c1tpXSkgeworCQkJc3RydWN0
-IGRtYV9mZW5jZSAqZmVuY2UgPSBkbWFfZmVuY2VfZ2V0X3N0dWIoKTsKKworCQkJZHJtX3N5bmNv
-YmpfYWRkX3BvaW50KHN5bmNvYmpzW2ldLCBjaGFpbnNbaisrXSwKKwkJCQkJICAgICAgZmVuY2Us
-IHBvaW50c1tpXSk7CisJCQlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKKwkJfSBlbHNlCisJCQlkcm1f
-c3luY29ial9hc3NpZ25fbnVsbF9oYW5kbGUoc3luY29ianNbaV0pOworCX0KK2Vycl9jaGFpbnM6
-CisJa2ZyZWUoY2hhaW5zKTsKK2Vycl9wb2ludHM6CisJa2ZyZWUocG9pbnRzKTsKK291dDoKKwlk
-cm1fc3luY29ial9hcnJheV9mcmVlKHN5bmNvYmpzLCBhcmdzLT5jb3VudF9oYW5kbGVzKTsKKwor
-CXJldHVybiByZXQ7Cit9CisKIGludCBkcm1fc3luY29ial9xdWVyeV9pb2N0bChzdHJ1Y3QgZHJt
-X2RldmljZSAqZGV2LCB2b2lkICpkYXRhLAogCQkJICAgIHN0cnVjdCBkcm1fZmlsZSAqZmlsZV9w
-cml2YXRlKQogewpkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9kcm0uaCBiL2luY2x1ZGUv
-dWFwaS9kcm0vZHJtLmgKaW5kZXggNGMxZTJlNjU3OWZhLi5mZTAwYjc0MjY4ZWIgMTAwNjQ0Ci0t
-LSBhL2luY2x1ZGUvdWFwaS9kcm0vZHJtLmgKKysrIGIvaW5jbHVkZS91YXBpL2RybS9kcm0uaApA
-QCAtOTQzLDYgKzk0Myw3IEBAIGV4dGVybiAiQyIgewogI2RlZmluZSBEUk1fSU9DVExfU1lOQ09C
-Sl9USU1FTElORV9XQUlUCURSTV9JT1dSKDB4Q0EsIHN0cnVjdCBkcm1fc3luY29ial90aW1lbGlu
-ZV93YWl0KQogI2RlZmluZSBEUk1fSU9DVExfU1lOQ09CSl9RVUVSWQkJRFJNX0lPV1IoMHhDQiwg
-c3RydWN0IGRybV9zeW5jb2JqX3RpbWVsaW5lX2FycmF5KQogI2RlZmluZSBEUk1fSU9DVExfU1lO
-Q09CSl9UUkFOU0ZFUglEUk1fSU9XUigweENDLCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdHJhbnNmZXIp
-CisjZGVmaW5lIERSTV9JT0NUTF9TWU5DT0JKX1RJTUVMSU5FX1NJR05BTAlEUk1fSU9XUigweENE
-LCBzdHJ1Y3QgZHJtX3N5bmNvYmpfdGltZWxpbmVfYXJyYXkpCiAKIC8qKgogICogRGV2aWNlIHNw
-ZWNpZmljIGlvY3RscyBzaG91bGQgb25seSBiZSBpbiB0aGVpciByZXNwZWN0aXZlIGhlYWRlcnMK
-LS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+--===============1746555066==
+Content-Type: multipart/alternative; boundary="0000000000003141ac0583dd184f"
+
+--0000000000003141ac0583dd184f
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+Present we are using the radeon HD driver from xorg to driver AMDFirMV2250
+card. We would like to replace AMD FireMV2250 with AMD Radeon Pro Wx2100
+card.
+
+I saw xf86-video-amdgpu xorg driver is available, but we are not sure
+whether that would be sufficient or not, if not what else require to  use
+that card.  If you can help that  would be great
+I am naive to the graphics world .
+
+
+We are using HP_UX operating system, Xserver (Xfree86) is  as a  graphics
+server.
+
+Looking forward to hearing from you.
+
+Thanks,
+Harianth
+
+--0000000000003141ac0583dd184f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>Present we are using the radeon HD =
+driver from xorg to driver AMDFirMV2250 card. We would like to replace AMD =
+FireMV2250 with AMD Radeon Pro Wx2100 card.</div><div><br></div><div>I saw =
+xf86-video-amdgpu xorg driver is available, but we are not sure whether tha=
+t would be sufficient or not, if not what else require to=C2=A0=C2=A0use th=
+at card.=C2=A0 If you can help that=C2=A0=C2=A0would be great=C2=A0=C2=A0</=
+div><div>I am naive to the graphics world .</div><div><br></div><div><br></=
+div><div>We are using HP_UX operating system, Xserver (Xfree86) is=C2=A0 as=
+ a=C2=A0 graphics server.</div><div><br></div><div>Looking forward to=C2=A0=
+hearing from you.</div><div><br></div><div>Thanks,<br></div><div>Harianth</=
+div><div><br></div></div>
+
+--0000000000003141ac0583dd184f--
+
+--===============1746555066==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1746555066==--
