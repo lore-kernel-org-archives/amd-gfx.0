@@ -1,142 +1,219 @@
-From: Helen Koike <helen.koike@collabora.com>
-Subject: [PATCH v2 5/5] drm: don't block fb changes for async plane updates
-Date: Mon, 11 Mar 2019 23:22:03 -0300
-Message-ID: <20190312022204.2775-6-helen.koike@collabora.com>
-References: <20190312022204.2775-1-helen.koike@collabora.com>
+From: Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/9] dma-buf: add new dma_fence_chain container v5
+Date: Tue, 12 Mar 2019 11:10:41 +0800
+Message-ID: <20190312031049.23647-1-david1.zhou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190312022204.2775-1-helen.koike@collabora.com>
-Sender: stable-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com
-Cc: andrey.grodzovsky@amd.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, boris.brezillon@collabora.com, David Airlie <airlied@linux.ie>, Sean Paul <seanpaul@google.com>, kernel@collabora.com, harry.wentland@amd.com, =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@google.com>, Helen Koike <helen.koike@collabora.com>, stable@vger.kernel.org, Sean Paul <sean@poorly.run>, Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org, linux-arm-msm@vger.kernel.org, eric@anholt.net, robdclark@gmail.com, amd-gfx@lists.freedesktop.org, =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org, linux-arm-ker
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, lionel.g.landwerlin-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-In the case of a normal sync update, the preparation of framebuffers (be
-it calling drm_atomic_helper_prepare_planes() or doing setups with
-drm_framebuffer_get()) are performed in the new_state and the respective
-cleanups are performed in the old_state.
-
-In the case of async updates, the preparation is also done in the
-new_state but the cleanups are done in the new_state (because updates
-are performed in place, i.e. in the current state).
-
-The current code blocks async udpates when the fb is changed, turning
-async updates into sync updates, slowing down cursor updates and
-introducing regressions in igt tests with errors of type:
-
-"CRITICAL: completed 97 cursor updated in a period of 30 flips, we
-expect to complete approximately 15360 updates, with the threshold set
-at 7680"
-
-Fb changes in async updates were prevented to avoid the following scenario:
-
-- Async update, oldfb = NULL, newfb = fb1, prepare fb1, cleanup fb1
-- Async update, oldfb = fb1, newfb = fb2, prepare fb2, cleanup fb2
-- Non-async commit, oldfb = fb2, newfb = fb1, prepare fb1, cleanup fb2 (wrong)
-Where we have a single call to prepare fb2 but double cleanup call to fb2.
-
-To solve the above problems, instead of blocking async fb changes, we
-place the old framebuffer in the new_state object, so when the code
-performs cleanups in the new_state it will cleanup the old_fb and we
-will have the following scenario instead:
-
-- Async update, oldfb = NULL, newfb = fb1, prepare fb1, no cleanup
-- Async update, oldfb = fb1, newfb = fb2, prepare fb2, cleanup fb1
-- Non-async commit, oldfb = fb2, newfb = fb1, prepare fb1, cleanup fb2
-
-Where calls to prepare/cleanup are balanced.
-
-Cc: <stable@vger.kernel.org> # v4.14+
-Fixes: 25dc194b34dd ("drm: Block fb changes for async plane updates")
-Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-Signed-off-by: Helen Koike <helen.koike@collabora.com>
-
----
-Hello,
-
-As mentioned in the cover letter, I tested in almost all platforms with
-igt plane_cursor_legacy and kms_cursor_legacy and I didn't see any
-regressions. But I couldn't test on MSM and AMD because I don't have
-the hardware I would appreciate if anyone could help me testing those.
-
-Thanks!
-Helen
-
-Changes in v2:
-- Change the order of the patch in the series, add this as the last one.
-- Add documentation
-- s/ballanced/balanced
-
- drivers/gpu/drm/drm_atomic_helper.c      | 20 ++++++++++----------
- include/drm/drm_modeset_helper_vtables.h |  5 +++++
- 2 files changed, 15 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 540a77a2ade9..e7eb96f1efc2 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -1608,15 +1608,6 @@ int drm_atomic_helper_async_check(struct drm_device *dev,
- 	    old_plane_state->crtc != new_plane_state->crtc)
- 		return -EINVAL;
- 
--	/*
--	 * FIXME: Since prepare_fb and cleanup_fb are always called on
--	 * the new_plane_state for async updates we need to block framebuffer
--	 * changes. This prevents use of a fb that's been cleaned up and
--	 * double cleanups from occuring.
--	 */
--	if (old_plane_state->fb != new_plane_state->fb)
--		return -EINVAL;
--
- 	funcs = plane->helper_private;
- 	if (!funcs->atomic_async_update)
- 		return -EINVAL;
-@@ -1657,6 +1648,9 @@ void drm_atomic_helper_async_commit(struct drm_device *dev,
- 	int i;
- 
- 	for_each_new_plane_in_state(state, plane, plane_state, i) {
-+		struct drm_framebuffer *new_fb = plane_state->fb;
-+		struct drm_framebuffer *old_fb = plane->state->fb;
-+
- 		funcs = plane->helper_private;
- 		funcs->atomic_async_update(plane, plane_state);
- 
-@@ -1665,11 +1659,17 @@ void drm_atomic_helper_async_commit(struct drm_device *dev,
- 		 * plane->state in-place, make sure at least common
- 		 * properties have been properly updated.
- 		 */
--		WARN_ON_ONCE(plane->state->fb != plane_state->fb);
-+		WARN_ON_ONCE(plane->state->fb != new_fb);
- 		WARN_ON_ONCE(plane->state->crtc_x != plane_state->crtc_x);
- 		WARN_ON_ONCE(plane->state->crtc_y != plane_state->crtc_y);
- 		WARN_ON_ONCE(plane->state->src_x != plane_state->src_x);
- 		WARN_ON_ONCE(plane->state->src_y != plane_state->src_y);
-+
-+		/*
-+		 * Make sure the FBs have been swapped so that cleanups in the
-+		 * new_state performs a cleanup in the old FB.
-+		 */
-+		WARN_ON_ONCE(plane_state->fb != old_fb);
- 	}
- }
- EXPORT_SYMBOL(drm_atomic_helper_async_commit);
-diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index cfb7be40bed7..ce582e8e8f2f 100644
---- a/include/drm/drm_modeset_helper_vtables.h
-+++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1174,6 +1174,11 @@ struct drm_plane_helper_funcs {
- 	 * current one with the new plane configurations in the new
- 	 * plane_state.
- 	 *
-+	 * Drivers should also swap the framebuffers between plane state
-+	 * and new_state. This is required because prepare and cleanup calls
-+	 * are performed on the new_state object, then to cleanup the old
-+	 * framebuffer, it needs to be placed inside the new_state object.
-+	 *
- 	 * FIXME:
- 	 *  - It only works for single plane updates
- 	 *  - Async Pageflips are not supported yet
--- 
-2.20.1
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+
+CgpMb2NrbGVzcyBjb250YWluZXIgaW1wbGVtZW50YXRpb24gc2ltaWxhciB0byBhIGRtYV9mZW5j
+ZV9hcnJheSwgYnV0IHdpdGgKb25seSB0d28gZWxlbWVudHMgcGVyIG5vZGUgYW5kIGF1dG9tYXRp
+YyBnYXJiYWdlIGNvbGxlY3Rpb24uCgp2MjogcHJvcGVybHkgZG9jdW1lbnQgZG1hX2ZlbmNlX2No
+YWluX2Zvcl9lYWNoLCBhZGQgZG1hX2ZlbmNlX2NoYWluX2ZpbmRfc2Vxbm8sCiAgICBkcm9wIHBy
+ZXYgcmVmZXJlbmNlIGR1cmluZyBnYXJiYWdlIGNvbGxlY3Rpb24gaWYgaXQncyBub3QgYSBjaGFp
+biBmZW5jZS4KdjM6IHVzZSBoZWFkIGFuZCBpdGVyYXRvciBmb3IgZG1hX2ZlbmNlX2NoYWluX2Zv
+cl9lYWNoCnY0OiBmaXggcmVmZXJlbmNlIGNvdW50IGluIGRtYV9mZW5jZV9jaGFpbl9lbmFibGVf
+c2lnbmFsaW5nCnY1OiBmaXggaXRlcmF0aW9uIHdoZW4gd2Fsa2luZyBlYWNoIGNoYWluIG5vZGUK
+ClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNv
+bT4KLS0tCiBkcml2ZXJzL2RtYS1idWYvTWFrZWZpbGUgICAgICAgICAgfCAgIDMgKy0KIGRyaXZl
+cnMvZG1hLWJ1Zi9kbWEtZmVuY2UtY2hhaW4uYyB8IDI0MSArKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysKIGluY2x1ZGUvbGludXgvZG1hLWZlbmNlLWNoYWluLmggICB8ICA4MSArKysrKysr
+KysrCiAzIGZpbGVzIGNoYW5nZWQsIDMyNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCiBj
+cmVhdGUgbW9kZSAxMDA2NDQgZHJpdmVycy9kbWEtYnVmL2RtYS1mZW5jZS1jaGFpbi5jCiBjcmVh
+dGUgbW9kZSAxMDA2NDQgaW5jbHVkZS9saW51eC9kbWEtZmVuY2UtY2hhaW4uaAoKZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZG1hLWJ1Zi9NYWtlZmlsZSBiL2RyaXZlcnMvZG1hLWJ1Zi9NYWtlZmlsZQpp
+bmRleCAwOTEzYTZjY2FiNWEuLjFmMDA2ZTA4M2ViOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9kbWEt
+YnVmL01ha2VmaWxlCisrKyBiL2RyaXZlcnMvZG1hLWJ1Zi9NYWtlZmlsZQpAQCAtMSw0ICsxLDUg
+QEAKLW9iai15IDo9IGRtYS1idWYubyBkbWEtZmVuY2UubyBkbWEtZmVuY2UtYXJyYXkubyByZXNl
+cnZhdGlvbi5vIHNlcW5vLWZlbmNlLm8KK29iai15IDo9IGRtYS1idWYubyBkbWEtZmVuY2UubyBk
+bWEtZmVuY2UtYXJyYXkubyBkbWEtZmVuY2UtY2hhaW4ubyBcCisJIHJlc2VydmF0aW9uLm8gc2Vx
+bm8tZmVuY2Uubwogb2JqLSQoQ09ORklHX1NZTkNfRklMRSkJCSs9IHN5bmNfZmlsZS5vCiBvYmot
+JChDT05GSUdfU1dfU1lOQykJCSs9IHN3X3N5bmMubyBzeW5jX2RlYnVnLm8KIG9iai0kKENPTkZJ
+R19VRE1BQlVGKQkJKz0gdWRtYWJ1Zi5vCmRpZmYgLS1naXQgYS9kcml2ZXJzL2RtYS1idWYvZG1h
+LWZlbmNlLWNoYWluLmMgYi9kcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLWNoYWluLmMKbmV3IGZp
+bGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMDAwMDAwLi4wYzVlM2M5MDJmYTAKLS0tIC9kZXYv
+bnVsbAorKysgYi9kcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLWNoYWluLmMKQEAgLTAsMCArMSwy
+NDEgQEAKKy8qCisgKiBmZW5jZS1jaGFpbjogY2hhaW4gZmVuY2VzIHRvZ2V0aGVyIGluIGEgdGlt
+ZWxpbmUKKyAqCisgKiBDb3B5cmlnaHQgKEMpIDIwMTggQWR2YW5jZWQgTWljcm8gRGV2aWNlcywg
+SW5jLgorICogQXV0aG9yczoKKyAqCUNocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdA
+YW1kLmNvbT4KKyAqCisgKiBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNhbiBy
+ZWRpc3RyaWJ1dGUgaXQgYW5kL29yIG1vZGlmeSBpdAorICogdW5kZXIgdGhlIHRlcm1zIG9mIHRo
+ZSBHTlUgR2VuZXJhbCBQdWJsaWMgTGljZW5zZSB2ZXJzaW9uIDIgYXMgcHVibGlzaGVkIGJ5Cisg
+KiB0aGUgRnJlZSBTb2Z0d2FyZSBGb3VuZGF0aW9uLgorICoKKyAqIFRoaXMgcHJvZ3JhbSBpcyBk
+aXN0cmlidXRlZCBpbiB0aGUgaG9wZSB0aGF0IGl0IHdpbGwgYmUgdXNlZnVsLCBidXQgV0lUSE9V
+VAorICogQU5ZIFdBUlJBTlRZOyB3aXRob3V0IGV2ZW4gdGhlIGltcGxpZWQgd2FycmFudHkgb2Yg
+TUVSQ0hBTlRBQklMSVRZIG9yCisgKiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRS4g
+IFNlZSB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgZm9yCisgKiBtb3JlIGRldGFpbHMu
+CisgKi8KKworI2luY2x1ZGUgPGxpbnV4L2RtYS1mZW5jZS1jaGFpbi5oPgorCitzdGF0aWMgYm9v
+bCBkbWFfZmVuY2VfY2hhaW5fZW5hYmxlX3NpZ25hbGluZyhzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5j
+ZSk7CisKKy8qKgorICogZG1hX2ZlbmNlX2NoYWluX2dldF9wcmV2IC0gdXNlIFJDVSB0byBnZXQg
+YSByZWZlcmVuY2UgdG8gdGhlIHByZXZpb3VzIGZlbmNlCisgKiBAY2hhaW46IGNoYWluIG5vZGUg
+dG8gZ2V0IHRoZSBwcmV2aW91cyBub2RlIGZyb20KKyAqCisgKiBVc2UgZG1hX2ZlbmNlX2dldF9y
+Y3Vfc2FmZSB0byBnZXQgYSByZWZlcmVuY2UgdG8gdGhlIHByZXZpb3VzIGZlbmNlIG9mIHRoZQor
+ICogY2hhaW4gbm9kZS4KKyAqLworc3RhdGljIHN0cnVjdCBkbWFfZmVuY2UgKmRtYV9mZW5jZV9j
+aGFpbl9nZXRfcHJldihzdHJ1Y3QgZG1hX2ZlbmNlX2NoYWluICpjaGFpbikKK3sKKwlzdHJ1Y3Qg
+ZG1hX2ZlbmNlICpwcmV2OworCisJcmN1X3JlYWRfbG9jaygpOworCXByZXYgPSBkbWFfZmVuY2Vf
+Z2V0X3JjdV9zYWZlKCZjaGFpbi0+cHJldik7CisJcmN1X3JlYWRfdW5sb2NrKCk7CisJcmV0dXJu
+IHByZXY7Cit9CisKKy8qKgorICogZG1hX2ZlbmNlX2NoYWluX3dhbGsgLSBjaGFpbiB3YWxraW5n
+IGZ1bmN0aW9uCisgKiBAZmVuY2U6IGN1cnJlbnQgY2hhaW4gbm9kZQorICoKKyAqIFdhbGsgdGhl
+IGNoYWluIHRvIHRoZSBuZXh0IG5vZGUuIFJldHVybnMgdGhlIG5leHQgZmVuY2Ugb3IgTlVMTCBp
+ZiB3ZSBhcmUgYXQKKyAqIHRoZSBlbmQgb2YgdGhlIGNoYWluLiBHYXJiYWdlIGNvbGxlY3RzIGNo
+YWluIG5vZGVzIHdoaWNoIGFyZSBhbHJlYWR5CisgKiBzaWduYWxlZC4KKyAqLworc3RydWN0IGRt
+YV9mZW5jZSAqZG1hX2ZlbmNlX2NoYWluX3dhbGsoc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UpCit7
+CisJc3RydWN0IGRtYV9mZW5jZV9jaGFpbiAqY2hhaW4sICpwcmV2X2NoYWluOworCXN0cnVjdCBk
+bWFfZmVuY2UgKnByZXYsICpyZXBsYWNlbWVudCwgKnRtcDsKKworCWNoYWluID0gdG9fZG1hX2Zl
+bmNlX2NoYWluKGZlbmNlKTsKKwlpZiAoIWNoYWluKSB7CisJCWRtYV9mZW5jZV9wdXQoZmVuY2Up
+OworCQlyZXR1cm4gTlVMTDsKKwl9CisKKwl3aGlsZSAoKHByZXYgPSBkbWFfZmVuY2VfY2hhaW5f
+Z2V0X3ByZXYoY2hhaW4pKSkgeworCisJCXByZXZfY2hhaW4gPSB0b19kbWFfZmVuY2VfY2hhaW4o
+cHJldik7CisJCWlmIChwcmV2X2NoYWluKSB7CisJCQlpZiAoIWRtYV9mZW5jZV9pc19zaWduYWxl
+ZChwcmV2X2NoYWluLT5mZW5jZSkpCisJCQkJYnJlYWs7CisKKwkJCXJlcGxhY2VtZW50ID0gZG1h
+X2ZlbmNlX2NoYWluX2dldF9wcmV2KHByZXZfY2hhaW4pOworCQl9IGVsc2UgeworCQkJaWYgKCFk
+bWFfZmVuY2VfaXNfc2lnbmFsZWQocHJldikpCisJCQkJYnJlYWs7CisKKwkJCXJlcGxhY2VtZW50
+ID0gTlVMTDsKKwkJfQorCisJCXRtcCA9IGNtcHhjaGcoJmNoYWluLT5wcmV2LCBwcmV2LCByZXBs
+YWNlbWVudCk7CisJCWlmICh0bXAgPT0gcHJldikKKwkJCWRtYV9mZW5jZV9wdXQodG1wKTsKKwkJ
+ZWxzZQorCQkJZG1hX2ZlbmNlX3B1dChyZXBsYWNlbWVudCk7CisJCWRtYV9mZW5jZV9wdXQocHJl
+dik7CisJfQorCisJZG1hX2ZlbmNlX3B1dChmZW5jZSk7CisJcmV0dXJuIHByZXY7Cit9CitFWFBP
+UlRfU1lNQk9MKGRtYV9mZW5jZV9jaGFpbl93YWxrKTsKKworLyoqCisgKiBkbWFfZmVuY2VfY2hh
+aW5fZmluZF9zZXFubyAtIGZpbmQgZmVuY2UgY2hhaW4gbm9kZSBieSBzZXFubworICogQHBmZW5j
+ZTogcG9pbnRlciB0byB0aGUgY2hhaW4gbm9kZSB3aGVyZSB0byBzdGFydAorICogQHNlcW5vOiB0
+aGUgc2VxdWVuY2UgbnVtYmVyIHRvIHNlYXJjaCBmb3IKKyAqCisgKiBBZHZhbmNlIHRoZSBmZW5j
+ZSBwb2ludGVyIHRvIHRoZSBjaGFpbiBub2RlIHdoaWNoIHdpbGwgc2lnbmFsIHRoaXMgc2VxdWVu
+Y2UKKyAqIG51bWJlci4gSWYgbm8gc2VxdWVuY2UgbnVtYmVyIGlzIHByb3ZpZGVkIHRoZW4gdGhp
+cyBpcyBhIG5vLW9wLgorICoKKyAqIFJldHVybnMgRUlOVkFMIGlmIHRoZSBmZW5jZSBpcyBub3Qg
+YSBjaGFpbiBub2RlIG9yIHRoZSBzZXF1ZW5jZSBudW1iZXIgaGFzCisgKiBub3QgeWV0IGFkdmFu
+Y2VkIGZhciBlbm91Z2guCisgKi8KK2ludCBkbWFfZmVuY2VfY2hhaW5fZmluZF9zZXFubyhzdHJ1
+Y3QgZG1hX2ZlbmNlICoqcGZlbmNlLCB1aW50NjRfdCBzZXFubykKK3sKKwlzdHJ1Y3QgZG1hX2Zl
+bmNlX2NoYWluICpjaGFpbjsKKworCWlmICghc2Vxbm8pCisJCXJldHVybiAwOworCisJY2hhaW4g
+PSB0b19kbWFfZmVuY2VfY2hhaW4oKnBmZW5jZSk7CisJaWYgKCFjaGFpbiB8fCBjaGFpbi0+YmFz
+ZS5zZXFubyA8IHNlcW5vKQorCQlyZXR1cm4gLUVJTlZBTDsKKworCWRtYV9mZW5jZV9jaGFpbl9m
+b3JfZWFjaCgqcGZlbmNlLCAmY2hhaW4tPmJhc2UpIHsKKwkJaWYgKCgqcGZlbmNlKS0+Y29udGV4
+dCAhPSBjaGFpbi0+YmFzZS5jb250ZXh0IHx8CisJCSAgICB0b19kbWFfZmVuY2VfY2hhaW4oKnBm
+ZW5jZSktPnByZXZfc2Vxbm8gPCBzZXFubykKKwkJCWJyZWFrOworCX0KKwlkbWFfZmVuY2VfcHV0
+KCZjaGFpbi0+YmFzZSk7CisKKwlyZXR1cm4gMDsKK30KK0VYUE9SVF9TWU1CT0woZG1hX2ZlbmNl
+X2NoYWluX2ZpbmRfc2Vxbm8pOworCitzdGF0aWMgY29uc3QgY2hhciAqZG1hX2ZlbmNlX2NoYWlu
+X2dldF9kcml2ZXJfbmFtZShzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSkKK3sKKyAgICAgICAgcmV0
+dXJuICJkbWFfZmVuY2VfY2hhaW4iOworfQorCitzdGF0aWMgY29uc3QgY2hhciAqZG1hX2ZlbmNl
+X2NoYWluX2dldF90aW1lbGluZV9uYW1lKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKQoreworICAg
+ICAgICByZXR1cm4gInVuYm91bmQiOworfQorCitzdGF0aWMgdm9pZCBkbWFfZmVuY2VfY2hhaW5f
+aXJxX3dvcmsoc3RydWN0IGlycV93b3JrICp3b3JrKQoreworCXN0cnVjdCBkbWFfZmVuY2VfY2hh
+aW4gKmNoYWluOworCisJY2hhaW4gPSBjb250YWluZXJfb2Yod29yaywgdHlwZW9mKCpjaGFpbiks
+IHdvcmspOworCisJLyogVHJ5IHRvIHJlYXJtIHRoZSBjYWxsYmFjayAqLworCWlmICghZG1hX2Zl
+bmNlX2NoYWluX2VuYWJsZV9zaWduYWxpbmcoJmNoYWluLT5iYXNlKSkKKwkJLyogT2ssIHdlIGFy
+ZSBkb25lLiBObyBtb3JlIHVuc2lnbmFsZWQgZmVuY2VzIGxlZnQgKi8KKwkJZG1hX2ZlbmNlX3Np
+Z25hbCgmY2hhaW4tPmJhc2UpOworCWRtYV9mZW5jZV9wdXQoJmNoYWluLT5iYXNlKTsKK30KKwor
+c3RhdGljIHZvaWQgZG1hX2ZlbmNlX2NoYWluX2NiKHN0cnVjdCBkbWFfZmVuY2UgKmYsIHN0cnVj
+dCBkbWFfZmVuY2VfY2IgKmNiKQoreworCXN0cnVjdCBkbWFfZmVuY2VfY2hhaW4gKmNoYWluOwor
+CisJY2hhaW4gPSBjb250YWluZXJfb2YoY2IsIHR5cGVvZigqY2hhaW4pLCBjYik7CisJaXJxX3dv
+cmtfcXVldWUoJmNoYWluLT53b3JrKTsKKwlkbWFfZmVuY2VfcHV0KGYpOworfQorCitzdGF0aWMg
+Ym9vbCBkbWFfZmVuY2VfY2hhaW5fZW5hYmxlX3NpZ25hbGluZyhzdHJ1Y3QgZG1hX2ZlbmNlICpm
+ZW5jZSkKK3sKKwlzdHJ1Y3QgZG1hX2ZlbmNlX2NoYWluICpoZWFkID0gdG9fZG1hX2ZlbmNlX2No
+YWluKGZlbmNlKTsKKworCWRtYV9mZW5jZV9nZXQoJmhlYWQtPmJhc2UpOworCWRtYV9mZW5jZV9j
+aGFpbl9mb3JfZWFjaChmZW5jZSwgJmhlYWQtPmJhc2UpIHsKKwkJc3RydWN0IGRtYV9mZW5jZV9j
+aGFpbiAqY2hhaW4gPSB0b19kbWFfZmVuY2VfY2hhaW4oZmVuY2UpOworCQlzdHJ1Y3QgZG1hX2Zl
+bmNlICpmID0gY2hhaW4gPyBjaGFpbi0+ZmVuY2UgOiBmZW5jZTsKKworCQlkbWFfZmVuY2VfZ2V0
+KGYpOworCQlpZiAoIWRtYV9mZW5jZV9hZGRfY2FsbGJhY2soZiwgJmhlYWQtPmNiLCBkbWFfZmVu
+Y2VfY2hhaW5fY2IpKSB7CisJCQlkbWFfZmVuY2VfcHV0KGZlbmNlKTsKKwkJCXJldHVybiB0cnVl
+OworCQl9CisJCWRtYV9mZW5jZV9wdXQoZik7CisJfQorCWRtYV9mZW5jZV9wdXQoJmhlYWQtPmJh
+c2UpOworCXJldHVybiBmYWxzZTsKK30KKworc3RhdGljIGJvb2wgZG1hX2ZlbmNlX2NoYWluX3Np
+Z25hbGVkKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKQoreworCWRtYV9mZW5jZV9jaGFpbl9mb3Jf
+ZWFjaChmZW5jZSwgZmVuY2UpIHsKKwkJc3RydWN0IGRtYV9mZW5jZV9jaGFpbiAqY2hhaW4gPSB0
+b19kbWFfZmVuY2VfY2hhaW4oZmVuY2UpOworCQlzdHJ1Y3QgZG1hX2ZlbmNlICpmID0gY2hhaW4g
+PyBjaGFpbi0+ZmVuY2UgOiBmZW5jZTsKKworCQlpZiAoIWRtYV9mZW5jZV9pc19zaWduYWxlZChm
+KSkgeworCQkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7CisJCQlyZXR1cm4gZmFsc2U7CisJCX0KKwl9
+CisKKwlyZXR1cm4gdHJ1ZTsKK30KKworc3RhdGljIHZvaWQgZG1hX2ZlbmNlX2NoYWluX3JlbGVh
+c2Uoc3RydWN0IGRtYV9mZW5jZSAqZmVuY2UpCit7CisJc3RydWN0IGRtYV9mZW5jZV9jaGFpbiAq
+Y2hhaW4gPSB0b19kbWFfZmVuY2VfY2hhaW4oZmVuY2UpOworCisJZG1hX2ZlbmNlX3B1dChjaGFp
+bi0+cHJldik7CisJZG1hX2ZlbmNlX3B1dChjaGFpbi0+ZmVuY2UpOworCWRtYV9mZW5jZV9mcmVl
+KGZlbmNlKTsKK30KKworY29uc3Qgc3RydWN0IGRtYV9mZW5jZV9vcHMgZG1hX2ZlbmNlX2NoYWlu
+X29wcyA9IHsKKwkuZ2V0X2RyaXZlcl9uYW1lID0gZG1hX2ZlbmNlX2NoYWluX2dldF9kcml2ZXJf
+bmFtZSwKKwkuZ2V0X3RpbWVsaW5lX25hbWUgPSBkbWFfZmVuY2VfY2hhaW5fZ2V0X3RpbWVsaW5l
+X25hbWUsCisJLmVuYWJsZV9zaWduYWxpbmcgPSBkbWFfZmVuY2VfY2hhaW5fZW5hYmxlX3NpZ25h
+bGluZywKKwkuc2lnbmFsZWQgPSBkbWFfZmVuY2VfY2hhaW5fc2lnbmFsZWQsCisJLnJlbGVhc2Ug
+PSBkbWFfZmVuY2VfY2hhaW5fcmVsZWFzZSwKK307CitFWFBPUlRfU1lNQk9MKGRtYV9mZW5jZV9j
+aGFpbl9vcHMpOworCisvKioKKyAqIGRtYV9mZW5jZV9jaGFpbl9pbml0IC0gaW5pdGlhbGl6ZSBh
+IGZlbmNlIGNoYWluCisgKiBAY2hhaW46IHRoZSBjaGFpbiBub2RlIHRvIGluaXRpYWxpemUKKyAq
+IEBwcmV2OiB0aGUgcHJldmlvdXMgZmVuY2UKKyAqIEBmZW5jZTogdGhlIGN1cnJlbnQgZmVuY2UK
+KyAqCisgKiBJbml0aWFsaXplIGEgbmV3IGNoYWluIG5vZGUgYW5kIGVpdGhlciBzdGFydCBhIG5l
+dyBjaGFpbiBvciBhZGQgdGhlIG5vZGUgdG8KKyAqIHRoZSBleGlzdGluZyBjaGFpbiBvZiB0aGUg
+cHJldmlvdXMgZmVuY2UuCisgKi8KK3ZvaWQgZG1hX2ZlbmNlX2NoYWluX2luaXQoc3RydWN0IGRt
+YV9mZW5jZV9jaGFpbiAqY2hhaW4sCisJCQkgIHN0cnVjdCBkbWFfZmVuY2UgKnByZXYsCisJCQkg
+IHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlLAorCQkJICB1aW50NjRfdCBzZXFubykKK3sKKwlzdHJ1
+Y3QgZG1hX2ZlbmNlX2NoYWluICpwcmV2X2NoYWluID0gdG9fZG1hX2ZlbmNlX2NoYWluKHByZXYp
+OworCXVpbnQ2NF90IGNvbnRleHQ7CisKKwlzcGluX2xvY2tfaW5pdCgmY2hhaW4tPmxvY2spOwor
+CWNoYWluLT5wcmV2ID0gcHJldjsKKwljaGFpbi0+ZmVuY2UgPSBmZW5jZTsKKwljaGFpbi0+cHJl
+dl9zZXFubyA9IDA7CisJaW5pdF9pcnFfd29yaygmY2hhaW4tPndvcmssIGRtYV9mZW5jZV9jaGFp
+bl9pcnFfd29yayk7CisKKwkvKiBUcnkgdG8gcmV1c2UgdGhlIGNvbnRleHQgb2YgdGhlIHByZXZp
+b3VzIGNoYWluIG5vZGUuICovCisJaWYgKHByZXZfY2hhaW4gJiYgX19kbWFfZmVuY2VfaXNfbGF0
+ZXIoc2Vxbm8sIHByZXYtPnNlcW5vKSkgeworCQljb250ZXh0ID0gcHJldi0+Y29udGV4dDsKKwkJ
+Y2hhaW4tPnByZXZfc2Vxbm8gPSBwcmV2LT5zZXFubzsKKwl9IGVsc2UgeworCQljb250ZXh0ID0g
+ZG1hX2ZlbmNlX2NvbnRleHRfYWxsb2MoMSk7CisJCS8qIE1ha2Ugc3VyZSB0aGF0IHdlIGFsd2F5
+cyBoYXZlIGEgdmFsaWQgc2VxdWVuY2UgbnVtYmVyLiAqLworCQlpZiAocHJldl9jaGFpbikKKwkJ
+CXNlcW5vID0gbWF4KHByZXYtPnNlcW5vLCBzZXFubyk7CisJfQorCisJZG1hX2ZlbmNlX2luaXQo
+JmNoYWluLT5iYXNlLCAmZG1hX2ZlbmNlX2NoYWluX29wcywKKwkJICAgICAgICZjaGFpbi0+bG9j
+aywgY29udGV4dCwgc2Vxbm8pOworfQorRVhQT1JUX1NZTUJPTChkbWFfZmVuY2VfY2hhaW5faW5p
+dCk7CmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2RtYS1mZW5jZS1jaGFpbi5oIGIvaW5jbHVk
+ZS9saW51eC9kbWEtZmVuY2UtY2hhaW4uaApuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAw
+MDAwMDAwMDAuLjA5YjAzOGQzZjVlZgotLS0gL2Rldi9udWxsCisrKyBiL2luY2x1ZGUvbGludXgv
+ZG1hLWZlbmNlLWNoYWluLmgKQEAgLTAsMCArMSw4MSBAQAorLyoKKyAqIGZlbmNlLWNoYWluOiBj
+aGFpbiBmZW5jZXMgdG9nZXRoZXIgaW4gYSB0aW1lbGluZQorICoKKyAqIENvcHlyaWdodCAoQykg
+MjAxOCBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCisgKiBBdXRob3JzOgorICoJQ2hyaXN0
+aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgorICoKKyAqIFRoaXMgcHJvZ3Jh
+bSBpcyBmcmVlIHNvZnR3YXJlOyB5b3UgY2FuIHJlZGlzdHJpYnV0ZSBpdCBhbmQvb3IgbW9kaWZ5
+IGl0CisgKiB1bmRlciB0aGUgdGVybXMgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNl
+IHZlcnNpb24gMiBhcyBwdWJsaXNoZWQgYnkKKyAqIHRoZSBGcmVlIFNvZnR3YXJlIEZvdW5kYXRp
+b24uCisgKgorICogVGhpcyBwcm9ncmFtIGlzIGRpc3RyaWJ1dGVkIGluIHRoZSBob3BlIHRoYXQg
+aXQgd2lsbCBiZSB1c2VmdWwsIGJ1dCBXSVRIT1VUCisgKiBBTlkgV0FSUkFOVFk7IHdpdGhvdXQg
+ZXZlbiB0aGUgaW1wbGllZCB3YXJyYW50eSBvZiBNRVJDSEFOVEFCSUxJVFkgb3IKKyAqIEZJVE5F
+U1MgRk9SIEEgUEFSVElDVUxBUiBQVVJQT1NFLiAgU2VlIHRoZSBHTlUgR2VuZXJhbCBQdWJsaWMg
+TGljZW5zZSBmb3IKKyAqIG1vcmUgZGV0YWlscy4KKyAqLworCisjaWZuZGVmIF9fTElOVVhfRE1B
+X0ZFTkNFX0NIQUlOX0gKKyNkZWZpbmUgX19MSU5VWF9ETUFfRkVOQ0VfQ0hBSU5fSAorCisjaW5j
+bHVkZSA8bGludXgvZG1hLWZlbmNlLmg+CisjaW5jbHVkZSA8bGludXgvaXJxX3dvcmsuaD4KKwor
+LyoqCisgKiBzdHJ1Y3QgZG1hX2ZlbmNlX2NoYWluIC0gZmVuY2UgdG8gcmVwcmVzZW50IGFuIG5v
+ZGUgb2YgYSBmZW5jZSBjaGFpbgorICogQGJhc2U6IGZlbmNlIGJhc2UgY2xhc3MKKyAqIEBsb2Nr
+OiBzcGlubG9jayBmb3IgZmVuY2UgaGFuZGxpbmcKKyAqIEBwcmV2OiBwcmV2aW91cyBmZW5jZSBv
+ZiB0aGUgY2hhaW4KKyAqIEBwcmV2X3NlcW5vOiBvcmlnaW5hbCBwcmV2aW91cyBzZXFubyBiZWZv
+cmUgZ2FyYmFnZSBjb2xsZWN0aW9uCisgKiBAZmVuY2U6IGVuY2Fwc3VsYXRlZCBmZW5jZQorICog
+QGNiOiBjYWxsYmFjayBzdHJ1Y3R1cmUgZm9yIHNpZ25hbGluZworICogQHdvcms6IGlycSB3b3Jr
+IGl0ZW0gZm9yIHNpZ25hbGluZworICovCitzdHJ1Y3QgZG1hX2ZlbmNlX2NoYWluIHsKKwlzdHJ1
+Y3QgZG1hX2ZlbmNlIGJhc2U7CisJc3BpbmxvY2tfdCBsb2NrOworCXN0cnVjdCBkbWFfZmVuY2Ug
+KnByZXY7CisJdTY0IHByZXZfc2Vxbm87CisJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2U7CisJc3Ry
+dWN0IGRtYV9mZW5jZV9jYiBjYjsKKwlzdHJ1Y3QgaXJxX3dvcmsgd29yazsKK307CisKK2V4dGVy
+biBjb25zdCBzdHJ1Y3QgZG1hX2ZlbmNlX29wcyBkbWFfZmVuY2VfY2hhaW5fb3BzOworCisvKioK
+KyAqIHRvX2RtYV9mZW5jZV9jaGFpbiAtIGNhc3QgYSBmZW5jZSB0byBhIGRtYV9mZW5jZV9jaGFp
+bgorICogQGZlbmNlOiBmZW5jZSB0byBjYXN0IHRvIGEgZG1hX2ZlbmNlX2FycmF5CisgKgorICog
+UmV0dXJucyBOVUxMIGlmIHRoZSBmZW5jZSBpcyBub3QgYSBkbWFfZmVuY2VfY2hhaW4sCisgKiBv
+ciB0aGUgZG1hX2ZlbmNlX2NoYWluIG90aGVyd2lzZS4KKyAqLworc3RhdGljIGlubGluZSBzdHJ1
+Y3QgZG1hX2ZlbmNlX2NoYWluICoKK3RvX2RtYV9mZW5jZV9jaGFpbihzdHJ1Y3QgZG1hX2ZlbmNl
+ICpmZW5jZSkKK3sKKwlpZiAoIWZlbmNlIHx8IGZlbmNlLT5vcHMgIT0gJmRtYV9mZW5jZV9jaGFp
+bl9vcHMpCisJCXJldHVybiBOVUxMOworCisJcmV0dXJuIGNvbnRhaW5lcl9vZihmZW5jZSwgc3Ry
+dWN0IGRtYV9mZW5jZV9jaGFpbiwgYmFzZSk7Cit9CisKKy8qKgorICogZG1hX2ZlbmNlX2NoYWlu
+X2Zvcl9lYWNoIC0gaXRlcmF0ZSBvdmVyIGFsbCBmZW5jZXMgaW4gY2hhaW4KKyAqIEBpdGVyOiBj
+dXJyZW50IGZlbmNlCisgKiBAaGVhZDogc3RhcnRpbmcgcG9pbnQKKyAqCisgKiBJdGVyYXRlIG92
+ZXIgYWxsIGZlbmNlcyBpbiB0aGUgY2hhaW4uIFdlIGtlZXAgYSByZWZlcmVuY2UgdG8gdGhlIGN1
+cnJlbnQKKyAqIGZlbmNlIHdoaWxlIGluc2lkZSB0aGUgbG9vcCB3aGljaCBtdXN0IGJlIGRyb3Bw
+ZWQgd2hlbiBicmVha2luZyBvdXQuCisgKi8KKyNkZWZpbmUgZG1hX2ZlbmNlX2NoYWluX2Zvcl9l
+YWNoKGl0ZXIsIGhlYWQpCVwKKwlmb3IgKGl0ZXIgPSBkbWFfZmVuY2VfZ2V0KGhlYWQpOyBpdGVy
+OyBcCisJICAgICBpdGVyID0gZG1hX2ZlbmNlX2NoYWluX3dhbGsoaXRlcikpCisKK3N0cnVjdCBk
+bWFfZmVuY2UgKmRtYV9mZW5jZV9jaGFpbl93YWxrKHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKTsK
+K2ludCBkbWFfZmVuY2VfY2hhaW5fZmluZF9zZXFubyhzdHJ1Y3QgZG1hX2ZlbmNlICoqcGZlbmNl
+LCB1aW50NjRfdCBzZXFubyk7Cit2b2lkIGRtYV9mZW5jZV9jaGFpbl9pbml0KHN0cnVjdCBkbWFf
+ZmVuY2VfY2hhaW4gKmNoYWluLAorCQkJICBzdHJ1Y3QgZG1hX2ZlbmNlICpwcmV2LAorCQkJICBz
+dHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwKKwkJCSAgdWludDY0X3Qgc2Vxbm8pOworCisjZW5kaWYg
+LyogX19MSU5VWF9ETUFfRkVOQ0VfQ0hBSU5fSCAqLwotLSAKMi4xNy4xCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
