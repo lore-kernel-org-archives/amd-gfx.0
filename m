@@ -1,14 +1,14 @@
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 4.20 160/171] drm: disable uncached DMA optimization for ARM
+Subject: [PATCH 4.19 134/149] drm: disable uncached DMA optimization for ARM
  and arm64
-Date: Tue, 12 Mar 2019 10:09:00 -0700
-Message-ID: <20190312170401.202933174@linuxfoundation.org>
-References: <20190312170347.868927101@linuxfoundation.org>
+Date: Tue, 12 Mar 2019 10:09:12 -0700
+Message-ID: <20190312170400.589983836@linuxfoundation.org>
+References: <20190312170349.421581206@linuxfoundation.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190312170347.868927101@linuxfoundation.org>
+In-Reply-To: <20190312170349.421581206@linuxfoundation.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -22,7 +22,7 @@ To: linux-kernel@vger.kernel.org
 Cc: Maxime Ripard <maxime.ripard@bootlin.com>, Will Deacon <will.deacon@arm.com>, dri-devel <dri-devel@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Sasha Levin <sashal@kernel.org>, Carsten Haitzler <Carsten.Haitzler@arm.com>, Michael Ellerman <mpe@ellerman.id.au>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, David Airlie <airlied@linux.ie>, Junwei Zhang <Jerry.Zhang@amd.com>, Sean Paul <sean@poorly.run>, Ard Biesheuvel <ard.biesheuvel@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Michel Daenzer <michel.daenzer@amd.com>, stable@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, Robin Murphy <robin.murphy@arm.com>, Christian Koenig <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-NC4yMC1zdGFibGUgcmV2aWV3IHBhdGNoLiAgSWYgYW55b25lIGhhcyBhbnkgb2JqZWN0aW9ucywg
+NC4xOS1zdGFibGUgcmV2aWV3IHBhdGNoLiAgSWYgYW55b25lIGhhcyBhbnkgb2JqZWN0aW9ucywg
 cGxlYXNlIGxldCBtZSBrbm93LgoKLS0tLS0tLS0tLS0tLS0tLS0tCgpbIFVwc3RyZWFtIGNvbW1p
 dCBlMDJmNWMxYmIyMjgzY2ZjZWU2OGYyZjBmZWRkY2MwNjE1MGYxM2FhIF0KClRoZSBEUk0gZHJp
 dmVyIHN0YWNrIGlzIGRlc2lnbmVkIHRvIHdvcmsgd2l0aCBjYWNoZSBjb2hlcmVudCBkZXZpY2Vz
