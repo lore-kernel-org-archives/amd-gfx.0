@@ -1,13 +1,12 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH xf86-video-ati] Use radeon_finish in
- drmmode_crtc_scanout_update
-Date: Thu, 14 Mar 2019 13:15:43 +0000
-Message-ID: <BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190314101542.2984-1-michel@daenzer.net>
+Subject: Re: [PATCH xf86-video-ati] modesetting: add tile property support
+Date: Thu, 14 Mar 2019 13:16:10 +0000
+Message-ID: <BN6PR12MB1809958DD227122255F52357F74B0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190314101948.4496-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0493490409=="
+Content-Type: multipart/mixed; boundary="===============1091902848=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190314101542.2984-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+In-Reply-To: <20190314101948.4496-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -21,12 +20,12 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0493490409==
+--===============1091902848==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB1809958DD227122255F52357F74B0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_
+--_000_BN6PR12MB1809958DD227122255F52357F74B0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -34,41 +33,125 @@ Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 ________________________________
 From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
 =E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Thursday, March 14, 2019 6:15 AM
+Sent: Thursday, March 14, 2019 6:19 AM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: [PATCH xf86-video-ati] Use radeon_finish in drmmode_crtc_scanout_u=
-pdate
+Subject: [PATCH xf86-video-ati] modesetting: add tile property support
 
-From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+From: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-radeon_glamor_finish only works if we're using glamor, otherwise it'll
-crash.
+This adds tiling support to the driver, it retrieves the tile info from
+the kernel and translates it into the server format and exposes the
+property.
 
-Fixes: ce7db51020d3 "Cancel pending scanout update in drmmode_crtc_scanout_=
-update"
-Bug: https://bugs.debian.org/924540
+(Ported from xserver commits 8fb8bbb3062f1a06621ab7030a9e89d5e8367b35
+ and 6abdb54a11dac4e8854ff94ecdcb90a14321ab31)
+(Ported from amdgpu commit 6ee857726166f495abcd68e4ff60e3a09593d079)
+
 Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
 ---
- src/drmmode_display.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/drmmode_display.c | 54 +++++++++++++++++++++++++++++++++++++++++--
+ src/drmmode_display.h |  3 +++
+ 2 files changed, 55 insertions(+), 2 deletions(-)
 
 diff --git a/src/drmmode_display.c b/src/drmmode_display.c
-index c5fccd2aa..002513f1a 100644
+index 002513f1a..0e9e24749 100644
 --- a/src/drmmode_display.c
 +++ b/src/drmmode_display.c
-@@ -785,7 +785,7 @@ drmmode_crtc_scanout_update(xf86CrtcPtr crtc, DisplayMo=
-dePtr mode,
-                                              screen->GetWindowPixmap(scree=
-n->root),
-                                              extents)) {
-                         RegionEmpty(DamageRegion(drmmode_crtc->scanout_dam=
-age));
--                       radeon_glamor_finish(scrn);
-+                       radeon_finish(scrn, drmmode_crtc->scanout[scanout_i=
-d].bo);
+@@ -1576,6 +1576,51 @@ drmmode_output_mode_valid(xf86OutputPtr output, Disp=
+layModePtr pModes)
+         return MODE_OK;
+ }
 
-                         if (!drmmode_crtc->flip_pending) {
-                                 radeon_drm_abort_entry(drmmode_crtc->
++static void
++drmmode_output_attach_tile(xf86OutputPtr output)
++{
++#if XORG_VERSION_CURRENT >=3D XORG_VERSION_NUMERIC(1, 17, 99, 901, 0)
++       drmmode_output_private_ptr drmmode_output =3D output->driver_privat=
+e;
++       drmModeConnectorPtr koutput =3D drmmode_output->mode_output;
++       RADEONEntPtr pRADEONEnt =3D RADEONEntPriv(output->scrn);
++       struct xf86CrtcTileInfo tile_info, *set =3D NULL;
++       int i;
++
++       if (!koutput) {
++               xf86OutputSetTile(output, NULL);
++               return;
++       }
++
++       /* look for a TILE property */
++       for (i =3D 0; i < koutput->count_props; i++) {
++               drmModePropertyPtr props;
++               props =3D drmModeGetProperty(pRADEONEnt->fd, koutput->props=
+[i]);
++               if (!props)
++                       continue;
++
++               if (!(props->flags & DRM_MODE_PROP_BLOB)) {
++                       drmModeFreeProperty(props);
++                       continue;
++               }
++
++               if (!strcmp(props->name, "TILE")) {
++                       drmModeFreePropertyBlob(drmmode_output->tile_blob);
++                       drmmode_output->tile_blob =3D
++                               drmModeGetPropertyBlob(pRADEONEnt->fd,
++                                                      koutput->prop_values=
+[i]);
++               }
++               drmModeFreeProperty(props);
++       }
++       if (drmmode_output->tile_blob) {
++               if (xf86OutputParseKMSTile(drmmode_output->tile_blob->data,
++                                          drmmode_output->tile_blob->lengt=
+h,
++                                          &tile_info) =3D=3D TRUE)
++                       set =3D &tile_info;
++       }
++       xf86OutputSetTile(output, set);
++#endif
++}
++
+ static int
+ koutput_get_prop_idx(int fd, drmModeConnectorPtr koutput,
+         int type, const char *name)
+@@ -1648,6 +1693,8 @@ drmmode_output_get_modes(xf86OutputPtr output)
+         }
+         xf86OutputSetEDID(output, mon);
+
++       drmmode_output_attach_tile(output);
++
+         /* modes should already be available */
+         for (i =3D 0; i < koutput->count_modes; i++) {
+                 Mode =3D xnfalloc(sizeof(DisplayModeRec));
+@@ -1665,8 +1712,11 @@ drmmode_output_destroy(xf86OutputPtr output)
+         drmmode_output_private_ptr drmmode_output =3D output->driver_priva=
+te;
+         int i;
+
+-       if (drmmode_output->edid_blob)
+-               drmModeFreePropertyBlob(drmmode_output->edid_blob);
++       drmModeFreePropertyBlob(drmmode_output->edid_blob);
++#if XORG_VERSION_CURRENT >=3D XORG_VERSION_NUMERIC(1, 17, 99, 901, 0)
++       drmModeFreePropertyBlob(drmmode_output->tile_blob);
++#endif
++
+         for (i =3D 0; i < drmmode_output->num_props; i++) {
+                 drmModeFreeProperty(drmmode_output->props[i].mode_prop);
+                 free(drmmode_output->props[i].atoms);
+diff --git a/src/drmmode_display.h b/src/drmmode_display.h
+index 2c2c3d57f..96eaef0aa 100644
+--- a/src/drmmode_display.h
++++ b/src/drmmode_display.h
+@@ -142,6 +142,9 @@ typedef struct {
+     drmModeConnectorPtr mode_output;
+     drmModeEncoderPtr *mode_encoders;
+     drmModePropertyBlobPtr edid_blob;
++#if XORG_VERSION_CURRENT >=3D XORG_VERSION_NUMERIC(1, 17, 99, 901, 0)
++    drmModePropertyBlobPtr tile_blob;
++#endif
+     int dpms_enum_id;
+     int num_props;
+     drmmode_prop_ptr props;
 --
 2.20.1
 
@@ -77,7 +160,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_
+--_000_BN6PR12MB1809958DD227122255F52357F74B0BN6PR12MB1809namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -99,61 +182,191 @@ Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
 ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
 enzer.net&gt;<br>
-<b>Sent:</b> Thursday, March 14, 2019 6:15 AM<br>
+<b>Sent:</b> Thursday, March 14, 2019 6:19 AM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> [PATCH xf86-video-ati] Use radeon_finish in drmmode_crtc_sc=
-anout_update</font>
+<b>Subject:</b> [PATCH xf86-video-ati] modesetting: add tile property suppo=
+rt</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
+<div class=3D"PlainText">From: Dave Airlie &lt;airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org&gt;<br>
 <br>
-radeon_glamor_finish only works if we're using glamor, otherwise it'll<br>
-crash.<br>
+This adds tiling support to the driver, it retrieves the tile info from<br>
+the kernel and translates it into the server format and exposes the<br>
+property.<br>
 <br>
-Fixes: ce7db51020d3 &quot;Cancel pending scanout update in drmmode_crtc_sca=
-nout_update&quot;<br>
-Bug: <a href=3D"https://bugs.debian.org/924540">https://bugs.debian.org/924=
-540</a><br>
+(Ported from xserver commits 8fb8bbb3062f1a06621ab7030a9e89d5e8367b35<br>
+&nbsp;and 6abdb54a11dac4e8854ff94ecdcb90a14321ab31)<br>
+(Ported from amdgpu commit 6ee857726166f495abcd68e4ff60e3a09593d079)<br>
+<br>
 Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;src/drmmode_display.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+&nbsp;src/drmmode_display.c | 54 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+43;&#43;&#43;--<br>
+&nbsp;src/drmmode_display.h |&nbsp; 3 &#43;&#43;&#43;<br>
+&nbsp;2 files changed, 55 insertions(&#43;), 2 deletions(-)<br>
 <br>
 diff --git a/src/drmmode_display.c b/src/drmmode_display.c<br>
-index c5fccd2aa..002513f1a 100644<br>
+index 002513f1a..0e9e24749 100644<br>
 --- a/src/drmmode_display.c<br>
 &#43;&#43;&#43; b/src/drmmode_display.c<br>
-@@ -785,7 &#43;785,7 @@ drmmode_crtc_scanout_update(xf86CrtcPtr crtc, Displ=
-ayModePtr mode,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screen-&gt;GetWindowPixmap(sc=
-reen-&gt;root),<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; extents)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Regio=
-nEmpty(DamageRegion(drmmode_crtc-&gt;scanout_damage));<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_glamor_fi=
-nish(scrn);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_finis=
-h(scrn, drmmode_crtc-&gt;scanout[scanout_id].bo);<br>
+@@ -1576,6 &#43;1576,51 @@ drmmode_output_mode_valid(xf86OutputPtr output, =
+DisplayModePtr pModes)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return MODE_OK;<br>
+&nbsp;}<br>
 &nbsp;<br>
+&#43;static void<br>
+&#43;drmmode_output_attach_tile(xf86OutputPtr output)<br>
+&#43;{<br>
+&#43;#if XORG_VERSION_CURRENT &gt;=3D XORG_VERSION_NUMERIC(1, 17, 99, 901, =
+0)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_output_private_ptr drmmod=
+e_output =3D output-&gt;driver_private;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmModeConnectorPtr koutput =3D d=
+rmmode_output-&gt;mode_output;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RADEONEntPtr pRADEONEnt =3D RADEO=
+NEntPriv(output-&gt;scrn);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct xf86CrtcTileInfo tile_info=
+, *set =3D NULL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!koutput) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; xf86OutputSetTile(output, NULL);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* look for a TILE property */<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; koutput-&gt;=
+count_props; i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; drmModePropertyPtr props;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; props =3D drmModeGetProperty(pRADEONEnt-&gt;fd, koutput-&gt;=
+props[i]);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!props)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br=
+>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!(props-&gt;flags &amp; DRM_MODE_PROP_BLOB)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmModeFreeP=
+roperty(props);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!strcmp(props-&gt;name, &quot;TILE&quot;)) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmModeFreeP=
+ropertyBlob(drmmode_output-&gt;tile_blob);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_outp=
+ut-&gt;tile_blob =3D<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmModeGetPropertyBlob(pRADEONEnt-&gt;f=
+d,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; koutput-&gt;prop_values[i]);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; drmModeFreeProperty(props);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (drmmode_output-&gt;tile_blob)=
+ {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (xf86OutputParseKMSTile(drmmode_output-&gt;tile_blob-&gt;=
+data,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_output-&gt;tile_blob-&gt;length,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp; &amp;tile_info) =3D=3D TRUE)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set =3D &amp=
+;tile_info;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xf86OutputSetTile(output, set);<b=
+r>
+&#43;#endif<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static int<br>
+&nbsp;koutput_get_prop_idx(int fd, drmModeConnectorPtr koutput,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int type, const char *name=
+)<br>
+@@ -1648,6 &#43;1693,8 @@ drmmode_output_get_modes(xf86OutputPtr output)<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xf86OutputSetEDID(output, =
+mon);<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_output_attach_tile(output=
+);<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* modes should already be=
+ available */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; koutp=
+ut-&gt;count_modes; i&#43;&#43;) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!=
-drmmode_crtc-&gt;flip_pending) {<br>
+sp;&nbsp;&nbsp;&nbsp; Mode =3D xnfalloc(sizeof(DisplayModeRec));<br>
+@@ -1665,8 &#43;1712,11 @@ drmmode_output_destroy(xf86OutputPtr output)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmmode_output_private_ptr=
+ drmmode_output =3D output-&gt;driver_private;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (drmmode_output-&gt;edid_blob)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; drmModeFreePropertyBlob(drmmode_output-&gt;edid_blob);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmModeFreePropertyBlob(drmmode_o=
+utput-&gt;edid_blob);<br>
+&#43;#if XORG_VERSION_CURRENT &gt;=3D XORG_VERSION_NUMERIC(1, 17, 99, 901, =
+0)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drmModeFreePropertyBlob(drmmode_o=
+utput-&gt;tile_blob);<br>
+&#43;#endif<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; drmmo=
+de_output-&gt;num_props; i&#43;&#43;) {<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_drm_abort_entry(drmmode_c=
-rtc-&gt;<br>
+sp;&nbsp;&nbsp;&nbsp; drmModeFreeProperty(drmmode_output-&gt;props[i].mode_=
+prop);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; free(drmmode_output-&gt;props[i].atoms);<br>
+diff --git a/src/drmmode_display.h b/src/drmmode_display.h<br>
+index 2c2c3d57f..96eaef0aa 100644<br>
+--- a/src/drmmode_display.h<br>
+&#43;&#43;&#43; b/src/drmmode_display.h<br>
+@@ -142,6 &#43;142,9 @@ typedef struct {<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drmModeConnectorPtr mode_output;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drmModeEncoderPtr *mode_encoders;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drmModePropertyBlobPtr edid_blob;<br>
+&#43;#if XORG_VERSION_CURRENT &gt;=3D XORG_VERSION_NUMERIC(1, 17, 99, 901, =
+0)<br>
+&#43;&nbsp;&nbsp;&nbsp; drmModePropertyBlobPtr tile_blob;<br>
+&#43;#endif<br>
+&nbsp;&nbsp;&nbsp;&nbsp; int dpms_enum_id;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; int num_props;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; drmmode_prop_ptr props;<br>
 -- <br>
 2.20.1<br>
 <br>
@@ -166,9 +379,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
 </body>
 </html>
 
---_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_--
+--_000_BN6PR12MB1809958DD227122255F52357F74B0BN6PR12MB1809namp_--
 
---===============0493490409==
+--===============1091902848==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -178,4 +391,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0493490409==--
+--===============1091902848==--
