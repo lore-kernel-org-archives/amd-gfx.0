@@ -1,11 +1,14 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati] modesetting: add tile property support
-Date: Thu, 14 Mar 2019 11:19:48 +0100
-Message-ID: <20190314101948.4496-1-michel@daenzer.net>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati] Use radeon_finish in
+ drmmode_crtc_scanout_update
+Date: Thu, 14 Mar 2019 13:15:43 +0000
+Message-ID: <BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190314101542.2984-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0493490409=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190314101542.2984-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,71 +19,163 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogRGF2ZSBBaXJsaWUgPGFpcmxpZWRAcmVkaGF0LmNvbT4KClRoaXMgYWRkcyB0aWxpbmcg
-c3VwcG9ydCB0byB0aGUgZHJpdmVyLCBpdCByZXRyaWV2ZXMgdGhlIHRpbGUgaW5mbyBmcm9tCnRo
-ZSBrZXJuZWwgYW5kIHRyYW5zbGF0ZXMgaXQgaW50byB0aGUgc2VydmVyIGZvcm1hdCBhbmQgZXhw
-b3NlcyB0aGUKcHJvcGVydHkuCgooUG9ydGVkIGZyb20geHNlcnZlciBjb21taXRzIDhmYjhiYmIz
-MDYyZjFhMDY2MjFhYjcwMzBhOWU4OWQ1ZTgzNjdiMzUKIGFuZCA2YWJkYjU0YTExZGFjNGU4ODU0
-ZmY5NGVjZGNiOTBhMTQzMjFhYjMxKQooUG9ydGVkIGZyb20gYW1kZ3B1IGNvbW1pdCA2ZWU4NTc3
-MjYxNjZmNDk1YWJjZDY4ZTRmZjYwZTNhMDk1OTNkMDc5KQoKU2lnbmVkLW9mZi1ieTogTWljaGVs
-IETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+Ci0tLQogc3JjL2RybW1vZGVfZGlzcGxh
-eS5jIHwgNTQgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLQogc3Jj
-L2RybW1vZGVfZGlzcGxheS5oIHwgIDMgKysrCiAyIGZpbGVzIGNoYW5nZWQsIDU1IGluc2VydGlv
-bnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5j
-IGIvc3JjL2RybW1vZGVfZGlzcGxheS5jCmluZGV4IDAwMjUxM2YxYS4uMGU5ZTI0NzQ5IDEwMDY0
-NAotLS0gYS9zcmMvZHJtbW9kZV9kaXNwbGF5LmMKKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5j
-CkBAIC0xNTc2LDYgKzE1NzYsNTEgQEAgZHJtbW9kZV9vdXRwdXRfbW9kZV92YWxpZCh4Zjg2T3V0
-cHV0UHRyIG91dHB1dCwgRGlzcGxheU1vZGVQdHIgcE1vZGVzKQogCXJldHVybiBNT0RFX09LOwog
-fQogCitzdGF0aWMgdm9pZAorZHJtbW9kZV9vdXRwdXRfYXR0YWNoX3RpbGUoeGY4Nk91dHB1dFB0
-ciBvdXRwdXQpCit7CisjaWYgWE9SR19WRVJTSU9OX0NVUlJFTlQgPj0gWE9SR19WRVJTSU9OX05V
-TUVSSUMoMSwgMTcsIDk5LCA5MDEsIDApCisJZHJtbW9kZV9vdXRwdXRfcHJpdmF0ZV9wdHIgZHJt
-bW9kZV9vdXRwdXQgPSBvdXRwdXQtPmRyaXZlcl9wcml2YXRlOworCWRybU1vZGVDb25uZWN0b3JQ
-dHIga291dHB1dCA9IGRybW1vZGVfb3V0cHV0LT5tb2RlX291dHB1dDsKKwlSQURFT05FbnRQdHIg
-cFJBREVPTkVudCA9IFJBREVPTkVudFByaXYob3V0cHV0LT5zY3JuKTsKKwlzdHJ1Y3QgeGY4NkNy
-dGNUaWxlSW5mbyB0aWxlX2luZm8sICpzZXQgPSBOVUxMOworCWludCBpOworCisJaWYgKCFrb3V0
-cHV0KSB7CisJCXhmODZPdXRwdXRTZXRUaWxlKG91dHB1dCwgTlVMTCk7CisJCXJldHVybjsKKwl9
-CisKKwkvKiBsb29rIGZvciBhIFRJTEUgcHJvcGVydHkgKi8KKwlmb3IgKGkgPSAwOyBpIDwga291
-dHB1dC0+Y291bnRfcHJvcHM7IGkrKykgeworCQlkcm1Nb2RlUHJvcGVydHlQdHIgcHJvcHM7CisJ
-CXByb3BzID0gZHJtTW9kZUdldFByb3BlcnR5KHBSQURFT05FbnQtPmZkLCBrb3V0cHV0LT5wcm9w
-c1tpXSk7CisJCWlmICghcHJvcHMpCisJCQljb250aW51ZTsKKworCQlpZiAoIShwcm9wcy0+Zmxh
-Z3MgJiBEUk1fTU9ERV9QUk9QX0JMT0IpKSB7CisJCQlkcm1Nb2RlRnJlZVByb3BlcnR5KHByb3Bz
-KTsKKwkJCWNvbnRpbnVlOworCQl9CisKKwkJaWYgKCFzdHJjbXAocHJvcHMtPm5hbWUsICJUSUxF
-IikpIHsKKwkJCWRybU1vZGVGcmVlUHJvcGVydHlCbG9iKGRybW1vZGVfb3V0cHV0LT50aWxlX2Js
-b2IpOworCQkJZHJtbW9kZV9vdXRwdXQtPnRpbGVfYmxvYiA9CisJCQkJZHJtTW9kZUdldFByb3Bl
-cnR5QmxvYihwUkFERU9ORW50LT5mZCwKKwkJCQkJCSAgICAgICBrb3V0cHV0LT5wcm9wX3ZhbHVl
-c1tpXSk7CisJCX0KKwkJZHJtTW9kZUZyZWVQcm9wZXJ0eShwcm9wcyk7CisJfQorCWlmIChkcm1t
-b2RlX291dHB1dC0+dGlsZV9ibG9iKSB7CisJCWlmICh4Zjg2T3V0cHV0UGFyc2VLTVNUaWxlKGRy
-bW1vZGVfb3V0cHV0LT50aWxlX2Jsb2ItPmRhdGEsCisJCQkJCSAgIGRybW1vZGVfb3V0cHV0LT50
-aWxlX2Jsb2ItPmxlbmd0aCwKKwkJCQkJICAgJnRpbGVfaW5mbykgPT0gVFJVRSkKKwkJCXNldCA9
-ICZ0aWxlX2luZm87CisJfQorCXhmODZPdXRwdXRTZXRUaWxlKG91dHB1dCwgc2V0KTsKKyNlbmRp
-ZgorfQorCiBzdGF0aWMgaW50CiBrb3V0cHV0X2dldF9wcm9wX2lkeChpbnQgZmQsIGRybU1vZGVD
-b25uZWN0b3JQdHIga291dHB1dCwKICAgICAgICAgaW50IHR5cGUsIGNvbnN0IGNoYXIgKm5hbWUp
-CkBAIC0xNjQ4LDYgKzE2OTMsOCBAQCBkcm1tb2RlX291dHB1dF9nZXRfbW9kZXMoeGY4Nk91dHB1
-dFB0ciBvdXRwdXQpCiAJfQogCXhmODZPdXRwdXRTZXRFRElEKG91dHB1dCwgbW9uKTsKIAorCWRy
-bW1vZGVfb3V0cHV0X2F0dGFjaF90aWxlKG91dHB1dCk7CisKIAkvKiBtb2RlcyBzaG91bGQgYWxy
-ZWFkeSBiZSBhdmFpbGFibGUgKi8KIAlmb3IgKGkgPSAwOyBpIDwga291dHB1dC0+Y291bnRfbW9k
-ZXM7IGkrKykgewogCQlNb2RlID0geG5mYWxsb2Moc2l6ZW9mKERpc3BsYXlNb2RlUmVjKSk7CkBA
-IC0xNjY1LDggKzE3MTIsMTEgQEAgZHJtbW9kZV9vdXRwdXRfZGVzdHJveSh4Zjg2T3V0cHV0UHRy
-IG91dHB1dCkKIAlkcm1tb2RlX291dHB1dF9wcml2YXRlX3B0ciBkcm1tb2RlX291dHB1dCA9IG91
-dHB1dC0+ZHJpdmVyX3ByaXZhdGU7CiAJaW50IGk7CiAKLQlpZiAoZHJtbW9kZV9vdXRwdXQtPmVk
-aWRfYmxvYikKLQkJZHJtTW9kZUZyZWVQcm9wZXJ0eUJsb2IoZHJtbW9kZV9vdXRwdXQtPmVkaWRf
-YmxvYik7CisJZHJtTW9kZUZyZWVQcm9wZXJ0eUJsb2IoZHJtbW9kZV9vdXRwdXQtPmVkaWRfYmxv
-Yik7CisjaWYgWE9SR19WRVJTSU9OX0NVUlJFTlQgPj0gWE9SR19WRVJTSU9OX05VTUVSSUMoMSwg
-MTcsIDk5LCA5MDEsIDApCisJZHJtTW9kZUZyZWVQcm9wZXJ0eUJsb2IoZHJtbW9kZV9vdXRwdXQt
-PnRpbGVfYmxvYik7CisjZW5kaWYKKwogCWZvciAoaSA9IDA7IGkgPCBkcm1tb2RlX291dHB1dC0+
-bnVtX3Byb3BzOyBpKyspIHsKIAkJZHJtTW9kZUZyZWVQcm9wZXJ0eShkcm1tb2RlX291dHB1dC0+
-cHJvcHNbaV0ubW9kZV9wcm9wKTsKIAkJZnJlZShkcm1tb2RlX291dHB1dC0+cHJvcHNbaV0uYXRv
-bXMpOwpkaWZmIC0tZ2l0IGEvc3JjL2RybW1vZGVfZGlzcGxheS5oIGIvc3JjL2RybW1vZGVfZGlz
-cGxheS5oCmluZGV4IDJjMmMzZDU3Zi4uOTZlYWVmMGFhIDEwMDY0NAotLS0gYS9zcmMvZHJtbW9k
-ZV9kaXNwbGF5LmgKKysrIGIvc3JjL2RybW1vZGVfZGlzcGxheS5oCkBAIC0xNDIsNiArMTQyLDkg
-QEAgdHlwZWRlZiBzdHJ1Y3QgewogICAgIGRybU1vZGVDb25uZWN0b3JQdHIgbW9kZV9vdXRwdXQ7
-CiAgICAgZHJtTW9kZUVuY29kZXJQdHIgKm1vZGVfZW5jb2RlcnM7CiAgICAgZHJtTW9kZVByb3Bl
-cnR5QmxvYlB0ciBlZGlkX2Jsb2I7CisjaWYgWE9SR19WRVJTSU9OX0NVUlJFTlQgPj0gWE9SR19W
-RVJTSU9OX05VTUVSSUMoMSwgMTcsIDk5LCA5MDEsIDApCisgICAgZHJtTW9kZVByb3BlcnR5Qmxv
-YlB0ciB0aWxlX2Jsb2I7CisjZW5kaWYKICAgICBpbnQgZHBtc19lbnVtX2lkOwogICAgIGludCBu
-dW1fcHJvcHM7CiAgICAgZHJtbW9kZV9wcm9wX3B0ciBwcm9wczsKLS0gCjIuMjAuMQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0493490409==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
+=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Sent: Thursday, March 14, 2019 6:15 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH xf86-video-ati] Use radeon_finish in drmmode_crtc_scanout_u=
+pdate
+
+From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+
+radeon_glamor_finish only works if we're using glamor, otherwise it'll
+crash.
+
+Fixes: ce7db51020d3 "Cancel pending scanout update in drmmode_crtc_scanout_=
+update"
+Bug: https://bugs.debian.org/924540
+Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+---
+ src/drmmode_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/drmmode_display.c b/src/drmmode_display.c
+index c5fccd2aa..002513f1a 100644
+--- a/src/drmmode_display.c
++++ b/src/drmmode_display.c
+@@ -785,7 +785,7 @@ drmmode_crtc_scanout_update(xf86CrtcPtr crtc, DisplayMo=
+dePtr mode,
+                                              screen->GetWindowPixmap(scree=
+n->root),
+                                              extents)) {
+                         RegionEmpty(DamageRegion(drmmode_crtc->scanout_dam=
+age));
+-                       radeon_glamor_finish(scrn);
++                       radeon_finish(scrn, drmmode_crtc->scanout[scanout_i=
+d].bo);
+
+                         if (!drmmode_crtc->flip_pending) {
+                                 radeon_drm_abort_entry(drmmode_crtc->
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
+enzer.net&gt;<br>
+<b>Sent:</b> Thursday, March 14, 2019 6:15 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH xf86-video-ati] Use radeon_finish in drmmode_crtc_sc=
+anout_update</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<br>
+radeon_glamor_finish only works if we're using glamor, otherwise it'll<br>
+crash.<br>
+<br>
+Fixes: ce7db51020d3 &quot;Cancel pending scanout update in drmmode_crtc_sca=
+nout_update&quot;<br>
+Bug: <a href=3D"https://bugs.debian.org/924540">https://bugs.debian.org/924=
+540</a><br>
+Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;src/drmmode_display.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/src/drmmode_display.c b/src/drmmode_display.c<br>
+index c5fccd2aa..002513f1a 100644<br>
+--- a/src/drmmode_display.c<br>
+&#43;&#43;&#43; b/src/drmmode_display.c<br>
+@@ -785,7 &#43;785,7 @@ drmmode_crtc_scanout_update(xf86CrtcPtr crtc, Displ=
+ayModePtr mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; screen-&gt;GetWindowPixmap(sc=
+reen-&gt;root),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; extents)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Regio=
+nEmpty(DamageRegion(drmmode_crtc-&gt;scanout_damage));<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_glamor_fi=
+nish(scrn);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_finis=
+h(scrn, drmmode_crtc-&gt;scanout[scanout_id].bo);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!=
+drmmode_crtc-&gt;flip_pending) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; radeon_drm_abort_entry(drmmode_c=
+rtc-&gt;<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809A4E489F5DC99ADA1A3F6F74B0BN6PR12MB1809namp_--
+
+--===============0493490409==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0493490409==--
