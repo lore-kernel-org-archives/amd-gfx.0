@@ -1,32 +1,47 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: Re: [PATCH] drm/amdkfd: Fix unchecked return value
-Date: Mon, 18 Mar 2019 13:49:27 -0500
-Message-ID: <d4dbee0f-398d-28c4-8f57-9aabfd202722@embeddedor.com>
-References: <20190318180525.GA13768@embeddedor>
- <20ac3fa8-0889-60ba-f2c9-52ba91982c22@amd.com>
+From: Bill Messenger <billmess8-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Input lag bug in programs like Blender
+Date: Mon, 18 Mar 2019 13:56:23 -0500
+Message-ID: <2fd49bb31e67914a968eeefe74234a0cab09c099.camel@gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20ac3fa8-0889-60ba-f2c9-52ba91982c22@amd.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, Oded Gabbay <oded.gabbay@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-CgpPbiAzLzE4LzE5IDE6MjUgUE0sIEt1ZWhsaW5nLCBGZWxpeCB3cm90ZToKPiBBbGV4IGFscmVh
-ZHkgYXBwbGllZCBhbiBlcXVpdmFsZW50IHBhdGNoIGJ5IENvbGluIEtpbmcgKGF0dGFjaGVkIGZv
-ciAKPiByZWZlcmVuY2UpLgo+IAoKT2gsIHRoYXQncyBncmVhdC4gIEdvb2QgdG8ga25vdy4KClRo
-YW5rcywgRmVsaXguCi0tCkd1c3Rhdm8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vZHJpLWRldmVs
+T24gbXkgc3lzdGVtLCBwcm9ncmFtcyBsaWtlIEJsZW5kZXIgaGF2ZSB2ZXJ5IG5vdGljZWFibGUg
+aW5wdXQgbGFnIHRoYXQKbWFrZXMgaXQgaGFyZCB0byB1c2UuIEl0IGhhcHBlbnMgbm8gbWF0dGVy
+IHdoYXQgTGludXggZGlzdHJvIG9yCmNvbXBvc2l0b3IgSSB0cnkuIEF0IGZpcnN0IHRoZSBvbmx5
+IGZpeCB0aGF0IHNlZW1lZCB0byB3b3JrIHdhcwppbnN0YWxsaW5nIHRoZSBwcm9wcmlldGFyeSBh
+bWRncHUtcHJvIGRyaXZlcnMgb24gVWJ1bnR1LiBSdW5uaW5nICJlbnYKTElCR0xfRFJJM19ESVNB
+QkxFPTEgYmxlbmRlciIgc2VlbWVkIHRvIGhlbHAsIGJ1dCBpdCBzdGlsbCB3YXNuJ3QKcGVyZmVj
+dC4KCkhvd2V2ZXIsIEkgcmVjZW50bHkgZm91bmQgb3V0IGhvdyB0byB0cnVseSBmaXggaXQgb24g
+YW55IGRpc3RybyB3aXRoCnRoZSBvcGVuIHNvdXJjZSBkcml2ZXJzLiBJZiBJIGNyZWF0ZSBhIGZp
+bGUgY2FsbGVkIC5kcmlyYyBpbiBteSBob21lCmZvbGRlciB3aXRoIHRoZSBjb250ZW50czoKCjxk
+cmljb25mPgogIDxkZXZpY2U+CiAgICA8YXBwbGljYXRpb24gbmFtZT0iRGVmYXVsdCI+CiAgICAg
+IDxvcHRpb24gbmFtZT0idmJsYW5rX21vZGUiIHZhbHVlPSIxIi8+CiAgICA8L2FwcGxpY2F0aW9u
+PgogIDwvZGV2aWNlPgo8L2RyaWNvbmY+Cgp0aGVuIHJlc3RhcnQgbXkgc3lzdGVtLCBpdCBmaXhl
+cyB0aGUgaXNzdWUuIEknbSBub3Qgc3VyZSB3aGF0IHRoaXMKZG9lcywgYnV0IGl0IHNlZW1zIGxp
+a2UgdGhlcmUncyBzb21lIHNvcnQgb2YgYnVnIGhlcmUuCgpJIGZvdW5kIG91dCBhYm91dCB0aGlz
+IGZpeCBmcm9tIHRoaXMgdGhyZWFkOgpodHRwczovL3d3dy5yZWRkaXQuY29tL3IvbGludXhfZ2Ft
+aW5nL2NvbW1lbnRzL2FqZjl1ei9ob3dfYXJlX3Blb3BsZV9kZWFsaW5nX3dpdGhfYW5kX2F2b2lk
+aW5nX2lucHV0LwoKSSdtIHJ1bm5pbmcgTWFuamFybyBCdWRnaWUsIGFuZCB0aGlzIGlzIHRoZSBv
+dXB1dCBvZiBpbnhpIC1HeHg6CgpHcmFwaGljczoKICBEZXZpY2UtMTogQU1EIFRvbmdhIFBSTyBb
+UmFkZW9uIFI5IDI4NS8zODBdIHZlbmRvcjogQVNVU1RlSyBkcml2ZXI6CmFtZGdwdSAKICB2OiBr
+ZXJuZWwgYnVzIElEOiAwMTowMC4wIGNoaXAgSUQ6IDEwMDI6NjkzOSAKICBEaXNwbGF5OiB4MTEg
+c2VydmVyOiBYLm9yZyAxLjIwLjQgZHJpdmVyOiBhbWRncHUgY29tcG9zaXRvcjogYnVkZ2llLQp3
+bSAKICByZXNvbHV0aW9uOiA8eGRweWluZm8gbWlzc2luZz4gCiAgT3BlbkdMOiByZW5kZXJlcjog
+QU1EIFJhZGVvbiBSOSAyMDAgU2VyaWVzIChUT05HQSBEUk0gMy4yNy4wIAogIDQuMTkuMjgtMS1N
+QU5KQVJPIExMVk0gNy4wLjEpIAogIHY6IDQuNSBNZXNhIDE4LjMuNCBkaXJlY3QgcmVuZGVyOiBZ
+ZXMgCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
