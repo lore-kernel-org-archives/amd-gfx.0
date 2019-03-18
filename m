@@ -1,120 +1,135 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Subject: Re: [PATCH 2/4] drm/amd/display: Rework vrr flip throttling for late
- vblank irq.
-Date: Mon, 18 Mar 2019 17:59:33 +0000
-Message-ID: <7c64c04b-f3d6-8aa1-bbea-f897b8eaff13@amd.com>
-References: <20190318171952.24302-1-mario.kleiner.de@gmail.com>
- <20190318171952.24302-3-mario.kleiner.de@gmail.com>
+From: Lionel Landwerlin <lionel.g.landwerlin-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/9] drm/syncobj: add support for timeline point wait v8
+Date: Mon, 18 Mar 2019 18:19:12 +0000
+Message-ID: <1a9d1138-5638-932d-7cd3-9325c2ae31c5@intel.com>
+References: <20190315120959.25489-1-david1.zhou@amd.com>
+ <20190315120959.25489-3-david1.zhou@amd.com>
+ <5b68b54a-5d8d-9666-bd45-aa53b6b295e7@intel.com>
+ <990db9e7-6cae-1165-637c-84aed3a9af49@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190318171952.24302-3-mario.kleiner.de@gmail.com>
+Content-Type: multipart/mixed; boundary="===============1620600533=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <990db9e7-6cae-1165-637c-84aed3a9af49-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <72D08EFE6031F54EA5891D627BDFB7C7@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Mario Kleiner <mario.kleiner.de@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org" <jason-fQELhIk9awXprZlt/sZkLg@public.gmane.org>
+Cc: Dave Airlie <airlied-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Chris Wilson <chris-Y6uKTt2uX1cEflXRtASbqLVCufUGDwFn@public.gmane.org>, Daniel Rakos <Daniel.Rakos-5C7GfCeVMHo@public.gmane.org>, Bas Nieuwenhuizen <bas-dldO88ZXqoXqqjsSq9zF6IRWq/SkRNHw@public.gmane.org>
 
-T24gMy8xOC8xOSAxOjE5IFBNLCBNYXJpbyBLbGVpbmVyIHdyb3RlOg0KPiBGb3IgdGhyb3R0bGlu
-ZyB0byB3b3JrIGNvcnJlY3RseSwgd2UgYWx3YXlzIG5lZWQgYSBiYXNlbGluZSB2YmxhbmsNCj4g
-Y291bnQgbGFzdF9mbGlwX3ZibGFuayB0aGF0IGluY3JlbWVudHMgYXQgc3RhcnQgb2YgZnJvbnQt
-cG9yY2guDQo+IA0KPiBUaGlzIGlzIHRoZSBjYXNlIGZvciBkcm1fY3J0Y192YmxhbmtfY291bnQo
-KSBpbiBub24tVlJSIG1vZGUsIHdoZXJlDQo+IHRoZSB2YmxhbmsgaXJxIGZpcmVzIGF0IHN0YXJ0
-IG9mIGZyb250LXBvcmNoIGFuZCB0cmlnZ2VycyBEUk0gY29yZQ0KPiB2YmxhbmsgaGFuZGxpbmcs
-IGJ1dCBpdCBpcyBubyBsb25nZXIgdGhlIGNhc2UgaW4gVlJSIG1vZGUsIHdoZXJlDQo+IGNvcmUg
-dmJsYW5rIGhhbmRsaW5nIGlzIGRvbmUgbGF0ZXIsIGFmdGVyIGVuZCBvZiBmcm9udC1wb3JjaC4N
-Cj4gDQo+IFRoZXJlZm9yZSBkcm1fY3J0Y192YmxhbmtfY291bnQoKSBpcyBubyBsb25nZXIgdXNl
-ZnVsIGZvciB0aGlzLg0KPiBXZSBhbHNvIGNhbid0IHVzZSBkcm1fY3J0Y19hY2N1cmF0ZV92Ymxh
-bmtfY291bnQoKSwgYXMgdGhhdCB3b3VsZA0KPiBzY3JldyB1cCB2YmxhbmsgdGltZXN0YW1wcyBp
-biBWUlIgbW9kZSB3aGVuIGNhbGxlZCBpbiBmcm9udC1wb3JjaC4NCj4gDQo+IFRvIHNvbHZlIHRo
-aXMsIHVzZSB0aGUgY29va2VkIGhhcmR3YXJlIHZibGFuayBjb3VudGVyIHJldHVybmVkIGJ5DQo+
-IGFtZGdwdV9nZXRfdmJsYW5rX2NvdW50ZXJfa21zKCkgaW5zdGVhZCwgYXMgdGhhdCBvbmUgaXMg
-Y29va2VkIHRvDQo+IGFsd2F5cyBpbmNyZW1lbnQgYXQgc3RhcnQgb2YgZnJvbnQtcG9yY2gsIGlu
-ZGVwZW5kZW50IG9mIHdoZW4NCj4gdmJsYW5rIHJlbGF0ZWQgaXJxJ3MgZmlyZS4NCj4gDQo+IFRo
-aXMgcGF0Y2ggYWxsb3dzIHZibGFuayBpcnEgaGFuZGxpbmcgdG8gaGFwcGVuIGFueXdoZXJlIHdp
-dGhpbg0KPiB2Ymxhbmsgb2YgZXZlbiBhZnRlciBpdCwgd2l0aG91dCBhIG5lZ2F0aXZlIGltcGFj
-dCBvbiBmbGlwDQo+IHRocm90dGxpbmcsIHNvIGZvbGxvd3VwIHBhdGNoZXMgY2FuIHNoaWZ0IHRo
-ZSB2YmxhbmsgY29yZQ0KPiBoYW5kbGluZyB0cmlnZ2VyIHBvaW50IHdoZXJldmVyIHRoZXkgbmVl
-ZCBpdC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IE1hcmlvIEtsZWluZXIgPG1hcmlvLmtsZWluZXIu
-ZGVAZ21haWwuY29tPg0KDQpSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9s
-YXMua2F6bGF1c2thc0BhbWQuY29tPg0KDQpGdW5jdGlvbmFsbHkgZHJtX2NydGNfYWNjdXJhdGVf
-dmJsYW5rX2NvdW50IGlzIHRoZSBzYW1lIGFzIA0KYW1kZ3B1X2dldF92YmxhbmtfY291bnRlcl9r
-bXMgZm9yIHF1ZXJ5aW5nIHB1cnBvc2VzLCBzbyB0aGlzIHdvcmtzLg0KDQpJdCdzIGEgbmljZSBj
-bGVhbnVwIGZvciBjb21taXQgcGxhbmVzIHRvbyBzaW5jZSB3ZSBubyBsb25nZXIgZ3JhYiB0aGUg
-DQpEUk0gdmJsYW5rIGNvdW50IG9ubHkgdG8gaW1tZWRpYXRlbHkgc3VidHJhY3QgaXQgb2ZmIGFn
-YWluLg0KDQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2Rl
-LmggICAgICAgICAgfCAgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMgfCAyMyArKysrKysrKysrKysrLS0tLS0tLS0tLQ0KPiAgIDIgZmls
-ZXMgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgNCj4gaW5kZXggODg5ZTQ0My4uYWRk
-MjM4ZiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21v
-ZGUuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW9kZS5oDQo+
-IEBAIC00MDYsNyArNDA2LDcgQEAgc3RydWN0IGFtZGdwdV9jcnRjIHsNCj4gICAJc3RydWN0IGFt
-ZGdwdV9mbGlwX3dvcmsgKnBmbGlwX3dvcmtzOw0KPiAgIAllbnVtIGFtZGdwdV9mbGlwX3N0YXR1
-cyBwZmxpcF9zdGF0dXM7DQo+ICAgCWludCBkZWZlcnJlZF9mbGlwX2NvbXBsZXRpb247DQo+IC0J
-dTY0IGxhc3RfZmxpcF92Ymxhbms7DQo+ICsJdTMyIGxhc3RfZmxpcF92Ymxhbms7DQo+ICAgCS8q
-IHBsbCBzaGFyaW5nICovDQo+ICAgCXN0cnVjdCBhbWRncHVfYXRvbV9zcyBzczsNCj4gICAJYm9v
-bCBzc19lbmFibGVkOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMNCj4gaW5kZXggYzFjMzgxNS4uODVlNGY4NyAxMDA2NDQNCj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+
-IEBAIC0yODYsNyArMjg2LDcgQEAgc3RhdGljIHZvaWQgZG1fcGZsaXBfaGlnaF9pcnEodm9pZCAq
-aW50ZXJydXB0X3BhcmFtcykNCj4gICAJfQ0KPiAgIA0KPiAgIAkvKiBVcGRhdGUgdG8gY29ycmVj
-dCBjb3VudChzKSBpZiByYWNpbmcgd2l0aCB2YmxhbmsgaXJxICovDQo+IC0JYW1kZ3B1X2NydGMt
-Pmxhc3RfZmxpcF92YmxhbmsgPSBkcm1fY3J0Y19hY2N1cmF0ZV92YmxhbmtfY291bnQoJmFtZGdw
-dV9jcnRjLT5iYXNlKTsNCj4gKwlkcm1fY3J0Y19hY2N1cmF0ZV92YmxhbmtfY291bnQoJmFtZGdw
-dV9jcnRjLT5iYXNlKTsNCj4gICANCj4gICAJLyogd2FrZSB1cCB1c2Vyc3BhY2UgKi8NCj4gICAJ
-aWYgKGFtZGdwdV9jcnRjLT5ldmVudCkgew0KPiBAQCAtMjk4LDYgKzI5OCwxNCBAQCBzdGF0aWMg
-dm9pZCBkbV9wZmxpcF9oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1zKQ0KPiAgIAl9IGVs
-c2UNCj4gICAJCVdBUk5fT04oMSk7DQo+ICAgDQo+ICsJLyogS2VlcCB0cmFjayBvZiB2Ymxhbmsg
-b2YgdGhpcyBmbGlwIGZvciBmbGlwIHRocm90dGxpbmcuIFdlIHVzZSB0aGUNCj4gKwkgKiBjb29r
-ZWQgaHcgY291bnRlciwgYXMgdGhhdCBvbmUgaW5jcmVtZW50ZWQgYXQgc3RhcnQgb2YgdGhpcyB2
-YmxhbmsNCj4gKwkgKiBvZiBwYWdlZmxpcCBjb21wbGV0aW9uLCBzbyBsYXN0X2ZsaXBfdmJsYW5r
-IGlzIHRoZSBmb3JiaWRkZW4gY291bnQNCj4gKwkgKiBmb3IgcXVldWVpbmcgbmV3IHBhZ2VmbGlw
-cyBpZiB2c3luYyArIFZSUiBpcyBlbmFibGVkLg0KPiArCSAqLw0KPiArCWFtZGdwdV9jcnRjLT5s
-YXN0X2ZsaXBfdmJsYW5rID0gYW1kZ3B1X2dldF92YmxhbmtfY291bnRlcl9rbXMoYWRldi0+ZGRl
-diwNCj4gKwkJCQkJCQlhbWRncHVfY3J0Yy0+Y3J0Y19pZCk7DQo+ICsNCj4gICAJYW1kZ3B1X2Ny
-dGMtPnBmbGlwX3N0YXR1cyA9IEFNREdQVV9GTElQX05PTkU7DQo+ICAgCXNwaW5fdW5sb2NrX2ly
-cXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gICANCj4gQEAgLTQ3
-NjksOSArNDc3Nyw4IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0cnVj
-dCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gICAJdW5zaWduZWQgbG9uZyBmbGFnczsNCj4g
-ICAJc3RydWN0IGFtZGdwdV9ibyAqYWJvOw0KPiAgIAl1aW50NjRfdCB0aWxpbmdfZmxhZ3M7DQo+
-IC0JdWludDMyX3QgdGFyZ2V0LCB0YXJnZXRfdmJsYW5rOw0KPiAtCXVpbnQ2NF90IGxhc3RfZmxp
-cF92Ymxhbms7DQo+IC0JYm9vbCB2cnJfYWN0aXZlID0gYWNydGNfc3RhdGUtPmZyZWVzeW5jX2Nv
-bmZpZy5zdGF0ZSA9PSBWUlJfU1RBVEVfQUNUSVZFX1ZBUklBQkxFOw0KPiArCXVpbnQzMl90IHRh
-cmdldF92YmxhbmssIGxhc3RfZmxpcF92Ymxhbms7DQo+ICsJYm9vbCB2cnJfYWN0aXZlID0gYW1k
-Z3B1X2RtX3Zycl9hY3RpdmUoYWNydGNfc3RhdGUpOw0KPiAgIAlib29sIHBmbGlwX3ByZXNlbnQg
-PSBmYWxzZTsNCj4gICANCj4gICAJc3RydWN0IHsNCj4gQEAgLTQ5MTgsNyArNDkyNSw3IEBAIHN0
-YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRl
-ICpzdGF0ZSwNCj4gICAJCQkgKiBjbGllbnRzIHVzaW5nIHRoZSBHTFhfT01MX3N5bmNfY29udHJv
-bCBleHRlbnNpb24gb3INCj4gICAJCQkgKiBEUkkzL1ByZXNlbnQgZXh0ZW5zaW9uIHdpdGggZGVm
-aW5lZCB0YXJnZXRfbXNjLg0KPiAgIAkJCSAqLw0KPiAtCQkJbGFzdF9mbGlwX3ZibGFuayA9IGRy
-bV9jcnRjX3ZibGFua19jb3VudChwY3J0Yyk7DQo+ICsJCQlsYXN0X2ZsaXBfdmJsYW5rID0gYW1k
-Z3B1X2dldF92YmxhbmtfY291bnRlcl9rbXMoZG0tPmRkZXYsIGFjcnRjX2F0dGFjaC0+Y3J0Y19p
-ZCk7DQo+ICAgCQl9DQo+ICAgCQllbHNlIHsNCj4gICAJCQkvKiBGb3IgdmFyaWFibGUgcmVmcmVz
-aCByYXRlIG1vZGUgb25seToNCj4gQEAgLTQ5MzQsMTEgKzQ5NDEsNyBAQCBzdGF0aWMgdm9pZCBh
-bWRncHVfZG1fY29tbWl0X3BsYW5lcyhzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUsDQo+
-ICAgCQkJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmcGNydGMtPmRldi0+ZXZlbnRfbG9jaywgZmxh
-Z3MpOw0KPiAgIAkJfQ0KPiAgIA0KPiAtCQl0YXJnZXQgPSAodWludDMyX3QpbGFzdF9mbGlwX3Zi
-bGFuayArIHdhaXRfZm9yX3ZibGFuazsNCj4gLQ0KPiAtCQkvKiBQcmVwYXJlIHdhaXQgZm9yIHRh
-cmdldCB2YmxhbmsgZWFybHkgLSBiZWZvcmUgdGhlIGZlbmNlLXdhaXRzICovDQo+IC0JCXRhcmdl
-dF92YmxhbmsgPSB0YXJnZXQgLSAodWludDMyX3QpZHJtX2NydGNfdmJsYW5rX2NvdW50KHBjcnRj
-KSArDQo+IC0JCQkJYW1kZ3B1X2dldF92YmxhbmtfY291bnRlcl9rbXMocGNydGMtPmRldiwgYWNy
-dGNfYXR0YWNoLT5jcnRjX2lkKTsNCj4gKwkJdGFyZ2V0X3ZibGFuayA9IGxhc3RfZmxpcF92Ymxh
-bmsgKyB3YWl0X2Zvcl92Ymxhbms7DQo+ICAgDQo+ICAgCQkvKg0KPiAgIAkJICogV2FpdCB1bnRp
-bCB3ZSdyZSBvdXQgb2YgdGhlIHZlcnRpY2FsIGJsYW5rIHBlcmlvZCBiZWZvcmUgdGhlIG9uZQ0K
-PiANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJp
-LWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+This is a multi-part message in MIME format.
+--===============1620600533==
+Content-Type: multipart/alternative;
+ boundary="------------7EF774120FD8B08EDF906EDF"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------7EF774120FD8B08EDF906EDF
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 18/03/2019 17:20, Koenig, Christian wrote:
+>>>    -        if (dma_fence_is_signaled(entries[i].fence)) {
+>>> +        if (fence)
+>>> +            entries[i].fence = fence;
+>>> +        else
+>>> +            entries[i].fence = dma_fence_get_stub();
+>>> +
+>>> +        if ((flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE) ||
+>> Hey David,
+>>
+>> Could you remind me what DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE is used
+>> for?
+>>
+>> I didn't have a use for it in userspace,
+> The flag is used to wait for fences for a sequence number to show up.
+>
+> Christian.
+>
+
+Thanks Christian.
+
+I guess I missed the additive nature of WAIT_FOR_SUBMIT.
+
+
+It feels like WAIT_AVAILABLE almost deserves its own commit as it 
+affects both timelines & binary syncobjs.
+
+
+-Lionel
+
+
+--------------7EF774120FD8B08EDF906EDF
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 18/03/2019 17:20, Koenig, Christian
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:990db9e7-6cae-1165-637c-84aed3a9af49-5C7GfCeVMHo@public.gmane.org">
+      <blockquote type="cite" style="color: #000000;">
+        <blockquote type="cite" style="color: #000000;">
+          <pre class="moz-quote-pre" wrap="">  -        if (dma_fence_is_signaled(entries[i].fence)) {
++        if (fence)
++            entries[i].fence = fence;
++        else
++            entries[i].fence = dma_fence_get_stub();
++
++        if ((flags &amp; DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE) ||
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+Hey David,
+
+Could you remind me what DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE is used 
+for?
+
+I didn't have a use for it in userspace,
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">The flag is used to wait for fences for a sequence number to show up.
+
+Christian.
+
+</pre>
+    </blockquote>
+    <p><br>
+    </p>
+    <p>Thanks Christian.</p>
+    <p>I guess I missed the additive nature of WAIT_FOR_SUBMIT.</p>
+    <p><br>
+    </p>
+    <p>It feels like WAIT_AVAILABLE almost deserves its own commit as it
+      affects both timelines &amp; binary syncobjs.</p>
+    <p><br>
+    </p>
+    <p>-Lionel</p>
+  </body>
+</html>
+
+--------------7EF774120FD8B08EDF906EDF--
+
+--===============1620600533==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1620600533==--
