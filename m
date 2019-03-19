@@ -1,77 +1,117 @@
-From: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
-Subject: Re: [PATCH 3/4] drm/amd/display: In VRR mode, do DRM core vblank
- handling at end of vblank.
-Date: Tue, 19 Mar 2019 08:17:54 +0100
-Message-ID: <35d35342-e6a5-189e-e4f3-f5b2d693754a@molgen.mpg.de>
-References: <20190318171952.24302-1-mario.kleiner.de@gmail.com>
- <20190318171952.24302-4-mario.kleiner.de@gmail.com>
+From: Meelis Roos <mroos@linux.ee>
+Subject: 5.1-rc1: radeon WARNING: CPU: 1 PID: 160 at
+ drivers/gpu/drm/drm_fourcc.c:278 drm_format_info+0x74/0xe0 [drm]
+Date: Tue, 19 Mar 2019 10:24:47 +0200
+Message-ID: <05d8d52e-a9ce-d502-fff0-d1d951acd206@linux.ee>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190318171952.24302-4-mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: de-DE
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Language: et-EE
+Sender: linux-kernel-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RGVhciBNYXJpbywKCgpPbiAxOC4wMy4xOSAxODoxOSwgTWFyaW8gS2xlaW5lciB3cm90ZToKPiBJ
-biBWUlIgbW9kZSwgcHJvcGVyIHZibGFuay9wYWdlZmxpcCB0aW1lc3RhbXBzIGNhbiBvbmx5IGJl
-IGNvbXB1dGVkCj4gYWZ0ZXIgdGhlIGRpc3BsYXkgc2Nhbm91dCBwb3NpdGlvbiBoYXMgbGVmdCBm
-cm9udC1wb3JjaC4gVGhlcmVmb3JlCj4gZGVsYXkgY2FsbHMgdG8gZHJtX2NydGNfaGFuZGxlX3Zi
-bGFuaygpLCBhbmQgdGhlcmVieSBjYWxscyB0bwo+IGRybV91cGRhdGVfdmJsYW5rX2NvdW50KCkg
-YW5kIHBhZ2VmbGlwIGV2ZW50IGRlbGl2ZXJ5LCB0byBhZnRlciB0aGUKPiBlbmQgb2YgZnJvbnQt
-cG9yY2ggd2hlbiBpbiBWUlIgbW9kZS4KPiAKPiBXZSBhZGQgYSBuZXcgdnVwZGF0ZSBpcnEsIHdo
-aWNoIHRyaWdnZXJzIGF0IHRoZSBlbmQgb2YgdGhlIHZ1cGRhdGUKPiBpbnRlcnZhbCwgaWUuIGF0
-IHRoZSBlbmQgb2YgdmJsYW5rLCBhbmQgY2FsbHMgdGhlIGNvcmUgdmJsYW5rIGhhbmRsZXIKPiBm
-dW5jdGlvbi4gVGhlIG5ldyBpcnEgaGFuZGxlciBpcyBub3QgZXhlY3V0ZWQgaW4gc3RhbmRhcmQg
-bm9uLVZSUgo+IG1vZGUsIHNvIHZibGFuayBoYW5kbGluZyBmb3IgZml4ZWQgcmVmcmVzaCByYXRl
-IG1vZGUgaXMgaWRlbnRpY2FsCj4gdG8gdGhlIHBhc3QgaW1wbGVtZW50YXRpb24uCj4gCj4gU2ln
-bmVkLW9mZi1ieTogTWFyaW8gS2xlaW5lciA8bWFyaW8ua2xlaW5lci5kZUBnbWFpbC5jb20+Cj4g
-LS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaCAgICAgICAgICAgICAg
-ICB8ICAgMSArCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbS5jICB8IDEyOSArKysrKysrKysrKysrKysrKysrKy0KPiAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmggIHwgICA5ICsrCj4gICAuLi4vZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2lycS5jICB8ICAyMiArKysrCj4gICAu
-Li4vYW1kL2Rpc3BsYXkvZGMvaXJxL2RjZTExMC9pcnFfc2VydmljZV9kY2UxMTAuYyB8ICAgNyAr
-LQo+ICAgLi4uL2FtZC9kaXNwbGF5L2RjL2lycS9kY2UxMjAvaXJxX3NlcnZpY2VfZGNlMTIwLmMg
-fCAgIDcgKy0KPiAgIC4uLi9hbWQvZGlzcGxheS9kYy9pcnEvZGNlODAvaXJxX3NlcnZpY2VfZGNl
-ODAuYyAgIHwgICA2ICstCj4gICAuLi4vYW1kL2Rpc3BsYXkvZGMvaXJxL2RjbjEwL2lycV9zZXJ2
-aWNlX2RjbjEwLmMgICB8ICA0MCArKysrKy0tCj4gICA4IGZpbGVzIGNoYW5nZWQsIDIwNSBpbnNl
-cnRpb25zKCspLCAxNiBkZWxldGlvbnMoLSkKClvigKZdCgpgc2NyaXB0cy9jaGVja3BhdGNoLnBs
-YCBzaG93cyB0d28gZXJyb3JzIG9uIHlvdXIgY29tbWl0LgoKPiArCS8qIFVzZSBWVVBEQVRFIGlu
-dGVycnVwdCAqLwo+ICsJZm9yIChpID0gVklTTEFORFMzMF9JVl9TUkNJRF9EMV9WX1VQREFURV9J
-TlQ7IGkgPD0gVklTTEFORFMzMF9JVl9TUkNJRF9ENl9WX1VQREFURV9JTlQ7IGkrPTIpIHsKCkVS
-Uk9SOiBzcGFjZXMgcmVxdWlyZWQgYXJvdW5kIHRoYXQgJys9JyAoY3R4OlZ4VikKIzEwNzogRklM
-RTogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYzoxNDkw
-OgorCWZvciAoaSA9IFZJU0xBTkRTMzBfSVZfU1JDSURfRDFfVl9VUERBVEVfSU5UOyBpIDw9IApW
-SVNMQU5EUzMwX0lWX1NSQ0lEX0Q2X1ZfVVBEQVRFX0lOVDsgaSs9MikgewogIAkgCiAgICAgICAg
-ICAgICAgICAgICAgXgoKW+KApl0KCj4gICBzdGF0aWMgaW5saW5lIGludCBkbV9zZXRfdmJsYW5r
-KHN0cnVjdCBkcm1fY3J0YyAqY3J0YywgYm9vbCBlbmFibGUpCj4gICB7Cj4gICAJZW51bSBkY19p
-cnFfc291cmNlIGlycV9zb3VyY2U7Cj4gICAJc3RydWN0IGFtZGdwdV9jcnRjICphY3J0YyA9IHRv
-X2FtZGdwdV9jcnRjKGNydGMpOwo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gY3J0
-Yy0+ZGV2LT5kZXZfcHJpdmF0ZTsKPiArCXN0cnVjdCBkbV9jcnRjX3N0YXRlICphY3J0Y19zdGF0
-ZSA9IHRvX2RtX2NydGNfc3RhdGUoY3J0Yy0+c3RhdGUpOwo+ICsJaW50IHJjID0gMDsKPiArCj4g
-KwlpZiAoZW5hYmxlKSB7Cj4gKwkJLyogdmJsYW5rIGlycSBvbiAtPiBPbmx5IG5lZWQgdnVwZGF0
-ZSBpcnEgaW4gdnJyIG1vZGUgKi8KPiArCQlpZiAoYW1kZ3B1X2RtX3Zycl9hY3RpdmUoYWNydGNf
-c3RhdGUpKQo+ICsJCQlyYyA9IGRtX3NldF92dXBkYXRlX2lycShjcnRjLCB0cnVlKTsKPiArCX0K
-PiArCWVsc2Ugewo+ICsJCS8qIHZibGFuayBpcnEgb2ZmIC0+IHZ1cGRhdGUgaXJxIG9mZiAqLwo+
-ICsJCXJjID0gZG1fc2V0X3Z1cGRhdGVfaXJxKGNydGMsIGZhbHNlKTsKPiArCX0KCkVSUk9SOiBl
-bHNlIHNob3VsZCBmb2xsb3cgY2xvc2UgYnJhY2UgJ30nCiMxOTg6IEZJTEU6IGRyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmM6MzM0NjoKKwl9CisJZWxzZSB7
-CgpBbHNvOgoKV0FSTklORzogUHJlZmVyICd1bnNpZ25lZCBpbnQnIHRvIGJhcmUgdXNlIG9mICd1
-bnNpZ25lZCcKIzI1ODogRklMRTogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG1faXJxLmM6Njc5OgorCQkJCQkgICB1bnNpZ25lZCBjcnRjX2lkLAoKW+KApl0K
-CgpLaW5kIHJlZ2FyZHMsCgpQYXVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA==
+I am seeing the following warning on at least 2 different servers with onboard radeon graphics.
+It was not there with 5.0.
+
+[    4.764838] [drm] radeon kernel modesetting enabled.
+[    4.765334] radeon 0000:01:01.0: vgaarb: deactivate vga console
+[    4.767746] Console: switching to colour dummy device 80x25
+[    4.768285] [drm] initializing kernel modesetting (RV100 0x1002:0x515E 0x1014:0x0305 0x02).
+[    4.768492] radeon 0000:01:01.0: VRAM: 128M 0x00000000D0000000 - 0x00000000D7FFFFFF (16M used)
+[    4.768498] radeon 0000:01:01.0: GTT: 512M 0x00000000B0000000 - 0x00000000CFFFFFFF
+[    4.769756] [drm] Detected VRAM RAM=128M, BAR=128M
+[    4.769760] [drm] RAM width 16bits DDR
+[    4.771231] [TTM] Zone  kernel: Available graphics memory: 2023308 kiB
+[    4.771238] [TTM] Initializing pool allocator
+[    4.771247] [TTM] Initializing DMA pool allocator
+[    4.771282] [drm] radeon: 16M of VRAM memory ready
+[    4.771285] [drm] radeon: 512M of GTT memory ready.
+[    4.771308] [drm] GART: num cpu pages 131072, num gpu pages 131072
+[    4.792356] [drm] PCI GART of 512M enabled (table at 0x00000000BBA00000).
+[    4.792476] radeon 0000:01:01.0: WB disabled
+[    4.792486] radeon 0000:01:01.0: fence driver on ring 0 use gpu addr 0x00000000b0000000 and cpu addr 0x(____ptrval____)
+[    4.792492] [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+[    4.792495] [drm] Driver supports precise vblank timestamp query.
+[    4.792518] [drm] radeon: irq initialized.
+[    4.792537] [drm] Loading R100 Microcode
+[    4.809842] [drm] radeon: ring at 0x00000000B0001000
+[    4.809886] [drm] ring test succeeded in 1 usecs
+[    4.810559] [drm] ib test succeeded in 0 usecs
+[    4.811424] [drm] No valid Ext TMDS info found in BIOS
+[    4.811472] [drm] Radeon Display Connectors
+[    4.811476] [drm] Connector 0:
+[    4.811479] [drm]   VGA-1
+[    4.811482] [drm]   DDC: 0x60 0x60 0x60 0x60 0x60 0x60 0x60 0x60
+[    4.811485] [drm]   Encoders:
+[    4.811488] [drm]     CRT1: INTERNAL_DAC1
+[    4.811491] [drm] Connector 1:
+[    4.811494] [drm]   DVI-D-1
+[    4.811496] [drm]   HPD2
+[    4.811499] [drm]   DDC: 0x64 0x64 0x64 0x64 0x64 0x64 0x64 0x64
+[    4.811502] [drm]   Encoders:
+[    4.811504] [drm]     DFP2: INTERNAL_DVO1
+[    4.857555] [drm] requested bpp 16, scaled depth down to 0
+[    4.857643] WARNING: CPU: 1 PID: 160 at drivers/gpu/drm/drm_fourcc.c:278 drm_format_info+0x74/0xe0 [drm]
+[    4.857659] Modules linked in: radeon(+) coretemp kvm_intel ses kvm i2c_algo_bit drm_kms_helper syscopyarea sysfillrect iTCO_wdt sysimgblt fb_sys_fops iTCO_vendor_support ttm bnx2 enclosure ipmi_ssif drm lpc_ich irqbypass drm_panel_orientation_quirks scsi_transport_sas i2c_i801 evdev psmouse ibmpex mfd_core ibmaem pcspkr ata_piix ipmi_devintf libata ipmi_msghandler i5000_edac i5k_amb button rng_core ip_tables x_tables autofs4
+[    4.857698] CPU: 1 PID: 160 Comm: systemd-udevd Not tainted 5.1.0-rc1 #11
+[    4.857702] Hardware name: IBM IBM System x3550 -[7978E2G]-/System Planar, BIOS -[GFE149BUS-1.17]- 02/14/2011
+[    4.857717] RIP: 0010:drm_format_info+0x74/0xe0 [drm]
+[    4.857722] Code: 4a 8d 14 33 48 89 d8 48 81 fa f0 05 00 00 77 41 45 39 ef 75 d3 49 83 fc 4c 77 5b 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f c3 <0f> 0b 48 83 c4 08 31 c0 5b 5d 41 5c 41 5d 41 5e 41 5f c3 48 89 cf
+[    4.857729] RSP: 0018:ffffa5e4002278b8 EFLAGS: 00010246
+[    4.857733] RAX: ffffffffc03e99bc RBX: ffffffffc03e99d0 RCX: ffffffffc0412600
+[    4.857736] RDX: 00000000000005e0 RSI: 0000000000000000 RDI: 0000000000000000
+[    4.857740] RBP: 000000000000004c R08: ffffffffc04e6a60 R09: 0000000000000000
+[    4.857743] R10: 0000000000000002 R11: 0000000000000000 R12: 000000000000004b
+[    4.857747] R13: 0000000036313050 R14: 000000003fc16c24 R15: 0000000000000000
+[    4.857751] FS:  00007fb1a5852d40(0000) GS:ffff9c1f3fd00000(0000) knlGS:0000000000000000
+[    4.857755] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    4.857759] CR2: 00005619ca47603c CR3: 0000000139abc000 CR4: 00000000000006e0
+[    4.857762] Call Trace:
+[    4.857783]  drm_format_plane_cpp+0xa/0x40 [drm]
+[    4.857946]  radeonfb_create+0x74/0x4a0 [radeon]
+[    4.857960]  ? printk+0x53/0x6a
+[    4.857978]  __drm_fb_helper_initial_config_and_unlock+0x2d6/0x510 [drm_kms_helper]
+[    4.858026]  radeon_fbdev_init+0x106/0x130 [radeon]
+[    4.858075]  radeon_modeset_init.cold.16+0x2a2/0xac5 [radeon]
+[    4.858116]  radeon_driver_load_kms+0xa0/0x1e0 [radeon]
+[    4.858129]  drm_dev_register+0x10c/0x1a0 [drm]
+[    4.858144]  drm_get_pci_dev+0x90/0x190 [drm]
+[    4.858152]  pci_device_probe+0xa1/0x110
+[    4.858159]  really_probe+0xe6/0x2a0
+[    4.858163]  driver_probe_device+0x59/0xe0
+[    4.858167]  device_driver_attach+0x4b/0x50
+[    4.858170]  __driver_attach+0x46/0xb0
+[    4.858174]  ? device_driver_attach+0x50/0x50
+[    4.858178]  bus_for_each_dev+0x72/0xb0
+[    4.858183]  bus_add_driver+0xff/0x1f0
+[    4.858187]  ? 0xffffffffc0791000
+[    4.858191]  driver_register+0x56/0xe0
+[    4.858194]  ? 0xffffffffc0791000
+[    4.858200]  do_one_initcall+0x7e/0x19b
+[    4.858207]  do_init_module+0x59/0x1e0
+[    4.858211]  load_module+0x2030/0x2820
+[    4.858216]  ? __do_sys_finit_module+0xba/0xe0
+[    4.858220]  __do_sys_finit_module+0xba/0xe0
+[    4.858224]  do_syscall_64+0x4a/0xf0
+[    4.858231]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+[    4.858236] RIP: 0033:0x7fb1a603d2a9
+[    4.858240] Code: 00 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d b7 6b 0c 00 f7 d8 64 89 01 48
+[    4.858246] RSP: 002b:00007ffd46f1bbd8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+[    4.858251] RAX: ffffffffffffffda RBX: 0000559eddfec720 RCX: 00007fb1a603d2a9
+[    4.858254] RDX: 0000000000000000 RSI: 00007fb1a5f41cad RDI: 0000000000000017
+[    4.858258] RBP: 00007fb1a5f41cad R08: 0000000000000000 R09: 0000000000000000
+[    4.858262] R10: 0000000000000017 R11: 0000000000000246 R12: 0000000000000000
+[    4.858265] R13: 0000559eddfe7060 R14: 0000000000020000 R15: 0000559eddfec720
+[    4.858271] ---[ end trace 42222ae78d4354eb ]---
+[    4.858281] [TTM] Illegal buffer object size
+[    4.858287] [TTM] Illegal buffer object size
+[    4.858336] [drm:radeon_gem_object_create [radeon]] *ERROR* Failed to allocate GEM object (0, 6, 4096, -22)
+[    4.858340] failed to allocate framebuffer (0)
+[    4.858385] [drm:radeonfb_create [radeon]] *ERROR* failed to create fbcon object -12
+[    4.858416] [drm] Initialized radeon 2.50.0 20080528 for 0000:01:01.0 on minor 0
+
+
+-- 
+Meelis Roos <mroos@linux.ee>
