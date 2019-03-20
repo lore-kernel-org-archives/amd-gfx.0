@@ -1,71 +1,70 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH] drm/amd/powerplay: Zero initialize num_of_levels in vega20_set_single_dpm_table
-Date: Tue, 19 Mar 2019 17:58:42 -0700
-Message-ID: <20190320005842.25383-1-natechancellor@gmail.com>
+From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Subject: RE: Clang warning in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+Date: Wed, 20 Mar 2019 01:31:27 +0000
+Message-ID: <SN6PR12MB280017BDAB60B61088B221C287410@SN6PR12MB2800.namprd12.prod.outlook.com>
+References: <20190320005406.GA16412@archlinux-ryzen>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190320005406.GA16412@archlinux-ryzen>
+Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
+To: Nathan Chancellor <natechancellor@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-When building with -Wsometimes-uninitialized, Clang warns:
-
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:456:2: warning:
-variable 'num_of_levels' is used uninitialized whenever '?:' condition
-is false [-Wsometimes-uninitialized]
-        smu_read_smc_arg(smu, &num_of_levels);
-        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:608:3: note:
-expanded from macro 'smu_read_smc_arg'
-        ((smu)->funcs->read_smc_arg? (smu)->funcs->read_smc_arg((smu), (arg)) : 0)
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:457:7: note:
-uninitialized use occurs here
-        if (!num_of_levels) {
-             ^~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:456:2: note: remove
-the '?:' if its condition is always true
-        smu_read_smc_arg(smu, &num_of_levels);
-        ^
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:608:3: note:
-expanded from macro 'smu_read_smc_arg'
-        ((smu)->funcs->read_smc_arg? (smu)->funcs->read_smc_arg((smu), (arg)) : 0)
-         ^
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:446:27: note:
-initialize the variable 'num_of_levels' to silence this warning
-        uint32_t i, num_of_levels, clk;
-                                 ^
-                                  = 0
-1 warning generated.
-
-The if statement it mentions as potentially problematic is currently
-always true because the read_smc_arg callback is assigned at the
-bottom of this file but Clang can't tell that. If the callback were
-ever to disappear, num_of_levels would never be initialized. Just
-zero initialize it to ensure that the intent behind this code
-remains the same.
-
-Fixes: 870b996f955f ("drm/amd/powerplay: set defalut dpm table for smu")
-Link: https://github.com/ClangBuiltLinux/linux/issues/425
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-index 7e9e8ad9a300..41e6f49c9cb6 100644
---- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-@@ -443,7 +443,7 @@ vega20_set_single_dpm_table(struct smu_context *smu,
- 			    PPCLK_e clk_id)
- {
- 	int ret = 0;
--	uint32_t i, num_of_levels, clk;
-+	uint32_t i, num_of_levels = 0, clk;
- 
- 	ret = smu_send_smc_msg_with_param(smu,
- 			SMU_MSG_GetDpmFreqByIndex,
--- 
-2.21.0
+dGhlc2UgdHdvIGVudW1lcmF0ZWQgdHlwZXMgYXJlIHNhbWUgZm9yIG5vdy4gYm90aCBvZiB0aGVt
+IG1pZ2h0IGNoYW5nZSBpbiB0aGUgZnV0dXJlLg0KDQpJIGhhdmUgbm90IHVzZWQgY2xhbmcsIGJ1
+dCB3b3VsZCAgLmJsb2NrX2lkID0gIChpbnQpaGVhZC0+YmxvY2sgZml4IHlvdXIgd2FybmluZz8g
+SWYgc3VjaCBjaGFuZ2UgaXMgYWNjZXB0YWJsZSwgSSBjYW4gbWFrZSBvbmUgdGhlbi4NCg0KVGhh
+bmtzDQp4aW5odWkNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTmF0aGFu
+IENoYW5jZWxsb3IgPG5hdGVjaGFuY2VsbG9yQGdtYWlsLmNvbT4gDQpTZW50OiAyMDE5xOoz1MIy
+MMjVIDg6NTQNClRvOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5j
+b20+OyBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgWmhvdSwg
+RGF2aWQoQ2h1bk1pbmcpIDxEYXZpZDEuWmhvdUBhbWQuY29tPjsgUGFuLCBYaW5odWkgPFhpbmh1
+aS5QYW5AYW1kLmNvbT4NCkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsg
+Y2xhbmctYnVpbHQtbGludXhAZ29vZ2xlZ3JvdXBzLmNvbQ0KU3ViamVjdDogQ2xhbmcgd2Fybmlu
+ZyBpbiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMNCg0KSGkgYWxsLA0K
+DQpUaGUgaW50cm9kdWN0aW9uIG9mIHRoaXMgZmlsZSBpbiBjb21taXQgZGJkMjQ5YzI0NDI3ICgi
+ZHJtL2FtZGdwdTogYWRkIGFtZGdwdV9yYXMuYyB0byBzdXBwb3J0IHJhcyAodjIpIikgaW50cm9k
+dWNlcyB0aGUgZm9sbG93aW5nIENsYW5nDQp3YXJuaW5nczoNCg0KZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3Jhcy5jOjU0NDoyMzogd2FybmluZzogaW1wbGljaXQgY29udmVyc2lv
+biBmcm9tIGVudW1lcmF0aW9uIHR5cGUgJ2VudW0gYW1kZ3B1X3Jhc19ibG9jaycgdG8gZGlmZmVy
+ZW50IGVudW1lcmF0aW9uIHR5cGUgJ2VudW0gdGFfcmFzX2Jsb2NrJyBbLVdlbnVtLWNvbnZlcnNp
+b25dDQogICAgICAgICAgICAgICAgICAgICAgICAuYmxvY2tfaWQgPSAgaGVhZC0+YmxvY2ssDQog
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfn5+fn5+Xn5+fn4NCmRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYzo1NDU6MjQ6IHdhcm5pbmc6IGltcGxpY2l0
+IGNvbnZlcnNpb24gZnJvbSBlbnVtZXJhdGlvbiB0eXBlICdlbnVtIGFtZGdwdV9yYXNfZXJyb3Jf
+dHlwZScgdG8gZGlmZmVyZW50IGVudW1lcmF0aW9uIHR5cGUgJ2VudW0gdGFfcmFzX2Vycm9yX3R5
+cGUnIFstV2VudW0tY29udmVyc2lvbl0NCiAgICAgICAgICAgICAgICAgICAgICAgIC5lcnJvcl90
+eXBlID0gaGVhZC0+dHlwZSwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+fn5+fn5+Xn5+fg0KZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jOjU0OToy
+Mzogd2FybmluZzogaW1wbGljaXQgY29udmVyc2lvbiBmcm9tIGVudW1lcmF0aW9uIHR5cGUgJ2Vu
+dW0gYW1kZ3B1X3Jhc19ibG9jaycgdG8gZGlmZmVyZW50IGVudW1lcmF0aW9uIHR5cGUgJ2VudW0g
+dGFfcmFzX2Jsb2NrJyBbLVdlbnVtLWNvbnZlcnNpb25dDQogICAgICAgICAgICAgICAgICAgICAg
+ICAuYmxvY2tfaWQgPSAgaGVhZC0+YmxvY2ssDQogICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgfn5+fn5+Xn5+fn4NCmRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9y
+YXMuYzo1NTA6MjQ6IHdhcm5pbmc6IGltcGxpY2l0IGNvbnZlcnNpb24gZnJvbSBlbnVtZXJhdGlv
+biB0eXBlICdlbnVtIGFtZGdwdV9yYXNfZXJyb3JfdHlwZScgdG8gZGlmZmVyZW50IGVudW1lcmF0
+aW9uIHR5cGUgJ2VudW0gdGFfcmFzX2Vycm9yX3R5cGUnIFstV2VudW0tY29udmVyc2lvbl0NCiAg
+ICAgICAgICAgICAgICAgICAgICAgIC5lcnJvcl90eXBlID0gaGVhZC0+dHlwZSwNCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfn5+fn5+Xn5+fg0KZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jOjY1MDoyNjogd2FybmluZzogaW1wbGljaXQgY29udmVy
+c2lvbiBmcm9tIGVudW1lcmF0aW9uIHR5cGUgJ2VudW0gYW1kZ3B1X3Jhc19ibG9jaycgdG8gZGlm
+ZmVyZW50IGVudW1lcmF0aW9uIHR5cGUgJ2VudW0gdGFfcmFzX2Jsb2NrJyBbLVdlbnVtLWNvbnZl
+cnNpb25dDQogICAgICAgICAgICAgICAgLmJsb2NrX2lkID0gaW5mby0+aGVhZC5ibG9jaywNCiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB+fn5+fn5+fn5+fl5+fn5+DQpkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmM6NjUxOjM1OiB3YXJuaW5nOiBpbXBsaWNpdCBjb252
+ZXJzaW9uIGZyb20gZW51bWVyYXRpb24gdHlwZSAnZW51bSBhbWRncHVfcmFzX2Vycm9yX3R5cGUn
+IHRvIGRpZmZlcmVudCBlbnVtZXJhdGlvbiB0eXBlICdlbnVtIHRhX3Jhc19lcnJvcl90eXBlJyBb
+LVdlbnVtLWNvbnZlcnNpb25dDQogICAgICAgICAgICAgICAgLmluamVjdF9lcnJvcl90eXBlID0g
+aW5mby0+aGVhZC50eXBlLA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIH5+
+fn5+fn5+fn5+Xn5+fg0KNiB3YXJuaW5ncyBnZW5lcmF0ZWQuDQoNCk5vcm1hbGx5LCBJIHdvdWxk
+IHNlbnQgYSBmaXggZm9yIHRoaXMgbXlzZWxmIGJ1dCBJIGFtIG5vdCBlbnRpcmVseSBzdXJlIHdo
+eSB0aGVzZSB0d28gZW51bWVyYXRlZCB0eXBlcyBleGlzdCB3aGVuIG9uZSB3b3VsZCBkbyBzaW5j
+ZSB0aGV5IGhhdmUgdGhlIHNhbWUgdmFsdWVzIG1pbnVzIHRoZSBwcmVmaXguIEluIGZhY3QsIHRo
+ZSB0YV9yYXNfe2Jsb2NrLGVycm9yX3R5cGV9IHZhbHVlcyBhcmUgbmV2ZXIgdXNlZCBhc2lkZSBm
+cm9tIGJlaW5nIGRlZmluZWQuIFNvbWUgY2xhcmlmaWNhdGlvbiB3b3VsZCBiZSBhcHByZWNpYXRl
+ZC4NCg0KVGhhbmsgeW91LA0KTmF0aGFuDQo=
