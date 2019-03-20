@@ -1,54 +1,35 @@
-From: Nick Desaulniers <ndesaulniers@google.com>
-Subject: Re: Clang warning in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-Date: Wed, 20 Mar 2019 10:19:48 -0700
-Message-ID: <CAKwvOdnQa-DnBqm7LgSaPZUeC2JP4UcCJD=piOZd5hdzHPc3ew@mail.gmail.com>
-References: <20190320005406.GA16412@archlinux-ryzen> <SN6PR12MB280017BDAB60B61088B221C287410@SN6PR12MB2800.namprd12.prod.outlook.com>
- <20190320043440.GA23335@archlinux-ryzen> <63518f1f-b808-77b0-aac6-ee1ece669c4b@amd.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amd/powerplay: fix spelling mistake "unknow" -> "unknown"
+Date: Wed, 20 Mar 2019 17:29:09 +0000
+Message-ID: <20190320172909.10348-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <63518f1f-b808-77b0-aac6-ee1ece669c4b@amd.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Cc: Nathan Chancellor <natechancellor@gmail.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Mar 20, 2019 at 2:37 AM Koenig, Christian
-<Christian.Koenig@amd.com> wrote:
->
-> Am 20.03.19 um 05:34 schrieb Nathan Chancellor:
-> > On Wed, Mar 20, 2019 at 01:31:27AM +0000, Pan, Xinhui wrote:
-> >> these two enumerated types are same for now. both of them might change in the future.
+From: Colin Ian King <colin.king@canonical.com>
 
-Please consider if the YAGNI principle applies here.
-https://martinfowler.com/bliki/Yagni.html
+There is a spelling mistake in pr_warn message; fix it.
 
-> >>
-> >> I have not used clang, but would  .block_id =  (int)head->block fix your warning? If such change is acceptable, I can make one then.
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-My preference on solutions, in order:
-1. One enum (this is the simplest most type safe solution).  Add
-another enum when you actually need it.  Otherwise, YAGNI.
-2. Safe casting function (like the one Nathan supplied, maybe with
-WARN_ONCE rather than WARN).  This ensures that at least if the types
-diverge you get a runtime warning.  A compile-time warning would be
-preferred, but I haven't taken the time to think through how that
-might be implemented.
-3. Cast to int (this has been used in other places throughout the
-kernel, but provides the weakest type safety and doesn't catch future
-divergence).
-4. Disabling the warning. (I almost never advocate for this).
-
-> Another question is if it is such a good idea to just silence the warning?
-
-For the kernel, it seems that each maintainer can choose what to apply
-to their subsystem.  I would recommend against disabling additional
-warnings that aren't disable kernel-wide for most cases.
--Wenum-conversion has spotted many bugs.  While the enums in question
-today are not different, they MIGHT eventually diverge and lead to
-bugs, like the others we've found and fixed throughout the kernel.  So
-I would recommend fixing now, and be insulated in the future.
-
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 17143888e37e..026bebe6fb45 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -2024,6 +2024,6 @@ void smu_v11_0_set_smu_funcs(struct smu_context *smu)
+ 		vega20_set_ppt_funcs(smu);
+ 		break;
+ 	default:
+-		pr_warn("Unknow asic for smu11\n");
++		pr_warn("Unknown asic for smu11\n");
+ 	}
+ }
 -- 
-Thanks,
-~Nick Desaulniers
+2.20.1
