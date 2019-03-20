@@ -1,112 +1,70 @@
-From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 8/8] drm/amdgpu: use the new VM backend for clears
-Date: Wed, 20 Mar 2019 12:27:05 +0800
-Message-ID: <12585900-717d-9da6-f5bf-c8db40035aa7@amd.com>
-References: <20190319124411.1563-1-christian.koenig@amd.com>
- <20190319124411.1563-8-christian.koenig@amd.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: Re: Clang warning in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+Date: Tue, 19 Mar 2019 21:34:40 -0700
+Message-ID: <20190320043440.GA23335@archlinux-ryzen>
+References: <20190320005406.GA16412@archlinux-ryzen>
+ <SN6PR12MB280017BDAB60B61088B221C287410@SN6PR12MB2800.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190319124411.1563-8-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <SN6PR12MB280017BDAB60B61088B221C287410@SN6PR12MB2800.namprd12.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-cGF0Y2gjMiBhbmQgcGF0Y2gjNCBhcmUgQWNoZWQtYnk6IENodW5taW5nIFpob3UgPGRhdmlkMS56
-aG91QGFtZC5jb20+CgpwYXRjaCMxLCAjMywgIzV+IzggYXJlIFJldmlld2VkLWJ5OiBDaHVubWlu
-ZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgoKCgpPbiAyMDE55bm0MDPmnIgxOeaXpSAyMDo0
-NCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBBbmQgcmVtb3ZlIHRoZSBleGlzdGluZyBjb2Rl
-IHdoZW4gaXQgaXMgdW51c2VkLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmMgfCA4OSArKysrKysrKystLS0tLS0tLS0tLS0tLS0tLQo+ICAgMSBm
-aWxlIGNoYW5nZWQsIDMyIGluc2VydGlvbnMoKyksIDU3IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiBpbmRleCA3MjlkYTFjNDg2Y2QuLmFmMWE3
-MDIwYzNhYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gQEAg
-LTcxMSwxMSArNzExLDkgQEAgc3RhdGljIGludCBhbWRncHVfdm1fY2xlYXJfYm8oc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsCj4gICB7Cj4gICAJc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4IGN0
-eCA9IHsgdHJ1ZSwgZmFsc2UgfTsKPiAgIAl1bnNpZ25lZCBsZXZlbCA9IGFkZXYtPnZtX21hbmFn
-ZXIucm9vdF9sZXZlbDsKPiArCXN0cnVjdCBhbWRncHVfdm1fdXBkYXRlX3BhcmFtcyBwYXJhbXM7
-Cj4gICAJc3RydWN0IGFtZGdwdV9ibyAqYW5jZXN0b3IgPSBibzsKPiAtCXN0cnVjdCBkbWFfZmVu
-Y2UgKmZlbmNlID0gTlVMTDsKPiAgIAl1bnNpZ25lZCBlbnRyaWVzLCBhdHNfZW50cmllczsKPiAt
-CXN0cnVjdCBhbWRncHVfcmluZyAqcmluZzsKPiAtCXN0cnVjdCBhbWRncHVfam9iICpqb2I7Cj4g
-ICAJdWludDY0X3QgYWRkcjsKPiAgIAlpbnQgcjsKPiAgIAo+IEBAIC03NTAsOCArNzQ4LDYgQEAg
-c3RhdGljIGludCBhbWRncHVfdm1fY2xlYXJfYm8oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-Cj4gICAJCX0KPiAgIAl9Cj4gICAKPiAtCXJpbmcgPSBjb250YWluZXJfb2Yodm0tPmVudGl0eS5y
-cS0+c2NoZWQsIHN0cnVjdCBhbWRncHVfcmluZywgc2NoZWQpOwo+IC0KPiAgIAlyID0gdHRtX2Jv
-X3ZhbGlkYXRlKCZiby0+dGJvLCAmYm8tPnBsYWNlbWVudCwgJmN0eCk7Cj4gICAJaWYgKHIpCj4g
-ICAJCXJldHVybiByOwo+IEBAIC03NzIsNjAgKzc2OCw0NSBAQCBzdGF0aWMgaW50IGFtZGdwdV92
-bV9jbGVhcl9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAo+ICAgCX0KPiAgIAo+
-IC0JciA9IGFtZGdwdV9qb2JfYWxsb2Nfd2l0aF9pYihhZGV2LCA2NCwgJmpvYik7Cj4gKwltZW1z
-ZXQoJnBhcmFtcywgMCwgc2l6ZW9mKHBhcmFtcykpOwo+ICsJcGFyYW1zLmFkZXYgPSBhZGV2Owo+
-ICsJcGFyYW1zLnZtID0gdm07Cj4gKwo+ICsJciA9IHZtLT51cGRhdGVfZnVuY3MtPnByZXBhcmUo
-JnBhcmFtcywgQU1ER1BVX0ZFTkNFX09XTkVSX0tGRCwgTlVMTCk7Cj4gICAJaWYgKHIpCj4gICAJ
-CXJldHVybiByOwo+ICAgCj4gLQlkbyB7Cj4gLQkJYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0
-KGJvKTsKPiAtCQlpZiAoYXRzX2VudHJpZXMpIHsKPiAtCQkJdWludDY0X3QgYXRzX3ZhbHVlOwo+
-IC0KPiAtCQkJYXRzX3ZhbHVlID0gQU1ER1BVX1BURV9ERUZBVUxUX0FUQzsKPiAtCQkJaWYgKGxl
-dmVsICE9IEFNREdQVV9WTV9QVEIpCj4gLQkJCQlhdHNfdmFsdWUgfD0gQU1ER1BVX1BERV9QVEU7
-Cj4gLQo+IC0JCQlhbWRncHVfdm1fc2V0X3B0ZV9wZGUoYWRldiwgJmpvYi0+aWJzWzBdLCBhZGRy
-LCAwLAo+IC0JCQkJCSAgICAgIGF0c19lbnRyaWVzLCAwLCBhdHNfdmFsdWUpOwo+IC0JCQlhZGRy
-ICs9IGF0c19lbnRyaWVzICogODsKPiAtCQl9Cj4gLQo+IC0JCWlmIChlbnRyaWVzKSB7Cj4gLQkJ
-CXVpbnQ2NF90IHZhbHVlID0gMDsKPiAtCj4gLQkJCS8qIFdvcmthcm91bmQgZm9yIGZhdWx0IHBy
-aW9yaXR5IHByb2JsZW0gb24gR01DOSAqLwo+IC0JCQlpZiAobGV2ZWwgPT0gQU1ER1BVX1ZNX1BU
-QiAmJgo+IC0JCQkgICAgYWRldi0+YXNpY190eXBlID49IENISVBfVkVHQTEwKQo+IC0JCQkJdmFs
-dWUgPSBBTURHUFVfUFRFX0VYRUNVVEFCTEU7Cj4gLQo+IC0JCQlhbWRncHVfdm1fc2V0X3B0ZV9w
-ZGUoYWRldiwgJmpvYi0+aWJzWzBdLCBhZGRyLCAwLAo+IC0JCQkJCSAgICAgIGVudHJpZXMsIDAs
-IHZhbHVlKTsKPiAtCQl9Cj4gKwlhZGRyID0gMDsKPiArCWlmIChhdHNfZW50cmllcykgewo+ICsJ
-CXVpbnQ2NF90IGF0c192YWx1ZTsKPiAgIAo+IC0JCWJvID0gYm8tPnNoYWRvdzsKPiAtCX0gd2hp
-bGUgKGJvKTsKPiArCQlhdHNfdmFsdWUgPSBBTURHUFVfUFRFX0RFRkFVTFRfQVRDOwo+ICsJCWlm
-IChsZXZlbCAhPSBBTURHUFVfVk1fUFRCKQo+ICsJCQlhdHNfdmFsdWUgfD0gQU1ER1BVX1BERV9Q
-VEU7Cj4gICAKPiAtCWFtZGdwdV9yaW5nX3BhZF9pYihyaW5nLCAmam9iLT5pYnNbMF0pOwo+ICsJ
-CXIgPSB2bS0+dXBkYXRlX2Z1bmNzLT51cGRhdGUoJnBhcmFtcywgYm8sIGFkZHIsIDAsIGF0c19l
-bnRyaWVzLAo+ICsJCQkJCSAgICAgMCwgYXRzX3ZhbHVlKTsKPiArCQlpZiAocikKPiArCQkJcmV0
-dXJuIHI7Cj4gICAKPiAtCVdBUk5fT04oam9iLT5pYnNbMF0ubGVuZ3RoX2R3ID4gNjQpOwo+IC0J
-ciA9IGFtZGdwdV9zeW5jX3Jlc3YoYWRldiwgJmpvYi0+c3luYywgdm0tPnJvb3QuYmFzZS5iby0+
-dGJvLnJlc3YsCj4gLQkJCSAgICAgQU1ER1BVX0ZFTkNFX09XTkVSX0tGRCwgZmFsc2UpOwo+IC0J
-aWYgKHIpCj4gLQkJZ290byBlcnJvcl9mcmVlOwo+ICsJCWFkZHIgKz0gYXRzX2VudHJpZXMgKiA4
-Owo+ICsJfQo+ICAgCj4gLQlyID0gYW1kZ3B1X2pvYl9zdWJtaXQoam9iLCAmdm0tPmVudGl0eSwg
-QU1ER1BVX0ZFTkNFX09XTkVSX1VOREVGSU5FRCwKPiAtCQkJICAgICAgJmZlbmNlKTsKPiAtCWlm
-IChyKQo+IC0JCWdvdG8gZXJyb3JfZnJlZTsKPiArCWlmIChlbnRyaWVzKSB7Cj4gKwkJdWludDY0
-X3QgdmFsdWUgPSAwOwo+ICAgCj4gLQlhbWRncHVfYm9fZmVuY2Uodm0tPnJvb3QuYmFzZS5ibywg
-ZmVuY2UsIHRydWUpOwo+IC0JZG1hX2ZlbmNlX3B1dChmZW5jZSk7Cj4gKwkJLyogV29ya2Fyb3Vu
-ZCBmb3IgZmF1bHQgcHJpb3JpdHkgcHJvYmxlbSBvbiBHTUM5ICovCj4gKwkJaWYgKGxldmVsID09
-IEFNREdQVV9WTV9QVEIgJiYKPiArCQkgICAgYWRldi0+YXNpY190eXBlID49IENISVBfVkVHQTEw
-KQo+ICsJCQl2YWx1ZSA9IEFNREdQVV9QVEVfRVhFQ1VUQUJMRTsKPiAgIAo+IC0JcmV0dXJuIDA7
-Cj4gKwkJciA9IHZtLT51cGRhdGVfZnVuY3MtPnVwZGF0ZSgmcGFyYW1zLCBibywgYWRkciwgMCwg
-ZW50cmllcywKPiArCQkJCQkgICAgIDAsIHZhbHVlKTsKPiArCQlpZiAocikKPiArCQkJcmV0dXJu
-IHI7Cj4gKwl9Cj4gICAKPiAtZXJyb3JfZnJlZToKPiAtCWFtZGdwdV9qb2JfZnJlZShqb2IpOwo+
-IC0JcmV0dXJuIHI7Cj4gKwlyZXR1cm4gdm0tPnVwZGF0ZV9mdW5jcy0+Y29tbWl0KCZwYXJhbXMs
-IE5VTEwpOwo+ICAgfQo+ICAgCj4gICAvKioKPiBAQCAtOTEzLDcgKzg5NCw3IEBAIHN0YXRpYyBp
-bnQgYW1kZ3B1X3ZtX2FsbG9jX3B0cyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgIAlp
-ZiAocikKPiAgIAkJZ290byBlcnJvcl9mcmVlX3B0Owo+ICAgCj4gLQlyZXR1cm4gMTsKPiArCXJl
-dHVybiAwOwo+ICAgCj4gICBlcnJvcl9mcmVlX3B0Ogo+ICAgCWFtZGdwdV9ib191bnJlZigmcHQt
-PnNoYWRvdyk7Cj4gQEAgLTE0MjEsMTIgKzE0MDIsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdm1f
-dXBkYXRlX3B0ZXMoc3RydWN0IGFtZGdwdV92bV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCj4gICAJ
-CXVuc2lnbmVkIHNoaWZ0LCBwYXJlbnRfc2hpZnQsIG1hc2s7Cj4gICAJCXVpbnQ2NF90IGluY3Is
-IGVudHJ5X2VuZCwgcGVfc3RhcnQ7Cj4gICAJCXN0cnVjdCBhbWRncHVfYm8gKnB0Owo+IC0JCWJv
-b2wgbmVlZF90b19zeW5jOwo+ICAgCj4gICAJCXIgPSBhbWRncHVfdm1fYWxsb2NfcHRzKHBhcmFt
-cy0+YWRldiwgcGFyYW1zLT52bSwgJmN1cnNvcik7Cj4gLQkJaWYgKHIgPCAwKQo+ICsJCWlmIChy
-KQo+ICAgCQkJcmV0dXJuIHI7Cj4gLQkJbmVlZF90b19zeW5jID0gKHIgJiYgcGFyYW1zLT52bS0+
-dXNlX2NwdV9mb3JfdXBkYXRlKTsKPiAgIAo+ICAgCQlwdCA9IGN1cnNvci5lbnRyeS0+YmFzZS5i
-bzsKPiAgIAo+IEBAIC0xNDc0LDEwICsxNDUzLDYgQEAgc3RhdGljIGludCBhbWRncHVfdm1fdXBk
-YXRlX3B0ZXMoc3RydWN0IGFtZGdwdV92bV91cGRhdGVfcGFyYW1zICpwYXJhbXMsCj4gICAJCWVu
-dHJ5X2VuZCArPSBjdXJzb3IucGZuICYgfihlbnRyeV9lbmQgLSAxKTsKPiAgIAkJZW50cnlfZW5k
-ID0gbWluKGVudHJ5X2VuZCwgZW5kKTsKPiAgIAo+IC0JCWlmIChuZWVkX3RvX3N5bmMpCj4gLQkJ
-CXIgPSBhbWRncHVfYm9fc3luY193YWl0KHBhcmFtcy0+dm0tPnJvb3QuYmFzZS5ibywKPiAtCQkJ
-CQkJQU1ER1BVX0ZFTkNFX09XTkVSX1ZNLCB0cnVlKTsKPiAtCj4gICAJCWRvIHsKPiAgIAkJCXVp
-bnQ2NF90IHVwZF9lbmQgPSBtaW4oZW50cnlfZW5kLCBmcmFnX2VuZCk7Cj4gICAJCQl1bnNpZ25l
-ZCBucHRlcyA9ICh1cGRfZW5kIC0gZnJhZ19zdGFydCkgPj4gc2hpZnQ7CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Wed, Mar 20, 2019 at 01:31:27AM +0000, Pan, Xinhui wrote:
+> these two enumerated types are same for now. both of them might change in the future.
+> 
+> I have not used clang, but would  .block_id =  (int)head->block fix your warning? If such change is acceptable, I can make one then.
+> 
+> Thanks
+> xinhui
+> 
+> 
+> -----Original Message-----
+> From: Nathan Chancellor <natechancellor@gmail.com> 
+> Sent: 2019年3月20日 8:54
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>; Pan, Xinhui <Xinhui.Pan@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; clang-built-linux@googlegroups.com
+> Subject: Clang warning in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> 
+> Hi all,
+> 
+> The introduction of this file in commit dbd249c24427 ("drm/amdgpu: add amdgpu_ras.c to support ras (v2)") introduces the following Clang
+> warnings:
+> 
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:544:23: warning: implicit conversion from enumeration type 'enum amdgpu_ras_block' to different enumeration type 'enum ta_ras_block' [-Wenum-conversion]
+>                         .block_id =  head->block,
+>                                      ~~~~~~^~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:545:24: warning: implicit conversion from enumeration type 'enum amdgpu_ras_error_type' to different enumeration type 'enum ta_ras_error_type' [-Wenum-conversion]
+>                         .error_type = head->type,
+>                                       ~~~~~~^~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:549:23: warning: implicit conversion from enumeration type 'enum amdgpu_ras_block' to different enumeration type 'enum ta_ras_block' [-Wenum-conversion]
+>                         .block_id =  head->block,
+>                                      ~~~~~~^~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:550:24: warning: implicit conversion from enumeration type 'enum amdgpu_ras_error_type' to different enumeration type 'enum ta_ras_error_type' [-Wenum-conversion]
+>                         .error_type = head->type,
+>                                       ~~~~~~^~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:650:26: warning: implicit conversion from enumeration type 'enum amdgpu_ras_block' to different enumeration type 'enum ta_ras_block' [-Wenum-conversion]
+>                 .block_id = info->head.block,
+>                             ~~~~~~~~~~~^~~~~
+> drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:651:35: warning: implicit conversion from enumeration type 'enum amdgpu_ras_error_type' to different enumeration type 'enum ta_ras_error_type' [-Wenum-conversion]
+>                 .inject_error_type = info->head.type,
+>                                      ~~~~~~~~~~~^~~~
+> 6 warnings generated.
+> 
+> Normally, I would sent a fix for this myself but I am not entirely sure why these two enumerated types exist when one would do since they have the same values minus the prefix. In fact, the ta_ras_{block,error_type} values are never used aside from being defined. Some clarification would be appreciated.
+> 
+> Thank you,
+> Nathan
+
+Hi Xinhui,
+
+Yes, explicitly casting these six spots to int would resolve this
+warning.
+
+Thank you for the quick response!
+Nathan
