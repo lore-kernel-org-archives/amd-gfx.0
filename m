@@ -1,47 +1,71 @@
 From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Clang warning in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-Date: Tue, 19 Mar 2019 17:54:06 -0700
-Message-ID: <20190320005406.GA16412@archlinux-ryzen>
+Subject: [PATCH] drm/amd/powerplay: Zero initialize num_of_levels in vega20_set_single_dpm_table
+Date: Tue, 19 Mar 2019 17:58:42 -0700
+Message-ID: <20190320005842.25383-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
 Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, xinhui pan <xinhui.pan@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com, Nick Desaulniers <ndesaulniers@google.com>, Nathan Chancellor <natechancellor@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi all,
+When building with -Wsometimes-uninitialized, Clang warns:
 
-The introduction of this file in commit dbd249c24427 ("drm/amdgpu: add
-amdgpu_ras.c to support ras (v2)") introduces the following Clang
-warnings:
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:456:2: warning:
+variable 'num_of_levels' is used uninitialized whenever '?:' condition
+is false [-Wsometimes-uninitialized]
+        smu_read_smc_arg(smu, &num_of_levels);
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:608:3: note:
+expanded from macro 'smu_read_smc_arg'
+        ((smu)->funcs->read_smc_arg? (smu)->funcs->read_smc_arg((smu), (arg)) : 0)
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:457:7: note:
+uninitialized use occurs here
+        if (!num_of_levels) {
+             ^~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:456:2: note: remove
+the '?:' if its condition is always true
+        smu_read_smc_arg(smu, &num_of_levels);
+        ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:608:3: note:
+expanded from macro 'smu_read_smc_arg'
+        ((smu)->funcs->read_smc_arg? (smu)->funcs->read_smc_arg((smu), (arg)) : 0)
+         ^
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:446:27: note:
+initialize the variable 'num_of_levels' to silence this warning
+        uint32_t i, num_of_levels, clk;
+                                 ^
+                                  = 0
+1 warning generated.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:544:23: warning: implicit conversion from enumeration type 'enum amdgpu_ras_block' to different enumeration type 'enum ta_ras_block' [-Wenum-conversion]
-                        .block_id =  head->block,
-                                     ~~~~~~^~~~~
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:545:24: warning: implicit conversion from enumeration type 'enum amdgpu_ras_error_type' to different enumeration type 'enum ta_ras_error_type' [-Wenum-conversion]
-                        .error_type = head->type,
-                                      ~~~~~~^~~~
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:549:23: warning: implicit conversion from enumeration type 'enum amdgpu_ras_block' to different enumeration type 'enum ta_ras_block' [-Wenum-conversion]
-                        .block_id =  head->block,
-                                     ~~~~~~^~~~~
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:550:24: warning: implicit conversion from enumeration type 'enum amdgpu_ras_error_type' to different enumeration type 'enum ta_ras_error_type' [-Wenum-conversion]
-                        .error_type = head->type,
-                                      ~~~~~~^~~~
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:650:26: warning: implicit conversion from enumeration type 'enum amdgpu_ras_block' to different enumeration type 'enum ta_ras_block' [-Wenum-conversion]
-                .block_id = info->head.block,
-                            ~~~~~~~~~~~^~~~~
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:651:35: warning: implicit conversion from enumeration type 'enum amdgpu_ras_error_type' to different enumeration type 'enum ta_ras_error_type' [-Wenum-conversion]
-                .inject_error_type = info->head.type,
-                                     ~~~~~~~~~~~^~~~
-6 warnings generated.
+The if statement it mentions as potentially problematic is currently
+always true because the read_smc_arg callback is assigned at the
+bottom of this file but Clang can't tell that. If the callback were
+ever to disappear, num_of_levels would never be initialized. Just
+zero initialize it to ensure that the intent behind this code
+remains the same.
 
-Normally, I would sent a fix for this myself but I am not entirely sure
-why these two enumerated types exist when one would do since they have
-the same values minus the prefix. In fact, the ta_ras_{block,error_type}
-values are never used aside from being defined. Some clarification would
-be appreciated.
+Fixes: 870b996f955f ("drm/amd/powerplay: set defalut dpm table for smu")
+Link: https://github.com/ClangBuiltLinux/linux/issues/425
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thank you,
-Nathan
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+index 7e9e8ad9a300..41e6f49c9cb6 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -443,7 +443,7 @@ vega20_set_single_dpm_table(struct smu_context *smu,
+ 			    PPCLK_e clk_id)
+ {
+ 	int ret = 0;
+-	uint32_t i, num_of_levels, clk;
++	uint32_t i, num_of_levels = 0, clk;
+ 
+ 	ret = smu_send_smc_msg_with_param(smu,
+ 			SMU_MSG_GetDpmFreqByIndex,
+-- 
+2.21.0
