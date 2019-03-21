@@ -1,72 +1,46 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: Clang warning in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-Date: Thu, 21 Mar 2019 00:44:08 -0400
-Message-ID: <CADnq5_PTfJXJ99gFhxeMZ3RKigkipwjH5jLqfNM3mv49Z=d7Bw@mail.gmail.com>
-References: <20190320005406.GA16412@archlinux-ryzen> <SN6PR12MB280017BDAB60B61088B221C287410@SN6PR12MB2800.namprd12.prod.outlook.com>
- <20190320043440.GA23335@archlinux-ryzen> <63518f1f-b808-77b0-aac6-ee1ece669c4b@amd.com>
- <CAKwvOdnQa-DnBqm7LgSaPZUeC2JP4UcCJD=piOZd5hdzHPc3ew@mail.gmail.com>
+From: Chengming Gui <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/amdgpu: fix Polaris10 PCIe dpm feature issue.
+Date: Thu, 21 Mar 2019 13:34:57 +0800
+Message-ID: <1553146497-26179-1-git-send-email-Jack.Gui@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAKwvOdnQa-DnBqm7LgSaPZUeC2JP4UcCJD=piOZd5hdzHPc3ew@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Nathan Chancellor <natechancellor@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Chengming Gui <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Mar 20, 2019 at 4:49 PM Nick Desaulniers
-<ndesaulniers@google.com> wrote:
->
-> On Wed, Mar 20, 2019 at 2:37 AM Koenig, Christian
-> <Christian.Koenig@amd.com> wrote:
-> >
-> > Am 20.03.19 um 05:34 schrieb Nathan Chancellor:
-> > > On Wed, Mar 20, 2019 at 01:31:27AM +0000, Pan, Xinhui wrote:
-> > >> these two enumerated types are same for now. both of them might change in the future.
->
-> Please consider if the YAGNI principle applies here.
-> https://martinfowler.com/bliki/Yagni.html
->
-> > >>
-> > >> I have not used clang, but would  .block_id =  (int)head->block fix your warning? If such change is acceptable, I can make one then.
->
-> My preference on solutions, in order:
-> 1. One enum (this is the simplest most type safe solution).  Add
-> another enum when you actually need it.  Otherwise, YAGNI.
-
-It make sense to have two enums.  One is a firmware interface that is
-only used by some asics and the other is for the general driver
-interface (non-asic specific for the ras features.
-
-> 2. Safe casting function (like the one Nathan supplied, maybe with
-> WARN_ONCE rather than WARN).  This ensures that at least if the types
-> diverge you get a runtime warning.  A compile-time warning would be
-> preferred, but I haven't taken the time to think through how that
-> might be implemented.
-
-I'd prefer this one.
-
-Alex
-
-> 3. Cast to int (this has been used in other places throughout the
-> kernel, but provides the weakest type safety and doesn't catch future
-> divergence).
-> 4. Disabling the warning. (I almost never advocate for this).
->
-> > Another question is if it is such a good idea to just silence the warning?
->
-> For the kernel, it seems that each maintainer can choose what to apply
-> to their subsystem.  I would recommend against disabling additional
-> warnings that aren't disable kernel-wide for most cases.
-> -Wenum-conversion has spotted many bugs.  While the enums in question
-> today are not different, they MIGHT eventually diverge and lead to
-> bugs, like the others we've found and fixed throughout the kernel.  So
-> I would recommend fixing now, and be insulated in the future.
->
-> --
-> Thanks,
-> ~Nick Desaulniers
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+dXNlIHBjaWVfYmFuZHdpZHRoX2F2YWlsYWJsZSB0byBnZXQgcmVhbCBsaW5rIHN0YXRlCnRvIHVw
+ZGF0ZSBwY2llIHRhYmxlLgoKU2lnbmVkLW9mZi1ieTogQ2hlbmdtaW5nIEd1aSA8SmFjay5HdWlA
+YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMg
+fCA3ICsrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggOTY0YTRkMy4uZGY4ZTU4YiAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzY0OSw3
+ICszNjQ5LDkgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2RldmljZV9nZXRfbWluX3BjaV9zcGVlZF93
+aWR0aChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIHsKIAlzdHJ1Y3QgcGNpX2RldiAqcGRl
+diA9IGFkZXYtPnBkZXY7CiAJZW51bSBwY2lfYnVzX3NwZWVkIGN1cl9zcGVlZDsKKwllbnVtIHBj
+aV9idXNfc3BlZWQgdG1wX3NwZWVkOwogCWVudW0gcGNpZV9saW5rX3dpZHRoIGN1cl93aWR0aDsK
+Kwl1MzIgcmV0ID0gMDsKIAogCSpzcGVlZCA9IFBDSV9TUEVFRF9VTktOT1dOOwogCSp3aWR0aCA9
+IFBDSUVfTE5LX1dJRFRIX1VOS05PV047CkBAIC0zNjU3LDYgKzM2NTksMTEgQEAgc3RhdGljIHZv
+aWQgYW1kZ3B1X2RldmljZV9nZXRfbWluX3BjaV9zcGVlZF93aWR0aChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldiwKIAl3aGlsZSAocGRldikgewogCQljdXJfc3BlZWQgPSBwY2llX2dldF9zcGVl
+ZF9jYXAocGRldik7CiAJCWN1cl93aWR0aCA9IHBjaWVfZ2V0X3dpZHRoX2NhcChwZGV2KTsKKwkJ
+aWYgKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX1BPTEFSSVMxMCkKKwkJCXJldCA9IHBjaWVfYmFu
+ZHdpZHRoX2F2YWlsYWJsZShhZGV2LT5wZGV2LCBOVUxMLAorCQkJCQkJICAgICAgICZ0bXBfc3Bl
+ZWQsICZjdXJfd2lkdGgpOworCQlpZiAoIXJldCkKKwkJCWN1cl93aWR0aCA9IFBDSUVfTE5LX1dJ
+RFRIX1JFU1JWOwogCiAJCWlmIChjdXJfc3BlZWQgIT0gUENJX1NQRUVEX1VOS05PV04pIHsKIAkJ
+CWlmICgqc3BlZWQgPT0gUENJX1NQRUVEX1VOS05PV04pCi0tIAoyLjcuNAoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
