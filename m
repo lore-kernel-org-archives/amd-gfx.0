@@ -1,210 +1,203 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix "dc has no member named dml" compile
- error
-Date: Thu, 21 Mar 2019 14:51:10 +0000
-Message-ID: <DM5PR12MB18209DFF429BF3D722253483F7420@DM5PR12MB1820.namprd12.prod.outlook.com>
-References: <1553179469-10012-1-git-send-email-sunpeng.li@amd.com>
+From: "Wentland, Harry" <Harry.Wentland@amd.com>
+Subject: Re: [PATCH 3/4] drm/amd/display: In VRR mode, do DRM core vblank
+ handling at end of vblank.
+Date: Thu, 21 Mar 2019 15:38:39 +0000
+Message-ID: <929bad72-fb12-661e-d7e3-ac837d32c01c@amd.com>
+References: <20190318171952.24302-1-mario.kleiner.de@gmail.com>
+ <20190318171952.24302-4-mario.kleiner.de@gmail.com>
+ <8ef78169-1893-0aee-9cb1-cce4054ebbcc@amd.com>
+ <82efca66-1100-633f-2285-a9849d1bfc9e@amd.com>
+ <CAEsyxyj+vkpxf+Qe7b1X6UnLM4TtFPetgda_fqyY-MSSvm6w9w@mail.gmail.com>
+ <b00cc1c5-f710-6c75-cdd2-c9ad30c633aa@amd.com>
+ <CAEsyxyhFfkZ-bB1hUW659By4Jc3oUomFY30pjpehq=4F3Uum5w@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1574315214=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1553179469-10012-1-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-
---===============1574315214==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_"
-
---_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks!
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of sunpeng.=
-li-5C7GfCeVMHo@public.gmane.org <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, March 21, 2019 10:44 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Li, Sun peng (Leo); Alex Deucher; Wentland, Harry; Kazlauskas, Nicholas
-Subject: [PATCH] drm/amd/display: Fix "dc has no member named dml" compile =
-error
-
-From: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-
-For DCN disabled builds, dc->dml is stripped out. Therefore, guard usage
-in dc_create_state() with CONFIG_DRM_AMD_DC_DCN1_0.
-
-It fixes the following error:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function 'dc_create_=
-state':
->> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1237:34: error: 'stru=
-ct dc' has no member named 'dml'
-     memcpy(&context->bw_ctx.dml, &dc->dml, sizeof(struct display_mode_lib)=
-);
-                                     ^~
-
-Signed-off-by: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-CC: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-CC: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
-CC: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd=
-/display/dc/core/dc.c
-index cebd083..589cd95 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1245,7 +1245,9 @@ struct dc_state *dc_create_state(struct dc *dc)
-          * initialize and obtain IP and SOC the base DML instance from DC =
-is
-          * initially copied into every context
-          */
-+#ifdef CONFIG_DRM_AMD_DC_DCN1_0
-         memcpy(&context->bw_ctx.dml, &dc->dml, sizeof(struct display_mode_=
-lib));
-+#endif
-
-         kref_init(&context->refcount);
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of sunpeng.li-5C7GfCeVMHo@public.gmane.org &lt;sunp=
-eng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, March 21, 2019 10:44 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Li, Sun peng (Leo); Alex Deucher; Wentland, Harry; Kazlauskas, N=
-icholas<br>
-<b>Subject:</b> [PATCH] drm/amd/display: Fix &quot;dc has no member named d=
-ml&quot; compile error</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">From: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-For DCN disabled builds, dc-&gt;dml is stripped out. Therefore, guard usage=
-<br>
-in dc_create_state() with CONFIG_DRM_AMD_DC_DCN1_0.<br>
-<br>
-It fixes the following error:<br>
-<br>
-drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function 'dc_create_=
-state':<br>
-&gt;&gt; drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1237:34: error:=
- 'struct dc' has no member named 'dml'<br>
-&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;context-&gt;bw_ctx.dml, &amp;dc-&gt;dm=
-l, sizeof(struct display_mode_lib));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~<br>
-<br>
-Signed-off-by: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
-CC: Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
-CC: Harry Wentland &lt;Harry.Wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
-CC: Nicholas Kazlauskas &lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/core/dc.c | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd=
-/display/dc/core/dc.c<br>
-index cebd083..589cd95 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/core/dc.c<br>
-@@ -1245,7 &#43;1245,9 @@ struct dc_state *dc_create_state(struct dc *dc)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * initialize and obt=
-ain IP and SOC the base DML instance from DC is<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * initially copied i=
-nto every context<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;#ifdef CONFIG_DRM_AMD_DC_DCN1_0<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;context-&gt;bw=
-_ctx.dml, &amp;dc-&gt;dml, sizeof(struct display_mode_lib));<br>
-&#43;#endif<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kref_init(&amp;context-&gt=
-;refcount);<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_--
-
---===============1574315214==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAEsyxyhFfkZ-bB1hUW659By4Jc3oUomFY30pjpehq=4F3Uum5w@mail.gmail.com>
+Content-Language: en-US
+Content-ID: <166E3DF80A4D4F4BB50BC89DD799CD9C@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Mario Kleiner <mario.kleiner.de@gmail.com>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1574315214==--
+DQoNCk9uIDIwMTktMDMtMjEgNTozOSBhLm0uLCBNYXJpbyBLbGVpbmVyIHdyb3RlOg0KPiBPbiBX
+ZWQsIE1hciAyMCwgMjAxOSBhdCAxOjUzIFBNIEthemxhdXNrYXMsIE5pY2hvbGFzDQo+IDxOaWNo
+b2xhcy5LYXpsYXVza2FzQGFtZC5jb20+IHdyb3RlOg0KPj4NCj4+IE9uIDMvMjAvMTkgMzo1MSBB
+TSwgTWFyaW8gS2xlaW5lciB3cm90ZToNCj4+PiBPaywgZml4ZWQgYWxsIHRoZSBzdHlsZSBpc3N1
+ZXMgYW5kIHJhbiBjaGVja3BhdGNoIG92ZXIgdGhlIHBhdGNoZXMuIFRoYW5rcy4NCj4+Pg0KPj4+
+IE9uIFR1ZSwgTWFyIDE5LCAyMDE5IGF0IDI6MzIgUE0gS2F6bGF1c2thcywgTmljaG9sYXMNCj4+
+PiA8TmljaG9sYXMuS2F6bGF1c2thc0BhbWQuY29tPiB3cm90ZToNCj4+Pj4NCj4+Pj4gT24gMy8x
+OS8xOSA5OjIzIEFNLCBLYXpsYXVza2FzLCBOaWNob2xhcyB3cm90ZToNCj4+Pj4+IE9uIDMvMTgv
+MTkgMToxOSBQTSwgTWFyaW8gS2xlaW5lciB3cm90ZToNCg0KLi4uc25pcC4uLg0KDQo+Pj4+Pj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pcnEvZGNuMTAvaXJx
+X3NlcnZpY2VfZGNuMTAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pcnEvZGNu
+MTAvaXJxX3NlcnZpY2VfZGNuMTAuYw0KPj4+Pj4+IGluZGV4IGUwNGFlNDkuLjEwYWM2ZGUgMTAw
+NjQ0DQo+Pj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2lycS9kY24x
+MC9pcnFfc2VydmljZV9kY24xMC5jDQo+Pj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2RjL2lycS9kY24xMC9pcnFfc2VydmljZV9kY24xMC5jDQo+Pj4+Pj4gQEAgLTU2LDYg
+KzU2LDE4IEBAIGVudW0gZGNfaXJxX3NvdXJjZSB0b19kYWxfaXJxX3NvdXJjZV9kY24xMCgNCj4+
+Pj4+PiAgICAgICAgICAgICAgIHJldHVybiBEQ19JUlFfU09VUkNFX1ZCTEFOSzU7DQo+Pj4+Pj4g
+ICAgICAgY2FzZSBEQ05fMV8wX19TUkNJRF9fRENfRDZfT1RHX1ZTVEFSVFVQOg0KPj4+Pj4+ICAg
+ICAgICAgICAgICAgcmV0dXJuIERDX0lSUV9TT1VSQ0VfVkJMQU5LNjsNCj4+Pj4+PiArICAgIGNh
+c2UgRENOXzFfMF9fU1JDSURfX09URzBfSUhDX1ZfVVBEQVRFX05PX0xPQ0tfSU5URVJSVVBUOg0K
+Pj4+Pj4+ICsgICAgICAgICAgICByZXR1cm4gRENfSVJRX1NPVVJDRV9WVVBEQVRFMTsNCj4+Pj4+
+PiArICAgIGNhc2UgRENOXzFfMF9fU1JDSURfX09URzFfSUhDX1ZfVVBEQVRFX05PX0xPQ0tfSU5U
+RVJSVVBUOg0KPj4+Pj4+ICsgICAgICAgICAgICByZXR1cm4gRENfSVJRX1NPVVJDRV9WVVBEQVRF
+MjsNCj4+Pj4+PiArICAgIGNhc2UgRENOXzFfMF9fU1JDSURfX09URzJfSUhDX1ZfVVBEQVRFX05P
+X0xPQ0tfSU5URVJSVVBUOg0KPj4+Pj4+ICsgICAgICAgICAgICByZXR1cm4gRENfSVJRX1NPVVJD
+RV9WVVBEQVRFMzsNCj4+Pj4+PiArICAgIGNhc2UgRENOXzFfMF9fU1JDSURfX09URzNfSUhDX1Zf
+VVBEQVRFX05PX0xPQ0tfSU5URVJSVVBUOg0KPj4+Pj4+ICsgICAgICAgICAgICByZXR1cm4gRENf
+SVJRX1NPVVJDRV9WVVBEQVRFNDsNCj4+Pj4+PiArICAgIGNhc2UgRENOXzFfMF9fU1JDSURfX09U
+RzRfSUhDX1ZfVVBEQVRFX05PX0xPQ0tfSU5URVJSVVBUOg0KPj4+Pj4+ICsgICAgICAgICAgICBy
+ZXR1cm4gRENfSVJRX1NPVVJDRV9WVVBEQVRFNTsNCj4+Pj4+PiArICAgIGNhc2UgRENOXzFfMF9f
+U1JDSURfX09URzVfSUhDX1ZfVVBEQVRFX05PX0xPQ0tfSU5URVJSVVBUOg0KPj4+Pj4+ICsgICAg
+ICAgICAgICByZXR1cm4gRENfSVJRX1NPVVJDRV9WVVBEQVRFNjsNCj4+Pj4NCj4+Pj4gSSdtIG5v
+dCBzdXJlIHdlIG5lY2Vzc2FyaWx5IHdhbnQgdG8gcmV1c2UgdGhlIHNhbWUNCj4+Pj4gRENfSVJR
+X1NPVVJDRV9WVVBEQVRFMS4uLjYgZGVmaW5pdGlvbnMgaGVyZSBhZ2FpbiB3aGVuIGl0J3MgcmVh
+bGx5DQo+Pj4+IFZfVVBEQVRFX05PX0xPQ0suDQo+Pj4+DQo+Pj4NCj4+PiBIbS4gVGhlIHByb2Js
+ZW0gaXMgdGhhdCBpZiB3ZSB1c2UgZGlmZmVyZW50IG9uZXMgZm9yIERDRSBhbmQgRENOIHdlDQo+
+Pj4gbmVlZCBzcGVjaWFsLWNhc2UgaGFuZGxpbmcgaW4gYW1kZ3B1X2RtLmMsIGUuZy4sIGluDQo+
+Pj4gYW1kZ3B1X2RtX3NldF92dXBkYXRlX2lycV9zdGF0ZSgpIGFuZCBkbV9zZXRfdnVwZGF0ZV9p
+cnEoKSB0byBkZXRlY3QNCj4+PiBpZiBpdCBpcyBjYWxpbmcgRENFIG9yIERDTiAoaG93IHRvIGRl
+dGVjdCB0aGlzPykgdG8gc2VsZWN0IGRpZmZlcmVudA0KPj4+IGlycSBzb3VyY2VzIElSUV9UWVBF
+X1ZVUERBVEUgdnMgSVJRX1RZUEVfVlVQREFURV9OT19MT0NLIGFuZCBzdWNoPw0KPj4+IEFuZCBk
+ZWZpbml0aW9ucyBsaWtlICJzdHJ1Y3QgYW1kZ3B1X2lycV9zcmMgdnVwZGF0ZV9pcnE7IiBzaG91
+bGQgdGhlbg0KPj4+IGFsc28gZXhpc3QgdHdpY2UgYXMgdnVwZGF0ZV9pcnEgYW5kIHZ1cGRhdGVf
+aXJxX25vX2xvY2sgZm9yIGNvcnJlY3QNCj4+PiBuYW1pbmc/DQo+Pj4NCj4+PiBPciB3ZSdkIG5h
+bWUgdGhlIElSUSBzb3VyY2UgYW5kIGFsbCByZWxldmFudCBkYXRhIHN0cnVjdHVyZXMgYW5kDQo+
+Pj4gZnVuY3Rpb25zIHNvbWV0aGluZyBsaWtlIERDX0lSUV9TT1VSQ0VfVkJMQU5LX0VORDEuLjYg
+dG8gZGVzY3JpYmUgd2hhdA0KPj4+IGl0IHNpZ25hbHMgaW5zdGVhZCBvZiB0byB3aGF0IGl0IGNv
+cnJlc3BvbmRzIGluIGhhcmR3YXJlPyBUaGF0IHdvdWxkDQo+Pj4gYmUgd2hhdCB3YXMgZG9uZSB3
+aXRoIHRoZSByZWd1bGFyIERDX0lSUV9TT1VSQ0VfVkJMQU5LMS4uNi4gSXQgc2lnbmFscw0KPj4+
+IHN0YXJ0IG9mIHZibGFuaywgYnV0IHRoZSB1bmRlcmx5aW5nIGh3IGludGVycnVwdHMgYXJlIGFj
+dHVhbGx5IGENCj4+PiBwcm9wZXJseSBwcm9ncmFtbWVkIFZMSU5FMCBpcnEgb24gRENFIGFuZCBh
+IFZTVEFSVFVQIGlycSBvbiBEQ04uDQo+Pg0KPj4NCj4+IEFoLCBJIHNlZSB3aGF0IHlvdSBtZWFu
+LiBNYXliZSB0aGlzIGlzIGZvciB0aGUgYmV0dGVyIHRvIHNoYXJlIHRoZSBzYW1lDQo+PiBuYW1l
+cyB0aGVuLiBJJ2xsIGRlZmVyIHRoaXMgdG8gSGFycnkuDQo+Pg0KDQpJJ2QgdGVuZCB0byBhZ3Jl
+ZSB3aXRoIE1hcmlvLiBJIHRoaW5rIGl0J3MgYmVzdCB0byBrZWVwIHRoZSBzYW1lIHNlbWFudGlj
+IGZvciBWVVBEQVRFLg0KDQpUaGUgcmVndWxhciBWVVBEQVRFIGhhcyBzb21lIGludGVyYWN0aW9u
+IHdpdGggdGhlIG1hc3RlciBsb2NrLiBJIGltYWdpbmUgd2Ugd2FudCBzb21ldGhpbmcgdGhhdCBm
+aXJlcyBpbmRlcGVuZGVudGx5IG9mIGl0LCB3aGljaCBsb29rcyB0byBiZSB0aGUgX05PX0xPQ0sg
+dmVyc2lvbi4NCg0KVGhhdCBzYWlkLCBib3RoIFZTVEFSVFVQIGFuZCBWVVBEQVRFIGNhbiBvY2N1
+ciBiZWZvcmUgVlNZTkMgb24gRENOLiBXaXRoIG1vc3QgdGltaW5ncyB0aGlzIHByb2JhYmx5IHdv
+bid0IG9jY3VyIGJ1dCBpZiBvdXIgYmFjayBwb3JjaCBpcyByZWFsbHkgc21hbGwgd2UnZCBzZWUg
+dGhhdCBoYXBwZW5pbmcuIElmIHdlIG5lZWQgdG8gZ3VhcmFudGVlIHRoYXQgdGhpcyBpbnRlcnJ1
+cHQgb2NjdXJzIG5vIHNvb25lciB0aGFuIHZsaW5lIDAgd2Ugd2lsbCBuZWVkIHRvIHJlZ2lzdGVy
+IGEgdmxpbmUgSVJRLg0KDQpBcyBmb3IgVlNUQVJUVVAgYW5kIFZVUERBVEUsIFZTVEFSVFVQIGlz
+IHRoZSBJUlEgdGhhdCBoYXMgYW4gaW1wYWN0IG9uIHRoZSBiZWhhdmlvciBvZiByZW5kZXIgY2xp
+ZW50cyBhcyBpdCdzIHRoZSBkZWFkbGluZSBmb3IgZnJhbWUgc3VibWlzc2lvbnMuIEFmdGVyIFZT
+VEFSVFVQIGFueSBuZXcgZnJhbWVidWZmZXIgYWRkcmVzcyB1cGRhdGUgaXMgcG9zdHBvbmVkIHRv
+IHRoZSBuZXh0IGZyYW1lICh1bmxlc3Mgd2UgZG8gaW1tZWRpYXRlIGZsaXApLg0KDQpTbyBmb3Ig
+bm93IFZVUERBVEVfTk9fTE9DSyBpcyBwcm9iYWJseSBmaW5lIGFuZCB3aWxsIGltcHJvdmUgb3Vy
+IHNpdHVhdGlvbiBleGNlcHQgZm9yIFZSUiBkaXNwbGF5cyB3aXRoIGEgcmVhbGx5IHNob3J0IGJh
+Y2sgcG9yY2guIE5vdCBzdXJlIHRob3NlIGV2ZW4gZXhpc3QuDQoNCj4+Pg0KPj4+IE9mIGNvdXJz
+ZSB0aGlzIGFsbCBhc3N1bWVzIHdlIG5lZWQgdG8gdXNlIHRoZSBOT19MT0NLIHZhcmlhbnQgb24g
+RENOPw0KPj4+IFdlIGhhdmVuJ3QgdGVzdGVkIHdoYXQgdGhlIHJlZ3VsYXIgVlVQREFURV9JUlEg
+ZG9lcywgYmVjYXVzZSBpIGRvbid0DQo+Pj4gaGF2ZSBhIHN1aXRhYmxlIHRlc3QgbWFjaGluZSwg
+YW5kIG15IHVzZSBvZiB0aGUgTk9fTE9DSyB2YXJpYW50IHdhcw0KPj4+IGp1c3QgYmFzZWQgb24g
+bXkgaW50ZXJwcmV0YXRpb24gb2YgdGhpcyBsaXR0bGUgY29tbWVudCBpbiB0aGUgRENODQo+Pj4g
+aGVhZGVyIGZpbGU6DQo+Pj4NCj4+PiAjZGVmaW5lIERDTl8xXzBfX1NSQ0lEX19PVEcwX0lIQ19W
+X1VQREFURV9OT19MT0NLX0lOVEVSUlVQVCAweDU3IC8vDQo+Pj4gIk9URzAgVlVQREFURSBldmVu
+dCB3aXRob3V0IGxvY2sgaW50ZXJydXB0LCBWVVBEQVRFIGlzIHVwZGF0ZSBldmVudA0KPj4+IGZv
+ciBkb3VibGUgYnVmZmVyZWQgcmVnaXN0ZXJzIg0KPj4+DQo+Pj4gYW5kIHRoZSBhYnNlbmNlIG9m
+IGFueSBleHBsYW5hdG9yeSBjb21tZW50IGluIHRoZSBkZWZpbmUgb2YgcmVndWxhciBWX1VQREFU
+RToNCj4+Pg0KPj4+ICNkZWZpbmUgRENOXzFfMF9fU1JDSURfX0RDX0QxX09UR19WX1VQREFURSAw
+eDE4IC8vIEQxIDogT1RHIFZfdXBkYXRlDQo+Pj4gT1RHMV9JSENfVl9VUERBVEVfSU5URVJSVVBU
+DQo+Pj4NCj4+PiBJIGFzc3VtZWQgdGhlIE5PX0xPQ0sgbWVhbnMgbm90IGFmZmVjdGVkIGJ5IHRo
+ZSBzdGF0ZSBvZiBhbnkgb2YgdGhlIGh3DQo+Pj4gbG9ja3MsIHNvIHJlZ3VsYXIgVl9VUERBVEUg
+bWlnaHQgYmUgYWZmZWN0ZWQgYnkgdGhlbS4gWW91IGFncmVlZCB3aXRoDQo+Pj4gdGhhdCwgYnV0
+IHdlIG5ldmVyIHRlc3RlZCB3aGF0IHJlZ3VsYXIgVl9VUERBVEUgd291bGQgZG8gb24gRENOLiBE
+byB3ZQ0KPj4+IGFjdHVhbGx5IGtub3cgZm9yIHN1cmUgZnJvbSBodyBzcGVjcyB0aGF0IGl0IHdv
+dWxkIG5vdCB3b3JrLCBpZS4gbm90DQo+Pj4gdW5jb25kaXRpb25hbGx5IGZpcmUgdGhlIElSUSBh
+dCBldmVyeSBlbmQgb2YgVkJMQU5LLCBhcyB3ZSBuZWVkPw0KPj4NCj4+IEZXSVcsIEkgZGlkIHRy
+eSB5b3VyIG9yaWdpbmFsIHBhdGNoZXMgd2l0aCBWX1VQREFURS4gSSBkb24ndCBrbm93IG9mZg0K
+Pj4gdGhlIHRvcCBvZiBteSBoZWFkIHdoYXQgc3BlY2lmaWNhbGx5IFZfVVBEQVRFIGRvZXMgdGhh
+dCBWX1VQREFURV9OT19MT0NLDQo+PiBkb2Vzbid0LCBidXQgYXQgdGhlIHZlcnkgbGVhc3QgdGhl
+IEhXIHdvbid0IGJlIGZsaXBwaW5nIGFueXRoaW5nIHRvIHRoZQ0KPj4gc2NyZWVuIGlmIHlvdSdy
+ZSB1c2luZyB0aGUgZm9ybWVyLiBZb3UnbGwgZW5kIHVwIHdpdGggYSBzdGF0aWMgc2NyZWVuDQo+
+PiB0aGF0IGxvb2tzIGxpa2UgYSBzeXN0ZW0gaGFuZy4NCj4+DQo+IA0KPiBZZXMsIGJ1dCB0aGF0
+IHdhcyBiZWNhdXNlIHRoYXQgaXRlcmF0aW9uIG9mIHRoZSBwYXRjaCBoYWQgYSBidWcsIHdoZXJl
+DQo+IGkgZGVmaW5lZCB0aGUgaXJxIHNvdXJjZXMgLyBpcnEgaHcgc291cmNlcyBhcyBfTk9fTE9D
+SyB2YXJpYW50cyBhcyBpDQo+IGludGVuZGVkLCBidXQgZm9yZ290IHRvIGFkYXB0IHRoZSBpcnEg
+ZW4vZGlzYWJsZSByZWdpc3RlciBtYWNyb3MuIFlvdQ0KPiBmaXhlZCBteSBidWcgZHVyaW5nIHlv
+dXIgdGVzdGluZyBhbmQgc28gd2Uga25vdyB0aGUgX05PX0xPQ0sgdmFyaWFudA0KPiB3b3JrcyBw
+ZXJmZWN0bHkgZm9yIG91ciBwdXJwb3NlLiBCdXQgd2UgbmV2ZXIgdGVzZWQgaWYgdGhlIHN0YW5k
+YXJkDQo+IHZhcmlhbnQgd291bGQgaGF2ZSB3b3JrZWQganVzdCBhcyB3ZWxsLg0KPiANCj4gSSB3
+aWxsIHRlc3QgdGhpcyBsYXRlciB0b2RheSwgYmVjYXVzZSBzaW5jZSB0b2RheSBpJ20gdGhlIHBy
+b3VkIG93bmVyDQo+IG9mIGEgUEMgd2l0aCBSeXplbiA1IDI0MDBHIHdpdGggVmVnYTExIFJhdmVu
+IC8gRENOLTEuMCA6KS4gU28gaSdsbA0KPiBnaXZlIGl0IGEgdHJ5LiBXb3VsZCBiZSBnb29kIHRo
+b3VnaCBpZiB5b3UgY291bGQgaGF2ZSBhIGxvb2sgYXQgdGhlDQo+IGhhcmR3YXJlIGRvY3MgaSBh
+c3N1bWUgeW91IGhhdmUgaW50ZXJuYWxseSB0byB2ZXJpZnkgd2hhdCB0aGUgVl9VUERBVEUNCj4g
+aXJxIGh3IHNvdXJjZSBhY3R1YWxseSBkb2VzPw0KPiANCg0KSSBjb3VsZG4ndCBmaW5kIG11Y2gg
+cmVnYXJkaW5nIHRoZSBfTk9fTE9DSyBwYXJ0IGluIHRoZSBIVyBkb2NzLCB1bmZvcnR1bmF0ZWx5
+LiBUaGUgb3RoZXIgc3R1ZmYgaXMgaW4gbXkgYmx1cmIgdXAgdG9wLg0KDQpJIHRoaW5rIHRoaXMg
+Y2hhbmdlIGlzIGZpbmUuIFdpdGggdGhlIGNvbW1lbnRzIGZyb20gTmljayBhbmQgUGF1bCBhZGRy
+ZXNzZWQgdGhpcyBpcw0KQWNrZWQtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBh
+bWQuY29tPg0KDQpJIHJlY29tbWVuZCB0cnlpbmcgdGhlIFZMSU5FIElSUSwgdGhvdWdoLiBOaWNr
+IGNhbiB5b3UgY3JlYXRlIGEgdGFzayBmb3IgdXMgdG8gbG9vayBpbnRvIHRoYXQ/DQoNCkhhcnJ5
+DQoNCj4gLW1hcmlvDQo+IA0KPj4gTmljaG9sYXMgS2F6bGF1c2thcw0KPj4NCj4+Pg0KPj4+DQo+
+Pj4+Pj4gICAgICAgY2FzZSBEQ05fMV8wX19TUkNJRF9fSFVCUDBfRkxJUF9JTlRFUlJVUFQ6DQo+
+Pj4+Pj4gICAgICAgICAgICAgICByZXR1cm4gRENfSVJRX1NPVVJDRV9QRkxJUDE7DQo+Pj4+Pj4g
+ICAgICAgY2FzZSBEQ05fMV8wX19TUkNJRF9fSFVCUDFfRkxJUF9JTlRFUlJVUFQ6DQo+Pj4+Pj4g
+QEAgLTE1Myw2ICsxNjUsMTEgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBpcnFfc291cmNlX2luZm9f
+ZnVuY3MgdmJsYW5rX2lycV9pbmZvX2Z1bmNzID0gew0KPj4+Pj4+ICAgICAgIC5hY2sgPSBOVUxM
+DQo+Pj4+Pj4gICAgIH07DQo+Pj4+Pj4NCj4+Pj4+PiArc3RhdGljIGNvbnN0IHN0cnVjdCBpcnFf
+c291cmNlX2luZm9fZnVuY3MgdnVwZGF0ZV9ub19sb2NrX2lycV9pbmZvX2Z1bmNzID0gew0KPj4+
+Pj4+ICsgICAgLnNldCA9IE5VTEwsDQo+Pj4+Pj4gKyAgICAuYWNrID0gTlVMTA0KPj4+Pj4+ICt9
+Ow0KPj4+Pj4+ICsNCj4+Pj4+PiAgICAgI2RlZmluZSBCQVNFX0lOTkVSKHNlZykgXA0KPj4+Pj4+
+ICAgICAgIERDRV9CQVNFX19JTlNUMF9TRUcgIyMgc2VnDQo+Pj4+Pj4NCj4+Pj4+PiBAQCAtMjAz
+LDEyICsyMjAsMTUgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBpcnFfc291cmNlX2luZm9fZnVuY3Mg
+dmJsYW5rX2lycV9pbmZvX2Z1bmNzID0gew0KPj4+Pj4+ICAgICAgICAgICAgICAgLmZ1bmNzID0g
+JnBmbGlwX2lycV9pbmZvX2Z1bmNzXA0KPj4+Pj4+ICAgICAgIH0NCj4+Pj4+Pg0KPj4+Pj4+IC0j
+ZGVmaW5lIHZ1cGRhdGVfaW50X2VudHJ5KHJlZ19udW0pXA0KPj4+Pj4+ICsvKiB2dXBkYXRlX25v
+X2xvY2tfaW50X2VudHJ5IG1hcHMgdG8gRENfSVJRX1NPVVJDRV9WVVBEQVRFeCwgdG8gbWF0Y2gg
+c2VtYW50aWMNCj4+Pj4+PiArICogb2YgRENFJ3MgRENfSVJRX1NPVVJDRV9WVVBEQVRFeC4NCj4+
+Pj4+PiArICovDQo+Pj4+Pj4gKyNkZWZpbmUgdnVwZGF0ZV9ub19sb2NrX2ludF9lbnRyeShyZWdf
+bnVtKVwNCj4+Pj4+PiAgICAgICBbRENfSVJRX1NPVVJDRV9WVVBEQVRFMSArIHJlZ19udW1dID0g
+e1wNCj4+Pj4+PiAgICAgICAgICAgICAgIElSUV9SRUdfRU5UUlkoT1RHLCByZWdfbnVtLFwNCj4+
+Pj4+PiAtICAgICAgICAgICAgICAgICAgICBPVEdfR0xPQkFMX1NZTkNfU1RBVFVTLCBWVVBEQVRF
+X0lOVF9FTixcDQo+Pj4+Pj4gLSAgICAgICAgICAgICAgICAgICAgT1RHX0dMT0JBTF9TWU5DX1NU
+QVRVUywgVlVQREFURV9FVkVOVF9DTEVBUiksXA0KPj4+Pj4+IC0gICAgICAgICAgICAuZnVuY3Mg
+PSAmdmJsYW5rX2lycV9pbmZvX2Z1bmNzXA0KPj4+Pj4+ICsgICAgICAgICAgICAgICAgICAgIE9U
+R19HTE9CQUxfU1lOQ19TVEFUVVMsIFZVUERBVEVfTk9fTE9DS19JTlRfRU4sXA0KPj4+Pj4+ICsg
+ICAgICAgICAgICAgICAgICAgIE9UR19HTE9CQUxfU1lOQ19TVEFUVVMsIFZVUERBVEVfTk9fTE9D
+S19FVkVOVF9DTEVBUiksXA0KPj4+Pj4+ICsgICAgICAgICAgICAuZnVuY3MgPSAmdnVwZGF0ZV9u
+b19sb2NrX2lycV9pbmZvX2Z1bmNzXA0KPj4+Pj4+ICAgICAgIH0NCj4+Pj4+Pg0KPj4+Pj4+ICAg
+ICAjZGVmaW5lIHZibGFua19pbnRfZW50cnkocmVnX251bSlcDQo+Pj4+Pj4gQEAgLTMxNSwxMiAr
+MzM1LDEyIEBAIGlycV9zb3VyY2VfaW5mb19kY24xMFtEQUxfSVJRX1NPVVJDRVNfTlVNQkVSXSA9
+IHsNCj4+Pj4+PiAgICAgICBkY191bmRlcmZsb3dfaW50X2VudHJ5KDYpLA0KPj4+Pj4+ICAgICAg
+IFtEQ19JUlFfU09VUkNFX0RNQ1VfU0NQXSA9IGR1bW15X2lycV9lbnRyeSgpLA0KPj4+Pj4+ICAg
+ICAgIFtEQ19JUlFfU09VUkNFX1ZCSU9TX1NXXSA9IGR1bW15X2lycV9lbnRyeSgpLA0KPj4+Pj4+
+IC0gICAgdnVwZGF0ZV9pbnRfZW50cnkoMCksDQo+Pj4+Pj4gLSAgICB2dXBkYXRlX2ludF9lbnRy
+eSgxKSwNCj4+Pj4+PiAtICAgIHZ1cGRhdGVfaW50X2VudHJ5KDIpLA0KPj4+Pj4+IC0gICAgdnVw
+ZGF0ZV9pbnRfZW50cnkoMyksDQo+Pj4+Pj4gLSAgICB2dXBkYXRlX2ludF9lbnRyeSg0KSwNCj4+
+Pj4+PiAtICAgIHZ1cGRhdGVfaW50X2VudHJ5KDUpLA0KPj4+Pg0KPj4+PiBJIGRvbid0IHRoaW5r
+IHdlIHNob3VsZCBiZSBuZWNlc3NhcmlseSBkcm9wcGluZyB0aGVzZSwgYnV0IEkgZ3Vlc3MgaXQN
+Cj4+Pj4gY291bGQgZ28gZWl0aGVyIHdheSBzaW5jZSB0aGVzZSBJUlFzIHRlY2huaWNhbGx5IGFy
+ZW4ndCBkZWZpbmVkLg0KPj4+Pg0KPj4+DQo+Pj4gV2UgY291bGQga2VlcCBib3RoIGRlZmluaXRp
+b25zIGFyb3VuZCwgb3JpZ2luYWwgdnVwZGF0ZV9pbnRfZW50cnkgKw0KPj4+IHRoZSBuZXcgdnVw
+ZGF0ZV9ub19sb2NrX2ludF9lbnRyeS4NCj4+Pg0KPj4+IC1tYXJpbw0KPj4+DQo+Pj4+Pj4gKyAg
+ICB2dXBkYXRlX25vX2xvY2tfaW50X2VudHJ5KDApLA0KPj4+Pj4+ICsgICAgdnVwZGF0ZV9ub19s
+b2NrX2ludF9lbnRyeSgxKSwNCj4+Pj4+PiArICAgIHZ1cGRhdGVfbm9fbG9ja19pbnRfZW50cnko
+MiksDQo+Pj4+Pj4gKyAgICB2dXBkYXRlX25vX2xvY2tfaW50X2VudHJ5KDMpLA0KPj4+Pj4+ICsg
+ICAgdnVwZGF0ZV9ub19sb2NrX2ludF9lbnRyeSg0KSwNCj4+Pj4+PiArICAgIHZ1cGRhdGVfbm9f
+bG9ja19pbnRfZW50cnkoNSksDQo+Pj4+Pj4gICAgICAgdmJsYW5rX2ludF9lbnRyeSgwKSwNCj4+
+Pj4+PiAgICAgICB2YmxhbmtfaW50X2VudHJ5KDEpLA0KPj4+Pj4+ICAgICAgIHZibGFua19pbnRf
+ZW50cnkoMiksDQo+Pj4+Pj4NCj4+Pj4+DQo+Pj4+PiBOaWNob2xhcyBLYXpsYXVza2FzDQo+Pj4+
+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPj4+Pj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+DQo+Pj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngNCj4+Pj4+DQo+Pj4+DQo+Pg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vZHJpLWRldmVs
