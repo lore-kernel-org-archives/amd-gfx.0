@@ -1,49 +1,79 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH][next] drm/amd/powerplay: fix spelling mistake "unknow" -> "unknown"
-Date: Thu, 21 Mar 2019 09:58:00 -0400
-Message-ID: <CADnq5_NXCeXkiXYy8pjSkJR6Dj6rqqt0P0pBJaUyRgkkzurg3g@mail.gmail.com>
-References: <20190320172909.10348-1-colin.king@canonical.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: Zero initialize num_of_levels in
+ vega20_set_single_dpm_table
+Date: Thu, 21 Mar 2019 09:58:23 -0400
+Message-ID: <CADnq5_N_5ooTiVzEH15o_YfHkryGx+VbFLoy=XYDhSKGmHTDtQ@mail.gmail.com>
+References: <20190320005842.25383-1-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190320172909.10348-1-colin.king@canonical.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>
-Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190320005842.25383-1-natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Nick Desaulniers <ndesaulniers-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, clang-built-linux-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Mar 20, 2019 at 1:29 PM Colin King <colin.king@canonical.com> wrote:
->
-> From: Colin Ian King <colin.king@canonical.com>
->
-> There is a spelling mistake in pr_warn message; fix it.
->
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index 17143888e37e..026bebe6fb45 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -2024,6 +2024,6 @@ void smu_v11_0_set_smu_funcs(struct smu_context *smu)
->                 vega20_set_ppt_funcs(smu);
->                 break;
->         default:
-> -               pr_warn("Unknow asic for smu11\n");
-> +               pr_warn("Unknown asic for smu11\n");
->         }
->  }
-> --
-> 2.20.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gV2VkLCBNYXIgMjAsIDIwMTkgYXQgNDozMyBBTSBOYXRoYW4gQ2hhbmNlbGxvcgo8bmF0ZWNo
+YW5jZWxsb3JAZ21haWwuY29tPiB3cm90ZToKPgo+IFdoZW4gYnVpbGRpbmcgd2l0aCAtV3NvbWV0
+aW1lcy11bmluaXRpYWxpemVkLCBDbGFuZyB3YXJuczoKPgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1Ly4uL3Bvd2VycGxheS92ZWdhMjBfcHB0LmM6NDU2OjI6IHdhcm5pbmc6Cj4gdmFyaWFi
+bGUgJ251bV9vZl9sZXZlbHMnIGlzIHVzZWQgdW5pbml0aWFsaXplZCB3aGVuZXZlciAnPzonIGNv
+bmRpdGlvbgo+IGlzIGZhbHNlIFstV3NvbWV0aW1lcy11bmluaXRpYWxpemVkXQo+ICAgICAgICAg
+c211X3JlYWRfc21jX2FyZyhzbXUsICZudW1fb2ZfbGV2ZWxzKTsKPiAgICAgICAgIF5+fn5+fn5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn4KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS8uLi9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaDo2MDg6Mzogbm90ZToKPiBleHBhbmRlZCBm
+cm9tIG1hY3JvICdzbXVfcmVhZF9zbWNfYXJnJwo+ICAgICAgICAgKChzbXUpLT5mdW5jcy0+cmVh
+ZF9zbWNfYXJnPyAoc211KS0+ZnVuY3MtPnJlYWRfc21jX2FyZygoc211KSwgKGFyZykpIDogMCkK
+PiAgICAgICAgICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fgo+IGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1Ly4uL3Bvd2VycGxheS92ZWdhMjBfcHB0LmM6NDU3Ojc6IG5vdGU6Cj4gdW5pbml0
+aWFsaXplZCB1c2Ugb2NjdXJzIGhlcmUKPiAgICAgICAgIGlmICghbnVtX29mX2xldmVscykgewo+
+ICAgICAgICAgICAgICBefn5+fn5+fn5+fn5+Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Li4vcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYzo0NTY6Mjogbm90ZTogcmVtb3ZlCj4gdGhlICc/Oicg
+aWYgaXRzIGNvbmRpdGlvbiBpcyBhbHdheXMgdHJ1ZQo+ICAgICAgICAgc211X3JlYWRfc21jX2Fy
+ZyhzbXUsICZudW1fb2ZfbGV2ZWxzKTsKPiAgICAgICAgIF4KPiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS8uLi9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaDo2MDg6Mzogbm90ZToKPiBleHBh
+bmRlZCBmcm9tIG1hY3JvICdzbXVfcmVhZF9zbWNfYXJnJwo+ICAgICAgICAgKChzbXUpLT5mdW5j
+cy0+cmVhZF9zbWNfYXJnPyAoc211KS0+ZnVuY3MtPnJlYWRfc21jX2FyZygoc211KSwgKGFyZykp
+IDogMCkKPiAgICAgICAgICBeCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJw
+bGF5L3ZlZ2EyMF9wcHQuYzo0NDY6Mjc6IG5vdGU6Cj4gaW5pdGlhbGl6ZSB0aGUgdmFyaWFibGUg
+J251bV9vZl9sZXZlbHMnIHRvIHNpbGVuY2UgdGhpcyB3YXJuaW5nCj4gICAgICAgICB1aW50MzJf
+dCBpLCBudW1fb2ZfbGV2ZWxzLCBjbGs7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgXgo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA9IDAKPiAxIHdhcm5pbmcg
+Z2VuZXJhdGVkLgo+Cj4gVGhlIGlmIHN0YXRlbWVudCBpdCBtZW50aW9ucyBhcyBwb3RlbnRpYWxs
+eSBwcm9ibGVtYXRpYyBpcyBjdXJyZW50bHkKPiBhbHdheXMgdHJ1ZSBiZWNhdXNlIHRoZSByZWFk
+X3NtY19hcmcgY2FsbGJhY2sgaXMgYXNzaWduZWQgYXQgdGhlCj4gYm90dG9tIG9mIHRoaXMgZmls
+ZSBidXQgQ2xhbmcgY2FuJ3QgdGVsbCB0aGF0LiBJZiB0aGUgY2FsbGJhY2sgd2VyZQo+IGV2ZXIg
+dG8gZGlzYXBwZWFyLCBudW1fb2ZfbGV2ZWxzIHdvdWxkIG5ldmVyIGJlIGluaXRpYWxpemVkLiBK
+dXN0Cj4gemVybyBpbml0aWFsaXplIGl0IHRvIGVuc3VyZSB0aGF0IHRoZSBpbnRlbnQgYmVoaW5k
+IHRoaXMgY29kZQo+IHJlbWFpbnMgdGhlIHNhbWUuCj4KPiBGaXhlczogODcwYjk5NmY5NTVmICgi
+ZHJtL2FtZC9wb3dlcnBsYXk6IHNldCBkZWZhbHV0IGRwbSB0YWJsZSBmb3Igc211IikKPiBMaW5r
+OiBodHRwczovL2dpdGh1Yi5jb20vQ2xhbmdCdWlsdExpbnV4L2xpbnV4L2lzc3Vlcy80MjUKPiBT
+aWduZWQtb2ZmLWJ5OiBOYXRoYW4gQ2hhbmNlbGxvciA8bmF0ZWNoYW5jZWxsb3JAZ21haWwuY29t
+PgoKCkFwcGxpZWQuICB0aGFua3MhCgpBbGV4Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS92ZWdhMjBfcHB0LmMgfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
+dGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L3ZlZ2EyMF9wcHQuYwo+IGluZGV4IDdlOWU4YWQ5YTMwMC4uNDFlNmY0OWM5Y2I2IDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYwo+IEBAIC00NDMsNyAr
+NDQzLDcgQEAgdmVnYTIwX3NldF9zaW5nbGVfZHBtX3RhYmxlKHN0cnVjdCBzbXVfY29udGV4dCAq
+c211LAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQUENMS19lIGNsa19pZCkKPiAgewo+
+ICAgICAgICAgaW50IHJldCA9IDA7Cj4gLSAgICAgICB1aW50MzJfdCBpLCBudW1fb2ZfbGV2ZWxz
+LCBjbGs7Cj4gKyAgICAgICB1aW50MzJfdCBpLCBudW1fb2ZfbGV2ZWxzID0gMCwgY2xrOwo+Cj4g
+ICAgICAgICByZXQgPSBzbXVfc2VuZF9zbWNfbXNnX3dpdGhfcGFyYW0oc211LAo+ICAgICAgICAg
+ICAgICAgICAgICAgICAgIFNNVV9NU0dfR2V0RHBtRnJlcUJ5SW5kZXgsCj4gLS0KPiAyLjIxLjAK
+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
