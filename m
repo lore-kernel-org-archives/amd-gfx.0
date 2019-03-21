@@ -1,13 +1,11 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: Fix double unlock bug in
- smu_sys_set_pp_table()
-Date: Thu, 21 Mar 2019 07:06:07 +0000
-Message-ID: <MN2PR12MB3296E3B4F40A53AA743CF69DA2420@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20190321062822.GD21489@kadam>
+From: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/5] drm/amdgpu: Fix some sanity check
+Date: Thu, 21 Mar 2019 07:28:20 +0000
+Message-ID: <SN6PR12MB2800A723E8DBE5B2F9E1650C87420@SN6PR12MB2800.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1385492889=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190321062822.GD21489@kadam>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,184 +17,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Gui,
- Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Gao,
- Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1385492889==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296E3B4F40A53AA743CF69DA2420MN2PR12MB3296namp_"
-
---_000_MN2PR12MB3296E3B4F40A53AA743CF69DA2420MN2PR12MB3296namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Dan,
-
-
-Thank you for your careful attention to the problem.
-I made the mistake of this patch, when we do code rebase internally.
-and your patch is looks fine for me.
-
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-Thanks.
-
-Best Regards,
-Kevin
-
-
-________________________________
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Sent: Thursday, March 21, 2019 2:28:22 PM
-To: Deucher, Alexander; Wang, Kevin(Yang)
-Cc: Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter; =
-Huang, Ray; Gao, Likun; Gui, Jack; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; kernel-ja=
-nitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Subject: [PATCH] drm/amd/powerplay: Fix double unlock bug in smu_sys_set_pp=
-_table()
-
-We already unlocked a few lines earlier so this code unlocks twice on
-the success path.
-
-Fixes: 5809d7420f97 ("drm/amd/powerplay: implement sysfs of pp_table for sm=
-u11 (v2)")
-Signed-off-by: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
----
-I'm not sure what this bug looks like at runtime, but it's slightly
-weird that no one noticed.  This is from static analysis and I haven't
-tested it myself.
-
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
-md/powerplay/amdgpu_smu.c
-index 00b7c885772b..7e8c74da6a74 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -187,6 +187,8 @@ int smu_sys_set_pp_table(struct smu_context *smu,  void=
- *buf, size_t size)
-         if (ret)
-                 pr_info("smu reset failed, ret =3D %d\n", ret);
-
-+       return ret;
-+
- failed:
-         mutex_unlock(&smu->mutex);
-         return ret;
---
-2.17.1
-
-
---_000_MN2PR12MB3296E3B4F40A53AA743CF69DA2420MN2PR12MB3296namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Hi Dan,</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"></p>
-<div>Thank you for your careful attention to the problem.</div>
-<div>
-<div></div>
-<div>I made the mistake of this patch, when we do code&nbsp;rebase internal=
-ly.</div>
-<div><span style=3D"font-size: 12pt;">and&nbsp;your patch is looks fine for=
- me.</span><br>
-</div>
-<div><span style=3D"font-size: 12pt;"><br>
-</span></div>
-<div>Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div>Thanks.</div>
-<div><br>
-</div>
-<div>Best Regards,</div>
-<div>Kevin</div>
-<div><br>
-</div>
-</div>
-<p></p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dan Carpenter &lt;dan=
-.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, March 21, 2019 2:28:22 PM<br>
-<b>To:</b> Deucher, Alexander; Wang, Kevin(Yang)<br>
-<b>Cc:</b> Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel V=
-etter; Huang, Ray; Gao, Likun; Gui, Jack; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; ke=
-rnel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: Fix double unlock bug in smu_sys=
-_set_pp_table()</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">We already unlocked a few lines earlier so this co=
-de unlocks twice on<br>
-the success path.<br>
-<br>
-Fixes: 5809d7420f97 (&quot;drm/amd/powerplay: implement sysfs of pp_table f=
-or smu11 (v2)&quot;)<br>
-Signed-off-by: Dan Carpenter &lt;dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org&gt;<br>
----<br>
-I'm not sure what this bug looks like at runtime, but it's slightly<br>
-weird that no one noticed.&nbsp; This is from static analysis and I haven't=
-<br>
-tested it myself.<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
-md/powerplay/amdgpu_smu.c<br>
-index 00b7c885772b..7e8c74da6a74 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-@@ -187,6 &#43;187,8 @@ int smu_sys_set_pp_table(struct smu_context *smu,&n=
-bsp; void *buf, size_t size)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pr_info(&quot;smu reset failed, ret =3D %d\n&quot;, r=
-et);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&#43;<br>
-&nbsp;failed:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;smu-&gt;=
-mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB3296E3B4F40A53AA743CF69DA2420MN2PR12MB3296namp_--
-
---===============1385492889==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1385492889==--
+ClNpZ25lZC1vZmYtYnk6IHhpbmh1aSBwYW4gPHhpbmh1aS5wYW5AYW1kLmNvbT4KLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCAyNCArKysrKysrKysrKysrKysr
+Ky0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYwppbmRleCBhNzE2NjhiOGE3
+ZDAuLmEyYWI3MGEyNDMxNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3Jhcy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMu
+YwpAQCAtMjcwLDcgKzI3MCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2N0cmxf
+cGFyc2VfZGF0YShzdHJ1Y3QgZmlsZSAqZiwKIAkJCWRhdGEtPmluamVjdC52YWx1ZSA9IHZhbHVl
+OwogCQl9CiAJfSBlbHNlIHsKLQkJaWYgKHNpemUgPCBzaXplb2YoZGF0YSkpCisJCWlmIChzaXpl
+IDwgc2l6ZW9mKCpkYXRhKSkKIAkJCXJldHVybiAtRUlOVkFMOwogCiAJCWlmIChjb3B5X2Zyb21f
+dXNlcihkYXRhLCBidWYsIHNpemVvZigqZGF0YSkpKQpAQCAtMTIwOCwxNCArMTIwOCwxNSBAQCBp
+bnQgYW1kZ3B1X3Jhc19hZGRfYmFkX3BhZ2VzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAog
+CQl1bnNpZ25lZCBsb25nICpicHMsIGludCBwYWdlcykKIHsKIAlzdHJ1Y3QgYW1kZ3B1X3JhcyAq
+Y29uID0gYW1kZ3B1X3Jhc19nZXRfY29udGV4dChhZGV2KTsKLQlzdHJ1Y3QgcmFzX2Vycl9oYW5k
+bGVyX2RhdGEgKmRhdGEgPSBjb24tPmVoX2RhdGE7CisJc3RydWN0IHJhc19lcnJfaGFuZGxlcl9k
+YXRhICpkYXRhOwogCWludCBpID0gcGFnZXM7CiAJaW50IHJldCA9IDA7CiAKLQlpZiAoIWNvbiB8
+fCAhZGF0YSB8fCAhYnBzIHx8IHBhZ2VzIDw9IDApCisJaWYgKCFjb24gfHwgIWNvbi0+ZWhfZGF0
+YSB8fCAhYnBzIHx8IHBhZ2VzIDw9IDApCiAJCXJldHVybiAwOwogCiAJbXV0ZXhfbG9jaygmY29u
+LT5yZWNvdmVyeV9sb2NrKTsKKwlkYXRhID0gY29uLT5laF9kYXRhOwogCWlmICghZGF0YSkKIAkJ
+Z290byBvdXQ7CiAKQEAgLTEyMzksMTUgKzEyNDAsMTggQEAgaW50IGFtZGdwdV9yYXNfYWRkX2Jh
+ZF9wYWdlcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIGludCBhbWRncHVfcmFzX3Jlc2Vy
+dmVfYmFkX3BhZ2VzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCXN0cnVjdCBhbWRn
+cHVfcmFzICpjb24gPSBhbWRncHVfcmFzX2dldF9jb250ZXh0KGFkZXYpOwotCXN0cnVjdCByYXNf
+ZXJyX2hhbmRsZXJfZGF0YSAqZGF0YSA9IGNvbi0+ZWhfZGF0YTsKKwlzdHJ1Y3QgcmFzX2Vycl9o
+YW5kbGVyX2RhdGEgKmRhdGE7CiAJdWludDY0X3QgYnA7CiAJc3RydWN0IGFtZGdwdV9ibyAqYm87
+CiAJaW50IGk7CiAKLQlpZiAoIWNvbiB8fCAhZGF0YSkKKwlpZiAoIWNvbiB8fCAhY29uLT5laF9k
+YXRhKQogCQlyZXR1cm4gMDsKIAogCW11dGV4X2xvY2soJmNvbi0+cmVjb3ZlcnlfbG9jayk7CisJ
+ZGF0YSA9IGNvbi0+ZWhfZGF0YTsKKwlpZiAoIWRhdGEpCisJCWdvdG8gb3V0OwogCS8qIHJlc2Vy
+dmUgdnJhbSBhdCBkcml2ZXIgcG9zdCBzdGFnZS4gKi8KIAlmb3IgKGkgPSBkYXRhLT5sYXN0X3Jl
+c2VydmVkOyBpIDwgZGF0YS0+Y291bnQ7IGkrKykgewogCQlicCA9IGRhdGEtPmJwc1tpXS5icDsK
+QEAgLTEyNTksNiArMTI2Myw3IEBAIGludCBhbWRncHVfcmFzX3Jlc2VydmVfYmFkX3BhZ2VzKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQlkYXRhLT5icHNbaV0uYm8gPSBibzsKIAkJZGF0
+YS0+bGFzdF9yZXNlcnZlZCA9IGkgKyAxOwogCX0KK291dDoKIAltdXRleF91bmxvY2soJmNvbi0+
+cmVjb3ZlcnlfbG9jayk7CiAJcmV0dXJuIDA7CiB9CkBAIC0xMjY3LDE0ICsxMjcyLDE4IEBAIGlu
+dCBhbWRncHVfcmFzX3Jlc2VydmVfYmFkX3BhZ2VzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+KQogc3RhdGljIGludCBhbWRncHVfcmFzX3JlbGVhc2VfYmFkX3BhZ2VzKHN0cnVjdCBhbWRncHVf
+ZGV2aWNlICphZGV2KQogewogCXN0cnVjdCBhbWRncHVfcmFzICpjb24gPSBhbWRncHVfcmFzX2dl
+dF9jb250ZXh0KGFkZXYpOwotCXN0cnVjdCByYXNfZXJyX2hhbmRsZXJfZGF0YSAqZGF0YSA9IGNv
+bi0+ZWhfZGF0YTsKKwlzdHJ1Y3QgcmFzX2Vycl9oYW5kbGVyX2RhdGEgKmRhdGE7CiAJc3RydWN0
+IGFtZGdwdV9ibyAqYm87CiAJaW50IGk7CiAKLQlpZiAoIWNvbiB8fCAhZGF0YSkKKwlpZiAoIWNv
+biB8fCAhY29uLT5laF9kYXRhKQogCQlyZXR1cm4gMDsKIAogCW11dGV4X2xvY2soJmNvbi0+cmVj
+b3ZlcnlfbG9jayk7CisJZGF0YSA9IGNvbi0+ZWhfZGF0YTsKKwlpZiAoIWRhdGEpCisJCWdvdG8g
+b3V0OworCiAJZm9yIChpID0gZGF0YS0+bGFzdF9yZXNlcnZlZCAtIDE7IGkgPj0gMDsgaS0tKSB7
+CiAJCWJvID0gZGF0YS0+YnBzW2ldLmJvOwogCkBAIC0xMjgzLDYgKzEyOTIsNyBAQCBzdGF0aWMg
+aW50IGFtZGdwdV9yYXNfcmVsZWFzZV9iYWRfcGFnZXMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpCiAJCWRhdGEtPmJwc1tpXS5ibyA9IGJvOwogCQlkYXRhLT5sYXN0X3Jlc2VydmVkID0gaTsK
+IAl9CitvdXQ6CiAJbXV0ZXhfdW5sb2NrKCZjb24tPnJlY292ZXJ5X2xvY2spOwogCXJldHVybiAw
+OwogfQotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
