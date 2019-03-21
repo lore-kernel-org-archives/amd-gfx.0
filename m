@@ -1,110 +1,72 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH libdrm] tests/amdgpu: minor fix for dispatch/draw test
-Date: Wed, 20 Mar 2019 22:41:21 -0400
-Message-ID: <CADnq5_MvRMkaG5YmYU6Esx2QaGG+PriMOy2L3RvHBgyWJRf7uw@mail.gmail.com>
-References: <1553050000-7288-1-git-send-email-flora.cui@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: Clang warning in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+Date: Thu, 21 Mar 2019 00:44:08 -0400
+Message-ID: <CADnq5_PTfJXJ99gFhxeMZ3RKigkipwjH5jLqfNM3mv49Z=d7Bw@mail.gmail.com>
+References: <20190320005406.GA16412@archlinux-ryzen> <SN6PR12MB280017BDAB60B61088B221C287410@SN6PR12MB2800.namprd12.prod.outlook.com>
+ <20190320043440.GA23335@archlinux-ryzen> <63518f1f-b808-77b0-aac6-ee1ece669c4b@amd.com>
+ <CAKwvOdnQa-DnBqm7LgSaPZUeC2JP4UcCJD=piOZd5hdzHPc3ew@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1553050000-7288-1-git-send-email-flora.cui-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CAKwvOdnQa-DnBqm7LgSaPZUeC2JP4UcCJD=piOZd5hdzHPc3ew@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Nathan Chancellor <natechancellor@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBNYXIgMTksIDIwMTkgYXQgMTA6NDcgUE0gQ3VpLCBGbG9yYSA8RmxvcmEuQ3VpQGFt
-ZC5jb20+IHdyb3RlOgo+Cj4gMS4gY2xlYXIgY21kIGJ1ZmZlcgo+IDIuIG1ha2UgYW1kZ3B1X21l
-bWNweV9kaXNwYXRjaF90ZXN0IHN0YXRpYwo+IDMuIHRhYi9zcGFjZSBmaXgKPgo+IENoYW5nZS1J
-ZDogSWRmNTVmODg4MWY2NjQ1OGI1ODUwOTJlY2NiNTViNjA0MjUyMGU0YWQKPiBTaWduZWQtb2Zm
-LWJ5OiBGbG9yYSBDdWkgPGZsb3JhLmN1aUBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCmFuZCBwdXNoZWQuCgpUaGFua3MhCgo+
-IC0tLQo+ICB0ZXN0cy9hbWRncHUvYmFzaWNfdGVzdHMuYyB8IDIwICsrKysrKysrKysrKy0tLS0t
-LS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCA4IGRlbGV0aW9ucygtKQo+
-Cj4gZGlmZiAtLWdpdCBhL3Rlc3RzL2FtZGdwdS9iYXNpY190ZXN0cy5jIGIvdGVzdHMvYW1kZ3B1
-L2Jhc2ljX3Rlc3RzLmMKPiBpbmRleCBhMzY0ZjY3Li4yZDQ3MjY5IDEwMDY0NAo+IC0tLSBhL3Rl
-c3RzL2FtZGdwdS9iYXNpY190ZXN0cy5jCj4gKysrIGIvdGVzdHMvYW1kZ3B1L2Jhc2ljX3Rlc3Rz
-LmMKPiBAQCAtMjE3Nyw2ICsyMTc3LDcgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X21lbXNldF9kaXNw
-YXRjaF90ZXN0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldmljZV9oYW5kbGUsCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICZib19jbWQsICh2b2lkICoqKSZwdHJfY21k
-LAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmbWNfYWRkcmVzc19j
-bWQsICZ2YV9jbWQpOwo+ICAgICAgICAgQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ICsgICAgICAg
-bWVtc2V0KHB0cl9jbWQsIDAsIGJvX2NtZF9zaXplKTsKPgo+ICAgICAgICAgciA9IGFtZGdwdV9i
-b19hbGxvY19hbmRfbWFwKGRldmljZV9oYW5kbGUsIGJvX3NoYWRlcl9zaXplLCA0MDk2LAo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBTURHUFVfR0VNX0RPTUFJTl9W
-UkFNLCAwLAo+IEBAIC0yMjI3LDcgKzIyMjgsNyBAQCBzdGF0aWMgdm9pZCBhbWRncHVfbWVtc2V0
-X2Rpc3BhdGNoX3Rlc3QoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2aWNlX2hhbmRsZSwKPiAgICAg
-ICAgIHB0cl9jbWRbaSsrXSA9IDE7Cj4KPiAgICAgICAgIHdoaWxlIChpICYgNykKPiAtICAgICAg
-ICAgICAgICAgcHRyX2NtZFtpKytdID0gIDB4ZmZmZjEwMDA7IC8qIHR5cGUzIG5vcCBwYWNrZXQg
-Ki8KPiArICAgICAgICAgICAgICAgcHRyX2NtZFtpKytdID0gMHhmZmZmMTAwMDsgLyogdHlwZTMg
-bm9wIHBhY2tldCAqLwo+Cj4gICAgICAgICByZXNvdXJjZXNbMF0gPSBib19kc3Q7Cj4gICAgICAg
-ICByZXNvdXJjZXNbMV0gPSBib19zaGFkZXI7Cj4gQEAgLTIyODMsOSArMjI4NCw5IEBAIHN0YXRp
-YyB2b2lkIGFtZGdwdV9tZW1zZXRfZGlzcGF0Y2hfdGVzdChhbWRncHVfZGV2aWNlX2hhbmRsZSBk
-ZXZpY2VfaGFuZGxlLAo+ICAgICAgICAgQ1VfQVNTRVJUX0VRVUFMKHIsIDApOwo+ICB9Cj4KPiAt
-dm9pZCBhbWRncHVfbWVtY3B5X2Rpc3BhdGNoX3Rlc3QoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2
-aWNlX2hhbmRsZSwKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50MzJfdCBp
-cF90eXBlLAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IHJpbmcp
-Cj4gK3N0YXRpYyB2b2lkIGFtZGdwdV9tZW1jcHlfZGlzcGF0Y2hfdGVzdChhbWRncHVfZGV2aWNl
-X2hhbmRsZSBkZXZpY2VfaGFuZGxlLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB1aW50MzJfdCBpcF90eXBlLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICB1aW50MzJfdCByaW5nKQo+ICB7Cj4gICAgICAgICBhbWRncHVfY29udGV4dF9o
-YW5kbGUgY29udGV4dF9oYW5kbGU7Cj4gICAgICAgICBhbWRncHVfYm9faGFuZGxlIGJvX3NyYywg
-Ym9fZHN0LCBib19zaGFkZXIsIGJvX2NtZCwgcmVzb3VyY2VzWzRdOwo+IEBAIC0yMzEzLDYgKzIz
-MTQsNyBAQCB2b2lkIGFtZGdwdV9tZW1jcHlfZGlzcGF0Y2hfdGVzdChhbWRncHVfZGV2aWNlX2hh
-bmRsZSBkZXZpY2VfaGFuZGxlLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICZib19jbWQsICh2b2lkICoqKSZwdHJfY21kLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICZtY19hZGRyZXNzX2NtZCwgJnZhX2NtZCk7Cj4gICAgICAgICBDVV9BU1NFUlRf
-RVFVQUwociwgMCk7Cj4gKyAgICAgICBtZW1zZXQocHRyX2NtZCwgMCwgYm9fY21kX3NpemUpOwo+
-Cj4gICAgICAgICByID0gYW1kZ3B1X2JvX2FsbG9jX2FuZF9tYXAoZGV2aWNlX2hhbmRsZSwgYm9f
-c2hhZGVyX3NpemUsIDQwOTYsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sIDAsCj4gQEAgLTIzNzEsNyArMjM3Myw3IEBAIHZv
-aWQgYW1kZ3B1X21lbWNweV9kaXNwYXRjaF90ZXN0KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldmlj
-ZV9oYW5kbGUsCj4gICAgICAgICBwdHJfY21kW2krK10gPSAxOwo+Cj4gICAgICAgICB3aGlsZSAo
-aSAmIDcpCj4gLSAgICAgICAgICAgICAgIHB0cl9jbWRbaSsrXSA9ICAweGZmZmYxMDAwOyAvKiB0
-eXBlMyBub3AgcGFja2V0ICovCj4gKyAgICAgICAgICAgICAgIHB0cl9jbWRbaSsrXSA9IDB4ZmZm
-ZjEwMDA7IC8qIHR5cGUzIG5vcCBwYWNrZXQgKi8KPgo+ICAgICAgICAgcmVzb3VyY2VzWzBdID0g
-Ym9fc2hhZGVyOwo+ICAgICAgICAgcmVzb3VyY2VzWzFdID0gYm9fc3JjOwo+IEBAIC0yNzk5LDcg
-KzI4MDEsOCBAQCB2b2lkIGFtZGdwdV9tZW1zZXRfZHJhdyhhbWRncHVfZGV2aWNlX2hhbmRsZSBk
-ZXZpY2VfaGFuZGxlLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBB
-TURHUFVfR0VNX0RPTUFJTl9HVFQsIDAsCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICZib19jbWQsICh2b2lkICoqKSZwdHJfY21kLAo+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAmbWNfYWRkcmVzc19jbWQsICZ2YV9jbWQpOwo+IC0gICAg
-ICAgIENVX0FTU0VSVF9FUVVBTChyLCAwKTsKPiArICAgICAgIENVX0FTU0VSVF9FUVVBTChyLCAw
-KTsKPiArICAgICAgIG1lbXNldChwdHJfY21kLCAwLCBib19jbWRfc2l6ZSk7Cj4KPiAgICAgICAg
-IHIgPSBhbWRncHVfYm9fYWxsb2NfYW5kX21hcChkZXZpY2VfaGFuZGxlLCBib19kc3Rfc2l6ZSwg
-NDA5NiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BVX0dF
-TV9ET01BSU5fVlJBTSwgMCwKPiBAQCAtMjgyOCw3ICsyODMxLDcgQEAgdm9pZCBhbWRncHVfbWVt
-c2V0X2RyYXcoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2aWNlX2hhbmRsZSwKPiAgICAgICAgIGkg
-Kz0gYW1kZ3B1X2RyYXdfZHJhdyhwdHJfY21kICsgaSk7Cj4KPiAgICAgICAgIHdoaWxlIChpICYg
-NykKPiAtICAgICAgICAgICAgICAgcHRyX2NtZFtpKytdID0gIDB4ZmZmZjEwMDA7IC8qIHR5cGUz
-IG5vcCBwYWNrZXQgKi8KPiArICAgICAgICAgICAgICAgcHRyX2NtZFtpKytdID0gMHhmZmZmMTAw
-MDsgLyogdHlwZTMgbm9wIHBhY2tldCAqLwo+Cj4gICAgICAgICByZXNvdXJjZXNbMF0gPSBib19k
-c3Q7Cj4gICAgICAgICByZXNvdXJjZXNbMV0gPSBib19zaGFkZXJfcHM7Cj4gQEAgLTI5NTIsNiAr
-Mjk1NSw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9tZW1jcHlfZHJhdyhhbWRncHVfZGV2aWNlX2hh
-bmRsZSBkZXZpY2VfaGFuZGxlLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICZib19jbWQsICh2b2lkICoqKSZwdHJfY21kLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICZtY19hZGRyZXNzX2NtZCwgJnZhX2NtZCk7Cj4gICAgICAgICBDVV9BU1NFUlRf
-RVFVQUwociwgMCk7Cj4gKyAgICAgICBtZW1zZXQocHRyX2NtZCwgMCwgYm9fY21kX3NpemUpOwo+
-Cj4gICAgICAgICByID0gYW1kZ3B1X2JvX2FsbG9jX2FuZF9tYXAoZGV2aWNlX2hhbmRsZSwgYm9f
-c2l6ZSwgNDA5NiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1E
-R1BVX0dFTV9ET01BSU5fVlJBTSwgMCwKPiBAQCAtMjk5OSw3ICszMDAzLDcgQEAgc3RhdGljIHZv
-aWQgYW1kZ3B1X21lbWNweV9kcmF3KGFtZGdwdV9kZXZpY2VfaGFuZGxlIGRldmljZV9oYW5kbGUs
-Cj4gICAgICAgICBpICs9IGFtZGdwdV9kcmF3X2RyYXcocHRyX2NtZCArIGkpOwo+Cj4gICAgICAg
-ICB3aGlsZSAoaSAmIDcpCj4gLSAgICAgICAgICAgICAgIHB0cl9jbWRbaSsrXSA9ICAweGZmZmYx
-MDAwOyAvKiB0eXBlMyBub3AgcGFja2V0ICovCj4gKyAgICAgICAgICAgICAgIHB0cl9jbWRbaSsr
-XSA9IDB4ZmZmZjEwMDA7IC8qIHR5cGUzIG5vcCBwYWNrZXQgKi8KPgo+ICAgICAgICAgcmVzb3Vy
-Y2VzWzBdID0gYm9fZHN0Owo+ICAgICAgICAgcmVzb3VyY2VzWzFdID0gYm9fc3JjOwo+IC0tCj4g
-Mi43LjQKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
-ZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Wed, Mar 20, 2019 at 4:49 PM Nick Desaulniers
+<ndesaulniers@google.com> wrote:
+>
+> On Wed, Mar 20, 2019 at 2:37 AM Koenig, Christian
+> <Christian.Koenig@amd.com> wrote:
+> >
+> > Am 20.03.19 um 05:34 schrieb Nathan Chancellor:
+> > > On Wed, Mar 20, 2019 at 01:31:27AM +0000, Pan, Xinhui wrote:
+> > >> these two enumerated types are same for now. both of them might change in the future.
+>
+> Please consider if the YAGNI principle applies here.
+> https://martinfowler.com/bliki/Yagni.html
+>
+> > >>
+> > >> I have not used clang, but would  .block_id =  (int)head->block fix your warning? If such change is acceptable, I can make one then.
+>
+> My preference on solutions, in order:
+> 1. One enum (this is the simplest most type safe solution).  Add
+> another enum when you actually need it.  Otherwise, YAGNI.
+
+It make sense to have two enums.  One is a firmware interface that is
+only used by some asics and the other is for the general driver
+interface (non-asic specific for the ras features.
+
+> 2. Safe casting function (like the one Nathan supplied, maybe with
+> WARN_ONCE rather than WARN).  This ensures that at least if the types
+> diverge you get a runtime warning.  A compile-time warning would be
+> preferred, but I haven't taken the time to think through how that
+> might be implemented.
+
+I'd prefer this one.
+
+Alex
+
+> 3. Cast to int (this has been used in other places throughout the
+> kernel, but provides the weakest type safety and doesn't catch future
+> divergence).
+> 4. Disabling the warning. (I almost never advocate for this).
+>
+> > Another question is if it is such a good idea to just silence the warning?
+>
+> For the kernel, it seems that each maintainer can choose what to apply
+> to their subsystem.  I would recommend against disabling additional
+> warnings that aren't disable kernel-wide for most cases.
+> -Wenum-conversion has spotted many bugs.  While the enums in question
+> today are not different, they MIGHT eventually diverge and lead to
+> bugs, like the others we've found and fixed throughout the kernel.  So
+> I would recommend fixing now, and be insulated in the future.
+>
+> --
+> Thanks,
+> ~Nick Desaulniers
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
