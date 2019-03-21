@@ -1,16 +1,14 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/display: Fix "dc has no member named dml" compile
  error
-Date: Thu, 21 Mar 2019 14:46:12 +0000
-Message-ID: <14a97451-bdce-5026-e972-1a363154ae73@amd.com>
+Date: Thu, 21 Mar 2019 14:51:10 +0000
+Message-ID: <DM5PR12MB18209DFF429BF3D722253483F7420@DM5PR12MB1820.namprd12.prod.outlook.com>
 References: <1553179469-10012-1-git-send-email-sunpeng.li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1574315214=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <1553179469-10012-1-git-send-email-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <363D4B16220CD14291426FEB3BB12774-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,37 +21,190 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-T24gMy8yMS8xOSAxMDo0NCBBTSwgc3VucGVuZy5saUBhbWQuY29tIHdyb3RlOg0KPiBGcm9tOiBM
-ZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4NCj4gDQo+IEZvciBEQ04gZGlzYWJsZWQgYnVpbGRz
-LCBkYy0+ZG1sIGlzIHN0cmlwcGVkIG91dC4gVGhlcmVmb3JlLCBndWFyZCB1c2FnZQ0KPiBpbiBk
-Y19jcmVhdGVfc3RhdGUoKSB3aXRoIENPTkZJR19EUk1fQU1EX0RDX0RDTjFfMC4NCj4gDQo+IEl0
-IGZpeGVzIHRoZSBmb2xsb3dpbmcgZXJyb3I6DQo+IA0KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS8uLi9kaXNwbGF5L2RjL2NvcmUvZGMuYzogSW4gZnVuY3Rpb24gJ2RjX2NyZWF0ZV9zdGF0
-ZSc6DQo+Pj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3JlL2Rj
-LmM6MTIzNzozNDogZXJyb3I6ICdzdHJ1Y3QgZGMnIGhhcyBubyBtZW1iZXIgbmFtZWQgJ2RtbCcN
-Cj4gICAgICAgbWVtY3B5KCZjb250ZXh0LT5id19jdHguZG1sLCAmZGMtPmRtbCwgc2l6ZW9mKHN0
-cnVjdCBkaXNwbGF5X21vZGVfbGliKSk7DQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgXn4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IExlbyBMaSA8c3VucGVuZy5saUBhbWQu
-Y29tPg0KPiBDQzogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+IENDOiBI
-YXJyeSBXZW50bGFuZCA8SGFycnkuV2VudGxhbmRAYW1kLmNvbT4NCj4gQ0M6IE5pY2hvbGFzIEth
-emxhdXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4NCj4gLS0tDQoNClJldmlld2Vk
-LWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+DQoN
-CkkgdGhpbmsgdGhpcyBpcyB0aGUgb25seSBwbGFjZSBsZWZ0IHVuZ3VhcmRlZCBhdCBsZWFzdC4N
-Cg0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgfCAyICsrDQo+
-ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvY29yZS9kYy5jDQo+IGluZGV4IGNlYmQwODMuLjU4OWNkOTUgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjLmMNCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGMuYw0KPiBAQCAtMTI0NSw3
-ICsxMjQ1LDkgQEAgc3RydWN0IGRjX3N0YXRlICpkY19jcmVhdGVfc3RhdGUoc3RydWN0IGRjICpk
-YykNCj4gICAJICogaW5pdGlhbGl6ZSBhbmQgb2J0YWluIElQIGFuZCBTT0MgdGhlIGJhc2UgRE1M
-IGluc3RhbmNlIGZyb20gREMgaXMNCj4gICAJICogaW5pdGlhbGx5IGNvcGllZCBpbnRvIGV2ZXJ5
-IGNvbnRleHQNCj4gICAJICovDQo+ICsjaWZkZWYgQ09ORklHX0RSTV9BTURfRENfRENOMV8wDQo+
-ICAgCW1lbWNweSgmY29udGV4dC0+YndfY3R4LmRtbCwgJmRjLT5kbWwsIHNpemVvZihzdHJ1Y3Qg
-ZGlzcGxheV9tb2RlX2xpYikpOw0KPiArI2VuZGlmDQo+ICAgDQo+ICAgCWtyZWZfaW5pdCgmY29u
-dGV4dC0+cmVmY291bnQpOw0KPiAgIA0KPiANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+--===============1574315214==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_"
+
+--_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks!
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of sunpeng.=
+li-5C7GfCeVMHo@public.gmane.org <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, March 21, 2019 10:44 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Li, Sun peng (Leo); Alex Deucher; Wentland, Harry; Kazlauskas, Nicholas
+Subject: [PATCH] drm/amd/display: Fix "dc has no member named dml" compile =
+error
+
+From: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+
+For DCN disabled builds, dc->dml is stripped out. Therefore, guard usage
+in dc_create_state() with CONFIG_DRM_AMD_DC_DCN1_0.
+
+It fixes the following error:
+
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function 'dc_create_=
+state':
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1237:34: error: 'stru=
+ct dc' has no member named 'dml'
+     memcpy(&context->bw_ctx.dml, &dc->dml, sizeof(struct display_mode_lib)=
+);
+                                     ^~
+
+Signed-off-by: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+CC: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+CC: Harry Wentland <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+CC: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd=
+/display/dc/core/dc.c
+index cebd083..589cd95 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1245,7 +1245,9 @@ struct dc_state *dc_create_state(struct dc *dc)
+          * initialize and obtain IP and SOC the base DML instance from DC =
+is
+          * initially copied into every context
+          */
++#ifdef CONFIG_DRM_AMD_DC_DCN1_0
+         memcpy(&context->bw_ctx.dml, &dc->dml, sizeof(struct display_mode_=
+lib));
++#endif
+
+         kref_init(&context->refcount);
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks!</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of sunpeng.li-5C7GfCeVMHo@public.gmane.org &lt;sunp=
+eng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, March 21, 2019 10:44 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Li, Sun peng (Leo); Alex Deucher; Wentland, Harry; Kazlauskas, N=
+icholas<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Fix &quot;dc has no member named d=
+ml&quot; compile error</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">From: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+For DCN disabled builds, dc-&gt;dml is stripped out. Therefore, guard usage=
+<br>
+in dc_create_state() with CONFIG_DRM_AMD_DC_DCN1_0.<br>
+<br>
+It fixes the following error:<br>
+<br>
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function 'dc_create_=
+state':<br>
+&gt;&gt; drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1237:34: error:=
+ 'struct dc' has no member named 'dml'<br>
+&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;context-&gt;bw_ctx.dml, &amp;dc-&gt;dm=
+l, sizeof(struct display_mode_lib));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ^~<br>
+<br>
+Signed-off-by: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+CC: Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+CC: Harry Wentland &lt;Harry.Wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+CC: Nicholas Kazlauskas &lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/dc/core/dc.c | 2 &#43;&#43;<br>
+&nbsp;1 file changed, 2 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd=
+/display/dc/core/dc.c<br>
+index cebd083..589cd95 100644<br>
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/core/dc.c<br>
+@@ -1245,7 &#43;1245,9 @@ struct dc_state *dc_create_state(struct dc *dc)<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * initialize and obt=
+ain IP and SOC the base DML instance from DC is<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * initially copied i=
+nto every context<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;#ifdef CONFIG_DRM_AMD_DC_DCN1_0<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(&amp;context-&gt;bw=
+_ctx.dml, &amp;dc-&gt;dml, sizeof(struct display_mode_lib));<br>
+&#43;#endif<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kref_init(&amp;context-&gt=
+;refcount);<br>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_DM5PR12MB18209DFF429BF3D722253483F7420DM5PR12MB1820namp_--
+
+--===============1574315214==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1574315214==--
