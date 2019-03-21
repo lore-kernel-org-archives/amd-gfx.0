@@ -1,15 +1,14 @@
-From: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/4] drm/amd/display: Prevent vblank irq disable while VRR
- is active. (v2)
-Date: Thu, 21 Mar 2019 10:27:31 +0100
-Message-ID: <CAEsyxyh4qht5o+B9RvojFtcKEOazrhW2+uaAmZ3vih0JKAUvBQ@mail.gmail.com>
-References: <20190320081208.16672-1-mario.kleiner.de@gmail.com>
- <ccc07c0b-d35c-4125-d604-098c8fcd4bd2@amd.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: Off by one in
+ vega20_get_smu_msg_index()
+Date: Thu, 21 Mar 2019 09:37:05 +0000
+Message-ID: <MN2PR12MB32969959655A6AE6EDF2F3F2A2420@MN2PR12MB3296.namprd12.prod.outlook.com>
+References: <20190321091957.GA2793@kadam>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0195396498=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ccc07c0b-d35c-4125-d604-098c8fcd4bd2-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190321091957.GA2793@kadam>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,121 +19,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Gui,
+ Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Gao,
+ Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gV2VkLCBNYXIgMjAsIDIwMTkgYXQgMjoxMSBQTSBLYXpsYXVza2FzLCBOaWNob2xhcwo8Tmlj
-aG9sYXMuS2F6bGF1c2thc0BhbWQuY29tPiB3cm90ZToKPgo+IE9uIDMvMjAvMTkgNDoxMiBBTSwg
-TWFyaW8gS2xlaW5lciB3cm90ZToKPiA+IER1cmluZyBWUlIgbW9kZSB3ZSBjYW4gbm90IGFsbG93
-IHZibGFuayBpcnEgZGlzLS9lbmFibGUKPiA+IHRyYW5zaXRpb25zLCBhcyBhbiBlbmFibGUgYWZ0
-ZXIgYSBkaXNhYmxlIGNhbiBoYXBwZW4gYXQKPiA+IGFuIGFyYml0cmFyeSB0aW1lIGR1cmluZyB0
-aGUgdmlkZW8gcmVmcmVzaCBjeWNsZSwgZS5nLiwKPiA+IHdpdGggYSBoaWdoIGxpa2VseWhvb2Qg
-aW5zaWRlIHZibGFuayBmcm9udC1wb3JjaC4gQW4KPiA+IGVuYWJsZSBkdXJpbmcgZnJvbnQtcG9y
-Y2ggd291bGQgY2F1c2UgdmJsYW5rIHRpbWVzdGFtcAo+ID4gdXBkYXRlcy9jYWxjdWxhdGlvbnMg
-d2hpY2ggYXJlIGNvbXBsZXRlbHkgYm9ndXMsIGdpdmVuCj4gPiB0aGUgY29kZSBjYW4ndCBrbm93
-IHdoZW4gdGhlIHZibGFuayB3aWxsIGVuZCBhcyBsb25nCj4gPiBhcyB3ZSBhcmUgaW4gZnJvbnQt
-cG9yY2ggd2l0aCBubyBwYWdlIGZsaXAgY29tcGxldGVkLgo+ID4KPiA+IEhvbGQgYSBwZXJtYW5l
-bnQgdmJsYW5rIHJlZmVyZW5jZSBvbiB0aGUgY3J0YyB3aGlsZQo+ID4gaW4gYWN0aXZlIFZSUiBt
-b2RlIHRvIHByZXZlbnQgYSB2YmxhbmsgZGlzYWJsZSwgYW5kCj4gPiBkcm9wIHRoZSByZWZlcmVu
-Y2UgYWdhaW4gd2hlbiBzd2l0Y2hpbmcgYmFjayB0byBmaXhlZAo+ID4gcmVmcmVzaCByYXRlIG5v
-bi1WUlIgbW9kZS4KPiA+Cj4gPiB2MjogTWFrZSBzdXJlIHRyYW5zaXRpb24gaXMgYWxzbyBoYW5k
-bGVkIGlmIHZyciBpcwo+ID4gICAgICBkaXNhYmxlZCBhbmQgc3RyZWFtIGdldHMgZGlzYWJsZWQg
-aW4gdGhlIHNhbWUKPiA+ICAgICAgYXRvbWljIGNvbW1pdC4gU3VnZ2VzdGVkIGJ5IE5pY2hvbGFz
-Lgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IE1hcmlvIEtsZWluZXIgPG1hcmlvLmtsZWluZXIuZGVA
-Z21haWwuY29tPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMgfCAzNiArKysrKysrKysrKysrKysrKysrKysrKwo+ID4gICAxIGZp
-bGUgY2hhbmdlZCwgMzYgaW5zZXJ0aW9ucygrKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+ID4gaW5kZXggYTcxOGFjMi4u
-MWM4M2U4MCAxMDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMKPiA+IEBAIC0yNTEsNiArMjUxLDEyIEBAIGdldF9jcnRjX2J5
-X290Z19pbnN0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ID4gICAgICAgcmV0dXJuIE5V
-TEw7Cj4gPiAgIH0KPiA+Cj4gPiArc3RhdGljIGlubGluZSBib29sIGFtZGdwdV9kbV92cnJfYWN0
-aXZlKHN0cnVjdCBkbV9jcnRjX3N0YXRlICpkbV9zdGF0ZSkKPiA+ICt7Cj4gPiArICAgICByZXR1
-cm4gZG1fc3RhdGUtPmZyZWVzeW5jX2NvbmZpZy5zdGF0ZSA9PSBWUlJfU1RBVEVfQUNUSVZFX1ZB
-UklBQkxFIHx8Cj4gPiArICAgICAgICAgICAgZG1fc3RhdGUtPmZyZWVzeW5jX2NvbmZpZy5zdGF0
-ZSA9PSBWUlJfU1RBVEVfQUNUSVZFX0ZJWEVEOwo+ID4gK30KPiA+ICsKPiA+ICAgc3RhdGljIHZv
-aWQgZG1fcGZsaXBfaGlnaF9pcnEodm9pZCAqaW50ZXJydXB0X3BhcmFtcykKPiA+ICAgewo+ID4g
-ICAgICAgc3RydWN0IGFtZGdwdV9jcnRjICphbWRncHVfY3J0YzsKPiA+IEBAIC00NzE2LDYgKzQ3
-MjIsMzEgQEAgc3RhdGljIHZvaWQgdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSgKPiA+
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAoaW50KXZycl9wYXJhbXMuc3RhdGUpOwo+ID4g
-ICB9Cj4gPgo+ID4gK3N0YXRpYyB2b2lkIGFtZGdwdV9kbV9oYW5kbGVfdnJyX3RyYW5zaXRpb24o
-c3RydWN0IGRtX2NydGNfc3RhdGUgKm9sZF9zdGF0ZSwKPiA+ICsgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkbV9jcnRjX3N0YXRlICpuZXdfc3RhdGUpCj4g
-PiArewo+ID4gKyAgICAgYm9vbCBvbGRfdnJyX2FjdGl2ZSA9IGFtZGdwdV9kbV92cnJfYWN0aXZl
-KG9sZF9zdGF0ZSk7Cj4gPiArICAgICBib29sIG5ld192cnJfYWN0aXZlID0gYW1kZ3B1X2RtX3Zy
-cl9hY3RpdmUobmV3X3N0YXRlKTsKPiA+ICsKPiA+ICsgICAgIGlmICghb2xkX3Zycl9hY3RpdmUg
-JiYgbmV3X3Zycl9hY3RpdmUpIHsKPiA+ICsgICAgICAgICAgICAgLyogVHJhbnNpdGlvbiBWUlIg
-aW5hY3RpdmUgLT4gYWN0aXZlOgo+ID4gKyAgICAgICAgICAgICAgKiBXaGlsZSBWUlIgaXMgYWN0
-aXZlLCB3ZSBtdXN0IG5vdCBkaXNhYmxlIHZibGFuayBpcnEsIGFzIGEKPiA+ICsgICAgICAgICAg
-ICAgICogcmVlbmFibGUgYWZ0ZXIgZGlzYWJsZSB3b3VsZCBjb21wdXRlIGJvZ3VzIHZibGFuay9w
-ZmxpcAo+ID4gKyAgICAgICAgICAgICAgKiB0aW1lc3RhbXBzIGlmIGl0IGxpa2VseSBoYXBwZW5l
-ZCBpbnNpZGUgZGlzcGxheSBmcm9udC1wb3JjaC4KPiA+ICsgICAgICAgICAgICAgICovCj4gPiAr
-ICAgICAgICAgICAgIGRybV9jcnRjX3ZibGFua19nZXQobmV3X3N0YXRlLT5iYXNlLmNydGMpOwo+
-ID4gKyAgICAgICAgICAgICBEUk1fREVCVUdfRFJJVkVSKCIlczogY3J0Yz0ldSBWUlIgb2ZmLT5v
-bjogR2V0IHZibGFuayByZWZcbiIsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-X19mdW5jX18sIG5ld19zdGF0ZS0+YmFzZS5jcnRjLT5iYXNlLmlkKTsKPiA+ICsgICAgIH0gZWxz
-ZSBpZiAob2xkX3Zycl9hY3RpdmUgJiYgIW5ld192cnJfYWN0aXZlKSB7Cj4gPiArICAgICAgICAg
-ICAgIC8qIFRyYW5zaXRpb24gVlJSIGFjdGl2ZSAtPiBpbmFjdGl2ZToKPiA+ICsgICAgICAgICAg
-ICAgICogQWxsb3cgdmJsYW5rIGlycSBkaXNhYmxlIGFnYWluIGZvciBmaXhlZCByZWZyZXNoIHJh
-dGUuCj4gPiArICAgICAgICAgICAgICAqLwo+ID4gKyAgICAgICAgICAgICBkcm1fY3J0Y192Ymxh
-bmtfcHV0KG5ld19zdGF0ZS0+YmFzZS5jcnRjKTsKPiA+ICsgICAgICAgICAgICAgRFJNX0RFQlVH
-X0RSSVZFUigiJXM6IGNydGM9JXUgVlJSIG9uLT5vZmY6IERyb3AgdmJsYW5rIHJlZlxuIiwKPiA+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBfX2Z1bmNfXywgbmV3X3N0YXRlLT5iYXNl
-LmNydGMtPmJhc2UuaWQpOwo+ID4gKyAgICAgfQo+ID4gK30KPiA+ICsKPiA+ICAgc3RhdGljIHZv
-aWQgYW1kZ3B1X2RtX2NvbW1pdF9wbGFuZXMoc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRl
-LAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkY19zdGF0ZSAq
-ZGNfc3RhdGUsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRy
-bV9kZXZpY2UgKmRldiwKPiA+IEBAIC01MjUwLDYgKzUyODEsMTEgQEAgc3RhdGljIHZvaWQgYW1k
-Z3B1X2RtX2F0b21pY19jb21taXRfdGFpbChzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUp
-Cj4gPgo+ID4gICAgICAgICAgICAgICBkbV9uZXdfY3J0Y19zdGF0ZSA9IHRvX2RtX2NydGNfc3Rh
-dGUobmV3X2NydGNfc3RhdGUpOwo+ID4gICAgICAgICAgICAgICBkbV9vbGRfY3J0Y19zdGF0ZSA9
-IHRvX2RtX2NydGNfc3RhdGUob2xkX2NydGNfc3RhdGUpOwo+ID4gKwo+ID4gKyAgICAgICAgICAg
-ICAvKiBIYW5kbGUgdnJyIG9uLT5vZmYgLyBvZmYtPm9uIHRyYW5zaXRpb25zICovCj4gPiArICAg
-ICAgICAgICAgIGFtZGdwdV9kbV9oYW5kbGVfdnJyX3RyYW5zaXRpb24oZG1fb2xkX2NydGNfc3Rh
-dGUsCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZG1f
-bmV3X2NydGNfc3RhdGUpOwo+ID4gKwo+Cj4gSSBndWVzcyB0aGVyZSdzIGFjdHVhbGx5IGFub3Ro
-ZXIgcHJvYmxlbSB3aXRoIHRoaXMgaGVyZSAtIHdlIHdvbid0IGhhdmUKPiB0aGUgYWN0dWFsIGRt
-X3N0YXRlLT5mcmVlc3luY19jb25maWcuc3RhdGUgdW50aWwgdGhlIGNvbW1pdCBmb2xsb3dpbmcK
-PiB0aGlzIG9uZSBzaW5jZSBpdCBnZXRzIGNhbGN1bGF0ZWQgYmVsb3cgdGhpcyB0cmFuc2l0aW9u
-IGhhbmRsZXIuCj4KPiBXZSBuZWVkIHRoaXMgaGFuZGxlciB0byB0cmlnZ2VyIGJlZm9yZSB0aGUg
-bmV3IGZyYW1lYnVmZmVyIGFkZHJlc3MgaXMKPiB3cml0dGVuIGJ1dCBhZnRlciB0aGVzZSBwYXJh
-bWV0ZXJzIGFyZSBjYWxjdWxhdGVkLgo+Cj4gU28gdGhpcyBuZWVkcyBhIHYzIG9yIGFub3RoZXIg
-cGF0Y2ggaW4gdGhlIHNlcmllcyB0aGF0IHNoaWZ0cyB0aGUKPiBjYWxjdWxhdGlvbiBvZiBjb25m
-aWcuc3RhdGUgYmVmb3JlIHRoaXMuCj4KCkl0J3Mgc3VycHJpc2luZyBob3cgd2VsbCBpdCB3b3Jr
-cyB3aXRoIHRoZSB0aGluZyBpIHRocmV3IGF0IGl0LCBmb3IKc29tZXRoaW5nIHRoYXQncyBzdGls
-bCB3cm9uZyA7KS4gQnV0IG1heWJlIHRoYXQncyBqdXN0IGR1bWIgbHVjayBpbgp0aGUgc3BlY2lm
-aWMgd2F5IFggY3VycmVudGx5IHVzZXMgaXQuCgpDb3VsZCB5b3UgbWF5YmUgdHJ5IHRvIGNyZWF0
-ZSBhIHBhdGNoIG9uIHRvcCBvZiB0aGlzIG9uZSwgaW1wbGVtZW50aW5nCnlvdXIgcHJvcG9zYWwg
-YmVsb3c/Cgp0aGFua3MsCi1tYXJpbwoKPiBXaGlsZSBpdCdzIHByb2JhYmx5IHN1ZmZpY2llbnQg
-dG8ganVzdCByZXVzZSB0aGUgYmxvY2s6Cj4KPiAgICAgICAgIGlmIChuZXdfY3J0Y19zdGF0ZS0+
-dnJyX3N1cHBvcnRlZCAmJgo+ICAgICAgICAgICAgIGNvbmZpZy5taW5fcmVmcmVzaF9pbl91aHog
-JiYKPiAgICAgICAgICAgICBjb25maWcubWF4X3JlZnJlc2hfaW5fdWh6KSB7Cj4gICAgICAgICAg
-ICAgICAgIGNvbmZpZy5zdGF0ZSA9IG5ld19jcnRjX3N0YXRlLT5iYXNlLnZycl9lbmFibGVkID8K
-PiAgICAgICAgICAgICAgICAgICAgICAgICBWUlJfU1RBVEVfQUNUSVZFX1ZBUklBQkxFIDoKPiAg
-ICAgICAgICAgICAgICAgICAgICAgICBWUlJfU1RBVEVfSU5BQ1RJVkU7Cj4gICAgICAgICB9IGVs
-c2Ugewo+ICAgICAgICAgICAgICAgICBjb25maWcuc3RhdGUgPSBWUlJfU1RBVEVfVU5TVVBQT1JU
-RUQ7Cj4gICAgICAgICB9Cj4KPiB0aGUgcHJvYmxlbSBpcyBjb25maWcuc3RhdGUgY291bGQgc3Rp
-bGwgdGVjaG5pY2FsbHkgYmUgbW9kaWZpZWQgd2l0aGluCj4gbW9kX2ZyZWVzeW5jX2J1aWxkX3Zy
-cl9wYXJhbXMgSSB0aGluay4KPgo+IFNvIGl0J3MgcHJvYmFibHkgYmVzdCB0byBzaGlmdCBldmVy
-eXRoaW5nIHVwIHRvIGFuZCBpbmNsdWRpbmcKPiBtb2RfZnJlZXN5bmNfYnVpbGRfdnJyX3BhcmFt
-cyguLi4pIGZyb20gd2l0aGluCj4gdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSguLi4p
-IGVhcmxpZXIsIGVpdGhlciBpbiBhdG9taWMgY2hlY2sgb3IKPiBpbiBjb21taXQgdGFpbCBpbiBh
-bm90aGVyIGxvb3AuCj4KPiBXaGlsZSBJIHByZWZlciB0aGUgZmlyc3QgYXBwcm9hY2gsIGl0J3Mg
-YSBsaXR0bGUgYml0IGNvbXBsaWNhdGVkLiBUaGUKPiBnZXRfZnJlZXN5bmNfY29uZmlnX2Zvcl9j
-cnRjIGxvb2tzIGxpa2UgdGhlIHJpZ2h0IHBsYWNlIHRvIHB1dCB0aGlzLCBidXQKPiB0aGF0IGZ1
-bmN0aW9uIHdvdWxkIGhhdmUgdG8gYmUgbW92ZWQuIFRoZSBwcm9ibGVtIGlzIHRoYXQKPgo+IGlm
-ICghKGVuYWJsZSAmJiBhY29ubmVjdG9yICYmIG5ld19jcnRjX3N0YXRlLT5lbmFibGUgJiYKPiAg
-ICAgICAgICAgICAgIG5ld19jcnRjX3N0YXRlLT5hY3RpdmUpKQo+Cj4gV29uJ3QgYmUgdHJ1ZSBp
-ZiB3ZSdyZSBkaXNhYmxpbmcgYSBDUlRDIGF0IHRoZSBzYW1lIHRpbWUgd2UncmUgZGlzYWJsaW5n
-Cj4gVlJSLiBUaGUgcmVzZXRfZnJlZXN5bmNfY29uZmlnX2Zvcl9jcnRjIGZ1bmN0aW9uIHdvdWxk
-IGNvdmVyIHRoaXMgYnV0IGl0Cj4gZG9lc24ndCBhY3R1YWxseSB0b3VjaCB0aGUgZnJlZXN5bmNf
-Y29uZmlnIC0gYnV0IEkgdGhpbmsgaXQncyBzYWZlIHRvIGRvCj4gc28sIHNpbmNlIHRoZSBjaGVj
-ayBhYm92ZSB3aWxsIGJlIHRydWUgaWYgdGhlIHN0cmVhbSBzdGlsbCBleGlzdHMuCj4KPiBOaWNo
-b2xhcyBLYXpsYXVza2FzCj4KPiA+ICAgICAgICAgICAgICAgbW9kZXNldF9uZWVkZWQgPSBtb2Rl
-c2V0X3JlcXVpcmVkKAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbmV3X2NydGNf
-c3RhdGUsCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkbV9uZXdfY3J0Y19zdGF0
-ZS0+c3RyZWFtLAo+ID4KPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0195396498==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB32969959655A6AE6EDF2F3F2A2420MN2PR12MB3296namp_"
+
+--_000_MN2PR12MB32969959655A6AE6EDF2F3F2A2420MN2PR12MB3296namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+
+________________________________
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Sent: Thursday, March 21, 2019 5:19 PM
+To: Deucher, Alexander; Wang, Kevin(Yang)
+Cc: Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter; =
+Huang, Ray; Gao, Likun; Gui, Jack; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; kernel-ja=
+nitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Subject: [PATCH] drm/amd/powerplay: Off by one in vega20_get_smu_msg_index(=
+)
+
+The > should be >=3D so that we don't read one element beyond the end of
+the vega20_message_map[] array.
+
+Fixes: 3ec3c931489f ("drm/amd/powerplay: implement smu vega20_message_map f=
+or vega20")
+Signed-off-by: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c
+index 7e9e8ad9a300..31cd7b9d4dad 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -132,7 +132,8 @@ static int vega20_message_map[SMU_MSG_MAX_COUNT] =3D {
+ static int vega20_get_smu_msg_index(struct smu_context *smc, uint32_t inde=
+x)
+ {
+         int val;
+-       if (index > SMU_MSG_MAX_COUNT)
++
++       if (index >=3D SMU_MSG_MAX_COUNT)
+                 return -EINVAL;
+
+         val =3D vega20_message_map[index];
+
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+--
+2.17.1
+
+
+--_000_MN2PR12MB32969959655A6AE6EDF2F3F2A2420MN2PR12MB3296namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Co=
+lor Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI=
+ Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dan Carpenter &lt;dan=
+.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, March 21, 2019 5:19 PM<br>
+<b>To:</b> Deucher, Alexander; Wang, Kevin(Yang)<br>
+<b>Cc:</b> Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel V=
+etter; Huang, Ray; Gao, Likun; Gui, Jack; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; ke=
+rnel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: Off by one in vega20_get_smu_msg=
+_index()</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">The &gt; should be &gt;=3D so that we don't read o=
+ne element beyond the end of<br>
+the vega20_message_map[] array.<br>
+<br>
+Fixes: 3ec3c931489f (&quot;drm/amd/powerplay: implement smu vega20_message_=
+map for vega20&quot;)<br>
+Signed-off-by: Dan Carpenter &lt;dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 3 &#43;&#43;-<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c<br>
+index 7e9e8ad9a300..31cd7b9d4dad 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+@@ -132,7 &#43;132,8 @@ static int vega20_message_map[SMU_MSG_MAX_COUNT] =
+=3D {<br>
+&nbsp;static int vega20_get_smu_msg_index(struct smu_context *smc, uint32_t=
+ index)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int val;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (index &gt; SMU_MSG_MAX_COUNT)<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (index &gt;=3D SMU_MSG_MAX_COU=
+NT)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; val =3D vega20_message_map=
+[index];</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt=
+;<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB32969959655A6AE6EDF2F3F2A2420MN2PR12MB3296namp_--
+
+--===============0195396498==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0195396498==--
