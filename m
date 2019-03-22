@@ -1,127 +1,63 @@
-From: "Gui, Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/amdgpu: fix Polaris10 PCIe dpm feature issue.
-Date: Fri, 22 Mar 2019 02:31:40 +0000
-Message-ID: <MN2PR12MB3582A2C0BF7973C87923F94F8B430@MN2PR12MB3582.namprd12.prod.outlook.com>
-References: <1553146497-26179-1-git-send-email-Jack.Gui@amd.com>
- <CADnq5_PQcZfWOCab17V39wCBNkT42snm4T_PGC2YrxUfb-ZEKw@mail.gmail.com>
- <MN2PR12MB358277A1FB21B5D3CA0C3B298B430@MN2PR12MB3582.namprd12.prod.outlook.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: Re: [PATCH] drm/amd/display: Fix boolean expression in
+ get_surf_rq_param
+Date: Thu, 21 Mar 2019 22:10:18 -0500
+Message-ID: <456595ea-6f20-76d7-2ff3-773724123967@embeddedor.com>
+References: <20190103194845.GA26175@embeddedor>
+ <8169baae-434e-2d08-d63f-a285d1c3457e@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed;
- boundary="_002_MN2PR12MB3582A2C0BF7973C87923F94F8B430MN2PR12MB3582namp_"
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB358277A1FB21B5D3CA0C3B298B430-rweVpJHSKTr2mYjuiDFEwwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <8169baae-434e-2d08-d63f-a285d1c3457e@amd.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
---_002_MN2PR12MB3582A2C0BF7973C87923F94F8B430MN2PR12MB3582namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Hi Harry,
 
-QXR0YWNoIGNvcnJlY3QgcGF0Y2ggYWdhaW4uDQoNCkhpIEFsZXgsDQoNCkV4cGFuZCB0aGUgZml4
-IHRvIGFsbCBhc2ljcywgcGxlYXNlIGhlbHAgdG8gcmV2aWV3Lg0KDQpCUiwNCkphY2sgR3VpDQoN
-Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBHdWksIEphY2sgDQpTZW50OiBGcmlk
-YXksIE1hcmNoIDIyLCAyMDE5IDEwOjI4IEFNDQpUbzogJ0FsZXggRGV1Y2hlcicgPGFsZXhkZXVj
-aGVyQGdtYWlsLmNvbT47IFh1LCBGZWlmZWkgPEZlaWZlaS5YdUBhbWQuY29tPjsgWmhhbmcsIEhh
-d2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCkNjOiBhbWQtZ2Z4IGxpc3QgPGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnPg0KU3ViamVjdDogUkU6IFtQQVRDSF0gZHJtL2FtZC9hbWRn
-cHU6IGZpeCBQb2xhcmlzMTAgUENJZSBkcG0gZmVhdHVyZSBpc3N1ZS4NCg0KSGkgQWxleCwNCg0K
-RXhwYW5kIHRoZSBmaXggdG8gYWxsIGFzaWNzLCBwbGVhc2UgaGVscCB0byByZXZpZXcuDQoNCkJS
-LA0KSmFjayBHdWkNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEFsZXggRGV1
-Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0KU2VudDogVGh1cnNkYXksIE1hcmNoIDIxLCAy
-MDE5IDk6MjQgUE0NClRvOiBHdWksIEphY2sgPEphY2suR3VpQGFtZC5jb20+DQpDYzogYW1kLWdm
-eCBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NClN1YmplY3Q6IFJlOiBbUEFU
-Q0hdIGRybS9hbWQvYW1kZ3B1OiBmaXggUG9sYXJpczEwIFBDSWUgZHBtIGZlYXR1cmUgaXNzdWUu
-DQoNCk9uIFRodSwgTWFyIDIxLCAyMDE5IGF0IDE6MzUgQU0gQ2hlbmdtaW5nIEd1aSA8SmFjay5H
-dWlAYW1kLmNvbT4gd3JvdGU6DQo+DQo+IHVzZSBwY2llX2JhbmR3aWR0aF9hdmFpbGFibGUgdG8g
-Z2V0IHJlYWwgbGluayBzdGF0ZSB0byB1cGRhdGUgcGNpZSANCj4gdGFibGUuDQo+DQo+IFNpZ25l
-ZC1vZmYtYnk6IENoZW5nbWluZyBHdWkgPEphY2suR3VpQGFtZC5jb20+DQo+IC0tLQ0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgNyArKysrKysrDQo+ICAx
-IGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gaW5kZXggOTY0YTRkMy4uZGY4ZTU4YiAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiBAQCAt
-MzY0OSw3ICszNjQ5LDkgQEAgc3RhdGljIHZvaWQNCj4gYW1kZ3B1X2RldmljZV9nZXRfbWluX3Bj
-aV9zcGVlZF93aWR0aChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgIHsNCj4gICAgICAgICBz
-dHJ1Y3QgcGNpX2RldiAqcGRldiA9IGFkZXYtPnBkZXY7DQo+ICAgICAgICAgZW51bSBwY2lfYnVz
-X3NwZWVkIGN1cl9zcGVlZDsNCj4gKyAgICAgICBlbnVtIHBjaV9idXNfc3BlZWQgdG1wX3NwZWVk
-Ow0KPiAgICAgICAgIGVudW0gcGNpZV9saW5rX3dpZHRoIGN1cl93aWR0aDsNCj4gKyAgICAgICB1
-MzIgcmV0ID0gMDsNCj4NCj4gICAgICAgICAqc3BlZWQgPSBQQ0lfU1BFRURfVU5LTk9XTjsNCj4g
-ICAgICAgICAqd2lkdGggPSBQQ0lFX0xOS19XSURUSF9VTktOT1dOOyBAQCAtMzY1Nyw2ICszNjU5
-LDExIEBAIHN0YXRpYyANCj4gdm9pZCBhbWRncHVfZGV2aWNlX2dldF9taW5fcGNpX3NwZWVkX3dp
-ZHRoKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgICAgICAgIHdoaWxlIChwZGV2KSB7
-DQo+ICAgICAgICAgICAgICAgICBjdXJfc3BlZWQgPSBwY2llX2dldF9zcGVlZF9jYXAocGRldik7
-DQo+ICAgICAgICAgICAgICAgICBjdXJfd2lkdGggPSBwY2llX2dldF93aWR0aF9jYXAocGRldik7
-DQo+ICsgICAgICAgICAgICAgICBpZiAoYWRldi0+YXNpY190eXBlID09IENISVBfUE9MQVJJUzEw
-KQ0KPiArICAgICAgICAgICAgICAgICAgICAgICByZXQgPSBwY2llX2JhbmR3aWR0aF9hdmFpbGFi
-bGUoYWRldi0+cGRldiwgTlVMTCwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICZ0bXBfc3BlZWQsIA0KPiArICZjdXJfd2lkdGgpOw0KDQpB
-bnkgcmVhc29uIHRvIG5vdCBqdXN0IGRvIHRoaXMgZm9yIGFsbCBhc2ljcz8NCg0KQWxleA0KDQo+
-ICsgICAgICAgICAgICAgICBpZiAoIXJldCkNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgY3Vy
-X3dpZHRoID0gUENJRV9MTktfV0lEVEhfUkVTUlY7DQo+DQo+ICAgICAgICAgICAgICAgICBpZiAo
-Y3VyX3NwZWVkICE9IFBDSV9TUEVFRF9VTktOT1dOKSB7DQo+ICAgICAgICAgICAgICAgICAgICAg
-ICAgIGlmICgqc3BlZWQgPT0gUENJX1NQRUVEX1VOS05PV04pDQo+IC0tDQo+IDIuNy40DQo+DQo+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0K
+I noticed this patch is already in mainline, but the stable tag
+was removed.  What is the reason for that if this bug is present
+in stable?
 
---_002_MN2PR12MB3582A2C0BF7973C87923F94F8B430MN2PR12MB3582namp_
-Content-Type: application/octet-stream;
-	name="0001-drm-amd-amdgpu-fix-PCIe-dpm-feature-issue-v3.patch"
-Content-Description: 0001-drm-amd-amdgpu-fix-PCIe-dpm-feature-issue-v3.patch
-Content-Disposition: attachment;
-	filename="0001-drm-amd-amdgpu-fix-PCIe-dpm-feature-issue-v3.patch";
-	size=1522; creation-date="Fri, 22 Mar 2019 02:31:02 GMT";
-	modification-date="Fri, 22 Mar 2019 02:29:39 GMT"
-Content-Transfer-Encoding: base64
+Thanks
+--
+Gustavo
 
-RnJvbSAzOGE4Y2UyZjc5YjBkMDM1YTJjZDFlMDlkMWE1ZDY1NzU0MzNjOTg4IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBDaGVuZ21pbmcgR3VpIDxKYWNrLkd1aUBhbWQuY29tPgpEYXRl
-OiBUaHUsIDIxIE1hciAyMDE5IDEzOjI2OjI4ICswODAwClN1YmplY3Q6IFtQQVRDSF0gZHJtL2Ft
-ZC9hbWRncHU6IGZpeCBQQ0llIGRwbSBmZWF0dXJlIGlzc3VlICh2MykKCnVzZSBwY2llX2JhbmR3
-aWR0aF9hdmFpbGFibGUgdG8gZ2V0IHJlYWwgbGluayBzdGF0ZQp0byB1cGRhdGUgcGNpZSB0YWJs
-ZS4KCnYyOiBmaXggaW5jb3JyZWN0IGluaXRpYWxpemVkIHJldHVybiB2YWx1ZQp2MzogZXhwYW5k
-IHRoZSBmZXRjaGluZyBtZXRob2QgYWJvdXQgdGhlIGxpbmsgd2lkdGggdG8gYWxsIGFzaWNzLgoK
-U2lnbmVkLW9mZi1ieTogQ2hlbmdtaW5nIEd1aSA8SmFjay5HdWlAYW1kLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCA2ICsrKysrKwogMSBmaWxl
-IGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZXZpY2UuYwppbmRleCA5NjRhNGQzLi5lMDE5ZDJkIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCkBAIC0zNjQ5LDcgKzM2NDksOSBAQCBzdGF0aWMg
-dm9pZCBhbWRncHVfZGV2aWNlX2dldF9taW5fcGNpX3NwZWVkX3dpZHRoKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LAogewogCXN0cnVjdCBwY2lfZGV2ICpwZGV2ID0gYWRldi0+cGRldjsKIAll
-bnVtIHBjaV9idXNfc3BlZWQgY3VyX3NwZWVkOworCWVudW0gcGNpX2J1c19zcGVlZCB0bXBfc3Bl
-ZWQ7CiAJZW51bSBwY2llX2xpbmtfd2lkdGggY3VyX3dpZHRoOworCXUzMiByZXQgPSAxOwogCiAJ
-KnNwZWVkID0gUENJX1NQRUVEX1VOS05PV047CiAJKndpZHRoID0gUENJRV9MTktfV0lEVEhfVU5L
-Tk9XTjsKQEAgLTM2NTcsNiArMzY1OSwxMCBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNlX2dl
-dF9taW5fcGNpX3NwZWVkX3dpZHRoKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCXdoaWxl
-IChwZGV2KSB7CiAJCWN1cl9zcGVlZCA9IHBjaWVfZ2V0X3NwZWVkX2NhcChwZGV2KTsKIAkJY3Vy
-X3dpZHRoID0gcGNpZV9nZXRfd2lkdGhfY2FwKHBkZXYpOworCQlyZXQgPSBwY2llX2JhbmR3aWR0
-aF9hdmFpbGFibGUoYWRldi0+cGRldiwgTlVMTCwKKwkJCQkJCSAgICAgICAmdG1wX3NwZWVkLCAm
-Y3VyX3dpZHRoKTsKKwkJaWYgKCFyZXQpCisJCQljdXJfd2lkdGggPSBQQ0lFX0xOS19XSURUSF9S
-RVNSVjsKIAogCQlpZiAoY3VyX3NwZWVkICE9IFBDSV9TUEVFRF9VTktOT1dOKSB7CiAJCQlpZiAo
-KnNwZWVkID09IFBDSV9TUEVFRF9VTktOT1dOKQotLSAKMi43LjQKCg==
-
---_002_MN2PR12MB3582A2C0BF7973C87923F94F8B430MN2PR12MB3582namp_
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---_002_MN2PR12MB3582A2C0BF7973C87923F94F8B430MN2PR12MB3582namp_--
+On 1/3/19 3:11 PM, Wentland, Harry wrote:
+> On 2019-01-03 2:48 p.m., Gustavo A. R. Silva wrote:
+>> Fix boolean expression by using logical AND operator '&&'
+>> instead of bitwise operator '&'.
+>>
+>> This issue was detected with the help of Coccinelle.
+>>
+>> Fixes: 6d04ee9dc101 ("drm/amd/display: Restructuring and cleaning up DML")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+> 
+> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+> 
+> and applied.
+> 
+> Harry
+> 
+>> ---
+>>  drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+>> index c2037daa8e66..d341b69fdc1a 100644
+>> --- a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+>> +++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
+>> @@ -881,7 +881,7 @@ static void get_surf_rq_param(
+>>  	/* the dpte_group_bytes is reduced for the specific case of vertical
+>>  	 * access of a tile surface that has dpte request of 8x1 ptes.
+>>  	 */
+>> -	if (!surf_linear & (log2_dpte_req_height_ptes == 0) & surf_vert) /*reduced, in this case, will have page fault within a group */
+>> +	if (!surf_linear && (log2_dpte_req_height_ptes == 0) && surf_vert) /*reduced, in this case, will have page fault within a group */
+>>  		rq_sizing_param->dpte_group_bytes = 512;
+>>  	else
+>>  		/*full size */
+>>
