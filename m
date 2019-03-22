@@ -1,16 +1,10 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: defer cmd/fence/fw buffers destroy on hw_init
- failure
-Date: Fri, 22 Mar 2019 09:31:19 +0000
-Message-ID: <MN2PR12MB3344EA932EF75ED8E08A1E9FE4430@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190318024208.17792-1-evan.quan@amd.com>
- <BYAPR12MB3048705E0C7567603C1D804AFE430@BYAPR12MB3048.namprd12.prod.outlook.com>
+From: Lauri Ehrenpreis <laurioma-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Limit gpu max clock for ryzen 2400g
+Date: Fri, 22 Mar 2019 12:18:12 +0200
+Message-ID: <CAGyaPbDqJMTmHyat25b63yu_zEygJwKHrrnrWyH=1vPuxiLwHw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0348438005=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BYAPR12MB3048705E0C7567603C1D804AFE430-ZGDeBxoHBPnONjofGsFOUAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,70 +15,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhpcyBhZmZlY3RzIGh3X2luaXQgb25seS4gSXQncyBub3Qgb24gdGhlIHBhdGggb2YgUzMvcmVz
-dW1lIGFuZCBncHVfcmVjb3ZlcnkvcmVzdW1lLg0KU28sIHRoZXkgYXJlIG5vdCBhZmZlY3RlZC4N
-Cg0KDQpSZWdhcmRzLA0KRXZhbg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9t
-OiBYdSwgRmVpZmVpDQo+IFNlbnQ6IDIwMTnlubQz5pyIMjLml6UgMTY6NTYNCj4gVG86IFF1YW4s
-IEV2YW4gPEV2YW4uUXVhbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcN
-Cj4gQ2M6IFF1YW4sIEV2YW4gPEV2YW4uUXVhbkBhbWQuY29tPg0KPiBTdWJqZWN0OiBSRTogW1BB
-VENIXSBkcm0vYW1kZ3B1OiBkZWZlciBjbWQvZmVuY2UvZncgYnVmZmVycyBkZXN0cm95IG9uDQo+
-IGh3X2luaXQgZmFpbHVyZQ0KPiANCj4gIEhhdmUgeW91IHRlc3RlZCBpbiBTMyBhbmQgZ3B1X3Jl
-Y292ZXJ5Pw0KPiANCj4gSWYgeWVzLiBSZXZpZXdlZC1ieTogRmVpZmVpIFh1IDxGZWlmZWkuWHVA
-YW1kLmNvbT4NCj4gDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1n
-ZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBF
-dmFuDQo+IFF1YW4NCj4gU2VudDogTW9uZGF5LCBNYXJjaCAxOCwgMjAxOSAxMDo0MiBBTQ0KPiBU
-bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IFF1YW4sIEV2YW4gPEV2YW4u
-UXVhbkBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IGRlZmVyIGNtZC9m
-ZW5jZS9mdyBidWZmZXJzIGRlc3Ryb3kgb24NCj4gaHdfaW5pdCBmYWlsdXJlDQo+IA0KPiBBcyB0
-aGUgY2xlYW51cCBqb2JzIHBlcmZvcm1lZCBpbiBwcmVfZmluaSBtYXkgc3RpbGwgbmVlZCB0aGVz
-ZSBidWZmZXJzLiBOVUxMDQo+IHBvaW50ZXIgZGVyZWZlcmVuY2Ugd2lsbCBiZSB0cmlnZ2VyZWQg
-d2l0aG91dCB0aGVtLg0KPiANCj4gQ2hhbmdlLUlkOiBJMzk4ZWZkNjUyNTg0ZTAyMmRlYmYyMzc5
-NTAyMDcxOTlhNGVhNzhmYw0KPiBTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBh
-bWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3Au
-YyB8IDMxICsrKysrKysrKystLS0tLS0tLS0tLS0tLQ0KPiAtDQo+ICAxIGZpbGUgY2hhbmdlZCwg
-MTIgaW5zZXJ0aW9ucygrKSwgMTkgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jDQo+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jDQo+IGluZGV4IDU4ODhlMjQyMTlkOS4uMjIwNmJiNGIw
-OTAzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHNw
-LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jDQo+IEBA
-IC04OTAsNTkgKzg5MCw1MiBAQCBzdGF0aWMgaW50IHBzcF9sb2FkX2Z3KHN0cnVjdCBhbWRncHVf
-ZGV2aWNlDQo+ICphZGV2KQ0KPiAgCQkJCQkmcHNwLT5mZW5jZV9idWZfbWNfYWRkciwNCj4gIAkJ
-CQkJJnBzcC0+ZmVuY2VfYnVmKTsNCj4gIAlpZiAocmV0KQ0KPiAtCQlnb3RvIGZhaWxlZF9tZW0y
-Ow0KPiArCQlnb3RvIGZhaWxlZDsNCj4gDQo+ICAJcmV0ID0gYW1kZ3B1X2JvX2NyZWF0ZV9rZXJu
-ZWwoYWRldiwgUFNQX0NNRF9CVUZGRVJfU0laRSwNCj4gUEFHRV9TSVpFLA0KPiAgCQkJCSAgICAg
-IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0sDQo+ICAJCQkJICAgICAgJnBzcC0+Y21kX2J1Zl9ibywg
-JnBzcC0NCj4gPmNtZF9idWZfbWNfYWRkciwNCj4gIAkJCQkgICAgICAodm9pZCAqKikmcHNwLT5j
-bWRfYnVmX21lbSk7DQo+ICAJaWYgKHJldCkNCj4gLQkJZ290byBmYWlsZWRfbWVtMTsNCj4gKwkJ
-Z290byBmYWlsZWQ7DQo+IA0KPiAgCW1lbXNldChwc3AtPmZlbmNlX2J1ZiwgMCwgUFNQX0ZFTkNF
-X0JVRkZFUl9TSVpFKTsNCj4gDQo+ICAJcmV0ID0gcHNwX3JpbmdfaW5pdChwc3AsIFBTUF9SSU5H
-X1RZUEVfX0tNKTsNCj4gIAlpZiAocmV0KSB7DQo+ICAJCURSTV9FUlJPUigiUFNQIHJpbmcgaW5p
-dCBmYWlsZWQhXG4iKTsNCj4gLQkJZ290byBmYWlsZWRfbWVtOw0KPiArCQlnb3RvIGZhaWxlZDsN
-Cj4gIAl9DQo+IA0KPiAgCXJldCA9IHBzcF90bXJfaW5pdChwc3ApOw0KPiAgCWlmIChyZXQpIHsN
-Cj4gIAkJRFJNX0VSUk9SKCJQU1AgdG1yIGluaXQgZmFpbGVkIVxuIik7DQo+IC0JCWdvdG8gZmFp
-bGVkX21lbTsNCj4gKwkJZ290byBmYWlsZWQ7DQo+ICAJfQ0KPiANCj4gIAlyZXQgPSBwc3BfYXNk
-X2luaXQocHNwKTsNCj4gIAlpZiAocmV0KSB7DQo+ICAJCURSTV9FUlJPUigiUFNQIGFzZCBpbml0
-IGZhaWxlZCFcbiIpOw0KPiAtCQlnb3RvIGZhaWxlZF9tZW07DQo+ICsJCWdvdG8gZmFpbGVkOw0K
-PiAgCX0NCj4gDQo+ICBza2lwX21lbWFsbG9jOg0KPiAgCXJldCA9IHBzcF9od19zdGFydChwc3Ap
-Ow0KPiAgCWlmIChyZXQpDQo+IC0JCWdvdG8gZmFpbGVkX21lbTsNCj4gKwkJZ290byBmYWlsZWQ7
-DQo+IA0KPiAgCXJldCA9IHBzcF9ucF9md19sb2FkKHBzcCk7DQo+ICAJaWYgKHJldCkNCj4gLQkJ
-Z290byBmYWlsZWRfbWVtOw0KPiArCQlnb3RvIGZhaWxlZDsNCj4gDQo+ICAJcmV0dXJuIDA7DQo+
-IA0KPiAtZmFpbGVkX21lbToNCj4gLQlhbWRncHVfYm9fZnJlZV9rZXJuZWwoJnBzcC0+Y21kX2J1
-Zl9ibywNCj4gLQkJCSAgICAgICZwc3AtPmNtZF9idWZfbWNfYWRkciwNCj4gLQkJCSAgICAgICh2
-b2lkICoqKSZwc3AtPmNtZF9idWZfbWVtKTsNCj4gLWZhaWxlZF9tZW0xOg0KPiAtCWFtZGdwdV9i
-b19mcmVlX2tlcm5lbCgmcHNwLT5mZW5jZV9idWZfYm8sDQo+IC0JCQkgICAgICAmcHNwLT5mZW5j
-ZV9idWZfbWNfYWRkciwgJnBzcC0+ZmVuY2VfYnVmKTsNCj4gLWZhaWxlZF9tZW0yOg0KPiAtCWFt
-ZGdwdV9ib19mcmVlX2tlcm5lbCgmcHNwLT5md19wcmlfYm8sDQo+IC0JCQkgICAgICAmcHNwLT5m
-d19wcmlfbWNfYWRkciwgJnBzcC0+ZndfcHJpX2J1Zik7DQo+ICBmYWlsZWQ6DQo+IC0Ja2ZyZWUo
-cHNwLT5jbWQpOw0KPiAtCXBzcC0+Y21kID0gTlVMTDsNCj4gKwkvKg0KPiArCSAqIGFsbCBjbGVh
-bnVwIGpvYnMgKHhnbWkgdGVybWluYXRlLCByYXMgdGVybWluYXRlLA0KPiArCSAqIHJpbmcgZGVz
-dHJveSwgY21kL2ZlbmNlL2Z3IGJ1ZmZlcnMgZGVzdG9yeSwNCj4gKwkgKiBwc3AtPmNtZCBkZXN0
-b3J5KSBhcmUgZGVsYXllZCB0byBwc3BfaHdfZmluaQ0KPiArCSAqLw0KPiAgCXJldHVybiByZXQ7
-DQo+ICB9DQo+IA0KPiAtLQ0KPiAyLjIxLjANCj4gDQo+IF9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4
+--===============0348438005==
+Content-Type: multipart/alternative; boundary="000000000000b86e040584ac2cb9"
+
+--000000000000b86e040584ac2cb9
+Content-Type: text/plain; charset="UTF-8"
+
+Hi!
+
+Is there a way how to limit gpu max clock rate? Currently I can either
+leave the clock to automatic mode or force it to specific level
+via /sys/class/drm/card0/device/pp_dpm_sclk. But ideally I would like the
+clock to be automatically regulated but specify a different upper limit for
+power saving reasons.
+
+--
+Lauri
+
+--000000000000b86e040584ac2cb9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi!<div><br></div><div>Is there a way how=
+ to limit gpu max clock rate? Currently I can either leave the clock to aut=
+omatic mode or force it to specific level via=C2=A0/sys/class/drm/card0/dev=
+ice/pp_dpm_sclk. But ideally I would like the clock to be automatically reg=
+ulated but specify a different upper limit for power saving reasons.</div><=
+div><br></div><div>--</div><div>Lauri</div></div></div>
+
+--000000000000b86e040584ac2cb9--
+
+--===============0348438005==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0348438005==--
