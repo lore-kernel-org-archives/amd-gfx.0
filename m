@@ -1,38 +1,43 @@
-From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix vm_cpu_update hit NULL pointer
-Date: Fri, 22 Mar 2019 13:30:32 +0800
-Message-ID: <1553232632-27710-1-git-send-email-Monk.Liu@amd.com>
+From: Meelis Roos <mroos@linux.ee>
+Subject: Re: Radeon HD 7450 brightness oversaturated
+Date: Fri, 22 Mar 2019 09:02:08 +0200
+Message-ID: <e61ee046-92fc-4e3d-02fb-c53d5699e41d@linux.ee>
+References: <6f3801ea-476f-6715-db9b-0eb188c5711d@linux.ee>
+ <CADnq5_O-sFxVsbxouJBRYi=H+RCmc0==jB7XVTifvWm-+EQLnQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org
-Cc: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CADnq5_O-sFxVsbxouJBRYi=H+RCmc0==jB7XVTifvWm-+EQLnQ@mail.gmail.com>
+Content-Language: et-EE
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexdeucher@gmail.com>, Meelis Roos <mroos@linux.ee>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-c2hvdWxkIHVzZSBhbWRncHVfYm9fbWFwLCBvdGhlcndpc2UgeW91J2xsIGhpdCBOVUxMCnBvaW50
-ZXIgYnVnIGlmIHdpdGggYW1kZ3B1X2JvX2twdHIKClNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1IDxN
-b25rLkxpdUBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-bV9jcHUuYyB8IDQgKysrLQogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-bV9jcHUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9jcHUuYwppbmRl
-eCA5ZDUzOTgyLi4xZmI2Mjk1YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3ZtX2NwdS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92bV9jcHUuYwpAQCAtNzYsOCArNzYsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdm1fY3B1X3Vw
-ZGF0ZShzdHJ1Y3QgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgKnAsCiB7CiAJdW5zaWduZWQgaW50
-IGk7CiAJdWludDY0X3QgdmFsdWU7CisJdm9pZCAqcHRyOwogCi0JcGUgKz0gKHVuc2lnbmVkIGxv
-bmcpYW1kZ3B1X2JvX2twdHIoYm8pOworCWFtZGdwdV9ib19rbWFwKGJvLCAmcHRyKTsKKwlwZSAr
-PSAodW5zaWduZWQgbG9uZylwdHI7CiAKIAl0cmFjZV9hbWRncHVfdm1fc2V0X3B0ZXMocGUsIGFk
-ZHIsIGNvdW50LCBpbmNyLCBmbGFncyk7CiAKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZng=
+Pj4gSSBkZWNpZGVkIHRvIHB1dCBhIGRpc2NyZXRlIGdyYXBoaWNzIGNhcmQgaW50byBhIFBDIGFu
+ZCBmb3VuZCBhIGZpdHRpbmcgUmFkZW9uIEhEIDc0NTAuCj4+IEl0IHdvcmtzLCBidXQgdGhlcmUg
+aXMgc3RyYW5nZSB3aGl0ZW5lc3MgbGlrZSB0aGUgYnJpZ2h0bmVzcyBpcyBvdmVyc2F0dXJhdGVk
+IGFuZAo+PiBsaWdodCBwbGFjZXMgdHVybiBpbnRvIG90aGVyIGNvbG9yczoKPj4gKiBvbiBmYmNv
+biwgcmlnaHQgYWZ0ZXIgcmFkZW9uZHJtZmIgaW5pdGlhbGl6ZXMKPj4gKiBpbiBYIGFmdGVyIHBv
+d2Vyc2F2ZQo+Pgo+PiBUaGUgY29sb3JzIHJldHVybiB0byBub3JtYWwgYWZ0ZXIgYSBWVCBzd2l0
+Y2ggb3IgdHdvLgo+Pgo+PiBTY3JlZW5zaG90IG9mIG9uZSBzdWNoIHdhc2hlZCB2aWV3IGlzIGF0
+IGh0dHA6Ly9rb2R1LnV0LmVlL35tcm9vcy9yYWRlb25fd2FzaGVkLmpwZwo+Pgo+PiBLZXJuZWxz
+IGFyZSA1LjAgYW5kIDUuMS1yYzEuCj4gCj4gSXMgaXQganVzdCBrZXJuZWxzIDUuMCBhbmQgNS4x
+PyAgVGhlcmUgaGF2ZW4ndCByZWFsbHkgYmVlbiBhbnkgZGlzcGxheQo+IHJlbGF0ZWQgY2hhbmdl
+cyB0byByYWRlb24gaW4gYWdlcy4gIFBvc3NpYmx5IGEgZHVwbGljYXRlIG9mOgo+IGh0dHBzOi8v
+YnVnemlsbGEua2VybmVsLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTk4MTIzCgpObywgSSBqdXN0IHB1
+dCB0aGUgY2FyZCBpbiBhbmQgdGVzdGVkIHdpdGggb25seSB0aGUgY3VycmVudCBrZXJuZWxzIEkg
+aGFkLgpJIGNhbiBnZXQgc29tZSBvbGRlciBrZXJuZWwgYW5kIHRlc3Qgd2l0aCB0aGF0IGlmIHRo
+YXQgaXMgb2YgYW55IGhlbHAuCgotLSAKTWVlbGlzIFJvb3MgPG1yb29zQGxpbnV4LmVlPgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFp
+bGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
