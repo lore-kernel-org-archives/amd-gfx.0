@@ -1,63 +1,29 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+From: Joe Perches <joe@perches.com>
 Subject: Re: [PATCH] drm/amd/display: Fix boolean expression in
  get_surf_rq_param
-Date: Thu, 21 Mar 2019 22:10:18 -0500
-Message-ID: <456595ea-6f20-76d7-2ff3-773724123967@embeddedor.com>
+Date: Thu, 21 Mar 2019 20:14:41 -0700
+Message-ID: <742758434301d3329b336fd9c683dc753fbdc552.camel@perches.com>
 References: <20190103194845.GA26175@embeddedor>
- <8169baae-434e-2d08-d63f-a285d1c3457e@amd.com>
+         <8169baae-434e-2d08-d63f-a285d1c3457e@amd.com>
+         <456595ea-6f20-76d7-2ff3-773724123967@embeddedor.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset="ISO-8859-1"
 Content-Transfer-Encoding: 7bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <8169baae-434e-2d08-d63f-a285d1c3457e@amd.com>
-Content-Language: en-US
+In-Reply-To: <456595ea-6f20-76d7-2ff3-773724123967@embeddedor.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: "Wentland, Harry" <Harry.Wentland@amd.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
 Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi Harry,
+On Thu, 2019-03-21 at 22:10 -0500, Gustavo A. R. Silva wrote:
+> Hi Harry,
+> 
+> I noticed this patch is already in mainline, but the stable tag
+> was removed.  What is the reason for that if this bug is present
+> in stable?
 
-I noticed this patch is already in mainline, but the stable tag
-was removed.  What is the reason for that if this bug is present
-in stable?
+It's not a bug, it's just a style issue and
+the && use in some compilers it may be slower.
 
-Thanks
---
-Gustavo
-
-On 1/3/19 3:11 PM, Wentland, Harry wrote:
-> On 2019-01-03 2:48 p.m., Gustavo A. R. Silva wrote:
->> Fix boolean expression by using logical AND operator '&&'
->> instead of bitwise operator '&'.
->>
->> This issue was detected with the help of Coccinelle.
->>
->> Fixes: 6d04ee9dc101 ("drm/amd/display: Restructuring and cleaning up DML")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
-> 
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> 
-> and applied.
-> 
-> Harry
-> 
->> ---
->>  drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
->> index c2037daa8e66..d341b69fdc1a 100644
->> --- a/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
->> +++ b/drivers/gpu/drm/amd/display/dc/dml/dml1_display_rq_dlg_calc.c
->> @@ -881,7 +881,7 @@ static void get_surf_rq_param(
->>  	/* the dpte_group_bytes is reduced for the specific case of vertical
->>  	 * access of a tile surface that has dpte request of 8x1 ptes.
->>  	 */
->> -	if (!surf_linear & (log2_dpte_req_height_ptes == 0) & surf_vert) /*reduced, in this case, will have page fault within a group */
->> +	if (!surf_linear && (log2_dpte_req_height_ptes == 0) && surf_vert) /*reduced, in this case, will have page fault within a group */
->>  		rq_sizing_param->dpte_group_bytes = 512;
->>  	else
->>  		/*full size */
->>
+bool when set is 1.
