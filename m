@@ -1,63 +1,52 @@
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 12/13] drm/amd/display: fix odm output gamma programming
-Date: Fri, 22 Mar 2019 16:42:45 -0400
-Message-ID: <20190322204246.7131-13-Bhawanpreet.Lakha@amd.com>
-References: <20190322204246.7131-1-Bhawanpreet.Lakha@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190322204246.7131-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>
+From: Kangjie Lu <kjlu@umn.edu>
+Subject: Re: [PATCH] gpu: amdkfd: fix a missing check of kmemdup
+Date: Fri, 22 Mar 2019 21:20:31 -0500
+Message-ID: <71B1FB5B-DB3A-4E23-A62B-3ACC63D83319@umn.edu>
+References: <20190309041949.3176-1-kjlu@umn.edu>
+Mime-Version: 1.0 (Mac OS X Mail 12.2 \(3445.102.3\))
+Content-Type: text/plain;
+        charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190309041949.3176-1-kjlu@umn.edu>
+Sender: linux-kernel-owner@vger.kernel.org
+To: kjlu@umn.edu
+Cc: pakki001@umn.edu, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRG15dHJvIExha3R5dXNoa2luIDxEbXl0cm8uTGFrdHl1c2hraW5AYW1kLmNvbT4KCkN1
-cnJlbnRseSBvbmx5IHRvcCBwaXBlIGdldHMgb3V0cHV0IHRmIHByb2dyYW1tZWQuIFRoaXMgY2hh
-bmdlCm1ha2VzIGFsbCBvZG0gaGVhZCBwaXBlcyBnZXQgb3V0cHV0IHRmIHByb2dyYW1tZWQuCgpD
-aGFuZ2UtSWQ6IEk3ZjdjMThkNzk2NjhiYThjZjdmZmNmYTE3ODRhMWZlZTgyYTEwOGQ2ClNpZ25l
-ZC1vZmYtYnk6IERteXRybyBMYWt0eXVzaGtpbiA8RG15dHJvLkxha3R5dXNoa2luQGFtZC5jb20+
-ClJldmlld2VkLWJ5OiBOaWtvbGEgQ29ybmlqIDxOaWtvbGEuQ29ybmlqQGFtZC5jb20+CkFja2Vk
-LWJ5OiBCaGF3YW5wcmVldCBMYWtoYSA8Qmhhd2FucHJlZXQuTGFraGFAYW1kLmNvbT4KLS0tCiBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNvdXJjZS5jIHwgNCArKy0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL3Jlc291cmNlLmggICAgIHwgMSAr
-CiAyIGZpbGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNvdXJjZS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYwppbmRl
-eCBjYWY5ZDg5NGY5NWYuLmQwZWQ5NWVkYTUwOCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNvdXJjZS5jCkBAIC0xMzAyLDcgKzEzMDIsNyBAQCBz
-dHJ1Y3QgcGlwZV9jdHggKmRjX3Jlc19nZXRfb2RtX2JvdHRvbV9waXBlKHN0cnVjdCBwaXBlX2N0
-eCAqcGlwZV9jdHgpCiAJcmV0dXJuIGJvdHRvbV9waXBlOwogfQogCi1zdGF0aWMgYm9vbCBkY19y
-ZXNfaXNfb2RtX2JvdHRvbV9waXBlKHN0cnVjdCBwaXBlX2N0eCAqcGlwZV9jdHgpCitib29sIGRj
-X3Jlc19pc19vZG1faGVhZF9waXBlKHN0cnVjdCBwaXBlX2N0eCAqcGlwZV9jdHgpCiB7CiAJc3Ry
-dWN0IHBpcGVfY3R4ICp0b3BfcGlwZSA9IHBpcGVfY3R4LT50b3BfcGlwZTsKIAlib29sIHJlc3Vs
-dCA9IGZhbHNlOwpAQCAtMTM0NSw3ICsxMzQ1LDcgQEAgYm9vbCBkY19yZW1vdmVfcGxhbmVfZnJv
-bV9jb250ZXh0KAogCQlzdHJ1Y3QgcGlwZV9jdHggKnBpcGVfY3R4ID0gJmNvbnRleHQtPnJlc19j
-dHgucGlwZV9jdHhbaV07CiAKIAkJaWYgKHBpcGVfY3R4LT5wbGFuZV9zdGF0ZSA9PSBwbGFuZV9z
-dGF0ZSkgewotCQkJaWYgKGRjX3Jlc19pc19vZG1fYm90dG9tX3BpcGUocGlwZV9jdHgpKSB7CisJ
-CQlpZiAoZGNfcmVzX2lzX29kbV9oZWFkX3BpcGUocGlwZV9jdHgpKSB7CiAJCQkJcGlwZV9jdHgt
-PnBsYW5lX3N0YXRlID0gTlVMTDsKIAkJCQlwaXBlX2N0eC0+Ym90dG9tX3BpcGUgPSBOVUxMOwog
-CQkJCWNvbnRpbnVlOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Rj
-L2luYy9yZXNvdXJjZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9yZXNv
-dXJjZS5oCmluZGV4IDBhNzAyNTRkMjA0Zi4uM2NlMGE0ZmM1ODIyIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvaW5jL3Jlc291cmNlLmgKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2luYy9yZXNvdXJjZS5oCkBAIC0xNzIsNSArMTcyLDYgQEAg
-dm9pZCB1cGRhdGVfYXVkaW9fdXNhZ2UoCiB1bnNpZ25lZCBpbnQgcmVzb3VyY2VfcGl4ZWxfZm9y
-bWF0X3RvX2JwcChlbnVtIHN1cmZhY2VfcGl4ZWxfZm9ybWF0IGZvcm1hdCk7CiAKIHN0cnVjdCBw
-aXBlX2N0eCAqZGNfcmVzX2dldF9vZG1fYm90dG9tX3BpcGUoc3RydWN0IHBpcGVfY3R4ICpwaXBl
-X2N0eCk7Citib29sIGRjX3Jlc19pc19vZG1faGVhZF9waXBlKHN0cnVjdCBwaXBlX2N0eCAqcGlw
-ZV9jdHgpOwogCiAjZW5kaWYgLyogRFJJVkVSU19HUFVfRFJNX0FNRF9EQ19ERVZfRENfSU5DX1JF
-U09VUkNFX0hfICovCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA==
+
+
+> On Mar 8, 2019, at 10:19 PM, Kangjie Lu <kjlu@umn.edu> wrote:
+>=20
+> kmemdup could fail and return NULL. To avoid null pointer
+> dereference, the fix checkes its return value and returns
+> ENOMEM upon failures.
+
+This is a NULL-pointer dereference issue.
+Can someone review this patch? Thanks.
+
+>=20
+> Signed-off-by: Kangjie Lu <kjlu@umn.edu>
+> ---
+> drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 3 +++
+> 1 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c =
+b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> index 2e7c44955f43..7ef62d4e7598 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
+> @@ -404,6 +404,9 @@ static int kfd_parse_subtype_iolink(struct =
+crat_subtype_iolink *iolink,
+> 			return -ENODEV;
+> 		/* same everything but the other direction */
+> 		props2 =3D kmemdup(props, sizeof(*props2), GFP_KERNEL);
+> +		if (!props2)
+> +			return -ENOMEM;
+> +
+> 		props2->node_from =3D id_to;
+> 		props2->node_to =3D id_from;
+> 		props2->kobj =3D NULL;
+> --=20
+> 2.17.1
+>=20
