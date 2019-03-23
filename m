@@ -1,36 +1,37 @@
-From: Kangjie Lu <kjlu@umn.edu>
-Subject: [PATCH] gpu: radeon: fix a potential NULL-pointer dereference
-Date: Fri, 22 Mar 2019 21:29:55 -0500
-Message-ID: <20190323022955.14326-1-kjlu@umn.edu>
+From: Yue Haibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amd/display: Remove useless set memory to zero use memset()
+Date: Sat, 23 Mar 2019 21:30:19 +0800
+Message-ID: <20190323133019.13620-1-yuehaibing@huawei.com>
+Mime-Version: 1.0
+Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: kjlu@umn.edu
-Cc: pakki001@umn.edu, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, mikita.lipski@amd.com, David.Francis@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-In case alloc_workqueue fails, the fix frees memory and
-returns to avoid potential NULL pointer dereference.
+From: YueHaibing <yuehaibing@huawei.com>
 
-Signed-off-by: Kangjie Lu <kjlu@umn.edu>
+The memory return by kzalloc() has already be set to zero, so
+remove useless memset(0).
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/gpu/drm/radeon/radeon_display.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index aa898c699101..a31305755a77 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -678,6 +678,11 @@ static void radeon_crtc_init(struct drm_device *dev, int index)
- 	drm_mode_crtc_set_gamma_size(&radeon_crtc->base, 256);
- 	radeon_crtc->crtc_id = index;
- 	radeon_crtc->flip_queue = alloc_workqueue("radeon-crtc", WQ_HIGHPRI, 0);
-+	if (!radeon_crtc->flip_queue) {
-+		DRM_ERROR("failed to allocate the flip queue\n");
-+		kfree(radeon_crtc);
-+		return;
-+	}
- 	rdev->mode_info.crtcs[index] = radeon_crtc;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+index cd10f77..6c7a46a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+@@ -279,8 +279,6 @@ void *amdgpu_dm_irq_register_interrupt(struct amdgpu_device *adev,
+ 		return DAL_INVALID_IRQ_HANDLER_IDX;
+ 	}
  
- 	if (rdev->family >= CHIP_BONAIRE) {
+-	memset(handler_data, 0, sizeof(*handler_data));
+-
+ 	init_handler_common_data(handler_data, ih, handler_args, &adev->dm);
+ 
+ 	irq_source = int_params->irq_source;
 -- 
-2.17.1
+2.7.0
