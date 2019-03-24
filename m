@@ -1,36 +1,52 @@
-From: Yue Haibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amd/powerplay: Remove useless set memory to zero use memset()
-Date: Sat, 23 Mar 2019 21:32:16 +0800
-Message-ID: <20190323133216.16900-1-yuehaibing@huawei.com>
+From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: fix vm_cpu_update hit NULL pointer
+Date: Sun, 24 Mar 2019 03:42:25 +0000
+Message-ID: <BYAPR12MB33014544E9805DC79F9E3EA1845D0@BYAPR12MB3301.namprd12.prod.outlook.com>
+References: <1553232632-27710-1-git-send-email-Monk.Liu@amd.com>
+ <583e1755-3c2a-8677-dda0-2f10ed8fc09a@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: rex.zhu@amd.com, evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <583e1755-3c2a-8677-dda0-2f10ed8fc09a-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org" <amd-gfx-CC+yJ3UmIYqDUpFQwHEjaQ@public.gmane.org>
 
-From: YueHaibing <yuehaibing@huawei.com>
-
-The memory return by kzalloc() has already be set to zero, so
-remove useless memset(0).
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-index 8fafcbd..0fb6066 100644
---- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-@@ -1295,7 +1295,6 @@ static int vega20_set_default_od8_setttings(struct smu_context *smu)
- 	if (!table_context->od8_settings)
- 		return -ENOMEM;
- 
--	memset(table_context->od8_settings, 0, sizeof(struct vega20_od8_settings));
- 	od8_settings = (struct vega20_od8_settings *)table_context->od8_settings;
- 
- 	if (smu_feature_is_enabled(smu, FEATURE_DPM_SOCCLK_BIT)) {
--- 
-2.7.0
+SGkgQ2hyaXN0aWFuDQoNCldoeSBpdCBpcyB0aGUgd3JvbmcgdGltZSA/ICB0aGUgcHRlL3BkIGJv
+IGFscmVhZHkgcmVzZXJ2ZWQsIHNvbWUgZGV0YWlscyBtYXliZT8NCg0KVGhhbmtzDQovTW9uaw0K
+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2Vu
+aWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiANClNlbnQ6IEZyaWRheSwgTWFyY2ggMjIsIDIw
+MTkgMTE6NDMgUE0NClRvOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+OyBhbWQtZ2Z4QGZy
+ZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogZml4IHZtX2Nw
+dV91cGRhdGUgaGl0IE5VTEwgcG9pbnRlcg0KDQpBbSAyMi4wMy4xOSB1bSAwNjozMCBzY2hyaWVi
+IE1vbmsgTGl1Og0KPiBzaG91bGQgdXNlIGFtZGdwdV9ib19tYXAsIG90aGVyd2lzZSB5b3UnbGwg
+aGl0IE5VTEwgcG9pbnRlciBidWcgaWYgDQo+IHdpdGggYW1kZ3B1X2JvX2twdHINCg0KWWVhaCB0
+aGF0IGlzIGEga25vd24gcHJvYmxlbS4gTkFLIHRvIHRoaXMgb25lIGNhdXNlIHRoYXQgd291bGQg
+bWFwIHRoZSBCTyBhdCB0aGUgd3JvbmcgdGltZS4NCg0KQnV0IGluIGdlbmVyYWwgSSBoYXZlIGEg
+cHJvcGVyIGZpeCBmb3IgdGhpcyBpbiB0aGUgcGlwZWxpbmUuDQoNCkNocmlzdGlhbi4NCg0KPg0K
+PiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNvbT4NCj4gLS0tDQo+ICAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtX2NwdS5jIHwgNCArKystDQo+ICAg
+MSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPg0KPiBkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtX2NwdS5jIA0KPiBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9jcHUuYw0KPiBpbmRleCA5ZDUz
+OTgyLi4xZmI2Mjk1YSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3ZtX2NwdS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV92bV9jcHUuYw0KPiBAQCAtNzYsOCArNzYsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdm1fY3B1
+X3VwZGF0ZShzdHJ1Y3QgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgKnAsDQo+ICAgew0KPiAgIAl1
+bnNpZ25lZCBpbnQgaTsNCj4gICAJdWludDY0X3QgdmFsdWU7DQo+ICsJdm9pZCAqcHRyOw0KPiAg
+IA0KPiAtCXBlICs9ICh1bnNpZ25lZCBsb25nKWFtZGdwdV9ib19rcHRyKGJvKTsNCj4gKwlhbWRn
+cHVfYm9fa21hcChibywgJnB0cik7DQo+ICsJcGUgKz0gKHVuc2lnbmVkIGxvbmcpcHRyOw0KPiAg
+IA0KPiAgIAl0cmFjZV9hbWRncHVfdm1fc2V0X3B0ZXMocGUsIGFkZHIsIGNvdW50LCBpbmNyLCBm
+bGFncyk7DQo+ICAgDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
