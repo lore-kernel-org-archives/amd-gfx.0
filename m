@@ -1,18 +1,14 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 5/8] drm/amdgpu: new VM update backends
-Date: Mon, 25 Mar 2019 20:53:31 +0000
-Message-ID: <21fcc5cb-59d9-55d5-599e-ed16d2b2b0cf@amd.com>
-References: <20190319124411.1563-1-christian.koenig@amd.com>
- <20190319124411.1563-5-christian.koenig@amd.com>
- <153c002a-5454-ad17-bd3b-03685867844d@amd.com>
- <11141c5e-155f-79dc-b5bb-00da3b8608ce@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Adjust TMR address alignment as per HW
+ requirement
+Date: Mon, 25 Mar 2019 20:57:41 +0000
+Message-ID: <BN6PR12MB1809D70E3AD827267C2E1EA4F75E0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1553544892-31833-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1985831442=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <11141c5e-155f-79dc-b5bb-00da3b8608ce-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1553544892-31833-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <17FEB1C8B3AEFD4DAF145AF49418FA21-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,196 +19,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Russell,
- Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOS0wMy0yNSA3OjM4IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFtIDIw
-LjAzLjE5IHVtIDEyOjU3IHNjaHJpZWIgS3VlaGxpbmcsIEZlbGl4Og0KPj4gQXMgZmFyIGFzIEkg
-Y2FuIHRlbGwsIHRoZSB3aG9sZSBzZXJpZXMgaXMgYSBzbWFsbCBjbGVhbnVwIGFuZCBiaWcNCj4+
-IHJlZmFjdG9yIHRvIGVuYWJsZSBDUFUgY2xlYXJpbmcgb2YgUFRzIHdpdGhvdXQgYSBsb3Qgb2Yg
-dWdsaW5lc3Mgb3IgY29kZQ0KPj4gZHVwbGljYXRpb24uDQo+DQo+IEl0J3MgYSBiaXQgbW9yZSB0
-aGFuIHRoYXQuIEtleSBwb2ludCBpcyB0aGF0IEkgY2FuIG5vdyBlYXNpbHkgYWRkIGEgDQo+IHBh
-cmFtZXRlciBmb3IgZGlyZWN0IHN1Ym1pc3Npb24gZHVyaW5nIHBhZ2UgZmF1bHQgaGFuZGxpbmcg
-OikNCg0KWW91IG1lYW4gZm9yIHdvcmtpbmcgYXJvdW5kIHByb2JsZW1zIHdpdGggQ1BVIHBhZ2Ug
-dGFibGUgdXBkYXRlcyBmcm9tIA0KcGFnZSBmYXVsdHMsIHRvIGZvcmNlIGFsbCBzdWNoIHVwZGF0
-ZXMgdGhyb3VnaCBTRE1BPw0KDQpSZWdhcmRzLA0KIMKgIEZlbGl4DQoNCg0KPg0KPiBDaHJpc3Rp
-YW4uDQo+DQo+PiBJdCBsb29rcyBnb29kIHRvIG1lLiBJIGhhdmVuJ3QgcmV2aWV3ZWQgYWxsIHRo
-ZSBtb3ZlZCBTRE1BDQo+PiB1cGRhdGUgY29kZSB0byBtYWtlIHN1cmUgaXQgYWxsIHdvcmtzIGNv
-cnJlY3RseSwgYnV0IGF0IGxlYXN0IHRoZQ0KPj4gcHJlcGFyZSBhbmQgY29tbWl0IGZ1bmN0aW9u
-cyBsb29rIHNhbmUgdG8gbWUuDQo+Pg0KPj4gRm9yIHRoaXMgcGF0Y2ggSSBoYXZlIGEgc3VnZ2Vz
-dGlvbiAoaW5saW5lKSB0byByZW1vdmUgcGFyYW1zLT5pYiwgd2hpY2gNCj4+IHNlZW1zIHJlZHVu
-ZGFudCB3aXRoIHBhcmFtcy0+am9iLiBUaGF0IHdvdWxkIGFsc28gcmlwcGxlIHRocm91Z2ggdGhl
-DQo+PiByZW1haW5pbmcgcGF0Y2hlcy4NCj4+DQo+PiBPdGhlciB0aGFuIHRoYXQsIHRoZSBzZXJp
-ZXMgaXMgUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nDQo+PiA8RmVsaXguS3VlaGxpbmdAYW1k
-LmNvbT4NCj4+DQo+PiBbK0tlbnRdLCBMb29rIG91dCBmb3IgdGhpcyBwYXRjaCBzZXJpZXMgaW4g
-YW4gdXBjb21pbmcgbWVyZ2UgdG8NCj4+IGFtZC1rZmQtc3RhZ2luZy4gSSBkb24ndCB0aGluayBp
-dCdsbCBjYXVzZSBjb25mbGljdHMsIGJ1dCBoYXMgYSByaXNrIG9mDQo+PiByZWdyZXNzaW9ucyAo
-bGlrZSBhbGwgYmlnIGFtZGdwdV92bSBjaGFuZ2VzIElNRSkuDQo+Pg0KPj4gUmVnYXJkcywNCj4+
-IMKgIMKgIEZlbGl4DQo+Pg0KPj4gT24gMy8xOS8yMDE5IDg6NDQgQU0sIENocmlzdGlhbiBLw7Zu
-aWcgd3JvdGU6DQo+Pj4gU2VwYXJhdGUgb3V0IGFsbCBmdW5jdGlvbnMgZm9yIFNETUEgYW5kIENQ
-VSBiYXNlZCBwYWdlIHRhYmxlDQo+Pj4gdXBkYXRlcyBpbnRvIHNlcGFyYXRlIGJhY2tlbmRzLg0K
-Pj4+DQo+Pj4gVGhpcyB3YXkgd2UgY2FuIGtlZXAgbW9zdCBvZiB0aGUgY29tcGxleGl0eSBvZiB0
-aG9zZSBmcm9tIHRoZQ0KPj4+IGNvcmUgVk0gY29kZS4NCj4+Pg0KPj4+IFNpZ25lZC1vZmYtYnk6
-IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4+PiAtLS0NCj4+
-PiDCoMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlwqDCoMKgwqDCoMKgwqDC
-oCB8wqDCoCAzICstDQo+Pj4gwqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uY8KgwqDCoMKgwqAgfMKgwqAgNyArLQ0KPj4+IMKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmjCoMKgwqDCoMKgIHzCoCAzMCArKy0NCj4+PiDCoMKgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9jcHUuY8KgIHwgMTE2ICsrKysrKysrKw0KPj4+
-IMKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtX3NkbWEuYyB8IDI0OCAN
-Cj4+PiArKysrKysrKysrKysrKysrKysrKw0KPj4+IMKgwqAgNSBmaWxlcyBjaGFuZ2VkLCA0MDEg
-aW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4+PiDCoMKgIGNyZWF0ZSBtb2RlIDEwMDY0
-NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm1fY3B1LmMNCj4+PiDCoMKgIGNy
-ZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm1fc2Rt
-YS5jDQo+PiBbc25pcF0NCj4+PiArLyoqDQo+Pj4gKyAqIGFtZGdwdV92bV9zZG1hX3ByZXBhcmUg
-LSBwcmVwYXJlIFNETUEgY29tbWFuZCBzdWJtaXNzaW9uDQo+Pj4gKyAqDQo+Pj4gKyAqIEBwOiBz
-ZWUgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgZGVmaW5pdGlvbg0KPj4+ICsgKiBAb3duZXI6IG93
-bmVyIHdlIG5lZWQgdG8gc3luYyB0bw0KPj4+ICsgKiBAZXhjbHVzaXZlOiBleGNsdXNpdmUgbW92
-ZSBmZW5jZSB3ZSBuZWVkIHRvIHN5bmMgdG8NCj4+PiArICoNCj4+PiArICogUmV0dXJuczoNCj4+
-PiArICogTmVnYXRpdiBlcnJubywgMCBmb3Igc3VjY2Vzcy4NCj4+PiArICovDQo+Pj4gK3N0YXRp
-YyBpbnQgYW1kZ3B1X3ZtX3NkbWFfcHJlcGFyZShzdHJ1Y3QgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJh
-bXMgKnAsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdm9pZCAqb3du
-ZXIsIHN0cnVjdCBkbWFfZmVuY2UgKmV4Y2x1c2l2ZSkNCj4+PiArew0KPj4+ICvCoMKgwqAgc3Ry
-dWN0IGFtZGdwdV9ibyAqcm9vdCA9IHAtPnZtLT5yb290LmJhc2UuYm87DQo+Pj4gK8KgwqDCoCB1
-bnNpZ25lZCBpbnQgbmR3ID0gQU1ER1BVX1ZNX1NETUFfTUlOX05VTV9EVzsNCj4+PiArwqDCoMKg
-IGludCByOw0KPj4+ICsNCj4+PiArwqDCoMKgIHIgPSBhbWRncHVfam9iX2FsbG9jX3dpdGhfaWIo
-cC0+YWRldiwgbmR3ICogNCwgJnAtPmpvYik7DQo+Pj4gK8KgwqDCoCBpZiAocikNCj4+PiArwqDC
-oMKgwqDCoMKgwqAgcmV0dXJuIHI7DQo+Pj4gKw0KPj4+ICvCoMKgwqAgciA9IGFtZGdwdV9zeW5j
-X2ZlbmNlKHAtPmFkZXYsICZwLT5qb2ItPnN5bmMsIGV4Y2x1c2l2ZSwgZmFsc2UpOw0KPj4+ICvC
-oMKgwqAgaWYgKHIpDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByOw0KPj4+ICsNCj4+PiAr
-wqDCoMKgIHIgPSBhbWRncHVfc3luY19yZXN2KHAtPmFkZXYsICZwLT5qb2ItPnN5bmMsIHJvb3Qt
-PnRiby5yZXN2LA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBvd25lciwg
-ZmFsc2UpOw0KPj4+ICvCoMKgwqAgaWYgKHIpDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiBy
-Ow0KPj4+ICsNCj4+PiArwqDCoMKgIHAtPm51bV9kd19sZWZ0ID0gbmR3Ow0KPj4+ICvCoMKgwqAg
-cC0+aWIgPSAmcC0+am9iLT5pYnNbMF07DQo+PiBXaXRoIHAtPmpvYiBhZGRlZCwgZG8gd2Ugc3Rp
-bGwgbmVlZCBwLT5pYj8gV2UgY291bGQganVzdCB1c2UNCj4+ICZwLT5qb2ItPmlic1swXSBkaXJl
-Y3RseSwgd2hpY2ggc2hvdWxkIHBlcmZvcm0gdGhlIHNhbWUgb3IgYmUgbW9yZQ0KPj4gZWZmaWNp
-ZW50IHNpbmNlIGl0J3MganVzdCBhIGNvbnN0YW50IG9mZnNldCBmcm9tIHAtPmpvYi4NCj4+DQo+
-Pg0KPj4+ICvCoMKgwqAgcmV0dXJuIDA7DQo+Pj4gK30NCj4+PiArDQo+Pj4gKy8qKg0KPj4+ICsg
-KiBhbWRncHVfdm1fc2RtYV9jb21taXQgLSBjb21taXQgU0RNQSBjb21tYW5kIHN1Ym1pc3Npb24N
-Cj4+PiArICoNCj4+PiArICogQHA6IHNlZSBhbWRncHVfdm1fdXBkYXRlX3BhcmFtcyBkZWZpbml0
-aW9uDQo+Pj4gKyAqIEBmZW5jZTogcmVzdWx0aW5nIGZlbmNlDQo+Pj4gKyAqDQo+Pj4gKyAqIFJl
-dHVybnM6DQo+Pj4gKyAqIE5lZ2F0aXYgZXJybm8sIDAgZm9yIHN1Y2Nlc3MuDQo+Pj4gKyAqLw0K
-Pj4+ICtzdGF0aWMgaW50IGFtZGdwdV92bV9zZG1hX2NvbW1pdChzdHJ1Y3QgYW1kZ3B1X3ZtX3Vw
-ZGF0ZV9wYXJhbXMgKnAsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0
-cnVjdCBkbWFfZmVuY2UgKipmZW5jZSkNCj4+PiArew0KPj4+ICvCoMKgwqAgc3RydWN0IGFtZGdw
-dV9ibyAqcm9vdCA9IHAtPnZtLT5yb290LmJhc2UuYm87DQo+Pj4gK8KgwqDCoCBzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmc7DQo+Pj4gK8KgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICpmOw0KPj4+ICvC
-oMKgwqAgaW50IHI7DQo+Pj4gKw0KPj4+ICvCoMKgwqAgcmluZyA9IGNvbnRhaW5lcl9vZihwLT52
-bS0+ZW50aXR5LnJxLT5zY2hlZCwgc3RydWN0IA0KPj4+IGFtZGdwdV9yaW5nLCBzY2hlZCk7DQo+
-Pj4gKw0KPj4+ICvCoMKgwqAgV0FSTl9PTihwLT5pYi0+bGVuZ3RoX2R3ID09IDApOw0KPj4+ICvC
-oMKgwqAgYW1kZ3B1X3JpbmdfcGFkX2liKHJpbmcsIHAtPmliKTsNCj4+PiArwqDCoMKgIFdBUk5f
-T04ocC0+aWItPmxlbmd0aF9kdyA+IHAtPm51bV9kd19sZWZ0KTsNCj4+PiArwqDCoMKgIHIgPSBh
-bWRncHVfam9iX3N1Ym1pdChwLT5qb2IsICZwLT52bS0+ZW50aXR5LA0KPj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEFNREdQVV9GRU5DRV9PV05FUl9WTSwgJmYpOw0KPj4+
-ICvCoMKgwqAgaWYgKHIpDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gZXJyb3I7DQo+Pj4gKw0K
-Pj4+ICvCoMKgwqAgYW1kZ3B1X2JvX2ZlbmNlKHJvb3QsIGYsIHRydWUpOw0KPj4+ICvCoMKgwqAg
-aWYgKGZlbmNlKQ0KPj4+ICvCoMKgwqDCoMKgwqDCoCBzd2FwKCpmZW5jZSwgZik7DQo+Pj4gK8Kg
-wqDCoCBkbWFfZmVuY2VfcHV0KGYpOw0KPj4+ICvCoMKgwqAgcmV0dXJuIDA7DQo+Pj4gKw0KPj4+
-ICtlcnJvcjoNCj4+PiArwqDCoMKgIGFtZGdwdV9qb2JfZnJlZShwLT5qb2IpOw0KPj4+ICvCoMKg
-wqAgcmV0dXJuIHI7DQo+Pj4gK30NCj4+PiArDQo+Pj4gKw0KPj4+ICsvKioNCj4+PiArICogYW1k
-Z3B1X3ZtX3NkbWFfY29weV9wdGVzIC0gY29weSB0aGUgUFRFcyBmcm9tIG1hcHBpbmcNCj4+PiAr
-ICoNCj4+PiArICogQHA6IHNlZSBhbWRncHVfdm1fdXBkYXRlX3BhcmFtcyBkZWZpbml0aW9uDQo+
-Pj4gKyAqIEBibzogUEQvUFQgdG8gdXBkYXRlDQo+Pj4gKyAqIEBwZTogYWRkciBvZiB0aGUgcGFn
-ZSBlbnRyeQ0KPj4+ICsgKiBAY291bnQ6IG51bWJlciBvZiBwYWdlIGVudHJpZXMgdG8gY29weQ0K
-Pj4+ICsgKg0KPj4+ICsgKiBUcmFjZXMgdGhlIHBhcmFtZXRlcnMgYW5kIGNhbGxzIHRoZSBETUEg
-ZnVuY3Rpb24gdG8gY29weSB0aGUgUFRFcy4NCj4+PiArICovDQo+Pj4gK3N0YXRpYyB2b2lkIGFt
-ZGdwdV92bV9zZG1hX2NvcHlfcHRlcyhzdHJ1Y3QgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgDQo+
-Pj4gKnAsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Ry
-dWN0IGFtZGdwdV9ibyAqYm8sIHVpbnQ2NF90IHBlLA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGNvdW50KQ0KPj4+ICt7DQo+Pj4gK8KgwqDC
-oCB1aW50NjRfdCBzcmMgPSBwLT5pYi0+Z3B1X2FkZHI7DQo+Pj4gKw0KPj4+ICvCoMKgwqAgc3Jj
-ICs9IHAtPm51bV9kd19sZWZ0ICogNDsNCj4+PiArDQo+Pj4gK8KgwqDCoCBwZSArPSBhbWRncHVf
-Ym9fZ3B1X29mZnNldChibyk7DQo+Pj4gK8KgwqDCoCB0cmFjZV9hbWRncHVfdm1fY29weV9wdGVz
-KHBlLCBzcmMsIGNvdW50KTsNCj4+PiArDQo+Pj4gK8KgwqDCoCBhbWRncHVfdm1fY29weV9wdGUo
-cC0+YWRldiwgcC0+aWIsIHBlLCBzcmMsIGNvdW50KTsNCj4+PiArfQ0KPj4+ICsNCj4+PiArLyoq
-DQo+Pj4gKyAqIGFtZGdwdV92bV9zZG1hX3NldF9wdGVzIC0gaGVscGVyIHRvIGNhbGwgdGhlIHJp
-Z2h0IGFzaWMgZnVuY3Rpb24NCj4+PiArICoNCj4+PiArICogQHA6IHNlZSBhbWRncHVfdm1fdXBk
-YXRlX3BhcmFtcyBkZWZpbml0aW9uDQo+Pj4gKyAqIEBibzogUEQvUFQgdG8gdXBkYXRlDQo+Pj4g
-KyAqIEBwZTogYWRkciBvZiB0aGUgcGFnZSBlbnRyeQ0KPj4+ICsgKiBAYWRkcjogZHN0IGFkZHIg
-dG8gd3JpdGUgaW50byBwZQ0KPj4+ICsgKiBAY291bnQ6IG51bWJlciBvZiBwYWdlIGVudHJpZXMg
-dG8gdXBkYXRlDQo+Pj4gKyAqIEBpbmNyOiBpbmNyZWFzZSBuZXh0IGFkZHIgYnkgaW5jciBieXRl
-cw0KPj4+ICsgKiBAZmxhZ3M6IGh3IGFjY2VzcyBmbGFncw0KPj4+ICsgKg0KPj4+ICsgKiBUcmFj
-ZXMgdGhlIHBhcmFtZXRlcnMgYW5kIGNhbGxzIHRoZSByaWdodCBhc2ljIGZ1bmN0aW9ucw0KPj4+
-ICsgKiB0byBzZXR1cCB0aGUgcGFnZSB0YWJsZSB1c2luZyB0aGUgRE1BLg0KPj4+ICsgKi8NCj4+
-PiArc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX3NkbWFfc2V0X3B0ZXMoc3RydWN0IGFtZGdwdV92bV91
-cGRhdGVfcGFyYW1zICpwLA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvICpibywgdWludDY0X3QgcGUsDQo+Pj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVpbnQ2NF90IGFkZHIsIHVuc2lnbmVkIGNvdW50
-LA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1aW50MzJfdCBp
-bmNyLCB1aW50NjRfdCBmbGFncykNCj4+PiArew0KPj4+ICvCoMKgwqAgcGUgKz0gYW1kZ3B1X2Jv
-X2dwdV9vZmZzZXQoYm8pOw0KPj4+ICvCoMKgwqAgdHJhY2VfYW1kZ3B1X3ZtX3NldF9wdGVzKHBl
-LCBhZGRyLCBjb3VudCwgaW5jciwgZmxhZ3MpOw0KPj4+ICvCoMKgwqAgaWYgKGNvdW50IDwgMykg
-ew0KPj4+ICvCoMKgwqDCoMKgwqDCoCBhbWRncHVfdm1fd3JpdGVfcHRlKHAtPmFkZXYsIHAtPmli
-LCBwZSwgYWRkciB8IGZsYWdzLA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBjb3VudCwgaW5jcik7DQo+Pj4gK8KgwqDCoCB9IGVsc2Ugew0KPj4+ICvCoMKgwqDC
-oMKgwqDCoCBhbWRncHVfdm1fc2V0X3B0ZV9wZGUocC0+YWRldiwgcC0+aWIsIHBlLCBhZGRyLA0K
-Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY291bnQsIGlu
-Y3IsIGZsYWdzKTsNCj4+PiArwqDCoMKgIH0NCj4+PiArfQ0KPj4+ICsNCj4+PiArLyoqDQo+Pj4g
-KyAqIGFtZGdwdV92bV9zZG1hX3VwZGF0ZSAtIGV4ZWN1dGUgVk0gdXBkYXRlDQo+Pj4gKyAqDQo+
-Pj4gKyAqIEBwOiBzZWUgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgZGVmaW5pdGlvbg0KPj4+ICsg
-KiBAYm86IFBEL1BUIHRvIHVwZGF0ZQ0KPj4+ICsgKiBAcGU6IGFkZHIgb2YgdGhlIHBhZ2UgZW50
-cnkNCj4+PiArICogQGFkZHI6IGRzdCBhZGRyIHRvIHdyaXRlIGludG8gcGUNCj4+PiArICogQGNv
-dW50OiBudW1iZXIgb2YgcGFnZSBlbnRyaWVzIHRvIHVwZGF0ZQ0KPj4+ICsgKiBAaW5jcjogaW5j
-cmVhc2UgbmV4dCBhZGRyIGJ5IGluY3IgYnl0ZXMNCj4+PiArICogQGZsYWdzOiBodyBhY2Nlc3Mg
-ZmxhZ3MNCj4+PiArICoNCj4+PiArICogUmVzZXJ2ZSBzcGFjZSBpbiB0aGUgSUIsIHNldHVwIG1h
-cHBpbmcgYnVmZmVyIG9uIGRlbWFuZCBhbmQgDQo+Pj4gd3JpdGUgY29tbWFuZHMgdG8NCj4+PiAr
-ICogdGhlIElCLg0KPj4+ICsgKi8NCj4+PiArc3RhdGljIGludCBhbWRncHVfdm1fc2RtYV91cGRh
-dGUoc3RydWN0IGFtZGdwdV92bV91cGRhdGVfcGFyYW1zICpwLA0KPj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvICpibywgdWludDY0X3QgcGUsDQo+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVpbnQ2NF90IGFkZHIsIHVuc2ln
-bmVkIGNvdW50LCB1aW50MzJfdCBpbmNyLA0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCB1aW50NjRfdCBmbGFncykNCj4+PiArew0KPj4+ICvCoMKgwqAgdW5zaWduZWQgaW50
-IGksIG5kdywgbnB0ZXM7DQo+Pj4gK8KgwqDCoCB1aW50NjRfdCAqcHRlOw0KPj4+ICvCoMKgwqAg
-aW50IHI7DQo+Pj4gKw0KPj4+ICvCoMKgwqAgZG8gew0KPj4+ICvCoMKgwqDCoMKgwqDCoCBuZHcg
-PSBwLT5udW1fZHdfbGVmdDsNCj4+PiArwqDCoMKgwqDCoMKgwqAgbmR3IC09IHAtPmliLT5sZW5n
-dGhfZHc7DQo+Pj4gKw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAobmR3IDwgMzIpIHsNCj4+PiAr
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByID0gYW1kZ3B1X3ZtX3NkbWFfY29tbWl0KHAsIE5VTEwp
-Ow0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyKQ0KPj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHI7DQo+Pj4gKw0KPj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIC8qIGVzdGltYXRlIGhvdyBtYW55IGR3IHdlIG5lZWQgKi8NCj4+PiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBuZHcgPSAzMjsNCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAo
-cC0+cGFnZXNfYWRkcikNCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG5kdyAr
-PSBjb3VudCAqIDI7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbmR3ID0gbWF4KG5kdywg
-QU1ER1BVX1ZNX1NETUFfTUlOX05VTV9EVyk7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-bmR3ID0gbWluKG5kdywgQU1ER1BVX1ZNX1NETUFfTUFYX05VTV9EVyk7DQo+Pj4gKw0KPj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHIgPSBhbWRncHVfam9iX2FsbG9jX3dpdGhfaWIocC0+YWRl
-diwgbmR3ICogNCwgJnAtPmpvYik7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIp
-DQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsNCj4+PiArDQo+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcC0+bnVtX2R3X2xlZnQgPSBuZHc7DQo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgcC0+aWIgPSAmcC0+am9iLT5pYnNbMF07DQo+Pj4gK8KgwqDC
-oMKgwqDCoMKgIH0NCj4+PiArDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmICghcC0+cGFnZXNfYWRk
-cikgew0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIHNldCBwYWdlIGNvbW1hbmRzIG5l
-ZWRlZCAqLw0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChiby0+c2hhZG93KQ0KPj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X3ZtX3NkbWFfc2V0X3B0ZXMo
-cCwgYm8tPnNoYWRvdywgcGUsIGFkZHIsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb3VudCwgaW5jciwgZmxhZ3MpOw0KPj4+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV92bV9zZG1hX3NldF9wdGVzKHAsIGJvLCBwZSwg
-YWRkciwgY291bnQsDQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgaW5jciwgZmxhZ3MpOw0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVy
-biAwOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCB9DQo+Pj4gKw0KPj4+ICvCoMKgwqDCoMKgwqDCoCAv
-KiBjb3B5IGNvbW1hbmRzIG5lZWRlZCAqLw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBuZHcgLT0gcC0+
-YWRldi0+dm1fbWFuYWdlci52bV9wdGVfZnVuY3MtPmNvcHlfcHRlX251bV9kdyAqDQo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgKGJvLT5zaGFkb3cgPyAyIDogMSk7DQo+Pj4gKw0KPj4+ICvC
-oMKgwqDCoMKgwqDCoCAvKiBmb3IgcGFkZGluZyAqLw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBuZHcg
-LT0gNzsNCj4+PiArDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIG5wdGVzID0gbWluKGNvdW50LCBuZHcg
-LyAyKTsNCj4+PiArDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIC8qIFB1dCB0aGUgUFRFcyBhdCB0aGUg
-ZW5kIG9mIHRoZSBJQi4gKi8NCj4+PiArwqDCoMKgwqDCoMKgwqAgcC0+bnVtX2R3X2xlZnQgLT0g
-bnB0ZXMgKiAyOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBwdGUgPSAodWludDY0X3QgKikmKHAtPmli
-LT5wdHJbcC0+bnVtX2R3X2xlZnRdKTsNCj4+PiArwqDCoMKgwqDCoMKgwqAgZm9yIChpID0gMDsg
-aSA8IG5wdGVzOyArK2ksIGFkZHIgKz0gaW5jcikgew0KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHB0ZVtpXSA9IGFtZGdwdV92bV9tYXBfZ2FydChwLT5wYWdlc19hZGRyLCBhZGRyKTsNCj4+
-PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwdGVbaV0gfD0gZmxhZ3M7DQo+Pj4gK8KgwqDCoMKg
-wqDCoMKgIH0NCj4+PiArDQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChiby0+c2hhZG93KQ0KPj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV92bV9zZG1hX2NvcHlfcHRlcyhwLCBiby0+
-c2hhZG93LCBwZSwgbnB0ZXMpOw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBhbWRncHVfdm1fc2RtYV9j
-b3B5X3B0ZXMocCwgYm8sIHBlLCBucHRlcyk7DQo+Pj4gKw0KPj4+ICvCoMKgwqDCoMKgwqDCoCBw
-ZSArPSBucHRlcyAqIDg7DQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGNvdW50IC09IG5wdGVzOw0KPj4+
-ICvCoMKgwqAgfSB3aGlsZSAoY291bnQpOw0KPj4+ICsNCj4+PiArwqDCoMKgIHJldHVybiAwOw0K
-Pj4+ICt9DQo+Pj4gKw0KPj4+ICtjb25zdCBzdHJ1Y3QgYW1kZ3B1X3ZtX3VwZGF0ZV9mdW5jcyBh
-bWRncHVfdm1fc2RtYV9mdW5jcyA9IHsNCj4+PiArwqDCoMKgIC5wcmVwYXJlID0gYW1kZ3B1X3Zt
-X3NkbWFfcHJlcGFyZSwNCj4+PiArwqDCoMKgIC51cGRhdGUgPSBhbWRncHVfdm1fc2RtYV91cGRh
-dGUsDQo+Pj4gK8KgwqDCoCAuY29tbWl0ID0gYW1kZ3B1X3ZtX3NkbWFfY29tbWl0DQo+Pj4gK307
-DQo+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============1985831442==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809D70E3AD827267C2E1EA4F75E0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809D70E3AD827267C2E1EA4F75E0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Liu, Sha=
+oyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, March 25, 2019 4:14 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Liu, Shaoyun
+Subject: [PATCH] drm/amdgpu: Adjust TMR address alignment as per HW require=
+ment
+
+According to HW engineer, they prefer the TMR address be "naturally aligned=
+", e.g. the start address
+must be an integer divide of TME size.
+
+Change-Id: Ie01b3d41e564fc8f416048e001d75edb64c045e3
+Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c
+index 2206bb4..905cce1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -187,13 +187,13 @@ static int psp_tmr_init(struct psp_context *psp)
+         int ret;
+
+         /*
+-        * Allocate 3M memory aligned to 1M from Frame Buffer (local
+-        * physical).
++        * According to HW engineer, they prefer the TMR address be "natura=
+lly
++        * aligned" , e.g. the start address be an integer divide of TMR si=
+ze.
+          *
+          * Note: this memory need be reserved till the driver
+          * uninitializes.
+          */
+-       ret =3D amdgpu_bo_create_kernel(psp->adev, PSP_TMR_SIZE, 0x100000,
++       ret =3D amdgpu_bo_create_kernel(psp->adev, PSP_TMR_SIZE, PSP_TMR_SI=
+ZE,
+                                       AMDGPU_GEM_DOMAIN_VRAM,
+                                       &psp->tmr_bo, &psp->tmr_mc_addr, &ps=
+p->tmr_buf);
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809D70E3AD827267C2E1EA4F75E0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Liu, Shaoyun &lt;Shaoyun.Liu@=
+amd.com&gt;<br>
+<b>Sent:</b> Monday, March 25, 2019 4:14 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Liu, Shaoyun<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Adjust TMR address alignment as per HW =
+requirement</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">According to HW engineer, they prefer the TMR addr=
+ess be &quot;naturally aligned&quot;, e.g. the start address<br>
+must be an integer divide of TME size.<br>
+<br>
+Change-Id: Ie01b3d41e564fc8f416048e001d75edb64c045e3<br>
+Signed-off-by: shaoyunl &lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 &#43;&#43;&#43;---<br>
+&nbsp;1 file changed, 3 insertions(&#43;), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_psp.c<br>
+index 2206bb4..905cce1 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
+@@ -187,13 &#43;187,13 @@ static int psp_tmr_init(struct psp_context *psp)<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Allocate 3M memory aligned to=
+ 1M from Frame Buffer (local<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * physical).<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * According to HW engineer,=
+ they prefer the TMR address be &quot;naturally<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * aligned&quot; , e.g. the =
+start address be an integer divide of TMR size.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Note: this memory =
+need be reserved till the driver<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * uninitializes.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(psp-&=
+gt;adev, PSP_TMR_SIZE, 0x100000,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D amdgpu_bo_create_kernel(p=
+sp-&gt;adev, PSP_TMR_SIZE, PSP_TMR_SIZE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; AMDGPU_GEM_DOMAIN_VRAM,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; &amp;psp-&gt;tmr_bo, &amp;psp-&gt;tmr_mc_addr, &amp;psp-&gt;tmr_buf);<b=
+r>
+&nbsp;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809D70E3AD827267C2E1EA4F75E0BN6PR12MB1809namp_--
+
+--===============1985831442==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1985831442==--
