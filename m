@@ -1,14 +1,14 @@
 From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Stop returning EINVAL during profile
- switch
-Date: Mon, 25 Mar 2019 15:59:45 +0000
-Message-ID: <BN6PR12MB1618F581D7E429F48154C804855E0@BN6PR12MB1618.namprd12.prod.outlook.com>
-References: <20190325124120.7793-1-kent.russell@amd.com>,
- <MN2PR12MB3344372CF30753A2F0556109E45E0@MN2PR12MB3344.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Allow changing to BOOTUP profile on smu7
+Date: Mon, 25 Mar 2019 16:00:43 +0000
+Message-ID: <BN6PR12MB1618EEE6BA7316853C8EFB14855E0@BN6PR12MB1618.namprd12.prod.outlook.com>
+References: <20190325124120.7793-1-kent.russell@amd.com>
+ <20190325124120.7793-3-kent.russell@amd.com>,
+ <MN2PR12MB3344C54453D308D2D2888AAFE45E0@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1602079834=="
+Content-Type: multipart/mixed; boundary="===============1922802790=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344372CF30753A2F0556109E45E0-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MN2PR12MB3344C54453D308D2D2888AAFE45E0-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,19 +22,16 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1602079834==
+--===============1922802790==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1618F581D7E429F48154C804855E0BN6PR12MB1618namp_"
+	boundary="_000_BN6PR12MB1618EEE6BA7316853C8EFB14855E0BN6PR12MB1618namp_"
 
---_000_BN6PR12MB1618F581D7E429F48154C804855E0BN6PR12MB1618namp_
+--_000_BN6PR12MB1618EEE6BA7316853C8EFB14855E0BN6PR12MB1618namp_
 Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
 
-I set CUSTOM to a weird value like "1 2 3 4 5 6" , then switched to VR prof=
-ile, then switched back to CUSTOM (just with "echo 6 > profile), and it kep=
-t my custom values. Before this patch, it throws EINVAL but still switches =
-it to CUSTOM with the saved values, on both vega10 and vega20.
+Thanks for that confirmation Evan. I will drop this patch.
 
 Kent
 
@@ -45,15 +42,22 @@ Markham, ON L3T 7X6
 O +(1) 289-695-2122 | Ext 72122
 ________________________________
 From: Quan, Evan
-Sent: Monday, March 25, 2019 10:14:03 AM
+Sent: Monday, March 25, 2019 10:26:54 AM
 To: Russell, Kent; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Russell, Kent
-Subject: RE: [PATCH 1/3] drm/amdgpu: Stop returning EINVAL during profile s=
-witch
+Subject: RE: [PATCH 3/3] drm/amdgpu: Allow changing to BOOTUP profile on sm=
+u7
 
-How can you tell whether it was already applied before or 1st time to switc=
-h to compute mode?
-For the latter case, other settings/parameters do need.
+As I know, BOOTUP profile is only available for Vega10 and later ASICs.
+The BOOTUP profile for SMU7 has only some dummy settings and is not expecte=
+d to switch to such mode.
+The default power profile for SMU7 is FULLSCREEN3D(different with Vega10 an=
+d later ASICs).
+        hwmgr->workload_mask =3D 1 << hwmgr->workload_prority[PP_SMC_POWER_=
+PROFILE_FULLSCREEN3D];
+        hwmgr->power_profile_mode =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;
+        hwmgr->default_power_profile_mode =3D PP_SMC_POWER_PROFILE_FULLSCRE=
+EN3D;
 
 Regards,
 Evan
@@ -63,64 +67,34 @@ Evan
 > Sent: 2019=1B$BG/=1B(B3=1B$B7n=1B(B25=1B$BF|=1B(B 20:42
 > To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 > Cc: Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH 1/3] drm/amdgpu: Stop returning EINVAL during profile
-> switch
+> Subject: [PATCH 3/3] drm/amdgpu: Allow changing to BOOTUP profile on
+> smu7
 >
-> Don't return an error after switching to the CUSTOM profile, if there are=
-n't
-> any CUSTOM values passed in. The CUSTOM profile is already applied, so if
-> no other arguments are passed, just return instead of throwing -EINVAL
-> when successful
+> With SMU7 using case statements, against vega10/20 only checking for the
+> CUSTOM profile, SMU7 can't set the power profile back to the
+> BOOTUP_DEFAULT, while newer HWMGRs can. Add the case statement in to
+> align functionality with other ASICs
 >
-> Change-Id: I114cc9783226ee9ebb146863897e951527a85e20
+> Change-Id: Ibc7df3b94b1a9dabcb88934e534c91209fc75967
 > Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
 > ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 6 +++++-
-> drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 5 ++++-
->  2 files changed, 9 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> index ed6c638700f5..a98b927282ac 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -4911,7 +4911,11 @@ static int vega10_set_power_profile_mode(struct
-> pp_hwmgr *hwmgr, long *input, ui
->                                                1<<hwmgr-
-> >power_profile_mode);
->
->        if (hwmgr->power_profile_mode =3D=3D
-> PP_SMC_POWER_PROFILE_CUSTOM) {
-> -             if (size =3D=3D 0 || size > 4)
-> +             /* If size =3D 0, then just return, it was applied above */
-> +             if (size =3D=3D 0)
-> +                     return 0;
-> +
-> +             if (size !=3D 4)
->                        return -EINVAL;
->
->                data->custom_profile_mode[0] =3D busy_set_point =3D input[=
-0];
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> index 664544e7fcdc..225b2102c82c 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> @@ -3828,8 +3828,11 @@ static int vega20_set_power_profile_mode(struct
-> pp_hwmgr *hwmgr, long *input, ui
->        }
->
->        if (hwmgr->power_profile_mode =3D=3D
-> PP_SMC_POWER_PROFILE_CUSTOM) {
-> -             if (size < 10)
-> +             if (size < 10 && size !=3D 0)
->                        return -EINVAL;
-> +             /* If size =3D 0, then just return, it was applied above */
-> +             if (size =3D=3D 0)
-> +                     return 0;
->
->                result =3D vega20_get_activity_monitor_coeff(hwmgr,
->                                (uint8_t *)(&activity_monitor),
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> index 74d55b8fb74e..7c3eae2a34b4 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -5005,6 +5005,7 @@ static int smu7_set_power_profile_mode(struct
+> pp_hwmgr *hwmgr, long *input, uint
+>                        hwmgr->power_profile_mode =3D mode;
+>                }
+>                break;
+> +     case PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT:
+>        case PP_SMC_POWER_PROFILE_FULLSCREEN3D:
+>        case PP_SMC_POWER_PROFILE_POWERSAVING:
+>        case PP_SMC_POWER_PROFILE_VIDEO:
 > --
 > 2.17.1
 >
@@ -129,7 +103,7 @@ n't
 > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB1618F581D7E429F48154C804855E0BN6PR12MB1618namp_
+--_000_BN6PR12MB1618EEE6BA7316853C8EFB14855E0BN6PR12MB1618namp_
 Content-Type: text/html; charset="iso-2022-jp"
 Content-Transfer-Encoding: quoted-printable
 
@@ -139,11 +113,7 @@ Content-Transfer-Encoding: quoted-printable
 jp">
 </head>
 <body>
-I set CUSTOM to a weird value like &quot;1 2 3 4 5 6&quot; , then switched =
-to VR profile, then switched back to CUSTOM (just with &quot;echo 6 &gt; pr=
-ofile), and it kept my custom values. Before this patch, it throws EINVAL b=
-ut still switches it to CUSTOM with the saved values,
- on both vega10 and vega20.<br>
+Thanks for that confirmation Evan. I will drop this patch.<br>
 <br>
 Kent<br>
 <br>
@@ -155,18 +125,27 @@ O &#43;(1) 289-695-2122 | Ext 72122<br>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
 yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan<br>
-<b>Sent:</b> Monday, March 25, 2019 10:14:03 AM<br>
+<b>Sent:</b> Monday, March 25, 2019 10:26:54 AM<br>
 <b>To:</b> Russell, Kent; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <b>Cc:</b> Russell, Kent<br>
-<b>Subject:</b> RE: [PATCH 1/3] drm/amdgpu: Stop returning EINVAL during pr=
-ofile switch</font>
+<b>Subject:</b> RE: [PATCH 3/3] drm/amdgpu: Allow changing to BOOTUP profil=
+e on smu7</font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">How can you tell whether it was already applied be=
-fore or 1st time to switch to compute mode?<br>
-For the latter case, other settings/parameters do need.<br>
+<div class=3D"PlainText">As I know, BOOTUP profile is only available for Ve=
+ga10 and later ASICs.<br>
+The BOOTUP profile for SMU7 has only some dummy settings and is not expecte=
+d to switch to such mode.<br>
+The default power profile for SMU7 is FULLSCREEN3D(different with Vega10 an=
+d later ASICs).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;workload_mask =3D 1 &l=
+t;&lt; hwmgr-&gt;workload_prority[PP_SMC_POWER_PROFILE_FULLSCREEN3D];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mode =3D=
+ PP_SMC_POWER_PROFILE_FULLSCREEN3D;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;default_power_profile_=
+mode =3D PP_SMC_POWER_PROFILE_FULLSCREEN3D;<br>
 <br>
 Regards,<br>
 Evan<br>
@@ -177,98 +156,46 @@ Of<br>
 &gt; Sent: 2019=1B$BG/=1B(B3=1B$B7n=1B(B25=1B$BF|=1B(B 20:42<br>
 &gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 &gt; Cc: Russell, Kent &lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: [PATCH 1/3] drm/amdgpu: Stop returning EINVAL during profile<=
-br>
-&gt; switch<br>
+&gt; Subject: [PATCH 3/3] drm/amdgpu: Allow changing to BOOTUP profile on<b=
+r>
+&gt; smu7<br>
 &gt; <br>
-&gt; Don't return an error after switching to the CUSTOM profile, if there =
-aren't<br>
-&gt; any CUSTOM values passed in. The CUSTOM profile is already applied, so=
- if<br>
-&gt; no other arguments are passed, just return instead of throwing -EINVAL=
-<br>
-&gt; when successful<br>
+&gt; With SMU7 using case statements, against vega10/20 only checking for t=
+he<br>
+&gt; CUSTOM profile, SMU7 can't set the power profile back to the<br>
+&gt; BOOTUP_DEFAULT, while newer HWMGRs can. Add the case statement in to<b=
+r>
+&gt; align functionality with other ASICs<br>
 &gt; <br>
-&gt; Change-Id: I114cc9783226ee9ebb146863897e951527a85e20<br>
+&gt; Change-Id: Ibc7df3b94b1a9dabcb88934e534c91209fc75967<br>
 &gt; Signed-off-by: Kent Russell &lt;kent.russell-5C7GfCeVMHo@public.gmane.org&gt;<br>
 &gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 6 &#43;&#43=
-;&#43;&#43;&#43;-<br>
-&gt; drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 5 &#43;&#43;&#43;=
-&#43;-<br>
-&gt;&nbsp; 2 files changed, 9 insertions(&#43;), 2 deletions(-)<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 1 &#43;<br>
+&gt;&nbsp; 1 file changed, 1 insertion(&#43;)<br>
 &gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; index ed6c638700f5..a98b927282ac 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<b=
-r>
-&gt; @@ -4911,7 &#43;4911,11 @@ static int vega10_set_power_profile_mode(st=
-ruct<br>
-&gt; pp_hwmgr *hwmgr, long *input, ui<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; index 74d55b8fb74e..7c3eae2a34b4 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; @@ -5005,6 &#43;5005,7 @@ static int smu7_set_power_profile_mode(struc=
+t<br>
+&gt; pp_hwmgr *hwmgr, long *input, uint<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&lt;&lt;hwmg=
-r-<br>
-&gt; &gt;power_profile_mode);<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;power_profile_=
-mode =3D=3D<br>
-&gt; PP_SMC_POWER_PROFILE_CUSTOM) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (size =3D=3D 0 || size &gt; 4)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; /* If size =3D 0, then just return, it was applied above */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size =3D=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size !=3D 4)<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&=
+gt;power_profile_mode =3D mode;<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
--EINVAL;<br>
-&gt; <br>
+;&nbsp;&nbsp;&nbsp; }<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; data-&gt;custom_profile_mode[0] =3D busy_set_point =3D =
-input[0];<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&gt; index 664544e7fcdc..225b2102c82c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<b=
-r>
-&gt; @@ -3828,8 &#43;3828,11 @@ static int vega20_set_power_profile_mode(st=
-ruct<br>
-&gt; pp_hwmgr *hwmgr, long *input, ui<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (hwmgr-&gt;power_profile_=
-mode =3D=3D<br>
-&gt; PP_SMC_POWER_PROFILE_CUSTOM) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (size &lt; 10)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size &lt; 10 &amp;&amp; size !=3D 0)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
--EINVAL;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; /* If size =3D 0, then just return, it was applied above */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size =3D=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; result =3D vega20_get_activity_monitor_coeff(hwmgr,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (uint8_t *)(&amp;activity_monitor)=
-,<br>
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT=
+:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_FU=
+LLSCREEN3D:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_PO=
+WERSAVING:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_VI=
+DEO:<br>
 &gt; --<br>
 &gt; 2.17.1<br>
 &gt; <br>
@@ -282,9 +209,9 @@ ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
 </body>
 </html>
 
---_000_BN6PR12MB1618F581D7E429F48154C804855E0BN6PR12MB1618namp_--
+--_000_BN6PR12MB1618EEE6BA7316853C8EFB14855E0BN6PR12MB1618namp_--
 
---===============1602079834==
+--===============1922802790==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -294,4 +221,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1602079834==--
+--===============1922802790==--
