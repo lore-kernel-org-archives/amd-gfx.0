@@ -1,14 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: correct data type to avoid overflow
-Date: Tue, 26 Mar 2019 12:59:59 +0000
-Message-ID: <BN6PR12MB18090D618069382420423226F75F0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190322180630.19021-1-evan.quan@amd.com>
- <20190322180630.19021-2-evan.quan@amd.com>,
- <MN2PR12MB3344F0FCFB363AA00DB5207BE45F0@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: update current profile mode only when
+ it's really applied
+Date: Tue, 26 Mar 2019 13:05:47 +0000
+Message-ID: <BN6PR12MB16184FA9FB09CCE3F2803F2C855F0@BN6PR12MB1618.namprd12.prod.outlook.com>
+References: <20190326093411.25196-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1216458277=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344F0FCFB363AA00DB5207BE45F0-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20190326093411.25196-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,180 +20,77 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
 
---===============1216458277==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18090D618069382420423226F75F0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18090D618069382420423226F75F0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Quan, Ev=
-an <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, March 26, 2019 6:15 AM
-To: Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: RE: [PATCH 2/2] drm/amd/powerplay: correct data type to avoid over=
-flow
-
-Ping..
-
-> -----Original Message-----
-> From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> Sent: 2019=1B$BG/=1B(B3=1B$B7n=1B(B23=1B$BF|=1B(B 2:07
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH 2/2] drm/amd/powerplay: correct data type to avoid
-> overflow
->
-> Avoid left shift overflow.
->
-> Change-Id: If03f4f4d440b6d742d8eaa23d0bae6ddd21c01ea
-> Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h
-> b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h
-> index b90089a4fb6a..195c4ae67058 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h
-> @@ -165,7 +165,7 @@
->  #define FEATURE_DS_FCLK_MASK            (1 << FEATURE_DS_FCLK_BIT       =
-     )
->  #define FEATURE_DS_MP1CLK_MASK          (1 <<
-> FEATURE_DS_MP1CLK_BIT          )
->  #define FEATURE_DS_MP0CLK_MASK          (1 <<
-> FEATURE_DS_MP0CLK_BIT          )
-> -#define FEATURE_XGMI_MASK               (1 << FEATURE_XGMI_BIT          =
-     )
-> +#define FEATURE_XGMI_MASK               (1ULL <<
-> FEATURE_XGMI_BIT               )
->  #define FEATURE_ECC_MASK                (1ULL << FEATURE_ECC_BIT        =
-        )
->
->  #define DPM_OVERRIDE_DISABLE_SOCCLK_PID             0x00000001
-> --
-> 2.21.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18090D618069382420423226F75F0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Quan, Evan &lt;Evan.Quan@amd.=
-com&gt;<br>
-<b>Sent:</b> Tuesday, March 26, 2019 6:15 AM<br>
-<b>To:</b> Quan, Evan; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH 2/2] drm/amd/powerplay: correct data type to avo=
-id overflow</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Ping..<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Sent: 2019=1B$BG/=1B(B3=1B$B7n=1B(B23=1B$BF|=1B(B 2:07<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: [PATCH 2/2] drm/amd/powerplay: correct data type to avoid<br>
-&gt; overflow<br>
-&gt; <br>
-&gt; Avoid left shift overflow.<br>
-&gt; <br>
-&gt; Change-Id: If03f4f4d440b6d742d8eaa23d0bae6ddd21c01ea<br>
-&gt; Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h | 2 &#43;-<b=
-r>
-&gt;&nbsp; 1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h<br>
-&gt; index b90089a4fb6a..195c4ae67058 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if.h<=
-br>
-&gt; @@ -165,7 &#43;165,7 @@<br>
-&gt;&nbsp; #define FEATURE_DS_FCLK_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; FEATURE_DS_FCLK_BIT&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>
-&gt;&nbsp; #define FEATURE_DS_MP1CLK_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; (1 &lt;&lt;<br>
-&gt; FEATURE_DS_MP1CLK_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; )<br>
-&gt;&nbsp; #define FEATURE_DS_MP0CLK_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp; (1 &lt;&lt;<br>
-&gt; FEATURE_DS_MP0CLK_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; )<br>
-&gt; -#define FEATURE_XGMI_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; FEATURE_XGMI_BIT&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; )<br>
-&gt; &#43;#define FEATURE_XGMI_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1ULL &lt;&lt;<br>
-&gt; FEATURE_XGMI_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )<br>
-&gt;&nbsp; #define FEATURE_ECC_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1ULL &lt;&lt; FEATURE_E=
-CC_BIT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; )<br>
-&gt; <br>
-&gt;&nbsp; #define DPM_OVERRIDE_DISABLE_SOCCLK_PID&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x00000001<br>
-&gt; --<br>
-&gt; 2.21.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18090D618069382420423226F75F0BN6PR12MB1809namp_--
-
---===============1216458277==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1216458277==--
+VGhhdCBtYWtlcyBzZW5zZS4NCg0KUmV2aWV3ZWQtYnk6IEtlbnQgUnVzc2VsbCA8a2VudC5ydXNz
+ZWxsQGFtZC5jb20+DQoNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBh
+bWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYg
+T2YgRXZhbg0KPiBRdWFuDQo+IFNlbnQ6IFR1ZXNkYXksIE1hcmNoIDI2LCAyMDE5IDU6MzQgQU0N
+Cj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBRdWFuLCBFdmFuIDxF
+dmFuLlF1YW5AYW1kLmNvbT47IFJ1c3NlbGwsIEtlbnQNCj4gPEtlbnQuUnVzc2VsbEBhbWQuY29t
+Pg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWQvcG93ZXJwbGF5OiB1cGRhdGUgY3VycmVudCBw
+cm9maWxlIG1vZGUgb25seQ0KPiB3aGVuIGl0J3MgcmVhbGx5IGFwcGxpZWQNCj4gDQo+IE5vIG5l
+ZWQgdG8gdXBkYXRlIGN1cnJlbnQgcHJvZmlsZSBtb2RlIGlmIHRoZSBuZXcgcHJvZmlsZSBtb2Rl
+IGRvZXMgbm90DQo+IHRha2UgZWZmZWN0IGluIGZhY3QuDQo+IA0KPiBDaGFuZ2UtSWQ6IElmMjQ0
+NzRkMjAxODQwYmZhZWZhY2MxODlmNmE2ZmY2ODU2Njk1ZGZmDQo+IFNpZ25lZC1vZmYtYnk6IEV2
+YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfCAgOSArKysrKy0tLS0NCj4gZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMgfCAxMyArKysrKysr
+LS0tDQo+IC0tLQ0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAxMCBkZWxl
+dGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9od21nci92ZWdhMTBfaHdtZ3IuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2h3bWdyL3ZlZ2ExMF9od21nci5jDQo+IGluZGV4IGVkNmM2Mzg3MDBmNS4uODVhNTM2OTI0NTcx
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdh
+MTBfaHdtZ3IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92
+ZWdhMTBfaHdtZ3IuYw0KPiBAQCAtNDkwNCwxMyArNDkwNCwxMiBAQCBzdGF0aWMgaW50DQo+IHZl
+Z2ExMF9zZXRfcG93ZXJfcHJvZmlsZV9tb2RlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGxvbmcg
+KmlucHV0LCB1aQ0KPiAgCXVpbnQ4X3QgRlBTOw0KPiAgCXVpbnQ4X3QgdXNlX3JsY19idXN5Ow0K
+PiAgCXVpbnQ4X3QgbWluX2FjdGl2ZV9sZXZlbDsNCj4gLQ0KPiAtCWh3bWdyLT5wb3dlcl9wcm9m
+aWxlX21vZGUgPSBpbnB1dFtzaXplXTsNCj4gKwl1aW50MzJfdCBwb3dlcl9wcm9maWxlX21vZGUg
+PSBpbnB1dFtzaXplXTsNCj4gDQo+ICAJc211bV9zZW5kX21zZ190b19zbWNfd2l0aF9wYXJhbWV0
+ZXIoaHdtZ3IsDQo+IFBQU01DX01TR19TZXRXb3JrbG9hZE1hc2ssDQo+IC0JCQkJCQkxPDxod21n
+ci0NCj4gPnBvd2VyX3Byb2ZpbGVfbW9kZSk7DQo+ICsJCQkJCQkxIDw8IHBvd2VyX3Byb2ZpbGVf
+bW9kZSk7DQo+IA0KPiAtCWlmIChod21nci0+cG93ZXJfcHJvZmlsZV9tb2RlID09DQo+IFBQX1NN
+Q19QT1dFUl9QUk9GSUxFX0NVU1RPTSkgew0KPiArCWlmIChwb3dlcl9wcm9maWxlX21vZGUgPT0g
+UFBfU01DX1BPV0VSX1BST0ZJTEVfQ1VTVE9NKSB7DQo+ICAJCWlmIChzaXplID09IDAgfHwgc2l6
+ZSA+IDQpDQo+ICAJCQlyZXR1cm4gLUVJTlZBTDsNCj4gDQo+IEBAIC00OTI0LDYgKzQ5MjMsOCBA
+QCBzdGF0aWMgaW50IHZlZ2ExMF9zZXRfcG93ZXJfcHJvZmlsZV9tb2RlKHN0cnVjdA0KPiBwcF9o
+d21nciAqaHdtZ3IsIGxvbmcgKmlucHV0LCB1aQ0KPiAgCQkJCQl1c2VfcmxjX2J1c3kgPDwgMTYg
+fA0KPiBtaW5fYWN0aXZlX2xldmVsPDwyNCk7DQo+ICAJfQ0KPiANCj4gKwlod21nci0+cG93ZXJf
+cHJvZmlsZV9tb2RlID0gcG93ZXJfcHJvZmlsZV9tb2RlOw0KPiArDQo+ICAJcmV0dXJuIDA7DQo+
+ICB9DQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdt
+Z3IvdmVnYTIwX2h3bWdyLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMjBfaHdtZ3IuYw0KPiBpbmRleCA2NjQ1NDRlN2ZjZGMuLjNmMzQ5YWRhOGRlMCAxMDA2
+NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3
+bWdyLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIw
+X2h3bWdyLmMNCj4gQEAgLTM4MTksMTUgKzM4MTksMTQgQEAgc3RhdGljIGludA0KPiB2ZWdhMjBf
+c2V0X3Bvd2VyX3Byb2ZpbGVfbW9kZShzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCBsb25nICppbnB1
+dCwgdWkNCj4gew0KPiAgCURwbUFjdGl2aXR5TW9uaXRvckNvZWZmSW50X3QgYWN0aXZpdHlfbW9u
+aXRvcjsNCj4gIAlpbnQgd29ya2xvYWRfdHlwZSwgcmVzdWx0ID0gMDsNCj4gKwl1aW50MzJfdCBw
+b3dlcl9wcm9maWxlX21vZGUgPSBpbnB1dFtzaXplXTsNCj4gDQo+IC0JaHdtZ3ItPnBvd2VyX3By
+b2ZpbGVfbW9kZSA9IGlucHV0W3NpemVdOw0KPiAtDQo+IC0JaWYgKGh3bWdyLT5wb3dlcl9wcm9m
+aWxlX21vZGUgPg0KPiBQUF9TTUNfUE9XRVJfUFJPRklMRV9DVVNUT00pIHsNCj4gLQkJcHJfZXJy
+KCJJbnZhbGlkIHBvd2VyIHByb2ZpbGUgbW9kZSAlZFxuIiwgaHdtZ3ItDQo+ID5wb3dlcl9wcm9m
+aWxlX21vZGUpOw0KPiArCWlmIChwb3dlcl9wcm9maWxlX21vZGUgPiBQUF9TTUNfUE9XRVJfUFJP
+RklMRV9DVVNUT00pIHsNCj4gKwkJcHJfZXJyKCJJbnZhbGlkIHBvd2VyIHByb2ZpbGUgbW9kZSAl
+ZFxuIiwNCj4gcG93ZXJfcHJvZmlsZV9tb2RlKTsNCj4gIAkJcmV0dXJuIC1FSU5WQUw7DQo+ICAJ
+fQ0KPiANCj4gLQlpZiAoaHdtZ3ItPnBvd2VyX3Byb2ZpbGVfbW9kZSA9PQ0KPiBQUF9TTUNfUE9X
+RVJfUFJPRklMRV9DVVNUT00pIHsNCj4gKwlpZiAocG93ZXJfcHJvZmlsZV9tb2RlID09IFBQX1NN
+Q19QT1dFUl9QUk9GSUxFX0NVU1RPTSkgew0KPiAgCQlpZiAoc2l6ZSA8IDEwKQ0KPiAgCQkJcmV0
+dXJuIC1FSU5WQUw7DQo+IA0KPiBAQCAtMzg5NSwxMCArMzg5NCwxMiBAQCBzdGF0aWMgaW50DQo+
+IHZlZ2EyMF9zZXRfcG93ZXJfcHJvZmlsZV9tb2RlKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGxv
+bmcgKmlucHV0LCB1aQ0KPiANCj4gIAkvKiBjb252IFBQX1NNQ19QT1dFUl9QUk9GSUxFKiB0byBX
+T1JLTE9BRF9QUExJQl8qX0JJVCAqLw0KPiAgCXdvcmtsb2FkX3R5cGUgPQ0KPiAtCQljb252X3Bv
+d2VyX3Byb2ZpbGVfdG9fcHBsaWJfd29ya2xvYWQoaHdtZ3ItDQo+ID5wb3dlcl9wcm9maWxlX21v
+ZGUpOw0KPiArDQo+IAljb252X3Bvd2VyX3Byb2ZpbGVfdG9fcHBsaWJfd29ya2xvYWQocG93ZXJf
+cHJvZmlsZV9tb2RlKTsNCj4gIAlzbXVtX3NlbmRfbXNnX3RvX3NtY193aXRoX3BhcmFtZXRlciho
+d21nciwNCj4gUFBTTUNfTVNHX1NldFdvcmtsb2FkTWFzaywNCj4gIAkJCQkJCTEgPDwgd29ya2xv
+YWRfdHlwZSk7DQo+IA0KPiArCWh3bWdyLT5wb3dlcl9wcm9maWxlX21vZGUgPSBwb3dlcl9wcm9m
+aWxlX21vZGU7DQo+ICsNCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4gDQo+IC0tDQo+IDIuMjEuMA0K
+PiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
