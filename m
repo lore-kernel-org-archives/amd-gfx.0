@@ -1,17 +1,13 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: XGMI pstate switch initial support
-Date: Tue, 26 Mar 2019 14:00:53 +0000
-Message-ID: <fa00ab91-3f6a-3bc9-b12d-bebdbfcea9c4@amd.com>
-References: <1553282911-11125-1-git-send-email-shaoyun.liu@amd.com>
- <0baa3321-72d1-f7bf-b09b-39a380971dca@amd.com>
- <DM6PR12MB3241D607634C7D7A58742D3BF45F0@DM6PR12MB3241.namprd12.prod.outlook.com>
+From: Lauri Ehrenpreis <laurioma-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: Limit gpu max clock for ryzen 2400g
+Date: Tue, 26 Mar 2019 16:47:15 +0200
+Message-ID: <CAGyaPbAzavY+yj3nx0dzpJ=4DrLJ7BXSBfiDj9xPLCWu445T2Q@mail.gmail.com>
+References: <CAGyaPbDqJMTmHyat25b63yu_zEygJwKHrrnrWyH=1vPuxiLwHw@mail.gmail.com>
+ <BN6PR12MB161863EACE35A0F3BE920AC2855F0@BN6PR12MB1618.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0952898911=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB3241D607634C7D7A58742D3BF45F0-lmeGfMZKVrEShx2hYn8pVQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-Content-ID: <B2DA09CC86E82E4D818D76D74FCF6647-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <BN6PR12MB161863EACE35A0F3BE920AC2855F0-/b2+HYfkarRqaFUXYJa4HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,176 +18,338 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOS0wMy0yNiA5OjE1IGEubS4sIExpdSwgU2hhb3l1biB3cm90ZToNCj4gSSB0aGluayBp
-biBhIHJlYWwgdXNhZ2XCoCAoIHRlbnNvcmZsb3cgZXgpLMKgIGl0J3MgcmFyZWx5IG9ubHkgdGhl
-IA0KPiBzeXN0ZW0gbWVtb3J5IChubyB2cmFtKSB3aWxsIGJlIG1hcHBlZCBmb3IgcGVlciBhY2Nl
-c3MuDQoNCldpdGggdGhhdCBhcmd1bWVudCB5b3UgY291bGQgc2ltcGxpZnkgeW91ciBjaGFuZ2Ug
-YW5kIGp1c3QgcG93ZXIgdXAgWEdNSSANCmFzIHNvb24gYXMgYSBLRkQgcHJvY2VzcyBzdGFydHMu
-IEJlY2F1c2UgdGhhdCdzIGVmZmVjdGl2ZWx5IHdoYXQgaGFwcGVucyANCndpdGggeW91ciBjaGFu
-Z2UgYXMgaXQgaXMgbm93LCBpZiB5b3UgZG9uJ3QgY2hlY2sgdGhlIG1lbW9yeSB0eXBlLiBFdmVy
-eSANCktGRCBwcm9jZXNzIG1hcHMgdGhlIHNpZ25hbCBwYWdlIChpbiBzeXN0ZW0gbWVtb3J5KSB0
-byBhbGwgR1BVcy4gU28geW91IA0Kd2lsbCBhbHdheXMgaW5jcmVtZW50IHRoZSB4Z21pX21hcF9j
-b3VudCBldmVuIGJlZm9yZSB0aGUgZmlyc3QgVlJBTSBCTyANCmlzIGFsbG9jYXRlZCwgbGV0IGFs
-b25lIG1hcHBlZCB0byBtdWx0aXBsZSBHUFVzLg0KDQoNCj4gQW55d2F5LCBob3cgYWJvdXQgYWRk
-IHByZWZlcnJlZF9kb21haW4gY2hlY2sgZm9yIHhnbWkgPyBJIHRoaW5rIGV2ZW4gDQo+IHVzZXIg
-dXNlIGlvY3RsIHRvIGNoYW5nZSB0aGUgcHJlZmVycmVkX2RvbWFpbizCoCBib19hZGQgc2hvdWxk
-IHN0aWxsIGJlIA0KPiBjYWxsZWQgYmVmb3JlIHRoZSByZWFsIG1hcHBpbmcuDQoNCmFtZGdwdV9n
-ZW1fb3BfaW9jdGwgd2l0aCBBTURHUFVfR0VNX09QX1NFVF9QTEFDRU1FTlQgZG9lc24ndCBjYWxs
-IA0KYm9fYWRkLiBZb3UnZCBoYXZlIHRvIGFkZCBzb21ldGhpbmcgaW4gYW1kZ3B1X2dlbV9vcF9p
-b2N0bCB0byANCnJlLWV2YWx1YXRlIGFsbCBib192YXMgb2YgdGhlIEJPIHdoZW4gaXRzIHBsYWNl
-bWVudCBjaGFuZ2VzLCB1cGRhdGUgdGhlIA0KYm9fdmEtPmlzX3hnbWkgZmxhZywgYW5kIGlmIG5l
-Y2Vzc2FyeSB0aGUgeGdtaV9tYXBfY291bnRlci4NCg0KUmVnYXJkcywNCiDCoCBGZWxpeA0KDQoN
-Cj4NCj4gUmVnYXJkcw0KPiBTaGFveXVuLmxpdQ0KPiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gKkZyb206
-KiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhh
-bGYgb2YgDQo+IEt1ZWhsaW5nLCBGZWxpeCA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCj4gKlNl
-bnQ6KiBNYXJjaCAyNSwgMjAxOSA2OjI4OjMyIFBNDQo+ICpUbzoqIExpdSwgU2hhb3l1bjsgYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gKlN1YmplY3Q6KiBSZTogW1BBVENIXSBkcm0v
-YW1kZ3B1OiBYR01JIHBzdGF0ZSBzd2l0Y2ggaW5pdGlhbCBzdXBwb3J0DQo+IEkgZG9uJ3Qgc2Vl
-IGFueSBjaGVjayBmb3IgdGhlIG1lbW9yeSB0eXBlLiBBcyBmYXIgYXMgSSBjYW4gdGVsbCB5b3Un
-bGwNCj4gcG93ZXIgdXAgWEdNSSBldmVuIGZvciBzeXN0ZW0gbWVtb3J5IG1hcHBpbmdzLiBTZWUg
-aW5saW5lLg0KPg0KPiBPbiAyMDE5LTAzLTIyIDM6MjggcC5tLiwgTGl1LCBTaGFveXVuIHdyb3Rl
-Og0KPiA+IERyaXZlciB2b3RlIGxvdyB0byBoaWdoIHBzdGF0ZSBzd2l0Y2ggd2hlbmV2ZXIgdGhl
-cmUgaXMgYW4gb3V0c3RhbmRpbmcNCj4gPiBYR01JIG1hcHBpbmcgcmVxdWVzdC4gRHJpdmVyIHZv
-dGUgaGlnaCB0byBsb3cgcHN0YXRlIHdoZW4gYWxsIHRoZQ0KPiA+IG91dHN0YW5kaW5nIFhHTUkg
-bWFwcGluZyBpcyB0ZXJtaW5hdGVkLg0KPiA+DQo+ID4gQ2hhbmdlLUlkOiBJMTk3NTAxZjg1M2M0
-N2Y4NDQwNTVjMGUyOGMwYWMwMGExZmYwNjYwNw0KPiA+IFNpZ25lZC1vZmYtYnk6IHNoYW95dW5s
-IDxzaGFveXVuLmxpdUBhbWQuY29tPg0KPiA+IC0tLQ0KPiA+wqDCoCBkcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfMKgIDQgKysrKw0KPiA+wqDCoCBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfMKgIDIgKysNCj4gPsKgwqAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmPCoMKgwqDCoCB8IDIxICsrKysrKysrKysr
-KysrKysrKysrKw0KPiA+wqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
-aMKgwqDCoMKgIHzCoCA0ICsrKysNCj4gPsKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3hnbWkuY8KgwqAgfCAxNiArKysrKysrKysrKysrKystDQo+ID7CoMKgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmjCoMKgIHwgMTAgKysrKysrKysrKw0KPiA+
-wqDCoCA2IGZpbGVzIGNoYW5nZWQsIDU2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4g
-Pg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2
-aWNlLmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+
-ID4gaW5kZXggZWM5NTYyZC4uYzRjNjFlOSAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gPiBAQCAtMjAxOCw2ICsyMDE4LDEwIEBAIHN0
-YXRpYyB2b2lkIA0KPiBhbWRncHVfZGV2aWNlX2lwX2xhdGVfaW5pdF9mdW5jX2hhbmRsZXIoc3Ry
-dWN0IHdvcmtfc3RydWN0ICp3b3JrKQ0KPiA+wqDCoMKgwqDCoMKgwqAgciA9IGFtZGdwdV9kZXZp
-Y2VfZW5hYmxlX21ncHVfZmFuX2Jvb3N0KCk7DQo+ID7CoMKgwqDCoMKgwqDCoCBpZiAocikNCj4g
-PsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBEUk1fRVJST1IoImVuYWJsZSBtZ3B1IGZh
-biBib29zdCBmYWlsZWQgKCVkKS5cbiIsIHIpOw0KPiA+ICsNCj4gPiArwqDCoMKgwqAgLypzZXQg
-dG8gbG93IHBzdGF0ZSBieSBkZWZhdWx0ICovDQo+ID4gK8KgwqDCoMKgIGFtZGdwdV94Z21pX3Nl
-dF9wc3RhdGUoYWRldiwgMCk7DQo+ID4gKw0KPiA+wqDCoCB9DQo+ID4NCj4gPsKgwqAgc3RhdGlj
-IHZvaWQgYW1kZ3B1X2RldmljZV9kZWxheV9lbmFibGVfZ2Z4X29mZihzdHJ1Y3Qgd29ya19zdHJ1
-Y3QgDQo+ICp3b3JrKQ0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfb2JqZWN0LmggDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X29iamVjdC5oDQo+ID4gaW5kZXggMjIwYTZhNy4uYzQzMGU4MiAxMDA2NDQNCj4gPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4gPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4gPiBAQCAtNzIsNiArNzIs
-OCBAQCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhIHsNCj4gPg0KPiA+wqDCoMKgwqDCoMKgwqAgLyogSWYg
-dGhlIG1hcHBpbmdzIGFyZSBjbGVhcmVkIG9yIGZpbGxlZCAqLw0KPiA+wqDCoMKgwqDCoMKgwqAg
-Ym9vbMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBjbGVhcmVkOw0KPiA+ICsNCj4gPiArwqDCoMKgwqAgYm9vbMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpc194Z21pOw0KPiA+wqDCoCB9Ow0K
-PiA+DQo+ID7CoMKgIHN0cnVjdCBhbWRncHVfYm8gew0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyANCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uYw0KPiA+IGluZGV4IDcyOWRhMWMuLmE3MjQ3ZDUgMTAwNjQ0DQo+
-ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4gPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiA+IEBAIC0zNCw2ICsz
-NCw3IEBADQo+ID7CoMKgICNpbmNsdWRlICJhbWRncHVfdHJhY2UuaCINCj4gPsKgwqAgI2luY2x1
-ZGUgImFtZGdwdV9hbWRrZmQuaCINCj4gPsKgwqAgI2luY2x1ZGUgImFtZGdwdV9nbWMuaCINCj4g
-PiArI2luY2x1ZGUgImFtZGdwdV94Z21pLmgiDQo+ID4NCj4gPsKgwqAgLyoqDQo+ID7CoMKgwqAg
-KiBET0M6IEdQVVZNDQo+ID4gQEAgLTIwNzIsNiArMjA3MywxNSBAQCBzdHJ1Y3QgYW1kZ3B1X2Jv
-X3ZhICphbWRncHVfdm1fYm9fYWRkKHN0cnVjdCANCj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4g
-PsKgwqDCoMKgwqDCoMKgIElOSVRfTElTVF9IRUFEKCZib192YS0+dmFsaWRzKTsNCj4gPsKgwqDC
-oMKgwqDCoMKgIElOSVRfTElTVF9IRUFEKCZib192YS0+aW52YWxpZHMpOw0KPiA+DQo+ID4gK8Kg
-wqDCoMKgIGlmIChibyAmJiBhbWRncHVfeGdtaV9zYW1lX2hpdmUoYWRldiwgDQo+IGFtZGdwdV90
-dG1fYWRldihiby0+dGJvLmJkZXYpKSkgew0KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-Ym9fdmEtPmlzX3hnbWkgPSB0cnVlOw0KPg0KPiBZb3UncmUgc2V0dGluZyB0aGlzIHRvIHRydWUg
-ZXZlbiBmb3Igc3lzdGVtIG1lbW9yeSBCT3MgdGhhdCBkb24ndA0KPiBpbnZvbHZlIFhHTUkgbWFw
-cGluZ3MuIFRoYXQgbWVhbnMgeW91J2xsIHBvd2VyIHVwIFhHTUkgdW5uZWNlc3NhcmlseSBpbg0K
-PiBtYW55IGNhc2VzIGJlY2F1c2UgS0ZEIHByb2Nlc3NlcyBhbHdheXMgaGF2ZSBzeXN0ZW0gbWVt
-b3J5IG1hcHBpbmdzIHRoYXQNCj4gYXJlIG1hcHBlZCB0byBhbGwgR1BVcyAoZS5nLiB0aGUgc2ln
-bmFsIHBhZ2UpLg0KPg0KPiBSZWdhcmRzLA0KPiDCoMKgIEZlbGl4DQo+DQo+DQo+ID4gKyBtdXRl
-eF9sb2NrKCZhZGV2LT52bV9tYW5hZ2VyLmxvY2tfcHN0YXRlKTsNCj4gPiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIC8qIFBvd2VyIHVwIFhHTUkgaWYgaXQgY2FuIGJlIHBvdGVudGlhbGx5IHVz
-ZWQgKi8NCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICgrK2FkZXYtPnZtX21hbmFn
-ZXIueGdtaV9tYXBfY291bnRlciA9PSAxKQ0KPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIGFtZGdwdV94Z21pX3NldF9wc3RhdGUoYWRldiwgMSk7DQo+ID4gKyBt
-dXRleF91bmxvY2soJmFkZXYtPnZtX21hbmFnZXIubG9ja19wc3RhdGUpOw0KPiA+ICvCoMKgwqDC
-oCB9DQo+ID4gKw0KPiA+wqDCoMKgwqDCoMKgwqAgcmV0dXJuIGJvX3ZhOw0KPiA+wqDCoCB9DQo+
-ID4NCj4gPiBAQCAtMjQ5MCw2ICsyNTAwLDE0IEBAIHZvaWQgYW1kZ3B1X3ZtX2JvX3JtdihzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPsKgwqDCoMKgwqDCoMKgIH0NCj4gPg0KPiA+wqDC
-oMKgwqDCoMKgwqAgZG1hX2ZlbmNlX3B1dChib192YS0+bGFzdF9wdF91cGRhdGUpOw0KPiA+ICsN
-Cj4gPiArwqDCoMKgwqAgaWYgKGJvICYmIGJvX3ZhLT5pc194Z21pKSB7DQo+ID4gKyBtdXRleF9s
-b2NrKCZhZGV2LT52bV9tYW5hZ2VyLmxvY2tfcHN0YXRlKTsNCj4gPiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGlmICgtLWFkZXYtPnZtX21hbmFnZXIueGdtaV9tYXBfY291bnRlciA9PSAwKQ0K
-PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV94Z21p
-X3NldF9wc3RhdGUoYWRldiwgMCk7DQo+ID4gKyBtdXRleF91bmxvY2soJmFkZXYtPnZtX21hbmFn
-ZXIubG9ja19wc3RhdGUpOw0KPiA+ICvCoMKgwqDCoCB9DQo+ID4gKw0KPiA+wqDCoMKgwqDCoMKg
-wqAga2ZyZWUoYm9fdmEpOw0KPiA+wqDCoCB9DQo+ID4NCj4gPiBAQCAtMjk5Nyw2ICszMDE1LDkg
-QEAgdm9pZCBhbWRncHVfdm1fbWFuYWdlcl9pbml0KHN0cnVjdCANCj4gYW1kZ3B1X2RldmljZSAq
-YWRldikNCj4gPg0KPiA+wqDCoMKgwqDCoMKgwqAgaWRyX2luaXQoJmFkZXYtPnZtX21hbmFnZXIu
-cGFzaWRfaWRyKTsNCj4gPiBzcGluX2xvY2tfaW5pdCgmYWRldi0+dm1fbWFuYWdlci5wYXNpZF9s
-b2NrKTsNCj4gPiArDQo+ID4gK8KgwqDCoMKgIGFkZXYtPnZtX21hbmFnZXIueGdtaV9tYXBfY291
-bnRlciA9IDA7DQo+ID4gKyBtdXRleF9pbml0KCZhZGV2LT52bV9tYW5hZ2VyLmxvY2tfcHN0YXRl
-KTsNCj4gPsKgwqAgfQ0KPiA+DQo+ID7CoMKgIC8qKg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCANCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfdm0uaA0KPiA+IGluZGV4IDUyMDEyMmIuLmY1ODZiMzggMTAwNjQ0DQo+
-ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgNCj4gPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaA0KPiA+IEBAIC0zMjQsNiAr
-MzI0LDEwIEBAIHN0cnVjdCBhbWRncHVfdm1fbWFuYWdlciB7DQo+ID7CoMKgwqDCoMKgwqDCoMKg
-ICovDQo+ID7CoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgaWRyIHBhc2lkX2lkcjsNCj4gPsKgwqDCoMKg
-wqDCoMKgIHNwaW5sb2NrX3QgcGFzaWRfbG9jazsNCj4gPiArDQo+ID4gK8KgwqDCoMKgIC8qIGNv
-dW50ZXIgb2YgbWFwcGVkIG1lbW9yeSB0aHJvdWdoIHhnbWkgKi8NCj4gPiArwqDCoMKgwqAgdWlu
-dDMyX3QgeGdtaV9tYXBfY291bnRlcjsNCj4gPiArwqDCoMKgwqAgc3RydWN0IG11dGV4IGxvY2tf
-cHN0YXRlOw0KPiA+wqDCoCB9Ow0KPiA+DQo+ID7CoMKgICNkZWZpbmUgYW1kZ3B1X3ZtX2NvcHlf
-cHRlKGFkZXYsIGliLCBwZSwgc3JjLCBjb3VudCkgDQo+ICgoYWRldiktPnZtX21hbmFnZXIudm1f
-cHRlX2Z1bmNzLT5jb3B5X3B0ZSgoaWIpLCAocGUpLCAoc3JjKSwgKGNvdW50KSkpDQo+ID4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgDQo+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYw0KPiA+IGluZGV4IGZjYzRi
-MDUuLjMzNjgzNDcgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3hnbWkuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV94Z21pLmMNCj4gPiBAQCAtMjAwLDEyICsyMDAsMjYgQEAgc3RydWN0IGFtZGdwdV9oaXZlX2lu
-Zm8gDQo+ICphbWRncHVfZ2V0X3hnbWlfaGl2ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwg
-aW50IGxvDQo+ID4NCj4gPsKgwqDCoMKgwqDCoMKgIGlmIChsb2NrKQ0KPiA+wqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIG11dGV4X2xvY2soJnRtcC0+aGl2ZV9sb2NrKTsNCj4gPiAtDQo+
-ID4gK8KgwqDCoMKgIHRtcC0+cHN0YXRlID0gLTE7DQo+ID7CoMKgwqDCoMKgwqDCoCBtdXRleF91
-bmxvY2soJnhnbWlfbXV0ZXgpOw0KPiA+DQo+ID7CoMKgwqDCoMKgwqDCoCByZXR1cm4gdG1wOw0K
-PiA+wqDCoCB9DQo+ID4NCj4gPiAraW50IGFtZGdwdV94Z21pX3NldF9wc3RhdGUoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYsIGludCBwc3RhdGUpDQo+ID4gK3sNCj4gPiArwqDCoMKgwqAgaW50
-IHJldCA9IDA7DQo+ID4gK8KgwqDCoMKgIHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICpoaXZlID0g
-YW1kZ3B1X2dldF94Z21pX2hpdmUoYWRldiwgMCk7DQo+ID4gKw0KPiA+ICvCoMKgwqDCoCBpZiAo
-IWhpdmUpDQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gMDsNCj4gPiArDQo+
-ID4gK8KgwqDCoMKgIGlmIChoaXZlLT5wc3RhdGUgPT0gcHN0YXRlKQ0KPiA+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7DQo+ID4gK8KgwqDCoMKgIC8qIFRvZG8gOiBzZW50IHRo
-ZSBtZXNzYWdlIHRvIFNNVSBmb3IgcHN0YXRlIGNoYW5nZSAqLw0KPiA+ICvCoMKgwqDCoCByZXR1
-cm4gcmV0Ow0KPiA+ICt9DQo+ID4gKw0KPiA+wqDCoCBpbnQgYW1kZ3B1X3hnbWlfdXBkYXRlX3Rv
-cG9sb2d5KHN0cnVjdCBhbWRncHVfaGl2ZV9pbmZvICpoaXZlLCANCj4gc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpDQo+ID7CoMKgIHsNCj4gPsKgwqDCoMKgwqDCoMKgIGludCByZXQgPSAtRUlO
-VkFMOw0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-eGdtaS5oIA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmgNCj4g
-PiBpbmRleCAyNGEzYjAzLi4zZTljOTFlIDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmgNCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfeGdtaS5oDQo+ID4gQEAgLTMzLDExICszMywyMSBAQCBzdHJ1Y3QgYW1k
-Z3B1X2hpdmVfaW5mbyB7DQo+ID7CoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qga29iamVjdCAqa29iajsN
-Cj4gPsKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkZXZpY2VfYXR0cmlidXRlIGRldl9hdHRyOw0KPiA+
-wqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXY7DQo+ID4gK8KgwqDCoMKg
-IGludCBwc3RhdGU7IC8qMCAtLSBsb3cgLCAxIC0tIGhpZ2ggLCAtMSB1bmtub3duKi8NCj4gPsKg
-wqAgfTsNCj4gPg0KPiA+wqDCoCBzdHJ1Y3QgYW1kZ3B1X2hpdmVfaW5mbyAqYW1kZ3B1X2dldF94
-Z21pX2hpdmUoc3RydWN0IGFtZGdwdV9kZXZpY2UgDQo+ICphZGV2LCBpbnQgbG9jayk7DQo+ID7C
-oMKgIGludCBhbWRncHVfeGdtaV91cGRhdGVfdG9wb2xvZ3koc3RydWN0IGFtZGdwdV9oaXZlX2lu
-Zm8gKmhpdmUsIA0KPiBzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ID7CoMKgIGludCBh
-bWRncHVfeGdtaV9hZGRfZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsNCj4gPsKg
-wqAgdm9pZCBhbWRncHVfeGdtaV9yZW1vdmVfZGV2aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KTsNCj4gPiAraW50IGFtZGdwdV94Z21pX3NldF9wc3RhdGUoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsIGludCBwc3RhdGUpOw0KPiA+ICsNCj4gPiArc3RhdGljIGlubGluZSBib29sIGFt
-ZGdwdV94Z21pX3NhbWVfaGl2ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPiArwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfZGV2aWNlICpib19hZGV2KQ0KPiA+
-ICt7DQo+ID4gK8KgwqDCoMKgIHJldHVybiAoYWRldiAhPSBib19hZGV2ICYmDQo+ID4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LT5nbWMueGdtaS5oaXZlX2lkICYmDQo+ID4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LT5nbWMueGdtaS5oaXZlX2lkID09IGJvX2FkZXYtPmdt
-Yy54Z21pLmhpdmVfaWQpOw0KPiA+ICt9DQo+ID4NCj4gPsKgwqAgI2VuZGlmDQo+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGlu
-ZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0952898911==
+Content-Type: multipart/alternative; boundary="00000000000048d88f0585006657"
+
+--00000000000048d88f0585006657
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi!
+
+Thanx for helping, but I have tried those methods and they didn't work on
+Ryzen 2400G.
+
+--
+Lauri
+
+On Tue, Mar 26, 2019 at 2:57 PM Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> Hi Lauri,
+>
+>
+>
+> There=E2=80=99s a more efficient method using the Power Profiles (and opt=
+ionally,
+> the ROCM-SMI tool, found at https://github.com/RadeonOpenCompute/ROC-smi)=
+,
+> or the pp_sclk mask, depending on what exactly you want. I=E2=80=99ll lis=
+t out the
+> methods here and the rocm-smi and non-SMI commands to do it. I=E2=80=99ll=
+ assume
+> that this GPU is card0 (it may be card1, card2, etc, depending on what GP=
+Us
+> are installed on your system; =E2=80=9Crocm-smi -i=E2=80=9D or =E2=80=9Cc=
+at
+> /sys/class/drm/card?/device/device will give you the GPU IDs of all of th=
+e
+> cards, then you can figure out which one you want to use)
+>
+>
+>
+>    1. Mask the SCLKs . pp_dpm_sclk allows you to set a mask of what
+>    levels to use.
+>       1. First, read the values (=E2=80=9Crocm-smi --showclkfrq=E2=80=9D =
+, or =E2=80=9Ccat
+>       /sys/class/drm/card0/device/pp_dpm_sclk=E2=80=9D) and see the suppo=
+rted DPM levels
+>       for your card.
+>       2. Mask off the levels that you don=E2=80=99t want. E.g. If you onl=
+y want
+>       to use levels 0-6 (and thus skip level 7), you can do either =E2=80=
+=98rocm-smi
+>       --setsclk 0 1 2 3 4 5 6=E2=80=99 or =E2=80=98echo manual >
+>       /sys/class/drm/card0/device/power_dpm_force_performance_level && ec=
+ho =E2=80=9C0 1
+>       2 3 4 5 6=E2=80=9D > /sys/class/drm/card0/device/pp_dpm_sclk=E2=80=
+=99 . This will set DPM
+>       to only use levels 0-6 and skip level 7. You can do this for any
+>       combination of levels or a single level (=E2=80=9C0 2 5=E2=80=9D, =
+=E2=80=9C1 2 7=E2=80=9D, =E2=80=9C5=E2=80=9D, etc). That
+>       will tell it to only use the specified DPM levels and will persist =
+until
+>       reboot, or until the power_dpm_force_performance is set back to =E2=
+=80=98auto=E2=80=99 .
+>    2. Set the specific DPM level values manually:
+>       1. First, you=E2=80=99ll need to enable the Power Profile Overdrive
+>       functionality. The easiest way is to add =E2=80=9Camdgpu.ppfeaturem=
+ask=3D0xffffffff=E2=80=9D
+>       to your linux command line parameters (by editing /boot/grub/grub.c=
+fg
+>       manually, editing /etc/default/grub and doing an update-grub, or ma=
+nually
+>       entering the kernel parameter in the GRUB menu before booting).
+>       2. Once that=E2=80=99s enabled, you should see the following file:
+>       /sys/class/drm/card0/device/pp_od_clk_voltage.
+>       3. Check the current DPM level information with =E2=80=9Crocm-smi -=
+S=E2=80=9D or
+>       =E2=80=9Ccat /sys/class/drm/card0/device/pp_od_clk_voltage file=E2=
+=80=9D . Now that we have
+>       that, you can see the supported SCLK and voltages for each level.
+>       4. You can use the rocm-smi tool to manually change the levels
+>       through =E2=80=9Crocm-smi --setslevel # MHZ VLT=E2=80=9D, where:
+>
+>                                                                i.       #
+> is the level (level 7 is probably the one you want, but you can do it for
+> all of them)
+>
+>                                                              ii.      MHZ
+> is the speed in MHz
+>
+>                                                            iii.      VLT
+> is the voltage in mV.
+>
+>    1. Honestly, you can probably just copy the highest level that you=E2=
+=80=99re
+>       comfortable with and set that for all of the levels that exceed the=
+ values
+>       that you desire. So if you want to keep it to whatever level 6 is, =
+just set
+>       level 7 to have the same values as level 6 (that way you don=E2=80=
+=99t have to muck
+>       with voltages and such). Or if 5 is the highest that you want, set =
+level 6
+>       and level 7 to match level 5
+>
+>
+>
+> Hopefully that helps. It also means that you don=E2=80=99t have to consta=
+ntly try
+> to build your own kernel with a change to cap the SCLK cherry-picked on
+> tpo. Please let me know if you have any questions at all!
+>
+>
+>
+> Kent
+>
+>
+>
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> *On Behalf Of *La=
+uri
+> Ehrenpreis
+> *Sent:* Friday, March 22, 2019 6:18 AM
+> *To:* amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> *Subject:* Limit gpu max clock for ryzen 2400g
+>
+>
+>
+> Hi!
+>
+>
+>
+> Is there a way how to limit gpu max clock rate? Currently I can either
+> leave the clock to automatic mode or force it to specific level
+> via /sys/class/drm/card0/device/pp_dpm_sclk. But ideally I would like the
+> clock to be automatically regulated but specify a different upper limit f=
+or
+> power saving reasons.
+>
+>
+>
+> --
+>
+> Lauri
+>
+
+--00000000000048d88f0585006657
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi!=C2=A0<div><br></div><div>Thanx for helping, but I have=
+ tried those methods and they didn&#39;t work on Ryzen 2400G.</div><div><br=
+></div><div>--</div><div>Lauri</div></div><br><div class=3D"gmail_quote"><d=
+iv dir=3D"ltr" class=3D"gmail_attr">On Tue, Mar 26, 2019 at 2:57 PM Russell=
+, Kent &lt;<a href=3D"mailto:Kent.Russell-5C7GfCeVMHo@public.gmane.org">Kent.Russell-5C7GfCeVMHo@public.gmane.org</a>=
+&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-US">
+<div class=3D"gmail-m_-2496531401980789461WordSection1">
+<p class=3D"MsoNormal">Hi Lauri,<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">There=E2=80=99s a more efficient method using the Po=
+wer Profiles (and optionally, the ROCM-SMI tool, found at
+<a href=3D"https://github.com/RadeonOpenCompute/ROC-smi" target=3D"_blank">=
+https://github.com/RadeonOpenCompute/ROC-smi</a>), or the pp_sclk mask, dep=
+ending on what exactly you want. I=E2=80=99ll list out the methods here and=
+ the rocm-smi and non-SMI commands to do it. I=E2=80=99ll assume that
+ this GPU is card0 (it may be card1, card2, etc, depending on what GPUs are=
+ installed on your system; =E2=80=9Crocm-smi -i=E2=80=9D or =E2=80=9Ccat /s=
+ys/class/drm/card?/device/device will give you the GPU IDs of all of the ca=
+rds, then you can figure out which one you want to use)<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
+<li class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-=
+left:0in">Mask the SCLKs . pp_dpm_sclk allows you to set a mask of what lev=
+els to use.
+<u></u><u></u></li><ol style=3D"margin-top:0in" start=3D"1" type=3D"a">
+<li class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-=
+left:0in">First, read the values (=E2=80=9Crocm-smi --showclkfrq=E2=80=9D ,=
+ or =E2=80=9Ccat /sys/class/drm/card0/device/pp_dpm_sclk=E2=80=9D) and see =
+the supported DPM levels for your card.
+<u></u><u></u></li><li class=3D"gmail-m_-2496531401980789461MsoListParagrap=
+h" style=3D"margin-left:0in">Mask off the levels that you don=E2=80=99t wan=
+t. E.g. If you only want to use levels 0-6 (and thus skip level 7), you can=
+ do either =E2=80=98rocm-smi --setsclk 0 1 2 3 4 5 6=E2=80=99 or =E2=80=98e=
+cho manual &gt; /sys/class/drm/card0/device/power_dpm_force_performance_lev=
+el
+ &amp;&amp; echo =E2=80=9C0 1 2 3 4 5 6=E2=80=9D &gt; /sys/class/drm/card0/=
+device/pp_dpm_sclk=E2=80=99 . This will set DPM to only use levels 0-6 and =
+skip level 7. You can do this for any combination of levels or a single lev=
+el (=E2=80=9C0 2 5=E2=80=9D, =E2=80=9C1 2 7=E2=80=9D, =E2=80=9C5=E2=80=9D, =
+etc). That will tell it to only use the
+ specified DPM levels and will persist until reboot, or until the power_dpm=
+_force_performance is set back to =E2=80=98auto=E2=80=99 .<u></u><u></u></l=
+i></ol>
+<li class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-=
+left:0in">Set the specific DPM level values manually:<u></u><u></u></li><ol=
+ style=3D"margin-top:0in" start=3D"1" type=3D"a">
+<li class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-=
+left:0in">First, you=E2=80=99ll need to enable the Power Profile Overdrive =
+functionality. The easiest way is to add =E2=80=9Camdgpu.ppfeaturemask=3D0x=
+ffffffff=E2=80=9D to your linux command line parameters (by editing
+ /boot/grub/grub.cfg manually, editing /etc/default/grub and doing an updat=
+e-grub, or manually entering the kernel parameter in the GRUB menu before b=
+ooting).<u></u><u></u></li><li class=3D"gmail-m_-2496531401980789461MsoList=
+Paragraph" style=3D"margin-left:0in">Once that=E2=80=99s enabled, you shoul=
+d see the following file: /sys/class/drm/card0/device/pp_od_clk_voltage.<u>=
+</u><u></u></li><li class=3D"gmail-m_-2496531401980789461MsoListParagraph" =
+style=3D"margin-left:0in">Check the current DPM level information with =E2=
+=80=9Crocm-smi -S=E2=80=9D or =E2=80=9Ccat /sys/class/drm/card0/device/pp_o=
+d_clk_voltage file=E2=80=9D . Now that we have that, you can see the suppor=
+ted SCLK and voltages
+ for each level. <u></u><u></u></li><li class=3D"gmail-m_-24965314019807894=
+61MsoListParagraph" style=3D"margin-left:0in">You can use the rocm-smi tool=
+ to manually change the levels through =E2=80=9Crocm-smi --setslevel # MHZ =
+VLT=E2=80=9D, where:<u></u><u></u></li></ol>
+</ol>
+<p class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-l=
+eft:1.5in">
+<u></u><span><span style=3D"font:7pt &quot;Times New Roman&quot;">=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+</span>i.<span style=3D"font:7pt &quot;Times New Roman&quot;">=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 </span></span><u></u>=C2=A0# is the level (level 7 is pr=
+obably the one you want, but you can do it for all of them)<u></u><u></u></=
+p>
+<p class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-l=
+eft:1.5in">
+<u></u><span><span style=3D"font:7pt &quot;Times New Roman&quot;">=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+</span>ii.<span style=3D"font:7pt &quot;Times New Roman&quot;">=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 </span></span><u></u>MHZ is the speed in MHz<u></u><u></=
+u></p>
+<p class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-l=
+eft:1.5in">
+<u></u><span><span style=3D"font:7pt &quot;Times New Roman&quot;">=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
+</span>iii.<span style=3D"font:7pt &quot;Times New Roman&quot;">=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 </span></span><u></u>VLT is the voltage in mV.
+<u></u><u></u></p>
+<ol style=3D"margin-top:0in" start=3D"2" type=3D"1">
+<ol style=3D"margin-top:0in" start=3D"5" type=3D"a">
+<li class=3D"gmail-m_-2496531401980789461MsoListParagraph" style=3D"margin-=
+left:0in">Honestly, you can probably just copy the highest level that you=
+=E2=80=99re comfortable with and set that for all of the levels that exceed=
+ the values that you desire. So if you want to keep
+ it to whatever level 6 is, just set level 7 to have the same values as lev=
+el 6 (that way you don=E2=80=99t have to muck with voltages and such). Or i=
+f 5 is the highest that you want, set level 6 and level 7 to match level 5<=
+u></u><u></u></li></ol>
+</ol>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Hopefully that helps. It also means that you don=E2=
+=80=99t have to constantly try to build your own kernel with a change to ca=
+p the SCLK cherry-picked on tpo. Please let me know if you have any questio=
+ns at all!<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Kent<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div style=3D"border-top:none;border-right:none;border-bottom:none;border-l=
+eft:1.5pt solid blue;padding:0in 0in 0in 4pt">
+<div>
+<div style=3D"border-right:none;border-bottom:none;border-left:none;border-=
+top:1pt solid rgb(225,225,225);padding:3pt 0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org</a>&gt;
+<b>On Behalf Of </b>Lauri Ehrenpreis<br>
+<b>Sent:</b> Friday, March 22, 2019 6:18 AM<br>
+<b>To:</b> amd-gfx list &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org=
+" target=3D"_blank">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
+<b>Subject:</b> Limit gpu max clock for ryzen 2400g<u></u><u></u></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div>
+<div>
+<p class=3D"MsoNormal">Hi!<u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Is there a way how to limit gpu max clock rate? Curr=
+ently I can either leave the clock to automatic mode or force it to specifi=
+c level via=C2=A0/sys/class/drm/card0/device/pp_dpm_sclk. But ideally I wou=
+ld like the clock to be automatically regulated
+ but specify a different upper limit for power saving reasons.<u></u><u></u=
+></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">--<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Lauri<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</blockquote></div>
+
+--00000000000048d88f0585006657--
+
+--===============0952898911==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0952898911==--
