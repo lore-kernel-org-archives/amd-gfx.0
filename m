@@ -1,19 +1,20 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Add preferred_domain check when determine
  XGMI state
-Date: Wed, 27 Mar 2019 15:43:26 +0000
-Message-ID: <7a3199ec-c851-6b50-7e1f-b467e5e78d13@amd.com>
+Date: Wed, 27 Mar 2019 15:44:32 +0000
+Message-ID: <7ae7ac1b-28f0-4ac9-9405-6db6ad27c5e0@email.android.com>
 References: <1553632516-23346-1-git-send-email-shaoyun.liu@amd.com>
  <c42cc872-cddf-01b9-b46e-b2084f8a1bc3@gmail.com>
  <5d6e562d-012b-f22b-7ec9-2fdf33a9319d@amd.com>
  <3e28a7df-4165-4bde-8a2e-926453ceb1d1@email.android.com>
  <fd7f4b68-26c2-d0ea-b254-fbc61a0d3956@amd.com>
- <68f7ccfa-646e-492f-bdd7-b24f2e2029da@email.android.com>
+ <68f7ccfa-646e-492f-bdd7-b24f2e2029da@email.android.com>,
+ <7a3199ec-c851-6b50-7e1f-b467e5e78d13@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1782408753=="
+Content-Type: multipart/mixed; boundary="===============1014573849=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <68f7ccfa-646e-492f-bdd7-b24f2e2029da-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <7a3199ec-c851-6b50-7e1f-b467e5e78d13-5C7GfCeVMHo@public.gmane.org>
+Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,17 +25,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1782408753==
-Content-Language: en-US
+--===============1014573849==
+Content-Language: de-DE
 Content-Type: multipart/alternative;
-	boundary="_000_7a3199ecc8516b507e1fb467e5e78d13amdcom_"
+	boundary="_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_"
 
---_000_7a3199ecc8516b507e1fb467e5e78d13amdcom_
+--_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
+
+Yeah, feel free to add my RB.
+
+Christian.
+
+Am 27.03.2019 16:43 schrieb "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>:
 
 bool  is_xgmi is added in bo_va structure , this change won't increase the =
 size of   struct amdgpu_vm_bo_base. Anyway , can I said it's reviewed by yo=
@@ -164,17 +171,28 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_7a3199ecc8516b507e1fb467e5e78d13amdcom_
+--_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_
 Content-Type: text/html; charset="Windows-1252"
-Content-ID: <4CE7CB2299441F4DBD50430CA3B48E08-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
 252">
+<meta content=3D"text/html; charset=3DWindows-1252">
 </head>
-<body text=3D"#000000" bgcolor=3D"#FFFFFF">
+<body bgcolor=3D"#FFFFFF">
+<div dir=3D"auto">Yeah, feel free to add my RB.
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">Am 27.03.2019 16:43 schrieb &quot;Liu, Shaoyun&q=
+uot; &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
+</div>
+</div>
+<div>
 <p>bool&nbsp; is_xgmi is added in bo_va structure , this change won't incre=
 ase the size of &nbsp; struct amdgpu_vm_bo_base. Anyway , can I said it's r=
 eviewed by you now?
@@ -185,8 +203,7 @@ eviewed by you now?
 <div class=3D"moz-cite-prefix">On 2019-03-27 11:39 a.m., Koenig, Christian =
 wrote:<br>
 </div>
-<blockquote type=3D"cite" cite=3D"mid:68f7ccfa-646e-492f-bdd7-b24f2e2029da@=
-email.android.com">
+<blockquote type=3D"cite">
 <meta content=3D"text/html; charset=3Dutf-8">
 <div dir=3D"auto">Yeah, that one is intentionally very small because it is =
 used so often.
@@ -254,7 +271,7 @@ wrote:<br>
 <div class=3D"x_gmail_extra"><br>
 <div class=3D"x_gmail_quote">Am 27.03.2019 16:22 schrieb &quot;Liu, Shaoyun=
 &quot; <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Shaoyun.Liu-urvtwAKJhsc@public.gmane.org=
-m" moz-do-not-send=3D"true">
+m">
 &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>:<br type=3D"attribution">
 </div>
 </div>
@@ -277,7 +294,7 @@ On 2019-03-27 3:41 a.m., Christian K=F6nig wrote:<br>
 &gt;&gt;<br>
 &gt;&gt; Change-Id: I1881deff3da19f1f4b58d5765db03a590092a5b2<br>
 &gt;&gt; Signed-off-by: shaoyunl <a class=3D"moz-txt-link-rfc2396E" href=3D=
-"mailto:shaoyun.liu-5C7GfCeVMHo@public.gmane.org" moz-do-not-send=3D"true">
+"mailto:shaoyun.liu-5C7GfCeVMHo@public.gmane.org">
 &lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
 &gt;&gt; ---<br>
 &gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 &#43;&#43;&#43=
@@ -373,8 +390,8 @@ s_xgmi =3D true;<br>
 </div>
 <br>
 <fieldset class=3D"mimeAttachmentHeader"></fieldset>
-<pre class=3D"moz-quote-pre" wrap=3D"">____________________________________=
-___________
+<pre class=3D"moz-quote-pre">______________________________________________=
+_
 amd-gfx mailing list
 <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
 top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
@@ -382,12 +399,13 @@ top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
 ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
 gfx</a></pre>
 </blockquote>
+</div>
 </body>
 </html>
 
---_000_7a3199ecc8516b507e1fb467e5e78d13amdcom_--
+--_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_--
 
---===============1782408753==
+--===============1014573849==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -397,4 +415,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1782408753==--
+--===============1014573849==--
