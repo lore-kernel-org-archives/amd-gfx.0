@@ -1,67 +1,81 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.19 124/192] drm/amd/display: Don't re-program planes
- for DPMS changes
-Date: Wed, 27 Mar 2019 14:09:16 -0400
-Message-ID: <20190327181025.13507-124-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 125/192] drm/amd/display: Disconnect mpcc when changing tg
+Date: Wed, 27 Mar 2019 14:09:17 -0400
+Message-ID: <20190327181025.13507-125-sashal@kernel.org>
 References: <20190327181025.13507-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190327181025.13507-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190327181025.13507-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgoK
-WyBVcHN0cmVhbSBjb21taXQgNTA2MmI3OTdkYjQxMDMyMThmYTAwZWUyNTQ0MTdiOGVjYWFiNzQw
-MSBdCgpbV2h5XQpUaGVyZSBhcmUgb3B0MWMgbG9jayB3YXJuaW5ncyBhbmQgQ1JUQyByZWFkIHRp
-bWVvdXRzIHdoZW4gcnVubmluZyB0aGUKImlndEBrbXNfcGxhbmVAcGxhbmUtcG9zaXRpb24taG9s
-ZS1kcG1zLXBpcGUtKiIgdGVzdHMuIFRoZXNlIGFyZQpjYXVzZWQgYnkgdHJ5aW5nIHRvIHJlcHJv
-Z3JhbSBwbGFuZXMgdGhhdCBhcmUgbm90IGluIHRoZSBjdXJyZW50CmNvbnRleHQuCgpEUE1TIG9m
-ZiByZW1vdmVzIHRoZSBzdHJlYW0gZnJvbSB0aGUgY29udGV4dC4gSW4gdGhpcyBjYXNlOgoKbmV3
-X2NydGNfc3RhdGUtPmFjdGl2ZV9jaGFuZ2VkID0gdHJ1ZQpuZXdfY3J0Y19zdGF0ZS0+bW9kZV9j
-aGFuZ2VkID0gZmFsc2UKClRoZSBwbGFuZXMgYXJlIHJlcHJvZ3JhbW1lZCBiZWZvcmUgdGhlIHN0
-cmVhbSBpcyByZW1vdmVkIGZyb20gdGhlCmNvbnRleHQgYmVjYXVzZSBzdHJlYW1fc3RhdGUtPm1v
-ZGVfY2hhbmdlZCA9IGZhbHNlLgoKRm9yIERQTVMgYWRkcyB0aGUgc3RyZWFtIGFuZCBwbGFuZXMg
-YmFjayB0byB0aGUgY29udGV4dDoKCm5ld19jcnRjX3N0YXRlLT5hY3RpdmVfY2hhbmdlZCA9IHRy
-dWUKbmV3X2NydGNfc3RhdGUtPm1vZGVfY2hhbmdlZCA9IGZhbHNlCgpUaGUgcGxhbmVzIGFyZSBh
-bHNvIHJlcHJvZ3JhbW1lZCBoZXJlIGJlZm9yZSB0aGUgc3RyZWFtIGlzIGFkZGVkIHRvIHRoZQpj
-b250ZXh0IGJlY2F1c2Ugc3RyZWFtX3N0YXRlLT5tb2RlX2NoYW5nZWQgPSB0cnVlLiBUaGV5IHdl
-cmUgbm90CnByZXZpb3VzbHkgaW4gdGhlIGN1cnJlbnQgY29udGV4dCBzbyB3YXJuaW5ncyBvY2N1
-ciBoZXJlLgoKW0hvd10KU2V0IHN0cmVhbV9zdGF0ZS0+bW9kZV9jaGFuZ2VkID0gdHJ1ZSB3aGVu
-Cm5ld19jcnRjX3N0YXRlLT5hY3RpdmVfY2hhbmdlZCA9IHRydWUgdG9vLgoKVGhpcyBwcmV2ZW50
-cyByZXByb2dyYW1taW5nIGJlZm9yZSB0aGUgY29udGV4dCBpcyBhcHBsaWVkIGluIERDLiBUaGUK
-cHJvZ3JhbW1pbmcgd2lsbCBiZSBkb25lIGFmdGVyIHRoZSBjb250ZXh0IGlzIGFwcGxpZWQuCgpT
-aWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFt
-ZC5jb20+ClJldmlld2VkLWJ5OiBTdW4gcGVuZyBMaSA8U3VucGVuZy5MaUBhbWQuY29tPgpBY2tl
-ZC1ieTogQmhhd2FucHJlZXQgTGFraGEgPEJoYXdhbnByZWV0Lkxha2hhQGFtZC5jb20+CkFja2Vk
-LWJ5OiBUb255IENoZW5nIDxUb255LkNoZW5nQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXgg
-RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEg
-TGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
-aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IGM1YmE5MTI4YjczNi4uYzU3ZTg1ZjA4ZTIz
-IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
-X2RtLmMKQEAgLTQzNjgsNyArNDM2OCw4IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRf
-cGxhbmVzKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwKIHN0YXRpYyB2b2lkIGFtZGdw
-dV9kbV9jcnRjX2NvcHlfdHJhbnNpZW50X2ZsYWdzKHN0cnVjdCBkcm1fY3J0Y19zdGF0ZSAqY3J0
-Y19zdGF0ZSwKIAkJCQkJCXN0cnVjdCBkY19zdHJlYW1fc3RhdGUgKnN0cmVhbV9zdGF0ZSkKIHsK
-LQlzdHJlYW1fc3RhdGUtPm1vZGVfY2hhbmdlZCA9IGNydGNfc3RhdGUtPm1vZGVfY2hhbmdlZDsK
-KwlzdHJlYW1fc3RhdGUtPm1vZGVfY2hhbmdlZCA9CisJCWNydGNfc3RhdGUtPm1vZGVfY2hhbmdl
-ZCB8fCBjcnRjX3N0YXRlLT5hY3RpdmVfY2hhbmdlZDsKIH0KIAogc3RhdGljIGludCBhbWRncHVf
-ZG1fYXRvbWljX2NvbW1pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAotLSAKMi4xOS4xCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
+[ Upstream commit 77476360f173c127c191bfe8ca8113130ef283b8 ]
+
+[Why]
+This fixes an mpc programming error for the following sequence of
+atomic commits when pipe split is enabled:
+
+Commit 1: CRTC0 (plane 4, plane 3)
+
+Pipe 0: old_plane_state = A0, new_plane_state = A1,   new_tg = T0
+Pipe 1: old_plane_state = B0, new_plane_state = B1,   new_tg = T0
+Pipe 2: old_plane_state = A0, new_plane_state = A1,   new_tg = T0
+Pipe 3: old_plane_state = B0, new_plane_state = B1,   new_tg = T0
+
+Commit 2: CRTC0 (plane 3), CRTC1 (plane 2)
+
+Pipe 0: old_plane_state = A1, new_plane_state = A2,   new_tg = T0
+Pipe 1: old_plane_state = B1, new_plane_state = B2,   new_tg = T1
+Pipe 2: old_plane_state = A1, new_plane_state = NULL, new_tg = NULL
+Pipe 3: old_plane_state = B1, new_plane_state = NULL, new_tg = NULL
+
+In the second commit the assertion for mpcc in use is hit because
+mpcc disconnect never occurs for pipe 1. This is because the stream
+changes for pipe 1 and the opp_list is empty.
+
+This sequence occurs when running the
+"igt@kms_plane_multiple@atomic-pipe-A-tiling-none" test with two
+displays connected.
+
+[How]
+Expand the reset condition to include:
+
+"old_pipe_ctx->stream_res.tg != new_pipe_ctx->stream_res.tg"
+
+...but only when the plane state is non-NULL for both old and new.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 4058b59d9bea..a0355709abd1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -2336,9 +2336,10 @@ static void dcn10_apply_ctx_for_surface(
+ 			}
+ 		}
+ 
+-		if (!pipe_ctx->plane_state &&
+-			old_pipe_ctx->plane_state &&
+-			old_pipe_ctx->stream_res.tg == tg) {
++		if ((!pipe_ctx->plane_state ||
++		     pipe_ctx->stream_res.tg != old_pipe_ctx->stream_res.tg) &&
++		    old_pipe_ctx->plane_state &&
++		    old_pipe_ctx->stream_res.tg == tg) {
+ 
+ 			dc->hwss.plane_atomic_disconnect(dc, old_pipe_ctx);
+ 			removed_pipe[i] = true;
+-- 
+2.19.1
