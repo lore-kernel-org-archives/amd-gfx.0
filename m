@@ -1,17 +1,16 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Add preferred_domain check when determine
  XGMI state
-Date: Wed, 27 Mar 2019 15:22:37 +0000
-Message-ID: <5d6e562d-012b-f22b-7ec9-2fdf33a9319d@amd.com>
+Date: Wed, 27 Mar 2019 15:30:41 +0000
+Message-ID: <3e28a7df-4165-4bde-8a2e-926453ceb1d1@email.android.com>
 References: <1553632516-23346-1-git-send-email-shaoyun.liu@amd.com>
- <c42cc872-cddf-01b9-b46e-b2084f8a1bc3@gmail.com>
+ <c42cc872-cddf-01b9-b46e-b2084f8a1bc3@gmail.com>,
+ <5d6e562d-012b-f22b-7ec9-2fdf33a9319d@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1774473503=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c42cc872-cddf-01b9-b46e-b2084f8a1bc3-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-Content-ID: <C6783B6FC1DC3F4FAC065733A8DB962C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <5d6e562d-012b-f22b-7ec9-2fdf33a9319d-5C7GfCeVMHo@public.gmane.org>
+Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,63 +21,247 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhlwqAgbmV4dCBpbiBzdHJ1Y3QgYW1kZ3B1X3ZtX2JvX2Jhc2XCoCBpcyBub3QgYcKgIGxpc3Rf
-aGVhZCzCoCBJJ20gbm90IA0Kc3VyZSB3aGV0aGVyIHdlIGNhbiB1c2UgbGlzdF9mb3JfZWFjaF9l
-bnRyeSBoZXJlLg0KDQpSZWdhcmRzDQoNCnNoYW95dW4ubGl1DQoNCk9uIDIwMTktMDMtMjcgMzo0
-MSBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPiBBbSAyNi4wMy4xOSB1bSAyMTozNSBz
-Y2hyaWViIExpdSwgU2hhb3l1bjoNCj4+IEF2b2lkIHVubmVjZXNzYXJ5IFhHTUkgaGlnaHQgcHN0
-YXRlIHRyaWdnZXIgd2hlbiBtYXBwaW5nIG5vbmUtdnJhbSANCj4+IG1lbW9yeSBmb3IgcGVlciBk
-ZXZpY2UNCj4+DQo+PiBDaGFuZ2UtSWQ6IEkxODgxZGVmZjNkYTE5ZjFmNGI1OGQ1NzY1ZGIwM2E1
-OTAwOTJhNWIyDQo+PiBTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1kLmNv
-bT4NCj4+IC0tLQ0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5j
-IHwgMTEgKysrKysrKysrKysNCj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92bS5jwqAgfMKgIDMgKystDQo+PiDCoCAyIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMo
-KyksIDEgZGVsZXRpb24oLSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2dlbS5jIA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZ2VtLmMNCj4+IGluZGV4IGE4MmMzYjEuLmEwZjU2ZTQgMTAwNjQ0DQo+PiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KPj4gQEAgLTY2Niw2ICs2NjYsOCBAQCBp
-bnQgYW1kZ3B1X2dlbV9vcF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LCANCj4+IHZvaWQg
-KmRhdGEsDQo+PiDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGV2LT5k
-ZXZfcHJpdmF0ZTsNCj4+IMKgwqDCoMKgwqAgc3RydWN0IGRybV9hbWRncHVfZ2VtX29wICphcmdz
-ID0gZGF0YTsNCj4+IMKgwqDCoMKgwqAgc3RydWN0IGRybV9nZW1fb2JqZWN0ICpnb2JqOw0KPj4g
-K8KgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3ZtX2JvX2Jhc2UgKmJhc2U7DQo+PiArwqDCoMKgIHN0cnVj
-dCBhbWRncHVfYm9fdmEgKmJvX3ZhOw0KPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvICpy
-b2JqOw0KPj4gwqDCoMKgwqDCoCBpbnQgcjsNCj4+IMKgIEBAIC03MDQsNiArNzA2LDE1IEBAIGlu
-dCBhbWRncHVfZ2VtX29wX2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlIA0KPj4gKmRldiwgdm9pZCAq
-ZGF0YSwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9ib191bnJlc2VydmUo
-cm9iaik7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsNCj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoCB9DQo+PiArwqDCoMKgwqDCoMKgwqAgZm9yIChiYXNlID0gcm9iai0+dm1fYm87
-IGJhc2U7IGJhc2UgPSBiYXNlLT5uZXh0KSB7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBi
-b192YSA9IGNvbnRhaW5lcl9vZihiYXNlLCBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhLCBiYXNlKTsNCj4N
-Cj4gUGxlYXNlIHVzZSBsaXN0X2Zvcl9lYWNoX2VudHJ5IGhlcmUgaW5zdGVhZCBvZiBvcGVuIGNv
-ZGluZyBpdC4NCj4NCj4gQ2hyaXN0aWFuLg0KPg0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-aWYgKGJvX3ZhICYmIGJvX3ZhLT5pc194Z21pKSB7DQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHIgPSAtRUlOVkFMOw0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBhbWRncHVfYm9fdW5yZXNlcnZlKHJvYmopOw0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCBnb3RvIG91dDsNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0NCj4+ICvCoMKg
-wqDCoMKgwqDCoCB9DQo+PiArDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcm9iai0+cHJlZmVycmVk
-X2RvbWFpbnMgPSBhcmdzLT52YWx1ZSAmIA0KPj4gKEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0gfA0K
-Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBBTURHUFVfR0VNX0RPTUFJTl9HVFQgfA0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBBTURHUFVfR0VNX0RPTUFJTl9DUFUp
-Ow0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-IA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4gaW5kZXgg
-NzZlZWU3ZS4uOGVkMjNkMiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYw0KPj4gQEAgLTIwNDgsNyArMjA0OCw4IEBAIHN0cnVjdCBhbWRncHVfYm9fdmEgKmFt
-ZGdwdV92bV9ib19hZGQoc3RydWN0IA0KPj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+IMKgwqDC
-oMKgwqAgSU5JVF9MSVNUX0hFQUQoJmJvX3ZhLT52YWxpZHMpOw0KPj4gwqDCoMKgwqDCoCBJTklU
-X0xJU1RfSEVBRCgmYm9fdmEtPmludmFsaWRzKTsNCj4+IMKgIC3CoMKgwqAgaWYgKGJvICYmIGFt
-ZGdwdV94Z21pX3NhbWVfaGl2ZShhZGV2LCANCj4+IGFtZGdwdV90dG1fYWRldihiby0+dGJvLmJk
-ZXYpKSkgew0KPj4gK8KgwqDCoCBpZiAoYm8gJiYgYW1kZ3B1X3hnbWlfc2FtZV9oaXZlKGFkZXYs
-IA0KPj4gYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldikpICYmDQo+PiArwqDCoMKgwqDCoMKg
-wqAgKGJvLT5wcmVmZXJyZWRfZG9tYWlucyAmIEFNREdQVV9HRU1fRE9NQUlOX1ZSQU0pKSB7DQo+
-PiDCoMKgwqDCoMKgwqDCoMKgwqAgYm9fdmEtPmlzX3hnbWkgPSB0cnVlOw0KPj4gwqDCoMKgwqDC
-oMKgwqDCoMKgIG11dGV4X2xvY2soJmFkZXYtPnZtX21hbmFnZXIubG9ja19wc3RhdGUpOw0KPj4g
-wqDCoMKgwqDCoMKgwqDCoMKgIC8qIFBvd2VyIHVwIFhHTUkgaWYgaXQgY2FuIGJlIHBvdGVudGlh
-bGx5IHVzZWQgKi8NCj4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============1774473503==
+Content-Language: de-DE
+Content-Type: multipart/alternative;
+	boundary="_000_3e28a7df41654bde8a2e926453ceb1d1emailandroidcom_"
+
+--_000_3e28a7df41654bde8a2e926453ceb1d1emailandroidcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Ah, of course. In this case feel free to go ahead.
+ BTW: What's the size of the structure now?
+
+Christian.
+
+Am 27.03.2019 16:22 schrieb "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>:
+The  next in struct amdgpu_vm_bo_base  is not a  list_head,  I'm not
+sure whether we can use list_for_each_entry here.
+
+Regards
+
+shaoyun.liu
+
+On 2019-03-27 3:41 a.m., Christian K=F6nig wrote:
+> Am 26.03.19 um 21:35 schrieb Liu, Shaoyun:
+>> Avoid unnecessary XGMI hight pstate trigger when mapping none-vram
+>> memory for peer device
+>>
+>> Change-Id: I1881deff3da19f1f4b58d5765db03a590092a5b2
+>> Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 +++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  3 ++-
+>>   2 files changed, 13 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index a82c3b1..a0f56e4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -666,6 +666,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev,
+>> void *data,
+>>       struct amdgpu_device *adev =3D dev->dev_private;
+>>       struct drm_amdgpu_gem_op *args =3D data;
+>>       struct drm_gem_object *gobj;
+>> +    struct amdgpu_vm_bo_base *base;
+>> +    struct amdgpu_bo_va *bo_va;
+>>       struct amdgpu_bo *robj;
+>>       int r;
+>>   @@ -704,6 +706,15 @@ int amdgpu_gem_op_ioctl(struct drm_device
+>> *dev, void *data,
+>>               amdgpu_bo_unreserve(robj);
+>>               break;
+>>           }
+>> +        for (base =3D robj->vm_bo; base; base =3D base->next) {
+>> +            bo_va =3D container_of(base, struct amdgpu_bo_va, base);
+>
+> Please use list_for_each_entry here instead of open coding it.
+>
+> Christian.
+>
+>> +            if (bo_va && bo_va->is_xgmi) {
+>> +                r =3D -EINVAL;
+>> +                amdgpu_bo_unreserve(robj);
+>> +                goto out;
+>> +            }
+>> +        }
+>> +
+>>           robj->preferred_domains =3D args->value &
+>> (AMDGPU_GEM_DOMAIN_VRAM |
+>>                               AMDGPU_GEM_DOMAIN_GTT |
+>>                               AMDGPU_GEM_DOMAIN_CPU);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index 76eee7e..8ed23d2 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -2048,7 +2048,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct
+>> amdgpu_device *adev,
+>>       INIT_LIST_HEAD(&bo_va->valids);
+>>       INIT_LIST_HEAD(&bo_va->invalids);
+>>   -    if (bo && amdgpu_xgmi_same_hive(adev,
+>> amdgpu_ttm_adev(bo->tbo.bdev))) {
+>> +    if (bo && amdgpu_xgmi_same_hive(adev,
+>> amdgpu_ttm_adev(bo->tbo.bdev)) &&
+>> +        (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)) {
+>>           bo_va->is_xgmi =3D true;
+>>           mutex_lock(&adev->vm_manager.lock_pstate);
+>>           /* Power up XGMI if it can be potentially used */
+>
+
+--_000_3e28a7df41654bde8a2e926453ceb1d1emailandroidcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div dir=3D"auto">Ah, of course. In this case feel free to go ahead.
+<div dir=3D"auto">&nbsp;BTW: What's the size of the structure now?</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"x_gmail_extra"><br>
+<div class=3D"x_gmail_quote">Am 27.03.2019 16:22 schrieb &quot;Liu, Shaoyun=
+&quot; &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
+</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">The&nbsp; next in struct amdgpu_vm_bo_base&nbsp; i=
+s not a&nbsp; list_head,&nbsp; I'm not
+<br>
+sure whether we can use list_for_each_entry here.<br>
+<br>
+Regards<br>
+<br>
+shaoyun.liu<br>
+<br>
+On 2019-03-27 3:41 a.m., Christian K=F6nig wrote:<br>
+&gt; Am 26.03.19 um 21:35 schrieb Liu, Shaoyun:<br>
+&gt;&gt; Avoid unnecessary XGMI hight pstate trigger when mapping none-vram=
+ <br>
+&gt;&gt; memory for peer device<br>
+&gt;&gt;<br>
+&gt;&gt; Change-Id: I1881deff3da19f1f4b58d5765db03a590092a5b2<br>
+&gt;&gt; Signed-off-by: shaoyunl &lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt; ---<br>
+&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 &#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp; |&nbsp; 3 &#43=
+;&#43;-<br>
+&gt;&gt; &nbsp; 2 files changed, 13 insertions(&#43;), 1 deletion(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c <br>
+&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt;&gt; index a82c3b1..a0f56e4 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt;&gt; @@ -666,6 &#43;666,8 @@ int amdgpu_gem_op_ioctl(struct drm_device =
+*dev, <br>
+&gt;&gt; void *data,<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-=
+&gt;dev_private;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_gem_op *args =3D =
+data;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_gem_object *gobj;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; struct amdgpu_vm_bo_base *base;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va *bo_va;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *robj;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&gt; &nbsp; @@ -704,6 &#43;706,15 @@ int amdgpu_gem_op_ioctl(struct drm=
+_device <br>
+&gt;&gt; *dev, void *data,<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; amdgpu_bo_unreserve(robj);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; break;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (base =3D robj=
+-&gt;vm_bo; base; base =3D base-&gt;next) {<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; bo_va =3D container_of(base, struct amdgpu_bo_va, base);<br>
+&gt;<br>
+&gt; Please use list_for_each_entry here instead of open coding it.<br>
+&gt;<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; if (bo_va &amp;&amp; bo_va-&gt;is_xgmi) {<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(robj);<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; }<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; &#43;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; robj-&gt;pr=
+eferred_domains =3D args-&gt;value &amp; <br>
+&gt;&gt; (AMDGPU_GEM_DOMAIN_VRAM |<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GTT |<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_CPU);<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c <br>
+&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt; index 76eee7e..8ed23d2 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt; @@ -2048,7 &#43;2048,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(st=
+ruct <br>
+&gt;&gt; amdgpu_device *adev,<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;bo_va-&gt;valid=
+s);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;bo_va-&gt;inval=
+ids);<br>
+&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; if (bo &amp;&amp; amdgpu_xgmi_same_hive=
+(adev, <br>
+&gt;&gt; amdgpu_ttm_adev(bo-&gt;tbo.bdev))) {<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; if (bo &amp;&amp; amdgpu_xgmi_same_hive(ad=
+ev, <br>
+&gt;&gt; amdgpu_ttm_adev(bo-&gt;tbo.bdev)) &amp;&amp;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (bo-&gt;preferred_=
+domains &amp; AMDGPU_GEM_DOMAIN_VRAM)) {<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_va-&gt;i=
+s_xgmi =3D true;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(=
+&amp;adev-&gt;vm_manager.lock_pstate);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Power up=
+ XGMI if it can be potentially used */<br>
+&gt;<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_3e28a7df41654bde8a2e926453ceb1d1emailandroidcom_--
+
+--===============1774473503==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1774473503==--
