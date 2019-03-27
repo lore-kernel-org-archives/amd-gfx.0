@@ -1,20 +1,16 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Add preferred_domain check when determine
  XGMI state
-Date: Wed, 27 Mar 2019 15:44:32 +0000
-Message-ID: <7ae7ac1b-28f0-4ac9-9405-6db6ad27c5e0@email.android.com>
+Date: Wed, 27 Mar 2019 15:52:54 +0000
+Message-ID: <5e7addf1-61f7-a0f9-a709-5039ba1de840@amd.com>
 References: <1553632516-23346-1-git-send-email-shaoyun.liu@amd.com>
- <c42cc872-cddf-01b9-b46e-b2084f8a1bc3@gmail.com>
- <5d6e562d-012b-f22b-7ec9-2fdf33a9319d@amd.com>
- <3e28a7df-4165-4bde-8a2e-926453ceb1d1@email.android.com>
- <fd7f4b68-26c2-d0ea-b254-fbc61a0d3956@amd.com>
- <68f7ccfa-646e-492f-bdd7-b24f2e2029da@email.android.com>,
- <7a3199ec-c851-6b50-7e1f-b467e5e78d13@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1014573849=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7a3199ec-c851-6b50-7e1f-b467e5e78d13-5C7GfCeVMHo@public.gmane.org>
-Content-Language: de-DE
+In-Reply-To: <1553632516-23346-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <24BC1FF6574B8E499821697A01AF7217-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,394 +21,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1014573849==
-Content-Language: de-DE
-Content-Type: multipart/alternative;
-	boundary="_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_"
-
---_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Yeah, feel free to add my RB.
-
-Christian.
-
-Am 27.03.2019 16:43 schrieb "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>:
-
-bool  is_xgmi is added in bo_va structure , this change won't increase the =
-size of   struct amdgpu_vm_bo_base. Anyway , can I said it's reviewed by yo=
-u now?
-
-shaoyun.liu
-
-On 2019-03-27 11:39 a.m., Koenig, Christian wrote:
-Yeah, that one is intentionally very small because it is used so often.
-
-When it grows over the next power of two by this change we need to figure o=
-ut a different approach.
-
-Christian.
-
-Am 27.03.2019 16:34 schrieb "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org><mailto:Sha=
-oyun.Liu-5C7GfCeVMHo@public.gmane.org>:
-
-you mean struct amdgpu_vm_bo_base ? It only  has few pointer and  a list_he=
-ad , should be  pretty small .
-
-struct amdgpu_vm_bo_base {
-    /* constant after initialization */
-    struct amdgpu_vm        *vm;
-    struct amdgpu_bo        *bo;
-
-    /* protected by bo being reserved */
-    struct amdgpu_vm_bo_base    *next;
-
-    /* protected by spinlock */
-    struct list_head        vm_status;
-
-    /* protected by the BO being reserved */
-    bool                moved;
-};
-
-shaoyun.liu
-
-On 2019-03-27 11:30 a.m., Koenig, Christian wrote:
-Ah, of course. In this case feel free to go ahead.
- BTW: What's the size of the structure now?
-
-Christian.
-
-Am 27.03.2019 16:22 schrieb "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org><mailto:Sha=
-oyun.Liu-5C7GfCeVMHo@public.gmane.org>:
-The  next in struct amdgpu_vm_bo_base  is not a  list_head,  I'm not
-sure whether we can use list_for_each_entry here.
-
-Regards
-
-shaoyun.liu
-
-On 2019-03-27 3:41 a.m., Christian K=F6nig wrote:
-> Am 26.03.19 um 21:35 schrieb Liu, Shaoyun:
->> Avoid unnecessary XGMI hight pstate trigger when mapping none-vram
->> memory for peer device
->>
->> Change-Id: I1881deff3da19f1f4b58d5765db03a590092a5b2
->> Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org><mailto:shaoyun.liu-5C7GfCeVMHo@public.gmane.org=
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 +++++++++++
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  3 ++-
->>   2 files changed, 13 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> index a82c3b1..a0f56e4 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
->> @@ -666,6 +666,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev,
->> void *data,
->>       struct amdgpu_device *adev =3D dev->dev_private;
->>       struct drm_amdgpu_gem_op *args =3D data;
->>       struct drm_gem_object *gobj;
->> +    struct amdgpu_vm_bo_base *base;
->> +    struct amdgpu_bo_va *bo_va;
->>       struct amdgpu_bo *robj;
->>       int r;
->>   @@ -704,6 +706,15 @@ int amdgpu_gem_op_ioctl(struct drm_device
->> *dev, void *data,
->>               amdgpu_bo_unreserve(robj);
->>               break;
->>           }
->> +        for (base =3D robj->vm_bo; base; base =3D base->next) {
->> +            bo_va =3D container_of(base, struct amdgpu_bo_va, base);
->
-> Please use list_for_each_entry here instead of open coding it.
->
-> Christian.
->
->> +            if (bo_va && bo_va->is_xgmi) {
->> +                r =3D -EINVAL;
->> +                amdgpu_bo_unreserve(robj);
->> +                goto out;
->> +            }
->> +        }
->> +
->>           robj->preferred_domains =3D args->value &
->> (AMDGPU_GEM_DOMAIN_VRAM |
->>                               AMDGPU_GEM_DOMAIN_GTT |
->>                               AMDGPU_GEM_DOMAIN_CPU);
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index 76eee7e..8ed23d2 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -2048,7 +2048,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct
->> amdgpu_device *adev,
->>       INIT_LIST_HEAD(&bo_va->valids);
->>       INIT_LIST_HEAD(&bo_va->invalids);
->>   -    if (bo && amdgpu_xgmi_same_hive(adev,
->> amdgpu_ttm_adev(bo->tbo.bdev))) {
->> +    if (bo && amdgpu_xgmi_same_hive(adev,
->> amdgpu_ttm_adev(bo->tbo.bdev)) &&
->> +        (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)) {
->>           bo_va->is_xgmi =3D true;
->>           mutex_lock(&adev->vm_manager.lock_pstate);
->>           /* Power up XGMI if it can be potentially used */
->
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<meta content=3D"text/html; charset=3DWindows-1252">
-</head>
-<body bgcolor=3D"#FFFFFF">
-<div dir=3D"auto">Yeah, feel free to add my RB.
-<div dir=3D"auto"><br>
-</div>
-<div dir=3D"auto">Christian.</div>
-</div>
-<div class=3D"gmail_extra"><br>
-<div class=3D"gmail_quote">Am 27.03.2019 16:43 schrieb &quot;Liu, Shaoyun&q=
-uot; &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
-</div>
-</div>
-<div>
-<p>bool&nbsp; is_xgmi is added in bo_va structure , this change won't incre=
-ase the size of &nbsp; struct amdgpu_vm_bo_base. Anyway , can I said it's r=
-eviewed by you now?
-<br>
-</p>
-<p>shaoyun.liu<br>
-</p>
-<div class=3D"moz-cite-prefix">On 2019-03-27 11:39 a.m., Koenig, Christian =
-wrote:<br>
-</div>
-<blockquote type=3D"cite">
-<meta content=3D"text/html; charset=3Dutf-8">
-<div dir=3D"auto">Yeah, that one is intentionally very small because it is =
-used so often.
-<div dir=3D"auto"><br>
-</div>
-<div dir=3D"auto">When it grows over the next power of two by this change w=
-e need to figure out a different approach.</div>
-<div dir=3D"auto"><br>
-</div>
-<div dir=3D"auto">Christian.</div>
-</div>
-<div class=3D"gmail_extra"><br>
-<div class=3D"gmail_quote">Am 27.03.2019 16:34 schrieb &quot;Liu, Shaoyun&q=
-uot; <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org"=
->
-&lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>:<br type=3D"attribution">
-</div>
-</div>
-<div>
-<p>you mean struct amdgpu_vm_bo_base ? It only&nbsp; has few pointer and&nb=
-sp; a list_head , should be&nbsp; pretty small .
-<br>
-</p>
-<p>struct amdgpu_vm_bo_base {<br>
-&nbsp;&nbsp;&nbsp; /* constant after initialization */<br>
-&nbsp;&nbsp;&nbsp; struct amdgpu_vm&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; *v=
-m;<br>
-&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; *b=
-o;<br>
-<br>
-&nbsp;&nbsp;&nbsp; /* protected by bo being reserved */<br>
-&nbsp;&nbsp;&nbsp; struct amdgpu_vm_bo_base&nbsp;&nbsp;&nbsp; *next;<br>
-<br>
-&nbsp;&nbsp;&nbsp; /* protected by spinlock */<br>
-&nbsp;&nbsp;&nbsp; struct list_head&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; vm=
-_status;<br>
-<br>
-&nbsp;&nbsp;&nbsp; /* protected by the BO being reserved */<br>
-&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&n=
-bsp; &nbsp;&nbsp;&nbsp; moved;<br>
-};<br>
-</p>
-<p>shaoyun.liu<br>
-</p>
-<div class=3D"moz-cite-prefix">On 2019-03-27 11:30 a.m., Koenig, Christian =
-wrote:<br>
-</div>
-<blockquote type=3D"cite">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<style>
-<!--
-.EmailQuote
-	{margin-left:1pt;
-	padding-left:4pt;
-	border-left:#800000 2px solid}
--->
-</style>
-<div>
-<div dir=3D"auto">Ah, of course. In this case feel free to go ahead.
-<div dir=3D"auto">&nbsp;BTW: What's the size of the structure now?</div>
-<div dir=3D"auto"><br>
-</div>
-<div dir=3D"auto">Christian.</div>
-</div>
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">Am 27.03.2019 16:22 schrieb &quot;Liu, Shaoyun=
-&quot; <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Shaoyun.Liu-urvtwAKJhsc@public.gmane.org=
-m">
-&lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>:<br type=3D"attribution">
-</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:11pt">
-<div class=3D"PlainText">The&nbsp; next in struct amdgpu_vm_bo_base&nbsp; i=
-s not a&nbsp; list_head,&nbsp; I'm not
-<br>
-sure whether we can use list_for_each_entry here.<br>
-<br>
-Regards<br>
-<br>
-shaoyun.liu<br>
-<br>
-On 2019-03-27 3:41 a.m., Christian K=F6nig wrote:<br>
-&gt; Am 26.03.19 um 21:35 schrieb Liu, Shaoyun:<br>
-&gt;&gt; Avoid unnecessary XGMI hight pstate trigger when mapping none-vram=
- <br>
-&gt;&gt; memory for peer device<br>
-&gt;&gt;<br>
-&gt;&gt; Change-Id: I1881deff3da19f1f4b58d5765db03a590092a5b2<br>
-&gt;&gt; Signed-off-by: shaoyunl <a class=3D"moz-txt-link-rfc2396E" href=3D=
-"mailto:shaoyun.liu-5C7GfCeVMHo@public.gmane.org">
-&lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-&gt;&gt; ---<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 &#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp; |&nbsp; 3 &#43=
-;&#43;-<br>
-&gt;&gt; &nbsp; 2 files changed, 13 insertions(&#43;), 1 deletion(-)<br>
-&gt;&gt;<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c <br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-&gt;&gt; index a82c3b1..a0f56e4 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
-&gt;&gt; @@ -666,6 &#43;666,8 @@ int amdgpu_gem_op_ioctl(struct drm_device =
-*dev, <br>
-&gt;&gt; void *data,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-=
-&gt;dev_private;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_gem_op *args =3D =
-data;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_gem_object *gobj;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; struct amdgpu_vm_bo_base *base;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va *bo_va;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *robj;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-&gt;&gt; &nbsp; @@ -704,6 &#43;706,15 @@ int amdgpu_gem_op_ioctl(struct drm=
-_device <br>
-&gt;&gt; *dev, void *data,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; amdgpu_bo_unreserve(robj);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; break;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (base =3D robj=
--&gt;vm_bo; base; base =3D base-&gt;next) {<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; bo_va =3D container_of(base, struct amdgpu_bo_va, base);<br>
-&gt;<br>
-&gt; Please use list_for_each_entry here instead of open coding it.<br>
-&gt;<br>
-&gt; Christian.<br>
-&gt;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; if (bo_va &amp;&amp; bo_va-&gt;is_xgmi) {<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -EINVAL;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(robj);<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; }<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt; &#43;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; robj-&gt;pr=
-eferred_domains =3D args-&gt;value &amp; <br>
-&gt;&gt; (AMDGPU_GEM_DOMAIN_VRAM |<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GTT |<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_CPU);<br>
-&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c <br>
-&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt;&gt; index 76eee7e..8ed23d2 100644<br>
-&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
-&gt;&gt; @@ -2048,7 &#43;2048,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(st=
-ruct <br>
-&gt;&gt; amdgpu_device *adev,<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;bo_va-&gt;valid=
-s);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;bo_va-&gt;inval=
-ids);<br>
-&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; if (bo &amp;&amp; amdgpu_xgmi_same_hive=
-(adev, <br>
-&gt;&gt; amdgpu_ttm_adev(bo-&gt;tbo.bdev))) {<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; if (bo &amp;&amp; amdgpu_xgmi_same_hive(ad=
-ev, <br>
-&gt;&gt; amdgpu_ttm_adev(bo-&gt;tbo.bdev)) &amp;&amp;<br>
-&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (bo-&gt;preferred_=
-domains &amp; AMDGPU_GEM_DOMAIN_VRAM)) {<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_va-&gt;i=
-s_xgmi =3D true;<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(=
-&amp;adev-&gt;vm_manager.lock_pstate);<br>
-&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Power up=
- XGMI if it can be potentially used */<br>
-&gt;<br>
-</div>
-</span></font></blockquote>
-</div>
-<br>
-<fieldset class=3D"mimeAttachmentHeader"></fieldset>
-<pre class=3D"moz-quote-pre">______________________________________________=
-_
-amd-gfx mailing list
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
-gfx</a></pre>
-</blockquote>
-</div>
-</body>
-</html>
-
---_000_7ae7ac1b28f04ac994056db6ad27c5e0emailandroidcom_--
-
---===============1014573849==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1014573849==--
+T24gMjAxOS0wMy0yNiA0OjM1IHAubS4sIExpdSwgU2hhb3l1biB3cm90ZToNCj4gQXZvaWQgdW5u
+ZWNlc3NhcnkgWEdNSSBoaWdodCBwc3RhdGUgdHJpZ2dlciB3aGVuIG1hcHBpbmcgbm9uZS12cmFt
+IG1lbW9yeSBmb3IgcGVlciBkZXZpY2UNCj4NCj4gQ2hhbmdlLUlkOiBJMTg4MWRlZmYzZGExOWYx
+ZjRiNThkNTc2NWRiMDNhNTkwMDkyYTViMg0KPiBTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hh
+b3l1bi5saXVAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2dlbS5jIHwgMTEgKysrKysrKysrKysNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm0uYyAgfCAgMyArKy0NCj4gICAyIGZpbGVzIGNoYW5nZWQsIDEzIGluc2Vy
+dGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9nZW0uYw0KPiBpbmRleCBhODJjM2IxLi5hMGY1NmU0IDEwMDY0NA0KPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQo+IEBAIC02NjYsNiArNjY2LDggQEAgaW50IGFt
+ZGdwdV9nZW1fb3BfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwNCj4g
+ICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOw0KPiAgIAlz
+dHJ1Y3QgZHJtX2FtZGdwdV9nZW1fb3AgKmFyZ3MgPSBkYXRhOw0KPiAgIAlzdHJ1Y3QgZHJtX2dl
+bV9vYmplY3QgKmdvYmo7DQo+ICsJc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICpiYXNlOw0KPiAr
+CXN0cnVjdCBhbWRncHVfYm9fdmEgKmJvX3ZhOw0KPiAgIAlzdHJ1Y3QgYW1kZ3B1X2JvICpyb2Jq
+Ow0KPiAgIAlpbnQgcjsNCj4gICANCj4gQEAgLTcwNCw2ICs3MDYsMTUgQEAgaW50IGFtZGdwdV9n
+ZW1fb3BfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwNCj4gICAJCQlh
+bWRncHVfYm9fdW5yZXNlcnZlKHJvYmopOw0KPiAgIAkJCWJyZWFrOw0KPiAgIAkJfQ0KPiArCQlm
+b3IgKGJhc2UgPSByb2JqLT52bV9ibzsgYmFzZTsgYmFzZSA9IGJhc2UtPm5leHQpIHsNCj4gKwkJ
+CWJvX3ZhID0gY29udGFpbmVyX29mKGJhc2UsIHN0cnVjdCBhbWRncHVfYm9fdmEsIGJhc2UpOw0K
+PiArCQkJaWYgKGJvX3ZhICYmIGJvX3ZhLT5pc194Z21pKSB7DQoNClRoZSBwb2ludCBoZXJlIGlz
+IHRvIHByZXZlbnQgdHJhbnNpdGlvbnMgd2hlcmUgYSBtYXBwaW5nIG1vdmVzIGZyb20gDQppc194
+Z21pID0+ICFpc194Z21pIG9yIGZyb20gIWlzX3hnbWkgPT4gaXNfeGdtaSwgYmVjYXVzZSB0aGF0
+IHdvdWxkIA0KcG90ZW50aWFsbHkgcmVxdWlyZSBhIFhHTUkgcHN0YXRlIGNoYW5nZS4NCg0KVGhp
+cyBjaGVjayBjYXRjaGVzIHRoZSBjYXNlIG9mIGlzX3hnbWkgPT4gIWlzX3hnbWksIGJ1dCBub3Qg
+dGhlIG90aGVyIA0Kd2F5IGFyb3VuZC4gSSB0aGluayB5b3Ugc2hvdWxkIGRyb3AgdGhlIGlzX3hn
+bWkgY29uZGl0aW9uIGhlcmUuIEFueSBCTyANCnRoYXQncyBzaGFyZWQgYmV0d2VlbiBtdWx0aXBs
+ZSBHUFVzIHNob3VsZCByZXR1cm4gLUVJTlZBTCBoZXJlIGJlY2F1c2UgDQptb3ZpbmcgaXQgY291
+bGQgcmVzdWx0IGluIGFuIFhHTUkgcHN0YXRlIGNoYW5nZS4gSXQgZG9lc24ndCBtYXR0ZXIgDQp3
+aGV0aGVyIGl0J3MgY3VycmVudGx5IHVzaW5nIFhHTUkgb3Igbm90Lg0KDQpSZWdhcmRzLA0KIMKg
+IEZlbGl4DQoNCj4gKwkJCQlyID0gLUVJTlZBTDsNCj4gKwkJCQlhbWRncHVfYm9fdW5yZXNlcnZl
+KHJvYmopOw0KPiArCQkJCWdvdG8gb3V0Ow0KPiArCQkJfQ0KPiArCQl9DQo+ICsNCj4gICAJCXJv
+YmotPnByZWZlcnJlZF9kb21haW5zID0gYXJncy0+dmFsdWUgJiAoQU1ER1BVX0dFTV9ET01BSU5f
+VlJBTSB8DQo+ICAgCQkJCQkJCUFNREdQVV9HRU1fRE9NQUlOX0dUVCB8DQo+ICAgCQkJCQkJCUFN
+REdQVV9HRU1fRE9NQUlOX0NQVSk7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+bS5jDQo+IGluZGV4IDc2ZWVlN2UuLjhlZDIzZDIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5jDQo+IEBAIC0yMDQ4LDcgKzIwNDgsOCBAQCBzdHJ1Y3QgYW1kZ3B1
+X2JvX3ZhICphbWRncHVfdm1fYm9fYWRkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAg
+IAlJTklUX0xJU1RfSEVBRCgmYm9fdmEtPnZhbGlkcyk7DQo+ICAgCUlOSVRfTElTVF9IRUFEKCZi
+b192YS0+aW52YWxpZHMpOw0KPiAgIA0KPiAtCWlmIChibyAmJiBhbWRncHVfeGdtaV9zYW1lX2hp
+dmUoYWRldiwgYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldikpKSB7DQo+ICsJaWYgKGJvICYm
+IGFtZGdwdV94Z21pX3NhbWVfaGl2ZShhZGV2LCBhbWRncHVfdHRtX2FkZXYoYm8tPnRiby5iZGV2
+KSkgJiYNCj4gKwkgICAgKGJvLT5wcmVmZXJyZWRfZG9tYWlucyAmIEFNREdQVV9HRU1fRE9NQUlO
+X1ZSQU0pKSB7DQo+ICAgCQlib192YS0+aXNfeGdtaSA9IHRydWU7DQo+ICAgCQltdXRleF9sb2Nr
+KCZhZGV2LT52bV9tYW5hZ2VyLmxvY2tfcHN0YXRlKTsNCj4gICAJCS8qIFBvd2VyIHVwIFhHTUkg
+aWYgaXQgY2FuIGJlIHBvdGVudGlhbGx5IHVzZWQgKi8NCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
