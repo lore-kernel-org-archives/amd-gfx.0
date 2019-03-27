@@ -1,81 +1,111 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 125/192] drm/amd/display: Disconnect mpcc when changing tg
-Date: Wed, 27 Mar 2019 14:09:17 -0400
-Message-ID: <20190327181025.13507-125-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 4.19 153/192] drm/amd/display: Enable vblank interrupt
+ during CRC capture
+Date: Wed, 27 Mar 2019 14:09:45 -0400
+Message-ID: <20190327181025.13507-153-sashal@kernel.org>
 References: <20190327181025.13507-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190327181025.13507-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190327181025.13507-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-
-[ Upstream commit 77476360f173c127c191bfe8ca8113130ef283b8 ]
-
-[Why]
-This fixes an mpc programming error for the following sequence of
-atomic commits when pipe split is enabled:
-
-Commit 1: CRTC0 (plane 4, plane 3)
-
-Pipe 0: old_plane_state = A0, new_plane_state = A1,   new_tg = T0
-Pipe 1: old_plane_state = B0, new_plane_state = B1,   new_tg = T0
-Pipe 2: old_plane_state = A0, new_plane_state = A1,   new_tg = T0
-Pipe 3: old_plane_state = B0, new_plane_state = B1,   new_tg = T0
-
-Commit 2: CRTC0 (plane 3), CRTC1 (plane 2)
-
-Pipe 0: old_plane_state = A1, new_plane_state = A2,   new_tg = T0
-Pipe 1: old_plane_state = B1, new_plane_state = B2,   new_tg = T1
-Pipe 2: old_plane_state = A1, new_plane_state = NULL, new_tg = NULL
-Pipe 3: old_plane_state = B1, new_plane_state = NULL, new_tg = NULL
-
-In the second commit the assertion for mpcc in use is hit because
-mpcc disconnect never occurs for pipe 1. This is because the stream
-changes for pipe 1 and the opp_list is empty.
-
-This sequence occurs when running the
-"igt@kms_plane_multiple@atomic-pipe-A-tiling-none" test with two
-displays connected.
-
-[How]
-Expand the reset condition to include:
-
-"old_pipe_ctx->stream_res.tg != new_pipe_ctx->stream_res.tg"
-
-...but only when the plane state is non-NULL for both old and new.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
-Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 4058b59d9bea..a0355709abd1 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2336,9 +2336,10 @@ static void dcn10_apply_ctx_for_surface(
- 			}
- 		}
- 
--		if (!pipe_ctx->plane_state &&
--			old_pipe_ctx->plane_state &&
--			old_pipe_ctx->stream_res.tg == tg) {
-+		if ((!pipe_ctx->plane_state ||
-+		     pipe_ctx->stream_res.tg != old_pipe_ctx->stream_res.tg) &&
-+		    old_pipe_ctx->plane_state &&
-+		    old_pipe_ctx->stream_res.tg == tg) {
- 
- 			dc->hwss.plane_atomic_disconnect(dc, old_pipe_ctx);
- 			removed_pipe[i] = true;
--- 
-2.19.1
+RnJvbTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgoK
+WyBVcHN0cmVhbSBjb21taXQgNDI4ZGEyYmRiMDVkNzZjNDhkMGJkOGZiZmEyZTRjMTAyNjg1YmUw
+OCBdCgpbV2h5XQpJbiBvcmRlciB0byByZWFkIENSQyBldmVudHMgd2hlbiBDUkMgY2FwdHVyZSBp
+cyBlbmFibGVkIHRoZSB2YmxhbmsKaW50ZXJycHV0IGhhbmRsZXIgbmVlZHMgdG8gYmUgcnVubmlu
+ZyBmb3IgdGhlIENSVEMuIFRoZSBoYW5kbGVyIGlzCmVuYWJsZWQgd2hpbGUgdGhlcmUgaXMgYW4g
+YWN0aXZlIHZibGFuayByZWZlcmVuY2UuCgpXaGVuIHJ1bm5pbmcgSUdUIHRlc3RzIHRoZXJlIHdp
+bGwgb2Z0ZW4gYmUgbm8gYWN0aXZlIHZibGFuayByZWZlcmVuY2UKYnV0IHRoZSB0ZXN0IGV4cGVj
+dHMgdG8gcmVhZCBhIENSQyB2YWx1ZS4gVGhpcyBpcyB2YWxpZCB1c2FnZSAoYW5kCndvcmtzIG9u
+IGk5MTUgc2luY2UgdGhleSBoYXZlIGEgQ1JDIGludGVycnVwdCBoYW5kbGVyKSBzbyB0aGUgcmVm
+ZXJlbmNlCnRvIHRoZSB2Ymxhbmsgc2hvdWxkIGJlIGdyYWJiZWQgd2hpbGUgY2FwdHVyZSBpcyBh
+Y3RpdmUuCgpUaGlzIGlzc3VlIHdhcyBmb3VuZCBydW5uaW5nOgoKaWd0QGttc19wbGFuZV9tdWx0
+aXBsZUBhdG9taWMtcGlwZS1iLXRpbGluZy1ub25lCgpUaGUgcGlwZS1iIGlzIHRoZSBvbmx5IG9u
+ZSBpbiB0aGUgaW5pdGlhbCBjb21taXQgYW5kIHdhcyBub3QgcHJldmlvdXNseQphY3RpdmUgc28g
+bm8gdmJsYW5rIHJlZmVyZW5jZSBpcyBncmFiYmVkLiBUaGUgdmJsYW5rIGludGVycnVwdCBpcwpu
+b3QgZW5hYmxlZCBhbmQgdGhlIHRlc3QgdGltZXMgb3V0LgoKW0hvd10KS2VlcCBhIHJlZmVyZW5j
+ZSB0byB0aGUgdmJsYW5rIGFzIGxvbmcgYXMgQ1JDIGNhcHR1cmUgaXMgZW5hYmxlZC4KSWYgdXNl
+cnNwYWNlIG5ldmVyIGV4cGxpY2l0bHkgZGlzYWJsZXMgaXQgdGhlbiB0aGUgcmVmZXJlbmNlIGlz
+CmFsc28gZHJvcHBlZCB3aGVuIHJlbW92aW5nIHRoZSBDUlRDIGZyb20gdGhlIGNvbnRleHQgKHN0
+cmVhbSA9IE5VTEwpLgoKU2lnbmVkLW9mZi1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9s
+YXMua2F6bGF1c2thc0BhbWQuY29tPgpSZXZpZXdlZC1ieTogSGFycnkgV2VudGxhbmQgPEhhcnJ5
+LldlbnRsYW5kQGFtZC5jb20+ClJldmlld2VkLWJ5OiBTdW4gcGVuZyBMaSA8U3VucGVuZy5MaUBh
+bWQuY29tPgpBY2tlZC1ieTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+ClNpZ25lZC1vZmYt
+Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1i
+eTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIC4uLi9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDE0ICsrKysrKy0KIC4uLi9kcm0vYW1kL2Rp
+c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9jcmMuYyB8IDQyICsrKysrKysrKy0tLS0tLS0tLS0K
+IDIgZmlsZXMgY2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0u
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKaW5k
+ZXggYzU3ZTg1ZjA4ZTIzLi4yYjhiODkyZWI4NDYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtNDM5MCwxMCArNDM5MCwyMiBA
+QCBzdGF0aWMgaW50IGFtZGdwdV9kbV9hdG9taWNfY29tbWl0KHN0cnVjdCBkcm1fZGV2aWNlICpk
+ZXYsCiAJICovCiAJZm9yX2VhY2hfb2xkbmV3X2NydGNfaW5fc3RhdGUoc3RhdGUsIGNydGMsIG9s
+ZF9jcnRjX3N0YXRlLCBuZXdfY3J0Y19zdGF0ZSwgaSkgewogCQlzdHJ1Y3QgZG1fY3J0Y19zdGF0
+ZSAqZG1fb2xkX2NydGNfc3RhdGUgPSB0b19kbV9jcnRjX3N0YXRlKG9sZF9jcnRjX3N0YXRlKTsK
+KwkJc3RydWN0IGRtX2NydGNfc3RhdGUgKmRtX25ld19jcnRjX3N0YXRlID0gdG9fZG1fY3J0Y19z
+dGF0ZShuZXdfY3J0Y19zdGF0ZSk7CiAJCXN0cnVjdCBhbWRncHVfY3J0YyAqYWNydGMgPSB0b19h
+bWRncHVfY3J0YyhjcnRjKTsKIAotCQlpZiAoZHJtX2F0b21pY19jcnRjX25lZWRzX21vZGVzZXQo
+bmV3X2NydGNfc3RhdGUpICYmIGRtX29sZF9jcnRjX3N0YXRlLT5zdHJlYW0pCisJCWlmIChkcm1f
+YXRvbWljX2NydGNfbmVlZHNfbW9kZXNldChuZXdfY3J0Y19zdGF0ZSkKKwkJICAgICYmIGRtX29s
+ZF9jcnRjX3N0YXRlLT5zdHJlYW0pIHsKKwkJCS8qCisJCQkgKiBDUkMgY2FwdHVyZSB3YXMgZW5h
+YmxlZCBidXQgbm90IGRpc2FibGVkLgorCQkJICogUmVsZWFzZSB0aGUgdmJsYW5rIHJlZmVyZW5j
+ZS4KKwkJCSAqLworCQkJaWYgKGRtX25ld19jcnRjX3N0YXRlLT5jcmNfZW5hYmxlZCkgeworCQkJ
+CWRybV9jcnRjX3ZibGFua19wdXQoY3J0Yyk7CisJCQkJZG1fbmV3X2NydGNfc3RhdGUtPmNyY19l
+bmFibGVkID0gZmFsc2U7CisJCQl9CisKIAkJCW1hbmFnZV9kbV9pbnRlcnJ1cHRzKGFkZXYsIGFj
+cnRjLCBmYWxzZSk7CisJCX0KIAl9CiAJLyogQWRkIGNoZWNrIGhlcmUgZm9yIFNvQydzIHRoYXQg
+c3VwcG9ydCBoYXJkd2FyZSBjdXJzb3IgcGxhbmUsIHRvCiAJICogdW5zZXQgbGVnYWN5X2N1cnNv
+cl91cGRhdGUgKi8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
+cHVfZG0vYW1kZ3B1X2RtX2NyYy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
+dV9kbS9hbWRncHVfZG1fY3JjLmMKaW5kZXggNmE2ZDk3N2RkZDdhLi4zNmEwYmVkOWFmMDcgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
+X2NyYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtX2NyYy5jCkBAIC01MSw2ICs1MSw3IEBAIGludCBhbWRncHVfZG1fY3J0Y19zZXRfY3JjX3Nv
+dXJjZShzdHJ1Y3QgZHJtX2NydGMgKmNydGMsIGNvbnN0IGNoYXIgKnNyY19uYW1lLAogewogCXN0
+cnVjdCBkbV9jcnRjX3N0YXRlICpjcnRjX3N0YXRlID0gdG9fZG1fY3J0Y19zdGF0ZShjcnRjLT5z
+dGF0ZSk7CiAJc3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFtX3N0YXRlID0gY3J0Y19zdGF0
+ZS0+c3RyZWFtOworCWJvb2wgZW5hYmxlOwogCiAJZW51bSBhbWRncHVfZG1fcGlwZV9jcmNfc291
+cmNlIHNvdXJjZSA9IGRtX3BhcnNlX2NyY19zb3VyY2Uoc3JjX25hbWUpOwogCkBAIC02NSwyOCAr
+NjYsMjcgQEAgaW50IGFtZGdwdV9kbV9jcnRjX3NldF9jcmNfc291cmNlKHN0cnVjdCBkcm1fY3J0
+YyAqY3J0YywgY29uc3QgY2hhciAqc3JjX25hbWUsCiAJCXJldHVybiAtRUlOVkFMOwogCX0KIAor
+CWVuYWJsZSA9IChzb3VyY2UgPT0gQU1ER1BVX0RNX1BJUEVfQ1JDX1NPVVJDRV9BVVRPKTsKKwor
+CWlmICghZGNfc3RyZWFtX2NvbmZpZ3VyZV9jcmMoc3RyZWFtX3N0YXRlLT5jdHgtPmRjLCBzdHJl
+YW1fc3RhdGUsCisJCQkJICAgICBlbmFibGUsIGVuYWJsZSkpCisJCXJldHVybiAtRUlOVkFMOwor
+CiAJLyogV2hlbiBlbmFibGluZyBDUkMsIHdlIHNob3VsZCBhbHNvIGRpc2FibGUgZGl0aGVyaW5n
+LiAqLwotCWlmIChzb3VyY2UgPT0gQU1ER1BVX0RNX1BJUEVfQ1JDX1NPVVJDRV9BVVRPKSB7Ci0J
+CWlmIChkY19zdHJlYW1fY29uZmlndXJlX2NyYyhzdHJlYW1fc3RhdGUtPmN0eC0+ZGMsCi0JCQkJ
+CSAgICBzdHJlYW1fc3RhdGUsCi0JCQkJCSAgICB0cnVlLCB0cnVlKSkgewotCQkJY3J0Y19zdGF0
+ZS0+Y3JjX2VuYWJsZWQgPSB0cnVlOwotCQkJZGNfc3RyZWFtX3NldF9kaXRoZXJfb3B0aW9uKHN0
+cmVhbV9zdGF0ZSwKLQkJCQkJCSAgICBESVRIRVJfT1BUSU9OX1RSVU44KTsKLQkJfQotCQllbHNl
+Ci0JCQlyZXR1cm4gLUVJTlZBTDsKLQl9IGVsc2UgewotCQlpZiAoZGNfc3RyZWFtX2NvbmZpZ3Vy
+ZV9jcmMoc3RyZWFtX3N0YXRlLT5jdHgtPmRjLAotCQkJCQkgICAgc3RyZWFtX3N0YXRlLAotCQkJ
+CQkgICAgZmFsc2UsIGZhbHNlKSkgewotCQkJY3J0Y19zdGF0ZS0+Y3JjX2VuYWJsZWQgPSBmYWxz
+ZTsKLQkJCWRjX3N0cmVhbV9zZXRfZGl0aGVyX29wdGlvbihzdHJlYW1fc3RhdGUsCi0JCQkJCQkg
+ICAgRElUSEVSX09QVElPTl9ERUZBVUxUKTsKLQkJfQotCQllbHNlCi0JCQlyZXR1cm4gLUVJTlZB
+TDsKLQl9CisJZGNfc3RyZWFtX3NldF9kaXRoZXJfb3B0aW9uKHN0cmVhbV9zdGF0ZSwKKwkJCQkg
+ICAgZW5hYmxlID8gRElUSEVSX09QVElPTl9UUlVOOAorCQkJCQkgICA6IERJVEhFUl9PUFRJT05f
+REVGQVVMVCk7CisKKwkvKgorCSAqIFJlYWRpbmcgdGhlIENSQyByZXF1aXJlcyB0aGUgdmJsYW5r
+IGludGVycnVwdCBoYW5kbGVyIHRvIGJlCisJICogZW5hYmxlZC4gS2VlcCBhIHJlZmVyZW5jZSB1
+bnRpbCBDUkMgY2FwdHVyZSBzdG9wcy4KKwkgKi8KKwlpZiAoIWNydGNfc3RhdGUtPmNyY19lbmFi
+bGVkICYmIGVuYWJsZSkKKwkJZHJtX2NydGNfdmJsYW5rX2dldChjcnRjKTsKKwllbHNlIGlmIChj
+cnRjX3N0YXRlLT5jcmNfZW5hYmxlZCAmJiAhZW5hYmxlKQorCQlkcm1fY3J0Y192YmxhbmtfcHV0
+KGNydGMpOworCisJY3J0Y19zdGF0ZS0+Y3JjX2VuYWJsZWQgPSBlbmFibGU7CiAKIAkqdmFsdWVz
+X2NudCA9IDM7CiAJLyogUmVzZXQgY3JjX3NraXBwZWQgb24gZG0gc3RhdGUgKi8KLS0gCjIuMTku
+MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
