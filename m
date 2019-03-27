@@ -1,17 +1,18 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu: Add preferred_domain check when determine
  XGMI state
-Date: Wed, 27 Mar 2019 15:34:22 +0000
-Message-ID: <fd7f4b68-26c2-d0ea-b254-fbc61a0d3956@amd.com>
+Date: Wed, 27 Mar 2019 15:39:09 +0000
+Message-ID: <68f7ccfa-646e-492f-bdd7-b24f2e2029da@email.android.com>
 References: <1553632516-23346-1-git-send-email-shaoyun.liu@amd.com>
  <c42cc872-cddf-01b9-b46e-b2084f8a1bc3@gmail.com>
  <5d6e562d-012b-f22b-7ec9-2fdf33a9319d@amd.com>
- <3e28a7df-4165-4bde-8a2e-926453ceb1d1@email.android.com>
+ <3e28a7df-4165-4bde-8a2e-926453ceb1d1@email.android.com>,
+ <fd7f4b68-26c2-d0ea-b254-fbc61a0d3956@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1396625247=="
+Content-Type: multipart/mixed; boundary="===============1284381917=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <3e28a7df-4165-4bde-8a2e-926453ceb1d1-2ueSQiBKiTY7tOexoI0I+QC/G2K4zDHf@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <fd7f4b68-26c2-d0ea-b254-fbc61a0d3956-5C7GfCeVMHo@public.gmane.org>
+Content-Language: de-DE
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,222 +23,329 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1396625247==
-Content-Language: en-US
+--===============1284381917==
+Content-Language: de-DE
 Content-Type: multipart/alternative;
-	boundary="_000_fd7f4b6826c2d0eab254fbc61a0d3956amdcom_"
+	boundary="_000_68f7ccfa646e492fbdd7b24f2e2029daemailandroidcom_"
 
---_000_fd7f4b6826c2d0eab254fbc61a0d3956amdcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_68f7ccfa646e492fbdd7b24f2e2029daemailandroidcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-eW91IG1lYW4gc3RydWN0IGFtZGdwdV92bV9ib19iYXNlID8gSXQgb25seSAgaGFzIGZldyBwb2lu
-dGVyIGFuZCAgYSBsaXN0X2hlYWQgLCBzaG91bGQgYmUgIHByZXR0eSBzbWFsbCAuDQoNCnN0cnVj
-dCBhbWRncHVfdm1fYm9fYmFzZSB7DQogICAgLyogY29uc3RhbnQgYWZ0ZXIgaW5pdGlhbGl6YXRp
-b24gKi8NCiAgICBzdHJ1Y3QgYW1kZ3B1X3ZtICAgICAgICAqdm07DQogICAgc3RydWN0IGFtZGdw
-dV9ibyAgICAgICAgKmJvOw0KDQogICAgLyogcHJvdGVjdGVkIGJ5IGJvIGJlaW5nIHJlc2VydmVk
-ICovDQogICAgc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICAgICpuZXh0Ow0KDQogICAgLyogcHJv
-dGVjdGVkIGJ5IHNwaW5sb2NrICovDQogICAgc3RydWN0IGxpc3RfaGVhZCAgICAgICAgdm1fc3Rh
-dHVzOw0KDQogICAgLyogcHJvdGVjdGVkIGJ5IHRoZSBCTyBiZWluZyByZXNlcnZlZCAqLw0KICAg
-IGJvb2wgICAgICAgICAgICAgICAgbW92ZWQ7DQp9Ow0KDQpzaGFveXVuLmxpdQ0KDQpPbiAyMDE5
-LTAzLTI3IDExOjMwIGEubS4sIEtvZW5pZywgQ2hyaXN0aWFuIHdyb3RlOg0KQWgsIG9mIGNvdXJz
-ZS4gSW4gdGhpcyBjYXNlIGZlZWwgZnJlZSB0byBnbyBhaGVhZC4NCiBCVFc6IFdoYXQncyB0aGUg
-c2l6ZSBvZiB0aGUgc3RydWN0dXJlIG5vdz8NCg0KQ2hyaXN0aWFuLg0KDQpBbSAyNy4wMy4yMDE5
-IDE2OjIyIHNjaHJpZWIgIkxpdSwgU2hhb3l1biIgPFNoYW95dW4uTGl1QGFtZC5jb20+PG1haWx0
-bzpTaGFveXVuLkxpdUBhbWQuY29tPjoNClRoZSAgbmV4dCBpbiBzdHJ1Y3QgYW1kZ3B1X3ZtX2Jv
-X2Jhc2UgIGlzIG5vdCBhICBsaXN0X2hlYWQsICBJJ20gbm90DQpzdXJlIHdoZXRoZXIgd2UgY2Fu
-IHVzZSBsaXN0X2Zvcl9lYWNoX2VudHJ5IGhlcmUuDQoNClJlZ2FyZHMNCg0Kc2hhb3l1bi5saXUN
-Cg0KT24gMjAxOS0wMy0yNyAzOjQxIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFt
-IDI2LjAzLjE5IHVtIDIxOjM1IHNjaHJpZWIgTGl1LCBTaGFveXVuOg0KPj4gQXZvaWQgdW5uZWNl
-c3NhcnkgWEdNSSBoaWdodCBwc3RhdGUgdHJpZ2dlciB3aGVuIG1hcHBpbmcgbm9uZS12cmFtDQo+
-PiBtZW1vcnkgZm9yIHBlZXIgZGV2aWNlDQo+Pg0KPj4gQ2hhbmdlLUlkOiBJMTg4MWRlZmYzZGEx
-OWYxZjRiNThkNTc2NWRiMDNhNTkwMDkyYTViMg0KPj4gU2lnbmVkLW9mZi1ieTogc2hhb3l1bmwg
-PHNoYW95dW4ubGl1QGFtZC5jb20+PG1haWx0bzpzaGFveXVuLmxpdUBhbWQuY29tPg0KPj4gLS0t
-DQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyB8IDExICsrKysr
-KysrKysrDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jICB8ICAz
-ICsrLQ0KPj4gICAyIGZpbGVzIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
-LSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2dlbS5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KPj4g
-aW5kZXggYTgyYzNiMS4uYTBmNTZlNCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2dlbS5jDQo+PiBAQCAtNjY2LDYgKzY2Niw4IEBAIGludCBhbWRncHVfZ2VtX29w
-X2lvY3RsKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsDQo+PiB2b2lkICpkYXRhLA0KPj4gICAgICAg
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOw0KPj4gICAgICAg
-c3RydWN0IGRybV9hbWRncHVfZ2VtX29wICphcmdzID0gZGF0YTsNCj4+ICAgICAgIHN0cnVjdCBk
-cm1fZ2VtX29iamVjdCAqZ29iajsNCj4+ICsgICAgc3RydWN0IGFtZGdwdV92bV9ib19iYXNlICpi
-YXNlOw0KPj4gKyAgICBzdHJ1Y3QgYW1kZ3B1X2JvX3ZhICpib192YTsNCj4+ICAgICAgIHN0cnVj
-dCBhbWRncHVfYm8gKnJvYmo7DQo+PiAgICAgICBpbnQgcjsNCj4+ICAgQEAgLTcwNCw2ICs3MDYs
-MTUgQEAgaW50IGFtZGdwdV9nZW1fb3BfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UNCj4+ICpkZXYs
-IHZvaWQgKmRhdGEsDQo+PiAgICAgICAgICAgICAgIGFtZGdwdV9ib191bnJlc2VydmUocm9iaik7
-DQo+PiAgICAgICAgICAgICAgIGJyZWFrOw0KPj4gICAgICAgICAgIH0NCj4+ICsgICAgICAgIGZv
-ciAoYmFzZSA9IHJvYmotPnZtX2JvOyBiYXNlOyBiYXNlID0gYmFzZS0+bmV4dCkgew0KPj4gKyAg
-ICAgICAgICAgIGJvX3ZhID0gY29udGFpbmVyX29mKGJhc2UsIHN0cnVjdCBhbWRncHVfYm9fdmEs
-IGJhc2UpOw0KPg0KPiBQbGVhc2UgdXNlIGxpc3RfZm9yX2VhY2hfZW50cnkgaGVyZSBpbnN0ZWFk
-IG9mIG9wZW4gY29kaW5nIGl0Lg0KPg0KPiBDaHJpc3RpYW4uDQo+DQo+PiArICAgICAgICAgICAg
-aWYgKGJvX3ZhICYmIGJvX3ZhLT5pc194Z21pKSB7DQo+PiArICAgICAgICAgICAgICAgIHIgPSAt
-RUlOVkFMOw0KPj4gKyAgICAgICAgICAgICAgICBhbWRncHVfYm9fdW5yZXNlcnZlKHJvYmopOw0K
-Pj4gKyAgICAgICAgICAgICAgICBnb3RvIG91dDsNCj4+ICsgICAgICAgICAgICB9DQo+PiArICAg
-ICAgICB9DQo+PiArDQo+PiAgICAgICAgICAgcm9iai0+cHJlZmVycmVkX2RvbWFpbnMgPSBhcmdz
-LT52YWx1ZSAmDQo+PiAoQU1ER1BVX0dFTV9ET01BSU5fVlJBTSB8DQo+PiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBBTURHUFVfR0VNX0RPTUFJTl9HVFQgfA0KPj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgQU1ER1BVX0dFTV9ET01BSU5fQ1BVKTsNCj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4gYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4gaW5kZXggNzZlZWU3ZS4uOGVkMjNkMiAx
-MDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4gQEAgLTIw
-NDgsNyArMjA0OCw4IEBAIHN0cnVjdCBhbWRncHVfYm9fdmEgKmFtZGdwdV92bV9ib19hZGQoc3Ry
-dWN0DQo+PiBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gICAgICAgSU5JVF9MSVNUX0hFQUQoJmJv
-X3ZhLT52YWxpZHMpOw0KPj4gICAgICAgSU5JVF9MSVNUX0hFQUQoJmJvX3ZhLT5pbnZhbGlkcyk7
-DQo+PiAgIC0gICAgaWYgKGJvICYmIGFtZGdwdV94Z21pX3NhbWVfaGl2ZShhZGV2LA0KPj4gYW1k
-Z3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldikpKSB7DQo+PiArICAgIGlmIChibyAmJiBhbWRncHVf
-eGdtaV9zYW1lX2hpdmUoYWRldiwNCj4+IGFtZGdwdV90dG1fYWRldihiby0+dGJvLmJkZXYpKSAm
-Jg0KPj4gKyAgICAgICAgKGJvLT5wcmVmZXJyZWRfZG9tYWlucyAmIEFNREdQVV9HRU1fRE9NQUlO
-X1ZSQU0pKSB7DQo+PiAgICAgICAgICAgYm9fdmEtPmlzX3hnbWkgPSB0cnVlOw0KPj4gICAgICAg
-ICAgIG11dGV4X2xvY2soJmFkZXYtPnZtX21hbmFnZXIubG9ja19wc3RhdGUpOw0KPj4gICAgICAg
-ICAgIC8qIFBvd2VyIHVwIFhHTUkgaWYgaXQgY2FuIGJlIHBvdGVudGlhbGx5IHVzZWQgKi8NCj4N
-Cg==
+Yeah, that one is intentionally very small because it is used so often.
 
---_000_fd7f4b6826c2d0eab254fbc61a0d3956amdcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <E5220B708C6DFB4390DF0659571A9946-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: base64
+When it grows over the next power of two by this change we need to figure o=
+ut a different approach.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
-IGJnY29sb3I9IiNGRkZGRkYiPg0KPHA+eW91IG1lYW4gc3RydWN0IGFtZGdwdV92bV9ib19iYXNl
-ID8gSXQgb25seSZuYnNwOyBoYXMgZmV3IHBvaW50ZXIgYW5kJm5ic3A7IGEgbGlzdF9oZWFkICwg
-c2hvdWxkIGJlJm5ic3A7IHByZXR0eSBzbWFsbCAuDQo8YnI+DQo8L3A+DQo8cD5zdHJ1Y3QgYW1k
-Z3B1X3ZtX2JvX2Jhc2Ugezxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyAvKiBjb25zdGFudCBhZnRl
-ciBpbml0aWFsaXphdGlvbiAqLzxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgYW1kZ3B1
-X3ZtJm5ic3A7Jm5ic3A7Jm5ic3A7ICZuYnNwOyZuYnNwOyZuYnNwOyAqdm07PGJyPg0KJm5ic3A7
-Jm5ic3A7Jm5ic3A7IHN0cnVjdCBhbWRncHVfYm8mbmJzcDsmbmJzcDsmbmJzcDsgJm5ic3A7Jm5i
-c3A7Jm5ic3A7ICpibzs8YnI+DQo8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsgLyogcHJvdGVjdGVk
-IGJ5IGJvIGJlaW5nIHJlc2VydmVkICovPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7IHN0cnVjdCBh
-bWRncHVfdm1fYm9fYmFzZSZuYnNwOyZuYnNwOyZuYnNwOyAqbmV4dDs8YnI+DQo8YnI+DQombmJz
-cDsmbmJzcDsmbmJzcDsgLyogcHJvdGVjdGVkIGJ5IHNwaW5sb2NrICovPGJyPg0KJm5ic3A7Jm5i
-c3A7Jm5ic3A7IHN0cnVjdCBsaXN0X2hlYWQmbmJzcDsmbmJzcDsmbmJzcDsgJm5ic3A7Jm5ic3A7
-Jm5ic3A7IHZtX3N0YXR1czs8YnI+DQo8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsgLyogcHJvdGVj
-dGVkIGJ5IHRoZSBCTyBiZWluZyByZXNlcnZlZCAqLzxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyBi
-b29sJm5ic3A7Jm5ic3A7Jm5ic3A7ICZuYnNwOyZuYnNwOyZuYnNwOyAmbmJzcDsmbmJzcDsmbmJz
-cDsgJm5ic3A7Jm5ic3A7Jm5ic3A7IG1vdmVkOzxicj4NCn07PGJyPg0KPC9wPg0KPHA+c2hhb3l1
-bi5saXU8YnI+DQo8L3A+DQo8ZGl2IGNsYXNzPSJtb3otY2l0ZS1wcmVmaXgiPk9uIDIwMTktMDMt
-MjcgMTE6MzAgYS5tLiwgS29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6PGJyPg0KPC9kaXY+DQo8Ymxv
-Y2txdW90ZSB0eXBlPSJjaXRlIiBjaXRlPSJtaWQ6M2UyOGE3ZGYtNDE2NS00YmRlLThhMmUtOTI2
-NDUzY2ViMWQxQGVtYWlsLmFuZHJvaWQuY29tIj4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29u
-dGVudD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRl
-eHQgLS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5n
-LWxlZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+
-DQo8ZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPkFoLCBvZiBjb3Vyc2UuIEluIHRoaXMgY2FzZSBmZWVs
-IGZyZWUgdG8gZ28gYWhlYWQuDQo8ZGl2IGRpcj0iYXV0byI+Jm5ic3A7QlRXOiBXaGF0J3MgdGhl
-IHNpemUgb2YgdGhlIHN0cnVjdHVyZSBub3c/PC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+PGJyPg0K
-PC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+Q2hyaXN0aWFuLjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNs
-YXNzPSJ4X2dtYWlsX2V4dHJhIj48YnI+DQo8ZGl2IGNsYXNzPSJ4X2dtYWlsX3F1b3RlIj5BbSAy
-Ny4wMy4yMDE5IDE2OjIyIHNjaHJpZWIgJnF1b3Q7TGl1LCBTaGFveXVuJnF1b3Q7IDxhIGNsYXNz
-PSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpTaGFveXVuLkxpdUBhbWQuY29t
-Ij4NCiZsdDtTaGFveXVuLkxpdUBhbWQuY29tJmd0OzwvYT46PGJyIHR5cGU9ImF0dHJpYnV0aW9u
-Ij4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjxmb250IHNpemU9IjIiPjxzcGFuIHN0eWxlPSJm
-b250LXNpemU6MTFwdDsiPg0KPGRpdiBjbGFzcz0iUGxhaW5UZXh0Ij5UaGUmbmJzcDsgbmV4dCBp
-biBzdHJ1Y3QgYW1kZ3B1X3ZtX2JvX2Jhc2UmbmJzcDsgaXMgbm90IGEmbmJzcDsgbGlzdF9oZWFk
-LCZuYnNwOyBJJ20gbm90DQo8YnI+DQpzdXJlIHdoZXRoZXIgd2UgY2FuIHVzZSBsaXN0X2Zvcl9l
-YWNoX2VudHJ5IGhlcmUuPGJyPg0KPGJyPg0KUmVnYXJkczxicj4NCjxicj4NCnNoYW95dW4ubGl1
-PGJyPg0KPGJyPg0KT24gMjAxOS0wMy0yNyAzOjQxIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3Jv
-dGU6PGJyPg0KJmd0OyBBbSAyNi4wMy4xOSB1bSAyMTozNSBzY2hyaWViIExpdSwgU2hhb3l1bjo8
-YnI+DQomZ3Q7Jmd0OyBBdm9pZCB1bm5lY2Vzc2FyeSBYR01JIGhpZ2h0IHBzdGF0ZSB0cmlnZ2Vy
-IHdoZW4gbWFwcGluZyBub25lLXZyYW0gPGJyPg0KJmd0OyZndDsgbWVtb3J5IGZvciBwZWVyIGRl
-dmljZTxicj4NCiZndDsmZ3Q7PGJyPg0KJmd0OyZndDsgQ2hhbmdlLUlkOiBJMTg4MWRlZmYzZGEx
-OWYxZjRiNThkNTc2NWRiMDNhNTkwMDkyYTViMjxicj4NCiZndDsmZ3Q7IFNpZ25lZC1vZmYtYnk6
-IHNoYW95dW5sIDxhIGNsYXNzPSJtb3otdHh0LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpz
-aGFveXVuLmxpdUBhbWQuY29tIj4NCiZsdDtzaGFveXVuLmxpdUBhbWQuY29tJmd0OzwvYT48YnI+
-DQomZ3Q7Jmd0OyAtLS08YnI+DQomZ3Q7Jmd0OyAmbmJzcDsgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2dlbS5jIHwgMTEgJiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0
-MzsmIzQzOyYjNDM7JiM0MzsmIzQzOzxicj4NCiZndDsmZ3Q7ICZuYnNwOyBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyZuYnNwOyB8Jm5ic3A7IDMgJiM0MzsmIzQzOy08YnI+
-DQomZ3Q7Jmd0OyAmbmJzcDsgMiBmaWxlcyBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCYjNDM7KSwg
-MSBkZWxldGlvbigtKTxicj4NCiZndDsmZ3Q7PGJyPg0KJmd0OyZndDsgZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyA8YnI+DQomZ3Q7Jmd0OyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYzxicj4NCiZndDsmZ3Q7IGluZGV4
-IGE4MmMzYjEuLmEwZjU2ZTQgMTAwNjQ0PGJyPg0KJmd0OyZndDsgLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jPGJyPg0KJmd0OyZndDsgJiM0MzsmIzQzOyYjNDM7
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jPGJyPg0KJmd0OyZndDsg
-QEAgLTY2Niw2ICYjNDM7NjY2LDggQEAgaW50IGFtZGdwdV9nZW1fb3BfaW9jdGwoc3RydWN0IGRy
-bV9kZXZpY2UgKmRldiwgPGJyPg0KJmd0OyZndDsgdm9pZCAqZGF0YSw8YnI+DQomZ3Q7Jmd0OyAm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYg
-PSBkZXYtJmd0O2Rldl9wcml2YXRlOzxicj4NCiZndDsmZ3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyBzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fb3AgKmFyZ3MgPSBkYXRhOzxicj4NCiZn
-dDsmZ3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgZHJtX2dlbV9vYmpl
-Y3QgKmdvYmo7PGJyPg0KJmd0OyZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsgc3RydWN0IGFt
-ZGdwdV92bV9ib19iYXNlICpiYXNlOzxicj4NCiZndDsmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7IHN0cnVjdCBhbWRncHVfYm9fdmEgKmJvX3ZhOzxicj4NCiZndDsmZ3Q7ICZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgYW1kZ3B1X2JvICpyb2JqOzxicj4NCiZndDsmZ3Q7
-ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpbnQgcjs8YnI+DQomZ3Q7Jmd0OyAmbmJz
-cDsgQEAgLTcwNCw2ICYjNDM7NzA2LDE1IEBAIGludCBhbWRncHVfZ2VtX29wX2lvY3RsKHN0cnVj
-dCBkcm1fZGV2aWNlIDxicj4NCiZndDsmZ3Q7ICpkZXYsIHZvaWQgKmRhdGEsPGJyPg0KJmd0OyZn
-dDsgJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGFtZGdwdV9ib191bnJlc2VydmUocm9iaik7PGJyPg0K
-Jmd0OyZndDsgJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGJyZWFrOzxicj4NCiZndDsmZ3Q7ICZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0K
-Jmd0OyZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
-Zm9yIChiYXNlID0gcm9iai0mZ3Q7dm1fYm87IGJhc2U7IGJhc2UgPSBiYXNlLSZndDtuZXh0KSB7
-PGJyPg0KJmd0OyZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYm9fdmEgPSBjb250YWluZXJfb2YoYmFzZSwg
-c3RydWN0IGFtZGdwdV9ib192YSwgYmFzZSk7PGJyPg0KJmd0Ozxicj4NCiZndDsgUGxlYXNlIHVz
-ZSBsaXN0X2Zvcl9lYWNoX2VudHJ5IGhlcmUgaW5zdGVhZCBvZiBvcGVuIGNvZGluZyBpdC48YnI+
-DQomZ3Q7PGJyPg0KJmd0OyBDaHJpc3RpYW4uPGJyPg0KJmd0Ozxicj4NCiZndDsmZ3Q7ICYjNDM7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7IGlmIChib192YSAmYW1wOyZhbXA7IGJvX3ZhLSZndDtpc194Z21pKSB7PGJyPg0K
-Jmd0OyZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgciA9IC1FSU5W
-QUw7PGJyPg0KJmd0OyZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
-YW1kZ3B1X2JvX3VucmVzZXJ2ZShyb2JqKTs8YnI+DQomZ3Q7Jmd0OyAmIzQzOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBnb3RvIG91dDs8YnI+DQomZ3Q7Jmd0OyAmIzQzOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyB9PGJyPg0KJmd0OyZndDsgJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsgfTxicj4NCiZndDsmZ3Q7ICYjNDM7PGJyPg0KJmd0OyZndDsgJm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHJvYmotJmd0O3By
-ZWZlcnJlZF9kb21haW5zID0gYXJncy0mZ3Q7dmFsdWUgJmFtcDsgPGJyPg0KJmd0OyZndDsgKEFN
-REdQVV9HRU1fRE9NQUlOX1ZSQU0gfDxicj4NCiZndDsmZ3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBBTURHUFVfR0VNX0RPTUFJ
-Tl9HVFQgfDxicj4NCiZndDsmZ3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBBTURHUFVfR0VNX0RPTUFJTl9DUFUpOzxicj4NCiZn
-dDsmZ3Q7IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
-YyA8YnI+DQomZ3Q7Jmd0OyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5j
-PGJyPg0KJmd0OyZndDsgaW5kZXggNzZlZWU3ZS4uOGVkMjNkMiAxMDA2NDQ8YnI+DQomZ3Q7Jmd0
-OyAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYzxicj4NCiZndDsm
-Z3Q7ICYjNDM7JiM0MzsmIzQzOyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
-bS5jPGJyPg0KJmd0OyZndDsgQEAgLTIwNDgsNyAmIzQzOzIwNDgsOCBAQCBzdHJ1Y3QgYW1kZ3B1
-X2JvX3ZhICphbWRncHVfdm1fYm9fYWRkKHN0cnVjdCA8YnI+DQomZ3Q7Jmd0OyBhbWRncHVfZGV2
-aWNlICphZGV2LDxicj4NCiZndDsmZ3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBJ
-TklUX0xJU1RfSEVBRCgmYW1wO2JvX3ZhLSZndDt2YWxpZHMpOzxicj4NCiZndDsmZ3Q7ICZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBJTklUX0xJU1RfSEVBRCgmYW1wO2JvX3ZhLSZndDtp
-bnZhbGlkcyk7PGJyPg0KJmd0OyZndDsgJm5ic3A7IC0mbmJzcDsmbmJzcDsmbmJzcDsgaWYgKGJv
-ICZhbXA7JmFtcDsgYW1kZ3B1X3hnbWlfc2FtZV9oaXZlKGFkZXYsIDxicj4NCiZndDsmZ3Q7IGFt
-ZGdwdV90dG1fYWRldihiby0mZ3Q7dGJvLmJkZXYpKSkgezxicj4NCiZndDsmZ3Q7ICYjNDM7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7IGlmIChibyAmYW1wOyZhbXA7IGFtZGdwdV94Z21pX3NhbWVfaGl2ZShh
-ZGV2LCA8YnI+DQomZ3Q7Jmd0OyBhbWRncHVfdHRtX2FkZXYoYm8tJmd0O3Riby5iZGV2KSkgJmFt
-cDsmYW1wOzxicj4NCiZndDsmZ3Q7ICYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7IChiby0mZ3Q7cHJlZmVycmVkX2RvbWFpbnMgJmFtcDsgQU1ER1BVX0dFTV9E
-T01BSU5fVlJBTSkpIHs8YnI+DQomZ3Q7Jmd0OyAmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYm9fdmEtJmd0O2lzX3hnbWkgPSB0cnVlOzxicj4N
-CiZndDsmZ3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyBtdXRleF9sb2NrKCZhbXA7YWRldi0mZ3Q7dm1fbWFuYWdlci5sb2NrX3BzdGF0ZSk7
-PGJyPg0KJmd0OyZndDsgJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7IC8qIFBvd2VyIHVwIFhHTUkgaWYgaXQgY2FuIGJlIHBvdGVudGlhbGx5IHVz
-ZWQgKi88YnI+DQomZ3Q7PGJyPg0KPC9kaXY+DQo8L3NwYW4+PC9mb250PjwvYmxvY2txdW90ZT4N
-CjwvYm9keT4NCjwvaHRtbD4NCg==
+Christian.
 
---_000_fd7f4b6826c2d0eab254fbc61a0d3956amdcom_--
+Am 27.03.2019 16:34 schrieb "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>:
 
---===============1396625247==
+you mean struct amdgpu_vm_bo_base ? It only  has few pointer and  a list_he=
+ad , should be  pretty small .
+
+struct amdgpu_vm_bo_base {
+    /* constant after initialization */
+    struct amdgpu_vm        *vm;
+    struct amdgpu_bo        *bo;
+
+    /* protected by bo being reserved */
+    struct amdgpu_vm_bo_base    *next;
+
+    /* protected by spinlock */
+    struct list_head        vm_status;
+
+    /* protected by the BO being reserved */
+    bool                moved;
+};
+
+shaoyun.liu
+
+On 2019-03-27 11:30 a.m., Koenig, Christian wrote:
+Ah, of course. In this case feel free to go ahead.
+ BTW: What's the size of the structure now?
+
+Christian.
+
+Am 27.03.2019 16:22 schrieb "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org><mailto:Sha=
+oyun.Liu-5C7GfCeVMHo@public.gmane.org>:
+The  next in struct amdgpu_vm_bo_base  is not a  list_head,  I'm not
+sure whether we can use list_for_each_entry here.
+
+Regards
+
+shaoyun.liu
+
+On 2019-03-27 3:41 a.m., Christian K=F6nig wrote:
+> Am 26.03.19 um 21:35 schrieb Liu, Shaoyun:
+>> Avoid unnecessary XGMI hight pstate trigger when mapping none-vram
+>> memory for peer device
+>>
+>> Change-Id: I1881deff3da19f1f4b58d5765db03a590092a5b2
+>> Signed-off-by: shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org><mailto:shaoyun.liu-5C7GfCeVMHo@public.gmane.org=
+>
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 +++++++++++
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |  3 ++-
+>>   2 files changed, 13 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index a82c3b1..a0f56e4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -666,6 +666,8 @@ int amdgpu_gem_op_ioctl(struct drm_device *dev,
+>> void *data,
+>>       struct amdgpu_device *adev =3D dev->dev_private;
+>>       struct drm_amdgpu_gem_op *args =3D data;
+>>       struct drm_gem_object *gobj;
+>> +    struct amdgpu_vm_bo_base *base;
+>> +    struct amdgpu_bo_va *bo_va;
+>>       struct amdgpu_bo *robj;
+>>       int r;
+>>   @@ -704,6 +706,15 @@ int amdgpu_gem_op_ioctl(struct drm_device
+>> *dev, void *data,
+>>               amdgpu_bo_unreserve(robj);
+>>               break;
+>>           }
+>> +        for (base =3D robj->vm_bo; base; base =3D base->next) {
+>> +            bo_va =3D container_of(base, struct amdgpu_bo_va, base);
+>
+> Please use list_for_each_entry here instead of open coding it.
+>
+> Christian.
+>
+>> +            if (bo_va && bo_va->is_xgmi) {
+>> +                r =3D -EINVAL;
+>> +                amdgpu_bo_unreserve(robj);
+>> +                goto out;
+>> +            }
+>> +        }
+>> +
+>>           robj->preferred_domains =3D args->value &
+>> (AMDGPU_GEM_DOMAIN_VRAM |
+>>                               AMDGPU_GEM_DOMAIN_GTT |
+>>                               AMDGPU_GEM_DOMAIN_CPU);
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index 76eee7e..8ed23d2 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -2048,7 +2048,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(struct
+>> amdgpu_device *adev,
+>>       INIT_LIST_HEAD(&bo_va->valids);
+>>       INIT_LIST_HEAD(&bo_va->invalids);
+>>   -    if (bo && amdgpu_xgmi_same_hive(adev,
+>> amdgpu_ttm_adev(bo->tbo.bdev))) {
+>> +    if (bo && amdgpu_xgmi_same_hive(adev,
+>> amdgpu_ttm_adev(bo->tbo.bdev)) &&
+>> +        (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)) {
+>>           bo_va->is_xgmi =3D true;
+>>           mutex_lock(&adev->vm_manager.lock_pstate);
+>>           /* Power up XGMI if it can be potentially used */
+>
+
+--_000_68f7ccfa646e492fbdd7b24f2e2029daemailandroidcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta content=3D"text/html; charset=3Dutf-8">
+</head>
+<body bgcolor=3D"#FFFFFF">
+<div dir=3D"auto">Yeah, that one is intentionally very small because it is =
+used so often.
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">When it grows over the next power of two by this change w=
+e need to figure out a different approach.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"gmail_extra"><br>
+<div class=3D"gmail_quote">Am 27.03.2019 16:34 schrieb &quot;Liu, Shaoyun&q=
+uot; &lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;:<br type=3D"attribution">
+</div>
+</div>
+<div>
+<p>you mean struct amdgpu_vm_bo_base ? It only&nbsp; has few pointer and&nb=
+sp; a list_head , should be&nbsp; pretty small .
+<br>
+</p>
+<p>struct amdgpu_vm_bo_base {<br>
+&nbsp;&nbsp;&nbsp; /* constant after initialization */<br>
+&nbsp;&nbsp;&nbsp; struct amdgpu_vm&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; *v=
+m;<br>
+&nbsp;&nbsp;&nbsp; struct amdgpu_bo&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; *b=
+o;<br>
+<br>
+&nbsp;&nbsp;&nbsp; /* protected by bo being reserved */<br>
+&nbsp;&nbsp;&nbsp; struct amdgpu_vm_bo_base&nbsp;&nbsp;&nbsp; *next;<br>
+<br>
+&nbsp;&nbsp;&nbsp; /* protected by spinlock */<br>
+&nbsp;&nbsp;&nbsp; struct list_head&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; vm=
+_status;<br>
+<br>
+&nbsp;&nbsp;&nbsp; /* protected by the BO being reserved */<br>
+&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&n=
+bsp; &nbsp;&nbsp;&nbsp; moved;<br>
+};<br>
+</p>
+<p>shaoyun.liu<br>
+</p>
+<div class=3D"moz-cite-prefix">On 2019-03-27 11:30 a.m., Koenig, Christian =
+wrote:<br>
+</div>
+<blockquote type=3D"cite">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<style>
+<!--
+.EmailQuote
+	{margin-left:1pt;
+	padding-left:4pt;
+	border-left:#800000 2px solid}
+-->
+</style>
+<div>
+<div dir=3D"auto">Ah, of course. In this case feel free to go ahead.
+<div dir=3D"auto">&nbsp;BTW: What's the size of the structure now?</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"x_gmail_extra"><br>
+<div class=3D"x_gmail_quote">Am 27.03.2019 16:22 schrieb &quot;Liu, Shaoyun=
+&quot; <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Shaoyun.Liu-urvtwAKJhsc@public.gmane.org=
+m">
+&lt;Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org&gt;</a>:<br type=3D"attribution">
+</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt">
+<div class=3D"PlainText">The&nbsp; next in struct amdgpu_vm_bo_base&nbsp; i=
+s not a&nbsp; list_head,&nbsp; I'm not
+<br>
+sure whether we can use list_for_each_entry here.<br>
+<br>
+Regards<br>
+<br>
+shaoyun.liu<br>
+<br>
+On 2019-03-27 3:41 a.m., Christian K=F6nig wrote:<br>
+&gt; Am 26.03.19 um 21:35 schrieb Liu, Shaoyun:<br>
+&gt;&gt; Avoid unnecessary XGMI hight pstate trigger when mapping none-vram=
+ <br>
+&gt;&gt; memory for peer device<br>
+&gt;&gt;<br>
+&gt;&gt; Change-Id: I1881deff3da19f1f4b58d5765db03a590092a5b2<br>
+&gt;&gt; Signed-off-by: shaoyunl <a class=3D"moz-txt-link-rfc2396E" href=3D=
+"mailto:shaoyun.liu-5C7GfCeVMHo@public.gmane.org">
+&lt;shaoyun.liu-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+&gt;&gt; ---<br>
+&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 &#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&gt; &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c&nbsp; |&nbsp; 3 &#43=
+;&#43;-<br>
+&gt;&gt; &nbsp; 2 files changed, 13 insertions(&#43;), 1 deletion(-)<br>
+&gt;&gt;<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c <br>
+&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt;&gt; index a82c3b1..a0f56e4 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c<br>
+&gt;&gt; @@ -666,6 &#43;666,8 @@ int amdgpu_gem_op_ioctl(struct drm_device =
+*dev, <br>
+&gt;&gt; void *data,<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-=
+&gt;dev_private;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_gem_op *args =3D =
+data;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_gem_object *gobj;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; struct amdgpu_vm_bo_base *base;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; struct amdgpu_bo_va *bo_va;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *robj;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+&gt;&gt; &nbsp; @@ -704,6 &#43;706,15 @@ int amdgpu_gem_op_ioctl(struct drm=
+_device <br>
+&gt;&gt; *dev, void *data,<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; amdgpu_bo_unreserve(robj);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; break;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (base =3D robj=
+-&gt;vm_bo; base; base =3D base-&gt;next) {<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; bo_va =3D container_of(base, struct amdgpu_bo_va, base);<br>
+&gt;<br>
+&gt; Please use list_for_each_entry here instead of open coding it.<br>
+&gt;<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; if (bo_va &amp;&amp; bo_va-&gt;is_xgmi) {<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D -EINVAL;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(robj);<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp; }<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt; &#43;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; robj-&gt;pr=
+eferred_domains =3D args-&gt;value &amp; <br>
+&gt;&gt; (AMDGPU_GEM_DOMAIN_VRAM |<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_GTT |<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_GEM_DOMAIN_CPU);<br>
+&gt;&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c <br>
+&gt;&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt; index 76eee7e..8ed23d2 100644<br>
+&gt;&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt;&gt; @@ -2048,7 &#43;2048,8 @@ struct amdgpu_bo_va *amdgpu_vm_bo_add(st=
+ruct <br>
+&gt;&gt; amdgpu_device *adev,<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;bo_va-&gt;valid=
+s);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;bo_va-&gt;inval=
+ids);<br>
+&gt;&gt; &nbsp; -&nbsp;&nbsp;&nbsp; if (bo &amp;&amp; amdgpu_xgmi_same_hive=
+(adev, <br>
+&gt;&gt; amdgpu_ttm_adev(bo-&gt;tbo.bdev))) {<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp; if (bo &amp;&amp; amdgpu_xgmi_same_hive(ad=
+ev, <br>
+&gt;&gt; amdgpu_ttm_adev(bo-&gt;tbo.bdev)) &amp;&amp;<br>
+&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (bo-&gt;preferred_=
+domains &amp; AMDGPU_GEM_DOMAIN_VRAM)) {<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bo_va-&gt;i=
+s_xgmi =3D true;<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(=
+&amp;adev-&gt;vm_manager.lock_pstate);<br>
+&gt;&gt; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Power up=
+ XGMI if it can be potentially used */<br>
+&gt;<br>
+</div>
+</span></font></blockquote>
+</div>
+</body>
+</html>
+
+--_000_68f7ccfa646e492fbdd7b24f2e2029daemailandroidcom_--
+
+--===============1284381917==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -247,4 +355,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1396625247==--
+--===============1284381917==--
