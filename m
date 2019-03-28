@@ -1,15 +1,16 @@
 From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/2] drm/amdgpu: Allow switching to CUSTOM profile on
- Vega10/20 v2
-Date: Thu, 28 Mar 2019 14:47:04 +0000
-Message-ID: <MN2PR12MB334492CD00FBCA9764C950F1E4590@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190327135851.6023-1-kent.russell@amd.com>,
- <MN2PR12MB3344EAC6FE032D423A0358DFE4590@MN2PR12MB3344.namprd12.prod.outlook.com>
- <BN6PR12MB16180F6EDF5F7F62EB66707385590@BN6PR12MB1618.namprd12.prod.outlook.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Allow switching to CUSTOM profile on smu7
+ v2
+Date: Thu, 28 Mar 2019 14:52:48 +0000
+Message-ID: <MN2PR12MB33444D3004CB2CBE84E1FB08E4590@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190327135851.6023-1-kent.russell@amd.com>
+ <20190327135851.6023-2-kent.russell@amd.com>,
+ <MN2PR12MB334449AB3DCD2313A5F8BDA2E4590@MN2PR12MB3344.namprd12.prod.outlook.com>
+ <BN6PR12MB161820CAB9F87E2C6B5EE6D885590@BN6PR12MB1618.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0731323682=="
+Content-Type: multipart/mixed; boundary="===============1432876620=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB16180F6EDF5F7F62EB66707385590-/b2+HYfkarRqaFUXYJa4HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BN6PR12MB161820CAB9F87E2C6B5EE6D885590-/b2+HYfkarRqaFUXYJa4HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,35 +24,35 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0731323682==
+--===============1432876620==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB334492CD00FBCA9764C950F1E4590MN2PR12MB3344namp_"
+	boundary="_000_MN2PR12MB33444D3004CB2CBE84E1FB08E4590MN2PR12MB3344namp_"
 
---_000_MN2PR12MB334492CD00FBCA9764C950F1E4590MN2PR12MB3344namp_
+--_000_MN2PR12MB33444D3004CB2CBE84E1FB08E4590MN2PR12MB3344namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-OK, I see. Yep, the new settings will be stored in SMU.
-But as I know, the SMU comes with some default settings for CUSTOM profile.
-I suspect "activity_monitor.Soc_BoosterFreqType !=3D 0" will be also true e=
-ven without your first CUSTOM profile settings(with input parameters).
-So, I would prefer to have a local copy of previous custom settigns(as what=
- we do on vega10 and smu7).
+Oops, sorry, missed that. That will be fine.
+Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
 Evan
-From: Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, March 28, 2019 5:29 PM
-To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH 1/2] drm/amdgpu: Allow switching to CUSTOM profile on V=
-ega10/20 v2
 
-Am I mistaken in thinking that activity monitor gets the existing CUSTOM pr=
-ofile from the SMU? When I tested it, the CUSTOM profile was saved and coul=
-d be retrieved through this method. I specifically set the profile to somet=
-hing ridiculous (1 2 3 4 5 6 7 8 9 10) and these values were retained when =
-switching to VR and back to CUSTOM, so I was under the impression that it w=
-as saved to the SMU when we submit it to the SMU.
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Russell,=
+ Kent
+Sent: Thursday, March 28, 2019 5:25 PM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH 2/2] drm/amdgpu: Allow switching to CUSTOM profile on s=
+mu7 v2
+
+Hi Evan,
+
+I set tmp=3Dsmu7_profiling[PP_SMC_PROFILE_CUSTOM] before checking the bupda=
+te parameters (see below). That way I don't have ugly 100-character-long ch=
+ecks in the if size=3D=3D0 check. Then if its invalid I just return -EINVAL=
+, or if it'svalid then we use it to writeto the SMU. If parameters are pass=
+ed in, tmp is overwritten with the passed-in values and we use it as before=
+.
 
 Kent
 
@@ -62,17 +63,19 @@ Markham, ON L3T 7X6
 O +(1) 289-695-2122 | Ext 72122
 ________________________________
 From: Quan, Evan
-Sent: Wednesday, March 27, 2019 9:36:02 PM
+Sent: Wednesday, March 27, 2019 9:26:41 PM
 To: Russell, Kent; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
 esktop.org>
 Cc: Russell, Kent
-Subject: RE: [PATCH 1/2] drm/amdgpu: Allow switching to CUSTOM profile on V=
-ega10/20 v2
+Subject: RE: [PATCH 2/2] drm/amdgpu: Allow switching to CUSTOM profile on s=
+mu7 v2
 
-For vega20, activity_monitor is also a temporary structure and you should n=
-ot rely on that for judging existence of custom profile.
+I think you should use smu7_profiling[PP_SMC_POWER_PROFILE_CUSTOM].bupdate_=
+sclk/bupdate_mclk to judge whether there is saved custom profile.
+That's where previous custom profile settings store in.
+'tmp' is a temporary structures and you should not rely on that.
 
-Regards
+Regards,
 Evan
 > -----Original Message-----
 > From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounc=
@@ -81,114 +84,81 @@ es-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>> On Behalf Of
 > Sent: Wednesday, March 27, 2019 9:59 PM
 > To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > Cc: Russell, Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org<mailto:Kent.Russell-5C7GfCeVMHo@public.gmane.org>>
-> Subject: [PATCH 1/2] drm/amdgpu: Allow switching to CUSTOM profile on
-> Vega10/20 v2
+> Subject: [PATCH 2/2] drm/amdgpu: Allow switching to CUSTOM profile on
+> smu7 v2
 >
-> Don't return an error if the CUSTOM profile is selected, just apply it wi=
-th the
-> values saved to the GPU
+> Allow changing to the CUSTOM profile without requiring the parameters
+> being passed in each time. Store the values in the smu7_profiling table s=
+ince
+> it's defined here anyways
 >
-> v2: Remove reference to fixed bug, check that CUSTOM profile was set
+> v2: Add check that CUSTOM was previously set
 >
-> Change-Id: I114cc9783226ee9ebb146863897e951527a85e20
+> Change-Id: I6c5e3a1487e12410a6a7670a5cf1a6599253344d
 > Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org<mailto:kent.russell@amd=
 .com>>
 > ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 14
-> +++++++++++++-
-> drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 14
-> +++++++++++++-
->  2 files changed, 26 insertions(+), 2 deletions(-)
+>  .../gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c  | 32 ++++++++++++--
+> -----
+>  1 file changed, 21 insertions(+), 11 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> index 85a536924571..7e9e7e254a0d 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-> @@ -4910,9 +4910,20 @@ static int vega10_set_power_profile_mode(struct
-> pp_hwmgr *hwmgr, long *input, ui
->                                                1 << power_profile_mode);
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> index 83d3d935f3ac..048757e8f494 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
+> @@ -77,7 +77,7 @@
+>  #define PCIE_BUS_CLK                10000
+>  #define TCLK                        (PCIE_BUS_CLK / 10)
 >
->        if (power_profile_mode =3D=3D PP_SMC_POWER_PROFILE_CUSTOM) {
-> -             if (size =3D=3D 0 || size > 4)
-> +             if (size !=3D 0 && size !=3D 4)
+> -static const struct profile_mode_setting smu7_profiling[7] =3D
+> +static struct profile_mode_setting smu7_profiling[7] =3D
+>                                        {{0, 0, 0, 0, 0, 0, 0, 0},
+>                                         {1, 0, 100, 30, 1, 0, 100, 10},
+>                                         {1, 10, 0, 30, 0, 0, 0, 0},
+> @@ -4984,17 +4984,27 @@ static int smu7_set_power_profile_mode(struct
+> pp_hwmgr *hwmgr, long *input, uint
+>        mode =3D input[size];
+>        switch (mode) {
+>        case PP_SMC_POWER_PROFILE_CUSTOM:
+> -             if (size < 8)
+> +             if (size < 8 && size !=3D 0)
 >                        return -EINVAL;
->
-> +             /* If size =3D 0 and the CUSTOM profile has been set alread=
-y
-> +              * (check BUSY_SET_POINT since that is always >0 for a vali=
-d
-> +              * profile) then just apply the profile.
+> -
+> -             tmp.bupdate_sclk =3D input[0];
+> -             tmp.sclk_up_hyst =3D input[1];
+> -             tmp.sclk_down_hyst =3D input[2];
+> -             tmp.sclk_activity =3D input[3];
+> -             tmp.bupdate_mclk =3D input[4];
+> -             tmp.mclk_up_hyst =3D input[5];
+> -             tmp.mclk_down_hyst =3D input[6];
+> -             tmp.mclk_activity =3D input[7];
+> +             /* If only CUSTOM is passed in, use the saved values. Check
+> +              * that we actually have a CUSTOM profile by ensuring that
+> +              * the "use sclk" or the "use mclk" bits are set
 > +              */
+> +             tmp =3D smu7_profiling[PP_SMC_POWER_PROFILE_CUSTOM];
 > +             if (size =3D=3D 0) {
-> +                     if (data->custom_profile_mode[0] !=3D 0)
-> +                             goto out;
-> +                     else
+> +                     if (tmp.bupdate_sclk =3D=3D 0 && tmp.bupdate_mclk =
+=3D=3D
+> 0)
 > +                             return -EINVAL;
+> +             } else {
+> +                     tmp.bupdate_sclk =3D input[0];
+> +                     tmp.sclk_up_hyst =3D input[1];
+> +                     tmp.sclk_down_hyst =3D input[2];
+> +                     tmp.sclk_activity =3D input[3];
+> +                     tmp.bupdate_mclk =3D input[4];
+> +                     tmp.mclk_up_hyst =3D input[5];
+> +                     tmp.mclk_down_hyst =3D input[6];
+> +                     tmp.mclk_activity =3D input[7];
+> +                     smu7_profiling[PP_SMC_POWER_PROFILE_CUSTOM]
+> =3D tmp;
 > +             }
-> +
->                data->custom_profile_mode[0] =3D busy_set_point =3D input[=
-0];
->                data->custom_profile_mode[1] =3D FPS =3D input[1];
->                data->custom_profile_mode[2] =3D use_rlc_busy =3D input[2]=
-;
-> @@ -4923,6 +4934,7 @@ static int vega10_set_power_profile_mode(struct
-> pp_hwmgr *hwmgr, long *input, ui
->                                        use_rlc_busy << 16 |
-> min_active_level<<24);
->        }
->
-> +out:
->        hwmgr->power_profile_mode =3D power_profile_mode;
->
->        return 0;
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> index 70dc641bf94d..6dc16a9e766b 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-> @@ -3843,7 +3843,7 @@ static int vega20_set_power_profile_mode(struct
-> pp_hwmgr *hwmgr, long *input, ui
->        }
->
->        if (power_profile_mode =3D=3D PP_SMC_POWER_PROFILE_CUSTOM) {
-> -             if (size < 10)
-> +             if (size < 10 && size !=3D 0)
->                        return -EINVAL;
->
->                result =3D vega20_get_activity_monitor_coeff(hwmgr,
-> @@ -3853,6 +3853,17 @@ static int vega20_set_power_profile_mode(struct
-> pp_hwmgr *hwmgr, long *input, ui
->                                "[SetPowerProfile] Failed to get activity
-> monitor!",
->                                return result);
->
-> +             /* If size =3D 0 and the CUSTOM profile has been set alread=
-y
-> +              * (check BoosterFreqType since that is always >0 for a val=
-id
-> +              * profile) then just apply the profile.
-> +              */
-> +             if (size =3D=3D 0) {
-> +                     if (activity_monitor.Soc_BoosterFreqType !=3D 0)
-> +                             goto out;
-> +                     else
-> +                             return -EINVAL;
-> +             }
-> +
->                switch (input[0]) {
->                case 0: /* Gfxclk */
->                        activity_monitor.Gfx_FPS =3D input[1]; @@ -3908,6
-> +3919,7 @@ static int vega20_set_power_profile_mode(struct pp_hwmgr
-> *hwmgr, long *input, ui
->                                return result);
->        }
->
-> +out:
->        /* conv PP_SMC_POWER_PROFILE* to WORKLOAD_PPLIB_*_BIT */
->        workload_type =3D
->
->        conv_power_profile_to_pplib_workload(power_profile_mode);
+>                if (!smum_update_dpm_settings(hwmgr, &tmp)) {
+>                        memcpy(&data->current_profile_setting, &tmp,
+> sizeof(struct profile_mode_setting));
+>                        hwmgr->power_profile_mode =3D mode;
 > --
 > 2.17.1
 >
@@ -197,7 +167,7 @@ id
 > amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_MN2PR12MB334492CD00FBCA9764C950F1E4590MN2PR12MB3344namp_
+--_000_MN2PR12MB33444D3004CB2CBE84E1FB08E4590MN2PR12MB3344namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -270,40 +240,37 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
 <div class=3D"WordSection1">
-<p class=3D"MsoNormal">OK, I see. Yep, the new settings will be stored in S=
-MU.<o:p></o:p></p>
-<p class=3D"MsoNormal">But as I know, the SMU comes with some default setti=
-ngs for CUSTOM profile.
-<o:p></o:p></p>
-<p class=3D"MsoNormal">I suspect &#8220;activity_monitor.Soc_BoosterFreqTyp=
-e !=3D 0&#8221; will be also true even without your first CUSTOM profile se=
-ttings(with input parameters).<o:p></o:p></p>
-<p class=3D"MsoNormal">So, I would prefer to have a local copy of previous =
-custom settigns(as what we do on vega10 and smu7).<o:p></o:p></p>
+<p class=3D"MsoNormal">Oops, sorry, missed that. That will be fine.<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">Reviewed-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<o:p=
+></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Evan<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
 4.0pt">
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Russell, Kent &lt;Kent.Russell-5C7GfCeVMHo@public.gmane.org&=
-gt; <br>
-<b>Sent:</b> Thursday, March 28, 2019 5:29 PM<br>
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org&gt;
+<b>On Behalf Of </b>Russell, Kent<br>
+<b>Sent:</b> Thursday, March 28, 2019 5:25 PM<br>
 <b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
 org<br>
-<b>Subject:</b> Re: [PATCH 1/2] drm/amdgpu: Allow switching to CUSTOM profi=
-le on Vega10/20 v2<o:p></o:p></p>
+<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: Allow switching to CUSTOM profi=
+le on smu7 v2<o:p></o:p></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Am I mistaken in thinking that activity monitor gets=
- the existing CUSTOM profile from the SMU? When I tested it, the CUSTOM pro=
-file was saved and could be retrieved through this method. I specifically s=
-et the profile to something ridiculous
- (1 2 3 4 5 6 7 8 9 10) and these values were retained when switching to VR=
- and back to CUSTOM, so I was under the impression that it was saved to the=
- SMU when we submit it to the SMU.<br>
+<p class=3D"MsoNormal">Hi Evan,<br>
+<br>
+I set tmp=3Dsmu7_profiling[PP_SMC_PROFILE_CUSTOM] before checking the bupda=
+te parameters (see below). That way I don't have ugly 100-character-long ch=
+ecks in the if size=3D=3D0 check. Then if its invalid I just return -EINVAL=
+, or if it'svalid then we use it to writeto
+ the SMU. If parameters are passed in, tmp is overwritten with the passed-i=
+n values and we use it as before.<br>
 <br>
 Kent<br>
 <br>
@@ -318,12 +285,12 @@ O &#43;(1) 289-695-2122 | Ext 72122<o:p></o:p></p>
 <div id=3D"divRplyFwdMsg">
 <p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
  style=3D"color:black"> Quan, Evan<br>
-<b>Sent:</b> Wednesday, March 27, 2019 9:36:02 PM<br>
+<b>Sent:</b> Wednesday, March 27, 2019 9:26:41 PM<br>
 <b>To:</b> Russell, Kent; <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">=
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
 <b>Cc:</b> Russell, Kent<br>
-<b>Subject:</b> RE: [PATCH 1/2] drm/amdgpu: Allow switching to CUSTOM profi=
-le on Vega10/20 v2</span>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: Allow switching to CUSTOM profi=
+le on smu7 v2</span>
 <o:p></o:p></p>
 <div>
 <p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
@@ -331,11 +298,13 @@ le on Vega10/20 v2</span>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal">For vega20, activity_monitor is also a temporary str=
-ucture and you should not rely on that for judging existence of custom prof=
-ile.<br>
+<p class=3D"MsoNormal">I think you should use smu7_profiling[PP_SMC_POWER_P=
+ROFILE_CUSTOM].bupdate_sclk/bupdate_mclk to judge whether there is saved cu=
+stom profile.<br>
+That's where previous custom profile settings store in.<br>
+'tmp' is a temporary structures and you should not rely on that.<br>
 <br>
-Regards<br>
+Regards,<br>
 Evan<br>
 &gt; -----Original Message-----<br>
 &gt; From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
@@ -346,183 +315,145 @@ org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; O
 edesktop.org</a><br>
 &gt; Cc: Russell, Kent &lt;<a href=3D"mailto:Kent.Russell-5C7GfCeVMHo@public.gmane.org">Kent.Rus=
 sell-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; Subject: [PATCH 1/2] drm/amdgpu: Allow switching to CUSTOM profile on<=
+&gt; Subject: [PATCH 2/2] drm/amdgpu: Allow switching to CUSTOM profile on<=
 br>
-&gt; Vega10/20 v2<br>
+&gt; smu7 v2<br>
 &gt; <br>
-&gt; Don't return an error if the CUSTOM profile is selected, just apply it=
- with the<br>
-&gt; values saved to the GPU<br>
+&gt; Allow changing to the CUSTOM profile without requiring the parameters<=
+br>
+&gt; being passed in each time. Store the values in the smu7_profiling tabl=
+e since<br>
+&gt; it's defined here anyways<br>
 &gt; <br>
-&gt; v2: Remove reference to fixed bug, check that CUSTOM profile was set<b=
-r>
+&gt; v2: Add check that CUSTOM was previously set<br>
 &gt; <br>
-&gt; Change-Id: I114cc9783226ee9ebb146863897e951527a85e20<br>
+&gt; Change-Id: I6c5e3a1487e12410a6a7670a5cf1a6599253344d<br>
 &gt; Signed-off-by: Kent Russell &lt;<a href=3D"mailto:kent.russell-5C7GfCeVMHo@public.gmane.org=
 ">kent.russell-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 &gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 14<br>
-&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
-&gt; drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 14<br>
-&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
-&gt;&nbsp; 2 files changed, 26 insertions(&#43;), 2 deletions(-)<br>
+&gt;&nbsp; .../gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp; | 32 &#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
+&gt; -----<br>
+&gt;&nbsp; 1 file changed, 21 insertions(&#43;), 11 deletions(-)<br>
 &gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; index 85a536924571..7e9e7e254a0d 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<b=
-r>
-&gt; @@ -4910,9 &#43;4910,20 @@ static int vega10_set_power_profile_mode(st=
-ruct<br>
-&gt; pp_hwmgr *hwmgr, long *input, ui<br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; index 83d3d935f3ac..048757e8f494 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
+&gt; @@ -77,7 &#43;77,7 @@<br>
+&gt;&nbsp; #define PCIE_BUS_CLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10000<br>
+&gt;&nbsp; #define TCLK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; (PCIE_BUS_CLK / 10)<br>
+&gt; <br>
+&gt; -static const struct profile_mode_setting smu7_profiling[7] =3D<br>
+&gt; &#43;static struct profile_mode_setting smu7_profiling[7] =3D<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 &lt;&lt; po=
-wer_profile_mode);<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (power_profile_mode =3D=
-=3D PP_SMC_POWER_PROFILE_CUSTOM) {<br>
+;&nbsp;&nbsp; {{0, 0, 0, 0, 0, 0, 0, 0},<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; {1, 0, 100, 30, 1, 0, 100, 10},<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; {1, 10, 0, 30, 0, 0, 0, 0},<br>
+&gt; @@ -4984,17 &#43;4984,27 @@ static int smu7_set_power_profile_mode(str=
+uct<br>
+&gt; pp_hwmgr *hwmgr, long *input, uint<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mode =3D input[size];<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (mode) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case PP_SMC_POWER_PROFILE_CU=
+STOM:<br>
 &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (size =3D=3D 0 || size &gt; 4)<br>
+sp; if (size &lt; 8)<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size !=3D 0 &amp;&amp; size !=3D 4)<br>
+;&nbsp; if (size &lt; 8 &amp;&amp; size !=3D 0)<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
 -EINVAL;<br>
-&gt; <br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.bupdate_sclk =3D input[0];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.sclk_up_hyst =3D input[1];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.sclk_down_hyst =3D input[2];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.sclk_activity =3D input[3];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.bupdate_mclk =3D input[4];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.mclk_up_hyst =3D input[5];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.mclk_down_hyst =3D input[6];<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; tmp.mclk_activity =3D input[7];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; /* If size =3D 0 and the CUSTOM profile has been set already<br>
+;&nbsp; /* If only CUSTOM is passed in, use the saved values. Check<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; * (check BUSY_SET_POINT since that is always &gt;0 for a vali=
-d<br>
+;&nbsp;&nbsp; * that we actually have a CUSTOM profile by ensuring that<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; * profile) then just apply the profile.<br>
+;&nbsp;&nbsp; * the &quot;use sclk&quot; or the &quot;use mclk&quot; bits a=
+re set<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp; */<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; tmp =3D smu7_profiling[PP_SMC_POWER_PROFILE_CUSTOM];<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp; if (size =3D=3D 0) {<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (data-&gt;custom=
-_profile_mode[0] !=3D 0)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (tmp.bupdate_scl=
+k =3D=3D 0 &amp;&amp; tmp.bupdate_mclk =3D=3D<br>
+&gt; 0)<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; }<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; data-&gt;custom_profile_mode[0] =3D busy_set_point =3D =
-input[0];<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; data-&gt;custom_profile_mode[1] =3D FPS =3D input[1];<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; data-&gt;custom_profile_mode[2] =3D use_rlc_busy =3D in=
-put[2];<br>
-&gt; @@ -4923,6 &#43;4934,7 @@ static int vega10_set_power_profile_mode(str=
-uct<br>
-&gt; pp_hwmgr *hwmgr, long *input, ui<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; use_rlc_busy &lt;&lt; 16 |<br>
-&gt; min_active_level&lt;&lt;24);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt; &#43;out:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&gt;power_profile_mode=
- =3D power_profile_mode;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&gt; index 70dc641bf94d..6dc16a9e766b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<b=
-r>
-&gt; @@ -3843,7 &#43;3843,7 @@ static int vega20_set_power_profile_mode(str=
-uct<br>
-&gt; pp_hwmgr *hwmgr, long *input, ui<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (power_profile_mode =3D=
-=3D PP_SMC_POWER_PROFILE_CUSTOM) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (size &lt; 10)<br>
+;&nbsp; } else {<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size &lt; 10 &amp;&amp; size !=3D 0)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
--EINVAL;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; result =3D vega20_get_activity_monitor_coeff(hwmgr,<br>
-&gt; @@ -3853,6 &#43;3853,17 @@ static int vega20_set_power_profile_mode(st=
-ruct<br>
-&gt; pp_hwmgr *hwmgr, long *input, ui<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;[SetPowerProfile] Failed to =
-get activity<br>
-&gt; monitor!&quot;,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result);<br>
-&gt; <br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.bupdate_sclk =
+=3D input[0];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; /* If size =3D 0 and the CUSTOM profile has been set already<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.sclk_up_hyst =
+=3D input[1];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; * (check BoosterFreqType since that is always &gt;0 for a val=
-id<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.sclk_down_hyst =
+=3D input[2];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; * profile) then just apply the profile.<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.sclk_activity =
+=3D input[3];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; */<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.bupdate_mclk =
+=3D input[4];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (size =3D=3D 0) {<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.mclk_up_hyst =
+=3D input[5];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (activity_monito=
-r.Soc_BoosterFreqType !=3D 0)<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.mclk_down_hyst =
+=3D input[6];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp.mclk_activity =
+=3D input[7];<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu7_profiling[PP_S=
+MC_POWER_PROFILE_CUSTOM]<br>
+&gt; =3D tmp;<br>
 &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp; }<br>
-&gt; &#43;<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; switch (input[0]) {<br>
+;&nbsp;&nbsp;&nbsp; if (!smum_update_dpm_settings(hwmgr, &amp;tmp)) {<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; case 0: /* Gfxclk */<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(=
+&amp;data-&gt;current_profile_setting, &amp;tmp,<br>
+&gt; sizeof(struct profile_mode_setting));<br>
 &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; activit=
-y_monitor.Gfx_FPS =3D input[1]; @@ -3908,6<br>
-&gt; &#43;3919,7 @@ static int vega20_set_power_profile_mode(struct pp_hwmg=
-r<br>
-&gt; *hwmgr, long *input, ui<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return result);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt; &#43;out:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* conv PP_SMC_POWER_PROFILE=
-* to WORKLOAD_PPLIB_*_BIT */<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; workload_type =3D<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conv_power_profile_to_pplib_=
-workload(power_profile_mode);<br>
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hwmgr-&=
+gt;power_profile_mode =3D mode;<br>
 &gt; --<br>
 &gt; 2.17.1<br>
 &gt; <br>
@@ -539,9 +470,9 @@ ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
 </body>
 </html>
 
---_000_MN2PR12MB334492CD00FBCA9764C950F1E4590MN2PR12MB3344namp_--
+--_000_MN2PR12MB33444D3004CB2CBE84E1FB08E4590MN2PR12MB3344namp_--
 
---===============0731323682==
+--===============1432876620==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -551,4 +482,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0731323682==--
+--===============1432876620==--
