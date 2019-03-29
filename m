@@ -1,26 +1,26 @@
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+From: Matt Roper <matthew.d.roper-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] drm/gamma: Clarify gamma lut uapi
-Date: Fri, 29 Mar 2019 16:36:05 +0200
-Message-ID: <20190329143605.GB3888@intel.com>
+Date: Fri, 29 Mar 2019 08:23:58 -0700
+Message-ID: <20190329152358.GA3814@mdroper-desk.amr.corp.intel.com>
 References: <20190329092027.3430-1-daniel.vetter@ffwll.ch>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <20190329092027.3430-1-daniel.vetter@ffwll.ch>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Cc: Rob Bradford <robert.bradford@intel.com>, DRI Development <dri-devel@lists.freedesktop.org>, Stefan Schake <stschake@gmail.com>, Tomi Valkeinen <tomi.valkeinen@ti.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, Vincent Abriou <vincent.abriou@st.com>, amd-gfx@lists.freedesktop.org, James Wang <james.qian.wang@arm.com>, CK Hu <ck.hu@mediatek.com>, Mali DP Maintainers <malidp@foss.arm.com>, Harry Wentland <harry.wentland@amd.com>, Daniel Stone <daniels@collabora.com>, Leo Li <sunpeng.li@amd.com>, Intel Graphics Development <intel-gfx@lists.freedesktop.org>, Boris Brezillon <bbrezillon@kernel.org>, Philippe Cornu <philippe.cornu@st.com>, Yannick Fertre <yannick.fertre@st.com>, Kausal Malladi <kausalmalladi@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>
-List-Id: amd-gfx.lists.freedesktop.org
+In-Reply-To: <20190329092027.3430-1-daniel.vetter-/w4YWyX8dFk@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>
+Cc: Rob Bradford <robert.bradford-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Liviu Dudau <liviu.dudau-5wv7dgnIgG8@public.gmane.org>, DRI Development <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Stefan Schake <stschake-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, Benjamin Gaignard <benjamin.gaignard-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Tomi Valkeinen <tomi.valkeinen-l0cyMroinI0@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Uma Shankar <uma.shankar-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Mali DP Maintainers <malidp-VeJGdqYn5oNWk0Htik3J/w@public.gmane.org>, "Kumar, Kiran S" <kiran.s.kumar-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, CK Hu <ck.hu-NuS5LvNUpcJWk0Htik3J/w@public.gmane.org>, James Wang <james.qian.wang-5wv7dgnIgG8@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Shashank Sharma <shashank.sharma-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Daniel Stone <daniels-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Intel Graphics Development <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maarten Lankhorst <maarten.lankhorst-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, Lionel Landwerlin <lionel.g.landwerlin@>
 
 T24gRnJpLCBNYXIgMjksIDIwMTkgYXQgMTA6MjA6MjdBTSArMDEwMCwgRGFuaWVsIFZldHRlciB3
 cm90ZToKPiBJbnRlcnByZXRpbmcgaXQgYXMgYSAwLjE2IGZpeGVkIHBvaW50IG1lYW5zIHdlIGNh
@@ -50,18 +50,21 @@ bnQgQWJyaW91IDx2aW5jZW50LmFicmlvdUBzdC5jb20+Cj4gQ2M6IFRvbWkgVmFsa2VpbmVuIDx0
 b21pLnZhbGtlaW5lbkB0aS5jb20+Cj4gQ2M6IEJvcmlzIEJyZXppbGxvbiA8YmJyZXppbGxvbkBr
 ZXJuZWwub3JnPgo+IFNpZ25lZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJA
 ZmZ3bGwuY2g+U2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBpbnRl
-bC5jb20+Cj4gLS0tCj4gIGluY2x1ZGUvdWFwaS9kcm0vZHJtX21vZGUuaCB8IDMgKystCj4gIDEg
-ZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0t
-Z2l0IGEvaW5jbHVkZS91YXBpL2RybS9kcm1fbW9kZS5oIGIvaW5jbHVkZS91YXBpL2RybS9kcm1f
-bW9kZS5oCj4gaW5kZXggMDlkNzI5NjY4OTlhLi44M2NkMTYzNmI5YmUgMTAwNjQ0Cj4gLS0tIGEv
-aW5jbHVkZS91YXBpL2RybS9kcm1fbW9kZS5oCj4gKysrIGIvaW5jbHVkZS91YXBpL2RybS9kcm1f
-bW9kZS5oCj4gQEAgLTYyMSw3ICs2MjEsOCBAQCBzdHJ1Y3QgZHJtX2NvbG9yX2N0bSB7Cj4gIAo+
-ICBzdHJ1Y3QgZHJtX2NvbG9yX2x1dCB7Cj4gIAkvKgo+IC0JICogRGF0YSBpcyBVMC4xNiBmaXhl
-ZCBwb2ludCBmb3JtYXQuCj4gKwkgKiBWYWx1ZXMgYXJlIG1hcHBlZCBsaW5lYXJseSB0byAwLjAg
-LSAxLjAgcmFuZ2UsIHdpdGggMHgwID09IDAuMCBhbmQKPiArCSAqIDB4ZmZmZiA9PSAxLjAuCj4g
-IAkgKi8KClJldmlld2VkLWJ5OiBWaWxsZSBTeXJqw6Rsw6QgPHZpbGxlLnN5cmphbGFAbGludXgu
-aW50ZWwuY29tPgoKPiAgCV9fdTE2IHJlZDsKPiAgCV9fdTE2IGdyZWVuOwo+IC0tIAo+IDIuMjAu
-MQoKLS0gClZpbGxlIFN5cmrDpGzDpApJbnRlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9pbnRlbC1nZng=
+bC5jb20+CgpMb29rcyBsaWtlIHlvdSdyZSBtaXNzaW5nIGEgbmV3bGluZSBiZXR3ZWVuIHlvdXIg
+dHdvIHMtby1iJ3MuICBCdXQgdGhlCnBhdGNoIGlzCgpSZXZpZXdlZC1ieTogTWF0dCBSb3BlciA8
+bWF0dGhldy5kLnJvcGVyQGludGVsLmNvbT4KCj4gLS0tCj4gIGluY2x1ZGUvdWFwaS9kcm0vZHJt
+X21vZGUuaCB8IDMgKystCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVs
+ZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS91YXBpL2RybS9kcm1fbW9kZS5oIGIv
+aW5jbHVkZS91YXBpL2RybS9kcm1fbW9kZS5oCj4gaW5kZXggMDlkNzI5NjY4OTlhLi44M2NkMTYz
+NmI5YmUgMTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS91YXBpL2RybS9kcm1fbW9kZS5oCj4gKysrIGIv
+aW5jbHVkZS91YXBpL2RybS9kcm1fbW9kZS5oCj4gQEAgLTYyMSw3ICs2MjEsOCBAQCBzdHJ1Y3Qg
+ZHJtX2NvbG9yX2N0bSB7Cj4gIAo+ICBzdHJ1Y3QgZHJtX2NvbG9yX2x1dCB7Cj4gIAkvKgo+IC0J
+ICogRGF0YSBpcyBVMC4xNiBmaXhlZCBwb2ludCBmb3JtYXQuCj4gKwkgKiBWYWx1ZXMgYXJlIG1h
+cHBlZCBsaW5lYXJseSB0byAwLjAgLSAxLjAgcmFuZ2UsIHdpdGggMHgwID09IDAuMCBhbmQKPiAr
+CSAqIDB4ZmZmZiA9PSAxLjAuCj4gIAkgKi8KPiAgCV9fdTE2IHJlZDsKPiAgCV9fdTE2IGdyZWVu
+Owo+IC0tIAo+IDIuMjAuMQo+IAoKLS0gCk1hdHQgUm9wZXIKR3JhcGhpY3MgU29mdHdhcmUgRW5n
+aW5lZXIKSW9URyBQbGF0Zm9ybSBFbmFibGluZyAmIERldmVsb3BtZW50CkludGVsIENvcnBvcmF0
+aW9uCig5MTYpIDM1Ni0yNzk1Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA==
