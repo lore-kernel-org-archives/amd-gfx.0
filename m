@@ -1,58 +1,45 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/8] drm/amdgpu: fix ATC handling for Ryzen
-Date: Sat, 30 Mar 2019 00:41:11 +0000
-Message-ID: <9cd61a18-fe16-f5aa-5b61-fef6d91d143b@amd.com>
-References: <20190329104507.2602-1-christian.koenig@amd.com>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.0 04/25] drm/amdgpu: psp_ring_destroy cause psp->km_ring.ring_mem NULL
+Date: Fri, 29 Mar 2019 21:28:21 -0400
+Message-ID: <20190330012842.32091-4-sashal@kernel.org>
+References: <20190330012842.32091-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190329104507.2602-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <C3D2DA65A78B094F91141DDD9A7C18CB-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190330012842.32091-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: wentalou <Wentao.Lou@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UGF0Y2hlcyAxLTMgYXJlIFJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxp
-bmdAYW1kLmNvbT4NCg0KQWJvdXQgdGhlIGRpcmVjdCBtb2RlLCB0aGF0IHJlbW92ZXMgYSBidW5j
-aCBvZiBzeW5jaHJvbml6YXRpb24sIHNvIGl0IA0KbXVzdCBtYWtlIHNvbWUgYXNzdW1wdGlvbnMg
-YWJvdXQgdGhlIHN0YXRlIG9mIHRoZSBwYWdlIHRhYmxlcy4gV2hhdCANCm1ha2VzIHRoYXQgc2Fm
-ZT8gSXMgaXQgc2FmZSB0byB1c2UgZGlyZWN0LW1vZGUgb24gYSANCnBlci1wYWdlLXRhYmxlLXVw
-ZGF0ZSBiYXNpcz8gT3IgZG8gYWxsIHBhZ2UgdGFibGUgdXBkYXRlcyBoYXZlIHRvIGdvIA0KdGhy
-b3VnaCBkaXJlY3QgbW9kZSB0byBhdm9pZCBoYXphcmRzPyBJZiB5ZXMsIHRoZW4gbWF5YmUgdGhp
-cyBzaG91bGQgYmUgDQphIHByb3BlcnR5IG9mIHRoZSBWTSByYXRoZXIgdGhhbiBhIHBhcmFtZXRl
-ciB0aGF0IGdldHMgcGFzc2VkIHRvIGEgYnVuY2ggDQpvZiBmdW5jdGlvbiBjYWxscy4NCg0KUmVn
-YXJkcywNCiDCoCBGZWxpeA0KDQpPbiAyMDE5LTAzLTI5IDY6NDUgYS5tLiwgQ2hyaXN0aWFuIEvD
-tm5pZyB3cm90ZToNCj4gT3RoZXJ3aXNlIHdlIGRvbid0IGNvcnJlY3RseSB1c2UgdHJhbnNsYXRl
-IGZ1cnRoZXIuDQo+DQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
-bi5rb2VuaWdAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmMgfCAxMyArKysrKysrKy0tLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDggaW5z
-ZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3ZtLmMNCj4gaW5kZXggM2QyMjFmMDQ0MTgzLi4wNTlkOTgwMmU3MTMgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+IEBAIC03NjcsMTQgKzc2Nywx
-NyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9jbGVhcl9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldiwNCj4gICANCj4gICAJYWRkciA9IDA7DQo+ICAgCWlmIChhdHNfZW50cmllcykgew0KPiAt
-CQl1aW50NjRfdCBhdHNfdmFsdWU7DQo+ICsJCXVpbnQ2NF90IHZhbHVlID0gMCwgZmxhZ3M7DQo+
-ICAgDQo+IC0JCWF0c192YWx1ZSA9IEFNREdQVV9QVEVfREVGQVVMVF9BVEM7DQo+IC0JCWlmIChs
-ZXZlbCAhPSBBTURHUFVfVk1fUFRCKQ0KPiAtCQkJYXRzX3ZhbHVlIHw9IEFNREdQVV9QREVfUFRF
-Ow0KPiArCQlmbGFncyA9IEFNREdQVV9QVEVfREVGQVVMVF9BVEM7DQo+ICsJCWlmIChsZXZlbCAh
-PSBBTURHUFVfVk1fUFRCKSB7DQo+ICsJCQkvKiBIYW5kbGUgbGVhZiBQREVzIGFzIFBURXMgKi8N
-Cj4gKwkJCWZsYWdzIHw9IEFNREdQVV9QREVfUFRFOw0KPiArCQkJYW1kZ3B1X2dtY19nZXRfdm1f
-cGRlKGFkZXYsIGxldmVsLCAmdmFsdWUsICZmbGFncyk7DQo+ICsJCX0NCj4gICANCj4gICAJCXIg
-PSB2bS0+dXBkYXRlX2Z1bmNzLT51cGRhdGUoJnBhcmFtcywgYm8sIGFkZHIsIDAsIGF0c19lbnRy
-aWVzLA0KPiAtCQkJCQkgICAgIDAsIGF0c192YWx1ZSk7DQo+ICsJCQkJCSAgICAgdmFsdWUsIGZs
-YWdzKTsNCj4gICAJCWlmIChyKQ0KPiAgIAkJCXJldHVybiByOw0KPiAgIA0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: wentalou <Wentao.Lou@amd.com>
+
+[ Upstream commit 14d20ec7f31ef96a2e7dcf7880b13dde1d473b56 ]
+
+psp_ring_destroy inside psp_load_fw cause psp->km_ring.ring_mem NULL.
+Call Trace occurred when psp_cmd_submit.
+should be psp_ring_stop instead.
+
+Reviewed-by: Xiangliang Yu <Xiangliang.Yu@amd.com>
+Signed-off-by: Wentao Lou <Wentao.Lou@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 3a9b48b227ac..a7208ca0bfe3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -546,7 +546,7 @@ static int psp_load_fw(struct amdgpu_device *adev)
+ 	struct psp_context *psp = &adev->psp;
+ 
+ 	if (amdgpu_sriov_vf(adev) && adev->in_gpu_reset) {
+-		psp_ring_destroy(psp, PSP_RING_TYPE__KM);
++		psp_ring_stop(psp, PSP_RING_TYPE__KM); /* should not destroy ring, only stop */
+ 		goto skip_memalloc;
+ 	}
+ 
+-- 
+2.19.1
