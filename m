@@ -1,11 +1,19 @@
-From: =?iso-8859-9?Q?Utku_Helvac=FD?= <proje.pdf-1ViLX0X+lBJBDgjK7y7TUQ@public.gmane.org>
-Subject: RX 540 gpu kernel bug, bisected
-Date: Mon, 1 Apr 2019 18:25:46 +0000
-Message-ID: <AM0PR03MB57647089521674D65F900795E2550@AM0PR03MB5764.eurprd03.prod.outlook.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/8] drm/amdgpu: fix ATC handling for Ryzen
+Date: Mon, 1 Apr 2019 18:58:11 +0000
+Message-ID: <32035eda-563d-b26b-83a6-71db67c846e6@amd.com>
+References: <20190329104507.2602-1-christian.koenig@amd.com>
+ <9cd61a18-fe16-f5aa-5b61-fef6d91d143b@amd.com>
+ <7317b472-f24a-346a-7e6c-97c98b04e600@gmail.com>
+ <ba45371a-7ea9-5144-c3c9-c59f93b434d8@amd.com>
+ <a40597e6-1f76-583b-55ad-089dcd9eeed4@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1742390794=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: tr-TR
+In-Reply-To: <a40597e6-1f76-583b-55ad-089dcd9eeed4-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+Content-ID: <6535AFC76A5D7E44B4F431D19DAA7DB8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -16,255 +24,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "rex.zhu-5C7GfCeVMHo@public.gmane.org" <rex.zhu-5C7GfCeVMHo@public.gmane.org>, "evan.quan-5C7GfCeVMHo@public.gmane.org" <evan.quan-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "alexander.deucher-5C7GfCeVMHo@public.gmane.org" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, "christian.koenig-5C7GfCeVMHo@public.gmane.org" <christian.koenig-5C7GfCeVMHo@public.gmane.org>, "David1.Zhou-5C7GfCeVMHo@public.gmane.org" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1742390794==
-Content-Language: tr-TR
-Content-Type: multipart/alternative;
-	boundary="_000_AM0PR03MB57647089521674D65F900795E2550AM0PR03MB5764eurp_"
-
---_000_AM0PR03MB57647089521674D65F900795E2550AM0PR03MB5764eurp_
-Content-Type: text/plain; charset="iso-8859-9"
-Content-Transfer-Encoding: quoted-printable
-
-I have finally bisected the bug i have reported here: https://bugzilla.kern=
-el.org/show_bug.cgi?id=3D201077
-
-log files of individual tests are here: https://github.com/tuxutku/rx_540_k=
-ernel_bisecting_files/
-
-
-###################
-[utku2@utku2 linux]$ git bisect bad
-e1deba285156fb4023bb48f22068de5b60e34e15 is the first bad commit
-commit e1deba285156fb4023bb48f22068de5b60e34e15
-Author: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-Date:   Tue Feb 27 18:27:54 2018 +0800
-
-    drm/amd/pp: Use amdgpu acpi helper functions in powerplay
-
-    Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-    Signed-off-by: Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>
-    Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-
-:040000 040000 b8e6fd4f5269564ff9dba96359c4f26b02f68b4a
-e3555ae88191d1a060f67998dabf977551d3a127 M drivers
-[utku2@utku2 linux]$ git bisect log
-# bad: [320b164abb32db876866a4ff8c2cb710524ac6ea] Merge tag
-'drm-for-v4.17' of git://people.freedesktop.org/~airlied/linux
-# good: [0adb32858b0bddf4ada5f364a84ed60b196dbcda] Linux 4.16
-git bisect start '320b164abb32db876866a4ff8c2cb710524ac6ea'
-'0adb32858b0bddf4ada5f364a84ed60b196dbcda' '--' 'drivers/gpu/drm/amd'
-# good: [9021d2edd259d992cf8b5b48791ab50829129de7] drm/amdgpu: mitigate
-workaround for i915
-git bisect good 9021d2edd259d992cf8b5b48791ab50829129de7
-# bad: [aa5a5777304228819a52562d346bc3eb1b4873fa] drm/amd/display:
-Vari-bright looks disabled near end of MM14
-git bisect bad aa5a5777304228819a52562d346bc3eb1b4873fa
-# good: [81988f9c3d9907d7df0ea97e8e4842064b88b7b8] drm/amdgpu: use
-separate status for buffer funcs availability v2
-git bisect good 81988f9c3d9907d7df0ea97e8e4842064b88b7b8
-# bad: [128ccceaba8656573b8b0f86d3ab6e38094cc754] Merge branch
-'drm-next-4.17' of git://people.freedesktop.org/~agd5f/linux into
-drm-next
-git bisect bad 128ccceaba8656573b8b0f86d3ab6e38094cc754
-# bad: [180a8bebdd50fc8ce4677e579d49d9b73880caa7] drm/amd/pp: Fix sclk
-in highest two levels when compute on smu7
-git bisect bad 180a8bebdd50fc8ce4677e579d49d9b73880caa7
-# bad: [ada6770e956b7f7d298bfef56fed457ade5bad9e] drm/amd/pp: Remove
-cgs_query_system_info
-git bisect bad ada6770e956b7f7d298bfef56fed457ade5bad9e
-# good: [a2c120ce6b686c753968b7b1293c7bb878440b7f] drm/amd/pp: Simplify
-the create of powerplay instance
-git bisect good a2c120ce6b686c753968b7b1293c7bb878440b7f
-# good: [589941e1a2d65f5425c91a5859a5454df64b6982] drm/amdgpu: Notify
-sbios device ready before send request
-git bisect good 589941e1a2d65f5425c91a5859a5454df64b6982
-# bad: [6848d73e889bb29cfede51df8c1d0496c9787454] drm/amd/pp: Remove the
-wrap functions for acpi in powerplay
-git bisect bad 6848d73e889bb29cfede51df8c1d0496c9787454
-# bad: [e1deba285156fb4023bb48f22068de5b60e34e15] drm/amd/pp: Use amdgpu
-acpi helper functions in powerplay
-git bisect bad e1deba285156fb4023bb48f22068de5b60e34e15
-# first bad commit: [e1deba285156fb4023bb48f22068de5b60e34e15]
-drm/amd/pp: Use amdgpu acpi helper functions in powerplay
-[utku2@utku2 linux]$
-
-
---_000_AM0PR03MB57647089521674D65F900795E2550AM0PR03MB5764eurp_
-Content-Type: text/html; charset="iso-8859-9"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-9">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-I have finally bisected the bug i have reported here: <a href=3D"https://bu=
-gzilla.kernel.org/show_bug.cgi?id=3D201077" id=3D"LPlnk709147">
-https://bugzilla.kernel.org/show_bug.cgi?id=3D201077</a><br>
-</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-log files of individual tests are here: <a href=3D"https://github.com/tuxut=
-ku/rx_540_kernel_bisecting_files/" id=3D"LPlnk794366">
-https://github.com/tuxutku/rx_540_kernel_bisecting_files/</a><br>
-</div>
-<br>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-###################</div>
-<div style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 12pt;=
- color: rgb(0, 0, 0);">
-<span>[utku2@utku2 linux]$ git bisect bad<br>
-</span>
-<div>e1deba285156fb4023bb48f22068de5b60e34e15 is the first bad commit<br>
-</div>
-<div>commit e1deba285156fb4023bb48f22068de5b60e34e15<br>
-</div>
-<div>Author: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div>Date: &nbsp; Tue Feb 27 18:27:54 2018 &#43;0800<br>
-</div>
-<div><br>
-</div>
-<div>&nbsp; &nbsp; drm/amd/pp: Use amdgpu acpi helper functions in powerpla=
-y<br>
-</div>
-<div>&nbsp; &nbsp; <br>
-</div>
-<div>&nbsp; &nbsp; Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&=
-gt;<br>
-</div>
-<div>&nbsp; &nbsp; Signed-off-by: Rex Zhu &lt;Rex.Zhu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div>&nbsp; &nbsp; Signed-off-by: Alex Deucher &lt;alexander.deucher-urvtwAKJhsc@public.gmane.org=
-m&gt;<br>
-</div>
-<div><br>
-</div>
-<div>:040000 040000 b8e6fd4f5269564ff9dba96359c4f26b02f68b4a <br>
-</div>
-<div>e3555ae88191d1a060f67998dabf977551d3a127 M drivers<br>
-</div>
-<div>[utku2@utku2 linux]$ git bisect log<br>
-</div>
-<div># bad: [320b164abb32db876866a4ff8c2cb710524ac6ea] Merge tag <br>
-</div>
-<div>'drm-for-v4.17' of git://people.freedesktop.org/~airlied/linux<br>
-</div>
-<div># good: [0adb32858b0bddf4ada5f364a84ed60b196dbcda] Linux 4.16<br>
-</div>
-<div>git bisect start '320b164abb32db876866a4ff8c2cb710524ac6ea' <br>
-</div>
-<div>'0adb32858b0bddf4ada5f364a84ed60b196dbcda' '--' 'drivers/gpu/drm/amd'<=
-br>
-</div>
-<div># good: [9021d2edd259d992cf8b5b48791ab50829129de7] drm/amdgpu: mitigat=
-e <br>
-</div>
-<div>workaround for i915<br>
-</div>
-<div>git bisect good 9021d2edd259d992cf8b5b48791ab50829129de7<br>
-</div>
-<div># bad: [aa5a5777304228819a52562d346bc3eb1b4873fa] drm/amd/display: <br=
->
-</div>
-<div>Vari-bright looks disabled near end of MM14<br>
-</div>
-<div>git bisect bad aa5a5777304228819a52562d346bc3eb1b4873fa<br>
-</div>
-<div># good: [81988f9c3d9907d7df0ea97e8e4842064b88b7b8] drm/amdgpu: use <br=
->
-</div>
-<div>separate status for buffer funcs availability v2<br>
-</div>
-<div>git bisect good 81988f9c3d9907d7df0ea97e8e4842064b88b7b8<br>
-</div>
-<div># bad: [128ccceaba8656573b8b0f86d3ab6e38094cc754] Merge branch <br>
-</div>
-<div>'drm-next-4.17' of git://people.freedesktop.org/~agd5f/linux into <br>
-</div>
-<div>drm-next<br>
-</div>
-<div>git bisect bad 128ccceaba8656573b8b0f86d3ab6e38094cc754<br>
-</div>
-<div># bad: [180a8bebdd50fc8ce4677e579d49d9b73880caa7] drm/amd/pp: Fix sclk=
- <br>
-</div>
-<div>in highest two levels when compute on smu7<br>
-</div>
-<div>git bisect bad 180a8bebdd50fc8ce4677e579d49d9b73880caa7<br>
-</div>
-<div># bad: [ada6770e956b7f7d298bfef56fed457ade5bad9e] drm/amd/pp: Remove <=
-br>
-</div>
-<div>cgs_query_system_info<br>
-</div>
-<div>git bisect bad ada6770e956b7f7d298bfef56fed457ade5bad9e<br>
-</div>
-<div># good: [a2c120ce6b686c753968b7b1293c7bb878440b7f] drm/amd/pp: Simplif=
-y <br>
-</div>
-<div>the create of powerplay instance<br>
-</div>
-<div>git bisect good a2c120ce6b686c753968b7b1293c7bb878440b7f<br>
-</div>
-<div># good: [589941e1a2d65f5425c91a5859a5454df64b6982] drm/amdgpu: Notify =
-<br>
-</div>
-<div>sbios device ready before send request<br>
-</div>
-<div>git bisect good 589941e1a2d65f5425c91a5859a5454df64b6982<br>
-</div>
-<div># bad: [6848d73e889bb29cfede51df8c1d0496c9787454] drm/amd/pp: Remove t=
-he <br>
-</div>
-<div>wrap functions for acpi in powerplay<br>
-</div>
-<div>git bisect bad 6848d73e889bb29cfede51df8c1d0496c9787454<br>
-</div>
-<div># bad: [e1deba285156fb4023bb48f22068de5b60e34e15] drm/amd/pp: Use amdg=
-pu <br>
-</div>
-<div>acpi helper functions in powerplay<br>
-</div>
-<div>git bisect bad e1deba285156fb4023bb48f22068de5b60e34e15<br>
-</div>
-<div># first bad commit: [e1deba285156fb4023bb48f22068de5b60e34e15] <br>
-</div>
-<div>drm/amd/pp: Use amdgpu acpi helper functions in powerplay<br>
-</div>
-<div>[utku2@utku2 linux]$ <br>
-</div>
-<span></span><br>
-</div>
-</body>
-</html>
-
---_000_AM0PR03MB57647089521674D65F900795E2550AM0PR03MB5764eurp_--
-
---===============1742390794==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1742390794==--
+T24gMjAxOS0wNC0wMSAyOjAzIHAubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEFtIDAx
+LjA0LjE5IHVtIDE5OjU5IHNjaHJpZWIgS3VlaGxpbmcsIEZlbGl4Og0KPj4gT24gMjAxOS0wNC0w
+MSA3OjIzIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+Pj4gQW0gMzAuMDMuMTkgdW0g
+MDE6NDEgc2NocmllYiBLdWVobGluZywgRmVsaXg6DQo+Pj4+IFBhdGNoZXMgMS0zIGFyZSBSZXZp
+ZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+Pj4gVGhh
+bmtzLg0KPj4+DQo+Pj4+IEFib3V0IHRoZSBkaXJlY3QgbW9kZSwgdGhhdCByZW1vdmVzIGEgYnVu
+Y2ggb2Ygc3luY2hyb25pemF0aW9uLCBzbyBpdA0KPj4+PiBtdXN0IG1ha2Ugc29tZSBhc3N1bXB0
+aW9ucyBhYm91dCB0aGUgc3RhdGUgb2YgdGhlIHBhZ2UgdGFibGVzLiBXaGF0DQo+Pj4+IG1ha2Vz
+IHRoYXQgc2FmZT8NCj4+PiBEaXJlY3QgbW9kZSBpcyBvbmx5IHN1cHBvc2VkIHRvIGJlIHVzZWQg
+ZHVyaW5nIHBhZ2UgZmF1bHQgaGFuZGxpbmcuDQo+Pj4NCj4+PiBFLmcuIHdlIGtub3cgdGhhdCB0
+aGUgcGFnZSB0YWJsZXMgYXJlIGluIHRoZSBjb3JyZWN0IHBsYWNlIGluIHRoaXMNCj4+PiBzaXR1
+YXRpb24gYmVjYXVzZSB0aGUgaGFyZHdhcmUgaXMgaGFtbWVyaW5nIG9uIGEgUFRFIGFuZCB3YWl0
+aW5nIGZvcg0KPj4+IGl0IHRvIGJlY29tZSB2YWxpZC4NCj4+IEEgZmVuY2UgY291bGQgYWxzbyBp
+bmRpY2F0ZSBhIGNvbmN1cnJlbnQgbW9kaWZpY2F0aW9uIG9mIHRoZSBwYWdlIHRhYmxlLg0KPj4g
+Rm9yIGV4YW1wbGUgYSBQVEIgbWF5IGJlIGFsbG9jYXRlZCBhbmQgaW5pdGlhbGl6ZWQgY29uY3Vy
+cmVudGx5LCBub3QgaW4NCj4+IGRpcmVjdCBtb2RlLiBXb3VsZCBkaXJlY3QgbW9kZSBuZWVkIHRv
+IHdhaXQgZm9yIGEgZmVuY2UgdGhhdCBpbmRpY2F0ZXMNCj4+IGNvbXBsZXRpb24gb2YgdGhlIFBU
+QiBpbml0aWFsaXphdGlvbj8gT3IgZG8gd2UgaGF2ZSBzb21lIHdheSB0byBlbnN1cmUNCj4+IHN1
+Y2ggY29uY3VycmVudCBhbGxvY2F0aW9uIGFuZCBpbml0aWFsaXphdGlvbiBvZiBhIFBUQiBjYW5u
+b3QgaGFwcGVuPw0KPg0KPiBZZWFoLCB0aGF0IGlzIGEgdmVyeSBnb29kIHF1ZXN0aW9uIEkgaGF2
+ZW4ndCBzb2x2ZWQgeWV0IGVpdGhlci4NCj4NCj4gTXkgY3VycmVudGx5IGJlc3QgaWRlYSBpcyB0
+byBzZXBhcmF0ZSB0aGUgYWRkcmVzcyBzcGFjZSwgZS5nLiB1c2UgdGhlIA0KPiBsb3dlciBhZGRy
+ZXNzIHNwYWNlIGZvciBvbiBkZW1hbmQgcGFnaW5nIGFuZCB0aGUgaGlnaGVyIHdpdGggY2xhc3Np
+YyANCj4gcHJlLWZpbGxlZCBwYWdlIHRhYmxlcyBmb3IgdGhlIE1NIGFuZCBkaXNwbGF5IGVuZ2lu
+ZXMuDQoNClRoYXQgbWF5IHdvcmsgZm9yIGdyYXBoaWNzLCBidXQgZG9lc24ndCB3b3JrIGZvciBL
+RkQuIEkgbmVlZCB0aGUgYWJpbGl0eSANCnRvIG1peCBwcmUtZmlsbGVkIHBhZ2UgdGFibGVzIHdp
+dGggSE1NIGluIHRoZSBzYW1lIFNWTSBhZGRyZXNzIHNwYWNlLiANClRoYXQncyB3aHkgSSB3YXMg
+dGhpbmtpbmcgdGhhdCBhbGwgcGFnZSB0YWJsZSB1cGRhdGVzIGZvciBhIGdpdmVuIFZNIA0Kd291
+bGQgbmVlZCB0byB1c2UgdGhlIHNhbWUgbWV0aG9kLg0KDQpSZWdhcmRzLA0KIMKgIEZlbGl4DQoN
+Cj4NCj4gQ2hyaXN0aWFuLg0KPg0KPj4NCj4+IFJlZ2FyZHMsDQo+PiDCoCDCoCBGZWxpeA0KPj4N
+Cj4+DQo+Pj4gQ2hyaXN0aWFuLg0KPj4+DQo+Pj4+IMKgwqAgSXMgaXQgc2FmZSB0byB1c2UgZGly
+ZWN0LW1vZGUgb24gYQ0KPj4+PiBwZXItcGFnZS10YWJsZS11cGRhdGUgYmFzaXM/IE9yIGRvIGFs
+bCBwYWdlIHRhYmxlIHVwZGF0ZXMgaGF2ZSB0byBnbw0KPj4+PiB0aHJvdWdoIGRpcmVjdCBtb2Rl
+IHRvIGF2b2lkIGhhemFyZHM/IElmIHllcywgdGhlbiBtYXliZSB0aGlzIA0KPj4+PiBzaG91bGQg
+YmUNCj4+Pj4gYSBwcm9wZXJ0eSBvZiB0aGUgVk0gcmF0aGVyIHRoYW4gYSBwYXJhbWV0ZXIgdGhh
+dCBnZXRzIHBhc3NlZCB0byBhIA0KPj4+PiBidW5jaA0KPj4+PiBvZiBmdW5jdGlvbiBjYWxscy4N
+Cj4+Pj4NCj4+Pj4gUmVnYXJkcywNCj4+Pj4gwqDCoCDCoCBGZWxpeA0KPj4+Pg0KPj4+PiBPbiAy
+MDE5LTAzLTI5IDY6NDUgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToNCj4+Pj4+IE90aGVy
+d2lzZSB3ZSBkb24ndCBjb3JyZWN0bHkgdXNlIHRyYW5zbGF0ZSBmdXJ0aGVyLg0KPj4+Pj4NCj4+
+Pj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
+LmNvbT4NCj4+Pj4+IC0tLQ0KPj4+Pj4gwqDCoMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92bS5jIHwgMTMgKysrKysrKystLS0tLQ0KPj4+Pj4gwqDCoMKgIDEgZmlsZSBjaGFu
+Z2VkLCA4IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQo+Pj4+Pg0KPj4+Pj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+Pj4+PiBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+Pj4+PiBpbmRleCAzZDIyMWYw
+NDQxODMuLjA1OWQ5ODAyZTcxMyAxMDA2NDQNCj4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+Pj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdm0uYw0KPj4+Pj4gQEAgLTc2NywxNCArNzY3LDE3IEBAIHN0YXRpYyBpbnQg
+YW1kZ3B1X3ZtX2NsZWFyX2JvKHN0cnVjdA0KPj4+Pj4gYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+
+Pj4+IMKgwqDCoCDCoMKgwqDCoMKgwqAgYWRkciA9IDA7DQo+Pj4+PiDCoMKgwqDCoMKgwqDCoCBp
+ZiAoYXRzX2VudHJpZXMpIHsNCj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCB1aW50NjRfdCBhdHNfdmFs
+dWU7DQo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgdWludDY0X3QgdmFsdWUgPSAwLCBmbGFnczsNCj4+
+Pj4+IMKgwqDCoCAtwqDCoMKgwqDCoMKgwqAgYXRzX3ZhbHVlID0gQU1ER1BVX1BURV9ERUZBVUxU
+X0FUQzsNCj4+Pj4+IC3CoMKgwqDCoMKgwqDCoCBpZiAobGV2ZWwgIT0gQU1ER1BVX1ZNX1BUQikN
+Cj4+Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGF0c192YWx1ZSB8PSBBTURHUFVfUERFX1BU
+RTsNCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCBmbGFncyA9IEFNREdQVV9QVEVfREVGQVVMVF9BVEM7
+DQo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKGxldmVsICE9IEFNREdQVV9WTV9QVEIpIHsNCj4+
+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qIEhhbmRsZSBsZWFmIFBERXMgYXMgUFRFcyAq
+Lw0KPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZmxhZ3MgfD0gQU1ER1BVX1BERV9QVEU7
+DQo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfZ21jX2dldF92bV9wZGUoYWRl
+diwgbGV2ZWwsICZ2YWx1ZSwgJmZsYWdzKTsNCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoCB9DQo+Pj4+
+PiDCoMKgwqAgwqDCoMKgwqDCoMKgwqDCoMKgwqAgciA9IHZtLT51cGRhdGVfZnVuY3MtPnVwZGF0
+ZSgmcGFyYW1zLCBibywgYWRkciwgMCwNCj4+Pj4+IGF0c19lbnRyaWVzLA0KPj4+Pj4gLcKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAwLCBhdHNfdmFsdWUp
+Ow0KPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCB2YWx1ZSwgZmxhZ3MpOw0KPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAocikNCj4+
+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsNCj4+IF9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+PiBhbWQtZ2Z4IG1haWxp
+bmcgbGlzdA0KPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IGh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KPg0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
