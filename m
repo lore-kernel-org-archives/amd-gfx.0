@@ -1,80 +1,68 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: wait for fence without holding
- reservation lock
-Date: Tue, 2 Apr 2019 14:45:24 +0000
-Message-ID: <133d9999-e170-8d18-69b7-15a78648e6f9@amd.com>
-References: <20190402142813.8381-1-christian.koenig@amd.com>
- <9f78fcd2-2753-7145-03f9-cee3f4da9938@amd.com>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
+Date: Tue, 2 Apr 2019 11:14:40 -0400 (EDT)
+Message-ID: <886051277.1395.1554218080591.JavaMail.zimbra@efficios.com>
+References: <20190402142816.GA13084@linux.ibm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9f78fcd2-2753-7145-03f9-cee3f4da9938-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <17AC925C27D96444815F94F1B0D7923A-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190402142816.GA13084@linux.ibm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: paulmck <paulmck@linux.ibm.com>
+Cc: rcu@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>, Ingo Molnar <mingo@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, dipankar <dipankar@in.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Josh Triplett <josh@joshtriplett.org>, Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, rostedt <rostedt@goodmis.org>, David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>, fweisbec <fweisbec@gmail.com>, Oleg Nesterov <oleg@redhat.com>, "Joel Fernandes, Google" <joel@joelfernandes.org>, linux-nvdimm@lists.01.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNC8yLzE5IDEwOjQxIEFNLCBLYXpsYXVza2FzLCBOaWNob2xhcyB3cm90ZToNCj4gT24gNC8y
-LzE5IDEwOjI4IEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPj4gRG9uJ3QgYmxvY2sgb3Ro
-ZXJzIHdoaWxlIHdhaXRpbmcgZm9yIHRoZSBmZW5jZXMgdG8gZmluaXNoLCBjb25jdXJyZW50DQo+
-PiBzdWJtaXNzaW9uIGlzIHBlcmZlY3RseSB2YWxpZCBpbiB0aGlzIGNhc2UgYW5kIGhvbGRpbmcg
-dGhlIGxvY2sgY2FuDQo+PiBwcmV2ZW50IGtpbGxlZCBhcHBsaWNhdGlvbnMgZnJvbSB0ZXJtaW5h
-dGluZy4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
-a29lbmlnQGFtZC5jb20+DQo+IA0KPiBSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8
-bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPg0KPiANCj4gSSBkbyByZWNhbGwgaGF2aW5nIHRo
-ZSBkaXNjdXNzaW9uIGFib3V0IHRoaXMgYSB3aGlsZSBiYWNrIHdpdGggeW91IGFuZA0KPiBBbmRy
-ZXkuDQo+IA0KPiBJIGhpZ2hseSBkb3VidCB0aGF0IHRoZSBmbGFncyB3b3VsZCBldmVyIHJlYWxs
-eSBjaGFuZ2UgaGVyZSAoaWYgdGhleSdyZQ0KPiBldmVuIGNhcGFibGUpIGJldHdlZW4gdGhlIHdh
-aXQgYW5kIHRoZSBsb2NrIHNvIEkgdGhpbmsgdGhpcyBpcyBmaW5lLg0KPiANCj4gSSB0aGluayB0
-aGVyZSdzIGEgYmlnZ2VyIHByb2JsZW0gd2l0aCB0aGF0IGFuZCBob3cgdGhleSBjb3VsZA0KPiBw
-b3RlbnRpYWxseSBjaGFuZ2UgYmV0d2VlbiBhdG9taWMgY2hlY2sgYW5kIGF0b21pYyBjb21taXQg
-dGFpbCBhbnl3YXkNCj4gKGFuZCBkb2luZyBzb21ldGhpbmcgYmFkIGFmdGVyIHdlIHRoaW5rIGl0
-J3MgcGFzc2VkIHZhbGlkYXRpb24pLg0KPiANCj4gQnV0IHRoaXMgaXMgbW9zdGx5IGEgdGhlb3Jl
-dGljYWwgY29uY2VybiBJIHRoaW5rIHJhdGhlciB0aGFuIGEgcHJhY3RpY2FsDQo+IG9uZS4NCj4g
-DQo+IFRoYW5rcy4NCj4gDQo+IE5pY2hvbGFzIEthemxhdXNrYXMNCg0KLi4uYW5kIHdhaXRpbmcg
-Zm9yIHRoZSBmZW5jZSBpc24ndCByZWFsbHkgYW5hbG9nb3VzIHRvIGVuc3VyaW5nIHRoYXQgDQp0
-aGV5IGNhbid0IGNoYW5nZSBpbiB0aGUgZmlyc3QgcGxhY2UgSSBzdXBwb3NlLg0KDQpUaGlzIGxv
-b2tzIGZpbmUuDQoNCk5pY2hvbGFzIEthemxhdXNrYXMNCg0KDQo+IA0KPiANCj4+IC0tLQ0KPj4g
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDEz
-ICsrKysrKysrLS0tLS0NCj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDUg
-ZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+PiBpbmRleCA2OTdhZjUxZDQwM2EuLjk0MjZlNzAxYTdi
-NiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0v
-YW1kZ3B1X2RtLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMNCj4+IEBAIC01MTI5LDIzICs1MTI5LDI2IEBAIHN0YXRpYyB2b2lkIGFt
-ZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4+
-ICAgIAkJCWNvbnRpbnVlOw0KPj4gICAgCQl9DQo+PiAgICANCj4+ICsJCWFibyA9IGdlbV90b19h
-bWRncHVfYm8oZmItPm9ialswXSk7DQo+PiArDQo+PiArCQkvKiBXYWl0IGZvciBhbGwgZmVuY2Vz
-IG9uIHRoaXMgRkIgKi8NCj4+ICsJCXIgPSByZXNlcnZhdGlvbl9vYmplY3Rfd2FpdF90aW1lb3V0
-X3JjdShhYm8tPnRiby5yZXN2LCB0cnVlLA0KPj4gKwkJCQkJCQlmYWxzZSwNCj4+ICsJCQkJCQkJ
-TUFYX1NDSEVEVUxFX1RJTUVPVVQpOw0KPj4gKwkJV0FSTl9PTihyIDwgMCk7DQo+PiArDQo+PiAg
-ICAJCS8qDQo+PiAgICAJCSAqIFRPRE8gVGhpcyBtaWdodCBmYWlsIGFuZCBoZW5jZSBiZXR0ZXIg
-bm90IHVzZWQsIHdhaXQNCj4+ICAgIAkJICogZXhwbGljaXRseSBvbiBmZW5jZXMgaW5zdGVhZA0K
-Pj4gICAgCQkgKiBhbmQgaW4gZ2VuZXJhbCBzaG91bGQgYmUgY2FsbGVkIGZvcg0KPj4gICAgCQkg
-KiBibG9ja2luZyBjb21taXQgdG8gYXMgcGVyIGZyYW1ld29yayBoZWxwZXJzDQo+PiAgICAJCSAq
-Lw0KPj4gLQkJYWJvID0gZ2VtX3RvX2FtZGdwdV9ibyhmYi0+b2JqWzBdKTsNCj4+ICAgIAkJciA9
-IGFtZGdwdV9ib19yZXNlcnZlKGFibywgdHJ1ZSk7DQo+PiAgICAJCWlmICh1bmxpa2VseShyICE9
-IDApKSB7DQo+PiAgICAJCQlEUk1fRVJST1IoImZhaWxlZCB0byByZXNlcnZlIGJ1ZmZlciBiZWZv
-cmUgZmxpcFxuIik7DQo+PiAgICAJCQlXQVJOX09OKDEpOw0KPj4gICAgCQl9DQo+PiAgICANCj4+
-IC0JCS8qIFdhaXQgZm9yIGFsbCBmZW5jZXMgb24gdGhpcyBGQiAqLw0KPj4gLQkJV0FSTl9PTihy
-ZXNlcnZhdGlvbl9vYmplY3Rfd2FpdF90aW1lb3V0X3JjdShhYm8tPnRiby5yZXN2LCB0cnVlLCBm
-YWxzZSwNCj4+IC0JCQkJCQkJCQkgICAgTUFYX1NDSEVEVUxFX1RJTUVPVVQpIDwgMCk7DQo+PiAt
-DQo+PiAgICAJCWFtZGdwdV9ib19nZXRfdGlsaW5nX2ZsYWdzKGFibywgJnRpbGluZ19mbGFncyk7
-DQo+PiAgICANCj4+ICAgIAkJYW1kZ3B1X2JvX3VucmVzZXJ2ZShhYm8pOw0KPj4NCj4gDQo+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZngg
-bWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KPiANCg0KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+----- On Apr 2, 2019, at 10:28 AM, paulmck paulmck@linux.ibm.com wrote:
+
+> Hello!
+> 
+> This series prohibits use of DEFINE_SRCU() and DEFINE_STATIC_SRCU()
+> by loadable modules.  The reason for this prohibition is the fact
+> that using these two macros within modules requires that the size of
+> the reserved region be increased, which is not something we want to
+> be doing all that often.  Instead, loadable modules should define an
+> srcu_struct and invoke init_srcu_struct() from their module_init function
+> and cleanup_srcu_struct() from their module_exit function.  Note that
+> modules using call_srcu() will also need to invoke srcu_barrier() from
+> their module_exit function.
+
+This arbitrary API limitation seems weird.
+
+Isn't there a way to allow modules to use DEFINE_SRCU and DEFINE_STATIC_SRCU
+while implementing them with dynamic allocation under the hood ?
+
+Thanks,
+
+Mathieu
+
+
+> 
+> This series consist of the following:
+> 
+> 1.	Dynamically allocate dax_srcu.
+> 
+> 2.	Dynamically allocate drm_unplug_srcu.
+> 
+> 3.	Dynamically allocate kfd_processes_srcu.
+> 
+> These build and have been subjected to 0day testing, but might also need
+> testing by someone having the requisite hardware.
+> 
+>							Thanx, Paul
+> 
+> ------------------------------------------------------------------------
+> 
+> drivers/dax/super.c                        |   10 +++++-
+> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |    5 +++
+> drivers/gpu/drm/amd/amdkfd/kfd_process.c   |    2 -
+> drivers/gpu/drm/drm_drv.c                  |    8 ++++
+> include/linux/srcutree.h                   |   19 +++++++++--
+> kernel/rcu/rcuperf.c                       |   40 +++++++++++++++++++-----
+> kernel/rcu/rcutorture.c                    |   48 +++++++++++++++++++++--------
+>  7 files changed, 105 insertions(+), 27 deletions(-)
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
