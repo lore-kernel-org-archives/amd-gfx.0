@@ -1,52 +1,49 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amd/display: wait for fence without holding reservation
- lock
-Date: Tue,  2 Apr 2019 16:28:13 +0200
-Message-ID: <20190402142813.8381-1-christian.koenig@amd.com>
+From: "Paul E. McKenney" <paulmck@linux.ibm.com>
+Subject: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
+Date: Tue, 2 Apr 2019 07:28:16 -0700
+Message-ID: <20190402142816.GA13084@linux.ibm.com>
+Reply-To: paulmck@linux.ibm.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org, harry.wentland-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+Sender: linux-kernel-owner@vger.kernel.org
+To: rcu@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, jiangshanlai@gmail.com, dipankar@in.ibm.com, akpm@linux-foundation.org, mathieu.desnoyers@efficios.com, josh@joshtriplett.org, tglx@linutronix.de, peterz@infradead.org, rostedt@goodmis.org, dhowells@redhat.com, edumazet@google.com, fweisbec@gmail.com, oleg@redhat.com, joel@joelfernandes.org, linux-nvdimm@lists.01.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RG9uJ3QgYmxvY2sgb3RoZXJzIHdoaWxlIHdhaXRpbmcgZm9yIHRoZSBmZW5jZXMgdG8gZmluaXNo
-LCBjb25jdXJyZW50CnN1Ym1pc3Npb24gaXMgcGVyZmVjdGx5IHZhbGlkIGluIHRoaXMgY2FzZSBh
-bmQgaG9sZGluZyB0aGUgbG9jayBjYW4KcHJldmVudCBraWxsZWQgYXBwbGljYXRpb25zIGZyb20g
-dGVybWluYXRpbmcuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
-a29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYyB8IDEzICsrKysrKysrLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA4IGluc2Vy
-dGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKaW5kZXggNjk3YWY1MWQ0MDNhLi45NDI2ZTcwMWE3
-YjYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
-cHVfZG0uYwpAQCAtNTEyOSwyMyArNTEyOSwyNiBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG1fY29t
-bWl0X3BsYW5lcyhzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUsCiAJCQljb250aW51ZTsK
-IAkJfQogCisJCWFibyA9IGdlbV90b19hbWRncHVfYm8oZmItPm9ialswXSk7CisKKwkJLyogV2Fp
-dCBmb3IgYWxsIGZlbmNlcyBvbiB0aGlzIEZCICovCisJCXIgPSByZXNlcnZhdGlvbl9vYmplY3Rf
-d2FpdF90aW1lb3V0X3JjdShhYm8tPnRiby5yZXN2LCB0cnVlLAorCQkJCQkJCWZhbHNlLAorCQkJ
-CQkJCU1BWF9TQ0hFRFVMRV9USU1FT1VUKTsKKwkJV0FSTl9PTihyIDwgMCk7CisKIAkJLyoKIAkJ
-ICogVE9ETyBUaGlzIG1pZ2h0IGZhaWwgYW5kIGhlbmNlIGJldHRlciBub3QgdXNlZCwgd2FpdAog
-CQkgKiBleHBsaWNpdGx5IG9uIGZlbmNlcyBpbnN0ZWFkCiAJCSAqIGFuZCBpbiBnZW5lcmFsIHNo
-b3VsZCBiZSBjYWxsZWQgZm9yCiAJCSAqIGJsb2NraW5nIGNvbW1pdCB0byBhcyBwZXIgZnJhbWV3
-b3JrIGhlbHBlcnMKIAkJICovCi0JCWFibyA9IGdlbV90b19hbWRncHVfYm8oZmItPm9ialswXSk7
-CiAJCXIgPSBhbWRncHVfYm9fcmVzZXJ2ZShhYm8sIHRydWUpOwogCQlpZiAodW5saWtlbHkociAh
-PSAwKSkgewogCQkJRFJNX0VSUk9SKCJmYWlsZWQgdG8gcmVzZXJ2ZSBidWZmZXIgYmVmb3JlIGZs
-aXBcbiIpOwogCQkJV0FSTl9PTigxKTsKIAkJfQogCi0JCS8qIFdhaXQgZm9yIGFsbCBmZW5jZXMg
-b24gdGhpcyBGQiAqLwotCQlXQVJOX09OKHJlc2VydmF0aW9uX29iamVjdF93YWl0X3RpbWVvdXRf
-cmN1KGFiby0+dGJvLnJlc3YsIHRydWUsIGZhbHNlLAotCQkJCQkJCQkJICAgIE1BWF9TQ0hFRFVM
-RV9USU1FT1VUKSA8IDApOwotCiAJCWFtZGdwdV9ib19nZXRfdGlsaW5nX2ZsYWdzKGFibywgJnRp
-bGluZ19mbGFncyk7CiAKIAkJYW1kZ3B1X2JvX3VucmVzZXJ2ZShhYm8pOwotLSAKMi4xNy4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Hello!
+
+This series prohibits use of DEFINE_SRCU() and DEFINE_STATIC_SRCU()
+by loadable modules.  The reason for this prohibition is the fact
+that using these two macros within modules requires that the size of
+the reserved region be increased, which is not something we want to
+be doing all that often.  Instead, loadable modules should define an
+srcu_struct and invoke init_srcu_struct() from their module_init function
+and cleanup_srcu_struct() from their module_exit function.  Note that
+modules using call_srcu() will also need to invoke srcu_barrier() from
+their module_exit function.
+
+This series consist of the following:
+
+1.	Dynamically allocate dax_srcu.
+
+2.	Dynamically allocate drm_unplug_srcu.
+
+3.	Dynamically allocate kfd_processes_srcu.
+
+These build and have been subjected to 0day testing, but might also need
+testing by someone having the requisite hardware.
+
+							Thanx, Paul
+
+------------------------------------------------------------------------
+
+ drivers/dax/super.c                        |   10 +++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c |    5 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c   |    2 -
+ drivers/gpu/drm/drm_drv.c                  |    8 ++++
+ include/linux/srcutree.h                   |   19 +++++++++--
+ kernel/rcu/rcuperf.c                       |   40 +++++++++++++++++++-----
+ kernel/rcu/rcutorture.c                    |   48 +++++++++++++++++++++--------
+ 7 files changed, 105 insertions(+), 27 deletions(-)
