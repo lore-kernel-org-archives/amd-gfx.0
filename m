@@ -1,95 +1,64 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH xf86-video-amdgpu] Allow changing DCC parameters between
- flips
-Date: Tue, 2 Apr 2019 14:13:48 -0400
-Message-ID: <CAAxE2A7eDYj9mNtSq5p8wG1E=Lf=+ZCs4mfyAO7jDn3FL9rGpw@mail.gmail.com>
-References: <20190228224026.13609-1-maraeo@gmail.com>
- <cd693a1d-31eb-ca87-2868-fb4c1209e9e3@daenzer.net>
+From: Joel Fernandes <joel-QYYGw3jwrUn5owFQY34kdNi2O/JbrIOy@public.gmane.org>
+Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
+Date: Tue, 2 Apr 2019 14:40:54 -0400
+Message-ID: <20190402184054.GA18150@google.com>
+References: <20190402142816.GA13084@linux.ibm.com>
+ <886051277.1395.1554218080591.JavaMail.zimbra@efficios.com>
+ <20190402152334.GC4102@linux.ibm.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1710932490=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <cd693a1d-31eb-ca87-2868-fb4c1209e9e3-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============1710932490==
-Content-Type: multipart/alternative; boundary="000000000000610c830585901b45"
-
---000000000000610c830585901b45
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-As you probably noticed, I don't use gitlab for my own patches yet.
-
-Marek
-
-On Fri, Mar 1, 2019 at 3:52 AM Michel D=C3=A4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org> wrot=
-e:
-
->
-> Thanks Marek for the patch, but xf86-video-amdgpu patches are being
-> reviewed as GitLab merge requests since the last release[0].
->
-> I'll create a merge request with this patch and some follow-up changes.
->
->
-> [0] Isn't README.md clear enough on this?
->
-> --
-> Earthling Michel D=C3=A4nzer               |              https://www.amd=
-.com
-> Libre software enthusiast             |             Mesa and X developer
->
-
---000000000000610c830585901b45
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>As you probably noticed, I don&#39;t use gitlab for m=
-y own patches yet.<br></div><div><br></div><div>Marek<br></div><br><div cla=
-ss=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Mar 1, 201=
-9 at 3:52 AM Michel D=C3=A4nzer &lt;<a href=3D"mailto:michel-otUistvHUpPR7s880joybQ@public.gmane.org">m=
-ichel-otUistvHUpPR7s880joybQ@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
- style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
-adding-left:1ex"><br>
-Thanks Marek for the patch, but xf86-video-amdgpu patches are being<br>
-reviewed as GitLab merge requests since the last release[0].<br>
-<br>
-I&#39;ll create a merge request with this patch and some follow-up changes.=
-<br>
-<br>
-<br>
-[0] Isn&#39;t README.md clear enough on this?<br>
-<br>
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 <a href=3D"http=
-s://www.amd.com" rel=3D"noreferrer" target=3D"_blank">https://www.amd.com</=
-a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-</blockquote></div></div>
-
---000000000000610c830585901b45--
-
---===============1710932490==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
 Content-Disposition: inline
+In-Reply-To: <20190402152334.GC4102-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org>
+List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
+List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
+Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
+Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+To: "Paul E. McKenney" <paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org>
+Cc: David Howells <dhowells-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Thomas Gleixner <tglx-hfZtesqFncYOwBW4kG4KsQ@public.gmane.org>, linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org, Peter Zijlstra <peterz-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, fweisbec <fweisbec-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Lai Jiangshan <jiangshanlai-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, linux-kernel <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, rostedt <rostedt-nx8X9YLhiw1AfugRpC6u6w@public.gmane.org>, Josh Triplett <josh-iaAMLnmF4UmaiuxdJuQwMA@public.gmane.org>, rcu-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Eric Dumazet <edumazet-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Mathieu Desnoyers <mathieu.desnoyers-vg+e7yoeK/dWk0Htik3J/w@public.gmane.org>, Oleg Nesterov <oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, dipankar <dipankar-xthvdsQ13ZrQT0dZR+AlfA@public.gmane.org>, Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, Ingo Molnar <mingo-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, Apr 02, 2019 at 08:23:34AM -0700, Paul E. McKenney wrote:
+> On Tue, Apr 02, 2019 at 11:14:40AM -0400, Mathieu Desnoyers wrote:
+> > ----- On Apr 2, 2019, at 10:28 AM, paulmck paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org wrote:
+> > 
+> > > Hello!
+> > > 
+> > > This series prohibits use of DEFINE_SRCU() and DEFINE_STATIC_SRCU()
+> > > by loadable modules.  The reason for this prohibition is the fact
+> > > that using these two macros within modules requires that the size of
+> > > the reserved region be increased, which is not something we want to
+> > > be doing all that often.  Instead, loadable modules should define an
+> > > srcu_struct and invoke init_srcu_struct() from their module_init function
+> > > and cleanup_srcu_struct() from their module_exit function.  Note that
+> > > modules using call_srcu() will also need to invoke srcu_barrier() from
+> > > their module_exit function.
+> > 
+> > This arbitrary API limitation seems weird.
+> > 
+> > Isn't there a way to allow modules to use DEFINE_SRCU and DEFINE_STATIC_SRCU
+> > while implementing them with dynamic allocation under the hood ?
+> 
+> Although call_srcu() already has initialization hooks, some would
+> also be required in srcu_read_lock(), and I am concerned about adding
+> memory allocation at that point, especially given the possibility
+> of memory-allocation failure.  And the possibility that the first
+> srcu_read_lock() happens in an interrupt handler or similar.
+> 
+> Or am I missing a trick here?
 
---===============1710932490==--
+Hi Paul,
+
+Which 'reserved region' are you referring to? Isn't this region also
+used for non-module cases in which case the same problem applies to
+non-modules?
+
+thanks!
+
+ - Joel
