@@ -1,55 +1,64 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: fix cursor black issue
-Date: Wed, 3 Apr 2019 12:48:39 +0000
-Message-ID: <292e8093-43a3-befc-534c-454eb8789d5f@amd.com>
-References: <1554258377-4594-1-git-send-email-tianci.yin@amd.com>
+From: "Paul E. McKenney" <paulmck@linux.ibm.com>
+Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
+Date: Wed, 3 Apr 2019 06:19:18 -0700
+Message-ID: <20190403131918.GD4102@linux.ibm.com>
+References: <20190402142816.GA13084@linux.ibm.com>
+ <886051277.1395.1554218080591.JavaMail.zimbra@efficios.com>
+ <20190402152334.GC4102@linux.ibm.com>
+ <20190402184054.GA18150@google.com>
+Reply-To: paulmck@linux.ibm.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1554258377-4594-1-git-send-email-tianci.yin-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <919ED2C628510A4387006FC653C9A38C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190402184054.GA18150@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Joel Fernandes <joel@joelfernandes.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, rcu@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>, Ingo Molnar <mingo@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, dipankar <dipankar@in.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Josh Triplett <josh@joshtriplett.org>, Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, rostedt <rostedt@goodmis.org>, David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>, fweisbec <fweisbec@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-nvdimm@lists.01.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNC8yLzE5IDEwOjI2IFBNLCB0aWFuY3lpbiB3cm90ZToNCj4gW1doeV0NCj4gdGhlIG1lbWJl
-ciBzZHJfd2hpdGVfbGV2ZWwgb2Ygc3RydWN0IGRjX2N1cnNvcl9hdHRyaWJ1dGVzIHdhcyBub3QN
-Cj4gaW5pdGlhbGl6ZWQsIHRoZW4gdGhlIHJhbmRvbSB2YWx1ZSByZXN1bHQgdGhhdA0KPiBkY24x
-MF9zZXRfY3Vyc29yX3Nkcl93aGl0ZV9sZXZlbCgpIHNldCBlcnJvciBod19zY2FsZSB2YWx1ZSAw
-eDIwRDkobm9ybWFsDQo+IHZhbHVlIGlzIDB4M2MwMCksIHRoaXMgY2F1c2UgdGhlIGJsYWNrIGN1
-cnNvciBpc3N1ZS4NCj4gDQo+IFtob3ddDQo+IGp1c3QgaW5pdGlsaXplIHRoZSBvYmogb2Ygc3Ry
-dWN0IGRjX2N1cnNvcl9hdHRyaWJ1dGVzIHRvIHplcm8gdG8gYXZvaWQNCj4gdGhlIHJhbmRvbSB2
-YWx1ZS4NCj4gDQo+IENoYW5nZS1JZDogSTA3YTUzYTQ4YTMzOTQwY2ZiNjAwNmVkMzczODU4M2Y5
-NzAzYzc5OTMNCj4gU2lnbmVkLW9mZi1ieTogVGlhbmNpIFlpbiA8dGlhbmNpLnlpbkBhbWQuY29t
-Pg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbS5jIHwgMiArLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
-dGlvbigtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1
-X2RtL2FtZGdwdV9kbS5jDQo+IGluZGV4IDc0NGFjZDguLjAzNDNmZjEgMTAwNjQ0DQo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBA
-QCAtNTA2Miw3ICs1MDYyLDcgQEAgc3RhdGljIHZvaWQgaGFuZGxlX2N1cnNvcl91cGRhdGUoc3Ry
-dWN0IGRybV9wbGFuZSAqcGxhbmUsDQo+ICAgCXN0cnVjdCBhbWRncHVfY3J0YyAqYW1kZ3B1X2Ny
-dGMgPSB0b19hbWRncHVfY3J0YyhjcnRjKTsNCj4gICAJdWludDY0X3QgYWRkcmVzcyA9IGFmYiA/
-IGFmYi0+YWRkcmVzcyA6IDA7DQo+ICAgCXN0cnVjdCBkY19jdXJzb3JfcG9zaXRpb24gcG9zaXRp
-b247DQo+IC0Jc3RydWN0IGRjX2N1cnNvcl9hdHRyaWJ1dGVzIGF0dHJpYnV0ZXM7DQo+ICsJc3Ry
-dWN0IGRjX2N1cnNvcl9hdHRyaWJ1dGVzIGF0dHJpYnV0ZXMgPSB7MH07DQoNCkl0J3MgcHJvYmFi
-bHkgYmVzdCB0byBtYWtlIHRoaXMgYSBtZW1zZXQgaW5zdGVhZCBzaW5jZSB3ZSd2ZSBoYWQgDQpj
-b21waWxlcnMgY29tcGxhaW4gYWJvdXQgYnJhY2UgLyBhZ2dyZWdhdGUgaW5pdGlhbGl6YXRpb24g
-YmVmb3JlLg0KDQpXaXRoIHRoYXQgY2hhbmdlIHRoaXMgcGF0Y2ggaXM6DQoNClJldmlld2VkLWJ5
-OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+DQoNCj4g
-ICAJaW50IHJldDsNCj4gICANCj4gICAJaWYgKCFwbGFuZS0+c3RhdGUtPmZiICYmICFvbGRfcGxh
-bmVfc3RhdGUtPmZiKQ0KPiANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4
+On Tue, Apr 02, 2019 at 02:40:54PM -0400, Joel Fernandes wrote:
+> On Tue, Apr 02, 2019 at 08:23:34AM -0700, Paul E. McKenney wrote:
+> > On Tue, Apr 02, 2019 at 11:14:40AM -0400, Mathieu Desnoyers wrote:
+> > > ----- On Apr 2, 2019, at 10:28 AM, paulmck paulmck@linux.ibm.com wrote:
+> > > 
+> > > > Hello!
+> > > > 
+> > > > This series prohibits use of DEFINE_SRCU() and DEFINE_STATIC_SRCU()
+> > > > by loadable modules.  The reason for this prohibition is the fact
+> > > > that using these two macros within modules requires that the size of
+> > > > the reserved region be increased, which is not something we want to
+> > > > be doing all that often.  Instead, loadable modules should define an
+> > > > srcu_struct and invoke init_srcu_struct() from their module_init function
+> > > > and cleanup_srcu_struct() from their module_exit function.  Note that
+> > > > modules using call_srcu() will also need to invoke srcu_barrier() from
+> > > > their module_exit function.
+> > > 
+> > > This arbitrary API limitation seems weird.
+> > > 
+> > > Isn't there a way to allow modules to use DEFINE_SRCU and DEFINE_STATIC_SRCU
+> > > while implementing them with dynamic allocation under the hood ?
+> > 
+> > Although call_srcu() already has initialization hooks, some would
+> > also be required in srcu_read_lock(), and I am concerned about adding
+> > memory allocation at that point, especially given the possibility
+> > of memory-allocation failure.  And the possibility that the first
+> > srcu_read_lock() happens in an interrupt handler or similar.
+> > 
+> > Or am I missing a trick here?
+> 
+> Hi Paul,
+> 
+> Which 'reserved region' are you referring to? Isn't this region also
+> used for non-module cases in which case the same problem applies to
+> non-modules?
+
+The percpu/module reservation discussed in this thread:
+
+https://lore.kernel.org/lkml/c72402f2-967e-cd56-99d8-9139c9e7f267@google.com/T/#mbcacf60ddc0b3fd6e831a3ea71efc90da359a3bf
+
+For non-modules, global per-CPU variables are statically allocated.
+For modules, they must be dynamically allocated at modprobe time, and
+their size is set by PERCPU_MODULE_RESERVE.
+
+							Thanx, Paul
