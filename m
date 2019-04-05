@@ -1,16 +1,16 @@
-From: Pinky <j-pi-9Vj9tDbzfuSlVyrhU4qvOw@public.gmane.org>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: Screen flicckering due to "drm/amdgpu: enable gfxoff again on
  raven series"
-Date: Fri, 5 Apr 2019 19:53:51 +0200
-Message-ID: <20190405175351.ojtmakydncnaopkp@zizala>
+Date: Fri, 5 Apr 2019 18:33:23 +0000
+Message-ID: <BN6PR12MB1809FBE905B4348595FBC9F7F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <20190405162423.6ykp3v54tt4v233h@zizala>
- <BN6PR12MB1809F0A406BDD769D980D0A5F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <BN6PR12MB1809F0A406BDD769D980D0A5F7510@BN6PR12MB1809.namprd12.prod.outlook.com>,
+ <20190405175351.ojtmakydncnaopkp@zizala>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1811205730=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <BN6PR12MB1809F0A406BDD769D980D0A5F7510-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20190405175351.ojtmakydncnaopkp@zizala>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,43 +21,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+To: Pinky <j-pi-9Vj9tDbzfuSlVyrhU4qvOw@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Tm8sIHRoaXMgZG9lcyBubyBkbyBhbnl0aGluZywgdGhlIGJ1ZyBpcyBzdGlsbCBwcmVzZW50LgoK
-CiogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPiBbMjAxOS0w
-NC0wNSAxNzowNzoyMSArMDAwMF06Cgo+VGhpcyBtYXkgYmUgcmVsYXRlZCB0byBzdHV0dGVyIG1v
-ZGUgcmF0aGVyIHRoYW4gZ2Z4b2ZmLiAgSWYgc28sIHRoZXJlIGlzIGEgZml4IGluIHRoZSBwaXBl
-bGluZSBmb3IgdGhhdC4gIERvZXMgc2V0dGluZyBhcHBlbmRpbmcgYW1kZ3B1LnBwZmVhdHVyZW1h
-c2s9MHhmZmZkYmZmZiBvbiB0aGUga2VybmVsIGNvbW1hbmQgbGluZSBmaXggaXQ/Cj4KPkFsZXgK
-Pl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj5Gcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4
-LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhhbGYgb2YgUGlua3kgPGotcGlA
-c2V6bmFtLmN6Pgo+U2VudDogRnJpZGF5LCBBcHJpbCA1LCAyMDE5IDEyOjI0IFBNCj5UbzogYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPlN1YmplY3Q6IFNjcmVlbiBmbGljY2tlcmluZyBk
-dWUgdG8gImRybS9hbWRncHU6IGVuYWJsZSBnZnhvZmYgYWdhaW4gb24gcmF2ZW4gc2VyaWVzIgo+
-Cj5IZWxsbywKPgo+SSBoYXZlIHRvZGF5IGNvbXBpbGVkIHRoZSBkcm0tbmV4dCBrZXJuZWwgZnJv
-bSAoMSkgYW5kIGZpbmQgb3V0IHRoZSBzY3JlZW4gaXMKPmZsaWNrZXJpbmcgYW5kIHNob3dzIHZh
-cmlvdXMgYXJ0aWZhY3RzLiBCeSBiaXNzZWN0aW5nIEkgZm91bmQgdGhlIGNhdXNlCj5pcyBjb21t
-aXQgMDA1NDQwMDY2ZjkyOWJhMGRjYThmNGUwYWViZmJmOGRhYWM1OTJjYy4gQnkgcmV2ZXJ0aW5n
-IGl0IHRoZQo+cHJvYmxlbSB3ZW50IG91dC4KPgo+SSBkb2VzIG5vdCBoYXZlIGlkZWEgYWJvdXQg
-d2hhdCB0byBkbyBuZXh0LiBTb3JyeSBpZiB0aGlzIHNob3VsZCBiZSBwb3N0ZWQgdG8KPnNvbWUg
-YnVnemlsbGEgaW5zdGVhZCwgSSBoYXZlIGdvdCBhIGJpdCBsb3N0LiBJZiBzbywgd291bGQgWW91
-IHBsZWFzZQo+cG9pbnQgbXkgb3V0IHdoYXQgdG8gZG8/Cj4KPldpdGggYmVzdCByZWdhcmRzLAo+
-ICAgIFBpbmthdmEgSi4KPgo+Cj5sc3BjaSAocGFydGlhbCkKPgo+MDA6MDAuMiBJT01NVTogQWR2
-YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EXSBSYXZlbi9SYXZlbjIgSU9NTVUKPjAwOjAx
-LjAgSG9zdCBicmlkZ2U6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4gW0FNRF0gRmFtaWx5
-IDE3aCAoTW9kZWxzIDAwaC0wZmgpIFBDSWUgRHVtbXkgSG9zdCBCcmlkZ2UKPjA2OjAwLjAgVkdB
-IGNvbXBhdGlibGUgY29udHJvbGxlcjogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1E
-L0FUSV0gUmF2ZW4gUmlkZ2UgW1JhZGVvbiBWZWdhIFNlcmllcyAvIFJhZGVvbiBWZWdhIE1vYmls
-ZSBTZXJpZXNdIChyZXYgZDEpCj4wNjowMC4xIEF1ZGlvIGRldmljZTogQWR2YW5jZWQgTWljcm8g
-RGV2aWNlcywgSW5jLiBbQU1EL0FUSV0gUmF2ZW4vUmF2ZW4yL0ZlbmdodWFuZyBIRE1JL0RQIEF1
-ZGlvIENvbnRyb2xsZXIKPgo+Cj4KPgo+KDEpIGdpdDovL3Blb3BsZS5mcmVlZGVza3RvcC5vcmcv
-fmFnZDVmL2xpbnV4Cj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwo+YW1kLWdmeCBtYWlsaW5nIGxpc3QKPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
-Cj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+YW1kLWdm
-eCBtYWlsaW5nIGxpc3QKPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj5odHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============1811205730==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809FBE905B4348595FBC9F7F7510BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809FBE905B4348595FBC9F7F7510BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
++ Ray
+
+Ray, any ideas?
+
+Pinkava,
+
+can you provide the output of:
+sudo cat /sys/kernel/debug/dri/0/amdgpu_firmware_info
+
+Thanks,
+
+Alex
+________________________________
+From: Pinky <j-pi-9Vj9tDbzfuSlVyrhU4qvOw@public.gmane.org>
+Sent: Friday, April 5, 2019 1:53 PM
+To: Deucher, Alexander
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: Screen flicckering due to "drm/amdgpu: enable gfxoff again on =
+raven series"
+
+No, this does no do anything, the bug is still present.
+
+
+* Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> [2019-04-05 17:07:21 +0000=
+]:
+
+>This may be related to stutter mode rather than gfxoff.  If so, there is a=
+ fix in the pipeline for that.  Does setting appending amdgpu.ppfeaturemask=
+=3D0xfffdbfff on the kernel command line fix it?
+>
+>Alex
+>________________________________
+>From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Pinky <=
+j-pi-9Vj9tDbzfuSlVyrhU4qvOw@public.gmane.org>
+>Sent: Friday, April 5, 2019 12:24 PM
+>To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>Subject: Screen flicckering due to "drm/amdgpu: enable gfxoff again on rav=
+en series"
+>
+>Hello,
+>
+>I have today compiled the drm-next kernel from (1) and find out the screen=
+ is
+>flickering and shows various artifacts. By bissecting I found the cause
+>is commit 005440066f929ba0dca8f4e0aebfbf8daac592cc. By reverting it the
+>problem went out.
+>
+>I does not have idea about what to do next. Sorry if this should be posted=
+ to
+>some bugzilla instead, I have got a bit lost. If so, would You please
+>point my out what to do?
+>
+>With best regards,
+>    Pinkava J.
+>
+>
+>lspci (partial)
+>
+>00:00.2 IOMMU: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 IOMMU
+>00:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models=
+ 00h-0fh) PCIe Dummy Host Bridge
+>06:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] =
+Raven Ridge [Radeon Vega Series / Radeon Vega Mobile Series] (rev d1)
+>06:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Raven/Raven2/=
+Fenghuang HDMI/DP Audio Controller
+>
+>
+>
+>
+>(1) git://people.freedesktop.org/~agd5f/linux
+>_______________________________________________
+>amd-gfx mailing list
+>amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+>_______________________________________________
+>amd-gfx mailing list
+>amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--_000_BN6PR12MB1809FBE905B4348595FBC9F7F7510BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+&#43; Ray</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Ray, any ideas?</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Pinkava,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+can you provide the output of:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+sudo cat /sys/kernel/debug/dri/0/amdgpu_firmware_info</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Pinky &lt;j-pi@seznam=
+.cz&gt;<br>
+<b>Sent:</b> Friday, April 5, 2019 1:53 PM<br>
+<b>To:</b> Deucher, Alexander<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> Re: Screen flicckering due to &quot;drm/amdgpu: enable gfxo=
+ff again on raven series&quot;</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">No, this does no do anything, the bug is still pre=
+sent.<br>
+<br>
+<br>
+* Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt; [2019-04-05 17:07:21=
+ &#43;0000]:<br>
+<br>
+&gt;This may be related to stutter mode rather than gfxoff.&nbsp; If so, th=
+ere is a fix in the pipeline for that.&nbsp; Does setting appending amdgpu.=
+ppfeaturemask=3D0xfffdbfff on the kernel command line fix it?<br>
+&gt;<br>
+&gt;Alex<br>
+&gt;________________________________<br>
+&gt;From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf o=
+f Pinky &lt;j-pi-9Vj9tDbzfuSlVyrhU4qvOw@public.gmane.org&gt;<br>
+&gt;Sent: Friday, April 5, 2019 12:24 PM<br>
+&gt;To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;Subject: Screen flicckering due to &quot;drm/amdgpu: enable gfxoff agai=
+n on raven series&quot;<br>
+&gt;<br>
+&gt;Hello,<br>
+&gt;<br>
+&gt;I have today compiled the drm-next kernel from (1) and find out the scr=
+een is<br>
+&gt;flickering and shows various artifacts. By bissecting I found the cause=
+<br>
+&gt;is commit 005440066f929ba0dca8f4e0aebfbf8daac592cc. By reverting it the=
+<br>
+&gt;problem went out.<br>
+&gt;<br>
+&gt;I does not have idea about what to do next. Sorry if this should be pos=
+ted to<br>
+&gt;some bugzilla instead, I have got a bit lost. If so, would You please<b=
+r>
+&gt;point my out what to do?<br>
+&gt;<br>
+&gt;With best regards,<br>
+&gt;&nbsp;&nbsp;&nbsp; Pinkava J.<br>
+&gt;<br>
+&gt;<br>
+&gt;lspci (partial)<br>
+&gt;<br>
+&gt;00:00.2 IOMMU: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 IOMMU<br=
+>
+&gt;00:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Mod=
+els 00h-0fh) PCIe Dummy Host Bridge<br>
+&gt;06:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/AT=
+I] Raven Ridge [Radeon Vega Series / Radeon Vega Mobile Series] (rev d1)<br=
+>
+&gt;06:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Raven/Rave=
+n2/Fenghuang HDMI/DP Audio Controller<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt;(1) git://people.freedesktop.org/~agd5f/linux<br>
+&gt;_______________________________________________<br>
+&gt;amd-gfx mailing list<br>
+&gt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">http=
+s://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+<br>
+&gt;_______________________________________________<br>
+&gt;amd-gfx mailing list<br>
+&gt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">http=
+s://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809FBE905B4348595FBC9F7F7510BN6PR12MB1809namp_--
+
+--===============1811205730==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1811205730==--
