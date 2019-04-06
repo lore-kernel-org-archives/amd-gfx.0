@@ -1,355 +1,135 @@
-From: "Paul E. McKenney" <paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org>
-Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
-Date: Fri, 5 Apr 2019 16:28:35 -0700
-Message-ID: <20190405232835.GA24702@linux.ibm.com>
-References: <20190402142816.GA13084@linux.ibm.com>
- <886051277.1395.1554218080591.JavaMail.zimbra@efficios.com>
- <20190402152334.GC4102@linux.ibm.com>
- <161156422.1435.1554219247444.JavaMail.zimbra@efficios.com>
- <20190403133243.GE4102@linux.ibm.com>
- <1028306587.504.1554301662374.JavaMail.zimbra@efficios.com>
- <20190403162039.GA14111@linux.ibm.com>
-Reply-To: paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org
+From: Pinky <j-pi-9Vj9tDbzfuSlVyrhU4qvOw@public.gmane.org>
+Subject: Re: Screen flicckering due to "drm/amdgpu: enable gfxoff again on
+ raven series"
+Date: Sat, 6 Apr 2019 09:09:09 +0200
+Message-ID: <20190406070909.4p7txa6a6am7tirb@zizala>
+References: <20190405162423.6ykp3v54tt4v233h@zizala>
+ <BN6PR12MB1809F0A406BDD769D980D0A5F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <20190405175351.ojtmakydncnaopkp@zizala>
+ <BN6PR12MB1809FBE905B4348595FBC9F7F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <20190405183839.q6nd6wy6brnxfoqx@zizala>
+ <BN6PR12MB1809F35D7E08B17EE0362C15F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <20190405200028.62r72w27d4awiard@zizala>
+ <CADnq5_PnJ-4ezG4S3MpEi+0ahbM=AvAH=sNuWcDiBZyadVfSdQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-In-Reply-To: <20190403162039.GA14111-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org>
-List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
-List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
-Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
-Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-To: Mathieu Desnoyers <mathieu.desnoyers-vg+e7yoeK/dWk0Htik3J/w@public.gmane.org>
-Cc: David Howells <dhowells-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, linux-nvdimm <linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>, Peter Zijlstra <peterz-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, fweisbec <fweisbec-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Lai Jiangshan <jiangshanlai-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, linux-kernel <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, rostedt <rostedt-nx8X9YLhiw1AfugRpC6u6w@public.gmane.org>, Josh Triplett <josh-iaAMLnmF4UmaiuxdJuQwMA@public.gmane.org>, rcu <rcu-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Eric Dumazet <edumazet-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Thomas Gleixner <tglx-hfZtesqFncYOwBW4kG4KsQ@public.gmane.org>, Oleg Nesterov <oleg-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, dipankar <dipankar-xthvdsQ13ZrQT0dZR+AlfA@public.gmane.org>, "Joel Fernandes, Google" <joel-QYYGw3jwrUn5owFQY34kdNi2O/JbrIOy@public.gmane.org>, Andrew Morton <akpm-de/tnXTf+JLsfHDXvbKv3WD2FQJk+8+b@public.gmane.org>, Ingo Molnar <mingo-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+In-Reply-To: <CADnq5_PnJ-4ezG4S3MpEi+0ahbM=AvAH=sNuWcDiBZyadVfSdQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, Apr 03, 2019 at 09:20:39AM -0700, Paul E. McKenney wrote:
-> On Wed, Apr 03, 2019 at 10:27:42AM -0400, Mathieu Desnoyers wrote:
-> > ----- On Apr 3, 2019, at 9:32 AM, paulmck paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org wrote:
-> > 
-> > > On Tue, Apr 02, 2019 at 11:34:07AM -0400, Mathieu Desnoyers wrote:
-> > >> ----- On Apr 2, 2019, at 11:23 AM, paulmck paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org wrote:
-> > >> 
-> > >> > On Tue, Apr 02, 2019 at 11:14:40AM -0400, Mathieu Desnoyers wrote:
-> > >> >> ----- On Apr 2, 2019, at 10:28 AM, paulmck paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org wrote:
-> > >> >> 
-> > >> >> > Hello!
-> > >> >> > 
-> > >> >> > This series prohibits use of DEFINE_SRCU() and DEFINE_STATIC_SRCU()
-> > >> >> > by loadable modules.  The reason for this prohibition is the fact
-> > >> >> > that using these two macros within modules requires that the size of
-> > >> >> > the reserved region be increased, which is not something we want to
-> > >> >> > be doing all that often.  Instead, loadable modules should define an
-> > >> >> > srcu_struct and invoke init_srcu_struct() from their module_init function
-> > >> >> > and cleanup_srcu_struct() from their module_exit function.  Note that
-> > >> >> > modules using call_srcu() will also need to invoke srcu_barrier() from
-> > >> >> > their module_exit function.
-> > >> >> 
-> > >> >> This arbitrary API limitation seems weird.
-> > >> >> 
-> > >> >> Isn't there a way to allow modules to use DEFINE_SRCU and DEFINE_STATIC_SRCU
-> > >> >> while implementing them with dynamic allocation under the hood ?
-> > >> > 
-> > >> > Although call_srcu() already has initialization hooks, some would
-> > >> > also be required in srcu_read_lock(), and I am concerned about adding
-> > >> > memory allocation at that point, especially given the possibility
-> > >> > of memory-allocation failure.  And the possibility that the first
-> > >> > srcu_read_lock() happens in an interrupt handler or similar.
-> > >> > 
-> > >> > Or am I missing a trick here?
-> > >> 
-> > >> I was more thinking that under #ifdef MODULE, both DEFINE_SRCU and
-> > >> DEFINE_STATIC_SRCU could append data in a dedicated section. module.c
-> > >> would additionally lookup that section on module load, and deal with
-> > >> those statically defined SRCU entries as if they were dynamically
-> > >> allocated ones. It would of course cleanup those resources on module
-> > >> unload.
-> > >> 
-> > >> Am I missing some subtlety there ?
-> > > 
-> > > If I understand you correctly, that is actually what is already done.  The
-> > > size of this dedicated section is currently set by PERCPU_MODULE_RESERVE,
-> > > and the additions of DEFINE{_STATIC}_SRCU() in modules was requiring that
-> > > this to be increased frequently.  That led to a request that something
-> > > be done, in turn leading to this patch series.
-> > 
-> > I think we are not expressing quite the same idea.
-> > 
-> > AFAIU, yours is to have DEFINE*_SRCU directly define per-cpu data within modules,
-> > which ends up using percpu module reserved memory.
-> > 
-> > My idea is to make DEFINE*_SRCU have a different behavior under #ifdef MODULE.
-> > It could emit a _global variable_ (_not_ per-cpu) within a new section. That
-> > section would then be used by module init/exit code to figure out what "srcu
-> > descriptors" are present in the modules. It would therefore rely on dynamic
-> > allocation for those, therefore removing the need to involve the percpu module
-> > reserved pool at all.
-> > 
-> > > 
-> > > I don't see a way around this short of changing module loading to do
-> > > alloc_percpu() and then updating the relocation based on this result.
-> > > Which would admittedly be far more convenient.  I was assuming that
-> > > this would be difficult due to varying CPU offsets or the like.
-> > > 
-> > > But if it can be done reasonably, it would be quite a bit nicer than
-> > > forcing dynamic allocation in cases where it is not otherwise needed.
-> > 
-> > Hopefully my explanation above helps clear out what I have in mind.
-> > 
-> > You can find similar tricks performed by include/linux/tracepoint.h:
-> > 
-> > #ifdef CONFIG_HAVE_ARCH_PREL32_RELOCATIONS
-> > static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
-> > {
-> >         return offset_to_ptr(p);
-> > }
-> > 
-> > #define __TRACEPOINT_ENTRY(name)                                        \
-> >         asm("   .section \"__tracepoints_ptrs\", \"a\"          \n"     \
-> >             "   .balign 4                                       \n"     \
-> >             "   .long   __tracepoint_" #name " - .              \n"     \
-> >             "   .previous                                       \n")
-> > #else
-> > static inline struct tracepoint *tracepoint_ptr_deref(tracepoint_ptr_t *p)
-> > {
-> >         return *p;
-> > }
-> > 
-> > #define __TRACEPOINT_ENTRY(name)                                         \
-> >         static tracepoint_ptr_t __tracepoint_ptr_##name __used           \
-> >         __attribute__((section("__tracepoints_ptrs"))) =                 \
-> >                 &__tracepoint_##name
-> > #endif
-> > 
-> > [...]
-> > 
-> > #define DEFINE_TRACE_FN(name, reg, unreg)                                \
-> >         static const char __tpstrtab_##name[]                            \
-> >         __attribute__((section("__tracepoints_strings"))) = #name;       \
-> >         struct tracepoint __tracepoint_##name                            \
-> >         __attribute__((section("__tracepoints"), used)) =                \
-> >                 { __tpstrtab_##name, STATIC_KEY_INIT_FALSE, reg, unreg, NULL };\
-> >         __TRACEPOINT_ENTRY(name);
-> > 
-> > And kernel/module.c:
-> > 
-> > find_module_sections():
-> > 
-> > #ifdef CONFIG_TRACEPOINTS
-> >         mod->tracepoints_ptrs = section_objs(info, "__tracepoints_ptrs",
-> >                                              sizeof(*mod->tracepoints_ptrs),
-> >                                              &mod->num_tracepoints);
-> > #endif
-> > 
-> > And kernel/tracepoint.c:tracepoint_module_notify() for the module coming/going
-> > notifier.
-> > 
-> > Basically you would want to have your own structure within your own section of
-> > the module which describes the srcu domain, and have a module coming/going
-> > notifier responsible for dynamically allocating the srcu domain on "coming", and
-> > doing a srcu barrier and cleanup the domain on "going".
-> 
-> Ah, sounds like an excellent approach!  I will give it a shot, thank you!
-
-Please see below for an untested shot.
-
-The original commits posted in this series are still available within
-the -srcu tree at branch srcunomod.2019.04.05a.  Yes, I am a digital
-packrat.  Why do you ask?
-
-Thoughts?  Or more accurately, given that this is the first time I
-have used linker sections, what did I mess up?
-
-							Thanx, Paul
-
-------------------------------------------------------------------------
-
-commit e24a0dab1414c563bb96bcb28d5963c9df18b1e8
-Author: Paul E. McKenney <paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org>
-Date:   Fri Apr 5 16:15:00 2019 -0700
-
-    srcu: Allocate per-CPU data for DEFINE_SRCU() in modules
-    
-    Adding DEFINE_SRCU() or DEFINE_STATIC_SRCU() to a loadable module requires
-    that the size of the reserved region be increased, which is not something
-    we want to be doing all that often.  One approach would be to require
-    that loadable modules define an srcu_struct and invoke init_srcu_struct()
-    from their module_init function and cleanup_srcu_struct() from their
-    module_exit function.  However, this is more than a bit user unfriendly.
-    
-    This commit therefore creates an ___srcu_struct_ptrs linker section,
-    and pointers to srcu_struct structures created by DEFINE_SRCU() and
-    DEFINE_STATIC_SRCU() within a module are placed into that module's
-    ___srcu_struct_ptrs section.  The required init_srcu_struct() and
-    cleanup_srcu_struct() functions are then automatically invoked as needed
-    when that module is loaded and unloaded, thus allowing modules to continue
-    to use DEFINE_SRCU() and DEFINE_STATIC_SRCU() while avoiding the need
-    to increase the size of the reserved region.
-    
-    Many of the algorithms and some of the code was cheerfully cherry-picked
-    from other code making use of linker sections, perhaps most notably from
-    tracepoints.  All bugs are nevertheless the sole property of the author.
-    
-    Suggested-by: Mathieu Desnoyers <mathieu.desnoyers-vg+e7yoeK/dWk0Htik3J/w@public.gmane.org>
-    Signed-off-by: Paul E. McKenney <paulmck-tEXmvtCZX7AybS5Ee8rs3A@public.gmane.org>
-
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index f8f6f04c4453..c2d919a1566e 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -338,6 +338,10 @@
- 		KEEP(*(__tracepoints_ptrs)) /* Tracepoints: pointer array */ \
- 		__stop___tracepoints_ptrs = .;				\
- 		*(__tracepoints_strings)/* Tracepoints: strings */	\
-+		. = ALIGN(8);						\
-+		__start___srcu_struct = .;				\
-+		*(___srcu_struct_ptrs)					\
-+		__end___srcu_struct = .;				\
- 	}								\
- 									\
- 	.rodata1          : AT(ADDR(.rodata1) - LOAD_OFFSET) {		\
-diff --git a/include/linux/module.h b/include/linux/module.h
-index 5bf5dcd91009..921443a026dd 100644
---- a/include/linux/module.h
-+++ b/include/linux/module.h
-@@ -21,6 +21,7 @@
- #include <linux/rbtree_latch.h>
- #include <linux/error-injection.h>
- #include <linux/tracepoint-defs.h>
-+#include <linux/srcu.h>
- 
- #include <linux/percpu.h>
- #include <asm/module.h>
-@@ -448,6 +449,10 @@ struct module {
- 	unsigned int num_tracepoints;
- 	tracepoint_ptr_t *tracepoints_ptrs;
- #endif
-+#ifdef CONFIG_TREE_SRCU
-+	unsigned int num_srcu_structs;
-+	struct srcu_struct **srcu_struct_ptrs;
-+#endif
- #ifdef CONFIG_BPF_EVENTS
- 	unsigned int num_bpf_raw_events;
- 	struct bpf_raw_event_map *bpf_raw_events;
-diff --git a/include/linux/srcutree.h b/include/linux/srcutree.h
-index 7f7c8c050f63..93685a9f3b4c 100644
---- a/include/linux/srcutree.h
-+++ b/include/linux/srcutree.h
-@@ -120,9 +120,17 @@ struct srcu_struct {
-  *
-  * See include/linux/percpu-defs.h for the rules on per-CPU variables.
-  */
--#define __DEFINE_SRCU(name, is_static)					\
--	static DEFINE_PER_CPU(struct srcu_data, name##_srcu_data);\
--	is_static struct srcu_struct name = __SRCU_STRUCT_INIT(name, name##_srcu_data)
-+#ifdef MODULE
-+# define __DEFINE_SRCU(name, is_static)					\
-+	is_static struct srcu_struct name;				\
-+	struct srcu_struct *__srcu_struct_##name			\
-+		__attribute__((section("___srcu_struct_ptrs"))) = &name
-+#else
-+# define __DEFINE_SRCU(name, is_static)					\
-+	static DEFINE_PER_CPU(struct srcu_data, name##_srcu_data);	\
-+	is_static struct srcu_struct name =				\
-+		__SRCU_STRUCT_INIT(name, name##_srcu_data)
-+#endif
- #define DEFINE_SRCU(name)		__DEFINE_SRCU(name, /* not static */)
- #define DEFINE_STATIC_SRCU(name)	__DEFINE_SRCU(name, static)
- 
-diff --git a/kernel/module.c b/kernel/module.c
-index 0b9aa8ab89f0..524da609c884 100644
---- a/kernel/module.c
-+++ b/kernel/module.c
-@@ -3093,6 +3093,11 @@ static int find_module_sections(struct module *mod, struct load_info *info)
- 					     sizeof(*mod->tracepoints_ptrs),
- 					     &mod->num_tracepoints);
- #endif
-+#ifdef CONFIG_TREE_SRCU
-+	mod->srcu_struct_ptrs = section_objs(info, "___srcu_struct_ptrs",
-+					     sizeof(*mod->srcu_struct_ptrs),
-+					     &mod->num_srcu_structs);
-+#endif
- #ifdef CONFIG_BPF_EVENTS
- 	mod->bpf_raw_events = section_objs(info, "__bpf_raw_tp_map",
- 					   sizeof(*mod->bpf_raw_events),
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 9b761e546de8..ac0f6f0a8916 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -1310,3 +1310,70 @@ void __init srcu_init(void)
- 		queue_work(rcu_gp_wq, &ssp->work.work);
- 	}
- }
-+
-+#ifdef CONFIG_MODULES
-+
-+/* Initialize any global-scope srcu_struct structures used by this module. */
-+static int srcu_module_coming(struct module *mod)
-+{
-+	int i;
-+	struct srcu_struct **sspp = mod->srcu_struct_ptrs;
-+	int ret;
-+
-+	for (i = 0; i < mod->num_srcu_structs; i++) {
-+		ret = init_srcu_struct(*(sspp++));
-+		if (WARN_ON_ONCE(ret))
-+			return ret;
-+	}
-+	return 0;
-+}
-+
-+/* Clean up any global-scope srcu_struct structures used by this module. */
-+static void srcu_module_going(struct module *mod)
-+{
-+	int i;
-+	struct srcu_struct **sspp = mod->srcu_struct_ptrs;
-+
-+	for (i = 0; i < mod->num_srcu_structs; i++)
-+		cleanup_srcu_struct(*(sspp++));
-+}
-+
-+/* Handle one module, either coming or going. */
-+static int srcu_module_notify(struct notifier_block *self,
-+			      unsigned long val, void *data)
-+{
-+	struct module *mod = data;
-+	int ret = 0;
-+
-+	switch (val) {
-+	case MODULE_STATE_COMING:
-+		ret = srcu_module_coming(mod);
-+		break;
-+	case MODULE_STATE_LIVE:
-+		break;
-+	case MODULE_STATE_GOING:
-+		srcu_module_going(mod);
-+		break;
-+	case MODULE_STATE_UNFORMED:
-+		break;
-+	}
-+	return ret;
-+}
-+
-+static struct notifier_block srcu_module_nb = {
-+	.notifier_call = srcu_module_notify,
-+	.priority = 0,
-+};
-+
-+static __init int init_srcu_module_notifier(void)
-+{
-+	int ret;
-+
-+	ret = register_module_notifier(&srcu_module_nb);
-+	if (ret)
-+		pr_warn("Failed to register srcu module notifier\n");
-+	return ret;
-+}
-+late_initcall(init_srcu_module_notifier);
-+
-+#endif /* #ifdef CONFIG_MODULES */
+WWVzIHRoaXMgc2VlbXMgdG8gc29sdmUgdGhlIGlzc3VlLCBldmVuIGFtZGdwdS5wcGZlYXR1cmVt
+YXNrPTB4ZmZmZjdmZmYKcHJvdmlkZXMgdGhlIHNhbWUgZWZlY3QuCgoKKiBBbGV4IERldWNoZXIg
+PGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4gWzIwMTktMDQtMDUgMTY6MjY6MTUgLTA0MDBdOgoKPk9u
+IEZyaSwgQXByIDUsIDIwMTkgYXQgNDowMCBQTSBQaW5reSA8ai1waUBzZXpuYW0uY3o+IHdyb3Rl
+Ogo+Pgo+PiBZZXMsIHRoaXMgb25lIHNlZW1zIHRvIGJlIGFscmVhZHkgaW4gdGhlIGRybS1uZXh0
+IGJyYW5jaCAoSEVBRCBpcwo+PiBub3cgN2NkZDRkYzU4ZDI4KS4KPj4KPgo+SSdtIG5vdCBzdXJl
+IHdoYXQgaXMgZ29pbmcgb24gdGhlbS4gIFlvdSBoYXZlIFJMQyBmaXJtd2FyZSB2ZXJzaW9uCj41
+MzgxNSAoMHgwMDAwZDIzNykgc28gZ2Z4IHBvd2VyIGdhdGluZyBpcyBiZWluZyBkaXNhYmxlZCBh
+cyBvZgo+MDgzZDAyMjkxM2YyZjhjM2JjMTE4M2ExMzg3NGFkNzc3YjlmNWJkZC4KPgo+RG9lcyBz
+ZXR0aW5nIGFtZGdwdS5wcGZlYXR1cmVtYXNrPTB4ZmZmZDNmZmYgZml4IHRoZSBpc3N1ZT8KPgo+
+QWxleAo+Cj4+IEp1c3QgZm9yIGNvbXBsZXRlbmVzLCB0aGVyZSBzZWVtcyB0byBiZSBmZXcgbW9y
+ZSAocHJvYmFibHkgdW5yZWxhdGVkKSBidWdzLgo+PiBPbmUgd2l0aCBtb3VzZSAoMSksIHNvbWUg
+YXJ0aWZhY3Qgc29tZXRpbWVzIGFwcGVhciBhbmQgdGVybWluYWwgaW4gWAo+PiBzb21ldGltZXMg
+ZGlzcGxheSBibGFjayBpbnN0ZWFkIG9mIHRleHQgd2hlbiBzY3Jvb2xpbmcuIEkgZGlkIG5vdCBp
+bnRlbmQKPj4gdG8gZGlzY3VzcyB0aGlzIGhlcmUsIGp1c3QgbWVudGlvbmluZyBpdC4KPj4KPj4g
+UAo+Pgo+Pgo+Pgo+PiAoMSkgaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5j
+Z2k/aWQ9MTEwMzM5Cj4+Cj4+ICogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hl
+ckBhbWQuY29tPiBbMjAxOS0wNC0wNSAxODo0NDo1MiArMDAwMF06Cj4+Cj4+ID5NYWtlIHN1cmUg
+eW91IGhhdmUgdGhpcyBwYXRjaCBhcyB3ZWxsOgo+PiA+aHR0cHM6Ly9jZ2l0LmZyZWVkZXNrdG9w
+Lm9yZy9+YWdkNWYvbGludXgvY29tbWl0Lz9oPWRybS1uZXh0LTUuMi13aXAmaWQ9MDgzZDAyMjkx
+M2YyZjhjM2JjMTE4M2ExMzg3NGFkNzc3YjlmNWJkZAo+PiA+Cj4+ID5BbGV4Cj4+ID5fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwo+PiA+RnJvbTogUGlua3kgPGotcGlAc2V6bmFtLmN6
+Pgo+PiA+U2VudDogRnJpZGF5LCBBcHJpbCA1LCAyMDE5IDI6MzggUE0KPj4gPlRvOiBEZXVjaGVy
+LCBBbGV4YW5kZXIKPj4gPkNjOiBIdWFuZywgUmF5OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+PiA+U3ViamVjdDogUmU6IFNjcmVlbiBmbGljY2tlcmluZyBkdWUgdG8gImRybS9hbWRn
+cHU6IGVuYWJsZSBnZnhvZmYgYWdhaW4gb24gcmF2ZW4gc2VyaWVzIgo+PiA+Cj4+ID4KPj4gPmNh
+dCAvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvMC9hbWRncHVfZmlybXdhcmVfaW5mbwo+PiA+VkNFIGZl
+YXR1cmUgdmVyc2lvbjogMCwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwMDAwMAo+PiA+VVZEIGZl
+YXR1cmUgdmVyc2lvbjogMCwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwMDAwMAo+PiA+TUMgZmVh
+dHVyZSB2ZXJzaW9uOiAwLCBmaXJtd2FyZSB2ZXJzaW9uOiAweDAwMDAwMDAwCj4+ID5NRSBmZWF0
+dXJlIHZlcnNpb246IDQwLCBmaXJtd2FyZSB2ZXJzaW9uOiAweDAwMDAwMDk5Cj4+ID5QRlAgZmVh
+dHVyZSB2ZXJzaW9uOiA0MCwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwMDBhZQo+PiA+Q0UgZmVh
+dHVyZSB2ZXJzaW9uOiA0MCwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwMDA0ZAo+PiA+UkxDIGZl
+YXR1cmUgdmVyc2lvbjogMSwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwZDIzNwo+PiA+UkxDIFNS
+TEMgZmVhdHVyZSB2ZXJzaW9uOiAxLCBmaXJtd2FyZSB2ZXJzaW9uOiAweDAwMDAwMDAxCj4+ID5S
+TEMgU1JMRyBmZWF0dXJlIHZlcnNpb246IDEsIGZpcm13YXJlIHZlcnNpb246IDB4MDAwMDAwMDEK
+Pj4gPlJMQyBTUkxTIGZlYXR1cmUgdmVyc2lvbjogMSwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAw
+MDAwMQo+PiA+TUVDIGZlYXR1cmUgdmVyc2lvbjogNDAsIGZpcm13YXJlIHZlcnNpb246IDB4MDAw
+MDAxOGIKPj4gPk1FQzIgZmVhdHVyZSB2ZXJzaW9uOiA0MCwgZmlybXdhcmUgdmVyc2lvbjogMHgw
+MDAwMDE4Ygo+PiA+U09TIGZlYXR1cmUgdmVyc2lvbjogMCwgZmlybXdhcmUgdmVyc2lvbjogMHgw
+MDAwMDAwMAo+PiA+QVNEIGZlYXR1cmUgdmVyc2lvbjogMCwgZmlybXdhcmUgdmVyc2lvbjogMHgw
+MDE3YmE3OAo+PiA+VEEgWEdNSSBmZWF0dXJlIHZlcnNpb246IDAsIGZpcm13YXJlIHZlcnNpb246
+IDB4MDAwMDAwMDAKPj4gPlRBIFJBUyBmZWF0dXJlIHZlcnNpb246IDAsIGZpcm13YXJlIHZlcnNp
+b246IDB4MDAwMDAwMDAKPj4gPlNNQyBmZWF0dXJlIHZlcnNpb246IDAsIGZpcm13YXJlIHZlcnNp
+b246IDB4MDAwMDFlNDQKPj4gPlNETUEwIGZlYXR1cmUgdmVyc2lvbjogNDEsIGZpcm13YXJlIHZl
+cnNpb246IDB4MDAwMDAwYTkKPj4gPlZDTiBmZWF0dXJlIHZlcnNpb246IDAsIGZpcm13YXJlIHZl
+cnNpb246IDB4MDEwMDQ5MTIKPj4gPkRNQ1UgZmVhdHVyZSB2ZXJzaW9uOiAwLCBmaXJtd2FyZSB2
+ZXJzaW9uOiAweDAwMDAwMDAxCj4+ID5WQklPUyB2ZXJzaW9uOiAxMTMtUkFWRU4tMTEwCj4+ID4K
+Pj4gPgo+PiA+Cj4+ID4qIERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1k
+LmNvbT4gWzIwMTktMDQtMDUgMTg6MzM6MjMgKzAwMDBdOgo+PiA+Cj4+ID4+KyBSYXkKPj4gPj4K
+Pj4gPj5SYXksIGFueSBpZGVhcz8KPj4gPj4KPj4gPj5QaW5rYXZhLAo+PiA+Pgo+PiA+PmNhbiB5
+b3UgcHJvdmlkZSB0aGUgb3V0cHV0IG9mOgo+PiA+PnN1ZG8gY2F0IC9zeXMva2VybmVsL2RlYnVn
+L2RyaS8wL2FtZGdwdV9maXJtd2FyZV9pbmZvCj4+ID4+Cj4+ID4+VGhhbmtzLAo+PiA+Pgo+PiA+
+PkFsZXgKPj4gPj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiA+PkZyb206IFBp
+bmt5IDxqLXBpQHNlem5hbS5jej4KPj4gPj5TZW50OiBGcmlkYXksIEFwcmlsIDUsIDIwMTkgMTo1
+MyBQTQo+PiA+PlRvOiBEZXVjaGVyLCBBbGV4YW5kZXIKPj4gPj5DYzogYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKPj4gPj5TdWJqZWN0OiBSZTogU2NyZWVuIGZsaWNja2VyaW5nIGR1ZSB0
+byAiZHJtL2FtZGdwdTogZW5hYmxlIGdmeG9mZiBhZ2FpbiBvbiByYXZlbiBzZXJpZXMiCj4+ID4+
+Cj4+ID4+Tm8sIHRoaXMgZG9lcyBubyBkbyBhbnl0aGluZywgdGhlIGJ1ZyBpcyBzdGlsbCBwcmVz
+ZW50Lgo+PiA+Pgo+PiA+Pgo+PiA+PiogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1
+Y2hlckBhbWQuY29tPiBbMjAxOS0wNC0wNSAxNzowNzoyMSArMDAwMF06Cj4+ID4+Cj4+ID4+PlRo
+aXMgbWF5IGJlIHJlbGF0ZWQgdG8gc3R1dHRlciBtb2RlIHJhdGhlciB0aGFuIGdmeG9mZi4gIElm
+IHNvLCB0aGVyZSBpcyBhIGZpeCBpbiB0aGUgcGlwZWxpbmUgZm9yIHRoYXQuICBEb2VzIHNldHRp
+bmcgYXBwZW5kaW5nIGFtZGdwdS5wcGZlYXR1cmVtYXNrPTB4ZmZmZGJmZmYgb24gdGhlIGtlcm5l
+bCBjb21tYW5kIGxpbmUgZml4IGl0Pwo+PiA+Pj4KPj4gPj4+QWxleAo+PiA+Pj5fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwo+PiA+Pj5Gcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5j
+ZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhhbGYgb2YgUGlua3kgPGotcGlAc2V6bmFt
+LmN6Pgo+PiA+Pj5TZW50OiBGcmlkYXksIEFwcmlsIDUsIDIwMTkgMTI6MjQgUE0KPj4gPj4+VG86
+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4+PlN1YmplY3Q6IFNjcmVlbiBmbGlj
+Y2tlcmluZyBkdWUgdG8gImRybS9hbWRncHU6IGVuYWJsZSBnZnhvZmYgYWdhaW4gb24gcmF2ZW4g
+c2VyaWVzIgo+PiA+Pj4KPj4gPj4+SGVsbG8sCj4+ID4+Pgo+PiA+Pj5JIGhhdmUgdG9kYXkgY29t
+cGlsZWQgdGhlIGRybS1uZXh0IGtlcm5lbCBmcm9tICgxKSBhbmQgZmluZCBvdXQgdGhlIHNjcmVl
+biBpcwo+PiA+Pj5mbGlja2VyaW5nIGFuZCBzaG93cyB2YXJpb3VzIGFydGlmYWN0cy4gQnkgYmlz
+c2VjdGluZyBJIGZvdW5kIHRoZSBjYXVzZQo+PiA+Pj5pcyBjb21taXQgMDA1NDQwMDY2ZjkyOWJh
+MGRjYThmNGUwYWViZmJmOGRhYWM1OTJjYy4gQnkgcmV2ZXJ0aW5nIGl0IHRoZQo+PiA+Pj5wcm9i
+bGVtIHdlbnQgb3V0Lgo+PiA+Pj4KPj4gPj4+SSBkb2VzIG5vdCBoYXZlIGlkZWEgYWJvdXQgd2hh
+dCB0byBkbyBuZXh0LiBTb3JyeSBpZiB0aGlzIHNob3VsZCBiZSBwb3N0ZWQgdG8KPj4gPj4+c29t
+ZSBidWd6aWxsYSBpbnN0ZWFkLCBJIGhhdmUgZ290IGEgYml0IGxvc3QuIElmIHNvLCB3b3VsZCBZ
+b3UgcGxlYXNlCj4+ID4+PnBvaW50IG15IG91dCB3aGF0IHRvIGRvPwo+PiA+Pj4KPj4gPj4+V2l0
+aCBiZXN0IHJlZ2FyZHMsCj4+ID4+PiAgICBQaW5rYXZhIEouCj4+ID4+Pgo+PiA+Pj4KPj4gPj4+
+bHNwY2kgKHBhcnRpYWwpCj4+ID4+Pgo+PiA+Pj4wMDowMC4yIElPTU1VOiBBZHZhbmNlZCBNaWNy
+byBEZXZpY2VzLCBJbmMuIFtBTURdIFJhdmVuL1JhdmVuMiBJT01NVQo+PiA+Pj4wMDowMS4wIEhv
+c3QgYnJpZGdlOiBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuIFtBTURdIEZhbWlseSAxN2gg
+KE1vZGVscyAwMGgtMGZoKSBQQ0llIER1bW15IEhvc3QgQnJpZGdlCj4+ID4+PjA2OjAwLjAgVkdB
+IGNvbXBhdGlibGUgY29udHJvbGxlcjogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1E
+L0FUSV0gUmF2ZW4gUmlkZ2UgW1JhZGVvbiBWZWdhIFNlcmllcyAvIFJhZGVvbiBWZWdhIE1vYmls
+ZSBTZXJpZXNdIChyZXYgZDEpCj4+ID4+PjA2OjAwLjEgQXVkaW8gZGV2aWNlOiBBZHZhbmNlZCBN
+aWNybyBEZXZpY2VzLCBJbmMuIFtBTUQvQVRJXSBSYXZlbi9SYXZlbjIvRmVuZ2h1YW5nIEhETUkv
+RFAgQXVkaW8gQ29udHJvbGxlcgo+PiA+Pj4KPj4gPj4+Cj4+ID4+Pgo+PiA+Pj4KPj4gPj4+KDEp
+IGdpdDovL3Blb3BsZS5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4Cj4+ID4+Pl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+ID4+PmFtZC1nZnggbWFp
+bGluZyBsaXN0Cj4+ID4+PmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4+Pmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+PiA+Pgo+
+PiA+Pj5fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+PiA+
+Pj5hbWQtZ2Z4IG1haWxpbmcgbGlzdAo+PiA+Pj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+PiA+Pj5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngKPj4gPj4KPj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKPj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
