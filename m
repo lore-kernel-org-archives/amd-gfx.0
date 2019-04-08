@@ -1,179 +1,112 @@
-From: Pinky <j-pi-9Vj9tDbzfuSlVyrhU4qvOw@public.gmane.org>
-Subject: Re: Screen flicckering due to "drm/amdgpu: enable gfxoff again on
- raven series"
-Date: Mon, 8 Apr 2019 14:41:53 +0200
-Message-ID: <20190408124153.7ow76kvhelzqss6z@zizala>
-References: <20190405162423.6ykp3v54tt4v233h@zizala>
- <BN6PR12MB1809F0A406BDD769D980D0A5F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
- <20190405175351.ojtmakydncnaopkp@zizala>
- <BN6PR12MB1809FBE905B4348595FBC9F7F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
- <20190405183839.q6nd6wy6brnxfoqx@zizala>
- <BN6PR12MB1809F35D7E08B17EE0362C15F7510@BN6PR12MB1809.namprd12.prod.outlook.com>
- <20190405200028.62r72w27d4awiard@zizala>
- <CADnq5_PnJ-4ezG4S3MpEi+0ahbM=AvAH=sNuWcDiBZyadVfSdQ@mail.gmail.com>
- <20190406070909.4p7txa6a6am7tirb@zizala>
- <MN2PR12MB330960F8A679DA3580E3696EEC2C0@MN2PR12MB3309.namprd12.prod.outlook.com>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
+Date: Mon, 8 Apr 2019 09:05:34 -0400 (EDT)
+Message-ID: <1504296005.857.1554728734661.JavaMail.zimbra@efficios.com>
+References: <20190402142816.GA13084@linux.ibm.com> <20190407133941.GC14111@linux.ibm.com> <20190407135937.GA30053@linux.ibm.com> <134026717.535.1554665176677.JavaMail.zimbra@efficios.com> <20190407193202.GA30934@localhost> <1632568795.549.1554669696728.JavaMail.zimbra@efficios.com> <20190407210718.GA6656@localhost> <20190408022728.GF14111@linux.ibm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <MN2PR12MB330960F8A679DA3580E3696EEC2C0-rweVpJHSKTpWdvXm18W95QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Cc: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190408022728.GF14111@linux.ibm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: paulmck <paulmck@linux.ibm.com>
+Cc: "Joel Fernandes, Google" <joel@joelfernandes.org>, rcu <rcu@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, Ingo Molnar <mingo@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, dipankar <dipankar@in.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Josh Triplett <josh@joshtriplett.org>, Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, rostedt <rostedt@goodmis.org>, David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>, fweisbec <fweisbec@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-nvdimm <linux-nvdimm@lists.01.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-KiBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT4gWzIwMTktMDQtMDggMTA6MzY6NTMgKzAw
-MDBdOgoKPj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPj4gRnJvbTogUGlua3kgW21haWx0
-bzpqLXBpQHNlem5hbS5jel0KPj4gU2VudDogU2F0dXJkYXksIEFwcmlsIDA2LCAyMDE5IDM6MDkg
-UE0KPj4gVG86IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPgo+PiBDYzogRGV1
-Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgSHVhbmcsIFJheQo+
-PiA8UmF5Lkh1YW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiBT
-dWJqZWN0OiBSZTogU2NyZWVuIGZsaWNja2VyaW5nIGR1ZSB0byAiZHJtL2FtZGdwdTogZW5hYmxl
-IGdmeG9mZiBhZ2FpbiBvbgo+PiByYXZlbiBzZXJpZXMiCj4+Cj4+IFllcyB0aGlzIHNlZW1zIHRv
-IHNvbHZlIHRoZSBpc3N1ZSwgZXZlbiBhbWRncHUucHBmZWF0dXJlbWFzaz0weGZmZmY3ZmZmCj4+
-IHByb3ZpZGVzIHRoZSBzYW1lIGVmZWN0Lgo+Pgo+Pgo+PiAqIEFsZXggRGV1Y2hlciA8YWxleGRl
-dWNoZXJAZ21haWwuY29tPiBbMjAxOS0wNC0wNSAxNjoyNjoxNSAtMDQwMF06Cj4+Cj4+ID5PbiBG
-cmksIEFwciA1LCAyMDE5IGF0IDQ6MDAgUE0gUGlua3kgPGotcGlAc2V6bmFtLmN6PiB3cm90ZToK
-Pj4gPj4KPj4gPj4gWWVzLCB0aGlzIG9uZSBzZWVtcyB0byBiZSBhbHJlYWR5IGluIHRoZSBkcm0t
-bmV4dCBicmFuY2ggKEhFQUQgaXMgbm93Cj4+ID4+IDdjZGQ0ZGM1OGQyOCkuCj4+ID4+Cj4+ID4K
-Pj4gPkknbSBub3Qgc3VyZSB3aGF0IGlzIGdvaW5nIG9uIHRoZW0uICBZb3UgaGF2ZSBSTEMgZmly
-bXdhcmUgdmVyc2lvbgo+PiA+NTM4MTUgKDB4MDAwMGQyMzcpIHNvIGdmeCBwb3dlciBnYXRpbmcg
-aXMgYmVpbmcgZGlzYWJsZWQgYXMgb2YKPj4gPjA4M2QwMjI5MTNmMmY4YzNiYzExODNhMTM4NzRh
-ZDc3N2I5ZjViZGQuCj4KPkhpIFBpbmthdmEsCj4KPldlIGhhdmUgYSBzaW1pbGFyIGlzc3VlIHRo
-YXQgc2NyZWVuIGZsaWNrZXJpbmcgY2F1c2VkIGJ5IHN0dXR0ZXIgbW9kZS4KPgo+QnV0IHBlciB5
-b3VyIHRlc3RpbmcgcmVzdWx0LCBJIGFtIGEgYml0IGNvbmZ1c2VkLgoKSGVsbG8gUmF5LAoKc29y
-cnkgZm9yIGNvbmZ1c3Npb24sIEkgcmUtdGVzdGVkIGl0LCB0aGVyZSBhcmUgdHdvIHNlcGFyYXRl
-IGJ1Z3M6CgpmbGlja2VyaW5nIC0gcHJvYmFibHkgcmVsYXRlZCB0byBzdHV0dGVyIG1vZGUgYnVn
-CiAgICh3aGl0ZSBmbGlja2VyaW5nIHN0cmlwZXMgb24gc2NyZWVuLCApCgphcnRpZmFjdHMgLSB0
-aGUgb3JpZ2luYWwgaXNzdWUgaSBoYXZlIHJlcG9ydGVkIChicm9rZW4gYnV0IHN0ZWFkeSBpbWFn
-ZSkKCjUuMS4wLXJjMi0xLW5leHQtZ2l0LWc3Y2RkNGRjNThkMjggLSBhcnRpZmFjdHMsIGZsaWNr
-ZXJpbmcKICBhbWRncHUucHBmZWF0dXJlbWFzaz0weGZmZmY3ZmZmIC0gZmxpY2tlcmluZwogIGFt
-ZGdwdS5wcGZlYXR1cmVtYXNrPTB4ZmZmZGZmZmYgLSBhcnRpZmFjdHMKICBhbWRncHUucHBmZWF0
-dXJlbWFzaz0weGZmZmQ3ZmZmIC0gT0sKCiAgYW1kZ3B1LnBwZmVhdHVyZW1hc2s9MHhmZmZmYmZm
-ZiAtIGFydGlmYWN0cywgZmxpY2tlcmluZwogIGFtZGdwdS5wcGZlYXR1cmVtYXNrPTB4ZmZmZGJm
-ZmYgLSBhcnRpZmFjdHMKICBhbWRncHUucHBmZWF0dXJlbWFzaz0weGZmZmQzZmZmIC0gT0sKClNv
-cnJ5IGFnYWluIGZvciBjb25mdXNzaW9uLiBJcyB0aGVyZSBhIHBhdGNoIGZvciB0aGUgc2h1dHRl
-ciBzbyBJIGNhbgp0ZXN0IGl0PwoKV2l0aCBiZXN0IHJlZ2FyZHMsCiAgICBQaW5rYXZhIEouIAoK
-Pgo+WW91IG1lbnRpb25lZCB0aGF0ICJwcGZlYXR1cmVtYXNrPTB4ZmZmZDNmZmYiIGNvdWxkIGJl
-IGZpeGVkIHRoZSBpc3N1ZSwgYnV0ICIweGZmZmRiZmZmIiBkb2Vzbid0IGZpeCBpdC4KPkhvd2V2
-ZXIsIHRoaXMgaXMgdGhlIHNhbWUgY29uZmlndXJhdGlvbiB3aGlsZSB5b3UgYWRkIGJlbG93IHBh
-dGNoLiAgQmVjYXVzZSB0aGUgZ2Z4b2ZmIGZlYXR1cmUgd2lsbCBiZSBkaXNhYmxlZCB3aGlsZSBk
-ZXRlY3QgdGhlIFJMQyB1Y29kZSBpcyA1MzgxNSAoMHgwMDAwZDIzNykuCj5odHRwczovL2NnaXQu
-ZnJlZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eC9jb21taXQvP2g9ZHJtLW5leHQtNS4yLXdpcCZp
-ZD0wODNkMDIyOTEzZjJmOGMzYmMxMTgzYTEzODc0YWQ3NzdiOWY1YmRkCj4KPlRoYW5rcywKPlJh
-eQo+Cj4+ID4KPj4gPkRvZXMgc2V0dGluZyBhbWRncHUucHBmZWF0dXJlbWFzaz0weGZmZmQzZmZm
-IGZpeCB0aGUgaXNzdWU/Cj4+ID4KPj4gPkFsZXgKPj4gPgo+PiA+PiBKdXN0IGZvciBjb21wbGV0
-ZW5lcywgdGhlcmUgc2VlbXMgdG8gYmUgZmV3IG1vcmUgKHByb2JhYmx5IHVucmVsYXRlZCkKPj4g
-YnVncy4KPj4gPj4gT25lIHdpdGggbW91c2UgKDEpLCBzb21lIGFydGlmYWN0IHNvbWV0aW1lcyBh
-cHBlYXIgYW5kIHRlcm1pbmFsIGluIFgKPj4gPj4gc29tZXRpbWVzIGRpc3BsYXkgYmxhY2sgaW5z
-dGVhZCBvZiB0ZXh0IHdoZW4gc2Nyb29saW5nLiBJIGRpZCBub3QKPj4gPj4gaW50ZW5kIHRvIGRp
-c2N1c3MgdGhpcyBoZXJlLCBqdXN0IG1lbnRpb25pbmcgaXQuCj4+ID4+Cj4+ID4+IFAKPj4gPj4K
-Pj4gPj4KPj4gPj4KPj4gPj4gKDEpIGh0dHBzOi8vYnVncy5mcmVlZGVza3RvcC5vcmcvc2hvd19i
-dWcuY2dpP2lkPTExMDMzOQo+PiA+Pgo+PiA+PiAqIERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFu
-ZGVyLkRldWNoZXJAYW1kLmNvbT4gWzIwMTktMDQtMDUKPj4gMTg6NDQ6NTIgKzAwMDBdOgo+PiA+
-Pgo+PiA+PiA+TWFrZSBzdXJlIHlvdSBoYXZlIHRoaXMgcGF0Y2ggYXMgd2VsbDoKPj4gPj4gPmh0
-dHBzOi8vY2dpdC5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4L2NvbW1pdC8/aD1kcm0tbmV4
-dC01LjItCj4+IHdpcAo+PiA+PiA+JmlkPTA4M2QwMjI5MTNmMmY4YzNiYzExODNhMTM4NzRhZDc3
-N2I5ZjViZGQKPj4gPj4gPgo+PiA+PiA+QWxleAo+PiA+PiA+X19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KPj4gPj4gPkZyb206IFBpbmt5IDxqLXBpQHNlem5hbS5jej4KPj4gPj4gPlNl
-bnQ6IEZyaWRheSwgQXByaWwgNSwgMjAxOSAyOjM4IFBNCj4+ID4+ID5UbzogRGV1Y2hlciwgQWxl
-eGFuZGVyCj4+ID4+ID5DYzogSHVhbmcsIFJheTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKPj4gPj4gPlN1YmplY3Q6IFJlOiBTY3JlZW4gZmxpY2NrZXJpbmcgZHVlIHRvICJkcm0vYW1k
-Z3B1OiBlbmFibGUgZ2Z4b2ZmIGFnYWluCj4+IG9uIHJhdmVuIHNlcmllcyIKPj4gPj4gPgo+PiA+
-PiA+Cj4+ID4+ID5jYXQgL3N5cy9rZXJuZWwvZGVidWcvZHJpLzAvYW1kZ3B1X2Zpcm13YXJlX2lu
-Zm8KPj4gPj4gPlZDRSBmZWF0dXJlIHZlcnNpb246IDAsIGZpcm13YXJlIHZlcnNpb246IDB4MDAw
-MDAwMDAgVVZEIGZlYXR1cmUKPj4gPj4gPnZlcnNpb246IDAsIGZpcm13YXJlIHZlcnNpb246IDB4
-MDAwMDAwMDAgTUMgZmVhdHVyZSB2ZXJzaW9uOiAwLAo+PiA+PiA+ZmlybXdhcmUgdmVyc2lvbjog
-MHgwMDAwMDAwMCBNRSBmZWF0dXJlIHZlcnNpb246IDQwLCBmaXJtd2FyZQo+PiA+PiA+dmVyc2lv
-bjogMHgwMDAwMDA5OSBQRlAgZmVhdHVyZSB2ZXJzaW9uOiA0MCwgZmlybXdhcmUgdmVyc2lvbjoK
-Pj4gPj4gPjB4MDAwMDAwYWUgQ0UgZmVhdHVyZSB2ZXJzaW9uOiA0MCwgZmlybXdhcmUgdmVyc2lv
-bjogMHgwMDAwMDA0ZCBSTEMKPj4gPj4gPmZlYXR1cmUgdmVyc2lvbjogMSwgZmlybXdhcmUgdmVy
-c2lvbjogMHgwMDAwZDIzNyBSTEMgU1JMQyBmZWF0dXJlCj4+ID4+ID52ZXJzaW9uOiAxLCBmaXJt
-d2FyZSB2ZXJzaW9uOiAweDAwMDAwMDAxIFJMQyBTUkxHIGZlYXR1cmUgdmVyc2lvbjoKPj4gPj4g
-PjEsIGZpcm13YXJlIHZlcnNpb246IDB4MDAwMDAwMDEgUkxDIFNSTFMgZmVhdHVyZSB2ZXJzaW9u
-OiAxLAo+PiA+PiA+ZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwMDAwMSBNRUMgZmVhdHVyZSB2ZXJz
-aW9uOiA0MCwgZmlybXdhcmUKPj4gPj4gPnZlcnNpb246IDB4MDAwMDAxOGIKPj4gPj4gPk1FQzIg
-ZmVhdHVyZSB2ZXJzaW9uOiA0MCwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwMDE4YiBTT1MgZmVh
-dHVyZQo+PiA+PiA+dmVyc2lvbjogMCwgZmlybXdhcmUgdmVyc2lvbjogMHgwMDAwMDAwMCBBU0Qg
-ZmVhdHVyZSB2ZXJzaW9uOiAwLAo+PiA+PiA+ZmlybXdhcmUgdmVyc2lvbjogMHgwMDE3YmE3OCBU
-QSBYR01JIGZlYXR1cmUgdmVyc2lvbjogMCwgZmlybXdhcmUKPj4gPj4gPnZlcnNpb246IDB4MDAw
-MDAwMDAgVEEgUkFTIGZlYXR1cmUgdmVyc2lvbjogMCwgZmlybXdhcmUgdmVyc2lvbjoKPj4gPj4g
-PjB4MDAwMDAwMDAgU01DIGZlYXR1cmUgdmVyc2lvbjogMCwgZmlybXdhcmUgdmVyc2lvbjogMHgw
-MDAwMWU0NAo+PiA+PiA+U0RNQTAgZmVhdHVyZSB2ZXJzaW9uOiA0MSwgZmlybXdhcmUgdmVyc2lv
-bjogMHgwMDAwMDBhOSBWQ04gZmVhdHVyZQo+PiA+PiA+dmVyc2lvbjogMCwgZmlybXdhcmUgdmVy
-c2lvbjogMHgwMTAwNDkxMiBETUNVIGZlYXR1cmUgdmVyc2lvbjogMCwKPj4gPj4gPmZpcm13YXJl
-IHZlcnNpb246IDB4MDAwMDAwMDEgVkJJT1MgdmVyc2lvbjogMTEzLVJBVkVOLTExMAo+PiA+PiA+
-Cj4+ID4+ID4KPj4gPj4gPgo+PiA+PiA+KiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5E
-ZXVjaGVyQGFtZC5jb20+IFsyMDE5LTA0LTA1Cj4+IDE4OjMzOjIzICswMDAwXToKPj4gPj4gPgo+
-PiA+PiA+PisgUmF5Cj4+ID4+ID4+Cj4+ID4+ID4+UmF5LCBhbnkgaWRlYXM/Cj4+ID4+ID4+Cj4+
-ID4+ID4+UGlua2F2YSwKPj4gPj4gPj4KPj4gPj4gPj5jYW4geW91IHByb3ZpZGUgdGhlIG91dHB1
-dCBvZjoKPj4gPj4gPj5zdWRvIGNhdCAvc3lzL2tlcm5lbC9kZWJ1Zy9kcmkvMC9hbWRncHVfZmly
-bXdhcmVfaW5mbwo+PiA+PiA+Pgo+PiA+PiA+PlRoYW5rcywKPj4gPj4gPj4KPj4gPj4gPj5BbGV4
-Cj4+ID4+ID4+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4gPj4gPj5Gcm9tOiBQ
-aW5reSA8ai1waUBzZXpuYW0uY3o+Cj4+ID4+ID4+U2VudDogRnJpZGF5LCBBcHJpbCA1LCAyMDE5
-IDE6NTMgUE0KPj4gPj4gPj5UbzogRGV1Y2hlciwgQWxleGFuZGVyCj4+ID4+ID4+Q2M6IGFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4+ID4+U3ViamVjdDogUmU6IFNjcmVlbiBmbGlj
-Y2tlcmluZyBkdWUgdG8gImRybS9hbWRncHU6IGVuYWJsZSBnZnhvZmYKPj4gYWdhaW4gb24gcmF2
-ZW4gc2VyaWVzIgo+PiA+PiA+Pgo+PiA+PiA+Pk5vLCB0aGlzIGRvZXMgbm8gZG8gYW55dGhpbmcs
-IHRoZSBidWcgaXMgc3RpbGwgcHJlc2VudC4KPj4gPj4gPj4KPj4gPj4gPj4KPj4gPj4gPj4qIERl
-dWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4gWzIwMTktMDQtMDUK
-Pj4gMTc6MDc6MjEgKzAwMDBdOgo+PiA+PiA+Pgo+PiA+PiA+Pj5UaGlzIG1heSBiZSByZWxhdGVk
-IHRvIHN0dXR0ZXIgbW9kZSByYXRoZXIgdGhhbiBnZnhvZmYuICBJZiBzbywgdGhlcmUgaXMKPj4g
-YSBmaXggaW4gdGhlIHBpcGVsaW5lIGZvciB0aGF0LiAgRG9lcyBzZXR0aW5nIGFwcGVuZGluZwo+
-PiBhbWRncHUucHBmZWF0dXJlbWFzaz0weGZmZmRiZmZmIG9uIHRoZSBrZXJuZWwgY29tbWFuZCBs
-aW5lIGZpeCBpdD8KPj4gPj4gPj4+Cj4+ID4+ID4+PkFsZXgKPj4gPj4gPj4+X19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KPj4gPj4gPj4+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3Vu
-Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmCj4+IG9mCj4+ID4+ID4+PlBpbmt5
-IDxqLXBpQHNlem5hbS5jej4KPj4gPj4gPj4+U2VudDogRnJpZGF5LCBBcHJpbCA1LCAyMDE5IDEy
-OjI0IFBNCj4+ID4+ID4+PlRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiA+PiA+
-Pj5TdWJqZWN0OiBTY3JlZW4gZmxpY2NrZXJpbmcgZHVlIHRvICJkcm0vYW1kZ3B1OiBlbmFibGUg
-Z2Z4b2ZmIGFnYWluCj4+IG9uIHJhdmVuIHNlcmllcyIKPj4gPj4gPj4+Cj4+ID4+ID4+PkhlbGxv
-LAo+PiA+PiA+Pj4KPj4gPj4gPj4+SSBoYXZlIHRvZGF5IGNvbXBpbGVkIHRoZSBkcm0tbmV4dCBr
-ZXJuZWwgZnJvbSAoMSkgYW5kIGZpbmQgb3V0Cj4+ID4+ID4+PnRoZSBzY3JlZW4gaXMgZmxpY2tl
-cmluZyBhbmQgc2hvd3MgdmFyaW91cyBhcnRpZmFjdHMuIEJ5Cj4+ID4+ID4+PmJpc3NlY3Rpbmcg
-SSBmb3VuZCB0aGUgY2F1c2UgaXMgY29tbWl0Cj4+ID4+ID4+PjAwNTQ0MDA2NmY5MjliYTBkY2E4
-ZjRlMGFlYmZiZjhkYWFjNTkyY2MuIEJ5IHJldmVydGluZyBpdCB0aGUKPj4gcHJvYmxlbSB3ZW50
-IG91dC4KPj4gPj4gPj4+Cj4+ID4+ID4+PkkgZG9lcyBub3QgaGF2ZSBpZGVhIGFib3V0IHdoYXQg
-dG8gZG8gbmV4dC4gU29ycnkgaWYgdGhpcyBzaG91bGQKPj4gPj4gPj4+YmUgcG9zdGVkIHRvIHNv
-bWUgYnVnemlsbGEgaW5zdGVhZCwgSSBoYXZlIGdvdCBhIGJpdCBsb3N0LiBJZiBzbywKPj4gPj4g
-Pj4+d291bGQgWW91IHBsZWFzZSBwb2ludCBteSBvdXQgd2hhdCB0byBkbz8KPj4gPj4gPj4+Cj4+
-ID4+ID4+PldpdGggYmVzdCByZWdhcmRzLAo+PiA+PiA+Pj4gICAgUGlua2F2YSBKLgo+PiA+PiA+
-Pj4KPj4gPj4gPj4+Cj4+ID4+ID4+PmxzcGNpIChwYXJ0aWFsKQo+PiA+PiA+Pj4KPj4gPj4gPj4+
-MDA6MDAuMiBJT01NVTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EXSBSYXZlbi9S
-YXZlbjIKPj4gPj4gPj4+SU9NTVUKPj4gPj4gPj4+MDA6MDEuMCBIb3N0IGJyaWRnZTogQWR2YW5j
-ZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EXSBGYW1pbHkgMTdoCj4+ID4+ID4+PihNb2RlbHMg
-MDBoLTBmaCkgUENJZSBEdW1teSBIb3N0IEJyaWRnZQo+PiA+PiA+Pj4wNjowMC4wIFZHQSBjb21w
-YXRpYmxlIGNvbnRyb2xsZXI6IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KPj4gPj4gPj4+
-W0FNRC9BVEldIFJhdmVuIFJpZGdlIFtSYWRlb24gVmVnYSBTZXJpZXMgLyBSYWRlb24gVmVnYSBN
-b2JpbGUKPj4gPj4gPj4+U2VyaWVzXSAocmV2IGQxKQo+PiA+PiA+Pj4wNjowMC4xIEF1ZGlvIGRl
-dmljZTogQWR2YW5jZWQgTWljcm8gRGV2aWNlcywgSW5jLiBbQU1EL0FUSV0KPj4gPj4gPj4+UmF2
-ZW4vUmF2ZW4yL0ZlbmdodWFuZyBIRE1JL0RQIEF1ZGlvIENvbnRyb2xsZXIKPj4gPj4gPj4+Cj4+
-ID4+ID4+Pgo+PiA+PiA+Pj4KPj4gPj4gPj4+Cj4+ID4+ID4+PigxKSBnaXQ6Ly9wZW9wbGUuZnJl
-ZWRlc2t0b3Aub3JnL35hZ2Q1Zi9saW51eAo+PiA+PiA+Pj5fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+PiA+PiA+Pj5hbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
-PiA+PiA+Pj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+PiA+PiA+Pj5odHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPj4gPj4gPj4KPj4g
-Pj4gPj4+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4g
-Pj4gPj4+YW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4gPj4gPj4+YW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKPj4gPj4gPj4+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cj4+ID4+ID4+Cj4+ID4+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCj4+ID4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+ID4+IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+ID4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+X19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KPmFtZC1nZnggbWFpbGluZyBsaXN0Cj5hbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA==
+----- On Apr 7, 2019, at 10:27 PM, paulmck paulmck@linux.ibm.com wrote:
+
+> On Sun, Apr 07, 2019 at 09:07:18PM +0000, Joel Fernandes wrote:
+>> On Sun, Apr 07, 2019 at 04:41:36PM -0400, Mathieu Desnoyers wrote:
+>> > 
+>> > ----- On Apr 7, 2019, at 3:32 PM, Joel Fernandes, Google joel@joelfernandes.org
+>> > wrote:
+>> > 
+>> > > On Sun, Apr 07, 2019 at 03:26:16PM -0400, Mathieu Desnoyers wrote:
+>> > >> ----- On Apr 7, 2019, at 9:59 AM, paulmck paulmck@linux.ibm.com wrote:
+>> > >> 
+>> > >> > On Sun, Apr 07, 2019 at 06:39:41AM -0700, Paul E. McKenney wrote:
+>> > >> >> On Sat, Apr 06, 2019 at 07:06:13PM -0400, Joel Fernandes wrote:
+>> > >> > 
+>> > >> > [ . . . ]
+>> > >> > 
+>> > >> >> > > diff --git a/include/asm-generic/vmlinux.lds.h
+>> > >> >> > > b/include/asm-generic/vmlinux.lds.h
+>> > >> >> > > index f8f6f04c4453..c2d919a1566e 100644
+>> > >> >> > > --- a/include/asm-generic/vmlinux.lds.h
+>> > >> >> > > +++ b/include/asm-generic/vmlinux.lds.h
+>> > >> >> > > @@ -338,6 +338,10 @@
+>> > >> >> > >  		KEEP(*(__tracepoints_ptrs)) /* Tracepoints: pointer array */ \
+>> > >> >> > >  		__stop___tracepoints_ptrs = .;				\
+>> > >> >> > >  		*(__tracepoints_strings)/* Tracepoints: strings */	\
+>> > >> >> > > +		. = ALIGN(8);						\
+>> > >> >> > > +		__start___srcu_struct = .;				\
+>> > >> >> > > +		*(___srcu_struct_ptrs)					\
+>> > >> >> > > +		__end___srcu_struct = .;				\
+>> > >> >> > >  	}								\
+>> > >> >> > 
+>> > >> >> > This vmlinux linker modification is not needed. I tested without it and srcu
+>> > >> >> > torture works fine with rcutorture built as a module. Putting further prints
+>> > >> >> > in kernel/module.c verified that the kernel is able to find the srcu structs
+>> > >> >> > just fine. You could squash the below patch into this one or apply it on top
+>> > >> >> > of the dev branch.
+>> > >> >> 
+>> > >> >> Good point, given that otherwise FORTRAN named common blocks would not
+>> > >> >> work.
+>> > >> >> 
+>> > >> >> But isn't one advantage of leaving that stuff in the RO_DATA_SECTION()
+>> > >> >> macro that it can be mapped read-only?  Or am I suffering from excessive
+>> > >> >> optimism?
+>> > >> > 
+>> > >> > And to answer the other question, in the case where I am suffering from
+>> > >> > excessive optimism, it should be a separate commit.  Please see below
+>> > >> > for the updated original commit thus far.
+>> > >> > 
+>> > >> > And may I have your Tested-by?
+>> > >> 
+>> > >> Just to confirm: does the cleanup performed in the modules going
+>> > >> notifier end up acting as a barrier first before freeing the memory ?
+>> > >> If not, is it explicitly stated that a barrier must be issued before
+>> > >> module unload ?
+>> > >> 
+>> > > 
+>> > > You mean rcu_barrier? It is mentioned in the documentation that this is the
+>> > > responsibility of the module writer to prevent delays for all modules.
+>> > 
+>> > It's a srcu barrier yes. Considering it would be a barrier specific to the
+>> > srcu domain within that module, I don't see how it would cause delays for
+>> > "all" modules if we implicitly issue the barrier on module unload. What
+>> > am I missing ?
+>> 
+>> Yes you are right. I thought of this after I just sent my email. I think it
+>> makes sense for srcu case to do and could avoid a class of bugs.
+> 
+> If there are call_srcu() callbacks outstanding, the module writer still
+> needs the srcu_barrier() because otherwise callbacks arrive after
+> the module text has gone, which will be disappoint the CPU when it
+> tries fetching instructions that are no longer mapped.  If there are
+> no call_srcu() callbacks from that module, then there is no need for
+> srcu_barrier() either way.
+> 
+> So if an srcu_barrier() is needed, the module developer needs to
+> supply it.
+
+When you say "callbacks arrive after the module text has gone",
+I think you assume that free_module() is invoked before the
+MODULE_STATE_GOING notifiers are called. But it's done in the
+opposite order: going notifiers are called first, and then
+free_module() is invoked.
+
+So AFAIU it would be safe to issue the srcu_barrier() from the module
+going notifier.
+
+Or am I missing something ?
+
+Thanks,
+
+Mathieu
+
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+http://www.efficios.com
