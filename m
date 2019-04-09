@@ -1,7 +1,7 @@
-From: Joel Fernandes <joel@joelfernandes.org>
+From: "Paul E. McKenney" <paulmck@linux.ibm.com>
 Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
-Date: Tue, 9 Apr 2019 12:18:09 -0400
-Message-ID: <20190409161809.GA10629@google.com>
+Date: Tue, 9 Apr 2019 09:40:31 -0700
+Message-ID: <20190409164031.GE14111@linux.ibm.com>
 References: <20190402142816.GA13084@linux.ibm.com>
  <20190408022728.GF14111@linux.ibm.com>
  <1504296005.857.1554728734661.JavaMail.zimbra@efficios.com>
@@ -11,6 +11,7 @@ References: <20190402142816.GA13084@linux.ibm.com>
  <1489474416.1465.1554744287985.JavaMail.zimbra@efficios.com>
  <20190409154012.GC248418@google.com>
  <534133139.2374.1554825363211.JavaMail.zimbra@efficios.com>
+Reply-To: paulmck@linux.ibm.com
 Mime-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
@@ -18,7 +19,7 @@ Content-Disposition: inline
 In-Reply-To: <534133139.2374.1554825363211.JavaMail.zimbra@efficios.com>
 Sender: linux-kernel-owner@vger.kernel.org
 To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: paulmck <paulmck@linux.ibm.com>, rcu <rcu@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, Ingo Molnar <mingo@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, dipankar <dipankar@in.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Josh Triplett <josh@joshtriplett.org>, Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, rostedt <rostedt@goodmis.org>, David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>, fweisbec <fweisbec@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-nvdimm <linux-nvdimm@lists.01.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx <amd-gfx@lists.freedesktop.org>
+Cc: "Joel Fernandes, Google" <joel@joelfernandes.org>, rcu <rcu@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, Ingo Molnar <mingo@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, dipankar <dipankar@in.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Josh Triplett <josh@joshtriplett.org>, Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, rostedt <rostedt@goodmis.org>, David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>, fweisbec <fweisbec@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-nvdimm <linux-nvdimm@lists.01.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx <amd-gfx@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
 On Tue, Apr 09, 2019 at 11:56:03AM -0400, Mathieu Desnoyers wrote:
@@ -206,9 +207,8 @@ On Tue, Apr 09, 2019 at 11:56:03AM -0400, Mathieu Desnoyers wrote:
 > In order for the module unload not to race against module execution, it needs
 > to happen after the call_srcu in a way that is already ordered by other means,
 > else module unload races against the module code.
-
-Agreed.
-
+> 
+> > 
 > > Also about doing the unconditional srcu_barrier, since a module could be
 > > unloaded at any time - don't all SRCU using modules need to invoke
 > > srcu_barrier() during their clean up anyway so we are incurring the barrier
@@ -220,9 +220,44 @@ Agreed.
 > to its module going notifier should not hurt. The rare case where a module defines
 > a static SRCU domain *and* does not actually use it with call_srcu() does not
 > seem that usual, and not worth optimizing for.
+> 
+> Thoughts ?
 
-That sounds like a reasonable approach to me.
+Most SRCU users use only synchronize_srcu(), and don't ever use
+call_srcu().  Which is not too surprising given that call_srcu() showed
+up late in the game.
 
-thanks,
+But something still bothers me about this, and I am not yet sure
+what.  One thing that seems to reduce anxiety somewhat is doing the
+srcu_barrier() on all calls to cleanup_srcu_struct() rather than just
+those invoked from the modules infrastructure, but I don't see why at
+the moment.
 
- - Joel
+							Thanx, Paul
+
+> Thanks,
+> 
+> Mathieu
+> 
+> 
+> > 
+> > thanks,
+> > 
+> > - Joel
+> > 
+> >> Thoughts ?
+> >> 
+> >> Thanks,
+> >> 
+> >> Mathieu
+> >> 
+> >> --
+> >> Mathieu Desnoyers
+> >> EfficiOS Inc.
+> > > http://www.efficios.com
+> 
+> -- 
+> Mathieu Desnoyers
+> EfficiOS Inc.
+> http://www.efficios.com
+> 
