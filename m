@@ -1,132 +1,260 @@
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 11/20] drm/amd/display: Recalculate pitch when buffers change
-Date: Tue, 9 Apr 2019 13:16:27 -0400
-Message-ID: <20190409171636.11503-12-Bhawanpreet.Lakha@amd.com>
-References: <20190409171636.11503-1-Bhawanpreet.Lakha@amd.com>
+From: "Paul E. McKenney" <paulmck@linux.ibm.com>
+Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
+Date: Tue, 9 Apr 2019 10:55:49 -0700
+Message-ID: <20190409175549.GG14111@linux.ibm.com>
+References: <20190402142816.GA13084@linux.ibm.com>
+ <20190408142230.GJ14111@linux.ibm.com>
+ <1447252022.1166.1554734972823.JavaMail.zimbra@efficios.com>
+ <20190408154616.GO14111@linux.ibm.com>
+ <1489474416.1465.1554744287985.JavaMail.zimbra@efficios.com>
+ <20190409154012.GC248418@google.com>
+ <534133139.2374.1554825363211.JavaMail.zimbra@efficios.com>
+ <20190409164031.GE14111@linux.ibm.com>
+ <1958511501.2412.1554828325809.JavaMail.zimbra@efficios.com>
+Reply-To: paulmck@linux.ibm.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190409171636.11503-1-Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1958511501.2412.1554828325809.JavaMail.zimbra@efficios.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: "Joel Fernandes, Google" <joel@joelfernandes.org>, rcu <rcu@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, Ingo Molnar <mingo@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, dipankar <dipankar@in.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Josh Triplett <josh@joshtriplett.org>, Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, rostedt <rostedt@goodmis.org>, David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>, fweisbec <fweisbec@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-nvdimm <linux-nvdimm@lists.01.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgoK
-W1doeV0KUGl0Y2ggd2FzIG9ubHkgY2FsY3VsYXRlZCBiYXNlZCBvbiBmb3JtYXQgd2hlbmV2ZXIg
-dGhlIHBsYW5lIHN0YXRlCndhcyByZWNyZWF0ZWQuIFRoaXMgY291bGQgcmVzdWx0IGluIHN1cmZh
-Y2UgY29ycnVwdGlvbiBkdWUgdG8gdGhlCmluY29ycmVjdCBwaXRjaCBiZWluZyBwcm9ncmFtbWVk
-IHdoZW4gdGhlIHN1cmZhY2UgcGl0Y2ggY2hhbmdlZCBkdXJpbmcKY29tbWl0cyB3aGVyZSBzdGF0
-ZS0+YWxsb3dfbW9kZXNldCA9IGZhbHNlLgoKW0hvd10KUmVjYWxjdWxhdGUgcGl0Y2ggYXQgdGhl
-IHNhbWUgdGltZSB3ZSB1cGRhdGUgdGhlIGJ1ZmZlciBhZGRyZXNzIGFuZApvdGhlciBidWZmZXIg
-YXR0cmlidXRlcy4gVGhpcyBmdW5jdGlvbiB3YXMgcHJldmlvdXNseSBjYWxsZWQKZmlsbF9wbGFu
-ZV90aWxpbmdfYXR0cmlidXRlcyBidXQgSSd2ZSBhbHNvIHJlbmFtZWQgaXQgdG8KZmlsbF9wbGFu
-ZV9idWZmZXJfYXR0cmlidXRlcyB0byBjbGFyaWZ5IHRoZSBhY3R1YWwgaW50ZW50IG9mIHRoZQpm
-dW5jdGlvbiBub3cgdGhhdCBpdCdzIGhhbmRsaW5nIG1vc3QgYnVmZmVyIHJlbGF0ZWQgYXR0cmli
-dXRlcy4KCkNoYW5nZS1JZDogSTJmN2E2NTE2NWEzMDMzOWE5MTE1YzE4ZmEwNjM5NzI2MGU3NGMy
-NTIKU2lnbmVkLW9mZi1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2th
-c0BhbWQuY29tPgpSZXZpZXdlZC1ieTogRGF2aWQgRnJhbmNpcyA8RGF2aWQuRnJhbmNpc0BhbWQu
-Y29tPgpBY2tlZC1ieTogQmhhd2FucHJlZXQgTGFraGEgPEJoYXdhbnByZWV0IExha2hhQGFtZC5j
-b20+Ci0tLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwg
-NzMgKysrKysrKysrLS0tLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKyks
-IDM5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IDliODU0NmM3ZTk0Ny4uZWU0NzM4NjM2YWEwIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMK
-QEAgLTI2MDEsMjggKzI2MDEsNTMgQEAgc3RhdGljIGludCBmaWxsX3BsYW5lX2RjY19hdHRyaWJ1
-dGVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogfQogCiBzdGF0aWMgaW50Ci1maWxsX3Bs
-YW5lX3RpbGluZ19hdHRyaWJ1dGVzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAorZmlsbF9w
-bGFuZV9idWZmZXJfYXR0cmlidXRlcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKIAkJCSAg
-ICAgY29uc3Qgc3RydWN0IGFtZGdwdV9mcmFtZWJ1ZmZlciAqYWZiLAogCQkJICAgICBjb25zdCBz
-dHJ1Y3QgZGNfcGxhbmVfc3RhdGUgKnBsYW5lX3N0YXRlLAogCQkJICAgICB1bmlvbiBkY190aWxp
-bmdfaW5mbyAqdGlsaW5nX2luZm8sCisJCQkgICAgIHVuaW9uIHBsYW5lX3NpemUgKnBsYW5lX3Np
-emUsCiAJCQkgICAgIHN0cnVjdCBkY19wbGFuZV9kY2NfcGFyYW0gKmRjYywKIAkJCSAgICAgc3Ry
-dWN0IGRjX3BsYW5lX2FkZHJlc3MgKmFkZHJlc3MsCiAJCQkgICAgIHVpbnQ2NF90IHRpbGluZ19m
-bGFncykKIHsKKwljb25zdCBzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVyICpmYiA9ICZhZmItPmJhc2U7
-CiAJaW50IHJldDsKIAogCW1lbXNldCh0aWxpbmdfaW5mbywgMCwgc2l6ZW9mKCp0aWxpbmdfaW5m
-bykpOworCW1lbXNldChwbGFuZV9zaXplLCAwLCBzaXplb2YoKnBsYW5lX3NpemUpKTsKIAltZW1z
-ZXQoZGNjLCAwLCBzaXplb2YoKmRjYykpOwogCW1lbXNldChhZGRyZXNzLCAwLCBzaXplb2YoKmFk
-ZHJlc3MpKTsKIAogCWlmIChwbGFuZV9zdGF0ZS0+Zm9ybWF0IDwgU1VSRkFDRV9QSVhFTF9GT1JN
-QVRfVklERU9fQkVHSU4pIHsKKwkJcGxhbmVfc2l6ZS0+Z3JwaC5zdXJmYWNlX3NpemUueCA9IDA7
-CisJCXBsYW5lX3NpemUtPmdycGguc3VyZmFjZV9zaXplLnkgPSAwOworCQlwbGFuZV9zaXplLT5n
-cnBoLnN1cmZhY2Vfc2l6ZS53aWR0aCA9IGZiLT53aWR0aDsKKwkJcGxhbmVfc2l6ZS0+Z3JwaC5z
-dXJmYWNlX3NpemUuaGVpZ2h0ID0gZmItPmhlaWdodDsKKwkJcGxhbmVfc2l6ZS0+Z3JwaC5zdXJm
-YWNlX3BpdGNoID0KKwkJCWZiLT5waXRjaGVzWzBdIC8gZmItPmZvcm1hdC0+Y3BwWzBdOworCiAJ
-CWFkZHJlc3MtPnR5cGUgPSBQTE5fQUREUl9UWVBFX0dSQVBISUNTOwogCQlhZGRyZXNzLT5ncnBo
-LmFkZHIubG93X3BhcnQgPSBsb3dlcl8zMl9iaXRzKGFmYi0+YWRkcmVzcyk7CiAJCWFkZHJlc3Mt
-PmdycGguYWRkci5oaWdoX3BhcnQgPSB1cHBlcl8zMl9iaXRzKGFmYi0+YWRkcmVzcyk7CiAJfSBl
-bHNlIHsKLQkJY29uc3Qgc3RydWN0IGRybV9mcmFtZWJ1ZmZlciAqZmIgPSAmYWZiLT5iYXNlOwog
-CQl1aW50NjRfdCBjaHJvbWFfYWRkciA9IGFmYi0+YWRkcmVzcyArIGZiLT5vZmZzZXRzWzFdOwog
-CisJCXBsYW5lX3NpemUtPnZpZGVvLmx1bWFfc2l6ZS54ID0gMDsKKwkJcGxhbmVfc2l6ZS0+dmlk
-ZW8ubHVtYV9zaXplLnkgPSAwOworCQlwbGFuZV9zaXplLT52aWRlby5sdW1hX3NpemUud2lkdGgg
-PSBmYi0+d2lkdGg7CisJCXBsYW5lX3NpemUtPnZpZGVvLmx1bWFfc2l6ZS5oZWlnaHQgPSBmYi0+
-aGVpZ2h0OworCQlwbGFuZV9zaXplLT52aWRlby5sdW1hX3BpdGNoID0KKwkJCWZiLT5waXRjaGVz
-WzBdIC8gZmItPmZvcm1hdC0+Y3BwWzBdOworCisJCXBsYW5lX3NpemUtPnZpZGVvLmNocm9tYV9z
-aXplLnggPSAwOworCQlwbGFuZV9zaXplLT52aWRlby5jaHJvbWFfc2l6ZS55ID0gMDsKKwkJLyog
-VE9ETzogc2V0IHRoZXNlIGJhc2VkIG9uIHN1cmZhY2UgZm9ybWF0ICovCisJCXBsYW5lX3NpemUt
-PnZpZGVvLmNocm9tYV9zaXplLndpZHRoID0gZmItPndpZHRoIC8gMjsKKwkJcGxhbmVfc2l6ZS0+
-dmlkZW8uY2hyb21hX3NpemUuaGVpZ2h0ID0gZmItPmhlaWdodCAvIDI7CisKKwkJcGxhbmVfc2l6
-ZS0+dmlkZW8uY2hyb21hX3BpdGNoID0KKwkJCWZiLT5waXRjaGVzWzFdIC8gZmItPmZvcm1hdC0+
-Y3BwWzFdOworCiAJCWFkZHJlc3MtPnR5cGUgPSBQTE5fQUREUl9UWVBFX1ZJREVPX1BST0dSRVNT
-SVZFOwogCQlhZGRyZXNzLT52aWRlb19wcm9ncmVzc2l2ZS5sdW1hX2FkZHIubG93X3BhcnQgPQog
-CQkJbG93ZXJfMzJfYml0cyhhZmItPmFkZHJlc3MpOwpAQCAtMjc0Myw0MSArMjc2OCw5IEBAIHN0
-YXRpYyBpbnQgZmlsbF9wbGFuZV9hdHRyaWJ1dGVzX2Zyb21fZmIoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsCiAJCXJldHVybiAtRUlOVkFMOwogCX0KIAotCW1lbXNldCgmcGxhbmVfc3RhdGUt
-PmFkZHJlc3MsIDAsIHNpemVvZihwbGFuZV9zdGF0ZS0+YWRkcmVzcykpOwotCi0JaWYgKHBsYW5l
-X3N0YXRlLT5mb3JtYXQgPCBTVVJGQUNFX1BJWEVMX0ZPUk1BVF9WSURFT19CRUdJTikgewotCQlw
-bGFuZV9zdGF0ZS0+cGxhbmVfc2l6ZS5ncnBoLnN1cmZhY2Vfc2l6ZS54ID0gMDsKLQkJcGxhbmVf
-c3RhdGUtPnBsYW5lX3NpemUuZ3JwaC5zdXJmYWNlX3NpemUueSA9IDA7Ci0JCXBsYW5lX3N0YXRl
-LT5wbGFuZV9zaXplLmdycGguc3VyZmFjZV9zaXplLndpZHRoID0gZmItPndpZHRoOwotCQlwbGFu
-ZV9zdGF0ZS0+cGxhbmVfc2l6ZS5ncnBoLnN1cmZhY2Vfc2l6ZS5oZWlnaHQgPSBmYi0+aGVpZ2h0
-OwotCQlwbGFuZV9zdGF0ZS0+cGxhbmVfc2l6ZS5ncnBoLnN1cmZhY2VfcGl0Y2ggPQotCQkJCWZi
-LT5waXRjaGVzWzBdIC8gZmItPmZvcm1hdC0+Y3BwWzBdOwotCQkvKiBUT0RPOiB1bmhhcmRjb2Rl
-ICovCi0JCXBsYW5lX3N0YXRlLT5jb2xvcl9zcGFjZSA9IENPTE9SX1NQQUNFX1NSR0I7Ci0KLQl9
-IGVsc2UgewotCQlwbGFuZV9zdGF0ZS0+cGxhbmVfc2l6ZS52aWRlby5sdW1hX3NpemUueCA9IDA7
-Ci0JCXBsYW5lX3N0YXRlLT5wbGFuZV9zaXplLnZpZGVvLmx1bWFfc2l6ZS55ID0gMDsKLQkJcGxh
-bmVfc3RhdGUtPnBsYW5lX3NpemUudmlkZW8ubHVtYV9zaXplLndpZHRoID0gZmItPndpZHRoOwot
-CQlwbGFuZV9zdGF0ZS0+cGxhbmVfc2l6ZS52aWRlby5sdW1hX3NpemUuaGVpZ2h0ID0gZmItPmhl
-aWdodDsKLQkJcGxhbmVfc3RhdGUtPnBsYW5lX3NpemUudmlkZW8ubHVtYV9waXRjaCA9Ci0JCQlm
-Yi0+cGl0Y2hlc1swXSAvIGZiLT5mb3JtYXQtPmNwcFswXTsKLQotCQlwbGFuZV9zdGF0ZS0+cGxh
-bmVfc2l6ZS52aWRlby5jaHJvbWFfc2l6ZS54ID0gMDsKLQkJcGxhbmVfc3RhdGUtPnBsYW5lX3Np
-emUudmlkZW8uY2hyb21hX3NpemUueSA9IDA7Ci0JCS8qIFRPRE86IHNldCB0aGVzZSBiYXNlZCBv
-biBzdXJmYWNlIGZvcm1hdCAqLwotCQlwbGFuZV9zdGF0ZS0+cGxhbmVfc2l6ZS52aWRlby5jaHJv
-bWFfc2l6ZS53aWR0aCA9IGZiLT53aWR0aCAvIDI7Ci0JCXBsYW5lX3N0YXRlLT5wbGFuZV9zaXpl
-LnZpZGVvLmNocm9tYV9zaXplLmhlaWdodCA9IGZiLT5oZWlnaHQgLyAyOwotCi0JCXBsYW5lX3N0
-YXRlLT5wbGFuZV9zaXplLnZpZGVvLmNocm9tYV9waXRjaCA9Ci0JCQlmYi0+cGl0Y2hlc1sxXSAv
-IGZiLT5mb3JtYXQtPmNwcFsxXTsKLQotCQkvKiBUT0RPOiB1bmhhcmRjb2RlICovCi0JCXBsYW5l
-X3N0YXRlLT5jb2xvcl9zcGFjZSA9IENPTE9SX1NQQUNFX1lDQkNSNzA5OwotCX0KLQotCWZpbGxf
-cGxhbmVfdGlsaW5nX2F0dHJpYnV0ZXMoYWRldiwgYW1kZ3B1X2ZiLCBwbGFuZV9zdGF0ZSwKKwlm
-aWxsX3BsYW5lX2J1ZmZlcl9hdHRyaWJ1dGVzKGFkZXYsIGFtZGdwdV9mYiwgcGxhbmVfc3RhdGUs
-CiAJCQkJICAgICAmcGxhbmVfc3RhdGUtPnRpbGluZ19pbmZvLAorCQkJCSAgICAgJnBsYW5lX3N0
-YXRlLT5wbGFuZV9zaXplLAogCQkJCSAgICAgJnBsYW5lX3N0YXRlLT5kY2MsCiAJCQkJICAgICAm
-cGxhbmVfc3RhdGUtPmFkZHJlc3MsCiAJCQkJICAgICB0aWxpbmdfZmxhZ3MpOwpAQCAtNDA4Nyw5
-ICs0MDgwLDEwIEBAIHN0YXRpYyBpbnQgZG1fcGxhbmVfaGVscGVyX3ByZXBhcmVfZmIoc3RydWN0
-IGRybV9wbGFuZSAqcGxhbmUsCiAJCQlkbV9wbGFuZV9zdGF0ZV9vbGQtPmRjX3N0YXRlICE9IGRt
-X3BsYW5lX3N0YXRlX25ldy0+ZGNfc3RhdGUpIHsKIAkJc3RydWN0IGRjX3BsYW5lX3N0YXRlICpw
-bGFuZV9zdGF0ZSA9IGRtX3BsYW5lX3N0YXRlX25ldy0+ZGNfc3RhdGU7CiAKLQkJZmlsbF9wbGFu
-ZV90aWxpbmdfYXR0cmlidXRlcygKKwkJZmlsbF9wbGFuZV9idWZmZXJfYXR0cmlidXRlcygKIAkJ
-CWFkZXYsIGFmYiwgcGxhbmVfc3RhdGUsICZwbGFuZV9zdGF0ZS0+dGlsaW5nX2luZm8sCi0JCQkm
-cGxhbmVfc3RhdGUtPmRjYywgJnBsYW5lX3N0YXRlLT5hZGRyZXNzLCB0aWxpbmdfZmxhZ3MpOwor
-CQkJJnBsYW5lX3N0YXRlLT5wbGFuZV9zaXplLCAmcGxhbmVfc3RhdGUtPmRjYywKKwkJCSZwbGFu
-ZV9zdGF0ZS0+YWRkcmVzcywgdGlsaW5nX2ZsYWdzKTsKIAl9CiAKIAlyZXR1cm4gMDsKQEAgLTUy
-NjUsOCArNTI1OSw5IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0cnVj
-dCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwKIAogCQlhbWRncHVfYm9fdW5yZXNlcnZlKGFibyk7
-CiAKLQkJZmlsbF9wbGFuZV90aWxpbmdfYXR0cmlidXRlcyhkbS0+YWRldiwgYWZiLCBkY19wbGFu
-ZSwKKwkJZmlsbF9wbGFuZV9idWZmZXJfYXR0cmlidXRlcyhkbS0+YWRldiwgYWZiLCBkY19wbGFu
-ZSwKIAkJCSZidW5kbGUtPnBsYW5lX2luZm9zW3BsYW5lc19jb3VudF0udGlsaW5nX2luZm8sCisJ
-CQkmYnVuZGxlLT5wbGFuZV9pbmZvc1twbGFuZXNfY291bnRdLnBsYW5lX3NpemUsCiAJCQkmYnVu
-ZGxlLT5wbGFuZV9pbmZvc1twbGFuZXNfY291bnRdLmRjYywKIAkJCSZidW5kbGUtPmZsaXBfYWRk
-cnNbcGxhbmVzX2NvdW50XS5hZGRyZXNzLAogCQkJdGlsaW5nX2ZsYWdzKTsKLS0gCjIuMTcuMQoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, Apr 09, 2019 at 12:45:25PM -0400, Mathieu Desnoyers wrote:
+> ----- On Apr 9, 2019, at 12:40 PM, paulmck paulmck@linux.ibm.com wrote:
+> 
+> > On Tue, Apr 09, 2019 at 11:56:03AM -0400, Mathieu Desnoyers wrote:
+> >> ----- On Apr 9, 2019, at 11:40 AM, Joel Fernandes, Google joel@joelfernandes.org
+> >> wrote:
+> >> 
+> >> > On Mon, Apr 08, 2019 at 01:24:47PM -0400, Mathieu Desnoyers wrote:
+> >> >> ----- On Apr 8, 2019, at 11:46 AM, paulmck paulmck@linux.ibm.com wrote:
+> >> >> 
+> >> >> > On Mon, Apr 08, 2019 at 10:49:32AM -0400, Mathieu Desnoyers wrote:
+> >> >> >> ----- On Apr 8, 2019, at 10:22 AM, paulmck paulmck@linux.ibm.com wrote:
+> >> >> >> 
+> >> >> >> > On Mon, Apr 08, 2019 at 09:05:34AM -0400, Mathieu Desnoyers wrote:
+> >> >> >> >> ----- On Apr 7, 2019, at 10:27 PM, paulmck paulmck@linux.ibm.com wrote:
+> >> >> >> >> 
+> >> >> >> >> > On Sun, Apr 07, 2019 at 09:07:18PM +0000, Joel Fernandes wrote:
+> >> >> >> >> >> On Sun, Apr 07, 2019 at 04:41:36PM -0400, Mathieu Desnoyers wrote:
+> >> >> >> >> >> > 
+> >> >> >> >> >> > ----- On Apr 7, 2019, at 3:32 PM, Joel Fernandes, Google joel@joelfernandes.org
+> >> >> >> >> >> > wrote:
+> >> >> >> >> >> > 
+> >> >> >> >> >> > > On Sun, Apr 07, 2019 at 03:26:16PM -0400, Mathieu Desnoyers wrote:
+> >> >> >> >> >> > >> ----- On Apr 7, 2019, at 9:59 AM, paulmck paulmck@linux.ibm.com wrote:
+> >> >> >> >> >> > >> 
+> >> >> >> >> >> > >> > On Sun, Apr 07, 2019 at 06:39:41AM -0700, Paul E. McKenney wrote:
+> >> >> >> >> >> > >> >> On Sat, Apr 06, 2019 at 07:06:13PM -0400, Joel Fernandes wrote:
+> >> >> >> >> >> > >> > 
+> >> >> >> >> >> > >> > [ . . . ]
+> >> >> >> >> >> > >> > 
+> >> >> >> >> >> > >> >> > > diff --git a/include/asm-generic/vmlinux.lds.h
+> >> >> >> >> >> > >> >> > > b/include/asm-generic/vmlinux.lds.h
+> >> >> >> >> >> > >> >> > > index f8f6f04c4453..c2d919a1566e 100644
+> >> >> >> >> >> > >> >> > > --- a/include/asm-generic/vmlinux.lds.h
+> >> >> >> >> >> > >> >> > > +++ b/include/asm-generic/vmlinux.lds.h
+> >> >> >> >> >> > >> >> > > @@ -338,6 +338,10 @@
+> >> >> >> >> >> > >> >> > >  		KEEP(*(__tracepoints_ptrs)) /* Tracepoints: pointer array */ \
+> >> >> >> >> >> > >> >> > >  		__stop___tracepoints_ptrs = .;				\
+> >> >> >> >> >> > >> >> > >  		*(__tracepoints_strings)/* Tracepoints: strings */	\
+> >> >> >> >> >> > >> >> > > +		. = ALIGN(8);						\
+> >> >> >> >> >> > >> >> > > +		__start___srcu_struct = .;				\
+> >> >> >> >> >> > >> >> > > +		*(___srcu_struct_ptrs)					\
+> >> >> >> >> >> > >> >> > > +		__end___srcu_struct = .;				\
+> >> >> >> >> >> > >> >> > >  	}								\
+> >> >> >> >> >> > >> >> > 
+> >> >> >> >> >> > >> >> > This vmlinux linker modification is not needed. I tested without it and srcu
+> >> >> >> >> >> > >> >> > torture works fine with rcutorture built as a module. Putting further prints
+> >> >> >> >> >> > >> >> > in kernel/module.c verified that the kernel is able to find the srcu structs
+> >> >> >> >> >> > >> >> > just fine. You could squash the below patch into this one or apply it on top
+> >> >> >> >> >> > >> >> > of the dev branch.
+> >> >> >> >> >> > >> >> 
+> >> >> >> >> >> > >> >> Good point, given that otherwise FORTRAN named common blocks would not
+> >> >> >> >> >> > >> >> work.
+> >> >> >> >> >> > >> >> 
+> >> >> >> >> >> > >> >> But isn't one advantage of leaving that stuff in the RO_DATA_SECTION()
+> >> >> >> >> >> > >> >> macro that it can be mapped read-only?  Or am I suffering from excessive
+> >> >> >> >> >> > >> >> optimism?
+> >> >> >> >> >> > >> > 
+> >> >> >> >> >> > >> > And to answer the other question, in the case where I am suffering from
+> >> >> >> >> >> > >> > excessive optimism, it should be a separate commit.  Please see below
+> >> >> >> >> >> > >> > for the updated original commit thus far.
+> >> >> >> >> >> > >> > 
+> >> >> >> >> >> > >> > And may I have your Tested-by?
+> >> >> >> >> >> > >> 
+> >> >> >> >> >> > >> Just to confirm: does the cleanup performed in the modules going
+> >> >> >> >> >> > >> notifier end up acting as a barrier first before freeing the memory ?
+> >> >> >> >> >> > >> If not, is it explicitly stated that a barrier must be issued before
+> >> >> >> >> >> > >> module unload ?
+> >> >> >> >> >> > >> 
+> >> >> >> >> >> > > 
+> >> >> >> >> >> > > You mean rcu_barrier? It is mentioned in the documentation that this is the
+> >> >> >> >> >> > > responsibility of the module writer to prevent delays for all modules.
+> >> >> >> >> >> > 
+> >> >> >> >> >> > It's a srcu barrier yes. Considering it would be a barrier specific to the
+> >> >> >> >> >> > srcu domain within that module, I don't see how it would cause delays for
+> >> >> >> >> >> > "all" modules if we implicitly issue the barrier on module unload. What
+> >> >> >> >> >> > am I missing ?
+> >> >> >> >> >> 
+> >> >> >> >> >> Yes you are right. I thought of this after I just sent my email. I think it
+> >> >> >> >> >> makes sense for srcu case to do and could avoid a class of bugs.
+> >> >> >> >> > 
+> >> >> >> >> > If there are call_srcu() callbacks outstanding, the module writer still
+> >> >> >> >> > needs the srcu_barrier() because otherwise callbacks arrive after
+> >> >> >> >> > the module text has gone, which will be disappoint the CPU when it
+> >> >> >> >> > tries fetching instructions that are no longer mapped.  If there are
+> >> >> >> >> > no call_srcu() callbacks from that module, then there is no need for
+> >> >> >> >> > srcu_barrier() either way.
+> >> >> >> >> > 
+> >> >> >> >> > So if an srcu_barrier() is needed, the module developer needs to
+> >> >> >> >> > supply it.
+> >> >> >> >> 
+> >> >> >> >> When you say "callbacks arrive after the module text has gone",
+> >> >> >> >> I think you assume that free_module() is invoked before the
+> >> >> >> >> MODULE_STATE_GOING notifiers are called. But it's done in the
+> >> >> >> >> opposite order: going notifiers are called first, and then
+> >> >> >> >> free_module() is invoked.
+> >> >> >> >> 
+> >> >> >> >> So AFAIU it would be safe to issue the srcu_barrier() from the module
+> >> >> >> >> going notifier.
+> >> >> >> >> 
+> >> >> >> >> Or am I missing something ?
+> >> >> >> > 
+> >> >> >> > We do seem to be talking past each other.  ;-)
+> >> >> >> > 
+> >> >> >> > This has nothing to do with the order of events at module-unload time.
+> >> >> >> > 
+> >> >> >> > So please let me try again.
+> >> >> >> > 
+> >> >> >> > If a given srcu_struct in a module never has call_srcu() invoked, there
+> >> >> >> > is no need to invoke rcu_barrier() at any time, whether at module-unload
+> >> >> >> > time or not.  Adding rcu_barrier() in this case adds overhead and latency
+> >> >> >> > for no good reason.
+> >> >> >> 
+> >> >> >> Not if we invoke srcu_barrier() for that specific domain. If
+> >> >> >> call_srcu was never invoked for a srcu domain, I don't see why
+> >> >> >> srcu_barrier() should be more expensive than a simple check that
+> >> >> >> the domain does not have any srcu work queued.
+> >> >> > 
+> >> >> > But that simple check does involve a cache miss for each possible CPU (not
+> >> >> > just each online CPU), so it is non-trivial, especially on large systems.
+> >> >> > 
+> >> >> >> > If a given srcu_struct in a module does have at least one call_srcu()
+> >> >> >> > invoked, it is already that module's responsibility to make sure that
+> >> >> >> > the code sticks around long enough for the callback to be invoked.
+> >> >> >> 
+> >> >> >> I understand that when users do explicit dynamic allocation/cleanup of
+> >> >> >> srcu domains, they indeed need to take care of doing explicit srcu_barrier().
+> >> >> >> However, if they do static definition of srcu domains, it would be nice
+> >> >> >> if we can handle the barriers under the hood.
+> >> >> > 
+> >> >> > All else being equal, of course.  But...
+> >> >> > 
+> >> >> >> > This means that correct SRCU users that invoke call_srcu() already
+> >> >> >> > have srcu_barrier() at module-unload time.  Incorrect SRCU users, with
+> >> >> >> > reasonable probability, now get a WARN_ON() at module-unload time, with
+> >> >> >> > the per-CPU state getting leaked.  Before this change, they would (also
+> >> >> >> > with reasonable probability) instead get an instruction-fetch fault when
+> >> >> >> > the SRCU callback was invoked after the completion of the module unload.
+> >> >> >> > Furthermore, in all cases where they would previously have gotten the
+> >> >> >> > instruction-fetch fault, they now get the WARN_ON(), like this:
+> >> >> >> > 
+> >> >> >> >	if (WARN_ON(rcu_segcblist_n_cbs(&sdp->srcu_cblist)))
+> >> >> >> >		return; /* Forgot srcu_barrier(), so just leak it! */
+> >> >> >> > 
+> >> >> >> > So this change already represents an improvement in usability.
+> >> >> >> 
+> >> >> >> Considering that we can do a srcu_barrier() for the specific domain,
+> >> >> >> and that it should add no noticeable overhead if there is no queued
+> >> >> >> callbacks, I don't see a good reason for leaving the srcu_barrier
+> >> >> >> invocation to the user rather than implicitly doing it from the
+> >> >> >> module going notifier.
+> >> >> > 
+> >> >> > Now, I could automatically add an indicator of whether or not a
+> >> >> > call_srcu() had happened, but then again, that would either add a
+> >> >> > call_srcu() scalability bottleneck or again require a scan of all possible
+> >> >> > CPUs...  to figure out if it was necessary to scan all possible CPUs.
+> >> >> > 
+> >> >> > Or is scanning all possible CPUs down in the noise in this case?  Or
+> >> >> > am I missing a trick that would reduce the overhead?
+> >> >> 
+> >> >> Module unloading implicitly does a synchronize_rcu (for RCU-sched), and
+> >> >> a stop_machine. So I would be tempted to say that overhead of iteration
+> >> >> over all CPUs might not matter that much considering the rest.
+> >> >> 
+> >> >> About notifying that a call_srcu has happened for the srcu domain in a
+> >> >> scalable fashion, let's see... We could have a flag "call_srcu_used"
+> >> >> for each call_srcu domain. Whenever call_srcu is invoked, it would
+> >> >> load that flag. It sets it on first use.
+> >> >> 
+> >> >> The idea here is to only use that flag when srcu_barrier is performed
+> >> >> right before the srcu domain cleanup (it could become part of that
+> >> >> cleanup). Else, using it in all srcu_barrier() might be tricky, because
+> >> >> we may then need to add memory barriers or locking to the call_srcu
+> >> >> fast-path, which is an overhead we try to avoid.
+> >> >> 
+> >> >> However, if we only use that flag as part of the srcu domain cleanup,
+> >> >> it's already prohibited to invoke call_srcu concurrently with the
+> >> >> cleanup of the same domain, so I don't think we would need any
+> >> >> memory barriers in call_srcu.
+> >> > 
+> >> > About the last part of your email, it seems to that if after call_srcu has
+> >> > returned, if the module could be unloaded on some other CPU - then it would
+> >> > need to see the flag stored by the preceding call_srcu, so I believe there
+> >> > would be a memory barrier between the two opreations (call_srcu and module
+> >> > unload).
+> >> 
+> >> In order for the module unload not to race against module execution, it needs
+> >> to happen after the call_srcu in a way that is already ordered by other means,
+> >> else module unload races against the module code.
+> >> 
+> >> > 
+> >> > Also about doing the unconditional srcu_barrier, since a module could be
+> >> > unloaded at any time - don't all SRCU using modules need to invoke
+> >> > srcu_barrier() during their clean up anyway so we are incurring the barrier
+> >> > overhead anyway? Or, am I missing a design pattern here? It seems to me
+> >> > rcutorture module definitely calls srcu_barrier() before it is unloaded.
+> >> 
+> >> I think a valid approach which is even simpler might be: if a module statically
+> >> defines a SRCU domain, it should be expected to use it. So adding a
+> >> srcu_barrier()
+> >> to its module going notifier should not hurt. The rare case where a module
+> >> defines
+> >> a static SRCU domain *and* does not actually use it with call_srcu() does not
+> >> seem that usual, and not worth optimizing for.
+> >> 
+> >> Thoughts ?
+> > 
+> > Most SRCU users use only synchronize_srcu(), and don't ever use
+> > call_srcu().  Which is not too surprising given that call_srcu() showed
+> > up late in the game.
+> > 
+> > But something still bothers me about this, and I am not yet sure
+> > what.  One thing that seems to reduce anxiety somewhat is doing the
+> > srcu_barrier() on all calls to cleanup_srcu_struct() rather than just
+> > those invoked from the modules infrastructure, but I don't see why at
+> > the moment.
+> 
+> Indeed, providing similar guarantees for the dynamic allocation case
+> would be nice.
+> 
+> The one thing that is making me anxious here is use-cases where
+> users would decide to chain their call_srcu(). Then they would
+> need as many srcu_barrier() as chain hops. This would be a valid
+> reason for leaving invocation of srcu_barrier() to the user and
+> not hide it under the hood.
+> 
+> Thoughts ?
+
+The current state is not horrible, so my thought would be to give it
+some time to see if better thoughts arise.
+
+Either way, cleanup_srcu_struct() keeps its current checks for callbacks
+still being in flight, which is why I believe that the current state is
+not horrible.  ;-)
+
+							Thanx, Paul
