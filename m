@@ -1,58 +1,84 @@
-From: "Paul E. McKenney" <paulmck@linux.ibm.com>
-Subject: Re: [PATCH RFC tip/core/rcu 0/4] Forbid static SRCU use in modules
-Date: Tue, 9 Apr 2019 12:14:06 -0700
-Message-ID: <20190409191406.GJ14111@linux.ibm.com>
-References: <20190402142816.GA13084@linux.ibm.com>
- <20190408154616.GO14111@linux.ibm.com>
- <1489474416.1465.1554744287985.JavaMail.zimbra@efficios.com>
- <20190409154012.GC248418@google.com>
- <534133139.2374.1554825363211.JavaMail.zimbra@efficios.com>
- <20190409164031.GE14111@linux.ibm.com>
- <1958511501.2412.1554828325809.JavaMail.zimbra@efficios.com>
- <20190409175549.GG14111@linux.ibm.com>
- <1445093299.2510.1554833051142.JavaMail.zimbra@efficios.com>
-Reply-To: paulmck@linux.ibm.com
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 1/2] drm/powerplay: Add smu set xgmi pstate interface
+Date: Wed, 10 Apr 2019 01:15:14 +0000
+Message-ID: <MN2PR12MB33440B0C08F1C4600620DB74E42E0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <1554480091-28163-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <1445093299.2510.1554833051142.JavaMail.zimbra@efficios.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Joel Fernandes, Google" <joel@joelfernandes.org>, rcu <rcu@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>, Ingo Molnar <mingo@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, dipankar <dipankar@in.ibm.com>, Andrew Morton <akpm@linux-foundation.org>, Josh Triplett <josh@joshtriplett.org>, Thomas Gleixner <tglx@linutronix.de>, Peter Zijlstra <peterz@infradead.org>, rostedt <rostedt@goodmis.org>, David Howells <dhowells@redhat.com>, Eric Dumazet <edumazet@google.com>, fweisbec <fweisbec@gmail.com>, Oleg Nesterov <oleg@redhat.com>, linux-nvdimm <linux-nvdimm@lists.01.org>, dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1554480091-28163-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Apr 09, 2019 at 02:04:11PM -0400, Mathieu Desnoyers wrote:
-> ----- On Apr 9, 2019, at 1:55 PM, paulmck paulmck@linux.ibm.com wrote:
-> [...]
-> > The current state is not horrible, so my thought would be to give it
-> > some time to see if better thoughts arise.
-> > 
-> > Either way, cleanup_srcu_struct() keeps its current checks for callbacks
-> > still being in flight, which is why I believe that the current state is
-> > not horrible.  ;-)
-> 
-> In that case, I think the comment above cleanup_srcu_struct_quiesced() in
-> include/linux/srcu.h needs to be updated to cover situations where API
-> users statically define a SRCU domain in a module and intend to unload
-> that module.
-> 
-> Given that we end up doing the allocation/cleanup under the hood, the
-> API users don't interact with init_srcu_struct() nor cleanup_srcu_struct(),
-> so it's not obvious that this comment also applies to them.
-
-Actually, it turned out that cleanup_srcu_struct_quiesced() is extremely
-hard to use correctly, and maybe even impossible to use correctly.
-So cleanup_srcu_struct_quiesced has been eliminated in current -rcu.
-
-							Thanx, Paul
-
-> Thanks,
-> 
-> Mathieu
-> 
-> -- 
-> Mathieu Desnoyers
-> EfficiOS Inc.
-> http://www.efficios.com
-> 
+UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCkhvd2V2ZXIsIGlm
+IHRoaXMgaXMgZm9yIHZlZ2EyMCwgIHBsZWFzZSBiZSBub3RpY2VkIHRoYXQgdmVnYTIwIHN0aWxs
+IHRha2VzIG9sZCBwb3dlcnBsYXkgcm91dGluZXMgYXQgZGVmYXVsdC4NCg0KUmVnYXJkcywNCkV2
+YW4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdm
+eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIExpdSwNCj4gU2hh
+b3l1bg0KPiBTZW50OiBTYXR1cmRheSwgQXByaWwgMDYsIDIwMTkgMTI6MDIgQU0NCj4gVG86IGFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBMaXUsIFNoYW95dW4gPFNoYW95dW4u
+TGl1QGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSCAxLzJdIGRybS9wb3dlcnBsYXk6IEFkZCBz
+bXUgc2V0IHhnbWkgcHN0YXRlIGludGVyZmFjZQ0KPiANCj4gWEdNSSBwc3RhdGUgaXMgY29udHJv
+bGxlZCBieSBTTVUsIGRyaXZlciBuZWVkIHRoaXMgaW50ZXJmYWNlIHRvIGNvbW11bmljYXRlDQo+
+IHdpdGggU01VDQo+IA0KPiBDaGFuZ2UtSWQ6IEkzYTMwNzk3MzMyNTU3NzI1ZDQ4ZDM5MmJlYTBj
+OWQ1OWUyZDBlNDI3DQo+IFNpZ25lZC1vZmYtYnk6IHNoYW95dW5sIDxzaGFveXVuLmxpdUBhbWQu
+Y29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVf
+c211LmggfCA0ICsrKysNCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFf
+MC5jICAgICAgfCA4ICsrKysrKysrDQo+ICAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMo
+KykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMv
+YW1kZ3B1X3NtdS5oDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdw
+dV9zbXUuaA0KPiBpbmRleCAyMDgzMTM5Li4wZTUyZDFiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oDQo+ICsrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmgNCj4gQEAgLTU0Niw2ICs1NDYs
+OCBAQCBzdHJ1Y3Qgc211X2Z1bmNzDQo+ICAJaW50ICgqZ2V0X2Zhbl9zcGVlZF9wZXJjZW50KShz
+dHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgdWludDMyX3QNCj4gKnNwZWVkKTsNCj4gIAlpbnQgKCpz
+ZXRfZmFuX3NwZWVkX3BlcmNlbnQpKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCB1aW50MzJfdA0K
+PiBzcGVlZCk7DQo+ICAJaW50ICgqc2V0X2Zhbl9zcGVlZF9ycG0pKHN0cnVjdCBzbXVfY29udGV4
+dCAqc211LCB1aW50MzJfdA0KPiBzcGVlZCk7DQo+ICsJaW50ICgqc2V0X3hnbWlfcHN0YXRlKShz
+dHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgdWludDMyX3QgcHN0YXRlKTsNCj4gKw0KPiAgfTsNCj4g
+DQo+ICAjZGVmaW5lIHNtdV9pbml0X21pY3JvY29kZShzbXUpIFwNCj4gQEAgLTcyOSw2ICs3MzEs
+OCBAQCBzdHJ1Y3Qgc211X2Z1bmNzDQo+ICAJKChzbXUpLT5mdW5jcy0+Z2V0X3NjbGsgPyAoc211
+KS0+ZnVuY3MtPmdldF9zY2xrKChzbXUpLCAobG93KSkgOiAwKQ0KPiAjZGVmaW5lIHNtdV9nZXRf
+bWNsayhzbXUsIGxvdykgXA0KPiAgCSgoc211KS0+ZnVuY3MtPmdldF9tY2xrID8gKHNtdSktPmZ1
+bmNzLT5nZXRfbWNsaygoc211KSwgKGxvdykpIDogMCkNCj4gKyNkZWZpbmUgc211X3NldF94Z21p
+X3BzdGF0ZShzbXUsIHBzdGF0ZSkgXA0KPiArCQkoKHNtdSktPmZ1bmNzLT5zZXRfeGdtaV9wc3Rh
+dGUgPyAoc211KS0+ZnVuY3MtDQo+ID5zZXRfeGdtaV9wc3RhdGUoKHNtdSksDQo+ICsocHN0YXRl
+KSkgOiAwKQ0KPiANCj4gDQo+ICBleHRlcm4gaW50IHNtdV9nZXRfYXRvbV9kYXRhX3RhYmxlKHN0
+cnVjdCBzbXVfY29udGV4dCAqc211LCB1aW50MzJfdA0KPiB0YWJsZSwgZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jDQo+IGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMNCj4gaW5kZXggOWQ3NTkxMS4uMmUyY2U3MSAx
+MDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMN
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMNCj4gQEAg
+LTE5NTIsNiArMTk1MiwxMyBAQCBzdGF0aWMgaW50IHNtdV92MTFfMF9zZXRfZmFuX3NwZWVkX3Jw
+bShzdHJ1Y3QNCj4gc211X2NvbnRleHQgKnNtdSwNCj4gIAlyZXR1cm4gcmV0Ow0KPiAgfQ0KPiAN
+Cj4gK3N0YXRpYyBpbnQgc211X3YxMV8wX3NldF94Z21pX3BzdGF0ZShzdHJ1Y3Qgc211X2NvbnRl
+eHQgKnNtdSwNCj4gKwkJCQkgICAgIHVpbnQzMl90IHBzdGF0ZSkNCj4gK3sNCj4gKwkvKiBzZW5k
+IG1zZyB0byBTTVUgdG8gc2V0IHBzdGF0ZSAqLw0KPiArCXJldHVybiAwOw0KPiArfQ0KPiArDQo+
+ICBzdGF0aWMgY29uc3Qgc3RydWN0IHNtdV9mdW5jcyBzbXVfdjExXzBfZnVuY3MgPSB7DQo+ICAJ
+LmluaXRfbWljcm9jb2RlID0gc211X3YxMV8wX2luaXRfbWljcm9jb2RlLA0KPiAgCS5sb2FkX21p
+Y3JvY29kZSA9IHNtdV92MTFfMF9sb2FkX21pY3JvY29kZSwgQEAgLTIwMDgsNiArMjAxNSw3DQo+
+IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc211X2Z1bmNzIHNtdV92MTFfMF9mdW5jcyA9IHsNCj4g
+IAkuZ2V0X2Zhbl9zcGVlZF9wZXJjZW50ID0gc211X3YxMV8wX2dldF9mYW5fc3BlZWRfcGVyY2Vu
+dCwNCj4gIAkuc2V0X2Zhbl9zcGVlZF9wZXJjZW50ID0gc211X3YxMV8wX3NldF9mYW5fc3BlZWRf
+cGVyY2VudCwNCj4gIAkuc2V0X2Zhbl9zcGVlZF9ycG0gPSBzbXVfdjExXzBfc2V0X2Zhbl9zcGVl
+ZF9ycG0sDQo+ICsJLnNldF94Z21pX3BzdGF0ZSA9IHNtdV92MTFfMF9zZXRfeGdtaV9wc3RhdGUs
+DQo+ICB9Ow0KPiANCj4gIHZvaWQgc211X3YxMV8wX3NldF9zbXVfZnVuY3Moc3RydWN0IHNtdV9j
+b250ZXh0ICpzbXUpDQo+IC0tDQo+IDIuNy40DQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
