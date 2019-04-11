@@ -1,17 +1,15 @@
-From: Andrey Konovalov <andreyknvl-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [PATCH v13 10/20] kernel,
- arm64: untag user pointers in prctl_set_mm*
-Date: Thu, 11 Apr 2019 18:40:40 +0200
-Message-ID: <CAAeHK+zeeTw7fpXoV6YYRyizGCL0d8pqDS=-z2pBoWmBzm+eTQ@mail.gmail.com>
-References: <cover.1553093420.git.andreyknvl@google.com>
- <76f96eb9162b3a7fa5949d71af38bf8fdf6924c4.1553093421.git.andreyknvl@google.com>
- <20190322154136.GP13384@arrakis.emea.arm.com>
- <CAAeHK+yHp27eT+wTE3Uy4DkN8XN3ZjHATE+=HgjgRjrHjiXs3Q@mail.gmail.com>
+From: Przemek Socha <soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: amd-staging-drm-next, CIK apu,
+ [TTM] Erroneous page count. Leaking pages. [BISECTED]
+Date: Thu, 11 Apr 2019 20:41:30 +0200
+Message-ID: <3663873.0cdN12EykA@eclipse>
+References: <7748299.amKHJ1hp7T@eclipse>
+ <97bc37a4-f6fc-30f8-c6ff-554fa04cb03e@amd.com>
+Reply-To: soprwa-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0299930241=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAeHK+yHp27eT+wTE3Uy4DkN8XN3ZjHATE+=HgjgRjrHjiXs3Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <97bc37a4-f6fc-30f8-c6ff-554fa04cb03e-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,40 +20,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Catalin Marinas <catalin.marinas-5wv7dgnIgG8@public.gmane.org>
-Cc: Mark Rutland <mark.rutland-5wv7dgnIgG8@public.gmane.org>, Kate Stewart <kstewart-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, kvm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Peter Zijlstra <peterz-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, Will Deacon <will.deacon-5wv7dgnIgG8@public.gmane.org>, Alexei Starovoitov <ast-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Linux Memory Management List <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Eric Dumazet <edumazet-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Chintan Pandya <cpandya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>, Vincenzo Frascino <vincenzo.frascino-5wv7dgnIgG8@public.gmane.org>, Shuah Khan <shuah-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Ingo Molnar <mingo-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, linux-arch <linux-arch-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Jacob Bramley <Jacob.Bramley-5wv7dgnIgG8@public.gmane.org>, Daniel Borkmann <daniel-FeC+5ew28dpmcu3hnIyYJQ@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Szabolcs Nagy <Szabolcs.Nagy-5wv7dgnIgG8@public.gmane.org>, Ingo Molnar <mingo-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Dmitry Vyukov <dvyukov@go>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Daenzer,
+ Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>, "Zhang, Jerry" <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>, "Huang,
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 
-T24gTW9uLCBBcHIgMSwgMjAxOSBhdCA2OjQ0IFBNIEFuZHJleSBLb25vdmFsb3YgPGFuZHJleWtu
-dmxAZ29vZ2xlLmNvbT4gd3JvdGU6Cj4KPiBPbiBGcmksIE1hciAyMiwgMjAxOSBhdCA0OjQxIFBN
-IENhdGFsaW4gTWFyaW5hcyA8Y2F0YWxpbi5tYXJpbmFzQGFybS5jb20+IHdyb3RlOgo+ID4KPiA+
-IE9uIFdlZCwgTWFyIDIwLCAyMDE5IGF0IDAzOjUxOjI0UE0gKzAxMDAsIEFuZHJleSBLb25vdmFs
-b3Ygd3JvdGU6Cj4gPiA+IEBAIC0yMTIwLDEzICsyMTM1LDE0IEBAIHN0YXRpYyBpbnQgcHJjdGxf
-c2V0X21tKGludCBvcHQsIHVuc2lnbmVkIGxvbmcgYWRkciwKPiA+ID4gICAgICAgaWYgKG9wdCA9
-PSBQUl9TRVRfTU1fQVVYVikKPiA+ID4gICAgICAgICAgICAgICByZXR1cm4gcHJjdGxfc2V0X2F1
-eHYobW0sIGFkZHIsIGFyZzQpOwo+ID4gPgo+ID4gPiAtICAgICBpZiAoYWRkciA+PSBUQVNLX1NJ
-WkUgfHwgYWRkciA8IG1tYXBfbWluX2FkZHIpCj4gPiA+ICsgICAgIGlmICh1bnRhZ2dlZF9hZGRy
-KGFkZHIpID49IFRBU0tfU0laRSB8fAo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgdW50YWdn
-ZWRfYWRkcihhZGRyKSA8IG1tYXBfbWluX2FkZHIpCj4gPiA+ICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7Cj4gPiA+Cj4gPiA+ICAgICAgIGVycm9yID0gLUVJTlZBTDsKPiA+ID4KPiA+ID4g
-ICAgICAgZG93bl93cml0ZSgmbW0tPm1tYXBfc2VtKTsKPiA+ID4gLSAgICAgdm1hID0gZmluZF92
-bWEobW0sIGFkZHIpOwo+ID4gPiArICAgICB2bWEgPSBmaW5kX3ZtYShtbSwgdW50YWdnZWRfYWRk
-cihhZGRyKSk7Cj4gPiA+Cj4gPiA+ICAgICAgIHByY3RsX21hcC5zdGFydF9jb2RlICAgID0gbW0t
-PnN0YXJ0X2NvZGU7Cj4gPiA+ICAgICAgIHByY3RsX21hcC5lbmRfY29kZSAgICAgID0gbW0tPmVu
-ZF9jb2RlOwo+ID4KPiA+IERvZXMgdGhpcyBtZWFuIHRoYXQgd2UgYXJlIGxlZnQgd2l0aCB0YWdn
-ZWQgYWRkcmVzc2VzIGZvciB0aGUKPiA+IG1tLT5zdGFydF9jb2RlIGV0Yy4gdmFsdWVzPyBJIHJl
-YWxseSBkb24ndCB0aGluayB3ZSBzaG91bGQgYWxsb3cgdGhpcywKPiA+IEknbSBub3Qgc3VyZSB3
-aGF0IHRoZSBpbXBsaWNhdGlvbnMgYXJlIGluIG90aGVyIHBhcnRzIG9mIHRoZSBrZXJuZWwuCj4g
-Pgo+ID4gQXJndWFibHksIHRoZXNlIGFyZSBub3QgZXZlbiBwb2ludGVyIHZhbHVlcyBidXQgc29t
-ZSBhZGRyZXNzIHJhbmdlcy4gSQo+ID4ga25vdyB3ZSBkZWNpZGVkIHRvIHJlbGF4IHRoaXMgbm90
-aW9uIGZvciBtbWFwL21wcm90ZWN0L21hZHZpc2UoKSBzaW5jZQo+ID4gdGhlIHVzZXIgZnVuY3Rp
-b24gcHJvdG90eXBlcyB0YWtlIHBvaW50ZXIgYXMgYXJndW1lbnRzIGJ1dCBpdCBmZWVscyBsaWtl
-Cj4gPiB3ZSBhcmUgb3ZlcmRvaW5nIGl0IGhlcmUgKHN0cnVjdCBwcmN0bF9tbV9tYXAgZG9lc24n
-dCBldmVuIGhhdmUKPiA+IHBvaW50ZXJzKS4KPiA+Cj4gPiBXaGF0IGlzIHRoZSB1c2UtY2FzZSBm
-b3IgYWxsb3dpbmcgdGFnZ2VkIGFkZHJlc3NlcyBoZXJlPyBDYW4gdXNlciBzcGFjZQo+ID4gaGFu
-ZGxlIHVudGFnZ2luZz8KPgo+IEkgZG9uJ3Qga25vdyBhbnkgdXNlIGNhc2VzIGZvciB0aGlzLiBJ
-IGRpZCBpdCBiZWNhdXNlIGl0IHNlZW1zIHRvIGJlCj4gY292ZXJlZCBieSB0aGUgcmVsYXhlZCBB
-QkkuIEknbSBub3QgZW50aXJlbHkgc3VyZSB3aGF0IHRvIGRvIGhlcmUsCj4gc2hvdWxkIEkganVz
-dCBkcm9wIHRoaXMgcGF0Y2g/CgpwaW5nCgo+Cj4gPgo+ID4gLS0KPiA+IENhdGFsaW4KX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0299930241==
+Content-Type: multipart/signed; boundary="nextPart5275573.qyYc03lapt"; micalg="pgp-sha256"; protocol="application/pgp-signature"
+
+--nextPart5275573.qyYc03lapt
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="UTF-8"
+
+Dnia czwartek, 11 kwietnia 2019 19:31:27 CEST piszesz:
+> Yeah, that is a known issue and already fixed in amd-staging-drm-next.
+>=20
+> You just need to wait for the public mirror to update.
+>=20
+> Christian.
+>=20
+> Am 11.04.19 um 18:53 schrieb Przemek Socha:
+>=20
+> > Hi All,
+> > after today's sync with amd-staging-drm-next branch I have problems with
+> > my
+ Mullins APU Netbook.
+> > Kernel log is flooded with "[TTM] Erroneous page count. Leaking pages."
+> > message.
+> >
+> >
+> >
+> > Bisected, and it seems that "drm/ttm: fix start page for huge page check
+> > in
+ ttm_put_pages()" commit is causing this.
+> >
+> >
+> >
+> > git bisect log:
+> > git bisect start
+> > # good: [c2af9f9e84183a4dbcb53a74abbe3362dc181682] drm/amd/display: fix
+> > cursor
+ black issue
+> > git bisect good c2af9f9e84183a4dbcb53a74abbe3362dc181682
+> > # bad: [b07c394a327fc9e435ee03288584c111fa73d963] drm/amd/display: fix =
+is
+> > odm
+ head pipe logic
+> > git bisect bad b07c394a327fc9e435ee03288584c111fa73d963
+> > # bad: [367fa96ad66fef31bf73916cf4949c475f42563f] drm/amd/display: use
+> > proper
+ formula to calculate bandwidth from timing
+> > git bisect bad 367fa96ad66fef31bf73916cf4949c475f42563f
+> > # good: [94275c6d27deebbce5055e1bb1959986051b93f2] drm/amdgpu: Add a ch=
+eck
+> > to
+ avoid panic because of unexpected irqs
+> > git bisect good 94275c6d27deebbce5055e1bb1959986051b93f2
+> > # bad: [8198a32b1211c6f625623bae22629cf852531097] drm/amd/display:
+> > Initialize
+ stream_update with memset
+> > git bisect bad 8198a32b1211c6f625623bae22629cf852531097
+> > # bad: [e16858a7e6e7dc00345703682d490b96f2883b99] drm/ttm: fix start pa=
+ge
+> > for
+ huge page check in ttm_put_pages()
+> > git bisect bad e16858a7e6e7dc00345703682d490b96f2883b99
+> > # good: [b414dfd1f975bbf4c9ee4600f9bedcf77bae84ed] drm/ttm: fix
+> > out-of-bounds
+ read in ttm_put_pages() v2
+> > git bisect good b414dfd1f975bbf4c9ee4600f9bedcf77bae84ed
+> > # first bad commit: [e16858a7e6e7dc00345703682d490b96f2883b99] drm/ttm:
+> > fix
+ start page for huge page check in ttm_put_pages()
+> >
+> >
+> >
+> > e16858a7e6e7dc00345703682d490b96f2883b99 is the first bad commit
+> > commit e16858a7e6e7dc00345703682d490b96f2883b99
+> > Author: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> > Date:   Tue Apr 2 09:29:35 2019 +0200
+> >
+> >
+> >
+> >      drm/ttm: fix start page for huge page check in ttm_put_pages()
+> >     =20
+> >      The first page entry is always the same with itself.
+> >     =20
+> >      Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> >      Reviewed-by: Michel D=C3=A4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+> >      Reviewed-by: Junwei Zhang <Jerry.Zhang-5C7GfCeVMHo@public.gmane.org>
+> >      Reviewed-by: Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>
+> >
+> >
+> >
+> > Any help is appreciated.
+> > Thanks,
+> > Przemek.
+>=20
+>=20
+
+Thanks, and sorry about all the fuss.
+Przemek.
+--nextPart5275573.qyYc03lapt
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEE2zcce+zboy/je1pmPMstj1lsVJMFAlyviloACgkQPMstj1ls
+VJMXkg//U+2mgk3xYOOziCYlhDk0ZlzIfWKkv14CYCZotKZZP7fW5M611JUq/wm9
++PMM3D6zCFX4Py+SmQFkNIUOn5NJG+IphxHBUkLH81to4UoE4tG7Q84BLDQb3w5F
+XQ4JvCu9zPRMoFJm7IUsD4xZ6BNi/uZeR9j27zKzB0CnO0MihZmW6Hu6m8SE3R2Y
+k4nIT1Bvvtv29u58mPytcoX1oPgGY+6SZ5YGQnYiuzLxEz9ayEGFEqriyf1oktop
+dv6Lj1n18uf5nn6WlYvVkUEmMwwItWIjYSvz+qaJWZQYt7WRWfk4to0G8YJR1XCV
+qs2bIbapQF+yhvPoH12KYD3p7QDmx+gqHF8xjDo3lW+1oVzXFKE9ZbS6ruY2BfCo
+7ub/FWkY58bvrt/4VBzLMohud204XtyNhERGuIDDw9OpQ6Loz6rEOEo8k0KUNpo/
+NSaQFCnrsbkbTDM11DHW/A6K4ycEasexpdFNXNW+jW7wemQ9zjZrsMhU6Ak+W9J1
+oP7gk2nFSxKCuBCgFdMFK6rXDR67luEY3xmcvGJnBz8Vr8aqM6qWI5RO3xE598zx
+eBUh8Rzj5S+OvVd72OolHJhz1zEI4vNSZO2T5Ry3xhtDcV4/n9dJuS9WQwq8tx4G
+Pv+XWNVmfjWOalaF9ATQ0Z19KyolQB1dvLyQSaKc8zCitxfhdao=
+=SLFz
+-----END PGP SIGNATURE-----
+
+--nextPart5275573.qyYc03lapt--
+
+
+
+
+--===============0299930241==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0299930241==--
