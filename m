@@ -1,45 +1,42 @@
-From: wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: shadow in shadow_list without tbo.mem.start cause
- page fault in sriov TDR
-Date: Fri, 12 Apr 2019 15:13:50 +0800
-Message-ID: <1555053230-5963-1-git-send-email-Wentao.Lou@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gmc8: fix VM_L2_CNTL3 programming
+Date: Fri, 12 Apr 2019 09:20:01 +0200
+Message-ID: <f40b865a-5b9e-a6e6-b95f-79586ee6f794@gmail.com>
+References: <20190411195717.30117-1-alexander.deucher@amd.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190411195717.30117-1-alexander.deucher@amd.com>
+Content-Language: en-US
+Sender: stable-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-c2hhZG93IHdhcyBhZGRlZCBpbnRvIHNoYWRvd19saXN0IGJ5IGFtZGdwdV9ib19jcmVhdGVfc2hh
-ZG93LgptZWFud2hpbGUsIHNoYWRvdy0+dGJvLm1lbSB3YXMgbm90IGZ1bGx5IGNvbmZpZ3VyZWQu
-CnRiby5tZW0gd291bGQgYmUgZnVsbHkgY29uZmlndXJlZCBieSBhbWRncHVfdm1fc2RtYV9tYXBf
-dGFibGUgdW50aWwgY2FsbGluZyBhbWRncHVfdm1fY2xlYXJfYm8uCklmIHNyaW92IFREUiBvY2N1
-cnJlZCBiZXR3ZWVuIGFtZGdwdV9ib19jcmVhdGVfc2hhZG93IGFuZCBhbWRncHVfdm1fc2RtYV9t
-YXBfdGFibGUsCmFtZGdwdV9kZXZpY2VfcmVjb3Zlcl92cmFtIHdvdWxkIGRlYWwgd2l0aCBzaGFk
-b3cgd2l0aG91dCB0Ym8ubWVtLnN0YXJ0LgoKQ2hhbmdlLUlkOiBJMWE2YTY5NTg3ZDZjNjg5ZDBh
-MzU3ZGQ0OTVlZTQ0ODMzZDBmMDc5MApTaWduZWQtb2ZmLWJ5OiBXZW50YW8gTG91IDxXZW50YW8u
-TG91QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rldmlj
-ZS5jIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggMzc4NTE5NS4uYmU4OGQwNiAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzE4NCw2ICsz
-MTg0LDcgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX3JlY292ZXJfdnJhbShzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikKIAogCQkvKiBObyBuZWVkIHRvIHJlY292ZXIgYW4gZXZpY3RlZCBC
-TyAqLwogCQlpZiAoc2hhZG93LT50Ym8ubWVtLm1lbV90eXBlICE9IFRUTV9QTF9UVCB8fAorCQkg
-ICAgc2hhZG93LT50Ym8ubWVtLnN0YXJ0ID09IEFNREdQVV9CT19JTlZBTElEX09GRlNFVCB8fAog
-CQkgICAgc2hhZG93LT5wYXJlbnQtPnRiby5tZW0ubWVtX3R5cGUgIT0gVFRNX1BMX1ZSQU0pCiAJ
-CQljb250aW51ZTsKIAotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA==
+Am 11.04.19 um 21:57 schrieb Alex Deucher:
+> Got accidently dropped when 2+1 level support was added.
+>
+> Fixes: 6a42fd6fbf534096 ("drm/amdgpu: implement 2+1 PD support for Raven v3")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+
+Reviewed-by: Christian König <christian.koenig@amd.com>
+
+> Cc: stable@vger.kernel.org
+> ---
+>   drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> index 1741056e6af6..41a9a5779623 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+> @@ -182,6 +182,7 @@ static void mmhub_v1_0_init_cache_regs(struct amdgpu_device *adev)
+>   		tmp = REG_SET_FIELD(tmp, VM_L2_CNTL3,
+>   				    L2_CACHE_BIGK_FRAGMENT_SIZE, 6);
+>   	}
+> +	WREG32_SOC15(MMHUB, 0, mmVM_L2_CNTL3, tmp);
+>   
+>   	tmp = mmVM_L2_CNTL4_DEFAULT;
+>   	tmp = REG_SET_FIELD(tmp, VM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 0);
