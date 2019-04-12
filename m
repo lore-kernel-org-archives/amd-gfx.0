@@ -1,301 +1,253 @@
 From: Helen Koike <helen.koike@collabora.com>
-Subject: [PATCH RFC v3 4/4] drm/atomic: hook atomic_async_{check,update} with PAGE_FLIP_ASYNC flag
-Date: Fri, 12 Apr 2019 09:58:27 -0300
-Message-ID: <20190412125827.5877-5-helen.koike@collabora.com>
+Subject: Re: [PATCH RFC v3 4/4] drm/atomic: hook atomic_async_{check,update}
+ with PAGE_FLIP_ASYNC flag
+Date: Fri, 12 Apr 2019 10:39:40 -0300
+Message-ID: <6bd78124-8758-d642-7235-ffb772ce4694@collabora.com>
 References: <20190412125827.5877-1-helen.koike@collabora.com>
+ <20190412125827.5877-5-helen.koike@collabora.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190412125827.5877-1-helen.koike@collabora.com>
-Sender: linux-kernel-owner@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190412125827.5877-5-helen.koike@collabora.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>
-Cc: dnicoara@chromium.org, daniels@collabora.com, alexandros.frantzis@collabora.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, tomasz Figa <tfiga@chromium.org>, tina.zhang@intel.com, boris.brezillon@collabora.com, Sean Paul <seanpaul@google.com>, kernel@collabora.com, nicholas.kazlauskas@amd.com, =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@google.com>, Gustavo Padovan <gustavo.padovan@collabora.com>, Helen Koike <helen.koike@collabora.com>, Sean Paul <sean@poorly.run>, Sandy Huang <hjc@rock-chips.com>, Thomas Zimmermann <tzimmermann@suse.de>, Harry Wentland <harry.wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+Cc: Sean Paul <seanpaul@google.com>, alexandros.frantzis@collabora.com, Maxime Ripard <maxime.ripard@bootlin.com>, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, Mamta Shukla <mamtashukla555@gmail.com>, tina.zhang@intel.com, kernel@collabora.com, Anthony Koo <Anthony.Koo@amd.com>, linux-rockchip@lists.infradead.org, Sean Paul <sean@poorly.run>, David Francis <David.Francis@amd.com>, amd-gfx@lists.freedesktop.org, Gustavo Padovan <gustavo.padovan@collabora.com>, daniels@collabora.com, Leo Li <sunpeng.li@amd.com>, linux-arm-msm@vger.kernel.org, Russell King <rmk+kernel@armlinux.org.uk>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, linux-arm-kernel@lists.infradead.org, dnicoara@chromium.org, =?UTF-8?Q?St=c3=a9phane_Marchesin?= <marcheu@google.com>, tomasz Figa <tfiga@chromium.org>, boris.brezillon@collabora.com, Thomas Zimmermann <tzimmermann@suse.de>Alex Deucher <a>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Add atomic_async_{check,update} hooks in drm_plane_helper_funcs.
-These hooks are called when userspace requests asyncronous page flip in
-the atomic api through the flag DRM_MODE_PAGE_FLIP_ASYNC.
-
-Update those hooks in the drivers that implement async functions, except
-for amdgpu who handles the flag in the normal path, and rockchip who
-doesn't support async page flip.
-
-Signed-off-by: Helen Koike <helen.koike@collabora.com>
-
----
-Hi,
-
-This patch is an attempt to expose the implementation that already exist
-for true async page flips updates through atomic api when the
-DRM_MODE_PAGE_FLIP_ASYNC is used.
-
-In this commit I'm re-introducing the atomic_async_{check,update} hooks.
-I know it is a bit weird to remove them first and them re-add them, but
-I did this in the last commit to avoid any state of inconsistency
-between commits, as rockchip doesn't support async page flip and they were
-being used as amend.
-So I reverted to amend first and then re-introced async again
-tied to the DRM_MODE_PAGE_FLIP_ASYNC flag (I also think this is easier
-to read).
-
-To use async, it is required to have
-dev->mode_config.async_page_flip = true;
-but I see that only amdgpu and vc4 have this, so this patch won't take
-effect on mdp5.
-Nouveau and radeon also have this flag, but they don't implement the
-async hooks yet.
-
-Please let me know what you think.
-
-Thanks
-Helen
-
-Changes in v3: None
-Changes in v2: None
-Changes in v1: None
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++
- drivers/gpu/drm/drm_atomic_helper.c           | 31 ++++++++++++----
- drivers/gpu/drm/drm_atomic_uapi.c             |  3 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c    |  2 +
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c   |  4 ++
- drivers/gpu/drm/vc4/vc4_plane.c               |  2 +
- include/drm/drm_atomic.h                      |  2 +
- include/drm/drm_atomic_helper.h               |  9 +++--
- include/drm/drm_modeset_helper_vtables.h      | 37 +++++++++++++++++++
- 9 files changed, 83 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 711e7715e112..bb8a5f1997d6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3785,6 +3785,11 @@ static const struct drm_plane_helper_funcs dm_plane_helper_funcs = {
- 	 */
- 	.atomic_amend_check = dm_plane_atomic_async_check,
- 	.atomic_amend_update = dm_plane_atomic_async_update
-+	/*
-+	 * Note: amdgpu takes care of DRM_MODE_PAGE_FLIP_ASYNC flag in the
-+	 * normal commit path, thus .atomic_async_check and .atomic_async_update
-+	 * are not provided here.
-+	 */
- };
- 
- /*
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 9b0df08836c3..bfcf88359de5 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -947,16 +947,31 @@ int drm_atomic_helper_check(struct drm_device *dev,
- 	if (ret)
- 		return ret;
- 
-+	/*
-+	 * If async page flip was explicitly requested, but it is not possible,
-+	 * return error instead of falling back to a normal commit.
-+	 * If async_amend_check returns -EOPNOTSUPP, it means
-+	 * ->atomic_async_update hook doesn't exist, so fallback to normal
-+	 *  commit and let the driver handle DRM_MODE_PAGE_FLIP_ASYNC flag
-+	 *  through normal commit code path.
-+	 */
-+	if (state->async_update) {
-+		ret = drm_atomic_helper_async_amend_check(dev, state, false);
-+		state->async_update = !ret;
-+		return !ret || ret == -EOPNOTSUPP ? 0 : ret;
-+	}
-+
- 	/*
- 	 * If amend was explicitly requested, but it is not possible,
- 	 * return error instead of falling back to a normal commit.
- 	 */
- 	if (state->amend_update)
--		return drm_atomic_helper_amend_check(dev, state);
-+		return drm_atomic_helper_async_amend_check(dev, state, true);
- 
- 	/* Legacy mode falls back to a normal commit if amend isn't possible. */
- 	if (state->legacy_cursor_update)
--		state->amend_update = !drm_atomic_helper_amend_check(dev, state);
-+		state->amend_update =
-+			!drm_atomic_helper_async_amend_check(dev, state, true);
- 
- 	return 0;
- }
-@@ -1651,8 +1666,9 @@ static void commit_work(struct work_struct *work)
-  * if not. Note that error just mean it can't be committed in amend mode, if it
-  * fails the commit should be treated like a normal commit.
-  */
--int drm_atomic_helper_amend_check(struct drm_device *dev,
--				   struct drm_atomic_state *state)
-+int drm_atomic_helper_async_amend_check(struct drm_device *dev,
-+					struct drm_atomic_state *state,
-+					bool amend)
- {
- 	struct drm_crtc *crtc;
- 	struct drm_crtc_state *crtc_state;
-@@ -1695,7 +1711,7 @@ int drm_atomic_helper_amend_check(struct drm_device *dev,
- 		return -EINVAL;
- 
- 	/* Only allow amend update for cursor type planes. */
--	if (plane->type != DRM_PLANE_TYPE_CURSOR)
-+	if (amend && plane->type != DRM_PLANE_TYPE_CURSOR)
- 		return -EINVAL;
- 
- 	/*
-@@ -1707,9 +1723,10 @@ int drm_atomic_helper_amend_check(struct drm_device *dev,
- 	    !try_wait_for_completion(&old_plane_state->commit->hw_done))
- 		return -EBUSY;
- 
--	return funcs->atomic_amend_check(plane, new_plane_state);
-+	return amend ? funcs->atomic_amend_check(plane, new_plane_state) :
-+		       funcs->atomic_async_check(plane, new_plane_state);
- }
--EXPORT_SYMBOL(drm_atomic_helper_amend_check);
-+EXPORT_SYMBOL(drm_atomic_helper_async_amend_check);
- 
- /**
-  * drm_atomic_helper_amend_commit - commit state in amend mode
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index d1962cdea602..1d9a6142218e 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1312,8 +1312,9 @@ int drm_mode_atomic_ioctl(struct drm_device *dev,
- 	drm_modeset_acquire_init(&ctx, DRM_MODESET_ACQUIRE_INTERRUPTIBLE);
- 	state->acquire_ctx = &ctx;
- 	state->allow_modeset = !!(arg->flags & DRM_MODE_ATOMIC_ALLOW_MODESET);
-+	state->async_update = !!(arg->flags & DRM_MODE_PAGE_FLIP_ASYNC);
- 	/* async takes precedence over amend */
--	state->amend_update = arg->flags & DRM_MODE_PAGE_FLIP_ASYNC ? 0 :
-+	state->amend_update = state->async_update ? 0 :
- 					!!(arg->flags & DRM_MODE_ATOMIC_AMEND);
- 
- retry:
-diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-index 814e8230cec6..e3b2a2c74852 100644
---- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-+++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c
-@@ -531,6 +531,8 @@ static const struct drm_plane_helper_funcs mdp5_plane_helper_funcs = {
- 		.cleanup_fb = mdp5_plane_cleanup_fb,
- 		.atomic_check = mdp5_plane_atomic_check,
- 		.atomic_update = mdp5_plane_atomic_update,
-+		.atomic_async_check = mdp5_plane_atomic_async_check,
-+		.atomic_async_update = mdp5_plane_atomic_async_update,
- 		/*
- 		 * FIXME: ideally, instead of hooking async updates to amend,
- 		 * we could avoid tearing by modifying the pending commit.
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-index 216ad76118dc..c2f7201e52a9 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop.c
-@@ -954,6 +954,10 @@ static const struct drm_plane_helper_funcs plane_helper_funcs = {
- 	.atomic_disable = vop_plane_atomic_disable,
- 	.atomic_amend_check = vop_plane_atomic_amend_check,
- 	.atomic_amend_update = vop_plane_atomic_amend_update,
-+	/*
-+	 * Note: rockchip doesn't support async page flip, thus
-+	 * .atomic_async_update and .atomic_async_check are not provided.
-+	 */
- 	.prepare_fb = drm_gem_fb_prepare_fb,
- };
- 
-diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
-index ea560000222d..24a9befe89e6 100644
---- a/drivers/gpu/drm/vc4/vc4_plane.c
-+++ b/drivers/gpu/drm/vc4/vc4_plane.c
-@@ -1175,6 +1175,8 @@ static const struct drm_plane_helper_funcs vc4_plane_helper_funcs = {
- 	 */
- 	.atomic_amend_check = vc4_plane_atomic_async_check,
- 	.atomic_amend_update = vc4_plane_atomic_async_update,
-+	.atomic_async_check = vc4_plane_atomic_async_check,
-+	.atomic_async_update = vc4_plane_atomic_async_update,
- };
- 
- static void vc4_plane_destroy(struct drm_plane *plane)
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index b1ced069ffc1..05756a09e762 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -300,6 +300,7 @@ struct __drm_private_objs_state {
-  * @ref: count of all references to this state (will not be freed until zero)
-  * @dev: parent DRM device
-  * @legacy_cursor_update: hint to enforce legacy cursor IOCTL semantics
-+ * @async_update: hint for asyncronous page flip update
-  * @amend_update: hint for amend plane update
-  * @planes: pointer to array of structures with per-plane data
-  * @crtcs: pointer to array of CRTC pointers
-@@ -328,6 +329,7 @@ struct drm_atomic_state {
- 	 */
- 	bool allow_modeset : 1;
- 	bool legacy_cursor_update : 1;
-+	bool async_update : 1;
- 	bool amend_update : 1;
- 	/**
- 	 * @duplicated:
-diff --git a/include/drm/drm_atomic_helper.h b/include/drm/drm_atomic_helper.h
-index 8ce0594ccfb9..39e57d559a30 100644
---- a/include/drm/drm_atomic_helper.h
-+++ b/include/drm/drm_atomic_helper.h
-@@ -55,10 +55,11 @@ void drm_atomic_helper_commit_tail_rpm(struct drm_atomic_state *state);
- int drm_atomic_helper_commit(struct drm_device *dev,
- 			     struct drm_atomic_state *state,
- 			     bool nonblock);
--int drm_atomic_helper_amend_check(struct drm_device *dev,
--				  struct drm_atomic_state *state);
--void drm_atomic_helper_amend_commit(struct drm_device *dev,
--				    struct drm_atomic_state *state);
-+int drm_atomic_helper_async_amend_check(struct drm_device *dev,
-+					struct drm_atomic_state *state,
-+					bool amend);
-+void drm_atomic_helper_async_amend_commit(struct drm_device *dev,
-+					  struct drm_atomic_state *state);
- 
- int drm_atomic_helper_wait_for_fences(struct drm_device *dev,
- 					struct drm_atomic_state *state,
-diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-index d92e62dd76c4..c2863d62f160 100644
---- a/include/drm/drm_modeset_helper_vtables.h
-+++ b/include/drm/drm_modeset_helper_vtables.h
-@@ -1135,6 +1135,43 @@ struct drm_plane_helper_funcs {
- 	void (*atomic_disable)(struct drm_plane *plane,
- 			       struct drm_plane_state *old_state);
- 
-+	/**
-+	 * @atomic_async_check:
-+	 *
-+	 * Drivers should set this function pointer to check if a page flip can
-+	 * be performed asynchronously, i.e., immediately without waiting for a
-+	 * vblank.
-+	 *
-+	 * This hook is called by drm_atomic_async_check() to establish if a
-+	 * given update can be committed in async mode, that is, if it can
-+	 * jump ahead of the state currently queued for update.
-+	 *
-+	 * RETURNS:
-+	 *
-+	 * Return 0 on success and any error returned indicates that the update
-+	 * can not be applied in asynd mode.
-+	 */
-+	int (*atomic_async_check)(struct drm_plane *plane,
-+				  struct drm_plane_state *state);
-+
-+	/**
-+	 * @atomic_async_update:
-+	 *
-+	 * Drivers should set this function pointer to perform asynchronous page
-+	 * flips through the atomic api, i.e. not vblank synchronized.
-+	 *
-+	 * Note that unlike &drm_plane_helper_funcs.atomic_update this hook
-+	 * takes the new &drm_plane_state as parameter. When doing async_update
-+	 * drivers shouldn't replace the &drm_plane_state but update the
-+	 * current one with the new plane configurations in the new
-+	 * plane_state.
-+	 *
-+	 * FIXME:
-+	 *  - It only works for single plane updates
-+	 */
-+	void (*atomic_async_update)(struct drm_plane *plane,
-+				    struct drm_plane_state *new_state);
-+
- 	/**
- 	 * @atomic_amend_check:
- 	 *
--- 
-2.20.1
+CgpPbiA0LzEyLzE5IDk6NTggQU0sIEhlbGVuIEtvaWtlIHdyb3RlOgo+IEFkZCBhdG9taWNfYXN5
+bmNfe2NoZWNrLHVwZGF0ZX0gaG9va3MgaW4gZHJtX3BsYW5lX2hlbHBlcl9mdW5jcy4KPiBUaGVz
+ZSBob29rcyBhcmUgY2FsbGVkIHdoZW4gdXNlcnNwYWNlIHJlcXVlc3RzIGFzeW5jcm9ub3VzIHBh
+Z2UgZmxpcCBpbgo+IHRoZSBhdG9taWMgYXBpIHRocm91Z2ggdGhlIGZsYWcgRFJNX01PREVfUEFH
+RV9GTElQX0FTWU5DLgo+IAo+IFVwZGF0ZSB0aG9zZSBob29rcyBpbiB0aGUgZHJpdmVycyB0aGF0
+IGltcGxlbWVudCBhc3luYyBmdW5jdGlvbnMsIGV4Y2VwdAo+IGZvciBhbWRncHUgd2hvIGhhbmRs
+ZXMgdGhlIGZsYWcgaW4gdGhlIG5vcm1hbCBwYXRoLCBhbmQgcm9ja2NoaXAgd2hvCj4gZG9lc24n
+dCBzdXBwb3J0IGFzeW5jIHBhZ2UgZmxpcC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBIZWxlbiBLb2lr
+ZSA8aGVsZW4ua29pa2VAY29sbGFib3JhLmNvbT4KPiAKPiAtLS0KPiBIaSwKPiAKPiBUaGlzIHBh
+dGNoIGlzIGFuIGF0dGVtcHQgdG8gZXhwb3NlIHRoZSBpbXBsZW1lbnRhdGlvbiB0aGF0IGFscmVh
+ZHkgZXhpc3QKPiBmb3IgdHJ1ZSBhc3luYyBwYWdlIGZsaXBzIHVwZGF0ZXMgdGhyb3VnaCBhdG9t
+aWMgYXBpIHdoZW4gdGhlCj4gRFJNX01PREVfUEFHRV9GTElQX0FTWU5DIGlzIHVzZWQuCj4gCj4g
+SW4gdGhpcyBjb21taXQgSSdtIHJlLWludHJvZHVjaW5nIHRoZSBhdG9taWNfYXN5bmNfe2NoZWNr
+LHVwZGF0ZX0gaG9va3MuCj4gSSBrbm93IGl0IGlzIGEgYml0IHdlaXJkIHRvIHJlbW92ZSB0aGVt
+IGZpcnN0IGFuZCB0aGVtIHJlLWFkZCB0aGVtLCBidXQKPiBJIGRpZCB0aGlzIGluIHRoZSBsYXN0
+IGNvbW1pdCB0byBhdm9pZCBhbnkgc3RhdGUgb2YgaW5jb25zaXN0ZW5jeQo+IGJldHdlZW4gY29t
+bWl0cywgYXMgcm9ja2NoaXAgZG9lc24ndCBzdXBwb3J0IGFzeW5jIHBhZ2UgZmxpcCBhbmQgdGhl
+eSB3ZXJlCj4gYmVpbmcgdXNlZCBhcyBhbWVuZC4KPiBTbyBJIHJldmVydGVkIHRvIGFtZW5kIGZp
+cnN0IGFuZCB0aGVuIHJlLWludHJvY2VkIGFzeW5jIGFnYWluCj4gdGllZCB0byB0aGUgRFJNX01P
+REVfUEFHRV9GTElQX0FTWU5DIGZsYWcgKEkgYWxzbyB0aGluayB0aGlzIGlzIGVhc2llcgo+IHRv
+IHJlYWQpLgo+IAo+IFRvIHVzZSBhc3luYywgaXQgaXMgcmVxdWlyZWQgdG8gaGF2ZQo+IGRldi0+
+bW9kZV9jb25maWcuYXN5bmNfcGFnZV9mbGlwID0gdHJ1ZTsKPiBidXQgSSBzZWUgdGhhdCBvbmx5
+IGFtZGdwdSBhbmQgdmM0IGhhdmUgdGhpcywgc28gdGhpcyBwYXRjaCB3b24ndCB0YWtlCj4gZWZm
+ZWN0IG9uIG1kcDUuCj4gTm91dmVhdSBhbmQgcmFkZW9uIGFsc28gaGF2ZSB0aGlzIGZsYWcsIGJ1
+dCB0aGV5IGRvbid0IGltcGxlbWVudCB0aGUKPiBhc3luYyBob29rcyB5ZXQuCj4gCj4gUGxlYXNl
+IGxldCBtZSBrbm93IHdoYXQgeW91IHRoaW5rLgo+IAo+IFRoYW5rcwo+IEhlbGVuCj4gCj4gQ2hh
+bmdlcyBpbiB2MzogTm9uZQo+IENoYW5nZXMgaW4gdjI6IE5vbmUKPiBDaGFuZ2VzIGluIHYxOiBO
+b25lCj4gCj4gIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8
+ICA1ICsrKwo+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19oZWxwZXIuYyAgICAgICAgICAg
+fCAzMSArKysrKysrKysrKystLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX3VhcGku
+YyAgICAgICAgICAgICB8ICAzICstCj4gIGRyaXZlcnMvZ3B1L2RybS9tc20vZGlzcC9tZHA1L21k
+cDVfcGxhbmUuYyAgICB8ICAyICsKPiAgZHJpdmVycy9ncHUvZHJtL3JvY2tjaGlwL3JvY2tjaGlw
+X2RybV92b3AuYyAgIHwgIDQgKysKPiAgZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfcGxhbmUuYyAg
+ICAgICAgICAgICAgIHwgIDIgKwo+ICBpbmNsdWRlL2RybS9kcm1fYXRvbWljLmggICAgICAgICAg
+ICAgICAgICAgICAgfCAgMiArCj4gIGluY2x1ZGUvZHJtL2RybV9hdG9taWNfaGVscGVyLmggICAg
+ICAgICAgICAgICB8ICA5ICsrKy0tCj4gIGluY2x1ZGUvZHJtL2RybV9tb2Rlc2V0X2hlbHBlcl92
+dGFibGVzLmggICAgICB8IDM3ICsrKysrKysrKysrKysrKysrKysKPiAgOSBmaWxlcyBjaGFuZ2Vk
+LCA4MyBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPiBpbmRleCA3MTFlNzcx
+NWUxMTIuLmJiOGE1ZjE5OTdkNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9k
+aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwo+IEBAIC0zNzg1LDYgKzM3ODUsMTEgQEAgc3Rh
+dGljIGNvbnN0IHN0cnVjdCBkcm1fcGxhbmVfaGVscGVyX2Z1bmNzIGRtX3BsYW5lX2hlbHBlcl9m
+dW5jcyA9IHsKPiAgCSAqLwo+ICAJLmF0b21pY19hbWVuZF9jaGVjayA9IGRtX3BsYW5lX2F0b21p
+Y19hc3luY19jaGVjaywKPiAgCS5hdG9taWNfYW1lbmRfdXBkYXRlID0gZG1fcGxhbmVfYXRvbWlj
+X2FzeW5jX3VwZGF0ZQo+ICsJLyoKPiArCSAqIE5vdGU6IGFtZGdwdSB0YWtlcyBjYXJlIG9mIERS
+TV9NT0RFX1BBR0VfRkxJUF9BU1lOQyBmbGFnIGluIHRoZQo+ICsJICogbm9ybWFsIGNvbW1pdCBw
+YXRoLCB0aHVzIC5hdG9taWNfYXN5bmNfY2hlY2sgYW5kIC5hdG9taWNfYXN5bmNfdXBkYXRlCj4g
+KwkgKiBhcmUgbm90IHByb3ZpZGVkIGhlcmUuCj4gKwkgKi8KPiAgfTsKPiAgCj4gIC8qCj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX2hlbHBlci5jIGIvZHJpdmVycy9n
+cHUvZHJtL2RybV9hdG9taWNfaGVscGVyLmMKPiBpbmRleCA5YjBkZjA4ODM2YzMuLmJmY2Y4ODM1
+OWRlNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19oZWxwZXIuYwo+
+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX2hlbHBlci5jCj4gQEAgLTk0NywxNiAr
+OTQ3LDMxIEBAIGludCBkcm1fYXRvbWljX2hlbHBlcl9jaGVjayhzdHJ1Y3QgZHJtX2RldmljZSAq
+ZGV2LAo+ICAJaWYgKHJldCkKPiAgCQlyZXR1cm4gcmV0Owo+ICAKPiArCS8qCj4gKwkgKiBJZiBh
+c3luYyBwYWdlIGZsaXAgd2FzIGV4cGxpY2l0bHkgcmVxdWVzdGVkLCBidXQgaXQgaXMgbm90IHBv
+c3NpYmxlLAo+ICsJICogcmV0dXJuIGVycm9yIGluc3RlYWQgb2YgZmFsbGluZyBiYWNrIHRvIGEg
+bm9ybWFsIGNvbW1pdC4KPiArCSAqIElmIGFzeW5jX2FtZW5kX2NoZWNrIHJldHVybnMgLUVPUE5P
+VFNVUFAsIGl0IG1lYW5zCj4gKwkgKiAtPmF0b21pY19hc3luY191cGRhdGUgaG9vayBkb2Vzbid0
+IGV4aXN0LCBzbyBmYWxsYmFjayB0byBub3JtYWwKPiArCSAqICBjb21taXQgYW5kIGxldCB0aGUg
+ZHJpdmVyIGhhbmRsZSBEUk1fTU9ERV9QQUdFX0ZMSVBfQVNZTkMgZmxhZwo+ICsJICogIHRocm91
+Z2ggbm9ybWFsIGNvbW1pdCBjb2RlIHBhdGguCj4gKwkgKi8KPiArCWlmIChzdGF0ZS0+YXN5bmNf
+dXBkYXRlKSB7Cj4gKwkJcmV0ID0gZHJtX2F0b21pY19oZWxwZXJfYXN5bmNfYW1lbmRfY2hlY2so
+ZGV2LCBzdGF0ZSwgZmFsc2UpOwo+ICsJCXN0YXRlLT5hc3luY191cGRhdGUgPSAhcmV0Owo+ICsJ
+CXJldHVybiAhcmV0IHx8IHJldCA9PSAtRU9QTk9UU1VQUCA/IDAgOiByZXQ7Cj4gKwl9Cj4gKwo+
+ICAJLyoKPiAgCSAqIElmIGFtZW5kIHdhcyBleHBsaWNpdGx5IHJlcXVlc3RlZCwgYnV0IGl0IGlz
+IG5vdCBwb3NzaWJsZSwKPiAgCSAqIHJldHVybiBlcnJvciBpbnN0ZWFkIG9mIGZhbGxpbmcgYmFj
+ayB0byBhIG5vcm1hbCBjb21taXQuCj4gIAkgKi8KPiAgCWlmIChzdGF0ZS0+YW1lbmRfdXBkYXRl
+KQo+IC0JCXJldHVybiBkcm1fYXRvbWljX2hlbHBlcl9hbWVuZF9jaGVjayhkZXYsIHN0YXRlKTsK
+PiArCQlyZXR1cm4gZHJtX2F0b21pY19oZWxwZXJfYXN5bmNfYW1lbmRfY2hlY2soZGV2LCBzdGF0
+ZSwgdHJ1ZSk7Cj4gIAo+ICAJLyogTGVnYWN5IG1vZGUgZmFsbHMgYmFjayB0byBhIG5vcm1hbCBj
+b21taXQgaWYgYW1lbmQgaXNuJ3QgcG9zc2libGUuICovCj4gIAlpZiAoc3RhdGUtPmxlZ2FjeV9j
+dXJzb3JfdXBkYXRlKQo+IC0JCXN0YXRlLT5hbWVuZF91cGRhdGUgPSAhZHJtX2F0b21pY19oZWxw
+ZXJfYW1lbmRfY2hlY2soZGV2LCBzdGF0ZSk7Cj4gKwkJc3RhdGUtPmFtZW5kX3VwZGF0ZSA9Cj4g
+KwkJCSFkcm1fYXRvbWljX2hlbHBlcl9hc3luY19hbWVuZF9jaGVjayhkZXYsIHN0YXRlLCB0cnVl
+KTsKPiAgCj4gIAlyZXR1cm4gMDsKPiAgfQo+IEBAIC0xNjUxLDggKzE2NjYsOSBAQCBzdGF0aWMg
+dm9pZCBjb21taXRfd29yayhzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspCj4gICAqIGlmIG5vdC4g
+Tm90ZSB0aGF0IGVycm9yIGp1c3QgbWVhbiBpdCBjYW4ndCBiZSBjb21taXR0ZWQgaW4gYW1lbmQg
+bW9kZSwgaWYgaXQKPiAgICogZmFpbHMgdGhlIGNvbW1pdCBzaG91bGQgYmUgdHJlYXRlZCBsaWtl
+IGEgbm9ybWFsIGNvbW1pdC4KPiAgICovCj4gLWludCBkcm1fYXRvbWljX2hlbHBlcl9hbWVuZF9j
+aGVjayhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+IC0JCQkJICAgc3RydWN0IGRybV9hdG9taWNf
+c3RhdGUgKnN0YXRlKQo+ICtpbnQgZHJtX2F0b21pY19oZWxwZXJfYXN5bmNfYW1lbmRfY2hlY2so
+c3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiArCQkJCQlzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAq
+c3RhdGUsCj4gKwkJCQkJYm9vbCBhbWVuZCkKPiAgewo+ICAJc3RydWN0IGRybV9jcnRjICpjcnRj
+Owo+ICAJc3RydWN0IGRybV9jcnRjX3N0YXRlICpjcnRjX3N0YXRlOwo+IEBAIC0xNjk1LDcgKzE3
+MTEsNyBAQCBpbnQgZHJtX2F0b21pY19oZWxwZXJfYW1lbmRfY2hlY2soc3RydWN0IGRybV9kZXZp
+Y2UgKmRldiwKPiAgCQlyZXR1cm4gLUVJTlZBTDsKPiAgCgpTb3JyeSwgSSBmb3Jnb3QgYSBtb2Rp
+ZiBoZXJlOgoKLSAgICAgICBpZiAoIWZ1bmNzLT5hdG9taWNfYW1lbmRfdXBkYXRlKQotICAgICAg
+ICAgICAgICAgcmV0dXJuIC1FSU5WQUw7CisgICAgICAgaWYgKChhbWVuZCAmJiAhZnVuY3MtPmF0
+b21pY19hbWVuZF91cGRhdGUpIHx8CisgICAgICAgICAgICFmdW5jcy0+YXRvbWljX2FzeW5jX3Vw
+ZGF0ZSkKKyAgICAgICAgICAgICAgIHJldHVybiAtRU9QTk9UU1VQUDsKCkkgbmVlZCB0byByZXR1
+cm4gLUVPUE5PVFNVUFAgc28gSSBjYW4ga25vdyBpZiBhc3luYyBzaG91bGQgZmFsbGJhY2sgdG8K
+dGhlIG5vcm1hbCBhc3luYyBwYXRoLCB0aGlzIGlzIHJlcXVpcmVkIGZvciBhbWRncHUgYXMgaXQg
+aGFuZGxlcyB0aGUKUEFHRV9GTElQX0FTWU5DIGZsYWcgaXQgc2VsZi4KCkknbGwgY29ycmVjdCB0
+aGlzIGluIHRoZSBuZXh0IHZlcnNpb24gYWZ0ZXIgeW91ciBjb21tZW50cy4KCllvdSBjYW4gYWxz
+byBzZWUgdGhlIHNlcmllcyBvbgpodHRwczovL2dpdGxhYi5jb2xsYWJvcmEuY29tL2tvaWtlL2xp
+bnV4L2NvbW1pdHMvZHJtL2FtZW5kL3VhcGkKClRoYW5rcwoKCj4gIAkvKiBPbmx5IGFsbG93IGFt
+ZW5kIHVwZGF0ZSBmb3IgY3Vyc29yIHR5cGUgcGxhbmVzLiAqLwo+IC0JaWYgKHBsYW5lLT50eXBl
+ICE9IERSTV9QTEFORV9UWVBFX0NVUlNPUikKPiArCWlmIChhbWVuZCAmJiBwbGFuZS0+dHlwZSAh
+PSBEUk1fUExBTkVfVFlQRV9DVVJTT1IpCj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4gIAo+ICAJLyoK
+PiBAQCAtMTcwNyw5ICsxNzIzLDEwIEBAIGludCBkcm1fYXRvbWljX2hlbHBlcl9hbWVuZF9jaGVj
+ayhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+ICAJICAgICF0cnlfd2FpdF9mb3JfY29tcGxldGlv
+bigmb2xkX3BsYW5lX3N0YXRlLT5jb21taXQtPmh3X2RvbmUpKQo+ICAJCXJldHVybiAtRUJVU1k7
+Cj4gIAo+IC0JcmV0dXJuIGZ1bmNzLT5hdG9taWNfYW1lbmRfY2hlY2socGxhbmUsIG5ld19wbGFu
+ZV9zdGF0ZSk7Cj4gKwlyZXR1cm4gYW1lbmQgPyBmdW5jcy0+YXRvbWljX2FtZW5kX2NoZWNrKHBs
+YW5lLCBuZXdfcGxhbmVfc3RhdGUpIDoKPiArCQkgICAgICAgZnVuY3MtPmF0b21pY19hc3luY19j
+aGVjayhwbGFuZSwgbmV3X3BsYW5lX3N0YXRlKTsKPiAgfQo+IC1FWFBPUlRfU1lNQk9MKGRybV9h
+dG9taWNfaGVscGVyX2FtZW5kX2NoZWNrKTsKPiArRVhQT1JUX1NZTUJPTChkcm1fYXRvbWljX2hl
+bHBlcl9hc3luY19hbWVuZF9jaGVjayk7Cj4gIAo+ICAvKioKPiAgICogZHJtX2F0b21pY19oZWxw
+ZXJfYW1lbmRfY29tbWl0IC0gY29tbWl0IHN0YXRlIGluIGFtZW5kIG1vZGUKPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfdWFwaS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ry
+bV9hdG9taWNfdWFwaS5jCj4gaW5kZXggZDE5NjJjZGVhNjAyLi4xZDlhNjE0MjIxOGUgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9hdG9taWNfdWFwaS5jCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2RybV9hdG9taWNfdWFwaS5jCj4gQEAgLTEzMTIsOCArMTMxMiw5IEBAIGludCBk
+cm1fbW9kZV9hdG9taWNfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiAgCWRybV9tb2Rl
+c2V0X2FjcXVpcmVfaW5pdCgmY3R4LCBEUk1fTU9ERVNFVF9BQ1FVSVJFX0lOVEVSUlVQVElCTEUp
+Owo+ICAJc3RhdGUtPmFjcXVpcmVfY3R4ID0gJmN0eDsKPiAgCXN0YXRlLT5hbGxvd19tb2Rlc2V0
+ID0gISEoYXJnLT5mbGFncyAmIERSTV9NT0RFX0FUT01JQ19BTExPV19NT0RFU0VUKTsKPiArCXN0
+YXRlLT5hc3luY191cGRhdGUgPSAhIShhcmctPmZsYWdzICYgRFJNX01PREVfUEFHRV9GTElQX0FT
+WU5DKTsKPiAgCS8qIGFzeW5jIHRha2VzIHByZWNlZGVuY2Ugb3ZlciBhbWVuZCAqLwo+IC0Jc3Rh
+dGUtPmFtZW5kX3VwZGF0ZSA9IGFyZy0+ZmxhZ3MgJiBEUk1fTU9ERV9QQUdFX0ZMSVBfQVNZTkMg
+PyAwIDoKPiArCXN0YXRlLT5hbWVuZF91cGRhdGUgPSBzdGF0ZS0+YXN5bmNfdXBkYXRlID8gMCA6
+Cj4gIAkJCQkJISEoYXJnLT5mbGFncyAmIERSTV9NT0RFX0FUT01JQ19BTUVORCk7Cj4gIAo+ICBy
+ZXRyeToKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9w
+bGFuZS5jIGIvZHJpdmVycy9ncHUvZHJtL21zbS9kaXNwL21kcDUvbWRwNV9wbGFuZS5jCj4gaW5k
+ZXggODE0ZTgyMzBjZWM2Li5lM2IyYTJjNzQ4NTIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL21zbS9kaXNwL21kcDUvbWRwNV9wbGFuZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL21z
+bS9kaXNwL21kcDUvbWRwNV9wbGFuZS5jCj4gQEAgLTUzMSw2ICs1MzEsOCBAQCBzdGF0aWMgY29u
+c3Qgc3RydWN0IGRybV9wbGFuZV9oZWxwZXJfZnVuY3MgbWRwNV9wbGFuZV9oZWxwZXJfZnVuY3Mg
+PSB7Cj4gIAkJLmNsZWFudXBfZmIgPSBtZHA1X3BsYW5lX2NsZWFudXBfZmIsCj4gIAkJLmF0b21p
+Y19jaGVjayA9IG1kcDVfcGxhbmVfYXRvbWljX2NoZWNrLAo+ICAJCS5hdG9taWNfdXBkYXRlID0g
+bWRwNV9wbGFuZV9hdG9taWNfdXBkYXRlLAo+ICsJCS5hdG9taWNfYXN5bmNfY2hlY2sgPSBtZHA1
+X3BsYW5lX2F0b21pY19hc3luY19jaGVjaywKPiArCQkuYXRvbWljX2FzeW5jX3VwZGF0ZSA9IG1k
+cDVfcGxhbmVfYXRvbWljX2FzeW5jX3VwZGF0ZSwKPiAgCQkvKgo+ICAJCSAqIEZJWE1FOiBpZGVh
+bGx5LCBpbnN0ZWFkIG9mIGhvb2tpbmcgYXN5bmMgdXBkYXRlcyB0byBhbWVuZCwKPiAgCQkgKiB3
+ZSBjb3VsZCBhdm9pZCB0ZWFyaW5nIGJ5IG1vZGlmeWluZyB0aGUgcGVuZGluZyBjb21taXQuCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hpcC9yb2NrY2hpcF9kcm1fdm9wLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vcm9ja2NoaXAvcm9ja2NoaXBfZHJtX3ZvcC5jCj4gaW5kZXggMjE2
+YWQ3NjExOGRjLi5jMmY3MjAxZTUyYTkgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3Jv
+Y2tjaGlwL3JvY2tjaGlwX2RybV92b3AuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yb2NrY2hp
+cC9yb2NrY2hpcF9kcm1fdm9wLmMKPiBAQCAtOTU0LDYgKzk1NCwxMCBAQCBzdGF0aWMgY29uc3Qg
+c3RydWN0IGRybV9wbGFuZV9oZWxwZXJfZnVuY3MgcGxhbmVfaGVscGVyX2Z1bmNzID0gewo+ICAJ
+LmF0b21pY19kaXNhYmxlID0gdm9wX3BsYW5lX2F0b21pY19kaXNhYmxlLAo+ICAJLmF0b21pY19h
+bWVuZF9jaGVjayA9IHZvcF9wbGFuZV9hdG9taWNfYW1lbmRfY2hlY2ssCj4gIAkuYXRvbWljX2Ft
+ZW5kX3VwZGF0ZSA9IHZvcF9wbGFuZV9hdG9taWNfYW1lbmRfdXBkYXRlLAo+ICsJLyoKPiArCSAq
+IE5vdGU6IHJvY2tjaGlwIGRvZXNuJ3Qgc3VwcG9ydCBhc3luYyBwYWdlIGZsaXAsIHRodXMKPiAr
+CSAqIC5hdG9taWNfYXN5bmNfdXBkYXRlIGFuZCAuYXRvbWljX2FzeW5jX2NoZWNrIGFyZSBub3Qg
+cHJvdmlkZWQuCj4gKwkgKi8KPiAgCS5wcmVwYXJlX2ZiID0gZHJtX2dlbV9mYl9wcmVwYXJlX2Zi
+LAo+ICB9Owo+ICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfcGxhbmUu
+YyBiL2RyaXZlcnMvZ3B1L2RybS92YzQvdmM0X3BsYW5lLmMKPiBpbmRleCBlYTU2MDAwMDIyMmQu
+LjI0YTliZWZlODllNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmM0L3ZjNF9wbGFu
+ZS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3ZjNC92YzRfcGxhbmUuYwo+IEBAIC0xMTc1LDYg
+KzExNzUsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGRybV9wbGFuZV9oZWxwZXJfZnVuY3MgdmM0
+X3BsYW5lX2hlbHBlcl9mdW5jcyA9IHsKPiAgCSAqLwo+ICAJLmF0b21pY19hbWVuZF9jaGVjayA9
+IHZjNF9wbGFuZV9hdG9taWNfYXN5bmNfY2hlY2ssCj4gIAkuYXRvbWljX2FtZW5kX3VwZGF0ZSA9
+IHZjNF9wbGFuZV9hdG9taWNfYXN5bmNfdXBkYXRlLAo+ICsJLmF0b21pY19hc3luY19jaGVjayA9
+IHZjNF9wbGFuZV9hdG9taWNfYXN5bmNfY2hlY2ssCj4gKwkuYXRvbWljX2FzeW5jX3VwZGF0ZSA9
+IHZjNF9wbGFuZV9hdG9taWNfYXN5bmNfdXBkYXRlLAo+ICB9Owo+ICAKPiAgc3RhdGljIHZvaWQg
+dmM0X3BsYW5lX2Rlc3Ryb3koc3RydWN0IGRybV9wbGFuZSAqcGxhbmUpCj4gZGlmZiAtLWdpdCBh
+L2luY2x1ZGUvZHJtL2RybV9hdG9taWMuaCBiL2luY2x1ZGUvZHJtL2RybV9hdG9taWMuaAo+IGlu
+ZGV4IGIxY2VkMDY5ZmZjMS4uMDU3NTZhMDllNzYyIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJt
+L2RybV9hdG9taWMuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9hdG9taWMuaAo+IEBAIC0zMDAs
+NiArMzAwLDcgQEAgc3RydWN0IF9fZHJtX3ByaXZhdGVfb2Jqc19zdGF0ZSB7Cj4gICAqIEByZWY6
+IGNvdW50IG9mIGFsbCByZWZlcmVuY2VzIHRvIHRoaXMgc3RhdGUgKHdpbGwgbm90IGJlIGZyZWVk
+IHVudGlsIHplcm8pCj4gICAqIEBkZXY6IHBhcmVudCBEUk0gZGV2aWNlCj4gICAqIEBsZWdhY3lf
+Y3Vyc29yX3VwZGF0ZTogaGludCB0byBlbmZvcmNlIGxlZ2FjeSBjdXJzb3IgSU9DVEwgc2VtYW50
+aWNzCj4gKyAqIEBhc3luY191cGRhdGU6IGhpbnQgZm9yIGFzeW5jcm9ub3VzIHBhZ2UgZmxpcCB1
+cGRhdGUKPiAgICogQGFtZW5kX3VwZGF0ZTogaGludCBmb3IgYW1lbmQgcGxhbmUgdXBkYXRlCj4g
+ICAqIEBwbGFuZXM6IHBvaW50ZXIgdG8gYXJyYXkgb2Ygc3RydWN0dXJlcyB3aXRoIHBlci1wbGFu
+ZSBkYXRhCj4gICAqIEBjcnRjczogcG9pbnRlciB0byBhcnJheSBvZiBDUlRDIHBvaW50ZXJzCj4g
+QEAgLTMyOCw2ICszMjksNyBAQCBzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSB7Cj4gIAkgKi8KPiAg
+CWJvb2wgYWxsb3dfbW9kZXNldCA6IDE7Cj4gIAlib29sIGxlZ2FjeV9jdXJzb3JfdXBkYXRlIDog
+MTsKPiArCWJvb2wgYXN5bmNfdXBkYXRlIDogMTsKPiAgCWJvb2wgYW1lbmRfdXBkYXRlIDogMTsK
+PiAgCS8qKgo+ICAJICogQGR1cGxpY2F0ZWQ6Cj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL2Ry
+bV9hdG9taWNfaGVscGVyLmggYi9pbmNsdWRlL2RybS9kcm1fYXRvbWljX2hlbHBlci5oCj4gaW5k
+ZXggOGNlMDU5NGNjZmI5Li4zOWU1N2Q1NTlhMzAgMTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS9kcm0v
+ZHJtX2F0b21pY19oZWxwZXIuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9hdG9taWNfaGVscGVy
+LmgKPiBAQCAtNTUsMTAgKzU1LDExIEBAIHZvaWQgZHJtX2F0b21pY19oZWxwZXJfY29tbWl0X3Rh
+aWxfcnBtKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSk7Cj4gIGludCBkcm1fYXRvbWlj
+X2hlbHBlcl9jb21taXQoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKPiAgCQkJICAgICBzdHJ1Y3Qg
+ZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUsCj4gIAkJCSAgICAgYm9vbCBub25ibG9jayk7Cj4gLWlu
+dCBkcm1fYXRvbWljX2hlbHBlcl9hbWVuZF9jaGVjayhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+
+IC0JCQkJICBzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3RhdGUpOwo+IC12b2lkIGRybV9hdG9t
+aWNfaGVscGVyX2FtZW5kX2NvbW1pdChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+IC0JCQkJICAg
+IHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSk7Cj4gK2ludCBkcm1fYXRvbWljX2hlbHBl
+cl9hc3luY19hbWVuZF9jaGVjayhzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+ICsJCQkJCXN0cnVj
+dCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSwKPiArCQkJCQlib29sIGFtZW5kKTsKPiArdm9pZCBk
+cm1fYXRvbWljX2hlbHBlcl9hc3luY19hbWVuZF9jb21taXQoc3RydWN0IGRybV9kZXZpY2UgKmRl
+diwKPiArCQkJCQkgIHN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSk7Cj4gIAo+ICBpbnQg
+ZHJtX2F0b21pY19oZWxwZXJfd2FpdF9mb3JfZmVuY2VzKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
+Cj4gIAkJCQkJc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlLAo+IGRpZmYgLS1naXQgYS9p
+bmNsdWRlL2RybS9kcm1fbW9kZXNldF9oZWxwZXJfdnRhYmxlcy5oIGIvaW5jbHVkZS9kcm0vZHJt
+X21vZGVzZXRfaGVscGVyX3Z0YWJsZXMuaAo+IGluZGV4IGQ5MmU2MmRkNzZjNC4uYzI4NjNkNjJm
+MTYwIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvZHJtL2RybV9tb2Rlc2V0X2hlbHBlcl92dGFibGVz
+LmgKPiArKysgYi9pbmNsdWRlL2RybS9kcm1fbW9kZXNldF9oZWxwZXJfdnRhYmxlcy5oCj4gQEAg
+LTExMzUsNiArMTEzNSw0MyBAQCBzdHJ1Y3QgZHJtX3BsYW5lX2hlbHBlcl9mdW5jcyB7Cj4gIAl2
+b2lkICgqYXRvbWljX2Rpc2FibGUpKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAo+ICAJCQkgICAg
+ICAgc3RydWN0IGRybV9wbGFuZV9zdGF0ZSAqb2xkX3N0YXRlKTsKPiAgCj4gKwkvKioKPiArCSAq
+IEBhdG9taWNfYXN5bmNfY2hlY2s6Cj4gKwkgKgo+ICsJICogRHJpdmVycyBzaG91bGQgc2V0IHRo
+aXMgZnVuY3Rpb24gcG9pbnRlciB0byBjaGVjayBpZiBhIHBhZ2UgZmxpcCBjYW4KPiArCSAqIGJl
+IHBlcmZvcm1lZCBhc3luY2hyb25vdXNseSwgaS5lLiwgaW1tZWRpYXRlbHkgd2l0aG91dCB3YWl0
+aW5nIGZvciBhCj4gKwkgKiB2YmxhbmsuCj4gKwkgKgo+ICsJICogVGhpcyBob29rIGlzIGNhbGxl
+ZCBieSBkcm1fYXRvbWljX2FzeW5jX2NoZWNrKCkgdG8gZXN0YWJsaXNoIGlmIGEKPiArCSAqIGdp
+dmVuIHVwZGF0ZSBjYW4gYmUgY29tbWl0dGVkIGluIGFzeW5jIG1vZGUsIHRoYXQgaXMsIGlmIGl0
+IGNhbgo+ICsJICoganVtcCBhaGVhZCBvZiB0aGUgc3RhdGUgY3VycmVudGx5IHF1ZXVlZCBmb3Ig
+dXBkYXRlLgo+ICsJICoKPiArCSAqIFJFVFVSTlM6Cj4gKwkgKgo+ICsJICogUmV0dXJuIDAgb24g
+c3VjY2VzcyBhbmQgYW55IGVycm9yIHJldHVybmVkIGluZGljYXRlcyB0aGF0IHRoZSB1cGRhdGUK
+PiArCSAqIGNhbiBub3QgYmUgYXBwbGllZCBpbiBhc3luZCBtb2RlLgo+ICsJICovCj4gKwlpbnQg
+KCphdG9taWNfYXN5bmNfY2hlY2spKHN0cnVjdCBkcm1fcGxhbmUgKnBsYW5lLAo+ICsJCQkJICBz
+dHJ1Y3QgZHJtX3BsYW5lX3N0YXRlICpzdGF0ZSk7Cj4gKwo+ICsJLyoqCj4gKwkgKiBAYXRvbWlj
+X2FzeW5jX3VwZGF0ZToKPiArCSAqCj4gKwkgKiBEcml2ZXJzIHNob3VsZCBzZXQgdGhpcyBmdW5j
+dGlvbiBwb2ludGVyIHRvIHBlcmZvcm0gYXN5bmNocm9ub3VzIHBhZ2UKPiArCSAqIGZsaXBzIHRo
+cm91Z2ggdGhlIGF0b21pYyBhcGksIGkuZS4gbm90IHZibGFuayBzeW5jaHJvbml6ZWQuCj4gKwkg
+Kgo+ICsJICogTm90ZSB0aGF0IHVubGlrZSAmZHJtX3BsYW5lX2hlbHBlcl9mdW5jcy5hdG9taWNf
+dXBkYXRlIHRoaXMgaG9vawo+ICsJICogdGFrZXMgdGhlIG5ldyAmZHJtX3BsYW5lX3N0YXRlIGFz
+IHBhcmFtZXRlci4gV2hlbiBkb2luZyBhc3luY191cGRhdGUKPiArCSAqIGRyaXZlcnMgc2hvdWxk
+bid0IHJlcGxhY2UgdGhlICZkcm1fcGxhbmVfc3RhdGUgYnV0IHVwZGF0ZSB0aGUKPiArCSAqIGN1
+cnJlbnQgb25lIHdpdGggdGhlIG5ldyBwbGFuZSBjb25maWd1cmF0aW9ucyBpbiB0aGUgbmV3Cj4g
+KwkgKiBwbGFuZV9zdGF0ZS4KPiArCSAqCj4gKwkgKiBGSVhNRToKPiArCSAqICAtIEl0IG9ubHkg
+d29ya3MgZm9yIHNpbmdsZSBwbGFuZSB1cGRhdGVzCj4gKwkgKi8KPiArCXZvaWQgKCphdG9taWNf
+YXN5bmNfdXBkYXRlKShzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKPiArCQkJCSAgICBzdHJ1Y3Qg
+ZHJtX3BsYW5lX3N0YXRlICpuZXdfc3RhdGUpOwo+ICsKPiAgCS8qKgo+ICAJICogQGF0b21pY19h
+bWVuZF9jaGVjazoKPiAgCSAqCj4gCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2RyaS1kZXZlbA==
