@@ -1,107 +1,78 @@
-From: Helen Koike <helen.koike@collabora.com>
-Subject: Re: [PATCH v3 2/4] drm/atomic: rename async_{update,check} to
- amend_{update,check}
-Date: Fri, 12 Apr 2019 11:06:13 -0300
-Message-ID: <bda69249-f193-9dbc-5186-7139fb2c365a@collabora.com>
-References: <20190412125827.5877-1-helen.koike@collabora.com>
- <20190412125827.5877-3-helen.koike@collabora.com>
- <20190412154957.558e49f8@collabora.com>
+From: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
+Subject: Re: [PATCH 4/4] drm/amd/display: Restore deleted patch to resolve
+ reset deadlock.
+Date: Fri, 12 Apr 2019 14:28:53 +0000
+Message-ID: <4e3cf9e4-ea04-31ea-f61f-324281b4979c@amd.com>
+References: <1554998624-25799-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1554998624-25799-4-git-send-email-andrey.grodzovsky@amd.com>
+ <ff501639-bff4-5a0a-f9c0-b538f6531940@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190412154957.558e49f8@collabora.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <ff501639-bff4-5a0a-f9c0-b538f6531940@gmail.com>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>, dnicoara@chromium.org, daniels@collabora.com, alexandros.frantzis@collabora.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, tomasz Figa <tfiga@chromium.org>, tina.zhang@intel.com, Sean Paul <seanpaul@google.com>, kernel@collabora.com, nicholas.kazlauskas@amd.com, =?UTF-8?Q?St=c3=a9phane_Marchesin?= <marcheu@google.com>, Gustavo Padovan <gustavo.padovan@collabora.com>, Sean Paul <sean@poorly.run>, Sandy Huang <hjc@rock-chips.com>, linux-doc@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Harry Wentland <harry.wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.>
+Content-ID: <EB8AC749EED94D4BAAC1F27B13C0072D@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "eric@anholt.net" <eric@anholt.net>, "etnaviv@lists.freedesktop.org" <etnaviv@lists.freedesktop.org>
+Cc: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi Boris,
-
-On 4/12/19 10:49 AM, Boris Brezillon wrote:
-> Hi Helen,
-> 
-> On Fri, 12 Apr 2019 09:58:25 -0300
-> Helen Koike <helen.koike@collabora.com> wrote:
-> 
->> Asynchronous update is the ability change the hw state at any time, not
->> only during vblank.
->>
->> Amend mode is the ability to perform 1000 commits to be applied as soon
->> as possible without waiting for 1000 vblanks.
->>
->> async updates can be seen as amend, but the opposite is not true.
->>
->> &drm_plane_helper_funcs.atomic_async_{update,check}() was being used by
->> drivers to implement amend and not async. So rename them to amend.
->>
->> Also improve docs explaining the difference.
->>
->> If asynchronous is required, normal page flip can be performed using
->> DRM_MODE_PAGE_FLIP_ASYNC flag.
->>
->> Signed-off-by: Helen Koike <helen.koike@collabora.com>
->>
->> ---
->> Hello,
->>
->> I would like to officially clarify what async update means by adding it
->> in the docs.
->> Please correct me if I am wrong, but the current async_{update,check}
->> callbacks are being used to do amend (the legacy cursor behavior), i.e.
->> to allow 1000 updates without waiting for 1000 vblanks.
-> 
-> Right now, the semantic of async update is driver dependent. Some
-> drivers will amend the last commit touching that plane (amend semantic),
-> others will update the plane buffer immediately which might cause
-> tearing (async semantic).
-
-In my pov, async updates holds the properties of an amend update, so all
-async updates we have are amend, but the opposite is not true.
-
-> 
->>
->> So I would like to clarify this in the docs and rename the current
->> callbacks to reflect this behaviour.
-> 
-> I'm all for this clarification, but I don't think renaming the async
-> hooks is a good idea, since some drivers will not do real 'amend'. So,
-> you're changing the name, but it's still confusing :-).
-> 
-> How about adding new hooks (and/or flags) for the AMEND case, and
-> keeping the async path untouched. We can then let drivers that
-> currently implement async as amend implement the amend hooks instead.
-> Once you've done that, you can hook that up to the legacy cursor update
-> path so that it first tries one then the other and finally falls back
-> to a sync update if none of ASYNC/AMEND is possible.
-
-I kinda did this (I re-introduced async in the last patch in the
-series). I know this order is confusing, but as rockchip doesn't
-implement true async, I would have to do a bunch of modifs at once to
-keep the commits consistent, but I can re-work on that if it makes
-things clearer.
-
-> 
->>
->> I also see that for real async updates, the flag
->> DRM_MODE_PAGE_FLIP_ASYNC can be used in a normal sync update (it is
->> already being used by some drivers actually, in the atomic path, not only
->> in the legacy page flip, at least is what I understood from
->> amdgpu_dm_atomic_commit_tail() implementation).
-> 
-> Yes, right now, async does not necessarily imply non-block, but
-> Daniel seemed to think that most users want non-block when they do an
-> async page flip, so maybe it should be clarified too.
-
-users could combine NONBLOCK flag with PAGE_FLIP_ASYNC, no? (we need to
-add code for it of course).
-
-Thanks
-Helen
-
-> 
-> Regards,
-> 
-> Boris
-> 
+T24gNC8xMi8xOSAzOjQwIEFNLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPiBBbSAxMS4wNC4x
+OSB1bSAxODowMyBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Og0KPj4gUGF0Y2ggJzVlZGIwYzli
+IEZpeCBkZWFkbG9jayB3aXRoIGRpc3BsYXkgZHVyaW5nIGhhbmdlZCByaW5nIHJlY292ZXJ5Jw0K
+Pj4gd2FzIGFjY2lkZW50YWx5IHJlbW92ZWQgZHVyaW5nIG9uZSBvZiBEQUxzIGNvZGUgbWVyZ2Vz
+Lg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpv
+dnNreUBhbWQuY29tPg0KPj4gLS0tDQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+YW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMTkgDQo+PiArKysrKysrKysrKysrLS0tLS0tDQo+PiDC
+oCAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkNCj4+DQo+
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG0uYyANCj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRn
+cHVfZG0uYw0KPj4gaW5kZXggMDY0ODc5NC4uMjdlMDM4MyAxMDA2NDQNCj4+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4+IEBAIC01
+MTM4LDE0ICs1MTM4LDIxIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0
+cnVjdCANCj4+IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlLA0KPj4gwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgKi8NCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBhYm8gPSBnZW1fdG9fYW1kZ3B1X2JvKGZiLT5v
+YmpbMF0pOw0KPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHIgPSBhbWRncHVfYm9fcmVzZXJ2ZShhYm8s
+IHRydWUpOw0KPj4gLcKgwqDCoMKgwqDCoMKgIGlmICh1bmxpa2VseShyICE9IDApKSB7DQo+PiAr
+wqDCoMKgwqDCoMKgwqAgaWYgKHVubGlrZWx5KHIgIT0gMCkpDQo+PiDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBEUk1fRVJST1IoImZhaWxlZCB0byByZXNlcnZlIGJ1ZmZlciBiZWZvcmUgZmxp
+cFxuIik7DQo+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBXQVJOX09OKDEpOw0KPj4gLcKgwqDC
+oMKgwqDCoMKgIH0NCj4NCj4gSSBhbHNvIGFscmVhZHkgc3VnZ2VzdGVkIHRvIGNvbXBsZXRlbHkg
+c3RvcCB3YWl0aW5nIHdoaWxlIHRoZSBCTyBpcyANCj4gYmVpbmcgcmVzZXJ2ZWQsIGJ1dCBsb29r
+cyBsaWtlIHRoYXQgZ290IGRyb3BwZWQgYXMgd2VsbC4NCj4NCj4gSSB3b3VsZCBzYXkgc29tZXRo
+aW5nIGlzIHNlcmlvdXNseSB3cm9uZyB3aXRoIERBTHMgZGV2ZWxvcG1lbnQgcHJvY2VzcyANCj4g
+aGVyZS4NCj4NCj4gQ2hyaXN0aWFuLg0KDQoNClllYSwgSSB0aGluayB5b3VyIHBhdGNoIHRoYXQg
+bW92ZWQgdGhlIHdhaXQgb3V0IG9mIHRoZSByZXNlcnZlZCBzZWN0aW9uIA0KZ290IGRyb3BwZWQg
+YXMgd2VsbCwgd2hlbiBJIHJlIHNwaW4gdGhlIHNlcmllcyB3aXRoIHlvdXIgY29tbWVudHMgZm9y
+IA0KdGhlIFREUiBzdHVmZiBJIHdpbGwgYWxzbyBhZGQgYSBwYXRjaCByZXN0b3JpbmcgeW91ciBj
+aGFuZ2UuDQoNCkFuZHJleQ0KDQoNCj4NCj4+IMKgIC3CoMKgwqDCoMKgwqDCoCAvKiBXYWl0IGZv
+ciBhbGwgZmVuY2VzIG9uIHRoaXMgRkIgKi8NCj4+IC0gV0FSTl9PTihyZXNlcnZhdGlvbl9vYmpl
+Y3Rfd2FpdF90aW1lb3V0X3JjdShhYm8tPnRiby5yZXN2LCB0cnVlLCANCj4+IGZhbHNlLA0KPj4g
+LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBNQVhfU0NIRURVTEVfVElNRU9VVCkgPCAwKTsNCj4+ICvC
+oMKgwqDCoMKgwqDCoCAvKg0KPj4gK8KgwqDCoMKgwqDCoMKgwqAgKiBXYWl0IGZvciBhbGwgZmVu
+Y2VzIG9uIHRoaXMgRkIuIERvIGxpbWl0ZWQgd2FpdCB0byBhdm9pZA0KPj4gK8KgwqDCoMKgwqDC
+oMKgwqAgKiBkZWFkbG9jayBkdXJpbmcgR1BVIHJlc2V0IHdoZW4gdGhpcyBmZW5jZSB3aWxsIG5v
+dCBzaWduYWwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgICogYnV0IHdlIGhvbGQgcmVzZXJ2YXRpb24g
+bG9jayBmb3IgdGhlIEJPLg0KPj4gK8KgwqDCoMKgwqDCoMKgwqAgKi8NCj4+ICvCoMKgwqDCoMKg
+wqDCoCByID0gcmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGltZW91dF9yY3UoYWJvLT50Ym8ucmVz
+diwNCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgdHJ1ZSwgZmFsc2UsDQo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1zZWNzX3RvX2ppZmZpZXMoNTAwMCkpOw0KPj4gK8KgwqDC
+oMKgwqDCoMKgIGlmICh1bmxpa2VseShyID09IDApKQ0KPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgRFJNX0VSUk9SKCJXYWl0aW5nIGZvciBmZW5jZXMgdGltZWQgb3V0LiIpOw0KPj4gKw0KPj4g
+Kw0KPj4gwqAgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9ib19nZXRfdGlsaW5nX2ZsYWdzKGFi
+bywgJnRpbGluZ19mbGFncyk7DQo+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9kcmktZGV2ZWw=
