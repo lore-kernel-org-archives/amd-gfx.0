@@ -1,102 +1,144 @@
-From: Boris Brezillon <boris.brezillon-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
-Subject: Re: [PATCH v3 2/4] drm/atomic: rename async_{update,
- check} to amend_{update, check}
-Date: Fri, 12 Apr 2019 16:38:35 +0200
-Message-ID: <20190412163835.5407984f@collabora.com>
-References: <20190412125827.5877-1-helen.koike@collabora.com>
- <20190412125827.5877-3-helen.koike@collabora.com>
- <20190412154957.558e49f8@collabora.com>
- <bda69249-f193-9dbc-5186-7139fb2c365a@collabora.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH libdrm V2] amdgpu: Fix a structure initialization issue
+Date: Fri, 12 Apr 2019 14:43:46 +0000
+Message-ID: <BN6PR12MB18097FB3E7D286517EC261E9F7280@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <SN6PR12MB28003FC8C9FBABC82C9C59AB87280@SN6PR12MB2800.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bda69249-f193-9dbc-5186-7139fb2c365a-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
- <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/freedreno>
-List-Post: <mailto:freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
- <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Freedreno" <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Helen Koike <helen.koike-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
-Cc: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko-4mtYJXux2i+zQB+pC5nmwQ@public.gmane.org>, Sean Paul <seanpaul-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, alexandros.frantzis-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, daniel.vetter-/w4YWyX8dFk@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, Mamta Shukla <mamtashukla555-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, tina.zhang-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, kernel-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org, Anthony Koo <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>, Ville =?UTF-8?B?U3lyasOkbMOk?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Jonathan Corbet <corbet-T1hC0tSOHrs@public.gmane.org>, Sean Paul <sean-p7yTbzM4H96eqtR555YLDQ@public.gmane.org>, David Francis <David.Francis-5C7GfCeVMHo@public.gmane.org>, linux-doc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Gustavo Padovan <gustavo.padovan-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>, linux-rockchip-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, daniels-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0647148549=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <SN6PR12MB28003FC8C9FBABC82C9C59AB87280-kxOKjb6HO/EqkY47FTA1ogdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gRnJpLCAxMiBBcHIgMjAxOSAxMTowNjoxMyAtMDMwMApIZWxlbiBLb2lrZSA8aGVsZW4ua29p
-a2VAY29sbGFib3JhLmNvbT4gd3JvdGU6Cgo+IEhpIEJvcmlzLAo+IAo+IE9uIDQvMTIvMTkgMTA6
-NDkgQU0sIEJvcmlzIEJyZXppbGxvbiB3cm90ZToKPiA+IEhpIEhlbGVuLAo+ID4gCj4gPiBPbiBG
-cmksIDEyIEFwciAyMDE5IDA5OjU4OjI1IC0wMzAwCj4gPiBIZWxlbiBLb2lrZSA8aGVsZW4ua29p
-a2VAY29sbGFib3JhLmNvbT4gd3JvdGU6Cj4gPiAgIAo+ID4+IEFzeW5jaHJvbm91cyB1cGRhdGUg
-aXMgdGhlIGFiaWxpdHkgY2hhbmdlIHRoZSBodyBzdGF0ZSBhdCBhbnkgdGltZSwgbm90Cj4gPj4g
-b25seSBkdXJpbmcgdmJsYW5rLgo+ID4+Cj4gPj4gQW1lbmQgbW9kZSBpcyB0aGUgYWJpbGl0eSB0
-byBwZXJmb3JtIDEwMDAgY29tbWl0cyB0byBiZSBhcHBsaWVkIGFzIHNvb24KPiA+PiBhcyBwb3Nz
-aWJsZSB3aXRob3V0IHdhaXRpbmcgZm9yIDEwMDAgdmJsYW5rcy4KPiA+Pgo+ID4+IGFzeW5jIHVw
-ZGF0ZXMgY2FuIGJlIHNlZW4gYXMgYW1lbmQsIGJ1dCB0aGUgb3Bwb3NpdGUgaXMgbm90IHRydWUu
-Cj4gPj4KPiA+PiAmZHJtX3BsYW5lX2hlbHBlcl9mdW5jcy5hdG9taWNfYXN5bmNfe3VwZGF0ZSxj
-aGVja30oKSB3YXMgYmVpbmcgdXNlZCBieQo+ID4+IGRyaXZlcnMgdG8gaW1wbGVtZW50IGFtZW5k
-IGFuZCBub3QgYXN5bmMuIFNvIHJlbmFtZSB0aGVtIHRvIGFtZW5kLgo+ID4+Cj4gPj4gQWxzbyBp
-bXByb3ZlIGRvY3MgZXhwbGFpbmluZyB0aGUgZGlmZmVyZW5jZS4KPiA+Pgo+ID4+IElmIGFzeW5j
-aHJvbm91cyBpcyByZXF1aXJlZCwgbm9ybWFsIHBhZ2UgZmxpcCBjYW4gYmUgcGVyZm9ybWVkIHVz
-aW5nCj4gPj4gRFJNX01PREVfUEFHRV9GTElQX0FTWU5DIGZsYWcuCj4gPj4KPiA+PiBTaWduZWQt
-b2ZmLWJ5OiBIZWxlbiBLb2lrZSA8aGVsZW4ua29pa2VAY29sbGFib3JhLmNvbT4KPiA+Pgo+ID4+
-IC0tLQo+ID4+IEhlbGxvLAo+ID4+Cj4gPj4gSSB3b3VsZCBsaWtlIHRvIG9mZmljaWFsbHkgY2xh
-cmlmeSB3aGF0IGFzeW5jIHVwZGF0ZSBtZWFucyBieSBhZGRpbmcgaXQKPiA+PiBpbiB0aGUgZG9j
-cy4KPiA+PiBQbGVhc2UgY29ycmVjdCBtZSBpZiBJIGFtIHdyb25nLCBidXQgdGhlIGN1cnJlbnQg
-YXN5bmNfe3VwZGF0ZSxjaGVja30KPiA+PiBjYWxsYmFja3MgYXJlIGJlaW5nIHVzZWQgdG8gZG8g
-YW1lbmQgKHRoZSBsZWdhY3kgY3Vyc29yIGJlaGF2aW9yKSwgaS5lLgo+ID4+IHRvIGFsbG93IDEw
-MDAgdXBkYXRlcyB3aXRob3V0IHdhaXRpbmcgZm9yIDEwMDAgdmJsYW5rcy4gIAo+ID4gCj4gPiBS
-aWdodCBub3csIHRoZSBzZW1hbnRpYyBvZiBhc3luYyB1cGRhdGUgaXMgZHJpdmVyIGRlcGVuZGVu
-dC4gU29tZQo+ID4gZHJpdmVycyB3aWxsIGFtZW5kIHRoZSBsYXN0IGNvbW1pdCB0b3VjaGluZyB0
-aGF0IHBsYW5lIChhbWVuZCBzZW1hbnRpYyksCj4gPiBvdGhlcnMgd2lsbCB1cGRhdGUgdGhlIHBs
-YW5lIGJ1ZmZlciBpbW1lZGlhdGVseSB3aGljaCBtaWdodCBjYXVzZQo+ID4gdGVhcmluZyAoYXN5
-bmMgc2VtYW50aWMpLiAgCj4gCj4gSW4gbXkgcG92LCBhc3luYyB1cGRhdGVzIGhvbGRzIHRoZSBw
-cm9wZXJ0aWVzIG9mIGFuIGFtZW5kIHVwZGF0ZSwgc28gYWxsCj4gYXN5bmMgdXBkYXRlcyB3ZSBo
-YXZlIGFyZSBhbWVuZCwgYnV0IHRoZSBvcHBvc2l0ZSBpcyBub3QgdHJ1ZS4KCkJ5IGRvaW5nIHRo
-YXQgeW91IGtlZXAgdGhlIGRlZmluaXRpb24gcXVpdGUgdmFndWUsIGFuZCBkZXZlbG9wZXJzIHdp
-bGwKc3RpbGwgY29uZnVzZWQgYWJvdXQgd2hhdCB0aGV5IHNob3VsZCBkbyB3aGVuIEFNRU5EIGlz
-IHJlcXVlc3RlZC4gV2h5Cm5vdCBkaXN0aW5ndWlzaGluZyBBTUVORCBhbmQgQVNZTkMgbm93PwoK
-QU1FTkQ6IHJlcGxhY2UgdGhlIHBlbmRpbmcgcGxhbmUgdXBkYXRlIChpZiBhbnkpIGJ5IHRoZSBu
-ZXcgb25lLCBhbmQKbWFrZSBzdXJlIHRoaW5ncyB3aWxsIGJlIGFwcGxpZWQgb24gdGhlIG5leHQg
-VkJMQU5LIChpZiBub3RoaW5nIGVsc2UKYW1lbmRzIHRoZSBjb21taXQgaW4gdGhlIG1lYW50aW1l
-KQoKQVNZTkM6IHVwZGF0ZSB0aGluZ3MgaW1tZWRpYXRlbHkgKGRvbid0IHdhaXQgZm9yIFZCTEFO
-SykKCj4gCj4gPiAgIAo+ID4+Cj4gPj4gU28gSSB3b3VsZCBsaWtlIHRvIGNsYXJpZnkgdGhpcyBp
-biB0aGUgZG9jcyBhbmQgcmVuYW1lIHRoZSBjdXJyZW50Cj4gPj4gY2FsbGJhY2tzIHRvIHJlZmxl
-Y3QgdGhpcyBiZWhhdmlvdXIuICAKPiA+IAo+ID4gSSdtIGFsbCBmb3IgdGhpcyBjbGFyaWZpY2F0
-aW9uLCBidXQgSSBkb24ndCB0aGluayByZW5hbWluZyB0aGUgYXN5bmMKPiA+IGhvb2tzIGlzIGEg
-Z29vZCBpZGVhLCBzaW5jZSBzb21lIGRyaXZlcnMgd2lsbCBub3QgZG8gcmVhbCAnYW1lbmQnLiBT
-bywKPiA+IHlvdSdyZSBjaGFuZ2luZyB0aGUgbmFtZSwgYnV0IGl0J3Mgc3RpbGwgY29uZnVzaW5n
-IDotKS4KPiA+IAo+ID4gSG93IGFib3V0IGFkZGluZyBuZXcgaG9va3MgKGFuZC9vciBmbGFncykg
-Zm9yIHRoZSBBTUVORCBjYXNlLCBhbmQKPiA+IGtlZXBpbmcgdGhlIGFzeW5jIHBhdGggdW50b3Vj
-aGVkLiBXZSBjYW4gdGhlbiBsZXQgZHJpdmVycyB0aGF0Cj4gPiBjdXJyZW50bHkgaW1wbGVtZW50
-IGFzeW5jIGFzIGFtZW5kIGltcGxlbWVudCB0aGUgYW1lbmQgaG9va3MgaW5zdGVhZC4KPiA+IE9u
-Y2UgeW91J3ZlIGRvbmUgdGhhdCwgeW91IGNhbiBob29rIHRoYXQgdXAgdG8gdGhlIGxlZ2FjeSBj
-dXJzb3IgdXBkYXRlCj4gPiBwYXRoIHNvIHRoYXQgaXQgZmlyc3QgdHJpZXMgb25lIHRoZW4gdGhl
-IG90aGVyIGFuZCBmaW5hbGx5IGZhbGxzIGJhY2sKPiA+IHRvIGEgc3luYyB1cGRhdGUgaWYgbm9u
-ZSBvZiBBU1lOQy9BTUVORCBpcyBwb3NzaWJsZS4gIAo+IAo+IEkga2luZGEgZGlkIHRoaXMgKEkg
-cmUtaW50cm9kdWNlZCBhc3luYyBpbiB0aGUgbGFzdCBwYXRjaCBpbiB0aGUKPiBzZXJpZXMpLiBJ
-IGtub3cgdGhpcyBvcmRlciBpcyBjb25mdXNpbmcsIGJ1dCBhcyByb2NrY2hpcCBkb2Vzbid0Cj4g
-aW1wbGVtZW50IHRydWUgYXN5bmMsIEkgd291bGQgaGF2ZSB0byBkbyBhIGJ1bmNoIG9mIG1vZGlm
-cyBhdCBvbmNlIHRvCj4ga2VlcCB0aGUgY29tbWl0cyBjb25zaXN0ZW50LCBidXQgSSBjYW4gcmUt
-d29yayBvbiB0aGF0IGlmIGl0IG1ha2VzCj4gdGhpbmdzIGNsZWFyZXIuCgpMZXQncyB3YWl0IGZv
-ciBtb3JlIGZlZWRiYWNrIGJlZm9yZSB0YWtpbmcgYSBkZWNpc2lvbiBvbiB0aGlzIGFzcGVjdC4K
-Cj4gCj4gPiAgIAo+ID4+Cj4gPj4gSSBhbHNvIHNlZSB0aGF0IGZvciByZWFsIGFzeW5jIHVwZGF0
-ZXMsIHRoZSBmbGFnCj4gPj4gRFJNX01PREVfUEFHRV9GTElQX0FTWU5DIGNhbiBiZSB1c2VkIGlu
-IGEgbm9ybWFsIHN5bmMgdXBkYXRlIChpdCBpcwo+ID4+IGFscmVhZHkgYmVpbmcgdXNlZCBieSBz
-b21lIGRyaXZlcnMgYWN0dWFsbHksIGluIHRoZSBhdG9taWMgcGF0aCwgbm90IG9ubHkKPiA+PiBp
-biB0aGUgbGVnYWN5IHBhZ2UgZmxpcCwgYXQgbGVhc3QgaXMgd2hhdCBJIHVuZGVyc3Rvb2QgZnJv
-bQo+ID4+IGFtZGdwdV9kbV9hdG9taWNfY29tbWl0X3RhaWwoKSBpbXBsZW1lbnRhdGlvbikuICAK
-PiA+IAo+ID4gWWVzLCByaWdodCBub3csIGFzeW5jIGRvZXMgbm90IG5lY2Vzc2FyaWx5IGltcGx5
-IG5vbi1ibG9jaywgYnV0Cj4gPiBEYW5pZWwgc2VlbWVkIHRvIHRoaW5rIHRoYXQgbW9zdCB1c2Vy
-cyB3YW50IG5vbi1ibG9jayB3aGVuIHRoZXkgZG8gYW4KPiA+IGFzeW5jIHBhZ2UgZmxpcCwgc28g
-bWF5YmUgaXQgc2hvdWxkIGJlIGNsYXJpZmllZCB0b28uICAKPiAKPiB1c2VycyBjb3VsZCBjb21i
-aW5lIE5PTkJMT0NLIGZsYWcgd2l0aCBQQUdFX0ZMSVBfQVNZTkMsIG5vPyAod2UgbmVlZCB0bwo+
-IGFkZCBjb2RlIGZvciBpdCBvZiBjb3Vyc2UpLgoKSSBndWVzcyBBTUQgZ29lcyB0aHJvdWdoIHRo
-ZSBzeW5jIHVwZGF0ZSBwYXRoIHRvIGd1YXJhbnRlZSB0aGF0IGZlbmNlcwphcmUgc2lnbmFsZWQg
-YmVmb3JlIGRvaW5nIHRoZSBwYWdlIGZsaXAsIGJ1dCBtb3N0IG9mIHRoZSB0aW1lLCB3aGVuIHlv
-dQpkbyBhbiBhc3luYyBwYWdlIGZsaXAgeW91IGRvbid0IHdhbnQgdG8gYmxvY2sgOi0pLgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpGcmVlZHJlbm8gbWFp
-bGluZyBsaXN0CkZyZWVkcmVub0BsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9mcmVlZHJlbm8=
+--===============0647148549==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18097FB3E7D286517EC261E9F7280BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18097FB3E7D286517EC261E9F7280BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: Pan, Xinhui
+Sent: Friday, April 12, 2019 1:42 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: [PATCH libdrm V2] amdgpu: Fix a structure initialization issue
+
+struct drmPciBusInfo has been aligned to 6 bytes. So memcmp will access
+the last byte which is not initialized.
+
+Signed-off-by: xinhui pan <xinhui.pan-5C7GfCeVMHo@public.gmane.org>
+---
+ tests/amdgpu/ras_tests.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tests/amdgpu/ras_tests.c b/tests/amdgpu/ras_tests.c
+index 612ad1d7..81c34ad6 100644
+--- a/tests/amdgpu/ras_tests.c
++++ b/tests/amdgpu/ras_tests.c
+@@ -196,6 +196,7 @@ static int amdgpu_ras_lookup_id(drmDevicePtr device)
+
+         for (i =3D 0; i < MAX_CARDS_SUPPORTED; i++) {
+                 memset(str, 0, sizeof(str));
++               memset(&info, 0, sizeof(info));
+                 sprintf(path, "/sys/kernel/debug/dri/%d/name", i);
+                 if (get_file_contents(path, str, sizeof(str)) <=3D 0)
+                         continue;
+--
+2.17.1
+
+
+--_000_BN6PR12MB18097FB3E7D286517EC261E9F7280BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Pan, Xinhui<br>
+<b>Sent:</b> Friday, April 12, 2019 1:42 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> [PATCH libdrm V2] amdgpu: Fix a structure initialization is=
+sue</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">struct drmPciBusInfo has been aligned to 6 bytes. =
+So memcmp will access<br>
+the last byte which is not initialized.<br>
+<br>
+Signed-off-by: xinhui pan &lt;xinhui.pan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;tests/amdgpu/ras_tests.c | 1 &#43;<br>
+&nbsp;1 file changed, 1 insertion(&#43;)<br>
+<br>
+diff --git a/tests/amdgpu/ras_tests.c b/tests/amdgpu/ras_tests.c<br>
+index 612ad1d7..81c34ad6 100644<br>
+--- a/tests/amdgpu/ras_tests.c<br>
+&#43;&#43;&#43; b/tests/amdgpu/ras_tests.c<br>
+@@ -196,6 &#43;196,7 @@ static int amdgpu_ras_lookup_id(drmDevicePtr device=
+)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; MAX_C=
+ARDS_SUPPORTED; i&#43;&#43;) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; memset(str, 0, sizeof(str));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; memset(&amp;info, 0, sizeof(info));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; sprintf(path, &quot;/sys/kernel/debug/dri/%d/name&quo=
+t;, i);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (get_file_contents(path, str, sizeof(str)) &lt;=3D=
+ 0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conti=
+nue;<br>
+-- <br>
+2.17.1<br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18097FB3E7D286517EC261E9F7280BN6PR12MB1809namp_--
+
+--===============0647148549==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0647148549==--
