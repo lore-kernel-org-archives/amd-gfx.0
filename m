@@ -1,72 +1,107 @@
-From: Boris Brezillon <boris.brezillon@collabora.com>
+From: Helen Koike <helen.koike@collabora.com>
 Subject: Re: [PATCH v3 2/4] drm/atomic: rename async_{update,check} to
  amend_{update,check}
-Date: Fri, 12 Apr 2019 15:49:57 +0200
-Message-ID: <20190412154957.558e49f8@collabora.com>
+Date: Fri, 12 Apr 2019 11:06:13 -0300
+Message-ID: <bda69249-f193-9dbc-5186-7139fb2c365a@collabora.com>
 References: <20190412125827.5877-1-helen.koike@collabora.com>
  <20190412125827.5877-3-helen.koike@collabora.com>
+ <20190412154957.558e49f8@collabora.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190412125827.5877-3-helen.koike@collabora.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Helen Koike <helen.koike@collabora.com>
-Cc: Sean Paul <seanpaul@google.com>, alexandros.frantzis@collabora.com, David Airlie <airlied@linux.ie>, daniel.vetter@ffwll.ch, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Mamta Shukla <mamtashukla555@gmail.com>, tina.zhang@intel.com, kernel@collabora.com, Anthony Koo <Anthony.Koo@amd.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Jonathan Corbet <corbet@lwn.net>, Sean Paul <sean@poorly.run>, David Francis <David.Francis@amd.com>, linux-doc@vger.kernel.org, amd-gfx@lists.freedesktop.org, Gustavo Padovan <gustavo.padovan@collabora.com>, linux-rockchip@lists.infradead.org, daniels@collabora.com, Leo Li <sunpeng.li@amd.com>, linux-arm-msm@vger.kernel.org, Russell King <rmk+kernel@armlinux.org.uk>, Mikita Lipski <mikita.lipski@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, linux-arm-kernel@lists.infradead.org, dnicoara@chromium.org, =?UTF-8?B?U3
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190412154957.558e49f8@collabora.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, David Airlie <airlied@linux.ie>, dnicoara@chromium.org, daniels@collabora.com, alexandros.frantzis@collabora.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, tomasz Figa <tfiga@chromium.org>, tina.zhang@intel.com, Sean Paul <seanpaul@google.com>, kernel@collabora.com, nicholas.kazlauskas@amd.com, =?UTF-8?Q?St=c3=a9phane_Marchesin?= <marcheu@google.com>, Gustavo Padovan <gustavo.padovan@collabora.com>, Sean Paul <sean@poorly.run>, Sandy Huang <hjc@rock-chips.com>, linux-doc@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, Jonathan Corbet <corbet@lwn.net>, Harry Wentland <harry.wentland@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgSGVsZW4sCgpPbiBGcmksIDEyIEFwciAyMDE5IDA5OjU4OjI1IC0wMzAwCkhlbGVuIEtvaWtl
-IDxoZWxlbi5rb2lrZUBjb2xsYWJvcmEuY29tPiB3cm90ZToKCj4gQXN5bmNocm9ub3VzIHVwZGF0
-ZSBpcyB0aGUgYWJpbGl0eSBjaGFuZ2UgdGhlIGh3IHN0YXRlIGF0IGFueSB0aW1lLCBub3QKPiBv
-bmx5IGR1cmluZyB2YmxhbmsuCj4gCj4gQW1lbmQgbW9kZSBpcyB0aGUgYWJpbGl0eSB0byBwZXJm
-b3JtIDEwMDAgY29tbWl0cyB0byBiZSBhcHBsaWVkIGFzIHNvb24KPiBhcyBwb3NzaWJsZSB3aXRo
-b3V0IHdhaXRpbmcgZm9yIDEwMDAgdmJsYW5rcy4KPiAKPiBhc3luYyB1cGRhdGVzIGNhbiBiZSBz
-ZWVuIGFzIGFtZW5kLCBidXQgdGhlIG9wcG9zaXRlIGlzIG5vdCB0cnVlLgo+IAo+ICZkcm1fcGxh
-bmVfaGVscGVyX2Z1bmNzLmF0b21pY19hc3luY197dXBkYXRlLGNoZWNrfSgpIHdhcyBiZWluZyB1
-c2VkIGJ5Cj4gZHJpdmVycyB0byBpbXBsZW1lbnQgYW1lbmQgYW5kIG5vdCBhc3luYy4gU28gcmVu
-YW1lIHRoZW0gdG8gYW1lbmQuCj4gCj4gQWxzbyBpbXByb3ZlIGRvY3MgZXhwbGFpbmluZyB0aGUg
-ZGlmZmVyZW5jZS4KPiAKPiBJZiBhc3luY2hyb25vdXMgaXMgcmVxdWlyZWQsIG5vcm1hbCBwYWdl
-IGZsaXAgY2FuIGJlIHBlcmZvcm1lZCB1c2luZwo+IERSTV9NT0RFX1BBR0VfRkxJUF9BU1lOQyBm
-bGFnLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEhlbGVuIEtvaWtlIDxoZWxlbi5rb2lrZUBjb2xsYWJv
-cmEuY29tPgo+IAo+IC0tLQo+IEhlbGxvLAo+IAo+IEkgd291bGQgbGlrZSB0byBvZmZpY2lhbGx5
-IGNsYXJpZnkgd2hhdCBhc3luYyB1cGRhdGUgbWVhbnMgYnkgYWRkaW5nIGl0Cj4gaW4gdGhlIGRv
-Y3MuCj4gUGxlYXNlIGNvcnJlY3QgbWUgaWYgSSBhbSB3cm9uZywgYnV0IHRoZSBjdXJyZW50IGFz
-eW5jX3t1cGRhdGUsY2hlY2t9Cj4gY2FsbGJhY2tzIGFyZSBiZWluZyB1c2VkIHRvIGRvIGFtZW5k
-ICh0aGUgbGVnYWN5IGN1cnNvciBiZWhhdmlvciksIGkuZS4KPiB0byBhbGxvdyAxMDAwIHVwZGF0
-ZXMgd2l0aG91dCB3YWl0aW5nIGZvciAxMDAwIHZibGFua3MuCgpSaWdodCBub3csIHRoZSBzZW1h
-bnRpYyBvZiBhc3luYyB1cGRhdGUgaXMgZHJpdmVyIGRlcGVuZGVudC4gU29tZQpkcml2ZXJzIHdp
-bGwgYW1lbmQgdGhlIGxhc3QgY29tbWl0IHRvdWNoaW5nIHRoYXQgcGxhbmUgKGFtZW5kIHNlbWFu
-dGljKSwKb3RoZXJzIHdpbGwgdXBkYXRlIHRoZSBwbGFuZSBidWZmZXIgaW1tZWRpYXRlbHkgd2hp
-Y2ggbWlnaHQgY2F1c2UKdGVhcmluZyAoYXN5bmMgc2VtYW50aWMpLgoKPiAKPiBTbyBJIHdvdWxk
-IGxpa2UgdG8gY2xhcmlmeSB0aGlzIGluIHRoZSBkb2NzIGFuZCByZW5hbWUgdGhlIGN1cnJlbnQK
-PiBjYWxsYmFja3MgdG8gcmVmbGVjdCB0aGlzIGJlaGF2aW91ci4KCkknbSBhbGwgZm9yIHRoaXMg
-Y2xhcmlmaWNhdGlvbiwgYnV0IEkgZG9uJ3QgdGhpbmsgcmVuYW1pbmcgdGhlIGFzeW5jCmhvb2tz
-IGlzIGEgZ29vZCBpZGVhLCBzaW5jZSBzb21lIGRyaXZlcnMgd2lsbCBub3QgZG8gcmVhbCAnYW1l
-bmQnLiBTbywKeW91J3JlIGNoYW5naW5nIHRoZSBuYW1lLCBidXQgaXQncyBzdGlsbCBjb25mdXNp
-bmcgOi0pLgoKSG93IGFib3V0IGFkZGluZyBuZXcgaG9va3MgKGFuZC9vciBmbGFncykgZm9yIHRo
-ZSBBTUVORCBjYXNlLCBhbmQKa2VlcGluZyB0aGUgYXN5bmMgcGF0aCB1bnRvdWNoZWQuIFdlIGNh
-biB0aGVuIGxldCBkcml2ZXJzIHRoYXQKY3VycmVudGx5IGltcGxlbWVudCBhc3luYyBhcyBhbWVu
-ZCBpbXBsZW1lbnQgdGhlIGFtZW5kIGhvb2tzIGluc3RlYWQuCk9uY2UgeW91J3ZlIGRvbmUgdGhh
-dCwgeW91IGNhbiBob29rIHRoYXQgdXAgdG8gdGhlIGxlZ2FjeSBjdXJzb3IgdXBkYXRlCnBhdGgg
-c28gdGhhdCBpdCBmaXJzdCB0cmllcyBvbmUgdGhlbiB0aGUgb3RoZXIgYW5kIGZpbmFsbHkgZmFs
-bHMgYmFjawp0byBhIHN5bmMgdXBkYXRlIGlmIG5vbmUgb2YgQVNZTkMvQU1FTkQgaXMgcG9zc2li
-bGUuCgo+IAo+IEkgYWxzbyBzZWUgdGhhdCBmb3IgcmVhbCBhc3luYyB1cGRhdGVzLCB0aGUgZmxh
-Zwo+IERSTV9NT0RFX1BBR0VfRkxJUF9BU1lOQyBjYW4gYmUgdXNlZCBpbiBhIG5vcm1hbCBzeW5j
-IHVwZGF0ZSAoaXQgaXMKPiBhbHJlYWR5IGJlaW5nIHVzZWQgYnkgc29tZSBkcml2ZXJzIGFjdHVh
-bGx5LCBpbiB0aGUgYXRvbWljIHBhdGgsIG5vdCBvbmx5Cj4gaW4gdGhlIGxlZ2FjeSBwYWdlIGZs
-aXAsIGF0IGxlYXN0IGlzIHdoYXQgSSB1bmRlcnN0b29kIGZyb20KPiBhbWRncHVfZG1fYXRvbWlj
-X2NvbW1pdF90YWlsKCkgaW1wbGVtZW50YXRpb24pLgoKWWVzLCByaWdodCBub3csIGFzeW5jIGRv
-ZXMgbm90IG5lY2Vzc2FyaWx5IGltcGx5IG5vbi1ibG9jaywgYnV0CkRhbmllbCBzZWVtZWQgdG8g
-dGhpbmsgdGhhdCBtb3N0IHVzZXJzIHdhbnQgbm9uLWJsb2NrIHdoZW4gdGhleSBkbyBhbgphc3lu
-YyBwYWdlIGZsaXAsIHNvIG1heWJlIGl0IHNob3VsZCBiZSBjbGFyaWZpZWQgdG9vLgoKUmVnYXJk
-cywKCkJvcmlzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+Hi Boris,
+
+On 4/12/19 10:49 AM, Boris Brezillon wrote:
+> Hi Helen,
+> 
+> On Fri, 12 Apr 2019 09:58:25 -0300
+> Helen Koike <helen.koike@collabora.com> wrote:
+> 
+>> Asynchronous update is the ability change the hw state at any time, not
+>> only during vblank.
+>>
+>> Amend mode is the ability to perform 1000 commits to be applied as soon
+>> as possible without waiting for 1000 vblanks.
+>>
+>> async updates can be seen as amend, but the opposite is not true.
+>>
+>> &drm_plane_helper_funcs.atomic_async_{update,check}() was being used by
+>> drivers to implement amend and not async. So rename them to amend.
+>>
+>> Also improve docs explaining the difference.
+>>
+>> If asynchronous is required, normal page flip can be performed using
+>> DRM_MODE_PAGE_FLIP_ASYNC flag.
+>>
+>> Signed-off-by: Helen Koike <helen.koike@collabora.com>
+>>
+>> ---
+>> Hello,
+>>
+>> I would like to officially clarify what async update means by adding it
+>> in the docs.
+>> Please correct me if I am wrong, but the current async_{update,check}
+>> callbacks are being used to do amend (the legacy cursor behavior), i.e.
+>> to allow 1000 updates without waiting for 1000 vblanks.
+> 
+> Right now, the semantic of async update is driver dependent. Some
+> drivers will amend the last commit touching that plane (amend semantic),
+> others will update the plane buffer immediately which might cause
+> tearing (async semantic).
+
+In my pov, async updates holds the properties of an amend update, so all
+async updates we have are amend, but the opposite is not true.
+
+> 
+>>
+>> So I would like to clarify this in the docs and rename the current
+>> callbacks to reflect this behaviour.
+> 
+> I'm all for this clarification, but I don't think renaming the async
+> hooks is a good idea, since some drivers will not do real 'amend'. So,
+> you're changing the name, but it's still confusing :-).
+> 
+> How about adding new hooks (and/or flags) for the AMEND case, and
+> keeping the async path untouched. We can then let drivers that
+> currently implement async as amend implement the amend hooks instead.
+> Once you've done that, you can hook that up to the legacy cursor update
+> path so that it first tries one then the other and finally falls back
+> to a sync update if none of ASYNC/AMEND is possible.
+
+I kinda did this (I re-introduced async in the last patch in the
+series). I know this order is confusing, but as rockchip doesn't
+implement true async, I would have to do a bunch of modifs at once to
+keep the commits consistent, but I can re-work on that if it makes
+things clearer.
+
+> 
+>>
+>> I also see that for real async updates, the flag
+>> DRM_MODE_PAGE_FLIP_ASYNC can be used in a normal sync update (it is
+>> already being used by some drivers actually, in the atomic path, not only
+>> in the legacy page flip, at least is what I understood from
+>> amdgpu_dm_atomic_commit_tail() implementation).
+> 
+> Yes, right now, async does not necessarily imply non-block, but
+> Daniel seemed to think that most users want non-block when they do an
+> async page flip, so maybe it should be clarified too.
+
+users could combine NONBLOCK flag with PAGE_FLIP_ASYNC, no? (we need to
+add code for it of course).
+
+Thanks
+Helen
+
+> 
+> Regards,
+> 
+> Boris
+> 
