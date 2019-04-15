@@ -1,17 +1,12 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v3 5/5] Patch '5edb0c9b Fix deadlock with display during
- hanged ring recovery' was accidentaly removed during one of DALs code merges.
-Date: Mon, 15 Apr 2019 20:00:14 +0000
-Message-ID: <8e7e1de4-7e82-8c87-b8aa-57a3027cf057@amd.com>
+From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
+Subject: Re: [PATCH v3 1/5] drm/scheduler: rework job destruction
+Date: Mon, 15 Apr 2019 14:17:37 -0700
+Message-ID: <878swb6k9a.fsf@anholt.net>
 References: <1555357403-30813-1-git-send-email-andrey.grodzovsky@amd.com>
- <1555357403-30813-5-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2081478644=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1555357403-30813-5-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <ADC2AB32D53C054D814FFC63085AC36B-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <1555357403-30813-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,45 +17,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org" <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, "etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gNC8xNS8xOSAzOjQzIFBNLCBBbmRyZXkgR3JvZHpvdnNreSB3cm90ZToNCj4gU2lnbmVkLW9m
-Zi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+DQo+IFJl
-dmlld2VkLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5j
-b20+DQoNCk5pdHBpY2tzOg0KDQpQdXQgdGhlIGN1cnJlbnQgY29tbWl0IG1lc3NhZ2UgKHdpdGgg
-dGhlIHNwZWxsaW5nIG1pc3Rha2UgaW4gDQphY2NpZGVudGFsbHkgZml4ZWQpIGluIHRoZSBib2R5
-IG9mIHRoZSBjb21taXQgYW5kIGdpdmUgdGhlIGNvbW1pdCB0aXRsZSANCnNvbWV0aGluZyBhIGxp
-dHRsZSBtb3JlIGRlc2NyaXB0aXZlLCBlZzoNCg0KZHJtL2FtZC9kaXNwbGF5OiBVc2UgYSByZWFz
-b25hYmxlIHRpbWVvdXQgZm9yIGZyYW1lYnVmZmVyIGZlbmNlIHdhaXRzDQoNClRoZSBjdXJyZW50
-IHRpdGxlJ3MgbGVuZ3RoIGlzIGEgbGl0dGxlIGJpdCBleGNlc3NpdmUuLi4NCg0KTmljaG9sYXMg
-S2F6bGF1c2thcw0KDQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMgfCAxNSArKysrKysrKystLS0tLS0NCj4gICAxIGZpbGUgY2hhbmdl
-ZCwgOSBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IGluZGV4IDVhZWFj
-MmMuLjJiYWUyYmYgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBAQCAtNTI5NywxMSArNTI5NywxNiBAQCBzdGF0aWMg
-dm9pZCBhbWRncHVfZG1fY29tbWl0X3BsYW5lcyhzdHJ1Y3QgZHJtX2F0b21pY19zdGF0ZSAqc3Rh
-dGUsDQo+ICAgDQo+ICAgCQlhYm8gPSBnZW1fdG9fYW1kZ3B1X2JvKGZiLT5vYmpbMF0pOw0KPiAg
-IA0KPiAtCQkvKiBXYWl0IGZvciBhbGwgZmVuY2VzIG9uIHRoaXMgRkIgKi8NCj4gKwkJLyoNCj4g
-KwkJICogV2FpdCBmb3IgYWxsIGZlbmNlcyBvbiB0aGlzIEZCLiBEbyBsaW1pdGVkIHdhaXQgdG8g
-YXZvaWQNCj4gKwkJICogZGVhZGxvY2sgZHVyaW5nIEdQVSByZXNldCB3aGVuIHRoaXMgZmVuY2Ug
-d2lsbCBub3Qgc2lnbmFsDQo+ICsJCSAqIGJ1dCB3ZSBob2xkIHJlc2VydmF0aW9uIGxvY2sgZm9y
-IHRoZSBCTy4NCj4gKwkJICovDQo+ICAgCQlyID0gcmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGlt
-ZW91dF9yY3UoYWJvLT50Ym8ucmVzdiwgdHJ1ZSwNCj4gICAJCQkJCQkJZmFsc2UsDQo+IC0JCQkJ
-CQkJTUFYX1NDSEVEVUxFX1RJTUVPVVQpOw0KPiAtCQlXQVJOX09OKHIgPCAwKTsNCj4gKwkJCQkJ
-CQltc2Vjc190b19qaWZmaWVzKDUwMDApKTsNCj4gKwkJaWYgKHVubGlrZWx5KHIgPD0gMCkpDQo+
-ICsJCQlEUk1fRVJST1IoIldhaXRpbmcgZm9yIGZlbmNlcyB0aW1lZCBvdXQgb3IgaW50ZXJydXB0
-ZWQhIik7DQo+ICAgDQo+ICAgCQkvKg0KPiAgIAkJICogVE9ETyBUaGlzIG1pZ2h0IGZhaWwgYW5k
-IGhlbmNlIGJldHRlciBub3QgdXNlZCwgd2FpdA0KPiBAQCAtNTMxMCwxMCArNTMxNSw4IEBAIHN0
-YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0cnVjdCBkcm1fYXRvbWljX3N0YXRl
-ICpzdGF0ZSwNCj4gICAJCSAqIGJsb2NraW5nIGNvbW1pdCB0byBhcyBwZXIgZnJhbWV3b3JrIGhl
-bHBlcnMNCj4gICAJCSAqLw0KPiAgIAkJciA9IGFtZGdwdV9ib19yZXNlcnZlKGFibywgdHJ1ZSk7
-DQo+IC0JCWlmICh1bmxpa2VseShyICE9IDApKSB7DQo+ICsJCWlmICh1bmxpa2VseShyICE9IDAp
-KQ0KPiAgIAkJCURSTV9FUlJPUigiZmFpbGVkIHRvIHJlc2VydmUgYnVmZmVyIGJlZm9yZSBmbGlw
-XG4iKTsNCj4gLQkJCVdBUk5fT04oMSk7DQo+IC0JCX0NCj4gICANCj4gICAJCWFtZGdwdV9ib19n
-ZXRfdGlsaW5nX2ZsYWdzKGFibywgJnRpbGluZ19mbGFncyk7DQo+ICAgDQo+IA0KDQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============2081478644==
+Content-Type: multipart/signed; boundary="=-=-=";
+	micalg=pgp-sha512; protocol="application/pgp-signature"
+
+--=-=-=
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org> writes:
+
+> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+>
+> We now destroy finished jobs from the worker thread to make sure that
+> we never destroy a job currently in timeout processing.
+> By this we avoid holding lock around ring mirror list in drm_sched_stop
+> which should solve a deadlock reported by a user.
+>
+> v2: Remove unused variable.
+>
+> Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=3D109692
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  17 ++--
+>  drivers/gpu/drm/etnaviv/etnaviv_dump.c     |   4 -
+>  drivers/gpu/drm/etnaviv/etnaviv_sched.c    |   9 +-
+>  drivers/gpu/drm/scheduler/sched_main.c     | 138 +++++++++++++++++------=
+------
+>  drivers/gpu/drm/v3d/v3d_sched.c            |   9 +-
+
+Missing corresponding panfrost and lima updates.  You should probably
+pull in drm-misc for hacking on the scheduler.
+
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
+hed.c
+> index ce7c737b..8efb091 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -232,11 +232,18 @@ v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, stru=
+ct drm_sched_job *sched_job)
+>=20=20
+>  	/* block scheduler */
+>  	for (q =3D 0; q < V3D_MAX_QUEUES; q++)
+> -		drm_sched_stop(&v3d->queue[q].sched);
+> +		drm_sched_stop(&v3d->queue[q].sched, sched_job);
+>=20=20
+>  	if(sched_job)
+>  		drm_sched_increase_karma(sched_job);
+>=20=20
+> +	/*
+> +	 * Guilty job did complete and hence needs to be manually removed
+> +	 * See drm_sched_stop doc.
+> +	 */
+> +	if (list_empty(&sched_job->node))
+> +		sched_job->sched->ops->free_job(sched_job);
+
+If the if (sched_job) is necessary up above, then this should clearly be
+under it.
+
+But, can we please have a core scheduler thing we call here instead of
+drivers all replicating it?
+
+> +
+>  	/* get the GPU back into the init state */
+>  	v3d_reset(v3d);
+>=20=20
+
+--=-=-=
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAly09PEACgkQtdYpNtH8
+nuhi2Q/7B/vT7KybreXruLawEYm0HXhNOmjfwsk0NPSYllpNXT7pHHfL2vpyoL1+
+qTKKv6u7KIR8iY4c23ZOv4+AmYwBG8pOmZ6k0bvbGOHG5O29GV6SpWFiGgq+oIcK
+Ij1Hr9DZmal7Z49MQHZT6QON9D9LfdiJ2cCIghPDjYC3Vky8IFu+UvCRBtE7tFEr
+o+c9jSF+t8/FQ5yn/Bn6CSzH1AmDITuaHdkSMZmtxfjKnhxGEd6hK83wny0Tx+x2
+de45E3DpOKfj9RwLK+6h4ocuPTWcZFyYb+5kPjOWwM3GGWZOreUQWAG1MpqJ/uYO
+/6kAafh+BFR70h5k0npQ2l//otMk5Pjxne0fPg8HTVYiEHwlEUv+SAwNsUEbDOFK
+rcuS8DwCSBTFGESphgHWgSpjXcK7Kwpr49N8YMIyB3WTcX45fn0HqNgJB8ZZtQ3E
+m5UFJOi3pQAfC8G6OO9ss3+dYo/9q55jp5erwpSrLqJ/WThDULEgq3TD4hYRJwE2
+yXwszbE+IY7bHJIL0IakI7r1281P4MFM9hCbPlGPQWSsPmvqLEDn8itLQyl323io
+b5FDVCGBocoVBQ9mbO0Ji4RE+3WTi3F4JryZ4eiaJWqD8FdHR8O+GqxStc0cV0Ah
+Y3+yt0xcHwlu0nzHUj6syzozliQVxpXAP2PYQIRtPePIRmUh/g0=
+=cA61
+-----END PGP SIGNATURE-----
+--=-=-=--
+
+--===============2081478644==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2081478644==--
