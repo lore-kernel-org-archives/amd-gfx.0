@@ -1,138 +1,236 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 04/12] dma-buf: add optional invalidate_mappings callback v5
-Date: Tue, 16 Apr 2019 20:38:33 +0200
-Message-ID: <20190416183841.1577-5-christian.koenig@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?="
+        <ckoenig.leichtzumerken@gmail.com>
+Subject: [PATCH 10/12] drm/amdgpu: add independent DMA-buf import v4
+Date: Tue, 16 Apr 2019 20:38:39 +0200
+Message-ID: <20190416183841.1577-11-christian.koenig@amd.com>
 References: <20190416183841.1577-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190416183841.1577-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190416183841.1577-1-christian.koenig@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: sumit.semwal@linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RWFjaCBpbXBvcnRlciBjYW4gbm93IHByb3ZpZGUgYW4gaW52YWxpZGF0ZV9tYXBwaW5ncyBjYWxs
-YmFjay4KClRoaXMgYWxsb3dzIHRoZSBleHBvcnRlciB0byBwcm92aWRlIHRoZSBtYXBwaW5ncyB3
-aXRob3V0IHRoZSBuZWVkIHRvIHBpbgp0aGUgYmFja2luZyBzdG9yZS4KCnYyOiBkb24ndCB0cnkg
-dG8gaW52YWxpZGF0ZSBtYXBwaW5ncyB3aGVuIHRoZSBjYWxsYmFjayBpcyBOVUxMLAogICAgbG9j
-ayB0aGUgcmVzZXJ2YXRpb24gb2JqIHdoaWxlIHVzaW5nIHRoZSBhdHRhY2htZW50cywKICAgIGFk
-ZCBoZWxwZXIgdG8gc2V0IHRoZSBjYWxsYmFjawp2MzogbW92ZSBmbGFnIGZvciBpbnZhbGlkYXRp
-b24gc3VwcG9ydCBpbnRvIHRoZSBETUEtYnVmLAogICAgdXNlIG5ldyBhdHRhY2hfaW5mbyBzdHJ1
-Y3R1cmUgdG8gc2V0IHRoZSBjYWxsYmFjawp2NDogdXNlIGltcG9ydGVyX3ByaXYgZmllbGQgaW5z
-dGVhZCBvZiBtYW5nbGluZyBleHBvcnRlciBwcml2Lgp2NTogZHJvcCBpbnZhbGlkYXRpb25fc3Vw
-cG9ydGVkIGZsYWcKClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5r
-b2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2RtYS1idWYvZG1hLWJ1Zi5jIHwgMzcgKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogaW5jbHVkZS9saW51eC9kbWEtYnVmLmgg
-ICB8IDMzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLQogMiBmaWxlcyBjaGFuZ2Vk
-LCA2OCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-ZG1hLWJ1Zi9kbWEtYnVmLmMgYi9kcml2ZXJzL2RtYS1idWYvZG1hLWJ1Zi5jCmluZGV4IDgzYzky
-YmZkOTY0Yy4uYTM3MzhmYWIzOTI3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2RtYS1idWYvZG1hLWJ1
-Zi5jCisrKyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMKQEAgLTU2Myw2ICs1NjMsOCBAQCBz
-dHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICpkbWFfYnVmX2F0dGFjaChjb25zdCBzdHJ1Y3QgZG1h
-X2J1Zl9hdHRhY2hfaW5mbyAqaW5mbwogCiAJYXR0YWNoLT5kZXYgPSBpbmZvLT5kZXY7CiAJYXR0
-YWNoLT5kbWFidWYgPSBkbWFidWY7CisJYXR0YWNoLT5pbXBvcnRlcl9wcml2ID0gaW5mby0+aW1w
-b3J0ZXJfcHJpdjsKKwlhdHRhY2gtPmludmFsaWRhdGUgPSBpbmZvLT5pbnZhbGlkYXRlOwogCiAJ
-bXV0ZXhfbG9jaygmZG1hYnVmLT5sb2NrKTsKIApAQCAtNTcxLDcgKzU3Myw5IEBAIHN0cnVjdCBk
-bWFfYnVmX2F0dGFjaG1lbnQgKmRtYV9idWZfYXR0YWNoKGNvbnN0IHN0cnVjdCBkbWFfYnVmX2F0
-dGFjaF9pbmZvICppbmZvCiAJCWlmIChyZXQpCiAJCQlnb3RvIGVycl9hdHRhY2g7CiAJfQorCXJl
-c2VydmF0aW9uX29iamVjdF9sb2NrKGRtYWJ1Zi0+cmVzdiwgTlVMTCk7CiAJbGlzdF9hZGQoJmF0
-dGFjaC0+bm9kZSwgJmRtYWJ1Zi0+YXR0YWNobWVudHMpOworCXJlc2VydmF0aW9uX29iamVjdF91
-bmxvY2soZG1hYnVmLT5yZXN2KTsKIAogCW11dGV4X3VubG9jaygmZG1hYnVmLT5sb2NrKTsKIApA
-QCAtNjE1LDcgKzYxOSw5IEBAIHZvaWQgZG1hX2J1Zl9kZXRhY2goc3RydWN0IGRtYV9idWYgKmRt
-YWJ1Ziwgc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoKQogCQkJCQkgICBETUFfQklE
-SVJFQ1RJT05BTCk7CiAKIAltdXRleF9sb2NrKCZkbWFidWYtPmxvY2spOworCXJlc2VydmF0aW9u
-X29iamVjdF9sb2NrKGRtYWJ1Zi0+cmVzdiwgTlVMTCk7CiAJbGlzdF9kZWwoJmF0dGFjaC0+bm9k
-ZSk7CisJcmVzZXJ2YXRpb25fb2JqZWN0X3VubG9jayhkbWFidWYtPnJlc3YpOwogCWlmIChkbWFi
-dWYtPm9wcy0+ZGV0YWNoKQogCQlkbWFidWYtPm9wcy0+ZGV0YWNoKGRtYWJ1ZiwgYXR0YWNoKTsK
-IApAQCAtNjUzLDcgKzY1OSwxNiBAQCBkbWFfYnVmX21hcF9hdHRhY2htZW50X2xvY2tlZChzdHJ1
-Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsCiAJaWYgKGF0dGFjaC0+c2d0KQogCQlyZXR1
-cm4gYXR0YWNoLT5zZ3Q7CiAKKwkvKgorCSAqIE1hcHBpbmcgYSBETUEtYnVmIGNhbiB0cmlnZ2Vy
-IGl0cyBpbnZhbGlkYXRpb24sIHByZXZlbnQgc2VuZGluZyB0aGlzCisJICogZXZlbnQgdG8gdGhl
-IGNhbGxlciBieSB0ZW1wb3JhcnkgcmVtb3ZpbmcgdGhpcyBhdHRhY2htZW50IGZyb20gdGhlCisJ
-ICogbGlzdC4KKwkgKi8KKwlpZiAoYXR0YWNoLT5pbnZhbGlkYXRlKQorCQlsaXN0X2RlbCgmYXR0
-YWNoLT5ub2RlKTsKIAlzZ190YWJsZSA9IGF0dGFjaC0+ZG1hYnVmLT5vcHMtPm1hcF9kbWFfYnVm
-KGF0dGFjaCwgZGlyZWN0aW9uKTsKKwlpZiAoYXR0YWNoLT5pbnZhbGlkYXRlKQorCQlsaXN0X2Fk
-ZCgmYXR0YWNoLT5ub2RlLCAmYXR0YWNoLT5kbWFidWYtPmF0dGFjaG1lbnRzKTsKIAlpZiAoIXNn
-X3RhYmxlKQogCQlzZ190YWJsZSA9IEVSUl9QVFIoLUVOT01FTSk7CiAKQEAgLTc1MSw2ICs3NjYs
-MjYgQEAgdm9pZCBkbWFfYnVmX3VubWFwX2F0dGFjaG1lbnQoc3RydWN0IGRtYV9idWZfYXR0YWNo
-bWVudCAqYXR0YWNoLAogfQogRVhQT1JUX1NZTUJPTF9HUEwoZG1hX2J1Zl91bm1hcF9hdHRhY2ht
-ZW50KTsKIAorLyoqCisgKiBkbWFfYnVmX2ludmFsaWRhdGVfbWFwcGluZ3MgLSBpbnZhbGlkYXRl
-IGFsbCBtYXBwaW5ncyBvZiB0aGlzIGRtYV9idWYKKyAqCisgKiBAZG1hYnVmOglbaW5dCWJ1ZmZl
-ciB3aGljaCBtYXBwaW5ncyBzaG91bGQgYmUgaW52YWxpZGF0ZWQKKyAqCisgKiBJbmZvcm1zIGFs
-bCBhdHRhY2htZW5zdCB0aGF0IHRoZXkgbmVlZCB0byBkZXN0cm95IGFuZCByZWNyZWF0ZWQgYWxs
-IHRoZWlyCisgKiBtYXBwaW5ncy4KKyAqLwordm9pZCBkbWFfYnVmX2ludmFsaWRhdGVfbWFwcGlu
-Z3Moc3RydWN0IGRtYV9idWYgKmRtYWJ1ZikKK3sKKwlzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50
-ICphdHRhY2g7CisKKwlyZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0X2hlbGQoZG1hYnVmLT5yZXN2
-KTsKKworCWxpc3RfZm9yX2VhY2hfZW50cnkoYXR0YWNoLCAmZG1hYnVmLT5hdHRhY2htZW50cywg
-bm9kZSkKKwkJaWYgKGF0dGFjaC0+aW52YWxpZGF0ZSkKKwkJCWF0dGFjaC0+aW52YWxpZGF0ZShh
-dHRhY2gpOworfQorRVhQT1JUX1NZTUJPTF9HUEwoZG1hX2J1Zl9pbnZhbGlkYXRlX21hcHBpbmdz
-KTsKKwogLyoqCiAgKiBET0M6IGNwdSBhY2Nlc3MKICAqCkBAIC0xMTYzLDEwICsxMTk4LDEyIEBA
-IHN0YXRpYyBpbnQgZG1hX2J1Zl9kZWJ1Z19zaG93KHN0cnVjdCBzZXFfZmlsZSAqcywgdm9pZCAq
-dW51c2VkKQogCQlzZXFfcHV0cyhzLCAiXHRBdHRhY2hlZCBEZXZpY2VzOlxuIik7CiAJCWF0dGFj
-aF9jb3VudCA9IDA7CiAKKwkJcmVzZXJ2YXRpb25fb2JqZWN0X2xvY2soYnVmX29iai0+cmVzdiwg
-TlVMTCk7CiAJCWxpc3RfZm9yX2VhY2hfZW50cnkoYXR0YWNoX29iaiwgJmJ1Zl9vYmotPmF0dGFj
-aG1lbnRzLCBub2RlKSB7CiAJCQlzZXFfcHJpbnRmKHMsICJcdCVzXG4iLCBkZXZfbmFtZShhdHRh
-Y2hfb2JqLT5kZXYpKTsKIAkJCWF0dGFjaF9jb3VudCsrOwogCQl9CisJCXJlc2VydmF0aW9uX29i
-amVjdF91bmxvY2soYnVmX29iai0+cmVzdik7CiAKIAkJc2VxX3ByaW50ZihzLCAiVG90YWwgJWQg
-ZGV2aWNlcyBhdHRhY2hlZFxuXG4iLAogCQkJCWF0dGFjaF9jb3VudCk7CmRpZmYgLS1naXQgYS9p
-bmNsdWRlL2xpbnV4L2RtYS1idWYuaCBiL2luY2x1ZGUvbGludXgvZG1hLWJ1Zi5oCmluZGV4IDdl
-MjM3NThkYjNhNC4uZWNlNDYzODM1OWE4IDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L2RtYS1i
-dWYuaAorKysgYi9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaApAQCAtMzI0LDYgKzMyNCw3IEBAIHN0
-cnVjdCBkbWFfYnVmIHsKICAqIEBkZXY6IGRldmljZSBhdHRhY2hlZCB0byB0aGUgYnVmZmVyLgog
-ICogQG5vZGU6IGxpc3Qgb2YgZG1hX2J1Zl9hdHRhY2htZW50LgogICogQHByaXY6IGV4cG9ydGVy
-IHNwZWNpZmljIGF0dGFjaG1lbnQgZGF0YS4KKyAqIEBpbXBvcnRlcl9wcml2OiBpbXBvcnRlciBz
-cGVjaWZpYyBhdHRhY2htZW50IGRhdGEuCiAgKgogICogVGhpcyBzdHJ1Y3R1cmUgaG9sZHMgdGhl
-IGF0dGFjaG1lbnQgaW5mb3JtYXRpb24gYmV0d2VlbiB0aGUgZG1hX2J1ZiBidWZmZXIKICAqIGFu
-ZCBpdHMgdXNlciBkZXZpY2UocykuIFRoZSBsaXN0IGNvbnRhaW5zIG9uZSBhdHRhY2htZW50IHN0
-cnVjdCBwZXIgZGV2aWNlCkBAIC0zNDAsNiArMzQxLDI5IEBAIHN0cnVjdCBkbWFfYnVmX2F0dGFj
-aG1lbnQgewogCXN0cnVjdCBsaXN0X2hlYWQgbm9kZTsKIAl2b2lkICpwcml2OwogCXN0cnVjdCBz
-Z190YWJsZSAqc2d0OworCXZvaWQgKmltcG9ydGVyX3ByaXY7CisKKwkvKioKKwkgKiBAaW52YWxp
-ZGF0ZToKKwkgKgorCSAqIE9wdGlvbmFsIGNhbGxiYWNrIHByb3ZpZGVkIGJ5IHRoZSBpbXBvcnRl
-ciBvZiB0aGUgZG1hLWJ1Zi4KKwkgKgorCSAqIElmIHByb3ZpZGVkIHRoZSBleHBvcnRlciBjYW4g
-YXZvaWQgcGlubmluZyB0aGUgYmFja2luZyBzdG9yZSB3aGlsZQorCSAqIG1hcHBpbmdzIGV4aXN0
-cy4KKwkgKgorCSAqIFRoZSBmdW5jdGlvbiBpcyBjYWxsZWQgd2l0aCB0aGUgbG9jayBvZiB0aGUg
-cmVzZXJ2YXRpb24gb2JqZWN0CisJICogYXNzb2NpYXRlZCB3aXRoIHRoZSBkbWFfYnVmIGhlbGQg
-YW5kIHRoZSBtYXBwaW5nIGZ1bmN0aW9uIG11c3QgYmUKKwkgKiBjYWxsZWQgd2l0aCB0aGlzIGxv
-Y2sgaGVsZCBhcyB3ZWxsLiBUaGlzIG1ha2VzIHN1cmUgdGhhdCBubyBtYXBwaW5nCisJICogaXMg
-Y3JlYXRlZCBjb25jdXJyZW50bHkgd2l0aCBhbiBvbmdvaW5nIGludmFsaWRhdGlvbi4KKwkgKgor
-CSAqIEFmdGVyIHRoZSBjYWxsYmFjayBhbGwgZXhpc3RpbmcgbWFwcGluZ3MgYXJlIHN0aWxsIHZh
-bGlkIHVudGlsIGFsbAorCSAqIGZlbmNlcyBpbiB0aGUgZG1hX2J1ZnMgcmVzZXJ2YXRpb24gb2Jq
-ZWN0IGFyZSBzaWduYWxlZCwgYnV0IHNob3VsZCBiZQorCSAqIGRlc3Ryb3llZCBieSB0aGUgaW1w
-b3J0ZXIgYXMgc29vbiBhcyBwb3NzaWJsZS4KKwkgKgorCSAqIE5ldyBtYXBwaW5ncyBjYW4gYmUg
-Y3JlYXRlZCBpbW1lZGlhdGVseSwgYnV0IGNhbid0IGJlIHVzZWQgYmVmb3JlIHRoZQorCSAqIGV4
-Y2x1c2l2ZSBmZW5jZSBpbiB0aGUgZG1hX2J1ZnMgcmVzZXJ2YXRpb24gb2JqZWN0IGlzIHNpZ25h
-bGVkLgorCSAqLworCXZvaWQgKCppbnZhbGlkYXRlKShzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50
-ICphdHRhY2gpOwogfTsKIAogLyoqCkBAIC0zNzgsOCArNDAyLDEwIEBAIHN0cnVjdCBkbWFfYnVm
-X2V4cG9ydF9pbmZvIHsKIAogLyoqCiAgKiBzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2hfaW5mbyAtIGhv
-bGRzIGluZm9ybWF0aW9uIG5lZWRlZCB0byBhdHRhY2ggdG8gYSBkbWFfYnVmCi0gKiBAZG1hYnVm
-Ogl0aGUgZXhwb3J0ZWQgZG1hX2J1ZgotICogQGRldjoJdGhlIGRldmljZSB3aGljaCB3YW50cyB0
-byBpbXBvcnQgdGhlIGF0dGFjaG1lbnQKKyAqIEBkbWFidWY6CQl0aGUgZXhwb3J0ZWQgZG1hX2J1
-ZgorICogQGRldjoJCXRoZSBkZXZpY2Ugd2hpY2ggd2FudHMgdG8gaW1wb3J0IHRoZSBhdHRhY2ht
-ZW50CisgKiBAaW1wb3J0ZXJfcHJpdjoJcHJpdmF0ZSBkYXRhIG9mIGltcG9ydGVyIHRvIHRoaXMg
-YXR0YWNobWVudAorICogQGludmFsaWRhdGU6CQljYWxsYmFjayB0byB1c2UgZm9yIGludmFsaWRh
-dGluZyBtYXBwaW5ncwogICoKICAqIFRoaXMgc3RydWN0dXJlIGhvbGRzIHRoZSBpbmZvcm1hdGlv
-biByZXF1aXJlZCB0byBhdHRhY2ggdG8gYSBidWZmZXIuIFVzZWQKICAqIHdpdGggZG1hX2J1Zl9h
-dHRhY2goKSBvbmx5LgpAQCAtMzg3LDYgKzQxMyw4IEBAIHN0cnVjdCBkbWFfYnVmX2V4cG9ydF9p
-bmZvIHsKIHN0cnVjdCBkbWFfYnVmX2F0dGFjaF9pbmZvIHsKIAlzdHJ1Y3QgZG1hX2J1ZiAqZG1h
-YnVmOwogCXN0cnVjdCBkZXZpY2UgKmRldjsKKwl2b2lkICppbXBvcnRlcl9wcml2OworCXZvaWQg
-KCppbnZhbGlkYXRlKShzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gpOwogfTsKIAog
-LyoqCkBAIC00MjMsNiArNDUxLDcgQEAgdm9pZCBkbWFfYnVmX3VubWFwX2F0dGFjaG1lbnRfbG9j
-a2VkKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKiwKIAkJCQkgICAgIGVudW0gZG1hX2RhdGFf
-ZGlyZWN0aW9uKTsKIHZvaWQgZG1hX2J1Zl91bm1hcF9hdHRhY2htZW50KHN0cnVjdCBkbWFfYnVm
-X2F0dGFjaG1lbnQgKiwgc3RydWN0IHNnX3RhYmxlICosCiAJCQkJZW51bSBkbWFfZGF0YV9kaXJl
-Y3Rpb24pOwordm9pZCBkbWFfYnVmX2ludmFsaWRhdGVfbWFwcGluZ3Moc3RydWN0IGRtYV9idWYg
-KmRtYV9idWYpOwogaW50IGRtYV9idWZfYmVnaW5fY3B1X2FjY2VzcyhzdHJ1Y3QgZG1hX2J1ZiAq
-ZG1hX2J1ZiwKIAkJCSAgICAgZW51bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGlyKTsKIGludCBkbWFf
-YnVmX2VuZF9jcHVfYWNjZXNzKHN0cnVjdCBkbWFfYnVmICpkbWFfYnVmLAotLSAKMi4xNy4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Instead of relying on the DRM functions just implement our own import
+functions. This prepares support for taking care of unpinned DMA-buf.
+
+v2: enable for all exporters, not just amdgpu, fix invalidation
+    handling, lock reservation object while setting callback
+v3: change to new dma_buf attach interface
+v4: split out from unpinned DMA-buf work
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h   |  4 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c | 42 +++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c   | 34 +++++++++++++++---
+ 4 files changed, 56 insertions(+), 25 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index f1815223a1a1..95195c427e85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1254,7 +1254,6 @@ static struct drm_driver kms_driver = {
+ 	.gem_prime_export = amdgpu_gem_prime_export,
+ 	.gem_prime_import = amdgpu_gem_prime_import,
+ 	.gem_prime_res_obj = amdgpu_gem_prime_res_obj,
+-	.gem_prime_import_sg_table = amdgpu_gem_prime_import_sg_table,
+ 	.gem_prime_vmap = amdgpu_gem_prime_vmap,
+ 	.gem_prime_vunmap = amdgpu_gem_prime_vunmap,
+ 	.gem_prime_mmap = amdgpu_gem_prime_mmap,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+index 0c50d14a9739..01811d8aa8a9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+@@ -39,10 +39,6 @@ int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ void amdgpu_gem_object_close(struct drm_gem_object *obj,
+ 				struct drm_file *file_priv);
+ unsigned long amdgpu_gem_timeout(uint64_t timeout_ns);
+-struct drm_gem_object *
+-amdgpu_gem_prime_import_sg_table(struct drm_device *dev,
+-				 struct dma_buf_attachment *attach,
+-				 struct sg_table *sg);
+ struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+ 					struct drm_gem_object *gobj,
+ 					int flags);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+index 8d748f9d0292..56e2a606b9a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+@@ -122,31 +122,28 @@ int amdgpu_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma
+ }
+ 
+ /**
+- * amdgpu_gem_prime_import_sg_table - &drm_driver.gem_prime_import_sg_table
+- * implementation
++ * amdgpu_gem_prime_create_obj - create BO for DMA-buf import
++ *
+  * @dev: DRM device
+- * @attach: DMA-buf attachment
+- * @sg: Scatter/gather table
++ * @dma_buf: DMA-buf
+  *
+- * Imports shared DMA buffer memory exported by another device.
++ * Creates an empty SG BO for DMA-buf import.
+  *
+  * Returns:
+  * A new GEM BO of the given DRM device, representing the memory
+  * described by the given DMA-buf attachment and scatter/gather table.
+  */
+-struct drm_gem_object *
+-amdgpu_gem_prime_import_sg_table(struct drm_device *dev,
+-				 struct dma_buf_attachment *attach,
+-				 struct sg_table *sg)
++static struct drm_gem_object *
++amdgpu_gem_prime_create_obj(struct drm_device *dev, struct dma_buf *dma_buf)
+ {
+-	struct reservation_object *resv = attach->dmabuf->resv;
++	struct reservation_object *resv = dma_buf->resv;
+ 	struct amdgpu_device *adev = dev->dev_private;
+ 	struct amdgpu_bo *bo;
+ 	struct amdgpu_bo_param bp;
+ 	int ret;
+ 
+ 	memset(&bp, 0, sizeof(bp));
+-	bp.size = attach->dmabuf->size;
++	bp.size = dma_buf->size;
+ 	bp.byte_align = PAGE_SIZE;
+ 	bp.domain = AMDGPU_GEM_DOMAIN_CPU;
+ 	bp.flags = 0;
+@@ -157,11 +154,9 @@ amdgpu_gem_prime_import_sg_table(struct drm_device *dev,
+ 	if (ret)
+ 		goto error;
+ 
+-	bo->tbo.sg = sg;
+-	bo->tbo.ttm->sg = sg;
+ 	bo->allowed_domains = AMDGPU_GEM_DOMAIN_GTT;
+ 	bo->preferred_domains = AMDGPU_GEM_DOMAIN_GTT;
+-	if (attach->dmabuf->ops != &amdgpu_dmabuf_ops)
++	if (dma_buf->ops != &amdgpu_dmabuf_ops)
+ 		bo->prime_shared_count = 1;
+ 
+ 	ww_mutex_unlock(&resv->lock);
+@@ -417,6 +412,11 @@ struct dma_buf *amdgpu_gem_prime_export(struct drm_device *dev,
+ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+ 					    struct dma_buf *dma_buf)
+ {
++	struct dma_buf_attach_info attach_info = {
++		.dev = dev->dev,
++		.dmabuf = dma_buf,
++	};
++	struct dma_buf_attachment *attach;
+ 	struct drm_gem_object *obj;
+ 
+ 	if (dma_buf->ops == &amdgpu_dmabuf_ops) {
+@@ -431,5 +431,17 @@ struct drm_gem_object *amdgpu_gem_prime_import(struct drm_device *dev,
+ 		}
+ 	}
+ 
+-	return drm_gem_prime_import(dev, dma_buf);
++	obj = amdgpu_gem_prime_create_obj(dev, dma_buf);
++	if (IS_ERR(obj))
++		return obj;
++
++	attach = dma_buf_attach(&attach_info);
++	if (IS_ERR(attach)) {
++		drm_gem_object_put(obj);
++		return ERR_CAST(attach);
++	}
++
++	get_dma_buf(dma_buf);
++	obj->import_attach = attach;
++	return obj;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index c14198737dcd..afccca5b1f5f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -44,6 +44,7 @@
+ #include <linux/debugfs.h>
+ #include <linux/iommu.h>
+ #include <linux/hmm.h>
++#include <linux/dma-buf.h>
+ #include "amdgpu.h"
+ #include "amdgpu_object.h"
+ #include "amdgpu_trace.h"
+@@ -706,6 +707,7 @@ static unsigned long amdgpu_ttm_io_mem_pfn(struct ttm_buffer_object *bo,
+  */
+ struct amdgpu_ttm_tt {
+ 	struct ttm_dma_tt	ttm;
++	struct drm_gem_object	*gobj;
+ 	u64			offset;
+ 	uint64_t		userptr;
+ 	struct task_struct	*usertask;
+@@ -1179,6 +1181,7 @@ static struct ttm_tt *amdgpu_ttm_tt_create(struct ttm_buffer_object *bo,
+ 		return NULL;
+ 	}
+ 	gtt->ttm.ttm.func = &amdgpu_backend_func;
++	gtt->gobj = &ttm_to_amdgpu_bo(bo)->gem_base;
+ 
+ 	/* allocate space for the uninitialized page entries */
+ 	if (ttm_sg_tt_init(&gtt->ttm, bo, page_flags)) {
+@@ -1199,7 +1202,6 @@ static int amdgpu_ttm_tt_populate(struct ttm_tt *ttm,
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(ttm->bdev);
+ 	struct amdgpu_ttm_tt *gtt = (void *)ttm;
+-	bool slave = !!(ttm->page_flags & TTM_PAGE_FLAG_SG);
+ 
+ 	/* user pages are bound by amdgpu_ttm_tt_pin_userptr() */
+ 	if (gtt && gtt->userptr) {
+@@ -1212,7 +1214,20 @@ static int amdgpu_ttm_tt_populate(struct ttm_tt *ttm,
+ 		return 0;
+ 	}
+ 
+-	if (slave && ttm->sg) {
++	if (ttm->page_flags & TTM_PAGE_FLAG_SG) {
++		if (!ttm->sg) {
++			struct dma_buf_attachment *attach;
++			struct sg_table *sgt;
++
++			attach = gtt->gobj->import_attach;
++			sgt = dma_buf_map_attachment_locked(attach,
++							    DMA_BIDIRECTIONAL);
++			if (IS_ERR(sgt))
++				return PTR_ERR(sgt);
++
++			ttm->sg = sgt;
++		}
++
+ 		drm_prime_sg_to_page_addr_arrays(ttm->sg, ttm->pages,
+ 						 gtt->ttm.dma_address,
+ 						 ttm->num_pages);
+@@ -1239,9 +1254,8 @@ static int amdgpu_ttm_tt_populate(struct ttm_tt *ttm,
+  */
+ static void amdgpu_ttm_tt_unpopulate(struct ttm_tt *ttm)
+ {
+-	struct amdgpu_device *adev;
+ 	struct amdgpu_ttm_tt *gtt = (void *)ttm;
+-	bool slave = !!(ttm->page_flags & TTM_PAGE_FLAG_SG);
++	struct amdgpu_device *adev;
+ 
+ 	if (gtt && gtt->userptr) {
+ 		amdgpu_ttm_tt_set_user_pages(ttm, NULL);
+@@ -1250,7 +1264,17 @@ static void amdgpu_ttm_tt_unpopulate(struct ttm_tt *ttm)
+ 		return;
+ 	}
+ 
+-	if (slave)
++	if (ttm->sg && gtt->gobj->import_attach) {
++		struct dma_buf_attachment *attach;
++
++		attach = gtt->gobj->import_attach;
++		dma_buf_unmap_attachment_locked(attach, ttm->sg,
++						DMA_BIDIRECTIONAL);
++		ttm->sg = NULL;
++		return;
++	}
++
++	if (ttm->page_flags & TTM_PAGE_FLAG_SG)
+ 		return;
+ 
+ 	adev = amdgpu_ttm_adev(ttm->bdev);
+-- 
+2.17.1
