@@ -1,52 +1,37 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: amdgpu_device_recover_vram got NULL of
- shadow->parent
-Date: Tue, 16 Apr 2019 12:52:30 +0200
-Message-ID: <e276623b-6a9b-fdec-af59-15715c82f02c@gmail.com>
-References: <1555411616-18423-1-git-send-email-Wentao.Lou@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH] drm/amdgpu: fix spelling mistake "gateing" -> "gating"
+Date: Tue, 16 Apr 2019 12:59:26 +0100
+Message-ID: <20190416115926.32669-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1555411616-18423-1-git-send-email-Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTYuMDQuMTkgdW0gMTI6NDYgc2NocmllYiB3ZW50YWxvdToKPiBhbWRncHVfYm9fZGVzdHJv
-eSBoYWQgYSBidWcgYnkgY2FsbGluZyBhbWRncHVfYm9fdW5yZWYgb3V0c2lkZSBtdXRleF9sb2Nr
-Lgo+IElmIGFtZGdwdV9kZXZpY2VfcmVjb3Zlcl92cmFtIGV4ZWN1dGVkIGJldHdlZW4gYW1kZ3B1
-X2JvX3VucmVmIGFuZCBsaXN0X2RlbF9pbml0LAo+IGl0IHdvdWxkIGdldCBOVUxMIG9mIHNoYWRv
-dy0+cGFyZW50LCB0aGVuIGNhdXNlZCBDYWxsIFRyYWNlIGFuZCBHUFUgcmVzZXQgZmFpbGVkLgo+
-Cj4gQ2hhbmdlLUlkOiBJNDFkN2I1NDYwNWU2MTNlODdlZTAzYzNhZDg5YzE5MTA2M2MxOTIzMAo+
-IFNpZ25lZC1vZmYtYnk6IFdlbnRhbyBMb3UgPFdlbnRhby5Mb3VAYW1kLmNvbT4KClJldmlld2Vk
-LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+
-ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgNCArKystCj4g
-ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4gaW5kZXggZWM5ZTQ1MC4u
-OTNiMmM1YSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-b2JqZWN0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0
-LmMKPiBAQCAtODgsMTIgKzg4LDE0IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9ib19kZXN0cm95KHN0
-cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqdGJvKQo+ICAgCWlmIChiby0+Z2VtX2Jhc2UuaW1wb3J0
-X2F0dGFjaCkKPiAgIAkJZHJtX3ByaW1lX2dlbV9kZXN0cm95KCZiby0+Z2VtX2Jhc2UsIGJvLT50
-Ym8uc2cpOwo+ICAgCWRybV9nZW1fb2JqZWN0X3JlbGVhc2UoJmJvLT5nZW1fYmFzZSk7Cj4gLQlh
-bWRncHVfYm9fdW5yZWYoJmJvLT5wYXJlbnQpOwo+ICsJLyogaW4gY2FzZSBhbWRncHVfZGV2aWNl
-X3JlY292ZXJfdnJhbSBnb3QgTlVMTCBvZiBiby0+cGFyZW50ICovCj4gICAJaWYgKCFsaXN0X2Vt
-cHR5KCZiby0+c2hhZG93X2xpc3QpKSB7Cj4gICAJCW11dGV4X2xvY2soJmFkZXYtPnNoYWRvd19s
-aXN0X2xvY2spOwo+ICAgCQlsaXN0X2RlbF9pbml0KCZiby0+c2hhZG93X2xpc3QpOwo+ICAgCQlt
-dXRleF91bmxvY2soJmFkZXYtPnNoYWRvd19saXN0X2xvY2spOwo+ICAgCX0KPiArCWFtZGdwdV9i
-b191bnJlZigmYm8tPnBhcmVudCk7Cj4gKwo+ICAgCWtmcmVlKGJvLT5tZXRhZGF0YSk7Cj4gICAJ
-a2ZyZWUoYm8pOwo+ICAgfQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: Colin Ian King <colin.king@canonical.com>
+
+There is a spelling mistake in a DRM_INFO message. Fix it.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+index bed78a778e3f..40363ca6c5f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+@@ -283,7 +283,7 @@ static int vce_v2_0_stop(struct amdgpu_device *adev)
+ 	}
+ 
+ 	if (vce_v2_0_wait_for_idle(adev)) {
+-		DRM_INFO("VCE is busy, Can't set clock gateing");
++		DRM_INFO("VCE is busy, Can't set clock gating");
+ 		return 0;
+ 	}
+ 
+-- 
+2.20.1
