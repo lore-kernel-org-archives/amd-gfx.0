@@ -1,12 +1,14 @@
-From: Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>
-Subject: Re: [PATCH v3 1/5] drm/scheduler: rework job destruction
-Date: Mon, 15 Apr 2019 14:17:37 -0700
-Message-ID: <878swb6k9a.fsf@anholt.net>
-References: <1555357403-30813-1-git-send-email-andrey.grodzovsky@amd.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/powerplay : send SMC message to set XGMI pstate
+Date: Tue, 16 Apr 2019 01:11:55 +0000
+Message-ID: <MN2PR12MB3344C895ACEC5EE03839F17AE4240@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <1555341891-23223-1-git-send-email-shaoyun.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2081478644=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1555357403-30813-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1555341891-23223-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,106 +19,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
-Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org, Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============2081478644==
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
-
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org> writes:
-
-> From: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
->
-> We now destroy finished jobs from the worker thread to make sure that
-> we never destroy a job currently in timeout processing.
-> By this we avoid holding lock around ring mirror list in drm_sched_stop
-> which should solve a deadlock reported by a user.
->
-> v2: Remove unused variable.
->
-> Bugzilla: https://bugs.freedesktop.org/show_bug.cgi?id=3D109692
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  17 ++--
->  drivers/gpu/drm/etnaviv/etnaviv_dump.c     |   4 -
->  drivers/gpu/drm/etnaviv/etnaviv_sched.c    |   9 +-
->  drivers/gpu/drm/scheduler/sched_main.c     | 138 +++++++++++++++++------=
-------
->  drivers/gpu/drm/v3d/v3d_sched.c            |   9 +-
-
-Missing corresponding panfrost and lima updates.  You should probably
-pull in drm-misc for hacking on the scheduler.
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
-hed.c
-> index ce7c737b..8efb091 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -232,11 +232,18 @@ v3d_gpu_reset_for_timeout(struct v3d_dev *v3d, stru=
-ct drm_sched_job *sched_job)
->=20=20
->  	/* block scheduler */
->  	for (q =3D 0; q < V3D_MAX_QUEUES; q++)
-> -		drm_sched_stop(&v3d->queue[q].sched);
-> +		drm_sched_stop(&v3d->queue[q].sched, sched_job);
->=20=20
->  	if(sched_job)
->  		drm_sched_increase_karma(sched_job);
->=20=20
-> +	/*
-> +	 * Guilty job did complete and hence needs to be manually removed
-> +	 * See drm_sched_stop doc.
-> +	 */
-> +	if (list_empty(&sched_job->node))
-> +		sched_job->sched->ops->free_job(sched_job);
-
-If the if (sched_job) is necessary up above, then this should clearly be
-under it.
-
-But, can we please have a core scheduler thing we call here instead of
-drivers all replicating it?
-
-> +
->  	/* get the GPU back into the init state */
->  	v3d_reset(v3d);
->=20=20
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEE/JuuFDWp9/ZkuCBXtdYpNtH8nugFAly09PEACgkQtdYpNtH8
-nuhi2Q/7B/vT7KybreXruLawEYm0HXhNOmjfwsk0NPSYllpNXT7pHHfL2vpyoL1+
-qTKKv6u7KIR8iY4c23ZOv4+AmYwBG8pOmZ6k0bvbGOHG5O29GV6SpWFiGgq+oIcK
-Ij1Hr9DZmal7Z49MQHZT6QON9D9LfdiJ2cCIghPDjYC3Vky8IFu+UvCRBtE7tFEr
-o+c9jSF+t8/FQ5yn/Bn6CSzH1AmDITuaHdkSMZmtxfjKnhxGEd6hK83wny0Tx+x2
-de45E3DpOKfj9RwLK+6h4ocuPTWcZFyYb+5kPjOWwM3GGWZOreUQWAG1MpqJ/uYO
-/6kAafh+BFR70h5k0npQ2l//otMk5Pjxne0fPg8HTVYiEHwlEUv+SAwNsUEbDOFK
-rcuS8DwCSBTFGESphgHWgSpjXcK7Kwpr49N8YMIyB3WTcX45fn0HqNgJB8ZZtQ3E
-m5UFJOi3pQAfC8G6OO9ss3+dYo/9q55jp5erwpSrLqJ/WThDULEgq3TD4hYRJwE2
-yXwszbE+IY7bHJIL0IakI7r1281P4MFM9hCbPlGPQWSsPmvqLEDn8itLQyl323io
-b5FDVCGBocoVBQ9mbO0Ji4RE+3WTi3F4JryZ4eiaJWqD8FdHR8O+GqxStc0cV0Ah
-Y3+yt0xcHwlu0nzHUj6syzozliQVxpXAP2PYQIRtPePIRmUh/g0=
-=cA61
------END PGP SIGNATURE-----
---=-=-=--
-
---===============2081478644==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2081478644==--
+UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIExpdSwNCj4gU2hhb3l1bg0KPiBTZW50OiBN
+b25kYXksIEFwcmlsIDE1LCAyMDE5IDExOjI1IFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZw0KPiBDYzogTGl1LCBTaGFveXVuIDxTaGFveXVuLkxpdUBhbWQuY29tPg0KPiBT
+dWJqZWN0OiBbUEFUQ0hdIGRybS9wb3dlcnBsYXkgOiBzZW5kIFNNQyBtZXNzYWdlIHRvIHNldCBY
+R01JIHBzdGF0ZQ0KPiANCj4gU2VuZCBtZXNzYWdlIHdpdGggcGFyYW1ldGVyIHRvIFNNQyB0byBz
+ZXQgeGdtaSBwc3RhdGUNCj4gDQo+IENoYW5nZS1JZDogSTVkOTBjZmZkNjM2OTBmMzFmMGRmNjJj
+MjA2YjI2M2QzMDBmMTQyMzQNCj4gU2lnbmVkLW9mZi1ieTogc2hhb3l1bmwgPHNoYW95dW4ubGl1
+QGFtZC5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3Yx
+MV8wLmMgfCA5ICsrKysrKystLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwg
+MiBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS9zbXVfdjExXzAuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3Nt
+dV92MTFfMC5jDQo+IGluZGV4IGM0NzhiMzguLjkyOTAzYTQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jDQo+IEBAIC0xODk2LDggKzE4OTYsMTMgQEAg
+c3RhdGljIGludCBzbXVfdjExXzBfc2V0X2Zhbl9zcGVlZF9ycG0oc3RydWN0DQo+IHNtdV9jb250
+ZXh0ICpzbXUsICBzdGF0aWMgaW50IHNtdV92MTFfMF9zZXRfeGdtaV9wc3RhdGUoc3RydWN0DQo+
+IHNtdV9jb250ZXh0ICpzbXUsDQo+ICAJCQkJICAgICB1aW50MzJfdCBwc3RhdGUpDQo+ICB7DQo+
+IC0JLyogc2VuZCBtc2cgdG8gU01VIHRvIHNldCBwc3RhdGUgKi8NCj4gLQlyZXR1cm4gMDsNCj4g
+KwlpbnQgcmV0ID0gMDsNCj4gKwltdXRleF9sb2NrKCYoc211LT5tdXRleCkpOw0KPiArCXJldCA9
+IHNtdV9zZW5kX3NtY19tc2dfd2l0aF9wYXJhbShzbXUsDQo+ICsJCQkJCSAgU01VX01TR19TZXRY
+Z21pTW9kZSwNCj4gKwkJCQkJICBwc3RhdGUgPyBYR01JX1NUQVRFX0QwIDoNCj4gWEdNSV9TVEFU
+RV9EMyk7DQo+ICsJbXV0ZXhfdW5sb2NrKCYoc211LT5tdXRleCkpOw0KPiArCXJldHVybiByZXQ7
+DQo+ICB9DQo+IA0KPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbXVfZnVuY3Mgc211X3YxMV8wX2Z1
+bmNzID0gew0KPiAtLQ0KPiAyLjcuNA0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZng=
