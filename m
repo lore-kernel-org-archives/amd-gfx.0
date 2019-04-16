@@ -1,225 +1,189 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH 2/2] drm/dp_mst: Register aux-dev nodes for MST ports
-Date: Tue, 16 Apr 2019 18:22:33 -0400
-Message-ID: <a67eaacd5601de0cab21b04d7432454892e47304.camel@redhat.com>
-References: <1555085131-8716-1-git-send-email-sunpeng.li@amd.com>
- <1555085131-8716-3-git-send-email-sunpeng.li@amd.com>
+From: Douglas Gilbert <dgilbert@interlog.com>
+Subject: Re: [PATCH v3 00/26] compat_ioctl: cleanups
+Date: Tue, 16 Apr 2019 18:33:35 -0400
+Message-ID: <c379ed8d-1f33-e391-a1b5-810da77605f2@interlog.com>
+References: <20190416202013.4034148-1-arnd@arndb.de>
+Reply-To: dgilbert@interlog.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1555085131-8716-3-git-send-email-sunpeng.li@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: jerry.zuo@amd.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190416202013.4034148-1-arnd@arndb.de>
+Content-Language: en-CA
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>, Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: linux-fsdevel@vger.kernel.org, y2038@lists.linaro.org, linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Karsten Keil <isdn@linux-pingi.de>, "James E.J. Bottomley" <jejb@linux.ibm.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, Marcel Holtmann <marcel@holtmann.org>, netdev@vger.kernel.org, devel@driverdev.osuosl.org, linux-integrity@vger.kernel.org, qat-linux@intel.com, linux-crypto@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linux1394-devel@lists.sourceforge.net, amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org, linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-ide@vger.kernel.org, linux-iio@vger.kernel.org, linux-rdma@vge
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCAyMDE5LTA0LTEyIGF0IDEyOjA1IC0wNDAwLCBzdW5wZW5nLmxpQGFtZC5jb20gd3Jv
-dGU6Cj4gRnJvbTogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxpbnV4LmludGVsLmNv
-bT4KPiAKPiBFeHBvc2UgQVVYIGRldmljZXMgZm9yIE1TVCBwb3J0cywgc2ltaWxhciB0byBob3cg
-dGhleSBhcmUgZXhwb3NlZCBmb3IKPiBTU1QuCj4gCj4gVGhlIHJlZ2lzdGVyZWQgZGV2aWNlIHdp
-bGwgaGF2ZSBpdCdzIE1TVCBwb3J0IHBhdGggYXBwZW5kZWQgaW4gb3JkZXIgdG8KPiBpZGVudGlm
-eSBpdC4gaS5lLiAvZGV2L2RybV9kcF9hdXg0X21zdDowLTItMQo+IAo+IFNvIGZvciBhIE1TVCB0
-b3BvbG9neSBsaWtlIHNvOgo+IAo+ICAgICAgICAgICAgICAgICstLS0tLS0tLS0rCj4gICAgICAg
-ICAgICAgICAgfCAgQVNJQyAgIHwKPiAgICAgICAgICAgICAgICArLS0tLS0tLS0tKwo+ICAgICAg
-ICAgICAgICAgQ29ubi0wfAo+ICAgICAgICAgICAgICAgICAgICAgfAo+ICAgICAgICAgICAgICAg
-ICstLS0tdi0tLS0rCj4gICAgICAgICAgICstLS0tfCBNU1QgSFVCIHwtLS0tKwo+ICAgICAgICAg
-ICB8ICAgICstLS0tLS0tLS0rICAgIHwKPiAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICB8
-Cj4gICAgICAgICAgIHxQb3J0LTEgICAgICAgUG9ydC0yfAo+ICAgICArLS0tLS12LS0tLS0rICAg
-ICAgICstLS0tLXYtLS0tLSsKPiAgICAgfCAgTVNUICAgICAgfCAgICAgICB8ICBTU1QgICAgICB8
-Cj4gICAgIHwgIERpc3BsYXkgIHwgICAgICAgfCAgRGlzcGxheSAgfAo+ICAgICArLS0tLS0tLS0t
-LS0rICAgICAgICstLS0tLS0tLS0tLSsKPiAgICAgICAgICAgfFBvcnQtMQo+ICAgICAgICAgICB4
-Cj4gCj4gVGhlIGxpc3Qgb2YgQVVYIGRldmljZSBuYW1lcyB3aWxsIGxvb2sgbGlrZToKPiAKPiBB
-VVggRGV2aWNlIE5hbWUgICAgICAgfCBNU1QgRGV2aWNlCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LSstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gZHJtX2RwX2F1eDAgICAgICAg
-ICAgIHwgTVNUIEh1Ygo+IGRybV9kcF9hdXgxX21zdDowLTEtMSB8IE1TVCBEaXNwbGF5J3MgZGlz
-Y29ubmVjdGVkIERQIG91dAo+IGRybV9kcF9hdXgyX21zdDowLTEgICB8IE1TVCBEaXNwbGF5Cj4g
-ZHJtX2RwX2F1eDNfbXN0OjAtMiAgIHwgU1NUIERpc3BsYXkKPiAKPiBOb3RlIHRoYXQgYXV4IGRl
-dmljZXMgYXJlIG9ubHkgY3JlYXRlZCBmb3IgUGh5c2ljYWwgUG9ydHMuIExvZ2ljYWwgUG9ydHMK
-PiBhcmUgbGVmdCBvdXQsIHNpbmNlIHRoZXkgYXJlIGludGVybmFsbHkgY29ubmVjdGVkIHdpdGhp
-biB0aGUgTVNUIGRldmljZQo+IChub3QgY29ubmVjdGVkIHRvIGEgRFAgUlggb3IgVFgpLgo+IAo+
-IExlbyBMaToKPiAqIEFkZCBtaXNzaW5nIGRybV9jcnRjX2hlbHBlcl9pbnRlcm5hbC5oIGluY2x1
-ZGUKPiAqIEZpeCBoYXJkLWNvZGVkIG9mZnNldCBhbmQgc2l6ZSBpbiBkcm1fZHBfc2VuZF9kcGNk
-X3JlYWQoKQo+ICogT25seSBjcmVhdGUgYXV4IGRldmljZXMgZm9yIHBoeXNpY2FsIHBvcnRzLgo+
-IAo+IFNpZ25lZC1vZmYtYnk6IFZpbGxlIFN5cmrDpGzDpCA8dmlsbGUuc3lyamFsYUBsaW51eC5p
-bnRlbC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+Cj4g
-LS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfYXV4X2Rldi5jICAgICAgfCAgMTMgKysrLQo+
-ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jIHwgMTA5ICsrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKy0KPiAtLS0KPiAgaW5jbHVkZS9kcm0vZHJtX2RwX2hlbHBlci5o
-ICAgICAgICAgICB8ICAgNCArKwo+ICBpbmNsdWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oICAg
-ICAgIHwgICA2ICsrCj4gIDQgZmlsZXMgY2hhbmdlZCwgMTE3IGluc2VydGlvbnMoKyksIDE1IGRl
-bGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX2F1eF9k
-ZXYuYwo+IGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9hdXhfZGV2LmMKPiBpbmRleCAyMzEwYTY3
-Li5mMTI0MWQxIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfYXV4X2Rldi5j
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9hdXhfZGV2LmMKPiBAQCAtMzQsNiArMzQs
-NyBAQAo+ICAjaW5jbHVkZSA8bGludXgvdWFjY2Vzcy5oPgo+ICAjaW5jbHVkZSA8bGludXgvdWlv
-Lmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2RwX2hlbHBlci5oPgo+ICsjaW5jbHVkZSA8ZHJtL2Ry
-bV9kcF9tc3RfaGVscGVyLmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2NydGMuaD4KPiAgI2luY2x1
-ZGUgPGRybS9kcm1QLmg+Cj4gIAo+IEBAIC0xNjAsNyArMTYxLDExIEBAIHN0YXRpYyBzc2l6ZV90
-IGF1eGRldl9yZWFkX2l0ZXIoc3RydWN0IGtpb2NiICppb2NiLAo+IHN0cnVjdCBpb3ZfaXRlciAq
-dG8pCj4gIAkJCWJyZWFrOwo+ICAJCX0KPiAgCj4gLQkJcmVzID0gZHJtX2RwX2RwY2RfcmVhZChh
-dXhfZGV2LT5hdXgsIHBvcywgYnVmLCB0b2RvKTsKPiArCQlpZiAoYXV4X2Rldi0+YXV4LT5pc19y
-ZW1vdGUpCj4gKwkJCXJlcyA9IGRybV9kcF9tc3RfZHBjZF9yZWFkKGF1eF9kZXYtPmF1eCwgcG9z
-LCBidWYsCj4gdG9kbyk7Cj4gKwkJZWxzZQo+ICsJCQlyZXMgPSBkcm1fZHBfZHBjZF9yZWFkKGF1
-eF9kZXYtPmF1eCwgcG9zLCBidWYsIHRvZG8pOwo+ICsKCm1oaGhoLCBpcyB0aGVyZSBhIHJlYXNv
-biB3ZSBjYW4ndCBqdXN0IHVzZSB0aGUgbm9ybWFsIC0+cmVhZCBhbmQgLT53cml0ZQphdXhkZXYg
-Y2FsbGJhY2tzIGZvciB0aGlzIGluc3RlYWQgb2YgbWl4aW5nIGxheWVycyBsaWtlIHRoaXM/Cgo+
-ICAJCWlmIChyZXMgPD0gMCkKPiAgCQkJYnJlYWs7Cj4gIAo+IEBAIC0yMDcsNyArMjEyLDExIEBA
-IHN0YXRpYyBzc2l6ZV90IGF1eGRldl93cml0ZV9pdGVyKHN0cnVjdCBraW9jYiAqaW9jYiwKPiBz
-dHJ1Y3QgaW92X2l0ZXIgKmZyb20pCj4gIAkJCWJyZWFrOwo+ICAJCX0KPiAgCj4gLQkJcmVzID0g
-ZHJtX2RwX2RwY2Rfd3JpdGUoYXV4X2Rldi0+YXV4LCBwb3MsIGJ1ZiwgdG9kbyk7Cj4gKwkJaWYg
-KGF1eF9kZXYtPmF1eC0+aXNfcmVtb3RlKQo+ICsJCQlyZXMgPSBkcm1fZHBfbXN0X2RwY2Rfd3Jp
-dGUoYXV4X2Rldi0+YXV4LCBwb3MsIGJ1ZiwKPiB0b2RvKTsKPiArCQllbHNlCj4gKwkJCXJlcyA9
-IGRybV9kcF9kcGNkX3dyaXRlKGF1eF9kZXYtPmF1eCwgcG9zLCBidWYsIHRvZG8pOwo+ICsKCgo+
-ICAJCWlmIChyZXMgPD0gMCkKPiAgCQkJYnJlYWs7Cj4gIAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2Rw
-X21zdF90b3BvbG9neS5jCj4gaW5kZXggMmFiMTZjOS4uZDUyODJkYiAxMDA2NDQKPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+IEBAIC0zNSw2ICszNSw4IEBACj4gICNpbmNsdWRl
-IDxkcm0vZHJtX2F0b21pY19oZWxwZXIuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fY3J0Y19oZWxw
-ZXIuaD4KPiAgCj4gKyNpbmNsdWRlICJkcm1fY3J0Y19oZWxwZXJfaW50ZXJuYWwuaCIKPiArCj4g
-IC8qKgo+ICAgKiBET0M6IGRwIG1zdCBoZWxwZXIKPiAgICoKPiBAQCAtNTIsNiArNTQsOSBAQCBz
-dGF0aWMgaW50IGRybV9kcF9kcGNkX3dyaXRlX3BheWxvYWQoc3RydWN0Cj4gZHJtX2RwX21zdF90
-b3BvbG9neV9tZ3IgKm1nciwKPiAgCQkJCSAgICAgaW50IGlkLAo+ICAJCQkJICAgICBzdHJ1Y3Qg
-ZHJtX2RwX3BheWxvYWQgKnBheWxvYWQpOwo+ICAKPiArc3RhdGljIGludCBkcm1fZHBfc2VuZF9k
-cGNkX3JlYWQoc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsCj4gKwkJCQkgc3Ry
-dWN0IGRybV9kcF9tc3RfcG9ydCAqcG9ydCwKPiArCQkJCSBpbnQgb2Zmc2V0LCBpbnQgc2l6ZSwg
-dTggKmJ5dGVzKTsKPiAgc3RhdGljIGludCBkcm1fZHBfc2VuZF9kcGNkX3dyaXRlKHN0cnVjdCBk
-cm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAo+ICAJCQkJICBzdHJ1Y3QgZHJtX2RwX21zdF9w
-b3J0ICpwb3J0LAo+ICAJCQkJICBpbnQgb2Zmc2V0LCBpbnQgc2l6ZSwgdTggKmJ5dGVzKTsKPiBA
-QCAtOTQxLDYgKzk0Niw4IEBAIHN0YXRpYyB2b2lkIGRybV9kcF9kZXN0cm95X3BvcnQoc3RydWN0
-IGtyZWYgKmtyZWYpCj4gIAlzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1nciA9IHBv
-cnQtPm1ncjsKPiAgCj4gIAlpZiAoIXBvcnQtPmlucHV0KSB7Cj4gKwkJZHJtX2RwX2F1eF91bnJl
-Z2lzdGVyX2Rldm5vZGUoJnBvcnQtPmF1eCk7Cj4gKwo+ICAJCXBvcnQtPnZjcGkubnVtX3Nsb3Rz
-ID0gMDsKPiAgCj4gIAkJa2ZyZWUocG9ydC0+Y2FjaGVkX2VkaWQpOwo+IEBAIC0xMDk1LDYgKzEx
-MDIsNDYgQEAgc3RhdGljIGJvb2wgZHJtX2RwX3BvcnRfc2V0dXBfcGR0KHN0cnVjdAo+IGRybV9k
-cF9tc3RfcG9ydCAqcG9ydCkKPiAgCXJldHVybiBzZW5kX2xpbms7Cj4gIH0KPiAgCj4gKy8qKgo+
-ICsgKiBkcm1fZHBfbXN0X2RwY2RfcmVhZCgpIC0gcmVhZCBhIHNlcmllcyBvZiBieXRlcyBmcm9t
-IHRoZSBEUENEIHZpYQo+IHNpZGViYW5kCj4gKyAqIEBhdXg6IEZha2Ugc2lkZWJhbmQgQVVYIENI
-Cj4gKyAqIEBvZmZzZXQ6IGFkZHJlc3Mgb2YgdGhlIChmaXJzdCkgcmVnaXN0ZXIgdG8gcmVhZAo+
-ICsgKiBAYnVmZmVyOiBidWZmZXIgdG8gc3RvcmUgdGhlIHJlZ2lzdGVyIHZhbHVlcwo+ICsgKiBA
-c2l6ZTogbnVtYmVyIG9mIGJ5dGVzIGluIEBidWZmZXIKPiArICoKPiArICogUGVyZm9ybXMgdGhl
-IHNhbWUgZnVuY3Rpb25hbGl0eSBmb3IgcmVtb3RlIGRldmljZXMgdmlhCj4gKyAqIHNpZGViYW5k
-IG1lc3NhZ2luZyBhcyBkcm1fZHBfZHBjZF9yZWFkKCkgZG9lcyBmb3IgbG9jYWwKPiArICogZGV2
-aWNlcyB2aWEgYWN0dWFsIEFVWCBDSC4KPiArICovCj4gK3NzaXplX3QgZHJtX2RwX21zdF9kcGNk
-X3JlYWQoc3RydWN0IGRybV9kcF9hdXggKmF1eCwKPiArCQkJICAgICB1bnNpZ25lZCBpbnQgb2Zm
-c2V0LCB2b2lkICpidWZmZXIsIHNpemVfdCBzaXplKQo+ICt7Cj4gKwlzdHJ1Y3QgZHJtX2RwX21z
-dF9wb3J0ICpwb3J0ID0gY29udGFpbmVyX29mKGF1eCwgc3RydWN0Cj4gZHJtX2RwX21zdF9wb3J0
-LCBhdXgpOwo+ICsKPiArCXJldHVybiBkcm1fZHBfc2VuZF9kcGNkX3JlYWQocG9ydC0+bWdyLCBw
-b3J0LAo+ICsJCQkJICAgICBvZmZzZXQsIHNpemUsIGJ1ZmZlcik7Cj4gK30KPiArCj4gKy8qKgo+
-ICsgKiBkcm1fZHBfbXN0X2RwY2Rfd3JpdGUoKSAtIHdyaXRlIGEgc2VyaWVzIG9mIGJ5dGVzIHRv
-IHRoZSBEUENEIHZpYQo+IHNpZGViYW5kCj4gKyAqIEBhdXg6IEZha2Ugc2lkZWJhbmQgQVVYIENI
-Cj4gKyAqIEBvZmZzZXQ6IGFkZHJlc3Mgb2YgdGhlIChmaXJzdCkgcmVnaXN0ZXIgdG8gd3JpdGUK
-PiArICogQGJ1ZmZlcjogYnVmZmVyIGNvbnRhaW5pbmcgdGhlIHZhbHVlcyB0byB3cml0ZQo+ICsg
-KiBAc2l6ZTogbnVtYmVyIG9mIGJ5dGVzIGluIEBidWZmZXIKPiArICoKPiArICogUGVyZm9ybXMg
-dGhlIHNhbWUgZnVuY3Rpb25hbGl0eSBmb3IgcmVtb3RlIGRldmljZXMgdmlhCj4gKyAqIHNpZGVi
-YW5kIG1lc3NhZ2luZyBhcyBkcm1fZHBfZHBjZF93cml0ZSgpIGRvZXMgZm9yIGxvY2FsCj4gKyAq
-IGRldmljZXMgdmlhIGFjdHVhbCBBVVggQ0guCj4gKyAqLwo+ICtzc2l6ZV90IGRybV9kcF9tc3Rf
-ZHBjZF93cml0ZShzdHJ1Y3QgZHJtX2RwX2F1eCAqYXV4LAo+ICsJCQkgICAgICB1bnNpZ25lZCBp
-bnQgb2Zmc2V0LCB2b2lkICpidWZmZXIsIHNpemVfdCBzaXplKQo+ICt7Cj4gKwlzdHJ1Y3QgZHJt
-X2RwX21zdF9wb3J0ICpwb3J0ID0gY29udGFpbmVyX29mKGF1eCwgc3RydWN0Cj4gZHJtX2RwX21z
-dF9wb3J0LCBhdXgpOwo+ICsKPiArCXJldHVybiBkcm1fZHBfc2VuZF9kcGNkX3dyaXRlKHBvcnQt
-Pm1nciwgcG9ydCwKPiArCQkJCSAgICAgIG9mZnNldCwgc2l6ZSwgYnVmZmVyKTsKPiArfQo+ICsK
-PiAgc3RhdGljIHZvaWQgZHJtX2RwX2NoZWNrX21zdGJfZ3VpZChzdHJ1Y3QgZHJtX2RwX21zdF9i
-cmFuY2ggKm1zdGIsIHU4Cj4gKmd1aWQpCj4gIHsKPiAgCWludCByZXQ7Cj4gQEAgLTExNTgsNiAr
-MTIwNSw3IEBAIHN0YXRpYyB2b2lkIGRybV9kcF9hZGRfcG9ydChzdHJ1Y3QgZHJtX2RwX21zdF9i
-cmFuY2gKPiAqbXN0YiwKPiAgCQlwb3J0LT5tZ3IgPSBtc3RiLT5tZ3I7Cj4gIAkJcG9ydC0+YXV4
-Lm5hbWUgPSAiRFBNU1QiOwo+ICAJCXBvcnQtPmF1eC5kZXYgPSBkZXYtPmRldjsKPiArCQlwb3J0
-LT5hdXguaXNfcmVtb3RlID0gdHJ1ZTsKPiAgCQljcmVhdGVkID0gdHJ1ZTsKPiAgCX0gZWxzZSB7
-Cj4gIAkJb2xkX3BkdCA9IHBvcnQtPnBkdDsKPiBAQCAtMTE4OCw3ICsxMjM2LDcgQEAgc3RhdGlj
-IHZvaWQgZHJtX2RwX2FkZF9wb3J0KHN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaAo+ICptc3RiLAo+
-ICAJCQkJZHJtX2RwX3NlbmRfZW51bV9wYXRoX3Jlc291cmNlcyhtc3RiLT5tZ3IsCj4gbXN0Yiwg
-cG9ydCk7Cj4gIAkJfSBlbHNlIHsKPiAgCQkJcG9ydC0+YXZhaWxhYmxlX3BibiA9IDA7Cj4gLQkJ
-CX0KPiArCQl9Cj4gIAl9Cj4gIAo+ICAJaWYgKG9sZF9wZHQgIT0gcG9ydC0+cGR0ICYmICFwb3J0
-LT5pbnB1dCkgewo+IEBAIC0xMjIwLDYgKzEyNjgsMTQgQEAgc3RhdGljIHZvaWQgZHJtX2RwX2Fk
-ZF9wb3J0KHN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaAo+ICptc3RiLAo+ICAJCQlkcm1fY29ubmVj
-dG9yX3NldF90aWxlX3Byb3BlcnR5KHBvcnQtPmNvbm5lY3Rvcik7Cj4gIAkJfQo+ICAJCSgqbXN0
-Yi0+bWdyLT5jYnMtPnJlZ2lzdGVyX2Nvbm5lY3RvcikocG9ydC0+Y29ubmVjdG9yKTsKPiArCj4g
-KwkJLyogUHJlcGVuZCBhbiAnXycgaW4gZnJvbnQgdG8gc3VmZml4IHRoZSBhdXggZGV2aWNlIGZp
-bGVuYW1lCj4gKi8KPiArCQltZW1tb3ZlKHByb3BwYXRoICsgMSwgcHJvcHBhdGgsIHNpemVvZihw
-cm9wcGF0aCkgLSAxKTsKPiArCQlwcm9wcGF0aFswXSA9ICdfJzsKPiArCj4gKwkJLyogT25seSBj
-cmVhdGUgYXV4IGRldmljZXMgZm9yIHBoeXNpY2FsIHBvcnRzIHdpdGggYSBUWCBvcgo+IFJYKi8K
-PiArCQlpZiAocG9ydC0+cG9ydF9udW0gPCBEUF9NU1RfTE9HSUNBTF9QT1JUXzApCj4gKwkJCWRy
-bV9kcF9hdXhfcmVnaXN0ZXJfZGV2bm9kZSgmcG9ydC0+YXV4LCBwcm9wcGF0aCk7Cj4gIAl9Cj4g
-IAo+ICBvdXQ6Cj4gQEAgLTE0MDQsNyArMTQ2MCw2IEBAIHN0YXRpYyBib29sIGRybV9kcF92YWxp
-ZGF0ZV9ndWlkKHN0cnVjdAo+IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsCj4gIAlyZXR1
-cm4gZmFsc2U7Cj4gIH0KPiAgCj4gLSNpZiAwCj4gIHN0YXRpYyBpbnQgYnVpbGRfZHBjZF9yZWFk
-KHN0cnVjdCBkcm1fZHBfc2lkZWJhbmRfbXNnX3R4ICptc2csIHU4IHBvcnRfbnVtLAo+IHUzMiBv
-ZmZzZXQsIHU4IG51bV9ieXRlcykKPiAgewo+ICAJc3RydWN0IGRybV9kcF9zaWRlYmFuZF9tc2df
-cmVxX2JvZHkgcmVxOwo+IEBAIC0xNDE3LDcgKzE0NzIsNiBAQCBzdGF0aWMgaW50IGJ1aWxkX2Rw
-Y2RfcmVhZChzdHJ1Y3QKPiBkcm1fZHBfc2lkZWJhbmRfbXNnX3R4ICptc2csIHU4IHBvcnRfbnVt
-LCB1MzIKPiAgCj4gIAlyZXR1cm4gMDsKPiAgfQo+IC0jZW5kaWYKPiAgCj4gIHN0YXRpYyBpbnQg
-ZHJtX2RwX3NlbmRfc2lkZWJhbmRfbXNnKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAq
-bWdyLAo+ICAJCQkJICAgIGJvb2wgdXAsIHU4ICptc2csIGludCBsZW4pCj4gQEAgLTE5OTQsMjYg
-KzIwNDgsNTUgQEAgaW50IGRybV9kcF91cGRhdGVfcGF5bG9hZF9wYXJ0MihzdHJ1Y3QKPiBkcm1f
-ZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyKQo+ICB9Cj4gIEVYUE9SVF9TWU1CT0woZHJtX2RwX3Vw
-ZGF0ZV9wYXlsb2FkX3BhcnQyKTsKPiAgCj4gLSNpZiAwIC8qIHVudXNlZCBhcyBvZiB5ZXQgKi8K
-PiAgc3RhdGljIGludCBkcm1fZHBfc2VuZF9kcGNkX3JlYWQoc3RydWN0IGRybV9kcF9tc3RfdG9w
-b2xvZ3lfbWdyICptZ3IsCj4gIAkJCQkgc3RydWN0IGRybV9kcF9tc3RfcG9ydCAqcG9ydCwKPiAt
-CQkJCSBpbnQgb2Zmc2V0LCBpbnQgc2l6ZSkKPiArCQkJCSBpbnQgb2Zmc2V0LCBpbnQgc2l6ZSwg
-dTggKmJ5dGVzKQo+ICB7Cj4gIAlpbnQgbGVuOwo+ICsJaW50IHJldCA9IDA7Cj4gIAlzdHJ1Y3Qg
-ZHJtX2RwX3NpZGViYW5kX21zZ190eCAqdHhtc2c7Cj4gKwlzdHJ1Y3QgZHJtX2RwX21zdF9icmFu
-Y2ggKm1zdGI7Cj4gKwo+ICsJbXN0YiA9IGRybV9kcF9nZXRfdmFsaWRhdGVkX21zdGJfcmVmKG1n
-ciwgcG9ydC0+cGFyZW50KTsKPiArCWlmICghbXN0YikKPiArCQlyZXR1cm4gLUVJTlZBTDsKPiAg
-Cj4gIAl0eG1zZyA9IGt6YWxsb2Moc2l6ZW9mKCp0eG1zZyksIEdGUF9LRVJORUwpOwo+IC0JaWYg
-KCF0eG1zZykKPiAtCQlyZXR1cm4gLUVOT01FTTsKPiArCWlmICghdHhtc2cpIHsKPiArCQlyZXQg
-PSAtRU5PTUVNOwo+ICsJCWdvdG8gZmFpbF9wdXQ7Cj4gKwl9Cj4gIAo+IC0JbGVuID0gYnVpbGRf
-ZHBjZF9yZWFkKHR4bXNnLCBwb3J0LT5wb3J0X251bSwgMCwgOCk7Cj4gKwlsZW4gPSBidWlsZF9k
-cGNkX3JlYWQodHhtc2csIHBvcnQtPnBvcnRfbnVtLCBvZmZzZXQsIHNpemUpOwo+ICAJdHhtc2ct
-PmRzdCA9IHBvcnQtPnBhcmVudDsKPiAgCj4gIAlkcm1fZHBfcXVldWVfZG93bl90eChtZ3IsIHR4
-bXNnKTsKPiAgCj4gLQlyZXR1cm4gMDsKPiArCXJldCA9IGRybV9kcF9tc3Rfd2FpdF90eF9yZXBs
-eShtc3RiLCB0eG1zZyk7Cj4gKwlpZiAocmV0IDwgMCkKPiArCQlnb3RvIGZhaWxfZnJlZTsKPiAr
-Cj4gKwkvKiBEUENEIHJlYWQgc2hvdWxkIG5ldmVyIGJlIE5BQ0tlZCAqLwo+ICsJaWYgKFdBUk5f
-T05fT05DRSh0eG1zZy0+cmVwbHkucmVwbHlfdHlwZSA9PSAxKSkgewo+ICsJCXJldCA9IC1FSU87
-Cj4gKwkJZ290byBmYWlsX2ZyZWU7Cj4gKwl9Cj4gKwo+ICsJaWYgKHR4bXNnLT5yZXBseS51LnJl
-bW90ZV9kcGNkX3JlYWRfYWNrLm51bV9ieXRlcyAhPSBzaXplKSB7Cj4gKwkJcmV0ID0gLUVQUk9U
-TzsKPiArCQlnb3RvIGZhaWxfZnJlZTsKPiArCX0KPiArCj4gKwlyZXQgPSBtaW5fdChzaXplX3Qs
-IHR4bXNnLT5yZXBseS51LnJlbW90ZV9kcGNkX3JlYWRfYWNrLm51bV9ieXRlcywKPiBzaXplKTsK
-PiArCW1lbWNweShieXRlcywgdHhtc2ctPnJlcGx5LnUucmVtb3RlX2RwY2RfcmVhZF9hY2suYnl0
-ZXMsIHJldCk7Cj4gKwo+ICtmYWlsX2ZyZWU6Cj4gKwlrZnJlZSh0eG1zZyk7Cj4gK2ZhaWxfcHV0
-Ogo+ICsJZHJtX2RwX3B1dF9tc3RfYnJhbmNoX2RldmljZShtc3RiKTsKPiArCj4gKwlyZXR1cm4g
-cmV0Owo+ICB9Cj4gLSNlbmRpZgo+ICAKPiAgc3RhdGljIGludCBkcm1fZHBfc2VuZF9kcGNkX3dy
-aXRlKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLAo+ICAJCQkJICBzdHJ1Y3Qg
-ZHJtX2RwX21zdF9wb3J0ICpwb3J0LAo+IEBAIC0yMDQxLDkgKzIxMjQsOSBAQCBzdGF0aWMgaW50
-IGRybV9kcF9zZW5kX2RwY2Rfd3JpdGUoc3RydWN0Cj4gZHJtX2RwX21zdF90b3BvbG9neV9tZ3Ig
-Km1nciwKPiAgCj4gIAlyZXQgPSBkcm1fZHBfbXN0X3dhaXRfdHhfcmVwbHkobXN0YiwgdHhtc2cp
-Owo+ICAJaWYgKHJldCA+IDApIHsKPiAtCQlpZiAodHhtc2ctPnJlcGx5LnJlcGx5X3R5cGUgPT0g
-MSkgewo+IC0JCQlyZXQgPSAtRUlOVkFMOwo+IC0JCX0gZWxzZQo+ICsJCWlmICh0eG1zZy0+cmVw
-bHkucmVwbHlfdHlwZSA9PSAxKQo+ICsJCQlyZXQgPSAtRUlPOwo+ICsJCWVsc2UKPiAgCQkJcmV0
-ID0gMDsKPiAgCX0KPiAgCWtmcmVlKHR4bXNnKTsKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0v
-ZHJtX2RwX2hlbHBlci5oIGIvaW5jbHVkZS9kcm0vZHJtX2RwX2hlbHBlci5oCj4gaW5kZXggNTA5
-NjY3ZS4uNmRlYTc2YSAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fZHBfaGVscGVyLmgK
-PiArKysgYi9pbmNsdWRlL2RybS9kcm1fZHBfaGVscGVyLmgKPiBAQCAtMTI2NSw2ICsxMjY1LDEw
-IEBAIHN0cnVjdCBkcm1fZHBfYXV4IHsKPiAgCSAqIEBjZWM6IHN0cnVjdCBjb250YWluaW5nIGZp
-ZWxkcyB1c2VkIGZvciBDRUMtVHVubmVsaW5nLW92ZXItQVVYLgo+ICAJICovCj4gIAlzdHJ1Y3Qg
-ZHJtX2RwX2F1eF9jZWMgY2VjOwo+ICsJLyoqCj4gKwkgKiBAaXNfcmVtb3RlOiBJcyB0aGlzICJB
-VVggQ0giIGFjdHVhbGx5IHVzaW5nIHNpZGViYW5kIG1lc3NhZ2luZy4KPiArCSAqLwo+ICsJYm9v
-bCBpc19yZW1vdGU7Cj4gIH07Cj4gIAo+ICBzc2l6ZV90IGRybV9kcF9kcGNkX3JlYWQoc3RydWN0
-IGRybV9kcF9hdXggKmF1eCwgdW5zaWduZWQgaW50IG9mZnNldCwKPiBkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIuaAo+IGIvaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9o
-ZWxwZXIuaAo+IGluZGV4IDM3MWNjMjguLjMwZjhjMTEgMTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS9k
-cm0vZHJtX2RwX21zdF9oZWxwZXIuaAo+ICsrKyBiL2luY2x1ZGUvZHJtL2RybV9kcF9tc3RfaGVs
-cGVyLmgKPiBAQCAtNjE1LDYgKzYxNSwxMiBAQCB2b2lkIGRybV9kcF9tc3RfZHVtcF90b3BvbG9n
-eShzdHJ1Y3Qgc2VxX2ZpbGUgKm0sCj4gIAo+ICB2b2lkIGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdy
-X3N1c3BlbmQoc3RydWN0IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IpOwo+ICBpbnQgZHJt
-X2RwX21zdF90b3BvbG9neV9tZ3JfcmVzdW1lKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21n
-ciAqbWdyKTsKPiArCj4gK3NzaXplX3QgZHJtX2RwX21zdF9kcGNkX3JlYWQoc3RydWN0IGRybV9k
-cF9hdXggKmF1eCwKPiArCQkJICAgICB1bnNpZ25lZCBpbnQgb2Zmc2V0LCB2b2lkICpidWZmZXIs
-IHNpemVfdCBzaXplKTsKPiArc3NpemVfdCBkcm1fZHBfbXN0X2RwY2Rfd3JpdGUoc3RydWN0IGRy
-bV9kcF9hdXggKmF1eCwKPiArCQkJICAgICAgdW5zaWduZWQgaW50IG9mZnNldCwgdm9pZCAqYnVm
-ZmVyLCBzaXplX3Qgc2l6ZSk7Cj4gKwo+ICBzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9zdGF0
-ZSAqZHJtX2F0b21pY19nZXRfbXN0X3RvcG9sb2d5X3N0YXRlKHN0cnVjdAo+IGRybV9hdG9taWNf
-c3RhdGUgKnN0YXRlLAo+ICAJCQkJCQkJCSAgICBzdHJ1Y3QKPiBkcm1fZHBfbXN0X3RvcG9sb2d5
-X21nciAqbWdyKTsKPiAgaW50IGRybV9kcF9hdG9taWNfZmluZF92Y3BpX3Nsb3RzKHN0cnVjdCBk
-cm1fYXRvbWljX3N0YXRlICpzdGF0ZSwKLS0gCkNoZWVycywKCUx5dWRlIFBhdWwKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5n
-IGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+On 2019-04-16 4:19 p.m., Arnd Bergmann wrote:
+> Hi Al,
+> 
+> It took me way longer than I had hoped to revisit this series, see
+> https://lore.kernel.org/lkml/20180912150142.157913-1-arnd@arndb.de/
+> for the previously posted version.
+> 
+> I've come to the point where all conversion handlers and most
+> COMPATIBLE_IOCTL() entries are gone from this file, but for
+> now, this series only has the parts that have either been reviewed
+> previously, or that are simple enough to include.
+> 
+> The main missing piece is the SG_IO/SG_GET_REQUEST_TABLE conversion.
+> I'll post the patches I made for that later, as they need more
+> testing and review from the scsi maintainers.
+
+Perhaps you could look at the document in this url:
+     http://sg.danny.cz/sg/sg_v40.html
+
+It is work-in-progress to modernize the SCSI generic driver. It
+extends ioctl(sg_fd, SG_IO, &pt_obj) to additionally accept the sg v4
+interface as defined in include/uapi/linux/bsg.h . Currently only the
+bsg driver uses the sg v4 interface. Since struct sg_io_v4 is all
+explicitly sized integers, I'm guessing it is immune "compat" problems.
+[I can see no reference to bsg nor struct sg_io_v4 in the current
+fs/compat_ioctl.c file.]
+
+Other additions described in the that document are these new ioctls:
+   - SG_IOSUBMIT    ultimately to replace write(sg_fd, ...)
+   - SG_IORECEIVE              to replace read(sg_fd, ...)
+   - SG_IOABORT     abort SCSI cmd in progress; new functionality
+   - SG_SET_GET_EXTENDED   has associated struct sg_extended_info
+
+The first three take a pointer to a struct sg_io_hdr (v3 interface) or
+a struct sg_io_v4 object. Both objects start with a 32 bit integer:
+'S' identifies the v3 interface while 'Q' identifies the v4 interface.
+
+The SG_SET_GET_EXTENDED ioctl takes a pointer to a struct
+sg_extended_info object which contains explicitly sized integers so it
+may also be immune from "compat" problems. The ioctls section (13) of
+that document referenced above has a table showing how many "sets and
+gets" are hiding in the SG_SET_GET_EXTENDED ioctl.
+
+BTW No change is proposed for this case:
+     ioctl(normal_block_device, SG_IO, &sg_v3_obj)
+which is handled by block/scsi_ioctl.c
+
+
+This would be a good time for me to address any "compat" concerns in the
+proposed sg driver update.
+
+Doug Gilbert
+
+
+> I hope you can still take these for the coming merge window, unless
+> new problems come up.
+> 
+>        Arnd
+> 
+> Arnd Bergmann (26):
+>    compat_ioctl: pppoe: fix PPPOEIOCSFWD handling
+>    compat_ioctl: move simple ppp command handling into driver
+>    compat_ioctl: avoid unused function warning for do_ioctl
+>    compat_ioctl: move PPPIOCSCOMPRESS32 to ppp-generic.c
+>    compat_ioctl: move PPPIOCSPASS32/PPPIOCSACTIVE32 to ppp_generic.c
+>    compat_ioctl: handle PPPIOCGIDLE for 64-bit time_t
+>    compat_ioctl: move rtc handling into rtc-dev.c
+>    compat_ioctl: add compat_ptr_ioctl()
+>    compat_ioctl: move drivers to compat_ptr_ioctl
+>    compat_ioctl: use correct compat_ptr() translation in drivers
+>    ceph: fix compat_ioctl for ceph_dir_operations
+>    compat_ioctl: move more drivers to compat_ptr_ioctl
+>    compat_ioctl: move tape handling into drivers
+>    compat_ioctl: move ATYFB_CLK handling to atyfb driver
+>    compat_ioctl: move isdn/capi ioctl translation into driver
+>    compat_ioctl: move rfcomm handlers into driver
+>    compat_ioctl: move hci_sock handlers into driver
+>    compat_ioctl: remove HCIUART handling
+>    compat_ioctl: remove HIDIO translation
+>    compat_ioctl: remove translation for sound ioctls
+>    compat_ioctl: remove IGNORE_IOCTL()
+>    compat_ioctl: remove /dev/random commands
+>    compat_ioctl: remove joystick ioctl translation
+>    compat_ioctl: remove PCI ioctl translation
+>    compat_ioctl: remove /dev/raw ioctl translation
+>    compat_ioctl: remove last RAID handling code
+> 
+>   Documentation/networking/ppp_generic.txt    |   2 +
+>   arch/um/drivers/hostaudio_kern.c            |   1 +
+>   drivers/android/binder.c                    |   2 +-
+>   drivers/char/ppdev.c                        |  12 +-
+>   drivers/char/random.c                       |   1 +
+>   drivers/char/tpm/tpm_vtpm_proxy.c           |  12 +-
+>   drivers/crypto/qat/qat_common/adf_ctl_drv.c |   2 +-
+>   drivers/dma-buf/dma-buf.c                   |   4 +-
+>   drivers/dma-buf/sw_sync.c                   |   2 +-
+>   drivers/dma-buf/sync_file.c                 |   2 +-
+>   drivers/firewire/core-cdev.c                |  12 +-
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c    |   2 +-
+>   drivers/hid/hidraw.c                        |   4 +-
+>   drivers/hid/usbhid/hiddev.c                 |  11 +-
+>   drivers/hwtracing/stm/core.c                |  12 +-
+>   drivers/ide/ide-tape.c                      |  31 +-
+>   drivers/iio/industrialio-core.c             |   2 +-
+>   drivers/infiniband/core/uverbs_main.c       |   4 +-
+>   drivers/isdn/capi/capi.c                    |  31 +
+>   drivers/isdn/i4l/isdn_ppp.c                 |  14 +-
+>   drivers/media/rc/lirc_dev.c                 |   4 +-
+>   drivers/mfd/cros_ec_dev.c                   |   4 +-
+>   drivers/misc/cxl/flash.c                    |   8 +-
+>   drivers/misc/genwqe/card_dev.c              |  23 +-
+>   drivers/misc/mei/main.c                     |  22 +-
+>   drivers/misc/vmw_vmci/vmci_host.c           |   2 +-
+>   drivers/mtd/ubi/cdev.c                      |  36 +-
+>   drivers/net/ppp/ppp_generic.c               |  99 +++-
+>   drivers/net/ppp/pppoe.c                     |   7 +
+>   drivers/net/ppp/pptp.c                      |   3 +
+>   drivers/net/tap.c                           |  12 +-
+>   drivers/nvdimm/bus.c                        |   4 +-
+>   drivers/nvme/host/core.c                    |   2 +-
+>   drivers/pci/switch/switchtec.c              |   2 +-
+>   drivers/platform/x86/wmi.c                  |   2 +-
+>   drivers/rpmsg/rpmsg_char.c                  |   4 +-
+>   drivers/rtc/dev.c                           |  13 +-
+>   drivers/rtc/rtc-vr41xx.c                    |  10 +
+>   drivers/s390/char/tape_char.c               |  41 +-
+>   drivers/sbus/char/display7seg.c             |   2 +-
+>   drivers/sbus/char/envctrl.c                 |   4 +-
+>   drivers/scsi/3w-xxxx.c                      |   4 +-
+>   drivers/scsi/cxlflash/main.c                |   2 +-
+>   drivers/scsi/esas2r/esas2r_main.c           |   2 +-
+>   drivers/scsi/megaraid/megaraid_mm.c         |  28 +-
+>   drivers/scsi/osst.c                         |  34 +-
+>   drivers/scsi/pmcraid.c                      |   4 +-
+>   drivers/scsi/st.c                           |  35 +-
+>   drivers/staging/android/ion/ion.c           |   4 +-
+>   drivers/staging/pi433/pi433_if.c            |  12 +-
+>   drivers/staging/vme/devices/vme_user.c      |   2 +-
+>   drivers/tee/tee_core.c                      |   2 +-
+>   drivers/usb/class/cdc-wdm.c                 |   2 +-
+>   drivers/usb/class/usbtmc.c                  |   4 +-
+>   drivers/usb/core/devio.c                    |  16 +-
+>   drivers/usb/gadget/function/f_fs.c          |  12 +-
+>   drivers/vfio/vfio.c                         |  39 +-
+>   drivers/vhost/net.c                         |  12 +-
+>   drivers/vhost/scsi.c                        |  12 +-
+>   drivers/vhost/test.c                        |  12 +-
+>   drivers/vhost/vsock.c                       |  12 +-
+>   drivers/video/fbdev/aty/atyfb_base.c        |  12 +-
+>   drivers/virt/fsl_hypervisor.c               |   2 +-
+>   fs/btrfs/super.c                            |   2 +-
+>   fs/ceph/dir.c                               |   1 +
+>   fs/ceph/file.c                              |   2 +-
+>   fs/compat_ioctl.c                           | 602 +-------------------
+>   fs/fat/file.c                               |  13 +-
+>   fs/fuse/dev.c                               |   2 +-
+>   fs/notify/fanotify/fanotify_user.c          |   2 +-
+>   fs/userfaultfd.c                            |   2 +-
+>   include/linux/fs.h                          |   7 +
+>   include/linux/if_pppox.h                    |   2 +
+>   include/linux/mtio.h                        |  58 ++
+>   include/uapi/linux/ppp-ioctl.h              |   2 +
+>   include/uapi/linux/ppp_defs.h               |  14 +
+>   net/bluetooth/hci_sock.c                    |  21 +-
+>   net/bluetooth/rfcomm/sock.c                 |  14 +-
+>   net/l2tp/l2tp_ppp.c                         |   3 +
+>   net/rfkill/core.c                           |   2 +-
+>   sound/core/oss/pcm_oss.c                    |   4 +
+>   sound/oss/dmasound/dmasound_core.c          |   2 +
+>   82 files changed, 452 insertions(+), 1034 deletions(-)
+>   create mode 100644 include/linux/mtio.h
+> 
