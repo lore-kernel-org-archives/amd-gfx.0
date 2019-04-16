@@ -1,105 +1,225 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 05/12] dma-buf: add explicit buffer pinning
-Date: Tue, 16 Apr 2019 20:38:34 +0200
-Message-ID: <20190416183841.1577-6-christian.koenig@amd.com>
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?="
+        <ckoenig.leichtzumerken@gmail.com>
+Subject: [PATCH 09/12] drm/amdgpu: add independent DMA-buf export v3
+Date: Tue, 16 Apr 2019 20:38:38 +0200
+Message-ID: <20190416183841.1577-10-christian.koenig@amd.com>
 References: <20190416183841.1577-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190416183841.1577-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190416183841.1577-1-christian.koenig@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: sumit.semwal@linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWRkIG9wdGlvbmFsIGV4cGxpY2l0IHBpbm5pbmcgY2FsbGJhY2tzIGluc3RlYWQgb2YgaW1wbGlj
-aXRseSBhc3N1bWUgdGhlCmV4cG9ydGVyIHBpbnMgdGhlIGJ1ZmZlciB3aGVuIGEgbWFwcGluZyBp
-cyBjcmVhdGVkLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtv
-ZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMgfCAzOSArKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIGluY2x1ZGUvbGludXgvZG1hLWJ1Zi5o
-ICAgfCAzNyArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tCiAyIGZpbGVzIGNo
-YW5nZWQsIDcwIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9kbWEtYnVmL2RtYS1idWYuYyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMKaW5kZXgg
-YTM3MzhmYWIzOTI3Li5mMjNmZjgzNTU1MDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZG1hLWJ1Zi9k
-bWEtYnVmLmMKKysrIGIvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYuYwpAQCAtNjMwLDYgKzYzMCw0
-MSBAQCB2b2lkIGRtYV9idWZfZGV0YWNoKHN0cnVjdCBkbWFfYnVmICpkbWFidWYsIHN0cnVjdCBk
-bWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCkKIH0KIEVYUE9SVF9TWU1CT0xfR1BMKGRtYV9idWZf
-ZGV0YWNoKTsKIAorLyoqCisgKiBkbWFfYnVmX3BpbiAtIExvY2sgZG93biB0aGUgRE1BLWJ1Zgor
-ICoKKyAqIEBkbWFidWY6CVtpbl0JRE1BLWJ1ZiB0byBsb2NrIGRvd24uCisgKgorICogUmV0dXJu
-czoKKyAqIDAgb24gc3VjY2VzcywgbmVnYXRpdmUgZXJyb3IgY29kZSBvbiBmYWlsdXJlLgorICov
-CitpbnQgZG1hX2J1Zl9waW4oc3RydWN0IGRtYV9idWYgKmRtYWJ1ZikKK3sKKwlpbnQgcmV0ID0g
-MDsKKworCXJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVsZChkbWFidWYtPnJlc3YpOworCisJ
-aWYgKGRtYWJ1Zi0+b3BzLT5waW4pCisJCXJldCA9IGRtYWJ1Zi0+b3BzLT5waW4oZG1hYnVmKTsK
-KworCXJldHVybiByZXQ7Cit9CitFWFBPUlRfU1lNQk9MX0dQTChkbWFfYnVmX3Bpbik7CisKKy8q
-KgorICogZG1hX2J1Zl91bnBpbiAtIFJlbW92ZSBsb2NrIGZyb20gRE1BLWJ1ZgorICoKKyAqIEBk
-bWFidWY6CVtpbl0JRE1BLWJ1ZiB0byB1bmxvY2suCisgKi8KK3ZvaWQgZG1hX2J1Zl91bnBpbihz
-dHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmKQoreworCXJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVs
-ZChkbWFidWYtPnJlc3YpOworCisJaWYgKGRtYWJ1Zi0+b3BzLT51bnBpbikKKwkJZG1hYnVmLT5v
-cHMtPnVucGluKGRtYWJ1Zik7Cit9CitFWFBPUlRfU1lNQk9MX0dQTChkbWFfYnVmX3VucGluKTsK
-KwogLyoqCiAgKiBkbWFfYnVmX21hcF9hdHRhY2htZW50X2xvY2tlZCAtIE1hcHMgdGhlIGJ1ZmZl
-ciBpbnRvIF9kZXZpY2VfIGFkZHJlc3Mgc3BhY2UKICAqIHdpdGggdGhlIHJlc2VydmF0aW9uIGxv
-Y2sgaGVsZC4gSXMgYSB3cmFwcGVyIGZvciBtYXBfZG1hX2J1ZigpIG9mIHRoZQpAQCAtNjY2LDYg
-KzcwMSw4IEBAIGRtYV9idWZfbWFwX2F0dGFjaG1lbnRfbG9ja2VkKHN0cnVjdCBkbWFfYnVmX2F0
-dGFjaG1lbnQgKmF0dGFjaCwKIAkgKi8KIAlpZiAoYXR0YWNoLT5pbnZhbGlkYXRlKQogCQlsaXN0
-X2RlbCgmYXR0YWNoLT5ub2RlKTsKKwllbHNlCisJCWRtYV9idWZfcGluKGF0dGFjaC0+ZG1hYnVm
-KTsKIAlzZ190YWJsZSA9IGF0dGFjaC0+ZG1hYnVmLT5vcHMtPm1hcF9kbWFfYnVmKGF0dGFjaCwg
-ZGlyZWN0aW9uKTsKIAlpZiAoYXR0YWNoLT5pbnZhbGlkYXRlKQogCQlsaXN0X2FkZCgmYXR0YWNo
-LT5ub2RlLCAmYXR0YWNoLT5kbWFidWYtPmF0dGFjaG1lbnRzKTsKQEAgLTczNSw2ICs3NzIsOCBA
-QCB2b2lkIGRtYV9idWZfdW5tYXBfYXR0YWNobWVudF9sb2NrZWQoc3RydWN0IGRtYV9idWZfYXR0
-YWNobWVudCAqYXR0YWNoLAogCiAJYXR0YWNoLT5kbWFidWYtPm9wcy0+dW5tYXBfZG1hX2J1Zihh
-dHRhY2gsIHNnX3RhYmxlLAogCQkJCQkJZGlyZWN0aW9uKTsKKwlpZiAoIWF0dGFjaC0+aW52YWxp
-ZGF0ZSkKKwkJZG1hX2J1Zl91bnBpbihhdHRhY2gtPmRtYWJ1Zik7CiB9CiBFWFBPUlRfU1lNQk9M
-X0dQTChkbWFfYnVmX3VubWFwX2F0dGFjaG1lbnRfbG9ja2VkKTsKIApkaWZmIC0tZ2l0IGEvaW5j
-bHVkZS9saW51eC9kbWEtYnVmLmggYi9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaAppbmRleCBlY2U0
-NjM4MzU5YTguLmE2MTViNzRlNTg5NCAxMDA2NDQKLS0tIGEvaW5jbHVkZS9saW51eC9kbWEtYnVm
-LmgKKysrIGIvaW5jbHVkZS9saW51eC9kbWEtYnVmLmgKQEAgLTEwMCwxNCArMTAwLDQwIEBAIHN0
-cnVjdCBkbWFfYnVmX29wcyB7CiAJICovCiAJdm9pZCAoKmRldGFjaCkoc3RydWN0IGRtYV9idWYg
-Kiwgc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqKTsKIAorCS8qKgorCSAqIEBwaW5fZG1hX2J1
-ZjoKKwkgKgorCSAqIFRoaXMgaXMgY2FsbGVkIGJ5IGRtYV9idWZfcGluIGFuZCBsZXRzIHRoZSBl
-eHBvcnRlciBrbm93IHRoYXQgYW4KKwkgKiBpbXBvcnRlciBhc3N1bWVzIHRoYXQgdGhlIERNQS1i
-dWYgY2FuJ3QgYmUgaW52YWxpZGF0ZWQgYW55IG1vcmUuCisJICoKKwkgKiBUaGlzIGlzIGNhbGxl
-ZCB3aXRoIHRoZSBkbWFidWYtPnJlc3Ygb2JqZWN0IGxvY2tlZC4KKwkgKgorCSAqIFRoaXMgY2Fs
-bGJhY2sgaXMgb3B0aW9uYWwuCisJICoKKwkgKiBSZXR1cm5zOgorCSAqCisJICogMCBvbiBzdWNj
-ZXNzLCBuZWdhdGl2ZSBlcnJvciBjb2RlIG9uIGZhaWx1cmUuCisJICovCisJaW50ICgqcGluKShz
-dHJ1Y3QgZG1hX2J1ZiAqKTsKKworCS8qKgorCSAqIEB1bnBpbl9kbWFfYnVmOgorCSAqCisJICog
-VGhpcyBpcyBjYWxsZWQgYnkgZG1hX2J1Zl91bnBpbiBhbmQgbGV0cyB0aGUgZXhwb3J0ZXIga25v
-dyB0aGF0IGFuCisJICogaW1wb3J0ZXIgZG9lc24ndCBuZWVkIHRvIHRoZSBETUEtYnVmIHRvIHN0
-YXkgd2VyZSBpdCBpcyBhbnkgbW9yZS4KKwkgKgorCSAqIFRoaXMgaXMgY2FsbGVkIHdpdGggdGhl
-IGRtYWJ1Zi0+cmVzdiBvYmplY3QgbG9ja2VkLgorCSAqCisJICogVGhpcyBjYWxsYmFjayBpcyBv
-cHRpb25hbC4KKwkgKi8KKwl2b2lkICgqdW5waW4pKHN0cnVjdCBkbWFfYnVmICopOworCiAJLyoq
-CiAJICogQG1hcF9kbWFfYnVmOgogCSAqCiAJICogVGhpcyBpcyBjYWxsZWQgYnkgZG1hX2J1Zl9t
-YXBfYXR0YWNobWVudCgpIGFuZCBpcyB1c2VkIHRvIG1hcCBhCiAJICogc2hhcmVkICZkbWFfYnVm
-IGludG8gZGV2aWNlIGFkZHJlc3Mgc3BhY2UsIGFuZCBpdCBpcyBtYW5kYXRvcnkuIEl0Ci0JICog
-Y2FuIG9ubHkgYmUgY2FsbGVkIGlmIEBhdHRhY2ggaGFzIGJlZW4gY2FsbGVkIHN1Y2Nlc3NmdWxs
-eS4gVGhpcwotCSAqIGVzc2VudGlhbGx5IHBpbnMgdGhlIERNQSBidWZmZXIgaW50byBwbGFjZSwg
-YW5kIGl0IGNhbm5vdCBiZSBtb3ZlZAotCSAqIGFueSBtb3JlCisJICogY2FuIG9ubHkgYmUgY2Fs
-bGVkIGlmIEBhdHRhY2ggaGFzIGJlZW4gY2FsbGVkIHN1Y2Nlc3NmdWxseS4KIAkgKgogCSAqIFRo
-aXMgY2FsbCBtYXkgc2xlZXAsIGUuZy4gd2hlbiB0aGUgYmFja2luZyBzdG9yYWdlIGZpcnN0IG5l
-ZWRzIHRvIGJlCiAJICogYWxsb2NhdGVkLCBvciBtb3ZlZCB0byBhIGxvY2F0aW9uIHN1aXRhYmxl
-IGZvciBhbGwgY3VycmVudGx5IGF0dGFjaGVkCkBAIC0xNDgsOSArMTc0LDYgQEAgc3RydWN0IGRt
-YV9idWZfb3BzIHsKIAkgKgogCSAqIFRoaXMgaXMgY2FsbGVkIGJ5IGRtYV9idWZfdW5tYXBfYXR0
-YWNobWVudCgpIGFuZCBzaG91bGQgdW5tYXAgYW5kCiAJICogcmVsZWFzZSB0aGUgJnNnX3RhYmxl
-IGFsbG9jYXRlZCBpbiBAbWFwX2RtYV9idWYsIGFuZCBpdCBpcyBtYW5kYXRvcnkuCi0JICogSXQg
-c2hvdWxkIGFsc28gdW5waW4gdGhlIGJhY2tpbmcgc3RvcmFnZSBpZiB0aGlzIGlzIHRoZSBsYXN0
-IG1hcHBpbmcKLQkgKiBvZiB0aGUgRE1BIGJ1ZmZlciwgaXQgdGhlIGV4cG9ydGVyIHN1cHBvcnRz
-IGJhY2tpbmcgc3RvcmFnZQotCSAqIG1pZ3JhdGlvbi4KIAkgKgogCSAqIFRoaXMgaXMgYWx3YXlz
-IGNhbGxlZCB3aXRoIHRoZSBkbWFidWYtPnJlc3Ygb2JqZWN0IGxvY2tlZCB3aGVuCiAJICogbm9f
-c2d0X2NhY2hlIGlzIHRydWUuCkBAIC00NDIsNiArNDY1LDggQEAgaW50IGRtYV9idWZfZmQoc3Ry
-dWN0IGRtYV9idWYgKmRtYWJ1ZiwgaW50IGZsYWdzKTsKIHN0cnVjdCBkbWFfYnVmICpkbWFfYnVm
-X2dldChpbnQgZmQpOwogdm9pZCBkbWFfYnVmX3B1dChzdHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmKTsK
-IAoraW50IGRtYV9idWZfcGluKHN0cnVjdCBkbWFfYnVmICpkbWFidWYpOwordm9pZCBkbWFfYnVm
-X3VucGluKHN0cnVjdCBkbWFfYnVmICpkbWFidWYpOwogc3RydWN0IHNnX3RhYmxlICpkbWFfYnVm
-X21hcF9hdHRhY2htZW50X2xvY2tlZChzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICosCiAJCQkJ
-CSAgICAgICBlbnVtIGRtYV9kYXRhX2RpcmVjdGlvbik7CiBzdHJ1Y3Qgc2dfdGFibGUgKmRtYV9i
-dWZfbWFwX2F0dGFjaG1lbnQoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqLAotLSAKMi4xNy4x
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+The caching of SGT's is actually quite harmful and should probably removed
+altogether when all drivers are audited.
+
+Start by providing a separate DMA-buf export implementation in amdgpu. This is
+also a prerequisite of unpinned DMA-buf handling.
+
+v2: fix unintended recursion, remove debugging leftovers
+v3: split out from unpinned DMA-buf work
+v4: rebase on top of new no_sgt_cache flag
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h   |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c | 94 ++++++++++-------------
+ 3 files changed, 40 insertions(+), 56 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 13a68f62bcc8..f1815223a1a1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1254,7 +1254,6 @@ static struct drm_driver kms_driver = {
+ 	.gem_prime_export = amdgpu_gem_prime_export,
+ 	.gem_prime_import = amdgpu_gem_prime_import,
+ 	.gem_prime_res_obj = amdgpu_gem_prime_res_obj,
+-	.gem_prime_get_sg_table = amdgpu_gem_prime_get_sg_table,
+ 	.gem_prime_import_sg_table = amdgpu_gem_prime_import_sg_table,
+ 	.gem_prime_vmap = amdgpu_gem_prime_vmap,
+ 	.gem_prime_vunmap = amdgpu_gem_prime_vunmap,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+index f1ddfc50bcc7..0c50d14a9739 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+@@ -39,7 +39,6 @@ int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ void amdgpu_gem_object_close(struct drm_gem_object *obj,
+ 				struct drm_file *file_priv);
+ unsigned long amdgpu_gem_timeout(uint64_t timeout_ns);
+-struct sg_table *amdgpu_gem_prime_get_sg_table(struct drm_gem_object *obj);
+ struct drm_gem_object *
+ amdgpu_gem_prime_import_sg_table(struct drm_device *dev,
+ 				 struct dma_buf_attachment *attach,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+index a38e0fb4a6fe..8d748f9d0292 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_prime.c
+@@ -40,22 +40,6 @@
+ #include <linux/dma-buf.h>
+ #include <linux/dma-fence-array.h>
+ 
+-/**
+- * amdgpu_gem_prime_get_sg_table - &drm_driver.gem_prime_get_sg_table
+- * implementation
+- * @obj: GEM buffer object (BO)
+- *
+- * Returns:
+- * A scatter/gather table for the pinned pages of the BO's memory.
+- */
+-struct sg_table *amdgpu_gem_prime_get_sg_table(struct drm_gem_object *obj)
+-{
+-	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+-	int npages = bo->tbo.num_pages;
+-
+-	return drm_prime_pages_to_sg(bo->tbo.ttm->pages, npages);
+-}
+-
+ /**
+  * amdgpu_gem_prime_vmap - &dma_buf_ops.vmap implementation
+  * @obj: GEM BO
+@@ -231,34 +215,29 @@ __reservation_object_make_exclusive(struct reservation_object *obj)
+ }
+ 
+ /**
+- * amdgpu_gem_map_attach - &dma_buf_ops.attach implementation
+- * @dma_buf: Shared DMA buffer
++ * amdgpu_gem_map_dma_buf - &dma_buf_ops.map_dma_buf implementation
+  * @attach: DMA-buf attachment
++ * @dir: DMA direction
+  *
+  * Makes sure that the shared DMA buffer can be accessed by the target device.
+  * For now, simply pins it to the GTT domain, where it should be accessible by
+  * all DMA devices.
+  *
+  * Returns:
+- * 0 on success or a negative error code on failure.
++ * sg_table filled with the DMA addresses to use or ERR_PRT with negative error
++ * code.
+  */
+-static int amdgpu_gem_map_attach(struct dma_buf *dma_buf,
+-				 struct dma_buf_attachment *attach)
++static struct sg_table *
++amdgpu_gem_map_dma_buf(struct dma_buf_attachment *attach,
++		       enum dma_data_direction dir)
+ {
++	struct dma_buf *dma_buf = attach->dmabuf;
+ 	struct drm_gem_object *obj = dma_buf->priv;
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
++	struct sg_table *sgt;
+ 	long r;
+ 
+-	r = drm_gem_map_attach(dma_buf, attach);
+-	if (r)
+-		return r;
+-
+-	r = amdgpu_bo_reserve(bo, false);
+-	if (unlikely(r != 0))
+-		goto error_detach;
+-
+-
+ 	if (attach->dev->driver != adev->dev->driver) {
+ 		/*
+ 		 * We only create shared fences for internal use, but importers
+@@ -270,53 +249,61 @@ static int amdgpu_gem_map_attach(struct dma_buf *dma_buf,
+ 		 */
+ 		r = __reservation_object_make_exclusive(bo->tbo.resv);
+ 		if (r)
+-			goto error_unreserve;
++			return ERR_PTR(r);
+ 	}
+ 
+ 	/* pin buffer into GTT */
+ 	r = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_GTT);
+ 	if (r)
+-		goto error_unreserve;
++		return ERR_PTR(r);
++
++	sgt = drm_prime_pages_to_sg(bo->tbo.ttm->pages, bo->tbo.num_pages);
++	if (IS_ERR(sgt))
++		return sgt;
++
++	if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
++			      DMA_ATTR_SKIP_CPU_SYNC))
++		goto error_free;
+ 
+ 	if (attach->dev->driver != adev->dev->driver)
+ 		bo->prime_shared_count++;
+ 
+-error_unreserve:
+-	amdgpu_bo_unreserve(bo);
++	return sgt;
+ 
+-error_detach:
+-	if (r)
+-		drm_gem_map_detach(dma_buf, attach);
+-	return r;
++error_free:
++	sg_free_table(sgt);
++	kfree(sgt);
++	return ERR_PTR(-ENOMEM);
+ }
+ 
+ /**
+- * amdgpu_gem_map_detach - &dma_buf_ops.detach implementation
+- * @dma_buf: Shared DMA buffer
++ * amdgpu_gem_unmap_dma_buf - &dma_buf_ops.unmap_dma_buf implementation
+  * @attach: DMA-buf attachment
++ * @sgt: sg_table to unmap
++ * @dir: DMA direction
+  *
+  * This is called when a shared DMA buffer no longer needs to be accessible by
+  * another device. For now, simply unpins the buffer from GTT.
+  */
+-static void amdgpu_gem_map_detach(struct dma_buf *dma_buf,
+-				  struct dma_buf_attachment *attach)
++static void amdgpu_gem_unmap_dma_buf(struct dma_buf_attachment *attach,
++				     struct sg_table *sgt,
++				     enum dma_data_direction dir)
+ {
++	struct dma_buf *dma_buf = attach->dmabuf;
+ 	struct drm_gem_object *obj = dma_buf->priv;
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+-	int ret = 0;
+-
+-	ret = amdgpu_bo_reserve(bo, true);
+-	if (unlikely(ret != 0))
+-		goto error;
+ 
+ 	amdgpu_bo_unpin(bo);
++
+ 	if (attach->dev->driver != adev->dev->driver && bo->prime_shared_count)
+ 		bo->prime_shared_count--;
+-	amdgpu_bo_unreserve(bo);
+ 
+-error:
+-	drm_gem_map_detach(dma_buf, attach);
++	if (sgt) {
++		dma_unmap_sg(attach->dev, sgt->sgl, sgt->nents, dir);
++		sg_free_table(sgt);
++		kfree(sgt);
++	}
+ }
+ 
+ /**
+@@ -374,10 +361,9 @@ static int amdgpu_gem_begin_cpu_access(struct dma_buf *dma_buf,
+ }
+ 
+ const struct dma_buf_ops amdgpu_dmabuf_ops = {
+-	.attach = amdgpu_gem_map_attach,
+-	.detach = amdgpu_gem_map_detach,
+-	.map_dma_buf = drm_gem_map_dma_buf,
+-	.unmap_dma_buf = drm_gem_unmap_dma_buf,
++	.dynamic_sgt_mapping = true,
++	.map_dma_buf = amdgpu_gem_map_dma_buf,
++	.unmap_dma_buf = amdgpu_gem_unmap_dma_buf,
+ 	.release = drm_gem_dmabuf_release,
+ 	.begin_cpu_access = amdgpu_gem_begin_cpu_access,
+ 	.mmap = drm_gem_dmabuf_mmap,
+-- 
+2.17.1
