@@ -1,78 +1,121 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdkfd: Adjust weight to represent num_hops info when
- report xgmi iolink
-Date: Wed, 17 Apr 2019 18:59:03 +0000
-Message-ID: <1555527535-4034-1-git-send-email-shaoyun.liu@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 05/12] dma-buf: add explicit buffer pinning
+Date: Wed, 17 Apr 2019 21:05:46 +0200
+Message-ID: <20190417190546.GK13337@phenom.ffwll.local>
+References: <20190416183841.1577-1-christian.koenig@amd.com>
+ <20190416183841.1577-6-christian.koenig@amd.com>
+ <20190417142002.GE13337@phenom.ffwll.local>
+ <20190417143051.GG13337@phenom.ffwll.local>
+ <20190417144011.GI13337@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190417144011.GI13337@phenom.ffwll.local>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>, sumit.semwal@linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VXBwZXIgbGV2ZWwgcnVudGltZSBuZWVkIHRoZSB4Z21pIGhvcHMgaW5mbyB0byBkZXRlcm1pbmUg
-dGhlIGRhdGEgcGF0aA0KDQpDaGFuZ2UtSWQ6IEk5NjliNDE5ZWFiMTI1MTU3ZTIyM2U5YjAzOTgw
-Y2EyMjljMWU2YWY0DQpTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1kLmNv
-bT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMgfCA4ICsrKysr
-Ky0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuaCB8IDMgKystDQogMiBm
-aWxlcyBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQuYw0KaW5kZXggMmU3YzQ0OS4uZDQ4YzZjNSAxMDA2NDQN
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMNCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jcmF0LmMNCkBAIC0zNDEsNiArMzQxLDcgQEAgc3Rh
-dGljIGludCBrZmRfcGFyc2Vfc3VidHlwZV9jYWNoZShzdHJ1Y3QgY3JhdF9zdWJ0eXBlX2NhY2hl
-ICpjYWNoZSwNCiAJcmV0dXJuIDA7DQogfQ0KIA0KKw0KIC8qIGtmZF9wYXJzZV9zdWJ0eXBlX2lv
-bGluayAtIHBhcnNlIGlvbGluayBzdWJ0eXBlcyBhbmQgYXR0YWNoIGl0IHRvIGNvcnJlY3QNCiAg
-KiB0b3BvbG9neSBkZXZpY2UgcHJlc2VudCBpbiB0aGUgZGV2aWNlX2xpc3QNCiAgKi8NCkBAIC0z
-NzIsNyArMzczLDcgQEAgc3RhdGljIGludCBrZmRfcGFyc2Vfc3VidHlwZV9pb2xpbmsoc3RydWN0
-IGNyYXRfc3VidHlwZV9pb2xpbmsgKmlvbGluaywNCiAJCQlpZiAocHJvcHMtPmlvbGlua190eXBl
-ID09IENSQVRfSU9MSU5LX1RZUEVfUENJRVhQUkVTUykNCiAJCQkJcHJvcHMtPndlaWdodCA9IDIw
-Ow0KIAkJCWVsc2UgaWYgKHByb3BzLT5pb2xpbmtfdHlwZSA9PSBDUkFUX0lPTElOS19UWVBFX1hH
-TUkpDQotCQkJCXByb3BzLT53ZWlnaHQgPSAxNTsNCisJCQkJcHJvcHMtPndlaWdodCA9IDE1ICog
-aW9saW5rLT5udW1faG9wc194Z21pOw0KIAkJCWVsc2UNCiAJCQkJcHJvcHMtPndlaWdodCA9IG5v
-ZGVfZGlzdGFuY2UoaWRfZnJvbSwgaWRfdG8pOw0KIA0KQEAgLTEwOTIsNiArMTA5Myw3IEBAIHN0
-YXRpYyBpbnQga2ZkX2ZpbGxfZ3B1X2RpcmVjdF9pb19saW5rX3RvX2NwdShpbnQgKmF2YWlsX3Np
-emUsDQogDQogc3RhdGljIGludCBrZmRfZmlsbF9ncHVfeGdtaV9saW5rX3RvX2dwdShpbnQgKmF2
-YWlsX3NpemUsDQogCQkJc3RydWN0IGtmZF9kZXYgKmtkZXYsDQorCQkJc3RydWN0IGtmZF9kZXYg
-KnBlZXJfa2RldiwNCiAJCQlzdHJ1Y3QgY3JhdF9zdWJ0eXBlX2lvbGluayAqc3ViX3R5cGVfaGRy
-LA0KIAkJCXVpbnQzMl90IHByb3hpbWl0eV9kb21haW5fZnJvbSwNCiAJCQl1aW50MzJfdCBwcm94
-aW1pdHlfZG9tYWluX3RvKQ0KQEAgLTExMTAsNiArMTExMiw4IEBAIHN0YXRpYyBpbnQga2ZkX2Zp
-bGxfZ3B1X3hnbWlfbGlua190b19ncHUoaW50ICphdmFpbF9zaXplLA0KIAlzdWJfdHlwZV9oZHIt
-PmlvX2ludGVyZmFjZV90eXBlID0gQ1JBVF9JT0xJTktfVFlQRV9YR01JOw0KIAlzdWJfdHlwZV9o
-ZHItPnByb3hpbWl0eV9kb21haW5fZnJvbSA9IHByb3hpbWl0eV9kb21haW5fZnJvbTsNCiAJc3Vi
-X3R5cGVfaGRyLT5wcm94aW1pdHlfZG9tYWluX3RvID0gcHJveGltaXR5X2RvbWFpbl90bzsNCisJ
-c3ViX3R5cGVfaGRyLT5udW1faG9wc194Z21pID0NCisJCWFtZGdwdV9hbWRrZmRfZ2V0X3hnbWlf
-aG9wc19jb3VudChrZGV2LT5rZ2QsIHBlZXJfa2Rldi0+a2dkKTsNCiAJcmV0dXJuIDA7DQogfQ0K
-IA0KQEAgLTEyODcsNyArMTI5MSw3IEBAIHN0YXRpYyBpbnQga2ZkX2NyZWF0ZV92Y3JhdF9pbWFn
-ZV9ncHUodm9pZCAqcGNyYXRfaW1hZ2UsDQogCQkJCShjaGFyICopc3ViX3R5cGVfaGRyICsNCiAJ
-CQkJc2l6ZW9mKHN0cnVjdCBjcmF0X3N1YnR5cGVfaW9saW5rKSk7DQogCQkJcmV0ID0ga2ZkX2Zp
-bGxfZ3B1X3hnbWlfbGlua190b19ncHUoDQotCQkJCSZhdmFpbF9zaXplLCBrZGV2LA0KKwkJCQkm
-YXZhaWxfc2l6ZSwga2RldiwgcGVlcl9kZXYtPmdwdSwNCiAJCQkJKHN0cnVjdCBjcmF0X3N1YnR5
-cGVfaW9saW5rICopc3ViX3R5cGVfaGRyLA0KIAkJCQlwcm94aW1pdHlfZG9tYWluLCBuaWQpOw0K
-IAkJCWlmIChyZXQgPCAwKQ0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9jcmF0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY3JhdC5oDQppbmRl
-eCA3YzNmMTkyLi41Nzk4MzVjIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
-ZmQva2ZkX2NyYXQuaA0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NyYXQu
-aA0KQEAgLTI1Nyw3ICsyNTcsNyBAQCBzdHJ1Y3QgY3JhdF9zdWJ0eXBlX2Njb21wdXRlIHsNCiAj
-ZGVmaW5lIENSQVRfSU9MSU5LX1RZUEVfT1RIRVIJCTE2DQogI2RlZmluZSBDUkFUX0lPTElOS19U
-WVBFX01BWAkJMjU1DQogDQotI2RlZmluZSBDUkFUX0lPTElOS19SRVNFUlZFRF9MRU5HVEgJMjQN
-CisjZGVmaW5lIENSQVRfSU9MSU5LX1JFU0VSVkVEX0xFTkdUSAkyMA0KIA0KIHN0cnVjdCBjcmF0
-X3N1YnR5cGVfaW9saW5rIHsNCiAJdWludDhfdAkJdHlwZTsNCkBAIC0yNzQsNiArMjc0LDcgQEAg
-c3RydWN0IGNyYXRfc3VidHlwZV9pb2xpbmsgew0KIAl1aW50MzJfdAltaW5pbXVtX2JhbmR3aWR0
-aF9tYnM7DQogCXVpbnQzMl90CW1heGltdW1fYmFuZHdpZHRoX21iczsNCiAJdWludDMyX3QJcmVj
-b21tZW5kZWRfdHJhbnNmZXJfc2l6ZTsNCisJdWludDMyX3QJbnVtX2hvcHNfeGdtaTsNCiAJdWlu
-dDhfdAkJcmVzZXJ2ZWQyW0NSQVRfSU9MSU5LX1JFU0VSVkVEX0xFTkdUSF07DQogfTsNCiANCi0t
-IA0KMi43LjQNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Wed, Apr 17, 2019 at 04:40:11PM +0200, Daniel Vetter wrote:
+> On Wed, Apr 17, 2019 at 04:30:51PM +0200, Daniel Vetter wrote:
+> > On Wed, Apr 17, 2019 at 04:20:02PM +0200, Daniel Vetter wrote:
+> > > On Tue, Apr 16, 2019 at 08:38:34PM +0200, Christian König wrote:
+> > > > Add optional explicit pinning callbacks instead of implicitly assume the
+> > > > exporter pins the buffer when a mapping is created.
+> > > > 
+> > > > Signed-off-by: Christian König <christian.koenig@amd.com>
+> > > 
+> > > Don't we need this together with the invalidate callback and the dynamic
+> > > stuff? Also I'm assuming that pin/unpin is pretty much required for
+> > > dynamic bo, so could we look at these callbacks instead of the dynamic
+> > > flag you add in patch 1.
+> > > 
+> > > I'm assuming following rules hold:
+> > > no pin/upin from exporter:
+> > > 
+> > > dma-buf is not dynamic, and pinned for the duration of map/unmap. I'm
+> > > not 100% sure whether really everyone wants the mapping to be cached for
+> > > the entire attachment, only drm_prime does that. And that's not the only
+> > > dma-buf importer.
+> > > 
+> > > pin/unpin calls are noops.
+> > > 
+> > > pin/unpin exist in the exporter, but importer has not provided an
+> > > invalidate callback:
+> > > 
+> > > We map at attach time, and we also have to pin, since the importer can't
+> > > handle the buffer disappearing, at attach time. We unmap/unpin at detach.
+> > 
+> > For this case we should have a WARN in pin/unpin, to make sure importers
+> > don't do something stupid. One more thought below on pin/unpin.
+
+btw just realized that you already have the pin/unpin here. I think even
+more reasons to squash the invalidate/pin bits together, since they
+don't really work separately.
+-Daniel
+
+> > 
+> > > pin/unpin from exporter, invalidate from importer:
+> > > 
+> > > Full dynamic mapping. We assume the importer will do caching, attach
+> > > fences as needed, and pin the underlying bo when it needs it it
+> > > permanently, without attaching fences (i.e. the scanout case).
+> > > 
+> > > Assuming I'm not terribly off with my understanding, then I think it'd be
+> > > best to introduce the entire new dma-buf api in the first patch, and flesh
+> > > it out later. Instead of spread over a few patches. Plus the above (maybe
+> > > prettier) as a nice kerneldoc overview comment for how dynamic dma-buf is
+> > > supposed to work really.
+> > > -Daniel
+> > > 
+> > > > ---
+> > > >  drivers/dma-buf/dma-buf.c | 39 +++++++++++++++++++++++++++++++++++++++
+> > > >  include/linux/dma-buf.h   | 37 +++++++++++++++++++++++++++++++------
+> > > >  2 files changed, 70 insertions(+), 6 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > > > index a3738fab3927..f23ff8355505 100644
+> > > > --- a/drivers/dma-buf/dma-buf.c
+> > > > +++ b/drivers/dma-buf/dma-buf.c
+> > > > @@ -630,6 +630,41 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attach)
+> > > >  }
+> > > >  EXPORT_SYMBOL_GPL(dma_buf_detach);
+> > > >  
+> > > > +/**
+> > > > + * dma_buf_pin - Lock down the DMA-buf
+> > > > + *
+> > > > + * @dmabuf:	[in]	DMA-buf to lock down.
+> > > > + *
+> > > > + * Returns:
+> > > > + * 0 on success, negative error code on failure.
+> > > > + */
+> > > > +int dma_buf_pin(struct dma_buf *dmabuf)
+> > 
+> > Hm, I think it'd be better to pin the attachment, not the underlying
+> > buffer. Attachment is the thin the importer will have to pin, and it's at
+> > attach/detach time where dma-buf needs to pin for importers who don't
+> > understand dynamic buffer sharing.
+> > 
+> > Plus when we put that onto attachments, we can do a
+> > 
+> > 	WARN_ON(!attach->invalidate);
+> > 
+> > sanity check. I think that would be good to have.
+> 
+> Another validation idea: dma-buf.c could track the pin_count on the struct
+> dma_buf, and if an exporter tries to invalidate while pinned WARN and bail
+> out. Because that's clearly a driver bug.
+> 
+> All in the interest in making the contract between importers and exporters
+> as clear as possible.
+> -Daniel
+> -- 
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
