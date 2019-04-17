@@ -1,395 +1,143 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 03/12] dma-buf: lock the reservation object during
- (un)map_dma_buf v3
-Date: Wed, 17 Apr 2019 16:14:32 +0200
-Message-ID: <e22d3797-30e4-f4fd-be9c-42aedf213c5e@gmail.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH 05/12] dma-buf: add explicit buffer pinning
+Date: Wed, 17 Apr 2019 16:20:02 +0200
+Message-ID: <20190417142002.GE13337@phenom.ffwll.local>
 References: <20190416183841.1577-1-christian.koenig@amd.com>
- <20190416183841.1577-4-christian.koenig@amd.com>
- <20190417140804.GD13337@phenom.ffwll.local>
-Reply-To: christian.koenig@amd.com
+ <20190416183841.1577-6-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190417140804.GD13337@phenom.ffwll.local>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: sumit.semwal@linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20190416183841.1577-6-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-Am 17.04.19 um 16:08 schrieb Daniel Vetter:
-> On Tue, Apr 16, 2019 at 08:38:32PM +0200, Christian König wrote:
->> Make it mandatory for dynamic dma-buf callbacks to be called with the
->> reservation lock held.
->>
->> For static dma-buf exporters we still have the fallback of using cached sgt.
->>
->> v2: reordered
->> v3: rebased on sgt caching
->> v4: use the cached sgt when possible
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
-> I think there's a bit a rebase chaos going on:
-> - some comments left behind with no_sgt_cache, which I can't find anymore
-> - the function signature rework of dma_buf_attach should imo be split out
-
-Ah, crap thought I've got all of those. Going to fix that.
-
-> Next issue is that the reservation object locking is still in the path of
-> dma_buf_map, so probably still going to result in tons of lockdep splats.
-> Except the i915+amdgpu path should now work due to the fastpath.
-
-I actually found a solution for that :)
-
-The idea is now that we always cache the sgt in the attachment unless 
-the dynamic flag (previously no_sgt_cache flag) is set. And this cached 
-sgt is created without holding the lock.
-
-We either need to document that really well or maybe split the mapping 
-callbacks into map/unmap and map_lock/unmap_locked. Opinions?
-
->
-> Not sure that's a solution that really works, just hides that
-> fundamentally we still have that issue of incompatible locking chains
-> between different drivers.
-
-We can now make a slow transition between static and dynamic DMA-buf 
-handling, so only driver who can do the locking will be affected.
-
-Christian.
-
-> -Daniel
->
->> ---
->>   drivers/dma-buf/dma-buf.c                     | 24 ++++++++++---------
->>   drivers/gpu/drm/armada/armada_gem.c           |  6 ++++-
->>   drivers/gpu/drm/drm_prime.c                   |  6 ++++-
->>   drivers/gpu/drm/i915/i915_gem_dmabuf.c        |  6 ++++-
->>   drivers/gpu/drm/tegra/gem.c                   |  6 ++++-
->>   drivers/gpu/drm/udl/udl_dmabuf.c              |  6 ++++-
->>   .../common/videobuf2/videobuf2-dma-contig.c   |  6 ++++-
->>   .../media/common/videobuf2/videobuf2-dma-sg.c |  6 ++++-
->>   drivers/staging/media/tegra-vde/tegra-vde.c   |  6 ++++-
->>   include/linux/dma-buf.h                       | 23 ++++++++++++++++--
->>   10 files changed, 74 insertions(+), 21 deletions(-)
->>
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index ef480e5fb239..83c92bfd964c 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -532,8 +532,9 @@ EXPORT_SYMBOL_GPL(dma_buf_put);
->>   /**
->>    * dma_buf_attach - Add the device to dma_buf's attachments list; optionally,
->>    * calls attach() of dma_buf_ops to allow device-specific attach functionality
->> - * @dmabuf:	[in]	buffer to attach device to.
->> - * @dev:	[in]	device to be attached.
->> + * @info:	[in]	holds all the attach related information provided
->> + *			by the importer. see &struct dma_buf_attach_info
->> + *			for further details.
->>    *
->>    * Returns struct dma_buf_attachment pointer for this attachment. Attachments
->>    * must be cleaned up by calling dma_buf_detach().
->> @@ -547,20 +548,20 @@ EXPORT_SYMBOL_GPL(dma_buf_put);
->>    * accessible to @dev, and cannot be moved to a more suitable place. This is
->>    * indicated with the error code -EBUSY.
->>    */
->> -struct dma_buf_attachment *dma_buf_attach(struct dma_buf *dmabuf,
->> -					  struct device *dev)
->> +struct dma_buf_attachment *dma_buf_attach(const struct dma_buf_attach_info *info)
->>   {
->> +	struct dma_buf *dmabuf = info->dmabuf;
->>   	struct dma_buf_attachment *attach;
->>   	int ret;
->>   
->> -	if (WARN_ON(!dmabuf || !dev))
->> +	if (WARN_ON(!dmabuf || !info->dev))
->>   		return ERR_PTR(-EINVAL);
->>   
->>   	attach = kzalloc(sizeof(*attach), GFP_KERNEL);
->>   	if (!attach)
->>   		return ERR_PTR(-ENOMEM);
->>   
->> -	attach->dev = dev;
->> +	attach->dev = info->dev;
->>   	attach->dmabuf = dmabuf;
->>   
->>   	mutex_lock(&dmabuf->lock);
->> @@ -688,9 +689,9 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
->>   	if (attach->sgt)
->>   		return attach->sgt;
->>   
->> -	sg_table = attach->dmabuf->ops->map_dma_buf(attach, direction);
->> -	if (!sg_table)
->> -		sg_table = ERR_PTR(-ENOMEM);
->> +	reservation_object_lock(attach->dmabuf->resv, NULL);
->> +	sg_table = dma_buf_map_attachment_locked(attach, direction);
->> +	reservation_object_unlock(attach->dmabuf->resv);
->>   
->>   	return sg_table;
->>   }
->> @@ -744,8 +745,9 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *attach,
->>   	if (attach->sgt == sg_table)
->>   		return;
->>   
->> -	attach->dmabuf->ops->unmap_dma_buf(attach, sg_table,
->> -						direction);
->> +	reservation_object_lock(attach->dmabuf->resv, NULL);
->> +	dma_buf_unmap_attachment_locked(attach, sg_table, direction);
->> +	reservation_object_unlock(attach->dmabuf->resv);
->>   }
->>   EXPORT_SYMBOL_GPL(dma_buf_unmap_attachment);
->>   
->> diff --git a/drivers/gpu/drm/armada/armada_gem.c b/drivers/gpu/drm/armada/armada_gem.c
->> index 642d0e70d0f8..19c47821032f 100644
->> --- a/drivers/gpu/drm/armada/armada_gem.c
->> +++ b/drivers/gpu/drm/armada/armada_gem.c
->> @@ -501,6 +501,10 @@ armada_gem_prime_export(struct drm_device *dev, struct drm_gem_object *obj,
->>   struct drm_gem_object *
->>   armada_gem_prime_import(struct drm_device *dev, struct dma_buf *buf)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = dev->dev,
->> +		.dmabuf = buf
->> +	};
->>   	struct dma_buf_attachment *attach;
->>   	struct armada_gem_object *dobj;
->>   
->> @@ -516,7 +520,7 @@ armada_gem_prime_import(struct drm_device *dev, struct dma_buf *buf)
->>   		}
->>   	}
->>   
->> -	attach = dma_buf_attach(buf, dev->dev);
->> +	attach = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(attach))
->>   		return ERR_CAST(attach);
->>   
->> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
->> index 231e3f6d5f41..1fadf5d5ed33 100644
->> --- a/drivers/gpu/drm/drm_prime.c
->> +++ b/drivers/gpu/drm/drm_prime.c
->> @@ -709,6 +709,10 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
->>   					    struct dma_buf *dma_buf,
->>   					    struct device *attach_dev)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = attach_dev,
->> +		.dmabuf = dma_buf
->> +	};
->>   	struct dma_buf_attachment *attach;
->>   	struct sg_table *sgt;
->>   	struct drm_gem_object *obj;
->> @@ -729,7 +733,7 @@ struct drm_gem_object *drm_gem_prime_import_dev(struct drm_device *dev,
->>   	if (!dev->driver->gem_prime_import_sg_table)
->>   		return ERR_PTR(-EINVAL);
->>   
->> -	attach = dma_buf_attach(dma_buf, attach_dev);
->> +	attach = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(attach))
->>   		return ERR_CAST(attach);
->>   
->> diff --git a/drivers/gpu/drm/i915/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/i915_gem_dmabuf.c
->> index 82e2ca17a441..aa7f685bd6ca 100644
->> --- a/drivers/gpu/drm/i915/i915_gem_dmabuf.c
->> +++ b/drivers/gpu/drm/i915/i915_gem_dmabuf.c
->> @@ -277,6 +277,10 @@ static const struct drm_i915_gem_object_ops i915_gem_object_dmabuf_ops = {
->>   struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
->>   					     struct dma_buf *dma_buf)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = dev->dev,
->> +		.dmabuf = dma_buf
->> +	};
->>   	struct dma_buf_attachment *attach;
->>   	struct drm_i915_gem_object *obj;
->>   	int ret;
->> @@ -295,7 +299,7 @@ struct drm_gem_object *i915_gem_prime_import(struct drm_device *dev,
->>   	}
->>   
->>   	/* need to attach */
->> -	attach = dma_buf_attach(dma_buf, dev->dev);
->> +	attach = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(attach))
->>   		return ERR_CAST(attach);
->>   
->> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
->> index 4f80100ff5f3..8e6b6c879add 100644
->> --- a/drivers/gpu/drm/tegra/gem.c
->> +++ b/drivers/gpu/drm/tegra/gem.c
->> @@ -332,6 +332,10 @@ struct tegra_bo *tegra_bo_create_with_handle(struct drm_file *file,
->>   static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
->>   					struct dma_buf *buf)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = drm->dev,
->> +		.dmabuf = buf
->> +	};
->>   	struct tegra_drm *tegra = drm->dev_private;
->>   	struct dma_buf_attachment *attach;
->>   	struct tegra_bo *bo;
->> @@ -341,7 +345,7 @@ static struct tegra_bo *tegra_bo_import(struct drm_device *drm,
->>   	if (IS_ERR(bo))
->>   		return bo;
->>   
->> -	attach = dma_buf_attach(buf, drm->dev);
->> +	attach = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(attach)) {
->>   		err = PTR_ERR(attach);
->>   		goto free;
->> diff --git a/drivers/gpu/drm/udl/udl_dmabuf.c b/drivers/gpu/drm/udl/udl_dmabuf.c
->> index 556f62662aa9..86b928f9742f 100644
->> --- a/drivers/gpu/drm/udl/udl_dmabuf.c
->> +++ b/drivers/gpu/drm/udl/udl_dmabuf.c
->> @@ -226,6 +226,10 @@ static int udl_prime_create(struct drm_device *dev,
->>   struct drm_gem_object *udl_gem_prime_import(struct drm_device *dev,
->>   				struct dma_buf *dma_buf)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = dev->dev,
->> +		.dmabuf = dma_buf
->> +	};
->>   	struct dma_buf_attachment *attach;
->>   	struct sg_table *sg;
->>   	struct udl_gem_object *uobj;
->> @@ -233,7 +237,7 @@ struct drm_gem_object *udl_gem_prime_import(struct drm_device *dev,
->>   
->>   	/* need to attach */
->>   	get_device(dev->dev);
->> -	attach = dma_buf_attach(dma_buf, dev->dev);
->> +	attach = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(attach)) {
->>   		put_device(dev->dev);
->>   		return ERR_CAST(attach);
->> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
->> index aff0ab7bf83d..1f2687b5eb0e 100644
->> --- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
->> +++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
->> @@ -676,6 +676,10 @@ static void vb2_dc_detach_dmabuf(void *mem_priv)
->>   static void *vb2_dc_attach_dmabuf(struct device *dev, struct dma_buf *dbuf,
->>   	unsigned long size, enum dma_data_direction dma_dir)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = dev,
->> +		.dmabuf = dbuf
->> +	};
->>   	struct vb2_dc_buf *buf;
->>   	struct dma_buf_attachment *dba;
->>   
->> @@ -691,7 +695,7 @@ static void *vb2_dc_attach_dmabuf(struct device *dev, struct dma_buf *dbuf,
->>   
->>   	buf->dev = dev;
->>   	/* create attachment for the dmabuf with the user device */
->> -	dba = dma_buf_attach(dbuf, buf->dev);
->> +	dba = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(dba)) {
->>   		pr_err("failed to attach dmabuf\n");
->>   		kfree(buf);
->> diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
->> index 015e737095cd..cbd626d2393a 100644
->> --- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
->> +++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
->> @@ -608,6 +608,10 @@ static void vb2_dma_sg_detach_dmabuf(void *mem_priv)
->>   static void *vb2_dma_sg_attach_dmabuf(struct device *dev, struct dma_buf *dbuf,
->>   	unsigned long size, enum dma_data_direction dma_dir)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = dev,
->> +		.dmabuf = dbuf
->> +	};
->>   	struct vb2_dma_sg_buf *buf;
->>   	struct dma_buf_attachment *dba;
->>   
->> @@ -623,7 +627,7 @@ static void *vb2_dma_sg_attach_dmabuf(struct device *dev, struct dma_buf *dbuf,
->>   
->>   	buf->dev = dev;
->>   	/* create attachment for the dmabuf with the user device */
->> -	dba = dma_buf_attach(dbuf, buf->dev);
->> +	dba = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(dba)) {
->>   		pr_err("failed to attach dmabuf\n");
->>   		kfree(buf);
->> diff --git a/drivers/staging/media/tegra-vde/tegra-vde.c b/drivers/staging/media/tegra-vde/tegra-vde.c
->> index aa6c6bba961e..5a10c1facc27 100644
->> --- a/drivers/staging/media/tegra-vde/tegra-vde.c
->> +++ b/drivers/staging/media/tegra-vde/tegra-vde.c
->> @@ -568,6 +568,10 @@ static int tegra_vde_attach_dmabuf(struct device *dev,
->>   				   size_t *size,
->>   				   enum dma_data_direction dma_dir)
->>   {
->> +	struct dma_buf_attach_info attach_info = {
->> +		.dev = dev,
->> +		.dmabuf = dmabuf
->> +	};
->>   	struct dma_buf_attachment *attachment;
->>   	struct dma_buf *dmabuf;
->>   	struct sg_table *sgt;
->> @@ -591,7 +595,7 @@ static int tegra_vde_attach_dmabuf(struct device *dev,
->>   		return -EINVAL;
->>   	}
->>   
->> -	attachment = dma_buf_attach(dmabuf, dev);
->> +	attachment = dma_buf_attach(&attach_info);
->>   	if (IS_ERR(attachment)) {
->>   		dev_err(dev, "Failed to attach dmabuf\n");
->>   		err = PTR_ERR(attachment);
->> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
->> index 18a78be53541..7e23758db3a4 100644
->> --- a/include/linux/dma-buf.h
->> +++ b/include/linux/dma-buf.h
->> @@ -128,6 +128,9 @@ struct dma_buf_ops {
->>   	 * any other kind of sharing that the exporter might wish to make
->>   	 * available to buffer-users.
->>   	 *
->> +	 * This is always called with the dmabuf->resv object locked when
->> +	 * no_sgt_cache is true.
->> +	 *
->>   	 * Returns:
->>   	 *
->>   	 * A &sg_table scatter list of or the backing storage of the DMA buffer,
->> @@ -148,6 +151,9 @@ struct dma_buf_ops {
->>   	 * It should also unpin the backing storage if this is the last mapping
->>   	 * of the DMA buffer, it the exporter supports backing storage
->>   	 * migration.
->> +	 *
->> +	 * This is always called with the dmabuf->resv object locked when
->> +	 * no_sgt_cache is true.
->>   	 */
->>   	void (*unmap_dma_buf)(struct dma_buf_attachment *,
->>   			      struct sg_table *,
->> @@ -370,6 +376,19 @@ struct dma_buf_export_info {
->>   	struct dma_buf_export_info name = { .exp_name = KBUILD_MODNAME, \
->>   					 .owner = THIS_MODULE }
->>   
->> +/**
->> + * struct dma_buf_attach_info - holds information needed to attach to a dma_buf
->> + * @dmabuf:	the exported dma_buf
->> + * @dev:	the device which wants to import the attachment
->> + *
->> + * This structure holds the information required to attach to a buffer. Used
->> + * with dma_buf_attach() only.
->> + */
->> +struct dma_buf_attach_info {
->> +	struct dma_buf *dmabuf;
->> +	struct device *dev;
->> +};
->> +
->>   /**
->>    * get_dma_buf - convenience wrapper for get_file.
->>    * @dmabuf:	[in]	pointer to dma_buf
->> @@ -384,8 +403,8 @@ static inline void get_dma_buf(struct dma_buf *dmabuf)
->>   	get_file(dmabuf->file);
->>   }
->>   
->> -struct dma_buf_attachment *dma_buf_attach(struct dma_buf *dmabuf,
->> -							struct device *dev);
->> +struct dma_buf_attachment *
->> +dma_buf_attach(const struct dma_buf_attach_info *info);
->>   void dma_buf_detach(struct dma_buf *dmabuf,
->>   				struct dma_buf_attachment *dmabuf_attach);
->>   
->> -- 
->> 2.17.1
->>
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gVHVlLCBBcHIgMTYsIDIwMTkgYXQgMDg6Mzg6MzRQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBBZGQgb3B0aW9uYWwgZXhwbGljaXQgcGlubmluZyBjYWxsYmFja3MgaW5zdGVh
+ZCBvZiBpbXBsaWNpdGx5IGFzc3VtZSB0aGUKPiBleHBvcnRlciBwaW5zIHRoZSBidWZmZXIgd2hl
+biBhIG1hcHBpbmcgaXMgY3JlYXRlZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpEb24ndCB3ZSBuZWVkIHRoaXMgdG9nZXRo
+ZXIgd2l0aCB0aGUgaW52YWxpZGF0ZSBjYWxsYmFjayBhbmQgdGhlIGR5bmFtaWMKc3R1ZmY/IEFs
+c28gSSdtIGFzc3VtaW5nIHRoYXQgcGluL3VucGluIGlzIHByZXR0eSBtdWNoIHJlcXVpcmVkIGZv
+cgpkeW5hbWljIGJvLCBzbyBjb3VsZCB3ZSBsb29rIGF0IHRoZXNlIGNhbGxiYWNrcyBpbnN0ZWFk
+IG9mIHRoZSBkeW5hbWljCmZsYWcgeW91IGFkZCBpbiBwYXRjaCAxLgoKSSdtIGFzc3VtaW5nIGZv
+bGxvd2luZyBydWxlcyBob2xkOgpubyBwaW4vdXBpbiBmcm9tIGV4cG9ydGVyOgoKZG1hLWJ1ZiBp
+cyBub3QgZHluYW1pYywgYW5kIHBpbm5lZCBmb3IgdGhlIGR1cmF0aW9uIG9mIG1hcC91bm1hcC4g
+SSdtCm5vdCAxMDAlIHN1cmUgd2hldGhlciByZWFsbHkgZXZlcnlvbmUgd2FudHMgdGhlIG1hcHBp
+bmcgdG8gYmUgY2FjaGVkIGZvcgp0aGUgZW50aXJlIGF0dGFjaG1lbnQsIG9ubHkgZHJtX3ByaW1l
+IGRvZXMgdGhhdC4gQW5kIHRoYXQncyBub3QgdGhlIG9ubHkKZG1hLWJ1ZiBpbXBvcnRlci4KCnBp
+bi91bnBpbiBjYWxscyBhcmUgbm9vcHMuCgpwaW4vdW5waW4gZXhpc3QgaW4gdGhlIGV4cG9ydGVy
+LCBidXQgaW1wb3J0ZXIgaGFzIG5vdCBwcm92aWRlZCBhbgppbnZhbGlkYXRlIGNhbGxiYWNrOgoK
+V2UgbWFwIGF0IGF0dGFjaCB0aW1lLCBhbmQgd2UgYWxzbyBoYXZlIHRvIHBpbiwgc2luY2UgdGhl
+IGltcG9ydGVyIGNhbid0CmhhbmRsZSB0aGUgYnVmZmVyIGRpc2FwcGVhcmluZywgYXQgYXR0YWNo
+IHRpbWUuIFdlIHVubWFwL3VucGluIGF0IGRldGFjaC4KCnBpbi91bnBpbiBmcm9tIGV4cG9ydGVy
+LCBpbnZhbGlkYXRlIGZyb20gaW1wb3J0ZXI6CgpGdWxsIGR5bmFtaWMgbWFwcGluZy4gV2UgYXNz
+dW1lIHRoZSBpbXBvcnRlciB3aWxsIGRvIGNhY2hpbmcsIGF0dGFjaApmZW5jZXMgYXMgbmVlZGVk
+LCBhbmQgcGluIHRoZSB1bmRlcmx5aW5nIGJvIHdoZW4gaXQgbmVlZHMgaXQgaXQKcGVybWFuZW50
+bHksIHdpdGhvdXQgYXR0YWNoaW5nIGZlbmNlcyAoaS5lLiB0aGUgc2Nhbm91dCBjYXNlKS4KCkFz
+c3VtaW5nIEknbSBub3QgdGVycmlibHkgb2ZmIHdpdGggbXkgdW5kZXJzdGFuZGluZywgdGhlbiBJ
+IHRoaW5rIGl0J2QgYmUKYmVzdCB0byBpbnRyb2R1Y2UgdGhlIGVudGlyZSBuZXcgZG1hLWJ1ZiBh
+cGkgaW4gdGhlIGZpcnN0IHBhdGNoLCBhbmQgZmxlc2gKaXQgb3V0IGxhdGVyLiBJbnN0ZWFkIG9m
+IHNwcmVhZCBvdmVyIGEgZmV3IHBhdGNoZXMuIFBsdXMgdGhlIGFib3ZlIChtYXliZQpwcmV0dGll
+cikgYXMgYSBuaWNlIGtlcm5lbGRvYyBvdmVydmlldyBjb21tZW50IGZvciBob3cgZHluYW1pYyBk
+bWEtYnVmIGlzCnN1cHBvc2VkIHRvIHdvcmsgcmVhbGx5LgotRGFuaWVsCgo+IC0tLQo+ICBkcml2
+ZXJzL2RtYS1idWYvZG1hLWJ1Zi5jIHwgMzkgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrCj4gIGluY2x1ZGUvbGludXgvZG1hLWJ1Zi5oICAgfCAzNyArKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrLS0tLS0tCj4gIDIgZmlsZXMgY2hhbmdlZCwgNzAgaW5zZXJ0aW9u
+cygrKSwgNiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL2Rt
+YS1idWYuYyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMKPiBpbmRleCBhMzczOGZhYjM5Mjcu
+LmYyM2ZmODM1NTUwNSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2RtYS1idWYvZG1hLWJ1Zi5jCj4g
+KysrIGIvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYuYwo+IEBAIC02MzAsNiArNjMwLDQxIEBAIHZv
+aWQgZG1hX2J1Zl9kZXRhY2goc3RydWN0IGRtYV9idWYgKmRtYWJ1Ziwgc3RydWN0IGRtYV9idWZf
+YXR0YWNobWVudCAqYXR0YWNoKQo+ICB9Cj4gIEVYUE9SVF9TWU1CT0xfR1BMKGRtYV9idWZfZGV0
+YWNoKTsKPiAgCj4gKy8qKgo+ICsgKiBkbWFfYnVmX3BpbiAtIExvY2sgZG93biB0aGUgRE1BLWJ1
+Zgo+ICsgKgo+ICsgKiBAZG1hYnVmOglbaW5dCURNQS1idWYgdG8gbG9jayBkb3duLgo+ICsgKgo+
+ICsgKiBSZXR1cm5zOgo+ICsgKiAwIG9uIHN1Y2Nlc3MsIG5lZ2F0aXZlIGVycm9yIGNvZGUgb24g
+ZmFpbHVyZS4KPiArICovCj4gK2ludCBkbWFfYnVmX3BpbihzdHJ1Y3QgZG1hX2J1ZiAqZG1hYnVm
+KQo+ICt7Cj4gKwlpbnQgcmV0ID0gMDsKPiArCj4gKwlyZXNlcnZhdGlvbl9vYmplY3RfYXNzZXJ0
+X2hlbGQoZG1hYnVmLT5yZXN2KTsKPiArCj4gKwlpZiAoZG1hYnVmLT5vcHMtPnBpbikKPiArCQly
+ZXQgPSBkbWFidWYtPm9wcy0+cGluKGRtYWJ1Zik7Cj4gKwo+ICsJcmV0dXJuIHJldDsKPiArfQo+
+ICtFWFBPUlRfU1lNQk9MX0dQTChkbWFfYnVmX3Bpbik7Cj4gKwo+ICsvKioKPiArICogZG1hX2J1
+Zl91bnBpbiAtIFJlbW92ZSBsb2NrIGZyb20gRE1BLWJ1Zgo+ICsgKgo+ICsgKiBAZG1hYnVmOglb
+aW5dCURNQS1idWYgdG8gdW5sb2NrLgo+ICsgKi8KPiArdm9pZCBkbWFfYnVmX3VucGluKHN0cnVj
+dCBkbWFfYnVmICpkbWFidWYpCj4gK3sKPiArCXJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVs
+ZChkbWFidWYtPnJlc3YpOwo+ICsKPiArCWlmIChkbWFidWYtPm9wcy0+dW5waW4pCj4gKwkJZG1h
+YnVmLT5vcHMtPnVucGluKGRtYWJ1Zik7Cj4gK30KPiArRVhQT1JUX1NZTUJPTF9HUEwoZG1hX2J1
+Zl91bnBpbik7Cj4gKwo+ICAvKioKPiAgICogZG1hX2J1Zl9tYXBfYXR0YWNobWVudF9sb2NrZWQg
+LSBNYXBzIHRoZSBidWZmZXIgaW50byBfZGV2aWNlXyBhZGRyZXNzIHNwYWNlCj4gICAqIHdpdGgg
+dGhlIHJlc2VydmF0aW9uIGxvY2sgaGVsZC4gSXMgYSB3cmFwcGVyIGZvciBtYXBfZG1hX2J1Zigp
+IG9mIHRoZQo+IEBAIC02NjYsNiArNzAxLDggQEAgZG1hX2J1Zl9tYXBfYXR0YWNobWVudF9sb2Nr
+ZWQoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoLAo+ICAJICovCj4gIAlpZiAoYXR0
+YWNoLT5pbnZhbGlkYXRlKQo+ICAJCWxpc3RfZGVsKCZhdHRhY2gtPm5vZGUpOwo+ICsJZWxzZQo+
+ICsJCWRtYV9idWZfcGluKGF0dGFjaC0+ZG1hYnVmKTsKPiAgCXNnX3RhYmxlID0gYXR0YWNoLT5k
+bWFidWYtPm9wcy0+bWFwX2RtYV9idWYoYXR0YWNoLCBkaXJlY3Rpb24pOwo+ICAJaWYgKGF0dGFj
+aC0+aW52YWxpZGF0ZSkKPiAgCQlsaXN0X2FkZCgmYXR0YWNoLT5ub2RlLCAmYXR0YWNoLT5kbWFi
+dWYtPmF0dGFjaG1lbnRzKTsKPiBAQCAtNzM1LDYgKzc3Miw4IEBAIHZvaWQgZG1hX2J1Zl91bm1h
+cF9hdHRhY2htZW50X2xvY2tlZChzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsCj4g
+IAo+ICAJYXR0YWNoLT5kbWFidWYtPm9wcy0+dW5tYXBfZG1hX2J1ZihhdHRhY2gsIHNnX3RhYmxl
+LAo+ICAJCQkJCQlkaXJlY3Rpb24pOwo+ICsJaWYgKCFhdHRhY2gtPmludmFsaWRhdGUpCj4gKwkJ
+ZG1hX2J1Zl91bnBpbihhdHRhY2gtPmRtYWJ1Zik7Cj4gIH0KPiAgRVhQT1JUX1NZTUJPTF9HUEwo
+ZG1hX2J1Zl91bm1hcF9hdHRhY2htZW50X2xvY2tlZCk7Cj4gIAo+IGRpZmYgLS1naXQgYS9pbmNs
+dWRlL2xpbnV4L2RtYS1idWYuaCBiL2luY2x1ZGUvbGludXgvZG1hLWJ1Zi5oCj4gaW5kZXggZWNl
+NDYzODM1OWE4Li5hNjE1Yjc0ZTU4OTQgMTAwNjQ0Cj4gLS0tIGEvaW5jbHVkZS9saW51eC9kbWEt
+YnVmLmgKPiArKysgYi9pbmNsdWRlL2xpbnV4L2RtYS1idWYuaAo+IEBAIC0xMDAsMTQgKzEwMCw0
+MCBAQCBzdHJ1Y3QgZG1hX2J1Zl9vcHMgewo+ICAJICovCj4gIAl2b2lkICgqZGV0YWNoKShzdHJ1
+Y3QgZG1hX2J1ZiAqLCBzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICopOwo+ICAKPiArCS8qKgo+
+ICsJICogQHBpbl9kbWFfYnVmOgo+ICsJICoKPiArCSAqIFRoaXMgaXMgY2FsbGVkIGJ5IGRtYV9i
+dWZfcGluIGFuZCBsZXRzIHRoZSBleHBvcnRlciBrbm93IHRoYXQgYW4KPiArCSAqIGltcG9ydGVy
+IGFzc3VtZXMgdGhhdCB0aGUgRE1BLWJ1ZiBjYW4ndCBiZSBpbnZhbGlkYXRlZCBhbnkgbW9yZS4K
+PiArCSAqCj4gKwkgKiBUaGlzIGlzIGNhbGxlZCB3aXRoIHRoZSBkbWFidWYtPnJlc3Ygb2JqZWN0
+IGxvY2tlZC4KPiArCSAqCj4gKwkgKiBUaGlzIGNhbGxiYWNrIGlzIG9wdGlvbmFsLgo+ICsJICoK
+PiArCSAqIFJldHVybnM6Cj4gKwkgKgo+ICsJICogMCBvbiBzdWNjZXNzLCBuZWdhdGl2ZSBlcnJv
+ciBjb2RlIG9uIGZhaWx1cmUuCj4gKwkgKi8KPiArCWludCAoKnBpbikoc3RydWN0IGRtYV9idWYg
+Kik7Cj4gKwo+ICsJLyoqCj4gKwkgKiBAdW5waW5fZG1hX2J1ZjoKPiArCSAqCj4gKwkgKiBUaGlz
+IGlzIGNhbGxlZCBieSBkbWFfYnVmX3VucGluIGFuZCBsZXRzIHRoZSBleHBvcnRlciBrbm93IHRo
+YXQgYW4KPiArCSAqIGltcG9ydGVyIGRvZXNuJ3QgbmVlZCB0byB0aGUgRE1BLWJ1ZiB0byBzdGF5
+IHdlcmUgaXQgaXMgYW55IG1vcmUuCj4gKwkgKgo+ICsJICogVGhpcyBpcyBjYWxsZWQgd2l0aCB0
+aGUgZG1hYnVmLT5yZXN2IG9iamVjdCBsb2NrZWQuCj4gKwkgKgo+ICsJICogVGhpcyBjYWxsYmFj
+ayBpcyBvcHRpb25hbC4KPiArCSAqLwo+ICsJdm9pZCAoKnVucGluKShzdHJ1Y3QgZG1hX2J1ZiAq
+KTsKPiArCj4gIAkvKioKPiAgCSAqIEBtYXBfZG1hX2J1ZjoKPiAgCSAqCj4gIAkgKiBUaGlzIGlz
+IGNhbGxlZCBieSBkbWFfYnVmX21hcF9hdHRhY2htZW50KCkgYW5kIGlzIHVzZWQgdG8gbWFwIGEK
+PiAgCSAqIHNoYXJlZCAmZG1hX2J1ZiBpbnRvIGRldmljZSBhZGRyZXNzIHNwYWNlLCBhbmQgaXQg
+aXMgbWFuZGF0b3J5LiBJdAo+IC0JICogY2FuIG9ubHkgYmUgY2FsbGVkIGlmIEBhdHRhY2ggaGFz
+IGJlZW4gY2FsbGVkIHN1Y2Nlc3NmdWxseS4gVGhpcwo+IC0JICogZXNzZW50aWFsbHkgcGlucyB0
+aGUgRE1BIGJ1ZmZlciBpbnRvIHBsYWNlLCBhbmQgaXQgY2Fubm90IGJlIG1vdmVkCj4gLQkgKiBh
+bnkgbW9yZQo+ICsJICogY2FuIG9ubHkgYmUgY2FsbGVkIGlmIEBhdHRhY2ggaGFzIGJlZW4gY2Fs
+bGVkIHN1Y2Nlc3NmdWxseS4KPiAgCSAqCj4gIAkgKiBUaGlzIGNhbGwgbWF5IHNsZWVwLCBlLmcu
+IHdoZW4gdGhlIGJhY2tpbmcgc3RvcmFnZSBmaXJzdCBuZWVkcyB0byBiZQo+ICAJICogYWxsb2Nh
+dGVkLCBvciBtb3ZlZCB0byBhIGxvY2F0aW9uIHN1aXRhYmxlIGZvciBhbGwgY3VycmVudGx5IGF0
+dGFjaGVkCj4gQEAgLTE0OCw5ICsxNzQsNiBAQCBzdHJ1Y3QgZG1hX2J1Zl9vcHMgewo+ICAJICoK
+PiAgCSAqIFRoaXMgaXMgY2FsbGVkIGJ5IGRtYV9idWZfdW5tYXBfYXR0YWNobWVudCgpIGFuZCBz
+aG91bGQgdW5tYXAgYW5kCj4gIAkgKiByZWxlYXNlIHRoZSAmc2dfdGFibGUgYWxsb2NhdGVkIGlu
+IEBtYXBfZG1hX2J1ZiwgYW5kIGl0IGlzIG1hbmRhdG9yeS4KPiAtCSAqIEl0IHNob3VsZCBhbHNv
+IHVucGluIHRoZSBiYWNraW5nIHN0b3JhZ2UgaWYgdGhpcyBpcyB0aGUgbGFzdCBtYXBwaW5nCj4g
+LQkgKiBvZiB0aGUgRE1BIGJ1ZmZlciwgaXQgdGhlIGV4cG9ydGVyIHN1cHBvcnRzIGJhY2tpbmcg
+c3RvcmFnZQo+IC0JICogbWlncmF0aW9uLgo+ICAJICoKPiAgCSAqIFRoaXMgaXMgYWx3YXlzIGNh
+bGxlZCB3aXRoIHRoZSBkbWFidWYtPnJlc3Ygb2JqZWN0IGxvY2tlZCB3aGVuCj4gIAkgKiBub19z
+Z3RfY2FjaGUgaXMgdHJ1ZS4KPiBAQCAtNDQyLDYgKzQ2NSw4IEBAIGludCBkbWFfYnVmX2ZkKHN0
+cnVjdCBkbWFfYnVmICpkbWFidWYsIGludCBmbGFncyk7Cj4gIHN0cnVjdCBkbWFfYnVmICpkbWFf
+YnVmX2dldChpbnQgZmQpOwo+ICB2b2lkIGRtYV9idWZfcHV0KHN0cnVjdCBkbWFfYnVmICpkbWFi
+dWYpOwo+ICAKPiAraW50IGRtYV9idWZfcGluKHN0cnVjdCBkbWFfYnVmICpkbWFidWYpOwo+ICt2
+b2lkIGRtYV9idWZfdW5waW4oc3RydWN0IGRtYV9idWYgKmRtYWJ1Zik7Cj4gIHN0cnVjdCBzZ190
+YWJsZSAqZG1hX2J1Zl9tYXBfYXR0YWNobWVudF9sb2NrZWQoc3RydWN0IGRtYV9idWZfYXR0YWNo
+bWVudCAqLAo+ICAJCQkJCSAgICAgICBlbnVtIGRtYV9kYXRhX2RpcmVjdGlvbik7Cj4gIHN0cnVj
+dCBzZ190YWJsZSAqZG1hX2J1Zl9tYXBfYXR0YWNobWVudChzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2ht
+ZW50ICosCj4gLS0gCj4gMi4xNy4xCj4gCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vZHJpLWRldmVsCgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVl
+ciwgSW50ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
