@@ -1,47 +1,51 @@
-From: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
 Subject: Re: dynamic DMA-buf sharing between devices
-Date: Wed, 17 Apr 2019 13:52:06 +0000
-Message-ID: <b19612a3-0143-f8b5-7758-7e80c46d33d4@amd.com>
+Date: Wed, 17 Apr 2019 15:59:51 +0200
+Message-ID: <04558379-9788-bbcc-5c64-7fa9ad92f60d@gmail.com>
 References: <20190416183841.1577-1-christian.koenig@amd.com>
+ <b19612a3-0143-f8b5-7758-7e80c46d33d4@amd.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190416183841.1577-1-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <b19612a3-0143-f8b5-7758-7e80c46d33d4@amd.com>
 Content-Language: en-US
-Content-ID: <A300D655748B3F4387A3AC013957A106-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org" <sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, "linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org" <linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Chunming Zhou <zhoucm1@amd.com>, "sumit.semwal@linaro.org" <sumit.semwal@linaro.org>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzIENocmlzdGlhbiwgZ3JlYXQgam9iLiBJIHdpbGwgdmVyaWZ5IGl0IHRoaXMgd2VlayB3
-aGVuIEkgZmluaXNoIG15IA0KY3VycmVudCB3b3JrIG9uIGhhbmQuDQoNCi1EYXZpZA0KDQrlnKgg
-MjAxOS80LzE3IDI6MzgsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+IEhpIGV2ZXJ5Ym9keSwN
-Cj4NCj4gY29yZSBpZGVhIGluIHRoaXMgcGF0Y2ggc2V0IGlzIHRoYXQgRE1BLWJ1ZiBpbXBvcnRl
-cnMgY2FuIG5vdyBwcm92aWRlIGFuIG9wdGlvbmFsIGludmFsaWRhdGUgY2FsbGJhY2suIFVzaW5n
-IHRoaXMgY2FsbGJhY2sgYW5kIHRoZSByZXNlcnZhdGlvbiBvYmplY3QgZXhwb3J0ZXJzIGNhbiBu
-b3cgYXZvaWQgcGlubmluZyBETUEtYnVmIG1lbW9yeSBmb3IgYSBsb25nIHRpbWUgd2hpbGUgc2hh
-cmluZyBpdCBiZXR3ZWVuIGRldmljZXMuDQo+DQo+IEkndmUgYWxyZWFkeSBzZW5kIG91dCBhbiBv
-bGRlciB2ZXJzaW9uIHJvdWdobHkgYSB5ZWFyIGFnbywgYnV0IGRpZG4ndCBoYWQgdGltZSB0byBm
-dXJ0aGVyIGxvb2sgaW50byBjbGVhbmluZyB0aGlzIHVwLg0KPg0KPiBUaGUgbGFzdCB0aW1lIGEg
-bWFqb3IgcHJvYmxlbSB3YXMgdGhhdCB3ZSB3b3VsZCBoYWQgdG8gZml4IHVwIGFsbCBkcml2ZXJz
-IGltcGxlbWVudGluZyBETUEtYnVmIGF0IG9uY2UuDQo+DQo+IE5vdyBJIGF2b2lkIHRoaXMgYnkg
-YWxsb3dpbmcgbWFwcGluZ3MgdG8gYmUgY2FjaGVkIGluIHRoZSBETUEtYnVmIGF0dGFjaG1lbnQg
-YW5kIHNvIGRyaXZlciBjYW4gb3B0aW9uYWxseSBtb3ZlIG92ZXIgdG8gdGhlIG5ldyBpbnRlcmZh
-Y2Ugb25lIGJ5IG9uZS4NCj4NCj4gVGhpcyBpcyBhbHNvIGEgcHJlcmVxdWlzaXRlIHRvIG15IHBh
-dGNoc2V0IGVuYWJsaW5nIHNoYXJpbmcgb2YgZGV2aWNlIG1lbW9yeSB3aXRoIERNQS1idWYuDQo+
-DQo+IFBsZWFzZSByZXZpZXcgYW5kL29yIGNvbW1lbnQsDQo+IENocmlzdGlhbi4NCj4NCj4NCj4g
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gZHJpLWRl
-dmVsIG1haWxpbmcgbGlzdA0KPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsDQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On top of those I have 6 more patches in the pipeline to enable VRAM P2P 
+with DMA-buf.
+
+So that is not the end of the patch set :)
+
+Christian.
+
+Am 17.04.19 um 15:52 schrieb Chunming Zhou:
+> Thanks Christian, great job. I will verify it this week when I finish my
+> current work on hand.
+>
+> -David
+>
+> 在 2019/4/17 2:38, Christian König wrote:
+>> Hi everybody,
+>>
+>> core idea in this patch set is that DMA-buf importers can now provide an optional invalidate callback. Using this callback and the reservation object exporters can now avoid pinning DMA-buf memory for a long time while sharing it between devices.
+>>
+>> I've already send out an older version roughly a year ago, but didn't had time to further look into cleaning this up.
+>>
+>> The last time a major problem was that we would had to fix up all drivers implementing DMA-buf at once.
+>>
+>> Now I avoid this by allowing mappings to be cached in the DMA-buf attachment and so driver can optionally move over to the new interface one by one.
+>>
+>> This is also a prerequisite to my patchset enabling sharing of device memory with DMA-buf.
+>>
+>> Please review and/or comment,
+>> Christian.
+>>
+>>
+>> _______________________________________________
+>> dri-devel mailing list
+>> dri-devel@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/dri-devel
