@@ -1,45 +1,52 @@
-From: Mukesh Ojha <mojha@codeaurora.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: fix spelling mistake "recieve" ->
- "receive"
-Date: Thu, 18 Apr 2019 16:10:14 +0530
-Message-ID: <541d2a2a-bcdf-5c4f-b075-7ca128757a45@codeaurora.org>
-References: <20190418102510.10253-1-colin.king@canonical.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: dynamic DMA-buf sharing between devices
+Date: Thu, 18 Apr 2019 12:57:44 +0200
+Message-ID: <7cc155fc-1582-9a80-283a-f9e7c84b120d@gmail.com>
+References: <20190416183841.1577-1-christian.koenig@amd.com>
+ <20190418091315.GU13337@phenom.ffwll.local>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190418102510.10253-1-colin.king@canonical.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190418091315.GU13337-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: sumit.semwal-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org, linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-
-On 4/18/2019 3:55 PM, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
->
-> There is a spelling mistake in a pr_err message. Fix it.
->
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Reviewed-by: Mukesh Ojha <mojha@codeaurora.org>
-
-Cheers,
--Mukesh
-> ---
->   drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> index 6a0fcd67662a..aef9d059ae52 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.c
-> @@ -515,7 +515,7 @@ static void xgpu_vi_mailbox_flr_work(struct work_struct *work)
->   
->   	/* wait until RCV_MSG become 3 */
->   	if (xgpu_vi_poll_msg(adev, IDH_FLR_NOTIFICATION_CMPL)) {
-> -		pr_err("failed to recieve FLR_CMPL\n");
-> +		pr_err("failed to receive FLR_CMPL\n");
->   		return;
->   	}
->   
+QW0gMTguMDQuMTkgdW0gMTE6MTMgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIFR1ZSwgQXBy
+IDE2LCAyMDE5IGF0IDA4OjM4OjI5UE0gKzAyMDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+
+IEhpIGV2ZXJ5Ym9keSwKPj4KPj4gY29yZSBpZGVhIGluIHRoaXMgcGF0Y2ggc2V0IGlzIHRoYXQg
+RE1BLWJ1ZiBpbXBvcnRlcnMgY2FuIG5vdyBwcm92aWRlIGFuIG9wdGlvbmFsIGludmFsaWRhdGUg
+Y2FsbGJhY2suIFVzaW5nIHRoaXMgY2FsbGJhY2sgYW5kIHRoZSByZXNlcnZhdGlvbiBvYmplY3Qg
+ZXhwb3J0ZXJzIGNhbiBub3cgYXZvaWQgcGlubmluZyBETUEtYnVmIG1lbW9yeSBmb3IgYSBsb25n
+IHRpbWUgd2hpbGUgc2hhcmluZyBpdCBiZXR3ZWVuIGRldmljZXMuCj4+Cj4+IEkndmUgYWxyZWFk
+eSBzZW5kIG91dCBhbiBvbGRlciB2ZXJzaW9uIHJvdWdobHkgYSB5ZWFyIGFnbywgYnV0IGRpZG4n
+dCBoYWQgdGltZSB0byBmdXJ0aGVyIGxvb2sgaW50byBjbGVhbmluZyB0aGlzIHVwLgo+Pgo+PiBU
+aGUgbGFzdCB0aW1lIGEgbWFqb3IgcHJvYmxlbSB3YXMgdGhhdCB3ZSB3b3VsZCBoYWQgdG8gZml4
+IHVwIGFsbCBkcml2ZXJzIGltcGxlbWVudGluZyBETUEtYnVmIGF0IG9uY2UuCj4+Cj4+IE5vdyBJ
+IGF2b2lkIHRoaXMgYnkgYWxsb3dpbmcgbWFwcGluZ3MgdG8gYmUgY2FjaGVkIGluIHRoZSBETUEt
+YnVmIGF0dGFjaG1lbnQgYW5kIHNvIGRyaXZlciBjYW4gb3B0aW9uYWxseSBtb3ZlIG92ZXIgdG8g
+dGhlIG5ldyBpbnRlcmZhY2Ugb25lIGJ5IG9uZS4KPj4KPj4gVGhpcyBpcyBhbHNvIGEgcHJlcmVx
+dWlzaXRlIHRvIG15IHBhdGNoc2V0IGVuYWJsaW5nIHNoYXJpbmcgb2YgZGV2aWNlIG1lbW9yeSB3
+aXRoIERNQS1idWYuCj4gT2ssIHdpdGggdGhlIGRpc2N1c3Npb25zIGFuZCB0aGlua2luZyBJIHRo
+aW5rIHRoaXMgZGVzaWduIGlzIHNvbGlkIGFuZAo+IHNob3VsZCB3b3JrIG91dC4gQnVuY2ggb2Yg
+YXBpIGFuZCBkb2N1bWVudGF0aW9uIHBvbGlzaGluZyBzdGlsbCB0byBkbywgdG8KPiBtYWtlIHN1
+cmUgd2UgaGF2ZSByZWFsbHkgY2xlYXIgc2VtYW50aWNzIGFuZCBhcyBsaXR0bGUgcm9vbSBhcyBw
+b3NzaWJsZQo+IGZvciBtaXN1bmRlcnN0YW5kaW5nIC0gcmVmYWN0b3JpbmcgYSBtZXNzIGluIGRt
+YS1idWYgaXMgYSBsb3QgbW9yZSB0cmlja3kKPiB0aGFuIGp1c3QgdHRtLCB0aGVyZSdzIGEgbG90
+IG1vcmUgdXNlcnMuCgpZZWFoLCBJJ20gcHJldHR5IGF3YXJlIG9mIHRoYXQgYWZ0ZXIgY2hhbmdp
+bmcgYWxsIHRoZSB1c2VycyBvZiB0aGUgbWFwIApBUEkgdG8gdXNlIGEgc3RydWN0dXJlIGZvciB0
+aGUgcGFyYW1ldGVycy4KCldlbGwgYXQgbGVhc3QgaXQncyBub3QgVUFQSSA6KQoKQ2hyaXN0aWFu
+Cgo+IC1EYW5pZWwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
