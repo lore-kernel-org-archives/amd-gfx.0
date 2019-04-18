@@ -1,51 +1,39 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amd/powerplay: expose Vega12 current gpu activity
-Date: Thu, 18 Apr 2019 17:03:56 +0800
-Message-ID: <20190418090356.9050-2-evan.quan@amd.com>
-References: <20190418090356.9050-1-evan.quan@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: dynamic DMA-buf sharing between devices
+Date: Thu, 18 Apr 2019 11:13:15 +0200
+Message-ID: <20190418091315.GU13337@phenom.ffwll.local>
+References: <20190416183841.1577-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190418090356.9050-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190416183841.1577-1-christian.koenig@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: sumit.semwal@linaro.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UHJvdmlkZSB0aGUgcmVhbCBzZW5zb3IgaW5mb3JtYXRpb24gZm9yIGN1cnJlbnQgZ3B1IGFjdGl2
-aXR5LgoKQ2hhbmdlLUlkOiBJODQ0OTY3MmE2ZmRhYmI0Mjg3ZTEyZTM2YTRmOTVlMDhlMmQ2NWU0
-NwpTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIC4uLi9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJfaHdtZ3IuYyAgICB8IDIxICsrKysrKy0tLS0t
-LS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2Ex
-Ml9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEyX2h3
-bWdyLmMKaW5kZXggYWQ2MzM3MmQ5ZDBjLi42ZjRiZDE1NDIxZTUgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5jCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5jCkBAIC0xMzEwLDIz
-ICsxMzEwLDE0IEBAIHN0YXRpYyBpbnQgdmVnYTEyX2dldF9jdXJyZW50X2FjdGl2aXR5X3BlcmNl
-bnQoCiAJCXN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAJCXVpbnQzMl90ICphY3Rpdml0eV9wZXJj
-ZW50KQogeworCVNtdU1ldHJpY3NfdCBtZXRyaWNzX3RhYmxlOwogCWludCByZXQgPSAwOwotCXVp
-bnQzMl90IGN1cnJlbnRfYWN0aXZpdHkgPSA1MDsKIAotI2lmIDAKLQlyZXQgPSBzbXVtX3NlbmRf
-bXNnX3RvX3NtY193aXRoX3BhcmFtZXRlcihod21nciwgUFBTTUNfTVNHX0dldEF2ZXJhZ2VHZnhB
-Y3Rpdml0eSwgMCk7Ci0JaWYgKCFyZXQpIHsKLQkJY3VycmVudF9hY3Rpdml0eSA9IHNtdW1fZ2V0
-X2FyZ3VtZW50KGh3bWdyKTsKLQkJaWYgKGN1cnJlbnRfYWN0aXZpdHkgPiAxMDApIHsKLQkJCVBQ
-X0FTU0VSVChmYWxzZSwKLQkJCQkgICJbR2V0Q3VycmVudEFjdGl2aXR5UGVyY2VudF0gQWN0aXZp
-dHkgUGVyY2VudGFnZSBFeGNlZWRzIDEwMCEiKTsKLQkJCWN1cnJlbnRfYWN0aXZpdHkgPSAxMDA7
-Ci0JCX0KLQl9IGVsc2UKLQkJUFBfQVNTRVJUKGZhbHNlLAotCQkJIltHZXRDdXJyZW50QWN0aXZp
-dHlQZXJjZW50XSBBdHRlbXB0IFRvIFNlbmQgR2V0IEF2ZXJhZ2UgR3JhcGhpY3MgQWN0aXZpdHkg
-dG8gU01VIEZhaWxlZCEiKTsKLSNlbmRpZgotCSphY3Rpdml0eV9wZXJjZW50ID0gY3VycmVudF9h
-Y3Rpdml0eTsKKwlyZXQgPSB2ZWdhMTJfZ2V0X21ldHJpY3NfdGFibGUoaHdtZ3IsICZtZXRyaWNz
-X3RhYmxlKTsKKwlpZiAocmV0KQorCQlyZXR1cm4gcmV0OworCisJKmFjdGl2aXR5X3BlcmNlbnQg
-PSBtZXRyaWNzX3RhYmxlLkF2ZXJhZ2VHZnhBY3Rpdml0eTsKIAogCXJldHVybiByZXQ7CiB9Ci0t
-IAoyLjIxLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Tue, Apr 16, 2019 at 08:38:29PM +0200, Christian König wrote:
+> Hi everybody,
+> 
+> core idea in this patch set is that DMA-buf importers can now provide an optional invalidate callback. Using this callback and the reservation object exporters can now avoid pinning DMA-buf memory for a long time while sharing it between devices.
+> 
+> I've already send out an older version roughly a year ago, but didn't had time to further look into cleaning this up.
+> 
+> The last time a major problem was that we would had to fix up all drivers implementing DMA-buf at once.
+> 
+> Now I avoid this by allowing mappings to be cached in the DMA-buf attachment and so driver can optionally move over to the new interface one by one.
+> 
+> This is also a prerequisite to my patchset enabling sharing of device memory with DMA-buf.
+
+Ok, with the discussions and thinking I think this design is solid and
+should work out. Bunch of api and documentation polishing still to do, to
+make sure we have really clear semantics and as little room as possible
+for misunderstanding - refactoring a mess in dma-buf is a lot more tricky
+than just ttm, there's a lot more users.
+-Daniel
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
