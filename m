@@ -1,108 +1,138 @@
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Subject: [PATCH 4/4] drm/amd/display: Compensate for pre-DCE12 BTR-VRR hw
- limitations.
-Date: Thu, 18 Apr 2019 05:51:22 +0200
-Message-ID: <20190418035122.15791-5-mario.kleiner.de@gmail.com>
-References: <20190418035122.15791-1-mario.kleiner.de@gmail.com>
+From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
+Subject: Re: [PATCH] drm: increase drm mmap_range size to 1TB
+Date: Thu, 18 Apr 2019 09:29:39 +0200
+Message-ID: <ce68d6f5-317b-ae11-187c-4468dd6f2bc3@suse.de>
+References: <20190417221507.933-1-Philip.Yang@amd.com>
+ <c8d289ef-75dc-163e-bea5-cd0d429d8614@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190418035122.15791-1-mario.kleiner.de@gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org
-Cc: nicholas.kazlauskas@amd.com, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0802664882=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <c8d289ef-75dc-163e-bea5-cd0d429d8614-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UHJlLURDRTEyIG5lZWRzIHNwZWNpYWwgdHJlYXRtZW50IGZvciBCVFIgLyBsb3cgZnJhbWVyYXRl
-CmNvbXBlbnNhdGlvbiBmb3IgbW9yZSBzdGFibGUgYmVoYXZpb3VyOgoKQWNjb3JkaW5nIHRvIGNv
-bW1lbnRzIGluIHRoZSBjb2RlIGFuZCBzb21lIHRlc3Rpbmcgb24gRENFLTgKYW5kIERDRS0xMSwg
-RENFLTExIGFuZCBlYXJsaWVyIG9ubHkgYXBwbHkgVlRPVEFMX01JTi9NQVgKcHJvZ3JhbW1pbmcg
-d2l0aCBhIGxhZyBvZiBvbmUgZnJhbWUsIHNvIHRoZSBzcGVjaWFsIEJUUiBodwpwcm9ncmFtbWlu
-ZyBmb3IgaW50ZXJtZWRpYXRlIGZpeGVkIGR1cmF0aW9uIGZyYW1lcyBtdXN0IGJlCmRvbmUgaW5z
-aWRlIHRoZSBjdXJyZW50IGZyYW1lIGF0IGZsaXAgc3VibWlzc2lvbiBpbiBhdG9taWMKY29tbWl0
-IHRhaWwsIGllLiBvbmUgdmJsYW5rIGVhcmxpZXIsIGFuZCB0aGUgZml4ZWQgcmVmcmVzaAppbnRl
-cm1lZGlhdGUgZnJhbWUgbW9kZSBtdXN0IGJlIGFsc28gdGVybWluYXRlZCBvbmUgdmJsYW5rCmVh
-cmxpZXIgb24gcHJlLURDRTEyIGRpc3BsYXkgZW5naW5lcy4KClRvIGFjaGlldmUgcHJvcGVyIHRl
-cm1pbmF0aW9uIG9uIDwgRENFLTEyIHNoaWZ0IHRoZSBwb2ludAp3aGVuIHRoZSBzd2l0Y2gtYmFj
-ayBmcm9tIGZpeGVkIHZibGFuayBkdXJhdGlvbiB0byB2YXJpYWJsZQp2YmxhbmsgZHVyYXRpb24g
-aGFwcGVucyBmcm9tIHRoZSBzdGFydCBvZiBWQkxBTksgKHZibGFuayBpcnEsCmFzIGRvbmUgb24g
-RENFLTEyKykgdG8gYmFjay1wb3JjaCBvciBlbmQgb2YgVkJMQU5LIChoYW5kbGVkCmJ5IHZ1cGRh
-dGUgaXJxIGhhbmRsZXIpLiBXZSBtdXN0IGxlYXZlIHRoZSBzd2l0Y2gtYmFjayBjb2RlCmluc2lk
-ZSBWQkxBTksgaXJxIGZvciBEQ0UxMissIGFzIGJlZm9yZS4KCkRvaW5nIHRoaXMsIHdlIGdldCBt
-dWNoIGJldHRlciBiZWhhdmlvdXIgb2YgQlRSIGZvciB1cC1zd2VlcHMsCmllLiBnb2luZyBmcm9t
-IHNob3J0IHRvIGxvbmcgZnJhbWUgZHVyYXRpb25zICh+aGlnaCB0byBsb3cgZnBzKQphbmQgZm9y
-IGNvbnN0YW50IGZyYW1lcmF0ZSBmbGlwcywgYXMgdGVzdGVkIG9uIERDRS04IGFuZApEQ0UtMTEu
-IEJlaGF2aW91ciBpcyBzdGlsbCBub3QgcXVpdGUgYXMgZ29vZCBhcyBvbiBEQ04tMQp0aG91Z2gu
-CgpPbiBkb3duLXN3ZWVwcywgZ29pbmcgZnJvbSBsb25nIHRvIHNob3J0IGZyYW1lIGR1cmF0aW9u
-cwoobG93IGZwcyB0byBoaWdoIGZwcykgPCBEQ0UtMTIgaXMgYSBsaXR0bGUgYml0IGltcHJvdmVk
-LAphbHRob3VnaCBieSBmYXIgbm90IGFzIG11Y2ggYXMgZm9yIHVwLXN3ZWVwcyBhbmQgY29uc3Rh
-bnQKZnBzLgoKU2lnbmVkLW9mZi1ieTogTWFyaW8gS2xlaW5lciA8bWFyaW8ua2xlaW5lci5kZUBn
-bWFpbC5jb20+Ci0tLQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jIHwgMzIgKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDMxIGluc2VydGlv
-bnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYwppbmRleCA3NmI2ZTYyMTc5M2YuLjljOGM5NGY4MmIzNSAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jCkBAIC0zNjQsNiArMzY0LDcgQEAgc3RhdGljIHZvaWQgZG1fdnVwZGF0ZV9oaWdoX2lycSh2
-b2lkICppbnRlcnJ1cHRfcGFyYW1zKQogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gaXJx
-X3BhcmFtcy0+YWRldjsKIAlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFjcnRjOwogCXN0cnVjdCBkbV9j
-cnRjX3N0YXRlICphY3J0Y19zdGF0ZTsKKwl1bnNpZ25lZCBsb25nIGZsYWdzOwogCiAJYWNydGMg
-PSBnZXRfY3J0Y19ieV9vdGdfaW5zdChhZGV2LCBpcnFfcGFyYW1zLT5pcnFfc3JjIC0gSVJRX1RZ
-UEVfVlVQREFURSk7CiAKQEAgLTM4MSw2ICszODIsMjIgQEAgc3RhdGljIHZvaWQgZG1fdnVwZGF0
-ZV9oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1zKQogCQkgKi8KIAkJaWYgKGFtZGdwdV9k
-bV92cnJfYWN0aXZlKGFjcnRjX3N0YXRlKSkKIAkJCWRybV9jcnRjX2hhbmRsZV92YmxhbmsoJmFj
-cnRjLT5iYXNlKTsKKworCQlpZiAoYWNydGNfc3RhdGUtPnN0cmVhbSAmJiBhZGV2LT5mYW1pbHkg
-PCBBTURHUFVfRkFNSUxZX0FJICYmCisJCSAgICBhY3J0Y19zdGF0ZS0+dnJyX3BhcmFtcy5zdXBw
-b3J0ZWQgJiYKKwkJICAgIGFjcnRjX3N0YXRlLT5mcmVlc3luY19jb25maWcuc3RhdGUgPT0gVlJS
-X1NUQVRFX0FDVElWRV9WQVJJQUJMRSkgeworCQkJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPmRk
-ZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsKKwkJCW1vZF9mcmVlc3luY19oYW5kbGVfdl91cGRhdGUo
-CisJCQkgICAgYWRldi0+ZG0uZnJlZXN5bmNfbW9kdWxlLAorCQkJICAgIGFjcnRjX3N0YXRlLT5z
-dHJlYW0sCisJCQkgICAgJmFjcnRjX3N0YXRlLT52cnJfcGFyYW1zKTsKKworCQkJZGNfc3RyZWFt
-X2FkanVzdF92bWluX3ZtYXgoCisJCQkgICAgYWRldi0+ZG0uZGMsCisJCQkgICAgYWNydGNfc3Rh
-dGUtPnN0cmVhbSwKKwkJCSAgICAmYWNydGNfc3RhdGUtPnZycl9wYXJhbXMuYWRqdXN0KTsKKwkJ
-CXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsK
-KwkJfQogCX0KIH0KIApAQCAtMzkwLDYgKzQwNyw3IEBAIHN0YXRpYyB2b2lkIGRtX2NydGNfaGln
-aF9pcnEodm9pZCAqaW50ZXJydXB0X3BhcmFtcykKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-diA9IGlycV9wYXJhbXMtPmFkZXY7CiAJc3RydWN0IGFtZGdwdV9jcnRjICphY3J0YzsKIAlzdHJ1
-Y3QgZG1fY3J0Y19zdGF0ZSAqYWNydGNfc3RhdGU7CisJdW5zaWduZWQgbG9uZyBmbGFnczsKIAog
-CWFjcnRjID0gZ2V0X2NydGNfYnlfb3RnX2luc3QoYWRldiwgaXJxX3BhcmFtcy0+aXJxX3NyYyAt
-IElSUV9UWVBFX1ZCTEFOSyk7CiAKQEAgLTQxMiw5ICs0MzAsMTAgQEAgc3RhdGljIHZvaWQgZG1f
-Y3J0Y19oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1zKQogCQkgKi8KIAkJYW1kZ3B1X2Rt
-X2NydGNfaGFuZGxlX2NyY19pcnEoJmFjcnRjLT5iYXNlKTsKIAotCQlpZiAoYWNydGNfc3RhdGUt
-PnN0cmVhbSAmJgorCQlpZiAoYWNydGNfc3RhdGUtPnN0cmVhbSAmJiBhZGV2LT5mYW1pbHkgPj0g
-QU1ER1BVX0ZBTUlMWV9BSSAmJgogCQkgICAgYWNydGNfc3RhdGUtPnZycl9wYXJhbXMuc3VwcG9y
-dGVkICYmCiAJCSAgICBhY3J0Y19zdGF0ZS0+ZnJlZXN5bmNfY29uZmlnLnN0YXRlID09IFZSUl9T
-VEFURV9BQ1RJVkVfVkFSSUFCTEUpIHsKKwkJCXNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT5kZGV2
-LT5ldmVudF9sb2NrLCBmbGFncyk7CiAJCQltb2RfZnJlZXN5bmNfaGFuZGxlX3ZfdXBkYXRlKAog
-CQkJCWFkZXYtPmRtLmZyZWVzeW5jX21vZHVsZSwKIAkJCQlhY3J0Y19zdGF0ZS0+c3RyZWFtLApA
-QCAtNDI0LDYgKzQ0Myw3IEBAIHN0YXRpYyB2b2lkIGRtX2NydGNfaGlnaF9pcnEodm9pZCAqaW50
-ZXJydXB0X3BhcmFtcykKIAkJCQlhZGV2LT5kbS5kYywKIAkJCQlhY3J0Y19zdGF0ZS0+c3RyZWFt
-LAogCQkJCSZhY3J0Y19zdGF0ZS0+dnJyX3BhcmFtcy5hZGp1c3QpOworCQkJc3Bpbl91bmxvY2tf
-aXJxcmVzdG9yZSgmYWRldi0+ZGRldi0+ZXZlbnRfbG9jaywgZmxhZ3MpOwogCQl9CiAJfQogfQpA
-QCAtNDg4MCw2ICs0OTAwLDggQEAgc3RhdGljIHZvaWQgdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29u
-X3N0cmVhbSgKIHsKIAlzdHJ1Y3QgbW9kX3Zycl9wYXJhbXMgdnJyX3BhcmFtcyA9IG5ld19jcnRj
-X3N0YXRlLT52cnJfcGFyYW1zOwogCXN0cnVjdCBkY19pbmZvX3BhY2tldCB2cnJfaW5mb3BhY2tl
-dCA9IHswfTsKKwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRtLT5hZGV2OworCXVuc2ln
-bmVkIGxvbmcgZmxhZ3M7CiAKIAlpZiAoIW5ld19zdHJlYW0pCiAJCXJldHVybjsKQEAgLTQ4OTks
-NiArNDkyMSwxNCBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfZnJlZXN5bmNfc3RhdGVfb25fc3RyZWFt
-KAogCQkJbmV3X3N0cmVhbSwKIAkJCWZsaXBfdGltZXN0YW1wX2luX3VzLAogCQkJJnZycl9wYXJh
-bXMpOworCisJCWlmIChhZGV2LT5mYW1pbHkgPCBBTURHUFVfRkFNSUxZX0FJICYmCisJCSAgICBh
-bWRncHVfZG1fdnJyX2FjdGl2ZShuZXdfY3J0Y19zdGF0ZSkpIHsKKwkJCXNwaW5fbG9ja19pcnFz
-YXZlKCZhZGV2LT5kZGV2LT5ldmVudF9sb2NrLCBmbGFncyk7CisJCQltb2RfZnJlZXN5bmNfaGFu
-ZGxlX3ZfdXBkYXRlKGRtLT5mcmVlc3luY19tb2R1bGUsCisJCQkJCQkgICAgIG5ld19zdHJlYW0s
-ICZ2cnJfcGFyYW1zKTsKKwkJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2
-ZW50X2xvY2ssIGZsYWdzKTsKKwkJfQogCX0KIAogCW1vZF9mcmVlc3luY19idWlsZF92cnJfaW5m
-b3BhY2tldCgKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-ZHJpLWRldmVs
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0802664882==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="Fb4nurGV04Lyppk6DqBfEwfvUMZLJ7OWS"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Fb4nurGV04Lyppk6DqBfEwfvUMZLJ7OWS
+Content-Type: multipart/mixed; boundary="4uhE8gSHALYxEC8megKeVeguLCDBLCkaV";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>,
+ "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>,
+ "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>,
+ Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Message-ID: <ce68d6f5-317b-ae11-187c-4468dd6f2bc3-l3A5Bk7waGM@public.gmane.org>
+Subject: Re: [PATCH] drm: increase drm mmap_range size to 1TB
+References: <20190417221507.933-1-Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+ <c8d289ef-75dc-163e-bea5-cd0d429d8614-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <c8d289ef-75dc-163e-bea5-cd0d429d8614-5C7GfCeVMHo@public.gmane.org>
+
+--4uhE8gSHALYxEC8megKeVeguLCDBLCkaV
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 18.04.19 um 00:16 schrieb Kuehling, Felix:
+> Adding dri-devel
+>=20
+> On 2019-04-17 6:15 p.m., Yang, Philip wrote:
+>> After patch "drm: Use the same mmap-range offset and size for GEM and
+>> TTM", application failed to create bo of system memory because drm
+>> mmap_range size decrease to 64GB from original 1TB. This is not big
+>> enough for applications. Increase the drm mmap_range size to 1TB.
+
+That change in size was accidental. Thanks for restoring the original
+value. The fix will affect GEM as well. If that is not a problem then
+
+Reviewed-by: Thomas Zimmermann <tzimmermann-l3A5Bk7waGM@public.gmane.org>
+
+Best regards
+Thomas
+
+>> Change-Id: Id482af261f56f3289e8873f5985078da599a0998
+>> Signed-off-by: Philip Yang <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+>> ---
+>>   include/drm/drm_vma_manager.h | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/include/drm/drm_vma_manager.h b/include/drm/drm_vma_manag=
+er.h
+>> index f4f8ff1cdeec..76ac5e97a559 100644
+>> --- a/include/drm/drm_vma_manager.h
+>> +++ b/include/drm/drm_vma_manager.h
+>> @@ -35,7 +35,7 @@
+>>    */
+>>   #if BITS_PER_LONG =3D=3D 64
+>>   #define DRM_FILE_PAGE_OFFSET_START ((0xFFFFFFFFUL >> PAGE_SHIFT) + 1=
+)
+>> -#define DRM_FILE_PAGE_OFFSET_SIZE ((0xFFFFFFFFUL >> PAGE_SHIFT) * 16)=
+
+>> +#define DRM_FILE_PAGE_OFFSET_SIZE ((0xFFFFFFFFUL >> PAGE_SHIFT) * 256=
+)
+>>   #else
+>>   #define DRM_FILE_PAGE_OFFSET_START ((0xFFFFFFFUL >> PAGE_SHIFT) + 1)=
+
+>>   #define DRM_FILE_PAGE_OFFSET_SIZE ((0xFFFFFFFUL >> PAGE_SHIFT) * 16)=
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstrasse 5, 90409 Nuernberg, Germany
+GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah
+HRB 21284 (AG N=C3=BCrnberg)
+
+
+--4uhE8gSHALYxEC8megKeVeguLCDBLCkaV--
+
+--Fb4nurGV04Lyppk6DqBfEwfvUMZLJ7OWS
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAly4J2gACgkQaA3BHVML
+eiOgWQf+PGgckgFfaGAKdyj540tEVzpkRrljKN1LaSoTZYZPXIUg/Kj8AZriuYDo
+VLtMM4rd5w8iAQ21yeb/u83Y0FTOV9yHX1gpfSTt5EceAftFGvh+sbsoC5XEAu8J
+Fhg+NoRWqDrxPJHfY7WxBNluLfHpzYQjNt4sPub2cxZstTrUCwtMzzCFlpD8aKCX
+rsShbF2GqPrNAJyjYu8PdYn8VC1alfdrfqbRHQPBrXh3F2i20YfdlvDC+GN58wFR
+wDJt1v1ipLE1nLYO1p80sqVqAYjGZ59orxK+HBC/TW42atIuA9uAKvyv1LvcF1zl
+UXWL2aXj0LbMdPTbCSsJVG6RS6ppYg==
+=Y3aY
+-----END PGP SIGNATURE-----
+
+--Fb4nurGV04Lyppk6DqBfEwfvUMZLJ7OWS--
+
+--===============0802664882==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0802664882==--
