@@ -1,85 +1,187 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/6] PCI/P2PDMA: start with a whitelist for root complexes
-Date: Fri, 19 Apr 2019 13:13:11 -0400
-Message-ID: <CADnq5_OD+oW4uT0i6ZkW1w5AG4i=G+WW2uSB6BiUuArV_bCtHw@mail.gmail.com>
-References: <20190418120928.2699-1-christian.koenig@amd.com>
- <20190418120928.2699-3-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 05/12] dma-buf: add explicit buffer pinning
+Date: Fri, 19 Apr 2019 15:05:09 -0400
+Message-ID: <CADnq5_OFh0UDvMkt+yTKBLjysuTmB==Lug-=d04E_eUHPn1ENQ@mail.gmail.com>
+References: <20190416183841.1577-1-christian.koenig@amd.com> <20190416183841.1577-6-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190418120928.2699-3-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190416183841.1577-6-christian.koenig@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, linux-media <linux-media@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBBcHIgMTgsIDIwMTkgYXQgODowOSBBTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
-LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBIGxvdCBvZiByb290IGNvbXBs
-ZXhlcyBjYW4gc3RpbGwgZG8gUDJQIGV2ZW4gd2hlbiBQQ0kgZGV2aWNlcwo+IGRvbid0IHNoYXJl
-IGEgY29tbW9uIHVwc3RyZWFtIGJyaWRnZS4KPgo+IFN0YXJ0IGFkZGluZyBhIHdoaXRlbGlzdCBh
-bmQgYWxsb3cgUDJQIGlmIGJvdGggcGFydGljaXBhbnRzIGFyZQo+IGF0dGFjaGVkIHRvIGtub3du
-IGdvb2Qgcm9vdCBjb21wbGV4Lgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL3BjaS9wMnBkbWEuYyB8
-IDM4ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tCj4gIDEgZmlsZSBjaGFu
-Z2VkLCAzNSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvcGNpL3AycGRtYS5jIGIvZHJpdmVycy9wY2kvcDJwZG1hLmMKPiBpbmRleCBjNTIyOThk
-NzZlNjQuLjIxMmJhYWE3ZjkzYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL3BjaS9wMnBkbWEuYwo+
-ICsrKyBiL2RyaXZlcnMvcGNpL3AycGRtYS5jCj4gQEAgLTI3NCw2ICsyNzQsMzEgQEAgc3RhdGlj
-IHZvaWQgc2VxX2J1Zl9wcmludF9idXNfZGV2Zm4oc3RydWN0IHNlcV9idWYgKmJ1Ziwgc3RydWN0
-IHBjaV9kZXYgKnBkZXYpCj4gICAgICAgICBzZXFfYnVmX3ByaW50ZihidWYsICIlczsiLCBwY2lf
-bmFtZShwZGV2KSk7Cj4gIH0KPgo+ICsvKgo+ICsgKiBJZiB3ZSBjYW4ndCBmaW5kIGEgY29tbW9u
-IHVwc3RyZWFtIGJyaWRnZSB0YWtlIGEgbG9vayBhdCB0aGUgcm9vdCBjb21wbGV4IGFuZAo+ICsg
-KiBjb21wYXJlIGl0IHRvIGEgd2hpdGVsaXN0IG9mIGtub3duIGdvb2QgaGFyZHdhcmUuCj4gKyAq
-Lwo+ICtzdGF0aWMgYm9vbCByb290X2NvbXBsZXhfd2hpdGVsaXN0KHN0cnVjdCBwY2lfZGV2ICpk
-ZXYpCj4gK3sKPiArICAgICAgIHN0cnVjdCBwY2lfaG9zdF9icmlkZ2UgKmhvc3QgPSBwY2lfZmlu
-ZF9ob3N0X2JyaWRnZShkZXYtPmJ1cyk7Cj4gKyAgICAgICBzdHJ1Y3QgcGNpX2RldiAqcm9vdCA9
-IHBjaV9nZXRfc2xvdChob3N0LT5idXMsIFBDSV9ERVZGTigwLCAwKSk7Cj4gKyAgICAgICB1bnNp
-Z25lZCBzaG9ydCB2ZW5kb3IsIGRldmljZTsKPiArCj4gKyAgICAgICBpZiAoIXJvb3QpCj4gKyAg
-ICAgICAgICAgICAgIHJldHVybiBmYWxzZTsKPiArCj4gKyAgICAgICB2ZW5kb3IgPSByb290LT52
-ZW5kb3I7Cj4gKyAgICAgICBkZXZpY2UgPSByb290LT5kZXZpY2U7Cj4gKyAgICAgICBwY2lfZGV2
-X3B1dChyb290KTsKPiArCj4gKyAgICAgICAvKiBBTUQgWkVOIGhvc3QgYnJpZGdlcyBjYW4gZG8g
-cGVlciB0byBwZWVyICovCj4gKyAgICAgICBpZiAodmVuZG9yID09IFBDSV9WRU5ET1JfSURfQU1E
-ICYmIGRldmljZSA9PSAweDE0NTApCgpXZSBzaG91bGQgYWxzbyBhZGQ6Cih2ZW5kb3IgPT0gUENJ
-X1ZFTkRPUl9JRF9BTUQgJiYgZGV2aWNlID09IDB4MTU3NikgLy8gQ2Fycml6bwoodmVuZG9yID09
-IFBDSV9WRU5ET1JfSURfQU1EICYmIGRldmljZSA9PSAweDE1MzYpIC8vIEthdmVyaS9rYWJpbmkv
-bXVsbGlucwoKQWxleAoKPiArICAgICAgICAgICAgICAgcmV0dXJuIHRydWU7Cj4gKwo+ICsgICAg
-ICAgLyogVE9ETzogRXh0ZW5kIHRoYXQgdG8gYSBwcm9wZXIgd2hpdGVsaXN0ICovCj4gKyAgICAg
-ICByZXR1cm4gZmFsc2U7Cj4gK30KPiArCj4gIC8qCj4gICAqIEZpbmQgdGhlIGRpc3RhbmNlIHRo
-cm91Z2ggdGhlIG5lYXJlc3QgY29tbW9uIHVwc3RyZWFtIGJyaWRnZSBiZXR3ZWVuCj4gICAqIHR3
-byBQQ0kgZGV2aWNlcy4KPiBAQCAtMzE3LDEzICszNDIsMTMgQEAgc3RhdGljIHZvaWQgc2VxX2J1
-Zl9wcmludF9idXNfZGV2Zm4oc3RydWN0IHNlcV9idWYgKmJ1Ziwgc3RydWN0IHBjaV9kZXYgKnBk
-ZXYpCj4gICAqIEluIHRoaXMgY2FzZSwgYSBsaXN0IG9mIGFsbCBpbmZyaW5naW5nIGJyaWRnZSBh
-ZGRyZXNzZXMgd2lsbCBiZQo+ICAgKiBwb3B1bGF0ZWQgaW4gYWNzX2xpc3QgKGFzc3VtaW5nIGl0
-J3Mgbm9uLW51bGwpIGZvciBwcmludGsgcHVycG9zZXMuCj4gICAqLwo+IC1zdGF0aWMgaW50IHVw
-c3RyZWFtX2JyaWRnZV9kaXN0YW5jZShzdHJ1Y3QgcGNpX2RldiAqYSwKPiAtICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgcGNpX2RldiAqYiwKPiArc3RhdGljIGludCB1
-cHN0cmVhbV9icmlkZ2VfZGlzdGFuY2Uoc3RydWN0IHBjaV9kZXYgKnByb3ZpZGVyLAo+ICsgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBwY2lfZGV2ICpjbGllbnQsCj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IHNlcV9idWYgKmFjc19s
-aXN0KQo+ICB7Cj4gKyAgICAgICBzdHJ1Y3QgcGNpX2RldiAqYSA9IHByb3ZpZGVyLCAqYiA9IGNs
-aWVudCwgKmJiOwo+ICAgICAgICAgaW50IGRpc3RfYSA9IDA7Cj4gICAgICAgICBpbnQgZGlzdF9i
-ID0gMDsKPiAtICAgICAgIHN0cnVjdCBwY2lfZGV2ICpiYiA9IE5VTEw7Cj4gICAgICAgICBpbnQg
-YWNzX2NudCA9IDA7Cj4KPiAgICAgICAgIC8qCj4gQEAgLTM1NCw2ICszNzksMTMgQEAgc3RhdGlj
-IGludCB1cHN0cmVhbV9icmlkZ2VfZGlzdGFuY2Uoc3RydWN0IHBjaV9kZXYgKmEsCj4gICAgICAg
-ICAgICAgICAgIGRpc3RfYSsrOwo+ICAgICAgICAgfQo+Cj4gKyAgICAgICAvKiBBbGxvdyB0aGUg
-Y29ubmVjdGlvbiBpZiBib3RoIGRldmljZXMgYXJlIG9uIGEgd2hpdGVsaXN0ZWQgcm9vdAo+ICsg
-ICAgICAgICogY29tcGxleCwgYnV0IGFkZCBhbiBhcmJpdGFyeSBsYXJnZSB2YWx1ZSB0byB0aGUg
-ZGlzdGFuY2UuCj4gKyAgICAgICAgKi8KPiArICAgICAgIGlmIChyb290X2NvbXBsZXhfd2hpdGVs
-aXN0KHByb3ZpZGVyKSAmJgo+ICsgICAgICAgICAgIHJvb3RfY29tcGxleF93aGl0ZWxpc3QoY2xp
-ZW50KSkKPiArICAgICAgICAgICAgICAgcmV0dXJuIDB4MTAwMCArIGRpc3RfYSArIGRpc3RfYjsK
-PiArCj4gICAgICAgICByZXR1cm4gLTE7Cj4KPiAgY2hlY2tfYl9wYXRoX2FjczoKPiAtLQo+IDIu
-MTcuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4g
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Tue, Apr 16, 2019 at 2:39 PM Christian K=C3=B6nig
+<ckoenig.leichtzumerken@gmail.com> wrote:
+>
+> Add optional explicit pinning callbacks instead of implicitly assume the
+> exporter pins the buffer when a mapping is created.
+>
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/dma-buf/dma-buf.c | 39 +++++++++++++++++++++++++++++++++++++++
+>  include/linux/dma-buf.h   | 37 +++++++++++++++++++++++++++++++------
+>  2 files changed, 70 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index a3738fab3927..f23ff8355505 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -630,6 +630,41 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct d=
+ma_buf_attachment *attach)
+>  }
+>  EXPORT_SYMBOL_GPL(dma_buf_detach);
+>
+> +/**
+> + * dma_buf_pin - Lock down the DMA-buf
+> + *
+> + * @dmabuf:    [in]    DMA-buf to lock down.
+> + *
+> + * Returns:
+> + * 0 on success, negative error code on failure.
+> + */
+> +int dma_buf_pin(struct dma_buf *dmabuf)
+> +{
+> +       int ret =3D 0;
+> +
+> +       reservation_object_assert_held(dmabuf->resv);
+> +
+> +       if (dmabuf->ops->pin)
+> +               ret =3D dmabuf->ops->pin(dmabuf);
+> +
+> +       return ret;
+> +}
+> +EXPORT_SYMBOL_GPL(dma_buf_pin);
+> +
+> +/**
+> + * dma_buf_unpin - Remove lock from DMA-buf
+> + *
+> + * @dmabuf:    [in]    DMA-buf to unlock.
+> + */
+> +void dma_buf_unpin(struct dma_buf *dmabuf)
+> +{
+> +       reservation_object_assert_held(dmabuf->resv);
+> +
+> +       if (dmabuf->ops->unpin)
+> +               dmabuf->ops->unpin(dmabuf);
+> +}
+> +EXPORT_SYMBOL_GPL(dma_buf_unpin);
+> +
+>  /**
+>   * dma_buf_map_attachment_locked - Maps the buffer into _device_ address=
+ space
+>   * with the reservation lock held. Is a wrapper for map_dma_buf() of the
+> @@ -666,6 +701,8 @@ dma_buf_map_attachment_locked(struct dma_buf_attachme=
+nt *attach,
+>          */
+>         if (attach->invalidate)
+>                 list_del(&attach->node);
+> +       else
+> +               dma_buf_pin(attach->dmabuf);
+>         sg_table =3D attach->dmabuf->ops->map_dma_buf(attach, direction);
+>         if (attach->invalidate)
+>                 list_add(&attach->node, &attach->dmabuf->attachments);
+> @@ -735,6 +772,8 @@ void dma_buf_unmap_attachment_locked(struct dma_buf_a=
+ttachment *attach,
+>
+>         attach->dmabuf->ops->unmap_dma_buf(attach, sg_table,
+>                                                 direction);
+> +       if (!attach->invalidate)
+> +               dma_buf_unpin(attach->dmabuf);
+>  }
+>  EXPORT_SYMBOL_GPL(dma_buf_unmap_attachment_locked);
+>
+> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> index ece4638359a8..a615b74e5894 100644
+> --- a/include/linux/dma-buf.h
+> +++ b/include/linux/dma-buf.h
+> @@ -100,14 +100,40 @@ struct dma_buf_ops {
+>          */
+>         void (*detach)(struct dma_buf *, struct dma_buf_attachment *);
+>
+> +       /**
+> +        * @pin_dma_buf:
+> +        *
+> +        * This is called by dma_buf_pin and lets the exporter know that =
+an
+> +        * importer assumes that the DMA-buf can't be invalidated any mor=
+e.
+> +        *
+> +        * This is called with the dmabuf->resv object locked.
+> +        *
+> +        * This callback is optional.
+> +        *
+> +        * Returns:
+> +        *
+> +        * 0 on success, negative error code on failure.
+> +        */
+> +       int (*pin)(struct dma_buf *);
+> +
+> +       /**
+> +        * @unpin_dma_buf:
+> +        *
+> +        * This is called by dma_buf_unpin and lets the exporter know tha=
+t an
+> +       * importer doesn't need to the DMA-buf to stay were it is any mor=
+e.
+
+This should read:
+* importer doesn't need the DMA-buf to stay were it is anymore.
+
+> +        *
+> +        * This is called with the dmabuf->resv object locked.
+> +        *
+> +        * This callback is optional.
+> +        */
+> +       void (*unpin)(struct dma_buf *);
+> +
+>         /**
+>          * @map_dma_buf:
+>          *
+>          * This is called by dma_buf_map_attachment() and is used to map =
+a
+>          * shared &dma_buf into device address space, and it is mandatory=
+. It
+> -        * can only be called if @attach has been called successfully. Th=
+is
+> -        * essentially pins the DMA buffer into place, and it cannot be m=
+oved
+> -        * any more
+> +        * can only be called if @attach has been called successfully.
+>          *
+>          * This call may sleep, e.g. when the backing storage first needs=
+ to be
+>          * allocated, or moved to a location suitable for all currently a=
+ttached
+> @@ -148,9 +174,6 @@ struct dma_buf_ops {
+>          *
+>          * This is called by dma_buf_unmap_attachment() and should unmap =
+and
+>          * release the &sg_table allocated in @map_dma_buf, and it is man=
+datory.
+> -        * It should also unpin the backing storage if this is the last m=
+apping
+> -        * of the DMA buffer, it the exporter supports backing storage
+> -        * migration.
+>          *
+>          * This is always called with the dmabuf->resv object locked when
+>          * no_sgt_cache is true.
+> @@ -442,6 +465,8 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
+>  struct dma_buf *dma_buf_get(int fd);
+>  void dma_buf_put(struct dma_buf *dmabuf);
+>
+> +int dma_buf_pin(struct dma_buf *dmabuf);
+> +void dma_buf_unpin(struct dma_buf *dmabuf);
+>  struct sg_table *dma_buf_map_attachment_locked(struct dma_buf_attachment=
+ *,
+>                                                enum dma_data_direction);
+>  struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
