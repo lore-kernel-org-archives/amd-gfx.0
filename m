@@ -1,187 +1,181 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 05/12] dma-buf: add explicit buffer pinning
-Date: Fri, 19 Apr 2019 15:05:09 -0400
-Message-ID: <CADnq5_OFh0UDvMkt+yTKBLjysuTmB==Lug-=d04E_eUHPn1ENQ@mail.gmail.com>
-References: <20190416183841.1577-1-christian.koenig@amd.com> <20190416183841.1577-6-christian.koenig@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 6/6] drm/amdgpu: add support for exporting VRAM using
+ DMA-buf v2
+Date: Fri, 19 Apr 2019 15:18:11 -0400
+Message-ID: <CADnq5_OyVuTSMYU0K6XT+h=9x5Lr2myU9z6tMAg7gD9F0tYmqQ@mail.gmail.com>
+References: <20190418120928.2699-1-christian.koenig@amd.com>
+ <20190418120928.2699-7-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190416183841.1577-6-christian.koenig@amd.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, linux-media <linux-media@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190418120928.2699-7-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Tue, Apr 16, 2019 at 2:39 PM Christian K=C3=B6nig
-<ckoenig.leichtzumerken@gmail.com> wrote:
->
-> Add optional explicit pinning callbacks instead of implicitly assume the
-> exporter pins the buffer when a mapping is created.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/dma-buf/dma-buf.c | 39 +++++++++++++++++++++++++++++++++++++++
->  include/linux/dma-buf.h   | 37 +++++++++++++++++++++++++++++++------
->  2 files changed, 70 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index a3738fab3927..f23ff8355505 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -630,6 +630,41 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct d=
-ma_buf_attachment *attach)
->  }
->  EXPORT_SYMBOL_GPL(dma_buf_detach);
->
-> +/**
-> + * dma_buf_pin - Lock down the DMA-buf
-> + *
-> + * @dmabuf:    [in]    DMA-buf to lock down.
-> + *
-> + * Returns:
-> + * 0 on success, negative error code on failure.
-> + */
-> +int dma_buf_pin(struct dma_buf *dmabuf)
-> +{
-> +       int ret =3D 0;
-> +
-> +       reservation_object_assert_held(dmabuf->resv);
-> +
-> +       if (dmabuf->ops->pin)
-> +               ret =3D dmabuf->ops->pin(dmabuf);
-> +
-> +       return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(dma_buf_pin);
-> +
-> +/**
-> + * dma_buf_unpin - Remove lock from DMA-buf
-> + *
-> + * @dmabuf:    [in]    DMA-buf to unlock.
-> + */
-> +void dma_buf_unpin(struct dma_buf *dmabuf)
-> +{
-> +       reservation_object_assert_held(dmabuf->resv);
-> +
-> +       if (dmabuf->ops->unpin)
-> +               dmabuf->ops->unpin(dmabuf);
-> +}
-> +EXPORT_SYMBOL_GPL(dma_buf_unpin);
-> +
->  /**
->   * dma_buf_map_attachment_locked - Maps the buffer into _device_ address=
- space
->   * with the reservation lock held. Is a wrapper for map_dma_buf() of the
-> @@ -666,6 +701,8 @@ dma_buf_map_attachment_locked(struct dma_buf_attachme=
-nt *attach,
->          */
->         if (attach->invalidate)
->                 list_del(&attach->node);
-> +       else
-> +               dma_buf_pin(attach->dmabuf);
->         sg_table =3D attach->dmabuf->ops->map_dma_buf(attach, direction);
->         if (attach->invalidate)
->                 list_add(&attach->node, &attach->dmabuf->attachments);
-> @@ -735,6 +772,8 @@ void dma_buf_unmap_attachment_locked(struct dma_buf_a=
-ttachment *attach,
->
->         attach->dmabuf->ops->unmap_dma_buf(attach, sg_table,
->                                                 direction);
-> +       if (!attach->invalidate)
-> +               dma_buf_unpin(attach->dmabuf);
->  }
->  EXPORT_SYMBOL_GPL(dma_buf_unmap_attachment_locked);
->
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index ece4638359a8..a615b74e5894 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -100,14 +100,40 @@ struct dma_buf_ops {
->          */
->         void (*detach)(struct dma_buf *, struct dma_buf_attachment *);
->
-> +       /**
-> +        * @pin_dma_buf:
-> +        *
-> +        * This is called by dma_buf_pin and lets the exporter know that =
-an
-> +        * importer assumes that the DMA-buf can't be invalidated any mor=
-e.
-> +        *
-> +        * This is called with the dmabuf->resv object locked.
-> +        *
-> +        * This callback is optional.
-> +        *
-> +        * Returns:
-> +        *
-> +        * 0 on success, negative error code on failure.
-> +        */
-> +       int (*pin)(struct dma_buf *);
-> +
-> +       /**
-> +        * @unpin_dma_buf:
-> +        *
-> +        * This is called by dma_buf_unpin and lets the exporter know tha=
-t an
-> +       * importer doesn't need to the DMA-buf to stay were it is any mor=
-e.
-
-This should read:
-* importer doesn't need the DMA-buf to stay were it is anymore.
-
-> +        *
-> +        * This is called with the dmabuf->resv object locked.
-> +        *
-> +        * This callback is optional.
-> +        */
-> +       void (*unpin)(struct dma_buf *);
-> +
->         /**
->          * @map_dma_buf:
->          *
->          * This is called by dma_buf_map_attachment() and is used to map =
-a
->          * shared &dma_buf into device address space, and it is mandatory=
-. It
-> -        * can only be called if @attach has been called successfully. Th=
-is
-> -        * essentially pins the DMA buffer into place, and it cannot be m=
-oved
-> -        * any more
-> +        * can only be called if @attach has been called successfully.
->          *
->          * This call may sleep, e.g. when the backing storage first needs=
- to be
->          * allocated, or moved to a location suitable for all currently a=
-ttached
-> @@ -148,9 +174,6 @@ struct dma_buf_ops {
->          *
->          * This is called by dma_buf_unmap_attachment() and should unmap =
-and
->          * release the &sg_table allocated in @map_dma_buf, and it is man=
-datory.
-> -        * It should also unpin the backing storage if this is the last m=
-apping
-> -        * of the DMA buffer, it the exporter supports backing storage
-> -        * migration.
->          *
->          * This is always called with the dmabuf->resv object locked when
->          * no_sgt_cache is true.
-> @@ -442,6 +465,8 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags);
->  struct dma_buf *dma_buf_get(int fd);
->  void dma_buf_put(struct dma_buf *dmabuf);
->
-> +int dma_buf_pin(struct dma_buf *dmabuf);
-> +void dma_buf_unpin(struct dma_buf *dmabuf);
->  struct sg_table *dma_buf_map_attachment_locked(struct dma_buf_attachment=
- *,
->                                                enum dma_data_direction);
->  struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *,
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVGh1LCBBcHIgMTgsIDIwMTkgYXQgODowOSBBTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBXZSBzaG91bGQgYmUgYWJsZSB0
+byBkbyB0aGlzIG5vdyBhZnRlciBjaGVja2luZyBhbGwgdGhlIHByZXJlcXVpc2l0ZXMuCj4KPiB2
+MjogZml4IGVudHJpZSBjb3VudCBpbiB0aGUgc2d0Cj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3Rp
+YW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpTZXJpZXMgaXM6ClJldmlld2Vk
+LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJpbWUuYyAgICB8IDQ2ICsrKysrKysr
+LS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oICAgICAgfCAgOSAr
+Kwo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYyB8IDk2ICsr
+KysrKysrKysrKysrKysrKysrCj4gIDMgZmlsZXMgY2hhbmdlZCwgMTQyIGluc2VydGlvbnMoKyks
+IDkgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3ByaW1lLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcHJp
+bWUuYwo+IGluZGV4IGEyOTBhZTgzMGIxMS4uNTViYjM5MjgxYzVkIDEwMDY0NAo+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wcmltZS5jCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ByaW1lLmMKPiBAQCAtMzE4LDIyICszMTgsNDUgQEAg
+YW1kZ3B1X2dlbV9tYXBfZG1hX2J1ZihzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gs
+Cj4gICAgICAgICB9Cj4KPiAgICAgICAgIGlmIChhdHRhY2gtPmludmFsaWRhdGUpIHsKPiAtICAg
+ICAgICAgICAgICAgLyogbW92ZSBidWZmZXIgaW50byBHVFQgKi8KPiArICAgICAgICAgICAgICAg
+LyogbW92ZSBidWZmZXIgaW50byBHVFQgb3IgVlJBTSAqLwo+ICAgICAgICAgICAgICAgICBzdHJ1
+Y3QgdHRtX29wZXJhdGlvbl9jdHggY3R4ID0geyBmYWxzZSwgZmFsc2UgfTsKPiArICAgICAgICAg
+ICAgICAgdW5zaWduZWQgZG9tYWlucyA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsKPgo+IC0gICAg
+ICAgICAgICAgICBhbWRncHVfYm9fcGxhY2VtZW50X2Zyb21fZG9tYWluKGJvLCBBTURHUFVfR0VN
+X0RPTUFJTl9HVFQpOwo+ICsgICAgICAgICAgICAgICBpZiAoYm8tPnByZWZlcnJlZF9kb21haW5z
+ICYgQU1ER1BVX0dFTV9ET01BSU5fVlJBTSAmJgo+ICsgICAgICAgICAgICAgICAgICAgYXR0YWNo
+LT5wZWVyMnBlZXIpIHsKPiArICAgICAgICAgICAgICAgICAgICAgICBiby0+ZmxhZ3MgfD0gQU1E
+R1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFVSVJFRDsKPiArICAgICAgICAgICAgICAgICAg
+ICAgICBkb21haW5zIHw9IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU07Cj4gKyAgICAgICAgICAgICAg
+IH0KPiArICAgICAgICAgICAgICAgYW1kZ3B1X2JvX3BsYWNlbWVudF9mcm9tX2RvbWFpbihibywg
+ZG9tYWlucyk7Cj4gICAgICAgICAgICAgICAgIHIgPSB0dG1fYm9fdmFsaWRhdGUoJmJvLT50Ym8s
+ICZiby0+cGxhY2VtZW50LCAmY3R4KTsKPiAgICAgICAgICAgICAgICAgaWYgKHIpCj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgcmV0dXJuIEVSUl9QVFIocik7Cj4gICAgICAgICB9Cj4KPiAtICAg
+ICAgIHNndCA9IGRybV9wcmltZV9wYWdlc190b19zZyhiby0+dGJvLnR0bS0+cGFnZXMsIGJvLT50
+Ym8ubnVtX3BhZ2VzKTsKPiAtICAgICAgIGlmIChJU19FUlIoc2d0KSkKPiAtICAgICAgICAgICAg
+ICAgcmV0dXJuIHNndDsKPiArICAgICAgIHN3aXRjaCAoYm8tPnRiby5tZW0ubWVtX3R5cGUpIHsK
+PiArICAgICAgIGNhc2UgVFRNX1BMX1RUOgo+ICsgICAgICAgICAgICAgICBzZ3QgPSBkcm1fcHJp
+bWVfcGFnZXNfdG9fc2coYm8tPnRiby50dG0tPnBhZ2VzLAo+ICsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgYm8tPnRiby5udW1fcGFnZXMpOwo+ICsgICAgICAgICAg
+ICAgICBpZiAoSVNfRVJSKHNndCkpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHNn
+dDsKPiArCj4gKyAgICAgICAgICAgICAgIGlmICghZG1hX21hcF9zZ19hdHRycyhhdHRhY2gtPmRl
+diwgc2d0LT5zZ2wsIHNndC0+bmVudHMsIGRpciwKPiArICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIERNQV9BVFRSX1NLSVBfQ1BVX1NZTkMpKSB7Cj4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgciA9IC1FSU5WQUw7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgZ290byBlcnJv
+cl9mcmVlOwo+ICsgICAgICAgICAgICAgICB9Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+Cj4g
+LSAgICAgICBpZiAoIWRtYV9tYXBfc2dfYXR0cnMoYXR0YWNoLT5kZXYsIHNndC0+c2dsLCBzZ3Qt
+Pm5lbnRzLCBkaXIsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRE1BX0FUVFJfU0tJ
+UF9DUFVfU1lOQykpCj4gKyAgICAgICBjYXNlIFRUTV9QTF9WUkFNOgo+ICsgICAgICAgICAgICAg
+ICByID0gYW1kZ3B1X3ZyYW1fbWdyX2FsbG9jX3NndChhZGV2LCAmYm8tPnRiby5tZW0sIGF0dGFj
+aC0+ZGV2LAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBk
+aXIsICZzZ3QpOwo+ICsgICAgICAgICAgICAgICBpZiAocikKPiArICAgICAgICAgICAgICAgICAg
+ICAgICBnb3RvIGVycm9yX2ZyZWU7Cj4gKyAgICAgICAgICAgICAgIGJyZWFrOwo+ICsgICAgICAg
+ZGVmYXVsdDoKPiArICAgICAgICAgICAgICAgciA9IC1FSU5WQUw7Cj4gICAgICAgICAgICAgICAg
+IGdvdG8gZXJyb3JfZnJlZTsKPiArICAgICAgIH0KPgo+ICAgICAgICAgaWYgKGF0dGFjaC0+ZGV2
+LT5kcml2ZXIgIT0gYWRldi0+ZGV2LT5kcml2ZXIpCj4gICAgICAgICAgICAgICAgIGJvLT5wcmlt
+ZV9zaGFyZWRfY291bnQrKzsKPiBAQCAtMzQzLDcgKzM2Niw3IEBAIGFtZGdwdV9nZW1fbWFwX2Rt
+YV9idWYoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoLAo+ICBlcnJvcl9mcmVlOgo+
+ICAgICAgICAgc2dfZnJlZV90YWJsZShzZ3QpOwo+ICAgICAgICAga2ZyZWUoc2d0KTsKPiAtICAg
+ICAgIHJldHVybiBFUlJfUFRSKC1FTk9NRU0pOwo+ICsgICAgICAgcmV0dXJuIEVSUl9QVFIocik7
+Cj4gIH0KPgo+ICAvKioKPiBAQCAtMzY3LDEwICszOTAsMTUgQEAgc3RhdGljIHZvaWQgYW1kZ3B1
+X2dlbV91bm1hcF9kbWFfYnVmKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCwKPiAg
+ICAgICAgIGlmIChhdHRhY2gtPmRldi0+ZHJpdmVyICE9IGFkZXYtPmRldi0+ZHJpdmVyICYmIGJv
+LT5wcmltZV9zaGFyZWRfY291bnQpCj4gICAgICAgICAgICAgICAgIGJvLT5wcmltZV9zaGFyZWRf
+Y291bnQtLTsKPgo+IC0gICAgICAgaWYgKHNndCkgewo+ICsgICAgICAgaWYgKCFzZ3QpCj4gKyAg
+ICAgICAgICAgICAgIHJldHVybjsKPiArCj4gKyAgICAgICBpZiAoc2d0LT5zZ2wtPnBhZ2VfbGlu
+aykgewo+ICAgICAgICAgICAgICAgICBkbWFfdW5tYXBfc2coYXR0YWNoLT5kZXYsIHNndC0+c2ds
+LCBzZ3QtPm5lbnRzLCBkaXIpOwo+ICAgICAgICAgICAgICAgICBzZ19mcmVlX3RhYmxlKHNndCk7
+Cj4gICAgICAgICAgICAgICAgIGtmcmVlKHNndCk7Cj4gKyAgICAgICB9IGVsc2Ugewo+ICsgICAg
+ICAgICAgICAgICBhbWRncHVfdnJhbV9tZ3JfZnJlZV9zZ3QoYWRldiwgYXR0YWNoLT5kZXYsIGRp
+ciwgc2d0KTsKPiAgICAgICAgIH0KPiAgfQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90dG0uaAo+IGluZGV4IGMyYjc2NjkwMDRiYS4uMGI0Y2RiZTg2N2U3IDEwMDY0NAo+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaAo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaAo+IEBAIC03Miw2ICs3MiwxNSBAQCB1
+aW50NjRfdCBhbWRncHVfZ3R0X21ncl91c2FnZShzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIg
+Km1hbik7Cj4gIGludCBhbWRncHVfZ3R0X21ncl9yZWNvdmVyKHN0cnVjdCB0dG1fbWVtX3R5cGVf
+bWFuYWdlciAqbWFuKTsKPgo+ICB1NjQgYW1kZ3B1X3ZyYW1fbWdyX2JvX3Zpc2libGVfc2l6ZShz
+dHJ1Y3QgYW1kZ3B1X2JvICpibyk7Cj4gK2ludCBhbWRncHVfdnJhbV9tZ3JfYWxsb2Nfc2d0KHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHN0cnVjdCB0dG1fbWVtX3JlZyAqbWVtLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHN0cnVjdCBkZXZpY2UgKmRldiwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBlbnVt
+IGRtYV9kYXRhX2RpcmVjdGlvbiBkaXIsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+c3RydWN0IHNnX3RhYmxlICoqc2d0KTsKPiArdm9pZCBhbWRncHVfdnJhbV9tZ3JfZnJlZV9zZ3Qo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgc3RydWN0IGRldmljZSAqZGV2LAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGVu
+dW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRpciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzdHJ1Y3Qgc2dfdGFibGUgKnNndCk7Cj4gIHVpbnQ2NF90IGFtZGdwdV92cmFtX21ncl91c2Fn
+ZShzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbik7Cj4gIHVpbnQ2NF90IGFtZGdwdV92
+cmFtX21ncl92aXNfdXNhZ2Uoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4pOwo+Cj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPiBpbmRleCBl
+YzllYTNmZGJiNGEuLjUyMGNlYTRkYmRhYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4gQEAgLTM5OSw2ICszOTksMTAyIEBAIHN0YXRpYyB2
+b2lkIGFtZGdwdV92cmFtX21ncl9kZWwoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4s
+Cj4gICAgICAgICBtZW0tPm1tX25vZGUgPSBOVUxMOwo+ICB9Cj4KPiArLyoqCj4gKyAqIGFtZGdw
+dV92cmFtX21ncl9hbGxvY19zZ3QgLSBhbGxvY2F0ZSBhbmQgZmlsbCBhIHNnIHRhYmxlCj4gKyAq
+Cj4gKyAqIEBhZGV2OiBhbWRncHUgZGV2aWNlIHBvaW50ZXIKPiArICogQG1lbTogVFRNIG1lbW9y
+eSBvYmplY3QKPiArICogQGRldjogdGhlIG90aGVyIGRldmljZQo+ICsgKiBAZGlyOiBkbWEgZGly
+ZWN0aW9uCj4gKyAqIEBzZ3Q6IHJlc3VsdGluZyBzZyB0YWJsZQo+ICsgKgo+ICsgKiBBbGxvY2F0
+ZSBhbmQgZmlsbCBhIHNnIHRhYmxlIGZyb20gYSBWUkFNIGFsbG9jYXRpb24uCj4gKyAqLwo+ICtp
+bnQgYW1kZ3B1X3ZyYW1fbWdyX2FsbG9jX3NndChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgdHRtX21lbV9yZWcgKm1lbSwK
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgZW51bSBkbWFfZGF0YV9kaXJlY3Rpb24gZGlyLAo+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBzZ190YWJsZSAqKnNndCkKPiAr
+ewo+ICsgICAgICAgc3RydWN0IGRybV9tbV9ub2RlICpub2RlOwo+ICsgICAgICAgc3RydWN0IHNj
+YXR0ZXJsaXN0ICpzZzsKPiArICAgICAgIGludCBudW1fZW50cmllcyA9IDA7Cj4gKyAgICAgICB1
+bnNpZ25lZCBpbnQgcGFnZXM7Cj4gKyAgICAgICBpbnQgaSwgcjsKPiArCj4gKyAgICAgICAqc2d0
+ID0ga21hbGxvYyhzaXplb2YoKnNnKSwgR0ZQX0tFUk5FTCk7Cj4gKyAgICAgICBpZiAoISpzZ3Qp
+Cj4gKyAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+ICsKPiArICAgICAgIGZvciAocGFn
+ZXMgPSBtZW0tPm51bV9wYWdlcywgbm9kZSA9IG1lbS0+bW1fbm9kZTsKPiArICAgICAgICAgICAg
+cGFnZXM7IHBhZ2VzIC09IG5vZGUtPnNpemUsICsrbm9kZSkKPiArICAgICAgICAgICAgICAgKytu
+dW1fZW50cmllczsKPiArCj4gKyAgICAgICByID0gc2dfYWxsb2NfdGFibGUoKnNndCwgbnVtX2Vu
+dHJpZXMsIEdGUF9LRVJORUwpOwo+ICsgICAgICAgaWYgKHIpCj4gKyAgICAgICAgICAgICAgIGdv
+dG8gZXJyb3JfZnJlZTsKPiArCj4gKyAgICAgICBmb3JfZWFjaF9zZygoKnNndCktPnNnbCwgc2cs
+IG51bV9lbnRyaWVzLCBpKQo+ICsgICAgICAgICAgICAgICBzZy0+bGVuZ3RoID0gMDsKPiArCj4g
+KyAgICAgICBub2RlID0gbWVtLT5tbV9ub2RlOwo+ICsgICAgICAgZm9yX2VhY2hfc2coKCpzZ3Qp
+LT5zZ2wsIHNnLCBudW1fZW50cmllcywgaSkgewo+ICsgICAgICAgICAgICAgICBwaHlzX2FkZHJf
+dCBwaHlzID0gKG5vZGUtPnN0YXJ0IDw8IFBBR0VfU0hJRlQpICsKPiArICAgICAgICAgICAgICAg
+ICAgICAgICBhZGV2LT5nbWMuYXBlcl9iYXNlOwo+ICsgICAgICAgICAgICAgICBzaXplX3Qgc2l6
+ZSA9IG5vZGUtPnNpemUgPDwgUEFHRV9TSElGVDsKPiArICAgICAgICAgICAgICAgZG1hX2FkZHJf
+dCBhZGRyOwo+ICsKPiArICAgICAgICAgICAgICAgKytub2RlOwo+ICsgICAgICAgICAgICAgICBh
+ZGRyID0gZG1hX21hcF9yZXNvdXJjZShkZXYsIHBoeXMsIHNpemUsIGRpciwKPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgRE1BX0FUVFJfU0tJUF9DUFVfU1lOQyk7Cj4g
+KyAgICAgICAgICAgICAgIHIgPSBkbWFfbWFwcGluZ19lcnJvcihkZXYsIGFkZHIpOwo+ICsgICAg
+ICAgICAgICAgICBpZiAocikKPiArICAgICAgICAgICAgICAgICAgICAgICBnb3RvIGVycm9yX3Vu
+bWFwOwo+ICsKPiArICAgICAgICAgICAgICAgc2dfc2V0X2RtYV9hZGRyKHNnLCBhZGRyLCBzaXpl
+LCAwKTsKPiArICAgICAgIH0KPiArICAgICAgIHJldHVybiAwOwo+ICsKPiArZXJyb3JfdW5tYXA6
+Cj4gKyAgICAgICBmb3JfZWFjaF9zZygoKnNndCktPnNnbCwgc2csIG51bV9lbnRyaWVzLCBpKSB7
+Cj4gKyAgICAgICAgICAgICAgIGlmICghc2ctPmxlbmd0aCkKPiArICAgICAgICAgICAgICAgICAg
+ICAgICBjb250aW51ZTsKPiArCj4gKyAgICAgICAgICAgICAgIGRtYV91bm1hcF9yZXNvdXJjZShk
+ZXYsIHNnLT5kbWFfYWRkcmVzcywKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHNnLT5sZW5ndGgsIGRpciwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIERN
+QV9BVFRSX1NLSVBfQ1BVX1NZTkMpOwo+ICsgICAgICAgfQo+ICsgICAgICAgc2dfZnJlZV90YWJs
+ZSgqc2d0KTsKPiArCj4gK2Vycm9yX2ZyZWU6Cj4gKyAgICAgICBrZnJlZSgqc2d0KTsKPiArICAg
+ICAgIHJldHVybiByOwo+ICt9Cj4gKwo+ICsvKioKPiArICogYW1kZ3B1X3ZyYW1fbWdyX2FsbG9j
+X3NndCAtIGFsbG9jYXRlIGFuZCBmaWxsIGEgc2cgdGFibGUKPiArICoKPiArICogQGFkZXY6IGFt
+ZGdwdSBkZXZpY2UgcG9pbnRlcgo+ICsgKiBAc2d0OiBzZyB0YWJsZSB0byBmcmVlCj4gKyAqCj4g
+KyAqIEZyZWUgYSBwcmV2aW91c2x5IGFsbG9jYXRlIHNnIHRhYmxlLgo+ICsgKi8KPiArdm9pZCBh
+bWRncHVfdnJhbV9tZ3JfZnJlZV9zZ3Qoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGRldmljZSAqZGV2LAo+ICsgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGVudW0gZG1hX2RhdGFfZGlyZWN0aW9uIGRpciwKPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3Qgc2dfdGFibGUgKnNndCkKPiArewo+ICsg
+ICAgICAgc3RydWN0IHNjYXR0ZXJsaXN0ICpzZzsKPiArICAgICAgIGludCBpOwo+ICsKPiArICAg
+ICAgIGZvcl9lYWNoX3NnKHNndC0+c2dsLCBzZywgc2d0LT5uZW50cywgaSkKPiArICAgICAgICAg
+ICAgICAgZG1hX3VubWFwX3Jlc291cmNlKGRldiwgc2ctPmRtYV9hZGRyZXNzLAo+ICsgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgc2ctPmxlbmd0aCwgZGlyLAo+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgRE1BX0FUVFJfU0tJUF9DUFVfU1lOQyk7Cj4gKyAgICAg
+ICBzZ19mcmVlX3RhYmxlKHNndCk7Cj4gKyAgICAgICBrZnJlZShzZ3QpOwo+ICt9Cj4gKwo+ICAv
+KioKPiAgICogYW1kZ3B1X3ZyYW1fbWdyX3VzYWdlIC0gaG93IG1hbnkgYnl0ZXMgYXJlIHVzZWQg
+aW4gdGhpcyBkb21haW4KPiAgICoKPiAtLQo+IDIuMTcuMQo+Cj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4g
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
