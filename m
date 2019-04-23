@@ -1,19 +1,15 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v5 6/6] drm/amdgpu: Avoid HW reset if guilty job already
- signaled.
-Date: Tue, 23 Apr 2019 13:14:28 +0000
-Message-ID: <84ca58e2-2b56-2082-d705-3b34e768c613@amd.com>
-References: <1555599624-12285-1-git-send-email-andrey.grodzovsky@amd.com>
- <1555599624-12285-6-git-send-email-andrey.grodzovsky@amd.com>
- <7a09bdb5-0acb-3df1-6691-4940920411ec@amd.com>
- <9774408b-cc4c-90dd-cbc7-6ef5c6fd8c46@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 5/5] drm/amd/powerplay: support hwmon temperature channel
+ labels V2
+Date: Tue, 23 Apr 2019 13:47:48 +0000
+Message-ID: <BN6PR12MB180904E13038F75D29575EBFF7230@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190423083701.26909-1-evan.quan@amd.com>,
+ <20190423083701.26909-5-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2001766127=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9774408b-cc4c-90dd-cbc7-6ef5c6fd8c46-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190423083701.26909-5-evan.quan-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <D2D1E375C9CAC141BABA488BDC09AE74-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -24,181 +20,399 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org" <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, "etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <etnaviv-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RmVlbCBmcmVlIHRvIG1lcmdlIDErMiBzaW5jZSB0aGV5IGRvbid0IHJlYWxseSBkZXBlbmQgb24g
-YW55IG90aGVyIHdvcmsgDQppbiB0aGUgc2VyaWVzIGFuZCB0aGV5IHdlcmUgcHJldmlvdXNseSBy
-ZXZpZXdlZC4NCg0KTmljaG9sYXMgS2F6bGF1c2thcw0KDQpPbiA0LzIzLzE5IDg6MzIgQU0sIEtv
-ZW5pZywgQ2hyaXN0aWFuIHdyb3RlOg0KPiBXZWxsIHlvdSBhdCBsZWFzdCBoYXZlIHRvIGdpdmUg
-bWUgdGltZSB0aWxsIGFmdGVyIHRoZSBob2xpZGF5cyB0byBnZXQNCj4gZ29pbmcgYWdhaW4gOikN
-Cj4gDQo+IE5vdCBzdXJlIGV4YWN0bHkgamV0IHdoeSB3ZSBuZWVkIHBhdGNoIG51bWJlciA1Lg0K
-PiANCj4gQW5kIHdlIHNob3VsZCBwcm9iYWJseSBjb21taXQgcGF0Y2ggIzEgYW5kICMyLg0KPiAN
-Cj4gQ2hyaXN0aWFuLg0KPiANCj4gQW0gMjIuMDQuMTkgdW0gMTM6NTQgc2NocmllYiBHcm9kem92
-c2t5LCBBbmRyZXk6DQo+PiBQaW5nIGZvciBwYXRjaGVzIDMsIG5ldyBwYXRjaCA1IGFuZCBwYXRj
-aCA2Lg0KPj4NCj4+IEFuZHJleQ0KPj4NCj4+IE9uIDQvMTgvMTkgMTE6MDAgQU0sIEFuZHJleSBH
-cm9kem92c2t5IHdyb3RlOg0KPj4+IEFsc28gcmVqZWN0IFREUnMgaWYgYW5vdGhlciBvbmUgYWxy
-ZWFkeSBydW5uaW5nLg0KPj4+DQo+Pj4gdjI6DQo+Pj4gU3RvcCBhbGwgc2NoZWR1bGVycyBhY3Jv
-c3MgZGV2aWNlIGFuZCBlbnRpcmUgWEdNSSBoaXZlIGJlZm9yZQ0KPj4+IGZvcmNlIHNpZ25hbGlu
-ZyBIVyBmZW5jZXMuDQo+Pj4gQXZvaWQgcGFzc2luZyBqb2Jfc2lnbmFsZWQgdG8gaGVscGVyIGZu
-Y3Rpb25zIHRvIGtlZXAgYWxsIHRoZSBkZWNpc2lvbg0KPj4+IG1ha2luZyBhYm91dCBza2lwcGlu
-ZyBIVyByZXNldCBpbiBvbmUgcGxhY2UuDQo+Pj4NCj4+PiB2MzoNCj4+PiBGaXggU1cgc2NoZWQu
-IGhhbmcgYWZ0ZXIgbm9uIEhXIHJlc2V0LiBzY2hlZC5od19ycV9jb3VudCBoYXMgdG8gYmUgYmFs
-YW5jZWQNCj4+PiBhZ2FpbnN0IGl0J3MgZGVjcmVtZW50IGluIGRybV9zY2hlZF9zdG9wIGluIG5v
-biBIVyByZXNldCBjYXNlLg0KPj4+IHY0OiByZWJhc2UNCj4+PiB2NTogUmV2ZXJ0IHYzIGFzIHdl
-IGRvIGl0IG5vdyBpbiBzY2VkdWxlciBjb2RlLg0KPj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogQW5k
-cmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5jb20+DQo+Pj4gLS0tDQo+Pj4g
-ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDE0MyArKysr
-KysrKysrKysrKysrKysrLS0tLS0tLS0tLQ0KPj4+ICAgICAxIGZpbGUgY2hhbmdlZCwgOTUgaW5z
-ZXJ0aW9ucygrKSwgNDggZGVsZXRpb25zKC0pDQo+Pj4NCj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+Pj4gaW5kZXggYTBlMTY1Yy4uODVmODc5MiAxMDA2
-NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMN
-Cj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4+
-PiBAQCAtMzMzNCw4ICszMzM0LDYgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX3ByZV9hc2lj
-X3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+ICAgICAJCWlmICghcmluZyB8
-fCAhcmluZy0+c2NoZWQudGhyZWFkKQ0KPj4+ICAgICAJCQljb250aW51ZTsNCj4+PiAgICAgDQo+
-Pj4gLQkJZHJtX3NjaGVkX3N0b3AoJnJpbmctPnNjaGVkLCAmam9iLT5iYXNlKTsNCj4+PiAtDQo+
-Pj4gICAgIAkJLyogYWZ0ZXIgYWxsIGh3IGpvYnMgYXJlIHJlc2V0LCBodyBmZW5jZSBpcyBtZWFu
-aW5nbGVzcywgc28gZm9yY2VfY29tcGxldGlvbiAqLw0KPj4+ICAgICAJCWFtZGdwdV9mZW5jZV9k
-cml2ZXJfZm9yY2VfY29tcGxldGlvbihyaW5nKTsNCj4+PiAgICAgCX0NCj4+PiBAQCAtMzM0Myw2
-ICszMzQxLDcgQEAgc3RhdGljIGludCBhbWRncHVfZGV2aWNlX3ByZV9hc2ljX3Jlc2V0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+ICAgICAJaWYoam9iKQ0KPj4+ICAgICAJCWRybV9z
-Y2hlZF9pbmNyZWFzZV9rYXJtYSgmam9iLT5iYXNlKTsNCj4+PiAgICAgDQo+Pj4gKwkvKiBEb24n
-dCBzdXNwZW5kIG9uIGJhcmUgbWV0YWwgaWYgd2UgYXJlIG5vdCBnb2luZyB0byBIVyByZXNldCB0
-aGUgQVNJQyAqLw0KPj4+ICAgICAJaWYgKCFhbWRncHVfc3Jpb3ZfdmYoYWRldikpIHsNCj4+PiAg
-ICAgDQo+Pj4gICAgIAkJaWYgKCFuZWVkX2Z1bGxfcmVzZXQpDQo+Pj4gQEAgLTM0ODAsMzcgKzM0
-NzksMjEgQEAgc3RhdGljIGludCBhbWRncHVfZG9fYXNpY19yZXNldChzdHJ1Y3QgYW1kZ3B1X2hp
-dmVfaW5mbyAqaGl2ZSwNCj4+PiAgICAgCXJldHVybiByOw0KPj4+ICAgICB9DQo+Pj4gICAgIA0K
-Pj4+IC1zdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNlX3Bvc3RfYXNpY19yZXNldChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikNCj4+PiArc3RhdGljIGJvb2wgYW1kZ3B1X2RldmljZV9sb2NrX2Fk
-ZXYoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGJvb2wgdHJ5bG9jaykNCj4+PiAgICAgew0K
-Pj4+IC0JaW50IGk7DQo+Pj4gLQ0KPj4+IC0JZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfUklO
-R1M7ICsraSkgew0KPj4+IC0JCXN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IGFkZXYtPnJpbmdz
-W2ldOw0KPj4+IC0NCj4+PiAtCQlpZiAoIXJpbmcgfHwgIXJpbmctPnNjaGVkLnRocmVhZCkNCj4+
-PiAtCQkJY29udGludWU7DQo+Pj4gLQ0KPj4+IC0JCWlmICghYWRldi0+YXNpY19yZXNldF9yZXMp
-DQo+Pj4gLQkJCWRybV9zY2hlZF9yZXN1Ym1pdF9qb2JzKCZyaW5nLT5zY2hlZCk7DQo+Pj4gKwlp
-ZiAodHJ5bG9jaykgew0KPj4+ICsJCWlmICghbXV0ZXhfdHJ5bG9jaygmYWRldi0+bG9ja19yZXNl
-dCkpDQo+Pj4gKwkJCXJldHVybiBmYWxzZTsNCj4+PiArCX0gZWxzZQ0KPj4+ICsJCW11dGV4X2xv
-Y2soJmFkZXYtPmxvY2tfcmVzZXQpOw0KPj4+ICAgICANCj4+PiAtCQlkcm1fc2NoZWRfc3RhcnQo
-JnJpbmctPnNjaGVkLCAhYWRldi0+YXNpY19yZXNldF9yZXMpOw0KPj4+IC0JfQ0KPj4+IC0NCj4+
-PiAtCWlmICghYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9ydChhZGV2KSkgew0KPj4+IC0JCWRy
-bV9oZWxwZXJfcmVzdW1lX2ZvcmNlX21vZGUoYWRldi0+ZGRldik7DQo+Pj4gLQl9DQo+Pj4gLQ0K
-Pj4+IC0JYWRldi0+YXNpY19yZXNldF9yZXMgPSAwOw0KPj4+IC19DQo+Pj4gLQ0KPj4+IC1zdGF0
-aWMgdm9pZCBhbWRncHVfZGV2aWNlX2xvY2tfYWRldihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRl
-dikNCj4+PiAtew0KPj4+IC0JbXV0ZXhfbG9jaygmYWRldi0+bG9ja19yZXNldCk7DQo+Pj4gICAg
-IAlhdG9taWNfaW5jKCZhZGV2LT5ncHVfcmVzZXRfY291bnRlcik7DQo+Pj4gICAgIAlhZGV2LT5p
-bl9ncHVfcmVzZXQgPSAxOw0KPj4+ICAgICAJLyogQmxvY2sga2ZkOiBTUklPViB3b3VsZCBkbyBp
-dCBzZXBhcmF0ZWx5ICovDQo+Pj4gICAgIAlpZiAoIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkNCj4+
-PiAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9hbWRrZmRfcHJlX3Jlc2V0KGFkZXYpOw0KPj4+
-ICsNCj4+PiArCXJldHVybiB0cnVlOw0KPj4+ICAgICB9DQo+Pj4gICAgIA0KPj4+ICAgICBzdGF0
-aWMgdm9pZCBhbWRncHVfZGV2aWNlX3VubG9ja19hZGV2KHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2KQ0KPj4+IEBAIC0zNTM4LDQwICszNTIxLDQyIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kZXZp
-Y2VfdW5sb2NrX2FkZXYoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+Pj4gICAgIGludCBh
-bWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+
-ICAgICAJCQkgICAgICBzdHJ1Y3QgYW1kZ3B1X2pvYiAqam9iKQ0KPj4+ICAgICB7DQo+Pj4gLQlp
-bnQgcjsNCj4+PiArCXN0cnVjdCBsaXN0X2hlYWQgZGV2aWNlX2xpc3QsICpkZXZpY2VfbGlzdF9o
-YW5kbGUgPSAgTlVMTDsNCj4+PiArCWJvb2wgbmVlZF9mdWxsX3Jlc2V0LCBqb2Jfc2lnbmFsZWQ7
-DQo+Pj4gICAgIAlzdHJ1Y3QgYW1kZ3B1X2hpdmVfaW5mbyAqaGl2ZSA9IE5VTEw7DQo+Pj4gLQli
-b29sIG5lZWRfZnVsbF9yZXNldCA9IGZhbHNlOw0KPj4+ICAgICAJc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKnRtcF9hZGV2ID0gTlVMTDsNCj4+PiAtCXN0cnVjdCBsaXN0X2hlYWQgZGV2aWNlX2xpc3Qs
-ICpkZXZpY2VfbGlzdF9oYW5kbGUgPSAgTlVMTDsNCj4+PiArCWludCBpLCByID0gMDsNCj4+PiAg
-ICAgDQo+Pj4gKwluZWVkX2Z1bGxfcmVzZXQgPSBqb2Jfc2lnbmFsZWQgPSBmYWxzZTsNCj4+PiAg
-ICAgCUlOSVRfTElTVF9IRUFEKCZkZXZpY2VfbGlzdCk7DQo+Pj4gICAgIA0KPj4+ICAgICAJZGV2
-X2luZm8oYWRldi0+ZGV2LCAiR1BVIHJlc2V0IGJlZ2luIVxuIik7DQo+Pj4gICAgIA0KPj4+ICsJ
-aGl2ZSA9IGFtZGdwdV9nZXRfeGdtaV9oaXZlKGFkZXYsIGZhbHNlKTsNCj4+PiArDQo+Pj4gICAg
-IAkvKg0KPj4+IC0JICogSW4gY2FzZSBvZiBYR01JIGhpdmUgZGlzYWxsb3cgY29uY3VycmVudCBy
-ZXNldHMgdG8gYmUgdHJpZ2dlcmVkDQo+Pj4gLQkgKiBieSBkaWZmZXJlbnQgbm9kZXMuIE5vIHBv
-aW50IGFsc28gc2luY2UgdGhlIG9uZSBub2RlIGFscmVhZHkgZXhlY3V0aW5nDQo+Pj4gLQkgKiBy
-ZXNldCB3aWxsIGFsc28gcmVzZXQgYWxsIHRoZSBvdGhlciBub2RlcyBpbiB0aGUgaGl2ZS4NCj4+
-PiArCSAqIEhlcmUgd2UgdHJ5bG9jayB0byBhdm9pZCBjaGFpbiBvZiByZXNldHMgZXhlY3V0aW5n
-IGZyb20NCj4+PiArCSAqIGVpdGhlciB0cmlnZ2VyIGJ5IGpvYnMgb24gZGlmZmVyZW50IGFkZXZz
-IGluIFhHTUkgaGl2ZSBvciBqb2JzIG9uDQo+Pj4gKwkgKiBkaWZmZXJlbnQgc2NoZWR1bGVycyBm
-b3Igc2FtZSBkZXZpY2Ugd2hpbGUgdGhpcyBUTyBoYW5kbGVyIGlzIHJ1bm5pbmcuDQo+Pj4gKwkg
-KiBXZSBhbHdheXMgcmVzZXQgYWxsIHNjaGVkdWxlcnMgZm9yIGRldmljZSBhbmQgYWxsIGRldmlj
-ZXMgZm9yIFhHTUkNCj4+PiArCSAqIGhpdmUgc28gdGhhdCBzaG91bGQgdGFrZSBjYXJlIG9mIHRo
-ZW0gdG9vLg0KPj4+ICAgICAJICovDQo+Pj4gLQloaXZlID0gYW1kZ3B1X2dldF94Z21pX2hpdmUo
-YWRldiwgMCk7DQo+Pj4gLQlpZiAoaGl2ZSAmJiBhZGV2LT5nbWMueGdtaS5udW1fcGh5c2ljYWxf
-bm9kZXMgPiAxICYmDQo+Pj4gLQkgICAgIW11dGV4X3RyeWxvY2soJmhpdmUtPnJlc2V0X2xvY2sp
-KQ0KPj4+ICsNCj4+PiArCWlmIChoaXZlICYmICFtdXRleF90cnlsb2NrKCZoaXZlLT5yZXNldF9s
-b2NrKSkgew0KPj4+ICsJCURSTV9JTkZPKCJCYWlsaW5nIG9uIFREUiBmb3Igc19qb2I6JWxseCwg
-aGl2ZTogJWxseCBhcyBhbm90aGVyIGFscmVhZHkgaW4gcHJvZ3Jlc3MiLA0KPj4+ICsJCQkgam9i
-LT5iYXNlLmlkLCBoaXZlLT5oaXZlX2lkKTsNCj4+PiAgICAgCQlyZXR1cm4gMDsNCj4+PiArCX0N
-Cj4+PiAgICAgDQo+Pj4gICAgIAkvKiBTdGFydCB3aXRoIGFkZXYgcHJlIGFzaWMgcmVzZXQgZmly
-c3QgZm9yIHNvZnQgcmVzZXQgY2hlY2suKi8NCj4+PiAtCWFtZGdwdV9kZXZpY2VfbG9ja19hZGV2
-KGFkZXYpOw0KPj4+IC0JciA9IGFtZGdwdV9kZXZpY2VfcHJlX2FzaWNfcmVzZXQoYWRldiwNCj4+
-PiAtCQkJCQkgam9iLA0KPj4+IC0JCQkJCSAmbmVlZF9mdWxsX3Jlc2V0KTsNCj4+PiAtCWlmIChy
-KSB7DQo+Pj4gLQkJLypUT0RPIFNob3VsZCB3ZSBzdG9wID8qLw0KPj4+IC0JCURSTV9FUlJPUigi
-R1BVIHByZSBhc2ljIHJlc2V0IGZhaWxlZCB3aXRoIGVyciwgJWQgZm9yIGRybSBkZXYsICVzICIs
-DQo+Pj4gLQkJCSAgciwgYWRldi0+ZGRldi0+dW5pcXVlKTsNCj4+PiAtCQlhZGV2LT5hc2ljX3Jl
-c2V0X3JlcyA9IHI7DQo+Pj4gKwlpZiAoIWFtZGdwdV9kZXZpY2VfbG9ja19hZGV2KGFkZXYsICFo
-aXZlKSkgew0KPj4+ICsJCURSTV9JTkZPKCJCYWlsaW5nIG9uIFREUiBmb3Igc19qb2I6JWxseCwg
-YXMgYW5vdGhlciBhbHJlYWR5IGluIHByb2dyZXNzIiwNCj4+PiArCQkJCQkgam9iLT5iYXNlLmlk
-KTsNCj4+PiArCQlyZXR1cm4gMDsNCj4+PiAgICAgCX0NCj4+PiAgICAgDQo+Pj4gICAgIAkvKiBC
-dWlsZCBsaXN0IG9mIGRldmljZXMgdG8gcmVzZXQgKi8NCj4+PiAtCWlmICAobmVlZF9mdWxsX3Jl
-c2V0ICYmIGFkZXYtPmdtYy54Z21pLm51bV9waHlzaWNhbF9ub2RlcyA+IDEpIHsNCj4+PiArCWlm
-ICAoYWRldi0+Z21jLnhnbWkubnVtX3BoeXNpY2FsX25vZGVzID4gMSkgew0KPj4+ICAgICAJCWlm
-ICghaGl2ZSkgew0KPj4+ICAgICAJCQlhbWRncHVfZGV2aWNlX3VubG9ja19hZGV2KGFkZXYpOw0K
-Pj4+ICAgICAJCQlyZXR1cm4gLUVOT0RFVjsNCj4+PiBAQCAtMzU4OCwxMyArMzU3Myw1NiBAQCBp
-bnQgYW1kZ3B1X2RldmljZV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwN
-Cj4+PiAgICAgCQlkZXZpY2VfbGlzdF9oYW5kbGUgPSAmZGV2aWNlX2xpc3Q7DQo+Pj4gICAgIAl9
-DQo+Pj4gICAgIA0KPj4+ICsJLyogYmxvY2sgYWxsIHNjaGVkdWxlcnMgYW5kIHJlc2V0IGdpdmVu
-IGpvYidzIHJpbmcgKi8NCj4+PiArCWxpc3RfZm9yX2VhY2hfZW50cnkodG1wX2FkZXYsIGRldmlj
-ZV9saXN0X2hhbmRsZSwgZ21jLnhnbWkuaGVhZCkgew0KPj4+ICsJCWZvciAoaSA9IDA7IGkgPCBB
-TURHUFVfTUFYX1JJTkdTOyArK2kpIHsNCj4+PiArCQkJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
-ID0gdG1wX2FkZXYtPnJpbmdzW2ldOw0KPj4+ICsNCj4+PiArCQkJaWYgKCFyaW5nIHx8ICFyaW5n
-LT5zY2hlZC50aHJlYWQpDQo+Pj4gKwkJCQljb250aW51ZTsNCj4+PiArDQo+Pj4gKwkJCWRybV9z
-Y2hlZF9zdG9wKCZyaW5nLT5zY2hlZCwgJmpvYi0+YmFzZSk7DQo+Pj4gKwkJfQ0KPj4+ICsJfQ0K
-Pj4+ICsNCj4+PiArDQo+Pj4gKwkvKg0KPj4+ICsJICogTXVzdCBjaGVjayBndWlsdHkgc2lnbmFs
-IGhlcmUgc2luY2UgYWZ0ZXIgdGhpcyBwb2ludCBhbGwgb2xkDQo+Pj4gKwkgKiBIVyBmZW5jZXMg
-YXJlIGZvcmNlIHNpZ25hbGVkLg0KPj4+ICsJICoNCj4+PiArCSAqIGpvYi0+YmFzZSBob2xkcyBh
-IHJlZmVyZW5jZSB0byBwYXJlbnQgZmVuY2UNCj4+PiArCSAqLw0KPj4+ICsJaWYgKGpvYiAmJiBq
-b2ItPmJhc2Uuc19mZW5jZS0+cGFyZW50ICYmDQo+Pj4gKwkgICAgZG1hX2ZlbmNlX2lzX3NpZ25h
-bGVkKGpvYi0+YmFzZS5zX2ZlbmNlLT5wYXJlbnQpKQ0KPj4+ICsJCWpvYl9zaWduYWxlZCA9IHRy
-dWU7DQo+Pj4gKw0KPj4+ICsJaWYgKCFhbWRncHVfZGV2aWNlX2lwX25lZWRfZnVsbF9yZXNldChh
-ZGV2KSkNCj4+PiArCQlkZXZpY2VfbGlzdF9oYW5kbGUgPSAmZGV2aWNlX2xpc3Q7DQo+Pj4gKw0K
-Pj4+ICsJaWYgKGpvYl9zaWduYWxlZCkgew0KPj4+ICsJCWRldl9pbmZvKGFkZXYtPmRldiwgIkd1
-aWx0eSBqb2IgYWxyZWFkeSBzaWduYWxlZCwgc2tpcHBpbmcgSFcgcmVzZXQiKTsNCj4+PiArCQln
-b3RvIHNraXBfaHdfcmVzZXQ7DQo+Pj4gKwl9DQo+Pj4gKw0KPj4+ICsNCj4+PiArCS8qIEd1aWx0
-eSBqb2Igd2lsbCBiZSBmcmVlZCBhZnRlciB0aGlzKi8NCj4+PiArCXIgPSBhbWRncHVfZGV2aWNl
-X3ByZV9hc2ljX3Jlc2V0KGFkZXYsDQo+Pj4gKwkJCQkJIGpvYiwNCj4+PiArCQkJCQkgJm5lZWRf
-ZnVsbF9yZXNldCk7DQo+Pj4gKwlpZiAocikgew0KPj4+ICsJCS8qVE9ETyBTaG91bGQgd2Ugc3Rv
-cCA/Ki8NCj4+PiArCQlEUk1fRVJST1IoIkdQVSBwcmUgYXNpYyByZXNldCBmYWlsZWQgd2l0aCBl
-cnIsICVkIGZvciBkcm0gZGV2LCAlcyAiLA0KPj4+ICsJCQkgIHIsIGFkZXYtPmRkZXYtPnVuaXF1
-ZSk7DQo+Pj4gKwkJYWRldi0+YXNpY19yZXNldF9yZXMgPSByOw0KPj4+ICsJfQ0KPj4+ICsNCj4+
-PiAgICAgcmV0cnk6CS8qIFJlc3Qgb2YgYWRldnMgcHJlIGFzaWMgcmVzZXQgZnJvbSBYR01JIGhp
-dmUuICovDQo+Pj4gICAgIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2LCBkZXZpY2VfbGlz
-dF9oYW5kbGUsIGdtYy54Z21pLmhlYWQpIHsNCj4+PiAgICAgDQo+Pj4gICAgIAkJaWYgKHRtcF9h
-ZGV2ID09IGFkZXYpDQo+Pj4gICAgIAkJCWNvbnRpbnVlOw0KPj4+ICAgICANCj4+PiAtCQlhbWRn
-cHVfZGV2aWNlX2xvY2tfYWRldih0bXBfYWRldik7DQo+Pj4gKwkJYW1kZ3B1X2RldmljZV9sb2Nr
-X2FkZXYodG1wX2FkZXYsIGZhbHNlKTsNCj4+PiAgICAgCQlyID0gYW1kZ3B1X2RldmljZV9wcmVf
-YXNpY19yZXNldCh0bXBfYWRldiwNCj4+PiAgICAgCQkJCQkJIE5VTEwsDQo+Pj4gICAgIAkJCQkJ
-CSAmbmVlZF9mdWxsX3Jlc2V0KTsNCj4+PiBAQCAtMzYxOCw5ICszNjQ2LDI4IEBAIGludCBhbWRn
-cHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+ICAg
-ICAJCQlnb3RvIHJldHJ5Ow0KPj4+ICAgICAJfQ0KPj4+ICAgICANCj4+PiArc2tpcF9od19yZXNl
-dDoNCj4+PiArDQo+Pj4gICAgIAkvKiBQb3N0IEFTSUMgcmVzZXQgZm9yIGFsbCBkZXZzIC4qLw0K
-Pj4+ICAgICAJbGlzdF9mb3JfZWFjaF9lbnRyeSh0bXBfYWRldiwgZGV2aWNlX2xpc3RfaGFuZGxl
-LCBnbWMueGdtaS5oZWFkKSB7DQo+Pj4gLQkJYW1kZ3B1X2RldmljZV9wb3N0X2FzaWNfcmVzZXQo
-dG1wX2FkZXYpOw0KPj4+ICsJCWZvciAoaSA9IDA7IGkgPCBBTURHUFVfTUFYX1JJTkdTOyArK2kp
-IHsNCj4+PiArCQkJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gdG1wX2FkZXYtPnJpbmdzW2ld
-Ow0KPj4+ICsNCj4+PiArCQkJaWYgKCFyaW5nIHx8ICFyaW5nLT5zY2hlZC50aHJlYWQpDQo+Pj4g
-KwkJCQljb250aW51ZTsNCj4+PiArDQo+Pj4gKwkJCS8qIE5vIHBvaW50IHRvIHJlc3VibWl0IGpv
-YnMgaWYgd2UgZGlkbid0IEhXIHJlc2V0Ki8NCj4+PiArCQkJaWYgKCF0bXBfYWRldi0+YXNpY19y
-ZXNldF9yZXMgJiYgIWpvYl9zaWduYWxlZCkNCj4+PiArCQkJCWRybV9zY2hlZF9yZXN1Ym1pdF9q
-b2JzKCZyaW5nLT5zY2hlZCk7DQo+Pj4gKw0KPj4+ICsJCQlkcm1fc2NoZWRfc3RhcnQoJnJpbmct
-PnNjaGVkLCAhdG1wX2FkZXYtPmFzaWNfcmVzZXRfcmVzKTsNCj4+PiArCQl9DQo+Pj4gKw0KPj4+
-ICsJCWlmICghYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9ydCh0bXBfYWRldikgJiYgIWpvYl9z
-aWduYWxlZCkgew0KPj4+ICsJCQlkcm1faGVscGVyX3Jlc3VtZV9mb3JjZV9tb2RlKHRtcF9hZGV2
-LT5kZGV2KTsNCj4+PiArCQl9DQo+Pj4gKw0KPj4+ICsJCXRtcF9hZGV2LT5hc2ljX3Jlc2V0X3Jl
-cyA9IDA7DQo+Pj4gICAgIA0KPj4+ICAgICAJCWlmIChyKSB7DQo+Pj4gICAgIAkJCS8qIGJhZCBu
-ZXdzLCBob3cgdG8gdGVsbCBpdCB0byB1c2Vyc3BhY2UgPyAqLw0KPj4+IEBAIC0zNjMzLDcgKzM2
-ODAsNyBAQCBpbnQgYW1kZ3B1X2RldmljZV9ncHVfcmVjb3ZlcihzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwNCj4+PiAgICAgCQlhbWRncHVfZGV2aWNlX3VubG9ja19hZGV2KHRtcF9hZGV2KTsN
-Cj4+PiAgICAgCX0NCj4+PiAgICAgDQo+Pj4gLQlpZiAoaGl2ZSAmJiBhZGV2LT5nbWMueGdtaS5u
-dW1fcGh5c2ljYWxfbm9kZXMgPiAxKQ0KPj4+ICsJaWYgKGhpdmUpDQo+Pj4gICAgIAkJbXV0ZXhf
-dW5sb2NrKCZoaXZlLT5yZXNldF9sb2NrKTsNCj4+PiAgICAgDQo+Pj4gICAgIAlpZiAocikNCj4g
-DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGRy
-aS1kZXZlbCBtYWlsaW5nIGxpc3QNCj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
-bA0KPiANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============2001766127==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180904E13038F75D29575EBFF7230BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180904E13038F75D29575EBFF7230BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
+n <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, April 23, 2019 4:37 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander; Quan, Evan
+Subject: [PATCH 5/5] drm/amd/powerplay: support hwmon temperature channel l=
+abels V2
+
+Expose temp[1-3]_label hwmon interfaces. While temp2_label
+and temp3_label are visible for SOC15 dGPUs only.
+
+- V2: correct temp1_label as "edge"
+
+Change-Id: I7f1e10c52ec21d272027554cdf6da97103e0be58
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        | 35 ++++++++++++++++++-
+ .../gpu/drm/amd/include/kgd_pp_interface.h    |  7 ++++
+ 2 files changed, 41 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c
+index 291c06f40dba..4fe1b58892a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -120,6 +120,15 @@ static const struct cg_flag_name clocks[] =3D {
+         {0, NULL},
+ };
+
++static const struct hwmon_temp_label {
++       enum PP_HWMON_TEMP channel;
++       const char *label;
++} temp_label[] =3D {
++       {PP_TEMP_EDGE, "edge"},
++       {PP_TEMP_JUNCTION, "junction"},
++       {PP_TEMP_MEM, "mem"},
++};
++
+ void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
+ {
+         if (adev->pm.dpm_enabled) {
+@@ -1511,6 +1520,19 @@ static ssize_t amdgpu_hwmon_show_mem_temp_thresh(str=
+uct device *dev,
+         return snprintf(buf, PAGE_SIZE, "%d\n", temp);
+ }
+
++static ssize_t amdgpu_hwmon_show_temp_label(struct device *dev,
++                                            struct device_attribute *attr,
++                                            char *buf)
++{
++       struct amdgpu_device *adev =3D dev_get_drvdata(dev);
++       int channel =3D to_sensor_dev_attr(attr)->index;
++
++       if (channel >=3D PP_TEMP_MAX)
++               return -EINVAL;
++
++       return snprintf(buf, PAGE_SIZE, "%s\n", temp_label[channel].label);
++}
++
+ static ssize_t amdgpu_hwmon_show_temp_emergency(struct device *dev,
+                                              struct device_attribute *attr=
+,
+                                              char *buf)
+@@ -2109,6 +2131,9 @@ static ssize_t amdgpu_hwmon_show_mclk_label(struct de=
+vice *dev,
+  * - temp[1-3]_input: the on die GPU temperature in millidegrees Celsius
+  *   - temp2_input and temp3_input are supported on SOC15 dGPUs only
+  *
++ * - temp[1-3]_label: temperature channel label
++ *   - temp2_label and temp3_label are supported on SOC15 dGPUs only
++ *
+  * - temp[1-3]_crit: temperature critical max value in millidegrees Celsiu=
+s
+  *   - temp2_crit and temp3_crit are supported on SOC15 dGPUs only
+  *
+@@ -2176,6 +2201,9 @@ static SENSOR_DEVICE_ATTR(temp3_input, S_IRUGO, amdgp=
+u_hwmon_show_temp, NULL, PP
+ static SENSOR_DEVICE_ATTR(temp3_crit, S_IRUGO, amdgpu_hwmon_show_mem_temp_=
+thresh, NULL, 0);
+ static SENSOR_DEVICE_ATTR(temp3_crit_hyst, S_IRUGO, amdgpu_hwmon_show_mem_=
+temp_thresh, NULL, 1);
+ static SENSOR_DEVICE_ATTR(temp3_emergency, S_IRUGO, amdgpu_hwmon_show_temp=
+_emergency, NULL, PP_TEMP_MEM);
++static SENSOR_DEVICE_ATTR(temp1_label, S_IRUGO, amdgpu_hwmon_show_temp_lab=
+el, NULL, PP_TEMP_EDGE);
++static SENSOR_DEVICE_ATTR(temp2_label, S_IRUGO, amdgpu_hwmon_show_temp_lab=
+el, NULL, PP_TEMP_JUNCTION);
++static SENSOR_DEVICE_ATTR(temp3_label, S_IRUGO, amdgpu_hwmon_show_temp_lab=
+el, NULL, PP_TEMP_MEM);
+ static SENSOR_DEVICE_ATTR(pwm1, S_IRUGO | S_IWUSR, amdgpu_hwmon_get_pwm1, =
+amdgpu_hwmon_set_pwm1, 0);
+ static SENSOR_DEVICE_ATTR(pwm1_enable, S_IRUGO | S_IWUSR, amdgpu_hwmon_get=
+_pwm1_enable, amdgpu_hwmon_set_pwm1_enable, 0);
+ static SENSOR_DEVICE_ATTR(pwm1_min, S_IRUGO, amdgpu_hwmon_get_pwm1_min, NU=
+LL, 0);
+@@ -2211,6 +2239,9 @@ static struct attribute *hwmon_attributes[] =3D {
+         &sensor_dev_attr_temp1_emergency.dev_attr.attr,
+         &sensor_dev_attr_temp2_emergency.dev_attr.attr,
+         &sensor_dev_attr_temp3_emergency.dev_attr.attr,
++       &sensor_dev_attr_temp1_label.dev_attr.attr,
++       &sensor_dev_attr_temp2_label.dev_attr.attr,
++       &sensor_dev_attr_temp3_label.dev_attr.attr,
+         &sensor_dev_attr_pwm1.dev_attr.attr,
+         &sensor_dev_attr_pwm1_enable.dev_attr.attr,
+         &sensor_dev_attr_pwm1_min.dev_attr.attr,
+@@ -2344,7 +2375,9 @@ static umode_t hwmon_attributes_visible(struct kobjec=
+t *kobj,
+              attr =3D=3D &sensor_dev_attr_temp2_emergency.dev_attr.attr ||
+              attr =3D=3D &sensor_dev_attr_temp3_emergency.dev_attr.attr ||
+              attr =3D=3D &sensor_dev_attr_temp2_input.dev_attr.attr ||
+-            attr =3D=3D &sensor_dev_attr_temp3_input.dev_attr.attr))
++            attr =3D=3D &sensor_dev_attr_temp3_input.dev_attr.attr ||
++            attr =3D=3D &sensor_dev_attr_temp2_label.dev_attr.attr ||
++            attr =3D=3D &sensor_dev_attr_temp3_label.dev_attr.attr))
+                 return 0;
+
+         return effective_mode;
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h
+index a8bf8e90ceeb..30788d510576 100644
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
++++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
+@@ -162,6 +162,13 @@ struct pp_states_info {
+         uint32_t states[16];
+ };
+
++enum PP_HWMON_TEMP {
++       PP_TEMP_EDGE =3D 0,
++       PP_TEMP_JUNCTION,
++       PP_TEMP_MEM,
++       PP_TEMP_MAX
++};
++
+ #define PP_GROUP_MASK        0xF0000000
+ #define PP_GROUP_SHIFT       28
+
+--
+2.21.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180904E13038F75D29575EBFF7230BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Tuesday, April 23, 2019 4:37 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander; Quan, Evan<br>
+<b>Subject:</b> [PATCH 5/5] drm/amd/powerplay: support hwmon temperature ch=
+annel labels V2</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Expose temp[1-3]_label hwmon interfaces. While tem=
+p2_label<br>
+and temp3_label are visible for SOC15 dGPUs only.<br>
+<br>
+- V2: correct temp1_label as &quot;edge&quot;<br>
+<br>
+Change-Id: I7f1e10c52ec21d272027554cdf6da97103e0be58<br>
+Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp; | 35 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
+&nbsp;.../gpu/drm/amd/include/kgd_pp_interface.h&nbsp;&nbsp;&nbsp; |&nbsp; =
+7 &#43;&#43;&#43;&#43;<br>
+&nbsp;2 files changed, 41 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_pm.c<br>
+index 291c06f40dba..4fe1b58892a2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
+@@ -120,6 &#43;120,15 @@ static const struct cg_flag_name clocks[] =3D {<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {0, NULL},<br>
+&nbsp;};<br>
+&nbsp;<br>
+&#43;static const struct hwmon_temp_label {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum PP_HWMON_TEMP channel;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char *label;<br>
+&#43;} temp_label[] =3D {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {PP_TEMP_EDGE, &quot;edge&quot;},=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {PP_TEMP_JUNCTION, &quot;junction=
+&quot;},<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {PP_TEMP_MEM, &quot;mem&quot;},<b=
+r>
+&#43;};<br>
+&#43;<br>
+&nbsp;void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.dpm_enable=
+d) {<br>
+@@ -1511,6 &#43;1520,19 @@ static ssize_t amdgpu_hwmon_show_mem_temp_thresh=
+(struct device *dev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_=
+SIZE, &quot;%d\n&quot;, temp);<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static ssize_t amdgpu_hwmon_show_temp_label(struct device *dev,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D de=
+v_get_drvdata(dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int channel =3D to_sensor_dev_att=
+r(attr)-&gt;index;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (channel &gt;=3D PP_TEMP_MAX)<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
+quot;%s\n&quot;, temp_label[channel].label);<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static ssize_t amdgpu_hwmon_show_temp_emergency(struct device *dev,<b=
+r>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct device_attribute *attr=
+,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char *buf)<br>
+@@ -2109,6 &#43;2131,9 @@ static ssize_t amdgpu_hwmon_show_mclk_label(struc=
+t device *dev,<br>
+&nbsp; * - temp[1-3]_input: the on die GPU temperature in millidegrees Cels=
+ius<br>
+&nbsp; *&nbsp;&nbsp; - temp2_input and temp3_input are supported on SOC15 d=
+GPUs only<br>
+&nbsp; *<br>
+&#43; * - temp[1-3]_label: temperature channel label<br>
+&#43; *&nbsp;&nbsp; - temp2_label and temp3_label are supported on SOC15 dG=
+PUs only<br>
+&#43; *<br>
+&nbsp; * - temp[1-3]_crit: temperature critical max value in millidegrees C=
+elsius<br>
+&nbsp; *&nbsp;&nbsp; - temp2_crit and temp3_crit are supported on SOC15 dGP=
+Us only<br>
+&nbsp; *<br>
+@@ -2176,6 &#43;2201,9 @@ static SENSOR_DEVICE_ATTR(temp3_input, S_IRUGO, a=
+mdgpu_hwmon_show_temp, NULL, PP<br>
+&nbsp;static SENSOR_DEVICE_ATTR(temp3_crit, S_IRUGO, amdgpu_hwmon_show_mem_=
+temp_thresh, NULL, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(temp3_crit_hyst, S_IRUGO, amdgpu_hwmon_show=
+_mem_temp_thresh, NULL, 1);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(temp3_emergency, S_IRUGO, amdgpu_hwmon_show=
+_temp_emergency, NULL, PP_TEMP_MEM);<br>
+&#43;static SENSOR_DEVICE_ATTR(temp1_label, S_IRUGO, amdgpu_hwmon_show_temp=
+_label, NULL, PP_TEMP_EDGE);<br>
+&#43;static SENSOR_DEVICE_ATTR(temp2_label, S_IRUGO, amdgpu_hwmon_show_temp=
+_label, NULL, PP_TEMP_JUNCTION);<br>
+&#43;static SENSOR_DEVICE_ATTR(temp3_label, S_IRUGO, amdgpu_hwmon_show_temp=
+_label, NULL, PP_TEMP_MEM);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(pwm1, S_IRUGO | S_IWUSR, amdgpu_hwmon_get_p=
+wm1, amdgpu_hwmon_set_pwm1, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(pwm1_enable, S_IRUGO | S_IWUSR, amdgpu_hwmo=
+n_get_pwm1_enable, amdgpu_hwmon_set_pwm1_enable, 0);<br>
+&nbsp;static SENSOR_DEVICE_ATTR(pwm1_min, S_IRUGO, amdgpu_hwmon_get_pwm1_mi=
+n, NULL, 0);<br>
+@@ -2211,6 &#43;2239,9 @@ static struct attribute *hwmon_attributes[] =3D {=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_temp1=
+_emergency.dev_attr.attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_temp2=
+_emergency.dev_attr.attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_temp3=
+_emergency.dev_attr.attr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_temp1_label.=
+dev_attr.attr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_temp2_label.=
+dev_attr.attr,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_temp3_label.=
+dev_attr.attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_pwm1.=
+dev_attr.attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_pwm1_=
+enable.dev_attr.attr,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sensor_dev_attr_pwm1_=
+min.dev_attr.attr,<br>
+@@ -2344,7 &#43;2375,9 @@ static umode_t hwmon_attributes_visible(struct ko=
+bject *kobj,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; attr =3D=3D &amp;sensor_dev_attr_temp2_emergency.dev_attr.attr ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; attr =3D=3D &amp;sensor_dev_attr_temp3_emergency.dev_attr.attr ||<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; attr =3D=3D &amp;sensor_dev_attr_temp2_input.dev_attr.attr ||<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attr =
+=3D=3D &amp;sensor_dev_attr_temp3_input.dev_attr.attr))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; att=
+r =3D=3D &amp;sensor_dev_attr_temp3_input.dev_attr.attr ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; att=
+r =3D=3D &amp;sensor_dev_attr_temp2_label.dev_attr.attr ||<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; att=
+r =3D=3D &amp;sensor_dev_attr_temp3_label.dev_attr.attr))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return effective_mode;<br>
+diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
+rm/amd/include/kgd_pp_interface.h<br>
+index a8bf8e90ceeb..30788d510576 100644<br>
+--- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
+@@ -162,6 &#43;162,13 @@ struct pp_states_info {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t states[16];<br>
+&nbsp;};<br>
+&nbsp;<br>
+&#43;enum PP_HWMON_TEMP {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_TEMP_EDGE =3D 0,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_TEMP_JUNCTION,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_TEMP_MEM,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_TEMP_MAX<br>
+&#43;};<br>
+&#43;<br>
+&nbsp;#define PP_GROUP_MASK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0xF00=
+00000<br>
+&nbsp;#define PP_GROUP_SHIFT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 28<br>
+&nbsp;<br>
+-- <br>
+2.21.0<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180904E13038F75D29575EBFF7230BN6PR12MB1809namp_--
+
+--===============2001766127==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2001766127==--
