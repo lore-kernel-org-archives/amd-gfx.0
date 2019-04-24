@@ -1,127 +1,249 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
-Subject: Re: [PATCH 4/4] drm/amd/display: Compensate for pre-DCE12 BTR-VRR hw
- limitations.
-Date: Wed, 24 Apr 2019 14:34:26 +0000
-Message-ID: <2a45d459-1484-3a99-d2cd-12633e56f2b4@amd.com>
-References: <20190418035122.15791-1-mario.kleiner.de@gmail.com>
- <20190418035122.15791-5-mario.kleiner.de@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH xf86-video-ati] Retry get_fb_ptr in get_fb
+Date: Wed, 24 Apr 2019 15:26:10 +0000
+Message-ID: <BN6PR12MB1809927A95E8ED0D7ADE67BBF73C0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190424103230.20174-1-michel@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190418035122.15791-5-mario.kleiner.de@gmail.com>
+Content-Type: multipart/mixed; boundary="===============0719222941=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190424103230.20174-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
-Content-ID: <104F8BAD5A2E444E8650598B97A9EDFB@namprd12.prod.outlook.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Mario Kleiner <mario.kleiner.de@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gNC8xNy8xOSAxMTo1MSBQTSwgTWFyaW8gS2xlaW5lciB3cm90ZToNCj4gUHJlLURDRTEyIG5l
-ZWRzIHNwZWNpYWwgdHJlYXRtZW50IGZvciBCVFIgLyBsb3cgZnJhbWVyYXRlDQo+IGNvbXBlbnNh
-dGlvbiBmb3IgbW9yZSBzdGFibGUgYmVoYXZpb3VyOg0KPiANCj4gQWNjb3JkaW5nIHRvIGNvbW1l
-bnRzIGluIHRoZSBjb2RlIGFuZCBzb21lIHRlc3Rpbmcgb24gRENFLTgNCj4gYW5kIERDRS0xMSwg
-RENFLTExIGFuZCBlYXJsaWVyIG9ubHkgYXBwbHkgVlRPVEFMX01JTi9NQVgNCj4gcHJvZ3JhbW1p
-bmcgd2l0aCBhIGxhZyBvZiBvbmUgZnJhbWUsIHNvIHRoZSBzcGVjaWFsIEJUUiBodw0KPiBwcm9n
-cmFtbWluZyBmb3IgaW50ZXJtZWRpYXRlIGZpeGVkIGR1cmF0aW9uIGZyYW1lcyBtdXN0IGJlDQo+
-IGRvbmUgaW5zaWRlIHRoZSBjdXJyZW50IGZyYW1lIGF0IGZsaXAgc3VibWlzc2lvbiBpbiBhdG9t
-aWMNCj4gY29tbWl0IHRhaWwsIGllLiBvbmUgdmJsYW5rIGVhcmxpZXIsIGFuZCB0aGUgZml4ZWQg
-cmVmcmVzaA0KPiBpbnRlcm1lZGlhdGUgZnJhbWUgbW9kZSBtdXN0IGJlIGFsc28gdGVybWluYXRl
-ZCBvbmUgdmJsYW5rDQo+IGVhcmxpZXIgb24gcHJlLURDRTEyIGRpc3BsYXkgZW5naW5lcy4NCj4g
-DQo+IFRvIGFjaGlldmUgcHJvcGVyIHRlcm1pbmF0aW9uIG9uIDwgRENFLTEyIHNoaWZ0IHRoZSBw
-b2ludA0KPiB3aGVuIHRoZSBzd2l0Y2gtYmFjayBmcm9tIGZpeGVkIHZibGFuayBkdXJhdGlvbiB0
-byB2YXJpYWJsZQ0KPiB2YmxhbmsgZHVyYXRpb24gaGFwcGVucyBmcm9tIHRoZSBzdGFydCBvZiBW
-QkxBTksgKHZibGFuayBpcnEsDQo+IGFzIGRvbmUgb24gRENFLTEyKykgdG8gYmFjay1wb3JjaCBv
-ciBlbmQgb2YgVkJMQU5LIChoYW5kbGVkDQo+IGJ5IHZ1cGRhdGUgaXJxIGhhbmRsZXIpLiBXZSBt
-dXN0IGxlYXZlIHRoZSBzd2l0Y2gtYmFjayBjb2RlDQo+IGluc2lkZSBWQkxBTksgaXJxIGZvciBE
-Q0UxMissIGFzIGJlZm9yZS4NCj4gDQo+IERvaW5nIHRoaXMsIHdlIGdldCBtdWNoIGJldHRlciBi
-ZWhhdmlvdXIgb2YgQlRSIGZvciB1cC1zd2VlcHMsDQo+IGllLiBnb2luZyBmcm9tIHNob3J0IHRv
-IGxvbmcgZnJhbWUgZHVyYXRpb25zICh+aGlnaCB0byBsb3cgZnBzKQ0KPiBhbmQgZm9yIGNvbnN0
-YW50IGZyYW1lcmF0ZSBmbGlwcywgYXMgdGVzdGVkIG9uIERDRS04IGFuZA0KPiBEQ0UtMTEuIEJl
-aGF2aW91ciBpcyBzdGlsbCBub3QgcXVpdGUgYXMgZ29vZCBhcyBvbiBEQ04tMQ0KPiB0aG91Z2gu
-DQo+IA0KPiBPbiBkb3duLXN3ZWVwcywgZ29pbmcgZnJvbSBsb25nIHRvIHNob3J0IGZyYW1lIGR1
-cmF0aW9ucw0KPiAobG93IGZwcyB0byBoaWdoIGZwcykgPCBEQ0UtMTIgaXMgYSBsaXR0bGUgYml0
-IGltcHJvdmVkLA0KPiBhbHRob3VnaCBieSBmYXIgbm90IGFzIG11Y2ggYXMgZm9yIHVwLXN3ZWVw
-cyBhbmQgY29uc3RhbnQNCj4gZnBzLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogTWFyaW8gS2xlaW5l
-ciA8bWFyaW8ua2xlaW5lci5kZUBnbWFpbC5jb20+DQo+IC0tLQ0KDQpJIGRpZCBzb21lIGRlYnVn
-Z2luZy90ZXN0aW5nIHdpdGggdGhpcyBwYXRjaCBhbmQgaXQgY2VydGFpbmx5IGRvZXMgDQppbXBy
-b3ZlIHRoaW5ncyBxdWl0ZSBhIGJpdCBmb3IgcHJlIERDRTEyIChzaW5jZSB0aGlzIHJlYWxseSBz
-aG91bGQgaGF2ZSANCmJlZW4gaGFuZGxlZCBpbiBWVVBEQVRFIGJlZm9yZSkuDQoNCkkgaGF2ZSBv
-bmUgY29tbWVudCBpbmxpbmUgYmVsb3c6DQoNCg0KPiAgIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDMyICsrKysrKysrKysrKysrKysrKy0NCj4gICAxIGZp
-bGUgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiANCj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IGlu
-ZGV4IDc2YjZlNjIxNzkzZi4uOWM4Yzk0ZjgyYjM1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gQEAgLTM2NCw2ICsz
-NjQsNyBAQCBzdGF0aWMgdm9pZCBkbV92dXBkYXRlX2hpZ2hfaXJxKHZvaWQgKmludGVycnVwdF9w
-YXJhbXMpDQo+ICAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gaXJxX3BhcmFtcy0+YWRl
-djsNCj4gICAJc3RydWN0IGFtZGdwdV9jcnRjICphY3J0YzsNCj4gICAJc3RydWN0IGRtX2NydGNf
-c3RhdGUgKmFjcnRjX3N0YXRlOw0KPiArCXVuc2lnbmVkIGxvbmcgZmxhZ3M7DQo+ICAgDQo+ICAg
-CWFjcnRjID0gZ2V0X2NydGNfYnlfb3RnX2luc3QoYWRldiwgaXJxX3BhcmFtcy0+aXJxX3NyYyAt
-IElSUV9UWVBFX1ZVUERBVEUpOw0KPiAgIA0KPiBAQCAtMzgxLDYgKzM4MiwyMiBAQCBzdGF0aWMg
-dm9pZCBkbV92dXBkYXRlX2hpZ2hfaXJxKHZvaWQgKmludGVycnVwdF9wYXJhbXMpDQo+ICAgCQkg
-Ki8NCj4gICAJCWlmIChhbWRncHVfZG1fdnJyX2FjdGl2ZShhY3J0Y19zdGF0ZSkpDQo+ICAgCQkJ
-ZHJtX2NydGNfaGFuZGxlX3ZibGFuaygmYWNydGMtPmJhc2UpOw0KPiArDQo+ICsJCWlmIChhY3J0
-Y19zdGF0ZS0+c3RyZWFtICYmIGFkZXYtPmZhbWlseSA8IEFNREdQVV9GQU1JTFlfQUkgJiYNCj4g
-KwkJICAgIGFjcnRjX3N0YXRlLT52cnJfcGFyYW1zLnN1cHBvcnRlZCAmJg0KPiArCQkgICAgYWNy
-dGNfc3RhdGUtPmZyZWVzeW5jX2NvbmZpZy5zdGF0ZSA9PSBWUlJfU1RBVEVfQUNUSVZFX1ZBUklB
-QkxFKSB7DQo+ICsJCQlzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+ZGRldi0+ZXZlbnRfbG9jaywg
-ZmxhZ3MpOw0KPiArCQkJbW9kX2ZyZWVzeW5jX2hhbmRsZV92X3VwZGF0ZSgNCj4gKwkJCSAgICBh
-ZGV2LT5kbS5mcmVlc3luY19tb2R1bGUsDQo+ICsJCQkgICAgYWNydGNfc3RhdGUtPnN0cmVhbSwN
-Cj4gKwkJCSAgICAmYWNydGNfc3RhdGUtPnZycl9wYXJhbXMpOw0KPiArDQo+ICsJCQlkY19zdHJl
-YW1fYWRqdXN0X3ZtaW5fdm1heCgNCj4gKwkJCSAgICBhZGV2LT5kbS5kYywNCj4gKwkJCSAgICBh
-Y3J0Y19zdGF0ZS0+c3RyZWFtLA0KPiArCQkJICAgICZhY3J0Y19zdGF0ZS0+dnJyX3BhcmFtcy5h
-ZGp1c3QpOw0KPiArCQkJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+ZGRldi0+ZXZlbnRf
-bG9jaywgZmxhZ3MpOw0KPiArCQl9DQo+ICAgCX0NCj4gICB9DQo+ICAgDQo+IEBAIC0zOTAsNiAr
-NDA3LDcgQEAgc3RhdGljIHZvaWQgZG1fY3J0Y19oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFy
-YW1zKQ0KPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGlycV9wYXJhbXMtPmFkZXY7
-DQo+ICAgCXN0cnVjdCBhbWRncHVfY3J0YyAqYWNydGM7DQo+ICAgCXN0cnVjdCBkbV9jcnRjX3N0
-YXRlICphY3J0Y19zdGF0ZTsNCj4gKwl1bnNpZ25lZCBsb25nIGZsYWdzOw0KPiAgIA0KPiAgIAlh
-Y3J0YyA9IGdldF9jcnRjX2J5X290Z19pbnN0KGFkZXYsIGlycV9wYXJhbXMtPmlycV9zcmMgLSBJ
-UlFfVFlQRV9WQkxBTkspOw0KPiAgIA0KPiBAQCAtNDEyLDkgKzQzMCwxMCBAQCBzdGF0aWMgdm9p
-ZCBkbV9jcnRjX2hpZ2hfaXJxKHZvaWQgKmludGVycnVwdF9wYXJhbXMpDQo+ICAgCQkgKi8NCj4g
-ICAJCWFtZGdwdV9kbV9jcnRjX2hhbmRsZV9jcmNfaXJxKCZhY3J0Yy0+YmFzZSk7DQo+ICAgDQo+
-IC0JCWlmIChhY3J0Y19zdGF0ZS0+c3RyZWFtICYmDQo+ICsJCWlmIChhY3J0Y19zdGF0ZS0+c3Ry
-ZWFtICYmIGFkZXYtPmZhbWlseSA+PSBBTURHUFVfRkFNSUxZX0FJICYmDQo+ICAgCQkgICAgYWNy
-dGNfc3RhdGUtPnZycl9wYXJhbXMuc3VwcG9ydGVkICYmDQo+ICAgCQkgICAgYWNydGNfc3RhdGUt
-PmZyZWVzeW5jX2NvbmZpZy5zdGF0ZSA9PSBWUlJfU1RBVEVfQUNUSVZFX1ZBUklBQkxFKSB7DQo+
-ICsJCQlzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+ZGRldi0+ZXZlbnRfbG9jaywgZmxhZ3MpOw0K
-PiAgIAkJCW1vZF9mcmVlc3luY19oYW5kbGVfdl91cGRhdGUoDQo+ICAgCQkJCWFkZXYtPmRtLmZy
-ZWVzeW5jX21vZHVsZSwNCj4gICAJCQkJYWNydGNfc3RhdGUtPnN0cmVhbSwNCj4gQEAgLTQyNCw2
-ICs0NDMsNyBAQCBzdGF0aWMgdm9pZCBkbV9jcnRjX2hpZ2hfaXJxKHZvaWQgKmludGVycnVwdF9w
-YXJhbXMpDQo+ICAgCQkJCWFkZXYtPmRtLmRjLA0KPiAgIAkJCQlhY3J0Y19zdGF0ZS0+c3RyZWFt
-LA0KPiAgIAkJCQkmYWNydGNfc3RhdGUtPnZycl9wYXJhbXMuYWRqdXN0KTsNCj4gKwkJCXNwaW5f
-dW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gICAJ
-CX0NCj4gICAJfQ0KPiAgIH0NCj4gQEAgLTQ4ODAsNiArNDkwMCw4IEBAIHN0YXRpYyB2b2lkIHVw
-ZGF0ZV9mcmVlc3luY19zdGF0ZV9vbl9zdHJlYW0oDQo+ICAgew0KPiAgIAlzdHJ1Y3QgbW9kX3Zy
-cl9wYXJhbXMgdnJyX3BhcmFtcyA9IG5ld19jcnRjX3N0YXRlLT52cnJfcGFyYW1zOw0KPiAgIAlz
-dHJ1Y3QgZGNfaW5mb19wYWNrZXQgdnJyX2luZm9wYWNrZXQgPSB7MH07DQo+ICsJc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYgPSBkbS0+YWRldjsNCj4gKwl1bnNpZ25lZCBsb25nIGZsYWdzOw0K
-PiAgIA0KPiAgIAlpZiAoIW5ld19zdHJlYW0pDQo+ICAgCQlyZXR1cm47DQo+IEBAIC00ODk5LDYg
-KzQ5MjEsMTQgQEAgc3RhdGljIHZvaWQgdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSgN
-Cj4gICAJCQluZXdfc3RyZWFtLA0KPiAgIAkJCWZsaXBfdGltZXN0YW1wX2luX3VzLA0KPiAgIAkJ
-CSZ2cnJfcGFyYW1zKTsNCj4gKw0KPiArCQlpZiAoYWRldi0+ZmFtaWx5IDwgQU1ER1BVX0ZBTUlM
-WV9BSSAmJg0KPiArCQkgICAgYW1kZ3B1X2RtX3Zycl9hY3RpdmUobmV3X2NydGNfc3RhdGUpKSB7
-DQo+ICsJCQlzcGluX2xvY2tfaXJxc2F2ZSgmYWRldi0+ZGRldi0+ZXZlbnRfbG9jaywgZmxhZ3Mp
-Ow0KPiArCQkJbW9kX2ZyZWVzeW5jX2hhbmRsZV92X3VwZGF0ZShkbS0+ZnJlZXN5bmNfbW9kdWxl
-LA0KPiArCQkJCQkJICAgICBuZXdfc3RyZWFtLCAmdnJyX3BhcmFtcyk7DQo+ICsJCQlzcGluX3Vu
-bG9ja19pcnFyZXN0b3JlKCZhZGV2LT5kZGV2LT5ldmVudF9sb2NrLCBmbGFncyk7DQo+ICsJCX0N
-Cg0KU2hvdWxkbid0IHRoZSBsb2NraW5nIGhlcmUgYWN0dWFsbHkgYmUgYXJvdW5kIHNldHRpbmcg
-dGhlIA0KbmV3X2NydGNfc3RhdGUtPmFkanVzdC92cnJfaW5mb3BhY2tldC92cnJfcGFyYW1zPw0K
-DQpJIGZvcmdvdCB0aGUgbG9ja2luZyBoZXJlIGJlZm9yZSBidXQgaXQgc2VlbXMgbGlrZSB3ZSBz
-aG91bGQgYmUgZG9pbmcgaXQgDQp0aGVyZSBzaW5jZSBhbGwgdGhhdCBzdGF0ZSBpcyBhY2Nlc3Nl
-ZCBmcm9tIHRoZSBJUlFzLg0KDQo+ICAgCX0NCj4gICANCj4gICAJbW9kX2ZyZWVzeW5jX2J1aWxk
-X3Zycl9pbmZvcGFja2V0KA0KPiANCg0KTmljaG9sYXMgS2F6bGF1c2thcw0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlz
-dApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+--===============0719222941==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809927A95E8ED0D7ADE67BBF73C0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809927A95E8ED0D7ADE67BBF73C0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
+=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Sent: Wednesday, April 24, 2019 6:32 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: [PATCH xf86-video-ati] Retry get_fb_ptr in get_fb
+
+From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+
+If get_fb_ptr returns NULL, try again after pixmap_get_handle, it should
+work then.
+
+Fixes spurious Present page flipping failures using "normal" pixmaps
+which aren't shared with direct rendering clients, e.g. with a
+compositor using the RENDER extension.
+
+Bugzilla: https://bugs.freedesktop.org/110417
+(Ported from amdgpu commit bf61e6d7ac1a5754b1026d7f80acf25ef622c491)
+
+Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
+---
+ src/radeon.h | 31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
+
+diff --git a/src/radeon.h b/src/radeon.h
+index 74454c307..008a59f3a 100644
+--- a/src/radeon.h
++++ b/src/radeon.h
+@@ -877,21 +877,22 @@ static inline struct drmmode_fb*
+ radeon_pixmap_get_fb(PixmapPtr pix)
+ {
+     struct drmmode_fb **fb_ptr =3D radeon_pixmap_get_fb_ptr(pix);
+-
+-    if (!fb_ptr)
+-       return NULL;
+-
+-    if (!*fb_ptr) {
+-       uint32_t handle;
+-
+-       if (radeon_get_pixmap_handle(pix, &handle)) {
+-           ScrnInfoPtr scrn =3D xf86ScreenToScrn(pix->drawable.pScreen);
+-           RADEONEntPtr pRADEONEnt =3D RADEONEntPriv(scrn);
+-
+-           *fb_ptr =3D radeon_fb_create(scrn, pRADEONEnt->fd, pix->drawabl=
+e.width,
+-                                      pix->drawable.height, pix->devKind,
+-                                      handle);
+-       }
++    uint32_t handle;
++
++    if (fb_ptr && *fb_ptr)
++       return *fb_ptr;
++
++    if (radeon_get_pixmap_handle(pix, &handle)) {
++       ScrnInfoPtr scrn =3D xf86ScreenToScrn(pix->drawable.pScreen);
++       RADEONEntPtr pRADEONEnt =3D RADEONEntPriv(scrn);
++
++       if (!fb_ptr)
++           fb_ptr =3D radeon_pixmap_get_fb_ptr(pix);
++
++       *fb_ptr =3D radeon_fb_create(scrn, pRADEONEnt->fd,
++                                  pix->drawable.width,
++                                  pix->drawable.height, pix->devKind,
++                                  handle);
+     }
+
+     return *fb_ptr;
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809927A95E8ED0D7ADE67BBF73C0BN6PR12MB1809namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
+enzer.net&gt;<br>
+<b>Sent:</b> Wednesday, April 24, 2019 6:32 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Subject:</b> [PATCH xf86-video-ati] Retry get_fb_ptr in get_fb</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
+t;<br>
+<br>
+If get_fb_ptr returns NULL, try again after pixmap_get_handle, it should<br=
+>
+work then.<br>
+<br>
+Fixes spurious Present page flipping failures using &quot;normal&quot; pixm=
+aps<br>
+which aren't shared with direct rendering clients, e.g. with a<br>
+compositor using the RENDER extension.<br>
+<br>
+Bugzilla: <a href=3D"https://bugs.freedesktop.org/110417">https://bugs.free=
+desktop.org/110417</a><br>
+(Ported from amdgpu commit bf61e6d7ac1a5754b1026d7f80acf25ef622c491)<br>
+<br>
+Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;src/radeon.h | 31 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;---------------<br>
+&nbsp;1 file changed, 16 insertions(&#43;), 15 deletions(-)<br>
+<br>
+diff --git a/src/radeon.h b/src/radeon.h<br>
+index 74454c307..008a59f3a 100644<br>
+--- a/src/radeon.h<br>
+&#43;&#43;&#43; b/src/radeon.h<br>
+@@ -877,21 &#43;877,22 @@ static inline struct drmmode_fb*<br>
+&nbsp;radeon_pixmap_get_fb(PixmapPtr pix)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp; struct drmmode_fb **fb_ptr =3D radeon_pixmap_get_f=
+b_ptr(pix);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp; if (!fb_ptr)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return NULL;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp; if (!*fb_ptr) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t handle;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (radeon_get_pixmap_handle(pix, &am=
+p;handle)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ScrnInfoPtr s=
+crn =3D xf86ScreenToScrn(pix-&gt;drawable.pScreen);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RADEONEntPtr =
+pRADEONEnt =3D RADEONEntPriv(scrn);<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *fb_ptr =3D r=
+adeon_fb_create(scrn, pRADEONEnt-&gt;fd, pix-&gt;drawable.width,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p=
+ix-&gt;drawable.height, pix-&gt;devKind,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; h=
+andle);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp; uint32_t handle;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp; if (fb_ptr &amp;&amp; *fb_ptr)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return *fb_ptr;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&#43;&nbsp;&nbsp;&nbsp; if (radeon_get_pixmap_handle(pix, &amp;handle)) {<b=
+r>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ScrnInfoPtr scrn =3D xf86ScreenTo=
+Scrn(pix-&gt;drawable.pScreen);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RADEONEntPtr pRADEONEnt =3D RADEO=
+NEntPriv(scrn);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!fb_ptr)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fb_ptr =
+=3D radeon_pixmap_get_fb_ptr(pix);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *fb_ptr =3D radeon_fb_create(scrn=
+, pRADEONEnt-&gt;fd,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pix-&gt;drawable.widt=
+h,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pix-&gt;drawable.heig=
+ht, pix-&gt;devKind,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; handle);<br>
+&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp; return *fb_ptr;<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809927A95E8ED0D7ADE67BBF73C0BN6PR12MB1809namp_--
+
+--===============0719222941==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0719222941==--
