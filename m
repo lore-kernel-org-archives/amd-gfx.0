@@ -1,69 +1,47 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH 2/3] drm/dp_mst: Expose build_mst_prop_path()
-Date: Wed, 24 Apr 2019 13:26:40 -0400
-Message-ID: <4575edc89d88122baf2cf8dd1e12ea34a69cbb7b.camel@redhat.com>
-References: <1555977388-14203-1-git-send-email-sunpeng.li@amd.com>
- <1555977388-14203-2-git-send-email-sunpeng.li@amd.com>
+From: Heiner Kallweit <hkallweit1@gmail.com>
+Subject: [PATCH v2 0/9] PCI: add help pci_dev_id
+Date: Wed, 24 Apr 2019 21:10:21 +0200
+Message-ID: <2e1f9a57-6d08-d017-24da-3e6b97fa2449@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <1555977388-14203-2-git-send-email-sunpeng.li@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: jerry.zuo@amd.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, Michael Ellerman <mpe@ellerman.id.au>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Joerg Roedel <joro@8bytes.org>, David Woodhouse <dwmw2@infradead.org>, Realtek linux nic maintainers <nic_swsd@realtek.com>, "David S. Miller" <davem@davemloft.net>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, Benson Leung <bleung@chromium.org>
+Cc: open list <linux-kernel@vger.kernel.org>, "open list:AMD KFD" <dri-devel@lists.freedesktop.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux-foundation.org>, "open list:8169 10/100/1000 GIGABIT ETHERNET DRIVER" <netdev@vger.kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Q2xvc2VyLCBidXQgYXJlIHdlIHN1cmUgd2Ugd2FudCB0byB1c2UgdGhlIE1TVCBwcm9wIHBhdGgg
-Zm9yIHRoaXM/IFdoeSBub3QgYWRkCmEgc3lzZnMgYXR0cmlidXRlIHdpdGggdGhlIGNvcnJlc3Bv
-bmRpbmcgRFJNIGNvbm5lY3RvciBuYW1lIGluc3RlYWQgc2luY2UgdGhlCmNvbm5lY3RvciBpdHNl
-bGYgd2lsbCBoYXZlIGEgcGF0aCBwcm9wZXJ0eS4gVGhhdCB3YXkgd2UgY2FuIGFzc29jaWF0ZSBh
-dXgKZGV2aWNlcyBmb3IgZURQIGFuZCBEUCBkZXZpY2VzIHdpdGggdGhlaXIgY29ycmVzcG9uZGlu
-ZyBjb25uZWN0b3JzIGFzIHdlbGwKCk9uIE1vbiwgMjAxOS0wNC0yMiBhdCAxOTo1NiAtMDQwMCwg
-c3VucGVuZy5saUBhbWQuY29tIHdyb3RlOgo+IEZyb206IExlbyBMaSA8c3VucGVuZy5saUBhbWQu
-Y29tPgo+IAo+IFRvIGdpdmUgaWRlbnRpZmlhYmxlIGF0dHJpYnV0ZXMgdG8gTVNUIERQIGF1eCBk
-ZXZpY2VzLCB3ZSBjYW4gdXNlIHRoZQo+IE1TVCByZWxhdGl2ZSBhZGRyZXNzLiBFeHBvc2UgdGhp
-cyBmdW5jdGlvbiBmb3IgbGF0ZXIgdXNlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IExlbyBMaSA8c3Vu
-cGVuZy5saUBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3Bv
-bG9neS5jIHwgNCArKy0tCj4gIGluY2x1ZGUvZHJtL2RybV9kcF9tc3RfaGVscGVyLmggICAgICAg
-fCA0ICsrKysKPiAgMiBmaWxlcyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
-KC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5
-LmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKPiBpbmRleCAyYWIx
-NmM5Li44NmZmOGUyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3Rv
-cG9sb2d5LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4g
-QEAgLTExMjAsNyArMTEyMCw3IEBAIHN0YXRpYyB2b2lkIGRybV9kcF9jaGVja19tc3RiX2d1aWQo
-c3RydWN0Cj4gZHJtX2RwX21zdF9icmFuY2ggKm1zdGIsIHU4ICpndWlkKQo+ICAJfQo+ICB9Cj4g
-IAo+IC1zdGF0aWMgdm9pZCBidWlsZF9tc3RfcHJvcF9wYXRoKGNvbnN0IHN0cnVjdCBkcm1fZHBf
-bXN0X2JyYW5jaCAqbXN0YiwKPiArdm9pZCBkcm1fZHBfYnVpbGRfbXN0X3Byb3BfcGF0aChjb25z
-dCBzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIsCj4gIAkJCQlpbnQgcG51bSwKPiAgCQkJ
-CWNoYXIgKnByb3BwYXRoLAo+ICAJCQkJc2l6ZV90IHByb3BwYXRoX3NpemUpCj4gQEAgLTEyMDIs
-NyArMTIwMiw3IEBAIHN0YXRpYyB2b2lkIGRybV9kcF9hZGRfcG9ydChzdHJ1Y3QgZHJtX2RwX21z
-dF9icmFuY2gKPiAqbXN0YiwKPiAgCWlmIChjcmVhdGVkICYmICFwb3J0LT5pbnB1dCkgewo+ICAJ
-CWNoYXIgcHJvcHBhdGhbMjU1XTsKPiAgCj4gLQkJYnVpbGRfbXN0X3Byb3BfcGF0aChtc3RiLCBw
-b3J0LT5wb3J0X251bSwgcHJvcHBhdGgsCj4gc2l6ZW9mKHByb3BwYXRoKSk7Cj4gKwkJZHJtX2Rw
-X2J1aWxkX21zdF9wcm9wX3BhdGgobXN0YiwgcG9ydC0+cG9ydF9udW0sIHByb3BwYXRoLAo+IHNp
-emVvZihwcm9wcGF0aCkpOwo+ICAJCXBvcnQtPmNvbm5lY3RvciA9ICgqbXN0Yi0+bWdyLT5jYnMt
-PmFkZF9jb25uZWN0b3IpKG1zdGItPm1nciwKPiBwb3J0LCBwcm9wcGF0aCk7Cj4gIAkJaWYgKCFw
-b3J0LT5jb25uZWN0b3IpIHsKPiAgCQkJLyogcmVtb3ZlIGl0IGZyb20gdGhlIHBvcnQgbGlzdCAq
-Lwo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oCj4gYi9pbmNs
-dWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oCj4gaW5kZXggMzcxY2MyOC4uODFjOGQ3OSAxMDA2
-NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oCj4gKysrIGIvaW5jbHVk
-ZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIuaAo+IEBAIC02MDIsNiArNjAyLDEwIEBAIHZvaWQgZHJt
-X2RwX21zdF9kZWFsbG9jYXRlX3ZjcGkoc3RydWN0Cj4gZHJtX2RwX21zdF90b3BvbG9neV9tZ3Ig
-Km1nciwKPiAgaW50IGRybV9kcF9maW5kX3ZjcGlfc2xvdHMoc3RydWN0IGRybV9kcF9tc3RfdG9w
-b2xvZ3lfbWdyICptZ3IsCj4gIAkJCSAgIGludCBwYm4pOwo+ICAKPiArdm9pZCBkcm1fZHBfYnVp
-bGRfbXN0X3Byb3BfcGF0aChjb25zdCBzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIsCj4g
-KwkJCQkgICBpbnQgcG51bSwKPiArCQkJCSAgIGNoYXIgKnByb3BwYXRoLAo+ICsJCQkJICAgc2l6
-ZV90IHByb3BwYXRoX3NpemUpOwo+ICAKPiAgaW50IGRybV9kcF91cGRhdGVfcGF5bG9hZF9wYXJ0
-MShzdHJ1Y3QgZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncik7Cj4gIAotLSAKQ2hlZXJzLAoJ
-THl1ZGUgUGF1bAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+In several places in the kernel we find PCI_DEVID used like this:
+PCI_DEVID(dev->bus->number, dev->devfn) Therefore create a helper
+for it.
+
+v2:
+- apply the change to all affected places in the kernel
+
+Heiner Kallweit (9):
+  PCI: add helper pci_dev_id
+  PCI: use helper pci_dev_id
+  r8169: use new helper pci_dev_id
+  powerpc/powernv/npu: use helper pci_dev_id
+  drm/amdkfd: use helper pci_dev_id
+  iommu/amd: use helper pci_dev_id
+  iommu/vt-d: use helper pci_dev_id
+  stmmac: pci: use helper pci_dev_id
+  platform/chrome: chromeos_laptop: use helper pci_dev_id
+
+ arch/powerpc/platforms/powernv/npu-dma.c         | 14 ++++++--------
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c        |  3 +--
+ drivers/iommu/amd_iommu.c                        |  2 +-
+ drivers/iommu/intel-iommu.c                      |  2 +-
+ drivers/iommu/intel_irq_remapping.c              |  2 +-
+ drivers/net/ethernet/realtek/r8169.c             |  3 +--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pci.c |  2 +-
+ drivers/pci/msi.c                                |  6 +++---
+ drivers/pci/search.c                             | 10 +++-------
+ drivers/platform/chrome/chromeos_laptop.c        |  2 +-
+ include/linux/pci.h                              |  5 +++++
+ 11 files changed, 24 insertions(+), 27 deletions(-)
+
+-- 
+2.21.0
