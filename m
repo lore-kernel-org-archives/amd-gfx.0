@@ -1,38 +1,87 @@
-From: Heiner Kallweit <hkallweit1@gmail.com>
-Subject: [PATCH v2 6/9] iommu/amd: use helper pci_dev_id
-Date: Wed, 24 Apr 2019 21:15:25 +0200
-Message-ID: <f673e8ac-cc9a-75a6-09b8-35b94bfc868b@gmail.com>
-References: <2e1f9a57-6d08-d017-24da-3e6b97fa2449@gmail.com>
+From: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/3] drm/dp_mst: Expose build_mst_prop_path()
+Date: Wed, 24 Apr 2019 20:40:30 +0000
+Message-ID: <d45af824-bda7-a0d4-0a6d-b51c199c3412@amd.com>
+References: <1555977388-14203-1-git-send-email-sunpeng.li@amd.com>
+ <1555977388-14203-2-git-send-email-sunpeng.li@amd.com>
+ <4575edc89d88122baf2cf8dd1e12ea34a69cbb7b.camel@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <2e1f9a57-6d08-d017-24da-3e6b97fa2449@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <4575edc89d88122baf2cf8dd1e12ea34a69cbb7b.camel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, Michael Ellerman <mpe@ellerman.id.au>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Joerg Roedel <joro@8bytes.org>, David Woodhouse <dwmw2@infradead.org>, Realtek linux nic maintainers <nic_swsd@realtek.com>, "David S. Miller" <davem@davemloft.net>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>, Benson Leung <bleung@chromium.org>
-Cc: open list <linux-kernel@vger.kernel.org>, "open list:AMD KFD" <dri-devel@lists.freedesktop.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux-foundation.org>, "open list:8169 10/100/1000 GIGABIT ETHERNET DRIVER" <netdev@vger.kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <36ADBA9AD11916449268FD8335484521-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Lyude Paul <lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zuo, Jerry" <Jerry.Zuo-5C7GfCeVMHo@public.gmane.org>, "ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org" <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>
 
-Use new helper pci_dev_id() to simplify the code.
-
-Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
----
- drivers/iommu/amd_iommu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/iommu/amd_iommu.c b/drivers/iommu/amd_iommu.c
-index f467cc4b4..5cb201422 100644
---- a/drivers/iommu/amd_iommu.c
-+++ b/drivers/iommu/amd_iommu.c
-@@ -165,7 +165,7 @@ static inline u16 get_pci_device_id(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 
--	return PCI_DEVID(pdev->bus->number, pdev->devfn);
-+	return pci_dev_id(pdev);
- }
- 
- static inline int get_acpihid_device_id(struct device *dev,
--- 
-2.21.0
+DQoNCg0KT24gMjAxOS0wNC0yNCAxOjI2IHAubS4sIEx5dWRlIFBhdWwgd3JvdGU6DQo+IENsb3Nl
+ciwgYnV0IGFyZSB3ZSBzdXJlIHdlIHdhbnQgdG8gdXNlIHRoZSBNU1QgcHJvcCBwYXRoIGZvciB0
+aGlzPyBXaHkgbm90IGFkZA0KPiBhIHN5c2ZzIGF0dHJpYnV0ZSB3aXRoIHRoZSBjb3JyZXNwb25k
+aW5nIERSTSBjb25uZWN0b3IgbmFtZSBpbnN0ZWFkIHNpbmNlIHRoZQ0KPiBjb25uZWN0b3IgaXRz
+ZWxmIHdpbGwgaGF2ZSBhIHBhdGggcHJvcGVydHkuIFRoYXQgd2F5IHdlIGNhbiBhc3NvY2lhdGUg
+YXV4DQo+IGRldmljZXMgZm9yIGVEUCBhbmQgRFAgZGV2aWNlcyB3aXRoIHRoZWlyIGNvcnJlc3Bv
+bmRpbmcgY29ubmVjdG9ycyBhcyB3ZWxsDQoNCkkgdGhvdWdodCBhYm91dCB0aGF0IGFzIHdlbGws
+IGJ1dCBJIGhpdCBhIHdhbGwgd2hlbiB0cnlpbmcgdG8gZ2V0IHRoZQ0KU1NUIGNvbm5lY3RvciBm
+cm9tIHRoZSBhdXggZGV2aWNlLiBQZXJoYXBzIHRoZXJlJ3MgYSBzaW1wbGVyIHdheSB0aGF0DQpJ
+J20gb3Zlcmxvb2tpbmc/DQoNCkl0J3MgZWFzaWVyIGZvciBNU1QsIHNpbmNlIHRoZSBtc3RfcG9y
+dCBjYW4gYmUgb2J0YWluZWQgdmlhIGNvbnRhaW5lcl9vZg0KZHBfYXV4LiBwb3J0LT5jb25uZWN0
+b3Igd291bGQgdGhlbiBnaXZlIHdoYXQgd2Ugd2FudC4NCg0KRm9yIFNTVCB0aG91Z2gsIGVhY2gg
+ZHJpdmVyIGNhbGxzIGRybV9hdXhfcmVnaXN0ZXIoKSB3aXRoIGFuIGF1eCBzdHJ1Y3QNCnRoYXQg
+dGhleSd2ZSBpbml0aWFsaXplZC4gSSdtIG5vdCBzdXJlIGhvdyBJIGNhbiByZWxpYWJseSBnZXQg
+dGhlDQpkcm1fY29ubmVjdG9yIGZyb20gdGhhdC4NCg0KTWF5YmUgZHJtX2RwX2F1eCBzaG91bGQg
+aGF2ZSBhIGJhY2sgcmVmZXJlbmNlIHRvIHRoZSBjb25uZWN0b3I/IEZXSUNUDQphbGwgZHJpdmVy
+cyB1c2luZyBkcm1fYXV4X3JlZ2lzdGVyKCkgc2hvdWxkIGJlIGFibGUgdG8gcHJvdmlkZSB0aGUN
+CmFzc29jaWF0ZWQgY29ubmVjdG9yIHdoZW4gY2FsbGluZyBpdC4NCg0KTGVvDQoNCg0KPiANCj4g
+T24gTW9uLCAyMDE5LTA0LTIyIGF0IDE5OjU2IC0wNDAwLCBzdW5wZW5nLmxpQGFtZC5jb20gd3Jv
+dGU6DQo+PiBGcm9tOiBMZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4NCj4+DQo+PiBUbyBnaXZl
+IGlkZW50aWZpYWJsZSBhdHRyaWJ1dGVzIHRvIE1TVCBEUCBhdXggZGV2aWNlcywgd2UgY2FuIHVz
+ZSB0aGUNCj4+IE1TVCByZWxhdGl2ZSBhZGRyZXNzLiBFeHBvc2UgdGhpcyBmdW5jdGlvbiBmb3Ig
+bGF0ZXIgdXNlLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IExlbyBMaSA8c3VucGVuZy5saUBhbWQu
+Y29tPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMg
+fCA0ICsrLS0NCj4+ICAgaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIuaCAgICAgICB8IDQg
+KysrKw0KPj4gICAyIGZpbGVzIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMo
+LSkNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xv
+Z3kuYw0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jDQo+PiBpbmRl
+eCAyYWIxNmM5Li44NmZmOGUyIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9k
+cF9tc3RfdG9wb2xvZ3kuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9w
+b2xvZ3kuYw0KPj4gQEAgLTExMjAsNyArMTEyMCw3IEBAIHN0YXRpYyB2b2lkIGRybV9kcF9jaGVj
+a19tc3RiX2d1aWQoc3RydWN0DQo+PiBkcm1fZHBfbXN0X2JyYW5jaCAqbXN0YiwgdTggKmd1aWQp
+DQo+PiAgIAl9DQo+PiAgIH0NCj4+ICAgDQo+PiAtc3RhdGljIHZvaWQgYnVpbGRfbXN0X3Byb3Bf
+cGF0aChjb25zdCBzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIsDQo+PiArdm9pZCBkcm1f
+ZHBfYnVpbGRfbXN0X3Byb3BfcGF0aChjb25zdCBzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1z
+dGIsDQo+PiAgIAkJCQlpbnQgcG51bSwNCj4+ICAgCQkJCWNoYXIgKnByb3BwYXRoLA0KPj4gICAJ
+CQkJc2l6ZV90IHByb3BwYXRoX3NpemUpDQo+PiBAQCAtMTIwMiw3ICsxMjAyLDcgQEAgc3RhdGlj
+IHZvaWQgZHJtX2RwX2FkZF9wb3J0KHN0cnVjdCBkcm1fZHBfbXN0X2JyYW5jaA0KPj4gKm1zdGIs
+DQo+PiAgIAlpZiAoY3JlYXRlZCAmJiAhcG9ydC0+aW5wdXQpIHsNCj4+ICAgCQljaGFyIHByb3Bw
+YXRoWzI1NV07DQo+PiAgIA0KPj4gLQkJYnVpbGRfbXN0X3Byb3BfcGF0aChtc3RiLCBwb3J0LT5w
+b3J0X251bSwgcHJvcHBhdGgsDQo+PiBzaXplb2YocHJvcHBhdGgpKTsNCj4+ICsJCWRybV9kcF9i
+dWlsZF9tc3RfcHJvcF9wYXRoKG1zdGIsIHBvcnQtPnBvcnRfbnVtLCBwcm9wcGF0aCwNCj4+IHNp
+emVvZihwcm9wcGF0aCkpOw0KPj4gICAJCXBvcnQtPmNvbm5lY3RvciA9ICgqbXN0Yi0+bWdyLT5j
+YnMtPmFkZF9jb25uZWN0b3IpKG1zdGItPm1nciwNCj4+IHBvcnQsIHByb3BwYXRoKTsNCj4+ICAg
+CQlpZiAoIXBvcnQtPmNvbm5lY3Rvcikgew0KPj4gICAJCQkvKiByZW1vdmUgaXQgZnJvbSB0aGUg
+cG9ydCBsaXN0ICovDQo+PiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxw
+ZXIuaA0KPj4gYi9pbmNsdWRlL2RybS9kcm1fZHBfbXN0X2hlbHBlci5oDQo+PiBpbmRleCAzNzFj
+YzI4Li44MWM4ZDc5IDEwMDY0NA0KPj4gLS0tIGEvaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxw
+ZXIuaA0KPj4gKysrIGIvaW5jbHVkZS9kcm0vZHJtX2RwX21zdF9oZWxwZXIuaA0KPj4gQEAgLTYw
+Miw2ICs2MDIsMTAgQEAgdm9pZCBkcm1fZHBfbXN0X2RlYWxsb2NhdGVfdmNwaShzdHJ1Y3QNCj4+
+IGRybV9kcF9tc3RfdG9wb2xvZ3lfbWdyICptZ3IsDQo+PiAgIGludCBkcm1fZHBfZmluZF92Y3Bp
+X3Nsb3RzKHN0cnVjdCBkcm1fZHBfbXN0X3RvcG9sb2d5X21nciAqbWdyLA0KPj4gICAJCQkgICBp
+bnQgcGJuKTsNCj4+ICAgDQo+PiArdm9pZCBkcm1fZHBfYnVpbGRfbXN0X3Byb3BfcGF0aChjb25z
+dCBzdHJ1Y3QgZHJtX2RwX21zdF9icmFuY2ggKm1zdGIsDQo+PiArCQkJCSAgIGludCBwbnVtLA0K
+Pj4gKwkJCQkgICBjaGFyICpwcm9wcGF0aCwNCj4+ICsJCQkJICAgc2l6ZV90IHByb3BwYXRoX3Np
+emUpOw0KPj4gICANCj4+ICAgaW50IGRybV9kcF91cGRhdGVfcGF5bG9hZF9wYXJ0MShzdHJ1Y3Qg
+ZHJtX2RwX21zdF90b3BvbG9neV9tZ3IgKm1ncik7DQo+PiAgIA0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
