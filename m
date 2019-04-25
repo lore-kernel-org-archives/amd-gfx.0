@@ -1,14 +1,14 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/3] drm/amd/powerplay: expose SMU7 asics realtime memory
- utilization
-Date: Thu, 25 Apr 2019 16:05:52 +0800
-Message-ID: <20190425080552.4447-3-evan.quan@amd.com>
-References: <20190425080552.4447-1-evan.quan@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: value of amdgpu_sriov_vf cannot be set into
+ F32_POLL_ENABLE
+Date: Thu, 25 Apr 2019 14:28:52 +0000
+Message-ID: <BN6PR12MB18099AEDBAC97CB63552E025F73D0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1556167841-26122-1-git-send-email-Wentao.Lou@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0115066688=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190425080552.4447-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1556167841-26122-1-git-send-email-Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,120 +19,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Feifei.Xu-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Kent.Russell-5C7GfCeVMHo@public.gmane.org, Chris.Freehill-5C7GfCeVMHo@public.gmane.org
+To: "Lou, Wentao" <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RW5hYmxlIHJlYWx0aW1lIG1lbW9yeSB1dGlsaXphdGlvbiByZXBvcnQgb24gU01VNyBhc2ljcy4K
-CkNoYW5nZS1JZDogSTBjMDkwNjI0MDQ4ODQ4YWFjNjliNzhlN2JkZmIzMWU3NjNjYzYxNDAKU2ln
-bmVkLW9mZi1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9zbXU3X2h3bWdyLmMgICAgICAgIHwgNSArKysrLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdW1nci5oICAgICAgICAgICAgICB8
-IDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2NpX3NtdW1nci5jICAg
-ICAgICB8IDIgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9maWppX3Nt
-dW1nci5jICAgICAgfCAyICsrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3Iv
-aWNlbGFuZF9zbXVtZ3IuYyAgIHwgMiArKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-c211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYyB8IDIgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L3NtdW1nci90b25nYV9zbXVtZ3IuYyAgICAgfCAyICsrCiBkcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYW1fc211bWdyLmMgICAgIHwgMiArKwogOCBmaWxlcyBj
-aGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCmluZGV4IDA0ODc1N2U4ZjQ5
-NC4uMTY1OTFiZThiMGNhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9od21nci9zbXU3X2h3bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aHdtZ3Ivc211N19od21nci5jCkBAIC0zNTMyLDkgKzM1MzIsMTIgQEAgc3RhdGljIGludCBzbXU3
-X3JlYWRfc2Vuc29yKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGludCBpZHgsCiAJCSpzaXplID0g
-NDsKIAkJcmV0dXJuIDA7CiAJY2FzZSBBTURHUFVfUFBfU0VOU09SX0dQVV9MT0FEOgorCWNhc2Ug
-QU1ER1BVX1BQX1NFTlNPUl9NRU1fTE9BRDoKIAkJb2Zmc2V0ID0gZGF0YS0+c29mdF9yZWdzX3N0
-YXJ0ICsgc211bV9nZXRfb2Zmc2V0b2YoaHdtZ3IsCiAJCQkJCQkJCVNNVV9Tb2Z0UmVnaXN0ZXJz
-LAotCQkJCQkJCQlBdmVyYWdlR3JhcGhpY3NBY3Rpdml0eSk7CisJCQkJCQkJCShpZHggPT0gQU1E
-R1BVX1BQX1NFTlNPUl9HUFVfTE9BRCkgPworCQkJCQkJCQlBdmVyYWdlR3JhcGhpY3NBY3Rpdml0
-eToKKwkJCQkJCQkJQXZlcmFnZU1lbW9yeUFjdGl2aXR5KTsKIAogCQlhY3Rpdml0eV9wZXJjZW50
-ID0gY2dzX3JlYWRfaW5kX3JlZ2lzdGVyKGh3bWdyLT5kZXZpY2UsIENHU19JTkRfUkVHX19TTUMs
-IG9mZnNldCk7CiAJCWFjdGl2aXR5X3BlcmNlbnQgKz0gMHg4MDsKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVtZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2luYy9zbXVtZ3IuaAppbmRleCA4MjU1MGE4YTNhM2YuLmM1Mjg4ODMxYWEx
-NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdW1nci5o
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVtZ3IuaApAQCAtNDEs
-NiArNDEsNyBAQCBlbnVtIFNNVV9NRU1CRVIgewogCUhhbmRzaGFrZURpc2FibGVzID0gMCwKIAlW
-b2x0YWdlQ2hhbmdlVGltZW91dCwKIAlBdmVyYWdlR3JhcGhpY3NBY3Rpdml0eSwKKwlBdmVyYWdl
-TWVtb3J5QWN0aXZpdHksCiAJUHJlVkJsYW5rR2FwLAogCVZCbGFua1RpbWVvdXQsCiAJVWNvZGVM
-b2FkU3RhdHVzLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211
-bWdyL2NpX3NtdW1nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2Np
-X3NtdW1nci5jCmluZGV4IDY2OWJkMGMyYTE2Yy4uOWVmNTdmY2Y3ZTc4IDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvY2lfc211bWdyLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL2NpX3NtdW1nci5jCkBAIC0yMjU0LDYg
-KzIyNTQsOCBAQCBzdGF0aWMgdWludDMyX3QgY2lfZ2V0X29mZnNldG9mKHVpbnQzMl90IHR5cGUs
-IHVpbnQzMl90IG1lbWJlcikKIAkJCXJldHVybiBvZmZzZXRvZihTTVU3X1NvZnRSZWdpc3RlcnMs
-IFZvbHRhZ2VDaGFuZ2VUaW1lb3V0KTsKIAkJY2FzZSBBdmVyYWdlR3JhcGhpY3NBY3Rpdml0eToK
-IAkJCXJldHVybiBvZmZzZXRvZihTTVU3X1NvZnRSZWdpc3RlcnMsIEF2ZXJhZ2VHcmFwaGljc0Ep
-OworCQljYXNlIEF2ZXJhZ2VNZW1vcnlBY3Rpdml0eToKKwkJCXJldHVybiBvZmZzZXRvZihTTVU3
-X1NvZnRSZWdpc3RlcnMsIEF2ZXJhZ2VNZW1vcnlBKTsKIAkJY2FzZSBQcmVWQmxhbmtHYXA6CiAJ
-CQlyZXR1cm4gb2Zmc2V0b2YoU01VN19Tb2Z0UmVnaXN0ZXJzLCBQcmVWQmxhbmtHYXApOwogCQlj
-YXNlIFZCbGFua1RpbWVvdXQ6CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9zbXVtZ3IvZmlqaV9zbXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L3NtdW1nci9maWppX3NtdW1nci5jCmluZGV4IGJjODM3NWNiZjI5Ny4uMGNlODViNzMzMzhlIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVt
-Z3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvZmlqaV9zbXVt
-Z3IuYwpAQCAtMjMwNCw2ICsyMzA0LDggQEAgc3RhdGljIHVpbnQzMl90IGZpamlfZ2V0X29mZnNl
-dG9mKHVpbnQzMl90IHR5cGUsIHVpbnQzMl90IG1lbWJlcikKIAkJCXJldHVybiBvZmZzZXRvZihT
-TVU3M19Tb2Z0UmVnaXN0ZXJzLCBWb2x0YWdlQ2hhbmdlVGltZW91dCk7CiAJCWNhc2UgQXZlcmFn
-ZUdyYXBoaWNzQWN0aXZpdHk6CiAJCQlyZXR1cm4gb2Zmc2V0b2YoU01VNzNfU29mdFJlZ2lzdGVy
-cywgQXZlcmFnZUdyYXBoaWNzQWN0aXZpdHkpOworCQljYXNlIEF2ZXJhZ2VNZW1vcnlBY3Rpdml0
-eToKKwkJCXJldHVybiBvZmZzZXRvZihTTVU3M19Tb2Z0UmVnaXN0ZXJzLCBBdmVyYWdlTWVtb3J5
-QWN0aXZpdHkpOwogCQljYXNlIFByZVZCbGFua0dhcDoKIAkJCXJldHVybiBvZmZzZXRvZihTTVU3
-M19Tb2Z0UmVnaXN0ZXJzLCBQcmVWQmxhbmtHYXApOwogCQljYXNlIFZCbGFua1RpbWVvdXQ6CmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvaWNlbGFuZF9z
-bXVtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdW1nci9pY2VsYW5kX3Nt
-dW1nci5jCmluZGV4IDM3NWNjZjZmZjVmMi4uZjI0ZjEzZDc3ODA4IDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvaWNlbGFuZF9zbXVtZ3IuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvaWNlbGFuZF9zbXVtZ3IuYwpAQCAt
-MjIxOSw2ICsyMjE5LDggQEAgc3RhdGljIHVpbnQzMl90IGljZWxhbmRfZ2V0X29mZnNldG9mKHVp
-bnQzMl90IHR5cGUsIHVpbnQzMl90IG1lbWJlcikKIAkJCXJldHVybiBvZmZzZXRvZihTTVU3MV9T
-b2Z0UmVnaXN0ZXJzLCBWb2x0YWdlQ2hhbmdlVGltZW91dCk7CiAJCWNhc2UgQXZlcmFnZUdyYXBo
-aWNzQWN0aXZpdHk6CiAJCQlyZXR1cm4gb2Zmc2V0b2YoU01VNzFfU29mdFJlZ2lzdGVycywgQXZl
-cmFnZUdyYXBoaWNzQWN0aXZpdHkpOworCQljYXNlIEF2ZXJhZ2VNZW1vcnlBY3Rpdml0eToKKwkJ
-CXJldHVybiBvZmZzZXRvZihTTVU3MV9Tb2Z0UmVnaXN0ZXJzLCBBdmVyYWdlTWVtb3J5QWN0aXZp
-dHkpOwogCQljYXNlIFByZVZCbGFua0dhcDoKIAkJCXJldHVybiBvZmZzZXRvZihTTVU3MV9Tb2Z0
-UmVnaXN0ZXJzLCBQcmVWQmxhbmtHYXApOwogCQljYXNlIFZCbGFua1RpbWVvdXQ6CmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1n
-ci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVt
-Z3IuYwppbmRleCAyZDRjZmUxNGY3MmUuLjBkODk1OGU3MWI5NCAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3BvbGFyaXMxMF9zbXVtZ3IuYworKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jCkBA
-IC0yMzEzLDYgKzIzMTMsOCBAQCBzdGF0aWMgdWludDMyX3QgcG9sYXJpczEwX2dldF9vZmZzZXRv
-Zih1aW50MzJfdCB0eXBlLCB1aW50MzJfdCBtZW1iZXIpCiAJCQlyZXR1cm4gb2Zmc2V0b2YoU01V
-NzRfU29mdFJlZ2lzdGVycywgVm9sdGFnZUNoYW5nZVRpbWVvdXQpOwogCQljYXNlIEF2ZXJhZ2VH
-cmFwaGljc0FjdGl2aXR5OgogCQkJcmV0dXJuIG9mZnNldG9mKFNNVTc0X1NvZnRSZWdpc3RlcnMs
-IEF2ZXJhZ2VHcmFwaGljc0FjdGl2aXR5KTsKKwkJY2FzZSBBdmVyYWdlTWVtb3J5QWN0aXZpdHk6
-CisJCQlyZXR1cm4gb2Zmc2V0b2YoU01VNzRfU29mdFJlZ2lzdGVycywgQXZlcmFnZU1lbW9yeUFj
-dGl2aXR5KTsKIAkJY2FzZSBQcmVWQmxhbmtHYXA6CiAJCQlyZXR1cm4gb2Zmc2V0b2YoU01VNzRf
-U29mdFJlZ2lzdGVycywgUHJlVkJsYW5rR2FwKTsKIAkJY2FzZSBWQmxhbmtUaW1lb3V0OgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3RvbmdhX3NtdW1n
-ci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3RvbmdhX3NtdW1nci5j
-CmluZGV4IDNlZDZjNWYxZTVjZi4uMDYwYzBmN2Y1MjM4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdG9uZ2Ffc211bWdyLmMKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvc211bWdyL3RvbmdhX3NtdW1nci5jCkBAIC0yNjExLDYgKzI2
-MTEsOCBAQCBzdGF0aWMgdWludDMyX3QgdG9uZ2FfZ2V0X29mZnNldG9mKHVpbnQzMl90IHR5cGUs
-IHVpbnQzMl90IG1lbWJlcikKIAkJCXJldHVybiBvZmZzZXRvZihTTVU3Ml9Tb2Z0UmVnaXN0ZXJz
-LCBWb2x0YWdlQ2hhbmdlVGltZW91dCk7CiAJCWNhc2UgQXZlcmFnZUdyYXBoaWNzQWN0aXZpdHk6
-CiAJCQlyZXR1cm4gb2Zmc2V0b2YoU01VNzJfU29mdFJlZ2lzdGVycywgQXZlcmFnZUdyYXBoaWNz
-QWN0aXZpdHkpOworCQljYXNlIEF2ZXJhZ2VNZW1vcnlBY3Rpdml0eToKKwkJCXJldHVybiBvZmZz
-ZXRvZihTTVU3Ml9Tb2Z0UmVnaXN0ZXJzLCBBdmVyYWdlTWVtb3J5QWN0aXZpdHkpOwogCQljYXNl
-IFByZVZCbGFua0dhcDoKIAkJCXJldHVybiBvZmZzZXRvZihTTVU3Ml9Tb2Z0UmVnaXN0ZXJzLCBQ
-cmVWQmxhbmtHYXApOwogCQljYXNlIFZCbGFua1RpbWVvdXQ6CmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYW1fc211bWdyLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVtZ3IvdmVnYW1fc211bWdyLmMKaW5kZXggMWU2OTMwMGY2
-MTc1Li5kNDk5MjA0YjIxODQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L3NtdW1nci92ZWdhbV9zbXVtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9zbXVtZ3IvdmVnYW1fc211bWdyLmMKQEAgLTIxNjcsNiArMjE2Nyw4IEBAIHN0YXRpYyB1
-aW50MzJfdCB2ZWdhbV9nZXRfb2Zmc2V0b2YodWludDMyX3QgdHlwZSwgdWludDMyX3QgbWVtYmVy
-KQogCQkJcmV0dXJuIG9mZnNldG9mKFNNVTc1X1NvZnRSZWdpc3RlcnMsIFZvbHRhZ2VDaGFuZ2VU
-aW1lb3V0KTsKIAkJY2FzZSBBdmVyYWdlR3JhcGhpY3NBY3Rpdml0eToKIAkJCXJldHVybiBvZmZz
-ZXRvZihTTVU3NV9Tb2Z0UmVnaXN0ZXJzLCBBdmVyYWdlR3JhcGhpY3NBY3Rpdml0eSk7CisJCWNh
-c2UgQXZlcmFnZU1lbW9yeUFjdGl2aXR5OgorCQkJcmV0dXJuIG9mZnNldG9mKFNNVTc1X1NvZnRS
-ZWdpc3RlcnMsIEF2ZXJhZ2VNZW1vcnlBY3Rpdml0eSk7CiAJCWNhc2UgUHJlVkJsYW5rR2FwOgog
-CQkJcmV0dXJuIG9mZnNldG9mKFNNVTc1X1NvZnRSZWdpc3RlcnMsIFByZVZCbGFua0dhcCk7CiAJ
-CWNhc2UgVkJsYW5rVGltZW91dDoKLS0gCjIuMjEuMAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+--===============0115066688==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18099AEDBAC97CB63552E025F73D0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18099AEDBAC97CB63552E025F73D0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+
+Please fix up your mail client or git config so your email address matches =
+your signed off line.  E.g.,
+wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+vs.
+Wentao Lou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+
+Thanks,
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of wentalou=
+ <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, April 25, 2019 12:50 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Lou, Wentao
+Subject: [PATCH] drm/amdgpu: value of amdgpu_sriov_vf cannot be set into F3=
+2_POLL_ENABLE
+
+amdgpu_sriov_vf would return 0x0 or 0x4 to indicate if sriov.
+but F32_POLL_ENABLE need 0x0 or 0x1 to determine if enabled.
+set 0x4 into F32_POLL_ENABLE would make SDMA0_GFX_RB_WPTR_POLL_CNTL not wor=
+king.
+
+Change-Id: I7d13ed35469ebd7bdf10c90341181977c6cfd38d
+Signed-off-by: Wentao Lou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v4_0.c
+index 1ec60f5..1be85b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -851,7 +851,7 @@ static void sdma_v4_0_gfx_resume(struct amdgpu_device *=
+adev, unsigned int i)
+         wptr_poll_cntl =3D RREG32_SDMA(i, mmSDMA0_GFX_RB_WPTR_POLL_CNTL);
+         wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl,
+                                        SDMA0_GFX_RB_WPTR_POLL_CNTL,
+-                                      F32_POLL_ENABLE, amdgpu_sriov_vf(ade=
+v));
++                                      F32_POLL_ENABLE, amdgpu_sriov_vf(ade=
+v)? 1 : 0);
+         WREG32_SDMA(i, mmSDMA0_GFX_RB_WPTR_POLL_CNTL, wptr_poll_cntl);
+
+         /* enable DMA RB */
+@@ -942,7 +942,7 @@ static void sdma_v4_0_page_resume(struct amdgpu_device =
+*adev, unsigned int i)
+         wptr_poll_cntl =3D RREG32_SDMA(i, mmSDMA0_PAGE_RB_WPTR_POLL_CNTL);
+         wptr_poll_cntl =3D REG_SET_FIELD(wptr_poll_cntl,
+                                        SDMA0_PAGE_RB_WPTR_POLL_CNTL,
+-                                      F32_POLL_ENABLE, amdgpu_sriov_vf(ade=
+v));
++                                      F32_POLL_ENABLE, amdgpu_sriov_vf(ade=
+v)? 1 : 0);
+         WREG32_SDMA(i, mmSDMA0_PAGE_RB_WPTR_POLL_CNTL, wptr_poll_cntl);
+
+         /* enable DMA RB */
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18099AEDBAC97CB63552E025F73D0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Please fix up your mail client or git config so your email address matches =
+your signed off line.&nbsp; E.g.,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+wentalou &lt;Wentao.Lou-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+vs.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<font size=3D"2"><span style=3D"font-size:11pt">Wentao Lou &lt;Wentao.Lou@a=
+md.com&gt;</span></font></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of wentalou &lt;Wentao.Lou@amd.c=
+om&gt;<br>
+<b>Sent:</b> Thursday, April 25, 2019 12:50 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Lou, Wentao<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: value of amdgpu_sriov_vf cannot be set =
+into F32_POLL_ENABLE</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">amdgpu_sriov_vf would return 0x0 or 0x4 to indicat=
+e if sriov.<br>
+but F32_POLL_ENABLE need 0x0 or 0x1 to determine if enabled.<br>
+set 0x4 into F32_POLL_ENABLE would make SDMA0_GFX_RB_WPTR_POLL_CNTL not wor=
+king.<br>
+<br>
+Change-Id: I7d13ed35469ebd7bdf10c90341181977c6cfd38d<br>
+Signed-off-by: Wentao Lou &lt;Wentao.Lou-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 4 &#43;&#43;--<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/sdma_v4_0.c<br>
+index 1ec60f5..1be85b7 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c<br>
+@@ -851,7 &#43;851,7 @@ static void sdma_v4_0_gfx_resume(struct amdgpu_devi=
+ce *adev, unsigned int i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =3D RREG32_=
+SDMA(i, mmSDMA0_GFX_RB_WPTR_POLL_CNTL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =3D REG_SET=
+_FIELD(wptr_poll_cntl,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; SDMA0_GFX_RB_WPTR_POLL_CNTL,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F=
+32_POLL_ENABLE, amdgpu_sriov_vf(adev));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; F32_POLL_ENABLE, amdgpu_sriov_vf(adev)? 1 : 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SDMA(i, mmSDMA0_GFX=
+_RB_WPTR_POLL_CNTL, wptr_poll_cntl);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable DMA RB */<br>
+@@ -942,7 &#43;942,7 @@ static void sdma_v4_0_page_resume(struct amdgpu_dev=
+ice *adev, unsigned int i)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =3D RREG32_=
+SDMA(i, mmSDMA0_PAGE_RB_WPTR_POLL_CNTL);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wptr_poll_cntl =3D REG_SET=
+_FIELD(wptr_poll_cntl,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; SDMA0_PAGE_RB_WPTR_POLL_CNTL,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; F=
+32_POLL_ENABLE, amdgpu_sriov_vf(adev));<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; F32_POLL_ENABLE, amdgpu_sriov_vf(adev)? 1 : 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SDMA(i, mmSDMA0_PAG=
+E_RB_WPTR_POLL_CNTL, wptr_poll_cntl);<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable DMA RB */<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18099AEDBAC97CB63552E025F73D0BN6PR12MB1809namp_--
+
+--===============0115066688==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0115066688==--
