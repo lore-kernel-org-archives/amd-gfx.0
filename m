@@ -1,153 +1,53 @@
-From: Masahiro Yamada <yamada.masahiro@socionext.com>
-Subject: Re: [PATCH v2] drm: prefix header search paths with $(srctree)/
-Date: Fri, 26 Apr 2019 10:36:59 +0900
-Message-ID: <CAK7LNAR6bT93kmyPCzJg2ZFvk239nz0nyVX5z23G+8Y0Wiba1Q@mail.gmail.com>
+From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [Intel-gfx] [PATCH v2] drm: prefix header search
+ paths with $(srctree)/
+Date: Fri, 26 Apr 2019 12:18:40 +1000
+Message-ID: <CAPM=9txpmjQqh0eLA1sMjcDatQG83vk=juLehiUDi=sBO+c9Tg@mail.gmail.com>
 References: <1553859161-2628-1-git-send-email-yamada.masahiro@socionext.com>
+ <CAK7LNAR6bT93kmyPCzJg2ZFvk239nz0nyVX5z23G+8Y0Wiba1Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1553859161-2628-1-git-send-email-yamada.masahiro@socionext.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>
-Cc: Sam Ravnborg <sam@ravnborg.org>, Sean Paul <sean@poorly.run>, Zhenyu Wang <zhenyuw@linux.intel.com>, nouveau@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, "James (Qian) Wang" <james.qian.wang@arm.com>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Zhi Wang <zhi.a.wang@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>, intel-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>, Brian Starkey <brian.starkey@arm.com>, intel-gvt-dev@lists.freedesktop.org, Liviu Dudau <liviu.dudau@arm.com>, Linux Kernel Mailing List <linux-ker>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAK7LNAR6bT93kmyPCzJg2ZFvk239nz0nyVX5z23G+8Y0Wiba1Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
+ <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/freedreno>
+List-Post: <mailto:freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
+ <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Freedreno" <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>
+Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, intel-gvt-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Intel Graphics Development <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Linux Kernel Mailing List <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "James (Qian) Wang" <james.qian.wang-5wv7dgnIgG8@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, linux-arm-msm <linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi.
-
-
-On Fri, Mar 29, 2019 at 8:37 PM Masahiro Yamada
-<yamada.masahiro@socionext.com> wrote:
->
-> Currently, the Kbuild core manipulates header search paths in a crazy
-> way [1].
->
-> To fix this mess, I want all Makefiles to add explicit $(srctree)/ to
-> the search paths in the srctree. Some Makefiles are already written in
-> that way, but not all. The goal of this work is to make the notation
-> consistent, and finally get rid of the gross hacks.
->
-> Having whitespaces after -I does not matter since commit 48f6e3cf5bc6
-> ("kbuild: do not drop -I without parameter").
->
-> [1]: https://patchwork.kernel.org/patch/9632347/
->
-> Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
-> Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
-> ---
->
-> I put all gpu/drm changes into a single patch because
-> they are trivial conversion.
->
-> If you are interested in the big picture of this work,
-> the full patch set is available at the following URL.
->
-> git://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild.git build-test
-
-
-Is somebody taking care of this?
-
-
-
->
-> Changes in v2:
->   - fix up the new driver komeda
->   - Add Sam's Reviewed-by
->
->  drivers/gpu/drm/amd/amdgpu/Makefile         | 2 +-
->  drivers/gpu/drm/amd/lib/Makefile            | 2 +-
->  drivers/gpu/drm/arm/display/komeda/Makefile | 4 ++--
->  drivers/gpu/drm/i915/gvt/Makefile           | 2 +-
->  drivers/gpu/drm/msm/Makefile                | 6 +++---
->  drivers/gpu/drm/nouveau/Kbuild              | 8 ++++----
->  6 files changed, 12 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-> index 466da59..62bf9da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
-> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-> @@ -23,7 +23,7 @@
->  # Makefile for the drm device driver.  This driver provides support for the
->  # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
->
-> -FULL_AMD_PATH=$(src)/..
-> +FULL_AMD_PATH=$(srctree)/$(src)/..
->  DISPLAY_FOLDER_NAME=display
->  FULL_AMD_DISPLAY_PATH = $(FULL_AMD_PATH)/$(DISPLAY_FOLDER_NAME)
->
-> diff --git a/drivers/gpu/drm/amd/lib/Makefile b/drivers/gpu/drm/amd/lib/Makefile
-> index 6902430..d534992 100644
-> --- a/drivers/gpu/drm/amd/lib/Makefile
-> +++ b/drivers/gpu/drm/amd/lib/Makefile
-> @@ -27,6 +27,6 @@
->  # driver components or later moved to kernel/lib for sharing with
->  # other drivers.
->
-> -ccflags-y := -I$(src)/../include
-> +ccflags-y := -I $(srctree)/$(src)/../include
->
->  obj-$(CONFIG_CHASH) += chash.o
-> diff --git a/drivers/gpu/drm/arm/display/komeda/Makefile b/drivers/gpu/drm/arm/display/komeda/Makefile
-> index 1b875e5..a72e30c 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/Makefile
-> +++ b/drivers/gpu/drm/arm/display/komeda/Makefile
-> @@ -1,8 +1,8 @@
->  # SPDX-License-Identifier: GPL-2.0
->
->  ccflags-y := \
-> -       -I$(src)/../include \
-> -       -I$(src)
-> +       -I $(srctree)/$(src)/../include \
-> +       -I $(srctree)/$(src)
->
->  komeda-y := \
->         komeda_drv.o \
-> diff --git a/drivers/gpu/drm/i915/gvt/Makefile b/drivers/gpu/drm/i915/gvt/Makefile
-> index 271fb46..ea8324a 100644
-> --- a/drivers/gpu/drm/i915/gvt/Makefile
-> +++ b/drivers/gpu/drm/i915/gvt/Makefile
-> @@ -5,5 +5,5 @@ GVT_SOURCE := gvt.o aperture_gm.o handlers.o vgpu.o trace_points.o firmware.o \
->         execlist.o scheduler.o sched_policy.o mmio_context.o cmd_parser.o debugfs.o \
->         fb_decoder.o dmabuf.o page_track.o
->
-> -ccflags-y                              += -I$(src) -I$(src)/$(GVT_DIR)
-> +ccflags-y                              += -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
->  i915-y                                 += $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
-> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
-> index 56a70c7..b7b1ebd 100644
-> --- a/drivers/gpu/drm/msm/Makefile
-> +++ b/drivers/gpu/drm/msm/Makefile
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
-> -ccflags-y := -Idrivers/gpu/drm/msm
-> -ccflags-y += -Idrivers/gpu/drm/msm/disp/dpu1
-> -ccflags-$(CONFIG_DRM_MSM_DSI) += -Idrivers/gpu/drm/msm/dsi
-> +ccflags-y := -I $(srctree)/$(src)
-> +ccflags-y += -I $(srctree)/$(src)/disp/dpu1
-> +ccflags-$(CONFIG_DRM_MSM_DSI) += -I $(srctree)/$(src)/dsi
->
->  msm-y := \
->         adreno/adreno_device.o \
-> diff --git a/drivers/gpu/drm/nouveau/Kbuild b/drivers/gpu/drm/nouveau/Kbuild
-> index ea3035e..4fae728 100644
-> --- a/drivers/gpu/drm/nouveau/Kbuild
-> +++ b/drivers/gpu/drm/nouveau/Kbuild
-> @@ -1,7 +1,7 @@
-> -ccflags-y += -I$(src)/include
-> -ccflags-y += -I$(src)/include/nvkm
-> -ccflags-y += -I$(src)/nvkm
-> -ccflags-y += -I$(src)
-> +ccflags-y += -I $(srctree)/$(src)/include
-> +ccflags-y += -I $(srctree)/$(src)/include/nvkm
-> +ccflags-y += -I $(srctree)/$(src)/nvkm
-> +ccflags-y += -I $(srctree)/$(src)
->
->  # NVKM - HW resource manager
->  #- code also used by various userspace tools/tests
-> --
-> 2.7.4
->
-
-
--- 
-Best Regards
-Masahiro Yamada
+T24gRnJpLCAyNiBBcHIgMjAxOSBhdCAxMTo0NiwgTWFzYWhpcm8gWWFtYWRhCjx5YW1hZGEubWFz
+YWhpcm9Ac29jaW9uZXh0LmNvbT4gd3JvdGU6Cj4KPiBIaS4KPgo+Cj4gT24gRnJpLCBNYXIgMjks
+IDIwMTkgYXQgODozNyBQTSBNYXNhaGlybyBZYW1hZGEKPiA8eWFtYWRhLm1hc2FoaXJvQHNvY2lv
+bmV4dC5jb20+IHdyb3RlOgo+ID4KPiA+IEN1cnJlbnRseSwgdGhlIEtidWlsZCBjb3JlIG1hbmlw
+dWxhdGVzIGhlYWRlciBzZWFyY2ggcGF0aHMgaW4gYSBjcmF6eQo+ID4gd2F5IFsxXS4KPiA+Cj4g
+PiBUbyBmaXggdGhpcyBtZXNzLCBJIHdhbnQgYWxsIE1ha2VmaWxlcyB0byBhZGQgZXhwbGljaXQg
+JChzcmN0cmVlKS8gdG8KPiA+IHRoZSBzZWFyY2ggcGF0aHMgaW4gdGhlIHNyY3RyZWUuIFNvbWUg
+TWFrZWZpbGVzIGFyZSBhbHJlYWR5IHdyaXR0ZW4gaW4KPiA+IHRoYXQgd2F5LCBidXQgbm90IGFs
+bC4gVGhlIGdvYWwgb2YgdGhpcyB3b3JrIGlzIHRvIG1ha2UgdGhlIG5vdGF0aW9uCj4gPiBjb25z
+aXN0ZW50LCBhbmQgZmluYWxseSBnZXQgcmlkIG9mIHRoZSBncm9zcyBoYWNrcy4KPiA+Cj4gPiBI
+YXZpbmcgd2hpdGVzcGFjZXMgYWZ0ZXIgLUkgZG9lcyBub3QgbWF0dGVyIHNpbmNlIGNvbW1pdCA0
+OGY2ZTNjZjViYzYKPiA+ICgia2J1aWxkOiBkbyBub3QgZHJvcCAtSSB3aXRob3V0IHBhcmFtZXRl
+ciIpLgo+ID4KPiA+IFsxXTogaHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRjaC85NjMy
+MzQ3Lwo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IE1hc2FoaXJvIFlhbWFkYSA8eWFtYWRhLm1hc2Fo
+aXJvQHNvY2lvbmV4dC5jb20+Cj4gPiBSZXZpZXdlZC1ieTogU2FtIFJhdm5ib3JnIDxzYW1AcmF2
+bmJvcmcub3JnPgo+ID4gLS0tCj4gPgo+ID4gSSBwdXQgYWxsIGdwdS9kcm0gY2hhbmdlcyBpbnRv
+IGEgc2luZ2xlIHBhdGNoIGJlY2F1c2UKPiA+IHRoZXkgYXJlIHRyaXZpYWwgY29udmVyc2lvbi4K
+PiA+Cj4gPiBJZiB5b3UgYXJlIGludGVyZXN0ZWQgaW4gdGhlIGJpZyBwaWN0dXJlIG9mIHRoaXMg
+d29yaywKPiA+IHRoZSBmdWxsIHBhdGNoIHNldCBpcyBhdmFpbGFibGUgYXQgdGhlIGZvbGxvd2lu
+ZyBVUkwuCj4gPgo+ID4gZ2l0Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwv
+Z2l0L21hc2FoaXJveS9saW51eC1rYnVpbGQuZ2l0IGJ1aWxkLXRlc3QKPgo+Cj4gSXMgc29tZWJv
+ZHkgdGFraW5nIGNhcmUgb2YgdGhpcz8KPgoKQXJlIHlvdSBleHBlY3RpbmcgdGhpcyB0byBiZSBt
+ZXJnZWQgaW4gdGhlIGRybSB0cmVlPyBpZiBzbyBwbGVhc2UKaW5kaWNhdGUgdGhhdCB3aGVuIHBv
+c3RpbmcuCgpJJ2QgYXNzdW1lZCB0aGlzIHdvdWxkIGdvIHZpYSBrYnVpbGQgdHJlZS4KCklmIHRo
+ZSBsYXRlciwKQWNrZWQtYnk6IERhdmUgQWlybGllIDxhaXJsaWVkQHJlZGhhdC5jb20+CkRhdmUu
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyZWVkcmVu
+byBtYWlsaW5nIGxpc3QKRnJlZWRyZW5vQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ZyZWVkcmVubw==
