@@ -1,81 +1,83 @@
-From: Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [Intel-gfx] [PATCH v2] drm: prefix header search
- paths with $(srctree)/
-Date: Fri, 26 Apr 2019 12:56:48 +1000
-Message-ID: <CAPM=9tyRHNp2R_No_0Gx0N59XR2RvD4=1G2GWgLLDxmKNk6JVg@mail.gmail.com>
-References: <1553859161-2628-1-git-send-email-yamada.masahiro@socionext.com>
- <CAK7LNAR6bT93kmyPCzJg2ZFvk239nz0nyVX5z23G+8Y0Wiba1Q@mail.gmail.com>
- <CAPM=9txpmjQqh0eLA1sMjcDatQG83vk=juLehiUDi=sBO+c9Tg@mail.gmail.com>
- <8d04d30e86a54b3e9b27b30ac0ab3822@SOC-EX01V.e01.socionext.com>
+From: Alexey Kardashevskiy <aik@ozlabs.ru>
+Subject: Re: [PATCH v2 4/9] powerpc/powernv/npu: use helper pci_dev_id
+Date: Fri, 26 Apr 2019 13:44:35 +1000
+Message-ID: <e0ca28bd-dfd8-cf73-dfce-a11557ecd346@ozlabs.ru>
+References: <2e1f9a57-6d08-d017-24da-3e6b97fa2449@gmail.com>
+ <8ed5b4ee-3226-6786-eb96-886826e180cd@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8d04d30e86a54b3e9b27b30ac0ab3822-g8DdyCBfZHbb3YxnlB/upqWE4/SHLhzCQQ4Iyu8u01E@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/freedreno>,
- <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/freedreno>
-List-Post: <mailto:freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/freedreno>,
- <mailto:freedreno-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Freedreno" <freedreno-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Masahiro Yamada <yamada.masahiro-uWyLwvC0a2jby3iVrkZq2A@public.gmane.org>
-Cc: zhoucm1 <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, intel-gvt-dev-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Dave Airlie <airlied-cv59FeDIM0c@public.gmane.org>, nouveau <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Intel Graphics Development <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "James (Qian) Wang" <james.qian.wang-5wv7dgnIgG8@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, linux-arm-msm <linux-arm-msm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, freedreno-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>, "Koenig,
- Christian" <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <8ed5b4ee-3226-6786-eb96-886826e180cd@gmail.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Heiner Kallweit <hkallweit1@gmail.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Michael Ellerman <mpe@ellerman.id.au>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Joerg Roedel <joro@8bytes.org>, David Woodhouse <dwmw2@infradead.org>, Realtek linux nic maintainers <nic_swsd@realtek.com>, "David S. Miller" <davem@davemloft.net>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: open list <linux-kernel@vger.kernel.org>, "open list:AMD KFD" <dri-devel@lists.freedesktop.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux-foundation.org>, "open list:8169 10/100/1000 GIGABIT ETHERNET DRIVER" <netdev@vger.kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-RGFuaWVsLCBkcm0tbWlzYy1uZXh0LWZpeGVzPwoKRGF2ZS4KCk9uIEZyaSwgMjYgQXByIDIwMTkg
-YXQgMTI6MjUsIDx5YW1hZGEubWFzYWhpcm9Ac29jaW9uZXh0LmNvbT4gd3JvdGU6Cj4KPiBIaSBE
-YXZlLAo+Cj4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+ID4gRnJvbTogRGF2ZSBBaXJs
-aWUgW21haWx0bzphaXJsaWVkQGdtYWlsLmNvbV0KPiA+IFNlbnQ6IEZyaWRheSwgQXByaWwgMjYs
-IDIwMTkgMTE6MTkgQU0KPiA+IFRvOiBZYW1hZGEsIE1hc2FoaXJvL+WxseeUsCDnnJ/lvJggPHlh
-bWFkYS5tYXNhaGlyb0Bzb2Npb25leHQuY29tPgo+ID4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGll
-ZEBsaW51eC5pZT47IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD47Cj4gPiBkcmktZGV2
-ZWwgPGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBub3V2ZWF1Cj4gPiA8bm91dmVh
-dUBsaXN0cy5mcmVlZGVza3RvcC5vcmc+OyBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+
-OyBEYXZpZAo+ID4gKENodW5NaW5nKSBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPjsgYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKPiA+IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz47IEphbWVz
-IChRaWFuKSBXYW5nCj4gPiA8amFtZXMucWlhbi53YW5nQGFybS5jb20+OyBCZW4gU2tlZ2dzIDxi
-c2tlZ2dzQHJlZGhhdC5jb20+Owo+ID4gbGludXgtYXJtLW1zbSA8bGludXgtYXJtLW1zbUB2Z2Vy
-Lmtlcm5lbC5vcmc+OyBJbnRlbCBHcmFwaGljcwo+ID4gRGV2ZWxvcG1lbnQgPGludGVsLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmc+Owo+ID4gaW50ZWwtZ3Z0LWRldkBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmc7IExpbnV4IEtlcm5lbCBNYWlsaW5nIExpc3QKPiA+IDxsaW51eC1rZXJuZWxAdmdlci5r
-ZXJuZWwub3JnPjsgQ2hyaXN0aWFuIEvDtm5pZwo+ID4gPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNv
-bT47IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT47Cj4gPiBmcmVlZHJl
-bm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBTdWJqZWN0OiBSZTogW0ludGVsLWdmeF0gW1BB
-VENIIHYyXSBkcm06IHByZWZpeCBoZWFkZXIgc2VhcmNoIHBhdGhzIHdpdGgKPiA+ICQoc3JjdHJl
-ZSkvCj4gPgo+ID4gT24gRnJpLCAyNiBBcHIgMjAxOSBhdCAxMTo0NiwgTWFzYWhpcm8gWWFtYWRh
-Cj4gPiA8eWFtYWRhLm1hc2FoaXJvQHNvY2lvbmV4dC5jb20+IHdyb3RlOgo+ID4gPgo+ID4gPiBI
-aS4KPiA+ID4KPiA+ID4KPiA+ID4gT24gRnJpLCBNYXIgMjksIDIwMTkgYXQgODozNyBQTSBNYXNh
-aGlybyBZYW1hZGEKPiA+ID4gPHlhbWFkYS5tYXNhaGlyb0Bzb2Npb25leHQuY29tPiB3cm90ZToK
-PiA+ID4gPgo+ID4gPiA+IEN1cnJlbnRseSwgdGhlIEtidWlsZCBjb3JlIG1hbmlwdWxhdGVzIGhl
-YWRlciBzZWFyY2ggcGF0aHMgaW4gYSBjcmF6eQo+ID4gPiA+IHdheSBbMV0uCj4gPiA+ID4KPiA+
-ID4gPiBUbyBmaXggdGhpcyBtZXNzLCBJIHdhbnQgYWxsIE1ha2VmaWxlcyB0byBhZGQgZXhwbGlj
-aXQgJChzcmN0cmVlKS8gdG8KPiA+ID4gPiB0aGUgc2VhcmNoIHBhdGhzIGluIHRoZSBzcmN0cmVl
-LiBTb21lIE1ha2VmaWxlcyBhcmUgYWxyZWFkeSB3cml0dGVuCj4gPiBpbgo+ID4gPiA+IHRoYXQg
-d2F5LCBidXQgbm90IGFsbC4gVGhlIGdvYWwgb2YgdGhpcyB3b3JrIGlzIHRvIG1ha2UgdGhlIG5v
-dGF0aW9uCj4gPiA+ID4gY29uc2lzdGVudCwgYW5kIGZpbmFsbHkgZ2V0IHJpZCBvZiB0aGUgZ3Jv
-c3MgaGFja3MuCj4gPiA+ID4KPiA+ID4gPiBIYXZpbmcgd2hpdGVzcGFjZXMgYWZ0ZXIgLUkgZG9l
-cyBub3QgbWF0dGVyIHNpbmNlIGNvbW1pdCA0OGY2ZTNjZjViYzYKPiA+ID4gPiAoImtidWlsZDog
-ZG8gbm90IGRyb3AgLUkgd2l0aG91dCBwYXJhbWV0ZXIiKS4KPiA+ID4gPgo+ID4gPiA+IFsxXTog
-aHR0cHM6Ly9wYXRjaHdvcmsua2VybmVsLm9yZy9wYXRjaC85NjMyMzQ3Lwo+ID4gPiA+Cj4gPiA+
-ID4gU2lnbmVkLW9mZi1ieTogTWFzYWhpcm8gWWFtYWRhIDx5YW1hZGEubWFzYWhpcm9Ac29jaW9u
-ZXh0LmNvbT4KPiA+ID4gPiBSZXZpZXdlZC1ieTogU2FtIFJhdm5ib3JnIDxzYW1AcmF2bmJvcmcu
-b3JnPgo+ID4gPiA+IC0tLQo+ID4gPiA+Cj4gPiA+ID4gSSBwdXQgYWxsIGdwdS9kcm0gY2hhbmdl
-cyBpbnRvIGEgc2luZ2xlIHBhdGNoIGJlY2F1c2UKPiA+ID4gPiB0aGV5IGFyZSB0cml2aWFsIGNv
-bnZlcnNpb24uCj4gPiA+ID4KPiA+ID4gPiBJZiB5b3UgYXJlIGludGVyZXN0ZWQgaW4gdGhlIGJp
-ZyBwaWN0dXJlIG9mIHRoaXMgd29yaywKPiA+ID4gPiB0aGUgZnVsbCBwYXRjaCBzZXQgaXMgYXZh
-aWxhYmxlIGF0IHRoZSBmb2xsb3dpbmcgVVJMLgo+ID4gPiA+Cj4gPiA+ID4KPiA+IGdpdDovL2dp
-dC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9tYXNhaGlyb3kvbGludXgta2J1
-aWxkLmcKPiA+IGl0IGJ1aWxkLXRlc3QKPiA+ID4KPiA+ID4KPiA+ID4gSXMgc29tZWJvZHkgdGFr
-aW5nIGNhcmUgb2YgdGhpcz8KPiA+ID4KPiA+Cj4gPiBBcmUgeW91IGV4cGVjdGluZyB0aGlzIHRv
-IGJlIG1lcmdlZCBpbiB0aGUgZHJtIHRyZWU/IGlmIHNvIHBsZWFzZQo+ID4gaW5kaWNhdGUgdGhh
-dCB3aGVuIHBvc3RpbmcuCj4KPgo+IFNvcnJ5IGZvciB1bmNsZWFybmVzcy4KPgo+IENvdWxkIHlv
-dSBhcHBseSB0aGlzIHRvIHlvdXIgZHJtIHRyZWU/Cj4KPiBUaGFua3MuCj4KPgo+Cj4KPiA+IEkn
-ZCBhc3N1bWVkIHRoaXMgd291bGQgZ28gdmlhIGtidWlsZCB0cmVlLgo+ID4KPiA+IElmIHRoZSBs
-YXRlciwKPiA+IEFja2VkLWJ5OiBEYXZlIEFpcmxpZSA8YWlybGllZEByZWRoYXQuY29tPgo+ID4g
-RGF2ZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJl
-ZWRyZW5vIG1haWxpbmcgbGlzdApGcmVlZHJlbm9AbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZnJlZWRyZW5v
+
+
+On 25/04/2019 05:14, Heiner Kallweit wrote:
+> Use new helper pci_dev_id() to simplify the code.
+> 
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+
+
+
+Reviewed-by: Alexey Kardashevskiy <aik@ozlabs.ru>
+
+
+> ---
+>  arch/powerpc/platforms/powernv/npu-dma.c | 14 ++++++--------
+>  1 file changed, 6 insertions(+), 8 deletions(-)
+> 
+> diff --git a/arch/powerpc/platforms/powernv/npu-dma.c b/arch/powerpc/platforms/powernv/npu-dma.c
+> index dc23d9d2a..495550432 100644
+> --- a/arch/powerpc/platforms/powernv/npu-dma.c
+> +++ b/arch/powerpc/platforms/powernv/npu-dma.c
+> @@ -1213,9 +1213,8 @@ int pnv_npu2_map_lpar_dev(struct pci_dev *gpdev, unsigned int lparid,
+>  	 * Currently we only support radix and non-zero LPCR only makes sense
+>  	 * for hash tables so skiboot expects the LPCR parameter to be a zero.
+>  	 */
+> -	ret = opal_npu_map_lpar(nphb->opal_id,
+> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn), lparid,
+> -			0 /* LPCR bits */);
+> +	ret = opal_npu_map_lpar(nphb->opal_id, pci_dev_id(gpdev), lparid,
+> +				0 /* LPCR bits */);
+>  	if (ret) {
+>  		dev_err(&gpdev->dev, "Error %d mapping device to LPAR\n", ret);
+>  		return ret;
+> @@ -1224,7 +1223,7 @@ int pnv_npu2_map_lpar_dev(struct pci_dev *gpdev, unsigned int lparid,
+>  	dev_dbg(&gpdev->dev, "init context opalid=%llu msr=%lx\n",
+>  			nphb->opal_id, msr);
+>  	ret = opal_npu_init_context(nphb->opal_id, 0/*__unused*/, msr,
+> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn));
+> +				    pci_dev_id(gpdev));
+>  	if (ret < 0)
+>  		dev_err(&gpdev->dev, "Failed to init context: %d\n", ret);
+>  	else
+> @@ -1258,7 +1257,7 @@ int pnv_npu2_unmap_lpar_dev(struct pci_dev *gpdev)
+>  	dev_dbg(&gpdev->dev, "destroy context opalid=%llu\n",
+>  			nphb->opal_id);
+>  	ret = opal_npu_destroy_context(nphb->opal_id, 0/*__unused*/,
+> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn));
+> +				       pci_dev_id(gpdev));
+>  	if (ret < 0) {
+>  		dev_err(&gpdev->dev, "Failed to destroy context: %d\n", ret);
+>  		return ret;
+> @@ -1266,9 +1265,8 @@ int pnv_npu2_unmap_lpar_dev(struct pci_dev *gpdev)
+>  
+>  	/* Set LPID to 0 anyway, just to be safe */
+>  	dev_dbg(&gpdev->dev, "Map LPAR opalid=%llu lparid=0\n", nphb->opal_id);
+> -	ret = opal_npu_map_lpar(nphb->opal_id,
+> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn), 0 /*LPID*/,
+> -			0 /* LPCR bits */);
+> +	ret = opal_npu_map_lpar(nphb->opal_id, pci_dev_id(gpdev), 0 /*LPID*/,
+> +				0 /* LPCR bits */);
+>  	if (ret)
+>  		dev_err(&gpdev->dev, "Error %d mapping device to LPAR\n", ret);
+>  
+> 
+
+-- 
+Alexey
