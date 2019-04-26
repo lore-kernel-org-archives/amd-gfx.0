@@ -1,83 +1,72 @@
-From: Alexey Kardashevskiy <aik@ozlabs.ru>
-Subject: Re: [PATCH v2 4/9] powerpc/powernv/npu: use helper pci_dev_id
-Date: Fri, 26 Apr 2019 13:44:35 +1000
-Message-ID: <e0ca28bd-dfd8-cf73-dfce-a11557ecd346@ozlabs.ru>
-References: <2e1f9a57-6d08-d017-24da-3e6b97fa2449@gmail.com>
- <8ed5b4ee-3226-6786-eb96-886826e180cd@gmail.com>
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: support gpu recovery tests on compute rings
+Date: Fri, 26 Apr 2019 15:24:14 +0800
+Message-ID: <20190426072414.21184-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <8ed5b4ee-3226-6786-eb96-886826e180cd@gmail.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Heiner Kallweit <hkallweit1@gmail.com>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, Michael Ellerman <mpe@ellerman.id.au>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Joerg Roedel <joro@8bytes.org>, David Woodhouse <dwmw2@infradead.org>, Realtek linux nic maintainers <nic_swsd@realtek.com>, "David S. Miller" <davem@davemloft.net>, Giuseppe Cavallaro <peppe.cavallaro@st.com>, Alexandre Torgue <alexandre.torgue@st.com>, Jose Abreu <joabreu@synopsys.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: open list <linux-kernel@vger.kernel.org>, "open list:AMD KFD" <dri-devel@lists.freedesktop.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux-foundation.org>, "open list:8169 10/100/1000 GIGABIT ETHERNET DRIVER" <netdev@vger.kernel.org>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-stm32@st-md-mailman.stormreply.com>, "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, "open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Feifei.Xu-5C7GfCeVMHo@public.gmane.org, Flora.Cui-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-
-
-On 25/04/2019 05:14, Heiner Kallweit wrote:
-> Use new helper pci_dev_id() to simplify the code.
-> 
-> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
-
-
-
-Reviewed-by: Alexey Kardashevskiy <aik@ozlabs.ru>
-
-
-> ---
->  arch/powerpc/platforms/powernv/npu-dma.c | 14 ++++++--------
->  1 file changed, 6 insertions(+), 8 deletions(-)
-> 
-> diff --git a/arch/powerpc/platforms/powernv/npu-dma.c b/arch/powerpc/platforms/powernv/npu-dma.c
-> index dc23d9d2a..495550432 100644
-> --- a/arch/powerpc/platforms/powernv/npu-dma.c
-> +++ b/arch/powerpc/platforms/powernv/npu-dma.c
-> @@ -1213,9 +1213,8 @@ int pnv_npu2_map_lpar_dev(struct pci_dev *gpdev, unsigned int lparid,
->  	 * Currently we only support radix and non-zero LPCR only makes sense
->  	 * for hash tables so skiboot expects the LPCR parameter to be a zero.
->  	 */
-> -	ret = opal_npu_map_lpar(nphb->opal_id,
-> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn), lparid,
-> -			0 /* LPCR bits */);
-> +	ret = opal_npu_map_lpar(nphb->opal_id, pci_dev_id(gpdev), lparid,
-> +				0 /* LPCR bits */);
->  	if (ret) {
->  		dev_err(&gpdev->dev, "Error %d mapping device to LPAR\n", ret);
->  		return ret;
-> @@ -1224,7 +1223,7 @@ int pnv_npu2_map_lpar_dev(struct pci_dev *gpdev, unsigned int lparid,
->  	dev_dbg(&gpdev->dev, "init context opalid=%llu msr=%lx\n",
->  			nphb->opal_id, msr);
->  	ret = opal_npu_init_context(nphb->opal_id, 0/*__unused*/, msr,
-> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn));
-> +				    pci_dev_id(gpdev));
->  	if (ret < 0)
->  		dev_err(&gpdev->dev, "Failed to init context: %d\n", ret);
->  	else
-> @@ -1258,7 +1257,7 @@ int pnv_npu2_unmap_lpar_dev(struct pci_dev *gpdev)
->  	dev_dbg(&gpdev->dev, "destroy context opalid=%llu\n",
->  			nphb->opal_id);
->  	ret = opal_npu_destroy_context(nphb->opal_id, 0/*__unused*/,
-> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn));
-> +				       pci_dev_id(gpdev));
->  	if (ret < 0) {
->  		dev_err(&gpdev->dev, "Failed to destroy context: %d\n", ret);
->  		return ret;
-> @@ -1266,9 +1265,8 @@ int pnv_npu2_unmap_lpar_dev(struct pci_dev *gpdev)
->  
->  	/* Set LPID to 0 anyway, just to be safe */
->  	dev_dbg(&gpdev->dev, "Map LPAR opalid=%llu lparid=0\n", nphb->opal_id);
-> -	ret = opal_npu_map_lpar(nphb->opal_id,
-> -			PCI_DEVID(gpdev->bus->number, gpdev->devfn), 0 /*LPID*/,
-> -			0 /* LPCR bits */);
-> +	ret = opal_npu_map_lpar(nphb->opal_id, pci_dev_id(gpdev), 0 /*LPID*/,
-> +				0 /* LPCR bits */);
->  	if (ret)
->  		dev_err(&gpdev->dev, "Error %d mapping device to LPAR\n", ret);
->  
-> 
-
--- 
-Alexey
+QSBuZXcgbW9kdWxlIHBhcmFtZXRlciBpcyBhZGRlZCBmb3IgZGV0ZXJtaW5pbmcKd2hldGhlciBv
+ciBub3QgdG8gZW5mb3JjZSB0aW1lb3V0IG9uIGNvbXB1dGUgam9icy4KCkNoYW5nZS1JZDogSWYx
+NGI3NTk3NzMxMmU0MmRhYzA0MzEwNzI0NTZlNWI2OWNmMWJjMmYKU2lnbmVkLW9mZi1ieTogRXZh
+biBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHUuaCAgICAgICB8IDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rydi5jICAgfCA4ICsrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZmVuY2UuYyB8IDMgKystCiAzIGZpbGVzIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDEgZGVs
+ZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUu
+aCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCmluZGV4IGUxNmRjZWUyYmY3
+NS4uZWU2MjRkOTkzZGY3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHUuaApAQCAtMTY2
+LDYgKzE2Niw3IEBAIGV4dGVybiBpbnQgYW1kZ3B1X3NpX3N1cHBvcnQ7CiAjaWZkZWYgQ09ORklH
+X0RSTV9BTURHUFVfQ0lLCiBleHRlcm4gaW50IGFtZGdwdV9jaWtfc3VwcG9ydDsKICNlbmRpZgor
+ZXh0ZXJuIGJvb2wgYW1kZ3B1X2NvbXB1dGVfdGltZW91dF9lbmZvcmNlZDsKIAogI2RlZmluZSBB
+TURHUFVfVk1fTUFYX05VTV9DVFgJCQk0MDk2CiAjZGVmaW5lIEFNREdQVV9TR19USFJFU0hPTEQJ
+CQkoMjU2KjEwMjQqMTAyNCkKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpp
+bmRleCAxM2E2OGY2MmJjYzguLjkxZGUzZTkwZmFlOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kcnYuYwpAQCAtMTQwLDYgKzE0MCw3IEBAIHN0cnVjdCBhbWRncHVfbWdwdV9p
+bmZvIG1ncHVfaW5mbyA9IHsKIH07CiBpbnQgYW1kZ3B1X3Jhc19lbmFibGUgPSAtMTsKIHVpbnQg
+YW1kZ3B1X3Jhc19tYXNrID0gMHhmZmZmZmZmZjsKK2Jvb2wgYW1kZ3B1X2NvbXB1dGVfdGltZW91
+dF9lbmZvcmNlZCA9IGZhbHNlOwogCiAvKioKICAqIERPQzogdnJhbWxpbWl0IChpbnQpCkBAIC0y
+MzQsNiArMjM1LDEzIEBAIG1vZHVsZV9wYXJhbV9uYW1lZChtc2ksIGFtZGdwdV9tc2ksIGludCwg
+MDQ0NCk7CiBNT0RVTEVfUEFSTV9ERVNDKGxvY2t1cF90aW1lb3V0LCAiR1BVIGxvY2t1cCB0aW1l
+b3V0IGluIG1zID4gMCAoZGVmYXVsdCAxMDAwMCkiKTsKIG1vZHVsZV9wYXJhbV9uYW1lZChsb2Nr
+dXBfdGltZW91dCwgYW1kZ3B1X2xvY2t1cF90aW1lb3V0LCBpbnQsIDA0NDQpOwogCisvKioKKyAq
+IERPQzogY29tcHV0ZV90aW1lb3V0X2VuZm9yY2VkIChib29sKQorICogV2hldGhlciBvciBub3Qg
+dG8gZW5mb3JjZSB0aW1lb3V0IG9uIGNvbXB1dGUgam9icyAoMSA9IGVuYWJsZSwgMCA9IGRpc2Fi
+bGUpLiBUaGUgZGVmYXVsdCBpcyAwLgorICovCitNT0RVTEVfUEFSTV9ERVNDKGNvbXB1dGVfdGlt
+ZW91dF9lbmZvcmNlZCwgIkVuZm9yY2UgdGltZW91dCBvbiBjb21wdXRlIGpvYnMgKDEgPSBlbmFi
+bGUsIDAgPSBkaXNhYmxlIChkZWZhdWx0KSkiKTsKK21vZHVsZV9wYXJhbV9uYW1lZChjb21wdXRl
+X3RpbWVvdXRfZW5mb3JjZWQsIGFtZGdwdV9jb21wdXRlX3RpbWVvdXRfZW5mb3JjZWQsIGJvb2ws
+IDA0NDQpOworCiAvKioKICAqIERPQzogZHBtIChpbnQpCiAgKiBPdmVycmlkZSBmb3IgZHluYW1p
+YyBwb3dlciBtYW5hZ2VtZW50IHNldHRpbmcgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlKS4gVGhl
+IGRlZmF1bHQgaXMgLTEgKGF1dG8pLgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2ZlbmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZmVuY2UuYwppbmRleCA0ZGVlMjMyNmIyOWMuLjRhZGZmYWQwNGRiYyAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKQEAgLTQ1Myw3ICs0NTMsOCBAQCBpbnQgYW1k
+Z3B1X2ZlbmNlX2RyaXZlcl9pbml0X3Jpbmcoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAogCWlm
+IChyaW5nLT5mdW5jcy0+dHlwZSAhPSBBTURHUFVfUklOR19UWVBFX0tJUSkgewogCQkvKiBmb3Ig
+bm9uLXNyaW92IGNhc2UsIG5vIHRpbWVvdXQgZW5mb3JjZSBvbiBjb21wdXRlIHJpbmcgKi8KIAkJ
+aWYgKChyaW5nLT5mdW5jcy0+dHlwZSA9PSBBTURHUFVfUklOR19UWVBFX0NPTVBVVEUpCi0JCQkJ
+JiYgIWFtZGdwdV9zcmlvdl92ZihyaW5nLT5hZGV2KSkKKwkJCQkmJiAhYW1kZ3B1X3NyaW92X3Zm
+KHJpbmctPmFkZXYpCisJCQkJJiYgIWFtZGdwdV9jb21wdXRlX3RpbWVvdXRfZW5mb3JjZWQpCiAJ
+CQl0aW1lb3V0ID0gTUFYX1NDSEVEVUxFX1RJTUVPVVQ7CiAJCWVsc2UKIAkJCXRpbWVvdXQgPSBt
+c2Vjc190b19qaWZmaWVzKGFtZGdwdV9sb2NrdXBfdGltZW91dCk7Ci0tIAoyLjIxLjAKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
