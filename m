@@ -1,62 +1,153 @@
-From: Johannes Berg <johannes-cdvu00un1VgdHxzADdlk8Q@public.gmane.org>
-Subject: Re: [PATCH v3 12/26] compat_ioctl: move more drivers to
- compat_ptr_ioctl
-Date: Thu, 25 Apr 2019 23:25:43 +0200
-Message-ID: <5511420228cb38d08a67c0f6a614b7671d7d23d4.camel@sipsolutions.net>
-References: <20190416202013.4034148-1-arnd@arndb.de>
- <20190416202701.127745-1-arnd@arndb.de> <20190425122153.450fc094@coco.lan>
- <20190425153534.GS2217@ZenIV.linux.org.uk>
- <CAK8P3a2HmiYQJ2FV2FgLiFsD8M9UKteC9Jetx7ja06PQVZWYfA@mail.gmail.com>
- (sfid-20190425_175600_668610_93FA972E)
+From: Masahiro Yamada <yamada.masahiro@socionext.com>
+Subject: Re: [PATCH v2] drm: prefix header search paths with $(srctree)/
+Date: Fri, 26 Apr 2019 10:36:59 +0900
+Message-ID: <CAK7LNAR6bT93kmyPCzJg2ZFvk239nz0nyVX5z23G+8Y0Wiba1Q@mail.gmail.com>
+References: <1553859161-2628-1-git-send-email-yamada.masahiro@socionext.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-In-Reply-To: <CAK8P3a2HmiYQJ2FV2FgLiFsD8M9UKteC9Jetx7ja06PQVZWYfA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
- (sfid-20190425_175600_668610_93FA972E)
-List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
-List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
- <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
-Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
-Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
-To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>, Al Viro <viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org>
-Cc: Sean Young <sean-hENCXIMQXOg@public.gmane.org>, linux-iio-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, linux-pci <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Bjorn Andersson <bjorn.andersson-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, sparclinux <sparclinux-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Mauro Carvalho Chehab <mchehab+samsung-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, driverdevel <devel-gWbeCf7V1WCQmaza687I9mD2FQJk+8+b@public.gmane.org>, linux-scsi <linux-scsi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org, y2038 Mailman List <y2038-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, qat-linux-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, "open list:HID CORE LAYER" <linux-input-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Darren Hart <dvhart-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, Linux Media Mailing List <linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, linux-remoteproc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, linux-nvme-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, Jonathan Cameron <Jonathan.Cameron-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>, David Sterba <dsterba@su>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1553859161-2628-1-git-send-email-yamada.masahiro@socionext.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, dri-devel <dri-devel@lists.freedesktop.org>
+Cc: Sam Ravnborg <sam@ravnborg.org>, Sean Paul <sean@poorly.run>, Zhenyu Wang <zhenyuw@linux.intel.com>, nouveau@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>, "James (Qian) Wang" <james.qian.wang@arm.com>, Alex Deucher <alexander.deucher@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, Rob Clark <robdclark@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Zhi Wang <zhi.a.wang@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-arm-msm <linux-arm-msm@vger.kernel.org>, intel-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>, Brian Starkey <brian.starkey@arm.com>, intel-gvt-dev@lists.freedesktop.org, Liviu Dudau <liviu.dudau@arm.com>, Linux Kernel Mailing List <linux-ker>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, 2019-04-25 at 17:55 +0200, Arnd Bergmann wrote:
-> On Thu, Apr 25, 2019 at 5:35 PM Al Viro <viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org> wrote:
-> > 
-> > On Thu, Apr 25, 2019 at 12:21:53PM -0300, Mauro Carvalho Chehab wrote:
-> > 
-> > > If I understand your patch description well, using compat_ptr_ioctl
-> > > only works if the driver is not for s390, right?
-> > 
-> > No; s390 is where "oh, just set ->compat_ioctl same as ->unlocked_ioctl
-> > and be done with that; compat_ptr() is a no-op anyway" breaks.  IOW,
-> > s390 is the reason for having compat_ptr_ioctl() in the first place;
-> > that thing works on all biarch architectures, as long as all stuff
-> > handled by ->ioctl() takes pointer to arch-independent object as
-> > argument.  IOW,
-> >         argument ignored => OK
-> >         any arithmetical type => no go, compat_ptr() would bugger it
-> >         pointer to int => OK
-> >         pointer to string => OK
-> >         pointer to u64 => OK
-> >         pointer to struct {u64 addr; char s[11];} => OK
-> 
-> To be extra pedantic, the 'struct {u64 addr; char s[11];} '
-> case is also broken on x86, because sizeof (obj) is smaller
-> on i386, even though the location of the members are
-> the same. i.e. you can copy_from_user() this
+Hi.
 
-Actually, you can't even do that because the struct might sit at the end
-of a page and then you'd erroneously fault in this case.
 
-We had this a while ago with struct ifreq, see commit 98406133dd and its
-parents.
+On Fri, Mar 29, 2019 at 8:37 PM Masahiro Yamada
+<yamada.masahiro@socionext.com> wrote:
+>
+> Currently, the Kbuild core manipulates header search paths in a crazy
+> way [1].
+>
+> To fix this mess, I want all Makefiles to add explicit $(srctree)/ to
+> the search paths in the srctree. Some Makefiles are already written in
+> that way, but not all. The goal of this work is to make the notation
+> consistent, and finally get rid of the gross hacks.
+>
+> Having whitespaces after -I does not matter since commit 48f6e3cf5bc6
+> ("kbuild: do not drop -I without parameter").
+>
+> [1]: https://patchwork.kernel.org/patch/9632347/
+>
+> Signed-off-by: Masahiro Yamada <yamada.masahiro@socionext.com>
+> Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+> ---
+>
+> I put all gpu/drm changes into a single patch because
+> they are trivial conversion.
+>
+> If you are interested in the big picture of this work,
+> the full patch set is available at the following URL.
+>
+> git://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild.git build-test
 
-johannes
+
+Is somebody taking care of this?
+
+
+
+>
+> Changes in v2:
+>   - fix up the new driver komeda
+>   - Add Sam's Reviewed-by
+>
+>  drivers/gpu/drm/amd/amdgpu/Makefile         | 2 +-
+>  drivers/gpu/drm/amd/lib/Makefile            | 2 +-
+>  drivers/gpu/drm/arm/display/komeda/Makefile | 4 ++--
+>  drivers/gpu/drm/i915/gvt/Makefile           | 2 +-
+>  drivers/gpu/drm/msm/Makefile                | 6 +++---
+>  drivers/gpu/drm/nouveau/Kbuild              | 8 ++++----
+>  6 files changed, 12 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+> index 466da59..62bf9da 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Makefile
+> +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+> @@ -23,7 +23,7 @@
+>  # Makefile for the drm device driver.  This driver provides support for the
+>  # Direct Rendering Infrastructure (DRI) in XFree86 4.1.0 and higher.
+>
+> -FULL_AMD_PATH=$(src)/..
+> +FULL_AMD_PATH=$(srctree)/$(src)/..
+>  DISPLAY_FOLDER_NAME=display
+>  FULL_AMD_DISPLAY_PATH = $(FULL_AMD_PATH)/$(DISPLAY_FOLDER_NAME)
+>
+> diff --git a/drivers/gpu/drm/amd/lib/Makefile b/drivers/gpu/drm/amd/lib/Makefile
+> index 6902430..d534992 100644
+> --- a/drivers/gpu/drm/amd/lib/Makefile
+> +++ b/drivers/gpu/drm/amd/lib/Makefile
+> @@ -27,6 +27,6 @@
+>  # driver components or later moved to kernel/lib for sharing with
+>  # other drivers.
+>
+> -ccflags-y := -I$(src)/../include
+> +ccflags-y := -I $(srctree)/$(src)/../include
+>
+>  obj-$(CONFIG_CHASH) += chash.o
+> diff --git a/drivers/gpu/drm/arm/display/komeda/Makefile b/drivers/gpu/drm/arm/display/komeda/Makefile
+> index 1b875e5..a72e30c 100644
+> --- a/drivers/gpu/drm/arm/display/komeda/Makefile
+> +++ b/drivers/gpu/drm/arm/display/komeda/Makefile
+> @@ -1,8 +1,8 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>
+>  ccflags-y := \
+> -       -I$(src)/../include \
+> -       -I$(src)
+> +       -I $(srctree)/$(src)/../include \
+> +       -I $(srctree)/$(src)
+>
+>  komeda-y := \
+>         komeda_drv.o \
+> diff --git a/drivers/gpu/drm/i915/gvt/Makefile b/drivers/gpu/drm/i915/gvt/Makefile
+> index 271fb46..ea8324a 100644
+> --- a/drivers/gpu/drm/i915/gvt/Makefile
+> +++ b/drivers/gpu/drm/i915/gvt/Makefile
+> @@ -5,5 +5,5 @@ GVT_SOURCE := gvt.o aperture_gm.o handlers.o vgpu.o trace_points.o firmware.o \
+>         execlist.o scheduler.o sched_policy.o mmio_context.o cmd_parser.o debugfs.o \
+>         fb_decoder.o dmabuf.o page_track.o
+>
+> -ccflags-y                              += -I$(src) -I$(src)/$(GVT_DIR)
+> +ccflags-y                              += -I $(srctree)/$(src) -I $(srctree)/$(src)/$(GVT_DIR)/
+>  i915-y                                 += $(addprefix $(GVT_DIR)/, $(GVT_SOURCE))
+> diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+> index 56a70c7..b7b1ebd 100644
+> --- a/drivers/gpu/drm/msm/Makefile
+> +++ b/drivers/gpu/drm/msm/Makefile
+> @@ -1,7 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+> -ccflags-y := -Idrivers/gpu/drm/msm
+> -ccflags-y += -Idrivers/gpu/drm/msm/disp/dpu1
+> -ccflags-$(CONFIG_DRM_MSM_DSI) += -Idrivers/gpu/drm/msm/dsi
+> +ccflags-y := -I $(srctree)/$(src)
+> +ccflags-y += -I $(srctree)/$(src)/disp/dpu1
+> +ccflags-$(CONFIG_DRM_MSM_DSI) += -I $(srctree)/$(src)/dsi
+>
+>  msm-y := \
+>         adreno/adreno_device.o \
+> diff --git a/drivers/gpu/drm/nouveau/Kbuild b/drivers/gpu/drm/nouveau/Kbuild
+> index ea3035e..4fae728 100644
+> --- a/drivers/gpu/drm/nouveau/Kbuild
+> +++ b/drivers/gpu/drm/nouveau/Kbuild
+> @@ -1,7 +1,7 @@
+> -ccflags-y += -I$(src)/include
+> -ccflags-y += -I$(src)/include/nvkm
+> -ccflags-y += -I$(src)/nvkm
+> -ccflags-y += -I$(src)
+> +ccflags-y += -I $(srctree)/$(src)/include
+> +ccflags-y += -I $(srctree)/$(src)/include/nvkm
+> +ccflags-y += -I $(srctree)/$(src)/nvkm
+> +ccflags-y += -I $(srctree)/$(src)
+>
+>  # NVKM - HW resource manager
+>  #- code also used by various userspace tools/tests
+> --
+> 2.7.4
+>
+
+
+-- 
+Best Regards
+Masahiro Yamada
