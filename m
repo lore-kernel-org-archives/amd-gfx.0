@@ -1,17 +1,15 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/display: Compensate for pre-DCE12 BTR-VRR hw
- limitations. (v2)
-Date: Fri, 26 Apr 2019 17:12:12 +0000
-Message-ID: <d6e229a5-0794-31f8-d457-849f4dfbdcf6@amd.com>
-References: <20190426105016.12210-1-mario.kleiner.de@gmail.com>
- <20190426105016.12210-4-mario.kleiner.de@gmail.com>
+From: "Francis, David" <David.Francis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Expose DRM_FORMAT_RGB565 on overlay
+ planes
+Date: Fri, 26 Apr 2019 17:24:51 +0000
+Message-ID: <BN8PR12MB32179EF76A082CC7B6C8AEA5EF3E0@BN8PR12MB3217.namprd12.prod.outlook.com>
+References: <20190423144009.22140-1-nicholas.kazlauskas@amd.com>,
+ <BN6PR12MB1809DEB18369DE3809AE1B60F7230@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0007750074=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190426105016.12210-4-mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Content-Language: en-US
-Content-ID: <B9B4958C9F44DD4A8C0A6958F74474B8-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809DEB18369DE3809AE1B60F7230-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,141 +20,174 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-T24gNC8yNi8xOSA2OjUwIEFNLCBNYXJpbyBLbGVpbmVyIHdyb3RlOg0KPiBQcmUtRENFMTIgbmVl
-ZHMgc3BlY2lhbCB0cmVhdG1lbnQgZm9yIEJUUiAvIGxvdyBmcmFtZXJhdGUNCj4gY29tcGVuc2F0
-aW9uIGZvciBtb3JlIHN0YWJsZSBiZWhhdmlvdXI6DQo+IA0KPiBBY2NvcmRpbmcgdG8gY29tbWVu
-dHMgaW4gdGhlIGNvZGUgYW5kIHNvbWUgdGVzdGluZyBvbiBEQ0UtOA0KPiBhbmQgRENFLTExLCBE
-Q0UtMTEgYW5kIGVhcmxpZXIgb25seSBhcHBseSBWVE9UQUxfTUlOL01BWA0KPiBwcm9ncmFtbWlu
-ZyB3aXRoIGEgbGFnIG9mIG9uZSBmcmFtZSwgc28gdGhlIHNwZWNpYWwgQlRSIGh3DQo+IHByb2dy
-YW1taW5nIGZvciBpbnRlcm1lZGlhdGUgZml4ZWQgZHVyYXRpb24gZnJhbWVzIG11c3QgYmUNCj4g
-ZG9uZSBpbnNpZGUgdGhlIGN1cnJlbnQgZnJhbWUgYXQgZmxpcCBzdWJtaXNzaW9uIGluIGF0b21p
-Yw0KPiBjb21taXQgdGFpbCwgaWUuIG9uZSB2YmxhbmsgZWFybGllciwgYW5kIHRoZSBmaXhlZCBy
-ZWZyZXNoDQo+IGludGVybWVkaWF0ZSBmcmFtZSBtb2RlIG11c3QgYmUgYWxzbyB0ZXJtaW5hdGVk
-IG9uZSB2YmxhbmsNCj4gZWFybGllciBvbiBwcmUtRENFMTIgZGlzcGxheSBlbmdpbmVzLg0KPiAN
-Cj4gVG8gYWNoaWV2ZSBwcm9wZXIgdGVybWluYXRpb24gb24gPCBEQ0UtMTIgc2hpZnQgdGhlIHBv
-aW50DQo+IHdoZW4gdGhlIHN3aXRjaC1iYWNrIGZyb20gZml4ZWQgdmJsYW5rIGR1cmF0aW9uIHRv
-IHZhcmlhYmxlDQo+IHZibGFuayBkdXJhdGlvbiBoYXBwZW5zIGZyb20gdGhlIHN0YXJ0IG9mIFZC
-TEFOSyAodmJsYW5rIGlycSwNCj4gYXMgZG9uZSBvbiBEQ0UtMTIrKSB0byBiYWNrLXBvcmNoIG9y
-IGVuZCBvZiBWQkxBTksgKGhhbmRsZWQNCj4gYnkgdnVwZGF0ZSBpcnEgaGFuZGxlcikuIFdlIG11
-c3QgbGVhdmUgdGhlIHN3aXRjaC1iYWNrIGNvZGUNCj4gaW5zaWRlIFZCTEFOSyBpcnEgZm9yIERD
-RTEyKywgYXMgYmVmb3JlLg0KPiANCj4gRG9pbmcgdGhpcywgd2UgZ2V0IG11Y2ggYmV0dGVyIGJl
-aGF2aW91ciBvZiBCVFIgZm9yIHVwLXN3ZWVwcywNCj4gaWUuIGdvaW5nIGZyb20gc2hvcnQgdG8g
-bG9uZyBmcmFtZSBkdXJhdGlvbnMgKH5oaWdoIHRvIGxvdyBmcHMpDQo+IGFuZCBmb3IgY29uc3Rh
-bnQgZnJhbWVyYXRlIGZsaXBzLCBhcyB0ZXN0ZWQgb24gRENFLTggYW5kDQo+IERDRS0xMS4gQmVo
-YXZpb3VyIGlzIHN0aWxsIG5vdCBxdWl0ZSBhcyBnb29kIGFzIG9uIERDTi0xDQo+IHRob3VnaC4N
-Cj4gDQo+IE9uIGRvd24tc3dlZXBzLCBnb2luZyBmcm9tIGxvbmcgdG8gc2hvcnQgZnJhbWUgZHVy
-YXRpb25zDQo+IChsb3cgZnBzIHRvIGhpZ2ggZnBzKSA8IERDRS0xMiBpcyBhIGxpdHRsZSBiaXQg
-aW1wcm92ZWQsDQo+IGFsdGhvdWdoIGJ5IGZhciBub3QgYXMgbXVjaCBhcyBmb3IgdXAtc3dlZXBz
-IGFuZCBjb25zdGFudA0KPiBmcHMuDQo+IA0KPiB2MjogRml4IHNvbWUgd3JvbmcgbG9ja2luZywg
-YXMgcG9pbnRlZCBvdXQgYnkgTmljaG9sYXMuDQo+IFNpZ25lZC1vZmYtYnk6IE1hcmlvIEtsZWlu
-ZXIgPG1hcmlvLmtsZWluZXIuZGVAZ21haWwuY29tPg0KDQpTdGlsbCBsb29rcyBnb29kIHRvIG1l
-LCBidXQgSSBqdXN0IG5vdGljZWQgb25lIG90aGVyIG1pbm9yIG5pdHBpY2sgKHNvcnJ5ISkNCg0K
-PiAtLS0NCj4gICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMg
-fCA0NSArKysrKysrKysrKysrKysrKy0tDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDQyIGluc2VydGlv
-bnMoKyksIDMgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gaW5kZXggNzZiNmU2MjE3OTNmLi43MjQx
-ZTFmM2ViZWMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRn
-cHVfZG0vYW1kZ3B1X2RtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
-ZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBAQCAtMzY0LDYgKzM2NCw3IEBAIHN0YXRpYyB2b2lkIGRt
-X3Z1cGRhdGVfaGlnaF9pcnEodm9pZCAqaW50ZXJydXB0X3BhcmFtcykNCj4gICAJc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYgPSBpcnFfcGFyYW1zLT5hZGV2Ow0KPiAgIAlzdHJ1Y3QgYW1kZ3B1
-X2NydGMgKmFjcnRjOw0KPiAgIAlzdHJ1Y3QgZG1fY3J0Y19zdGF0ZSAqYWNydGNfc3RhdGU7DQo+
-ICsJdW5zaWduZWQgbG9uZyBmbGFnczsNCj4gICANCj4gICAJYWNydGMgPSBnZXRfY3J0Y19ieV9v
-dGdfaW5zdChhZGV2LCBpcnFfcGFyYW1zLT5pcnFfc3JjIC0gSVJRX1RZUEVfVlVQREFURSk7DQo+
-ICAgDQo+IEBAIC0zODEsNiArMzgyLDIyIEBAIHN0YXRpYyB2b2lkIGRtX3Z1cGRhdGVfaGlnaF9p
-cnEodm9pZCAqaW50ZXJydXB0X3BhcmFtcykNCj4gICAJCSAqLw0KPiAgIAkJaWYgKGFtZGdwdV9k
-bV92cnJfYWN0aXZlKGFjcnRjX3N0YXRlKSkNCj4gICAJCQlkcm1fY3J0Y19oYW5kbGVfdmJsYW5r
-KCZhY3J0Yy0+YmFzZSk7DQoNCkNhbid0IHRoaXMgYmxvY2sgYmUgbWVyZ2VkIHdpdGggdGhlIG9u
-ZSBiZWxvdz8NCg0KV2l0aCB0aGUgY29uZGl0aW9uIGFsc28gY2hhbmdlZCB0byBqdXN0Og0KDQpp
-ZiAoYWNydGNfc3RhdGUtPnN0cmVhbSAmJiBhZGV2LT5mYW1pbHkgPCBBTURHUFVfRkFNSUxZX0FJ
-KQ0KCS4uLg0KDQpJIGFsc28gbm90aWNlZCB0aGF0IHRoZSBjcnRjX3N0YXRlIGl0c2VsZiBpcyBh
-bHdheXMgYWNjZXNzZWQgdW5sb2NrZWQgDQpmb3IgY2hlY2tpbmcgd2hldGhlciBWUlIgaXMgb24v
-b2ZmIHdoaWNoIGlzIHByb2JhYmx5IGEgYnVnLi4uIGJ1dCB0aGlzIA0KcGF0Y2ggc2hvdWxkbid0
-IGJlIHRoZSBvbmUgdG8gZml4IHRoYXQuIEF0IHRoZSB2ZXJ5IGxlYXN0IHRob3VnaCBpdCBjYW4g
-DQpsZWF2ZSB0aGluZ3MgaW4gYSBiaXQgYmV0dGVyIHNoYXBlIGxpa2UgeW91J3ZlIGFscmVhZHkg
-ZG9uZS4gVGhhbmtzIQ0KDQpOaWNob2xhcyBLYXpsYXVza2FzDQoNCj4gKw0KPiArCQlpZiAoYWNy
-dGNfc3RhdGUtPnN0cmVhbSAmJiBhZGV2LT5mYW1pbHkgPCBBTURHUFVfRkFNSUxZX0FJICYmDQo+
-ICsJCSAgICBhY3J0Y19zdGF0ZS0+dnJyX3BhcmFtcy5zdXBwb3J0ZWQgJiYNCj4gKwkJICAgIGFj
-cnRjX3N0YXRlLT5mcmVlc3luY19jb25maWcuc3RhdGUgPT0gVlJSX1NUQVRFX0FDVElWRV9WQVJJ
-QUJMRSkgew0KPiArCQkJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ss
-IGZsYWdzKTsNCj4gKwkJCW1vZF9mcmVlc3luY19oYW5kbGVfdl91cGRhdGUoDQo+ICsJCQkgICAg
-YWRldi0+ZG0uZnJlZXN5bmNfbW9kdWxlLA0KPiArCQkJICAgIGFjcnRjX3N0YXRlLT5zdHJlYW0s
-DQo+ICsJCQkgICAgJmFjcnRjX3N0YXRlLT52cnJfcGFyYW1zKTsNCj4gKw0KPiArCQkJZGNfc3Ry
-ZWFtX2FkanVzdF92bWluX3ZtYXgoDQo+ICsJCQkgICAgYWRldi0+ZG0uZGMsDQo+ICsJCQkgICAg
-YWNydGNfc3RhdGUtPnN0cmVhbSwNCj4gKwkJCSAgICAmYWNydGNfc3RhdGUtPnZycl9wYXJhbXMu
-YWRqdXN0KTsNCj4gKwkJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50
-X2xvY2ssIGZsYWdzKTsNCj4gKwkJfQ0KPiAgIAl9DQo+ICAgfQ0KPiAgIA0KPiBAQCAtMzkwLDYg
-KzQwNyw3IEBAIHN0YXRpYyB2b2lkIGRtX2NydGNfaGlnaF9pcnEodm9pZCAqaW50ZXJydXB0X3Bh
-cmFtcykNCj4gICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBpcnFfcGFyYW1zLT5hZGV2
-Ow0KPiAgIAlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFjcnRjOw0KPiAgIAlzdHJ1Y3QgZG1fY3J0Y19z
-dGF0ZSAqYWNydGNfc3RhdGU7DQo+ICsJdW5zaWduZWQgbG9uZyBmbGFnczsNCj4gICANCj4gICAJ
-YWNydGMgPSBnZXRfY3J0Y19ieV9vdGdfaW5zdChhZGV2LCBpcnFfcGFyYW1zLT5pcnFfc3JjIC0g
-SVJRX1RZUEVfVkJMQU5LKTsNCj4gICANCj4gQEAgLTQxMiw5ICs0MzAsMTAgQEAgc3RhdGljIHZv
-aWQgZG1fY3J0Y19oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1zKQ0KPiAgIAkJICovDQo+
-ICAgCQlhbWRncHVfZG1fY3J0Y19oYW5kbGVfY3JjX2lycSgmYWNydGMtPmJhc2UpOw0KPiAgIA0K
-PiAtCQlpZiAoYWNydGNfc3RhdGUtPnN0cmVhbSAmJg0KPiArCQlpZiAoYWNydGNfc3RhdGUtPnN0
-cmVhbSAmJiBhZGV2LT5mYW1pbHkgPj0gQU1ER1BVX0ZBTUlMWV9BSSAmJg0KPiAgIAkJICAgIGFj
-cnRjX3N0YXRlLT52cnJfcGFyYW1zLnN1cHBvcnRlZCAmJg0KPiAgIAkJICAgIGFjcnRjX3N0YXRl
-LT5mcmVlc3luY19jb25maWcuc3RhdGUgPT0gVlJSX1NUQVRFX0FDVElWRV9WQVJJQUJMRSkgew0K
-PiArCQkJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsN
-Cj4gICAJCQltb2RfZnJlZXN5bmNfaGFuZGxlX3ZfdXBkYXRlKA0KPiAgIAkJCQlhZGV2LT5kbS5m
-cmVlc3luY19tb2R1bGUsDQo+ICAgCQkJCWFjcnRjX3N0YXRlLT5zdHJlYW0sDQo+IEBAIC00MjQs
-NiArNDQzLDcgQEAgc3RhdGljIHZvaWQgZG1fY3J0Y19oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRf
-cGFyYW1zKQ0KPiAgIAkJCQlhZGV2LT5kbS5kYywNCj4gICAJCQkJYWNydGNfc3RhdGUtPnN0cmVh
-bSwNCj4gICAJCQkJJmFjcnRjX3N0YXRlLT52cnJfcGFyYW1zLmFkanVzdCk7DQo+ICsJCQlzcGlu
-X3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT5kZGV2LT5ldmVudF9sb2NrLCBmbGFncyk7DQo+ICAg
-CQl9DQo+ICAgCX0NCj4gICB9DQo+IEBAIC00ODc4LDggKzQ4OTgsMTAgQEAgc3RhdGljIHZvaWQg
-dXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSgNCj4gICAJc3RydWN0IGRjX3BsYW5lX3N0
-YXRlICpzdXJmYWNlLA0KPiAgIAl1MzIgZmxpcF90aW1lc3RhbXBfaW5fdXMpDQo+ICAgew0KPiAt
-CXN0cnVjdCBtb2RfdnJyX3BhcmFtcyB2cnJfcGFyYW1zID0gbmV3X2NydGNfc3RhdGUtPnZycl9w
-YXJhbXM7DQo+ICsJc3RydWN0IG1vZF92cnJfcGFyYW1zIHZycl9wYXJhbXM7DQo+ICAgCXN0cnVj
-dCBkY19pbmZvX3BhY2tldCB2cnJfaW5mb3BhY2tldCA9IHswfTsNCj4gKwlzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiA9IGRtLT5hZGV2Ow0KPiArCXVuc2lnbmVkIGxvbmcgZmxhZ3M7DQo+ICAg
-DQo+ICAgCWlmICghbmV3X3N0cmVhbSkNCj4gICAJCXJldHVybjsNCj4gQEAgLTQ4OTIsNiArNDkx
-NCw5IEBAIHN0YXRpYyB2b2lkIHVwZGF0ZV9mcmVlc3luY19zdGF0ZV9vbl9zdHJlYW0oDQo+ICAg
-CWlmICghbmV3X3N0cmVhbS0+dGltaW5nLmhfdG90YWwgfHwgIW5ld19zdHJlYW0tPnRpbWluZy52
-X3RvdGFsKQ0KPiAgIAkJcmV0dXJuOw0KPiAgIA0KPiArCXNwaW5fbG9ja19pcnFzYXZlKCZhZGV2
-LT5kZGV2LT5ldmVudF9sb2NrLCBmbGFncyk7DQo+ICsJdnJyX3BhcmFtcyA9IG5ld19jcnRjX3N0
-YXRlLT52cnJfcGFyYW1zOw0KPiArDQo+ICAgCWlmIChzdXJmYWNlKSB7DQo+ICAgCQltb2RfZnJl
-ZXN5bmNfaGFuZGxlX3ByZWZsaXAoDQo+ICAgCQkJZG0tPmZyZWVzeW5jX21vZHVsZSwNCj4gQEAg
-LTQ4OTksNiArNDkyNCwxMiBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfZnJlZXN5bmNfc3RhdGVfb25f
-c3RyZWFtKA0KPiAgIAkJCW5ld19zdHJlYW0sDQo+ICAgCQkJZmxpcF90aW1lc3RhbXBfaW5fdXMs
-DQo+ICAgCQkJJnZycl9wYXJhbXMpOw0KPiArDQo+ICsJCWlmIChhZGV2LT5mYW1pbHkgPCBBTURH
-UFVfRkFNSUxZX0FJICYmDQo+ICsJCSAgICBhbWRncHVfZG1fdnJyX2FjdGl2ZShuZXdfY3J0Y19z
-dGF0ZSkpIHsNCj4gKwkJCW1vZF9mcmVlc3luY19oYW5kbGVfdl91cGRhdGUoZG0tPmZyZWVzeW5j
-X21vZHVsZSwNCj4gKwkJCQkJCSAgICAgbmV3X3N0cmVhbSwgJnZycl9wYXJhbXMpOw0KPiArCQl9
-DQo+ICAgCX0NCj4gICANCj4gICAJbW9kX2ZyZWVzeW5jX2J1aWxkX3Zycl9pbmZvcGFja2V0KA0K
-PiBAQCAtNDkzMCw2ICs0OTYxLDggQEAgc3RhdGljIHZvaWQgdXBkYXRlX2ZyZWVzeW5jX3N0YXRl
-X29uX3N0cmVhbSgNCj4gICAJCQkgICAgICBuZXdfY3J0Y19zdGF0ZS0+YmFzZS5jcnRjLT5iYXNl
-LmlkLA0KPiAgIAkJCSAgICAgIChpbnQpbmV3X2NydGNfc3RhdGUtPmJhc2UudnJyX2VuYWJsZWQs
-DQo+ICAgCQkJICAgICAgKGludCl2cnJfcGFyYW1zLnN0YXRlKTsNCj4gKw0KPiArCXNwaW5fdW5s
-b2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gICB9DQo+
-ICAgDQo+ICAgc3RhdGljIHZvaWQgcHJlX3VwZGF0ZV9mcmVlc3luY19zdGF0ZV9vbl9zdHJlYW0o
-DQo+IEBAIC00OTM3LDggKzQ5NzAsMTAgQEAgc3RhdGljIHZvaWQgcHJlX3VwZGF0ZV9mcmVlc3lu
-Y19zdGF0ZV9vbl9zdHJlYW0oDQo+ICAgCXN0cnVjdCBkbV9jcnRjX3N0YXRlICpuZXdfY3J0Y19z
-dGF0ZSkNCj4gICB7DQo+ICAgCXN0cnVjdCBkY19zdHJlYW1fc3RhdGUgKm5ld19zdHJlYW0gPSBu
-ZXdfY3J0Y19zdGF0ZS0+c3RyZWFtOw0KPiAtCXN0cnVjdCBtb2RfdnJyX3BhcmFtcyB2cnJfcGFy
-YW1zID0gbmV3X2NydGNfc3RhdGUtPnZycl9wYXJhbXM7DQo+ICsJc3RydWN0IG1vZF92cnJfcGFy
-YW1zIHZycl9wYXJhbXM7DQo+ICAgCXN0cnVjdCBtb2RfZnJlZXN5bmNfY29uZmlnIGNvbmZpZyA9
-IG5ld19jcnRjX3N0YXRlLT5mcmVlc3luY19jb25maWc7DQo+ICsJc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYgPSBkbS0+YWRldjsNCj4gKwl1bnNpZ25lZCBsb25nIGZsYWdzOw0KPiAgIA0KPiAg
-IAlpZiAoIW5ld19zdHJlYW0pDQo+ICAgCQlyZXR1cm47DQo+IEBAIC00OTUwLDYgKzQ5ODUsOSBA
-QCBzdGF0aWMgdm9pZCBwcmVfdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSgNCj4gICAJ
-aWYgKCFuZXdfc3RyZWFtLT50aW1pbmcuaF90b3RhbCB8fCAhbmV3X3N0cmVhbS0+dGltaW5nLnZf
-dG90YWwpDQo+ICAgCQlyZXR1cm47DQo+ICAgDQo+ICsJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYt
-PmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gKwl2cnJfcGFyYW1zID0gbmV3X2NydGNfc3Rh
-dGUtPnZycl9wYXJhbXM7DQo+ICsNCj4gICAJaWYgKG5ld19jcnRjX3N0YXRlLT52cnJfc3VwcG9y
-dGVkICYmDQo+ICAgCSAgICBjb25maWcubWluX3JlZnJlc2hfaW5fdWh6ICYmDQo+ICAgCSAgICBj
-b25maWcubWF4X3JlZnJlc2hfaW5fdWh6KSB7DQo+IEBAIC00OTcwLDYgKzUwMDgsNyBAQCBzdGF0
-aWMgdm9pZCBwcmVfdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSgNCj4gICAJCQlzaXpl
-b2YodnJyX3BhcmFtcy5hZGp1c3QpKSAhPSAwKTsNCj4gICANCj4gICAJbmV3X2NydGNfc3RhdGUt
-PnZycl9wYXJhbXMgPSB2cnJfcGFyYW1zOw0KPiArCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFk
-ZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gICB9DQo+ICAgDQo+ICAgc3RhdGljIHZv
-aWQgYW1kZ3B1X2RtX2hhbmRsZV92cnJfdHJhbnNpdGlvbihzdHJ1Y3QgZG1fY3J0Y19zdGF0ZSAq
-b2xkX3N0YXRlLA0KPiANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0007750074==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_BN8PR12MB32179EF76A082CC7B6C8AEA5EF3E0BN8PR12MB3217namp_"
+
+--_000_BN8PR12MB32179EF76A082CC7B6C8AEA5EF3E0BN8PR12MB3217namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: David Francis <david.francis-5C7GfCeVMHo@public.gmane.org>
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Deucher,=
+ Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: April 23, 2019 10:47:26 AM
+To: Kazlauskas, Nicholas; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Li, Sun peng (Leo); Wentland, Harry
+Subject: Re: [PATCH] drm/amd/display: Expose DRM_FORMAT_RGB565 on overlay p=
+lanes
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Nicholas=
+ Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, April 23, 2019 10:40 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Li, Sun peng (Leo); Wentland, Harry; Kazlauskas, Nicholas
+Subject: [PATCH] drm/amd/display: Expose DRM_FORMAT_RGB565 on overlay plane=
+s
+
+RGB565 support isn't restricted to just the primary plane in DC, so
+also expose support for it on overlays.
+
+Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a5cacf846e1b..0d07226ca8b7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4283,6 +4283,7 @@ static const uint32_t overlay_formats[] =3D {
+         DRM_FORMAT_RGBA8888,
+         DRM_FORMAT_XBGR8888,
+         DRM_FORMAT_ABGR8888,
++       DRM_FORMAT_RGB565
+ };
+
+ static const u32 cursor_formats[] =3D {
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN8PR12MB32179EF76A082CC7B6C8AEA5EF3E0BN8PR12MB3217namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: David Francis &lt;da=
+vid.francis-5C7GfCeVMHo@public.gmane.org&gt;</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Deucher, Alexander &lt;Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> April 23, 2019 10:47:26 AM<br>
+<b>To:</b> Kazlauskas, Nicholas; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Li, Sun peng (Leo); Wentland, Harry<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/display: Expose DRM_FORMAT_RGB565 on ov=
+erlay planes</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Nicholas Kazlauskas &lt;nic=
+holas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, April 23, 2019 10:40 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Li, Sun peng (Leo); Wentland, Harry; Kazlauskas, Nicholas<br>
+<b>Subject:</b> [PATCH] drm/amd/display: Expose DRM_FORMAT_RGB565 on overla=
+y planes</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">RGB565 support isn't restricted to just the prim=
+ary plane in DC, so<br>
+also expose support for it on overlays.<br>
+<br>
+Cc: Harry Wentland &lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Cc: Leo Li &lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Nicholas Kazlauskas &lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 1 &#43;<br>
+&nbsp;1 file changed, 1 insertion(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+index a5cacf846e1b..0d07226ca8b7 100644<br>
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
+@@ -4283,6 &#43;4283,7 @@ static const uint32_t overlay_formats[] =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_FORMAT_RGBA8888,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_FORMAT_XBGR8888,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_FORMAT_ABGR8888,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_FORMAT_RGB565<br>
+&nbsp;};<br>
+&nbsp;<br>
+&nbsp;static const u32 cursor_formats[] =3D {<br>
+-- <br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_BN8PR12MB32179EF76A082CC7B6C8AEA5EF3E0BN8PR12MB3217namp_--
+
+--===============0007750074==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0007750074==--
