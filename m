@@ -1,84 +1,73 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: support gpu recovery tests on compute rings
-Date: Fri, 26 Apr 2019 09:33:50 +0200
-Message-ID: <f9efc27c-6e0c-6a6b-e760-cba349adc63a@gmail.com>
-References: <20190426072414.21184-1-evan.quan@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
+Subject: Re: [PATCH v3 12/26] compat_ioctl: move more drivers to
+ compat_ptr_ioctl
+Date: Fri, 26 Apr 2019 09:46:13 +0200
+Message-ID: <CAK8P3a3CzKLvpUiVV_k__kkaZ=wg2fqnFEzWYL9qNwBfxMKZ9w@mail.gmail.com>
+References: <20190416202013.4034148-1-arnd@arndb.de>
+ <20190416202701.127745-1-arnd@arndb.de>
+ <20190425122153.450fc094@coco.lan> <20190425153534.GS2217@ZenIV.linux.org.uk>
+ <CAK8P3a2HmiYQJ2FV2FgLiFsD8M9UKteC9Jetx7ja06PQVZWYfA@mail.gmail.com>
+ <5511420228cb38d08a67c0f6a614b7671d7d23d4.camel@sipsolutions.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190426072414.21184-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Feifei.Xu-5C7GfCeVMHo@public.gmane.org, Flora.Cui-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+In-Reply-To: <5511420228cb38d08a67c0f6a614b7671d7d23d4.camel-cdvu00un1VgdHxzADdlk8Q@public.gmane.org>
+List-Unsubscribe: <https://lists.01.org/mailman/options/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.01.org/pipermail/linux-nvdimm/>
+List-Post: <mailto:linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+List-Help: <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nvdimm>,
+ <mailto:linux-nvdimm-request-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org?subject=subscribe>
+Errors-To: linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org
+Sender: "Linux-nvdimm" <linux-nvdimm-bounces-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org>
+To: Johannes Berg <johannes-cdvu00un1VgdHxzADdlk8Q@public.gmane.org>
+Cc: linux-nvme-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, Sean Young <sean-hENCXIMQXOg@public.gmane.org>, linux-iio-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, linux-pci <linux-pci-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Bjorn Andersson <bjorn.andersson-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, sparclinux <sparclinux-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Mauro Carvalho Chehab <mchehab+samsung-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, driverdevel <devel-gWbeCf7V1WCQmaza687I9mD2FQJk+8+b@public.gmane.org>, linux-scsi <linux-scsi-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, linux-nvdimm-hn68Rpc1hR1g9hUCZPvPmw@public.gmane.org, y2038 Mailman List <y2038-cunTk1MwBs8s++Sfvej+rw@public.gmane.org>, qat-linux-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, "open list:HID CORE LAYER" <linux-input-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Darren Hart <dvhart-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, Linux Media Mailing List <linux-media-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, linux-remoteproc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linaro-mm-sig-cunTk1MwBs8s++Sfvej+rw@public.gmane.org, Al Viro <viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org>, Jonathan Cameron <Jonathan.Cameron@h>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjYuMDQuMTkgdW0gMDk6MjQgc2NocmllYiBFdmFuIFF1YW46Cj4gQSBuZXcgbW9kdWxlIHBh
-cmFtZXRlciBpcyBhZGRlZCBmb3IgZGV0ZXJtaW5pbmcKPiB3aGV0aGVyIG9yIG5vdCB0byBlbmZv
-cmNlIHRpbWVvdXQgb24gY29tcHV0ZSBqb2JzLgoKQ2FuIHdlIHJld29yayB0aGF0IGEgYml0IGFu
-ZCBpbnN0ZWFkIG9mIGEgYm9vbCBoYXZlIGEgc2VwYXJhdGUgCm1pbGxpc2Vjb25kIHRpbWVvdXQg
-Zm9yIGNvbXB1dGU/CgpFLmcuIGRlZmF1bHQgaXMgMCBhbmQgdGhhdCBtZWFucyBNQVhfU0NIRURV
-TEVfVElNRU9VVCB1bmxlc3Mgd2UgYXJlIAp1bmRlciBTUklPVi4KQW55IG90aGVyIHZhbHVlIGlz
-IGp1c3QgdGhlIHRpbWVvdXQgaW4gbWlsbGlzZWNvbmRzLgoKQ2hyaXN0aWFuLgoKPgo+IENoYW5n
-ZS1JZDogSWYxNGI3NTk3NzMxMmU0MmRhYzA0MzEwNzI0NTZlNWI2OWNmMWJjMmYKPiBTaWduZWQt
-b2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgfCAxICsKPiAgIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgIHwgOCArKysrKysrKwo+ICAgZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMgfCAzICsrLQo+ICAgMyBmaWxlcyBjaGFuZ2Vk
-LCAxMSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHUuaAo+IGluZGV4IGUxNmRjZWUyYmY3NS4uZWU2MjRkOTkzZGY3IDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgKPiBAQCAtMTY2LDYgKzE2Niw3IEBAIGV4dGVybiBp
-bnQgYW1kZ3B1X3NpX3N1cHBvcnQ7Cj4gICAjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfQ0lLCj4g
-ICBleHRlcm4gaW50IGFtZGdwdV9jaWtfc3VwcG9ydDsKPiAgICNlbmRpZgo+ICtleHRlcm4gYm9v
-bCBhbWRncHVfY29tcHV0ZV90aW1lb3V0X2VuZm9yY2VkOwo+ICAgCj4gICAjZGVmaW5lIEFNREdQ
-VV9WTV9NQVhfTlVNX0NUWAkJCTQwOTYKPiAgICNkZWZpbmUgQU1ER1BVX1NHX1RIUkVTSE9MRAkJ
-CSgyNTYqMTAyNCoxMDI0KQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMK
-PiBpbmRleCAxM2E2OGY2MmJjYzguLjkxZGUzZTkwZmFlOSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBAQCAtMTQwLDYgKzE0MCw3IEBAIHN0cnVjdCBhbWRn
-cHVfbWdwdV9pbmZvIG1ncHVfaW5mbyA9IHsKPiAgIH07Cj4gICBpbnQgYW1kZ3B1X3Jhc19lbmFi
-bGUgPSAtMTsKPiAgIHVpbnQgYW1kZ3B1X3Jhc19tYXNrID0gMHhmZmZmZmZmZjsKPiArYm9vbCBh
-bWRncHVfY29tcHV0ZV90aW1lb3V0X2VuZm9yY2VkID0gZmFsc2U7Cj4gICAKPiAgIC8qKgo+ICAg
-ICogRE9DOiB2cmFtbGltaXQgKGludCkKPiBAQCAtMjM0LDYgKzIzNSwxMyBAQCBtb2R1bGVfcGFy
-YW1fbmFtZWQobXNpLCBhbWRncHVfbXNpLCBpbnQsIDA0NDQpOwo+ICAgTU9EVUxFX1BBUk1fREVT
-Qyhsb2NrdXBfdGltZW91dCwgIkdQVSBsb2NrdXAgdGltZW91dCBpbiBtcyA+IDAgKGRlZmF1bHQg
-MTAwMDApIik7Cj4gICBtb2R1bGVfcGFyYW1fbmFtZWQobG9ja3VwX3RpbWVvdXQsIGFtZGdwdV9s
-b2NrdXBfdGltZW91dCwgaW50LCAwNDQ0KTsKPiAgIAo+ICsvKioKPiArICogRE9DOiBjb21wdXRl
-X3RpbWVvdXRfZW5mb3JjZWQgKGJvb2wpCj4gKyAqIFdoZXRoZXIgb3Igbm90IHRvIGVuZm9yY2Ug
-dGltZW91dCBvbiBjb21wdXRlIGpvYnMgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxlKS4gVGhlIGRl
-ZmF1bHQgaXMgMC4KPiArICovCj4gK01PRFVMRV9QQVJNX0RFU0MoY29tcHV0ZV90aW1lb3V0X2Vu
-Zm9yY2VkLCAiRW5mb3JjZSB0aW1lb3V0IG9uIGNvbXB1dGUgam9icyAoMSA9IGVuYWJsZSwgMCA9
-IGRpc2FibGUgKGRlZmF1bHQpKSIpOwo+ICttb2R1bGVfcGFyYW1fbmFtZWQoY29tcHV0ZV90aW1l
-b3V0X2VuZm9yY2VkLCBhbWRncHVfY29tcHV0ZV90aW1lb3V0X2VuZm9yY2VkLCBib29sLCAwNDQ0
-KTsKPiArCj4gICAvKioKPiAgICAqIERPQzogZHBtIChpbnQpCj4gICAgKiBPdmVycmlkZSBmb3Ig
-ZHluYW1pYyBwb3dlciBtYW5hZ2VtZW50IHNldHRpbmcgKDEgPSBlbmFibGUsIDAgPSBkaXNhYmxl
-KS4gVGhlIGRlZmF1bHQgaXMgLTEgKGF1dG8pLgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9mZW5jZS5jCj4gaW5kZXggNGRlZTIzMjZiMjljLi40YWRmZmFkMDRkYmMgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYwo+IEBAIC00NTMsNyAr
-NDUzLDggQEAgaW50IGFtZGdwdV9mZW5jZV9kcml2ZXJfaW5pdF9yaW5nKHN0cnVjdCBhbWRncHVf
-cmluZyAqcmluZywKPiAgIAlpZiAocmluZy0+ZnVuY3MtPnR5cGUgIT0gQU1ER1BVX1JJTkdfVFlQ
-RV9LSVEpIHsKPiAgIAkJLyogZm9yIG5vbi1zcmlvdiBjYXNlLCBubyB0aW1lb3V0IGVuZm9yY2Ug
-b24gY29tcHV0ZSByaW5nICovCj4gICAJCWlmICgocmluZy0+ZnVuY3MtPnR5cGUgPT0gQU1ER1BV
-X1JJTkdfVFlQRV9DT01QVVRFKQo+IC0JCQkJJiYgIWFtZGdwdV9zcmlvdl92ZihyaW5nLT5hZGV2
-KSkKPiArCQkJCSYmICFhbWRncHVfc3Jpb3ZfdmYocmluZy0+YWRldikKPiArCQkJCSYmICFhbWRn
-cHVfY29tcHV0ZV90aW1lb3V0X2VuZm9yY2VkKQo+ICAgCQkJdGltZW91dCA9IE1BWF9TQ0hFRFVM
-RV9USU1FT1VUOwo+ICAgCQllbHNlCj4gICAJCQl0aW1lb3V0ID0gbXNlY3NfdG9famlmZmllcyhh
-bWRncHVfbG9ja3VwX3RpbWVvdXQpOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+On Thu, Apr 25, 2019 at 11:25 PM Johannes Berg
+<johannes-cdvu00un1VgdHxzADdlk8Q@public.gmane.org> wrote:
+> On Thu, 2019-04-25 at 17:55 +0200, Arnd Bergmann wrote:
+> > On Thu, Apr 25, 2019 at 5:35 PM Al Viro <viro-RmSDqhL/yNMiFSDQTTA3OLVCufUGDwFn@public.gmane.org> wrote:
+> > >
+> > > On Thu, Apr 25, 2019 at 12:21:53PM -0300, Mauro Carvalho Chehab wrote:
+> > >
+> > > > If I understand your patch description well, using compat_ptr_ioctl
+> > > > only works if the driver is not for s390, right?
+> > >
+> > > No; s390 is where "oh, just set ->compat_ioctl same as ->unlocked_ioctl
+> > > and be done with that; compat_ptr() is a no-op anyway" breaks.  IOW,
+> > > s390 is the reason for having compat_ptr_ioctl() in the first place;
+> > > that thing works on all biarch architectures, as long as all stuff
+> > > handled by ->ioctl() takes pointer to arch-independent object as
+> > > argument.  IOW,
+> > >         argument ignored => OK
+> > >         any arithmetical type => no go, compat_ptr() would bugger it
+> > >         pointer to int => OK
+> > >         pointer to string => OK
+> > >         pointer to u64 => OK
+> > >         pointer to struct {u64 addr; char s[11];} => OK
+> >
+> > To be extra pedantic, the 'struct {u64 addr; char s[11];} '
+> > case is also broken on x86, because sizeof (obj) is smaller
+> > on i386, even though the location of the members are
+> > the same. i.e. you can copy_from_user() this
+>
+> Actually, you can't even do that because the struct might sit at the end
+> of a page and then you'd erroneously fault in this case.
+>
+> We had this a while ago with struct ifreq, see commit 98406133dd and its
+> parents.
+
+Yes, you are right. Very rare to hit with real-life code, but easily
+reproduced by intentionally hitting it and clearly a bug.
+
+As the saying goes
+
+  | the difference between "always works" and "almost always works"
+  | is called data corruption
+
+here the difference is an -EFAULT.
+
+      Arnd
