@@ -1,48 +1,69 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 5.0 39/79] drm/amdgpu: Adjust IB test timeout for XGMI
- configuration
-Date: Fri, 26 Apr 2019 21:37:58 -0400
-Message-ID: <20190427013838.6596-39-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.0 40/79] drm/amdgpu: amdgpu_device_recover_vram always failed if only one node in shadow_list
+Date: Fri, 26 Apr 2019 21:37:59 -0400
+Message-ID: <20190427013838.6596-40-sashal@kernel.org>
 References: <20190427013838.6596-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190427013838.6596-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, shaoyunl <shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190427013838.6596-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: wentalou <Wentao.Lou@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogc2hhb3l1bmwgPHNoYW95dW4ubGl1QGFtZC5jb20+CgpbIFVwc3RyZWFtIGNvbW1pdCBk
-NDE2MmM2MWUyNTMxNzc5MzZmY2ZlNmMyOWY3YjIyNGQ5YTFlZmI4IF0KCk9uIFhHTUkgY29uZmln
-dXJhdGlvbiB0aGUgaWIgdGVzdCBtYXkgdGFrZSBsb25nZXIgdG8gZmluaXNoCgpTaWduZWQtb2Zm
-LWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IENocmlzdGlh
-biBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBE
-ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBM
-ZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2liLmMgfCAzICsrKwogMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2liLmMKaW5kZXggYzQ4MjA3YjM3N2JjLi5iODJj
-NWZjYTIxN2IgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9p
-Yi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCkBAIC0zNSw2
-ICszNSw3IEBACiAjaW5jbHVkZSAiYW1kZ3B1X3RyYWNlLmgiCiAKICNkZWZpbmUgQU1ER1BVX0lC
-X1RFU1RfVElNRU9VVAltc2Vjc190b19qaWZmaWVzKDEwMDApCisjZGVmaW5lIEFNREdQVV9JQl9U
-RVNUX0dGWF9YR01JX1RJTUVPVVQJbXNlY3NfdG9famlmZmllcygyMDAwKQogCiAvKgogICogSUIK
-QEAgLTM0NCw2ICszNDUsOCBAQCBpbnQgYW1kZ3B1X2liX3JpbmdfdGVzdHMoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCiAJCSAqIGNvc3Qgd2FpdGluZyBmb3IgaXQgY29taW5nIGJhY2sgdW5k
-ZXIgUlVOVElNRSBvbmx5CiAJCSovCiAJCXRtb19nZnggPSA4ICogQU1ER1BVX0lCX1RFU1RfVElN
-RU9VVDsKKwl9IGVsc2UgaWYgKGFkZXYtPmdtYy54Z21pLmhpdmVfaWQpIHsKKwkJdG1vX2dmeCA9
-IEFNREdQVV9JQl9URVNUX0dGWF9YR01JX1RJTUVPVVQ7CiAJfQogCiAJZm9yIChpID0gMDsgaSA8
-IGFkZXYtPm51bV9yaW5nczsgKytpKSB7Ci0tIAoyLjE5LjEKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeA==
+From: wentalou <Wentao.Lou@amd.com>
+
+[ Upstream commit 1712fb1a2f6829150032ac76eb0e39b82a549cfb ]
+
+amdgpu_bo_restore_shadow would assign zero to r if succeeded.
+r would remain zero if there is only one node in shadow_list.
+current code would always return failure when r <= 0.
+restart the timeout for each wait was a rather problematic bug as well.
+The value of tmo SHOULD be changed, otherwise we wait tmo jiffies on each loop.
+
+Signed-off-by: Wentao Lou <Wentao.Lou@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 7ff3a28fc903..d55dd570a702 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3158,11 +3158,16 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
+ 			break;
+ 
+ 		if (fence) {
+-			r = dma_fence_wait_timeout(fence, false, tmo);
++			tmo = dma_fence_wait_timeout(fence, false, tmo);
+ 			dma_fence_put(fence);
+ 			fence = next;
+-			if (r <= 0)
++			if (tmo == 0) {
++				r = -ETIMEDOUT;
+ 				break;
++			} else if (tmo < 0) {
++				r = tmo;
++				break;
++			}
+ 		} else {
+ 			fence = next;
+ 		}
+@@ -3173,8 +3178,8 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
+ 		tmo = dma_fence_wait_timeout(fence, false, tmo);
+ 	dma_fence_put(fence);
+ 
+-	if (r <= 0 || tmo <= 0) {
+-		DRM_ERROR("recover vram bo from shadow failed\n");
++	if (r < 0 || tmo <= 0) {
++		DRM_ERROR("recover vram bo from shadow failed, r is %ld, tmo is %ld\n", r, tmo);
+ 		return -EIO;
+ 	}
+ 
+-- 
+2.19.1
