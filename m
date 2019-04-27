@@ -1,42 +1,103 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][next] drm/amd/display: fix incorrect null check on pointer
-Date: Fri, 26 Apr 2019 22:48:11 +0100
-Message-ID: <20190426214811.12310-1-colin.king@canonical.com>
+From: Liam Mark <lmark@codeaurora.org>
+Subject: [PATCH 01/12] dma-buf: add dynamic caching of sg_table
+Date: Fri, 26 Apr 2019 17:01:09 -0700
+Message-ID: <1556323269-19670-1-git-send-email-lmark@codeaurora.org>
+References: <20190416183841.1577-1-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=y
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190416183841.1577-1-christian.koenig@amd.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+To: ckoenig.leichtzumerken@gmail.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, sumit.semwal@linaro.org, lmark@codeaurora.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Colin Ian King <colin.king@canonical.com>
+On Tue, 16 Apr 2019, Christian König wrote:
 
-Currently an allocation is being made but the allocation failure
-check is being performed on another pointer. Fix this by checking
-the correct pointer. Also use the normal kernel idiom for null
-pointer checks.
+> To allow a smooth transition from pinning buffer objects to dynamic
+> invalidation we first start to cache the sg_table for an attachment
+> unless the driver explicitly says to not do so.
+> 
+> ---
+>  drivers/dma-buf/dma-buf.c | 24 ++++++++++++++++++++++++
+>  include/linux/dma-buf.h   | 11 +++++++++++
+>  2 files changed, 35 insertions(+)
+> 
+> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> index 7c858020d14b..65161a82d4d5 100644
+> --- a/drivers/dma-buf/dma-buf.c
+> +++ b/drivers/dma-buf/dma-buf.c
+> @@ -573,6 +573,20 @@ struct dma_buf_attachment *dma_buf_attach(struct dma_buf *dmabuf,
+>  	list_add(&attach->node, &dmabuf->attachments);
+>  
+>  	mutex_unlock(&dmabuf->lock);
+> +
+> +	if (!dmabuf->ops->dynamic_sgt_mapping) {
+> +		struct sg_table *sgt;
+> +
+> +		sgt = dmabuf->ops->map_dma_buf(attach, DMA_BIDIRECTIONAL);
+> +		if (!sgt)
+> +			sgt = ERR_PTR(-ENOMEM);
+> +		if (IS_ERR(sgt)) {
+> +			dma_buf_detach(dmabuf, attach);
+> +			return ERR_CAST(sgt);
+> +		}
+> +		attach->sgt = sgt;
+> +	}
+> +
+>  	return attach;
+>  
+>  err_attach:
+> @@ -595,6 +609,10 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attach)
+>  	if (WARN_ON(!dmabuf || !attach))
+>  		return;
+>  
+> +	if (attach->sgt)
+> +		dmabuf->ops->unmap_dma_buf(attach, attach->sgt,
+> +					   DMA_BIDIRECTIONAL);
+> +
+>  	mutex_lock(&dmabuf->lock);
+>  	list_del(&attach->node);
+>  	if (dmabuf->ops->detach)
+> @@ -630,6 +648,9 @@ struct sg_table *dma_buf_map_attachment(struct dma_buf_attachment *attach,
+>  	if (WARN_ON(!attach || !attach->dmabuf))
+>  		return ERR_PTR(-EINVAL);
+>  
+> +	if (attach->sgt)
+> +		return attach->sgt;
+> +
 
-Addresses-Coverity: ("Resource leak")
-Fixes: 43e3ac8389ef ("drm/amd/display: Add function to copy DC streams")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I am concerned by this change to make caching the sg_table the default 
+behavior as this will result in the exporter's map_dma_buf/unmap_dma_buf 
+calls are no longer being called in 
+dma_buf_map_attachment/dma_buf_unmap_attachment.
+	
+This seems concerning to me as it appears to ignore the cache maintenance 
+aspect of the map_dma_buf/unmap_dma_buf calls.
+For example won't this potentially cause issues for clients of ION.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 6200df3edcd0..96e97d25d639 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -168,7 +168,7 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
- 	struct dc_stream_state *new_stream;
- 
- 	new_stream = kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
--	if (stream == NULL)
-+	if (!new_stream)
- 		return NULL;
- 
- 	memcpy(new_stream, stream, sizeof(struct dc_stream_state));
--- 
-2.20.1
+If we had the following
+- #1 dma_buf_attach coherent_device
+- #2 dma_buf attach non_coherent_device
+- #3 dma_buf_map_attachment non_coherent_device
+- #4 non_coherent_device writes to buffer
+- #5 dma_buf_unmap_attachment non_coherent_device
+- #6 dma_buf_map_attachment coherent_device
+- #7 coherent_device reads buffer
+- #8 dma_buf_unmap_attachment coherent_device	
+
+There wouldn't be any CMO at step #5 anymore (specifically no invalidate) 
+so now at step #7 the coherent_device could read a stale cache line.
+
+Also, now by default dma_buf_unmap_attachment no longer removes the 
+mappings from the iommu, so now by default dma_buf_unmap_attachment is not 
+doing what I would expect and clients are losing the potential sandboxing 
+benefits of removing the mappings.
+Shouldn't this caching behavior be something that clients opt into instead 
+of being the default?
+
+Liam
+
+Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+a Linux Foundation Collaborative Project
