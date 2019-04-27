@@ -1,69 +1,51 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.0 40/79] drm/amdgpu: amdgpu_device_recover_vram always failed if only one node in shadow_list
-Date: Fri, 26 Apr 2019 21:37:59 -0400
-Message-ID: <20190427013838.6596-40-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 5.0 41/79] drm/amd/display: fix cursor black issue
+Date: Fri, 26 Apr 2019 21:38:00 -0400
+Message-ID: <20190427013838.6596-41-sashal@kernel.org>
 References: <20190427013838.6596-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190427013838.6596-1-sashal@kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: wentalou <Wentao.Lou@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190427013838.6596-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, tiancyin <tianci.yin-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-From: wentalou <Wentao.Lou@amd.com>
-
-[ Upstream commit 1712fb1a2f6829150032ac76eb0e39b82a549cfb ]
-
-amdgpu_bo_restore_shadow would assign zero to r if succeeded.
-r would remain zero if there is only one node in shadow_list.
-current code would always return failure when r <= 0.
-restart the timeout for each wait was a rather problematic bug as well.
-The value of tmo SHOULD be changed, otherwise we wait tmo jiffies on each loop.
-
-Signed-off-by: Wentao Lou <Wentao.Lou@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 7ff3a28fc903..d55dd570a702 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3158,11 +3158,16 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
- 			break;
- 
- 		if (fence) {
--			r = dma_fence_wait_timeout(fence, false, tmo);
-+			tmo = dma_fence_wait_timeout(fence, false, tmo);
- 			dma_fence_put(fence);
- 			fence = next;
--			if (r <= 0)
-+			if (tmo == 0) {
-+				r = -ETIMEDOUT;
- 				break;
-+			} else if (tmo < 0) {
-+				r = tmo;
-+				break;
-+			}
- 		} else {
- 			fence = next;
- 		}
-@@ -3173,8 +3178,8 @@ static int amdgpu_device_recover_vram(struct amdgpu_device *adev)
- 		tmo = dma_fence_wait_timeout(fence, false, tmo);
- 	dma_fence_put(fence);
- 
--	if (r <= 0 || tmo <= 0) {
--		DRM_ERROR("recover vram bo from shadow failed\n");
-+	if (r < 0 || tmo <= 0) {
-+		DRM_ERROR("recover vram bo from shadow failed, r is %ld, tmo is %ld\n", r, tmo);
- 		return -EIO;
- 	}
- 
--- 
-2.19.1
+RnJvbTogdGlhbmN5aW4gPHRpYW5jaS55aW5AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IGMx
+Y2VmZTExNWQxY2RjNDYwMDE0NDgzMzE5ZDQ0MGIyZjBkMDdjNjggXQoKW1doeV0KdGhlIG1lbWJl
+ciBzZHJfd2hpdGVfbGV2ZWwgb2Ygc3RydWN0IGRjX2N1cnNvcl9hdHRyaWJ1dGVzIHdhcyBub3QK
+aW5pdGlhbGl6ZWQsIHRoZW4gdGhlIHJhbmRvbSB2YWx1ZSByZXN1bHQgdGhhdApkY24xMF9zZXRf
+Y3Vyc29yX3Nkcl93aGl0ZV9sZXZlbCgpIHNldCBlcnJvciBod19zY2FsZSB2YWx1ZSAweDIwRDko
+bm9ybWFsCnZhbHVlIGlzIDB4M2MwMCksIHRoaXMgY2F1c2UgdGhlIGJsYWNrIGN1cnNvciBpc3N1
+ZS4KCltob3ddCmp1c3QgaW5pdGlsaXplIHRoZSBvYmogb2Ygc3RydWN0IGRjX2N1cnNvcl9hdHRy
+aWJ1dGVzIHRvIHplcm8gdG8gYXZvaWQKdGhlIHJhbmRvbSB2YWx1ZS4KClJldmlld2VkLWJ5OiBO
+aWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+ClNpZ25lZC1v
+ZmYtYnk6IFRpYW5jaSBZaW4gPHRpYW5jaS55aW5AYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxl
+eCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNo
+YSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
+aW9uKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
+bS9hbWRncHVfZG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
+Z3B1X2RtLmMKaW5kZXggODNjOGEwNDA3NTM3Li44NGVlNzc3ODY5NDQgMTAwNjQ0Ci0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwpAQCAtNDQ1NSw2
+ICs0NDU1LDcgQEAgc3RhdGljIHZvaWQgaGFuZGxlX2N1cnNvcl91cGRhdGUoc3RydWN0IGRybV9w
+bGFuZSAqcGxhbmUsCiAJYW1kZ3B1X2NydGMtPmN1cnNvcl93aWR0aCA9IHBsYW5lLT5zdGF0ZS0+
+Y3J0Y193OwogCWFtZGdwdV9jcnRjLT5jdXJzb3JfaGVpZ2h0ID0gcGxhbmUtPnN0YXRlLT5jcnRj
+X2g7CiAKKwltZW1zZXQoJmF0dHJpYnV0ZXMsIDAsIHNpemVvZihhdHRyaWJ1dGVzKSk7CiAJYXR0
+cmlidXRlcy5hZGRyZXNzLmhpZ2hfcGFydCA9IHVwcGVyXzMyX2JpdHMoYWRkcmVzcyk7CiAJYXR0
+cmlidXRlcy5hZGRyZXNzLmxvd19wYXJ0ICA9IGxvd2VyXzMyX2JpdHMoYWRkcmVzcyk7CiAJYXR0
+cmlidXRlcy53aWR0aCAgICAgICAgICAgICA9IHBsYW5lLT5zdGF0ZS0+Y3J0Y193OwotLSAKMi4x
+OS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
