@@ -1,72 +1,55 @@
-From: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Update latest xgmi topology info after each
- device is enumulated
-Date: Mon, 29 Apr 2019 19:19:36 +0000
-Message-ID: <1556565568-31183-1-git-send-email-shaoyun.liu@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH][next] drm/amd/display: fix incorrect null check on pointer
+Date: Mon, 29 Apr 2019 15:29:14 -0400
+Message-ID: <CADnq5_PwaZkbQ24vO=zi4HvMXTjayUKV3mnTiBt6X9AV=fXEBg@mail.gmail.com>
+References: <20190426214811.12310-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190426214811.12310-1-colin.king@canonical.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin King <colin.king@canonical.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWRqdXN0IHRoZSBzZXF1ZW5jZSBvZiBzZXQvZ2V0IHhnbWkgdG9wb2xvZ3ksIHNvIGRyaXZlciBj
-YW4gaGF2ZSB0aGUgbGF0ZXN0DQpYR01JIHRvcG9sb2d5IGluZm8gZm9yIGZ1dHVyZSB1c2FnZQ0K
-DQpDaGFuZ2UtSWQ6IEk2Mjc4MTRmODI0NTlhNmM5YzNkNzI0NjlmODEzMDk0ODhiMmE5MTMzDQpT
-aWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1bi5saXVAYW1kLmNvbT4NCi0tLQ0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgfCAzMiArKysrKysrKysrKysrKysr
-KysrKy0tLS0tLS0tLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspLCAxMiBk
-ZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV94Z21pLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfeGdtaS5jDQpp
-bmRleCAwNGRmYzhiLi5lNDhlOTM5IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3hnbWkuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3hnbWkuYw0KQEAgLTMwMSwzMCArMzAxLDQxIEBAIGludCBhbWRncHVfeGdtaV9hZGRfZGV2
-aWNlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KIAlsaXN0X2FkZF90YWlsKCZhZGV2LT5n
-bWMueGdtaS5oZWFkLCAmaGl2ZS0+ZGV2aWNlX2xpc3QpOw0KIAlsaXN0X2Zvcl9lYWNoX2VudHJ5
-KGVudHJ5LCAmaGl2ZS0+ZGV2aWNlX2xpc3QsIGhlYWQpDQogCQl0b3BfaW5mby0+bm9kZXNbY291
-bnQrK10ubm9kZV9pZCA9IGVudHJ5LT5ub2RlX2lkOw0KKwl0b3BfaW5mby0+bnVtX25vZGVzID0g
-Y291bnQ7DQogCWhpdmUtPm51bWJlcl9kZXZpY2VzID0gY291bnQ7DQogDQotCS8qIEVhY2ggcHNw
-IG5lZWQgdG8gZ2V0IHRoZSBsYXRlc3QgdG9wb2xvZ3kgKi8NCiAJbGlzdF9mb3JfZWFjaF9lbnRy
-eSh0bXBfYWRldiwgJmhpdmUtPmRldmljZV9saXN0LCBnbWMueGdtaS5oZWFkKSB7DQotCQlyZXQg
-PSBwc3BfeGdtaV9nZXRfdG9wb2xvZ3lfaW5mbygmdG1wX2FkZXYtPnBzcCwgY291bnQsIHRvcF9p
-bmZvKTsNCisJCS8qIHVwZGF0ZSBub2RlIGxpc3QgZm9yIG90aGVyIGRldmljZSBpbiB0aGUgaGl2
-ZSAqLw0KKwkJaWYgKHRtcF9hZGV2ICE9IGFkZXYpIHsNCisJCQl0b3BfaW5mbyA9ICZ0bXBfYWRl
-di0+cHNwLnhnbWlfY29udGV4dC50b3BfaW5mbzsNCisJCQl0b3BfaW5mby0+bm9kZXNbY291bnQg
-LSAxXS5ub2RlX2lkID0gYWRldi0+Z21jLnhnbWkubm9kZV9pZDsNCisJCQl0b3BfaW5mby0+bnVt
-X25vZGVzID0gY291bnQ7DQorCQl9DQorCQlyZXQgPSBhbWRncHVfeGdtaV91cGRhdGVfdG9wb2xv
-Z3koaGl2ZSwgdG1wX2FkZXYpOw0KKwkJaWYgKHJldCkNCisJCQlnb3RvIGV4aXQ7DQorCX0NCisN
-CisJLyogZ2V0IGxhdGVzdCB0b3BvbG9neSBpbmZvIGZvciBlYWNoIGRldmljZSBmcm9tIHBzcCAq
-Lw0KKwlsaXN0X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2LCAmaGl2ZS0+ZGV2aWNlX2xpc3QsIGdt
-Yy54Z21pLmhlYWQpIHsNCisJCXJldCA9IHBzcF94Z21pX2dldF90b3BvbG9neV9pbmZvKCZ0bXBf
-YWRldi0+cHNwLCBjb3VudCwNCisJCQkJJnRtcF9hZGV2LT5wc3AueGdtaV9jb250ZXh0LnRvcF9p
-bmZvKTsNCiAJCWlmIChyZXQpIHsNCiAJCQlkZXZfZXJyKHRtcF9hZGV2LT5kZXYsDQogCQkJCSJY
-R01JOiBHZXQgdG9wb2xvZ3kgZmFpbHVyZSBvbiBkZXZpY2UgJWxseCwgaGl2ZSAlbGx4LCByZXQg
-JWQiLA0KIAkJCQl0bXBfYWRldi0+Z21jLnhnbWkubm9kZV9pZCwNCiAJCQkJdG1wX2FkZXYtPmdt
-Yy54Z21pLmhpdmVfaWQsIHJldCk7DQogCQkJLyogVG8gZG8gOiBjb250aW51ZSB3aXRoIHNvbWUg
-bm9kZSBmYWlsZWQgb3IgZGlzYWJsZSB0aGUgd2hvbGUgaGl2ZSAqLw0KLQkJCWJyZWFrOw0KKwkJ
-CWdvdG8gZXhpdDsNCiAJCX0NCiAJfQ0KIA0KLQlsaXN0X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2
-LCAmaGl2ZS0+ZGV2aWNlX2xpc3QsIGdtYy54Z21pLmhlYWQpIHsNCi0JCXJldCA9IGFtZGdwdV94
-Z21pX3VwZGF0ZV90b3BvbG9neShoaXZlLCB0bXBfYWRldik7DQotCQlpZiAocmV0KQ0KLQkJCWJy
-ZWFrOw0KLQl9DQotDQogCWlmICghcmV0KQ0KIAkJcmV0ID0gYW1kZ3B1X3hnbWlfc3lzZnNfYWRk
-X2Rldl9pbmZvKGFkZXYsIGhpdmUpOw0KIA0KKw0KKwltdXRleF91bmxvY2soJmhpdmUtPmhpdmVf
-bG9jayk7DQorZXhpdDoNCiAJaWYgKCFyZXQpDQogCQlkZXZfaW5mbyhhZGV2LT5kZXYsICJYR01J
-OiBBZGQgbm9kZSAlZCwgaGl2ZSAweCVsbHguXG4iLA0KIAkJCSBhZGV2LT5nbWMueGdtaS5waHlz
-aWNhbF9ub2RlX2lkLCBhZGV2LT5nbWMueGdtaS5oaXZlX2lkKTsNCkBAIC0zMzMsOSArMzQ0LDYg
-QEAgaW50IGFtZGdwdV94Z21pX2FkZF9kZXZpY2Uoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQogCQkJYWRldi0+Z21jLnhnbWkucGh5c2ljYWxfbm9kZV9pZCwgYWRldi0+Z21jLnhnbWkuaGl2
-ZV9pZCwNCiAJCQlyZXQpOw0KIA0KLQ0KLQltdXRleF91bmxvY2soJmhpdmUtPmhpdmVfbG9jayk7
-DQotZXhpdDoNCiAJcmV0dXJuIHJldDsNCiB9DQogDQotLSANCjIuNy40DQoNCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Fri, Apr 26, 2019 at 5:48 PM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> Currently an allocation is being made but the allocation failure
+> check is being performed on another pointer. Fix this by checking
+> the correct pointer. Also use the normal kernel idiom for null
+> pointer checks.
+>
+> Addresses-Coverity: ("Resource leak")
+> Fixes: 43e3ac8389ef ("drm/amd/display: Add function to copy DC streams")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Applied.  Thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> index 6200df3edcd0..96e97d25d639 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> @@ -168,7 +168,7 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
+>         struct dc_stream_state *new_stream;
+>
+>         new_stream = kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
+> -       if (stream == NULL)
+> +       if (!new_stream)
+>                 return NULL;
+>
+>         memcpy(new_stream, stream, sizeof(struct dc_stream_state));
+> --
+> 2.20.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
