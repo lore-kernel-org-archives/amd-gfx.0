@@ -1,17 +1,16 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/3] drm/amd/display: Compensate for pre-DCE12 BTR-VRR hw
- limitations. (v3)
-Date: Mon, 29 Apr 2019 12:51:50 +0000
-Message-ID: <5d4ae0b9-f4b6-b317-2e5c-95581d154e6c@amd.com>
-References: <20190426214016.24667-1-mario.kleiner.de@gmail.com>
- <20190426214016.24667-4-mario.kleiner.de@gmail.com>
+From: "Lin, Amber" <Amber.Lin-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: print firmware versions on amdgpu sysfs
+Date: Mon, 29 Apr 2019 13:35:32 +0000
+Message-ID: <940a48aa-33c1-55a6-2bf1-a794aa0e746b@amd.com>
+References: <355c6cb6-ccf7-ef6f-4f34-0e978b9effe2@amd.com>
+ <CY4PR12MB18136C9A3F7719CFD0C50D60F73E0@CY4PR12MB1813.namprd12.prod.outlook.com>
+ <BN6PR12MB1618CE8C21ED572094D9BB10853E0@BN6PR12MB1618.namprd12.prod.outlook.com>
+ <d6c60e91-4311-069b-0612-03337830481d@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0432631378=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190426214016.24667-4-mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <d6c60e91-4311-069b-0612-03337830481d-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
-Content-ID: <F491BB9B2F9179428C0D86508D27D712-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,147 +21,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mario Kleiner <mario.kleiner.de-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Messinger,
+ Ori" <Ori.Messinger-5C7GfCeVMHo@public.gmane.org>
+Cc: "Freehill, Chris" <Chris.Freehill-5C7GfCeVMHo@public.gmane.org>
 
-T24gNC8yNi8xOSA1OjQwIFBNLCBNYXJpbyBLbGVpbmVyIHdyb3RlOg0KPiBQcmUtRENFMTIgbmVl
-ZHMgc3BlY2lhbCB0cmVhdG1lbnQgZm9yIEJUUiAvIGxvdyBmcmFtZXJhdGUNCj4gY29tcGVuc2F0
-aW9uIGZvciBtb3JlIHN0YWJsZSBiZWhhdmlvdXI6DQo+IA0KPiBBY2NvcmRpbmcgdG8gY29tbWVu
-dHMgaW4gdGhlIGNvZGUgYW5kIHNvbWUgdGVzdGluZyBvbiBEQ0UtOA0KPiBhbmQgRENFLTExLCBE
-Q0UtMTEgYW5kIGVhcmxpZXIgb25seSBhcHBseSBWVE9UQUxfTUlOL01BWA0KPiBwcm9ncmFtbWlu
-ZyB3aXRoIGEgbGFnIG9mIG9uZSBmcmFtZSwgc28gdGhlIHNwZWNpYWwgQlRSIGh3DQo+IHByb2dy
-YW1taW5nIGZvciBpbnRlcm1lZGlhdGUgZml4ZWQgZHVyYXRpb24gZnJhbWVzIG11c3QgYmUNCj4g
-ZG9uZSBpbnNpZGUgdGhlIGN1cnJlbnQgZnJhbWUgYXQgZmxpcCBzdWJtaXNzaW9uIGluIGF0b21p
-Yw0KPiBjb21taXQgdGFpbCwgaWUuIG9uZSB2YmxhbmsgZWFybGllciwgYW5kIHRoZSBmaXhlZCBy
-ZWZyZXNoDQo+IGludGVybWVkaWF0ZSBmcmFtZSBtb2RlIG11c3QgYmUgYWxzbyB0ZXJtaW5hdGVk
-IG9uZSB2YmxhbmsNCj4gZWFybGllciBvbiBwcmUtRENFMTIgZGlzcGxheSBlbmdpbmVzLg0KPiAN
-Cj4gVG8gYWNoaWV2ZSBwcm9wZXIgdGVybWluYXRpb24gb24gPCBEQ0UtMTIgc2hpZnQgdGhlIHBv
-aW50DQo+IHdoZW4gdGhlIHN3aXRjaC1iYWNrIGZyb20gZml4ZWQgdmJsYW5rIGR1cmF0aW9uIHRv
-IHZhcmlhYmxlDQo+IHZibGFuayBkdXJhdGlvbiBoYXBwZW5zIGZyb20gdGhlIHN0YXJ0IG9mIFZC
-TEFOSyAodmJsYW5rIGlycSwNCj4gYXMgZG9uZSBvbiBEQ0UtMTIrKSB0byBiYWNrLXBvcmNoIG9y
-IGVuZCBvZiBWQkxBTksgKGhhbmRsZWQNCj4gYnkgdnVwZGF0ZSBpcnEgaGFuZGxlcikuIFdlIG11
-c3QgbGVhdmUgdGhlIHN3aXRjaC1iYWNrIGNvZGUNCj4gaW5zaWRlIFZCTEFOSyBpcnEgZm9yIERD
-RTEyKywgYXMgYmVmb3JlLg0KPiANCj4gRG9pbmcgdGhpcywgd2UgZ2V0IG11Y2ggYmV0dGVyIGJl
-aGF2aW91ciBvZiBCVFIgZm9yIHVwLXN3ZWVwcywNCj4gaWUuIGdvaW5nIGZyb20gc2hvcnQgdG8g
-bG9uZyBmcmFtZSBkdXJhdGlvbnMgKH5oaWdoIHRvIGxvdyBmcHMpDQo+IGFuZCBmb3IgY29uc3Rh
-bnQgZnJhbWVyYXRlIGZsaXBzLCBhcyB0ZXN0ZWQgb24gRENFLTggYW5kDQo+IERDRS0xMS4gQmVo
-YXZpb3VyIGlzIHN0aWxsIG5vdCBxdWl0ZSBhcyBnb29kIGFzIG9uIERDTi0xDQo+IHRob3VnaC4N
-Cj4gDQo+IE9uIGRvd24tc3dlZXBzLCBnb2luZyBmcm9tIGxvbmcgdG8gc2hvcnQgZnJhbWUgZHVy
-YXRpb25zDQo+IChsb3cgZnBzIHRvIGhpZ2ggZnBzKSA8IERDRS0xMiBpcyBhIGxpdHRsZSBiaXQg
-aW1wcm92ZWQsDQo+IGFsdGhvdWdoIGJ5IGZhciBub3QgYXMgbXVjaCBhcyBmb3IgdXAtc3dlZXBz
-IGFuZCBjb25zdGFudA0KPiBmcHMuDQo+IA0KPiB2MjogRml4IHNvbWUgd3JvbmcgbG9ja2luZywg
-YXMgcG9pbnRlZCBvdXQgYnkgTmljaG9sYXMuDQo+IHYzOiBTaW1wbGlmeSBpZi1jb25kaXRpb24g
-aW4gdnVwZGF0ZS1pcnEgLSBuaXQgYnkgTmljaG9sYXMuDQo+IFNpZ25lZC1vZmYtYnk6IE1hcmlv
-IEtsZWluZXIgPG1hcmlvLmtsZWluZXIuZGVAZ21haWwuY29tPg0KDQpSZXZpZXdlZC1ieTogTmlj
-aG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPg0KDQpJJ2QgbGlr
-ZSB0byBwdXNoIHBhdGNoZXMgMSszIGlmIHlvdSdyZSBva2F5IHdpdGggdGhpcy4NCg0KSSBjYW4g
-c2VlIHRoZSB2YWx1ZSBpbiB0aGUgMm5kIHBhdGNoIGZyb20gdGhlIGdyYXBocyBhbmQgdGVzdCAN
-CmFwcGxpY2F0aW9uIHlvdSd2ZSBwb3N0ZWQgYnV0IGl0J2xsIGxpa2VseSB0YWtlIHNvbWUgdGlt
-ZSB0byBkbyB0aG9yb3VnaCANCnJldmlldyBhbmQgdGVzdGluZyBvbiB0aGlzLg0KDQpUaGUgcXVl
-c3Rpb24gdGhhdCBuZWVkcyB0byBiZSBleGFtaW5lZCB3aXRoIHRoZSBzZWNvbmQgaXMgd2hhdCB0
-aGUgDQpvcHRpbWFsIG1hcmdpbiBpcywgaWYgYW55LCBmb3IgdHlwaWNhbCB1c2VjYXNlcyBhY3Jv
-c3MgY29tbW9uIG1vbml0b3IgDQpyYW5nZXMuIE5vdCBhbGwgbW9uaXRvcnMgdGhhdCBzdXBwb3J0
-IEJUUiBoYXZlIHRoZSBzYW1lIHJhbmdlLCBhbmQgbWFueSANCmhhdmUgYSBsb3dlciBib3VuZCBv
-ZiB+NDhIei4gVG8gbWUgfjUzSHogc291bmRzIHJhdGhlciBlYXJseSB0byBiZSANCmVudGVyaW5n
-LCBidXQgSSdtIG5vdCBzdXJlIGhvdyBpdCBhZmZlY3RzIHRoZSB1c2VyIGV4cGVyaWVuY2Ugb3Zl
-cmFsbC4NCg0KTmljaG9sYXMgS2F6bGF1c2thcw0KDQo+IC0tLQ0KPiAgIC4uLi9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDQ4ICsrKysrKysrKysrKysrKysrLS0N
-Cj4gICAxIGZpbGUgY2hhbmdlZCwgNDQgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkNCj4g
-DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2Ft
-ZGdwdV9kbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG0uYw0KPiBpbmRleCA3NmI2ZTYyMTc5M2YuLjkyYjNjMmNlYzdkZCAxMDA2NDQNCj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IEBA
-IC0zNjQsNiArMzY0LDcgQEAgc3RhdGljIHZvaWQgZG1fdnVwZGF0ZV9oaWdoX2lycSh2b2lkICpp
-bnRlcnJ1cHRfcGFyYW1zKQ0KPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGlycV9w
-YXJhbXMtPmFkZXY7DQo+ICAgCXN0cnVjdCBhbWRncHVfY3J0YyAqYWNydGM7DQo+ICAgCXN0cnVj
-dCBkbV9jcnRjX3N0YXRlICphY3J0Y19zdGF0ZTsNCj4gKwl1bnNpZ25lZCBsb25nIGZsYWdzOw0K
-PiAgIA0KPiAgIAlhY3J0YyA9IGdldF9jcnRjX2J5X290Z19pbnN0KGFkZXYsIGlycV9wYXJhbXMt
-PmlycV9zcmMgLSBJUlFfVFlQRV9WVVBEQVRFKTsNCj4gICANCj4gQEAgLTM3OSw4ICszODAsMjUg
-QEAgc3RhdGljIHZvaWQgZG1fdnVwZGF0ZV9oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1z
-KQ0KPiAgIAkJICogcGFnZS1mbGlwIGNvbXBsZXRpb24gZXZlbnRzIHRoYXQgaGF2ZSBiZWVuIHF1
-ZXVlZCB0byB1cw0KPiAgIAkJICogaWYgYSBwYWdlZmxpcCBoYXBwZW5lZCBpbnNpZGUgZnJvbnQt
-cG9yY2guDQo+ICAgCQkgKi8NCj4gLQkJaWYgKGFtZGdwdV9kbV92cnJfYWN0aXZlKGFjcnRjX3N0
-YXRlKSkNCj4gKwkJaWYgKGFtZGdwdV9kbV92cnJfYWN0aXZlKGFjcnRjX3N0YXRlKSkgew0KPiAg
-IAkJCWRybV9jcnRjX2hhbmRsZV92YmxhbmsoJmFjcnRjLT5iYXNlKTsNCj4gKw0KPiArCQkJLyog
-QlRSIHByb2Nlc3NpbmcgZm9yIHByZS1EQ0UxMiBBU0lDcyAqLw0KPiArCQkJaWYgKGFjcnRjX3N0
-YXRlLT5zdHJlYW0gJiYNCj4gKwkJCSAgICBhZGV2LT5mYW1pbHkgPCBBTURHUFVfRkFNSUxZX0FJ
-KSB7DQo+ICsJCQkJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZs
-YWdzKTsNCj4gKwkJCQltb2RfZnJlZXN5bmNfaGFuZGxlX3ZfdXBkYXRlKA0KPiArCQkJCSAgICBh
-ZGV2LT5kbS5mcmVlc3luY19tb2R1bGUsDQo+ICsJCQkJICAgIGFjcnRjX3N0YXRlLT5zdHJlYW0s
-DQo+ICsJCQkJICAgICZhY3J0Y19zdGF0ZS0+dnJyX3BhcmFtcyk7DQo+ICsNCj4gKwkJCQlkY19z
-dHJlYW1fYWRqdXN0X3ZtaW5fdm1heCgNCj4gKwkJCQkgICAgYWRldi0+ZG0uZGMsDQo+ICsJCQkJ
-ICAgIGFjcnRjX3N0YXRlLT5zdHJlYW0sDQo+ICsJCQkJICAgICZhY3J0Y19zdGF0ZS0+dnJyX3Bh
-cmFtcy5hZGp1c3QpOw0KPiArCQkJCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYt
-PmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gKwkJCX0NCj4gKwkJfQ0KPiAgIAl9DQo+ICAgfQ0KPiAg
-IA0KPiBAQCAtMzkwLDYgKzQwOCw3IEBAIHN0YXRpYyB2b2lkIGRtX2NydGNfaGlnaF9pcnEodm9p
-ZCAqaW50ZXJydXB0X3BhcmFtcykNCj4gICAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBp
-cnFfcGFyYW1zLT5hZGV2Ow0KPiAgIAlzdHJ1Y3QgYW1kZ3B1X2NydGMgKmFjcnRjOw0KPiAgIAlz
-dHJ1Y3QgZG1fY3J0Y19zdGF0ZSAqYWNydGNfc3RhdGU7DQo+ICsJdW5zaWduZWQgbG9uZyBmbGFn
-czsNCj4gICANCj4gICAJYWNydGMgPSBnZXRfY3J0Y19ieV9vdGdfaW5zdChhZGV2LCBpcnFfcGFy
-YW1zLT5pcnFfc3JjIC0gSVJRX1RZUEVfVkJMQU5LKTsNCj4gICANCj4gQEAgLTQxMiw5ICs0MzEs
-MTAgQEAgc3RhdGljIHZvaWQgZG1fY3J0Y19oaWdoX2lycSh2b2lkICppbnRlcnJ1cHRfcGFyYW1z
-KQ0KPiAgIAkJICovDQo+ICAgCQlhbWRncHVfZG1fY3J0Y19oYW5kbGVfY3JjX2lycSgmYWNydGMt
-PmJhc2UpOw0KPiAgIA0KPiAtCQlpZiAoYWNydGNfc3RhdGUtPnN0cmVhbSAmJg0KPiArCQlpZiAo
-YWNydGNfc3RhdGUtPnN0cmVhbSAmJiBhZGV2LT5mYW1pbHkgPj0gQU1ER1BVX0ZBTUlMWV9BSSAm
-Jg0KPiAgIAkJICAgIGFjcnRjX3N0YXRlLT52cnJfcGFyYW1zLnN1cHBvcnRlZCAmJg0KPiAgIAkJ
-ICAgIGFjcnRjX3N0YXRlLT5mcmVlc3luY19jb25maWcuc3RhdGUgPT0gVlJSX1NUQVRFX0FDVElW
-RV9WQVJJQUJMRSkgew0KPiArCQkJc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPmRkZXYtPmV2ZW50
-X2xvY2ssIGZsYWdzKTsNCj4gICAJCQltb2RfZnJlZXN5bmNfaGFuZGxlX3ZfdXBkYXRlKA0KPiAg
-IAkJCQlhZGV2LT5kbS5mcmVlc3luY19tb2R1bGUsDQo+ICAgCQkJCWFjcnRjX3N0YXRlLT5zdHJl
-YW0sDQo+IEBAIC00MjQsNiArNDQ0LDcgQEAgc3RhdGljIHZvaWQgZG1fY3J0Y19oaWdoX2lycSh2
-b2lkICppbnRlcnJ1cHRfcGFyYW1zKQ0KPiAgIAkJCQlhZGV2LT5kbS5kYywNCj4gICAJCQkJYWNy
-dGNfc3RhdGUtPnN0cmVhbSwNCj4gICAJCQkJJmFjcnRjX3N0YXRlLT52cnJfcGFyYW1zLmFkanVz
-dCk7DQo+ICsJCQlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT5kZGV2LT5ldmVudF9sb2Nr
-LCBmbGFncyk7DQo+ICAgCQl9DQo+ICAgCX0NCj4gICB9DQo+IEBAIC00ODc4LDggKzQ4OTksMTAg
-QEAgc3RhdGljIHZvaWQgdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSgNCj4gICAJc3Ry
-dWN0IGRjX3BsYW5lX3N0YXRlICpzdXJmYWNlLA0KPiAgIAl1MzIgZmxpcF90aW1lc3RhbXBfaW5f
-dXMpDQo+ICAgew0KPiAtCXN0cnVjdCBtb2RfdnJyX3BhcmFtcyB2cnJfcGFyYW1zID0gbmV3X2Ny
-dGNfc3RhdGUtPnZycl9wYXJhbXM7DQo+ICsJc3RydWN0IG1vZF92cnJfcGFyYW1zIHZycl9wYXJh
-bXM7DQo+ICAgCXN0cnVjdCBkY19pbmZvX3BhY2tldCB2cnJfaW5mb3BhY2tldCA9IHswfTsNCj4g
-KwlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGRtLT5hZGV2Ow0KPiArCXVuc2lnbmVkIGxv
-bmcgZmxhZ3M7DQo+ICAgDQo+ICAgCWlmICghbmV3X3N0cmVhbSkNCj4gICAJCXJldHVybjsNCj4g
-QEAgLTQ4OTIsNiArNDkxNSw5IEBAIHN0YXRpYyB2b2lkIHVwZGF0ZV9mcmVlc3luY19zdGF0ZV9v
-bl9zdHJlYW0oDQo+ICAgCWlmICghbmV3X3N0cmVhbS0+dGltaW5nLmhfdG90YWwgfHwgIW5ld19z
-dHJlYW0tPnRpbWluZy52X3RvdGFsKQ0KPiAgIAkJcmV0dXJuOw0KPiAgIA0KPiArCXNwaW5fbG9j
-a19pcnFzYXZlKCZhZGV2LT5kZGV2LT5ldmVudF9sb2NrLCBmbGFncyk7DQo+ICsJdnJyX3BhcmFt
-cyA9IG5ld19jcnRjX3N0YXRlLT52cnJfcGFyYW1zOw0KPiArDQo+ICAgCWlmIChzdXJmYWNlKSB7
-DQo+ICAgCQltb2RfZnJlZXN5bmNfaGFuZGxlX3ByZWZsaXAoDQo+ICAgCQkJZG0tPmZyZWVzeW5j
-X21vZHVsZSwNCj4gQEAgLTQ4OTksNiArNDkyNSwxMiBAQCBzdGF0aWMgdm9pZCB1cGRhdGVfZnJl
-ZXN5bmNfc3RhdGVfb25fc3RyZWFtKA0KPiAgIAkJCW5ld19zdHJlYW0sDQo+ICAgCQkJZmxpcF90
-aW1lc3RhbXBfaW5fdXMsDQo+ICAgCQkJJnZycl9wYXJhbXMpOw0KPiArDQo+ICsJCWlmIChhZGV2
-LT5mYW1pbHkgPCBBTURHUFVfRkFNSUxZX0FJICYmDQo+ICsJCSAgICBhbWRncHVfZG1fdnJyX2Fj
-dGl2ZShuZXdfY3J0Y19zdGF0ZSkpIHsNCj4gKwkJCW1vZF9mcmVlc3luY19oYW5kbGVfdl91cGRh
-dGUoZG0tPmZyZWVzeW5jX21vZHVsZSwNCj4gKwkJCQkJCSAgICAgbmV3X3N0cmVhbSwgJnZycl9w
-YXJhbXMpOw0KPiArCQl9DQo+ICAgCX0NCj4gICANCj4gICAJbW9kX2ZyZWVzeW5jX2J1aWxkX3Zy
-cl9pbmZvcGFja2V0KA0KPiBAQCAtNDkzMCw2ICs0OTYyLDggQEAgc3RhdGljIHZvaWQgdXBkYXRl
-X2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVhbSgNCj4gICAJCQkgICAgICBuZXdfY3J0Y19zdGF0ZS0+
-YmFzZS5jcnRjLT5iYXNlLmlkLA0KPiAgIAkJCSAgICAgIChpbnQpbmV3X2NydGNfc3RhdGUtPmJh
-c2UudnJyX2VuYWJsZWQsDQo+ICAgCQkJICAgICAgKGludCl2cnJfcGFyYW1zLnN0YXRlKTsNCj4g
-Kw0KPiArCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZs
-YWdzKTsNCj4gICB9DQo+ICAgDQo+ICAgc3RhdGljIHZvaWQgcHJlX3VwZGF0ZV9mcmVlc3luY19z
-dGF0ZV9vbl9zdHJlYW0oDQo+IEBAIC00OTM3LDggKzQ5NzEsMTAgQEAgc3RhdGljIHZvaWQgcHJl
-X3VwZGF0ZV9mcmVlc3luY19zdGF0ZV9vbl9zdHJlYW0oDQo+ICAgCXN0cnVjdCBkbV9jcnRjX3N0
-YXRlICpuZXdfY3J0Y19zdGF0ZSkNCj4gICB7DQo+ICAgCXN0cnVjdCBkY19zdHJlYW1fc3RhdGUg
-Km5ld19zdHJlYW0gPSBuZXdfY3J0Y19zdGF0ZS0+c3RyZWFtOw0KPiAtCXN0cnVjdCBtb2RfdnJy
-X3BhcmFtcyB2cnJfcGFyYW1zID0gbmV3X2NydGNfc3RhdGUtPnZycl9wYXJhbXM7DQo+ICsJc3Ry
-dWN0IG1vZF92cnJfcGFyYW1zIHZycl9wYXJhbXM7DQo+ICAgCXN0cnVjdCBtb2RfZnJlZXN5bmNf
-Y29uZmlnIGNvbmZpZyA9IG5ld19jcnRjX3N0YXRlLT5mcmVlc3luY19jb25maWc7DQo+ICsJc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBkbS0+YWRldjsNCj4gKwl1bnNpZ25lZCBsb25nIGZs
-YWdzOw0KPiAgIA0KPiAgIAlpZiAoIW5ld19zdHJlYW0pDQo+ICAgCQlyZXR1cm47DQo+IEBAIC00
-OTUwLDYgKzQ5ODYsOSBAQCBzdGF0aWMgdm9pZCBwcmVfdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29u
-X3N0cmVhbSgNCj4gICAJaWYgKCFuZXdfc3RyZWFtLT50aW1pbmcuaF90b3RhbCB8fCAhbmV3X3N0
-cmVhbS0+dGltaW5nLnZfdG90YWwpDQo+ICAgCQlyZXR1cm47DQo+ICAgDQo+ICsJc3Bpbl9sb2Nr
-X2lycXNhdmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gKwl2cnJfcGFyYW1z
-ID0gbmV3X2NydGNfc3RhdGUtPnZycl9wYXJhbXM7DQo+ICsNCj4gICAJaWYgKG5ld19jcnRjX3N0
-YXRlLT52cnJfc3VwcG9ydGVkICYmDQo+ICAgCSAgICBjb25maWcubWluX3JlZnJlc2hfaW5fdWh6
-ICYmDQo+ICAgCSAgICBjb25maWcubWF4X3JlZnJlc2hfaW5fdWh6KSB7DQo+IEBAIC00OTcwLDYg
-KzUwMDksNyBAQCBzdGF0aWMgdm9pZCBwcmVfdXBkYXRlX2ZyZWVzeW5jX3N0YXRlX29uX3N0cmVh
-bSgNCj4gICAJCQlzaXplb2YodnJyX3BhcmFtcy5hZGp1c3QpKSAhPSAwKTsNCj4gICANCj4gICAJ
-bmV3X2NydGNfc3RhdGUtPnZycl9wYXJhbXMgPSB2cnJfcGFyYW1zOw0KPiArCXNwaW5fdW5sb2Nr
-X2lycXJlc3RvcmUoJmFkZXYtPmRkZXYtPmV2ZW50X2xvY2ssIGZsYWdzKTsNCj4gICB9DQo+ICAg
-DQo+ICAgc3RhdGljIHZvaWQgYW1kZ3B1X2RtX2hhbmRsZV92cnJfdHJhbnNpdGlvbihzdHJ1Y3Qg
-ZG1fY3J0Y19zdGF0ZSAqb2xkX3N0YXRlLA0KPiANCg0KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+--===============0432631378==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_940a48aa33c155a62bf1a794aa0e746bamdcom_"
+
+--_000_940a48aa33c155a62bf1a794aa0e746bamdcom_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+Thank you Alex and Christian for the feedback. Ori will try to add ioctl in=
+to SMI CLI to retrieve firmware versions.
+
+Amber
+
+On 2019-04-29 8:22 a.m., Christian K=F6nig wrote:
+We just need to keep in mind that sysfs has more restrictions than debugfs.
+
+E.g. one value per file, backward compatibility etc...
+
+Apart from that I don't see any reason to not do it in sysfs.
+
+Christian.
+
+Am 26.04.19 um 20:35 schrieb Russell, Kent:
+The main reasoning and use case for sysfs would be the SMI CLI, since unfor=
+tunately there is no ioctl support in there.
+
+Kent
+
+KENT RUSSELL
+Sr. Software Engineer | Linux Compute Kernel
+1 Commerce Valley Drive East
+Markham, ON L3T 7X6
+O +(1) 289-695-2122 | Ext 72122
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
+s@lists.freedesktop.org> on behalf of Deucher, Alexander <Alexander.Deucher=
+@amd.com><mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, April 26, 2019 12:18:22 PM
+To: Lin, Amber; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org>
+Cc: Freehill, Chris
+Subject: Re: print firmware versions on amdgpu sysfs
+
+We also expose the firmware versions via ioctl which is what the UMDs uses.=
+  If you'd prefer it in sysfs, we could do that too.
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
+s@lists.freedesktop.org> on behalf of Lin, Amber <Amber.Lin-5C7GfCeVMHo@public.gmane.org><mailto=
+:Amber.Lin-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, April 26, 2019 10:14 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Freehill, Chris
+Subject: print firmware versions on amdgpu sysfs
+
+Hi Alex,
+
+Currently we retrieve firmware versions from /sys/kernel/debug but this
+requires debugfs being enabled and superuser privilege. Do you see a
+concern we add firmware versions to amdgpu sysfs at
+/sys/class/drm/cardX/device like vbios_version?
+
+Regards,
+Amber
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--_000_940a48aa33c155a62bf1a794aa0e746bamdcom_
+Content-Type: text/html; charset="Windows-1252"
+Content-ID: <69B9F77A6402CB44B0D2879DBDA24030-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+</head>
+<body text=3D"#000000" bgcolor=3D"#FFFFFF">
+Thank you Alex and Christian for the feedback. Ori will try to add ioctl in=
+to SMI CLI to retrieve firmware versions.<br>
+<br>
+Amber<br>
+<br>
+<div class=3D"moz-cite-prefix">On 2019-04-29 8:22 a.m., Christian K=F6nig w=
+rote:<br>
+</div>
+<blockquote type=3D"cite" cite=3D"mid:d6c60e91-4311-069b-0612-03337830481d@=
+gmail.com">
+<div class=3D"moz-cite-prefix">We just need to keep in mind that sysfs has =
+more restrictions than debugfs.<br>
+<br>
+E.g. one value per file, backward compatibility etc...<br>
+<br>
+Apart from that I don't see any reason to not do it in sysfs.<br>
+<br>
+Christian. <br>
+<br>
+Am 26.04.19 um 20:35 schrieb Russell, Kent:<br>
+</div>
+<blockquote type=3D"cite" cite=3D"mid:BN6PR12MB1618CE8C21ED572094D9BB10853E=
+0@BN6PR12MB1618.namprd12.prod.outlook.com">
+The main reasoning and use case for sysfs would be the SMI CLI, since unfor=
+tunately there is no ioctl support in there.
+<br>
+<br>
+Kent<br>
+<br>
+KENT RUSSELL<br>
+Sr. Software Engineer | Linux Compute Kernel<br>
+1 Commerce Valley Drive East<br>
+Markham, ON L3T 7X6<br>
+O &#43;(1) 289-695-2122 | Ext 72122<br>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
+<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org" moz-do-not-send=3D"true">
+&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Deucher, Ale=
+xander <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Alexander.Deucher@=
+amd.com" moz-do-not-send=3D"true">
+&lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<b>Sent:</b> Friday, April 26, 2019 12:18:22 PM<br>
+<b>To:</b> Lin, Amber; <a class=3D"moz-txt-link-abbreviated" href=3D"mailto=
+:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" moz-do-not-send=3D"true">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Cc:</b> Freehill, Chris<br>
+<b>Subject:</b> Re: print firmware versions on amdgpu sysfs</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0)">
+We also expose the firmware versions via ioctl which is what the UMDs uses.=
+&nbsp; If you'd prefer it in sysfs, we could do that too.<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0)">
+Alex</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;
+            font-size:12pt; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
+<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org" moz-do-not-send=3D"true">
+&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Lin, Amber <=
+a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Amber.Lin-5C7GfCeVMHo@public.gmane.org" moz-do-=
+not-send=3D"true">
+&lt;Amber.Lin-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<b>Sent:</b> Friday, April 26, 2019 10:14 AM<br>
+<b>To:</b> <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lis=
+ts.freedesktop.org" moz-do-not-send=3D"true">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Cc:</b> Freehill, Chris<br>
+<b>Subject:</b> print firmware versions on amdgpu sysfs</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Hi Alex,<br>
+<br>
+Currently we retrieve firmware versions from /sys/kernel/debug but this <br=
+>
+requires debugfs being enabled and superuser privilege. Do you see a <br>
+concern we add firmware versions to amdgpu sysfs at <br>
+/sys/class/drm/cardX/device like vbios_version?<br>
+<br>
+Regards,<br>
+Amber<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org" moz-do-not-send=3D"true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-n=
+ot-send=3D"true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>=
+</div>
+</span></font></div>
+</div>
+<br>
+<fieldset class=3D"mimeAttachmentHeader"></fieldset>
+<pre class=3D"moz-quote-pre" wrap=3D"">____________________________________=
+___________
+amd-gfx mailing list
+<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org" moz-do-not-send=3D"true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
+ilman/listinfo/amd-gfx" moz-do-not-send=3D"true">https://lists.freedesktop.=
+org/mailman/listinfo/amd-gfx</a></pre>
+</blockquote>
+<br>
+</blockquote>
+<br>
+</body>
+</html>
+
+--_000_940a48aa33c155a62bf1a794aa0e746bamdcom_--
+
+--===============0432631378==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0432631378==--
