@@ -1,63 +1,57 @@
-From: Andrey Konovalov <andreyknvl@google.com>
-Subject: [PATCH v14 07/17] mm, arm64: untag user pointers in mm/gup.c
-Date: Tue, 30 Apr 2019 15:25:03 +0200
-Message-ID: <373d33e4cb0087da32ad019fd212414292ce04c8.1556630205.git.andreyknvl@google.com>
-References: <cover.1556630205.git.andreyknvl@google.com>
+From: Trigger Huang <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Fix VM clean check method
+Date: Tue, 30 Apr 2019 22:18:32 +0800
+Message-ID: <1556633912-27698-1-git-send-email-Trigger.Huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <cover.1556630205.git.andreyknvl@google.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Cc: Mark Rutland <mark.rutland@arm.com>, Koenig@google.com, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, Kostya Serebryany <kcc@google.com>, Chintan Pandya <cpandya@codeaurora.org>, Felix <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Kuehling@google.com, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Deucher@google.com, Alex Williamson <alex.williamson@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, Greg Kroah-Hartman <gregk>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Trigger.Huang-5C7GfCeVMHo@public.gmane.org
 
-This patch is a part of a series that extends arm64 kernel ABI to allow to
-pass tagged user pointers (with the top byte set to something else other
-than 0x00) as syscall arguments.
-
-mm/gup.c provides a kernel interface that accepts user addresses and
-manipulates user pages directly (for example get_user_pages, that is used
-by the futex syscall). Since a user can provided tagged addresses, we need
-to handle this case.
-
-Add untagging to gup.c functions that use user addresses for vma lookups.
-
-Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
----
- mm/gup.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/mm/gup.c b/mm/gup.c
-index 91819b8ad9cc..2f477a0a7180 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -696,6 +696,8 @@ static long __get_user_pages(struct task_struct *tsk, struct mm_struct *mm,
- 	if (!nr_pages)
- 		return 0;
- 
-+	start = untagged_addr(start);
-+
- 	VM_BUG_ON(!!pages != !!(gup_flags & FOLL_GET));
- 
- 	/*
-@@ -858,6 +860,8 @@ int fixup_user_fault(struct task_struct *tsk, struct mm_struct *mm,
- 	struct vm_area_struct *vma;
- 	vm_fault_t ret, major = 0;
- 
-+	address = untagged_addr(address);
-+
- 	if (unlocked)
- 		fault_flags |= FAULT_FLAG_ALLOW_RETRY;
- 
--- 
-2.21.0.593.g511ec345e18-goog
+YW1kZ3B1X3ZtX21ha2VfY29tcHV0ZSBpcyB1c2VkIHRvIHR1cm4gYSBHRlggVk0gaW50byBhIGNv
+bXB1dGUgVk0sCnRoZSBwcmVyZXF1aXNpdGUgaXMgdGhpcyBWTSBpcyBjbGVhbi4gTGV0J3MgY2hl
+Y2sgaWYgc29tZSBwYWdlIHRhYmxlcwphcmUgYWxyZWFkeSBmaWxsZWQgLCB3aGlsZSBub3QgY2hl
+Y2sgaWYgc29tZSBtYXBwaW5nIGlzIGFscmVhZHkgbWFkZS4KClNpZ25lZC1vZmYtYnk6IFRyaWdn
+ZXIgSHVhbmcgPFRyaWdnZXIuSHVhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdm0uYyB8IDM2ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
+Ky0KIDEgZmlsZSBjaGFuZ2VkLCAzNSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwppbmRleCA1NmQ4MzhmLi42NzUyZDRjIDEw
+MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwpAQCAtMjc1NSw2ICsyNzU1LDQw
+IEBAIGludCBhbWRncHVfdm1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0
+IGFtZGdwdV92bSAqdm0sCiB9CiAKIC8qKgorICogYW1kZ3B1X3ZtX2NoZWNrX2NsZWFuX3Jlc2Vy
+dmVkIC0gY2hlY2sgaWYgYSBWTSBpcyBjbGVhbgorICoKKyAqIEBhZGV2OiBhbWRncHVfZGV2aWNl
+IHBvaW50ZXIKKyAqIEB2bTogdGhlIFZNIHRvIGNoZWNrCisgKgorICogY2hlY2sgYWxsIGVudHJp
+ZXMgb2YgdGhlIHJvb3QgUEQsIGlmIGFueSBzdWJzZXF1ZW50IFBEcyBhcmUgYWxsb2NhdGVkLAor
+ICogaXQgbWVhbnMgdGhlcmUgYXJlIHBhZ2UgdGFibGUgY3JlYXRpbmcgYW5kIGZpbGxpbmcsIGFu
+ZCBpcyBubyBhIGNsZWFuCisgKiBWTQorICoKKyAqIFJldHVybnM6CisgKgkwIGlmIHRoaXMgVk0g
+aXMgY2xlYW4KKyAqLworc3RhdGljIGludCBhbWRncHVfdm1fY2hlY2tfY2xlYW5fcmVzZXJ2ZWQo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCisJc3RydWN0IGFtZGdwdV92bSAqdm0pCit7CisJ
+aW50IHJldCA9IDA7CisKKwlpZiAodm0tPnJvb3QuZW50cmllcykgeworCQl1bnNpZ25lZCBpbnQg
+aSA9IDA7CisJCWVudW0gYW1kZ3B1X3ZtX2xldmVsIGwgPSBhZGV2LT52bV9tYW5hZ2VyLnJvb3Rf
+bGV2ZWw7CisJCXVuc2lnbmVkIGludCBlbnRyaWVzID0gYW1kZ3B1X3ZtX251bV9lbnRyaWVzKGFk
+ZXYsIGwpOworCisJCWZvciAoaSA9IDA7IGkgPCBlbnRyaWVzOyBpKyspIHsKKwkJCWlmICh2bS0+
+cm9vdC5lbnRyaWVzW2ldLmJhc2UuYm8pIHsKKwkJCQlyZXQgPSAtRUlOVkFMOworCQkJCWJyZWFr
+OworCQkJfQorCQl9CisJfQorCisJcmV0dXJuIHJldDsKK30KKworLyoqCiAgKiBhbWRncHVfdm1f
+bWFrZV9jb21wdXRlIC0gVHVybiBhIEdGWCBWTSBpbnRvIGEgY29tcHV0ZSBWTQogICoKICAqIEBh
+ZGV2OiBhbWRncHVfZGV2aWNlIHBvaW50ZXIKQEAgLTI3ODQsNyArMjgxOCw3IEBAIGludCBhbWRn
+cHVfdm1fbWFrZV9jb21wdXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1k
+Z3B1X3ZtICp2bSwgdW5zCiAJCXJldHVybiByOwogCiAJLyogU2FuaXR5IGNoZWNrcyAqLwotCWlm
+ICghUkJfRU1QVFlfUk9PVCgmdm0tPnZhLnJiX3Jvb3QpIHx8IHZtLT5yb290LmVudHJpZXMpIHsK
+KwlpZiAoYW1kZ3B1X3ZtX2NoZWNrX2NsZWFuX3Jlc2VydmVkKGFkZXYsIHZtKSkgewogCQlyID0g
+LUVJTlZBTDsKIAkJZ290byB1bnJlc2VydmVfYm87CiAJfQotLSAKMi43LjQKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
