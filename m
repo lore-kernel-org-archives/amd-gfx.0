@@ -1,16 +1,14 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Cosmetic cleanup
-Date: Wed, 1 May 2019 15:54:17 +0000
-Message-ID: <30bcf282-374b-351c-b3f7-77230f9931a4@amd.com>
-References: <20190501123118.10937-1-kent.russell@amd.com>
- <20190501123118.10937-2-kent.russell@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Add PCIe replay count sysfs file
+Date: Wed, 1 May 2019 15:54:57 +0000
+Message-ID: <BN6PR12MB180932D95410D8731100CA9BF73B0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190501120057.3012-1-kent.russell@amd.com>,
+ <20190501120057.3012-2-kent.russell@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1273182540=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190501123118.10937-2-kent.russell-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190501120057.3012-2-kent.russell-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <464FA5FFDC5495408F43F8BCD74AD58D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,140 +19,661 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Russell,
- Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-VGhhbmsgeW91IEtlbnQhIFRoZSBzZXJpZXMgaXMgUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5n
-IA0KPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQoNCk9uIDIwMTktMDUtMDEgODozMSBhLm0uLCBS
-dXNzZWxsLCBLZW50IHdyb3RlOg0KPiBbQ0FVVElPTjogRXh0ZXJuYWwgRW1haWxdDQo+DQo+IEZp
-eCBzb21lIHNwYWNpbmcgaXNzdWVzLCBsb2cgb3V0cHV0LCB1c2VzIG9mICE9TlVMTC89PU5VTEws
-IHVubmVlZGVkDQo+IGV4dHJhIGxpbmVzIGFuZCBjbGVhbiB1cCBhIGRlY2xhcmF0aW9uIGZyb20g
-PTEgdG8gPXRydWUgZm9yIGNsYXJpdHkNCj4NCj4gQ2hhbmdlLUlkOiBJNjM4MjMxY2RlNDg4N2Ez
-YzJkYTBiNzBlNWZlZTc3MDU5Y2ZiMGJmMg0KPiBTaWduZWQtb2ZmLWJ5OiBLZW50IFJ1c3NlbGwg
-PGtlbnQucnVzc2VsbEBhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkLmMgICAgICAgIHwgNiArKysrLS0NCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92Ny5jIHwgMiArLQ0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ2Z4X3Y4LmMgfCAyICstDQo+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jICB8IDIgKy0NCj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jICAgICAgICAgIHwgMiAr
-LQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9ldmVudHMuYyAgICAgICAgICAg
-fCAyICstDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ZsYXRfbWVtb3J5LmMg
-ICAgICB8IDIgLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFn
-ZXJfdmkuYyAgIHwgMiArLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2
-LmggICAgICAgICAgICAgfCAyICstDQo+ICAgOSBmaWxlcyBjaGFuZ2VkLCAxMSBpbnNlcnRpb25z
-KCspLCAxMSBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9hbWRrZmQuYw0KPiBpbmRleCA4OTQ5YjFhYzJmMTguLjJlMmEyNjE3MTM0YiAxMDA2NDQN
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jDQo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYw0KPiBAQCAtMTQ5
-LDcgKzE0OSw4IEBAIHZvaWQgYW1kZ3B1X2FtZGtmZF9kZXZpY2VfaW5pdChzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikNCj4gICAgICAgICAgICAgICAgICB9Ow0KPg0KPiAgICAgICAgICAgICAg
-ICAgIC8qIHRoaXMgaXMgZ29pbmcgdG8gaGF2ZSBhIGZldyBvZiB0aGUgTVNCcyBzZXQgdGhhdCB3
-ZSBuZWVkIHRvDQo+IC0gICAgICAgICAgICAgICAgKiBjbGVhciAqLw0KPiArICAgICAgICAgICAg
-ICAgICogY2xlYXINCj4gKyAgICAgICAgICAgICAgICAqLw0KPiAgICAgICAgICAgICAgICAgIGJp
-dG1hcF9jb21wbGVtZW50KGdwdV9yZXNvdXJjZXMucXVldWVfYml0bWFwLA0KPiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGFkZXYtPmdmeC5tZWMucXVldWVfYml0bWFwLA0KPiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEtHRF9NQVhfUVVFVUVTKTsNCj4gQEAg
-LTE2Myw3ICsxNjQsOCBAQCB2b2lkIGFtZGdwdV9hbWRrZmRfZGV2aWNlX2luaXQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-Z3B1X3Jlc291cmNlcy5xdWV1ZV9iaXRtYXApOw0KPg0KPiAgICAgICAgICAgICAgICAgIC8qIEFj
-Y29yZGluZyB0byBsaW51eC9iaXRtYXAuaCB3ZSBzaG91bGRuJ3QgdXNlIGJpdG1hcF9jbGVhciBp
-Zg0KPiAtICAgICAgICAgICAgICAgICogbmJpdHMgaXMgbm90IGNvbXBpbGUgdGltZSBjb25zdGFu
-dCAqLw0KPiArICAgICAgICAgICAgICAgICogbmJpdHMgaXMgbm90IGNvbXBpbGUgdGltZSBjb25z
-dGFudA0KPiArICAgICAgICAgICAgICAgICovDQo+ICAgICAgICAgICAgICAgICAgbGFzdF92YWxp
-ZF9iaXQgPSAxIC8qIG9ubHkgZmlyc3QgTUVDIGNhbiBoYXZlIGNvbXB1dGUgcXVldWVzICovDQo+
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICogYWRldi0+Z2Z4Lm1lYy5udW1fcGlw
-ZV9wZXJfbWVjDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICogYWRldi0+Z2Z4
-Lm1lYy5udW1fcXVldWVfcGVyX3BpcGU7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92Ny5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2FtZGtmZF9nZnhfdjcuYw0KPiBpbmRleCBmYTA5ZTExYTYwMGMuLmM2YWJj
-ZjcyZTgyMiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2FtZGtmZF9nZnhfdjcuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfYW1ka2ZkX2dmeF92Ny5jDQo+IEBAIC0zMTAsNyArMzEwLDcgQEAgc3RhdGljIGlubGluZSB1
-aW50MzJfdCBnZXRfc2RtYV9iYXNlX2FkZHIoc3RydWN0IGNpa19zZG1hX3JsY19yZWdpc3RlcnMg
-Km0pDQo+ICAgICAgICAgIHJldHZhbCA9IG0tPnNkbWFfZW5naW5lX2lkICogU0RNQTFfUkVHSVNU
-RVJfT0ZGU0VUICsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgIG0tPnNkbWFfcXVldWVfaWQg
-KiBLRkRfQ0lLX1NETUFfUVVFVUVfT0ZGU0VUOw0KPg0KPiAtICAgICAgIHByX2RlYnVnKCJrZmQ6
-IHNkbWEgYmFzZSBhZGRyZXNzOiAweCV4XG4iLCByZXR2YWwpOw0KPiArICAgICAgIHByX2RlYnVn
-KCJzZG1hIGJhc2UgYWRkcmVzczogMHgleFxuIiwgcmV0dmFsKTsNCj4NCj4gICAgICAgICAgcmV0
-dXJuIHJldHZhbDsNCj4gICB9DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfYW1ka2ZkX2dmeF92OC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2FtZGtmZF9nZnhfdjguYw0KPiBpbmRleCBmZWMzYTZhYTFkZTYuLjRlOGI0ZTk0OTky
-NiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
-ZF9nZnhfdjguYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
-a2ZkX2dmeF92OC5jDQo+IEBAIC0yNjYsNyArMjY2LDcgQEAgc3RhdGljIGlubGluZSB1aW50MzJf
-dCBnZXRfc2RtYV9iYXNlX2FkZHIoc3RydWN0IHZpX3NkbWFfbXFkICptKQ0KPg0KPiAgICAgICAg
-ICByZXR2YWwgPSBtLT5zZG1hX2VuZ2luZV9pZCAqIFNETUExX1JFR0lTVEVSX09GRlNFVCArDQo+
-ICAgICAgICAgICAgICAgICAgbS0+c2RtYV9xdWV1ZV9pZCAqIEtGRF9WSV9TRE1BX1FVRVVFX09G
-RlNFVDsNCj4gLSAgICAgICBwcl9kZWJ1Zygia2ZkOiBzZG1hIGJhc2UgYWRkcmVzczogMHgleFxu
-IiwgcmV0dmFsKTsNCj4gKyAgICAgICBwcl9kZWJ1Zygic2RtYSBiYXNlIGFkZHJlc3M6IDB4JXhc
-biIsIHJldHZhbCk7DQo+DQo+ICAgICAgICAgIHJldHVybiByZXR2YWw7DQo+ICAgfQ0KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+IGlu
-ZGV4IDY5N2I4ZWZlODk2Yy4uMmZlNzI4MzNmODEzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQo+IEBAIC0xMzc5LDcgKzEz
-NzksNyBAQCBpbnQgYW1kZ3B1X2FtZGtmZF9ncHV2bV9tYXBfbWVtb3J5X3RvX2dwdSgNCj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgIHJldCA9IG1hcF9ib190b19ncHV2bShhZGV2LCBlbnRyeSwg
-Y3R4LnN5bmMsDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgaXNfaW52YWxpZF91c2VycHRyKTsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgIGlmIChy
-ZXQpIHsNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwcl9lcnIoIkZhaWxlZCB0
-byBtYXAgcmFkZW9uIGJvIHRvIGdwdXZtXG4iKTsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwcl9lcnIoIkZhaWxlZCB0byBtYXAgYm8gdG8gZ3B1dm1cbiIpOw0KPiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBnb3RvIG1hcF9ib190b19ncHV2bV9mYWlsZWQ7DQo+
-ICAgICAgICAgICAgICAgICAgICAgICAgICB9DQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
-ZmQva2ZkX2NoYXJkZXYuYw0KPiBpbmRleCBjNzMxMTI2YWRhMjIuLjM4YWU1M2ZlODE4MiAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQo+IEBAIC01MjQs
-NyArNTI0LDcgQEAgc3RhdGljIGludCBrZmRfaW9jdGxfc2V0X3RyYXBfaGFuZGxlcihzdHJ1Y3Qg
-ZmlsZSAqZmlsZXAsDQo+ICAgICAgICAgIHN0cnVjdCBrZmRfcHJvY2Vzc19kZXZpY2UgKnBkZDsN
-Cj4NCj4gICAgICAgICAgZGV2ID0ga2ZkX2RldmljZV9ieV9pZChhcmdzLT5ncHVfaWQpOw0KPiAt
-ICAgICAgIGlmIChkZXYgPT0gTlVMTCkNCj4gKyAgICAgICBpZiAoIWRldikNCj4gICAgICAgICAg
-ICAgICAgICByZXR1cm4gLUVJTlZBTDsNCj4NCj4gICAgICAgICAgbXV0ZXhfbG9jaygmcC0+bXV0
-ZXgpOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50
-cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2V2ZW50cy5jDQo+IGluZGV4IDZl
-MWQ0MWM1YmY4Ni4uZDY3NGQ0YjMzNDBmIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfZXZlbnRzLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
-ZmQva2ZkX2V2ZW50cy5jDQo+IEBAIC05ODMsNyArOTgzLDcgQEAgdm9pZCBrZmRfc2lnbmFsX3Zt
-X2ZhdWx0X2V2ZW50KHN0cnVjdCBrZmRfZGV2ICpkZXYsIHVuc2lnbmVkIGludCBwYXNpZCwNCj4g
-ICAgICAgICAgICAgICAgICByZXR1cm47IC8qIFByZXN1bWFibHkgcHJvY2VzcyBleGl0ZWQuICov
-DQo+ICAgICAgICAgIG1lbXNldCgmbWVtb3J5X2V4Y2VwdGlvbl9kYXRhLCAwLCBzaXplb2YobWVt
-b3J5X2V4Y2VwdGlvbl9kYXRhKSk7DQo+ICAgICAgICAgIG1lbW9yeV9leGNlcHRpb25fZGF0YS5n
-cHVfaWQgPSBkZXYtPmlkOw0KPiAtICAgICAgIG1lbW9yeV9leGNlcHRpb25fZGF0YS5mYWlsdXJl
-LmltcHJlY2lzZSA9IDE7DQo+ICsgICAgICAgbWVtb3J5X2V4Y2VwdGlvbl9kYXRhLmZhaWx1cmUu
-aW1wcmVjaXNlID0gdHJ1ZTsNCj4gICAgICAgICAgLyogU2V0IGZhaWx1cmUgcmVhc29uICovDQo+
-ICAgICAgICAgIGlmIChpbmZvKSB7DQo+ICAgICAgICAgICAgICAgICAgbWVtb3J5X2V4Y2VwdGlv
-bl9kYXRhLnZhID0gKGluZm8tPnBhZ2VfYWRkcikgPDwgUEFHRV9TSElGVDsNCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9mbGF0X21lbW9yeS5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2ZsYXRfbWVtb3J5LmMNCj4gaW5kZXggZGM3MzM5ODI1
-YjVjLi4yMmE4ZTg4YjZhNjcgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9mbGF0X21lbW9yeS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9mbGF0X21lbW9yeS5jDQo+IEBAIC00MzYsNSArNDM2LDMgQEAgaW50IGtmZF9pbml0X2Fw
-ZXJ0dXJlcyhzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnByb2Nlc3MpDQo+DQo+ICAgICAgICAgIHJldHVy
-biAwOw0KPiAgIH0NCj4gLQ0KPiAtDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdmkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
-L2tmZF9tcWRfbWFuYWdlcl92aS5jDQo+IGluZGV4IDE4Njk3YzIxNTJhOC4uYjU1MGRlYTliMTBh
-IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFn
-ZXJfdmkuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFn
-ZXJfdmkuYw0KPiBAQCAtMzU1LDcgKzM1NSw3IEBAIHN0YXRpYyBpbnQgaW5pdF9tcWRfc2RtYShz
-dHJ1Y3QgbXFkX21hbmFnZXIgKm1tLCB2b2lkICoqbXFkLA0KPiAgICAgICAgICBtZW1zZXQobSwg
-MCwgc2l6ZW9mKHN0cnVjdCB2aV9zZG1hX21xZCkpOw0KPg0KPiAgICAgICAgICAqbXFkID0gbTsN
-Cj4gLSAgICAgICBpZiAoZ2FydF9hZGRyICE9IE5VTEwpDQo+ICsgICAgICAgaWYgKGdhcnRfYWRk
-cikNCj4gICAgICAgICAgICAgICAgICAqZ2FydF9hZGRyID0gKCptcWRfbWVtX29iaiktPmdwdV9h
-ZGRyOw0KPg0KPiAgICAgICAgICByZXR2YWwgPSBtbS0+dXBkYXRlX21xZChtbSwgbSwgcSk7DQo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0KPiBpbmRleCBjODkyNWI3YjZjNDYu
-LjhmMDJkNzgxNzE2MiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-a2ZkX3ByaXYuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5o
-DQo+IEBAIC0yNTksNyArMjU5LDcgQEAgc3RydWN0IGtmZF9kZXYgew0KPiAgICAgICAgICBib29s
-IGludGVycnVwdHNfYWN0aXZlOw0KPg0KPiAgICAgICAgICAvKiBEZWJ1ZyBtYW5hZ2VyICovDQo+
-IC0gICAgICAgc3RydWN0IGtmZF9kYmdtZ3IgICAgICAgICAgICpkYmdtZ3I7DQo+ICsgICAgICAg
-c3RydWN0IGtmZF9kYmdtZ3IgKmRiZ21ncjsNCj4NCj4gICAgICAgICAgLyogRmlybXdhcmUgdmVy
-c2lvbnMgKi8NCj4gICAgICAgICAgdWludDE2X3QgbWVjX2Z3X3ZlcnNpb247DQo+IC0tDQo+IDIu
-MTcuMQ0KPg0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============1273182540==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180932D95410D8731100CA9BF73B0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB180932D95410D8731100CA9BF73B0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Russell,=
+ Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, May 1, 2019 8:01 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Russell, Kent
+Subject: [PATCH 2/2] drm/amdgpu: Add PCIe replay count sysfs file
+
+[CAUTION: External Email]
+
+Add a sysfs file for reporting the number of PCIe replays (NAKs). This
+returns the sum of NAKs received and NAKs generated
+
+Change-Id: I135d5964ea13309754f80519c84a4eb3d360aab6
+Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/cik.c           | 13 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/si.c            | 13 ++++++++++
+ drivers/gpu/drm/amd/amdgpu/soc15.c         | 14 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/vi.c            | 13 ++++++++++
+ 6 files changed, 85 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h
+index 50b2a4f5a4de..686e7ee29912 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -558,6 +558,8 @@ struct amdgpu_asic_funcs {
+                               uint64_t *count1);
+        /* do we need to reset the asic at init time (e.g., kexec) */
+        bool (*need_reset_on_init)(struct amdgpu_device *adev);
++       /* PCIe replay counter */
++       uint64_t (*get_pcie_replay_count)(struct amdgpu_device *adev);
+ };
+
+ /*
+@@ -1080,6 +1082,7 @@ int emu_soc_asic_init(struct amdgpu_device *adev);
+ #define amdgpu_asic_init_doorbell_index(adev) (adev)->asic_funcs->init_doo=
+rbell_index((adev))
+ #define amdgpu_asic_get_pcie_usage(adev, cnt0, cnt1) ((adev)->asic_funcs->=
+get_pcie_usage((adev), (cnt0), (cnt1)))
+ #define amdgpu_asic_need_reset_on_init(adev) (adev)->asic_funcs->need_rese=
+t_on_init((adev))
++#define amdgpu_asic_get_pcie_replay_count(adev) ((adev)->asic_funcs->get_p=
+cie_replay_count((adev)))
+
+ /* Common functions */
+ bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c
+index 4edbe2029fb1..3f1c6b2d3d87 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -97,6 +97,28 @@ static const char *amdgpu_asic_name[] =3D {
+        "LAST",
+ };
+
++/**
++ * DOC: pcie_replay_count
++ *
++ * The amdgpu driver provides a sysfs API for reporting the total number
++ * of PCIe replays (NAKs)
++ * The file pcie_replay_count is used for this and returns the total
++ * number of replays as a sum of the NAKs generated and NAKs received
++ */
++
++static ssize_t amdgpu_device_get_pcie_replay_count(struct device *dev,
++               struct device_attribute *attr, char *buf)
++{
++       struct drm_device *ddev =3D dev_get_drvdata(dev);
++       struct amdgpu_device *adev =3D ddev->dev_private;
++       uint64_t cnt =3D amdgpu_asic_get_pcie_replay_count(adev);
++
++       return snprintf(buf, PAGE_SIZE, "%llu\n", cnt);
++}
++
++static DEVICE_ATTR(pcie_replay_count, S_IRUGO,
++               amdgpu_device_get_pcie_replay_count, NULL);
++
+ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);
+
+ /**
+@@ -2721,6 +2743,12 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+        /* must succeed. */
+        amdgpu_ras_post_init(adev);
+
++       r =3D device_create_file(adev->dev, &dev_attr_pcie_replay_count);
++       if (r) {
++               dev_err(adev->dev, "Could not create pcie_replay_count");
++               return r;
++       }
++
+        return 0;
+
+ failed:
+@@ -2784,6 +2812,7 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+        adev->rmmio =3D NULL;
+        amdgpu_device_doorbell_fini(adev);
+        amdgpu_debugfs_regs_cleanup(adev);
++       device_remove_file(adev->dev, &dev_attr_pcie_replay_count);
+ }
+
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/=
+cik.c
+index 07c1f239e9c3..3a4f20766a39 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1804,6 +1804,18 @@ static bool cik_need_reset_on_init(struct amdgpu_dev=
+ice *adev)
+        return false;
+ }
+
++static uint64_t cik_get_pcie_replay_count(struct amdgpu_device *adev)
++{
++       uint64_t nak_r, nak_g;
++
++       /* Get the number of NAKs received and generated */
++       nak_r =3D RREG32_PCIE(ixPCIE_RX_NUM_NAK);
++       nak_g =3D RREG32_PCIE(ixPCIE_RX_NUM_NAK_GENERATED);
++
++       /* Add the total number of NAKs, i.e the number of replays */
++       return (nak_r + nak_g);
++}
++
+ static const struct amdgpu_asic_funcs cik_asic_funcs =3D
+ {
+        .read_disabled_bios =3D &cik_read_disabled_bios,
+@@ -1821,6 +1833,7 @@ static const struct amdgpu_asic_funcs cik_asic_funcs =
+=3D
+        .init_doorbell_index =3D &legacy_doorbell_index_init,
+        .get_pcie_usage =3D &cik_get_pcie_usage,
+        .need_reset_on_init =3D &cik_need_reset_on_init,
++       .get_pcie_replay_count =3D &cik_get_pcie_replay_count,
+ };
+
+ static int cik_common_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/s=
+i.c
+index 9d8df68893b9..4ff930a47e10 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1375,6 +1375,18 @@ static void si_get_pcie_usage(struct amdgpu_device *=
+adev, uint64_t *count0,
+        *count1 =3D RREG32_PCIE(ixPCIE_PERF_COUNT1_TXCLK) | (cnt1_of << 32)=
+;
+ }
+
++static uint64_t si_get_pcie_replay_count(struct amdgpu_device *adev)
++{
++       uint64_t nak_r, nak_g;
++
++       /* Get the number of NAKs received and generated */
++       nak_r =3D RREG32_PCIE(ixPCIE_RX_NUM_NAK);
++       nak_g =3D RREG32_PCIE(ixPCIE_RX_NUM_NAK_GENERATED);
++
++       /* Add the total number of NAKs, i.e the number of replays */
++       return (nak_r + nak_g);
++}
++
+ static const struct amdgpu_asic_funcs si_asic_funcs =3D
+ {
+        .read_disabled_bios =3D &si_read_disabled_bios,
+@@ -1393,6 +1405,7 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
+=3D
+        .need_full_reset =3D &si_need_full_reset,
+        .get_pcie_usage =3D &si_get_pcie_usage,
+        .need_reset_on_init =3D &si_need_reset_on_init,
++       .get_pcie_replay_count =3D &si_get_pcie_replay_count,
+ };
+
+ static uint32_t si_get_rev_id(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c
+index 78bd00a0142f..78b27c03b8c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -745,6 +745,18 @@ static bool soc15_need_reset_on_init(struct amdgpu_dev=
+ice *adev)
+        return false;
+ }
+
++static uint64_t soc15_get_pcie_replay_count(struct amdgpu_device *adev)
++{
++       uint64_t nak_r, nak_g;
++
++       /* Get the number of NAKs received and generated */
++       nak_r =3D RREG32_PCIE(smnPCIE_RX_NUM_NAK);
++       nak_g =3D RREG32_PCIE(smnPCIE_RX_NUM_NAK_GENERATED);
++
++       /* Add the total number of NAKs, i.e the number of replays */
++       return (nak_r + nak_g);
++}
++
+ static const struct amdgpu_asic_funcs soc15_asic_funcs =3D
+ {
+        .read_disabled_bios =3D &soc15_read_disabled_bios,
+@@ -762,6 +774,7 @@ static const struct amdgpu_asic_funcs soc15_asic_funcs =
+=3D
+        .init_doorbell_index =3D &vega10_doorbell_index_init,
+        .get_pcie_usage =3D &soc15_get_pcie_usage,
+        .need_reset_on_init =3D &soc15_need_reset_on_init,
++       .get_pcie_replay_count =3D &soc15_get_pcie_replay_count,
+ };
+
+ static const struct amdgpu_asic_funcs vega20_asic_funcs =3D
+@@ -781,6 +794,7 @@ static const struct amdgpu_asic_funcs vega20_asic_funcs=
+ =3D
+        .init_doorbell_index =3D &vega20_doorbell_index_init,
+        .get_pcie_usage =3D &soc15_get_pcie_usage,
+        .need_reset_on_init =3D &soc15_need_reset_on_init,
++       .get_pcie_replay_count =3D &soc15_get_pcie_replay_count,
+ };
+
+ static int soc15_common_early_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
+i.c
+index 5e5b42a0744a..b8adf3808de2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -987,6 +987,18 @@ static void vi_get_pcie_usage(struct amdgpu_device *ad=
+ev, uint64_t *count0,
+        *count1 =3D RREG32_PCIE(ixPCIE_PERF_COUNT1_TXCLK) | (cnt1_of << 32)=
+;
+ }
+
++static uint64_t vi_get_pcie_replay_count(struct amdgpu_device *adev)
++{
++       uint64_t nak_r, nak_g;
++
++       /* Get the number of NAKs received and generated */
++       nak_r =3D RREG32_PCIE(ixPCIE_RX_NUM_NAK);
++       nak_g =3D RREG32_PCIE(ixPCIE_RX_NUM_NAK_GENERATED);
++
++       /* Add the total number of NAKs, i.e the number of replays */
++       return (nak_r + nak_g);
++}
++
+ static bool vi_need_reset_on_init(struct amdgpu_device *adev)
+ {
+        u32 clock_cntl, pc;
+@@ -1021,6 +1033,7 @@ static const struct amdgpu_asic_funcs vi_asic_funcs =
+=3D
+        .init_doorbell_index =3D &legacy_doorbell_index_init,
+        .get_pcie_usage =3D &vi_get_pcie_usage,
+        .need_reset_on_init =3D &vi_need_reset_on_init,
++       .get_pcie_replay_count =3D &vi_get_pcie_replay_count,
+ };
+
+ #define CZ_REV_BRISTOL(rev)     \
+--
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180932D95410D8731100CA9BF73B0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Series is:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Russell, Kent &lt;Kent.Russel=
+l@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, May 1, 2019 8:01 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Russell, Kent<br>
+<b>Subject:</b> [PATCH 2/2] drm/amdgpu: Add PCIe replay count sysfs file</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[CAUTION: External Email]<br>
+<br>
+Add a sysfs file for reporting the number of PCIe replays (NAKs). This<br>
+returns the sum of NAKs received and NAKs generated<br>
+<br>
+Change-Id: I135d5964ea13309754f80519c84a4eb3d360aab6<br>
+Signed-off-by: Kent Russell &lt;kent.russell-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; |&nbsp; 3 &#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 29 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/cik.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp; | 13 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/si.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 13 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/soc15.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; | 14 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<=
+br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/vi.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 13 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;<br>
+&nbsp;6 files changed, 85 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdg=
+pu/amdgpu.h<br>
+index 50b2a4f5a4de..686e7ee29912 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
+@@ -558,6 &#43;558,8 @@ struct amdgpu_asic_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t *count1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* do we need to reset the asic =
+at init time (e.g., kexec) */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool (*need_reset_on_init)(struc=
+t amdgpu_device *adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* PCIe replay counter */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t (*get_pcie_replay_count)=
+(struct amdgpu_device *adev);<br>
+&nbsp;};<br>
+<br>
+&nbsp;/*<br>
+@@ -1080,6 &#43;1082,7 @@ int emu_soc_asic_init(struct amdgpu_device *adev)=
+;<br>
+&nbsp;#define amdgpu_asic_init_doorbell_index(adev) (adev)-&gt;asic_funcs-&=
+gt;init_doorbell_index((adev))<br>
+&nbsp;#define amdgpu_asic_get_pcie_usage(adev, cnt0, cnt1) ((adev)-&gt;asic=
+_funcs-&gt;get_pcie_usage((adev), (cnt0), (cnt1)))<br>
+&nbsp;#define amdgpu_asic_need_reset_on_init(adev) (adev)-&gt;asic_funcs-&g=
+t;need_reset_on_init((adev))<br>
+&#43;#define amdgpu_asic_get_pcie_replay_count(adev) ((adev)-&gt;asic_funcs=
+-&gt;get_pcie_replay_count((adev)))<br>
+<br>
+&nbsp;/* Common functions */<br>
+&nbsp;bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev);<br=
+>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_device.c<br>
+index 4edbe2029fb1..3f1c6b2d3d87 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
+@@ -97,6 &#43;97,28 @@ static const char *amdgpu_asic_name[] =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;LAST&quot;,<br>
+&nbsp;};<br>
+<br>
+&#43;/**<br>
+&#43; * DOC: pcie_replay_count<br>
+&#43; *<br>
+&#43; * The amdgpu driver provides a sysfs API for reporting the total numb=
+er<br>
+&#43; * of PCIe replays (NAKs)<br>
+&#43; * The file pcie_replay_count is used for this and returns the total<b=
+r>
+&#43; * number of replays as a sum of the NAKs generated and NAKs received<=
+br>
+&#43; */<br>
+&#43;<br>
+&#43;static ssize_t amdgpu_device_get_pcie_replay_count(struct device *dev,=
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; struct device_attribute *attr, char *buf)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *ddev =3D dev_g=
+et_drvdata(dev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dd=
+ev-&gt;dev_private;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t cnt =3D amdgpu_asic_get_=
+pcie_replay_count(adev);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return snprintf(buf, PAGE_SIZE, &=
+quot;%llu\n&quot;, cnt);<br>
+&#43;}<br>
+&#43;<br>
+&#43;static DEVICE_ATTR(pcie_replay_count, S_IRUGO,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; amdgpu_device_get_pcie_replay_count, NULL);<br>
+&#43;<br>
+&nbsp;static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev);<=
+br>
+<br>
+&nbsp;/**<br>
+@@ -2721,6 &#43;2743,12 @@ int amdgpu_device_init(struct amdgpu_device *ade=
+v,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* must succeed. */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_post_init(adev);<br>
+<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D device_create_file(adev-&gt=
+;dev, &amp;dev_attr_pcie_replay_count);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;Could not create pcie_replay_cou=
+nt&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+&nbsp;failed:<br>
+@@ -2784,6 &#43;2812,7 @@ void amdgpu_device_fini(struct amdgpu_device *ade=
+v)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;rmmio =3D NULL;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_doorbell_fini(adev=
+);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_debugfs_regs_cleanup(adev=
+);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_remove_file(adev-&gt;dev, =
+&amp;dev_attr_pcie_replay_count);<br>
+&nbsp;}<br>
+<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/=
+cik.c<br>
+index 07c1f239e9c3..3a4f20766a39 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/cik.c<br>
+@@ -1804,6 &#43;1804,18 @@ static bool cik_need_reset_on_init(struct amdgpu=
+_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;}<br>
+<br>
+&#43;static uint64_t cik_get_pcie_replay_count(struct amdgpu_device *adev)<=
+br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t nak_r, nak_g;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Get the number of NAKs receive=
+d and generated */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_r =3D RREG32_PCIE(ixPCIE_RX_N=
+UM_NAK);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_g =3D RREG32_PCIE(ixPCIE_RX_N=
+UM_NAK_GENERATED);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Add the total number of NAKs, =
+i.e the number of replays */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (nak_r &#43; nak_g);<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static const struct amdgpu_asic_funcs cik_asic_funcs =3D<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &amp;cik=
+_read_disabled_bios,<br>
+@@ -1821,6 &#43;1833,7 @@ static const struct amdgpu_asic_funcs cik_asic_fu=
+ncs =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .init_doorbell_index =3D &amp;le=
+gacy_doorbell_index_init,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_usage =3D &amp;cik_get=
+_pcie_usage,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_reset_on_init =3D &amp;cik=
+_need_reset_on_init,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_replay_count =3D &amp;c=
+ik_get_pcie_replay_count,<br>
+&nbsp;};<br>
+<br>
+&nbsp;static int cik_common_early_init(void *handle)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/s=
+i.c<br>
+index 9d8df68893b9..4ff930a47e10 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/si.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si.c<br>
+@@ -1375,6 &#43;1375,18 @@ static void si_get_pcie_usage(struct amdgpu_devi=
+ce *adev, uint64_t *count0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *count1 =3D RREG32_PCIE(ixPCIE_P=
+ERF_COUNT1_TXCLK) | (cnt1_of &lt;&lt; 32);<br>
+&nbsp;}<br>
+<br>
+&#43;static uint64_t si_get_pcie_replay_count(struct amdgpu_device *adev)<b=
+r>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t nak_r, nak_g;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Get the number of NAKs receive=
+d and generated */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_r =3D RREG32_PCIE(ixPCIE_RX_N=
+UM_NAK);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_g =3D RREG32_PCIE(ixPCIE_RX_N=
+UM_NAK_GENERATED);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Add the total number of NAKs, =
+i.e the number of replays */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (nak_r &#43; nak_g);<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static const struct amdgpu_asic_funcs si_asic_funcs =3D<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &amp;si_=
+read_disabled_bios,<br>
+@@ -1393,6 &#43;1405,7 @@ static const struct amdgpu_asic_funcs si_asic_fun=
+cs =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_full_reset =3D &amp;si_nee=
+d_full_reset,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_usage =3D &amp;si_get_=
+pcie_usage,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_reset_on_init =3D &amp;si_=
+need_reset_on_init,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_replay_count =3D &amp;s=
+i_get_pcie_replay_count,<br>
+&nbsp;};<br>
+<br>
+&nbsp;static uint32_t si_get_rev_id(struct amdgpu_device *adev)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgp=
+u/soc15.c<br>
+index 78bd00a0142f..78b27c03b8c2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/soc15.c<br>
+@@ -745,6 &#43;745,18 @@ static bool soc15_need_reset_on_init(struct amdgpu=
+_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;}<br>
+<br>
+&#43;static uint64_t soc15_get_pcie_replay_count(struct amdgpu_device *adev=
+)<br>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t nak_r, nak_g;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Get the number of NAKs receive=
+d and generated */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_r =3D RREG32_PCIE(smnPCIE_RX_=
+NUM_NAK);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_g =3D RREG32_PCIE(smnPCIE_RX_=
+NUM_NAK_GENERATED);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Add the total number of NAKs, =
+i.e the number of replays */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (nak_r &#43; nak_g);<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static const struct amdgpu_asic_funcs soc15_asic_funcs =3D<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_disabled_bios =3D &amp;soc=
+15_read_disabled_bios,<br>
+@@ -762,6 &#43;774,7 @@ static const struct amdgpu_asic_funcs soc15_asic_fu=
+ncs =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .init_doorbell_index =3D &amp;ve=
+ga10_doorbell_index_init,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_usage =3D &amp;soc15_g=
+et_pcie_usage,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_reset_on_init =3D &amp;soc=
+15_need_reset_on_init,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_replay_count =3D &amp;s=
+oc15_get_pcie_replay_count,<br>
+&nbsp;};<br>
+<br>
+&nbsp;static const struct amdgpu_asic_funcs vega20_asic_funcs =3D<br>
+@@ -781,6 &#43;794,7 @@ static const struct amdgpu_asic_funcs vega20_asic_f=
+uncs =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .init_doorbell_index =3D &amp;ve=
+ga20_doorbell_index_init,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_usage =3D &amp;soc15_g=
+et_pcie_usage,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_reset_on_init =3D &amp;soc=
+15_need_reset_on_init,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_replay_count =3D &amp;s=
+oc15_get_pcie_replay_count,<br>
+&nbsp;};<br>
+<br>
+&nbsp;static int soc15_common_early_init(void *handle)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/v=
+i.c<br>
+index 5e5b42a0744a..b8adf3808de2 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vi.c<br>
+@@ -987,6 &#43;987,18 @@ static void vi_get_pcie_usage(struct amdgpu_device=
+ *adev, uint64_t *count0,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *count1 =3D RREG32_PCIE(ixPCIE_P=
+ERF_COUNT1_TXCLK) | (cnt1_of &lt;&lt; 32);<br>
+&nbsp;}<br>
+<br>
+&#43;static uint64_t vi_get_pcie_replay_count(struct amdgpu_device *adev)<b=
+r>
+&#43;{<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t nak_r, nak_g;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Get the number of NAKs receive=
+d and generated */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_r =3D RREG32_PCIE(ixPCIE_RX_N=
+UM_NAK);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; nak_g =3D RREG32_PCIE(ixPCIE_RX_N=
+UM_NAK_GENERATED);<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Add the total number of NAKs, =
+i.e the number of replays */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (nak_r &#43; nak_g);<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static bool vi_need_reset_on_init(struct amdgpu_device *adev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 clock_cntl, pc;<br>
+@@ -1021,6 &#43;1033,7 @@ static const struct amdgpu_asic_funcs vi_asic_fun=
+cs =3D<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .init_doorbell_index =3D &amp;le=
+gacy_doorbell_index_init,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_usage =3D &amp;vi_get_=
+pcie_usage,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_reset_on_init =3D &amp;vi_=
+need_reset_on_init,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_replay_count =3D &amp;v=
+i_get_pcie_replay_count,<br>
+&nbsp;};<br>
+<br>
+&nbsp;#define CZ_REV_BRISTOL(rev)&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+--<br>
+2.17.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180932D95410D8731100CA9BF73B0BN6PR12MB1809namp_--
+
+--===============1273182540==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1273182540==--
