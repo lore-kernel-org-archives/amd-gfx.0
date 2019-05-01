@@ -1,19 +1,12 @@
-From: Vincenzo Frascino <vincenzo.frascino-5wv7dgnIgG8@public.gmane.org>
-Subject: Re: [PATCH v13 10/20] kernel, arm64: untag user pointers in
- prctl_set_mm*
-Date: Wed, 1 May 2019 15:43:28 +0100
-Message-ID: <c00bde00-3026-7c01-df0e-b374582b5825@arm.com>
-References: <cover.1553093420.git.andreyknvl@google.com>
- <76f96eb9162b3a7fa5949d71af38bf8fdf6924c4.1553093421.git.andreyknvl@google.com>
- <20190322154136.GP13384@arrakis.emea.arm.com>
- <CAAeHK+yHp27eT+wTE3Uy4DkN8XN3ZjHATE+=HgjgRjrHjiXs3Q@mail.gmail.com>
- <20190426145024.GC54863@arrakis.emea.arm.com>
- <CAAeHK+ww=6-fTnHN_33EEiKdMqXq5bNU4oW9oOMcfz1N_+Kisw@mail.gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Add IDH_QUERY_ALIVE event for SR-IOV
+Date: Wed, 1 May 2019 19:08:29 +0000
+Message-ID: <BN6PR12MB1809B40A04849DBFD778D161F73B0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1556613013-8586-1-git-send-email-Trigger.Huang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0986914697=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAeHK+ww=6-fTnHN_33EEiKdMqXq5bNU4oW9oOMcfz1N_+Kisw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+In-Reply-To: <1556613013-8586-1-git-send-email-Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,57 +18,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Konovalov <andreyknvl-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Catalin Marinas <catalin.marinas-5wv7dgnIgG8@public.gmane.org>
-Cc: Mark Rutland <mark.rutland-5wv7dgnIgG8@public.gmane.org>, Kate Stewart <kstewart-hQyY1W1yCW8ekmWlsbkhG0B+6BGkLq7r@public.gmane.org>, kvm-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Peter Zijlstra <peterz-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, Will Deacon <will.deacon-5wv7dgnIgG8@public.gmane.org>, Alexei Starovoitov <ast-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Linux Memory Management List <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Eric Dumazet <edumazet-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Chintan Pandya <cpandya-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>, Shuah Khan <shuah-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Ingo Molnar <mingo-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, linux-arch <linux-arch-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Jacob Bramley <Jacob.Bramley-5wv7dgnIgG8@public.gmane.org>, Daniel Borkmann <daniel-FeC+5ew28dpmcu3hnIyYJQ@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Szabolcs Nagy <Szabolcs.Nagy-5wv7dgnIgG8@public.gmane.org>, Ingo Molnar <mingo-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Dmitry Vyukov <dvyukov-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>, Ramana Radhakrishnan <Ramana.Radhakr>
+To: "Huang, Trigger" <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SGkgQW5kcmV5LAoKc29ycnkgZm9yIHRoZSBsYXRlIHJlcGx5LCBJIGNhbWUgYmFjayBmcm9tIGhv
-bGlkYXkgYW5kIHRyeSB0byBjYXRjaCB1cCB3aXRoIHRoZQplbWFpbHMuCgpPbiA0LzI5LzE5IDM6
-MjMgUE0sIEFuZHJleSBLb25vdmFsb3Ygd3JvdGU6Cj4gT24gRnJpLCBBcHIgMjYsIDIwMTkgYXQg
-NDo1MCBQTSBDYXRhbGluIE1hcmluYXMgPGNhdGFsaW4ubWFyaW5hc0Bhcm0uY29tPiB3cm90ZToK
-Pj4KPj4gT24gTW9uLCBBcHIgMDEsIDIwMTkgYXQgMDY6NDQ6MzRQTSArMDIwMCwgQW5kcmV5IEtv
-bm92YWxvdiB3cm90ZToKPj4+IE9uIEZyaSwgTWFyIDIyLCAyMDE5IGF0IDQ6NDEgUE0gQ2F0YWxp
-biBNYXJpbmFzIDxjYXRhbGluLm1hcmluYXNAYXJtLmNvbT4gd3JvdGU6Cj4+Pj4gT24gV2VkLCBN
-YXIgMjAsIDIwMTkgYXQgMDM6NTE6MjRQTSArMDEwMCwgQW5kcmV5IEtvbm92YWxvdiB3cm90ZToK
-Pj4+Pj4gQEAgLTIxMjAsMTMgKzIxMzUsMTQgQEAgc3RhdGljIGludCBwcmN0bF9zZXRfbW0oaW50
-IG9wdCwgdW5zaWduZWQgbG9uZyBhZGRyLAo+Pj4+PiAgICAgICBpZiAob3B0ID09IFBSX1NFVF9N
-TV9BVVhWKQo+Pj4+PiAgICAgICAgICAgICAgIHJldHVybiBwcmN0bF9zZXRfYXV4dihtbSwgYWRk
-ciwgYXJnNCk7Cj4+Pj4+Cj4+Pj4+IC0gICAgIGlmIChhZGRyID49IFRBU0tfU0laRSB8fCBhZGRy
-IDwgbW1hcF9taW5fYWRkcikKPj4+Pj4gKyAgICAgaWYgKHVudGFnZ2VkX2FkZHIoYWRkcikgPj0g
-VEFTS19TSVpFIHx8Cj4+Pj4+ICsgICAgICAgICAgICAgICAgICAgICB1bnRhZ2dlZF9hZGRyKGFk
-ZHIpIDwgbW1hcF9taW5fYWRkcikKPj4+Pj4gICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsK
-Pj4+Pj4KPj4+Pj4gICAgICAgZXJyb3IgPSAtRUlOVkFMOwo+Pj4+Pgo+Pj4+PiAgICAgICBkb3du
-X3dyaXRlKCZtbS0+bW1hcF9zZW0pOwo+Pj4+PiAtICAgICB2bWEgPSBmaW5kX3ZtYShtbSwgYWRk
-cik7Cj4+Pj4+ICsgICAgIHZtYSA9IGZpbmRfdm1hKG1tLCB1bnRhZ2dlZF9hZGRyKGFkZHIpKTsK
-Pj4+Pj4KPj4+Pj4gICAgICAgcHJjdGxfbWFwLnN0YXJ0X2NvZGUgICAgPSBtbS0+c3RhcnRfY29k
-ZTsKPj4+Pj4gICAgICAgcHJjdGxfbWFwLmVuZF9jb2RlICAgICAgPSBtbS0+ZW5kX2NvZGU7Cj4+
-Pj4KPj4+PiBEb2VzIHRoaXMgbWVhbiB0aGF0IHdlIGFyZSBsZWZ0IHdpdGggdGFnZ2VkIGFkZHJl
-c3NlcyBmb3IgdGhlCj4+Pj4gbW0tPnN0YXJ0X2NvZGUgZXRjLiB2YWx1ZXM/IEkgcmVhbGx5IGRv
-bid0IHRoaW5rIHdlIHNob3VsZCBhbGxvdyB0aGlzLAo+Pj4+IEknbSBub3Qgc3VyZSB3aGF0IHRo
-ZSBpbXBsaWNhdGlvbnMgYXJlIGluIG90aGVyIHBhcnRzIG9mIHRoZSBrZXJuZWwuCj4+Pj4KPj4+
-PiBBcmd1YWJseSwgdGhlc2UgYXJlIG5vdCBldmVuIHBvaW50ZXIgdmFsdWVzIGJ1dCBzb21lIGFk
-ZHJlc3MgcmFuZ2VzLiBJCj4+Pj4ga25vdyB3ZSBkZWNpZGVkIHRvIHJlbGF4IHRoaXMgbm90aW9u
-IGZvciBtbWFwL21wcm90ZWN0L21hZHZpc2UoKSBzaW5jZQo+Pj4+IHRoZSB1c2VyIGZ1bmN0aW9u
-IHByb3RvdHlwZXMgdGFrZSBwb2ludGVyIGFzIGFyZ3VtZW50cyBidXQgaXQgZmVlbHMgbGlrZQo+
-Pj4+IHdlIGFyZSBvdmVyZG9pbmcgaXQgaGVyZSAoc3RydWN0IHByY3RsX21tX21hcCBkb2Vzbid0
-IGV2ZW4gaGF2ZQo+Pj4+IHBvaW50ZXJzKS4KPj4+Pgo+Pj4+IFdoYXQgaXMgdGhlIHVzZS1jYXNl
-IGZvciBhbGxvd2luZyB0YWdnZWQgYWRkcmVzc2VzIGhlcmU/IENhbiB1c2VyIHNwYWNlCj4+Pj4g
-aGFuZGxlIHVudGFnZ2luZz8KPj4+Cj4+PiBJIGRvbid0IGtub3cgYW55IHVzZSBjYXNlcyBmb3Ig
-dGhpcy4gSSBkaWQgaXQgYmVjYXVzZSBpdCBzZWVtcyB0byBiZQo+Pj4gY292ZXJlZCBieSB0aGUg
-cmVsYXhlZCBBQkkuIEknbSBub3QgZW50aXJlbHkgc3VyZSB3aGF0IHRvIGRvIGhlcmUsCj4+PiBz
-aG91bGQgSSBqdXN0IGRyb3AgdGhpcyBwYXRjaD8KPj4KPj4gSWYgd2UgYWxsb3cgdGFnZ2VkIGFk
-ZHJlc3NlcyB0byBiZSBwYXNzZWQgaGVyZSwgd2UnZCBoYXZlIHRvIHVudGFnIHRoZW0KPj4gYmVm
-b3JlIHRoZXkgZW5kIHVwIGluIHRoZSBtbS0+c3RhcnRfY29kZSBldGMuIG1lbWJlcnMuCj4+Cj4+
-IEkga25vdyB3ZSBhcmUgdHJ5aW5nIHRvIHJlbGF4IHRoZSBBQkkgaGVyZSB3LnIudC4gYWRkcmVz
-cyByYW5nZXMgYnV0Cj4+IG1vc3RseSBiZWNhdXNlIHdlIGNvdWxkbid0IGZpZ3VyZSBvdXQgYSB3
-YXkgdG8gZG9jdW1lbnQgdW5hbWJpZ3VvdXNseQo+PiB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIGEg
-dXNlciBwb2ludGVyIHRoYXQgbWF5IGJlIGRlcmVmZXJlbmNlZCBieSB0aGUKPj4ga2VybmVsICh0
-YWdzIGFsbG93ZWQpIGFuZCBhbiBhZGRyZXNzIHR5cGljYWxseSB1c2VkIGZvciBtYW5hZ2luZyB0
-aGUKPj4gYWRkcmVzcyBzcGFjZSBsYXlvdXQuIFN1Z2dlc3Rpb25zIHdlbGNvbWVkLgo+Pgo+PiBJ
-J2Qgc2F5IGp1c3QgZHJvcCB0aGlzIHBhdGNoIGFuZCBjYXB0dXJlIGl0IGluIHRoZSBBQkkgZG9j
-dW1lbnQuCj4gCj4gT0ssIHdpbGwgZG8gaW4gdjE0Lgo+IAo+IFZpbmNlbnpvLCBjb3VsZCB5b3Ug
-YWRkIGEgbm90ZSBhYm91dCB0aGlzIGludG8gdG91ciBwYXRjaHNldD8KPgoKT2ssIEkgd2lsbCBh
-ZGQgYSBub3RlIHRoYXQgY292ZXJzIHRoaXMgY2FzZSBpbiB2MyBvZiBteSBkb2N1bWVudC4KCj4+
-Cj4+IC0tCj4+IENhdGFsaW4KCi0tIApSZWdhcmRzLApWaW5jZW56bwpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0986914697==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809B40A04849DBFD778D161F73B0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809B40A04849DBFD778D161F73B0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Trigger =
+Huang <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, April 30, 2019 4:30 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Huang, Trigger
+Subject: [PATCH] drm/amdgpu: Add IDH_QUERY_ALIVE event for SR-IOV
+
+[CAUTION: External Email]
+
+SR-IOV host side will send IDH_QUERY_ALIVE to guest VM to check
+if this guest VM is still alive (not destroyed). The only thing
+guest KMD need to do is to send ACK back to host.
+
+Signed-off-by: Trigger Huang <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h | 1 +
+ 2 files changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.c
+index 8dbad49..2471e7c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c
+@@ -372,6 +372,9 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_device=
+ *adev,
+                if (amdgpu_sriov_runtime(adev))
+                        schedule_work(&adev->virt.flr_work);
+                break;
++               case IDH_QUERY_ALIVE:
++                       xgpu_ai_mailbox_send_ack(adev);
++                       break;
+                /* READY_TO_ACCESS_GPU is fetched by kernel polling, IRQ ca=
+n ignore
+                 * it byfar since that polling thread will handle it,
+                 * other msg like flr complete is not handled here.
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.h
+index 39d151b..077e91a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+@@ -49,6 +49,7 @@ enum idh_event {
+        IDH_FLR_NOTIFICATION_CMPL,
+        IDH_SUCCESS,
+        IDH_FAIL,
++       IDH_QUERY_ALIVE,
+        IDH_EVENT_MAX
+ };
+
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809B40A04849DBFD778D161F73B0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Trigger Huang &lt;Trigger.Hua=
+ng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, April 30, 2019 4:30 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Huang, Trigger<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: Add IDH_QUERY_ALIVE event for SR-IOV</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[CAUTION: External Email]<br>
+<br>
+SR-IOV host side will send IDH_QUERY_ALIVE to guest VM to check<br>
+if this guest VM is still alive (not destroyed). The only thing<br>
+guest KMD need to do is to send ACK back to host.<br>
+<br>
+Signed-off-by: Trigger Huang &lt;Trigger.Huang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c | 3 &#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h | 1 &#43;<br>
+&nbsp;2 files changed, 4 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.c<br>
+index 8dbad49..2471e7c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.c<br>
+@@ -372,6 &#43;372,9 @@ static int xgpu_ai_mailbox_rcv_irq(struct amdgpu_de=
+vice *adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; if (amdgpu_sriov_runtime(adev))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; schedule_wo=
+rk(&amp;adev-&gt;virt.flr_work);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; break;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; case IDH_QUERY_ALIVE:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xgpu_ai_mail=
+box_send_ack(adev);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; /* READY_TO_ACCESS_GPU is fetched by kernel polling, IRQ ca=
+n ignore<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; * it byfar since that polling thread will handle it,<=
+br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; * other msg like flr complete is not handled here.<br=
+>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/am=
+dgpu/mxgpu_ai.h<br>
+index 39d151b..077e91a 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h<br>
+@@ -49,6 &#43;49,7 @@ enum idh_event {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_FLR_NOTIFICATION_CMPL,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_SUCCESS,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_FAIL,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_QUERY_ALIVE,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IDH_EVENT_MAX<br>
+&nbsp;};<br>
+<br>
+--<br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809B40A04849DBFD778D161F73B0BN6PR12MB1809namp_--
+
+--===============0986914697==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0986914697==--
