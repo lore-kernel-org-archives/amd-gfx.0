@@ -1,55 +1,62 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/amdgpu: Add MEM_LOAD to amdgpu_pm_info debugfs
- file
-Date: Fri, 3 May 2019 10:03:23 +0000
-Message-ID: <MN2PR12MB3344320DE7F901C52FAD3079E4350@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190502142239.22322-1-tom.stdenis@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v14 10/17] fs, arm64: untag user pointers in
+ fs/userfaultfd.c
+Date: Fri, 3 May 2019 17:56:46 +0100
+Message-ID: <20190503165646.GK55449@arrakis.emea.arm.com>
+References: <cover.1556630205.git.andreyknvl@google.com>
+ <7d3b28689d47c0fa1b80628f248dbf78548da25f.1556630205.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190502142239.22322-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <7d3b28689d47c0fa1b80628f248dbf78548da25f.1556630205.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Kuehling@google.com, Felix <Felix.Kuehling@amd.com>, Deucher@google.com, Alexander <Alexander.Deucher@amd.com>, Koenig@google.com, Christian <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mDQo+IFN0RGVuaXMsIFRvbQ0KPiBTZW50OiAy
-MDE55bm0NeaciDLml6UgMjI6MjMNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IENjOiBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlzQGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQ
-QVRDSF0gZHJtL2FtZC9hbWRncHU6IEFkZCBNRU1fTE9BRCB0byBhbWRncHVfcG1faW5mbw0KPiBk
-ZWJ1Z2ZzIGZpbGUNCj4gDQo+IFtDQVVUSU9OOiBFeHRlcm5hbCBFbWFpbF0NCj4gDQo+IFNpZ25l
-ZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4NCj4gLS0tDQo+ICBk
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDQgKysrKw0KPiAgMSBmaWxl
-IGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3BtLmMNCj4gaW5kZXggNWUyZDAzOWUwOWFkLi5lMDc4OWYwZjI2NzAgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IEBAIC0yOTU1LDYgKzI5
-NTUsMTAgQEAgc3RhdGljIGludCBhbWRncHVfZGVidWdmc19wbV9pbmZvX3BwKHN0cnVjdA0KPiBz
-ZXFfZmlsZSAqbSwgc3RydWN0IGFtZGdwdV9kZXZpY2UgKmENCj4gICAgICAgICAvKiBHUFUgTG9h
-ZCAqLw0KPiAgICAgICAgIGlmICghYW1kZ3B1X2RwbV9yZWFkX3NlbnNvcihhZGV2LA0KPiBBTURH
-UFVfUFBfU0VOU09SX0dQVV9MT0FELCAodm9pZCAqKSZ2YWx1ZSwgJnNpemUpKQ0KPiAgICAgICAg
-ICAgICAgICAgc2VxX3ByaW50ZihtLCAiR1BVIExvYWQ6ICV1ICUlXG4iLCB2YWx1ZSk7DQo+ICsg
-ICAgICAgLyogTUVNIExvYWQgKi8NCj4gKyAgICAgICBpZiAoIWFtZGdwdV9kcG1fcmVhZF9zZW5z
-b3IoYWRldiwNCj4gQU1ER1BVX1BQX1NFTlNPUl9NRU1fTE9BRCwgKHZvaWQgKikmdmFsdWUsICZz
-aXplKSkNCj4gKyAgICAgICAgICAgICAgIHNlcV9wcmludGYobSwgIk1FTSBMb2FkOiAldSAlJVxu
-IiwgdmFsdWUpOw0KPiArDQo+ICAgICAgICAgc2VxX3ByaW50ZihtLCAiXG4iKTsNCj4gDQo+ICAg
-ICAgICAgLyogU01DIGZlYXR1cmUgbWFzayAqLw0KPiAtLQ0KPiAyLjIwLjENCj4gDQo+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFp
-bGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, Apr 30, 2019 at 03:25:06PM +0200, Andrey Konovalov wrote:
+> This patch is a part of a series that extends arm64 kernel ABI to allow to
+> pass tagged user pointers (with the top byte set to something else other
+> than 0x00) as syscall arguments.
+> 
+> userfaultfd_register() and userfaultfd_unregister() use provided user
+> pointers for vma lookups, which can only by done with untagged pointers.
+> 
+> Untag user pointers in these functions.
+> 
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> ---
+>  fs/userfaultfd.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
+> index f5de1e726356..fdee0db0e847 100644
+> --- a/fs/userfaultfd.c
+> +++ b/fs/userfaultfd.c
+> @@ -1325,6 +1325,9 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+>  		goto out;
+>  	}
+>  
+> +	uffdio_register.range.start =
+> +		untagged_addr(uffdio_register.range.start);
+> +
+>  	ret = validate_range(mm, uffdio_register.range.start,
+>  			     uffdio_register.range.len);
+>  	if (ret)
+> @@ -1514,6 +1517,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+>  	if (copy_from_user(&uffdio_unregister, buf, sizeof(uffdio_unregister)))
+>  		goto out;
+>  
+> +	uffdio_unregister.start = untagged_addr(uffdio_unregister.start);
+> +
+>  	ret = validate_range(mm, uffdio_unregister.start,
+>  			     uffdio_unregister.len);
+>  	if (ret)
+
+Wouldn't it be easier to do this in validate_range()? There are a few
+more calls in this file, though I didn't check whether a tagged address
+would cause issues.
+
+-- 
+Catalin
