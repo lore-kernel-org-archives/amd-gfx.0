@@ -1,62 +1,59 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v14 10/17] fs, arm64: untag user pointers in
- fs/userfaultfd.c
-Date: Fri, 3 May 2019 17:56:46 +0100
-Message-ID: <20190503165646.GK55449@arrakis.emea.arm.com>
-References: <cover.1556630205.git.andreyknvl@google.com>
- <7d3b28689d47c0fa1b80628f248dbf78548da25f.1556630205.git.andreyknvl@google.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: How to dump gfx and waves after GPU reset happened?
+Date: Fri, 3 May 2019 19:20:15 +0500
+Message-ID: <CABXGCsMY=LvtCp0V8U8jbARXgapjQe4WP9ss-ui3fHsPQjevXg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <7d3b28689d47c0fa1b80628f248dbf78548da25f.1556630205.git.andreyknvl@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Kuehling@google.com, Felix <Felix.Kuehling@amd.com>, Deucher@google.com, Alexander <Alexander.Deucher@amd.com>, Koenig@google.com, Christian <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Apr 30, 2019 at 03:25:06PM +0200, Andrey Konovalov wrote:
-> This patch is a part of a series that extends arm64 kernel ABI to allow to
-> pass tagged user pointers (with the top byte set to something else other
-> than 0x00) as syscall arguments.
-> 
-> userfaultfd_register() and userfaultfd_unregister() use provided user
-> pointers for vma lookups, which can only by done with untagged pointers.
-> 
-> Untag user pointers in these functions.
-> 
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> ---
->  fs/userfaultfd.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-> index f5de1e726356..fdee0db0e847 100644
-> --- a/fs/userfaultfd.c
-> +++ b/fs/userfaultfd.c
-> @@ -1325,6 +1325,9 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
->  		goto out;
->  	}
->  
-> +	uffdio_register.range.start =
-> +		untagged_addr(uffdio_register.range.start);
-> +
->  	ret = validate_range(mm, uffdio_register.range.start,
->  			     uffdio_register.range.len);
->  	if (ret)
-> @@ -1514,6 +1517,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
->  	if (copy_from_user(&uffdio_unregister, buf, sizeof(uffdio_unregister)))
->  		goto out;
->  
-> +	uffdio_unregister.start = untagged_addr(uffdio_unregister.start);
-> +
->  	ret = validate_range(mm, uffdio_unregister.start,
->  			     uffdio_unregister.len);
->  	if (ret)
-
-Wouldn't it be easier to do this in validate_range()? There are a few
-more calls in this file, though I didn't check whether a tagged address
-would cause issues.
-
--- 
-Catalin
+SGkgZm9sa3MuCkkgdHJpZXMgcGxheSBpbiBSZXNpZGVudCBFdmlsIDIgcmVtYWtlIHZpYSBzdGVh
+bSBwbGF5IGFuZCBteSBSYWRlb24gNwooVmVnYSAyMCkgY2FyZCBpcyBleHBlcmllbmNlZCAicmlu
+ZyBnZnggdGltZW91dCIgcHJvYmxlbSBldmVyeSB0aW1lCndoZW4gSSBzZWxlY3QgIlN0b3J5IiBp
+biB0aGUgbWFpbiBnYW1lIG1lbnUuClNpbmNlIEkgYW0gc2l0dGluZyBvbiA1LjEga2VybmVsIG5v
+dyBHUFUgcmVzZXQgb2NjdXJyZWQgZXZlcnkgdGltZQp3aGVuIGhhcHBlbmVkICJyaW5nIGdmeCB0
+aW1lb3V0Ii4KU28gbXkgcXVlc3Rpb246IEhvdyB0byBkdW1wIGdmeCBhbmQgd2F2ZXMgYWZ0ZXIg
+R1BVIHJlc2V0IGhhcHBlbmVkPyBJCnNlZSB0aGF0IGFmdGVyIEdQVSByZXNldCBpcyBub3RoaW5n
+IHRvIGR1bXAuCgojIC4vdW1yIC1PIGhhbHRfd2F2ZXMgLXdhCltXQVJOSU5HXTogUmluZ3MgYXJl
+IG5vdCBoYWx0ZWQhICBVc2UgJy1PIGRpc2FzbV9hbnl3YXlzJyB0byBlbmFibGUKZGlzYXNzZW1i
+bHkgd2l0aG91dCBoYWx0ZWQgcmluZ3MKTm8gYWN0aXZlIHdhdmVzIQoKIyAuL3VtciAtUiBnZnhb
+Ll0KCnZlZ2EyMC5nZngucnB0ciA9PSAyNTYKdmVnYTIwLmdmeC53cHRyID09IDI1Ngp2ZWdhMjAu
+Z2Z4LmRydl93cHRyID09IDI1Ngp2ZWdhMjAuZ2Z4LnJpbmdbIDIyNV0gPT0gMHhmZmZmMTAwMCAg
+ICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAyMjZdID09IDB4ZmZmZjEwMDAgICAgLi4uCnZlZ2EyMC5n
+ZngucmluZ1sgMjI3XSA9PSAweGZmZmYxMDAwICAgIC4uLgp2ZWdhMjAuZ2Z4LnJpbmdbIDIyOF0g
+PT0gMHhmZmZmMTAwMCAgICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAyMjldID09IDB4ZmZmZjEwMDAg
+ICAgLi4uCnZlZ2EyMC5nZngucmluZ1sgMjMwXSA9PSAweGZmZmYxMDAwICAgIC4uLgp2ZWdhMjAu
+Z2Z4LnJpbmdbIDIzMV0gPT0gMHhmZmZmMTAwMCAgICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAyMzJd
+ID09IDB4ZmZmZjEwMDAgICAgLi4uCnZlZ2EyMC5nZngucmluZ1sgMjMzXSA9PSAweGZmZmYxMDAw
+ICAgIC4uLgp2ZWdhMjAuZ2Z4LnJpbmdbIDIzNF0gPT0gMHhmZmZmMTAwMCAgICAuLi4KdmVnYTIw
+LmdmeC5yaW5nWyAyMzVdID09IDB4ZmZmZjEwMDAgICAgLi4uCnZlZ2EyMC5nZngucmluZ1sgMjM2
+XSA9PSAweGZmZmYxMDAwICAgIC4uLgp2ZWdhMjAuZ2Z4LnJpbmdbIDIzN10gPT0gMHhmZmZmMTAw
+MCAgICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAyMzhdID09IDB4ZmZmZjEwMDAgICAgLi4uCnZlZ2Ey
+MC5nZngucmluZ1sgMjM5XSA9PSAweGZmZmYxMDAwICAgIC4uLgp2ZWdhMjAuZ2Z4LnJpbmdbIDI0
+MF0gPT0gMHhmZmZmMTAwMCAgICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAyNDFdID09IDB4ZmZmZjEw
+MDAgICAgLi4uCnZlZ2EyMC5nZngucmluZ1sgMjQyXSA9PSAweGZmZmYxMDAwICAgIC4uLgp2ZWdh
+MjAuZ2Z4LnJpbmdbIDI0M10gPT0gMHhmZmZmMTAwMCAgICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAy
+NDRdID09IDB4ZmZmZjEwMDAgICAgLi4uCnZlZ2EyMC5nZngucmluZ1sgMjQ1XSA9PSAweGZmZmYx
+MDAwICAgIC4uLgp2ZWdhMjAuZ2Z4LnJpbmdbIDI0Nl0gPT0gMHhmZmZmMTAwMCAgICAuLi4KdmVn
+YTIwLmdmeC5yaW5nWyAyNDddID09IDB4ZmZmZjEwMDAgICAgLi4uCnZlZ2EyMC5nZngucmluZ1sg
+MjQ4XSA9PSAweGZmZmYxMDAwICAgIC4uLgp2ZWdhMjAuZ2Z4LnJpbmdbIDI0OV0gPT0gMHhmZmZm
+MTAwMCAgICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAyNTBdID09IDB4ZmZmZjEwMDAgICAgLi4uCnZl
+Z2EyMC5nZngucmluZ1sgMjUxXSA9PSAweGZmZmYxMDAwICAgIC4uLgp2ZWdhMjAuZ2Z4LnJpbmdb
+IDI1Ml0gPT0gMHhmZmZmMTAwMCAgICAuLi4KdmVnYTIwLmdmeC5yaW5nWyAyNTNdID09IDB4ZmZm
+ZjEwMDAgICAgLi4uCnZlZ2EyMC5nZngucmluZ1sgMjU0XSA9PSAweGZmZmYxMDAwICAgIC4uLgp2
+ZWdhMjAuZ2Z4LnJpbmdbIDI1NV0gPT0gMHhmZmZmMTAwMCAgICAuLi4KdmVnYTIwLmdmeC5yaW5n
+WyAyNTZdID09IDB4YzAwMzIyMDAgICAgcndECgoKLS0KQmVzdCBSZWdhcmRzLApNaWtlIEdhdnJp
+bG92LgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
