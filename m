@@ -1,35 +1,45 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v15 13/17] IB, arm64: untag user pointers in
- ib_uverbs_(re)reg_mr()
-Date: Mon, 6 May 2019 16:50:20 -0300
-Message-ID: <20190506195020.GD6201@ziepe.ca>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <66d044ab9445dcf36a96205a109458ac23f38b73.1557160186.git.andreyknvl@google.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/1] drm/amdgpu: Reserve shared fence for eviction fence
+Date: Mon, 6 May 2019 20:23:49 +0000
+Message-ID: <20190506202331.7456-1-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <66d044ab9445dcf36a96205a109458ac23f38b73.1557160186.git.andreyknvl@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, May 06, 2019 at 06:30:59PM +0200, Andrey Konovalov wrote:
-> This patch is a part of a series that extends arm64 kernel ABI to allow to
-> pass tagged user pointers (with the top byte set to something else other
-> than 0x00) as syscall arguments.
-> 
-> ib_uverbs_(re)reg_mr() use provided user pointers for vma lookups (through
-> e.g. mlx4_get_umem_mr()), which can only by done with untagged pointers.
-> 
-> Untag user pointers in these functions.
-> 
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> ---
->  drivers/infiniband/core/uverbs_cmd.c | 4 ++++
->  1 file changed, 4 insertions(+)
-
-I think this is OK.. We should really get it tested though.. Leon?
-
-Jason
+TmVlZCB0byByZXNlcnZlIHNwYWNlIGZvciB0aGUgc2hhcmVkIGV2aWN0aW9uIGZlbmNlIHdoZW4g
+aW5pdGlhbGl6aW5nDQphIEtGRCBWTS4NCg0KU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcg
+PEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMgfCA0ICsrKysNCiAxIGZpbGUgY2hhbmdlZCwgNCBpbnNl
+cnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfYW1ka2ZkX2dwdXZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
+a2ZkX2dwdXZtLmMNCmluZGV4IDIwY2Y4ZTFlNzQ0NS4uZTFjYWU0YTM3MTEzIDEwMDY0NA0KLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jDQorKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMNCkBAIC04
+NzUsNiArODc1LDkgQEAgc3RhdGljIGludCBpbml0X2tmZF92bShzdHJ1Y3QgYW1kZ3B1X3ZtICp2
+bSwgdm9pZCAqKnByb2Nlc3NfaW5mbywNCiAJCQkJICBBTURHUFVfRkVOQ0VfT1dORVJfS0ZELCBm
+YWxzZSk7DQogCWlmIChyZXQpDQogCQlnb3RvIHdhaXRfcGRfZmFpbDsNCisJcmV0ID0gcmVzZXJ2
+YXRpb25fb2JqZWN0X3Jlc2VydmVfc2hhcmVkKHZtLT5yb290LmJhc2UuYm8tPnRiby5yZXN2LCAx
+KTsNCisJaWYgKHJldCkNCisJCWdvdG8gcmVzZXJ2ZV9zaGFyZWRfZmFpbDsNCiAJYW1kZ3B1X2Jv
+X2ZlbmNlKHZtLT5yb290LmJhc2UuYm8sDQogCQkJJnZtLT5wcm9jZXNzX2luZm8tPmV2aWN0aW9u
+X2ZlbmNlLT5iYXNlLCB0cnVlKTsNCiAJYW1kZ3B1X2JvX3VucmVzZXJ2ZSh2bS0+cm9vdC5iYXNl
+LmJvKTsNCkBAIC04ODgsNiArODkxLDcgQEAgc3RhdGljIGludCBpbml0X2tmZF92bShzdHJ1Y3Qg
+YW1kZ3B1X3ZtICp2bSwgdm9pZCAqKnByb2Nlc3NfaW5mbywNCiANCiAJcmV0dXJuIDA7DQogDQor
+cmVzZXJ2ZV9zaGFyZWRfZmFpbDoNCiB3YWl0X3BkX2ZhaWw6DQogdmFsaWRhdGVfcGRfZmFpbDoN
+CiAJYW1kZ3B1X2JvX3VucmVzZXJ2ZSh2bS0+cm9vdC5iYXNlLmJvKTsNCi0tIA0KMi4xNy4xDQoN
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
