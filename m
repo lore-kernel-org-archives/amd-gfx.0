@@ -1,119 +1,92 @@
-From: "Huang, Trigger" <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Use FW addr returned by PSP for VF MM
-Date: Mon, 6 May 2019 13:31:09 +0000
-Message-ID: <MN2PR12MB34084BB70C62DA72AB4A2610FE300@MN2PR12MB3408.namprd12.prod.outlook.com>
-References: <1556801791-8460-1-git-send-email-Trigger.Huang@amd.com>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v14 12/17] drm/radeon, arm64: untag user pointers
+Date: Mon, 6 May 2019 15:44:15 +0200
+Message-ID: <CAAeHK+wFq_NwhYtoGapcrKDnCxZUcquBuW_ZCae+8CAqtp3ndQ@mail.gmail.com>
+References: <cover.1556630205.git.andreyknvl@google.com>
+ <9a50ef07d927cbccd9620894bda825e551168c3d.1556630205.git.andreyknvl@google.com>
+ <bfe5e11e-6dc4-352f-57eb-d527f965a2ef@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1556801791-8460-1-git-send-email-Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Trigger" <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+In-Reply-To: <bfe5e11e-6dc4-352f-57eb-d527f965a2ef@amd.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, "Koenig@google.com" <Koenig@google.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, Chintan Pandya <cpandya@codeaurora.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.ker
+List-Id: amd-gfx.lists.freedesktop.org
 
-UGluZyBhZ2Fpbi4KCgpUaGFua3MgJiBCZXN0IFdpc2hlcywKVHJpZ2dlciBIdWFuZwoKLS0tLS1P
-cmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJvbTogVHJpZ2dlciBIdWFuZyA8VHJpZ2dlci5IdWFuZ0Bh
-bWQuY29tPiAKU2VudDogVGh1cnNkYXksIE1heSAwMiwgMjAxOSA4OjU3IFBNClRvOiBhbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogSHVhbmcsIFRyaWdnZXIgPFRyaWdnZXIuSHVhbmdA
-YW1kLmNvbT4KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBVc2UgRlcgYWRkciByZXR1cm5l
-ZCBieSBQU1AgZm9yIFZGIE1NCgpPbmUgVmVnYTEwIFNSLUlPViBWRiwgdGhlIEZXIGFkZHJlc3Mg
-cmV0dXJuZWQgYnkgUFNQIHNob3VsZCBiZSBzZXQgaW50byB0aGUgaW5pdCB0YWJsZSwgd2hpbGUg
-bm90IHRoZSBvcmlnaW5hbCBCTyBtYyBhZGRyZXNzLgpvdGhlcndpc2UsIFVWRCBhbmQgVkNFIElC
-IHRlc3Qgd2lsbCBmYWlsIHVuZGVyIFZlZ2ExMCBTUi1JT1YKCnJlZmVyZW5jZToKCWNvbW1pdCBi
-ZmNlYTUyMDQyODcgKCJkcm0vYW1kZ3B1OmNoYW5nZSBWRUdBIGJvb3Rpbmcgd2l0aCBmaXJtd2Fy
-ZSBsb2FkZWQgYnkgUFNQIikKCWNvbW1pdCBhYTU4NzNkY2E0NjMgKCJkcm0vYW1kZ3B1OiBDaGFu
-Z2UgVkNFIGJvb3Rpbmcgd2l0aCBmaXJtd2FyZSBsb2FkZWQgYnkgUFNQIikKClNpZ25lZC1vZmYt
-Ynk6IFRyaWdnZXIgSHVhbmcgPFRyaWdnZXIuSHVhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jIHwgMTYgKysrKysrKysrKy0tLS0tLSAgZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYyB8IDE3ICsrKysrKysrKysrLS0tLS0tCiAy
-IGZpbGVzIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDEyIGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS91dmRfdjdfMC5jCmluZGV4IGRjNDYxZGYuLjIxOTFkM2QgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3V2ZF92N18wLmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvdXZkX3Y3XzAuYwpAQCAtNzg3LDEwICs3ODcsMTMgQEAgc3Rh
-dGljIGludCB1dmRfdjdfMF9zcmlvdl9zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-IAkJCQkJCQkgICAweEZGRkZGRkZGLCAweDAwMDAwMDA0KTsKIAkJCS8qIG1jIHJlc3VtZSovCiAJ
-CQlpZiAoYWRldi0+ZmlybXdhcmUubG9hZF90eXBlID09IEFNREdQVV9GV19MT0FEX1BTUCkgewot
-CQkJCU1NU0NIX1YxXzBfSU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgaSwg
-bW1VVkRfTE1JX1ZDUFVfQ0FDSEVfNjRCSVRfQkFSX0xPVyksCi0JCQkJCQkJICAgIGxvd2VyXzMy
-X2JpdHMoYWRldi0+ZmlybXdhcmUudWNvZGVbQU1ER1BVX1VDT0RFX0lEX1VWRF0ubWNfYWRkcikp
-OwotCQkJCU1NU0NIX1YxXzBfSU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwg
-aSwgbW1VVkRfTE1JX1ZDUFVfQ0FDSEVfNjRCSVRfQkFSX0hJR0gpLAotCQkJCQkJCSAgICB1cHBl
-cl8zMl9iaXRzKGFkZXYtPmZpcm13YXJlLnVjb2RlW0FNREdQVV9VQ09ERV9JRF9VVkRdLm1jX2Fk
-ZHIpKTsKKwkJCQlNTVNDSF9WMV8wX0lOU0VSVF9ESVJFQ1RfV1QoU09DMTVfUkVHX09GRlNFVChV
-VkQsIGksCisJCQkJCQkJbW1VVkRfTE1JX1ZDUFVfQ0FDSEVfNjRCSVRfQkFSX0xPVyksCisJCQkJ
-CQkJYWRldi0+ZmlybXdhcmUudWNvZGVbQU1ER1BVX1VDT0RFX0lEX1VWRF0udG1yX21jX2FkZHJf
-bG8pOworCQkJCU1NU0NIX1YxXzBfSU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFVW
-RCwgaSwKKwkJCQkJCQltbVVWRF9MTUlfVkNQVV9DQUNIRV82NEJJVF9CQVJfSElHSCksCisJCQkJ
-CQkJYWRldi0+ZmlybXdhcmUudWNvZGVbQU1ER1BVX1VDT0RFX0lEX1VWRF0udG1yX21jX2FkZHJf
-aGkpOworCQkJCU1NU0NIX1YxXzBfSU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFVW
-RCwgMCwgCittbVVWRF9WQ1BVX0NBQ0hFX09GRlNFVDApLCAwKTsKIAkJCQlvZmZzZXQgPSAwOwog
-CQkJfSBlbHNlIHsKIAkJCQlNTVNDSF9WMV8wX0lOU0VSVF9ESVJFQ1RfV1QoU09DMTVfUkVHX09G
-RlNFVChVVkQsIGksIG1tVVZEX0xNSV9WQ1BVX0NBQ0hFXzY0QklUX0JBUl9MT1cpLApAQCAtNzk4
-LDEwICs4MDEsMTEgQEAgc3RhdGljIGludCB1dmRfdjdfMF9zcmlvdl9zdGFydChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikKIAkJCQlNTVNDSF9WMV8wX0lOU0VSVF9ESVJFQ1RfV1QoU09DMTVf
-UkVHX09GRlNFVChVVkQsIGksIG1tVVZEX0xNSV9WQ1BVX0NBQ0hFXzY0QklUX0JBUl9ISUdIKSwK
-IAkJCQkJCQkgICAgdXBwZXJfMzJfYml0cyhhZGV2LT51dmQuaW5zdFtpXS5ncHVfYWRkcikpOwog
-CQkJCW9mZnNldCA9IHNpemU7CisJCQkJTU1TQ0hfVjFfMF9JTlNFUlRfRElSRUNUX1dUKFNPQzE1
-X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9WQ1BVX0NBQ0hFX09GRlNFVDApLAorCQkJCQkJCUFN
-REdQVV9VVkRfRklSTVdBUkVfT0ZGU0VUID4+IDMpOworCiAJCQl9CiAKLQkJCU1NU0NIX1YxXzBf
-SU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgaSwgbW1VVkRfVkNQVV9DQUNI
-RV9PRkZTRVQwKSwKLQkJCQkJCSAgICBBTURHUFVfVVZEX0ZJUk1XQVJFX09GRlNFVCA+PiAzKTsK
-IAkJCU1NU0NIX1YxXzBfSU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgaSwg
-bW1VVkRfVkNQVV9DQUNIRV9TSVpFMCksIHNpemUpOwogCiAJCQlNTVNDSF9WMV8wX0lOU0VSVF9E
-SVJFQ1RfV1QoU09DMTVfUkVHX09GRlNFVChVVkQsIGksIG1tVVZEX0xNSV9WQ1BVX0NBQ0hFMV82
-NEJJVF9CQVJfTE9XKSwKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zj
-ZV92NF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y2VfdjRfMC5jCmluZGV4IGYz
-ZjU5MzguLmMwZWMyNzkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zj
-ZV92NF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNlX3Y0XzAuYwpAQCAt
-MjQ0LDEzICsyNDQsMTggQEAgc3RhdGljIGludCB2Y2VfdjRfMF9zcmlvdl9zdGFydChzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikKIAkJTU1TQ0hfVjFfMF9JTlNFUlRfRElSRUNUX1dUKFNPQzE1
-X1JFR19PRkZTRVQoVkNFLCAwLCBtbVZDRV9MTUlfU1dBUF9DTlRMMSksIDApOwogCQlNTVNDSF9W
-MV8wX0lOU0VSVF9ESVJFQ1RfV1QoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsIG1tVkNFX0xNSV9W
-TV9DVFJMKSwgMCk7CiAKKwkJb2Zmc2V0ID0gQU1ER1BVX1ZDRV9GSVJNV0FSRV9PRkZTRVQ7CiAJ
-CWlmIChhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgPT0gQU1ER1BVX0ZXX0xPQURfUFNQKSB7CisJ
-CQl1aW50MzJfdCBsb3cgPSBhZGV2LT5maXJtd2FyZS51Y29kZVtBTURHUFVfVUNPREVfSURfVkNF
-XS50bXJfbWNfYWRkcl9sbzsKKwkJCXVpbnQzMl90IGhpID0gYWRldi0+ZmlybXdhcmUudWNvZGVb
-QU1ER1BVX1VDT0RFX0lEX1ZDRV0udG1yX21jX2FkZHJfaGk7CisJCQl1aW50NjRfdCB0bXJfbWNf
-YWRkciA9ICh1aW50NjRfdCkoaGkpIDw8IDMyIHwgbG93OworCiAJCQlNTVNDSF9WMV8wX0lOU0VS
-VF9ESVJFQ1RfV1QoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsCi0JCQkJCQltbVZDRV9MTUlfVkNQ
-VV9DQUNIRV80MEJJVF9CQVIwKSwKLQkJCQkJCWFkZXYtPmZpcm13YXJlLnVjb2RlW0FNREdQVV9V
-Q09ERV9JRF9WQ0VdLm1jX2FkZHIgPj4gOCk7CisJCQkJCQltbVZDRV9MTUlfVkNQVV9DQUNIRV80
-MEJJVF9CQVIwKSwgdG1yX21jX2FkZHIgPj4gOCk7CiAJCQlNTVNDSF9WMV8wX0lOU0VSVF9ESVJF
-Q1RfV1QoU09DMTVfUkVHX09GRlNFVChWQ0UsIDAsCiAJCQkJCQltbVZDRV9MTUlfVkNQVV9DQUNI
-RV82NEJJVF9CQVIwKSwKLQkJCQkJCShhZGV2LT5maXJtd2FyZS51Y29kZVtBTURHUFVfVUNPREVf
-SURfVkNFXS5tY19hZGRyID4+IDQwKSAmIDB4ZmYpOworCQkJCQkJKHRtcl9tY19hZGRyID4+IDQw
-KSAmIDB4ZmYpOworCQkJTU1TQ0hfVjFfMF9JTlNFUlRfRElSRUNUX1dUKFNPQzE1X1JFR19PRkZT
-RVQoVkNFLCAwLCAKK21tVkNFX1ZDUFVfQ0FDSEVfT0ZGU0VUMCksIDApOwogCQl9IGVsc2Ugewog
-CQkJTU1TQ0hfVjFfMF9JTlNFUlRfRElSRUNUX1dUKFNPQzE1X1JFR19PRkZTRVQoVkNFLCAwLAog
-CQkJCQkJbW1WQ0VfTE1JX1ZDUFVfQ0FDSEVfNDBCSVRfQkFSMCksIEBAIC0yNTgsNiArMjYzLDkg
-QEAgc3RhdGljIGludCB2Y2VfdjRfMF9zcmlvdl9zdGFydChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKIAkJCU1NU0NIX1YxXzBfSU5TRVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFZD
-RSwgMCwKIAkJCQkJCW1tVkNFX0xNSV9WQ1BVX0NBQ0hFXzY0QklUX0JBUjApLAogCQkJCQkJKGFk
-ZXYtPnZjZS5ncHVfYWRkciA+PiA0MCkgJiAweGZmKTsKKwkJCU1NU0NIX1YxXzBfSU5TRVJUX0RJ
-UkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFZDRSwgMCwgbW1WQ0VfVkNQVV9DQUNIRV9PRkZTRVQw
-KSwKKwkJCQkJCW9mZnNldCAmIH4weDBmMDAwMDAwKTsKKwogCQl9CiAJCU1NU0NIX1YxXzBfSU5T
-RVJUX0RJUkVDVF9XVChTT0MxNV9SRUdfT0ZGU0VUKFZDRSwgMCwKIAkJCQkJCW1tVkNFX0xNSV9W
-Q1BVX0NBQ0hFXzQwQklUX0JBUjEpLCBAQCAtMjcyLDEwICsyODAsNyBAQCBzdGF0aWMgaW50IHZj
-ZV92NF8wX3NyaW92X3N0YXJ0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJCQkJbW1W
-Q0VfTE1JX1ZDUFVfQ0FDSEVfNjRCSVRfQkFSMiksCiAJCQkJCQkoYWRldi0+dmNlLmdwdV9hZGRy
-ID4+IDQwKSAmIDB4ZmYpOwogCi0JCW9mZnNldCA9IEFNREdQVV9WQ0VfRklSTVdBUkVfT0ZGU0VU
-OwogCQlzaXplID0gVkNFX1Y0XzBfRldfU0laRTsKLQkJTU1TQ0hfVjFfMF9JTlNFUlRfRElSRUNU
-X1dUKFNPQzE1X1JFR19PRkZTRVQoVkNFLCAwLCBtbVZDRV9WQ1BVX0NBQ0hFX09GRlNFVDApLAot
-CQkJCQlvZmZzZXQgJiB+MHgwZjAwMDAwMCk7CiAJCU1NU0NIX1YxXzBfSU5TRVJUX0RJUkVDVF9X
-VChTT0MxNV9SRUdfT0ZGU0VUKFZDRSwgMCwgbW1WQ0VfVkNQVV9DQUNIRV9TSVpFMCksIHNpemUp
-OwogCiAJCW9mZnNldCA9IChhZGV2LT5maXJtd2FyZS5sb2FkX3R5cGUgIT0gQU1ER1BVX0ZXX0xP
-QURfUFNQKSA/IG9mZnNldCArIHNpemUgOiAwOwotLQoyLjcuNAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, Apr 30, 2019 at 7:57 PM Kuehling, Felix <Felix.Kuehling@amd.com> wrote:
+>
+> On 2019-04-30 9:25 a.m., Andrey Konovalov wrote:
+> > [CAUTION: External Email]
+> >
+> > This patch is a part of a series that extends arm64 kernel ABI to allow to
+> > pass tagged user pointers (with the top byte set to something else other
+> > than 0x00) as syscall arguments.
+> >
+> > radeon_ttm_tt_pin_userptr() uses provided user pointers for vma
+> > lookups, which can only by done with untagged pointers. This patch
+> > untags user pointers when they are being set in
+> > radeon_ttm_tt_pin_userptr().
+> >
+> > In amdgpu_gem_userptr_ioctl() an MMU notifier is set up with a (tagged)
+> > userspace pointer. The untagged address should be used so that MMU
+> > notifiers for the untagged address get correctly matched up with the right
+> > BO. This patch untags user pointers in radeon_gem_userptr_ioctl().
+> >
+> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> > ---
+> >   drivers/gpu/drm/radeon/radeon_gem.c | 2 ++
+> >   drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+> >   2 files changed, 3 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+> > index 44617dec8183..90eb78fb5eb2 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> > @@ -291,6 +291,8 @@ int radeon_gem_userptr_ioctl(struct drm_device *dev, void *data,
+> >          uint32_t handle;
+> >          int r;
+> >
+> > +       args->addr = untagged_addr(args->addr);
+> > +
+> >          if (offset_in_page(args->addr | args->size))
+> >                  return -EINVAL;
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+> > index 9920a6fc11bf..dce722c494c1 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> > @@ -742,7 +742,7 @@ int radeon_ttm_tt_set_userptr(struct ttm_tt *ttm, uint64_t addr,
+> >          if (gtt == NULL)
+> >                  return -EINVAL;
+> >
+> > -       gtt->userptr = addr;
+> > +       gtt->userptr = untagged_addr(addr);
+>
+> Doing this here seems unnecessary, because you already untagged the
+> address in the only caller of this function in radeon_gem_userptr_ioctl.
+> The change there will affect both the userptr and MMU notifier setup and
+> makes sure that both are in sync, using the same untagged address.
+
+Will fix in v15, thanks!
+
+>
+> Regards,
+>    Felix
+>
+>
+> >          gtt->usermm = current->mm;
+> >          gtt->userflags = flags;
+> >          return 0;
+> > --
+> > 2.21.0.593.g511ec345e18-goog
+> >
