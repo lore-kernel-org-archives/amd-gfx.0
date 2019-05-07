@@ -1,40 +1,86 @@
-From: Trigger Huang <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdgpu: Skip IH reroute in Vega20 SR-IOV VF
-Date: Tue, 7 May 2019 12:08:35 +0800
-Message-ID: <1557202115-24444-3-git-send-email-Trigger.Huang@amd.com>
-References: <1557202115-24444-1-git-send-email-Trigger.Huang@amd.com>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.0 23/99] drm/amd/display: extending AUX SW Timeout
+Date: Tue,  7 May 2019 01:31:17 -0400
+Message-ID: <20190507053235.29900-23-sashal@kernel.org>
+References: <20190507053235.29900-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1557202115-24444-1-git-send-email-Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Trigger.Huang-5C7GfCeVMHo@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190507053235.29900-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Martin Leung <martin.leung@amd.com>, Jun Lei <Jun.Lei@amd.com>, Joshua Aberback <Joshua.Aberback@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-SUggcmVyb3V0ZSBjb21tYW5kcyBhcmUgbm90IHN1cHBvcnRlZCBvbiBWZWdhMjAgVkYKClNpZ25l
-ZC1vZmYtYnk6IFRyaWdnZXIgSHVhbmcgPFRyaWdnZXIuSHVhbmdAYW1kLmNvbT4KLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAuYyB8IDQgKysrKwogMSBmaWxlIGNoYW5n
-ZWQsIDQgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3BzcF92MTFfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMK
-aW5kZXggYjkxZGY3Yi4uNGJkZDcwYSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvcHNwX3YxMV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3Yx
-MV8wLmMKQEAgLTIzMiw2ICsyMzIsMTAgQEAgc3RhdGljIHZvaWQgcHNwX3YxMV8wX3Jlcm91dGVf
-aWgoc3RydWN0IHBzcF9jb250ZXh0ICpwc3ApCiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYg
-PSBwc3AtPmFkZXY7CiAJdWludDMyX3QgdG1wOwogCisJLyogcmVyb3V0ZV9paCBpcyBub3Qgc3Vw
-cG9ydGVkIG9uIFNSX0lPViBWRiAqLworCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpCisJCXJl
-dHVybjsKKwogCS8qIENoYW5nZSBJSCByaW5nIGZvciBWTUMgKi8KIAl0bXAgPSBSRUdfU0VUX0ZJ
-RUxEKDAsIElIX0NMSUVOVF9DRkdfREFUQSwgQ1JFRElUX1JFVFVSTl9BRERSLCAweDEyNDRiKTsK
-IAl0bXAgPSBSRUdfU0VUX0ZJRUxEKHRtcCwgSUhfQ0xJRU5UX0NGR19EQVRBLCBDTElFTlRfVFlQ
-RSwgMSk7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: Martin Leung <martin.leung@amd.com>
+
+[ Upstream commit f4bbebf8e7eb4d294b040ab2d2ba71e70e69b930 ]
+
+[Why]
+AUX takes longer to reply when using active DP-DVI dongle on some asics
+resulting in up to 2000+ us edid read (timeout).
+
+[How]
+1. Adjust AUX poll to match spec
+2. Extend the SW timeout. This does not affect normal
+operation since we exit the loop as soon as AUX acks.
+
+Signed-off-by: Martin Leung <martin.leung@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Joshua Aberback <Joshua.Aberback@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c | 9 ++++++---
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.h | 6 +++---
+ 2 files changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+index aaeb7faac0c4..e0fff5744b5f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+@@ -189,6 +189,12 @@ static void submit_channel_request(
+ 				1,
+ 				0);
+ 	}
++
++	REG_UPDATE(AUX_INTERRUPT_CONTROL, AUX_SW_DONE_ACK, 1);
++
++	REG_WAIT(AUX_SW_STATUS, AUX_SW_DONE, 0,
++				10, aux110->timeout_period/10);
++
+ 	/* set the delay and the number of bytes to write */
+ 
+ 	/* The length include
+@@ -241,9 +247,6 @@ static void submit_channel_request(
+ 		}
+ 	}
+ 
+-	REG_UPDATE(AUX_INTERRUPT_CONTROL, AUX_SW_DONE_ACK, 1);
+-	REG_WAIT(AUX_SW_STATUS, AUX_SW_DONE, 0,
+-				10, aux110->timeout_period/10);
+ 	REG_UPDATE(AUX_SW_CONTROL, AUX_SW_GO, 1);
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
+index f7caab85dc80..2c6f50b4245a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
+@@ -69,11 +69,11 @@ enum {	/* This is the timeout as defined in DP 1.2a,
+ 	 * at most within ~240usec. That means,
+ 	 * increasing this timeout will not affect normal operation,
+ 	 * and we'll timeout after
+-	 * SW_AUX_TIMEOUT_PERIOD_MULTIPLIER * AUX_TIMEOUT_PERIOD = 1600usec.
++	 * SW_AUX_TIMEOUT_PERIOD_MULTIPLIER * AUX_TIMEOUT_PERIOD = 2400usec.
+ 	 * This timeout is especially important for
+-	 * resume from S3 and CTS.
++	 * converters, resume from S3, and CTS.
+ 	 */
+-	SW_AUX_TIMEOUT_PERIOD_MULTIPLIER = 4
++	SW_AUX_TIMEOUT_PERIOD_MULTIPLIER = 6
+ };
+ struct aux_engine_dce110 {
+ 	struct aux_engine base;
+-- 
+2.20.1
