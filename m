@@ -1,86 +1,50 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.0 23/99] drm/amd/display: extending AUX SW Timeout
-Date: Tue,  7 May 2019 01:31:17 -0400
-Message-ID: <20190507053235.29900-23-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 5.0 27/99] drm/amdgpu: shadow in shadow_list without
+ tbo.mem.start cause page fault in sriov TDR
+Date: Tue,  7 May 2019 01:31:21 -0400
+Message-ID: <20190507053235.29900-27-sashal@kernel.org>
 References: <20190507053235.29900-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190507053235.29900-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Martin Leung <martin.leung@amd.com>, Jun Lei <Jun.Lei@amd.com>, Joshua Aberback <Joshua.Aberback@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190507053235.29900-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, wentalou <Wentao.Lou-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-From: Martin Leung <martin.leung@amd.com>
-
-[ Upstream commit f4bbebf8e7eb4d294b040ab2d2ba71e70e69b930 ]
-
-[Why]
-AUX takes longer to reply when using active DP-DVI dongle on some asics
-resulting in up to 2000+ us edid read (timeout).
-
-[How]
-1. Adjust AUX poll to match spec
-2. Extend the SW timeout. This does not affect normal
-operation since we exit the loop as soon as AUX acks.
-
-Signed-off-by: Martin Leung <martin.leung@amd.com>
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
-Acked-by: Joshua Aberback <Joshua.Aberback@amd.com>
-Acked-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c | 9 ++++++---
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.h | 6 +++---
- 2 files changed, 9 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-index aaeb7faac0c4..e0fff5744b5f 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-@@ -189,6 +189,12 @@ static void submit_channel_request(
- 				1,
- 				0);
- 	}
-+
-+	REG_UPDATE(AUX_INTERRUPT_CONTROL, AUX_SW_DONE_ACK, 1);
-+
-+	REG_WAIT(AUX_SW_STATUS, AUX_SW_DONE, 0,
-+				10, aux110->timeout_period/10);
-+
- 	/* set the delay and the number of bytes to write */
- 
- 	/* The length include
-@@ -241,9 +247,6 @@ static void submit_channel_request(
- 		}
- 	}
- 
--	REG_UPDATE(AUX_INTERRUPT_CONTROL, AUX_SW_DONE_ACK, 1);
--	REG_WAIT(AUX_SW_STATUS, AUX_SW_DONE, 0,
--				10, aux110->timeout_period/10);
- 	REG_UPDATE(AUX_SW_CONTROL, AUX_SW_GO, 1);
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-index f7caab85dc80..2c6f50b4245a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.h
-@@ -69,11 +69,11 @@ enum {	/* This is the timeout as defined in DP 1.2a,
- 	 * at most within ~240usec. That means,
- 	 * increasing this timeout will not affect normal operation,
- 	 * and we'll timeout after
--	 * SW_AUX_TIMEOUT_PERIOD_MULTIPLIER * AUX_TIMEOUT_PERIOD = 1600usec.
-+	 * SW_AUX_TIMEOUT_PERIOD_MULTIPLIER * AUX_TIMEOUT_PERIOD = 2400usec.
- 	 * This timeout is especially important for
--	 * resume from S3 and CTS.
-+	 * converters, resume from S3, and CTS.
- 	 */
--	SW_AUX_TIMEOUT_PERIOD_MULTIPLIER = 4
-+	SW_AUX_TIMEOUT_PERIOD_MULTIPLIER = 6
- };
- struct aux_engine_dce110 {
- 	struct aux_engine base;
--- 
-2.20.1
+RnJvbTogd2VudGFsb3UgPFdlbnRhby5Mb3VAYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IGI1
+NzVmMTBkYmQ2Zjg0YzJjODc0NGZmMWY0ODZiZmFlMWU0ZjZmMzggXQoKc2hhZG93IHdhcyBhZGRl
+ZCBpbnRvIHNoYWRvd19saXN0IGJ5IGFtZGdwdV9ib19jcmVhdGVfc2hhZG93LgptZWFud2hpbGUs
+IHNoYWRvdy0+dGJvLm1lbSB3YXMgbm90IGZ1bGx5IGNvbmZpZ3VyZWQuCnRiby5tZW0gd291bGQg
+YmUgZnVsbHkgY29uZmlndXJlZCBieSBhbWRncHVfdm1fc2RtYV9tYXBfdGFibGUgdW50aWwgY2Fs
+bGluZyBhbWRncHVfdm1fY2xlYXJfYm8uCklmIHNyaW92IFREUiBvY2N1cnJlZCBiZXR3ZWVuIGFt
+ZGdwdV9ib19jcmVhdGVfc2hhZG93IGFuZCBhbWRncHVfdm1fc2RtYV9tYXBfdGFibGUsCmFtZGdw
+dV9kZXZpY2VfcmVjb3Zlcl92cmFtIHdvdWxkIGRlYWwgd2l0aCBzaGFkb3cgd2l0aG91dCB0Ym8u
+bWVtLnN0YXJ0LgoKU2lnbmVkLW9mZi1ieTogV2VudGFvIExvdSA8V2VudGFvLkxvdUBhbWQuY29t
+PgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29t
+PgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAxICsKIDEgZmlsZSBjaGFu
+Z2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYwppbmRleCA3ZmYzYTI4ZmM5MDMuLjUzMzZiMmM5YjYxNSAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzE1MCw2ICszMTUwLDcgQEAgc3Rh
+dGljIGludCBhbWRncHVfZGV2aWNlX3JlY292ZXJfdnJhbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldikKIAogCQkvKiBObyBuZWVkIHRvIHJlY292ZXIgYW4gZXZpY3RlZCBCTyAqLwogCQlpZiAo
+c2hhZG93LT50Ym8ubWVtLm1lbV90eXBlICE9IFRUTV9QTF9UVCB8fAorCQkgICAgc2hhZG93LT50
+Ym8ubWVtLnN0YXJ0ID09IEFNREdQVV9CT19JTlZBTElEX09GRlNFVCB8fAogCQkgICAgc2hhZG93
+LT5wYXJlbnQtPnRiby5tZW0ubWVtX3R5cGUgIT0gVFRNX1BMX1ZSQU0pCiAJCQljb250aW51ZTsK
+IAotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
