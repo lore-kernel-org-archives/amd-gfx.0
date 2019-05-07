@@ -1,11 +1,13 @@
 From: Trigger Huang <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 0/2] Skip IH re-route on Vega SR-IOV
-Date: Tue, 7 May 2019 12:08:33 +0800
-Message-ID: <1557202115-24444-1-git-send-email-Trigger.Huang@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: Skip IH reroute in Vega10 SR-IOV VF
+Date: Tue, 7 May 2019 12:08:34 +0800
+Message-ID: <1557202115-24444-2-git-send-email-Trigger.Huang@amd.com>
+References: <1557202115-24444-1-git-send-email-Trigger.Huang@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1557202115-24444-1-git-send-email-Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,12 +21,20 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Trigger.Huang-5C7GfCeVMHo@public.gmane.org
 
-SUggcmUtcm91dGUgaXMgbm90IHN1cHBvcnRlZCBvbiBWZWdhIFNSLUlPViwgbmVlZCB0byBiZSBz
-a2lwcGVkCgpUcmlnZ2VyIEh1YW5nICgyKToKICBkcm0vYW1kZ3B1OiBTa2lwIElIIHJlcm91dGUg
-aW4gVmVnYTEwIFNSLUlPViBWRgogIGRybS9hbWRncHU6IFNraXAgSUggcmVyb3V0ZSBpbiBWZWdh
-MjAgU1ItSU9WIFZGCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvcHNwX3YxMV8wLmMgfCA0
-ICsrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmMgIHwgNCArKysrCiAy
-IGZpbGVzIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKQoKLS0gCjIuNy40CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+SUggcmVyb3V0ZSBjb21tYW5kcyBhcmUgbm90IHN1cHBvcnRlZCBvbiBWZWdhMTAgVkYKClNpZ25l
+ZC1vZmYtYnk6IFRyaWdnZXIgSHVhbmcgPFRyaWdnZXIuSHVhbmdAYW1kLmNvbT4KLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjNfMS5jIHwgNCArKysrCiAxIGZpbGUgY2hhbmdl
+ZCwgNCBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvcHNwX3YzXzEuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92M18xLmMKaW5k
+ZXggMTQzZjBmYS4uOWQ2ZTYwMyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvcHNwX3YzXzEuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjNfMS5j
+CkBAIC0yNjAsNiArMjYwLDEwIEBAIHN0YXRpYyB2b2lkIHBzcF92M18xX3Jlcm91dGVfaWgoc3Ry
+dWN0IHBzcF9jb250ZXh0ICpwc3ApCiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSBwc3At
+PmFkZXY7CiAJdWludDMyX3QgdG1wOwogCisJLyogcmVyb3V0ZV9paCBpcyBub3Qgc3VwcG9ydGVk
+IG9uIFNSX0lPViBWRiAqLworCWlmIChhbWRncHVfc3Jpb3ZfdmYoYWRldikpCisJCXJldHVybjsK
+KwogCS8qIENoYW5nZSBJSCByaW5nIGZvciBWTUMgKi8KIAl0bXAgPSBSRUdfU0VUX0ZJRUxEKDAs
+IElIX0NMSUVOVF9DRkdfREFUQSwgQ1JFRElUX1JFVFVSTl9BRERSLCAweDEyNDRiKTsKIAl0bXAg
+PSBSRUdfU0VUX0ZJRUxEKHRtcCwgSUhfQ0xJRU5UX0NGR19EQVRBLCBDTElFTlRfVFlQRSwgMSk7
+Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
