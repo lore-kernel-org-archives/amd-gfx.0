@@ -1,184 +1,64 @@
-From: Sean Paul <sean@poorly.run>
-Subject: Re: [PATCH v3 5/5] drm: don't block fb changes for async plane
- updates
-Date: Tue, 7 May 2019 16:18:19 -0400
-Message-ID: <20190507201819.GI17077@art_vandelay>
-References: <20190314002027.7833-1-helen.koike@collabora.com>
- <20190314002027.7833-6-helen.koike@collabora.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/1] drm/amdgpu: Improve error handling for HMM
+Date: Tue, 7 May 2019 21:52:22 +0000
+Message-ID: <20190507215202.14616-1-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <stable-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190314002027.7833-6-helen.koike@collabora.com>
-Sender: stable-owner@vger.kernel.org
-To: Helen Koike <helen.koike@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com, andrey.grodzovsky@amd.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, boris.brezillon@collabora.com, David Airlie <airlied@linux.ie>, Sean Paul <seanpaul@google.com>, kernel@collabora.com, harry.wentland@amd.com, =?iso-8859-1?Q?St=E9phane?= Marchesin <marcheu@google.com>, stable@vger.kernel.org, Sean Paul <sean@poorly.run>, Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org, linux-arm-msm@vger.kernel.org, eric@anholt.net, robdclark@gmail.com, amd-gfx@lists.freedesktop.org, Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
+ Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Mar 13, 2019 at 09:20:26PM -0300, Helen Koike wrote:
-> In the case of a normal sync update, the preparation of framebuffers (be
-> it calling drm_atomic_helper_prepare_planes() or doing setups with
-> drm_framebuffer_get()) are performed in the new_state and the respective
-> cleanups are performed in the old_state.
-> 
-> In the case of async updates, the preparation is also done in the
-> new_state but the cleanups are done in the new_state (because updates
-> are performed in place, i.e. in the current state).
-> 
-> The current code blocks async udpates when the fb is changed, turning
-> async updates into sync updates, slowing down cursor updates and
-> introducing regressions in igt tests with errors of type:
-> 
-> "CRITICAL: completed 97 cursor updated in a period of 30 flips, we
-> expect to complete approximately 15360 updates, with the threshold set
-> at 7680"
-> 
-> Fb changes in async updates were prevented to avoid the following scenario:
-> 
-> - Async update, oldfb = NULL, newfb = fb1, prepare fb1, cleanup fb1
-> - Async update, oldfb = fb1, newfb = fb2, prepare fb2, cleanup fb2
-> - Non-async commit, oldfb = fb2, newfb = fb1, prepare fb1, cleanup fb2 (wrong)
-> Where we have a single call to prepare fb2 but double cleanup call to fb2.
-> 
-> To solve the above problems, instead of blocking async fb changes, we
-> place the old framebuffer in the new_state object, so when the code
-> performs cleanups in the new_state it will cleanup the old_fb and we
-> will have the following scenario instead:
-> 
-> - Async update, oldfb = NULL, newfb = fb1, prepare fb1, no cleanup
-> - Async update, oldfb = fb1, newfb = fb2, prepare fb2, cleanup fb1
-> - Non-async commit, oldfb = fb2, newfb = fb1, prepare fb1, cleanup fb2
-> 
-> Where calls to prepare/cleanup are balanced.
-> 
-> Cc: <stable@vger.kernel.org> # v4.14+
-
-I'm not convinced this should be cc: stable, seems more in the improvement
-category than a bug fix.
-
-> Fixes: 25dc194b34dd ("drm: Block fb changes for async plane updates")
-> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Signed-off-by: Helen Koike <helen.koike@collabora.com>
-> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> 
-> ---
-> Hello,
-> 
-> I added a TODO in drm_atomic_helper_async_commit() regarding doing a
-> full state swap(), Boris and Nicholas, let me know if this is ok and if
-> I can keep your Reviewed-by tags)
-> 
-> As mentioned in the cover letter, I tested in almost all platforms with
-> igt plane_cursor_legacy and kms_cursor_legacy and I didn't see any
-> regressions. But I couldn't test on MSM and AMD because I don't have
-> the hardware I would appreciate if anyone could help me testing those.
-> 
-> Thanks!
-> Helen
-> 
-> Changes in v3:
-> - Add Reviewed-by tags
-> - Add TODO in drm_atomic_helper_async_commit()
-> 
-> Changes in v2:
-> - Change the order of the patch in the series, add this as the last one.
-> - Add documentation
-> - s/ballanced/balanced
-> 
->  drivers/gpu/drm/drm_atomic_helper.c      | 22 ++++++++++++----------
->  include/drm/drm_modeset_helper_vtables.h |  5 +++++
->  2 files changed, 17 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-> index 2453678d1186..de5812c362b5 100644
-> --- a/drivers/gpu/drm/drm_atomic_helper.c
-> +++ b/drivers/gpu/drm/drm_atomic_helper.c
-> @@ -1608,15 +1608,6 @@ int drm_atomic_helper_async_check(struct drm_device *dev,
->  	    old_plane_state->crtc != new_plane_state->crtc)
->  		return -EINVAL;
->  
-> -	/*
-> -	 * FIXME: Since prepare_fb and cleanup_fb are always called on
-> -	 * the new_plane_state for async updates we need to block framebuffer
-> -	 * changes. This prevents use of a fb that's been cleaned up and
-> -	 * double cleanups from occuring.
-> -	 */
-> -	if (old_plane_state->fb != new_plane_state->fb)
-> -		return -EINVAL;
-> -
->  	funcs = plane->helper_private;
->  	if (!funcs->atomic_async_update)
->  		return -EINVAL;
-> @@ -1647,6 +1638,8 @@ EXPORT_SYMBOL(drm_atomic_helper_async_check);
->   * drm_atomic_async_check() succeeds. Async commits are not supposed to swap
->   * the states like normal sync commits, but just do in-place changes on the
->   * current state.
-> + *
-> + * TODO: Implement full swap instead of doing in-place changes.
->   */
->  void drm_atomic_helper_async_commit(struct drm_device *dev,
->  				    struct drm_atomic_state *state)
-> @@ -1657,6 +1650,9 @@ void drm_atomic_helper_async_commit(struct drm_device *dev,
->  	int i;
->  
->  	for_each_new_plane_in_state(state, plane, plane_state, i) {
-> +		struct drm_framebuffer *new_fb = plane_state->fb;
-> +		struct drm_framebuffer *old_fb = plane->state->fb;
-> +
->  		funcs = plane->helper_private;
->  		funcs->atomic_async_update(plane, plane_state);
->  
-> @@ -1665,11 +1661,17 @@ void drm_atomic_helper_async_commit(struct drm_device *dev,
->  		 * plane->state in-place, make sure at least common
->  		 * properties have been properly updated.
->  		 */
-> -		WARN_ON_ONCE(plane->state->fb != plane_state->fb);
-> +		WARN_ON_ONCE(plane->state->fb != new_fb);
->  		WARN_ON_ONCE(plane->state->crtc_x != plane_state->crtc_x);
->  		WARN_ON_ONCE(plane->state->crtc_y != plane_state->crtc_y);
->  		WARN_ON_ONCE(plane->state->src_x != plane_state->src_x);
->  		WARN_ON_ONCE(plane->state->src_y != plane_state->src_y);
-> +
-> +		/*
-> +		 * Make sure the FBs have been swapped so that cleanups in the
-> +		 * new_state performs a cleanup in the old FB.
-> +		 */
-> +		WARN_ON_ONCE(plane_state->fb != old_fb);
->  	}
->  }
->  EXPORT_SYMBOL(drm_atomic_helper_async_commit);
-> diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
-> index cfb7be40bed7..ce582e8e8f2f 100644
-> --- a/include/drm/drm_modeset_helper_vtables.h
-> +++ b/include/drm/drm_modeset_helper_vtables.h
-> @@ -1174,6 +1174,11 @@ struct drm_plane_helper_funcs {
->  	 * current one with the new plane configurations in the new
->  	 * plane_state.
->  	 *
-> +	 * Drivers should also swap the framebuffers between plane state
-
-Perhaps add "current" before plane state and then after add "(&drm_plane.state)"
-so it's more clear what you're referring to here?
-
-> +	 * and new_state. This is required because prepare and cleanup calls
-> +	 * are performed on the new_state object, then to cleanup the old
-> +	 * framebuffer, it needs to be placed inside the new_state object.
-
-I'd change this bit to:
-
-        * This is required since cleanup for async commits is performed on
-        * the new state, rather than old state like for traditional commits.
-        * Since we want to give up the reference on the current (old) fb instead
-        * of our brand new one, swap them in the driver during the async commit.
-
-> +	 *
->  	 * FIXME:
->  	 *  - It only works for single plane updates
->  	 *  - Async Pageflips are not supported yet
-> -- 
-> 2.20.1
-> 
-
--- 
-Sean Paul, Software Engineer, Google / Chromium OS
+VXNlIHVuc2lnbmVkIGxvbmcgZm9yIG51bWJlciBvZiBwYWdlcy4NCg0KQ2hlY2sgdGhhdCBwZm5z
+IGFyZSB2YWxpZCBhZnRlciBobW1fdm1hX2ZhdWx0LiBJZiB0aGV5IGFyZSBub3QsDQpyZXR1cm4g
+YW4gZXJyb3IgaW5zdGVhZCBvZiBjb250aW51aW5nIHdpdGggaW52YWxpZCBwYWdlIHBvaW50ZXJz
+IGFuZA0KUFRFcy4NCg0KU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhs
+aW5nQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRt
+LmMgfCAyMiArKysrKysrKysrKysrKysrKystLS0tDQogMSBmaWxlIGNoYW5nZWQsIDE4IGluc2Vy
+dGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdHRtLmMNCmluZGV4IGMxNDE5ODczN2RjZC4uMzhjZTExZTMzOGUwIDEwMDY0NA0KLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCkBAIC03MzQsMTAgKzczNCwxMSBAQCBpbnQg
+YW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlcyhzdHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdCBw
+YWdlICoqcGFnZXMpDQogCXN0cnVjdCBtbV9zdHJ1Y3QgKm1tID0gZ3R0LT51c2VydGFzay0+bW07
+DQogCXVuc2lnbmVkIGxvbmcgc3RhcnQgPSBndHQtPnVzZXJwdHI7DQogCXVuc2lnbmVkIGxvbmcg
+ZW5kID0gc3RhcnQgKyB0dG0tPm51bV9wYWdlcyAqIFBBR0VfU0laRTsNCi0Jc3RydWN0IGhtbV9y
+YW5nZSAqcmFuZ2VzOw0KIAlzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSA9IE5VTEwsICp2bWFz
+W01BWF9OUl9WTUFTXTsNCisJc3RydWN0IGhtbV9yYW5nZSAqcmFuZ2VzOw0KKwl1bnNpZ25lZCBs
+b25nIG5yX3BhZ2VzLCBpOw0KIAl1aW50NjRfdCAqcGZucywgZjsNCi0JaW50IHIgPSAwLCBpLCBu
+cl9wYWdlczsNCisJaW50IHIgPSAwOw0KIA0KIAlpZiAoIW1tKSAvKiBIYXBwZW5zIGR1cmluZyBw
+cm9jZXNzIHNodXRkb3duICovDQogCQlyZXR1cm4gLUVTUkNIOw0KQEAgLTgxMyw4ICs4MTQsMTQg
+QEAgaW50IGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXMoc3RydWN0IHR0bV90dCAqdHRtLCBz
+dHJ1Y3QgcGFnZSAqKnBhZ2VzKQ0KIA0KIAl1cF9yZWFkKCZtbS0+bW1hcF9zZW0pOw0KIA0KLQlm
+b3IgKGkgPSAwOyBpIDwgdHRtLT5udW1fcGFnZXM7IGkrKykNCisJZm9yIChpID0gMDsgaSA8IHR0
+bS0+bnVtX3BhZ2VzOyBpKyspIHsNCiAJCXBhZ2VzW2ldID0gaG1tX3Bmbl90b19wYWdlKCZyYW5n
+ZXNbMF0sIHBmbnNbaV0pOw0KKwkJaWYgKCFwYWdlc1tpXSkgew0KKwkJCXByX2VycigiUGFnZSBm
+YXVsdCBmYWlsZWQgZm9yIHBmblslbHVdID0gMHglbGx4XG4iLA0KKwkJCSAgICAgICBpLCBwZm5z
+W2ldKTsNCisJCQlnb3RvIG91dF9pbnZhbGlkX3BmbjsNCisJCX0NCisJfQ0KIAlndHQtPnJhbmdl
+cyA9IHJhbmdlczsNCiANCiAJcmV0dXJuIDA7DQpAQCAtODI3LDYgKzgzNCwxMyBAQCBpbnQgYW1k
+Z3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlcyhzdHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdCBwYWdl
+ICoqcGFnZXMpDQogCXVwX3JlYWQoJm1tLT5tbWFwX3NlbSk7DQogDQogCXJldHVybiByOw0KKw0K
+K291dF9pbnZhbGlkX3BmbjoNCisJZm9yIChpID0gMDsgaSA8IGd0dC0+bnJfcmFuZ2VzOyBpKysp
+DQorCQlobW1fdm1hX3JhbmdlX2RvbmUoJnJhbmdlc1tpXSk7DQorCWt2ZnJlZShwZm5zKTsNCisJ
+a3ZmcmVlKHJhbmdlcyk7DQorCXJldHVybiAtRU5PTUVNOw0KIH0NCiANCiAvKioNCkBAIC04NzEs
+NyArODg1LDcgQEAgYm9vbCBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzX2RvbmUoc3RydWN0
+IHR0bV90dCAqdHRtKQ0KICAqLw0KIHZvaWQgYW1kZ3B1X3R0bV90dF9zZXRfdXNlcl9wYWdlcyhz
+dHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdCBwYWdlICoqcGFnZXMpDQogew0KLQl1bnNpZ25lZCBp
+Ow0KKwl1bnNpZ25lZCBsb25nIGk7DQogDQogCWZvciAoaSA9IDA7IGkgPCB0dG0tPm51bV9wYWdl
+czsgKytpKQ0KIAkJdHRtLT5wYWdlc1tpXSA9IHBhZ2VzID8gcGFnZXNbaV0gOiBOVUxMOw0KLS0g
+DQoyLjE3LjENCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
