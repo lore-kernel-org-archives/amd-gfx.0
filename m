@@ -1,57 +1,36 @@
-From: Wang Hai <wanghai26@huawei.com>
-Subject: [PATCH] drm/amd/display: Make some functions static
-Date: Wed, 8 May 2019 20:55:16 +0800
-Message-ID: <20190508125516.16732-1-wanghai26@huawei.com>
+From: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/6] drm/amdgpu: add no_user_fence flag to ring funcs
+Date: Wed, 8 May 2019 15:51:26 +0000
+Message-ID: <20190508155100.7810-1-leo.liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, Tony.Cheng@amd.com, Dmytro.Laktyushkin@amd.com, hersenxs.wu@amd.com, David.Francis@amd.com, Jun.Lei@amd.com, Jerry.Zuo@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, wanghai26@huawei.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
 
-Fix the following sparse warnings:
-
-drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:483:21: warning: symbol 'dce120_clock_source_create' was not declared. Should it be static?
-drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:506:6: warning: symbol 'dce120_clock_source_destroy' was not declared. Should it be static?
-drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:513:6: warning: symbol 'dce120_hw_sequencer_create' was not declared. Should it be static?
-
-Fixes: b8fdfcc6a92c ("drm/amd/display: Add DCE12 core support")
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Wang Hai <wanghai26@huawei.com>
----
- drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-index 312a0aebf91f..0948421219ef 100644
---- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-@@ -458,7 +458,7 @@ static const struct dc_debug_options debug_defaults = {
- 		.disable_clock_gate = true,
- };
- 
--struct clock_source *dce120_clock_source_create(
-+static struct clock_source *dce120_clock_source_create(
- 	struct dc_context *ctx,
- 	struct dc_bios *bios,
- 	enum clock_source_id id,
-@@ -481,14 +481,14 @@ struct clock_source *dce120_clock_source_create(
- 	return NULL;
- }
- 
--void dce120_clock_source_destroy(struct clock_source **clk_src)
-+static void dce120_clock_source_destroy(struct clock_source **clk_src)
- {
- 	kfree(TO_DCE110_CLK_SRC(*clk_src));
- 	*clk_src = NULL;
- }
- 
- 
--bool dce120_hw_sequencer_create(struct dc *dc)
-+static bool dce120_hw_sequencer_create(struct dc *dc)
- {
- 	/* All registers used by dce11.2 match those in dce11 in offset and
- 	 * structure
--- 
-2.17.1
+U28gd2UgY2FuIGdlbmVyYWxpemUgdGhlIG5vIHVzZXIgZmVuY2Ugc3VwcG9ydGVkIGVuZ2luZQ0K
+DQpTaWduZWQtb2ZmLWJ5OiBMZW8gTGl1IDxsZW8ubGl1QGFtZC5jb20+DQotLS0NCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oIHwgMSArDQogMSBmaWxlIGNoYW5nZWQs
+IDEgaW5zZXJ0aW9uKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcmluZy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jpbmcu
+aA0KaW5kZXggZDdmYWUyNjc2MjY5Li5jZGRkY2U5MzhiZjUgMTAwNjQ0DQotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oDQorKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfcmluZy5oDQpAQCAtMTE0LDYgKzExNCw3IEBAIHN0cnVjdCBhbWRn
+cHVfcmluZ19mdW5jcyB7DQogCXVpbnQzMl90CQlhbGlnbl9tYXNrOw0KIAl1MzIJCQlub3A7DQog
+CWJvb2wJCQlzdXBwb3J0XzY0Yml0X3B0cnM7DQorCWJvb2wJCQlub191c2VyX2ZlbmNlOw0KIAl1
+bnNpZ25lZAkJdm1odWI7DQogCXVuc2lnbmVkCQlleHRyYV9kdzsNCiANCi0tIA0KMi4xNy4xDQoN
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
