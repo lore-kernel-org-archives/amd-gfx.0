@@ -1,57 +1,72 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp: move psp version specific function
- pointers to early_init
-Date: Thu, 9 May 2019 16:25:29 +0200
-Message-ID: <054e9ddd-c373-8908-ba8f-cced87b61813@gmail.com>
-References: <20190509142334.24760-1-alexander.deucher@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Make some functions static
+Date: Thu, 9 May 2019 10:51:36 -0400
+Message-ID: <CADnq5_NmbWQWjYe5DnGJAPh-uA6Fwi+xZ4FJq-tJWYDuXp6teg@mail.gmail.com>
+References: <20190508125516.16732-1-wanghai26@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190509142334.24760-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190508125516.16732-1-wanghai26@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Wang Hai <wanghai26@huawei.com>
+Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Cheng, Tony" <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, David Francis <David.Francis@amd.com>, Jun.Lei@amd.com, Jerry Zuo <Jerry.Zuo@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDkuMDUuMTkgdW0gMTY6MjMgc2NocmllYiBBbGV4IERldWNoZXI6Cj4gSW4gY2FzZSB3ZSBu
-ZWVkIHRvIHVzZSB0aGVtIGZvciBHUFUgcmVzZXQgcHJpb3IgaW5pdGlhbGl6aW5nIHRoZQo+IGFz
-aWMuICBGaXhlcyBhIGNyYXNoIGlmIHRoZSBkcml2ZXIgYXR0ZW1wdHMgdG8gcmVzZXQgdGhlIEdQ
-VSBhdCBkcml2ZXIKPiBsb2FkIHRpbWUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIg
-PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9wc3AuYyB8IDE5ICsrKysrKysrKystLS0tLS0tLS0KPiAgIDEgZmlsZSBj
-aGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwo+IGluZGV4IDkwNWNjZTE4MTRmMy4uMDU4OTdiMDU3
-NjZiIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3Au
-Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwo+IEBAIC0z
-OCwxOCArMzgsMTAgQEAgc3RhdGljIHZvaWQgcHNwX3NldF9mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldik7Cj4gICBzdGF0aWMgaW50IHBzcF9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkK
-PiAgIHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqKWhhbmRsZTsKPiArCXN0cnVjdCBwc3BfY29udGV4dCAqcHNwID0gJmFkZXYtPnBzcDsK
-PiAgIAo+ICAgCXBzcF9zZXRfZnVuY3MoYWRldik7Cj4gICAKPiAtCXJldHVybiAwOwo+IC19Cj4g
-LQo+IC1zdGF0aWMgaW50IHBzcF9zd19pbml0KHZvaWQgKmhhbmRsZSkKPiAtewo+IC0Jc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSAoc3RydWN0IGFtZGdwdV9kZXZpY2UgKiloYW5kbGU7Cj4g
-LQlzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCA9ICZhZGV2LT5wc3A7Cj4gLQlpbnQgcmV0Owo+IC0K
-PiAgIAlzd2l0Y2ggKGFkZXYtPmFzaWNfdHlwZSkgewo+ICAgCWNhc2UgQ0hJUF9WRUdBMTA6Cj4g
-ICAJY2FzZSBDSElQX1ZFR0ExMjoKPiBAQCAtNjcsNiArNTksMTUgQEAgc3RhdGljIGludCBwc3Bf
-c3dfaW5pdCh2b2lkICpoYW5kbGUpCj4gICAKPiAgIAlwc3AtPmFkZXYgPSBhZGV2Owo+ICAgCj4g
-KwlyZXR1cm4gMDsKPiArfQo+ICsKPiArc3RhdGljIGludCBwc3Bfc3dfaW5pdCh2b2lkICpoYW5k
-bGUpCj4gK3sKPiArCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICopaGFuZGxlOwo+ICsJc3RydWN0IHBzcF9jb250ZXh0ICpwc3AgPSAmYWRldi0+cHNw
-Owo+ICsJaW50IHJldDsKPiArCj4gICAJcmV0ID0gcHNwX2luaXRfbWljcm9jb2RlKHBzcCk7Cj4g
-ICAJaWYgKHJldCkgewo+ICAgCQlEUk1fRVJST1IoIkZhaWxlZCB0byBsb2FkIHBzcCBmaXJtd2Fy
-ZSFcbiIpOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Wed, May 8, 2019 at 10:47 AM Wang Hai <wanghai26@huawei.com> wrote:
+>
+> Fix the following sparse warnings:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:483:21: warning: symbol 'dce120_clock_source_create' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:506:6: warning: symbol 'dce120_clock_source_destroy' was not declared. Should it be static?
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:513:6: warning: symbol 'dce120_hw_sequencer_create' was not declared. Should it be static?
+>
+> Fixes: b8fdfcc6a92c ("drm/amd/display: Add DCE12 core support")
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: Wang Hai <wanghai26@huawei.com>
+
+Applied.  Thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+> index 312a0aebf91f..0948421219ef 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+> @@ -458,7 +458,7 @@ static const struct dc_debug_options debug_defaults = {
+>                 .disable_clock_gate = true,
+>  };
+>
+> -struct clock_source *dce120_clock_source_create(
+> +static struct clock_source *dce120_clock_source_create(
+>         struct dc_context *ctx,
+>         struct dc_bios *bios,
+>         enum clock_source_id id,
+> @@ -481,14 +481,14 @@ struct clock_source *dce120_clock_source_create(
+>         return NULL;
+>  }
+>
+> -void dce120_clock_source_destroy(struct clock_source **clk_src)
+> +static void dce120_clock_source_destroy(struct clock_source **clk_src)
+>  {
+>         kfree(TO_DCE110_CLK_SRC(*clk_src));
+>         *clk_src = NULL;
+>  }
+>
+>
+> -bool dce120_hw_sequencer_create(struct dc *dc)
+> +static bool dce120_hw_sequencer_create(struct dc *dc)
+>  {
+>         /* All registers used by dce11.2 match those in dce11 in offset and
+>          * structure
+> --
+> 2.17.1
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
