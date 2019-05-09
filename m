@@ -1,72 +1,51 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Make some functions static
-Date: Thu, 9 May 2019 10:51:36 -0400
-Message-ID: <CADnq5_NmbWQWjYe5DnGJAPh-uA6Fwi+xZ4FJq-tJWYDuXp6teg@mail.gmail.com>
-References: <20190508125516.16732-1-wanghai26@huawei.com>
+From: wormwang <wormwang-/E1597aS9LQAvxtiuMwx3w@public.gmane.org>
+Subject: program become uninterrupt(STAT D) when run 64 graphics program in
+ sub window
+Date: Thu, 9 May 2019 22:54:40 +0800
+Message-ID: <22df3c31-00af-6b43-9845-07025318d6e5@yahoo.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190508125516.16732-1-wanghai26@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Wang Hai <wanghai26@huawei.com>
-Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Cheng, Tony" <Tony.Cheng@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Hersen Wu <hersenxs.wu@amd.com>, David Francis <David.Francis@amd.com>, Jun.Lei@amd.com, Jerry Zuo <Jerry.Zuo@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, May 8, 2019 at 10:47 AM Wang Hai <wanghai26@huawei.com> wrote:
->
-> Fix the following sparse warnings:
->
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:483:21: warning: symbol 'dce120_clock_source_create' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:506:6: warning: symbol 'dce120_clock_source_destroy' was not declared. Should it be static?
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dce120/dce120_resource.c:513:6: warning: symbol 'dce120_hw_sequencer_create' was not declared. Should it be static?
->
-> Fixes: b8fdfcc6a92c ("drm/amd/display: Add DCE12 core support")
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: Wang Hai <wanghai26@huawei.com>
-
-Applied.  Thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> index 312a0aebf91f..0948421219ef 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
-> @@ -458,7 +458,7 @@ static const struct dc_debug_options debug_defaults = {
->                 .disable_clock_gate = true,
->  };
->
-> -struct clock_source *dce120_clock_source_create(
-> +static struct clock_source *dce120_clock_source_create(
->         struct dc_context *ctx,
->         struct dc_bios *bios,
->         enum clock_source_id id,
-> @@ -481,14 +481,14 @@ struct clock_source *dce120_clock_source_create(
->         return NULL;
->  }
->
-> -void dce120_clock_source_destroy(struct clock_source **clk_src)
-> +static void dce120_clock_source_destroy(struct clock_source **clk_src)
->  {
->         kfree(TO_DCE110_CLK_SRC(*clk_src));
->         *clk_src = NULL;
->  }
->
->
-> -bool dce120_hw_sequencer_create(struct dc *dc)
-> +static bool dce120_hw_sequencer_create(struct dc *dc)
->  {
->         /* All registers used by dce11.2 match those in dce11 in offset and
->          * structure
-> --
-> 2.17.1
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+TGludXgga2VybmVsIDUuMCAsIGFtZCByeDU4MCBncHUgY2FyZAoKCjEgb3IgbWFueSBncmFwaGlj
+cyBwcm9ncmFtIGJlY29tZSB1bmludGVycnVwdGVkKFNUQVQgRCkgd2hlbiBydW4gNjQgCmdyYXBo
+aWNzIHByb2dyYW0gb2Ygc3ViLXdpbmRvdyBjb25jdXJyZW50bHkuCgpXZSBoYXZlIHRvIHJlYm9v
+dCBtYWNoaW5lIHRvIHJlbGVhc2UgdGhlIHVuaW50ZXJydXB0ZWQoU1RBVCBEKSBwcm9ncmFtLgoK
+V2UgaGF2ZSBzdWNoIGtlcm5lbCBsb2c6CgoKIMKga2VybmVsOiBSZW5kZXJUaHJlYWQgRCAwIDM5
+Mzc4NiAzMzcyNDIgMHgwMDQwMDAwOAogwqBrZXJuZWw6IENhbGwgdHJhY2U6CiDCoGtlcm5lbDog
+X19zd2l0Y2hfdG8rMHhiYy8weDFjMAogwqBrZXJuZWw6IF9fc2NoZWR1bGUrMHgzZmMvMHhjYTAK
+IMKga2VybmVsOiAweGZmZmY4MDFmZDMyYTAwMDAKIMKga2VybmVsOiBUUC1Jb0JvdW5kLTIgRCAw
+IDQwMDIwMCAzMzcyNDIgMHgwMDQwMDAyZAogwqBrZXJuZWw6IENhbGwgdHJhY2U6CiDCoGtlcm5l
+bDogX19zd2l0Y2hfdG8rMHhiYy8weDFjMAogwqBrZXJuZWw6IF9fc2NoZWR1bGUrMHgzZmMvMHhj
+YTAKIMKga2VybmVsOiBzY2hlZHVsZSsweDQwLzB4OTgKIMKga2VybmVsOiBzY2hlZHVsZV9wcmVl
+bXB0X2Rpc2FibGVkKzB4MjgvMHg0MAogwqBrZXJuZWw6IF9fbXV0ZXhfbG9jaysweDI2NC8weDg1
+MAogwqBrZXJuZWw6IG11dGV4X2xvY2tfbmVzdGVkKzB4M2MvMHg1MAogwqBrZXJuZWw6IGRybV9y
+ZWxlYXNlKzB4M2MvMHhkOCBbZHJtXQogwqBrZXJuZWw6IF9fZnB1dCsweGMwLzB4MjMwCiDCoGtl
+cm5lbDogX19fX2ZwdXQrMHgyMC8weDMwCiDCoGtlcm5lbDogdGFza193b3JrX3J1bisweGEwLzB4
+ZDAKIMKga2VybmVsOiBkb19leGl0KzB4MzY0LzB4YjUwCiDCoGtlcm5lbDogZG9fZ3JvdXBfZXhp
+dCsweDQwLzB4YTgKIMKga2VybmVsOiBnZXRfc2lnbmFsKzB4ZjAvMHg5NzAKIMKga2VybmVsOiBk
+b19ub3RpZnlfcmVzdW1lKzB4MmFjLzB4MzkwCiDCoGtlcm5lbDogd29ya19wZW5kaW5nKzB4OC8w
+eDE0CiDCoGtlcm5lbDogQm9vdEFuaW1hdGlvbiBEIDAgNDAwOTA1IDM5MzczNyAweDAwMDAwMDAw
+CiDCoGtlcm5lbDogQ2FsbCB0cmFjZToKIMKga2VybmVsOiBfX3N3aXRjaF90bysweGJjLzB4MWMw
+CiDCoGtlcm5lbDogX19zY2hlZHVsZSsweDNmYy8weGNhMAogwqBrZXJuZWw6IHNjaGVkdWxlKzB4
+NDAvMHg5OAogwqBrZXJuZWw6IHNjaGVkdWxlX3ByZWVtcHRfZGlzYWJsZWQrMHgyOC8weDQwCiDC
+oGtlcm5lbDogX19tdXRleF9sb2NrKzB4MjY0LzB4ODUwCiDCoGtlcm5lbDogbXV0ZXhfbG9ja19u
+ZXN0ZWQrMHgzYy8weDUwCiDCoGtlcm5lbDogZHJtX3N0dWJfb3BlbisweDQ0LzB4MTE4IFtkcm1d
+CiDCoGtlcm5lbDogY2hyZGV2X29wZW4rMHhhYy8weDFjMAogwqBrZXJuZWw6IGRvX2RlbnRyeV9v
+cGVuKzB4MWM0LzB4MzcwCiDCoGtlcm5lbDogdmZzX29wZW4rMHgzOC8weDQ4CgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
