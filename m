@@ -1,15 +1,14 @@
-From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 1/1] drm/amdgpu: Improve error handling for HMM
-Date: Thu, 9 May 2019 13:33:35 +0000
-Message-ID: <502904df-f52e-7ef5-ece2-60e0afcd7305@amd.com>
-References: <20190507215202.14616-1-Felix.Kuehling@amd.com>
+From: "Lin, Amber" <Amber.Lin-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Kernel crash at reloading amdgpu
+Date: Thu, 9 May 2019 14:20:02 +0000
+Message-ID: <0963a798-caaf-4356-08aa-447d22e84dc6@amd.com>
+References: <235b28d2-5fe9-d62d-cef2-014c7ecfcb4e@amd.com>
+ <BN6PR12MB1809AAA827BDC68A79EBFF14F7330@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2053042946=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190507215202.14616-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809AAA827BDC68A79EBFF14F7330-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
-Content-ID: <C38C07E36A786E41B4D611B13C247EFA-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,51 +19,298 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gMjAxOS0wNS0wNyA1OjUyIHAubS4sIEt1ZWhsaW5nLCBGZWxpeCB3cm90ZToNCj4gVXNlIHVu
-c2lnbmVkIGxvbmcgZm9yIG51bWJlciBvZiBwYWdlcy4NCj4gDQo+IENoZWNrIHRoYXQgcGZucyBh
-cmUgdmFsaWQgYWZ0ZXIgaG1tX3ZtYV9mYXVsdC4gSWYgdGhleSBhcmUgbm90LA0KPiByZXR1cm4g
-YW4gZXJyb3IgaW5zdGVhZCBvZiBjb250aW51aW5nIHdpdGggaW52YWxpZCBwYWdlIHBvaW50ZXJz
-IGFuZA0KPiBQVEVzLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4
-Lkt1ZWhsaW5nQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBQaGlsaXAgWWFuZyA8UGhpbGlwLllh
-bmdAYW1kLmNvbT4NCg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdHRtLmMgfCAyMiArKysrKysrKysrKysrKysrKystLS0tDQo+ICAgMSBmaWxlIGNoYW5nZWQs
-IDE4IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+IGluZGV4IGMxNDE5ODczN2RjZC4uMzhjZTExZTMzOGUw
-IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMN
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQo+IEBAIC03
-MzQsMTAgKzczNCwxMSBAQCBpbnQgYW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlcyhzdHJ1Y3Qg
-dHRtX3R0ICp0dG0sIHN0cnVjdCBwYWdlICoqcGFnZXMpDQo+ICAgCXN0cnVjdCBtbV9zdHJ1Y3Qg
-Km1tID0gZ3R0LT51c2VydGFzay0+bW07DQo+ICAgCXVuc2lnbmVkIGxvbmcgc3RhcnQgPSBndHQt
-PnVzZXJwdHI7DQo+ICAgCXVuc2lnbmVkIGxvbmcgZW5kID0gc3RhcnQgKyB0dG0tPm51bV9wYWdl
-cyAqIFBBR0VfU0laRTsNCj4gLQlzdHJ1Y3QgaG1tX3JhbmdlICpyYW5nZXM7DQo+ICAgCXN0cnVj
-dCB2bV9hcmVhX3N0cnVjdCAqdm1hID0gTlVMTCwgKnZtYXNbTUFYX05SX1ZNQVNdOw0KPiArCXN0
-cnVjdCBobW1fcmFuZ2UgKnJhbmdlczsNCj4gKwl1bnNpZ25lZCBsb25nIG5yX3BhZ2VzLCBpOw0K
-PiAgIAl1aW50NjRfdCAqcGZucywgZjsNCj4gLQlpbnQgciA9IDAsIGksIG5yX3BhZ2VzOw0KPiAr
-CWludCByID0gMDsNCj4gICANCj4gICAJaWYgKCFtbSkgLyogSGFwcGVucyBkdXJpbmcgcHJvY2Vz
-cyBzaHV0ZG93biAqLw0KPiAgIAkJcmV0dXJuIC1FU1JDSDsNCj4gQEAgLTgxMyw4ICs4MTQsMTQg
-QEAgaW50IGFtZGdwdV90dG1fdHRfZ2V0X3VzZXJfcGFnZXMoc3RydWN0IHR0bV90dCAqdHRtLCBz
-dHJ1Y3QgcGFnZSAqKnBhZ2VzKQ0KPiAgIA0KPiAgIAl1cF9yZWFkKCZtbS0+bW1hcF9zZW0pOw0K
-PiAgIA0KPiAtCWZvciAoaSA9IDA7IGkgPCB0dG0tPm51bV9wYWdlczsgaSsrKQ0KPiArCWZvciAo
-aSA9IDA7IGkgPCB0dG0tPm51bV9wYWdlczsgaSsrKSB7DQo+ICAgCQlwYWdlc1tpXSA9IGhtbV9w
-Zm5fdG9fcGFnZSgmcmFuZ2VzWzBdLCBwZm5zW2ldKTsNCj4gKwkJaWYgKCFwYWdlc1tpXSkgew0K
-PiArCQkJcHJfZXJyKCJQYWdlIGZhdWx0IGZhaWxlZCBmb3IgcGZuWyVsdV0gPSAweCVsbHhcbiIs
-DQo+ICsJCQkgICAgICAgaSwgcGZuc1tpXSk7DQo+ICsJCQlnb3RvIG91dF9pbnZhbGlkX3BmbjsN
-Cj4gKwkJfQ0KPiArCX0NCj4gICAJZ3R0LT5yYW5nZXMgPSByYW5nZXM7DQo+ICAgDQo+ICAgCXJl
-dHVybiAwOw0KPiBAQCAtODI3LDYgKzgzNCwxMyBAQCBpbnQgYW1kZ3B1X3R0bV90dF9nZXRfdXNl
-cl9wYWdlcyhzdHJ1Y3QgdHRtX3R0ICp0dG0sIHN0cnVjdCBwYWdlICoqcGFnZXMpDQo+ICAgCXVw
-X3JlYWQoJm1tLT5tbWFwX3NlbSk7DQo+ICAgDQo+ICAgCXJldHVybiByOw0KPiArDQo+ICtvdXRf
-aW52YWxpZF9wZm46DQo+ICsJZm9yIChpID0gMDsgaSA8IGd0dC0+bnJfcmFuZ2VzOyBpKyspDQo+
-ICsJCWhtbV92bWFfcmFuZ2VfZG9uZSgmcmFuZ2VzW2ldKTsNCj4gKwlrdmZyZWUocGZucyk7DQo+
-ICsJa3ZmcmVlKHJhbmdlcyk7DQo+ICsJcmV0dXJuIC1FTk9NRU07DQo+ICAgfQ0KPiAgIA0KPiAg
-IC8qKg0KPiBAQCAtODcxLDcgKzg4NSw3IEBAIGJvb2wgYW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9w
-YWdlc19kb25lKHN0cnVjdCB0dG1fdHQgKnR0bSkNCj4gICAgKi8NCj4gICB2b2lkIGFtZGdwdV90
-dG1fdHRfc2V0X3VzZXJfcGFnZXMoc3RydWN0IHR0bV90dCAqdHRtLCBzdHJ1Y3QgcGFnZSAqKnBh
-Z2VzKQ0KPiAgIHsNCj4gLQl1bnNpZ25lZCBpOw0KPiArCXVuc2lnbmVkIGxvbmcgaTsNCj4gICAN
-Cj4gICAJZm9yIChpID0gMDsgaSA8IHR0bS0+bnVtX3BhZ2VzOyArK2kpDQo+ICAgCQl0dG0tPnBh
-Z2VzW2ldID0gcGFnZXMgPyBwYWdlc1tpXSA6IE5VTEw7DQo+IA0KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============2053042946==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_0963a798caaf435608aa447d22e84dc6amdcom_"
+
+--_000_0963a798caaf435608aa447d22e84dc6amdcom_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+Thank you Alex! It does fix the crash. (GPU post failed following that but =
+at least it exits gracefully.)
+
+Regards,
+Amber
+
+On 2019-05-08 10:48 p.m., Deucher, Alexander wrote:
+The attached patch should fix it.
+
+Alex
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
+s@lists.freedesktop.org> on behalf of Lin, Amber <Amber.Lin-5C7GfCeVMHo@public.gmane.org><mailto=
+:Amber.Lin-5C7GfCeVMHo@public.gmane.org>
+Sent: Wednesday, May 8, 2019 4:56 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Subject: Kernel crash at reloading amdgpu
+
+[CAUTION: External Email]
+
+Hi,
+
+When I do "rmmod amdgpu; modprobe amdgpu", kernel crashed. This is
+vega20. What happens is in amdgpu_device_init():
+
+
+         /* check if we need to reset the asic
+          *  E.g., driver was not cleanly unloaded previously, etc.
+          */
+         if (!amdgpu_sriov_vf(adev) &&
+amdgpu_asic_need_reset_on_init(adev)) {
+                 r =3D amdgpu_asic_reset(adev);
+                 if (r) {
+                         dev_err(adev->dev, "asic reset on init failed\n");
+                         goto failed;
+                 }
+         }
+
+amdgpu_asic_need_reset_on_init()/soc15_need_reset_on_init() returns true
+and it goes to amdgpu_asic_reset()/soc15_asic_mode1_reset(), where it
+calls psp_gpu_reset():
+
+         int psp_gpu_reset(struct amdgpu_device *adev)
+         {
+             if (adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP)
+                     return 0;
+
+             return psp_mode1_reset(&adev->psp);
+         }
+
+Here, however, psp_mode1_reset is NOT assigned as
+psp_v11_0_mode1_reset() until amdgpu_device_ip_init(), which is after
+amdgpu_asic_reset. This null function pointer causes the kernel crash
+and I have to reboot my system.
+
+Does anyone have an idea how to fix this properly?
+
+BTW this is the log:
+
+[  157.686303] PGD 0 P4D 0
+[  157.688837] Oops: 0000 [#1] SMP PTI
+[  157.692331] CPU: 0 PID: 1902 Comm: kworker/0:2 Tainted: G W
+5.0.0-rc1-kfd+ #6
+[  157.700760] Hardware name: ASUS All Series/X99-E WS, BIOS 1302 01/05/201=
+6
+[  157.707543] Workqueue: events work_for_cpu_fn
+[  157.711976] RIP: 0010:psp_gpu_reset+0x18/0x30 [amdgpu]
+[  157.717106] Code: ff ff ff 5b c3 b8 ea ff ff ff c3 0f 1f 80 00 00 00
+00 0f 1f 44 00 00 83 bf c8 22 01 00 02 74 03 31 c0 c3 48 8b 87 c0 23 01
+00 <48> 8b 40 50 48 85 c0 74 ed 48 81 c7 88 23 01 00 e9 03 3b 8d d6 0f
+[  157.735852] RSP: 0018:ffffaa2544243ce0 EFLAGS: 00010246
+[  157.741077] RAX: 0000000000000000 RBX: ffff97e946f60000 RCX:
+0000000000000000
+[  157.748202] RDX: 0000000000000027 RSI: ffffffff976655a0 RDI:
+ffff97e946f60000
+[  157.755326] RBP: 0000000000000000 R08: 0000000000000000 R09:
+0000000000000002
+[  157.762459] R10: ffffaa2544243ba0 R11: 38a79ac3ec19edd5 R12:
+ffff97e946f75088
+[  157.769608] R13: 000000000000000a R14: ffff97e946f75128 R15:
+0000000000000001
+[  157.776741] FS:  0000000000000000(0000) GS:ffff97e94f800000(0000)
+knlGS:0000000000000000
+[  157.784827] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[  157.790564] CR2: 0000000000000050 CR3: 00000008083e6003 CR4:
+00000000001606f0
+[  157.797696] Call Trace:
+[  157.800184]  soc15_asic_reset+0x81/0x1f0 [amdgpu]
+[  157.804936]  amdgpu_device_init+0xcf1/0x1800 [amdgpu]
+[  157.809993]  ? rcu_read_lock_sched_held+0x74/0x80
+[  157.814734]  amdgpu_driver_load_kms+0x65/0x270 [amdgpu]
+
+Thanks.
+
+Regards,
+Amber
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--_000_0963a798caaf435608aa447d22e84dc6amdcom_
+Content-Type: text/html; charset="Windows-1252"
+Content-ID: <0DD4168CFDA1084BBF9D0592D6ACF36F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+</head>
+<body text=3D"#000000" bgcolor=3D"#FFFFFF">
+Thank you Alex! It does fix the crash. (GPU post failed following that but =
+at least it exits gracefully.)<br>
+<br>
+Regards,<br>
+Amber<br>
+<br>
+<div class=3D"moz-cite-prefix">On 2019-05-08 10:48 p.m., Deucher, Alexander=
+ wrote:<br>
+</div>
+<blockquote type=3D"cite" cite=3D"mid:BN6PR12MB1809AAA827BDC68A79EBFF14F733=
+0@BN6PR12MB1809.namprd12.prod.outlook.com">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+The attached patch should fix it.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+Alex</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
+        font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
+<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
+edesktop.org">
+&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Lin, Amber <=
+a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:Amber.Lin-5C7GfCeVMHo@public.gmane.org">
+&lt;Amber.Lin-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+<b>Sent:</b> Wednesday, May 8, 2019 4:56 PM<br>
+<b>To:</b> <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lis=
+ts.freedesktop.org">
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Subject:</b> Kernel crash at reloading amdgpu</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[CAUTION: External Email]<br>
+<br>
+Hi,<br>
+<br>
+When I do &quot;rmmod amdgpu; modprobe amdgpu&quot;, kernel crashed. This i=
+s<br>
+vega20. What happens is in amdgpu_device_init():<br>
+<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* check if we need to res=
+et the asic<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp; E.g., driver=
+ was not cleanly unloaded previously, etc.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)=
+ &amp;&amp;<br>
+amdgpu_asic_need_reset_on_init(adev)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_asic_reset(adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (r) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_e=
+rr(adev-&gt;dev, &quot;asic reset on init failed\n&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto =
+failed;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+amdgpu_asic_need_reset_on_init()/soc15_need_reset_on_init() returns true<br=
+>
+and it goes to amdgpu_asic_reset()/soc15_asic_mode1_reset(), where it<br>
+calls psp_gpu_reset():<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int psp_gpu_reset(struct a=
+mdgpu_device *adev)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if=
+ (adev-&gt;firmware.load_type !=3D AMDGPU_FW_LOAD_PSP)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; re=
+turn psp_mode1_reset(&amp;adev-&gt;psp);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+<br>
+Here, however, psp_mode1_reset is NOT assigned as<br>
+psp_v11_0_mode1_reset() until amdgpu_device_ip_init(), which is after<br>
+amdgpu_asic_reset. This null function pointer causes the kernel crash<br>
+and I have to reboot my system.<br>
+<br>
+Does anyone have an idea how to fix this properly?<br>
+<br>
+BTW this is the log:<br>
+<br>
+[&nbsp; 157.686303] PGD 0 P4D 0<br>
+[&nbsp; 157.688837] Oops: 0000 [#1] SMP PTI<br>
+[&nbsp; 157.692331] CPU: 0 PID: 1902 Comm: kworker/0:2 Tainted: G W<br>
+5.0.0-rc1-kfd&#43; #6<br>
+[&nbsp; 157.700760] Hardware name: ASUS All Series/X99-E WS, BIOS 1302 01/0=
+5/2016<br>
+[&nbsp; 157.707543] Workqueue: events work_for_cpu_fn<br>
+[&nbsp; 157.711976] RIP: 0010:psp_gpu_reset&#43;0x18/0x30 [amdgpu]<br>
+[&nbsp; 157.717106] Code: ff ff ff 5b c3 b8 ea ff ff ff c3 0f 1f 80 00 00 0=
+0<br>
+00 0f 1f 44 00 00 83 bf c8 22 01 00 02 74 03 31 c0 c3 48 8b 87 c0 23 01<br>
+00 &lt;48&gt; 8b 40 50 48 85 c0 74 ed 48 81 c7 88 23 01 00 e9 03 3b 8d d6 0=
+f<br>
+[&nbsp; 157.735852] RSP: 0018:ffffaa2544243ce0 EFLAGS: 00010246<br>
+[&nbsp; 157.741077] RAX: 0000000000000000 RBX: ffff97e946f60000 RCX:<br>
+0000000000000000<br>
+[&nbsp; 157.748202] RDX: 0000000000000027 RSI: ffffffff976655a0 RDI:<br>
+ffff97e946f60000<br>
+[&nbsp; 157.755326] RBP: 0000000000000000 R08: 0000000000000000 R09:<br>
+0000000000000002<br>
+[&nbsp; 157.762459] R10: ffffaa2544243ba0 R11: 38a79ac3ec19edd5 R12:<br>
+ffff97e946f75088<br>
+[&nbsp; 157.769608] R13: 000000000000000a R14: ffff97e946f75128 R15:<br>
+0000000000000001<br>
+[&nbsp; 157.776741] FS:&nbsp; 0000000000000000(0000) GS:ffff97e94f800000(00=
+00)<br>
+knlGS:0000000000000000<br>
+[&nbsp; 157.784827] CS:&nbsp; 0010 DS: 0000 ES: 0000 CR0: 0000000080050033<=
+br>
+[&nbsp; 157.790564] CR2: 0000000000000050 CR3: 00000008083e6003 CR4:<br>
+00000000001606f0<br>
+[&nbsp; 157.797696] Call Trace:<br>
+[&nbsp; 157.800184]&nbsp; soc15_asic_reset&#43;0x81/0x1f0 [amdgpu]<br>
+[&nbsp; 157.804936]&nbsp; amdgpu_device_init&#43;0xcf1/0x1800 [amdgpu]<br>
+[&nbsp; 157.809993]&nbsp; ? rcu_read_lock_sched_held&#43;0x74/0x80<br>
+[&nbsp; 157.814734]&nbsp; amdgpu_driver_load_kms&#43;0x65/0x270 [amdgpu]<br=
+>
+<br>
+Thanks.<br>
+<br>
+Regards,<br>
+Amber<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
+top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-n=
+ot-send=3D"true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>=
+<br>
+</div>
+</span></font></div>
+</blockquote>
+<br>
+</body>
+</html>
+
+--_000_0963a798caaf435608aa447d22e84dc6amdcom_--
+
+--===============2053042946==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2053042946==--
