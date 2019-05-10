@@ -1,45 +1,51 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][next] drm/amdgpu: fix return of an uninitialized value in variable ret
-Date: Fri, 10 May 2019 11:08:42 +0100
-Message-ID: <20190510100842.30458-1-colin.king@canonical.com>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: Re: [PATCH][next] drm/amdgpu: fix return of an uninitialized value
+ in variable ret
+Date: Fri, 10 May 2019 14:16:23 +0300
+Message-ID: <20190510111623.GC18105@kadam>
+References: <20190510100842.30458-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20190510100842.30458-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Cc: David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-From: Colin Ian King <colin.king@canonical.com>
-
-In the case where is_enable is false and lo_base_addr is non-zero the
-variable ret has not been initialized and is being checked for non-zero
-and potentially garbage is being returned. Fix this by not returning
-ret but instead returning -EINVAL on the zero lo_base_addr case.
-
-Addresses-Coverity: ("Uninitialized scalar variable")
-Fixes: a6ac0b44bab9 ("drm/amdgpu: add df perfmon regs and funcs for xgmi")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-index a5c3558869fb..8c09bf994acd 100644
---- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-+++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-@@ -398,10 +398,7 @@ static int df_v3_6_start_xgmi_link_cntr(struct amdgpu_device *adev,
- 				NULL);
- 
- 		if (lo_base_addr == 0)
--			ret = -EINVAL;
--
--		if (ret)
--			return ret;
-+			return -EINVAL;
- 
- 		lo_val = RREG32_PCIE(lo_base_addr);
- 
--- 
-2.20.1
+T24gRnJpLCBNYXkgMTAsIDIwMTkgYXQgMTE6MDg6NDJBTSArMDEwMCwgQ29saW4gS2luZyB3cm90
+ZToKPiBGcm9tOiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0BjYW5vbmljYWwuY29tPgo+IAo+
+IEluIHRoZSBjYXNlIHdoZXJlIGlzX2VuYWJsZSBpcyBmYWxzZSBhbmQgbG9fYmFzZV9hZGRyIGlz
+IG5vbi16ZXJvIHRoZQo+IHZhcmlhYmxlIHJldCBoYXMgbm90IGJlZW4gaW5pdGlhbGl6ZWQgYW5k
+IGlzIGJlaW5nIGNoZWNrZWQgZm9yIG5vbi16ZXJvCj4gYW5kIHBvdGVudGlhbGx5IGdhcmJhZ2Ug
+aXMgYmVpbmcgcmV0dXJuZWQuIEZpeCB0aGlzIGJ5IG5vdCByZXR1cm5pbmcKPiByZXQgYnV0IGlu
+c3RlYWQgcmV0dXJuaW5nIC1FSU5WQUwgb24gdGhlIHplcm8gbG9fYmFzZV9hZGRyIGNhc2UuCj4g
+Cj4gQWRkcmVzc2VzLUNvdmVyaXR5OiAoIlVuaW5pdGlhbGl6ZWQgc2NhbGFyIHZhcmlhYmxlIikK
+PiBGaXhlczogYTZhYzBiNDRiYWI5ICgiZHJtL2FtZGdwdTogYWRkIGRmIHBlcmZtb24gcmVncyBh
+bmQgZnVuY3MgZm9yIHhnbWkiKQo+IFNpZ25lZC1vZmYtYnk6IENvbGluIElhbiBLaW5nIDxjb2xp
+bi5raW5nQGNhbm9uaWNhbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2RmX3YzXzYuYyB8IDUgKy0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCA0
+IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9kZl92M182LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmMKPiBpbmRl
+eCBhNWMzNTU4ODY5ZmIuLjhjMDliZjk5NGFjZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9kZl92M182LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9kZl92M182LmMKPiBAQCAtMzk4LDEwICszOTgsNyBAQCBzdGF0aWMgaW50IGRmX3YzXzZfc3Rh
+cnRfeGdtaV9saW5rX2NudHIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gIAkJCQlOVUxM
+KTsKPiAgCj4gIAkJaWYgKGxvX2Jhc2VfYWRkciA9PSAwKQo+IC0JCQlyZXQgPSAtRUlOVkFMOwo+
+IC0KPiAtCQlpZiAocmV0KQo+IC0JCQlyZXR1cm4gcmV0Owo+ICsJCQlyZXR1cm4gLUVJTlZBTDsK
+CkZyb20gYSBuYWl2ZSByZWFkaW5nIG9mIHRoZSBjb2RlIHdpdGhvdXQga25vd2luZyB0aGUgaGFy
+ZHdhcmUgc3BlYyB0aGVuCnlvdSB3b3VsZCBwcm9iYWJseSB0aGluayB0aGF0IGxvX2Jhc2VfYWRk
+ciBjYW4gYWxzbyBiZSB1bmluaXRpYWxpemVkLgoKPHNhZCBmYWNlIGVtb2ppPgoKcmVnYXJkcywK
+ZGFuIGNhcnBlbnRlcgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
