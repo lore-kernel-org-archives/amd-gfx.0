@@ -1,108 +1,45 @@
-From: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: avoid duplicated tmo report on same job
-Date: Fri, 10 May 2019 10:01:17 +0000
-Message-ID: <DM6PR12MB3305BCB914F1A80B99AFC6CD840C0@DM6PR12MB3305.namprd12.prod.outlook.com>
-References: <1557472668-12462-1-git-send-email-Monk.Liu@amd.com>
- <DM6PR12MB3305DCE921FE18B7C909C3C5840C0@DM6PR12MB3305.namprd12.prod.outlook.com>
- <c1c9ec0a-6d11-849b-80a3-5d0d35b06dcd@amd.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu: fix return of an uninitialized value in variable ret
+Date: Fri, 10 May 2019 11:08:42 +0100
+Message-ID: <20190510100842.30458-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <c1c9ec0a-6d11-849b-80a3-5d0d35b06dcd-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2hyaXN0aWFuLA0KDQpXb3VsZCB5b3VyIGFwcHJvYWNoIGxlYXZlIHRoZSBnbG9iYWwgcXVldWUg
-KHdoaWNoIGhvbGRzIFREUiB3b3JrKSBzdHVjayB0aGVyZSBhbmQgb3RoZXIgd29yayBpdGVtIG5l
-dmVyIGdldCBoYW5kbGVkID8NCg0KL01vbmsNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-CkZyb206IEtvZW5pZywgQ2hyaXN0aWFuIA0KU2VudDogRnJpZGF5LCBNYXkgMTAsIDIwMTkgNDo1
-OCBQTQ0KVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBhdm9pZCBkdXBs
-aWNhdGVkIHRtbyByZXBvcnQgb24gc2FtZSBqb2INCg0KSGkgTW9uaywNCg0KeWVhaCwgdGhhdCdz
-IG11Y2ggY2xvc2VyIHRvIHdoYXQgSSBoYWQgaW4gbWluZC4gQnV0IHlvdXIgY29tbWVudHMgZ290
-IG1lIHRoaW5raW5nIG1vcmUgYWJvdXQgdGhpcy4NCg0KV2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQg
-Y2hhbmdpbmcgYW1kZ3B1X2pvYl90aW1lZG91dCgpIGxpa2UgdGhpczoNCiDCoMKgwqDCoMKgwqDC
-oCBpZiAoYW1kZ3B1X2RldmljZV9zaG91bGRfcmVjb3Zlcl9ncHUocmluZy0+YWRldikpDQogwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFtZGdwdV9kZXZpY2VfZ3B1X3JlY292ZXIocmlu
-Zy0+YWRldiwgam9iKTsNCivCoMKgwqDCoCBlbHNlDQorwqAgwqDCoMKgIMKgwqDCoCDCoMKgwqAg
-ZG1hX2ZlbmNlX3dhaXQoc19qb2ItPnNfZmVuY2UtPnBhcmVudCk7DQoNCg0KVGhpcyB3YXkgd2Ug
-d291bGQgYmxvY2sgdGhlIHRpbWVvdXQgd29ya2VyIHVudGlsIHdlIGFyZSBlaXRoZXIgbWFudWFs
-bHkgcmVzZXR0aW5nIHVzaW5nIGRlYnVnZnMgb3IgdW5sb2FkaW5nIHRoZSBkcml2ZXIuDQoNClJl
-Z2FyZHMsDQpDaHJpc3RpYW4uDQoNCkFtIDEwLjA1LjE5IHVtIDA5OjE5IHNjaHJpZWIgTGl1LCBN
-b25rOg0KPiBIaSBDaHJpc3RpYW4sDQo+DQo+IFdoYXQgYWJvdXQgdGhpcyBvbmUsIG5vIHRpbWVy
-IGxvZ2ljIGNoYW5nZSBvbiBzY2hlZHVsZXIgcGFydCwgb25seSB0aGUgDQo+IGR1cGxpY2F0ZWQg
-dG1vIHJlcG9ydCBpcyBtdXRlZA0KPg0KPiAvTW9uaw0KPg0KPiAtLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnPiBPbiBCZWhhbGYgT2YgDQo+IE1vbmsgTGl1DQo+IFNlbnQ6IEZyaWRheSwgTWF5IDEw
-LCAyMDE5IDM6MTggUE0NCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENj
-OiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2Ft
-ZGdwdTogYXZvaWQgZHVwbGljYXRlZCB0bW8gcmVwb3J0IG9uIHNhbWUgam9iDQo+DQo+IFtDQVVU
-SU9OOiBFeHRlcm5hbCBFbWFpbF0NCj4NCj4gU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsu
-TGl1QGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYyB8ICAzICstLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9qb2IuYyAgICB8IDEyICsrKysrKysrKysrLQ0KPiAgIGluY2x1ZGUvZHJtL2dwdV9zY2hlZHVs
-ZXIuaCAgICAgICAgICAgICAgICB8ICAxICsNCj4gICAzIGZpbGVzIGNoYW5nZWQsIDEzIGluc2Vy
-dGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGluZGV4IGQ2Mjg2ZWQuLmYxZGMwYmEgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gQEAgLTMzNTYs
-OCArMzM1Niw3IEBAIGJvb2wgYW1kZ3B1X2RldmljZV9zaG91bGRfcmVjb3Zlcl9ncHUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgICAgICAgIHJldHVybiB0cnVlOw0KPg0KPiAgIGRp
-c2FibGVkOg0KPiAtICAgICAgICAgICAgICAgRFJNX0lORk8oIkdQVSByZWNvdmVyeSBkaXNhYmxl
-ZC5cbiIpOw0KPiAtICAgICAgICAgICAgICAgcmV0dXJuIGZhbHNlOw0KPiArICAgICAgIHJldHVy
-biBmYWxzZTsNCj4gICB9DQo+DQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfam9iLmMgDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2pvYi5jDQo+IGluZGV4IDEzOTc5NDIuLmNhNjIyNTMgMTAwNjQ0DQo+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfam9iLmMNCj4gQEAgLTMzLDYgKzMzLDcgQEAgc3RhdGljIHZv
-aWQgYW1kZ3B1X2pvYl90aW1lZG91dChzdHJ1Y3QgZHJtX3NjaGVkX2pvYiAqc19qb2IpDQo+ICAg
-ICAgICAgIHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyA9IHRvX2FtZGdwdV9yaW5nKHNfam9iLT5z
-Y2hlZCk7DQo+ICAgICAgICAgIHN0cnVjdCBhbWRncHVfam9iICpqb2IgPSB0b19hbWRncHVfam9i
-KHNfam9iKTsNCj4gICAgICAgICAgc3RydWN0IGFtZGdwdV90YXNrX2luZm8gdGk7DQo+ICsgICAg
-ICAgYm9vbCByZWNvdmVyOw0KPg0KPiAgICAgICAgICBtZW1zZXQoJnRpLCAwLCBzaXplb2Yoc3Ry
-dWN0IGFtZGdwdV90YXNrX2luZm8pKTsNCj4NCj4gQEAgLTQyLDYgKzQzLDExIEBAIHN0YXRpYyB2
-b2lkIGFtZGdwdV9qb2JfdGltZWRvdXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9iKQ0KPiAg
-ICAgICAgICAgICAgICAgIHJldHVybjsNCj4gICAgICAgICAgfQ0KPg0KPiArICAgICAgIHJlY292
-ZXIgPSBhbWRncHVfZGV2aWNlX3Nob3VsZF9yZWNvdmVyX2dwdShyaW5nLT5hZGV2KTsNCj4gKyAg
-ICAgICBpZiAoc19qb2ItPnNjaGVkLT5sYXN0X3Rtb19pZCA9PSBzX2pvYi0+aWQpDQo+ICsgICAg
-ICAgICAgICAgICBnb3RvIHNraXBfcmVwb3J0Ow0KPiArDQo+ICsgICAgICAgc19qb2ItPnNjaGVk
-LT5sYXN0X3Rtb19pZCA9IHNfam9iLT5pZDsNCj4gICAgICAgICAgYW1kZ3B1X3ZtX2dldF90YXNr
-X2luZm8ocmluZy0+YWRldiwgam9iLT5wYXNpZCwgJnRpKTsNCj4gICAgICAgICAgRFJNX0VSUk9S
-KCJyaW5nICVzIHRpbWVvdXQsIHNpZ25hbGVkIHNlcT0ldSwgZW1pdHRlZCBzZXE9JXVcbiIsDQo+
-ICAgICAgICAgICAgICAgICAgICBqb2ItPmJhc2Uuc2NoZWQtPm5hbWUsIA0KPiBhdG9taWNfcmVh
-ZCgmcmluZy0+ZmVuY2VfZHJ2Lmxhc3Rfc2VxKSwNCj4gQEAgLTQ5LDcgKzU1LDExIEBAIHN0YXRp
-YyB2b2lkIGFtZGdwdV9qb2JfdGltZWRvdXQoc3RydWN0IGRybV9zY2hlZF9qb2IgKnNfam9iKQ0K
-PiAgICAgICAgICBEUk1fRVJST1IoIlByb2Nlc3MgaW5mb3JtYXRpb246IHByb2Nlc3MgJXMgcGlk
-ICVkIHRocmVhZCAlcyBwaWQgJWRcbiIsDQo+ICAgICAgICAgICAgICAgICAgICB0aS5wcm9jZXNz
-X25hbWUsIHRpLnRnaWQsIHRpLnRhc2tfbmFtZSwgdGkucGlkKTsNCj4NCj4gLSAgICAgICBpZiAo
-YW1kZ3B1X2RldmljZV9zaG91bGRfcmVjb3Zlcl9ncHUocmluZy0+YWRldikpDQo+ICsgICAgICAg
-aWYgKCFyZWNvdmVyKQ0KPiArICAgICAgICAgICAgICAgRFJNX0lORk8oIkdQVSByZWNvdmVyeSBk
-aXNhYmxlZC5cbiIpOw0KPiArDQo+ICtza2lwX3JlcG9ydDoNCj4gKyAgICAgICBpZiAocmVjb3Zl
-cikNCj4gICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHJpbmctPmFk
-ZXYsIGpvYik7ICB9DQo+DQo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVy
-LmggYi9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggDQo+IGluZGV4IDljMmE5NTcuLjE5NDRk
-MjcgMTAwNjQ0DQo+IC0tLSBhL2luY2x1ZGUvZHJtL2dwdV9zY2hlZHVsZXIuaA0KPiArKysgYi9p
-bmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgNCj4gQEAgLTI4Miw2ICsyODIsNyBAQCBzdHJ1Y3Qg
-ZHJtX2dwdV9zY2hlZHVsZXIgew0KPiAgICAgICAgICBpbnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGhhbmdfbGltaXQ7DQo+ICAgICAgICAgIGF0b21pY190ICAgICAgICAgICAgICAgICAg
-ICAgICAgbnVtX2pvYnM7DQo+ICAgICAgICAgIGJvb2wgICAgICAgICAgICAgICAgICAgIHJlYWR5
-Ow0KPiArICAgICAgIHVpbnQ2NF90IGxhc3RfdG1vX2lkOw0KPiAgIH07DQo+DQo+ICAgaW50IGRy
-bV9zY2hlZF9pbml0KHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQsDQo+IC0tDQo+IDIu
-Ny40DQo+DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-DQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-DQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+From: Colin Ian King <colin.king@canonical.com>
+
+In the case where is_enable is false and lo_base_addr is non-zero the
+variable ret has not been initialized and is being checked for non-zero
+and potentially garbage is being returned. Fix this by not returning
+ret but instead returning -EINVAL on the zero lo_base_addr case.
+
+Addresses-Coverity: ("Uninitialized scalar variable")
+Fixes: a6ac0b44bab9 ("drm/amdgpu: add df perfmon regs and funcs for xgmi")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+index a5c3558869fb..8c09bf994acd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+@@ -398,10 +398,7 @@ static int df_v3_6_start_xgmi_link_cntr(struct amdgpu_device *adev,
+ 				NULL);
+ 
+ 		if (lo_base_addr == 0)
+-			ret = -EINVAL;
+-
+-		if (ret)
+-			return ret;
++			return -EINVAL;
+ 
+ 		lo_val = RREG32_PCIE(lo_base_addr);
+ 
+-- 
+2.20.1
