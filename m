@@ -1,55 +1,50 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH][next] drm/amdgpu: fix return of an uninitialized value
- in variable ret
-Date: Fri, 10 May 2019 18:37:00 -0700
-Message-ID: <20190511013700.GA3530@archlinux-i9>
-References: <20190510100842.30458-1-colin.king@canonical.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH] drm/amd/display: Make two functions static
+Date: Sat, 11 May 2019 10:17:37 +0800
+Message-ID: <20190511021737.8796-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190510100842.30458-1-colin.king@canonical.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, fatemeh.darbehani@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Fri, May 10, 2019 at 11:08:42AM +0100, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> In the case where is_enable is false and lo_base_addr is non-zero the
-> variable ret has not been initialized and is being checked for non-zero
-> and potentially garbage is being returned. Fix this by not returning
-> ret but instead returning -EINVAL on the zero lo_base_addr case.
-> 
-> Addresses-Coverity: ("Uninitialized scalar variable")
-> Fixes: a6ac0b44bab9 ("drm/amdgpu: add df perfmon regs and funcs for xgmi")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Fix sparse warning:
 
-Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_clk_mgr.c:260:5:
+ warning: symbol 'dcn10_set_dispclk' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_clk_mgr.c:286:5:
+ warning: symbol 'dcn10_set_dprefclk' was not declared. Should it be static?
 
-This fixes a clang warning complaining about the same thing.
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_clk_mgr.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 5 +----
->  1 file changed, 1 insertion(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> index a5c3558869fb..8c09bf994acd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> @@ -398,10 +398,7 @@ static int df_v3_6_start_xgmi_link_cntr(struct amdgpu_device *adev,
->  				NULL);
->  
->  		if (lo_base_addr == 0)
-> -			ret = -EINVAL;
-> -
-> -		if (ret)
-> -			return ret;
-> +			return -EINVAL;
->  
->  		lo_val = RREG32_PCIE(lo_base_addr);
->  
-> -- 
-> 2.20.1
-> 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_clk_mgr.c
+index 9f2ffce..ae8c40c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_clk_mgr.c
+@@ -257,7 +257,8 @@ static void dcn1_update_clocks(struct clk_mgr *clk_mgr,
+ #define VBIOSSMC_MSG_SetDispclkFreq           0x4
+ #define VBIOSSMC_MSG_SetDprefclkFreq          0x5
+ 
+-int dcn10_set_dispclk(struct clk_mgr *clk_mgr_base, int requested_dispclk_khz)
++static int dcn10_set_dispclk(struct clk_mgr *clk_mgr_base,
++			     int requested_dispclk_khz)
+ {
+ 	int actual_dispclk_set_khz = -1;
+ 	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr_base);
+@@ -283,7 +284,7 @@ int dcn10_set_dispclk(struct clk_mgr *clk_mgr_base, int requested_dispclk_khz)
+ 
+ }
+ 
+-int dcn10_set_dprefclk(struct clk_mgr *clk_mgr_base)
++static int dcn10_set_dprefclk(struct clk_mgr *clk_mgr_base)
+ {
+ 	int actual_dprefclk_set_khz = -1;
+ 	struct dce_clk_mgr *clk_mgr_dce = TO_DCE_CLK_MGR(clk_mgr_base);
+-- 
+2.7.4
