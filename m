@@ -1,13 +1,10 @@
-From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix -Wswitch warning due to missing of
- default case
-Date: Sun, 12 May 2019 10:37:20 +0000
-Message-ID: <DM6PR12MB3627832DE2D94147A5EF2946890E0@DM6PR12MB3627.namprd12.prod.outlook.com>
+From: Daniel Kasak <d.j.kasak.dk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Hard lockups with ROCM
+Date: Mon, 13 May 2019 11:44:11 +1000
+Message-ID: <CAF73Y=QuYq3ALtP6xiPyqS+jm_TJCQQDyQ+WA5ZJG8EhWSKiTw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0020501746=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,37 +15,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-UmV2aWV3ZWQtYnk6IFhpYW9qaWUgWXVhbiA8eGlhb2ppZS55dWFuQGFtZC5jb20+CgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkZyb206IGFtZC1nZnggPGFtZC1nZngt
-Ym91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFsZiBvZiBIYXdraW5nIFpoYW5n
-IDxIYXdraW5nLlpoYW5nQGFtZC5jb20+ClNlbnQ6IFN1bmRheSwgTWF5IDEyLCAyMDE5IDExOjIw
-IEFNClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogWmhhbmcsIEhhd2tpbmcK
-U3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiBmaXggLVdzd2l0Y2ggd2FybmluZyBkdWUgdG8g
-bWlzc2luZyBvZiBkZWZhdWx0IGNhc2UKCltDQVVUSU9OOiBFeHRlcm5hbCBFbWFpbF0KCkNoYW5n
-ZS1JZDogSTQwZWQ0NDZiOGY3NDMxZWZkNzNlZjA5OTM4ZWM1ZTJiNWFiMDlmMDQKU2lnbmVkLW9m
-Zi1ieTogSGF3a2luZyBaaGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYyB8IDYgKysrKysrCiAxIGZpbGUgY2hhbmdlZCwg
-NiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-ZGZfdjNfNi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGZfdjNfNi5jCmluZGV4IGQy
-YWNmY2NlNzE1MC4uMjAxYzAwNDExNzIwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9kZl92M182LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGZfdjNf
-Ni5jCkBAIC00NzYsNiArNDc2LDggQEAgc3RhdGljIGludCBkZl92M182X3BtY19zdGFydChzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDY0X3QgY29uZmlnLAoKICAgICAgICAgICAgICAg
-IHJldCA9IDA7CgorICAgICAgICAgICAgICAgYnJlYWs7CisgICAgICAgZGVmYXVsdDoKICAgICAg
-ICAgICAgICAgIGJyZWFrOwogICAgICAgIH0KCkBAIC01MDQsNiArNTA2LDggQEAgc3RhdGljIGlu
-dCBkZl92M182X3BtY19zdG9wKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1aW50NjRfdCBj
-b25maWcsCiAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IDA7CgogICAgICAgICAgICAgICAg
-ICAgICAgICBicmVhazsKKyAgICAgICBkZWZhdWx0OgorICAgICAgICAgICAgICAgYnJlYWs7CiAg
-ICAgICAgfQoKICAgICAgICByZXR1cm4gcmV0OwpAQCAtNTI3LDYgKzUzMSw4IEBAIHN0YXRpYyB2
-b2lkIGRmX3YzXzZfcG1jX2dldF9jb3VudChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKICAg
-ICAgICAgICAgICAgICAgICAgICAgZGZfdjNfNl9nZXRfeGdtaV9saW5rX2NudHIoYWRldiwgeGdt
-aV90eF9saW5rLCBjb3VudCk7CiAgICAgICAgICAgICAgICB9CgorICAgICAgICAgICAgICAgYnJl
-YWs7CisgICAgICAgZGVmYXVsdDoKICAgICAgICAgICAgICAgIGJyZWFrOwogICAgICAgIH0KCi0t
-CjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============0020501746==
+Content-Type: multipart/alternative; boundary="00000000000066fa0e0588bb1097"
+
+--00000000000066fa0e0588bb1097
+Content-Type: text/plain; charset="UTF-8"
+
+Hi all. I had version 2.2.0 of the ROCM stack running on a 5.0.x and 5.1.0
+kernel. Things were going great with various boinc GPU tasks. But there is
+a setiathome GPU task which reliably gives me a hard lockup within about 30
+minutes of running. I actually had to do *two* emergency re-installs over
+the past week. Perhaps part of this was my fault ( running btrfs with lzo
+compression on my root partition ... ). But absolutely part of this was the
+hard lockups. I've tested all kinds of other things ( eg rebuilding lots of
+stuff under Gentoo ) ... I don't have a general stability issue even under
+hours of high load. But after restarting boinc with that same setiathome
+task ... <bang>!
+
+If someone wants me to sacrifice another installation, they can point me to
+instructions for trying to gather more information.
+
+Anyway ... perhaps more work around detecting and recovering from GPU
+lockups is in order?
+
+Dan
+
+--00000000000066fa0e0588bb1097
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi all. I had version 2.2.0 of the ROCM stack running=
+ on a 5.0.x and 5.1.0 kernel. Things were going great with various boinc GP=
+U tasks. But there is a setiathome GPU task which reliably gives me a hard =
+lockup within about 30 minutes of running. I actually had to do *two* emerg=
+ency re-installs over the past week. Perhaps part of this was my fault ( ru=
+nning btrfs with lzo compression on my root partition ... ). But absolutely=
+ part of this was the hard lockups. I&#39;ve tested all kinds of other thin=
+gs ( eg rebuilding lots of stuff under Gentoo ) ... I don&#39;t have a gene=
+ral stability issue even under hours of high load. But after restarting boi=
+nc with that same setiathome task ... &lt;bang&gt;!</div><div><br></div><di=
+v>If someone wants me to sacrifice another installation, they can point me =
+to instructions for trying to gather more information.</div><div><br></div>=
+<div>Anyway ... perhaps more work around detecting and recovering from GPU =
+lockups is in order?</div><div><br></div><div>Dan<br></div></div>
+
+--00000000000066fa0e0588bb1097--
+
+--===============0020501746==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0020501746==--
