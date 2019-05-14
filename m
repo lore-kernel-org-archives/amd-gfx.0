@@ -1,14 +1,17 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: support sw smu hotspot and memory
- temperature retrieval
-Date: Tue, 14 May 2019 14:20:16 +0000
-Message-ID: <BN6PR12MB180993535A9C4563EBAA66B6F7080@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190514111922.21780-1-evan.quan@amd.com>,
- <20190514111922.21780-2-evan.quan@amd.com>
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 2/2] drm/amd/powerplay: Enable "disable dpm" feature for
+ vega20 power functions.
+Date: Tue, 14 May 2019 14:26:37 +0000
+Message-ID: <BYAPR12MB26321B1B5309A198E0EEA77AFC080@BYAPR12MB2632.namprd12.prod.outlook.com>
+References: <1557478117-17823-1-git-send-email-Jack.Gui@amd.com>
+ <1557478117-17823-2-git-send-email-Jack.Gui@amd.com>
+ <BYAPR12MB263244237A28E226D34F348EFC0E0@BYAPR12MB2632.namprd12.prod.outlook.com>
+ <MN2PR12MB358219B85CA0E1B4B159FB0C8B0F0@MN2PR12MB3582.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0286548877=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190514111922.21780-2-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MN2PR12MB358219B85CA0E1B4B159FB0C8B0F0-rweVpJHSKTr2mYjuiDFEwwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,517 +23,200 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Gui, Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0286548877==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180993535A9C4563EBAA66B6F7080BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180993535A9C4563EBAA66B6F7080BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
-n <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, May 14, 2019 7:19 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Quan, Evan
-Subject: [PATCH 2/2] drm/amd/powerplay: support sw smu hotspot and memory t=
-emperature retrieval
-
-[CAUTION: External Email]
-
-Support hotspot and memory temperature retrieval on sw smu routine.
-
-Change-Id: If2ed1e2835f4b158a4a6d93aee8b358af18b9bfc
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  3 +
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 74 ++++++++++++++++---
- 2 files changed, 66 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/dr=
-m/amd/powerplay/inc/smu_v11_0.h
-index aa8d81f4111e..02c965d64256 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-@@ -36,6 +36,9 @@
- #define smnMP0_FW_INTF                 0x30101c0
- #define smnMP1_PUB_CTRL                        0x3010b14
-
-+#define TEMP_RANGE_MIN                 (0)
-+#define TEMP_RANGE_MAX                 (80 * 1000)
-+
- struct smu_11_0_max_sustainable_clocks {
-        uint32_t display_clock;
-        uint32_t phy_clock;
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c
-index 738ae1d2ef17..0eea93c8dff7 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1011,9 +1011,20 @@ static int smu_v11_0_get_current_clk_freq(struct smu=
-_context *smu, uint32_t clk_
- static int smu_v11_0_get_thermal_range(struct smu_context *smu,
-                                struct PP_TemperatureRange *range)
- {
-+       PPTable_t *pptable =3D smu->smu_table.driver_pptable;
-        memcpy(range, &SMU7ThermalWithDelayPolicy[0], sizeof(struct PP_Temp=
-eratureRange));
-
--       range->max =3D smu->smu_table.software_shutdown_temp *
-+       range->max =3D pptable->TedgeLimit *
-+               PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+       range->edge_emergency_max =3D (pptable->TedgeLimit + CTF_OFFSET_EDG=
-E) *
-+               PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+       range->hotspot_crit_max =3D pptable->ThotspotLimit *
-+               PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+       range->hotspot_emergency_max =3D (pptable->ThotspotLimit + CTF_OFFS=
-ET_HOTSPOT) *
-+               PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+       range->mem_crit_max =3D pptable->ThbmLimit *
-+               PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+       range->mem_emergency_max =3D (pptable->ThbmLimit + CTF_OFFSET_HBM)*
-                PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-
-        return 0;
-@@ -1078,7 +1089,16 @@ static int smu_v11_0_set_thermal_fan_table(struct sm=
-u_context *smu)
- static int smu_v11_0_start_thermal_control(struct smu_context *smu)
- {
-        int ret =3D 0;
--       struct PP_TemperatureRange range;
-+       struct PP_TemperatureRange range =3D {
-+               TEMP_RANGE_MIN,
-+               TEMP_RANGE_MAX,
-+               TEMP_RANGE_MAX,
-+               TEMP_RANGE_MIN,
-+               TEMP_RANGE_MAX,
-+               TEMP_RANGE_MAX,
-+               TEMP_RANGE_MIN,
-+               TEMP_RANGE_MAX,
-+               TEMP_RANGE_MAX};
-        struct amdgpu_device *adev =3D smu->adev;
-
-        smu_v11_0_get_thermal_range(smu, &range);
-@@ -1098,6 +1118,13 @@ static int smu_v11_0_start_thermal_control(struct sm=
-u_context *smu)
-
-        adev->pm.dpm.thermal.min_temp =3D range.min;
-        adev->pm.dpm.thermal.max_temp =3D range.max;
-+       adev->pm.dpm.thermal.max_edge_emergency_temp =3D range.edge_emergen=
-cy_max;
-+       adev->pm.dpm.thermal.min_hotspot_temp =3D range.hotspot_min;
-+       adev->pm.dpm.thermal.max_hotspot_crit_temp =3D range.hotspot_crit_m=
-ax;
-+       adev->pm.dpm.thermal.max_hotspot_emergency_temp =3D range.hotspot_e=
-mergency_max;
-+       adev->pm.dpm.thermal.min_mem_temp =3D range.mem_min;
-+       adev->pm.dpm.thermal.max_mem_crit_temp =3D range.mem_crit_max;
-+       adev->pm.dpm.thermal.max_mem_emergency_temp =3D range.mem_emergency=
-_max;
-
-        return ret;
- }
-@@ -1151,22 +1178,45 @@ static int smu_v11_0_get_current_activity_percent(s=
-truct smu_context *smu,
-        return 0;
- }
-
--static int smu_v11_0_thermal_get_temperature(struct smu_context *smu, uint=
-32_t *value)
-+static int smu_v11_0_thermal_get_temperature(struct smu_context *smu,
-+                                            enum amd_pp_sensors sensor,
-+                                            uint32_t *value)
- {
-        struct amdgpu_device *adev =3D smu->adev;
-+       SmuMetrics_t metrics;
-        uint32_t temp =3D 0;
-+       int ret =3D 0;
-
-        if (!value)
-                return -EINVAL;
-
--       temp =3D RREG32_SOC15(THM, 0, mmCG_MULT_THERMAL_STATUS);
--       temp =3D (temp & CG_MULT_THERMAL_STATUS__CTF_TEMP_MASK) >>
--                       CG_MULT_THERMAL_STATUS__CTF_TEMP__SHIFT;
-+       ret =3D smu_v11_0_get_metrics_table(smu, &metrics);
-+       if (ret)
-+               return ret;
-+
-+       switch (sensor) {
-+       case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
-+               temp =3D RREG32_SOC15(THM, 0, mmCG_MULT_THERMAL_STATUS);
-+               temp =3D (temp & CG_MULT_THERMAL_STATUS__CTF_TEMP_MASK) >>
-+                               CG_MULT_THERMAL_STATUS__CTF_TEMP__SHIFT;
-
--       temp =3D temp & 0x1ff;
--       temp *=3D SMU11_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+               temp =3D temp & 0x1ff;
-+               temp *=3D SMU11_TEMPERATURE_UNITS_PER_CENTIGRADES;
-
--       *value =3D temp;
-+               *value =3D temp;
-+               break;
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-+               *value =3D metrics.TemperatureEdge *
-+                       PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+               break;
-+       case AMDGPU_PP_SENSOR_MEM_TEMP:
-+               *value =3D metrics.TemperatureHBM *
-+                       PP_TEMPERATURE_UNITS_PER_CENTIGRADES;
-+               break;
-+       default:
-+               pr_err("Invalid sensor for retrieving temp\n");
-+               return -EINVAL;
-+       }
-
-        return 0;
- }
-@@ -1235,8 +1285,10 @@ static int smu_v11_0_read_sensor(struct smu_context =
-*smu,
-                ret =3D smu_get_current_clk_freq(smu, PPCLK_GFXCLK, (uint32=
-_t *)data);
-                *size =3D 4;
-                break;
--       case AMDGPU_PP_SENSOR_GPU_TEMP:
--               ret =3D smu_v11_0_thermal_get_temperature(smu, (uint32_t *)=
-data);
-+       case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-+       case AMDGPU_PP_SENSOR_MEM_TEMP:
-+               ret =3D smu_v11_0_thermal_get_temperature(smu, sensor, (uin=
-t32_t *)data);
-                *size =3D 4;
-                break;
-        case AMDGPU_PP_SENSOR_GPU_POWER:
---
-2.21.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180993535A9C4563EBAA66B6F7080BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
-<b>Sent:</b> Tuesday, May 14, 2019 7:19 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Quan, Evan<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/powerplay: support sw smu hotspot and m=
-emory temperature retrieval</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[CAUTION: External Email]<br>
-<br>
-Support hotspot and memory temperature retrieval on sw smu routine.<br>
-<br>
-Change-Id: If2ed1e2835f4b158a4a6d93aee8b358af18b9bfc<br>
-Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |&nbsp; 3 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp; | 7=
-4 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;---<br>
-&nbsp;2 files changed, 66 insertions(&#43;), 11 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/dr=
-m/amd/powerplay/inc/smu_v11_0.h<br>
-index aa8d81f4111e..02c965d64256 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h<br>
-@@ -36,6 &#43;36,9 @@<br>
-&nbsp;#define smnMP0_FW_INTF&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x30101c0<br>
-&nbsp;#define smnMP1_PUB_CTRL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; 0x3010b14<br>
-<br>
-&#43;#define TEMP_RANGE_MIN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (0)<br>
-&#43;#define TEMP_RANGE_MAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (80 * 1000)<br>
-&#43;<br>
-&nbsp;struct smu_11_0_max_sustainable_clocks {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t display_clock;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t phy_clock;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c<br>
-index 738ae1d2ef17..0eea93c8dff7 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-@@ -1011,9 &#43;1011,20 @@ static int smu_v11_0_get_current_clk_freq(struct=
- smu_context *smu, uint32_t clk_<br>
-&nbsp;static int smu_v11_0_get_thermal_range(struct smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_TemperatureRange *range)<br>
-&nbsp;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D smu-&gt;sm=
-u_table.driver_pptable;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(range, &amp;SMU7ThermalWi=
-thDelayPolicy[0], sizeof(struct PP_TemperatureRange));<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;max =3D smu-&gt;smu_table.s=
-oftware_shutdown_temp *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;max =3D pptable-&gt;Ted=
-geLimit *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; PP_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;edge_emergency_max =3D =
-(pptable-&gt;TedgeLimit &#43; CTF_OFFSET_EDGE) *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; PP_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;hotspot_crit_max =3D pp=
-table-&gt;ThotspotLimit *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; PP_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;hotspot_emergency_max =
-=3D (pptable-&gt;ThotspotLimit &#43; CTF_OFFSET_HOTSPOT) *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; PP_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;mem_crit_max =3D pptabl=
-e-&gt;ThbmLimit *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; PP_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; range-&gt;mem_emergency_max =3D (=
-pptable-&gt;ThbmLimit &#43; CTF_OFFSET_HBM)*<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; PP_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-@@ -1078,7 &#43;1089,16 @@ static int smu_v11_0_set_thermal_fan_table(struc=
-t smu_context *smu)<br>
-&nbsp;static int smu_v11_0_start_thermal_control(struct smu_context *smu)<b=
-r>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_TemperatureRange range;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct PP_TemperatureRange range =
-=3D {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MIN,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MAX,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MAX,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MIN,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MAX,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MAX,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MIN,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MAX,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; TEMP_RANGE_MAX};<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D s=
-mu-&gt;adev;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_v11_0_get_thermal_range(smu,=
- &amp;range);<br>
-@@ -1098,6 &#43;1118,13 @@ static int smu_v11_0_start_thermal_control(struc=
-t smu_context *smu)<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_temp=
- =3D range.min;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_temp=
- =3D range.max;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_edge_=
-emergency_temp =3D range.edge_emergency_max;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_hotsp=
-ot_temp =3D range.hotspot_min;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_hotsp=
-ot_crit_temp =3D range.hotspot_crit_max;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_hotsp=
-ot_emergency_temp =3D range.hotspot_emergency_max;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.min_mem_t=
-emp =3D range.mem_min;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_mem_c=
-rit_temp =3D range.mem_crit_max;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.dpm.thermal.max_mem_e=
-mergency_temp =3D range.mem_emergency_max;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-@@ -1151,22 &#43;1178,45 @@ static int smu_v11_0_get_current_activity_perce=
-nt(struct smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-<br>
--static int smu_v11_0_thermal_get_temperature(struct smu_context *smu, uint=
-32_t *value)<br>
-&#43;static int smu_v11_0_thermal_get_temperature(struct smu_context *smu,<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pp_sensors sensor,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *value)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D s=
-mu-&gt;adev;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t temp =3D 0;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!value)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return -EINVAL;<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D RREG32_SOC15(THM, 0, mmCG_MU=
-LT_THERMAL_STATUS);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D (temp &amp; CG_MULT_THERMAL_=
-STATUS__CTF_TEMP_MASK) &gt;&gt;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CG_MULT_THERMAL_=
-STATUS__CTF_TEMP__SHIFT;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_v11_0_get_metrics_tab=
-le(smu, &amp;metrics);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return ret;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_HOTSPOT_TEM=
-P:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; temp =3D RREG32_SOC15(THM, 0, mmCG_MULT_THERMAL_STATUS);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; temp =3D (temp &amp; CG_MULT_THERMAL_STATUS__CTF_TEMP_MASK) =
-&gt;&gt;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CG_MULT_THERMAL_STATUS__CTF_TEMP__SHIFT=
-;<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp =3D temp &amp; 0x1ff;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; temp *=3D SMU11_TEMPERATURE_UNITS_PER=
-_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; temp =3D temp &amp; 0x1ff;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; temp *=3D SMU11_TEMPERATURE_UNITS_PER_CENTIGRADES;<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D temp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; *value =3D temp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; *value =3D metrics.TemperatureEdge *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_TEMPERATU=
-RE_UNITS_PER_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MEM_TEMP:<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; *value =3D metrics.TemperatureHBM *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PP_TEMPERATU=
-RE_UNITS_PER_CENTIGRADES;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; pr_err(&quot;Invalid sensor for retrieving temp\n&quot;);<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-@@ -1235,8 &#43;1285,10 @@ static int smu_v11_0_read_sensor(struct smu_cont=
-ext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; ret =3D smu_get_current_clk_freq(smu, PPCLK_GFXCLK, (uint32=
-_t *)data);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_TEMP:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ret =3D smu_v11_0_thermal_get_temperature(smu, (uint32_t *)data)=
-;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_HOTSPOT_TEM=
-P:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MEM_TEMP:<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D smu_v11_0_thermal_get_temperature(smu, sensor, (uint=
-32_t *)data);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_POWER:=
-<br>
---<br>
-2.21.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180993535A9C4563EBAA66B6F7080BN6PR12MB1809namp_--
-
---===============0286548877==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0286548877==--
+SGkgSmFjaywNCg0KTGV0J3MgaG9sZCBvbiBwYXRjaCAjMiBmb3Igbm93LiBJJ2QgcHJlZmVyIHRv
+IGdyYWNlZnVsbHkgZGVhbCB3aXRoIGRwbV9kaXNhYmxlZCBpbiBhbWRncHVfcG0gaW50ZXJmYWNl
+IGxldmVsIChvciBhdCBsZWFzdCBhbWRncHVfc211IGxldmVsKSBzbyB0aGF0IHdlIGRvbid0IG5l
+ZWQgdG8gbWFpbnRhaW4gdGhlIGNhc2UgZm9yIGVhY2ggQVNJQyBzaW5jZSBwcHQgaXMgYXNpYyBz
+cGVjaWZpYyBvbmVzLiANCg0KUmVnYXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2Fn
+ZS0tLS0tDQpGcm9tOiBHdWksIEphY2sgPEphY2suR3VpQGFtZC5jb20+IA0KU2VudDogMjAxOeW5
+tDXmnIgxM+aXpSAxMToyNg0KVG86IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5j
+b20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogUkU6IFtQQVRDSCAy
+LzJdIGRybS9hbWQvcG93ZXJwbGF5OiBFbmFibGUgImRpc2FibGUgZHBtIiBmZWF0dXJlIGZvciB2
+ZWdhMjAgcG93ZXIgZnVuY3Rpb25zLg0KDQpIaSBIYXdraW5nLA0KDQpJZiBubyBvdGhlciB0b29s
+cyAoc3lzZnMgaW5mZXJmYWNlcyBoYXZlIGJlZW4gY29udHJvbGxlZCBieSBhZGV2LT5kcG1fZW5h
+YmxlZCkgZGlyZWN0bHkgdXNlIHRoZSBwcHQgZnVuY3RzLCBQQVRDSFsxLzJdIGNhbiBjb3ZlciBh
+bGwgdGhlIGNhc2VzIG5vdywgUEFUQ0hbMi8yXSBjYW4gYmUgZHJvcHBlZC4NCg0KQlIsDQpKYWNr
+IEd1aQ0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogWmhhbmcsIEhhd2tpbmcg
+PEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4gDQpTZW50OiBTdW5kYXksIE1heSAxMiwgMjAxOSAxMTox
+OCBBTQ0KVG86IEd1aSwgSmFjayA8SmFjay5HdWlAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnDQpDYzogR3VpLCBKYWNrIDxKYWNrLkd1aUBhbWQuY29tPg0KU3ViamVjdDog
+UkU6IFtQQVRDSCAyLzJdIGRybS9hbWQvcG93ZXJwbGF5OiBFbmFibGUgImRpc2FibGUgZHBtIiBm
+ZWF0dXJlIGZvciB2ZWdhMjAgcG93ZXIgZnVuY3Rpb25zLg0KDQpJJ20gd29uZGVyaW5nIHdoZXRo
+ZXIgd2UgYXJlIGFibGUgdG8gaGFuZGxlIGFsbCBhc2ljIHNwZWNpZmljIHBwdCBmdW5jdGlvbiBn
+cmFjZWZ1bGx5LiBBZGQgcG1fZW5hYmxlIGNoZWNrIGludG8gcHB0IGZ1bmN0aW9ucyB3b3VsZCBi
+ZSBib3Jpbmcgc2luY2Ugd2UgaGF2ZSB0byBkbyBzaW1pbGFyIGpvYnMgZm9yIGVhY2ggQVNJQy4g
+SW5zdGVhZCwgaXMgaXQgcG9zc2libGUgdG8gcmV0dXJuIGVhcmx5IGZyb20gYW1kZ3B1X3NtdSBp
+bnRlcmZhY2UgbGV2ZWw/IA0KDQpUYWtlIHNtdV9oYW5kbGVfdGFzayBmb3IgdGhlIGV4YW1wbGUs
+IGFsbCB0aGUgYW1kZ3B1X3NtdSBsZXZlbCBpbnRlcmZhY2UgaW52b2tlZCBmcm9tIHRoaXMgZnVu
+Y3Rpb24gY291bGQgYmUgc3RvcHBlZCBpZiB3ZSBjaGVjayBzbXUgcG1fZW5hYmxlIGZsYWcgYXQg
+dGhlIGJlZ2lubmluZyBvZiBzbXVfaGFuZGxlX3Rhc2suIFdlIHByb2JhYmx5IGhhdmUgYmV0dGVy
+IGFwcHJvYWNoIHRvIGVsaW1pbmF0ZSB0aGlzIHBhdGNoLg0KDQpSZWdhcmRzLA0KSGF3a2luZyAN
+Cg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGFtZC1nZnggPGFtZC1nZngtYm91
+bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBDaGVuZ21pbmcgR3VpDQpT
+ZW50OiAyMDE55bm0NeaciDEw5pelIDE2OjQ5DQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcNCkNjOiBHdWksIEphY2sgPEphY2suR3VpQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0gg
+Mi8yXSBkcm0vYW1kL3Bvd2VycGxheTogRW5hYmxlICJkaXNhYmxlIGRwbSIgZmVhdHVyZSBmb3Ig
+dmVnYTIwIHBvd2VyIGZ1bmN0aW9ucy4NCg0KW0NBVVRJT046IEV4dGVybmFsIEVtYWlsXQ0KDQp1
+c2UgcG1fZW5hYmxlZCB0byBjb250cm9sIGFsbCBwb3dlciByZWxhdGVkIGZ1bmN0aW9ucyBhYm91
+dCB2ZWdhMjAuDQoNClNpZ25lZC1vZmYtYnk6IENoZW5nbWluZyBHdWkgPEphY2suR3VpQGFtZC5j
+b20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMgfCA0
+OCArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgMzggaW5z
+ZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
+cGxheS92ZWdhMjBfcHB0LmMNCmluZGV4IDhmYWZjYmQuLjdmYWE2YTEgMTAwNjQ0DQotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMNCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYw0KQEAgLTQxMSw3ICs0MTEsOCBAQCBh
+bWRfcG1fc3RhdGVfdHlwZSB2ZWdhMjBfZ2V0X2N1cnJlbnRfcG93ZXJfc3RhdGUoc3RydWN0IHNt
+dV9jb250ZXh0ICpzbXUpDQogICAgICAgIGVudW0gYW1kX3BtX3N0YXRlX3R5cGUgcG1fdHlwZTsN
+CiAgICAgICAgc3RydWN0IHNtdV9kcG1fY29udGV4dCAqc211X2RwbV9jdHggPSAmKHNtdS0+c211
+X2RwbSk7DQoNCi0gICAgICAgaWYgKCFzbXVfZHBtX2N0eC0+ZHBtX2NvbnRleHQgfHwNCisgICAg
+ICAgaWYgKCFzbXUtPnBtX2VuYWJsZWQgfHwNCisgICAgICAgICAgICFzbXVfZHBtX2N0eC0+ZHBt
+X2NvbnRleHQgfHwNCiAgICAgICAgICAgICFzbXVfZHBtX2N0eC0+ZHBtX2N1cnJlbnRfcG93ZXJf
+c3RhdGUpDQogICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCkBAIC00OTEsMTIgKzQ5
+MiwxNCBAQCBzdGF0aWMgdm9pZCB2ZWdhMjBfaW5pdF9zaW5nbGVfZHBtX3N0YXRlKHN0cnVjdCB2
+ZWdhMjBfZHBtX3N0YXRlICpkcG1fc3RhdGUpDQoNCiBzdGF0aWMgaW50IHZlZ2EyMF9zZXRfZGVm
+YXVsdF9kcG1fdGFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpICB7DQotICAgICAgIGludCBy
+ZXQ7DQorICAgICAgIGludCByZXQgPSAwOw0KDQogICAgICAgIHN0cnVjdCBzbXVfZHBtX2NvbnRl
+eHQgKnNtdV9kcG0gPSAmc211LT5zbXVfZHBtOw0KICAgICAgICBzdHJ1Y3QgdmVnYTIwX2RwbV90
+YWJsZSAqZHBtX3RhYmxlID0gTlVMTDsNCiAgICAgICAgc3RydWN0IHZlZ2EyMF9zaW5nbGVfZHBt
+X3RhYmxlICpzaW5nbGVfZHBtX3RhYmxlOw0KDQorICAgICAgIGlmIChzbXUtPnBtX2VuYWJsZWQp
+DQorICAgICAgICAgICAgICAgcmV0dXJuIHJldDsNCiAgICAgICAgZHBtX3RhYmxlID0gc211X2Rw
+bS0+ZHBtX2NvbnRleHQ7DQoNCiAgICAgICAgLyogc29jY2xrICovDQpAQCAtNzM4LDYgKzc0MSw4
+IEBAIHN0YXRpYyBpbnQgdmVnYTIwX3ByaW50X2Nsa19sZXZlbHMoc3RydWN0IHNtdV9jb250ZXh0
+ICpzbXUsDQoNCiAgICAgICAgZHBtX3RhYmxlID0gc211X2RwbS0+ZHBtX2NvbnRleHQ7DQoNCisg
+ICAgICAgaWYgKCFzbXUtPnBtX2VuYWJsZWQpDQorICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7DQogICAgICAgIHN3aXRjaCAodHlwZSkgew0KICAgICAgICBjYXNlIFBQX1NDTEs6DQogICAg
+ICAgICAgICAgICAgcmV0ID0gc211X2dldF9jdXJyZW50X2Nsa19mcmVxKHNtdSwgUFBDTEtfR0ZY
+Q0xLLCAmbm93KTsgQEAgLTk2OSw2ICs5NzQsOCBAQCBzdGF0aWMgaW50IHZlZ2EyMF91cGxvYWRf
+ZHBtX2xldmVsKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBib29sIG1heCwNCiAgICAgICAgdWlu
+dDMyX3QgZnJlcTsNCiAgICAgICAgaW50IHJldCA9IDA7DQoNCisgICAgICAgaWYgKCFzbXUtPnBt
+X2VuYWJsZWQpDQorICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQogICAgICAgIGRwbV90
+YWJsZSA9IHNtdS0+c211X2RwbS5kcG1fY29udGV4dDsNCg0KICAgICAgICBpZiAoc211X2ZlYXR1
+cmVfaXNfZW5hYmxlZChzbXUsIEZFQVRVUkVfRFBNX0dGWENMS19CSVQpICYmIEBAIC0xMDU4LDYg
+KzEwNjUsOCBAQCBzdGF0aWMgaW50IHZlZ2EyMF9mb3JjZV9jbGtfbGV2ZWxzKHN0cnVjdCBzbXVf
+Y29udGV4dCAqc211LA0KICAgICAgICBzdHJ1Y3Qgc211X2RwbV9jb250ZXh0ICpzbXVfZHBtID0g
+JnNtdS0+c211X2RwbTsNCiAgICAgICAgaW50IHJldCA9IDA7DQoNCisgICAgICAgaWYgKCFzbXUt
+PnBtX2VuYWJsZWQpDQorICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQogICAgICAgIGlm
+IChzbXVfZHBtLT5kcG1fbGV2ZWwgIT0gQU1EX0RQTV9GT1JDRURfTEVWRUxfTUFOVUFMKSB7DQog
+ICAgICAgICAgICAgICAgcHJfaW5mbygiZm9yY2UgY2xvY2sgbGV2ZWwgaXMgZm9yIGRwbSBtYW51
+YWwgbW9kZSBvbmx5LlxuIik7DQogICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQpAQCAt
+MTIzMiw4ICsxMjQxLDkgQEAgc3RhdGljIGludCB2ZWdhMjBfZ2V0X2Nsb2NrX2J5X3R5cGVfd2l0
+aF9sYXRlbmN5KHN0cnVjdCBzbXVfY29udGV4dCAqc211LA0KDQogICAgICAgIGRwbV90YWJsZSA9
+IHNtdV9kcG0tPmRwbV9jb250ZXh0Ow0KDQorICAgICAgIGlmICghc211LT5wbV9lbmFibGVkKQ0K
+KyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KICAgICAgICBtdXRleF9sb2NrKCZzbXUt
+Pm11dGV4KTsNCi0NCiAgICAgICAgc3dpdGNoICh0eXBlKSB7DQogICAgICAgIGNhc2UgYW1kX3Bw
+X3N5c19jbG9jazoNCiAgICAgICAgICAgICAgICBzaW5nbGVfZHBtX3RhYmxlID0gJihkcG1fdGFi
+bGUtPmdmeF90YWJsZSk7IEBAIC0xMjY1LDYgKzEyNzUsOCBAQCBzdGF0aWMgaW50IHZlZ2EyMF9v
+dmVyZHJpdmVfZ2V0X2dmeF9jbGtfYmFzZV92b2x0YWdlKHN0cnVjdCBzbXVfY29udGV4dCAqc211
+LCAgew0KICAgICAgICBpbnQgcmV0Ow0KDQorICAgICAgIGlmICghc211LT5wbV9lbmFibGVkKQ0K
+KyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KICAgICAgICByZXQgPSBzbXVfc2VuZF9z
+bWNfbXNnX3dpdGhfcGFyYW0oc211LA0KICAgICAgICAgICAgICAgICAgICAgICAgU01VX01TR19H
+ZXRBVkZTVm9sdGFnZUJ5RHBtLA0KICAgICAgICAgICAgICAgICAgICAgICAgKChBVkZTX0NVUlZF
+IDw8IDI0KSB8IChPRDhfSE9UQ1VSVkVfVEVNUEVSQVRVUkUgPDwgMTYpIHwgZnJlcSkpOyBAQCAt
+MTI4Nyw3ICsxMjk5LDcgQEAgc3RhdGljIGludCB2ZWdhMjBfc2V0X2RlZmF1bHRfb2Q4X3NldHR0
+aW5ncyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkNCiAgICAgICAgUFBUYWJsZV90ICpzbWNfcHB0
+YWJsZSA9IHRhYmxlX2NvbnRleHQtPmRyaXZlcl9wcHRhYmxlOw0KICAgICAgICBpbnQgaSwgcmV0
+Ow0KDQotICAgICAgIGlmICh0YWJsZV9jb250ZXh0LT5vZDhfc2V0dGluZ3MpDQorICAgICAgIGlm
+ICghc211LT5wbV9lbmFibGVkIHx8IHRhYmxlX2NvbnRleHQtPm9kOF9zZXR0aW5ncykNCiAgICAg
+ICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCg0KICAgICAgICB0YWJsZV9jb250ZXh0LT5vZDhf
+c2V0dGluZ3MgPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgdmVnYTIwX29kOF9zZXR0aW5ncyksIEdG
+UF9LRVJORUwpOyBAQCAtMTQ3NCw2ICsxNDg2LDggQEAgc3RhdGljIGludCB2ZWdhMjBfZ2V0X29k
+X3BlcmNlbnRhZ2Uoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsDQogICAgICAgIGRwbV90YWJsZSA9
+IHNtdV9kcG0tPmRwbV9jb250ZXh0Ow0KICAgICAgICBnb2xkZW5fdGFibGUgPSBzbXVfZHBtLT5n
+b2xkZW5fZHBtX2NvbnRleHQ7DQoNCisgICAgICAgaWYgKCFzbXUtPnBtX2VuYWJsZWQpDQorICAg
+ICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQogICAgICAgIHN3aXRjaCAodHlwZSkgew0KICAg
+ICAgICBjYXNlIE9EX1NDTEs6DQogICAgICAgICAgICAgICAgc2luZ2xlX2RwbV90YWJsZSA9ICYo
+ZHBtX3RhYmxlLT5nZnhfdGFibGUpOyBAQCAtMTUwOSw3ICsxNTIzLDcgQEAgdmVnYTIwX2dldF9w
+cm9maWxpbmdfY2xrX21hc2soc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsDQogICAgICAgIHN0cnVj
+dCB2ZWdhMjBfc2luZ2xlX2RwbV90YWJsZSAqbWVtX2RwbV90YWJsZTsNCiAgICAgICAgc3RydWN0
+IHZlZ2EyMF9zaW5nbGVfZHBtX3RhYmxlICpzb2NfZHBtX3RhYmxlOw0KDQotICAgICAgIGlmICgh
+c211LT5zbXVfZHBtLmRwbV9jb250ZXh0KQ0KKyAgICAgICBpZiAoIXNtdS0+cG1fZW5hYmxlZCB8
+fCAhc211LT5zbXVfZHBtLmRwbV9jb250ZXh0KQ0KICAgICAgICAgICAgICAgIHJldHVybiAtRUlO
+VkFMOw0KDQogICAgICAgIGdmeF9kcG1fdGFibGUgPSAmZHBtX3RhYmxlLT5nZnhfdGFibGU7IEBA
+IC0xNTc5LDcgKzE1OTMsNyBAQCBzdGF0aWMgaW50IHZlZ2EyMF9wcmVfZGlzcGxheV9jb25maWdf
+Y2hhbmdlZChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkNCiAgICAgICAgaW50IHJldCA9IDA7DQog
+ICAgICAgIHN0cnVjdCB2ZWdhMjBfZHBtX3RhYmxlICpkcG1fdGFibGUgPSBzbXUtPnNtdV9kcG0u
+ZHBtX2NvbnRleHQ7DQoNCi0gICAgICAgaWYgKCFzbXUtPnNtdV9kcG0uZHBtX2NvbnRleHQpDQor
+ICAgICAgIGlmICghc211LT5wbV9lbmFibGVkIHx8ICFzbXUtPnNtdV9kcG0uZHBtX2NvbnRleHQp
+DQogICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCiAgICAgICAgc211X3NlbmRfc21j
+X21zZ193aXRoX3BhcmFtKHNtdSwgU01VX01TR19OdW1PZkRpc3BsYXlzLCAwKTsgQEAgLTE1OTQs
+NyArMTYwOCw3IEBAIHN0YXRpYyBpbnQgdmVnYTIwX2Rpc3BsYXlfY29uZmlnX2NoYW5nZWQoc3Ry
+dWN0IHNtdV9jb250ZXh0ICpzbXUpICB7DQogICAgICAgIGludCByZXQgPSAwOw0KDQotICAgICAg
+IGlmICghc211LT5mdW5jcykNCisgICAgICAgaWYgKCFzbXUtPnBtX2VuYWJsZWQgfHwgIXNtdS0+
+ZnVuY3MpDQogICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCiAgICAgICAgaWYgKCFz
+bXUtPnNtdV9kcG0uZHBtX2NvbnRleHQgfHwgQEAgLTE2MzIsNiArMTY0Niw4IEBAIHN0YXRpYyBp
+bnQgdmVnYTIwX2FwcGx5X2Nsb2Nrc19hZGp1c3RfcnVsZXMoc3RydWN0IHNtdV9jb250ZXh0ICpz
+bXUpDQogICAgICAgIGJvb2wgZGlzYWJsZV9tY2xrX3N3aXRjaGluZzsNCiAgICAgICAgdWludDMy
+X3QgaSwgbGF0ZW5jeTsNCg0KKyAgICAgICBpZiAoIXNtdS0+cG1fZW5hYmxlZCkNCisgICAgICAg
+ICAgICAgICByZXR1cm4gLUVJTlZBTDsNCiAgICAgICAgZGlzYWJsZV9tY2xrX3N3aXRjaGluZyA9
+ICgoMSA8IHNtdS0+ZGlzcGxheV9jb25maWctPm51bV9kaXNwbGF5KSAmJg0KICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICFzbXUtPmRpc3BsYXlfY29uZmlnLT5tdWx0aV9tb25pdG9y
+X2luX3N5bmMpIHx8IHZibGFua190b29fc2hvcnQ7DQogICAgICAgIGxhdGVuY3kgPSBzbXUtPmRp
+c3BsYXlfY29uZmlnLT5kY2VfdG9sZXJhYmxlX21jbGtfaW5fYWN0aXZlX2xhdGVuY3k7DQpAQCAt
+MTc3OSw2ICsxNzk1LDggQEAgdmVnYTIwX25vdGlmeV9zbWNfZGlzcGFseV9jb25maWcoc3RydWN0
+IHNtdV9jb250ZXh0ICpzbXUpDQogICAgICAgIHN0cnVjdCBwcF9kaXNwbGF5X2Nsb2NrX3JlcXVl
+c3QgY2xvY2tfcmVxOw0KICAgICAgICBpbnQgcmV0ID0gMDsNCg0KKyAgICAgICBpZiAoIXNtdS0+
+cG1fZW5hYmxlZCkNCisgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCiAgICAgICAgbWlu
+X2Nsb2Nrcy5kY2VmX2Nsb2NrID0gc211LT5kaXNwbGF5X2NvbmZpZy0+bWluX2RjZWZfc2V0X2Ns
+azsNCiAgICAgICAgbWluX2Nsb2Nrcy5kY2VmX2Nsb2NrX2luX3NyID0gc211LT5kaXNwbGF5X2Nv
+bmZpZy0+bWluX2RjZWZfZGVlcF9zbGVlcF9zZXRfY2xrOw0KICAgICAgICBtaW5fY2xvY2tzLm1l
+bW9yeV9jbG9jayA9IHNtdS0+ZGlzcGxheV9jb25maWctPm1pbl9tZW1fc2V0X2Nsb2NrOw0KQEAg
+LTE4NjcsNiArMTg4NSw4IEBAIHN0YXRpYyBpbnQgdmVnYTIwX2ZvcmNlX2RwbV9saW1pdF92YWx1
+ZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgYm9vbCBoaWdoZXN0KQ0KICAgICAgICBzdHJ1Y3Qg
+dmVnYTIwX2RwbV90YWJsZSAqZHBtX3RhYmxlID0NCiAgICAgICAgICAgICAgICAoc3RydWN0IHZl
+Z2EyMF9kcG1fdGFibGUgKilzbXUtPnNtdV9kcG0uZHBtX2NvbnRleHQ7DQoNCisgICAgICAgaWYg
+KCFzbXUtPnBtX2VuYWJsZWQpDQorICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQogICAg
+ICAgIGlmIChoaWdoZXN0KQ0KICAgICAgICAgICAgICAgIHNvZnRfbGV2ZWwgPSB2ZWdhMjBfZmlu
+ZF9oaWdoZXN0X2RwbV9sZXZlbCgmKGRwbV90YWJsZS0+Z2Z4X3RhYmxlKSk7DQogICAgICAgIGVs
+c2UNCkBAIC0xOTE4LDYgKzE5MzgsOCBAQCBzdGF0aWMgaW50IHZlZ2EyMF91bmZvcmNlX2RwbV9s
+ZXZlbHMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpDQogICAgICAgIHN0cnVjdCB2ZWdhMjBfZHBt
+X3RhYmxlICpkcG1fdGFibGUgPQ0KICAgICAgICAgICAgICAgIChzdHJ1Y3QgdmVnYTIwX2RwbV90
+YWJsZSAqKXNtdS0+c211X2RwbS5kcG1fY29udGV4dDsNCg0KKyAgICAgICBpZiAoIXNtdS0+cG1f
+ZW5hYmxlZCkNCisgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCiAgICAgICAgc29mdF9t
+aW5fbGV2ZWwgPSB2ZWdhMjBfZmluZF9sb3dlc3RfZHBtX2xldmVsKCYoZHBtX3RhYmxlLT5nZnhf
+dGFibGUpKTsNCiAgICAgICAgc29mdF9tYXhfbGV2ZWwgPSB2ZWdhMjBfZmluZF9oaWdoZXN0X2Rw
+bV9sZXZlbCgmKGRwbV90YWJsZS0+Z2Z4X3RhYmxlKSk7DQogICAgICAgIGRwbV90YWJsZS0+Z2Z4
+X3RhYmxlLmRwbV9zdGF0ZS5zb2Z0X21pbl9sZXZlbCA9IEBAIC0xOTU3LDkgKzE5NzksOSBAQCBz
+dGF0aWMgaW50IHZlZ2EyMF91bmZvcmNlX2RwbV9sZXZlbHMoc3RydWN0IHNtdV9jb250ZXh0ICpz
+bXUpICBzdGF0aWMgZW51bSBhbWRfZHBtX2ZvcmNlZF9sZXZlbCB2ZWdhMjBfZ2V0X3BlcmZvcm1h
+bmNlX2xldmVsKHN0cnVjdCBzbXVfY29udGV4dCAqc211KSAgew0KICAgICAgICBzdHJ1Y3Qgc211
+X2RwbV9jb250ZXh0ICpzbXVfZHBtX2N0eCA9ICYoc211LT5zbXVfZHBtKTsNCi0gICAgICAgaWYg
+KCFzbXVfZHBtX2N0eC0+ZHBtX2NvbnRleHQpDQotICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5W
+QUw7DQoNCisgICAgICAgaWYgKCFzbXUtPnBtX2VuYWJsZWQgfHwgIXNtdV9kcG1fY3R4LT5kcG1f
+Y29udGV4dCkNCisgICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsNCiAgICAgICAgaWYgKHNt
+dV9kcG1fY3R4LT5kcG1fbGV2ZWwgIT0gc211X2RwbV9jdHgtPnNhdmVkX2RwbV9sZXZlbCkgew0K
+ICAgICAgICAgICAgICAgIG11dGV4X2xvY2soJihzbXUtPm11dGV4KSk7DQogICAgICAgICAgICAg
+ICAgc211X2RwbV9jdHgtPnNhdmVkX2RwbV9sZXZlbCA9IHNtdV9kcG1fY3R4LT5kcG1fbGV2ZWw7
+IEBAIC0xOTc1LDcgKzE5OTcsNyBAQCB2ZWdhMjBfZm9yY2VfcGVyZm9ybWFuY2VfbGV2ZWwoc3Ry
+dWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0gYW1kX2RwbV9mb3JjZWRfbGV2ZQ0KICAgICAgICBp
+bnQgaTsNCiAgICAgICAgc3RydWN0IHNtdV9kcG1fY29udGV4dCAqc211X2RwbV9jdHggPSAmKHNt
+dS0+c211X2RwbSk7DQoNCi0gICAgICAgaWYgKCFzbXVfZHBtX2N0eC0+ZHBtX2NvbnRleHQpDQor
+ICAgICAgIGlmICghc211LT5wbV9lbmFibGVkIHx8ICFzbXVfZHBtX2N0eC0+ZHBtX2NvbnRleHQp
+DQogICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7DQoNCiAgICAgICAgZm9yIChpID0gMDsg
+aSA8IHNtdS0+YWRldi0+bnVtX2lwX2Jsb2NrczsgaSsrKSB7IEBAIC0yMDA0LDYgKzIwMjYsOCBA
+QCBzdGF0aWMgaW50IHZlZ2EyMF91cGRhdGVfc3BlY2lmaWVkX29kOF92YWx1ZShzdHJ1Y3Qgc211
+X2NvbnRleHQgKnNtdSwNCiAgICAgICAgc3RydWN0IHZlZ2EyMF9vZDhfc2V0dGluZ3MgKm9kOF9z
+ZXR0aW5ncyA9DQogICAgICAgICAgICAgICAgKHN0cnVjdCB2ZWdhMjBfb2Q4X3NldHRpbmdzICop
+dGFibGVfY29udGV4dC0+b2Q4X3NldHRpbmdzOw0KDQorICAgICAgIGlmICghc211LT5wbV9lbmFi
+bGVkKQ0KKyAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KICAgICAgICBzd2l0Y2ggKGlu
+ZGV4KSB7DQogICAgICAgIGNhc2UgT0Q4X1NFVFRJTkdfR0ZYQ0xLX0ZNSU46DQogICAgICAgICAg
+ICAgICAgb2RfdGFibGUtPkdmeGNsa0ZtaW4gPSAodWludDE2X3QpdmFsdWU7IEBAIC0yMDg1LDYg
+KzIxMDksOCBAQCBzdGF0aWMgaW50IHZlZ2EyMF9zZXRfb2RfcGVyY2VudGFnZShzdHJ1Y3Qgc211
+X2NvbnRleHQgKnNtdSwNCiAgICAgICAgaW50IGZlYXR1cmVfZW5hYmxlZDsNCiAgICAgICAgUFBD
+TEtfZSBjbGtfaWQ7DQoNCisgICAgICAgaWYgKCFzbXUtPnBtX2VuYWJsZWQpDQorICAgICAgICAg
+ICAgICAgcmV0dXJuIC1FSU5WQUw7DQogICAgICAgIG11dGV4X2xvY2soJihzbXUtPm11dGV4KSk7
+DQoNCiAgICAgICAgZHBtX3RhYmxlID0gc211X2RwbS0+ZHBtX2NvbnRleHQ7IEBAIC0yMTYzLDYg
+KzIxODksOCBAQCBzdGF0aWMgaW50IHZlZ2EyMF9vZG5fZWRpdF9kcG1fdGFibGUoc3RydWN0IHNt
+dV9jb250ZXh0ICpzbXUsDQoNCiAgICAgICAgZHBtX3RhYmxlID0gc211X2RwbS0+ZHBtX2NvbnRl
+eHQ7DQoNCisgICAgICAgaWYgKCFzbXUtPnBtX2VuYWJsZWQpDQorICAgICAgICAgICAgICAgcmV0
+dXJuIC1FSU5WQUw7DQogICAgICAgIGlmICghaW5wdXQpIHsNCiAgICAgICAgICAgICAgICBwcl93
+YXJuKCJOVUxMIHVzZXIgaW5wdXQgZm9yIGNsb2NrIGFuZCB2b2x0YWdlXG4iKTsNCiAgICAgICAg
+ICAgICAgICByZXR1cm4gLUVJTlZBTDsNCi0tDQoyLjcuNA0KDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeA==
