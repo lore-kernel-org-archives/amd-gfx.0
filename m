@@ -1,143 +1,65 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Subject: Re: [PATCH 11/11] drm/amdgpu: stop removing BOs from the LRU during CS
-Date: Tue, 14 May 2019 15:33:25 -0400
-Message-ID: <CAAxE2A6Z45NCy7v5fPqmo5o5ZEnmvv_f=qax0uoDS9amMFEB7w@mail.gmail.com>
-References: <20190514123127.1650-1-christian.koenig@amd.com>
- <20190514123127.1650-11-christian.koenig@amd.com>
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 4/4] drm/amdkfd: Check against device cgroup
+Date: Tue, 14 May 2019 19:43:37 +0000
+Message-ID: <BYAPR12MB3384F5C0D850C9D6DE720B6C8C080@BYAPR12MB3384.namprd12.prod.outlook.com>
+References: <20190501145904.27505-1-Harish.Kasiviswanathan@amd.com>
+ <20190501145904.27505-5-Harish.Kasiviswanathan@amd.com>
+ <20190514015832.GA14741@tower.DHCP.thefacebook.com>,
+ <20190514173749.GA12629@tower.DHCP.thefacebook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0541364042=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190514123127.1650-11-christian.koenig@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Cc: Prike.Liang@amd.com, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============0541364042==
-Content-Type: multipart/alternative; boundary="0000000000006e01d50588de1d61"
-
---0000000000006e01d50588de1d61
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-This series fixes the OOM errors. However, if I torture the kernel driver
-more, I can get it to deadlock and end up with unkillable processes. I can
-also get an OOM error. I just ran the test 5 times:
-
-AMD_DEBUG=3Dtestgdsmm glxgears & AMD_DEBUG=3Dtestgdsmm glxgears &
-AMD_DEBUG=3Dtestgdsmm glxgears & AMD_DEBUG=3Dtestgdsmm glxgears &
-AMD_DEBUG=3Dtestgdsmm glxgears
-
-Marek
-
-On Tue, May 14, 2019 at 8:31 AM Christian K=C3=B6nig <
-ckoenig.leichtzumerken@gmail.com> wrote:
-
-> This avoids OOM situations when we have lots of threads
-> submitting at the same time.
->
-> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index fff558cf385b..f9240a94217b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -648,7 +648,7 @@ static int amdgpu_cs_parser_bos(struct
-> amdgpu_cs_parser *p,
->         }
->
->         r =3D ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
-> -                                  &duplicates, true);
-> +                                  &duplicates, false);
->         if (unlikely(r !=3D 0)) {
->                 if (r !=3D -ERESTARTSYS)
->                         DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---0000000000006e01d50588de1d61
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div>This series fixes the OOM errors. Ho=
-wever, if I torture the kernel driver more, I can get it to deadlock and en=
-d up with unkillable processes. I can also get an OOM error. I just ran the=
- test 5 times:</div><div><br></div><div>AMD_DEBUG=3Dtestgdsmm glxgears &amp=
-; AMD_DEBUG=3Dtestgdsmm glxgears &amp; AMD_DEBUG=3Dtestgdsmm glxgears &amp;=
- AMD_DEBUG=3Dtestgdsmm glxgears &amp; AMD_DEBUG=3Dtestgdsmm glxgears</div><=
-div></div><br><div>Marek<br></div></div></div><br><div class=3D"gmail_quote=
-"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, May 14, 2019 at 8:31 AM Chr=
-istian K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@gmail.com">c=
-koenig.leichtzumerken@gmail.com</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
-b(204,204,204);padding-left:1ex">This avoids OOM situations when we have lo=
-ts of threads<br>
-submitting at the same time.<br>
-<br>
-Signed-off-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-<br>
-=C2=A01 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_cs.c<br>
-index fff558cf385b..f9240a94217b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-@@ -648,7 +648,7 @@ static int amdgpu_cs_parser_bos(struct amdgpu_cs_parser=
- *p,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D ttm_eu_reserve_buffers(&amp;p-&gt;ticket,=
- &amp;p-&gt;validated, true,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;duplicates, true);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;duplicates, false);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (unlikely(r !=3D 0)) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (r !=3D -ERESTAR=
-TSYS)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 DRM_ERROR(&quot;ttm_eu_reserve_buffers failed.\n&quot;);<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a></blockquote></div>
-
---0000000000006e01d50588de1d61--
-
---===============0541364042==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190514173749.GA12629-+gKZQzcddEWxlMhWRU56u/MCgOUTN/qS0E9HWUfgJXw@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Roman Gushchin <guro-b10kYP2dOMg@public.gmane.org>
+Cc: "cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============0541364042==--
+SGkgUm9tYW4sCgpUaGFua3MgZm9yIHlvdXIgZmVlZGJhY2suIEkgd2lsbCByZXdvcmsgYW5kIHNl
+bmQgbmV3IHBhdGNoIHNvb24uCgpCZXN0IFJlZ2FyZHMsCkhhcmlzaAogCgoKCgpGcm9tOiBSb21h
+biBHdXNoY2hpbiA8Z3Vyb0BmYi5jb20+ClNlbnQ6IFR1ZXNkYXksIE1heSAxNCwgMjAxOSAxOjM3
+IFBNClRvOiBLYXNpdmlzd2FuYXRoYW4sIEhhcmlzaApDYzogY2dyb3Vwc0B2Z2VyLmtlcm5lbC5v
+cmc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnClN1YmplY3Q6IFJlOiBbUEFUQ0ggNC80
+XSBkcm0vYW1ka2ZkOiBDaGVjayBhZ2FpbnN0IGRldmljZSBjZ3JvdXAKwqAgCgpbQ0FVVElPTjog
+RXh0ZXJuYWwgRW1haWxdCgpPbiBUdWUsIE1heSAxNCwgMjAxOSBhdCAwMTo1ODo0MEFNICswMDAw
+LCBSb21hbiBHdXNoY2hpbiB3cm90ZToKPiBPbiBXZWQsIE1heSAwMSwgMjAxOSBhdCAwMjo1OToy
+OVBNICswMDAwLCBLYXNpdmlzd2FuYXRoYW4sIEhhcmlzaCB3cm90ZToKPiA+IFBhcnRpY2lwYXRl
+IGluIGRldmljZSBjZ3JvdXAuIEFsbCBrZmQgZGV2aWNlcyBhcmUgZXhwb3NlZCB2aWEgL2Rldi9r
+ZmQuCj4gPiBTbyB1c2UgL2Rldi9kcmkvcmVuZGVyTiBub2RlLgo+ID4KPiA+IEJlZm9yZSBleHBv
+c2luZyB0aGUgZGV2aWNlIHRvIGEgdGFzayBjaGVjayBpZiBpdCBoYXMgcGVybWlzc2lvbiB0bwo+
+ID4gYWNjZXNzIGl0LiBJZiB0aGUgdGFzayAoYmFzZWQgb24gaXRzIGNncm91cCkgY2FuIGFjY2Vz
+cyAvZGV2L2RyaS9yZW5kZXJOCj4gPiB0aGVuIGV4cG9zZSB0aGUgZGV2aWNlIHZpYSBrZmQgbm9k
+ZS4KPiA+Cj4gPiBJZiB0aGUgdGFzayBjYW5ub3QgYWNjZXNzIC9kZXYvZHJpL3JlbmRlck4gdGhl
+biBwcm9jZXNzIGRldmljZSBkYXRhCj4gPiAocGRkKSBpcyBub3QgY3JlYXRlZC4gVGhpcyB3aWxs
+IGVuc3VyZSB0aGF0IHRhc2sgY2Fubm90IHVzZSB0aGUgZGV2aWNlLgo+ID4KPiA+IEluIHN5c2Zz
+IHRvcG9sb2d5LCBhbGwgZGV2aWNlIG5vZGVzIGFyZSB2aXNpYmxlIGlycmVzcGVjdGl2ZSBvZiB0
+aGUgdGFzawo+ID4gY2dyb3VwLiBUaGUgc3lzZnMgbm9kZSBkaXJlY3RvcmllcyBhcmUgY3JlYXRl
+ZCBhdCBkcml2ZXIgbG9hZCB0aW1lIGFuZAo+ID4gY2Fubm90IGJlIGNoYW5nZWQgZHluYW1pY2Fs
+bHkuIEhvd2V2ZXIsIGFjY2VzcyB0byBpbmZvcm1hdGlvbiBpbnNpZGUKPiA+IG5vZGVzIGlzIGNv
+bnRyb2xsZWQgYmFzZWQgb24gdGhlIHRhc2sncyBjZ3JvdXAgcGVybWlzc2lvbnMuCj4gPgo+ID4g
+U2lnbmVkLW9mZi1ieTogSGFyaXNoIEthc2l2aXN3YW5hdGhhbiA8SGFyaXNoLkthc2l2aXN3YW5h
+dGhhbkBhbWQuY29tPgo+ID4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVo
+bGluZ0BhbWQuY29tPgo+Cj4gSGVsbG8sIEhhcmlzaCEKPgo+IENncm91cC9kZXZpY2UgY29udHJv
+bGxlciBwYXJ0IGxvb2tzIGdvb2QgdG8gbWUuCj4gUGxlYXNlLCBmZWVsIGZyZWUgdG8gdXNlIG15
+IGFja3MgZm9yIHBhdGNoZXMgMyBhbmQgNDoKPiBBY2tlZC1ieTogUm9tYW4gR3VzaGNoaW4gPGd1
+cm9AZmIuY29tPgoKSGVsbG8hCgpBZnRlciB0aGUgc2Vjb25kIGxvb2sgYXQgdGhlIHBhdGNoc2V0
+IEkgY2FtZSB0byBhbiB1bmRlcnN0YW5kaW5nIHRoYXQKZXhwb3J0aW5nIGNncm91cF92MS1vbmx5
+IF9fZGV2Y2dyb3VwX2NoZWNrX3Blcm1pc3Npb24oKSBpc24ndCB0aGUgYmVzdCBpZGVhLgoKSW5z
+dGVhZCBpdCB3b3VsZCBiZSBiZXR0ZXIgdG8gZXhwb3J0IGRldmNncm91cF9jaGVja19wZXJtaXNz
+aW9uKCksIHdoaWNoCnByb3ZpZGVzIGFuIHVuaXZlcnNhbCBpbnRlcmZhY2UgZm9yIGJvdGggY2dy
+b3VwIHYxIGFuZCB2MiBkZXZpY2UgY29udHJvbGxlcnMuCkl0wqAgcmVxdWlyZSBzb21lIHJlZmFj
+dG9yaW5ncywgYnV0IHNob3VsZCBiZSBub3QgaGFyZC4KCkRvZXMgaXQgbWFrZXMgc2Vuc2UgdG8g
+eW91PyBDYW4geW91LCBwbGVhc2UsIHJld29yayB0aGlzIHBhcnQ/CgpUaGFua3MhCiAgICAKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
