@@ -1,175 +1,171 @@
-From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Report firmware versions with sysfs v2
-Date: Tue, 14 May 2019 13:18:50 +0000
-Message-ID: <BN6PR12MB16181EE48972F6A56BB695D485080@BN6PR12MB1618.namprd12.prod.outlook.com>
-References: <20190509203441.7731-1-Ori.Messinger@amd.com>
- <BN6PR12MB1618ADCEC1AE6C250DB9B9D685080@BN6PR12MB1618.namprd12.prod.outlook.com>
- <9e6bd0ac-6972-2bf1-2c4d-9784bd4db149@gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 11/11] drm/amdgpu: stop removing BOs from the LRU during CS
+Date: Tue, 14 May 2019 15:47:06 +0200
+Message-ID: <f9017911-b08a-1f98-3fc9-98121bbde78a@gmail.com>
+References: <20190514123127.1650-1-christian.koenig@amd.com>
+ <20190514123127.1650-11-christian.koenig@amd.com>
+ <-vf7xt3-qgf5mz-veq8ih-okgxtz-9ehg3tx8dyemoidihe-fwj066fntvvx-x3y4nh-bn07hl-82anfo4oofx-4di7gg-3nkfhtbcgh58-yj9ws0-pthytc-oq9qcxd40s4g-249dv8-x6wbfujry6xi-mu2nvl.1557839540398@email.android.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9e6bd0ac-6972-2bf1-2c4d-9784bd4db149-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============0474673352=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <-vf7xt3-qgf5mz-veq8ih-okgxtz-9ehg3tx8dyemoidihe-fwj066fntvvx-x3y4nh-bn07hl-82anfo4oofx-4di7gg-3nkfhtbcgh58-yj9ws0-pthytc-oq9qcxd40s4g-249dv8-x6wbfujry6xi-mu2nvl.1557839540398@email.android.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Messinger, Ori" <Ori.Messinger-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "Olsak, Marek" <Marek.Olsak@amd.com>, "Liang, Prike" <Prike.Liang@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SSBkb24ndCB0aGluayB0aGF0IGFueW9uZSB1bmRlcnN0YW5kcyBhbGwgb2YgdGhlIGludGVybmFs
-cyBvZiBGVyB2ZXJzaW9uIGhhbmRsaW5nIPCfmIkgUmlnaHQgbm93IHdlJ3JlIGp1c3QgcmV0dXJu
-aW5nIHRoZSBzYW1lIHZhbHVlcyBhcyB3aGF0IGRlYnVnZnMgcmV0dXJucy4gVGhlIFNNSSB0b29s
-IHdpbGwgZG8gdGhlIHZlcnNpb24gaW50ZXJwcmV0YXRpb24gKGxpa2UgdHVybmluZyAweDAwMjgy
-YjAwIGludG8gNDAuNDMgZm9yIHRoZSBTTVUsIGZvciBleGFtcGxlKS4gT3Iga25vd2luZyB0aGF0
-IHRoZSBDUCBmaXJtd2FyZSBpcyBpbiBkZWNpbWFsLCB3aGlsZSB0aGUgVkNOIGlzIGluIGhleC4g
-SXQncyBhbGwgY29uZnVzaW5nIGFuZCBpbmNvbnNpc3RlbnQsIGJ1dCB0aGUgc3lzZnMgZmlsZXMg
-d29uJ3QgY2hhbmdlIGZyb20gaGVyZSBvbiBvdXQsIGp1c3QgaG93IHRoZSBTTUkgaW50ZXJwcmV0
-cyB0aG9zZSBoZXggdmFsdWVzLiBUaGFua3MhDQoNCiBLZW50DQoNCi0tLS0tT3JpZ2luYWwgTWVz
-c2FnZS0tLS0tDQpGcm9tOiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2Vu
-QGdtYWlsLmNvbT4gDQpTZW50OiBUdWVzZGF5LCBNYXkgMTQsIDIwMTkgNjozMyBBTQ0KVG86IFJ1
-c3NlbGwsIEtlbnQgPEtlbnQuUnVzc2VsbEBhbWQuY29tPjsgTWVzc2luZ2VyLCBPcmkgPE9yaS5N
-ZXNzaW5nZXJAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0
-OiBSZTogW1BBVENIXSBkcm0vYW1kZ3B1OiBSZXBvcnQgZmlybXdhcmUgdmVyc2lvbnMgd2l0aCBz
-eXNmcyB2Mg0KDQpbQ0FVVElPTjogRXh0ZXJuYWwgRW1haWxdDQoNCkkgZG9uJ3QgY2xhaW0gdGhh
-dCBJIHVuZGVyc3RhbmQgYWxsIG9mIHRoZSBpbnRlcm5hbHMgb2YgZncgdmVyc2lvbiBoYW5kbGlu
-ZywgYnV0IHRoaXMgbG9va3MgcmVhbGx5IG5pY2UgdG8gbWUgZnJvbSBhIGtlcm5lbCBwZXJzcGVj
-dGl2ZS4NCg0KRmVlbCBmcmVlIHRvIGFkZCBteSBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5p
-ZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPi4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0K
-QW0gMTQuMDUuMTkgdW0gMTI6MTkgc2NocmllYiBSdXNzZWxsLCBLZW50Og0KPiBMb29rcyBmaW5l
-IHRvIG1lLCBidXQgaG9waW5nIHRvIGdldCBhbiBSQiBmcm9tIENocmlzdGlhbiBub3cgdGhhdCB3
-ZSdyZSBtb3ZpbmcgdGhlbSBpbnRvIGEgc3ViZm9sZGVyLg0KPg0KPiAgIEtlbnQNCj4NCj4gLS0t
-LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2Vz
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIA0KPiBNZXNzaW5nZXIsIE9yaQ0K
-PiBTZW50OiBUaHVyc2RheSwgTWF5IDksIDIwMTkgNDozNSBQTQ0KPiBUbzogYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IE1lc3NpbmdlciwgT3JpIDxPcmkuTWVzc2luZ2VyQGFt
-ZC5jb20+DQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogUmVwb3J0IGZpcm13YXJlIHZl
-cnNpb25zIHdpdGggc3lzZnMgdjINCj4NCj4gW0NBVVRJT046IEV4dGVybmFsIEVtYWlsXQ0KPg0K
-PiBGaXJtd2FyZSB2ZXJzaW9ucyBjYW4gYmUgZm91bmQgYXMgc2VwYXJhdGUgc3lzZnMgZmlsZXMg
-YXQ6DQo+IC9zeXMvY2xhc3MvZHJtL2NhcmRYL2RldmljZS9md192ZXJzaW9uICh3aGVyZSBYIGlz
-IHRoZSBjYXJkIG51bWJlcikgVGhlIGZpcm13YXJlIHZlcnNpb25zIGFyZSBkaXNwbGF5ZWQgaW4g
-aGV4YWRlY2ltYWwuDQo+IHYyOiBNb3ZlZCBzeXNmcyBmaWxlcyB0byBzdWJmb2xkZXINCj4NCj4g
-Q2hhbmdlLUlkOiBJMTBjYWU0YzBjYTZmMWI2YTljZWQwN2RhMTQzNDI2ZTFkMDExZTIwMw0KPiBT
-aWduZWQtb2ZmLWJ5OiBPcmkgTWVzc2luZ2VyIDxvcmkubWVzc2luZ2VyQGFtZC5jb20+DQo+IC0t
-LQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8ICA1ICsr
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYyAgfCA2MyArKysrKysr
-KysrKysrKysrKysrKysrICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUu
-aCAgfCAgMiArDQo+ICAgMyBmaWxlcyBjaGFuZ2VkLCA3MCBpbnNlcnRpb25zKCspDQo+DQo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgDQo+
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IGluZGV4IGVj
-ODY0NzQwZWZiNS4uOGM1NmM0OWM4ZGZjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IEBAIC0yNzA1LDYgKzI3MDUsMTAgQEAgaW50IGFtZGdw
-dV9kZXZpY2VfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICAgICAgICAgaWYg
-KHIpDQo+ICAgICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJyZWdpc3RlcmluZyBwbSBkZWJ1Z2Zz
-IGZhaWxlZCAoJWQpLlxuIiwgDQo+IHIpOw0KPg0KPiArICAgICAgIHIgPSBhbWRncHVfdWNvZGVf
-c3lzZnNfaW5pdChhZGV2KTsNCj4gKyAgICAgICBpZiAocikNCj4gKyAgICAgICAgICAgICAgIERS
-TV9FUlJPUigiQ3JlYXRpbmcgZmlybXdhcmUgc3lzZnMgZmFpbGVkICglZCkuXG4iLCANCj4gKyBy
-KTsNCj4gKw0KPiAgICAgICAgICByID0gYW1kZ3B1X2RlYnVnZnNfZ2VtX2luaXQoYWRldik7DQo+
-ICAgICAgICAgIGlmIChyKQ0KPiAgICAgICAgICAgICAgICAgIERSTV9FUlJPUigicmVnaXN0ZXJp
-bmcgZ2VtIGRlYnVnZnMgZmFpbGVkICglZCkuXG4iLCByKTsgQEAgLTI4MTcsNiArMjgyMSw3IEBA
-IHZvaWQgYW1kZ3B1X2RldmljZV9maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KPiAg
-ICAgICAgICBhbWRncHVfZGV2aWNlX2Rvb3JiZWxsX2ZpbmkoYWRldik7DQo+ICAgICAgICAgIGFt
-ZGdwdV9kZWJ1Z2ZzX3JlZ3NfY2xlYW51cChhZGV2KTsNCj4gICAgICAgICAgZGV2aWNlX3JlbW92
-ZV9maWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX3BjaWVfcmVwbGF5X2NvdW50KTsNCj4gKyAgICAg
-ICBhbWRncHVfdWNvZGVfc3lzZnNfZmluaShhZGV2KTsNCj4gICB9DQo+DQo+DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYyANCj4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdWNvZGUuYw0KPiBpbmRleCA3YjMzODY3MDM2
-ZTcuLjMzYzFlYjc2YzA3NiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3Vjb2RlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3Vjb2RlLmMNCj4gQEAgLTMxMyw2ICszMTMsNjkgQEAgYW1kZ3B1X3Vjb2RlX2dldF9sb2Fk
-X3R5cGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGludCBsb2FkX3R5cGUpDQo+ICAgICAg
-ICAgIHJldHVybiBBTURHUFVfRldfTE9BRF9ESVJFQ1Q7DQo+ICAgfQ0KPg0KPiArI2RlZmluZSBG
-V19WRVJTSU9OX0FUVFIobmFtZSwgbW9kZSwgZmllbGQpICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBcDQo+ICtzdGF0aWMgc3NpemVfdCBzaG93XyMjbmFtZShzdHJ1Y3QgZGV2aWNlICpkZXYs
-ICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICBz
-dHJ1Y3QgZGV2aWNlX2F0dHJpYnV0ZSAqYXR0ciwgICAgICAgICAgICAgICAgXA0KPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgIGNoYXIgKmJ1ZikgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBcDQo+ICt7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4gKyAgICAgICBzdHJ1Y3QgZHJtX2Rldmlj
-ZSAqZGRldiA9IGRldl9nZXRfZHJ2ZGF0YShkZXYpOyAgICAgICAgICAgICAgICAgXA0KPiArICAg
-ICAgIHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7ICAgICAg
-ICAgICAgICAgICBcDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwNCj4gKyAgICAgICByZXR1cm4gc25wcmlu
-dGYoYnVmLCBQQUdFX1NJWkUsICIweCUwOHhcbiIsIGFkZXYtPmZpZWxkKTsgICAgICAgXA0KPiAr
-fSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBcDQo+ICtzdGF0aWMgREVWSUNFX0FUVFIobmFtZSwgbW9kZSwgc2hvd18j
-I25hbWUsIE5VTEwpDQo+ICsNCj4gK0ZXX1ZFUlNJT05fQVRUUih2Y2VfZndfdmVyc2lvbiwgMDQ0
-NCwgdmNlLmZ3X3ZlcnNpb24pOyANCj4gK0ZXX1ZFUlNJT05fQVRUUih1dmRfZndfdmVyc2lvbiwg
-MDQ0NCwgdXZkLmZ3X3ZlcnNpb24pOyANCj4gK0ZXX1ZFUlNJT05fQVRUUihtY19md192ZXJzaW9u
-LCAwNDQ0LCBnbWMuZndfdmVyc2lvbik7IA0KPiArRldfVkVSU0lPTl9BVFRSKG1lX2Z3X3ZlcnNp
-b24sIDA0NDQsIGdmeC5tZV9md192ZXJzaW9uKTsgDQo+ICtGV19WRVJTSU9OX0FUVFIocGZwX2Z3
-X3ZlcnNpb24sIDA0NDQsIGdmeC5wZnBfZndfdmVyc2lvbik7IA0KPiArRldfVkVSU0lPTl9BVFRS
-KGNlX2Z3X3ZlcnNpb24sIDA0NDQsIGdmeC5jZV9md192ZXJzaW9uKTsgDQo+ICtGV19WRVJTSU9O
-X0FUVFIocmxjX2Z3X3ZlcnNpb24sIDA0NDQsIGdmeC5ybGNfZndfdmVyc2lvbik7IA0KPiArRldf
-VkVSU0lPTl9BVFRSKHJsY19zcmxjX2Z3X3ZlcnNpb24sIDA0NDQsIGdmeC5ybGNfc3JsY19md192
-ZXJzaW9uKTsgDQo+ICtGV19WRVJTSU9OX0FUVFIocmxjX3NybGdfZndfdmVyc2lvbiwgMDQ0NCwg
-Z2Z4LnJsY19zcmxnX2Z3X3ZlcnNpb24pOyANCj4gK0ZXX1ZFUlNJT05fQVRUUihybGNfc3Jsc19m
-d192ZXJzaW9uLCAwNDQ0LCBnZngucmxjX3NybHNfZndfdmVyc2lvbik7IA0KPiArRldfVkVSU0lP
-Tl9BVFRSKG1lY19md192ZXJzaW9uLCAwNDQ0LCBnZngubWVjX2Z3X3ZlcnNpb24pOyANCj4gK0ZX
-X1ZFUlNJT05fQVRUUihtZWMyX2Z3X3ZlcnNpb24sIDA0NDQsIGdmeC5tZWMyX2Z3X3ZlcnNpb24p
-OyANCj4gK0ZXX1ZFUlNJT05fQVRUUihzb3NfZndfdmVyc2lvbiwgMDQ0NCwgcHNwLnNvc19md192
-ZXJzaW9uKTsgDQo+ICtGV19WRVJTSU9OX0FUVFIoYXNkX2Z3X3ZlcnNpb24sIDA0NDQsIHBzcC5h
-c2RfZndfdmVyc2lvbik7IA0KPiArRldfVkVSU0lPTl9BVFRSKHRhX3Jhc19md192ZXJzaW9uLCAw
-NDQ0LCBwc3AudGFfZndfdmVyc2lvbik7IA0KPiArRldfVkVSU0lPTl9BVFRSKHRhX3hnbWlfZndf
-dmVyc2lvbiwgMDQ0NCwgcHNwLnRhX2Z3X3ZlcnNpb24pOyANCj4gK0ZXX1ZFUlNJT05fQVRUUihz
-bWNfZndfdmVyc2lvbiwgMDQ0NCwgcG0uZndfdmVyc2lvbik7IA0KPiArRldfVkVSU0lPTl9BVFRS
-KHNkbWFfZndfdmVyc2lvbiwgMDQ0NCwgc2RtYS5pbnN0YW5jZVswXS5md192ZXJzaW9uKTsgDQo+
-ICtGV19WRVJTSU9OX0FUVFIoc2RtYTJfZndfdmVyc2lvbiwgMDQ0NCwgc2RtYS5pbnN0YW5jZVsx
-XS5md192ZXJzaW9uKTsgDQo+ICtGV19WRVJTSU9OX0FUVFIodmNuX2Z3X3ZlcnNpb24sIDA0NDQs
-IHZjbi5md192ZXJzaW9uKTsgDQo+ICtGV19WRVJTSU9OX0FUVFIoZG1jdV9md192ZXJzaW9uLCAw
-NDQ0LCBkbS5kbWN1X2Z3X3ZlcnNpb24pOw0KPiArDQo+ICtzdGF0aWMgc3RydWN0IGF0dHJpYnV0
-ZSAqZndfYXR0cnNbXSA9IHsNCj4gKyAgICAgICAmZGV2X2F0dHJfdmNlX2Z3X3ZlcnNpb24uYXR0
-ciwgJmRldl9hdHRyX3V2ZF9md192ZXJzaW9uLmF0dHIsDQo+ICsgICAgICAgJmRldl9hdHRyX21j
-X2Z3X3ZlcnNpb24uYXR0ciwgJmRldl9hdHRyX21lX2Z3X3ZlcnNpb24uYXR0ciwNCj4gKyAgICAg
-ICAmZGV2X2F0dHJfcGZwX2Z3X3ZlcnNpb24uYXR0ciwgJmRldl9hdHRyX2NlX2Z3X3ZlcnNpb24u
-YXR0ciwNCj4gKyAgICAgICAmZGV2X2F0dHJfcmxjX2Z3X3ZlcnNpb24uYXR0ciwgJmRldl9hdHRy
-X3JsY19zcmxjX2Z3X3ZlcnNpb24uYXR0ciwNCj4gKyAgICAgICAmZGV2X2F0dHJfcmxjX3NybGdf
-ZndfdmVyc2lvbi5hdHRyLCAmZGV2X2F0dHJfcmxjX3NybHNfZndfdmVyc2lvbi5hdHRyLA0KPiAr
-ICAgICAgICZkZXZfYXR0cl9tZWNfZndfdmVyc2lvbi5hdHRyLCAmZGV2X2F0dHJfbWVjMl9md192
-ZXJzaW9uLmF0dHIsDQo+ICsgICAgICAgJmRldl9hdHRyX3Nvc19md192ZXJzaW9uLmF0dHIsICZk
-ZXZfYXR0cl9hc2RfZndfdmVyc2lvbi5hdHRyLA0KPiArICAgICAgICZkZXZfYXR0cl90YV9yYXNf
-ZndfdmVyc2lvbi5hdHRyLCAmZGV2X2F0dHJfdGFfeGdtaV9md192ZXJzaW9uLmF0dHIsDQo+ICsg
-ICAgICAgJmRldl9hdHRyX3NtY19md192ZXJzaW9uLmF0dHIsICZkZXZfYXR0cl9zZG1hX2Z3X3Zl
-cnNpb24uYXR0ciwNCj4gKyAgICAgICAmZGV2X2F0dHJfc2RtYTJfZndfdmVyc2lvbi5hdHRyLCAm
-ZGV2X2F0dHJfdmNuX2Z3X3ZlcnNpb24uYXR0ciwNCj4gKyAgICAgICAmZGV2X2F0dHJfZG1jdV9m
-d192ZXJzaW9uLmF0dHIsIE5VTEwgfTsNCj4gKw0KPiArc3RhdGljIGNvbnN0IHN0cnVjdCBhdHRy
-aWJ1dGVfZ3JvdXAgZndfYXR0cl9ncm91cCA9IHsNCj4gKyAgICAgICAubmFtZSA9ICJmd192ZXJz
-aW9uIiwNCj4gKyAgICAgICAuYXR0cnMgPSBmd19hdHRycw0KPiArfTsNCj4gKw0KPiAraW50IGFt
-ZGdwdV91Y29kZV9zeXNmc19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KSB7DQo+ICsg
-ICAgICAgcmV0dXJuIHN5c2ZzX2NyZWF0ZV9ncm91cCgmYWRldi0+ZGV2LT5rb2JqLCAmZndfYXR0
-cl9ncm91cCk7IH0NCj4gKw0KPiArdm9pZCBhbWRncHVfdWNvZGVfc3lzZnNfZmluaShzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikgew0KPiArICAgICAgIHN5c2ZzX3JlbW92ZV9ncm91cCgmYWRl
-di0+ZGV2LT5rb2JqLCAmZndfYXR0cl9ncm91cCk7IH0NCj4gKw0KPiAgIHN0YXRpYyBpbnQgYW1k
-Z3B1X3Vjb2RlX2luaXRfc2luZ2xlX2Z3KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9maXJt
-d2FyZV9pbmZvICp1Y29kZSwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHVpbnQ2NF90IG1jX2FkZHIsIHZvaWQgKmtwdHIpIA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmggDQo+IGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3Vjb2RlLmgNCj4gaW5kZXggN2FjMjVhMWM3ODUzLi5lYzRjMmVh
-MWYwNWEgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91
-Y29kZS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV91Y29kZS5o
-DQo+IEBAIC0yOTEsNyArMjkxLDkgQEAgYm9vbCBhbWRncHVfdWNvZGVfaGRyX3ZlcnNpb24odW5p
-b24gDQo+IGFtZGdwdV9maXJtd2FyZV9oZWFkZXIgKmhkciwNCj4NCj4gICBpbnQgYW1kZ3B1X3Vj
-b2RlX2luaXRfYm8oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOyAgaW50IA0KPiBhbWRncHVf
-dWNvZGVfY3JlYXRlX2JvKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsNCj4gK2ludCBhbWRn
-cHVfdWNvZGVfc3lzZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ICAgdm9p
-ZCBhbWRncHVfdWNvZGVfZnJlZV9ibyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQo+ICt2
-b2lkIGFtZGdwdV91Y29kZV9zeXNmc19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsN
-Cj4NCj4gICBlbnVtIGFtZGdwdV9maXJtd2FyZV9sb2FkX3R5cGUNCj4gICBhbWRncHVfdWNvZGVf
-Z2V0X2xvYWRfdHlwZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgaW50IA0KPiBsb2FkX3R5
-cGUpOw0KPiAtLQ0KPiAyLjE3LjENCj4NCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4DQo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fDQo+IGFtZC1nZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+This is a multi-part message in MIME format.
+--===============0474673352==
+Content-Type: multipart/alternative;
+ boundary="------------84DE613EEAB1B4265261C3A5"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------84DE613EEAB1B4265261C3A5
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hui? What do you mean with that?
+
+Christian.
+
+Am 14.05.19 um 15:12 schrieb Zhou, David(ChunMing):
+> my only concern is how to fresh LRU when bo is from bo list.
+>
+> -David
+>
+> -------- Original Message --------
+> Subject: [PATCH 11/11] drm/amdgpu: stop removing BOs from the LRU 
+> during CS
+> From: Christian König
+> To: "Olsak, Marek" ,"Zhou, David(ChunMing)" ,"Liang, Prike" 
+> ,dri-devel@lists.freedesktop.org,amd-gfx@lists.freedesktop.org
+> CC:
+>
+> [CAUTION: External Email]
+>
+> This avoids OOM situations when we have lots of threads
+> submitting at the same time.
+>
+> Signed-off-by: Christian König <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index fff558cf385b..f9240a94217b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -648,7 +648,7 @@ static int amdgpu_cs_parser_bos(struct 
+> amdgpu_cs_parser *p,
+>         }
+>
+>         r = ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
+> -                                  &duplicates, true);
+> +                                  &duplicates, false);
+>         if (unlikely(r != 0)) {
+>                 if (r != -ERESTARTSYS)
+>                         DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
+> --
+> 2.17.1
+>
+
+
+--------------84DE613EEAB1B4265261C3A5
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Hui? What do you mean with that?<br>
+      <br>
+      Christian.<br>
+      <br>
+      Am 14.05.19 um 15:12 schrieb Zhou, David(ChunMing):<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:-vf7xt3-qgf5mz-veq8ih-okgxtz-9ehg3tx8dyemoidihe-fwj066fntvvx-x3y4nh-bn07hl-82anfo4oofx-4di7gg-3nkfhtbcgh58-yj9ws0-pthytc-oq9qcxd40s4g-249dv8-x6wbfujry6xi-mu2nvl.1557839540398@email.android.com">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      <meta name="Generator" content="Microsoft Exchange Server">
+      <!-- converted from text -->
+      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
+      <div>my only concern is how to fresh LRU when bo is from bo list.<br>
+        <br>
+        -David<br>
+        <br>
+        -------- Original Message --------<br>
+        Subject: [PATCH 11/11] drm/amdgpu: stop removing BOs from the
+        LRU during CS<br>
+        From: Christian König <br>
+        To: "Olsak, Marek" ,"Zhou, David(ChunMing)" ,"Liang, Prike"
+        ,<a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org,amd-gfx@lists.freedesktop.org">dri-devel@lists.freedesktop.org,amd-gfx@lists.freedesktop.org</a><br>
+        CC: <br>
+        <br>
+      </div>
+      <font size="2"><span style="font-size:11pt;">
+          <div class="PlainText">[CAUTION: External Email]<br>
+            <br>
+            This avoids OOM situations when we have lots of threads<br>
+            submitting at the same time.<br>
+            <br>
+            Signed-off-by: Christian König
+            <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a><br>
+            ---<br>
+             drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-<br>
+             1 file changed, 1 insertion(+), 1 deletion(-)<br>
+            <br>
+            diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+            index fff558cf385b..f9240a94217b 100644<br>
+            --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+            +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+            @@ -648,7 +648,7 @@ static int amdgpu_cs_parser_bos(struct
+            amdgpu_cs_parser *p,<br>
+                    }<br>
+            <br>
+                    r = ttm_eu_reserve_buffers(&amp;p-&gt;ticket,
+            &amp;p-&gt;validated, true,<br>
+            -                                  &amp;duplicates, true);<br>
+            +                                  &amp;duplicates, false);<br>
+                    if (unlikely(r != 0)) {<br>
+                            if (r != -ERESTARTSYS)<br>
+                                    DRM_ERROR("ttm_eu_reserve_buffers
+            failed.\n");<br>
+            --<br>
+            2.17.1<br>
+            <br>
+          </div>
+        </span></font>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------84DE613EEAB1B4265261C3A5--
+
+--===============0474673352==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+
+--===============0474673352==--
