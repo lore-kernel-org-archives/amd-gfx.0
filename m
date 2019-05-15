@@ -1,12 +1,10 @@
-From: Daniel Kasak <d.j.kasak.dk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: Hard lockups with ROCM
-Date: Thu, 16 May 2019 10:33:03 +1000
-Message-ID: <CAF73Y=R96zUxCAEKopSvGReqB+sEFWcHhXSKnR98rpetMbKf4Q@mail.gmail.com>
-References: <CAF73Y=QuYq3ALtP6xiPyqS+jm_TJCQQDyQ+WA5ZJG8EhWSKiTw@mail.gmail.com>
+From: Micah Morton <mortonm-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
+Subject: GPU passthrough support for Stoney [Radeon R2/R3/R4/R5 Graphics]?
+Date: Wed, 15 May 2019 11:14:59 -0700
+Message-ID: <CAJEGiUaGUG_8FK33-_a4ufTgacjzMds66boF+1Ytx9NYKbPX9Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0940686179=="
+Content-Type: multipart/mixed; boundary="===============1095822132=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAF73Y=QuYq3ALtP6xiPyqS+jm_TJCQQDyQ+WA5ZJG8EhWSKiTw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,68 +17,64 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
---===============0940686179==
-Content-Type: multipart/alternative; boundary="0000000000006ef8540588f66b81"
+--===============1095822132==
+Content-Type: multipart/alternative; boundary="00000000000043ba7e0588f121c1"
 
---0000000000006ef8540588f66b81
+--00000000000043ba7e0588f121c1
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, May 13, 2019 at 11:44 AM Daniel Kasak <d.j.kasak.dk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-wrote:
+Hi folks,
 
-> Hi all. I had version 2.2.0 of the ROCM stack running on a 5.0.x and 5.1.0
-> kernel. Things were going great with various boinc GPU tasks. But there is
-> a setiathome GPU task which reliably gives me a hard lockup within about 30
-> minutes of running. I actually had to do *two* emergency re-installs over
-> the past week. Perhaps part of this was my fault ( running btrfs with lzo
-> compression on my root partition ... ). But absolutely part of this was the
-> hard lockups. I've tested all kinds of other things ( eg rebuilding lots of
-> stuff under Gentoo ) ... I don't have a general stability issue even under
-> hours of high load. But after restarting boinc with that same setiathome
-> task ... <bang>!
->
-> If someone wants me to sacrifice another installation, they can point me
-> to instructions for trying to gather more information.
->
-> Anyway ... perhaps more work around detecting and recovering from GPU
-> lockups is in order?
->
-> Dan
->
+I'm interested in running a VM on a system with an integrated Stoney
+[Radeon R2/R3/R4/R5 Graphics] card and passing through the graphics card to
+the VM using the IOMMU. I'm wondering whether this is feasible and supposed
+to be doable with the right setup (as opposed to passing a discrete GPU to
+the VM, which I think is definitely doable?).
 
-<sigh>
+So far, I can do all the qemu/kvm/vfio/iommu stuff to run the VM and pass
+the integrated GPU to it, but the drm driver in the VM fails during
+amdgpu_device_init(). Specifically, the logs show the SMU being
+unresponsive, which leads to a 'SMU firmware load failed' error message and
+kernel panic. I can share VM logs and the invocation of qemu and such if
+helpful, but first wanted to know at a high level if this should be
+feasible?
 
-That's what I was afraid of :(
+P.S.: I'm not initializing the GPU in the host bios or host kernel at all,
+so I should be passing a fresh GPU to the VM. Also, I'm pretty sure I'm
+running the correct VGA bios for this GPU in the guest VM bios before guest
+boot.
 
---0000000000006ef8540588f66b81
+Any comments/suggestions would be appreciated!
+
+Micah
+
+--00000000000043ba7e0588f121c1
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
-_attr">On Mon, May 13, 2019 at 11:44 AM Daniel Kasak &lt;<a href=3D"mailto:=
-d.j.kasak.dk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">d.j.kasak.dk-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt; wrote:<br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr"><div>Hi all.=
- I had version 2.2.0 of the ROCM stack running on a 5.0.x and 5.1.0 kernel.=
- Things were going great with various boinc GPU tasks. But there is a setia=
-thome GPU task which reliably gives me a hard lockup within about 30 minute=
-s of running. I actually had to do *two* emergency re-installs over the pas=
-t week. Perhaps part of this was my fault ( running btrfs with lzo compress=
-ion on my root partition ... ). But absolutely part of this was the hard lo=
-ckups. I&#39;ve tested all kinds of other things ( eg rebuilding lots of st=
-uff under Gentoo ) ... I don&#39;t have a general stability issue even unde=
-r hours of high load. But after restarting boinc with that same setiathome =
-task ... &lt;bang&gt;!</div><div><br></div><div>If someone wants me to sacr=
-ifice another installation, they can point me to instructions for trying to=
- gather more information.</div><div><br></div><div>Anyway ... perhaps more =
-work around detecting and recovering from GPU lockups is in order?</div><di=
-v><br></div><div>Dan<br></div></div></blockquote><div><br></div><div>&lt;si=
-gh&gt;</div><div><br></div><div>That&#39;s what I was afraid of :(<br></div=
-></div></div>
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">Hi folk=
+s,</div><div dir=3D"ltr"><div><br></div><div>I&#39;m interested in running =
+a VM on a system with an integrated Stoney [Radeon R2/R3/R4/R5 Graphics] ca=
+rd and passing through the graphics card to the VM using the IOMMU. I&#39;m=
+ wondering whether this is feasible and supposed to be doable with the righ=
+t setup (as opposed to passing a discrete GPU to the VM, which I think is d=
+efinitely doable?).</div><div><br></div><div>So far, I can do all the qemu/=
+kvm/vfio/iommu stuff to run the VM and pass the integrated GPU to it, but t=
+he drm driver in the VM fails during amdgpu_device_init(). Specifically, th=
+e logs show the SMU being unresponsive, which leads to a &#39;SMU firmware =
+load failed&#39; error message and kernel panic. I can share VM logs and th=
+e invocation of qemu and such if helpful, but first wanted to know at a hig=
+h level if this should be feasible?</div><div><br></div><div>P.S.: I&#39;m =
+not initializing the GPU in the host bios or host kernel at all, so I shoul=
+d be passing a fresh GPU to the VM. Also, I&#39;m pretty sure I&#39;m runni=
+ng the correct VGA bios for this GPU in the guest VM bios before guest boot=
+.</div><div><br></div><div>Any comments/suggestions would be appreciated!</=
+div><div><br></div><div>Micah</div><div><br></div><div><br></div></div></di=
+v></div></div>
 
---0000000000006ef8540588f66b81--
+--00000000000043ba7e0588f121c1--
 
---===============0940686179==
+--===============1095822132==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -90,4 +84,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0940686179==--
+--===============1095822132==--
