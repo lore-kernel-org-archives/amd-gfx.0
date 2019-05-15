@@ -1,98 +1,50 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 6/7] drm/amdkfd: New IOCTL to allocate queue GWS
-Date: Wed, 15 May 2019 20:37:58 +0000
-Message-ID: <1557952664-12218-6-git-send-email-Oak.Zeng@amd.com>
-References: <1557952664-12218-1-git-send-email-Oak.Zeng@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH][next] drm/amdgpu: fix spelling mistake "retrived" -> "retrieved"
+Date: Wed, 15 May 2019 16:57:22 -0400
+Message-ID: <CADnq5_PPv42iXCad7HqgG-3zbE307bPrMSsXCdYCNpgrHi4iRA@mail.gmail.com>
+References: <20190510070734.20625-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1557952664-12218-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Keely, Sean" <Sean.Keely-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190510070734.20625-1-colin.king@canonical.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin King <colin.king@canonical.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWRkIGEgbmV3IGtmZCBpb2N0bCB0byBhbGxvY2F0ZSBxdWV1ZSBHV1MuIFF1ZXVlDQpHV1MgaXMg
-cmVsZWFzZWQgb24gcXVldWUgZGVzdHJveS4NCg0KQ2hhbmdlLUlkOiBJNjAxNTNjMjZhNTc3OTky
-YWQ4NzNlNDI5MmU3NTllNWMzZDViYmQxNQ0KU2lnbmVkLW9mZi1ieTogT2FrIFplbmcgPE9hay5a
-ZW5nQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRl
-di5jICAgICAgICAgICB8IDM5ICsrKysrKysrKysrKysrKysrKysrKysNCiAuLi4vZ3B1L2RybS9h
-bWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyB8ICA2ICsrKysNCiBpbmNsdWRl
-L3VhcGkvbGludXgva2ZkX2lvY3RsLmggICAgICAgICAgICAgICAgICAgICB8IDIwICsrKysrKysr
-KystDQogMyBmaWxlcyBjaGFuZ2VkLCA2NCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQoN
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJkZXYuYw0KaW5kZXggMzhhZTUzZi4u
-ODI4YmQ2NiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFy
-ZGV2LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMNCkBA
-IC0xNTU5LDYgKzE1NTksNDMgQEAgc3RhdGljIGludCBrZmRfaW9jdGxfdW5tYXBfbWVtb3J5X2Zy
-b21fZ3B1KHN0cnVjdCBmaWxlICpmaWxlcCwNCiAJcmV0dXJuIGVycjsNCiB9DQogDQorc3RhdGlj
-IGludCBrZmRfaW9jdGxfYWxsb2NfcXVldWVfZ3dzKHN0cnVjdCBmaWxlICpmaWxlcCwNCisJCXN0
-cnVjdCBrZmRfcHJvY2VzcyAqcCwgdm9pZCAqZGF0YSkNCit7DQorCWludCByZXR2YWw7DQorCXN0
-cnVjdCBrZmRfaW9jdGxfYWxsb2NfcXVldWVfZ3dzX2FyZ3MgKmFyZ3MgPSBkYXRhOw0KKwlzdHJ1
-Y3Qga2ZkX2RldiAqZGV2ID0gTlVMTDsNCisJc3RydWN0IGtnZF9tZW0gKm1lbTsNCisNCisJaWYg
-KGFyZ3MtPm51bV9nd3MgPT0gMCkNCisJCXJldHVybiAtRUlOVkFMOw0KKw0KKwlpZiAoIWh3c19n
-d3Nfc3VwcG9ydCB8fA0KKwkJZGV2LT5kcW0tPnNjaGVkX3BvbGljeSA9PSBLRkRfU0NIRURfUE9M
-SUNZX05PX0hXUykNCisJCXJldHVybiAtRUlOVkFMOw0KKw0KKwlkZXYgPSBrZmRfZGV2aWNlX2J5
-X2lkKGFyZ3MtPmdwdV9pZCk7DQorCWlmICghZGV2KSB7DQorCQlwcl9kZWJ1ZygiQ291bGQgbm90
-IGZpbmQgZ3B1IGlkIDB4JXhcbiIsIGFyZ3MtPmdwdV9pZCk7DQorCQlyZXR1cm4gLUVJTlZBTDsN
-CisJfQ0KKw0KKwlyZXR2YWwgPSBhbWRncHVfYW1ka2ZkX2FkZF9nd3NfdG9fcHJvY2VzcyhwLT5r
-Z2RfcHJvY2Vzc19pbmZvLA0KKwkJCWRldi0+Z3dzLCAmbWVtKTsNCisJaWYgKHVubGlrZWx5KHJl
-dHZhbCkpDQorCQlyZXR1cm4gcmV0dmFsOw0KKw0KKwltdXRleF9sb2NrKCZwLT5tdXRleCk7DQor
-CXJldHZhbCA9IHBxbV9zZXRfZ3dzKCZwLT5wcW0sIGFyZ3MtPnF1ZXVlX2lkLCBtZW0pOw0KKwlt
-dXRleF91bmxvY2soJnAtPm11dGV4KTsNCisNCisJaWYgKHVubGlrZWx5KHJldHZhbCkpDQorCQlh
-bWRncHVfYW1ka2ZkX3JlbW92ZV9nd3NfZnJvbV9wcm9jZXNzKHAtPmtnZF9wcm9jZXNzX2luZm8s
-IG1lbSk7DQorDQorCWFyZ3MtPmZpcnN0X2d3cyA9IDA7DQorCXJldHVybiByZXR2YWw7DQorfQ0K
-Kw0KIHN0YXRpYyBpbnQga2ZkX2lvY3RsX2dldF9kbWFidWZfaW5mbyhzdHJ1Y3QgZmlsZSAqZmls
-ZXAsDQogCQlzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAsIHZvaWQgKmRhdGEpDQogew0KQEAgLTE3NjEs
-NiArMTc5OCw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1ka2ZkX2lvY3RsX2Rlc2MgYW1ka2Zk
-X2lvY3Rsc1tdID0gew0KIAlBTURLRkRfSU9DVExfREVGKEFNREtGRF9JT0NfSU1QT1JUX0RNQUJV
-RiwNCiAJCQkJa2ZkX2lvY3RsX2ltcG9ydF9kbWFidWYsIDApLA0KIA0KKwlBTURLRkRfSU9DVExf
-REVGKEFNREtGRF9JT0NfQUxMT0NfUVVFVUVfR1dTLA0KKwkJCWtmZF9pb2N0bF9hbGxvY19xdWV1
-ZV9nd3MsIDApLA0KIH07DQogDQogI2RlZmluZSBBTURLRkRfQ09SRV9JT0NUTF9DT1VOVAlBUlJB
-WV9TSVpFKGFtZGtmZF9pb2N0bHMpDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jDQppbmRleCA4ZTQ1Mjk2Li5lMTVhZDQ4
-IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3NfcXVl
-dWVfbWFuYWdlci5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vz
-c19xdWV1ZV9tYW5hZ2VyLmMNCkBAIC0zNjMsNiArMzYzLDEyIEBAIGludCBwcW1fZGVzdHJveV9x
-dWV1ZShzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyICpwcW0sIHVuc2lnbmVkIGludCBxaWQp
-DQogCQlyZXR1cm4gLTE7DQogCX0NCiANCisJaWYgKHBxbV9nZXRfZ3dzKHBxbSwgcWlkKSkgew0K
-KwkJYW1kZ3B1X2FtZGtmZF9yZW1vdmVfZ3dzX2Zyb21fcHJvY2VzcyhwcW0tPnByb2Nlc3MtPmtn
-ZF9wcm9jZXNzX2luZm8sDQorCQkJCXBxbV9nZXRfZ3dzKHBxbSwgcWlkKSk7DQorCQlwcW1fc2V0
-X2d3cyhwcW0sIHFpZCwgTlVMTCk7DQorCX0NCisNCiAJaWYgKHBxbi0+a3EpIHsNCiAJCS8qIGRl
-c3Ryb3kga2VybmVsIHF1ZXVlIChESVEpICovDQogCQlkcW0gPSBwcW4tPmtxLT5kZXYtPmRxbTsN
-CmRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvbGludXgva2ZkX2lvY3RsLmggYi9pbmNsdWRlL3Vh
-cGkvbGludXgva2ZkX2lvY3RsLmgNCmluZGV4IDIwOTE3YzUuLjkxMmQ2OTAgMTAwNjQ0DQotLS0g
-YS9pbmNsdWRlL3VhcGkvbGludXgva2ZkX2lvY3RsLmgNCisrKyBiL2luY2x1ZGUvdWFwaS9saW51
-eC9rZmRfaW9jdGwuaA0KQEAgLTQxMCw2ICs0MTAsMjEgQEAgc3RydWN0IGtmZF9pb2N0bF91bm1h
-cF9tZW1vcnlfZnJvbV9ncHVfYXJncyB7DQogCV9fdTMyIG5fc3VjY2VzczsJCS8qIHRvL2Zyb20g
-S0ZEICovDQogfTsNCiANCisvKiBBbGxvY2F0ZSBHV1MgZm9yIHNwZWNpZmljIHF1ZXVlDQorICoN
-CisgKiBAZ3B1X2lkOiAgICAgIGRldmljZSBpZGVudGlmaWVyDQorICogQHF1ZXVlX2lkOiAgICBx
-dWV1ZSdzIGlkIHRoYXQgR1dTIGlzIGFsbG9jYXRlZCBmb3INCisgKiBAbnVtX2d3czogICAgIGhv
-dyBtYW55IEdXUyB0byBhbGxvY2F0ZQ0KKyAqIEBmaXJzdF9nd3M6ICAgaW5kZXggb2YgdGhlIGZp
-cnN0IEdXUyBhbGxvY2F0ZWQuDQorICogICAgICAgICAgICAgICBvbmx5IHN1cHBvcnQgY29udGln
-dW91cyBHV1MgYWxsb2NhdGlvbg0KKyAqLw0KK3N0cnVjdCBrZmRfaW9jdGxfYWxsb2NfcXVldWVf
-Z3dzX2FyZ3Mgew0KKwlfX3UzMiBncHVfaWQ7CQkvKiB0byBLRkQgKi8NCisJX191MzIgcXVldWVf
-aWQ7CQkvKiB0byBLRkQgKi8NCisJX191MzIgbnVtX2d3czsJCS8qIHRvIEtGRCAqLw0KKwlfX3Uz
-MiBmaXJzdF9nd3M7CS8qIGZyb20gS0ZEICovDQorfTsNCisNCiBzdHJ1Y3Qga2ZkX2lvY3RsX2dl
-dF9kbWFidWZfaW5mb19hcmdzIHsNCiAJX191NjQgc2l6ZTsJCS8qIGZyb20gS0ZEICovDQogCV9f
-dTY0IG1ldGFkYXRhX3B0cjsJLyogdG8gS0ZEICovDQpAQCAtNTI5LDcgKzU0NCwxMCBAQCBlbnVt
-IGtmZF9tbWlvX3JlbWFwIHsNCiAjZGVmaW5lIEFNREtGRF9JT0NfSU1QT1JUX0RNQUJVRgkJXA0K
-IAkJQU1ES0ZEX0lPV1IoMHgxRCwgc3RydWN0IGtmZF9pb2N0bF9pbXBvcnRfZG1hYnVmX2FyZ3Mp
-DQogDQorI2RlZmluZSBBTURLRkRfSU9DX0FMTE9DX1FVRVVFX0dXUwkJXA0KKwkJQU1ES0ZEX0lP
-V1IoMHgyMiwgc3RydWN0IGtmZF9pb2N0bF9hbGxvY19xdWV1ZV9nd3NfYXJncykNCisNCiAjZGVm
-aW5lIEFNREtGRF9DT01NQU5EX1NUQVJUCQkweDAxDQotI2RlZmluZSBBTURLRkRfQ09NTUFORF9F
-TkQJCTB4MUUNCisjZGVmaW5lIEFNREtGRF9DT01NQU5EX0VORAkJMHgyMw0KIA0KICNlbmRpZg0K
-LS0gDQoyLjcuNA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Fri, May 10, 2019 at 3:07 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> There is a spelling mistake in a DRM_ERROR error message. Fix this.
+>
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+> index 7d375f8dcce6..a5c3558869fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+> @@ -194,7 +194,7 @@ static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
+>                 return;
+>
+>         if ((*lo_base_addr == 0) || (*hi_base_addr == 0)) {
+> -               DRM_ERROR("DF PMC addressing not retrived! Lo: %x, Hi: %x",
+> +               DRM_ERROR("DF PMC addressing not retrieved! Lo: %x, Hi: %x",
+>                                 *lo_base_addr, *hi_base_addr);
+>                 return;
+>         }
+> --
+> 2.20.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
