@@ -1,17 +1,15 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 11/11] drm/amdgpu: stop removing BOs from the LRU during CS
-Date: Wed, 15 May 2019 09:04:52 +0200
-Message-ID: <5d6b76f9-5402-989d-1fa8-d807cea1bfe3@gmail.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH 02/11] drm/ttm: fix busy memory to fail other user v8
+Date: Wed, 15 May 2019 10:38:28 +0200
+Message-ID: <20190515083828.GB17751@phenom.ffwll.local>
 References: <20190514123127.1650-1-christian.koenig@amd.com>
- <20190514123127.1650-11-christian.koenig@amd.com>
- <CAAxE2A6Z45NCy7v5fPqmo5o5ZEnmvv_f=qax0uoDS9amMFEB7w@mail.gmail.com>
- <BYAPR12MB35256D8A0583B5DD019C2925FB090@BYAPR12MB3525.namprd12.prod.outlook.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <20190514123127.1650-2-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0469999565=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BYAPR12MB35256D8A0583B5DD019C2925FB090-ZGDeBxoHBPmbr42z19MNgwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20190514123127.1650-2-christian.koenig-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -22,385 +20,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liang, Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, Marek.Olsak-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Prike.Liang-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============0469999565==
-Content-Type: multipart/alternative;
- boundary="------------00764539B5BAA9568D6C6EDA"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------00764539B5BAA9568D6C6EDA
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Hi Prike,
-
-no, that can lead to massive problems in a real OOM situation and is not 
-something we can do here.
-
-Christian.
-
-Am 15.05.19 um 04:00 schrieb Liang, Prike:
->
-> Hi Christian ,
->
-> I just wonder when encounter ENOMEM error during pin amdgpu BOs can we 
-> retry validate again as below.
->
-> With the following simply patch the Abaqus pinned issue not observed.
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->
-> index 11cbf63..72a32f5 100644
->
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
->
-> @@ -902,11 +902,15 @@ int amdgpu_bo_pin_restricted(struct amdgpu_bo 
-> *bo, u32 domain,
->
-> bo->placements[i].lpfn = lpfn;
->
->                 bo->placements[i].flags |= TTM_PL_FLAG_NO_EVICT;
->
->         }
->
-> -
->
-> +retry:
->
->         r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
->
->         if (unlikely(r)) {
->
-> -               dev_err(adev->dev, "%p pin failed\n", bo);
->
-> -               goto error;
->
-> +                if (r == -ENOMEM){
->
-> +                        goto retry;
->
-> +                } else {
->
-> + dev_err(adev->dev, "%p pin failed\n", bo);
->
-> +                       goto error;
->
-> +                }
->
->         }
->
->         bo->pin_count = 1;
->
-> Thanks,
->
-> Prike
->
-> *From:* Marek Olšák <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> *Sent:* Wednesday, May 15, 2019 3:33 AM
-> *To:* Christian König <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> *Cc:* Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; Liang, Prike 
-> <Prike.Liang-5C7GfCeVMHo@public.gmane.org>; dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; 
-> amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> *Subject:* Re: [PATCH 11/11] drm/amdgpu: stop removing BOs from the 
-> LRU during CS
->
-> [CAUTION: External Email]
->
-> This series fixes the OOM errors. However, if I torture the kernel 
-> driver more, I can get it to deadlock and end up with unkillable 
-> processes. I can also get an OOM error. I just ran the test 5 times:
->
-> AMD_DEBUG=testgdsmm glxgears & AMD_DEBUG=testgdsmm glxgears & 
-> AMD_DEBUG=testgdsmm glxgears & AMD_DEBUG=testgdsmm glxgears & 
-> AMD_DEBUG=testgdsmm glxgears
->
-> Marek
->
-> On Tue, May 14, 2019 at 8:31 AM Christian König 
-> <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org 
-> <mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>> wrote:
->
->     This avoids OOM situations when we have lots of threads
->     submitting at the same time.
->
->     Signed-off-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org
->     <mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org>>
->     ---
->      drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
->      1 file changed, 1 insertion(+), 1 deletion(-)
->
->     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->     b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->     index fff558cf385b..f9240a94217b 100644
->     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
->     @@ -648,7 +648,7 @@ static int amdgpu_cs_parser_bos(struct
->     amdgpu_cs_parser *p,
->             }
->
->             r = ttm_eu_reserve_buffers(&p->ticket, &p->validated, true,
->     -                                  &duplicates, true);
->     +                                  &duplicates, false);
->             if (unlikely(r != 0)) {
->                     if (r != -ERESTARTSYS)
->     DRM_ERROR("ttm_eu_reserve_buffers failed.\n");
->     -- 
->     2.17.1
->
->     _______________________________________________
->     amd-gfx mailing list
->     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
->     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
-
-
---------------00764539B5BAA9568D6C6EDA
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Hi Prike,<br>
-      <br>
-      no, that can lead to massive problems in a real OOM situation and
-      is not something we can do here.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 15.05.19 um 04:00 schrieb Liang, Prike:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BYAPR12MB35256D8A0583B5DD019C2925FB090-ZGDeBxoHBPmbr42z19MNgwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@等线";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext="edit" spidmax="1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext="edit">
-<o:idmap v:ext="edit" data="1" />
-</o:shapelayout></xml><![endif]-->
-      <div class="WordSection1">
-        <p class="MsoNormal">Hi Christian ,<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">I just wonder when encounter ENOMEM error
-          during pin amdgpu BOs can we retry validate again as below.<o:p></o:p></p>
-        <p class="MsoNormal">With the following simply patch the Abaqus
-          pinned issue not observed.
-          <o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">diff --git
-          a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<o:p></o:p></p>
-        <p class="MsoNormal">index 11cbf63..72a32f5 100644<o:p></o:p></p>
-        <p class="MsoNormal">---
-          a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<o:p></o:p></p>
-        <p class="MsoNormal">+++
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c<o:p></o:p></p>
-        <p class="MsoNormal">@@ -902,11 +902,15 @@ int
-          amdgpu_bo_pin_restricted(struct amdgpu_bo *bo, u32 domain,<o:p></o:p></p>
-        <p class="MsoNormal">                       
-          bo-&gt;placements[i].lpfn = lpfn;<o:p></o:p></p>
-        <p class="MsoNormal">                bo-&gt;placements[i].flags
-          |= TTM_PL_FLAG_NO_EVICT;<o:p></o:p></p>
-        <p class="MsoNormal">        }<o:p></o:p></p>
-        <p class="MsoNormal">-<o:p></o:p></p>
-        <p class="MsoNormal">+retry:<o:p></o:p></p>
-        <p class="MsoNormal">        r =
-          ttm_bo_validate(&amp;bo-&gt;tbo, &amp;bo-&gt;placement,
-          &amp;ctx);<o:p></o:p></p>
-        <p class="MsoNormal">        if (unlikely(r)) {<o:p></o:p></p>
-        <p class="MsoNormal">-               dev_err(adev-&gt;dev, "%p
-          pin failed\n", bo);<o:p></o:p></p>
-        <p class="MsoNormal">-               goto error;<o:p></o:p></p>
-        <p class="MsoNormal">+                if (r == -ENOMEM){<o:p></o:p></p>
-        <p class="MsoNormal">+                        goto retry;<o:p></o:p></p>
-        <p class="MsoNormal">+                } else {<o:p></o:p></p>
-        <p class="MsoNormal">+                      
-          dev_err(adev-&gt;dev, "%p pin failed\n", bo);<o:p></o:p></p>
-        <p class="MsoNormal">+                       goto error;<o:p></o:p></p>
-        <p class="MsoNormal">+                }<o:p></o:p></p>
-        <p class="MsoNormal">        }<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">        bo-&gt;pin_count = 1;<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">Thanks,<o:p></o:p></p>
-        <p class="MsoNormal">Prike<o:p></o:p></p>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <div>
-          <div style="border:none;border-top:solid #E1E1E1
-            1.0pt;padding:3.0pt 0in 0in 0in">
-            <p class="MsoNormal"><b>From:</b> Marek Olšák
-              <a class="moz-txt-link-rfc2396E" href="mailto:maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a> <br>
-              <b>Sent:</b> Wednesday, May 15, 2019 3:33 AM<br>
-              <b>To:</b> Christian König
-              <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-              <b>Cc:</b> Zhou, David(ChunMing)
-              <a class="moz-txt-link-rfc2396E" href="mailto:David1.Zhou-5C7GfCeVMHo@public.gmane.org">&lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt;</a>; Liang, Prike
-              <a class="moz-txt-link-rfc2396E" href="mailto:Prike.Liang-5C7GfCeVMHo@public.gmane.org">&lt;Prike.Liang-5C7GfCeVMHo@public.gmane.org&gt;</a>; dri-devel
-              <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a>; amd-gfx mailing
-              list <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
-              <b>Subject:</b> Re: [PATCH 11/11] drm/amdgpu: stop
-              removing BOs from the LRU during CS<o:p></o:p></p>
-          </div>
-        </div>
-        <p class="MsoNormal"><o:p> </o:p></p>
-        <p class="MsoNormal">[CAUTION: External Email] <o:p></o:p></p>
-        <div>
-          <div>
-            <div>
-              <div>
-                <p class="MsoNormal">This series fixes the OOM errors.
-                  However, if I torture the kernel driver more, I can
-                  get it to deadlock and end up with unkillable
-                  processes. I can also get an OOM error. I just ran the
-                  test 5 times:<o:p></o:p></p>
-              </div>
-              <div>
-                <p class="MsoNormal"><o:p> </o:p></p>
-              </div>
-              <div>
-                <p class="MsoNormal">AMD_DEBUG=testgdsmm glxgears &amp;
-                  AMD_DEBUG=testgdsmm glxgears &amp; AMD_DEBUG=testgdsmm
-                  glxgears &amp; AMD_DEBUG=testgdsmm glxgears &amp;
-                  AMD_DEBUG=testgdsmm glxgears<o:p></o:p></p>
-              </div>
-              <p class="MsoNormal"><o:p> </o:p></p>
-              <div>
-                <p class="MsoNormal">Marek<o:p></o:p></p>
-              </div>
-            </div>
-          </div>
-          <p class="MsoNormal"><o:p> </o:p></p>
-          <div>
-            <div>
-              <p class="MsoNormal">On Tue, May 14, 2019 at 8:31 AM
-                Christian König &lt;<a
-                  href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org"
-                  moz-do-not-send="true">ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org</a>&gt;
-                wrote:<o:p></o:p></p>
-            </div>
-            <blockquote style="border:none;border-left:solid #CCCCCC
-              1.0pt;padding:0in 0in 0in
-              6.0pt;margin-left:4.8pt;margin-right:0in">
-              <p class="MsoNormal">This avoids OOM situations when we
-                have lots of threads<br>
-                submitting at the same time.<br>
-                <br>
-                Signed-off-by: Christian König &lt;<a
-                  href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org" target="_blank"
-                  moz-do-not-send="true">christian.koenig-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-                ---<br>
-                 drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-<br>
-                 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-                <br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-                index fff558cf385b..f9240a94217b 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-                +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
-                @@ -648,7 +648,7 @@ static int
-                amdgpu_cs_parser_bos(struct amdgpu_cs_parser *p,<br>
-                        }<br>
-                <br>
-                        r = ttm_eu_reserve_buffers(&amp;p-&gt;ticket,
-                &amp;p-&gt;validated, true,<br>
-                -                                  &amp;duplicates,
-                true);<br>
-                +                                  &amp;duplicates,
-                false);<br>
-                        if (unlikely(r != 0)) {<br>
-                                if (r != -ERESTARTSYS)<br>
-                                       
-                DRM_ERROR("ttm_eu_reserve_buffers failed.\n");<br>
-                -- <br>
-                2.17.1<br>
-                <br>
-                _______________________________________________<br>
-                amd-gfx mailing list<br>
-                <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org"
-                  target="_blank" moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-                <a
-                  href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
-                  target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
-            </blockquote>
-          </div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------00764539B5BAA9568D6C6EDA--
-
---===============0469999565==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0469999565==--
+T24gVHVlLCBNYXkgMTQsIDIwMTkgYXQgMDI6MzE6MThQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToKPiBGcm9tOiBDaHVubWluZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgo+IAo+
+IGhlYXZ5IGdwdSBqb2IgY291bGQgb2NjdXB5IG1lbW9yeSBsb25nIHRpbWUsIHdoaWNoIGxlYWQg
+b3RoZXIgdXNlciBmYWlsIHRvIGdldCBtZW1vcnkuCj4gCj4gYmFzaWNhbGx5IHBpY2sgdXAgQ2hy
+aXN0aWFuIGlkZWE6Cj4gCj4gMS4gUmVzZXJ2ZSB0aGUgQk8gaW4gREMgdXNpbmcgYSB3d19tdXRl
+eCB0aWNrZXQgKHRyaXZpYWwpLgo+IDIuIElmIHdlIHRoZW4gcnVuIGludG8gdGhpcyBFQlVTWSBj
+b25kaXRpb24gaW4gVFRNIGNoZWNrIGlmIHRoZSBCTyB3ZSBuZWVkIG1lbW9yeSBmb3IgKG9yIHJh
+dGhlciB0aGUgd3dfbXV0ZXggb2YgaXRzIHJlc2VydmF0aW9uIG9iamVjdCkgaGFzIGEgdGlja2V0
+IGFzc2lnbmVkLgo+IDMuIElmIHdlIGhhdmUgYSB0aWNrZXQgd2UgZ3JhYiBhIHJlZmVyZW5jZSB0
+byB0aGUgZmlyc3QgQk8gb24gdGhlIExSVSwgZHJvcCB0aGUgTFJVIGxvY2sgYW5kIHRyeSB0byBn
+cmFiIHRoZSByZXNlcnZhdGlvbiBsb2NrIHdpdGggdGhlIHRpY2tldC4KPiA0LiBJZiBnZXR0aW5n
+IHRoZSByZXNlcnZhdGlvbiBsb2NrIHdpdGggdGhlIHRpY2tldCBzdWNjZWVkZWQgd2UgY2hlY2sg
+aWYgdGhlIEJPIGlzIHN0aWxsIHRoZSBmaXJzdCBvbmUgb24gdGhlIExSVSBpbiBxdWVzdGlvbiAo
+dGhlIEJPIGNvdWxkIGhhdmUgbW92ZWQpLgo+IDUuIElmIHRoZSBCTyBpcyBzdGlsbCB0aGUgZmly
+c3Qgb25lIG9uIHRoZSBMUlUgaW4gcXVlc3Rpb24gd2UgdHJ5IHRvIGV2aWN0IGl0IGFzIHdlIHdv
+dWxkIGV2aWN0IGFueSBvdGhlciBCTy4KPiA2LiBJZiBhbnkgb2YgdGhlICJJZidzIiBhYm92ZSBm
+YWlsIHdlIGp1c3QgYmFjayBvZmYgYW5kIHJldHVybiAtRUJVU1kuCj4gCj4gdjI6IGZpeCBzb21l
+IG1pbm9yIGNoZWNrCj4gdjM6IGFkZHJlc3MgQ2hyaXN0aWFuIHYyIGNvbW1lbnRzLgo+IHY0OiBm
+aXggc29tZSBtaXNzaW5nCj4gdjU6IGhhbmRsZSBmaXJzdF9ibyB1bmxvY2sgYW5kIGJvX2dldC9w
+dXQKPiB2NjogYWJzdHJhY3QgdW5pZmllZCBpdGVyYXRlIGZ1bmN0aW9uLCBhbmQgaGFuZGxlIGFs
+bCBwb3NzaWJsZSB1c2VjYXNlIG5vdCBvbmx5IHBpbm5lZCBiby4KPiB2NzogcGFzcyByZXF1ZXN0
+IGJvLT5yZXN2IHRvIHR0bV9ib19ldmljdF9maXJzdAo+IHY4IChjaGspOiBtaW5pbWFsIGNvZGlu
+ZyBzdHlsZSBmaXgKPiAKPiBDaGFuZ2UtSWQ6IEkyMTQyM2ZiOTIyZjg4NTQ2NWYxMzgzM2M0MWRm
+MWUxMzQzNjRhOGU3Cj4gU2lnbmVkLW9mZi1ieTogQ2h1bm1pbmcgWmhvdSA8ZGF2aWQxLnpob3VA
+YW1kLmNvbT4KPiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5p
+Z0BhbWQuY29tPgoKSSB0aGluayB0aGlzIGNsb3NlcyBhIGJpZyBnYXAgYmV0d2VlbiB0dG0gYW5k
+IHRoZSBia2wvc3RydWN0X211dGV4CmRyaXZlcnMgLSBpdCdzIG11Y2ggZWFzaWVyIHRvIGd1YXJh
+bnRlZSB5b3UgY2FuIGV2aWN0IGV2ZXJ5dGhpbmcgaWYKdGhlcmUncyBvbmx5IGEgc2luZ2xlIGxv
+Y2sgOi0pCgpXb3VsZCBiZSBhYnNvbHV0ZWx5IGF3ZXNvbWUgaWYgd2UgY291bGQgZXh0cmFjdCB0
+aGlzIGFzIHNvbWUga2luZCBvZgpidWlsZGluZyBibG9jaywgbGlrZSB3ZSd2ZSBkb25lIHdpdGgg
+bG90cyBvZiBvdGhlciB0dG0gY29uY2VwdHMgYWxyZWFkeQoocmVzZXJ2YXRpb25fb2JqLCBmZW5j
+ZXMsIC4uLikuCgpKdXN0IGFuIGFzaWRlIHJlYWxseS4KLURhbmllbAoKPiAtLS0KPiAgZHJpdmVy
+cy9ncHUvZHJtL3R0bS90dG1fYm8uYyB8IDExMyArKysrKysrKysrKysrKysrKysrKysrKysrKysr
+Ky0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgOTYgaW5zZXJ0aW9ucygrKSwgMTcgZGVsZXRpb25z
+KC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgYi9kcml2
+ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4gaW5kZXggMjg0NWZjZWIyZmJkLi5lNjM0ZDNhMzY5
+MjMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPiBAQCAtNzY2LDExICs3NjYsMTMgQEAgRVhQT1JU
+X1NZTUJPTCh0dG1fYm9fZXZpY3Rpb25fdmFsdWFibGUpOwo+ICAgKiBiLiBPdGhlcndpc2UsIHRy
+eWxvY2sgaXQuCj4gICAqLwo+ICBzdGF0aWMgYm9vbCB0dG1fYm9fZXZpY3Rfc3dhcG91dF9hbGxv
+d2FibGUoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKPiAtCQkJc3RydWN0IHR0bV9vcGVy
+YXRpb25fY3R4ICpjdHgsIGJvb2wgKmxvY2tlZCkKPiArCQkJc3RydWN0IHR0bV9vcGVyYXRpb25f
+Y3R4ICpjdHgsIGJvb2wgKmxvY2tlZCwgYm9vbCAqYnVzeSkKPiAgewo+ICAJYm9vbCByZXQgPSBm
+YWxzZTsKPiAgCj4gIAkqbG9ja2VkID0gZmFsc2U7Cj4gKwlpZiAoYnVzeSkKPiArCQkqYnVzeSA9
+IGZhbHNlOwo+ICAJaWYgKGJvLT5yZXN2ID09IGN0eC0+cmVzdikgewo+ICAJCXJlc2VydmF0aW9u
+X29iamVjdF9hc3NlcnRfaGVsZChiby0+cmVzdik7Cj4gIAkJaWYgKGN0eC0+ZmxhZ3MgJiBUVE1f
+T1BUX0ZMQUdfQUxMT1dfUkVTX0VWSUNUCj4gQEAgLTc3OSwzNSArNzgxLDQ2IEBAIHN0YXRpYyBi
+b29sIHR0bV9ib19ldmljdF9zd2Fwb3V0X2FsbG93YWJsZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmpl
+Y3QgKmJvLAo+ICAJfSBlbHNlIHsKPiAgCQkqbG9ja2VkID0gcmVzZXJ2YXRpb25fb2JqZWN0X3Ry
+eWxvY2soYm8tPnJlc3YpOwo+ICAJCXJldCA9ICpsb2NrZWQ7Cj4gKwkJaWYgKCFyZXQgJiYgYnVz
+eSkKPiArCQkJKmJ1c3kgPSB0cnVlOwo+ICAJfQo+ICAKPiAgCXJldHVybiByZXQ7Cj4gIH0KPiAg
+Cj4gLXN0YXRpYyBpbnQgdHRtX21lbV9ldmljdF9maXJzdChzdHJ1Y3QgdHRtX2JvX2RldmljZSAq
+YmRldiwKPiAtCQkJICAgICAgIHVpbnQzMl90IG1lbV90eXBlLAo+IC0JCQkgICAgICAgY29uc3Qg
+c3RydWN0IHR0bV9wbGFjZSAqcGxhY2UsCj4gLQkJCSAgICAgICBzdHJ1Y3QgdHRtX29wZXJhdGlv
+bl9jdHggKmN0eCkKPiArc3RhdGljIHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCoKPiArdHRtX21l
+bV9maW5kX2V2aXRhYmxlX2JvKHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAo+ICsJCQkgc3Ry
+dWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4gKwkJCSBjb25zdCBzdHJ1Y3QgdHRtX3Bs
+YWNlICpwbGFjZSwKPiArCQkJIHN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAqY3R4LAo+ICsJCQkg
+c3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICoqZmlyc3RfYm8sCj4gKwkJCSBib29sICpsb2NrZWQp
+Cj4gIHsKPiAtCXN0cnVjdCB0dG1fYm9fZ2xvYmFsICpnbG9iID0gYmRldi0+Z2xvYjsKPiAtCXN0
+cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuID0gJmJkZXYtPm1hblttZW1fdHlwZV07Cj4g
+IAlzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvID0gTlVMTDsKPiAtCWJvb2wgbG9ja2VkID0g
+ZmFsc2U7Cj4gLQl1bnNpZ25lZCBpOwo+IC0JaW50IHJldDsKPiArCWludCBpOwo+ICAKPiAtCXNw
+aW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOwo+ICsJaWYgKGZpcnN0X2JvKQo+ICsJCSpmaXJzdF9i
+byA9IE5VTEw7Cj4gIAlmb3IgKGkgPSAwOyBpIDwgVFRNX01BWF9CT19QUklPUklUWTsgKytpKSB7
+Cj4gIAkJbGlzdF9mb3JfZWFjaF9lbnRyeShibywgJm1hbi0+bHJ1W2ldLCBscnUpIHsKPiAtCQkJ
+aWYgKCF0dG1fYm9fZXZpY3Rfc3dhcG91dF9hbGxvd2FibGUoYm8sIGN0eCwgJmxvY2tlZCkpCj4g
+KwkJCWJvb2wgYnVzeSA9IGZhbHNlOwo+ICsKPiArCQkJaWYgKCF0dG1fYm9fZXZpY3Rfc3dhcG91
+dF9hbGxvd2FibGUoYm8sIGN0eCwgbG9ja2VkLAo+ICsJCQkJCQkJICAgICZidXN5KSkgewo+ICsJ
+CQkJaWYgKGZpcnN0X2JvICYmICEoKmZpcnN0X2JvKSAmJiBidXN5KSB7Cj4gKwkJCQkJdHRtX2Jv
+X2dldChibyk7Cj4gKwkJCQkJKmZpcnN0X2JvID0gYm87Cj4gKwkJCQl9Cj4gIAkJCQljb250aW51
+ZTsKPiArCQkJfQo+ICAKPiAgCQkJaWYgKHBsYWNlICYmICFiZGV2LT5kcml2ZXItPmV2aWN0aW9u
+X3ZhbHVhYmxlKGJvLAo+ICAJCQkJCQkJCSAgICAgIHBsYWNlKSkgewo+IC0JCQkJaWYgKGxvY2tl
+ZCkKPiArCQkJCWlmICgqbG9ja2VkKQo+ICAJCQkJCXJlc2VydmF0aW9uX29iamVjdF91bmxvY2so
+Ym8tPnJlc3YpOwo+ICAJCQkJY29udGludWU7Cj4gIAkJCX0KPiArCj4gIAkJCWJyZWFrOwo+ICAJ
+CX0KPiAgCj4gQEAgLTgxOCw5ICs4MzEsNjkgQEAgc3RhdGljIGludCB0dG1fbWVtX2V2aWN0X2Zp
+cnN0KHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2LAo+ICAJCWJvID0gTlVMTDsKPiAgCX0KPiAg
+Cj4gKwlyZXR1cm4gYm87Cj4gK30KPiArCj4gK3N0YXRpYyBpbnQgdHRtX21lbV9ldmljdF9maXJz
+dChzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiArCQkJICAgICAgIHVpbnQzMl90IG1lbV90
+eXBlLAo+ICsJCQkgICAgICAgY29uc3Qgc3RydWN0IHR0bV9wbGFjZSAqcGxhY2UsCj4gKwkJCSAg
+ICAgICBzdHJ1Y3QgdHRtX29wZXJhdGlvbl9jdHggKmN0eCwKPiArCQkJICAgICAgIHN0cnVjdCBy
+ZXNlcnZhdGlvbl9vYmplY3QgKnJlcXVlc3RfcmVzdikKPiArewo+ICsJc3RydWN0IHR0bV9ib19n
+bG9iYWwgKmdsb2IgPSBiZGV2LT5nbG9iOwo+ICsJc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2Vy
+ICptYW4gPSAmYmRldi0+bWFuW21lbV90eXBlXTsKPiArCXN0cnVjdCB0dG1fYnVmZmVyX29iamVj
+dCAqYm8gPSBOVUxMLCAqZmlyc3RfYm8gPSBOVUxMOwo+ICsJYm9vbCBsb2NrZWQgPSBmYWxzZTsK
+PiArCWludCByZXQ7Cj4gKwo+ICsJc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4gKwlibyA9
+IHR0bV9tZW1fZmluZF9ldml0YWJsZV9ibyhiZGV2LCBtYW4sIHBsYWNlLCBjdHgsICZmaXJzdF9i
+bywKPiArCQkJCSAgICAgICZsb2NrZWQpOwo+ICAJaWYgKCFibykgewo+ICsJCXN0cnVjdCB3d19h
+Y3F1aXJlX2N0eCAqYWNxdWlyZV9jdHggPSByZXF1ZXN0X3Jlc3YtPmxvY2suY3R4Owo+ICsJCXN0
+cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCBidXN5X2N0eDsKPiArCj4gIAkJc3Bpbl91bmxvY2soJmds
+b2ItPmxydV9sb2NrKTsKPiAtCQlyZXR1cm4gLUVCVVNZOwo+ICsJCS8qIGNoZWNrIGlmIG90aGVy
+IHVzZXIgb2NjdXB5IG1lbW9yeSB0b28gbG9uZyB0aW1lICovCj4gKwkJaWYgKCFmaXJzdF9ibyB8
+fCAhcmVxdWVzdF9yZXN2IHx8ICFyZXF1ZXN0X3Jlc3YtPmxvY2suY3R4KSB7Cj4gKwkJCWlmIChm
+aXJzdF9ibykKPiArCQkJCXR0bV9ib19wdXQoZmlyc3RfYm8pOwo+ICsJCQlyZXR1cm4gLUVCVVNZ
+Owo+ICsJCX0KPiArCQlpZiAoZmlyc3RfYm8tPnJlc3YgPT0gcmVxdWVzdF9yZXN2KSB7Cj4gKwkJ
+CXR0bV9ib19wdXQoZmlyc3RfYm8pOwo+ICsJCQlyZXR1cm4gLUVCVVNZOwo+ICsJCX0KPiArCQlp
+ZiAoY3R4LT5pbnRlcnJ1cHRpYmxlKQo+ICsJCQlyZXQgPSB3d19tdXRleF9sb2NrX2ludGVycnVw
+dGlibGUoJmZpcnN0X2JvLT5yZXN2LT5sb2NrLAo+ICsJCQkJCQkJICBhY3F1aXJlX2N0eCk7Cj4g
+KwkJZWxzZQo+ICsJCQlyZXQgPSB3d19tdXRleF9sb2NrKCZmaXJzdF9iby0+cmVzdi0+bG9jaywK
+PiArCQkJCQkgICAgYWNxdWlyZV9jdHgpOwo+ICsJCWlmIChyZXQpIHsKPiArCQkJdHRtX2JvX3B1
+dChmaXJzdF9ibyk7Cj4gKwkJCXJldHVybiByZXQ7Cj4gKwkJfQo+ICsJCXNwaW5fbG9jaygmZ2xv
+Yi0+bHJ1X2xvY2spOwo+ICsJCS8qIHByZXZpb3VzIGJ1c3kgcmVzdiBsb2NrIGlzIGhlbGQgYnkg
+YWJvdmUsIGlkbGUgbm93LAo+ICsJCSAqIHNvIGxldCB0aGVtIGV2aWN0YWJsZS4KPiArCQkgKi8K
+PiArCQlidXN5X2N0eC5pbnRlcnJ1cHRpYmxlID0gY3R4LT5pbnRlcnJ1cHRpYmxlOwo+ICsJCWJ1
+c3lfY3R4Lm5vX3dhaXRfZ3B1ICAgPSBjdHgtPm5vX3dhaXRfZ3B1Owo+ICsJCWJ1c3lfY3R4LnJl
+c3YJICAgICAgID0gZmlyc3RfYm8tPnJlc3Y7Cj4gKwkJYnVzeV9jdHguZmxhZ3MJICAgICAgID0g
+VFRNX09QVF9GTEFHX0FMTE9XX1JFU19FVklDVDsKPiArCj4gKwkJYm8gPSB0dG1fbWVtX2ZpbmRf
+ZXZpdGFibGVfYm8oYmRldiwgbWFuLCBwbGFjZSwgJmJ1c3lfY3R4LCBOVUxMLAo+ICsJCQkJCSAg
+ICAgICZsb2NrZWQpOwo+ICsJCWlmIChibyAmJiAoYm8tPnJlc3YgPT0gZmlyc3RfYm8tPnJlc3Yp
+KQo+ICsJCQlsb2NrZWQgPSB0cnVlOwo+ICsJCWVsc2UgaWYgKGJvKQo+ICsJCQl3d19tdXRleF91
+bmxvY2soJmZpcnN0X2JvLT5yZXN2LT5sb2NrKTsKPiArCQlpZiAoIWJvKSB7Cj4gKwkJCXNwaW5f
+dW5sb2NrKCZnbG9iLT5scnVfbG9jayk7Cj4gKwkJCXR0bV9ib19wdXQoZmlyc3RfYm8pOwo+ICsJ
+CQlyZXR1cm4gLUVCVVNZOwo+ICsJCX0KPiAgCX0KPiAgCj4gIAlrcmVmX2dldCgmYm8tPmxpc3Rf
+a3JlZik7Cj4gQEAgLTgyOSwxMSArOTAyLDE1IEBAIHN0YXRpYyBpbnQgdHRtX21lbV9ldmljdF9m
+aXJzdChzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldiwKPiAgCQlyZXQgPSB0dG1fYm9fY2xlYW51
+cF9yZWZzKGJvLCBjdHgtPmludGVycnVwdGlibGUsCj4gIAkJCQkJICBjdHgtPm5vX3dhaXRfZ3B1
+LCBsb2NrZWQpOwo+ICAJCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVsZWFzZV9s
+aXN0KTsKPiArCQlpZiAoZmlyc3RfYm8pCj4gKwkJCXR0bV9ib19wdXQoZmlyc3RfYm8pOwo+ICAJ
+CXJldHVybiByZXQ7Cj4gIAl9Cj4gIAo+ICAJdHRtX2JvX2RlbF9mcm9tX2xydShibyk7Cj4gIAlz
+cGluX3VubG9jaygmZ2xvYi0+bHJ1X2xvY2spOwo+ICsJaWYgKGZpcnN0X2JvKQo+ICsJCXR0bV9i
+b19wdXQoZmlyc3RfYm8pOwo+ICAKPiAgCXJldCA9IHR0bV9ib19ldmljdChibywgY3R4KTsKPiAg
+CWlmIChsb2NrZWQpIHsKPiBAQCAtOTA3LDcgKzk4NCw3IEBAIHN0YXRpYyBpbnQgdHRtX2JvX21l
+bV9mb3JjZV9zcGFjZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+ICAJCQlyZXR1cm4g
+cmV0Owo+ICAJCWlmIChtZW0tPm1tX25vZGUpCj4gIAkJCWJyZWFrOwo+IC0JCXJldCA9IHR0bV9t
+ZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVtX3R5cGUsIHBsYWNlLCBjdHgpOwo+ICsJCXJldCA9IHR0
+bV9tZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVtX3R5cGUsIHBsYWNlLCBjdHgsIGJvLT5yZXN2KTsK
+PiAgCQlpZiAodW5saWtlbHkocmV0ICE9IDApKQo+ICAJCQlyZXR1cm4gcmV0Owo+ICAJfSB3aGls
+ZSAoMSk7Cj4gQEAgLTE0MDEsNyArMTQ3OCw4IEBAIHN0YXRpYyBpbnQgdHRtX2JvX2ZvcmNlX2xp
+c3RfY2xlYW4oc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4gIAlmb3IgKGkgPSAwOyBpIDwg
+VFRNX01BWF9CT19QUklPUklUWTsgKytpKSB7Cj4gIAkJd2hpbGUgKCFsaXN0X2VtcHR5KCZtYW4t
+PmxydVtpXSkpIHsKPiAgCQkJc3Bpbl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsKPiAtCQkJcmV0
+ID0gdHRtX21lbV9ldmljdF9maXJzdChiZGV2LCBtZW1fdHlwZSwgTlVMTCwgJmN0eCk7Cj4gKwkJ
+CXJldCA9IHR0bV9tZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVtX3R5cGUsIE5VTEwsICZjdHgsCj4g
+KwkJCQkJCSAgTlVMTCk7Cj4gIAkJCWlmIChyZXQpCj4gIAkJCQlyZXR1cm4gcmV0Owo+ICAJCQlz
+cGluX2xvY2soJmdsb2ItPmxydV9sb2NrKTsKPiBAQCAtMTc3Miw3ICsxODUwLDggQEAgaW50IHR0
+bV9ib19zd2Fwb3V0KHN0cnVjdCB0dG1fYm9fZ2xvYmFsICpnbG9iLCBzdHJ1Y3QgdHRtX29wZXJh
+dGlvbl9jdHggKmN0eCkKPiAgCXNwaW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOwo+ICAJZm9yIChp
+ID0gMDsgaSA8IFRUTV9NQVhfQk9fUFJJT1JJVFk7ICsraSkgewo+ICAJCWxpc3RfZm9yX2VhY2hf
+ZW50cnkoYm8sICZnbG9iLT5zd2FwX2xydVtpXSwgc3dhcCkgewo+IC0JCQlpZiAodHRtX2JvX2V2
+aWN0X3N3YXBvdXRfYWxsb3dhYmxlKGJvLCBjdHgsICZsb2NrZWQpKSB7Cj4gKwkJCWlmICh0dG1f
+Ym9fZXZpY3Rfc3dhcG91dF9hbGxvd2FibGUoYm8sIGN0eCwgJmxvY2tlZCwKPiArCQkJCQkJCSAg
+IE5VTEwpKSB7Cj4gIAkJCQlyZXQgPSAwOwo+ICAJCQkJYnJlYWs7Cj4gIAkJCX0KPiAtLSAKPiAy
+LjE3LjEKPiAKPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Xwo+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKPiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmkt
+ZGV2ZWwKCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3Jh
+dGlvbgpodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZng=
