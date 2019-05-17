@@ -1,13 +1,12 @@
-From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2 3/4] device_cgroup: Export devcgroup_check_permission
-Date: Fri, 17 May 2019 16:15:06 +0000
-Message-ID: <20190517161435.14121-4-Harish.Kasiviswanathan@amd.com>
-References: <20190517161435.14121-1-Harish.Kasiviswanathan@amd.com>
+From: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: cast to unsigned int for 32-bit portability
+Date: Fri, 17 May 2019 16:34:03 +0000
+Message-ID: <SN6PR12MB2800C2C55C028B30F948325B870B0@SN6PR12MB2800.namprd12.prod.outlook.com>
+References: <BN6PR12MB14097E1091DBF08BEFCB547BFE0A0@BN6PR12MB1409.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0292506670=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190517161435.14121-1-Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <BN6PR12MB14097E1091DBF08BEFCB547BFE0A0-/b2+HYfkarS5FCRSDc2eTQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,61 +18,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Abramov,
+ Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-Rm9yIEFNRCBjb21wdXRlIChhbWRrZmQpIGRyaXZlci4NCg0KQWxsIEFNRCBjb21wdXRlIGRldmlj
-ZXMgYXJlIGV4cG9ydGVkIHZpYSBzaW5nbGUgZGV2aWNlIG5vZGUgL2Rldi9rZmQuIEFzDQphIHJl
-c3VsdCBkZXZpY2VzIGNhbm5vdCBiZSBjb250cm9sbGVkIGluZGl2aWR1YWxseSB1c2luZyBkZXZp
-Y2UgY2dyb3VwLg0KDQpBTUQgY29tcHV0ZSBkZXZpY2VzIHdpbGwgcmVseSBvbiBpdHMgZ3JhcGhp
-Y3MgY291bnRlcnBhcnQgdGhhdCBleHBvc2VzDQovZGV2L2RyaS9yZW5kZXJOIG5vZGUgZm9yIGVh
-Y2ggZGV2aWNlLiBGb3IgZWFjaCB0YXNrIChiYXNlZCBvbiBpdHMNCmNncm91cCksIEtGRCBkcml2
-ZXIgd2lsbCBjaGVjayBpZiAvZGV2L2RyaS9yZW5kZXJOIG5vZGUgaXMgYWNjZXNzaWJsZQ0KYmVm
-b3JlIGV4cG9zaW5nIGl0Lg0KDQpDaGFuZ2UtSWQ6IEkxYjk3MDViMmMzMDYyMmEyNzY1NWY0Zjg3
-ODk4MGZhMTM4ZGJmMzczDQpTaWduZWQtb2ZmLWJ5OiBIYXJpc2ggS2FzaXZpc3dhbmF0aGFuIDxI
-YXJpc2guS2FzaXZpc3dhbmF0aGFuQGFtZC5jb20+DQotLS0NCiBpbmNsdWRlL2xpbnV4L2Rldmlj
-ZV9jZ3JvdXAuaCB8IDE5ICsrKystLS0tLS0tLS0tLS0tLS0NCiBzZWN1cml0eS9kZXZpY2VfY2dy
-b3VwLmMgICAgICB8IDE1ICsrKysrKysrKysrKystLQ0KIDIgZmlsZXMgY2hhbmdlZCwgMTcgaW5z
-ZXJ0aW9ucygrKSwgMTcgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4
-L2RldmljZV9jZ3JvdXAuaCBiL2luY2x1ZGUvbGludXgvZGV2aWNlX2Nncm91cC5oDQppbmRleCA4
-NTU3ZWZlMDk2ZGMuLmJkMTk4OTdiZDU4MiAxMDA2NDQNCi0tLSBhL2luY2x1ZGUvbGludXgvZGV2
-aWNlX2Nncm91cC5oDQorKysgYi9pbmNsdWRlL2xpbnV4L2RldmljZV9jZ3JvdXAuaA0KQEAgLTEy
-LDI2ICsxMiwxNSBAQA0KICNkZWZpbmUgREVWQ0dfREVWX0FMTCAgIDQgIC8qIHRoaXMgcmVwcmVz
-ZW50cyBhbGwgZGV2aWNlcyAqLw0KIA0KICNpZmRlZiBDT05GSUdfQ0dST1VQX0RFVklDRQ0KLWV4
-dGVybiBpbnQgX19kZXZjZ3JvdXBfY2hlY2tfcGVybWlzc2lvbihzaG9ydCB0eXBlLCB1MzIgbWFq
-b3IsIHUzMiBtaW5vciwNCi0JCQkJCXNob3J0IGFjY2Vzcyk7DQorZXh0ZXJuIGludCBkZXZjZ3Jv
-dXBfY2hlY2tfcGVybWlzc2lvbihzaG9ydCB0eXBlLCB1MzIgbWFqb3IsIHUzMiBtaW5vciwNCisJ
-CQkJICAgICAgc2hvcnQgYWNjZXNzKTsNCiAjZWxzZQ0KLXN0YXRpYyBpbmxpbmUgaW50IF9fZGV2
-Y2dyb3VwX2NoZWNrX3Blcm1pc3Npb24oc2hvcnQgdHlwZSwgdTMyIG1ham9yLCB1MzIgbWlub3Is
-DQotCQkJCQkgICAgICAgc2hvcnQgYWNjZXNzKQ0KK3N0YXRpYyBpbmxpbmUgaW50IGRldmNncm91
-cF9jaGVja19wZXJtaXNzaW9uKHNob3J0IHR5cGUsIHUzMiBtYWpvciwgdTMyIG1pbm9yLA0KKwkJ
-CQkJICAgICBzaG9ydCBhY2Nlc3MpDQogeyByZXR1cm4gMDsgfQ0KICNlbmRpZg0KIA0KICNpZiBk
-ZWZpbmVkKENPTkZJR19DR1JPVVBfREVWSUNFKSB8fCBkZWZpbmVkKENPTkZJR19DR1JPVVBfQlBG
-KQ0KLXN0YXRpYyBpbmxpbmUgaW50IGRldmNncm91cF9jaGVja19wZXJtaXNzaW9uKHNob3J0IHR5
-cGUsIHUzMiBtYWpvciwgdTMyIG1pbm9yLA0KLQkJCQkJICAgICBzaG9ydCBhY2Nlc3MpDQotew0K
-LQlpbnQgcmMgPSBCUEZfQ0dST1VQX1JVTl9QUk9HX0RFVklDRV9DR1JPVVAodHlwZSwgbWFqb3Is
-IG1pbm9yLCBhY2Nlc3MpOw0KLQ0KLQlpZiAocmMpDQotCQlyZXR1cm4gLUVQRVJNOw0KLQ0KLQly
-ZXR1cm4gX19kZXZjZ3JvdXBfY2hlY2tfcGVybWlzc2lvbih0eXBlLCBtYWpvciwgbWlub3IsIGFj
-Y2Vzcyk7DQotfQ0KLQ0KIHN0YXRpYyBpbmxpbmUgaW50IGRldmNncm91cF9pbm9kZV9wZXJtaXNz
-aW9uKHN0cnVjdCBpbm9kZSAqaW5vZGUsIGludCBtYXNrKQ0KIHsNCiAJc2hvcnQgdHlwZSwgYWNj
-ZXNzID0gMDsNCmRpZmYgLS1naXQgYS9zZWN1cml0eS9kZXZpY2VfY2dyb3VwLmMgYi9zZWN1cml0
-eS9kZXZpY2VfY2dyb3VwLmMNCmluZGV4IGNkOTc5MjlmYWM2Ni4uM2M1N2UwNWJmNzNiIDEwMDY0
-NA0KLS0tIGEvc2VjdXJpdHkvZGV2aWNlX2Nncm91cC5jDQorKysgYi9zZWN1cml0eS9kZXZpY2Vf
-Y2dyb3VwLmMNCkBAIC04MDEsOCArODAxLDggQEAgc3RydWN0IGNncm91cF9zdWJzeXMgZGV2aWNl
-c19jZ3JwX3N1YnN5cyA9IHsNCiAgKg0KICAqIHJldHVybnMgMCBvbiBzdWNjZXNzLCAtRVBFUk0g
-Y2FzZSB0aGUgb3BlcmF0aW9uIGlzIG5vdCBwZXJtaXR0ZWQNCiAgKi8NCi1pbnQgX19kZXZjZ3Jv
-dXBfY2hlY2tfcGVybWlzc2lvbihzaG9ydCB0eXBlLCB1MzIgbWFqb3IsIHUzMiBtaW5vciwNCi0J
-CQkJIHNob3J0IGFjY2VzcykNCitzdGF0aWMgaW50IF9fZGV2Y2dyb3VwX2NoZWNrX3Blcm1pc3Np
-b24oc2hvcnQgdHlwZSwgdTMyIG1ham9yLCB1MzIgbWlub3IsDQorCQkJCQlzaG9ydCBhY2Nlc3Mp
-DQogew0KIAlzdHJ1Y3QgZGV2X2Nncm91cCAqZGV2X2Nncm91cDsNCiAJYm9vbCByYzsNCkBAIC04
-MjQsMyArODI0LDE0IEBAIGludCBfX2RldmNncm91cF9jaGVja19wZXJtaXNzaW9uKHNob3J0IHR5
-cGUsIHUzMiBtYWpvciwgdTMyIG1pbm9yLA0KIA0KIAlyZXR1cm4gMDsNCiB9DQorDQoraW50IGRl
-dmNncm91cF9jaGVja19wZXJtaXNzaW9uKHNob3J0IHR5cGUsIHUzMiBtYWpvciwgdTMyIG1pbm9y
-LCBzaG9ydCBhY2Nlc3MpDQorew0KKwlpbnQgcmMgPSBCUEZfQ0dST1VQX1JVTl9QUk9HX0RFVklD
-RV9DR1JPVVAodHlwZSwgbWFqb3IsIG1pbm9yLCBhY2Nlc3MpOw0KKw0KKwlpZiAocmMpDQorCQly
-ZXR1cm4gLUVQRVJNOw0KKw0KKwlyZXR1cm4gX19kZXZjZ3JvdXBfY2hlY2tfcGVybWlzc2lvbih0
-eXBlLCBtYWpvciwgbWlub3IsIGFjY2Vzcyk7DQorfQ0KK0VYUE9SVF9TWU1CT0woZGV2Y2dyb3Vw
-X2NoZWNrX3Blcm1pc3Npb24pOw0KLS0gDQoyLjE3LjENCg0KX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4
+--===============0292506670==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB2800C2C55C028B30F948325B870B0SN6PR12MB2800namp_"
+
+--_000_SN6PR12MB2800C2C55C028B30F948325B870B0SN6PR12MB2800namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+better to use div64_ul(x, y) for compatiblity.
+________________________________
+From: Abramov, Slava
+Sent: Friday, May 17, 2019 5:19:54 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Pan, Xinhui; Deucher, Alexander
+Subject: [PATCH] drm/amdgpu: cast to unsigned int for 32-bit portability
+
+
+Without casting, 64-bit division is used implicitly causing DEPMOD
+failure when building 32-bit kernel.
+
+Signed-off-by: Slava Abramov <slava.abramov-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index da1dc40b9b14..0499620ec972 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -764,8 +764,9 @@ static ssize_t amdgpu_ras_sysfs_badpages_read(struct fi=
+le *f,
+  struct amdgpu_device *adev =3D con->adev;
+  const unsigned int element_size =3D
+  sizeof("0xabcdabcd : 0x12345678 : R\n") - 1;
+- unsigned int start =3D (ppos + element_size - 1) / element_size;
+- unsigned int end =3D (ppos + count - 1) / element_size;
++ unsigned int start =3D
++ (unsigned int) (ppos + element_size - 1) / element_size;
++ unsigned int end =3D (unsigned int) (ppos + count - 1) / element_size;
+  ssize_t s =3D 0;
+  struct ras_badpage *bps =3D NULL;
+  unsigned int bps_count =3D 0;
+--
+2.17.1
+
+
+
+--_000_SN6PR12MB2800C2C55C028B30F948325B870B0SN6PR12MB2800namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta content=3D"text/html; charset=3Diso-8859-1">
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+</head>
+<body dir=3D"ltr">
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+better to use div64_ul(x, y) for compatiblity.</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Abramov, Slava<br>
+<b>Sent:</b> Friday, May 17, 2019 5:19:54 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Pan, Xinhui; Deucher, Alexander<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: cast to unsigned int for 32-bit portabi=
+lity</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
+:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0"></p>
+<div>Without casting, 64-bit division is used implicitly causing DEPMOD</di=
+v>
+<div>failure when building 32-bit kernel.</div>
+<div><br>
+</div>
+<div>Signed-off-by: Slava Abramov &lt;slava.abramov-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div>---</div>
+<div>&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 5 &#43;&#43;&#43;--</d=
+iv>
+<div>&nbsp;1 file changed, 3 insertions(&#43;), 2 deletions(-)</div>
+<div><br>
+</div>
+<div>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_ras.c</div>
+<div>index da1dc40b9b14..0499620ec972 100644</div>
+<div>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</div>
+<div>&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c</div>
+<div>@@ -764,8 &#43;764,9 @@ static ssize_t amdgpu_ras_sysfs_badpages_read(=
+struct file *f,</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>struct amdgpu_device *ad=
+ev =3D con-&gt;adev;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>const unsigned int eleme=
+nt_size =3D</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>sizeof(&quot;0xabcdabcd =
+: 0x12345678 : R\n&quot;) - 1;</div>
+<div>-<span style=3D"white-space:pre"> </span>unsigned int start =3D (ppos =
+&#43; element_size - 1) / element_size;</div>
+<div>-<span style=3D"white-space:pre"> </span>unsigned int end =3D (ppos &#=
+43; count - 1) / element_size;</div>
+<div>&#43;<span style=3D"white-space:pre"> </span>unsigned int start =3D</d=
+iv>
+<div>&#43;<span style=3D"white-space:pre"> </span>(unsigned int) (ppos &#43=
+; element_size - 1) / element_size;</div>
+<div>&#43;<span style=3D"white-space:pre"> </span>unsigned int end =3D (uns=
+igned int) (ppos &#43; count - 1) / element_size;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>ssize_t s =3D 0;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>struct ras_badpage *bps =
+=3D NULL;</div>
+<div>&nbsp;<span style=3D"white-space:pre"> </span>unsigned int bps_count =
+=3D 0;</div>
+<div>--&nbsp;</div>
+<div>2.17.1</div>
+<div><br>
+</div>
+<br>
+<p></p>
+</div>
+</div>
+</body>
+</html>
+
+--_000_SN6PR12MB2800C2C55C028B30F948325B870B0SN6PR12MB2800namp_--
+
+--===============0292506670==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0292506670==--
