@@ -1,48 +1,79 @@
-From: "Lin, Amber" <Amber.Lin-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/soc15: skip reset on init
-Date: Fri, 17 May 2019 14:47:34 +0000
-Message-ID: <a986c8b7-4255-e70b-4e39-102cc57cda92@amd.com>
-References: <20190517142647.26034-1-alexander.deucher@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Fri, 17 May 2019 15:49:31 +0100
+Message-ID: <20190517144931.GA56186@arrakis.emea.arm.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190517142647.26034-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <B78FE5AE2910CF499D64F6DED44FFA60-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <cover.1557160186.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQoNCk9uIDIwMTktMDUtMTcgMTA6MjYgYS5tLiwgQWxleCBEZXVjaGVyIHdyb3RlOg0KPiBbQ0FV
-VElPTjogRXh0ZXJuYWwgRW1haWxdDQo+DQo+IE5vdCBuZWNlc3Nhcnkgb24gc29jMTUgYW5kIGJy
-ZWFrcyBkcml2ZXIgcmVsb2FkIG9uIHNlcnZlciBjYXJkcy4NCj4NCj4gU2lnbmVkLW9mZi1ieTog
-QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiBDYzogc3RhYmxlQHZn
-ZXIua2VybmVsLm9yZw0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2Mx
-NS5jIHwgNSArKysrKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykNCj4NCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+IGluZGV4IDMyZGM1YTEyODI0OS4uNzhiZDRm
-YzA3YmFiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5j
-DQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCj4gQEAgLTc2MSw2
-ICs3NjEsMTEgQEAgc3RhdGljIGJvb2wgc29jMTVfbmVlZF9yZXNldF9vbl9pbml0KHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQ0KPiAgIHsNCj4gICAgICAgICAgdTMyIHNvbF9yZWc7DQo+DQo+
-ICsgICAgICAgLyogSnVzdCByZXR1cm4gZmFsc2UgZm9yIHNvYzE1IEdQVXMuICBSZXNldCBkb2Vz
-IG5vdCBzZWVtIHRvDQo+ICsgICAgICAgICogYmUgbmVjZXNzYXJ5Lg0KPiArICAgICAgICAqLw0K
-PiArICAgICAgIHJldHVybiBmYWxzZTsNCj4gKw0KPiAgICAgICAgICBpZiAoYWRldi0+ZmxhZ3Mg
-JiBBTURfSVNfQVBVKQ0KPiAgICAgICAgICAgICAgICAgIHJldHVybiBmYWxzZTsNClNob3VsZCBy
-ZW1vdmUgdGhlIHJlc3Qgb2YgY29kZSBpbiB0aGlzIGZ1bmN0aW9uIGFuZCBzb2xfcmVnIGFzIHdl
-bGw/IA0KU2ltcGx5IHJldHVybiBmYWxzZT8NCj4NCj4gLS0NCj4gMi4yMC4xDQo+DQo+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1nZnggbWFp
-bGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Hi Andrey,
+
+On Mon, May 06, 2019 at 06:30:46PM +0200, Andrey Konovalov wrote:
+> One of the alternative approaches to untagging that was considered is to
+> completely strip the pointer tag as the pointer enters the kernel with
+> some kind of a syscall wrapper, but that won't work with the countless
+> number of different ioctl calls. With this approach we would need a custom
+> wrapper for each ioctl variation, which doesn't seem practical.
+
+The more I look at this problem, the less convinced I am that we can
+solve it in a way that results in a stable ABI covering ioctls(). While
+for the Android kernel codebase it could be simpler as you don't upgrade
+the kernel version every 2.5 months, for the mainline kernel this
+doesn't scale. Any run-time checks are relatively limited in terms of
+drivers covered. Better static checking would be nice as a long term
+solution but we didn't get anywhere with the discussion last year.
+
+IMO (RFC for now), I see two ways forward:
+
+1. Make this a user space problem and do not allow tagged pointers into
+   the syscall ABI. A libc wrapper would have to convert structures,
+   parameters before passing them into the kernel. Note that we can
+   still support the hardware MTE in the kernel by enabling tagged
+   memory ranges, saving/restoring tags etc. but not allowing tagged
+   addresses at the syscall boundary.
+
+2. Similar shim to the above libc wrapper but inside the kernel
+   (arch/arm64 only; most pointer arguments could be covered with an
+   __SC_CAST similar to the s390 one). There are two differences from
+   what we've discussed in the past:
+
+   a) this is an opt-in by the user which would have to explicitly call
+      prctl(). If it returns -ENOTSUPP etc., the user won't be allowed
+      to pass tagged pointers to the kernel. This would probably be the
+      responsibility of the C lib to make sure it doesn't tag heap
+      allocations. If the user did not opt-in, the syscalls are routed
+      through the normal path (no untagging address shim).
+
+   b) ioctl() and other blacklisted syscalls (prctl) will not accept
+      tagged pointers (to be documented in Vicenzo's ABI patches).
+
+It doesn't solve the problems we are trying to address but 2.a saves us
+from blindly relaxing the ABI without knowing how to easily assess new
+code being merged (over 500K lines between kernel versions). Existing
+applications (who don't opt-in) won't inadvertently start using the new
+ABI which could risk becoming de-facto ABI that we need to support on
+the long run.
+
+Option 1 wouldn't solve the ioctl() problem either and while it makes
+things simpler for the kernel, I am aware that it's slightly more
+complicated in user space (but I really don't mind if you prefer option
+1 ;)).
+
+The tagged pointers (whether hwasan or MTE) should ideally be a
+transparent feature for the application writer but I don't think we can
+solve it entirely and make it seamless for the multitude of ioctls().
+I'd say you only opt in to such feature if you know what you are doing
+and the user code takes care of specific cases like ioctl(), hence the
+prctl() proposal even for the hwasan.
+
+Comments welcomed.
+
+-- 
+Catalin
