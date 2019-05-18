@@ -1,75 +1,170 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
-Subject: Re: lima_bo memory leak after drm_sched job destruction rework
-Date: Fri, 17 May 2019 23:50:32 +0000
-Message-ID: <MWHPR12MB145383922FD0BDF21AFFCCB5EA0B0@MWHPR12MB1453.namprd12.prod.outlook.com>
-References: <CAK4VdL2wa=UrpRqfML-ymkEX7LkE6FP3ykgNUQonLdjmaydq_Q@mail.gmail.com>
- <3f1a556e-dd4c-3dc7-b966-a63baf1e7c52@amd.com>,
- <CAK4VdL26tEkW+6fU4DaXa8pGAfpQ5TfgiwNhyHXq=EJh72ak=Q@mail.gmail.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <CAK4VdL26tEkW+6fU4DaXa8pGAfpQ5TfgiwNhyHXq=EJh72ak=Q@mail.gmail.com>
-Content-Language: en-GB
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Erico Nunes <nunes.erico@gmail.com>
-Cc: "Deng, Emily" <Emily.Deng@amd.com>, "lima@lists.freedesktop.org" <lima@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Tomeu Vizoso <tomeu.vizoso@collabora.com>, David Airlie <airlied@linux.ie>, Sharat Masetty <smasetty@codeaurora.org>, Nayan Deshmukh <nayan26deshmukh@gmail.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
- Ray" <Ray.Huang@amd.com>, Qiang Yu <yuq825@gmail.com>, Russell King <linux+etnaviv@armlinux.org.uk>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+From: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH] drm/amdgpu/soc15: skip reset on init
+Date: Sat, 18 May 2019 12:22:39 +0000
+Message-ID: <20190518122240.A667520882@mail.kernel.org>
+References: <20190517142647.26034-1-alexander.deucher@amd.com>
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190517142647.26034-1-alexander.deucher@amd.com>
+Sender: stable-owner@vger.kernel.org
+To: Sasha Levin <sashal@kernel.org>, Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.orgstable@vger.kernel.orgstable@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-RG9uJ3QgaGF2ZSB0aGUgY29kZSBpbiBmcm9udCBvZiBtZSBub3cgYnV0IGFzIGZhciBhcyBJIHJl
-bWVtYmVyIGl0IHdpbGwgb25seSBwcmVtYXR1cmVseSB0ZXJtaW5hdGUgaW4gZHJtX3NjaGVkX2Ns
-ZWFudXBfam9icyBpZiB0aGVyZSBpcyB0aW1lb3V0IHdvcmsgaW4gcHJvZ3Jlc3Mgd2hpY2ggd291
-bGQgbm90IGJlIHRoZSBjYXNlIGlmIG5vdGhpbmcgaGFuZ3MuCgpBbmRyZXkKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KRnJvbTogRXJpY28gTnVuZXMgPG51bmVzLmVy
-aWNvQGdtYWlsLmNvbT4KU2VudDogMTcgTWF5IDIwMTkgMTc6NDI6NDgKVG86IEdyb2R6b3Zza3ks
-IEFuZHJleQpDYzogRGV1Y2hlciwgQWxleGFuZGVyOyBLb2VuaWcsIENocmlzdGlhbjsgWmhvdSwg
-RGF2aWQoQ2h1bk1pbmcpOyBEYXZpZCBBaXJsaWU7IERhbmllbCBWZXR0ZXI7IEx1Y2FzIFN0YWNo
-OyBSdXNzZWxsIEtpbmc7IENocmlzdGlhbiBHbWVpbmVyOyBRaWFuZyBZdTsgUm9iIEhlcnJpbmc7
-IFRvbWV1IFZpem9zbzsgRXJpYyBBbmhvbHQ7IFJleCBaaHU7IEh1YW5nLCBSYXk7IERlbmcsIEVt
-aWx5OyBOYXlhbiBEZXNobXVraDsgU2hhcmF0IE1hc2V0dHk7IGFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnOyBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBsaW1hQGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpTdWJqZWN0OiBSZTogbGltYV9ibyBtZW1vcnkgbGVhayBhZnRlciBkcm1f
-c2NoZWQgam9iIGRlc3RydWN0aW9uIHJld29yawoKW0NBVVRJT046IEV4dGVybmFsIEVtYWlsXQoK
-T24gRnJpLCBNYXkgMTcsIDIwMTkgYXQgMTA6NDMgUE0gR3JvZHpvdnNreSwgQW5kcmV5CjxBbmRy
-ZXkuR3JvZHpvdnNreUBhbWQuY29tPiB3cm90ZToKPiBPbiA1LzE3LzE5IDM6MzUgUE0sIEVyaWNv
-IE51bmVzIHdyb3RlOgo+ID4gTGltYSBjdXJyZW50bHkgZGVmYXVsdHMgdG8gYW4gImluZmluaXRl
-IiB0aW1lb3V0LiBTZXR0aW5nIGEgNTAwbXMKPiA+IGRlZmF1bHQgdGltZW91dCBsaWtlIG1vc3Qg
-b3RoZXIgZHJtX3NjaGVkIHVzZXJzIGRvIGZpeGVkIHRoZSBsZWFrIGZvcgo+ID4gbWUuCj4KPiBJ
-IGFtIG5vdCB2ZXJ5IGNsZWFyIGFib3V0IHRoZSBwcm9ibGVtIC0gc28geW91IGJhc2ljYWxseSBu
-ZXZlciBhbGxvdyBhCj4gdGltZSBvdXQgaGFuZGxlciB0byBydW4gPyBBbmQgdGhlbiB3aGVuIHRo
-ZSBqb2IgaGFuZ3MgZm9yIGV2ZXIgeW91IGdldAo+IHRoaXMgbWVtb3J5IGxlYWsgPyBIb3cgaXQg
-d29ya2VkIGZvciB5b3UgYmVmb3JlIHRoaXMgcmVmYWN0b3JpbmcgPyBBcwo+IGZhciBhcyBJIHJl
-bWVtYmVyICBzY2hlZC0+b3BzLT5mcmVlX2pvYiBiZWZvcmUgdGhpcyBjaGFuZ2Ugd2FzIGNhbGxl
-ZAo+IGZyb20gZHJtX3NjaGVkX2pvYl9maW5pc2ggd2hpY2ggaXMgdGhlIHdvcmsgc2NoZWR1bGVk
-IGZyb20gSFcgZmVuY2UKPiBzaWduYWxlZCBjYWxsYmFjayAtIGRybV9zY2hlZF9wcm9jZXNzX2pv
-YiBzbyBpZiB5b3VyIGpvYiBoYW5ncyBmb3IgZXZlcgo+IGFueXdheSBhbmQgdGhpcyB3b3JrIGlz
-IG5ldmVyIHNjaGVkdWxlZCAgd2hlbiB5b3VyIGZyZWVfam9iIGNhbGxiYWNrIHdhcwo+IGNhbGxl
-ZCA/CgpJbiB0aGlzIHBhcnRpY3VsYXIgY2FzZSwgdGhlIGpvYnMgcnVuIHN1Y2Nlc3NmdWxseSwg
-bm90aGluZyBoYW5ncy4KTGltYSBjdXJyZW50bHkgc3BlY2lmaWVzIGFuICJpbmZpbml0ZSIgdGlt
-ZW91dCB0byB0aGUgZHJtIHNjaGVkdWxlciwKc28gaWYgYSBqb2IgZGlkIGRpZCBoYW5nLCBpdCB3
-b3VsZCBoYW5nIGZvcmV2ZXIsIEkgc3VwcG9zZS4gQnV0IHRoaXMKaXMgbm90IHRoZSBpc3N1ZS4K
-CklmIEkgdW5kZXJzdGFuZCBjb3JyZWN0bHkgaXQgd29ya2VkIHdlbGwgYmVmb3JlIHRoZSByZXdv
-cmsgYmVjYXVzZSB0aGUKY2xlYW51cCB3YXMgdHJpZ2dlcmVkIGF0IHRoZSBlbmQgb2YgZHJtX3Nj
-aGVkX3Byb2Nlc3Nfam9iCmluZGVwZW5kZW50bHkgb24gdGhlIHRpbWVvdXQuCgpXaGF0IEknbSBv
-YnNlcnZpbmcgbm93IGlzIHRoYXQgZXZlbiB3aGVuIGpvYnMgcnVuIHN1Y2Nlc3NmdWxseSwgdGhl
-eQphcmUgbm90IGNsZWFuZWQgYnkgdGhlIGRybSBzY2hlZHVsZXIgYmVjYXVzZSBkcm1fc2NoZWRf
-Y2xlYW51cF9qb2JzCnNlZW1zIHRvIGdpdmUgdXAgYmFzZWQgb24gdGhlIHN0YXR1cyBvZiBhIHRp
-bWVvdXQgd29ya2VyLgpJIHdvdWxkIGV4cGVjdCB0aGUgdGltZW91dCB2YWx1ZSB0byBvbmx5IGJl
-IHJlbGV2YW50IGluIGVycm9yL2h1bmcgam9iIGNhc2VzLgoKSSB3aWxsIHByb2JhYmx5IHNldCB0
-aGUgdGltZW91dCB0byBhIHJlYXNvbmFibGUgdmFsdWUgYW55d2F5LCBJIGp1c3QKcG9zdGVkIGhl
-cmUgdG8gcmVwb3J0IHRoYXQgdGhpcyBjYW4gcG9zc2libHkgYmUgYSBidWcgaW4gdGhlIGRybQpz
-Y2hlZHVsZXIgYWZ0ZXIgdGhhdCByZXdvcmsuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2RyaS1kZXZlbA==
+Hi,
+
+[This is an automated email]
+
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
+
+The bot has tested the following trees: v5.1.3, v5.0.17, v4.19.44, v4.14.120, v4.9.177, v4.4.180, v3.18.140.
+
+v5.1.3: Build OK!
+v5.0.17: Failed to apply! Possible dependencies:
+    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
+    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
+
+v4.19.44: Failed to apply! Possible dependencies:
+    062f38072537 ("drm/amdgpu: Vega10 doorbell index initialization")
+    4e2c1ac2027d ("drm/amdgpu: Doorbell index initialization for ASICs before vega10")
+    520cbe0f4a7f ("drm/amdgpu: set CG flags for raven2 (v2)")
+    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
+    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
+    a2a8fb512e09 ("drm/amdgpu/sriov: Correct the setting about sdma doorbell offset of Vega10")
+    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
+    c3bce35c662b ("drm/amdgpu: fix sdma doorbell comments typo")
+    c5892230d98b ("drm/amdgpu: Doorbell assignment for 8 sdma user queue per engine")
+    c93aa77586c2 ("drm/amdgpu: Doorbell layout for vega20 and future asic")
+
+v4.14.120: Failed to apply! Possible dependencies:
+    11dc9364bddd ("drm/amdgpu: move struct amd_powerplay to amdgpu.h")
+    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
+    4522824c488e ("drm/amdgpu: Dynamic initialize IP base offset")
+    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
+    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
+    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
+    780cffc599b6 ("drm/amdgpu: add powerplay support for CI asics")
+    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
+    946a4d5b3010 ("drm/amdgpu: Avoid use SOC15_REG_OFFSET in static const array")
+    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
+    bf383fb64e7c ("drm/amdgpu: convert nbio to use callbacks (v2)")
+    cd4d74648b80 ("drm/amdgpu: unify the interface of amd_pm_funcs")
+    cfa289fd4986 ("drm/amdgpu: rename amdgpu_dpm_funcs to amd_pm_funcs")
+    d04f257635a2 ("drm/amd/powerplay: fix memory leak in powerplay")
+    dd5a6fe2af03 ("drm/amd/powerplay: Port vega10_hwmgr.c over to PP_CAP")
+    df1e63942063 ("drm/amd/powerplay: delete eventmgr layer in poweprlay")
+    f93f0c3a7e86 ("drm/amd/powerplay: use struct amd_pm_funcs in powerplay")
+
+v4.9.177: Failed to apply! Possible dependencies:
+    073440d26272 ("drm/amdgpu: move VM defines into amdgpu_vm.h")
+    1245a694617e ("drm/amdgpu: update golden setting for pitcairn")
+    1e9f1392795e ("drm/amdgpu/virt: add high level interfaces for virt")
+    2120df475d6d ("drm/amdgpu: enable virtual dce on SI")
+    220ab9bd1ccf ("drm/amdgpu: soc15 enable (v3)")
+    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
+    4522824c488e ("drm/amdgpu: Dynamic initialize IP base offset")
+    4e4bbe7343a6 ("drm/amdgpu:add new file for SRIOV")
+    4e638ae9c1e7 ("drm/amdgpu/gfx8: add support kernel interface queue(KIQ)")
+    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
+    561135049992 ("drm/amdgpu: move sync handling into a separate header")
+    5a5099cbf4d8 ("drm/amdgpu/virt: rename fieldes of virtualization structure")
+    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
+    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
+    6a7f76e70fac ("drm/amdgpu: add VRAM manager v2")
+    6b7985efc3b5 ("drm/amdgpu: update golden setting for oland")
+    78023016116f ("drm/amdgpu: move fence and ring defines into amdgpu_ring.h")
+    78bbe771174c ("drm/amd/amdgpu: De-numberify golden SI registers")
+    7c0a705e0326 ("drm/amdgpu: update golden setting/tiling table of tahiti")
+    880e87e38098 ("drm/amdgpu/gfx8: implement emit_rreg/wreg function")
+    914b4dce4fda ("drm/amdgpu: stop using a bo list entry for the VM PTs")
+    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
+    946a4d5b3010 ("drm/amdgpu: Avoid use SOC15_REG_OFFSET in static const array")
+    954d5d437f22 ("drm/amdgpu: add nbio7 support")
+    ab71ac56f6d8 ("drm/amdgpu/virt: implement VI virt operation interfaces")
+    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
+    bbf282d88479 ("drm/amdgpu: add asic callback to get memsize register")
+    bc992ba5a3c1 ("drm/amdgpu/virt: use kiq to access registers (v2)")
+    bd27b678c26e ("drm/amdgpu: update golden setting for hainan")
+    bd7de27d81a7 ("drm/amdgpu:new field members for SRIOV")
+    bf383fb64e7c ("drm/amdgpu: convert nbio to use callbacks (v2)")
+    c1d83da98070 ("drm/amdgpu: add NBIO 6.1 driver")
+    c9c9de93a33c ("drm/amdgpu/virt: impl mailbox for ai")
+    dae5c2985da9 ("drm/amdgpu: update golden setting for verde")
+    f7da30d979d4 ("drm/amdgpu: move PT validation back into VM code v2")
+
+v4.4.180: Failed to apply! Possible dependencies:
+    048765ad5af7 ("amdgpu: fix asic initialization for virtualized environments (v2)")
+    0c34f4536842 ("drm/amdgpu: add SI SMC support")
+    0f27e46258ee ("drm/amdgpu: add si header files v4")
+    1245a694617e ("drm/amdgpu: update golden setting for pitcairn")
+    1e9f1392795e ("drm/amdgpu/virt: add high level interfaces for virt")
+    1eb22bd38ac5 ("drm/amdgpu: add read_bios_from_rom callback for CI parts")
+    1f7371b2a5fa ("drm/amd/powerplay: add basic powerplay framework")
+    2120df475d6d ("drm/amdgpu: enable virtual dce on SI")
+    220ab9bd1ccf ("drm/amdgpu: soc15 enable (v3)")
+    288912cb95d1 ("drm/amdgpu: use $(src) in Makefile (v2)")
+    2cd46ad22383 ("drm/amdgpu: add graphic pipeline implementation for si v8")
+    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
+    4522824c488e ("drm/amdgpu: Dynamic initialize IP base offset")
+    4e99a44e37bf ("drm/amdgpu:changes of virtualization cases probe (v3)")
+    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
+    62a37553414a ("drm/amdgpu: add si implementation v10")
+    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
+    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
+    6b7985efc3b5 ("drm/amdgpu: update golden setting for oland")
+    78bbe771174c ("drm/amd/amdgpu: De-numberify golden SI registers")
+    7946b878038d ("drm/amdgpu: add a callback for reading the bios from the rom directly")
+    7c0a705e0326 ("drm/amdgpu: update golden setting/tiling table of tahiti")
+    7e471e6fbab8 ("drm/amdgpu: track whether the asic supports SR-IOV")
+    841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
+    8cce244cf67c ("drm/amdgpu: always repost cards that support SR-IOV")
+    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
+    946a4d5b3010 ("drm/amdgpu: Avoid use SOC15_REG_OFFSET in static const array")
+    954d5d437f22 ("drm/amdgpu: add nbio7 support")
+    95addb2ae06f ("drm/amdgpu: add read_bios_from_rom callback for VI parts")
+    a8fe58cec351 ("drm/amd: add ACP driver support")
+    ab71ac56f6d8 ("drm/amdgpu/virt: implement VI virt operation interfaces")
+    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
+    bbf282d88479 ("drm/amdgpu: add asic callback to get memsize register")
+    bc992ba5a3c1 ("drm/amdgpu/virt: use kiq to access registers (v2)")
+    bd27b678c26e ("drm/amdgpu: update golden setting for hainan")
+    bf383fb64e7c ("drm/amdgpu: convert nbio to use callbacks (v2)")
+    c1d83da98070 ("drm/amdgpu: add NBIO 6.1 driver")
+    c9c9de93a33c ("drm/amdgpu/virt: impl mailbox for ai")
+    dae5c2985da9 ("drm/amdgpu: update golden setting for verde")
+    eca2240fb044 ("drm/amdgpu: mark amdgpu_allowed_register_entry tables as 'const'")
+    f4b373f41cfc ("drm/amdgpu/trace: Add tracepoints to MMIO read/writes")
+    fdff8cfa72b3 ("drm/amdgpu: vBIOS post only call when mem_size zero")
+
+v3.18.140: Failed to apply! Possible dependencies:
+    048765ad5af7 ("amdgpu: fix asic initialization for virtualized environments (v2)")
+    04df25d12394 ("MAINTAINERS: Update amdkfd files")
+    130e0371b7d4 ("drm/amdgpu: Add H/W agnostic amdgpu <--> amdkfd interface")
+    16423d67936f ("Update MAINTAINERS and CREDITS files with amdkfd info")
+    1f7371b2a5fa ("drm/amd/powerplay: add basic powerplay framework")
+    288912cb95d1 ("drm/amdgpu: use $(src) in Makefile (v2)")
+    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
+    46651cc5dbee ("drm/amdgpu fix amdgpu.dpm=0 (v2)")
+    49e7d9df9046 ("MAINTAINERS: Use tabs consistently")
+    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
+    564ea7900cff ("drm/amdgpu: enable uvd dpm and powergating")
+    5fc3aeeb9e55 ("drm/amdgpu: rename amdgpu_ip_funcs to amd_ip_funcs (v2)")
+    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
+    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
+    7e471e6fbab8 ("drm/amdgpu: track whether the asic supports SR-IOV")
+    841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
+    8e9198d0698a ("drm/amdgpu: move some atombios definitions to common folder (v2)")
+    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
+    97b2e202fba0 ("drm/amdgpu: add amdgpu.h (v2)")
+    a02860aa2b2d ("drm/amdgpu: add atombios headers")
+    a2e73f56fa62 ("drm/amdgpu: Add support for CIK parts")
+    a8fe58cec351 ("drm/amd: add ACP driver support")
+    aaa36a976bbb ("drm/amdgpu: Add initial VI support")
+    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
+    b80d8475c1fd ("drm/amdgpu: add scheduler initialization")
+    bbf282d88479 ("drm/amdgpu: add asic callback to get memsize register")
+    d03846af9275 ("drm/amd: Add CGS interfaces")
+    d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+
+
+How should we proceed with this patch?
