@@ -1,170 +1,203 @@
-From: Sasha Levin <sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 Subject: Re: [PATCH] drm/amdgpu/soc15: skip reset on init
 Date: Sat, 18 May 2019 12:22:39 +0000
-Message-ID: <20190518122240.A667520882@mail.kernel.org>
+Message-ID: <20190518122240.A667520882__14949.9466338725$1558182170$gmane$org@mail.kernel.org>
 References: <20190517142647.26034-1-alexander.deucher@amd.com>
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190517142647.26034-1-alexander.deucher@amd.com>
-Sender: stable-owner@vger.kernel.org
-To: Sasha Levin <sashal@kernel.org>, Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.orgstable@vger.kernel.orgstable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190517142647.26034-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
 
-Hi,
-
-[This is an automated email]
-
-This commit has been processed because it contains a -stable tag.
-The stable tag indicates that it's relevant for the following trees: all
-
-The bot has tested the following trees: v5.1.3, v5.0.17, v4.19.44, v4.14.120, v4.9.177, v4.4.180, v3.18.140.
-
-v5.1.3: Build OK!
-v5.0.17: Failed to apply! Possible dependencies:
-    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
-    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
-
-v4.19.44: Failed to apply! Possible dependencies:
-    062f38072537 ("drm/amdgpu: Vega10 doorbell index initialization")
-    4e2c1ac2027d ("drm/amdgpu: Doorbell index initialization for ASICs before vega10")
-    520cbe0f4a7f ("drm/amdgpu: set CG flags for raven2 (v2)")
-    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
-    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
-    a2a8fb512e09 ("drm/amdgpu/sriov: Correct the setting about sdma doorbell offset of Vega10")
-    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
-    c3bce35c662b ("drm/amdgpu: fix sdma doorbell comments typo")
-    c5892230d98b ("drm/amdgpu: Doorbell assignment for 8 sdma user queue per engine")
-    c93aa77586c2 ("drm/amdgpu: Doorbell layout for vega20 and future asic")
-
-v4.14.120: Failed to apply! Possible dependencies:
-    11dc9364bddd ("drm/amdgpu: move struct amd_powerplay to amdgpu.h")
-    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
-    4522824c488e ("drm/amdgpu: Dynamic initialize IP base offset")
-    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
-    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
-    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
-    780cffc599b6 ("drm/amdgpu: add powerplay support for CI asics")
-    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
-    946a4d5b3010 ("drm/amdgpu: Avoid use SOC15_REG_OFFSET in static const array")
-    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
-    bf383fb64e7c ("drm/amdgpu: convert nbio to use callbacks (v2)")
-    cd4d74648b80 ("drm/amdgpu: unify the interface of amd_pm_funcs")
-    cfa289fd4986 ("drm/amdgpu: rename amdgpu_dpm_funcs to amd_pm_funcs")
-    d04f257635a2 ("drm/amd/powerplay: fix memory leak in powerplay")
-    dd5a6fe2af03 ("drm/amd/powerplay: Port vega10_hwmgr.c over to PP_CAP")
-    df1e63942063 ("drm/amd/powerplay: delete eventmgr layer in poweprlay")
-    f93f0c3a7e86 ("drm/amd/powerplay: use struct amd_pm_funcs in powerplay")
-
-v4.9.177: Failed to apply! Possible dependencies:
-    073440d26272 ("drm/amdgpu: move VM defines into amdgpu_vm.h")
-    1245a694617e ("drm/amdgpu: update golden setting for pitcairn")
-    1e9f1392795e ("drm/amdgpu/virt: add high level interfaces for virt")
-    2120df475d6d ("drm/amdgpu: enable virtual dce on SI")
-    220ab9bd1ccf ("drm/amdgpu: soc15 enable (v3)")
-    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
-    4522824c488e ("drm/amdgpu: Dynamic initialize IP base offset")
-    4e4bbe7343a6 ("drm/amdgpu:add new file for SRIOV")
-    4e638ae9c1e7 ("drm/amdgpu/gfx8: add support kernel interface queue(KIQ)")
-    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
-    561135049992 ("drm/amdgpu: move sync handling into a separate header")
-    5a5099cbf4d8 ("drm/amdgpu/virt: rename fieldes of virtualization structure")
-    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
-    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
-    6a7f76e70fac ("drm/amdgpu: add VRAM manager v2")
-    6b7985efc3b5 ("drm/amdgpu: update golden setting for oland")
-    78023016116f ("drm/amdgpu: move fence and ring defines into amdgpu_ring.h")
-    78bbe771174c ("drm/amd/amdgpu: De-numberify golden SI registers")
-    7c0a705e0326 ("drm/amdgpu: update golden setting/tiling table of tahiti")
-    880e87e38098 ("drm/amdgpu/gfx8: implement emit_rreg/wreg function")
-    914b4dce4fda ("drm/amdgpu: stop using a bo list entry for the VM PTs")
-    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
-    946a4d5b3010 ("drm/amdgpu: Avoid use SOC15_REG_OFFSET in static const array")
-    954d5d437f22 ("drm/amdgpu: add nbio7 support")
-    ab71ac56f6d8 ("drm/amdgpu/virt: implement VI virt operation interfaces")
-    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
-    bbf282d88479 ("drm/amdgpu: add asic callback to get memsize register")
-    bc992ba5a3c1 ("drm/amdgpu/virt: use kiq to access registers (v2)")
-    bd27b678c26e ("drm/amdgpu: update golden setting for hainan")
-    bd7de27d81a7 ("drm/amdgpu:new field members for SRIOV")
-    bf383fb64e7c ("drm/amdgpu: convert nbio to use callbacks (v2)")
-    c1d83da98070 ("drm/amdgpu: add NBIO 6.1 driver")
-    c9c9de93a33c ("drm/amdgpu/virt: impl mailbox for ai")
-    dae5c2985da9 ("drm/amdgpu: update golden setting for verde")
-    f7da30d979d4 ("drm/amdgpu: move PT validation back into VM code v2")
-
-v4.4.180: Failed to apply! Possible dependencies:
-    048765ad5af7 ("amdgpu: fix asic initialization for virtualized environments (v2)")
-    0c34f4536842 ("drm/amdgpu: add SI SMC support")
-    0f27e46258ee ("drm/amdgpu: add si header files v4")
-    1245a694617e ("drm/amdgpu: update golden setting for pitcairn")
-    1e9f1392795e ("drm/amdgpu/virt: add high level interfaces for virt")
-    1eb22bd38ac5 ("drm/amdgpu: add read_bios_from_rom callback for CI parts")
-    1f7371b2a5fa ("drm/amd/powerplay: add basic powerplay framework")
-    2120df475d6d ("drm/amdgpu: enable virtual dce on SI")
-    220ab9bd1ccf ("drm/amdgpu: soc15 enable (v3)")
-    288912cb95d1 ("drm/amdgpu: use $(src) in Makefile (v2)")
-    2cd46ad22383 ("drm/amdgpu: add graphic pipeline implementation for si v8")
-    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
-    4522824c488e ("drm/amdgpu: Dynamic initialize IP base offset")
-    4e99a44e37bf ("drm/amdgpu:changes of virtualization cases probe (v3)")
-    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
-    62a37553414a ("drm/amdgpu: add si implementation v10")
-    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
-    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
-    6b7985efc3b5 ("drm/amdgpu: update golden setting for oland")
-    78bbe771174c ("drm/amd/amdgpu: De-numberify golden SI registers")
-    7946b878038d ("drm/amdgpu: add a callback for reading the bios from the rom directly")
-    7c0a705e0326 ("drm/amdgpu: update golden setting/tiling table of tahiti")
-    7e471e6fbab8 ("drm/amdgpu: track whether the asic supports SR-IOV")
-    841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
-    8cce244cf67c ("drm/amdgpu: always repost cards that support SR-IOV")
-    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
-    946a4d5b3010 ("drm/amdgpu: Avoid use SOC15_REG_OFFSET in static const array")
-    954d5d437f22 ("drm/amdgpu: add nbio7 support")
-    95addb2ae06f ("drm/amdgpu: add read_bios_from_rom callback for VI parts")
-    a8fe58cec351 ("drm/amd: add ACP driver support")
-    ab71ac56f6d8 ("drm/amdgpu/virt: implement VI virt operation interfaces")
-    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
-    bbf282d88479 ("drm/amdgpu: add asic callback to get memsize register")
-    bc992ba5a3c1 ("drm/amdgpu/virt: use kiq to access registers (v2)")
-    bd27b678c26e ("drm/amdgpu: update golden setting for hainan")
-    bf383fb64e7c ("drm/amdgpu: convert nbio to use callbacks (v2)")
-    c1d83da98070 ("drm/amdgpu: add NBIO 6.1 driver")
-    c9c9de93a33c ("drm/amdgpu/virt: impl mailbox for ai")
-    dae5c2985da9 ("drm/amdgpu: update golden setting for verde")
-    eca2240fb044 ("drm/amdgpu: mark amdgpu_allowed_register_entry tables as 'const'")
-    f4b373f41cfc ("drm/amdgpu/trace: Add tracepoints to MMIO read/writes")
-    fdff8cfa72b3 ("drm/amdgpu: vBIOS post only call when mem_size zero")
-
-v3.18.140: Failed to apply! Possible dependencies:
-    048765ad5af7 ("amdgpu: fix asic initialization for virtualized environments (v2)")
-    04df25d12394 ("MAINTAINERS: Update amdkfd files")
-    130e0371b7d4 ("drm/amdgpu: Add H/W agnostic amdgpu <--> amdkfd interface")
-    16423d67936f ("Update MAINTAINERS and CREDITS files with amdkfd info")
-    1f7371b2a5fa ("drm/amd/powerplay: add basic powerplay framework")
-    288912cb95d1 ("drm/amdgpu: use $(src) in Makefile (v2)")
-    2df1b8b6a140 ("drm/amdgpu: add new asic callbacks for HDP flush/invalidation")
-    46651cc5dbee ("drm/amdgpu fix amdgpu.dpm=0 (v2)")
-    49e7d9df9046 ("MAINTAINERS: Use tabs consistently")
-    5253163a11fb ("drm/amdgpu: Add asic func interface to init doorbell index")
-    564ea7900cff ("drm/amdgpu: enable uvd dpm and powergating")
-    5fc3aeeb9e55 ("drm/amdgpu: rename amdgpu_ip_funcs to amd_ip_funcs (v2)")
-    690706900421 ("drm/amdgpu: add asic need_full_reset callback")
-    698825653fdf ("drm/amdgpu: add optional ring to *_hdp callbacks")
-    7e471e6fbab8 ("drm/amdgpu: track whether the asic supports SR-IOV")
-    841686df9f7d ("drm/amdgpu: add SI DPM support (v4)")
-    8e9198d0698a ("drm/amdgpu: move some atombios definitions to common folder (v2)")
-    9281f12cabb0 ("drm/amdgpu/soc15: add need_reset_on_init asic callback for SOC15 (v2)")
-    97b2e202fba0 ("drm/amdgpu: add amdgpu.h (v2)")
-    a02860aa2b2d ("drm/amdgpu: add atombios headers")
-    a2e73f56fa62 ("drm/amdgpu: Add support for CIK parts")
-    a8fe58cec351 ("drm/amd: add ACP driver support")
-    aaa36a976bbb ("drm/amdgpu: Add initial VI support")
-    b45e18acd394 ("drm/amdgpu: Add sysfs file for PCIe usage v5")
-    b80d8475c1fd ("drm/amdgpu: add scheduler initialization")
-    bbf282d88479 ("drm/amdgpu: add asic callback to get memsize register")
-    d03846af9275 ("drm/amd: Add CGS interfaces")
-    d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-
-
-How should we proceed with this patch?
+SGksCgpbVGhpcyBpcyBhbiBhdXRvbWF0ZWQgZW1haWxdCgpUaGlzIGNvbW1pdCBoYXMgYmVlbiBw
+cm9jZXNzZWQgYmVjYXVzZSBpdCBjb250YWlucyBhIC1zdGFibGUgdGFnLgpUaGUgc3RhYmxlIHRh
+ZyBpbmRpY2F0ZXMgdGhhdCBpdCdzIHJlbGV2YW50IGZvciB0aGUgZm9sbG93aW5nIHRyZWVzOiBh
+bGwKClRoZSBib3QgaGFzIHRlc3RlZCB0aGUgZm9sbG93aW5nIHRyZWVzOiB2NS4xLjMsIHY1LjAu
+MTcsIHY0LjE5LjQ0LCB2NC4xNC4xMjAsIHY0LjkuMTc3LCB2NC40LjE4MCwgdjMuMTguMTQwLgoK
+djUuMS4zOiBCdWlsZCBPSyEKdjUuMC4xNzogRmFpbGVkIHRvIGFwcGx5ISBQb3NzaWJsZSBkZXBl
+bmRlbmNpZXM6CiAgICA5MjgxZjEyY2FiYjAgKCJkcm0vYW1kZ3B1L3NvYzE1OiBhZGQgbmVlZF9y
+ZXNldF9vbl9pbml0IGFzaWMgY2FsbGJhY2sgZm9yIFNPQzE1ICh2MikiKQogICAgYjQ1ZTE4YWNk
+Mzk0ICgiZHJtL2FtZGdwdTogQWRkIHN5c2ZzIGZpbGUgZm9yIFBDSWUgdXNhZ2UgdjUiKQoKdjQu
+MTkuNDQ6IEZhaWxlZCB0byBhcHBseSEgUG9zc2libGUgZGVwZW5kZW5jaWVzOgogICAgMDYyZjM4
+MDcyNTM3ICgiZHJtL2FtZGdwdTogVmVnYTEwIGRvb3JiZWxsIGluZGV4IGluaXRpYWxpemF0aW9u
+IikKICAgIDRlMmMxYWMyMDI3ZCAoImRybS9hbWRncHU6IERvb3JiZWxsIGluZGV4IGluaXRpYWxp
+emF0aW9uIGZvciBBU0lDcyBiZWZvcmUgdmVnYTEwIikKICAgIDUyMGNiZTBmNGE3ZiAoImRybS9h
+bWRncHU6IHNldCBDRyBmbGFncyBmb3IgcmF2ZW4yICh2MikiKQogICAgNTI1MzE2M2ExMWZiICgi
+ZHJtL2FtZGdwdTogQWRkIGFzaWMgZnVuYyBpbnRlcmZhY2UgdG8gaW5pdCBkb29yYmVsbCBpbmRl
+eCIpCiAgICA5MjgxZjEyY2FiYjAgKCJkcm0vYW1kZ3B1L3NvYzE1OiBhZGQgbmVlZF9yZXNldF9v
+bl9pbml0IGFzaWMgY2FsbGJhY2sgZm9yIFNPQzE1ICh2MikiKQogICAgYTJhOGZiNTEyZTA5ICgi
+ZHJtL2FtZGdwdS9zcmlvdjogQ29ycmVjdCB0aGUgc2V0dGluZyBhYm91dCBzZG1hIGRvb3JiZWxs
+IG9mZnNldCBvZiBWZWdhMTAiKQogICAgYjQ1ZTE4YWNkMzk0ICgiZHJtL2FtZGdwdTogQWRkIHN5
+c2ZzIGZpbGUgZm9yIFBDSWUgdXNhZ2UgdjUiKQogICAgYzNiY2UzNWM2NjJiICgiZHJtL2FtZGdw
+dTogZml4IHNkbWEgZG9vcmJlbGwgY29tbWVudHMgdHlwbyIpCiAgICBjNTg5MjIzMGQ5OGIgKCJk
+cm0vYW1kZ3B1OiBEb29yYmVsbCBhc3NpZ25tZW50IGZvciA4IHNkbWEgdXNlciBxdWV1ZSBwZXIg
+ZW5naW5lIikKICAgIGM5M2FhNzc1ODZjMiAoImRybS9hbWRncHU6IERvb3JiZWxsIGxheW91dCBm
+b3IgdmVnYTIwIGFuZCBmdXR1cmUgYXNpYyIpCgp2NC4xNC4xMjA6IEZhaWxlZCB0byBhcHBseSEg
+UG9zc2libGUgZGVwZW5kZW5jaWVzOgogICAgMTFkYzkzNjRiZGRkICgiZHJtL2FtZGdwdTogbW92
+ZSBzdHJ1Y3QgYW1kX3Bvd2VycGxheSB0byBhbWRncHUuaCIpCiAgICAyZGYxYjhiNmExNDAgKCJk
+cm0vYW1kZ3B1OiBhZGQgbmV3IGFzaWMgY2FsbGJhY2tzIGZvciBIRFAgZmx1c2gvaW52YWxpZGF0
+aW9uIikKICAgIDQ1MjI4MjRjNDg4ZSAoImRybS9hbWRncHU6IER5bmFtaWMgaW5pdGlhbGl6ZSBJ
+UCBiYXNlIG9mZnNldCIpCiAgICA1MjUzMTYzYTExZmIgKCJkcm0vYW1kZ3B1OiBBZGQgYXNpYyBm
+dW5jIGludGVyZmFjZSB0byBpbml0IGRvb3JiZWxsIGluZGV4IikKICAgIDY5MDcwNjkwMDQyMSAo
+ImRybS9hbWRncHU6IGFkZCBhc2ljIG5lZWRfZnVsbF9yZXNldCBjYWxsYmFjayIpCiAgICA2OTg4
+MjU2NTNmZGYgKCJkcm0vYW1kZ3B1OiBhZGQgb3B0aW9uYWwgcmluZyB0byAqX2hkcCBjYWxsYmFj
+a3MiKQogICAgNzgwY2ZmYzU5OWI2ICgiZHJtL2FtZGdwdTogYWRkIHBvd2VycGxheSBzdXBwb3J0
+IGZvciBDSSBhc2ljcyIpCiAgICA5MjgxZjEyY2FiYjAgKCJkcm0vYW1kZ3B1L3NvYzE1OiBhZGQg
+bmVlZF9yZXNldF9vbl9pbml0IGFzaWMgY2FsbGJhY2sgZm9yIFNPQzE1ICh2MikiKQogICAgOTQ2
+YTRkNWIzMDEwICgiZHJtL2FtZGdwdTogQXZvaWQgdXNlIFNPQzE1X1JFR19PRkZTRVQgaW4gc3Rh
+dGljIGNvbnN0IGFycmF5IikKICAgIGI0NWUxOGFjZDM5NCAoImRybS9hbWRncHU6IEFkZCBzeXNm
+cyBmaWxlIGZvciBQQ0llIHVzYWdlIHY1IikKICAgIGJmMzgzZmI2NGU3YyAoImRybS9hbWRncHU6
+IGNvbnZlcnQgbmJpbyB0byB1c2UgY2FsbGJhY2tzICh2MikiKQogICAgY2Q0ZDc0NjQ4YjgwICgi
+ZHJtL2FtZGdwdTogdW5pZnkgdGhlIGludGVyZmFjZSBvZiBhbWRfcG1fZnVuY3MiKQogICAgY2Zh
+Mjg5ZmQ0OTg2ICgiZHJtL2FtZGdwdTogcmVuYW1lIGFtZGdwdV9kcG1fZnVuY3MgdG8gYW1kX3Bt
+X2Z1bmNzIikKICAgIGQwNGYyNTc2MzVhMiAoImRybS9hbWQvcG93ZXJwbGF5OiBmaXggbWVtb3J5
+IGxlYWsgaW4gcG93ZXJwbGF5IikKICAgIGRkNWE2ZmUyYWYwMyAoImRybS9hbWQvcG93ZXJwbGF5
+OiBQb3J0IHZlZ2ExMF9od21nci5jIG92ZXIgdG8gUFBfQ0FQIikKICAgIGRmMWU2Mzk0MjA2MyAo
+ImRybS9hbWQvcG93ZXJwbGF5OiBkZWxldGUgZXZlbnRtZ3IgbGF5ZXIgaW4gcG93ZXBybGF5IikK
+ICAgIGY5M2YwYzNhN2U4NiAoImRybS9hbWQvcG93ZXJwbGF5OiB1c2Ugc3RydWN0IGFtZF9wbV9m
+dW5jcyBpbiBwb3dlcnBsYXkiKQoKdjQuOS4xNzc6IEZhaWxlZCB0byBhcHBseSEgUG9zc2libGUg
+ZGVwZW5kZW5jaWVzOgogICAgMDczNDQwZDI2MjcyICgiZHJtL2FtZGdwdTogbW92ZSBWTSBkZWZp
+bmVzIGludG8gYW1kZ3B1X3ZtLmgiKQogICAgMTI0NWE2OTQ2MTdlICgiZHJtL2FtZGdwdTogdXBk
+YXRlIGdvbGRlbiBzZXR0aW5nIGZvciBwaXRjYWlybiIpCiAgICAxZTlmMTM5Mjc5NWUgKCJkcm0v
+YW1kZ3B1L3ZpcnQ6IGFkZCBoaWdoIGxldmVsIGludGVyZmFjZXMgZm9yIHZpcnQiKQogICAgMjEy
+MGRmNDc1ZDZkICgiZHJtL2FtZGdwdTogZW5hYmxlIHZpcnR1YWwgZGNlIG9uIFNJIikKICAgIDIy
+MGFiOWJkMWNjZiAoImRybS9hbWRncHU6IHNvYzE1IGVuYWJsZSAodjMpIikKICAgIDJkZjFiOGI2
+YTE0MCAoImRybS9hbWRncHU6IGFkZCBuZXcgYXNpYyBjYWxsYmFja3MgZm9yIEhEUCBmbHVzaC9p
+bnZhbGlkYXRpb24iKQogICAgNDUyMjgyNGM0ODhlICgiZHJtL2FtZGdwdTogRHluYW1pYyBpbml0
+aWFsaXplIElQIGJhc2Ugb2Zmc2V0IikKICAgIDRlNGJiZTczNDNhNiAoImRybS9hbWRncHU6YWRk
+IG5ldyBmaWxlIGZvciBTUklPViIpCiAgICA0ZTYzOGFlOWMxZTcgKCJkcm0vYW1kZ3B1L2dmeDg6
+IGFkZCBzdXBwb3J0IGtlcm5lbCBpbnRlcmZhY2UgcXVldWUoS0lRKSIpCiAgICA1MjUzMTYzYTEx
+ZmIgKCJkcm0vYW1kZ3B1OiBBZGQgYXNpYyBmdW5jIGludGVyZmFjZSB0byBpbml0IGRvb3JiZWxs
+IGluZGV4IikKICAgIDU2MTEzNTA0OTk5MiAoImRybS9hbWRncHU6IG1vdmUgc3luYyBoYW5kbGlu
+ZyBpbnRvIGEgc2VwYXJhdGUgaGVhZGVyIikKICAgIDVhNTA5OWNiZjRkOCAoImRybS9hbWRncHUv
+dmlydDogcmVuYW1lIGZpZWxkZXMgb2YgdmlydHVhbGl6YXRpb24gc3RydWN0dXJlIikKICAgIDY5
+MDcwNjkwMDQyMSAoImRybS9hbWRncHU6IGFkZCBhc2ljIG5lZWRfZnVsbF9yZXNldCBjYWxsYmFj
+ayIpCiAgICA2OTg4MjU2NTNmZGYgKCJkcm0vYW1kZ3B1OiBhZGQgb3B0aW9uYWwgcmluZyB0byAq
+X2hkcCBjYWxsYmFja3MiKQogICAgNmE3Zjc2ZTcwZmFjICgiZHJtL2FtZGdwdTogYWRkIFZSQU0g
+bWFuYWdlciB2MiIpCiAgICA2Yjc5ODVlZmMzYjUgKCJkcm0vYW1kZ3B1OiB1cGRhdGUgZ29sZGVu
+IHNldHRpbmcgZm9yIG9sYW5kIikKICAgIDc4MDIzMDE2MTE2ZiAoImRybS9hbWRncHU6IG1vdmUg
+ZmVuY2UgYW5kIHJpbmcgZGVmaW5lcyBpbnRvIGFtZGdwdV9yaW5nLmgiKQogICAgNzhiYmU3NzEx
+NzRjICgiZHJtL2FtZC9hbWRncHU6IERlLW51bWJlcmlmeSBnb2xkZW4gU0kgcmVnaXN0ZXJzIikK
+ICAgIDdjMGE3MDVlMDMyNiAoImRybS9hbWRncHU6IHVwZGF0ZSBnb2xkZW4gc2V0dGluZy90aWxp
+bmcgdGFibGUgb2YgdGFoaXRpIikKICAgIDg4MGU4N2UzODA5OCAoImRybS9hbWRncHUvZ2Z4ODog
+aW1wbGVtZW50IGVtaXRfcnJlZy93cmVnIGZ1bmN0aW9uIikKICAgIDkxNGI0ZGNlNGZkYSAoImRy
+bS9hbWRncHU6IHN0b3AgdXNpbmcgYSBibyBsaXN0IGVudHJ5IGZvciB0aGUgVk0gUFRzIikKICAg
+IDkyODFmMTJjYWJiMCAoImRybS9hbWRncHUvc29jMTU6IGFkZCBuZWVkX3Jlc2V0X29uX2luaXQg
+YXNpYyBjYWxsYmFjayBmb3IgU09DMTUgKHYyKSIpCiAgICA5NDZhNGQ1YjMwMTAgKCJkcm0vYW1k
+Z3B1OiBBdm9pZCB1c2UgU09DMTVfUkVHX09GRlNFVCBpbiBzdGF0aWMgY29uc3QgYXJyYXkiKQog
+ICAgOTU0ZDVkNDM3ZjIyICgiZHJtL2FtZGdwdTogYWRkIG5iaW83IHN1cHBvcnQiKQogICAgYWI3
+MWFjNTZmNmQ4ICgiZHJtL2FtZGdwdS92aXJ0OiBpbXBsZW1lbnQgVkkgdmlydCBvcGVyYXRpb24g
+aW50ZXJmYWNlcyIpCiAgICBiNDVlMThhY2QzOTQgKCJkcm0vYW1kZ3B1OiBBZGQgc3lzZnMgZmls
+ZSBmb3IgUENJZSB1c2FnZSB2NSIpCiAgICBiYmYyODJkODg0NzkgKCJkcm0vYW1kZ3B1OiBhZGQg
+YXNpYyBjYWxsYmFjayB0byBnZXQgbWVtc2l6ZSByZWdpc3RlciIpCiAgICBiYzk5MmJhNWEzYzEg
+KCJkcm0vYW1kZ3B1L3ZpcnQ6IHVzZSBraXEgdG8gYWNjZXNzIHJlZ2lzdGVycyAodjIpIikKICAg
+IGJkMjdiNjc4YzI2ZSAoImRybS9hbWRncHU6IHVwZGF0ZSBnb2xkZW4gc2V0dGluZyBmb3IgaGFp
+bmFuIikKICAgIGJkN2RlMjdkODFhNyAoImRybS9hbWRncHU6bmV3IGZpZWxkIG1lbWJlcnMgZm9y
+IFNSSU9WIikKICAgIGJmMzgzZmI2NGU3YyAoImRybS9hbWRncHU6IGNvbnZlcnQgbmJpbyB0byB1
+c2UgY2FsbGJhY2tzICh2MikiKQogICAgYzFkODNkYTk4MDcwICgiZHJtL2FtZGdwdTogYWRkIE5C
+SU8gNi4xIGRyaXZlciIpCiAgICBjOWM5ZGU5M2EzM2MgKCJkcm0vYW1kZ3B1L3ZpcnQ6IGltcGwg
+bWFpbGJveCBmb3IgYWkiKQogICAgZGFlNWMyOTg1ZGE5ICgiZHJtL2FtZGdwdTogdXBkYXRlIGdv
+bGRlbiBzZXR0aW5nIGZvciB2ZXJkZSIpCiAgICBmN2RhMzBkOTc5ZDQgKCJkcm0vYW1kZ3B1OiBt
+b3ZlIFBUIHZhbGlkYXRpb24gYmFjayBpbnRvIFZNIGNvZGUgdjIiKQoKdjQuNC4xODA6IEZhaWxl
+ZCB0byBhcHBseSEgUG9zc2libGUgZGVwZW5kZW5jaWVzOgogICAgMDQ4NzY1YWQ1YWY3ICgiYW1k
+Z3B1OiBmaXggYXNpYyBpbml0aWFsaXphdGlvbiBmb3IgdmlydHVhbGl6ZWQgZW52aXJvbm1lbnRz
+ICh2MikiKQogICAgMGMzNGY0NTM2ODQyICgiZHJtL2FtZGdwdTogYWRkIFNJIFNNQyBzdXBwb3J0
+IikKICAgIDBmMjdlNDYyNThlZSAoImRybS9hbWRncHU6IGFkZCBzaSBoZWFkZXIgZmlsZXMgdjQi
+KQogICAgMTI0NWE2OTQ2MTdlICgiZHJtL2FtZGdwdTogdXBkYXRlIGdvbGRlbiBzZXR0aW5nIGZv
+ciBwaXRjYWlybiIpCiAgICAxZTlmMTM5Mjc5NWUgKCJkcm0vYW1kZ3B1L3ZpcnQ6IGFkZCBoaWdo
+IGxldmVsIGludGVyZmFjZXMgZm9yIHZpcnQiKQogICAgMWViMjJiZDM4YWM1ICgiZHJtL2FtZGdw
+dTogYWRkIHJlYWRfYmlvc19mcm9tX3JvbSBjYWxsYmFjayBmb3IgQ0kgcGFydHMiKQogICAgMWY3
+MzcxYjJhNWZhICgiZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBiYXNpYyBwb3dlcnBsYXkgZnJhbWV3
+b3JrIikKICAgIDIxMjBkZjQ3NWQ2ZCAoImRybS9hbWRncHU6IGVuYWJsZSB2aXJ0dWFsIGRjZSBv
+biBTSSIpCiAgICAyMjBhYjliZDFjY2YgKCJkcm0vYW1kZ3B1OiBzb2MxNSBlbmFibGUgKHYzKSIp
+CiAgICAyODg5MTJjYjk1ZDEgKCJkcm0vYW1kZ3B1OiB1c2UgJChzcmMpIGluIE1ha2VmaWxlICh2
+MikiKQogICAgMmNkNDZhZDIyMzgzICgiZHJtL2FtZGdwdTogYWRkIGdyYXBoaWMgcGlwZWxpbmUg
+aW1wbGVtZW50YXRpb24gZm9yIHNpIHY4IikKICAgIDJkZjFiOGI2YTE0MCAoImRybS9hbWRncHU6
+IGFkZCBuZXcgYXNpYyBjYWxsYmFja3MgZm9yIEhEUCBmbHVzaC9pbnZhbGlkYXRpb24iKQogICAg
+NDUyMjgyNGM0ODhlICgiZHJtL2FtZGdwdTogRHluYW1pYyBpbml0aWFsaXplIElQIGJhc2Ugb2Zm
+c2V0IikKICAgIDRlOTlhNDRlMzdiZiAoImRybS9hbWRncHU6Y2hhbmdlcyBvZiB2aXJ0dWFsaXph
+dGlvbiBjYXNlcyBwcm9iZSAodjMpIikKICAgIDUyNTMxNjNhMTFmYiAoImRybS9hbWRncHU6IEFk
+ZCBhc2ljIGZ1bmMgaW50ZXJmYWNlIHRvIGluaXQgZG9vcmJlbGwgaW5kZXgiKQogICAgNjJhMzc1
+NTM0MTRhICgiZHJtL2FtZGdwdTogYWRkIHNpIGltcGxlbWVudGF0aW9uIHYxMCIpCiAgICA2OTA3
+MDY5MDA0MjEgKCJkcm0vYW1kZ3B1OiBhZGQgYXNpYyBuZWVkX2Z1bGxfcmVzZXQgY2FsbGJhY2si
+KQogICAgNjk4ODI1NjUzZmRmICgiZHJtL2FtZGdwdTogYWRkIG9wdGlvbmFsIHJpbmcgdG8gKl9o
+ZHAgY2FsbGJhY2tzIikKICAgIDZiNzk4NWVmYzNiNSAoImRybS9hbWRncHU6IHVwZGF0ZSBnb2xk
+ZW4gc2V0dGluZyBmb3Igb2xhbmQiKQogICAgNzhiYmU3NzExNzRjICgiZHJtL2FtZC9hbWRncHU6
+IERlLW51bWJlcmlmeSBnb2xkZW4gU0kgcmVnaXN0ZXJzIikKICAgIDc5NDZiODc4MDM4ZCAoImRy
+bS9hbWRncHU6IGFkZCBhIGNhbGxiYWNrIGZvciByZWFkaW5nIHRoZSBiaW9zIGZyb20gdGhlIHJv
+bSBkaXJlY3RseSIpCiAgICA3YzBhNzA1ZTAzMjYgKCJkcm0vYW1kZ3B1OiB1cGRhdGUgZ29sZGVu
+IHNldHRpbmcvdGlsaW5nIHRhYmxlIG9mIHRhaGl0aSIpCiAgICA3ZTQ3MWU2ZmJhYjggKCJkcm0v
+YW1kZ3B1OiB0cmFjayB3aGV0aGVyIHRoZSBhc2ljIHN1cHBvcnRzIFNSLUlPViIpCiAgICA4NDE2
+ODZkZjlmN2QgKCJkcm0vYW1kZ3B1OiBhZGQgU0kgRFBNIHN1cHBvcnQgKHY0KSIpCiAgICA4Y2Nl
+MjQ0Y2Y2N2MgKCJkcm0vYW1kZ3B1OiBhbHdheXMgcmVwb3N0IGNhcmRzIHRoYXQgc3VwcG9ydCBT
+Ui1JT1YiKQogICAgOTI4MWYxMmNhYmIwICgiZHJtL2FtZGdwdS9zb2MxNTogYWRkIG5lZWRfcmVz
+ZXRfb25faW5pdCBhc2ljIGNhbGxiYWNrIGZvciBTT0MxNSAodjIpIikKICAgIDk0NmE0ZDViMzAx
+MCAoImRybS9hbWRncHU6IEF2b2lkIHVzZSBTT0MxNV9SRUdfT0ZGU0VUIGluIHN0YXRpYyBjb25z
+dCBhcnJheSIpCiAgICA5NTRkNWQ0MzdmMjIgKCJkcm0vYW1kZ3B1OiBhZGQgbmJpbzcgc3VwcG9y
+dCIpCiAgICA5NWFkZGIyYWUwNmYgKCJkcm0vYW1kZ3B1OiBhZGQgcmVhZF9iaW9zX2Zyb21fcm9t
+IGNhbGxiYWNrIGZvciBWSSBwYXJ0cyIpCiAgICBhOGZlNThjZWMzNTEgKCJkcm0vYW1kOiBhZGQg
+QUNQIGRyaXZlciBzdXBwb3J0IikKICAgIGFiNzFhYzU2ZjZkOCAoImRybS9hbWRncHUvdmlydDog
+aW1wbGVtZW50IFZJIHZpcnQgb3BlcmF0aW9uIGludGVyZmFjZXMiKQogICAgYjQ1ZTE4YWNkMzk0
+ICgiZHJtL2FtZGdwdTogQWRkIHN5c2ZzIGZpbGUgZm9yIFBDSWUgdXNhZ2UgdjUiKQogICAgYmJm
+MjgyZDg4NDc5ICgiZHJtL2FtZGdwdTogYWRkIGFzaWMgY2FsbGJhY2sgdG8gZ2V0IG1lbXNpemUg
+cmVnaXN0ZXIiKQogICAgYmM5OTJiYTVhM2MxICgiZHJtL2FtZGdwdS92aXJ0OiB1c2Uga2lxIHRv
+IGFjY2VzcyByZWdpc3RlcnMgKHYyKSIpCiAgICBiZDI3YjY3OGMyNmUgKCJkcm0vYW1kZ3B1OiB1
+cGRhdGUgZ29sZGVuIHNldHRpbmcgZm9yIGhhaW5hbiIpCiAgICBiZjM4M2ZiNjRlN2MgKCJkcm0v
+YW1kZ3B1OiBjb252ZXJ0IG5iaW8gdG8gdXNlIGNhbGxiYWNrcyAodjIpIikKICAgIGMxZDgzZGE5
+ODA3MCAoImRybS9hbWRncHU6IGFkZCBOQklPIDYuMSBkcml2ZXIiKQogICAgYzljOWRlOTNhMzNj
+ICgiZHJtL2FtZGdwdS92aXJ0OiBpbXBsIG1haWxib3ggZm9yIGFpIikKICAgIGRhZTVjMjk4NWRh
+OSAoImRybS9hbWRncHU6IHVwZGF0ZSBnb2xkZW4gc2V0dGluZyBmb3IgdmVyZGUiKQogICAgZWNh
+MjI0MGZiMDQ0ICgiZHJtL2FtZGdwdTogbWFyayBhbWRncHVfYWxsb3dlZF9yZWdpc3Rlcl9lbnRy
+eSB0YWJsZXMgYXMgJ2NvbnN0JyIpCiAgICBmNGIzNzNmNDFjZmMgKCJkcm0vYW1kZ3B1L3RyYWNl
+OiBBZGQgdHJhY2Vwb2ludHMgdG8gTU1JTyByZWFkL3dyaXRlcyIpCiAgICBmZGZmOGNmYTcyYjMg
+KCJkcm0vYW1kZ3B1OiB2QklPUyBwb3N0IG9ubHkgY2FsbCB3aGVuIG1lbV9zaXplIHplcm8iKQoK
+djMuMTguMTQwOiBGYWlsZWQgdG8gYXBwbHkhIFBvc3NpYmxlIGRlcGVuZGVuY2llczoKICAgIDA0
+ODc2NWFkNWFmNyAoImFtZGdwdTogZml4IGFzaWMgaW5pdGlhbGl6YXRpb24gZm9yIHZpcnR1YWxp
+emVkIGVudmlyb25tZW50cyAodjIpIikKICAgIDA0ZGYyNWQxMjM5NCAoIk1BSU5UQUlORVJTOiBV
+cGRhdGUgYW1ka2ZkIGZpbGVzIikKICAgIDEzMGUwMzcxYjdkNCAoImRybS9hbWRncHU6IEFkZCBI
+L1cgYWdub3N0aWMgYW1kZ3B1IDwtLT4gYW1ka2ZkIGludGVyZmFjZSIpCiAgICAxNjQyM2Q2Nzkz
+NmYgKCJVcGRhdGUgTUFJTlRBSU5FUlMgYW5kIENSRURJVFMgZmlsZXMgd2l0aCBhbWRrZmQgaW5m
+byIpCiAgICAxZjczNzFiMmE1ZmEgKCJkcm0vYW1kL3Bvd2VycGxheTogYWRkIGJhc2ljIHBvd2Vy
+cGxheSBmcmFtZXdvcmsiKQogICAgMjg4OTEyY2I5NWQxICgiZHJtL2FtZGdwdTogdXNlICQoc3Jj
+KSBpbiBNYWtlZmlsZSAodjIpIikKICAgIDJkZjFiOGI2YTE0MCAoImRybS9hbWRncHU6IGFkZCBu
+ZXcgYXNpYyBjYWxsYmFja3MgZm9yIEhEUCBmbHVzaC9pbnZhbGlkYXRpb24iKQogICAgNDY2NTFj
+YzVkYmVlICgiZHJtL2FtZGdwdSBmaXggYW1kZ3B1LmRwbT0wICh2MikiKQogICAgNDllN2Q5ZGY5
+MDQ2ICgiTUFJTlRBSU5FUlM6IFVzZSB0YWJzIGNvbnNpc3RlbnRseSIpCiAgICA1MjUzMTYzYTEx
+ZmIgKCJkcm0vYW1kZ3B1OiBBZGQgYXNpYyBmdW5jIGludGVyZmFjZSB0byBpbml0IGRvb3JiZWxs
+IGluZGV4IikKICAgIDU2NGVhNzkwMGNmZiAoImRybS9hbWRncHU6IGVuYWJsZSB1dmQgZHBtIGFu
+ZCBwb3dlcmdhdGluZyIpCiAgICA1ZmMzYWVlYjllNTUgKCJkcm0vYW1kZ3B1OiByZW5hbWUgYW1k
+Z3B1X2lwX2Z1bmNzIHRvIGFtZF9pcF9mdW5jcyAodjIpIikKICAgIDY5MDcwNjkwMDQyMSAoImRy
+bS9hbWRncHU6IGFkZCBhc2ljIG5lZWRfZnVsbF9yZXNldCBjYWxsYmFjayIpCiAgICA2OTg4MjU2
+NTNmZGYgKCJkcm0vYW1kZ3B1OiBhZGQgb3B0aW9uYWwgcmluZyB0byAqX2hkcCBjYWxsYmFja3Mi
+KQogICAgN2U0NzFlNmZiYWI4ICgiZHJtL2FtZGdwdTogdHJhY2sgd2hldGhlciB0aGUgYXNpYyBz
+dXBwb3J0cyBTUi1JT1YiKQogICAgODQxNjg2ZGY5ZjdkICgiZHJtL2FtZGdwdTogYWRkIFNJIERQ
+TSBzdXBwb3J0ICh2NCkiKQogICAgOGU5MTk4ZDA2OThhICgiZHJtL2FtZGdwdTogbW92ZSBzb21l
+IGF0b21iaW9zIGRlZmluaXRpb25zIHRvIGNvbW1vbiBmb2xkZXIgKHYyKSIpCiAgICA5MjgxZjEy
+Y2FiYjAgKCJkcm0vYW1kZ3B1L3NvYzE1OiBhZGQgbmVlZF9yZXNldF9vbl9pbml0IGFzaWMgY2Fs
+bGJhY2sgZm9yIFNPQzE1ICh2MikiKQogICAgOTdiMmUyMDJmYmEwICgiZHJtL2FtZGdwdTogYWRk
+IGFtZGdwdS5oICh2MikiKQogICAgYTAyODYwYWEyYjJkICgiZHJtL2FtZGdwdTogYWRkIGF0b21i
+aW9zIGhlYWRlcnMiKQogICAgYTJlNzNmNTZmYTYyICgiZHJtL2FtZGdwdTogQWRkIHN1cHBvcnQg
+Zm9yIENJSyBwYXJ0cyIpCiAgICBhOGZlNThjZWMzNTEgKCJkcm0vYW1kOiBhZGQgQUNQIGRyaXZl
+ciBzdXBwb3J0IikKICAgIGFhYTM2YTk3NmJiYiAoImRybS9hbWRncHU6IEFkZCBpbml0aWFsIFZJ
+IHN1cHBvcnQiKQogICAgYjQ1ZTE4YWNkMzk0ICgiZHJtL2FtZGdwdTogQWRkIHN5c2ZzIGZpbGUg
+Zm9yIFBDSWUgdXNhZ2UgdjUiKQogICAgYjgwZDg0NzVjMWZkICgiZHJtL2FtZGdwdTogYWRkIHNj
+aGVkdWxlciBpbml0aWFsaXphdGlvbiIpCiAgICBiYmYyODJkODg0NzkgKCJkcm0vYW1kZ3B1OiBh
+ZGQgYXNpYyBjYWxsYmFjayB0byBnZXQgbWVtc2l6ZSByZWdpc3RlciIpCiAgICBkMDM4NDZhZjky
+NzUgKCJkcm0vYW1kOiBBZGQgQ0dTIGludGVyZmFjZXMiKQogICAgZDM4Y2VhZjk5ZWQwICgiZHJt
+L2FtZGdwdTogYWRkIGNvcmUgZHJpdmVyICh2NCkiKQoKCkhvdyBzaG91bGQgd2UgcHJvY2VlZCB3
+aXRoIHRoaXMgcGF0Y2g/CgotLQpUaGFua3MsClNhc2hhCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeA==
