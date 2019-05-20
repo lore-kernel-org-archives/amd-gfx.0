@@ -1,34 +1,83 @@
-From: Weitao Hou <houweitaoo@gmail.com>
-Subject: [PATCH] gpu: fix typos in code comments
-Date: Sat, 18 May 2019 21:41:41 +0800
-Message-ID: <20190518134141.23214-1-houweitaoo@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com, michel.daenzer@amd.com, Dmytro.Laktyushkin@amd.com, Anthony.Koo@amd.com, ken.chalmers@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Weitao Hou <houweitaoo@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: lima_bo memory leak after drm_sched job destruction rework
+Date: Mon, 20 May 2019 06:31:55 +0000
+Message-ID: <703771df-f086-06e1-f774-592e20e2c625@amd.com>
+References: <CAK4VdL2wa=UrpRqfML-ymkEX7LkE6FP3ykgNUQonLdjmaydq_Q@mail.gmail.com>
+ <3f1a556e-dd4c-3dc7-b966-a63baf1e7c52@amd.com>
+ <CAK4VdL26tEkW+6fU4DaXa8pGAfpQ5TfgiwNhyHXq=EJh72ak=Q@mail.gmail.com>
+ <MWHPR12MB145383922FD0BDF21AFFCCB5EA0B0@MWHPR12MB1453.namprd12.prod.outlook.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <MWHPR12MB145383922FD0BDF21AFFCCB5EA0B0-Gy0DoCVfaSWZBIDmKHdw+wdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+Content-ID: <59C75C35FB99D7459F8633A0043E1975-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, Erico Nunes <nunes.erico-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Deng,
+ Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "lima-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <lima-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Tomeu Vizoso <tomeu.vizoso-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>, Rob Herring <robh-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Sharat Masetty <smasetty-sgV2jX0FEOL9JmXXK+q4OQ@public.gmane.org>, Nayan Deshmukh <nayan26deshmukh-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Eric Anholt <eric-WhKQ6XTQaPysTnJN9+BGXg@public.gmane.org>, Christian Gmeiner <christian.gmeiner-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, Qiang Yu <yuq825-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Russell King <linux+etnaviv-I+IVW8TIWO2tmTQ+vhA3Yw@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <Rex.Zhu-5C7GfCeVMHo@public.gmane.org>, Lucas Stach <l.stach-bIcnvbaLZ9MEGnE8C9+IrQ@public.gmane.org>
 
-fix eror to error
-
-Signed-off-by: Weitao Hou <houweitaoo@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index f70437aae8e0..df422440845b 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -183,8 +183,8 @@ static bool calculate_fb_and_fractional_fb_divider(
- *RETURNS:
- * It fills the PLLSettings structure with PLL Dividers values
- * if calculated values are within required tolerance
--* It returns	- true if eror is within tolerance
--*		- false if eror is not within tolerance
-+* It returns	- true if error is within tolerance
-+*		- false if error is not within tolerance
- */
- static bool calc_fb_divider_checking_tolerance(
- 		struct calc_pll_clock_source *calc_pll_cs,
--- 
-2.18.0
+VGhlIHByb2JsZW0gaXMgc2ltcGx5IHRoYXQgd2Ugb25seSBkZWxldGUgdGhlIGpvYnMgd2hlbiB3
+ZSB3ZXJlIGFibGUgdG8gDQpjYW5jZWwgdGhlIHRpbWVvdXQgaGFuZGxlci4NCg0KTm93IHdoYXQg
+aGFwcGVucyBpcyB0aGF0IHRoZSB0aW1lb3V0IGhhbmRsZXIgd2FzIG5ldmVyIHN0YXJ0ZWQgaW4g
+dGhlIA0KZmlyc3QgcGxhY2UsIHNvIHdlIGNhbid0IGNhbmNlbCBpdC4gSnVzdCBhZGRpbmcgYSBz
+aW1wbGUgImlmIA0KKHNjaGVkLT50aW1lb3V0ICE9IE1BWF9TQ0hFRFVMRV9USU1FT1VUICYmLi4u
+LiIgc2hvdWxkIGRvIHRoZSB0cmljay4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KQW0gMTgu
+MDUuMTkgdW0gMDE6NTAgc2NocmllYiBHcm9kem92c2t5LCBBbmRyZXk6DQo+IERvbid0IGhhdmUg
+dGhlIGNvZGUgaW4gZnJvbnQgb2YgbWUgbm93IGJ1dCBhcyBmYXIgYXMgSSByZW1lbWJlciBpdCB3
+aWxsIG9ubHkgcHJlbWF0dXJlbHkgdGVybWluYXRlIGluIGRybV9zY2hlZF9jbGVhbnVwX2pvYnMg
+aWYgdGhlcmUgaXMgdGltZW91dCB3b3JrIGluIHByb2dyZXNzIHdoaWNoIHdvdWxkIG5vdCBiZSB0
+aGUgY2FzZSBpZiBub3RoaW5nIGhhbmdzLg0KPg0KPiBBbmRyZXkNCj4NCj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBGcm9tOiBFcmljbyBOdW5lcyA8bnVuZXMu
+ZXJpY29AZ21haWwuY29tPg0KPiBTZW50OiAxNyBNYXkgMjAxOSAxNzo0Mjo0OA0KPiBUbzogR3Jv
+ZHpvdnNreSwgQW5kcmV5DQo+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXI7IEtvZW5pZywgQ2hyaXN0
+aWFuOyBaaG91LCBEYXZpZChDaHVuTWluZyk7IERhdmlkIEFpcmxpZTsgRGFuaWVsIFZldHRlcjsg
+THVjYXMgU3RhY2g7IFJ1c3NlbGwgS2luZzsgQ2hyaXN0aWFuIEdtZWluZXI7IFFpYW5nIFl1OyBS
+b2IgSGVycmluZzsgVG9tZXUgVml6b3NvOyBFcmljIEFuaG9sdDsgUmV4IFpodTsgSHVhbmcsIFJh
+eTsgRGVuZywgRW1pbHk7IE5heWFuIERlc2htdWtoOyBTaGFyYXQgTWFzZXR0eTsgYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxp
+bWFAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IFN1YmplY3Q6IFJlOiBsaW1hX2JvIG1lbW9yeSBs
+ZWFrIGFmdGVyIGRybV9zY2hlZCBqb2IgZGVzdHJ1Y3Rpb24gcmV3b3JrDQo+DQo+IFtDQVVUSU9O
+OiBFeHRlcm5hbCBFbWFpbF0NCj4NCj4gT24gRnJpLCBNYXkgMTcsIDIwMTkgYXQgMTA6NDMgUE0g
+R3JvZHpvdnNreSwgQW5kcmV5DQo+IDxBbmRyZXkuR3JvZHpvdnNreUBhbWQuY29tPiB3cm90ZToN
+Cj4+IE9uIDUvMTcvMTkgMzozNSBQTSwgRXJpY28gTnVuZXMgd3JvdGU6DQo+Pj4gTGltYSBjdXJy
+ZW50bHkgZGVmYXVsdHMgdG8gYW4gImluZmluaXRlIiB0aW1lb3V0LiBTZXR0aW5nIGEgNTAwbXMN
+Cj4+PiBkZWZhdWx0IHRpbWVvdXQgbGlrZSBtb3N0IG90aGVyIGRybV9zY2hlZCB1c2VycyBkbyBm
+aXhlZCB0aGUgbGVhayBmb3INCj4+PiBtZS4NCj4+IEkgYW0gbm90IHZlcnkgY2xlYXIgYWJvdXQg
+dGhlIHByb2JsZW0gLSBzbyB5b3UgYmFzaWNhbGx5IG5ldmVyIGFsbG93IGENCj4+IHRpbWUgb3V0
+IGhhbmRsZXIgdG8gcnVuID8gQW5kIHRoZW4gd2hlbiB0aGUgam9iIGhhbmdzIGZvciBldmVyIHlv
+dSBnZXQNCj4+IHRoaXMgbWVtb3J5IGxlYWsgPyBIb3cgaXQgd29ya2VkIGZvciB5b3UgYmVmb3Jl
+IHRoaXMgcmVmYWN0b3JpbmcgPyBBcw0KPj4gZmFyIGFzIEkgcmVtZW1iZXIgIHNjaGVkLT5vcHMt
+PmZyZWVfam9iIGJlZm9yZSB0aGlzIGNoYW5nZSB3YXMgY2FsbGVkDQo+PiBmcm9tIGRybV9zY2hl
+ZF9qb2JfZmluaXNoIHdoaWNoIGlzIHRoZSB3b3JrIHNjaGVkdWxlZCBmcm9tIEhXIGZlbmNlDQo+
+PiBzaWduYWxlZCBjYWxsYmFjayAtIGRybV9zY2hlZF9wcm9jZXNzX2pvYiBzbyBpZiB5b3VyIGpv
+YiBoYW5ncyBmb3IgZXZlcg0KPj4gYW55d2F5IGFuZCB0aGlzIHdvcmsgaXMgbmV2ZXIgc2NoZWR1
+bGVkICB3aGVuIHlvdXIgZnJlZV9qb2IgY2FsbGJhY2sgd2FzDQo+PiBjYWxsZWQgPw0KPiBJbiB0
+aGlzIHBhcnRpY3VsYXIgY2FzZSwgdGhlIGpvYnMgcnVuIHN1Y2Nlc3NmdWxseSwgbm90aGluZyBo
+YW5ncy4NCj4gTGltYSBjdXJyZW50bHkgc3BlY2lmaWVzIGFuICJpbmZpbml0ZSIgdGltZW91dCB0
+byB0aGUgZHJtIHNjaGVkdWxlciwNCj4gc28gaWYgYSBqb2IgZGlkIGRpZCBoYW5nLCBpdCB3b3Vs
+ZCBoYW5nIGZvcmV2ZXIsIEkgc3VwcG9zZS4gQnV0IHRoaXMNCj4gaXMgbm90IHRoZSBpc3N1ZS4N
+Cj4NCj4gSWYgSSB1bmRlcnN0YW5kIGNvcnJlY3RseSBpdCB3b3JrZWQgd2VsbCBiZWZvcmUgdGhl
+IHJld29yayBiZWNhdXNlIHRoZQ0KPiBjbGVhbnVwIHdhcyB0cmlnZ2VyZWQgYXQgdGhlIGVuZCBv
+ZiBkcm1fc2NoZWRfcHJvY2Vzc19qb2INCj4gaW5kZXBlbmRlbnRseSBvbiB0aGUgdGltZW91dC4N
+Cj4NCj4gV2hhdCBJJ20gb2JzZXJ2aW5nIG5vdyBpcyB0aGF0IGV2ZW4gd2hlbiBqb2JzIHJ1biBz
+dWNjZXNzZnVsbHksIHRoZXkNCj4gYXJlIG5vdCBjbGVhbmVkIGJ5IHRoZSBkcm0gc2NoZWR1bGVy
+IGJlY2F1c2UgZHJtX3NjaGVkX2NsZWFudXBfam9icw0KPiBzZWVtcyB0byBnaXZlIHVwIGJhc2Vk
+IG9uIHRoZSBzdGF0dXMgb2YgYSB0aW1lb3V0IHdvcmtlci4NCj4gSSB3b3VsZCBleHBlY3QgdGhl
+IHRpbWVvdXQgdmFsdWUgdG8gb25seSBiZSByZWxldmFudCBpbiBlcnJvci9odW5nIGpvYiBjYXNl
+cy4NCj4NCj4gSSB3aWxsIHByb2JhYmx5IHNldCB0aGUgdGltZW91dCB0byBhIHJlYXNvbmFibGUg
+dmFsdWUgYW55d2F5LCBJIGp1c3QNCj4gcG9zdGVkIGhlcmUgdG8gcmVwb3J0IHRoYXQgdGhpcyBj
+YW4gcG9zc2libHkgYmUgYSBidWcgaW4gdGhlIGRybQ0KPiBzY2hlZHVsZXIgYWZ0ZXIgdGhhdCBy
+ZXdvcmsuDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
