@@ -1,78 +1,108 @@
-From: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
-Subject: =?utf-8?B?5Zue5aSNOiBbUEFUQ0hdIGdwdTogZHJtOiB1c2Ugc3RydWN0X3NpemUoKSBp?=
- =?utf-8?Q?n_kmalloc()?=
-Date: Mon, 20 May 2019 23:19:31 +0000
-Message-ID: <SN6PR12MB28007ED8F5C6838F2C25A9D587060@SN6PR12MB2800.namprd12.prod.outlook.com>
-References: <1558082760-4915-1-git-send-email-xiaolinkui@kylinos.cn>
- <SN6PR12MB2800A7AEC22121C8704CBB09870B0@SN6PR12MB2800.namprd12.prod.outlook.com>,
- <20190520162807.GE21222@phenom.ffwll.local>
+From: Evgenii Stepanov <eugenis@google.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Mon, 20 May 2019 16:53:07 -0700
+Message-ID: <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <20190517144931.GA56186@arrakis.emea.arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190520162807.GE21222-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
-Content-Language: zh-CN
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, xiaolinkui <xiaolinkui-UOlijcLmZ/InDS1+zs4M5A@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+In-Reply-To: <20190517144931.GA56186@arrakis.emea.arm.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Mauro
+List-Id: amd-gfx.lists.freedesktop.org
 
-RGFuaWVsLCB3aGF0IHlvdSBhcmUgdGFsa2luZyBhYm91dCBpcyB0b3RhbGx5IHdyb25nLgoxKSBB
-RkFJSywgb25seSBvbmUgemVyby1zaXplIGFycmF5IGNhbiBiZSBpbiB0aGUgZW5kIG9mIGEgc3Ry
-dWN0LgoyKSB0d28gc3RydWN0X3NpemUgd2lsbCBhZGQgdXAgc3RydWN0IGl0c2VsZiB0d2ljZS4g
-dGhlIHN1bSBpcyB3cm9uZyB0aGVuLgoKTm8gb2ZmZW5zZS4gSSBjYW4ndCBoZWxwIGZlZWxpbmcg
-bHVja3kgdGhhdCB5b3UgYXJlIGluIGludGVsLiAKCgrlj5Hku7bkuro6IERhbmllbCBWZXR0ZXIg
-PGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+IOS7o+ihqCBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3
-bGwuY2g+CuWPkemAgeaXtumXtDogMjAxOeW5tDXmnIgyMeaXpSAwOjI4CuaUtuS7tuS6ujogUGFu
-LCBYaW5odWkK5oqE6YCBOiBEZXVjaGVyLCBBbGV4YW5kZXI7IEtvZW5pZywgQ2hyaXN0aWFuOyBa
-aG91LCBEYXZpZChDaHVuTWluZyk7IGFpcmxpZWRAbGludXguaWU7IGRhbmllbEBmZndsbC5jaDsg
-UXVhbiwgRXZhbjsgeGlhb2xpbmt1aTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGRy
-aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5v
-cmcK5Li76aKYOiBSZTogW1BBVENIXSBncHU6IGRybTogdXNlIHN0cnVjdF9zaXplKCkgaW4ga21h
-bGxvYygpCsKgCltDQVVUSU9OOiBFeHRlcm5hbCBFbWFpbF0KCk9uIEZyaSwgTWF5IDE3LCAyMDE5
-IGF0IDA0OjQ0OjMwUE0gKzAwMDAsIFBhbiwgWGluaHVpIHdyb3RlOgo+IEkgYW0gZ29pbmcgdG8g
-cHV0IG1vcmUgbWVtYmVycyB3aGljaCBhcmUgYWxzbyBhcnJheSBhZnRlciB0aGlzIHN0cnVjdCwK
-PiBub3Qgb25seSBvYmpbXS7CoCBMb29rcyBsaWtlIHRoaXMgc3RydWN0X3NpemUgZGlkIG5vdCBo
-ZWxwIG9uIG11bHRpcGxlCj4gYXJyYXkgY2FzZS4gVGhhbmtzIGFueXdheS7CoCBfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwoKWW91IGNhbiB0aGVuIGFkZCB0aGVtIHVwLCBlLmcuIGtt
-YWxsb2Moc3RydWN0X3NpemUoKStzdHJ1Y3Rfc2l6ZSgpLApHRlBfS0VSTkVMKSwgc28gdGhpcyBw
-YXRjaCBoZXJlIHN0aWxsIGxvb2tzIGxpa2UgYSBnb29kIGlkZWEuCgpSZXZpZXdlZC1ieTogRGFu
-aWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KCkNoZWVycywgRGFuaWVsCgo+IEZy
-b206IHhpYW9saW5rdWkgPHhpYW9saW5rdWlAa3lsaW5vcy5jbj4KPiBTZW50OiBGcmlkYXksIE1h
-eSAxNywgMjAxOSA0OjQ2OjAwIFBNCj4gVG86IERldWNoZXIsIEFsZXhhbmRlcjsgS29lbmlnLCBD
-aHJpc3RpYW47IFpob3UsIERhdmlkKENodW5NaW5nKTsgYWlybGllZEBsaW51eC5pZTsgZGFuaWVs
-QGZmd2xsLmNoOyBQYW4sIFhpbmh1aTsgUXVhbiwgRXZhbgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgta2Vy
-bmVsQHZnZXIua2VybmVsLm9yZzsgeGlhb2xpbmt1aUBreWxpbm9zLmNuCj4gU3ViamVjdDogW1BB
-VENIXSBncHU6IGRybTogdXNlIHN0cnVjdF9zaXplKCkgaW4ga21hbGxvYygpCj4KPiBbQ0FVVElP
-TjogRXh0ZXJuYWwgRW1haWxdCj4KPiBVc2Ugc3RydWN0X3NpemUoKSBoZWxwZXIgdG8ga2VlcCBj
-b2RlIHNpbXBsZS4KPgo+IFNpZ25lZC1vZmYtYnk6IHhpYW9saW5rdWkgPHhpYW9saW5rdWlAa3ls
-aW5vcy5jbj4KPiAtLS0KPsKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMu
-YyB8IDMgKy0tCj7CoCAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25z
-KC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jh
-cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4gaW5kZXggMjJi
-ZDIxZS4uNDcxN2E2NCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfcmFzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFz
-LmMKPiBAQCAtMTM3NSw4ICsxMzc1LDcgQEAgaW50IGFtZGdwdV9yYXNfaW5pdChzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldikKPsKgwqDCoMKgwqDCoMKgwqAgaWYgKGNvbikKPsKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+Cj4gLcKgwqDCoMKgwqDCoCBjb24gPSBr
-bWFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X3JhcykgKwo+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplb2Yoc3RydWN0IHJhc19tYW5hZ2VyKSAqIEFN
-REdQVV9SQVNfQkxPQ0tfQ09VTlQsCj4gK8KgwqDCoMKgwqDCoCBjb24gPSBrbWFsbG9jKHN0cnVj
-dF9zaXplKGNvbiwgb2JqcywgQU1ER1BVX1JBU19CTE9DS19DT1VOVCksCj7CoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tFUk5FTHxfX0dGUF9aRVJP
-KTsKPsKgwqDCoMKgwqDCoMKgwqAgaWYgKCFjb24pCj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gLUVOT01FTTsKPiAtLQo+IDIuNy40Cj4KPgo+CgotLQpEYW5pZWwgVmV0
-dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZnds
-bC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Fri, May 17, 2019 at 7:49 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
+>
+> Hi Andrey,
+>
+> On Mon, May 06, 2019 at 06:30:46PM +0200, Andrey Konovalov wrote:
+> > One of the alternative approaches to untagging that was considered is to
+> > completely strip the pointer tag as the pointer enters the kernel with
+> > some kind of a syscall wrapper, but that won't work with the countless
+> > number of different ioctl calls. With this approach we would need a custom
+> > wrapper for each ioctl variation, which doesn't seem practical.
+>
+> The more I look at this problem, the less convinced I am that we can
+> solve it in a way that results in a stable ABI covering ioctls(). While
+> for the Android kernel codebase it could be simpler as you don't upgrade
+> the kernel version every 2.5 months, for the mainline kernel this
+> doesn't scale. Any run-time checks are relatively limited in terms of
+> drivers covered. Better static checking would be nice as a long term
+> solution but we didn't get anywhere with the discussion last year.
+>
+> IMO (RFC for now), I see two ways forward:
+>
+> 1. Make this a user space problem and do not allow tagged pointers into
+>    the syscall ABI. A libc wrapper would have to convert structures,
+>    parameters before passing them into the kernel. Note that we can
+>    still support the hardware MTE in the kernel by enabling tagged
+>    memory ranges, saving/restoring tags etc. but not allowing tagged
+>    addresses at the syscall boundary.
+>
+> 2. Similar shim to the above libc wrapper but inside the kernel
+>    (arch/arm64 only; most pointer arguments could be covered with an
+>    __SC_CAST similar to the s390 one). There are two differences from
+>    what we've discussed in the past:
+>
+>    a) this is an opt-in by the user which would have to explicitly call
+>       prctl(). If it returns -ENOTSUPP etc., the user won't be allowed
+>       to pass tagged pointers to the kernel. This would probably be the
+>       responsibility of the C lib to make sure it doesn't tag heap
+>       allocations. If the user did not opt-in, the syscalls are routed
+>       through the normal path (no untagging address shim).
+>
+>    b) ioctl() and other blacklisted syscalls (prctl) will not accept
+>       tagged pointers (to be documented in Vicenzo's ABI patches).
+>
+> It doesn't solve the problems we are trying to address but 2.a saves us
+> from blindly relaxing the ABI without knowing how to easily assess new
+> code being merged (over 500K lines between kernel versions). Existing
+> applications (who don't opt-in) won't inadvertently start using the new
+> ABI which could risk becoming de-facto ABI that we need to support on
+> the long run.
+>
+> Option 1 wouldn't solve the ioctl() problem either and while it makes
+> things simpler for the kernel, I am aware that it's slightly more
+> complicated in user space (but I really don't mind if you prefer option
+> 1 ;)).
+>
+> The tagged pointers (whether hwasan or MTE) should ideally be a
+> transparent feature for the application writer but I don't think we can
+> solve it entirely and make it seamless for the multitude of ioctls().
+> I'd say you only opt in to such feature if you know what you are doing
+> and the user code takes care of specific cases like ioctl(), hence the
+> prctl() proposal even for the hwasan.
+>
+> Comments welcomed.
+
+Any userspace shim approach is problematic for Android because of the
+apps that use raw system calls. AFAIK, all apps written in Go are in
+that camp - I'm not sure how common they are, but getting them all
+recompiled is probably not realistic.
+
+The way I see it, a patch that breaks handling of tagged pointers is
+not that different from, say, a patch that adds a wild pointer
+dereference. Both are bugs; the difference is that (a) the former
+breaks a relatively uncommon target and (b) it's arguably an easier
+mistake to make. If MTE adoption goes well, (a) will not be the case
+for long.
+
+This is a bit of a chicken-and-egg problem. In a world where memory
+allocators on one or several popular platforms generate pointers with
+non-zero tags, any such breakage will be caught in testing.
+Unfortunately to reach that state we need the kernel to start
+accepting tagged pointers first, and then hold on for a couple of
+years until userspace catches up.
+
+Perhaps we can start by whitelisting ioctls by driver?
