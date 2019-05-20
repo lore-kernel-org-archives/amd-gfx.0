@@ -1,37 +1,50 @@
-From: Braiam <braiamp-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: How to get useful information other than "the whole system locks
- up"?
-Date: Sun, 19 May 2019 20:08:59 -0400
-Message-ID: <CAG=7Bt9nCoO8YKWPWzAQHGCUWJxkW28wEuQrV7igPa6UE++wuA@mail.gmail.com>
-References: <CAG=7Bt8UFiqqfwODc-e+2tN18x3LMYz9AoBmq9ukWsY-b4TaqA@mail.gmail.com>
- <CADnq5_NsVLJ1tYyQ_e1QPrLg7M6mf1nuR18BOsA+3YJp-LCONQ@mail.gmail.com>
- <CAG=7Bt_ScazVsdOBsszBnHW81Zr_78diU=XvTff9yTeDgGeo8Q@mail.gmail.com>
- <CAG=7Bt8VEgsiqaMDYtU31ut1pU+h6_rEaqnfh2tyR7SuEpUQ8g@mail.gmail.com>
- <CAG=7Bt9NM+9umAZBb74h8dFLevqTk_xesy0TKdLUFMuyDnw_TQ@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] gpu: fix typos in code comments
+Date: Mon, 20 May 2019 13:18:40 -0400
+Message-ID: <CADnq5_OURX-qSsendCS9qOfi1CoWUK9BV9HJgTkFzB87bgjMmA@mail.gmail.com>
+References: <20190518134141.23214-1-houweitaoo@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAG=7Bt9NM+9umAZBb74h8dFLevqTk_xesy0TKdLUFMuyDnw_TQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190518134141.23214-1-houweitaoo@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Weitao Hou <houweitaoo@gmail.com>
+Cc: "Wentland, Harry" <harry.wentland@amd.com>, "Leo (Sunpeng) Li" <sunpeng.li@amd.com>, "Deucher, Alexander" <alexander.deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, "Daenzer, Michel" <michel.daenzer@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, Ken Chalmers <ken.chalmers@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RGVjaWRlZCB0byBzaW1wbHkgY29udGFjdCB0aGUgbWFudWZhY3R1cmVyIGFuZCBhc2sgdGhlbSBm
-b3IgdGhlIGxhdGVzdAp2QklPUy4gVGhvdWdoIGl0IGRpZG4ndCBjcmFzaCB0aGUgZGF5cyBiZWZv
-cmUgY2hhbmdpbmcgdGhlIGJpb3MsIGl0Cmhhc24ndCBjcmFzaGVkIHRoZSBkYXlzIGxhdGVyLiBQ
-bHVzIHBvaW50cyBzaW5jZSBvcGVuY2wgYWxzbyBzZWVtcyB0bwpiZSB3b3JraW5nIGZpbmUgbm93
-LCByYXRoZXIgdGhhbiBtYWtpbmcgdGhlIGNhcmQgY3Jhc2ggdG9vIChvcgpyZWZ1c2luZyB0byB3
-b3JrIGFsdG9nZXRoZXIpLiBTZWVtcyB0aGF0IG9uZSBvZiB0aGUgdGhpbmdzIHRvIHRha2UKaW50
-byBhY2NvdW50IGZvciBjcmFzaGluZyBjYXJkcyBpcyBpZiB0aGUgYmlvcyBpcyBtb2RpZmllZC4K
-CgoKLS0gCkJyYWlhbQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Mon, May 20, 2019 at 1:04 PM Weitao Hou <houweitaoo@gmail.com> wrote:
+>
+> fix eror to error
+>
+> Signed-off-by: Weitao Hou <houweitaoo@gmail.com>
+
+Applied.  Thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> index f70437aae8e0..df422440845b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> @@ -183,8 +183,8 @@ static bool calculate_fb_and_fractional_fb_divider(
+>  *RETURNS:
+>  * It fills the PLLSettings structure with PLL Dividers values
+>  * if calculated values are within required tolerance
+> -* It returns   - true if eror is within tolerance
+> -*              - false if eror is not within tolerance
+> +* It returns   - true if error is within tolerance
+> +*              - false if error is not within tolerance
+>  */
+>  static bool calc_fb_divider_checking_tolerance(
+>                 struct calc_pll_clock_source *calc_pll_cs,
+> --
+> 2.18.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
