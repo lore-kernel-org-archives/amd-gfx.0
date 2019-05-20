@@ -1,231 +1,78 @@
-From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-Subject: Re: [PATCH] gpu: drm: use struct_size() in kmalloc()
-Date: Mon, 20 May 2019 22:54:47 +0000
-Message-ID: <SN6PR12MB2800A78EC520C616CCCF387787060@SN6PR12MB2800.namprd12.prod.outlook.com>
+From: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
+Subject: =?utf-8?B?5Zue5aSNOiBbUEFUQ0hdIGdwdTogZHJtOiB1c2Ugc3RydWN0X3NpemUoKSBp?=
+ =?utf-8?Q?n_kmalloc()?=
+Date: Mon, 20 May 2019 23:19:31 +0000
+Message-ID: <SN6PR12MB28007ED8F5C6838F2C25A9D587060@SN6PR12MB2800.namprd12.prod.outlook.com>
 References: <1558082760-4915-1-git-send-email-xiaolinkui@kylinos.cn>
  <SN6PR12MB2800A7AEC22121C8704CBB09870B0@SN6PR12MB2800.namprd12.prod.outlook.com>,
  <20190520162807.GE21222@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0009595949=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190520162807.GE21222@phenom.ffwll.local>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: "airlied@linux.ie" <airlied@linux.ie>, xiaolinkui <xiaolinkui@kylinos.cn>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============0009595949==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB2800A78EC520C616CCCF387787060SN6PR12MB2800namp_"
-
---_000_SN6PR12MB2800A78EC520C616CCCF387787060SN6PR12MB2800namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Daniel, your idea is obviously and totally wrong. There can NOT be more tha=
-n one zero-size array in a struct.
-
-Nack for them all.
-________________________________
-From: Daniel Vetter <daniel.vetter@ffwll.ch> on behalf of Daniel Vetter <da=
-niel@ffwll.ch>
-Sent: Tuesday, May 21, 2019 12:28:07 AM
-To: Pan, Xinhui
-Cc: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); airlied@l=
-inux.ie; daniel@ffwll.ch; Quan, Evan; xiaolinkui; amd-gfx@lists.freedesktop=
-.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpu: drm: use struct_size() in kmalloc()
-
-[CAUTION: External Email]
-
-On Fri, May 17, 2019 at 04:44:30PM +0000, Pan, Xinhui wrote:
-> I am going to put more members which are also array after this struct,
-> not only obj[].  Looks like this struct_size did not help on multiple
-> array case. Thanks anyway.  ________________________________
-
-You can then add them up, e.g. kmalloc(struct_size()+struct_size(),
-GFP_KERNEL), so this patch here still looks like a good idea.
-
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-
-Cheers, Daniel
-
-> From: xiaolinkui <xiaolinkui@kylinos.cn>
-> Sent: Friday, May 17, 2019 4:46:00 PM
-> To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); airlied=
-@linux.ie; daniel@ffwll.ch; Pan, Xinhui; Quan, Evan
-> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux=
--kernel@vger.kernel.org; xiaolinkui@kylinos.cn
-> Subject: [PATCH] gpu: drm: use struct_size() in kmalloc()
->
-> [CAUTION: External Email]
->
-> Use struct_size() helper to keep code simple.
->
-> Signed-off-by: xiaolinkui <xiaolinkui@kylinos.cn>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ras.c
-> index 22bd21e..4717a64 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1375,8 +1375,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
->         if (con)
->                 return 0;
->
-> -       con =3D kmalloc(sizeof(struct amdgpu_ras) +
-> -                       sizeof(struct ras_manager) * AMDGPU_RAS_BLOCK_COU=
-NT,
-> +       con =3D kmalloc(struct_size(con, objs, AMDGPU_RAS_BLOCK_COUNT),
->                         GFP_KERNEL|__GFP_ZERO);
->         if (!con)
->                 return -ENOMEM;
-> --
-> 2.7.4
->
->
->
-
---
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-
---_000_SN6PR12MB2800A78EC520C616CCCF387787060SN6PR12MB2800namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Daniel, your idea is obviously and totally wrong. There can NOT be more tha=
-n one zero-size array in a struct.<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Nack for them all.</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Daniel Vetter &lt;d=
-aniel.vetter@ffwll.ch&gt; on behalf of Daniel Vetter &lt;daniel@ffwll.ch&gt=
-;<br>
-<b>Sent:</b> Tuesday, May 21, 2019 12:28:07 AM<br>
-<b>To:</b> Pan, Xinhui<br>
-<b>Cc:</b> Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); ai=
-rlied@linux.ie; daniel@ffwll.ch; Quan, Evan; xiaolinkui; amd-gfx@lists.free=
-desktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org<=
-br>
-<b>Subject:</b> Re: [PATCH] gpu: drm: use struct_size() in kmalloc()</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:11pt;">
-<div class=3D"PlainText">[CAUTION: External Email]<br>
-<br>
-On Fri, May 17, 2019 at 04:44:30PM &#43;0000, Pan, Xinhui wrote:<br>
-&gt; I am going to put more members which are also array after this struct,=
-<br>
-&gt; not only obj[].&nbsp; Looks like this struct_size did not help on mult=
-iple<br>
-&gt; array case. Thanks anyway.&nbsp; ________________________________<br>
-<br>
-You can then add them up, e.g. kmalloc(struct_size()&#43;struct_size(),<br>
-GFP_KERNEL), so this patch here still looks like a good idea.<br>
-<br>
-Reviewed-by: Daniel Vetter &lt;daniel.vetter@ffwll.ch&gt;<br>
-<br>
-Cheers, Daniel<br>
-<br>
-&gt; From: xiaolinkui &lt;xiaolinkui@kylinos.cn&gt;<br>
-&gt; Sent: Friday, May 17, 2019 4:46:00 PM<br>
-&gt; To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); airl=
-ied@linux.ie; daniel@ffwll.ch; Pan, Xinhui; Quan, Evan<br>
-&gt; Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; li=
-nux-kernel@vger.kernel.org; xiaolinkui@kylinos.cn<br>
-&gt; Subject: [PATCH] gpu: drm: use struct_size() in kmalloc()<br>
-&gt;<br>
-&gt; [CAUTION: External Email]<br>
-&gt;<br>
-&gt; Use struct_size() helper to keep code simple.<br>
-&gt;<br>
-&gt; Signed-off-by: xiaolinkui &lt;xiaolinkui@kylinos.cn&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 &#43;--<br>
-&gt;&nbsp; 1 file changed, 1 insertion(&#43;), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ras.c<br>
-&gt; index 22bd21e..4717a64 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-&gt; @@ -1375,8 &#43;1375,7 @@ int amdgpu_ras_init(struct amdgpu_device *ad=
-ev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (con)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; con =3D kmalloc(sizeof(struct am=
-dgpu_ras) &#43;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sizeof(stru=
-ct ras_manager) * AMDGPU_RAS_BLOCK_COUNT,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; con =3D kmalloc(struct_size(=
-con, objs, AMDGPU_RAS_BLOCK_COUNT),<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; G=
-FP_KERNEL|__GFP_ZERO);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!con)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
-&gt; --<br>
-&gt; 2.7.4<br>
-&gt;<br>
-&gt;<br>
-&gt;<br>
-<br>
---<br>
-Daniel Vetter<br>
-Software Engineer, Intel Corporation<br>
-<a href=3D"http://blog.ffwll.ch">http://blog.ffwll.ch</a><br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_SN6PR12MB2800A78EC520C616CCCF387787060SN6PR12MB2800namp_--
-
---===============0009595949==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190520162807.GE21222-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+Content-Language: zh-CN
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, xiaolinkui <xiaolinkui-UOlijcLmZ/InDS1+zs4M5A@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============0009595949==--
+RGFuaWVsLCB3aGF0IHlvdSBhcmUgdGFsa2luZyBhYm91dCBpcyB0b3RhbGx5IHdyb25nLgoxKSBB
+RkFJSywgb25seSBvbmUgemVyby1zaXplIGFycmF5IGNhbiBiZSBpbiB0aGUgZW5kIG9mIGEgc3Ry
+dWN0LgoyKSB0d28gc3RydWN0X3NpemUgd2lsbCBhZGQgdXAgc3RydWN0IGl0c2VsZiB0d2ljZS4g
+dGhlIHN1bSBpcyB3cm9uZyB0aGVuLgoKTm8gb2ZmZW5zZS4gSSBjYW4ndCBoZWxwIGZlZWxpbmcg
+bHVja3kgdGhhdCB5b3UgYXJlIGluIGludGVsLiAKCgrlj5Hku7bkuro6IERhbmllbCBWZXR0ZXIg
+PGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+IOS7o+ihqCBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3
+bGwuY2g+CuWPkemAgeaXtumXtDogMjAxOeW5tDXmnIgyMeaXpSAwOjI4CuaUtuS7tuS6ujogUGFu
+LCBYaW5odWkK5oqE6YCBOiBEZXVjaGVyLCBBbGV4YW5kZXI7IEtvZW5pZywgQ2hyaXN0aWFuOyBa
+aG91LCBEYXZpZChDaHVuTWluZyk7IGFpcmxpZWRAbGludXguaWU7IGRhbmllbEBmZndsbC5jaDsg
+UXVhbiwgRXZhbjsgeGlhb2xpbmt1aTsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGRy
+aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5v
+cmcK5Li76aKYOiBSZTogW1BBVENIXSBncHU6IGRybTogdXNlIHN0cnVjdF9zaXplKCkgaW4ga21h
+bGxvYygpCsKgCltDQVVUSU9OOiBFeHRlcm5hbCBFbWFpbF0KCk9uIEZyaSwgTWF5IDE3LCAyMDE5
+IGF0IDA0OjQ0OjMwUE0gKzAwMDAsIFBhbiwgWGluaHVpIHdyb3RlOgo+IEkgYW0gZ29pbmcgdG8g
+cHV0IG1vcmUgbWVtYmVycyB3aGljaCBhcmUgYWxzbyBhcnJheSBhZnRlciB0aGlzIHN0cnVjdCwK
+PiBub3Qgb25seSBvYmpbXS7CoCBMb29rcyBsaWtlIHRoaXMgc3RydWN0X3NpemUgZGlkIG5vdCBo
+ZWxwIG9uIG11bHRpcGxlCj4gYXJyYXkgY2FzZS4gVGhhbmtzIGFueXdheS7CoCBfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwoKWW91IGNhbiB0aGVuIGFkZCB0aGVtIHVwLCBlLmcuIGtt
+YWxsb2Moc3RydWN0X3NpemUoKStzdHJ1Y3Rfc2l6ZSgpLApHRlBfS0VSTkVMKSwgc28gdGhpcyBw
+YXRjaCBoZXJlIHN0aWxsIGxvb2tzIGxpa2UgYSBnb29kIGlkZWEuCgpSZXZpZXdlZC1ieTogRGFu
+aWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KCkNoZWVycywgRGFuaWVsCgo+IEZy
+b206IHhpYW9saW5rdWkgPHhpYW9saW5rdWlAa3lsaW5vcy5jbj4KPiBTZW50OiBGcmlkYXksIE1h
+eSAxNywgMjAxOSA0OjQ2OjAwIFBNCj4gVG86IERldWNoZXIsIEFsZXhhbmRlcjsgS29lbmlnLCBD
+aHJpc3RpYW47IFpob3UsIERhdmlkKENodW5NaW5nKTsgYWlybGllZEBsaW51eC5pZTsgZGFuaWVs
+QGZmd2xsLmNoOyBQYW4sIFhpbmh1aTsgUXVhbiwgRXZhbgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgta2Vy
+bmVsQHZnZXIua2VybmVsLm9yZzsgeGlhb2xpbmt1aUBreWxpbm9zLmNuCj4gU3ViamVjdDogW1BB
+VENIXSBncHU6IGRybTogdXNlIHN0cnVjdF9zaXplKCkgaW4ga21hbGxvYygpCj4KPiBbQ0FVVElP
+TjogRXh0ZXJuYWwgRW1haWxdCj4KPiBVc2Ugc3RydWN0X3NpemUoKSBoZWxwZXIgdG8ga2VlcCBj
+b2RlIHNpbXBsZS4KPgo+IFNpZ25lZC1vZmYtYnk6IHhpYW9saW5rdWkgPHhpYW9saW5rdWlAa3ls
+aW5vcy5jbj4KPiAtLS0KPsKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMu
+YyB8IDMgKy0tCj7CoCAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25z
+KC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jh
+cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4gaW5kZXggMjJi
+ZDIxZS4uNDcxN2E2NCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcmFzLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFz
+LmMKPiBAQCAtMTM3NSw4ICsxMzc1LDcgQEAgaW50IGFtZGdwdV9yYXNfaW5pdChzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldikKPsKgwqDCoMKgwqDCoMKgwqAgaWYgKGNvbikKPsKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+Cj4gLcKgwqDCoMKgwqDCoCBjb24gPSBr
+bWFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X3JhcykgKwo+IC3CoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplb2Yoc3RydWN0IHJhc19tYW5hZ2VyKSAqIEFN
+REdQVV9SQVNfQkxPQ0tfQ09VTlQsCj4gK8KgwqDCoMKgwqDCoCBjb24gPSBrbWFsbG9jKHN0cnVj
+dF9zaXplKGNvbiwgb2JqcywgQU1ER1BVX1JBU19CTE9DS19DT1VOVCksCj7CoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tFUk5FTHxfX0dGUF9aRVJP
+KTsKPsKgwqDCoMKgwqDCoMKgwqAgaWYgKCFjb24pCj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoCByZXR1cm4gLUVOT01FTTsKPiAtLQo+IDIuNy40Cj4KPgo+CgotLQpEYW5pZWwgVmV0
+dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgpodHRwOi8vYmxvZy5mZnds
+bC5jaApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
