@@ -1,108 +1,106 @@
-From: Evgenii Stepanov <eugenis@google.com>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Mon, 20 May 2019 16:53:07 -0700
-Message-ID: <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <20190517144931.GA56186@arrakis.emea.arm.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] gpu: drm: use struct_size() in kmalloc()
+Date: Mon, 20 May 2019 22:32:49 -0400
+Message-ID: <CADnq5_O=PAK3qZJ-kHUX9jQDkmEYOX+iOhOX7gNaaXp+tC7nUg@mail.gmail.com>
+References: <1558082760-4915-1-git-send-email-xiaolinkui@kylinos.cn>
+ <SN6PR12MB2800A7AEC22121C8704CBB09870B0@SN6PR12MB2800.namprd12.prod.outlook.com>
+ <20190520162807.GE21222@phenom.ffwll.local> <SN6PR12MB28007ED8F5C6838F2C25A9D587060@SN6PR12MB2800.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <20190517144931.GA56186@arrakis.emea.arm.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Mauro
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <SN6PR12MB28007ED8F5C6838F2C25A9D587060@SN6PR12MB2800.namprd12.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+Cc: Daniel Vetter <daniel@ffwll.ch>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, xiaolinkui <xiaolinkui@kylinos.cn>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Fri, May 17, 2019 at 7:49 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
+On Mon, May 20, 2019 at 7:19 PM Pan, Xinhui <Xinhui.Pan@amd.com> wrote:
 >
-> Hi Andrey,
+> Daniel, what you are talking about is totally wrong.
+> 1) AFAIK, only one zero-size array can be in the end of a struct.
+> 2) two struct_size will add up struct itself twice. the sum is wrong then=
+.
 >
-> On Mon, May 06, 2019 at 06:30:46PM +0200, Andrey Konovalov wrote:
-> > One of the alternative approaches to untagging that was considered is to
-> > completely strip the pointer tag as the pointer enters the kernel with
-> > some kind of a syscall wrapper, but that won't work with the countless
-> > number of different ioctl calls. With this approach we would need a custom
-> > wrapper for each ioctl variation, which doesn't seem practical.
->
-> The more I look at this problem, the less convinced I am that we can
-> solve it in a way that results in a stable ABI covering ioctls(). While
-> for the Android kernel codebase it could be simpler as you don't upgrade
-> the kernel version every 2.5 months, for the mainline kernel this
-> doesn't scale. Any run-time checks are relatively limited in terms of
-> drivers covered. Better static checking would be nice as a long term
-> solution but we didn't get anywhere with the discussion last year.
->
-> IMO (RFC for now), I see two ways forward:
->
-> 1. Make this a user space problem and do not allow tagged pointers into
->    the syscall ABI. A libc wrapper would have to convert structures,
->    parameters before passing them into the kernel. Note that we can
->    still support the hardware MTE in the kernel by enabling tagged
->    memory ranges, saving/restoring tags etc. but not allowing tagged
->    addresses at the syscall boundary.
->
-> 2. Similar shim to the above libc wrapper but inside the kernel
->    (arch/arm64 only; most pointer arguments could be covered with an
->    __SC_CAST similar to the s390 one). There are two differences from
->    what we've discussed in the past:
->
->    a) this is an opt-in by the user which would have to explicitly call
->       prctl(). If it returns -ENOTSUPP etc., the user won't be allowed
->       to pass tagged pointers to the kernel. This would probably be the
->       responsibility of the C lib to make sure it doesn't tag heap
->       allocations. If the user did not opt-in, the syscalls are routed
->       through the normal path (no untagging address shim).
->
->    b) ioctl() and other blacklisted syscalls (prctl) will not accept
->       tagged pointers (to be documented in Vicenzo's ABI patches).
->
-> It doesn't solve the problems we are trying to address but 2.a saves us
-> from blindly relaxing the ABI without knowing how to easily assess new
-> code being merged (over 500K lines between kernel versions). Existing
-> applications (who don't opt-in) won't inadvertently start using the new
-> ABI which could risk becoming de-facto ABI that we need to support on
-> the long run.
->
-> Option 1 wouldn't solve the ioctl() problem either and while it makes
-> things simpler for the kernel, I am aware that it's slightly more
-> complicated in user space (but I really don't mind if you prefer option
-> 1 ;)).
->
-> The tagged pointers (whether hwasan or MTE) should ideally be a
-> transparent feature for the application writer but I don't think we can
-> solve it entirely and make it seamless for the multitude of ioctls().
-> I'd say you only opt in to such feature if you know what you are doing
-> and the user code takes care of specific cases like ioctl(), hence the
-> prctl() proposal even for the hwasan.
->
-> Comments welcomed.
+> No offense. I can't help feeling lucky that you are in intel.
 
-Any userspace shim approach is problematic for Android because of the
-apps that use raw system calls. AFAIK, all apps written in Go are in
-that camp - I'm not sure how common they are, but getting them all
-recompiled is probably not realistic.
+Xinhui,
 
-The way I see it, a patch that breaks handling of tagged pointers is
-not that different from, say, a patch that adds a wild pointer
-dereference. Both are bugs; the difference is that (a) the former
-breaks a relatively uncommon target and (b) it's arguably an easier
-mistake to make. If MTE adoption goes well, (a) will not be the case
-for long.
+Please keep things civil.  There is no need for comments like this.
 
-This is a bit of a chicken-and-egg problem. In a world where memory
-allocators on one or several popular platforms generate pointers with
-non-zero tags, any such breakage will be caught in testing.
-Unfortunately to reach that state we need the kernel to start
-accepting tagged pointers first, and then hold on for a couple of
-years until userspace catches up.
+Alex
 
-Perhaps we can start by whitelisting ioctls by driver?
+>
+>
+> =E5=8F=91=E4=BB=B6=E4=BA=BA: Daniel Vetter <daniel.vetter@ffwll.ch> =E4=
+=BB=A3=E8=A1=A8 Daniel Vetter <daniel@ffwll.ch>
+> =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2019=E5=B9=B45=E6=9C=8821=E6=97=A5 =
+0:28
+> =E6=94=B6=E4=BB=B6=E4=BA=BA: Pan, Xinhui
+> =E6=8A=84=E9=80=81: Deucher, Alexander; Koenig, Christian; Zhou, David(Ch=
+unMing); airlied@linux.ie; daniel@ffwll.ch; Quan, Evan; xiaolinkui; amd-gfx=
+@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.=
+kernel.org
+> =E4=B8=BB=E9=A2=98: Re: [PATCH] gpu: drm: use struct_size() in kmalloc()
+>
+> [CAUTION: External Email]
+>
+> On Fri, May 17, 2019 at 04:44:30PM +0000, Pan, Xinhui wrote:
+> > I am going to put more members which are also array after this struct,
+> > not only obj[].  Looks like this struct_size did not help on multiple
+> > array case. Thanks anyway.  ________________________________
+>
+> You can then add them up, e.g. kmalloc(struct_size()+struct_size(),
+> GFP_KERNEL), so this patch here still looks like a good idea.
+>
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>
+> Cheers, Daniel
+>
+> > From: xiaolinkui <xiaolinkui@kylinos.cn>
+> > Sent: Friday, May 17, 2019 4:46:00 PM
+> > To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); airli=
+ed@linux.ie; daniel@ffwll.ch; Pan, Xinhui; Quan, Evan
+> > Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; lin=
+ux-kernel@vger.kernel.org; xiaolinkui@kylinos.cn
+> > Subject: [PATCH] gpu: drm: use struct_size() in kmalloc()
+> >
+> > [CAUTION: External Email]
+> >
+> > Use struct_size() helper to keep code simple.
+> >
+> > Signed-off-by: xiaolinkui <xiaolinkui@kylinos.cn>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +--
+> >  1 file changed, 1 insertion(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_ras.c
+> > index 22bd21e..4717a64 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > @@ -1375,8 +1375,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+> >         if (con)
+> >                 return 0;
+> >
+> > -       con =3D kmalloc(sizeof(struct amdgpu_ras) +
+> > -                       sizeof(struct ras_manager) * AMDGPU_RAS_BLOCK_C=
+OUNT,
+> > +       con =3D kmalloc(struct_size(con, objs, AMDGPU_RAS_BLOCK_COUNT),
+> >                         GFP_KERNEL|__GFP_ZERO);
+> >         if (!con)
+> >                 return -ENOMEM;
+> > --
+> > 2.7.4
+> >
+> >
+> >
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
