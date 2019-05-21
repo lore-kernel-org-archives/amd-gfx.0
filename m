@@ -1,137 +1,115 @@
-From: Daniel Vetter <daniel@ffwll.ch>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Subject: Re: [PATCH] gpu: drm: use struct_size() in kmalloc()
-Date: Tue, 21 May 2019 09:23:14 +0200
-Message-ID: <CAKMK7uHS837L9Ze_K5q-AsFgOtAMD+n_i_Y404BX-_CwJeP08Q@mail.gmail.com>
+Date: Tue, 21 May 2019 10:59:06 +0200
+Message-ID: <36de7e05-9055-6d8b-fb2c-fa5a4e94274b@gmail.com>
 References: <1558082760-4915-1-git-send-email-xiaolinkui@kylinos.cn>
  <SN6PR12MB2800A7AEC22121C8704CBB09870B0@SN6PR12MB2800.namprd12.prod.outlook.com>
- <20190520162807.GE21222@phenom.ffwll.local> <SN6PR12MB28007ED8F5C6838F2C25A9D587060@SN6PR12MB2800.namprd12.prod.outlook.com>
+ <20190520162807.GE21222@phenom.ffwll.local>
+ <SN6PR12MB28007ED8F5C6838F2C25A9D587060@SN6PR12MB2800.namprd12.prod.outlook.com>
  <CADnq5_O=PAK3qZJ-kHUX9jQDkmEYOX+iOhOX7gNaaXp+tC7nUg@mail.gmail.com>
+ <CAKMK7uHS837L9Ze_K5q-AsFgOtAMD+n_i_Y404BX-_CwJeP08Q@mail.gmail.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CADnq5_O=PAK3qZJ-kHUX9jQDkmEYOX+iOhOX7gNaaXp+tC7nUg@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, xiaolinkui <xiaolinkui@kylinos.cn>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAKMK7uHS837L9Ze_K5q-AsFgOtAMD+n_i_Y404BX-_CwJeP08Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, xiaolinkui <xiaolinkui-UOlijcLmZ/InDS1+zs4M5A@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, May 21, 2019 at 4:33 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> On Mon, May 20, 2019 at 7:19 PM Pan, Xinhui <Xinhui.Pan@amd.com> wrote:
-> >
-> > Daniel, what you are talking about is totally wrong.
-> > 1) AFAIK, only one zero-size array can be in the end of a struct.
-> > 2) two struct_size will add up struct itself twice. the sum is wrong th=
-en.
-> >
-> > No offense. I can't help feeling lucky that you are in intel.
->
-> Xinhui,
->
-> Please keep things civil.  There is no need for comments like this.
-
-Yeah, this was over the line, thanks Alex for already taking care of
-this. Please note that fd.o mailing lists operate under a CoC:
-
-https://www.freedesktop.org/wiki/CodeOfConduct/
-
-Wrt the technical comment: I know that you can only do one variable
-sized array, and it must be at the end. But you can put multiple
-structures all within the same allocation. Which is what I thought you
-wanted to do. And my sketch would allow you to do that even if you
-have multiple variable length structures you want to allocate. There's
-plenty examples of this (but open-coded ones) in the kernel.
-
-Except in really hot paths I personally think that that kind of
-trickery isn't worth it.
-
-Cheers, Daniel
-
->
-> Alex
->
-> >
-> >
-> > =E5=8F=91=E4=BB=B6=E4=BA=BA: Daniel Vetter <daniel.vetter@ffwll.ch> =E4=
-=BB=A3=E8=A1=A8 Daniel Vetter <daniel@ffwll.ch>
-> > =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2019=E5=B9=B45=E6=9C=8821=E6=97=
-=A5 0:28
-> > =E6=94=B6=E4=BB=B6=E4=BA=BA: Pan, Xinhui
-> > =E6=8A=84=E9=80=81: Deucher, Alexander; Koenig, Christian; Zhou, David(=
-ChunMing); airlied@linux.ie; daniel@ffwll.ch; Quan, Evan; xiaolinkui; amd-g=
-fx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vge=
-r.kernel.org
-> > =E4=B8=BB=E9=A2=98: Re: [PATCH] gpu: drm: use struct_size() in kmalloc(=
-)
-> >
-> > [CAUTION: External Email]
-> >
-> > On Fri, May 17, 2019 at 04:44:30PM +0000, Pan, Xinhui wrote:
-> > > I am going to put more members which are also array after this struct=
-,
-> > > not only obj[].  Looks like this struct_size did not help on multiple
-> > > array case. Thanks anyway.  ________________________________
-> >
-> > You can then add them up, e.g. kmalloc(struct_size()+struct_size(),
-> > GFP_KERNEL), so this patch here still looks like a good idea.
-> >
-> > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
-> >
-> > Cheers, Daniel
-> >
-> > > From: xiaolinkui <xiaolinkui@kylinos.cn>
-> > > Sent: Friday, May 17, 2019 4:46:00 PM
-> > > To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); air=
-lied@linux.ie; daniel@ffwll.ch; Pan, Xinhui; Quan, Evan
-> > > Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; l=
-inux-kernel@vger.kernel.org; xiaolinkui@kylinos.cn
-> > > Subject: [PATCH] gpu: drm: use struct_size() in kmalloc()
-> > >
-> > > [CAUTION: External Email]
-> > >
-> > > Use struct_size() helper to keep code simple.
-> > >
-> > > Signed-off-by: xiaolinkui <xiaolinkui@kylinos.cn>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +--
-> > >  1 file changed, 1 insertion(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_ras.c
-> > > index 22bd21e..4717a64 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> > > @@ -1375,8 +1375,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
-> > >         if (con)
-> > >                 return 0;
-> > >
-> > > -       con =3D kmalloc(sizeof(struct amdgpu_ras) +
-> > > -                       sizeof(struct ras_manager) * AMDGPU_RAS_BLOCK=
-_COUNT,
-> > > +       con =3D kmalloc(struct_size(con, objs, AMDGPU_RAS_BLOCK_COUNT=
-),
-> > >                         GFP_KERNEL|__GFP_ZERO);
-> > >         if (!con)
-> > >                 return -ENOMEM;
-> > > --
-> > > 2.7.4
-> > >
-> > >
-> > >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > http://blog.ffwll.ch
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
---=20
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+QW0gMjEuMDUuMTkgdW0gMDk6MjMgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IE9uIFR1ZSwgTWF5
+IDIxLCAyMDE5IGF0IDQ6MzMgQU0gQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+
+IHdyb3RlOgo+PiBPbiBNb24sIE1heSAyMCwgMjAxOSBhdCA3OjE5IFBNIFBhbiwgWGluaHVpIDxY
+aW5odWkuUGFuQGFtZC5jb20+IHdyb3RlOgo+Pj4gRGFuaWVsLCB3aGF0IHlvdSBhcmUgdGFsa2lu
+ZyBhYm91dCBpcyB0b3RhbGx5IHdyb25nLgo+Pj4gMSkgQUZBSUssIG9ubHkgb25lIHplcm8tc2l6
+ZSBhcnJheSBjYW4gYmUgaW4gdGhlIGVuZCBvZiBhIHN0cnVjdC4KPj4+IDIpIHR3byBzdHJ1Y3Rf
+c2l6ZSB3aWxsIGFkZCB1cCBzdHJ1Y3QgaXRzZWxmIHR3aWNlLiB0aGUgc3VtIGlzIHdyb25nIHRo
+ZW4uCj4+Pgo+Pj4gTm8gb2ZmZW5zZS4gSSBjYW4ndCBoZWxwIGZlZWxpbmcgbHVja3kgdGhhdCB5
+b3UgYXJlIGluIGludGVsLgo+PiBYaW5odWksCj4+Cj4+IFBsZWFzZSBrZWVwIHRoaW5ncyBjaXZp
+bC4gIFRoZXJlIGlzIG5vIG5lZWQgZm9yIGNvbW1lbnRzIGxpa2UgdGhpcy4KPiBZZWFoLCB0aGlz
+IHdhcyBvdmVyIHRoZSBsaW5lLCB0aGFua3MgQWxleCBmb3IgYWxyZWFkeSB0YWtpbmcgY2FyZSBv
+Zgo+IHRoaXMuIFBsZWFzZSBub3RlIHRoYXQgZmQubyBtYWlsaW5nIGxpc3RzIG9wZXJhdGUgdW5k
+ZXIgYSBDb0M6Cj4KPiBodHRwczovL3d3dy5mcmVlZGVza3RvcC5vcmcvd2lraS9Db2RlT2ZDb25k
+dWN0LwoKU2Vjb25kZWQuIEkgYWxzbyBlbmpveSB0aGUgaHVtaWxpYXRpb24gb2Ygb3RoZXIgaW4g
+ZW1haWwsIGJ1dCBpdCBkb2Vzbid0IApoZWxwcyB1cyBnZXR0aW5nIGNvZGUgd3JpdHRlbiBhbmQg
+cHJvYmxlbXMgc29sdmVkIGluIGEgcHJvZmVzc2lvbmFsIAplbnZpcm9ubWVudC4KCj4gV3J0IHRo
+ZSB0ZWNobmljYWwgY29tbWVudDogSSBrbm93IHRoYXQgeW91IGNhbiBvbmx5IGRvIG9uZSB2YXJp
+YWJsZQo+IHNpemVkIGFycmF5LCBhbmQgaXQgbXVzdCBiZSBhdCB0aGUgZW5kLiBCdXQgeW91IGNh
+biBwdXQgbXVsdGlwbGUKPiBzdHJ1Y3R1cmVzIGFsbCB3aXRoaW4gdGhlIHNhbWUgYWxsb2NhdGlv
+bi4gV2hpY2ggaXMgd2hhdCBJIHRob3VnaHQgeW91Cj4gd2FudGVkIHRvIGRvLiBBbmQgbXkgc2tl
+dGNoIHdvdWxkIGFsbG93IHlvdSB0byBkbyB0aGF0IGV2ZW4gaWYgeW91Cj4gaGF2ZSBtdWx0aXBs
+ZSB2YXJpYWJsZSBsZW5ndGggc3RydWN0dXJlcyB5b3Ugd2FudCB0byBhbGxvY2F0ZS4gVGhlcmUn
+cwo+IHBsZW50eSBleGFtcGxlcyBvZiB0aGlzIChidXQgb3Blbi1jb2RlZCBvbmVzKSBpbiB0aGUg
+a2VybmVsLgoKQlRXOiBJcyB0aGVyZSBhY3R1YWxseSBnb29kIGRvY3VtZW50YXRpb24gaG93IHRv
+IGNvcnJlY3RseSBkbyB0aGUgCnZhcmlhYmxlIGxlbmd0aCBhcnJheSBhdCBlbmQgb2Ygc3RydWN0
+dXJlIHRoaW5nIGluIHRoZSBrZXJuZWw/CgpJIGRvIGtub3cgdGhhdCBJJ3ZlIHNlZW4gYSBsb3Qg
+b2YgZGlmZmVyZW50IHZhcmlhbnRzIGxpa2UgYXJyYXlbXSAKYXJyYXlbMF0gb3IgYXJyYXlbMV0g
+YW5kIEkgaGF2ZSBhbHNvIHNlZW4gYSBidW5jaCBvZiBnY2MgdmVyc2lvbnMgCmZhaWxpbmcgdG8g
+Z2VuZXJhdGUgY29ycmVjdCBjb2RlIGZvciBzb21lIG9mIHRoZW0uCgpTbyB3ZSBzaG91bGQgcHJv
+YmFibHkgbmFpbCBkb3duIGhvdyB0byBkbyB0aGluZ3MgY29ycmVjdGx5LgoKPiBFeGNlcHQgaW4g
+cmVhbGx5IGhvdCBwYXRocyBJIHBlcnNvbmFsbHkgdGhpbmsgdGhhdCB0aGF0IGtpbmQgb2YKPiB0
+cmlja2VyeSBpc24ndCB3b3J0aCBpdC4KCldlbGwgZm9yIGttYWxsb2MoKSBpdCdzIG5vdCB0aGF0
+IG11Y2ggb3ZlcmhlYWQsIGJ1dCB3aXRoIHZtYWxsb2MgdGhhdCBpcyAKYSBjb21wbGV0ZWx5IGRp
+ZmZlcmVudCBwaWN0dXJlLgoKQ2hyaXN0aWFuLgoKPgo+IENoZWVycywgRGFuaWVsCj4KPj4gQWxl
+eAo+Pgo+Pj4KPj4+IOWPkeS7tuS6ujogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZnds
+bC5jaD4g5Luj6KGoIERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KPj4+IOWPkemAgeaX
+tumXtDogMjAxOeW5tDXmnIgyMeaXpSAwOjI4Cj4+PiDmlLbku7bkuro6IFBhbiwgWGluaHVpCj4+
+PiDmioTpgIE6IERldWNoZXIsIEFsZXhhbmRlcjsgS29lbmlnLCBDaHJpc3RpYW47IFpob3UsIERh
+dmlkKENodW5NaW5nKTsgYWlybGllZEBsaW51eC5pZTsgZGFuaWVsQGZmd2xsLmNoOyBRdWFuLCBF
+dmFuOyB4aWFvbGlua3VpOyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJpLWRldmVs
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZwo+Pj4g
+5Li76aKYOiBSZTogW1BBVENIXSBncHU6IGRybTogdXNlIHN0cnVjdF9zaXplKCkgaW4ga21hbGxv
+YygpCj4+Pgo+Pj4gW0NBVVRJT046IEV4dGVybmFsIEVtYWlsXQo+Pj4KPj4+IE9uIEZyaSwgTWF5
+IDE3LCAyMDE5IGF0IDA0OjQ0OjMwUE0gKzAwMDAsIFBhbiwgWGluaHVpIHdyb3RlOgo+Pj4+IEkg
+YW0gZ29pbmcgdG8gcHV0IG1vcmUgbWVtYmVycyB3aGljaCBhcmUgYWxzbyBhcnJheSBhZnRlciB0
+aGlzIHN0cnVjdCwKPj4+PiBub3Qgb25seSBvYmpbXS4gIExvb2tzIGxpa2UgdGhpcyBzdHJ1Y3Rf
+c2l6ZSBkaWQgbm90IGhlbHAgb24gbXVsdGlwbGUKPj4+PiBhcnJheSBjYXNlLiBUaGFua3MgYW55
+d2F5LiAgX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+IFlvdSBjYW4gdGhlbiBh
+ZGQgdGhlbSB1cCwgZS5nLiBrbWFsbG9jKHN0cnVjdF9zaXplKCkrc3RydWN0X3NpemUoKSwKPj4+
+IEdGUF9LRVJORUwpLCBzbyB0aGlzIHBhdGNoIGhlcmUgc3RpbGwgbG9va3MgbGlrZSBhIGdvb2Qg
+aWRlYS4KPj4+Cj4+PiBSZXZpZXdlZC1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBm
+ZndsbC5jaD4KPj4+Cj4+PiBDaGVlcnMsIERhbmllbAo+Pj4KPj4+PiBGcm9tOiB4aWFvbGlua3Vp
+IDx4aWFvbGlua3VpQGt5bGlub3MuY24+Cj4+Pj4gU2VudDogRnJpZGF5LCBNYXkgMTcsIDIwMTkg
+NDo0NjowMCBQTQo+Pj4+IFRvOiBEZXVjaGVyLCBBbGV4YW5kZXI7IEtvZW5pZywgQ2hyaXN0aWFu
+OyBaaG91LCBEYXZpZChDaHVuTWluZyk7IGFpcmxpZWRAbGludXguaWU7IGRhbmllbEBmZndsbC5j
+aDsgUGFuLCBYaW5odWk7IFF1YW4sIEV2YW4KPj4+PiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmc7IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc7IGxpbnV4LWtlcm5lbEB2
+Z2VyLmtlcm5lbC5vcmc7IHhpYW9saW5rdWlAa3lsaW5vcy5jbgo+Pj4+IFN1YmplY3Q6IFtQQVRD
+SF0gZ3B1OiBkcm06IHVzZSBzdHJ1Y3Rfc2l6ZSgpIGluIGttYWxsb2MoKQo+Pj4+Cj4+Pj4gW0NB
+VVRJT046IEV4dGVybmFsIEVtYWlsXQo+Pj4+Cj4+Pj4gVXNlIHN0cnVjdF9zaXplKCkgaGVscGVy
+IHRvIGtlZXAgY29kZSBzaW1wbGUuCj4+Pj4KPj4+PiBTaWduZWQtb2ZmLWJ5OiB4aWFvbGlua3Vp
+IDx4aWFvbGlua3VpQGt5bGlub3MuY24+Cj4+Pj4gLS0tCj4+Pj4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCAzICstLQo+Pj4+ICAgMSBmaWxlIGNoYW5nZWQsIDEg
+aW5zZXJ0aW9uKCspLCAyIGRlbGV0aW9ucygtKQo+Pj4+Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9yYXMuYwo+Pj4+IGluZGV4IDIyYmQyMWUuLjQ3MTdhNjQgMTAwNjQ0Cj4+
+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4+Pj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4+Pj4gQEAgLTEzNzUs
+OCArMTM3NSw3IEBAIGludCBhbWRncHVfcmFzX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpCj4+Pj4gICAgICAgICAgaWYgKGNvbikKPj4+PiAgICAgICAgICAgICAgICAgIHJldHVybiAw
+Owo+Pj4+Cj4+Pj4gLSAgICAgICBjb24gPSBrbWFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X3Jh
+cykgKwo+Pj4+IC0gICAgICAgICAgICAgICAgICAgICAgIHNpemVvZihzdHJ1Y3QgcmFzX21hbmFn
+ZXIpICogQU1ER1BVX1JBU19CTE9DS19DT1VOVCwKPj4+PiArICAgICAgIGNvbiA9IGttYWxsb2Mo
+c3RydWN0X3NpemUoY29uLCBvYmpzLCBBTURHUFVfUkFTX0JMT0NLX0NPVU5UKSwKPj4+PiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgR0ZQX0tFUk5FTHxfX0dGUF9aRVJPKTsKPj4+PiAgICAgICAg
+ICBpZiAoIWNvbikKPj4+PiAgICAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+Pj4+IC0t
+Cj4+Pj4gMi43LjQKPj4+Pgo+Pj4+Cj4+Pj4KPj4+IC0tCj4+PiBEYW5pZWwgVmV0dGVyCj4+PiBT
+b2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KPj4+IGh0dHA6Ly9ibG9nLmZmd2xs
+LmNoCj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+
+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngKPgo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
