@@ -1,49 +1,137 @@
-From: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Fix fence timeout after gpu reset
-Date: Tue, 21 May 2019 04:56:21 +0000
-Message-ID: <SN6PR12MB28002B8D2D24CBC952AC969B87070@SN6PR12MB2800.namprd12.prod.outlook.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH] gpu: drm: use struct_size() in kmalloc()
+Date: Tue, 21 May 2019 09:23:14 +0200
+Message-ID: <CAKMK7uHS837L9Ze_K5q-AsFgOtAMD+n_i_Y404BX-_CwJeP08Q@mail.gmail.com>
+References: <1558082760-4915-1-git-send-email-xiaolinkui@kylinos.cn>
+ <SN6PR12MB2800A7AEC22121C8704CBB09870B0@SN6PR12MB2800.namprd12.prod.outlook.com>
+ <20190520162807.GE21222@phenom.ffwll.local> <SN6PR12MB28007ED8F5C6838F2C25A9D587060@SN6PR12MB2800.namprd12.prod.outlook.com>
+ <CADnq5_O=PAK3qZJ-kHUX9jQDkmEYOX+iOhOX7gNaaXp+tC7nUg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: zh-CN
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_O=PAK3qZJ-kHUX9jQDkmEYOX+iOhOX7gNaaXp+tC7nUg@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, xiaolinkui <xiaolinkui@kylinos.cn>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-bGF0ZSBpbml0IHdvcmsgd2lsbCBkbyBJQiB0ZXN0cywgdGhlcmUgaXMgYSByYWNlIGJldHdlZW4g
-bGF0ZV9pbml0X3dvcmsKYW5kIGludGVycnVwdCBlbmFibGVtZW50LiBTbyBjYWxsIHJlc3VtZSBo
-ZWxwZXIgaW4gYWR2YW5jZS4gT3RoZXJ3aWNlIGhpdApyZW5jZSB0aW1lb3V0LgoKU2lnbmVkLW9m
-Zi1ieTogeGluaHVpIHBhbiA8eGluaHVpLnBhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDExICsrKysrKystLS0tCiAxIGZpbGUgY2hh
-bmdlZCwgNyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwppbmRleCAxNzNhZjdlYmIzZjYuLjIzNjEyNzE4ZDg0
-YiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMzU0
-NSwxNiArMzU0NSwxOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9kb19hc2ljX3Jlc2V0KHN0cnVjdCBh
-bWRncHVfaGl2ZV9pbmZvICpoaXZlLAogCQkJCWlmICh2cmFtX2xvc3QpCiAJCQkJCWFtZGdwdV9k
-ZXZpY2VfZmlsbF9yZXNldF9tYWdpYyh0bXBfYWRldik7CiAKKwkJCQkvKiBVcGRhdGUgUFNQIEZX
-IHRvcG9sb2d5IGFmdGVyIHJlc2V0ICovCisJCQkJaWYgKGhpdmUgJiYgdG1wX2FkZXYtPmdtYy54
-Z21pLm51bV9waHlzaWNhbF9ub2RlcyA+IDEpCisJCQkJCXIgPSBhbWRncHVfeGdtaV91cGRhdGVf
-dG9wb2xvZ3koaGl2ZSwgdG1wX2FkZXYpOworCisJCQkJLyogbGF0ZV9pbml0X3dvcmsgZG8gaWIg
-dGVzdHMsIHNvIGVuYWJsZSBpbnRlcnJ1cHQuICovCisJCQkJYW1kZ3B1X2lycV9ncHVfcmVzZXRf
-cmVzdW1lX2hlbHBlcih0bXBfYWRldik7CisKIAkJCQlyID0gYW1kZ3B1X2RldmljZV9pcF9sYXRl
-X2luaXQodG1wX2FkZXYpOwogCQkJCWlmIChyKQogCQkJCQlnb3RvIG91dDsKIAogCQkJCS8qIG11
-c3Qgc3VjY2VlZC4gKi8KIAkJCQlhbWRncHVfcmFzX3Jlc3VtZSh0bXBfYWRldik7Ci0KLQkJCQkv
-KiBVcGRhdGUgUFNQIEZXIHRvcG9sb2d5IGFmdGVyIHJlc2V0ICovCi0JCQkJaWYgKGhpdmUgJiYg
-dG1wX2FkZXYtPmdtYy54Z21pLm51bV9waHlzaWNhbF9ub2RlcyA+IDEpCi0JCQkJCXIgPSBhbWRn
-cHVfeGdtaV91cGRhdGVfdG9wb2xvZ3koaGl2ZSwgdG1wX2FkZXYpOwogCQkJfQogCQl9CiAKLS0g
-CjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Tue, May 21, 2019 at 4:33 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Mon, May 20, 2019 at 7:19 PM Pan, Xinhui <Xinhui.Pan@amd.com> wrote:
+> >
+> > Daniel, what you are talking about is totally wrong.
+> > 1) AFAIK, only one zero-size array can be in the end of a struct.
+> > 2) two struct_size will add up struct itself twice. the sum is wrong th=
+en.
+> >
+> > No offense. I can't help feeling lucky that you are in intel.
+>
+> Xinhui,
+>
+> Please keep things civil.  There is no need for comments like this.
+
+Yeah, this was over the line, thanks Alex for already taking care of
+this. Please note that fd.o mailing lists operate under a CoC:
+
+https://www.freedesktop.org/wiki/CodeOfConduct/
+
+Wrt the technical comment: I know that you can only do one variable
+sized array, and it must be at the end. But you can put multiple
+structures all within the same allocation. Which is what I thought you
+wanted to do. And my sketch would allow you to do that even if you
+have multiple variable length structures you want to allocate. There's
+plenty examples of this (but open-coded ones) in the kernel.
+
+Except in really hot paths I personally think that that kind of
+trickery isn't worth it.
+
+Cheers, Daniel
+
+>
+> Alex
+>
+> >
+> >
+> > =E5=8F=91=E4=BB=B6=E4=BA=BA: Daniel Vetter <daniel.vetter@ffwll.ch> =E4=
+=BB=A3=E8=A1=A8 Daniel Vetter <daniel@ffwll.ch>
+> > =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4: 2019=E5=B9=B45=E6=9C=8821=E6=97=
+=A5 0:28
+> > =E6=94=B6=E4=BB=B6=E4=BA=BA: Pan, Xinhui
+> > =E6=8A=84=E9=80=81: Deucher, Alexander; Koenig, Christian; Zhou, David(=
+ChunMing); airlied@linux.ie; daniel@ffwll.ch; Quan, Evan; xiaolinkui; amd-g=
+fx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vge=
+r.kernel.org
+> > =E4=B8=BB=E9=A2=98: Re: [PATCH] gpu: drm: use struct_size() in kmalloc(=
+)
+> >
+> > [CAUTION: External Email]
+> >
+> > On Fri, May 17, 2019 at 04:44:30PM +0000, Pan, Xinhui wrote:
+> > > I am going to put more members which are also array after this struct=
+,
+> > > not only obj[].  Looks like this struct_size did not help on multiple
+> > > array case. Thanks anyway.  ________________________________
+> >
+> > You can then add them up, e.g. kmalloc(struct_size()+struct_size(),
+> > GFP_KERNEL), so this patch here still looks like a good idea.
+> >
+> > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> >
+> > Cheers, Daniel
+> >
+> > > From: xiaolinkui <xiaolinkui@kylinos.cn>
+> > > Sent: Friday, May 17, 2019 4:46:00 PM
+> > > To: Deucher, Alexander; Koenig, Christian; Zhou, David(ChunMing); air=
+lied@linux.ie; daniel@ffwll.ch; Pan, Xinhui; Quan, Evan
+> > > Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; l=
+inux-kernel@vger.kernel.org; xiaolinkui@kylinos.cn
+> > > Subject: [PATCH] gpu: drm: use struct_size() in kmalloc()
+> > >
+> > > [CAUTION: External Email]
+> > >
+> > > Use struct_size() helper to keep code simple.
+> > >
+> > > Signed-off-by: xiaolinkui <xiaolinkui@kylinos.cn>
+> > > ---
+> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +--
+> > >  1 file changed, 1 insertion(+), 2 deletions(-)
+> > >
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_ras.c
+> > > index 22bd21e..4717a64 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> > > @@ -1375,8 +1375,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+> > >         if (con)
+> > >                 return 0;
+> > >
+> > > -       con =3D kmalloc(sizeof(struct amdgpu_ras) +
+> > > -                       sizeof(struct ras_manager) * AMDGPU_RAS_BLOCK=
+_COUNT,
+> > > +       con =3D kmalloc(struct_size(con, objs, AMDGPU_RAS_BLOCK_COUNT=
+),
+> > >                         GFP_KERNEL|__GFP_ZERO);
+> > >         if (!con)
+> > >                 return -ENOMEM;
+> > > --
+> > > 2.7.4
+> > >
+> > >
+> > >
+> >
+> > --
+> > Daniel Vetter
+> > Software Engineer, Intel Corporation
+> > http://blog.ffwll.ch
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+
+--=20
+Daniel Vetter
+Software Engineer, Intel Corporation
++41 (0) 79 365 57 48 - http://blog.ffwll.ch
