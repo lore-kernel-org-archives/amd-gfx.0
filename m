@@ -1,133 +1,155 @@
-From: enh <enh@google.com>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Wed, 22 May 2019 13:15:57 -0700
-Message-ID: <CAJgzZooRCx5MFL8dWuG8VaV=esYBADji7-L49fMeQa6niieWnw@mail.gmail.com>
-References: <cover.1557160186.git.andreyknvl@google.com> <20190517144931.GA56186@arrakis.emea.arm.com>
- <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
- <20190521182932.sm4vxweuwo5ermyd@mbp> <201905211633.6C0BF0C2@keescook>
- <20190522101110.m2stmpaj7seezveq@mbp> <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
- <201905221157.A9BAB1F296@keescook>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: GPU passthrough support for Stoney [Radeon R2/R3/R4/R5 Graphics]?
+Date: Wed, 22 May 2019 16:39:24 -0400
+Message-ID: <CADnq5_NxmBbcJ8oy8vu-ajWfaRqwqiBuHKnwDJk+-Sp2NCM7mg@mail.gmail.com>
+References: <CAJ-EccO1ue5hTtJ8m4utQp+8dSsWm60JFA5YOT1gCODnYcFUog@mail.gmail.com>
+ <CADnq5_N=-cWz99T4ma_=6-_bu-Ty2twsFt=KGtzTdWn1hcDSrA@mail.gmail.com>
+ <CAJ-EccOH2dXPD+XeHQcqZYD+xa2eB6SVp6oFk4AD0vy=H+9+0w@mail.gmail.com>
+ <CADnq5_OTk4nE4G6FHmSRmvNLNO4hJbVC9cuxAiGEZk1_b2C=9w@mail.gmail.com>
+ <CAJ-EccPFdxNTe5ESwJDg0MKSZasigkcg9CjxN__MgXaF2RURQw@mail.gmail.com>
+ <CADnq5_Osm1NaWWrDNpNNV1c+nyw3NfPyEi=_RjuUNh7hkAfzvQ@mail.gmail.com>
+ <CAJ-EccNEMO3XbHWgUUpNtnJM7v1P4uCWF-v4hgq4fG45v3GvXg@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <201905221157.A9BAB1F296@keescook>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Kees Cook <keescook@chromium.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Evgenii Stepanov <eugenis@google.com>, Andrey Konovalov <andreyknvl@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.co>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAJ-EccNEMO3XbHWgUUpNtnJM7v1P4uCWF-v4hgq4fG45v3GvXg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Micah Morton <mortonm-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, May 22, 2019 at 12:21 PM Kees Cook <keescook@chromium.org> wrote:
->
-> On Wed, May 22, 2019 at 08:30:21AM -0700, enh wrote:
-> > On Wed, May 22, 2019 at 3:11 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > > On Tue, May 21, 2019 at 05:04:39PM -0700, Kees Cook wrote:
-> > > > I just want to make sure I fully understand your concern about this
-> > > > being an ABI break, and I work best with examples. The closest situation
-> > > > I can see would be:
-> > > >
-> > > > - some program has no idea about MTE
-> > >
-> > > Apart from some libraries like libc (and maybe those that handle
-> > > specific device ioctls), I think most programs should have no idea about
-> > > MTE. I wouldn't expect programmers to have to change their app just
-> > > because we have a new feature that colours heap allocations.
->
-> Right -- things should Just Work from the application perspective.
->
-> > obviously i'm biased as a libc maintainer, but...
-> >
-> > i don't think it helps to move this to libc --- now you just have an
-> > extra dependency where to have a guaranteed working system you need to
-> > update your kernel and libc together. (or at least update your libc to
-> > understand new ioctls etc _before_ you can update your kernel.)
->
-> I think (hope?) we've all agreed that we shouldn't pass this off to
-> userspace. At the very least, it reduces the utility of MTE, and at worst
-> it complicates userspace when this is clearly a kernel/architecture issue.
->
-> >
-> > > > - malloc() starts returning MTE-tagged addresses
-> > > > - program doesn't break from that change
-> > > > - program uses some syscall that is missing untagged_addr() and fails
-> > > > - kernel has now broken userspace that used to work
-> > >
-> > > That's one aspect though probably more of a case of plugging in a new
-> > > device (graphics card, network etc.) and the ioctl to the new device
-> > > doesn't work.
->
-> I think MTE will likely be rather like NX/PXN and SMAP/PAN: there will
-> be glitches, and we can disable stuff either via CONFIG or (as is more
-> common now) via a kernel commandline with untagged_addr() containing a
-> static branch, etc. But I actually don't think we need to go this route
-> (see below...)
->
-> > > The other is that, assuming we reach a point where the kernel entirely
-> > > supports this relaxed ABI, can we guarantee that it won't break in the
-> > > future. Let's say some subsequent kernel change (some refactoring)
-> > > misses out an untagged_addr(). This renders a previously TBI/MTE-capable
-> > > syscall unusable. Can we rely only on testing?
-> > >
-> > > > The trouble I see with this is that it is largely theoretical and
-> > > > requires part of userspace to collude to start using a new CPU feature
-> > > > that tickles a bug in the kernel. As I understand the golden rule,
-> > > > this is a bug in the kernel (a missed ioctl() or such) to be fixed,
-> > > > not a global breaking of some userspace behavior.
-> > >
-> > > Yes, we should follow the rule that it's a kernel bug but it doesn't
-> > > help the user that a newly installed kernel causes user space to no
-> > > longer reach a prompt. Hence the proposal of an opt-in via personality
-> > > (for MTE we would need an explicit opt-in by the user anyway since the
-> > > top byte is no longer ignored but checked against the allocation tag).
-> >
-> > but realistically would this actually get used in this way? or would
-> > any given system either be MTE or non-MTE. in which case a kernel
-> > configuration option would seem to make more sense. (because either
-> > way, the hypothetical user basically needs to recompile the kernel to
-> > get back on their feet. or all of userspace.)
->
-> Right: the point is to design things so that we do our best to not break
-> userspace that is using the new feature (which I think this series has
-> done well). But supporting MTE/TBI is just like supporting PAN: if someone
-> refactors a driver and swaps a copy_from_user() to a memcpy(), it's going
-> to break under PAN. There will be the same long tail of these bugs like
-> any other, but my sense is that they are small and rare. But I agree:
-> they're going to be pretty weird bugs to track down. The final result,
-> however, will be excellent annotation in the kernel for where userspace
-> addresses get used and people make assumptions about them.
->
-> The sooner we get the series landed and gain QEMU support (or real
-> hardware), the faster we can hammer out these missed corner-cases.
-> What's the timeline for either of those things, BTW?
->
-> > > > I feel like I'm missing something about this being seen as an ABI
-> > > > break. The kernel already fails on userspace addresses that have high
-> > > > bits set -- are there things that _depend_ on this failure to operate?
-> > >
-> > > It's about providing a relaxed ABI which allows non-zero top byte and
-> > > breaking it later inadvertently without having something better in place
-> > > to analyse the kernel changes.
->
-> It sounds like the question is how to switch a process in or out of this
-> ABI (but I don't think that's the real issue: I think it's just a matter
-> of whether or not a process uses tags at all). Doing it at the prctl()
-> level doesn't make sense to me, except maybe to detect MTE support or
-> something. ("Should I tag allocations?") And that state is controlled
-> by the kernel: the kernel does it or it doesn't.
->
-> If a process wants to not tag, that's also up to the allocator where
-> it can decide not to ask the kernel, and just not tag. Nothing breaks in
-> userspace if a process is NOT tagging and untagged_addr() exists or is
-> missing. This, I think, is the core way this doesn't trip over the
-> golden rule: an old system image will run fine (because it's not
-> tagging). A *new* system may encounter bugs with tagging because it's a
-> new feature: this is The Way Of Things. But we don't break old userspace
-> because old userspace isn't using tags.
->
-> So the agreement appears to be between the kernel and the allocator.
-> Kernel says "I support this" or not. Telling the allocator to not tag if
-> something breaks sounds like an entirely userspace decision, yes?
-
-sgtm, and the AT_FLAGS suggestion sounds fine for our needs in that regard.
-
-> --
-> Kees Cook
+T24gVHVlLCBNYXkgMjEsIDIwMTkgYXQgMTo0NiBQTSBNaWNhaCBNb3J0b24gPG1vcnRvbm1AY2hy
+b21pdW0ub3JnPiB3cm90ZToKPgo+IE9uIEZyaSwgTWF5IDE3LCAyMDE5IGF0IDk6NTkgQU0gQWxl
+eCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+IHdyb3RlOgo+ID4KPiA+IE9uIEZyaSwg
+TWF5IDE3LCAyMDE5IGF0IDExOjM2IEFNIE1pY2FoIE1vcnRvbiA8bW9ydG9ubUBjaHJvbWl1bS5v
+cmc+IHdyb3RlOgo+ID4gPgo+ID4gPiBPbiBUaHUsIE1heSAxNiwgMjAxOSBhdCAxOjM5IFBNIEFs
+ZXggRGV1Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPiB3cm90ZToKPiA+ID4gPgo+ID4gPiA+
+IE9uIFRodSwgTWF5IDE2LCAyMDE5IGF0IDQ6MDcgUE0gTWljYWggTW9ydG9uIDxtb3J0b25tQGNo
+cm9taXVtLm9yZz4gd3JvdGU6Cj4gPiA+ID4gPgo+ID4gPiA+ID4gT24gV2VkLCBNYXkgMTUsIDIw
+MTkgYXQgNzoxOSBQTSBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4gd3JvdGU6
+Cj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IE9uIFdlZCwgTWF5IDE1LCAyMDE5IGF0IDI6MjYgUE0g
+TWljYWggTW9ydG9uIDxtb3J0b25tQGNocm9taXVtLm9yZz4gd3JvdGU6Cj4gPiA+ID4gPiA+ID4K
+PiA+ID4gPiA+ID4gPiBIaSBmb2xrcywKPiA+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiA+IEknbSBp
+bnRlcmVzdGVkIGluIHJ1bm5pbmcgYSBWTSBvbiBhIHN5c3RlbSB3aXRoIGFuIGludGVncmF0ZWQg
+U3RvbmV5Cj4gPiA+ID4gPiA+ID4gW1JhZGVvbiBSMi9SMy9SNC9SNSBHcmFwaGljc10gY2FyZCBh
+bmQgcGFzc2luZyB0aHJvdWdoIHRoZSBncmFwaGljcwo+ID4gPiA+ID4gPiA+IGNhcmQgdG8gdGhl
+IFZNIHVzaW5nIHRoZSBJT01NVS4gSSdtIHdvbmRlcmluZyB3aGV0aGVyIHRoaXMgaXMgZmVhc2li
+bGUKPiA+ID4gPiA+ID4gPiBhbmQgc3VwcG9zZWQgdG8gYmUgZG9hYmxlIHdpdGggdGhlIHJpZ2h0
+IHNldHVwIChhcyBvcHBvc2VkIHRvIHBhc3NpbmcKPiA+ID4gPiA+ID4gPiBhIGRpc2NyZXRlIEdQ
+VSB0byB0aGUgVk0sIHdoaWNoIEkgdGhpbmsgaXMgZGVmaW5pdGVseSBkb2FibGU/KS4KPiA+ID4g
+PiA+ID4gPgo+ID4gPiA+ID4gPiA+IFNvIGZhciwgSSBjYW4gZG8gYWxsIHRoZSBxZW11L2t2bS92
+ZmlvL2lvbW11IHN0dWZmIHRvIHJ1biB0aGUgVk0gYW5kCj4gPiA+ID4gPiA+ID4gcGFzcyB0aGUg
+aW50ZWdyYXRlZCBHUFUgdG8gaXQsIGJ1dCB0aGUgZHJtIGRyaXZlciBpbiB0aGUgVk0gZmFpbHMK
+PiA+ID4gPiA+ID4gPiBkdXJpbmcgYW1kZ3B1X2RldmljZV9pbml0KCkuIFNwZWNpZmljYWxseSwg
+dGhlIGxvZ3Mgc2hvdyB0aGUgU01VIGJlaW5nCj4gPiA+ID4gPiA+ID4gdW5yZXNwb25zaXZlLCB3
+aGljaCBsZWFkcyB0byBhICdTTVUgZmlybXdhcmUgbG9hZCBmYWlsZWQnIGVycm9yCj4gPiA+ID4g
+PiA+ID4gbWVzc2FnZSBhbmQga2VybmVsIHBhbmljLiBJIGNhbiBzaGFyZSBWTSBsb2dzIGFuZCB0
+aGUgaW52b2NhdGlvbiBvZgo+ID4gPiA+ID4gPiA+IHFlbXUgYW5kIHN1Y2ggaWYgaGVscGZ1bCwg
+YnV0IGZpcnN0IHdhbnRlZCB0byBrbm93IGF0IGEgaGlnaCBsZXZlbCBpZgo+ID4gPiA+ID4gPiA+
+IHRoaXMgc2hvdWxkIGJlIGZlYXNpYmxlPwo+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gUC5T
+LjogSSdtIG5vdCBpbml0aWFsaXppbmcgdGhlIEdQVSBpbiB0aGUgaG9zdCBiaW9zIG9yIGhvc3Qg
+a2VybmVsIGF0Cj4gPiA+ID4gPiA+ID4gYWxsLCBzbyBJIHNob3VsZCBiZSBwYXNzaW5nIGEgZnJl
+c2ggR1BVIHRvIHRoZSBWTS4gQWxzbywgSSdtIHByZXR0eQo+ID4gPiA+ID4gPiA+IHN1cmUgSSdt
+IHJ1bm5pbmcgdGhlIGNvcnJlY3QgVkdBIGJpb3MgZm9yIHRoaXMgR1BVIGluIHRoZSBndWVzdCBW
+TQo+ID4gPiA+ID4gPiA+IGJpb3MgYmVmb3JlIGd1ZXN0IGJvb3QuCj4gPiA+ID4gPiA+ID4KPiA+
+ID4gPiA+ID4gPiBBbnkgY29tbWVudHMvc3VnZ2VzdGlvbnMgd291bGQgYmUgYXBwcmVjaWF0ZWQh
+Cj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IEl0IHNob3VsZCB3b3JrIGluIGF0IGxlYXN0IG9uY2Ug
+YXMgbG9uZyBhcyB5b3VyIHZtIGlzIHByb3Blcmx5IHNldCB1cC4KPiA+ID4gPiA+Cj4gPiA+ID4g
+PiBJcyB0aGVyZSBhbnkgcmVhc29uIHJ1bm5pbmcgY29yZWJvb3QgdnMgVUVGSSBhdCBob3N0IGJv
+b3Qgd291bGQgbWFrZSBhCj4gPiA+ID4gPiBkaWZmZXJlbmNlPyBJIHdhcyBydW5uaW5nIGEgbW9k
+aWZpZWQgdmVyc2lvbiBvZiBjb3JlYm9vdCB0aGF0IGF2b2lkcwo+ID4gPiA+ID4gZG9pbmcgYW55
+IEdQVSBpbml0aWFsaXphdGlvbiBpbiBmaXJtd2FyZSAtLSBzbyB0aGUgZmlyc3QgUE9TVCBoYXBw
+ZW5zCj4gPiA+ID4gPiBpbnNpZGUgdGhlIGd1ZXN0Lgo+ID4gPiA+Cj4gPiA+ID4gVGhlIEdQVSBv
+biBBUFVzIHNoYXJlcyBhIGJ1bmNoIG9mIHJlc291cmNlcyB3aXRoIHRoZSBDUFUuICBUaGVyZSBh
+cmUgYQo+ID4gPiA+IGJ1bmNoIG9mIGJsb2NrcyB3aGljaCBhcmUgc2hhcmVkIGFuZCBuZWVkIHRv
+IGJlIGluaXRpYWxpemVkIG9uIGJvdGgKPiA+ID4gPiBmb3IgZXZlcnl0aGluZyB0byB3b3JrIHBy
+b3Blcmx5Lgo+ID4gPgo+ID4gPiBJbnRlcmVzdGluZy4gU28gc2tpcHBpbmcgcnVubmluZyB0aGUg
+dmJpb3MgaW4gdGhlIGhvc3QgYW5kIHdhaXRpbmcKPiA+ID4gdW50aWwgcnVubmluZyBpdCBmb3Ig
+dGhlIGZpcnN0IHRpbWUgaW4gdGhlIGd1ZXN0IFNlYUJJT1MgaXMgYSBiYWQKPiA+ID4gaWRlYT8g
+V291bGQgaXQgYmUgYmV0dGVyIHRvIGxldCBBUFUrQ1BVIGluaXRpYWxpemUgbm9ybWFsbHkgaW4g
+dGhlCj4gPiA+IGhvc3QgYW5kIHRoZW4gc2tpcCB0cnlpbmcgdG8gcnVuIHRoZSB2YmlvcyBpbiBn
+dWVzdCBTZWFCSU9TIGFuZCBqdXN0Cj4gPiA+IGRvIHNvbWUga2luZCBvZiByZXNldCBiZWZvcmUg
+dGhlIGRybSBkcml2ZXIgc3RhcnRzIGFjY2Vzc2luZyBpdCBmcm9tCj4gPiA+IHRoZSBndWVzdD8K
+PiA+Cj4gPiBJZiB5b3UgbGV0IHRoZSBzYmlvcyBpbml0aWFsaXplIHRoaW5ncywgaXQgc2hvdWxk
+IHdvcmsuICBUaGUgZHJpdmVyCj4gPiB3aWxsIGRvIHRoZSByaWdodCB0aGluZyB0byBpbml0IHRo
+ZSBjYXJkIHdoZW4gaXQgbG9hZHMgd2hldGhlciBpdHMKPiA+IHJ1bm5pbmcgb24gYmFyZSBtZXRh
+bCBvciBpbiBhIFZNLiAgV2UndmUgbmV2ZXIgdGVzdGVkIGFueSBzY2VuYXJpb3MKPiA+IHdoZXJl
+IHRoZSBHUFUgb24gQVBVcyBpcyBub3QgaGFuZGxlZCBieSB0aGUgc2Jpb3MuICBOb3RlIHRoYXQg
+dGhlIEdQVQo+ID4gZG9lcyBub3QgaGF2ZSB0byBiZSBwb3N0ZWQgcGVyIHNlLCBpdCBqdXN0IG5l
+ZWRzIHRvIGhhdmUgYmVlbiBwcm9wZXJseQo+ID4gdGFrZW4gaW50byBhY2NvdW50IHdoZW4gdGhl
+IHNiaW9zIGNvbWVzIHVwIHNvIHRoYXQgc2hhcmVkIGNvbXBvbmVudHMKPiA+IGFyZSBpbml0aWFs
+aXplZCBjb3JyZWN0bHkuICBJIGRvbid0IGtub3cgd2hhdCB5b3VyIHBhdGNoZWQgc3lzdGVtIGRv
+ZXMKPiA+IG9yIGRvZXNuJ3QgZG8gd2l0aCByZXNwZWN0IHRvIHRoZSBwbGF0Zm9ybSBpbml0aWFs
+aXphdGlvbi4KPgo+IFNvIGl0IHNvdW5kcyBsaWtlIHlvdSBhcmUgc3VnZ2VzdGluZyB0aGUgZm9s
+bG93aW5nOgo+Cj4gYSkgUnVuIHRoZSB2YmlvcyBhcyBwYXJ0IG9mIHRoZSBob3N0IHNiaW9zIHRv
+IGluaXRpYWxpemUgc3R1ZmYgYW5kCj4gcGF0Y2ggdXAgdGhlIHZiaW9zCj4KPiBiKSBEb24ndCBy
+dW4gdGhlIGRybS9hbWRncHUgZHJpdmVyIGluIHRoZSBob3N0LCB3YWl0IHVudGlsIHRoZSBndWVz
+dCBmb3IgdGhhdAo+Cj4gYykgQXZvaWQgcnVubmluZyB0aGUgdmJpb3MgKGFnYWluKSBpbiB0aGUg
+Z3Vlc3Qgc2Jpb3Mgc2luY2UgaXQgaGFzCj4gYWxyZWFkeSBiZWVuIHJ1bi4gQWx0aG91Z2ggc2lu
+Y2UgInRoZSBkcml2ZXIgbmVlZHMgYWNjZXNzIHRvIHRoZSB2Ymlvcwo+IGltYWdlIGluIHRoZSBn
+dWVzdCB0byBnZXQgZGV2aWNlIHNwZWNpZmljIGNvbmZpZ3VyYXRpb24gZGV0YWlscyIgSQo+IHNo
+b3VsZCBzdGlsbCBkbyAnLWRldmljZQo+IHZmaW8tcGNpLC4uLixyb21maWxlPS9wYXRoL3RvL3Zi
+aW9zLXRoYXQtd2FzLWZpeGVkLXVwLWJ5LWhvc3Qtc2Jpb3MnLAo+IGJ1dCBzaG91bGQgcGF0Y2gg
+dGhlIGd1ZXN0IHNiaW9zIHRvIGF2b2lkIHJ1bm5pbmcgdGhlIHZiaW9zIGFnYWluIGluCj4gdGhl
+IGd1ZXN0Pwo+Cj4gZCkgcnVuIHRoZSBkcm0vYW1kZ3B1IGRyaXZlciBpbiB0aGUgZ3Vlc3Qgb24g
+dGhlIGhhcmR3YXJlIHRoYXQgd2FzCj4gaW5pdGlhbGl6ZWQgaW4gdGhlIGhvc3Qgc2Jpb3MKPgo+
+IEFtIEkgZ2V0dGluZyB0aGlzIHJpZ2h0Pwo+CgpJIHdvdWxkIHN1Z2dlc3Qgc3RhcnRpbmcgd2l0
+aCBhIHN0YW5kYXJkIHNiaW9zL3ZiaW9zLiAgQm9vdCB0aGUgc3lzdGVtCmFzIHVzdWFsLiAgWW91
+IGNhbiBibGFja2xpc3QgYW1kZ3B1IGlmIHlvdSBkb24ndCB3YW50IGdwdSBkcml2ZXIKbG9hZGVk
+IG9uIHRoZSBob3N0LiAgR2V0IGEgY29weSBvZiB0aGUgdmJpb3MgaW1hZ2UuICBEZXBlbmRpbmcg
+b24gdGhlCnBsYXRmb3JtLCBpdCBtYXkgYmUgYXZhaWxhYmxlIHZpYSB0aGUgc3RhbmRhcmQgdmJp
+b3Mgc2hhZG93IGxvY2F0aW9uCm9yIGl0IG1heSBiZSBhdCB0aGUgc3RhcnQgb2YgY2FydmVvdXQg
+b3IgaXQgbWF5IGJlIGF2YWlsYWJsZSB2aWEgYW4KQUNQSSBpbnRlcmZhY2UuICBUaGUgZHJpdmVy
+IGhhcyB0aGUgbG9naWMgdG8gZmV0Y2ggaXQuICBZb3UgY2FuIGR1bXAgYQpjb3B5IGZyb20gdGhl
+IGRyaXZlciB2aWEgL3N5cy9rZXJuZWwvZGVidWcvZHJpL1gvYW1kZ3B1X3ZiaW9zIHdoZXJlIFgK
+aXMgdGhlIG51bWJlciBvZiB0aGUgZHJpIGRldmljZSBvZiB0aGUgY2FyZCBpbiBxdWVzdGlvbi4g
+IFRoZW4gc3RhcnQKVk0gd2l0aCB0aGUgZGV2aWNlIHBhc3NlZCB0aHJvdWdoLiAgRG9uJ3Qgd29y
+cnkgYWJvdXQgcnVubmluZyB0aGUKdmJpb3Mgb3Igbm90IGluIHRoZSBob3N0IHZzLiB0aGUgZ3Vl
+c3QuICBUaGUgZHJpdmVyIHdpbGwgZG8gdGhlIHJpZ2h0CnRoaW5nLgoKQWxleAoKPiA+Cj4gPiA+
+Cj4gPiA+ID4KPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IE5vdGUgdGhhdCB0aGUgZHJpdmVyIG5lZWRz
+IGFjY2VzcyB0byB0aGUgdmJpb3MgaW1hZ2UgaW4gdGhlIGd1ZXN0IHRvCj4gPiA+ID4gPiA+IGdl
+dCBkZXZpY2Ugc3BlY2lmaWMgY29uZmlndXJhdGlvbiBkZXRhaWxzIChjbG9ja3MsIGRpc3BsYXkg
+Y29ubmVjdG9yCj4gPiA+ID4gPiA+IGNvbmZpZ3VyYXRpb24sIGV0Yy4pLgo+ID4gPiA+ID4KPiA+
+ID4gPiA+IElzIHRoZXJlIGFueXRoaW5nIEkgbmVlZCB0byBkbyB0byBlbnN1cmUgdGhpcyBiZXNp
+ZGVzIHBhc3NpbmcgJy1kZXZpY2UKPiA+ID4gPiA+IHZmaW8tcGNpLC4uLixyb21maWxlPS9wYXRo
+L3RvL3ZnYXJvbScgdG8gcWVtdT8KPiA+ID4gPgo+ID4gPiA+IFlvdSBuZWVkIHRoZSBhY3R1YWwg
+dmJpb3Mgcm9tIGltYWdlIGZyb20geW91ciBzeXN0ZW0uICBUaGUgaW1hZ2UgaXMKPiA+ID4gPiBi
+b2FyZCBzcGVjaWZpYy4KPiA+ID4KPiA+ID4gSSBzaG91bGQgaGF2ZSB0aGUgY29ycmVjdCB2Ymlv
+cyByb20gaW1hZ2UgZm9yIG15IGJvYXJkLiBJJ20gZXh0cmFjdGluZwo+ID4gPiBpdCBmcm9tIHRo
+ZSBmaXJtd2FyZSBpbWFnZSAodGhhdCB3b3JrcyBmb3IgcmVndWxhciBncmFwaGljcyBpbml0Cj4g
+PiA+IHdpdGhvdXQgdGhpcyBWTSBzdHVmZikgZm9yIHRoZSBib2FyZCBhdCBidWlsZCB0aW1lIChy
+YXRoZXIgdGhhbgo+ID4gPiBncmFiYmluZyBpdCBmcm9tIC9zeXMvZGV2aWNlcy9wY2kuLi4gYXQg
+cnVudGltZSksIHNvIGl0IHNob3VsZG4ndCBiZQo+ID4gPiBtb2RpZmllZCBvciBjb3JydXB0ZWQg
+aW4gYW55IHdheS4KPiA+Cj4gPiBUaGUgdmJpb3MgaW1hZ2UgaXMgcGF0Y2hlZCBhdCBib290IHRp
+bWUgYnkgdGhlIHNiaW9zIGltYWdlIGZvciBydW4KPiA+IHRpbWUgY29uZmlndXJhdGlvbiBzdHVm
+Zi4gIEZvciBleGFtcGxlLCBzb21lIG9mIHRoZSBwY2llIGxhbmVzIGFyZQo+ID4gc2hhcmVkIHdp
+dGggZGlzcGxheSBsYW5lcyBhbmQgY2FuIGJlIHVzZWQgZm9yIGVpdGhlciBkaXNwbGF5IG9yIHBj
+aWUKPiA+IGFkZCBpbiBjYXJkcy4gIFRoZSBzYmlvcyBkZXRlcm1pbmVzIHRoaXMgYXQgYm9vdCBh
+bmQgcGF0Y2hlcyB0aGUgdmJpb3MKPiA+IGRpc3BsYXkgdGFibGVzIHNvIHRoZSBkcml2ZXIga25v
+d3MgdGhhdCB0aGUgZGlzcGxheXMgYXJlIG5vdAo+ID4gYXZhaWxhYmxlLiAgQWxzbyB0aGluZ3Mg
+bGlrZSBmbGF0IHBhbmVscyBvbiBsYXB0b3BzLiAgT0VNcyBtYXkgaGF2ZQo+ID4gc2V2ZXJhbCBk
+aWZmZXJlbnQgZmxhdCBwYW5lbCBtb2RlbHMgdGhleSB1c2Ugd2l0aCBhIHBhcnRpY3VsYXIKPiA+
+IHBsYXRmb3JtIGFuZCB0aGUgc2Jpb3MgcGF0Y2hlcyB0aGUgdmJpb3MgZGlzcGxheSB0YWJsZXMg
+d2l0aCB0aGUKPiA+IHByb3BlciBwYXJhbWV0ZXJzIGZvciB0aGUgcGFuZWwgaW4gdXNlLiAgVGhl
+IHNiaW9zIGFsc28gcGF0Y2hlcyB0YWJsZXMKPiA+IHJlbGF0ZWQgdG8gYmFuZHdpZHRoLiAgRS5n
+LiwgdGhlIHR5cGUgYW5kIHNwZWVkIGFuZCBudW1iZXIgb2YgY2hhbm5lbHMKPiA+IG9mIHRoZSBz
+eXN0ZW0gcmFtIHNvIHRoYXQgdGhlIEdQVSBkcml2ZXIgY2FuIHNldCBwcm9wZXIgbGltaXRzIG9u
+Cj4gPiB0aGluZ3MgbGlrZSBkaXNwbGF5IG1vZGVzLiAgU28geW91IG5lZWQgdG8gdXNlIHRoZSB2
+YmlvcyBpbWFnZSB0aGF0IGlzCj4gPiBwcm92aWRlZCBieSB0aGUgc2Jpb3MgYXQgYm9vdC4KPgo+
+IE9rIHllYWggZ29vZCBwb2ludC4gSSBub3RpY2VkIHRoYXQgdGhlcmUgYXJlIGEgZmV3IGh1bmRy
+ZWQgYnl0ZQo+IGxvY2F0aW9ucyBpbiB0aGUgdmJpb3MgdGhhdCBhcmUgZGlmZmVyZW50IGJldHdl
+ZW4gdGhlIHByZS1ib290IHZlcnNpb24KPiBmcm9tIGJ1aWxkIHRpbWUgYW5kIHRoZSB2ZXJzaW9u
+IGR1bXBlZCBmcm9tIHN5c2ZzIGF0IHJ1bnRpbWUsIHNvCj4gc29tZXRoaW5nIG11c3QgYmUgZ2V0
+dGluZyBwYXRjaGVkIHVwLgo+Cj4gPgo+ID4gQWxleApfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZng=
