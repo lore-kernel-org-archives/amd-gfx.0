@@ -1,80 +1,44 @@
-From: Dave Martin <Dave.Martin@arm.com>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Wed, 22 May 2019 14:49:28 +0100
-Message-ID: <20190522134925.GV28398@e103592.cambridge.arm.com>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <20190517144931.GA56186@arrakis.emea.arm.com>
- <20190521184856.GC2922@ziepe.ca>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/sched: Fix static checker warning for potential NULL ptr
+Date: Wed, 22 May 2019 09:57:23 -0400
+Message-ID: <1558533443-7795-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190521184856.GC2922@ziepe.ca>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, May 21, 2019 at 03:48:56PM -0300, Jason Gunthorpe wrote:
-> On Fri, May 17, 2019 at 03:49:31PM +0100, Catalin Marinas wrote:
-> 
-> > The tagged pointers (whether hwasan or MTE) should ideally be a
-> > transparent feature for the application writer but I don't think we can
-> > solve it entirely and make it seamless for the multitude of ioctls().
-> > I'd say you only opt in to such feature if you know what you are doing
-> > and the user code takes care of specific cases like ioctl(), hence the
-> > prctl() proposal even for the hwasan.
-> 
-> I'm not sure such a dire view is warrented.. 
-> 
-> The ioctl situation is not so bad, other than a few special cases,
-> most drivers just take a 'void __user *' and pass it as an argument to
-> some function that accepts a 'void __user *'. sparse et al verify
-> this. 
-> 
-> As long as the core functions do the right thing the drivers will be
-> OK.
-> 
-> The only place things get dicy is if someone casts to unsigned long
-> (ie for vma work) but I think that reflects that our driver facing
-> APIs for VMAs are compatible with static analysis (ie I have no
-> earthly idea why get_user_pages() accepts an unsigned long), not that
-> this is too hard.
-
-If multiple people will care about this, perhaps we should try to
-annotate types more explicitly in SYSCALL_DEFINEx() and ABI data
-structures.
-
-For example, we could have a couple of mutually exclusive modifiers
-
-T __object *
-T __vaddr * (or U __vaddr)
-
-In the first case the pointer points to an object (in the C sense)
-that the call may dereference but not use for any other purpose.
-
-In the latter case the pointer (or other type) is a virtual address
-that the call does not dereference but my do other things with.
-
-Also
-
-U __really(T)
-
-to tell static analysers the real type of pointers smuggled through
-UAPI disguised as other types (*cough* KVM, etc.)
-
-We could gradually make sparse more strict about the presence of
-annotations and allowed conversions, add get/put_user() variants
-that demand explicit annotation, etc.
-
-find_vma() wouldn't work with a __object pointer, for example.  A
-get_user_pages_for_dereference() might be needed for __object pointers
-(embodying a promise from the caller that only the object will be
-dereferenced within the mapped pages).
-
-Thoughts?
-
-This kind of thing would need widespread buy-in in order to be viable.
-
-Cheers
----Dave
+U2lnbmVkLW9mZi1ieTogQW5kcmV5IEdyb2R6b3Zza3kgPGFuZHJleS5ncm9kem92c2t5QGFtZC5j
+b20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgfCAxNyArKysr
+KysrKystLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgOCBkZWxldGlv
+bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4u
+YyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCmluZGV4IDkwZDdhODIu
+LmVjN2ZhY2EgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFp
+bi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCkBAIC0yODYs
+MTYgKzI4NiwxNyBAQCBzdGF0aWMgdm9pZCBkcm1fc2NoZWRfam9iX3RpbWVkb3V0KHN0cnVjdCB3
+b3JrX3N0cnVjdCAqd29yaykKIAlqb2IgPSBsaXN0X2ZpcnN0X2VudHJ5X29yX251bGwoJnNjaGVk
+LT5yaW5nX21pcnJvcl9saXN0LAogCQkJCSAgICAgICBzdHJ1Y3QgZHJtX3NjaGVkX2pvYiwgbm9k
+ZSk7CiAKLQlpZiAoam9iKQorCWlmIChqb2IpIHsKIAkJam9iLT5zY2hlZC0+b3BzLT50aW1lZG91
+dF9qb2Ioam9iKTsKIAotCS8qCi0JICogR3VpbHR5IGpvYiBkaWQgY29tcGxldGUgYW5kIGhlbmNl
+IG5lZWRzIHRvIGJlIG1hbnVhbGx5IHJlbW92ZWQKLQkgKiBTZWUgZHJtX3NjaGVkX3N0b3AgZG9j
+LgotCSAqLwotCWlmIChzY2hlZC0+ZnJlZV9ndWlsdHkpIHsKLQkJam9iLT5zY2hlZC0+b3BzLT5m
+cmVlX2pvYihqb2IpOwotCQlzY2hlZC0+ZnJlZV9ndWlsdHkgPSBmYWxzZTsKKwkJLyoKKwkJICog
+R3VpbHR5IGpvYiBkaWQgY29tcGxldGUgYW5kIGhlbmNlIG5lZWRzIHRvIGJlIG1hbnVhbGx5IHJl
+bW92ZWQKKwkJICogU2VlIGRybV9zY2hlZF9zdG9wIGRvYy4KKwkJICovCisJCWlmIChzY2hlZC0+
+ZnJlZV9ndWlsdHkpIHsKKwkJCWpvYi0+c2NoZWQtPm9wcy0+ZnJlZV9qb2Ioam9iKTsKKwkJCXNj
+aGVkLT5mcmVlX2d1aWx0eSA9IGZhbHNlOworCQl9CiAJfQogCiAJc3Bpbl9sb2NrX2lycXNhdmUo
+JnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
