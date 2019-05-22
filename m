@@ -1,14 +1,11 @@
-From: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: WARNING: locking bug in inet_autobind
-Date: Wed, 22 May 2019 03:21:15 +0000
-Message-ID: <DM6PR12MB27788B3B39A41027C62CEF5EF0000@DM6PR12MB2778.namprd12.prod.outlook.com>
-References: <00000000000033a0120588fac894@google.com>,
- <0000000000008b645c058971629b@google.com>
+From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Need to set the baco cap before baco reset
+Date: Wed, 22 May 2019 18:06:31 +0800
+Message-ID: <1558519591-30349-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1655426836=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <0000000000008b645c058971629b-hpIqsD4AKlfQT0dZR+AlfA@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,168 +16,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: syzbot <syzbot+94cc2a66fc228b23f360-Pl5Pbv+GP7P466ipTTIvnc23WoclnBCfAL8bYrjMMd8@public.gmane.org>, "airlied-cv59FeDIM0c@public.gmane.org" <airlied-cv59FeDIM0c@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "ast-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org" <ast-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, "bpf-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <bpf-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "daniel-/w4YWyX8dFk@public.gmane.org" <daniel-/w4YWyX8dFk@public.gmane.org>, "daniel-FeC+5ew28dpmcu3hnIyYJQ@public.gmane.org" <daniel-FeC+5ew28dpmcu3hnIyYJQ@public.gmane.org>, "davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org" <davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Quan,
- Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "kafai-b10kYP2dOMg@public.gmane.org" <kafai-b10kYP2dOMg@public.gmane.org>, "kuznet-v/Mj1YrvjDBInbfyfbPRSQ@public.gmane.org" <kuznet-v/Mj1YrvjDBInbfyfbPRSQ@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>"netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <net>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 
---===============1655426836==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB27788B3B39A41027C62CEF5EF0000DM6PR12MB2778namp_"
-
---_000_DM6PR12MB27788B3B39A41027C62CEF5EF0000DM6PR12MB2778namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-This commit was reverted later. I guess the revert was probably not picked =
-up properly.
-
-Regards,
-Yong
-________________________________
-From: syzbot <syzbot+94cc2a66fc228b23f360-Pl5Pbv+GP7P466ipTTIvnc23WoclnBCfAL8bYrjMMd8@public.gmane.org>
-Sent: Tuesday, May 21, 2019 11:16 PM
-To: Zhao, Yong; airlied-cv59FeDIM0c@public.gmane.org; Deucher, Alexander; amd-gfx-PD4FTy7X32mqWrfYKbYh0A@public.gmane.org=
-ktop.org; ast-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org; bpf-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; Koenig, Christian; daniel@ff=
-wll.ch; daniel-FeC+5ew28dpmcu3hnIyYJQ@public.gmane.org; davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org; Zhou, David(ChunMing); d=
-ri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Quan, Evan; Kuehling, Felix; Wentland, Harr=
-y; kafai-b10kYP2dOMg@public.gmane.org; kuznet-v/Mj1YrvjDBInbfyfbPRSQ@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; netdev=
-@vger.kernel.org; Zeng, Oak; Huang, Ray; rex.zhu-5C7GfCeVMHo@public.gmane.org; songliubraving@fb=
-.com; syzkaller-bugs-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org; yhs-b10kYP2dOMg@public.gmane.org; Zhao, Yong; yoshfuji@lin=
-ux-ipv6.org
-Subject: Re: WARNING: locking bug in inet_autobind
-
-[CAUTION: External Email]
-
-syzbot has bisected this bug to:
-
-commit c0d9271ecbd891cdeb0fad1edcdd99ee717a655f
-Author: Yong Zhao <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
-Date:   Fri Feb 1 23:36:21 2019 +0000
-
-     drm/amdgpu: Delete user queue doorbell variables
-
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=3D1433ece4a000=
-00
-start commit:   f49aa1de Merge tag 'for-5.2-rc1-tag' of git://git.kernel.o.=
-.
-git tree:       net-next
-final crash:    https://syzkaller.appspot.com/x/report.txt?x=3D1633ece4a000=
-00
-console output: https://syzkaller.appspot.com/x/log.txt?x=3D1233ece4a00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3Dfc045131472947d=
-7
-dashboard link: https://syzkaller.appspot.com/bug?extid=3D94cc2a66fc228b23f=
-360
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=3D163731f8a0000=
-0
-
-Reported-by: syzbot+94cc2a66fc228b23f360-Pl5Pbv+GP7P466ipTTIvnc23WoclnBCfAL8bYrjMMd8@public.gmane.org
-Fixes: c0d9271ecbd8 ("drm/amdgpu: Delete user queue doorbell variables")
-
-For information about bisection process see: https://goo.gl/tpsmEJ#bisectio=
-n
-
---_000_DM6PR12MB27788B3B39A41027C62CEF5EF0000DM6PR12MB2778namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-This commit was reverted later. I guess the revert was probably not picked =
-up properly.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yong</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> syzbot &lt;syzbot&#43=
-;94cc2a66fc228b23f360-Pl5Pbv+GP7P466ipTTIvnc23WoclnBCfAL8bYrjMMd8@public.gmane.org&gt;<br>
-<b>Sent:</b> Tuesday, May 21, 2019 11:16 PM<br>
-<b>To:</b> Zhao, Yong; airlied-cv59FeDIM0c@public.gmane.org; Deucher, Alexander; amd-gfx@lists.=
-freedesktop.org; ast-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org; bpf-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; Koenig, Christian; da=
-niel-/w4YWyX8dFk@public.gmane.org; daniel-FeC+5ew28dpmcu3hnIyYJQ@public.gmane.org; davem-fT/PcQaiUtIeIZ0/mPfg9Q@public.gmane.org; Zhou, David(ChunM=
-ing); dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org;
- Quan, Evan; Kuehling, Felix; Wentland, Harry; kafai-b10kYP2dOMg@public.gmane.org; kuznet-BV4Dd6KD/ZI@public.gmane.org=
-.ac.ru; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; netdev-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; Zeng, Oak; Hu=
-ang, Ray; rex.zhu-5C7GfCeVMHo@public.gmane.org; songliubraving-b10kYP2dOMg@public.gmane.org; syzkaller-bugs@googlegrou=
-ps.com; yhs-b10kYP2dOMg@public.gmane.org; Zhao, Yong;
- yoshfuji-VfPWfsRibaP+Ru+s062T9g@public.gmane.org<br>
-<b>Subject:</b> Re: WARNING: locking bug in inet_autobind</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[CAUTION: External Email]<br>
-<br>
-syzbot has bisected this bug to:<br>
-<br>
-commit c0d9271ecbd891cdeb0fad1edcdd99ee717a655f<br>
-Author: Yong Zhao &lt;Yong.Zhao-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Date:&nbsp;&nbsp; Fri Feb 1 23:36:21 2019 &#43;0000<br>
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp; drm/amdgpu: Delete user queue doorbell variables<b=
-r>
-<br>
-bisection log:&nbsp; <a href=3D"https://syzkaller.appspot.com/x/bisect.txt?=
-x=3D1433ece4a00000">
-https://syzkaller.appspot.com/x/bisect.txt?x=3D1433ece4a00000</a><br>
-start commit:&nbsp;&nbsp; f49aa1de Merge tag 'for-5.2-rc1-tag' of git://git=
-.kernel.o..<br>
-git tree:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; net-next<br>
-final crash:&nbsp;&nbsp;&nbsp; <a href=3D"https://syzkaller.appspot.com/x/r=
-eport.txt?x=3D1633ece4a00000">
-https://syzkaller.appspot.com/x/report.txt?x=3D1633ece4a00000</a><br>
-console output: <a href=3D"https://syzkaller.appspot.com/x/log.txt?x=3D1233=
-ece4a00000">
-https://syzkaller.appspot.com/x/log.txt?x=3D1233ece4a00000</a><br>
-kernel config:&nbsp; <a href=3D"https://syzkaller.appspot.com/x/.config?x=
-=3Dfc045131472947d7">
-https://syzkaller.appspot.com/x/.config?x=3Dfc045131472947d7</a><br>
-dashboard link: <a href=3D"https://syzkaller.appspot.com/bug?extid=3D94cc2a=
-66fc228b23f360">
-https://syzkaller.appspot.com/bug?extid=3D94cc2a66fc228b23f360</a><br>
-syz repro:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href=3D"https://syzkaller.appsp=
-ot.com/x/repro.syz?x=3D163731f8a00000">
-https://syzkaller.appspot.com/x/repro.syz?x=3D163731f8a00000</a><br>
-<br>
-Reported-by: syzbot&#43;94cc2a66fc228b23f360-Pl5Pbv+GP7P466ipTTIvnc23WoclnBCfAL8bYrjMMd8@public.gmane.org<br>
-Fixes: c0d9271ecbd8 (&quot;drm/amdgpu: Delete user queue doorbell variables=
-&quot;)<br>
-<br>
-For information about bisection process see: <a href=3D"https://goo.gl/tpsm=
-EJ#bisection">
-https://goo.gl/tpsmEJ#bisection</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB27788B3B39A41027C62CEF5EF0000DM6PR12MB2778namp_--
-
---===============1655426836==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1655426836==--
+Rm9yIHBhc3N0aHJvdWdoLCBhZnRlciByZWJvb3RlZCB0aGUgVk0sIGRyaXZlciB3aWxsIGRvCmEg
+YmFjbyByZXNldCBiZWZvcmUgZG9pbmcgb3RoZXIgZHJpdmVyIGluaXRpYWxpemF0aW9uIGR1cmlu
+ZyBsb2FkaW5nCiBkcml2ZXIuIEZvciBkb2luZyB0aGUgYmFjbyByZXNldCwgaXQgd2lsbCBmaXJz
+dApjaGVjayB0aGUgYmFjbyByZXNldCBjYXBhYmlsaXR5LiBTbyBmaXJzdCBuZWVkIHRvIHNldCB0
+aGUKY2FwIGZyb20gdGhlIHZiaW9zIGluZm9ybWF0aW9uIG9yIGJhY28gcmVzZXQgd29uJ3QgYmUK
+ZW5hYmxlZC4KClNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4K
+LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAgICAgICB8
+ICA4ICsrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX3BwX2ludGVyZmFj
+ZS5oICAgICB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBs
+YXkuYyAgICAgIHwgMTYgKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfCAgMSArCiAuLi4vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVzLmMgICB8IDIyICsrKysrKysrKysrKysrKysrKysrKysK
+IC4uLi9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuaCAgIHwgIDEg
+KwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmggICAgICAgICAgfCAg
+MSArCiA3IGZpbGVzIGNoYW5nZWQsIDUwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggZDYyODZlZC4uMTQ0MTViMyAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMjYwNiw2ICsyNjA2
+LDE0IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
+CiAJICogIEUuZy4sIGRyaXZlciB3YXMgbm90IGNsZWFubHkgdW5sb2FkZWQgcHJldmlvdXNseSwg
+ZXRjLgogCSAqLwogCWlmICghYW1kZ3B1X3NyaW92X3ZmKGFkZXYpICYmIGFtZGdwdV9hc2ljX25l
+ZWRfcmVzZXRfb25faW5pdChhZGV2KSkgeworCQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNz
+ICYmIGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+c2V0X2FzaWNfYmFjb19jYXApIHsKKwkJCXIg
+PSBhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MtPnNldF9hc2ljX2JhY29fY2FwKGFkZXYtPnBvd2Vy
+cGxheS5wcF9oYW5kbGUpOworCQkJaWYgKHIpIHsKKwkJCQlkZXZfZXJyKGFkZXYtPmRldiwgInNl
+dCBiYWNvIGNhcGFiaWxpdHkgZmFpbGVkXG4iKTsKKwkJCQlnb3RvIGZhaWxlZDsKKwkJCX0KKwkJ
+fQorCiAJCXIgPSBhbWRncHVfYXNpY19yZXNldChhZGV2KTsKIAkJaWYgKHIpIHsKIAkJCWRldl9l
+cnIoYWRldi0+ZGV2LCAiYXNpYyByZXNldCBvbiBpbml0IGZhaWxlZFxuIik7CmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX3BwX2ludGVyZmFjZS5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9wcF9pbnRlcmZhY2UuaAppbmRleCAyYjU3OWJhLi4w
+ZGNjMThkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX3BwX2lu
+dGVyZmFjZS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2RfcHBfaW50ZXJm
+YWNlLmgKQEAgLTI4NSw2ICsyODUsNyBAQCBzdHJ1Y3QgYW1kX3BtX2Z1bmNzIHsKIAlpbnQgKCpz
+ZXRfaGFyZF9taW5fZmNsa19ieV9mcmVxKSh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGNsb2NrKTsK
+IAlpbnQgKCpzZXRfbWluX2RlZXBfc2xlZXBfZGNlZmNsaykodm9pZCAqaGFuZGxlLCB1aW50MzJf
+dCBjbG9jayk7CiAJaW50ICgqZ2V0X2FzaWNfYmFjb19jYXBhYmlsaXR5KSh2b2lkICpoYW5kbGUs
+IGJvb2wgKmNhcCk7CisJaW50ICgqc2V0X2FzaWNfYmFjb19jYXApKHZvaWQgKmhhbmRsZSk7CiAJ
+aW50ICgqZ2V0X2FzaWNfYmFjb19zdGF0ZSkodm9pZCAqaGFuZGxlLCBpbnQgKnN0YXRlKTsKIAlp
+bnQgKCpzZXRfYXNpY19iYWNvX3N0YXRlKSh2b2lkICpoYW5kbGUsIGludCBzdGF0ZSk7CiAJaW50
+ICgqZ2V0X3BwZmVhdHVyZV9zdGF0dXMpKHZvaWQgKmhhbmRsZSwgY2hhciAqYnVmKTsKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwppbmRleCBiZWExNTg3
+Li45ODU2NzYwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRf
+cG93ZXJwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2Vy
+cGxheS5jCkBAIC0xNDA0LDYgKzE0MDQsMjEgQEAgc3RhdGljIGludCBwcF9zZXRfYWN0aXZlX2Rp
+c3BsYXlfY291bnQodm9pZCAqaGFuZGxlLCB1aW50MzJfdCBjb3VudCkKIAlyZXR1cm4gcmV0Owog
+fQogCitzdGF0aWMgaW50IHBwX3NldF9hc2ljX2JhY29fY2FwKHZvaWQgKmhhbmRsZSkKK3sKKwlz
+dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyID0gaGFuZGxlOworCisJaWYgKCFod21ncikKKwkJcmV0dXJu
+IC1FSU5WQUw7CisKKwlpZiAoIWh3bWdyLT5wbV9lbiB8fCAhaHdtZ3ItPmh3bWdyX2Z1bmMtPnNl
+dF9hc2ljX2JhY29fY2FwKQorCQlyZXR1cm4gMDsKKworCWh3bWdyLT5od21ncl9mdW5jLT5zZXRf
+YXNpY19iYWNvX2NhcChod21ncik7CisKKwlyZXR1cm4gMDsKK30KKwogc3RhdGljIGludCBwcF9n
+ZXRfYXNpY19iYWNvX2NhcGFiaWxpdHkodm9pZCAqaGFuZGxlLCBib29sICpjYXApCiB7CiAJc3Ry
+dWN0IHBwX2h3bWdyICpod21nciA9IGhhbmRsZTsKQEAgLTE1NDYsNiArMTU2MSw3IEBAIHN0YXRp
+YyBjb25zdCBzdHJ1Y3QgYW1kX3BtX2Z1bmNzIHBwX2RwbV9mdW5jcyA9IHsKIAkuc2V0X2hhcmRf
+bWluX2RjZWZjbGtfYnlfZnJlcSA9IHBwX3NldF9oYXJkX21pbl9kY2VmY2xrX2J5X2ZyZXEsCiAJ
+LnNldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEgPSBwcF9zZXRfaGFyZF9taW5fZmNsa19ieV9mcmVx
+LAogCS5nZXRfYXNpY19iYWNvX2NhcGFiaWxpdHkgPSBwcF9nZXRfYXNpY19iYWNvX2NhcGFiaWxp
+dHksCisJLnNldF9hc2ljX2JhY29fY2FwID0gcHBfc2V0X2FzaWNfYmFjb19jYXAsCiAJLmdldF9h
+c2ljX2JhY29fc3RhdGUgPSBwcF9nZXRfYXNpY19iYWNvX3N0YXRlLAogCS5zZXRfYXNpY19iYWNv
+X3N0YXRlID0gcHBfc2V0X2FzaWNfYmFjb19zdGF0ZSwKIAkuZ2V0X3BwZmVhdHVyZV9zdGF0dXMg
+PSBwcF9nZXRfcHBmZWF0dXJlX3N0YXR1cywKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
+b3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKaW5kZXggZWQ2YzYzOC4uOGRjMjNlYiAxMDA2
+NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
+LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
+LmMKQEAgLTUxNzEsNiArNTE3MSw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3JfZnVu
+YyB2ZWdhMTBfaHdtZ3JfZnVuY3MgPSB7CiAJLm9kbl9lZGl0X2RwbV90YWJsZSA9IHZlZ2ExMF9v
+ZG5fZWRpdF9kcG1fdGFibGUsCiAJLmdldF9wZXJmb3JtYW5jZV9sZXZlbCA9IHZlZ2ExMF9nZXRf
+cGVyZm9ybWFuY2VfbGV2ZWwsCiAJLmdldF9hc2ljX2JhY29fY2FwYWJpbGl0eSA9IHNtdTlfYmFj
+b19nZXRfY2FwYWJpbGl0eSwKKwkuc2V0X2FzaWNfYmFjb19jYXAgPSB2ZWdhMTBfYmFjb19zZXRf
+Y2FwLAogCS5nZXRfYXNpY19iYWNvX3N0YXRlID0gc211OV9iYWNvX2dldF9zdGF0ZSwKIAkuc2V0
+X2FzaWNfYmFjb19zdGF0ZSA9IHZlZ2ExMF9iYWNvX3NldF9zdGF0ZSwKIAkuZW5hYmxlX21ncHVf
+ZmFuX2Jvb3N0ID0gdmVnYTEwX2VuYWJsZV9tZ3B1X2Zhbl9ib29zdCwKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0
+YWJsZXMuYwppbmRleCBiNjc2N2Q3Li44ZmRlYjIzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVzLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5j
+CkBAIC0xMzcxLDMgKzEzNzEsMjUgQEAgaW50IHZlZ2ExMF9nZXRfcG93ZXJwbGF5X3RhYmxlX2Vu
+dHJ5KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAKIAlyZXR1cm4gcmVzdWx0OwogfQorCitpbnQg
+dmVnYTEwX2JhY29fc2V0X2NhcChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQoreworCWludCByZXN1
+bHQgPSAwOworCWNvbnN0IEFUT01fVmVnYTEwX1BPV0VSUExBWVRBQkxFICpwb3dlcnBsYXlfdGFi
+bGU7CisKKwlwb3dlcnBsYXlfdGFibGUgPSBnZXRfcG93ZXJwbGF5X3RhYmxlKGh3bWdyKTsKKwor
+CVBQX0FTU0VSVF9XSVRIX0NPREUoKHBvd2VycGxheV90YWJsZSAhPSBOVUxMKSwKKwkJIk1pc3Np
+bmcgUG93ZXJQbGF5IFRhYmxlISIsIHJldHVybiAtMSk7CisKKwlyZXN1bHQgPSBjaGVja19wb3dl
+cnBsYXlfdGFibGVzKGh3bWdyLCBwb3dlcnBsYXlfdGFibGUpOworCisJUFBfQVNTRVJUX1dJVEhf
+Q09ERSgocmVzdWx0ID09IDApLAorCQkJICAgICJjaGVja19wb3dlcnBsYXlfdGFibGVzIGZhaWxl
+ZCIsIHJldHVybiByZXN1bHQpOworCisJc2V0X2h3X2NhcCgKKwkJCWh3bWdyLAorCQkJMCAhPSAo
+bGUzMl90b19jcHUocG93ZXJwbGF5X3RhYmxlLT51bFBsYXRmb3JtQ2FwcykgJiBBVE9NX1ZFR0Ex
+MF9QUF9QTEFURk9STV9DQVBfQkFDTyksCisJCQlQSE1fUGxhdGZvcm1DYXBzX0JBQ08pOworCXJl
+dHVybiByZXN1bHQ7Cit9ClwgTm8gbmV3bGluZSBhdCBlbmQgb2YgZmlsZQpkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxl
+cy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3Nw
+cHRhYmxlcy5oCmluZGV4IGQ4M2VkMmEuLmRhNWZiZWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuaAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVz
+LmgKQEAgLTU5LDQgKzU5LDUgQEAgZXh0ZXJuIGludCB2ZWdhMTBfZ2V0X251bWJlcl9vZl9wb3dl
+cnBsYXlfdGFibGVfZW50cmllcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKTsKIGV4dGVybiBpbnQg
+dmVnYTEwX2dldF9wb3dlcnBsYXlfdGFibGVfZW50cnkoc3RydWN0IHBwX2h3bWdyICpod21nciwg
+dWludDMyX3QgZW50cnlfaW5kZXgsCiAJCXN0cnVjdCBwcF9wb3dlcl9zdGF0ZSAqcG93ZXJfc3Rh
+dGUsIGludCAoKmNhbGxfYmFja19mdW5jKShzdHJ1Y3QgcHBfaHdtZ3IgKiwgdm9pZCAqLAogCQkJ
+CXN0cnVjdCBwcF9wb3dlcl9zdGF0ZSAqLCB2b2lkICosIHVpbnQzMl90KSk7CitleHRlcm4gaW50
+IHZlZ2ExMF9iYWNvX3NldF9jYXAoc3RydWN0IHBwX2h3bWdyICpod21ncik7CiAjZW5kaWYKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKaW5kZXggYmFjM2Q4NS4uMTQ0
+ODBhZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdy
+LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKQEAgLTMz
+OSw2ICszMzksNyBAQCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyB7CiAJaW50ICgqc2V0X2hhcmRfbWlu
+X2RjZWZjbGtfYnlfZnJlcSkoc3RydWN0IHBwX2h3bWdyICpod21nciwgdWludDMyX3QgY2xvY2sp
+OwogCWludCAoKnNldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEpKHN0cnVjdCBwcF9od21nciAqaHdt
+Z3IsIHVpbnQzMl90IGNsb2NrKTsKIAlpbnQgKCpnZXRfYXNpY19iYWNvX2NhcGFiaWxpdHkpKHN0
+cnVjdCBwcF9od21nciAqaHdtZ3IsIGJvb2wgKmNhcCk7CisJaW50ICgqc2V0X2FzaWNfYmFjb19j
+YXApKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpOwogCWludCAoKmdldF9hc2ljX2JhY29fc3RhdGUp
+KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGVudW0gQkFDT19TVEFURSAqc3RhdGUpOwogCWludCAo
+KnNldF9hc2ljX2JhY29fc3RhdGUpKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGVudW0gQkFDT19T
+VEFURSBzdGF0ZSk7CiAJaW50ICgqZ2V0X3BwZmVhdHVyZV9zdGF0dXMpKHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IsIGNoYXIgKmJ1Zik7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4
