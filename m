@@ -1,178 +1,90 @@
-From: Micah Morton <mortonm-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>
-Subject: Re: GPU passthrough support for Stoney [Radeon R2/R3/R4/R5 Graphics]?
-Date: Wed, 22 May 2019 16:00:03 -0700
-Message-ID: <CAJ-EccP1AqqjE0jfjGag4xv1Ox8fY0E6vXQvudKy+xnvaeti_A@mail.gmail.com>
-References: <CAJ-EccO1ue5hTtJ8m4utQp+8dSsWm60JFA5YOT1gCODnYcFUog@mail.gmail.com>
- <CADnq5_N=-cWz99T4ma_=6-_bu-Ty2twsFt=KGtzTdWn1hcDSrA@mail.gmail.com>
- <CAJ-EccOH2dXPD+XeHQcqZYD+xa2eB6SVp6oFk4AD0vy=H+9+0w@mail.gmail.com>
- <CADnq5_OTk4nE4G6FHmSRmvNLNO4hJbVC9cuxAiGEZk1_b2C=9w@mail.gmail.com>
- <CAJ-EccPFdxNTe5ESwJDg0MKSZasigkcg9CjxN__MgXaF2RURQw@mail.gmail.com>
- <CADnq5_Osm1NaWWrDNpNNV1c+nyw3NfPyEi=_RjuUNh7hkAfzvQ@mail.gmail.com>
- <CAJ-EccNEMO3XbHWgUUpNtnJM7v1P4uCWF-v4hgq4fG45v3GvXg@mail.gmail.com>
- <CADnq5_NxmBbcJ8oy8vu-ajWfaRqwqiBuHKnwDJk+-Sp2NCM7mg@mail.gmail.com>
+From: Evgenii Stepanov <eugenis@google.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Wed, 22 May 2019 16:03:36 -0700
+Message-ID: <CAFKCwrjOjdJAbcABp3qxwyYy+hgfyQirvmqGkDSJVJe5pSz0Uw@mail.gmail.com>
+References: <cover.1557160186.git.andreyknvl@google.com> <20190517144931.GA56186@arrakis.emea.arm.com>
+ <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
+ <20190521182932.sm4vxweuwo5ermyd@mbp> <201905211633.6C0BF0C2@keescook>
+ <20190522101110.m2stmpaj7seezveq@mbp> <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
+ <20190522163527.rnnc6t4tll7tk5zw@mbp> <201905221316.865581CF@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_NxmBbcJ8oy8vu-ajWfaRqwqiBuHKnwDJk+-Sp2NCM7mg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <201905221316.865581CF@keescook>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Kees Cook <keescook@chromium.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, enh <enh@google.com>, Andrey Konovalov <andreyknvl@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBNYXkgMjIsIDIwMTkgYXQgMTozOSBQTSBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVy
-QGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBPbiBUdWUsIE1heSAyMSwgMjAxOSBhdCAxOjQ2IFBNIE1p
-Y2FoIE1vcnRvbiA8bW9ydG9ubUBjaHJvbWl1bS5vcmc+IHdyb3RlOgo+ID4KPiA+IE9uIEZyaSwg
-TWF5IDE3LCAyMDE5IGF0IDk6NTkgQU0gQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5j
-b20+IHdyb3RlOgo+ID4gPgo+ID4gPiBPbiBGcmksIE1heSAxNywgMjAxOSBhdCAxMTozNiBBTSBN
-aWNhaCBNb3J0b24gPG1vcnRvbm1AY2hyb21pdW0ub3JnPiB3cm90ZToKPiA+ID4gPgo+ID4gPiA+
-IE9uIFRodSwgTWF5IDE2LCAyMDE5IGF0IDE6MzkgUE0gQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hl
-ckBnbWFpbC5jb20+IHdyb3RlOgo+ID4gPiA+ID4KPiA+ID4gPiA+IE9uIFRodSwgTWF5IDE2LCAy
-MDE5IGF0IDQ6MDcgUE0gTWljYWggTW9ydG9uIDxtb3J0b25tQGNocm9taXVtLm9yZz4gd3JvdGU6
-Cj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IE9uIFdlZCwgTWF5IDE1LCAyMDE5IGF0IDc6MTkgUE0g
-QWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+IHdyb3RlOgo+ID4gPiA+ID4gPiA+
-Cj4gPiA+ID4gPiA+ID4gT24gV2VkLCBNYXkgMTUsIDIwMTkgYXQgMjoyNiBQTSBNaWNhaCBNb3J0
-b24gPG1vcnRvbm1AY2hyb21pdW0ub3JnPiB3cm90ZToKPiA+ID4gPiA+ID4gPiA+Cj4gPiA+ID4g
-PiA+ID4gPiBIaSBmb2xrcywKPiA+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gPiBJJ20gaW50
-ZXJlc3RlZCBpbiBydW5uaW5nIGEgVk0gb24gYSBzeXN0ZW0gd2l0aCBhbiBpbnRlZ3JhdGVkIFN0
-b25leQo+ID4gPiA+ID4gPiA+ID4gW1JhZGVvbiBSMi9SMy9SNC9SNSBHcmFwaGljc10gY2FyZCBh
-bmQgcGFzc2luZyB0aHJvdWdoIHRoZSBncmFwaGljcwo+ID4gPiA+ID4gPiA+ID4gY2FyZCB0byB0
-aGUgVk0gdXNpbmcgdGhlIElPTU1VLiBJJ20gd29uZGVyaW5nIHdoZXRoZXIgdGhpcyBpcyBmZWFz
-aWJsZQo+ID4gPiA+ID4gPiA+ID4gYW5kIHN1cHBvc2VkIHRvIGJlIGRvYWJsZSB3aXRoIHRoZSBy
-aWdodCBzZXR1cCAoYXMgb3Bwb3NlZCB0byBwYXNzaW5nCj4gPiA+ID4gPiA+ID4gPiBhIGRpc2Ny
-ZXRlIEdQVSB0byB0aGUgVk0sIHdoaWNoIEkgdGhpbmsgaXMgZGVmaW5pdGVseSBkb2FibGU/KS4K
-PiA+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gPiBTbyBmYXIsIEkgY2FuIGRvIGFsbCB0aGUg
-cWVtdS9rdm0vdmZpby9pb21tdSBzdHVmZiB0byBydW4gdGhlIFZNIGFuZAo+ID4gPiA+ID4gPiA+
-ID4gcGFzcyB0aGUgaW50ZWdyYXRlZCBHUFUgdG8gaXQsIGJ1dCB0aGUgZHJtIGRyaXZlciBpbiB0
-aGUgVk0gZmFpbHMKPiA+ID4gPiA+ID4gPiA+IGR1cmluZyBhbWRncHVfZGV2aWNlX2luaXQoKS4g
-U3BlY2lmaWNhbGx5LCB0aGUgbG9ncyBzaG93IHRoZSBTTVUgYmVpbmcKPiA+ID4gPiA+ID4gPiA+
-IHVucmVzcG9uc2l2ZSwgd2hpY2ggbGVhZHMgdG8gYSAnU01VIGZpcm13YXJlIGxvYWQgZmFpbGVk
-JyBlcnJvcgo+ID4gPiA+ID4gPiA+ID4gbWVzc2FnZSBhbmQga2VybmVsIHBhbmljLiBJIGNhbiBz
-aGFyZSBWTSBsb2dzIGFuZCB0aGUgaW52b2NhdGlvbiBvZgo+ID4gPiA+ID4gPiA+ID4gcWVtdSBh
-bmQgc3VjaCBpZiBoZWxwZnVsLCBidXQgZmlyc3Qgd2FudGVkIHRvIGtub3cgYXQgYSBoaWdoIGxl
-dmVsIGlmCj4gPiA+ID4gPiA+ID4gPiB0aGlzIHNob3VsZCBiZSBmZWFzaWJsZT8KPiA+ID4gPiA+
-ID4gPiA+Cj4gPiA+ID4gPiA+ID4gPiBQLlMuOiBJJ20gbm90IGluaXRpYWxpemluZyB0aGUgR1BV
-IGluIHRoZSBob3N0IGJpb3Mgb3IgaG9zdCBrZXJuZWwgYXQKPiA+ID4gPiA+ID4gPiA+IGFsbCwg
-c28gSSBzaG91bGQgYmUgcGFzc2luZyBhIGZyZXNoIEdQVSB0byB0aGUgVk0uIEFsc28sIEknbSBw
-cmV0dHkKPiA+ID4gPiA+ID4gPiA+IHN1cmUgSSdtIHJ1bm5pbmcgdGhlIGNvcnJlY3QgVkdBIGJp
-b3MgZm9yIHRoaXMgR1BVIGluIHRoZSBndWVzdCBWTQo+ID4gPiA+ID4gPiA+ID4gYmlvcyBiZWZv
-cmUgZ3Vlc3QgYm9vdC4KPiA+ID4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gPiBBbnkgY29tbWVu
-dHMvc3VnZ2VzdGlvbnMgd291bGQgYmUgYXBwcmVjaWF0ZWQhCj4gPiA+ID4gPiA+ID4KPiA+ID4g
-PiA+ID4gPiBJdCBzaG91bGQgd29yayBpbiBhdCBsZWFzdCBvbmNlIGFzIGxvbmcgYXMgeW91ciB2
-bSBpcyBwcm9wZXJseSBzZXQgdXAuCj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+IElzIHRoZXJlIGFu
-eSByZWFzb24gcnVubmluZyBjb3JlYm9vdCB2cyBVRUZJIGF0IGhvc3QgYm9vdCB3b3VsZCBtYWtl
-IGEKPiA+ID4gPiA+ID4gZGlmZmVyZW5jZT8gSSB3YXMgcnVubmluZyBhIG1vZGlmaWVkIHZlcnNp
-b24gb2YgY29yZWJvb3QgdGhhdCBhdm9pZHMKPiA+ID4gPiA+ID4gZG9pbmcgYW55IEdQVSBpbml0
-aWFsaXphdGlvbiBpbiBmaXJtd2FyZSAtLSBzbyB0aGUgZmlyc3QgUE9TVCBoYXBwZW5zCj4gPiA+
-ID4gPiA+IGluc2lkZSB0aGUgZ3Vlc3QuCj4gPiA+ID4gPgo+ID4gPiA+ID4gVGhlIEdQVSBvbiBB
-UFVzIHNoYXJlcyBhIGJ1bmNoIG9mIHJlc291cmNlcyB3aXRoIHRoZSBDUFUuICBUaGVyZSBhcmUg
-YQo+ID4gPiA+ID4gYnVuY2ggb2YgYmxvY2tzIHdoaWNoIGFyZSBzaGFyZWQgYW5kIG5lZWQgdG8g
-YmUgaW5pdGlhbGl6ZWQgb24gYm90aAo+ID4gPiA+ID4gZm9yIGV2ZXJ5dGhpbmcgdG8gd29yayBw
-cm9wZXJseS4KPiA+ID4gPgo+ID4gPiA+IEludGVyZXN0aW5nLiBTbyBza2lwcGluZyBydW5uaW5n
-IHRoZSB2YmlvcyBpbiB0aGUgaG9zdCBhbmQgd2FpdGluZwo+ID4gPiA+IHVudGlsIHJ1bm5pbmcg
-aXQgZm9yIHRoZSBmaXJzdCB0aW1lIGluIHRoZSBndWVzdCBTZWFCSU9TIGlzIGEgYmFkCj4gPiA+
-ID4gaWRlYT8gV291bGQgaXQgYmUgYmV0dGVyIHRvIGxldCBBUFUrQ1BVIGluaXRpYWxpemUgbm9y
-bWFsbHkgaW4gdGhlCj4gPiA+ID4gaG9zdCBhbmQgdGhlbiBza2lwIHRyeWluZyB0byBydW4gdGhl
-IHZiaW9zIGluIGd1ZXN0IFNlYUJJT1MgYW5kIGp1c3QKPiA+ID4gPiBkbyBzb21lIGtpbmQgb2Yg
-cmVzZXQgYmVmb3JlIHRoZSBkcm0gZHJpdmVyIHN0YXJ0cyBhY2Nlc3NpbmcgaXQgZnJvbQo+ID4g
-PiA+IHRoZSBndWVzdD8KPiA+ID4KPiA+ID4gSWYgeW91IGxldCB0aGUgc2Jpb3MgaW5pdGlhbGl6
-ZSB0aGluZ3MsIGl0IHNob3VsZCB3b3JrLiAgVGhlIGRyaXZlcgo+ID4gPiB3aWxsIGRvIHRoZSBy
-aWdodCB0aGluZyB0byBpbml0IHRoZSBjYXJkIHdoZW4gaXQgbG9hZHMgd2hldGhlciBpdHMKPiA+
-ID4gcnVubmluZyBvbiBiYXJlIG1ldGFsIG9yIGluIGEgVk0uICBXZSd2ZSBuZXZlciB0ZXN0ZWQg
-YW55IHNjZW5hcmlvcwo+ID4gPiB3aGVyZSB0aGUgR1BVIG9uIEFQVXMgaXMgbm90IGhhbmRsZWQg
-YnkgdGhlIHNiaW9zLiAgTm90ZSB0aGF0IHRoZSBHUFUKPiA+ID4gZG9lcyBub3QgaGF2ZSB0byBi
-ZSBwb3N0ZWQgcGVyIHNlLCBpdCBqdXN0IG5lZWRzIHRvIGhhdmUgYmVlbiBwcm9wZXJseQo+ID4g
-PiB0YWtlbiBpbnRvIGFjY291bnQgd2hlbiB0aGUgc2Jpb3MgY29tZXMgdXAgc28gdGhhdCBzaGFy
-ZWQgY29tcG9uZW50cwo+ID4gPiBhcmUgaW5pdGlhbGl6ZWQgY29ycmVjdGx5LiAgSSBkb24ndCBr
-bm93IHdoYXQgeW91ciBwYXRjaGVkIHN5c3RlbSBkb2VzCj4gPiA+IG9yIGRvZXNuJ3QgZG8gd2l0
-aCByZXNwZWN0IHRvIHRoZSBwbGF0Zm9ybSBpbml0aWFsaXphdGlvbi4KPiA+Cj4gPiBTbyBpdCBz
-b3VuZHMgbGlrZSB5b3UgYXJlIHN1Z2dlc3RpbmcgdGhlIGZvbGxvd2luZzoKPiA+Cj4gPiBhKSBS
-dW4gdGhlIHZiaW9zIGFzIHBhcnQgb2YgdGhlIGhvc3Qgc2Jpb3MgdG8gaW5pdGlhbGl6ZSBzdHVm
-ZiBhbmQKPiA+IHBhdGNoIHVwIHRoZSB2Ymlvcwo+ID4KPiA+IGIpIERvbid0IHJ1biB0aGUgZHJt
-L2FtZGdwdSBkcml2ZXIgaW4gdGhlIGhvc3QsIHdhaXQgdW50aWwgdGhlIGd1ZXN0IGZvciB0aGF0
-Cj4gPgo+ID4gYykgQXZvaWQgcnVubmluZyB0aGUgdmJpb3MgKGFnYWluKSBpbiB0aGUgZ3Vlc3Qg
-c2Jpb3Mgc2luY2UgaXQgaGFzCj4gPiBhbHJlYWR5IGJlZW4gcnVuLiBBbHRob3VnaCBzaW5jZSAi
-dGhlIGRyaXZlciBuZWVkcyBhY2Nlc3MgdG8gdGhlIHZiaW9zCj4gPiBpbWFnZSBpbiB0aGUgZ3Vl
-c3QgdG8gZ2V0IGRldmljZSBzcGVjaWZpYyBjb25maWd1cmF0aW9uIGRldGFpbHMiIEkKPiA+IHNo
-b3VsZCBzdGlsbCBkbyAnLWRldmljZQo+ID4gdmZpby1wY2ksLi4uLHJvbWZpbGU9L3BhdGgvdG8v
-dmJpb3MtdGhhdC13YXMtZml4ZWQtdXAtYnktaG9zdC1zYmlvcycsCj4gPiBidXQgc2hvdWxkIHBh
-dGNoIHRoZSBndWVzdCBzYmlvcyB0byBhdm9pZCBydW5uaW5nIHRoZSB2YmlvcyBhZ2FpbiBpbgo+
-ID4gdGhlIGd1ZXN0Pwo+ID4KPiA+IGQpIHJ1biB0aGUgZHJtL2FtZGdwdSBkcml2ZXIgaW4gdGhl
-IGd1ZXN0IG9uIHRoZSBoYXJkd2FyZSB0aGF0IHdhcwo+ID4gaW5pdGlhbGl6ZWQgaW4gdGhlIGhv
-c3Qgc2Jpb3MKPiA+Cj4gPiBBbSBJIGdldHRpbmcgdGhpcyByaWdodD8KPiA+Cj4KPiBJIHdvdWxk
-IHN1Z2dlc3Qgc3RhcnRpbmcgd2l0aCBhIHN0YW5kYXJkIHNiaW9zL3ZiaW9zLiAgQm9vdCB0aGUg
-c3lzdGVtCj4gYXMgdXN1YWwuICBZb3UgY2FuIGJsYWNrbGlzdCBhbWRncHUgaWYgeW91IGRvbid0
-IHdhbnQgZ3B1IGRyaXZlcgo+IGxvYWRlZCBvbiB0aGUgaG9zdC4gIEdldCBhIGNvcHkgb2YgdGhl
-IHZiaW9zIGltYWdlLiAgRGVwZW5kaW5nIG9uIHRoZQo+IHBsYXRmb3JtLCBpdCBtYXkgYmUgYXZh
-aWxhYmxlIHZpYSB0aGUgc3RhbmRhcmQgdmJpb3Mgc2hhZG93IGxvY2F0aW9uCj4gb3IgaXQgbWF5
-IGJlIGF0IHRoZSBzdGFydCBvZiBjYXJ2ZW91dCBvciBpdCBtYXkgYmUgYXZhaWxhYmxlIHZpYSBh
-bgo+IEFDUEkgaW50ZXJmYWNlLiAgVGhlIGRyaXZlciBoYXMgdGhlIGxvZ2ljIHRvIGZldGNoIGl0
-LiAgWW91IGNhbiBkdW1wIGEKPiBjb3B5IGZyb20gdGhlIGRyaXZlciB2aWEgL3N5cy9rZXJuZWwv
-ZGVidWcvZHJpL1gvYW1kZ3B1X3ZiaW9zIHdoZXJlIFgKPiBpcyB0aGUgbnVtYmVyIG9mIHRoZSBk
-cmkgZGV2aWNlIG9mIHRoZSBjYXJkIGluIHF1ZXN0aW9uLiAgVGhlbiBzdGFydAoKSSd2ZSBiZWVu
-IGFibGUgdG8gcmV0cmlldmUgdGhlIHZiaW9zIGZyb20KL3N5cy9rZXJuZWwvZGVidWcvZHJpL1gv
-YW1kZ3B1X3ZiaW9zIGFzIHdlbGwgYXMKL3N5cy9kZXZpY2VzL3BjaVhYWFg6WFgvWFhYWDpYWDpY
-WC5YL3JvbSAoYWx0aG91Z2ggdGhleSBkbyBkaWZmZXIgaW4KNDYgZGlmZmVyZW50IGJ5dGUgbG9j
-YXRpb25zLCBub3Qgc3VyZSBpZiB0aGlzIGlzIGV4cGVjdGVkKS4gSW4gYm90aApjYXNlcywgcGFz
-c2luZyB0aGUgdmJpb3MgdGhyb3VnaCB0byB0aGUgVk0gcmVzdWx0cyBpbiBTZWFCSU9TIGhhbmdp
-bmcKd2hpbGUgZXhlY3V0aW5nIHRoZSB2YmlvczoKCkZvdW5kIDIgY3B1KHMpIG1heCBzdXBwb3J0
-ZWQgMiBjcHUocykKQ29weWluZyBQSVIgZnJvbSAweDdmZmJmYzYwIHRvIDB4MDAwZjVlMDAKQ29w
-eWluZyBNUFRBQkxFIGZyb20gMHgwMDAwNmU2MC83ZmZhMzRjMCB0byAweDAwMGY1Y2YwCkNvcHlp
-bmcgU01CSU9TIGVudHJ5IHBvaW50IGZyb20gMHgwMDAwNmU2MCB0byAweDAwMGY1YjEwClNjYW4g
-Zm9yIFZHQSBvcHRpb24gcm9tClJ1bm5pbmcgb3B0aW9uIHJvbSBhdCBjMDAwOjAwMDMKSEFOR1Mg
-SEVSRSBJTkRFRklOSVRFTFkgPC0tCgpXaGljaCBpcyB3aHkgSSB3YXMgYXNraW5nIGFib3V0IG5v
-dCBydW5uaW5nIHRoZSB2YmlvcyBpbiB0aGUgZ3Vlc3QKU2VhQklPUy4gR3JhbnRlZCwgdGhlIHNi
-aW9zIEkndmUgYmVlbiBydW5uaW5nIGluIHRoZSBob3N0IGlzIENocm9tZSBPUwpjb3JlYm9vdCBm
-aXJtd2FyZSAtLSBzbyBwcm9iYWJseSBub3Qgd2hhdCB5b3UgbWVhbiBieSAic3RhbmRhcmQKc2Jp
-b3MiPyBZb3UgdGhpbmsgdGhlcmUgaXMgYSBnb29kIGNoYW5jZSBydW5uaW5nIGNvcmVib290IGlu
-c3RlYWQgb2YKdGhlICJzdGFuZGFyZCBzYmlvcyIgaXMgd2hhdCBpcyBjYXVzaW5nIHRoaW5ncyB0
-byBmYWlsPwoKPiBWTSB3aXRoIHRoZSBkZXZpY2UgcGFzc2VkIHRocm91Z2guICBEb24ndCB3b3Jy
-eSBhYm91dCBydW5uaW5nIHRoZQo+IHZiaW9zIG9yIG5vdCBpbiB0aGUgaG9zdCB2cy4gdGhlIGd1
-ZXN0LiAgVGhlIGRyaXZlciB3aWxsIGRvIHRoZSByaWdodAo+IHRoaW5nLgo+Cj4gQWxleAo+Cj4g
-PiA+Cj4gPiA+ID4KPiA+ID4gPiA+Cj4gPiA+ID4gPiA+Cj4gPiA+ID4gPiA+ID4gTm90ZSB0aGF0
-IHRoZSBkcml2ZXIgbmVlZHMgYWNjZXNzIHRvIHRoZSB2YmlvcyBpbWFnZSBpbiB0aGUgZ3Vlc3Qg
-dG8KPiA+ID4gPiA+ID4gPiBnZXQgZGV2aWNlIHNwZWNpZmljIGNvbmZpZ3VyYXRpb24gZGV0YWls
-cyAoY2xvY2tzLCBkaXNwbGF5IGNvbm5lY3Rvcgo+ID4gPiA+ID4gPiA+IGNvbmZpZ3VyYXRpb24s
-IGV0Yy4pLgo+ID4gPiA+ID4gPgo+ID4gPiA+ID4gPiBJcyB0aGVyZSBhbnl0aGluZyBJIG5lZWQg
-dG8gZG8gdG8gZW5zdXJlIHRoaXMgYmVzaWRlcyBwYXNzaW5nICctZGV2aWNlCj4gPiA+ID4gPiA+
-IHZmaW8tcGNpLC4uLixyb21maWxlPS9wYXRoL3RvL3ZnYXJvbScgdG8gcWVtdT8KPiA+ID4gPiA+
-Cj4gPiA+ID4gPiBZb3UgbmVlZCB0aGUgYWN0dWFsIHZiaW9zIHJvbSBpbWFnZSBmcm9tIHlvdXIg
-c3lzdGVtLiAgVGhlIGltYWdlIGlzCj4gPiA+ID4gPiBib2FyZCBzcGVjaWZpYy4KPiA+ID4gPgo+
-ID4gPiA+IEkgc2hvdWxkIGhhdmUgdGhlIGNvcnJlY3QgdmJpb3Mgcm9tIGltYWdlIGZvciBteSBi
-b2FyZC4gSSdtIGV4dHJhY3RpbmcKPiA+ID4gPiBpdCBmcm9tIHRoZSBmaXJtd2FyZSBpbWFnZSAo
-dGhhdCB3b3JrcyBmb3IgcmVndWxhciBncmFwaGljcyBpbml0Cj4gPiA+ID4gd2l0aG91dCB0aGlz
-IFZNIHN0dWZmKSBmb3IgdGhlIGJvYXJkIGF0IGJ1aWxkIHRpbWUgKHJhdGhlciB0aGFuCj4gPiA+
-ID4gZ3JhYmJpbmcgaXQgZnJvbSAvc3lzL2RldmljZXMvcGNpLi4uIGF0IHJ1bnRpbWUpLCBzbyBp
-dCBzaG91bGRuJ3QgYmUKPiA+ID4gPiBtb2RpZmllZCBvciBjb3JydXB0ZWQgaW4gYW55IHdheS4K
-PiA+ID4KPiA+ID4gVGhlIHZiaW9zIGltYWdlIGlzIHBhdGNoZWQgYXQgYm9vdCB0aW1lIGJ5IHRo
-ZSBzYmlvcyBpbWFnZSBmb3IgcnVuCj4gPiA+IHRpbWUgY29uZmlndXJhdGlvbiBzdHVmZi4gIEZv
-ciBleGFtcGxlLCBzb21lIG9mIHRoZSBwY2llIGxhbmVzIGFyZQo+ID4gPiBzaGFyZWQgd2l0aCBk
-aXNwbGF5IGxhbmVzIGFuZCBjYW4gYmUgdXNlZCBmb3IgZWl0aGVyIGRpc3BsYXkgb3IgcGNpZQo+
-ID4gPiBhZGQgaW4gY2FyZHMuICBUaGUgc2Jpb3MgZGV0ZXJtaW5lcyB0aGlzIGF0IGJvb3QgYW5k
-IHBhdGNoZXMgdGhlIHZiaW9zCj4gPiA+IGRpc3BsYXkgdGFibGVzIHNvIHRoZSBkcml2ZXIga25v
-d3MgdGhhdCB0aGUgZGlzcGxheXMgYXJlIG5vdAo+ID4gPiBhdmFpbGFibGUuICBBbHNvIHRoaW5n
-cyBsaWtlIGZsYXQgcGFuZWxzIG9uIGxhcHRvcHMuICBPRU1zIG1heSBoYXZlCj4gPiA+IHNldmVy
-YWwgZGlmZmVyZW50IGZsYXQgcGFuZWwgbW9kZWxzIHRoZXkgdXNlIHdpdGggYSBwYXJ0aWN1bGFy
-Cj4gPiA+IHBsYXRmb3JtIGFuZCB0aGUgc2Jpb3MgcGF0Y2hlcyB0aGUgdmJpb3MgZGlzcGxheSB0
-YWJsZXMgd2l0aCB0aGUKPiA+ID4gcHJvcGVyIHBhcmFtZXRlcnMgZm9yIHRoZSBwYW5lbCBpbiB1
-c2UuICBUaGUgc2Jpb3MgYWxzbyBwYXRjaGVzIHRhYmxlcwo+ID4gPiByZWxhdGVkIHRvIGJhbmR3
-aWR0aC4gIEUuZy4sIHRoZSB0eXBlIGFuZCBzcGVlZCBhbmQgbnVtYmVyIG9mIGNoYW5uZWxzCj4g
-PiA+IG9mIHRoZSBzeXN0ZW0gcmFtIHNvIHRoYXQgdGhlIEdQVSBkcml2ZXIgY2FuIHNldCBwcm9w
-ZXIgbGltaXRzIG9uCj4gPiA+IHRoaW5ncyBsaWtlIGRpc3BsYXkgbW9kZXMuICBTbyB5b3UgbmVl
-ZCB0byB1c2UgdGhlIHZiaW9zIGltYWdlIHRoYXQgaXMKPiA+ID4gcHJvdmlkZWQgYnkgdGhlIHNi
-aW9zIGF0IGJvb3QuCj4gPgo+ID4gT2sgeWVhaCBnb29kIHBvaW50LiBJIG5vdGljZWQgdGhhdCB0
-aGVyZSBhcmUgYSBmZXcgaHVuZHJlZCBieXRlCj4gPiBsb2NhdGlvbnMgaW4gdGhlIHZiaW9zIHRo
-YXQgYXJlIGRpZmZlcmVudCBiZXR3ZWVuIHRoZSBwcmUtYm9vdCB2ZXJzaW9uCj4gPiBmcm9tIGJ1
-aWxkIHRpbWUgYW5kIHRoZSB2ZXJzaW9uIGR1bXBlZCBmcm9tIHN5c2ZzIGF0IHJ1bnRpbWUsIHNv
-Cj4gPiBzb21ldGhpbmcgbXVzdCBiZSBnZXR0aW5nIHBhdGNoZWQgdXAuCj4gPgo+ID4gPgo+ID4g
-PiBBbGV4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Wed, May 22, 2019 at 1:47 PM Kees Cook <keescook@chromium.org> wrote:
+>
+> On Wed, May 22, 2019 at 05:35:27PM +0100, Catalin Marinas wrote:
+> > The two hard requirements I have for supporting any new hardware feature
+> > in Linux are (1) a single kernel image binary continues to run on old
+> > hardware while making use of the new feature if available and (2) old
+> > user space continues to run on new hardware while new user space can
+> > take advantage of the new feature.
+>
+> Agreed! And I think the series meets these requirements, yes?
+>
+> > For MTE, we just can't enable it by default since there are applications
+> > who use the top byte of a pointer and expect it to be ignored rather
+> > than failing with a mismatched tag. Just think of a hwasan compiled
+> > binary where TBI is expected to work and you try to run it with MTE
+> > turned on.
+>
+> Ah! Okay, here's the use-case I wasn't thinking of: the concern is TBI
+> conflicting with MTE. And anything that starts using TBI suddenly can't
+> run in the future because it's being interpreted as MTE bits? (Is that
+> the ABI concern? I feel like we got into the weeds about ioctl()s and
+> one-off bugs...)
+>
+> So there needs to be some way to let the kernel know which of three
+> things it should be doing:
+> 1- leaving userspace addresses as-is (present)
+> 2- wiping the top bits before using (this series)
+> 3- wiping the top bits for most things, but retaining them for MTE as
+>    needed (the future)
+>
+> I expect MTE to be the "default" in the future. Once a system's libc has
+> grown support for it, everything will be trying to use MTE. TBI will be
+> the special case (but TBI is effectively a prerequisite).
+>
+> AFAICT, the only difference I see between 2 and 3 will be the tag handling
+> in usercopy (all other places will continue to ignore the top bits). Is
+> that accurate?
+>
+> Is "1" a per-process state we want to keep? (I assume not, but rather it
+> is available via no TBI/MTE CONFIG or a boot-time option, if at all?)
+>
+> To choose between "2" and "3", it seems we need a per-process flag to
+> opt into TBI (and out of MTE). For userspace, how would a future binary
+> choose TBI over MTE? If it's a library issue, we can't use an ELF bit,
+> since the choice may be "late" after ELF load (this implies the need
+> for a prctl().) If it's binary-only ("built with HWKASan") then an ELF
+> bit seems sufficient. And without the marking, I'd expect the kernel to
+> enforce MTE when there are high bits.
+>
+> > I would also expect the C library or dynamic loader to check for the
+> > presence of a HWCAP_MTE bit before starting to tag memory allocations,
+> > otherwise it would get SIGILL on the first MTE instruction it tries to
+> > execute.
+>
+> I've got the same question as Elliot: aren't MTE instructions just NOP
+> to older CPUs? I.e. if the CPU (or kernel) don't support it, it just
+> gets entirely ignored: checking is only needed to satisfy curiosity
+> or behavioral expectations.
+
+MTE instructions are not NOP. Most of them have side effects (changing
+register values, zeroing memory).
+This only matters for stack tagging, though. Heap tagging is a runtime
+decision in the allocator.
+
+If an image needs to run on old hardware, it will have to do heap tagging only.
+
+> To me, the conflict seems to be using TBI in the face of expecting MTE to
+> be the default state of the future. (But the internal changes needed
+> for TBI -- this series -- is a prereq for MTE.)
+>
+> --
+> Kees Cook
