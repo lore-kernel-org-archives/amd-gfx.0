@@ -1,142 +1,203 @@
-From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Need to set the baco cap before baco reset
-Date: Wed, 22 May 2019 18:06:31 +0800
-Message-ID: <1558519591-30349-1-git-send-email-Emily.Deng@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Wed, 22 May 2019 11:11:11 +0100
+Message-ID: <20190522101110.m2stmpaj7seezveq@mbp>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <20190517144931.GA56186@arrakis.emea.arm.com>
+ <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
+ <20190521182932.sm4vxweuwo5ermyd@mbp>
+ <201905211633.6C0BF0C2@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+Content-Disposition: inline
+In-Reply-To: <201905211633.6C0BF0C2@keescook>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Kees Cook <keescook@chromium.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgenii Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai
+List-Id: amd-gfx.lists.freedesktop.org
 
-Rm9yIHBhc3N0aHJvdWdoLCBhZnRlciByZWJvb3RlZCB0aGUgVk0sIGRyaXZlciB3aWxsIGRvCmEg
-YmFjbyByZXNldCBiZWZvcmUgZG9pbmcgb3RoZXIgZHJpdmVyIGluaXRpYWxpemF0aW9uIGR1cmlu
-ZyBsb2FkaW5nCiBkcml2ZXIuIEZvciBkb2luZyB0aGUgYmFjbyByZXNldCwgaXQgd2lsbCBmaXJz
-dApjaGVjayB0aGUgYmFjbyByZXNldCBjYXBhYmlsaXR5LiBTbyBmaXJzdCBuZWVkIHRvIHNldCB0
-aGUKY2FwIGZyb20gdGhlIHZiaW9zIGluZm9ybWF0aW9uIG9yIGJhY28gcmVzZXQgd29uJ3QgYmUK
-ZW5hYmxlZC4KClNpZ25lZC1vZmYtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4K
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgICAgICAgICB8
-ICA4ICsrKysrKysrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX3BwX2ludGVyZmFj
-ZS5oICAgICB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBs
-YXkuYyAgICAgIHwgMTYgKysrKysrKysrKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMgfCAgMSArCiAuLi4vYW1kL3Bvd2VycGxheS9od21n
-ci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVzLmMgICB8IDIyICsrKysrKysrKysrKysrKysrKysrKysK
-IC4uLi9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuaCAgIHwgIDEg
-KwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmggICAgICAgICAgfCAg
-MSArCiA3IGZpbGVzIGNoYW5nZWQsIDUwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggZDYyODZlZC4uMTQ0MTViMyAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpAQCAtMjYwNiw2ICsyNjA2
-LDE0IEBAIGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-CiAJICogIEUuZy4sIGRyaXZlciB3YXMgbm90IGNsZWFubHkgdW5sb2FkZWQgcHJldmlvdXNseSwg
-ZXRjLgogCSAqLwogCWlmICghYW1kZ3B1X3NyaW92X3ZmKGFkZXYpICYmIGFtZGdwdV9hc2ljX25l
-ZWRfcmVzZXRfb25faW5pdChhZGV2KSkgeworCQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNz
-ICYmIGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+c2V0X2FzaWNfYmFjb19jYXApIHsKKwkJCXIg
-PSBhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MtPnNldF9hc2ljX2JhY29fY2FwKGFkZXYtPnBvd2Vy
-cGxheS5wcF9oYW5kbGUpOworCQkJaWYgKHIpIHsKKwkJCQlkZXZfZXJyKGFkZXYtPmRldiwgInNl
-dCBiYWNvIGNhcGFiaWxpdHkgZmFpbGVkXG4iKTsKKwkJCQlnb3RvIGZhaWxlZDsKKwkJCX0KKwkJ
-fQorCiAJCXIgPSBhbWRncHVfYXNpY19yZXNldChhZGV2KTsKIAkJaWYgKHIpIHsKIAkJCWRldl9l
-cnIoYWRldi0+ZGV2LCAiYXNpYyByZXNldCBvbiBpbml0IGZhaWxlZFxuIik7CmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX3BwX2ludGVyZmFjZS5oIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9wcF9pbnRlcmZhY2UuaAppbmRleCAyYjU3OWJhLi4w
-ZGNjMThkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dkX3BwX2lu
-dGVyZmFjZS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2RfcHBfaW50ZXJm
-YWNlLmgKQEAgLTI4NSw2ICsyODUsNyBAQCBzdHJ1Y3QgYW1kX3BtX2Z1bmNzIHsKIAlpbnQgKCpz
-ZXRfaGFyZF9taW5fZmNsa19ieV9mcmVxKSh2b2lkICpoYW5kbGUsIHVpbnQzMl90IGNsb2NrKTsK
-IAlpbnQgKCpzZXRfbWluX2RlZXBfc2xlZXBfZGNlZmNsaykodm9pZCAqaGFuZGxlLCB1aW50MzJf
-dCBjbG9jayk7CiAJaW50ICgqZ2V0X2FzaWNfYmFjb19jYXBhYmlsaXR5KSh2b2lkICpoYW5kbGUs
-IGJvb2wgKmNhcCk7CisJaW50ICgqc2V0X2FzaWNfYmFjb19jYXApKHZvaWQgKmhhbmRsZSk7CiAJ
-aW50ICgqZ2V0X2FzaWNfYmFjb19zdGF0ZSkodm9pZCAqaGFuZGxlLCBpbnQgKnN0YXRlKTsKIAlp
-bnQgKCpzZXRfYXNpY19iYWNvX3N0YXRlKSh2b2lkICpoYW5kbGUsIGludCBzdGF0ZSk7CiAJaW50
-ICgqZ2V0X3BwZmVhdHVyZV9zdGF0dXMpKHZvaWQgKmhhbmRsZSwgY2hhciAqYnVmKTsKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZF9wb3dlcnBsYXkuYwppbmRleCBiZWExNTg3
-Li45ODU2NzYwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRf
-cG93ZXJwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kX3Bvd2Vy
-cGxheS5jCkBAIC0xNDA0LDYgKzE0MDQsMjEgQEAgc3RhdGljIGludCBwcF9zZXRfYWN0aXZlX2Rp
-c3BsYXlfY291bnQodm9pZCAqaGFuZGxlLCB1aW50MzJfdCBjb3VudCkKIAlyZXR1cm4gcmV0Owog
-fQogCitzdGF0aWMgaW50IHBwX3NldF9hc2ljX2JhY29fY2FwKHZvaWQgKmhhbmRsZSkKK3sKKwlz
-dHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyID0gaGFuZGxlOworCisJaWYgKCFod21ncikKKwkJcmV0dXJu
-IC1FSU5WQUw7CisKKwlpZiAoIWh3bWdyLT5wbV9lbiB8fCAhaHdtZ3ItPmh3bWdyX2Z1bmMtPnNl
-dF9hc2ljX2JhY29fY2FwKQorCQlyZXR1cm4gMDsKKworCWh3bWdyLT5od21ncl9mdW5jLT5zZXRf
-YXNpY19iYWNvX2NhcChod21ncik7CisKKwlyZXR1cm4gMDsKK30KKwogc3RhdGljIGludCBwcF9n
-ZXRfYXNpY19iYWNvX2NhcGFiaWxpdHkodm9pZCAqaGFuZGxlLCBib29sICpjYXApCiB7CiAJc3Ry
-dWN0IHBwX2h3bWdyICpod21nciA9IGhhbmRsZTsKQEAgLTE1NDYsNiArMTU2MSw3IEBAIHN0YXRp
-YyBjb25zdCBzdHJ1Y3QgYW1kX3BtX2Z1bmNzIHBwX2RwbV9mdW5jcyA9IHsKIAkuc2V0X2hhcmRf
-bWluX2RjZWZjbGtfYnlfZnJlcSA9IHBwX3NldF9oYXJkX21pbl9kY2VmY2xrX2J5X2ZyZXEsCiAJ
-LnNldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEgPSBwcF9zZXRfaGFyZF9taW5fZmNsa19ieV9mcmVx
-LAogCS5nZXRfYXNpY19iYWNvX2NhcGFiaWxpdHkgPSBwcF9nZXRfYXNpY19iYWNvX2NhcGFiaWxp
-dHksCisJLnNldF9hc2ljX2JhY29fY2FwID0gcHBfc2V0X2FzaWNfYmFjb19jYXAsCiAJLmdldF9h
-c2ljX2JhY29fc3RhdGUgPSBwcF9nZXRfYXNpY19iYWNvX3N0YXRlLAogCS5zZXRfYXNpY19iYWNv
-X3N0YXRlID0gcHBfc2V0X2FzaWNfYmFjb19zdGF0ZSwKIAkuZ2V0X3BwZmVhdHVyZV9zdGF0dXMg
-PSBwcF9nZXRfcHBmZWF0dXJlX3N0YXR1cywKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMKaW5kZXggZWQ2YzYzOC4uOGRjMjNlYiAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
-LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
-LmMKQEAgLTUxNzEsNiArNTE3MSw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgcHBfaHdtZ3JfZnVu
-YyB2ZWdhMTBfaHdtZ3JfZnVuY3MgPSB7CiAJLm9kbl9lZGl0X2RwbV90YWJsZSA9IHZlZ2ExMF9v
-ZG5fZWRpdF9kcG1fdGFibGUsCiAJLmdldF9wZXJmb3JtYW5jZV9sZXZlbCA9IHZlZ2ExMF9nZXRf
-cGVyZm9ybWFuY2VfbGV2ZWwsCiAJLmdldF9hc2ljX2JhY29fY2FwYWJpbGl0eSA9IHNtdTlfYmFj
-b19nZXRfY2FwYWJpbGl0eSwKKwkuc2V0X2FzaWNfYmFjb19jYXAgPSB2ZWdhMTBfYmFjb19zZXRf
-Y2FwLAogCS5nZXRfYXNpY19iYWNvX3N0YXRlID0gc211OV9iYWNvX2dldF9zdGF0ZSwKIAkuc2V0
-X2FzaWNfYmFjb19zdGF0ZSA9IHZlZ2ExMF9iYWNvX3NldF9zdGF0ZSwKIAkuZW5hYmxlX21ncHVf
-ZmFuX2Jvb3N0ID0gdmVnYTEwX2VuYWJsZV9tZ3B1X2Zhbl9ib29zdCwKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0
-YWJsZXMuYwppbmRleCBiNjc2N2Q3Li44ZmRlYjIzIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVzLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5j
-CkBAIC0xMzcxLDMgKzEzNzEsMjUgQEAgaW50IHZlZ2ExMF9nZXRfcG93ZXJwbGF5X3RhYmxlX2Vu
-dHJ5KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsCiAKIAlyZXR1cm4gcmVzdWx0OwogfQorCitpbnQg
-dmVnYTEwX2JhY29fc2V0X2NhcChzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKQoreworCWludCByZXN1
-bHQgPSAwOworCWNvbnN0IEFUT01fVmVnYTEwX1BPV0VSUExBWVRBQkxFICpwb3dlcnBsYXlfdGFi
-bGU7CisKKwlwb3dlcnBsYXlfdGFibGUgPSBnZXRfcG93ZXJwbGF5X3RhYmxlKGh3bWdyKTsKKwor
-CVBQX0FTU0VSVF9XSVRIX0NPREUoKHBvd2VycGxheV90YWJsZSAhPSBOVUxMKSwKKwkJIk1pc3Np
-bmcgUG93ZXJQbGF5IFRhYmxlISIsIHJldHVybiAtMSk7CisKKwlyZXN1bHQgPSBjaGVja19wb3dl
-cnBsYXlfdGFibGVzKGh3bWdyLCBwb3dlcnBsYXlfdGFibGUpOworCisJUFBfQVNTRVJUX1dJVEhf
-Q09ERSgocmVzdWx0ID09IDApLAorCQkJICAgICJjaGVja19wb3dlcnBsYXlfdGFibGVzIGZhaWxl
-ZCIsIHJldHVybiByZXN1bHQpOworCisJc2V0X2h3X2NhcCgKKwkJCWh3bWdyLAorCQkJMCAhPSAo
-bGUzMl90b19jcHUocG93ZXJwbGF5X3RhYmxlLT51bFBsYXRmb3JtQ2FwcykgJiBBVE9NX1ZFR0Ex
-MF9QUF9QTEFURk9STV9DQVBfQkFDTyksCisJCQlQSE1fUGxhdGZvcm1DYXBzX0JBQ08pOworCXJl
-dHVybiByZXN1bHQ7Cit9ClwgTm8gbmV3bGluZSBhdCBlbmQgb2YgZmlsZQpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxl
-cy5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3Nw
-cHRhYmxlcy5oCmluZGV4IGQ4M2VkMmEuLmRhNWZiZWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuaAorKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVz
-LmgKQEAgLTU5LDQgKzU5LDUgQEAgZXh0ZXJuIGludCB2ZWdhMTBfZ2V0X251bWJlcl9vZl9wb3dl
-cnBsYXlfdGFibGVfZW50cmllcyhzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyKTsKIGV4dGVybiBpbnQg
-dmVnYTEwX2dldF9wb3dlcnBsYXlfdGFibGVfZW50cnkoc3RydWN0IHBwX2h3bWdyICpod21nciwg
-dWludDMyX3QgZW50cnlfaW5kZXgsCiAJCXN0cnVjdCBwcF9wb3dlcl9zdGF0ZSAqcG93ZXJfc3Rh
-dGUsIGludCAoKmNhbGxfYmFja19mdW5jKShzdHJ1Y3QgcHBfaHdtZ3IgKiwgdm9pZCAqLAogCQkJ
-CXN0cnVjdCBwcF9wb3dlcl9zdGF0ZSAqLCB2b2lkICosIHVpbnQzMl90KSk7CitleHRlcm4gaW50
-IHZlZ2ExMF9iYWNvX3NldF9jYXAoc3RydWN0IHBwX2h3bWdyICpod21ncik7CiAjZW5kaWYKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5oIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKaW5kZXggYmFjM2Q4NS4uMTQ0
-ODBhZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdy
-LmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2h3bWdyLmgKQEAgLTMz
-OSw2ICszMzksNyBAQCBzdHJ1Y3QgcHBfaHdtZ3JfZnVuYyB7CiAJaW50ICgqc2V0X2hhcmRfbWlu
-X2RjZWZjbGtfYnlfZnJlcSkoc3RydWN0IHBwX2h3bWdyICpod21nciwgdWludDMyX3QgY2xvY2sp
-OwogCWludCAoKnNldF9oYXJkX21pbl9mY2xrX2J5X2ZyZXEpKHN0cnVjdCBwcF9od21nciAqaHdt
-Z3IsIHVpbnQzMl90IGNsb2NrKTsKIAlpbnQgKCpnZXRfYXNpY19iYWNvX2NhcGFiaWxpdHkpKHN0
-cnVjdCBwcF9od21nciAqaHdtZ3IsIGJvb2wgKmNhcCk7CisJaW50ICgqc2V0X2FzaWNfYmFjb19j
-YXApKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpOwogCWludCAoKmdldF9hc2ljX2JhY29fc3RhdGUp
-KHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGVudW0gQkFDT19TVEFURSAqc3RhdGUpOwogCWludCAo
-KnNldF9hc2ljX2JhY29fc3RhdGUpKHN0cnVjdCBwcF9od21nciAqaHdtZ3IsIGVudW0gQkFDT19T
-VEFURSBzdGF0ZSk7CiAJaW50ICgqZ2V0X3BwZmVhdHVyZV9zdGF0dXMpKHN0cnVjdCBwcF9od21n
-ciAqaHdtZ3IsIGNoYXIgKmJ1Zik7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+Hi Kees,
+
+Thanks for joining the thread ;).
+
+On Tue, May 21, 2019 at 05:04:39PM -0700, Kees Cook wrote:
+> On Tue, May 21, 2019 at 07:29:33PM +0100, Catalin Marinas wrote:
+> > On Mon, May 20, 2019 at 04:53:07PM -0700, Evgenii Stepanov wrote:
+> > > On Fri, May 17, 2019 at 7:49 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> > > > IMO (RFC for now), I see two ways forward:
+> > > > [...]
+> > > > 2. Similar shim to the above libc wrapper but inside the kernel
+> > > >    (arch/arm64 only; most pointer arguments could be covered with an
+> > > >    __SC_CAST similar to the s390 one). There are two differences from
+> > > >    what we've discussed in the past:
+> > > >
+> > > >    a) this is an opt-in by the user which would have to explicitly call
+> > > >       prctl(). If it returns -ENOTSUPP etc., the user won't be allowed
+> > > >       to pass tagged pointers to the kernel. This would probably be the
+> > > >       responsibility of the C lib to make sure it doesn't tag heap
+> > > >       allocations. If the user did not opt-in, the syscalls are routed
+> > > >       through the normal path (no untagging address shim).
+> > > >
+> > > >    b) ioctl() and other blacklisted syscalls (prctl) will not accept
+> > > >       tagged pointers (to be documented in Vicenzo's ABI patches).
+> > >
+> > > The way I see it, a patch that breaks handling of tagged pointers is
+> > > not that different from, say, a patch that adds a wild pointer
+> > > dereference. Both are bugs; the difference is that (a) the former
+> > > breaks a relatively uncommon target and (b) it's arguably an easier
+> > > mistake to make. If MTE adoption goes well, (a) will not be the case
+> > > for long.
+> > 
+> > It's also the fact such patch would go unnoticed for a long time until
+> > someone exercises that code path. And when they do, the user would be
+> > pretty much in the dark trying to figure what what went wrong, why a
+> > SIGSEGV or -EFAULT happened. What's worse, we can't even say we fixed
+> > all the places where it matters in the current kernel codebase (ignoring
+> > future patches).
+> 
+> So, looking forward a bit, this isn't going to be an ARM-specific issue
+> for long.
+
+I do hope so.
+
+> In fact, I think we shouldn't have arm-specific syscall wrappers
+> in this series: I think untagged_addr() should likely be added at the
+> top-level and have it be a no-op for other architectures.
+
+That's what the current patchset does, so we have this as a starting
+point. Kostya raised another potential issue with the syscall wrappers:
+with MTE the kernel will be forced to enable the match-all (wildcard)
+pointers for user space accesses since copy_from_user() would only get a
+0 tag. So it has wider implications than just uaccess routines not
+checking the colour.
+
+> So given this becoming a kernel-wide multi-architecture issue (under
+> the assumption that x86, RISC-V, and others will gain similar TBI or
+> MTE things), we should solve it in a way that we can re-use.
+
+Can we do any better to aid the untagged_addr() placement (e.g. better
+type annotations, better static analysis)? We have to distinguish
+between user pointers that may be dereferenced by the kernel (I think
+almost fully covered with this patchset) and user addresses represented
+as ulong that may:
+
+a) be converted to a user pointer and dereferenced; I think that's the
+   case for many overloaded ulong/u64 arguments
+
+b) used for address space management, rbtree look-ups etc. where the tag
+   is no longer relevant and it even gets in the way
+
+We tried last year to identify void __user * casts to unsigned long
+using sparse on the assumption that pointers can be tagged while ulong
+is about address space management and needs to lose such tag. I think we
+could have pushed this further. For example, get_user_pages() takes an
+unsigned long but it is perfectly capable of untagging the address
+itself. Shall we change its first argument to void __user * (together
+with all its callers)?
+
+find_vma(), OTOH, could untag the address but it doesn't help since
+vm_start/end don't have such information (that's more about the content
+or type that the user decided) and the callers check against it.
+
+Are there any other places where this matters? These patches tracked
+down find_vma() as some heuristics but we may need better static
+analysis to identify other cases.
+
+> We need something that is going to work everywhere. And it needs to be
+> supported by the kernel for the simple reason that the kernel needs to
+> do MTE checks during copy_from_user(): having that information stripped
+> means we lose any userspace-assigned MTE protections if they get handled
+> by the kernel, which is a total non-starter, IMO.
+
+Such feedback is welcomed ;).
+
+> As an aside: I think Sparc ADI support in Linux actually side-stepped
+> this[1] (i.e. chose "solution 1"): "All addresses passed to kernel must
+> be non-ADI tagged addresses." (And sadly, "Kernel does not enable ADI
+> for kernel code.") I think this was a mistake we should not repeat for
+> arm64 (we do seem to be at least in agreement about this, I think).
+> 
+> [1] https://lore.kernel.org/patchwork/patch/654481/
+
+I tried to drag the SPARC guys into this discussion but without much
+success.
+
+> > > This is a bit of a chicken-and-egg problem. In a world where memory
+> > > allocators on one or several popular platforms generate pointers with
+> > > non-zero tags, any such breakage will be caught in testing.
+> > > Unfortunately to reach that state we need the kernel to start
+> > > accepting tagged pointers first, and then hold on for a couple of
+> > > years until userspace catches up.
+> > 
+> > Would the kernel also catch up with providing a stable ABI? Because we
+> > have two moving targets.
+> > 
+> > On one hand, you have Android or some Linux distro that stick to a
+> > stable kernel version for some time, so they have better chance of
+> > clearing most of the problems. On the other hand, we have mainline
+> > kernel that gets over 500K lines every release. As maintainer, I can't
+> > rely on my testing alone as this is on a limited number of platforms. So
+> > my concern is that every kernel release has a significant chance of
+> > breaking the ABI, unless we have a better way of identifying potential
+> > issues.
+> 
+> I just want to make sure I fully understand your concern about this
+> being an ABI break, and I work best with examples. The closest situation
+> I can see would be:
+> 
+> - some program has no idea about MTE
+
+Apart from some libraries like libc (and maybe those that handle
+specific device ioctls), I think most programs should have no idea about
+MTE. I wouldn't expect programmers to have to change their app just
+because we have a new feature that colours heap allocations.
+
+> - malloc() starts returning MTE-tagged addresses
+> - program doesn't break from that change
+> - program uses some syscall that is missing untagged_addr() and fails
+> - kernel has now broken userspace that used to work
+
+That's one aspect though probably more of a case of plugging in a new
+device (graphics card, network etc.) and the ioctl to the new device
+doesn't work.
+
+The other is that, assuming we reach a point where the kernel entirely
+supports this relaxed ABI, can we guarantee that it won't break in the
+future. Let's say some subsequent kernel change (some refactoring)
+misses out an untagged_addr(). This renders a previously TBI/MTE-capable
+syscall unusable. Can we rely only on testing?
+
+> The trouble I see with this is that it is largely theoretical and
+> requires part of userspace to collude to start using a new CPU feature
+> that tickles a bug in the kernel. As I understand the golden rule,
+> this is a bug in the kernel (a missed ioctl() or such) to be fixed,
+> not a global breaking of some userspace behavior.
+
+Yes, we should follow the rule that it's a kernel bug but it doesn't
+help the user that a newly installed kernel causes user space to no
+longer reach a prompt. Hence the proposal of an opt-in via personality
+(for MTE we would need an explicit opt-in by the user anyway since the
+top byte is no longer ignored but checked against the allocation tag).
+
+> I feel like I'm missing something about this being seen as an ABI
+> break. The kernel already fails on userspace addresses that have high
+> bits set -- are there things that _depend_ on this failure to operate?
+
+It's about providing a relaxed ABI which allows non-zero top byte and
+breaking it later inadvertently without having something better in place
+to analyse the kernel changes.
+
+Thanks.
+
+-- 
+Catalin
