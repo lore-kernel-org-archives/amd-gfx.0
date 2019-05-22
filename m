@@ -1,95 +1,120 @@
-From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2 2/2] drm/amd/display: Use new connector state when getting
- color depth
-Date: Wed, 22 May 2019 12:00:55 -0400
-Message-ID: <20190522160055.26665-2-nicholas.kazlauskas@amd.com>
-References: <20190522160055.26665-1-nicholas.kazlauskas@amd.com>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Subject: Re: [PATCH 01/12] dma-buf: add dynamic caching of sg_table
+Date: Wed, 22 May 2019 21:47:46 +0530
+Message-ID: <CAO_48GGanguXbmYDD+p1kK_VkiWdZSTYAD1y-0JQK7hqL_OPPg@mail.gmail.com>
+References: <20190416183841.1577-1-christian.koenig@amd.com> <1556323269-19670-1-git-send-email-lmark@codeaurora.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190522160055.26665-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1556323269-19670-1-git-send-email-lmark@codeaurora.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Liam Mark <lmark@codeaurora.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, DRI mailing list <dri-devel@lists.freedesktop.org>, Linaro MM SIG <linaro-mm-sig@lists.linaro.org>, LKML <linux-kernel@vger.kernel.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-W1doeV0KVGhlIGN1cnJlbnQgc3RhdGUgb24gdGhlIGNvbm5lY3RvciBpcyBxdWVyaWVkIHdoZW4g
-Z2V0dGluZyB0aGUgbWF4IGJwYwpyYXRoZXIgdGhhbiB0aGUgbmV3IHN0YXRlLiBUaGlzIG1lYW5z
-IHRoYXQgYSBuZXcgbWF4IGJwYyB2YWx1ZSBjYW4gb25seQpjdXJyZW50bHkgdGFrZSBlZmZlY3Qg
-b24gdGhlIGNvbW1pdCAqYWZ0ZXIqIGl0IGNoYW5nZXMuCgpUaGUgbmV3IHN0YXRlIHNob3VsZCBi
-ZSBwYXNzZWQgaW4gaW5zdGVhZC4KCltIb3ddClBhc3MgZG93biB0aGUgZG1fc3RhdGUgYXMgZHJt
-IHN0YXRlIHRvIHdoZXJlIHdlIGRvIGNvbG9yIGRlcHRoIGxvb2t1cC4KClRoZSBwYXNzZWQgaW4g
-c3RhdGUgY2FuIHN0aWxsIGJlIE5VTEwgd2hlbiBjYWxsZWQgZnJvbQphbWRncHVfZG1fY29ubmVj
-dG9yX21vZGVfdmFsaWQsIHNvIG1ha2Ugc3VyZSB0aGF0IHdlIGhhdmUgcmVhc29uYWJsZQpkZWZh
-dWx0cyBpbiBwbGFjZS4gVGhhdCBzaG91bGQgcHJvYmFibHkgYmUgYWRkcmVzc2VkIGF0IHNvbWUg
-cG9pbnQuCgpUaGlzIGNoYW5nZSBub3cgKGNvcnJlY3RseSkgY2F1c2VzIGEgbW9kZXNldCB0byBv
-Y2N1ciB3aGVuIGNoYW5naW5nIHRoZQptYXggYnBjIGZvciBhIGNvbm5lY3Rvci4KCnYyOiBEcm9w
-IGV4dHJhIFRPRE8uCgpDYzogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+CkNjOiBIYXJyeSBX
-ZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogTmljaG9sYXMg
-S2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgpBY2tlZC1ieTogQWxleCBE
-ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIC4uLi9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDI3ICsrKysrKysrKystLS0tLS0tLS0KIDEg
-ZmlsZSBjaGFuZ2VkLCAxNSBpbnNlcnRpb25zKCspLCAxMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwppbmRleCBi
-OGU4ODIwOWVmNWQuLmZkMDQyMTc5NGUwZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC0zMDM4LDEzICszMDM4LDEzIEBAIHN0
-YXRpYyB2b2lkIHVwZGF0ZV9zdHJlYW1fc2NhbGluZ19zZXR0aW5ncyhjb25zdCBzdHJ1Y3QgZHJt
-X2Rpc3BsYXlfbW9kZSAqbW9kZSwKIH0KIAogc3RhdGljIGVudW0gZGNfY29sb3JfZGVwdGgKLWNv
-bnZlcnRfY29sb3JfZGVwdGhfZnJvbV9kaXNwbGF5X2luZm8oY29uc3Qgc3RydWN0IGRybV9jb25u
-ZWN0b3IgKmNvbm5lY3RvcikKK2NvbnZlcnRfY29sb3JfZGVwdGhfZnJvbV9kaXNwbGF5X2luZm8o
-Y29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwKKwkJCQkgICAgICBjb25zdCBz
-dHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9zdGF0ZSAqc3RhdGUpCiB7CiAJdWludDMyX3QgYnBjID0gY29u
-bmVjdG9yLT5kaXNwbGF5X2luZm8uYnBjOwogCi0JLyogVE9ETzogVXNlIHBhc3NlZCBpbiBzdGF0
-ZSBpbnN0ZWFkIG9mIHRoZSBjdXJyZW50IHN0YXRlLiAqLwotCWlmIChjb25uZWN0b3ItPnN0YXRl
-KSB7Ci0JCWJwYyA9IGNvbm5lY3Rvci0+c3RhdGUtPm1heF9icGM7CisJaWYgKHN0YXRlKSB7CisJ
-CWJwYyA9IHN0YXRlLT5tYXhfYnBjOwogCQkvKiBSb3VuZCBkb3duIHRvIHRoZSBuZWFyZXN0IGV2
-ZW4gbnVtYmVyLiAqLwogCQlicGMgPSBicGMgLSAoYnBjICYgMSk7CiAJfQpAQCAtMzE2NSwxMSAr
-MzE2NSwxMiBAQCBzdGF0aWMgdm9pZCBhZGp1c3RfY29sb3VyX2RlcHRoX2Zyb21fZGlzcGxheV9p
-bmZvKHN0cnVjdCBkY19jcnRjX3RpbWluZyAqdGltaW5nXwogCiB9CiAKLXN0YXRpYyB2b2lkCi1m
-aWxsX3N0cmVhbV9wcm9wZXJ0aWVzX2Zyb21fZHJtX2Rpc3BsYXlfbW9kZShzdHJ1Y3QgZGNfc3Ry
-ZWFtX3N0YXRlICpzdHJlYW0sCi0JCQkJCSAgICAgY29uc3Qgc3RydWN0IGRybV9kaXNwbGF5X21v
-ZGUgKm1vZGVfaW4sCi0JCQkJCSAgICAgY29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5l
-Y3RvciwKLQkJCQkJICAgICBjb25zdCBzdHJ1Y3QgZGNfc3RyZWFtX3N0YXRlICpvbGRfc3RyZWFt
-KQorc3RhdGljIHZvaWQgZmlsbF9zdHJlYW1fcHJvcGVydGllc19mcm9tX2RybV9kaXNwbGF5X21v
-ZGUoCisJc3RydWN0IGRjX3N0cmVhbV9zdGF0ZSAqc3RyZWFtLAorCWNvbnN0IHN0cnVjdCBkcm1f
-ZGlzcGxheV9tb2RlICptb2RlX2luLAorCWNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25u
-ZWN0b3IsCisJY29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3Jfc3RhdGUgKmNvbm5lY3Rvcl9zdGF0
-ZSwKKwljb25zdCBzdHJ1Y3QgZGNfc3RyZWFtX3N0YXRlICpvbGRfc3RyZWFtKQogewogCXN0cnVj
-dCBkY19jcnRjX3RpbWluZyAqdGltaW5nX291dCA9ICZzdHJlYW0tPnRpbWluZzsKIAljb25zdCBz
-dHJ1Y3QgZHJtX2Rpc3BsYXlfaW5mbyAqaW5mbyA9ICZjb25uZWN0b3ItPmRpc3BsYXlfaW5mbzsK
-QEAgLTMxOTIsNyArMzE5Myw3IEBAIGZpbGxfc3RyZWFtX3Byb3BlcnRpZXNfZnJvbV9kcm1fZGlz
-cGxheV9tb2RlKHN0cnVjdCBkY19zdHJlYW1fc3RhdGUgKnN0cmVhbSwKIAogCXRpbWluZ19vdXQt
-PnRpbWluZ18zZF9mb3JtYXQgPSBUSU1JTkdfM0RfRk9STUFUX05PTkU7CiAJdGltaW5nX291dC0+
-ZGlzcGxheV9jb2xvcl9kZXB0aCA9IGNvbnZlcnRfY29sb3JfZGVwdGhfZnJvbV9kaXNwbGF5X2lu
-Zm8oCi0JCQljb25uZWN0b3IpOworCQljb25uZWN0b3IsIGNvbm5lY3Rvcl9zdGF0ZSk7CiAJdGlt
-aW5nX291dC0+c2Nhbl90eXBlID0gU0NBTk5JTkdfVFlQRV9OT0RBVEE7CiAJdGltaW5nX291dC0+
-aGRtaV92aWMgPSAwOwogCkBAIC0zMzg5LDYgKzMzOTAsOCBAQCBjcmVhdGVfc3RyZWFtX2Zvcl9z
-aW5rKHN0cnVjdCBhbWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAogewogCXN0cnVjdCBk
-cm1fZGlzcGxheV9tb2RlICpwcmVmZXJyZWRfbW9kZSA9IE5VTEw7CiAJc3RydWN0IGRybV9jb25u
-ZWN0b3IgKmRybV9jb25uZWN0b3I7CisJY29uc3Qgc3RydWN0IGRybV9jb25uZWN0b3Jfc3RhdGUg
-KmNvbl9zdGF0ZSA9CisJCWRtX3N0YXRlID8gJmRtX3N0YXRlLT5iYXNlIDogTlVMTDsKIAlzdHJ1
-Y3QgZGNfc3RyZWFtX3N0YXRlICpzdHJlYW0gPSBOVUxMOwogCXN0cnVjdCBkcm1fZGlzcGxheV9t
-b2RlIG1vZGUgPSAqZHJtX21vZGU7CiAJYm9vbCBuYXRpdmVfbW9kZV9mb3VuZCA9IGZhbHNlOwpA
-QCAtMzQ2MSwxMCArMzQ2NCwxMCBAQCBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rKHN0cnVjdCBhbWRn
-cHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yLAogCSovCiAJaWYgKCFzY2FsZSB8fCBtb2RlX3Jl
-ZnJlc2ggIT0gcHJlZmVycmVkX3JlZnJlc2gpCiAJCWZpbGxfc3RyZWFtX3Byb3BlcnRpZXNfZnJv
-bV9kcm1fZGlzcGxheV9tb2RlKHN0cmVhbSwKLQkJCSZtb2RlLCAmYWNvbm5lY3Rvci0+YmFzZSwg
-TlVMTCk7CisJCQkmbW9kZSwgJmFjb25uZWN0b3ItPmJhc2UsIGNvbl9zdGF0ZSwgTlVMTCk7CiAJ
-ZWxzZQogCQlmaWxsX3N0cmVhbV9wcm9wZXJ0aWVzX2Zyb21fZHJtX2Rpc3BsYXlfbW9kZShzdHJl
-YW0sCi0JCQkmbW9kZSwgJmFjb25uZWN0b3ItPmJhc2UsIG9sZF9zdHJlYW0pOworCQkJJm1vZGUs
-ICZhY29ubmVjdG9yLT5iYXNlLCBjb25fc3RhdGUsIG9sZF9zdHJlYW0pOwogCiAJdXBkYXRlX3N0
-cmVhbV9zY2FsaW5nX3NldHRpbmdzKCZtb2RlLCBkbV9zdGF0ZSwgc3RyZWFtKTsKIAotLSAKMi4x
-Ny4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
-Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Hi Christian,
+
+On Sat, 27 Apr 2019 at 05:31, Liam Mark <lmark@codeaurora.org> wrote:
+>
+> On Tue, 16 Apr 2019, Christian K=C3=B6nig wrote:
+>
+> > To allow a smooth transition from pinning buffer objects to dynamic
+> > invalidation we first start to cache the sg_table for an attachment
+> > unless the driver explicitly says to not do so.
+> >
+> > ---
+> >  drivers/dma-buf/dma-buf.c | 24 ++++++++++++++++++++++++
+> >  include/linux/dma-buf.h   | 11 +++++++++++
+> >  2 files changed, 35 insertions(+)
+> >
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index 7c858020d14b..65161a82d4d5 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -573,6 +573,20 @@ struct dma_buf_attachment *dma_buf_attach(struct d=
+ma_buf *dmabuf,
+> >       list_add(&attach->node, &dmabuf->attachments);
+> >
+> >       mutex_unlock(&dmabuf->lock);
+> > +
+> > +     if (!dmabuf->ops->dynamic_sgt_mapping) {
+> > +             struct sg_table *sgt;
+> > +
+> > +             sgt =3D dmabuf->ops->map_dma_buf(attach, DMA_BIDIRECTIONA=
+L);
+> > +             if (!sgt)
+> > +                     sgt =3D ERR_PTR(-ENOMEM);
+> > +             if (IS_ERR(sgt)) {
+> > +                     dma_buf_detach(dmabuf, attach);
+> > +                     return ERR_CAST(sgt);
+> > +             }
+> > +             attach->sgt =3D sgt;
+> > +     }
+> > +
+> >       return attach;
+> >
+> >  err_attach:
+> > @@ -595,6 +609,10 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct=
+ dma_buf_attachment *attach)
+> >       if (WARN_ON(!dmabuf || !attach))
+> >               return;
+> >
+> > +     if (attach->sgt)
+> > +             dmabuf->ops->unmap_dma_buf(attach, attach->sgt,
+> > +                                        DMA_BIDIRECTIONAL);
+> > +
+> >       mutex_lock(&dmabuf->lock);
+> >       list_del(&attach->node);
+> >       if (dmabuf->ops->detach)
+> > @@ -630,6 +648,9 @@ struct sg_table *dma_buf_map_attachment(struct dma_=
+buf_attachment *attach,
+> >       if (WARN_ON(!attach || !attach->dmabuf))
+> >               return ERR_PTR(-EINVAL);
+> >
+> > +     if (attach->sgt)
+> > +             return attach->sgt;
+> > +
+>
+> I am concerned by this change to make caching the sg_table the default
+> behavior as this will result in the exporter's map_dma_buf/unmap_dma_buf
+> calls are no longer being called in
+> dma_buf_map_attachment/dma_buf_unmap_attachment.
+
+Probably this concern from Liam got lost between versions of your
+patches; could we please request a reply to these points here?
+>
+> This seems concerning to me as it appears to ignore the cache maintenance
+> aspect of the map_dma_buf/unmap_dma_buf calls.
+> For example won't this potentially cause issues for clients of ION.
+>
+> If we had the following
+> - #1 dma_buf_attach coherent_device
+> - #2 dma_buf attach non_coherent_device
+> - #3 dma_buf_map_attachment non_coherent_device
+> - #4 non_coherent_device writes to buffer
+> - #5 dma_buf_unmap_attachment non_coherent_device
+> - #6 dma_buf_map_attachment coherent_device
+> - #7 coherent_device reads buffer
+> - #8 dma_buf_unmap_attachment coherent_device
+>
+> There wouldn't be any CMO at step #5 anymore (specifically no invalidate)
+> so now at step #7 the coherent_device could read a stale cache line.
+>
+> Also, now by default dma_buf_unmap_attachment no longer removes the
+> mappings from the iommu, so now by default dma_buf_unmap_attachment is no=
+t
+> doing what I would expect and clients are losing the potential sandboxing
+> benefits of removing the mappings.
+> Shouldn't this caching behavior be something that clients opt into instea=
+d
+> of being the default?
+>
+> Liam
+>
+> Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
+> a Linux Foundation Collaborative Project
+>
+
+Best,
+Sumit.
