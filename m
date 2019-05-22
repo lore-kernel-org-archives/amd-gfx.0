@@ -1,120 +1,124 @@
-From: Sumit Semwal <sumit.semwal@linaro.org>
-Subject: Re: [PATCH 01/12] dma-buf: add dynamic caching of sg_table
-Date: Wed, 22 May 2019 21:47:46 +0530
-Message-ID: <CAO_48GGanguXbmYDD+p1kK_VkiWdZSTYAD1y-0JQK7hqL_OPPg@mail.gmail.com>
-References: <20190416183841.1577-1-christian.koenig@amd.com> <1556323269-19670-1-git-send-email-lmark@codeaurora.org>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Wed, 22 May 2019 17:35:27 +0100
+Message-ID: <20190522163527.rnnc6t4tll7tk5zw@mbp>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <20190517144931.GA56186@arrakis.emea.arm.com>
+ <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
+ <20190521182932.sm4vxweuwo5ermyd@mbp>
+ <201905211633.6C0BF0C2@keescook>
+ <20190522101110.m2stmpaj7seezveq@mbp>
+ <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1556323269-19670-1-git-send-email-lmark@codeaurora.org>
+Content-Disposition: inline
+In-Reply-To: <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Liam Mark <lmark@codeaurora.org>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, DRI mailing list <dri-devel@lists.freedesktop.org>, Linaro MM SIG <linaro-mm-sig@lists.linaro.org>, LKML <linux-kernel@vger.kernel.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+To: enh <enh@google.com>
+Cc: Kees Cook <keescook@chromium.org>, Evgenii Stepanov <eugenis@google.com>, Andrey Konovalov <andreyknvl@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi Christian,
+On Wed, May 22, 2019 at 08:30:21AM -0700, enh wrote:
+> On Wed, May 22, 2019 at 3:11 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> > On Tue, May 21, 2019 at 05:04:39PM -0700, Kees Cook wrote:
+> > > I just want to make sure I fully understand your concern about this
+> > > being an ABI break, and I work best with examples. The closest situation
+> > > I can see would be:
+> > >
+> > > - some program has no idea about MTE
+> >
+> > Apart from some libraries like libc (and maybe those that handle
+> > specific device ioctls), I think most programs should have no idea about
+> > MTE. I wouldn't expect programmers to have to change their app just
+> > because we have a new feature that colours heap allocations.
+> 
+> obviously i'm biased as a libc maintainer, but...
+> 
+> i don't think it helps to move this to libc --- now you just have an
+> extra dependency where to have a guaranteed working system you need to
+> update your kernel and libc together. (or at least update your libc to
+> understand new ioctls etc _before_ you can update your kernel.)
 
-On Sat, 27 Apr 2019 at 05:31, Liam Mark <lmark@codeaurora.org> wrote:
->
-> On Tue, 16 Apr 2019, Christian K=C3=B6nig wrote:
->
-> > To allow a smooth transition from pinning buffer objects to dynamic
-> > invalidation we first start to cache the sg_table for an attachment
-> > unless the driver explicitly says to not do so.
-> >
-> > ---
-> >  drivers/dma-buf/dma-buf.c | 24 ++++++++++++++++++++++++
-> >  include/linux/dma-buf.h   | 11 +++++++++++
-> >  2 files changed, 35 insertions(+)
-> >
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index 7c858020d14b..65161a82d4d5 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -573,6 +573,20 @@ struct dma_buf_attachment *dma_buf_attach(struct d=
-ma_buf *dmabuf,
-> >       list_add(&attach->node, &dmabuf->attachments);
-> >
-> >       mutex_unlock(&dmabuf->lock);
-> > +
-> > +     if (!dmabuf->ops->dynamic_sgt_mapping) {
-> > +             struct sg_table *sgt;
-> > +
-> > +             sgt =3D dmabuf->ops->map_dma_buf(attach, DMA_BIDIRECTIONA=
-L);
-> > +             if (!sgt)
-> > +                     sgt =3D ERR_PTR(-ENOMEM);
-> > +             if (IS_ERR(sgt)) {
-> > +                     dma_buf_detach(dmabuf, attach);
-> > +                     return ERR_CAST(sgt);
-> > +             }
-> > +             attach->sgt =3D sgt;
-> > +     }
-> > +
-> >       return attach;
-> >
-> >  err_attach:
-> > @@ -595,6 +609,10 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct=
- dma_buf_attachment *attach)
-> >       if (WARN_ON(!dmabuf || !attach))
-> >               return;
-> >
-> > +     if (attach->sgt)
-> > +             dmabuf->ops->unmap_dma_buf(attach, attach->sgt,
-> > +                                        DMA_BIDIRECTIONAL);
-> > +
-> >       mutex_lock(&dmabuf->lock);
-> >       list_del(&attach->node);
-> >       if (dmabuf->ops->detach)
-> > @@ -630,6 +648,9 @@ struct sg_table *dma_buf_map_attachment(struct dma_=
-buf_attachment *attach,
-> >       if (WARN_ON(!attach || !attach->dmabuf))
-> >               return ERR_PTR(-EINVAL);
-> >
-> > +     if (attach->sgt)
-> > +             return attach->sgt;
-> > +
->
-> I am concerned by this change to make caching the sg_table the default
-> behavior as this will result in the exporter's map_dma_buf/unmap_dma_buf
-> calls are no longer being called in
-> dma_buf_map_attachment/dma_buf_unmap_attachment.
+That's not what I meant (or I misunderstood you). If we have a relaxed
+ABI in the kernel and a libc that returns tagged pointers on malloc() I
+wouldn't expect the programmer to do anything different in the
+application code like explicit untagging. Basically the program would
+continue to run unmodified irrespective of whether you use an old libc
+without tagged pointers or a new one which tags heap allocations.
 
-Probably this concern from Liam got lost between versions of your
-patches; could we please request a reply to these points here?
->
-> This seems concerning to me as it appears to ignore the cache maintenance
-> aspect of the map_dma_buf/unmap_dma_buf calls.
-> For example won't this potentially cause issues for clients of ION.
->
-> If we had the following
-> - #1 dma_buf_attach coherent_device
-> - #2 dma_buf attach non_coherent_device
-> - #3 dma_buf_map_attachment non_coherent_device
-> - #4 non_coherent_device writes to buffer
-> - #5 dma_buf_unmap_attachment non_coherent_device
-> - #6 dma_buf_map_attachment coherent_device
-> - #7 coherent_device reads buffer
-> - #8 dma_buf_unmap_attachment coherent_device
->
-> There wouldn't be any CMO at step #5 anymore (specifically no invalidate)
-> so now at step #7 the coherent_device could read a stale cache line.
->
-> Also, now by default dma_buf_unmap_attachment no longer removes the
-> mappings from the iommu, so now by default dma_buf_unmap_attachment is no=
-t
-> doing what I would expect and clients are losing the potential sandboxing
-> benefits of removing the mappings.
-> Shouldn't this caching behavior be something that clients opt into instea=
-d
-> of being the default?
->
-> Liam
->
-> Qualcomm Innovation Center, Inc. is a member of Code Aurora Forum,
-> a Linux Foundation Collaborative Project
->
+What I do expect is that the libc checks for the presence of the relaxed
+ABI, currently proposed as an AT_FLAGS bit (for MTE we'd have a
+HWCAP_MTE), and only tag the malloc() pointers if the kernel supports
+the relaxed ABI. As you said, you shouldn't expect that the C library
+and kernel are upgraded together, so they should be able to work in any
+new/old version combination.
 
-Best,
-Sumit.
+> > > The trouble I see with this is that it is largely theoretical and
+> > > requires part of userspace to collude to start using a new CPU feature
+> > > that tickles a bug in the kernel. As I understand the golden rule,
+> > > this is a bug in the kernel (a missed ioctl() or such) to be fixed,
+> > > not a global breaking of some userspace behavior.
+> >
+> > Yes, we should follow the rule that it's a kernel bug but it doesn't
+> > help the user that a newly installed kernel causes user space to no
+> > longer reach a prompt. Hence the proposal of an opt-in via personality
+> > (for MTE we would need an explicit opt-in by the user anyway since the
+> > top byte is no longer ignored but checked against the allocation tag).
+> 
+> but realistically would this actually get used in this way? or would
+> any given system either be MTE or non-MTE. in which case a kernel
+> configuration option would seem to make more sense. (because either
+> way, the hypothetical user basically needs to recompile the kernel to
+> get back on their feet. or all of userspace.)
+
+The two hard requirements I have for supporting any new hardware feature
+in Linux are (1) a single kernel image binary continues to run on old
+hardware while making use of the new feature if available and (2) old
+user space continues to run on new hardware while new user space can
+take advantage of the new feature.
+
+The distro user space usually has a hard requirement that it continues
+to run on (certain) old hardware. We can't enforce this in the kernel
+but we offer the option to user space developers of checking feature
+availability through HWCAP bits.
+
+The Android story may be different as you have more control about which
+kernel configurations are deployed on specific SoCs. I'm looking more
+from a Linux distro angle where you just get an off-the-shelf OS image
+and install it on your hardware, either taking advantage of new features
+or just not using them if the software was not updated. Or, if updated
+software is installed on old hardware, it would just run.
+
+For MTE, we just can't enable it by default since there are applications
+who use the top byte of a pointer and expect it to be ignored rather
+than failing with a mismatched tag. Just think of a hwasan compiled
+binary where TBI is expected to work and you try to run it with MTE
+turned on.
+
+I would also expect the C library or dynamic loader to check for the
+presence of a HWCAP_MTE bit before starting to tag memory allocations,
+otherwise it would get SIGILL on the first MTE instruction it tries to
+execute.
+
+> i'm not sure i see this new way for a kernel update to break my system
+> and need to be fixed forward/rolled back as any different from any of
+> the existing ways in which this can happen :-) as an end-user i have
+> to rely on whoever's sending me software updates to test adequately
+> enough that they find the problems. as an end user, there isn't any
+> difference between "my phone rebooted when i tried to take a photo
+> because of a kernel/driver leak", say, and "my phone rebooted when i
+> tried to take a photo because of missing untagging of a pointer passed
+> via ioctl".
+> 
+> i suspect you and i have very different people in mind when we say "user" :-)
+
+Indeed, I think we have different users in mind. I didn't mean the end
+user who doesn't really care which C library version it's running on
+their phone but rather advanced users (not necessarily kernel
+developers) that prefer to build their own kernels with every release.
+We could extend this to kernel developers who don't have time to track
+down why a new kernel triggers lots of SIGSEGVs during boot.
+
+-- 
+Catalin
