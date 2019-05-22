@@ -1,59 +1,194 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [pull] amdgpu, amdkfd drm-fixes-5.2
-Date: Wed, 22 May 2019 15:54:25 -0500
-Message-ID: <20190522205425.3657-1-alexander.deucher@amd.com>
+From: Evgenii Stepanov <eugenis@google.com>
+Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory syscalls
+Date: Wed, 22 May 2019 14:16:57 -0700
+Message-ID: <CAFKCwrjyP+x0JJy=qpBFsp4pub3He6UkvU0qnf1UOKt6W1LPRQ@mail.gmail.com>
+References: <cover.1557160186.git.andreyknvl@google.com> <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+ <20190522114910.emlckebwzv2qz42i@mbp>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, daniel.vetter-/w4YWyX8dFk@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190522114910.emlckebwzv2qz42i@mbp>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Andrey Konovalov <andreyknvl@google.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwgRGFuaWVsLAoKRml4ZXMgZm9yIDUuMjoKLSBGaXggZm9yIERNQ1UgZmlybXdhcmUg
-aXNzdWVzIGZvciBzdGFibGUKLSBBZGQgbWlzc2luZyBwb2xhcmlzMTAgcGNpIGlkIHRvIGtmZAot
-IFNjcmVlbiBjb3JydXB0aW9uIGZpeCBvbiBwaWNhc3NvCi0gRml4IGZvciBkcml2ZXIgcmVsb2Fk
-IG9uIHZlZ2ExMAotIFNSLUlPViBmaXhlcwotIExvY2tpbmcgZml4IGluIG5ldyBTTVUgY29kZQot
-IENvbXB1dGUgcHJvZmlsZSBzd2l0Y2hpbmcgZml4IGZvciBLRkQKClRoZSBmb2xsb3dpbmcgY2hh
-bmdlcyBzaW5jZSBjb21taXQgYTE4ODMzOWNhNWEzOTZhY2M1ODhlNTg1MWVkN2UxOWY2NmIwZWJk
-OToKCiAgTGludXggNS4yLXJjMSAoMjAxOS0wNS0xOSAxNTo0NzowOSAtMDcwMCkKCmFyZSBhdmFp
-bGFibGUgaW4gdGhlIEdpdCByZXBvc2l0b3J5IGF0OgoKICBnaXQ6Ly9wZW9wbGUuZnJlZWRlc2t0
-b3Aub3JnL35hZ2Q1Zi9saW51eCBkcm0tZml4ZXMtNS4yCgpmb3IgeW91IHRvIGZldGNoIGNoYW5n
-ZXMgdXAgdG8gNDNkODEwN2YwYmRjYWE0MzAwZTQwMjMxY2M0NWVjYmQxZjc3ZjczZjoKCiAgZHJt
-L2FtZGtmZDogRml4IGNvbXB1dGUgcHJvZmlsZSBzd2l0Y2hpbmcgKDIwMTktMDUtMjAgMjE6MjI6
-NDkgLTA1MDApCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tCkFsZXggRGV1Y2hlciAoMik6CiAgICAgIGRybS9hbWRncHUvc29j
-MTU6IHNraXAgcmVzZXQgb24gaW5pdAogICAgICBkcm0vYW1kZ3B1L2dtYzk6IHNldCB2cmFtX3dp
-ZHRoIHByb3Blcmx5IGZvciBTUi1JT1YKCkRhbiBDYXJwZW50ZXIgKDEpOgogICAgICBkcm0vYW1k
-L3Bvd2VycGxheTogZml4IGxvY2tpbmcgaW4gc211X2ZlYXR1cmVfc2V0X3N1cHBvcnRlZCgpCgpG
-bG9yYSBDdWkgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBrZWVwIHN0b2xlbiBtZW1vcnkgb24gcGlj
-YXNzbwoKSGFyaXNoIEthc2l2aXN3YW5hdGhhbiAoMSk6CiAgICAgIGRybS9hbWRrZmQ6IEZpeCBj
-b21wdXRlIHByb2ZpbGUgc3dpdGNoaW5nCgpIYXJyeSBXZW50bGFuZCAoMik6CiAgICAgIGRybS9h
-bWQvZGlzcGxheTogQWRkIEFTSUNSRVZfSVNfUElDQVNTTwogICAgICBkcm0vYW1kL2Rpc3BsYXk6
-IERvbid0IGxvYWQgRE1DVSBmb3IgUmF2ZW4gMQoKS2VudCBSdXNzZWxsICgxKToKICAgICAgZHJt
-L2FtZGtmZDogQWRkIG1pc3NpbmcgUG9sYXJpczEwIElECgpZaW50aWFuIFRhbyAoMSk6CiAgICAg
-IGRybS9hbWRncHU6IHNraXAgZncgcHJpIGJvIGFsbG9jIGZvciBTUklPVgoKIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYyAgICAgICAgICAgICAgIHwgMTcgKysrKysrKysr
-Ky0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgICAgICAgICAg
-ICAgICAgIHwgMTEgKysrKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1
-LmMgICAgICAgICAgICAgICAgICAgIHwgIDUgKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9kZXZpY2UuYyAgICAgICAgICAgICAgIHwgMTcgKysrKysrKysrKysrKysrKysKIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jIHwgMTEg
-KysrKysrLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgICAg
-ICAgICAgICAgIHwgIDcgKysrKysrKwogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdw
-dV9kbS9hbWRncHVfZG0uYyAgICAgfCAxMiArKysrKysrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9pbmNsdWRlL2RhbF9hc2ljX2lkLmggICAgIHwgIDcgKysrKy0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jICAgICAgICAgICAgfCAgMiArLQog
-OSBmaWxlcyBjaGFuZ2VkLCA3MCBpbnNlcnRpb25zKCspLCAxOSBkZWxldGlvbnMoLSkKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Wed, May 22, 2019 at 4:49 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
+>
+> On Mon, May 06, 2019 at 06:30:51PM +0200, Andrey Konovalov wrote:
+> > This patch is a part of a series that extends arm64 kernel ABI to allow to
+> > pass tagged user pointers (with the top byte set to something else other
+> > than 0x00) as syscall arguments.
+> >
+> > This patch allows tagged pointers to be passed to the following memory
+> > syscalls: brk, get_mempolicy, madvise, mbind, mincore, mlock, mlock2,
+> > mmap, mmap_pgoff, mprotect, mremap, msync, munlock, munmap,
+> > remap_file_pages, shmat and shmdt.
+> >
+> > This is done by untagging pointers passed to these syscalls in the
+> > prologues of their handlers.
+>
+> I'll go through them one by one to see if we can tighten the expected
+> ABI while having the MTE in mind.
+>
+> > diff --git a/arch/arm64/kernel/sys.c b/arch/arm64/kernel/sys.c
+> > index b44065fb1616..933bb9f3d6ec 100644
+> > --- a/arch/arm64/kernel/sys.c
+> > +++ b/arch/arm64/kernel/sys.c
+> > @@ -35,10 +35,33 @@ SYSCALL_DEFINE6(mmap, unsigned long, addr, unsigned long, len,
+> >  {
+> >       if (offset_in_page(off) != 0)
+> >               return -EINVAL;
+> > -
+> > +     addr = untagged_addr(addr);
+> >       return ksys_mmap_pgoff(addr, len, prot, flags, fd, off >> PAGE_SHIFT);
+> >  }
+>
+> If user passes a tagged pointer to mmap() and the address is honoured
+> (or MAP_FIXED is given), what is the expected return pointer? Does it
+> need to be tagged with the value from the hint?
+
+For HWASan the most convenient would be to use the tag from the hint.
+But since in the TBI (not MTE) mode the kernel has no idea what
+meaning userspace assigns to pointer tags, perhaps it should not try
+to guess, and should return raw (zero-tagged) address instead.
+
+> With MTE, we may want to use this as a request for the default colour of
+> the mapped pages (still under discussion).
+
+I like this - and in that case it would make sense to return the
+pointer that can be immediately dereferenced without crashing the
+process, i.e. with the matching tag.
+
+> > +SYSCALL_DEFINE6(arm64_mmap_pgoff, unsigned long, addr, unsigned long, len,
+> > +             unsigned long, prot, unsigned long, flags,
+> > +             unsigned long, fd, unsigned long, pgoff)
+> > +{
+> > +     addr = untagged_addr(addr);
+> > +     return ksys_mmap_pgoff(addr, len, prot, flags, fd, pgoff);
+> > +}
+>
+> We don't have __NR_mmap_pgoff on arm64.
+>
+> > +SYSCALL_DEFINE5(arm64_mremap, unsigned long, addr, unsigned long, old_len,
+> > +             unsigned long, new_len, unsigned long, flags,
+> > +             unsigned long, new_addr)
+> > +{
+> > +     addr = untagged_addr(addr);
+> > +     new_addr = untagged_addr(new_addr);
+> > +     return ksys_mremap(addr, old_len, new_len, flags, new_addr);
+> > +}
+>
+> Similar comment as for mmap(), do we want the tag from new_addr to be
+> preserved? In addition, should we check that the two tags are identical
+> or mremap() should become a way to repaint a memory region?
+>
+> > +SYSCALL_DEFINE2(arm64_munmap, unsigned long, addr, size_t, len)
+> > +{
+> > +     addr = untagged_addr(addr);
+> > +     return ksys_munmap(addr, len);
+> > +}
+>
+> This looks fine.
+>
+> > +SYSCALL_DEFINE1(arm64_brk, unsigned long, brk)
+> > +{
+> > +     brk = untagged_addr(brk);
+> > +     return ksys_brk(brk);
+> > +}
+>
+> I wonder whether brk() should simply not accept tags, and should not
+> return them (similar to the prctl(PR_SET_MM) discussion). We could
+> document this in the ABI requirements.
+>
+> > +SYSCALL_DEFINE5(arm64_get_mempolicy, int __user *, policy,
+> > +             unsigned long __user *, nmask, unsigned long, maxnode,
+> > +             unsigned long, addr, unsigned long, flags)
+> > +{
+> > +     addr = untagged_addr(addr);
+> > +     return ksys_get_mempolicy(policy, nmask, maxnode, addr, flags);
+> > +}
+> > +
+> > +SYSCALL_DEFINE3(arm64_madvise, unsigned long, start,
+> > +             size_t, len_in, int, behavior)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_madvise(start, len_in, behavior);
+> > +}
+> > +
+> > +SYSCALL_DEFINE6(arm64_mbind, unsigned long, start, unsigned long, len,
+> > +             unsigned long, mode, const unsigned long __user *, nmask,
+> > +             unsigned long, maxnode, unsigned int, flags)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_mbind(start, len, mode, nmask, maxnode, flags);
+> > +}
+> > +
+> > +SYSCALL_DEFINE2(arm64_mlock, unsigned long, start, size_t, len)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_mlock(start, len, VM_LOCKED);
+> > +}
+> > +
+> > +SYSCALL_DEFINE2(arm64_mlock2, unsigned long, start, size_t, len)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_mlock(start, len, VM_LOCKED);
+> > +}
+> > +
+> > +SYSCALL_DEFINE2(arm64_munlock, unsigned long, start, size_t, len)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_munlock(start, len);
+> > +}
+> > +
+> > +SYSCALL_DEFINE3(arm64_mprotect, unsigned long, start, size_t, len,
+> > +             unsigned long, prot)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_mprotect_pkey(start, len, prot, -1);
+> > +}
+> > +
+> > +SYSCALL_DEFINE3(arm64_msync, unsigned long, start, size_t, len, int, flags)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_msync(start, len, flags);
+> > +}
+> > +
+> > +SYSCALL_DEFINE3(arm64_mincore, unsigned long, start, size_t, len,
+> > +             unsigned char __user *, vec)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_mincore(start, len, vec);
+> > +}
+>
+> These look fine.
+>
+> > +SYSCALL_DEFINE5(arm64_remap_file_pages, unsigned long, start,
+> > +             unsigned long, size, unsigned long, prot,
+> > +             unsigned long, pgoff, unsigned long, flags)
+> > +{
+> > +     start = untagged_addr(start);
+> > +     return ksys_remap_file_pages(start, size, prot, pgoff, flags);
+> > +}
+>
+> While this has been deprecated for some time, I presume user space still
+> invokes it?
+>
+> > +SYSCALL_DEFINE3(arm64_shmat, int, shmid, char __user *, shmaddr, int, shmflg)
+> > +{
+> > +     shmaddr = untagged_addr(shmaddr);
+> > +     return ksys_shmat(shmid, shmaddr, shmflg);
+> > +}
+> > +
+> > +SYSCALL_DEFINE1(arm64_shmdt, char __user *, shmaddr)
+> > +{
+> > +     shmaddr = untagged_addr(shmaddr);
+> > +     return ksys_shmdt(shmaddr);
+> > +}
+>
+> Do we actually want to allow shared tagged memory? Who's going to tag
+> it? If not, we can document it as not supported.
+>
+> --
+> Catalin
