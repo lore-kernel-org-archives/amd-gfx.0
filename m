@@ -1,51 +1,75 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/sched: Fix static checker warning for potential NULL
- ptr
-Date: Wed, 22 May 2019 16:08:23 +0200
-Message-ID: <307e40c1-a25a-42f4-4d19-cffdb521974e@gmail.com>
-References: <1558533443-7795-1-git-send-email-andrey.grodzovsky@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 17/17] selftests, arm64: add a selftest for passing
+ tagged pointers to kernel
+Date: Wed, 22 May 2019 15:16:12 +0100
+Message-ID: <20190522141612.GA28122@arrakis.emea.arm.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <e31d9364eb0c2eba8ce246a558422e811d82d21b.1557160186.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1558533443-7795-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <e31d9364eb0c2eba8ce246a558422e811d82d21b.1557160186.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjIuMDUuMTkgdW0gMTU6NTcgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPiBTaWduZWQt
-b2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6b3Zza3lAYW1kLmNvbT4KClJl
-dmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+
-IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMgfCAxNyArKysr
-KysrKystLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgOCBkZWxl
-dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVk
-X21haW4uYyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gaW5kZXgg
-OTBkN2E4Mi4uZWM3ZmFjYSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVy
-L3NjaGVkX21haW4uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfbWFp
-bi5jCj4gQEAgLTI4NiwxNiArMjg2LDE3IEBAIHN0YXRpYyB2b2lkIGRybV9zY2hlZF9qb2JfdGlt
-ZWRvdXQoc3RydWN0IHdvcmtfc3RydWN0ICp3b3JrKQo+ICAgCWpvYiA9IGxpc3RfZmlyc3RfZW50
-cnlfb3JfbnVsbCgmc2NoZWQtPnJpbmdfbWlycm9yX2xpc3QsCj4gICAJCQkJICAgICAgIHN0cnVj
-dCBkcm1fc2NoZWRfam9iLCBub2RlKTsKPiAgIAo+IC0JaWYgKGpvYikKPiArCWlmIChqb2IpIHsK
-PiAgIAkJam9iLT5zY2hlZC0+b3BzLT50aW1lZG91dF9qb2Ioam9iKTsKPiAgIAo+IC0JLyoKPiAt
-CSAqIEd1aWx0eSBqb2IgZGlkIGNvbXBsZXRlIGFuZCBoZW5jZSBuZWVkcyB0byBiZSBtYW51YWxs
-eSByZW1vdmVkCj4gLQkgKiBTZWUgZHJtX3NjaGVkX3N0b3AgZG9jLgo+IC0JICovCj4gLQlpZiAo
-c2NoZWQtPmZyZWVfZ3VpbHR5KSB7Cj4gLQkJam9iLT5zY2hlZC0+b3BzLT5mcmVlX2pvYihqb2Ip
-Owo+IC0JCXNjaGVkLT5mcmVlX2d1aWx0eSA9IGZhbHNlOwo+ICsJCS8qCj4gKwkJICogR3VpbHR5
-IGpvYiBkaWQgY29tcGxldGUgYW5kIGhlbmNlIG5lZWRzIHRvIGJlIG1hbnVhbGx5IHJlbW92ZWQK
-PiArCQkgKiBTZWUgZHJtX3NjaGVkX3N0b3AgZG9jLgo+ICsJCSAqLwo+ICsJCWlmIChzY2hlZC0+
-ZnJlZV9ndWlsdHkpIHsKPiArCQkJam9iLT5zY2hlZC0+b3BzLT5mcmVlX2pvYihqb2IpOwo+ICsJ
-CQlzY2hlZC0+ZnJlZV9ndWlsdHkgPSBmYWxzZTsKPiArCQl9Cj4gICAJfQo+ICAgCj4gICAJc3Bp
-bl9sb2NrX2lycXNhdmUoJnNjaGVkLT5qb2JfbGlzdF9sb2NrLCBmbGFncyk7CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Mon, May 06, 2019 at 06:31:03PM +0200, Andrey Konovalov wrote:
+> This patch is a part of a series that extends arm64 kernel ABI to allow to
+> pass tagged user pointers (with the top byte set to something else other
+> than 0x00) as syscall arguments.
+> 
+> This patch adds a simple test, that calls the uname syscall with a
+> tagged user pointer as an argument. Without the kernel accepting tagged
+> user pointers the test fails with EFAULT.
+
+That's probably sufficient for a simple example. Something we could add
+to Documentation maybe is a small library that can be LD_PRELOAD'ed so
+that you can run a lot more tests like LTP.
+
+We could add this to selftests but I think it's too glibc specific.
+
+--------------------8<------------------------------------
+#include <stdlib.h>
+
+#define TAG_SHIFT	(56)
+#define TAG_MASK	(0xffUL << TAG_SHIFT)
+
+void *__libc_malloc(size_t size);
+void __libc_free(void *ptr);
+void *__libc_realloc(void *ptr, size_t size);
+void *__libc_calloc(size_t nmemb, size_t size);
+
+static void *tag_ptr(void *ptr)
+{
+	unsigned long tag = rand() & 0xff;
+	if (!ptr)
+		return ptr;
+	return (void *)((unsigned long)ptr | (tag << TAG_SHIFT));
+}
+
+static void *untag_ptr(void *ptr)
+{
+	return (void *)((unsigned long)ptr & ~TAG_MASK);
+}
+
+void *malloc(size_t size)
+{
+	return tag_ptr(__libc_malloc(size));
+}
+
+void free(void *ptr)
+{
+	__libc_free(untag_ptr(ptr));
+}
+
+void *realloc(void *ptr, size_t size)
+{
+	return tag_ptr(__libc_realloc(untag_ptr(ptr), size));
+}
+
+void *calloc(size_t nmemb, size_t size)
+{
+	return tag_ptr(__libc_calloc(nmemb, size));
+}
