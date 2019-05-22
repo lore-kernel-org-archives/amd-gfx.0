@@ -1,137 +1,114 @@
-From: enh <enh@google.com>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Wed, 22 May 2019 09:58:22 -0700
-Message-ID: <CAJgzZooc+wXBBXenm62n2zR8TVrv-y1pXMmHSdxeaNYhFLSzBA@mail.gmail.com>
-References: <cover.1557160186.git.andreyknvl@google.com> <20190517144931.GA56186@arrakis.emea.arm.com>
- <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
- <20190521182932.sm4vxweuwo5ermyd@mbp> <201905211633.6C0BF0C2@keescook>
- <20190522101110.m2stmpaj7seezveq@mbp> <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
- <20190522163527.rnnc6t4tll7tk5zw@mbp>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 01/12] dma-buf: add dynamic caching of sg_table
+Date: Wed, 22 May 2019 19:27:59 +0200
+Message-ID: <d7fb2a6b-f516-b506-247d-0f3d4d59ec8e@gmail.com>
+References: <20190416183841.1577-1-christian.koenig@amd.com>
+ <1556323269-19670-1-git-send-email-lmark@codeaurora.org>
+ <CAO_48GGanguXbmYDD+p1kK_VkiWdZSTYAD1y-0JQK7hqL_OPPg@mail.gmail.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190522163527.rnnc6t4tll7tk5zw@mbp>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Kees Cook <keescook@chromium.org>, Evgenii Stepanov <eugenis@google.com>, Andrey Konovalov <andreyknvl@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAO_48GGanguXbmYDD+p1kK_VkiWdZSTYAD1y-0JQK7hqL_OPPg@mail.gmail.com>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>, Liam Mark <lmark@codeaurora.org>
+Cc: Linaro MM SIG <linaro-mm-sig@lists.linaro.org>, "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>, DRI mailing list <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, May 22, 2019 at 9:35 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
->
-> On Wed, May 22, 2019 at 08:30:21AM -0700, enh wrote:
-> > On Wed, May 22, 2019 at 3:11 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > > On Tue, May 21, 2019 at 05:04:39PM -0700, Kees Cook wrote:
-> > > > I just want to make sure I fully understand your concern about this
-> > > > being an ABI break, and I work best with examples. The closest situation
-> > > > I can see would be:
-> > > >
-> > > > - some program has no idea about MTE
-> > >
-> > > Apart from some libraries like libc (and maybe those that handle
-> > > specific device ioctls), I think most programs should have no idea about
-> > > MTE. I wouldn't expect programmers to have to change their app just
-> > > because we have a new feature that colours heap allocations.
-> >
-> > obviously i'm biased as a libc maintainer, but...
-> >
-> > i don't think it helps to move this to libc --- now you just have an
-> > extra dependency where to have a guaranteed working system you need to
-> > update your kernel and libc together. (or at least update your libc to
-> > understand new ioctls etc _before_ you can update your kernel.)
->
-> That's not what I meant (or I misunderstood you). If we have a relaxed
-> ABI in the kernel and a libc that returns tagged pointers on malloc() I
-> wouldn't expect the programmer to do anything different in the
-> application code like explicit untagging. Basically the program would
-> continue to run unmodified irrespective of whether you use an old libc
-> without tagged pointers or a new one which tags heap allocations.
->
-> What I do expect is that the libc checks for the presence of the relaxed
-> ABI, currently proposed as an AT_FLAGS bit (for MTE we'd have a
-> HWCAP_MTE), and only tag the malloc() pointers if the kernel supports
-> the relaxed ABI. As you said, you shouldn't expect that the C library
-> and kernel are upgraded together, so they should be able to work in any
-> new/old version combination.
-
-yes, that part makes sense. i do think we'd use the AT_FLAGS bit, for
-exactly this.
-
-i was questioning the argument about the ioctl issues, and saying that
-from my perspective, untagging bugs are not really any different than
-any other kind of kernel bug.
-
-> > > > The trouble I see with this is that it is largely theoretical and
-> > > > requires part of userspace to collude to start using a new CPU feature
-> > > > that tickles a bug in the kernel. As I understand the golden rule,
-> > > > this is a bug in the kernel (a missed ioctl() or such) to be fixed,
-> > > > not a global breaking of some userspace behavior.
-> > >
-> > > Yes, we should follow the rule that it's a kernel bug but it doesn't
-> > > help the user that a newly installed kernel causes user space to no
-> > > longer reach a prompt. Hence the proposal of an opt-in via personality
-> > > (for MTE we would need an explicit opt-in by the user anyway since the
-> > > top byte is no longer ignored but checked against the allocation tag).
-> >
-> > but realistically would this actually get used in this way? or would
-> > any given system either be MTE or non-MTE. in which case a kernel
-> > configuration option would seem to make more sense. (because either
-> > way, the hypothetical user basically needs to recompile the kernel to
-> > get back on their feet. or all of userspace.)
->
-> The two hard requirements I have for supporting any new hardware feature
-> in Linux are (1) a single kernel image binary continues to run on old
-> hardware while making use of the new feature if available and (2) old
-> user space continues to run on new hardware while new user space can
-> take advantage of the new feature.
->
-> The distro user space usually has a hard requirement that it continues
-> to run on (certain) old hardware. We can't enforce this in the kernel
-> but we offer the option to user space developers of checking feature
-> availability through HWCAP bits.
->
-> The Android story may be different as you have more control about which
-> kernel configurations are deployed on specific SoCs. I'm looking more
-> from a Linux distro angle where you just get an off-the-shelf OS image
-> and install it on your hardware, either taking advantage of new features
-> or just not using them if the software was not updated. Or, if updated
-> software is installed on old hardware, it would just run.
->
-> For MTE, we just can't enable it by default since there are applications
-> who use the top byte of a pointer and expect it to be ignored rather
-> than failing with a mismatched tag. Just think of a hwasan compiled
-> binary where TBI is expected to work and you try to run it with MTE
-> turned on.
->
-> I would also expect the C library or dynamic loader to check for the
-> presence of a HWCAP_MTE bit before starting to tag memory allocations,
-> otherwise it would get SIGILL on the first MTE instruction it tries to
-> execute.
-
-(a bit off-topic, but i thought the MTE instructions were encoded in
-the no-op space, to avoid this?)
-
-> > i'm not sure i see this new way for a kernel update to break my system
-> > and need to be fixed forward/rolled back as any different from any of
-> > the existing ways in which this can happen :-) as an end-user i have
-> > to rely on whoever's sending me software updates to test adequately
-> > enough that they find the problems. as an end user, there isn't any
-> > difference between "my phone rebooted when i tried to take a photo
-> > because of a kernel/driver leak", say, and "my phone rebooted when i
-> > tried to take a photo because of missing untagging of a pointer passed
-> > via ioctl".
-> >
-> > i suspect you and i have very different people in mind when we say "user" :-)
->
-> Indeed, I think we have different users in mind. I didn't mean the end
-> user who doesn't really care which C library version it's running on
-> their phone but rather advanced users (not necessarily kernel
-> developers) that prefer to build their own kernels with every release.
-> We could extend this to kernel developers who don't have time to track
-> down why a new kernel triggers lots of SIGSEGVs during boot.
-
-i still don't see how this isn't just a regular testing/CI issue, the
-same as any other kind of kernel bug. it's already the case that i can
-get a bad kernel...
-
-> --
-> Catalin
+QW0gMjIuMDUuMTkgdW0gMTg6MTcgc2NocmllYiBTdW1pdCBTZW13YWw6Cj4gSGkgQ2hyaXN0aWFu
+LAo+Cj4gT24gU2F0LCAyNyBBcHIgMjAxOSBhdCAwNTozMSwgTGlhbSBNYXJrIDxsbWFya0Bjb2Rl
+YXVyb3JhLm9yZz4gd3JvdGU6Cj4+IE9uIFR1ZSwgMTYgQXByIDIwMTksIENocmlzdGlhbiBLw7Zu
+aWcgd3JvdGU6Cj4+Cj4+PiBUbyBhbGxvdyBhIHNtb290aCB0cmFuc2l0aW9uIGZyb20gcGlubmlu
+ZyBidWZmZXIgb2JqZWN0cyB0byBkeW5hbWljCj4+PiBpbnZhbGlkYXRpb24gd2UgZmlyc3Qgc3Rh
+cnQgdG8gY2FjaGUgdGhlIHNnX3RhYmxlIGZvciBhbiBhdHRhY2htZW50Cj4+PiB1bmxlc3MgdGhl
+IGRyaXZlciBleHBsaWNpdGx5IHNheXMgdG8gbm90IGRvIHNvLgo+Pj4KPj4+IC0tLQo+Pj4gICBk
+cml2ZXJzL2RtYS1idWYvZG1hLWJ1Zi5jIHwgMjQgKysrKysrKysrKysrKysrKysrKysrKysrCj4+
+PiAgIGluY2x1ZGUvbGludXgvZG1hLWJ1Zi5oICAgfCAxMSArKysrKysrKysrKwo+Pj4gICAyIGZp
+bGVzIGNoYW5nZWQsIDM1IGluc2VydGlvbnMoKykKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9kbWEtYnVmL2RtYS1idWYuYyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtYnVmLmMKPj4+IGluZGV4
+IDdjODU4MDIwZDE0Yi4uNjUxNjFhODJkNGQ1IDEwMDY0NAo+Pj4gLS0tIGEvZHJpdmVycy9kbWEt
+YnVmL2RtYS1idWYuYwo+Pj4gKysrIGIvZHJpdmVycy9kbWEtYnVmL2RtYS1idWYuYwo+Pj4gQEAg
+LTU3Myw2ICs1NzMsMjAgQEAgc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqZG1hX2J1Zl9hdHRh
+Y2goc3RydWN0IGRtYV9idWYgKmRtYWJ1ZiwKPj4+ICAgICAgICBsaXN0X2FkZCgmYXR0YWNoLT5u
+b2RlLCAmZG1hYnVmLT5hdHRhY2htZW50cyk7Cj4+Pgo+Pj4gICAgICAgIG11dGV4X3VubG9jaygm
+ZG1hYnVmLT5sb2NrKTsKPj4+ICsKPj4+ICsgICAgIGlmICghZG1hYnVmLT5vcHMtPmR5bmFtaWNf
+c2d0X21hcHBpbmcpIHsKPj4+ICsgICAgICAgICAgICAgc3RydWN0IHNnX3RhYmxlICpzZ3Q7Cj4+
+PiArCj4+PiArICAgICAgICAgICAgIHNndCA9IGRtYWJ1Zi0+b3BzLT5tYXBfZG1hX2J1ZihhdHRh
+Y2gsIERNQV9CSURJUkVDVElPTkFMKTsKPj4+ICsgICAgICAgICAgICAgaWYgKCFzZ3QpCj4+PiAr
+ICAgICAgICAgICAgICAgICAgICAgc2d0ID0gRVJSX1BUUigtRU5PTUVNKTsKPj4+ICsgICAgICAg
+ICAgICAgaWYgKElTX0VSUihzZ3QpKSB7Cj4+PiArICAgICAgICAgICAgICAgICAgICAgZG1hX2J1
+Zl9kZXRhY2goZG1hYnVmLCBhdHRhY2gpOwo+Pj4gKyAgICAgICAgICAgICAgICAgICAgIHJldHVy
+biBFUlJfQ0FTVChzZ3QpOwo+Pj4gKyAgICAgICAgICAgICB9Cj4+PiArICAgICAgICAgICAgIGF0
+dGFjaC0+c2d0ID0gc2d0Owo+Pj4gKyAgICAgfQo+Pj4gKwo+Pj4gICAgICAgIHJldHVybiBhdHRh
+Y2g7Cj4+Pgo+Pj4gICBlcnJfYXR0YWNoOgo+Pj4gQEAgLTU5NSw2ICs2MDksMTAgQEAgdm9pZCBk
+bWFfYnVmX2RldGFjaChzdHJ1Y3QgZG1hX2J1ZiAqZG1hYnVmLCBzdHJ1Y3QgZG1hX2J1Zl9hdHRh
+Y2htZW50ICphdHRhY2gpCj4+PiAgICAgICAgaWYgKFdBUk5fT04oIWRtYWJ1ZiB8fCAhYXR0YWNo
+KSkKPj4+ICAgICAgICAgICAgICAgIHJldHVybjsKPj4+Cj4+PiArICAgICBpZiAoYXR0YWNoLT5z
+Z3QpCj4+PiArICAgICAgICAgICAgIGRtYWJ1Zi0+b3BzLT51bm1hcF9kbWFfYnVmKGF0dGFjaCwg
+YXR0YWNoLT5zZ3QsCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IERNQV9CSURJUkVDVElPTkFMKTsKPj4+ICsKPj4+ICAgICAgICBtdXRleF9sb2NrKCZkbWFidWYt
+PmxvY2spOwo+Pj4gICAgICAgIGxpc3RfZGVsKCZhdHRhY2gtPm5vZGUpOwo+Pj4gICAgICAgIGlm
+IChkbWFidWYtPm9wcy0+ZGV0YWNoKQo+Pj4gQEAgLTYzMCw2ICs2NDgsOSBAQCBzdHJ1Y3Qgc2df
+dGFibGUgKmRtYV9idWZfbWFwX2F0dGFjaG1lbnQoc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAq
+YXR0YWNoLAo+Pj4gICAgICAgIGlmIChXQVJOX09OKCFhdHRhY2ggfHwgIWF0dGFjaC0+ZG1hYnVm
+KSkKPj4+ICAgICAgICAgICAgICAgIHJldHVybiBFUlJfUFRSKC1FSU5WQUwpOwo+Pj4KPj4+ICsg
+ICAgIGlmIChhdHRhY2gtPnNndCkKPj4+ICsgICAgICAgICAgICAgcmV0dXJuIGF0dGFjaC0+c2d0
+Owo+Pj4gKwo+PiBJIGFtIGNvbmNlcm5lZCBieSB0aGlzIGNoYW5nZSB0byBtYWtlIGNhY2hpbmcg
+dGhlIHNnX3RhYmxlIHRoZSBkZWZhdWx0Cj4+IGJlaGF2aW9yIGFzIHRoaXMgd2lsbCByZXN1bHQg
+aW4gdGhlIGV4cG9ydGVyJ3MgbWFwX2RtYV9idWYvdW5tYXBfZG1hX2J1Zgo+PiBjYWxscyBhcmUg
+bm8gbG9uZ2VyIGJlaW5nIGNhbGxlZCBpbgo+PiBkbWFfYnVmX21hcF9hdHRhY2htZW50L2RtYV9i
+dWZfdW5tYXBfYXR0YWNobWVudC4KPiBQcm9iYWJseSB0aGlzIGNvbmNlcm4gZnJvbSBMaWFtIGdv
+dCBsb3N0IGJldHdlZW4gdmVyc2lvbnMgb2YgeW91cgo+IHBhdGNoZXM7IGNvdWxkIHdlIHBsZWFz
+ZSByZXF1ZXN0IGEgcmVwbHkgdG8gdGhlc2UgcG9pbnRzIGhlcmU/CgpTb3JyeSBJIGluZGVlZCBu
+ZXZlciBnb3QgdGhpcyBtYWlsLCBidXQgdGhpcyBpcyBhY3R1YWxseSBub3QgYW4gaXNzdWUgCmJl
+Y2F1c2UgRGFuaWVsIGhhZCBzaW1pbGFyIGNvbmNlcm5zIGFuZCB3ZSBkaWRuJ3QgbWFkZSB0aGlz
+IHRoZSBkZWZhdWx0IAppbiB0aGUgZmluYWwgdmVyc2lvbi4KCj4+IFRoaXMgc2VlbXMgY29uY2Vy
+bmluZyB0byBtZSBhcyBpdCBhcHBlYXJzIHRvIGlnbm9yZSB0aGUgY2FjaGUgbWFpbnRlbmFuY2UK
+Pj4gYXNwZWN0IG9mIHRoZSBtYXBfZG1hX2J1Zi91bm1hcF9kbWFfYnVmIGNhbGxzLgo+PiBGb3Ig
+ZXhhbXBsZSB3b24ndCB0aGlzIHBvdGVudGlhbGx5IGNhdXNlIGlzc3VlcyBmb3IgY2xpZW50cyBv
+ZiBJT04uCj4+Cj4+IElmIHdlIGhhZCB0aGUgZm9sbG93aW5nCj4+IC0gIzEgZG1hX2J1Zl9hdHRh
+Y2ggY29oZXJlbnRfZGV2aWNlCj4+IC0gIzIgZG1hX2J1ZiBhdHRhY2ggbm9uX2NvaGVyZW50X2Rl
+dmljZQo+PiAtICMzIGRtYV9idWZfbWFwX2F0dGFjaG1lbnQgbm9uX2NvaGVyZW50X2RldmljZQo+
+PiAtICM0IG5vbl9jb2hlcmVudF9kZXZpY2Ugd3JpdGVzIHRvIGJ1ZmZlcgo+PiAtICM1IGRtYV9i
+dWZfdW5tYXBfYXR0YWNobWVudCBub25fY29oZXJlbnRfZGV2aWNlCj4+IC0gIzYgZG1hX2J1Zl9t
+YXBfYXR0YWNobWVudCBjb2hlcmVudF9kZXZpY2UKPj4gLSAjNyBjb2hlcmVudF9kZXZpY2UgcmVh
+ZHMgYnVmZmVyCj4+IC0gIzggZG1hX2J1Zl91bm1hcF9hdHRhY2htZW50IGNvaGVyZW50X2Rldmlj
+ZQo+Pgo+PiBUaGVyZSB3b3VsZG4ndCBiZSBhbnkgQ01PIGF0IHN0ZXAgIzUgYW55bW9yZSAoc3Bl
+Y2lmaWNhbGx5IG5vIGludmFsaWRhdGUpCj4+IHNvIG5vdyBhdCBzdGVwICM3IHRoZSBjb2hlcmVu
+dF9kZXZpY2UgY291bGQgcmVhZCBhIHN0YWxlIGNhY2hlIGxpbmUuCj4+Cj4+IEFsc28sIG5vdyBi
+eSBkZWZhdWx0IGRtYV9idWZfdW5tYXBfYXR0YWNobWVudCBubyBsb25nZXIgcmVtb3ZlcyB0aGUK
+Pj4gbWFwcGluZ3MgZnJvbSB0aGUgaW9tbXUsIHNvIG5vdyBieSBkZWZhdWx0IGRtYV9idWZfdW5t
+YXBfYXR0YWNobWVudCBpcyBub3QKPj4gZG9pbmcgd2hhdCBJIHdvdWxkIGV4cGVjdCBhbmQgY2xp
+ZW50cyBhcmUgbG9zaW5nIHRoZSBwb3RlbnRpYWwgc2FuZGJveGluZwo+PiBiZW5lZml0cyBvZiBy
+ZW1vdmluZyB0aGUgbWFwcGluZ3MuCj4+IFNob3VsZG4ndCB0aGlzIGNhY2hpbmcgYmVoYXZpb3Ig
+YmUgc29tZXRoaW5nIHRoYXQgY2xpZW50cyBvcHQgaW50byBpbnN0ZWFkCj4+IG9mIGJlaW5nIHRo
+ZSBkZWZhdWx0PwoKV2VsbCwgaXQgc2VlbXMgeW91IGFyZSBtYWtpbmcgaW5jb3JyZWN0IGFzc3Vt
+cHRpb25zIGFib3V0IHRoZSBjYWNoZSAKbWFpbnRlbmFuY2Ugb2YgRE1BLWJ1ZiBoZXJlLgoKQXQg
+bGVhc3QgZm9yIGFsbCBEUk0gZGV2aWNlcyBJJ20gYXdhcmUgb2YgbWFwcGluZy91bm1hcHBpbmcg
+YW4gCmF0dGFjaG1lbnQgZG9lcyAqTk9UKiBoYXZlIGFueSBjYWNoZSBtYWludGVuYW5jZSBpbXBs
+aWNhdGlvbnMuCgpFLmcuIHRoZSB1c2UgY2FzZSB5b3UgZGVzY3JpYmUgYWJvdmUgd291bGQgY2Vy
+dGFpbmx5IGZhaWwgd2l0aCBhbWRncHUsIApyYWRlb24sIG5vdXZlYXUgYW5kIGk5MTUgYmVjYXVz
+ZSBtYXBwaW5nIGEgRE1BLWJ1ZiBkb2Vzbid0IHN0b3AgdGhlIApleHBvcnRlciBmcm9tIHJlYWRp
+bmcvd3JpdGluZyB0byB0aGF0IGJ1ZmZlciAoanVzdCB0aGUgb3Bwb3NpdGUgYWN0dWFsbHkpLgoK
+QWxsIG9mIHRoZW0gYXNzdW1lIHBlcmZlY3RseSBjb2hlcmVudCBhY2Nlc3MgdG8gdGhlIHVuZGVy
+bHlpbmcgbWVtb3J5LiAKQXMgZmFyIGFzIEkga25vdyB0aGVyZSBpcyBubyBkb2N1bWVudGVkIGNh
+Y2hlIG1haW50ZW5hbmNlIHJlcXVpcmVtZW50cyAKZm9yIERNQS1idWYuCgpUaGUgSU9NTVUgY29u
+Y2VybiBvbiB0aGUgb3RoZXIgaGFuZCBpcyBjZXJ0YWlubHkgdmFsaWQgYW5kIEkgcGVyZmVjdGx5
+IAphZ3JlZSB0aGF0IGtlZXBpbmcgdGhlIG1hcHBpbmcgdGltZSBhcyBzaG9ydCBhcyBwb3NzaWJs
+ZSBpcyBkZXNpcmFibGUuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+PiBMaWFtCj4+Cj4+IFF1YWxj
+b21tIElubm92YXRpb24gQ2VudGVyLCBJbmMuIGlzIGEgbWVtYmVyIG9mIENvZGUgQXVyb3JhIEZv
+cnVtLAo+PiBhIExpbnV4IEZvdW5kYXRpb24gQ29sbGFib3JhdGl2ZSBQcm9qZWN0Cj4+Cj4gQmVz
+dCwKPiBTdW1pdC4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
+bA==
