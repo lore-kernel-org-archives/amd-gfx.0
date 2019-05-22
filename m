@@ -1,51 +1,34 @@
-From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: Fix code error for translating int
- type to bool type correctly
-Date: Wed, 22 May 2019 02:27:19 +0000
-Message-ID: <BYAPR12MB26322ACEEE56D1C439CBA11AFC000@BYAPR12MB2632.namprd12.prod.outlook.com>
-References: <1558439172-4802-1-git-send-email-Jack.Gui@amd.com>
+From: syzbot <syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com>
+Subject: Re: WARNING: locking bug in inet_autobind
+Date: Tue, 21 May 2019 20:16:01 -0700
+Message-ID: <0000000000008b645c058971629b@google.com>
+References: <00000000000033a0120588fac894@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1558439172-4802-1-git-send-email-Jack.Gui-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Gui, Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <00000000000033a0120588fac894@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Yong.Zhao@amd.com, airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, ast@kernel.org, bpf@vger.kernel.org, christian.koenig@amd.com, daniel@ffwll.ch, daniel@iogearbox.net, davem@davemloft.net, david1.zhou@amd.com, dri-devel@lists.freedesktop.org, evan.quan@amd.com, felix.kuehling@amd.com, harry.wentland@amd.com, kafai@fb.com, kuznet@ms2.inr.ac.ru, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, ozeng@amd.com, ray.huang@amd.com, rex.zhu@amd.com, songliubraving@fb.com, syzkaller-bugs@googlegroups.com, yhs@fb.com, yong.zhao@amd.com, yoshfuji@linux-ipv6.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCg0KUmVn
-YXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4
-IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgQ2hl
-bmdtaW5nIEd1aQ0KU2VudDogMjAxOeW5tDXmnIgyMeaXpSAxOTo0Ng0KVG86IGFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogR3VpLCBKYWNrIDxKYWNrLkd1aUBhbWQuY29tPg0KU3Vi
-amVjdDogW1BBVENIXSBkcm0vYW1kL3Bvd2VycGxheTogRml4IGNvZGUgZXJyb3IgZm9yIHRyYW5z
-bGF0aW5nIGludCB0eXBlIHRvIGJvb2wgdHlwZSBjb3JyZWN0bHkNCg0KW0NBVVRJT046IEV4dGVy
-bmFsIEVtYWlsXQ0KDQpGaXggY29kZSBlcnJvciB0byBzdXBwb3J0IHZhbHVlIDwgMCBvciA+IDEu
-DQoNClNpZ25lZC1vZmYtYnk6IENoZW5nbWluZyBHdWkgPEphY2suR3VpQGFtZC5jb20+DQotLS0N
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgfCAyICstDQogMSBm
-aWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQoNCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMNCmluZGV4IDNhNDcxMzAuLmQ1ZjAzYjkg
-MTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMN
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYw0KQEAgLTM0
-OCw3ICszNDgsNyBAQCBzdGF0aWMgaW50IHNtdV9lYXJseV9pbml0KHZvaWQgKmhhbmRsZSkNCiAg
-ICAgICAgc3RydWN0IHNtdV9jb250ZXh0ICpzbXUgPSAmYWRldi0+c211Ow0KDQogICAgICAgIHNt
-dS0+YWRldiA9IGFkZXY7DQotICAgICAgIHNtdS0+cG1fZW5hYmxlZCA9IGFtZGdwdV9kcG07DQor
-ICAgICAgIHNtdS0+cG1fZW5hYmxlZCA9ICEhYW1kZ3B1X2RwbTsNCiAgICAgICAgbXV0ZXhfaW5p
-dCgmc211LT5tdXRleCk7DQoNCiAgICAgICAgcmV0dXJuIHNtdV9zZXRfZnVuY3MoYWRldik7DQot
-LQ0KMi43LjQNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+syzbot has bisected this bug to:
+
+commit c0d9271ecbd891cdeb0fad1edcdd99ee717a655f
+Author: Yong Zhao <Yong.Zhao@amd.com>
+Date:   Fri Feb 1 23:36:21 2019 +0000
+
+     drm/amdgpu: Delete user queue doorbell variables
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1433ece4a00000
+start commit:   f49aa1de Merge tag 'for-5.2-rc1-tag' of git://git.kernel.o..
+git tree:       net-next
+final crash:    https://syzkaller.appspot.com/x/report.txt?x=1633ece4a00000
+console output: https://syzkaller.appspot.com/x/log.txt?x=1233ece4a00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=fc045131472947d7
+dashboard link: https://syzkaller.appspot.com/bug?extid=94cc2a66fc228b23f360
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=163731f8a00000
+
+Reported-by: syzbot+94cc2a66fc228b23f360@syzkaller.appspotmail.com
+Fixes: c0d9271ecbd8 ("drm/amdgpu: Delete user queue doorbell variables")
+
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
