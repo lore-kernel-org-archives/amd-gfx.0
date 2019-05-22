@@ -1,194 +1,119 @@
-From: Evgenii Stepanov <eugenis@google.com>
-Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory syscalls
-Date: Wed, 22 May 2019 14:16:57 -0700
-Message-ID: <CAFKCwrjyP+x0JJy=qpBFsp4pub3He6UkvU0qnf1UOKt6W1LPRQ@mail.gmail.com>
-References: <cover.1557160186.git.andreyknvl@google.com> <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
- <20190522114910.emlckebwzv2qz42i@mbp>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 5/7] drm/amdkfd: Add function to set queue gws
+Date: Wed, 22 May 2019 21:46:17 +0000
+Message-ID: <05f3ae91-100b-60d9-08e5-627245e38c64@amd.com>
+References: <1558540278-23734-1-git-send-email-Oak.Zeng@amd.com>
+ <1558540278-23734-5-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190522114910.emlckebwzv2qz42i@mbp>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Andrey Konovalov <andreyknvl@google.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1558540278-23734-5-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <D25FB00AFCE21E4C8A11E7E718CDA269-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Keely, Sean" <Sean.Keely-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, May 22, 2019 at 4:49 AM Catalin Marinas <catalin.marinas@arm.com> wrote:
->
-> On Mon, May 06, 2019 at 06:30:51PM +0200, Andrey Konovalov wrote:
-> > This patch is a part of a series that extends arm64 kernel ABI to allow to
-> > pass tagged user pointers (with the top byte set to something else other
-> > than 0x00) as syscall arguments.
-> >
-> > This patch allows tagged pointers to be passed to the following memory
-> > syscalls: brk, get_mempolicy, madvise, mbind, mincore, mlock, mlock2,
-> > mmap, mmap_pgoff, mprotect, mremap, msync, munlock, munmap,
-> > remap_file_pages, shmat and shmdt.
-> >
-> > This is done by untagging pointers passed to these syscalls in the
-> > prologues of their handlers.
->
-> I'll go through them one by one to see if we can tighten the expected
-> ABI while having the MTE in mind.
->
-> > diff --git a/arch/arm64/kernel/sys.c b/arch/arm64/kernel/sys.c
-> > index b44065fb1616..933bb9f3d6ec 100644
-> > --- a/arch/arm64/kernel/sys.c
-> > +++ b/arch/arm64/kernel/sys.c
-> > @@ -35,10 +35,33 @@ SYSCALL_DEFINE6(mmap, unsigned long, addr, unsigned long, len,
-> >  {
-> >       if (offset_in_page(off) != 0)
-> >               return -EINVAL;
-> > -
-> > +     addr = untagged_addr(addr);
-> >       return ksys_mmap_pgoff(addr, len, prot, flags, fd, off >> PAGE_SHIFT);
-> >  }
->
-> If user passes a tagged pointer to mmap() and the address is honoured
-> (or MAP_FIXED is given), what is the expected return pointer? Does it
-> need to be tagged with the value from the hint?
-
-For HWASan the most convenient would be to use the tag from the hint.
-But since in the TBI (not MTE) mode the kernel has no idea what
-meaning userspace assigns to pointer tags, perhaps it should not try
-to guess, and should return raw (zero-tagged) address instead.
-
-> With MTE, we may want to use this as a request for the default colour of
-> the mapped pages (still under discussion).
-
-I like this - and in that case it would make sense to return the
-pointer that can be immediately dereferenced without crashing the
-process, i.e. with the matching tag.
-
-> > +SYSCALL_DEFINE6(arm64_mmap_pgoff, unsigned long, addr, unsigned long, len,
-> > +             unsigned long, prot, unsigned long, flags,
-> > +             unsigned long, fd, unsigned long, pgoff)
-> > +{
-> > +     addr = untagged_addr(addr);
-> > +     return ksys_mmap_pgoff(addr, len, prot, flags, fd, pgoff);
-> > +}
->
-> We don't have __NR_mmap_pgoff on arm64.
->
-> > +SYSCALL_DEFINE5(arm64_mremap, unsigned long, addr, unsigned long, old_len,
-> > +             unsigned long, new_len, unsigned long, flags,
-> > +             unsigned long, new_addr)
-> > +{
-> > +     addr = untagged_addr(addr);
-> > +     new_addr = untagged_addr(new_addr);
-> > +     return ksys_mremap(addr, old_len, new_len, flags, new_addr);
-> > +}
->
-> Similar comment as for mmap(), do we want the tag from new_addr to be
-> preserved? In addition, should we check that the two tags are identical
-> or mremap() should become a way to repaint a memory region?
->
-> > +SYSCALL_DEFINE2(arm64_munmap, unsigned long, addr, size_t, len)
-> > +{
-> > +     addr = untagged_addr(addr);
-> > +     return ksys_munmap(addr, len);
-> > +}
->
-> This looks fine.
->
-> > +SYSCALL_DEFINE1(arm64_brk, unsigned long, brk)
-> > +{
-> > +     brk = untagged_addr(brk);
-> > +     return ksys_brk(brk);
-> > +}
->
-> I wonder whether brk() should simply not accept tags, and should not
-> return them (similar to the prctl(PR_SET_MM) discussion). We could
-> document this in the ABI requirements.
->
-> > +SYSCALL_DEFINE5(arm64_get_mempolicy, int __user *, policy,
-> > +             unsigned long __user *, nmask, unsigned long, maxnode,
-> > +             unsigned long, addr, unsigned long, flags)
-> > +{
-> > +     addr = untagged_addr(addr);
-> > +     return ksys_get_mempolicy(policy, nmask, maxnode, addr, flags);
-> > +}
-> > +
-> > +SYSCALL_DEFINE3(arm64_madvise, unsigned long, start,
-> > +             size_t, len_in, int, behavior)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_madvise(start, len_in, behavior);
-> > +}
-> > +
-> > +SYSCALL_DEFINE6(arm64_mbind, unsigned long, start, unsigned long, len,
-> > +             unsigned long, mode, const unsigned long __user *, nmask,
-> > +             unsigned long, maxnode, unsigned int, flags)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_mbind(start, len, mode, nmask, maxnode, flags);
-> > +}
-> > +
-> > +SYSCALL_DEFINE2(arm64_mlock, unsigned long, start, size_t, len)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_mlock(start, len, VM_LOCKED);
-> > +}
-> > +
-> > +SYSCALL_DEFINE2(arm64_mlock2, unsigned long, start, size_t, len)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_mlock(start, len, VM_LOCKED);
-> > +}
-> > +
-> > +SYSCALL_DEFINE2(arm64_munlock, unsigned long, start, size_t, len)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_munlock(start, len);
-> > +}
-> > +
-> > +SYSCALL_DEFINE3(arm64_mprotect, unsigned long, start, size_t, len,
-> > +             unsigned long, prot)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_mprotect_pkey(start, len, prot, -1);
-> > +}
-> > +
-> > +SYSCALL_DEFINE3(arm64_msync, unsigned long, start, size_t, len, int, flags)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_msync(start, len, flags);
-> > +}
-> > +
-> > +SYSCALL_DEFINE3(arm64_mincore, unsigned long, start, size_t, len,
-> > +             unsigned char __user *, vec)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_mincore(start, len, vec);
-> > +}
->
-> These look fine.
->
-> > +SYSCALL_DEFINE5(arm64_remap_file_pages, unsigned long, start,
-> > +             unsigned long, size, unsigned long, prot,
-> > +             unsigned long, pgoff, unsigned long, flags)
-> > +{
-> > +     start = untagged_addr(start);
-> > +     return ksys_remap_file_pages(start, size, prot, pgoff, flags);
-> > +}
->
-> While this has been deprecated for some time, I presume user space still
-> invokes it?
->
-> > +SYSCALL_DEFINE3(arm64_shmat, int, shmid, char __user *, shmaddr, int, shmflg)
-> > +{
-> > +     shmaddr = untagged_addr(shmaddr);
-> > +     return ksys_shmat(shmid, shmaddr, shmflg);
-> > +}
-> > +
-> > +SYSCALL_DEFINE1(arm64_shmdt, char __user *, shmaddr)
-> > +{
-> > +     shmaddr = untagged_addr(shmaddr);
-> > +     return ksys_shmdt(shmaddr);
-> > +}
->
-> Do we actually want to allow shared tagged memory? Who's going to tag
-> it? If not, we can document it as not supported.
->
-> --
-> Catalin
+T24gMjAxOS0wNS0yMiAxMTo1MSBhLm0uLCBaZW5nLCBPYWsgd3JvdGU6DQo+IEFkZCBmdW5jdGlv
+bnMgaW4gcHJvY2VzcyBxdWV1ZSBtYW5hZ2VyIHRvDQo+IHNldC9nZXQgcXVldWUgZ3dzLiBBbHNv
+IHNldCBwcm9jZXNzJ3MgbnVtYmVyDQo+IG9mIGd3cyB1c2VkLiBDdXJyZW50bHkgb25seSBvbmUg
+cXVldWUgaW4NCj4gcHJvY2VzcyBjYW4gdXNlIGFuZCB1c2UgYWxsIGd3cy4NCj4NCj4gQ2hhbmdl
+LUlkOiBJMDNlNDgwYzg2OTJkYjNlYWJmYzNhMTg4Y2NlODkwNGQ1ZDk2MmFiNw0KPiBTaWduZWQt
+b2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaCAgICAgICAgICAgICAgfCAgNiArKysNCj4gICAu
+Li4vZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyB8IDU4ICsr
+KysrKysrKysrKysrKysrKysrKysNCj4gICAyIGZpbGVzIGNoYW5nZWQsIDY0IGluc2VydGlvbnMo
+KykNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2
+LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oDQo+IGluZGV4IDU5Njll
+MzcuLjQwYTVjNjcgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
+ZF9wcml2LmgNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0K
+PiBAQCAtNDU0LDYgKzQ1NCw5IEBAIHN0cnVjdCBxdWV1ZV9wcm9wZXJ0aWVzIHsNCj4gICAgKg0K
+PiAgICAqIEBkZXZpY2U6IFRoZSBrZmQgZGV2aWNlIHRoYXQgY3JlYXRlZCB0aGlzIHF1ZXVlLg0K
+PiAgICAqDQo+ICsgKiBAZ3dzOiBQb2ludGluZyB0byBnd3Mga2dkX21lbSBpZiB0aGlzIGlzIGEg
+Z3dzIGNvbnRyb2wgcXVldWU7IE5VTEwNCj4gKyAqIG90aGVyd2lzZS4NCj4gKyAqDQo+ICAgICog
+VGhpcyBzdHJ1Y3R1cmUgcmVwcmVzZW50cyB1c2VyIG1vZGUgY29tcHV0ZSBxdWV1ZXMuDQo+ICAg
+ICogSXQgY29udGFpbnMgYWxsIHRoZSBuZWNlc3NhcnkgZGF0YSB0byBoYW5kbGUgc3VjaCBxdWV1
+ZXMuDQo+ICAgICoNCj4gQEAgLTQ3NSw2ICs0NzgsNyBAQCBzdHJ1Y3QgcXVldWUgew0KPiAgIA0K
+PiAgIAlzdHJ1Y3Qga2ZkX3Byb2Nlc3MJKnByb2Nlc3M7DQo+ICAgCXN0cnVjdCBrZmRfZGV2CQkq
+ZGV2aWNlOw0KPiArCXZvaWQgKmd3czsNCj4gICB9Ow0KPiAgIA0KPiAgIC8qDQo+IEBAIC04Njgs
+NiArODcyLDggQEAgaW50IHBxbV91cGRhdGVfcXVldWUoc3RydWN0IHByb2Nlc3NfcXVldWVfbWFu
+YWdlciAqcHFtLCB1bnNpZ25lZCBpbnQgcWlkLA0KPiAgIAkJCXN0cnVjdCBxdWV1ZV9wcm9wZXJ0
+aWVzICpwKTsNCj4gICBpbnQgcHFtX3NldF9jdV9tYXNrKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21h
+bmFnZXIgKnBxbSwgdW5zaWduZWQgaW50IHFpZCwNCj4gICAJCQlzdHJ1Y3QgcXVldWVfcHJvcGVy
+dGllcyAqcCk7DQo+ICtpbnQgcHFtX3NldF9nd3Moc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdl
+ciAqcHFtLCB1bnNpZ25lZCBpbnQgcWlkLA0KPiArCQkJdm9pZCAqZ3dzKTsNCj4gICBzdHJ1Y3Qg
+a2VybmVsX3F1ZXVlICpwcW1fZ2V0X2tlcm5lbF9xdWV1ZShzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9t
+YW5hZ2VyICpwcW0sDQo+ICAgCQkJCQkJdW5zaWduZWQgaW50IHFpZCk7DQo+ICAgaW50IHBxbV9n
+ZXRfd2F2ZV9zdGF0ZShzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyICpwcW0sDQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5h
+Z2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5h
+Z2VyLmMNCj4gaW5kZXggZTY1MmUyNS4uYTc4NDk0ZCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5jDQo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYw0KPiBA
+QCAtMjYsNiArMjYsNyBAQA0KPiAgICNpbmNsdWRlICJrZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIu
+aCINCj4gICAjaW5jbHVkZSAia2ZkX3ByaXYuaCINCj4gICAjaW5jbHVkZSAia2ZkX2tlcm5lbF9x
+dWV1ZS5oIg0KPiArI2luY2x1ZGUgImFtZGdwdV9hbWRrZmQuaCINCj4gICANCj4gICBzdGF0aWMg
+aW5saW5lIHN0cnVjdCBwcm9jZXNzX3F1ZXVlX25vZGUgKmdldF9xdWV1ZV9ieV9xaWQoDQo+ICAg
+CQkJc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdlciAqcHFtLCB1bnNpZ25lZCBpbnQgcWlkKQ0K
+PiBAQCAtNzQsNiArNzUsNTcgQEAgdm9pZCBrZmRfcHJvY2Vzc19kZXF1ZXVlX2Zyb21fZGV2aWNl
+KHN0cnVjdCBrZmRfcHJvY2Vzc19kZXZpY2UgKnBkZCkNCj4gICAJcGRkLT5hbHJlYWR5X2RlcXVl
+dWVkID0gdHJ1ZTsNCj4gICB9DQo+ICAgDQo+ICtpbnQgcHFtX3NldF9nd3Moc3RydWN0IHByb2Nl
+c3NfcXVldWVfbWFuYWdlciAqcHFtLCB1bnNpZ25lZCBpbnQgcWlkLA0KPiArCQkJdm9pZCAqZ3dz
+KQ0KPiArew0KPiArCXN0cnVjdCBrZmRfZGV2ICpkZXYgPSBOVUxMOw0KPiArCXN0cnVjdCBwcm9j
+ZXNzX3F1ZXVlX25vZGUgKnBxbjsNCj4gKwlzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQ7
+DQo+ICsNCj4gKwlwcW4gPSBnZXRfcXVldWVfYnlfcWlkKHBxbSwgcWlkKTsNCj4gKwlpZiAoIXBx
+bikgew0KPiArCQlwcl9lcnIoIlF1ZXVlIGlkIGRvZXMgbm90IG1hdGNoIGFueSBrbm93biBxdWV1
+ZVxuIik7DQo+ICsJCXJldHVybiAtRUlOVkFMOw0KPiArCX0NCj4gKw0KPiArCWlmIChwcW4tPnEp
+DQo+ICsJCWRldiA9IHBxbi0+cS0+ZGV2aWNlOw0KPiArCWlmIChXQVJOX09OKCFkZXYpKQ0KPiAr
+CQlyZXR1cm4gLUVOT0RFVjsNCj4gKw0KPiArCXBkZCA9IGtmZF9nZXRfcHJvY2Vzc19kZXZpY2Vf
+ZGF0YShkZXYsIHBxbS0+cHJvY2Vzcyk7DQo+ICsJaWYgKCFwZGQpIHsNCj4gKwkJcHJfZXJyKCJQ
+cm9jZXNzIGRldmljZSBkYXRhIGRvZXNuJ3QgZXhpc3RcbiIpOw0KPiArCQlyZXR1cm4gLUVJTlZB
+TDsNCj4gKwl9DQo+ICsNCj4gKwkvKiBPbmx5IGFsbG93IG9uZSBxdWV1ZSBwZXIgcHJvY2VzcyBj
+YW4gaGF2ZSBHV1MgYXNzaWduZWQgKi8NCj4gKwlsaXN0X2Zvcl9lYWNoX2VudHJ5KHBxbiwgJnBx
+bS0+cXVldWVzLCBwcm9jZXNzX3F1ZXVlX2xpc3QpIHsNCj4gKwkJaWYgKHBxbi0+cSAmJiBwcW4t
+PnEtPmd3cykNCj4gKwkJCXJldHVybiAtRUlOVkFMOw0KPiArCX0NCj4gKw0KPiArCXBxbi0+cS0+
+Z3dzID0gZ3dzOw0KPiArCXBkZC0+cXBkLm51bV9nd3MgPSBnd3MgPyBhbWRncHVfYW1ka2ZkX2dl
+dF9udW1fZ3dzKGRldi0+a2dkKSA6IDA7DQo+ICsNCj4gKwlyZXR1cm4gcHFuLT5xLT5kZXZpY2Ut
+PmRxbS0+b3BzLnVwZGF0ZV9xdWV1ZShwcW4tPnEtPmRldmljZS0+ZHFtLA0KPiArCQkJCQkJCXBx
+bi0+cSk7DQoNCldoZW4gcHFtX3NldF9nd3MgaXMgY2FsbGVkIGR1cmluZyBwcW1fZGVzdHJveV9x
+dWV1ZSwgdGhpcyBpcyANCnVubmVjZXNzYXJ5LiBJdCB3b3VsZCByZXN1bHQgaW4gdHdvIHByZWVt
+cHRpb25zIGFuZCBydW5saXN0IHVwZGF0ZXMgDQpldmVyeSB0aW1lIGEgcXVldWUgaXMgZGVzdHJv
+eWVkLiBTZWUgYmVsb3cuDQoNCg0KPiArfQ0KPiArDQo+ICtzdGF0aWMgdm9pZCAqcHFtX2dldF9n
+d3Moc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdlciAqcHFtLCB1bnNpZ25lZCBpbnQgcWlkKQ0K
+PiArew0KPiArCXN0cnVjdCBwcm9jZXNzX3F1ZXVlX25vZGUgKnBxbjsNCj4gKw0KPiArCXBxbiA9
+IGdldF9xdWV1ZV9ieV9xaWQocHFtLCBxaWQpOw0KPiArCWlmICghcHFuKSB7DQo+ICsJCXByX2Rl
+YnVnKCJObyBxdWV1ZSAlZCBleGlzdHMgZm9yIGdldCBnd3Mgb3BlcmF0aW9uXG4iLCBxaWQpOw0K
+PiArCQlyZXR1cm4gTlVMTDsNCj4gKwl9DQo+ICsNCj4gKwlyZXR1cm4gcHFuLT5xLT5nd3M7DQo+
+ICt9DQo+ICsNCj4gKw0KPiAgIHZvaWQga2ZkX3Byb2Nlc3NfZGVxdWV1ZV9mcm9tX2FsbF9kZXZp
+Y2VzKHN0cnVjdCBrZmRfcHJvY2VzcyAqcCkNCj4gICB7DQo+ICAgCXN0cnVjdCBrZmRfcHJvY2Vz
+c19kZXZpY2UgKnBkZDsNCj4gQEAgLTMxMyw2ICszNjUsMTIgQEAgaW50IHBxbV9kZXN0cm95X3F1
+ZXVlKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIgKnBxbSwgdW5zaWduZWQgaW50IHFpZCkN
+Cj4gICAJCXJldHVybiAtMTsNCj4gICAJfQ0KPiAgIA0KPiArCWlmIChwcW1fZ2V0X2d3cyhwcW0s
+IHFpZCkpIHsNCg0KQWxsIHBxbV9nZXRfZ3dzIHJlYWxseSBkb2VzIGFuIGV4dHJhIGxvb2t1cCBv
+ZiB0aGUgcHFuLCB3aGljaCB5b3UgDQphbHJlYWR5IGtub3cgaGVyZS4gSW5zdGVhZCwgY291bGQg
+eW91IGp1c3QgcmVwbGFjZSB0aGlzIHdpdGg6DQoNCiDCoMKgwqAgaWYgKHBxbi0+cS0+Z3dzKSAu
+Li4NCg0KQW5kIHJlbW92ZSBwcW1fZ2V0X2d3cy4NCg0KPiArCQlhbWRncHVfYW1ka2ZkX3JlbW92
+ZV9nd3NfZnJvbV9wcm9jZXNzKHBxbS0+cHJvY2Vzcy0+a2dkX3Byb2Nlc3NfaW5mbywNCj4gKwkJ
+CQlwcW1fZ2V0X2d3cyhwcW0sIHFpZCkpOw0KPiArCQlwcW1fc2V0X2d3cyhwcW0sIHFpZCwgTlVM
+TCk7DQoNCklmIHlvdSBjYWxsIHBxbV9zZXRfZ3dzIGhlcmUsIGl0IHdpbGwgdW5uZWNlc3Nhcmls
+eSBjYXVzZSBhIHByZWVtcHRpb24gDQphbmQgcnVubGlzdCB1cGRhdGUuIEl0IGFsc28gZG9lcyBt
+b3JlIGxvb2t1cHMgb2YgcGRkIGFuZCBwcW4sIGJvdGggb2YgDQp3aGljaCB5b3UgYWxyZWFkeSBr
+bm93IGhlcmUuIFlvdSBkb24ndCByZWFsbHkgbmVlZCB0byB1cGRhdGUgdGhlIHF1ZXVlIA0KdGhh
+dCB5b3UncmUgYWJvdXQgdG8gZGVzdHJveS4gQWxsIHlvdSByZWFsbHkgbmVlZCB0byBkbyBoZXJl
+IGlzIHVwZGF0ZSANCnBkZC0+cXBkLm51bV9nd3MuIFlvdSBjYW4gZG8gdGhhdCB3aXRob3V0IGNh
+bGxpbmcgcHFtX3NldF9nd3MuDQoNClJlZ2FyZHMsDQogwqAgRmVsaXgNCg0KPiArCX0NCj4gKw0K
+PiAgIAlpZiAocHFuLT5rcSkgew0KPiAgIAkJLyogZGVzdHJveSBrZXJuZWwgcXVldWUgKERJUSkg
+Ki8NCj4gICAJCWRxbSA9IHBxbi0+a3EtPmRldi0+ZHFtOw0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
