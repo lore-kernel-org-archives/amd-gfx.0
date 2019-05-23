@@ -1,46 +1,116 @@
-From: Khalid Aziz <khalid.aziz@oracle.com>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Thu, 23 May 2019 11:51:40 -0600
-Message-ID: <6049844a-65f5-f513-5b58-7141588fef2b@oracle.com>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <20190517144931.GA56186@arrakis.emea.arm.com>
- <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
- <20190521182932.sm4vxweuwo5ermyd@mbp> <201905211633.6C0BF0C2@keescook>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/7] drm/amdkfd: Add gws number to kfd topology node properties
+Date: Thu, 23 May 2019 18:40:51 +0000
+Message-ID: <1558636843-9867-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <201905211633.6C0BF0C2@keescook>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Kees Cook <keescook@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgenii Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai Hadas <yishaih@mellanox.com>, Mauro
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Keely, Sean" <Sean.Keely-5C7GfCeVMHo@public.gmane.org>
 
-On 5/21/19 6:04 PM, Kees Cook wrote:
-> As an aside: I think Sparc ADI support in Linux actually side-stepped
-> this[1] (i.e. chose "solution 1"): "All addresses passed to kernel must
-> be non-ADI tagged addresses." (And sadly, "Kernel does not enable ADI
-> for kernel code.") I think this was a mistake we should not repeat for
-> arm64 (we do seem to be at least in agreement about this, I think).
-> 
-> [1] https://lore.kernel.org/patchwork/patch/654481/
-
-
-That is a very early version of the sparc ADI patch. Support for tagged
-addresses in syscalls was added in later versions and is in the patch
-that is in the kernel.
-
-That part "Kernel does not enable ADI for kernel code." is correct. It
-is a possible enhancement for future.
-
---
-Khalid
+QWRkIGFtZGdwdV9hbWRrZmQgaW50ZXJmYWNlIHRvIGdldCBudW1fZ3dzIGFuZCBhZGQgbnVtX2d3
+cw0KdG8gL3N5cy9jbGFzcy9rZmQva2ZkL3RvcG9sb2d5L25vZGVzL3gvcHJvcGVydGllcy4gT25s
+eSByZXBvcnQNCm51bV9nd3MgaWYgTUVDIEZXIHN1cHBvcnQgR1dTIGJhcnJpZXJzLiBDdXJyZW50
+bHkgaXQgaXMNCmRldGVybWluZWQgYnkgYSBtb2R1bGUgcGFyYW1ldGVyIHdoaWNoIHdpbGwgYmUg
+cmVwbGFjZWQNCndpdGggTUVDIEZXIHZlcnNpb24gY2hlY2sgd2hlbiBmaXJtd2FyZSBpcyByZWFk
+eS4NCg0KQ2hhbmdlLUlkOiBJZTBkMDBmYjIwYTM3ZWYyODU2ODYwZGJlY2JlMWFkMGNhMWVmMDlm
+Nw0KU2lnbmVkLW9mZi1ieTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5jb20+DQpSZXZpZXdlZC1i
+eTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQotLS0NCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMgfCAgNyArKysrKysrDQogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oIHwgIDEgKw0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICB8IDEwICsrKysrKysrKysNCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oICAgICAgfCAgNSArKysrKw0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jICB8ICA1ICsrKysrDQogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmggIHwgIDEgKw0KIDYgZmlsZXMgY2hhbmdl
+ZCwgMjkgaW5zZXJ0aW9ucygrKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2FtZGtmZC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2FtZGtmZC5jDQppbmRleCA5ODMyNmUzYi4uYTQ3ODBkNSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jDQpAQCAtNTQ0LDYgKzU0NCwxMyBAQCB1aW50NjRf
+dCBhbWRncHVfYW1ka2ZkX2dldF9tbWlvX3JlbWFwX3BoeXNfYWRkcihzdHJ1Y3Qga2dkX2RldiAq
+a2dkKQ0KIAlyZXR1cm4gYWRldi0+cm1taW9fcmVtYXAuYnVzX2FkZHI7DQogfQ0KIA0KK3VpbnQz
+Ml90IGFtZGdwdV9hbWRrZmRfZ2V0X251bV9nd3Moc3RydWN0IGtnZF9kZXYgKmtnZCkNCit7DQor
+CXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gKHN0cnVjdCBhbWRncHVfZGV2aWNlICopa2dk
+Ow0KKw0KKwlyZXR1cm4gYWRldi0+Z2RzLmd3c19zaXplOw0KK30NCisNCiBpbnQgYW1kZ3B1X2Ft
+ZGtmZF9zdWJtaXRfaWIoc3RydWN0IGtnZF9kZXYgKmtnZCwgZW51bSBrZ2RfZW5naW5lX3R5cGUg
+ZW5naW5lLA0KIAkJCQl1aW50MzJfdCB2bWlkLCB1aW50NjRfdCBncHVfYWRkciwNCiAJCQkJdWlu
+dDMyX3QgKmliX2NtZCwgdWludDMyX3QgaWJfbGVuKQ0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9hbWRrZmQuaA0KaW5kZXggZjU3ZjI5Ny4uNTcwMDY0MyAxMDA2NDQNCi0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuaA0KKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5oDQpAQCAtMTY5LDYgKzE2OSw3IEBA
+IGludCBhbWRncHVfYW1ka2ZkX2dldF9kbWFidWZfaW5mbyhzdHJ1Y3Qga2dkX2RldiAqa2dkLCBp
+bnQgZG1hX2J1Zl9mZCwNCiB1aW50NjRfdCBhbWRncHVfYW1ka2ZkX2dldF92cmFtX3VzYWdlKHN0
+cnVjdCBrZ2RfZGV2ICprZ2QpOw0KIHVpbnQ2NF90IGFtZGdwdV9hbWRrZmRfZ2V0X2hpdmVfaWQo
+c3RydWN0IGtnZF9kZXYgKmtnZCk7DQogdWludDY0X3QgYW1kZ3B1X2FtZGtmZF9nZXRfbW1pb19y
+ZW1hcF9waHlzX2FkZHIoc3RydWN0IGtnZF9kZXYgKmtnZCk7DQordWludDMyX3QgYW1kZ3B1X2Ft
+ZGtmZF9nZXRfbnVtX2d3cyhzdHJ1Y3Qga2dkX2RldiAqa2dkKTsNCiB1aW50OF90IGFtZGdwdV9h
+bWRrZmRfZ2V0X3hnbWlfaG9wc19jb3VudChzdHJ1Y3Qga2dkX2RldiAqZHN0LCBzdHJ1Y3Qga2dk
+X2RldiAqc3JjKTsNCiANCiAjZGVmaW5lIHJlYWRfdXNlcl93cHRyKG1tcHRyLCB3cHRyLCBkc3Qp
+CQkJCVwNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCmluZGV4IGEzMzRk
+M2IuLjNhMDNjMmIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZHJ2LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0K
+QEAgLTY2Niw2ICs2NjYsMTYgQEAgTU9EVUxFX1BBUk1fREVTQyhub3JldHJ5LA0KIGludCBoYWx0
+X2lmX2h3c19oYW5nOw0KIG1vZHVsZV9wYXJhbShoYWx0X2lmX2h3c19oYW5nLCBpbnQsIDA2NDQp
+Ow0KIE1PRFVMRV9QQVJNX0RFU0MoaGFsdF9pZl9od3NfaGFuZywgIkhhbHQgaWYgSFdTIGhhbmcg
+aXMgZGV0ZWN0ZWQgKDAgPSBvZmYgKGRlZmF1bHQpLCAxID0gb24pIik7DQorDQorLyoqDQorICog
+RE9DOiBod3NfZ3dzX3N1cHBvcnQoYm9vbCkNCisgKiBXaGV0aGVyIEhXUyBzdXBwb3J0IGd3cyBi
+YXJyaWVycy4gRGVmYXVsdCB2YWx1ZTogZmFsc2UgKG5vdCBzdXBwb3J0ZWQpDQorICogVGhpcyB3
+aWxsIGJlIHJlcGxhY2VkIHdpdGggYSBNRUMgZmlybXdhcmUgdmVyc2lvbiBjaGVjayBvbmNlIGZp
+cm13YXJlDQorICogaXMgcmVhZHkNCisgKi8NCitib29sIGh3c19nd3Nfc3VwcG9ydDsNCittb2R1
+bGVfcGFyYW0oaHdzX2d3c19zdXBwb3J0LCBib29sLCAwNDQ0KTsNCitNT0RVTEVfUEFSTV9ERVND
+KGh3c19nd3Nfc3VwcG9ydCwgIk1FQyBGVyBzdXBwb3J0IGd3cyBiYXJyaWVycyAoZmFsc2UgPSBu
+b3Qgc3VwcG9ydGVkIChEZWZhdWx0KSwgdHJ1ZSA9IHN1cHBvcnRlZCkiKTsNCiAjZW5kaWYNCiAN
+CiAvKioNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5o
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0KaW5kZXggOGYwMmQ3OC4u
+MzM4ZmIwNyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2
+LmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCkBAIC0xNjAs
+NiArMTYwLDExIEBAIGV4dGVybiBpbnQgbm9yZXRyeTsNCiAgKi8NCiBleHRlcm4gaW50IGhhbHRf
+aWZfaHdzX2hhbmc7DQogDQorLyoNCisgKiBXaGV0aGVyIE1FQyBGVyBzdXBwb3J0IEdXUyBiYXJy
+aWVycw0KKyAqLw0KK2V4dGVybiBib29sIGh3c19nd3Nfc3VwcG9ydDsNCisNCiBlbnVtIGNhY2hl
+X3BvbGljeSB7DQogCWNhY2hlX3BvbGljeV9jb2hlcmVudCwNCiAJY2FjaGVfcG9saWN5X25vbmNv
+aGVyZW50DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9s
+b2d5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYw0KaW5kZXgg
+MmMwNmQ2Yy4uMTI4YzcyYyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF90b3BvbG9neS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9w
+b2xvZ3kuYw0KQEAgLTQ1NCw2ICs0NTQsOCBAQCBzdGF0aWMgc3NpemVfdCBub2RlX3Nob3coc3Ry
+dWN0IGtvYmplY3QgKmtvYmosIHN0cnVjdCBhdHRyaWJ1dGUgKmF0dHIsDQogCQkJZGV2LT5ub2Rl
+X3Byb3BzLmxkc19zaXplX2luX2tiKTsNCiAJc3lzZnNfc2hvd18zMmJpdF9wcm9wKGJ1ZmZlciwg
+Imdkc19zaXplX2luX2tiIiwNCiAJCQlkZXYtPm5vZGVfcHJvcHMuZ2RzX3NpemVfaW5fa2IpOw0K
+KwlzeXNmc19zaG93XzMyYml0X3Byb3AoYnVmZmVyLCAibnVtX2d3cyIsDQorCQkJZGV2LT5ub2Rl
+X3Byb3BzLm51bV9nd3MpOw0KIAlzeXNmc19zaG93XzMyYml0X3Byb3AoYnVmZmVyLCAid2F2ZV9m
+cm9udF9zaXplIiwNCiAJCQlkZXYtPm5vZGVfcHJvcHMud2F2ZV9mcm9udF9zaXplKTsNCiAJc3lz
+ZnNfc2hvd18zMmJpdF9wcm9wKGJ1ZmZlciwgImFycmF5X2NvdW50IiwNCkBAIC0xMjkwLDYgKzEy
+OTIsOSBAQCBpbnQga2ZkX3RvcG9sb2d5X2FkZF9kZXZpY2Uoc3RydWN0IGtmZF9kZXYgKmdwdSkN
+CiAJZGV2LT5ub2RlX3Byb3BzLm51bV9zZG1hX2VuZ2luZXMgPSBncHUtPmRldmljZV9pbmZvLT5u
+dW1fc2RtYV9lbmdpbmVzOw0KIAlkZXYtPm5vZGVfcHJvcHMubnVtX3NkbWFfeGdtaV9lbmdpbmVz
+ID0NCiAJCQkJZ3B1LT5kZXZpY2VfaW5mby0+bnVtX3hnbWlfc2RtYV9lbmdpbmVzOw0KKwlkZXYt
+Pm5vZGVfcHJvcHMubnVtX2d3cyA9IChod3NfZ3dzX3N1cHBvcnQgJiYNCisJCWRldi0+Z3B1LT5k
+cW0tPnNjaGVkX3BvbGljeSAhPSBLRkRfU0NIRURfUE9MSUNZX05PX0hXUykgPw0KKwkJYW1kZ3B1
+X2FtZGtmZF9nZXRfbnVtX2d3cyhkZXYtPmdwdS0+a2dkKSA6IDA7DQogDQogCWtmZF9maWxsX21l
+bV9jbGtfbWF4X2luZm8oZGV2KTsNCiAJa2ZkX2ZpbGxfaW9saW5rX25vbl9jcmF0X2luZm8oZGV2
+KTsNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3ku
+aCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5oDQppbmRleCA5NDll
+ODg1Li4yNzYzNTRhIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
+X3RvcG9sb2d5LmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9n
+eS5oDQpAQCAtNjUsNiArNjUsNyBAQCBzdHJ1Y3Qga2ZkX25vZGVfcHJvcGVydGllcyB7DQogCXVp
+bnQzMl90IG1heF93YXZlc19wZXJfc2ltZDsNCiAJdWludDMyX3QgbGRzX3NpemVfaW5fa2I7DQog
+CXVpbnQzMl90IGdkc19zaXplX2luX2tiOw0KKwl1aW50MzJfdCBudW1fZ3dzOw0KIAl1aW50MzJf
+dCB3YXZlX2Zyb250X3NpemU7DQogCXVpbnQzMl90IGFycmF5X2NvdW50Ow0KIAl1aW50MzJfdCBz
+aW1kX2FycmF5c19wZXJfZW5naW5lOw0KLS0gDQoyLjcuNA0KDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZng=
