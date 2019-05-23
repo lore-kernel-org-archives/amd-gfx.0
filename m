@@ -1,124 +1,110 @@
-From: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Thu, 23 May 2019 14:31:16 -0700
-Message-ID: <201905231327.77CA8D0A36@keescook>
-References: <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
- <20190521182932.sm4vxweuwo5ermyd@mbp>
- <201905211633.6C0BF0C2@keescook>
- <20190522101110.m2stmpaj7seezveq@mbp>
- <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
- <20190522163527.rnnc6t4tll7tk5zw@mbp>
- <201905221316.865581CF@keescook>
- <20190523144449.waam2mkyzhjpqpur@mbp>
- <201905230917.DEE7A75EF0@keescook>
- <20190523174345.6sv3kcipkvlwfmox@mbp>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 5/7] drm/amdkfd: Add function to set queue gws
+Date: Thu, 23 May 2019 21:42:29 +0000
+Message-ID: <b1d3a3e5-7c1c-0f98-3a0a-bd5984c58fff@amd.com>
+References: <1558636843-9867-1-git-send-email-Oak.Zeng@amd.com>
+ <1558636843-9867-5-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190523174345.6sv3kcipkvlwfmox@mbp>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: enh <enh@google.com>, Evgenii Stepanov <eugenis@google.com>, Andrey Konovalov <andreyknvl@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>Felix Kuehling <F>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1558636843-9867-5-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <F38F831D2ED0AD449BE027ED8B15A547-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Keely, Sean" <Sean.Keely-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, May 23, 2019 at 06:43:46PM +0100, Catalin Marinas wrote:
-> On Thu, May 23, 2019 at 09:38:19AM -0700, Kees Cook wrote:
-> > What on this front would you be comfortable with? Given it's a new
-> > feature isn't it sufficient to have a CONFIG (and/or boot option)?
-> 
-> I'd rather avoid re-building kernels. A boot option would do, unless we
-> see value in a per-process (inherited) personality or prctl. The
-
-I think I've convinced myself that the normal<->TBI ABI control should
-be a boot parameter. More below...
-
-> > What about testing tools that intentionally insert high bits for syscalls
-> > and are _expecting_ them to fail? It seems the TBI series will break them?
-> > In that case, do we need to opt into TBI as well?
-> 
-> If there are such tools, then we may need a per-process control. It's
-> basically an ABI change.
-
-syzkaller already attempts to randomly inject non-canonical and
-0xFFFF....FFFF addresses for user pointers in syscalls in an effort to
-find bugs like CVE-2017-5123 where waitid() via unchecked put_user() was
-able to write directly to kernel memory[1].
-
-It seems that using TBI by default and not allowing a switch back to
-"normal" ABI without a reboot actually means that userspace cannot inject
-kernel pointers into syscalls any more, since they'll get universally
-stripped now. Is my understanding correct, here? i.e. exploiting
-CVE-2017-5123 would be impossible under TBI?
-
-If so, then I think we should commit to the TBI ABI and have a boot
-flag to disable it, but NOT have a process flag, as that would allow
-attackers to bypass the masking. The only flag should be "TBI or MTE".
-
-If so, can I get top byte masking for other architectures too? Like,
-just to strip high bits off userspace addresses? ;)
-
-(Oh, in looking I see this is implemented with sign-extension... why
-not just a mask? So it'll either be valid userspace address or forced
-into the non-canonical range?)
-
-[1] https://salls.github.io/Linux-Kernel-CVE-2017-5123/
-
-> > Alright, the tl;dr appears to be:
-> > - you want more assurances that we can find __user stripping in the
-> >   kernel more easily. (But this seems like a parallel problem.)
-> 
-> Yes, and that we found all (most) cases now. The reason I don't see it
-> as a parallel problem is that, as maintainer, I promise an ABI to user
-> and I'd rather stick to it. I don't want, for example, ncurses to stop
-> working because of some ioctl() rejecting tagged pointers.
-
-But this is what I don't understand: it would need to be ncurses _using
-TBI_, that would stop working (having started to work before, but then
-regress due to a newly added one-off bug). Regular ncurses will be fine
-because it's not using TBI. So The Golden Rule isn't violated, and by
-definition, it's a specific regression caused by some bug (since TBI
-would have had to have worked _before_ in the situation to be considered
-a regression now). Which describes the normal path for kernel
-development... add feature, find corner cases where it doesn't work,
-fix them, encounter new regressions, fix those, repeat forever.
-
-> If it's just the occasional one-off bug I'm fine to deal with it. But
-> no-one convinced me yet that this is the case.
-
-You believe there still to be some systemic cases that haven't been
-found yet? And even if so -- isn't it better to work on that
-incrementally?
-
-> As for the generic driver code (filesystems or other subsystems),
-> without some clear direction for developers, together with static
-> checking/sparse, on how user pointers are cast to longs (one example),
-> it would become my responsibility to identify and fix them up with any
-> kernel release. This series is not providing such guidance, just adding
-> untagged_addr() in some places that we think matter.
-
-What about adding a nice bit of .rst documentation that describes the
-situation and shows how to use untagged_addr(). This is the kind of
-kernel-wide change that "everyone" needs to know about, and shouldn't
-be the arch maintainer's sole responsibility to fix.
-
-> > - we might need to opt in to TBI with a prctl()
-> 
-> Yes, although still up for discussion.
-
-I think I've talked myself out of it. I say boot param only! :)
-
-
-So what do you say to these next steps:
-
-- change untagged_addr() to use a static branch that is controlled with
-  a boot parameter.
-- add, say, Documentation/core-api/user-addresses.rst to describe
-  proper care and handling of user space pointers with untagged_addr(),
-  with examples based on all the cases seen so far in this series.
-- continue work to improve static analysis.
-
-Thanks for wading through this with me! :)
-
--- 
-Kees Cook
+T24gMjAxOS0wNS0yMyAyOjQxIHAubS4sIFplbmcsIE9hayB3cm90ZToNCj4gQWRkIGZ1bmN0aW9u
+cyBpbiBwcm9jZXNzIHF1ZXVlIG1hbmFnZXIgdG8NCj4gc2V0IHF1ZXVlIGd3cy4gQWxzbyBzZXQg
+cHJvY2VzcydzIG51bWJlcg0KPiBvZiBnd3MgdXNlZC4gQ3VycmVudGx5IG9ubHkgb25lIHF1ZXVl
+IGluDQo+IHByb2Nlc3MgY2FuIHVzZSBhbmQgdXNlIGFsbCBnd3MuDQo+DQo+IENoYW5nZS1JZDog
+STAzZTQ4MGM4NjkyZGIzZWFiZmMzYTE4OGNjZTg5MDRkNWQ5NjJhYjcNCj4gU2lnbmVkLW9mZi1i
+eTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgICAgICAgICAgIHwgIDYgKysrDQo+ICAgLi4uL2dw
+dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMgfCA1NiArKysrKysr
+KysrKysrKysrKysrKysrDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCA2MiBpbnNlcnRpb25zKCspDQo+
+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaA0KPiBpbmRleCA1OTY5ZTM3Li40
+MGE1YzY3IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJp
+di5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgNCj4gQEAg
+LTQ1NCw2ICs0NTQsOSBAQCBzdHJ1Y3QgcXVldWVfcHJvcGVydGllcyB7DQo+ICAgICoNCj4gICAg
+KiBAZGV2aWNlOiBUaGUga2ZkIGRldmljZSB0aGF0IGNyZWF0ZWQgdGhpcyBxdWV1ZS4NCj4gICAg
+Kg0KPiArICogQGd3czogUG9pbnRpbmcgdG8gZ3dzIGtnZF9tZW0gaWYgdGhpcyBpcyBhIGd3cyBj
+b250cm9sIHF1ZXVlOyBOVUxMDQo+ICsgKiBvdGhlcndpc2UuDQo+ICsgKg0KPiAgICAqIFRoaXMg
+c3RydWN0dXJlIHJlcHJlc2VudHMgdXNlciBtb2RlIGNvbXB1dGUgcXVldWVzLg0KPiAgICAqIEl0
+IGNvbnRhaW5zIGFsbCB0aGUgbmVjZXNzYXJ5IGRhdGEgdG8gaGFuZGxlIHN1Y2ggcXVldWVzLg0K
+PiAgICAqDQo+IEBAIC00NzUsNiArNDc4LDcgQEAgc3RydWN0IHF1ZXVlIHsNCj4gICANCj4gICAJ
+c3RydWN0IGtmZF9wcm9jZXNzCSpwcm9jZXNzOw0KPiAgIAlzdHJ1Y3Qga2ZkX2RldgkJKmRldmlj
+ZTsNCj4gKwl2b2lkICpnd3M7DQo+ICAgfTsNCj4gICANCj4gICAvKg0KPiBAQCAtODY4LDYgKzg3
+Miw4IEBAIGludCBwcW1fdXBkYXRlX3F1ZXVlKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIg
+KnBxbSwgdW5zaWduZWQgaW50IHFpZCwNCj4gICAJCQlzdHJ1Y3QgcXVldWVfcHJvcGVydGllcyAq
+cCk7DQo+ICAgaW50IHBxbV9zZXRfY3VfbWFzayhzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9tYW5hZ2Vy
+ICpwcW0sIHVuc2lnbmVkIGludCBxaWQsDQo+ICAgCQkJc3RydWN0IHF1ZXVlX3Byb3BlcnRpZXMg
+KnApOw0KPiAraW50IHBxbV9zZXRfZ3dzKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIgKnBx
+bSwgdW5zaWduZWQgaW50IHFpZCwNCj4gKwkJCXZvaWQgKmd3cyk7DQo+ICAgc3RydWN0IGtlcm5l
+bF9xdWV1ZSAqcHFtX2dldF9rZXJuZWxfcXVldWUoc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdl
+ciAqcHFtLA0KPiAgIAkJCQkJCXVuc2lnbmVkIGludCBxaWQpOw0KPiAgIGludCBwcW1fZ2V0X3dh
+dmVfc3RhdGUoc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdlciAqcHFtLA0KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nlc3NfcXVldWVfbWFuYWdlci5j
+DQo+IGluZGV4IGU2NTJlMjUuLmQ2OWUxN2EgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYw0KPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyLmMNCj4gQEAgLTI2
+LDYgKzI2LDcgQEANCj4gICAjaW5jbHVkZSAia2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmgiDQo+
+ICAgI2luY2x1ZGUgImtmZF9wcml2LmgiDQo+ICAgI2luY2x1ZGUgImtmZF9rZXJuZWxfcXVldWUu
+aCINCj4gKyNpbmNsdWRlICJhbWRncHVfYW1ka2ZkLmgiDQo+ICAgDQo+ICAgc3RhdGljIGlubGlu
+ZSBzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9ub2RlICpnZXRfcXVldWVfYnlfcWlkKA0KPiAgIAkJCXN0
+cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIgKnBxbSwgdW5zaWduZWQgaW50IHFpZCkNCj4gQEAg
+LTc0LDYgKzc1LDU0IEBAIHZvaWQga2ZkX3Byb2Nlc3NfZGVxdWV1ZV9mcm9tX2RldmljZShzdHJ1
+Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQpDQo+ICAgCXBkZC0+YWxyZWFkeV9kZXF1ZXVlZCA9
+IHRydWU7DQo+ICAgfQ0KPiAgIA0KPiAraW50IHBxbV9zZXRfZ3dzKHN0cnVjdCBwcm9jZXNzX3F1
+ZXVlX21hbmFnZXIgKnBxbSwgdW5zaWduZWQgaW50IHFpZCwNCj4gKwkJCXZvaWQgKmd3cykNCj4g
+K3sNCj4gKwlzdHJ1Y3Qga2ZkX2RldiAqZGV2ID0gTlVMTDsNCj4gKwlzdHJ1Y3QgcHJvY2Vzc19x
+dWV1ZV9ub2RlICpwcW47DQo+ICsJc3RydWN0IGtmZF9wcm9jZXNzX2RldmljZSAqcGRkOw0KPiAr
+CXN0cnVjdCBrZ2RfbWVtICptZW07DQo+ICsJaW50IHJldDsNCj4gKw0KPiArCS8qIERvbid0IGFs
+bG93IHVuc2V0IGd3cyAqLw0KPiArCWlmICghZ3dzKQ0KPiArCQlyZXR1cm4gLUVJTlZBTDsNCg0K
+SSB3b25kZXIgaWYgaXQgd291bGQgYmUgdXNlZnVsIHRvIGFsbG93IHRoaXMgKGUuZy4gaWYgDQpr
+ZmRfaW9jdGxfYWxsb2NfcXVldWVfZ3dzIGlzIGNhbGxlZCB3aXRoIGFyZ3MtPm51bV9nd3MgPT0g
+MCkuIE90aGVyd2lzZSANCnRoZSBvbmx5IHdheSB0byByZWxlYXNlIEdXUyByZXNvdXJjZXMgaXMg
+dG8gZGVzdHJveSB0aGUgcXVldWUuDQoNCg0KPiArDQo+ICsJcHFuID0gZ2V0X3F1ZXVlX2J5X3Fp
+ZChwcW0sIHFpZCk7DQo+ICsJaWYgKCFwcW4pIHsNCj4gKwkJcHJfZXJyKCJRdWV1ZSBpZCBkb2Vz
+IG5vdCBtYXRjaCBhbnkga25vd24gcXVldWVcbiIpOw0KPiArCQlyZXR1cm4gLUVJTlZBTDsNCj4g
+Kwl9DQo+ICsNCj4gKwlpZiAocHFuLT5xKQ0KPiArCQlkZXYgPSBwcW4tPnEtPmRldmljZTsNCj4g
+KwlpZiAoV0FSTl9PTighZGV2KSkNCj4gKwkJcmV0dXJuIC1FTk9ERVY7DQo+ICsNCj4gKwlwZGQg
+PSBrZmRfZ2V0X3Byb2Nlc3NfZGV2aWNlX2RhdGEoZGV2LCBwcW0tPnByb2Nlc3MpOw0KPiArCWlm
+ICghcGRkKSB7DQo+ICsJCXByX2VycigiUHJvY2VzcyBkZXZpY2UgZGF0YSBkb2Vzbid0IGV4aXN0
+XG4iKTsNCj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+ICsJfQ0KPiArDQo+ICsJLyogT25seSBhbGxv
+dyBvbmUgcXVldWUgcGVyIHByb2Nlc3MgY2FuIGhhdmUgR1dTIGFzc2lnbmVkICovDQo+ICsJbGlz
+dF9mb3JfZWFjaF9lbnRyeShwcW4sICZwcW0tPnF1ZXVlcywgcHJvY2Vzc19xdWV1ZV9saXN0KSB7
+DQo+ICsJCWlmIChwcW4tPnEgJiYgcHFuLT5xLT5nd3MpDQo+ICsJCQlyZXR1cm4gLUVJTlZBTDsN
+Cj4gKwl9DQoNCkl0IHdvdWxkIGJlIGVhc2llciBhbmQgbW9yZSBlZmZpY2llbnQgdG8ganVzdCBj
+aGVjayB0aGF0IA0KcGRkLT5xcGQubnVtX2d3cyBpcyAwLg0KDQpSZWdhcmRzLA0KIMKgIEZlbGl4
+DQoNCj4gKw0KPiArCXJldCA9IGFtZGdwdV9hbWRrZmRfYWRkX2d3c190b19wcm9jZXNzKHBkZC0+
+cHJvY2Vzcy0+a2dkX3Byb2Nlc3NfaW5mbywNCj4gKwkJCWd3cywgJm1lbSk7DQo+ICsJaWYgKHVu
+bGlrZWx5KHJldCkpDQo+ICsJCXJldHVybiByZXQ7DQo+ICsNCj4gKwlwcW4tPnEtPmd3cyA9IG1l
+bTsNCj4gKwlwZGQtPnFwZC5udW1fZ3dzID0gYW1kZ3B1X2FtZGtmZF9nZXRfbnVtX2d3cyhkZXYt
+PmtnZCk7DQo+ICsNCj4gKwlyZXR1cm4gcHFuLT5xLT5kZXZpY2UtPmRxbS0+b3BzLnVwZGF0ZV9x
+dWV1ZShwcW4tPnEtPmRldmljZS0+ZHFtLA0KPiArCQkJCQkJCXBxbi0+cSk7DQo+ICt9DQo+ICsN
+Cj4gICB2b2lkIGtmZF9wcm9jZXNzX2RlcXVldWVfZnJvbV9hbGxfZGV2aWNlcyhzdHJ1Y3Qga2Zk
+X3Byb2Nlc3MgKnApDQo+ICAgew0KPiAgIAlzdHJ1Y3Qga2ZkX3Byb2Nlc3NfZGV2aWNlICpwZGQ7
+DQo+IEBAIC0zMzAsNiArMzc5LDEzIEBAIGludCBwcW1fZGVzdHJveV9xdWV1ZShzdHJ1Y3QgcHJv
+Y2Vzc19xdWV1ZV9tYW5hZ2VyICpwcW0sIHVuc2lnbmVkIGludCBxaWQpDQo+ICAgCQkJaWYgKHJl
+dHZhbCAhPSAtRVRJTUUpDQo+ICAgCQkJCWdvdG8gZXJyX2Rlc3Ryb3lfcXVldWU7DQo+ICAgCQl9
+DQo+ICsNCj4gKwkJaWYgKHBxbi0+cS0+Z3dzKSB7DQo+ICsJCQlhbWRncHVfYW1ka2ZkX3JlbW92
+ZV9nd3NfZnJvbV9wcm9jZXNzKHBxbS0+cHJvY2Vzcy0+a2dkX3Byb2Nlc3NfaW5mbywNCj4gKwkJ
+CQlwcW4tPnEtPmd3cyk7DQo+ICsJCQlwZGQtPnFwZC5udW1fZ3dzID0gMDsNCj4gKwkJfQ0KPiAr
+DQo+ICAgCQlrZnJlZShwcW4tPnEtPnByb3BlcnRpZXMuY3VfbWFzayk7DQo+ICAgCQlwcW4tPnEt
+PnByb3BlcnRpZXMuY3VfbWFzayA9IE5VTEw7DQo+ICAgCQl1bmluaXRfcXVldWUocHFuLT5xKTsN
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
