@@ -1,40 +1,46 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/ras: use GPU page size for page retirement
-Date: Thu, 23 May 2019 12:47:40 -0500
-Message-ID: <20190523174740.5002-1-alexander.deucher@amd.com>
+From: Khalid Aziz <khalid.aziz@oracle.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Thu, 23 May 2019 11:51:40 -0600
+Message-ID: <6049844a-65f5-f513-5b58-7141588fef2b@oracle.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <20190517144931.GA56186@arrakis.emea.arm.com>
+ <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
+ <20190521182932.sm4vxweuwo5ermyd@mbp> <201905211633.6C0BF0C2@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+In-Reply-To: <201905211633.6C0BF0C2@keescook>
+Content-Language: en-US
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Kees Cook <keescook@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgenii Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai Hadas <yishaih@mellanox.com>, Mauro
+List-Id: amd-gfx.lists.freedesktop.org
 
-QmFkIHBhZ2VzIGFyZSBzdG9yZWQgaW4gR1BVIHBhZ2Ugc2l6ZSBzaW5jZSB0aGV5IGFyZSBWUkFN
-IHBhZ2VzLgoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyB8IDQg
-KystLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKaW5kZXggZGExZGM0MGI5YjE0Li4z
-MjkwNmQ2YzYyMWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9yYXMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKQEAg
-LTE0MDgsOCArMTQwOCw4IEBAIGludCBhbWRncHVfcmFzX3Jlc2VydmVfYmFkX3BhZ2VzKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2KQogCWZvciAoaSA9IGRhdGEtPmxhc3RfcmVzZXJ2ZWQ7IGkg
-PCBkYXRhLT5jb3VudDsgaSsrKSB7CiAJCWJwID0gZGF0YS0+YnBzW2ldLmJwOwogCi0JCWlmIChh
-bWRncHVfcmFzX3Jlc2VydmVfdnJhbShhZGV2LCBicCA8PCBQQUdFX1NISUZULAotCQkJCQlQQUdF
-X1NJWkUsICZibykpCisJCWlmIChhbWRncHVfcmFzX3Jlc2VydmVfdnJhbShhZGV2LCBicCA8PCBB
-TURHUFVfR1BVX1BBR0VfU0hJRlQsCisJCQkJCSAgICBBTURHUFVfR1BVX1BBR0VfU0laRSwgJmJv
-KSkKIAkJCURSTV9FUlJPUigiUkFTIEVSUk9SOiByZXNlcnZlIHZyYW0gJWxseCBmYWlsXG4iLCBi
-cCk7CiAKIAkJZGF0YS0+YnBzW2ldLmJvID0gYm87Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On 5/21/19 6:04 PM, Kees Cook wrote:
+> As an aside: I think Sparc ADI support in Linux actually side-stepped
+> this[1] (i.e. chose "solution 1"): "All addresses passed to kernel must
+> be non-ADI tagged addresses." (And sadly, "Kernel does not enable ADI
+> for kernel code.") I think this was a mistake we should not repeat for
+> arm64 (we do seem to be at least in agreement about this, I think).
+> 
+> [1] https://lore.kernel.org/patchwork/patch/654481/
+
+
+That is a very early version of the sparc ADI patch. Support for tagged
+addresses in syscalls was added in later versions and is in the patch
+that is in the kernel.
+
+That part "Kernel does not enable ADI for kernel code." is correct. It
+is a possible enhancement for future.
+
+--
+Khalid
