@@ -1,92 +1,141 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: sort probed modes before adding common modes
-Date: Thu, 23 May 2019 14:24:12 +0000
-Message-ID: <fd19e8bf-5ba7-20de-11cd-cbde82d2e697@amd.com>
-References: <20190523140310.44773-1-yogesh.mohanmarimuthu@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Thu, 23 May 2019 15:44:49 +0100
+Message-ID: <20190523144449.waam2mkyzhjpqpur@mbp>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <20190517144931.GA56186@arrakis.emea.arm.com>
+ <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
+ <20190521182932.sm4vxweuwo5ermyd@mbp>
+ <201905211633.6C0BF0C2@keescook>
+ <20190522101110.m2stmpaj7seezveq@mbp>
+ <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
+ <20190522163527.rnnc6t4tll7tk5zw@mbp>
+ <201905221316.865581CF@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190523140310.44773-1-yogesh.mohanmarimuthu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <8D1E3C0C11F8494FB3EA04220EFBCF05-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <201905221316.865581CF@keescook>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Kees Cook <keescook@chromium.org>
+Cc: enh <enh@google.com>, Evgenii Stepanov <eugenis@google.com>, Andrey Konovalov <andreyknvl@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>Felix Kuehling <F>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNS8yMy8xOSAxMDowMyBBTSwgTW9oYW4gTWFyaW11dGh1LCBZb2dlc2ggd3JvdGU6DQo+IA0K
-PiBbV2h5XQ0KPiBUaGVyZSBhcmUgbW9uaXRvcnMgd2hpY2ggY2FuIGhhdmUgbW9yZSB0aGFuIG9u
-ZSBwcmVmZXJyZWQgbW9kZQ0KPiBzZXQuIFRoZXJlIGFyZSBjaGFuY2VzIGluIHRoZXNlIG1vbml0
-b3JzIHRoYXQgaWYgY29tbW9uIG1vZGVzIGFyZQ0KPiBhZGRlZCBpbiBmdW5jdGlvbiBhbWRncHVf
-ZG1fY29ubmVjdG9yX2FkZF9jb21tb25fbW9kZXMoKSwgdGhlc2UNCj4gY29tbW9uIG1vZGVzIGNh
-biBiZSBjYWxjdWxhdGVkIHdpdGggZGlmZmVyZW50IHByZWZlcnJlZCBtb2RlIHRoYW4NCj4gdGhl
-IG9uZSB1c2VkIGluIGZ1bmN0aW9uIGRlY2lkZV9jcnRjX3RpbWluZ19mb3JfZHJtX2Rpc3BsYXlf
-bW9kZSgpLg0KPiBUaGUgcHJlZmVycmVkIG1vZGUgY2FuIGJlIGRpZmZlcmVudCBiZWNhdXNlIGFm
-dGVyIGNvbW1vbiBtb2Rlcw0KPiBhcmUgYWRkZWQsIHRoZSBtb2RlIGxpc3QgaXMgc29ydGVkIGFu
-ZCB0aGlzIGNoYW5nZXMgdGhlIG9yZGVyIG9mDQo+IHByZWZlcnJlZCBtb2RlcyBpbiB0aGUgbGlz
-dC4gVGhlIGZpcnN0IG1vZGUgaW4gdGhlIGxpc3Qgd2l0aA0KPiBwcmVmZXJyZWQgZmxhZyBzZXQg
-aXMgc2VsZWN0ZWQgYXMgcHJlZmVycmVkIG1vZGUuIER1ZSB0byB0aGlzIHRoZQ0KPiBwcmVmZXJy
-ZWQgbW9kZSBzZWxlY3RlZCB2YXJpZXMuDQo+IElmIHNhbWUgcHJlZmVycmVkIG1vZGUgaXMgbm90
-IHNlbGVjdGVkIGluIGNvbW1vbiBtb2RlIGNhbGN1bGF0aW9uDQo+IGFuZCBjcnRjIHRpbWluZywg
-dGhlbiBkdXJpbmcgbW9kZSBzZXQgaW5zdGVhZCBvZiBzZXR0aW5nIHByZWZlcnJlZA0KPiB0aW1p
-bmcsIGNvbW1vbiBtb2RlIHRpbWluZyB3aWxsIGJlIGFwcGxpZWQgd2hpY2ggY2FuIGNhdXNlICJv
-dXQgb2YNCj4gcmFuZ2UiIG1lc3NhZ2UgaW4gdGhlIG1vbml0b3Igd2l0aCBtb25pdG9yIGJsYW5r
-aW5nIG91dC4NCj4gDQo+IFtIb3ddDQo+IFNvcnQgdGhlIG1vZGVzIGJlZm9yZSBhZGRpbmcgY29t
-bW9uIG1vZGVzLiBUaGUgc2FtZSBzb3J0aW5nIGZ1bmN0aW9uDQo+IGlzIGNhbGxlZCBkdXJpbmcg
-Y29tbW9uIG1vZGUgYWRkaXRpb24gYW5kIGRlY2lkaW5nIGNydGMgdGltaW5nLg0KPiANCj4gU2ln
-bmVkLW9mZi1ieTogWW9nZXNoIE1vaGFuIE1hcmltdXRodSA8eW9nZXNoLm1vaGFubWFyaW11dGh1
-QGFtZC5jb20+DQo+IENoYW5nZS1JZDogSTQ4MDM2YTQ3NmFkNjIxZGUwMjJlMmZkYTVlMTg2MWU3
-MmU3ZThjMzANCg0KV2l0aCB0aGUgcGF0Y2ggdGl0bGUgZml4ZWQgdG8gc3RhcnQgd2l0aCAiZHJt
-L2FtZC9kaXNwbGF5OiIsIHRoaXMgaXM6DQoNClJldmlld2VkLWJ5OiBOaWNob2xhcyBLYXpsYXVz
-a2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+DQoNClNvIHRoZSBzb3J0aW5nIG5vcm1h
-bGx5IHNlZW1zIHRvIGhhcHBlbiBhdCB0aGUgZW5kIG9mIA0KZHJtX2hlbHBlcl9wcm9iZV9zaW5n
-bGVfY29ubmVjdG9yX21vZGVzLCBvciBhZnRlciBib3RoIGdldF9tb2RlcyBhbmQgDQpmaWxsX21v
-ZGVzIGhhdmUgYmVlbiBjYWxsZWQuDQoNClNvIHNvcnRpbmcgdGhlIGxpc3QgaW4gYWR2YW5jZSBh
-aGVhZCBvZiBEUk0gc2hvdWxkbid0IGh1cnQgaGVyZS4NCg0KVGhpcyBzaG91bGQgaGVscCB0aGUg
-b3JkZXIgYXQgbGVhc3QgbWF0Y2ggdGhlIG9yZGVyIHdlIHF1ZXJ5IGZvciB0aGUgDQpwcmVmZXJy
-ZWQgbW9kZSBsYXRlciBvbiB3aGVuIGNyZWF0aW5nIHRoZSBzaW5rIGZvciB0aGUgc3RyZWFtLCBi
-dXQgaXQgDQpzdGlsbCBpcyBqdXN0IG1hc2tpbmcgdGhlIG92ZXJhbGwgcHJvYmxlbSBvZiBub3Qg
-Y2hlY2tpbmcgdGhlIHJpZ2h0IG1vZGUgDQpmb3IgZGVjaWRpbmcgd2hlbiB0byBzY2FsZSBvciBu
-b3QuDQoNCldlJ2xsIHByb2JhYmx5IG5lZWQgdG8gZWl0aGVyIGFkZCBhIHByaXZhdGUgZmxhZyB0
-byB0aGUgY29tbW9uIG1vZGVzIHRvIA0KaW5kaWNhdGUgdGhhdCB0aGV5IHNob3VsZCBiZSBzY2Fs
-ZWQgb3IgdXNpbmcgY2hlY2sgdGhlIHNjYWxpbmcgYWdhaW5zdCANCndoYXQgd2UgdGhvdWdodCB3
-YXMgdGhlIG5hdGl2ZSBtb2RlLCBpZS4gdGhlIG9uZSBmcm9tIHRoZSBlbmNvZGVyLg0KDQpOaWNo
-b2xhcyBLYXpsYXVza2FzDQoNCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8IDkgKysrKysrKysrDQo+ICAgMSBmaWxlIGNoYW5nZWQs
-IDkgaW5zZXJ0aW9ucygrKQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+IGluZGV4IDRhMTc1NWJjZS4uNDE4ZTM5NTZhIDEw
-MDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
-dV9kbS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmMNCj4gQEAgLTQ2NzcsNiArNDY3NywxNSBAQCBzdGF0aWMgdm9pZCBhbWRncHVfZG1f
-Y29ubmVjdG9yX2RkY19nZXRfbW9kZXMoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwN
-Cj4gICAgICAgICAgICAgICAgICBhbWRncHVfZG1fY29ubmVjdG9yLT5udW1fbW9kZXMgPQ0KPiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkcm1fYWRkX2VkaWRfbW9kZXMoY29ubmVj
-dG9yLCBlZGlkKTsNCj4gDQo+ICsgICAgICAgICAgICAgICAvKiBzb3J0aW5nIHRoZSBwcm9iZWQg
-bW9kZXMgYmVmb3JlIGNhbGxpbmcgZnVuY3Rpb24NCj4gKyAgICAgICAgICAgICAgICAqIGFtZGdw
-dV9kbV9nZXRfbmF0aXZlX21vZGUoKSBzaW5jZSBFRElEIGNhbiBoYXZlDQo+ICsgICAgICAgICAg
-ICAgICAgKiBtb3JlIHRoYW4gb25lIHByZWZlcnJlZCBtb2RlLiBUaGUgbW9kZXMgdGhhdCBhcmUN
-Cj4gKyAgICAgICAgICAgICAgICAqIGxhdGVyIGluIHRoZSBwcm9iZWQgbW9kZSBsaXN0IGNvdWxk
-IGJlIG9mIGhpZ2hlcg0KPiArICAgICAgICAgICAgICAgICogYW5kIHByZWZlcnJlZCByZXNvbHV0
-aW9uLiBGb3IgZXhhbXBsZSwgMzg0MHgyMTYwDQo+ICsgICAgICAgICAgICAgICAgKiByZXNvbHV0
-aW9uIGluIGJhc2UgRURJRCBwcmVmZXJyZWQgdGltaW5nIGFuZCA0MDk2eDIxNjANCj4gKyAgICAg
-ICAgICAgICAgICAqIHByZWZlcnJlZCByZXNvbHV0aW9uIGluIERJRCBleHRlbnNpb24gYmxvY2sg
-bGF0ZXIuDQo+ICsgICAgICAgICAgICAgICAgKi8NCj4gKyAgICAgICAgICAgICAgIGRybV9tb2Rl
-X3NvcnQoJmNvbm5lY3Rvci0+cHJvYmVkX21vZGVzKTsNCj4gICAgICAgICAgICAgICAgICBhbWRn
-cHVfZG1fZ2V0X25hdGl2ZV9tb2RlKGNvbm5lY3Rvcik7DQo+ICAgICAgICAgIH0gZWxzZSB7DQo+
-ICAgICAgICAgICAgICAgICAgYW1kZ3B1X2RtX2Nvbm5lY3Rvci0+bnVtX21vZGVzID0gMDsNCj4g
-LS0NCj4gMi4xNy4xDQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZngNCj4gDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA==
+On Wed, May 22, 2019 at 01:47:36PM -0700, Kees Cook wrote:
+> On Wed, May 22, 2019 at 05:35:27PM +0100, Catalin Marinas wrote:
+> > The two hard requirements I have for supporting any new hardware feature
+> > in Linux are (1) a single kernel image binary continues to run on old
+> > hardware while making use of the new feature if available and (2) old
+> > user space continues to run on new hardware while new user space can
+> > take advantage of the new feature.
+> 
+> Agreed! And I think the series meets these requirements, yes?
+
+Yes. I mentioned this just to make sure people don't expect different
+kernel builds for different hardware features.
+
+There is also the obvious requirement which I didn't mention: new user
+space continues to run on new/subsequent kernel versions. That's one of
+the points of contention for this series (ignoring MTE) with the
+maintainers having to guarantee this without much effort. IOW, do the
+500K+ new lines in a subsequent kernel version break any user space out
+there? I'm only talking about the relaxed TBI ABI. Are the usual LTP,
+syskaller sufficient? Better static analysis would definitely help.
+
+> > For MTE, we just can't enable it by default since there are applications
+> > who use the top byte of a pointer and expect it to be ignored rather
+> > than failing with a mismatched tag. Just think of a hwasan compiled
+> > binary where TBI is expected to work and you try to run it with MTE
+> > turned on.
+> 
+> Ah! Okay, here's the use-case I wasn't thinking of: the concern is TBI
+> conflicting with MTE. And anything that starts using TBI suddenly can't
+> run in the future because it's being interpreted as MTE bits? (Is that
+> the ABI concern?
+
+That's another aspect to figure out when we add the MTE support. I don't
+think we'd be able to do this without an explicit opt-in by the user.
+
+Or, if we ever want MTE to be turned on by default (i.e. tag checking),
+even if everything is tagged with 0, we have to disallow TBI for user
+and this includes hwasan. There were a small number of programs using
+the TBI (I think some JavaScript compilers tried this). But now we are
+bringing in the hwasan support and this can be a large user base. Shall
+we add an ELF note for such binaries that use TBI/hwasan?
+
+This series is still required for MTE but we may decide not to relax the
+ABI blindly, therefore the opt-in (prctl) or personality idea.
+
+> I feel like we got into the weeds about ioctl()s and one-off bugs...)
+
+This needs solving as well. Most driver developers won't know why
+untagged_addr() is needed unless we have more rigorous types or type
+annotations and a tool to check them (we should probably revive the old
+sparse thread).
+
+> So there needs to be some way to let the kernel know which of three
+> things it should be doing:
+> 1- leaving userspace addresses as-is (present)
+> 2- wiping the top bits before using (this series)
+
+(I'd say tolerating rather than wiping since get_user still uses the tag
+in the current series)
+
+The current series does not allow any choice between 1 and 2, the
+default ABI basically becomes option 2.
+
+> 3- wiping the top bits for most things, but retaining them for MTE as
+>    needed (the future)
+
+2 and 3 are not entirely compatible as a tagged pointer may be checked
+against the memory colour by the hardware. So you can't have hwasan
+binary with MTE enabled.
+
+> I expect MTE to be the "default" in the future. Once a system's libc has
+> grown support for it, everything will be trying to use MTE. TBI will be
+> the special case (but TBI is effectively a prerequisite).
+
+The kernel handling of tagged pointers is indeed a prerequisite. The ABI
+distinction between the above 2 and 3 needs to be solved.
+
+> AFAICT, the only difference I see between 2 and 3 will be the tag handling
+> in usercopy (all other places will continue to ignore the top bits). Is
+> that accurate?
+
+Yes, mostly (for the kernel). If MTE is enabled by default for a hwasan
+binary, it will SEGFAULT (either in user space or in kernel uaccess).
+How does the kernel choose between 2 and 3?
+
+> Is "1" a per-process state we want to keep? (I assume not, but rather it
+> is available via no TBI/MTE CONFIG or a boot-time option, if at all?)
+
+Possibly, though not necessarily per process. For testing or if
+something goes wrong during boot, a command line option with a static
+label would do. The AT_FLAGS bit needs to be checked by user space. My
+preference would be per-process.
+
+> To choose between "2" and "3", it seems we need a per-process flag to
+> opt into TBI (and out of MTE).
+
+Or leave option 2 the default and get it to opt in to MTE.
+
+> For userspace, how would a future binary choose TBI over MTE? If it's
+> a library issue, we can't use an ELF bit, since the choice may be
+> "late" after ELF load (this implies the need for a prctl().) If it's
+> binary-only ("built with HWKASan") then an ELF bit seems sufficient.
+> And without the marking, I'd expect the kernel to enforce MTE when
+> there are high bits.
+
+The current plan is that a future binary issues a prctl(), after
+checking the HWCAP_MTE bit (as I replied to Elliot, the MTE instructions
+are not in the current NOP space). I'd expect this to be done by the
+libc or dynamic loader under the assumption that the binaries it loads
+do _not_ use the top pointer byte for anything else. With hwasan
+compiled objects this gets more confusing (any ELF note to identify
+them?).
+
+(there is also the risk of existing applications using TBI already but
+I'm not aware of any still using this feature other than hwasan)
+
+-- 
+Catalin
