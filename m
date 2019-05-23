@@ -1,70 +1,91 @@
-From: Khalid Aziz <khalid.aziz@oracle.com>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Thu, 23 May 2019 15:42:33 -0600
-Message-ID: <047e3b90-d73e-0ca8-869c-d03b7580e644@oracle.com>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <20190517144931.GA56186@arrakis.emea.arm.com>
- <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
- <20190521182932.sm4vxweuwo5ermyd@mbp> <201905211633.6C0BF0C2@keescook>
- <6049844a-65f5-f513-5b58-7141588fef2b@oracle.com>
- <20190523201105.oifkksus4rzcwqt4@mbp>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 6/7] drm/amdkfd: New IOCTL to allocate queue GWS
+Date: Thu, 23 May 2019 21:44:25 +0000
+Message-ID: <eecd7983-5233-ebd9-df96-b24c719f69b2@amd.com>
+References: <1558636843-9867-1-git-send-email-Oak.Zeng@amd.com>
+ <1558636843-9867-6-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <20190523201105.oifkksus4rzcwqt4@mbp>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1558636843-9867-6-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgenii Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <4B0F3F4D18A90547B1B221ECB3519C62-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Keely, Sean" <Sean.Keely-5C7GfCeVMHo@public.gmane.org>
 
-On 5/23/19 2:11 PM, Catalin Marinas wrote:
-> Hi Khalid,
-> 
-> On Thu, May 23, 2019 at 11:51:40AM -0600, Khalid Aziz wrote:
->> On 5/21/19 6:04 PM, Kees Cook wrote:
->>> As an aside: I think Sparc ADI support in Linux actually side-stepped
->>> this[1] (i.e. chose "solution 1"): "All addresses passed to kernel must
->>> be non-ADI tagged addresses." (And sadly, "Kernel does not enable ADI
->>> for kernel code.") I think this was a mistake we should not repeat for
->>> arm64 (we do seem to be at least in agreement about this, I think).
->>>
->>> [1] https://lore.kernel.org/patchwork/patch/654481/
->>
->> That is a very early version of the sparc ADI patch. Support for tagged
->> addresses in syscalls was added in later versions and is in the patch
->> that is in the kernel.
-> 
-> I tried to figure out but I'm not familiar with the sparc port. How did
-> you solve the tagged address going into various syscall implementations
-> in the kernel (e.g. sys_write)? Is the tag removed on kernel entry or it
-> ends up deeper in the core code?
-
-Tag is not removed from the user addresses. Kernel passes tagged
-addresses to copy_from_user and copy_to_user. MMU checks the tag
-embedded in the address when kernel accesses userspace addresses. This
-maintains the ADI integrity even when userspace attempts to access any
-userspace addresses through system calls.
-
-On sparc, access_ok() is defined as:
-
-#define access_ok(addr, size) __access_ok((unsigned long)(addr), size)
-#define __access_ok(addr, size) (__user_ok((addr) & get_fs().seg, (size)))
-#define __user_ok(addr, size) ({ (void)(size); (addr) < STACK_TOP; })
-
-STACK_TOP for M7 processor (which is the first sparc processor to
-support ADI) is 0xfff8000000000000UL. Tagged addresses pass the
-access_ok() check fine. Any tag mismatches that happen during kernel
-access to userspace addresses are handled by do_mcd_err().
-
---
-Khalid
+DQpPbiAyMDE5LTA1LTIzIDI6NDEgcC5tLiwgWmVuZywgT2FrIHdyb3RlOg0KPiBBZGQgYSBuZXcg
+a2ZkIGlvY3RsIHRvIGFsbG9jYXRlIHF1ZXVlIEdXUy4gUXVldWUNCj4gR1dTIGlzIHJlbGVhc2Vk
+IG9uIHF1ZXVlIGRlc3Ryb3kuDQo+DQo+IENoYW5nZS1JZDogSTYwMTUzYzI2YTU3Nzk5MmFkODcz
+ZTQyOTJlNzU5ZTVjM2Q1YmJkMTUNCj4gU2lnbmVkLW9mZi1ieTogT2FrIFplbmcgPE9hay5aZW5n
+QGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFy
+ZGV2LmMgfCAzMCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4gICBpbmNsdWRlL3Vh
+cGkvbGludXgva2ZkX2lvY3RsLmggICAgICAgICAgIHwgMjAgKysrKysrKysrKysrKysrKysrKy0N
+Cj4gICAyIGZpbGVzIGNoYW5nZWQsIDQ5IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4N
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jDQo+IGluZGV4IDM4YWU1
+M2YuLmYzZjA4ZmUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tm
+ZF9jaGFyZGV2LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2NoYXJk
+ZXYuYw0KPiBAQCAtMTU1OSw2ICsxNTU5LDM0IEBAIHN0YXRpYyBpbnQga2ZkX2lvY3RsX3VubWFw
+X21lbW9yeV9mcm9tX2dwdShzdHJ1Y3QgZmlsZSAqZmlsZXAsDQo+ICAgCXJldHVybiBlcnI7DQo+
+ICAgfQ0KPiAgIA0KPiArc3RhdGljIGludCBrZmRfaW9jdGxfYWxsb2NfcXVldWVfZ3dzKHN0cnVj
+dCBmaWxlICpmaWxlcCwNCj4gKwkJc3RydWN0IGtmZF9wcm9jZXNzICpwLCB2b2lkICpkYXRhKQ0K
+PiArew0KPiArCWludCByZXR2YWw7DQo+ICsJc3RydWN0IGtmZF9pb2N0bF9hbGxvY19xdWV1ZV9n
+d3NfYXJncyAqYXJncyA9IGRhdGE7DQo+ICsJc3RydWN0IGtmZF9kZXYgKmRldiA9IE5VTEw7DQo+
+ICsNCj4gKwlpZiAoYXJncy0+bnVtX2d3cyA9PSAwKQ0KPiArCQlyZXR1cm4gLUVJTlZBTDsNCg0K
+VGhpcyBjb3VsZCBiZSB1c2VmdWwgdG8gYWxsb3cgcmVsZWFzaW5nIEdXUyByZXNvdXJjZXMgd2l0
+aG91dCBoYXZpbmcgdG8gDQpkZXN0cm95IHRoZSBxdWV1ZS4gU2VlIGFsc28gbXkgY29tbWVudCBp
+biBwYXRjaCA1Lg0KDQpPdGhlciB0aGFuIHRoYXQgdGhpcyBsb29rcyBnb29kIHRvIG1lLg0KDQpS
+ZWdhcmRzLA0KIMKgIEZlbGl4DQoNCg0KPiArDQo+ICsJaWYgKCFod3NfZ3dzX3N1cHBvcnQgfHwN
+Cj4gKwkJZGV2LT5kcW0tPnNjaGVkX3BvbGljeSA9PSBLRkRfU0NIRURfUE9MSUNZX05PX0hXUykN
+Cj4gKwkJcmV0dXJuIC1FSU5WQUw7DQo+ICsNCj4gKwlkZXYgPSBrZmRfZGV2aWNlX2J5X2lkKGFy
+Z3MtPmdwdV9pZCk7DQo+ICsJaWYgKCFkZXYpIHsNCj4gKwkJcHJfZGVidWcoIkNvdWxkIG5vdCBm
+aW5kIGdwdSBpZCAweCV4XG4iLCBhcmdzLT5ncHVfaWQpOw0KPiArCQlyZXR1cm4gLUVJTlZBTDsN
+Cj4gKwl9DQo+ICsNCj4gKwltdXRleF9sb2NrKCZwLT5tdXRleCk7DQo+ICsJcmV0dmFsID0gcHFt
+X3NldF9nd3MoJnAtPnBxbSwgYXJncy0+cXVldWVfaWQsIGRldi0+Z3dzKTsNCj4gKwltdXRleF91
+bmxvY2soJnAtPm11dGV4KTsNCj4gKw0KPiArCWFyZ3MtPmZpcnN0X2d3cyA9IDA7DQo+ICsJcmV0
+dXJuIHJldHZhbDsNCj4gK30NCj4gKw0KPiAgIHN0YXRpYyBpbnQga2ZkX2lvY3RsX2dldF9kbWFi
+dWZfaW5mbyhzdHJ1Y3QgZmlsZSAqZmlsZXAsDQo+ICAgCQlzdHJ1Y3Qga2ZkX3Byb2Nlc3MgKnAs
+IHZvaWQgKmRhdGEpDQo+ICAgew0KPiBAQCAtMTc2MSw2ICsxNzg5LDggQEAgc3RhdGljIGNvbnN0
+IHN0cnVjdCBhbWRrZmRfaW9jdGxfZGVzYyBhbWRrZmRfaW9jdGxzW10gPSB7DQo+ICAgCUFNREtG
+RF9JT0NUTF9ERUYoQU1ES0ZEX0lPQ19JTVBPUlRfRE1BQlVGLA0KPiAgIAkJCQlrZmRfaW9jdGxf
+aW1wb3J0X2RtYWJ1ZiwgMCksDQo+ICAgDQo+ICsJQU1ES0ZEX0lPQ1RMX0RFRihBTURLRkRfSU9D
+X0FMTE9DX1FVRVVFX0dXUywNCj4gKwkJCWtmZF9pb2N0bF9hbGxvY19xdWV1ZV9nd3MsIDApLA0K
+PiAgIH07DQo+ICAgDQo+ICAgI2RlZmluZSBBTURLRkRfQ09SRV9JT0NUTF9DT1VOVAlBUlJBWV9T
+SVpFKGFtZGtmZF9pb2N0bHMpDQo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvbGludXgva2Zk
+X2lvY3RsLmggYi9pbmNsdWRlL3VhcGkvbGludXgva2ZkX2lvY3RsLmgNCj4gaW5kZXggMjA5MTdj
+NS4uMDcwZDFiYyAxMDA2NDQNCj4gLS0tIGEvaW5jbHVkZS91YXBpL2xpbnV4L2tmZF9pb2N0bC5o
+DQo+ICsrKyBiL2luY2x1ZGUvdWFwaS9saW51eC9rZmRfaW9jdGwuaA0KPiBAQCAtNDEwLDYgKzQx
+MCwyMSBAQCBzdHJ1Y3Qga2ZkX2lvY3RsX3VubWFwX21lbW9yeV9mcm9tX2dwdV9hcmdzIHsNCj4g
+ICAJX191MzIgbl9zdWNjZXNzOwkJLyogdG8vZnJvbSBLRkQgKi8NCj4gICB9Ow0KPiAgIA0KPiAr
+LyogQWxsb2NhdGUgR1dTIGZvciBzcGVjaWZpYyBxdWV1ZQ0KPiArICoNCj4gKyAqIEBncHVfaWQ6
+ICAgICAgZGV2aWNlIGlkZW50aWZpZXINCj4gKyAqIEBxdWV1ZV9pZDogICAgcXVldWUncyBpZCB0
+aGF0IEdXUyBpcyBhbGxvY2F0ZWQgZm9yDQo+ICsgKiBAbnVtX2d3czogICAgIGhvdyBtYW55IEdX
+UyB0byBhbGxvY2F0ZQ0KPiArICogQGZpcnN0X2d3czogICBpbmRleCBvZiB0aGUgZmlyc3QgR1dT
+IGFsbG9jYXRlZC4NCj4gKyAqICAgICAgICAgICAgICAgb25seSBzdXBwb3J0IGNvbnRpZ3VvdXMg
+R1dTIGFsbG9jYXRpb24NCj4gKyAqLw0KPiArc3RydWN0IGtmZF9pb2N0bF9hbGxvY19xdWV1ZV9n
+d3NfYXJncyB7DQo+ICsJX191MzIgZ3B1X2lkOwkJLyogdG8gS0ZEICovDQo+ICsJX191MzIgcXVl
+dWVfaWQ7CQkvKiB0byBLRkQgKi8NCj4gKwlfX3UzMiBudW1fZ3dzOwkJLyogdG8gS0ZEICovDQo+
+ICsJX191MzIgZmlyc3RfZ3dzOwkvKiBmcm9tIEtGRCAqLw0KPiArfTsNCj4gKw0KPiAgIHN0cnVj
+dCBrZmRfaW9jdGxfZ2V0X2RtYWJ1Zl9pbmZvX2FyZ3Mgew0KPiAgIAlfX3U2NCBzaXplOwkJLyog
+ZnJvbSBLRkQgKi8NCj4gICAJX191NjQgbWV0YWRhdGFfcHRyOwkvKiB0byBLRkQgKi8NCj4gQEAg
+LTUyOSw3ICs1NDQsMTAgQEAgZW51bSBrZmRfbW1pb19yZW1hcCB7DQo+ICAgI2RlZmluZSBBTURL
+RkRfSU9DX0lNUE9SVF9ETUFCVUYJCVwNCj4gICAJCUFNREtGRF9JT1dSKDB4MUQsIHN0cnVjdCBr
+ZmRfaW9jdGxfaW1wb3J0X2RtYWJ1Zl9hcmdzKQ0KPiAgIA0KPiArI2RlZmluZSBBTURLRkRfSU9D
+X0FMTE9DX1FVRVVFX0dXUwkJXA0KPiArCQlBTURLRkRfSU9XUigweDFFLCBzdHJ1Y3Qga2ZkX2lv
+Y3RsX2FsbG9jX3F1ZXVlX2d3c19hcmdzKQ0KPiArDQo+ICAgI2RlZmluZSBBTURLRkRfQ09NTUFO
+RF9TVEFSVAkJMHgwMQ0KPiAtI2RlZmluZSBBTURLRkRfQ09NTUFORF9FTkQJCTB4MUUNCj4gKyNk
+ZWZpbmUgQU1ES0ZEX0NPTU1BTkRfRU5ECQkweDFGDQo+ICAgDQo+ICAgI2VuZGlmDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
