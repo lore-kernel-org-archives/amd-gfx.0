@@ -1,81 +1,52 @@
-From: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Subject: Re: [PATCH v15 14/17] media/v4l2-core, arm64: untag user pointers
- in videobuf_dma_contig_user_get
-Date: Fri, 24 May 2019 10:13:45 -0300
-Message-ID: <20190524101345.67c425fa@coco.lan>
-References: <cover.1557160186.git.andreyknvl@google.com>
-        <b7999d13af54eb3ed8d7b0192397c7cde3df0b28.1557160186.git.andreyknvl@google.com>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 2/2] drm/amd/doc: Add RAS documentation to guide
+Date: Fri, 24 May 2019 13:23:50 +0000
+Message-ID: <20190524132326.7436-2-tom.stdenis@amd.com>
+References: <20190524132326.7436-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <b7999d13af54eb3ed8d7b0192397c7cde3df0b28.1557160186.git.andreyknvl@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Jens Wiklander <jens.wiklander@linaro.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190524132326.7436-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 
-Em Mon,  6 May 2019 18:31:00 +0200
-Andrey Konovalov <andreyknvl@google.com> escreveu:
-
-> This patch is a part of a series that extends arm64 kernel ABI to allow to
-> pass tagged user pointers (with the top byte set to something else other
-> than 0x00) as syscall arguments.
-> 
-> videobuf_dma_contig_user_get() uses provided user pointers for vma
-> lookups, which can only by done with untagged pointers.
-> 
-> Untag the pointers in this function.
-> 
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-
-Acked-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-
-> ---
->  drivers/media/v4l2-core/videobuf-dma-contig.c | 9 +++++----
->  1 file changed, 5 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/videobuf-dma-contig.c b/drivers/media/v4l2-core/videobuf-dma-contig.c
-> index e1bf50df4c70..8a1ddd146b17 100644
-> --- a/drivers/media/v4l2-core/videobuf-dma-contig.c
-> +++ b/drivers/media/v4l2-core/videobuf-dma-contig.c
-> @@ -160,6 +160,7 @@ static void videobuf_dma_contig_user_put(struct videobuf_dma_contig_memory *mem)
->  static int videobuf_dma_contig_user_get(struct videobuf_dma_contig_memory *mem,
->  					struct videobuf_buffer *vb)
->  {
-> +	unsigned long untagged_baddr = untagged_addr(vb->baddr);
->  	struct mm_struct *mm = current->mm;
->  	struct vm_area_struct *vma;
->  	unsigned long prev_pfn, this_pfn;
-> @@ -167,22 +168,22 @@ static int videobuf_dma_contig_user_get(struct videobuf_dma_contig_memory *mem,
->  	unsigned int offset;
->  	int ret;
->  
-> -	offset = vb->baddr & ~PAGE_MASK;
-> +	offset = untagged_baddr & ~PAGE_MASK;
->  	mem->size = PAGE_ALIGN(vb->size + offset);
->  	ret = -EINVAL;
->  
->  	down_read(&mm->mmap_sem);
->  
-> -	vma = find_vma(mm, vb->baddr);
-> +	vma = find_vma(mm, untagged_baddr);
->  	if (!vma)
->  		goto out_up;
->  
-> -	if ((vb->baddr + mem->size) > vma->vm_end)
-> +	if ((untagged_baddr + mem->size) > vma->vm_end)
->  		goto out_up;
->  
->  	pages_done = 0;
->  	prev_pfn = 0; /* kill warning */
-> -	user_address = vb->baddr;
-> +	user_address = untagged_baddr;
->  
->  	while (pages_done < (mem->size >> PAGE_SHIFT)) {
->  		ret = follow_pfn(vma, user_address, &this_pfn);
-
-
-
-Thanks,
-Mauro
+U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPg0KLS0tDQog
+RG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdCAgICAgICAgICAgIHwgMTEgKysrKysrKysrKysN
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMgfCAgNCArKy0tDQogMiBm
+aWxlcyBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0t
+Z2l0IGEvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdCBiL0RvY3VtZW50YXRpb24vZ3B1L2Ft
+ZGdwdS5yc3QNCmluZGV4IGNhY2ZjZmFkMjM1Ni4uODYxMzg3OTgxMjhmIDEwMDY0NA0KLS0tIGEv
+RG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdA0KKysrIGIvRG9jdW1lbnRhdGlvbi9ncHUvYW1k
+Z3B1LnJzdA0KQEAgLTc5LDYgKzc5LDE3IEBAIEFNREdQVSBYR01JIFN1cHBvcnQNCiAuLiBrZXJu
+ZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYw0KICAgIDpp
+bnRlcm5hbDoNCiANCitBTURHUFUgUkFTIGRlYnVnZnMgY29udHJvbCBpbnRlcmZhY2UNCis9PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCisNCisuLiBrZXJuZWwtZG9jOjogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQorICAgOmRvYzogQU1ER1BVIFJB
+UyBkZWJ1Z2ZzIGNvbnRyb2wgaW50ZXJmYWNlDQorDQorDQorLi4ga2VybmVsLWRvYzo6IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYw0KKyAgIDppbnRlcm5hbDoNCisNCisN
+CiBHUFUgUG93ZXIvVGhlcm1hbCBDb250cm9scyBhbmQgTW9uaXRvcmluZw0KID09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQogDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3Jhcy5jDQppbmRleCBkNTcxOWIwZmI4MmMuLjdjOGE0YWVkZjA3YyAxMDA2NDQN
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYw0KKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jDQpAQCAtMjQ0LDggKzI0NCw4IEBA
+IHN0YXRpYyBpbnQgYW1kZ3B1X3Jhc19kZWJ1Z2ZzX2N0cmxfcGFyc2VfZGF0YShzdHJ1Y3QgZmls
+ZSAqZiwNCiANCiAJcmV0dXJuIDA7DQogfQ0KLS8qDQotICogRE9DOiByYXMgZGVidWdmcyBjb250
+cm9sIGludGVyZmFjZQ0KKy8qKg0KKyAqIERPQzogQU1ER1BVIFJBUyBkZWJ1Z2ZzIGNvbnRyb2wg
+aW50ZXJmYWNlDQogICoNCiAgKiBJdCBhY2NlcHRzIHN0cnVjdCByYXNfZGVidWdfaWYgd2hvIGhh
+cyB0d28gbWVtYmVycy4NCiAgKg0KLS0gDQoyLjIxLjANCg0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
