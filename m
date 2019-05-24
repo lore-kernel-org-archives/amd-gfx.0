@@ -1,67 +1,105 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/2] drm/amd/doc: Add XGMI sysfs documentation
-Date: Fri, 24 May 2019 13:23:49 +0000
-Message-ID: <20190524132326.7436-1-tom.stdenis@amd.com>
+From: Dave Martin <Dave.Martin@arm.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Fri, 24 May 2019 15:23:54 +0100
+Message-ID: <20190524142352.GY28398@e103592.cambridge.arm.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <20190517144931.GA56186@arrakis.emea.arm.com>
+ <20190521184856.GC2922@ziepe.ca>
+ <20190522134925.GV28398@e103592.cambridge.arm.com>
+ <20190523002052.GF15389@ziepe.ca>
+ <20190523104256.GX28398@e103592.cambridge.arm.com>
+ <20190523165708.q6ru7xg45aqfjzpr@mbp>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190523165708.q6ru7xg45aqfjzpr@mbp>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Alex Williamson <ale>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPg0KLS0tDQog
-RG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdCAgICAgICAgICAgICB8ICA5ICsrKysrKysrDQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYyB8IDI4ICsrKysrKysrKysr
-KysrKysrKysrKysrKw0KIDIgZmlsZXMgY2hhbmdlZCwgMzcgaW5zZXJ0aW9ucygrKQ0KDQpkaWZm
-IC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdCBiL0RvY3VtZW50YXRpb24vZ3B1
-L2FtZGdwdS5yc3QNCmluZGV4IGE3NDBlNDkxZGZjYy4uY2FjZmNmYWQyMzU2IDEwMDY0NA0KLS0t
-IGEvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdA0KKysrIGIvRG9jdW1lbnRhdGlvbi9ncHUv
-YW1kZ3B1LnJzdA0KQEAgLTcwLDYgKzcwLDE1IEBAIEludGVycnVwdCBIYW5kbGluZw0KIC4uIGtl
-cm5lbC1kb2M6OiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmMNCiAgICA6
-aW50ZXJuYWw6DQogDQorQU1ER1BVIFhHTUkgU3VwcG9ydA0KKz09PT09PT09PT09PT09PT09PT0N
-CisNCisuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hn
-bWkuYw0KKyAgIDpkb2M6IEFNREdQVSBYR01JIFN1cHBvcnQNCisNCisuLiBrZXJuZWwtZG9jOjog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYw0KKyAgIDppbnRlcm5hbDoN
-CisNCiBHUFUgUG93ZXIvVGhlcm1hbCBDb250cm9scyBhbmQgTW9uaXRvcmluZw0KID09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQogDQpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV94Z21pLmMNCmluZGV4IGU0OGU5Mzk0ZjFlNC4uZDExZWJhMDllYWRkIDEw
-MDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYw0KKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYw0KQEAgLTQwLDYgKzQw
-LDM0IEBAIHZvaWQgKmFtZGdwdV94Z21pX2hpdmVfdHJ5X2xvY2soc3RydWN0IGFtZGdwdV9oaXZl
-X2luZm8gKmhpdmUpDQogCXJldHVybiAmaGl2ZS0+ZGV2aWNlX2xpc3Q7DQogfQ0KIA0KKy8qKg0K
-KyAqIERPQzogQU1ER1BVIFhHTUkgU3VwcG9ydA0KKyAqDQorICogWEdNSSBpcyBhIGhpZ2ggc3Bl
-ZWQgaW50ZXJjb25uZWN0IHRoYXQgam9pbnMgbXVsdGlwbGUgR1BVIGNhcmRzDQorICogaW50byBh
-IGhvbW9nZW5lb3VzIG1lbW9yeSBzcGFjZSB0aGF0IGlzIG9yZ2FuaXplZCBieSBhIGNvbGxlY3Rp
-dmUNCisgKiBoaXZlIElEIGFuZCBpbmRpdmlkdWFsIG5vZGUgSURzLCBib3RoIG9mIHdoaWNoIGFy
-ZSA2NC1iaXQgbnVtYmVycy4NCisgKg0KKyAqIFRoZSBmaWxlIHhnbWlfZGV2aWNlX2lkIGNvbnRh
-aW5zIHRoZSB1bmlxdWUgcGVyIEdQVSBkZXZpY2UgSUQgYW5kDQorICogaXMgc3RvcmVkIGluIHRo
-ZSAvc3lzL2NsYXNzL2RybS9jYXJkJHtjYXJkbm99L2RldmljZS8gZGlyZWN0b3J5Lg0KKyAqDQor
-ICogSW5zaWRlIHRoZSBkZXZpY2UgZGlyZWN0b3J5IGEgc3ViLWRpcmVjdG9yeSAneGdtaV9oaXZl
-X2luZm8nIGlzDQorICogY3JlYXRlZCB3aGljaCBjb250YWlucyB0aGUgaGl2ZSBJRCBhbmQgdGhl
-IGxpc3Qgb2Ygbm9kZXMuDQorICoNCisgKiBUaGUgaGl2ZSBJRCBpcyBzdG9yZWQgaW46DQorICog
-ICAvc3lzL2NsYXNzL2RybS9jYXJkJHtjYXJkbm99L2RldmljZS94Z21pX2hpdmVfaW5mby94Z21p
-X2hpdmVfaWQNCisgKg0KKyAqIFRoZSBub2RlIGluZm9ybWF0aW9uIGlzIHN0b3JlZCBpbiBudW1i
-ZXJlZCBkaXJlY3RvcmllczoNCisgKiAgIC9zeXMvY2xhc3MvZHJtL2NhcmQke2NhcmRub30vZGV2
-aWNlL3hnbWlfaGl2ZV9pbmZvL25vZGUke25vZGVub30veGdtaV9kZXZpY2VfaWQNCisgKg0KKyAq
-IEVhY2ggZGV2aWNlIGhhcyB0aGVpciBvd24geGdtaV9oaXZlX2luZm8gZGlyZWN0aW9uIHdpdGgg
-YSBtaXJyb3INCisgKiBzZXQgb2Ygbm9kZSBzdWItZGlyZWN0b3JpZXMuDQorICoNCisgKiBUaGUg
-WEdNSSBtZW1vcnkgc3BhY2UgaXMgYnVpbHQgYnkgY29udGlndW91c2x5IGFkZGluZyB0aGUgcG93
-ZXIgb2YNCisgKiB0d28gcGFkZGVkIFZSQU0gc3BhY2UgZnJvbSBlYWNoIG5vZGUgdG8gZWFjaCBv
-dGhlci4NCisgKg0KKyAqLw0KKw0KKw0KIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV94Z21pX3Nob3df
-aGl2ZV9pZChzdHJ1Y3QgZGV2aWNlICpkZXYsDQogCQlzdHJ1Y3QgZGV2aWNlX2F0dHJpYnV0ZSAq
-YXR0ciwgY2hhciAqYnVmKQ0KIHsNCi0tIA0KMi4yMS4wDQoNCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeA==
+On Thu, May 23, 2019 at 05:57:09PM +0100, Catalin Marinas wrote:
+> On Thu, May 23, 2019 at 11:42:57AM +0100, Dave P Martin wrote:
+> > On Wed, May 22, 2019 at 09:20:52PM -0300, Jason Gunthorpe wrote:
+> > > On Wed, May 22, 2019 at 02:49:28PM +0100, Dave Martin wrote:
+> > > > If multiple people will care about this, perhaps we should try to
+> > > > annotate types more explicitly in SYSCALL_DEFINEx() and ABI data
+> > > > structures.
+> > > > 
+> > > > For example, we could have a couple of mutually exclusive modifiers
+> > > > 
+> > > > T __object *
+> > > > T __vaddr * (or U __vaddr)
+> > > > 
+> > > > In the first case the pointer points to an object (in the C sense)
+> > > > that the call may dereference but not use for any other purpose.
+> > > 
+> > > How would you use these two differently?
+> > > 
+> > > So far the kernel has worked that __user should tag any pointer that
+> > > is from userspace and then you can't do anything with it until you
+> > > transform it into a kernel something
+> > 
+> > Ultimately it would be good to disallow casting __object pointers execpt
+> > to compatible __object pointer types, and to make get_user etc. demand
+> > __object.
+> > 
+> > __vaddr pointers / addresses would be freely castable, but not to
+> > __object and so would not be dereferenceable even indirectly.
+> 
+> I think it gets too complicated and there are ambiguous cases that we
+> may not be able to distinguish. For example copy_from_user() may be used
+> to copy a user data structure into the kernel, hence __object would
+> work, while the same function may be used to copy opaque data to a file,
+> so __vaddr may be a better option (unless I misunderstood your
+> proposal).
+
+Can you illustrate?  I'm not sure of your point here.
+
+> We currently have T __user * and I think it's a good starting point. The
+> prior attempt [1] was shut down because it was just hiding the cast
+> using __force. We'd need to work through those cases again and rather
+> start changing the function prototypes to avoid unnecessary casting in
+> the callers (e.g. get_user_pages(void __user *) or come up with a new
+> type) while changing the explicit casting to a macro where it needs to
+> be obvious that we are converting a user pointer, potentially typed
+> (tagged), to an untyped address range. We may need a user_ptr_to_ulong()
+> macro or similar (it seems that we have a u64_to_user_ptr, wasn't aware
+> of it).
+> 
+> It may actually not be far from what you suggested but I'd keep the
+> current T __user * to denote possible dereference.
+
+This may not have been clear, but __object and __vaddr would be
+orthogonal to __user.  Since __object and __vaddr strictly constrain
+what can be done with an lvalue, they could be cast on, but not be
+cast off without __force.
+
+Syscall arguments and pointer in ioctl structs etc. would typically
+be annotated as __object __user * or __vaddr __user *.  Plain old
+__user * would work as before, but would be more permissive and give
+static analysers less information to go on.
+
+Conversion or use or __object or __vaddr pointers would require specific
+APIs in the kernel, so that we can be clear about the semantics.
+
+Doing things this way would allow migration to annotation of most or all
+ABI pointers with __object or __vaddr over time, but we wouldn't have to
+do it all in one go.  Problem cases (which won't be the majority) could
+continue to be plain __user.
+
+
+This does not magically solve the challenges of MTE, but might provide
+tools that are useful to help avoid bitrot and regressions over time.
+
+I agree though that there might be a fair number of of cases that don't
+conveniently fall under __object or __vaddr semantics.  It's hard to
+know without trying it.
+
+_Most_ syscall arguments seem to be fairly obviously one or another
+though, and this approach has some possibility of scaling to ioctls
+and other odd interfaces.
+
+Cheers
+---Dave
