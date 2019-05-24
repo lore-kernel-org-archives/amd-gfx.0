@@ -1,72 +1,75 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH] drm/amd/display: Don't load DMCU for Raven 1 (v2)
-Date: Fri, 24 May 2019 10:34:10 -0500
-Message-ID: <20190524153410.19402-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amd/doc: Add XGMI sysfs documentation
+Date: Fri, 24 May 2019 11:38:45 -0400
+Message-ID: <CADnq5_NHueKu-ahaiAHT4uzEtkGXe_d1H0O16=oayKjYp7wxwg@mail.gmail.com>
+References: <20190524132326.7436-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190524132326.7436-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
-
-[WHY]
-Some early Raven boards had a bad SBIOS that doesn't play nicely with
-the DMCU FW. We thought the issues were fixed by ignoring errors on DMCU
-load but that doesn't seem to be the case. We've still seen reports of
-users unable to boot their systems at all.
-
-[HOW]
-Disable DMCU load on Raven 1. Only load it for Raven 2 and Picasso.
-
-v2: Fix ifdef (Alex)
-
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 995f9df66142..bcb1a93c0b4c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -29,6 +29,7 @@
- #include "dm_services_types.h"
- #include "dc.h"
- #include "dc/inc/core_types.h"
-+#include "dal_asic_id.h"
- 
- #include "vid.h"
- #include "amdgpu.h"
-@@ -640,7 +641,7 @@ static void amdgpu_dm_fini(struct amdgpu_device *adev)
- 
- static int load_dmcu_fw(struct amdgpu_device *adev)
- {
--	const char *fw_name_dmcu;
-+	const char *fw_name_dmcu = NULL;
- 	int r;
- 	const struct dmcu_firmware_header_v1_0 *hdr;
- 
-@@ -663,7 +664,14 @@ static int load_dmcu_fw(struct amdgpu_device *adev)
- 	case CHIP_VEGA20:
- 		return 0;
- 	case CHIP_RAVEN:
--		fw_name_dmcu = FIRMWARE_RAVEN_DMCU;
-+#if defined(CONFIG_DRM_AMD_DC_DCN1_01)
-+		if (ASICREV_IS_PICASSO(adev->external_rev_id))
-+			fw_name_dmcu = FIRMWARE_RAVEN_DMCU;
-+		else if (ASICREV_IS_RAVEN2(adev->external_rev_id))
-+			fw_name_dmcu = FIRMWARE_RAVEN_DMCU;
-+		else
-+#endif
-+			return 0;
- 		break;
- 	default:
- 		DRM_ERROR("Unsupported ASIC type: 0x%X\n", adev->asic_type);
--- 
-2.20.1
+T24gRnJpLCBNYXkgMjQsIDIwMTkgYXQgOToyMyBBTSBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlz
+QGFtZC5jb20+IHdyb3RlOgo+Cj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3Rk
+ZW5pc0BhbWQuY29tPgoKU2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4
+YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1
+LnJzdCAgICAgICAgICAgICB8ICA5ICsrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV94Z21pLmMgfCAyOCArKysrKysrKysrKysrKysrKysrKysrKysKPiAgMiBmaWxl
+cyBjaGFuZ2VkLCAzNyBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlv
+bi9ncHUvYW1kZ3B1LnJzdCBiL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QKPiBpbmRleCBh
+NzQwZTQ5MWRmY2MuLmNhY2ZjZmFkMjM1NiAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2dw
+dS9hbWRncHUucnN0Cj4gKysrIGIvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdAo+IEBAIC03
+MCw2ICs3MCwxNSBAQCBJbnRlcnJ1cHQgSGFuZGxpbmcKPiAgLi4ga2VybmVsLWRvYzo6IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYwo+ICAgICA6aW50ZXJuYWw6Cj4KPiAr
+QU1ER1BVIFhHTUkgU3VwcG9ydAo+ICs9PT09PT09PT09PT09PT09PT09Cj4gKwo+ICsuLiBrZXJu
+ZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYwo+ICsgICA6
+ZG9jOiBBTURHUFUgWEdNSSBTdXBwb3J0Cj4gKwo+ICsuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYwo+ICsgICA6aW50ZXJuYWw6Cj4gKwo+ICBH
+UFUgUG93ZXIvVGhlcm1hbCBDb250cm9scyBhbmQgTW9uaXRvcmluZwo+ICA9PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfeGdtaS5jCj4gaW5kZXggZTQ4ZTkzOTRmMWU0Li5kMTFlYmEwOWVhZGQgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMKPiBAQCAtNDAsNiArNDAs
+MzQgQEAgdm9pZCAqYW1kZ3B1X3hnbWlfaGl2ZV90cnlfbG9jayhzdHJ1Y3QgYW1kZ3B1X2hpdmVf
+aW5mbyAqaGl2ZSkKPiAgICAgICAgIHJldHVybiAmaGl2ZS0+ZGV2aWNlX2xpc3Q7Cj4gIH0KPgo+
+ICsvKioKPiArICogRE9DOiBBTURHUFUgWEdNSSBTdXBwb3J0Cj4gKyAqCj4gKyAqIFhHTUkgaXMg
+YSBoaWdoIHNwZWVkIGludGVyY29ubmVjdCB0aGF0IGpvaW5zIG11bHRpcGxlIEdQVSBjYXJkcwo+
+ICsgKiBpbnRvIGEgaG9tb2dlbmVvdXMgbWVtb3J5IHNwYWNlIHRoYXQgaXMgb3JnYW5pemVkIGJ5
+IGEgY29sbGVjdGl2ZQo+ICsgKiBoaXZlIElEIGFuZCBpbmRpdmlkdWFsIG5vZGUgSURzLCBib3Ro
+IG9mIHdoaWNoIGFyZSA2NC1iaXQgbnVtYmVycy4KPiArICoKPiArICogVGhlIGZpbGUgeGdtaV9k
+ZXZpY2VfaWQgY29udGFpbnMgdGhlIHVuaXF1ZSBwZXIgR1BVIGRldmljZSBJRCBhbmQKPiArICog
+aXMgc3RvcmVkIGluIHRoZSAvc3lzL2NsYXNzL2RybS9jYXJkJHtjYXJkbm99L2RldmljZS8gZGly
+ZWN0b3J5Lgo+ICsgKgo+ICsgKiBJbnNpZGUgdGhlIGRldmljZSBkaXJlY3RvcnkgYSBzdWItZGly
+ZWN0b3J5ICd4Z21pX2hpdmVfaW5mbycgaXMKPiArICogY3JlYXRlZCB3aGljaCBjb250YWlucyB0
+aGUgaGl2ZSBJRCBhbmQgdGhlIGxpc3Qgb2Ygbm9kZXMuCj4gKyAqCj4gKyAqIFRoZSBoaXZlIElE
+IGlzIHN0b3JlZCBpbjoKPiArICogICAvc3lzL2NsYXNzL2RybS9jYXJkJHtjYXJkbm99L2Rldmlj
+ZS94Z21pX2hpdmVfaW5mby94Z21pX2hpdmVfaWQKPiArICoKPiArICogVGhlIG5vZGUgaW5mb3Jt
+YXRpb24gaXMgc3RvcmVkIGluIG51bWJlcmVkIGRpcmVjdG9yaWVzOgo+ICsgKiAgIC9zeXMvY2xh
+c3MvZHJtL2NhcmQke2NhcmRub30vZGV2aWNlL3hnbWlfaGl2ZV9pbmZvL25vZGUke25vZGVub30v
+eGdtaV9kZXZpY2VfaWQKPiArICoKPiArICogRWFjaCBkZXZpY2UgaGFzIHRoZWlyIG93biB4Z21p
+X2hpdmVfaW5mbyBkaXJlY3Rpb24gd2l0aCBhIG1pcnJvcgo+ICsgKiBzZXQgb2Ygbm9kZSBzdWIt
+ZGlyZWN0b3JpZXMuCj4gKyAqCj4gKyAqIFRoZSBYR01JIG1lbW9yeSBzcGFjZSBpcyBidWlsdCBi
+eSBjb250aWd1b3VzbHkgYWRkaW5nIHRoZSBwb3dlciBvZgo+ICsgKiB0d28gcGFkZGVkIFZSQU0g
+c3BhY2UgZnJvbSBlYWNoIG5vZGUgdG8gZWFjaCBvdGhlci4KPiArICoKPiArICovCj4gKwo+ICsK
+PiAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X3hnbWlfc2hvd19oaXZlX2lkKHN0cnVjdCBkZXZpY2Ug
+KmRldiwKPiAgICAgICAgICAgICAgICAgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsIGNo
+YXIgKmJ1ZikKPiAgewo+IC0tCj4gMi4yMS4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4
