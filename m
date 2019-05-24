@@ -1,118 +1,208 @@
-From: Khalid Aziz <khalid.aziz@oracle.com>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Fri, 24 May 2019 08:25:42 -0600
-Message-ID: <c6dd53d8-142b-3d8d-6a40-d21c5ee9d272@oracle.com>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <20190517144931.GA56186@arrakis.emea.arm.com>
- <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
- <20190521182932.sm4vxweuwo5ermyd@mbp> <201905211633.6C0BF0C2@keescook>
- <6049844a-65f5-f513-5b58-7141588fef2b@oracle.com>
- <20190523201105.oifkksus4rzcwqt4@mbp>
- <ffe58af3-7c70-d559-69f6-1f6ebcb0fec6@oracle.com>
- <20190524101139.36yre4af22bkvatx@mbp>
+From: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/doc: Add RAS documentation to guide
+Date: Fri, 24 May 2019 14:53:49 +0000
+Message-ID: <MWHPR12MB1422924B7883984E43287288FE020@MWHPR12MB1422.namprd12.prod.outlook.com>
+References: <20190524132326.7436-1-tom.stdenis@amd.com>,
+ <20190524132326.7436-2-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <20190524101139.36yre4af22bkvatx@mbp>
+Content-Type: multipart/mixed; boundary="===============0200010459=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190524132326.7436-2-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgenii Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On 5/24/19 4:11 AM, Catalin Marinas wrote:
-> On Thu, May 23, 2019 at 03:49:05PM -0600, Khalid Aziz wrote:
->> On 5/23/19 2:11 PM, Catalin Marinas wrote:
->>> On Thu, May 23, 2019 at 11:51:40AM -0600, Khalid Aziz wrote:
->>>> On 5/21/19 6:04 PM, Kees Cook wrote:
->>>>> As an aside: I think Sparc ADI support in Linux actually side-stepped
->>>>> this[1] (i.e. chose "solution 1"): "All addresses passed to kernel must
->>>>> be non-ADI tagged addresses." (And sadly, "Kernel does not enable ADI
->>>>> for kernel code.") I think this was a mistake we should not repeat for
->>>>> arm64 (we do seem to be at least in agreement about this, I think).
->>>>>
->>>>> [1] https://lore.kernel.org/patchwork/patch/654481/
->>>>
->>>> That is a very early version of the sparc ADI patch. Support for tagged
->>>> addresses in syscalls was added in later versions and is in the patch
->>>> that is in the kernel.
->>>
->>> I tried to figure out but I'm not familiar with the sparc port. How did
->>> you solve the tagged address going into various syscall implementations
->>> in the kernel (e.g. sys_write)? Is the tag removed on kernel entry or it
->>> ends up deeper in the core code?
->>
->> Another spot I should point out in ADI patch - Tags are not stored in
->> VMAs and IOMMU does not support ADI tags on M7. ADI tags are stripped
->> before userspace addresses are passed to IOMMU in the following snippet
->> from the patch:
->>
->> diff --git a/arch/sparc/mm/gup.c b/arch/sparc/mm/gup.c
->> index 5335ba3c850e..357b6047653a 100644
->> --- a/arch/sparc/mm/gup.c
->> +++ b/arch/sparc/mm/gup.c
->> @@ -201,6 +202,24 @@ int __get_user_pages_fast(unsigned long start, int
->> nr_pages
->> , int write,
->>         pgd_t *pgdp;
->>         int nr = 0;
->>
->> +#ifdef CONFIG_SPARC64
->> +       if (adi_capable()) {
->> +               long addr = start;
->> +
->> +               /* If userspace has passed a versioned address, kernel
->> +                * will not find it in the VMAs since it does not store
->> +                * the version tags in the list of VMAs. Storing version
->> +                * tags in list of VMAs is impractical since they can be
->> +                * changed any time from userspace without dropping into
->> +                * kernel. Any address search in VMAs will be done with
->> +                * non-versioned addresses. Ensure the ADI version bits
->> +                * are dropped here by sign extending the last bit before
->> +                * ADI bits. IOMMU does not implement version tags.
->> +                */
->> +               addr = (addr << (long)adi_nbits()) >> (long)adi_nbits();
->> +               start = addr;
->> +       }
->> +#endif
->>         start &= PAGE_MASK;
->>         addr = start;
->>         len = (unsigned long) nr_pages << PAGE_SHIFT;
-> 
-> Thanks Khalid. I missed that sparc does not enable HAVE_GENERIC_GUP, so
-> you fix this case here. If we add the generic untagged_addr() macro in
-> the generic code, I think sparc can start making use of it rather than
-> open-coding the shifts.
+--===============0200010459==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR12MB1422924B7883984E43287288FE020MWHPR12MB1422namp_"
 
-Hi Catalin,
+--_000_MWHPR12MB1422924B7883984E43287288FE020MWHPR12MB1422namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Yes, that will be good. Right now addresses are untagged in sparc code
-in only two spots but that will expand as we expand use of tags.
-Scalabale solution is definitely better.
+Acked-by: Slava Abramov <slava.abramov-5C7GfCeVMHo@public.gmane.org>
 
-> 
-> There are a few other other places where tags can leak and the core code
-> would get confused (for example, madvise()). I presume your user space
-> doesn't exercise them. On arm64 we plan to just allow the C library to
-> tag any new memory allocation, so those core code paths would need to be
-> covered.
-> 
-> And similarly, devices, IOMMU, any DMA would ignore tags.
-> 
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of StDenis,=
+ Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, May 24, 2019 9:23:50 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: StDenis, Tom
+Subject: [PATCH 2/2] drm/amd/doc: Add RAS documentation to guide
 
-Right. You are doing lot more with tags than sparc code intended to do.
-I had looked into implementing just malloc(), mmap() and possibly
-shmat() in library that automatically tags pointers. Expanding tags to
-any pointers in C library will require covering lot more paths in kernel.
+[CAUTION: External Email]
 
+Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+---
+ Documentation/gpu/amdgpu.rst            | 11 +++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  4 ++--
+ 2 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
+index cacfcfad2356..86138798128f 100644
+--- a/Documentation/gpu/amdgpu.rst
++++ b/Documentation/gpu/amdgpu.rst
+@@ -79,6 +79,17 @@ AMDGPU XGMI Support
+ .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+    :internal:
+
++AMDGPU RAS debugfs control interface
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++   :doc: AMDGPU RAS debugfs control interface
++
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++   :internal:
++
++
+ GPU Power/Thermal Controls and Monitoring
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index d5719b0fb82c..7c8a4aedf07c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -244,8 +244,8 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct fi=
+le *f,
+
+        return 0;
+ }
+-/*
+- * DOC: ras debugfs control interface
++/**
++ * DOC: AMDGPU RAS debugfs control interface
+  *
+  * It accepts struct ras_debug_if who has two members.
+  *
 --
-Khalid
+2.21.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_MWHPR12MB1422924B7883984E43287288FE020MWHPR12MB1422namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Slava Abramov &lt;slava=
+.abramov-5C7GfCeVMHo@public.gmane.org&gt;</p>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of StDenis, Tom &lt;Tom.StDenis@=
+amd.com&gt;<br>
+<b>Sent:</b> Friday, May 24, 2019 9:23:50 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> StDenis, Tom<br>
+<b>Subject:</b> [PATCH 2/2] drm/amd/doc: Add RAS documentation to guide</fo=
+nt>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[CAUTION: External Email]<br>
+<br>
+Signed-off-by: Tom St Denis &lt;tom.stdenis-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;Documentation/gpu/amdgpu.rst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; | 11 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |&nbsp; 4 &#43;&#43;--<br>
+&nbsp;2 files changed, 13 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst<br=
+>
+index cacfcfad2356..86138798128f 100644<br>
+--- a/Documentation/gpu/amdgpu.rst<br>
+&#43;&#43;&#43; b/Documentation/gpu/amdgpu.rst<br>
+@@ -79,6 &#43;79,17 @@ AMDGPU XGMI Support<br>
+&nbsp;.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c<br>
+&nbsp;&nbsp;&nbsp; :internal:<br>
+<br>
+&#43;AMDGPU RAS debugfs control interface<br>
+&#43;=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+&#43;<br>
+&#43;.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+&#43;&nbsp;&nbsp; :doc: AMDGPU RAS debugfs control interface<br>
+&#43;<br>
+&#43;<br>
+&#43;.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+&#43;&nbsp;&nbsp; :internal:<br>
+&#43;<br>
+&#43;<br>
+&nbsp;GPU Power/Thermal Controls and Monitoring<br>
+&nbsp;=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c<br>
+index d5719b0fb82c..7c8a4aedf07c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+@@ -244,8 &#43;244,8 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struc=
+t file *f,<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+-/*<br>
+- * DOC: ras debugfs control interface<br>
+&#43;/**<br>
+&#43; * DOC: AMDGPU RAS debugfs control interface<br>
+&nbsp; *<br>
+&nbsp; * It accepts struct ras_debug_if who has two members.<br>
+&nbsp; *<br>
+--<br>
+2.21.0<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_MWHPR12MB1422924B7883984E43287288FE020MWHPR12MB1422namp_--
+
+--===============0200010459==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0200010459==--
