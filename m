@@ -1,75 +1,132 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/doc: Add XGMI sysfs documentation
-Date: Fri, 24 May 2019 11:38:45 -0400
-Message-ID: <CADnq5_NHueKu-ahaiAHT4uzEtkGXe_d1H0O16=oayKjYp7wxwg@mail.gmail.com>
-References: <20190524132326.7436-1-tom.stdenis@amd.com>
+From: Andrew Murray <andrew.murray@arm.com>
+Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
+ syscalls
+Date: Fri, 24 May 2019 16:41:44 +0100
+Message-ID: <20190524154143.GG8268@e119886-lin.cambridge.arm.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190524132326.7436-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Mark Rutland <mark.rutland@arm.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, Kostya Serebryany <kcc@google.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gRnJpLCBNYXkgMjQsIDIwMTkgYXQgOToyMyBBTSBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlz
-QGFtZC5jb20+IHdyb3RlOgo+Cj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3Rk
-ZW5pc0BhbWQuY29tPgoKU2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4
-YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1
-LnJzdCAgICAgICAgICAgICB8ICA5ICsrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV94Z21pLmMgfCAyOCArKysrKysrKysrKysrKysrKysrKysrKysKPiAgMiBmaWxl
-cyBjaGFuZ2VkLCAzNyBpbnNlcnRpb25zKCspCj4KPiBkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlv
-bi9ncHUvYW1kZ3B1LnJzdCBiL0RvY3VtZW50YXRpb24vZ3B1L2FtZGdwdS5yc3QKPiBpbmRleCBh
-NzQwZTQ5MWRmY2MuLmNhY2ZjZmFkMjM1NiAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2dw
-dS9hbWRncHUucnN0Cj4gKysrIGIvRG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdAo+IEBAIC03
-MCw2ICs3MCwxNSBAQCBJbnRlcnJ1cHQgSGFuZGxpbmcKPiAgLi4ga2VybmVsLWRvYzo6IGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pcnEuYwo+ICAgICA6aW50ZXJuYWw6Cj4KPiAr
-QU1ER1BVIFhHTUkgU3VwcG9ydAo+ICs9PT09PT09PT09PT09PT09PT09Cj4gKwo+ICsuLiBrZXJu
-ZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYwo+ICsgICA6
-ZG9jOiBBTURHUFUgWEdNSSBTdXBwb3J0Cj4gKwo+ICsuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYwo+ICsgICA6aW50ZXJuYWw6Cj4gKwo+ICBH
-UFUgUG93ZXIvVGhlcm1hbCBDb250cm9scyBhbmQgTW9uaXRvcmluZwo+ICA9PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfeGdtaS5jCj4gaW5kZXggZTQ4ZTkzOTRmMWU0Li5kMTFlYmEwOWVhZGQgMTAwNjQ0
-Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3hnbWkuYwo+ICsrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV94Z21pLmMKPiBAQCAtNDAsNiArNDAs
-MzQgQEAgdm9pZCAqYW1kZ3B1X3hnbWlfaGl2ZV90cnlfbG9jayhzdHJ1Y3QgYW1kZ3B1X2hpdmVf
-aW5mbyAqaGl2ZSkKPiAgICAgICAgIHJldHVybiAmaGl2ZS0+ZGV2aWNlX2xpc3Q7Cj4gIH0KPgo+
-ICsvKioKPiArICogRE9DOiBBTURHUFUgWEdNSSBTdXBwb3J0Cj4gKyAqCj4gKyAqIFhHTUkgaXMg
-YSBoaWdoIHNwZWVkIGludGVyY29ubmVjdCB0aGF0IGpvaW5zIG11bHRpcGxlIEdQVSBjYXJkcwo+
-ICsgKiBpbnRvIGEgaG9tb2dlbmVvdXMgbWVtb3J5IHNwYWNlIHRoYXQgaXMgb3JnYW5pemVkIGJ5
-IGEgY29sbGVjdGl2ZQo+ICsgKiBoaXZlIElEIGFuZCBpbmRpdmlkdWFsIG5vZGUgSURzLCBib3Ro
-IG9mIHdoaWNoIGFyZSA2NC1iaXQgbnVtYmVycy4KPiArICoKPiArICogVGhlIGZpbGUgeGdtaV9k
-ZXZpY2VfaWQgY29udGFpbnMgdGhlIHVuaXF1ZSBwZXIgR1BVIGRldmljZSBJRCBhbmQKPiArICog
-aXMgc3RvcmVkIGluIHRoZSAvc3lzL2NsYXNzL2RybS9jYXJkJHtjYXJkbm99L2RldmljZS8gZGly
-ZWN0b3J5Lgo+ICsgKgo+ICsgKiBJbnNpZGUgdGhlIGRldmljZSBkaXJlY3RvcnkgYSBzdWItZGly
-ZWN0b3J5ICd4Z21pX2hpdmVfaW5mbycgaXMKPiArICogY3JlYXRlZCB3aGljaCBjb250YWlucyB0
-aGUgaGl2ZSBJRCBhbmQgdGhlIGxpc3Qgb2Ygbm9kZXMuCj4gKyAqCj4gKyAqIFRoZSBoaXZlIElE
-IGlzIHN0b3JlZCBpbjoKPiArICogICAvc3lzL2NsYXNzL2RybS9jYXJkJHtjYXJkbm99L2Rldmlj
-ZS94Z21pX2hpdmVfaW5mby94Z21pX2hpdmVfaWQKPiArICoKPiArICogVGhlIG5vZGUgaW5mb3Jt
-YXRpb24gaXMgc3RvcmVkIGluIG51bWJlcmVkIGRpcmVjdG9yaWVzOgo+ICsgKiAgIC9zeXMvY2xh
-c3MvZHJtL2NhcmQke2NhcmRub30vZGV2aWNlL3hnbWlfaGl2ZV9pbmZvL25vZGUke25vZGVub30v
-eGdtaV9kZXZpY2VfaWQKPiArICoKPiArICogRWFjaCBkZXZpY2UgaGFzIHRoZWlyIG93biB4Z21p
-X2hpdmVfaW5mbyBkaXJlY3Rpb24gd2l0aCBhIG1pcnJvcgo+ICsgKiBzZXQgb2Ygbm9kZSBzdWIt
-ZGlyZWN0b3JpZXMuCj4gKyAqCj4gKyAqIFRoZSBYR01JIG1lbW9yeSBzcGFjZSBpcyBidWlsdCBi
-eSBjb250aWd1b3VzbHkgYWRkaW5nIHRoZSBwb3dlciBvZgo+ICsgKiB0d28gcGFkZGVkIFZSQU0g
-c3BhY2UgZnJvbSBlYWNoIG5vZGUgdG8gZWFjaCBvdGhlci4KPiArICoKPiArICovCj4gKwo+ICsK
-PiAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X3hnbWlfc2hvd19oaXZlX2lkKHN0cnVjdCBkZXZpY2Ug
-KmRldiwKPiAgICAgICAgICAgICAgICAgc3RydWN0IGRldmljZV9hdHRyaWJ1dGUgKmF0dHIsIGNo
-YXIgKmJ1ZikKPiAgewo+IC0tCj4gMi4yMS4wCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4
+On Mon, May 06, 2019 at 06:30:51PM +0200, Andrey Konovalov wrote:
+> This patch is a part of a series that extends arm64 kernel ABI to allow to
+> pass tagged user pointers (with the top byte set to something else other
+> than 0x00) as syscall arguments.
+> 
+> This patch allows tagged pointers to be passed to the following memory
+> syscalls: brk, get_mempolicy, madvise, mbind, mincore, mlock, mlock2,
+> mmap, mmap_pgoff, mprotect, mremap, msync, munlock, munmap,
+> remap_file_pages, shmat and shmdt.
+> 
+> This is done by untagging pointers passed to these syscalls in the
+> prologues of their handlers.
+> 
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> ---
+
+
+> +SYSCALL_DEFINE2(arm64_mlock, unsigned long, start, size_t, len)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_mlock(start, len, VM_LOCKED);
+> +}
+> +
+> +SYSCALL_DEFINE2(arm64_mlock2, unsigned long, start, size_t, len)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_mlock(start, len, VM_LOCKED);
+> +}
+
+I think this may be a copy/paste error...
+
+Shouldn't mlock2 have a third 'flags' argument to distinguish is from mlock?
+
+Thanks,
+
+Andrew Murray
+
+> +
+> +SYSCALL_DEFINE2(arm64_munlock, unsigned long, start, size_t, len)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_munlock(start, len);
+> +}
+> +
+> +SYSCALL_DEFINE3(arm64_mprotect, unsigned long, start, size_t, len,
+> +		unsigned long, prot)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_mprotect_pkey(start, len, prot, -1);
+> +}
+> +
+> +SYSCALL_DEFINE3(arm64_msync, unsigned long, start, size_t, len, int, flags)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_msync(start, len, flags);
+> +}
+> +
+> +SYSCALL_DEFINE3(arm64_mincore, unsigned long, start, size_t, len,
+> +		unsigned char __user *, vec)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_mincore(start, len, vec);
+> +}
+> +
+> +SYSCALL_DEFINE5(arm64_remap_file_pages, unsigned long, start,
+> +		unsigned long, size, unsigned long, prot,
+> +		unsigned long, pgoff, unsigned long, flags)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_remap_file_pages(start, size, prot, pgoff, flags);
+> +}
+> +
+> +SYSCALL_DEFINE3(arm64_shmat, int, shmid, char __user *, shmaddr, int, shmflg)
+> +{
+> +	shmaddr = untagged_addr(shmaddr);
+> +	return ksys_shmat(shmid, shmaddr, shmflg);
+> +}
+> +
+> +SYSCALL_DEFINE1(arm64_shmdt, char __user *, shmaddr)
+> +{
+> +	shmaddr = untagged_addr(shmaddr);
+> +	return ksys_shmdt(shmaddr);
+> +}
+> +
+>  /*
+>   * Wrappers to pass the pt_regs argument.
+>   */
+>  #define sys_personality		sys_arm64_personality
+> +#define sys_mmap_pgoff		sys_arm64_mmap_pgoff
+> +#define sys_mremap		sys_arm64_mremap
+> +#define sys_munmap		sys_arm64_munmap
+> +#define sys_brk			sys_arm64_brk
+> +#define sys_get_mempolicy	sys_arm64_get_mempolicy
+> +#define sys_madvise		sys_arm64_madvise
+> +#define sys_mbind		sys_arm64_mbind
+> +#define sys_mlock		sys_arm64_mlock
+> +#define sys_mlock2		sys_arm64_mlock2
+> +#define sys_munlock		sys_arm64_munlock
+> +#define sys_mprotect		sys_arm64_mprotect
+> +#define sys_msync		sys_arm64_msync
+> +#define sys_mincore		sys_arm64_mincore
+> +#define sys_remap_file_pages	sys_arm64_remap_file_pages
+> +#define sys_shmat		sys_arm64_shmat
+> +#define sys_shmdt		sys_arm64_shmdt
+>  
+>  asmlinkage long sys_ni_syscall(const struct pt_regs *);
+>  #define __arm64_sys_ni_syscall	sys_ni_syscall
+> -- 
+> 2.21.0.1020.gf2820cf01a-goog
+> 
+> 
+> _______________________________________________
+> linux-arm-kernel mailing list
+> linux-arm-kernel@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
