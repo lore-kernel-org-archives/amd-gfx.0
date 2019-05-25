@@ -1,39 +1,44 @@
 From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amdkfd: Make deallocate_hiq_sdma_mqd static
-Date: Sat, 25 May 2019 20:51:09 +0800
-Message-ID: <20190525125109.20992-1-yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amd/display: Remove set but not used variable 'pixel_width'
+Date: Sat, 25 May 2019 22:34:33 +0800
+Message-ID: <20190525143433.20000-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
 Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Sender: linux-kernel-owner@vger.kernel.org
-To: oded.gabbay@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
-Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Tony.Cheng@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Fix sparse warning:
+Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_device_queue_manager.c:1846:6:
- warning: symbol 'deallocate_hiq_sdma_mqd' was not declared. Should it be static?
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_dpp.c: In function dpp_get_optimal_number_of_taps:
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_dpp.c:137:11: warning: variable pixel_width set but not used [-Wunused-but-set-variable]
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
+It is never used and can be remove.
+
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index ece35c7a77b5..89bb8edc04bc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1843,7 +1843,8 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
- 	return NULL;
- }
- 
--void deallocate_hiq_sdma_mqd(struct kfd_dev *dev, struct kfd_mem_obj *mqd)
-+static void deallocate_hiq_sdma_mqd(struct kfd_dev *dev,
-+				    struct kfd_mem_obj *mqd)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c
+index 6f4b24756323..d963d361696e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_dpp.c
+@@ -134,13 +134,6 @@ static bool dpp_get_optimal_number_of_taps(
+ 		struct scaler_data *scl_data,
+ 		const struct scaling_taps *in_taps)
  {
- 	WARN(!mqd, "No hiq sdma mqd trunk to free");
- 
+-	uint32_t pixel_width;
+-
+-	if (scl_data->viewport.width > scl_data->recout.width)
+-		pixel_width = scl_data->recout.width;
+-	else
+-		pixel_width = scl_data->viewport.width;
+-
+ 	/* Some ASICs does not support  FP16 scaling, so we reject modes require this*/
+ 	if (scl_data->format == PIXEL_FORMAT_FP16 &&
+ 		dpp->caps->dscl_data_proc_format == DSCL_DATA_PRCESSING_FIXED_FORMAT &&
 -- 
 2.17.1
