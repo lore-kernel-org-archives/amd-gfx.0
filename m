@@ -1,39 +1,84 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
- syscalls
-Date: Mon, 27 May 2019 15:37:20 +0100
-Message-ID: <20190527143719.GA59948@MBP.local>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH 01/13] drm/amdgpu: introduce and honour DRM_FORCE_AUTH
+ workaround
+Date: Mon, 27 May 2019 17:26:44 +0200
+Message-ID: <CAKMK7uE_pRro8PxTwUq+pC_1GVVT7nUxan1T-kqSYT=BMHTf2g@mail.gmail.com>
+References: <20190527081741.14235-1-emil.l.velikov@gmail.com>
+ <3c9b5688-5e83-f173-00e3-6e139e05d466@amd.com>
+ <20190527132041.GP21222@phenom.ffwll.local>
+ <20190527132607.GH15067@arch-x1c3>
+ <0426fb3e-e7bc-2464-cb42-4d5753956d23@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <0426fb3e-e7bc-2464-cb42-4d5753956d23-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, May 06, 2019 at 06:30:51PM +0200, Andrey Konovalov wrote:
-> This patch is a part of a series that extends arm64 kernel ABI to allow to
-> pass tagged user pointers (with the top byte set to something else other
-> than 0x00) as syscall arguments.
-> 
-> This patch allows tagged pointers to be passed to the following memory
-> syscalls: brk, get_mempolicy, madvise, mbind, mincore, mlock, mlock2,
-> mmap, mmap_pgoff, mprotect, mremap, msync, munlock, munmap,
-> remap_file_pages, shmat and shmdt.
-> 
-> This is done by untagging pointers passed to these syscalls in the
-> prologues of their handlers.
-> 
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-
-Actually, I don't think any of these wrappers get called (have you
-tested this patch?). Following commit 4378a7d4be30 ("arm64: implement
-syscall wrappers"), I think we have other macro names for overriding the
-sys_* ones.
-
--- 
-Catalin
+T24gTW9uLCBNYXkgMjcsIDIwMTkgYXQgMzo0MiBQTSBLb2VuaWcsIENocmlzdGlhbgo8Q2hyaXN0
+aWFuLktvZW5pZ0BhbWQuY29tPiB3cm90ZToKPgo+IEFtIDI3LjA1LjE5IHVtIDE1OjI2IHNjaHJp
+ZWIgRW1pbCBWZWxpa292Ogo+ID4gT24gMjAxOS8wNS8yNywgRGFuaWVsIFZldHRlciB3cm90ZToK
+PiA+PiBPbiBNb24sIE1heSAyNywgMjAxOSBhdCAxMDo0NzozOUFNICswMDAwLCBLb2VuaWcsIENo
+cmlzdGlhbiB3cm90ZToKPiA+Pj4gQW0gMjcuMDUuMTkgdW0gMTA6MTcgc2NocmllYiBFbWlsIFZl
+bGlrb3Y6Cj4gPj4+PiBGcm9tOiBFbWlsIFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xsYWJvcmEu
+Y29tPgo+ID4+Pj4KPiA+Pj4+IEN1cnJlbnRseSBvbmUgY2FuIGNpcmN1bXZlbnQgRFJNX0FVVEgs
+IHdoZW4gdGhlIGlvY3RsIGlzIGV4cG9zZWQgdmlhIHRoZQo+ID4+Pj4gcmVuZGVyIG5vZGUuIEEg
+c2VlbWluZ2x5IGRlbGliZXJhdGUgZGVzaWduIGRlY2lzaW9uLgo+ID4+Pj4KPiA+Pj4+IEhlbmNl
+IHdlIGNhbiBkcm9wIHRoZSBEUk1fQVVUSCBhbGwgdG9nZXRoZXIgKGRldGFpbHMgaW4gZm9sbG93
+LXVwIHBhdGNoKQo+ID4+Pj4geWV0IG5vdCBhbGwgdXNlcnNwYWNlIGNoZWNrcyBpZiBpdCdzIGF1
+dGhlbnRpY2F0ZWQsIGJ1dCBpbnN0ZWFkIHVzZXMKPiA+Pj4+IHVuY29tbW9uIGFzc3VtcHRpb25z
+Lgo+ID4+Pj4KPiA+Pj4+IEFmdGVyIGRheXMgb2YgZGlnZ2luZyB0aHJvdWdoIGdpdCBsb2cgYW5k
+IHRlc3RpbmcsIG9ubHkgYSBzaW5nbGUgKGFiKXVzZQo+ID4+Pj4gd2FzIHNwb3R0ZWQgLSB0aGUg
+TWVzYSBSQURWIGRyaXZlciwgdXNpbmcgdGhlIEFNREdQVV9JTkZPIGlvY3RsIGFuZAo+ID4+Pj4g
+YXNzdW1pbmcgdGhhdCBmYWlsdXJlIGltcGxpZXMgbGFjayBvZiBhdXRoZW50aWNhdGlvbi4KPiA+
+Pj4+Cj4gPj4+PiBBZmZlY3RlZCB2ZXJzaW9ucyBhcmU6Cj4gPj4+PiAgICAtIHRoZSB3aG9sZSAx
+OC4yLnggc2VyaWVzLCB3aGljaCBpcyBFT0wKPiA+Pj4+ICAgIC0gdGhlIHdob2xlIDE4LjMueCBz
+ZXJpZXMsIHdoaWNoIGlzIEVPTAo+ID4+Pj4gICAgLSB0aGUgMTkuMC54IHNlcmllcywgcHJpb3Ig
+dG8gMTkuMC40Cj4gPj4+IFdlbGwgeW91IGNvdWxkIGhhdmUgc2F2ZWQgeW91ciB0aW1lLCBjYXVz
+ZSB0aGlzIGlzIHN0aWxsIGEgTkFLLgo+ID4+Pgo+ID4+PiBGb3IgdGhlIHJlY29yZDogSSBzdHJv
+bmdseSB0aGluayB0aGF0IHdlIGRvbid0IHdhbnQgdG8gZXhwb3NlIGFueSByZW5kZXIKPiA+Pj4g
+ZnVuY3Rpb25hbGl0eSBvbiB0aGUgcHJpbWFyeSBub2RlLgo+ID4+Pgo+ID4+PiBUbyBldmVuIGdv
+IGEgc3RlcCBmdXJ0aGVyIEkgd291bGQgc2F5IHRoYXQgYXQgbGVhc3Qgb24gQU1EIGhhcmR3YXJl
+IHdlCj4gPj4+IHNob3VsZCBjb21wbGV0ZWx5IGRpc2FibGUgRFJJMiBmb3Igb25lIG9mIHRoZSBu
+ZXh0IGdlbmVyYXRpb25zLgo+ID4+Pgo+ID4+PiBBcyBhIGZvbGxvdyB1cCBJIHdvdWxkIHRoZW4g
+Y29tcGxldGVseSBkaXNhbGxvdyB0aGUgRFJNIGF1dGhlbnRpY2F0aW9uCj4gPj4+IGZvciBhbWRn
+cHUsIHNvIHRoYXQgdGhlIGNvbW1hbmQgc3VibWlzc2lvbiBpbnRlcmZhY2Ugb24gdGhlIHByaW1h
+cnkgbm9kZQo+ID4+PiBjYW4gb25seSBiZSB1c2VkIGJ5IHRoZSBkaXNwbGF5IHNlcnZlci4KPiA+
+PiBTbyBhbWRncHUgaXMgcnVubmluZyBpbiBvbmUgZGlyZWN0aW9uLCB3aGlsZSBldmVyeW9uZSBl
+bHNlIGlzIHJ1bm5pbmcgaW4KPiA+PiB0aGUgb3RoZXIgZGlyZWN0aW9uPyBQbGVhc2Ugbm90ZSB0
+aGF0IHlvdXIgcGF0Y2ggdG8gY2hhbmdlIGk5MTUgbGFuZGVkCj4gPj4gYWxyZWFkeSwgc28gdGhh
+dCBzaGlwIGlzIHNhaWxpbmcgKGJ1dCB3ZSBjb3VsZCBvZmMgcmV2ZXJ0IHRoYXQgYmFjawo+ID4+
+IGFnYWluKS4KPiA+Pgo+ID4+IEltbyByZWFsbHkgbm90IGEgZ3JlYXQgaWRlYSBpZiB3ZSBkbyBh
+IGFtZGdwdSB2cy4gZXZlcnlvbmUgZWxzZSBzcGxpdAo+ID4+IGhlcmUuIElmIHdlIHdhbnQgdG8g
+ZGVwcmVjYXRlIGRyaTIvZmxpbmsvcmVuZGVyaW5nIG9uIHByaW1hcnkgbm9kZXMgYWNyb3NzCj4g
+Pj4gdGhlIHN0YWNrLCB0aGVuIHRoYXQgc2hvdWxkIGJlIGEgc3RhY2sgd2lkZSBkZWNpc2lvbiwg
+bm90IGFuIGFtZGdwdSBvbmUuCj4gPj4KPiA+IENhbm5vdCBhZ3JlZSBtb3JlIC0gSSB3b3VsZCBs
+b3ZlIHRvIHNlZSBkcml2ZXJzIHN0YXkgY29uc2lzdGVudC4KPgo+IFllYWgsIGNvbXBsZXRlbHkg
+YWdyZWUgdG8gdGhhdC4gVGhhdCdzIHdoeSBJIHRoaW5rIHdlIHNob3VsZCBub3QgZG8gdGhpcwo+
+IGF0IGFsbCBhbmQganVzdCBsZXQgSW50ZWwgZml4IGl0J3MgdXNlcnNwYWNlIGJ1Z3MgOlAKClNv
+IHlvdSdyZSBwbGFubmluZyB0byBzdWJtaXQgdGhhdCByZXZlcnQ/IFlvdSBkaWQganVtcCB0aGUg
+Z3VuIHdpdGgKc2VuZGluZyBvdXQgdGhhdCBwYXRjaCBhZnRlciBhbGwgdG9vIC4uLiAoYXNpZGUg
+ZnJvbSBpdCBnb3QgbWVyZ2VkCmJlY2F1c2Ugb2Ygc29tZSBvdGhlciBtaXh1cCB3aXRoIHItYiB0
+YWdzIGFuZCB3aGF0IG5vdCkuCi1EYW5pZWwKCj4gQW55d2F5IG15IGNvbmNlcm4gaXMgcmVhbGx5
+IHRoYXQgd2Ugc2hvdWxkIHN0b3AgZXh0ZW5kaW5nIGZ1bmN0aW9uYWxpdHkKPiBvbiB0aGUgcHJp
+bWFyeSBub2RlLgo+Cj4gRS5nLiB0aGUgcmVuZGVyIG5vZGUgaXMgZm9yIHVzZSBieSB0aGUgY2xp
+ZW50cyBhbmQgdGhlIHByaW1hcnkgbm9kZSBmb3IKPiBtb2RlIHNldHRpbmcgYW5kIHVzZSBieSB0
+aGUgZGlzcGxheSBzZXJ2ZXIgb25seS4KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4gPiBG
+d2l3LCB0aGlzIHNlcmllcyBjb25zaXN0ZW50bHkgcGF2ZXMgdGhlIHdheSB0b3dhcmQgbnVraW5n
+IERSTV9BVVRIIDstKQo+ID4KPiA+IFRoYW5rcwo+ID4gRW1pbAo+CgoKLS0gCkRhbmllbCBWZXR0
+ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCis0MSAoMCkgNzkgMzY1IDU3
+IDQ4IC0gaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4
