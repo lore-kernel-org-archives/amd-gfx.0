@@ -1,99 +1,46 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 02/12] dma-buf: add dma_buf_(un)map_attachment_locked
- variants v3
-Date: Mon, 27 May 2019 12:56:15 +0200
-Message-ID: <76bc8afb-8797-9057-ccb5-2d4f788d2f9e@gmail.com>
-References: <20190416183841.1577-1-christian.koenig@amd.com>
- <20190416183841.1577-3-christian.koenig@amd.com>
-Reply-To: christian.koenig@amd.com
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Don't need to call csb_vram_unpin
+Date: Mon, 27 May 2019 13:02:21 +0200
+Message-ID: <e15ac75c-fb1a-2a05-b857-d3761f5c905e@gmail.com>
+References: <1558946487-18034-1-git-send-email-Emily.Deng@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190416183841.1577-3-christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1558946487-18034-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Hillf Danton <hdanton@sina.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org, linux-media@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Thanks for the comments, but you are looking at a completely outdated 
-patchset.
-
-If you are interested in the newest one please ping me and I'm going to 
-CC you when I send out the next version.
-
-Christian.
-
-Am 25.05.19 um 03:04 schrieb Hillf Danton:
-> On Tue, 16 Apr 2019 20:38:31 +0200 Christian König wrote:
->> Add function variants which can be called with the reservation lock
->> already held.
->>
->> v2: reordered, add lockdep asserts, fix kerneldoc
->> v3: rebased on sgt caching
->>
->> Signed-off-by: Christian König <christian.koenig@amd.com>
->> ---
->>   drivers/dma-buf/dma-buf.c | 63 +++++++++++++++++++++++++++++++++++++++
->>   include/linux/dma-buf.h   |  5 ++++
->>   2 files changed, 68 insertions(+)
->>
->> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->> index 65161a82d4d5..ef480e5fb239 100644
->> --- a/drivers/dma-buf/dma-buf.c
->> +++ b/drivers/dma-buf/dma-buf.c
->> @@ -623,6 +623,43 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attach)
->>   }
->>   EXPORT_SYMBOL_GPL(dma_buf_detach);
->>   
->> +/**
->> + * dma_buf_map_attachment_locked - Maps the buffer into _device_ address space
->> + * with the reservation lock held. Is a wrapper for map_dma_buf() of the
-> Something is missing; seems to be s/of the/of the dma_buf_ops./
->> + *
->> + * Returns the scatterlist table of the attachment;
->> + * dma_buf_ops.
-> Oh it is sitting here!
->
->> + * @attach:	[in]	attachment whose scatterlist is to be returned
->> + * @direction:	[in]	direction of DMA transfer
->> + *
->> + * Returns sg_table containing the scatterlist to be returned; returns ERR_PTR
->> + * on error. May return -EINTR if it is interrupted by a signal.
->> + *
-> EINTR looks impossible in the code.
->
->> + * A mapping must be unmapped by using dma_buf_unmap_attachment_locked(). Note
->> + * that the underlying backing storage is pinned for as long as a mapping
->> + * exists, therefore users/importers should not hold onto a mapping for undue
->> + * amounts of time.
->> + */
->> +struct sg_table *
->> +dma_buf_map_attachment_locked(struct dma_buf_attachment *attach,
->> +			      enum dma_data_direction direction)
->> +{
->> +	struct sg_table *sg_table;
->> +
->> +	might_sleep();
->> +	reservation_object_assert_held(attach->dmabuf->resv);
->> +
->> +	if (attach->sgt)
->> +		return attach->sgt;
->> +
->> +	sg_table = attach->dmabuf->ops->map_dma_buf(attach, direction);
->> +	if (!sg_table)
->> +		sg_table = ERR_PTR(-ENOMEM);
->> +
->> +	return sg_table;
->> +}
->> +EXPORT_SYMBOL_GPL(dma_buf_map_attachment_locked);
->> +
-> Best Regards
-> Hillf
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjcuMDUuMTkgdW0gMTA6NDEgc2NocmllYiBFbWlseSBEZW5nOgo+IEFzIGl0IHdpbGwgZGVz
+dHJveSBjbGVhcl9zdGF0ZV9vYmosIGFuZCBhbHNvIHdpbGwKPiB1bnBpbiBpdCBpbiB0aGUgZ2Z4
+X3Y5XzBfc3dfZmluaSwgc28gZG9uJ3QgbmVlZCB0bwo+IGNhbGwgY3NiX3ZyYW0gdW5waW4gaW4g
+Z2Z4X3Y5XzBfaHdfZmluaSwgb3IgaXQgd2lsbAo+IGhhdmUgdW5waW4gd2FybmluZy4KPgo+IHYy
+OiBGb3Igc3VzcGVuZCwgc3RpbGwgbmVlZCB0byBkbyB1bnBpbgo+Cj4gU2lnbmVkLW9mZi1ieTog
+RW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDMgKystCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNl
+cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
+OV8wLmMKPiBpbmRleCA1ZWI3MGU4Li41YjFmZjQ4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9nZnhfdjlfMC5jCj4gQEAgLTMzOTUsNyArMzM5NSw4IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5
+XzBfaHdfZmluaSh2b2lkICpoYW5kbGUpCj4gICAJZ2Z4X3Y5XzBfY3BfZW5hYmxlKGFkZXYsIGZh
+bHNlKTsKPiAgIAlhZGV2LT5nZngucmxjLmZ1bmNzLT5zdG9wKGFkZXYpOwo+ICAgCj4gLQlnZnhf
+djlfMF9jc2JfdnJhbV91bnBpbihhZGV2KTsKPiArCWlmIChhZGV2LT5pbl9zdXNwZW5kKQo+ICsJ
+CWdmeF92OV8wX2NzYl92cmFtX3VucGluKGFkZXYpOwoKVGhhdCBkb2Vzbid0IGxvb2tzIGxpa2Ug
+YSBnb29kIGlkZWEgdG8gbWUuCgpXaHkgZG8gd2UgaGF2ZSB1bnBpbiBib3RoIGluIHRoZSBzd19m
+aW5pIGFzIHdlbGwgYXMgdGhlIGh3X2ZpbmkgY29kZSBwYXRocz8KClJlZ2FyZHMsCkNocmlzdGlh
+bi4KCj4gICAKPiAgIAlyZXR1cm4gMDsKPiAgIH0KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA==
