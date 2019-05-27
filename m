@@ -1,77 +1,39 @@
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 01/13] drm/amdgpu: introduce and honour DRM_FORCE_AUTH
- workaround
-Date: Mon, 27 May 2019 14:47:52 +0100
-Message-ID: <20190527134752.GI15067@arch-x1c3>
-References: <20190527081741.14235-1-emil.l.velikov@gmail.com>
- <20190527131143.GN21222@phenom.ffwll.local>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
+ syscalls
+Date: Mon, 27 May 2019 15:37:20 +0100
+Message-ID: <20190527143719.GA59948@MBP.local>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <20190527131143.GN21222-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+In-Reply-To: <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS8wNS8yNywgRGFuaWVsIFZldHRlciB3cm90ZToKPiBPbiBNb24sIE1heSAyNywgMjAx
-OSBhdCAwOToxNzoyOUFNICswMTAwLCBFbWlsIFZlbGlrb3Ygd3JvdGU6Cj4gPiBGcm9tOiBFbWls
-IFZlbGlrb3YgPGVtaWwudmVsaWtvdkBjb2xsYWJvcmEuY29tPgo+ID4gCj4gPiBDdXJyZW50bHkg
-b25lIGNhbiBjaXJjdW12ZW50IERSTV9BVVRILCB3aGVuIHRoZSBpb2N0bCBpcyBleHBvc2VkIHZp
-YSB0aGUKPiA+IHJlbmRlciBub2RlLiBBIHNlZW1pbmdseSBkZWxpYmVyYXRlIGRlc2lnbiBkZWNp
-c2lvbi4KPiA+IAo+ID4gSGVuY2Ugd2UgY2FuIGRyb3AgdGhlIERSTV9BVVRIIGFsbCB0b2dldGhl
-ciAoZGV0YWlscyBpbiBmb2xsb3ctdXAgcGF0Y2gpCj4gPiB5ZXQgbm90IGFsbCB1c2Vyc3BhY2Ug
-Y2hlY2tzIGlmIGl0J3MgYXV0aGVudGljYXRlZCwgYnV0IGluc3RlYWQgdXNlcwo+ID4gdW5jb21t
-b24gYXNzdW1wdGlvbnMuCj4gPiAKPiA+IEFmdGVyIGRheXMgb2YgZGlnZ2luZyB0aHJvdWdoIGdp
-dCBsb2cgYW5kIHRlc3RpbmcsIG9ubHkgYSBzaW5nbGUgKGFiKXVzZQo+ID4gd2FzIHNwb3R0ZWQg
-LSB0aGUgTWVzYSBSQURWIGRyaXZlciwgdXNpbmcgdGhlIEFNREdQVV9JTkZPIGlvY3RsIGFuZAo+
-ID4gYXNzdW1pbmcgdGhhdCBmYWlsdXJlIGltcGxpZXMgbGFjayBvZiBhdXRoZW50aWNhdGlvbi4K
-PiAKPiBNYXliZSBjb3JyZWN0aW9uIGhlcmU6IElkIGRvZXMgbm90IGNhcmUgYWJvdXQgYXV0aGVu
-dGljYXRpb24gYXQgYWxsLiBJdAo+IHdhbnRzIHRvIGZpZ3VyZSBvdXQgd2hldGhlciBpdCBoYXMg
-YWNjZXNzIHRvIG1vZGVzZXQgcmVzb3VyY2VzLCB3aGljaCBpcwo+IHNvbWV0aGluZyBlbnRpcmVs
-eSBkaWZmZXJlbnQsIGJ1dCBoYXBwZW5lZCB0byBtYXRjaCBpbiBhbWRncHUncyBjYXNlLgo+IApJ
-dCBmZWVscyBsaWtlIHdlIGhhdmUgY29uZmxhdGVkIHRoZSB0d28gKHBlcmhhcHMgZHVlIHRvIGhp
-c3RvcmljYWwKcmVhc29ucykgYW5kIEknbSBub3QgMTAwJSBzdXJlIHdoaWNoIG9uZSB0aGUgQU1E
-R1BVIGNvZGUgaW5zcGVjdHMuCgpIb3cgYWJvdXQ6CgpIZW5jZSB3ZSBjYW4gZHJvcCB0aGUgRFJN
-X0FVVEggYWxsIHRvZ2V0aGVyIChkZXRhaWxzIGluIGZvbGxvdy11cCBwYXRjaCkKeWV0IHRoYXQg
-Y2F1c2UgYSByZWdyZXNzaW9uIGluIHNvbWUgdXNlcnNwYWNlLCB3aGVuIGl0IGNvbmZsYXRlcyB0
-aGUKYXV0aGVudGljYXRpb24gc3RhdHVzIHdpdGggYWNjZXNzIHRvIG1vZGVzZXQgcmVzb3VyY2Vz
-LgoKQWZ0ZXIgZGF5cyBvZiBkaWdnaW5nIHRocm91Z2ggZ2l0IGxvZyBhbmQgdGVzdGluZywgb25s
-eSBhIHNpbmdsZSAoYWIpdXNlCndhcyBzcG90dGVkIC0gdGhlIE1lc2EgUkFEViBkcml2ZXIsIHVz
-aW5nIHRoZSBBTURHUFVfSU5GTyBpb2N0bC4KCj4gPiBBZmZlY3RlZCB2ZXJzaW9ucyBhcmU6Cj4g
-PiAgLSB0aGUgd2hvbGUgMTguMi54IHNlcmllcywgd2hpY2ggaXMgRU9MCj4gPiAgLSB0aGUgd2hv
-bGUgMTguMy54IHNlcmllcywgd2hpY2ggaXMgRU9MCj4gPiAgLSB0aGUgMTkuMC54IHNlcmllcywg
-cHJpb3IgdG8gMTkuMC40Cj4gCj4gSG0gSSB0aGluayBJJ20gYmxpbmQsIEknbSBub3Qgc2VlaW5n
-IHRoZSBmaXggbWVyZ2VkIHRvIG1lc2EgbWFzdGVyLiBTdGlsbAo+IHRoZXJlIG9uIGdpdGxhYjoK
-PiAKPiBodHRwczovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvbWVzYS9tZXNhL2Jsb2IvbWFzdGVy
-L3NyYy9hbWQvdnVsa2FuL3JhZHZfZGV2aWNlLmMjTDI5MQo+IAo+IFdoYXQgYW0gSSBtaXNzaW5n
-Pwo+IApPcHRlZCBmb3IgYSBzaW1wbGUsIG1vcmUgZ2VuZXJpYyBzb2x1dGlvbiBzZWUgY29tbWl0
-CmM5NjJhNzhmMTgyODRlMjk3MTMwMWJmNjhjOWM2MDUwMGNhMzk4ZTQKClRoaXMgd2F5LCB0aGUg
-c2FtZSBjaGVjayBpczoKIC0gZW5mb3JjZWQgd2hlcmUgaXQncyB1c2VkCiAtIHByZXNlbnQgZm9y
-IGFsbCBNZXNhIFZ1bGthbiBkcml2ZXJzCgoKV2lsbCBpbmNsdWRlIHRoZSBzaGEgKyBjb21taXQg
-dGl0bGUgZm9yIHYyLgoKPiA+IEFkZCBhIHNwZWNpYWwgcXVpcmsgZm9yIHRoYXQgY2FzZSwgdGh1
-cyB3ZSBjYW4gZHJvcCBEUk1fQVVUSCBiaXRzIGFzCj4gPiBtZW50aW9uZWQgZWFybGllci4KPiA+
-IAo+ID4gU2luY2UgYWxsIHRoZSBhZmZlY3RlZCB1c2Vyc3BhY2UgaXMgRU9MLCB3ZSBhbHNvIGFk
-ZCBhIGtjb25maWcgb3B0aW9uCj4gPiB0byBkaXNhYmxlIHRoaXMgcXVpcmsuCj4gPiAKPiA+IFRo
-ZSB3aG9sZSBhcHByb2FjaCBpcyBpbnNwaXJlZCBieSBEUklWRVJfS01TX0xFR0FDWV9DT05URVhU
-Cj4gPiAKPiA+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4g
-PiBDYzogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+ID4gQ2M6
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gPiBDYzogRGF2aWQgQWlybGllIDxhaXJs
-aWVkQGxpbnV4LmllPgo+ID4gQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KPiA+
-IFNpZ25lZC1vZmYtYnk6IEVtaWwgVmVsaWtvdiA8ZW1pbC52ZWxpa292QGNvbGxhYm9yYS5jb20+
-Cj4gCj4gQXNpZGUgZnJvbSB0aGUgbml0cyBJIHRoaW5rIHJlYXNvbmFibGUgYXBwcm9hY2guCgpH
-cmVhdCwgZ2xhZCB0byBoZWFyLiBOb3cgYWxsIHdlIG5lZWQgaXMgdG8gYnJpYmVeV2NvbnZpbmNl
-IENocmlzdGlhbi4KClRoYW5rcwpFbWlsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeA==
+On Mon, May 06, 2019 at 06:30:51PM +0200, Andrey Konovalov wrote:
+> This patch is a part of a series that extends arm64 kernel ABI to allow to
+> pass tagged user pointers (with the top byte set to something else other
+> than 0x00) as syscall arguments.
+> 
+> This patch allows tagged pointers to be passed to the following memory
+> syscalls: brk, get_mempolicy, madvise, mbind, mincore, mlock, mlock2,
+> mmap, mmap_pgoff, mprotect, mremap, msync, munlock, munmap,
+> remap_file_pages, shmat and shmdt.
+> 
+> This is done by untagging pointers passed to these syscalls in the
+> prologues of their handlers.
+> 
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+
+Actually, I don't think any of these wrappers get called (have you
+tested this patch?). Following commit 4378a7d4be30 ("arm64: implement
+syscall wrappers"), I think we have other macro names for overriding the
+sys_* ones.
+
+-- 
+Catalin
