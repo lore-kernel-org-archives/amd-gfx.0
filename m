@@ -1,147 +1,99 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 10/10] drm/amdgpu: stop removing BOs from the LRU v3
-Date: Mon, 27 May 2019 10:51:06 +0000
-Message-ID: <198d6abf-146d-c8f8-5602-37b95cd6b809@amd.com>
-References: <20190522125947.4592-1-christian.koenig@amd.com>
- <20190522125947.4592-10-christian.koenig@amd.com>
- <48ac98a8-de22-3549-5d63-078a0effab72@amd.com>
- <eea6245e-616d-eb16-8521-2f21ce5d6d25@gmail.com>
- <776d29df-428f-ad98-8e38-4b191b602abb@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Subject: Re: [PATCH 02/12] dma-buf: add dma_buf_(un)map_attachment_locked
+ variants v3
+Date: Mon, 27 May 2019 12:56:15 +0200
+Message-ID: <76bc8afb-8797-9057-ccb5-2d4f788d2f9e@gmail.com>
+References: <20190416183841.1577-1-christian.koenig@amd.com>
+ <20190416183841.1577-3-christian.koenig@amd.com>
+Reply-To: christian.koenig@amd.com
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <776d29df-428f-ad98-8e38-4b191b602abb-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190416183841.1577-3-christian.koenig@amd.com>
 Content-Language: en-US
-Content-ID: <B9CEE9B171A45947942F93B6DBDEBDE1-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Liang,
- Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Hillf Danton <hdanton@sina.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, amd-gfx@lists.freedesktop.org, sumit.semwal@linaro.org, linux-media@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjQuMDUuMTkgdW0gMjM6MzQgc2NocmllYiBLdWVobGluZywgRmVsaXg6DQo+IE9uIDIwMTkt
-MDUtMjMgNTowNiBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPj4gW0NBVVRJT046IEV4
-dGVybmFsIEVtYWlsXQ0KPj4NCj4+IExlYXZpbmcgQk9zIG9uIHRoZSBMUlUgaXMgaGFybWxlc3Mu
-IFdlIGFsd2F5cyBkaWQgdGhpcyBmb3IgVk0gcGFnZSB0YWJsZQ0KPj4gYW5kIHBlciBWTSBCT3Mu
-DQo+Pg0KPj4gVGhlIGtleSBwb2ludCBpcyB0aGF0IEJPcyB3aGljaCBjb3VsZG4ndCBiZSByZXNl
-cnZlZCBjYW4ndCBiZSBldmljdGVkLg0KPj4gU28gd2hhdCBoYXBwZW5lZCBpcyB0aGF0IGFuIGFw
-cGxpY2F0aW9uIHVzZWQgYmFzaWNhbGx5IGFsbCBvZiBWUkFNDQo+PiBkdXJpbmcgQ1MgYW5kIGJl
-Y2F1c2Ugb2YgdGhpcyBYIHNlcnZlciBjb3VsZG4ndCBwaW4gYSBCTyBmb3Igc2Nhbm91dC4NCj4+
-DQo+PiBOb3cgd2Uga2VlcCB0aGUgQk9zIG9uIHRoZSBMUlUgYW5kIG1vZGlmeSBUVE0gdG8gYmxv
-Y2sgZm9yIHRoZSBDUyB0bw0KPj4gY29tcGxldGUsIHdoaWNoIGluIHR1cm4gYWxsb3dzIHRoZSBY
-IHNlcnZlciB0byBwaW4gaXRzIEJPIGZvciBzY2Fub3V0Lg0KPg0KPiBPSywgbGV0IG1lIHJlcGhy
-YXNlIHRoYXQgdG8gbWFrZSBzdXJlIEkgdW5kZXJzdGFuZCBpdCBjb3JyZWN0bHkuIEkgdGhpbmsN
-Cj4gdGhlIHBvaW50IGlzIHRoYXQgZXZpY3Rpb24gY2FuZGlkYXRlcyBjb21lIGZyb20gYW4gTFJV
-IGxpc3QsIHNvIGxlYXZpbmcNCj4gdGhpbmdzIG9uIHRoZSBMUlUgbWFrZXMgbW9yZSBCT3MgYXZh
-aWxhYmxlIGZvciBldmljdGlvbiBhbmQgYXZvaWRzIE9PTQ0KPiBzaXR1YXRpb25zLiBUbyB0YWtl
-IGFkdmFudGFnZSBvZiB0aGF0LCBwYXRjaCA2IGFkZHMgdGhlIGFiaWxpdHkgdG8gd2FpdA0KPiBm
-b3IgcmVzZXJ2ZWQgQk9zIHdoZW4gdGhlcmUgaXMgbm90aGluZyBlYXNpZXIgdG8gZXZpY3QuDQo+
-DQo+IFJPQ20gYXBwbGljYXRpb25zIGxpa2UgdG8gdXNlIGxvdHMgb2YgbWVtb3J5LiBTbyBpdCBw
-cm9iYWJseSBtYWtlcyBzZW5zZQ0KPiBmb3IgdXMgdG8gc3RvcCByZW1vdmluZyBvdXIgQk9zIGZy
-b20gdGhlIExSVSBhcyB3ZWxsIHdoaWxlIHdlDQo+IG1hc3MtdmFsaWRhdGUgb3VyIEJPcyBpbiBh
-bWRncHVfYW1ka2ZkX2dwdXZtX3Jlc3RvcmVfcHJvY2Vzc19ib3MuDQoNCldlbGwgdGhhdCB3b3Vs
-ZCBhbGxvdyBjb25jdXJyZW50IGNhbGxzIG9mIA0KYW1kZ3B1X2FtZGtmZF9ncHV2bV9yZXN0b3Jl
-X3Byb2Nlc3NfYm9zKCkgdG8gd2FpdCBmb3IgZWFjaCBvdGhlci4NCg0KSWYgdGhhdCdzIHdoYXQg
-eW91IHdhbnQgdGhlbiB5ZWFoIHRoYXQgY2VydGFpbmx5IG1ha2VzIHNlbnNlLg0KDQpSZWdhcmRz
-LA0KQ2hyaXN0aWFuLg0KDQo+DQo+IFJlZ2FyZHMsDQo+ICAgwqAgRmVsaXgNCj4NCj4NCj4+IENo
-cmlzdGlhbi4NCj4+DQo+PiBBbSAyMi4wNS4xOSB1bSAyMTo0MyBzY2hyaWViIEt1ZWhsaW5nLCBG
-ZWxpeDoNCj4+PiBDYW4geW91IGV4cGxhaW4gaG93IHRoaXMgYXZvaWRzIE9PTSBzaXR1YXRpb25z
-PyBXaGVuIGlzIGl0IHNhZmUgdG8gbGVhdmUNCj4+PiBhIHJlc2VydmVkIEJPIG9uIHRoZSBMUlUg
-bGlzdD8gQ291bGQgd2UgZG8gdGhlIHNhbWUgdGhpbmcgaW4NCj4+PiBhbWRncHVfYW1ka2ZkX2dw
-dXZtLmM/IEFuZCBpZiB3ZSBkaWQsIHdoYXQgd291bGQgYmUgdGhlIGV4cGVjdGVkIHNpZGUNCj4+
-PiBlZmZlY3RzIG9yIGNvbnNlcXVlbmNlcz8NCj4+Pg0KPj4+IFRoYW5rcywNCj4+PiAgwqDCoMKg
-IEZlbGl4DQo+Pj4NCj4+PiBPbiAyMDE5LTA1LTIyIDg6NTkgYS5tLiwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToNCj4+Pj4gW0NBVVRJT046IEV4dGVybmFsIEVtYWlsXQ0KPj4+Pg0KPj4+PiBUaGlz
-IGF2b2lkcyBPT00gc2l0dWF0aW9ucyB3aGVuIHdlIGhhdmUgbG90cyBvZiB0aHJlYWRzDQo+Pj4+
-IHN1Ym1pdHRpbmcgYXQgdGhlIHNhbWUgdGltZS4NCj4+Pj4NCj4+Pj4gdjM6IGFwcGx5IHRoaXMg
-dG8gdGhlIHdob2xlIGRyaXZlciwgbm90IGp1c3QgQ1MNCj4+Pj4NCj4+Pj4gU2lnbmVkLW9mZi1i
-eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPj4+PiAtLS0N
-Cj4+Pj4gIMKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmPCoMKgwqDC
-oCB8IDIgKy0NCj4+Pj4gIMKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nz
-YS5jwqDCoMKgIHwgMiArLQ0KPj4+PiAgwqDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZ2VtLmPCoMKgwqAgfCA0ICsrLS0NCj4+Pj4gIMKgwqAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oIHwgMiArLQ0KPj4+PiAgwqDCoCA0IGZpbGVzIGNoYW5n
-ZWQsIDUgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4+Pj4NCj4+Pj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+Pj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMNCj4+Pj4gaW5kZXggMjBmMjk1NWQyYTU1
-Li4zZTJkYTI0Y2QxN2EgMTAwNjQ0DQo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9jcy5jDQo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9jcy5jDQo+Pj4+IEBAIC02NDgsNyArNjQ4LDcgQEAgc3RhdGljIGludCBhbWRncHVfY3Nf
-cGFyc2VyX2JvcyhzdHJ1Y3QNCj4+Pj4gYW1kZ3B1X2NzX3BhcnNlciAqcCwNCj4+Pj4gIMKgwqDC
-oMKgwqDCoMKgwqDCoCB9DQo+Pj4+DQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgciA9IHR0bV9l
-dV9yZXNlcnZlX2J1ZmZlcnMoJnAtPnRpY2tldCwgJnAtPnZhbGlkYXRlZCwgdHJ1ZSwNCj4+Pj4g
-LcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCAmZHVwbGljYXRlcywgdHJ1ZSk7DQo+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgJmR1cGxpY2F0
-ZXMsIGZhbHNlKTsNCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAodW5saWtlbHkociAhPSAw
-KSkgew0KPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAociAhPSAt
-RVJFU1RBUlRTWVMpDQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBEUk1fRVJST1IoInR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMNCj4+Pj4gZmFp
-bGVkLlxuIik7DQo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfY3NhLmMNCj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3Nh
-LmMNCj4+Pj4gaW5kZXggMDZmODNjYWMwZDNhLi5mNjYwNjI4ZTZhZjkgMTAwNjQ0DQo+Pj4+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jc2EuYw0KPj4+PiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMNCj4+Pj4gQEAgLTc5LDcgKzc5
-LDcgQEAgaW50IGFtZGdwdV9tYXBfc3RhdGljX2NzYShzdHJ1Y3QgYW1kZ3B1X2RldmljZQ0KPj4+
-PiAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sDQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAg
-bGlzdF9hZGQoJmNzYV90di5oZWFkLCAmbGlzdCk7DQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAg
-YW1kZ3B1X3ZtX2dldF9wZF9ibyh2bSwgJmxpc3QsICZwZCk7DQo+Pj4+DQo+Pj4+IC3CoMKgwqDC
-oMKgwqAgciA9IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIHRydWUsIE5V
-TEwsIHRydWUpOw0KPj4+PiArwqDCoMKgwqDCoMKgIHIgPSB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJz
-KCZ0aWNrZXQsICZsaXN0LCB0cnVlLCBOVUxMLCBmYWxzZSk7DQo+Pj4+ICDCoMKgwqDCoMKgwqDC
-oMKgwqAgaWYgKHIpIHsNCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-RFJNX0VSUk9SKCJmYWlsZWQgdG8gcmVzZXJ2ZSBDU0EsUEQgQk9zOg0KPj4+PiBlcnI9JWRcbiIs
-IHIpOw0KPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsN
-Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0u
-Yw0KPj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KPj4+PiBp
-bmRleCBkNTEzYTVhZDAzZGQuLmVkMjVhNGUxNDQwNCAxMDA2NDQNCj4+Pj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYw0KPj4+PiBAQCAtMTcxLDcgKzE3MSw3IEBAIHZv
-aWQgYW1kZ3B1X2dlbV9vYmplY3RfY2xvc2Uoc3RydWN0DQo+Pj4+IGRybV9nZW1fb2JqZWN0ICpv
-YmosDQo+Pj4+DQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgYW1kZ3B1X3ZtX2dldF9wZF9ibyh2
-bSwgJmxpc3QsICZ2bV9wZCk7DQo+Pj4+DQo+Pj4+IC3CoMKgwqDCoMKgwqAgciA9IHR0bV9ldV9y
-ZXNlcnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIGZhbHNlLA0KPj4+PiAmZHVwbGljYXRlcywg
-dHJ1ZSk7DQo+Pj4+ICvCoMKgwqDCoMKgwqAgciA9IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMoJnRp
-Y2tldCwgJmxpc3QsIGZhbHNlLA0KPj4+PiAmZHVwbGljYXRlcywgZmFsc2UpOw0KPj4+PiAgwqDC
-oMKgwqDCoMKgwqDCoMKgIGlmIChyKSB7DQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGRldl9lcnIoYWRldi0+ZGV2LCAibGVha2luZyBibyB2YSBiZWNhdXNlICINCj4+
-Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJ3
-ZSBmYWlsIHRvIHJlc2VydmUgYm8gKCVkKVxuIiwgcik7DQo+Pj4+IEBAIC02MDgsNyArNjA4LDcg
-QEAgaW50IGFtZGdwdV9nZW1fdmFfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwNCj4+Pj4g
-dm9pZCAqZGF0YSwNCj4+Pj4NCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBhbWRncHVfdm1fZ2V0
-X3BkX2JvKCZmcHJpdi0+dm0sICZsaXN0LCAmdm1fcGQpOw0KPj4+Pg0KPj4+PiAtwqDCoMKgwqDC
-oMKgIHIgPSB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJzKCZ0aWNrZXQsICZsaXN0LCB0cnVlLA0KPj4+
-PiAmZHVwbGljYXRlcywgdHJ1ZSk7DQo+Pj4+ICvCoMKgwqDCoMKgwqAgciA9IHR0bV9ldV9yZXNl
-cnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIHRydWUsDQo+Pj4+ICZkdXBsaWNhdGVzLCBmYWxz
-ZSk7DQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHIpDQo+Pj4+ICDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZXJyb3JfdW5yZWY7DQo+Pj4+DQo+Pj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4+Pj4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4+Pj4gaW5kZXgg
-YzQzMGU4MjU5MDM4Li5kNjA1OTNjYzQzNmUgMTAwNjQ0DQo+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaA0KPj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4+Pj4gQEAgLTE1NSw3ICsxNTUsNyBAQCBz
-dGF0aWMgaW5saW5lIGludCBhbWRncHVfYm9fcmVzZXJ2ZShzdHJ1Y3QNCj4+Pj4gYW1kZ3B1X2Jv
-ICpibywgYm9vbCBub19pbnRyKQ0KPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KGJvLT50Ym8uYmRldik7DQo+Pj4+ICDC
-oMKgwqDCoMKgwqDCoMKgwqAgaW50IHI7DQo+Pj4+DQo+Pj4+IC3CoMKgwqDCoMKgwqAgciA9IHR0
-bV9ib19yZXNlcnZlKCZiby0+dGJvLCAhbm9faW50ciwgZmFsc2UsIE5VTEwpOw0KPj4+PiArwqDC
-oMKgwqDCoMKgIHIgPSBfX3R0bV9ib19yZXNlcnZlKCZiby0+dGJvLCAhbm9faW50ciwgZmFsc2Us
-IE5VTEwpOw0KPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIGlmICh1bmxpa2VseShyICE9IDApKSB7
-DQo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChyICE9IC1FUkVT
-VEFSVFNZUykNCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGRldl9lcnIoYWRldi0+ZGV2LCAiJXAgcmVzZXJ2ZSBmYWlsZWRcbiIsDQo+Pj4+
-IGJvKTsNCj4+Pj4gLS0gDQo+Pj4+IDIuMTcuMQ0KPj4+Pg0KPj4+PiBfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlz
-dA0KPj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPj4+PiBodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Thanks for the comments, but you are looking at a completely outdated 
+patchset.
+
+If you are interested in the newest one please ping me and I'm going to 
+CC you when I send out the next version.
+
+Christian.
+
+Am 25.05.19 um 03:04 schrieb Hillf Danton:
+> On Tue, 16 Apr 2019 20:38:31 +0200 Christian König wrote:
+>> Add function variants which can be called with the reservation lock
+>> already held.
+>>
+>> v2: reordered, add lockdep asserts, fix kerneldoc
+>> v3: rebased on sgt caching
+>>
+>> Signed-off-by: Christian König <christian.koenig@amd.com>
+>> ---
+>>   drivers/dma-buf/dma-buf.c | 63 +++++++++++++++++++++++++++++++++++++++
+>>   include/linux/dma-buf.h   |  5 ++++
+>>   2 files changed, 68 insertions(+)
+>>
+>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+>> index 65161a82d4d5..ef480e5fb239 100644
+>> --- a/drivers/dma-buf/dma-buf.c
+>> +++ b/drivers/dma-buf/dma-buf.c
+>> @@ -623,6 +623,43 @@ void dma_buf_detach(struct dma_buf *dmabuf, struct dma_buf_attachment *attach)
+>>   }
+>>   EXPORT_SYMBOL_GPL(dma_buf_detach);
+>>   
+>> +/**
+>> + * dma_buf_map_attachment_locked - Maps the buffer into _device_ address space
+>> + * with the reservation lock held. Is a wrapper for map_dma_buf() of the
+> Something is missing; seems to be s/of the/of the dma_buf_ops./
+>> + *
+>> + * Returns the scatterlist table of the attachment;
+>> + * dma_buf_ops.
+> Oh it is sitting here!
+>
+>> + * @attach:	[in]	attachment whose scatterlist is to be returned
+>> + * @direction:	[in]	direction of DMA transfer
+>> + *
+>> + * Returns sg_table containing the scatterlist to be returned; returns ERR_PTR
+>> + * on error. May return -EINTR if it is interrupted by a signal.
+>> + *
+> EINTR looks impossible in the code.
+>
+>> + * A mapping must be unmapped by using dma_buf_unmap_attachment_locked(). Note
+>> + * that the underlying backing storage is pinned for as long as a mapping
+>> + * exists, therefore users/importers should not hold onto a mapping for undue
+>> + * amounts of time.
+>> + */
+>> +struct sg_table *
+>> +dma_buf_map_attachment_locked(struct dma_buf_attachment *attach,
+>> +			      enum dma_data_direction direction)
+>> +{
+>> +	struct sg_table *sg_table;
+>> +
+>> +	might_sleep();
+>> +	reservation_object_assert_held(attach->dmabuf->resv);
+>> +
+>> +	if (attach->sgt)
+>> +		return attach->sgt;
+>> +
+>> +	sg_table = attach->dmabuf->ops->map_dma_buf(attach, direction);
+>> +	if (!sg_table)
+>> +		sg_table = ERR_PTR(-ENOMEM);
+>> +
+>> +	return sg_table;
+>> +}
+>> +EXPORT_SYMBOL_GPL(dma_buf_map_attachment_locked);
+>> +
+> Best Regards
+> Hillf
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
