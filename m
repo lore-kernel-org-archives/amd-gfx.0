@@ -1,52 +1,31 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: Don't need to call csb_vram_unpin
-Date: Mon, 27 May 2019 09:31:56 +0000
-Message-ID: <MN2PR12MB334456A5C03DEADB6494C865E41D0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1558946487-18034-1-git-send-email-Emily.Deng@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
+ syscalls
+Date: Mon, 27 May 2019 10:42:48 +0100
+Message-ID: <20190527094247.GA45660@MBP.local>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1558946487-18034-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQpSZXZpZXdlZC1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4NCg0KPiAtLS0tLU9y
-aWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YNCj4gRW1pbHkgRGVuZw0KPiBTZW50OiBN
-b25kYXksIE1heSAyNywgMjAxOSA0OjQxIFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZw0KPiBDYzogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT4NCj4gU3ViamVj
-dDogW1BBVENIXSBkcm0vYW1kZ3B1OiBEb24ndCBuZWVkIHRvIGNhbGwgY3NiX3ZyYW1fdW5waW4N
-Cj4gDQo+IEFzIGl0IHdpbGwgZGVzdHJveSBjbGVhcl9zdGF0ZV9vYmosIGFuZCBhbHNvIHdpbGwg
-dW5waW4gaXQgaW4gdGhlDQo+IGdmeF92OV8wX3N3X2ZpbmksIHNvIGRvbid0IG5lZWQgdG8gY2Fs
-bCBjc2JfdnJhbSB1bnBpbiBpbiBnZnhfdjlfMF9od19maW5pLA0KPiBvciBpdCB3aWxsIGhhdmUg
-dW5waW4gd2FybmluZy4NCj4gDQo+IHYyOiBGb3Igc3VzcGVuZCwgc3RpbGwgbmVlZCB0byBkbyB1
-bnBpbg0KPiANCj4gU2lnbmVkLW9mZi1ieTogRW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29t
-Pg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAzICsr
-LQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiAN
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCj4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jDQo+IGluZGV4IDVlYjcwZTgu
-LjViMWZmNDggMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OV8wLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYw0KPiBA
-QCAtMzM5NSw3ICszMzk1LDggQEAgc3RhdGljIGludCBnZnhfdjlfMF9od19maW5pKHZvaWQgKmhh
-bmRsZSkNCj4gIAlnZnhfdjlfMF9jcF9lbmFibGUoYWRldiwgZmFsc2UpOw0KPiAgCWFkZXYtPmdm
-eC5ybGMuZnVuY3MtPnN0b3AoYWRldik7DQo+IA0KPiAtCWdmeF92OV8wX2NzYl92cmFtX3VucGlu
-KGFkZXYpOw0KPiArCWlmIChhZGV2LT5pbl9zdXNwZW5kKQ0KPiArCQlnZnhfdjlfMF9jc2JfdnJh
-bV91bnBpbihhZGV2KTsNCj4gDQo+ICAJcmV0dXJuIDA7DQo+ICB9DQo+IC0tDQo+IDIuNy40DQo+
-IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBh
-bWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Mon, May 06, 2019 at 06:30:51PM +0200, Andrey Konovalov wrote:
+> +SYSCALL_DEFINE2(arm64_mlock2, unsigned long, start, size_t, len)
+> +{
+> +	start = untagged_addr(start);
+> +	return ksys_mlock(start, len, VM_LOCKED);
+> +}
+
+Copy/paste error: sys_mlock2() has 3 arguments and should call
+ksys_mlock2().
+
+Still tracking down an LTP failure on test mlock01.
+
+-- 
+Catalin
