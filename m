@@ -1,12 +1,11 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: Quick question for the mobile Raven Ridge auto-rotate function
-Date: Tue, 28 May 2019 17:39:04 +0000
-Message-ID: <BN6PR12MB180917AF61EFC6D23B09AB60F71E0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <887af196-43f2-558c-452c-eb2e1d6b6ef6@fedoraproject.org>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdkfd: Fix a potential circular lock
+Date: Tue, 28 May 2019 18:28:32 +0000
+Message-ID: <1559068105-23392-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0454566429=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <887af196-43f2-558c-452c-eb2e1d6b6ef6-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,180 +17,173 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Luya Tshimbalanga <luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
+ Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Freehill, Chris" <Chris.Freehill-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "Liu, Alex" <Alex.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============0454566429==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180917AF61EFC6D23B09AB60F71E0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180917AF61EFC6D23B09AB60F71E0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-The FCH team is working on a driver for it and should have something availa=
-ble by August.
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Luya Tsh=
-imbalanga <luya-rxtnV0ftBwyoClj4AeEUq9i2O/JbrIOy@public.gmane.org>
-Sent: Thursday, May 23, 2019 1:34 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Quick question for the mobile Raven Ridge auto-rotate function
-
-[CAUTION: External Email]
-
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
-
-Hello team,
-
-Thank for you making mobile Raven Ridge nearly fully functional with the
-open source driver for multiple devices like HP Envy x360 Ryzen 2500u.
-However, missing is the ability to auto-rotate the screen when switching
-from landscape to portrait in tablet mode.
-
-Which channel will be better to request enabling that function in open
-source driver? See the related issue below:
-
-Red Hat bug report: https://bugzilla.redhat.com/show_bug.cgi?id=3D1651886
-
-Linux kernel report: https://bugzilla.kernel.org/show_bug.cgi?id=3D199715
-
-I will be willing to test such driver to report the functionality.
-
-
-Thanks in advance,
-
-Luya Tshimbalanga
-Fedora Design Team
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEWyB+BQtYiFz4GUNDXlKBdNiiYJoFAlzmMM8ACgkQXlKBdNii
-YJq/wAgAn8jWhzXLLbBYjtai4f0C4rw1cKt1MDi48qOxlSiPaOplfG8RLrCGVFL3
-jMgReHhN/U3zfy3SRBXa2zsTspdVKRnxewMxJHJmS653prOAEVsfd41b/XDMInmp
-kFCcTKXwR9GlUYPbSuj3pMLSwq3OHmBlPjnpL4NMXlmrcQ6psN9I992Itg8HEoh2
-3vGF5qRdKuidLnu9xRNLceLjvpvTyJ5fhH/Ry5sylX5oJhdW7WlR5HE+Smsgu7hW
-rVGgGl6yFdUEGaiFRqhPxuEpC07i7Vi5REqB+s/YUgzM+Wn86taA4Ld1R9dMeZIm
-g7EJeO8c6RKII2MOKWrKtTpvuUg+RQ=3D=3D
-=3DFtfg
------END PGP SIGNATURE-----
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180917AF61EFC6D23B09AB60F71E0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The FCH team is working on a driver for it and should have something availa=
-ble by August.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Luya Tshimbalanga &lt;luya@fe=
-doraproject.org&gt;<br>
-<b>Sent:</b> Thursday, May 23, 2019 1:34 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Subject:</b> Quick question for the mobile Raven Ridge auto-rotate funct=
-ion</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">[CAUTION: External Email]<br>
-<br>
------BEGIN PGP SIGNED MESSAGE-----<br>
-Hash: SHA256<br>
-<br>
-Hello team,<br>
-<br>
-Thank for you making mobile Raven Ridge nearly fully functional with the<br=
->
-open source driver for multiple devices like HP Envy x360 Ryzen 2500u.<br>
-However, missing is the ability to auto-rotate the screen when switching<br=
->
-from landscape to portrait in tablet mode.<br>
-<br>
-Which channel will be better to request enabling that function in open<br>
-source driver? See the related issue below:<br>
-<br>
-Red Hat bug report: <a href=3D"https://bugzilla.redhat.com/show_bug.cgi?id=
-=3D1651886">
-https://bugzilla.redhat.com/show_bug.cgi?id=3D1651886</a><br>
-<br>
-Linux kernel report: <a href=3D"https://bugzilla.kernel.org/show_bug.cgi?id=
-=3D199715">
-https://bugzilla.kernel.org/show_bug.cgi?id=3D199715</a><br>
-<br>
-I will be willing to test such driver to report the functionality.<br>
-<br>
-<br>
-Thanks in advance,<br>
-<br>
-Luya Tshimbalanga<br>
-Fedora Design Team<br>
-<br>
------BEGIN PGP SIGNATURE-----<br>
-<br>
-iQEzBAEBCAAdFiEEWyB&#43;BQtYiFz4GUNDXlKBdNiiYJoFAlzmMM8ACgkQXlKBdNii<br>
-YJq/wAgAn8jWhzXLLbBYjtai4f0C4rw1cKt1MDi48qOxlSiPaOplfG8RLrCGVFL3<br>
-jMgReHhN/U3zfy3SRBXa2zsTspdVKRnxewMxJHJmS653prOAEVsfd41b/XDMInmp<br>
-kFCcTKXwR9GlUYPbSuj3pMLSwq3OHmBlPjnpL4NMXlmrcQ6psN9I992Itg8HEoh2<br>
-3vGF5qRdKuidLnu9xRNLceLjvpvTyJ5fhH/Ry5sylX5oJhdW7WlR5HE&#43;Smsgu7hW<br>
-rVGgGl6yFdUEGaiFRqhPxuEpC07i7Vi5REqB&#43;s/YUgzM&#43;Wn86taA4Ld1R9dMeZIm<br=
->
-g7EJeO8c6RKII2MOKWrKtTpvuUg&#43;RQ=3D=3D<br>
-=3DFtfg<br>
------END PGP SIGNATURE-----<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180917AF61EFC6D23B09AB60F71E0BN6PR12MB1809namp_--
-
---===============0454566429==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0454566429==--
+VGhlIGlkZWEgdG8gYnJlYWsgdGhlIGNpcmN1bGFyIGxvY2sgZGVwZW5kZW5jeSBpcywgdW5sb2Nr
+IGRxbQ0KdGVtcG9yYXJpbHkgYmVmb3JlIGNhbGxpbmcgaW5pdF9tcWQgaW4gY2FsbCBzdGFjayAj
+MSAoc2VlIGJlbG93KQ0KDQpbICA1MTMuNjA0MDM0XSA9PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NClsgIDUxMy42MDQyMDVdIFdBUk5JTkc6IHBv
+c3NpYmxlIGNpcmN1bGFyIGxvY2tpbmcgZGVwZW5kZW5jeSBkZXRlY3RlZA0KWyAgNTEzLjYwNDM3
+NV0gNC4xOC4wLWtmZC1yb290ICMyIFRhaW50ZWQ6IEcgICAgICAgIFcNClsgIDUxMy42MDQ1MzBd
+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0K
+WyAgNTEzLjYwNDY5OV0ga3N3YXBkMC82MTEgaXMgdHJ5aW5nIHRvIGFjcXVpcmUgbG9jazoNClsg
+IDUxMy42MDQ4NDBdIDAwMDAwMDAwZDI1NDAyMmUgKCZkcW0tPmxvY2tfaGlkZGVuKXsrLisufSwg
+YXQ6IGV2aWN0X3Byb2Nlc3NfcXVldWVzX25vY3BzY2grMHgyNi8weDE0MCBbYW1kZ3B1XQ0KWyAg
+NTEzLjYwNTE1MF0NCiAgICAgICAgICAgICAgIGJ1dCB0YXNrIGlzIGFscmVhZHkgaG9sZGluZyBs
+b2NrOg0KWyAgNTEzLjYwNTMwN10gMDAwMDAwMDA5NjE1NDdmYyAoJmFub25fdm1hLT5yd3NlbSl7
+KysrK30sIGF0OiBwYWdlX2xvY2tfYW5vbl92bWFfcmVhZCsweGU0LzB4MjUwDQpbICA1MTMuNjA1
+NTQwXQ0KICAgICAgICAgICAgICAgd2hpY2ggbG9jayBhbHJlYWR5IGRlcGVuZHMgb24gdGhlIG5l
+dyBsb2NrLg0KDQpbICA1MTMuNjA1NzQ3XQ0KICAgICAgICAgICAgICAgdGhlIGV4aXN0aW5nIGRl
+cGVuZGVuY3kgY2hhaW4gKGluIHJldmVyc2Ugb3JkZXIpIGlzOg0KWyAgNTEzLjYwNTk0NF0NCiAg
+ICAgICAgICAgICAgIC0+ICM0ICgmYW5vbl92bWEtPnJ3c2VtKXsrKysrfToNClsgIDUxMy42MDYx
+MDZdICAgICAgICBfX3ZtYV9hZGp1c3QrMHgxNDcvMHg3ZjANClsgIDUxMy42MDYyMzFdICAgICAg
+ICBfX3NwbGl0X3ZtYSsweDE3OS8weDE5MA0KWyAgNTEzLjYwNjM1M10gICAgICAgIG1wcm90ZWN0
+X2ZpeHVwKzB4MjE3LzB4MjYwDQpbICA1MTMuNjA2NTUzXSAgICAgICAgZG9fbXByb3RlY3RfcGtl
+eSsweDIxMS8weDM4MA0KWyAgNTEzLjYwNjc1Ml0gICAgICAgIF9feDY0X3N5c19tcHJvdGVjdCsw
+eDFiLzB4MjANClsgIDUxMy42MDY5NTRdICAgICAgICBkb19zeXNjYWxsXzY0KzB4NTAvMHgxYTAN
+ClsgIDUxMy42MDcxNDldICAgICAgICBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg0
+OS8weGJlDQpbICA1MTMuNjA3MzgwXQ0KICAgICAgICAgICAgICAgLT4gIzMgKCZtYXBwaW5nLT5p
+X21tYXBfcndzZW0peysrKyt9Og0KWyAgNTEzLjYwNzY3OF0gICAgICAgIHJtYXBfd2Fsa19maWxl
+KzB4MWYwLzB4MjgwDQpbICA1MTMuNjA3ODg3XSAgICAgICAgcGFnZV9yZWZlcmVuY2VkKzB4ZGQv
+MHgxODANClsgIDUxMy42MDgwODFdICAgICAgICBzaHJpbmtfcGFnZV9saXN0KzB4ODUzLzB4Y2Iw
+DQpbICA1MTMuNjA4Mjc5XSAgICAgICAgc2hyaW5rX2luYWN0aXZlX2xpc3QrMHgzM2IvMHg3MDAN
+ClsgIDUxMy42MDg0ODNdICAgICAgICBzaHJpbmtfbm9kZV9tZW1jZysweDM3YS8weDdmMA0KWyAg
+NTEzLjYwODY4Ml0gICAgICAgIHNocmlua19ub2RlKzB4ZDgvMHg0OTANClsgIDUxMy42MDg4Njld
+ICAgICAgICBiYWxhbmNlX3BnZGF0KzB4MThiLzB4M2IwDQpbICA1MTMuNjA5MDYyXSAgICAgICAg
+a3N3YXBkKzB4MjAzLzB4NWMwDQpbICA1MTMuNjA5MjQxXSAgICAgICAga3RocmVhZCsweDEwMC8w
+eDE0MA0KWyAgNTEzLjYwOTQyMF0gICAgICAgIHJldF9mcm9tX2ZvcmsrMHgyNC8weDMwDQpbICA1
+MTMuNjA5NjA3XQ0KICAgICAgICAgICAgICAgLT4gIzIgKGZzX3JlY2xhaW0peysuKy59Og0KWyAg
+NTEzLjYwOTg4M10gICAgICAgIGttZW1fY2FjaGVfYWxsb2NfdHJhY2UrMHgzNC8weDJlMA0KWyAg
+NTEzLjYxMDA5M10gICAgICAgIHJlc2VydmF0aW9uX29iamVjdF9yZXNlcnZlX3NoYXJlZCsweDEz
+OS8weDMwMA0KWyAgNTEzLjYxMDMyNl0gICAgICAgIHR0bV9ib19pbml0X3Jlc2VydmVkKzB4Mjkx
+LzB4NDgwIFt0dG1dDQpbICA1MTMuNjEwNTY3XSAgICAgICAgYW1kZ3B1X2JvX2RvX2NyZWF0ZSsw
+eDFkMi8weDY1MCBbYW1kZ3B1XQ0KWyAgNTEzLjYxMDgxMV0gICAgICAgIGFtZGdwdV9ib19jcmVh
+dGUrMHg0MC8weDFmMCBbYW1kZ3B1XQ0KWyAgNTEzLjYxMTA0MV0gICAgICAgIGFtZGdwdV9ib19j
+cmVhdGVfcmVzZXJ2ZWQrMHgyNDkvMHgyZDAgW2FtZGdwdV0NClsgIDUxMy42MTEyOTBdICAgICAg
+ICBhbWRncHVfYm9fY3JlYXRlX2tlcm5lbCsweDEyLzB4NzAgW2FtZGdwdV0NClsgIDUxMy42MTE1
+ODRdICAgICAgICBhbWRncHVfdHRtX2luaXQrMHgyY2IvMHg1NjAgW2FtZGdwdV0NClsgIDUxMy42
+MTE4MjNdICAgICAgICBnbWNfdjlfMF9zd19pbml0KzB4NDAwLzB4NzUwIFthbWRncHVdDQpbICA1
+MTMuNjEyNDkxXSAgICAgICAgYW1kZ3B1X2RldmljZV9pbml0KzB4MTRlYi8weDE5OTAgW2FtZGdw
+dV0NClsgIDUxMy42MTI3MzBdICAgICAgICBhbWRncHVfZHJpdmVyX2xvYWRfa21zKzB4NzgvMHgy
+OTAgW2FtZGdwdV0NClsgIDUxMy42MTI5NThdICAgICAgICBkcm1fZGV2X3JlZ2lzdGVyKzB4MTEx
+LzB4MWEwDQpbICA1MTMuNjEzMTcxXSAgICAgICAgYW1kZ3B1X3BjaV9wcm9iZSsweDExYy8weDFl
+MCBbYW1kZ3B1XQ0KWyAgNTEzLjYxMzM4OV0gICAgICAgIGxvY2FsX3BjaV9wcm9iZSsweDNmLzB4
+OTANClsgIDUxMy42MTM1ODFdICAgICAgICBwY2lfZGV2aWNlX3Byb2JlKzB4MTAyLzB4MWMwDQpb
+ICA1MTMuNjEzNzc5XSAgICAgICAgZHJpdmVyX3Byb2JlX2RldmljZSsweDJhNy8weDQ4MA0KWyAg
+NTEzLjYxMzk4NF0gICAgICAgIF9fZHJpdmVyX2F0dGFjaCsweDEwYS8weDExMA0KWyAgNTEzLjYx
+NDE3OV0gICAgICAgIGJ1c19mb3JfZWFjaF9kZXYrMHg2Ny8weGMwDQpbICA1MTMuNjE0MzcyXSAg
+ICAgICAgYnVzX2FkZF9kcml2ZXIrMHgxZWIvMHgyNjANClsgIDUxMy42MTQ1NjVdICAgICAgICBk
+cml2ZXJfcmVnaXN0ZXIrMHg1Yi8weGUwDQpbICA1MTMuNjE0NzU2XSAgICAgICAgZG9fb25lX2lu
+aXRjYWxsKzB4YWMvMHgzNTcNClsgIDUxMy42MTQ5NTJdICAgICAgICBkb19pbml0X21vZHVsZSsw
+eDViLzB4MjEzDQpbICA1MTMuNjE1MTQ1XSAgICAgICAgbG9hZF9tb2R1bGUrMHgyNTQyLzB4MmQz
+MA0KWyAgNTEzLjYxNTMzN10gICAgICAgIF9fZG9fc3lzX2Zpbml0X21vZHVsZSsweGQyLzB4MTAw
+DQpbICA1MTMuNjE1NTQxXSAgICAgICAgZG9fc3lzY2FsbF82NCsweDUwLzB4MWEwDQpbICA1MTMu
+NjE1NzMxXSAgICAgICAgZW50cnlfU1lTQ0FMTF82NF9hZnRlcl9od2ZyYW1lKzB4NDkvMHhiZQ0K
+WyAgNTEzLjYxNTk2M10NCiAgICAgICAgICAgICAgIC0+ICMxIChyZXNlcnZhdGlvbl93d19jbGFz
+c19tdXRleCl7Ky4rLn06DQpbICA1MTMuNjE2MjkzXSAgICAgICAgYW1kZ3B1X2FtZGtmZF9hbGxv
+Y19ndHRfbWVtKzB4Y2YvMHgyYzAgW2FtZGdwdV0NClsgIDUxMy42MTY1NTRdICAgICAgICBpbml0
+X21xZCsweDIyMy8weDI2MCBbYW1kZ3B1XQ0KWyAgNTEzLjYxNjc3OV0gICAgICAgIGNyZWF0ZV9x
+dWV1ZV9ub2Nwc2NoKzB4NGQ5LzB4NjAwIFthbWRncHVdDQpbICA1MTMuNjE3MDMxXSAgICAgICAg
+cHFtX2NyZWF0ZV9xdWV1ZSsweDM3Yy8weDUyMCBbYW1kZ3B1XQ0KWyAgNTEzLjYxNzI3MF0gICAg
+ICAgIGtmZF9pb2N0bF9jcmVhdGVfcXVldWUrMHgyZjkvMHg2NTAgW2FtZGdwdV0NClsgIDUxMy42
+MTc1MjJdICAgICAgICBrZmRfaW9jdGwrMHgyMDIvMHgzNTAgW2FtZGdwdV0NClsgIDUxMy42MTc3
+MjRdICAgICAgICBkb192ZnNfaW9jdGwrMHg5Zi8weDZjMA0KWyAgNTEzLjYxNzkxNF0gICAgICAg
+IGtzeXNfaW9jdGwrMHg2Ni8weDcwDQpbICA1MTMuNjE4MDk1XSAgICAgICAgX194NjRfc3lzX2lv
+Y3RsKzB4MTYvMHgyMA0KWyAgNTEzLjYxODI4Nl0gICAgICAgIGRvX3N5c2NhbGxfNjQrMHg1MC8w
+eDFhMA0KWyAgNTEzLjYxODQ3Nl0gICAgICAgIGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFt
+ZSsweDQ5LzB4YmUNClsgIDUxMy42MTg2OTVdDQogICAgICAgICAgICAgICAtPiAjMCAoJmRxbS0+
+bG9ja19oaWRkZW4peysuKy59Og0KWyAgNTEzLjYxODk4NF0gICAgICAgIF9fbXV0ZXhfbG9jaysw
+eDk4LzB4OTcwDQpbICA1MTMuNjE5MTk3XSAgICAgICAgZXZpY3RfcHJvY2Vzc19xdWV1ZXNfbm9j
+cHNjaCsweDI2LzB4MTQwIFthbWRncHVdDQpbICA1MTMuNjE5NDU5XSAgICAgICAga2ZkX3Byb2Nl
+c3NfZXZpY3RfcXVldWVzKzB4M2IvMHhiMCBbYW1kZ3B1XQ0KWyAgNTEzLjYxOTcxMF0gICAgICAg
+IGtnZDJrZmRfcXVpZXNjZV9tbSsweDFjLzB4NDAgW2FtZGdwdV0NClsgIDUxMy42MjAxMDNdICAg
+ICAgICBhbWRncHVfYW1ka2ZkX2V2aWN0X3VzZXJwdHIrMHgzOC8weDcwIFthbWRncHVdDQpbICA1
+MTMuNjIwMzYzXSAgICAgICAgYW1kZ3B1X21uX2ludmFsaWRhdGVfcmFuZ2Vfc3RhcnRfaHNhKzB4
+YTYvMHhjMCBbYW1kZ3B1XQ0KWyAgNTEzLjYyMDYxNF0gICAgICAgIF9fbW11X25vdGlmaWVyX2lu
+dmFsaWRhdGVfcmFuZ2Vfc3RhcnQrMHg3MC8weGIwDQpbICA1MTMuNjIwODUxXSAgICAgICAgdHJ5
+X3RvX3VubWFwX29uZSsweDdmYy8weDhmMA0KWyAgNTEzLjYyMTA0OV0gICAgICAgIHJtYXBfd2Fs
+a19hbm9uKzB4MTIxLzB4MjkwDQpbICA1MTMuNjIxMjQyXSAgICAgICAgdHJ5X3RvX3VubWFwKzB4
+OTMvMHhmMA0KWyAgNTEzLjYyMTQyOF0gICAgICAgIHNocmlua19wYWdlX2xpc3QrMHg2MDYvMHhj
+YjANClsgIDUxMy42MjE2MjVdICAgICAgICBzaHJpbmtfaW5hY3RpdmVfbGlzdCsweDMzYi8weDcw
+MA0KWyAgNTEzLjYyMTgzNV0gICAgICAgIHNocmlua19ub2RlX21lbWNnKzB4MzdhLzB4N2YwDQpb
+ICA1MTMuNjIyMDM0XSAgICAgICAgc2hyaW5rX25vZGUrMHhkOC8weDQ5MA0KWyAgNTEzLjYyMjIx
+OV0gICAgICAgIGJhbGFuY2VfcGdkYXQrMHgxOGIvMHgzYjANClsgIDUxMy42MjI0MTBdICAgICAg
+ICBrc3dhcGQrMHgyMDMvMHg1YzANClsgIDUxMy42MjI1ODldICAgICAgICBrdGhyZWFkKzB4MTAw
+LzB4MTQwDQpbICA1MTMuNjIyNzY5XSAgICAgICAgcmV0X2Zyb21fZm9yaysweDI0LzB4MzANClsg
+IDUxMy42MjI5NTddDQogICAgICAgICAgICAgICBvdGhlciBpbmZvIHRoYXQgbWlnaHQgaGVscCB1
+cyBkZWJ1ZyB0aGlzOg0KDQpbICA1MTMuNjIzMzU0XSBDaGFpbiBleGlzdHMgb2Y6DQogICAgICAg
+ICAgICAgICAgICZkcW0tPmxvY2tfaGlkZGVuIC0tPiAmbWFwcGluZy0+aV9tbWFwX3J3c2VtIC0t
+PiAmYW5vbl92bWEtPnJ3c2VtDQoNClsgIDUxMy42MjM5MDBdICBQb3NzaWJsZSB1bnNhZmUgbG9j
+a2luZyBzY2VuYXJpbzoNCg0KWyAgNTEzLjYyNDE4OV0gICAgICAgIENQVTAgICAgICAgICAgICAg
+ICAgICAgIENQVTENClsgIDUxMy42MjQzOTddICAgICAgICAtLS0tICAgICAgICAgICAgICAgICAg
+ICAtLS0tDQpbICA1MTMuNjI0NTk0XSAgIGxvY2soJmFub25fdm1hLT5yd3NlbSk7DQpbICA1MTMu
+NjI0NzcxXSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbG9jaygmbWFwcGluZy0+aV9t
+bWFwX3J3c2VtKTsNClsgIDUxMy42MjUwMjBdICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBsb2NrKCZhbm9uX3ZtYS0+cndzZW0pOw0KWyAgNTEzLjYyNTI1M10gICBsb2NrKCZkcW0tPmxv
+Y2tfaGlkZGVuKTsNClsgIDUxMy42MjU0MzNdDQogICAgICAgICAgICAgICAgKioqIERFQURMT0NL
+ICoqKg0KDQpbICA1MTMuNjI1NzgzXSAzIGxvY2tzIGhlbGQgYnkga3N3YXBkMC82MTE6DQpbICA1
+MTMuNjI1OTY3XSAgIzA6IDAwMDAwMDAwZjE0ZWRmODQgKGZzX3JlY2xhaW0peysuKy59LCBhdDog
+X19mc19yZWNsYWltX2FjcXVpcmUrMHg1LzB4MzANClsgIDUxMy42MjYzMDldICAjMTogMDAwMDAw
+MDA5NjE1NDdmYyAoJmFub25fdm1hLT5yd3NlbSl7KysrK30sIGF0OiBwYWdlX2xvY2tfYW5vbl92
+bWFfcmVhZCsweGU0LzB4MjUwDQpbICA1MTMuNjI2NjcxXSAgIzI6IDAwMDAwMDAwNjdiNWNkMTIg
+KHNyY3Upey4uLi59LCBhdDogX19tbXVfbm90aWZpZXJfaW52YWxpZGF0ZV9yYW5nZV9zdGFydCsw
+eDUvMHhiMA0KWyAgNTEzLjYyNzAzN10NCiAgICAgICAgICAgICAgIHN0YWNrIGJhY2t0cmFjZToN
+ClsgIDUxMy42MjcyOTJdIENQVTogMCBQSUQ6IDYxMSBDb21tOiBrc3dhcGQwIFRhaW50ZWQ6IEcg
+ICAgICAgIFcgICAgICAgICA0LjE4LjAta2ZkLXJvb3QgIzINClsgIDUxMy42Mjc2MzJdIEhhcmR3
+YXJlIG5hbWU6IGlubm90ZWsgR21iSCBWaXJ0dWFsQm94L1ZpcnR1YWxCb3gsIEJJT1MgVmlydHVh
+bEJveCAxMi8wMS8yMDA2DQpbICA1MTMuNjI3OTkwXSBDYWxsIFRyYWNlOg0KWyAgNTEzLjYyODE0
+M10gIGR1bXBfc3RhY2srMHg3Yy8weGJiDQpbICA1MTMuNjI4MzE1XSAgcHJpbnRfY2lyY3VsYXJf
+YnVnLmlzcmEuMzcrMHgyMWIvMHgyMjgNClsgIDUxMy42Mjg1ODFdICBfX2xvY2tfYWNxdWlyZSsw
+eGY3ZC8weDE0NzANClsgIDUxMy42Mjg3ODJdICA/IHVud2luZF9uZXh0X2ZyYW1lKzB4NmMvMHg0
+ZjANClsgIDUxMy42Mjg5NzRdICA/IGxvY2tfYWNxdWlyZSsweGVjLzB4MWUwDQpbICA1MTMuNjI5
+MTU0XSAgbG9ja19hY3F1aXJlKzB4ZWMvMHgxZTANClsgIDUxMy42MjkzNTddICA/IGV2aWN0X3By
+b2Nlc3NfcXVldWVzX25vY3BzY2grMHgyNi8weDE0MCBbYW1kZ3B1XQ0KWyAgNTEzLjYyOTU4N10g
+IF9fbXV0ZXhfbG9jaysweDk4LzB4OTcwDQpbICA1MTMuNjI5NzkwXSAgPyBldmljdF9wcm9jZXNz
+X3F1ZXVlc19ub2Nwc2NoKzB4MjYvMHgxNDAgW2FtZGdwdV0NClsgIDUxMy42MzAwNDddICA/IGV2
+aWN0X3Byb2Nlc3NfcXVldWVzX25vY3BzY2grMHgyNi8weDE0MCBbYW1kZ3B1XQ0KWyAgNTEzLjYz
+MDMwOV0gID8gZXZpY3RfcHJvY2Vzc19xdWV1ZXNfbm9jcHNjaCsweDI2LzB4MTQwIFthbWRncHVd
+DQpbICA1MTMuNjMwNTYyXSAgZXZpY3RfcHJvY2Vzc19xdWV1ZXNfbm9jcHNjaCsweDI2LzB4MTQw
+IFthbWRncHVdDQpbICA1MTMuNjMwODE2XSAga2ZkX3Byb2Nlc3NfZXZpY3RfcXVldWVzKzB4M2Iv
+MHhiMCBbYW1kZ3B1XQ0KWyAgNTEzLjYzMTA1N10gIGtnZDJrZmRfcXVpZXNjZV9tbSsweDFjLzB4
+NDAgW2FtZGdwdV0NClsgIDUxMy42MzEyODhdICBhbWRncHVfYW1ka2ZkX2V2aWN0X3VzZXJwdHIr
+MHgzOC8weDcwIFthbWRncHVdDQpbICA1MTMuNjMxNTM2XSAgYW1kZ3B1X21uX2ludmFsaWRhdGVf
+cmFuZ2Vfc3RhcnRfaHNhKzB4YTYvMHhjMCBbYW1kZ3B1XQ0KWyAgNTEzLjYzMjA3Nl0gIF9fbW11
+X25vdGlmaWVyX2ludmFsaWRhdGVfcmFuZ2Vfc3RhcnQrMHg3MC8weGIwDQpbICA1MTMuNjMyMjk5
+XSAgdHJ5X3RvX3VubWFwX29uZSsweDdmYy8weDhmMA0KWyAgNTEzLjYzMjQ4N10gID8gcGFnZV9s
+b2NrX2Fub25fdm1hX3JlYWQrMHg2OC8weDI1MA0KWyAgNTEzLjYzMjY5MF0gIHJtYXBfd2Fsa19h
+bm9uKzB4MTIxLzB4MjkwDQpbICA1MTMuNjMyODc1XSAgdHJ5X3RvX3VubWFwKzB4OTMvMHhmMA0K
+WyAgNTEzLjYzMzA1MF0gID8gcGFnZV9yZW1vdmVfcm1hcCsweDMzMC8weDMzMA0KWyAgNTEzLjYz
+MzIzOV0gID8gcmN1X3JlYWRfdW5sb2NrKzB4NjAvMHg2MA0KWyAgNTEzLjYzMzQyMl0gID8gcGFn
+ZV9nZXRfYW5vbl92bWErMHgxNjAvMHgxNjANClsgIDUxMy42MzM2MTNdICBzaHJpbmtfcGFnZV9s
+aXN0KzB4NjA2LzB4Y2IwDQpbICA1MTMuNjMzODAwXSAgc2hyaW5rX2luYWN0aXZlX2xpc3QrMHgz
+M2IvMHg3MDANClsgIDUxMy42MzM5OTddICBzaHJpbmtfbm9kZV9tZW1jZysweDM3YS8weDdmMA0K
+WyAgNTEzLjYzNDE4Nl0gID8gc2hyaW5rX25vZGUrMHhkOC8weDQ5MA0KWyAgNTEzLjYzNDM2M10g
+IHNocmlua19ub2RlKzB4ZDgvMHg0OTANClsgIDUxMy42MzQ1MzddICBiYWxhbmNlX3BnZGF0KzB4
+MThiLzB4M2IwDQpbICA1MTMuNjM0NzE4XSAga3N3YXBkKzB4MjAzLzB4NWMwDQpbICA1MTMuNjM0
+ODg3XSAgPyB3YWl0X3dva2VuKzB4YjAvMHhiMA0KWyAgNTEzLjYzNTA2Ml0gIGt0aHJlYWQrMHgx
+MDAvMHgxNDANClsgIDUxMy42MzUyMzFdICA/IGJhbGFuY2VfcGdkYXQrMHgzYjAvMHgzYjANClsg
+IDUxMy42MzU0MTRdICA/IGt0aHJlYWRfZGVsYXllZF93b3JrX3RpbWVyX2ZuKzB4ODAvMHg4MA0K
+WyAgNTEzLjYzNTYyNl0gIHJldF9mcm9tX2ZvcmsrMHgyNC8weDMwDQpbICA1MTMuNjM2MDQyXSBF
+dmljdGluZyBQQVNJRCAzMjc2OCBxdWV1ZXMNClsgIDUxMy45MzYyMzZdIFJlc3RvcmluZyBQQVNJ
+RCAzMjc2OCBxdWV1ZXMNClsgIDUyNC43MDg5MTJdIEV2aWN0aW5nIFBBU0lEIDMyNzY4IHF1ZXVl
+cw0KWyAgNTI0Ljk5OTg3NV0gUmVzdG9yaW5nIFBBU0lEIDMyNzY4IHF1ZXVlcw0KDQpDaGFuZ2Ut
+SWQ6IEk5ZmJjMmU0NWFlNTdlNDMyNDM1NDVhZTYxMGVkYTk2NzA4ZjgyMDE5DQpTaWduZWQtb2Zm
+LWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jIHwgMyArKysNCiAxIGZpbGUgY2hh
+bmdlZCwgMyBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jDQppbmRleCBlY2UzNWM3Li5mNDMyN2M5
+IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1
+ZV9tYW5hZ2VyLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Vf
+cXVldWVfbWFuYWdlci5jDQpAQCAtMzk0LDggKzM5NCwxMSBAQCBzdGF0aWMgaW50IGNyZWF0ZV9j
+b21wdXRlX3F1ZXVlX25vY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQog
+CWlmIChyZXR2YWwpDQogCQlnb3RvIG91dF9kZWFsbG9jYXRlX2hxZDsNCiANCisJLyogdW5sb2Nr
+IGRxbSB0byBhdm9pZCBhIGNpcmN1bGFyIGxvY2sgKi8NCisJZHFtX3VubG9jayhkcW0pOw0KIAly
+ZXR2YWwgPSBtcWRfbWdyLT5pbml0X21xZChtcWRfbWdyLCAmcS0+bXFkLCAmcS0+bXFkX21lbV9v
+YmosDQogCQkJCSZxLT5nYXJ0X21xZF9hZGRyLCAmcS0+cHJvcGVydGllcyk7DQorCWRxbV9sb2Nr
+KGRxbSk7DQogCWlmIChyZXR2YWwpDQogCQlnb3RvIG91dF9kZWFsbG9jYXRlX2Rvb3JiZWxsOw0K
+IA0KLS0gDQoyLjcuNA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
