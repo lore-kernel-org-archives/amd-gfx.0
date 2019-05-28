@@ -1,114 +1,85 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/display: Fix reload driver error
-Date: Tue, 28 May 2019 12:37:17 +0000
-Message-ID: <43969788-21bb-7955-9ecf-97081fb6a112@amd.com>
-References: <1559039303-30239-1-git-send-email-Emily.Deng@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
+ syscalls
+Date: Tue, 28 May 2019 14:05:18 +0100
+Message-ID: <20190528130518.GB32006@arrakis.emea.arm.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1559039303-30239-1-git-send-email-Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <A85A51D0ACC7004083A8CAABA7884F4F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNS8yOC8xOSA2OjI4IEFNLCBFbWlseSBEZW5nIHdyb3RlOg0KPiBJc3N1ZToNCj4gV2lsbCBo
-YXZlIGZvbGxvdyBlcnJvciB3aGVuIHJlbG9hZCBkcml2ZXI6DQo+IFsgMzk4Ni41Njc3MzldIHN5
-c2ZzOiBjYW5ub3QgY3JlYXRlIGR1cGxpY2F0ZSBmaWxlbmFtZSAnL2RldmljZXMvcGNpMDAwMDow
-MC8wMDAwOjAwOjA3LjAvZHJtX2RwX2F1eF9kZXYnDQo+IFsgMzk4Ni41Njc3NDNdIENQVTogNiBQ
-SUQ6IDE3NjcgQ29tbTogbW9kcHJvYmUgVGFpbnRlZDogRyAgICAgICAgICAgT0UgICAgIDUuMC4w
-LXJjMS1jdXN0b20gIzENCj4gWyAzOTg2LjU2Nzc0NV0gSGFyZHdhcmUgbmFtZTogUUVNVSBTdGFu
-ZGFyZCBQQyAoaTQ0MEZYICsgUElJWCwgMTk5NiksIEJJT1MgVWJ1bnR1LTEuOC4yLTF1YnVudHUx
-IDA0LzAxLzIwMTQNCj4gWyAzOTg2LjU2Nzc0Nl0gQ2FsbCBUcmFjZToNCj4gLi4uLi4uDQo+IFsg
-Mzk4Ni41Njc4MDhdICBkcm1fZHBfYXV4X3JlZ2lzdGVyX2Rldm5vZGUrMHhkYy8weDE0MCBbZHJt
-X2ttc19oZWxwZXJdDQo+IC4uLi4uLg0KPiBbIDM5ODYuNTY5MDgxXSBrb2JqZWN0X2FkZF9pbnRl
-cm5hbCBmYWlsZWQgZm9yIGRybV9kcF9hdXhfZGV2IHdpdGggLUVFWElTVCwgZG9uJ3QgdHJ5IHRv
-IHJlZ2lzdGVyIHRoaW5ncyB3aXRoIHRoZSBzYW1lIG5hbWUgaW4gdGhlIHNhbWUgZGlyZWN0b3J5
-Lg0KPiANCj4gUmVwcm9kdWNlIHNlcXVlbmNlczoNCj4gMS5tb2Rwcm9iZSBhbWRncHUNCj4gMi5t
-b2Rwcm9iZSAtciBhbWRncHUNCj4gMy5tb2Rwcm9iZSBhbWRncHUNCj4gDQo+IFJvb3QgY2F1c2U6
-DQo+IFdoZW4gdW5sb2FkIGRyaXZlciwgaXQgZG9uJ3QgdW5yZWdpc3RlciBhdXguDQo+IA0KPiBT
-aWduZWQtb2ZmLWJ5OiBFbWlseSBEZW5nIDxFbWlseS5EZW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmggICAgICAgICAgICAgICB8
-ICAxICsNCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jICAgICAgfCAxOCArKysrKysrKysrKysrKysrKy0NCj4gICAuLi4vZHJtL2FtZC9kaXNwbGF5
-L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMgICAgfCAgNiArKysrKy0NCj4gICAzIGZp
-bGVzIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgNCj4gaW5kZXggZTQ4ZmQzNS4uNzIw
-OTU1YiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21v
-ZGUuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW9kZS5oDQo+
-IEBAIC01MjUsNiArNTI1LDcgQEAgZW51bSBhbWRncHVfY29ubmVjdG9yX2RpdGhlciB7DQo+ICAg
-c3RydWN0IGFtZGdwdV9kbV9kcF9hdXggew0KPiAgIAlzdHJ1Y3QgZHJtX2RwX2F1eCBhdXg7DQo+
-ICAgCXN0cnVjdCBkZGNfc2VydmljZSAqZGRjX3NlcnZpY2U7DQo+ICsJYm9vbCBoYXNfYXV4Ow0K
-PiAgIH07DQo+ICAgDQo+ICAgc3RydWN0IGFtZGdwdV9pMmNfYWRhcHRlciB7DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYw0KPiBpbmRl
-eCA4ZmUxNjg1Li5kZTM2OWFlIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMNCj4gQEAgLTM3NjAsNiArMzc2MCwxNiBAQCBp
-bnQgYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9hdG9taWNfZ2V0X3Byb3BlcnR5KHN0cnVjdCBkcm1fY29u
-bmVjdG9yICpjb25uZWN0b3IsDQo+ICAgCXJldHVybiByZXQ7DQo+ICAgfQ0KPiAgIA0KPiArc3Rh
-dGljIHZvaWQgYW1kZ3B1X2RtX2Nvbm5lY3Rvcl91bnJlZ2lzdGVyKHN0cnVjdCBkcm1fY29ubmVj
-dG9yICpjb25uZWN0b3IpDQo+ICt7DQo+ICsJc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFt
-ZGdwdV9kbV9jb25uZWN0b3IgPSB0b19hbWRncHVfZG1fY29ubmVjdG9yKGNvbm5lY3Rvcik7DQo+
-ICsNCj4gKwlpZiAoYW1kZ3B1X2RtX2Nvbm5lY3Rvci0+ZG1fZHBfYXV4Lmhhc19hdXgpIHsNCj4g
-KwkJZHJtX2RwX2F1eF91bnJlZ2lzdGVyKCZhbWRncHVfZG1fY29ubmVjdG9yLT5kbV9kcF9hdXgu
-YXV4KTsNCj4gKwkJYW1kZ3B1X2RtX2Nvbm5lY3Rvci0+ZG1fZHBfYXV4Lmhhc19hdXggPSBmYWxz
-ZTsNCj4gKwl9DQo+ICt9DQoNClRoaXMgaXMgYSBnb29kIGNhdGNoLCBidXQgSSdtIHByZXR0eSBz
-dXJlIHdlIGRvbid0IG5lZWQgdGhlIGhhc19hdXggDQpzdGF0ZSBoZXJlIGZvciB0aGlzLg0KDQpZ
-b3Ugc2hvdWxkIGJlIGFibGUgdG8gY2FsbCBkcm1fZHBfYXV4X3VucmVnaXN0ZXIgcmVnYXJkbGVz
-cyBvZiB3aGV0aGVyIA0KZHJtX2RwX2F1eF9yZWdpc3RlciBzdWNjZWVkZWQgb3Igbm90Lg0KDQpO
-aWNob2xhcyBLYXpsYXVza2FzDQoNCj4gKw0KPiAgIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb25u
-ZWN0b3JfZGVzdHJveShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQ0KPiAgIHsNCj4g
-ICAJc3RydWN0IGFtZGdwdV9kbV9jb25uZWN0b3IgKmFjb25uZWN0b3IgPSB0b19hbWRncHVfZG1f
-Y29ubmVjdG9yKGNvbm5lY3Rvcik7DQo+IEBAIC0zNzg4LDYgKzM3OTgsMTEgQEAgc3RhdGljIHZv
-aWQgYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9kZXN0cm95KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25u
-ZWN0b3IpDQo+ICAgCWRybV9kcF9jZWNfdW5yZWdpc3Rlcl9jb25uZWN0b3IoJmFjb25uZWN0b3It
-PmRtX2RwX2F1eC5hdXgpOw0KPiAgIAlkcm1fY29ubmVjdG9yX3VucmVnaXN0ZXIoY29ubmVjdG9y
-KTsNCj4gICAJZHJtX2Nvbm5lY3Rvcl9jbGVhbnVwKGNvbm5lY3Rvcik7DQo+ICsJaWYgKGFjb25u
-ZWN0b3ItPmkyYykgew0KPiArCQlpMmNfZGVsX2FkYXB0ZXIoJmFjb25uZWN0b3ItPmkyYy0+YmFz
-ZSk7DQo+ICsJCWtmcmVlKGFjb25uZWN0b3ItPmkyYyk7DQo+ICsJfQ0KPiArDQo+ICAgCWtmcmVl
-KGNvbm5lY3Rvcik7DQo+ICAgfQ0KPiAgIA0KPiBAQCAtMzg0Niw3ICszODYxLDggQEAgc3RhdGlj
-IGNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yX2Z1bmNzIGFtZGdwdV9kbV9jb25uZWN0b3JfZnVu
-Y3MgPSB7DQo+ICAgCS5hdG9taWNfZHVwbGljYXRlX3N0YXRlID0gYW1kZ3B1X2RtX2Nvbm5lY3Rv
-cl9hdG9taWNfZHVwbGljYXRlX3N0YXRlLA0KPiAgIAkuYXRvbWljX2Rlc3Ryb3lfc3RhdGUgPSBk
-cm1fYXRvbWljX2hlbHBlcl9jb25uZWN0b3JfZGVzdHJveV9zdGF0ZSwNCj4gICAJLmF0b21pY19z
-ZXRfcHJvcGVydHkgPSBhbWRncHVfZG1fY29ubmVjdG9yX2F0b21pY19zZXRfcHJvcGVydHksDQo+
-IC0JLmF0b21pY19nZXRfcHJvcGVydHkgPSBhbWRncHVfZG1fY29ubmVjdG9yX2F0b21pY19nZXRf
-cHJvcGVydHkNCj4gKwkuYXRvbWljX2dldF9wcm9wZXJ0eSA9IGFtZGdwdV9kbV9jb25uZWN0b3Jf
-YXRvbWljX2dldF9wcm9wZXJ0eSwNCj4gKwkuZWFybHlfdW5yZWdpc3RlciA9IGFtZGdwdV9kbV9j
-b25uZWN0b3JfdW5yZWdpc3Rlcg0KPiAgIH07DQo+ICAgDQo+ICAgc3RhdGljIGludCBnZXRfbW9k
-ZXMoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikNCj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX21zdF90eXBlcy5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVz
-LmMNCj4gaW5kZXggNmUyMDVlZS4uMTkwZTkyYyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVzLmMNCj4gKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fbXN0X3R5cGVz
-LmMNCj4gQEAgLTM4NywxMiArMzg3LDE2IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2RwX21z
-dF90b3BvbG9neV9jYnMgZG1fbXN0X2NicyA9IHsNCj4gICB2b2lkIGFtZGdwdV9kbV9pbml0aWFs
-aXplX2RwX2Nvbm5lY3RvcihzdHJ1Y3QgYW1kZ3B1X2Rpc3BsYXlfbWFuYWdlciAqZG0sDQo+ICAg
-CQkJCSAgICAgICBzdHJ1Y3QgYW1kZ3B1X2RtX2Nvbm5lY3RvciAqYWNvbm5lY3RvcikNCj4gICB7
-DQo+ICsJaW50IHJldDsNCj4gICAJYWNvbm5lY3Rvci0+ZG1fZHBfYXV4LmF1eC5uYW1lID0gImRt
-ZGMiOw0KPiAgIAlhY29ubmVjdG9yLT5kbV9kcF9hdXguYXV4LmRldiA9IGRtLT5hZGV2LT5kZXY7
-DQo+ICAgCWFjb25uZWN0b3ItPmRtX2RwX2F1eC5hdXgudHJhbnNmZXIgPSBkbV9kcF9hdXhfdHJh
-bnNmZXI7DQo+ICAgCWFjb25uZWN0b3ItPmRtX2RwX2F1eC5kZGNfc2VydmljZSA9IGFjb25uZWN0
-b3ItPmRjX2xpbmstPmRkYzsNCj4gICANCj4gLQlkcm1fZHBfYXV4X3JlZ2lzdGVyKCZhY29ubmVj
-dG9yLT5kbV9kcF9hdXguYXV4KTsNCj4gKwlyZXQgPSBkcm1fZHBfYXV4X3JlZ2lzdGVyKCZhY29u
-bmVjdG9yLT5kbV9kcF9hdXguYXV4KTsNCj4gKwlpZiAoIXJldCkNCj4gKwkJYWNvbm5lY3Rvci0+
-ZG1fZHBfYXV4Lmhhc19hdXggPSB0cnVlOw0KPiArDQo+ICAgCWRybV9kcF9jZWNfcmVnaXN0ZXJf
-Y29ubmVjdG9yKCZhY29ubmVjdG9yLT5kbV9kcF9hdXguYXV4LA0KPiAgIAkJCQkgICAgICBhY29u
-bmVjdG9yLT5iYXNlLm5hbWUsIGRtLT5hZGV2LT5kZXYpOw0KPiAgIAlhY29ubmVjdG9yLT5tc3Rf
-bWdyLmNicyA9ICZkbV9tc3RfY2JzOw0KPiANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+On Mon, May 06, 2019 at 06:30:51PM +0200, Andrey Konovalov wrote:
+>  /*
+>   * Wrappers to pass the pt_regs argument.
+>   */
+>  #define sys_personality		sys_arm64_personality
+> +#define sys_mmap_pgoff		sys_arm64_mmap_pgoff
+> +#define sys_mremap		sys_arm64_mremap
+> +#define sys_munmap		sys_arm64_munmap
+> +#define sys_brk			sys_arm64_brk
+> +#define sys_get_mempolicy	sys_arm64_get_mempolicy
+> +#define sys_madvise		sys_arm64_madvise
+> +#define sys_mbind		sys_arm64_mbind
+> +#define sys_mlock		sys_arm64_mlock
+> +#define sys_mlock2		sys_arm64_mlock2
+> +#define sys_munlock		sys_arm64_munlock
+> +#define sys_mprotect		sys_arm64_mprotect
+> +#define sys_msync		sys_arm64_msync
+> +#define sys_mincore		sys_arm64_mincore
+> +#define sys_remap_file_pages	sys_arm64_remap_file_pages
+> +#define sys_shmat		sys_arm64_shmat
+> +#define sys_shmdt		sys_arm64_shmdt
+
+This hunk should be (I sent a separate patch for sys_personality):
+
+@@ -160,23 +163,23 @@ SYSCALL_DEFINE1(arm64_shmdt, char __user *, shmaddr)
+ /*
+  * Wrappers to pass the pt_regs argument.
+  */
+-#define sys_personality		sys_arm64_personality
+-#define sys_mmap_pgoff		sys_arm64_mmap_pgoff
+-#define sys_mremap		sys_arm64_mremap
+-#define sys_munmap		sys_arm64_munmap
+-#define sys_brk			sys_arm64_brk
+-#define sys_get_mempolicy	sys_arm64_get_mempolicy
+-#define sys_madvise		sys_arm64_madvise
+-#define sys_mbind		sys_arm64_mbind
+-#define sys_mlock		sys_arm64_mlock
+-#define sys_mlock2		sys_arm64_mlock2
+-#define sys_munlock		sys_arm64_munlock
+-#define sys_mprotect		sys_arm64_mprotect
+-#define sys_msync		sys_arm64_msync
+-#define sys_mincore		sys_arm64_mincore
+-#define sys_remap_file_pages	sys_arm64_remap_file_pages
+-#define sys_shmat		sys_arm64_shmat
+-#define sys_shmdt		sys_arm64_shmdt
++#define __arm64_sys_personality		__arm64_sys_arm64_personality
++#define __arm64_sys_mmap_pgoff		__arm64_sys_arm64_mmap_pgoff
++#define __arm64_sys_mremap		__arm64_sys_arm64_mremap
++#define __arm64_sys_munmap		__arm64_sys_arm64_munmap
++#define __arm64_sys_brk			__arm64_sys_arm64_brk
++#define __arm64_sys_get_mempolicy	__arm64_sys_arm64_get_mempolicy
++#define __arm64_sys_madvise		__arm64_sys_arm64_madvise
++#define __arm64_sys_mbind		__arm64_sys_arm64_mbind
++#define __arm64_sys_mlock		__arm64_sys_arm64_mlock
++#define __arm64_sys_mlock2		__arm64_sys_arm64_mlock2
++#define __arm64_sys_munlock		__arm64_sys_arm64_munlock
++#define __arm64_sys_mprotect		__arm64_sys_arm64_mprotect
++#define __arm64_sys_msync		__arm64_sys_arm64_msync
++#define __arm64_sys_mincore		__arm64_sys_arm64_mincore
++#define __arm64_sys_remap_file_pages	__arm64_sys_arm64_remap_file_pages
++#define __arm64_sys_shmat		__arm64_sys_arm64_shmat
++#define __arm64_sys_shmdt		__arm64_sys_arm64_shmdt
+ 
+ asmlinkage long sys_ni_syscall(const struct pt_regs *);
+ #define __arm64_sys_ni_syscall	sys_ni_syscall
+
+-- 
+Catalin
