@@ -1,111 +1,62 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH 06/10] drm/ttm: fix busy memory to fail other user v10
-Date: Tue, 28 May 2019 18:25:53 +0200
-Message-ID: <20190528162557.1280-6-christian.koenig@amd.com>
-References: <20190528162557.1280-1-christian.koenig@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
+ syscalls
+Date: Tue, 28 May 2019 17:34:00 +0100
+Message-ID: <20190528163400.GE32006@arrakis.emea.arm.com>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+ <20190527143719.GA59948@MBP.local>
+ <20190528145411.GA709@e119886-lin.cambridge.arm.com>
+ <20190528154057.GD32006@arrakis.emea.arm.com>
+ <20190528155644.GD28398@e103592.cambridge.arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190528162557.1280-1-christian.koenig@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: David1.Zhou@amd.com, Marek.Olsak@amd.com, Prike.Liang@amd.com, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190528155644.GD28398@e103592.cambridge.arm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dave Martin <Dave.Martin@arm.com>
+Cc: Andrew Murray <andrew.murray@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Kevin Brodsky <kevin.brodsk>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Qk9zIG9uIHRoZSBMUlUgbWlnaHQgYmUgYmxvY2tlZCBkdXJpbmcgY29tbWFuZCBzdWJtaXNzaW9u
-CmFuZCBjYXVzZSBPT00gc2l0dWF0aW9ucy4KCkF2b2lkIHRoaXMgYnkgYmxvY2tpbmcgZm9yIHRo
-ZSBmaXJzdCBidXN5IEJPIG5vdCBsb2NrZWQgYnkKdGhlIHNhbWUgdGlja2V0IGFzIHRoZSBCTyB3
-ZSBhcmUgc2VhcmNoaW5nIHNwYWNlIGZvci4KCnYxMDogY29tcGxldGVseSBzdGFydCBvdmVyIHdp
-dGggdGhlIHBhdGNoIHNpbmNlIHdlIGRpZG4ndAogICAgIGhhbmRsZWQgYSB3aG9sZSBidW5jaCBv
-ZiBjb3JuZXIgY2FzZXMuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyB8IDc3
-ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDY2
-IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS90dG0vdHRtX2JvLmMgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCmluZGV4IDNi
-YzMxZGExZGY2Ny4uOThhYTkwMDU2ODA3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRt
-L3R0bV9iby5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKQEAgLTc3NCwzMiAr
-Nzc0LDcyIEBAIEVYUE9SVF9TWU1CT0wodHRtX2JvX2V2aWN0aW9uX3ZhbHVhYmxlKTsKICAqIGIu
-IE90aGVyd2lzZSwgdHJ5bG9jayBpdC4KICAqLwogc3RhdGljIGJvb2wgdHRtX2JvX2V2aWN0X3N3
-YXBvdXRfYWxsb3dhYmxlKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sCi0JCQlzdHJ1Y3Qg
-dHRtX29wZXJhdGlvbl9jdHggKmN0eCwgYm9vbCAqbG9ja2VkKQorCQkJc3RydWN0IHR0bV9vcGVy
-YXRpb25fY3R4ICpjdHgsIGJvb2wgKmxvY2tlZCwgYm9vbCAqYnVzeSkKIHsKIAlib29sIHJldCA9
-IGZhbHNlOwogCi0JKmxvY2tlZCA9IGZhbHNlOwogCWlmIChiby0+cmVzdiA9PSBjdHgtPnJlc3Yp
-IHsKIAkJcmVzZXJ2YXRpb25fb2JqZWN0X2Fzc2VydF9oZWxkKGJvLT5yZXN2KTsKIAkJaWYgKGN0
-eC0+ZmxhZ3MgJiBUVE1fT1BUX0ZMQUdfQUxMT1dfUkVTX0VWSUNUCiAJCSAgICB8fCAhbGlzdF9l
-bXB0eSgmYm8tPmRkZXN0cm95KSkKIAkJCXJldCA9IHRydWU7CisJCSpsb2NrZWQgPSBmYWxzZTsK
-KwkJaWYgKGJ1c3kpCisJCQkqYnVzeSA9IGZhbHNlOwogCX0gZWxzZSB7Ci0JCSpsb2NrZWQgPSBy
-ZXNlcnZhdGlvbl9vYmplY3RfdHJ5bG9jayhiby0+cmVzdik7Ci0JCXJldCA9ICpsb2NrZWQ7CisJ
-CXJldCA9IHJlc2VydmF0aW9uX29iamVjdF90cnlsb2NrKGJvLT5yZXN2KTsKKwkJKmxvY2tlZCA9
-IHJldDsKKwkJaWYgKGJ1c3kpCisJCQkqYnVzeSA9ICFyZXQ7CiAJfQogCiAJcmV0dXJuIHJldDsK
-IH0KIAorLyoqCisgKiB0dG1fbWVtX2V2aWN0X3dhaXRfYnVzeSAtIHdhaXQgZm9yIGEgYnVzeSBC
-TyB0byBiZWNvbWUgYXZhaWxhYmxlCisgKgorICogQGJ1c3lfYm86IEJPIHdoaWNoIGNvdWxkbid0
-IGJlIGxvY2tlZCB3aXRoIHRyeWxvY2sKKyAqIEBjdHg6IG9wZXJhdGlvbiBjb250ZXh0CisgKiBA
-dGlja2V0OiBhY3F1aXJlIHRpY2tldAorICoKKyAqIFRyeSB0byBsb2NrIGEgYnVzeSBidWZmZXIg
-b2JqZWN0IHRvIGF2b2lkIGZhaWxpbmcgZXZpY3Rpb24uCisgKi8KK3N0YXRpYyBpbnQgdHRtX21l
-bV9ldmljdF93YWl0X2J1c3koc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpidXN5X2JvLAorCQkJ
-CSAgIHN0cnVjdCB0dG1fb3BlcmF0aW9uX2N0eCAqY3R4LAorCQkJCSAgIHN0cnVjdCB3d19hY3F1
-aXJlX2N0eCAqdGlja2V0KQoreworCWludCByOworCisJaWYgKCFidXN5X2JvIHx8ICF0aWNrZXQp
-CisJCXJldHVybiAtRUJVU1k7CisKKwlpZiAoY3R4LT5pbnRlcnJ1cHRpYmxlKQorCQlyID0gcmVz
-ZXJ2YXRpb25fb2JqZWN0X2xvY2tfaW50ZXJydXB0aWJsZShidXN5X2JvLT5yZXN2LAorCQkJCQkJ
-CSAgdGlja2V0KTsKKwllbHNlCisJCXIgPSByZXNlcnZhdGlvbl9vYmplY3RfbG9jayhidXN5X2Jv
-LT5yZXN2LCB0aWNrZXQpOworCisJLyoKKwkgKiBUT0RPOiBJdCB3b3VsZCBiZSBiZXR0ZXIgdG8g
-a2VlcCB0aGUgQk8gbG9ja2VkIHVudGlsIGFsbG9jYXRpb24gaXMgYXQKKwkgKiBsZWFzdCB0cmll
-ZCBvbmUgbW9yZSB0aW1lLCBidXQgdGhhdCB3b3VsZCBtZWFuIGEgbXVjaCBsYXJnZXIgcmV3b3Jr
-CisJICogb2YgVFRNLgorCSAqLworCWlmICghcikKKwkJcmVzZXJ2YXRpb25fb2JqZWN0X3VubG9j
-ayhidXN5X2JvLT5yZXN2KTsKKworCXJldHVybiByID09IC1FREVBRExLID8gLUVBR0FJTiA6IHI7
-Cit9CisKIHN0YXRpYyBpbnQgdHRtX21lbV9ldmljdF9maXJzdChzdHJ1Y3QgdHRtX2JvX2Rldmlj
-ZSAqYmRldiwKIAkJCSAgICAgICB1aW50MzJfdCBtZW1fdHlwZSwKIAkJCSAgICAgICBjb25zdCBz
-dHJ1Y3QgdHRtX3BsYWNlICpwbGFjZSwKLQkJCSAgICAgICBzdHJ1Y3QgdHRtX29wZXJhdGlvbl9j
-dHggKmN0eCkKKwkJCSAgICAgICBzdHJ1Y3QgdHRtX29wZXJhdGlvbl9jdHggKmN0eCwKKwkJCSAg
-ICAgICBzdHJ1Y3Qgd3dfYWNxdWlyZV9jdHggKnRpY2tldCkKIHsKKwlzdHJ1Y3QgdHRtX2J1ZmZl
-cl9vYmplY3QgKmJvID0gTlVMTCwgKmJ1c3lfYm8gPSBOVUxMOwogCXN0cnVjdCB0dG1fYm9fZ2xv
-YmFsICpnbG9iID0gYmRldi0+Z2xvYjsKIAlzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1h
-biA9ICZiZGV2LT5tYW5bbWVtX3R5cGVdOwotCXN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8g
-PSBOVUxMOwogCWJvb2wgbG9ja2VkID0gZmFsc2U7CiAJdW5zaWduZWQgaTsKIAlpbnQgcmV0OwpA
-QCAtODA3LDggKzg0NywxNSBAQCBzdGF0aWMgaW50IHR0bV9tZW1fZXZpY3RfZmlyc3Qoc3RydWN0
-IHR0bV9ib19kZXZpY2UgKmJkZXYsCiAJc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7CiAJZm9y
-IChpID0gMDsgaSA8IFRUTV9NQVhfQk9fUFJJT1JJVFk7ICsraSkgewogCQlsaXN0X2Zvcl9lYWNo
-X2VudHJ5KGJvLCAmbWFuLT5scnVbaV0sIGxydSkgewotCQkJaWYgKCF0dG1fYm9fZXZpY3Rfc3dh
-cG91dF9hbGxvd2FibGUoYm8sIGN0eCwgJmxvY2tlZCkpCisJCQlib29sIGJ1c3k7CisKKwkJCWlm
-ICghdHRtX2JvX2V2aWN0X3N3YXBvdXRfYWxsb3dhYmxlKGJvLCBjdHgsICZsb2NrZWQsCisJCQkJ
-CQkJICAgICZidXN5KSkgeworCQkJCWlmIChidXN5ICYmICFidXN5X2JvICYmCisJCQkJICAgIGJv
-LT5yZXN2LT5sb2NrLmN0eCAhPSB0aWNrZXQpCisJCQkJCWJ1c3lfYm8gPSBibzsKIAkJCQljb250
-aW51ZTsKKwkJCX0KIAogCQkJaWYgKHBsYWNlICYmICFiZGV2LT5kcml2ZXItPmV2aWN0aW9uX3Zh
-bHVhYmxlKGJvLAogCQkJCQkJCQkgICAgICBwbGFjZSkpIHsKQEAgLTgyNyw4ICs4NzQsMTMgQEAg
-c3RhdGljIGludCB0dG1fbWVtX2V2aWN0X2ZpcnN0KHN0cnVjdCB0dG1fYm9fZGV2aWNlICpiZGV2
-LAogCX0KIAogCWlmICghYm8pIHsKKwkJaWYgKGJ1c3lfYm8pCisJCQl0dG1fYm9fZ2V0KGJ1c3lf
-Ym8pOwogCQlzcGluX3VubG9jaygmZ2xvYi0+bHJ1X2xvY2spOwotCQlyZXR1cm4gLUVCVVNZOwor
-CQlyZXQgPSB0dG1fbWVtX2V2aWN0X3dhaXRfYnVzeShidXN5X2JvLCBjdHgsIHRpY2tldCk7CisJ
-CWlmIChidXN5X2JvKQorCQkJdHRtX2JvX3B1dChidXN5X2JvKTsKKwkJcmV0dXJuIHJldDsKIAl9
-CiAKIAlrcmVmX2dldCgmYm8tPmxpc3Rfa3JlZik7CkBAIC05MTQsNyArOTY2LDggQEAgc3RhdGlj
-IGludCB0dG1fYm9fbWVtX2ZvcmNlX3NwYWNlKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8s
-CiAJCQlyZXR1cm4gcmV0OwogCQlpZiAobWVtLT5tbV9ub2RlKQogCQkJYnJlYWs7Ci0JCXJldCA9
-IHR0bV9tZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVtLT5tZW1fdHlwZSwgcGxhY2UsIGN0eCk7CisJ
-CXJldCA9IHR0bV9tZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVtLT5tZW1fdHlwZSwgcGxhY2UsIGN0
-eCwKKwkJCQkJICBiby0+cmVzdi0+bG9jay5jdHgpOwogCQlpZiAodW5saWtlbHkocmV0ICE9IDAp
-KQogCQkJcmV0dXJuIHJldDsKIAl9IHdoaWxlICgxKTsKQEAgLTE0MjksNyArMTQ4Miw4IEBAIHN0
-YXRpYyBpbnQgdHRtX2JvX2ZvcmNlX2xpc3RfY2xlYW4oc3RydWN0IHR0bV9ib19kZXZpY2UgKmJk
-ZXYsCiAJZm9yIChpID0gMDsgaSA8IFRUTV9NQVhfQk9fUFJJT1JJVFk7ICsraSkgewogCQl3aGls
-ZSAoIWxpc3RfZW1wdHkoJm1hbi0+bHJ1W2ldKSkgewogCQkJc3Bpbl91bmxvY2soJmdsb2ItPmxy
-dV9sb2NrKTsKLQkJCXJldCA9IHR0bV9tZW1fZXZpY3RfZmlyc3QoYmRldiwgbWVtX3R5cGUsIE5V
-TEwsICZjdHgpOworCQkJcmV0ID0gdHRtX21lbV9ldmljdF9maXJzdChiZGV2LCBtZW1fdHlwZSwg
-TlVMTCwgJmN0eCwKKwkJCQkJCSAgTlVMTCk7CiAJCQlpZiAocmV0KQogCQkJCXJldHVybiByZXQ7
-CiAJCQlzcGluX2xvY2soJmdsb2ItPmxydV9sb2NrKTsKQEAgLTE4MDAsNyArMTg1NCw4IEBAIGlu
-dCB0dG1fYm9fc3dhcG91dChzdHJ1Y3QgdHRtX2JvX2dsb2JhbCAqZ2xvYiwgc3RydWN0IHR0bV9v
-cGVyYXRpb25fY3R4ICpjdHgpCiAJc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7CiAJZm9yIChp
-ID0gMDsgaSA8IFRUTV9NQVhfQk9fUFJJT1JJVFk7ICsraSkgewogCQlsaXN0X2Zvcl9lYWNoX2Vu
-dHJ5KGJvLCAmZ2xvYi0+c3dhcF9scnVbaV0sIHN3YXApIHsKLQkJCWlmICh0dG1fYm9fZXZpY3Rf
-c3dhcG91dF9hbGxvd2FibGUoYm8sIGN0eCwgJmxvY2tlZCkpIHsKKwkJCWlmICh0dG1fYm9fZXZp
-Y3Rfc3dhcG91dF9hbGxvd2FibGUoYm8sIGN0eCwgJmxvY2tlZCwKKwkJCQkJCQkgICBOVUxMKSkg
-ewogCQkJCXJldCA9IDA7CiAJCQkJYnJlYWs7CiAJCQl9Ci0tIAoyLjE3LjEKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxp
-c3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+On Tue, May 28, 2019 at 04:56:45PM +0100, Dave P Martin wrote:
+> On Tue, May 28, 2019 at 04:40:58PM +0100, Catalin Marinas wrote:
+> 
+> [...]
+> 
+> > My thoughts on allowing tags (quick look):
+> >
+> > brk - no
+> 
+> [...]
+> 
+> > mlock, mlock2, munlock - yes
+> > mmap - no (we may change this with MTE but not for TBI)
+> 
+> [...]
+> 
+> > mprotect - yes
+> 
+> I haven't following this discussion closely... what's the rationale for
+> the inconsistencies here (feel free to refer me back to the discussion
+> if it's elsewhere).
+
+_My_ rationale (feel free to disagree) is that mmap() by default would
+not return a tagged address (ignoring MTE for now). If it gets passed a
+tagged address or a "tagged NULL" (for lack of a better name) we don't
+have clear semantics of whether the returned address should be tagged in
+this ABI relaxation. I'd rather reserve this specific behaviour if we
+overload the non-zero tag meaning of mmap() for MTE. Similar reasoning
+for mremap(), at least on the new_address argument (not entirely sure
+about old_address).
+
+munmap() should probably follow the mmap() rules.
+
+As for brk(), I don't see why the user would need to pass a tagged
+address, we can't associate any meaning to this tag.
+
+For the rest, since it's likely such addresses would have been tagged by
+malloc() in user space, we should allow tagged pointers.
+
+-- 
+Catalin
