@@ -1,62 +1,155 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
- syscalls
-Date: Tue, 28 May 2019 17:34:00 +0100
-Message-ID: <20190528163400.GE32006@arrakis.emea.arm.com>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
- <20190527143719.GA59948@MBP.local>
- <20190528145411.GA709@e119886-lin.cambridge.arm.com>
- <20190528154057.GD32006@arrakis.emea.arm.com>
- <20190528155644.GD28398@e103592.cambridge.arm.com>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Subject: Re: [PATCH 01/13] drm/amdgpu: introduce and honour DRM_FORCE_AUTH
+ workaround
+Date: Tue, 28 May 2019 17:46:10 +0100
+Message-ID: <20190528164610.GC2768@arch-x1c3>
+References: <20190527132041.GP21222@phenom.ffwll.local>
+ <20190527132607.GH15067@arch-x1c3>
+ <0426fb3e-e7bc-2464-cb42-4d5753956d23@amd.com>
+ <CAKMK7uE_pRro8PxTwUq+pC_1GVVT7nUxan1T-kqSYT=BMHTf2g@mail.gmail.com>
+ <d12a7dd4-595b-d0aa-a87d-527392fb0384@amd.com>
+ <CAKMK7uE1ZWjCeg3q7qDrbcj89+DuPQwfjMqC8hTjDAMU5bhh-w@mail.gmail.com>
+ <98c3d891-6966-2043-9709-4e718dbc6bac@amd.com>
+ <CAKMK7uGsc7WzBBrfxape4Yy7fbKoDFH5J2F87Kx=7rE1+pXcXw@mail.gmail.com>
+ <20190528161051.GB2768@arch-x1c3>
+ <9530c9bc-0cd2-72b1-34fc-d697df8f32f1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-In-Reply-To: <20190528155644.GD28398@e103592.cambridge.arm.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Dave Martin <Dave.Martin@arm.com>
-Cc: Andrew Murray <andrew.murray@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Kevin Brodsky <kevin.brodsk>
+In-Reply-To: <9530c9bc-0cd2-72b1-34fc-d697df8f32f1@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, David Airlie <airlied@linux.ie>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, May 28, 2019 at 04:56:45PM +0100, Dave P Martin wrote:
-> On Tue, May 28, 2019 at 04:40:58PM +0100, Catalin Marinas wrote:
-> 
-> [...]
-> 
-> > My thoughts on allowing tags (quick look):
-> >
-> > brk - no
-> 
-> [...]
-> 
-> > mlock, mlock2, munlock - yes
-> > mmap - no (we may change this with MTE but not for TBI)
-> 
-> [...]
-> 
-> > mprotect - yes
-> 
-> I haven't following this discussion closely... what's the rationale for
-> the inconsistencies here (feel free to refer me back to the discussion
-> if it's elsewhere).
-
-_My_ rationale (feel free to disagree) is that mmap() by default would
-not return a tagged address (ignoring MTE for now). If it gets passed a
-tagged address or a "tagged NULL" (for lack of a better name) we don't
-have clear semantics of whether the returned address should be tagged in
-this ABI relaxation. I'd rather reserve this specific behaviour if we
-overload the non-zero tag meaning of mmap() for MTE. Similar reasoning
-for mremap(), at least on the new_address argument (not entirely sure
-about old_address).
-
-munmap() should probably follow the mmap() rules.
-
-As for brk(), I don't see why the user would need to pass a tagged
-address, we can't associate any meaning to this tag.
-
-For the rest, since it's likely such addresses would have been tagged by
-malloc() in user space, we should allow tagged pointers.
-
--- 
-Catalin
+T24gMjAxOS8wNS8yOCwgS29lbmlnLCBDaHJpc3RpYW4gd3JvdGU6Cj4gQW0gMjguMDUuMTkgdW0g
+MTg6MTAgc2NocmllYiBFbWlsIFZlbGlrb3Y6Cj4gPiBPbiAyMDE5LzA1LzI4LCBEYW5pZWwgVmV0
+dGVyIHdyb3RlOgo+ID4+IE9uIFR1ZSwgTWF5IDI4LCAyMDE5IGF0IDEwOjAzIEFNIEtvZW5pZywg
+Q2hyaXN0aWFuCj4gPj4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj4gPj4+IEFt
+IDI4LjA1LjE5IHVtIDA5OjM4IHNjaHJpZWIgRGFuaWVsIFZldHRlcjoKPiA+Pj4+IFtTTklQXQo+
+ID4+Pj4+IE1pZ2h0IGJlIGEgZ29vZCBpZGVhIGxvb2tpbmcgaW50byByZXZlcnRpbmcgaXQgcGFy
+dGlhbGx5LCBzbyB0aGF0IGF0Cj4gPj4+Pj4gbGVhc3QgY29tbWFuZCBzdWJtaXNzaW9uIGFuZCBi
+dWZmZXIgYWxsb2NhdGlvbiBpcyBzdGlsbCBibG9ja2VkLgo+ID4+Pj4gSSB0aG91Z2h0IHRoZSBp
+c3N1ZSBpcyBhIGxvdCBtb3JlIHRoYW4gdmFpbmZvLCBpdCdzIHByZXR0eSBtdWNoIGV2ZXJ5Cj4g
+Pj4+PiBoYWNrZWQgdXAgY29tcG9zaXRvciB1bmRlciB0aGUgc3VuIGdldHRpbmcgdGhpcyB3cm9u
+ZyBvbmUgd2F5IG9yCj4gPj4+PiBhbm90aGVyLiBUaGlua2luZyBhYm91dCB0aGlzIHNvbWUgbW9y
+ZSwgSSBhbHNvIGhhdmUgbm8gaWRlYSBob3cgeW91J2QKPiA+Pj4+IHdhbnQgdG8gZGVwcmVjYXRl
+IHJlbmRlcmluZyBvbiBwcmltYXJ5IG5vZGVzIGluIGdlbmVyYWwuIEFwcGFyZW50bHkKPiA+Pj4+
+IHRoYXQgYnJlYWtzIC1tb2Rlc2V0dGluZyBhbHJlYWR5LCBhbmQgcHJvYmFibHkgbG90cyBtb3Jl
+IGNvbXBvc2l0b3JzLgo+ID4+Pj4gQW5kIGl0IGxvb2tzIGxpa2Ugd2UncmUgZmluYWxseSBhY2hp
+ZXZlIHRoZSBnb2FsIGttcyBzZXQgb3V0IHRvIDEwCj4gPj4+PiB5ZWFycyBhZ28sIGFuZCBuZXcg
+Y29tcG9zaXRvcnMgYXJlIHNwcm91dGluZyB1cCBhbGwgdGhlIHRpbWUuIEkgZ3Vlc3MKPiA+Pj4+
+IHdlIGNvdWxkIGp1c3QgYnJlYWsgdGhlbSBhbGwgKG9uIG5ldyBoYXJkd2FyZSkgYW5kIHRlbGwg
+dGhlbSB0byBhbGwKPiA+Pj4+IHN1Y2sgaXQgdXAuIEJ1dCBJIGRvbid0IHRoaW5rIHRoYXQncyBh
+IGdyZWF0IG9wdGlvbi4gQW5kIGp1c3QKPiA+Pj4+IGRlcHJlY2F0aW5nIHRoaXMgb24gYW1kZ3B1
+IGlzIGdvaW5nIHRvIGJlIGV2ZW4gaGFyZGVyLCBzaW5jZSB0aGVuCj4gPj4+PiBldmVyeXdoZXJl
+IGVsc2UgaXQnbGwga2VlcCB3b3JraW5nLCBhbmQgaXQncyBqdXN0IGFtZGdwdS5rbyB0aGF0IGxv
+b2tzCj4gPj4+PiBicm9rZW4uCj4gPj4+Pgo+ID4+Pj4gQXNpZGU6IEknbSBub3Qgc3VwcG9ydGlu
+ZyBFbWlsJ3MgaWRlYSBoZXJlIGJlY2F1c2UgaXQgZml4ZXMgYW55IGlzc3Vlcwo+ID4+Pj4gSW50
+ZWwgaGFzIC0gSW50ZWwgZG9lc24ndCBjYXJlLiBJIHN1cHBvcnQgaXQgYmVjYXVzZSByZWFsaXR5
+IHN1Y2tzLAo+ID4+Pj4gcGVvcGxlIGdldCB0aGlzIHJlbmRlciB2cy4gcHJpbWFyeSB2cy4gbXVs
+dGktZ3B1IHByaW1lIHdyb25nIGFsbCB0aGUKPiA+Pj4+IHRpbWUgKHRoYXQncyBhbHNvIHdoeSB3
+ZSBoYXZlIGhhcmRjb2RlZCBkaXNwbGF5K2dwdSBwYWlycyBpbiBtZXNhIGZvcgo+ID4+Pj4gdGhl
+IHZhcmlvdXMgc29jIGNvbWJpbmF0aW9ucyBvdXQgdGhlcmUpLCBhbmQgdGhpcyBsb29rcyBsaWtl
+IGEKPiA+Pj4+IHByYWdtYXRpYyBzb2x1dGlvbi4gSXQnZCBiZSBuaWNlIGlmIGV2ZXJ5IGNvbXBv
+c2l0b3IgYW5kIGV2ZXJ5dGhpbmcKPiA+Pj4+IGVsc2Ugd291bGQgcGVyZmVjdGx5IHN1cHBvcnQg
+bXVsdGkgZ3B1IGFuZCBvbmx5IHVzZSByZW5kZXIgbm9kZXMgZm9yCj4gPj4+PiByZW5kZXJpbmcs
+IGFuZCBvbmx5IHByaW1hcnkgbm9kZXMgZm9yIGRpc3BsYXkuIEJ1dCByZWFsaXR5IGlzIHRoYXQK
+PiA+Pj4+IHBlb3BsZSBoYWNrIG9uIHN0dWZmIHVudGlsIGdlYXJzIG9uIHNjcmVlbiBhbmQgdGhl
+biBtb3ZlIG9uIHRvIG1vcmUKPiA+Pj4+IGludGVyZXN0aW5nIHRoaW5ncyAodG8gdGhlbSkuIFNv
+IEkgZG9uJ3QgdGhpbmsgd2UnbGwgZXZlciB3aW4gdGhpcyA6LS8KPiA+Pj4gWWVhaCwgYnV0IHRo
+aXMgaXMgYSBjbGFzc2ljIGNhc2Ugb2Ygd29ya2luZyBhcm91bmQgdXNlciBzcGFjZSBpc3N1ZXMg
+YnkKPiA+Pj4gbWFraW5nIGtlcm5lbCBjaGFuZ2VzIGluc3RlYWQgb2YgZml4aW5nIHVzZXIgc3Bh
+Y2UuCj4gPj4+Cj4gPj4+IEhhdmluZyBwcml2aWxlZ2VkIChvdXRwdXQgY29udHJvbCkgYW5kIHVu
+cHJpdmlsZWdlZCAocmVuZGVyaW5nIGNvbnRyb2wpCj4gPj4+IGZ1bmN0aW9uYWxpdHkgYmVoaW5k
+IHRoZSBzYW1lIG5vZGUgaXMgYSBtaXN0YWtlIHdlIGhhdmUgbWFkZSBhIGxvbmcgdGltZQo+ID4+
+PiBhZ28gYW5kIHJlbmRlciBub2RlcyBmaW5hbGx5IHNlZW1lZCB0byBiZSBhIHdheSB0byBmaXgg
+dGhhdC4KPiA+Pj4KPiA+Pj4gSSBtZWFuIHdoeSBhcmUgY29tcG9zaXRvcnMgdXNpbmcgdGhlIHBy
+aW1hcnkgbm9kZSBpbiB0aGUgZmlyc3QgcGxhY2U/Cj4gPj4+IEJlY2F1c2UgdGhleSB3YW50IHRv
+IGhhdmUgYWNjZXNzIHRvIHByaXZpbGVnZWQgcmVzb3VyY2VzIEkgdGhpbmsgYW5kIGluCj4gPj4+
+IHRoaXMgY2FzZSBpdCBpcyBwZXJmZWN0bHkgb2sgdG8gZG8gc28uCj4gPj4+Cj4gPj4+IE5vdyBl
+eHRlbmRpbmcgdW5wcml2aWxlZ2VkIGFjY2VzcyB0byB0aGUgcHJpbWFyeSBub2RlIGFjdHVhbGx5
+IHNvdW5kcwo+ID4+PiBsaWtlIGEgc3RlcCBpbnRvIHRoZSB3cm9uZyBkaXJlY3Rpb24gdG8gbWUu
+Cj4gPj4+Cj4gPj4+IEkgcmF0aGVyIHRoaW5rIHRoYXQgd2Ugc2hvdWxkIGdvIGRvd24gdGhlIHJv
+dXRlIG9mIGNvbXBsZXRlbHkgZHJvcHBpbmcKPiA+Pj4gY29tbWFuZCBzdWJtaXNzaW9uIGFuZCBi
+dWZmZXIgYWxsb2NhdGlvbiB0aHJvdWdoIHRoZSBwcmltYXJ5IG5vZGUgZm9yCj4gPj4+IG5vbiBt
+YXN0ZXIgY2xpZW50cy4gQW5kIHRoZW4gYXMgbmV4dCBzdGVwIGF0IHNvbWUgcG9pbnQgZHJvcCBz
+dXBwb3J0IGZvcgo+ID4+PiBhdXRoZW50aWNhdGlvbi9mbGluay4KPiA+Pj4KPiA+Pj4gSSBtZWFu
+IHdlIGhhdmUgZG9uZSB0aGlzIHdpdGggVU1TIGFzIHdlbGwgYW5kIEkgZG9uJ3Qgc2VlIG11Y2gg
+b3RoZXIgd2F5Cj4gPj4+IHRvIG1vdmUgZm9yd2FyZCBhbmQgZ2V0IHJpZCBvZiB0aG9zZSBhbmNp
+ZW50IGludGVyZmFjZSBpbiB0aGUgbG9uZyB0ZXJtLgo+ID4+IFdlbGwga21zIGhhZCBzb21lIHJl
+YWxseSBnb29kIGJlbmVmaXRzIHRoYXQgZHJvdmUgcXVpY2sgYWRvcHRpb24sIGxpa2UKPiA+PiAi
+c3VzcGVuZC9yZXN1bWUgYWN0dWFsbHkgaGFzIGEgY2hhbmNlIG9mIHdvcmtpbmciIG9yICJjb21l
+cyB3aXRoCj4gPj4gYnVmZmVyIG1hbmFnZW1lbnQgc28geW91IGNhbiBydW4gbXVsdGlwbGUgZ2Vh
+cnMiLgo+ID4+Cj4gPj4gVGhlIHJlbmRlciBub2RlIHRoaW5nIGlzIGEgbG90IG1vcmUgbmljaGUg
+dXNlIGNhc2UgKHByaW1lLCBiZXR0ZXIgcHJpdgo+ID4+IHNlcGFyYXRpb24pLCBwbHVzICJpdCdz
+IGNsZWFuZXIgZGVzaWduIi4gQW5kIHRoZSAiY2xlYW5lciBkZXNpZ24iIHBhcnQKPiA+PiBpcyBz
+b21ldGhpbmcgdGhhdCBlbXBpcmljYWxseSBkb2Vzbid0IHNlZW0gdG8gbWF0dGVyIDotLyBKdXN0
+IHR3bwo+ID4+IGV4YW1wbGVzOgo+ID4+IC0gS0hSX2Rpc3BsYXkvbGVhc2VzIGp1c3QgaXRlcmF0
+ZWQgZGlzcGxheSByZXNvdXJjZXMgb24gdGhlIGZkIG5lZWRlZAo+ID4+IGZvciByZW5kZXJpbmcg
+KGFuZCBpaXJjIHRoZXJlIHdhcyBldmVuIGEgcGF0Y2ggdG8gZXhwb3NlIHRoYXQgZm9yCj4gPj4g
+cmVuZGVyIG5vZGVzIHRvbyBzbyBpdCB3b3JrcyB3aXRoIERSSTMpLCBiZWNhdXNlIGltcGxlbWVu
+dGluZwo+ID4+IHByb3RvY29scyBpcyB0b28gaGFyZC4gQmFyZWx5IG1hbmFnZWQgdG8gc3RvcCB0
+aGF0IG9uZSBiZWZvcmUgaXQKPiA+PiBoYXBwZW5lZC4KPiA+PiAtIFZhcmlvdXMgdmlkZW8gcGxh
+eWVycyB1c2UgdGhlIHZibGFuayBpb2N0bCBvbiBkaXJlY3RseSB0byBzY2hlZHVsZQo+ID4+IGZy
+YW1lcywgd2l0aG91dCB0ZWxsaW5nIHRoZSBjb21wb3NpdG9yLiBJIGRpc2NvdmVyZWQgdGhhdCB3
+aGVuIEkKPiA+PiB3YW50ZWQgdG8gbGltaXRlIHRoZSB2YmxhbmsgaW9jdGwgdG8gbWFzdGVyIGNs
+aWVudHMgb25seS4gQWdhaW4sCj4gPj4gYXBwYXJlbnRseSB0b28gaGFyZCB0byB1c2UgdGhlIGV4
+aXN0aW5nIGV4dGVuc2lvbnMsIG9yIGZpeCB0aGUgYnVncyBpbgo+ID4+IHRoZXJlLCBvciB3aGF0
+ZXZlci4gT25lIHVzZXJzcGFjZSBnb3QgZml4ZWQgbGFzdCB5ZWFyLCBidXQgaXQnbGwKPiA+PiBw
+cm9iYWJseSBnZXQgY29weXBhc3RlZCBhcm91bmQgZm9yZXZlciA6LS8KPiA+Pgo+ID4+IFNvIEkg
+ZG9uJ3QgdGhpbmsgd2UnbGwgZXZlciBtYW5hZ2UgdG8gcm9sbCBhIGNsZWFuIHNwbGl0IG91dCwg
+YW5kIGJlc3QKPiA+PiB3ZSBjYW4gZG8gaXMgZ2l2ZSBpbiBhbmQganVzdCBoYW5kIHVzZXJzcGFj
+ZSB3aGF0IGl0IHdhbnRzLiBBcyBtdWNoIGFzCj4gPj4gdGhhdCdzIG1pc2d1aWRlZCBhbmQgdW5j
+bGVhbiBhbmQgYWxsIHRoYXQuIE1heWJlIGl0J2xsIHJlc3VsdCBpbiBhCj4gPj4gbGVhc3QgZmV3
+ZXIgc3R1ZmYgZ2V0dGluZyBydW4gYXMgcm9vdCB0byBoYWNrIGFyb3VuZCB0aGlzLCBiZWNhdXNl
+Cj4gPj4gZml4aW5nIHByb3Blcmx5IHNlZW1zIG5vdCB0byBiZSBvbiB0aGUgdGFibGUuCj4gPj4K
+PiA+PiBUaGUgYmVhdXR5IG9mIGttcyBpcyB0aGF0IHdlJ3ZlIGFjaGlldmVkIHRoZSBtaXNzaW9u
+LCBldmVyeW9uZSdzCj4gPj4gd3JpdGluZyB0aGVpciBvd24gdGhpbmcuIFdoaWNoIGlzIGFsc28g
+dGVycmlibGUsIGFuZCBJIGRvbid0IHRoaW5rCj4gPj4gaXQnbGwgZ2V0IGJldHRlci4KPiA+Cj4g
+PiBXaXRoIHRoZSByaXNrIG9mIGNvbWluZyBydWRlIEkgd2lsbCByZXBlYXQgbXkgZWFybGllciBj
+b21tZW50Ogo+ID4KPiA+IFRoZSBwcm9ibGVtIGlzIF9uZWl0aGVyXyBJbnRlbCBub3IgbGlidmEg
+c3BlY2lmaWMuCj4gPgo+ID4KPiA+Cj4gPiBUaGF0IHNhaWQsIGxldCdzIHN0ZXAgYmFjayBmb3Ig
+YSBtb21lbnQgYW5kIGNvbnNpZGVyOgo+ID4KPiA+ICAgLSB0aGUgImJsb2NrIGV2ZXJ5dGhpbmcg
+YnV0IEtNUyB2aWEgdGhlIHByaW1hcnkgbm9kZSIgaWRlYSBpcyBncmVhdCBidXQKPiA+IG9ydGhv
+Z29uYWwKPiA+Cj4gPiAgIC0gdGhlIHNlcmllcyBkb2VzIGFkZHJlc3MgaXNzdWVzIHRoYXQgYXJl
+IHZlbmRvci1hZ25vc3RpYwo+ID4KPiA+ICAgLSBieSBkZWZhdWx0IHRoaXMgc2VyaWVzIGRvZXMg
+X25vdF8gY2F1c2UgYW55IHJlZ3Jlc3Npb24gYmUgdGhhdCBmb3IKPiA+IG5ldyBvciBvbGQgdXNl
+cnNwYWNlCj4gPgo+ID4gICAtIHRoZXJlIGFyZSB0d28gdHJpdmlhbCBzb2x1dGlvbnMsIGlmIHRo
+ZSBBTUQgdGVhbSBoYXMgY29uY2VybnMgYWJvdXQKPiA+IGNsb3NlZC1zb3VyY2UvcHJpdmF0ZSBz
+dGFjayBkZXBlbmRpbmcgb24gdGhlIG9sZCBiZWhhdmlvdXIKPiA+IElmIHRoZXkgd2FudCBJIGNh
+biBldmVuIHdyaXRlIHRoZSBwYXRjaGVzIDstKQo+ID4KPiA+Cj4gPiBUaGF0IHNhaWQsIHRoZSBu
+b3RhYmxlIGNvbW1lbnRzIHJlY2VpdmVkIHNvIGZhciBhcmU6Cj4gPiAgIC0gcmV3b3JrIHBhdGNo
+IDEzLzEzIHRvIHJlbW92ZSB0aGUgRFJNX0FVVEggZnJvbSBwcmltZSBmZCB0by9mcm9tCj4gPiBo
+YW5kbGUuIEknbSBPSyBidXQgdGhpcyB3aWxsIGNoYW5nZSB0aGUgcmV0dXJuIGNvZGUgLSBmcm9t
+IEVBQ0NFUyB0bwo+ID4gRU5PU1lTCj4gPgo+ID4gICAtIHZtd2dmeCB3aWxsIG5lZWQgYSBjaGVj
+ayBvbiB0aGUgcmVmZXJlbmNlIGlvY3RsKHMpIC0gSUlSQyBUaG9tYXMgaXMKPiA+IHBsYW5uaW5n
+IHRvIGRyb3AgbmVhcmx5IGFsbCBEUk1fQVVUSCBpbnN0YW5jZXMgaW4gdGhlaXIgZHJpdmVyLgo+
+ID4KPiA+Cj4gPiBDaHJpc3RpYW4sIGFzIG1lbnRpb25lZCBiZWZvcmUgLSB0aGlzIHNlcmllcyBk
+b2VzIF9ub3RfIGFkZAo+ID4gZnVuY3Rpb25hbGl0eSB0byByZW5kZXIgbm9kZXMuIEl0IGVmZmVj
+dGl2ZWx5IHBhdmVzIGEgd2F5IHRvd2FyZHMKPiA+IHJlbW92aW5nIERSTV9BVVRILgo+IAo+IEJ1
+dCBpdCBhZGRzIGZ1bmN0aW9uYWxpdHkgdG8gdGhlIHByaW1hcnkgbm9kZS4KPiAKQmVoYXZpb3Vy
+IGlzIGFkanVzdGVkIC0gZnVuY3Rpb25hbGl0eSB3YXMgdGhlcmUgc2luY2UgZGF5IDEuCgo+ID4g
+SSB1bmRlcnN0YW5kIHRoZSBzZXJpZXMgbWF5IGZlZWwgYSBiaXQgZGlydHkuIFlldCBJIHdvdWxk
+IGdsYWRseSBhZGRyZXNzCj4gPiBhbnkgdGVjaG5pY2FsIGNvbmNlcm5zIHlvdSBoYXZlLgo+IAo+
+IFdlbGwgcHV0dGluZyBjb21wYXRpYmlsaXR5IGlzc3VlcyBhc2lkZSBteSBjb25jZXJuIGlzIHRo
+YXQgdGhpcyBpcyAKPiBzaW1wbHkgYSBiYWQgZGVzaWduIGRlY2lzaW9uIHdoaWNoIHdlIGNhbid0
+IHJldmVydCBsYXRlciBvbi4KPiAKQXMgc2FkIGFib3ZlIC0gYW55IGNvbmNlcm5zICh0aGVvcmV0
+aWNhbCBvciBhY3R1YWwgcmVncmVzc2lvbnMpIGNhbiBiZQp0cml2aWFsbHkgZml4ZWQgX3dpdGhv
+dXRfIHJldmVydGluZyBhbnkgb2YgdGhpcy4KCkkgYW0gbW9yZSB0aGFuIGhhcHB5IHRvIHN0ZXAg
+dXAgYW5kIGFkZHJlc3MgYW55IHJlZ3Jlc3Npb25zIGluIHRpbWVseQptYW5uZXIuCgoKQXMgYSBy
+ZW1pbmRlciB3aXRob3V0IHRoaXMgc2VyaWVzLCBzb21lIG9mIHlvdXIgY3VzdG9tZXJzIGFyZSBm
+b3JjZWQgdG8KcnVuIHRoZWlyIGFwcGxpY2F0aW9ucyBhcyByb290LgoKClRoYW5rcwpFbWlsCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBt
+YWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
