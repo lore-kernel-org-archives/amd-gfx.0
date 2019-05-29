@@ -1,50 +1,41 @@
-From: Young Xiao <92siuyang@gmail.com>
-Subject: [PATCH] drm/amd/powerplay: avoid possible buffer overflow
-Date: Wed, 29 May 2019 12:34:07 +0800
-Message-ID: <1559104447-26810-1-git-send-email-92siuyang@gmail.com>
+From: Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Tue, 28 May 2019 23:11:26 -0700
+Message-ID: <20190529061126.GA18124@infradead.org>
+References: <20190517144931.GA56186@arrakis.emea.arm.com>
+ <CAFKCwrj6JEtp4BzhqO178LFJepmepoMx=G+YdC8sqZ3bcBp3EQ@mail.gmail.com>
+ <20190521182932.sm4vxweuwo5ermyd@mbp>
+ <201905211633.6C0BF0C2@keescook>
+ <6049844a-65f5-f513-5b58-7141588fef2b@oracle.com>
+ <20190523201105.oifkksus4rzcwqt4@mbp>
+ <ffe58af3-7c70-d559-69f6-1f6ebcb0fec6@oracle.com>
+ <20190524101139.36yre4af22bkvatx@mbp>
+ <c6dd53d8-142b-3d8d-6a40-d21c5ee9d272@oracle.com>
+ <CAAeHK+yAUsZWhp6xPAbWewX5Nbw+-G3svUyPmhXu5MVeEDKYvA@mail.gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CAAeHK+yAUsZWhp6xPAbWewX5Nbw+-G3svUyPmhXu5MVeEDKYvA@mail.gmail.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: rex.zhu@amd.com, evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, kenneth.feng@amd.com, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Young Xiao <92siuyang@gmail.com>
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Kees Cook <keescook@chromium.org>, Evgenii Stepanov <eugenis@google.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Make sure the clock level enforced is within the allowed
-ranges in case PP_SCLK and PP_MCLK.
+On Tue, May 28, 2019 at 04:14:45PM +0200, Andrey Konovalov wrote:
+> Thanks for a lot of valuable input! I've read through all the replies
+> and got somewhat lost. What are the changes I need to do to this
+> series?
+> 
+> 1. Should I move untagging for memory syscalls back to the generic
+> code so other arches would make use of it as well, or should I keep
+> the arm64 specific memory syscalls wrappers and address the comments
+> on that patch?
 
-Signed-off-by: Young Xiao <92siuyang@gmail.com>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+It absolutely needs to move to common code.  Having arch code leads
+to pointless (often unintentional) semantic difference between
+architectures, and lots of boilerplate code.
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index 707cd4b..ae6cbe8 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -1836,6 +1836,12 @@ static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
- 	case PP_SCLK:
- 		soft_min_level = mask ? (ffs(mask) - 1) : 0;
- 		soft_max_level = mask ? (fls(mask) - 1) : 0;
-+		if (soft_max_level >= data->dpm_table.gfx_table.count) {
-+			pr_err("Clock level specified %d is over max allowed %d\n",
-+					soft_max_level,
-+					data->dpm_table.gfx_table.count - 1);
-+			return -EINVAL;
-+		}
- 
- 		data->dpm_table.gfx_table.dpm_state.soft_min_level =
- 			data->dpm_table.gfx_table.dpm_levels[soft_min_level].value;
-@@ -1856,6 +1862,12 @@ static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
- 	case PP_MCLK:
- 		soft_min_level = mask ? (ffs(mask) - 1) : 0;
- 		soft_max_level = mask ? (fls(mask) - 1) : 0;
-+		if (soft_max_level >= data->dpm_table.gfx_table.count) {
-+			pr_err("Clock level specified %d is over max allowed %d\n",
-+					soft_max_level,
-+					data->dpm_table.gfx_table.count - 1);
-+			return -EINVAL;
-+		}
- 
- 		data->dpm_table.mem_table.dpm_state.soft_min_level =
- 			data->dpm_table.mem_table.dpm_levels[soft_min_level].value;
--- 
-2.7.4
+Btw, can anyone of the arm crowd or Khalid comment on the linux-mm
+thread on generic gup where I'm dealing with the pre-existing ADI
+case of pointer untagging?
