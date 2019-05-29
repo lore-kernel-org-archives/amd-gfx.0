@@ -1,83 +1,90 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
- syscalls
-Date: Wed, 29 May 2019 14:23:42 +0100
-Message-ID: <20190529132341.27t3knoxpb7t7y3g@mbp>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
- <20190527143719.GA59948@MBP.local>
- <20190528145411.GA709@e119886-lin.cambridge.arm.com>
- <20190528154057.GD32006@arrakis.emea.arm.com>
- <20190528155644.GD28398@e103592.cambridge.arm.com>
- <20190528163400.GE32006@arrakis.emea.arm.com>
- <20190529124224.GE28398@e103592.cambridge.arm.com>
+From: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 10/10] drm/amdgpu: stop removing BOs from the LRU v3
+Date: Wed, 29 May 2019 13:40:18 +0000
+Message-ID: <9aa2a005-ac99-ab26-b857-1f051e018bd0@amd.com>
+References: <20190529122702.13035-1-christian.koenig@amd.com>
+ <20190529122702.13035-10-christian.koenig@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190529124224.GE28398@e103592.cambridge.arm.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Dave Martin <Dave.Martin@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190529122702.13035-10-christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+Content-ID: <005835E63CA4EA4FAC0AA7BDDA190BE3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, May 29, 2019 at 01:42:25PM +0100, Dave P Martin wrote:
-> On Tue, May 28, 2019 at 05:34:00PM +0100, Catalin Marinas wrote:
-> > On Tue, May 28, 2019 at 04:56:45PM +0100, Dave P Martin wrote:
-> > > On Tue, May 28, 2019 at 04:40:58PM +0100, Catalin Marinas wrote:
-> > > 
-> > > [...]
-> > > 
-> > > > My thoughts on allowing tags (quick look):
-> > > >
-> > > > brk - no
-> > > 
-> > > [...]
-> > > 
-> > > > mlock, mlock2, munlock - yes
-> > > > mmap - no (we may change this with MTE but not for TBI)
-> > > 
-> > > [...]
-> > > 
-> > > > mprotect - yes
-> > > 
-> > > I haven't following this discussion closely... what's the rationale for
-> > > the inconsistencies here (feel free to refer me back to the discussion
-> > > if it's elsewhere).
-> > 
-> > _My_ rationale (feel free to disagree) is that mmap() by default would
-> > not return a tagged address (ignoring MTE for now). If it gets passed a
-> > tagged address or a "tagged NULL" (for lack of a better name) we don't
-> > have clear semantics of whether the returned address should be tagged in
-> > this ABI relaxation. I'd rather reserve this specific behaviour if we
-> > overload the non-zero tag meaning of mmap() for MTE. Similar reasoning
-> > for mremap(), at least on the new_address argument (not entirely sure
-> > about old_address).
-> > 
-> > munmap() should probably follow the mmap() rules.
-> > 
-> > As for brk(), I don't see why the user would need to pass a tagged
-> > address, we can't associate any meaning to this tag.
-> > 
-> > For the rest, since it's likely such addresses would have been tagged by
-> > malloc() in user space, we should allow tagged pointers.
-> 
-> Those arguments seem reasonable.  We should try to capture this
-> somewhere when documenting the ABI.
-> 
-> To be clear, I'm not sure that we should guarantee anywhere that a
-> tagged pointer is rejected: rather the behaviour should probably be
-> left unspecified.  Then we can tidy it up incrementally.
-> 
-> (The behaviour is unspecified today, in any case.)
-
-What is specified (or rather de-facto ABI) today is that passing a user
-address above TASK_SIZE (e.g. non-zero top byte) would fail in most
-cases. If we relax this with the TBI we may end up with some de-facto
-ABI before we actually get MTE hardware. Tightening it afterwards may be
-slightly more problematic, although MTE needs to be an explicit opt-in.
-
-IOW, I wouldn't want to unnecessarily relax the ABI if we don't need to.
-
--- 
-Catalin
+SGkgQ2hyaXN0aWFuLA0KDQpUaGUgc2VyaWVzIGlzOg0KDQpUZXN0ZWQtYnk6IFBpZXJyZS1Fcmlj
+IFBlbGxvdXgtUHJheWVyIDxwaWVycmUtZXJpYy5wZWxsb3V4LXByYXllckBhbWQuY29tPg0KDQoN
+ClBpZXJyZS1FcmljDQoNCg0KDQpPbiAyOS8wNS8yMDE5IDE0OjI3LCBDaHJpc3RpYW4gS8O2bmln
+IHdyb3RlOg0KPiBUaGlzIGF2b2lkcyBPT00gc2l0dWF0aW9ucyB3aGVuIHdlIGhhdmUgbG90cyBv
+ZiB0aHJlYWRzDQo+IHN1Ym1pdHRpbmcgYXQgdGhlIHNhbWUgdGltZS4NCj4gDQo+IHYzOiBhcHBs
+eSB0aGlzIHRvIHRoZSB3aG9sZSBkcml2ZXIsIG5vdCBqdXN0IENTDQo+IA0KPiBTaWduZWQtb2Zm
+LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IC0tLQ0K
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgIHwgMiArLQ0KPiAg
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5jICAgIHwgMiArLQ0KPiAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jICAgIHwgNCArKy0tDQo+ICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfCAyICstDQo+ICA0IGZpbGVz
+IGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+IGluZGV4IDIwZjI5NTVkMmE1NS4uM2UyZGEy
+NGNkMTdhIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+Y3MuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPiBA
+QCAtNjQ4LDcgKzY0OCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3BhcnNlcl9ib3Moc3RydWN0
+IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+ICAJfQ0KPiAgDQo+ICAJciA9IHR0bV9ldV9yZXNlcnZl
+X2J1ZmZlcnMoJnAtPnRpY2tldCwgJnAtPnZhbGlkYXRlZCwgdHJ1ZSwNCj4gLQkJCQkgICAmZHVw
+bGljYXRlcywgdHJ1ZSk7DQo+ICsJCQkJICAgJmR1cGxpY2F0ZXMsIGZhbHNlKTsNCj4gIAlpZiAo
+dW5saWtlbHkociAhPSAwKSkgew0KPiAgCQlpZiAociAhPSAtRVJFU1RBUlRTWVMpDQo+ICAJCQlE
+Uk1fRVJST1IoInR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMgZmFpbGVkLlxuIik7DQo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMNCj4gaW5kZXggMDZmODNjYWMwZDNhLi5mNjYw
+NjI4ZTZhZjkgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9jc2EuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMN
+Cj4gQEAgLTc5LDcgKzc5LDcgQEAgaW50IGFtZGdwdV9tYXBfc3RhdGljX2NzYShzdHJ1Y3QgYW1k
+Z3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sDQo+ICAJbGlzdF9hZGQoJmNz
+YV90di5oZWFkLCAmbGlzdCk7DQo+ICAJYW1kZ3B1X3ZtX2dldF9wZF9ibyh2bSwgJmxpc3QsICZw
+ZCk7DQo+ICANCj4gLQlyID0gdHRtX2V1X3Jlc2VydmVfYnVmZmVycygmdGlja2V0LCAmbGlzdCwg
+dHJ1ZSwgTlVMTCwgdHJ1ZSk7DQo+ICsJciA9IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMoJnRpY2tl
+dCwgJmxpc3QsIHRydWUsIE5VTEwsIGZhbHNlKTsNCj4gIAlpZiAocikgew0KPiAgCQlEUk1fRVJS
+T1IoImZhaWxlZCB0byByZXNlcnZlIENTQSxQRCBCT3M6IGVycj0lZFxuIiwgcik7DQo+ICAJCXJl
+dHVybiByOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQo+IGluZGV4
+IGQ1MTNhNWFkMDNkZC4uZWQyNWE0ZTE0NDA0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2dlbS5jDQo+IEBAIC0xNzEsNyArMTcxLDcgQEAgdm9pZCBhbWRncHVfZ2Vt
+X29iamVjdF9jbG9zZShzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiwNCj4gIA0KPiAgCWFtZGdw
+dV92bV9nZXRfcGRfYm8odm0sICZsaXN0LCAmdm1fcGQpOw0KPiAgDQo+IC0JciA9IHR0bV9ldV9y
+ZXNlcnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIGZhbHNlLCAmZHVwbGljYXRlcywgdHJ1ZSk7
+DQo+ICsJciA9IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIGZhbHNlLCAm
+ZHVwbGljYXRlcywgZmFsc2UpOw0KPiAgCWlmIChyKSB7DQo+ICAJCWRldl9lcnIoYWRldi0+ZGV2
+LCAibGVha2luZyBibyB2YSBiZWNhdXNlICINCj4gIAkJCSJ3ZSBmYWlsIHRvIHJlc2VydmUgYm8g
+KCVkKVxuIiwgcik7DQo+IEBAIC02MDgsNyArNjA4LDcgQEAgaW50IGFtZGdwdV9nZW1fdmFfaW9j
+dGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwNCj4gIA0KPiAgCWFtZGdwdV92
+bV9nZXRfcGRfYm8oJmZwcml2LT52bSwgJmxpc3QsICZ2bV9wZCk7DQo+ICANCj4gLQlyID0gdHRt
+X2V1X3Jlc2VydmVfYnVmZmVycygmdGlja2V0LCAmbGlzdCwgdHJ1ZSwgJmR1cGxpY2F0ZXMsIHRy
+dWUpOw0KPiArCXIgPSB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJzKCZ0aWNrZXQsICZsaXN0LCB0cnVl
+LCAmZHVwbGljYXRlcywgZmFsc2UpOw0KPiAgCWlmIChyKQ0KPiAgCQlnb3RvIGVycm9yX3VucmVm
+Ow0KPiAgDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+b2JqZWN0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4g
+aW5kZXggYzQzMGU4MjU5MDM4Li5kNjA1OTNjYzQzNmUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4gQEAgLTE1NSw3ICsxNTUsNyBAQCBzdGF0
+aWMgaW5saW5lIGludCBhbWRncHVfYm9fcmVzZXJ2ZShzdHJ1Y3QgYW1kZ3B1X2JvICpibywgYm9v
+bCBub19pbnRyKQ0KPiAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1X3R0bV9h
+ZGV2KGJvLT50Ym8uYmRldik7DQo+ICAJaW50IHI7DQo+ICANCj4gLQlyID0gdHRtX2JvX3Jlc2Vy
+dmUoJmJvLT50Ym8sICFub19pbnRyLCBmYWxzZSwgTlVMTCk7DQo+ICsJciA9IF9fdHRtX2JvX3Jl
+c2VydmUoJmJvLT50Ym8sICFub19pbnRyLCBmYWxzZSwgTlVMTCk7DQo+ICAJaWYgKHVubGlrZWx5
+KHIgIT0gMCkpIHsNCj4gIAkJaWYgKHIgIT0gLUVSRVNUQVJUU1lTKQ0KPiAgCQkJZGV2X2Vycihh
+ZGV2LT5kZXYsICIlcCByZXNlcnZlIGZhaWxlZFxuIiwgYm8pOw0KPiANCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
