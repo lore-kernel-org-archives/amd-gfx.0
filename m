@@ -1,70 +1,50 @@
-From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amdgpu/display: Fix reload driver error
-Date: Wed, 29 May 2019 11:12:05 +0800
-Message-ID: <1559099525-9742-1-git-send-email-Emily.Deng@amd.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+From: Young Xiao <92siuyang@gmail.com>
+Subject: [PATCH] drm/amd/powerplay: avoid possible buffer overflow
+Date: Wed, 29 May 2019 12:34:07 +0800
+Message-ID: <1559104447-26810-1-git-send-email-92siuyang@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: rex.zhu@amd.com, evan.quan@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, kenneth.feng@amd.com, Hawking.Zhang@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Young Xiao <92siuyang@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SXNzdWU6CldpbGwgaGF2ZSBmb2xsb3cgZXJyb3Igd2hlbiByZWxvYWQgZHJpdmVyOgpbIDM5ODYu
-NTY3NzM5XSBzeXNmczogY2Fubm90IGNyZWF0ZSBkdXBsaWNhdGUgZmlsZW5hbWUgJy9kZXZpY2Vz
-L3BjaTAwMDA6MDAvMDAwMDowMDowNy4wL2RybV9kcF9hdXhfZGV2JwpbIDM5ODYuNTY3NzQzXSBD
-UFU6IDYgUElEOiAxNzY3IENvbW06IG1vZHByb2JlIFRhaW50ZWQ6IEcgICAgICAgICAgIE9FICAg
-ICA1LjAuMC1yYzEtY3VzdG9tICMxClsgMzk4Ni41Njc3NDVdIEhhcmR3YXJlIG5hbWU6IFFFTVUg
-U3RhbmRhcmQgUEMgKGk0NDBGWCArIFBJSVgsIDE5OTYpLCBCSU9TIFVidW50dS0xLjguMi0xdWJ1
-bnR1MSAwNC8wMS8yMDE0ClsgMzk4Ni41Njc3NDZdIENhbGwgVHJhY2U6Ci4uLi4uLgpbIDM5ODYu
-NTY3ODA4XSAgZHJtX2RwX2F1eF9yZWdpc3Rlcl9kZXZub2RlKzB4ZGMvMHgxNDAgW2RybV9rbXNf
-aGVscGVyXQouLi4uLi4KWyAzOTg2LjU2OTA4MV0ga29iamVjdF9hZGRfaW50ZXJuYWwgZmFpbGVk
-IGZvciBkcm1fZHBfYXV4X2RldiB3aXRoIC1FRVhJU1QsIGRvbid0IHRyeSB0byByZWdpc3RlciB0
-aGluZ3Mgd2l0aCB0aGUgc2FtZSBuYW1lIGluIHRoZSBzYW1lIGRpcmVjdG9yeS4KClJlcHJvZHVj
-ZSBzZXF1ZW5jZXM6CjEubW9kcHJvYmUgYW1kZ3B1CjIubW9kcHJvYmUgLXIgYW1kZ3B1CjMubW9k
-cHJvYmUgYW1kZ3B1CgpSb290IGNhdXNlOgpXaGVuIHVubG9hZCBkcml2ZXIsIGl0IGRvZXNuJ3Qg
-dW5yZWdpc3RlciBhdXguCgp2MjogRG9uJ3QgdXNlIGhhc19hdXgKClNpZ25lZC1vZmYtYnk6IEVt
-aWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMTUgKysrKysrKysrKysrKystCiAxIGZpbGUg
-Y2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IDhmZTE2ODUu
-Ljk0MTMxM2IgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVf
-ZG0vYW1kZ3B1X2RtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYwpAQCAtMzc2MCw2ICszNzYwLDEzIEBAIGludCBhbWRncHVfZG1fY29ubmVj
-dG9yX2F0b21pY19nZXRfcHJvcGVydHkoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwK
-IAlyZXR1cm4gcmV0OwogfQogCitzdGF0aWMgdm9pZCBhbWRncHVfZG1fY29ubmVjdG9yX3VucmVn
-aXN0ZXIoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvcikKK3sKKwlzdHJ1Y3QgYW1kZ3B1
-X2RtX2Nvbm5lY3RvciAqYW1kZ3B1X2RtX2Nvbm5lY3RvciA9IHRvX2FtZGdwdV9kbV9jb25uZWN0
-b3IoY29ubmVjdG9yKTsKKworCWRybV9kcF9hdXhfdW5yZWdpc3RlcigmYW1kZ3B1X2RtX2Nvbm5l
-Y3Rvci0+ZG1fZHBfYXV4LmF1eCk7Cit9CisKIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb25uZWN0
-b3JfZGVzdHJveShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogewogCXN0cnVjdCBh
-bWRncHVfZG1fY29ubmVjdG9yICphY29ubmVjdG9yID0gdG9fYW1kZ3B1X2RtX2Nvbm5lY3Rvcihj
-b25uZWN0b3IpOwpAQCAtMzc4OCw2ICszNzk1LDExIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9j
-b25uZWN0b3JfZGVzdHJveShzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogCWRybV9k
-cF9jZWNfdW5yZWdpc3Rlcl9jb25uZWN0b3IoJmFjb25uZWN0b3ItPmRtX2RwX2F1eC5hdXgpOwog
-CWRybV9jb25uZWN0b3JfdW5yZWdpc3Rlcihjb25uZWN0b3IpOwogCWRybV9jb25uZWN0b3JfY2xl
-YW51cChjb25uZWN0b3IpOworCWlmIChhY29ubmVjdG9yLT5pMmMpIHsKKwkJaTJjX2RlbF9hZGFw
-dGVyKCZhY29ubmVjdG9yLT5pMmMtPmJhc2UpOworCQlrZnJlZShhY29ubmVjdG9yLT5pMmMpOwor
-CX0KKwogCWtmcmVlKGNvbm5lY3Rvcik7CiB9CiAKQEAgLTM4NDYsNyArMzg1OCw4IEBAIHN0YXRp
-YyBjb25zdCBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9mdW5jcyBhbWRncHVfZG1fY29ubmVjdG9yX2Z1
-bmNzID0gewogCS5hdG9taWNfZHVwbGljYXRlX3N0YXRlID0gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9h
-dG9taWNfZHVwbGljYXRlX3N0YXRlLAogCS5hdG9taWNfZGVzdHJveV9zdGF0ZSA9IGRybV9hdG9t
-aWNfaGVscGVyX2Nvbm5lY3Rvcl9kZXN0cm95X3N0YXRlLAogCS5hdG9taWNfc2V0X3Byb3BlcnR5
-ID0gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9hdG9taWNfc2V0X3Byb3BlcnR5LAotCS5hdG9taWNfZ2V0
-X3Byb3BlcnR5ID0gYW1kZ3B1X2RtX2Nvbm5lY3Rvcl9hdG9taWNfZ2V0X3Byb3BlcnR5CisJLmF0
-b21pY19nZXRfcHJvcGVydHkgPSBhbWRncHVfZG1fY29ubmVjdG9yX2F0b21pY19nZXRfcHJvcGVy
-dHksCisJLmVhcmx5X3VucmVnaXN0ZXIgPSBhbWRncHVfZG1fY29ubmVjdG9yX3VucmVnaXN0ZXIK
-IH07CiAKIHN0YXRpYyBpbnQgZ2V0X21vZGVzKHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25uZWN0
-b3IpCi0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Make sure the clock level enforced is within the allowed
+ranges in case PP_SCLK and PP_MCLK.
+
+Signed-off-by: Young Xiao <92siuyang@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+index 707cd4b..ae6cbe8 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
+@@ -1836,6 +1836,12 @@ static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
+ 	case PP_SCLK:
+ 		soft_min_level = mask ? (ffs(mask) - 1) : 0;
+ 		soft_max_level = mask ? (fls(mask) - 1) : 0;
++		if (soft_max_level >= data->dpm_table.gfx_table.count) {
++			pr_err("Clock level specified %d is over max allowed %d\n",
++					soft_max_level,
++					data->dpm_table.gfx_table.count - 1);
++			return -EINVAL;
++		}
+ 
+ 		data->dpm_table.gfx_table.dpm_state.soft_min_level =
+ 			data->dpm_table.gfx_table.dpm_levels[soft_min_level].value;
+@@ -1856,6 +1862,12 @@ static int vega12_force_clock_level(struct pp_hwmgr *hwmgr,
+ 	case PP_MCLK:
+ 		soft_min_level = mask ? (ffs(mask) - 1) : 0;
+ 		soft_max_level = mask ? (fls(mask) - 1) : 0;
++		if (soft_max_level >= data->dpm_table.gfx_table.count) {
++			pr_err("Clock level specified %d is over max allowed %d\n",
++					soft_max_level,
++					data->dpm_table.gfx_table.count - 1);
++			return -EINVAL;
++		}
+ 
+ 		data->dpm_table.mem_table.dpm_state.soft_min_level =
+ 			data->dpm_table.mem_table.dpm_levels[soft_min_level].value;
+-- 
+2.7.4
