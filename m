@@ -1,90 +1,195 @@
-From: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 10/10] drm/amdgpu: stop removing BOs from the LRU v3
-Date: Wed, 29 May 2019 13:40:18 +0000
-Message-ID: <9aa2a005-ac99-ab26-b857-1f051e018bd0@amd.com>
-References: <20190529122702.13035-1-christian.koenig@amd.com>
- <20190529122702.13035-10-christian.koenig@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
+ syscalls
+Date: Wed, 29 May 2019 15:20:08 +0100
+Message-ID: <20190529142008.5quqv3wskmpwdfbu@mbp>
+References: <cover.1557160186.git.andreyknvl@google.com>
+ <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
+ <20190527143719.GA59948@MBP.local>
+ <20190528145411.GA709@e119886-lin.cambridge.arm.com>
+ <20190528154057.GD32006@arrakis.emea.arm.com>
+ <11193998209cc6ff34e7d704f081206b8787b174.camel@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190529122702.13035-10-christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <005835E63CA4EA4FAC0AA7BDDA190BE3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <11193998209cc6ff34e7d704f081206b8787b174.camel@oracle.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Khalid Aziz <khalid.aziz@oracle.com>
+Cc: Andrew Murray <andrew.murray@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgQ2hyaXN0aWFuLA0KDQpUaGUgc2VyaWVzIGlzOg0KDQpUZXN0ZWQtYnk6IFBpZXJyZS1Fcmlj
-IFBlbGxvdXgtUHJheWVyIDxwaWVycmUtZXJpYy5wZWxsb3V4LXByYXllckBhbWQuY29tPg0KDQoN
-ClBpZXJyZS1FcmljDQoNCg0KDQpPbiAyOS8wNS8yMDE5IDE0OjI3LCBDaHJpc3RpYW4gS8O2bmln
-IHdyb3RlOg0KPiBUaGlzIGF2b2lkcyBPT00gc2l0dWF0aW9ucyB3aGVuIHdlIGhhdmUgbG90cyBv
-ZiB0aHJlYWRzDQo+IHN1Ym1pdHRpbmcgYXQgdGhlIHNhbWUgdGltZS4NCj4gDQo+IHYzOiBhcHBs
-eSB0aGlzIHRvIHRoZSB3aG9sZSBkcml2ZXIsIG5vdCBqdXN0IENTDQo+IA0KPiBTaWduZWQtb2Zm
-LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQo+IC0tLQ0K
-PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzLmMgICAgIHwgMiArLQ0KPiAg
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2NzYS5jICAgIHwgMiArLQ0KPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jICAgIHwgNCArKy0tDQo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfCAyICstDQo+ICA0IGZpbGVz
-IGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jcy5jDQo+IGluZGV4IDIwZjI5NTVkMmE1NS4uM2UyZGEy
-NGNkMTdhIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-Y3MuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYw0KPiBA
-QCAtNjQ4LDcgKzY0OCw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2NzX3BhcnNlcl9ib3Moc3RydWN0
-IGFtZGdwdV9jc19wYXJzZXIgKnAsDQo+ICAJfQ0KPiAgDQo+ICAJciA9IHR0bV9ldV9yZXNlcnZl
-X2J1ZmZlcnMoJnAtPnRpY2tldCwgJnAtPnZhbGlkYXRlZCwgdHJ1ZSwNCj4gLQkJCQkgICAmZHVw
-bGljYXRlcywgdHJ1ZSk7DQo+ICsJCQkJICAgJmR1cGxpY2F0ZXMsIGZhbHNlKTsNCj4gIAlpZiAo
-dW5saWtlbHkociAhPSAwKSkgew0KPiAgCQlpZiAociAhPSAtRVJFU1RBUlRTWVMpDQo+ICAJCQlE
-Uk1fRVJST1IoInR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMgZmFpbGVkLlxuIik7DQo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMNCj4gaW5kZXggMDZmODNjYWMwZDNhLi5mNjYw
-NjI4ZTZhZjkgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9jc2EuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY3NhLmMN
-Cj4gQEAgLTc5LDcgKzc5LDcgQEAgaW50IGFtZGdwdV9tYXBfc3RhdGljX2NzYShzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sDQo+ICAJbGlzdF9hZGQoJmNz
-YV90di5oZWFkLCAmbGlzdCk7DQo+ICAJYW1kZ3B1X3ZtX2dldF9wZF9ibyh2bSwgJmxpc3QsICZw
-ZCk7DQo+ICANCj4gLQlyID0gdHRtX2V1X3Jlc2VydmVfYnVmZmVycygmdGlja2V0LCAmbGlzdCwg
-dHJ1ZSwgTlVMTCwgdHJ1ZSk7DQo+ICsJciA9IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMoJnRpY2tl
-dCwgJmxpc3QsIHRydWUsIE5VTEwsIGZhbHNlKTsNCj4gIAlpZiAocikgew0KPiAgCQlEUk1fRVJS
-T1IoImZhaWxlZCB0byByZXNlcnZlIENTQSxQRCBCT3M6IGVycj0lZFxuIiwgcik7DQo+ICAJCXJl
-dHVybiByOw0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jDQo+IGluZGV4
-IGQ1MTNhNWFkMDNkZC4uZWQyNWE0ZTE0NDA0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2dlbS5jDQo+IEBAIC0xNzEsNyArMTcxLDcgQEAgdm9pZCBhbWRncHVfZ2Vt
-X29iamVjdF9jbG9zZShzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaiwNCj4gIA0KPiAgCWFtZGdw
-dV92bV9nZXRfcGRfYm8odm0sICZsaXN0LCAmdm1fcGQpOw0KPiAgDQo+IC0JciA9IHR0bV9ldV9y
-ZXNlcnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIGZhbHNlLCAmZHVwbGljYXRlcywgdHJ1ZSk7
-DQo+ICsJciA9IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIGZhbHNlLCAm
-ZHVwbGljYXRlcywgZmFsc2UpOw0KPiAgCWlmIChyKSB7DQo+ICAJCWRldl9lcnIoYWRldi0+ZGV2
-LCAibGVha2luZyBibyB2YSBiZWNhdXNlICINCj4gIAkJCSJ3ZSBmYWlsIHRvIHJlc2VydmUgYm8g
-KCVkKVxuIiwgcik7DQo+IEBAIC02MDgsNyArNjA4LDcgQEAgaW50IGFtZGdwdV9nZW1fdmFfaW9j
-dGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwNCj4gIA0KPiAgCWFtZGdwdV92
-bV9nZXRfcGRfYm8oJmZwcml2LT52bSwgJmxpc3QsICZ2bV9wZCk7DQo+ICANCj4gLQlyID0gdHRt
-X2V1X3Jlc2VydmVfYnVmZmVycygmdGlja2V0LCAmbGlzdCwgdHJ1ZSwgJmR1cGxpY2F0ZXMsIHRy
-dWUpOw0KPiArCXIgPSB0dG1fZXVfcmVzZXJ2ZV9idWZmZXJzKCZ0aWNrZXQsICZsaXN0LCB0cnVl
-LCAmZHVwbGljYXRlcywgZmFsc2UpOw0KPiAgCWlmIChyKQ0KPiAgCQlnb3RvIGVycm9yX3VucmVm
-Ow0KPiAgDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-b2JqZWN0LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4g
-aW5kZXggYzQzMGU4MjU5MDM4Li5kNjA1OTNjYzQzNmUgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgNCj4gQEAgLTE1NSw3ICsxNTUsNyBAQCBzdGF0
-aWMgaW5saW5lIGludCBhbWRncHVfYm9fcmVzZXJ2ZShzdHJ1Y3QgYW1kZ3B1X2JvICpibywgYm9v
-bCBub19pbnRyKQ0KPiAgCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gYW1kZ3B1X3R0bV9h
-ZGV2KGJvLT50Ym8uYmRldik7DQo+ICAJaW50IHI7DQo+ICANCj4gLQlyID0gdHRtX2JvX3Jlc2Vy
-dmUoJmJvLT50Ym8sICFub19pbnRyLCBmYWxzZSwgTlVMTCk7DQo+ICsJciA9IF9fdHRtX2JvX3Jl
-c2VydmUoJmJvLT50Ym8sICFub19pbnRyLCBmYWxzZSwgTlVMTCk7DQo+ICAJaWYgKHVubGlrZWx5
-KHIgIT0gMCkpIHsNCj4gIAkJaWYgKHIgIT0gLUVSRVNUQVJUU1lTKQ0KPiAgCQkJZGV2X2Vycihh
-ZGV2LT5kZXYsICIlcCByZXNlcnZlIGZhaWxlZFxuIiwgYm8pOw0KPiANCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Hi Khalid,
+
+On Tue, May 28, 2019 at 05:33:04PM -0600, Khalid Aziz wrote:
+> On Tue, 2019-05-28 at 16:40 +0100, Catalin Marinas wrote:
+> > I think another aspect is how we define the ABI. Is allowing tags to
+> > mlock() for example something specific to arm64 or would sparc ADI
+> > need the same? In the absence of other architectures defining such
+> > ABI, my preference would be to keep the wrappers in the arch code.
+> > 
+> > Assuming sparc won't implement untagged_addr(), we can place the
+> > macros back in the generic code but, as per the review here, we need
+> > to be more restrictive on where we allow tagged addresses. For
+> > example, if mmap() gets a tagged address with MAP_FIXED, is it
+> > expected to return the tag?
+> 
+> I would recommend against any ABI differences between ARM64 MTE/TBI and
+> sparc ADI unless it simply can not be helped. My understanding of
+> MTE/TBI is limited, so I will explain how sparc ADI works. On sparc, a
+> tagged address has no meaning until following steps happen:
+
+Before we go into the MTE/ADI similarities or differences, just to
+clarify that TBI is something that we supported from the start of the
+arm64 kernel port. TBI (top byte ignore) allows a user pointer to have
+non-zero top byte and dereference it without causing a fault (the
+hardware masks it out). The user/kernel ABI does not allow such tagged
+pointers into the kernel, nor would the kernel return any such tagged
+addresses.
+
+With MTE (memory tagging extensions), the top-byte meaning is changed
+from no longer being ignored to actually being checked against a tag in
+the physical RAM (we call it allocation tag).
+
+> 1. set the user mode PSTATE.mcde bit. This acts as the master switch to
+> enable ADI for a process.
+> 
+> 2. set TTE.mcd bit on TLB entries that match the address range ADI is
+> being enabled on.
+
+Something close enough for MTE, with the difference that enabling it is
+not a PSTATE bit but rather a system control bit (SCTLR_EL1 register),
+so only the kernel can turn it on/off for the user.
+
+> 3. Store version tag for the range of addresses userspace wants ADI
+> enabled on using "stxa" instruction. These tags are stored in physical
+> memory by the memory controller.
+
+Do you have an "ldxa" instruction to load the tags from physical memory?
+
+> Steps 1 and 2 are accomplished by userspace by calling mprotect() with
+> PROT_ADI. Tags are set by storing tags in a loop, for example:
+> 
+>         version = 10;
+>         tmp_addr = shmaddr;
+>         end = shmaddr + BUFFER_SIZE;
+>         while (tmp_addr < end) {
+>                 asm volatile(
+>                         "stxa %1, [%0]0x90\n\t"
+>                         :
+>                         : "r" (tmp_addr), "r" (version));
+>                 tmp_addr += adi_blksz;
+>         }
+
+On arm64, a sequence similar to the above would live in the libc. So a
+malloc() call will tag the memory and return the tagged address to the
+user.
+
+We were not planning for a PROT_ADI/MTE but rather have MTE enabled for
+all user memory ranges. We may revisit this before we upstream the MTE
+support (probably some marginal benefit for the hardware not fetching
+the tags from memory if we don't need to, e.g. code sections).
+
+Given that we already have the TBI feature and with MTE enabled the top
+byte is no longer ignored, we are planning for an explicit opt-in by the
+user via prctl() to enable MTE.
+
+> With these semantics, giving mmap() or shamat() a tagged address is
+> meaningless since no tags have been stored at the addresses mmap() will
+> allocate and one can not store tags before memory range has been
+> allocated. If we choose to allow tagged addresses to come into mmap()
+> and shmat(), sparc code can strip the tags unconditionally and that may
+> help simplify ABI and/or code.
+
+We could say that with TBI (pre-MTE support), the top byte is actually
+ignored on mmap(). Now, if you pass a MAP_FIXED with a tagged address,
+should the user expect the same tagged address back or stripping the tag
+is acceptable? If we want to keep the current mmap() semantics, I'd say
+the same tag is returned. However, with MTE this also implies that the
+memory was coloured.
+
+> > My thoughts on allowing tags (quick look):
+> > 
+> > brk - no
+> > get_mempolicy - yes
+> > madvise - yes
+> > mbind - yes
+> > mincore - yes
+> > mlock, mlock2, munlock - yes
+> > mmap - no (we may change this with MTE but not for TBI)
+> > mmap_pgoff - not used on arm64
+> > mprotect - yes
+> > mremap - yes for old_address, no for new_address (on par with mmap)
+> > msync - yes
+> > munmap - probably no (mmap does not return tagged ptrs)
+> > remap_file_pages - no (also deprecated syscall)
+> > shmat, shmdt - shall we allow tagged addresses on shared memory?
+> > 
+> > The above is only about the TBI ABI while ignoring hardware MTE. For
+> > the latter, we may want to change the mmap() to allow pre-colouring
+> > on page fault which means that munmap()/mprotect() should also
+> > support tagged pointers. Possibly mremap() as well but we need to
+> > decide whether it should allow re-colouring the page (probably no,
+> > in which case old_address and new_address should have the same tag).
+> > For some of these we'll end up with arm64 specific wrappers again,
+> > unless sparc ADI adopts exactly the same ABI restrictions.
+> 
+> Let us keep any restrictions common across ARM64 and sparc. pre-
+> coloring on sparc in the kernel would mean kernel will have to execute
+> stxa instructions in a loop for each page being faulted in.
+
+Since the user can probe the pre-existing colour in a faulted-in page
+(either with some 'ldxa' instruction or by performing a tag-checked
+access), the kernel should always pre-colour (even if colour 0) any
+allocated page. There might not be an obvious security risk but I feel
+uneasy about letting colours leak between address spaces (different user
+processes or between kernel and user).
+
+Since we already need such loop in the kernel, we might as well allow
+user space to require a certain colour. This comes in handy for large
+malloc() and another advantage is that the C library won't be stuck
+trying to paint the whole range (think GB).
+
+> Not that big a deal but doesn't that assume the entire page has the
+> same tag which is dedcued from the upper bits of address? Shouldn't we
+> support tags at the same granularity level as what the hardware
+> supports?
+
+That's mostly about large malloc() optimisation via mmap(), the latter
+working on page granularity already. There is another use-case for
+pre-coloured thread stacks, also allocated via anonymous mmap().
+
+> We went through this discussion for sparc and decision was to support
+> tags at the same granularity as hardware. That means we can not deduce
+> tags from the first address that pioints into an mmap or shmat region.
+> Those tags and the upper bytes of colored address could change for
+> every cacheline sized block (64-bytes on sparc M7).
+
+It's 16-byte for arm64, so smaller than the cacheline.
+
+> We can try to store tags for an entire region in vma but that is
+> expensive, plus on sparc tags are set in userspace with no
+> participation from kernel and now we need a way for userspace to
+> communicate the tags to kernel.
+
+We can't support finer granularity through the mmap() syscall and, as
+you said, the vma is not the right thing to store the individual tags.
+With the above extension to mmap(), we'd have to store a colour per vma
+and prevent merging if different colours (we could as well use the
+pkeys mechanism we already have in the kernel but use a colour per vma
+instead of a key).
+
+Of course, the user is allowed to change the in-memory colours at a
+finer granularity and the kernel will preserve them during swapping
+out/in, page migration etc. The above mmap() proposal is just for the
+first fault-in of a page in a given range/vma.
+
+> From sparc point of view, making kernel responsible for assigning tags
+> to a page on page fault is full of pitfalls.
+
+This could be just some arm64-specific but if you plan to deploy it more
+generically for sparc (at the C library level), you may find this
+useful.
+
+-- 
+Catalin
