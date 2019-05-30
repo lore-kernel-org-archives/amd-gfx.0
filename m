@@ -1,170 +1,250 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v15 05/17] arms64: untag user pointers passed to memory
- syscalls
-Date: Thu, 30 May 2019 16:11:07 +0100
-Message-ID: <20190530151105.GA35418@arrakis.emea.arm.com>
-References: <cover.1557160186.git.andreyknvl@google.com>
- <00eb4c63fefc054e2c8d626e8fedfca11d7c2600.1557160186.git.andreyknvl@google.com>
- <20190527143719.GA59948@MBP.local>
- <20190528145411.GA709@e119886-lin.cambridge.arm.com>
- <20190528154057.GD32006@arrakis.emea.arm.com>
- <11193998209cc6ff34e7d704f081206b8787b174.camel@oracle.com>
- <20190529142008.5quqv3wskmpwdfbu@mbp>
- <b2753e81-7b57-481f-0095-3c6fecb1a74c@oracle.com>
+From: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/doc: add rough outline of tracepoint documentation
+Date: Thu, 30 May 2019 15:45:33 +0000
+Message-ID: <MWHPR12MB1422F8CD20776EFC9B4C8288FE180@MWHPR12MB1422.namprd12.prod.outlook.com>
+References: <20190530145600.12241-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="===============0523682061=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190530145600.12241-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+
+--===============0523682061==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR12MB1422F8CD20776EFC9B4C8288FE180MWHPR12MB1422namp_"
+
+--_000_MWHPR12MB1422F8CD20776EFC9B4C8288FE180MWHPR12MB1422namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Comments inline (marked with [slava a]).
+
+
+General comment - word capitalisation in the lists is inconsistent
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of StDenis,=
+ Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, May 30, 2019 10:56 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: StDenis, Tom
+Subject: [PATCH] drm/amd/doc: add rough outline of tracepoint documentation
+
+Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+---
+ Documentation/gpu/amdgpu.rst              |  10 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 221 ++++++++++++++++++++++
+ 2 files changed, 231 insertions(+)
+
+diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
+index 86138798128f..3564765110e5 100644
+--- a/Documentation/gpu/amdgpu.rst
++++ b/Documentation/gpu/amdgpu.rst
+@@ -89,6 +89,16 @@ AMDGPU RAS debugfs control interface
+ .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+    :internal:
+
++AMDGPU Tracing Support
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++   :doc: AMDGPU Tracing Support
++
++
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++   :internal:
++
+
+ GPU Power/Thermal Controls and Monitoring
+ =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_trace.h
+index d3ca2424b5fe..71febb90d3e3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+@@ -37,6 +37,227 @@
+ #define AMDGPU_JOB_GET_TIMELINE_NAME(job) \
+          job->base.s_fence->finished.ops->get_timeline_name(&job->base.s_f=
+ence->finished)
+
++/**
++ * DOC: AMDGPU Tracing Support
++ *
++ * The AMDGPU driver provides numerous trace points that can aid
++ * in debugging.  They are globally enabled by the file:
++ *
++ * /sys/kernel/debug/tracing/events/amdgpu/enable
++ *
++ * or individually by the enable files in the sub-directories
++ * of that directory.
++ *
++ * amdgpu_mm_rreg, amdgpu_mm_wreg
++ * ------------------------------
++ *
++ * These trace points track reads and writes to MMIO registers by
++ * the kernel driver (activity inside ring/indirect buffers are not
++ * traced) which can be used to diagnose IP block activity and
++ * responses.
+
+[slava a] Either 'activities are not traced' or 'activity is not traced'
+[slava a] Double usage of word 'activity' sounds weird.
+
+[snap]
+
+--_000_MWHPR12MB1422F8CD20776EFC9B4C8288FE180MWHPR12MB1422namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size: 12pt; color: rgb(0, 0,=
+ 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &quot;Apple Co=
+lor Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI=
+ Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0">Comments inline (marked with [sla=
+va a]).</p>
+<p style=3D"margin-top:0;margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0;margin-bottom:0">General comment - word capitalisa=
+tion in the lists is inconsistent</p>
+<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of StDenis, Tom &lt;Tom.StDenis@=
+amd.com&gt;<br>
+<b>Sent:</b> Thursday, May 30, 2019 10:56 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> StDenis, Tom<br>
+<b>Subject:</b> [PATCH] drm/amd/doc: add rough outline of tracepoint docume=
+ntation</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Signed-off-by: Tom St Denis &lt;tom.stdenis-urvtwAKJhsc@public.gmane.org=
+m&gt;<br>
+---<br>
+&nbsp;Documentation/gpu/amdgpu.rst&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 10 &#43;<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 221 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;<br>
+&nbsp;2 files changed, 231 insertions(&#43;)<br>
+<br>
+diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst<br=
+>
+index 86138798128f..3564765110e5 100644<br>
+--- a/Documentation/gpu/amdgpu.rst<br>
+&#43;&#43;&#43; b/Documentation/gpu/amdgpu.rst<br>
+@@ -89,6 &#43;89,16 @@ AMDGPU RAS debugfs control interface<br>
+&nbsp;.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+&nbsp;&nbsp;&nbsp; :internal:<br>
+&nbsp;<br>
+&#43;AMDGPU Tracing Support<br>
+&#43;=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+&#43;<br>
+&#43;.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+&#43;&nbsp;&nbsp; :doc: AMDGPU Tracing Support<br>
+&#43;<br>
+&#43;<br>
+&#43;.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+&#43;&nbsp;&nbsp; :internal:<br>
+&#43;<br>
+&nbsp;<br>
+&nbsp;GPU Power/Thermal Controls and Monitoring<br>
+&nbsp;=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_trace.h<br>
+index d3ca2424b5fe..71febb90d3e3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+@@ -37,6 &#43;37,227 @@<br>
+&nbsp;#define AMDGPU_JOB_GET_TIMELINE_NAME(job) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; job-&gt;base.s_fence=
+-&gt;finished.ops-&gt;get_timeline_name(&amp;job-&gt;base.s_fence-&gt;finis=
+hed)<br>
+&nbsp;<br>
+&#43;/**<br>
+&#43; * DOC: AMDGPU Tracing Support<br>
+&#43; *<br>
+&#43; * The AMDGPU driver provides numerous trace points that can aid<br>
+&#43; * in debugging.&nbsp; They are globally enabled by the file:<br>
+&#43; *<br>
+&#43; * /sys/kernel/debug/tracing/events/amdgpu/enable<br>
+&#43; *<br>
+&#43; * or individually by the enable files in the sub-directories<br>
+&#43; * of that directory.<br>
+&#43; *<br>
+&#43; * amdgpu_mm_rreg, amdgpu_mm_wreg<br>
+&#43; * ------------------------------<br>
+&#43; *<br>
+&#43; * These trace points track reads and writes to MMIO registers by</div=
+>
+<div class=3D"PlainText"><span style=3D"font-size: 11pt;">&#43; * the kerne=
+l driver (activity inside ring/indirect buffers are not</span><br>
+</div>
+<div class=3D"PlainText"><span style=3D"font-size: 11pt;">&#43; * traced) w=
+hich can be used to diagnose IP block activity and</span><br>
+</div>
+<div class=3D"PlainText">&#43; * responses.</div>
+<div class=3D"PlainText">
+<div class=3D"PlainText" style=3D"font-family: Calibri, Helvetica, sans-ser=
+if, EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, N=
+otoColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, Emoj=
+iSymbols; font-size: 14.6667px;">
+<br class=3D"Apple-interchange-newline">
+[slava a] Either 'activities are not traced' or 'activity is not traced'</d=
+iv>
+<div class=3D"PlainText" style=3D"font-family: Calibri, Helvetica, sans-ser=
+if, EmojiFont, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, N=
+otoColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, Emoj=
+iSymbols; font-size: 14.6667px;">
+<span style=3D"font-size: 11pt;">[slava a] Double usage of word 'activity' =
+sounds weird.&nbsp;&nbsp;</span></div>
+</div>
+<div class=3D"PlainText"><br>
+</div>
+<div class=3D"PlainText">[snap]</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MWHPR12MB1422F8CD20776EFC9B4C8288FE180MWHPR12MB1422namp_--
+
+--===============0523682061==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
 Content-Disposition: inline
-In-Reply-To: <b2753e81-7b57-481f-0095-3c6fecb1a74c@oracle.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Khalid Aziz <khalid.aziz@oracle.com>
-Cc: Andrew Murray <andrew.murray@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@>
-List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, May 29, 2019 at 01:16:37PM -0600, Khalid Aziz wrote:
-> On 5/29/19 8:20 AM, Catalin Marinas wrote:
-> > On Tue, May 28, 2019 at 05:33:04PM -0600, Khalid Aziz wrote:
-> >> Steps 1 and 2 are accomplished by userspace by calling mprotect() with
-> >> PROT_ADI. Tags are set by storing tags in a loop, for example:
-> >>
-> >>         version = 10;
-> >>         tmp_addr = shmaddr;
-> >>         end = shmaddr + BUFFER_SIZE;
-> >>         while (tmp_addr < end) {
-> >>                 asm volatile(
-> >>                         "stxa %1, [%0]0x90\n\t"
-> >>                         :
-> >>                         : "r" (tmp_addr), "r" (version));
-> >>                 tmp_addr += adi_blksz;
-> >>         }
-> > 
-> > On arm64, a sequence similar to the above would live in the libc. So a
-> > malloc() call will tag the memory and return the tagged address to thePre-coloring could easily be done by 
-> > user.
-> > 
-> > We were not planning for a PROT_ADI/MTE but rather have MTE enabled for
-> > all user memory ranges. We may revisit this before we upstream the MTE
-> > support (probably some marginal benefit for the hardware not fetching
-> > the tags from memory if we don't need to, e.g. code sections).
-> > 
-> > Given that we already have the TBI feature and with MTE enabled the top
-> > byte is no longer ignored, we are planning for an explicit opt-in by the
-> > user via prctl() to enable MTE.
-> 
-> OK. I had initially proposed enabling ADI for a process using prctl().
-> Feedback I got was prctl was not a desirable interface and I ended up
-> making mprotect() with PROT_ADI enable ADI on the process instead. Just
-> something to keep in mind.
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
-Thanks for the feedback. We'll keep this in mind when adding MTE
-support. In the way we plan to deploy this, it would be a libc decision
-to invoke the mmap() with the right flag.
-
-This could actually simplify the automatic page faulting below brk(),
-basically no tagged/coloured memory allowed implicitly. It needs
-feedback from the bionic/glibc folk.
-
-> >> With these semantics, giving mmap() or shamat() a tagged address is
-> >> meaningless since no tags have been stored at the addresses mmap() will
-> >> allocate and one can not store tags before memory range has been
-> >> allocated. If we choose to allow tagged addresses to come into mmap()
-> >> and shmat(), sparc code can strip the tags unconditionally and that may
-> >> help simplify ABI and/or code.
-> > 
-> > We could say that with TBI (pre-MTE support), the top byte is actually
-> > ignored on mmap(). Now, if you pass a MAP_FIXED with a tagged address,
-> > should the user expect the same tagged address back or stripping the tag
-> > is acceptable? If we want to keep the current mmap() semantics, I'd say
-> > the same tag is returned. However, with MTE this also implies that the
-> > memory was coloured.
-> 
-> Is assigning a tag aprivileged operationon ARM64? I am thinking not
-> since you mentioned libc could do it in a loop for malloc'd memory.
-
-Indeed it's not, the user can do it.
-
-> mmap() can return the same tagged address but I am uneasy about kernel
-> pre-coloring the pages. Database can mmap 100's of GB of memory. That is
-> lot of work being offloaded to the kernel to pre-color the page even if
-> done in batches as pages are faulted in.
-
-For anonymous mmap() for example, the kernel would have to zero the
-faulted in pages anyway. We can handle the colouring at the same time in
-clear_user_page() (as I said below, we have to clear the colour anyway
-from previous uses, so it's simply extending this to support something
-other than tag/colour 0 by default with no additional overhead).
-
-> > Since the user can probe the pre-existing colour in a faulted-in page
-> > (either with some 'ldxa' instruction or by performing a tag-checked
-> > access), the kernel should always pre-colour (even if colour 0) any
-> > allocated page. There might not be an obvious security risk but I feel
-> > uneasy about letting colours leak between address spaces (different user
-> > processes or between kernel and user).
-> 
-> On sparc, tags 0 and 15 are special in that 0 means untagged memory and
-> 15 means match any tag in the address. Colour 0 is the default for any
-> newly faulted in page on sparc.
-
-With MTE we don't have match-all/any tag in memory, only in the virtual
-address/pointer. So if we turn on MTE for all pages and the user
-accesses an address with a 0 tag, the underlying memory needs to be
-coloured with the same 0 value.
-
-> > Since we already need such loop in the kernel, we might as well allow
-> > user space to require a certain colour. This comes in handy for large
-> > malloc() and another advantage is that the C library won't be stuck
-> > trying to paint the whole range (think GB).
-> 
-> If kernel is going to pre-color all pages in a vma, we will need to
-> store the default tag in the vma. It will add more time to page fault
-> handling code. On sparc M7, kernel will need to execute additional 128
-> stxa instructions to set the tags on a normal page.
-
-As I said, since the user can retrieve an old colour using ldxa, the
-kernel should perform this operation anyway on any newly allocated page
-(unless you clear the existing colour on page freeing).
-
-> >> We can try to store tags for an entire region in vma but that is
-> >> expensive, plus on sparc tags are set in userspace with no
-> >> participation from kernel and now we need a way for userspace to
-> >> communicate the tags to kernel.
-> > 
-> > We can't support finer granularity through the mmap() syscall and, as
-> > you said, the vma is not the right thing to store the individual tags.
-> > With the above extension to mmap(), we'd have to store a colour per vma
-> > and prevent merging if different colours (we could as well use the
-> > pkeys mechanism we already have in the kernel but use a colour per vma
-> > instead of a key).
-> 
-> Since tags can change on any part of mmap region on sparc at any time
-> without kernel being involved, I am not sure I see much reason for
-> kernel to enforce any tag related restrictions.
-
-It's not enforcing a tag, more like the default colour for a faulted in
-page. Anyway, if sparc is going with default 0/untagged, that's fine as
-well. We may add this mmap() option to arm64 only.
-
-> >> From sparc point of view, making kernel responsible for assigning tags
-> >> to a page on page fault is full of pitfalls.
-> > 
-> > This could be just some arm64-specific but if you plan to deploy it more
-> > generically for sparc (at the C library level), you may find this
-> > useful.
-> 
-> Common semantics from app developer point of view will be very useful to
-> maintain. If arm64 says mmap with MAP_FIXED and a tagged address will
-> return a pre-colored page, I would rather have it be the same on any
-> architecture. Is there a use case that justifies kernel doing this extra
-> work?
-
-So if a database program is doing an anonymous mmap(PROT_TBI) of 100GB,
-IIUC for sparc the faulted-in pages will have random colours (on 64-byte
-granularity). Ignoring the information leak from prior uses of such
-pages, it would be the responsibility of the db program to issue the
-stxa. On arm64, since we also want to do this via malloc(), any large
-allocation would require all pages to be faulted in so that malloc() can
-set the write colour before being handed over to the user. That's what
-we want to avoid and the user is free to repaint the memory as it likes.
-
--- 
-Catalin
+--===============0523682061==--
