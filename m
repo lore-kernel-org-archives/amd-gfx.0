@@ -1,16 +1,13 @@
-From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 0/2] drm/amd/display: Add HDR output metadata support for
- amdgpu
-Date: Wed, 29 May 2019 23:31:54 +0000
-Message-ID: <77396fec-944e-291b-38fe-588e899fcb62@amd.com>
-References: <20190528190836.10738-1-nicholas.kazlauskas@amd.com>
+From: Yrjan Skrimstad <yrjan-i8zSYrfQCDxH4x6Dk/4f9A@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay/smu7_hwmgr: replace blocking delay with
+ non-blocking
+Date: Thu, 30 May 2019 02:08:21 +0200
+Message-ID: <20190530000819.GA25416@obi-wan>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190528190836.10738-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <05A941C32605ED42926038A3A3AA4B8E-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-Disposition: inline
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,24 +18,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Yrjan Skrimstad <yrjan-i8zSYrfQCDxH4x6Dk/4f9A@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOS0wNS0yOCAzOjA4IHAubS4sIE5pY2hvbGFzIEthemxhdXNrYXMgd3JvdGU6DQo+IFRo
-aXMgcGF0Y2ggc2VyaWVzIGVuYWJsZXMgSERSIG91dHB1dCBtZXRhZGF0YSBzdXBwb3J0IGluIGFt
-ZGdwdSB1c2luZyB0aGUNCj4gRFJNIEhEUiBpbnRlcmZhY2UgbWVyZ2VkIGluIGRybS1taXNjLW5l
-eHQuIEVuYWJsZWQgZm9yIERDRSBhbmQgRENOIEFTSUNzDQo+IG92ZXIgRFAgYW5kIEhETUkuDQo+
-IA0KPiBJdCdzIGxpbWl0ZWQgdG8gc3RhdGljIEhEUiBtZXRhZGF0YSBzdXBwb3J0IGZvciBub3cg
-c2luY2UgdGhhdCdzIGFsbCB0aGUNCj4gRFJNIGludGVyZmFjZSBzdXBwb3J0cy4gSXQgcmVxdWly
-ZXMgYSBtb2Rlc2V0IGZvciBlbnRlcmluZyBhbmQgZXhpdGluZyBIRFINCj4gYnV0IHRoZSBtZXRh
-ZGF0YSBjYW4gYmUgY2hhbmdlZCB3aXRob3V0IG9uZS4NCj4gDQo+IENjOiBIYXJyeSBXZW50bGFu
-ZCA8aGFycnkud2VudGxhbmRAYW1kLmNvbT4NCj4gDQoNClNlcmllcyBpcw0KUmV2aWV3ZWQtYnk6
-IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPg0KDQpIYXJyeQ0KDQo+IE5p
-Y2hvbGFzIEthemxhdXNrYXMgKDIpOg0KPiAgIGRybS9hbWQvZGlzcGxheTogRXhwb3NlIEhEUiBv
-dXRwdXQgbWV0YWRhdGEgZm9yIHN1cHBvcnRlZCBjb25uZWN0b3JzDQo+ICAgZHJtL2FtZC9kaXNw
-bGF5OiBPbmx5IGZvcmNlIG1vZGVzZXRzIHdoZW4gdG9nZ2xpbmcgSERSDQo+IA0KPiAgLi4uL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMTU1ICsrKysrKysrKysr
-KysrKysrLQ0KPiAgMSBmaWxlIGNoYW5nZWQsIDE1MSBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9u
-cygtKQ0KPiANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+VGhpcyBkcml2ZXIgY3VycmVudGx5IGNvbnRhaW5zIGEgcmVwZWF0ZWQgNTAwbXMgYmxvY2tpbmcg
+ZGVsYXkgY2FsbAp3aGljaCBjYXVzZXMgZnJlcXVlbnQgbWFqb3IgYnVmZmVyIHVuZGVycnVucyBp
+biBQdWxzZUF1ZGlvLiBUaGlzIHBhdGNoCmZpeGVzIHRoaXMgaXNzdWUgYnkgcmVwbGFjaW5nIHRo
+ZSBibG9ja2luZyBkZWxheSB3aXRoIGEgbm9uLWJsb2NraW5nCnNsZWVwIGNhbGwuCgpTaWduZWQt
+b2ZmLWJ5OiBZcmphbiBTa3JpbXN0YWQgPHlyamFuQHNrcmltc3RhZC5uZXQ+Ci0tLQogZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIHwgMiArLQogMSBmaWxl
+IGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3Ivc211N19od21nci5jCmluZGV4IDA0ODc1N2U4ZjQ5
+NC4uMzQwYWZkYmRkYzcyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9od21nci9zbXU3X2h3bWdyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aHdtZ3Ivc211N19od21nci5jCkBAIC0zNDk0LDcgKzM0OTQsNyBAQCBzdGF0aWMgaW50IHNtdTdf
+Z2V0X2dwdV9wb3dlcihzdHJ1Y3QgcHBfaHdtZ3IgKmh3bWdyLCB1MzIgKnF1ZXJ5KQogCQkJCQkJ
+CWl4U01VX1BNX1NUQVRVU185NSwgMCk7CiAKIAlmb3IgKGkgPSAwOyBpIDwgMTA7IGkrKykgewot
+CQltZGVsYXkoNTAwKTsKKwkJbXNsZWVwKDUwMCk7CiAJCXNtdW1fc2VuZF9tc2dfdG9fc21jKGh3
+bWdyLCBQUFNNQ19NU0dfUG1TdGF0dXNMb2dTYW1wbGUpOwogCQl0bXAgPSBjZ3NfcmVhZF9pbmRf
+cmVnaXN0ZXIoaHdtZ3ItPmRldmljZSwKIAkJCQkJCUNHU19JTkRfUkVHX19TTUMsCi0tIAoyLjIw
+LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
