@@ -1,37 +1,49 @@
-From: Hariprasad Kelam <hariprasad.kelam@gmail.com>
-Subject: [PATCH] drm/amdgpu: Remove call to memset after dma_alloc_coherent
-Date: Thu, 30 May 2019 23:55:32 +0530
-Message-ID: <20190530182532.GA8370@hari-Inspiron-1545>
+From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
+Subject: [bug report] drm/amd/display: Move link functions from dc to dc_link
+Date: Thu, 30 May 2019 22:25:19 +0300
+Message-ID: <20190530192519.GA6076@mwanda>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Huang Rui <ray.huang@amd.com>, Hariprasad Kelam <hariprasad.kelam@gmail.com>, Oak Zeng <Oak.Zeng@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Chris.Park-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-This patch fixes below warning reported by coccicheck
-
-./drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c:63:13-31: WARNING:
-dma_alloc_coherent use in ih -> ring already zeroes out memory,  so
-memset is not needed
-
-Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-index 934dfdc..d922187 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ih.c
-@@ -65,7 +65,6 @@ int amdgpu_ih_ring_init(struct amdgpu_device *adev, struct amdgpu_ih_ring *ih,
- 		if (ih->ring == NULL)
- 			return -ENOMEM;
- 
--		memset((void *)ih->ring, 0, ih->ring_size + 8);
- 		ih->gpu_addr = dma_addr;
- 		ih->wptr_addr = dma_addr + ih->ring_size;
- 		ih->wptr_cpu = &ih->ring[ih->ring_size / 4];
--- 
-2.7.4
+SGVsbG8gQ2hyaXMgUGFyaywKClRoaXMgaXMgYSBzZW1pLWF1dG9tYXRpYyBlbWFpbCBhYm91dCBu
+ZXcgc3RhdGljIGNoZWNrZXIgd2FybmluZ3MuCgpUaGUgcGF0Y2ggZjU2OTJmNjlmNjczOiAiZHJt
+L2FtZC9kaXNwbGF5OiBNb3ZlIGxpbmsgZnVuY3Rpb25zIGZyb20gZGMgCnRvIGRjX2xpbmsiIGZy
+b20gTWF5IDEwLCAyMDE5LCBsZWFkcyB0byB0aGUgZm9sbG93aW5nIFNtYXRjaCAKY29tcGxhaW50
+OgoKICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvY29yZS9kY19s
+aW5rLmM6MjkyOSBkY19saW5rX3NldF9wcmVmZXJyZWRfbGlua19zZXR0aW5ncygpCiAgICB3YXJu
+OiB2YXJpYWJsZSBkZXJlZmVyZW5jZWQgYmVmb3JlIGNoZWNrICdsaW5rX3N0cmVhbScgKHNlZSBs
+aW5lIDI5MjYpCgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9kaXNwbGF5L2RjL2NvcmUv
+ZGNfbGluay5jCiAgMjkxMSAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgTUFYX1BJUEVTOyBpKysp
+IHsKICAyOTEyICAgICAgICAgICAgICAgICAgcGlwZSA9ICZkYy0+Y3VycmVudF9zdGF0ZS0+cmVz
+X2N0eC5waXBlX2N0eFtpXTsKICAyOTEzICAgICAgICAgICAgICAgICAgaWYgKHBpcGUtPnN0cmVh
+bSAmJiBwaXBlLT5zdHJlYW0tPmxpbmspIHsKICAyOTE0ICAgICAgICAgICAgICAgICAgICAgICAg
+ICBpZiAocGlwZS0+c3RyZWFtLT5saW5rID09IGxpbmspCiAgMjkxNSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBicmVhazsKICAyOTE2ICAgICAgICAgICAgICAgICAgfQogIDI5MTcg
+ICAgICAgICAgfQogIDI5MTggIAogIDI5MTkgICAgICAgICAgLyogU3RyZWFtIG5vdCBmb3VuZCAq
+LwogIDI5MjAgICAgICAgICAgaWYgKGkgPT0gTUFYX1BJUEVTKQogIDI5MjEgICAgICAgICAgICAg
+ICAgICByZXR1cm47CiAgMjkyMiAgCiAgMjkyMyAgICAgICAgICBsaW5rX3N0cmVhbSA9IGxpbmst
+PmRjLT5jdXJyZW50X3N0YXRlLT5yZXNfY3R4LnBpcGVfY3R4W2ldLnN0cmVhbTsKICAyOTI0ICAK
+ICAyOTI1CQkvKiBDYW5ub3QgcmV0cmFpbiBsaW5rIGlmIGJhY2tlbmQgaXMgb2ZmICovCiAgMjky
+NgkJaWYgKGxpbmtfc3RyZWFtLT5kcG1zX29mZikKICAgICAgICAgICAgICAgICAgICBeXl5eXl5e
+Xl5eXl5eXl5eXl5eXl4KQ2FuIGxpbmtfc3RyZWFtIGJlIE5VTEw/CgogIDI5MjcJCQlyZXR1cm47
+CiAgMjkyOAkKICAyOTI5CQlpZiAobGlua19zdHJlYW0pCiAgICAgICAgICAgICAgICAgICAgXl5e
+Xl5eXl5eXl4KV2UgY2hlY2sgaGVyZSBzbyBtYXliZT8KCiAgMjkzMAkJCWRlY2lkZV9saW5rX3Nl
+dHRpbmdzKGxpbmtfc3RyZWFtLCAmc3RvcmVfc2V0dGluZ3MpOwogIDI5MzEJCgpyZWdhcmRzLApk
+YW4gY2FycGVudGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
