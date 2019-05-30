@@ -1,16 +1,13 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Don't load DMCU for Raven 1 (v2)
-Date: Thu, 30 May 2019 11:55:54 -0400
-Message-ID: <CADnq5_OK=X29SojFxf95LQqOV+J_C_VfCV-cG74YxTSz0o83eQ@mail.gmail.com>
-References: <20190524153410.19402-1-alexander.deucher@amd.com>
- <CAHbf0-EYvnaVmqB068CA9hi3Wt7U2a387n6SCUdw8sUjouayZQ@mail.gmail.com>
- <CADnq5_N48x5Zas_HWTN1JdEgUUmFadsSiu5_1uZmRgaDw+qraw@mail.gmail.com>
- <1791409.jyYnDiAcy6@linux-5702>
+From: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/doc: add rough outline of tracepoint documentation
+Date: Thu, 30 May 2019 11:57:54 -0400
+Message-ID: <CAAzXoRJTE0PpKrV289uNKZvA=LNABA6dviqeoL_0Povmaq7Btg@mail.gmail.com>
+References: <20190530145600.12241-1-tom.stdenis@amd.com>
+ <MWHPR12MB1422F8CD20776EFC9B4C8288FE180@MWHPR12MB1422.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0068302383=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1791409.jyYnDiAcy6@linux-5702>
+In-Reply-To: <MWHPR12MB1422F8CD20776EFC9B4C8288FE180-Gy0DoCVfaSXuYgwfTSIEYwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,101 +18,260 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Samantha McVey <samantham-VwIFZPTo/vqsTnJN9+BGXg@public.gmane.org>
-Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBNYXkgMzAsIDIwMTkgYXQgMTA6NDggQU0gU2FtYW50aGEgTWNWZXkgPHNhbWFudGhh
-bUBwb3N0ZW8ubmV0PiB3cm90ZToKPgo+IEFsZXgsCj4KPgo+Cj4gQXJlIGFueSBvZiB0aGVzZSBu
-b24tYm9vdGluZyBzeXN0ZW1zIGxhcHRvcHM/IElmIGFsbCB0aGUgbGFwdG9wcyBkb24ndCBoYXZl
-IHRoaXMgaXNzdWUsIGlzIHRoZXJlIGEgd2F5IHdlIGNhbiBkZXRlY3Qgd2UgYXJlIG9uIG1vYmls
-ZSBhbmQgbG9hZCB0aGUgRE1DVT8gU2VlaW5nIGFzIEFCTSBhbmQgUFNSIGFyZSBib3RoIHByYWN0
-aWNhbGx5IG9ubHkgdXNlZCBvbiBtb2JpbGUsIG1heWJlIHdlIGNhbiBjaGVjayBmb3IgdGhhdC4g
-VGhpcyB3YXkgd2Ugb25seSBlbmFibGUgaXQgb24gc3lzdGVtcyB0aGF0IGFjdHVhbGx5IG5lZWQg
-dGhlIGZlYXR1cmVzLiBJIGFtIGd1ZXNzaW5nIHRoZSBudW1iZXIgb2YgUmF2ZW4gUmlkZ2UgbGFw
-dG9wcyBpcyBtdWNoIG11Y2ggc21hbGxlciB0aGFuIHRoZSBudW1iZXIgb2YgbW90aGVyYm9hcmRz
-IHdoaWNoIGNhbiBwb3RlbnRpYWxseSBzdXBwb3J0IFJhdmVuIFJpZGdlLgo+Cj4KCk1vc3RseSBp
-ZiBub3QgZXhjbHVzaXZlbHkgbGFwdG9wcy4gIERNQ1UgZG9lc24ndCByZWFsbHkgaGF2ZSBtdWNo
-IHVzZQpvbiBkZXNrdG9wcyBzaW5jZSB0aGVyZSBpcyBubyBlRFAgcGFuZWwgaW4gbW9zdCBjYXNl
-cy4gIFdlIGRvbid0CmN1cnJlbnRseSBzdXBwb3J0IFBTUiBzbyBpdCdzIHJlYWxseSBvbmx5IEFC
-TS4KCkFsZXgKCj4KPiBPbiB2cmlqZGFnIDI0IG1laSAyMDE5IDE4OjQ5OjI3IENFU1QgeW91IHdy
-b3RlOgo+Cj4gPiBPbiBGcmksIE1heSAyNCwgMjAxOSBhdCAxMjozMiBQTSBNaWtlIExvdGhpYW4g
-PG1pa2UgYXQgZmlyZWJ1cm4uY28udWs+IHdyb3RlOgo+Cj4gPiA+IEkgcmVhbGlzZSB5b3UgZG9u
-J3Qgd2FudCB0byBlbmFibGUgdGhpcyBhcyBpdCdzIGJyZWFraW5nIHNvbWUgcGVvcGxlJ3MKPgo+
-ID4gPiBzeXN0ZW1zLCBidXQgY291bGQgd2UgYWRkIGEgbmV3IGJvb3QgcGFyYW1ldGVyIHRvIGZv
-cmNlIGl0IGZvciB3b3JraW5nCj4KPiA+ID4gc3lzdGVtcz8gT3IgY2hlY2sgYWdhaW5zdCBhIGJs
-YWNrIGxpc3QgbWF5YmU/Cj4KPiA+Cj4KPiA+IFdlIGNvdWxkIHByb2JhYmx5IGFkZCBhIHdoaXRl
-bGlzdC4gSSdtIG5vdCBzdXJlIHdoYXQgdGhlIGJlc3Qgd2F5IHRvCj4KPiA+IGlkIHRoZSB3b3Jr
-aW5nIHN5c3RlbXMgYXJlIHRob3VnaC4KPgo+ID4KPgo+ID4gQWxleAo+Cj4gPgo+Cj4gPiA+IE9u
-IEZyaSwgMjQgTWF5IDIwMTkgYXQgMTc6MjAsIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXIgYXQg
-Z21haWwuY29tPiB3cm90ZToKPgo+ID4gPiA+IE9uIEZyaSwgTWF5IDI0LCAyMDE5IGF0IDEyOjA5
-IFBNIE1pa2UgTG90aGlhbiA8bWlrZSBhdCBmaXJlYnVybi5jby51az4gd3JvdGU6Cj4KPiA+ID4g
-PiA+IEhpCj4KPiA+ID4gPiA+Cj4KPiA+ID4gPiA+IEN1cmlvdXMgdG8ga25vdyB3aGF0IHRoaXMg
-bWVhbnMgZm9yIGZvbGsgdGhhdCBoYXZlIG5ld2VyIFJhdmVuMSBib2FyZHMKPgo+ID4gPiA+ID4g
-dGhhdCBkaWRuJ3QgaGF2ZSBpc3N1ZXMgbG9hZGluZyB0aGUgZmlybXdhcmUKPgo+ID4gPiA+Cj4K
-PiA+ID4gPiBZb3Ugd29uJ3QgZ2V0IEFCTSBJIHRoaW5rLiBBQk0gaXMgdGhlIGF1dG9tYXRpYyBi
-YWNrbGlnaHQgbWFuYWdlbWVudC4KPgo+ID4gPiA+Cj4KPiA+ID4gPiBBbGV4Cj4KPiA+ID4gPgo+
-Cj4gPiA+ID4gPiBDaGVlcnMKPgo+ID4gPiA+ID4KPgo+ID4gPiA+ID4gTWlrZQo+Cj4gPiA+ID4g
-Pgo+Cj4gPiA+ID4gPiBPbiBGcmksIDI0IE1heSAyMDE5IGF0IDE2OjM0LCBBbGV4IERldWNoZXIg
-PGFsZXhkZXVjaGVyIGF0IGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiA+ID4gPiA+ID4gRnJvbTogSGFy
-cnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kIGF0IGFtZC5jb20+Cj4KPiA+ID4gPiA+ID4KPgo+
-ID4gPiA+ID4gPiBbV0hZXQo+Cj4gPiA+ID4gPiA+IFNvbWUgZWFybHkgUmF2ZW4gYm9hcmRzIGhh
-ZCBhIGJhZCBTQklPUyB0aGF0IGRvZXNuJ3QgcGxheSBuaWNlbHkKPgo+ID4gPiA+ID4gPiB3aXRo
-Cj4KPiA+ID4gPiA+ID4gdGhlIERNQ1UgRlcuIFdlIHRob3VnaHQgdGhlIGlzc3VlcyB3ZXJlIGZp
-eGVkIGJ5IGlnbm9yaW5nIGVycm9ycyBvbgo+Cj4gPiA+ID4gPiA+IERNQ1UKPgo+ID4gPiA+ID4g
-PiBsb2FkIGJ1dCB0aGF0IGRvZXNuJ3Qgc2VlbSB0byBiZSB0aGUgY2FzZS4gV2UndmUgc3RpbGwg
-c2VlbiByZXBvcnRzCj4KPiA+ID4gPiA+ID4gb2YKPgo+ID4gPiA+ID4gPiB1c2VycyB1bmFibGUg
-dG8gYm9vdCB0aGVpciBzeXN0ZW1zIGF0IGFsbC4KPgo+ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+
-IFtIT1ddCj4KPiA+ID4gPiA+ID4gRGlzYWJsZSBETUNVIGxvYWQgb24gUmF2ZW4gMS4gT25seSBs
-b2FkIGl0IGZvciBSYXZlbiAyIGFuZCBQaWNhc3NvLgo+Cj4gPiA+ID4gPiA+Cj4KPiA+ID4gPiA+
-ID4gdjI6IEZpeCBpZmRlZiAoQWxleCkKPgo+ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+IFNpZ25l
-ZC1vZmYtYnk6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZCBhdCBhbWQuY29tPgo+Cj4g
-PiA+ID4gPiA+IFJldmlld2VkLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXps
-YXVza2FzIGF0IGFtZC5jb20+Cj4KPiA+ID4gPiA+ID4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlciBhdCBhbWQuY29tPgo+Cj4gPiA+ID4gPiA+IENjOiBzdGFi
-bGUgYXQgdmdlci5rZXJuZWwub3JnCj4KPiA+ID4gPiA+ID4gLS0tCj4KPiA+ID4gPiA+ID4KPgo+
-ID4gPiA+ID4gPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
-bS5jIHwgMTIgKysrKysrKysrKy0tCj4KPiA+ID4gPiA+ID4gMSBmaWxlIGNoYW5nZWQsIDEwIGlu
-c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiA+ID4gPiA+ID4KPgo+ID4gPiA+ID4gPiBk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG0uYwo+Cj4gPiA+ID4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9k
-bS9hbWRncHVfZG0uYyBpbmRleAo+Cj4gPiA+ID4gPiA+IDk5NWY5ZGY2NjE0Mi4uYmNiMWE5M2Mw
-YjRjIDEwMDY0NAo+Cj4gPiA+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKPgo+ID4gPiA+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCj4KPiA+ID4gPiA+ID4gQEAgLTI5
-LDYgKzI5LDcgQEAKPgo+ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+ICNpbmNsdWRlICJkbV9zZXJ2
-aWNlc190eXBlcy5oIgo+Cj4gPiA+ID4gPiA+ICNpbmNsdWRlICJkYy5oIgo+Cj4gPiA+ID4gPiA+
-ICNpbmNsdWRlICJkYy9pbmMvY29yZV90eXBlcy5oIgo+Cj4gPiA+ID4gPiA+Cj4KPiA+ID4gPiA+
-ID4gKyNpbmNsdWRlICJkYWxfYXNpY19pZC5oIgo+Cj4gPiA+ID4gPiA+Cj4KPiA+ID4gPiA+ID4g
-I2luY2x1ZGUgInZpZC5oIgo+Cj4gPiA+ID4gPiA+ICNpbmNsdWRlICJhbWRncHUuaCIKPgo+ID4g
-PiA+ID4gPgo+Cj4gPiA+ID4gPiA+IEBAIC02NDAsNyArNjQxLDcgQEAgc3RhdGljIHZvaWQgYW1k
-Z3B1X2RtX2Zpbmkoc3RydWN0IGFtZGdwdV9kZXZpY2UKPgo+ID4gPiA+ID4gPiAqYWRldikKPgo+
-ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+IHN0YXRpYyBpbnQgbG9hZF9kbWN1X2Z3KHN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2KQo+Cj4gPiA+ID4gPiA+IHsKPgo+ID4gPiA+ID4gPgo+Cj4gPiA+
-ID4gPiA+IC0gY29uc3QgY2hhciAqZndfbmFtZV9kbWN1Owo+Cj4gPiA+ID4gPiA+ICsgY29uc3Qg
-Y2hhciAqZndfbmFtZV9kbWN1ID0gTlVMTDsKPgo+ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+IGlu
-dCByOwo+Cj4gPiA+ID4gPiA+IGNvbnN0IHN0cnVjdCBkbWN1X2Zpcm13YXJlX2hlYWRlcl92MV8w
-ICpoZHI7Cj4KPiA+ID4gPiA+ID4KPgo+ID4gPiA+ID4gPiBAQCAtNjYzLDcgKzY2NCwxNCBAQCBz
-dGF0aWMgaW50IGxvYWRfZG1jdV9mdyhzdHJ1Y3QgYW1kZ3B1X2RldmljZQo+Cj4gPiA+ID4gPiA+
-ICphZGV2KQo+Cj4gPiA+ID4gPiA+Cj4KPiA+ID4gPiA+ID4gY2FzZSBDSElQX1ZFR0EyMDoKPgo+
-ID4gPiA+ID4gPiByZXR1cm4gMDsKPgo+ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+IGNhc2UgQ0hJ
-UF9SQVZFTjoKPgo+ID4gPiA+ID4gPiAtIGZ3X25hbWVfZG1jdSA9IEZJUk1XQVJFX1JBVkVOX0RN
-Q1U7Cj4KPiA+ID4gPiA+ID4gKyNpZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX0RDX0RDTjFfMDEp
-Cj4KPiA+ID4gPiA+ID4gKyBpZiAoQVNJQ1JFVl9JU19QSUNBU1NPKGFkZXYtPmV4dGVybmFsX3Jl
-dl9pZCkpCj4KPiA+ID4gPiA+ID4gKyBmd19uYW1lX2RtY3UgPSBGSVJNV0FSRV9SQVZFTl9ETUNV
-Owo+Cj4gPiA+ID4gPiA+ICsgZWxzZSBpZiAoQVNJQ1JFVl9JU19SQVZFTjIoYWRldi0+ZXh0ZXJu
-YWxfcmV2X2lkKSkKPgo+ID4gPiA+ID4gPiArIGZ3X25hbWVfZG1jdSA9IEZJUk1XQVJFX1JBVkVO
-X0RNQ1U7Cj4KPiA+ID4gPiA+ID4gKyBlbHNlCj4KPiA+ID4gPiA+ID4gKyNlbmRpZgo+Cj4gPiA+
-ID4gPiA+ICsgcmV0dXJuIDA7Cj4KPiA+ID4gPiA+ID4KPgo+ID4gPiA+ID4gPiBicmVhazsKPgo+
-ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+IGRlZmF1bHQ6Cj4KPiA+ID4gPiA+ID4gRFJNX0VSUk9S
-KCJVbnN1cHBvcnRlZCBBU0lDIHR5cGU6IDB4JVhcbiIsCj4KPiA+ID4gPiA+ID4gYWRldi0+YXNp
-Y190eXBlKTsKPgo+ID4gPiA+ID4gPgo+Cj4gPiA+ID4gPiA+IC0tCj4KPiA+ID4gPiA+ID4gMi4y
-MC4xCj4KPiA+ID4gPiA+ID4KPgo+ID4gPiA+ID4gPiBfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwo+Cj4gPiA+ID4gPiA+IGFtZC1nZnggbWFpbGluZyBsaXN0
-Cj4KPiA+ID4gPiA+ID4gYW1kLWdmeCBhdCBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPgo+ID4gPiA+
-ID4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
-dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0068302383==
+Content-Type: multipart/alternative; boundary="000000000000b84cd0058a1cf6aa"
+
+--000000000000b84cd0058a1cf6aa
+Content-Type: text/plain; charset="UTF-8"
+
+Fixed with "is".
+
+Thanks.  I'll wait for more feedback before submitting a v2.
+
+Tom
+
+On Thu, May 30, 2019 at 11:45 AM Abramov, Slava <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
+wrote:
+
+> Comments inline (marked with [slava a]).
+>
+>
+> General comment - word capitalisation in the lists is inconsistent
+>
+>
+> ------------------------------
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of
+> StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+> *Sent:* Thursday, May 30, 2019 10:56 AM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> *Cc:* StDenis, Tom
+> *Subject:* [PATCH] drm/amd/doc: add rough outline of tracepoint
+> documentation
+>
+> Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  Documentation/gpu/amdgpu.rst              |  10 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 221 ++++++++++++++++++++++
+>  2 files changed, 231 insertions(+)
+>
+> diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
+> index 86138798128f..3564765110e5 100644
+> --- a/Documentation/gpu/amdgpu.rst
+> +++ b/Documentation/gpu/amdgpu.rst
+> @@ -89,6 +89,16 @@ AMDGPU RAS debugfs control interface
+>  .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+>     :internal:
+>
+> +AMDGPU Tracing Support
+> +======================
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> +   :doc: AMDGPU Tracing Support
+> +
+> +
+> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> +   :internal:
+> +
+>
+>  GPU Power/Thermal Controls and Monitoring
+>  =========================================
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> index d3ca2424b5fe..71febb90d3e3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+> @@ -37,6 +37,227 @@
+>  #define AMDGPU_JOB_GET_TIMELINE_NAME(job) \
+>
+> job->base.s_fence->finished.ops->get_timeline_name(&job->base.s_fence->finished)
+>
+> +/**
+> + * DOC: AMDGPU Tracing Support
+> + *
+> + * The AMDGPU driver provides numerous trace points that can aid
+> + * in debugging.  They are globally enabled by the file:
+> + *
+> + * /sys/kernel/debug/tracing/events/amdgpu/enable
+> + *
+> + * or individually by the enable files in the sub-directories
+> + * of that directory.
+> + *
+> + * amdgpu_mm_rreg, amdgpu_mm_wreg
+> + * ------------------------------
+> + *
+> + * These trace points track reads and writes to MMIO registers by
+> + * the kernel driver (activity inside ring/indirect buffers are not
+> + * traced) which can be used to diagnose IP block activity and
+> + * responses.
+>
+> [slava a] Either 'activities are not traced' or 'activity is not traced'
+> [slava a] Double usage of word 'activity' sounds weird.
+>
+> [snap]
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--000000000000b84cd0058a1cf6aa
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Fixed with &quot;is&quot;.<div><br></div><div>Thanks.=C2=
+=A0 I&#39;ll wait for more feedback before submitting a v2.</div><div><br><=
+/div><div>Tom</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cl=
+ass=3D"gmail_attr">On Thu, May 30, 2019 at 11:45 AM Abramov, Slava &lt;<a h=
+ref=3D"mailto:Slava.Abramov-5C7GfCeVMHo@public.gmane.org">Slava.Abramov-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+
+
+
+
+<div dir=3D"ltr">
+<div id=3D"gmail-m_-894554682780875538divtagdefaultwrapper" style=3D"font-s=
+ize:12pt;color:rgb(0,0,0);font-family:Calibri,Helvetica,sans-serif,EmojiFon=
+t,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,NotoColorEmoji,&=
+quot;Segoe UI Symbol&quot;,&quot;Android Emoji&quot;,EmojiSymbols" dir=3D"l=
+tr">
+<p style=3D"margin-top:0px;margin-bottom:0px">Comments inline (marked with =
+[slava a]).</p>
+<p style=3D"margin-top:0px;margin-bottom:0px"><br>
+</p>
+<p style=3D"margin-top:0px;margin-bottom:0px">General comment - word capita=
+lisation in the lists is inconsistent</p>
+<br>
+<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr style=3D"display:inline-block;width:98%">
+<div id=3D"gmail-m_-894554682780875538divRplyFwdMsg" dir=3D"ltr"><font face=
+=3D"Calibri, sans-serif" style=3D"font-size:11pt" color=3D"#000000"><b>From=
+:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" =
+target=3D"_blank">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
+f StDenis, Tom &lt;<a href=3D"mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank"=
+>Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+<b>Sent:</b> Thursday, May 30, 2019 10:56 AM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blan=
+k">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+<b>Cc:</b> StDenis, Tom<br>
+<b>Subject:</b> [PATCH] drm/amd/doc: add rough outline of tracepoint docume=
+ntation</font>
+<div>=C2=A0</div>
+</div>
+<div class=3D"gmail-m_-894554682780875538BodyFragment"><font size=3D"2"><sp=
+an style=3D"font-size:11pt">
+<div class=3D"gmail-m_-894554682780875538PlainText">Signed-off-by: Tom St D=
+enis &lt;<a href=3D"mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org" target=3D"_blank">tom.stden=
+is-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+---<br>
+=C2=A0Documentation/gpu/amdgpu.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 221 +++++++++++++++++++++=
++<br>
+=C2=A02 files changed, 231 insertions(+)<br>
+<br>
+diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst<br=
+>
+index 86138798128f..3564765110e5 100644<br>
+--- a/Documentation/gpu/amdgpu.rst<br>
++++ b/Documentation/gpu/amdgpu.rst<br>
+@@ -89,6 +89,16 @@ AMDGPU RAS debugfs control interface<br>
+=C2=A0.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+=C2=A0=C2=A0=C2=A0 :internal:<br>
+=C2=A0<br>
++AMDGPU Tracing Support<br>
++=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
++<br>
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
++=C2=A0=C2=A0 :doc: AMDGPU Tracing Support<br>
++<br>
++<br>
++.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
++=C2=A0=C2=A0 :internal:<br>
++<br>
+=C2=A0<br>
+=C2=A0GPU Power/Thermal Controls and Monitoring<br>
+=C2=A0=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_trace.h<br>
+index d3ca2424b5fe..71febb90d3e3 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h<br>
+@@ -37,6 +37,227 @@<br>
+=C2=A0#define AMDGPU_JOB_GET_TIMELINE_NAME(job) \<br>
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 job-&gt;base.s_fence=
+-&gt;finished.ops-&gt;get_timeline_name(&amp;job-&gt;base.s_fence-&gt;finis=
+hed)<br>
+=C2=A0<br>
++/**<br>
++ * DOC: AMDGPU Tracing Support<br>
++ *<br>
++ * The AMDGPU driver provides numerous trace points that can aid<br>
++ * in debugging.=C2=A0 They are globally enabled by the file:<br>
++ *<br>
++ * /sys/kernel/debug/tracing/events/amdgpu/enable<br>
++ *<br>
++ * or individually by the enable files in the sub-directories<br>
++ * of that directory.<br>
++ *<br>
++ * amdgpu_mm_rreg, amdgpu_mm_wreg<br>
++ * ------------------------------<br>
++ *<br>
++ * These trace points track reads and writes to MMIO registers by</div>
+<div class=3D"gmail-m_-894554682780875538PlainText"><span style=3D"font-siz=
+e:11pt">+ * the kernel driver (activity inside ring/indirect buffers are no=
+t</span><br>
+</div>
+<div class=3D"gmail-m_-894554682780875538PlainText"><span style=3D"font-siz=
+e:11pt">+ * traced) which can be used to diagnose IP block activity and</sp=
+an><br>
+</div>
+<div class=3D"gmail-m_-894554682780875538PlainText">+ * responses.</div>
+<div class=3D"gmail-m_-894554682780875538PlainText">
+<div class=3D"gmail-m_-894554682780875538PlainText" style=3D"font-family:Ca=
+libri,Helvetica,sans-serif,EmojiFont,&quot;Apple Color Emoji&quot;,&quot;Se=
+goe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe UI Symbol&quot;,&quot;Android=
+ Emoji&quot;,EmojiSymbols;font-size:14.6667px">
+<br class=3D"gmail-m_-894554682780875538Apple-interchange-newline">
+[slava a] Either &#39;activities are not traced&#39; or &#39;activity is no=
+t traced&#39;</div>
+<div class=3D"gmail-m_-894554682780875538PlainText" style=3D"font-family:Ca=
+libri,Helvetica,sans-serif,EmojiFont,&quot;Apple Color Emoji&quot;,&quot;Se=
+goe UI Emoji&quot;,NotoColorEmoji,&quot;Segoe UI Symbol&quot;,&quot;Android=
+ Emoji&quot;,EmojiSymbols;font-size:14.6667px">
+<span style=3D"font-size:11pt">[slava a] Double usage of word &#39;activity=
+&#39; sounds weird.=C2=A0=C2=A0</span></div>
+</div>
+<div class=3D"gmail-m_-894554682780875538PlainText"><br>
+</div>
+<div class=3D"gmail-m_-894554682780875538PlainText">[snap]</div>
+</span></font></div>
+</div>
+</div>
+</div>
+
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a></blockquote></div>
+
+--000000000000b84cd0058a1cf6aa--
+
+--===============0068302383==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0068302383==--
