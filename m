@@ -1,14 +1,12 @@
-From: Samantha McVey <samantham-VwIFZPTo/vqsTnJN9+BGXg@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Don't load DMCU for Raven 1 (v2)
-Date: Thu, 30 May 2019 16:40:58 +0200
-Message-ID: <1791409.jyYnDiAcy6@linux-5702>
-References: <20190524153410.19402-1-alexander.deucher@amd.com>
- <CAHbf0-EYvnaVmqB068CA9hi3Wt7U2a387n6SCUdw8sUjouayZQ@mail.gmail.com>
- <CADnq5_N48x5Zas_HWTN1JdEgUUmFadsSiu5_1uZmRgaDw+qraw@mail.gmail.com>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/doc: add rough outline of tracepoint documentation
+Date: Thu, 30 May 2019 14:56:11 +0000
+Message-ID: <20190530145600.12241-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0051126636=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_N48x5Zas_HWTN1JdEgUUmFadsSiu5_1uZmRgaDw+qraw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,267 +17,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 
-This is a multi-part message in MIME format.
-
---===============0051126636==
-Content-Type: multipart/alternative; boundary="nextPart2424465.qbV5PHHhLX"
-Content-Transfer-Encoding: 7Bit
-
-This is a multi-part message in MIME format.
-
---nextPart2424465.qbV5PHHhLX
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-
-Alex,
-
-Are any of these non-booting systems laptops? If all the laptops don't have this issue, is 
-there a way we can detect we are on mobile and load the DMCU? Seeing as ABM and PSR 
-are both practically only used on mobile, maybe we can check for that. This way we only 
-enable it on systems that actually need the features. I am guessing the number of Raven 
-Ridge laptops is much much smaller than the number of motherboards which can 
-potentially support Raven Ridge.
-
-On vrijdag 24 mei 2019 18:49:27 CEST you wrote:
-> On Fri, May 24, 2019 at 12:32 PM Mike Lothian <mike at fireburn.co.uk> wrote:
-> > I realise you don't want to enable this as it's breaking some people's
-> > systems, but could we add a new boot parameter to force it for working
-> > systems? Or check against a black list maybe?
-> 
-> We could probably add a whitelist.  I'm not sure what the best way to
-> id the working systems are though.
-> 
-> Alex
-> 
-> > On Fri, 24 May 2019 at 17:20, Alex Deucher <alexdeucher at gmail.com> wrote:
-> > > On Fri, May 24, 2019 at 12:09 PM Mike Lothian <mike at fireburn.co.uk> wrote:
-> > > > Hi
-> > > > 
-> > > > Curious to know what this means for folk that have newer Raven1 boards
-> > > > that didn't have issues loading the firmware
-> > > 
-> > > You won't get ABM I think.  ABM is the automatic backlight management.
-> > > 
-> > > Alex
-> > > 
-> > > > Cheers
-> > > > 
-> > > > Mike
-> > > > 
-> > > > On Fri, 24 May 2019 at 16:34, Alex Deucher <alexdeucher at gmail.com> wrote:
-> > > > > From: Harry Wentland <harry.wentland at amd.com>
-> > > > > 
-> > > > > [WHY]
-> > > > > Some early Raven boards had a bad SBIOS that doesn't play nicely
-> > > > > with
-> > > > > the DMCU FW. We thought the issues were fixed by ignoring errors on
-> > > > > DMCU
-> > > > > load but that doesn't seem to be the case. We've still seen reports
-> > > > > of
-> > > > > users unable to boot their systems at all.
-> > > > > 
-> > > > > [HOW]
-> > > > > Disable DMCU load on Raven 1. Only load it for Raven 2 and Picasso.
-> > > > > 
-> > > > > v2: Fix ifdef (Alex)
-> > > > > 
-> > > > > Signed-off-by: Harry Wentland <harry.wentland at amd.com>
-> > > > > Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas at amd.com>
-> > > > > Signed-off-by: Alex Deucher <alexander.deucher at amd.com>
-> > > > > Cc: stable at vger.kernel.org
-> > > > > ---
-> > > > > 
-> > > > >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++++--
-> > > > >  1 file changed, 10 insertions(+), 2 deletions(-)
-> > > > > 
-> > > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c index
-> > > > > 995f9df66142..bcb1a93c0b4c 100644
-> > > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > > @@ -29,6 +29,7 @@
-> > > > > 
-> > > > >  #include "dm_services_types.h"
-> > > > >  #include "dc.h"
-> > > > >  #include "dc/inc/core_types.h"
-> > > > > 
-> > > > > +#include "dal_asic_id.h"
-> > > > > 
-> > > > >  #include "vid.h"
-> > > > >  #include "amdgpu.h"
-> > > > > 
-> > > > > @@ -640,7 +641,7 @@ static void amdgpu_dm_fini(struct amdgpu_device
-> > > > > *adev)
-> > > > > 
-> > > > >  static int load_dmcu_fw(struct amdgpu_device *adev)
-> > > > >  {
-> > > > > 
-> > > > > -       const char *fw_name_dmcu;
-> > > > > +       const char *fw_name_dmcu = NULL;
-> > > > > 
-> > > > >         int r;
-> > > > >         const struct dmcu_firmware_header_v1_0 *hdr;
-> > > > > 
-> > > > > @@ -663,7 +664,14 @@ static int load_dmcu_fw(struct amdgpu_device
-> > > > > *adev)
-> > > > > 
-> > > > >         case CHIP_VEGA20:
-> > > > >                 return 0;
-> > > > >         
-> > > > >         case CHIP_RAVEN:
-> > > > > -               fw_name_dmcu = FIRMWARE_RAVEN_DMCU;
-> > > > > +#if defined(CONFIG_DRM_AMD_DC_DCN1_01)
-> > > > > +               if (ASICREV_IS_PICASSO(adev->external_rev_id))
-> > > > > +                       fw_name_dmcu = FIRMWARE_RAVEN_DMCU;
-> > > > > +               else if (ASICREV_IS_RAVEN2(adev->external_rev_id))
-> > > > > +                       fw_name_dmcu = FIRMWARE_RAVEN_DMCU;
-> > > > > +               else
-> > > > > +#endif
-> > > > > +                       return 0;
-> > > > > 
-> > > > >                 break;
-> > > > >         
-> > > > >         default:
-> > > > >                 DRM_ERROR("Unsupported ASIC type: 0x%X\n",
-> > > > >                 adev->asic_type);
-> > > > > 
---nextPart2424465.qbV5PHHhLX
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/html; charset="us-ascii"
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-<html><head><meta name="qrichtext" content="1" /><style type="text/css">
-p, li { white-space: pre-wrap; }
-</style></head><body style=" font-family:'Noto Sans'; font-size:9pt; font-weight:400; font-style:normal;">
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">Alex,</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; ">&nbsp;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">Are any of these non-booting systems laptops? If all the laptops don't have this issue, is there a way we can detect we are on mobile and load the DMCU? Seeing as ABM and PSR are both practically only used on mobile, maybe we can check for that. This way we only enable it on systems that actually need the features. I am guessing the number of Raven Ridge laptops is much much smaller than the number of motherboards which can potentially support Raven Ridge.</p>
-<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; ">&nbsp;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">On vrijdag 24 mei 2019 18:49:27 CEST you wrote:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; On Fri, May 24, 2019 at 12:32 PM Mike Lothian &lt;mike at fireburn.co.uk&gt; wrote:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; I realise you don't want to enable this as it's breaking some people's</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; systems, but could we add a new boot parameter to force it for working</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; systems? Or check against a black list maybe?</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; We could probably add a whitelist.  I'm not sure what the best way to</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; id the working systems are though.</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; Alex</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; On Fri, 24 May 2019 at 17:20, Alex Deucher &lt;alexdeucher at gmail.com&gt; wrote:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; On Fri, May 24, 2019 at 12:09 PM Mike Lothian &lt;mike at fireburn.co.uk&gt; wrote:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; Hi</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; Curious to know what this means for folk that have newer Raven1 boards</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; that didn't have issues loading the firmware</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; You won't get ABM I think.  ABM is the automatic backlight management.</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; Alex</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; Cheers</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; Mike</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; On Fri, 24 May 2019 at 16:34, Alex Deucher &lt;alexdeucher at gmail.com&gt; wrote:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; From: Harry Wentland &lt;harry.wentland at amd.com&gt;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; [WHY]</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; Some early Raven boards had a bad SBIOS that doesn't play nicely</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; with</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; the DMCU FW. We thought the issues were fixed by ignoring errors on</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; DMCU</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; load but that doesn't seem to be the case. We've still seen reports</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; of</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; users unable to boot their systems at all.</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; [HOW]</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; Disable DMCU load on Raven 1. Only load it for Raven 2 and Picasso.</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; v2: Fix ifdef (Alex)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; Signed-off-by: Harry Wentland &lt;harry.wentland at amd.com&gt;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; Reviewed-by: Nicholas Kazlauskas &lt;nicholas.kazlauskas at amd.com&gt;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; Signed-off-by: Alex Deucher &lt;alexander.deucher at amd.com&gt;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; Cc: stable at vger.kernel.org</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; ---</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 ++++++++++--</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  1 file changed, 10 insertions(+), 2 deletions(-)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c index</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; 995f9df66142..bcb1a93c0b4c 100644</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; @@ -29,6 +29,7 @@</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  #include &quot;dm_services_types.h&quot;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  #include &quot;dc.h&quot;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  #include &quot;dc/inc/core_types.h&quot;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +#include &quot;dal_asic_id.h&quot;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  #include &quot;vid.h&quot;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  #include &quot;amdgpu.h&quot;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; @@ -640,7 +641,7 @@ static void amdgpu_dm_fini(struct amdgpu_device</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; *adev)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  static int load_dmcu_fw(struct amdgpu_device *adev)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;  {</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; -       const char *fw_name_dmcu;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +       const char *fw_name_dmcu = NULL;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;         int r;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;         const struct dmcu_firmware_header_v1_0 *hdr;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; @@ -663,7 +664,14 @@ static int load_dmcu_fw(struct amdgpu_device</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; *adev)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;         case CHIP_VEGA20:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;                 return 0;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;         </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;         case CHIP_RAVEN:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; -               fw_name_dmcu = FIRMWARE_RAVEN_DMCU;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +#if defined(CONFIG_DRM_AMD_DC_DCN1_01)</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +               if (ASICREV_IS_PICASSO(adev-&gt;external_rev_id))</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +                       fw_name_dmcu = FIRMWARE_RAVEN_DMCU;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +               else if (ASICREV_IS_RAVEN2(adev-&gt;external_rev_id))</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +                       fw_name_dmcu = FIRMWARE_RAVEN_DMCU;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +               else</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +#endif</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; +                       return 0;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;                 break;</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;         </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;         default:</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;                 DRM_ERROR(&quot;Unsupported ASIC type: 0x%X\n&quot;,</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt;                 adev-&gt;asic_type);</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; --</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; 2.20.1</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; </p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; _______________________________________________</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; amd-gfx mailing list</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; amd-gfx at lists.freedesktop.org</p>
-<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; -qt-user-state:0;">&gt; &gt; &gt; &gt; &gt; https://lists.freedesktop.org/mailman/listinfo/amd-gfx</p></body></html>
---nextPart2424465.qbV5PHHhLX--
-
-
-
-
---===============0051126636==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0051126636==--
+U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPg0KLS0tDQog
+RG9jdW1lbnRhdGlvbi9ncHUvYW1kZ3B1LnJzdCAgICAgICAgICAgICAgfCAgMTAgKw0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90cmFjZS5oIHwgMjIxICsrKysrKysrKysrKysr
+KysrKysrKysNCiAyIGZpbGVzIGNoYW5nZWQsIDIzMSBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1n
+aXQgYS9Eb2N1bWVudGF0aW9uL2dwdS9hbWRncHUucnN0IGIvRG9jdW1lbnRhdGlvbi9ncHUvYW1k
+Z3B1LnJzdA0KaW5kZXggODYxMzg3OTgxMjhmLi4zNTY0NzY1MTEwZTUgMTAwNjQ0DQotLS0gYS9E
+b2N1bWVudGF0aW9uL2dwdS9hbWRncHUucnN0DQorKysgYi9Eb2N1bWVudGF0aW9uL2dwdS9hbWRn
+cHUucnN0DQpAQCAtODksNiArODksMTYgQEAgQU1ER1BVIFJBUyBkZWJ1Z2ZzIGNvbnRyb2wgaW50
+ZXJmYWNlDQogLi4ga2VybmVsLWRvYzo6IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9yYXMuYw0KICAgIDppbnRlcm5hbDoNCiANCitBTURHUFUgVHJhY2luZyBTdXBwb3J0DQorPT09
+PT09PT09PT09PT09PT09PT09PQ0KKw0KKy4uIGtlcm5lbC1kb2M6OiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdHJhY2UuaA0KKyAgIDpkb2M6IEFNREdQVSBUcmFjaW5nIFN1cHBv
+cnQNCisNCisNCisuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3RyYWNlLmgNCisgICA6aW50ZXJuYWw6DQorDQogDQogR1BVIFBvd2VyL1RoZXJtYWwgQ29u
+dHJvbHMgYW5kIE1vbml0b3JpbmcNCiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PQ0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90
+cmFjZS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgNCmluZGV4
+IGQzY2EyNDI0YjVmZS4uNzFmZWJiOTBkM2UzIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3RyYWNlLmgNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV90cmFjZS5oDQpAQCAtMzcsNiArMzcsMjI3IEBADQogI2RlZmluZSBBTURHUFVf
+Sk9CX0dFVF9USU1FTElORV9OQU1FKGpvYikgXA0KIAkgam9iLT5iYXNlLnNfZmVuY2UtPmZpbmlz
+aGVkLm9wcy0+Z2V0X3RpbWVsaW5lX25hbWUoJmpvYi0+YmFzZS5zX2ZlbmNlLT5maW5pc2hlZCkN
+CiANCisvKioNCisgKiBET0M6IEFNREdQVSBUcmFjaW5nIFN1cHBvcnQNCisgKg0KKyAqIFRoZSBB
+TURHUFUgZHJpdmVyIHByb3ZpZGVzIG51bWVyb3VzIHRyYWNlIHBvaW50cyB0aGF0IGNhbiBhaWQN
+CisgKiBpbiBkZWJ1Z2dpbmcuICBUaGV5IGFyZSBnbG9iYWxseSBlbmFibGVkIGJ5IHRoZSBmaWxl
+Og0KKyAqDQorICogL3N5cy9rZXJuZWwvZGVidWcvdHJhY2luZy9ldmVudHMvYW1kZ3B1L2VuYWJs
+ZQ0KKyAqDQorICogb3IgaW5kaXZpZHVhbGx5IGJ5IHRoZSBlbmFibGUgZmlsZXMgaW4gdGhlIHN1
+Yi1kaXJlY3Rvcmllcw0KKyAqIG9mIHRoYXQgZGlyZWN0b3J5Lg0KKyAqDQorICogYW1kZ3B1X21t
+X3JyZWcsIGFtZGdwdV9tbV93cmVnDQorICogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+DQorICoNCisgKiBUaGVzZSB0cmFjZSBwb2ludHMgdHJhY2sgcmVhZHMgYW5kIHdyaXRlcyB0byBN
+TUlPIHJlZ2lzdGVycyBieQ0KKyAqIHRoZSBrZXJuZWwgZHJpdmVyIChhY3Rpdml0eSBpbnNpZGUg
+cmluZy9pbmRpcmVjdCBidWZmZXJzIGFyZSBub3QNCisgKiB0cmFjZWQpIHdoaWNoIGNhbiBiZSB1
+c2VkIHRvIGRpYWdub3NlIElQIGJsb2NrIGFjdGl2aXR5IGFuZA0KKyAqIHJlc3BvbnNlcy4NCisg
+Kg0KKyAqIFRoZSB0cmFjZSBjYXB0dXJlcyB0aGUgZm9sbG93aW5nIGluZm9ybWF0aW9uOg0KKyAq
+DQorICogICAgIC0gRElEIG9mIHRoZSBkZXZpY2UgYmVpbmcgdXNlZA0KKyAqICAgICAtIFJlZ2lz
+dGVyIGFkZHJlc3MNCisgKiAgICAgLSBWYWx1ZSBiZWluZyByZWFkIG9yIHdyaXR0ZW4NCisgKg0K
+KyAqIEl0IGRvZXMgbm90IGRpZmZlcmVudGlhdGUgYmV0d2VlbiBtdWx0aXBsZSBpbnN0YW5jZXMg
+b2YgdGhlIHNhbWUNCisgKiBBU0lDLiBUaGUgcmVnaXN0ZXIgYWRkcmVzcyBpcyB0aGUgRFdPUkQg
+YWRkcmVzcyBvZiB0aGUgcmVnaXN0ZXINCisgKiBiZWluZyB1c2VkLg0KKyAqDQorICogYW1kZ3B1
+X2l2DQorICogLS0tLS0tLS0tDQorICoNCisgKiBUaGlzIHRyYWNlcG9pbnQgY2FwdHVyZXMgZGF0
+YSBmcm9tIGFuIElSUSBldmVudCBiZWZvcmUgZGlzcGF0Y2hpbmcNCisgKiBjb250cm9sIHRvIHRo
+ZSByZXNwZWN0aXZlIElQIGJsb2NrIElSUSBoYW5kbGVyLiAgVGhlIHRyYWNlDQorICogY2FwdHVy
+ZXMgdGhlIGZvbGxvd2luZyBpbmZvcm1hdGlvbjoNCisgKg0KKyAqICAgIC0gY2xpZW50IElEDQor
+ICogICAgLSBzb3VyY2UgSUQNCisgKiAgICAtIHJpbmcgSUQNCisgKiAgICAtIFZNIElEDQorICog
+ICAgLSBWTSBJRCBzb3VyY2UNCisgKiAgICAtIFRpbWVzdGFtcA0KKyAqICAgIC0gVGltZXN0YW1w
+IHNvdXJjZQ0KKyAqICAgIC0gUEFTIElEDQorICogICAgLSA0IFNSQyBkYXRhIHdvcmRzDQorICoN
+CisgKiBhbWRncHVfYm9fY3JlYXRlDQorICogLS0tLS0tLS0tLS0tLS0tLQ0KKyAqDQorICogVGhp
+cyB0cmFjZXBvaW50IGNhcHR1cmVzIHRoZSBzdGF0ZSBvZiBhIHN1Y2Nlc3NmdWxseSBjcmVhdGVk
+DQorICogYnVmZmVyIG9iamVjdCAoQk8pLiAgVGhlIHRyYWNlIGNhcHR1cmVzIHRoZSBmb2xsb3dp
+bmcgaW5mb3JtYXRpb246DQorICoNCisgKiAgICAtIGtlcm5lbCBhZGRyZXNzIG9mIHRoZSBCTw0K
+KyAqICAgIC0gTnVtYmVyIG9mIChHUFUpIHBhZ2VzDQorICogICAgLSBNZW1vcnkgdHlwZQ0KKyAq
+ICAgIC0gUHJlZmVycmVkIGRvbWFpbg0KKyAqICAgIC0gQWxsb3dlZCBkb21haW5zDQorICogICAg
+LSBCdWZmZXIgT2JqZWN0IEZsYWdzDQorICoNCisgKiBhbWRncHVfY3MNCisgKiAtLS0tLS0tLS0N
+CisgKg0KKyAqIFRoaXMgdHJhY2Vwb2ludCBjYXB0dXJlcyBkYXRhIGFib3V0IGEgY29tbWFuZCBz
+dWJtaXNzaW9uIHByaW9yDQorICogdG8gYmVpbmcgc3VibWl0dGVkIHRvIGEgcmluZyAob3IgcXVl
+dWUpLiAgVGhlIHRyYWNlIGNhcHR1cmVzIGFsbA0KKyAqIGluZGlyZWN0IGJ1ZmZlcnMgKGlicykg
+YXQgb25jZSBiZWZvcmUgaXNzdWluZyBhbnkgY29tbWFuZHMuICBUaGUNCisgKiB0cmFjZSBjYXB0
+dXJlcyB0aGUgZm9sbG93aW5nIGluZm9ybWF0aW9uOg0KKyAqDQorICogICAgLSBrZXJuZWwgYWRk
+cmVzcyBvZiB0aGUgYnVmZmVyIG9iamVjdCAoQk8pIGxpc3QNCisgKiAgICAtIFRoZSByaW5nIChp
+bmRleCkgYmVpbmcgc3VibWl0dGVkIHRvDQorICogICAgLSBUaGUgbnVtYmVyIG9mIHdvcmRzDQor
+ICogICAgLSBUaGUgbnVtYmVyIG9mIGZlbmNlcyBlbWl0dGVkDQorICoNCisgKiBhbWRncHVfY3Nf
+aW9jdGwNCisgKiAtLS0tLS0tLS0tLS0tLS0NCisgKg0KKyAqIFRoaXMgdHJhY2Vwb2ludCBjYXB0
+dXJlcyBpbmZvcm1hdGlvbiBmcm9tIHRoZSBJT0NUTCBxdWVyeSB0aGF0DQorICogc3VibWl0cyBj
+b21tYW5kcyB0byBhIHJpbmcuICBJdCBpcyBwYXJ0IG9mIHRoZSBEUk0gdXNlcnNwYWNlDQorICog
+aW5mcmFzdHJ1Y3R1cmUuICBUaGUgdHJhY2UgY2FwdHVyZXMgdGhlIGZvbGxvd2luZyBpbmZvcm1h
+dGlvbjoNCisgKg0KKyAqICAgIC0gU2NoZWR1bGUgam9iIElEDQorICogICAgLSBUaW1lbGluZSAo
+bmFtZSBvZiByaW5nIHRoZSBmZW5jZSBpcyBlbWl0dGVkIHRvKQ0KKyAqICAgIC0gRmVuY2UgY29u
+dGV4dA0KKyAqICAgIC0gRmVuY2Ugc2VxdWVuY2UgbnVtYmVyDQorICogICAgLSBSaW5nIG5hbWUg
+YmVpbmcgc3VibWl0dGVkIHRvDQorICogICAgLSBOdW1iZXIgb2YgaW5kaXJlY3QgYnVmZmVycyAo
+aWJzKQ0KKyAqDQorICogYW1kZ3B1X3NjaGVkX3J1bl9qb2INCisgKiAtLS0tLS0tLS0tLS0tLS0t
+LS0tLQ0KKyAqDQorICogVGhpcyB0cmFjZXBvaW50IGNhcHR1cmVzIGluZm9ybWF0aW9uIGFib3V0
+IGEgam9iIHN1Ym1pc3Npb24NCisgKiBhdCB0aGUgcG9pbnQgb2Ygc2NoZWR1bGluZyBmb3Igc3Vi
+bWlzc2lvbiB0byBhIHJpbmcuICBUaGUgdHJhY2UNCisgKiBjYXB0dXJlcyB0aGUgZm9sbG93aW5n
+IGluZm9ybWF0aW9uOg0KKyAqDQorICogICAgLSBKb2IgSUQNCisgKiAgICAtIFRpbWVsaW5lIChu
+YW1lIG9mIHJpbmcgdGhlIGZlbmNlIGlzIGVtaXR0ZWQgdG8pDQorICogICAgLSBDb250ZXh0IElE
+DQorICogICAgLSBTZXF1ZW5jZSBOdW1iZXINCisgKiAgICAtIFJpbmcgbmFtZSBiZWluZyBzdWJt
+aXR0ZWQgdG8NCisgKiAgICAtIE51bWJlciBvZiBpbmRpcmVjdCBidWZmZXJzIChpYnMpDQorICoN
+CisgKiBhbWRncHVfdm1fZ3JhYl9pZA0KKyAqIC0tLS0tLS0tLS0tLS0tLS0tDQorICoNCisgKiBU
+aGlzIHRyYWNlcG9pbnQgY2FwdHVyZXMgaW5mb3JtYXRpb24gYWJvdXQgYSBWTSBhbGxvY2F0aW9u
+Lg0KKyAqIFRoZSB0cmFjZSBjYXB0dXJlcyB0aGUgZm9sbG93aW5nIGluZm9ybWF0aW9uOg0KKyAq
+DQorICogICAgLSBQQVMgSUQNCisgKiAgICAtIFJpbmcgbmFtZQ0KKyAqICAgIC0gUmluZyBpbmRl
+eA0KKyAqICAgIC0gVk0gSUQgdGhhdCBpcyBhc3NpZ25lZA0KKyAqICAgIC0gVk0gaHViIGFzc2ln
+bmVkIChkZXBlbmRzIG9uIHJpbmcpDQorICogICAgLSBQYWdlIERpcmVjdG9yeSBiYXNlIGFkZHJl
+c3MNCisgKiAgICAtIEZsYWcgaW5kaWNhdGluZyB3aGV0aGVyIGl0IG5lZWRzIHRvIGJlIGZsdXNo
+ZWQgb3Igbm90DQorICoNCisgKiBhbWRncHVfdm1fYm9fbWFwDQorICogLS0tLS0tLS0tLS0tLS0t
+LQ0KKyAqDQorICogVGhpcyB0cmFjZXBvaW50IGNhcHR1cmVzIGluZm9ybWF0aW9uIHdoZW4gYSBu
+ZXcgbWFwcGluZyBpcyBpbnNlcnRlZA0KKyAqIGludG8gYSBWTSBzcGFjZS4gIFRoZSB0cmFjZSBj
+YXB0dXJlcyB0aGUgZm9sbG93aW5nIGluZm9ybWF0aW9uOg0KKyAqDQorICogICAgLSBLZXJuZWwg
+YWRkcmVzcyBvZiB0aGUgYnVmZmVyIG9iamVjdCAoYm8pDQorICogICAgLSBTdGFydCBwYWdlIGFk
+ZHJlc3Mgb2YgbWFwcGluZw0KKyAqICAgIC0gTGFzdCBwYWdlIGFkZHJlc3Mgb2YgbWFwcGluZw0K
+KyAqICAgIC0gT2Zmc2V0IGludG8gbWFwcGluZw0KKyAqICAgIC0gRmxhZ3MgZm9yIHRoZSBtYXBw
+aW5nDQorICoNCisgKiBhbWRncHVfdm1fYm9fdW5tYXANCisgKiAtLS0tLS0tLS0tLS0tLS0tLS0N
+CisgKg0KKyAqIFRoaXMgdHJhY2Vwb2ludCBjYXB0dXJlcyBpbmZvcm1hdGlvbiB3aGVuIGEgbWFw
+cGluZyBpcyBkZWxldGVkDQorICogZnJvbSBhIFZNIHNwYWNlLiAgVGhlIHRyYWNlIGNhcHR1cmVz
+IHRoZSBmb2xsb3dpbmcgaW5mb3JtYXRpb246DQorICoNCisgKiAgICAtIEtlcm5lbCBhZGRyZXNz
+IG9mIHRoZSBidWZmZXIgb2JqZWN0IChibykNCisgKiAgICAtIFN0YXJ0IHBhZ2UgYWRkcmVzcyBv
+ZiBtYXBwaW5nDQorICogICAgLSBMYXN0IHBhZ2UgYWRkcmVzcyBvZiBtYXBwaW5nDQorICogICAg
+LSBPZmZzZXQgaW50byBtYXBwaW5nDQorICogICAgLSBGbGFncyBmb3IgdGhlIG1hcHBpbmcNCisg
+Kg0KKyAqIGFtZGdwdV92bV9zZXRfcHRlcw0KKyAqIC0tLS0tLS0tLS0tLS0tLS0tLQ0KKyAqDQor
+ICogVGhpcyB0cmFjZXBvaW50IGNhcHR1cmVzIGluZm9ybWF0aW9uIHdoZW4gbmV3IFBhZ2UgVGFi
+bGUgRW50cmllcw0KKyAqIChQVEUpIGFyZSB0byBiZSB3cml0dGVuIG91dCB0byB0aGUgUGFnZSBU
+YWJsZSBCbG9jayAoUFRCKSBwb2ludGVkDQorICogdG8gYnkgYSBQYWdlIERpcmVjdG9yeSBFbnRy
+eSAoUERFKS4gIFRoZSB0cmFjZSBjYXB0dXJlcyB0aGUNCisgKiBmb2xsb3dpbmcgaW5mb3JtYXRp
+b246DQorICoNCisgKiAgICAtIENQVSBhZGRyZXNzIG9mIFBURSAocGUpDQorICogICAgLSBQYWdl
+IEJhc2UgQWRkcmVzcyAoYWRkcikgdG8gYmUgaW5zZXJ0ZWQNCisgKiAgICAtIE51bWJlciBvZiBQ
+VEVzIHRvIGJlIHdyaXR0ZW4NCisgKiAgICAtIEluY3JlbWVudCBvbiB0aGUgcGFnZSBiYXNlZCBh
+ZGRyZXNzIHBlciBlbnRyeQ0KKyAqICAgIC0gVGhlIFBURSBmbGFncw0KKyAqDQorICogYW1kZ3B1
+X3ZtX2NvcHlfcHRlcw0KKyAqIC0tLS0tLS0tLS0tLS0tLS0tLS0NCisgKg0KKyAqIFRoaXMgdHJh
+Y2Vwb2ludCBjYXB0dXJlcyBpbmZvcm1hdGlvbiB3aGVuIFBhZ2UgVGFibGUgRW50cmllcyBhcmUN
+CisgKiBjb3BpZWQgZnJvbSBhIG1hcHBpbmcgdG8gYSBQYWdlIFRhYmxlIEJsb2NrLiAgVGhlIHRy
+YWNlIGNhcHR1cmVzIHRoZQ0KKyAqIGZvbGxvd2luZyBpbmZvcm1hdGlvbjoNCisgKg0KKyAqICAg
+IC0gRGVzdGluYXRpb24gUFRCIGZvciB0aGUgY29waWVkIGVudHJpZXMNCisgKiAgICAtIFNvdXJj
+ZSBhZGRyZXNzDQorICogICAgLSBDb3VudCBvZiBQVEUgZW50cmllcyB0byBjb3B5DQorICoNCisg
+KiBhbWRncHVfdm1fZmx1c2gNCisgKiAtLS0tLS0tLS0tLS0tLS0NCisgKg0KKyAqIFRoaXMgdHJh
+Y2Vwb2ludCBjYXB0dXJlcyBpbmZvcm1hdGlvbiBvZiBhIFZNIGZsdXNoIGJlaW5nIHBlcmZvcm1l
+ZA0KKyAqIHZpYSBhIHNwZWNpZmljIEdQVSByaW5nLiAgVGhlIHRyYWNlIGNhcHR1cmVzIHRoZSBm
+b2xsb3dpbmcNCisgKiBpbmZvcm1hdGlvbjoNCisgKg0KKyAqICAgIC0gUmluZyBuYW1lDQorICog
+ICAgLSBWTSBJRA0KKyAqICAgIC0gVk0gSHViDQorICogICAgLSBUaGUgYmFzZSBhZGRyZXNzIG9m
+IHRoZSBQREIgYmVpbmcgaW52YWxpZGF0ZWQNCisgKg0KKyAqIGFtZGdwdV9ib19saXN0X3NldA0K
+KyAqIC0tLS0tLS0tLS0tLS0tLS0tLQ0KKyAqDQorICogVGhpcyB0cmFjZXBvaW50IGNhcHR1cmVz
+IGluZm9ybWF0aW9uIHdoZW4gc3RvcmluZyBhIGJ1ZmZlcg0KKyAqIG9iamVjdCAoYm8pIGxpc3Qg
+ZW50cnkuIFRoZSB0cmFjZSBjYXB0dXJlcyB0aGUgZm9sbG93aW5nDQorICogaW5mb3JtYXRpb246
+DQorICoNCisgKiAgICAtIEtlcm5lbCBhZGRyZXNzIG9mIHRoZSBidWZmZXIgb2JqZWN0IGxpc3QN
+CisgKiAgICAtIEtlcm5lbCBhZGRyZXNzIG9mIHRoZSBidWZmZXIgb2JqZWN0IGJlaW5nIGFkZGVk
+DQorICogICAgLSBTaXplIG9mIHRoZSBidWZmZXIgb2JqZWN0IGJlaW5nIGFkZGVkDQorICoNCisg
+KiBhbWRncHVfY3NfYm9fc3RhdHVzDQorICogLS0tLS0tLS0tLS0tLS0tLS0tLQ0KKyAqDQorICog
+VGhpcyB0cmFjZXBvaW50IGNhcHR1cmVzIGluZm9ybWF0aW9uIHdoZW4gYSBidWZmZXIgb2JqZWN0
+IChibykNCisgKiBsaXN0IGlzIGNyZWF0ZWQuICBUaGUgdHJhY2UgY2FwdHVyZXMgdGhlIGZvbGxv
+d2luZyBpbmZvcm1hdGlvbjoNCisgKg0KKyAqICAgIC0gVG90YWwgbnVtYmVyIG9mIGVudHJpZXMN
+CisgKiAgICAtIFRvdGFsIGJ5dGVzIG9mIG9iamVjdHMgc3RvcmVkIGluIGxpc3QNCisgKg0KKyAq
+IGFtZGdwdV9ib19tb3ZlDQorICogLS0tLS0tLS0tLS0tLS0NCisgKg0KKyAqIFRoaXMgdHJhY2Vw
+b2ludCBjYXB0dXJlcyBpbmZvcm1hdGlvbiBhYm91dCB0aGUgbW92ZW1lbnQgb2YgYQ0KKyAqIGJ1
+ZmZlciBvYmplY3QgZnJvbSBvbmUgcGxhY2VtZW50IChtZW1vcnkgdHlwZSkgdG8gYW5vdGhlci4g
+IHRoZQ0KKyAqIHRyYWNlIGNhcHR1cmVzIHRoZSBmb2xsb3dpbmcgaW5mb3JtYXRpb246DQorICoN
+CisgKiAgICAgLSBLZXJuZWwgYWRkcmVzcyBvZiBidWZmZXIgb2JqZWN0DQorICogICAgIC0gU2l6
+ZSBvZiBidWZmZXIgb2JqZWN0IGluIGJ5dGVzDQorICogICAgIC0gTmV3IHBsYWNlbWVudCB0YXJn
+ZXQNCisgKiAgICAgLSBPbGQgcGxhY2VtZW50IHNvdXJjZQ0KKyAqDQorICogYW1kZ3B1X2liX3Bp
+cGVfc3luYw0KKyAqIC0tLS0tLS0tLS0tLS0tLS0tLS0NCisgKg0KKyAqIFRoaXMgdHJhY2Vwb2lu
+dCBjYXB0dXJlcyBpbmZvcm1hdGlvbiB3aGVuIGEgcGlwZWxpbmUgc3luYyBpcw0KKyAqIGVtaXR0
+ZWQgdG8gYSByaW5nLiAgVGhlIHRyYWNlIGNhcHR1cmVzIHRoZSBmb2xsb3dpbmcgaW5mb3JtYXRp
+b246DQorICoNCisgKiAgICAgLSBOYW1lIG9mIHRoZSByaW5nDQorICogICAgIC0gSm9iIElEDQor
+ICogICAgIC0gS2VybmVsIGFkZHJlc3Mgb2YgZmVuY2Ugb2JqZWN0DQorICogICAgIC0gQ29udGV4
+dCBJRA0KKyAqICAgICAtIEZlbmNlIHNlcXVlbmNlIG51bWJlcg0KKyAqDQorICovDQorDQogVFJB
+Q0VfRVZFTlQoYW1kZ3B1X21tX3JyZWcsDQogCSAgICBUUF9QUk9UTyh1bnNpZ25lZCBkaWQsIHVp
+bnQzMl90IHJlZywgdWludDMyX3QgdmFsdWUpLA0KIAkgICAgVFBfQVJHUyhkaWQsIHJlZywgdmFs
+dWUpLA0KLS0gDQoyLjIxLjANCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4
