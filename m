@@ -1,16 +1,16 @@
-From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: use new HMM APIs and helpers
-Date: Fri, 31 May 2019 17:28:29 +0000
-Message-ID: <bd8f1fd6-f6c4-66fc-c0b9-c8ed36cd6027@amd.com>
-References: <20190530144049.1996-1-Philip.Yang@amd.com>
- <704410a5-be01-f423-11ef-01a640cd469c@amd.com>
+From: Harry Wentland <hwentlan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Add back missing hw translate init for
+ DCN1_01
+Date: Fri, 31 May 2019 18:05:22 +0000
+Message-ID: <90dc7bf2-3886-0572-3046-8903bdc83146@amd.com>
+References: <20190531160526.28279-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <704410a5-be01-f423-11ef-01a640cd469c-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190531160526.28279-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <D2577B7245214B4BA5967E578AF1CB58-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+Content-ID: <D2B0E61B6F23B0429D751D86ADE6FB4D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,26 +21,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>
 
-DQoNCk9uIDIwMTktMDUtMzAgNjozNiBwLm0uLCBLdWVobGluZywgRmVsaXggd3JvdGU6DQo+PiAg
-ICANCj4+ICAgICNpZiBJU19FTkFCTEVEKENPTkZJR19EUk1fQU1ER1BVX1VTRVJQVFIpDQo+PiAt
-CWlmIChndHQtPnJhbmdlcyAmJg0KPj4gLQkgICAgdHRtLT5wYWdlc1swXSA9PSBobW1fcGZuX3Rv
-X3BhZ2UoJmd0dC0+cmFuZ2VzWzBdLA0KPj4gLQkJCQkJICAgICBndHQtPnJhbmdlc1swXS5wZm5z
-WzBdKSkNCj4+ICsJaWYgKGd0dC0+cmFuZ2UgJiYNCj4+ICsJICAgIHR0bS0+cGFnZXNbMF0gPT0g
-aG1tX2RldmljZV9lbnRyeV90b19wYWdlKGd0dC0+cmFuZ2UsDQo+PiArCQkJCQkJICAgICAgZ3R0
-LT5yYW5nZS0+cGZuc1swXSkpDQo+IEkgdGhpbmsganVzdCBjaGVja2luZyBndHQtPnJhbmdlIGhl
-cmUgaXMgZW5vdWdoLiBJZiBndHQtPnJhbmdlIGlzIG5vdA0KPiBOVUxMIGhlcmUsIHdlJ3JlIGxl
-YWtpbmcgbWVtb3J5Lg0KPiANCklmIGp1c3QgY2hlY2tpbmcgZ3R0LT5yYW5nZSwgdGhlcmUgaXMg
-YSBmYWxzZSB3YXJuaW5nIGluIGFtZGdwdV90ZXN0IA0KdXNlcnB0ciBjYXNlIGluIGFtZGdwdV9j
-c19saXN0X3ZhbGlkYXRlIHBhdGguIElmIHVzZXJwdHIgaXMgaW52YWxpZGF0ZWQsIA0KdGhlbiB0
-dG0tPnBhZ2VzWzBdIGlzIG91dGRhdGVkIHBhZ2VzLCBsb2JqLT51c2VyX3BhZ2VzIGlzIG5ldyBw
-YWdlcywgaXQgDQpnb2VzIHRvIHR0bV90dF91bmJpbmQgZmlyc3QgdG8gdW5waW4gb2xkIHBhZ2Vz
-ICh0aGlzIGNhdXNlcyBmYWxzZSANCndhcm5pbmcpIHRoZW4gY2FsbCBhbWRncHVfdHRtX3R0X3Nl
-dF91c2VyX3BhZ2VzLg0KDQpJIHdpbGwgc3VibWl0IHBhdGNoIHYyLCB0byBhZGQgcmV0cnkgaWYg
-aG1tX3JhbmdlX2ZhdWx0IHJldHVybnMgLUVBR0FJTi4gDQp1c2Uga3phbGxvYyB0byBhbGxvY2F0
-ZSBzbWFsbCBzaXplIHJhbmdlLg0KDQpUaGFua3MsDQpQaGlsaXANCg0KPiBSZWdhcmRzLA0KPiAg
-IMKgIEZlbGl4DQo+IA0KPiANCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA==
+T24gMjAxOS0wNS0zMSAxMjowNSBwLm0uLCBOaWNob2xhcyBLYXpsYXVza2FzIHdyb3RlOg0KPiBb
+V2h5XQ0KPiBEQ05fVkVSU0lPTl8xXzAxIGlzIG5vIGxvbmdlciBoYW5kbGVkIGluIHRoZSBkYWxf
+aHdfdHJhbnNsYXRlX2luaXQNCj4gc3dpdGNoIHNpbmNlIGl0IHdhcyBpbmFkdmVydGVudGx5IGRy
+b3BwZWQgaW4gdGhlIHBhdGNoIHRoYXQgcmVtb3ZlZCB0aGUNCj4gdW5uZWNlc3NhcnkgRENOMV8w
+MSBndWFyZHMuDQo+IA0KPiBUaGlzIGNhdXNlZCBudW1lcm91cyByZWdyZXNzaW9ucyBvbiBEQ04x
+XzAxIHdoZW4gbG9hZGluZyB0aGUgZHJpdmVyLg0KPiANCj4gW0hvd10NCj4gQWRkIGl0IGJhY2su
+DQo+IA0KPiBDYzogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+DQo+IEZp
+eGVzOiA5N2RmNDI0ZmU3YTcgKCJkcm0vYW1kL2Rpc3BsYXk6IERyb3AgRENOMV8wMSBndWFyZHMi
+KQ0KPiBTaWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVz
+a2FzQGFtZC5jb20+DQoNClJldmlld2VkLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxh
+bmRAYW1kLmNvbT4NCg0KSGFycnkNCg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9ncGlvL2h3X3RyYW5zbGF0ZS5jIHwgMSArDQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBp
+bnNlcnRpb24oKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZ3Bpby9od190cmFuc2xhdGUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9ncGlvL2h3X3RyYW5zbGF0ZS5jDQo+IGluZGV4IDc3NjE1MTQ2Yjk2ZS4uMWY5ODMzZGM4Y2Zl
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9od190
+cmFuc2xhdGUuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9o
+d190cmFuc2xhdGUuYw0KPiBAQCAtODEsNiArODEsNyBAQCBib29sIGRhbF9od190cmFuc2xhdGVf
+aW5pdCgNCj4gIAkJcmV0dXJuIHRydWU7DQo+ICAjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9E
+Q19EQ04xXzApDQo+ICAJY2FzZSBEQ05fVkVSU0lPTl8xXzA6DQo+ICsJY2FzZSBEQ05fVkVSU0lP
+Tl8xXzAxOg0KPiAgCQlkYWxfaHdfdHJhbnNsYXRlX2RjbjEwX2luaXQodHJhbnNsYXRlKTsNCj4g
+IAkJcmV0dXJuIHRydWU7DQo+ICAjZW5kaWYNCj4gDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZng=
