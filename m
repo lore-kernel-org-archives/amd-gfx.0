@@ -1,43 +1,73 @@
-From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/display: Add back missing hw translate init for
- DCN1_01
-Date: Fri, 31 May 2019 12:05:26 -0400
-Message-ID: <20190531160526.28279-1-nicholas.kazlauskas@amd.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
+Date: Fri, 31 May 2019 17:19:55 +0100
+Message-ID: <20190531161954.GA3568@arrakis.emea.arm.com>
+References: <20190521182932.sm4vxweuwo5ermyd@mbp>
+ <201905211633.6C0BF0C2@keescook>
+ <6049844a-65f5-f513-5b58-7141588fef2b@oracle.com>
+ <20190523201105.oifkksus4rzcwqt4@mbp>
+ <ffe58af3-7c70-d559-69f6-1f6ebcb0fec6@oracle.com>
+ <20190524101139.36yre4af22bkvatx@mbp>
+ <c6dd53d8-142b-3d8d-6a40-d21c5ee9d272@oracle.com>
+ <CAAeHK+yAUsZWhp6xPAbWewX5Nbw+-G3svUyPmhXu5MVeEDKYvA@mail.gmail.com>
+ <20190530171540.GD35418@arrakis.emea.arm.com>
+ <CAAeHK+y34+SNz3Vf+_378bOxrPaj_3GaLCeC2Y2rHAczuaSz1A@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+Content-Disposition: inline
+In-Reply-To: <CAAeHK+y34+SNz3Vf+_378bOxrPaj_3GaLCeC2Y2rHAczuaSz1A@mail.gmail.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgenii Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai Hadas <yis>
+List-Id: amd-gfx.lists.freedesktop.org
 
-W1doeV0KRENOX1ZFUlNJT05fMV8wMSBpcyBubyBsb25nZXIgaGFuZGxlZCBpbiB0aGUgZGFsX2h3
-X3RyYW5zbGF0ZV9pbml0CnN3aXRjaCBzaW5jZSBpdCB3YXMgaW5hZHZlcnRlbnRseSBkcm9wcGVk
-IGluIHRoZSBwYXRjaCB0aGF0IHJlbW92ZWQgdGhlCnVubmVjZXNzYXJ5IERDTjFfMDEgZ3VhcmRz
-LgoKVGhpcyBjYXVzZWQgbnVtZXJvdXMgcmVncmVzc2lvbnMgb24gRENOMV8wMSB3aGVuIGxvYWRp
-bmcgdGhlIGRyaXZlci4KCltIb3ddCkFkZCBpdCBiYWNrLgoKQ2M6IEhhcnJ5IFdlbnRsYW5kIDxo
-YXJyeS53ZW50bGFuZEBhbWQuY29tPgpGaXhlczogOTdkZjQyNGZlN2E3ICgiZHJtL2FtZC9kaXNw
-bGF5OiBEcm9wIERDTjFfMDEgZ3VhcmRzIikKU2lnbmVkLW9mZi1ieTogTmljaG9sYXMgS2F6bGF1
-c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9kYy9ncGlvL2h3X3RyYW5zbGF0ZS5jIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvZ3Bpby9od190cmFuc2xhdGUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9n
-cGlvL2h3X3RyYW5zbGF0ZS5jCmluZGV4IDc3NjE1MTQ2Yjk2ZS4uMWY5ODMzZGM4Y2ZlIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9od190cmFuc2xhdGUu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZ3Bpby9od190cmFuc2xhdGUu
-YwpAQCAtODEsNiArODEsNyBAQCBib29sIGRhbF9od190cmFuc2xhdGVfaW5pdCgKIAkJcmV0dXJu
-IHRydWU7CiAjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19EQ04xXzApCiAJY2FzZSBEQ05f
-VkVSU0lPTl8xXzA6CisJY2FzZSBEQ05fVkVSU0lPTl8xXzAxOgogCQlkYWxfaHdfdHJhbnNsYXRl
-X2RjbjEwX2luaXQodHJhbnNsYXRlKTsKIAkJcmV0dXJuIHRydWU7CiAjZW5kaWYKLS0gCjIuMTcu
-MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Fri, May 31, 2019 at 04:29:10PM +0200, Andrey Konovalov wrote:
+> On Thu, May 30, 2019 at 7:15 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> > On Tue, May 28, 2019 at 04:14:45PM +0200, Andrey Konovalov wrote:
+> > > Thanks for a lot of valuable input! I've read through all the replies
+> > > and got somewhat lost. What are the changes I need to do to this
+> > > series?
+> > >
+> > > 1. Should I move untagging for memory syscalls back to the generic
+> > > code so other arches would make use of it as well, or should I keep
+> > > the arm64 specific memory syscalls wrappers and address the comments
+> > > on that patch?
+> >
+> > Keep them generic again but make sure we get agreement with Khalid on
+> > the actual ABI implications for sparc.
+> 
+> OK, will do. I find it hard to understand what the ABI implications
+> are. I'll post the next version without untagging in brk, mmap,
+> munmap, mremap (for new_address), mmap_pgoff, remap_file_pages, shmat
+> and shmdt.
+
+It's more about not relaxing the ABI to accept non-zero top-byte unless
+we have a use-case for it. For mmap() etc., I don't think that's needed
+but if you think otherwise, please raise it.
+
+> > > 2. Should I make untagging opt-in and controlled by a command line argument?
+> >
+> > Opt-in, yes, but per task rather than kernel command line option.
+> > prctl() is a possibility of opting in.
+> 
+> OK. Should I store a flag somewhere in task_struct? Should it be
+> inheritable on clone?
+
+A TIF flag would do but I'd say leave it out for now (default opted in)
+until we figure out the best way to do this (can be a patch on top of
+this series).
+
+Thanks.
+
+-- 
+Catalin
