@@ -1,87 +1,125 @@
-From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amd/display: Add connector debugfs for "output_bpc"
-Date: Mon, 3 Jun 2019 13:44:37 -0400
-Message-ID: <20190603174437.23996-1-nicholas.kazlauskas@amd.com>
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v16 12/16] IB, arm64: untag user pointers in
+ ib_uverbs_(re)reg_mr()
+Date: Mon, 3 Jun 2019 14:46:19 -0300
+Message-ID: <20190603174619.GC11474@ziepe.ca>
+References: <cover.1559580831.git.andreyknvl@google.com>
+ <c829f93b19ad6af1b13be8935ce29baa8e58518f.1559580831.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <c829f93b19ad6af1b13be8935ce29baa8e58518f.1559580831.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-W1doeV0KVGhpcyB3aWxsIGJlIHVzZWZ1bCBmb3IgdmVyaWZ5aW5nIHdoZXRoZXIgd2UgZW50ZXIg
-dGhlIGNvcnJlY3Qgb3V0cHV0CmNvbG9yIGRlcHRoIGZyb20gSUdULgoKW0hvd10KTG9ja3MgdGhl
-IGNvbm5lY3RvciBhbmQgYXNzb2NpYXRlZCBDUlRDIGlmIGF2YWlsYWJsZSBhbmQgb3V0cHV0cwp0
-aGUgY3VycmVudCBhbmQgbWF4aW11bSBvdXRwdXQgYnBjIHZhbHVlcy4KCkV4YW1wbGU6CgpjYXQg
-L3N5cy9rZXJuZWwvZGVidWcvZHJpLzAvRFAtMS9vdXRwdXRfYnBjCkN1cnJlbnQ6IDgKTWF4aW11
-bTogMTAKCnYyOiBEcm9wIHVubmVlZGVkIGNvbm5lY3RvciBzdGF0dXMgY2hlY2sKCkNjOiBMZW8g
-TGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KQ2M6IEhhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFu
-ZEBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5r
-YXpsYXVza2FzQGFtZC5jb20+Ci0tLQogLi4uL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1fZGVidWdmcy5jIHwgNzEgKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNoYW5nZWQsIDY5
-IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jCmluZGV4IDFk
-NWZjNWFkM2JlZS4uYTNlMzYyZmE2NzQ3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9kZWJ1Z2ZzLmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fZGVidWdmcy5jCkBAIC02NzIsNiAr
-NjcyLDcxIEBAIHN0YXRpYyBzc2l6ZV90IGRwX3BoeV90ZXN0X3BhdHRlcm5fZGVidWdmc193cml0
-ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3QgY2hhciBfX3VzCiAJcmV0dXJuIGJ5dGVzX2Zyb21fdXNl
-cjsKIH0KIAorLyoKKyAqIFJldHVybnMgdGhlIGN1cnJlbnQgYW5kIG1heGltdW0gb3V0cHV0IGJw
-YyBmb3IgdGhlIGNvbm5lY3Rvci4KKyAqIEV4YW1wbGUgdXNhZ2U6IGNhdCAvc3lzL2tlcm5lbC9k
-ZWJ1Zy9kcmkvMC9EUC0xL291dHB1dF9icGMKKyAqLworc3RhdGljIGludCBvdXRwdXRfYnBjX3No
-b3coc3RydWN0IHNlcV9maWxlICptLCB2b2lkICpkYXRhKQoreworCXN0cnVjdCBkcm1fY29ubmVj
-dG9yICpjb25uZWN0b3IgPSBtLT5wcml2YXRlOworCXN0cnVjdCBkcm1fZGV2aWNlICpkZXYgPSBj
-b25uZWN0b3ItPmRldjsKKwlzdHJ1Y3QgZHJtX2NydGMgKmNydGMgPSBOVUxMOworCXN0cnVjdCBk
-bV9jcnRjX3N0YXRlICpkbV9jcnRjX3N0YXRlID0gTlVMTDsKKwlpbnQgcmVzID0gLUVOT0RFVjsK
-Kwl1bnNpZ25lZCBpbnQgYnBjOworCisJbXV0ZXhfbG9jaygmZGV2LT5tb2RlX2NvbmZpZy5tdXRl
-eCk7CisJZHJtX21vZGVzZXRfbG9jaygmZGV2LT5tb2RlX2NvbmZpZy5jb25uZWN0aW9uX211dGV4
-LCBOVUxMKTsKKworCWlmIChjb25uZWN0b3ItPnN0YXRlID09IE5VTEwpCisJCWdvdG8gdW5sb2Nr
-OworCisJY3J0YyA9IGNvbm5lY3Rvci0+c3RhdGUtPmNydGM7CisJaWYgKGNydGMgPT0gTlVMTCkK
-KwkJZ290byB1bmxvY2s7CisKKwlkcm1fbW9kZXNldF9sb2NrKCZjcnRjLT5tdXRleCwgTlVMTCk7
-CisJaWYgKGNydGMtPnN0YXRlID09IE5VTEwpCisJCWdvdG8gdW5sb2NrOworCisJZG1fY3J0Y19z
-dGF0ZSA9IHRvX2RtX2NydGNfc3RhdGUoY3J0Yy0+c3RhdGUpOworCWlmIChkbV9jcnRjX3N0YXRl
-LT5zdHJlYW0gPT0gTlVMTCkKKwkJZ290byB1bmxvY2s7CisKKwlzd2l0Y2ggKGRtX2NydGNfc3Rh
-dGUtPnN0cmVhbS0+dGltaW5nLmRpc3BsYXlfY29sb3JfZGVwdGgpIHsKKwljYXNlIENPTE9SX0RF
-UFRIXzY2NjoKKwkJYnBjID0gNjsKKwkJYnJlYWs7CisJY2FzZSBDT0xPUl9ERVBUSF84ODg6CisJ
-CWJwYyA9IDg7CisJCWJyZWFrOworCWNhc2UgQ09MT1JfREVQVEhfMTAxMDEwOgorCQlicGMgPSAx
-MDsKKwkJYnJlYWs7CisJY2FzZSBDT0xPUl9ERVBUSF8xMjEyMTI6CisJCWJwYyA9IDEyOworCQli
-cmVhazsKKwljYXNlIENPTE9SX0RFUFRIXzE2MTYxNjoKKwkJYnBjID0gMTY7CisJCWJyZWFrOwor
-CWRlZmF1bHQ6CisJCWdvdG8gdW5sb2NrOworCX0KKworCXNlcV9wcmludGYobSwgIkN1cnJlbnQ6
-ICV1XG4iLCBicGMpOworCXNlcV9wcmludGYobSwgIk1heGltdW06ICV1XG4iLCBjb25uZWN0b3It
-PmRpc3BsYXlfaW5mby5icGMpOworCXJlcyA9IDA7CisKK3VubG9jazoKKwlpZiAoY3J0YykKKwkJ
-ZHJtX21vZGVzZXRfdW5sb2NrKCZjcnRjLT5tdXRleCk7CisKKwlkcm1fbW9kZXNldF91bmxvY2so
-JmRldi0+bW9kZV9jb25maWcuY29ubmVjdGlvbl9tdXRleCk7CisJbXV0ZXhfdW5sb2NrKCZkZXYt
-Pm1vZGVfY29uZmlnLm11dGV4KTsKKworCXJldHVybiByZXM7Cit9CisKIC8qCiAgKiBSZXR1cm5z
-IHRoZSBtaW4gYW5kIG1heCB2cnIgdmZyZXEgdGhyb3VnaCB0aGUgY29ubmVjdG9yJ3MgZGVidWdm
-cyBmaWxlLgogICogRXhhbXBsZSB1c2FnZTogY2F0IC9zeXMva2VybmVsL2RlYnVnL2RyaS8wL0RQ
-LTEvdnJyX3JhbmdlCkBAIC03MzAsOCArNzk1LDYgQEAgc3RhdGljIHNzaXplX3QgZHBfc2RwX21l
-c3NhZ2VfZGVidWdmc193cml0ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3QgY2hhciBfX3VzZXIgKmIK
-IAlyZXR1cm4gd3JpdGVfc2l6ZTsKIH0KIAotREVGSU5FX1NIT1dfQVRUUklCVVRFKHZycl9yYW5n
-ZSk7Ci0KIHN0YXRpYyBzc2l6ZV90IGRwX2RwY2RfYWRkcmVzc193cml0ZShzdHJ1Y3QgZmlsZSAq
-ZiwgY29uc3QgY2hhciBfX3VzZXIgKmJ1ZiwKIAkJCQkgc2l6ZV90IHNpemUsIGxvZmZfdCAqcG9z
-KQogewpAQCAtODE0LDYgKzg3Nyw5IEBAIHN0YXRpYyBzc2l6ZV90IGRwX2RwY2RfZGF0YV9yZWFk
-KHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNlciAqYnVmLAogCXJldHVybiByZWFkX3NpemUgLSBy
-OwogfQogCitERUZJTkVfU0hPV19BVFRSSUJVVEUob3V0cHV0X2JwYyk7CitERUZJTkVfU0hPV19B
-VFRSSUJVVEUodnJyX3JhbmdlKTsKKwogc3RhdGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJhdGlv
-bnMgZHBfbGlua19zZXR0aW5nc19kZWJ1Z2ZzX2ZvcHMgPSB7CiAJLm93bmVyID0gVEhJU19NT0RV
-TEUsCiAJLnJlYWQgPSBkcF9saW5rX3NldHRpbmdzX3JlYWQsCkBAIC04NjYsNiArOTMyLDcgQEAg
-c3RhdGljIGNvbnN0IHN0cnVjdCB7CiAJCXsibGlua19zZXR0aW5ncyIsICZkcF9saW5rX3NldHRp
-bmdzX2RlYnVnZnNfZm9wc30sCiAJCXsicGh5X3NldHRpbmdzIiwgJmRwX3BoeV9zZXR0aW5nc19k
-ZWJ1Z2ZzX2ZvcH0sCiAJCXsidGVzdF9wYXR0ZXJuIiwgJmRwX3BoeV90ZXN0X3BhdHRlcm5fZm9w
-c30sCisJCXsib3V0cHV0X2JwYyIsICZvdXRwdXRfYnBjX2ZvcHN9LAogCQl7InZycl9yYW5nZSIs
-ICZ2cnJfcmFuZ2VfZm9wc30sCiAJCXsic2RwX21lc3NhZ2UiLCAmc2RwX21lc3NhZ2VfZm9wc30s
-CiAJCXsiYXV4X2RwY2RfYWRkcmVzcyIsICZkcF9kcGNkX2FkZHJlc3NfZGVidWdmc19mb3BzfSwK
-LS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Mon, Jun 03, 2019 at 06:55:14PM +0200, Andrey Konovalov wrote:
+> This patch is a part of a series that extends arm64 kernel ABI to allow to
+> pass tagged user pointers (with the top byte set to something else other
+> than 0x00) as syscall arguments.
+> 
+> ib_uverbs_(re)reg_mr() use provided user pointers for vma lookups (through
+> e.g. mlx4_get_umem_mr()), which can only by done with untagged pointers.
+> 
+> Untag user pointers in these functions.
+>
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+>  drivers/infiniband/core/uverbs_cmd.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/infiniband/core/uverbs_cmd.c b/drivers/infiniband/core/uverbs_cmd.c
+> index 5a3a1780ceea..f88ee733e617 100644
+> +++ b/drivers/infiniband/core/uverbs_cmd.c
+> @@ -709,6 +709,8 @@ static int ib_uverbs_reg_mr(struct uverbs_attr_bundle *attrs)
+>  	if (ret)
+>  		return ret;
+>  
+> +	cmd.start = untagged_addr(cmd.start);
+> +
+>  	if ((cmd.start & ~PAGE_MASK) != (cmd.hca_va & ~PAGE_MASK))
+>  		return -EINVAL;
+
+I feel like we shouldn't thave to do this here, surely the cmd.start
+should flow unmodified to get_user_pages, and gup should untag it?
+
+ie, this sort of direction for the IB code (this would be a giant
+patch, so I didn't have time to write it all, but I think it is much
+saner):
+
+diff --git a/drivers/infiniband/core/umem.c b/drivers/infiniband/core/umem.c
+index 54628ef879f0ce..7b3b736c87c253 100644
+--- a/drivers/infiniband/core/umem.c
++++ b/drivers/infiniband/core/umem.c
+@@ -193,7 +193,7 @@ EXPORT_SYMBOL(ib_umem_find_best_pgsz);
+  * @access: IB_ACCESS_xxx flags for memory being pinned
+  * @dmasync: flush in-flight DMA when the memory region is written
+  */
+-struct ib_umem *ib_umem_get(struct ib_udata *udata, unsigned long addr,
++struct ib_umem *ib_umem_get(struct ib_udata *udata, void __user *addr,
+ 			    size_t size, int access, int dmasync)
+ {
+ 	struct ib_ucontext *context;
+@@ -201,7 +201,7 @@ struct ib_umem *ib_umem_get(struct ib_udata *udata, unsigned long addr,
+ 	struct page **page_list;
+ 	unsigned long lock_limit;
+ 	unsigned long new_pinned;
+-	unsigned long cur_base;
++	void __user *cur_base;
+ 	struct mm_struct *mm;
+ 	unsigned long npages;
+ 	int ret;
+diff --git a/drivers/infiniband/core/uverbs_cmd.c b/drivers/infiniband/core/uverbs_cmd.c
+index 5a3a1780ceea4d..94389e7f12371f 100644
+--- a/drivers/infiniband/core/uverbs_cmd.c
++++ b/drivers/infiniband/core/uverbs_cmd.c
+@@ -735,7 +735,8 @@ static int ib_uverbs_reg_mr(struct uverbs_attr_bundle *attrs)
+ 		}
+ 	}
+ 
+-	mr = pd->device->ops.reg_user_mr(pd, cmd.start, cmd.length, cmd.hca_va,
++	mr = pd->device->ops.reg_user_mr(pd, u64_to_user_ptr(cmd.start),
++					 cmd.length, cmd.hca_va,
+ 					 cmd.access_flags,
+ 					 &attrs->driver_udata);
+ 	if (IS_ERR(mr)) {
+diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
+index 4d033796dcfcc2..bddbb952082fc5 100644
+--- a/drivers/infiniband/hw/mlx5/mr.c
++++ b/drivers/infiniband/hw/mlx5/mr.c
+@@ -786,7 +786,7 @@ static int mr_cache_max_order(struct mlx5_ib_dev *dev)
+ }
+ 
+ static int mr_umem_get(struct mlx5_ib_dev *dev, struct ib_udata *udata,
+-		       u64 start, u64 length, int access_flags,
++		       void __user *start, u64 length, int access_flags,
+ 		       struct ib_umem **umem, int *npages, int *page_shift,
+ 		       int *ncont, int *order)
+ {
+@@ -1262,8 +1262,8 @@ struct ib_mr *mlx5_ib_reg_dm_mr(struct ib_pd *pd, struct ib_dm *dm,
+ 				 attr->access_flags, mode);
+ }
+ 
+-struct ib_mr *mlx5_ib_reg_user_mr(struct ib_pd *pd, u64 start, u64 length,
+-				  u64 virt_addr, int access_flags,
++struct ib_mr *mlx5_ib_reg_user_mr(struct ib_pd *pd, void __user *start,
++				  u64 length, u64 virt_addr, int access_flags,
+ 				  struct ib_udata *udata)
+ {
+ 	struct mlx5_ib_dev *dev = to_mdev(pd->device);
+diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
+index ec6446864b08e9..b3c8eaaa35c760 100644
+--- a/include/rdma/ib_verbs.h
++++ b/include/rdma/ib_verbs.h
+@@ -2464,8 +2464,8 @@ struct ib_device_ops {
+ 	struct ib_mr *(*reg_user_mr)(struct ib_pd *pd, u64 start, u64 length,
+ 				     u64 virt_addr, int mr_access_flags,
+ 				     struct ib_udata *udata);
+-	int (*rereg_user_mr)(struct ib_mr *mr, int flags, u64 start, u64 length,
+-			     u64 virt_addr, int mr_access_flags,
++	int (*rereg_user_mr)(struct ib_mr *mr, int flags, void __user *start,
++			     u64 length, u64 virt_addr, int mr_access_flags,
+ 			     struct ib_pd *pd, struct ib_udata *udata);
+ 	int (*dereg_mr)(struct ib_mr *mr, struct ib_udata *udata);
+ 	struct ib_mr *(*alloc_mr)(struct ib_pd *pd, enum ib_mr_type mr_type,
