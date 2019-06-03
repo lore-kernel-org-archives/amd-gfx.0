@@ -1,97 +1,40 @@
-From: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH v15 00/17] arm64: untag user pointers passed to the kernel
-Date: Sat, 1 Jun 2019 22:06:10 -0700
-Message-ID: <201906012156.55E2C45@keescook>
-References: <201905211633.6C0BF0C2@keescook>
- <20190522101110.m2stmpaj7seezveq@mbp>
- <CAJgzZoosKBwqXRyA6fb8QQSZXFqfHqe9qO9je5TogHhzuoGXJQ@mail.gmail.com>
- <20190522163527.rnnc6t4tll7tk5zw@mbp>
- <201905221316.865581CF@keescook>
- <20190523144449.waam2mkyzhjpqpur@mbp>
- <201905230917.DEE7A75EF0@keescook>
- <20190523174345.6sv3kcipkvlwfmox@mbp>
- <201905231327.77CA8D0A36@keescook>
- <20190528170244.GF32006@arrakis.emea.arm.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-Content-Disposition: inline
-In-Reply-To: <20190528170244.GF32006@arrakis.emea.arm.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgenii Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Yishai
+From: Young Xiao <92siuyang@gmail.com>
+Subject: [PATCH] drm/radeon: avoid a possible arrary overflow
+Date: Mon,  3 Jun 2019 11:02:37 +0800
+Message-ID: <1559530957-11103-1-git-send-email-92siuyang@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Young Xiao <92siuyang@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBNYXkgMjgsIDIwMTkgYXQgMDY6MDI6NDVQTSArMDEwMCwgQ2F0YWxpbiBNYXJpbmFz
-IHdyb3RlOgo+IE9uIFRodSwgTWF5IDIzLCAyMDE5IGF0IDAyOjMxOjE2UE0gLTA3MDAsIEtlZXMg
-Q29vayB3cm90ZToKPiA+IHN5emthbGxlciBhbHJlYWR5IGF0dGVtcHRzIHRvIHJhbmRvbWx5IGlu
-amVjdCBub24tY2Fub25pY2FsIGFuZAo+ID4gMHhGRkZGLi4uLkZGRkYgYWRkcmVzc2VzIGZvciB1
-c2VyIHBvaW50ZXJzIGluIHN5c2NhbGxzIGluIGFuIGVmZm9ydCB0bwo+ID4gZmluZCBidWdzIGxp
-a2UgQ1ZFLTIwMTctNTEyMyB3aGVyZSB3YWl0aWQoKSB2aWEgdW5jaGVja2VkIHB1dF91c2VyKCkg
-d2FzCj4gPiBhYmxlIHRvIHdyaXRlIGRpcmVjdGx5IHRvIGtlcm5lbCBtZW1vcnlbMV0uCj4gPiAK
-PiA+IEl0IHNlZW1zIHRoYXQgdXNpbmcgVEJJIGJ5IGRlZmF1bHQgYW5kIG5vdCBhbGxvd2luZyBh
-IHN3aXRjaCBiYWNrIHRvCj4gPiAibm9ybWFsIiBBQkkgd2l0aG91dCBhIHJlYm9vdCBhY3R1YWxs
-eSBtZWFucyB0aGF0IHVzZXJzcGFjZSBjYW5ub3QgaW5qZWN0Cj4gPiBrZXJuZWwgcG9pbnRlcnMg
-aW50byBzeXNjYWxscyBhbnkgbW9yZSwgc2luY2UgdGhleSdsbCBnZXQgdW5pdmVyc2FsbHkKPiA+
-IHN0cmlwcGVkIG5vdy4gSXMgbXkgdW5kZXJzdGFuZGluZyBjb3JyZWN0LCBoZXJlPyBpLmUuIGV4
-cGxvaXRpbmcKPiA+IENWRS0yMDE3LTUxMjMgd291bGQgYmUgaW1wb3NzaWJsZSB1bmRlciBUQkk/
-Cj4gPiAKPiA+IElmIHNvLCB0aGVuIEkgdGhpbmsgd2Ugc2hvdWxkIGNvbW1pdCB0byB0aGUgVEJJ
-IEFCSSBhbmQgaGF2ZSBhIGJvb3QKPiA+IGZsYWcgdG8gZGlzYWJsZSBpdCwgYnV0IE5PVCBoYXZl
-IGEgcHJvY2VzcyBmbGFnLCBhcyB0aGF0IHdvdWxkIGFsbG93Cj4gPiBhdHRhY2tlcnMgdG8gYnlw
-YXNzIHRoZSBtYXNraW5nLiBUaGUgb25seSBmbGFnIHNob3VsZCBiZSAiVEJJIG9yIE1URSIuCj4g
-PiAKPiA+IElmIHNvLCBjYW4gSSBnZXQgdG9wIGJ5dGUgbWFza2luZyBmb3Igb3RoZXIgYXJjaGl0
-ZWN0dXJlcyB0b28/IExpa2UsCj4gPiBqdXN0IHRvIHN0cmlwIGhpZ2ggYml0cyBvZmYgdXNlcnNw
-YWNlIGFkZHJlc3Nlcz8gOykKPiAKPiBKdXN0IGZvciBmdW4sIGhhY2svYXR0ZW1wdCBhdCB5b3Vy
-IGlkZWEgd2hpY2ggc2hvdWxkIG5vdCBpbnRlcmZlcmUgd2l0aAo+IFRCSS4gT25seSBicmllZmx5
-IHRlc3RlZCBvbiBhcm02NCAoYW5kIHRoZSBzMzkwIF9fVFlQRV9JU19QVFIgbWFjcm8gaXMKPiBw
-cmV0dHkgd2VpcmQgOykpOgoKT01HLCB0aGlzIGlzIGFtYXppbmcgYW5kIGJvbmtlcnMuIEkgbG92
-ZSBpdC4KCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS04PC0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLQo+IGRpZmYgLS1naXQgYS9hcmNoL3MzOTAvaW5jbHVkZS9hc20vY29tcGF0
-LmggYi9hcmNoL3MzOTAvaW5jbHVkZS9hc20vY29tcGF0LmgKPiBpbmRleCA2M2I0NmUzMGIyYzMu
-LjMzODQ1NWE3NGVmZiAxMDA2NDQKPiAtLS0gYS9hcmNoL3MzOTAvaW5jbHVkZS9hc20vY29tcGF0
-LmgKPiArKysgYi9hcmNoL3MzOTAvaW5jbHVkZS9hc20vY29tcGF0LmgKPiBAQCAtMTEsOSArMTEs
-NiBAQAo+ICAKPiAgI2luY2x1ZGUgPGFzbS1nZW5lcmljL2NvbXBhdC5oPgo+ICAKPiAtI2RlZmlu
-ZSBfX1RZUEVfSVNfUFRSKHQpICghX19idWlsdGluX3R5cGVzX2NvbXBhdGlibGVfcCggXAo+IC0J
-CQkJdHlwZW9mKDA/KF9fZm9yY2UgdCkwOjBVTEwpLCB1NjQpKQo+IC0KPiAgI2RlZmluZSBfX1ND
-X0RFTE9VU0UodCx2KSAoeyBcCj4gIAlCVUlMRF9CVUdfT04oc2l6ZW9mKHQpID4gNCAmJiAhX19U
-WVBFX0lTX1BUUih0KSk7IFwKPiAgCShfX2ZvcmNlIHQpKF9fVFlQRV9JU19QVFIodCkgPyAoKHYp
-ICYgMHg3ZmZmZmZmZikgOiAodikpOyBcCj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvc3lz
-Y2FsbHMuaCBiL2luY2x1ZGUvbGludXgvc3lzY2FsbHMuaAo+IGluZGV4IGUyODcwZmUxYmU1Yi4u
-YjFiOWZlODUwMmRhIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvbGludXgvc3lzY2FsbHMuaAo+ICsr
-KyBiL2luY2x1ZGUvbGludXgvc3lzY2FsbHMuaAo+IEBAIC0xMTksOCArMTE5LDE1IEBAIHN0cnVj
-dCBpb191cmluZ19wYXJhbXM7Cj4gICNkZWZpbmUgX19UWVBFX0lTX0wodCkJKF9fVFlQRV9BUyh0
-LCAwTCkpCj4gICNkZWZpbmUgX19UWVBFX0lTX1VMKHQpCShfX1RZUEVfQVModCwgMFVMKSkKPiAg
-I2RlZmluZSBfX1RZUEVfSVNfTEwodCkgKF9fVFlQRV9BUyh0LCAwTEwpIHx8IF9fVFlQRV9BUyh0
-LCAwVUxMKSkKPiArI2RlZmluZSBfX1RZUEVfSVNfUFRSKHQpICghX19idWlsdGluX3R5cGVzX2Nv
-bXBhdGlibGVfcCh0eXBlb2YoMCA/IChfX2ZvcmNlIHQpMCA6IDBVTEwpLCB1NjQpKQo+ICAjZGVm
-aW5lIF9fU0NfTE9ORyh0LCBhKSBfX3R5cGVvZihfX2J1aWx0aW5fY2hvb3NlX2V4cHIoX19UWVBF
-X0lTX0xMKHQpLCAwTEwsIDBMKSkgYQo+ICsjaWZkZWYgQ09ORklHXzY0QklUCj4gKyNkZWZpbmUg
-X19TQ19DQVNUKHQsIGEpCShfX1RZUEVfSVNfUFRSKHQpIFwKPiArCQkJCT8gKF9fZm9yY2UgdCkg
-KChfX3U2NClhICYgfigxVUwgPDwgNTUpKSBcCj4gKwkJCQk6IChfX2ZvcmNlIHQpIGEpCj4gKyNl
-bHNlCj4gICNkZWZpbmUgX19TQ19DQVNUKHQsIGEpCShfX2ZvcmNlIHQpIGEKPiArI2VuZGlmCj4g
-ICNkZWZpbmUgX19TQ19BUkdTKHQsIGEpCWEKPiAgI2RlZmluZSBfX1NDX1RFU1QodCwgYSkgKHZv
-aWQpQlVJTERfQlVHX09OX1pFUk8oIV9fVFlQRV9JU19MTCh0KSAmJiBzaXplb2YodCkgPiBzaXpl
-b2YobG9uZykpCgpJJ20gbGF1Z2hpbmcsIEknbSBjcnlpbmcuIE5vdyBJIGhhdmUgdG8gZ28gbG9v
-ayBhdCB0aGUgZGlzYXNzZW1ibHkgdG8Kc2VlIGhvdyB0aGlzIGFjdHVhbGx5IGxvb2tzLiAoSSBt
-ZWFuLCBpdCBfZG9lc18gc29sdmUgbXkgc3BlY2lmaWMgY2FzZQpvZiB0aGUgd2FpdGlkKCkgZmxh
-dywgYnV0IHdvdWxkbid0IGhlbHAgd2l0aCBwb2ludGVycyBkZWVwZXIgaW4gc3RydWN0cywKZXRj
-LCB0aG91Z2ggVEJJIGRvZXMsIEkgdGhpbmsgc3RpbGwgaGVscCB3aXRoIHRoYXQuIEkgaGF2ZSB0
-byBjYXRjaCBiYWNrCnVwIG9uIHRoZSB0aHJlYWQuLi4pIEFueXdheSwgaWYgaXQncyBub3QgdG9v
-IGV4cGVuc2l2ZSBpdCdkIGJsb2NrCnJlYWNoYWJpbGl0eSBmb3IgdGhvc2Uga2luZHMgb2YgZmxh
-d3MuCgpJIHdvbmRlciB3aGF0IG15IGNoYW5jZXMgYXJlIG9mIGFjdHVhbGx5IGdldHRpbmcgdGhp
-cyBsYW5kZWQ/IDopCihUaG91Z2gsIEkgZ3Vlc3MgSSBuZWVkIHRvIGZpbmQgYSAiVkEgd2lkdGgi
-IG1hY3JvIGluc3RlYWQgb2YgYSByYXcgNTUuKQoKVGhhbmtzIGZvciB0aGlua2luZyBvZiBfX1ND
-X0NBU1QoKSBhbmQgX19UWVBFX0lTX1BUUigpIHRvZ2V0aGVyLiBSZWFsbHkKbWFkZSBteSBkYXku
-IDopCgotLSAKS2VlcyBDb29rCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ry
-aS1kZXZlbA==
+When looking up the connector type make sure the index
+is valid.  Avoids a later crash if we read past the end
+of the array.
+
+This bug is similar to the issue which was fixed in
+commit e1718d97aa88 ("drm/amdgpu: avoid a possible
+array overflow").
+
+Signed-off-by: Young Xiao <92siuyang@gmail.com>
+---
+ drivers/gpu/drm/radeon/radeon_atombios.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
+index f422a8d..971c541 100644
+--- a/drivers/gpu/drm/radeon/radeon_atombios.c
++++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+@@ -632,6 +632,10 @@ bool radeon_get_atom_connector_info_from_object_table(struct drm_device *dev)
+ 					connector_object_id = con_obj_id;
+ 				}
+ 			} else {
++				if (con_obj_id >= ARRAY_SIZE(object_connector_convert)) {
++					DRM_ERROR("invalid con_obj_id %d\n", con_obj_id);
++					continue;
++				}
+ 				igp_lane_info = 0;
+ 				connector_type =
+ 				    object_connector_convert[con_obj_id];
+-- 
+2.7.4
