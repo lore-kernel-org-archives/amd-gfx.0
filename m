@@ -1,192 +1,195 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 1/4] drm/amdkfd: Fix sdma queue allocate race condition
-Date: Mon, 3 Jun 2019 16:05:23 +0000
-Message-ID: <BL0PR12MB2580665D8AA12D0EB659637280140@BL0PR12MB2580.namprd12.prod.outlook.com>
-References: <1559337538-14249-1-git-send-email-Oak.Zeng@amd.com>
- <f0e92b32-bd0a-aca4-c7dd-83f8e97b9a6f@amd.com>
- <d00bae2c-8c2f-b8b7-a69a-7205fd01a55a@amd.com>
+From: Helen Koike <helen.koike@collabora.com>
+Subject: Re: [PATCH v3 5/5] drm: don't block fb changes for async plane
+ updates
+Date: Mon, 3 Jun 2019 13:53:15 -0300
+Message-ID: <38c84dc8-3687-ef6d-059f-92b902d2371c@collabora.com>
+References: <20190314002027.7833-1-helen.koike@collabora.com>
+ <20190314002027.7833-6-helen.koike@collabora.com>
+ <20190507201819.GI17077@art_vandelay>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d00bae2c-8c2f-b8b7-a69a-7205fd01a55a-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190507201819.GI17077@art_vandelay>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "Liu, Alex" <Alex.Liu-5C7GfCeVMHo@public.gmane.org>, "Freehill,
- Chris" <Chris.Freehill-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Sean Paul <sean@poorly.run>
+Cc: dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com, andrey.grodzovsky@amd.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, boris.brezillon@collabora.com, David Airlie <airlied@linux.ie>, Sean Paul <seanpaul@google.com>, kernel@collabora.com, harry.wentland@amd.com, =?UTF-8?Q?St=c3=a9phane_Marchesin?= <marcheu@google.com>, stable@vger.kernel.org, Sandy Huang <hjc@rock-chips.com>, linux-rockchip@lists.infradead.org, linux-arm-msm@vger.kernel.org, eric@anholt.net, robdclark@gmail.com, amd-gfx@lists.freedesktop.org, =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Daniel Vetter <daniel@ffwll.ch>, freedreno@lists.freedesktop.org, linux-arm-kernel@lists.infradead.
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRmVsaXgsDQoNClNlZSBjb21tZW50IGlubGluZSBbT2FrXQ0KDQpSZWdhcmRzLA0KT2FrDQoN
-Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBLdWVobGluZywgRmVsaXggPEZlbGl4
-Lkt1ZWhsaW5nQGFtZC5jb20+IA0KU2VudDogRnJpZGF5LCBNYXkgMzEsIDIwMTkgNTo1MCBQTQ0K
-VG86IFplbmcsIE9hayA8T2FrLlplbmdAYW1kLmNvbT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnDQpDYzogWmhhbywgWW9uZyA8WW9uZy5aaGFvQGFtZC5jb20+OyBGcmVlaGlsbCwgQ2hy
-aXMgPENocmlzLkZyZWVoaWxsQGFtZC5jb20+OyBMaXUsIEFsZXggPEFsZXguTGl1QGFtZC5jb20+
-DQpTdWJqZWN0OiBSZTogW1BBVENIIDEvNF0gZHJtL2FtZGtmZDogRml4IHNkbWEgcXVldWUgYWxs
-b2NhdGUgcmFjZSBjb25kaXRpb24NCg0KT24gMjAxOS0wNS0zMSA1OjMxIHAubS4sIEt1ZWhsaW5n
-LCBGZWxpeCB3cm90ZToNCj4gT24gMjAxOS0wNS0zMSA1OjE5IHAubS4sIFplbmcsIE9hayB3cm90
-ZToNCj4+IFNETUEgcXVldWUgYWxsb2NhdGlvbiByZXF1aXJlcyB0aGUgZHFtIGxvY2sgYXMgaXQg
-bW9kaWZ5IHRoZSBnbG9iYWwgDQo+PiBkcW0gbWVtYmVycy4gSW50cm9kdWNlIGZ1bmN0aW9ucyB0
-byBhbGxvY2F0ZS9kZWFsbG9jYXRlIGluIA0KPj4gbG9ja2VkL3VubG9ja2VkIGNpcmN1bXN0YW5j
-ZS4NCj4+DQo+PiBDaGFuZ2UtSWQ6IElkMzA4NDUyNGM1ZjY1ZDk2MjliMTJjZjZiNDg2MmE3NTE2
-OTQ1Y2IxDQo+PiBTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4NCj4+
-IC0tLQ0KPj4gICAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFn
-ZXIuYyAgfCA0NiArKysrKysrKysrKysrKysrLS0tLS0tDQo+PiAgICAxIGZpbGUgY2hhbmdlZCwg
-MzUgaW5zZXJ0aW9ucygrKSwgMTEgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jIA0KPj4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYw0K
-Pj4gaW5kZXggZWNlMzVjNy4uMWY3MDdiYiAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlci5jDQo+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYw0KPj4gQEAgLTYx
-LDYgKzYxLDggQEAgc3RhdGljIGludCBjcmVhdGVfc2RtYV9xdWV1ZV9ub2Nwc2NoKHN0cnVjdCAN
-Cj4+IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQo+PiAgICANCj4+ICAgIHN0YXRpYyB2b2lk
-IGRlYWxsb2NhdGVfc2RtYV9xdWV1ZShzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwN
-Cj4+ICAgIAkJCQlzdHJ1Y3QgcXVldWUgKnEpOw0KPj4gK3N0YXRpYyB2b2lkIGRlYWxsb2NhdGVf
-c2RtYV9xdWV1ZV9sb2NrZWQoc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQo+PiAr
-CQkJCXN0cnVjdCBxdWV1ZSAqcSk7DQo+PiAgICANCj4+ICAgIHN0YXRpYyB2b2lkIGtmZF9wcm9j
-ZXNzX2h3X2V4Y2VwdGlvbihzdHJ1Y3Qgd29ya19zdHJ1Y3QgKndvcmspOw0KPj4gICAgDQo+PiBA
-QCAtNDQ2LDEwICs0NDgsMTAgQEAgc3RhdGljIGludCBkZXN0cm95X3F1ZXVlX25vY3BzY2hfbG9j
-a2VkKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLA0KPj4gICAgCQlkZWFsbG9jYXRl
-X2hxZChkcW0sIHEpOw0KPj4gICAgCX0gZWxzZSBpZiAocS0+cHJvcGVydGllcy50eXBlID09IEtG
-RF9RVUVVRV9UWVBFX1NETUEpIHsNCj4+ICAgIAkJZHFtLT5zZG1hX3F1ZXVlX2NvdW50LS07DQo+
-PiAtCQlkZWFsbG9jYXRlX3NkbWFfcXVldWUoZHFtLCBxKTsNCj4+ICsJCWRlYWxsb2NhdGVfc2Rt
-YV9xdWV1ZV9sb2NrZWQoZHFtLCBxKTsNCj4+ICAgIAl9IGVsc2UgaWYgKHEtPnByb3BlcnRpZXMu
-dHlwZSA9PSBLRkRfUVVFVUVfVFlQRV9TRE1BX1hHTUkpIHsNCj4+ICAgIAkJZHFtLT54Z21pX3Nk
-bWFfcXVldWVfY291bnQtLTsNCj4+IC0JCWRlYWxsb2NhdGVfc2RtYV9xdWV1ZShkcW0sIHEpOw0K
-Pj4gKwkJZGVhbGxvY2F0ZV9zZG1hX3F1ZXVlX2xvY2tlZChkcW0sIHEpOw0KPj4gICAgCX0gZWxz
-ZSB7DQo+PiAgICAJCXByX2RlYnVnKCJxLT5wcm9wZXJ0aWVzLnR5cGUgJWQgaXMgaW52YWxpZFxu
-IiwNCj4+ICAgIAkJCQlxLT5wcm9wZXJ0aWVzLnR5cGUpOw0KPj4gQEAgLTkyMiw4ICs5MjQsMTAg
-QEAgc3RhdGljIGludCBhbGxvY2F0ZV9zZG1hX3F1ZXVlKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFu
-YWdlciAqZHFtLA0KPj4gICAgCWlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZ
-UEVfU0RNQSkgew0KPj4gICAgCQlpZiAoZHFtLT5zZG1hX2JpdG1hcCA9PSAwKQ0KPj4gICAgCQkJ
-cmV0dXJuIC1FTk9NRU07DQo+PiArCQlkcW1fbG9jayhkcW0pOw0KPiBEb2Vzbid0IHRoaXMgY2F1
-c2UgYSBsb2NraW5nIGVycm9yIHdoZXJlIHlvdSB0cnkgdG8gdGFrZSB0aGUgc2FtZSBsb2NrIA0K
-PiB0d2ljZSBpbiB0aGlzIGNhbGwgdHJlZToNCj4NCj4gY3JlYXRlX3F1ZXVlX25vY3BzY2ggKHRh
-a2VzIERRTSBsb2NrKQ0KPiAgIMKgwqDCoCAtPiBjcmVhdGVfc2RtYV9xdWV1ZV9ub2Nwc2NoDQo+
-ICAgwqDCoMKgwqDCoMKgwqAgLT4gYWxsb2NhdGVfc2RtYV9xdWV1ZSAodGFrZXMgRFFNIGxvY2sg
-YWdhaW4pDQo+DQpCVFcsIEkgdGhpbmsgeW91IGFjdHVhbGx5IGNhdWdodCBhIGJ1ZyBoZXJlLiBJ
-biB0aGUgY3JlYXRlX3F1ZXVlX2Nwc2NoIHBhdGggd2UgZmFpbGVkIHRvIGxvY2sgdGhlIERRTSBm
-b3IgU0RNQSBxdWV1ZSBhbGxvY2F0aW9uLiBJbiBjcmVhdGVfcXVldWVfbm9jcHNjaCBpdCB3YXMg
-bm90IGEgcHJvYmxlbSBiZWNhdXNlIHdlIHRvb2sgdGhlIERRTSBsb2NrIGVhcmxpZXIgKHdoaWNo
-IGlzIGl0c2VsZiBhIHByb2JsZW0geW91J3JlIHdvcmtpbmcgb24gZml4aW5nKS4NCg0KSG93ZXZl
-ciwgbm93IHlvdSdyZSBtYWtpbmcgdGhlIHByb2JsZW0gd29yc2UgZm9yIHRoZSBub2Nwc2NoIGNh
-c2UsIGF0IGxlYXN0IHVudGlsIHBhdGNoIDQsIHdoaWNoIG1vdmVzIHRoZSBEUU0gbG9ja2luZyBp
-biBjcmVhdGVfcXVldWVfbm9jcHNjaC4gTWF5YmUgdGhpcyBjaGFuZ2Ugc2hvdWxkIGNvbWUgYWZ0
-ZXIgcGF0Y2ggNCBzbyB5b3UgZG9uJ3QgZW5kIHVwIHdpdGggYSB3b3JzZSBwcm9ibGVtIGluIHRo
-ZSBtaWRkbGUgb2YgeW91ciBwYXRjaCBzZXJpZXMuDQpbT2FrXTogSSByZWFsaXplZCB0aGUgc2Ft
-ZSBpc3N1ZSB3aGVuIEkgd3JvdGUgdGhpcyBwYXRjaC4uLkkgd2lsbCBoYXZlIHRvIGNyZWF0ZSBm
-dW5jdGlvbiBhbGxvY2F0ZV9zZG1hX3F1ZXVlX2xvY2tlZC91bmxvY2tlZCB0byBmaXggdGhlIGlz
-c3VlIHByb3Blcmx5LiBCdXQgSSB3aWxsIGhhdmUgdG8gZGVsZXRlIGFsbG9jYXRlX3NkbWFfcXVl
-dWVfdW5sb2NrZWQgYWZ0ZXIgcGF0Y2ggNCBiZWNhdXNlIGl0IHdvbid0IGJlIHVzZWQgYW55IG1v
-cmUgYWZ0ZXIgcGF0Y2ggNC4NCg0KSXQgaXMgYSBnb29kIGlkZWEgdG8gZG8gdGhpcyBwYXRjaCBh
-ZnRlciBwYXRjaCA0LiBJIHdpbGwgcmUtc3VibWl0IHRoZSBwYXRjaGVzIHNlcmllcywgYWxzbyBm
-aXhpbmcgb3RoZXIgaXNzdWVzIHlvdSBtZW50aW9uZWQuDQoNCkFsc28sIEkgdGhpbmsgeW91J3Jl
-IGRvaW5nIHRoZSBsb2NraW5nIHVubmVjZXNzYXJpbHkgZmluZSBncmFpbmVkLiBJdCdzIHByb2Jh
-Ymx5IGVub3VnaCB0byB0YWtlIHRoZSBEUU0gbG9jayBvbmNlIGF0IHRoZSBzdGFydCBvZiBhbGxv
-Y2F0ZV9zZG1hX3F1ZXVlLCBhbmQgZHJvcCBpdCBvbmNlIGluIHRoZSBlbmQuIE5vIG5lZWQgdG8g
-ZHVwbGljYXRlIHRoaXMgaW4gdGhlIHR3byBpZiBicmFuY2hlcy4NCltPYWtdIEFncmVlZC4NCg0K
-UmVnYXJkcywNCiDCoCBGZWxpeA0KDQo+PiAgICAJCWJpdCA9IF9fZmZzNjQoZHFtLT5zZG1hX2Jp
-dG1hcCk7DQo+PiAgICAJCWRxbS0+c2RtYV9iaXRtYXAgJj0gfigxVUxMIDw8IGJpdCk7DQo+PiAr
-CQlkcW1fdW5sb2NrKGRxbSk7DQo+PiAgICAJCXEtPnNkbWFfaWQgPSBiaXQ7DQo+PiAgICAJCXEt
-PnByb3BlcnRpZXMuc2RtYV9lbmdpbmVfaWQgPSBxLT5zZG1hX2lkICUNCj4+ICAgIAkJCQlnZXRf
-bnVtX3NkbWFfZW5naW5lcyhkcW0pOw0KPj4gQEAgLTkzMiw4ICs5MzYsMTAgQEAgc3RhdGljIGlu
-dCBhbGxvY2F0ZV9zZG1hX3F1ZXVlKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLA0K
-Pj4gICAgCX0gZWxzZSBpZiAocS0+cHJvcGVydGllcy50eXBlID09IEtGRF9RVUVVRV9UWVBFX1NE
-TUFfWEdNSSkgew0KPj4gICAgCQlpZiAoZHFtLT54Z21pX3NkbWFfYml0bWFwID09IDApDQo+PiAg
-ICAJCQlyZXR1cm4gLUVOT01FTTsNCj4+ICsJCWRxbV9sb2NrKGRxbSk7DQo+PiAgICAJCWJpdCA9
-IF9fZmZzNjQoZHFtLT54Z21pX3NkbWFfYml0bWFwKTsNCj4+ICAgIAkJZHFtLT54Z21pX3NkbWFf
-Yml0bWFwICY9IH4oMVVMTCA8PCBiaXQpOw0KPj4gKwkJZHFtX3VubG9jayhkcW0pOw0KPj4gICAg
-CQlxLT5zZG1hX2lkID0gYml0Ow0KPj4gICAgCQkvKiBzZG1hX2VuZ2luZV9pZCBpcyBzZG1hIGlk
-IGluY2x1ZGluZw0KPj4gICAgCQkgKiBib3RoIFBDSWUtb3B0aW1pemVkIFNETUFzIGFuZCBYR01J
-LSBAQCAtOTUzLDE3ICs5NTksMzUgQEAgDQo+PiBzdGF0aWMgaW50IGFsbG9jYXRlX3NkbWFfcXVl
-dWUoc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQo+PiAgICAJcmV0dXJuIDA7DQo+
-PiAgICB9DQo+PiAgICANCj4+ICtzdGF0aWMgdm9pZCBkZWFsbG9jYXRlX3NkbWFfcXVldWVfbG9j
-a2VkKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLA0KPj4gKwkJCQlzdHJ1Y3QgcXVl
-dWUgKnEpDQo+PiArew0KPj4gKwlpZiAocS0+cHJvcGVydGllcy50eXBlID09IEtGRF9RVUVVRV9U
-WVBFX1NETUEpIHsNCj4+ICsJCWlmIChxLT5zZG1hX2lkID49IGdldF9udW1fc2RtYV9xdWV1ZXMo
-ZHFtKSkNCj4+ICsJCQlyZXR1cm47DQo+PiArCQlkcW0tPnNkbWFfYml0bWFwIHw9ICgxVUxMIDw8
-IHEtPnNkbWFfaWQpOw0KPj4gKwl9IGVsc2UgaWYgKHEtPnByb3BlcnRpZXMudHlwZSA9PSBLRkRf
-UVVFVUVfVFlQRV9TRE1BX1hHTUkpIHsNCj4+ICsJCWlmIChxLT5zZG1hX2lkID49IGdldF9udW1f
-eGdtaV9zZG1hX3F1ZXVlcyhkcW0pKQ0KPj4gKwkJCXJldHVybjsNCj4+ICsJCWRxbS0+eGdtaV9z
-ZG1hX2JpdG1hcCB8PSAoMVVMTCA8PCBxLT5zZG1hX2lkKTsNCj4+ICsJfQ0KPj4gK30NCj4+ICsN
-Cj4+ICAgIHN0YXRpYyB2b2lkIGRlYWxsb2NhdGVfc2RtYV9xdWV1ZShzdHJ1Y3QgZGV2aWNlX3F1
-ZXVlX21hbmFnZXIgKmRxbSwNCj4+ICAgIAkJCQlzdHJ1Y3QgcXVldWUgKnEpDQo+PiAgICB7DQo+
-PiAgICAJaWYgKHEtPnByb3BlcnRpZXMudHlwZSA9PSBLRkRfUVVFVUVfVFlQRV9TRE1BKSB7DQo+
-PiAgICAJCWlmIChxLT5zZG1hX2lkID49IGdldF9udW1fc2RtYV9xdWV1ZXMoZHFtKSkNCj4+ICAg
-IAkJCXJldHVybjsNCj4+ICsJCWRxbV9sb2NrKGRxbSk7DQo+PiAgICAJCWRxbS0+c2RtYV9iaXRt
-YXAgfD0gKDFVTEwgPDwgcS0+c2RtYV9pZCk7DQo+PiArCQlkcW1fdW5sb2NrKGRxbSk7DQo+PiAg
-ICAJfSBlbHNlIGlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZUEVfU0RNQV9Y
-R01JKSB7DQo+PiAgICAJCWlmIChxLT5zZG1hX2lkID49IGdldF9udW1feGdtaV9zZG1hX3F1ZXVl
-cyhkcW0pKQ0KPj4gICAgCQkJcmV0dXJuOw0KPj4gKwkJZHFtX2xvY2soZHFtKTsNCj4+ICAgIAkJ
-ZHFtLT54Z21pX3NkbWFfYml0bWFwIHw9ICgxVUxMIDw8IHEtPnNkbWFfaWQpOw0KPj4gKwkJZHFt
-X3VubG9jayhkcW0pOw0KPj4gICAgCX0NCj4+ICAgIH0NCj4gWW91IGNvdWxkIG1pbmltaXplIGNv
-ZGUgZHVwbGljYXRpb24gYnkgZGVmaW5pbmcgZGVhbGxvY2F0ZV9zZG1hX3F1ZXVlIA0KPiBhcyBh
-IHNpbXBsZSB3cmFwcGVyOg0KPg0KPiBzdGF0aWMgdm9pZCBkZWFsbG9jYXRlX3NkbWFfcXVldWUo
-c3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sIA0KPiBzdHJ1Y3QgcXVldWUgKnEpIHsN
-Cj4gICDCoMKgwqAgwqDCoMKgIGRxbV9sb2NrKGRxbSk7DQo+ICAgwqDCoMKgIMKgwqDCoCBkZWFs
-bG9jYXRlX3NkbWFfcXVldWVfbG9ja2VkKGRxbSwgcSk7DQo+ICAgwqDCoMKgIMKgwqDCoCBkcW1f
-dW5sb2NrKGRxbSk7DQo+IH0NCj4NCj4NCj4+ICAgIA0KPj4gQEAgLTk4Miw3ICsxMDA2LDcgQEAg
-c3RhdGljIGludCBjcmVhdGVfc2RtYV9xdWV1ZV9ub2Nwc2NoKHN0cnVjdCANCj4+IGRldmljZV9x
-dWV1ZV9tYW5hZ2VyICpkcW0sDQo+PiAgICANCj4+ICAgIAlyZXR2YWwgPSBhbGxvY2F0ZV9kb29y
-YmVsbChxcGQsIHEpOw0KPj4gICAgCWlmIChyZXR2YWwpDQo+PiAtCQlnb3RvIG91dF9kZWFsbG9j
-YXRlX3NkbWFfcXVldWU7DQo+PiArCQlnb3RvIG91dF9kZWFsbG9jYXRlX3NkbWFfcXVldWVfbG9j
-a2VkOw0KPj4gICAgDQo+PiAgICAJZHFtLT5hc2ljX29wcy5pbml0X3NkbWFfdm0oZHFtLCBxLCBx
-cGQpOw0KPj4gICAgCXJldHZhbCA9IG1xZF9tZ3ItPmluaXRfbXFkKG1xZF9tZ3IsICZxLT5tcWQs
-ICZxLT5tcWRfbWVtX29iaiwgQEAgDQo+PiAtMTAwMSw4ICsxMDI1LDggQEAgc3RhdGljIGludCBj
-cmVhdGVfc2RtYV9xdWV1ZV9ub2Nwc2NoKHN0cnVjdCBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFt
-LA0KPj4gICAgCW1xZF9tZ3ItPnVuaW5pdF9tcWQobXFkX21nciwgcS0+bXFkLCBxLT5tcWRfbWVt
-X29iaik7DQo+PiAgICBvdXRfZGVhbGxvY2F0ZV9kb29yYmVsbDoNCj4+ICAgIAlkZWFsbG9jYXRl
-X2Rvb3JiZWxsKHFwZCwgcSk7DQo+PiAtb3V0X2RlYWxsb2NhdGVfc2RtYV9xdWV1ZToNCj4+IC0J
-ZGVhbGxvY2F0ZV9zZG1hX3F1ZXVlKGRxbSwgcSk7DQo+PiArb3V0X2RlYWxsb2NhdGVfc2RtYV9x
-dWV1ZV9sb2NrZWQ6DQo+PiArCWRlYWxsb2NhdGVfc2RtYV9xdWV1ZV9sb2NrZWQoZHFtLCBxKTsN
-Cj4+ICAgIA0KPj4gICAgCXJldHVybiByZXR2YWw7DQo+PiAgICB9DQo+PiBAQCAtMTE5NCw3ICsx
-MjE4LDcgQEAgc3RhdGljIGludCBjcmVhdGVfcXVldWVfY3BzY2goc3RydWN0IA0KPj4gZGV2aWNl
-X3F1ZXVlX21hbmFnZXIgKmRxbSwgc3RydWN0IHF1ZXVlICpxLA0KPj4gICAgDQo+PiAgICAJcmV0
-dmFsID0gYWxsb2NhdGVfZG9vcmJlbGwocXBkLCBxKTsNCj4+ICAgIAlpZiAocmV0dmFsKQ0KPj4g
-LQkJZ290byBvdXRfZGVhbGxvY2F0ZV9zZG1hX3F1ZXVlOw0KPj4gKwkJZ290byBvdXRfZGVhbGxv
-Y2F0ZV9zZG1hX3F1ZXVlX2xvY2tlZDsNCj4+ICAgIA0KPj4gICAgCW1xZF9tZ3IgPSBkcW0tPm1x
-ZF9tZ3JzW2dldF9tcWRfdHlwZV9mcm9tX3F1ZXVlX3R5cGUoDQo+PiAgICAJCQlxLT5wcm9wZXJ0
-aWVzLnR5cGUpXTsNCj4+IEBAIC0xMjQyLDcgKzEyNjYsNyBAQCBzdGF0aWMgaW50IGNyZWF0ZV9x
-dWV1ZV9jcHNjaChzdHJ1Y3QgDQo+PiBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLCBzdHJ1Y3Qg
-cXVldWUgKnEsDQo+PiAgICANCj4+ICAgIG91dF9kZWFsbG9jYXRlX2Rvb3JiZWxsOg0KPj4gICAg
-CWRlYWxsb2NhdGVfZG9vcmJlbGwocXBkLCBxKTsNCj4+IC1vdXRfZGVhbGxvY2F0ZV9zZG1hX3F1
-ZXVlOg0KPj4gK291dF9kZWFsbG9jYXRlX3NkbWFfcXVldWVfbG9ja2VkOg0KPiBXaHkgYXJlIHlv
-dSByZW5hbWluZyB0aGlzIGxhYmVsPyBZb3UgZG9uJ3QgaG9sZCB0aGUgRFFNIGxvY2sgd2hlbiB5
-b3UgDQo+IGdldCBoZXJlLg0KPg0KPg0KPj4gICAgCWlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0g
-S0ZEX1FVRVVFX1RZUEVfU0RNQSB8fA0KPj4gICAgCQlxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZE
-X1FVRVVFX1RZUEVfU0RNQV9YR01JKQ0KPj4gICAgCQlkZWFsbG9jYXRlX3NkbWFfcXVldWUoZHFt
-LCBxKTsNCj4+IEBAIC0xMzk2LDEwICsxNDIwLDEwIEBAIHN0YXRpYyBpbnQgZGVzdHJveV9xdWV1
-ZV9jcHNjaChzdHJ1Y3QgDQo+PiBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLA0KPj4gICAgDQo+
-PiAgICAJaWYgKHEtPnByb3BlcnRpZXMudHlwZSA9PSBLRkRfUVVFVUVfVFlQRV9TRE1BKSB7DQo+
-PiAgICAJCWRxbS0+c2RtYV9xdWV1ZV9jb3VudC0tOw0KPj4gLQkJZGVhbGxvY2F0ZV9zZG1hX3F1
-ZXVlKGRxbSwgcSk7DQo+PiArCQlkZWFsbG9jYXRlX3NkbWFfcXVldWVfbG9ja2VkKGRxbSwgcSk7
-DQo+PiAgICAJfSBlbHNlIGlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZUEVf
-U0RNQV9YR01JKSB7DQo+PiAgICAJCWRxbS0+eGdtaV9zZG1hX3F1ZXVlX2NvdW50LS07DQo+PiAt
-CQlkZWFsbG9jYXRlX3NkbWFfcXVldWUoZHFtLCBxKTsNCj4+ICsJCWRlYWxsb2NhdGVfc2RtYV9x
-dWV1ZV9sb2NrZWQoZHFtLCBxKTsNCj4+ICAgIAl9DQo+PiAgICANCj4+ICAgIAlsaXN0X2RlbCgm
-cS0+bGlzdCk7DQo+PiBAQCAtMTYyNSwxMCArMTY0OSwxMCBAQCBzdGF0aWMgaW50IHByb2Nlc3Nf
-dGVybWluYXRpb25fY3BzY2goc3RydWN0IGRldmljZV9xdWV1ZV9tYW5hZ2VyICpkcW0sDQo+PiAg
-ICAJbGlzdF9mb3JfZWFjaF9lbnRyeShxLCAmcXBkLT5xdWV1ZXNfbGlzdCwgbGlzdCkgew0KPj4g
-ICAgCQlpZiAocS0+cHJvcGVydGllcy50eXBlID09IEtGRF9RVUVVRV9UWVBFX1NETUEpIHsNCj4+
-ICAgIAkJCWRxbS0+c2RtYV9xdWV1ZV9jb3VudC0tOw0KPj4gLQkJCWRlYWxsb2NhdGVfc2RtYV9x
-dWV1ZShkcW0sIHEpOw0KPj4gKwkJCWRlYWxsb2NhdGVfc2RtYV9xdWV1ZV9sb2NrZWQoZHFtLCBx
-KTsNCj4+ICAgIAkJfSBlbHNlIGlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZ
-UEVfU0RNQV9YR01JKSB7DQo+PiAgICAJCQlkcW0tPnhnbWlfc2RtYV9xdWV1ZV9jb3VudC0tOw0K
-Pj4gLQkJCWRlYWxsb2NhdGVfc2RtYV9xdWV1ZShkcW0sIHEpOw0KPj4gKwkJCWRlYWxsb2NhdGVf
-c2RtYV9xdWV1ZV9sb2NrZWQoZHFtLCBxKTsNCj4+ICAgIAkJfQ0KPj4gICAgDQo+PiAgICAJCWlm
-IChxLT5wcm9wZXJ0aWVzLmlzX2FjdGl2ZSkNCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZng=
+
+
+On 5/7/19 5:18 PM, Sean Paul wrote:
+> On Wed, Mar 13, 2019 at 09:20:26PM -0300, Helen Koike wrote:
+>> In the case of a normal sync update, the preparation of framebuffers (be
+>> it calling drm_atomic_helper_prepare_planes() or doing setups with
+>> drm_framebuffer_get()) are performed in the new_state and the respective
+>> cleanups are performed in the old_state.
+>>
+>> In the case of async updates, the preparation is also done in the
+>> new_state but the cleanups are done in the new_state (because updates
+>> are performed in place, i.e. in the current state).
+>>
+>> The current code blocks async udpates when the fb is changed, turning
+>> async updates into sync updates, slowing down cursor updates and
+>> introducing regressions in igt tests with errors of type:
+>>
+>> "CRITICAL: completed 97 cursor updated in a period of 30 flips, we
+>> expect to complete approximately 15360 updates, with the threshold set
+>> at 7680"
+>>
+>> Fb changes in async updates were prevented to avoid the following scenario:
+>>
+>> - Async update, oldfb = NULL, newfb = fb1, prepare fb1, cleanup fb1
+>> - Async update, oldfb = fb1, newfb = fb2, prepare fb2, cleanup fb2
+>> - Non-async commit, oldfb = fb2, newfb = fb1, prepare fb1, cleanup fb2 (wrong)
+>> Where we have a single call to prepare fb2 but double cleanup call to fb2.
+>>
+>> To solve the above problems, instead of blocking async fb changes, we
+>> place the old framebuffer in the new_state object, so when the code
+>> performs cleanups in the new_state it will cleanup the old_fb and we
+>> will have the following scenario instead:
+>>
+>> - Async update, oldfb = NULL, newfb = fb1, prepare fb1, no cleanup
+>> - Async update, oldfb = fb1, newfb = fb2, prepare fb2, cleanup fb1
+>> - Non-async commit, oldfb = fb2, newfb = fb1, prepare fb1, cleanup fb2
+>>
+>> Where calls to prepare/cleanup are balanced.
+>>
+>> Cc: <stable@vger.kernel.org> # v4.14+
+> 
+> I'm not convinced this should be cc: stable, seems more in the improvement
+> category than a bug fix.
+
+I'm cc'ing to stable because the commit mentioned below inserted a
+regression regarding the speed that cursors can be updated.
+
+> 
+>> Fixes: 25dc194b34dd ("drm: Block fb changes for async plane updates")
+>> Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+>> Signed-off-by: Helen Koike <helen.koike@collabora.com>
+>> Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+>> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+>>
+>> ---
+>> Hello,
+>>
+>> I added a TODO in drm_atomic_helper_async_commit() regarding doing a
+>> full state swap(), Boris and Nicholas, let me know if this is ok and if
+>> I can keep your Reviewed-by tags)
+>>
+>> As mentioned in the cover letter, I tested in almost all platforms with
+>> igt plane_cursor_legacy and kms_cursor_legacy and I didn't see any
+>> regressions. But I couldn't test on MSM and AMD because I don't have
+>> the hardware I would appreciate if anyone could help me testing those.
+>>
+>> Thanks!
+>> Helen
+>>
+>> Changes in v3:
+>> - Add Reviewed-by tags
+>> - Add TODO in drm_atomic_helper_async_commit()
+>>
+>> Changes in v2:
+>> - Change the order of the patch in the series, add this as the last one.
+>> - Add documentation
+>> - s/ballanced/balanced
+>>
+>>  drivers/gpu/drm/drm_atomic_helper.c      | 22 ++++++++++++----------
+>>  include/drm/drm_modeset_helper_vtables.h |  5 +++++
+>>  2 files changed, 17 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+>> index 2453678d1186..de5812c362b5 100644
+>> --- a/drivers/gpu/drm/drm_atomic_helper.c
+>> +++ b/drivers/gpu/drm/drm_atomic_helper.c
+>> @@ -1608,15 +1608,6 @@ int drm_atomic_helper_async_check(struct drm_device *dev,
+>>  	    old_plane_state->crtc != new_plane_state->crtc)
+>>  		return -EINVAL;
+>>  
+>> -	/*
+>> -	 * FIXME: Since prepare_fb and cleanup_fb are always called on
+>> -	 * the new_plane_state for async updates we need to block framebuffer
+>> -	 * changes. This prevents use of a fb that's been cleaned up and
+>> -	 * double cleanups from occuring.
+>> -	 */
+>> -	if (old_plane_state->fb != new_plane_state->fb)
+>> -		return -EINVAL;
+>> -
+>>  	funcs = plane->helper_private;
+>>  	if (!funcs->atomic_async_update)
+>>  		return -EINVAL;
+>> @@ -1647,6 +1638,8 @@ EXPORT_SYMBOL(drm_atomic_helper_async_check);
+>>   * drm_atomic_async_check() succeeds. Async commits are not supposed to swap
+>>   * the states like normal sync commits, but just do in-place changes on the
+>>   * current state.
+>> + *
+>> + * TODO: Implement full swap instead of doing in-place changes.
+>>   */
+>>  void drm_atomic_helper_async_commit(struct drm_device *dev,
+>>  				    struct drm_atomic_state *state)
+>> @@ -1657,6 +1650,9 @@ void drm_atomic_helper_async_commit(struct drm_device *dev,
+>>  	int i;
+>>  
+>>  	for_each_new_plane_in_state(state, plane, plane_state, i) {
+>> +		struct drm_framebuffer *new_fb = plane_state->fb;
+>> +		struct drm_framebuffer *old_fb = plane->state->fb;
+>> +
+>>  		funcs = plane->helper_private;
+>>  		funcs->atomic_async_update(plane, plane_state);
+>>  
+>> @@ -1665,11 +1661,17 @@ void drm_atomic_helper_async_commit(struct drm_device *dev,
+>>  		 * plane->state in-place, make sure at least common
+>>  		 * properties have been properly updated.
+>>  		 */
+>> -		WARN_ON_ONCE(plane->state->fb != plane_state->fb);
+>> +		WARN_ON_ONCE(plane->state->fb != new_fb);
+>>  		WARN_ON_ONCE(plane->state->crtc_x != plane_state->crtc_x);
+>>  		WARN_ON_ONCE(plane->state->crtc_y != plane_state->crtc_y);
+>>  		WARN_ON_ONCE(plane->state->src_x != plane_state->src_x);
+>>  		WARN_ON_ONCE(plane->state->src_y != plane_state->src_y);
+>> +
+>> +		/*
+>> +		 * Make sure the FBs have been swapped so that cleanups in the
+>> +		 * new_state performs a cleanup in the old FB.
+>> +		 */
+>> +		WARN_ON_ONCE(plane_state->fb != old_fb);
+>>  	}
+>>  }
+>>  EXPORT_SYMBOL(drm_atomic_helper_async_commit);
+>> diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_modeset_helper_vtables.h
+>> index cfb7be40bed7..ce582e8e8f2f 100644
+>> --- a/include/drm/drm_modeset_helper_vtables.h
+>> +++ b/include/drm/drm_modeset_helper_vtables.h
+>> @@ -1174,6 +1174,11 @@ struct drm_plane_helper_funcs {
+>>  	 * current one with the new plane configurations in the new
+>>  	 * plane_state.
+>>  	 *
+>> +	 * Drivers should also swap the framebuffers between plane state
+> 
+> Perhaps add "current" before plane state and then after add "(&drm_plane.state)"
+> so it's more clear what you're referring to here?
+> 
+>> +	 * and new_state. This is required because prepare and cleanup calls
+>> +	 * are performed on the new_state object, then to cleanup the old
+>> +	 * framebuffer, it needs to be placed inside the new_state object.
+> 
+> I'd change this bit to:
+> 
+>         * This is required since cleanup for async commits is performed on
+>         * the new state, rather than old state like for traditional commits.
+>         * Since we want to give up the reference on the current (old) fb instead
+>         * of our brand new one, swap them in the driver during the async commit.
+> 
+>> +	 *
+>>  	 * FIXME:
+>>  	 *  - It only works for single plane updates
+>>  	 *  - Async Pageflips are not supported yet
+>> -- 
+>> 2.20.1
+>>
+> 
+
+Thanks, I'm sending this update in v4.
+
+Helen
