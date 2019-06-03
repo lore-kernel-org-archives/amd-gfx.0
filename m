@@ -1,50 +1,89 @@
-From: Christoph Hellwig <hch@infradead.org>
-Subject: Re: [PATCH v16 01/16] uaccess: add untagged_addr definition for
- other arches
-Date: Mon, 3 Jun 2019 10:29:16 -0700
-Message-ID: <20190603172916.GA5390@infradead.org>
-References: <cover.1559580831.git.andreyknvl@google.com>
- <097bc300a5c6554ca6fd1886421bb2e0adb03420.1559580831.git.andreyknvl@google.com>
- <8ff5b0ff-849a-1e0b-18da-ccb5be85dd2b@oracle.com>
- <CAAeHK+xX2538e674Pz25unkdFPCO_SH0pFwFu=8+DS7RzfYnLQ@mail.gmail.com>
- <f6711d31-e52c-473a-d7ad-b2d63131d7a5@oracle.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Add connector debugfs for "output_bpc"
+Date: Mon, 3 Jun 2019 13:35:38 -0400
+Message-ID: <20190603173538.22860-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-Content-Disposition: inline
-In-Reply-To: <f6711d31-e52c-473a-d7ad-b2d63131d7a5@oracle.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Khalid Aziz <khalid.aziz@oracle.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Jun 03, 2019 at 11:24:35AM -0600, Khalid Aziz wrote:
-> On 6/3/19 11:06 AM, Andrey Konovalov wrote:
-> > On Mon, Jun 3, 2019 at 7:04 PM Khalid Aziz <khalid.aziz@oracle.com> wrote:
-> >> Andrey,
-> >>
-> >> This patch has now become part of the other patch series Chris Hellwig
-> >> has sent out -
-> >> <https://lore.kernel.org/lkml/20190601074959.14036-1-hch@lst.de/>. Can
-> >> you coordinate with that patch series?
-> > 
-> > Hi!
-> > 
-> > Yes, I've seen it. How should I coordinate? Rebase this series on top
-> > of that one?
-> 
-> That would be one way to do it. Better yet, separate this patch from
-> both patch series, make it standalone and then rebase the two patch
-> series on top of it.
-
-I think easiest would be to just ask Linus if he could make an exception
-and include this trivial prep patch in 5.2-rc.
+W1doeV0KVGhpcyB3aWxsIGJlIHVzZWZ1bCBmb3IgdmVyaWZ5aW5nIHdoZXRoZXIgd2UgZW50ZXIg
+dGhlIGNvcnJlY3Qgb3V0cHV0CmNvbG9yIGRlcHRoIGZyb20gSUdULgoKW0hvd10KTG9ja3MgdGhl
+IGNvbm5lY3RvciBhbmQgYXNzb2NpYXRlZCBDUlRDIGlmIGF2YWlsYWJsZSBhbmQgb3V0cHV0cwp0
+aGUgY3VycmVudCBhbmQgbWF4aW11bSBvdXRwdXQgYnBjIHZhbHVlcy4KCkV4YW1wbGU6CgpjYXQg
+L3N5cy9rZXJuZWwvZGVidWcvZHJpLzAvRFAtMS9vdXRwdXRfYnBjCkN1cnJlbnQ6IDgKTWF4aW11
+bTogMTAKCkNoYW5nZS1JZDogSWM4ODFjMGM3MjljNTQ0NGI4MDI1NmNjZmU1NWFjNTJjZWMzNDUz
+ODgKQ2M6IExlbyBMaSA8c3VucGVuZy5saUBhbWQuY29tPgpDYzogSGFycnkgV2VudGxhbmQgPGhh
+cnJ5LndlbnRsYW5kQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNrYXMg
+PG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4KLS0tCiAuLi4vYW1kL2Rpc3BsYXkvYW1kZ3B1
+X2RtL2FtZGdwdV9kbV9kZWJ1Z2ZzLmMgfCA3NCArKysrKysrKysrKysrKysrKystCiAxIGZpbGUg
+Y2hhbmdlZCwgNzIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9kZWJ1Z2ZzLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9kZWJ1Z2Zz
+LmMKaW5kZXggMWQ1ZmM1YWQzYmVlLi4wZGU4NmE3ZTMxYjUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2RlYnVnZnMuYworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9kZWJ1Z2ZzLmMK
+QEAgLTY3Miw2ICs2NzIsNzQgQEAgc3RhdGljIHNzaXplX3QgZHBfcGh5X3Rlc3RfcGF0dGVybl9k
+ZWJ1Z2ZzX3dyaXRlKHN0cnVjdCBmaWxlICpmLCBjb25zdCBjaGFyIF9fdXMKIAlyZXR1cm4gYnl0
+ZXNfZnJvbV91c2VyOwogfQogCisvKgorICogUmV0dXJucyB0aGUgY3VycmVudCBhbmQgbWF4aW11
+bSBvdXRwdXQgYnBjIGZvciB0aGUgY29ubmVjdG9yLgorICogRXhhbXBsZSB1c2FnZTogY2F0IC9z
+eXMva2VybmVsL2RlYnVnL2RyaS8wL0RQLTEvb3V0cHV0X2JwYworICovCitzdGF0aWMgaW50IG91
+dHB1dF9icGNfc2hvdyhzdHJ1Y3Qgc2VxX2ZpbGUgKm0sIHZvaWQgKmRhdGEpCit7CisJc3RydWN0
+IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciA9IG0tPnByaXZhdGU7CisJc3RydWN0IGRybV9kZXZp
+Y2UgKmRldiA9IGNvbm5lY3Rvci0+ZGV2OworCXN0cnVjdCBkcm1fY3J0YyAqY3J0YyA9IE5VTEw7
+CisJc3RydWN0IGRtX2NydGNfc3RhdGUgKmRtX2NydGNfc3RhdGUgPSBOVUxMOworCWludCByZXMg
+PSAtRU5PREVWOworCXVuc2lnbmVkIGludCBicGM7CisKKwltdXRleF9sb2NrKCZkZXYtPm1vZGVf
+Y29uZmlnLm11dGV4KTsKKwlkcm1fbW9kZXNldF9sb2NrKCZkZXYtPm1vZGVfY29uZmlnLmNvbm5l
+Y3Rpb25fbXV0ZXgsIE5VTEwpOworCisJaWYgKGNvbm5lY3Rvci0+c3RhdGUgPT0gTlVMTCkKKwkJ
+Z290byB1bmxvY2s7CisKKwljcnRjID0gY29ubmVjdG9yLT5zdGF0ZS0+Y3J0YzsKKwlpZiAoY3J0
+YyA9PSBOVUxMKQorCQlnb3RvIHVubG9jazsKKworCWRybV9tb2Rlc2V0X2xvY2soJmNydGMtPm11
+dGV4LCBOVUxMKTsKKwlpZiAoY3J0Yy0+c3RhdGUgPT0gTlVMTCkKKwkJZ290byB1bmxvY2s7CisK
+KwlkbV9jcnRjX3N0YXRlID0gdG9fZG1fY3J0Y19zdGF0ZShjcnRjLT5zdGF0ZSk7CisJaWYgKGRt
+X2NydGNfc3RhdGUtPnN0cmVhbSA9PSBOVUxMKQorCQlnb3RvIHVubG9jazsKKworCWlmIChjb25u
+ZWN0b3ItPnN0YXR1cyAhPSBjb25uZWN0b3Jfc3RhdHVzX2Nvbm5lY3RlZCkKKwkJcmV0dXJuIC1F
+Tk9ERVY7CisKKwlzd2l0Y2ggKGRtX2NydGNfc3RhdGUtPnN0cmVhbS0+dGltaW5nLmRpc3BsYXlf
+Y29sb3JfZGVwdGgpIHsKKwljYXNlIENPTE9SX0RFUFRIXzY2NjoKKwkJYnBjID0gNjsKKwkJYnJl
+YWs7CisJY2FzZSBDT0xPUl9ERVBUSF84ODg6CisJCWJwYyA9IDg7CisJCWJyZWFrOworCWNhc2Ug
+Q09MT1JfREVQVEhfMTAxMDEwOgorCQlicGMgPSAxMDsKKwkJYnJlYWs7CisJY2FzZSBDT0xPUl9E
+RVBUSF8xMjEyMTI6CisJCWJwYyA9IDEyOworCQlicmVhazsKKwljYXNlIENPTE9SX0RFUFRIXzE2
+MTYxNjoKKwkJYnBjID0gMTY7CisJCWJyZWFrOworCWRlZmF1bHQ6CisJCWdvdG8gdW5sb2NrOwor
+CX0KKworCXNlcV9wcmludGYobSwgIkN1cnJlbnQ6ICV1XG4iLCBicGMpOworCXNlcV9wcmludGYo
+bSwgIk1heGltdW06ICV1XG4iLCBjb25uZWN0b3ItPmRpc3BsYXlfaW5mby5icGMpOworCXJlcyA9
+IDA7CisKK3VubG9jazoKKwlpZiAoY3J0YykKKwkJZHJtX21vZGVzZXRfdW5sb2NrKCZjcnRjLT5t
+dXRleCk7CisKKwlkcm1fbW9kZXNldF91bmxvY2soJmRldi0+bW9kZV9jb25maWcuY29ubmVjdGlv
+bl9tdXRleCk7CisJbXV0ZXhfdW5sb2NrKCZkZXYtPm1vZGVfY29uZmlnLm11dGV4KTsKKworCXJl
+dHVybiByZXM7Cit9CisKIC8qCiAgKiBSZXR1cm5zIHRoZSBtaW4gYW5kIG1heCB2cnIgdmZyZXEg
+dGhyb3VnaCB0aGUgY29ubmVjdG9yJ3MgZGVidWdmcyBmaWxlLgogICogRXhhbXBsZSB1c2FnZTog
+Y2F0IC9zeXMva2VybmVsL2RlYnVnL2RyaS8wL0RQLTEvdnJyX3JhbmdlCkBAIC03MzAsOCArNzk4
+LDYgQEAgc3RhdGljIHNzaXplX3QgZHBfc2RwX21lc3NhZ2VfZGVidWdmc193cml0ZShzdHJ1Y3Qg
+ZmlsZSAqZiwgY29uc3QgY2hhciBfX3VzZXIgKmIKIAlyZXR1cm4gd3JpdGVfc2l6ZTsKIH0KIAot
+REVGSU5FX1NIT1dfQVRUUklCVVRFKHZycl9yYW5nZSk7Ci0KIHN0YXRpYyBzc2l6ZV90IGRwX2Rw
+Y2RfYWRkcmVzc193cml0ZShzdHJ1Y3QgZmlsZSAqZiwgY29uc3QgY2hhciBfX3VzZXIgKmJ1ZiwK
+IAkJCQkgc2l6ZV90IHNpemUsIGxvZmZfdCAqcG9zKQogewpAQCAtODE0LDYgKzg4MCw5IEBAIHN0
+YXRpYyBzc2l6ZV90IGRwX2RwY2RfZGF0YV9yZWFkKHN0cnVjdCBmaWxlICpmLCBjaGFyIF9fdXNl
+ciAqYnVmLAogCXJldHVybiByZWFkX3NpemUgLSByOwogfQogCitERUZJTkVfU0hPV19BVFRSSUJV
+VEUob3V0cHV0X2JwYyk7CitERUZJTkVfU0hPV19BVFRSSUJVVEUodnJyX3JhbmdlKTsKKwogc3Rh
+dGljIGNvbnN0IHN0cnVjdCBmaWxlX29wZXJhdGlvbnMgZHBfbGlua19zZXR0aW5nc19kZWJ1Z2Zz
+X2ZvcHMgPSB7CiAJLm93bmVyID0gVEhJU19NT0RVTEUsCiAJLnJlYWQgPSBkcF9saW5rX3NldHRp
+bmdzX3JlYWQsCkBAIC04NjYsNiArOTM1LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCB7CiAJCXsi
+bGlua19zZXR0aW5ncyIsICZkcF9saW5rX3NldHRpbmdzX2RlYnVnZnNfZm9wc30sCiAJCXsicGh5
+X3NldHRpbmdzIiwgJmRwX3BoeV9zZXR0aW5nc19kZWJ1Z2ZzX2ZvcH0sCiAJCXsidGVzdF9wYXR0
+ZXJuIiwgJmRwX3BoeV90ZXN0X3BhdHRlcm5fZm9wc30sCisJCXsib3V0cHV0X2JwYyIsICZvdXRw
+dXRfYnBjX2ZvcHN9LAogCQl7InZycl9yYW5nZSIsICZ2cnJfcmFuZ2VfZm9wc30sCiAJCXsic2Rw
+X21lc3NhZ2UiLCAmc2RwX21lc3NhZ2VfZm9wc30sCiAJCXsiYXV4X2RwY2RfYWRkcmVzcyIsICZk
+cF9kcGNkX2FkZHJlc3NfZGVidWdmc19mb3BzfSwKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
