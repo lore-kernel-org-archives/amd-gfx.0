@@ -1,152 +1,51 @@
-From: Andrey Konovalov <andreyknvl@google.com>
-Subject: [PATCH v16 05/16] arm64: untag user pointers passed to memory syscalls
-Date: Mon,  3 Jun 2019 18:55:07 +0200
-Message-ID: <045a94326401693e015bf80c444a4d946a5c68ed.1559580831.git.andreyknvl@google.com>
-References: <cover.1559580831.git.andreyknvl@google.com>
+From: Helen Koike <helen.koike@collabora.com>
+Subject: [PATCH v4 2/5] drm/amd: fix fb references in async update
+Date: Mon,  3 Jun 2019 13:56:07 -0300
+Message-ID: <20190603165610.24614-3-helen.koike@collabora.com>
+References: <20190603165610.24614-1-helen.koike@collabora.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <cover.1559580831.git.andreyknvl@google.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Cc: Mark Rutland <mark.rutland@arm.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, Greg
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190603165610.24614-1-helen.koike@collabora.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org, nicholas.kazlauskas@amd.com
+Cc: andrey.grodzovsky@amd.com, daniel.vetter@ffwll.ch, linux-kernel@vger.kernel.org, Tomasz Figa <tfiga@chromium.org>, boris.brezillon@collabora.com, David Airlie <airlied@linux.ie>, Sean Paul <seanpaul@google.com>, kernel@collabora.com, harry.wentland@amd.com, =?UTF-8?q?St=C3=A9phane=20Marchesin?= <marcheu@google.com>, Helen Koike <helen.koike@collabora.com>, Leo Li <sunpeng.li@amd.com>, David Francis <David.Francis@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Daniel Vetter <daniel@ffwll.ch>
 List-Id: amd-gfx.lists.freedesktop.org
 
-This patch is a part of a series that extends arm64 kernel ABI to allow to
-pass tagged user pointers (with the top byte set to something else other
-than 0x00) as syscall arguments.
+Async update callbacks are expected to set the old_fb in the new_state
+so prepare/cleanup framebuffers are balanced.
 
-This patch allows tagged pointers to be passed to the following memory
-syscalls: get_mempolicy, madvise, mbind, mincore, mlock, mlock2, mprotect,
-mremap, msync, munlock.
+Calling drm_atomic_set_fb_for_plane() (which gets a reference of the new
+fb and put the old fb) is not required, as it's taken care by
+drm_mode_cursor_universal() when calling drm_atomic_helper_update_plane().
 
-Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+Suggested-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Helen Koike <helen.koike@collabora.com>
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
 ---
- mm/madvise.c   | 2 ++
- mm/mempolicy.c | 3 +++
- mm/mincore.c   | 2 ++
- mm/mlock.c     | 4 ++++
- mm/mprotect.c  | 2 ++
- mm/mremap.c    | 2 ++
- mm/msync.c     | 2 ++
- 7 files changed, 17 insertions(+)
 
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 628022e674a7..39b82f8a698f 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -810,6 +810,8 @@ SYSCALL_DEFINE3(madvise, unsigned long, start, size_t, len_in, int, behavior)
- 	size_t len;
- 	struct blk_plug plug;
+Changes in v4: None
+Changes in v3: None
+Changes in v2:
+- added reviewed-by tag
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 443b13ec268d..40624b2c630e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4347,8 +4347,7 @@ static void dm_plane_atomic_async_update(struct drm_plane *plane,
+ 	struct drm_plane_state *old_state =
+ 		drm_atomic_get_old_plane_state(new_state->state, plane);
  
-+	start = untagged_addr(start);
-+
- 	if (!madvise_behavior_valid(behavior))
- 		return error;
+-	if (plane->state->fb != new_state->fb)
+-		drm_atomic_set_fb_for_plane(plane->state, new_state->fb);
++	swap(plane->state->fb, new_state->fb);
  
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 01600d80ae01..78e0a88b2680 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1360,6 +1360,7 @@ static long kernel_mbind(unsigned long start, unsigned long len,
- 	int err;
- 	unsigned short mode_flags;
- 
-+	start = untagged_addr(start);
- 	mode_flags = mode & MPOL_MODE_FLAGS;
- 	mode &= ~MPOL_MODE_FLAGS;
- 	if (mode >= MPOL_MAX)
-@@ -1517,6 +1518,8 @@ static int kernel_get_mempolicy(int __user *policy,
- 	int uninitialized_var(pval);
- 	nodemask_t nodes;
- 
-+	addr = untagged_addr(addr);
-+
- 	if (nmask != NULL && maxnode < nr_node_ids)
- 		return -EINVAL;
- 
-diff --git a/mm/mincore.c b/mm/mincore.c
-index c3f058bd0faf..64c322ed845c 100644
---- a/mm/mincore.c
-+++ b/mm/mincore.c
-@@ -249,6 +249,8 @@ SYSCALL_DEFINE3(mincore, unsigned long, start, size_t, len,
- 	unsigned long pages;
- 	unsigned char *tmp;
- 
-+	start = untagged_addr(start);
-+
- 	/* Check the start address: needs to be page-aligned.. */
- 	if (start & ~PAGE_MASK)
- 		return -EINVAL;
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 080f3b36415b..e82609eaa428 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -674,6 +674,8 @@ static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t fla
- 	unsigned long lock_limit;
- 	int error = -ENOMEM;
- 
-+	start = untagged_addr(start);
-+
- 	if (!can_do_mlock())
- 		return -EPERM;
- 
-@@ -735,6 +737,8 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
- {
- 	int ret;
- 
-+	start = untagged_addr(start);
-+
- 	len = PAGE_ALIGN(len + (offset_in_page(start)));
- 	start &= PAGE_MASK;
- 
-diff --git a/mm/mprotect.c b/mm/mprotect.c
-index bf38dfbbb4b4..19f981b733bc 100644
---- a/mm/mprotect.c
-+++ b/mm/mprotect.c
-@@ -465,6 +465,8 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
- 	const bool rier = (current->personality & READ_IMPLIES_EXEC) &&
- 				(prot & PROT_READ);
- 
-+	start = untagged_addr(start);
-+
- 	prot &= ~(PROT_GROWSDOWN|PROT_GROWSUP);
- 	if (grows == (PROT_GROWSDOWN|PROT_GROWSUP)) /* can't be both */
- 		return -EINVAL;
-diff --git a/mm/mremap.c b/mm/mremap.c
-index fc241d23cd97..1d98281f7204 100644
---- a/mm/mremap.c
-+++ b/mm/mremap.c
-@@ -606,6 +606,8 @@ SYSCALL_DEFINE5(mremap, unsigned long, addr, unsigned long, old_len,
- 	LIST_HEAD(uf_unmap_early);
- 	LIST_HEAD(uf_unmap);
- 
-+	addr = untagged_addr(addr);
-+
- 	if (flags & ~(MREMAP_FIXED | MREMAP_MAYMOVE))
- 		return ret;
- 
-diff --git a/mm/msync.c b/mm/msync.c
-index ef30a429623a..c3bd3e75f687 100644
---- a/mm/msync.c
-+++ b/mm/msync.c
-@@ -37,6 +37,8 @@ SYSCALL_DEFINE3(msync, unsigned long, start, size_t, len, int, flags)
- 	int unmapped_error = 0;
- 	int error = -EINVAL;
- 
-+	start = untagged_addr(start);
-+
- 	if (flags & ~(MS_ASYNC | MS_INVALIDATE | MS_SYNC))
- 		goto out;
- 	if (offset_in_page(start))
+ 	plane->state->src_x = new_state->src_x;
+ 	plane->state->src_y = new_state->src_y;
 -- 
-2.22.0.rc1.311.g5d7573a151-goog
+2.20.1
