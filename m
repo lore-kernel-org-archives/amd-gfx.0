@@ -1,55 +1,55 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 01/13] drm/amdgpu: introduce and honour DRM_FORCE_AUTH
- workaround
-Date: Tue, 4 Jun 2019 11:24:38 +0000
-Message-ID: <1b697f02-a6cf-0bc1-9149-3acd71eb4e30@amd.com>
-References: <20190527081741.14235-1-emil.l.velikov@gmail.com>
- <3c9b5688-5e83-f173-00e3-6e139e05d466@amd.com>
- <20190527132041.GP21222@phenom.ffwll.local>
- <20190527132607.GH15067@arch-x1c3>
- <0426fb3e-e7bc-2464-cb42-4d5753956d23@amd.com>
- <CAKMK7uE_pRro8PxTwUq+pC_1GVVT7nUxan1T-kqSYT=BMHTf2g@mail.gmail.com>
- <d12a7dd4-595b-d0aa-a87d-527392fb0384@amd.com>
- <CAKMK7uE1ZWjCeg3q7qDrbcj89+DuPQwfjMqC8hTjDAMU5bhh-w@mail.gmail.com>
- <98c3d891-6966-2043-9709-4e718dbc6bac@amd.com>
- <ee1b8980-3d78-aa6d-fe46-2c0d45c2bbdd@daenzer.net>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v16 01/16] uaccess: add untagged_addr definition for other arches
+Date: Tue, 4 Jun 2019 13:45:24 +0200
+Message-ID: <CAAeHK+wccK1upfOWxNbZBR0BUWT23VFUFEqRTEp3H+8hXN8yzw@mail.gmail.com>
+References: <cover.1559580831.git.andreyknvl@google.com> <097bc300a5c6554ca6fd1886421bb2e0adb03420.1559580831.git.andreyknvl@google.com>
+ <8ff5b0ff-849a-1e0b-18da-ccb5be85dd2b@oracle.com> <CAAeHK+xX2538e674Pz25unkdFPCO_SH0pFwFu=8+DS7RzfYnLQ@mail.gmail.com>
+ <f6711d31-e52c-473a-d7ad-b2d63131d7a5@oracle.com> <20190603172916.GA5390@infradead.org>
+ <7a687a26-fc3e-2caa-1d6a-464f1f7e684c@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ee1b8980-3d78-aa6d-fe46-2c0d45c2bbdd-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-Content-ID: <4F9F40EEF4528C428DC8C64DDE2EE26C-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <7a687a26-fc3e-2caa-1d6a-464f1f7e684c@oracle.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Khalid Aziz <khalid.aziz@oracle.com>
+Cc: Christoph Hellwig <hch@infradead.org>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMDQuMDYuMTkgdW0gMTI6NTAgc2NocmllYiBNaWNoZWwgRMOkbnplcjoNCj4gT24gMjAxOS0w
-NS0yOCAxMDowMyBhLm0uLCBLb2VuaWcsIENocmlzdGlhbiB3cm90ZToNCj4+IEkgcmF0aGVyIHRo
-aW5rIHRoYXQgd2Ugc2hvdWxkIGdvIGRvd24gdGhlIHJvdXRlIG9mIGNvbXBsZXRlbHkgZHJvcHBp
-bmcNCj4+IGNvbW1hbmQgc3VibWlzc2lvbiBhbmQgYnVmZmVyIGFsbG9jYXRpb24gdGhyb3VnaCB0
-aGUgcHJpbWFyeSBub2RlIGZvcg0KPj4gbm9uIG1hc3RlciBjbGllbnRzLiBBbmQgdGhlbiBhcyBu
-ZXh0IHN0ZXAgYXQgc29tZSBwb2ludCBkcm9wIHN1cHBvcnQgZm9yDQo+PiBhdXRoZW50aWNhdGlv
-bi9mbGluay4NCj4gS2VlcCBpbiBtaW5kIHRoYXQgZXZlbiBkaXNwbGF5IHNlcnZlcnMgYXJlbid0
-IERSTSBtYXN0ZXIgd2hpbGUgdGhlaXIgVlQNCj4gaXNuJ3QgYWN0aXZlLCBzbyB0aGlzIG1pZ2h0
-IGJlIHByb2JsZW1hdGljIGlmIGEgZGlzcGxheSBzZXJ2ZXIgbmVlZHMgdG8NCj4gZG8gc29tZSBj
-b21tYW5kIHN1Ym1pc3Npb24gLyBidWZmZXIgYWxsb2NhdGlvbiBkdXJpbmcgdGhhdCB0aW1lLg0K
-DQpJZiBJIHVuZGVyc3RhbmQgaXQgY29ycmVjdGx5IHRoZSBEUk0gZmQgc3RheXMgbWFzdGVyIGV2
-ZW4gd2hlbiB0aGUgVlQgaXMgDQpzd2l0Y2hlZCBhd2F5LCBpdCdzIGp1c3Qgbm90IHRoZSBjdXJy
-ZW50IG1hc3RlciBhbnkgbW9yZS4NCg0KU28gaW4gdGhpcyBjYXNlIGZwcml2LT5pc19tYXN0ZXIg
-c3RheXMgdHJ1ZSwgYnV0IA0KZHJtX2lzX2N1cnJlbnRfbWFzdGVyKGZwcml2KSByZXR1cm5zIGZh
-bHNlLg0KDQpBbmQgeWVzIHdlIG1peGVkIHRoYXQgdXAgaW4gYW1kZ3B1LCBpOTE1IGFuZCB2bXdn
-ZnguIFNvbWVib2R5IHNob3VsZCANCnByb2JhYmx5IHdyaXRlIHBhdGNoZXMgdG8gZml4IHRoaXMu
-DQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZng=
+On Mon, Jun 3, 2019 at 8:17 PM Khalid Aziz <khalid.aziz@oracle.com> wrote:
+>
+> On 6/3/19 11:29 AM, Christoph Hellwig wrote:
+> > On Mon, Jun 03, 2019 at 11:24:35AM -0600, Khalid Aziz wrote:
+> >> On 6/3/19 11:06 AM, Andrey Konovalov wrote:
+> >>> On Mon, Jun 3, 2019 at 7:04 PM Khalid Aziz <khalid.aziz@oracle.com> wrote:
+> >>>> Andrey,
+> >>>>
+> >>>> This patch has now become part of the other patch series Chris Hellwig
+> >>>> has sent out -
+> >>>> <https://lore.kernel.org/lkml/20190601074959.14036-1-hch@lst.de/>. Can
+> >>>> you coordinate with that patch series?
+> >>>
+> >>> Hi!
+> >>>
+> >>> Yes, I've seen it. How should I coordinate? Rebase this series on top
+> >>> of that one?
+> >>
+> >> That would be one way to do it. Better yet, separate this patch from
+> >> both patch series, make it standalone and then rebase the two patch
+> >> series on top of it.
+> >
+> > I think easiest would be to just ask Linus if he could make an exception
+> > and include this trivial prep patch in 5.2-rc.
+> >
+>
+> Andrey,
+>
+> Would you mind updating the commit log to make it not arm64 specific and
+> sending this patch out by itself. We can then ask Linus if he can
+> include just this patch in the next rc.
+
+Sure! Just sent it out.
+
+>
+> Thanks,
+> Khalid
+>
