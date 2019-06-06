@@ -1,19 +1,18 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: FW: [PATCH] drm/ttm: fix ttm client driver (e.g. amdgpu) reload
  issue
-Date: Thu, 6 Jun 2019 16:00:09 +0200
-Message-ID: <1ef221b9-f29e-cbd2-488a-d5d0b349e45f@gmail.com>
+Date: Thu, 6 Jun 2019 15:15:59 +0000
+Message-ID: <BN6PR12MB1809F73FCA1AC3CA8B91CD1AF7170@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <1559717076-25471-1-git-send-email-Monk.Liu@amd.com>
  <MN2PR12MB393308FE408E9E41EF0D615184160@MN2PR12MB3933.namprd12.prod.outlook.com>
  <8dbf96e5-056f-b2bb-b0d3-9376b92b0140@amd.com>
  <MN2PR12MB39334AC8143DDBC1AA7587E884160@MN2PR12MB3933.namprd12.prod.outlook.com>
- <bb88e890-84c4-5405-85c6-59f02d5a7a61@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+ <bb88e890-84c4-5405-85c6-59f02d5a7a61@amd.com>,
+ <1ef221b9-f29e-cbd2-488a-d5d0b349e45f@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1266127080=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bb88e890-84c4-5405-85c6-59f02d5a7a61-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1ef221b9-f29e-cbd2-488a-d5d0b349e45f-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -25,65 +24,346 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-SXQgaXMgcGFydCBvZiBhbWQtc3RhZ2luZy1kcm0tbmV4dCBhbmQgaGFzIEFsZXggU2lnbmVkLW9m
-IGJ5IHRhZy4KClNvIGl0IHNob3VsZCBkZWZpbml0ZWx5IGJlIHVwc3RyZWFtLCBBbGV4IGFueSBp
-ZGVhIHdoeSB0aGF0IHBhdGNoIGlzbid0IAppbiBkcm0tbmV4dD8KCkNocmlzdGlhbi4KCkFtIDA1
-LjA2LjE5IHVtIDIwOjEwIHNjaHJpZWIgS29lbmlnLCBDaHJpc3RpYW46Cj4gTWhtLCBsb29rcyBs
-aWtlIHRoYXQgc29tZWhvdyBnb3QgZHJvcHBlZCBkdXJpbmcgcmViYXNlLgo+Cj4gR29pbmcgdG8g
-ZGlnIHVwIHdoZXJlIHRoYXQgYWN0dWFsbHkgZW5kZWQgdXAgdG9tb3Jyb3cuCj4KPiBDaHJpc3Rp
-YW4uCj4KPiBBbSAwNS4wNi4xOSB1bSAxNjo0NCBzY2hyaWViIExpdSwgTW9uazoKPj4gU3RyYW5n
-ZSwgSSBnZXQgdGhlIGxhdGVzdCAiZHJtLW5leHQiIGJyYW5jaCBhbmQgZGlkbid0IHNlZSB0aGUg
-Y2hhbmdlIGxhbmRlZCAuLi4uCj4+Cj4+IC9Nb25rCj4+Cj4+IC0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tCj4+IEZyb206IEtvZW5pZywgQ2hyaXN0aWFuCj4+IFNlbnQ6IFdlZG5lc2RheSwgSnVu
-ZSA1LCAyMDE5IDc6MTEgUE0KPj4gVG86IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IGFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+IFN1YmplY3Q6IFJlOiBGVzogW1BBVENIXSBk
-cm0vdHRtOiBmaXggdHRtIGNsaWVudCBkcml2ZXIgKGUuZy4gYW1kZ3B1KSByZWxvYWQgaXNzdWUK
-Pj4KPj4gVGhpcyBzaG91bGQgYWxyZWFkeSBiZSBmaXhlZCBieSBwYXRjaCAiZHJtL3R0bTogZml4
-IHJlLWluaXQgb2YgZ2xvYmFsIHN0cnVjdHVyZXMiLgo+Pgo+PiBDaHJpc3RpYW4uCj4+Cj4+IEFt
-IDA1LjA2LjE5IHVtIDA5OjI5IHNjaHJpZWIgTGl1LCBNb25rOgo+Pj4gLS0tLS1PcmlnaW5hbCBN
-ZXNzYWdlLS0tLS0KPj4+IEZyb206IE1vbmsgTGl1IDxNb25rLkxpdUBhbWQuY29tPgo+Pj4gU2Vu
-dDogV2VkbmVzZGF5LCBKdW5lIDUsIDIwMTkgMjo0NSBQTQo+Pj4gVG86IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCj4+PiBDYzogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPgo+Pj4g
-U3ViamVjdDogW1BBVENIXSBkcm0vdHRtOiBmaXggdHRtIGNsaWVudCBkcml2ZXIgKGUuZy4gYW1k
-Z3B1KSByZWxvYWQKPj4+IGlzc3VlCj4+Pgo+Pj4gbmVlZCB0byBjbGVhciBibyBnbG9iIGFuZCBt
-ZW0gZ2xvYiBkdXJpbmcgdGhlaXIgcmVsZWFzZSBvdGhlcndpc2UgdGhlaXIgbWVtYmVyIHZhbHVl
-IHdvdWxkIGJlIHdyb25nbHkgdXNlZCBpbiB0aGUgbmV4dCBnbG9iIGluaXQgc3RhZ2UgYW5kIGxl
-YWQgdG8gd2lsZCBwb2ludGVyIGFjY2VzcyBwcm9ibGVtczoKPj4+Cj4+PiAxKSBrb2JqLnN0YXRl
-X2luaXRpYWxpemVkIGlzIDEKPj4+IDIpIHR0bV9ib19nbG9iLmJvX2NvdW50IGlzbid0IGNsZWFy
-ZWQgYW5kIHJlZmVyZW5jZWQgdmlhIGl0Cj4+PiAgICAgICBvbiBtZW1iZXIgInN3YXBfbHJ1IiB3
-b3VsZCBoaXQgb3V0IG9mIGJvdW5kIGFycmF5IGFjY2Vzc2luZwo+Pj4gICAgICAgYnVnCj4+Pgo+
-Pj4gU2lnbmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+Cj4+PiAtLS0KPj4+
-ICAgICBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jICAgICB8IDIgKysKPj4+ICAgICBkcml2
-ZXJzL2dwdS9kcm0vdHRtL3R0bV9tZW1vcnkuYyB8IDggKysrKysrKysKPj4+ICAgICAyIGZpbGVz
-IGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3R0bS90dG1fYm8uYwo+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGlu
-ZGV4IGM3ZGU2NjcuLjY0MzRlYWMgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRt
-L3R0bV9iby5jCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4+PiBAQCAt
-MTYwNCw2ICsxNjA0LDggQEAgc3RhdGljIHZvaWQgdHRtX2JvX2dsb2JhbF9rb2JqX3JlbGVhc2Uo
-c3RydWN0IGtvYmplY3QgKmtvYmopCj4+PiAgICAgCQljb250YWluZXJfb2Yoa29iaiwgc3RydWN0
-IHR0bV9ib19nbG9iYWwsIGtvYmopOwo+Pj4gICAgIAo+Pj4gICAgIAlfX2ZyZWVfcGFnZShnbG9i
-LT5kdW1teV9yZWFkX3BhZ2UpOwo+Pj4gKwo+Pj4gKwltZW1zZXQoZ2xvYiwgMCwgc2l6ZW9mKCpn
-bG9iKSk7Cj4+PiAgICAgfQo+Pj4gICAgIAo+Pj4gICAgIHN0YXRpYyB2b2lkIHR0bV9ib19nbG9i
-YWxfcmVsZWFzZSh2b2lkKSBkaWZmIC0tZ2l0Cj4+PiBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRt
-X21lbW9yeS5jIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fbWVtb3J5LmMKPj4+IGluZGV4IDg2
-MTc5NTguLjcxMjhiYmYgMTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9t
-ZW1vcnkuYwo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fbWVtb3J5LmMKPj4+IEBA
-IC0yMjksOSArMjI5LDE3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc3lzZnNfb3BzIHR0bV9tZW1f
-Z2xvYmFsX29wcyA9IHsKPj4+ICAgICAJLnN0b3JlID0gJnR0bV9tZW1fZ2xvYmFsX3N0b3JlLAo+
-Pj4gICAgIH07Cj4+PiAgICAgCj4+PiArdm9pZCB0dG1fbWVtX2dsb2Jfa29ial9yZWxlYXNlKHN0
-cnVjdCBrb2JqZWN0ICprb2JqKSB7Cj4+PiArCXN0cnVjdCB0dG1fbWVtX2dsb2JhbCAqZ2xvYiA9
-IGNvbnRhaW5lcl9vZihrb2JqLCBzdHJ1Y3QKPj4+ICt0dG1fbWVtX2dsb2JhbCwga29iaik7Cj4+
-PiArCj4+PiArCW1lbXNldChnbG9iLCAwLCBzaXplb2YoKmdsb2IpKTsKPj4+ICt9Cj4+PiArCj4+
-PiAgICAgc3RhdGljIHN0cnVjdCBrb2JqX3R5cGUgdHRtX21lbV9nbG9iX2tvYmpfdHlwZSA9IHsK
-Pj4+ICAgICAJLnN5c2ZzX29wcyA9ICZ0dG1fbWVtX2dsb2JhbF9vcHMsCj4+PiAgICAgCS5kZWZh
-dWx0X2F0dHJzID0gdHRtX21lbV9nbG9iYWxfYXR0cnMsCj4+PiArCS5yZWxlYXNlID0gdHRtX21l
-bV9nbG9iX2tvYmpfcmVsZWFzZSwKPj4+ICAgICB9Owo+Pj4gICAgIAo+Pj4gICAgIHN0YXRpYyBi
-b29sIHR0bV96b25lc19hYm92ZV9zd2FwX3RhcmdldChzdHJ1Y3QgdHRtX21lbV9nbG9iYWwgKmds
-b2IsCj4+PiAtLQo+Pj4gMi43LjQKPj4+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============1266127080==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809F73FCA1AC3CA8B91CD1AF7170BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809F73FCA1AC3CA8B91CD1AF7170BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+It's upstream:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3Dbd4264112f93045704731850c5e4d85db981cd85
+and in drm-next:
+https://cgit.freedesktop.org/drm/drm/commit/?id=3Dbd4264112f93045704731850c=
+5e4d85db981cd85
+and in amd-staging-drm-next:
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Damd-staging-drm-next&=
+id=3Dbd4264112f93045704731850c5e4d85db981cd85
+
+Where are you seeing it missing?
+
+Alex
+________________________________
+From: Christian K?nig <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Sent: Thursday, June 6, 2019 10:00 AM
+To: Koenig, Christian; Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deucher, A=
+lexander
+Subject: Re: FW: [PATCH] drm/ttm: fix ttm client driver (e.g. amdgpu) reloa=
+d issue
+
+It is part of amd-staging-drm-next and has Alex Signed-of by tag.
+
+So it should definitely be upstream, Alex any idea why that patch isn't
+in drm-next?
+
+Christian.
+
+Am 05.06.19 um 20:10 schrieb Koenig, Christian:
+> Mhm, looks like that somehow got dropped during rebase.
+>
+> Going to dig up where that actually ended up tomorrow.
+>
+> Christian.
+>
+> Am 05.06.19 um 16:44 schrieb Liu, Monk:
+>> Strange, I get the latest "drm-next" branch and didn't see the change la=
+nded ....
+>>
+>> /Monk
+>>
+>> -----Original Message-----
+>> From: Koenig, Christian
+>> Sent: Wednesday, June 5, 2019 7:11 PM
+>> To: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>> Subject: Re: FW: [PATCH] drm/ttm: fix ttm client driver (e.g. amdgpu) re=
+load issue
+>>
+>> This should already be fixed by patch "drm/ttm: fix re-init of global st=
+ructures".
+>>
+>> Christian.
+>>
+>> Am 05.06.19 um 09:29 schrieb Liu, Monk:
+>>> -----Original Message-----
+>>> From: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>>> Sent: Wednesday, June 5, 2019 2:45 PM
+>>> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+>>> Cc: Liu, Monk <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>>> Subject: [PATCH] drm/ttm: fix ttm client driver (e.g. amdgpu) reload
+>>> issue
+>>>
+>>> need to clear bo glob and mem glob during their release otherwise their=
+ member value would be wrongly used in the next glob init stage and lead to=
+ wild pointer access problems:
+>>>
+>>> 1) kobj.state_initialized is 1
+>>> 2) ttm_bo_glob.bo_count isn't cleared and referenced via it
+>>>       on member "swap_lru" would hit out of bound array accessing
+>>>       bug
+>>>
+>>> Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+>>> ---
+>>>     drivers/gpu/drm/ttm/ttm_bo.c     | 2 ++
+>>>     drivers/gpu/drm/ttm/ttm_memory.c | 8 ++++++++
+>>>     2 files changed, 10 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+>>> b/drivers/gpu/drm/ttm/ttm_bo.c index c7de667..6434eac 100644
+>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>>> @@ -1604,6 +1604,8 @@ static void ttm_bo_global_kobj_release(struct kob=
+ject *kobj)
+>>>              container_of(kobj, struct ttm_bo_global, kobj);
+>>>
+>>>      __free_page(glob->dummy_read_page);
+>>> +
+>>> +   memset(glob, 0, sizeof(*glob));
+>>>     }
+>>>
+>>>     static void ttm_bo_global_release(void) diff --git
+>>> a/drivers/gpu/drm/ttm/ttm_memory.c b/drivers/gpu/drm/ttm/ttm_memory.c
+>>> index 8617958..7128bbf 100644
+>>> --- a/drivers/gpu/drm/ttm/ttm_memory.c
+>>> +++ b/drivers/gpu/drm/ttm/ttm_memory.c
+>>> @@ -229,9 +229,17 @@ static const struct sysfs_ops ttm_mem_global_ops =
+=3D {
+>>>      .store =3D &ttm_mem_global_store,
+>>>     };
+>>>
+>>> +void ttm_mem_glob_kobj_release(struct kobject *kobj) {
+>>> +   struct ttm_mem_global *glob =3D container_of(kobj, struct
+>>> +ttm_mem_global, kobj);
+>>> +
+>>> +   memset(glob, 0, sizeof(*glob));
+>>> +}
+>>> +
+>>>     static struct kobj_type ttm_mem_glob_kobj_type =3D {
+>>>      .sysfs_ops =3D &ttm_mem_global_ops,
+>>>      .default_attrs =3D ttm_mem_global_attrs,
+>>> +   .release =3D ttm_mem_glob_kobj_release,
+>>>     };
+>>>
+>>>     static bool ttm_zones_above_swap_target(struct ttm_mem_global *glob=
+,
+>>> --
+>>> 2.7.4
+>>>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--_000_BN6PR12MB1809F73FCA1AC3CA8B91CD1AF7170BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+It's upstream:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<a href=3D"https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.g=
+it/commit/?id=3Dbd4264112f93045704731850c5e4d85db981cd85" id=3D"LPlnk109861=
+">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/?id=3Dbd4264112f93045704731850c5e4d85db981cd85</a></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+and in drm-next:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<a href=3D"https://cgit.freedesktop.org/drm/drm/commit/?id=3Dbd4264112f9304=
+5704731850c5e4d85db981cd85" id=3D"LPlnk491710">https://cgit.freedesktop.org=
+/drm/drm/commit/?id=3Dbd4264112f93045704731850c5e4d85db981cd85</a></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+and in amd-staging-drm-next:</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<a href=3D"https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Damd-stagin=
+g-drm-next&amp;id=3Dbd4264112f93045704731850c5e4d85db981cd85" id=3D"LPlnk78=
+0545">https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Damd-staging-drm=
+-next&amp;id=3Dbd4264112f93045704731850c5e4d85db981cd85</a></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Where are you seeing it missing?</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K&ouml;nig =
+&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, June 6, 2019 10:00 AM<br>
+<b>To:</b> Koenig, Christian; Liu, Monk; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Deu=
+cher, Alexander<br>
+<b>Subject:</b> Re: FW: [PATCH] drm/ttm: fix ttm client driver (e.g. amdgpu=
+) reload issue</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">It is part of amd-staging-drm-next and has Alex Si=
+gned-of by tag.<br>
+<br>
+So it should definitely be upstream, Alex any idea why that patch isn't <br=
+>
+in drm-next?<br>
+<br>
+Christian.<br>
+<br>
+Am 05.06.19 um 20:10 schrieb Koenig, Christian:<br>
+&gt; Mhm, looks like that somehow got dropped during rebase.<br>
+&gt;<br>
+&gt; Going to dig up where that actually ended up tomorrow.<br>
+&gt;<br>
+&gt; Christian.<br>
+&gt;<br>
+&gt; Am 05.06.19 um 16:44 schrieb Liu, Monk:<br>
+&gt;&gt; Strange, I get the latest &quot;drm-next&quot; branch and didn't s=
+ee the change landed ....<br>
+&gt;&gt;<br>
+&gt;&gt; /Monk<br>
+&gt;&gt;<br>
+&gt;&gt; -----Original Message-----<br>
+&gt;&gt; From: Koenig, Christian<br>
+&gt;&gt; Sent: Wednesday, June 5, 2019 7:11 PM<br>
+&gt;&gt; To: Liu, Monk &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org<br>
+&gt;&gt; Subject: Re: FW: [PATCH] drm/ttm: fix ttm client driver (e.g. amdg=
+pu) reload issue<br>
+&gt;&gt;<br>
+&gt;&gt; This should already be fixed by patch &quot;drm/ttm: fix re-init o=
+f global structures&quot;.<br>
+&gt;&gt;<br>
+&gt;&gt; Christian.<br>
+&gt;&gt;<br>
+&gt;&gt; Am 05.06.19 um 09:29 schrieb Liu, Monk:<br>
+&gt;&gt;&gt; -----Original Message-----<br>
+&gt;&gt;&gt; From: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt;&gt; Sent: Wednesday, June 5, 2019 2:45 PM<br>
+&gt;&gt;&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt;&gt;&gt; Cc: Liu, Monk &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt;&gt; Subject: [PATCH] drm/ttm: fix ttm client driver (e.g. amdgpu) =
+reload<br>
+&gt;&gt;&gt; issue<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; need to clear bo glob and mem glob during their release otherw=
+ise their member value would be wrongly used in the next glob init stage an=
+d lead to wild pointer access problems:<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; 1) kobj.state_initialized is 1<br>
+&gt;&gt;&gt; 2) ttm_bo_glob.bo_count isn't cleared and referenced via it<br=
+>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; on member &quot;swap_lru&q=
+uot; would hit out of bound array accessing<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bug<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Signed-off-by: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt;&gt;&gt; ---<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/ttm/ttm_bo.c&nbsp;&nbs=
+p;&nbsp;&nbsp; | 2 &#43;&#43;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/ttm/ttm_memory.c | 8 &=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; 2 files changed, 10 insertions(&#43;)<=
+br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; diff --git a/drivers/gpu/drm/ttm/ttm_bo.c<br>
+&gt;&gt;&gt; b/drivers/gpu/drm/ttm/ttm_bo.c index c7de667..6434eac 100644<b=
+r>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/ttm/ttm_bo.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/ttm/ttm_bo.c<br>
+&gt;&gt;&gt; @@ -1604,6 &#43;1604,8 @@ static void ttm_bo_global_kobj_relea=
+se(struct kobject *kobj)<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; container_of(kobj, struct ttm_bo_global, kobj);<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __free_page(glob-&gt;dummy_read_=
+page);<br>
+&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; memset(glob, 0, sizeof(*glob));<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; static void ttm_bo_global_release(void=
+) diff --git<br>
+&gt;&gt;&gt; a/drivers/gpu/drm/ttm/ttm_memory.c b/drivers/gpu/drm/ttm/ttm_m=
+emory.c<br>
+&gt;&gt;&gt; index 8617958..7128bbf 100644<br>
+&gt;&gt;&gt; --- a/drivers/gpu/drm/ttm/ttm_memory.c<br>
+&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/ttm/ttm_memory.c<br>
+&gt;&gt;&gt; @@ -229,9 &#43;229,17 @@ static const struct sysfs_ops ttm_mem=
+_global_ops =3D {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .store =3D &amp;ttm_mem_global_s=
+tore,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt; &#43;void ttm_mem_glob_kobj_release(struct kobject *kobj) {<br=
+>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; struct ttm_mem_global *glob =3D container_of=
+(kobj, struct<br>
+&gt;&gt;&gt; &#43;ttm_mem_global, kobj);<br>
+&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; memset(glob, 0, sizeof(*glob));<br>
+&gt;&gt;&gt; &#43;}<br>
+&gt;&gt;&gt; &#43;<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; static struct kobj_type ttm_mem_glob_k=
+obj_type =3D {<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .sysfs_ops =3D &amp;ttm_mem_glob=
+al_ops,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .default_attrs =3D ttm_mem_globa=
+l_attrs,<br>
+&gt;&gt;&gt; &#43;&nbsp;&nbsp; .release =3D ttm_mem_glob_kobj_release,<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; };<br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp; static bool ttm_zones_above_swap_targe=
+t(struct ttm_mem_global *glob,<br>
+&gt;&gt;&gt; --<br>
+&gt;&gt;&gt; 2.7.4<br>
+&gt;&gt;&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809F73FCA1AC3CA8B91CD1AF7170BN6PR12MB1809namp_--
+
+--===============1266127080==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1266127080==--
