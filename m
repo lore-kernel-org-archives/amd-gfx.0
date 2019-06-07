@@ -1,49 +1,60 @@
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Subject: Re: [PATCH v16 14/16] tee, arm64: untag user pointers in tee_shm_register
-Date: Fri, 7 Jun 2019 07:33:38 +0200
-Message-ID: <CAHUa44E+g3YTcja+7qgx+iABVd48DbrMMOm0sbyMwf0U6F5NPw@mail.gmail.com>
-References: <cover.1559580831.git.andreyknvl@google.com> <dc3f3092abbc0d48e51b2e2a2ca8f4c4f69fa0f4.1559580831.git.andreyknvl@google.com>
+From: John Hubbard <jhubbard@nvidia.com>
+Subject: Re: [PATCH v2 hmm 09/11] mm/hmm: Poison hmm_range during unregister
+Date: Thu, 6 Jun 2019 20:37:42 -0700
+Message-ID: <c00da0f2-b4b8-813b-0441-a50d4de9d8be@nvidia.com>
+References: <20190606184438.31646-1-jgg@ziepe.ca>
+ <20190606184438.31646-10-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <dc3f3092abbc0d48e51b2e2a2ca8f4c4f69fa0f4.1559580831.git.andreyknvl@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-mm@kvack.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190606184438.31646-10-jgg@ziepe.ca>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Jerome Glisse <jglisse@redhat.com>, Ralph
+ Campbell <rcampbell@nvidia.com>, Felix.Kuehling@amd.com
+Cc: Andrea Arcangeli <aarcange@redhat.com>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-mm@kvack.org, Jason Gunthorpe <jgg@mellanox.com>, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Jun 3, 2019 at 6:56 PM Andrey Konovalov <andreyknvl@google.com> wrote:
->
-> This patch is a part of a series that extends arm64 kernel ABI to allow to
-> pass tagged user pointers (with the top byte set to something else other
-> than 0x00) as syscall arguments.
->
-> tee_shm_register()->optee_shm_unregister()->check_mem_type() uses provided
-> user pointers for vma lookups (via __check_mem_type()), which can only by
-> done with untagged pointers.
->
-> Untag user pointers in this function.
->
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-
-Acked-by: Jens Wiklander <jens.wiklander@linaro.org>
-
-> ---
->  drivers/tee/tee_shm.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-> index 49fd7312e2aa..96945f4cefb8 100644
-> --- a/drivers/tee/tee_shm.c
-> +++ b/drivers/tee/tee_shm.c
-> @@ -263,6 +263,7 @@ struct tee_shm *tee_shm_register(struct tee_context *ctx, unsigned long addr,
->         shm->teedev = teedev;
->         shm->ctx = ctx;
->         shm->id = -1;
-> +       addr = untagged_addr(addr);
->         start = rounddown(addr, PAGE_SIZE);
->         shm->offset = addr - start;
->         shm->size = length;
-> --
-> 2.22.0.rc1.311.g5d7573a151-goog
->
+T24gNi82LzE5IDExOjQ0IEFNLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6Cj4gRnJvbTogSmFzb24g
+R3VudGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPgo+IAo+IFRyeWluZyB0byBtaXN1c2UgYSByYW5n
+ZSBvdXRzaWRlIGl0cyBsaWZldGltZSBpcyBhIGtlcm5lbCBidWcuIFVzZSBXQVJOX09OCj4gYW5k
+IHBvaXNvbiBieXRlcyB0byBkZXRlY3QgdGhpcyBjb25kaXRpb24uCj4gCj4gU2lnbmVkLW9mZi1i
+eTogSmFzb24gR3VudGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPgo+IFJldmlld2VkLWJ5OiBKw6ly
+w7RtZSBHbGlzc2UgPGpnbGlzc2VAcmVkaGF0LmNvbT4KPiAtLS0KPiB2Mgo+IC0gS2VlcCByYW5n
+ZSBzdGFydC9lbmQgdmFsaWQgYWZ0ZXIgdW5yZWdpc3RyYXRpb24gKEplcm9tZSkKPiAtLS0KPiAg
+bW0vaG1tLmMgfCA3ICsrKysrLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKSwg
+MiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvbW0vaG1tLmMgYi9tbS9obW0uYwo+IGlu
+ZGV4IDY4MDJkZTcwODBkMTcyLi5jMmZlY2IzZWNiMTFlMSAxMDA2NDQKPiAtLS0gYS9tbS9obW0u
+Ywo+ICsrKyBiL21tL2htbS5jCj4gQEAgLTkzNyw3ICs5MzcsNyBAQCB2b2lkIGhtbV9yYW5nZV91
+bnJlZ2lzdGVyKHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQo+ICAJc3RydWN0IGhtbSAqaG1tID0g
+cmFuZ2UtPmhtbTsKPiAgCj4gIAkvKiBTYW5pdHkgY2hlY2sgdGhpcyByZWFsbHkgc2hvdWxkIG5v
+dCBoYXBwZW4uICovCgpUaGF0IGNvbW1lbnQgY2FuIGFsc28gYmUgZGVsZXRlZCwgYXMgaXQgaGFz
+IHRoZSBzYW1lIG1lYW5pbmcgYXMKdGhlIFdBUk5fT04oKSB0aGF0IHlvdSBqdXN0IGFkZGVkLgoK
+PiAtCWlmIChobW0gPT0gTlVMTCB8fCByYW5nZS0+ZW5kIDw9IHJhbmdlLT5zdGFydCkKPiArCWlm
+IChXQVJOX09OKHJhbmdlLT5lbmQgPD0gcmFuZ2UtPnN0YXJ0KSkKPiAgCQlyZXR1cm47Cj4gIAo+
+ICAJbXV0ZXhfbG9jaygmaG1tLT5sb2NrKTsKPiBAQCAtOTQ4LDcgKzk0OCwxMCBAQCB2b2lkIGht
+bV9yYW5nZV91bnJlZ2lzdGVyKHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQo+ICAJcmFuZ2UtPnZh
+bGlkID0gZmFsc2U7Cj4gIAltbXB1dChobW0tPm1tKTsKPiAgCWhtbV9wdXQoaG1tKTsKPiAtCXJh
+bmdlLT5obW0gPSBOVUxMOwo+ICsKPiArCS8qIFRoZSByYW5nZSBpcyBub3cgaW52YWxpZCwgbGVh
+dmUgaXQgcG9pc29uZWQuICovCgpUbyBiZSBwcmVjaXNlLCB3ZSBhcmUgcG9pc29uaW5nIHRoZSBy
+YW5nZSdzIGJhY2sgcG9pbnRlciB0byBpdCdzCm93bmluZyBobW0gaW5zdGFuY2UuICBNYXliZSB0
+aGlzIGlzIGNsZWFyZXI6CgoJLyoKCSAqIFRoZSByYW5nZSBpcyBub3cgaW52YWxpZCwgc28gcG9p
+c29uIGl0J3MgaG1tIHBvaW50ZXIuIAoJICogTGVhdmUgb3RoZXIgcmFuZ2UtPiBmaWVsZHMgaW4g
+cGxhY2UsIGZvciB0aGUgY2FsbGVyJ3MgdXNlLgoJICovCgouLi5vciBzb21ldGhpbmcgbGlrZSB0
+aGF0PwoKPiArCXJhbmdlLT52YWxpZCA9IGZhbHNlOwo+ICsJbWVtc2V0KCZyYW5nZS0+aG1tLCBQ
+T0lTT05fSU5VU0UsIHNpemVvZihyYW5nZS0+aG1tKSk7Cj4gIH0KPiAgRVhQT1JUX1NZTUJPTCho
+bW1fcmFuZ2VfdW5yZWdpc3Rlcik7Cj4gIAo+IAoKVGhlIGFib3ZlIGFyZSB2ZXJ5IG1pbm9yIGRv
+Y3VtZW50YXRpb24gcG9pbnRzLCBzbzoKCiAgICBSZXZpZXdlZC1ieTogSm9obiBIdWJiYXJkIDxq
+aHViYmFyZEBudmlkaWEuY29tPgoKCnRoYW5rcywKLS0gCkpvaG4gSHViYmFyZApOVklESUEKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1h
+aWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
