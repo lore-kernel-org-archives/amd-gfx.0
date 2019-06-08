@@ -1,170 +1,160 @@
-From: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
 Subject: Re: [PATCH] drm/amdgpu: Fix bounds checking in
  amdgpu_ras_is_supported()
-Date: Sat, 8 Jun 2019 12:27:47 +0000
-Message-ID: <SN6PR12MB2800185519D425526956EDA687110@SN6PR12MB2800.namprd12.prod.outlook.com>
+Date: Sat, 8 Jun 2019 12:37:39 +0000
+Message-ID: <3bcce070-801d-7cac-bfea-75858e610a3f@amd.com>
 References: <20190608092357.GB28890@mwanda>
+ <SN6PR12MB2800185519D425526956EDA687110@SN6PR12MB2800.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0955856027=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190608092357.GB28890@mwanda>
+Content-Type: multipart/mixed; boundary="===============1467565520=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <SN6PR12MB2800185519D425526956EDA687110@SN6PR12MB2800.namprd12.prod.outlook.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Cc: "Quan, Evan" <Evan.Quan@amd.com>, David Airlie <airlied@linux.ie>, "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Zhu,
+ James" <James.Zhu@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============0955856027==
+--===============1467565520==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_SN6PR12MB2800185519D425526956EDA687110SN6PR12MB2800namp_"
+	boundary="_000_3bcce070801d7cacbfea75858e610a3famdcom_"
 
---_000_SN6PR12MB2800185519D425526956EDA687110SN6PR12MB2800namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--_000_3bcce070801d7cacbfea75858e610a3famdcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-do you mean that something like 1<<65 might be a none zero value?
-________________________________
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Sent: Saturday, June 8, 2019 5:23:57 PM
-To: Deucher, Alexander; Pan, Xinhui
-Cc: Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter; =
-Quan, Evan; Zhu, James; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel-PD4FTy7X32mptlylMvRsHA@public.gmane.org=
-desktop.org; kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Subject: [PATCH] drm/amdgpu: Fix bounds checking in amdgpu_ras_is_supported=
-()
+WWVzLCB0aGF0IGlzIHVuZGVmaW5lZCBiZWhhdmlvciB3aGF0IHlvdSBkbyBoZXJlLg0KDQpTZWUg
+aGVyZSBhcyB3ZWxsIGh0dHBzOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzExMjcwNDky
+L3doYXQtZG9lcy10aGUtYy1zdGFuZGFyZC1zYXktYWJvdXQtYml0c2hpZnRpbmctbW9yZS1iaXRz
+LXRoYW4tdGhlLXdpZHRoLW9mLXR5cGUuDQoNCkNocmlzdGlhbi4NCg0KQW0gMDguMDYuMTkgdW0g
+MTQ6Mjcgc2NocmllYiBQYW4sIFhpbmh1aToNCmRvIHlvdSBtZWFuIHRoYXQgc29tZXRoaW5nIGxp
+a2UgMTw8NjUgbWlnaHQgYmUgYSBub25lIHplcm8gdmFsdWU/DQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXw0KRnJvbTogRGFuIENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBvcmFjbGUu
+Y29tPjxtYWlsdG86ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tPg0KU2VudDogU2F0dXJkYXksIEp1
+bmUgOCwgMjAxOSA1OjIzOjU3IFBNDQpUbzogRGV1Y2hlciwgQWxleGFuZGVyOyBQYW4sIFhpbmh1
+aQ0KQ2M6IEtvZW5pZywgQ2hyaXN0aWFuOyBaaG91LCBEYXZpZChDaHVuTWluZyk7IERhdmlkIEFp
+cmxpZTsgRGFuaWVsIFZldHRlcjsgUXVhbiwgRXZhbjsgWmh1LCBKYW1lczsgYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmc8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsg
+ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86ZHJpLWRldmVsQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZz47IGtlcm5lbC1qYW5pdG9yc0B2Z2VyLmtlcm5lbC5vcmc8bWFpbHRvOmtl
+cm5lbC1qYW5pdG9yc0B2Z2VyLmtlcm5lbC5vcmc+DQpTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRn
+cHU6IEZpeCBib3VuZHMgY2hlY2tpbmcgaW4gYW1kZ3B1X3Jhc19pc19zdXBwb3J0ZWQoKQ0KDQpU
+aGUgImJsb2NrIiB2YXJpYWJsZSBjYW4gYmUgc2V0IGJ5IHRoZSB1c2VyIHRocm91Z2ggZGVidWdm
+cywgc28gaXQgY2FuDQpiZSBxdWl0ZSBsYXJnZSB3aGljaCBsZWFkcyB0byBzaGlmdCB3cmFwcGlu
+ZyBoZXJlLiAgVGhpcyBtZWFucyB3ZSByZXBvcnQNCmEgImJsb2NrIiBhcyBzdXBwb3J0ZWQgd2hl
+biBpdCdzIG5vdCwgYW5kIHRoYXQgbGVhZHMgdG8gYXJyYXkgb3ZlcmZsb3dzDQpsYXRlciBvbi4N
+Cg0KVGhpcyBidWcgaXMgbm90IHJlYWxseSBhIHNlY3VyaXR5IGlzc3VlIGluIHJlYWwgbGlmZSwg
+YmVjYXVzZSBkZWJ1Z2ZzIGlzDQpnZW5lcmFsbHkgcm9vdCBvbmx5Lg0KDQpGaXhlczogMzZlYTFi
+ZDJkMDg0ICgiZHJtL2FtZGdwdTogYWRkIGRlYnVnZnMgY3RybCBub2RlIikNClNpZ25lZC1vZmYt
+Ynk6IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbT48bWFpbHRvOmRhbi5j
+YXJwZW50ZXJAb3JhY2xlLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9yYXMuaCB8IDIgKysNCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQoNCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmggYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgNCmluZGV4IGM2YjM0ZmJkNjk1Zi4u
+OTRjNjUyZjUyNjVhIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3Jhcy5oDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmgN
+CkBAIC0xNzMsNiArMTczLDggQEAgc3RhdGljIGlubGluZSBpbnQgYW1kZ3B1X3Jhc19pc19zdXBw
+b3J0ZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQogew0KICAgICAgICAgc3RydWN0IGFt
+ZGdwdV9yYXMgKnJhcyA9IGFtZGdwdV9yYXNfZ2V0X2NvbnRleHQoYWRldik7DQoNCisgICAgICAg
+aWYgKGJsb2NrID49IEFNREdQVV9SQVNfQkxPQ0tfQ09VTlQpDQorICAgICAgICAgICAgICAgcmV0
+dXJuIDA7DQogICAgICAgICByZXR1cm4gcmFzICYmIChyYXMtPnN1cHBvcnRlZCAmICgxIDw8IGJs
+b2NrKSk7DQogfQ0KDQotLQ0KMi4yMC4xDQoNCg0K
 
-The "block" variable can be set by the user through debugfs, so it can
-be quite large which leads to shift wrapping here.  This means we report
-a "block" as supported when it's not, and that leads to array overflows
-later on.
+--_000_3bcce070801d7cacbfea75858e610a3famdcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <D2CFEC3CEA26324293A3D89A5A4BEC05@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
-This bug is not really a security issue in real life, because debugfs is
-generally root only.
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHRleHQ9IiMwMDAwMDAi
+IGJnY29sb3I9IiNGRkZGRkYiPg0KPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5ZZXMsIHRo
+YXQgaXMgdW5kZWZpbmVkIGJlaGF2aW9yIHdoYXQgeW91IGRvIGhlcmUuPGJyPg0KPGJyPg0KU2Vl
+IGhlcmUgYXMgd2VsbCA8YSBjbGFzcz0ibW96LXR4dC1saW5rLWZyZWV0ZXh0IiBocmVmPSJodHRw
+czovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xMTI3MDQ5Mi93aGF0LWRvZXMtdGhlLWMt
+c3RhbmRhcmQtc2F5LWFib3V0LWJpdHNoaWZ0aW5nLW1vcmUtYml0cy10aGFuLXRoZS13aWR0aC1v
+Zi10eXBlIj4NCmh0dHBzOi8vc3RhY2tvdmVyZmxvdy5jb20vcXVlc3Rpb25zLzExMjcwNDkyL3do
+YXQtZG9lcy10aGUtYy1zdGFuZGFyZC1zYXktYWJvdXQtYml0c2hpZnRpbmctbW9yZS1iaXRzLXRo
+YW4tdGhlLXdpZHRoLW9mLXR5cGU8L2E+Ljxicj4NCjxicj4NCkNocmlzdGlhbi48YnI+DQo8YnI+
+DQpBbSAwOC4wNi4xOSB1bSAxNDoyNyBzY2hyaWViIFBhbiwgWGluaHVpOjxicj4NCjwvZGl2Pg0K
+PGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2l0ZT0ibWlkOlNONlBSMTJNQjI4MDAxODU1MTlENDI1
+NTI2OTU2RURBNjg3MTEwQFNONlBSMTJNQjI4MDAubmFtcHJkMTIucHJvZC5vdXRsb29rLmNvbSI+
+DQo8bWV0YSBuYW1lPSJHZW5lcmF0b3IiIGNvbnRlbnQ9Ik1pY3Jvc29mdCBFeGNoYW5nZSBTZXJ2
+ZXIiPg0KPCEtLSBjb252ZXJ0ZWQgZnJvbSB0ZXh0IC0tPjxzdHlsZT48IS0tIC5FbWFpbFF1b3Rl
+IHsgbWFyZ2luLWxlZnQ6IDFwdDsgcGFkZGluZy1sZWZ0OiA0cHQ7IGJvcmRlci1sZWZ0OiAjODAw
+MDAwIDJweCBzb2xpZDsgfSAtLT48L3N0eWxlPg0KPGRpdj4NCjxkaXYgZGlyPSJhdXRvIiBzdHls
+ZT0iZGlyZWN0aW9uOmx0cjsgbWFyZ2luOjA7IHBhZGRpbmc6MDsNCiAgICAgICAgICBmb250LWZh
+bWlseTpzYW5zLXNlcmlmOyBmb250LXNpemU6MTFwdDsgY29sb3I6YmxhY2siPg0KZG8geW91IG1l
+YW4gdGhhdCBzb21ldGhpbmcgbGlrZSAxJmx0OyZsdDs2NSBtaWdodCBiZSBhIG5vbmUgemVybyB2
+YWx1ZT88L2Rpdj4NCjxociB0YWJpbmRleD0iLTEiIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9j
+azsgd2lkdGg6OTglIj4NCjxkaXYgaWQ9InhfZGl2UnBseUZ3ZE1zZyIgZGlyPSJsdHIiPjxmb250
+IHN0eWxlPSJmb250LXNpemU6MTFwdCIgZmFjZT0iQ2FsaWJyaSwgc2Fucy1zZXJpZiIgY29sb3I9
+IiMwMDAwMDAiPjxiPkZyb206PC9iPiBEYW4gQ2FycGVudGVyDQo8YSBjbGFzcz0ibW96LXR4dC1s
+aW5rLXJmYzIzOTZFIiBocmVmPSJtYWlsdG86ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tIj4mbHQ7
+ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tJmd0OzwvYT48YnI+DQo8Yj5TZW50OjwvYj4gU2F0dXJk
+YXksIEp1bmUgOCwgMjAxOSA1OjIzOjU3IFBNPGJyPg0KPGI+VG86PC9iPiBEZXVjaGVyLCBBbGV4
+YW5kZXI7IFBhbiwgWGluaHVpPGJyPg0KPGI+Q2M6PC9iPiBLb2VuaWcsIENocmlzdGlhbjsgWmhv
+dSwgRGF2aWQoQ2h1bk1pbmcpOyBEYXZpZCBBaXJsaWU7IERhbmllbCBWZXR0ZXI7IFF1YW4sIEV2
+YW47IFpodSwgSmFtZXM7DQo8YSBjbGFzcz0ibW96LXR4dC1saW5rLWFiYnJldmlhdGVkIiBocmVm
+PSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmciPmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnPC9hPjsNCjxhIGNsYXNzPSJtb3otdHh0LWxpbmstYWJicmV2aWF0ZWQiIGhy
+ZWY9Im1haWx0bzpkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIj4NCmRyaS1kZXZlbEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmc8L2E+OyA8YSBjbGFzcz0ibW96LXR4dC1saW5rLWFiYnJldmlh
+dGVkIiBocmVmPSJtYWlsdG86a2VybmVsLWphbml0b3JzQHZnZXIua2VybmVsLm9yZyI+DQprZXJu
+ZWwtamFuaXRvcnNAdmdlci5rZXJuZWwub3JnPC9hPjxicj4NCjxiPlN1YmplY3Q6PC9iPiBbUEFU
+Q0hdIGRybS9hbWRncHU6IEZpeCBib3VuZHMgY2hlY2tpbmcgaW4gYW1kZ3B1X3Jhc19pc19zdXBw
+b3J0ZWQoKTwvZm9udD4NCjxkaXY+Jm5ic3A7PC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPGZvbnQg
+c2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0OyI+DQo8ZGl2IGNsYXNzPSJQbGFp
+blRleHQiPlRoZSAmcXVvdDtibG9jayZxdW90OyB2YXJpYWJsZSBjYW4gYmUgc2V0IGJ5IHRoZSB1
+c2VyIHRocm91Z2ggZGVidWdmcywgc28gaXQgY2FuPGJyPg0KYmUgcXVpdGUgbGFyZ2Ugd2hpY2gg
+bGVhZHMgdG8gc2hpZnQgd3JhcHBpbmcgaGVyZS4mbmJzcDsgVGhpcyBtZWFucyB3ZSByZXBvcnQ8
+YnI+DQphICZxdW90O2Jsb2NrJnF1b3Q7IGFzIHN1cHBvcnRlZCB3aGVuIGl0J3Mgbm90LCBhbmQg
+dGhhdCBsZWFkcyB0byBhcnJheSBvdmVyZmxvd3M8YnI+DQpsYXRlciBvbi48YnI+DQo8YnI+DQpU
+aGlzIGJ1ZyBpcyBub3QgcmVhbGx5IGEgc2VjdXJpdHkgaXNzdWUgaW4gcmVhbCBsaWZlLCBiZWNh
+dXNlIGRlYnVnZnMgaXM8YnI+DQpnZW5lcmFsbHkgcm9vdCBvbmx5Ljxicj4NCjxicj4NCkZpeGVz
+OiAzNmVhMWJkMmQwODQgKCZxdW90O2RybS9hbWRncHU6IGFkZCBkZWJ1Z2ZzIGN0cmwgbm9kZSZx
+dW90Oyk8YnI+DQpTaWduZWQtb2ZmLWJ5OiBEYW4gQ2FycGVudGVyIDxhIGNsYXNzPSJtb3otdHh0
+LWxpbmstcmZjMjM5NkUiIGhyZWY9Im1haWx0bzpkYW4uY2FycGVudGVyQG9yYWNsZS5jb20iPg0K
+Jmx0O2Rhbi5jYXJwZW50ZXJAb3JhY2xlLmNvbSZndDs8L2E+PGJyPg0KLS0tPGJyPg0KJm5ic3A7
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oIHwgMiAmIzQzOyYjNDM7PGJy
+Pg0KJm5ic3A7MSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygmIzQzOyk8YnI+DQo8YnI+DQpk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oPGJyPg0KaW5kZXggYzZiMzRmYmQ2
+OTVmLi45NGM2NTJmNTI2NWEgMTAwNjQ0PGJyPg0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3Jhcy5oPGJyPg0KJiM0MzsmIzQzOyYjNDM7IGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5oPGJyPg0KQEAgLTE3Myw2ICYjNDM7MTczLDggQEAgc3Rh
+dGljIGlubGluZSBpbnQgYW1kZ3B1X3Jhc19pc19zdXBwb3J0ZWQoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYsPGJyPg0KJm5ic3A7ezxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyBzdHJ1Y3QgYW1kZ3B1X3JhcyAqcmFzID0gYW1kZ3B1X3Jhc19n
+ZXRfY29udGV4dChhZGV2KTs8YnI+DQombmJzcDs8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAoYmxvY2sgJmd0Oz0gQU1ER1BVX1JBU19CTE9DS19DT1VO
+VCk8YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyByZXR1cm4gMDs8YnI+DQom
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgcmV0dXJuIHJh
+cyAmYW1wOyZhbXA7IChyYXMtJmd0O3N1cHBvcnRlZCAmYW1wOyAoMSAmbHQ7Jmx0OyBibG9jaykp
+Ozxicj4NCiZuYnNwO308YnI+DQombmJzcDs8YnI+DQotLSA8YnI+DQoyLjIwLjE8YnI+DQo8YnI+
+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+PC9ibG9ja3F1b3RlPg0KPGJyPg0KPC9ib2R5Pg0KPC9o
+dG1sPg0K
 
-Fixes: 36ea1bd2d084 ("drm/amdgpu: add debugfs ctrl node")
-Signed-off-by: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 2 ++
- 1 file changed, 2 insertions(+)
+--_000_3bcce070801d7cacbfea75858e610a3famdcom_--
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.h
-index c6b34fbd695f..94c652f5265a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -173,6 +173,8 @@ static inline int amdgpu_ras_is_supported(struct amdgpu=
-_device *adev,
- {
-         struct amdgpu_ras *ras =3D amdgpu_ras_get_context(adev);
-
-+       if (block >=3D AMDGPU_RAS_BLOCK_COUNT)
-+               return 0;
-         return ras && (ras->supported & (1 << block));
- }
-
---
-2.20.1
-
-
---_000_SN6PR12MB2800185519D425526956EDA687110SN6PR12MB2800namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
-</head>
-<body>
-<div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-do you mean that something like 1&lt;&lt;65 might be a none zero value?</di=
-v>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Dan Carpenter &lt;d=
-an.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org&gt;<br>
-<b>Sent:</b> Saturday, June 8, 2019 5:23:57 PM<br>
-<b>To:</b> Deucher, Alexander; Pan, Xinhui<br>
-<b>Cc:</b> Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel V=
-etter; Quan, Evan; Zhu, James; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; dri-devel@lis=
-ts.freedesktop.org; kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix bounds checking in amdgpu_ras_is_su=
-pported()</font>
-<div>&nbsp;</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:11pt;">
-<div class=3D"PlainText">The &quot;block&quot; variable can be set by the u=
-ser through debugfs, so it can<br>
-be quite large which leads to shift wrapping here.&nbsp; This means we repo=
-rt<br>
-a &quot;block&quot; as supported when it's not, and that leads to array ove=
-rflows<br>
-later on.<br>
-<br>
-This bug is not really a security issue in real life, because debugfs is<br=
->
-generally root only.<br>
-<br>
-Fixes: 36ea1bd2d084 (&quot;drm/amdgpu: add debugfs ctrl node&quot;)<br>
-Signed-off-by: Dan Carpenter &lt;dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.h<br>
-index c6b34fbd695f..94c652f5265a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h<br>
-@@ -173,6 &#43;173,8 @@ static inline int amdgpu_ras_is_supported(struct am=
-dgpu_device *adev,<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ras *ras =3D=
- amdgpu_ras_get_context(adev);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (block &gt;=3D AMDGPU_RAS_BLOC=
-K_COUNT)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ras &amp;&amp; (ras=
--&gt;supported &amp; (1 &lt;&lt; block));<br>
-&nbsp;}<br>
-&nbsp;<br>
--- <br>
-2.20.1<br>
-<br>
-</div>
-</span></font>
-</body>
-</html>
-
---_000_SN6PR12MB2800185519D425526956EDA687110SN6PR12MB2800namp_--
-
---===============0955856027==
+--===============1467565520==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
 
---===============0955856027==--
+--===============1467565520==--
