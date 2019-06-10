@@ -1,15 +1,15 @@
-From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amdkfd: Add device to topology after it is completely
- inited
-Date: Mon, 10 Jun 2019 20:48:40 +0000
-Message-ID: <1560199712-15472-2-git-send-email-Oak.Zeng@amd.com>
-References: <1560199712-15472-1-git-send-email-Oak.Zeng@amd.com>
+From: Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
+Subject: Re: [PATCH v1 0/10] drm/amd: drop use of drmP.h
+Date: Tue, 11 Jun 2019 00:02:39 +0200
+Message-ID: <20190610220239.GA13919@ravnborg.org>
+References: <20190609220757.10862-1-sam@ravnborg.org>
+ <CADnq5_PtU+-FrTcOF9hkFYbqsSjAKmJkWReu-91pQH6mWoHtgw@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1560199712-15472-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <CADnq5_PtU+-FrTcOF9hkFYbqsSjAKmJkWReu-91pQH6mWoHtgw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,44 +20,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-V2UgY2FuJ3QgaGF2ZSBkZXZpY2VzIHRoYXQgYXJlIG5vdCBjb21wbGV0ZWx5IGluaXRpYWxpemVk
-IGluIGtmZCB0b3BvbG9neS4NCk90aGVyd2lzZSBpdCBpcyBhIHJhY2UgY29uZGl0aW9uIHdoZW4g
-dXNlciBhY2Nlc3Mgbm90IGNvbXBsZXRlbHkNCmluaXRpYWxpemVkIGRldmljZS4gVGhpcyBhbHNv
-IGFkZHJlc3NlcyBhIGtmZF90b3BvbG9neV9hZGRfZGV2aWNlIGFjY2Vzc2luZw0KTlVMTCBkcW0g
-cG9pbnRlciBpc3N1ZS4NCg0KQ2hhbmdlLUlkOiBJNTNhMGZlNDk4ZTZkYWFlYjYzYWE4ZDc4MzYy
-ZGYwMTk1NWYxNGEyZg0KU2lnbmVkLW9mZi1ieTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5jb20+
-DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMgfCAxMyArKysr
-KystLS0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDYgaW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMo
-LSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2Uu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYw0KaW5kZXggOWQxYjAy
-Ni4uZWJhYzdkNyAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9k
-ZXZpY2UuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jDQpA
-QCAtNjAzLDExICs2MDMsNiBAQCBib29sIGtnZDJrZmRfZGV2aWNlX2luaXQoc3RydWN0IGtmZF9k
-ZXYgKmtmZCwNCiAJaWYgKGtmZC0+a2ZkMmtnZC0+Z2V0X2hpdmVfaWQpDQogCQlrZmQtPmhpdmVf
-aWQgPSBrZmQtPmtmZDJrZ2QtPmdldF9oaXZlX2lkKGtmZC0+a2dkKTsNCiANCi0JaWYgKGtmZF90
-b3BvbG9neV9hZGRfZGV2aWNlKGtmZCkpIHsNCi0JCWRldl9lcnIoa2ZkX2RldmljZSwgIkVycm9y
-IGFkZGluZyBkZXZpY2UgdG8gdG9wb2xvZ3lcbiIpOw0KLQkJZ290byBrZmRfdG9wb2xvZ3lfYWRk
-X2RldmljZV9lcnJvcjsNCi0JfQ0KLQ0KIAlpZiAoa2ZkX2ludGVycnVwdF9pbml0KGtmZCkpIHsN
-CiAJCWRldl9lcnIoa2ZkX2RldmljZSwgIkVycm9yIGluaXRpYWxpemluZyBpbnRlcnJ1cHRzXG4i
-KTsNCiAJCWdvdG8ga2ZkX2ludGVycnVwdF9lcnJvcjsNCkBAIC02MzEsNiArNjI2LDExIEBAIGJv
-b2wga2dkMmtmZF9kZXZpY2VfaW5pdChzdHJ1Y3Qga2ZkX2RldiAqa2ZkLA0KIA0KIAlrZmQtPmRi
-Z21nciA9IE5VTEw7DQogDQorCWlmIChrZmRfdG9wb2xvZ3lfYWRkX2RldmljZShrZmQpKSB7DQor
-CQlkZXZfZXJyKGtmZF9kZXZpY2UsICJFcnJvciBhZGRpbmcgZGV2aWNlIHRvIHRvcG9sb2d5XG4i
-KTsNCisJCWdvdG8ga2ZkX3RvcG9sb2d5X2FkZF9kZXZpY2VfZXJyb3I7DQorCX0NCisNCiAJa2Zk
-LT5pbml0X2NvbXBsZXRlID0gdHJ1ZTsNCiAJZGV2X2luZm8oa2ZkX2RldmljZSwgImFkZGVkIGRl
-dmljZSAleDoleFxuIiwga2ZkLT5wZGV2LT52ZW5kb3IsDQogCQkga2ZkLT5wZGV2LT5kZXZpY2Up
-Ow0KQEAgLTY0MCwxNCArNjQwLDEzIEBAIGJvb2wga2dkMmtmZF9kZXZpY2VfaW5pdChzdHJ1Y3Qg
-a2ZkX2RldiAqa2ZkLA0KIA0KIAlnb3RvIG91dDsNCiANCitrZmRfdG9wb2xvZ3lfYWRkX2Rldmlj
-ZV9lcnJvcjoNCiBrZmRfcmVzdW1lX2Vycm9yOg0KIGRldmljZV9pb21tdV9lcnJvcjoNCiAJZGV2
-aWNlX3F1ZXVlX21hbmFnZXJfdW5pbml0KGtmZC0+ZHFtKTsNCiBkZXZpY2VfcXVldWVfbWFuYWdl
-cl9lcnJvcjoNCiAJa2ZkX2ludGVycnVwdF9leGl0KGtmZCk7DQoga2ZkX2ludGVycnVwdF9lcnJv
-cjoNCi0Ja2ZkX3RvcG9sb2d5X3JlbW92ZV9kZXZpY2Uoa2ZkKTsNCi1rZmRfdG9wb2xvZ3lfYWRk
-X2RldmljZV9lcnJvcjoNCiAJa2ZkX2Rvb3JiZWxsX2Zpbmkoa2ZkKTsNCiBrZmRfZG9vcmJlbGxf
-ZXJyb3I6DQogCWtmZF9ndHRfc2FfZmluaShrZmQpOw0KLS0gDQoyLjcuNA0KDQpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+SGkgQWxleC4KCj4gCj4gU2VyaWVzIGlzOgo+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFs
+ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gSSdtIGZpbmUgdG8gaGF2ZSB0aGlzIGdvIHRocm91
+Z2ggZWl0aGVyIGRybS1taXNjIG9yIG15IHRyZWUuClRoYW5rcywgcHVzaGVkIHRvIGRybS1taXNj
+LW5leHQuCkkgZW5kZWQgdXAgd2l0aCBhIG1lcmdlIGVycm9yIGluIGRybS10aXAgdGhhdCBJIGR1
+bm5vIGhvdyB0byB3b3JrIHdpdGguCkhlbHAgd291bGQgYmUgYXBwcmVjaWF0ZWQuCihJIGFsc28g
+d3JvdGUgdGhpcyBvbiBpcmMpCgpJdCBpcyBnZXR0aW5nIGxhdGUgaGVyZSwgSSBob3BlIHNvbWVv
+bmUgaGFzIGZpeGVkIGl0IHRvbW9ycm93IG1vcm5pbmcuCgoJU2FtCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
