@@ -1,48 +1,78 @@
-From: shuah <shuah@kernel.org>
-Subject: Re: [PATCH v16 16/16] selftests, arm64: add a selftest for passing
- tagged pointers to kernel
-Date: Mon, 10 Jun 2019 16:08:10 -0600
-Message-ID: <2bc277f8-e67e-30e0-5824-8184c2b03237@kernel.org>
-References: <cover.1559580831.git.andreyknvl@google.com>
- <9e1b5998a28f82b16076fc85ab4f88af5381cf74.1559580831.git.andreyknvl@google.com>
- <201906072055.7DFED7B@keescook>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/2] drm/amdkfd: Initialize HSA_CAP_ATS_PRESENT capability
+ in topology codes
+Date: Mon, 10 Jun 2019 23:35:30 +0000
+Message-ID: <82bec9b4-5f67-1190-62ea-a8b50269d63a@amd.com>
+References: <1560199712-15472-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <201906072055.7DFED7B@keescook>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1560199712-15472-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Kees Cook <keescook@chromium.org>, Andrey Konovalov <andreyknvl@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <C4189F7B365CD241A3EE70873DD7D7B7-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>
 
-On 6/7/19 9:56 PM, Kees Cook wrote:
-> On Mon, Jun 03, 2019 at 06:55:18PM +0200, Andrey Konovalov wrote:
->> This patch is a part of a series that extends arm64 kernel ABI to allow to
->> pass tagged user pointers (with the top byte set to something else other
->> than 0x00) as syscall arguments.
->>
->> This patch adds a simple test, that calls the uname syscall with a
->> tagged user pointer as an argument. Without the kernel accepting tagged
->> user pointers the test fails with EFAULT.
->>
->> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> 
-> I'm adding Shuah to CC in case she has some suggestions about the new
-> selftest.
-
-Thanks Kees.
-
-> 
-> Reviewed-by: Kees Cook <keescook@chromium.org>
-> 
-> -Kees
-> 
-
-Looks good to me.
-
-Acked-by: Shuah Khan <skhan@linuxfoundation.org>
-
-thanks,
--- Shuah
+DQpPbiAyMDE5LTA2LTEwIDEzOjQ4LCBaZW5nLCBPYWsgd3JvdGU6DQo+IE1vdmUgSFNBX0NBUF9B
+VFNfUFJFU0VOVCBpbml0aWFsaXphdGlvbiBsb2dpYyBmcm9tIGtmZCBpb21tdSBjb2RlcyB0bw0K
+PiBrZmQgdG9wb2xvZ3kgY29kZXMuIFRoaXMgcmVtb3ZlcyBrZmRfaW9tbXVfZGV2aWNlX2luaXQn
+cyBkZXBlbmRlbmN5DQo+IG9uIGtmZF90b3BvbG9neV9hZGRfZGV2aWNlLiBBbHNvIHJlbW92ZSBk
+dXBsaWNhdGUgY29kZSBzZXR0aW5nIHRoZQ0KPiBzYW1lLg0KPg0KPiBDaGFuZ2UtSWQ6IEkyYmYz
+YzAwMGQ0Nzk1YjQxYWZlMWIzOWZlNjc5Njc3YzFmODZiZmJlDQo+IFNpZ25lZC1vZmYtYnk6IE9h
+ayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGtmZC9rZmRfaW9tbXUuYyAgICB8IDEwICstLS0tLS0tLS0NCj4gICBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYyB8ICA2ICsrKysrLQ0KPiAgIDIgZmlsZXMgY2hh
+bmdlZCwgNiBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkNCj4NCj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9pb21tdS5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQva2ZkX2lvbW11LmMNCj4gaW5kZXggMDE0OTQ3NS4uNWYzNWRmMiAxMDA2NDQN
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2lvbW11LmMNCj4gKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2lvbW11LmMNCj4gQEAgLTY2LDE2ICs2Niw4
+IEBAIGludCBrZmRfaW9tbXVfZGV2aWNlX2luaXQoc3RydWN0IGtmZF9kZXYgKmtmZCkNCj4gICAN
+Cj4gICAJdG9wX2RldiA9IGtmZF90b3BvbG9neV9kZXZpY2VfYnlfaWQoa2ZkLT5pZCk7DQo+ICAg
+DQo+IC0JLyoNCj4gLQkgKiBPdmVyd3JpdGUgQVRTIGNhcGFiaWxpdHkgYWNjb3JkaW5nIHRvIG5l
+ZWRzX2lvbW11X2RldmljZSB0byBmaXgNCj4gLQkgKiBwb3RlbnRpYWwgbWlzc2luZyBjb3JyZXNw
+b25kaW5nIGJpdCBpbiBDUkFUIG9mIEJJT1MuDQo+IC0JICovDQoNCkl0IHdvdWxkIGJlIGdvb2Qg
+dG8gcHJlc2VydmUgdGhpcyBjb21tZW50IGJ5IG1vdmluZyBpdCB0byANCmtmZF90b3BvbG9neV9h
+ZGRfZGV2aWNlLg0KDQoNCj4gLQlpZiAoIWtmZC0+ZGV2aWNlX2luZm8tPm5lZWRzX2lvbW11X2Rl
+dmljZSkgew0KPiAtCQl0b3BfZGV2LT5ub2RlX3Byb3BzLmNhcGFiaWxpdHkgJj0gfkhTQV9DQVBf
+QVRTX1BSRVNFTlQ7DQo+ICsJaWYgKCFrZmQtPmRldmljZV9pbmZvLT5uZWVkc19pb21tdV9kZXZp
+Y2UpDQo+ICAgCQlyZXR1cm4gMDsNCj4gLQl9DQo+IC0NCj4gLQl0b3BfZGV2LT5ub2RlX3Byb3Bz
+LmNhcGFiaWxpdHkgfD0gSFNBX0NBUF9BVFNfUFJFU0VOVDsNCj4gICANCj4gICAJaW9tbXVfaW5m
+by5mbGFncyA9IDA7DQo+ICAgCWVyciA9IGFtZF9pb21tdV9kZXZpY2VfaW5mbyhrZmQtPnBkZXYs
+ICZpb21tdV9pbmZvKTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF90b3BvbG9neS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5
+LmMNCj4gaW5kZXggZDI0MWE4Ni4uMWMxODRiMyAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMNCj4gQEAgLTEzMzAsNiArMTMzMCwxMSBAQCBpbnQga2Zk
+X3RvcG9sb2d5X2FkZF9kZXZpY2Uoc3RydWN0IGtmZF9kZXYgKmdwdSkNCj4gICAJCSAgICAgZGV2
+LT5ncHUtPmRldmljZV9pbmZvLT5hc2ljX2ZhbWlseSk7DQo+ICAgCX0NCj4gICANCj4gKwlpZiAo
+ZGV2LT5ncHUtPmRldmljZV9pbmZvLT5uZWVkc19pb21tdV9kZXZpY2UpDQo+ICsJCWRldi0+bm9k
+ZV9wcm9wcy5jYXBhYmlsaXR5IHw9IEhTQV9DQVBfQVRTX1BSRVNFTlQ7DQo+ICsJZWxzZQ0KPiAr
+CQlkZXYtPm5vZGVfcHJvcHMuY2FwYWJpbGl0eSAmPSB+SFNBX0NBUF9BVFNfUFJFU0VOVDsNCj4g
+Kw0KPiAgIAkvKiBGaXggZXJyb3JzIGluIENaIENSQVQuDQo+ICAgCSAqIHNpbWRfY291bnQ6IENh
+cnJpem8gQ1JBVCByZXBvcnRzIHdyb25nIHNpbWRfY291bnQsIHByb2JhYmx5DQo+ICAgCSAqCQli
+ZWNhdXNlIGl0IGRvZXNuJ3QgY29uc2lkZXIgbWFza2VkIG91dCBDVXMNCj4gQEAgLTEzNDAsNyAr
+MTM0NSw2IEBAIGludCBrZmRfdG9wb2xvZ3lfYWRkX2RldmljZShzdHJ1Y3Qga2ZkX2RldiAqZ3B1
+KQ0KPiAgIAkJZGV2LT5ub2RlX3Byb3BzLnNpbWRfY291bnQgPQ0KPiAgIAkJCWN1X2luZm8uc2lt
+ZF9wZXJfY3UgKiBjdV9pbmZvLmN1X2FjdGl2ZV9udW1iZXI7DQo+ICAgCQlkZXYtPm5vZGVfcHJv
+cHMubWF4X3dhdmVzX3Blcl9zaW1kID0gMTA7DQo+IC0JCWRldi0+bm9kZV9wcm9wcy5jYXBhYmls
+aXR5IHw9IEhTQV9DQVBfQVRTX1BSRVNFTlQ7DQoNClRoZXJlIGlzIGEgY29tbWVudCBhYm92ZSB0
+aGUgaWYtYmxvY2sgdGhhdCBzaG91bGQgYmUgdXBkYXRlZCB3aGVuIHlvdSANCnJlbW92ZSB0aGlz
+Lg0KDQpXaXRoIHRoZXNlIHR3byBjb21tZW50cyBmaXhlZCwgdGhlIHNlcmllcyBpcyBSZXZpZXdl
+ZC1ieTogRmVsaXggS3VlaGxpbmcgDQo8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KUmVnYXJk
+cywNCiDCoCBGZWxpeA0KDQoNCj4gICAJfQ0KPiAgIA0KPiAgIAljdHggPSBhbWRncHVfcmFzX2dl
+dF9jb250ZXh0KChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqKShkZXYtPmdwdS0+a2dkKSk7DQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
