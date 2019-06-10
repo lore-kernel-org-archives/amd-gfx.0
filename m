@@ -1,63 +1,68 @@
-From: Kees Cook <keescook@chromium.org>
-Subject: Re: [PATCH v16 02/16] arm64: untag user pointers in access_ok and
- __uaccess_mask_ptr
-Date: Mon, 10 Jun 2019 13:36:04 -0700
-Message-ID: <201906101335.DF80D631@keescook>
-References: <cover.1559580831.git.andreyknvl@google.com>
- <4327b260fb17c4776a1e3c844f388e4948cfb747.1559580831.git.andreyknvl@google.com>
- <20190610175326.GC25803@arrakis.emea.arm.com>
- <201906101106.3CA50745E3@keescook>
- <20190610185329.xhjawzfy4uddrkrj@mbp>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/2] drm/amdkfd: Initialize HSA_CAP_ATS_PRESENT capability in
+ topology codes
+Date: Mon, 10 Jun 2019 20:48:39 +0000
+Message-ID: <1560199712-15472-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190610185329.xhjawzfy4uddrkrj@mbp>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Zhao, Yong" <Yong.Zhao-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
+ Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Jun 10, 2019 at 07:53:30PM +0100, Catalin Marinas wrote:
-> On Mon, Jun 10, 2019 at 11:07:03AM -0700, Kees Cook wrote:
-> > On Mon, Jun 10, 2019 at 06:53:27PM +0100, Catalin Marinas wrote:
-> > > diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-> > > index 3767fb21a5b8..fd191c5b92aa 100644
-> > > --- a/arch/arm64/kernel/process.c
-> > > +++ b/arch/arm64/kernel/process.c
-> > > @@ -552,3 +552,18 @@ void arch_setup_new_exec(void)
-> > >  
-> > >  	ptrauth_thread_init_user(current);
-> > >  }
-> > > +
-> > > +/*
-> > > + * Enable the relaxed ABI allowing tagged user addresses into the kernel.
-> > > + */
-> > > +int untagged_uaddr_set_mode(unsigned long arg)
-> > > +{
-> > > +	if (is_compat_task())
-> > > +		return -ENOTSUPP;
-> > > +	if (arg)
-> > > +		return -EINVAL;
-> > > +
-> > > +	set_thread_flag(TIF_UNTAGGED_UADDR);
-> > > +
-> > > +	return 0;
-> > > +}
-> > 
-> > I think this should be paired with a flag clearing in copy_thread(),
-> > yes? (i.e. each binary needs to opt in)
-> 
-> It indeed needs clearing though not in copy_thread() as that's used on
-> clone/fork but rather in flush_thread(), called on the execve() path.
-
-Ah! Yes, thanks.
-
-> And a note to myself: I think PR_UNTAGGED_ADDR (not UADDR) looks better
-> in a uapi header, the user doesn't differentiate between uaddr and
-> kaddr.
-
-Good point. I would agree. :)
-
--- 
-Kees Cook
+TW92ZSBIU0FfQ0FQX0FUU19QUkVTRU5UIGluaXRpYWxpemF0aW9uIGxvZ2ljIGZyb20ga2ZkIGlv
+bW11IGNvZGVzIHRvDQprZmQgdG9wb2xvZ3kgY29kZXMuIFRoaXMgcmVtb3ZlcyBrZmRfaW9tbXVf
+ZGV2aWNlX2luaXQncyBkZXBlbmRlbmN5DQpvbiBrZmRfdG9wb2xvZ3lfYWRkX2RldmljZS4gQWxz
+byByZW1vdmUgZHVwbGljYXRlIGNvZGUgc2V0dGluZyB0aGUNCnNhbWUuDQoNCkNoYW5nZS1JZDog
+STJiZjNjMDAwZDQ3OTViNDFhZmUxYjM5ZmU2Nzk2NzdjMWY4NmJmYmUNClNpZ25lZC1vZmYtYnk6
+IE9hayBaZW5nIDxPYWsuWmVuZ0BhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRrZmQva2ZkX2lvbW11LmMgICAgfCAxMCArLS0tLS0tLS0tDQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMgfCAgNiArKysrKy0NCiAyIGZpbGVzIGNoYW5nZWQsIDYg
+aW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGtmZC9rZmRfaW9tbXUuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9pb21tdS5jDQppbmRleCAwMTQ5NDc1Li41ZjM1ZGYyIDEwMDY0NA0KLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2lvbW11LmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1ka2ZkL2tmZF9pb21tdS5jDQpAQCAtNjYsMTYgKzY2LDggQEAgaW50IGtmZF9pb21tdV9k
+ZXZpY2VfaW5pdChzdHJ1Y3Qga2ZkX2RldiAqa2ZkKQ0KIA0KIAl0b3BfZGV2ID0ga2ZkX3RvcG9s
+b2d5X2RldmljZV9ieV9pZChrZmQtPmlkKTsNCiANCi0JLyoNCi0JICogT3ZlcndyaXRlIEFUUyBj
+YXBhYmlsaXR5IGFjY29yZGluZyB0byBuZWVkc19pb21tdV9kZXZpY2UgdG8gZml4DQotCSAqIHBv
+dGVudGlhbCBtaXNzaW5nIGNvcnJlc3BvbmRpbmcgYml0IGluIENSQVQgb2YgQklPUy4NCi0JICov
+DQotCWlmICgha2ZkLT5kZXZpY2VfaW5mby0+bmVlZHNfaW9tbXVfZGV2aWNlKSB7DQotCQl0b3Bf
+ZGV2LT5ub2RlX3Byb3BzLmNhcGFiaWxpdHkgJj0gfkhTQV9DQVBfQVRTX1BSRVNFTlQ7DQorCWlm
+ICgha2ZkLT5kZXZpY2VfaW5mby0+bmVlZHNfaW9tbXVfZGV2aWNlKQ0KIAkJcmV0dXJuIDA7DQot
+CX0NCi0NCi0JdG9wX2Rldi0+bm9kZV9wcm9wcy5jYXBhYmlsaXR5IHw9IEhTQV9DQVBfQVRTX1BS
+RVNFTlQ7DQogDQogCWlvbW11X2luZm8uZmxhZ3MgPSAwOw0KIAllcnIgPSBhbWRfaW9tbXVfZGV2
+aWNlX2luZm8oa2ZkLT5wZGV2LCAmaW9tbXVfaW5mbyk7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQva2ZkX3RvcG9sb2d5LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGtmZC9rZmRfdG9wb2xvZ3kuYw0KaW5kZXggZDI0MWE4Ni4uMWMxODRiMyAxMDA2NDQNCi0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF90b3BvbG9neS5jDQorKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfdG9wb2xvZ3kuYw0KQEAgLTEzMzAsNiArMTMzMCwxMSBA
+QCBpbnQga2ZkX3RvcG9sb2d5X2FkZF9kZXZpY2Uoc3RydWN0IGtmZF9kZXYgKmdwdSkNCiAJCSAg
+ICAgZGV2LT5ncHUtPmRldmljZV9pbmZvLT5hc2ljX2ZhbWlseSk7DQogCX0NCiANCisJaWYgKGRl
+di0+Z3B1LT5kZXZpY2VfaW5mby0+bmVlZHNfaW9tbXVfZGV2aWNlKQ0KKwkJZGV2LT5ub2RlX3By
+b3BzLmNhcGFiaWxpdHkgfD0gSFNBX0NBUF9BVFNfUFJFU0VOVDsNCisJZWxzZQ0KKwkJZGV2LT5u
+b2RlX3Byb3BzLmNhcGFiaWxpdHkgJj0gfkhTQV9DQVBfQVRTX1BSRVNFTlQ7DQorDQogCS8qIEZp
+eCBlcnJvcnMgaW4gQ1ogQ1JBVC4NCiAJICogc2ltZF9jb3VudDogQ2Fycml6byBDUkFUIHJlcG9y
+dHMgd3Jvbmcgc2ltZF9jb3VudCwgcHJvYmFibHkNCiAJICoJCWJlY2F1c2UgaXQgZG9lc24ndCBj
+b25zaWRlciBtYXNrZWQgb3V0IENVcw0KQEAgLTEzNDAsNyArMTM0NSw2IEBAIGludCBrZmRfdG9w
+b2xvZ3lfYWRkX2RldmljZShzdHJ1Y3Qga2ZkX2RldiAqZ3B1KQ0KIAkJZGV2LT5ub2RlX3Byb3Bz
+LnNpbWRfY291bnQgPQ0KIAkJCWN1X2luZm8uc2ltZF9wZXJfY3UgKiBjdV9pbmZvLmN1X2FjdGl2
+ZV9udW1iZXI7DQogCQlkZXYtPm5vZGVfcHJvcHMubWF4X3dhdmVzX3Blcl9zaW1kID0gMTA7DQot
+CQlkZXYtPm5vZGVfcHJvcHMuY2FwYWJpbGl0eSB8PSBIU0FfQ0FQX0FUU19QUkVTRU5UOw0KIAl9
+DQogDQogCWN0eCA9IGFtZGdwdV9yYXNfZ2V0X2NvbnRleHQoKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICopKGRldi0+Z3B1LT5rZ2QpKTsNCi0tIA0KMi43LjQNCg0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
