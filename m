@@ -1,12 +1,12 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/amdgpu: Bail out of BO node creation if not enough
- VRAM
-Date: Mon, 10 Jun 2019 14:32:06 +0000
-Message-ID: <20190610143157.26752-1-tom.stdenis@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: drop the incorrect soft_reset for SRIOV
+Date: Mon, 10 Jun 2019 14:53:50 +0000
+Message-ID: <BN6PR12MB1809F4E306574660D711EB8BF7130@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1560148666-6338-1-git-send-email-Monk.Liu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1184636433=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1560148666-6338-1-git-send-email-Monk.Liu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,56 +18,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Monk" <Monk.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-U2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPg0KLS0tDQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCAxNyArKysrKysr
-KysrKystLS0tLQ0KIDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9u
-cygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zy
-YW1fbWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYw0K
-aW5kZXggOGFlYTJmMjFiMjAyLi43MGI0YTVhOTdlZDIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMNCkBAIC0yNzYsNyArMjc2LDcgQEAgc3RhdGlj
-IGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFu
-LA0KIAlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzOw0KIAllbnVtIGRybV9tbV9pbnNlcnRfbW9k
-ZSBtb2RlOw0KIAl1bnNpZ25lZCBsb25nIGxwZm4sIG51bV9ub2RlcywgcGFnZXNfcGVyX25vZGUs
-IHBhZ2VzX2xlZnQ7DQotCXVpbnQ2NF90IHVzYWdlID0gMCwgdmlzX3VzYWdlID0gMDsNCisJdWlu
-dDY0X3QgdmlzX3VzYWdlID0gMDsNCiAJdW5zaWduZWQgaTsNCiAJaW50IHI7DQogDQpAQCAtMjg0
-LDYgKzI4NCwxMyBAQCBzdGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9t
-ZW1fdHlwZV9tYW5hZ2VyICptYW4sDQogCWlmICghbHBmbikNCiAJCWxwZm4gPSBtYW4tPnNpemU7
-DQogDQorCS8qIGJhaWwgb3V0IHF1aWNrbHkgaWYgdGhlcmUncyBsaWtlbHkgbm90IGVub3VnaCBW
-UkFNIGZvciB0aGlzIEJPICovDQorCWF0b21pYzY0X2FkZChtZW0tPm51bV9wYWdlcyA8PCBQQUdF
-X1NISUZULCAmbWdyLT51c2FnZSk7DQorCWlmIChhdG9taWM2NF9yZWFkKCZtZ3ItPnVzYWdlKSA+
-IGFkZXYtPmdtYy5tY192cmFtX3NpemUpIHsNCisJCWF0b21pYzY0X3N1YihtZW0tPm51bV9wYWdl
-cyA8PCBQQUdFX1NISUZULCAmbWdyLT51c2FnZSk7DQorCQlyZXR1cm4gLUVOT1NQQzsNCisJfQ0K
-Kw0KIAlpZiAocGxhY2UtPmZsYWdzICYgVFRNX1BMX0ZMQUdfQ09OVElHVU9VUykgew0KIAkJcGFn
-ZXNfcGVyX25vZGUgPSB+MHVsOw0KIAkJbnVtX25vZGVzID0gMTsNCkBAIC0zMDAsOCArMzA3LDEw
-IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21h
-bmFnZXIgKm1hbiwNCiANCiAJbm9kZXMgPSBrdm1hbGxvY19hcnJheSgodWludDMyX3QpbnVtX25v
-ZGVzLCBzaXplb2YoKm5vZGVzKSwNCiAJCQkgICAgICAgR0ZQX0tFUk5FTCB8IF9fR0ZQX1pFUk8p
-Ow0KLQlpZiAoIW5vZGVzKQ0KKwlpZiAoIW5vZGVzKSB7DQorCQlhdG9taWM2NF9zdWIobWVtLT5u
-dW1fcGFnZXMgPDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOw0KIAkJcmV0dXJuIC1FTk9NRU07
-DQorCX0NCiANCiAJbW9kZSA9IERSTV9NTV9JTlNFUlRfQkVTVDsNCiAJaWYgKHBsYWNlLT5mbGFn
-cyAmIFRUTV9QTF9GTEFHX1RPUERPV04pDQpAQCAtMzIxLDcgKzMzMCw2IEBAIHN0YXRpYyBpbnQg
-YW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwNCiAJ
-CWlmICh1bmxpa2VseShyKSkNCiAJCQlicmVhazsNCiANCi0JCXVzYWdlICs9IG5vZGVzW2ldLnNp
-emUgPDwgUEFHRV9TSElGVDsNCiAJCXZpc191c2FnZSArPSBhbWRncHVfdnJhbV9tZ3JfdmlzX3Np
-emUoYWRldiwgJm5vZGVzW2ldKTsNCiAJCWFtZGdwdV92cmFtX21ncl92aXJ0X3N0YXJ0KG1lbSwg
-Jm5vZGVzW2ldKTsNCiAJCXBhZ2VzX2xlZnQgLT0gcGFnZXM7DQpAQCAtMzQxLDE0ICszNDksMTIg
-QEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFu
-YWdlciAqbWFuLA0KIAkJaWYgKHVubGlrZWx5KHIpKQ0KIAkJCWdvdG8gZXJyb3I7DQogDQotCQl1
-c2FnZSArPSBub2Rlc1tpXS5zaXplIDw8IFBBR0VfU0hJRlQ7DQogCQl2aXNfdXNhZ2UgKz0gYW1k
-Z3B1X3ZyYW1fbWdyX3Zpc19zaXplKGFkZXYsICZub2Rlc1tpXSk7DQogCQlhbWRncHVfdnJhbV9t
-Z3JfdmlydF9zdGFydChtZW0sICZub2Rlc1tpXSk7DQogCQlwYWdlc19sZWZ0IC09IHBhZ2VzOw0K
-IAl9DQogCXNwaW5fdW5sb2NrKCZtZ3ItPmxvY2spOw0KIA0KLQlhdG9taWM2NF9hZGQodXNhZ2Us
-ICZtZ3ItPnVzYWdlKTsNCiAJYXRvbWljNjRfYWRkKHZpc191c2FnZSwgJm1nci0+dmlzX3VzYWdl
-KTsNCiANCiAJbWVtLT5tbV9ub2RlID0gbm9kZXM7DQpAQCAtMzU5LDYgKzM2NSw3IEBAIHN0YXRp
-YyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1h
-biwNCiAJd2hpbGUgKGktLSkNCiAJCWRybV9tbV9yZW1vdmVfbm9kZSgmbm9kZXNbaV0pOw0KIAlz
-cGluX3VubG9jaygmbWdyLT5sb2NrKTsNCisJYXRvbWljNjRfc3ViKG1lbS0+bnVtX3BhZ2VzIDw8
-IFBBR0VfU0hJRlQsICZtZ3ItPnVzYWdlKTsNCiANCiAJa3ZmcmVlKG5vZGVzKTsNCiAJcmV0dXJu
-IHIgPT0gLUVOT1NQQyA/IDAgOiByOw0KLS0gDQoyLjIxLjANCg0KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============1184636433==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB1809F4E306574660D711EB8BF7130BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB1809F4E306574660D711EB8BF7130BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Monk Liu=
+ <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, June 10, 2019 2:37 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Liu, Monk
+Subject: [PATCH] drm/amdgpu: drop the incorrect soft_reset for SRIOV
+
+It's incorrect to do soft reset for SRIOV, when GFX
+hang the WREG would stuck there becuase it goes KIQ way.
+
+the GPU reset counter is incorrect: always increase twice
+for each timedout
+
+Signed-off-by: Monk Liu <Monk.Liu-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ring.c
+index 8f5026c..ff6976e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -399,7 +399,7 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *ring=
+, unsigned int vmid,
+ {
+         ktime_t deadline =3D ktime_add_us(ktime_get(), 10000);
+
+-       if (!ring->funcs->soft_recovery || !fence)
++       if (amdgpu_sriov_vf(ring->adev) || !ring->funcs->soft_recovery || !=
+fence)
+                 return false;
+
+         atomic_inc(&ring->adev->gpu_reset_counter);
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB1809F4E306574660D711EB8BF7130BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org=
+&gt;<br>
+<b>Sent:</b> Monday, June 10, 2019 2:37 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Liu, Monk<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: drop the incorrect soft_reset for SRIOV=
+</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">It's incorrect to do soft reset for SRIOV, when GF=
+X<br>
+hang the WREG would stuck there becuase it goes KIQ way.<br>
+<br>
+the GPU reset counter is incorrect: always increase twice<br>
+for each timedout<br>
+<br>
+Signed-off-by: Monk Liu &lt;Monk.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 2 &#43;-<br>
+&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_ring.c<br>
+index 8f5026c..ff6976e 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c<br>
+@@ -399,7 &#43;399,7 @@ bool amdgpu_ring_soft_recovery(struct amdgpu_ring *=
+ring, unsigned int vmid,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ktime_t deadline =3D ktime=
+_add_us(ktime_get(), 10000);<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ring-&gt;funcs-&gt;soft_recovery=
+ || !fence)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(ring-&gt;adev=
+) || !ring-&gt;funcs-&gt;soft_recovery || !fence)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return false;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_inc(&amp;ring-&gt;a=
+dev-&gt;gpu_reset_counter);<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB1809F4E306574660D711EB8BF7130BN6PR12MB1809namp_--
+
+--===============1184636433==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1184636433==--
