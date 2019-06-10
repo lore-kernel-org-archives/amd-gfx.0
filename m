@@ -1,35 +1,63 @@
-From: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [PATCH v1 0/7] drm/radeon: drop obsolete header files
-Date: Mon, 10 Jun 2019 22:13:10 +0200
-Message-ID: <20190610201310.GA17483@ravnborg.org>
-References: <20190608080241.4958-1-sam@ravnborg.org>
- <CADnq5_M-qKGuRy_KOP9u=ps1yVgtuF16cyXHe82WkHcmMfs+rw@mail.gmail.com>
+From: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH v16 02/16] arm64: untag user pointers in access_ok and
+ __uaccess_mask_ptr
+Date: Mon, 10 Jun 2019 13:36:04 -0700
+Message-ID: <201906101335.DF80D631@keescook>
+References: <cover.1559580831.git.andreyknvl@google.com>
+ <4327b260fb17c4776a1e3c844f388e4948cfb747.1559580831.git.andreyknvl@google.com>
+ <20190610175326.GC25803@arrakis.emea.arm.com>
+ <201906101106.3CA50745E3@keescook>
+ <20190610185329.xhjawzfy4uddrkrj@mbp>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Disposition: inline
-In-Reply-To: <CADnq5_M-qKGuRy_KOP9u=ps1yVgtuF16cyXHe82WkHcmMfs+rw@mail.gmail.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: David Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20190610185329.xhjawzfy4uddrkrj@mbp>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgQWxleC4KCj4gCj4gU2VyaWVzIGlzOgo+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFs
-ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gCj4gRmVlbCBmcmVlIHRvIHRha2UgaXQgdGhyb3Vn
-aCBkcm0tbWlzYyBpZiB5b3Ugd2FudCwgb3RoZXJ3aXNlLCBsZXQgbWUKPiBrbm93IGFuZCBJJ2xs
-IHRha2UgaXQgdGhyb3VnaCBteSB0cmVlLgoKQXBwbGllZCB0byBkcm0tbWlzYy1uZXh0LgpJIGhh
-ZCBhY2NpZGVudGx5IGxlZnQgYSBmZXcgZW1wdHkgbGluZXMgdGhhdCBjaGVja3BhdGNoIGNvbXBs
-YWluZWQKYWJvdXQuIEkgZml4ZWQgdGhlc2Ugd2hlbiBJIGFwcGxpZWQgdGhlIHBhdGNoZXMuCgpX
-aWxsIHB1c2ggaXQgYWZ0ZXIgaXkgcGFzc2VzIG15IGZpbmFsIHByZS1wdXNoIGJ1aWxkIHRlc3Rz
-LgoKCVNhbQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpk
-cmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+On Mon, Jun 10, 2019 at 07:53:30PM +0100, Catalin Marinas wrote:
+> On Mon, Jun 10, 2019 at 11:07:03AM -0700, Kees Cook wrote:
+> > On Mon, Jun 10, 2019 at 06:53:27PM +0100, Catalin Marinas wrote:
+> > > diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+> > > index 3767fb21a5b8..fd191c5b92aa 100644
+> > > --- a/arch/arm64/kernel/process.c
+> > > +++ b/arch/arm64/kernel/process.c
+> > > @@ -552,3 +552,18 @@ void arch_setup_new_exec(void)
+> > >  
+> > >  	ptrauth_thread_init_user(current);
+> > >  }
+> > > +
+> > > +/*
+> > > + * Enable the relaxed ABI allowing tagged user addresses into the kernel.
+> > > + */
+> > > +int untagged_uaddr_set_mode(unsigned long arg)
+> > > +{
+> > > +	if (is_compat_task())
+> > > +		return -ENOTSUPP;
+> > > +	if (arg)
+> > > +		return -EINVAL;
+> > > +
+> > > +	set_thread_flag(TIF_UNTAGGED_UADDR);
+> > > +
+> > > +	return 0;
+> > > +}
+> > 
+> > I think this should be paired with a flag clearing in copy_thread(),
+> > yes? (i.e. each binary needs to opt in)
+> 
+> It indeed needs clearing though not in copy_thread() as that's used on
+> clone/fork but rather in flush_thread(), called on the execve() path.
+
+Ah! Yes, thanks.
+
+> And a note to myself: I think PR_UNTAGGED_ADDR (not UADDR) looks better
+> in a uapi header, the user doesn't differentiate between uaddr and
+> kaddr.
+
+Good point. I would agree. :)
+
+-- 
+Kees Cook
