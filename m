@@ -1,35 +1,48 @@
-From: Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
-Subject: Re: [PATCH v1 0/10] drm/amd: drop use of drmP.h
-Date: Tue, 11 Jun 2019 00:02:39 +0200
-Message-ID: <20190610220239.GA13919@ravnborg.org>
-References: <20190609220757.10862-1-sam@ravnborg.org>
- <CADnq5_PtU+-FrTcOF9hkFYbqsSjAKmJkWReu-91pQH6mWoHtgw@mail.gmail.com>
+From: shuah <shuah@kernel.org>
+Subject: Re: [PATCH v16 16/16] selftests, arm64: add a selftest for passing
+ tagged pointers to kernel
+Date: Mon, 10 Jun 2019 16:08:10 -0600
+Message-ID: <2bc277f8-e67e-30e0-5824-8184c2b03237@kernel.org>
+References: <cover.1559580831.git.andreyknvl@google.com>
+ <9e1b5998a28f82b16076fc85ab4f88af5381cf74.1559580831.git.andreyknvl@google.com>
+ <201906072055.7DFED7B@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <CADnq5_PtU+-FrTcOF9hkFYbqsSjAKmJkWReu-91pQH6mWoHtgw-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <201906072055.7DFED7B@keescook>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Kees Cook <keescook@chromium.org>, Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro>
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgQWxleC4KCj4gCj4gU2VyaWVzIGlzOgo+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFs
-ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gSSdtIGZpbmUgdG8gaGF2ZSB0aGlzIGdvIHRocm91
-Z2ggZWl0aGVyIGRybS1taXNjIG9yIG15IHRyZWUuClRoYW5rcywgcHVzaGVkIHRvIGRybS1taXNj
-LW5leHQuCkkgZW5kZWQgdXAgd2l0aCBhIG1lcmdlIGVycm9yIGluIGRybS10aXAgdGhhdCBJIGR1
-bm5vIGhvdyB0byB3b3JrIHdpdGguCkhlbHAgd291bGQgYmUgYXBwcmVjaWF0ZWQuCihJIGFsc28g
-d3JvdGUgdGhpcyBvbiBpcmMpCgpJdCBpcyBnZXR0aW5nIGxhdGUgaGVyZSwgSSBob3BlIHNvbWVv
-bmUgaGFzIGZpeGVkIGl0IHRvbW9ycm93IG1vcm5pbmcuCgoJU2FtCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On 6/7/19 9:56 PM, Kees Cook wrote:
+> On Mon, Jun 03, 2019 at 06:55:18PM +0200, Andrey Konovalov wrote:
+>> This patch is a part of a series that extends arm64 kernel ABI to allow to
+>> pass tagged user pointers (with the top byte set to something else other
+>> than 0x00) as syscall arguments.
+>>
+>> This patch adds a simple test, that calls the uname syscall with a
+>> tagged user pointer as an argument. Without the kernel accepting tagged
+>> user pointers the test fails with EFAULT.
+>>
+>> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> 
+> I'm adding Shuah to CC in case she has some suggestions about the new
+> selftest.
+
+Thanks Kees.
+
+> 
+> Reviewed-by: Kees Cook <keescook@chromium.org>
+> 
+> -Kees
+> 
+
+Looks good to me.
+
+Acked-by: Shuah Khan <skhan@linuxfoundation.org>
+
+thanks,
+-- Shuah
