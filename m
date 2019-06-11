@@ -1,80 +1,75 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Bail out of BO node creation if not
- enough VRAM
-Date: Tue, 11 Jun 2019 15:34:43 +0200
-Message-ID: <91bb2355-949f-43a3-67e6-fb752de86b5c@gmail.com>
-References: <20190610143157.26752-1-tom.stdenis@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v16 08/16] fs, arm64: untag user pointers in copy_mount_options
+Date: Tue, 11 Jun 2019 16:38:24 +0200
+Message-ID: <CAAeHK+y8CH4P3vheUDCEnPAuO-2L6mc-sz6wMA_hT=wC1Cy3KQ@mail.gmail.com>
+References: <cover.1559580831.git.andreyknvl@google.com> <51f44a12c4e81c9edea8dcd268f820f5d1fad87c.1559580831.git.andreyknvl@google.com>
+ <201906072101.58C919E@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190610143157.26752-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <201906072101.58C919E@keescook>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Kees Cook <keescook@chromium.org>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTAuMDYuMTkgdW0gMTY6MzIgc2NocmllYiBTdERlbmlzLCBUb206Cj4gU2lnbmVkLW9mZi1i
-eTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCAxNyArKysrKysrKysrKystLS0t
-LQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4K
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdy
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYwo+IGluZGV4
-IDhhZWEyZjIxYjIwMi4uNzBiNGE1YTk3ZWQyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPiBAQCAtMjc2LDcgKzI3Niw3IEBAIHN0YXRpYyBp
-bnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwK
-PiAgIAlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzOwo+ICAgCWVudW0gZHJtX21tX2luc2VydF9t
-b2RlIG1vZGU7Cj4gICAJdW5zaWduZWQgbG9uZyBscGZuLCBudW1fbm9kZXMsIHBhZ2VzX3Blcl9u
-b2RlLCBwYWdlc19sZWZ0Owo+IC0JdWludDY0X3QgdXNhZ2UgPSAwLCB2aXNfdXNhZ2UgPSAwOwo+
-ICsJdWludDY0X3QgdmlzX3VzYWdlID0gMDsKPiAgIAl1bnNpZ25lZCBpOwo+ICAgCWludCByOwo+
-ICAgCj4gQEAgLTI4NCw2ICsyODQsMTMgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3
-KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+ICAgCWlmICghbHBmbikKPiAgIAkJ
-bHBmbiA9IG1hbi0+c2l6ZTsKPiAgIAo+ICsJLyogYmFpbCBvdXQgcXVpY2tseSBpZiB0aGVyZSdz
-IGxpa2VseSBub3QgZW5vdWdoIFZSQU0gZm9yIHRoaXMgQk8gKi8KPiArCWF0b21pYzY0X2FkZCht
-ZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51c2FnZSk7Cj4gKwlpZiAoYXRvbWlj
-NjRfcmVhZCgmbWdyLT51c2FnZSkgPiBhZGV2LT5nbWMubWNfdnJhbV9zaXplKSB7Cj4gKwkJYXRv
-bWljNjRfc3ViKG1lbS0+bnVtX3BhZ2VzIDw8IFBBR0VfU0hJRlQsICZtZ3ItPnVzYWdlKTsKPiAr
-CQlyZXR1cm4gLUVOT1NQQzsKPiArCX0KClRoYXQncyBub3QgMTAwJSBjb3JyZWN0IElJUkMuIFNl
-ZSBUVE0gZXhwZWN0cyBhIHJldHVybiB2YWx1ZSBvZiAwLCBidXQgCm1lbS0+bm9kZSB0byBiZSBO
-VUxMIHdoZW4gYWxsb2NhdGlvbiBmYWlscy4KCkNocmlzdGlhbi4KCj4gKwo+ICAgCWlmIChwbGFj
-ZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19DT05USUdVT1VTKSB7Cj4gICAJCXBhZ2VzX3Blcl9ub2Rl
-ID0gfjB1bDsKPiAgIAkJbnVtX25vZGVzID0gMTsKPiBAQCAtMzAwLDggKzMwNywxMCBAQCBzdGF0
-aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICpt
-YW4sCj4gICAKPiAgIAlub2RlcyA9IGt2bWFsbG9jX2FycmF5KCh1aW50MzJfdCludW1fbm9kZXMs
-IHNpemVvZigqbm9kZXMpLAo+ICAgCQkJICAgICAgIEdGUF9LRVJORUwgfCBfX0dGUF9aRVJPKTsK
-PiAtCWlmICghbm9kZXMpCj4gKwlpZiAoIW5vZGVzKSB7Cj4gKwkJYXRvbWljNjRfc3ViKG1lbS0+
-bnVtX3BhZ2VzIDw8IFBBR0VfU0hJRlQsICZtZ3ItPnVzYWdlKTsKPiAgIAkJcmV0dXJuIC1FTk9N
-RU07Cj4gKwl9Cj4gICAKPiAgIAltb2RlID0gRFJNX01NX0lOU0VSVF9CRVNUOwo+ICAgCWlmIChw
-bGFjZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19UT1BET1dOKQo+IEBAIC0zMjEsNyArMzMwLDYgQEAg
-c3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdl
-ciAqbWFuLAo+ICAgCQlpZiAodW5saWtlbHkocikpCj4gICAJCQlicmVhazsKPiAgIAo+IC0JCXVz
-YWdlICs9IG5vZGVzW2ldLnNpemUgPDwgUEFHRV9TSElGVDsKPiAgIAkJdmlzX3VzYWdlICs9IGFt
-ZGdwdV92cmFtX21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOwo+ICAgCQlhbWRncHVfdnJh
-bV9tZ3JfdmlydF9zdGFydChtZW0sICZub2Rlc1tpXSk7Cj4gICAJCXBhZ2VzX2xlZnQgLT0gcGFn
-ZXM7Cj4gQEAgLTM0MSwxNCArMzQ5LDEyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25l
-dyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKPiAgIAkJaWYgKHVubGlrZWx5KHIp
-KQo+ICAgCQkJZ290byBlcnJvcjsKPiAgIAo+IC0JCXVzYWdlICs9IG5vZGVzW2ldLnNpemUgPDwg
-UEFHRV9TSElGVDsKPiAgIAkJdmlzX3VzYWdlICs9IGFtZGdwdV92cmFtX21ncl92aXNfc2l6ZShh
-ZGV2LCAmbm9kZXNbaV0pOwo+ICAgCQlhbWRncHVfdnJhbV9tZ3JfdmlydF9zdGFydChtZW0sICZu
-b2Rlc1tpXSk7Cj4gICAJCXBhZ2VzX2xlZnQgLT0gcGFnZXM7Cj4gICAJfQo+ICAgCXNwaW5fdW5s
-b2NrKCZtZ3ItPmxvY2spOwo+ICAgCj4gLQlhdG9taWM2NF9hZGQodXNhZ2UsICZtZ3ItPnVzYWdl
-KTsKPiAgIAlhdG9taWM2NF9hZGQodmlzX3VzYWdlLCAmbWdyLT52aXNfdXNhZ2UpOwo+ICAgCj4g
-ICAJbWVtLT5tbV9ub2RlID0gbm9kZXM7Cj4gQEAgLTM1OSw2ICszNjUsNyBAQCBzdGF0aWMgaW50
-IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4g
-ICAJd2hpbGUgKGktLSkKPiAgIAkJZHJtX21tX3JlbW92ZV9ub2RlKCZub2Rlc1tpXSk7Cj4gICAJ
-c3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4gKwlhdG9taWM2NF9zdWIobWVtLT5udW1fcGFnZXMg
-PDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOwo+ICAgCj4gICAJa3ZmcmVlKG5vZGVzKTsKPiAg
-IAlyZXR1cm4gciA9PSAtRU5PU1BDID8gMCA6IHI7CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng=
+On Sat, Jun 8, 2019 at 6:02 AM Kees Cook <keescook@chromium.org> wrote:
+>
+> On Mon, Jun 03, 2019 at 06:55:10PM +0200, Andrey Konovalov wrote:
+> > This patch is a part of a series that extends arm64 kernel ABI to allow to
+> > pass tagged user pointers (with the top byte set to something else other
+> > than 0x00) as syscall arguments.
+> >
+> > In copy_mount_options a user address is being subtracted from TASK_SIZE.
+> > If the address is lower than TASK_SIZE, the size is calculated to not
+> > allow the exact_copy_from_user() call to cross TASK_SIZE boundary.
+> > However if the address is tagged, then the size will be calculated
+> > incorrectly.
+> >
+> > Untag the address before subtracting.
+> >
+> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+>
+> One thing I just noticed in the commit titles... "arm64" is in the
+> prefix, but these are arch-indep areas. Should the ", arm64" be left
+> out?
+>
+> I would expect, instead:
+>
+>         fs/namespace: untag user pointers in copy_mount_options
+
+Hm, I've added the arm64 tag in all of the patches because they are
+related to changes in arm64 kernel ABI. I can remove it from all the
+patches that only touch common code if you think that it makes sense.
+
+Thanks!
+
+>
+> Reviewed-by: Kees Cook <keescook@chromium.org>
+>
+> -Kees
+>
+> > ---
+> >  fs/namespace.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/fs/namespace.c b/fs/namespace.c
+> > index b26778bdc236..2e85712a19ed 100644
+> > --- a/fs/namespace.c
+> > +++ b/fs/namespace.c
+> > @@ -2993,7 +2993,7 @@ void *copy_mount_options(const void __user * data)
+> >        * the remainder of the page.
+> >        */
+> >       /* copy_from_user cannot cross TASK_SIZE ! */
+> > -     size = TASK_SIZE - (unsigned long)data;
+> > +     size = TASK_SIZE - (unsigned long)untagged_addr(data);
+> >       if (size > PAGE_SIZE)
+> >               size = PAGE_SIZE;
+> >
+> > --
+> > 2.22.0.rc1.311.g5d7573a151-goog
+> >
+>
+> --
+> Kees Cook
