@@ -1,43 +1,46 @@
-From: Andrey Konovalov <andreyknvl@google.com>
-Subject: Re: [PATCH v16 05/16] arm64: untag user pointers passed to memory syscalls
-Date: Tue, 11 Jun 2019 17:35:31 +0200
-Message-ID: <CAAeHK+zBDB6i+iEw+TJY14gZeccvWeOBEaU+otn1F+jzDLaRpA@mail.gmail.com>
-References: <cover.1559580831.git.andreyknvl@google.com> <045a94326401693e015bf80c444a4d946a5c68ed.1559580831.git.andreyknvl@google.com>
- <20190610142824.GB10165@c02tf0j2hf1t.cambridge.arm.com>
+From: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Reserve space for shared fence
+Date: Tue, 11 Jun 2019 16:20:28 +0000
+Message-ID: <1560270022-4934-1-git-send-email-Oak.Zeng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190610142824.GB10165@c02tf0j2hf1t.cambridge.arm.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Jun 10, 2019 at 4:28 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
->
-> On Mon, Jun 03, 2019 at 06:55:07PM +0200, Andrey Konovalov wrote:
-> > This patch is a part of a series that extends arm64 kernel ABI to allow to
-> > pass tagged user pointers (with the top byte set to something else other
-> > than 0x00) as syscall arguments.
-> >
-> > This patch allows tagged pointers to be passed to the following memory
-> > syscalls: get_mempolicy, madvise, mbind, mincore, mlock, mlock2, mprotect,
-> > mremap, msync, munlock.
-> >
-> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
->
-> I would add in the commit log (and possibly in the code with a comment)
-> that mremap() and mmap() do not currently accept tagged hint addresses.
-> Architectures may interpret the hint tag as a background colour for the
-> corresponding vma. With this:
-
-I'll change the commit log. Where do you you think I should put this
-comment? Before mmap and mremap definitions in mm/?
-
-Thanks!
-
->
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
->
-> --
-> Catalin
+Q2FsbCByZXNlcnZhdGlvbl9vYmplY3RfcmVzZXJ2ZV9zaGFyZWQgdG8gcmVzZXJ2ZQ0Kc3BhY2Ug
+Zm9yIHNoYXJlZCBmZW5jZS4gT3RoZXJ3aXNlIGl0IHdpbGwgdHJpZ2dlcg0KQlVHX09OIGNvbmRp
+dGlvbiBpbiByZXNlcnZhdGlvbl9vYmplY3RfYWRkX3NoYXJlZF9mZW5jZS4NCg0KQ2hhbmdlLUlk
+OiBJYjBmYWUxNjI0N2UzM2VlNjhmOTViZmZhNzIzNDUxYzBjZDYxOTM0NA0KU2lnbmVkLW9mZi1i
+eTogT2FrIFplbmcgPE9hay5aZW5nQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMgfCA0ICsrKysNCiAxIGZpbGUgY2hhbmdlZCwg
+NCBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfYW1ka2ZkX2dwdXZtLmMNCmluZGV4IDgxZTBlNzUuLjc0ZTg2OTUgMTAwNjQ0DQotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMNCisrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYw0KQEAgLTIxNTIs
+MTIgKzIxNTIsMTYgQEAgaW50IGFtZGdwdV9hbWRrZmRfYWRkX2d3c190b19wcm9jZXNzKHZvaWQg
+KmluZm8sIHZvaWQgKmd3cywgc3RydWN0IGtnZF9tZW0gKiptZW0NCiAJICogQWRkIHByb2Nlc3Mg
+ZXZpY3Rpb24gZmVuY2UgdG8gYm8gc28gdGhleSBjYW4NCiAJICogZXZpY3QgZWFjaCBvdGhlci4N
+CiAJICovDQorCXJldCA9IHJlc2VydmF0aW9uX29iamVjdF9yZXNlcnZlX3NoYXJlZChnd3NfYm8t
+PnRiby5yZXN2LCAxKTsNCisJaWYgKHJldCkNCisJCWdvdG8gcmVzZXJ2ZV9zaGFyZWRfZmFpbDsN
+CiAJYW1kZ3B1X2JvX2ZlbmNlKGd3c19ibywgJnByb2Nlc3NfaW5mby0+ZXZpY3Rpb25fZmVuY2Ut
+PmJhc2UsIHRydWUpOw0KIAlhbWRncHVfYm9fdW5yZXNlcnZlKGd3c19ibyk7DQogCW11dGV4X3Vu
+bG9jaygmKCptZW0pLT5wcm9jZXNzX2luZm8tPmxvY2spOw0KIA0KIAlyZXR1cm4gcmV0Ow0KIA0K
+K3Jlc2VydmVfc2hhcmVkX2ZhaWw6DQogYm9fdmFsaWRhdGlvbl9mYWlsdXJlOg0KIAlhbWRncHVf
+Ym9fdW5yZXNlcnZlKGd3c19ibyk7DQogYm9fcmVzZXJ2YXRpb25fZmFpbHVyZToNCi0tIA0KMi43
+LjQNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
