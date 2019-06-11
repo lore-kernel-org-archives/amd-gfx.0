@@ -1,12 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Add CHIP_VEGAM to amdgpu_amdkfd_device_probe
-Date: Tue, 11 Jun 2019 13:09:57 +0000
-Message-ID: <BN6PR12MB1809C2E7BFCAA3068E0B7A45F7ED0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190611124400.13823-1-kent.russell@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: Bail out of BO node creation if not
+ enough VRAM
+Date: Tue, 11 Jun 2019 15:34:43 +0200
+Message-ID: <91bb2355-949f-43a3-67e6-fb752de86b5c@gmail.com>
+References: <20190610143157.26752-1-tom.stdenis@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0864053958=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190611124400.13823-1-kent.russell-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190610143157.26752-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,138 +21,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0864053958==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809C2E7BFCAA3068E0B7A45F7ED0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809C2E7BFCAA3068E0B7A45F7ED0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Russell,=
- Kent <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, June 11, 2019 8:44 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Russell, Kent
-Subject: [PATCH] drm/amdgpu: Add CHIP_VEGAM to amdgpu_amdkfd_device_probe
-
-We have the rest of the support in the kerne, but we don't actually boot KF=
-D
-on the device without this change
-
-Change-Id: Ifcc5c5e058d72e33a2f3f945f269ba6d2613b7b0
-Signed-off-by: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c
-index 4af3989e4a75..b7582b9aa1cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -78,6 +78,7 @@ void amdgpu_amdkfd_device_probe(struct amdgpu_device *ade=
-v)
-         case CHIP_POLARIS10:
-         case CHIP_POLARIS11:
-         case CHIP_POLARIS12:
-+       case CHIP_VEGAM:
-                 kfd2kgd =3D amdgpu_amdkfd_gfx_8_0_get_functions();
-                 break;
-         case CHIP_VEGA10:
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809C2E7BFCAA3068E0B7A45F7ED0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Russell, Kent &lt;Kent.Russel=
-l@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, June 11, 2019 8:44 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Russell, Kent<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Add CHIP_VEGAM to amdgpu_amdkfd_device_=
-probe</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">We have the rest of the support in the kerne, but =
-we don't actually boot KFD<br>
-on the device without this change<br>
-<br>
-Change-Id: Ifcc5c5e058d72e33a2f3f945f269ba6d2613b7b0<br>
-Signed-off-by: Kent Russell &lt;kent.russell-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 1 &#43;<br>
-&nbsp;1 file changed, 1 insertion(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c<br>
-index 4af3989e4a75..b7582b9aa1cd 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-@@ -78,6 &#43;78,7 @@ void amdgpu_amdkfd_device_probe(struct amdgpu_device =
-*adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS10:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS11:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_POLARIS12:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGAM:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; kfd2kgd =3D amdgpu_amdkfd_gfx_8_0_get_functions();<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA10:<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809C2E7BFCAA3068E0B7A45F7ED0BN6PR12MB1809namp_--
-
---===============0864053958==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0864053958==--
+QW0gMTAuMDYuMTkgdW0gMTY6MzIgc2NocmllYiBTdERlbmlzLCBUb206Cj4gU2lnbmVkLW9mZi1i
+eTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCAxNyArKysrKysrKysrKystLS0t
+LQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4K
+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdy
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdnJhbV9tZ3IuYwo+IGluZGV4
+IDhhZWEyZjIxYjIwMi4uNzBiNGE1YTk3ZWQyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMKPiBAQCAtMjc2LDcgKzI3Niw3IEBAIHN0YXRpYyBp
+bnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwK
+PiAgIAlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzOwo+ICAgCWVudW0gZHJtX21tX2luc2VydF9t
+b2RlIG1vZGU7Cj4gICAJdW5zaWduZWQgbG9uZyBscGZuLCBudW1fbm9kZXMsIHBhZ2VzX3Blcl9u
+b2RlLCBwYWdlc19sZWZ0Owo+IC0JdWludDY0X3QgdXNhZ2UgPSAwLCB2aXNfdXNhZ2UgPSAwOwo+
+ICsJdWludDY0X3QgdmlzX3VzYWdlID0gMDsKPiAgIAl1bnNpZ25lZCBpOwo+ICAgCWludCByOwo+
+ICAgCj4gQEAgLTI4NCw2ICsyODQsMTMgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3
+KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+ICAgCWlmICghbHBmbikKPiAgIAkJ
+bHBmbiA9IG1hbi0+c2l6ZTsKPiAgIAo+ICsJLyogYmFpbCBvdXQgcXVpY2tseSBpZiB0aGVyZSdz
+IGxpa2VseSBub3QgZW5vdWdoIFZSQU0gZm9yIHRoaXMgQk8gKi8KPiArCWF0b21pYzY0X2FkZCht
+ZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51c2FnZSk7Cj4gKwlpZiAoYXRvbWlj
+NjRfcmVhZCgmbWdyLT51c2FnZSkgPiBhZGV2LT5nbWMubWNfdnJhbV9zaXplKSB7Cj4gKwkJYXRv
+bWljNjRfc3ViKG1lbS0+bnVtX3BhZ2VzIDw8IFBBR0VfU0hJRlQsICZtZ3ItPnVzYWdlKTsKPiAr
+CQlyZXR1cm4gLUVOT1NQQzsKPiArCX0KClRoYXQncyBub3QgMTAwJSBjb3JyZWN0IElJUkMuIFNl
+ZSBUVE0gZXhwZWN0cyBhIHJldHVybiB2YWx1ZSBvZiAwLCBidXQgCm1lbS0+bm9kZSB0byBiZSBO
+VUxMIHdoZW4gYWxsb2NhdGlvbiBmYWlscy4KCkNocmlzdGlhbi4KCj4gKwo+ICAgCWlmIChwbGFj
+ZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19DT05USUdVT1VTKSB7Cj4gICAJCXBhZ2VzX3Blcl9ub2Rl
+ID0gfjB1bDsKPiAgIAkJbnVtX25vZGVzID0gMTsKPiBAQCAtMzAwLDggKzMwNywxMCBAQCBzdGF0
+aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICpt
+YW4sCj4gICAKPiAgIAlub2RlcyA9IGt2bWFsbG9jX2FycmF5KCh1aW50MzJfdCludW1fbm9kZXMs
+IHNpemVvZigqbm9kZXMpLAo+ICAgCQkJICAgICAgIEdGUF9LRVJORUwgfCBfX0dGUF9aRVJPKTsK
+PiAtCWlmICghbm9kZXMpCj4gKwlpZiAoIW5vZGVzKSB7Cj4gKwkJYXRvbWljNjRfc3ViKG1lbS0+
+bnVtX3BhZ2VzIDw8IFBBR0VfU0hJRlQsICZtZ3ItPnVzYWdlKTsKPiAgIAkJcmV0dXJuIC1FTk9N
+RU07Cj4gKwl9Cj4gICAKPiAgIAltb2RlID0gRFJNX01NX0lOU0VSVF9CRVNUOwo+ICAgCWlmIChw
+bGFjZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19UT1BET1dOKQo+IEBAIC0zMjEsNyArMzMwLDYgQEAg
+c3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdl
+ciAqbWFuLAo+ICAgCQlpZiAodW5saWtlbHkocikpCj4gICAJCQlicmVhazsKPiAgIAo+IC0JCXVz
+YWdlICs9IG5vZGVzW2ldLnNpemUgPDwgUEFHRV9TSElGVDsKPiAgIAkJdmlzX3VzYWdlICs9IGFt
+ZGdwdV92cmFtX21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOwo+ICAgCQlhbWRncHVfdnJh
+bV9tZ3JfdmlydF9zdGFydChtZW0sICZub2Rlc1tpXSk7Cj4gICAJCXBhZ2VzX2xlZnQgLT0gcGFn
+ZXM7Cj4gQEAgLTM0MSwxNCArMzQ5LDEyIEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25l
+dyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwKPiAgIAkJaWYgKHVubGlrZWx5KHIp
+KQo+ICAgCQkJZ290byBlcnJvcjsKPiAgIAo+IC0JCXVzYWdlICs9IG5vZGVzW2ldLnNpemUgPDwg
+UEFHRV9TSElGVDsKPiAgIAkJdmlzX3VzYWdlICs9IGFtZGdwdV92cmFtX21ncl92aXNfc2l6ZShh
+ZGV2LCAmbm9kZXNbaV0pOwo+ICAgCQlhbWRncHVfdnJhbV9tZ3JfdmlydF9zdGFydChtZW0sICZu
+b2Rlc1tpXSk7Cj4gICAJCXBhZ2VzX2xlZnQgLT0gcGFnZXM7Cj4gICAJfQo+ICAgCXNwaW5fdW5s
+b2NrKCZtZ3ItPmxvY2spOwo+ICAgCj4gLQlhdG9taWM2NF9hZGQodXNhZ2UsICZtZ3ItPnVzYWdl
+KTsKPiAgIAlhdG9taWM2NF9hZGQodmlzX3VzYWdlLCAmbWdyLT52aXNfdXNhZ2UpOwo+ICAgCj4g
+ICAJbWVtLT5tbV9ub2RlID0gbm9kZXM7Cj4gQEAgLTM1OSw2ICszNjUsNyBAQCBzdGF0aWMgaW50
+IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sCj4g
+ICAJd2hpbGUgKGktLSkKPiAgIAkJZHJtX21tX3JlbW92ZV9ub2RlKCZub2Rlc1tpXSk7Cj4gICAJ
+c3Bpbl91bmxvY2soJm1nci0+bG9jayk7Cj4gKwlhdG9taWM2NF9zdWIobWVtLT5udW1fcGFnZXMg
+PDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOwo+ICAgCj4gICAJa3ZmcmVlKG5vZGVzKTsKPiAg
+IAlyZXR1cm4gciA9PSAtRU5PU1BDID8gMCA6IHI7CgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZng=
