@@ -1,74 +1,261 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/amdgpu: Bail out of BO node creation if not enough
- VRAM (v2)
-Date: Tue, 11 Jun 2019 16:54:52 +0000
-Message-ID: <20190611165444.17841-1-tom.stdenis@amd.com>
+From: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Subject: Re: [PATCH v16 02/16] arm64: untag user pointers in access_ok and
+ __uaccess_mask_ptr
+Date: Tue, 11 Jun 2019 18:09:10 +0100
+Message-ID: <d3dc2b1f-e8c9-c60d-f648-0bc9b08f20e4@arm.com>
+References: <cover.1559580831.git.andreyknvl@google.com>
+ <4327b260fb17c4776a1e3c844f388e4948cfb747.1559580831.git.andreyknvl@google.com>
+ <20190610175326.GC25803@arrakis.emea.arm.com>
+ <20190611145720.GA63588@arrakis.emea.arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190611145720.GA63588@arrakis.emea.arm.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Catalin Marinas <catalin.marinas@arm.com>, Andrey Konovalov <andreyknvl@google.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Khalid Aziz <khalid.aziz@oracle.com>, linux-kselftest@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-KHYyKTogUmV0dXJuIDAgYW5kIHNldCBtZW0tPm1tX25vZGUgdG8gTlVMTC4NCg0KU2lnbmVkLW9m
-Zi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPg0KLS0tDQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCAxOCArKysrKysrKysrKysrLS0t
-LS0NCiAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCg0K
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMNCmluZGV4IDhh
-ZWEyZjIxYjIwMi4uYzI3MzBlNWMxMDgxIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92cmFtX21nci5jDQpAQCAtMjc2LDcgKzI3Niw3IEBAIHN0YXRpYyBpbnQgYW1k
-Z3B1X3ZyYW1fbWdyX25ldyhzdHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwNCiAJc3Ry
-dWN0IGRybV9tbV9ub2RlICpub2RlczsNCiAJZW51bSBkcm1fbW1faW5zZXJ0X21vZGUgbW9kZTsN
-CiAJdW5zaWduZWQgbG9uZyBscGZuLCBudW1fbm9kZXMsIHBhZ2VzX3Blcl9ub2RlLCBwYWdlc19s
-ZWZ0Ow0KLQl1aW50NjRfdCB1c2FnZSA9IDAsIHZpc191c2FnZSA9IDA7DQorCXVpbnQ2NF90IHZp
-c191c2FnZSA9IDA7DQogCXVuc2lnbmVkIGk7DQogCWludCByOw0KIA0KQEAgLTI4NCw2ICsyODQs
-MTQgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVf
-bWFuYWdlciAqbWFuLA0KIAlpZiAoIWxwZm4pDQogCQlscGZuID0gbWFuLT5zaXplOw0KIA0KKwkv
-KiBiYWlsIG91dCBxdWlja2x5IGlmIHRoZXJlJ3MgbGlrZWx5IG5vdCBlbm91Z2ggVlJBTSBmb3Ig
-dGhpcyBCTyAqLw0KKwlhdG9taWM2NF9hZGQobWVtLT5udW1fcGFnZXMgPDwgUEFHRV9TSElGVCwg
-Jm1nci0+dXNhZ2UpOw0KKwlpZiAoYXRvbWljNjRfcmVhZCgmbWdyLT51c2FnZSkgPiBhZGV2LT5n
-bWMubWNfdnJhbV9zaXplKSB7DQorCQlhdG9taWM2NF9zdWIobWVtLT5udW1fcGFnZXMgPDwgUEFH
-RV9TSElGVCwgJm1nci0+dXNhZ2UpOw0KKwkJbWVtLT5tbV9ub2RlID0gTlVMTDsNCisJCXJldHVy
-biAwOw0KKwl9DQorDQogCWlmIChwbGFjZS0+ZmxhZ3MgJiBUVE1fUExfRkxBR19DT05USUdVT1VT
-KSB7DQogCQlwYWdlc19wZXJfbm9kZSA9IH4wdWw7DQogCQludW1fbm9kZXMgPSAxOw0KQEAgLTMw
-MCw4ICszMDgsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1f
-bWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIA0KIAlub2RlcyA9IGt2bWFsbG9jX2FycmF5KCh1aW50
-MzJfdCludW1fbm9kZXMsIHNpemVvZigqbm9kZXMpLA0KIAkJCSAgICAgICBHRlBfS0VSTkVMIHwg
-X19HRlBfWkVSTyk7DQotCWlmICghbm9kZXMpDQorCWlmICghbm9kZXMpIHsNCisJCWF0b21pYzY0
-X3N1YihtZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51c2FnZSk7DQogCQlyZXR1
-cm4gLUVOT01FTTsNCisJfQ0KIA0KIAltb2RlID0gRFJNX01NX0lOU0VSVF9CRVNUOw0KIAlpZiAo
-cGxhY2UtPmZsYWdzICYgVFRNX1BMX0ZMQUdfVE9QRE9XTikNCkBAIC0zMjEsNyArMzMxLDYgQEAg
-c3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdl
-ciAqbWFuLA0KIAkJaWYgKHVubGlrZWx5KHIpKQ0KIAkJCWJyZWFrOw0KIA0KLQkJdXNhZ2UgKz0g
-bm9kZXNbaV0uc2l6ZSA8PCBQQUdFX1NISUZUOw0KIAkJdmlzX3VzYWdlICs9IGFtZGdwdV92cmFt
-X21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOw0KIAkJYW1kZ3B1X3ZyYW1fbWdyX3ZpcnRf
-c3RhcnQobWVtLCAmbm9kZXNbaV0pOw0KIAkJcGFnZXNfbGVmdCAtPSBwYWdlczsNCkBAIC0zNDEs
-MTQgKzM1MCwxMiBAQCBzdGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9uZXcoc3RydWN0IHR0bV9t
-ZW1fdHlwZV9tYW5hZ2VyICptYW4sDQogCQlpZiAodW5saWtlbHkocikpDQogCQkJZ290byBlcnJv
-cjsNCiANCi0JCXVzYWdlICs9IG5vZGVzW2ldLnNpemUgPDwgUEFHRV9TSElGVDsNCiAJCXZpc191
-c2FnZSArPSBhbWRncHVfdnJhbV9tZ3JfdmlzX3NpemUoYWRldiwgJm5vZGVzW2ldKTsNCiAJCWFt
-ZGdwdV92cmFtX21ncl92aXJ0X3N0YXJ0KG1lbSwgJm5vZGVzW2ldKTsNCiAJCXBhZ2VzX2xlZnQg
-LT0gcGFnZXM7DQogCX0NCiAJc3Bpbl91bmxvY2soJm1nci0+bG9jayk7DQogDQotCWF0b21pYzY0
-X2FkZCh1c2FnZSwgJm1nci0+dXNhZ2UpOw0KIAlhdG9taWM2NF9hZGQodmlzX3VzYWdlLCAmbWdy
-LT52aXNfdXNhZ2UpOw0KIA0KIAltZW0tPm1tX25vZGUgPSBub2RlczsNCkBAIC0zNTksNiArMzY2
-LDcgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVf
-bWFuYWdlciAqbWFuLA0KIAl3aGlsZSAoaS0tKQ0KIAkJZHJtX21tX3JlbW92ZV9ub2RlKCZub2Rl
-c1tpXSk7DQogCXNwaW5fdW5sb2NrKCZtZ3ItPmxvY2spOw0KKwlhdG9taWM2NF9zdWIobWVtLT5u
-dW1fcGFnZXMgPDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOw0KIA0KIAlrdmZyZWUobm9kZXMp
-Ow0KIAlyZXR1cm4gciA9PSAtRU5PU1BDID8gMCA6IHI7DQotLSANCjIuMjEuMA0KDQpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Hi Catalin,
+
+...
+
+> ---------8<----------------
+> From 7c624777a4e545522dec1b34e60f0229cb2bd59f Mon Sep 17 00:00:00 2001
+> From: Catalin Marinas <catalin.marinas@arm.com>
+> Date: Tue, 11 Jun 2019 13:03:38 +0100
+> Subject: [PATCH] arm64: Introduce prctl() options to control the tagged user
+>  addresses ABI
+> 
+> It is not desirable to relax the ABI to allow tagged user addresses into
+> the kernel indiscriminately. This patch introduces a prctl() interface
+> for enabling or disabling the tagged ABI with a global sysctl control
+> for preventing applications from enabling the relaxed ABI (meant for
+> testing user-space prctl() return error checking without reconfiguring
+> the kernel). The ABI properties are inherited by threads of the same
+> application and fork()'ed children but cleared on execve().
+> 
+> The PR_SET_TAGGED_ADDR_CTRL will be expanded in the future to handle
+> MTE-specific settings like imprecise vs precise exceptions.
+> 
+> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+> ---
+>  arch/arm64/include/asm/processor.h   |  6 +++
+>  arch/arm64/include/asm/thread_info.h |  1 +
+>  arch/arm64/include/asm/uaccess.h     |  5 ++-
+>  arch/arm64/kernel/process.c          | 67 ++++++++++++++++++++++++++++
+>  include/uapi/linux/prctl.h           |  5 +++
+>  kernel/sys.c                         | 16 +++++++
+>  6 files changed, 99 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
+> index fcd0e691b1ea..fee457456aa8 100644
+> --- a/arch/arm64/include/asm/processor.h
+> +++ b/arch/arm64/include/asm/processor.h
+> @@ -307,6 +307,12 @@ extern void __init minsigstksz_setup(void);
+>  /* PR_PAC_RESET_KEYS prctl */
+>  #define PAC_RESET_KEYS(tsk, arg)	ptrauth_prctl_reset_keys(tsk, arg)
+>  
+> +/* PR_TAGGED_ADDR prctl */
+> +long set_tagged_addr_ctrl(unsigned long arg);
+> +long get_tagged_addr_ctrl(void);
+> +#define SET_TAGGED_ADDR_CTRL(arg)	set_tagged_addr_ctrl(arg)
+> +#define GET_TAGGED_ADDR_CTRL()		get_tagged_addr_ctrl()
+> +
+>  /*
+>   * For CONFIG_GCC_PLUGIN_STACKLEAK
+>   *
+> diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
+> index c285d1ce7186..7263d4c973ce 100644
+> --- a/arch/arm64/include/asm/thread_info.h
+> +++ b/arch/arm64/include/asm/thread_info.h
+> @@ -101,6 +101,7 @@ void arch_release_task_struct(struct task_struct *tsk);
+>  #define TIF_SVE			23	/* Scalable Vector Extension in use */
+>  #define TIF_SVE_VL_INHERIT	24	/* Inherit sve_vl_onexec across exec */
+>  #define TIF_SSBD		25	/* Wants SSB mitigation */
+> +#define TIF_TAGGED_ADDR		26
+>
+
+Can you please put a comment here?
+
+>  #define _TIF_SIGPENDING		(1 << TIF_SIGPENDING)
+>  #define _TIF_NEED_RESCHED	(1 << TIF_NEED_RESCHED)
+> diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uaccess.h
+> index 9164ecb5feca..995b9ea11a89 100644
+> --- a/arch/arm64/include/asm/uaccess.h
+> +++ b/arch/arm64/include/asm/uaccess.h
+> @@ -73,6 +73,9 @@ static inline unsigned long __range_ok(const void __user *addr, unsigned long si
+>  {
+>  	unsigned long ret, limit = current_thread_info()->addr_limit;
+>  
+> +	if (test_thread_flag(TIF_TAGGED_ADDR))
+> +		addr = untagged_addr(addr);
+> +
+>  	__chk_user_ptr(addr);
+>  	asm volatile(
+>  	// A + B <= C + 1 for all A,B,C, in four easy steps:
+> @@ -94,7 +97,7 @@ static inline unsigned long __range_ok(const void __user *addr, unsigned long si
+>  	return ret;
+>  }
+>  
+> -#define access_ok(addr, size)	__range_ok(untagged_addr(addr), size)
+> +#define access_ok(addr, size)	__range_ok(addr, size)
+>  #define user_addr_max			get_fs
+>>  #define _ASM_EXTABLE(from, to)						\
+> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+> index 3767fb21a5b8..69d0be1fc708 100644
+> --- a/arch/arm64/kernel/process.c
+> +++ b/arch/arm64/kernel/process.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/mm.h>
+>  #include <linux/stddef.h>
+> +#include <linux/sysctl.h>
+>  #include <linux/unistd.h>
+>  #include <linux/user.h>
+>  #include <linux/delay.h>
+> @@ -323,6 +324,7 @@ void flush_thread(void)
+>  	fpsimd_flush_thread();
+>  	tls_thread_flush();
+>  	flush_ptrace_hw_breakpoint(current);
+> +	clear_thread_flag(TIF_TAGGED_ADDR);
+
+Nit: in line we the other functions in thread_flush we could have something like
+"tagged_addr_thread_flush", maybe inlined.
+
+>  }
+>  
+>  void release_thread(struct task_struct *dead_task)
+> @@ -552,3 +554,68 @@ void arch_setup_new_exec(void)
+>  
+>  	ptrauth_thread_init_user(current);
+>  }
+> +
+> +/*
+> + * Control the relaxed ABI allowing tagged user addresses into the kernel.
+> + */
+> +static unsigned int tagged_addr_prctl_allowed = 1;
+> +
+> +long set_tagged_addr_ctrl(unsigned long arg)
+> +{
+> +	if (!tagged_addr_prctl_allowed)
+> +		return -EINVAL;
+> +	if (is_compat_task())
+> +		return -EINVAL;
+> +	if (arg & ~PR_TAGGED_ADDR_ENABLE)
+> +		return -EINVAL;
+> +
+> +	if (arg & PR_TAGGED_ADDR_ENABLE)
+> +		set_thread_flag(TIF_TAGGED_ADDR);
+> +	else
+> +		clear_thread_flag(TIF_TAGGED_ADDR);
+> +
+> +	return 0;
+> +}
+> +
+> +long get_tagged_addr_ctrl(void)
+> +{
+> +	if (!tagged_addr_prctl_allowed)
+> +		return -EINVAL;
+> +	if (is_compat_task())
+> +		return -EINVAL;
+> +
+> +	if (test_thread_flag(TIF_TAGGED_ADDR))
+> +		return PR_TAGGED_ADDR_ENABLE;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Global sysctl to disable the tagged user addresses support. This control
+> + * only prevents the tagged address ABI enabling via prctl() and does not
+> + * disable it for tasks that already opted in to the relaxed ABI.
+> + */
+> +static int zero;
+> +static int one = 1;
+> +
+> +static struct ctl_table tagged_addr_sysctl_table[] = {
+> +	{
+> +		.procname	= "tagged_addr",
+> +		.mode		= 0644,
+> +		.data		= &tagged_addr_prctl_allowed,
+> +		.maxlen		= sizeof(int),
+> +		.proc_handler	= proc_dointvec_minmax,
+> +		.extra1		= &zero,
+> +		.extra2		= &one,
+> +	},
+> +	{ }
+> +};
+> +
+> +static int __init tagged_addr_init(void)
+> +{
+> +	if (!register_sysctl("abi", tagged_addr_sysctl_table))
+> +		return -EINVAL;
+> +	return 0;
+> +}
+> +
+> +core_initcall(tagged_addr_init);
+
+process.c seems already a bit "overcrowded". Probably we could move all the
+tagged_addr features in a separate file. What do you think? It would make easier
+the implementation of mte as well going forward.
+
+> diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
+> index 094bb03b9cc2..2e927b3e9d6c 100644
+> --- a/include/uapi/linux/prctl.h
+> +++ b/include/uapi/linux/prctl.h
+> @@ -229,4 +229,9 @@ struct prctl_mm_map {
+>  # define PR_PAC_APDBKEY			(1UL << 3)
+>  # define PR_PAC_APGAKEY			(1UL << 4)
+>  
+> +/* Tagged user address controls for arm64 */
+> +#define PR_SET_TAGGED_ADDR_CTRL		55
+> +#define PR_GET_TAGGED_ADDR_CTRL		56
+> +# define PR_TAGGED_ADDR_ENABLE		(1UL << 0)
+> +
+>  #endif /* _LINUX_PRCTL_H */
+> diff --git a/kernel/sys.c b/kernel/sys.c
+> index 2969304c29fe..ec48396b4943 100644
+> --- a/kernel/sys.c
+> +++ b/kernel/sys.c
+> @@ -124,6 +124,12 @@
+>  #ifndef PAC_RESET_KEYS
+>  # define PAC_RESET_KEYS(a, b)	(-EINVAL)
+>  #endif
+> +#ifndef SET_TAGGED_ADDR_CTRL
+> +# define SET_TAGGED_ADDR_CTRL(a)	(-EINVAL)
+> +#endif
+> +#ifndef GET_TAGGED_ADDR_CTRL
+> +# define GET_TAGGED_ADDR_CTRL()		(-EINVAL)
+> +#endif
+>  
+>  /*
+>   * this is where the system-wide overflow UID and GID are defined, for
+> @@ -2492,6 +2498,16 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+>  			return -EINVAL;
+>  		error = PAC_RESET_KEYS(me, arg2);
+>  		break;
+> +	case PR_SET_TAGGED_ADDR_CTRL:
+> +		if (arg3 || arg4 || arg5)
+> +			return -EINVAL;
+> +		error = SET_TAGGED_ADDR_CTRL(arg2);
+> +		break;
+> +	case PR_GET_TAGGED_ADDR_CTRL:
+> +		if (arg2 || arg3 || arg4 || arg5)
+> +			return -EINVAL;
+> +		error = GET_TAGGED_ADDR_CTRL();
+> +		break;
+
+Why do we need two prctl here? We could have only one and use arg2 as set/get
+and arg3 as a parameter. What do you think?
+
+>  	default:
+>  		error = -EINVAL;
+>  		break;
+> 
+
+-- 
+Regards,
+Vincenzo
