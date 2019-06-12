@@ -1,15 +1,15 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Bail out of BO node creation if not
- enough VRAM (v2)
-Date: Wed, 12 Jun 2019 09:26:00 +0200
-Message-ID: <fd4c5152-2670-8ac5-e6cc-fff6f260f3ed@daenzer.net>
-References: <20190611165444.17841-1-tom.stdenis@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Reserve space for shared fence
+Date: Wed, 12 Jun 2019 09:58:55 +0200
+Message-ID: <567a4212-9d37-140f-7f1b-7d1cd8a33cfc@gmail.com>
+References: <1560270022-4934-1-git-send-email-Oak.Zeng@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190611165444.17841-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
+In-Reply-To: <1560270022-4934-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,26 +20,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 
-T24gMjAxOS0wNi0xMSA2OjU0IHAubS4sIFN0RGVuaXMsIFRvbSB3cm90ZToKPiAodjIpOiBSZXR1
-cm4gMCBhbmQgc2V0IG1lbS0+bW1fbm9kZSB0byBOVUxMLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFRv
-bSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMgfCAxOCArKysrKysrKysrKysrLS0tLS0KPiAg
-MSBmaWxlIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4gCj4gWy4u
-Ll0KPiAgCj4gQEAgLTI4NCw2ICsyODQsMTQgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3Jf
-bmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLAo+ICAJaWYgKCFscGZuKQo+ICAJ
-CWxwZm4gPSBtYW4tPnNpemU7Cj4gIAo+ICsJLyogYmFpbCBvdXQgcXVpY2tseSBpZiB0aGVyZSdz
-IGxpa2VseSBub3QgZW5vdWdoIFZSQU0gZm9yIHRoaXMgQk8gKi8KPiArCWF0b21pYzY0X2FkZCht
-ZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51c2FnZSk7Cj4gKwlpZiAoYXRvbWlj
-NjRfcmVhZCgmbWdyLT51c2FnZSkgPiBhZGV2LT5nbWMubWNfdnJhbV9zaXplKSB7CgpTaG91bGQg
-cHJvYmFibHkgdXNlIGF0b21pYzY0X2FkZF9yZXR1cm4gaW5zdGVhZCBvZiBhdG9taWM2NF9hZGQg
-KwphdG9taWM2NF9yZWFkLgoKQWxzbywgQUZBSUNUIHRoaXMgZG9lc24ndCBhbGxvdyBhbnkgVlJB
-TSBvdmVyY29tbWl0LCB3aGljaCBzZWVtcyBhIGJpdApjb25zZXJ2YXRpdmU/CgoKLS0gCkVhcnRo
-bGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgIGh0dHBzOi8v
-d3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAg
-ICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeA==
+QW0gMTEuMDYuMTkgdW0gMTg6MjAgc2NocmllYiBaZW5nLCBPYWs6Cj4gQ2FsbCByZXNlcnZhdGlv
+bl9vYmplY3RfcmVzZXJ2ZV9zaGFyZWQgdG8gcmVzZXJ2ZQo+IHNwYWNlIGZvciBzaGFyZWQgZmVu
+Y2UuIE90aGVyd2lzZSBpdCB3aWxsIHRyaWdnZXIKPiBCVUdfT04gY29uZGl0aW9uIGluIHJlc2Vy
+dmF0aW9uX29iamVjdF9hZGRfc2hhcmVkX2ZlbmNlLgo+Cj4gQ2hhbmdlLUlkOiBJYjBmYWUxNjI0
+N2UzM2VlNjhmOTViZmZhNzIzNDUxYzBjZDYxOTM0NAo+IFNpZ25lZC1vZmYtYnk6IE9hayBaZW5n
+IDxPYWsuWmVuZ0BhbWQuY29tPgoKQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfYW1ka2ZkX2dwdXZtLmMgfCA0ICsrKysKPiAgIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2Vy
+dGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfYW1ka2ZkX2dwdXZtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1k
+a2ZkX2dwdXZtLmMKPiBpbmRleCA4MWUwZTc1Li43NGU4Njk1IDEwMDY0NAo+IC0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwo+IEBAIC0yMTUyLDEy
+ICsyMTUyLDE2IEBAIGludCBhbWRncHVfYW1ka2ZkX2FkZF9nd3NfdG9fcHJvY2Vzcyh2b2lkICpp
+bmZvLCB2b2lkICpnd3MsIHN0cnVjdCBrZ2RfbWVtICoqbWVtCj4gICAJICogQWRkIHByb2Nlc3Mg
+ZXZpY3Rpb24gZmVuY2UgdG8gYm8gc28gdGhleSBjYW4KPiAgIAkgKiBldmljdCBlYWNoIG90aGVy
+Lgo+ICAgCSAqLwo+ICsJcmV0ID0gcmVzZXJ2YXRpb25fb2JqZWN0X3Jlc2VydmVfc2hhcmVkKGd3
+c19iby0+dGJvLnJlc3YsIDEpOwo+ICsJaWYgKHJldCkKPiArCQlnb3RvIHJlc2VydmVfc2hhcmVk
+X2ZhaWw7Cj4gICAJYW1kZ3B1X2JvX2ZlbmNlKGd3c19ibywgJnByb2Nlc3NfaW5mby0+ZXZpY3Rp
+b25fZmVuY2UtPmJhc2UsIHRydWUpOwo+ICAgCWFtZGdwdV9ib191bnJlc2VydmUoZ3dzX2JvKTsK
+PiAgIAltdXRleF91bmxvY2soJigqbWVtKS0+cHJvY2Vzc19pbmZvLT5sb2NrKTsKPiAgIAo+ICAg
+CXJldHVybiByZXQ7Cj4gICAKPiArcmVzZXJ2ZV9zaGFyZWRfZmFpbDoKPiAgIGJvX3ZhbGlkYXRp
+b25fZmFpbHVyZToKPiAgIAlhbWRncHVfYm9fdW5yZXNlcnZlKGd3c19ibyk7Cj4gICBib19yZXNl
+cnZhdGlvbl9mYWlsdXJlOgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
