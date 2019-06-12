@@ -1,74 +1,51 @@
-From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/amdgpu: Bail out of BO node creation if not enough
- VRAM (v3)
-Date: Wed, 12 Jun 2019 11:08:39 +0000
-Message-ID: <20190612110829.4699-1-tom.stdenis@amd.com>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v16 04/16] mm: untag user pointers in do_pages_move
+Date: Wed, 12 Jun 2019 13:08:35 +0200
+Message-ID: <CAAeHK+yTmU9Vz0OB4b7bcgjU3W1v6NFxgpiy4tud7j0AHXkwtw@mail.gmail.com>
+References: <cover.1559580831.git.andreyknvl@google.com> <e410843d00a4ecd7e525a7a949e605ffc6c394c4.1559580831.git.andreyknvl@google.com>
+ <d0dffcf8-d7bf-a7b4-5766-3a6f87437851@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <d0dffcf8-d7bf-a7b4-5766-3a6f87437851@oracle.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Khalid Aziz <khalid.aziz@oracle.com>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@am>
+List-Id: amd-gfx.lists.freedesktop.org
 
-KHYyKTogUmV0dXJuIDAgYW5kIHNldCBtZW0tPm1tX25vZGUgdG8gTlVMTC4NCih2Myk6IFVzZSBh
-dG9taWM2NF9hZGRfcmV0dXJuIGluc3RlYWQuDQoNClNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5p
-cyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92cmFtX21nci5jIHwgMTcgKysrKysrKysrKysrLS0tLS0NCiAxIGZpbGUgY2hhbmdl
-ZCwgMTIgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMNCmluZGV4IDhhZWEyZjIxYjIwMi4uYzk2M2Fk
-ODYwNzJlIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zy
-YW1fbWdyLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21n
-ci5jDQpAQCAtMjc2LDcgKzI3Niw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhz
-dHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwNCiAJc3RydWN0IGRybV9tbV9ub2RlICpu
-b2RlczsNCiAJZW51bSBkcm1fbW1faW5zZXJ0X21vZGUgbW9kZTsNCiAJdW5zaWduZWQgbG9uZyBs
-cGZuLCBudW1fbm9kZXMsIHBhZ2VzX3Blcl9ub2RlLCBwYWdlc19sZWZ0Ow0KLQl1aW50NjRfdCB1
-c2FnZSA9IDAsIHZpc191c2FnZSA9IDA7DQorCXVpbnQ2NF90IHZpc191c2FnZSA9IDA7DQogCXVu
-c2lnbmVkIGk7DQogCWludCByOw0KIA0KQEAgLTI4NCw2ICsyODQsMTMgQEAgc3RhdGljIGludCBh
-bWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIAlp
-ZiAoIWxwZm4pDQogCQlscGZuID0gbWFuLT5zaXplOw0KIA0KKwkvKiBiYWlsIG91dCBxdWlja2x5
-IGlmIHRoZXJlJ3MgbGlrZWx5IG5vdCBlbm91Z2ggVlJBTSBmb3IgdGhpcyBCTyAqLw0KKwlpZiAo
-YXRvbWljNjRfYWRkX3JldHVybihtZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51
-c2FnZSkgPiBhZGV2LT5nbWMubWNfdnJhbV9zaXplKSB7DQorCQlhdG9taWM2NF9zdWIobWVtLT5u
-dW1fcGFnZXMgPDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOw0KKwkJbWVtLT5tbV9ub2RlID0g
-TlVMTDsNCisJCXJldHVybiAwOw0KKwl9DQorDQogCWlmIChwbGFjZS0+ZmxhZ3MgJiBUVE1fUExf
-RkxBR19DT05USUdVT1VTKSB7DQogCQlwYWdlc19wZXJfbm9kZSA9IH4wdWw7DQogCQludW1fbm9k
-ZXMgPSAxOw0KQEAgLTMwMCw4ICszMDcsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3Jf
-bmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIA0KIAlub2RlcyA9IGt2bWFs
-bG9jX2FycmF5KCh1aW50MzJfdCludW1fbm9kZXMsIHNpemVvZigqbm9kZXMpLA0KIAkJCSAgICAg
-ICBHRlBfS0VSTkVMIHwgX19HRlBfWkVSTyk7DQotCWlmICghbm9kZXMpDQorCWlmICghbm9kZXMp
-IHsNCisJCWF0b21pYzY0X3N1YihtZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51
-c2FnZSk7DQogCQlyZXR1cm4gLUVOT01FTTsNCisJfQ0KIA0KIAltb2RlID0gRFJNX01NX0lOU0VS
-VF9CRVNUOw0KIAlpZiAocGxhY2UtPmZsYWdzICYgVFRNX1BMX0ZMQUdfVE9QRE9XTikNCkBAIC0z
-MjEsNyArMzMwLDYgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1f
-bWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIAkJaWYgKHVubGlrZWx5KHIpKQ0KIAkJCWJyZWFrOw0K
-IA0KLQkJdXNhZ2UgKz0gbm9kZXNbaV0uc2l6ZSA8PCBQQUdFX1NISUZUOw0KIAkJdmlzX3VzYWdl
-ICs9IGFtZGdwdV92cmFtX21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOw0KIAkJYW1kZ3B1
-X3ZyYW1fbWdyX3ZpcnRfc3RhcnQobWVtLCAmbm9kZXNbaV0pOw0KIAkJcGFnZXNfbGVmdCAtPSBw
-YWdlczsNCkBAIC0zNDEsMTQgKzM0OSwxMiBAQCBzdGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9u
-ZXcoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sDQogCQlpZiAodW5saWtlbHkocikp
-DQogCQkJZ290byBlcnJvcjsNCiANCi0JCXVzYWdlICs9IG5vZGVzW2ldLnNpemUgPDwgUEFHRV9T
-SElGVDsNCiAJCXZpc191c2FnZSArPSBhbWRncHVfdnJhbV9tZ3JfdmlzX3NpemUoYWRldiwgJm5v
-ZGVzW2ldKTsNCiAJCWFtZGdwdV92cmFtX21ncl92aXJ0X3N0YXJ0KG1lbSwgJm5vZGVzW2ldKTsN
-CiAJCXBhZ2VzX2xlZnQgLT0gcGFnZXM7DQogCX0NCiAJc3Bpbl91bmxvY2soJm1nci0+bG9jayk7
-DQogDQotCWF0b21pYzY0X2FkZCh1c2FnZSwgJm1nci0+dXNhZ2UpOw0KIAlhdG9taWM2NF9hZGQo
-dmlzX3VzYWdlLCAmbWdyLT52aXNfdXNhZ2UpOw0KIA0KIAltZW0tPm1tX25vZGUgPSBub2RlczsN
-CkBAIC0zNTksNiArMzY1LDcgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVj
-dCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIAl3aGlsZSAoaS0tKQ0KIAkJZHJtX21tX3Jl
-bW92ZV9ub2RlKCZub2Rlc1tpXSk7DQogCXNwaW5fdW5sb2NrKCZtZ3ItPmxvY2spOw0KKwlhdG9t
-aWM2NF9zdWIobWVtLT5udW1fcGFnZXMgPDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOw0KIA0K
-IAlrdmZyZWUobm9kZXMpOw0KIAlyZXR1cm4gciA9PSAtRU5PU1BDID8gMCA6IHI7DQotLSANCjIu
-MjEuMA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Tue, Jun 11, 2019 at 10:18 PM Khalid Aziz <khalid.aziz@oracle.com> wrote:
+>
+> On 6/3/19 10:55 AM, Andrey Konovalov wrote:
+> > This patch is a part of a series that extends arm64 kernel ABI to allow to
+> > pass tagged user pointers (with the top byte set to something else other
+> > than 0x00) as syscall arguments.
+> >
+> > do_pages_move() is used in the implementation of the move_pages syscall.
+> >
+> > Untag user pointers in this function.
+> >
+> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> > ---
+> >  mm/migrate.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/mm/migrate.c b/mm/migrate.c
+> > index f2ecc2855a12..3930bb6fa656 100644
+> > --- a/mm/migrate.c
+> > +++ b/mm/migrate.c
+> > @@ -1617,6 +1617,7 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
+> >               if (get_user(node, nodes + i))
+> >                       goto out_flush;
+> >               addr = (unsigned long)p;
+> > +             addr = untagged_addr(addr);
+>
+> Why not just "addr = (unsigned long)untagged_addr(p);"
+
+Will do in the next version. I think I'll also merge this commit into
+the "untag user pointers passed to memory syscalls" one.
+
+>
+> --
+> Khalid
+>
