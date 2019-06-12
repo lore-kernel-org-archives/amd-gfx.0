@@ -1,37 +1,74 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v16 02/16] arm64: untag user pointers in access_ok and
- __uaccess_mask_ptr
-Date: Wed, 12 Jun 2019 12:04:44 +0100
-Message-ID: <20190612110443.GD28951@C02TF0J2HF1T.local>
-References: <cover.1559580831.git.andreyknvl@google.com>
- <4327b260fb17c4776a1e3c844f388e4948cfb747.1559580831.git.andreyknvl@google.com>
- <20190610175326.GC25803@arrakis.emea.arm.com>
- <20190611145720.GA63588@arrakis.emea.arm.com>
- <CAAeHK+z5nSOOaGfehETzznNcMq5E5U+Eb1rZE16UVsT8FWT0Vg@mail.gmail.com>
- <20190611173903.4icrfmoyfvms35cy@mbp>
- <CAAeHK+ysoiCSiCNrrvXqffK53WwBMHbc3bk69uU0vY0+R4_JvQ@mail.gmail.com>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/amdgpu: Bail out of BO node creation if not enough
+ VRAM (v3)
+Date: Wed, 12 Jun 2019 11:08:39 +0000
+Message-ID: <20190612110829.4699-1-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAAeHK+ysoiCSiCNrrvXqffK53WwBMHbc3bk69uU0vY0+R4_JvQ@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Linux Memory Management List <linux-mm@kvack.org>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kerne
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Jun 12, 2019 at 01:03:10PM +0200, Andrey Konovalov wrote:
-> On Tue, Jun 11, 2019 at 7:39 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > On Tue, Jun 11, 2019 at 07:09:46PM +0200, Andrey Konovalov wrote:
-> > > Should I drop access_ok() change from my patch, since yours just reverts it?
-> >
-> > Not necessary, your patch just relaxes the ABI for all apps, mine
-> > tightens it. You could instead move the untagging to __range_ok() and
-> > rebase my patch accordingly.
-> 
-> OK, will do. I'll also add a comment next to TIF_TAGGED_ADDR as Vincenzo asked.
-
-Thanks.
-
--- 
-Catalin
+KHYyKTogUmV0dXJuIDAgYW5kIHNldCBtZW0tPm1tX25vZGUgdG8gTlVMTC4NCih2Myk6IFVzZSBh
+dG9taWM2NF9hZGRfcmV0dXJuIGluc3RlYWQuDQoNClNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5p
+cyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV92cmFtX21nci5jIHwgMTcgKysrKysrKysrKysrLS0tLS0NCiAxIGZpbGUgY2hhbmdl
+ZCwgMTIgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21nci5jIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X3ZyYW1fbWdyLmMNCmluZGV4IDhhZWEyZjIxYjIwMi4uYzk2M2Fk
+ODYwNzJlIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zy
+YW1fbWdyLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92cmFtX21n
+ci5jDQpAQCAtMjc2LDcgKzI3Niw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZyYW1fbWdyX25ldyhz
+dHJ1Y3QgdHRtX21lbV90eXBlX21hbmFnZXIgKm1hbiwNCiAJc3RydWN0IGRybV9tbV9ub2RlICpu
+b2RlczsNCiAJZW51bSBkcm1fbW1faW5zZXJ0X21vZGUgbW9kZTsNCiAJdW5zaWduZWQgbG9uZyBs
+cGZuLCBudW1fbm9kZXMsIHBhZ2VzX3Blcl9ub2RlLCBwYWdlc19sZWZ0Ow0KLQl1aW50NjRfdCB1
+c2FnZSA9IDAsIHZpc191c2FnZSA9IDA7DQorCXVpbnQ2NF90IHZpc191c2FnZSA9IDA7DQogCXVu
+c2lnbmVkIGk7DQogCWludCByOw0KIA0KQEAgLTI4NCw2ICsyODQsMTMgQEAgc3RhdGljIGludCBh
+bWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIAlp
+ZiAoIWxwZm4pDQogCQlscGZuID0gbWFuLT5zaXplOw0KIA0KKwkvKiBiYWlsIG91dCBxdWlja2x5
+IGlmIHRoZXJlJ3MgbGlrZWx5IG5vdCBlbm91Z2ggVlJBTSBmb3IgdGhpcyBCTyAqLw0KKwlpZiAo
+YXRvbWljNjRfYWRkX3JldHVybihtZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51
+c2FnZSkgPiBhZGV2LT5nbWMubWNfdnJhbV9zaXplKSB7DQorCQlhdG9taWM2NF9zdWIobWVtLT5u
+dW1fcGFnZXMgPDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOw0KKwkJbWVtLT5tbV9ub2RlID0g
+TlVMTDsNCisJCXJldHVybiAwOw0KKwl9DQorDQogCWlmIChwbGFjZS0+ZmxhZ3MgJiBUVE1fUExf
+RkxBR19DT05USUdVT1VTKSB7DQogCQlwYWdlc19wZXJfbm9kZSA9IH4wdWw7DQogCQludW1fbm9k
+ZXMgPSAxOw0KQEAgLTMwMCw4ICszMDcsMTAgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3Jf
+bmV3KHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIA0KIAlub2RlcyA9IGt2bWFs
+bG9jX2FycmF5KCh1aW50MzJfdCludW1fbm9kZXMsIHNpemVvZigqbm9kZXMpLA0KIAkJCSAgICAg
+ICBHRlBfS0VSTkVMIHwgX19HRlBfWkVSTyk7DQotCWlmICghbm9kZXMpDQorCWlmICghbm9kZXMp
+IHsNCisJCWF0b21pYzY0X3N1YihtZW0tPm51bV9wYWdlcyA8PCBQQUdFX1NISUZULCAmbWdyLT51
+c2FnZSk7DQogCQlyZXR1cm4gLUVOT01FTTsNCisJfQ0KIA0KIAltb2RlID0gRFJNX01NX0lOU0VS
+VF9CRVNUOw0KIAlpZiAocGxhY2UtPmZsYWdzICYgVFRNX1BMX0ZMQUdfVE9QRE9XTikNCkBAIC0z
+MjEsNyArMzMwLDYgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVjdCB0dG1f
+bWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIAkJaWYgKHVubGlrZWx5KHIpKQ0KIAkJCWJyZWFrOw0K
+IA0KLQkJdXNhZ2UgKz0gbm9kZXNbaV0uc2l6ZSA8PCBQQUdFX1NISUZUOw0KIAkJdmlzX3VzYWdl
+ICs9IGFtZGdwdV92cmFtX21ncl92aXNfc2l6ZShhZGV2LCAmbm9kZXNbaV0pOw0KIAkJYW1kZ3B1
+X3ZyYW1fbWdyX3ZpcnRfc3RhcnQobWVtLCAmbm9kZXNbaV0pOw0KIAkJcGFnZXNfbGVmdCAtPSBw
+YWdlczsNCkBAIC0zNDEsMTQgKzM0OSwxMiBAQCBzdGF0aWMgaW50IGFtZGdwdV92cmFtX21ncl9u
+ZXcoc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2VyICptYW4sDQogCQlpZiAodW5saWtlbHkocikp
+DQogCQkJZ290byBlcnJvcjsNCiANCi0JCXVzYWdlICs9IG5vZGVzW2ldLnNpemUgPDwgUEFHRV9T
+SElGVDsNCiAJCXZpc191c2FnZSArPSBhbWRncHVfdnJhbV9tZ3JfdmlzX3NpemUoYWRldiwgJm5v
+ZGVzW2ldKTsNCiAJCWFtZGdwdV92cmFtX21ncl92aXJ0X3N0YXJ0KG1lbSwgJm5vZGVzW2ldKTsN
+CiAJCXBhZ2VzX2xlZnQgLT0gcGFnZXM7DQogCX0NCiAJc3Bpbl91bmxvY2soJm1nci0+bG9jayk7
+DQogDQotCWF0b21pYzY0X2FkZCh1c2FnZSwgJm1nci0+dXNhZ2UpOw0KIAlhdG9taWM2NF9hZGQo
+dmlzX3VzYWdlLCAmbWdyLT52aXNfdXNhZ2UpOw0KIA0KIAltZW0tPm1tX25vZGUgPSBub2RlczsN
+CkBAIC0zNTksNiArMzY1LDcgQEAgc3RhdGljIGludCBhbWRncHVfdnJhbV9tZ3JfbmV3KHN0cnVj
+dCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuLA0KIAl3aGlsZSAoaS0tKQ0KIAkJZHJtX21tX3Jl
+bW92ZV9ub2RlKCZub2Rlc1tpXSk7DQogCXNwaW5fdW5sb2NrKCZtZ3ItPmxvY2spOw0KKwlhdG9t
+aWM2NF9zdWIobWVtLT5udW1fcGFnZXMgPDwgUEFHRV9TSElGVCwgJm1nci0+dXNhZ2UpOw0KIA0K
+IAlrdmZyZWUobm9kZXMpOw0KIAlyZXR1cm4gciA9PSAtRU5PU1BDID8gMCA6IHI7DQotLSANCjIu
+MjEuMA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
