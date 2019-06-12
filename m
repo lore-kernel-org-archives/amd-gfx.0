@@ -1,74 +1,47 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v17 15/15] selftests, arm64: add a selftest for passing
- tagged pointers to kernel
-Date: Wed, 12 Jun 2019 16:00:42 +0100
-Message-ID: <20190612150040.GH28951@C02TF0J2HF1T.local>
-References: <cover.1560339705.git.andreyknvl@google.com>
- <e024234e652f23be4d76d63227de114e7def5dff.1560339705.git.andreyknvl@google.com>
- <7cd942c0-d4c1-0cf4-623a-bce6ef14d992@arm.com>
+From: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: only use kernel zone if need_dma32 is not required
+Date: Wed, 12 Jun 2019 15:13:14 +0000
+Message-ID: <20190612151250.816-1-Philip.Yang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-Content-Disposition: inline
-In-Reply-To: <7cd942c0-d4c1-0cf4-623a-bce6ef14d992@arm.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Szabolcs Nagy <Szabolcs.Nagy@arm.com>
-Cc: Mark Rutland <Mark.Rutland@arm.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Will Deacon <Will.Deacon@arm.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, Khalid Aziz <khalid.aziz@oracle.com>, "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <Vincenzo.Frascino@arm.com>nd <nd@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Dave P Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Yang, Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Jun 12, 2019 at 01:30:36PM +0100, Szabolcs Nagy wrote:
-> On 12/06/2019 12:43, Andrey Konovalov wrote:
-> > --- /dev/null
-> > +++ b/tools/testing/selftests/arm64/tags_lib.c
-> > @@ -0,0 +1,62 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +
-> > +#include <stdlib.h>
-> > +#include <sys/prctl.h>
-> > +
-> > +#define TAG_SHIFT	(56)
-> > +#define TAG_MASK	(0xffUL << TAG_SHIFT)
-> > +
-> > +#define PR_SET_TAGGED_ADDR_CTRL	55
-> > +#define PR_GET_TAGGED_ADDR_CTRL	56
-> > +#define PR_TAGGED_ADDR_ENABLE	(1UL << 0)
-> > +
-> > +void *__libc_malloc(size_t size);
-> > +void __libc_free(void *ptr);
-> > +void *__libc_realloc(void *ptr, size_t size);
-> > +void *__libc_calloc(size_t nmemb, size_t size);
-> 
-> this does not work on at least musl.
-> 
-> the most robust solution would be to implement
-> the malloc apis with mmap/munmap/mremap, if that's
-> too cumbersome then use dlsym RTLD_NEXT (although
-> that has the slight wart that in glibc it may call
-> calloc so wrapping calloc that way is tricky).
-> 
-> in simple linux tests i'd just use static or
-> stack allocations or mmap.
-> 
-> if a generic preloadable lib solution is needed
-> then do it properly with pthread_once to avoid
-> races etc.
-
-Thanks for the feedback Szabolcs. I guess we can go back to the initial
-simple test that Andrey had and drop the whole LD_PRELOAD hack (I'll
-just use it for my internal testing).
-
-BTW, when you get some time, please review Vincenzo's ABI documentation
-patches from a user/libc perspective. Once agreed, they should become
-part of this series.
-
--- 
-Catalin
+VFRNIGNyZWF0ZSB0d28gem9uZXMsIGtlcm5lbCB6b25lIGFuZCBkbWEzMiB6b25lIGZvciBzeXN0
+ZW0gbWVtb3J5LiBJZg0Kc3lzdGVtIG1lbW9yeSBhZGRyZXNzIGFsbG9jYXRlZCBpcyBiZWxvdyA0
+R0IsIHRoaXMgYWNjb3VudCB0byBkbWEzMiB6b25lDQphbmQgd2lsbCBleGhhdXN0IGRtYTMyIHpv
+bmUgYW5kIHRyaWdnZXIgdW5uZXNzc2FyeSBUVE0gZXZpY3Rpb24uDQoNClBhdGNoICJkcm0vdHRt
+OiBBY2NvdW50IGZvciBrZXJuZWwgYWxsb2NhdGlvbnMgaW4ga2VybmVsIHpvbmUgb25seSIgb25s
+eQ0KaGFuZGxlIHRoZSBhbGxvY2F0aW9uIGZvciBhY2Nfc2l6ZSwgdGhlIHN5c3RlbSBtZW1vcnkg
+cGFnZSBhbGxvY2F0aW9uIGlzDQp0aHJvdWdoIHR0bV9tZW1fZ2xvYmFsX2FsbG9jX3BhZ2Ugd2hp
+Y2ggc3RpbGwgYWNjb3VudCB0byBkbWEzMiB6b25lIGlmDQpwYWdlIGlzIGJlbG93IDRHQi4NCg0K
+Q2hhbmdlLUlkOiBJMjg5Yjg1ZDg5MWI4ZjY0YTE0MjJjNDJiMWVhYjM5ODA5OGFiN2VmNw0KU2ln
+bmVkLW9mZi1ieTogUGhpbGlwIFlhbmcgPFBoaWxpcC5ZYW5nQGFtZC5jb20+DQotLS0NCiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgfCA0ICsrKysNCiAxIGZpbGUgY2hh
+bmdlZCwgNCBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dHRtLmMNCmluZGV4IDI3NzhmZjYzZDk3ZC4uNzliYjlkZmU2MTdiIDEwMDY0NA0KLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jDQorKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMNCkBAIC0xNjg2LDYgKzE2ODYsMTAgQEAgaW50IGFt
+ZGdwdV90dG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAJfQ0KIAlhZGV2LT5t
+bWFuLmluaXRpYWxpemVkID0gdHJ1ZTsNCiANCisJLyogT25seSBrZXJuZWwgem9uZSAobm8gZG1h
+MzIgem9uZSkgaWYgZGV2aWNlIGRvZXMgbm90IHJlcXVpcmUgZG1hMzIgKi8NCisJaWYgKCFhZGV2
+LT5uZWVkX2RtYTMyKQ0KKwkJYWRldi0+bW1hbi5iZGV2Lmdsb2ItPm1lbV9nbG9iLT5udW1fem9u
+ZXMgPSAxOw0KKw0KIAkvKiBXZSBvcHQgdG8gYXZvaWQgT09NIG9uIHN5c3RlbSBwYWdlcyBhbGxv
+Y2F0aW9ucyAqLw0KIAlhZGV2LT5tbWFuLmJkZXYubm9fcmV0cnkgPSB0cnVlOw0KIA0KLS0gDQoy
+LjE3LjENCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
