@@ -1,45 +1,81 @@
 From: Andrey Konovalov <andreyknvl@google.com>
-Subject: Re: [PATCH v16 16/16] selftests, arm64: add a selftest for passing
- tagged pointers to kernel
-Date: Wed, 12 Jun 2019 13:14:30 +0200
-Message-ID: <CAAeHK+x4sHKfQx31uQ9zSO48oRs3XLATfymY=vgEHQ1FLNmeig@mail.gmail.com>
-References: <cover.1559580831.git.andreyknvl@google.com> <9e1b5998a28f82b16076fc85ab4f88af5381cf74.1559580831.git.andreyknvl@google.com>
- <20190611150122.GB63588@arrakis.emea.arm.com> <CAAeHK+wZrVXxAnDXBjoUy8JK9iG553G2Bp8uPWQ0u1u5gts0vQ@mail.gmail.com>
- <20190611175037.pflr6q6ob67zjj25@mbp>
+Subject: Re: [PATCH v16 08/16] fs, arm64: untag user pointers in copy_mount_options
+Date: Wed, 12 Jun 2019 13:36:36 +0200
+Message-ID: <CAAeHK+xCmc-x=Mvs8RC+xJOCw6AnEUgUzXXjjS3NJXeLwJkyqg@mail.gmail.com>
+References: <cover.1559580831.git.andreyknvl@google.com> <51f44a12c4e81c9edea8dcd268f820f5d1fad87c.1559580831.git.andreyknvl@google.com>
+ <201906072101.58C919E@keescook> <CAAeHK+y8CH4P3vheUDCEnPAuO-2L6mc-sz6wMA_hT=wC1Cy3KQ@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190611175037.pflr6q6ob67zjj25@mbp>
+In-Reply-To: <CAAeHK+y8CH4P3vheUDCEnPAuO-2L6mc-sz6wMA_hT=wC1Cy3KQ@mail.gmail.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
+To: Kees Cook <keescook@chromium.org>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Jun 11, 2019 at 7:50 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+On Tue, Jun 11, 2019 at 4:38 PM Andrey Konovalov <andreyknvl@google.com> wrote:
 >
-> On Tue, Jun 11, 2019 at 07:18:04PM +0200, Andrey Konovalov wrote:
-> > On Tue, Jun 11, 2019 at 5:01 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > > static void *tag_ptr(void *ptr)
-> > > {
-> > >         static int tagged_addr_err = 1;
-> > >         unsigned long tag = 0;
-> > >
-> > >         if (tagged_addr_err == 1)
-> > >                 tagged_addr_err = prctl(PR_SET_TAGGED_ADDR_CTRL,
-> > >                                         PR_TAGGED_ADDR_ENABLE, 0, 0, 0);
+> On Sat, Jun 8, 2019 at 6:02 AM Kees Cook <keescook@chromium.org> wrote:
 > >
-> > I think this requires atomics. malloc() can be called from multiple threads.
+> > On Mon, Jun 03, 2019 at 06:55:10PM +0200, Andrey Konovalov wrote:
+> > > This patch is a part of a series that extends arm64 kernel ABI to allow to
+> > > pass tagged user pointers (with the top byte set to something else other
+> > > than 0x00) as syscall arguments.
+> > >
+> > > In copy_mount_options a user address is being subtracted from TASK_SIZE.
+> > > If the address is lower than TASK_SIZE, the size is calculated to not
+> > > allow the exact_copy_from_user() call to cross TASK_SIZE boundary.
+> > > However if the address is tagged, then the size will be calculated
+> > > incorrectly.
+> > >
+> > > Untag the address before subtracting.
+> > >
+> > > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> >
+> > One thing I just noticed in the commit titles... "arm64" is in the
+> > prefix, but these are arch-indep areas. Should the ", arm64" be left
+> > out?
+> >
+> > I would expect, instead:
+> >
+> >         fs/namespace: untag user pointers in copy_mount_options
 >
-> It's slightly racy but I assume in a real libc it can be initialised
-> earlier than the hook calls while still in single-threaded mode (I had
-> a quick attempt with __attribute__((constructor)) but didn't get far).
->
-> Even with the race, under normal circumstances calling the prctl() twice
-> is not a problem. I think the risk here is that someone disables the ABI
-> via sysctl and the ABI is enabled for some of the threads only.
+> Hm, I've added the arm64 tag in all of the patches because they are
+> related to changes in arm64 kernel ABI. I can remove it from all the
+> patches that only touch common code if you think that it makes sense.
 
-OK, I'll keep the code racy, but add a comment pointing it out. Thanks!
+I'll keep the arm64 tags in commit titles for v17. Please reply
+explicitly if you think I should remove them. Thanks! :)
 
 >
-> --
-> Catalin
+> Thanks!
+>
+> >
+> > Reviewed-by: Kees Cook <keescook@chromium.org>
+> >
+> > -Kees
+> >
+> > > ---
+> > >  fs/namespace.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/fs/namespace.c b/fs/namespace.c
+> > > index b26778bdc236..2e85712a19ed 100644
+> > > --- a/fs/namespace.c
+> > > +++ b/fs/namespace.c
+> > > @@ -2993,7 +2993,7 @@ void *copy_mount_options(const void __user * data)
+> > >        * the remainder of the page.
+> > >        */
+> > >       /* copy_from_user cannot cross TASK_SIZE ! */
+> > > -     size = TASK_SIZE - (unsigned long)data;
+> > > +     size = TASK_SIZE - (unsigned long)untagged_addr(data);
+> > >       if (size > PAGE_SIZE)
+> > >               size = PAGE_SIZE;
+> > >
+> > > --
+> > > 2.22.0.rc1.311.g5d7573a151-goog
+> > >
+> >
+> > --
+> > Kees Cook
