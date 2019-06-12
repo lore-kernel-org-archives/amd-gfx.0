@@ -1,85 +1,86 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v3] drm/amdgpu: explicitly set mmGDS_VMID0_BASE to 0
-Date: Wed, 12 Jun 2019 15:18:07 +0200
-Message-ID: <99ecf05a-faa9-1c94-9043-f48001aa6337@gmail.com>
-References: <1560187603-16238-1-git-send-email-James.Zhu@amd.com>
- <1560345067-20838-1-git-send-email-James.Zhu@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Subject: Re: [PATCH v17 01/15] arm64: untag user pointers in access_ok and
+ __uaccess_mask_ptr
+Date: Wed, 12 Jun 2019 15:26:58 +0100
+Message-ID: <52e93b24-3302-e890-5799-6502042ea5c9@arm.com>
+References: <cover.1560339705.git.andreyknvl@google.com>
+ <9ed583c1a3acf014987e3aef12249506c1c69146.1560339705.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1560345067-20838-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <9ed583c1a3acf014987e3aef12249506c1c69146.1560339705.git.andreyknvl@google.com>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Shamis, Leonid" <Leonid.Shamis-5C7GfCeVMHo@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@redhat.com>, Leon Romanovsky <leon@kernel.org>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Dave Martin <Dave.Martin@arm.com>, Khalid Aziz <khalid.aziz@oracle.com>, enh <enh@google.com>, Jason Gunthorpe <jgg@ziepe.ca>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTIuMDYuMTkgdW0gMTU6MTEgc2NocmllYiBaaHUsIEphbWVzOgo+IEV4cGxpY2l0bHkgc2V0
-IG1tR0RTX1ZNSUQwX0JBU0UgdG8gMC4gQWxzbyB1cGRhdGUKPiBHRFNfVk1JRDBfQkFTRS9fU0la
-RSB3aXRoIGRpcmVjdCByZWdpc3RlciB3cml0ZXMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBa
-aHUgPEphbWVzLlpodUBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjlfMC5jIHwgMzUgKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0K
-PiAgIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCAxOCBkZWxldGlvbnMoLSkKPgo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IGluZGV4IGJhMzZhMjguLjIxNWE0
-YTAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiBAQCAtMzA1LDYg
-KzMwNSw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZ2V0X2N1X2luZm8oc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYsCj4gICBzdGF0aWMgdWludDY0X3QgZ2Z4X3Y5XzBfZ2V0X2dwdV9jbG9ja19j
-b3VudGVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKPiAgIHN0YXRpYyB2b2lkIGdmeF92
-OV8wX3NlbGVjdF9zZV9zaChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdTMyIHNlX251bSwg
-dTMyIHNoX251bSwgdTMyIGluc3RhbmNlKTsKPiAgIHN0YXRpYyB2b2lkIGdmeF92OV8wX3Jpbmdf
-ZW1pdF9kZV9tZXRhKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyk7Cj4gK3N0YXRpYyB1NjQgZ2Z4
-X3Y5XzBfcmluZ19nZXRfcnB0cl9jb21wdXRlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyk7Cj4g
-ICAKPiAgIHN0YXRpYyB2b2lkIGdmeF92OV8wX2luaXRfZ29sZGVuX3JlZ2lzdGVycyhzdHJ1Y3Qg
-YW1kZ3B1X2RldmljZSAqYWRldikKPiAgIHsKPiBAQCAtMzYzMCwyNSArMzYzMSwyMCBAQCBzdGF0
-aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19lbnRyeSBzZWNfZGVkX2NvdW50ZXJfcmVnaXN0ZXJz
-W10gPSB7Cj4gICAgICB7IFNPQzE1X1JFR19FTlRSWShHQywgMCwgbW1TUUNfRURDX0NOVDMpLCAw
-LCA0LCA2fSwKPiAgIH07Cj4gICAKPiAtCj4gICBzdGF0aWMgaW50IGdmeF92OV8wX2RvX2VkY19n
-ZHNfd29ya2Fyb3VuZHMoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICB7Cj4gICAJc3Ry
-dWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFkZXYtPmdmeC5jb21wdXRlX3JpbmdbMF07Cj4gLQlp
-bnQgcjsKPiArCWludCBpLCByOwo+ICAgCj4gLQlyID0gYW1kZ3B1X3JpbmdfYWxsb2MocmluZywg
-MTcpOwo+ICsJciA9IGFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDcpOwo+ICAgCWlmIChyKSB7Cj4g
-ICAJCURSTV9FUlJPUigiYW1kZ3B1OiBHRFMgd29ya2Fyb3VuZHMgZmFpbGVkIHRvIGxvY2sgcmlu
-ZyAlcyAoJWQpLlxuIiwKPiAgIAkJCXJpbmctPm5hbWUsIHIpOwo+ICAgCQlyZXR1cm4gcjsKPiAg
-IAl9Cj4gICAKPiAtCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19XUklU
-RV9EQVRBLCAzKSk7Cj4gLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBXUklURV9EQVRBX0VOR0lO
-RV9TRUwoMCkgfAo+IC0JCQkJV1JJVEVfREFUQV9EU1RfU0VMKDApKTsKPiAtCWFtZGdwdV9yaW5n
-X3dyaXRlKHJpbmcsIFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tR0RTX1ZNSUQwX1NJWkUpKTsK
-PiAtCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIDApOwo+IC0JYW1kZ3B1X3Jpbmdfd3JpdGUocmlu
-ZywgYWRldi0+Z2RzLmdkc19zaXplKTsKPiArCVdSRUczMl9TT0MxNShHQywgMCwgbW1HRFNfVk1J
-RDBfQkFTRSwgMHgwMDAwMDAwMCk7Cj4gKwlXUkVHMzJfU09DMTUoR0MsIDAsIG1tR0RTX1ZNSUQw
-X1NJWkUsIGFkZXYtPmdkcy5nZHNfc2l6ZSk7Cj4gICAKPiAgIAlhbWRncHVfcmluZ193cml0ZShy
-aW5nLCBQQUNLRVQzKFBBQ0tFVDNfRE1BX0RBVEEsIDUpKTsKPiAgIAlhbWRncHVfcmluZ193cml0
-ZShyaW5nLCAoUEFDS0VUM19ETUFfREFUQV9DUF9TWU5DIHwKPiBAQCAtMzY2MiwxOCArMzY1OCwy
-MSBAQCBzdGF0aWMgaW50IGdmeF92OV8wX2RvX2VkY19nZHNfd29ya2Fyb3VuZHMoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpCj4gICAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUM19E
-TUFfREFUQV9DTURfUkFXX1dBSVQgfAo+ICAgCQkJCWFkZXYtPmdkcy5nZHNfc2l6ZSk7Cj4gICAK
-PiAtCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDMoUEFDS0VUM19XUklURV9EQVRBLCAz
-KSk7Cj4gLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBXUklURV9EQVRBX0VOR0lORV9TRUwoMCkg
-fAo+IC0JCQkJV1JJVEVfREFUQV9EU1RfU0VMKDApKTsKPiAtCWFtZGdwdV9yaW5nX3dyaXRlKHJp
-bmcsIFNPQzE1X1JFR19PRkZTRVQoR0MsIDAsIG1tR0RTX1ZNSUQwX1NJWkUpKTsKPiAtCWFtZGdw
-dV9yaW5nX3dyaXRlKHJpbmcsIDApOwo+IC0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMHgwKTsK
-PiAtCj4gICAJYW1kZ3B1X3JpbmdfY29tbWl0KHJpbmcpOwo+ICAgCj4gLQlyZXR1cm4gMDsKPiAt
-fQo+ICsJZm9yIChpID0gMDsgaSA8IGFkZXYtPnVzZWNfdGltZW91dDsgaSsrKSB7Cj4gKwkJaWYg
-KHJpbmctPndwdHIgPT0gZ2Z4X3Y5XzBfcmluZ19nZXRfcnB0cl9jb21wdXRlKHJpbmcpKQo+ICsJ
-CQlicmVhazsKPiArCQl1ZGVsYXkoMSk7Cj4gKwl9Cj4gKwo+ICsJaWYgKGkgPj0gYWRldi0+dXNl
-Y190aW1lb3V0KQo+ICsJCXIgPSAtRVRJTUVET1VUOwo+ICsKPiArCVdSRUczMl9TT0MxNShHQywg
-MCwgbW1HRFNfVk1JRDBfU0laRSwgMHgwMDAwMDAwMCk7Cj4gICAKPiArCXJldHVybiByOwo+ICt9
-Cj4gICAKPiAgIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZG9fZWRjX2dwcl93b3JrYXJvdW5kcyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIHsKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeA==
+On 12/06/2019 12:43, Andrey Konovalov wrote:
+> This patch is a part of a series that extends arm64 kernel ABI to allow to
+> pass tagged user pointers (with the top byte set to something else other
+> than 0x00) as syscall arguments.
+> 
+> copy_from_user (and a few other similar functions) are used to copy data
+> from user memory into the kernel memory or vice versa. Since a user can
+> provided a tagged pointer to one of the syscalls that use copy_from_user,
+> we need to correctly handle such pointers.
+> 
+> Do this by untagging user pointers in access_ok and in __uaccess_mask_ptr,
+> before performing access validity checks.
+> 
+> Note, that this patch only temporarily untags the pointers to perform the
+> checks, but then passes them as is into the kernel internals.
+> 
+> Reviewed-by: Kees Cook <keescook@chromium.org>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+
+Reviewed-by: Vincenzo Frascino <vincenzo.frascino@arm.com>
+
+> ---
+>  arch/arm64/include/asm/uaccess.h | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uaccess.h
+> index e5d5f31c6d36..df729afca0ba 100644
+> --- a/arch/arm64/include/asm/uaccess.h
+> +++ b/arch/arm64/include/asm/uaccess.h
+> @@ -73,6 +73,8 @@ static inline unsigned long __range_ok(const void __user *addr, unsigned long si
+>  {
+>  	unsigned long ret, limit = current_thread_info()->addr_limit;
+>  
+> +	addr = untagged_addr(addr);
+> +
+>  	__chk_user_ptr(addr);
+>  	asm volatile(
+>  	// A + B <= C + 1 for all A,B,C, in four easy steps:
+> @@ -226,7 +228,8 @@ static inline void uaccess_enable_not_uao(void)
+>  
+>  /*
+>   * Sanitise a uaccess pointer such that it becomes NULL if above the
+> - * current addr_limit.
+> + * current addr_limit. In case the pointer is tagged (has the top byte set),
+> + * untag the pointer before checking.
+>   */
+>  #define uaccess_mask_ptr(ptr) (__typeof__(ptr))__uaccess_mask_ptr(ptr)
+>  static inline void __user *__uaccess_mask_ptr(const void __user *ptr)
+> @@ -234,10 +237,11 @@ static inline void __user *__uaccess_mask_ptr(const void __user *ptr)
+>  	void __user *safe_ptr;
+>  
+>  	asm volatile(
+> -	"	bics	xzr, %1, %2\n"
+> +	"	bics	xzr, %3, %2\n"
+>  	"	csel	%0, %1, xzr, eq\n"
+>  	: "=&r" (safe_ptr)
+> -	: "r" (ptr), "r" (current_thread_info()->addr_limit)
+> +	: "r" (ptr), "r" (current_thread_info()->addr_limit),
+> +	  "r" (untagged_addr(ptr))
+>  	: "cc");
+>  
+>  	csdb();
+> 
+
+-- 
+Regards,
+Vincenzo
