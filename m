@@ -1,84 +1,104 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: explicitly set mmGDS_VMID0_BASE to 0
-Date: Wed, 12 Jun 2019 10:08:26 +0200
-Message-ID: <2eea4e60-194d-c7d6-4b29-2a7439f6edf3@gmail.com>
-References: <1560187603-16238-1-git-send-email-James.Zhu@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v16 02/16] arm64: untag user pointers in access_ok and
+ __uaccess_mask_ptr
+Date: Wed, 12 Jun 2019 10:32:00 +0100
+Message-ID: <20190612093158.GG10165@c02tf0j2hf1t.cambridge.arm.com>
+References: <cover.1559580831.git.andreyknvl@google.com>
+ <4327b260fb17c4776a1e3c844f388e4948cfb747.1559580831.git.andreyknvl@google.com>
+ <20190610175326.GC25803@arrakis.emea.arm.com>
+ <20190611145720.GA63588@arrakis.emea.arm.com>
+ <d3dc2b1f-e8c9-c60d-f648-0bc9b08f20e4@arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1560187603-16238-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Shamis, Leonid" <Leonid.Shamis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <d3dc2b1f-e8c9-c60d-f648-0bc9b08f20e4@arm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: Andrey Konovalov <andreyknvl@google.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Khalid Aziz <khalid.aziz@oracle.com>, linux-kselftest@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTAuMDYuMTkgdW0gMTk6MjYgc2NocmllYiBaaHUsIEphbWVzOgo+IEV4cGxpY2l0bHkgc2V0
-IG1tR0RTX1ZNSUQwX0JBU0UgdG8gMC4gQWxzbyB1cGRhdGUKPiBHRFNfVk1JRDBfQkFTRS9fU0la
-RSB3aXRoIGRpcmVjdCByZWdpc3RlciB3cml0ZXMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBKYW1lcyBa
-aHUgPEphbWVzLlpodUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ2Z4X3Y5XzAuYyB8IDMzICsrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLQo+ICAg
-MSBmaWxlIGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDE4IGRlbGV0aW9ucygtKQo+Cj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gaW5kZXggYmEzNmEyOC4uNzhjNzllOSAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IEBAIC0zMDUsNiArMzA1
-LDcgQEAgc3RhdGljIGludCBnZnhfdjlfMF9nZXRfY3VfaW5mbyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwKPiAgIHN0YXRpYyB1aW50NjRfdCBnZnhfdjlfMF9nZXRfZ3B1X2Nsb2NrX2NvdW50
-ZXIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOwo+ICAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBf
-c2VsZWN0X3NlX3NoKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgc2VfbnVtLCB1MzIg
-c2hfbnVtLCB1MzIgaW5zdGFuY2UpOwo+ICAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfcmluZ19lbWl0
-X2RlX21ldGEoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKTsKPiArc3RhdGljIHU2NCBnZnhfdjlf
-MF9yaW5nX2dldF9ycHRyX2NvbXB1dGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKTsKPiAgIAo+
-ICAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfaW5pdF9nb2xkZW5fcmVnaXN0ZXJzKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KQo+ICAgewo+IEBAIC0zNjMwLDI1ICszNjMxLDIwIEBAIHN0YXRpYyBj
-b25zdCBzdHJ1Y3Qgc29jMTVfcmVnX2VudHJ5IHNlY19kZWRfY291bnRlcl9yZWdpc3RlcnNbXSA9
-IHsKPiAgICAgIHsgU09DMTVfUkVHX0VOVFJZKEdDLCAwLCBtbVNRQ19FRENfQ05UMyksIDAsIDQs
-IDZ9LAo+ICAgfTsKPiAgIAo+IC0KPiAgIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZG9fZWRjX2dkc193
-b3JrYXJvdW5kcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIHsKPiAgIAlzdHJ1Y3Qg
-YW1kZ3B1X3JpbmcgKnJpbmcgPSAmYWRldi0+Z2Z4LmNvbXB1dGVfcmluZ1swXTsKPiAtCWludCBy
-Owo+ICsJaW50IGksIHI7Cj4gICAKPiAtCXIgPSBhbWRncHVfcmluZ19hbGxvYyhyaW5nLCAxNyk7
-Cj4gKwlyID0gYW1kZ3B1X3JpbmdfYWxsb2MocmluZywgNyk7Cj4gICAJaWYgKHIpIHsKPiAgIAkJ
-RFJNX0VSUk9SKCJhbWRncHU6IEdEUyB3b3JrYXJvdW5kcyBmYWlsZWQgdG8gbG9jayByaW5nICVz
-ICglZCkuXG4iLAo+ICAgCQkJcmluZy0+bmFtZSwgcik7Cj4gICAJCXJldHVybiByOwo+ICAgCX0K
-PiAgIAo+IC0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1dSSVRFX0RB
-VEEsIDMpKTsKPiAtCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFdSSVRFX0RBVEFfRU5HSU5FX1NF
-TCgwKSB8Cj4gLQkJCQlXUklURV9EQVRBX0RTVF9TRUwoMCkpOwo+IC0JYW1kZ3B1X3Jpbmdfd3Jp
-dGUocmluZywgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBfU0laRSkpOwo+IC0J
-YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMCk7Cj4gLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBh
-ZGV2LT5nZHMuZ2RzX3NpemUpOwo+ICsJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdEU19WTUlEMF9C
-QVNFLCAweDAwMDAwMDAwKTsKPiArCVdSRUczMl9TT0MxNShHQywgMCwgbW1HRFNfVk1JRDBfU0la
-RSwgYWRldi0+Z2RzLmdkc19zaXplKTsKPiAgIAo+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcs
-IFBBQ0tFVDMoUEFDS0VUM19ETUFfREFUQSwgNSkpOwo+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJp
-bmcsIChQQUNLRVQzX0RNQV9EQVRBX0NQX1NZTkMgfAo+IEBAIC0zNjYyLDE4ICszNjU4LDE5IEBA
-IHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZG9fZWRjX2dkc193b3JrYXJvdW5kcyhzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikKPiAgIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQzX0RNQV9E
-QVRBX0NNRF9SQVdfV0FJVCB8Cj4gICAJCQkJYWRldi0+Z2RzLmdkc19zaXplKTsKPiAgIAo+IC0J
-YW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1dSSVRFX0RBVEEsIDMpKTsK
-PiAtCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFdSSVRFX0RBVEFfRU5HSU5FX1NFTCgwKSB8Cj4g
-LQkJCQlXUklURV9EQVRBX0RTVF9TRUwoMCkpOwo+IC0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywg
-U09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBfU0laRSkpOwo+IC0JYW1kZ3B1X3Jp
-bmdfd3JpdGUocmluZywgMCk7Cj4gLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCAweDApOwo+IC0K
-PiAgIAlhbWRncHVfcmluZ19jb21taXQocmluZyk7Cj4gICAKPiAtCXJldHVybiAwOwo+IC19Cj4g
-Kwlmb3IgKGkgPSAwOyAoaSA8IGFkZXYtPnVzZWNfdGltZW91dCkgJiYKPiArCQkJKHJpbmctPndw
-dHIgIT0gZ2Z4X3Y5XzBfcmluZ19nZXRfcnB0cl9jb21wdXRlKHJpbmcpKTsgaSsrKQoKVGhlIGlu
-ZGVudGF0aW9uIGhlcmUgbG9va3Mgd3Jvbmcgb24gZmlyc3QgZ2xhbmNlIGFuZCB5b3UgZG9uJ3Qg
-bmVlZCB0aGUgCmV4dHJhICgpLgoKTWlnaHQgYmUgYmV0dGVyIHRvIHdyaXRlIHRoaXMgYXMgZm9y
-ICsgaWYuLmJyZWFrLgoKPiArCQlEUk1fVURFTEFZKDEpOwo+ICsKPiArCWlmIChpID49IGFkZXYt
-PnVzZWNfdGltZW91dCkKPiArCQlyID0gLUVUSU1FRE9VVDsKPiArCj4gKwlXUkVHMzJfU09DMTUo
-R0MsIDAsIG1tR0RTX1ZNSUQwX1NJWkUsIDB4MDAwMDAwMDApOwo+ICAgCj4gKwlyZXR1cm4gcjsK
-PiArfQo+ICAgCj4gICBzdGF0aWMgaW50IGdmeF92OV8wX2RvX2VkY19ncHJfd29ya2Fyb3VuZHMo
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICB7CgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZng=
+Hi Vincenzo,
+
+On Tue, Jun 11, 2019 at 06:09:10PM +0100, Vincenzo Frascino wrote:
+> > diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+> > index 3767fb21a5b8..69d0be1fc708 100644
+> > --- a/arch/arm64/kernel/process.c
+> > +++ b/arch/arm64/kernel/process.c
+> > @@ -30,6 +30,7 @@
+> >  #include <linux/kernel.h>
+> >  #include <linux/mm.h>
+> >  #include <linux/stddef.h>
+> > +#include <linux/sysctl.h>
+> >  #include <linux/unistd.h>
+> >  #include <linux/user.h>
+> >  #include <linux/delay.h>
+> > @@ -323,6 +324,7 @@ void flush_thread(void)
+> >  	fpsimd_flush_thread();
+> >  	tls_thread_flush();
+> >  	flush_ptrace_hw_breakpoint(current);
+> > +	clear_thread_flag(TIF_TAGGED_ADDR);
+> 
+> Nit: in line we the other functions in thread_flush we could have something like
+> "tagged_addr_thread_flush", maybe inlined.
+
+The other functions do a lot more than clearing a TIF flag, so they
+deserved their own place. We could do this when adding MTE support. I
+think we also need to check what other TIF flags we may inadvertently
+pass on execve(), maybe have a mask clearing.
+
+> > diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
+> > index 094bb03b9cc2..2e927b3e9d6c 100644
+> > --- a/include/uapi/linux/prctl.h
+> > +++ b/include/uapi/linux/prctl.h
+> > @@ -229,4 +229,9 @@ struct prctl_mm_map {
+> >  # define PR_PAC_APDBKEY			(1UL << 3)
+> >  # define PR_PAC_APGAKEY			(1UL << 4)
+> >  
+> > +/* Tagged user address controls for arm64 */
+> > +#define PR_SET_TAGGED_ADDR_CTRL		55
+> > +#define PR_GET_TAGGED_ADDR_CTRL		56
+> > +# define PR_TAGGED_ADDR_ENABLE		(1UL << 0)
+> > +
+> >  #endif /* _LINUX_PRCTL_H */
+> > diff --git a/kernel/sys.c b/kernel/sys.c
+> > index 2969304c29fe..ec48396b4943 100644
+> > --- a/kernel/sys.c
+> > +++ b/kernel/sys.c
+> > @@ -124,6 +124,12 @@
+> >  #ifndef PAC_RESET_KEYS
+> >  # define PAC_RESET_KEYS(a, b)	(-EINVAL)
+> >  #endif
+> > +#ifndef SET_TAGGED_ADDR_CTRL
+> > +# define SET_TAGGED_ADDR_CTRL(a)	(-EINVAL)
+> > +#endif
+> > +#ifndef GET_TAGGED_ADDR_CTRL
+> > +# define GET_TAGGED_ADDR_CTRL()		(-EINVAL)
+> > +#endif
+> >  
+> >  /*
+> >   * this is where the system-wide overflow UID and GID are defined, for
+> > @@ -2492,6 +2498,16 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+> >  			return -EINVAL;
+> >  		error = PAC_RESET_KEYS(me, arg2);
+> >  		break;
+> > +	case PR_SET_TAGGED_ADDR_CTRL:
+> > +		if (arg3 || arg4 || arg5)
+> > +			return -EINVAL;
+> > +		error = SET_TAGGED_ADDR_CTRL(arg2);
+> > +		break;
+> > +	case PR_GET_TAGGED_ADDR_CTRL:
+> > +		if (arg2 || arg3 || arg4 || arg5)
+> > +			return -EINVAL;
+> > +		error = GET_TAGGED_ADDR_CTRL();
+> > +		break;
+> 
+> Why do we need two prctl here? We could have only one and use arg2 as set/get
+> and arg3 as a parameter. What do you think?
+
+This follows the other PR_* options, e.g. PR_SET_VL/GET_VL,
+PR_*_FP_MODE. We will use other bits in arg2, for example to set the
+precise vs imprecise MTE trapping.
+
+-- 
+Catalin
