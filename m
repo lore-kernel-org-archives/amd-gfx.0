@@ -1,95 +1,79 @@
-From: Szabolcs Nagy <Szabolcs.Nagy@arm.com>
-Subject: Re: [PATCH v17 15/15] selftests, arm64: add a selftest for passing
- tagged pointers to kernel
-Date: Wed, 12 Jun 2019 12:30:36 +0000
-Message-ID: <7cd942c0-d4c1-0cf4-623a-bce6ef14d992@arm.com>
-References: <cover.1560339705.git.andreyknvl@google.com>
- <e024234e652f23be4d76d63227de114e7def5dff.1560339705.git.andreyknvl@google.com>
+From: "Zhu, James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2] drm/amdgpu: explicitly set mmGDS_VMID0_BASE to 0
+Date: Wed, 12 Jun 2019 12:59:35 +0000
+Message-ID: <1560344364-20059-1-git-send-email-James.Zhu@amd.com>
+References: <1560187603-16238-1-git-send-email-James.Zhu@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <e024234e652f23be4d76d63227de114e7def5dff.1560339705.git.andreyknvl@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <1560187603-16238-1-git-send-email-James.Zhu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
-Content-ID: <2FA45C6A3FFA994DA2213028275DFA44@eurprd08.prod.outlook.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Andrey Konovalov <andreyknvl@google.com>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>
-Cc: Mark Rutland <Mark.Rutland@arm.com>, Catalin Marinas <Catalin.Marinas@arm.com>, Will Deacon <Will.Deacon@arm.com>, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <Vincenzo.Frascino@arm.com>nd <nd@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dave P Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, Kevin Brodsky <Kevin.Brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishai>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Shamis, Leonid" <Leonid.Shamis-5C7GfCeVMHo@public.gmane.org>, "ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org" <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Zhu,
+ James" <James.Zhu-5C7GfCeVMHo@public.gmane.org>
 
-On 12/06/2019 12:43, Andrey Konovalov wrote:
-> --- /dev/null
-> +++ b/tools/testing/selftests/arm64/tags_lib.c
-> @@ -0,0 +1,62 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +#include <stdlib.h>
-> +#include <sys/prctl.h>
-> +
-> +#define TAG_SHIFT	(56)
-> +#define TAG_MASK	(0xffUL << TAG_SHIFT)
-> +
-> +#define PR_SET_TAGGED_ADDR_CTRL	55
-> +#define PR_GET_TAGGED_ADDR_CTRL	56
-> +#define PR_TAGGED_ADDR_ENABLE	(1UL << 0)
-> +
-> +void *__libc_malloc(size_t size);
-> +void __libc_free(void *ptr);
-> +void *__libc_realloc(void *ptr, size_t size);
-> +void *__libc_calloc(size_t nmemb, size_t size);
-
-this does not work on at least musl.
-
-the most robust solution would be to implement
-the malloc apis with mmap/munmap/mremap, if that's
-too cumbersome then use dlsym RTLD_NEXT (although
-that has the slight wart that in glibc it may call
-calloc so wrapping calloc that way is tricky).
-
-in simple linux tests i'd just use static or
-stack allocations or mmap.
-
-if a generic preloadable lib solution is needed
-then do it properly with pthread_once to avoid
-races etc.
-
-> +
-> +static void *tag_ptr(void *ptr)
-> +{
-> +	static int tagged_addr_err = 1;
-> +	unsigned long tag = 0;
-> +
-> +	/*
-> +	 * Note that this code is racy. We only use it as a part of a single
-> +	 * threaded test application. Beware of using in multithreaded ones.
-> +	 */
-> +	if (tagged_addr_err == 1)
-> +		tagged_addr_err = prctl(PR_SET_TAGGED_ADDR_CTRL,
-> +				PR_TAGGED_ADDR_ENABLE, 0, 0, 0);
-> +
-> +	if (!ptr)
-> +		return ptr;
-> +	if (!tagged_addr_err)
-> +		tag = rand() & 0xff;
-> +
-> +	return (void *)((unsigned long)ptr | (tag << TAG_SHIFT));
-> +}
-> +
-> +static void *untag_ptr(void *ptr)
-> +{
-> +	return (void *)((unsigned long)ptr & ~TAG_MASK);
-> +}
-> +
-> +void *malloc(size_t size)
-> +{
-> +	return tag_ptr(__libc_malloc(size));
-> +}
-...
+RXhwbGljaXRseSBzZXQgbW1HRFNfVk1JRDBfQkFTRSB0byAwLiBBbHNvIHVwZGF0ZQ0KR0RTX1ZN
+SUQwX0JBU0UvX1NJWkUgd2l0aCBkaXJlY3QgcmVnaXN0ZXIgd3JpdGVzLg0KDQpTaWduZWQtb2Zm
+LWJ5OiBKYW1lcyBaaHUgPEphbWVzLlpodUBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyB8IDM1ICsrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0t
+LS0tLS0tDQogMSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKyksIDE4IGRlbGV0aW9ucygt
+KQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMNCmluZGV4IGJhMzZhMjguLjJl
+MDU4YmYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
+DQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jDQpAQCAtMzA1LDYg
+KzMwNSw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZ2V0X2N1X2luZm8oc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYsDQogc3RhdGljIHVpbnQ2NF90IGdmeF92OV8wX2dldF9ncHVfY2xvY2tfY291
+bnRlcihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQogc3RhdGljIHZvaWQgZ2Z4X3Y5XzBf
+c2VsZWN0X3NlX3NoKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LCB1MzIgc2VfbnVtLCB1MzIg
+c2hfbnVtLCB1MzIgaW5zdGFuY2UpOw0KIHN0YXRpYyB2b2lkIGdmeF92OV8wX3JpbmdfZW1pdF9k
+ZV9tZXRhKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZyk7DQorc3RhdGljIHU2NCBnZnhfdjlfMF9y
+aW5nX2dldF9ycHRyX2NvbXB1dGUoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKTsNCiANCiBzdGF0
+aWMgdm9pZCBnZnhfdjlfMF9pbml0X2dvbGRlbl9yZWdpc3RlcnMoc3RydWN0IGFtZGdwdV9kZXZp
+Y2UgKmFkZXYpDQogew0KQEAgLTM2MzAsMjUgKzM2MzEsMjAgQEAgc3RhdGljIGNvbnN0IHN0cnVj
+dCBzb2MxNV9yZWdfZW50cnkgc2VjX2RlZF9jb3VudGVyX3JlZ2lzdGVyc1tdID0gew0KICAgIHsg
+U09DMTVfUkVHX0VOVFJZKEdDLCAwLCBtbVNRQ19FRENfQ05UMyksIDAsIDQsIDZ9LA0KIH07DQog
+DQotDQogc3RhdGljIGludCBnZnhfdjlfMF9kb19lZGNfZ2RzX3dvcmthcm91bmRzKHN0cnVjdCBh
+bWRncHVfZGV2aWNlICphZGV2KQ0KIHsNCiAJc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nID0gJmFk
+ZXYtPmdmeC5jb21wdXRlX3JpbmdbMF07DQotCWludCByOw0KKwlpbnQgaSwgcjsNCiANCi0JciA9
+IGFtZGdwdV9yaW5nX2FsbG9jKHJpbmcsIDE3KTsNCisJciA9IGFtZGdwdV9yaW5nX2FsbG9jKHJp
+bmcsIDcpOw0KIAlpZiAocikgew0KIAkJRFJNX0VSUk9SKCJhbWRncHU6IEdEUyB3b3JrYXJvdW5k
+cyBmYWlsZWQgdG8gbG9jayByaW5nICVzICglZCkuXG4iLA0KIAkJCXJpbmctPm5hbWUsIHIpOw0K
+IAkJcmV0dXJuIHI7DQogCX0NCiANCi0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQ
+QUNLRVQzX1dSSVRFX0RBVEEsIDMpKTsNCi0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgV1JJVEVf
+REFUQV9FTkdJTkVfU0VMKDApIHwNCi0JCQkJV1JJVEVfREFUQV9EU1RfU0VMKDApKTsNCi0JYW1k
+Z3B1X3Jpbmdfd3JpdGUocmluZywgU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBf
+U0laRSkpOw0KLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCAwKTsNCi0JYW1kZ3B1X3Jpbmdfd3Jp
+dGUocmluZywgYWRldi0+Z2RzLmdkc19zaXplKTsNCisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdE
+U19WTUlEMF9CQVNFLCAweDAwMDAwMDAwKTsNCisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdEU19W
+TUlEMF9TSVpFLCBhZGV2LT5nZHMuZ2RzX3NpemUpOw0KIA0KIAlhbWRncHVfcmluZ193cml0ZShy
+aW5nLCBQQUNLRVQzKFBBQ0tFVDNfRE1BX0RBVEEsIDUpKTsNCiAJYW1kZ3B1X3Jpbmdfd3JpdGUo
+cmluZywgKFBBQ0tFVDNfRE1BX0RBVEFfQ1BfU1lOQyB8DQpAQCAtMzY2MiwxOCArMzY1OCwyMSBA
+QCBzdGF0aWMgaW50IGdmeF92OV8wX2RvX2VkY19nZHNfd29ya2Fyb3VuZHMoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYpDQogCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tFVDNfRE1BX0RB
+VEFfQ01EX1JBV19XQUlUIHwNCiAJCQkJYWRldi0+Z2RzLmdkc19zaXplKTsNCiANCi0JYW1kZ3B1
+X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX1dSSVRFX0RBVEEsIDMpKTsNCi0JYW1k
+Z3B1X3Jpbmdfd3JpdGUocmluZywgV1JJVEVfREFUQV9FTkdJTkVfU0VMKDApIHwNCi0JCQkJV1JJ
+VEVfREFUQV9EU1RfU0VMKDApKTsNCi0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgU09DMTVfUkVH
+X09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBfU0laRSkpOw0KLQlhbWRncHVfcmluZ193cml0ZShy
+aW5nLCAwKTsNCi0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgMHgwKTsNCi0NCiAJYW1kZ3B1X3Jp
+bmdfY29tbWl0KHJpbmcpOw0KIA0KLQlyZXR1cm4gMDsNCi19DQorCWZvciAoaSA9IDA7IGkgPCBh
+ZGV2LT51c2VjX3RpbWVvdXQ7IGkrKykgew0KKwkJaWYgKHJpbmctPndwdHIgPT0gZ2Z4X3Y5XzBf
+cmluZ19nZXRfcnB0cl9jb21wdXRlKHJpbmcpKQ0KKwkJCWJyZWFrOw0KKwkJRFJNX1VERUxBWSgx
+KTsNCisJfQ0KKw0KKwlpZiAoaSA+PSBhZGV2LT51c2VjX3RpbWVvdXQpDQorCQlyID0gLUVUSU1F
+RE9VVDsNCisNCisJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbUdEU19WTUlEMF9TSVpFLCAweDAwMDAw
+MDAwKTsNCiANCisJcmV0dXJuIHI7DQorfQ0KIA0KIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfZG9fZWRj
+X2dwcl93b3JrYXJvdW5kcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiB7DQotLSANCjIu
+Ny40DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
