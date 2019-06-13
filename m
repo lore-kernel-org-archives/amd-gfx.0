@@ -1,70 +1,111 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] radeon: no need to check return value of debugfs_create
- functions
-Date: Thu, 13 Jun 2019 10:54:41 -0400
-Message-ID: <CADnq5_NFYOeDMu0P9XhE27x9Zqq=jU-+ihEFG_G-R_VJXAxqFw@mail.gmail.com>
-References: <20190613115631.GA26335@kroah.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
+ the tagged user addresses ABI
+Date: Thu, 13 Jun 2019 16:26:32 +0100
+Message-ID: <20190613152632.GT28951@C02TF0J2HF1T.local>
+References: <cover.1560339705.git.andreyknvl@google.com>
+ <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
+ <20190613110235.GW28398@e103592.cambridge.arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190613115631.GA26335@kroah.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: David Airlie <airlied@linux.ie>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190613110235.GW28398@e103592.cambridge.arm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dave Martin <Dave.Martin@arm.com>
+Cc: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Mark Rutland <mark.rutland@arm.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Evgeniy Stepanov <eugenis@google.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBKdW4gMTMsIDIwMTkgYXQgNzo1NiBBTSBHcmVnIEtyb2FoLUhhcnRtYW4KPGdyZWdr
-aEBsaW51eGZvdW5kYXRpb24ub3JnPiB3cm90ZToKPgo+IFdoZW4gY2FsbGluZyBkZWJ1Z2ZzIGZ1
-bmN0aW9ucywgdGhlcmUgaXMgbm8gbmVlZCB0byBldmVyIGNoZWNrIHRoZQo+IHJldHVybiB2YWx1
-ZS4gIFRoZSBmdW5jdGlvbiBjYW4gd29yayBvciBub3QsIGJ1dCB0aGUgY29kZSBsb2dpYyBzaG91
-bGQKPiBuZXZlciBkbyBzb21ldGhpbmcgZGlmZmVyZW50IGJhc2VkIG9uIHRoaXMuCj4KPiBDYzog
-QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IENjOiAiQ2hyaXN0aWFu
-IEvDtm5pZyIgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBDYzogIkRhdmlkIChDaHVuTWlu
-ZykgWmhvdSIgPERhdmlkMS5aaG91QGFtZC5jb20+Cj4gQ2M6IERhdmlkIEFpcmxpZSA8YWlybGll
-ZEBsaW51eC5pZT4KPiBDYzogRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgo+IENjOiBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCj4gU2lnbmVkLW9mZi1ieTogR3JlZyBLcm9haC1IYXJ0bWFuIDxncmVna2hAbGlu
-dXhmb3VuZGF0aW9uLm9yZz4KCkFwcGxpZWQgYWxsIHRoZSByYWRlb24gYW5kIGFtZGdwdSBwYXRj
-aGVzLiAgVGhhbmtzIQoKQWxleAoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
-b25fdHRtLmMgfCAyMSArKysrKysrKy0tLS0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDgg
-aW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
-bl90dG0uYwo+IGluZGV4IDVkNDJmOGQ4ZTY4ZC4uNmJiY2NjNzk2ZTQwIDEwMDY0NAo+IC0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCj4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKPiBAQCAtMTA1NiwxOSArMTA1NiwxNCBAQCBzdGF0aWMg
-aW50IHJhZGVvbl90dG1fZGVidWdmc19pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQo+
-ICAgICAgICAgdW5zaWduZWQgY291bnQ7Cj4KPiAgICAgICAgIHN0cnVjdCBkcm1fbWlub3IgKm1p
-bm9yID0gcmRldi0+ZGRldi0+cHJpbWFyeTsKPiAtICAgICAgIHN0cnVjdCBkZW50cnkgKmVudCwg
-KnJvb3QgPSBtaW5vci0+ZGVidWdmc19yb290Owo+IC0KPiAtICAgICAgIGVudCA9IGRlYnVnZnNf
-Y3JlYXRlX2ZpbGUoInJhZGVvbl92cmFtIiwgU19JRlJFRyB8IFNfSVJVR08sIHJvb3QsCj4gLSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJkZXYsICZyYWRlb25fdHRtX3ZyYW1fZm9w
-cyk7Cj4gLSAgICAgICBpZiAoSVNfRVJSKGVudCkpCj4gLSAgICAgICAgICAgICAgIHJldHVybiBQ
-VFJfRVJSKGVudCk7Cj4gLSAgICAgICByZGV2LT5tbWFuLnZyYW0gPSBlbnQ7Cj4gLQo+IC0gICAg
-ICAgZW50ID0gZGVidWdmc19jcmVhdGVfZmlsZSgicmFkZW9uX2d0dCIsIFNfSUZSRUcgfCBTX0lS
-VUdPLCByb290LAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZGV2LCAmcmFk
-ZW9uX3R0bV9ndHRfZm9wcyk7Cj4gLSAgICAgICBpZiAoSVNfRVJSKGVudCkpCj4gLSAgICAgICAg
-ICAgICAgIHJldHVybiBQVFJfRVJSKGVudCk7Cj4gLSAgICAgICByZGV2LT5tbWFuLmd0dCA9IGVu
-dDsKPiArICAgICAgIHN0cnVjdCBkZW50cnkgKnJvb3QgPSBtaW5vci0+ZGVidWdmc19yb290Owo+
-ICsKPiArICAgICAgIHJkZXYtPm1tYW4udnJhbSA9IGRlYnVnZnNfY3JlYXRlX2ZpbGUoInJhZGVv
-bl92cmFtIiwgU19JRlJFRyB8IFNfSVJVR08sCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHJvb3QsIHJkZXYsCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICZyYWRlb25fdHRtX3ZyYW1fZm9wcyk7Cj4gKwo+ICsgICAg
-ICAgcmRldi0+bW1hbi5ndHQgPSBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJyYWRlb25fZ3R0IiwgU19J
-RlJFRyB8IFNfSVJVR08sCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcm9vdCwgcmRldiwgJnJhZGVvbl90dG1fZ3R0X2ZvcHMpOwo+Cj4gICAgICAgICBjb3Vu
-dCA9IEFSUkFZX1NJWkUocmFkZW9uX3R0bV9kZWJ1Z2ZzX2xpc3QpOwo+Cj4gLS0KPiAyLjIyLjAK
-Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gZHJp
-LWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBo
-dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwg
-bWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+Hi Dave,
+
+On Thu, Jun 13, 2019 at 12:02:35PM +0100, Dave P Martin wrote:
+> On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
+> > +/*
+> > + * Global sysctl to disable the tagged user addresses support. This control
+> > + * only prevents the tagged address ABI enabling via prctl() and does not
+> > + * disable it for tasks that already opted in to the relaxed ABI.
+> > + */
+> > +static int zero;
+> > +static int one = 1;
+> 
+> !!!
+> 
+> And these can't even be const without a cast.  Yuk.
+> 
+> (Not your fault though, but it would be nice to have a proc_dobool() to
+> avoid this.)
+
+I had the same reaction. Maybe for another patch sanitising this pattern
+across the kernel.
+
+> > --- a/include/uapi/linux/prctl.h
+> > +++ b/include/uapi/linux/prctl.h
+> > @@ -229,4 +229,9 @@ struct prctl_mm_map {
+> >  # define PR_PAC_APDBKEY			(1UL << 3)
+> >  # define PR_PAC_APGAKEY			(1UL << 4)
+> >  
+> > +/* Tagged user address controls for arm64 */
+> > +#define PR_SET_TAGGED_ADDR_CTRL		55
+> > +#define PR_GET_TAGGED_ADDR_CTRL		56
+> > +# define PR_TAGGED_ADDR_ENABLE		(1UL << 0)
+> > +
+> 
+> Do we expect this prctl to be applicable to other arches, or is it
+> strictly arm64-specific?
+
+I kept it generic, at least the tagged address part. The MTE bits later
+on would be arm64-specific.
+
+> > @@ -2492,6 +2498,16 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+> >  			return -EINVAL;
+> >  		error = PAC_RESET_KEYS(me, arg2);
+> >  		break;
+> > +	case PR_SET_TAGGED_ADDR_CTRL:
+> > +		if (arg3 || arg4 || arg5)
+> 
+> <bikeshed>
+> 
+> How do you anticipate these arguments being used in the future?
+
+I don't expect them to be used at all. But since I'm not sure, I'd force
+them as zero for now rather than ignored. The GET is supposed to return
+the SET arg2, hence I'd rather not used the other arguments.
+
+> For the SVE prctls I took the view that "get" could only ever mean one
+> thing, and "put" already had a flags argument with spare bits for future
+> expansion anyway, so forcing the extra arguments to zero would be
+> unnecessary.
+> 
+> Opinions seem to differ on whether requiring surplus arguments to be 0
+> is beneficial for hygiene, but the glibc prototype for prctl() is
+> 
+> 	int prctl (int __option, ...);
+> 
+> so it seemed annoying to have to pass extra arguments to it just for the
+> sake of it.  IMHO this also makes the code at the call site less
+> readable, since it's not immediately apparent that all those 0s are
+> meaningless.
+
+It's fine by me to ignore the other arguments. I just followed the
+pattern of some existing prctl options. I don't have a strong opinion
+either way.
+
+> > +			return -EINVAL;
+> > +		error = SET_TAGGED_ADDR_CTRL(arg2);
+> > +		break;
+> > +	case PR_GET_TAGGED_ADDR_CTRL:
+> > +		if (arg2 || arg3 || arg4 || arg5)
+> > +			return -EINVAL;
+> > +		error = GET_TAGGED_ADDR_CTRL();
+> 
+> Having a "get" prctl is probably a good idea, but is there a clear
+> usecase for it?
+
+Not sure, maybe some other library (e.g. a JIT compiler) would like to
+check whether tagged addresses have been enabled during application
+start and decide to generate tagged pointers for itself. It seemed
+pretty harmless, unless we add more complex things to the prctl() that
+cannot be returned in one request).
+
+-- 
+Catalin
