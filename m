@@ -1,203 +1,277 @@
-From: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: return 0 by default in
- amdgpu_pm_load_smu_firmware
-Date: Thu, 13 Jun 2019 12:32:28 +0200
-Message-ID: <af8e0143-5d3c-b683-d877-60d7f6e2a6b9@molgen.mpg.de>
-References: <20190611145103.621-1-alexander.deucher@amd.com>
+From: Dave Martin <Dave.Martin@arm.com>
+Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
+ the tagged user addresses ABI
+Date: Thu, 13 Jun 2019 12:02:35 +0100
+Message-ID: <20190613110235.GW28398@e103592.cambridge.arm.com>
+References: <cover.1560339705.git.andreyknvl@google.com>
+ <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2070845282=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190611145103.621-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sibren Vasse <freedesktop-DLwv2wemLo05ZU0pBKPMFg@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-
-This is a cryptographically signed message in MIME format.
-
---===============2070845282==
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms000002060909040206080602"
-
-This is a cryptographically signed message in MIME format.
-
---------------ms000002060909040206080602
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Dear Alex,
-
-
-On 06/11/19 16:51, Alex Deucher wrote:
-> Fixes SI cards running on amdgpu.
-
-Shouldn=E2=80=99t the caller be updated to check for the error code?
-Wouldn=E2=80=99t that be more explicit?
-
-        else if (!strcmp(chip_name, "raven") && (amdgpu_pm_load_smu_firmw=
-are(adev, &smu_version) =3D=3D 0)
-
-> Fixes: 1929059893022 ("drm/amd/amdgpu: add RLC firmware to support rave=
-n1 refresh")
-> Bug: https://bugs.freedesktop.org/show_bug.cgi?id=3D110883
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_pm.c
-> index d8828a37e43a..653b2491fec8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> @@ -2700,7 +2700,7 @@ void amdgpu_pm_print_power_states(struct amdgpu_d=
-evice *adev)
-> =20
->  int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *=
-smu_version)
->  {
-> -	int r =3D -EINVAL;
-> +	int r;
-> =20
->  	if (amdgpu_sriov_vf(adev))
->  		return 0;
-> @@ -2713,7 +2713,7 @@ int amdgpu_pm_load_smu_firmware(struct amdgpu_dev=
-ice *adev, uint32_t *smu_versio
->  		}
->  		*smu_version =3D adev->pm.fw_version;
->  	}
-> -	return r;
-> +	return 0;
->  }
-> =20
->  int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
-
-
-Kind regards,
-
-Paul
-
-
---------------ms000002060909040206080602
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCC
-EFowggUSMIID+qADAgECAgkA4wvV+K8l2YEwDQYJKoZIhvcNAQELBQAwgYIxCzAJBgNVBAYT
-AkRFMSswKQYDVQQKDCJULVN5c3RlbXMgRW50ZXJwcmlzZSBTZXJ2aWNlcyBHbWJIMR8wHQYD
-VQQLDBZULVN5c3RlbXMgVHJ1c3QgQ2VudGVyMSUwIwYDVQQDDBxULVRlbGVTZWMgR2xvYmFs
-Um9vdCBDbGFzcyAyMB4XDTE2MDIyMjEzMzgyMloXDTMxMDIyMjIzNTk1OVowgZUxCzAJBgNV
-BAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1dHNjaGVu
-IEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNVBAMTJERG
-Ti1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjCCASIwDQYJKoZIhvcNAQEBBQAD
-ggEPADCCAQoCggEBAMtg1/9moUHN0vqHl4pzq5lN6mc5WqFggEcVToyVsuXPztNXS43O+FZs
-FVV2B+pG/cgDRWM+cNSrVICxI5y+NyipCf8FXRgPxJiZN7Mg9mZ4F4fCnQ7MSjLnFp2uDo0p
-eQcAIFTcFV9Kltd4tjTTwXS1nem/wHdN6r1ZB+BaL2w8pQDcNb1lDY9/Mm3yWmpLYgHurDg0
-WUU2SQXaeMpqbVvAgWsRzNI8qIv4cRrKO+KA3Ra0Z3qLNupOkSk9s1FcragMvp0049ENF4N1
-xDkesJQLEvHVaY4l9Lg9K7/AjsMeO6W/VRCrKq4Xl14zzsjz9AkH4wKGMUZrAcUQDBHHWekC
-AwEAAaOCAXQwggFwMA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUk+PYMiba1fFKpZFK4OpL
-4qIMz+EwHwYDVR0jBBgwFoAUv1kgNgB5oKAia4zV8mHSuCzLgkowEgYDVR0TAQH/BAgwBgEB
-/wIBAjAzBgNVHSAELDAqMA8GDSsGAQQBga0hgiwBAQQwDQYLKwYBBAGBrSGCLB4wCAYGZ4EM
-AQICMEwGA1UdHwRFMEMwQaA/oD2GO2h0dHA6Ly9wa2kwMzM2LnRlbGVzZWMuZGUvcmwvVGVs
-ZVNlY19HbG9iYWxSb290X0NsYXNzXzIuY3JsMIGGBggrBgEFBQcBAQR6MHgwLAYIKwYBBQUH
-MAGGIGh0dHA6Ly9vY3NwMDMzNi50ZWxlc2VjLmRlL29jc3ByMEgGCCsGAQUFBzAChjxodHRw
-Oi8vcGtpMDMzNi50ZWxlc2VjLmRlL2NydC9UZWxlU2VjX0dsb2JhbFJvb3RfQ2xhc3NfMi5j
-ZXIwDQYJKoZIhvcNAQELBQADggEBAIcL/z4Cm2XIVi3WO5qYi3FP2ropqiH5Ri71sqQPrhE4
-eTizDnS6dl2e6BiClmLbTDPo3flq3zK9LExHYFV/53RrtCyD2HlrtrdNUAtmB7Xts5et6u5/
-MOaZ/SLick0+hFvu+c+Z6n/XUjkurJgARH5pO7917tALOxrN5fcPImxHhPalR6D90Bo0fa3S
-PXez7vTXTf/D6OWST1k+kEcQSrCFWMBvf/iu7QhCnh7U3xQuTY+8npTD5+32GPg8SecmqKc2
-2CzeIs2LgtjZeOJVEqM7h0S2EQvVDFKvaYwPBt/QolOLV5h7z/0HJPT8vcP9SpIClxvyt7bP
-ZYoaorVyGTkwggWNMIIEdaADAgECAgwcOtRQhH7u81j4jncwDQYJKoZIhvcNAQELBQAwgZUx
-CzAJBgNVBAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1
-dHNjaGVuIEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNV
-BAMTJERGTi1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjAeFw0xNjExMDMxNTI0
-NDhaFw0zMTAyMjIyMzU5NTlaMGoxCzAJBgNVBAYTAkRFMQ8wDQYDVQQIDAZCYXllcm4xETAP
-BgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxhbmNrLUdlc2VsbHNjaGFmdDEVMBMG
-A1UEAwwMTVBHIENBIC0gRzAyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnhx4
-59Lh4WqgOs/Md04XxU2yFtfM15ZuJV0PZP7BmqSJKLLPyqmOrADfNdJ5PIGBto2JBhtRRBHd
-G0GROOvTRHjzOga95WOTeura79T21FWwwAwa29OFnD3ZplQs6HgdwQrZWNi1WHNJxn/4mA19
-rNEBUc5urSIpZPvZi5XmlF3v3JHOlx3KWV7mUteB4pwEEfGTg4npPAJbp2o7arxQdoIq+Pu2
-OsvqhD7Rk4QeaX+EM1QS4lqd1otW4hE70h/ODPy1xffgbZiuotWQLC6nIwa65Qv6byqlIX0q
-Zuu99Vsu+r3sWYsL5SBkgecNI7fMJ5tfHrjoxfrKl/ErTAt8GQIDAQABo4ICBTCCAgEwEgYD
-VR0TAQH/BAgwBgEB/wIBATAOBgNVHQ8BAf8EBAMCAQYwKQYDVR0gBCIwIDANBgsrBgEEAYGt
-IYIsHjAPBg0rBgEEAYGtIYIsAQEEMB0GA1UdDgQWBBTEiKUH7rh7qgwTv9opdGNSG0lwFjAf
-BgNVHSMEGDAWgBST49gyJtrV8UqlkUrg6kviogzP4TCBjwYDVR0fBIGHMIGEMECgPqA8hjpo
-dHRwOi8vY2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jcmwvY2Fjcmwu
-Y3JsMECgPqA8hjpodHRwOi8vY2RwMi5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1
-Yi9jcmwvY2FjcmwuY3JsMIHdBggrBgEFBQcBAQSB0DCBzTAzBggrBgEFBQcwAYYnaHR0cDov
-L29jc3AucGNhLmRmbi5kZS9PQ1NQLVNlcnZlci9PQ1NQMEoGCCsGAQUFBzAChj5odHRwOi8v
-Y2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNy
-dDBKBggrBgEFBQcwAoY+aHR0cDovL2NkcDIucGNhLmRmbi5kZS9nbG9iYWwtcm9vdC1nMi1j
-YS9wdWIvY2FjZXJ0L2NhY2VydC5jcnQwDQYJKoZIhvcNAQELBQADggEBABLpeD5FygzqOjj+
-/lAOy20UQOGWlx0RMuPcI4nuyFT8SGmK9lD7QCg/HoaJlfU/r78ex+SEide326evlFAoJXIF
-jVyzNltDhpMKrPIDuh2N12zyn1EtagqPL6hu4pVRzcBpl/F2HCvtmMx5K4WN1L1fmHWLcSap
-dhXLvAZ9RG/B3rqyULLSNN8xHXYXpmtvG0VGJAndZ+lj+BH7uvd3nHWnXEHC2q7iQlDUqg0a
-wIqWJgdLlx1Q8Dg/sodv0m+LN0kOzGvVDRCmowBdWGhhusD+duKV66pBl+qhC+4LipariWaM
-qK5ppMQROATjYeNRvwI+nDcEXr2vDaKmdbxgDVwwggWvMIIEl6ADAgECAgweKlJIhfynPMVG
-/KIwDQYJKoZIhvcNAQELBQAwajELMAkGA1UEBhMCREUxDzANBgNVBAgMBkJheWVybjERMA8G
-A1UEBwwITXVlbmNoZW4xIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MRUwEwYD
-VQQDDAxNUEcgQ0EgLSBHMDIwHhcNMTcxMTE0MTEzNDE2WhcNMjAxMTEzMTEzNDE2WjCBizEL
-MAkGA1UEBhMCREUxIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MTQwMgYDVQQL
-DCtNYXgtUGxhbmNrLUluc3RpdHV0IGZ1ZXIgbW9sZWt1bGFyZSBHZW5ldGlrMQ4wDAYDVQQL
-DAVNUElNRzEUMBIGA1UEAwwLUGF1bCBNZW56ZWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
-ggEKAoIBAQDIh/UR/AX/YQ48VWWDMLTYtXjYJyhRHMc81ZHMMoaoG66lWB9MtKRTnB5lovLZ
-enTIUyPsCrMhTqV9CWzDf6v9gOTWVxHEYqrUwK5H1gx4XoK81nfV8oGV4EKuVmmikTXiztGz
-peyDmOY8o/EFNWP7YuRkY/lPQJQBeBHYq9AYIgX4StuXu83nusq4MDydygVOeZC15ts0tv3/
-6WmibmZd1OZRqxDOkoBbY3Djx6lERohs3IKS6RKiI7e90rCSy9rtidJBOvaQS9wvtOSKPx0a
-+2pAgJEVzZFjOAfBcXydXtqXhcpOi2VCyl+7+LnnTz016JJLsCBuWEcB3kP9nJYNAgMBAAGj
-ggIxMIICLTAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcD
-AgYIKwYBBQUHAwQwHQYDVR0OBBYEFHM0Mc3XjMLlhWpp4JufRELL4A/qMB8GA1UdIwQYMBaA
-FMSIpQfuuHuqDBO/2il0Y1IbSXAWMCAGA1UdEQQZMBeBFXBtZW56ZWxAbW9sZ2VuLm1wZy5k
-ZTB9BgNVHR8EdjB0MDigNqA0hjJodHRwOi8vY2RwMS5wY2EuZGZuLmRlL21wZy1nMi1jYS9w
-dWIvY3JsL2NhY3JsLmNybDA4oDagNIYyaHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzIt
-Y2EvcHViL2NybC9jYWNybC5jcmwwgc0GCCsGAQUFBwEBBIHAMIG9MDMGCCsGAQUFBzABhido
-dHRwOi8vb2NzcC5wY2EuZGZuLmRlL09DU1AtU2VydmVyL09DU1AwQgYIKwYBBQUHMAKGNmh0
-dHA6Ly9jZHAxLnBjYS5kZm4uZGUvbXBnLWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNydDBC
-BggrBgEFBQcwAoY2aHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzItY2EvcHViL2NhY2Vy
-dC9jYWNlcnQuY3J0MEAGA1UdIAQ5MDcwDwYNKwYBBAGBrSGCLAEBBDARBg8rBgEEAYGtIYIs
-AQEEAwYwEQYPKwYBBAGBrSGCLAIBBAMGMA0GCSqGSIb3DQEBCwUAA4IBAQCQs6bUDROpFO2F
-Qz2FMgrdb39VEo8P3DhmpqkaIMC5ZurGbbAL/tAR6lpe4af682nEOJ7VW86ilsIJgm1j0ueY
-aOuL8jrN4X7IF/8KdZnnNnImW3QVni6TCcc+7+ggci9JHtt0IDCj5vPJBpP/dKXLCN4M+exl
-GXYpfHgxh8gclJPY1rquhQrihCzHfKB01w9h9tWZDVMtSoy9EUJFhCXw7mYUsvBeJwZesN2B
-fndPkrXx6XWDdU3S1LyKgHlLIFtarLFm2Hb5zAUR33h+26cN6ohcGqGEEzgIG8tXS8gztEaj
-1s2RyzmKd4SXTkKR3GhkZNVWy+gM68J7jP6zzN+cMYIDmjCCA5YCAQEwejBqMQswCQYDVQQG
-EwJERTEPMA0GA1UECAwGQmF5ZXJuMREwDwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4
-LVBsYW5jay1HZXNlbGxzY2hhZnQxFTATBgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzF
-RvyiMA0GCWCGSAFlAwQCAQUAoIIB8TAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
-SIb3DQEJBTEPFw0xOTA2MTMxMDMyMjhaMC8GCSqGSIb3DQEJBDEiBCBU3BffmHuZ41Ey6PpT
-ru6l6+7chUSNkCyCjo7IWUTdGTBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
-hkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0GCCqGSIb3DQMCAgFAMAcG
-BSsOAwIHMA0GCCqGSIb3DQMCAgEoMIGJBgkrBgEEAYI3EAQxfDB6MGoxCzAJBgNVBAYTAkRF
-MQ8wDQYDVQQIDAZCYXllcm4xETAPBgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxh
-bmNrLUdlc2VsbHNjaGFmdDEVMBMGA1UEAwwMTVBHIENBIC0gRzAyAgweKlJIhfynPMVG/KIw
-gYsGCyqGSIb3DQEJEAILMXygejBqMQswCQYDVQQGEwJERTEPMA0GA1UECAwGQmF5ZXJuMREw
-DwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4LVBsYW5jay1HZXNlbGxzY2hhZnQxFTAT
-BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBAAVG
-WiE0UfVQKzVPGhkAL4yEgu/t0wmzAPfvmYd+r8CRrxZHv+a9Y8JtGfEOy53LiuP3nhaqXu8s
-+oMvi3sjwPhgvDTYSfEIl9GzgRAFeGDDyBm+ToE+aZEgjtYQsd1zdQe6/WAdNHLOLk3cMBo/
-xMsk07mYPrZO2esT792eU2Bc7akPmtRCNxu0sPXxDQN97rU7r7YBksws9bDKtn+xnvD/7quO
-CUCFFLU64qyichAkF75Os4rih343Ww1b8oNXp9L8YJyuayewEmowwq7sNGWM6VL2n06mAKQn
-1dUEn3JNaenqt8+PsK/4++Sjt+aArRThx5gt6ccCzMI3XyL8lBYAAAAAAAA=
---------------ms000002060909040206080602--
-
---===============2070845282==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
 Content-Disposition: inline
+In-Reply-To: <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
+> From: Catalin Marinas <catalin.marinas@arm.com>
+> 
+> It is not desirable to relax the ABI to allow tagged user addresses into
+> the kernel indiscriminately. This patch introduces a prctl() interface
+> for enabling or disabling the tagged ABI with a global sysctl control
+> for preventing applications from enabling the relaxed ABI (meant for
+> testing user-space prctl() return error checking without reconfiguring
+> the kernel). The ABI properties are inherited by threads of the same
+> application and fork()'ed children but cleared on execve().
+> 
+> The PR_SET_TAGGED_ADDR_CTRL will be expanded in the future to handle
+> MTE-specific settings like imprecise vs precise exceptions.
+> 
+> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+> ---
+>  arch/arm64/include/asm/processor.h   |  6 +++
+>  arch/arm64/include/asm/thread_info.h |  1 +
+>  arch/arm64/include/asm/uaccess.h     |  3 +-
+>  arch/arm64/kernel/process.c          | 67 ++++++++++++++++++++++++++++
+>  include/uapi/linux/prctl.h           |  5 +++
+>  kernel/sys.c                         | 16 +++++++
+>  6 files changed, 97 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
+> index fcd0e691b1ea..fee457456aa8 100644
+> --- a/arch/arm64/include/asm/processor.h
+> +++ b/arch/arm64/include/asm/processor.h
+> @@ -307,6 +307,12 @@ extern void __init minsigstksz_setup(void);
+>  /* PR_PAC_RESET_KEYS prctl */
+>  #define PAC_RESET_KEYS(tsk, arg)	ptrauth_prctl_reset_keys(tsk, arg)
+>  
+> +/* PR_TAGGED_ADDR prctl */
+> +long set_tagged_addr_ctrl(unsigned long arg);
+> +long get_tagged_addr_ctrl(void);
+> +#define SET_TAGGED_ADDR_CTRL(arg)	set_tagged_addr_ctrl(arg)
+> +#define GET_TAGGED_ADDR_CTRL()		get_tagged_addr_ctrl()
+> +
+>  /*
+>   * For CONFIG_GCC_PLUGIN_STACKLEAK
+>   *
+> diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
+> index f1d032be628a..354a31d2b737 100644
+> --- a/arch/arm64/include/asm/thread_info.h
+> +++ b/arch/arm64/include/asm/thread_info.h
+> @@ -99,6 +99,7 @@ void arch_release_task_struct(struct task_struct *tsk);
+>  #define TIF_SVE			23	/* Scalable Vector Extension in use */
+>  #define TIF_SVE_VL_INHERIT	24	/* Inherit sve_vl_onexec across exec */
+>  #define TIF_SSBD		25	/* Wants SSB mitigation */
+> +#define TIF_TAGGED_ADDR		26	/* Allow tagged user addresses */
+>  
+>  #define _TIF_SIGPENDING		(1 << TIF_SIGPENDING)
+>  #define _TIF_NEED_RESCHED	(1 << TIF_NEED_RESCHED)
+> diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uaccess.h
+> index df729afca0ba..995b9ea11a89 100644
+> --- a/arch/arm64/include/asm/uaccess.h
+> +++ b/arch/arm64/include/asm/uaccess.h
+> @@ -73,7 +73,8 @@ static inline unsigned long __range_ok(const void __user *addr, unsigned long si
+>  {
+>  	unsigned long ret, limit = current_thread_info()->addr_limit;
+>  
+> -	addr = untagged_addr(addr);
+> +	if (test_thread_flag(TIF_TAGGED_ADDR))
+> +		addr = untagged_addr(addr);
+>  
+>  	__chk_user_ptr(addr);
+>  	asm volatile(
+> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+> index 3767fb21a5b8..69d0be1fc708 100644
+> --- a/arch/arm64/kernel/process.c
+> +++ b/arch/arm64/kernel/process.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/mm.h>
+>  #include <linux/stddef.h>
+> +#include <linux/sysctl.h>
+>  #include <linux/unistd.h>
+>  #include <linux/user.h>
+>  #include <linux/delay.h>
+> @@ -323,6 +324,7 @@ void flush_thread(void)
+>  	fpsimd_flush_thread();
+>  	tls_thread_flush();
+>  	flush_ptrace_hw_breakpoint(current);
+> +	clear_thread_flag(TIF_TAGGED_ADDR);
+>  }
+>  
+>  void release_thread(struct task_struct *dead_task)
+> @@ -552,3 +554,68 @@ void arch_setup_new_exec(void)
+>  
+>  	ptrauth_thread_init_user(current);
+>  }
+> +
+> +/*
+> + * Control the relaxed ABI allowing tagged user addresses into the kernel.
+> + */
+> +static unsigned int tagged_addr_prctl_allowed = 1;
+> +
+> +long set_tagged_addr_ctrl(unsigned long arg)
+> +{
+> +	if (!tagged_addr_prctl_allowed)
+> +		return -EINVAL;
+> +	if (is_compat_task())
+> +		return -EINVAL;
+> +	if (arg & ~PR_TAGGED_ADDR_ENABLE)
+> +		return -EINVAL;
+> +
+> +	if (arg & PR_TAGGED_ADDR_ENABLE)
+> +		set_thread_flag(TIF_TAGGED_ADDR);
+> +	else
+> +		clear_thread_flag(TIF_TAGGED_ADDR);
+> +
+> +	return 0;
+> +}
+> +
+> +long get_tagged_addr_ctrl(void)
+> +{
+> +	if (!tagged_addr_prctl_allowed)
+> +		return -EINVAL;
+> +	if (is_compat_task())
+> +		return -EINVAL;
+> +
+> +	if (test_thread_flag(TIF_TAGGED_ADDR))
+> +		return PR_TAGGED_ADDR_ENABLE;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Global sysctl to disable the tagged user addresses support. This control
+> + * only prevents the tagged address ABI enabling via prctl() and does not
+> + * disable it for tasks that already opted in to the relaxed ABI.
+> + */
+> +static int zero;
+> +static int one = 1;
 
---===============2070845282==--
+!!!
+
+And these can't even be const without a cast.  Yuk.
+
+(Not your fault though, but it would be nice to have a proc_dobool() to
+avoid this.)
+
+> +
+> +static struct ctl_table tagged_addr_sysctl_table[] = {
+> +	{
+> +		.procname	= "tagged_addr",
+> +		.mode		= 0644,
+> +		.data		= &tagged_addr_prctl_allowed,
+> +		.maxlen		= sizeof(int),
+> +		.proc_handler	= proc_dointvec_minmax,
+> +		.extra1		= &zero,
+> +		.extra2		= &one,
+> +	},
+> +	{ }
+> +};
+> +
+> +static int __init tagged_addr_init(void)
+> +{
+> +	if (!register_sysctl("abi", tagged_addr_sysctl_table))
+> +		return -EINVAL;
+> +	return 0;
+> +}
+> +
+> +core_initcall(tagged_addr_init);
+> diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
+> index 094bb03b9cc2..2e927b3e9d6c 100644
+> --- a/include/uapi/linux/prctl.h
+> +++ b/include/uapi/linux/prctl.h
+> @@ -229,4 +229,9 @@ struct prctl_mm_map {
+>  # define PR_PAC_APDBKEY			(1UL << 3)
+>  # define PR_PAC_APGAKEY			(1UL << 4)
+>  
+> +/* Tagged user address controls for arm64 */
+> +#define PR_SET_TAGGED_ADDR_CTRL		55
+> +#define PR_GET_TAGGED_ADDR_CTRL		56
+> +# define PR_TAGGED_ADDR_ENABLE		(1UL << 0)
+> +
+
+Do we expect this prctl to be applicable to other arches, or is it
+strictly arm64-specific?
+
+>  #endif /* _LINUX_PRCTL_H */
+> diff --git a/kernel/sys.c b/kernel/sys.c
+> index 2969304c29fe..ec48396b4943 100644
+> --- a/kernel/sys.c
+> +++ b/kernel/sys.c
+> @@ -124,6 +124,12 @@
+>  #ifndef PAC_RESET_KEYS
+>  # define PAC_RESET_KEYS(a, b)	(-EINVAL)
+>  #endif
+> +#ifndef SET_TAGGED_ADDR_CTRL
+> +# define SET_TAGGED_ADDR_CTRL(a)	(-EINVAL)
+> +#endif
+> +#ifndef GET_TAGGED_ADDR_CTRL
+> +# define GET_TAGGED_ADDR_CTRL()		(-EINVAL)
+> +#endif
+>  
+>  /*
+>   * this is where the system-wide overflow UID and GID are defined, for
+> @@ -2492,6 +2498,16 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+>  			return -EINVAL;
+>  		error = PAC_RESET_KEYS(me, arg2);
+>  		break;
+> +	case PR_SET_TAGGED_ADDR_CTRL:
+> +		if (arg3 || arg4 || arg5)
+
+<bikeshed>
+
+How do you anticipate these arguments being used in the future?
+
+For the SVE prctls I took the view that "get" could only ever mean one
+thing, and "put" already had a flags argument with spare bits for future
+expansion anyway, so forcing the extra arguments to zero would be
+unnecessary.
+
+Opinions seem to differ on whether requiring surplus arguments to be 0
+is beneficial for hygiene, but the glibc prototype for prctl() is
+
+	int prctl (int __option, ...);
+
+so it seemed annoying to have to pass extra arguments to it just for the
+sake of it.  IMHO this also makes the code at the call site less
+readable, since it's not immediately apparent that all those 0s are
+meaningless.
+
+</bikeshed>
+
+(OTOH, the extra arguments are harmless and prctl is far from being a
+general-purpose syscall.)
+
+> +			return -EINVAL;
+> +		error = SET_TAGGED_ADDR_CTRL(arg2);
+> +		break;
+> +	case PR_GET_TAGGED_ADDR_CTRL:
+> +		if (arg2 || arg3 || arg4 || arg5)
+> +			return -EINVAL;
+> +		error = GET_TAGGED_ADDR_CTRL();
+
+Having a "get" prctl is probably a good idea, but is there a clear
+usecase for it?
+
+(The usecase for PR_SVE_GET_VL was always a bit dubious, since the
+VL can also be read via an SVE insn or a compiler intrinsic, which is
+less portable but much cheaper.  As for the PR_SVE_SET_VL_INHERIT flag
+that can be read via PR_SVE_GET_VL, I've never been sure how useful it
+is to be able to read that...)
+
+[...]
+
+Cheers
+---Dave
