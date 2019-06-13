@@ -1,67 +1,136 @@
-From: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: return 0 by default in
- amdgpu_pm_load_smu_firmware
-Date: Thu, 13 Jun 2019 11:11:56 +0000
-Message-ID: <MN2PR12MB330976ACC5C5C05D801C6C0AECEF0@MN2PR12MB3309.namprd12.prod.outlook.com>
-References: <20190611145103.621-1-alexander.deucher@amd.com>
- <af8e0143-5d3c-b683-d877-60d7f6e2a6b9@molgen.mpg.de>
+From: Dave Martin <Dave.Martin@arm.com>
+Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
+ the tagged user addresses ABI
+Date: Thu, 13 Jun 2019 12:16:59 +0100
+Message-ID: <20190613111659.GX28398@e103592.cambridge.arm.com>
+References: <cover.1560339705.git.andreyknvl@google.com>
+ <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <af8e0143-5d3c-b683-d877-60d7f6e2a6b9-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Paul Menzel <pmenzel+amd-gfx-KUpvgZVWgV9o1qOY/usvUg@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Liang,
- Prike" <Prike.Liang-5C7GfCeVMHo@public.gmane.org>, Sibren Vasse <freedesktop-DLwv2wemLo05ZU0pBKPMFg@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+Content-Disposition: inline
+In-Reply-To: <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJv
-dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgUGF1bA0KPiBNZW56ZWwN
-Cj4gU2VudDogVGh1cnNkYXksIEp1bmUgMTMsIDIwMTkgNjozMiBQTQ0KPiBUbzogQWxleCBEZXVj
-aGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+IENjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFs
-ZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+OyBTaWJyZW4gVmFzc2UNCj4gPGZyZWVkZXNrdG9wQHNp
-YnJlbnZhc3NlLm5sPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gU3ViamVjdDog
-UmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogcmV0dXJuIDAgYnkgZGVmYXVsdCBpbg0KPiBhbWRncHVf
-cG1fbG9hZF9zbXVfZmlybXdhcmUNCj4gDQo+IERlYXIgQWxleCwNCj4gDQo+IA0KPiBPbiAwNi8x
-MS8xOSAxNjo1MSwgQWxleCBEZXVjaGVyIHdyb3RlOg0KPiA+IEZpeGVzIFNJIGNhcmRzIHJ1bm5p
-bmcgb24gYW1kZ3B1Lg0KPiANCj4gU2hvdWxkbuKAmXQgdGhlIGNhbGxlciBiZSB1cGRhdGVkIHRv
-IGNoZWNrIGZvciB0aGUgZXJyb3IgY29kZT8NCj4gV291bGRu4oCZdCB0aGF0IGJlIG1vcmUgZXhw
-bGljaXQ/DQo+IA0KPiAgICAgICAgIGVsc2UgaWYgKCFzdHJjbXAoY2hpcF9uYW1lLCAicmF2ZW4i
-KSAmJg0KPiAoYW1kZ3B1X3BtX2xvYWRfc211X2Zpcm13YXJlKGFkZXYsICZzbXVfdmVyc2lvbikg
-PT0gMCkNCj4gDQoNClllcy4gQWxleCwgdGhpcyBmdW5jdGlvbiB3aWxsIGJlIGNhbGxlZCB0byBn
-ZXQgdGhlIFNNQyBGVyB2ZXJzaW9uIGZyb20gU0JJT1MuIEFuZCBtYWtlIHN1cmUgd2hldGhlciBj
-dXJyZW50IEFTSUMgaXMgUlYxIHJlZnJlc2gga2lja2VyLg0KDQpUaGFua3MsDQpSYXkNCg0KDQo+
-ID4gRml4ZXM6IDE5MjkwNTk4OTMwMjIgKCJkcm0vYW1kL2FtZGdwdTogYWRkIFJMQyBmaXJtd2Fy
-ZSB0byBzdXBwb3J0DQo+ID4gcmF2ZW4xIHJlZnJlc2giKQ0KPiA+IEJ1ZzogaHR0cHM6Ly9idWdz
-LmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTEwODgzDQo+ID4gU2lnbmVkLW9mZi1i
-eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KPiA+IC0tLQ0KPiA+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDQgKystLQ0KPiA+ICAx
-IGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPiA+DQo+ID4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+ID4g
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYw0KPiA+IGluZGV4IGQ4ODI4
-YTM3ZTQzYS4uNjUzYjI0OTFmZWM4IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X3BtLmMNCj4gPiBAQCAtMjcwMCw3ICsyNzAwLDcgQEAgdm9pZCBhbWRncHVfcG1f
-cHJpbnRfcG93ZXJfc3RhdGVzKHN0cnVjdA0KPiA+IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ID4N
-Cj4gPiAgaW50IGFtZGdwdV9wbV9sb2FkX3NtdV9maXJtd2FyZShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwNCj4gdWludDMyX3QNCj4gPiAqc211X3ZlcnNpb24pICB7DQo+ID4gLQlpbnQgciA9
-IC1FSU5WQUw7DQo+ID4gKwlpbnQgcjsNCj4gPg0KPiA+ICAJaWYgKGFtZGdwdV9zcmlvdl92Zihh
-ZGV2KSkNCj4gPiAgCQlyZXR1cm4gMDsNCj4gPiBAQCAtMjcxMyw3ICsyNzEzLDcgQEAgaW50IGFt
-ZGdwdV9wbV9sb2FkX3NtdV9maXJtd2FyZShzdHJ1Y3QNCj4gYW1kZ3B1X2RldmljZSAqYWRldiwg
-dWludDMyX3QgKnNtdV92ZXJzaW8NCj4gPiAgCQl9DQo+ID4gIAkJKnNtdV92ZXJzaW9uID0gYWRl
-di0+cG0uZndfdmVyc2lvbjsNCj4gPiAgCX0NCj4gPiAtCXJldHVybiByOw0KPiA+ICsJcmV0dXJu
-IDA7DQo+ID4gIH0NCj4gPg0KPiA+ICBpbnQgYW1kZ3B1X3BtX3N5c2ZzX2luaXQoc3RydWN0IGFt
-ZGdwdV9kZXZpY2UgKmFkZXYpDQo+IA0KPiANCj4gS2luZCByZWdhcmRzLA0KPiANCj4gUGF1bA0K
-DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4
-IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3Rz
-LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
+> From: Catalin Marinas <catalin.marinas@arm.com>
+> 
+> It is not desirable to relax the ABI to allow tagged user addresses into
+> the kernel indiscriminately. This patch introduces a prctl() interface
+> for enabling or disabling the tagged ABI with a global sysctl control
+> for preventing applications from enabling the relaxed ABI (meant for
+> testing user-space prctl() return error checking without reconfiguring
+> the kernel). The ABI properties are inherited by threads of the same
+> application and fork()'ed children but cleared on execve().
+> 
+> The PR_SET_TAGGED_ADDR_CTRL will be expanded in the future to handle
+> MTE-specific settings like imprecise vs precise exceptions.
+> 
+> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+> ---
+>  arch/arm64/include/asm/processor.h   |  6 +++
+>  arch/arm64/include/asm/thread_info.h |  1 +
+>  arch/arm64/include/asm/uaccess.h     |  3 +-
+>  arch/arm64/kernel/process.c          | 67 ++++++++++++++++++++++++++++
+>  include/uapi/linux/prctl.h           |  5 +++
+>  kernel/sys.c                         | 16 +++++++
+>  6 files changed, 97 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
+> index fcd0e691b1ea..fee457456aa8 100644
+> --- a/arch/arm64/include/asm/processor.h
+> +++ b/arch/arm64/include/asm/processor.h
+> @@ -307,6 +307,12 @@ extern void __init minsigstksz_setup(void);
+>  /* PR_PAC_RESET_KEYS prctl */
+>  #define PAC_RESET_KEYS(tsk, arg)	ptrauth_prctl_reset_keys(tsk, arg)
+>  
+> +/* PR_TAGGED_ADDR prctl */
+
+(A couple of comments I missed in my last reply:)
+
+Name mismatch?
+
+> +long set_tagged_addr_ctrl(unsigned long arg);
+> +long get_tagged_addr_ctrl(void);
+> +#define SET_TAGGED_ADDR_CTRL(arg)	set_tagged_addr_ctrl(arg)
+> +#define GET_TAGGED_ADDR_CTRL()		get_tagged_addr_ctrl()
+> +
+
+[...]
+
+> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+> index 3767fb21a5b8..69d0be1fc708 100644
+> --- a/arch/arm64/kernel/process.c
+> +++ b/arch/arm64/kernel/process.c
+> @@ -30,6 +30,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/mm.h>
+>  #include <linux/stddef.h>
+> +#include <linux/sysctl.h>
+>  #include <linux/unistd.h>
+>  #include <linux/user.h>
+>  #include <linux/delay.h>
+> @@ -323,6 +324,7 @@ void flush_thread(void)
+>  	fpsimd_flush_thread();
+>  	tls_thread_flush();
+>  	flush_ptrace_hw_breakpoint(current);
+> +	clear_thread_flag(TIF_TAGGED_ADDR);
+>  }
+>  
+>  void release_thread(struct task_struct *dead_task)
+> @@ -552,3 +554,68 @@ void arch_setup_new_exec(void)
+>  
+>  	ptrauth_thread_init_user(current);
+>  }
+> +
+> +/*
+> + * Control the relaxed ABI allowing tagged user addresses into the kernel.
+> + */
+> +static unsigned int tagged_addr_prctl_allowed = 1;
+> +
+> +long set_tagged_addr_ctrl(unsigned long arg)
+> +{
+> +	if (!tagged_addr_prctl_allowed)
+> +		return -EINVAL;
+
+So, tagging can actually be locked on by having a process enable it and
+then some possibly unrelated process clearing tagged_addr_prctl_allowed.
+That feels a bit weird.
+
+Do we want to allow a process that has tagging on to be able to turn
+it off at all?  Possibly things like CRIU might want to do that.
+
+> +	if (is_compat_task())
+> +		return -EINVAL;
+> +	if (arg & ~PR_TAGGED_ADDR_ENABLE)
+> +		return -EINVAL;
+
+How do we expect this argument to be extended in the future?
+
+I'm wondering whether this is really a bitmask or an enum, or a mixture
+of the two.  Maybe it doesn't matter.
+
+> +
+> +	if (arg & PR_TAGGED_ADDR_ENABLE)
+> +		set_thread_flag(TIF_TAGGED_ADDR);
+> +	else
+> +		clear_thread_flag(TIF_TAGGED_ADDR);
+
+I think update_thread_flag() could be used here.
+
+[...]
+
+Cheers
+---Dave
