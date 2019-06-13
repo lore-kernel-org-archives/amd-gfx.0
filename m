@@ -1,136 +1,58 @@
-From: Dave Martin <Dave.Martin@arm.com>
-Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
- the tagged user addresses ABI
-Date: Thu, 13 Jun 2019 12:16:59 +0100
-Message-ID: <20190613111659.GX28398@e103592.cambridge.arm.com>
-References: <cover.1560339705.git.andreyknvl@google.com>
- <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH] radeon: no need to check return value of debugfs_create
+ functions
+Date: Thu, 13 Jun 2019 13:56:31 +0200
+Message-ID: <20190613115631.GA26335@kroah.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
 Content-Disposition: inline
-In-Reply-To: <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
-> From: Catalin Marinas <catalin.marinas@arm.com>
-> 
-> It is not desirable to relax the ABI to allow tagged user addresses into
-> the kernel indiscriminately. This patch introduces a prctl() interface
-> for enabling or disabling the tagged ABI with a global sysctl control
-> for preventing applications from enabling the relaxed ABI (meant for
-> testing user-space prctl() return error checking without reconfiguring
-> the kernel). The ABI properties are inherited by threads of the same
-> application and fork()'ed children but cleared on execve().
-> 
-> The PR_SET_TAGGED_ADDR_CTRL will be expanded in the future to handle
-> MTE-specific settings like imprecise vs precise exceptions.
-> 
-> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-> ---
->  arch/arm64/include/asm/processor.h   |  6 +++
->  arch/arm64/include/asm/thread_info.h |  1 +
->  arch/arm64/include/asm/uaccess.h     |  3 +-
->  arch/arm64/kernel/process.c          | 67 ++++++++++++++++++++++++++++
->  include/uapi/linux/prctl.h           |  5 +++
->  kernel/sys.c                         | 16 +++++++
->  6 files changed, 97 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
-> index fcd0e691b1ea..fee457456aa8 100644
-> --- a/arch/arm64/include/asm/processor.h
-> +++ b/arch/arm64/include/asm/processor.h
-> @@ -307,6 +307,12 @@ extern void __init minsigstksz_setup(void);
->  /* PR_PAC_RESET_KEYS prctl */
->  #define PAC_RESET_KEYS(tsk, arg)	ptrauth_prctl_reset_keys(tsk, arg)
->  
-> +/* PR_TAGGED_ADDR prctl */
-
-(A couple of comments I missed in my last reply:)
-
-Name mismatch?
-
-> +long set_tagged_addr_ctrl(unsigned long arg);
-> +long get_tagged_addr_ctrl(void);
-> +#define SET_TAGGED_ADDR_CTRL(arg)	set_tagged_addr_ctrl(arg)
-> +#define GET_TAGGED_ADDR_CTRL()		get_tagged_addr_ctrl()
-> +
-
-[...]
-
-> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-> index 3767fb21a5b8..69d0be1fc708 100644
-> --- a/arch/arm64/kernel/process.c
-> +++ b/arch/arm64/kernel/process.c
-> @@ -30,6 +30,7 @@
->  #include <linux/kernel.h>
->  #include <linux/mm.h>
->  #include <linux/stddef.h>
-> +#include <linux/sysctl.h>
->  #include <linux/unistd.h>
->  #include <linux/user.h>
->  #include <linux/delay.h>
-> @@ -323,6 +324,7 @@ void flush_thread(void)
->  	fpsimd_flush_thread();
->  	tls_thread_flush();
->  	flush_ptrace_hw_breakpoint(current);
-> +	clear_thread_flag(TIF_TAGGED_ADDR);
->  }
->  
->  void release_thread(struct task_struct *dead_task)
-> @@ -552,3 +554,68 @@ void arch_setup_new_exec(void)
->  
->  	ptrauth_thread_init_user(current);
->  }
-> +
-> +/*
-> + * Control the relaxed ABI allowing tagged user addresses into the kernel.
-> + */
-> +static unsigned int tagged_addr_prctl_allowed = 1;
-> +
-> +long set_tagged_addr_ctrl(unsigned long arg)
-> +{
-> +	if (!tagged_addr_prctl_allowed)
-> +		return -EINVAL;
-
-So, tagging can actually be locked on by having a process enable it and
-then some possibly unrelated process clearing tagged_addr_prctl_allowed.
-That feels a bit weird.
-
-Do we want to allow a process that has tagging on to be able to turn
-it off at all?  Possibly things like CRIU might want to do that.
-
-> +	if (is_compat_task())
-> +		return -EINVAL;
-> +	if (arg & ~PR_TAGGED_ADDR_ENABLE)
-> +		return -EINVAL;
-
-How do we expect this argument to be extended in the future?
-
-I'm wondering whether this is really a bitmask or an enum, or a mixture
-of the two.  Maybe it doesn't matter.
-
-> +
-> +	if (arg & PR_TAGGED_ADDR_ENABLE)
-> +		set_thread_flag(TIF_TAGGED_ADDR);
-> +	else
-> +		clear_thread_flag(TIF_TAGGED_ADDR);
-
-I think update_thread_flag() could be used here.
-
-[...]
-
-Cheers
----Dave
+V2hlbiBjYWxsaW5nIGRlYnVnZnMgZnVuY3Rpb25zLCB0aGVyZSBpcyBubyBuZWVkIHRvIGV2ZXIg
+Y2hlY2sgdGhlCnJldHVybiB2YWx1ZS4gIFRoZSBmdW5jdGlvbiBjYW4gd29yayBvciBub3QsIGJ1
+dCB0aGUgY29kZSBsb2dpYyBzaG91bGQKbmV2ZXIgZG8gc29tZXRoaW5nIGRpZmZlcmVudCBiYXNl
+ZCBvbiB0aGlzLgoKQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
+Q2M6ICJDaHJpc3RpYW4gS8O2bmlnIiA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpDYzogIkRh
+dmlkIChDaHVuTWluZykgWmhvdSIgPERhdmlkMS5aaG91QGFtZC5jb20+CkNjOiBEYXZpZCBBaXJs
+aWUgPGFpcmxpZWRAbGludXguaWU+CkNjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+
+CkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpDYzogZHJpLWRldmVsQGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpTaWduZWQtb2ZmLWJ5OiBHcmVnIEtyb2FoLUhhcnRtYW4gPGdyZWdraEBs
+aW51eGZvdW5kYXRpb24ub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0
+bS5jIHwgMjEgKysrKysrKystLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRp
+b25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFk
+ZW9uL3JhZGVvbl90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCmlu
+ZGV4IDVkNDJmOGQ4ZTY4ZC4uNmJiY2NjNzk2ZTQwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vcmFkZW9uL3JhZGVvbl90dG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl90dG0uYwpAQCAtMTA1NiwxOSArMTA1NiwxNCBAQCBzdGF0aWMgaW50IHJhZGVvbl90dG1fZGVi
+dWdmc19pbml0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2KQogCXVuc2lnbmVkIGNvdW50Owog
+CiAJc3RydWN0IGRybV9taW5vciAqbWlub3IgPSByZGV2LT5kZGV2LT5wcmltYXJ5OwotCXN0cnVj
+dCBkZW50cnkgKmVudCwgKnJvb3QgPSBtaW5vci0+ZGVidWdmc19yb290OwotCi0JZW50ID0gZGVi
+dWdmc19jcmVhdGVfZmlsZSgicmFkZW9uX3ZyYW0iLCBTX0lGUkVHIHwgU19JUlVHTywgcm9vdCwK
+LQkJCQkgIHJkZXYsICZyYWRlb25fdHRtX3ZyYW1fZm9wcyk7Ci0JaWYgKElTX0VSUihlbnQpKQot
+CQlyZXR1cm4gUFRSX0VSUihlbnQpOwotCXJkZXYtPm1tYW4udnJhbSA9IGVudDsKLQotCWVudCA9
+IGRlYnVnZnNfY3JlYXRlX2ZpbGUoInJhZGVvbl9ndHQiLCBTX0lGUkVHIHwgU19JUlVHTywgcm9v
+dCwKLQkJCQkgIHJkZXYsICZyYWRlb25fdHRtX2d0dF9mb3BzKTsKLQlpZiAoSVNfRVJSKGVudCkp
+Ci0JCXJldHVybiBQVFJfRVJSKGVudCk7Ci0JcmRldi0+bW1hbi5ndHQgPSBlbnQ7CisJc3RydWN0
+IGRlbnRyeSAqcm9vdCA9IG1pbm9yLT5kZWJ1Z2ZzX3Jvb3Q7CisKKwlyZGV2LT5tbWFuLnZyYW0g
+PSBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJyYWRlb25fdnJhbSIsIFNfSUZSRUcgfCBTX0lSVUdPLAor
+CQkJCQkgICAgICByb290LCByZGV2LAorCQkJCQkgICAgICAmcmFkZW9uX3R0bV92cmFtX2ZvcHMp
+OworCisJcmRldi0+bW1hbi5ndHQgPSBkZWJ1Z2ZzX2NyZWF0ZV9maWxlKCJyYWRlb25fZ3R0Iiwg
+U19JRlJFRyB8IFNfSVJVR08sCisJCQkJCSAgICAgcm9vdCwgcmRldiwgJnJhZGVvbl90dG1fZ3R0
+X2ZvcHMpOwogCiAJY291bnQgPSBBUlJBWV9TSVpFKHJhZGVvbl90dG1fZGVidWdmc19saXN0KTsK
+IAotLSAKMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2
+ZWw=
