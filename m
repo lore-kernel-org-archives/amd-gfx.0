@@ -1,277 +1,206 @@
-From: Dave Martin <Dave.Martin@arm.com>
-Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
- the tagged user addresses ABI
-Date: Thu, 13 Jun 2019 12:02:35 +0100
-Message-ID: <20190613110235.GW28398@e103592.cambridge.arm.com>
-References: <cover.1560339705.git.andreyknvl@google.com>
- <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
+From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: Need to set the baco cap before baco reset
+Date: Thu, 13 Jun 2019 11:11:26 +0000
+Message-ID: <BN6PR12MB1618E4322B84944963895A8E85EF0@BN6PR12MB1618.namprd12.prod.outlook.com>
+References: <1558943005-16557-1-git-send-email-Emily.Deng@amd.com>
+ <MN2PR12MB3344E228ADA29C20F5BA9DDBE41E0@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-Content-Disposition: inline
-In-Reply-To: <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Kevin Brodsky <kevin.brodsky@arm.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <MN2PR12MB3344E228ADA29C20F5BA9DDBE41E0-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
-> From: Catalin Marinas <catalin.marinas@arm.com>
-> 
-> It is not desirable to relax the ABI to allow tagged user addresses into
-> the kernel indiscriminately. This patch introduces a prctl() interface
-> for enabling or disabling the tagged ABI with a global sysctl control
-> for preventing applications from enabling the relaxed ABI (meant for
-> testing user-space prctl() return error checking without reconfiguring
-> the kernel). The ABI properties are inherited by threads of the same
-> application and fork()'ed children but cleared on execve().
-> 
-> The PR_SET_TAGGED_ADDR_CTRL will be expanded in the future to handle
-> MTE-specific settings like imprecise vs precise exceptions.
-> 
-> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-> ---
->  arch/arm64/include/asm/processor.h   |  6 +++
->  arch/arm64/include/asm/thread_info.h |  1 +
->  arch/arm64/include/asm/uaccess.h     |  3 +-
->  arch/arm64/kernel/process.c          | 67 ++++++++++++++++++++++++++++
->  include/uapi/linux/prctl.h           |  5 +++
->  kernel/sys.c                         | 16 +++++++
->  6 files changed, 97 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
-> index fcd0e691b1ea..fee457456aa8 100644
-> --- a/arch/arm64/include/asm/processor.h
-> +++ b/arch/arm64/include/asm/processor.h
-> @@ -307,6 +307,12 @@ extern void __init minsigstksz_setup(void);
->  /* PR_PAC_RESET_KEYS prctl */
->  #define PAC_RESET_KEYS(tsk, arg)	ptrauth_prctl_reset_keys(tsk, arg)
->  
-> +/* PR_TAGGED_ADDR prctl */
-> +long set_tagged_addr_ctrl(unsigned long arg);
-> +long get_tagged_addr_ctrl(void);
-> +#define SET_TAGGED_ADDR_CTRL(arg)	set_tagged_addr_ctrl(arg)
-> +#define GET_TAGGED_ADDR_CTRL()		get_tagged_addr_ctrl()
-> +
->  /*
->   * For CONFIG_GCC_PLUGIN_STACKLEAK
->   *
-> diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
-> index f1d032be628a..354a31d2b737 100644
-> --- a/arch/arm64/include/asm/thread_info.h
-> +++ b/arch/arm64/include/asm/thread_info.h
-> @@ -99,6 +99,7 @@ void arch_release_task_struct(struct task_struct *tsk);
->  #define TIF_SVE			23	/* Scalable Vector Extension in use */
->  #define TIF_SVE_VL_INHERIT	24	/* Inherit sve_vl_onexec across exec */
->  #define TIF_SSBD		25	/* Wants SSB mitigation */
-> +#define TIF_TAGGED_ADDR		26	/* Allow tagged user addresses */
->  
->  #define _TIF_SIGPENDING		(1 << TIF_SIGPENDING)
->  #define _TIF_NEED_RESCHED	(1 << TIF_NEED_RESCHED)
-> diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uaccess.h
-> index df729afca0ba..995b9ea11a89 100644
-> --- a/arch/arm64/include/asm/uaccess.h
-> +++ b/arch/arm64/include/asm/uaccess.h
-> @@ -73,7 +73,8 @@ static inline unsigned long __range_ok(const void __user *addr, unsigned long si
->  {
->  	unsigned long ret, limit = current_thread_info()->addr_limit;
->  
-> -	addr = untagged_addr(addr);
-> +	if (test_thread_flag(TIF_TAGGED_ADDR))
-> +		addr = untagged_addr(addr);
->  
->  	__chk_user_ptr(addr);
->  	asm volatile(
-> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-> index 3767fb21a5b8..69d0be1fc708 100644
-> --- a/arch/arm64/kernel/process.c
-> +++ b/arch/arm64/kernel/process.c
-> @@ -30,6 +30,7 @@
->  #include <linux/kernel.h>
->  #include <linux/mm.h>
->  #include <linux/stddef.h>
-> +#include <linux/sysctl.h>
->  #include <linux/unistd.h>
->  #include <linux/user.h>
->  #include <linux/delay.h>
-> @@ -323,6 +324,7 @@ void flush_thread(void)
->  	fpsimd_flush_thread();
->  	tls_thread_flush();
->  	flush_ptrace_hw_breakpoint(current);
-> +	clear_thread_flag(TIF_TAGGED_ADDR);
->  }
->  
->  void release_thread(struct task_struct *dead_task)
-> @@ -552,3 +554,68 @@ void arch_setup_new_exec(void)
->  
->  	ptrauth_thread_init_user(current);
->  }
-> +
-> +/*
-> + * Control the relaxed ABI allowing tagged user addresses into the kernel.
-> + */
-> +static unsigned int tagged_addr_prctl_allowed = 1;
-> +
-> +long set_tagged_addr_ctrl(unsigned long arg)
-> +{
-> +	if (!tagged_addr_prctl_allowed)
-> +		return -EINVAL;
-> +	if (is_compat_task())
-> +		return -EINVAL;
-> +	if (arg & ~PR_TAGGED_ADDR_ENABLE)
-> +		return -EINVAL;
-> +
-> +	if (arg & PR_TAGGED_ADDR_ENABLE)
-> +		set_thread_flag(TIF_TAGGED_ADDR);
-> +	else
-> +		clear_thread_flag(TIF_TAGGED_ADDR);
-> +
-> +	return 0;
-> +}
-> +
-> +long get_tagged_addr_ctrl(void)
-> +{
-> +	if (!tagged_addr_prctl_allowed)
-> +		return -EINVAL;
-> +	if (is_compat_task())
-> +		return -EINVAL;
-> +
-> +	if (test_thread_flag(TIF_TAGGED_ADDR))
-> +		return PR_TAGGED_ADDR_ENABLE;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Global sysctl to disable the tagged user addresses support. This control
-> + * only prevents the tagged address ABI enabling via prctl() and does not
-> + * disable it for tasks that already opted in to the relaxed ABI.
-> + */
-> +static int zero;
-> +static int one = 1;
-
-!!!
-
-And these can't even be const without a cast.  Yuk.
-
-(Not your fault though, but it would be nice to have a proc_dobool() to
-avoid this.)
-
-> +
-> +static struct ctl_table tagged_addr_sysctl_table[] = {
-> +	{
-> +		.procname	= "tagged_addr",
-> +		.mode		= 0644,
-> +		.data		= &tagged_addr_prctl_allowed,
-> +		.maxlen		= sizeof(int),
-> +		.proc_handler	= proc_dointvec_minmax,
-> +		.extra1		= &zero,
-> +		.extra2		= &one,
-> +	},
-> +	{ }
-> +};
-> +
-> +static int __init tagged_addr_init(void)
-> +{
-> +	if (!register_sysctl("abi", tagged_addr_sysctl_table))
-> +		return -EINVAL;
-> +	return 0;
-> +}
-> +
-> +core_initcall(tagged_addr_init);
-> diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
-> index 094bb03b9cc2..2e927b3e9d6c 100644
-> --- a/include/uapi/linux/prctl.h
-> +++ b/include/uapi/linux/prctl.h
-> @@ -229,4 +229,9 @@ struct prctl_mm_map {
->  # define PR_PAC_APDBKEY			(1UL << 3)
->  # define PR_PAC_APGAKEY			(1UL << 4)
->  
-> +/* Tagged user address controls for arm64 */
-> +#define PR_SET_TAGGED_ADDR_CTRL		55
-> +#define PR_GET_TAGGED_ADDR_CTRL		56
-> +# define PR_TAGGED_ADDR_ENABLE		(1UL << 0)
-> +
-
-Do we expect this prctl to be applicable to other arches, or is it
-strictly arm64-specific?
-
->  #endif /* _LINUX_PRCTL_H */
-> diff --git a/kernel/sys.c b/kernel/sys.c
-> index 2969304c29fe..ec48396b4943 100644
-> --- a/kernel/sys.c
-> +++ b/kernel/sys.c
-> @@ -124,6 +124,12 @@
->  #ifndef PAC_RESET_KEYS
->  # define PAC_RESET_KEYS(a, b)	(-EINVAL)
->  #endif
-> +#ifndef SET_TAGGED_ADDR_CTRL
-> +# define SET_TAGGED_ADDR_CTRL(a)	(-EINVAL)
-> +#endif
-> +#ifndef GET_TAGGED_ADDR_CTRL
-> +# define GET_TAGGED_ADDR_CTRL()		(-EINVAL)
-> +#endif
->  
->  /*
->   * this is where the system-wide overflow UID and GID are defined, for
-> @@ -2492,6 +2498,16 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
->  			return -EINVAL;
->  		error = PAC_RESET_KEYS(me, arg2);
->  		break;
-> +	case PR_SET_TAGGED_ADDR_CTRL:
-> +		if (arg3 || arg4 || arg5)
-
-<bikeshed>
-
-How do you anticipate these arguments being used in the future?
-
-For the SVE prctls I took the view that "get" could only ever mean one
-thing, and "put" already had a flags argument with spare bits for future
-expansion anyway, so forcing the extra arguments to zero would be
-unnecessary.
-
-Opinions seem to differ on whether requiring surplus arguments to be 0
-is beneficial for hygiene, but the glibc prototype for prctl() is
-
-	int prctl (int __option, ...);
-
-so it seemed annoying to have to pass extra arguments to it just for the
-sake of it.  IMHO this also makes the code at the call site less
-readable, since it's not immediately apparent that all those 0s are
-meaningless.
-
-</bikeshed>
-
-(OTOH, the extra arguments are harmless and prctl is far from being a
-general-purpose syscall.)
-
-> +			return -EINVAL;
-> +		error = SET_TAGGED_ADDR_CTRL(arg2);
-> +		break;
-> +	case PR_GET_TAGGED_ADDR_CTRL:
-> +		if (arg2 || arg3 || arg4 || arg5)
-> +			return -EINVAL;
-> +		error = GET_TAGGED_ADDR_CTRL();
-
-Having a "get" prctl is probably a good idea, but is there a clear
-usecase for it?
-
-(The usecase for PR_SVE_GET_VL was always a bit dubious, since the
-VL can also be read via an SVE insn or a compiler intrinsic, which is
-less portable but much cheaper.  As for the PR_SVE_SET_VL_INHERIT flag
-that can be read via PR_SVE_GET_VL, I've never been sure how useful it
-is to be able to read that...)
-
-[...]
-
-Cheers
----Dave
+SGkgRW1pbHksDQoNClRoaXMgcGF0Y2ggY2F1c2VkIGEgcmVncmVzc2lvbiBvbiBNSTI1IChDaGlw
+IDY4NjAsIFZCSU9TIDExMy1EMDUxMzcwMC0wMDEpIG1hY2hpbmVzIHdoZXJlIHRoZSBkcml2ZXIg
+d291bGQgbm90IGJvb3QuIE5vdGUgdGhhdCB0aGlzIHdhcyBub3Qgc2VlbiBvbiBWZWdhMTAgRnJv
+bnRpZXIgKENoaXAgNjg2MywgVkJJT1MgMTEzLUQwNTAxMTAwLVgwOSkgb3IgUmFkZW9uNjQgKENo
+aXAgNjk3ZikuIFJldmVydGluZyB0aGlzIHBhdGNoIHJlc29sdmVkIHRoZSBpc3N1ZSB3aXRoIG5v
+IG90aGVyIHdvcmsgcmVxdWlyZWQgYW5kIHdhcyBjb25maXJtZWQgb24gYWxsIDMgbWFjaGluZXMu
+DQoNCkhlcmUgaXMgdGhlIGRtZXNnOg0KDQpbICAgIDMuOTA4NjUzXSBhbWRncHUgMDAwMDoyMzow
+MC4wOiBCQVIgNjogY2FuJ3QgYXNzaWduIFs/Pz8gMHgwMDAwMDAwMCBmbGFncyAweDIwMDAwMDAw
+XSAoYm9ndXMgYWxpZ25tZW50KQ0KWyAgICAzLjkwODY5Ml0gQlVHOiBrZXJuZWwgTlVMTCBwb2lu
+dGVyIGRlcmVmZXJlbmNlLCBhZGRyZXNzOiAwMDAwMDAwMDAwMDAwMDA4DQpbICAgIDMuOTA4NzE2
+XSAjUEY6IHN1cGVydmlzb3IgcmVhZCBhY2Nlc3MgaW4ga2VybmVsIG1vZGUNClsgICAgMy45MDg3
+MzRdICNQRjogZXJyb3JfY29kZSgweDAwMDApIC0gbm90LXByZXNlbnQgcGFnZQ0KWyAgICAzLjkw
+ODc1M10gUEdEIDAgUDREIDAgDQpbICAgIDMuOTA4NzY3XSBPb3BzOiAwMDAwIFsjMV0gU01QIE5P
+UFRJDQpbICAgIDMuOTA5MjkzXSBDUFU6IDggUElEOiA0MDkgQ29tbToga3dvcmtlci84OjEgTm90
+IHRhaW50ZWQgNS4yLjAtcmMxLWtmZC1jb21wdXRlLXJvYy1tYXN0ZXItMTA3MzQgIzENClsgICAg
+My45MDk3NTNdIEhhcmR3YXJlIG5hbWU6IEludmVudGVjICAgICBQNDcgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBXQzIwNzEwMTkwMDEgICAgICAgICAgICAvUDQ3ICAgICAgICAgICAgICwg
+QklPUyAwLjY0IDA0LzA5LzIwMTgNClsgICAgMy45MTA1MzRdIFdvcmtxdWV1ZTogZXZlbnRzIHdv
+cmtfZm9yX2NwdV9mbg0KWyAgICAzLjkxMDk1M10gUklQOiAwMDEwOmFtZGdwdV9nZXRfYmlvcysw
+eDNhYS8weDU4MCBbYW1kZ3B1XQ0KWyAgICAzLjkxMTMxNF0gQ29kZTogYzAgNDggYzcgNDQgMjQg
+NWMgMDAgMDAgMDAgMDAgNDggYzcgODQgMjQgOTAgMDAgMDAgMDAgMDAgMDAgMDAgMDAgNDggODkg
+ZDkgNDggMjkgZjkgODMgYzEgM2MgYzEgZTkgMDMgZjMgNDggYWIgNDkgOGIgNDQgMjQgMzggPDQ4
+PiA4YiA0MCAwOCA0OCA4NSBjMCA3NCAyNCBiYSAzYyAwMCAwMCAwMCA0OCA4OSBkZSA0YyA4OSBl
+NyBmZiBkMA0KWyAgICAzLjkxMjA2OV0gUlNQOiAwMDE4OmZmZmZhMjdkY2UyOGZjNTAgRUZMQUdT
+OiAwMDAxMDIxMg0KWyAgICAzLjkxMjUwMl0gUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogZmZm
+ZmEyN2RjZTI4ZmNhYyBSQ1g6IDAwMDAwMDAwMDAwMDAwMDANClsgICAgMy45MTI5ODBdIFJEWDog
+MDAwMDAwMDAwMDAwMDAwMCBSU0k6IDAwMDAwMDAwMDAwMDAwODIgUkRJOiBmZmZmYTI3ZGNlMjhm
+Y2U4DQpbICAgIDMuOTEzNDY3XSBSQlA6IDAwMDAwMDAwMDAwMDAwMDAgUjA4OiAwMDAwMDAwMDAw
+MDAwMDAxIFIwOTogMDAwMDAwMDAwMDAwMDc5YQ0KWyAgICAzLjkxMzk0MF0gUjEwOiAwMDAwMDAw
+MDAwMDAwMDAwIFIxMTogMDAwMDAwMDAwMDAwMDAwMSBSMTI6IGZmZmY4OGQ2NTdhZjAwMDANClsg
+ICAgMy45MTQzNDldIFIxMzogZmZmZmZmZmZjMGMzODEyMCBSMTQ6IGZmZmZhMjdkY2UyOGZjNjgg
+UjE1OiBmZmZmODhkNjU3YWYwMDAwDQpbICAgIDMuOTE0NzY3XSBGUzogIDAwMDAwMDAwMDAwMDAw
+MDAoMDAwMCkgR1M6ZmZmZjg4ZDY1ZjQwMDAwMCgwMDAwKSBrbmxHUzowMDAwMDAwMDAwMDAwMDAw
+DQpbICAgIDMuOTE1MjAzXSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAw
+MDgwMDUwMDMzDQpbICAgIDMuOTE1NjM3XSBDUjI6IDAwMDAwMDAwMDAwMDAwMDggQ1IzOiAwMDAw
+MDAzZTc1NDBhMDAwIENSNDogMDAwMDAwMDAwMDM0MDZlMA0KWyAgICAzLjkxNjA3NV0gQ2FsbCBU
+cmFjZToNClsgICAgMy45MTY1MjJdICA/IHBjaWVfY2FwYWJpbGl0eV9jbGVhcl9hbmRfc2V0X3dv
+cmQrMHg1My8weDgwDQpbICAgIDMuOTE3MDE0XSAgYW1kZ3B1X2RldmljZV9pbml0KzB4OTIzLzB4
+MTgyMCBbYW1kZ3B1XQ0KWyAgICAzLjkxNzUxNV0gIGFtZGdwdV9kcml2ZXJfbG9hZF9rbXMrMHg3
+MS8weDMxMCBbYW1kZ3B1XQ0KWyAgICAzLjkxNzk5N10gIGRybV9kZXZfcmVnaXN0ZXIrMHgxMTMv
+MHgxYTAgW2RybV0NClsgICAgMy45MTg1MTRdICBhbWRncHVfcGNpX3Byb2JlKzB4YjgvMHgxNTAg
+W2FtZGdwdV0NClsgICAgMy45MTkwMDNdICA/IF9fcG1fcnVudGltZV9yZXN1bWUrMHg1NC8weDcw
+DQpbICAgIDMuOTE5MjcwXSB1c2IgMS0yOiBOZXcgVVNCIGRldmljZSBmb3VuZCwgaWRWZW5kb3I9
+MTRkZCwgaWRQcm9kdWN0PTEwMDUsIGJjZERldmljZT0gMC4wMA0KWyAgICAzLjkxOTQ5OF0gIGxv
+Y2FsX3BjaV9wcm9iZSsweDNkLzB4OTANClsgICAgMy45MTk1MDNdICA/IF9fc2NoZWR1bGUrMHgz
+ZGUvMHg2OTANClsgICAgMy45MjAzNzRdIHVzYiAxLTI6IE5ldyBVU0IgZGV2aWNlIHN0cmluZ3M6
+IE1mcj0xLCBQcm9kdWN0PTIsIFNlcmlhbE51bWJlcj0zDQpbICAgIDMuOTIxMTM3XSAgd29ya19m
+b3JfY3B1X2ZuKzB4MTAvMHgyMA0KWyAgICAzLjkyMjAyOF0gdXNiIDEtMjogUHJvZHVjdDogRDJD
+SU0tVlVTQg0KWyAgICAzLjkyMjgxNV0gIHByb2Nlc3Nfb25lX3dvcmsrMHgxNTkvMHgzZTANClsg
+ICAgMy45MjM2MzNdIHVzYiAxLTI6IE1hbnVmYWN0dXJlcjogUmFyaXRhbg0KWyAgICAzLjkyMzYz
+NV0gdXNiIDEtMjogU2VyaWFsTnVtYmVyOiBFRkZCMjEyRDBBNkUzMkYNClsgICAgMy45MjQ0MTZd
+ICB3b3JrZXJfdGhyZWFkKzB4MjJiLzB4NDQwDQpbICAgIDMuOTI0NDE5XSAgPyByZXNjdWVyX3Ro
+cmVhZCsweDM1MC8weDM1MA0KWyAgICAzLjkyNzgxMl0gIGt0aHJlYWQrMHhmNi8weDEzMA0KWyAg
+ICAzLjkyODE1N10gYXRhMTogU0FUQSBsaW5rIHVwIDYuMCBHYnBzIChTU3RhdHVzIDEzMyBTQ29u
+dHJvbCAzMDApDQpbICAgIDMuOTI4MzY1XSAgPyBrdGhyZWFkX2Rlc3Ryb3lfd29ya2VyKzB4NDAv
+MHg0MA0KWyAgICAzLjkyOTQwMV0gYXRhMS4wMDogQVRBLTEwOiBJTlRFTCBTU0RTQzJLRzk2MEc3
+LCBTQ1YxMDEwMCwgbWF4IFVETUEvMTMzDQpbICAgIDMuOTMwMTAxXSAgcmV0X2Zyb21fZm9yaysw
+eDFmLzB4MzANClsgICAgMy45MzAxMDNdIE1vZHVsZXMgbGlua2VkIGluOiBhbWRncHUoKykgY3Jj
+dDEwZGlmX3BjbG11bCBjcmMzMl9wY2xtdWwgZ2hhc2hfY2xtdWxuaV9pbnRlbCBhc3QgYW1kX2lv
+bW11X3YyIGFlc25pX2ludGVsIGdwdV9zY2hlZCBpMmNfYWxnb19iaXQgYWVzX3g4Nl82NCB0dG0g
+Y3J5cHRvX3NpbWQgZHJtX2ttc19oZWxwZXIgY3J5cHRkIGdsdWVfaGVscGVyIHN5c2NvcHlhcmVh
+IHN5c2ZpbGxyZWN0IGFoY2kgc3lzaW1nYmx0IGxpYmFoY2kgZmJfc3lzX2ZvcHMgaXhnYmUoKykg
+ZHJtIGRjYSBtZGlvDQpbICAgIDMuOTMwOTY1XSBhdGExLjAwOiAxODc1Mzg1MDA4IHNlY3RvcnMs
+IG11bHRpIDE6IExCQTQ4IE5DUSAoZGVwdGggMzIpDQpbICAgIDMuOTMxMDg1XSBhdGExLjAwOiBj
+b25maWd1cmVkIGZvciBVRE1BLzEzMw0KWyAgICAzLjkzMTgwOV0gQ1IyOiAwMDAwMDAwMDAwMDAw
+MDA4DQpbICAgIDMuOTM0NzIzXSBzY3NpIDA6MDowOjA6IERpcmVjdC1BY2Nlc3MgICAgIEFUQSAg
+ICAgIElOVEVMIFNTRFNDMktHOTYgMDEwMCBQUTogMCBBTlNJOiA1DQoNCg0KVGhhbmtzIQ0KDQog
+S2VudA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdm
+eC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIFF1YW4sIEV2YW4N
+ClNlbnQ6IE1vbmRheSwgTWF5IDI3LCAyMDE5IDk6MTcgUE0NClRvOiBEZW5nLCBFbWlseSA8RW1p
+bHkuRGVuZ0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBEZW5n
+LCBFbWlseSA8RW1pbHkuRGVuZ0BhbWQuY29tPg0KU3ViamVjdDogUkU6IFtQQVRDSF0gZHJtL2Ft
+ZGdwdTogTmVlZCB0byBzZXQgdGhlIGJhY28gY2FwIGJlZm9yZSBiYWNvIHJlc2V0DQoNClJldmll
+d2VkLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KDQo+IC0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVl
+ZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiANCj4gRW1pbHkgRGVuZw0KPiBTZW50OiBNb25kYXks
+IE1heSAyNywgMjAxOSAzOjQzIFBNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zw0KPiBDYzogRGVuZywgRW1pbHkgPEVtaWx5LkRlbmdAYW1kLmNvbT4NCj4gU3ViamVjdDogW1BB
+VENIXSBkcm0vYW1kZ3B1OiBOZWVkIHRvIHNldCB0aGUgYmFjbyBjYXAgYmVmb3JlIGJhY28gDQo+
+IHJlc2V0DQo+IA0KPiBGb3IgcGFzc3Rocm91Z2gsIGFmdGVyIHJlYm9vdGVkIHRoZSBWTSwgZHJp
+dmVyIHdpbGwgZG8gYSBiYWNvIHJlc2V0IA0KPiBiZWZvcmUgZG9pbmcgb3RoZXIgZHJpdmVyIGlu
+aXRpYWxpemF0aW9uIGR1cmluZyBsb2FkaW5nICBkcml2ZXIuIEZvciANCj4gZG9pbmcgdGhlIGJh
+Y28gcmVzZXQsIGl0IHdpbGwgZmlyc3QgY2hlY2sgdGhlIGJhY28gcmVzZXQgY2FwYWJpbGl0eS4g
+DQo+IFNvIGZpcnN0IG5lZWQgdG8gc2V0IHRoZSBjYXAgZnJvbSB0aGUgdmJpb3MgaW5mb3JtYXRp
+b24gb3IgYmFjbyByZXNldCB3b24ndCBiZSBlbmFibGVkLg0KPiANCj4gU2lnbmVkLW9mZi1ieTog
+RW1pbHkgRGVuZyA8RW1pbHkuRGVuZ0BhbWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyAgICAgICAgIHwgMjQgKysrKysrKysrKy0tLS0t
+DQo+IC0tLS0tLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgICAgICAg
+ICAgICAgICAgIHwgIDMgKystDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21n
+ci92ZWdhMTBfaHdtZ3IuYyB8ICA0ICsrKysNCj4gIC4uLi9hbWQvcG93ZXJwbGF5L2h3bWdyL3Zl
+Z2ExMF9wcm9jZXNzcHB0YWJsZXMuYyAgIHwgMjQNCj4gKysrKysrKysrKysrKysrKysrKysrKw0K
+PiAgLi4uL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5oICAgfCAg
+MSArDQo+ICA1IGZpbGVzIGNoYW5nZWQsIDQyIGluc2VydGlvbnMoKyksIDE0IGRlbGV0aW9ucygt
+KQ0KPiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+ZXZpY2UuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0K
+PiBpbmRleCBiNmRlZDg0Li43YThjMjIwIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2RldmljZS5jDQo+IEBAIC0xNTQxLDYgKzE1NDEsMTcgQEAgc3RhdGljIGlu
+dCBhbWRncHVfZGV2aWNlX2lwX2Vhcmx5X2luaXQoc3RydWN0DQo+IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpDQo+ICAJaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkNCj4gIAkJYWRldi0+cG0ucHBfZmVh
+dHVyZSAmPSB+UFBfR0ZYT0ZGX01BU0s7DQo+IA0KPiArCS8qIFJlYWQgQklPUyAqLw0KPiArCWlm
+ICghYW1kZ3B1X2dldF9iaW9zKGFkZXYpKQ0KPiArCQlyZXR1cm4gLUVJTlZBTDsNCj4gKw0KPiAr
+CXIgPSBhbWRncHVfYXRvbWJpb3NfaW5pdChhZGV2KTsNCj4gKwlpZiAocikgew0KPiArCQlkZXZf
+ZXJyKGFkZXYtPmRldiwgImFtZGdwdV9hdG9tYmlvc19pbml0IGZhaWxlZFxuIik7DQo+ICsJCWFt
+ZGdwdV92Zl9lcnJvcl9wdXQoYWRldiwNCj4gQU1ER0lNX0VSUk9SX1ZGX0FUT01CSU9TX0lOSVRf
+RkFJTCwgMCwgMCk7DQo+ICsJCXJldHVybiByOw0KPiArCX0NCj4gKw0KPiAgCWZvciAoaSA9IDA7
+IGkgPCBhZGV2LT5udW1faXBfYmxvY2tzOyBpKyspIHsNCj4gIAkJaWYgKChhbWRncHVfaXBfYmxv
+Y2tfbWFzayAmICgxIDw8IGkpKSA9PSAwKSB7DQo+ICAJCQlEUk1fRVJST1IoImRpc2FibGVkIGlw
+IGJsb2NrOiAlZCA8JXM+XG4iLCBAQCAtDQo+IDI1OTEsMTkgKzI2MDIsNiBAQCBpbnQgYW1kZ3B1
+X2RldmljZV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgCQlnb3RvIGZlbmNl
+X2RyaXZlcl9pbml0Ow0KPiAgCX0NCj4gDQo+IC0JLyogUmVhZCBCSU9TICovDQo+IC0JaWYgKCFh
+bWRncHVfZ2V0X2Jpb3MoYWRldikpIHsNCj4gLQkJciA9IC1FSU5WQUw7DQo+IC0JCWdvdG8gZmFp
+bGVkOw0KPiAtCX0NCj4gLQ0KPiAtCXIgPSBhbWRncHVfYXRvbWJpb3NfaW5pdChhZGV2KTsNCj4g
+LQlpZiAocikgew0KPiAtCQlkZXZfZXJyKGFkZXYtPmRldiwgImFtZGdwdV9hdG9tYmlvc19pbml0
+IGZhaWxlZFxuIik7DQo+IC0JCWFtZGdwdV92Zl9lcnJvcl9wdXQoYWRldiwNCj4gQU1ER0lNX0VS
+Uk9SX1ZGX0FUT01CSU9TX0lOSVRfRkFJTCwgMCwgMCk7DQo+IC0JCWdvdG8gZmFpbGVkOw0KPiAt
+CX0NCj4gLQ0KPiAgCS8qIGRldGVjdCBpZiB3ZSBhcmUgd2l0aCBhbiBTUklPViB2YmlvcyAqLw0K
+PiAgCWFtZGdwdV9kZXZpY2VfZGV0ZWN0X3NyaW92X2Jpb3MoYWRldik7DQo+IA0KPiBkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KPiBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMNCj4gaW5kZXggNzhiZDRmYy4uZDlmZGQ5NSAxMDA2NDQN
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYw0KPiArKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jDQo+IEBAIC03NjQsNyArNzY0LDggQEAgc3Rh
+dGljIGJvb2wgc29jMTVfbmVlZF9yZXNldF9vbl9pbml0KHN0cnVjdCANCj4gYW1kZ3B1X2Rldmlj
+ZSAqYWRldikNCj4gIAkvKiBKdXN0IHJldHVybiBmYWxzZSBmb3Igc29jMTUgR1BVcy4gIFJlc2V0
+IGRvZXMgbm90IHNlZW0gdG8NCj4gIAkgKiBiZSBuZWNlc3NhcnkuDQo+ICAJICovDQo+IC0JcmV0
+dXJuIGZhbHNlOw0KPiArCWlmICghYW1kZ3B1X3Bhc3N0aHJvdWdoKGFkZXYpKQ0KPiArCQlyZXR1
+cm4gZmFsc2U7DQo+IA0KPiAgCWlmIChhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpDQo+ICAJCXJl
+dHVybiBmYWxzZTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2h3bWdyL3ZlZ2ExMF9od21nci5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aHdtZ3IvdmVnYTEwX2h3bWdyLmMNCj4gaW5kZXggY2U2YWViNS4uMWQ5YmIyOSAxMDA2NDQNCj4g
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdyLmMN
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX2h3bWdy
+LmMNCj4gQEAgLTUzMTEsOCArNTMxMSwxMiBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBwX2h3bWdy
+X2Z1bmMgDQo+IHZlZ2ExMF9od21ncl9mdW5jcyA9IHsNCj4gDQo+ICBpbnQgdmVnYTEwX2h3bWdy
+X2luaXQoc3RydWN0IHBwX2h3bWdyICpod21ncikgIHsNCj4gKwlzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiA9IGh3bWdyLT5hZGV2Ow0KPiArDQo+ICAJaHdtZ3ItPmh3bWdyX2Z1bmMgPSAmdmVn
+YTEwX2h3bWdyX2Z1bmNzOw0KPiAgCWh3bWdyLT5wcHRhYmxlX2Z1bmMgPSAmdmVnYTEwX3BwdGFi
+bGVfZnVuY3M7DQo+ICsJaWYgKGFtZGdwdV9wYXNzdGhyb3VnaChhZGV2KSkNCj4gKwkJcmV0dXJu
+IHZlZ2ExMF9iYWNvX3NldF9jYXAoaHdtZ3IpOw0KPiANCj4gIAlyZXR1cm4gMDsNCj4gIH0NCj4g
+ZGlmZiAtLWdpdA0KPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2Ex
+MF9wcm9jZXNzcHB0YWJsZXMuYw0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3
+bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuYw0KPiBpbmRleCBiNjc2N2Q3Li44M2QyMmNkIDEw
+MDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBf
+cHJvY2Vzc3BwdGFibGVzLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5jDQo+IEBAIC0xMzcxLDMgKzEzNzEsMjcgQEAg
+aW50IHZlZ2ExMF9nZXRfcG93ZXJwbGF5X3RhYmxlX2VudHJ5KHN0cnVjdA0KPiBwcF9od21nciAq
+aHdtZ3IsDQo+IA0KPiAgCXJldHVybiByZXN1bHQ7DQo+ICB9DQo+ICsNCj4gK2ludCB2ZWdhMTBf
+YmFjb19zZXRfY2FwKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpIHsNCj4gKwlpbnQgcmVzdWx0ID0g
+MDsNCj4gKw0KPiArCWNvbnN0IEFUT01fVmVnYTEwX1BPV0VSUExBWVRBQkxFICpwb3dlcnBsYXlf
+dGFibGU7DQo+ICsNCj4gKwlwb3dlcnBsYXlfdGFibGUgPSBnZXRfcG93ZXJwbGF5X3RhYmxlKGh3
+bWdyKTsNCj4gKw0KPiArCVBQX0FTU0VSVF9XSVRIX0NPREUoKHBvd2VycGxheV90YWJsZSAhPSBO
+VUxMKSwNCj4gKwkJIk1pc3NpbmcgUG93ZXJQbGF5IFRhYmxlISIsIHJldHVybiAtMSk7DQo+ICsN
+Cj4gKwlyZXN1bHQgPSBjaGVja19wb3dlcnBsYXlfdGFibGVzKGh3bWdyLCBwb3dlcnBsYXlfdGFi
+bGUpOw0KPiArDQo+ICsJUFBfQVNTRVJUX1dJVEhfQ09ERSgocmVzdWx0ID09IDApLA0KPiArCQkJ
+ICAgICJjaGVja19wb3dlcnBsYXlfdGFibGVzIGZhaWxlZCIsIHJldHVybiByZXN1bHQpOw0KPiAr
+DQo+ICsJc2V0X2h3X2NhcCgNCj4gKwkJCWh3bWdyLA0KPiArCQkJMCAhPSAobGUzMl90b19jcHUo
+cG93ZXJwbGF5X3RhYmxlLT51bFBsYXRmb3JtQ2FwcykNCj4gJiBBVE9NX1ZFR0ExMF9QUF9QTEFU
+Rk9STV9DQVBfQkFDTyksDQo+ICsJCQlQSE1fUGxhdGZvcm1DYXBzX0JBQ08pOw0KPiArCXJldHVy
+biByZXN1bHQ7DQo+ICt9DQo+ICsNCj4gZGlmZiAtLWdpdA0KPiBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuaA0KPiBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9wcm9jZXNzcHB0YWJsZXMuaA0KPiBp
+bmRleCBkODNlZDJhLi5kYTVmYmVjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9od21nci92ZWdhMTBfcHJvY2Vzc3BwdGFibGVzLmgNCj4gKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEwX3Byb2Nlc3NwcHRhYmxlcy5oDQo+
+IEBAIC01OSw0ICs1OSw1IEBAIGV4dGVybiBpbnQNCj4gdmVnYTEwX2dldF9udW1iZXJfb2ZfcG93
+ZXJwbGF5X3RhYmxlX2VudHJpZXMoc3RydWN0IHBwX2h3bWdyICpod21ncik7ICANCj4gZXh0ZXJu
+IGludCB2ZWdhMTBfZ2V0X3Bvd2VycGxheV90YWJsZV9lbnRyeShzdHJ1Y3QgcHBfaHdtZ3IgKmh3
+bWdyLCANCj4gdWludDMyX3QgZW50cnlfaW5kZXgsDQo+ICAJCXN0cnVjdCBwcF9wb3dlcl9zdGF0
+ZSAqcG93ZXJfc3RhdGUsIGludCAoKmNhbGxfYmFja19mdW5jKShzdHJ1Y3QgDQo+IHBwX2h3bWdy
+ICosIHZvaWQgKiwNCj4gIAkJCQlzdHJ1Y3QgcHBfcG93ZXJfc3RhdGUgKiwgdm9pZCAqLCB1aW50
+MzJfdCkpOw0KPiArZXh0ZXJuIGludCB2ZWdhMTBfYmFjb19zZXRfY2FwKHN0cnVjdCBwcF9od21n
+ciAqaHdtZ3IpOw0KPiAgI2VuZGlmDQo+IC0tDQo+IDIuNy40DQo+IA0KPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlz
+dA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4
