@@ -1,49 +1,66 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix compilation error
-Date: Thu, 13 Jun 2019 14:52:34 -0400
-Message-ID: <CADnq5_OSjJad7QGOCrWQL+LcjtCHQsCefpJ=K0mYUayFe9bUAA@mail.gmail.com>
-References: <20190613023208.GA29690@hari-Inspiron-1545> <CADnq5_PU_jvOskC-=+oRQdvYXZvu_n26ogoWTxLRxnW+ke4wDw@mail.gmail.com>
- <20190613184217.GA2385@ravnborg.org>
+From: Sean Paul <sean@poorly.run>
+Subject: [PATCH] drm/amdgpu: Fix connector atomic_check
+ compilation fail
+Date: Thu, 13 Jun 2019 20:27:00 -0400
+Message-ID: <20190614002713.141340-1-sean@poorly.run>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190613184217.GA2385@ravnborg.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: Hariprasad Kelam <hariprasad.kelam@gmail.com>, LKML <linux-kernel@vger.kernel.org>, Yongqiang Sun <yongqiang.sun@amd.com>, Charlene Liu <charlene.liu@amd.com>, Leo Li <sunpeng.li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Gloria Li <geling.li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Airlie <airlied@linux.ie>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Tony Cheng <tony.cheng@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <maxime.ripard@bootlin.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>, Ben Skeggs <bskeggs@redhat.com>, Harry Wentland <harry.wentland@amd.com>, Ilia Mirkin <imirkin@alum.mit.edu>, Leo Li <sunpeng.li@amd.com>, intel-gfx@lists.freedesktop.org, Sean Paul <seanpaul@chromium.org>, Karol Herbst <karolherbst@gmail.com>, linux-renesas-soc@vger.kernel.org, Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Jun 13, 2019 at 2:42 PM Sam Ravnborg <sam@ravnborg.org> wrote:
->
-> Hi Alex.
->
-> On Wed, Jun 12, 2019 at 10:35:26PM -0400, Alex Deucher wrote:
-> > On Wed, Jun 12, 2019 at 10:34 PM Hariprasad Kelam
-> > <hariprasad.kelam@gmail.com> wrote:
-> > >
-> > > this patch fixes below compilation error
-> > >
-> > > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: =
-In
-> > > function =E2=80=98dcn10_apply_ctx_for_surface=E2=80=99:
-> > > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2=
-378:3:
-> > > error: implicit declaration of function =E2=80=98udelay=E2=80=99
-> > > [-Werror=3Dimplicit-function-declaration]
-> > >    udelay(underflow_check_delay_us);
-> > >
-> > > Signed-off-by: Hariprasad Kelam <hariprasad.kelam@gmail.com>
->
-> Am I right in assuming you took this patch?
->
-> I expect that new code using udelay was added to the amd tree,
-> and when merged with drm-misc-next it failed, because drm-misc-next no
-> longer had drmP.h included so no implicit include of delay.h
->
-> The root cause was that my original patchset should have been based
-> on the amd tree, and applied there :-(
-
-No worries.  I've picked it up.
-
-Alex
+RnJvbTogU2VhbiBQYXVsIDxzZWFucGF1bEBjaHJvbWl1bS5vcmc+CgpJIG1pc3NlZCBhbWRncHUg
+aW4gbXkgY29ubm5lY3Rvcl9oZWxwZXJfZnVuY3MtPmF0b21pY19jaGVjayBjb252ZXJzaW9uLAp3
+aGljaCBpcyB1bmRlcnN0YW5kYWJseSBjYXVzaW5nIGNvbXBpbGF0aW9uIGZhaWx1cmVzLgoKRml4
+ZXM6IDZmM2I2Mjc4MWJiZCAoImRybTogQ29udmVydCBjb25uZWN0b3JfaGVscGVyX2Z1bmNzLT5h
+dG9taWNfY2hlY2sgdG8gYWNjZXB0IGRybV9hdG9taWNfc3RhdGUiKQpDYzogRGFuaWVsIFZldHRl
+ciA8ZGFuaWVsQGZmd2xsLmNoPgpDYzogVmlsbGUgU3lyasOkbMOkIDx2aWxsZS5zeXJqYWxhQGxp
+bnV4LmludGVsLmNvbT4KQ2M6IEphbmkgTmlrdWxhIDxqYW5pLm5pa3VsYUBsaW51eC5pbnRlbC5j
+b20+CkNjOiBKb29uYXMgTGFodGluZW4gPGpvb25hcy5sYWh0aW5lbkBsaW51eC5pbnRlbC5jb20+
+CkNjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBpbnRlbC5jb20+CkNjOiBCZW4gU2tlZ2dz
+IDxic2tlZ2dzQHJlZGhhdC5jb20+CkNjOiBMYXVyZW50IFBpbmNoYXJ0IDxsYXVyZW50LnBpbmNo
+YXJ0QGlkZWFzb25ib2FyZC5jb20+CkNjOiBLaWVyYW4gQmluZ2hhbSA8a2llcmFuLmJpbmdoYW0r
+cmVuZXNhc0BpZGVhc29uYm9hcmQuY29tPgpDYzogRXJpYyBBbmhvbHQgPGVyaWNAYW5ob2x0Lm5l
+dD4KQ2M6IExhdXJlbnQgUGluY2hhcnQgPGxhdXJlbnQucGluY2hhcnRAaWRlYXNvbmJvYXJkLmNv
+bT4gW2ZvciByY2FyIGx2ZHNdCkNjOiBTZWFuIFBhdWwgPHNlYW5wYXVsQGNocm9taXVtLm9yZz4K
+Q2M6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+
+CkNjOiBNYXhpbWUgUmlwYXJkIDxtYXhpbWUucmlwYXJkQGJvb3RsaW4uY29tPgpDYzogU2VhbiBQ
+YXVsIDxzZWFuQHBvb3JseS5ydW4+CkNjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+
+CkNjOiBMeXVkZSBQYXVsIDxseXVkZUByZWRoYXQuY29tPgpDYzogS2Fyb2wgSGVyYnN0IDxrYXJv
+bGhlcmJzdEBnbWFpbC5jb20+CkNjOiBJbGlhIE1pcmtpbiA8aW1pcmtpbkBhbHVtLm1pdC5lZHU+
+CkNjOiBkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBpbnRlbC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCkNjOiBsaW51eC1yZW5lc2FzLXNvY0B2Z2VyLmtlcm5lbC5vcmcKUmVw
+b3J0ZWQtYnk6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVrPgpTaWduZWQt
+b2ZmLWJ5OiBTZWFuIFBhdWwgPHNlYW5wYXVsQGNocm9taXVtLm9yZz4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgNSArKystLQogMSBmaWxl
+IGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwppbmRleCAzYTcyM2U1
+NTNhMTkzLi4zZDVlODI4YzNkMjg0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
+c3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMKQEAgLTM5NTMsOSArMzk1MywxMCBAQCBpc19oZHJf
+bWV0YWRhdGFfZGlmZmVyZW50KGNvbnN0IHN0cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpvbGRf
+c3RhdGUsCiAKIHN0YXRpYyBpbnQKIGFtZGdwdV9kbV9jb25uZWN0b3JfYXRvbWljX2NoZWNrKHN0
+cnVjdCBkcm1fY29ubmVjdG9yICpjb25uLAotCQkJCSBzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcl9zdGF0
+ZSAqbmV3X2Nvbl9zdGF0ZSkKKwkJCQkgc3RydWN0IGRybV9hdG9taWNfc3RhdGUgKnN0YXRlKQog
+ewotCXN0cnVjdCBkcm1fYXRvbWljX3N0YXRlICpzdGF0ZSA9IG5ld19jb25fc3RhdGUtPnN0YXRl
+OworCXN0cnVjdCBkcm1fY29ubmVjdG9yX3N0YXRlICpuZXdfY29uX3N0YXRlID0KKwkJZHJtX2F0
+b21pY19nZXRfbmV3X2Nvbm5lY3Rvcl9zdGF0ZShzdGF0ZSwgY29ubik7CiAJc3RydWN0IGRybV9j
+b25uZWN0b3Jfc3RhdGUgKm9sZF9jb25fc3RhdGUgPQogCQlkcm1fYXRvbWljX2dldF9vbGRfY29u
+bmVjdG9yX3N0YXRlKHN0YXRlLCBjb25uKTsKIAlzdHJ1Y3QgZHJtX2NydGMgKmNydGMgPSBuZXdf
+Y29uX3N0YXRlLT5jcnRjOwotLSAKU2VhbiBQYXVsLCBTb2Z0d2FyZSBFbmdpbmVlciwgR29vZ2xl
+IC8gQ2hyb21pdW0gT1MKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVs
+LWdmeA==
