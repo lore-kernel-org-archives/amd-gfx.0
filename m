@@ -1,53 +1,103 @@
-From: Mathieu Malaterre <malat@debian.org>
-Subject: Re: [PATCH v2] drm: radeon: add a missing break in evergreen_cs_handle_reg
-Date: Fri, 14 Jun 2019 14:11:27 +0200
-Message-ID: <CA+7wUswrBF6k0xv8tPzJbZHj0s0O+KfFBdToyX8UjHwDxQGMhw@mail.gmail.com>
-References: <20190114202652.15204-1-malat@debian.org> <20190117204047.1262-1-malat@debian.org>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: Re: [PATCH 01/13] drm/amdgpu: introduce and honour DRM_FORCE_AUTH
+ workaround
+Date: Fri, 14 Jun 2019 12:55:34 +0000
+Message-ID: <9dbdda6c-8916-e5ae-1676-86828b9890e7@amd.com>
+References: <20190527081741.14235-1-emil.l.velikov@gmail.com>
+ <20190614120927.GA32412@arch-x1c3>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190117204047.1262-1-malat@debian.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel <dri-devel@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190614120927.GA32412@arch-x1c3>
+Content-Language: en-US
+Content-ID: <C5B6A6E61C7FBA42B1DD89C547EBC258@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Emil Velikov <emil.l.velikov@gmail.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, David Airlie <airlied@linux.ie>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Jan 17, 2019 at 9:40 PM Mathieu Malaterre <malat@debian.org> wrote:
->
-> In commit dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
-> case statements were added without a terminating break statement. This
-> commit adds the missing break. This was discovered during a compilation
-> with W=1.
->
-> This commit removes the following warning:
->
->   drivers/gpu/drm/radeon/evergreen_cs.c:1301:11: warning: this statement may fall through [-Wimplicit-fallthrough=]
->
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Fixes: dd220a00e8bd ("drm/radeon/kms: add support for streamout v7")
-> Signed-off-by: Mathieu Malaterre <malat@debian.org>
-> ---
-> v2: Add missing break statement, instead of marking it as fall through
-
-Replaced by:
-
-cc5034a5d293 drm/radeon/evergreen_cs: fix missing break in switch statement
-
->  drivers/gpu/drm/radeon/evergreen_cs.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/radeon/evergreen_cs.c b/drivers/gpu/drm/radeon/evergreen_cs.c
-> index f471537c852f..1e14c6921454 100644
-> --- a/drivers/gpu/drm/radeon/evergreen_cs.c
-> +++ b/drivers/gpu/drm/radeon/evergreen_cs.c
-> @@ -1299,6 +1299,7 @@ static int evergreen_cs_handle_reg(struct radeon_cs_parser *p, u32 reg, u32 idx)
->                         return -EINVAL;
->                 }
->                 ib[idx] += (u32)((reloc->gpu_offset >> 8) & 0xffffffff);
-> +               break;
->         case CB_TARGET_MASK:
->                 track->cb_target_mask = radeon_get_ib_value(p, idx);
->                 track->cb_dirty = true;
-> --
-> 2.19.2
->
+QW0gMTQuMDYuMTkgdW0gMTQ6MDkgc2NocmllYiBFbWlsIFZlbGlrb3Y6DQo+IE9uIDIwMTkvMDUv
+MjcsIEVtaWwgVmVsaWtvdiB3cm90ZToNCj4gW1NOSVBdDQo+IEhpIENocmlzdGlhbiwNCj4NCj4N
+Cj4gSW4gdGhlIGZvbGxvd2luZywgSSB3b3VsZCBsaWtlIHRvIHN1bW1hcmlzZSBhbmQgZW1waGFz
+aXplIHRoZSBuZWVkIGZvcg0KPiBEUk1fQVVUSCByZW1vdmFsLiBJIHdvdWxkIGtpbmRseSBhc2sg
+eW91IHRvIHNwZW5kIGEgY291cGxlIG9mIG1pbnV0ZXMNCj4gZXh0cmEgcmVhZGluZyBpdC4NCj4N
+Cj4NCj4gVG9kYXkgRFJNIGRyaXZlcnMqIGRvIG5vdCBtYWtlIGFueSBkaXN0aW5jdGlvbiBiZXR3
+ZWVuIHByaW1hcnkgYW5kDQo+IHJlbmRlciBub2RlIGNsaWVudHMuDQoNClRoYXQgaXMgYWN0dWFs
+bHkgbm90IDEwMCUgY29ycmVjdC4gV2UgaGF2ZSBhIHNwZWNpYWwgY2FzZSB3aGVyZSBhIERSTSAN
+Cm1hc3RlciBpcyBhbGxvd2VkIHRvIGNoYW5nZSB0aGUgcHJpb3JpdHkgb2YgcmVuZGVyIG5vZGUg
+Y2xpZW50cy4NCg0KPiBUaHVzIGZvciBhIHJlbmRlciBjYXBhYmxlIGRyaXZlciwgYW55IHByZW1p
+c2Ugb2YNCj4gc2VwYXJhdGlvbiwgc2VjdXJpdHkgb3Igb3RoZXJ3aXNlIGltcG9zZWQgdmlhIERS
+TV9BVVRIIGlzIGEgZmFsbGFjeS4NCg0KWWVhaCwgdGhhdCdzIHdoYXQgSSBhZ3JlZSBvbi4gSSBq
+dXN0IGRvbid0IHRoaW5rIHRoYXQgcmVtb3ZpbmcgRFJNX0FVVEggDQpub3cgaXMgdGhlIHJpZ2h0
+IGRpcmVjdGlvbiB0byB0YWtlLg0KDQo+IENvbnNpZGVyaW5nIHRoZSBleGFtcGxlcyBvZiBmbGFr
+eSBvciBvdXRyaWdodCBtaXNzaW5nIGRybUF1dGggaW4gcHJpbWUNCj4gb3Blbi1zb3VyY2UgcHJv
+amVjdHMgKG1lc2EsIGttc2N1YmUsIGxpYnZhKSB3ZSBjYW4gcmVhc29uYWJseSBhc3N1bWUNCj4g
+b3RoZXIgcHJvamVjdHMgZXhiaWJpdCB0aGUgc2FtZSBwcm9ibGVtLg0KPg0KPiBGb3IgdGhlc2Ug
+YW5kL29yIG90aGVyIHJlYXNvbnMsIHR3byBEUk0gZHJpdmVycyBoYXZlIGRyb3BwZWQgRFJNX0FV
+VEgNCj4gc2luY2UgZGF5IG9uZS4NCj4NCj4gU2luY2Ugd2UgYXJlIGludGVyZXN0ZWQgaW4gcHJv
+dmlkaW5nIGNvbnNpc3RlbnQgYW5kIHByZWRpY3RhYmxlDQo+IGJlaGF2aW91ciB0byB1c2VyLXNw
+YWNlLCBkcm9wcGluZyBEUk1fQVVUSCBzZWVtcyB0byBiZSB0aGUgbW9zdA0KPiBlZmZlY3RpdmUg
+d2F5IGZvcndhcmQuDQoNCldlbGwgYW5kIHdoYXQgZG8geW91IGRvIHdpdGggZHJpdmVycyB3aGlj
+aCBkb2Vzbid0IGltcGxlbWVudCByZW5kZXIgbm9kZXM/DQoNCj4gT2YgY291cnNlLCBJJ2QgYmUg
+bW9yZSB0aGFuIGhhcHB5IHRvIGhlYXIgZm9yIGFueSBvdGhlciB3YXkgdG8gYWNoaWV2ZQ0KPiB0
+aGUgZ29hbCBvdXRsaW5lZC4NCj4NCj4gQmFzZWQgb24gdGhlIHNlcmllcywgb3RoZXIgbWFpbnRh
+aW5lcnMgYWdyZWUgd2l0aCB0aGUgaWRlYS9nb2FsIGhlcmUuDQo+IEFtZGdwdSBub3QgZm9sbG93
+aW5nIHRoZSBzYW1lIHBhdHRlcm4gd291bGQgY29tcHJvbWlzZSBwcmVkaWN0YWJpbGl0eQ0KPiBh
+Y3Jvc3MgZHJpdmVycyBhbmQgY29tcGxpY2F0ZSB1c2Vyc3BhY2UsIHNvIEkgd291bGQga2luZGx5
+IGFzayB5b3UgdG8NCj4gcmVjb25zaWRlci4NCj4NCj4gQWx0ZXJuYXRpdmVseSwgSSBzZWUgdHdv
+IHdheXMgdG8gc3BlY2lhbCBjYXNlOg0KPiAgIC0gTmV3IGZsYWcgYW5ub3RhdGluZyBhbWRncHUv
+cmFkZW9uIC0gYWtpbiB0byB0aGUgb25lIHByb3Bvc2VkIGVhcmxpZXINCj4gICAtIENoZWNrIGZv
+ciBhbWRncHUvcmFkZW9uIGluIGNvcmUgRFJNDQoNCkkgcGVyZmVjdGx5IGFncmVlIHRoYXQgSSBk
+b24ndCB3YW50IGFueSBzcGVjaWFsIGhhbmRsaW5nIGZvciBhbWRncHUvcmFkZW9uLg0KDQpNeSBr
+ZXkgcG9pbnQgaXMgdGhhdCB3aXRoIERSTV9BVVRIIHdlIGNyZWF0ZWQgYW4gYXV0aG9yaXphdGlv
+biBhbmQgDQphdXRoZW50aWNhdGlvbiBtZXNzIGluIERSTSB3aGljaCBpcyBmdW5jdGlvbmFsaXR5
+IHdoaWNoIGRvZXNuJ3QgYmVsb25nIA0KaW50byB0aGUgRFJNIHN1YnN5c3RlbSBpbiB0aGUgZmly
+c3QgcGxhY2UuDQoNCj4gTm93IG9uIHlvdXIgcGFpbiBwb2ludCAtIG5vdCBhbGxvd2luZyByZW5k
+ZXIgaW9jdHMgdmlhIHRoZSBwcmltYXJ5IG5vZGUsDQo+IGFuZCBob3cgdGhpcyBwYXRjaCBjb3Vs
+ZCBtYWtlIGl0IGhhcmRlciB0byBhY2hpZXZlIHRoYXQgZ29hbC4NCj4NCj4gV2hpbGUgSSBsb3Zl
+IHRoZSBpZGVhLCB0aGVyZSBhcmUgbnVtYmVyIG9mIG9ic3RhY2xlcyB0aGF0IHByZXZlbnQgdXMN
+Cj4gZnJvbSBkb2luZyBzbyBhdCB0aGlzIHRpbWU6DQo+ICAgLSBFbnN1cmluZyBib3RoIG9sZCBh
+bmQgbmV3IHVzZXJzcGFjZSBkb2VzIG5vdCByZWdyZXNzDQoNClllYWgsIGFncmVlIHRvdGFsbHku
+IFRoYXQncyB3aHkgSSBzYWlkIHdlIHNob3VsZCBwcm9iYWJseSBzdGFydCBkb2luZyANCnRoaXMg
+Zm9yIG9ubHkgZm9yIHVwY29taW5nIGhhcmR3YXJlIGdlbmVyYXRpb25zLg0KDQo+ICAgLSBEcml2
+ZXJzIChRWEwsIG90aGVycz8pIGRvIG5vdCBleHBvc2UgYSByZW5kZXIgbm9kZQ0KDQpXZWxsIGlz
+bid0IHRoYXQgaXMgYSByYXRoZXIgYmlnIHByb2JsZW0gZm9yIHRoZSByZW1vdmFsIG9mIERSTV9B
+VVRIIGluIA0KZ2VuZXJhbD8NCg0KRS5nLiBhdCBsZWFzdCBRWEwgd291bGQgdGhlbiBleHBvc2Ug
+ZnVuY3Rpb25hbGl0eSBvbiB0aGUgcHJpbWFyeSBub2RlIA0Kd2l0aG91dCBhdXRoZW50aWNhdGlv
+bi4NCg0KPiAgIC0gV2Ugd2FudCB0byBhdm9pZCBkcml2ZXIgc3BlY2lmaWMgYmVoYXZpb3VyDQo+
+DQo+IFRoZSBvbmx5IHdheSBmb3J3YXJkIHRoYXQgSSBjYW4gc2VlIGlzOg0KPiAgIC0gQWRkcmVz
+cyBRWEwvb3RoZXJzIHRvIGV4cG9zZSByZW5kZXIgbm9kZXMNCj4gICAtIEFkZCBhIEtjb25maWcg
+dG9nZ2xlIHRvIGRpc2FibGUgIUtNUyBpb2N0bHMgdmlhIHRoZSBwcmltYXJ5IG5vZGUNCj4gICAt
+IEp1bXAtc3RhcnQgXl4gd2l0aCBkaXN0cmlidXRpb24gWA0KPiAgIC0gRml4IHVzZXItc3BhY2Ug
+ZmFsbG91dHMNCj4gICAtIFggbW9udGhzIGRvd24gdGhlIGxpbmUsIGZsaXAgdGhlIEtjb25maWcN
+Cj4gICAtIEluIGNhc2Ugb2YgcmVncmVzc2lvbnMgLSByZXZlcnQgdGhlIEtDb25maWcsIGdvdG8g
+Rml4IHVzZXItc3BhY2UuLi4NCg0KV2VsbCB0aGF0IGF0IGxlYXN0IHNvdW5kcyBsaWtlIGEgcGxh
+biA6KSBMZXQncyB0byB0aGlzIQ0KDQo+IFRoYXQgc2FpZCwgdGhlIHByb3Bvc2FsIHdpbGwgbm90
+IGNvbmZsaWN0IHdpdGggdGhlIERSTV9BVVRIIHJlbW92YWwuIElmDQo+IGFueXRoaW5nIGl0IGlz
+IHN0ZXAgMC41IG9mIHRoZSBncmFuZCBtYXN0ZXIgcGxhbi4NCg0KVGhhdCdzIHRoZSBwb2ludCBJ
+IHN0cm9uZ2x5IGRpc2FncmVlIG9uLg0KDQpCeSBsb3dlcmluZyB0aGUgRFJNX0FVVEggcmVzdHJp
+Y3Rpb24geW91IGFyZSBlbmNvdXJhZ2luZyB1c2Vyc3BhY2UgdG8gDQp1c2UgdGhlIHNob3J0Y3V0
+IGFuZCB1c2UgdGhlIHByaW1hcnkgbm9kZSBmb3IgcmVuZGVyaW5nIGluc3RlYWQgb2YgDQpmaXhp
+bmcgdGhlIGNvZGUgYW5kIHVzaW5nIHRoZSByZW5kZXIgbm9kZS4NCg0KU28gYXQgdGhlIGVuZCBv
+ZiB0aGUgZGF5IHVzZXJzcGFjZSB3aWxsIG1vc3QgbGlrZWx5IGNvbXBsZXRlbHkgZHJvcCANCnN1
+cHBvcnQgZm9yIHRoZSByZW5kZXIgbm9kZSwgc2ltcGx5IGZvciB0aGUgcmVhc29uIHRoYXQgaXQg
+YmVjYW1lIA0Kc3VwZXJmbHVvdXMuIFlvdSBjYW4ganVzdCBvcGVuIHVwIHRoZSBwcmltYXJ5IG5v
+ZGUgYW5kIGdldCB0aGUgc2FtZSANCmZ1bmN0aW9uYWxpdHkuDQoNCkkgYWJzb2x1dGVseSBjYW4n
+dCB1bmRlcnN0YW5kIGhvdyB5b3UgY2FuIGFyZ3VlIHRoYXQgdGhpcyB3b24ndCBtYWtlIGl0IA0K
+aGFyZGVyIHRvIGNsZWFubHkgc2VwYXJhdGUgcmVuZGVyaW5nIGFuZCBwcmltYXJ5IG5vZGUgZnVu
+Y3Rpb25hbGl0eS4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KPg0KPg0KPiBUbDtEcjogUmVt
+b3ZpbmcgRFJNX0FVVEggaXMgb3J0aG9nb25hbCB0byBub3QgYWxsb3dpbmcgcmVuZGVyIGlvY3Rz
+IHZpYQ0KPiB0aGUgcHJpbWFyeSBub2RlLiBIZXJlJ3MgYW4gaWRlYSBob3cgdG8gYWNoaWV2ZSB0
+aGUgbGF0dGVyLg0KPg0KPg0KPiBUaGFua3MNCj4gRW1pbA0KDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1k
+ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
