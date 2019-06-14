@@ -1,46 +1,35 @@
-From: =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: [PATCH xf86-video-ati 2/3] dri2: Re-use previous CRTC when possible
- if pick_best_crtc returns NULL
-Date: Fri, 14 Jun 2019 11:27:44 +0200
-Message-ID: <20190614092745.4488-2-michel@daenzer.net>
-References: <20190614092745.4488-1-michel@daenzer.net>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190614092745.4488-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Young Xiao <92siuyang@gmail.com>
+Subject: [PATCH] drm/amd: fix hotplug race at startup
+Date: Fri, 14 Jun 2019 19:29:23 +0800
+Message-ID: <1560511763-2140-1-git-send-email-92siuyang@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Young Xiao <92siuyang@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWljaGVsIETDpG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+CgpUaGlzIHdheSwg
-dGhlIE1TQyB3aWxsIGNvbnRpbnVlIHRpY2tpbmcgYXQgdGhlIHJhdGUgb2YgKHRoZSBsYXN0IG1v
-ZGUKd2hpY2ggd2FzIGVuYWJsZWQgZm9yKSB0aGF0IENSVEMsIGluc3RlYWQgb2YgdGhlIGNsaWVu
-dCBydW5uaW5nCnVudGhyb3R0bGVkLgoKKFBvcnRlZCBmcm9tIGFtZGdwdSBjb21taXQgMzEwOWYw
-ODhmZGJkODljMmVlODA3ODYyNWQ0ZjA3Mzg1MjQ5MjY1NikKClNpZ25lZC1vZmYtYnk6IE1pY2hl
-bCBEw6RuemVyIDxtaWNoZWwuZGFlbnplckBhbWQuY29tPgotLS0KIHNyYy9yYWRlb25fZHJpMi5j
-IHwgNiArKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25z
-KC0pCgpkaWZmIC0tZ2l0IGEvc3JjL3JhZGVvbl9kcmkyLmMgYi9zcmMvcmFkZW9uX2RyaTIuYwpp
-bmRleCAzYzA0ZTZmZTkuLmM1OWQ3OTlmZiAxMDA2NDQKLS0tIGEvc3JjL3JhZGVvbl9kcmkyLmMK
-KysrIGIvc3JjL3JhZGVvbl9kcmkyLmMKQEAgLTUxNywxMCArNTE3LDEyIEBAIHhmODZDcnRjUHRy
-IHJhZGVvbl9kcmkyX2RyYXdhYmxlX2NydGMoRHJhd2FibGVQdHIgcERyYXcsIEJvb2wgY29uc2lk
-ZXJfZGlzYWJsZWQpCiAJCQkJCSAgICAgIHBEcmF3LT54LCBwRHJhdy0+eCArIHBEcmF3LT53aWR0
-aCwKIAkJCQkJICAgICAgcERyYXctPnksIHBEcmF3LT55ICsgcERyYXctPmhlaWdodCk7CiAKLSAg
-ICBpZiAoY3J0YyAmJiBwRHJhdy0+dHlwZSA9PSBEUkFXQUJMRV9XSU5ET1cpIHsKKyAgICBpZiAo
-cERyYXctPnR5cGUgPT0gRFJBV0FCTEVfV0lORE9XKSB7CiAJc3RydWN0IGRyaTJfd2luZG93X3By
-aXYgKnByaXYgPSBnZXRfZHJpMl93aW5kb3dfcHJpdigoV2luZG93UHRyKXBEcmF3KTsKIAotCWlm
-IChwcml2LT5jcnRjICYmIHByaXYtPmNydGMgIT0gY3J0YykgeworCWlmICghY3J0YykgeworCSAg
-ICBjcnRjID0gcHJpdi0+Y3J0YzsKKwl9IGVsc2UgaWYgKHByaXYtPmNydGMgJiYgcHJpdi0+Y3J0
-YyAhPSBjcnRjKSB7CiAJICAgIENBUkQ2NCB1c3QsIG1zY29sZCwgbXNjbmV3OwogCiAJICAgIGlm
-IChyYWRlb25fZHJpMl9nZXRfY3J0Y19tc2MocHJpdi0+Y3J0YywgJnVzdCwgJm1zY29sZCkgJiYK
-LS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+We should check mode_config_initialized flag in amdgpu_hotplug_work_func.
+
+See commit 7f98ca454ad3 ("drm/radeon: fix hotplug race at startup") for details.
+
+Signed-off-by: Young Xiao <92siuyang@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index af4c3b1..13186d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -85,6 +85,9 @@ static void amdgpu_hotplug_work_func(struct work_struct *work)
+ 	struct drm_mode_config *mode_config = &dev->mode_config;
+ 	struct drm_connector *connector;
+ 
++	if (!adev->mode_info.mode_config_initialized)
++		return;
++
+ 	mutex_lock(&mode_config->mutex);
+ 	list_for_each_entry(connector, &mode_config->connector_list, head)
+ 		amdgpu_connector_hotplug(connector);
+-- 
+2.7.4
