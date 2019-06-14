@@ -1,35 +1,96 @@
-From: Young Xiao <92siuyang@gmail.com>
-Subject: [PATCH] drm/amd: fix hotplug race at startup
-Date: Fri, 14 Jun 2019 19:29:23 +0800
-Message-ID: <1560511763-2140-1-git-send-email-92siuyang@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Young Xiao <92siuyang@gmail.com>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Subject: Re: [PATCH 01/13] drm/amdgpu: introduce and honour DRM_FORCE_AUTH
+ workaround
+Date: Fri, 14 Jun 2019 13:09:27 +0100
+Message-ID: <20190614120927.GA32412@arch-x1c3>
+References: <20190527081741.14235-1-emil.l.velikov@gmail.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Disposition: inline
+In-Reply-To: <20190527081741.14235-1-emil.l.velikov@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@linux.ie>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-We should check mode_config_initialized flag in amdgpu_hotplug_work_func.
-
-See commit 7f98ca454ad3 ("drm/radeon: fix hotplug race at startup") for details.
-
-Signed-off-by: Young Xiao <92siuyang@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index af4c3b1..13186d6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -85,6 +85,9 @@ static void amdgpu_hotplug_work_func(struct work_struct *work)
- 	struct drm_mode_config *mode_config = &dev->mode_config;
- 	struct drm_connector *connector;
- 
-+	if (!adev->mode_info.mode_config_initialized)
-+		return;
-+
- 	mutex_lock(&mode_config->mutex);
- 	list_for_each_entry(connector, &mode_config->connector_list, head)
- 		amdgpu_connector_hotplug(connector);
--- 
-2.7.4
+T24gMjAxOS8wNS8yNywgRW1pbCBWZWxpa292IHdyb3RlOgo+IEZyb206IEVtaWwgVmVsaWtvdiA8
+ZW1pbC52ZWxpa292QGNvbGxhYm9yYS5jb20+Cj4gCj4gQ3VycmVudGx5IG9uZSBjYW4gY2lyY3Vt
+dmVudCBEUk1fQVVUSCwgd2hlbiB0aGUgaW9jdGwgaXMgZXhwb3NlZCB2aWEgdGhlCj4gcmVuZGVy
+IG5vZGUuIEEgc2VlbWluZ2x5IGRlbGliZXJhdGUgZGVzaWduIGRlY2lzaW9uLgo+IAo+IEhlbmNl
+IHdlIGNhbiBkcm9wIHRoZSBEUk1fQVVUSCBhbGwgdG9nZXRoZXIgKGRldGFpbHMgaW4gZm9sbG93
+LXVwIHBhdGNoKQo+IHlldCBub3QgYWxsIHVzZXJzcGFjZSBjaGVja3MgaWYgaXQncyBhdXRoZW50
+aWNhdGVkLCBidXQgaW5zdGVhZCB1c2VzCj4gdW5jb21tb24gYXNzdW1wdGlvbnMuCj4gCj4gQWZ0
+ZXIgZGF5cyBvZiBkaWdnaW5nIHRocm91Z2ggZ2l0IGxvZyBhbmQgdGVzdGluZywgb25seSBhIHNp
+bmdsZSAoYWIpdXNlCj4gd2FzIHNwb3R0ZWQgLSB0aGUgTWVzYSBSQURWIGRyaXZlciwgdXNpbmcg
+dGhlIEFNREdQVV9JTkZPIGlvY3RsIGFuZAo+IGFzc3VtaW5nIHRoYXQgZmFpbHVyZSBpbXBsaWVz
+IGxhY2sgb2YgYXV0aGVudGljYXRpb24uCj4gCj4gQWZmZWN0ZWQgdmVyc2lvbnMgYXJlOgo+ICAt
+IHRoZSB3aG9sZSAxOC4yLnggc2VyaWVzLCB3aGljaCBpcyBFT0wKPiAgLSB0aGUgd2hvbGUgMTgu
+My54IHNlcmllcywgd2hpY2ggaXMgRU9MCj4gIC0gdGhlIDE5LjAueCBzZXJpZXMsIHByaW9yIHRv
+IDE5LjAuNAo+IAo+IEFkZCBhIHNwZWNpYWwgcXVpcmsgZm9yIHRoYXQgY2FzZSwgdGh1cyB3ZSBj
+YW4gZHJvcCBEUk1fQVVUSCBiaXRzIGFzCj4gbWVudGlvbmVkIGVhcmxpZXIuCj4gCj4gU2luY2Ug
+YWxsIHRoZSBhZmZlY3RlZCB1c2Vyc3BhY2UgaXMgRU9MLCB3ZSBhbHNvIGFkZCBhIGtjb25maWcg
+b3B0aW9uCj4gdG8gZGlzYWJsZSB0aGlzIHF1aXJrLgo+IAo+IFRoZSB3aG9sZSBhcHByb2FjaCBp
+cyBpbnNwaXJlZCBieSBEUklWRVJfS01TX0xFR0FDWV9DT05URVhUCj4gCj4gQ2M6IEFsZXggRGV1
+Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiBDYzogQ2hyaXN0aWFuIEvDtm5pZyA8
+Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+IENjOiBEYXZpZCBBaXJsaWUgPGFpcmxpZWRAbGludXguaWU+Cj4gQ2M6IERhbmllbCBW
+ZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KPiBTaWduZWQtb2ZmLWJ5OiBFbWlsIFZlbGlrb3YgPGVt
+aWwudmVsaWtvdkBjb2xsYWJvcmEuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9LY29uZmlnICAgICAgfCAxNiArKysrKysrKysrKysrKysrCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyB8IDEyICsrKysrKysrKysrLQo+ICBkcml2ZXJzL2dw
+dS9kcm0vZHJtX2lvY3RsLmMgICAgICAgICAgICAgfCAgNSArKysrKwo+ICBpbmNsdWRlL2RybS9k
+cm1faW9jdGwuaCAgICAgICAgICAgICAgICAgfCAxNyArKysrKysrKysrKysrKysrKwo+ICA0IGZp
+bGVzIGNoYW5nZWQsIDQ5IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKPiAKCkhpIENocmlz
+dGlhbiwKCgpJbiB0aGUgZm9sbG93aW5nLCBJIHdvdWxkIGxpa2UgdG8gc3VtbWFyaXNlIGFuZCBl
+bXBoYXNpemUgdGhlIG5lZWQgZm9yCkRSTV9BVVRIIHJlbW92YWwuIEkgd291bGQga2luZGx5IGFz
+ayB5b3UgdG8gc3BlbmQgYSBjb3VwbGUgb2YgbWludXRlcwpleHRyYSByZWFkaW5nIGl0LgoKClRv
+ZGF5IERSTSBkcml2ZXJzKiBkbyBub3QgbWFrZSBhbnkgZGlzdGluY3Rpb24gYmV0d2VlbiBwcmlt
+YXJ5IGFuZApyZW5kZXIgbm9kZSBjbGllbnRzLiBUaHVzIGZvciBhIHJlbmRlciBjYXBhYmxlIGRy
+aXZlciwgYW55IHByZW1pc2Ugb2YKc2VwYXJhdGlvbiwgc2VjdXJpdHkgb3Igb3RoZXJ3aXNlIGlt
+cG9zZWQgdmlhIERSTV9BVVRIIGlzIGEgZmFsbGFjeS4KCkNvbnNpZGVyaW5nIHRoZSBleGFtcGxl
+cyBvZiBmbGFreSBvciBvdXRyaWdodCBtaXNzaW5nIGRybUF1dGggaW4gcHJpbWUKb3Blbi1zb3Vy
+Y2UgcHJvamVjdHMgKG1lc2EsIGttc2N1YmUsIGxpYnZhKSB3ZSBjYW4gcmVhc29uYWJseSBhc3N1
+bWUKb3RoZXIgcHJvamVjdHMgZXhiaWJpdCB0aGUgc2FtZSBwcm9ibGVtLgoKRm9yIHRoZXNlIGFu
+ZC9vciBvdGhlciByZWFzb25zLCB0d28gRFJNIGRyaXZlcnMgaGF2ZSBkcm9wcGVkIERSTV9BVVRI
+CnNpbmNlIGRheSBvbmUuCgpTaW5jZSB3ZSBhcmUgaW50ZXJlc3RlZCBpbiBwcm92aWRpbmcgY29u
+c2lzdGVudCBhbmQgcHJlZGljdGFibGUKYmVoYXZpb3VyIHRvIHVzZXItc3BhY2UsIGRyb3BwaW5n
+IERSTV9BVVRIIHNlZW1zIHRvIGJlIHRoZSBtb3N0CmVmZmVjdGl2ZSB3YXkgZm9yd2FyZC4KCk9m
+IGNvdXJzZSwgSSdkIGJlIG1vcmUgdGhhbiBoYXBweSB0byBoZWFyIGZvciBhbnkgb3RoZXIgd2F5
+IHRvIGFjaGlldmUKdGhlIGdvYWwgb3V0bGluZWQuCgpCYXNlZCBvbiB0aGUgc2VyaWVzLCBvdGhl
+ciBtYWludGFpbmVycyBhZ3JlZSB3aXRoIHRoZSBpZGVhL2dvYWwgaGVyZS4KQW1kZ3B1IG5vdCBm
+b2xsb3dpbmcgdGhlIHNhbWUgcGF0dGVybiB3b3VsZCBjb21wcm9taXNlIHByZWRpY3RhYmlsaXR5
+CmFjcm9zcyBkcml2ZXJzIGFuZCBjb21wbGljYXRlIHVzZXJzcGFjZSwgc28gSSB3b3VsZCBraW5k
+bHkgYXNrIHlvdSB0bwpyZWNvbnNpZGVyLgoKQWx0ZXJuYXRpdmVseSwgSSBzZWUgdHdvIHdheXMg
+dG8gc3BlY2lhbCBjYXNlOgogLSBOZXcgZmxhZyBhbm5vdGF0aW5nIGFtZGdwdS9yYWRlb24gLSBh
+a2luIHRvIHRoZSBvbmUgcHJvcG9zZWQgZWFybGllcgogLSBDaGVjayBmb3IgYW1kZ3B1L3JhZGVv
+biBpbiBjb3JlIERSTQoKCgpOb3cgb24geW91ciBwYWluIHBvaW50IC0gbm90IGFsbG93aW5nIHJl
+bmRlciBpb2N0cyB2aWEgdGhlIHByaW1hcnkgbm9kZSwKYW5kIGhvdyB0aGlzIHBhdGNoIGNvdWxk
+IG1ha2UgaXQgaGFyZGVyIHRvIGFjaGlldmUgdGhhdCBnb2FsLgoKV2hpbGUgSSBsb3ZlIHRoZSBp
+ZGVhLCB0aGVyZSBhcmUgbnVtYmVyIG9mIG9ic3RhY2xlcyB0aGF0IHByZXZlbnQgdXMKZnJvbSBk
+b2luZyBzbyBhdCB0aGlzIHRpbWU6CiAtIEVuc3VyaW5nIGJvdGggb2xkIGFuZCBuZXcgdXNlcnNw
+YWNlIGRvZXMgbm90IHJlZ3Jlc3MKIC0gRHJpdmVycyAoUVhMLCBvdGhlcnM/KSBkbyBub3QgZXhw
+b3NlIGEgcmVuZGVyIG5vZGUKIC0gV2Ugd2FudCB0byBhdm9pZCBkcml2ZXIgc3BlY2lmaWMgYmVo
+YXZpb3VyCgpUaGUgb25seSB3YXkgZm9yd2FyZCB0aGF0IEkgY2FuIHNlZSBpczoKIC0gQWRkcmVz
+cyBRWEwvb3RoZXJzIHRvIGV4cG9zZSByZW5kZXIgbm9kZXMKIC0gQWRkIGEgS2NvbmZpZyB0b2dn
+bGUgdG8gZGlzYWJsZSAhS01TIGlvY3RscyB2aWEgdGhlIHByaW1hcnkgbm9kZQogLSBKdW1wLXN0
+YXJ0IF5eIHdpdGggZGlzdHJpYnV0aW9uIFgKIC0gRml4IHVzZXItc3BhY2UgZmFsbG91dHMKIC0g
+WCBtb250aHMgZG93biB0aGUgbGluZSwgZmxpcCB0aGUgS2NvbmZpZwogLSBJbiBjYXNlIG9mIHJl
+Z3Jlc3Npb25zIC0gcmV2ZXJ0IHRoZSBLQ29uZmlnLCBnb3RvIEZpeCB1c2VyLXNwYWNlLi4uCgoK
+VGhhdCBzYWlkLCB0aGUgcHJvcG9zYWwgd2lsbCBub3QgY29uZmxpY3Qgd2l0aCB0aGUgRFJNX0FV
+VEggcmVtb3ZhbC4gSWYKYW55dGhpbmcgaXQgaXMgc3RlcCAwLjUgb2YgdGhlIGdyYW5kIG1hc3Rl
+ciBwbGFuLgoKClRsO0RyOiBSZW1vdmluZyBEUk1fQVVUSCBpcyBvcnRob2dvbmFsIHRvIG5vdCBh
+bGxvd2luZyByZW5kZXIgaW9jdHMgdmlhCnRoZSBwcmltYXJ5IG5vZGUuIEhlcmUncyBhbiBpZGVh
+IGhvdyB0byBhY2hpZXZlIHRoZSBsYXR0ZXIuCgoKVGhhbmtzCkVtaWwKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApk
+cmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
