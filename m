@@ -1,48 +1,40 @@
-From: Markus Elfring <Markus.Elfring@web.de>
-Subject: [PATCH] drm/amd/powerplay: Delete a redundant memory setting in
- vega20_set_default_od8_setttings()
-Date: Mon, 17 Jun 2019 14:34:15 +0200
-Message-ID: <de3f6a5e-8ac4-bc8e-0d0c-3a4a5db283e9@web.de>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] drm/amd/display: include missing linux/delay.h
+Date: Mon, 17 Jun 2019 14:38:55 +0200
+Message-ID: <20190617123915.926526-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Evan Quan <evan.quan@amd.com>, Rex Zhu <rex.zhu@amd.com>
-Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Arnd Bergmann <arnd@arndb.de>, Thomas Lim <Thomas.Lim@amd.com>, Eric Yang <eric.yang2@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Tony Cheng <tony.cheng@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, Charlene Liu <charlene.liu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Mon, 17 Jun 2019 14:24:14 +0200
+Some randconfig builds fail to compile the dcn10 code because of
+a missing declaration:
 
-The memory was set to zero already by a call of the function =E2=80=9Ckzal=
-loc=E2=80=9D.
-Thus remove an extra call of the function =E2=80=9Cmemset=E2=80=9D for thi=
-s purpose.
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: In function 'dcn10_apply_ctx_for_surface':
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2378:3: error: implicit declaration of function 'udelay' [-Werror=implicit-function-declaration]
 
-This issue was detected by using the Coccinelle software.
+Include the appropriate kernel header.
 
-Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
-=2D--
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 1 -
- 1 file changed, 1 deletion(-)
+Fixes: 9ed43ef84d9d ("drm/amd/display: Add Underflow Asserts to dc")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/=
-amd/powerplay/vega20_ppt.c
-index 4aa8f5a69c4c..62497ad66a39 100644
-=2D-- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-@@ -1295,7 +1295,6 @@ static int vega20_set_default_od8_setttings(struct s=
-mu_context *smu)
- 	if (!table_context->od8_settings)
- 		return -ENOMEM;
-
--	memset(table_context->od8_settings, 0, sizeof(struct vega20_od8_settings=
-));
- 	od8_settings =3D (struct vega20_od8_settings *)table_context->od8_settin=
-gs;
-
- 	if (smu_feature_is_enabled(smu, FEATURE_DPM_SOCCLK_BIT)) {
-=2D-
-2.22.0
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 1ac9a4f03990..d87ddc7de9c6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -22,6 +22,7 @@
+  * Authors: AMD
+  *
+  */
++#include <linux/delay.h>
+ 
+ #include <linux/delay.h>
+ #include "dm_services.h"
+-- 
+2.20.0
