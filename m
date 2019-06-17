@@ -1,20 +1,20 @@
 From: Markus Elfring <Markus.Elfring@web.de>
-Subject: [PATCH] drm/amd/display: Delete a redundant memory setting in
- amdgpu_dm_irq_register_interrupt()
-Date: Mon, 17 Jun 2019 14:10:10 +0200
-Message-ID: <3900e9c8-4905-1704-686d-90ccf3b00a88@web.de>
+Subject: [PATCH] drm/amd/powerplay: Delete a redundant memory setting in
+ vega20_set_default_od8_setttings()
+Date: Mon, 17 Jun 2019 14:34:15 +0200
+Message-ID: <de3f6a5e-8ac4-bc8e-0d0c-3a4a5db283e9@web.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, David Francis <David.Francis@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Evan Quan <evan.quan@amd.com>, Rex Zhu <rex.zhu@amd.com>
 Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
 From: Markus Elfring <elfring@users.sourceforge.net>
-Date: Mon, 17 Jun 2019 13:56:39 +0200
+Date: Mon, 17 Jun 2019 14:24:14 +0200
 
 The memory was set to zero already by a call of the function =E2=80=9Ckzal=
 loc=E2=80=9D.
@@ -25,23 +25,24 @@ This issue was detected by using the Coccinelle software.
 
 Signed-off-by: Markus Elfring <elfring@users.sourceforge.net>
 =2D--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drive=
-rs/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index 1b59d3d42f7b..fa5d503d379c 100644
-=2D-- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -277,8 +277,6 @@ void *amdgpu_dm_irq_register_interrupt(struct amdgpu_d=
-evice *adev,
- 		return DAL_INVALID_IRQ_HANDLER_IDX;
- 	}
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/=
+amd/powerplay/vega20_ppt.c
+index 4aa8f5a69c4c..62497ad66a39 100644
+=2D-- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -1295,7 +1295,6 @@ static int vega20_set_default_od8_setttings(struct s=
+mu_context *smu)
+ 	if (!table_context->od8_settings)
+ 		return -ENOMEM;
 
--	memset(handler_data, 0, sizeof(*handler_data));
--
- 	init_handler_common_data(handler_data, ih, handler_args, &adev->dm);
+-	memset(table_context->od8_settings, 0, sizeof(struct vega20_od8_settings=
+));
+ 	od8_settings =3D (struct vega20_od8_settings *)table_context->od8_settin=
+gs;
 
- 	irq_source =3D int_params->irq_source;
+ 	if (smu_feature_is_enabled(smu, FEATURE_DPM_SOCCLK_BIT)) {
 =2D-
 2.22.0
