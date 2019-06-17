@@ -1,102 +1,46 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix error handling in df_v3_6_pmc_start
-Date: Mon, 17 Jun 2019 11:02:18 -0400
-Message-ID: <CADnq5_MLH9TW76Cji=pAOtpNd7UiB5w=J=3rT_6UYzgCvsS2pg@mail.gmail.com>
-References: <20190617125216.1439481-1-arnd@arndb.de>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: Add missing newline at end of file
+Date: Mon, 17 Jun 2019 11:03:14 -0400
+Message-ID: <CADnq5_PaTnL-_kzbGquQbomy+31ArFcvBke+R_yZyXn39cCQyQ@mail.gmail.com>
+References: <20190617143728.4949-1-geert+renesas@glider.be>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190617125216.1439481-1-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Jonathan Kim <jonathan.kim@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Colin Ian King <colin.king@canonical.com>, Evan Quan <evan.quan@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190617143728.4949-1-geert+renesas-gXvu3+zWzMSzQB+pC5nmwQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Geert Uytterhoeven <geert+renesas-gXvu3+zWzMSzQB+pC5nmwQ@public.gmane.org>
+Cc: David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-On Mon, Jun 17, 2019 at 8:57 AM Arnd Bergmann <arnd@arndb.de> wrote:
->
-> When df_v3_6_pmc_get_ctrl_settings() fails for some reason, we
-> store uninitialized data in a register, as gcc points out:
->
-> drivers/gpu/drm/amd/amdgpu/df_v3_6.c: In function 'df_v3_6_pmc_start':
-> drivers/gpu/drm/amd/amdgpu/amdgpu.h:1012:29: error: 'lo_val' may be used uninitialized in this function [-Werror=maybe-uninitialized]
->  #define WREG32_PCIE(reg, v) adev->pcie_wreg(adev, (reg), (v))
->                              ^~~~
-> drivers/gpu/drm/amd/amdgpu/df_v3_6.c:334:39: note: 'lo_val' was declared here
->   uint32_t lo_base_addr, hi_base_addr, lo_val, hi_val;
->                                        ^~~~~~
->
-> Make it return a proper error code that we can catch in the caller.
->
-> Fixes: 992af942a6cf ("drm/amdgpu: add df perfmon regs and funcs for xgmi")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> index 8c09bf994acd..e079ee066d87 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-> @@ -177,7 +177,7 @@ static void df_v3_6_pmc_get_read_settings(struct amdgpu_device *adev,
->  }
->
->  /* get control counter settings i.e. address and values to set */
-> -static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
-> +static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
->                                           uint64_t config,
->                                           uint32_t *lo_base_addr,
->                                           uint32_t *hi_base_addr,
-> @@ -191,12 +191,12 @@ static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
->         df_v3_6_pmc_get_addr(adev, config, 1, lo_base_addr, hi_base_addr);
->
->         if (lo_val == NULL || hi_val == NULL)
-> -               return;
-> +               return -EINVAL;
->
->         if ((*lo_base_addr == 0) || (*hi_base_addr == 0)) {
->                 DRM_ERROR("DF PMC addressing not retrieved! Lo: %x, Hi: %x",
->                                 *lo_base_addr, *hi_base_addr);
-> -               return;
-> +               return -ENXIO;
->         }
->
->         eventsel = GET_EVENT(config);
-> @@ -211,6 +211,8 @@ static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
->         es_7_0 = es_13_0 & 0x0FFUL;
->         *lo_val = (es_7_0 & 0xFFUL) | ((unitmask & 0x0FUL) << 8);
->         *hi_val = (es_11_8 | ((es_13_12)<<(29)));
-> +
-> +       return 0;
->  }
->
->  /* assign df performance counters for read */
-> @@ -345,13 +347,16 @@ static int df_v3_6_add_xgmi_link_cntr(struct amdgpu_device *adev,
->         if (ret || is_assigned)
->                 return ret;
->
-> -       df_v3_6_pmc_get_ctrl_settings(adev,
-> +       ret = df_v3_6_pmc_get_ctrl_settings(adev,
->                         config,
->                         &lo_base_addr,
->                         &hi_base_addr,
->                         &lo_val,
->                         &hi_val);
->
-> +       if (ret)
-> +               return ret;
-> +
->         WREG32_PCIE(lo_base_addr, lo_val);
->         WREG32_PCIE(hi_base_addr, hi_val);
->
-> --
-> 2.20.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gTW9uLCBKdW4gMTcsIDIwMTkgYXQgMTA6NDUgQU0gR2VlcnQgVXl0dGVyaG9ldmVuCjxnZWVy
+dCtyZW5lc2FzQGdsaWRlci5iZT4gd3JvdGU6Cj4KPiAiZ2l0IGRpZmYiIHNheXM6Cj4KPiAgICAg
+XCBObyBuZXdsaW5lIGF0IGVuZCBvZiBmaWxlCj4KPiBhZnRlciBtb2RpZnlpbmcgdGhlIGZpbGUu
+Cj4KPiBTaWduZWQtb2ZmLWJ5OiBHZWVydCBVeXR0ZXJob2V2ZW4gPGdlZXJ0K3JlbmVzYXNAZ2xp
+ZGVyLmJlPgoKQXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9tb2R1bGVzL3Bvd2VyL01ha2VmaWxlIHwgMiArLQo+ICAxIGZpbGUgY2hh
+bmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9wb3dlci9NYWtlZmlsZSBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL3Bvd2VyL01ha2VmaWxlCj4gaW5kZXggODc4NTFm
+ODkyYTUyZDM3Mi4uOWQxYjIyZDM1ZWNlOTEzNiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9wb3dlci9NYWtlZmlsZQo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL3Bvd2VyL01ha2VmaWxlCj4gQEAgLTI4LDQgKzI4LDQg
+QEAgTU9EX1BPV0VSID0gcG93ZXJfaGVscGVycy5vCj4gIEFNRF9EQUxfTU9EX1BPV0VSID0gJChh
+ZGRwcmVmaXggJChBTUREQUxQQVRIKS9tb2R1bGVzL3Bvd2VyLywkKE1PRF9QT1dFUikpCj4gICMk
+KGluZm8gKioqKioqKioqKioqICBEQUwgUE9XRVIgTU9EVUxFIE1BS0VGSUxFICoqKioqKioqKioq
+KikKPgo+IC1BTURfRElTUExBWV9GSUxFUyArPSAkKEFNRF9EQUxfTU9EX1BPV0VSKQo+IFwgTm8g
+bmV3bGluZSBhdCBlbmQgb2YgZmlsZQo+ICtBTURfRElTUExBWV9GSUxFUyArPSAkKEFNRF9EQUxf
+TU9EX1BPV0VSKQo+IC0tCj4gMi4xNy4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
