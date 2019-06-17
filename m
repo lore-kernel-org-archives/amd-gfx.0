@@ -1,52 +1,53 @@
-From: Sam Ravnborg <sam@ravnborg.org>
-Subject: Re: [PATCH] drm/amd/display: include missing linux/delay.h
-Date: Mon, 17 Jun 2019 16:41:09 +0200
-Message-ID: <20190617144109.GA14528@ravnborg.org>
-References: <20190617123915.926526-1-arnd@arndb.de>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: wait to fetch the vbios until after common init
+Date: Mon, 17 Jun 2019 09:45:00 -0500
+Message-ID: <20190617144500.29491-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190617123915.926526-1-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Thomas Lim <Thomas.Lim@amd.com>, Eric Yang <eric.yang2@amd.com>, Charlene Liu <charlene.liu@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, dri-devel@lists.freedesktop.org, Tony Cheng <tony.cheng@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-Hi Arnd.
-
-On Mon, Jun 17, 2019 at 02:38:55PM +0200, Arnd Bergmann wrote:
-> Some randconfig builds fail to compile the dcn10 code because of
-> a missing declaration:
-> 
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: In function 'dcn10_apply_ctx_for_surface':
-> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2378:3: error: implicit declaration of function 'udelay' [-Werror=implicit-function-declaration]
-> 
-> Include the appropriate kernel header.
-> 
-> Fixes: 9ed43ef84d9d ("drm/amd/display: Add Underflow Asserts to dc")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> index 1ac9a4f03990..d87ddc7de9c6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> @@ -22,6 +22,7 @@
->   * Authors: AMD
->   *
->   */
-> +#include <linux/delay.h>
->  
->  #include <linux/delay.h>
->  #include "dm_services.h"
-
-Something has gone wrong here, as you add a second include of linux/delay.h.
-
-We had this problem before, which Alex fixed by applying a patch to
-include linux/delay.h
-
-
-	Sam
+V2UgbmVlZCB0aGUgYXNpY19mdW5jcyBzZXQgZm9yIHRoZSBnZXQgcm9tIGNhbGxiYWNrcyBpbiBz
+b21lCmNhc2VzLgoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
+ckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
+YyB8IDI0ICsrKysrKysrKysrKy0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRp
+b25zKCspLCAxMSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMKaW5kZXggNGE4MzZkYjEwMDBmLi5lMjYzMDNiYzU2N2UgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTE1MzQsMTcgKzE1MzQsNiBA
+QCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBfZWFybHlfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikKIAlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQogCQlhZGV2LT5wbS5wcF9m
+ZWF0dXJlICY9IH5QUF9HRlhPRkZfTUFTSzsKIAotCS8qIFJlYWQgQklPUyAqLwotCWlmICghYW1k
+Z3B1X2dldF9iaW9zKGFkZXYpKQotCQlyZXR1cm4gLUVJTlZBTDsKLQotCXIgPSBhbWRncHVfYXRv
+bWJpb3NfaW5pdChhZGV2KTsKLQlpZiAocikgewotCQlkZXZfZXJyKGFkZXYtPmRldiwgImFtZGdw
+dV9hdG9tYmlvc19pbml0IGZhaWxlZFxuIik7Ci0JCWFtZGdwdV92Zl9lcnJvcl9wdXQoYWRldiwg
+QU1ER0lNX0VSUk9SX1ZGX0FUT01CSU9TX0lOSVRfRkFJTCwgMCwgMCk7Ci0JCXJldHVybiByOwot
+CX0KLQogCWZvciAoaSA9IDA7IGkgPCBhZGV2LT5udW1faXBfYmxvY2tzOyBpKyspIHsKIAkJaWYg
+KChhbWRncHVfaXBfYmxvY2tfbWFzayAmICgxIDw8IGkpKSA9PSAwKSB7CiAJCQlEUk1fRVJST1Io
+ImRpc2FibGVkIGlwIGJsb2NrOiAlZCA8JXM+XG4iLApAQCAtMTU2Niw2ICsxNTU1LDE5IEBAIHN0
+YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9pcF9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KQogCQkJCWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMudmFsaWQgPSB0cnVlOwogCQkJ
+fQogCQl9CisJCS8qIGdldCB0aGUgdmJpb3MgYWZ0ZXIgdGhlIGFzaWNfZnVuY3MgYXJlIHNldCB1
+cCAqLworCQlpZiAoYWRldi0+aXBfYmxvY2tzW2ldLnZlcnNpb24tPnR5cGUgPT0gQU1EX0lQX0JM
+T0NLX1RZUEVfQ09NTU9OKSB7CisJCQkvKiBSZWFkIEJJT1MgKi8KKwkJCWlmICghYW1kZ3B1X2dl
+dF9iaW9zKGFkZXYpKQorCQkJCXJldHVybiAtRUlOVkFMOworCisJCQlyID0gYW1kZ3B1X2F0b21i
+aW9zX2luaXQoYWRldik7CisJCQlpZiAocikgeworCQkJCWRldl9lcnIoYWRldi0+ZGV2LCAiYW1k
+Z3B1X2F0b21iaW9zX2luaXQgZmFpbGVkXG4iKTsKKwkJCQlhbWRncHVfdmZfZXJyb3JfcHV0KGFk
+ZXYsIEFNREdJTV9FUlJPUl9WRl9BVE9NQklPU19JTklUX0ZBSUwsIDAsIDApOworCQkJCXJldHVy
+biByOworCQkJfQorCQl9CiAJfQogCiAJYWRldi0+Y2dfZmxhZ3MgJj0gYW1kZ3B1X2NnX21hc2s7
+Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
