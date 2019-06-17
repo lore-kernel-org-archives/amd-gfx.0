@@ -1,13 +1,16 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 114/459] drm/amdgpu: add VCN2.0 decode ib test
-Date: Mon, 17 Jun 2019 14:11:15 -0500
-Message-ID: <20190617191700.17899-103-alexander.deucher@amd.com>
-References: <20190617191700.17899-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: cast mem->num_pages to 64-bits when
+ shifting
+Date: Mon, 17 Jun 2019 21:25:43 +0200
+Message-ID: <82551bf2-c88d-d1fe-652f-535562154d0d@gmail.com>
+References: <20190614165108.23011-1-tom.stdenis@amd.com>
+ <CAAzXoRK9vy-qC36mSzJ3aJr6YB8kuWMujxfuNFAqAzbWEk+gTA@mail.gmail.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0473789738=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190617191700.17899-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CAAzXoRK9vy-qC36mSzJ3aJr6YB8kuWMujxfuNFAqAzbWEk+gTA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,63 +21,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
+To: Tom St Denis <tstdenis82-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogTGVvIExpdSA8bGVvLmxpdUBhbWQuY29tPgoKQWRkIGludGVybmFsIHJlZ2lzdGVyIG9m
-ZnNldCBmb3IgcmVnaXN0ZXJzIGludm9sdmluZyBpbiBpYiB0ZXN0cwoKU2lnbmVkLW9mZi1ieTog
-TGVvIExpdSA8bGVvLmxpdUBhbWQuY29tPgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4
-YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhh
-bmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3Zjbi5jIHwgOCArKysrLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3Zjbi5oIHwgNiArKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMg
-ICB8IDggKysrKysrKysKIDMgZmlsZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgNSBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dmNuLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmMKaW5kZXggNWRi
-ZDk3NWJhYzA5Li4xZDU3NWUyZTcwMWIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92Y24uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdmNuLmMKQEAgLTM0OSwxNCArMzQ5LDE0IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Zjbl9kZWNf
-c2VuZF9tc2coc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLAogCiAJaWIgPSAmam9iLT5pYnNbMF07
-CiAJYWRkciA9IGFtZGdwdV9ib19ncHVfb2Zmc2V0KGJvKTsKLQlpYi0+cHRyWzBdID0gUEFDS0VU
-MChTT0MxNV9SRUdfT0ZGU0VUKFVWRCwgMCwgbW1VVkRfR1BDT01fVkNQVV9EQVRBMCksIDApOwor
-CWliLT5wdHJbMF0gPSBQQUNLRVQwKGFkZXYtPnZjbi5pbnRlcm5hbC5kYXRhMCwgMCk7CiAJaWIt
-PnB0clsxXSA9IGFkZHI7Ci0JaWItPnB0clsyXSA9IFBBQ0tFVDAoU09DMTVfUkVHX09GRlNFVChV
-VkQsIDAsIG1tVVZEX0dQQ09NX1ZDUFVfREFUQTEpLCAwKTsKKwlpYi0+cHRyWzJdID0gUEFDS0VU
-MChhZGV2LT52Y24uaW50ZXJuYWwuZGF0YTEsIDApOwogCWliLT5wdHJbM10gPSBhZGRyID4+IDMy
-OwotCWliLT5wdHJbNF0gPSBQQUNLRVQwKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9H
-UENPTV9WQ1BVX0NNRCksIDApOworCWliLT5wdHJbNF0gPSBQQUNLRVQwKGFkZXYtPnZjbi5pbnRl
-cm5hbC5jbWQsIDApOwogCWliLT5wdHJbNV0gPSAwOwogCWZvciAoaSA9IDY7IGkgPCAxNjsgaSAr
-PSAyKSB7Ci0JCWliLT5wdHJbaV0gPSBQQUNLRVQwKFNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBt
-bVVWRF9OT19PUCksIDApOworCQlpYi0+cHRyW2ldID0gUEFDS0VUMChhZGV2LT52Y24uaW50ZXJu
-YWwubm9wLCAwKTsKIAkJaWItPnB0cltpKzFdID0gMDsKIAl9CiAJaWItPmxlbmd0aF9kdyA9IDE2
-OwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oCmluZGV4IGI4MGZjMTM5ZWI3
-Yi4uYjE0NjU1YTBlMWRiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdmNuLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5o
-CkBAIC0yNSw3ICsyNSw3IEBACiAjZGVmaW5lIF9fQU1ER1BVX1ZDTl9IX18KIAogI2RlZmluZSBB
-TURHUFVfVkNOX1NUQUNLX1NJWkUJCSgxMjgqMTAyNCkKLSNkZWZpbmUgQU1ER1BVX1ZDTl9DT05U
-RVhUX1NJWkUJKDUxMioxMDI0KQorI2RlZmluZSBBTURHUFVfVkNOX0NPTlRFWFRfU0laRSAJKDUx
-MioxMDI0KQogCiAjZGVmaW5lIEFNREdQVV9WQ05fRklSTVdBUkVfT0ZGU0VUCTI1NgogI2RlZmlu
-ZSBBTURHUFVfVkNOX01BWF9FTkNfUklOR1MJMwpAQCAtODgsNiArODgsMTAgQEAgc3RydWN0IGRw
-Z19wYXVzZV9zdGF0ZSB7CiB9OwogCiBzdHJ1Y3QgYW1kZ3B1X3Zjbl9yZWd7CisJdW5zaWduZWQJ
-ZGF0YTA7CisJdW5zaWduZWQJZGF0YTE7CisJdW5zaWduZWQJY21kOworCXVuc2lnbmVkCW5vcDsK
-IAl1bnNpZ25lZAlzY3JhdGNoOTsKIH07CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3Zjbl92MV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFf
-MC5jCmluZGV4IGJhYjkwMDY1M2EwYi4uMmEyYzQwY2YzMmM4IDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjFfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L3Zjbl92MV8wLmMKQEAgLTEzMCw2ICsxMzAsMTQgQEAgc3RhdGljIGludCB2Y25fdjFf
-MF9zd19pbml0KHZvaWQgKmhhbmRsZSkKIAogCWFkZXYtPnZjbi5pbnRlcm5hbC5zY3JhdGNoOSA9
-IGFkZXYtPnZjbi5leHRlcm5hbC5zY3JhdGNoOSA9CiAJCVNPQzE1X1JFR19PRkZTRVQoVVZELCAw
-LCBtbVVWRF9TQ1JBVENIOSk7CisJYWRldi0+dmNuLmludGVybmFsLmRhdGEwID0gYWRldi0+dmNu
-LmV4dGVybmFsLmRhdGEwID0KKwkJU09DMTVfUkVHX09GRlNFVChVVkQsIDAsIG1tVVZEX0dQQ09N
-X1ZDUFVfREFUQTApOworCWFkZXYtPnZjbi5pbnRlcm5hbC5kYXRhMSA9IGFkZXYtPnZjbi5leHRl
-cm5hbC5kYXRhMSA9CisJCVNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9HUENPTV9WQ1BV
-X0RBVEExKTsKKwlhZGV2LT52Y24uaW50ZXJuYWwuY21kID0gYWRldi0+dmNuLmV4dGVybmFsLmNt
-ZCA9CisJCVNPQzE1X1JFR19PRkZTRVQoVVZELCAwLCBtbVVWRF9HUENPTV9WQ1BVX0NNRCk7CisJ
-YWRldi0+dmNuLmludGVybmFsLm5vcCA9IGFkZXYtPnZjbi5leHRlcm5hbC5ub3AgPQorCQlTT0Mx
-NV9SRUdfT0ZGU0VUKFVWRCwgMCwgbW1VVkRfTk9fT1ApOwogCiAJZm9yIChpID0gMDsgaSA8IGFk
-ZXYtPnZjbi5udW1fZW5jX3JpbmdzOyArK2kpIHsKIAkJcmluZyA9ICZhZGV2LT52Y24ucmluZ19l
-bmNbaV07Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA==
+This is a multi-part message in MIME format.
+--===============0473789738==
+Content-Type: multipart/alternative;
+ boundary="------------28542C742B8D47BEA3B84677"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------28542C742B8D47BEA3B84677
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Reviewed-by: Christian König <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+
+Am 17.06.19 um 20:21 schrieb Tom St Denis:
+> ping?
+>
+> On Fri, Jun 14, 2019 at 12:51 PM StDenis, Tom <Tom.StDenis-5C7GfCeVMHo@public.gmane.org 
+> <mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org>> wrote:
+>
+>     On 32-bit hosts mem->num_pages is 32-bits and can overflow
+>     when shifted.  Add a cast to avoid this.
+>
+>     Signed-off-by: Tom St Denis <tom.stdenis-5C7GfCeVMHo@public.gmane.org
+>     <mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org>>
+>     ---
+>      drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 8 +++++---
+>      1 file changed, 5 insertions(+), 3 deletions(-)
+>
+>     diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>     b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>     index c963ad86072e..31895d3c33de 100644
+>     --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>     +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>     @@ -279,14 +279,16 @@ static int amdgpu_vram_mgr_new(struct
+>     ttm_mem_type_manager *man,
+>             uint64_t vis_usage = 0;
+>             unsigned i;
+>             int r;
+>     +       uint64_t mem_bytes;
+>
+>             lpfn = place->lpfn;
+>             if (!lpfn)
+>                     lpfn = man->size;
+>
+>             /* bail out quickly if there's likely not enough VRAM for
+>     this BO */
+>     -       if (atomic64_add_return(mem->num_pages << PAGE_SHIFT,
+>     &mgr->usage) > adev->gmc.mc_vram_size) {
+>     -               atomic64_sub(mem->num_pages << PAGE_SHIFT,
+>     &mgr->usage);
+>     +       mem_bytes = (u64)mem->num_pages << PAGE_SHIFT;
+>     +       if (atomic64_add_return(mem_bytes, &mgr->usage) >
+>     adev->gmc.mc_vram_size) {
+>     +               atomic64_sub(mem_bytes, &mgr->usage);
+>                     mem->mm_node = NULL;
+>                     return 0;
+>             }
+>     @@ -308,7 +310,7 @@ static int amdgpu_vram_mgr_new(struct
+>     ttm_mem_type_manager *man,
+>             nodes = kvmalloc_array((uint32_t)num_nodes, sizeof(*nodes),
+>                                    GFP_KERNEL | __GFP_ZERO);
+>             if (!nodes) {
+>     -               atomic64_sub(mem->num_pages << PAGE_SHIFT,
+>     &mgr->usage);
+>     +               atomic64_sub(mem_bytes, &mgr->usage);
+>                     return -ENOMEM;
+>             }
+>
+>     -- 
+>     2.21.0
+>
+>     _______________________________________________
+>     amd-gfx mailing list
+>     amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------28542C742B8D47BEA3B84677
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Reviewed-by: Christian König
+      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+      <br>
+      Am 17.06.19 um 20:21 schrieb Tom St Denis:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAAzXoRK9vy-qC36mSzJ3aJr6YB8kuWMujxfuNFAqAzbWEk+gTA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">ping?</div>
+      <br>
+      <div class="gmail_quote">
+        <div dir="ltr" class="gmail_attr">On Fri, Jun 14, 2019 at 12:51
+          PM StDenis, Tom &lt;<a href="mailto:Tom.StDenis-5C7GfCeVMHo@public.gmane.org"
+            moz-do-not-send="true">Tom.StDenis-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br>
+        </div>
+        <blockquote class="gmail_quote" style="margin:0px 0px 0px
+          0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On
+          32-bit hosts mem-&gt;num_pages is 32-bits and can overflow<br>
+          when shifted.  Add a cast to avoid this.<br>
+          <br>
+          Signed-off-by: Tom St Denis &lt;<a
+            href="mailto:tom.stdenis-5C7GfCeVMHo@public.gmane.org" target="_blank"
+            moz-do-not-send="true">tom.stdenis-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+          ---<br>
+           drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 8 +++++---<br>
+           1 file changed, 5 insertions(+), 3 deletions(-)<br>
+          <br>
+          diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+          b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
+          index c963ad86072e..31895d3c33de 100644<br>
+          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
+          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c<br>
+          @@ -279,14 +279,16 @@ static int amdgpu_vram_mgr_new(struct
+          ttm_mem_type_manager *man,<br>
+                  uint64_t vis_usage = 0;<br>
+                  unsigned i;<br>
+                  int r;<br>
+          +       uint64_t mem_bytes;<br>
+          <br>
+                  lpfn = place-&gt;lpfn;<br>
+                  if (!lpfn)<br>
+                          lpfn = man-&gt;size;<br>
+          <br>
+                  /* bail out quickly if there's likely not enough VRAM
+          for this BO */<br>
+          -       if (atomic64_add_return(mem-&gt;num_pages &lt;&lt;
+          PAGE_SHIFT, &amp;mgr-&gt;usage) &gt;
+          adev-&gt;gmc.mc_vram_size) {<br>
+          -               atomic64_sub(mem-&gt;num_pages &lt;&lt;
+          PAGE_SHIFT, &amp;mgr-&gt;usage);<br>
+          +       mem_bytes = (u64)mem-&gt;num_pages &lt;&lt;
+          PAGE_SHIFT;<br>
+          +       if (atomic64_add_return(mem_bytes, &amp;mgr-&gt;usage)
+          &gt; adev-&gt;gmc.mc_vram_size) {<br>
+          +               atomic64_sub(mem_bytes, &amp;mgr-&gt;usage);<br>
+                          mem-&gt;mm_node = NULL;<br>
+                          return 0;<br>
+                  }<br>
+          @@ -308,7 +310,7 @@ static int amdgpu_vram_mgr_new(struct
+          ttm_mem_type_manager *man,<br>
+                  nodes = kvmalloc_array((uint32_t)num_nodes,
+          sizeof(*nodes),<br>
+                                         GFP_KERNEL | __GFP_ZERO);<br>
+                  if (!nodes) {<br>
+          -               atomic64_sub(mem-&gt;num_pages &lt;&lt;
+          PAGE_SHIFT, &amp;mgr-&gt;usage);<br>
+          +               atomic64_sub(mem_bytes, &amp;mgr-&gt;usage);<br>
+                          return -ENOMEM;<br>
+                  }<br>
+          <br>
+          -- <br>
+          2.21.0<br>
+          <br>
+          _______________________________________________<br>
+          amd-gfx mailing list<br>
+          <a href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target="_blank"
+            moz-do-not-send="true">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+          <a
+            href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+            rel="noreferrer" target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></blockquote>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------28542C742B8D47BEA3B84677--
+
+--===============0473789738==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0473789738==--
