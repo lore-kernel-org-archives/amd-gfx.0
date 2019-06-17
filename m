@@ -1,53 +1,102 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] drm/amd/display: include missing linux/delay.h
-Date: Mon, 17 Jun 2019 16:55:40 +0200
-Message-ID: <CAK8P3a2tPrYxDpP7EU34=+N3P5+jwSX4XkA1AV6K-YYCQNt_sw@mail.gmail.com>
-References: <20190617123915.926526-1-arnd@arndb.de> <20190617144109.GA14528@ravnborg.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix error handling in df_v3_6_pmc_start
+Date: Mon, 17 Jun 2019 11:02:18 -0400
+Message-ID: <CADnq5_MLH9TW76Cji=pAOtpNd7UiB5w=J=3rT_6UYzgCvsS2pg@mail.gmail.com>
+References: <20190617125216.1439481-1-arnd@arndb.de>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190617144109.GA14528@ravnborg.org>
+In-Reply-To: <20190617125216.1439481-1-arnd@arndb.de>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Thomas Lim <Thomas.Lim@amd.com>, Eric Yang <eric.yang2@amd.com>, Charlene Liu <charlene.liu@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Tony Cheng <tony.cheng@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Jonathan Kim <jonathan.kim@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Colin Ian King <colin.king@canonical.com>, Evan Quan <evan.quan@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Jun 17, 2019 at 4:41 PM Sam Ravnborg <sam@ravnborg.org> wrote:
-> On Mon, Jun 17, 2019 at 02:38:55PM +0200, Arnd Bergmann wrote:
-> > Some randconfig builds fail to compile the dcn10 code because of
-> > a missing declaration:
-> >
-> > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: In function 'dcn10_apply_ctx_for_surface':
-> > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2378:3: error: implicit declaration of function 'udelay' [-Werror=implicit-function-declaration]
-> >
-> > Include the appropriate kernel header.
-> >
-> > Fixes: 9ed43ef84d9d ("drm/amd/display: Add Underflow Asserts to dc")
-> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> > index 1ac9a4f03990..d87ddc7de9c6 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-> > @@ -22,6 +22,7 @@
-> >   * Authors: AMD
-> >   *
-> >   */
-> > +#include <linux/delay.h>
-> >
-> >  #include <linux/delay.h>
-> >  #include "dm_services.h"
+On Mon, Jun 17, 2019 at 8:57 AM Arnd Bergmann <arnd@arndb.de> wrote:
 >
-> Something has gone wrong here, as you add a second include of linux/delay.h.
+> When df_v3_6_pmc_get_ctrl_settings() fails for some reason, we
+> store uninitialized data in a register, as gcc points out:
 >
-> We had this problem before, which Alex fixed by applying a patch to
-> include linux/delay.h
+> drivers/gpu/drm/amd/amdgpu/df_v3_6.c: In function 'df_v3_6_pmc_start':
+> drivers/gpu/drm/amd/amdgpu/amdgpu.h:1012:29: error: 'lo_val' may be used uninitialized in this function [-Werror=maybe-uninitialized]
+>  #define WREG32_PCIE(reg, v) adev->pcie_wreg(adev, (reg), (v))
+>                              ^~~~
+> drivers/gpu/drm/amd/amdgpu/df_v3_6.c:334:39: note: 'lo_val' was declared here
+>   uint32_t lo_base_addr, hi_base_addr, lo_val, hi_val;
+>                                        ^~~~~~
+>
+> Make it return a proper error code that we can catch in the caller.
+>
+> Fixes: 992af942a6cf ("drm/amdgpu: add df perfmon regs and funcs for xgmi")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-My mistake, sorry about that. I had written and tested the patch on
-last week's linux-next ernel and sent it out today after rebasing it, but did
-not closely look at the resulting patch after the rebase.
+Applied.  thanks!
 
-           Arnd
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+> index 8c09bf994acd..e079ee066d87 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+> @@ -177,7 +177,7 @@ static void df_v3_6_pmc_get_read_settings(struct amdgpu_device *adev,
+>  }
+>
+>  /* get control counter settings i.e. address and values to set */
+> -static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
+> +static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
+>                                           uint64_t config,
+>                                           uint32_t *lo_base_addr,
+>                                           uint32_t *hi_base_addr,
+> @@ -191,12 +191,12 @@ static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
+>         df_v3_6_pmc_get_addr(adev, config, 1, lo_base_addr, hi_base_addr);
+>
+>         if (lo_val == NULL || hi_val == NULL)
+> -               return;
+> +               return -EINVAL;
+>
+>         if ((*lo_base_addr == 0) || (*hi_base_addr == 0)) {
+>                 DRM_ERROR("DF PMC addressing not retrieved! Lo: %x, Hi: %x",
+>                                 *lo_base_addr, *hi_base_addr);
+> -               return;
+> +               return -ENXIO;
+>         }
+>
+>         eventsel = GET_EVENT(config);
+> @@ -211,6 +211,8 @@ static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
+>         es_7_0 = es_13_0 & 0x0FFUL;
+>         *lo_val = (es_7_0 & 0xFFUL) | ((unitmask & 0x0FUL) << 8);
+>         *hi_val = (es_11_8 | ((es_13_12)<<(29)));
+> +
+> +       return 0;
+>  }
+>
+>  /* assign df performance counters for read */
+> @@ -345,13 +347,16 @@ static int df_v3_6_add_xgmi_link_cntr(struct amdgpu_device *adev,
+>         if (ret || is_assigned)
+>                 return ret;
+>
+> -       df_v3_6_pmc_get_ctrl_settings(adev,
+> +       ret = df_v3_6_pmc_get_ctrl_settings(adev,
+>                         config,
+>                         &lo_base_addr,
+>                         &hi_base_addr,
+>                         &lo_val,
+>                         &hi_val);
+>
+> +       if (ret)
+> +               return ret;
+> +
+>         WREG32_PCIE(lo_base_addr, lo_val);
+>         WREG32_PCIE(hi_base_addr, hi_val);
+>
+> --
+> 2.20.0
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
