@@ -1,67 +1,53 @@
-From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: wait to fetch the vbios until after common
- init
-Date: Mon, 17 Jun 2019 14:55:48 +0000
-Message-ID: <BN6PR12MB1618E1A9E81348998A17932085EB0@BN6PR12MB1618.namprd12.prod.outlook.com>
-References: <20190617144500.29491-1-alexander.deucher@amd.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH] drm/amd/display: include missing linux/delay.h
+Date: Mon, 17 Jun 2019 16:55:40 +0200
+Message-ID: <CAK8P3a2tPrYxDpP7EU34=+N3P5+jwSX4XkA1AV6K-YYCQNt_sw@mail.gmail.com>
+References: <20190617123915.926526-1-arnd@arndb.de> <20190617144109.GA14528@ravnborg.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190617144500.29491-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190617144109.GA14528@ravnborg.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Thomas Lim <Thomas.Lim@amd.com>, Eric Yang <eric.yang2@amd.com>, Charlene Liu <charlene.liu@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Tony Cheng <tony.cheng@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzIEFsZXgsIEkgYW0gdGVzdGluZyBpdCBvdXQgbm93Lg0KDQogS2VudA0KDQotLS0tLU9y
-aWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXggRGV1Y2hlcg0KU2VudDogTW9uZGF5
-LCBKdW5lIDE3LCAyMDE5IDEwOjQ1IEFNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcNCkNjOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+DQpT
-dWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHU6IHdhaXQgdG8gZmV0Y2ggdGhlIHZiaW9zIHVudGls
-IGFmdGVyIGNvbW1vbiBpbml0DQoNCldlIG5lZWQgdGhlIGFzaWNfZnVuY3Mgc2V0IGZvciB0aGUg
-Z2V0IHJvbSBjYWxsYmFja3MgaW4gc29tZSBjYXNlcy4NCg0KU2lnbmVkLW9mZi1ieTogQWxleCBE
-ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMjQgKysrKysrKysrKysrLS0tLS0tLS0tLQ0K
-IDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkNCg0KZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KaW5kZXggNGE4MzZkYjEw
-MDBmLi5lMjYzMDNiYzU2N2UgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGV2aWNlLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9kZXZpY2UuYw0KQEAgLTE1MzQsMTcgKzE1MzQsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZp
-Y2VfaXBfZWFybHlfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAJaWYgKGFtZGdw
-dV9zcmlvdl92ZihhZGV2KSkNCiAJCWFkZXYtPnBtLnBwX2ZlYXR1cmUgJj0gflBQX0dGWE9GRl9N
-QVNLOw0KIA0KLQkvKiBSZWFkIEJJT1MgKi8NCi0JaWYgKCFhbWRncHVfZ2V0X2Jpb3MoYWRldikp
-DQotCQlyZXR1cm4gLUVJTlZBTDsNCi0NCi0JciA9IGFtZGdwdV9hdG9tYmlvc19pbml0KGFkZXYp
-Ow0KLQlpZiAocikgew0KLQkJZGV2X2VycihhZGV2LT5kZXYsICJhbWRncHVfYXRvbWJpb3NfaW5p
-dCBmYWlsZWRcbiIpOw0KLQkJYW1kZ3B1X3ZmX2Vycm9yX3B1dChhZGV2LCBBTURHSU1fRVJST1Jf
-VkZfQVRPTUJJT1NfSU5JVF9GQUlMLCAwLCAwKTsNCi0JCXJldHVybiByOw0KLQl9DQotDQogCWZv
-ciAoaSA9IDA7IGkgPCBhZGV2LT5udW1faXBfYmxvY2tzOyBpKyspIHsNCiAJCWlmICgoYW1kZ3B1
-X2lwX2Jsb2NrX21hc2sgJiAoMSA8PCBpKSkgPT0gMCkgew0KIAkJCURSTV9FUlJPUigiZGlzYWJs
-ZWQgaXAgYmxvY2s6ICVkIDwlcz5cbiIsIEBAIC0xNTY2LDYgKzE1NTUsMTkgQEAgc3RhdGljIGlu
-dCBhbWRncHVfZGV2aWNlX2lwX2Vhcmx5X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQogCQkJCWFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMudmFsaWQgPSB0cnVlOw0KIAkJCX0NCiAJ
-CX0NCisJCS8qIGdldCB0aGUgdmJpb3MgYWZ0ZXIgdGhlIGFzaWNfZnVuY3MgYXJlIHNldCB1cCAq
-Lw0KKwkJaWYgKGFkZXYtPmlwX2Jsb2Nrc1tpXS52ZXJzaW9uLT50eXBlID09IEFNRF9JUF9CTE9D
-S19UWVBFX0NPTU1PTikgew0KKwkJCS8qIFJlYWQgQklPUyAqLw0KKwkJCWlmICghYW1kZ3B1X2dl
-dF9iaW9zKGFkZXYpKQ0KKwkJCQlyZXR1cm4gLUVJTlZBTDsNCisNCisJCQlyID0gYW1kZ3B1X2F0
-b21iaW9zX2luaXQoYWRldik7DQorCQkJaWYgKHIpIHsNCisJCQkJZGV2X2VycihhZGV2LT5kZXYs
-ICJhbWRncHVfYXRvbWJpb3NfaW5pdCBmYWlsZWRcbiIpOw0KKwkJCQlhbWRncHVfdmZfZXJyb3Jf
-cHV0KGFkZXYsIEFNREdJTV9FUlJPUl9WRl9BVE9NQklPU19JTklUX0ZBSUwsIDAsIDApOw0KKwkJ
-CQlyZXR1cm4gcjsNCisJCQl9DQorCQl9DQogCX0NCiANCiAJYWRldi0+Y2dfZmxhZ3MgJj0gYW1k
-Z3B1X2NnX21hc2s7DQotLQ0KMi4yMC4xDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
-dGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Mon, Jun 17, 2019 at 4:41 PM Sam Ravnborg <sam@ravnborg.org> wrote:
+> On Mon, Jun 17, 2019 at 02:38:55PM +0200, Arnd Bergmann wrote:
+> > Some randconfig builds fail to compile the dcn10 code because of
+> > a missing declaration:
+> >
+> > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c: In function 'dcn10_apply_ctx_for_surface':
+> > drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2378:3: error: implicit declaration of function 'udelay' [-Werror=implicit-function-declaration]
+> >
+> > Include the appropriate kernel header.
+> >
+> > Fixes: 9ed43ef84d9d ("drm/amd/display: Add Underflow Asserts to dc")
+> > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> > index 1ac9a4f03990..d87ddc7de9c6 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> > @@ -22,6 +22,7 @@
+> >   * Authors: AMD
+> >   *
+> >   */
+> > +#include <linux/delay.h>
+> >
+> >  #include <linux/delay.h>
+> >  #include "dm_services.h"
+>
+> Something has gone wrong here, as you add a second include of linux/delay.h.
+>
+> We had this problem before, which Alex fixed by applying a patch to
+> include linux/delay.h
+
+My mistake, sorry about that. I had written and tested the patch on
+last week's linux-next ernel and sent it out today after rebasing it, but did
+not closely look at the resulting patch after the rebase.
+
+           Arnd
