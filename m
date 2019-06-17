@@ -1,88 +1,40 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] drm/amdgpu: fix error handling in df_v3_6_pmc_start
-Date: Mon, 17 Jun 2019 14:51:45 +0200
-Message-ID: <20190617125216.1439481-1-arnd@arndb.de>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
+ the tagged user addresses ABI
+Date: Mon, 17 Jun 2019 14:56:37 +0100
+Message-ID: <20190617135636.GC1367@arrakis.emea.arm.com>
+References: <cover.1560339705.git.andreyknvl@google.com>
+ <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Arnd Bergmann <arnd@arndb.de>, Jonathan Kim <jonathan.kim@amd.com>, Evan Quan <evan.quan@amd.com>, Colin Ian King <colin.king@canonical.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-When df_v3_6_pmc_get_ctrl_settings() fails for some reason, we
-store uninitialized data in a register, as gcc points out:
+On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
+> From: Catalin Marinas <catalin.marinas@arm.com>
+> 
+> It is not desirable to relax the ABI to allow tagged user addresses into
+> the kernel indiscriminately. This patch introduces a prctl() interface
+> for enabling or disabling the tagged ABI with a global sysctl control
+> for preventing applications from enabling the relaxed ABI (meant for
+> testing user-space prctl() return error checking without reconfiguring
+> the kernel). The ABI properties are inherited by threads of the same
+> application and fork()'ed children but cleared on execve().
+> 
+> The PR_SET_TAGGED_ADDR_CTRL will be expanded in the future to handle
+> MTE-specific settings like imprecise vs precise exceptions.
+> 
+> Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
 
-drivers/gpu/drm/amd/amdgpu/df_v3_6.c: In function 'df_v3_6_pmc_start':
-drivers/gpu/drm/amd/amdgpu/amdgpu.h:1012:29: error: 'lo_val' may be used uninitialized in this function [-Werror=maybe-uninitialized]
- #define WREG32_PCIE(reg, v) adev->pcie_wreg(adev, (reg), (v))
-                             ^~~~
-drivers/gpu/drm/amd/amdgpu/df_v3_6.c:334:39: note: 'lo_val' was declared here
-  uint32_t lo_base_addr, hi_base_addr, lo_val, hi_val;
-                                       ^~~~~~
+A question for the user-space folk: if an application opts in to this
+ABI, would you want the sigcontext.fault_address and/or siginfo.si_addr
+to contain the tag? We currently clear it early in the arm64 entry.S but
+we could find a way to pass it down if needed.
 
-Make it return a proper error code that we can catch in the caller.
-
-Fixes: 992af942a6cf ("drm/amdgpu: add df perfmon regs and funcs for xgmi")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/amdgpu/df_v3_6.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-index 8c09bf994acd..e079ee066d87 100644
---- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-+++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
-@@ -177,7 +177,7 @@ static void df_v3_6_pmc_get_read_settings(struct amdgpu_device *adev,
- }
- 
- /* get control counter settings i.e. address and values to set */
--static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
-+static int df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
- 					  uint64_t config,
- 					  uint32_t *lo_base_addr,
- 					  uint32_t *hi_base_addr,
-@@ -191,12 +191,12 @@ static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
- 	df_v3_6_pmc_get_addr(adev, config, 1, lo_base_addr, hi_base_addr);
- 
- 	if (lo_val == NULL || hi_val == NULL)
--		return;
-+		return -EINVAL;
- 
- 	if ((*lo_base_addr == 0) || (*hi_base_addr == 0)) {
- 		DRM_ERROR("DF PMC addressing not retrieved! Lo: %x, Hi: %x",
- 				*lo_base_addr, *hi_base_addr);
--		return;
-+		return -ENXIO;
- 	}
- 
- 	eventsel = GET_EVENT(config);
-@@ -211,6 +211,8 @@ static void df_v3_6_pmc_get_ctrl_settings(struct amdgpu_device *adev,
- 	es_7_0 = es_13_0 & 0x0FFUL;
- 	*lo_val = (es_7_0 & 0xFFUL) | ((unitmask & 0x0FUL) << 8);
- 	*hi_val = (es_11_8 | ((es_13_12)<<(29)));
-+
-+	return 0;
- }
- 
- /* assign df performance counters for read */
-@@ -345,13 +347,16 @@ static int df_v3_6_add_xgmi_link_cntr(struct amdgpu_device *adev,
- 	if (ret || is_assigned)
- 		return ret;
- 
--	df_v3_6_pmc_get_ctrl_settings(adev,
-+	ret = df_v3_6_pmc_get_ctrl_settings(adev,
- 			config,
- 			&lo_base_addr,
- 			&hi_base_addr,
- 			&lo_val,
- 			&hi_val);
- 
-+	if (ret)
-+		return ret;
-+
- 	WREG32_PCIE(lo_base_addr, lo_val);
- 	WREG32_PCIE(hi_base_addr, hi_val);
- 
 -- 
-2.20.0
+Catalin
