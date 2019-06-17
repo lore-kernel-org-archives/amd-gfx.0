@@ -1,14 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: wait to fetch the vbios until after common
+From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: wait to fetch the vbios until after common
  init
-Date: Mon, 17 Jun 2019 15:23:33 +0000
-Message-ID: <BN6PR12MB1809772C53A7C9BB535D0012F7EB0@BN6PR12MB1809.namprd12.prod.outlook.com>
+Date: Mon, 17 Jun 2019 15:26:06 +0000
+Message-ID: <BN6PR12MB1618690F5B4843CD5E0CC31085EB0@BN6PR12MB1618.namprd12.prod.outlook.com>
 References: <20190617144500.29491-1-alexander.deucher@amd.com>,
  <BN6PR12MB161858B2EF2FDE6983B8AF8085EB0@BN6PR12MB1618.namprd12.prod.outlook.com>
+ <BN6PR12MB1809772C53A7C9BB535D0012F7EB0@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1830520867=="
+Content-Type: multipart/mixed; boundary="===============1271202094=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB161858B2EF2FDE6983B8AF8085EB0-/b2+HYfkarRqaFUXYJa4HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <BN6PR12MB1809772C53A7C9BB535D0012F7EB0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,269 +21,270 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1830520867==
+--===============1271202094==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809772C53A7C9BB535D0012F7EB0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB1618690F5B4843CD5E0CC31085EB0BN6PR12MB1618namp_"
 
---_000_BN6PR12MB1809772C53A7C9BB535D0012F7EB0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--_000_BN6PR12MB1618690F5B4843CD5E0CC31085EB0BN6PR12MB1618namp_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I'll make that a tested-by.  Thanks!
+VGhhbmtzLCBJIG5lZWQgdG8gZ2V0IGZhbWlsaWFyIHdpdGggYWxsIG9mIHRoZSB0YWdzIPCfmIoN
+Cg0KS2VudA0KDQpGcm9tOiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFt
+ZC5jb20+DQpTZW50OiBNb25kYXksIEp1bmUgMTcsIDIwMTkgMTE6MjQgQU0NClRvOiBSdXNzZWxs
+LCBLZW50IDxLZW50LlJ1c3NlbGxAYW1kLmNvbT47IEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJA
+Z21haWwuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFJlOiBb
+UEFUQ0hdIGRybS9hbWRncHU6IHdhaXQgdG8gZmV0Y2ggdGhlIHZiaW9zIHVudGlsIGFmdGVyIGNv
+bW1vbiBpbml0DQoNCkknbGwgbWFrZSB0aGF0IGEgdGVzdGVkLWJ5LiAgVGhhbmtzIQ0KDQpBbGV4
+DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KRnJvbTogUnVzc2VsbCwgS2VudA0K
+U2VudDogTW9uZGF5LCBKdW5lIDE3LCAyMDE5IDExOjE0IEFNDQpUbzogQWxleCBEZXVjaGVyOyBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmc+DQpDYzogRGV1Y2hlciwgQWxleGFuZGVyDQpTdWJqZWN0OiBSRTogW1BBVENIXSBk
+cm0vYW1kZ3B1OiB3YWl0IHRvIGZldGNoIHRoZSB2YmlvcyB1bnRpbCBhZnRlciBjb21tb24gaW5p
+dA0KDQpUaGlzIGFsc28gd29ya2VkLiBJIGRvbid0IHRoaW5rIHRoYXQgSSdtIHF1YWxpZmllZCBl
+bm91Z2ggdG8gUkIgaXQsIGJ1dCB5b3UgY2FuIGFkZCBteQ0KDQpWZXJpZmllZC1CeTogS2VudCBS
+dXNzZWxsIDxrZW50LnJ1c3NlbGxAYW1kLmNvbTxtYWlsdG86a2VudC5ydXNzZWxsQGFtZC5jb20+
+Pg0KDQogS2VudA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogYW1kLWdmeCA8
+YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZzxtYWlsdG86YW1kLWdmeC1ib3Vu
+Y2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4+IE9uIEJlaGFsZiBPZiBBbGV4IERldWNoZXINClNl
+bnQ6IE1vbmRheSwgSnVuZSAxNywgMjAxOSAxMDo0NSBBTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4NCkNjOiBE
+ZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb208bWFpbHRvOkFsZXhh
+bmRlci5EZXVjaGVyQGFtZC5jb20+Pg0KU3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiB3YWl0
+IHRvIGZldGNoIHRoZSB2YmlvcyB1bnRpbCBhZnRlciBjb21tb24gaW5pdA0KDQpXZSBuZWVkIHRo
+ZSBhc2ljX2Z1bmNzIHNldCBmb3IgdGhlIGdldCByb20gY2FsbGJhY2tzIGluIHNvbWUgY2FzZXMu
+DQoNClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNv
+bTxtYWlsdG86YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4+DQotLS0NCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAyNCArKysrKysrKysrKystLS0tLS0tLS0t
+DQogMSBmaWxlIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQ0KDQpk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQppbmRleCA0YTgzNmRi
+MTAwMGYuLmUyNjMwM2JjNTY3ZSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kZXZpY2UuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jDQpAQCAtMTUzNCwxNyArMTUzNCw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2Rl
+dmljZV9pcF9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KICAgICAgICAg
+aWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2KSkNCiAgICAgICAgICAgICAgICAgYWRldi0+cG0ucHBf
+ZmVhdHVyZSAmPSB+UFBfR0ZYT0ZGX01BU0s7DQoNCi0gICAgICAgLyogUmVhZCBCSU9TICovDQot
+ICAgICAgIGlmICghYW1kZ3B1X2dldF9iaW9zKGFkZXYpKQ0KLSAgICAgICAgICAgICAgIHJldHVy
+biAtRUlOVkFMOw0KLQ0KLSAgICAgICByID0gYW1kZ3B1X2F0b21iaW9zX2luaXQoYWRldik7DQot
+ICAgICAgIGlmIChyKSB7DQotICAgICAgICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICJhbWRn
+cHVfYXRvbWJpb3NfaW5pdCBmYWlsZWRcbiIpOw0KLSAgICAgICAgICAgICAgIGFtZGdwdV92Zl9l
+cnJvcl9wdXQoYWRldiwgQU1ER0lNX0VSUk9SX1ZGX0FUT01CSU9TX0lOSVRfRkFJTCwgMCwgMCk7
+DQotICAgICAgICAgICAgICAgcmV0dXJuIHI7DQotICAgICAgIH0NCi0NCiAgICAgICAgIGZvciAo
+aSA9IDA7IGkgPCBhZGV2LT5udW1faXBfYmxvY2tzOyBpKyspIHsNCiAgICAgICAgICAgICAgICAg
+aWYgKChhbWRncHVfaXBfYmxvY2tfbWFzayAmICgxIDw8IGkpKSA9PSAwKSB7DQogICAgICAgICAg
+ICAgICAgICAgICAgICAgRFJNX0VSUk9SKCJkaXNhYmxlZCBpcCBibG9jazogJWQgPCVzPlxuIiwg
+QEAgLTE1NjYsNiArMTU1NSwxOSBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBfZWFybHlf
+aW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGFkZXYtPmlwX2Jsb2Nrc1tpXS5zdGF0dXMudmFsaWQgPSB0cnVlOw0KICAgICAg
+ICAgICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgICAgICAgfQ0KKyAgICAgICAgICAgICAg
+IC8qIGdldCB0aGUgdmJpb3MgYWZ0ZXIgdGhlIGFzaWNfZnVuY3MgYXJlIHNldCB1cCAqLw0KKyAg
+ICAgICAgICAgICAgIGlmIChhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+dHlwZSA9PSBBTURf
+SVBfQkxPQ0tfVFlQRV9DT01NT04pIHsNCisgICAgICAgICAgICAgICAgICAgICAgIC8qIFJlYWQg
+QklPUyAqLw0KKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKCFhbWRncHVfZ2V0X2Jpb3MoYWRl
+dikpDQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KKw0K
+KyAgICAgICAgICAgICAgICAgICAgICAgciA9IGFtZGdwdV9hdG9tYmlvc19pbml0KGFkZXYpOw0K
+KyAgICAgICAgICAgICAgICAgICAgICAgaWYgKHIpIHsNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgZGV2X2VycihhZGV2LT5kZXYsICJhbWRncHVfYXRvbWJpb3NfaW5pdCBmYWlsZWRc
+biIpOw0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfdmZfZXJyb3JfcHV0
+KGFkZXYsIEFNREdJTV9FUlJPUl9WRl9BVE9NQklPU19JTklUX0ZBSUwsIDAsIDApOw0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsNCisgICAgICAgICAgICAgICAgICAg
+ICAgIH0NCisgICAgICAgICAgICAgICB9DQogICAgICAgICB9DQoNCiAgICAgICAgIGFkZXYtPmNn
+X2ZsYWdzICY9IGFtZGdwdV9jZ19tYXNrOw0KLS0NCjIuMjAuMQ0KDQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZz4NCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeA0K
 
-Alex
-________________________________
-From: Russell, Kent
-Sent: Monday, June 17, 2019 11:14 AM
-To: Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: RE: [PATCH] drm/amdgpu: wait to fetch the vbios until after common=
- init
+--_000_BN6PR12MB1618690F5B4843CD5E0CC31085EB0BN6PR12MB1618namp_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-This also worked. I don't think that I'm qualified enough to RB it, but you=
- can add my
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPCEtLVtp
+ZiAhbXNvXT48c3R5bGU+dlw6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kb1w6KiB7
+YmVoYXZpb3I6dXJsKCNkZWZhdWx0I1ZNTCk7fQ0Kd1w6KiB7YmVoYXZpb3I6dXJsKCNkZWZhdWx0
+I1ZNTCk7fQ0KLnNoYXBlIHtiZWhhdmlvcjp1cmwoI2RlZmF1bHQjVk1MKTt9DQo8L3N0eWxlPjwh
+W2VuZGlmXS0tPjxzdHlsZT48IS0tDQovKiBGb250IERlZmluaXRpb25zICovDQpAZm9udC1mYWNl
+DQoJe2ZvbnQtZmFtaWx5OiJDYW1icmlhIE1hdGgiOw0KCXBhbm9zZS0xOjIgNCA1IDMgNSA0IDYg
+MyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIg
+MTUgNSAyIDIgMiA0IDMgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1zb05vcm1h
+bCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJbWFyZ2luLWJv
+dHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmki
+LHNhbnMtc2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJp
+b3JpdHk6OTk7DQoJY29sb3I6Ymx1ZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCmE6
+dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJpb3JpdHk6
+OTk7DQoJY29sb3I6cHVycGxlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcC5tc29u
+b3JtYWwwLCBsaS5tc29ub3JtYWwwLCBkaXYubXNvbm9ybWFsMA0KCXttc28tc3R5bGUtbmFtZTpt
+c29ub3JtYWw7DQoJbWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJZm9udC1z
+aXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpzcGFuLkVt
+YWlsU3R5bGUyMA0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWls
+eToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZh
+dWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7fQ0K
+QHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAx
+LjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24x
+O30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRz
+IHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtp
+ZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1h
+cCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRp
+Zl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSJibHVlIiB2bGluaz0icHVy
+cGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5U
+aGFua3MsIEkgbmVlZCB0byBnZXQgZmFtaWxpYXIgd2l0aCBhbGwgb2YgdGhlIHRhZ3MgPHNwYW4g
+c3R5bGU9ImZvbnQtZmFtaWx5OiZxdW90O1NlZ29lIFVJIEVtb2ppJnF1b3Q7LHNhbnMtc2VyaWYi
+Pg0KJiMxMjg1MjI7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5LZW50PG86cD48L286
+cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+
+DQo8ZGl2IHN0eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNFMUUxRTEgMS4wcHQ7
+cGFkZGluZzozLjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj5Gcm9t
+OjwvYj4gRGV1Y2hlciwgQWxleGFuZGVyICZsdDtBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tJmd0
+OyA8YnI+DQo8Yj5TZW50OjwvYj4gTW9uZGF5LCBKdW5lIDE3LCAyMDE5IDExOjI0IEFNPGJyPg0K
+PGI+VG86PC9iPiBSdXNzZWxsLCBLZW50ICZsdDtLZW50LlJ1c3NlbGxAYW1kLmNvbSZndDs7IEFs
+ZXggRGV1Y2hlciAmbHQ7YWxleGRldWNoZXJAZ21haWwuY29tJmd0OzsgYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc8YnI+DQo8Yj5TdWJqZWN0OjwvYj4gUmU6IFtQQVRDSF0gZHJtL2FtZGdw
+dTogd2FpdCB0byBmZXRjaCB0aGUgdmJpb3MgdW50aWwgYWZ0ZXIgY29tbW9uIGluaXQ8bzpwPjwv
+bzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNw
+OzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9u
+dC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+SSdsbCBtYWtlIHRoYXQgYSB0ZXN0ZWQtYnkuJm5i
+c3A7IFRoYW5rcyE8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+
+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMi4wcHQ7Y29sb3I6YmxhY2siPkFsZXg8
+bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9Ik1zb05vcm1hbCIgYWxp
+Z249ImNlbnRlciIgc3R5bGU9InRleHQtYWxpZ246Y2VudGVyIj4NCjxociBzaXplPSIyIiB3aWR0
+aD0iOTglIiBhbGlnbj0iY2VudGVyIj4NCjwvZGl2Pg0KPGRpdiBpZD0iZGl2UnBseUZ3ZE1zZyI+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0iY29sb3I6YmxhY2siPkZyb206
+PC9zcGFuPjwvYj48c3BhbiBzdHlsZT0iY29sb3I6YmxhY2siPiBSdXNzZWxsLCBLZW50PGJyPg0K
+PGI+U2VudDo8L2I+IE1vbmRheSwgSnVuZSAxNywgMjAxOSAxMToxNCBBTTxicj4NCjxiPlRvOjwv
+Yj4gQWxleCBEZXVjaGVyOyA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmciPmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPjxicj4NCjxiPkNjOjwvYj4g
+RGV1Y2hlciwgQWxleGFuZGVyPGJyPg0KPGI+U3ViamVjdDo8L2I+IFJFOiBbUEFUQ0hdIGRybS9h
+bWRncHU6IHdhaXQgdG8gZmV0Y2ggdGhlIHZiaW9zIHVudGlsIGFmdGVyIGNvbW1vbiBpbml0PC9z
+cGFuPg0KPG86cD48L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7
+PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj5UaGlzIGFsc28gd29ya2VkLiBJIGRvbid0IHRoaW5rIHRoYXQgSSdtIHF1YWxp
+ZmllZCBlbm91Z2ggdG8gUkIgaXQsIGJ1dCB5b3UgY2FuIGFkZCBteTxicj4NCjxicj4NClZlcmlm
+aWVkLUJ5OiBLZW50IFJ1c3NlbGwgJmx0OzxhIGhyZWY9Im1haWx0bzprZW50LnJ1c3NlbGxAYW1k
+LmNvbSI+a2VudC5ydXNzZWxsQGFtZC5jb208L2E+Jmd0Ozxicj4NCjxicj4NCiZuYnNwO0tlbnQ8
+YnI+DQo8YnI+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLTxicj4NCkZyb206IGFtZC1nZngg
+Jmx0OzxhIGhyZWY9Im1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Ij5hbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPiZndDsgT24gQmVoYWxm
+IE9mIEFsZXggRGV1Y2hlcjxicj4NClNlbnQ6IE1vbmRheSwgSnVuZSAxNywgMjAxOSAxMDo0NSBB
+TTxicj4NClRvOiA8YSBocmVmPSJtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmci
+PmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPC9hPjxicj4NCkNjOiBEZXVjaGVyLCBBbGV4
+YW5kZXIgJmx0OzxhIGhyZWY9Im1haWx0bzpBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tIj5BbGV4
+YW5kZXIuRGV1Y2hlckBhbWQuY29tPC9hPiZndDs8YnI+DQpTdWJqZWN0OiBbUEFUQ0hdIGRybS9h
+bWRncHU6IHdhaXQgdG8gZmV0Y2ggdGhlIHZiaW9zIHVudGlsIGFmdGVyIGNvbW1vbiBpbml0PGJy
+Pg0KPGJyPg0KV2UgbmVlZCB0aGUgYXNpY19mdW5jcyBzZXQgZm9yIHRoZSBnZXQgcm9tIGNhbGxi
+YWNrcyBpbiBzb21lIGNhc2VzLjxicj4NCjxicj4NClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hl
+ciAmbHQ7PGEgaHJlZj0ibWFpbHRvOmFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20iPmFsZXhhbmRl
+ci5kZXVjaGVyQGFtZC5jb208L2E+Jmd0Ozxicj4NCi0tLTxicj4NCiZuYnNwO2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDI0ICYjNDM7JiM0MzsmIzQzOyYjNDM7
+JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOyYjNDM7JiM0MzsmIzQzOy0tLS0tLS0tLS08YnI+DQom
+bmJzcDsxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygmIzQzOyksIDExIGRlbGV0aW9ucygt
+KTxicj4NCjxicj4NCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmM8
+YnI+DQppbmRleCA0YTgzNmRiMTAwMGYuLmUyNjMwM2JjNTY3ZSAxMDA2NDQ8YnI+DQotLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmM8YnI+DQomIzQzOyYjNDM7
+JiM0MzsgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmM8YnI+DQpA
+QCAtMTUzNCwxNyAmIzQzOzE1MzQsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZXZpY2VfaXBfZWFy
+bHlfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik8YnI+DQombmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKGFtZGdwdV9zcmlvdl92ZihhZGV2
+KSk8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYWRldi0mZ3Q7
+cG0ucHBfZmVhdHVyZSAmYW1wOz0gflBQX0dGWE9GRl9NQVNLOzxicj4NCiZuYnNwOzxicj4NCi0m
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgLyogUmVhZCBCSU9TICovPGJyPg0K
+LSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBpZiAoIWFtZGdwdV9nZXRfYmlv
+cyhhZGV2KSk8YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHJldHVybiAtRUlOVkFM
+Ozxicj4NCi08YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHIgPSBh
+bWRncHVfYXRvbWJpb3NfaW5pdChhZGV2KTs8YnI+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IGlmIChyKSB7PGJyPg0KLSZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBk
+ZXZfZXJyKGFkZXYtJmd0O2RldiwgJnF1b3Q7YW1kZ3B1X2F0b21iaW9zX2luaXQgZmFpbGVkXG4m
+cXVvdDspOzxicj4NCi0mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgYW1kZ3B1X3ZmX2Vycm9y
+X3B1dChhZGV2LCBBTURHSU1fRVJST1JfVkZfQVRPTUJJT1NfSU5JVF9GQUlMLCAwLCAwKTs8YnI+
+DQotJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHJldHVybiByOzxicj4NCi0mbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfTxicj4NCi08YnI+DQombmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZm9yIChpID0gMDsgaSAmbHQ7IGFkZXYt
+Jmd0O251bV9pcF9ibG9ja3M7IGkmIzQzOyYjNDM7KSB7PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IGlmICgoYW1kZ3B1X2lwX2Jsb2NrX21hc2sgJmFtcDsgKDEg
+Jmx0OyZsdDsgaSkpID09IDApIHs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
+RFJNX0VSUk9SKCZxdW90O2Rpc2FibGVkIGlwIGJsb2NrOiAlZCAmbHQ7JXMmZ3Q7XG4mcXVvdDss
+IEBAIC0xNTY2LDYgJiM0MzsxNTU1LDE5IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9pcF9l
+YXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTxicj4NCiZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyBhZGV2LSZndDtpcF9ibG9ja3NbaV0uc3RhdHVzLnZhbGlkID0gdHJ1ZTs8YnI+DQom
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfTxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyB9PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsgLyogZ2V0IHRoZSB2YmlvcyBhZnRlciB0aGUgYXNpY19mdW5jcyBhcmUgc2V0IHVwICovPGJy
+Pg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgaWYgKGFkZXYtJmd0O2lwX2Jsb2Nr
+c1tpXS52ZXJzaW9uLSZndDt0eXBlID09IEFNRF9JUF9CTE9DS19UWVBFX0NPTU1PTikgezxicj4N
+CiYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IC8qIFJlYWQgQklPUyAqLzxicj4NCiYjNDM7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7IGlmICghYW1kZ3B1X2dldF9iaW9zKGFkZXYpKTxicj4NCiYjNDM7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IHJldHVybiAtRUlOVkFMOzxicj4NCiYjNDM7PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsgciA9IGFtZGdwdV9hdG9tYmlvc19pbml0KGFkZXYpOzxicj4NCiYjNDM7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7IGlmIChyKSB7PGJyPg0KJiM0MzsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgZGV2X2VycihhZGV2LSZndDtkZXYs
+ICZxdW90O2FtZGdwdV9hdG9tYmlvc19pbml0IGZhaWxlZFxuJnF1b3Q7KTs8YnI+DQomIzQzOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyBhbWRncHVfdmZfZXJyb3JfcHV0KGFkZXYsIEFNREdJTV9FUlJPUl9WRl9BVE9NQklP
+U19JTklUX0ZBSUwsIDAsIDApOzxicj4NCiYjNDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHJldHVybiByOzxicj4NCiYj
+NDM7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IH08YnI+DQomIzQzOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyB9PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IH08YnI+DQombmJzcDs8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsgYWRldi0mZ3Q7Y2dfZmxhZ3MgJmFtcDs9IGFtZGdwdV9jZ19tYXNrOzxi
+cj4NCi0tPGJyPg0KMi4yMC4xPGJyPg0KPGJyPg0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX188YnI+DQphbWQtZ2Z4IG1haWxpbmcgbGlzdDxicj4NCjxhIGhy
+ZWY9Im1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyI+YW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc8L2E+PGJyPg0KPGEgaHJlZj0iaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Ij5odHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng8L2E+PG86cD48L286cD48L3A+DQo8L2Rpdj4N
+CjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-Verified-By: Kent Russell <kent.russell-5C7GfCeVMHo@public.gmane.org>
+--_000_BN6PR12MB1618690F5B4843CD5E0CC31085EB0BN6PR12MB1618namp_--
 
- Kent
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Alex Deu=
-cher
-Sent: Monday, June 17, 2019 10:45 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: wait to fetch the vbios until after common ini=
-t
-
-We need the asic_funcs set for the get rom callbacks in some cases.
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 ++++++++++++----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 4a836db1000f..e26303bc567e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1534,17 +1534,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu=
-_device *adev)
-         if (amdgpu_sriov_vf(adev))
-                 adev->pm.pp_feature &=3D ~PP_GFXOFF_MASK;
-
--       /* Read BIOS */
--       if (!amdgpu_get_bios(adev))
--               return -EINVAL;
--
--       r =3D amdgpu_atombios_init(adev);
--       if (r) {
--               dev_err(adev->dev, "amdgpu_atombios_init failed\n");
--               amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_ATOMBIOS_INIT_FAI=
-L, 0, 0);
--               return r;
--       }
--
-         for (i =3D 0; i < adev->num_ip_blocks; i++) {
-                 if ((amdgpu_ip_block_mask & (1 << i)) =3D=3D 0) {
-                         DRM_ERROR("disabled ip block: %d <%s>\n", @@ -1566=
-,6 +1555,19 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device =
-*adev)
-                                 adev->ip_blocks[i].status.valid =3D true;
-                         }
-                 }
-+               /* get the vbios after the asic_funcs are set up */
-+               if (adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLOCK_TY=
-PE_COMMON) {
-+                       /* Read BIOS */
-+                       if (!amdgpu_get_bios(adev))
-+                               return -EINVAL;
-+
-+                       r =3D amdgpu_atombios_init(adev);
-+                       if (r) {
-+                               dev_err(adev->dev, "amdgpu_atombios_init fa=
-iled\n");
-+                               amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_A=
-TOMBIOS_INIT_FAIL, 0, 0);
-+                               return r;
-+                       }
-+               }
-         }
-
-         adev->cg_flags &=3D amdgpu_cg_mask;
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809772C53A7C9BB535D0012F7EB0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I'll make that a tested-by.&nbsp; Thanks!</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Russell, Kent<br>
-<b>Sent:</b> Monday, June 17, 2019 11:14 AM<br>
-<b>To:</b> Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: wait to fetch the vbios until after=
- common init</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">This also worked. I don't think that I'm qualified=
- enough to RB it, but you can add my<br>
-<br>
-Verified-By: Kent Russell &lt;kent.russell-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-&nbsp;Kent<br>
-<br>
------Original Message-----<br>
-From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf Of Al=
-ex Deucher<br>
-Sent: Monday, June 17, 2019 10:45 AM<br>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Subject: [PATCH] drm/amdgpu: wait to fetch the vbios until after common ini=
-t<br>
-<br>
-We need the asic_funcs set for the get rom callbacks in some cases.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 24 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;----------<br>
-&nbsp;1 file changed, 13 insertions(&#43;), 11 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c<br>
-index 4a836db1000f..e26303bc567e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-@@ -1534,17 &#43;1534,6 @@ static int amdgpu_device_ip_early_init(struct am=
-dgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev))=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;pm.pp_feature &amp;=3D ~PP_GFXOFF_MASK;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Read BIOS */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_get_bios(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_atombios_init(adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_err(adev-&gt;dev, &quot;amdgpu_atombios_init failed\n&quot;)=
-;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_vf_error_put(adev, AMDGIM_ERROR_VF_ATOMBIOS_INIT_FAIL, 0,=
- 0);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return r;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-=
-&gt;num_ip_blocks; i&#43;&#43;) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if ((amdgpu_ip_block_mask &amp; (1 &lt;&lt; i)) =3D=
-=3D 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_E=
-RROR(&quot;disabled ip block: %d &lt;%s&gt;\n&quot;, @@ -1566,6 &#43;1555,1=
-9 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;ip_blocks[i].status.val=
-id =3D true;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* get the vbios after the asic_funcs are set up */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;ip_blocks[i].version-&gt;type =3D=3D AMD_IP_BLO=
-CK_TYPE_COMMON) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Read BIOS=
- */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_=
-get_bios(adev))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu=
-_atombios_init(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;amdgpu_atom=
-bios_init failed\n&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vf_error_put(adev, AMDGIM_ERROR_=
-VF_ATOMBIOS_INIT_FAIL, 0, 0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;cg_flags &amp;=3D=
- amdgpu_cg_mask;<br>
---<br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809772C53A7C9BB535D0012F7EB0BN6PR12MB1809namp_--
-
---===============1830520867==
+--===============1271202094==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -292,4 +294,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1830520867==--
+--===============1271202094==--
