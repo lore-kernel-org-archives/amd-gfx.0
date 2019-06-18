@@ -1,51 +1,41 @@
-From: Dave Martin <Dave.Martin@arm.com>
-Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
- the tagged user addresses ABI
-Date: Tue, 18 Jun 2019 10:18:12 +0100
-Message-ID: <20190618091811.GC2790@e103592.cambridge.arm.com>
-References: <cover.1560339705.git.andreyknvl@google.com>
- <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
- <20190613110235.GW28398@e103592.cambridge.arm.com>
- <20190613152632.GT28951@C02TF0J2HF1T.local>
- <201906132209.FC65A3C771@keescook>
+From: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: add job->preamble_status back to status value
+Date: Tue, 18 Jun 2019 10:31:09 +0000
+Message-ID: <1560853789-22977-1-git-send-email-Jack.Xiao@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <201906132209.FC65A3C771@keescook>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Kees Cook <keescook@chromium.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Ruben
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Jun 13, 2019 at 10:13:54PM -0700, Kees Cook wrote:
-> On Thu, Jun 13, 2019 at 04:26:32PM +0100, Catalin Marinas wrote:
-> > On Thu, Jun 13, 2019 at 12:02:35PM +0100, Dave P Martin wrote:
-> > > On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
-> > > > +static int zero;
-> > > > +static int one = 1;
-> > > 
-> > > !!!
-> > > 
-> > > And these can't even be const without a cast.  Yuk.
-> > > 
-> > > (Not your fault though, but it would be nice to have a proc_dobool() to
-> > > avoid this.)
-> > 
-> > I had the same reaction. Maybe for another patch sanitising this pattern
-> > across the kernel.
-> 
-> That's actually already happening (via -mm tree last I looked). tl;dr:
-> it ends up using a cast hidden in a macro. It's in linux-next already
-> along with a checkpatch.pl addition to yell about doing what's being
-> done here. ;)
-> 
-> https://lore.kernel.org/lkml/20190430180111.10688-1-mcroce@redhat.com/#r
-
-Hmmm, that is marginally less bad.
-
-Ideally we'd have a union in there, not just a bunch of void *.  I may
-look at that someday...
-
-Cheers
----Dave
+am9iLT5wcmVhbWJsZV9zdGF0dXMgd2FzIGFjY2lkZW50bHkgZHJvcHBlZCBmcm9tIHRoZSBjb21i
+aW5hdGlvbiB2YWx1ZQ0Kb2Ygc3RhdHVzIHZhcmFpYWJsZSB3aGljaCBpcyB0aGUgcGFyYW1ldGVy
+IG9mIHNvbWUgcmluZyBsZXZlbCBmdW5jdGlvbi4NClRoZSBwYXRjaCBpcyB0byBhZGQgaXQgYmFj
+ay4NCg0KU2lnbmVkLW9mZi1ieTogSmFjayBYaWFvIDxKYWNrLlhpYW9AYW1kLmNvbT4NCi0tLQ0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jIHwgMSArDQogMSBmaWxlIGNo
+YW5nZWQsIDEgaW5zZXJ0aW9uKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfaWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9p
+Yi5jDQppbmRleCA5MGNjMDg0Li42ODgyZWViIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2liLmMNCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9pYi5jDQpAQCAtMjA4LDYgKzIwOCw3IEBAIGludCBhbWRncHVfaWJfc2NoZWR1bGUo
+c3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1bnNpZ25lZCBudW1faWJzLA0KIA0KIAlza2lwX3By
+ZWFtYmxlID0gcmluZy0+Y3VycmVudF9jdHggPT0gZmVuY2VfY3R4Ow0KIAlpZiAoam9iICYmIHJp
+bmctPmZ1bmNzLT5lbWl0X2NudHhjbnRsKSB7DQorCQlzdGF0dXMgfD0gam9iLT5wcmVhbWJsZV9z
+dGF0dXM7DQogCQlzdGF0dXMgfD0gam9iLT5wcmVlbXB0aW9uX3N0YXR1czsNCiAJCWFtZGdwdV9y
+aW5nX2VtaXRfY250eGNudGwocmluZywgc3RhdHVzKTsNCiAJfQ0KLS0gDQoxLjkuMQ0KDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
