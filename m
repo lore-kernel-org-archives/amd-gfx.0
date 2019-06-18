@@ -1,15 +1,11 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add job->preamble_status back to status value
-Date: Tue, 18 Jun 2019 13:10:07 +0200
-Message-ID: <817ca792-fbb2-580b-89e6-9edb24caef2e@gmail.com>
-References: <1560853789-22977-1-git-send-email-Jack.Xiao@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH libdrm 1/4] amdgpu: add navi family id
+Date: Tue, 18 Jun 2019 19:40:30 +0800
+Message-ID: <1560858033-1499-1-git-send-email-Hawking.Zhang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1560853789-22977-1-git-send-email-Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,28 +16,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Huang Rui <ray.huang-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-QW0gMTguMDYuMTkgdW0gMTI6MzEgc2NocmllYiBYaWFvLCBKYWNrOgo+IGpvYi0+cHJlYW1ibGVf
-c3RhdHVzIHdhcyBhY2NpZGVudGx5IGRyb3BwZWQgZnJvbSB0aGUgY29tYmluYXRpb24gdmFsdWUK
-PiBvZiBzdGF0dXMgdmFyYWlhYmxlIHdoaWNoIGlzIHRoZSBwYXJhbWV0ZXIgb2Ygc29tZSByaW5n
-IGxldmVsIGZ1bmN0aW9uLgo+IFRoZSBwYXRjaCBpcyB0byBhZGQgaXQgYmFjay4KPgo+IFNpZ25l
-ZC1vZmYtYnk6IEphY2sgWGlhbyA8SmFjay5YaWFvQGFtZC5jb20+CgpGb3Igbm93IEFja2VkLWJ5
-OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+LCBjYXVzZSB3ZSAK
-bmVlZCB0byBnZXQgdGhpcyBmaXhlZCBBU0FQLgoKQnV0IG5vdyB0aGUgcXVlc3Rpb24gaXMgd2h5
-IGRvIHdlIGFjdHVhbGx5IGhhdmUgdHdvIGZpZWxkcyBpbiB0aGUgam9iIApmb3IgdGhlIHNhbWUg
-c3RhdHVzPwoKQ2hyaXN0aWFuLgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9pYi5jIHwgMSArCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKPgo+
-IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCj4gaW5kZXggOTBjYzA4NC4uNjg4
-MmVlYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIu
-Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jCj4gQEAgLTIw
-OCw2ICsyMDgsNyBAQCBpbnQgYW1kZ3B1X2liX3NjaGVkdWxlKHN0cnVjdCBhbWRncHVfcmluZyAq
-cmluZywgdW5zaWduZWQgbnVtX2licywKPiAgIAo+ICAgCXNraXBfcHJlYW1ibGUgPSByaW5nLT5j
-dXJyZW50X2N0eCA9PSBmZW5jZV9jdHg7Cj4gICAJaWYgKGpvYiAmJiByaW5nLT5mdW5jcy0+ZW1p
-dF9jbnR4Y250bCkgewo+ICsJCXN0YXR1cyB8PSBqb2ItPnByZWFtYmxlX3N0YXR1czsKPiAgIAkJ
-c3RhdHVzIHw9IGpvYi0+cHJlZW1wdGlvbl9zdGF0dXM7Cj4gICAJCWFtZGdwdV9yaW5nX2VtaXRf
-Y250eGNudGwocmluZywgc3RhdHVzKTsKPiAgIAl9CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng=
+RnJvbTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNvbT4KClNpZ25lZC1vZmYtYnk6IEh1YW5n
+IFJ1aSA8cmF5Lmh1YW5nQGFtZC5jb20+ClJldmlld2VkLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdr
+aW5nLlpoYW5nQGFtZC5jb20+Ci0tLQogaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oIHwgMSArCiAx
+IGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9h
+bWRncHVfZHJtLmggYi9pbmNsdWRlL2RybS9hbWRncHVfZHJtLmgKaW5kZXggM2QwMzE4ZS4uYjI4
+ZmVlNCAxMDA2NDQKLS0tIGEvaW5jbHVkZS9kcm0vYW1kZ3B1X2RybS5oCisrKyBiL2luY2x1ZGUv
+ZHJtL2FtZGdwdV9kcm0uaApAQCAtMTA0NSw2ICsxMDQ1LDcgQEAgc3RydWN0IGRybV9hbWRncHVf
+aW5mb192Y2VfY2xvY2tfdGFibGUgewogI2RlZmluZSBBTURHUFVfRkFNSUxZX0NaCQkJMTM1IC8q
+IENhcnJpem8sIFN0b25leSAqLwogI2RlZmluZSBBTURHUFVfRkFNSUxZX0FJCQkJMTQxIC8qIFZl
+Z2ExMCAqLwogI2RlZmluZSBBTURHUFVfRkFNSUxZX1JWCQkJMTQyIC8qIFJhdmVuICovCisjZGVm
+aW5lIEFNREdQVV9GQU1JTFlfTlYJCQkxNDMgLyogTmF2aTEwICovCiAKICNpZiBkZWZpbmVkKF9f
+Y3BsdXNwbHVzKQogfQotLSAKMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeA==
