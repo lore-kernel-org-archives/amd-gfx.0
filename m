@@ -1,39 +1,45 @@
-From: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 1/2] drm/amdkfd: initialize mqd_manager_init function for
- navi10
-Date: Tue, 18 Jun 2019 12:39:14 +0800
-Message-ID: <1560832754-4482-1-git-send-email-Hawking.Zhang@amd.com>
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v3 hmm 10/12] mm/hmm: Do not use list*_rcu() for
+ hmm->ranges
+Date: Mon, 17 Jun 2019 21:38:07 -0300
+Message-ID: <20190618003807.GD30762@ziepe.ca>
+References: <20190614004450.20252-1-jgg@ziepe.ca>
+ <20190614004450.20252-11-jgg@ziepe.ca>
+ <20190615141826.GJ17724@infradead.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+Content-Disposition: inline
+In-Reply-To: <20190615141826.GJ17724@infradead.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Christoph Hellwig <hch@infradead.org>
+Cc: Andrea Arcangeli <aarcange@redhat.com>, Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, linux-rdma@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com, Ira Weiny <iweiny@intel.com>, dri-devel@lists.freedesktop.org, Souptick Joarder <jrdr.linux@gmail.com>, linux-mm@kvack.org, Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org, Ben Skeggs <bskeggs@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-Q2hhbmdlLUlkOiBJNDNjNTA3Njk1NTdhOWJlOTMyODkxZTkyM2Y2NjlmNzk5M2VlZWRmOQpTaWdu
-ZWQtb2ZmLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyX3YxMC5jIHwg
-MSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXJfdjEwLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXJfdjEwLmMKaW5k
-ZXggYWRiMzg4NS4uNzJlNGQ2MWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-a2ZkL2tmZF9kZXZpY2VfcXVldWVfbWFuYWdlcl92MTAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXJfdjEwLmMKQEAgLTM2LDYgKzM2LDcg
-QEAgdm9pZCBkZXZpY2VfcXVldWVfbWFuYWdlcl9pbml0X3YxMF9uYXZpMTAoCiB7CiAJYXNpY19v
-cHMtPnVwZGF0ZV9xcGQgPSB1cGRhdGVfcXBkX3YxMDsKIAlhc2ljX29wcy0+aW5pdF9zZG1hX3Zt
-ID0gaW5pdF9zZG1hX3ZtX3YxMDsKKwlhc2ljX29wcy0+bXFkX21hbmFnZXJfaW5pdCA9IG1xZF9t
-YW5hZ2VyX2luaXRfdjEwOwogfQogCiBzdGF0aWMgdWludDMyX3QgY29tcHV0ZV9zaF9tZW1fYmFz
-ZXNfNjRiaXQoc3RydWN0IGtmZF9wcm9jZXNzX2RldmljZSAqcGRkKQotLSAKMi43LjQKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+T24gU2F0LCBKdW4gMTUsIDIwMTkgYXQgMDc6MTg6MjZBTSAtMDcwMCwgQ2hyaXN0b3BoIEhlbGx3
+aWcgd3JvdGU6Cj4gT24gVGh1LCBKdW4gMTMsIDIwMTkgYXQgMDk6NDQ6NDhQTSAtMDMwMCwgSmFz
+b24gR3VudGhvcnBlIHdyb3RlOgo+ID4gIAlyYW5nZS0+aG1tID0gaG1tOwo+ID4gIAlrcmVmX2dl
+dCgmaG1tLT5rcmVmKTsKPiA+IC0JbGlzdF9hZGRfcmN1KCZyYW5nZS0+bGlzdCwgJmhtbS0+cmFu
+Z2VzKTsKPiA+ICsJbGlzdF9hZGQoJnJhbmdlLT5saXN0LCAmaG1tLT5yYW5nZXMpOwo+ID4gIAo+
+ID4gIAkvKgo+ID4gIAkgKiBJZiB0aGVyZSBhcmUgYW55IGNvbmN1cnJlbnQgbm90aWZpZXJzIHdl
+IGhhdmUgdG8gd2FpdCBmb3IgdGhlbSBmb3IKPiA+IEBAIC05MzQsNyArOTM0LDcgQEAgdm9pZCBo
+bW1fcmFuZ2VfdW5yZWdpc3RlcihzdHJ1Y3QgaG1tX3JhbmdlICpyYW5nZSkKPiA+ICAJc3RydWN0
+IGhtbSAqaG1tID0gcmFuZ2UtPmhtbTsKPiA+ICAKPiA+ICAJbXV0ZXhfbG9jaygmaG1tLT5sb2Nr
+KTsKPiA+IC0JbGlzdF9kZWxfcmN1KCZyYW5nZS0+bGlzdCk7Cj4gPiArCWxpc3RfZGVsKCZyYW5n
+ZS0+bGlzdCk7Cj4gPiAgCW11dGV4X3VubG9jaygmaG1tLT5sb2NrKTsKPiAKPiBMb29rcyBmaW5l
+Ogo+IAo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+IAo+
+IEJ0dywgaXMgdGhlcmUgYW55IHJlYXNvbiBuZXcgcmFuZ2VzIGFyZSBhZGRlZCB0byB0aGUgZnJv
+bnQgYW5kIG5vdCB0aGUKPiB0YWlsIG9mIHRoZSBsaXN0PwoKQ291bGRuJ3QgZmluZCBvbmUuIEkg
+dGhpbmsgb3JkZXIgb24gdGhpcyBsaXN0IGRvZXNuJ3QgbWF0dGVyLgoKSmFzb24KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcg
+bGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
