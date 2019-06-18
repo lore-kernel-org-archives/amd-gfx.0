@@ -1,86 +1,51 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 092/459] drm/amdgpu: add ib preemption status in amdgpu_job
-Date: Tue, 18 Jun 2019 09:03:02 +0000
-Message-ID: <450d50ba-3c79-7199-d2f9-eac5e86b1f8f@amd.com>
-References: <20190617191700.17899-1-alexander.deucher@amd.com>
- <20190617191700.17899-81-alexander.deucher@amd.com>
- <8429fbeb-fbb2-b71d-e146-c8f4c0959063@gmail.com>
- <MN2PR12MB3437D15684332D5E9DFA1715EFEA0@MN2PR12MB3437.namprd12.prod.outlook.com>
+From: Dave Martin <Dave.Martin@arm.com>
+Subject: Re: [PATCH v17 03/15] arm64: Introduce prctl() options to control
+ the tagged user addresses ABI
+Date: Tue, 18 Jun 2019 10:18:12 +0100
+Message-ID: <20190618091811.GC2790@e103592.cambridge.arm.com>
+References: <cover.1560339705.git.andreyknvl@google.com>
+ <a7a2933bea5fe57e504891b7eec7e9432e5e1c1a.1560339705.git.andreyknvl@google.com>
+ <20190613110235.GW28398@e103592.cambridge.arm.com>
+ <20190613152632.GT28951@C02TF0J2HF1T.local>
+ <201906132209.FC65A3C771@keescook>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3437D15684332D5E9DFA1715EFEA0-rweVpJHSKTo+c0MJbz0MrQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-Content-ID: <41BD7BED4299FF4F938F8CBFB70EE57D-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <201906132209.FC65A3C771@keescook>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Kees Cook <keescook@chromium.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Christian Koenig <Christian.Koenig@amd.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, Lee Smith <Lee.Smith@arm.com>, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Ruben
+List-Id: amd-gfx.lists.freedesktop.org
 
-WWVhaCB0aG91Z2h0IHNvLCBjYXVzZSB0aGF0IHdvdWxkIGJyZWFrIGltbWVkaWF0ZWx5IGFuZCB3
-b24ndCB3b3JrIGF0IGFsbC4NCg0KSXQgbXVzdCBiZSBzb21ldGhpbmcgbGlrZSBhIG1lcmdlIG9y
-IHJlYmFzZSBhcnRpZmFjdC4NCg0KV2hhdCdzIHRoZSBiZXN0IHdheSB0byBmaXggdGhhdCB1cD8g
-SW4gb3RoZXIgd29yZHMgaG93IHNob3VsZCBpdCBsb29rIGxpa2U/DQoNCkNocmlzdGlhbi4NCg0K
-QW0gMTguMDYuMTkgdW0gMTA6MzIgc2NocmllYiBYaWFvLCBKYWNrOg0KPiBJbiBvcmlnaW5hbCBw
-YXRjaCwgdGhlcmUgaXMgbm8gZGVsZXRpb24gb24gam9iLT5wcmVhbWJsZV9zdGF0dXMuDQo+DQo+
-IFJlZ2FyZHMsDQo+IEphY2sNCj4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJv
-bTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+DQo+
-IFNlbnQ6IFR1ZXNkYXksIEp1bmUgMTgsIDIwMTkgNDowNCBQTQ0KPiBUbzogQWxleCBEZXVjaGVy
-IDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-PiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgWGlh
-bywgSmFjayA8SmFjay5YaWFvQGFtZC5jb20+OyBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFu
-Z0BhbWQuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDA5Mi80NTldIGRybS9hbWRncHU6IGFk
-ZCBpYiBwcmVlbXB0aW9uIHN0YXR1cyBpbiBhbWRncHVfam9iDQo+DQo+IEFtIDE3LjA2LjE5IHVt
-IDIxOjEwIHNjaHJpZWIgQWxleCBEZXVjaGVyOg0KPj4gRnJvbTogSmFjayBYaWFvIDxKYWNrLlhp
-YW9AYW1kLmNvbT4NCj4+DQo+PiBBZGQgaWIgcHJlZW1wdGlvbiBzdGF0dXMgaW4gYW1kZ3B1X2pv
-Yiwgc28gdGhhdCByaW5nIGxldmVsIGZ1bmN0aW9uDQo+PiBjYW4gZGV0ZWN0IHByZWVtcHRpb24g
-YW5kIHByb2dyYW0gZm9yIHJlc3VtaW5nIGl0Lg0KPj4NCj4+IEFja2VkLWJ5OiBBbGV4IERldWNo
-ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+PiBSZXZpZXdlZC1ieTogSGF3a2luZyBa
-aGFuZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KPj4gU2lnbmVkLW9mZi1ieTogSmFjayBYaWFv
-IDxKYWNrLlhpYW9AYW1kLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxl
-eGFuZGVyLmRldWNoZXJAYW1kLmNvbT4NCj4+IC0tLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2liLmMgIHwgMiArLQ0KPj4gICAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2pvYi5oIHwgMyArKysNCj4+ICAgIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNl
-cnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jDQo+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9pYi5jDQo+PiBpbmRleCBlMTU1MzFiZmNkNDcuLjkwY2MwODQxYjU2NCAxMDA2
-NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pYi5jDQo+PiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaWIuYw0KPj4gQEAgLTIwOCw3
-ICsyMDgsNyBAQCBpbnQgYW1kZ3B1X2liX3NjaGVkdWxlKHN0cnVjdCBhbWRncHVfcmluZyAqcmlu
-ZywNCj4+IHVuc2lnbmVkIG51bV9pYnMsDQo+PiAgICANCj4+ICAgIAlza2lwX3ByZWFtYmxlID0g
-cmluZy0+Y3VycmVudF9jdHggPT0gZmVuY2VfY3R4Ow0KPj4gICAgCWlmIChqb2IgJiYgcmluZy0+
-ZnVuY3MtPmVtaXRfY250eGNudGwpIHsNCj4+IC0JCXN0YXR1cyB8PSBqb2ItPnByZWFtYmxlX3N0
-YXR1czsNCj4+ICsJCXN0YXR1cyB8PSBqb2ItPnByZWVtcHRpb25fc3RhdHVzOw0KPiBUaGF0IGFj
-dHVhbGx5IGxvb2tzIGNvbXBsZXRlbHkgaW5jb3JyZWN0IHRvIG1lIHNpbmNlIGl0IGJyZWFrcyB0
-aGUgb2xkIHN0YXR1cyBoYW5kbGluZy4NCj4NCj4gQ2hyaXN0aWFuLg0KPg0KPj4gICAgCQlhbWRn
-cHVfcmluZ19lbWl0X2NudHhjbnRsKHJpbmcsIHN0YXR1cyk7DQo+PiAgICAJfQ0KPj4gICAgDQo+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2pvYi5oDQo+
-PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuaA0KPj4gaW5kZXggZTFi
-NDZhNjcwM2RlLi41MWU2MjUwNGMyNzkgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfam9iLmgNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9qb2IuaA0KPj4gQEAgLTI5LDYgKzI5LDggQEANCj4+ICAgICNkZWZpbmUgQU1E
-R1BVX1BSRUFNQkxFX0lCX1BSRVNFTlRfRklSU1QgICAgKDEgPDwgMSkNCj4+ICAgIC8qIGJpdCBz
-ZXQgbWVhbnMgY29udGV4dCBzd2l0Y2ggb2NjdXJlZCAqLw0KPj4gICAgI2RlZmluZSBBTURHUFVf
-SEFWRV9DVFhfU1dJVENIICAgICAgICAgICAgICAoMSA8PCAyKQ0KPj4gKy8qIGJpdCBzZXQgbWVh
-bnMgSUIgaXMgcHJlZW1wdGVkICovDQo+PiArI2RlZmluZSBBTURHUFVfSUJfUFJFRU1QVEVEICAg
-ICAgICAgICAgICAgICAoMSA8PCAzKQ0KPj4gICAgDQo+PiAgICAjZGVmaW5lIHRvX2FtZGdwdV9q
-b2Ioc2NoZWRfam9iKQkJXA0KPj4gICAgCQljb250YWluZXJfb2YoKHNjaGVkX2pvYiksIHN0cnVj
-dCBhbWRncHVfam9iLCBiYXNlKSBAQCAtNDUsNiArNDcsNw0KPj4gQEAgc3RydWN0IGFtZGdwdV9q
-b2Igew0KPj4gICAgCXN0cnVjdCBhbWRncHVfaWIJKmliczsNCj4+ICAgIAlzdHJ1Y3QgZG1hX2Zl
-bmNlCSpmZW5jZTsgLyogdGhlIGh3IGZlbmNlICovDQo+PiAgICAJdWludDMyX3QJCXByZWFtYmxl
-X3N0YXR1czsNCj4+ICsJdWludDMyX3QgICAgICAgICAgICAgICAgcHJlZW1wdGlvbl9zdGF0dXM7
-DQo+PiAgICAJdWludDMyX3QJCW51bV9pYnM7DQo+PiAgICAJdm9pZAkJCSpvd25lcjsNCj4+ICAg
-IAlib29sICAgICAgICAgICAgICAgICAgICB2bV9uZWVkc19mbHVzaDsNCg0KX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Thu, Jun 13, 2019 at 10:13:54PM -0700, Kees Cook wrote:
+> On Thu, Jun 13, 2019 at 04:26:32PM +0100, Catalin Marinas wrote:
+> > On Thu, Jun 13, 2019 at 12:02:35PM +0100, Dave P Martin wrote:
+> > > On Wed, Jun 12, 2019 at 01:43:20PM +0200, Andrey Konovalov wrote:
+> > > > +static int zero;
+> > > > +static int one = 1;
+> > > 
+> > > !!!
+> > > 
+> > > And these can't even be const without a cast.  Yuk.
+> > > 
+> > > (Not your fault though, but it would be nice to have a proc_dobool() to
+> > > avoid this.)
+> > 
+> > I had the same reaction. Maybe for another patch sanitising this pattern
+> > across the kernel.
+> 
+> That's actually already happening (via -mm tree last I looked). tl;dr:
+> it ends up using a cast hidden in a macro. It's in linux-next already
+> along with a checkpatch.pl addition to yell about doing what's being
+> done here. ;)
+> 
+> https://lore.kernel.org/lkml/20190430180111.10688-1-mcroce@redhat.com/#r
+
+Hmmm, that is marginally less bad.
+
+Ideally we'd have a union in there, not just a bunch of void *.  I may
+look at that someday...
+
+Cheers
+---Dave
