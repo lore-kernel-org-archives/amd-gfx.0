@@ -1,10 +1,22 @@
-From: "=?gb18030?B?Q0NYSUFPUA==?=" <664296544-9uewiaClKEY@public.gmane.org>
-Subject: amdgpu vce crash
-Date: Wed, 19 Jun 2019 17:28:59 +0800
-Message-ID: <tencent_969412320833AB29CB6FA2732FC516257905@qq.com>
+From: Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Subject: Re: [PATCH v3 hmm 11/12] mm/hmm: Remove confusing comment and logic
+ from hmm_release
+Date: Wed, 19 Jun 2019 05:03:52 -0700
+Message-ID: <20190619120352.GA31563@infradead.org>
+References: <20190614004450.20252-1-jgg@ziepe.ca>
+ <20190614004450.20252-12-jgg@ziepe.ca>
+ <20190615142106.GK17724@infradead.org>
+ <20190618004509.GE30762@ziepe.ca>
+ <20190618053733.GA25048@infradead.org>
+ <be4f8573-6284-04a6-7862-23bb357bfe3c@amd.com>
+ <20190619080705.GA5164@infradead.org>
+ <20190619115632.GC9360@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1059598795=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20190619115632.GC9360-uk2M96/98Pc@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -15,70 +27,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?gb18030?B?YW1kLWdmeA==?= <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>
+Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "Yang,
+ Philip" <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Jerome Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
-This is a multi-part message in MIME format.
-
---===============1059598795==
-Content-Type: multipart/alternative;
-	boundary="----=_NextPart_5D0A005B_09BF2530_2E2F270E"
-Content-Transfer-Encoding: 8Bit
-
-This is a multi-part message in MIME format.
-
-------=_NextPart_5D0A005B_09BF2530_2E2F270E
-Content-Type: text/plain;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
-
-V2UgYXJlIHVzaW5nIHd4NTEwMCBmb3IgcmVuZGVyaW5nIGFuZCBlbmNvZGluZyBvcGVyYXRp
-b25zLCBidXQgc29tZXRpbWVzIHdlIGVuY291bnRlciB2Y2UgdGltZW91dCBhbmQgY3Jhc2gu
-DQpJcyB2Y2Ugbm90IGEgaW5kZXBlbmRlbnQgbW9kdWxlIGluIGdwdT9XaHkgZG9lcyBpdCBh
-ZmZlY3QgdGhlIHJlbmRlcmluZyBtb2R1bGU/DQoNCldlIGhvcGUgdGhhdCB2Y2Ugd2lsbCBu
-b3QgYWZmZWN0IHRoZSByZW5kZXJpbmcgbW9kdWxlIHdoZW4gY3Jhc2hpbmcuDQpDYW4gSSBw
-cmV2ZW50IHRoZSB1c2Ugb2YgdGhlIHJlbmRlcmluZyBtb2R1bGUgZnJvbSBiZWluZyBhZmZl
-Y3RlZD8NCg0KDQpsaW51eCBrZXJuZWwgOjQuMTkuMzQNCm1lc2E6IDE4LjMuNQ0KbGx2bTog
-Ny4wDQpmaXJtd2FyZToxOC41MA0KDQoNCg0KDQpBcyBsb2dzo7oNCg0KMjAxOS0wNi0xNVQx
-NTozMzozMi4xMzM4NDIrMDg6MDB8ZXJyfGtlcm5lbFstXXxbMzE1MjQ4LjE3MjYwM10gW2Ry
-bTphbWRncHVfam9iX3RpbWVkb3V0IFthbWRncHVdXSAqRVJST1IqIHJpbmcgdmNlMCB0aW1l
-b3V0LCBzaWduYWxlZCBzZXE9MTE3MzczMCwgZW1pdHRlZCBzZXE9MTE3MzczMg0KMjAxOS0w
-Ni0xNVQxNTozMzozMi4xMzM5MzkrMDg6MDB8aW5mb3xrZXJuZWxbLV18WzMxNTI0OC4xNzI2
-MDddIFtkcm1dIEdQVSByZWNvdmVyeSBkaXNhYmxlZC4=
-
-------=_NextPart_5D0A005B_09BF2530_2E2F270E
-Content-Type: text/html;
-	charset="gb18030"
-Content-Transfer-Encoding: base64
-
-PGRpdj5XZSBhcmUgdXNpbmcgd3g1MTAwIGZvciByZW5kZXJpbmcgYW5kIGVuY29kaW5nIG9w
-ZXJhdGlvbnMsIGJ1dCBzb21ldGltZXMgd2UgZW5jb3VudGVyIHZjZSB0aW1lb3V0IGFuZCBj
-cmFzaC48L2Rpdj48ZGl2PklzIHZjZSBub3QgYSBpbmRlcGVuZGVudCBtb2R1bGUgaW4gZ3B1
-P1doeSBkb2VzIGl0IGFmZmVjdCB0aGUgcmVuZGVyaW5nIG1vZHVsZT88YnI+PC9kaXY+V2Ug
-aG9wZSB0aGF0IHZjZSB3aWxsIG5vdCBhZmZlY3QgdGhlIHJlbmRlcmluZyBtb2R1bGUgd2hl
-biBjcmFzaGluZy48YnI+PGRpdj5DYW4gSSBwcmV2ZW50IHRoZSB1c2Ugb2YgdGhlIHJlbmRl
-cmluZyBtb2R1bGUgZnJvbSBiZWluZyBhZmZlY3RlZD88L2Rpdj48ZGl2Pjxicj48L2Rpdj48
-ZGl2PmxpbnV4IGtlcm5lbCA6NC4xOS4zNDwvZGl2PjxkaXY+bWVzYTogMTguMy41PC9kaXY+
-PGRpdj5sbHZtOiA3LjA8L2Rpdj48ZGl2PmZpcm13YXJlOjE4LjUwPGJyPjwvZGl2PjxkaXY+
-PGJyPjwvZGl2Pjxicj5BcyBsb2dzo7o8YnI+PGJyPjIwMTktMDYtMTVUMTU6MzM6MzIuMTMz
-ODQyKzA4OjAwfGVycnxrZXJuZWxbLV18WzMxNTI0OC4xNzI2MDNdIFtkcm06YW1kZ3B1X2pv
-Yl90aW1lZG91dCBbYW1kZ3B1XV0gKkVSUk9SKiByaW5nIHZjZTAgdGltZW91dCwgc2lnbmFs
-ZWQgc2VxPTExNzM3MzAsIGVtaXR0ZWQgc2VxPTExNzM3MzI8YnI+MjAxOS0wNi0xNVQxNToz
-MzozMi4xMzM5MzkrMDg6MDB8aW5mb3xrZXJuZWxbLV18WzMxNTI0OC4xNzI2MDddIFtkcm1d
-IEdQVSByZWNvdmVyeSBkaXNhYmxlZC48YnI+PGJyPg==
-
-------=_NextPart_5D0A005B_09BF2530_2E2F270E--
-
-
-
-
---===============1059598795==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1059598795==--
+T24gV2VkLCBKdW4gMTksIDIwMTkgYXQgMDg6NTY6MzJBTSAtMDMwMCwgSmFzb24gR3VudGhvcnBl
+IHdyb3RlOgo+IFRoaXMgbG9va3MgYSBsb3QgbGlrZSB0aGUgT0RQIGNvZGUgKGFtZGdwdV9tbl9u
+b2RlID09IGliX3VtZW1fb2RwKQo+IAo+IFRoZSBpbnRlcnZhbCB0cmVlIGlzIHRvIHF1aWNrbHkg
+ZmluZCB0aGUgZHJpdmVyIG9iamVjdChzKSB0aGF0IGhhdmUKPiB0aGUgdmlydHVhbCBwYWdlcyBk
+dXJpbmcgaW52YWxpZGF0aW9uOgo+IAo+IHN0YXRpYyBpbnQgYW1kZ3B1X21uX3N5bmNfcGFnZXRh
+Ymxlc19nZngoc3RydWN0IGhtbV9taXJyb3IgKm1pcnJvciwKPiAgICAgICAgICAgICAgICAgICAg
+ICAgICBjb25zdCBzdHJ1Y3QgaG1tX3VwZGF0ZSAqdXBkYXRlKQo+IHsKPiAgICAgICAgIGl0ID0g
+aW50ZXJ2YWxfdHJlZV9pdGVyX2ZpcnN0KCZhbW4tPm9iamVjdHMsIHN0YXJ0LCBlbmQpOwo+ICAg
+ICAgICAgd2hpbGUgKGl0KSB7Cj4gICAgICAgICAgICAgICAgIFsuLl0KPiAgICAgICAgICAgICAg
+ICAgYW1kZ3B1X21uX2ludmFsaWRhdGVfbm9kZShub2RlLCBzdGFydCwgZW5kKTsKPiAKPiBBbmQg
+Zm9sbG93aW5nIHRoZSBPRFAgbW9kZWwgdGhlcmUgc2hvdWxkIGJlIGEgc2luZ2xlIGhtbV9taXJy
+b3IgcGVyLW1tCj4gKHVzZXIgY2FuIGZvcmsgYW5kIHN0dWZmLCB0aGlzIGlzIHNvbWV0aGluZyBJ
+IHdhbnQgdG8gaGF2ZSBjb3JlIGNvZGUKPiBoZWxwIHdpdGgpLiAKClRoYXQgbWFrZXMgdGhlIGht
+bV9taXJyb3Igb2JqZWN0IHByZXR0eSBzaWxseSwgdGhvdWdoIGFzIHRoZSBzY29wZQppcyB0aGVu
+IGV4YWN0bHkgdGhlIHNhbWUgYXMgdGhlIG1tdV9ub3RpZmllciBpdHNlbGYuCgo+IFRoZSBobW1f
+bWlycm9yIGNhbiBlaXRoZXIgZXhpc3Qgc28gbG9uZyBhcyBvYmplY3RzIGV4aXN0LCBvciBpdCBj
+YW4KPiBleGlzdCB1bnRpbCB0aGUgY2hhcmRldiBpcyBjbG9zZWQgLSBidXQgbmV2ZXIgbG9uZ2Vy
+IHRoYW4gdGhlCj4gY2hhcmRldidzIGxpZmV0aW1lLgo+IAo+IE1heWJlIHdlIHNob3VsZCBiZSBj
+b25zaWRlcmluZyBwcm92aWRpbmcgYSBtbXUgbm90aWZpZXIgJiBpbnRlcnZhbAo+IHRyZWUgJiBs
+b2NrIGFic3RyYWN0aW9uIHNpbmNlIE9EUCAmIEFNRCBhcmUgdmVyeSBzaW1pbGFyIGhlcmUuLgoK
+SXQgZGVmaW50aXZlbHkgc291bmRzIGxpa2UgYSBnb29kIGlkZWEgdG8gbW92ZSB0aGlzIGtpbmQg
+b2Ygb2JqZWN0Cm1hbmFnZW1lbnQgaW50byBjb21tb24gY29kZS4gIE5vdXZlYSBhY3R1YWxseSBz
+ZWVtcyBsaWtlIHRoZSBvZGQgb25lCm91dCBoZXJlIGJ5IG5vdCBoYXZpbmcgYSBsaXN0IG9mIG9i
+amVjdHMgYmVsb3cgdGhlIG1pcnJvciwgYnV0IHRoZW4KYWdhaW4gYW5kIGludGVydmFsIHRyZWUg
+d2l0aCBhIHNpbmdsZSBlbnRyeSB3b3VsZG4ndCByZWFsbHkgaHVydCBpdAplaXRoZXIuCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
