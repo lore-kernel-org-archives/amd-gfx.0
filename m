@@ -1,111 +1,63 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: Fix null-deref on vega20 with xgmi
-Date: Wed, 19 Jun 2019 18:43:08 +0000
-Message-ID: <d8ddd12e-1a1c-4c12-1e31-b3f7b5718ddd@amd.com>
-References: <1560969526-9400-1-git-send-email-Roman.Li@amd.com>
+From: Khalid Aziz <khalid.aziz@oracle.com>
+Subject: Re: [PATCH v17 07/15] fs, arm64: untag user pointers in
+ copy_mount_options
+Date: Wed, 19 Jun 2019 14:01:22 -0600
+Message-ID: <14e49054-01dc-dab5-40cc-71434ea3852a@oracle.com>
+References: <cover.1560339705.git.andreyknvl@google.com>
+ <4ed871e14cc265a519c6ba8660a1827844371791.1560339705.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1560969526-9400-1-git-send-email-Roman.Li-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <4ed871e14cc265a519c6ba8660a1827844371791.1560339705.git.andreyknvl@google.com>
 Content-Language: en-US
-Content-ID: <7E86026D30DD2349B2078D386608AA0F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Li, Roman" <Roman.Li-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Yang, Eric" <Eric.Yang2-5C7GfCeVMHo@public.gmane.org>, "Liu,
- Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@redhat.com>, Leon Romanovsky <leon@kernel.org>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Dave Martin <Dave.Martin@arm.com>, enh <enh@google.com>, Jason Gunthorpe <jgg@ziep>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNi8xOS8xOSAyOjM4IFBNLCBSb21hbi5MaUBhbWQuY29tIHdyb3RlOg0KPiBGcm9tOiBSb21h
-biBMaSA8Um9tYW4uTGlAYW1kLmNvbT4NCj4gDQo+IFtXaHldDQo+IEFmdGVyIGNsa21nciByZXdv
-cmsgaXQgZ2V0cyBpbml0aWFsaXplZCBhZnRlciByZXNvdXJjZSBwb29sLg0KPiBUaGUgY2xrbWdy
-IGlzIHVzZWQgaW4gcmVzb3VyY2UgcG9vbCBpbml0IGZvciB4Z21pIHBhdGguDQo+IFRoYXQgY2F1
-c2VzIGRyaXZlciBjcmFzaCBvbiBWZWdhMjAgd2l0aCB4Z21pIGR1ZSB0byBOVUxMIGRlcmVmLg0K
-PiANCj4gW0hvd10NCj4gTW92ZSB4Z21pIGNvbXBlbnNhdGlvbiBjb2RlIHRvIGRjZTEyMV9jbGtf
-bWdyX2NvbnN0cnVjdCgpDQo+IFRoYXQgYWxzbyBhbGxvd3MgdG8gbWFrZSBkY2UxMjFfY2xvY2tf
-cGF0Y2hfeGdtaV9zc19pbmZvKCkNCj4gaW50ZXJuYWwgc3RhdGljIGZ1bmN0aW9uLg0KPiANCj4g
-Q2hhbmdlLUlkOiBJZDNmYTQ0YmRlYjI5NzRiMzU4MGE1MzVjYzUwNjkyYmZhOGIwMWUyNw0KPiBT
-aWduZWQtb2ZmLWJ5OiBSb21hbiBMaSA8Um9tYW4uTGlAYW1kLmNvbT4NCj4gLS0tDQoNClJldmll
-d2VkLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+
-DQoNCj4gICAuLi4vZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jbGtfbWdyL2RjZTEyMC9kY2UxMjBf
-Y2xrX21nci5jIHwgMTQgKysrKysrKysrKystLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jICAgIHwgMTAgLS0tLS0tLS0tLQ0KPiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvaHcvY2xrX21nci5oICAgICAgICAg
-ICAgfCAgMiAtLQ0KPiAgIDMgZmlsZXMgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMTUgZGVs
-ZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2Nsa19tZ3IvZGNlMTIwL2RjZTEyMF9jbGtfbWdyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvY2xrX21nci9kY2UxMjAvZGNlMTIwX2Nsa19tZ3IuYw0KPiBpbmRleCAwOGYy
-ZTI1Li45MDYzMTBjIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvY2xrX21nci9kY2UxMjAvZGNlMTIwX2Nsa19tZ3IuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvY2xrX21nci9kY2UxMjAvZGNlMTIwX2Nsa19tZ3IuYw0KPiBAQCAt
-MzAsNiArMzAsNyBAQA0KPiAgICNpbmNsdWRlICJkY2UxMTAvZGNlMTEwX2Nsa19tZ3IuaCINCj4g
-ICAjaW5jbHVkZSAiZGNlMTIwX2Nsa19tZ3IuaCINCj4gICAjaW5jbHVkZSAiZGNlMTAwL2RjZV9j
-bGtfbWdyLmgiDQo+ICsjaW5jbHVkZSAiZGNlMTIwL2RjZTEyMF9od19zZXF1ZW5jZXIuaCINCj4g
-ICANCj4gICBzdGF0aWMgY29uc3Qgc3RydWN0IHN0YXRlX2RlcGVuZGVudF9jbG9ja3MgZGNlMTIw
-X21heF9jbGtzX2J5X3N0YXRlW10gPSB7DQo+ICAgLypDbG9ja3NTdGF0ZUludmFsaWQgLSBzaG91
-bGQgbm90IGJlIHVzZWQqLw0KPiBAQCAtNDUsMTYgKzQ2LDE1IEBAIHN0YXRpYyBjb25zdCBzdHJ1
-Y3Qgc3RhdGVfZGVwZW5kZW50X2Nsb2NrcyBkY2UxMjBfbWF4X2Nsa3NfYnlfc3RhdGVbXSA9IHsN
-Cj4gICANCj4gICAvKioNCj4gICAgKiBkY2UxMjFfY2xvY2tfcGF0Y2hfeGdtaV9zc19pbmZvKCkg
-LSBTYXZlIFhHTUkgc3ByZWFkIHNwZWN0cnVtIGluZm8NCj4gLSAqIEBjbGtfbWdyOiBjbG9jayBt
-YW5hZ2VyIGJhc2Ugc3RydWN0dXJlDQo+ICsgKiBAY2xrX21ncl9kY2U6IGNsb2NrIG1hbmFnZXIg
-aW50ZXJuYWwgc3RydWN0dXJlDQo+ICAgICoNCj4gICAgKiBSZWFkcyBmcm9tIFZCSU9TIHRoZSBY
-R01JIHNwcmVhZCBzcGVjdHJ1bSBpbmZvIGFuZCBzYXZlcyBpdCB3aXRoaW4NCj4gICAgKiB0aGUg
-ZGNlIGNsb2NrIG1hbmFnZXIuIFRoaXMgb3BlcmF0aW9uIHdpbGwgb3ZlcndyaXRlIHRoZSBleGlz
-dGluZyBkcHJlZmNsaw0KPiAgICAqIFNTIHZhbHVlcyBpZiB0aGUgdkJJT1MgcXVlcnkgc3VjY2Vl
-ZHMuIE90aGVyd2lzZSwgaXQgZG9lcyBub3RoaW5nLiBJdCBhbHNvDQo+ICAgICogc2V0cyB0aGUg
-LT54Z21pX2VuYWJsZWQgZmxhZy4NCj4gICAgKi8NCj4gLXZvaWQgZGNlMTIxX2Nsb2NrX3BhdGNo
-X3hnbWlfc3NfaW5mbyhzdHJ1Y3QgY2xrX21nciAqY2xrX21ncl9iYXNlKQ0KPiArc3RhdGljIHZv
-aWQgZGNlMTIxX2Nsb2NrX3BhdGNoX3hnbWlfc3NfaW5mbyhzdHJ1Y3QgY2xrX21ncl9pbnRlcm5h
-bCAqY2xrX21ncl9kY2UpDQo+ICAgew0KPiAtCXN0cnVjdCBjbGtfbWdyX2ludGVybmFsICpjbGtf
-bWdyX2RjZSA9IFRPX0NMS19NR1JfSU5URVJOQUwoY2xrX21ncl9iYXNlKTsNCj4gICAJZW51bSBi
-cF9yZXN1bHQgcmVzdWx0Ow0KPiAgIAlzdHJ1Y3Qgc3ByZWFkX3NwZWN0cnVtX2luZm8gaW5mbyA9
-IHsgeyAwIH0gfTsNCj4gICAJc3RydWN0IGRjX2Jpb3MgKmJwID0gY2xrX21ncl9kY2UtPmJhc2Uu
-Y3R4LT5kY19iaW9zOw0KPiBAQCAtMTQxLDUgKzE0MSwxMyBAQCB2b2lkIGRjZTEyMV9jbGtfbWdy
-X2NvbnN0cnVjdChzdHJ1Y3QgZGNfY29udGV4dCAqY3R4LCBzdHJ1Y3QgY2xrX21ncl9pbnRlcm5h
-bCAqYw0KPiAgIHsNCj4gICAJZGNlMTIwX2Nsa19tZ3JfY29uc3RydWN0KGN0eCwgY2xrX21ncik7
-DQo+ICAgCWNsa19tZ3ItPmJhc2UuZHByZWZjbGtfa2h6ID0gNjI1MDAwOw0KPiArDQo+ICsJLyoN
-Cj4gKwkgKiBUaGUgeEdNSSBlbmFibGVkIGluZm8gaXMgdXNlZCB0byBkZXRlcm1pbmUgaWYgYXVk
-aW8gYW5kIGRpc3BsYXkNCj4gKwkgKiBjbG9ja3MgbmVlZCB0byBiZSBhZGp1c3RlZCB3aXRoIHRo
-ZSBXQUZMIGxpbmsncyBTUyBpbmZvLg0KPiArCSAqLw0KPiArCWlmIChkY2UxMjFfeGdtaV9lbmFi
-bGVkKGN0eC0+ZGMtPmh3c2VxKSkNCj4gKwkJZGNlMTIxX2Nsb2NrX3BhdGNoX3hnbWlfc3NfaW5m
-byhjbGtfbWdyKTsNCj4gKw0KPiAgIH0NCj4gICANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvZGlzcGxheS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlMTIwL2RjZTEyMF9yZXNvdXJjZS5jDQo+IGluZGV4IGFm
-YTFjNjAuLjcxOWMwMjAgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9kYy9kY2UxMjAvZGNlMTIwX3Jlc291cmNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2RjZTEyMC9kY2UxMjBfcmVzb3VyY2UuYw0KPiBAQCAtMTE2MywxNiArMTE2
-Myw2IEBAIHN0YXRpYyBib29sIGNvbnN0cnVjdCgNCj4gICAJaWYgKCFyZXNvdXJjZV9jb25zdHJ1
-Y3QobnVtX3ZpcnR1YWxfbGlua3MsIGRjLCAmcG9vbC0+YmFzZSwgcmVzX2Z1bmNzKSkNCj4gICAJ
-CWdvdG8gcmVzX2NyZWF0ZV9mYWlsOw0KPiAgIA0KPiAtCS8qDQo+IC0JICogVGhpcyBpcyBhIGJp
-dCBvZiBhIGhhY2suIFRoZSB4R01JIGVuYWJsZWQgaW5mbyBpcyB1c2VkIHRvIGRldGVybWluZQ0K
-PiAtCSAqIGlmIGF1ZGlvIGFuZCBkaXNwbGF5IGNsb2NrcyBuZWVkIHRvIGJlIGFkanVzdGVkIHdp
-dGggdGhlIFdBRkwgbGluaydzDQo+IC0JICogU1MgaW5mby4gVGhpcyBpcyBhIHJlc3BvbnNpYmxp
-dHkgb2YgdGhlIGNsa19tZ3IuIEJ1dCBzaW5jZSBNTUhVQiBpcw0KPiAtCSAqIHVuZGVyIGh3c2Vx
-LCBhbmQgdGhlIHJlbGV2YW50IHJlZ2lzdGVyIGlzIGluIE1NSFVCLCB3ZSBoYXZlIHRvIGRvIGl0
-DQo+IC0JICogaGVyZS4NCj4gLQkgKi8NCj4gLQlpZiAoaXNfdmcyMCAmJiBkY2UxMjFfeGdtaV9l
-bmFibGVkKGRjLT5od3NlcSkpDQo+IC0JCWRjZTEyMV9jbG9ja19wYXRjaF94Z21pX3NzX2luZm8o
-ZGMtPmNsa19tZ3IpOw0KPiAtDQo+ICAgCS8qIENyZWF0ZSBoYXJkd2FyZSBzZXF1ZW5jZXIgKi8N
-Cj4gICAJaWYgKCFkY2UxMjBfaHdfc2VxdWVuY2VyX2NyZWF0ZShkYykpDQo+ICAgCQlnb3RvIGNv
-bnRyb2xsZXJfY3JlYXRlX2ZhaWw7DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvaW5jL2h3L2Nsa19tZ3IuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9kYy9pbmMvaHcvY2xrX21nci5oDQo+IGluZGV4IDcyMWUxMzEuLjM2ZWJkNWIgMTAwNjQ0DQo+
-IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvaHcvY2xrX21nci5oDQo+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9pbmMvaHcvY2xrX21nci5oDQo+
-IEBAIC01Myw4ICs1Myw2IEBAIHN0cnVjdCBjbGtfbWdyX2Z1bmNzIHsNCj4gICAJdm9pZCAoKmVu
-YWJsZV9wbWVfd2EpIChzdHJ1Y3QgY2xrX21nciAqY2xrX21ncik7DQo+ICAgfTsNCj4gICANCj4g
-LXZvaWQgZGNlMTIxX2Nsb2NrX3BhdGNoX3hnbWlfc3NfaW5mbyhzdHJ1Y3QgY2xrX21nciAqY2xr
-X21ncl9iYXNlKTsNCj4gLQ0KPiAgIHN0cnVjdCBjbGtfbWdyIHsNCj4gICAJc3RydWN0IGRjX2Nv
-bnRleHQgKmN0eDsNCj4gICAJc3RydWN0IGNsa19tZ3JfZnVuY3MgKmZ1bmNzOw0KPiANCg0KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On 6/12/19 5:43 AM, Andrey Konovalov wrote:
+> This patch is a part of a series that extends arm64 kernel ABI to allow=
+ to
+> pass tagged user pointers (with the top byte set to something else othe=
+r
+> than 0x00) as syscall arguments.
+>=20
+> In copy_mount_options a user address is being subtracted from TASK_SIZE=
+=2E
+> If the address is lower than TASK_SIZE, the size is calculated to not
+> allow the exact_copy_from_user() call to cross TASK_SIZE boundary.
+> However if the address is tagged, then the size will be calculated
+> incorrectly.
+>=20
+> Untag the address before subtracting.
+>=20
+> Reviewed-by: Kees Cook <keescook@chromium.org>
+> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> ---
+
+Please update commit log to make it not arm64 specific since this change
+affects other architectures as well. Other than that,
+
+Reviewed-by: Khalid Aziz <khalid.aziz@oracle.com>
+
+
+>  fs/namespace.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index b26778bdc236..2e85712a19ed 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -2993,7 +2993,7 @@ void *copy_mount_options(const void __user * data=
+)
+>  	 * the remainder of the page.
+>  	 */
+>  	/* copy_from_user cannot cross TASK_SIZE ! */
+> -	size =3D TASK_SIZE - (unsigned long)data;
+> +	size =3D TASK_SIZE - (unsigned long)untagged_addr(data);
+>  	if (size > PAGE_SIZE)
+>  		size =3D PAGE_SIZE;
+> =20
+>=20
