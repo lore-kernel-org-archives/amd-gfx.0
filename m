@@ -1,14 +1,10 @@
-From: "Huang, Trigger" <Trigger.Huang-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/sriov: fix Tonga load driver failed
-Date: Thu, 20 Jun 2019 06:23:02 +0000
-Message-ID: <MN2PR12MB3408354EEA8FD39A7A78EFEAFEE40@MN2PR12MB3408.namprd12.prod.outlook.com>
-References: <1561010688-5943-1-git-send-email-Jack.Zhang1@amd.com>
+From: "=?gb18030?B?Q0NYSUFPUA==?=" <664296544-9uewiaClKEY@public.gmane.org>
+Subject: amdgpu vce crash
+Date: Wed, 19 Jun 2019 17:28:59 +0800
+Message-ID: <tencent_969412320833AB29CB6FA2732FC516257905@qq.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1059598795=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1561010688-5943-1-git-send-email-Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,33 +15,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Zhang, Jack (Jian)" <Jack.Zhang1-5C7GfCeVMHo@public.gmane.org>
+To: =?gb18030?B?YW1kLWdmeA==?= <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IFRyaWdnZXIgSHVhbmcgPFRyaWdnZXIuSHVhbmdAYW1kLmNvbT4NCg0KVGhh
-bmtzICYgQmVzdCBXaXNoZXMsDQpUcmlnZ2VyIEh1YW5nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2Fn
-ZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnPiBPbiBCZWhhbGYgT2YgSmFjayBaaGFuZw0KU2VudDogVGh1cnNkYXksIEp1bmUgMjAsIDIw
-MTkgMjowNSBQTQ0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogWmhhbmcs
-IEphY2sgKEppYW4pIDxKYWNrLlpoYW5nMUBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0v
-YW1kZ3B1L3NyaW92OiBmaXggVG9uZ2EgbG9hZCBkcml2ZXIgZmFpbGVkDQoNClRvbmdhIHNyaW92
-IG5lZWQgdG8gdXNlIHNtdSB0byBsb2FkIGZpcm13YXJlLg0KUmVtb3ZlIHNyaW92IGZsYWcgYmVj
-YXVzZSB0aGUgZGVmYXVsdCByZXR1cm4gdmFsdWUgaXMgemVyby4NCg0KU2lnbmVkLW9mZi1ieTog
-SmFjayBaaGFuZyA8SmFjay5aaGFuZzFAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgMiAtLQ0KIDEgZmlsZSBjaGFuZ2VkLCAyIGRlbGV0aW9u
-cygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bt
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYw0KaW5kZXggMDkzY2Vm
-ZC4uNDY5Y2RhOSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9wbS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYw0KQEAg
-LTI3NTUsOCArMjc1NSw2IEBAIGludCBhbWRncHVfcG1fbG9hZF9zbXVfZmlybXdhcmUoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90ICpzbXVfdmVyc2lvICB7DQogCWludCByOw0K
-IA0KLQlpZiAoYW1kZ3B1X3NyaW92X3ZmKGFkZXYpKQ0KLQkJcmV0dXJuIDA7DQogDQogCWlmIChh
-ZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MgJiYgYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5sb2Fk
-X2Zpcm13YXJlKSB7DQogCQlyID0gYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5sb2FkX2Zpcm13
-YXJlKGFkZXYtPnBvd2VycGxheS5wcF9oYW5kbGUpOw0KLS0NCjIuNy40DQoNCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlz
-dA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+This is a multi-part message in MIME format.
+
+--===============1059598795==
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_5D0A005B_09BF2530_2E2F270E"
+Content-Transfer-Encoding: 8Bit
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_5D0A005B_09BF2530_2E2F270E
+Content-Type: text/plain;
+	charset="gb18030"
+Content-Transfer-Encoding: base64
+
+V2UgYXJlIHVzaW5nIHd4NTEwMCBmb3IgcmVuZGVyaW5nIGFuZCBlbmNvZGluZyBvcGVyYXRp
+b25zLCBidXQgc29tZXRpbWVzIHdlIGVuY291bnRlciB2Y2UgdGltZW91dCBhbmQgY3Jhc2gu
+DQpJcyB2Y2Ugbm90IGEgaW5kZXBlbmRlbnQgbW9kdWxlIGluIGdwdT9XaHkgZG9lcyBpdCBh
+ZmZlY3QgdGhlIHJlbmRlcmluZyBtb2R1bGU/DQoNCldlIGhvcGUgdGhhdCB2Y2Ugd2lsbCBu
+b3QgYWZmZWN0IHRoZSByZW5kZXJpbmcgbW9kdWxlIHdoZW4gY3Jhc2hpbmcuDQpDYW4gSSBw
+cmV2ZW50IHRoZSB1c2Ugb2YgdGhlIHJlbmRlcmluZyBtb2R1bGUgZnJvbSBiZWluZyBhZmZl
+Y3RlZD8NCg0KDQpsaW51eCBrZXJuZWwgOjQuMTkuMzQNCm1lc2E6IDE4LjMuNQ0KbGx2bTog
+Ny4wDQpmaXJtd2FyZToxOC41MA0KDQoNCg0KDQpBcyBsb2dzo7oNCg0KMjAxOS0wNi0xNVQx
+NTozMzozMi4xMzM4NDIrMDg6MDB8ZXJyfGtlcm5lbFstXXxbMzE1MjQ4LjE3MjYwM10gW2Ry
+bTphbWRncHVfam9iX3RpbWVkb3V0IFthbWRncHVdXSAqRVJST1IqIHJpbmcgdmNlMCB0aW1l
+b3V0LCBzaWduYWxlZCBzZXE9MTE3MzczMCwgZW1pdHRlZCBzZXE9MTE3MzczMg0KMjAxOS0w
+Ni0xNVQxNTozMzozMi4xMzM5MzkrMDg6MDB8aW5mb3xrZXJuZWxbLV18WzMxNTI0OC4xNzI2
+MDddIFtkcm1dIEdQVSByZWNvdmVyeSBkaXNhYmxlZC4=
+
+------=_NextPart_5D0A005B_09BF2530_2E2F270E
+Content-Type: text/html;
+	charset="gb18030"
+Content-Transfer-Encoding: base64
+
+PGRpdj5XZSBhcmUgdXNpbmcgd3g1MTAwIGZvciByZW5kZXJpbmcgYW5kIGVuY29kaW5nIG9w
+ZXJhdGlvbnMsIGJ1dCBzb21ldGltZXMgd2UgZW5jb3VudGVyIHZjZSB0aW1lb3V0IGFuZCBj
+cmFzaC48L2Rpdj48ZGl2PklzIHZjZSBub3QgYSBpbmRlcGVuZGVudCBtb2R1bGUgaW4gZ3B1
+P1doeSBkb2VzIGl0IGFmZmVjdCB0aGUgcmVuZGVyaW5nIG1vZHVsZT88YnI+PC9kaXY+V2Ug
+aG9wZSB0aGF0IHZjZSB3aWxsIG5vdCBhZmZlY3QgdGhlIHJlbmRlcmluZyBtb2R1bGUgd2hl
+biBjcmFzaGluZy48YnI+PGRpdj5DYW4gSSBwcmV2ZW50IHRoZSB1c2Ugb2YgdGhlIHJlbmRl
+cmluZyBtb2R1bGUgZnJvbSBiZWluZyBhZmZlY3RlZD88L2Rpdj48ZGl2Pjxicj48L2Rpdj48
+ZGl2PmxpbnV4IGtlcm5lbCA6NC4xOS4zNDwvZGl2PjxkaXY+bWVzYTogMTguMy41PC9kaXY+
+PGRpdj5sbHZtOiA3LjA8L2Rpdj48ZGl2PmZpcm13YXJlOjE4LjUwPGJyPjwvZGl2PjxkaXY+
+PGJyPjwvZGl2Pjxicj5BcyBsb2dzo7o8YnI+PGJyPjIwMTktMDYtMTVUMTU6MzM6MzIuMTMz
+ODQyKzA4OjAwfGVycnxrZXJuZWxbLV18WzMxNTI0OC4xNzI2MDNdIFtkcm06YW1kZ3B1X2pv
+Yl90aW1lZG91dCBbYW1kZ3B1XV0gKkVSUk9SKiByaW5nIHZjZTAgdGltZW91dCwgc2lnbmFs
+ZWQgc2VxPTExNzM3MzAsIGVtaXR0ZWQgc2VxPTExNzM3MzI8YnI+MjAxOS0wNi0xNVQxNToz
+MzozMi4xMzM5MzkrMDg6MDB8aW5mb3xrZXJuZWxbLV18WzMxNTI0OC4xNzI2MDddIFtkcm1d
+IEdQVSByZWNvdmVyeSBkaXNhYmxlZC48YnI+PGJyPg==
+
+------=_NextPart_5D0A005B_09BF2530_2E2F270E--
+
+
+
+
+--===============1059598795==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1059598795==--
