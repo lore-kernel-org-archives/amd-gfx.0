@@ -1,50 +1,59 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: Set gws_mask to 64 bit 1s
-Date: Thu, 20 Jun 2019 21:18:15 +0000
-Message-ID: <12aaa938-7517-09d7-b5f9-010331c974db@amd.com>
-References: <1560527975-18868-1-git-send-email-Oak.Zeng@amd.com>
+From: Lyude Paul <lyude@redhat.com>
+Subject: [PATCH] drm/amdgpu: Don't skip display settings in hwmgr_resume()
+Date: Thu, 20 Jun 2019 19:21:26 -0400
+Message-ID: <20190620232127.25436-1-lyude@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1560527975-18868-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <EC30D484A86A8C4486B5D8DEFD7A14CE-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: amd-gfx@lists.freedesktop.org
+Cc: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Likun Gao <Likun.Gao@amd.com>, stable@vger.kernel.org, Rex Zhu <rex.zhu@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wNi0xNCAxMTo1OSBhLm0uLCBaZW5nLCBPYWsgd3JvdGU6DQo+IFByZXZpb3VzIGtm
-ZCBkb2Vzbid0IHVzZSBnd3Mgc28gdGhpcyBtYXNrIHdhcyBzZXQgdG8gMC4NCj4gU2V0IGl0IHRv
-IDY0IGJpdCAxcyBiZWNhdXNlIG5vdyBrZmQgY2FuIHVzZSBhbGwgNjQgZ3dzDQo+IHJlc291cmNl
-cy4NCj4NCj4gQ2hhbmdlLUlkOiBJYzgyMTdkNmQxMzUwOTlmMzM5NTAxN2JiYzljMGZlOTRhNzM5
-YWE5Mw0KPiBTaWduZWQtb2ZmLWJ5OiBPYWsgWmVuZyA8T2FrLlplbmdAYW1kLmNvbT4NCj4gLS0t
-DQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2Vy
-LmMgfCA0ICsrLS0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0
-aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRf
-ZGV2aWNlX3F1ZXVlX21hbmFnZXIuYw0KPiBpbmRleCBlNWM2ZGIxLi4yNTA3OThiIDEwMDY0NA0K
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFn
-ZXIuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVl
-X21hbmFnZXIuYw0KPiBAQCAtOTkzLDggKzk5Myw4IEBAIHN0YXRpYyBpbnQgc2V0X3NjaGVkX3Jl
-c291cmNlcyhzdHJ1Y3QgZGV2aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSkNCj4gICANCj4gICAJCXJl
-cy5xdWV1ZV9tYXNrIHw9ICgxdWxsIDw8IGkpOw0KPiAgIAl9DQo+IC0JcmVzLmd3c19tYXNrID0g
-cmVzLm9hY19tYXNrID0gcmVzLmdkc19oZWFwX2Jhc2UgPQ0KPiAtCQkJCQkJcmVzLmdkc19oZWFw
-X3NpemUgPSAwOw0KPiArCXJlcy5nd3NfbWFzayA9IDB4RkZGRkZGRkZGRkZGRkZGRjsNCg0KSSB0
-aGluayB0aGlzIGlzIGNvcnJlY3QgKGNvdW50aW5nIDE2IEZzKS4gQnV0IGlmIHlvdSB3YW50IHRv
-IHNldCBhbGwgNjQgDQpiaXRzLCB+MHVsbCBtYXkgYmUgbGVzcyBlcnJvciBwcm9uZS4NCg0KRWl0
-aGVyIHdheSwgdGhpcyBwYXRjaCBpcyBSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgDQo8RmVs
-aXguS3VlaGxpbmdAYW1kLmNvbT4NCg0KPiArCXJlcy5vYWNfbWFzayA9IHJlcy5nZHNfaGVhcF9i
-YXNlID0gcmVzLmdkc19oZWFwX3NpemUgPSAwOw0KPiAgIA0KPiAgIAlwcl9kZWJ1ZygiU2NoZWR1
-bGluZyByZXNvdXJjZXM6XG4iDQo+ICAgCQkJInZtaWQgbWFzazogMHglOFhcbiINCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+I'm not entirely sure why this is, but for some reason:
+
+921935dc6404 ("drm/amd/powerplay: enforce display related settings only on needed")
+
+Breaks runtime PM resume on the Radeon PRO WX 3100 (Lexa) in one the
+pre-production laptops I have. The issue manifests as the following
+messages in dmesg:
+
+[drm] UVD and UVD ENC initialized successfully.
+amdgpu 0000:3b:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vce1 test failed (-110)
+[drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <vce_v3_0> failed -110
+[drm:amdgpu_device_resume [amdgpu]] *ERROR* amdgpu_device_ip_resume failed (-110).
+
+And happens after about 6-10 runtime PM suspend/resume cycles (sometimes
+sooner, if you're lucky!). Unfortunately I can't seem to pin down
+precisely which part in psm_adjust_power_state_dynamic that is causing
+the issue, but not skipping the display setting setup seems to fix it.
+Hopefully if there is a better fix for this, this patch will spark
+discussion around it.
+
+Fixes: 921935dc6404 ("drm/amd/powerplay: enforce display related settings only on needed")
+Cc: Evan Quan <evan.quan@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Rex Zhu <Rex.Zhu@amd.com>
+Cc: Likun Gao <Likun.Gao@amd.com>
+Cc: <stable@vger.kernel.org> # v5.1+
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+index 6cd6497c6fc2..0e1b2d930816 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
+@@ -325,7 +325,7 @@ int hwmgr_resume(struct pp_hwmgr *hwmgr)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = psm_adjust_power_state_dynamic(hwmgr, true, NULL);
++	ret = psm_adjust_power_state_dynamic(hwmgr, false, NULL);
+ 
+ 	return ret;
+ }
+-- 
+2.21.0
