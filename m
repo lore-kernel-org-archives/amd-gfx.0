@@ -1,59 +1,47 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH] drm/amdgpu: Don't skip display settings in hwmgr_resume()
-Date: Thu, 20 Jun 2019 19:21:26 -0400
-Message-ID: <20190620232127.25436-1-lyude@redhat.com>
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: no memory activity support on Vega10
+Date: Fri, 21 Jun 2019 10:07:09 +0800
+Message-ID: <20190621020709.24778-1-evan.quan@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Huang Rui <ray.huang@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Likun Gao <Likun.Gao@amd.com>, stable@vger.kernel.org, Rex Zhu <rex.zhu@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-I'm not entirely sure why this is, but for some reason:
-
-921935dc6404 ("drm/amd/powerplay: enforce display related settings only on needed")
-
-Breaks runtime PM resume on the Radeon PRO WX 3100 (Lexa) in one the
-pre-production laptops I have. The issue manifests as the following
-messages in dmesg:
-
-[drm] UVD and UVD ENC initialized successfully.
-amdgpu 0000:3b:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vce1 test failed (-110)
-[drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <vce_v3_0> failed -110
-[drm:amdgpu_device_resume [amdgpu]] *ERROR* amdgpu_device_ip_resume failed (-110).
-
-And happens after about 6-10 runtime PM suspend/resume cycles (sometimes
-sooner, if you're lucky!). Unfortunately I can't seem to pin down
-precisely which part in psm_adjust_power_state_dynamic that is causing
-the issue, but not skipping the display setting setup seems to fix it.
-Hopefully if there is a better fix for this, this patch will spark
-discussion around it.
-
-Fixes: 921935dc6404 ("drm/amd/powerplay: enforce display related settings only on needed")
-Cc: Evan Quan <evan.quan@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Rex Zhu <Rex.Zhu@amd.com>
-Cc: Likun Gao <Likun.Gao@amd.com>
-Cc: <stable@vger.kernel.org> # v5.1+
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-index 6cd6497c6fc2..0e1b2d930816 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-@@ -325,7 +325,7 @@ int hwmgr_resume(struct pp_hwmgr *hwmgr)
- 	if (ret)
- 		return ret;
- 
--	ret = psm_adjust_power_state_dynamic(hwmgr, true, NULL);
-+	ret = psm_adjust_power_state_dynamic(hwmgr, false, NULL);
- 
- 	return ret;
- }
--- 
-2.21.0
+TWFrZSBtZW1fYnVzeV9wZXJjZW50IHN5c2ZzIGludGVyZmFjZSBpbnZpc2libGUgb24gVmVnYTEw
+LgoKQ2hhbmdlLUlkOiBJZTM5YzMyMTdiNDk3YTExMGIwYjE2ZTFiMDgwMzMwMjliZGNmMmZjOApT
+aWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jIHwgNiArKysrLS0KIDEgZmlsZSBjaGFuZ2Vk
+LCA0IGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfcG0uYwppbmRleCA3ZWQ4NDczNmNjYzkuLmJjZjZlMDg5ZGMyZSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMKQEAgLTI5NDUsNyArMjk0NSw4IEBAIGludCBh
+bWRncHVfcG1fc3lzZnNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkJcmV0dXJu
+IHJldDsKIAl9CiAJLyogQVBVIGRvZXMgbm90IGhhdmUgaXRzIG93biBkZWRpY2F0ZWQgbWVtb3J5
+ICovCi0JaWYgKCEoYWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSkgeworCWlmICghKGFkZXYtPmZs
+YWdzICYgQU1EX0lTX0FQVSkgJiYKKwkgICAgIChhZGV2LT5hc2ljX3R5cGUgIT0gQ0hJUF9WRUdB
+MTApKSB7CiAJCXJldCA9IGRldmljZV9jcmVhdGVfZmlsZShhZGV2LT5kZXYsCiAJCQkJJmRldl9h
+dHRyX21lbV9idXN5X3BlcmNlbnQpOwogCQlpZiAocmV0KSB7CkBAIC0zMDI1LDcgKzMwMjYsOCBA
+QCB2b2lkIGFtZGdwdV9wbV9zeXNmc19maW5pKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
+CQlkZXZpY2VfcmVtb3ZlX2ZpbGUoYWRldi0+ZGV2LAogCQkJCSZkZXZfYXR0cl9wcF9vZF9jbGtf
+dm9sdGFnZSk7CiAJZGV2aWNlX3JlbW92ZV9maWxlKGFkZXYtPmRldiwgJmRldl9hdHRyX2dwdV9i
+dXN5X3BlcmNlbnQpOwotCWlmICghKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkpCisJaWYgKCEo
+YWRldi0+ZmxhZ3MgJiBBTURfSVNfQVBVKSAmJgorCSAgICAgKGFkZXYtPmFzaWNfdHlwZSAhPSBD
+SElQX1ZFR0ExMCkpCiAJCWRldmljZV9yZW1vdmVfZmlsZShhZGV2LT5kZXYsICZkZXZfYXR0cl9t
+ZW1fYnVzeV9wZXJjZW50KTsKIAlpZiAoIShhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUpKQogCQlk
+ZXZpY2VfcmVtb3ZlX2ZpbGUoYWRldi0+ZGV2LCAmZGV2X2F0dHJfcGNpZV9idyk7Ci0tIAoyLjIx
+LjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
