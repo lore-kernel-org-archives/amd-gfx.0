@@ -1,128 +1,317 @@
-From: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v2 04/18] drm/radeon: use embedded gem object
-Date: Fri, 21 Jun 2019 13:57:41 +0200
-Message-ID: <20190621115755.8481-5-kraxel@redhat.com>
+From: Gerd Hoffmann <kraxel@redhat.com>
+Subject: [PATCH v2 08/18] drm/ttm: use gem vma_node
+Date: Fri, 21 Jun 2019 13:57:45 +0200
+Message-ID: <20190621115755.8481-9-kraxel@redhat.com>
 References: <20190621115755.8481-1-kraxel@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190621115755.8481-1-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <virtualization-bounces@lists.linux-foundation.org>
+In-Reply-To: <20190621115755.8481-1-kraxel@redhat.com>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/virtualization>,
+	<mailto:virtualization-request@lists.linux-foundation.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/virtualization/>
+List-Post: <mailto:virtualization@lists.linux-foundation.org>
+List-Help: <mailto:virtualization-request@lists.linux-foundation.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/virtualization>,
+	<mailto:virtualization-request@lists.linux-foundation.org?subject=subscribe>
+Sender: virtualization-bounces@lists.linux-foundation.org
+Errors-To: virtualization-bounces@lists.linux-foundation.org
+To: dri-devel@lists.freedesktop.org
+Cc: "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Thomas Hellstrom <thellstrom@vmware.com>, David Airlie <airlied@linux.ie>, ckoenig.leichtzumerken@gmail.com, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, open list <linux-kernel@vger.kernel.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVER FOR QXL VIRTUAL GPU" <virtualization@lists.linux-foundation.org>, Maxime Ripard <maxime.ripard@bootlin.com>, Huang Rui <ray.huang@amd.com>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Daniel Vetter <daniel@ffwll.ch>, "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>, "open list:DRM DRIVER FOR QXL VIRTUAL GPU" <spice-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>, =?UTF-8?q?Christian=20K=C3=
+List-Id: amd-gfx.lists.freedesktop.org
 
-RHJvcCBkcm1fZ2VtX29iamVjdCBmcm9tIHJhZGVvbl9ibywgdXNlIHRoZQp0dG1fYnVmZmVyX29i
-amVjdC5iYXNlIGluc3RlYWQuCgpCdWlsZCB0ZXN0ZWQgb25seS4KClNpZ25lZC1vZmYtYnk6IEdl
-cmQgSG9mZm1hbm4gPGtyYXhlbEByZWRoYXQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRl
-b24vcmFkZW9uLmggICAgICAgICB8ICAzICstLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
-b25fY3MuYyAgICAgIHwgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rpc3Bs
-YXkuYyB8ICA0ICsrLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2dlbS5jICAgICB8
-ICAyICstCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYyAgfCAxNCArKysr
-KysrLS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fcHJpbWUuYyAgIHwgIDIg
-Ky0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jICAgICB8ICAyICstCiA3IGZp
-bGVzIGNoYW5nZWQsIDE0IGluc2VydGlvbnMoKyksIDE1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uLmggYi9kcml2ZXJzL2dwdS9kcm0vcmFk
-ZW9uL3JhZGVvbi5oCmluZGV4IDMyODA4ZTUwYmUxMi4uM2Y3NzAxMzIxZDIxIDEwMDY0NAotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uLmgKQEAgLTUwNSw3ICs1MDUsNiBAQCBzdHJ1Y3QgcmFkZW9uX2JvIHsKIAlz
-dHJ1Y3QgbGlzdF9oZWFkCQl2YTsKIAkvKiBDb25zdGFudCBhZnRlciBpbml0aWFsaXphdGlvbiAq
-LwogCXN0cnVjdCByYWRlb25fZGV2aWNlCQkqcmRldjsKLQlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QJ
-CWdlbV9iYXNlOwogCiAJc3RydWN0IHR0bV9ib19rbWFwX29iagkJZG1hX2J1Zl92bWFwOwogCXBp
-ZF90CQkJCXBpZDsKQEAgLTUxMyw3ICs1MTIsNyBAQCBzdHJ1Y3QgcmFkZW9uX2JvIHsKIAlzdHJ1
-Y3QgcmFkZW9uX21uCQkqbW47CiAJc3RydWN0IGxpc3RfaGVhZAkJbW5fbGlzdDsKIH07Ci0jZGVm
-aW5lIGdlbV90b19yYWRlb25fYm8oZ29iaikgY29udGFpbmVyX29mKChnb2JqKSwgc3RydWN0IHJh
-ZGVvbl9ibywgZ2VtX2Jhc2UpCisjZGVmaW5lIGdlbV90b19yYWRlb25fYm8oZ29iaikgY29udGFp
-bmVyX29mKChnb2JqKSwgc3RydWN0IHJhZGVvbl9ibywgdGJvLmJhc2UpCiAKIGludCByYWRlb25f
-Z2VtX2RlYnVnZnNfaW5pdChzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldik7CiAKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-cmFkZW9uL3JhZGVvbl9jcy5jCmluZGV4IGNlZjBlNjk3YTJlYS4uZDIwNjY1NGIzMWFkIDEwMDY0
-NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9jcy5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMKQEAgLTQ0Myw3ICs0NDMsNyBAQCBzdGF0aWMgdm9p
-ZCByYWRlb25fY3NfcGFyc2VyX2Zpbmkoc3RydWN0IHJhZGVvbl9jc19wYXJzZXIgKnBhcnNlciwg
-aW50IGVycm9yLCBibwogCQkJaWYgKGJvID09IE5VTEwpCiAJCQkJY29udGludWU7CiAKLQkJCWRy
-bV9nZW1fb2JqZWN0X3B1dF91bmxvY2tlZCgmYm8tPmdlbV9iYXNlKTsKKwkJCWRybV9nZW1fb2Jq
-ZWN0X3B1dF91bmxvY2tlZCgmYm8tPnRiby5iYXNlKTsKIAkJfQogCX0KIAlrZnJlZShwYXJzZXIt
-PnRyYWNrKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rpc3Bs
-YXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rpc3BsYXkuYwppbmRleCBiZDUy
-ZjE1ZTYzMzAuLmVhNmI3NTJkZDNhNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVv
-bi9yYWRlb25fZGlzcGxheS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rp
-c3BsYXkuYwpAQCAtMjc1LDcgKzI3NSw3IEBAIHN0YXRpYyB2b2lkIHJhZGVvbl91bnBpbl93b3Jr
-X2Z1bmMoc3RydWN0IHdvcmtfc3RydWN0ICpfX3dvcmspCiAJfSBlbHNlCiAJCURSTV9FUlJPUigi
-ZmFpbGVkIHRvIHJlc2VydmUgYnVmZmVyIGFmdGVyIGZsaXBcbiIpOwogCi0JZHJtX2dlbV9vYmpl
-Y3RfcHV0X3VubG9ja2VkKCZ3b3JrLT5vbGRfcmJvLT5nZW1fYmFzZSk7CisJZHJtX2dlbV9vYmpl
-Y3RfcHV0X3VubG9ja2VkKCZ3b3JrLT5vbGRfcmJvLT50Ym8uYmFzZSk7CiAJa2ZyZWUod29yayk7
-CiB9CiAKQEAgLTYwNyw3ICs2MDcsNyBAQCBzdGF0aWMgaW50IHJhZGVvbl9jcnRjX3BhZ2VfZmxp
-cF90YXJnZXQoc3RydWN0IGRybV9jcnRjICpjcnRjLAogCXJhZGVvbl9ib191bnJlc2VydmUobmV3
-X3Jibyk7CiAKIGNsZWFudXA6Ci0JZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKCZ3b3JrLT5v
-bGRfcmJvLT5nZW1fYmFzZSk7CisJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKCZ3b3JrLT5v
-bGRfcmJvLT50Ym8uYmFzZSk7CiAJZG1hX2ZlbmNlX3B1dCh3b3JrLT5mZW5jZSk7CiAJa2ZyZWUo
-d29yayk7CiAJcmV0dXJuIHI7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
-ZGVvbl9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2dlbS5jCmluZGV4IGQ4
-YmM1ZDJkZmQ2MS4uNzIzODAwN2Y1YWE0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFk
-ZW9uL3JhZGVvbl9nZW0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9nZW0u
-YwpAQCAtODMsNyArODMsNyBAQCBpbnQgcmFkZW9uX2dlbV9vYmplY3RfY3JlYXRlKHN0cnVjdCBy
-YWRlb25fZGV2aWNlICpyZGV2LCB1bnNpZ25lZCBsb25nIHNpemUsCiAJCX0KIAkJcmV0dXJuIHI7
-CiAJfQotCSpvYmogPSAmcm9iai0+Z2VtX2Jhc2U7CisJKm9iaiA9ICZyb2JqLT50Ym8uYmFzZTsK
-IAlyb2JqLT5waWQgPSB0YXNrX3BpZF9ucihjdXJyZW50KTsKIAogCW11dGV4X2xvY2soJnJkZXYt
-PmdlbS5tdXRleCk7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9v
-YmplY3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5jCmluZGV4IDIx
-ZjczZmM4NmYzOC4uZDk2YzJjYjdkNTg0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vcmFk
-ZW9uL3JhZGVvbl9vYmplY3QuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9v
-YmplY3QuYwpAQCAtODUsOSArODUsOSBAQCBzdGF0aWMgdm9pZCByYWRlb25fdHRtX2JvX2Rlc3Ry
-b3koc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICp0Ym8pCiAJbXV0ZXhfdW5sb2NrKCZiby0+cmRl
-di0+Z2VtLm11dGV4KTsKIAlyYWRlb25fYm9fY2xlYXJfc3VyZmFjZV9yZWcoYm8pOwogCVdBUk5f
-T05fT05DRSghbGlzdF9lbXB0eSgmYm8tPnZhKSk7Ci0JaWYgKGJvLT5nZW1fYmFzZS5pbXBvcnRf
-YXR0YWNoKQotCQlkcm1fcHJpbWVfZ2VtX2Rlc3Ryb3koJmJvLT5nZW1fYmFzZSwgYm8tPnRiby5z
-Zyk7Ci0JZHJtX2dlbV9vYmplY3RfcmVsZWFzZSgmYm8tPmdlbV9iYXNlKTsKKwlpZiAoYm8tPnRi
-by5iYXNlLmltcG9ydF9hdHRhY2gpCisJCWRybV9wcmltZV9nZW1fZGVzdHJveSgmYm8tPnRiby5i
-YXNlLCBiby0+dGJvLnNnKTsKKwlkcm1fZ2VtX29iamVjdF9yZWxlYXNlKCZiby0+dGJvLmJhc2Up
-OwogCWtmcmVlKGJvKTsKIH0KIApAQCAtMjA5LDcgKzIwOSw3IEBAIGludCByYWRlb25fYm9fY3Jl
-YXRlKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LAogCWJvID0ga3phbGxvYyhzaXplb2Yoc3Ry
-dWN0IHJhZGVvbl9ibyksIEdGUF9LRVJORUwpOwogCWlmIChibyA9PSBOVUxMKQogCQlyZXR1cm4g
-LUVOT01FTTsKLQlkcm1fZ2VtX3ByaXZhdGVfb2JqZWN0X2luaXQocmRldi0+ZGRldiwgJmJvLT5n
-ZW1fYmFzZSwgc2l6ZSk7CisJZHJtX2dlbV9wcml2YXRlX29iamVjdF9pbml0KHJkZXYtPmRkZXYs
-ICZiby0+dGJvLmJhc2UsIHNpemUpOwogCWJvLT5yZGV2ID0gcmRldjsKIAliby0+c3VyZmFjZV9y
-ZWcgPSAtMTsKIAlJTklUX0xJU1RfSEVBRCgmYm8tPmxpc3QpOwpAQCAtNDQyLDEzICs0NDIsMTMg
-QEAgdm9pZCByYWRlb25fYm9fZm9yY2VfZGVsZXRlKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2
-KQogCWRldl9lcnIocmRldi0+ZGV2LCAiVXNlcnNwYWNlIHN0aWxsIGhhcyBhY3RpdmUgb2JqZWN0
-cyAhXG4iKTsKIAlsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoYm8sIG4sICZyZGV2LT5nZW0ub2Jq
-ZWN0cywgbGlzdCkgewogCQlkZXZfZXJyKHJkZXYtPmRldiwgIiVwICVwICVsdSAlbHUgZm9yY2Ug
-ZnJlZVxuIiwKLQkJCSZiby0+Z2VtX2Jhc2UsIGJvLCAodW5zaWduZWQgbG9uZyliby0+Z2VtX2Jh
-c2Uuc2l6ZSwKLQkJCSooKHVuc2lnbmVkIGxvbmcgKikmYm8tPmdlbV9iYXNlLnJlZmNvdW50KSk7
-CisJCQkmYm8tPnRiby5iYXNlLCBibywgKHVuc2lnbmVkIGxvbmcpYm8tPnRiby5iYXNlLnNpemUs
-CisJCQkqKCh1bnNpZ25lZCBsb25nICopJmJvLT50Ym8uYmFzZS5yZWZjb3VudCkpOwogCQltdXRl
-eF9sb2NrKCZiby0+cmRldi0+Z2VtLm11dGV4KTsKIAkJbGlzdF9kZWxfaW5pdCgmYm8tPmxpc3Qp
-OwogCQltdXRleF91bmxvY2soJmJvLT5yZGV2LT5nZW0ubXV0ZXgpOwogCQkvKiB0aGlzIHNob3Vs
-ZCB1bnJlZiB0aGUgdHRtIGJvICovCi0JCWRybV9nZW1fb2JqZWN0X3B1dF91bmxvY2tlZCgmYm8t
-PmdlbV9iYXNlKTsKKwkJZHJtX2dlbV9vYmplY3RfcHV0X3VubG9ja2VkKCZiby0+dGJvLmJhc2Up
-OwogCX0KIH0KIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fcHJp
-bWUuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3ByaW1lLmMKaW5kZXggZDNhNWJl
-YTlhMmM1Li5iY2IwNGY0ODVlODYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX3ByaW1lLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fcHJpbWUu
-YwpAQCAtODAsNyArODAsNyBAQCBzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKnJhZGVvbl9nZW1fcHJp
-bWVfaW1wb3J0X3NnX3RhYmxlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJbXV0ZXhfdW5sb2Nr
-KCZyZGV2LT5nZW0ubXV0ZXgpOwogCiAJYm8tPnByaW1lX3NoYXJlZF9jb3VudCA9IDE7Ci0JcmV0
-dXJuICZiby0+Z2VtX2Jhc2U7CisJcmV0dXJuICZiby0+dGJvLmJhc2U7CiB9CiAKIGludCByYWRl
-b25fZ2VtX3ByaW1lX3BpbihzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9iaikKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL3Jh
-ZGVvbi9yYWRlb25fdHRtLmMKaW5kZXggMWU1ZTc0NGMxNmU3Li5mNDc0YmVlZGE1ZWIgMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jCkBAIC0xODQsNyArMTg0LDcgQEAgc3RhdGljIGlu
-dCByYWRlb25fdmVyaWZ5X2FjY2VzcyhzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBzdHJ1
-Y3QgZmlsZSAqZmlscCkKIAogCWlmIChyYWRlb25fdHRtX3R0X2hhc191c2VycHRyKGJvLT50dG0p
-KQogCQlyZXR1cm4gLUVQRVJNOwotCXJldHVybiBkcm1fdm1hX25vZGVfdmVyaWZ5X2FjY2Vzcygm
-cmJvLT5nZW1fYmFzZS52bWFfbm9kZSwKKwlyZXR1cm4gZHJtX3ZtYV9ub2RlX3ZlcmlmeV9hY2Nl
-c3MoJnJiby0+dGJvLmJhc2Uudm1hX25vZGUsCiAJCQkJCSAgZmlscC0+cHJpdmF0ZV9kYXRhKTsK
-IH0KIAotLSAKMi4xOC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+Drop vma_node from ttm_buffer_object, use the gem struct
+(base.vma_node) instead.
+
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 2 +-
+ drivers/gpu/drm/qxl/qxl_object.h           | 2 +-
+ drivers/gpu/drm/radeon/radeon_object.h     | 2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.h       | 2 +-
+ include/drm/ttm/ttm_bo_api.h               | 5 +----
+ drivers/gpu/drm/drm_gem_vram_helper.c      | 5 +----
+ drivers/gpu/drm/nouveau/nouveau_display.c  | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.c      | 2 +-
+ drivers/gpu/drm/ttm/ttm_bo.c               | 8 ++++----
+ drivers/gpu/drm/ttm/ttm_bo_util.c          | 2 +-
+ drivers/gpu/drm/ttm/ttm_bo_vm.c            | 9 +++++----
+ drivers/gpu/drm/virtio/virtgpu_prime.c     | 3 ---
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c         | 4 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_surface.c    | 4 ++--
+ 14 files changed, 22 insertions(+), 30 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index a80a9972ad16..a68d85bd8fab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -191,7 +191,7 @@ static inline unsigned amdgpu_bo_gpu_page_alignment(struct amdgpu_bo *bo)
+  */
+ static inline u64 amdgpu_bo_mmap_offset(struct amdgpu_bo *bo)
+ {
+-	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
++	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/qxl/qxl_object.h b/drivers/gpu/drm/qxl/qxl_object.h
+index b812d4ae9d0d..8ae54ba7857c 100644
+--- a/drivers/gpu/drm/qxl/qxl_object.h
++++ b/drivers/gpu/drm/qxl/qxl_object.h
+@@ -60,7 +60,7 @@ static inline unsigned long qxl_bo_size(struct qxl_bo *bo)
+ 
+ static inline u64 qxl_bo_mmap_offset(struct qxl_bo *bo)
+ {
+-	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
++	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
+ }
+ 
+ static inline int qxl_bo_wait(struct qxl_bo *bo, u32 *mem_type,
+diff --git a/drivers/gpu/drm/radeon/radeon_object.h b/drivers/gpu/drm/radeon/radeon_object.h
+index 9ffd8215d38a..e5554bf9140e 100644
+--- a/drivers/gpu/drm/radeon/radeon_object.h
++++ b/drivers/gpu/drm/radeon/radeon_object.h
+@@ -116,7 +116,7 @@ static inline unsigned radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
+  */
+ static inline u64 radeon_bo_mmap_offset(struct radeon_bo *bo)
+ {
+-	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
++	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
+ }
+ 
+ extern int radeon_bo_wait(struct radeon_bo *bo, u32 *mem_type,
+diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
+index 9e2d3062b01d..7146ba00fd5b 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_drv.h
++++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
+@@ -396,7 +396,7 @@ static inline void virtio_gpu_object_unref(struct virtio_gpu_object **bo)
+ 
+ static inline u64 virtio_gpu_object_mmap_offset(struct virtio_gpu_object *bo)
+ {
+-	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
++	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
+ }
+ 
+ static inline int virtio_gpu_object_reserve(struct virtio_gpu_object *bo,
+diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
+index 88aa7bf1b18a..77bd420a147a 100644
+--- a/include/drm/ttm/ttm_bo_api.h
++++ b/include/drm/ttm/ttm_bo_api.h
+@@ -152,7 +152,6 @@ struct ttm_tt;
+  * @ddestroy: List head for the delayed destroy list.
+  * @swap: List head for swap LRU list.
+  * @moving: Fence set when BO is moving
+- * @vma_node: Address space manager node.
+  * @offset: The current GPU offset, which can have different meanings
+  * depending on the memory type. For SYSTEM type memory, it should be 0.
+  * @cur_placement: Hint of current placement.
+@@ -219,9 +218,7 @@ struct ttm_buffer_object {
+ 	 */
+ 
+ 	struct dma_fence *moving;
+-
+-	struct drm_vma_offset_node vma_node;
+-
++	/* base.vma_node */
+ 	unsigned priority;
+ 
+ 	/**
+diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
+index 61d9520cc15f..2e474dee30df 100644
+--- a/drivers/gpu/drm/drm_gem_vram_helper.c
++++ b/drivers/gpu/drm/drm_gem_vram_helper.c
+@@ -163,7 +163,7 @@ EXPORT_SYMBOL(drm_gem_vram_put);
+  */
+ u64 drm_gem_vram_mmap_offset(struct drm_gem_vram_object *gbo)
+ {
+-	return drm_vma_node_offset_addr(&gbo->bo.vma_node);
++	return drm_vma_node_offset_addr(&gbo->bo.base.vma_node);
+ }
+ EXPORT_SYMBOL(drm_gem_vram_mmap_offset);
+ 
+@@ -633,9 +633,6 @@ EXPORT_SYMBOL(drm_gem_vram_driver_gem_prime_vunmap);
+ int drm_gem_vram_driver_gem_prime_mmap(struct drm_gem_object *gem,
+ 				       struct vm_area_struct *vma)
+ {
+-	struct drm_gem_vram_object *gbo = drm_gem_vram_of_gem(gem);
+-
+-	gbo->bo.base.vma_node.vm_node.start = gbo->bo.vma_node.vm_node.start;
+ 	return drm_gem_prime_mmap(gem, vma);
+ }
+ EXPORT_SYMBOL(drm_gem_vram_driver_gem_prime_mmap);
+diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
+index fc8f5bb73ca8..98afc50162e9 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_display.c
++++ b/drivers/gpu/drm/nouveau/nouveau_display.c
+@@ -675,7 +675,7 @@ nouveau_display_dumb_map_offset(struct drm_file *file_priv,
+ 	gem = drm_gem_object_lookup(file_priv, handle);
+ 	if (gem) {
+ 		struct nouveau_bo *bo = nouveau_gem_object(gem);
+-		*poffset = drm_vma_node_offset_addr(&bo->bo.vma_node);
++		*poffset = drm_vma_node_offset_addr(&bo->bo.base.vma_node);
+ 		drm_gem_object_put_unlocked(gem);
+ 		return 0;
+ 	}
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index 2f484ab7dbca..b1e4852810ed 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -240,7 +240,7 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
+ 	}
+ 
+ 	rep->size = nvbo->bo.mem.num_pages << PAGE_SHIFT;
+-	rep->map_handle = drm_vma_node_offset_addr(&nvbo->bo.vma_node);
++	rep->map_handle = drm_vma_node_offset_addr(&nvbo->bo.base.vma_node);
+ 	rep->tile_mode = nvbo->mode;
+ 	rep->tile_flags = nvbo->contig ? 0 : NOUVEAU_GEM_TILE_NONCONTIG;
+ 	if (cli->device.info.family >= NV_DEVICE_INFO_V0_FERMI)
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 516eef3b76d5..1d91da85f399 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -672,7 +672,7 @@ static void ttm_bo_release(struct kref *kref)
+ 	struct ttm_bo_device *bdev = bo->bdev;
+ 	struct ttm_mem_type_manager *man = &bdev->man[bo->mem.mem_type];
+ 
+-	drm_vma_offset_remove(&bdev->vma_manager, &bo->vma_node);
++	drm_vma_offset_remove(&bdev->vma_manager, &bo->base.vma_node);
+ 	ttm_mem_io_lock(man, false);
+ 	ttm_mem_io_free_vm(bo);
+ 	ttm_mem_io_unlock(man);
+@@ -1342,9 +1342,9 @@ int ttm_bo_init_reserved(struct ttm_bo_device *bdev,
+ 		 * away once all users are switched over.
+ 		 */
+ 		reservation_object_init(&bo->base._resv);
++		drm_vma_node_reset(&bo->base.vma_node);
+ 	}
+ 	atomic_inc(&bo->bdev->glob->bo_count);
+-	drm_vma_node_reset(&bo->vma_node);
+ 
+ 	/*
+ 	 * For ttm_bo_type_device buffers, allocate
+@@ -1352,7 +1352,7 @@ int ttm_bo_init_reserved(struct ttm_bo_device *bdev,
+ 	 */
+ 	if (bo->type == ttm_bo_type_device ||
+ 	    bo->type == ttm_bo_type_sg)
+-		ret = drm_vma_offset_add(&bdev->vma_manager, &bo->vma_node,
++		ret = drm_vma_offset_add(&bdev->vma_manager, &bo->base.vma_node,
+ 					 bo->mem.num_pages);
+ 
+ 	/* passed reservation objects should already be locked,
+@@ -1780,7 +1780,7 @@ void ttm_bo_unmap_virtual_locked(struct ttm_buffer_object *bo)
+ {
+ 	struct ttm_bo_device *bdev = bo->bdev;
+ 
+-	drm_vma_node_unmap(&bo->vma_node, bdev->dev_mapping);
++	drm_vma_node_unmap(&bo->base.vma_node, bdev->dev_mapping);
+ 	ttm_mem_io_free_vm(bo);
+ }
+ 
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index 3d2617dd63e3..59f1b979b0da 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -510,7 +510,7 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
+ 	INIT_LIST_HEAD(&fbo->base.io_reserve_lru);
+ 	mutex_init(&fbo->base.wu_mutex);
+ 	fbo->base.moving = NULL;
+-	drm_vma_node_reset(&fbo->base.vma_node);
++	drm_vma_node_reset(&fbo->base.base.vma_node);
+ 	atomic_set(&fbo->base.cpu_writers, 0);
+ 
+ 	kref_init(&fbo->base.list_kref);
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+index 6dacff49c1cc..fb6875a789b7 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+@@ -211,9 +211,9 @@ static vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
+ 	}
+ 
+ 	page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
+-		vma->vm_pgoff - drm_vma_node_start(&bo->vma_node);
++		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
+ 	page_last = vma_pages(vma) + vma->vm_pgoff -
+-		drm_vma_node_start(&bo->vma_node);
++		drm_vma_node_start(&bo->base.vma_node);
+ 
+ 	if (unlikely(page_offset >= bo->num_pages)) {
+ 		ret = VM_FAULT_SIGBUS;
+@@ -267,7 +267,7 @@ static vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
+ 			} else if (unlikely(!page)) {
+ 				break;
+ 			}
+-			page->index = drm_vma_node_start(&bo->vma_node) +
++			page->index = drm_vma_node_start(&bo->base.vma_node) +
+ 				page_offset;
+ 			pfn = page_to_pfn(page);
+ 		}
+@@ -413,7 +413,8 @@ static struct ttm_buffer_object *ttm_bo_vm_lookup(struct ttm_bo_device *bdev,
+ 
+ 	node = drm_vma_offset_lookup_locked(&bdev->vma_manager, offset, pages);
+ 	if (likely(node)) {
+-		bo = container_of(node, struct ttm_buffer_object, vma_node);
++		bo = container_of(node, struct ttm_buffer_object,
++				  base.vma_node);
+ 		bo = ttm_bo_get_unless_zero(bo);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
+index 8fbf71bd0c5e..fed86f3b099e 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_prime.c
++++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
+@@ -66,8 +66,5 @@ void virtgpu_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)
+ int virtgpu_gem_prime_mmap(struct drm_gem_object *obj,
+ 			   struct vm_area_struct *vma)
+ {
+-	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(obj);
+-
+-	bo->gem_base.vma_node.vm_node.start = bo->tbo.vma_node.vm_node.start;
+ 	return drm_gem_prime_mmap(obj, vma);
+ }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+index 5d5c2bce01f3..0d9478d2e700 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
+@@ -835,7 +835,7 @@ int vmw_bo_alloc_ioctl(struct drm_device *dev, void *data,
+ 		goto out_no_bo;
+ 
+ 	rep->handle = handle;
+-	rep->map_handle = drm_vma_node_offset_addr(&vbo->base.vma_node);
++	rep->map_handle = drm_vma_node_offset_addr(&vbo->base.base.vma_node);
+ 	rep->cur_gmr_id = handle;
+ 	rep->cur_gmr_offset = 0;
+ 
+@@ -1077,7 +1077,7 @@ int vmw_dumb_map_offset(struct drm_file *file_priv,
+ 	if (ret != 0)
+ 		return -EINVAL;
+ 
+-	*offset = drm_vma_node_offset_addr(&out_buf->base.vma_node);
++	*offset = drm_vma_node_offset_addr(&out_buf->base.base.vma_node);
+ 	vmw_bo_unreference(&out_buf);
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+index 219471903bc1..3a6da3b66484 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
+@@ -1669,7 +1669,7 @@ vmw_gb_surface_define_internal(struct drm_device *dev,
+ 	rep->backup_size = res->backup_size;
+ 	if (res->backup) {
+ 		rep->buffer_map_handle =
+-			drm_vma_node_offset_addr(&res->backup->base.vma_node);
++			drm_vma_node_offset_addr(&res->backup->base.base.vma_node);
+ 		rep->buffer_size = res->backup->base.num_pages * PAGE_SIZE;
+ 		rep->buffer_handle = backup_handle;
+ 	} else {
+@@ -1745,7 +1745,7 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
+ 	rep->crep.backup_size = srf->res.backup_size;
+ 	rep->crep.buffer_handle = backup_handle;
+ 	rep->crep.buffer_map_handle =
+-		drm_vma_node_offset_addr(&srf->res.backup->base.vma_node);
++		drm_vma_node_offset_addr(&srf->res.backup->base.base.vma_node);
+ 	rep->crep.buffer_size = srf->res.backup->base.num_pages * PAGE_SIZE;
+ 
+ 	rep->creq.version = drm_vmw_gb_surface_v1;
+-- 
+2.18.1
