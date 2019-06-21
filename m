@@ -1,317 +1,494 @@
 From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: [PATCH v2 08/18] drm/ttm: use gem vma_node
-Date: Fri, 21 Jun 2019 13:57:45 +0200
-Message-ID: <20190621115755.8481-9-kraxel@redhat.com>
+Subject: [PATCH v2 14/18] drm/amdgpu: switch driver from bo->resv to bo->base.resv
+Date: Fri, 21 Jun 2019 13:57:51 +0200
+Message-ID: <20190621115755.8481-15-kraxel@redhat.com>
 References: <20190621115755.8481-1-kraxel@redhat.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <virtualization-bounces@lists.linux-foundation.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20190621115755.8481-1-kraxel@redhat.com>
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/virtualization/>
-List-Post: <mailto:virtualization@lists.linux-foundation.org>
-List-Help: <mailto:virtualization-request@lists.linux-foundation.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/virtualization>,
-	<mailto:virtualization-request@lists.linux-foundation.org?subject=subscribe>
-Sender: virtualization-bounces@lists.linux-foundation.org
-Errors-To: virtualization-bounces@lists.linux-foundation.org
+Sender: linux-kernel-owner@vger.kernel.org
 To: dri-devel@lists.freedesktop.org
-Cc: "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Thomas Hellstrom <thellstrom@vmware.com>, David Airlie <airlied@linux.ie>, ckoenig.leichtzumerken@gmail.com, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, open list <linux-kernel@vger.kernel.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, "open list:DRM DRIVER FOR QXL VIRTUAL GPU" <virtualization@lists.linux-foundation.org>, Maxime Ripard <maxime.ripard@bootlin.com>, Huang Rui <ray.huang@amd.com>, VMware Graphics <linux-graphics-maintainer@vmware.com>, Daniel Vetter <daniel@ffwll.ch>, "open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS" <nouveau@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Dave Airlie <airlied@redhat.com>, "open list:DRM DRIVER FOR QXL VIRTUAL GPU" <spice-devel@lists.freedesktop.org>, Sean Paul <sean@poorly.run>, =?UTF-8?q?Christian=20K=C3=
+Cc: ckoenig.leichtzumerken@gmail.com, Gerd Hoffmann <kraxel@redhat.com>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
-
-Drop vma_node from ttm_buffer_object, use the gem struct
-(base.vma_node) instead.
 
 Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h | 2 +-
- drivers/gpu/drm/qxl/qxl_object.h           | 2 +-
- drivers/gpu/drm/radeon/radeon_object.h     | 2 +-
- drivers/gpu/drm/virtio/virtgpu_drv.h       | 2 +-
- include/drm/ttm/ttm_bo_api.h               | 5 +----
- drivers/gpu/drm/drm_gem_vram_helper.c      | 5 +----
- drivers/gpu/drm/nouveau/nouveau_display.c  | 2 +-
- drivers/gpu/drm/nouveau/nouveau_gem.c      | 2 +-
- drivers/gpu/drm/ttm/ttm_bo.c               | 8 ++++----
- drivers/gpu/drm/ttm/ttm_bo_util.c          | 2 +-
- drivers/gpu/drm/ttm/ttm_bo_vm.c            | 9 +++++----
- drivers/gpu/drm/virtio/virtgpu_prime.c     | 3 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_bo.c         | 4 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_surface.c    | 4 ++--
- 14 files changed, 22 insertions(+), 30 deletions(-)
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 20 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 30 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ 13 files changed, 46 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-index a80a9972ad16..a68d85bd8fab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
-@@ -191,7 +191,7 @@ static inline unsigned amdgpu_bo_gpu_page_alignment(struct amdgpu_bo *bo)
-  */
- static inline u64 amdgpu_bo_mmap_offset(struct amdgpu_bo *bo)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index df26bf34b675..6dce43bd60f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -218,7 +218,7 @@ void amdgpu_amdkfd_unreserve_memory_limit(struct amdgpu_bo *bo)
+ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+ 					struct amdgpu_amdkfd_fence *ef)
  {
--	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
-+	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
+-	struct reservation_object *resv = bo->tbo.resv;
++	struct reservation_object *resv = bo->tbo.base.resv;
+ 	struct reservation_object_list *old, *new;
+ 	unsigned int i, j, k;
+ 
+@@ -812,7 +812,7 @@ static int process_sync_pds_resv(struct amdkfd_process_info *process_info,
+ 		struct amdgpu_bo *pd = peer_vm->root.base.bo;
+ 
+ 		ret = amdgpu_sync_resv(NULL,
+-					sync, pd->tbo.resv,
++					sync, pd->tbo.base.resv,
+ 					AMDGPU_FENCE_OWNER_UNDEFINED, false);
+ 		if (ret)
+ 			return ret;
+@@ -887,7 +887,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
+ 				  AMDGPU_FENCE_OWNER_KFD, false);
+ 	if (ret)
+ 		goto wait_pd_fail;
+-	ret = reservation_object_reserve_shared(vm->root.base.bo->tbo.resv, 1);
++	ret = reservation_object_reserve_shared(vm->root.base.bo->tbo.base.resv, 1);
+ 	if (ret)
+ 		goto reserve_shared_fail;
+ 	amdgpu_bo_fence(vm->root.base.bo,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index dc63707e426f..118ec7514277 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -402,7 +402,7 @@ static int amdgpu_cs_bo_validate(struct amdgpu_cs_parser *p,
+ 	struct ttm_operation_ctx ctx = {
+ 		.interruptible = true,
+ 		.no_wait_gpu = false,
+-		.resv = bo->tbo.resv,
++		.resv = bo->tbo.base.resv,
+ 		.flags = 0
+ 	};
+ 	uint32_t domain;
+@@ -734,7 +734,7 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 
+ 	list_for_each_entry(e, &p->validated, tv.head) {
+ 		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+-		struct reservation_object *resv = bo->tbo.resv;
++		struct reservation_object *resv = bo->tbo.base.resv;
+ 
+ 		r = amdgpu_sync_resv(p->adev, &p->job->sync, resv, p->filp,
+ 				     amdgpu_bo_explicit_sync(bo));
+@@ -1732,7 +1732,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
+ 	*map = mapping;
+ 
+ 	/* Double check that the BO is reserved by this CS */
+-	if (READ_ONCE((*bo)->tbo.resv->lock.ctx) != &parser->ticket)
++	if (READ_ONCE((*bo)->tbo.base.resv->lock.ctx) != &parser->ticket)
+ 		return -EINVAL;
+ 
+ 	if (!((*bo)->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 535650967b1a..b5d020e15c35 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -204,7 +204,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
+ 		goto unpin;
+ 	}
+ 
+-	r = reservation_object_get_fences_rcu(new_abo->tbo.resv, &work->excl,
++	r = reservation_object_get_fences_rcu(new_abo->tbo.base.resv, &work->excl,
+ 					      &work->shared_count,
+ 					      &work->shared);
+ 	if (unlikely(r != 0)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index c56819bcad8e..cd4fe9dd8863 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -216,7 +216,7 @@ static int amdgpu_dma_buf_map_attach(struct dma_buf *dma_buf,
+ 		 * fences on the reservation object into a single exclusive
+ 		 * fence.
+ 		 */
+-		r = __reservation_object_make_exclusive(bo->tbo.resv);
++		r = __reservation_object_make_exclusive(bo->tbo.base.resv);
+ 		if (r)
+ 			goto error_unreserve;
+ 	}
+@@ -278,7 +278,7 @@ struct reservation_object *amdgpu_gem_prime_res_obj(struct drm_gem_object *obj)
+ {
+ 	struct amdgpu_bo *bo = gem_to_amdgpu_bo(obj);
+ 
+-	return bo->tbo.resv;
++	return bo->tbo.base.resv;
  }
  
  /**
-diff --git a/drivers/gpu/drm/qxl/qxl_object.h b/drivers/gpu/drm/qxl/qxl_object.h
-index b812d4ae9d0d..8ae54ba7857c 100644
---- a/drivers/gpu/drm/qxl/qxl_object.h
-+++ b/drivers/gpu/drm/qxl/qxl_object.h
-@@ -60,7 +60,7 @@ static inline unsigned long qxl_bo_size(struct qxl_bo *bo)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 6d991e8df357..d26bca1efb9d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -134,7 +134,7 @@ int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 		return -EPERM;
  
- static inline u64 qxl_bo_mmap_offset(struct qxl_bo *bo)
- {
--	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
-+	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
+ 	if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID &&
+-	    abo->tbo.resv != vm->root.base.bo->tbo.resv)
++	    abo->tbo.base.resv != vm->root.base.bo->tbo.base.resv)
+ 		return -EPERM;
+ 
+ 	r = amdgpu_bo_reserve(abo, false);
+@@ -252,7 +252,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		if (r)
+ 			return r;
+ 
+-		resv = vm->root.base.bo->tbo.resv;
++		resv = vm->root.base.bo->tbo.base.resv;
+ 	}
+ 
+ 	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
+@@ -434,7 +434,7 @@ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOENT;
+ 	}
+ 	robj = gem_to_amdgpu_bo(gobj);
+-	ret = reservation_object_wait_timeout_rcu(robj->tbo.resv, true, true,
++	ret = reservation_object_wait_timeout_rcu(robj->tbo.base.resv, true, true,
+ 						  timeout);
+ 
+ 	/* ret == 0 means not signaled,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index a70e5a32749a..5142aa6377a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1084,7 +1084,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ 	amdgpu_vm_fini(adev, &fpriv->vm);
+ 
+ 	if (pasid)
+-		amdgpu_pasid_free_delayed(pd->tbo.resv, pasid);
++		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
+ 	amdgpu_bo_unref(&pd);
+ 
+ 	idr_for_each_entry(&fpriv->bo_list_handles, list, handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+index 4ff4cf5988ea..9c72531c842c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+@@ -216,7 +216,7 @@ static void amdgpu_mn_invalidate_node(struct amdgpu_mn_node *node,
+ 		if (!amdgpu_ttm_tt_affect_userptr(bo->tbo.ttm, start, end))
+ 			continue;
+ 
+-		r = reservation_object_wait_timeout_rcu(bo->tbo.resv,
++		r = reservation_object_wait_timeout_rcu(bo->tbo.base.resv,
+ 			true, false, MAX_SCHEDULE_TIMEOUT);
+ 		if (r <= 0)
+ 			DRM_ERROR("(%ld) failed to wait for user bo\n", r);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 00b283f914a6..ec0f6420718f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -517,7 +517,7 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 	    bo->tbo.mem.placement & TTM_PL_FLAG_VRAM) {
+ 		struct dma_fence *fence;
+ 
+-		r = amdgpu_fill_buffer(bo, 0, bo->tbo.resv, &fence);
++		r = amdgpu_fill_buffer(bo, 0, bo->tbo.base.resv, &fence);
+ 		if (unlikely(r))
+ 			goto fail_unreserve;
+ 
+@@ -540,7 +540,7 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 
+ fail_unreserve:
+ 	if (!bp->resv)
+-		ww_mutex_unlock(&bo->tbo.resv->lock);
++		ww_mutex_unlock(&bo->tbo.base.resv->lock);
+ 	amdgpu_bo_unref(&bo);
+ 	return r;
  }
+@@ -561,7 +561,7 @@ static int amdgpu_bo_create_shadow(struct amdgpu_device *adev,
+ 	bp.flags = AMDGPU_GEM_CREATE_CPU_GTT_USWC |
+ 		AMDGPU_GEM_CREATE_SHADOW;
+ 	bp.type = ttm_bo_type_kernel;
+-	bp.resv = bo->tbo.resv;
++	bp.resv = bo->tbo.base.resv;
  
- static inline int qxl_bo_wait(struct qxl_bo *bo, u32 *mem_type,
-diff --git a/drivers/gpu/drm/radeon/radeon_object.h b/drivers/gpu/drm/radeon/radeon_object.h
-index 9ffd8215d38a..e5554bf9140e 100644
---- a/drivers/gpu/drm/radeon/radeon_object.h
-+++ b/drivers/gpu/drm/radeon/radeon_object.h
-@@ -116,7 +116,7 @@ static inline unsigned radeon_bo_gpu_page_alignment(struct radeon_bo *bo)
-  */
- static inline u64 radeon_bo_mmap_offset(struct radeon_bo *bo)
- {
--	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
-+	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
- }
+ 	r = amdgpu_bo_do_create(adev, &bp, &bo->shadow);
+ 	if (!r) {
+@@ -602,13 +602,13 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
  
- extern int radeon_bo_wait(struct radeon_bo *bo, u32 *mem_type,
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 9e2d3062b01d..7146ba00fd5b 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -396,7 +396,7 @@ static inline void virtio_gpu_object_unref(struct virtio_gpu_object **bo)
+ 	if ((flags & AMDGPU_GEM_CREATE_SHADOW) && !(adev->flags & AMD_IS_APU)) {
+ 		if (!bp->resv)
+-			WARN_ON(reservation_object_lock((*bo_ptr)->tbo.resv,
++			WARN_ON(reservation_object_lock((*bo_ptr)->tbo.base.resv,
+ 							NULL));
  
- static inline u64 virtio_gpu_object_mmap_offset(struct virtio_gpu_object *bo)
- {
--	return drm_vma_node_offset_addr(&bo->tbo.vma_node);
-+	return drm_vma_node_offset_addr(&bo->tbo.base.vma_node);
- }
+ 		r = amdgpu_bo_create_shadow(adev, bp->size, *bo_ptr);
  
- static inline int virtio_gpu_object_reserve(struct virtio_gpu_object *bo,
-diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-index 88aa7bf1b18a..77bd420a147a 100644
---- a/include/drm/ttm/ttm_bo_api.h
-+++ b/include/drm/ttm/ttm_bo_api.h
-@@ -152,7 +152,6 @@ struct ttm_tt;
-  * @ddestroy: List head for the delayed destroy list.
-  * @swap: List head for swap LRU list.
-  * @moving: Fence set when BO is moving
-- * @vma_node: Address space manager node.
-  * @offset: The current GPU offset, which can have different meanings
-  * depending on the memory type. For SYSTEM type memory, it should be 0.
-  * @cur_placement: Hint of current placement.
-@@ -219,9 +218,7 @@ struct ttm_buffer_object {
- 	 */
+ 		if (!bp->resv)
+-			reservation_object_unlock((*bo_ptr)->tbo.resv);
++			reservation_object_unlock((*bo_ptr)->tbo.base.resv);
  
- 	struct dma_fence *moving;
--
--	struct drm_vma_offset_node vma_node;
--
-+	/* base.vma_node */
- 	unsigned priority;
- 
- 	/**
-diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
-index 61d9520cc15f..2e474dee30df 100644
---- a/drivers/gpu/drm/drm_gem_vram_helper.c
-+++ b/drivers/gpu/drm/drm_gem_vram_helper.c
-@@ -163,7 +163,7 @@ EXPORT_SYMBOL(drm_gem_vram_put);
-  */
- u64 drm_gem_vram_mmap_offset(struct drm_gem_vram_object *gbo)
- {
--	return drm_vma_node_offset_addr(&gbo->bo.vma_node);
-+	return drm_vma_node_offset_addr(&gbo->bo.base.vma_node);
- }
- EXPORT_SYMBOL(drm_gem_vram_mmap_offset);
- 
-@@ -633,9 +633,6 @@ EXPORT_SYMBOL(drm_gem_vram_driver_gem_prime_vunmap);
- int drm_gem_vram_driver_gem_prime_mmap(struct drm_gem_object *gem,
- 				       struct vm_area_struct *vma)
- {
--	struct drm_gem_vram_object *gbo = drm_gem_vram_of_gem(gem);
--
--	gbo->bo.base.vma_node.vm_node.start = gbo->bo.vma_node.vm_node.start;
- 	return drm_gem_prime_mmap(gem, vma);
- }
- EXPORT_SYMBOL(drm_gem_vram_driver_gem_prime_mmap);
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index fc8f5bb73ca8..98afc50162e9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -675,7 +675,7 @@ nouveau_display_dumb_map_offset(struct drm_file *file_priv,
- 	gem = drm_gem_object_lookup(file_priv, handle);
- 	if (gem) {
- 		struct nouveau_bo *bo = nouveau_gem_object(gem);
--		*poffset = drm_vma_node_offset_addr(&bo->bo.vma_node);
-+		*poffset = drm_vma_node_offset_addr(&bo->bo.base.vma_node);
- 		drm_gem_object_put_unlocked(gem);
+ 		if (r)
+ 			amdgpu_bo_unref(bo_ptr);
+@@ -705,7 +705,7 @@ int amdgpu_bo_kmap(struct amdgpu_bo *bo, void **ptr)
  		return 0;
  	}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 2f484ab7dbca..b1e4852810ed 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -240,7 +240,7 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
- 	}
  
- 	rep->size = nvbo->bo.mem.num_pages << PAGE_SHIFT;
--	rep->map_handle = drm_vma_node_offset_addr(&nvbo->bo.vma_node);
-+	rep->map_handle = drm_vma_node_offset_addr(&nvbo->bo.base.vma_node);
- 	rep->tile_mode = nvbo->mode;
- 	rep->tile_flags = nvbo->contig ? 0 : NOUVEAU_GEM_TILE_NONCONTIG;
- 	if (cli->device.info.family >= NV_DEVICE_INFO_V0_FERMI)
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 516eef3b76d5..1d91da85f399 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -672,7 +672,7 @@ static void ttm_bo_release(struct kref *kref)
- 	struct ttm_bo_device *bdev = bo->bdev;
- 	struct ttm_mem_type_manager *man = &bdev->man[bo->mem.mem_type];
+-	r = reservation_object_wait_timeout_rcu(bo->tbo.resv, false, false,
++	r = reservation_object_wait_timeout_rcu(bo->tbo.base.resv, false, false,
+ 						MAX_SCHEDULE_TIMEOUT);
+ 	if (r < 0)
+ 		return r;
+@@ -1082,7 +1082,7 @@ int amdgpu_bo_set_tiling_flags(struct amdgpu_bo *bo, u64 tiling_flags)
+  */
+ void amdgpu_bo_get_tiling_flags(struct amdgpu_bo *bo, u64 *tiling_flags)
+ {
+-	lockdep_assert_held(&bo->tbo.resv->lock.base);
++	lockdep_assert_held(&bo->tbo.base.resv->lock.base);
  
--	drm_vma_offset_remove(&bdev->vma_manager, &bo->vma_node);
-+	drm_vma_offset_remove(&bdev->vma_manager, &bo->base.vma_node);
- 	ttm_mem_io_lock(man, false);
- 	ttm_mem_io_free_vm(bo);
- 	ttm_mem_io_unlock(man);
-@@ -1342,9 +1342,9 @@ int ttm_bo_init_reserved(struct ttm_bo_device *bdev,
- 		 * away once all users are switched over.
- 		 */
- 		reservation_object_init(&bo->base._resv);
-+		drm_vma_node_reset(&bo->base.vma_node);
- 	}
- 	atomic_inc(&bo->bdev->glob->bo_count);
--	drm_vma_node_reset(&bo->vma_node);
+ 	if (tiling_flags)
+ 		*tiling_flags = bo->tiling_flags;
+@@ -1278,7 +1278,7 @@ int amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object *bo)
+ void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+ 		     bool shared)
+ {
+-	struct reservation_object *resv = bo->tbo.resv;
++	struct reservation_object *resv = bo->tbo.base.resv;
  
- 	/*
- 	 * For ttm_bo_type_device buffers, allocate
-@@ -1352,7 +1352,7 @@ int ttm_bo_init_reserved(struct ttm_bo_device *bdev,
+ 	if (shared)
+ 		reservation_object_add_shared_fence(resv, fence);
+@@ -1303,7 +1303,7 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr)
+ 	int r;
+ 
+ 	amdgpu_sync_create(&sync);
+-	amdgpu_sync_resv(adev, &sync, bo->tbo.resv, owner, false);
++	amdgpu_sync_resv(adev, &sync, bo->tbo.base.resv, owner, false);
+ 	r = amdgpu_sync_wait(&sync, intr);
+ 	amdgpu_sync_free(&sync);
+ 
+@@ -1323,7 +1323,7 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr)
+ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo)
+ {
+ 	WARN_ON_ONCE(bo->tbo.mem.mem_type == TTM_PL_SYSTEM);
+-	WARN_ON_ONCE(!ww_mutex_is_locked(&bo->tbo.resv->lock) &&
++	WARN_ON_ONCE(!ww_mutex_is_locked(&bo->tbo.base.resv->lock) &&
+ 		     !bo->pin_count && bo->tbo.type != ttm_bo_type_kernel);
+ 	WARN_ON_ONCE(bo->tbo.mem.start == AMDGPU_BO_INVALID_OFFSET);
+ 	WARN_ON_ONCE(bo->tbo.mem.mem_type == TTM_PL_VRAM &&
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index b8ae9a838b6c..b903a382b6b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -438,7 +438,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+ 
+ 	r = amdgpu_ttm_copy_mem_to_mem(adev, &src, &dst,
+ 				       new_mem->num_pages << PAGE_SHIFT,
+-				       bo->resv, &fence);
++				       bo->base.resv, &fence);
+ 	if (r)
+ 		goto error;
+ 
+@@ -1450,14 +1450,14 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	 * cleanly handle page faults.
  	 */
- 	if (bo->type == ttm_bo_type_device ||
- 	    bo->type == ttm_bo_type_sg)
--		ret = drm_vma_offset_add(&bdev->vma_manager, &bo->vma_node,
-+		ret = drm_vma_offset_add(&bdev->vma_manager, &bo->base.vma_node,
- 					 bo->mem.num_pages);
+ 	if (bo->type == ttm_bo_type_kernel &&
+-	    !reservation_object_test_signaled_rcu(bo->resv, true))
++	    !reservation_object_test_signaled_rcu(bo->base.resv, true))
+ 		return false;
  
- 	/* passed reservation objects should already be locked,
-@@ -1780,7 +1780,7 @@ void ttm_bo_unmap_virtual_locked(struct ttm_buffer_object *bo)
- {
- 	struct ttm_bo_device *bdev = bo->bdev;
+ 	/* If bo is a KFD BO, check if the bo belongs to the current process.
+ 	 * If true, then return false as any KFD process needs all its BOs to
+ 	 * be resident to run successfully
+ 	 */
+-	flist = reservation_object_get_list(bo->resv);
++	flist = reservation_object_get_list(bo->base.resv);
+ 	if (flist) {
+ 		for (i = 0; i < flist->shared_count; ++i) {
+ 			f = rcu_dereference_protected(flist->shared[i],
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index 5b2fea3b4a2c..f858607b17a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -1073,7 +1073,7 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+ 	ib->length_dw = 16;
  
--	drm_vma_node_unmap(&bo->vma_node, bdev->dev_mapping);
-+	drm_vma_node_unmap(&bo->base.vma_node, bdev->dev_mapping);
- 	ttm_mem_io_free_vm(bo);
- }
- 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 3d2617dd63e3..59f1b979b0da 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -510,7 +510,7 @@ static int ttm_buffer_object_transfer(struct ttm_buffer_object *bo,
- 	INIT_LIST_HEAD(&fbo->base.io_reserve_lru);
- 	mutex_init(&fbo->base.wu_mutex);
- 	fbo->base.moving = NULL;
--	drm_vma_node_reset(&fbo->base.vma_node);
-+	drm_vma_node_reset(&fbo->base.base.vma_node);
- 	atomic_set(&fbo->base.cpu_writers, 0);
- 
- 	kref_init(&fbo->base.list_kref);
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index 6dacff49c1cc..fb6875a789b7 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -211,9 +211,9 @@ static vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
- 	}
- 
- 	page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
--		vma->vm_pgoff - drm_vma_node_start(&bo->vma_node);
-+		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
- 	page_last = vma_pages(vma) + vma->vm_pgoff -
--		drm_vma_node_start(&bo->vma_node);
-+		drm_vma_node_start(&bo->base.vma_node);
- 
- 	if (unlikely(page_offset >= bo->num_pages)) {
- 		ret = VM_FAULT_SIGBUS;
-@@ -267,7 +267,7 @@ static vm_fault_t ttm_bo_vm_fault(struct vm_fault *vmf)
- 			} else if (unlikely(!page)) {
- 				break;
- 			}
--			page->index = drm_vma_node_start(&bo->vma_node) +
-+			page->index = drm_vma_node_start(&bo->base.vma_node) +
- 				page_offset;
- 			pfn = page_to_pfn(page);
- 		}
-@@ -413,7 +413,8 @@ static struct ttm_buffer_object *ttm_bo_vm_lookup(struct ttm_bo_device *bdev,
- 
- 	node = drm_vma_offset_lookup_locked(&bdev->vma_manager, offset, pages);
- 	if (likely(node)) {
--		bo = container_of(node, struct ttm_buffer_object, vma_node);
-+		bo = container_of(node, struct ttm_buffer_object,
-+				  base.vma_node);
- 		bo = ttm_bo_get_unless_zero(bo);
- 	}
- 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_prime.c b/drivers/gpu/drm/virtio/virtgpu_prime.c
-index 8fbf71bd0c5e..fed86f3b099e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_prime.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_prime.c
-@@ -66,8 +66,5 @@ void virtgpu_gem_prime_vunmap(struct drm_gem_object *obj, void *vaddr)
- int virtgpu_gem_prime_mmap(struct drm_gem_object *obj,
- 			   struct vm_area_struct *vma)
- {
--	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(obj);
--
--	bo->gem_base.vma_node.vm_node.start = bo->tbo.vma_node.vm_node.start;
- 	return drm_gem_prime_mmap(obj, vma);
- }
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-index 5d5c2bce01f3..0d9478d2e700 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_bo.c
-@@ -835,7 +835,7 @@ int vmw_bo_alloc_ioctl(struct drm_device *dev, void *data,
- 		goto out_no_bo;
- 
- 	rep->handle = handle;
--	rep->map_handle = drm_vma_node_offset_addr(&vbo->base.vma_node);
-+	rep->map_handle = drm_vma_node_offset_addr(&vbo->base.base.vma_node);
- 	rep->cur_gmr_id = handle;
- 	rep->cur_gmr_offset = 0;
- 
-@@ -1077,7 +1077,7 @@ int vmw_dumb_map_offset(struct drm_file *file_priv,
- 	if (ret != 0)
- 		return -EINVAL;
- 
--	*offset = drm_vma_node_offset_addr(&out_buf->base.vma_node);
-+	*offset = drm_vma_node_offset_addr(&out_buf->base.base.vma_node);
- 	vmw_bo_unreference(&out_buf);
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-index 219471903bc1..3a6da3b66484 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-@@ -1669,7 +1669,7 @@ vmw_gb_surface_define_internal(struct drm_device *dev,
- 	rep->backup_size = res->backup_size;
- 	if (res->backup) {
- 		rep->buffer_map_handle =
--			drm_vma_node_offset_addr(&res->backup->base.vma_node);
-+			drm_vma_node_offset_addr(&res->backup->base.base.vma_node);
- 		rep->buffer_size = res->backup->base.num_pages * PAGE_SIZE;
- 		rep->buffer_handle = backup_handle;
+ 	if (direct) {
+-		r = reservation_object_wait_timeout_rcu(bo->tbo.resv,
++		r = reservation_object_wait_timeout_rcu(bo->tbo.base.resv,
+ 							true, false,
+ 							msecs_to_jiffies(10));
+ 		if (r == 0)
+@@ -1085,7 +1085,7 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+ 		if (r)
+ 			goto err_free;
  	} else {
-@@ -1745,7 +1745,7 @@ vmw_gb_surface_reference_internal(struct drm_device *dev,
- 	rep->crep.backup_size = srf->res.backup_size;
- 	rep->crep.buffer_handle = backup_handle;
- 	rep->crep.buffer_map_handle =
--		drm_vma_node_offset_addr(&srf->res.backup->base.vma_node);
-+		drm_vma_node_offset_addr(&srf->res.backup->base.base.vma_node);
- 	rep->crep.buffer_size = srf->res.backup->base.num_pages * PAGE_SIZE;
+-		r = amdgpu_sync_resv(adev, &job->sync, bo->tbo.resv,
++		r = amdgpu_sync_resv(adev, &job->sync, bo->tbo.base.resv,
+ 				     AMDGPU_FENCE_OWNER_UNDEFINED, false);
+ 		if (r)
+ 			goto err_free;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index e44f9dd202e8..4c86b9cd1530 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -302,7 +302,7 @@ static void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+ 	base->next = bo->vm_bo;
+ 	bo->vm_bo = base;
  
- 	rep->creq.version = drm_vmw_gb_surface_v1;
+-	if (bo->tbo.resv != vm->root.base.bo->tbo.resv)
++	if (bo->tbo.base.resv != vm->root.base.bo->tbo.base.resv)
+ 		return;
+ 
+ 	vm->bulk_moveable = false;
+@@ -583,7 +583,7 @@ void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo)
+ 	for (bo_base = abo->vm_bo; bo_base; bo_base = bo_base->next) {
+ 		struct amdgpu_vm *vm = bo_base->vm;
+ 
+-		if (abo->tbo.resv == vm->root.base.bo->tbo.resv)
++		if (abo->tbo.base.resv == vm->root.base.bo->tbo.base.resv)
+ 			vm->bulk_moveable = false;
+ 	}
+ 
+@@ -834,7 +834,7 @@ static void amdgpu_vm_bo_param(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		bp->flags |= AMDGPU_GEM_CREATE_SHADOW;
+ 	bp->type = ttm_bo_type_kernel;
+ 	if (vm->root.base.bo)
+-		bp->resv = vm->root.base.bo->tbo.resv;
++		bp->resv = vm->root.base.bo->tbo.base.resv;
+ }
+ 
+ /**
+@@ -1692,7 +1692,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+ 			ttm = container_of(bo->tbo.ttm, struct ttm_dma_tt, ttm);
+ 			pages_addr = ttm->dma_address;
+ 		}
+-		exclusive = reservation_object_get_excl(bo->tbo.resv);
++		exclusive = reservation_object_get_excl(bo->tbo.base.resv);
+ 	}
+ 
+ 	if (bo) {
+@@ -1702,7 +1702,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+ 		flags = 0x0;
+ 	}
+ 
+-	if (clear || (bo && bo->tbo.resv == vm->root.base.bo->tbo.resv))
++	if (clear || (bo && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv))
+ 		last_update = &vm->last_update;
+ 	else
+ 		last_update = &bo_va->last_pt_update;
+@@ -1733,7 +1733,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+ 	 * the evicted list so that it gets validated again on the
+ 	 * next command submission.
+ 	 */
+-	if (bo && bo->tbo.resv == vm->root.base.bo->tbo.resv) {
++	if (bo && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv) {
+ 		uint32_t mem_type = bo->tbo.mem.mem_type;
+ 
+ 		if (!(bo->preferred_domains & amdgpu_mem_type_to_domain(mem_type)))
+@@ -1869,7 +1869,7 @@ static void amdgpu_vm_free_mapping(struct amdgpu_device *adev,
+  */
+ static void amdgpu_vm_prt_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ {
+-	struct reservation_object *resv = vm->root.base.bo->tbo.resv;
++	struct reservation_object *resv = vm->root.base.bo->tbo.base.resv;
+ 	struct dma_fence *excl, **shared;
+ 	unsigned i, shared_count;
+ 	int r;
+@@ -1983,7 +1983,7 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ 	while (!list_empty(&vm->invalidated)) {
+ 		bo_va = list_first_entry(&vm->invalidated, struct amdgpu_bo_va,
+ 					 base.vm_status);
+-		resv = bo_va->base.bo->tbo.resv;
++		resv = bo_va->base.bo->tbo.base.resv;
+ 		spin_unlock(&vm->invalidated_lock);
+ 
+ 		/* Try to reserve the BO to avoid clearing its ptes */
+@@ -2074,7 +2074,7 @@ static void amdgpu_vm_bo_insert_map(struct amdgpu_device *adev,
+ 	if (mapping->flags & AMDGPU_PTE_PRT)
+ 		amdgpu_vm_prt_get(adev);
+ 
+-	if (bo && bo->tbo.resv == vm->root.base.bo->tbo.resv &&
++	if (bo && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv &&
+ 	    !bo_va->base.moved) {
+ 		list_move(&bo_va->base.vm_status, &vm->moved);
+ 	}
+@@ -2406,7 +2406,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
+ 			struct amdgpu_bo *bo;
+ 
+ 			bo = mapping->bo_va->base.bo;
+-			if (READ_ONCE(bo->tbo.resv->lock.ctx) != ticket)
++			if (READ_ONCE(bo->tbo.base.resv->lock.ctx) != ticket)
+ 				continue;
+ 		}
+ 
+@@ -2433,7 +2433,7 @@ void amdgpu_vm_bo_rmv(struct amdgpu_device *adev,
+ 	struct amdgpu_vm_bo_base **base;
+ 
+ 	if (bo) {
+-		if (bo->tbo.resv == vm->root.base.bo->tbo.resv)
++		if (bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv)
+ 			vm->bulk_moveable = false;
+ 
+ 		for (base = &bo_va->base.bo->vm_bo; *base;
+@@ -2497,7 +2497,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+ 	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+ 		struct amdgpu_vm *vm = bo_base->vm;
+ 
+-		if (evicted && bo->tbo.resv == vm->root.base.bo->tbo.resv) {
++		if (evicted && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv) {
+ 			amdgpu_vm_bo_evicted(bo_base);
+ 			continue;
+ 		}
+@@ -2508,7 +2508,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+ 
+ 		if (bo->tbo.type == ttm_bo_type_kernel)
+ 			amdgpu_vm_bo_relocated(bo_base);
+-		else if (bo->tbo.resv == vm->root.base.bo->tbo.resv)
++		else if (bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv)
+ 			amdgpu_vm_bo_moved(bo_base);
+ 		else
+ 			amdgpu_vm_bo_invalidated(bo_base);
+@@ -2638,7 +2638,7 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
+  */
+ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout)
+ {
+-	return reservation_object_wait_timeout_rcu(vm->root.base.bo->tbo.resv,
++	return reservation_object_wait_timeout_rcu(vm->root.base.bo->tbo.base.resv,
+ 						   true, true, timeout);
+ }
+ 
+@@ -2713,7 +2713,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (r)
+ 		goto error_free_root;
+ 
+-	r = reservation_object_reserve_shared(root->tbo.resv, 1);
++	r = reservation_object_reserve_shared(root->tbo.base.resv, 1);
+ 	if (r)
+ 		goto error_unreserve;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index ddd181f5ed37..61fc584cbb1a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -72,7 +72,7 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+ 	if (r)
+ 		return r;
+ 
+-	r = amdgpu_sync_resv(p->adev, &p->job->sync, root->tbo.resv,
++	r = amdgpu_sync_resv(p->adev, &p->job->sync, root->tbo.base.resv,
+ 			     owner, false);
+ 	if (r)
+ 		return r;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1129dd963796..254d8b13b423 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5510,7 +5510,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		 * deadlock during GPU reset when this fence will not signal
+ 		 * but we hold reservation lock for the BO.
+ 		 */
+-		r = reservation_object_wait_timeout_rcu(abo->tbo.resv, true,
++		r = reservation_object_wait_timeout_rcu(abo->tbo.base.resv, true,
+ 							false,
+ 							msecs_to_jiffies(5000));
+ 		if (unlikely(r <= 0))
 -- 
 2.18.1
