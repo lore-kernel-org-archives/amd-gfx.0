@@ -1,13 +1,12 @@
-From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: no memory activity support on Vega10
-Date: Fri, 21 Jun 2019 13:54:30 +0000
-Message-ID: <BN6PR12MB16181A32A5AA5FCCC1972B1E85E70@BN6PR12MB1618.namprd12.prod.outlook.com>
-References: <20190621020709.24778-1-evan.quan@amd.com>
- <BN6PR12MB1809E4116699CD2B418B0763F7E70@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu:  add sw_init to df_v1_7
+Date: Fri, 21 Jun 2019 13:58:21 +0000
+Message-ID: <BN6PR12MB180927B186CB19A7D5F17008F7E70@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190621094526.96749-1-jonathan.kim@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0864037000=="
+Content-Type: multipart/mixed; boundary="===============1393051745=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB1809E4116699CD2B418B0763F7E70-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20190621094526.96749-1-jonathan.kim-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,281 +18,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Kim, Jonathan" <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0864037000==
+--===============1393051745==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB16181A32A5AA5FCCC1972B1E85E70BN6PR12MB1618namp_"
+	boundary="_000_BN6PR12MB180927B186CB19A7D5F17008F7E70BN6PR12MB1809namp_"
 
---_000_BN6PR12MB16181A32A5AA5FCCC1972B1E85E70BN6PR12MB1618namp_
+--_000_BN6PR12MB180927B186CB19A7D5F17008F7E70BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-It works on my Fiji card. Maybe Vega10 functionality is just broken in this=
- regard?
-
-Kent
-
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Deucher,=
- Alexander
-Sent: Friday, June 21, 2019 9:42 AM
-To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Subject: Re: [PATCH] drm/amd/powerplay: no memory activity support on Vega1=
-0
-
-Is this supported on smu7 parts as well?  Might be better to just enable it=
- on the specific asics that support it.  I think it might just be vega20.
+If both init and sw_init are empty, we don't need both.  Just rename the in=
+it callback to sw_init.
 
 Alex
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:e=
-van.quan-5C7GfCeVMHo@public.gmane.org>>
-Sent: Thursday, June 20, 2019 10:07 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Quan, Evan
-Subject: [PATCH] drm/amd/powerplay: no memory activity support on Vega10
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Kim, Jon=
+athan <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
+Sent: Friday, June 21, 2019 5:45 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Kim, Jonathan
+Subject: [PATCH] drm/amdgpu: add sw_init to df_v1_7
 
-Make mem_busy_percent sysfs interface invisible on Vega10.
+add df sw init to df 1.7 function to prevent regression issues on pre-vega2=
+0
+products.
 
-Change-Id: Ie39c3217b497a110b0b16e1b08033029bdcf2fc8
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
+Change-Id: I4941003ea4a99ba0ea736c7ecc8800148423c379
+Signed-off-by: Jonathan Kim <Jonathan.Kim-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/df_v1_7.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index 7ed84736ccc9..bcf6e089dc2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -2945,7 +2945,8 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
-                 return ret;
-         }
-         /* APU does not have its own dedicated memory */
--       if (!(adev->flags & AMD_IS_APU)) {
-+       if (!(adev->flags & AMD_IS_APU) &&
-+            (adev->asic_type !=3D CHIP_VEGA10)) {
-                 ret =3D device_create_file(adev->dev,
-                                 &dev_attr_mem_busy_percent);
-                 if (ret) {
-@@ -3025,7 +3026,8 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
-                 device_remove_file(adev->dev,
-                                 &dev_attr_pp_od_clk_voltage);
-         device_remove_file(adev->dev, &dev_attr_gpu_busy_percent);
--       if (!(adev->flags & AMD_IS_APU))
-+       if (!(adev->flags & AMD_IS_APU) &&
-+            (adev->asic_type !=3D CHIP_VEGA10))
-                 device_remove_file(adev->dev, &dev_attr_mem_busy_percent);
-         if (!(adev->flags & AMD_IS_APU))
-                 device_remove_file(adev->dev, &dev_attr_pcie_bw);
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/amd=
+gpu/df_v1_7.c
+index 9935371db7ce..335f2c02878f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c
+@@ -33,6 +33,10 @@ static void df_v1_7_init (struct amdgpu_device *adev)
+ {
+ }
+
++static void df_v1_7_sw_init(struct amdgpu_device *adev)
++{
++}
++
+ static void df_v1_7_enable_broadcast_mode(struct amdgpu_device *adev,
+                                           bool enable)
+ {
+@@ -111,6 +115,7 @@ static void df_v1_7_enable_ecc_force_par_wr_rmw(struct =
+amdgpu_device *adev,
+
+ const struct amdgpu_df_funcs df_v1_7_funcs =3D {
+         .init =3D df_v1_7_init,
++       .sw_init =3D df_v1_7_sw_init,
+         .enable_broadcast_mode =3D df_v1_7_enable_broadcast_mode,
+         .get_fb_channel_number =3D df_v1_7_get_fb_channel_number,
+         .get_hbm_channel_number =3D df_v1_7_get_hbm_channel_number,
 --
-2.21.0
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB16181A32A5AA5FCCC1972B1E85E70BN6PR12MB1618namp_
+--_000_BN6PR12MB180927B186CB19A7D5F17008F7E70BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle20
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">It works on my Fiji card. Maybe Vega10 functionality=
- is just broken in this regard?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Kent<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
-esktop.org&gt;
-<b>On Behalf Of </b>Deucher, Alexander<br>
-<b>Sent:</b> Friday, June 21, 2019 9:42 AM<br>
-<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: no memory activity support o=
-n Vega10<o:p></o:p></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Is this=
- supported on smu7 parts as well?&nbsp; Might be better to just enable it o=
-n the specific asics that support it.&nbsp; I think it might just be vega20=
-.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
-p></o:p></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists=
-.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt; on behalf o=
-f Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a>&=
-gt;<br>
-<b>Sent:</b> Thursday, June 20, 2019 10:07 PM<br>
-<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
-reedesktop.org</a><br>
-<b>Cc:</b> Quan, Evan<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: no memory activity support on Ve=
-ga10</span>
-<o:p></o:p></p>
-<div>
-<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">Make mem_busy_percent sysfs interface invisible on V=
-ega10.<br>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+If both init and sw_init are empty, we don't need both.&nbsp; Just rename t=
+he init callback to sw_init.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
 <br>
-Change-Id: Ie39c3217b497a110b0b16e1b08033029bdcf2fc8<br>
-Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
-@amd.com</a>&gt;<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Kim, Jonathan &lt;Jonathan.Ki=
+m@amd.com&gt;<br>
+<b>Sent:</b> Friday, June 21, 2019 5:45 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Kim, Jonathan<br>
+<b>Subject:</b> [PATCH] drm/amdgpu: add sw_init to df_v1_7</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">add df sw init to df 1.7 function to prevent regre=
+ssion issues on pre-vega20<br>
+products.<br>
+<br>
+Change-Id: I4941003ea4a99ba0ea736c7ecc8800148423c379<br>
+Signed-off-by: Jonathan Kim &lt;Jonathan.Kim-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 6 &#43;&#43;&#43;&#43;--<br>
-&nbsp;1 file changed, 4 insertions(&#43;), 2 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/df_v1_7.c | 5 &#43;&#43;&#43;&#43;&#43;<br=
+>
+&nbsp;1 file changed, 5 insertions(&#43;)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index 7ed84736ccc9..bcf6e089dc2e 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -2945,7 &#43;2945,8 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *ad=
-ev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* APU does not have its o=
-wn dedicated memory */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU=
-)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS=
-_APU) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ad=
-ev-&gt;asic_type !=3D CHIP_VEGA10)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D device_create_file(adev-&gt;dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;dev_attr_mem_busy_percent);=
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c b/drivers/gpu/drm/amd/amd=
+gpu/df_v1_7.c<br>
+index 9935371db7ce..335f2c02878f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/df_v1_7.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/df_v1_7.c<br>
+@@ -33,6 &#43;33,10 @@ static void df_v1_7_init (struct amdgpu_device *adev=
+)<br>
+&nbsp;{<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static void df_v1_7_sw_init(struct amdgpu_device *adev)<br>
+&#43;{<br>
+&#43;}<br>
+&#43;<br>
+&nbsp;static void df_v1_7_enable_broadcast_mode(struct amdgpu_device *adev,=
 <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-@@ -3025,7 &#43;3026,8 @@ void amdgpu_pm_sysfs_fini(struct amdgpu_device *a=
-dev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; device_remove_file(adev-&gt;dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
 sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;dev_attr_pp_od_clk_voltage)=
-;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device_remove_file(adev-&g=
-t;dev, &amp;dev_attr_gpu_busy_percent);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS_APU=
-))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp; AMD_IS=
-_APU) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (ad=
-ev-&gt;asic_type !=3D CHIP_VEGA10))<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; device_remove_file(adev-&gt;dev, &amp;dev_attr_mem_bu=
-sy_percent);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;flags &amp;=
- AMD_IS_APU))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; device_remove_file(adev-&gt;dev, &amp;dev_attr_pcie_b=
-w);<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp; bool enable)<br>
+&nbsp;{<br>
+@@ -111,6 &#43;115,7 @@ static void df_v1_7_enable_ecc_force_par_wr_rmw(str=
+uct amdgpu_device *adev,<br>
+&nbsp;<br>
+&nbsp;const struct amdgpu_df_funcs df_v1_7_funcs =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .init =3D df_v1_7_init,<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .sw_init =3D df_v1_7_sw_init,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .enable_broadcast_mode =3D=
+ df_v1_7_enable_broadcast_mode,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_fb_channel_number =3D=
+ df_v1_7_get_fb_channel_number,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_hbm_channel_number =
+=3D df_v1_7_get_hbm_channel_number,<br>
 -- <br>
-2.21.0<br>
+2.17.1<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a><br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
-</div>
-</div>
-</div>
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
 </body>
 </html>
 
---_000_BN6PR12MB16181A32A5AA5FCCC1972B1E85E70BN6PR12MB1618namp_--
+--_000_BN6PR12MB180927B186CB19A7D5F17008F7E70BN6PR12MB1809namp_--
 
---===============0864037000==
+--===============1393051745==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -303,4 +191,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0864037000==--
+--===============1393051745==--
