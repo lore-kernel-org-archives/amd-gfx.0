@@ -1,51 +1,56 @@
-From: Dan Carpenter <dan.carpenter-QHcLZuEGTsvQT0dZR+AlfA@public.gmane.org>
-Subject: Re: [PATCH -next] drm/amdgpu: remove set but not used variables 'ret'
-Date: Sun, 23 Jun 2019 09:00:27 +0300
-Message-ID: <20190623060027.GU28859@kadam>
-References: <20190622030314.169640-1-maowenan@huawei.com>
- <20190622104318.GT28859@kadam>
+From: Julia Lawall <julia.lawall@lip6.fr>
+Subject: Re: [PATCH -next] drm/amdgpu: remove set but not used variables
+ 'ret'
+Date: Sun, 23 Jun 2019 08:10:21 +0200 (CEST)
+Message-ID: <alpine.DEB.2.21.1906230809400.4961@hadrien>
+References: <20190622030314.169640-1-maowenan@huawei.com> <20190622104318.GT28859@kadam> <20190623060027.GU28859@kadam>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20190622104318.GT28859@kadam>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Mao Wenan <maowenan-hv44wF8Li93QT0dZR+AlfA@public.gmane.org>
-Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, daniel-/w4YWyX8dFk@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=US-ASCII
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190623060027.GU28859@kadam>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: Mao Wenan <maowenan@huawei.com>, airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gU2F0LCBKdW4gMjIsIDIwMTkgYXQgMDE6NDM6MTlQTSArMDMwMCwgRGFuIENhcnBlbnRlciB3
-cm90ZToKPiBPbiBTYXQsIEp1biAyMiwgMjAxOSBhdCAxMTowMzoxNEFNICswODAwLCBNYW8gV2Vu
-YW4gd3JvdGU6Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3BtdS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtdS5jCj4gPiBp
-bmRleCAwZTZkYmE5Li4wYmY0ZGQ5IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3BtdS5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfcG11LmMKPiA+IEBAIC0yNDYsMTIgKzI0NiwxMCBAQCBzdGF0aWMgaW50IGluaXRf
-cG11X2J5X3R5cGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gPiAgLyogaW5pdCBhbWRn
-cHVfcG11ICovCj4gPiAgaW50IGFtZGdwdV9wbXVfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKPiA+ICB7Cj4gPiAtCWludCByZXQgPSAwOwo+ID4gLQo+ID4gIAlzd2l0Y2ggKGFkZXYt
-PmFzaWNfdHlwZSkgewo+ID4gIAljYXNlIENISVBfVkVHQTIwOgo+ID4gIAkJLyogaW5pdCBkZiAq
-Lwo+ID4gLQkJcmV0ID0gaW5pdF9wbXVfYnlfdHlwZShhZGV2LCBkZl92M182X2F0dHJfZ3JvdXBz
-LAo+ID4gKwkJaW5pdF9wbXVfYnlfdHlwZShhZGV2LCBkZl92M182X2F0dHJfZ3JvdXBzLAo+ID4g
-IAkJCQkgICAgICAgIkRGIiwgImFtZGdwdV9kZiIsIFBFUkZfVFlQRV9BTURHUFVfREYsCj4gPiAg
-CQkJCSAgICAgICBERl9WM182X01BWF9DT1VOVEVSUyk7Cj4gCj4gCj4gWW91J3JlIHJlc2VuZGlu
-ZyB0aGlzIGZvciBvdGhlciByZWFzb25zLCBidXQgZG9uJ3QgZm9yZ2V0IHRvIHVwZGF0ZSB0aGUK
-PiBpbmRlbnRpbmcgb24gdGhlIGFyZ3VtZW50cyBzbyB0aGV5IHN0aWxsIGxpbmUgdXAgd2l0aCB0
-aGUgJygnLgo+IAoKU29ycnksIEkgd2FzIHVuY2xlYXIuICBJZiB5b3UgcHVsbCB0aGUgaW5pdF9w
-bXVfYnlfdHlwZSggYmFjayA2CmNoYXJhY3RlcnMgdGhlbiB5b3UgYWxzbyBuZWVkIHRvIHB1bGwg
-dGhlICJERiIgYmFjayA2IGNoYXJhY3RlcnMuCgoJCWluaXRfcG11X2J5X3R5cGUoYWRldiwgZGZf
-djNfNl9hdHRyX2dyb3VwcywgIkRGIiwgImFtZGdwdV9kZiIsCgkJCQkgUEVSRl9UWVBFX0FNREdQ
-VV9ERiwgREZfVjNfNl9NQVhfQ09VTlRFUlMpOwoKWW91IGNhbiBhY3R1YWxseSBmaXQgaXQgaW50
-byB0d28gbGluZXMgYWZ0ZXJ3YXJkcy4KCnJlZ2FyZHMsCmRhbiBjYXJwZW50ZXIKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+
+
+On Sun, 23 Jun 2019, Dan Carpenter wrote:
+
+> On Sat, Jun 22, 2019 at 01:43:19PM +0300, Dan Carpenter wrote:
+> > On Sat, Jun 22, 2019 at 11:03:14AM +0800, Mao Wenan wrote:
+> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+> > > index 0e6dba9..0bf4dd9 100644
+> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+> > > @@ -246,12 +246,10 @@ static int init_pmu_by_type(struct amdgpu_device *adev,
+> > >  /* init amdgpu_pmu */
+> > >  int amdgpu_pmu_init(struct amdgpu_device *adev)
+> > >  {
+> > > -	int ret = 0;
+> > > -
+> > >  	switch (adev->asic_type) {
+> > >  	case CHIP_VEGA20:
+> > >  		/* init df */
+> > > -		ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
+> > > +		init_pmu_by_type(adev, df_v3_6_attr_groups,
+> > >  				       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+> > >  				       DF_V3_6_MAX_COUNTERS);
+> >
+> >
+> > You're resending this for other reasons, but don't forget to update the
+> > indenting on the arguments so they still line up with the '('.
+> >
+>
+> Sorry, I was unclear.  If you pull the init_pmu_by_type( back 6
+> characters then you also need to pull the "DF" back 6 characters.
+>
+> 		init_pmu_by_type(adev, df_v3_6_attr_groups, "DF", "amdgpu_df",
+> 				 PERF_TYPE_AMDGPU_DF, DF_V3_6_MAX_COUNTERS);
+>
+> You can actually fit it into two lines afterwards.
+
+My suggestion was to keep the ret = instead of discarding the indication
+of failure, so I think that this is not relevant.
+
+julia
