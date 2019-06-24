@@ -1,116 +1,52 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH libdrm] drm: add fallback function to get device name
-Date: Mon, 24 Jun 2019 10:04:14 +0000
-Message-ID: <20190624100353.716-1-kevin1.wang@amd.com>
+From: Mao Wenan <maowenan@huawei.com>
+Subject: [PATCH -next v4] drm/amdgpu: return 'ret' immediately if failed in amdgpu_pmu_init
+Date: Mon, 24 Jun 2019 19:23:18 +0800
+Message-ID: <20190624112318.149299-1-maowenan@huawei.com>
+References: <20190624094850.GQ18776@kadam>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Daenzer,
- Michel" <Michel.Daenzer-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190624094850.GQ18776@kadam>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, dan.carpenter@oracle.com, julia.lawall@lip6.fr
+Cc: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, jonathan.kim@amd.com, Mao Wenan <maowenan@huawei.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-MS5vcHRpbWl6ZSBjb2RlIGxvZ2ljLg0KMi5pZiBub3QgZm91bmQgZGV2aWNlIG5hbWUgaW4gYW1k
-Z3B1LmlkcywNCndpbGwgcmV0dXJuIGEgZmFsbGJhY2sgZGV2aWNlIG5hbWUgImRldmljZWlkOnJl
-dmlzaW9uaWQiLCBlZzo2OWEwOjAxDQoNCkNoYW5nZS1JZDogSTBkMGM5NWE0MDI1MzNhNzQ5Nzg2
-ODEzMDk2ODBjYjczZDZhMzZlNjANClNpZ25lZC1vZmYtYnk6IEtldmluIFdhbmcgPGtldmluMS53
-YW5nQGFtZC5jb20+DQotLS0NCiBhbWRncHUvYW1kZ3B1X2FzaWNfaWQuYyAgfCAxMzEgKysrKysr
-KystLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQogYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
-YyAgIHwgICA1ICstDQogYW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5oIHwgICAxICsNCiAzIGZpbGVz
-IGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDEwNyBkZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdp
-dCBhL2FtZGdwdS9hbWRncHVfYXNpY19pZC5jIGIvYW1kZ3B1L2FtZGdwdV9hc2ljX2lkLmMNCmlu
-ZGV4IGE1MDA3ZmZjODBhNy4uZTQ2ODU3Y2I5NzM2IDEwMDY0NA0KLS0tIGEvYW1kZ3B1L2FtZGdw
-dV9hc2ljX2lkLmMNCisrKyBiL2FtZGdwdS9hbWRncHVfYXNpY19pZC5jDQpAQCAtMzQsMTI4ICsz
-NCw0NyBAQA0KICNpbmNsdWRlICJhbWRncHVfZHJtLmgiDQogI2luY2x1ZGUgImFtZGdwdV9pbnRl
-cm5hbC5oIg0KIA0KLXN0YXRpYyBpbnQgcGFyc2Vfb25lX2xpbmUoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmRldiwgY29uc3QgY2hhciAqbGluZSkNCitjaGFyKiBhbWRncHVfZ2V0X2RldmljZV9uYW1l
-KHVpbnQzMl90IGRldmlkLCB1aW50MzJfdCByZXZpZCkNCiB7DQotCWNoYXIgKmJ1ZiwgKnNhdmVw
-dHI7DQotCWNoYXIgKnNfZGlkOw0KLQl1aW50MzJfdCBkaWQ7DQotCWNoYXIgKnNfcmlkOw0KLQl1
-aW50MzJfdCByaWQ7DQotCWNoYXIgKnNfbmFtZTsNCi0JY2hhciAqZW5kcHRyOw0KLQlpbnQgciA9
-IC1FSU5WQUw7DQogDQotCS8qIGlnbm9yZSBlbXB0eSBsaW5lIGFuZCBjb21tZW50ZWQgbGluZSAq
-Lw0KLQlpZiAoc3RybGVuKGxpbmUpID09IDAgfHwgbGluZVswXSA9PSAnIycpDQotCQlyZXR1cm4g
-LUVBR0FJTjsNCi0NCi0JYnVmID0gc3RyZHVwKGxpbmUpOw0KLQlpZiAoIWJ1ZikNCi0JCXJldHVy
-biAtRU5PTUVNOw0KLQ0KLQkvKiBkZXZpY2UgaWQgKi8NCi0Jc19kaWQgPSBzdHJ0b2tfcihidWYs
-ICIsIiwgJnNhdmVwdHIpOw0KLQlpZiAoIXNfZGlkKQ0KLQkJZ290byBvdXQ7DQotDQotCWRpZCA9
-IHN0cnRvbChzX2RpZCwgJmVuZHB0ciwgMTYpOw0KLQlpZiAoKmVuZHB0cikNCi0JCWdvdG8gb3V0
-Ow0KLQ0KLQlpZiAoZGlkICE9IGRldi0+aW5mby5hc2ljX2lkKSB7DQotCQlyID0gLUVBR0FJTjsN
-Ci0JCWdvdG8gb3V0Ow0KLQl9DQotDQotCS8qIHJldmlzaW9uIGlkICovDQotCXNfcmlkID0gc3Ry
-dG9rX3IoTlVMTCwgIiwiLCAmc2F2ZXB0cik7DQotCWlmICghc19yaWQpDQotCQlnb3RvIG91dDsN
-Ci0NCi0JcmlkID0gc3RydG9sKHNfcmlkLCAmZW5kcHRyLCAxNik7DQotCWlmICgqZW5kcHRyKQ0K
-LQkJZ290byBvdXQ7DQotDQotCWlmIChyaWQgIT0gZGV2LT5pbmZvLnBjaV9yZXZfaWQpIHsNCi0J
-CXIgPSAtRUFHQUlOOw0KLQkJZ290byBvdXQ7DQotCX0NCi0NCi0JLyogbWFya2V0aW5nIG5hbWUg
-Ki8NCi0Jc19uYW1lID0gc3RydG9rX3IoTlVMTCwgIiwiLCAmc2F2ZXB0cik7DQotCWlmICghc19u
-YW1lKQ0KLQkJZ290byBvdXQ7DQotDQotCS8qIHRyaW0gbGVhZGluZyB3aGl0ZXNwYWNlcyBvciB0
-YWJzICovDQotCXdoaWxlIChpc2JsYW5rKCpzX25hbWUpKQ0KLQkJc19uYW1lKys7DQotCWlmIChz
-dHJsZW4oc19uYW1lKSA9PSAwKQ0KLQkJZ290byBvdXQ7DQotDQotCWRldi0+bWFya2V0aW5nX25h
-bWUgPSBzdHJkdXAoc19uYW1lKTsNCi0JaWYgKGRldi0+bWFya2V0aW5nX25hbWUpDQotCQlyID0g
-MDsNCi0JZWxzZQ0KLQkJciA9IC1FTk9NRU07DQotDQotb3V0Og0KLQlmcmVlKGJ1Zik7DQotDQot
-CXJldHVybiByOw0KLX0NCi0NCi12b2lkIGFtZGdwdV9wYXJzZV9hc2ljX2lkcyhzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSAqZGV2KQ0KLXsNCi0JRklMRSAqZnA7DQotCWNoYXIgKmxpbmUgPSBOVUxMOw0K
-LQlzaXplX3QgbGVuID0gMDsNCi0Jc3NpemVfdCBuOw0KLQlpbnQgbGluZV9udW0gPSAxOw0KLQlp
-bnQgciA9IDA7DQorCWNoYXIgKm5hbWUgPSBOVUxMOw0KKwlGSUxFICpmcCA9IE5VTEw7DQorCWNo
-YXIgYnVmWzEwMF07DQorCWludCBhLCBiLCBjLCBsZW4gPSAwOw0KKwl1aW50MzJfdCB2aWQsIHJp
-ZDsNCiANCiAJZnAgPSBmb3BlbihBTURHUFVfQVNJQ19JRF9UQUJMRSwgInIiKTsNCiAJaWYgKCFm
-cCkgew0KIAkJZnByaW50ZihzdGRlcnIsICIlczogJXNcbiIsIEFNREdQVV9BU0lDX0lEX1RBQkxF
-LA0KIAkJCXN0cmVycm9yKGVycm5vKSk7DQotCQlyZXR1cm47DQorCQlyZXR1cm4gTlVMTDsNCiAJ
-fQ0KIA0KLQkvKiAxc3QgdmFsaWQgbGluZSBpcyBmaWxlIHZlcnNpb24gKi8NCi0Jd2hpbGUgKChu
-ID0gZ2V0bGluZSgmbGluZSwgJmxlbiwgZnApKSAhPSAtMSkgew0KLQkJLyogdHJpbSB0cmFpbGlu
-ZyBuZXdsaW5lICovDQotCQlpZiAobGluZVtuIC0gMV0gPT0gJ1xuJykNCi0JCQlsaW5lW24gLSAx
-XSA9ICdcMCc7DQotDQotCQkvKiBpZ25vcmUgZW1wdHkgbGluZSBhbmQgY29tbWVudGVkIGxpbmUg
-Ki8NCi0JCWlmIChzdHJsZW4obGluZSkgPT0gMCB8fCBsaW5lWzBdID09ICcjJykgew0KLQkJCWxp
-bmVfbnVtKys7DQotCQkJY29udGludWU7DQotCQl9DQotDQotCQlkcm1Nc2coIiVzIHZlcnNpb246
-ICVzXG4iLCBBTURHUFVfQVNJQ19JRF9UQUJMRSwgbGluZSk7DQorCXdoaWxlIChmZ2V0cyhidWYs
-IHNpemVvZihidWYpLCBmcCkpIHsNCisJCWlmIChidWZbMF0gPT0gJyMnKSBjb250aW51ZTsNCiAJ
-CWJyZWFrOw0KIAl9DQogDQotCXdoaWxlICgobiA9IGdldGxpbmUoJmxpbmUsICZsZW4sIGZwKSkg
-IT0gLTEpIHsNCi0JCS8qIHRyaW0gdHJhaWxpbmcgbmV3bGluZSAqLw0KLQkJaWYgKGxpbmVbbiAt
-IDFdID09ICdcbicpDQotCQkJbGluZVtuIC0gMV0gPSAnXDAnOw0KKwlpZiAoZnNjYW5mKGZwLCAi
-JWQuJWQuJWQiLCAmYSwgJmIsICZjKSAhPSAzKQ0KKwkJcmV0dXJuIE5VTEw7DQogDQotCQlyID0g
-cGFyc2Vfb25lX2xpbmUoZGV2LCBsaW5lKTsNCi0JCWlmIChyICE9IC1FQUdBSU4pDQotCQkJYnJl
-YWs7DQorCS8qIGNoZWNrIGlkcyB2ZXJpc29uOiBzaG91bGQgYmUgMS4wLjAgKi8NCisJaWYgKGEg
-IT0gMSB8fCBiICE9IDAgfHwgYyAhPSAwKQ0KKwkJcmV0dXJuIE5VTEw7DQogDQotCQlsaW5lX251
-bSsrOw0KKwl3aGlsZSghZmVvZihmcCkgJiYgZnNjYW5mKGZwLCAiJTR4LCAlMngsICVbXiwnXG4n
-XSIsICZ2aWQsICZyaWQsIGJ1ZikgPT0gMykgew0KKwkJaWYgKHZpZCA9PSBkZXZpZCAmJiByaWQg
-PT0gcmV2aWQpIHsNCisJCQluYW1lID0gc3RyZHVwKGJ1Zik7DQorCQkJYnJlYWs7DQorCQl9DQog
-CX0NCiANCi0JaWYgKHIgPT0gLUVJTlZBTCkgew0KLQkJZnByaW50ZihzdGRlcnIsICJJbnZhbGlk
-IGZvcm1hdDogJXM6IGxpbmUgJWQ6ICVzXG4iLA0KLQkJCUFNREdQVV9BU0lDX0lEX1RBQkxFLCBs
-aW5lX251bSwgbGluZSk7DQotCX0gZWxzZSBpZiAociAmJiByICE9IC1FQUdBSU4pIHsNCi0JCWZw
-cmludGYoc3RkZXJyLCAiJXM6IENhbm5vdCBwYXJzZSBBU0lDIElEczogJXNcbiIsDQotCQkJX19m
-dW5jX18sIHN0cmVycm9yKC1yKSk7DQorCWlmIChuYW1lID09IE5VTEwpIHsNCisJCW1lbXNldChi
-dWYsIDAsIHNpemVvZihidWYpKTsNCisJCWxlbiA9IHNucHJpbnRmKGJ1Ziwgc2l6ZW9mKGJ1Ziks
-ICIlMDR4OiUwMngiLCBkZXZpZCwgcmV2aWQpOw0KKwkJYnVmW2xlbl0gPSAnXDAnOw0KKwkJbmFt
-ZSA9IHN0cmR1cChidWYpOw0KIAl9DQogDQotCWZyZWUobGluZSk7DQotCWZjbG9zZShmcCk7DQor
-CXJldHVybiBuYW1lOw0KIH0NCmRpZmYgLS1naXQgYS9hbWRncHUvYW1kZ3B1X2RldmljZS5jIGIv
-YW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KaW5kZXggOGU3NDM5M2E1NTE4Li40MjkxYzY2MjgzNDYg
-MTAwNjQ0DQotLS0gYS9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQorKysgYi9hbWRncHUvYW1kZ3B1
-X2RldmljZS5jDQpAQCAtMjYwLDcgKzI2MCwxMCBAQCBkcm1fcHVibGljIGludCBhbWRncHVfZGV2
-aWNlX2luaXRpYWxpemUoaW50IGZkLA0KIAlhbWRncHVfdmFtZ3JfaW5pdCgmZGV2LT52YW1ncl9o
-aWdoLCBzdGFydCwgbWF4LA0KIAkJCSAgZGV2LT5kZXZfaW5mby52aXJ0dWFsX2FkZHJlc3NfYWxp
-Z25tZW50KTsNCiANCi0JYW1kZ3B1X3BhcnNlX2FzaWNfaWRzKGRldik7DQorCS8qIGFtZGdwdV9n
-ZXRfZGV2aWNlX25hbWUodmlkLCByaWQpICovDQorCWRldi0+bWFya2V0aW5nX25hbWUgPSBhbWRn
-cHVfZ2V0X2RldmljZV9uYW1lKGRldi0+aW5mby5hc2ljX2lkLA0KKwkJCQkJCSAgICAgZGV2LT5p
-bmZvLnBjaV9yZXZfaWQpOw0KKw0KIA0KIAkqbWFqb3JfdmVyc2lvbiA9IGRldi0+bWFqb3JfdmVy
-c2lvbjsNCiAJKm1pbm9yX3ZlcnNpb24gPSBkZXYtPm1pbm9yX3ZlcnNpb247DQpkaWZmIC0tZ2l0
-IGEvYW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5oIGIvYW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5oDQpp
-bmRleCBiNjE0YjRhY2I4MWYuLjUxMGFiZWNkMDA0MiAxMDA2NDQNCi0tLSBhL2FtZGdwdS9hbWRn
-cHVfaW50ZXJuYWwuaA0KKysrIGIvYW1kZ3B1L2FtZGdwdV9pbnRlcm5hbC5oDQpAQCAtMTQyLDYg
-KzE0Miw3IEBAIGRybV9wcml2YXRlIHZvaWQgYW1kZ3B1X3ZhbWdyX2luaXQoc3RydWN0IGFtZGdw
-dV9ib192YV9tZ3IgKm1nciwgdWludDY0X3Qgc3RhcnQsDQogZHJtX3ByaXZhdGUgdm9pZCBhbWRn
-cHVfdmFtZ3JfZGVpbml0KHN0cnVjdCBhbWRncHVfYm9fdmFfbWdyICptZ3IpOw0KIA0KIGRybV9w
-cml2YXRlIHZvaWQgYW1kZ3B1X3BhcnNlX2FzaWNfaWRzKHN0cnVjdCBhbWRncHVfZGV2aWNlICpk
-ZXYpOw0KK2RybV9wcml2YXRlIGNoYXIqIGFtZGdwdV9nZXRfZGV2aWNlX25hbWUodWludDMyX3Qg
-ZGV2aWQsIHVpbnQzMl90IHJldmlkKTsNCiANCiBkcm1fcHJpdmF0ZSBpbnQgYW1kZ3B1X3F1ZXJ5
-X2dwdV9pbmZvX2luaXQoYW1kZ3B1X2RldmljZV9oYW5kbGUgZGV2KTsNCiANCi0tIA0KMi4yMi4w
-DQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+There is one warning:
+drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c: In function ‘amdgpu_pmu_init’:
+drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:249:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+  int ret = 0;
+      ^
+amdgpu_pmu_init() is called by amdgpu_device_init() in drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
+which will use the return value. So it should return 'ret' immediately if init_pmu_by_type() failed.
+amdgpu_device_init()
+	r = amdgpu_pmu_init(adev);
+
+Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
+
+Signed-off-by: Mao Wenan <maowenan@huawei.com>
+---
+ v1->v2: change the subject for this patch; change the indenting when it calls init_pmu_by_type; use the value 'ret' in
+ amdgpu_pmu_init().
+ v2->v3: change the subject for this patch; return 'ret' immediately if failed to call init_pmu_by_type(). 
+ v3->v4: delete the indenting for init_pmu_by_type() arguments. The original indenting is correct.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+index 0e6dba9f60f0..c98cf77a37f3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+@@ -254,6 +254,8 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
+ 		ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
+ 				       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+ 				       DF_V3_6_MAX_COUNTERS);
++		if (ret)
++			return ret;
+ 
+ 		/* other pmu types go here*/
+ 		break;
+-- 
+2.20.1
