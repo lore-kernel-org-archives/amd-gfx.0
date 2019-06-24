@@ -1,44 +1,75 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [pull] amdgpu drm-next-5.3
-Date: Mon, 24 Jun 2019 09:46:02 -0500
-Message-ID: <20190624144602.31655-1-alexander.deucher@amd.com>
+From: Kees Cook <keescook@chromium.org>
+Subject: Re: [PATCH v18 09/15] drm/amdgpu: untag user pointers
+Date: Mon, 24 Jun 2019 08:00:57 -0700
+Message-ID: <201906240800.5677E3CF@keescook>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <1d036fc5bec4be059ee7f4f42bf7417dc44651dd.1561386715.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, airlied@gmail.com, daniel.vetter@ffwll.ch
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <1d036fc5bec4be059ee7f4f42bf7417dc44651dd.1561386715.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRGF2ZSwgRGFuaWVsLAoKSnVzdCBhIGZvbGxvdyB1cCBwdWxsIHRvIGZpeCBhIHJlZ3Jlc3Np
-b24gb24gb2xkZXIgYXNpY3MgZHVlIHRvIHRoZSBuYXZpMTAKbWVyZ2UuCgpUaGUgZm9sbG93aW5n
-IGNoYW5nZXMgc2luY2UgY29tbWl0IGYzZjQ4ZDczMzFjZjVhZDlhNmIzYTZiZWZmMzhmM2RhZDE4
-NzFiNDk6CgogIGRybS9hbWRncHU6IGRyb3AgdW51c2VkIGRmIGluaXQgY2FsbGJhY2sgKDIwMTkt
-MDYtMjIgMDk6MzQ6MTQgLTA1MDApCgphcmUgYXZhaWxhYmxlIGluIHRoZSBHaXQgcmVwb3NpdG9y
-eSBhdDoKCiAgZ2l0Oi8vcGVvcGxlLmZyZWVkZXNrdG9wLm9yZy9+YWdkNWYvbGludXggdGFncy9k
-cm0tbmV4dC01LjMtMjAxOS0wNi0yNAoKZm9yIHlvdSB0byBmZXRjaCBjaGFuZ2VzIHVwIHRvIDhh
-Yzg3NWRiMGZkYzFjZmE1NWM0MjRiMzhhODFjZjUyODJmM2RmMGI6CgogIGRybS9hbWRncHU6IGRp
-c2FibGUgZ2Z4b2ZmIG9uIG5hdmkxMCAoMjAxOS0wNi0yNCAwOTozMTo0MyAtMDUwMCkKCi0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0KZHJtLW5leHQtNS4zLTIwMTktMDYtMjQ6CgphbWRncHU6Ci0gRml4IGEgcmVncmVzc2lvbiB3
-aXRoIHV2ZCBpbml0IG9uIHNvbWUgb2xkZXIgYXNpY3MgZHVlIHRvIE5hdmkgbWVyZ2UKLSBEaXNh
-YmxlIGdmeCBvZmYgb24gbmF2aTEwIHVudGlsIGl0J3MgcmVhZHkKCi0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KSGF3a2luZyBa
-aGFuZyAoMSk6CiAgICAgIGRybS9hbWRncHU6IGZpeCBtb2Rwcm9iZSBmYWlsdXJlIGZvciB1dmRf
-NC81LzYKCnRpYW5jeWluICgxKToKICAgICAgZHJtL2FtZGdwdTogZGlzYWJsZSBnZnhvZmYgb24g
-bmF2aTEwCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RwbS5jICAgIHwgMTEg
-KysrKysrKysrKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jICAgICB8
-ICA0ICstLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYyB8ICAz
-ICsrKwogMyBmaWxlcyBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwg
-bWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+On Mon, Jun 24, 2019 at 04:32:54PM +0200, Andrey Konovalov wrote:
+> This patch is a part of a series that extends kernel ABI to allow to pass
+> tagged user pointers (with the top byte set to something else other than
+> 0x00) as syscall arguments.
+> 
+> In amdgpu_gem_userptr_ioctl() and amdgpu_amdkfd_gpuvm.c/init_user_pages()
+> an MMU notifier is set up with a (tagged) userspace pointer. The untagged
+> address should be used so that MMU notifiers for the untagged address get
+> correctly matched up with the right BO. This patch untag user pointers in
+> amdgpu_gem_userptr_ioctl() for the GEM case and in amdgpu_amdkfd_gpuvm_
+> alloc_memory_of_gpu() for the KFD case. This also makes sure that an
+> untagged pointer is passed to amdgpu_ttm_tt_get_user_pages(), which uses
+> it for vma lookups.
+> 
+> Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+
+Reviewed-by: Kees Cook <keescook@chromium.org>
+
+-Kees
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c          | 2 ++
+>  2 files changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index a6e5184d436c..5d476e9bbc43 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -1108,7 +1108,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+>  		alloc_flags = 0;
+>  		if (!offset || !*offset)
+>  			return -EINVAL;
+> -		user_addr = *offset;
+> +		user_addr = untagged_addr(*offset);
+>  	} else if (flags & ALLOC_MEM_FLAGS_DOORBELL) {
+>  		domain = AMDGPU_GEM_DOMAIN_GTT;
+>  		alloc_domain = AMDGPU_GEM_DOMAIN_CPU;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index d4fcf5475464..e91df1407618 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -287,6 +287,8 @@ int amdgpu_gem_userptr_ioctl(struct drm_device *dev, void *data,
+>  	uint32_t handle;
+>  	int r;
+>  
+> +	args->addr = untagged_addr(args->addr);
+> +
+>  	if (offset_in_page(args->addr | args->size))
+>  		return -EINVAL;
+>  
+> -- 
+> 2.22.0.410.gd8fdbe21b5-goog
+> 
+
+-- 
+Kees Cook
