@@ -1,58 +1,71 @@
-From: Mao Wenan <maowenan@huawei.com>
-Subject: [PATCH -next v3] drm/amdgpu: return 'ret' immediately if failed in amdgpu_pmu_init
-Date: Mon, 24 Jun 2019 11:45:32 +0800
-Message-ID: <20190624034532.135201-1-maowenan@huawei.com>
-References: <alpine.DEB.2.21.1906230809400.4961@hadrien>
+From: maowenan <maowenan@huawei.com>
+Subject: Re: [PATCH -next v2] drm/amdgpu: return 'ret' in amdgpu_pmu_init
+Date: Mon, 24 Jun 2019 11:41:07 +0800
+Message-ID: <b468d765-bef7-70a8-9a14-bad0e6ed14df@huawei.com>
+References: <20190622104318.GT28859@kadam>
+ <20190622130527.182022-1-maowenan@huawei.com>
+ <0ab82cdb0bec30e7e431f106f8e0e9d141491555.camel@perches.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <alpine.DEB.2.21.1906230809400.4961@hadrien>
+In-Reply-To: <0ab82cdb0bec30e7e431f106f8e0e9d141491555.camel@perches.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, dan.carpenter@oracle.com, julia.lawall@lip6.fr
-Cc: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, jonathan.kim@amd.com, Mao Wenan <maowenan@huawei.com>
+To: Joe Perches <joe@perches.com>, airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, dan.carpenter@oracle.com, julia.lawall@lip6.fr
+Cc: kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, Jonathan Kim <jonathan.kim@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-There is one warning:
-drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c: In function ‘amdgpu_pmu_init’:
-drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:249:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
-  int ret = 0;
-      ^
-amdgpu_pmu_init() is called by amdgpu_device_init() in drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
-which will use the return value. So it should return 'ret' immediately if init_pmu_by_type() failed.
-amdgpu_device_init()
-	r = amdgpu_pmu_init(adev);
 
-This patch is also to update the indenting on the arguments so they line up with the '('.
 
-Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
+On 2019/6/23 2:13, Joe Perches wrote:
+> On Sat, 2019-06-22 at 21:05 +0800, Mao Wenan wrote:
+>> There is one warning:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c: In function ‘amdgpu_pmu_init’:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:249:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+>>   int ret = 0;
+> []
+>>  v1->v2: change the subject for this patch; change the indenting when it calls init_pmu_by_type; use the value 'ret' in
+>>  amdgpu_pmu_init().
+> []
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+> []
+>> @@ -252,8 +252,8 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
+>>  	case CHIP_VEGA20:
+>>  		/* init df */
+>>  		ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
+>> -				       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+>> -				       DF_V3_6_MAX_COUNTERS);
+>> +							   "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+>> +							   DF_V3_6_MAX_COUNTERS);
+> 
+> trivia:
+> 
+> The indentation change seems superfluous and
+> appears to make the code harder to read.
+> 
+> You could also cc Jonathan Kim who wrote all of this.
+I think this is just display issue in mail format. It is correct that in vi/vim.
+The arguments are line up with '(' after my change.
 
-Signed-off-by: Mao Wenan <maowenan@huawei.com>
----
- v1->v2: change the subject for this patch; change the indenting when it calls init_pmu_by_type; use the value 'ret' in
- amdgpu_pmu_init().
- v2->v3: change the subject for this patch; return 'ret' immediately if failed to call init_pmu_by_type(). 
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+@@ -252,8 +252,8 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)$
+ ^Icase CHIP_VEGA20:$
+ ^I^I/* init df */$
+ ^I^Iret = init_pmu_by_type(adev, df_v3_6_attr_groups,$
+-^I^I^I^I       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,$
+-^I^I^I^I       DF_V3_6_MAX_COUNTERS);$
++^I^I^I^I^I^I^I   "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,$
++^I^I^I^I^I^I^I   DF_V3_6_MAX_COUNTERS);$
+ $
+ ^I^I/* other pmu types go here*/$
+ ^I^Ibreak;$
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-index 0e6dba9..b702322 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-@@ -252,8 +252,11 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
- 	case CHIP_VEGA20:
- 		/* init df */
- 		ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
--				       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
--				       DF_V3_6_MAX_COUNTERS);
-+							   "DF", "amdgpu_df",
-+							   PERF_TYPE_AMDGPU_DF,
-+							   DF_V3_6_MAX_COUNTERS);
-+		if (ret)
-+			return ret;
- 
- 		/* other pmu types go here*/
- 		break;
--- 
-2.7.4
+
+
+
+
+> 
+> 
+> 
+> .
+> 
