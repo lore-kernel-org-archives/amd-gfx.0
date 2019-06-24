@@ -1,15 +1,13 @@
-From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v2] drm/amd/display: update infoframe after dig fe is
- turned on (v2)
-Date: Mon, 24 Jun 2019 20:50:19 +0000
-Message-ID: <7aee30c2-f90d-8bc4-3fe3-10c0ff2d8b12@amd.com>
-References: <20190624175847.26253-1-nicholas.kazlauskas@amd.com>
- <BN6PR12MB18091CE5FB4DD0A59853D849F7E00@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>
+Subject: [PATCH v4 hmm 03/12] mm/hmm: Hold a mmgrab from hmm to mm
+Date: Mon, 24 Jun 2019 18:01:01 -0300
+Message-ID: <20190624210110.5098-4-jgg@ziepe.ca>
+References: <20190624210110.5098-1-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0922563419=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB18091CE5FB4DD0A59853D849F7E00-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20190624210110.5098-1-jgg-uk2M96/98Pc@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,237 +18,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Jerome Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Felix.Kuehling-5C7GfCeVMHo@public.gmane.org
+Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Philip Yang <Philip.Yang-5C7GfCeVMHo@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Ira Weiny <ira.weiny-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
 
---===============0922563419==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_7aee30c2f90d8bc43fe310c0ff2d8b12amdcom_"
-
---_000_7aee30c2f90d8bc43fe310c0ff2d8b12amdcom_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org><mailto:Bhawanpre=
-et.Lakha-5C7GfCeVMHo@public.gmane.org>
-
-
-
-On 2019-06-24 2:00 p.m., Deucher, Alexander wrote:
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org><mailto:alexander.deucher=
-@amd.com>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> on behalf of Nicholas Kazlauskas <nicholas.kazlaus=
-kas-5C7GfCeVMHo@public.gmane.org><mailto:nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Sent: Monday, June 24, 2019 1:58 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Li, Sun peng (Leo); Wentland, Harry; Kazlauskas, Nicholas; Li, Roman
-Subject: [PATCH v2] drm/amd/display: update infoframe after dig fe is turne=
-d on (v2)
-
-[Why]
-The AVI infoframe is incorrectly programmed on DCN1/2 when enabling a
-stream - causing the wrong pixel encoding to be used for display.
-
-This is because the AVI infoframe is programmed before the DIG BE is
-connected to the FE and turned on, so enabling the AFMT block doesn't
-actually work and the registers subsequently can't be written to.
-
-[How]
-Program the infoframe *after* turning on the DIG FE. This was the
-behavior previously used but it was incorrectly reverted
-when adding the DCN2 HW sequencer code.
-
-v2: Don't call update_info_frame twice
-
-Fixes: 54ff35915948 ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
-
-Cc: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org><mailto:harry.wentland-5C7GfCeVMHo@public.gmane.org>
-Cc: Roman Li <roman.li-5C7GfCeVMHo@public.gmane.org><mailto:roman.li-5C7GfCeVMHo@public.gmane.org>
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org><mailto:sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org><mailto:nic=
-holas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/=
-drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 940e74b7d2c6..84d90b475e2a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -686,6 +686,7 @@ void dce110_enable_stream(struct pipe_ctx *pipe_ctx)
-                                                         dmdata_dp : dmdata=
-_hdmi);
-         }
- #endif
-+       dce110_update_info_frame(pipe_ctx);
-
-         /* enable early control to avoid corruption on DP monitor*/
-         active_total_with_borders =3D
---
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_7aee30c2f90d8bc43fe310c0ff2d8b12amdcom_
-Content-Type: text/html; charset="Windows-1252"
-Content-ID: <E120798005CE384294B9CCC5380A05F3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-</head>
-<body text=3D"#000000" bgcolor=3D"#FFFFFF">
-<p>Reviewed-by: Bhawanpreet Lakha <a class=3D"moz-txt-link-rfc2396E" href=
-=3D"mailto:Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org">
-&lt;Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org&gt;</a></p>
-<p><br>
-</p>
-<p><br>
-</p>
-<div class=3D"moz-cite-prefix">On 2019-06-24 2:00 p.m., Deucher, Alexander =
-wrote:<br>
-</div>
-<blockquote type=3D"cite" cite=3D"mid:BN6PR12MB18091CE5FB4DD0A59853D849F7E0=
-0@BN6PR12MB1809.namprd12.prod.outlook.com">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif;
-        font-size: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:al=
-exander.deucher-5C7GfCeVMHo@public.gmane.org">
-&lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;
-        font-size:12pt; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
-<a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org">
-&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on behalf of Nicholas Kaz=
-lauskas <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:nicholas.kazlausk=
-as-5C7GfCeVMHo@public.gmane.org">
-&lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-<b>Sent:</b> Monday, June 24, 2019 1:58 PM<br>
-<b>To:</b> <a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lis=
-ts.freedesktop.org">
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<b>Cc:</b> Li, Sun peng (Leo); Wentland, Harry; Kazlauskas, Nicholas; Li, R=
-oman<br>
-<b>Subject:</b> [PATCH v2] drm/amd/display: update infoframe after dig fe i=
-s turned on (v2)</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">[Why]<br>
-The AVI infoframe is incorrectly programmed on DCN1/2 when enabling a<br>
-stream - causing the wrong pixel encoding to be used for display.<br>
-<br>
-This is because the AVI infoframe is programmed before the DIG BE is<br>
-connected to the FE and turned on, so enabling the AFMT block doesn't<br>
-actually work and the registers subsequently can't be written to.<br>
-<br>
-[How]<br>
-Program the infoframe *after* turning on the DIG FE. This was the<br>
-behavior previously used but it was incorrectly reverted<br>
-when adding the DCN2 HW sequencer code.<br>
-<br>
-v2: Don't call update_info_frame twice<br>
-<br>
-Fixes: 54ff35915948 (&quot;drm/amd/display: Add DCN2 HW Sequencer and Resou=
-rce&quot;)<br>
-<br>
-Cc: Harry Wentland <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:harry.=
-wentland-5C7GfCeVMHo@public.gmane.org">
-&lt;harry.wentland-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-Cc: Roman Li <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:roman.li@amd=
-.com">&lt;roman.li-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-Cc: Leo Li <a class=3D"moz-txt-link-rfc2396E" href=3D"mailto:sunpeng.li@amd=
-.com">&lt;sunpeng.li-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-Signed-off-by: Nicholas Kazlauskas <a class=3D"moz-txt-link-rfc2396E" href=
-=3D"mailto:nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org">
-&lt;nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 1 &#43;=
-<br>
-&nbsp;1 file changed, 1 insertion(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/=
-drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c<br>
-index 940e74b7d2c6..84d90b475e2a 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer=
-.c<br>
-@@ -686,6 &#43;686,7 @@ void dce110_enable_stream(struct pipe_ctx *pipe_ctx=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dmdata_dp : dmdata_hdmi);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;#endif<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dce110_update_info_frame(pipe_ctx=
-);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* enable early control to=
- avoid corruption on DP monitor*/<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; active_total_with_borders =
-=3D<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-n=
-ot-send=3D"true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>=
-</div>
-</span></font></div>
-<br>
-<fieldset class=3D"mimeAttachmentHeader"></fieldset>
-<pre class=3D"moz-quote-pre" wrap=3D"">____________________________________=
-___________
-amd-gfx mailing list
-<a class=3D"moz-txt-link-abbreviated" href=3D"mailto:amd-gfx-PD4FTy7X32lzq7FAFJ/aeQ@public.gmane.org=
-top.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class=3D"moz-txt-link-freetext" href=3D"https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-=
-gfx</a></pre>
-</blockquote>
-</body>
-</html>
-
---_000_7aee30c2f90d8bc43fe310c0ff2d8b12amdcom_--
-
---===============0922563419==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0922563419==--
+RnJvbTogSmFzb24gR3VudGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPgoKU28gbG9uZyBhcyBhIHN0
+cnVjdCBobW0gcG9pbnRlciBleGlzdHMsIHNvIHNob3VsZCB0aGUgc3RydWN0IG1tIGl0IGlzCmxp
+bmtlZCB0b28uIEhvbGQgdGhlIG1tZ3JhYigpIGFzIHNvb24gYXMgYSBobW0gaXMgY3JlYXRlZCwg
+YW5kIG1tZHJvcCgpIGl0Cm9uY2UgdGhlIGhtbSByZWZjb3VudCBnb2VzIHRvIHplcm8uCgpTaW5j
+ZSBtbWRyb3AoKSAoaWUgYSAwIGtyZWYgb24gc3RydWN0IG1tKSBpcyBub3cgaW1wb3NzaWJsZSB3
+aXRoIGEgIU5VTEwKbW0tPmhtbSBkZWxldGUgdGhlIGhtbV9obW1fZGVzdHJveSgpLgoKU2lnbmVk
+LW9mZi1ieTogSmFzb24gR3VudGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPgpSZXZpZXdlZC1ieTog
+SsOpcsO0bWUgR2xpc3NlIDxqZ2xpc3NlQHJlZGhhdC5jb20+ClJldmlld2VkLWJ5OiBKb2huIEh1
+YmJhcmQgPGpodWJiYXJkQG52aWRpYS5jb20+ClJldmlld2VkLWJ5OiBSYWxwaCBDYW1wYmVsbCA8
+cmNhbXBiZWxsQG52aWRpYS5jb20+ClJldmlld2VkLWJ5OiBJcmEgV2VpbnkgPGlyYS53ZWlueUBp
+bnRlbC5jb20+ClJldmlld2VkLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4KVGVz
+dGVkLWJ5OiBQaGlsaXAgWWFuZyA8UGhpbGlwLllhbmdAYW1kLmNvbT4KLS0tCnYyOgogLSBGaXgg
+ZXJyb3IgdW53aW5kIHBhdGhzIGluIGhtbV9nZXRfb3JfY3JlYXRlIChKZXJvbWUvSmFzb24pCi0t
+LQogaW5jbHVkZS9saW51eC9obW0uaCB8ICAzIC0tLQoga2VybmVsL2ZvcmsuYyAgICAgICB8ICAx
+IC0KIG1tL2htbS5jICAgICAgICAgICAgfCAyMiArKysrLS0tLS0tLS0tLS0tLS0tLS0tCiAzIGZp
+bGVzIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKSwgMjIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
+IGEvaW5jbHVkZS9saW51eC9obW0uaCBiL2luY2x1ZGUvbGludXgvaG1tLmgKaW5kZXggMWZiYTY5
+NzlhZGY0NjAuLjFkOTdiNmQ2MmM1YmNmIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L2htbS5o
+CisrKyBiL2luY2x1ZGUvbGludXgvaG1tLmgKQEAgLTU3NywxNCArNTc3LDExIEBAIHN0YXRpYyBp
+bmxpbmUgaW50IGhtbV92bWFfZmF1bHQoc3RydWN0IGhtbV9taXJyb3IgKm1pcnJvciwKIH0KIAog
+LyogQmVsb3cgYXJlIGZvciBITU0gaW50ZXJuYWwgdXNlIG9ubHkhIE5vdCB0byBiZSB1c2VkIGJ5
+IGRldmljZSBkcml2ZXIhICovCi12b2lkIGhtbV9tbV9kZXN0cm95KHN0cnVjdCBtbV9zdHJ1Y3Qg
+Km1tKTsKLQogc3RhdGljIGlubGluZSB2b2lkIGhtbV9tbV9pbml0KHN0cnVjdCBtbV9zdHJ1Y3Qg
+Km1tKQogewogCW1tLT5obW0gPSBOVUxMOwogfQogI2Vsc2UgLyogSVNfRU5BQkxFRChDT05GSUdf
+SE1NX01JUlJPUikgKi8KLXN0YXRpYyBpbmxpbmUgdm9pZCBobW1fbW1fZGVzdHJveShzdHJ1Y3Qg
+bW1fc3RydWN0ICptbSkge30KIHN0YXRpYyBpbmxpbmUgdm9pZCBobW1fbW1faW5pdChzdHJ1Y3Qg
+bW1fc3RydWN0ICptbSkge30KICNlbmRpZiAvKiBJU19FTkFCTEVEKENPTkZJR19ITU1fTUlSUk9S
+KSAqLwogCmRpZmYgLS1naXQgYS9rZXJuZWwvZm9yay5jIGIva2VybmVsL2ZvcmsuYwppbmRleCA3
+NTY3NWI5YmY2ZGZkMy4uYzcwNGMzY2VkZWU3OGQgMTAwNjQ0Ci0tLSBhL2tlcm5lbC9mb3JrLmMK
+KysrIGIva2VybmVsL2ZvcmsuYwpAQCAtNjczLDcgKzY3Myw2IEBAIHZvaWQgX19tbWRyb3Aoc3Ry
+dWN0IG1tX3N0cnVjdCAqbW0pCiAJV0FSTl9PTl9PTkNFKG1tID09IGN1cnJlbnQtPmFjdGl2ZV9t
+bSk7CiAJbW1fZnJlZV9wZ2QobW0pOwogCWRlc3Ryb3lfY29udGV4dChtbSk7Ci0JaG1tX21tX2Rl
+c3Ryb3kobW0pOwogCW1tdV9ub3RpZmllcl9tbV9kZXN0cm95KG1tKTsKIAljaGVja19tbShtbSk7
+CiAJcHV0X3VzZXJfbnMobW0tPnVzZXJfbnMpOwpkaWZmIC0tZ2l0IGEvbW0vaG1tLmMgYi9tbS9o
+bW0uYwppbmRleCAyMmE5N2FkYTEwOGI0ZS4uMDgwYjE3YTJlODdlMmQgMTAwNjQ0Ci0tLSBhL21t
+L2htbS5jCisrKyBiL21tL2htbS5jCkBAIC0yMCw2ICsyMCw3IEBACiAjaW5jbHVkZSA8bGludXgv
+c3dhcG9wcy5oPgogI2luY2x1ZGUgPGxpbnV4L2h1Z2V0bGIuaD4KICNpbmNsdWRlIDxsaW51eC9t
+ZW1yZW1hcC5oPgorI2luY2x1ZGUgPGxpbnV4L3NjaGVkL21tLmg+CiAjaW5jbHVkZSA8bGludXgv
+anVtcF9sYWJlbC5oPgogI2luY2x1ZGUgPGxpbnV4L2RtYS1tYXBwaW5nLmg+CiAjaW5jbHVkZSA8
+bGludXgvbW11X25vdGlmaWVyLmg+CkBAIC03Myw2ICs3NCw3IEBAIHN0YXRpYyBzdHJ1Y3QgaG1t
+ICpobW1fZ2V0X29yX2NyZWF0ZShzdHJ1Y3QgbW1fc3RydWN0ICptbSkKIAlobW0tPm5vdGlmaWVy
+cyA9IDA7CiAJaG1tLT5kZWFkID0gZmFsc2U7CiAJaG1tLT5tbSA9IG1tOworCW1tZ3JhYihobW0t
+Pm1tKTsKIAogCXNwaW5fbG9jaygmbW0tPnBhZ2VfdGFibGVfbG9jayk7CiAJaWYgKCFtbS0+aG1t
+KQpAQCAtMTAwLDYgKzEwMiw3IEBAIHN0YXRpYyBzdHJ1Y3QgaG1tICpobW1fZ2V0X29yX2NyZWF0
+ZShzdHJ1Y3QgbW1fc3RydWN0ICptbSkKIAkJbW0tPmhtbSA9IE5VTEw7CiAJc3Bpbl91bmxvY2so
+Jm1tLT5wYWdlX3RhYmxlX2xvY2spOwogZXJyb3I6CisJbW1kcm9wKGhtbS0+bW0pOwogCWtmcmVl
+KGhtbSk7CiAJcmV0dXJuIE5VTEw7CiB9CkBAIC0xMjEsNiArMTI0LDcgQEAgc3RhdGljIHZvaWQg
+aG1tX2ZyZWUoc3RydWN0IGtyZWYgKmtyZWYpCiAJCW1tLT5obW0gPSBOVUxMOwogCXNwaW5fdW5s
+b2NrKCZtbS0+cGFnZV90YWJsZV9sb2NrKTsKIAorCW1tZHJvcChobW0tPm1tKTsKIAltbXVfbm90
+aWZpZXJfY2FsbF9zcmN1KCZobW0tPnJjdSwgaG1tX2ZyZWVfcmN1KTsKIH0KIApAQCAtMTI5LDI0
+ICsxMzMsNiBAQCBzdGF0aWMgaW5saW5lIHZvaWQgaG1tX3B1dChzdHJ1Y3QgaG1tICpobW0pCiAJ
+a3JlZl9wdXQoJmhtbS0+a3JlZiwgaG1tX2ZyZWUpOwogfQogCi12b2lkIGhtbV9tbV9kZXN0cm95
+KHN0cnVjdCBtbV9zdHJ1Y3QgKm1tKQotewotCXN0cnVjdCBobW0gKmhtbTsKLQotCXNwaW5fbG9j
+aygmbW0tPnBhZ2VfdGFibGVfbG9jayk7Ci0JaG1tID0gbW1fZ2V0X2htbShtbSk7Ci0JbW0tPmht
+bSA9IE5VTEw7Ci0JaWYgKGhtbSkgewotCQlobW0tPm1tID0gTlVMTDsKLQkJaG1tLT5kZWFkID0g
+dHJ1ZTsKLQkJc3Bpbl91bmxvY2soJm1tLT5wYWdlX3RhYmxlX2xvY2spOwotCQlobW1fcHV0KGht
+bSk7Ci0JCXJldHVybjsKLQl9Ci0KLQlzcGluX3VubG9jaygmbW0tPnBhZ2VfdGFibGVfbG9jayk7
+Ci19Ci0KIHN0YXRpYyB2b2lkIGhtbV9yZWxlYXNlKHN0cnVjdCBtbXVfbm90aWZpZXIgKm1uLCBz
+dHJ1Y3QgbW1fc3RydWN0ICptbSkKIHsKIAlzdHJ1Y3QgaG1tICpobW0gPSBjb250YWluZXJfb2Yo
+bW4sIHN0cnVjdCBobW0sIG1tdV9ub3RpZmllcik7Ci0tIAoyLjIyLjAKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
