@@ -1,56 +1,106 @@
-From: Julia Lawall <julia.lawall@lip6.fr>
-Subject: Re: [PATCH -next] drm/amdgpu: remove set but not used variables
- 'ret'
-Date: Sun, 23 Jun 2019 08:10:21 +0200 (CEST)
-Message-ID: <alpine.DEB.2.21.1906230809400.4961@hadrien>
-References: <20190622030314.169640-1-maowenan@huawei.com> <20190622104318.GT28859@kadam> <20190623060027.GU28859@kadam>
+From: maowenan <maowenan@huawei.com>
+Subject: Re: [PATCH -next v2] drm/amdgpu: return 'ret' in amdgpu_pmu_init
+Date: Mon, 24 Jun 2019 11:16:41 +0800
+Message-ID: <fced7783-1216-ff3f-039f-d7c3a70b4916@huawei.com>
+References: <20190622104318.GT28859@kadam>
+ <20190622130527.182022-1-maowenan@huawei.com>
+ <alpine.DEB.2.21.1906221504110.3253@hadrien>
+ <063c9726-8f16-f9b7-2d16-bc87a99085bb@huawei.com>
+ <alpine.DEB.2.21.1906221559060.3253@hadrien>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190623060027.GU28859@kadam>
+In-Reply-To: <alpine.DEB.2.21.1906221559060.3253@hadrien>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Cc: Mao Wenan <maowenan@huawei.com>, airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: Julia Lawall <julia.lawall@lip6.fr>
+Cc: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, dan.carpenter@oracle.com, kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
 
 
-On Sun, 23 Jun 2019, Dan Carpenter wrote:
+On 2019/6/22 22:00, Julia Lawall wrote:
+> 
+> 
+> On Sat, 22 Jun 2019, maowenan wrote:
+> 
+>>
+>>
+>> On 2019/6/22 21:06, Julia Lawall wrote:
+>>>
+>>>
+>>> On Sat, 22 Jun 2019, Mao Wenan wrote:
+>>>
+>>>> There is one warning:
+>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c: In function ‘amdgpu_pmu_init’:
+>>>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:249:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+>>>>   int ret = 0;
+>>>>       ^
+>>>> amdgpu_pmu_init() is called by amdgpu_device_init() in drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
+>>>> which will use the return value. So it returns 'ret' for caller.
+>>>> amdgpu_device_init()
+>>>> 	r = amdgpu_pmu_init(adev);
+>>>>
+>>>> Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
+>>>>
+>>>> Signed-off-by: Mao Wenan <maowenan@huawei.com>
+>>>> ---
+>>>>  v1->v2: change the subject for this patch; change the indenting when it calls init_pmu_by_type; use the value 'ret' in
+>>>>  amdgpu_pmu_init().
+>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 6 +++---
+>>>>  1 file changed, 3 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>>>> index 0e6dba9..145e720 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>>>> @@ -252,8 +252,8 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
+>>>>  	case CHIP_VEGA20:
+>>>>  		/* init df */
+>>>>  		ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
+>>>> -				       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+>>>> -				       DF_V3_6_MAX_COUNTERS);
+>>>> +							   "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+>>>> +							   DF_V3_6_MAX_COUNTERS);
+>>>>
+>>>>  		/* other pmu types go here*/
+>>>
+>>> I don't know what is the impact of the other pmu types that are planned
+>>> for the future.  Perhaps it would be better to abort the function
+>>> immediately in the case of a failure.
+>>
 
-> On Sat, Jun 22, 2019 at 01:43:19PM +0300, Dan Carpenter wrote:
-> > On Sat, Jun 22, 2019 at 11:03:14AM +0800, Mao Wenan wrote:
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-> > > index 0e6dba9..0bf4dd9 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
-> > > @@ -246,12 +246,10 @@ static int init_pmu_by_type(struct amdgpu_device *adev,
-> > >  /* init amdgpu_pmu */
-> > >  int amdgpu_pmu_init(struct amdgpu_device *adev)
-> > >  {
-> > > -	int ret = 0;
-> > > -
-> > >  	switch (adev->asic_type) {
-> > >  	case CHIP_VEGA20:
-> > >  		/* init df */
-> > > -		ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
-> > > +		init_pmu_by_type(adev, df_v3_6_attr_groups,
-> > >  				       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
-> > >  				       DF_V3_6_MAX_COUNTERS);
-> >
-> >
-> > You're resending this for other reasons, but don't forget to update the
-> > indenting on the arguments so they still line up with the '('.
-> >
->
-> Sorry, I was unclear.  If you pull the init_pmu_by_type( back 6
-> characters then you also need to pull the "DF" back 6 characters.
->
-> 		init_pmu_by_type(adev, df_v3_6_attr_groups, "DF", "amdgpu_df",
-> 				 PERF_TYPE_AMDGPU_DF, DF_V3_6_MAX_COUNTERS);
->
-> You can actually fit it into two lines afterwards.
+OK, v3 will be sent.
 
-My suggestion was to keep the ret = instead of discarding the indication
-of failure, so I think that this is not relevant.
-
-julia
+>> I guess it would be better to use new function or new switch case clause to process different PMU types
+>> in future.
+> 
+> I don't know.  But normally when an error may occur it is checked for
+> immediately, rather than just letting it go until the end of the function.
+> But maybe the developer know what is planned for the future for this
+> function.
+> 
+> julia
+> 
+>>
+>>>
+>>> julia
+>>>
+>>>>  		break;
+>>>> @@ -261,7 +261,7 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
+>>>>  		return 0;
+>>>>  	}
+>>>>
+>>>> -	return 0;
+>>>> +	return ret;
+>>>>  }
+>>>>
+>>>>
+>>>> --
+>>>> 2.7.4
+>>>>
+>>>>
+>>>
+>>
+>>
+> 
