@@ -1,39 +1,80 @@
-From: "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: fix scheduler timeout calc
-Date: Mon, 24 Jun 2019 08:50:29 +0000
-Message-ID: <1561366217-13261-1-git-send-email-flora.cui@amd.com>
+From: maowenan <maowenan@huawei.com>
+Subject: Re: [PATCH -next v3] drm/amdgpu: return 'ret' immediately if failed
+ in amdgpu_pmu_init
+Date: Mon, 24 Jun 2019 17:29:33 +0800
+Message-ID: <4795ba5c-8e41-e1e0-c96a-47fdda3995e3@huawei.com>
+References: <alpine.DEB.2.21.1906230809400.4961@hadrien>
+ <20190624034532.135201-1-maowenan@huawei.com> <20190624083952.GO18776@kadam>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190624083952.GO18776@kadam>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, julia.lawall@lip6.fr, kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, jonathan.kim@amd.com, Joe Perches <joe@perches.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-c2NoZWR1bGVyIHRpbWVvdXQgaXMgaW4gamlmZmllcw0KDQpDaGFuZ2UtSWQ6IEkyNjcwOGMxNjNk
-Yjk0M2ZmOGQ5MzBkZDgxYmNhYjRiNGI5ZDg0ZWIyDQpTaWduZWQtb2ZmLWJ5OiBGbG9yYSBDdWkg
-PGZsb3JhLmN1aUBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2ZlbmNlLmMgfCAzICsrKw0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykNCg0K
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMNCmluZGV4IGNiY2FhN2Mu
-LjJlZGFhNmMgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZmVuY2UuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMN
-CkBAIC00ODEsNiArNDgxLDkgQEAgaW50IGFtZGdwdV9mZW5jZV9kcml2ZXJfaW5pdF9yaW5nKHN0
-cnVjdCBhbWRncHVfcmluZyAqcmluZywNCiAJCQlicmVhazsNCiAJCX0NCiANCisJCWlmICh0aW1l
-b3V0ICE9IE1BWF9TQ0hFRFVMRV9USU1FT1VUKQ0KKwkJCXRpbWVvdXQgPSBtc2Vjc190b19qaWZm
-aWVzKHRpbWVvdXQpOw0KKw0KIAkJciA9IGRybV9zY2hlZF9pbml0KCZyaW5nLT5zY2hlZCwgJmFt
-ZGdwdV9zY2hlZF9vcHMsDQogCQkJCSAgIG51bV9od19zdWJtaXNzaW9uLCBhbWRncHVfam9iX2hh
-bmdfbGltaXQsDQogCQkJCSAgIHRpbWVvdXQsIHJpbmctPm5hbWUpOw0KLS0gDQoyLjcuNA0KDQpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+
+
+On 2019/6/24 16:39, Dan Carpenter wrote:
+> On Mon, Jun 24, 2019 at 11:45:32AM +0800, Mao Wenan wrote:
+>> There is one warning:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c: In function ‘amdgpu_pmu_init’:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:249:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+>>   int ret = 0;
+>>       ^
+>> amdgpu_pmu_init() is called by amdgpu_device_init() in drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
+>> which will use the return value. So it should return 'ret' immediately if init_pmu_by_type() failed.
+>> amdgpu_device_init()
+>> 	r = amdgpu_pmu_init(adev);
+>>
+>> This patch is also to update the indenting on the arguments so they line up with the '('.
+>>
+>> Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
+>>
+>> Signed-off-by: Mao Wenan <maowenan@huawei.com>
+>> ---
+>>  v1->v2: change the subject for this patch; change the indenting when it calls init_pmu_by_type; use the value 'ret' in
+>>  amdgpu_pmu_init().
+>>  v2->v3: change the subject for this patch; return 'ret' immediately if failed to call init_pmu_by_type(). 
+>>
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 7 +++++--
+>>  1 file changed, 5 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>> index 0e6dba9..b702322 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>> @@ -252,8 +252,11 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
+>>  	case CHIP_VEGA20:
+>>  		/* init df */
+>>  		ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
+>> -				       "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+>> -				       DF_V3_6_MAX_COUNTERS);
+>> +							   "DF", "amdgpu_df",
+>> +							   PERF_TYPE_AMDGPU_DF,
+>> +							   DF_V3_6_MAX_COUNTERS);
+>> +		if (ret)
+>> +			return ret;
+> 
+> No no.  Sorry, the original indenting was correct and lined up with the
+> '(' character in 'init_pmu_by_type(', that's the way it should be.  If
+> we were to remove the "ret = " then we'd have to pull the arguments back
+> as well.  I think this fix that Julia suggested is really the right so
+> leave the indenting alone.
+> 
+
+> It looks like you've right aligned the arguments.  That's not the right
+> way, the original was correct.
+> 
+After using 8 character for tab(thanks to Joe), the aligned here is wrong, yes, the original was correct.
+
+so my v4 is only to change ret, don't change the indenting?
+
+> regards,
+> dan carpenter
+> 
+> 
+> .
+> 
