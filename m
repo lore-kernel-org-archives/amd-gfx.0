@@ -1,77 +1,49 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH libdrm 0/9] amdgpu:
-Date: Mon, 24 Jun 2019 19:31:14 +0200
-Message-ID: <b48aae10-c1db-b76b-ddde-9c0a47028633@gmail.com>
-References: <20190624165406.13682-1-michel@daenzer.net>
-Reply-To: christian.koenig@amd.com
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v18 15/15] selftests, arm64: add a selftest for passing
+ tagged pointers to kernel
+Date: Mon, 24 Jun 2019 18:38:06 +0100
+Message-ID: <20190624173805.GK29120@arrakis.emea.arm.com>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190624165406.13682-1-michel@daenzer.net>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>, amd-gfx@lists.freedesktop.org
-Cc: Emil Velikov <emil.l.velikov@gmail.com>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <0999c80cd639b78ae27c0674069d552833227564.1561386715.git.andreyknvl@google.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-UGF0Y2hlcyAjMSAtICMzIGxvb2sgZ29vZCB0byBtZSwgYnV0IEknbSBub3Qgc3VyZSBpZiB0aGUg
-cmVzdCBpcyBzdWNoIGEgCmdvb2QgaWRlYS4KCkJhc2ljYWxseSB5b3Ugbm90IG9ubHkgd2FudCB0
-byB1c2UgdGhlIHNhbWUgRkQgZm9yIENTLCBidXQgYWxzbyBmb3IgCmJhc2ljYWxseSBhbGwgYnVm
-ZmVyIGZ1bmN0aW9ucyBhbmQgYXMgZmFyIGFzIEkgY2FuIHNlZSB3ZSBicmVhayB0aGF0IGhlcmUu
-CgpJIHdvdWxkIHJhdGhlciBhZGQgYSBuZXcgZnVuY3Rpb24gdG8gZXhwb3J0IHRoZSBLTVMgaGFu
-ZGxlIGZvciBhIGNlcnRhaW4gCkJPL0ZEIHBhaXIuIEV4cG9ydGluZyB0aGUgaGFuZGxlIGJhc2Vk
-IG9uIGEgdHlwZSB3YXMgYWxzbyBsaWtlIHRyeWluZyB0byAKc3F1ZWV6ZSBhIHJvdW5kIHBpZyB0
-aHJvdWdoIGEgc3F1YXJlIGhvbGUgaW4gdGhlIGZpcnN0IHBsYWNlLgoKS01TLCBmbGluayBhbmQg
-RE1BLWJ1ZiBmZCBhcmUgZnVuZGFtZW50YWxseSBkaWZmZXJlbnQgYW5kIHNob3VsZG4ndCBiZSAK
-aGFuZGxlZCBieSB0aGUgc2FtZSBmdW5jdGlvbiBpbiB0aGUgZmlyc3QgcGxhY2UuCgpUaGUgb25s
-eSB0cmlja3kgcGFydCBpbiB0aGlzIHNjZW5hcmlvIGlzIHRvIGtub3cgd2hlbiB0byBjbG9zZSB0
-aGUgS01TIApoYW5kbGUgYWdhaW4uCgpDaHJpc3RpYW4uCgpBbSAyNC4wNi4xOSB1bSAxODo1MyBz
-Y2hyaWViIE1pY2hlbCBEw6RuemVyOgo+IEZyb206IE1pY2hlbCBEw6RuemVyIDxtaWNoZWwuZGFl
-bnplckBhbWQuY29tPgo+Cj4gVGhlIG1vdGl2YXRpb24gZm9yIHRoZXNlIHBhdGNoZXMgaXMgaHR0
-cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy8xMTA5MDMgLgo+Cj4gUGF0Y2hlcyAxLTMgYXJlIHBy
-ZXBhcmF0b3J5Lgo+Cj4gUGF0Y2hlcyA0ICYgNSBhcmUgdGhlIGNvcmUgcGF0Y2hlcyBhbGxvd2lu
-ZyB0aGUgaXNzdWVzIGRpc2N1c3NlZCBpbiB0aGUKPiBidWcgcmVwb3J0IHRvIGJlIGZpeGVkLgo+
-Cj4gUGF0Y2hlcyA2LTggYXJlIGZ1cnRoZXIgb3B0aW1pemF0aW9ucyAvIGNsZWFudXBzLgo+Cj4g
-UGF0Y2ggOSBpcyB0aGUgTWVzYSBwYXRjaCBtYWtpbmcgdXNlIG9mIHRoZSBuZXcKPiBhbWRncHVf
-Ym9faGFuZGxlX3R5cGVfa21zX3VzZXIgQVBJIHRvIGZpeCB0aGUgdXNlciB2aXNpYmxlIHByb2Js
-ZW0uCj4KPiBOb3RlIHRoYXQgdGhlIGxpYmRybSBwYXRjaGVzIG5lZWQgdG8gbGFuZCBmaXJzdCwg
-YSBsaWJkcm0gcmVsZWFzZSBuZWVkcwo+IHRvIGJlIG1hZGUsIGFuZCB0aGUgTWVzYSBwYXRjaCBu
-ZWVkcyB0byBidW1wIHRoZSBsaWJkcm1fYW1kZ3B1IHZlcnNpb24KPiByZXF1aXJlbWVudCB0byB0
-aGF0IHJlbGVhc2UncyB2ZXJzaW9uIGJlZm9yZSBpdCBjYW4gbGFuZC4KPgo+IE1pY2hlbCBEw6Ru
-emVyICg5KToKPiAgICBhbWRncHU6IFBhc3MgZmlsZSBkZXNjcmlwdG9yIGRpcmVjdGx5IHRvIGFt
-ZGdwdV9jbG9zZV9rbXNfaGFuZGxlCj4gICAgYW1kZ3B1OiBBZGQgQk8gaGFuZGxlIHRvIHRhYmxl
-IGluIGFtZGdwdV9ib19jcmVhdGUKPiAgICBhbWRncHU6IFJlbmFtZSBmZF9tdXRleC9saXN0IHRv
-IGRldl9tdXRleC9saXN0Cj4gICAgYW1kZ3B1OiBBZGQgc3RydWN0IGFtZGdwdV9jb3JlX2Rldmlj
-ZSBhbmQgYW1kZ3B1X2NvcmVfYm8KPiAgICBhbWRncHU6IEFkZCBhbWRncHVfYm9faGFuZGxlX3R5
-cGVfa21zX3VzZXIKPiAgICBhbWRncHU6IFJlLXVzZSBhbiBleGlzdGluZyBhbWRncHVfZGV2aWNl
-IHdoZW4gcG9zc2libGUKPiAgICBhbWRncHU6IFVzZSBub3JtYWwgaW50ZWdlcnMgZm9yIGRldmlj
-ZSAvIGNvcmUgQk8gcmVmZXJlbmNlIGNvdW50aW5nCj4gICAgYW1kZ3B1OiBEcm9wIHJlZmNvdW50
-IG1lbWJlciBmcm9tIHN0cnVjdCBhbWRncHVfY29yZV9iby9kZXZpY2UKPiAgICB3aW5zeXMvYW1k
-Z3B1OiBVc2UgYW1kZ3B1X2JvX2hhbmRsZV90eXBlX2ttc191c2VyIGZvciBBUEkgS01TIGhhbmRs
-ZXMKPgo+ICAgYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgICAgICAgfCAgMTQgKy0KPiAgIGFtZGdw
-dS9hbWRncHVfYXNpY19pZC5jICAgICAgIHwgICA0ICstCj4gICBhbWRncHUvYW1kZ3B1X2JvLmMg
-ICAgICAgICAgICB8IDM2NyArKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tCj4gICBh
-bWRncHUvYW1kZ3B1X2NzLmMgICAgICAgICAgICB8ICA2NCArKystLS0KPiAgIGFtZGdwdS9hbWRn
-cHVfZGV2aWNlLmMgICAgICAgIHwgMjgxICsrKysrKysrKysrKystLS0tLS0tLS0tLS0tCj4gICBh
-bWRncHUvYW1kZ3B1X2dwdV9pbmZvLmMgICAgICB8ICAzNSArKy0tCj4gICBhbWRncHUvYW1kZ3B1
-X2ludGVybmFsLmggICAgICB8ICAzMSArKy0KPiAgIGFtZGdwdS9hbWRncHVfdmFtZ3IuYyAgICAg
-ICAgIHwgICA5ICstCj4gICBhbWRncHUvYW1kZ3B1X3ZtLmMgICAgICAgICAgICB8ICAgNCArLQo+
-ICAgdGVzdHMvYW1kZ3B1L2FtZGdwdV90ZXN0LmMgICAgfCAgIDIgKy0KPiAgIHRlc3RzL2FtZGdw
-dS9ib190ZXN0cy5jICAgICAgIHwgICAyICstCj4gICB0ZXN0cy9hbWRncHUvY3NfdGVzdHMuYyAg
-ICAgICB8ICAgOCArLQo+ICAgdGVzdHMvYW1kZ3B1L2RlYWRsb2NrX3Rlc3RzLmMgfCAgIDggKy0K
-PiAgIHRlc3RzL2FtZGdwdS91dmRfZW5jX3Rlc3RzLmMgIHwgICAyICstCj4gICB0ZXN0cy9hbWRn
-cHUvdmNlX3Rlc3RzLmMgICAgICB8ICAxMiArLQo+ICAgdGVzdHMvYW1kZ3B1L3Zjbl90ZXN0cy5j
-ICAgICAgfCAgIDQgKy0KPiAgIHRlc3RzL2FtZGdwdS92bV90ZXN0cy5jICAgICAgIHwgICAyICst
-Cj4gICAxNyBmaWxlcyBjaGFuZ2VkLCA1MDAgaW5zZXJ0aW9ucygrKSwgMzQ5IGRlbGV0aW9ucygt
-KQo+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmkt
-ZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+On Mon, Jun 24, 2019 at 04:33:00PM +0200, Andrey Konovalov wrote:
+> --- /dev/null
+> +++ b/tools/testing/selftests/arm64/tags_test.c
+> @@ -0,0 +1,29 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <unistd.h>
+> +#include <stdint.h>
+> +#include <sys/prctl.h>
+> +#include <sys/utsname.h>
+> +
+> +#define SHIFT_TAG(tag)		((uint64_t)(tag) << 56)
+> +#define SET_TAG(ptr, tag)	(((uint64_t)(ptr) & ~SHIFT_TAG(0xff)) | \
+> +					SHIFT_TAG(tag))
+> +
+> +int main(void)
+> +{
+> +	static int tbi_enabled = 0;
+> +	struct utsname *ptr, *tagged_ptr;
+> +	int err;
+> +
+> +	if (prctl(PR_SET_TAGGED_ADDR_CTRL, PR_TAGGED_ADDR_ENABLE, 0, 0, 0) == 0)
+> +		tbi_enabled = 1;
+
+Nitpick: with the latest prctl() patch, you can skip the last three
+arguments as they are ignored.
+
+Either way:
+
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
