@@ -1,192 +1,194 @@
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH 6/6] drm/amdgpu: add independent DMA-buf import v7
-Date: Mon, 24 Jun 2019 15:58:39 +0200
-Message-ID: <20190624135839.1661-6-christian.koenig@amd.com>
-References: <20190624135839.1661-1-christian.koenig@amd.com>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v17 04/15] mm, arm64: untag user pointers passed to memory syscalls
+Date: Mon, 24 Jun 2019 16:22:34 +0200
+Message-ID: <CAAeHK+zceAZ0Mqhz3t6Ob71-Dgk4DNHRrzr72r+qEsUugwzTsg@mail.gmail.com>
+References: <cover.1560339705.git.andreyknvl@google.com> <f9b50767d639b7116aa986dc67f158131b8d4169.1560339705.git.andreyknvl@google.com>
+ <a5e0e465-89d5-91d0-c6a4-39674269bbf2@oracle.com> <c4bdd767-eb3f-6668-0f49-4aaf4bc7689d@oracle.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190624135839.1661-1-christian.koenig@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <c4bdd767-eb3f-6668-0f49-4aaf4bc7689d@oracle.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Khalid Aziz <khalid.aziz@oracle.com>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@am>
 List-Id: amd-gfx.lists.freedesktop.org
 
-SW5zdGVhZCBvZiByZWx5aW5nIG9uIHRoZSBEUk0gZnVuY3Rpb25zIGp1c3QgaW1wbGVtZW50IG91
-ciBvd24gaW1wb3J0CmZ1bmN0aW9ucy4gVGhpcyBwcmVwYXJlcyBzdXBwb3J0IGZvciB0YWtpbmcg
-Y2FyZSBvZiB1bnBpbm5lZCBETUEtYnVmLgoKdjI6IGVuYWJsZSBmb3IgYWxsIGV4cG9ydGVycywg
-bm90IGp1c3QgYW1kZ3B1LCBmaXggaW52YWxpZGF0aW9uCiAgICBoYW5kbGluZywgbG9jayByZXNl
-cnZhdGlvbiBvYmplY3Qgd2hpbGUgc2V0dGluZyBjYWxsYmFjawp2MzogY2hhbmdlIHRvIG5ldyBk
-bWFfYnVmIGF0dGFjaCBpbnRlcmZhY2UKdjQ6IHNwbGl0IG91dCBmcm9tIHVucGlubmVkIERNQS1i
-dWYgd29yawp2NTogcmViYXNlZCBhbmQgY2xlYW51cCBvbiBuZXcgRE1BLWJ1ZiBpbnRlcmZhY2UK
-djY6IHNxdWFzaCB3aXRoIGludmFsaWRhdGlvbiBjYWxsYmFjayBjaGFuZ2UsCiAgICBzdG9wIHVz
-aW5nIF8obWFwfHVubWFwKV9sb2NrZWQKdjc6IGRyb3AgaW52YWxpZGF0aW9ucyB3aGVuIHRoZSBC
-TyBpcyBhbHJlYWR5IGluIHN5c3RlbSBkb21haW4KClNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBL
-w7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5jIHwgNjggKysrKysrKysrKysrKysrKy0tLS0tCiBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5oIHwgIDQgLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyAgICAgfCAgMSAtCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgIHwgIDYgKysKIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV90dG0uYyAgICAgfCAzMiArKysrKysrKy0tCiA1IGZpbGVzIGNoYW5n
-ZWQsIDg2IGluc2VydGlvbnMoKyksIDI1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5jCmluZGV4IDU3OWUzM2IzMWYyZC4uYjU5NzJlMDYz
-MWY2IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1
-Zi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMKQEAg
-LTQyNCwzMSArNDI0LDI4IEBAIHN0cnVjdCBkbWFfYnVmICphbWRncHVfZ2VtX3ByaW1lX2V4cG9y
-dChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogfQogCiAvKioKLSAqIGFtZGdwdV9nZW1fcHJpbWVf
-aW1wb3J0X3NnX3RhYmxlIC0gJmRybV9kcml2ZXIuZ2VtX3ByaW1lX2ltcG9ydF9zZ190YWJsZQot
-ICogaW1wbGVtZW50YXRpb24KKyAqIGFtZGdwdV9kbWFfYnVmX2NyZWF0ZV9vYmogLSBjcmVhdGUg
-Qk8gZm9yIERNQS1idWYgaW1wb3J0CisgKgogICogQGRldjogRFJNIGRldmljZQotICogQGF0dGFj
-aDogRE1BLWJ1ZiBhdHRhY2htZW50Ci0gKiBAc2c6IFNjYXR0ZXIvZ2F0aGVyIHRhYmxlCisgKiBA
-ZG1hX2J1ZjogRE1BLWJ1ZgogICoKLSAqIEltcG9ydHMgc2hhcmVkIERNQSBidWZmZXIgbWVtb3J5
-IGV4cG9ydGVkIGJ5IGFub3RoZXIgZGV2aWNlLgorICogQ3JlYXRlcyBhbiBlbXB0eSBTRyBCTyBm
-b3IgRE1BLWJ1ZiBpbXBvcnQuCiAgKgogICogUmV0dXJuczoKICAqIEEgbmV3IEdFTSBCTyBvZiB0
-aGUgZ2l2ZW4gRFJNIGRldmljZSwgcmVwcmVzZW50aW5nIHRoZSBtZW1vcnkKICAqIGRlc2NyaWJl
-ZCBieSB0aGUgZ2l2ZW4gRE1BLWJ1ZiBhdHRhY2htZW50IGFuZCBzY2F0dGVyL2dhdGhlciB0YWJs
-ZS4KICAqLwotc3RydWN0IGRybV9nZW1fb2JqZWN0ICoKLWFtZGdwdV9nZW1fcHJpbWVfaW1wb3J0
-X3NnX3RhYmxlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCi0JCQkJIHN0cnVjdCBkbWFfYnVmX2F0
-dGFjaG1lbnQgKmF0dGFjaCwKLQkJCQkgc3RydWN0IHNnX3RhYmxlICpzZykKK3N0YXRpYyBzdHJ1
-Y3QgZHJtX2dlbV9vYmplY3QgKgorYW1kZ3B1X2RtYV9idWZfY3JlYXRlX29iaihzdHJ1Y3QgZHJt
-X2RldmljZSAqZGV2LCBzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZikKIHsKLQlzdHJ1Y3QgcmVzZXJ2
-YXRpb25fb2JqZWN0ICpyZXN2ID0gYXR0YWNoLT5kbWFidWYtPnJlc3Y7CisJc3RydWN0IHJlc2Vy
-dmF0aW9uX29iamVjdCAqcmVzdiA9IGRtYV9idWYtPnJlc3Y7CiAJc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYgPSBkZXYtPmRldl9wcml2YXRlOwogCXN0cnVjdCBhbWRncHVfYm8gKmJvOwogCXN0
-cnVjdCBhbWRncHVfYm9fcGFyYW0gYnA7CiAJaW50IHJldDsKIAogCW1lbXNldCgmYnAsIDAsIHNp
-emVvZihicCkpOwotCWJwLnNpemUgPSBhdHRhY2gtPmRtYWJ1Zi0+c2l6ZTsKKwlicC5zaXplID0g
-ZG1hX2J1Zi0+c2l6ZTsKIAlicC5ieXRlX2FsaWduID0gUEFHRV9TSVpFOwogCWJwLmRvbWFpbiA9
-IEFNREdQVV9HRU1fRE9NQUlOX0NQVTsKIAlicC5mbGFncyA9IDA7CkBAIC00NTksMTEgKzQ1Niw5
-IEBAIGFtZGdwdV9nZW1fcHJpbWVfaW1wb3J0X3NnX3RhYmxlKHN0cnVjdCBkcm1fZGV2aWNlICpk
-ZXYsCiAJaWYgKHJldCkKIAkJZ290byBlcnJvcjsKIAotCWJvLT50Ym8uc2cgPSBzZzsKLQliby0+
-dGJvLnR0bS0+c2cgPSBzZzsKIAliby0+YWxsb3dlZF9kb21haW5zID0gQU1ER1BVX0dFTV9ET01B
-SU5fR1RUOwogCWJvLT5wcmVmZXJyZWRfZG9tYWlucyA9IEFNREdQVV9HRU1fRE9NQUlOX0dUVDsK
-LQlpZiAoYXR0YWNoLT5kbWFidWYtPm9wcyAhPSAmYW1kZ3B1X2RtYWJ1Zl9vcHMpCisJaWYgKGRt
-YV9idWYtPm9wcyAhPSAmYW1kZ3B1X2RtYWJ1Zl9vcHMpCiAJCWJvLT5wcmltZV9zaGFyZWRfY291
-bnQgPSAxOwogCiAJd3dfbXV0ZXhfdW5sb2NrKCZyZXN2LT5sb2NrKTsKQEAgLTQ3NCw2ICs0Njks
-MzUgQEAgYW1kZ3B1X2dlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUoc3RydWN0IGRybV9kZXZpY2Ug
-KmRldiwKIAlyZXR1cm4gRVJSX1BUUihyZXQpOwogfQogCisvKioKKyAqIGFtZGdwdV9nZW1fcHJp
-bWVfaW52YWxpZGF0ZV9tYXBwaW5ncyAtICZhdHRhY2guaW52YWxpZGF0ZSBpbXBsZW1lbnRhdGlv
-bgorICoKKyAqIEBhdHRhY2g6IHRoZSBETUEtYnVmIGF0dGFjaG1lbnQKKyAqCisgKiBJbnZhbGlk
-YXRlIHRoZSBETUEtYnVmIGF0dGFjaG1lbnQsIG1ha2luZyBzdXJlIHRoYXQgdGhlIHdlIHJlLWNy
-ZWF0ZSB0aGUKKyAqIG1hcHBpbmcgYmVmb3JlIHRoZSBuZXh0IHVzZS4KKyAqLworc3RhdGljIHZv
-aWQKK2FtZGdwdV9nZW1fcHJpbWVfaW52YWxpZGF0ZV9tYXBwaW5ncyhzdHJ1Y3QgZG1hX2J1Zl9h
-dHRhY2htZW50ICphdHRhY2gpCit7CisJc3RydWN0IHR0bV9vcGVyYXRpb25fY3R4IGN0eCA9IHsg
-ZmFsc2UsIGZhbHNlIH07CisJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmogPSBhdHRhY2gtPmlt
-cG9ydGVyX3ByaXY7CisJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBnZW1fdG9fYW1kZ3B1X2JvKG9i
-aik7CisJc3RydWN0IHR0bV9wbGFjZW1lbnQgcGxhY2VtZW50ID0ge307CisJaW50IHI7CisKKwlp
-ZiAoYm8tPnRiby5tZW0ubWVtX3R5cGUgPT0gVFRNX1BMX1NZU1RFTSkKKwkJcmV0dXJuOworCisJ
-ciA9IHR0bV9ib192YWxpZGF0ZSgmYm8tPnRibywgJnBsYWNlbWVudCwgJmN0eCk7CisJaWYgKHIp
-CisJCURSTV9FUlJPUigiRmFpbGVkIHRvIGludmFsaWRhdGUgRE1BLWJ1ZiBpbXBvcnQgKCVkKSlc
-biIsIHIpOworfQorCitzdGF0aWMgY29uc3Qgc3RydWN0IGRtYV9idWZfYXR0YWNoX29wcyBhbWRn
-cHVfZG1hX2J1Zl9hdHRhY2hfb3BzID0geworCS5pbnZhbGlkYXRlID0gYW1kZ3B1X2dlbV9wcmlt
-ZV9pbnZhbGlkYXRlX21hcHBpbmdzCit9OworCiAvKioKICAqIGFtZGdwdV9nZW1fcHJpbWVfaW1w
-b3J0IC0gJmRybV9kcml2ZXIuZ2VtX3ByaW1lX2ltcG9ydCBpbXBsZW1lbnRhdGlvbgogICogQGRl
-djogRFJNIGRldmljZQpAQCAtNDg4LDYgKzUxMiw3IEBAIGFtZGdwdV9nZW1fcHJpbWVfaW1wb3J0
-X3NnX3RhYmxlKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiBzdHJ1Y3QgZHJtX2dlbV9vYmplY3Qg
-KmFtZGdwdV9nZW1fcHJpbWVfaW1wb3J0KHN0cnVjdCBkcm1fZGV2aWNlICpkZXYsCiAJCQkJCSAg
-ICBzdHJ1Y3QgZG1hX2J1ZiAqZG1hX2J1ZikKIHsKKwlzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50
-ICphdHRhY2g7CiAJc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmo7CiAKIAlpZiAoZG1hX2J1Zi0+
-b3BzID09ICZhbWRncHVfZG1hYnVmX29wcykgewpAQCAtNTAyLDUgKzUyNywxOCBAQCBzdHJ1Y3Qg
-ZHJtX2dlbV9vYmplY3QgKmFtZGdwdV9nZW1fcHJpbWVfaW1wb3J0KHN0cnVjdCBkcm1fZGV2aWNl
-ICpkZXYsCiAJCX0KIAl9CiAKLQlyZXR1cm4gZHJtX2dlbV9wcmltZV9pbXBvcnQoZGV2LCBkbWFf
-YnVmKTsKKwlvYmogPSBhbWRncHVfZG1hX2J1Zl9jcmVhdGVfb2JqKGRldiwgZG1hX2J1Zik7CisJ
-aWYgKElTX0VSUihvYmopKQorCQlyZXR1cm4gb2JqOworCisJYXR0YWNoID0gZG1hX2J1Zl9keW5h
-bWljX2F0dGFjaChkbWFfYnVmLCBkZXYtPmRldiwKKwkJCQkJJmFtZGdwdV9kbWFfYnVmX2F0dGFj
-aF9vcHMsIG9iaik7CisJaWYgKElTX0VSUihhdHRhY2gpKSB7CisJCWRybV9nZW1fb2JqZWN0X3B1
-dChvYmopOworCQlyZXR1cm4gRVJSX0NBU1QoYXR0YWNoKTsKKwl9CisKKwlnZXRfZG1hX2J1Zihk
-bWFfYnVmKTsKKwlvYmotPmltcG9ydF9hdHRhY2ggPSBhdHRhY2g7CisJcmV0dXJuIG9iajsKIH0K
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmgg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5oCmluZGV4IGYxNTIy
-MjkyODE0Yy4uMjc2NTQxMzc3MGI5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZG1hX2J1Zi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kbWFfYnVmLmgKQEAgLTI1LDEwICsyNSw2IEBACiAKICNpbmNsdWRlIDxkcm0vZHJtX2dl
-bS5oPgogCi1zdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKgotYW1kZ3B1X2dlbV9wcmltZV9pbXBvcnRf
-c2dfdGFibGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKLQkJCQkgc3RydWN0IGRtYV9idWZfYXR0
-YWNobWVudCAqYXR0YWNoLAotCQkJCSBzdHJ1Y3Qgc2dfdGFibGUgKnNnKTsKIHN0cnVjdCBkbWFf
-YnVmICphbWRncHVfZ2VtX3ByaW1lX2V4cG9ydChzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAogCQkJ
-CQlzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmdvYmosCiAJCQkJCWludCBmbGFncyk7CmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKaW5kZXggNWYzYjdjYWI4MzkwLi43NmQ0NDU5
-MTZjOWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKQEAgLTEzMzQs
-NyArMTMzNCw2IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2RyaXZlciBrbXNfZHJpdmVyID0gewogCS5n
-ZW1fcHJpbWVfZXhwb3J0ID0gYW1kZ3B1X2dlbV9wcmltZV9leHBvcnQsCiAJLmdlbV9wcmltZV9p
-bXBvcnQgPSBhbWRncHVfZ2VtX3ByaW1lX2ltcG9ydCwKIAkuZ2VtX3ByaW1lX3Jlc19vYmogPSBh
-bWRncHVfZ2VtX3ByaW1lX3Jlc19vYmosCi0JLmdlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUgPSBh
-bWRncHVfZ2VtX3ByaW1lX2ltcG9ydF9zZ190YWJsZSwKIAkuZ2VtX3ByaW1lX3ZtYXAgPSBhbWRn
-cHVfZ2VtX3ByaW1lX3ZtYXAsCiAJLmdlbV9wcmltZV92dW5tYXAgPSBhbWRncHVfZ2VtX3ByaW1l
-X3Z1bm1hcCwKIAkuZ2VtX3ByaW1lX21tYXAgPSBhbWRncHVfZ2VtX3ByaW1lX21tYXAsCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmMKaW5kZXggNzg0M2IzYzZjYTU0
-Li45OWJjZjZlNzEwYTcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9vYmplY3QuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2Jq
-ZWN0LmMKQEAgLTg1MCw2ICs4NTAsOSBAQCBpbnQgYW1kZ3B1X2JvX3Bpbl9yZXN0cmljdGVkKHN0
-cnVjdCBhbWRncHVfYm8gKmJvLCB1MzIgZG9tYWluLAogCQlyZXR1cm4gMDsKIAl9CiAKKwlpZiAo
-Ym8tPmdlbV9iYXNlLmltcG9ydF9hdHRhY2gpCisJCWRtYV9idWZfcGluKGJvLT5nZW1fYmFzZS5p
-bXBvcnRfYXR0YWNoKTsKKwogCWJvLT5mbGFncyB8PSBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NP
-TlRJR1VPVVM7CiAJLyogZm9yY2UgdG8gcGluIGludG8gdmlzaWJsZSB2aWRlbyByYW0gKi8KIAlp
-ZiAoIShiby0+ZmxhZ3MgJiBBTURHUFVfR0VNX0NSRUFURV9OT19DUFVfQUNDRVNTKSkKQEAgLTkz
-Myw2ICs5MzYsOSBAQCBpbnQgYW1kZ3B1X2JvX3VucGluKHN0cnVjdCBhbWRncHVfYm8gKmJvKQog
-CiAJYW1kZ3B1X2JvX3N1YnRyYWN0X3Bpbl9zaXplKGJvKTsKIAorCWlmIChiby0+Z2VtX2Jhc2Uu
-aW1wb3J0X2F0dGFjaCkKKwkJZG1hX2J1Zl91bnBpbihiby0+Z2VtX2Jhc2UuaW1wb3J0X2F0dGFj
-aCk7CisKIAlmb3IgKGkgPSAwOyBpIDwgYm8tPnBsYWNlbWVudC5udW1fcGxhY2VtZW50OyBpKysp
-IHsKIAkJYm8tPnBsYWNlbWVudHNbaV0ubHBmbiA9IDA7CiAJCWJvLT5wbGFjZW1lbnRzW2ldLmZs
-YWdzICY9IH5UVE1fUExfRkxBR19OT19FVklDVDsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90dG0uYwppbmRleCBkODFiZWJmNzYzMTAuLmM4OWZhNThhNzkxNCAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwpAQCAtMzksNiArMzksNyBAQAogI2luY2x1ZGUg
-PGxpbnV4L3NsYWIuaD4KICNpbmNsdWRlIDxsaW51eC9zd2FwLmg+CiAjaW5jbHVkZSA8bGludXgv
-c3dpb3RsYi5oPgorI2luY2x1ZGUgPGxpbnV4L2RtYS1idWYuaD4KIAogI2luY2x1ZGUgPGRybS90
-dG0vdHRtX2JvX2FwaS5oPgogI2luY2x1ZGUgPGRybS90dG0vdHRtX2JvX2RyaXZlci5oPgpAQCAt
-NzExLDYgKzcxMiw3IEBAIHN0YXRpYyB1bnNpZ25lZCBsb25nIGFtZGdwdV90dG1faW9fbWVtX3Bm
-bihzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAogICovCiBzdHJ1Y3QgYW1kZ3B1X3R0bV90
-dCB7CiAJc3RydWN0IHR0bV9kbWFfdHQJdHRtOworCXN0cnVjdCBkcm1fZ2VtX29iamVjdAkqZ29i
-ajsKIAl1NjQJCQlvZmZzZXQ7CiAJdWludDY0X3QJCXVzZXJwdHI7CiAJc3RydWN0IHRhc2tfc3Ry
-dWN0CSp1c2VydGFzazsKQEAgLTExOTgsNiArMTIwMCw3IEBAIHN0YXRpYyBzdHJ1Y3QgdHRtX3R0
-ICphbWRncHVfdHRtX3R0X2NyZWF0ZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAogCQly
-ZXR1cm4gTlVMTDsKIAl9CiAJZ3R0LT50dG0udHRtLmZ1bmMgPSAmYW1kZ3B1X2JhY2tlbmRfZnVu
-YzsKKwlndHQtPmdvYmogPSAmdHRtX3RvX2FtZGdwdV9ibyhibyktPmdlbV9iYXNlOwogCiAJLyog
-YWxsb2NhdGUgc3BhY2UgZm9yIHRoZSB1bmluaXRpYWxpemVkIHBhZ2UgZW50cmllcyAqLwogCWlm
-ICh0dG1fc2dfdHRfaW5pdCgmZ3R0LT50dG0sIGJvLCBwYWdlX2ZsYWdzKSkgewpAQCAtMTIxOCw3
-ICsxMjIxLDYgQEAgc3RhdGljIGludCBhbWRncHVfdHRtX3R0X3BvcHVsYXRlKHN0cnVjdCB0dG1f
-dHQgKnR0bSwKIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRl
-dih0dG0tPmJkZXYpOwogCXN0cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsK
-LQlib29sIHNsYXZlID0gISEodHRtLT5wYWdlX2ZsYWdzICYgVFRNX1BBR0VfRkxBR19TRyk7CiAK
-IAkvKiB1c2VyIHBhZ2VzIGFyZSBib3VuZCBieSBhbWRncHVfdHRtX3R0X3Bpbl91c2VycHRyKCkg
-Ki8KIAlpZiAoZ3R0ICYmIGd0dC0+dXNlcnB0cikgewpAQCAtMTIzMSw3ICsxMjMzLDE5IEBAIHN0
-YXRpYyBpbnQgYW1kZ3B1X3R0bV90dF9wb3B1bGF0ZShzdHJ1Y3QgdHRtX3R0ICp0dG0sCiAJCXJl
-dHVybiAwOwogCX0KIAotCWlmIChzbGF2ZSAmJiB0dG0tPnNnKSB7CisJaWYgKHR0bS0+cGFnZV9m
-bGFncyAmIFRUTV9QQUdFX0ZMQUdfU0cpIHsKKwkJaWYgKCF0dG0tPnNnKSB7CisJCQlzdHJ1Y3Qg
-ZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2g7CisJCQlzdHJ1Y3Qgc2dfdGFibGUgKnNndDsKKwor
-CQkJYXR0YWNoID0gZ3R0LT5nb2JqLT5pbXBvcnRfYXR0YWNoOworCQkJc2d0ID0gZG1hX2J1Zl9t
-YXBfYXR0YWNobWVudChhdHRhY2gsIERNQV9CSURJUkVDVElPTkFMKTsKKwkJCWlmIChJU19FUlIo
-c2d0KSkKKwkJCQlyZXR1cm4gUFRSX0VSUihzZ3QpOworCisJCQl0dG0tPnNnID0gc2d0OworCQl9
-CisKIAkJZHJtX3ByaW1lX3NnX3RvX3BhZ2VfYWRkcl9hcnJheXModHRtLT5zZywgdHRtLT5wYWdl
-cywKIAkJCQkJCSBndHQtPnR0bS5kbWFfYWRkcmVzcywKIAkJCQkJCSB0dG0tPm51bV9wYWdlcyk7
-CkBAIC0xMjU4LDkgKzEyNzIsOCBAQCBzdGF0aWMgaW50IGFtZGdwdV90dG1fdHRfcG9wdWxhdGUo
-c3RydWN0IHR0bV90dCAqdHRtLAogICovCiBzdGF0aWMgdm9pZCBhbWRncHVfdHRtX3R0X3VucG9w
-dWxhdGUoc3RydWN0IHR0bV90dCAqdHRtKQogewotCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
-OwogCXN0cnVjdCBhbWRncHVfdHRtX3R0ICpndHQgPSAodm9pZCAqKXR0bTsKLQlib29sIHNsYXZl
-ID0gISEodHRtLT5wYWdlX2ZsYWdzICYgVFRNX1BBR0VfRkxBR19TRyk7CisJc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXY7CiAKIAlpZiAoZ3R0ICYmIGd0dC0+dXNlcnB0cikgewogCQlhbWRncHVf
-dHRtX3R0X3NldF91c2VyX3BhZ2VzKHR0bSwgTlVMTCk7CkBAIC0xMjY5LDcgKzEyODIsMTYgQEAg
-c3RhdGljIHZvaWQgYW1kZ3B1X3R0bV90dF91bnBvcHVsYXRlKHN0cnVjdCB0dG1fdHQgKnR0bSkK
-IAkJcmV0dXJuOwogCX0KIAotCWlmIChzbGF2ZSkKKwlpZiAodHRtLT5zZyAmJiBndHQtPmdvYmot
-PmltcG9ydF9hdHRhY2gpIHsKKwkJc3RydWN0IGRtYV9idWZfYXR0YWNobWVudCAqYXR0YWNoOwor
-CisJCWF0dGFjaCA9IGd0dC0+Z29iai0+aW1wb3J0X2F0dGFjaDsKKwkJZG1hX2J1Zl91bm1hcF9h
-dHRhY2htZW50KGF0dGFjaCwgdHRtLT5zZywgRE1BX0JJRElSRUNUSU9OQUwpOworCQl0dG0tPnNn
-ID0gTlVMTDsKKwkJcmV0dXJuOworCX0KKworCWlmICh0dG0tPnBhZ2VfZmxhZ3MgJiBUVE1fUEFH
-RV9GTEFHX1NHKQogCQlyZXR1cm47CiAKIAlhZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KHR0bS0+YmRl
-dik7Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
-ZXZlbA==
+On Wed, Jun 19, 2019 at 6:46 PM Khalid Aziz <khalid.aziz@oracle.com> wrote:
+>
+> On 6/19/19 9:55 AM, Khalid Aziz wrote:
+> > On 6/12/19 5:43 AM, Andrey Konovalov wrote:
+> >> This patch is a part of a series that extends arm64 kernel ABI to allow to
+> >> pass tagged user pointers (with the top byte set to something else other
+> >> than 0x00) as syscall arguments.
+> >>
+> >> This patch allows tagged pointers to be passed to the following memory
+> >> syscalls: get_mempolicy, madvise, mbind, mincore, mlock, mlock2, mprotect,
+> >> mremap, msync, munlock, move_pages.
+> >>
+> >> The mmap and mremap syscalls do not currently accept tagged addresses.
+> >> Architectures may interpret the tag as a background colour for the
+> >> corresponding vma.
+> >>
+> >> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> >> Reviewed-by: Kees Cook <keescook@chromium.org>
+> >> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> >> ---
+> >
+> > Reviewed-by: Khalid Aziz <khalid.aziz@oracle.com>
+> >
+> >
+>
+> I would also recommend updating commit log for all the patches in this
+> series that are changing files under mm/ as opposed to arch/arm64 to not
+> reference arm64 kernel ABI since the change applies to every
+> architecture. So something along the lines of "This patch is part of a
+> series that extends kernel ABI to allow......."
+
+Sure, will do in v18, thanks!
+
+>
+> --
+> Khalid
+>
+>
+> >>  mm/madvise.c   | 2 ++
+> >>  mm/mempolicy.c | 3 +++
+> >>  mm/migrate.c   | 2 +-
+> >>  mm/mincore.c   | 2 ++
+> >>  mm/mlock.c     | 4 ++++
+> >>  mm/mprotect.c  | 2 ++
+> >>  mm/mremap.c    | 7 +++++++
+> >>  mm/msync.c     | 2 ++
+> >>  8 files changed, 23 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/mm/madvise.c b/mm/madvise.c
+> >> index 628022e674a7..39b82f8a698f 100644
+> >> --- a/mm/madvise.c
+> >> +++ b/mm/madvise.c
+> >> @@ -810,6 +810,8 @@ SYSCALL_DEFINE3(madvise, unsigned long, start, size_t, len_in, int, behavior)
+> >>      size_t len;
+> >>      struct blk_plug plug;
+> >>
+> >> +    start = untagged_addr(start);
+> >> +
+> >>      if (!madvise_behavior_valid(behavior))
+> >>              return error;
+> >>
+> >> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> >> index 01600d80ae01..78e0a88b2680 100644
+> >> --- a/mm/mempolicy.c
+> >> +++ b/mm/mempolicy.c
+> >> @@ -1360,6 +1360,7 @@ static long kernel_mbind(unsigned long start, unsigned long len,
+> >>      int err;
+> >>      unsigned short mode_flags;
+> >>
+> >> +    start = untagged_addr(start);
+> >>      mode_flags = mode & MPOL_MODE_FLAGS;
+> >>      mode &= ~MPOL_MODE_FLAGS;
+> >>      if (mode >= MPOL_MAX)
+> >> @@ -1517,6 +1518,8 @@ static int kernel_get_mempolicy(int __user *policy,
+> >>      int uninitialized_var(pval);
+> >>      nodemask_t nodes;
+> >>
+> >> +    addr = untagged_addr(addr);
+> >> +
+> >>      if (nmask != NULL && maxnode < nr_node_ids)
+> >>              return -EINVAL;
+> >>
+> >> diff --git a/mm/migrate.c b/mm/migrate.c
+> >> index f2ecc2855a12..d22c45cf36b2 100644
+> >> --- a/mm/migrate.c
+> >> +++ b/mm/migrate.c
+> >> @@ -1616,7 +1616,7 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
+> >>                      goto out_flush;
+> >>              if (get_user(node, nodes + i))
+> >>                      goto out_flush;
+> >> -            addr = (unsigned long)p;
+> >> +            addr = (unsigned long)untagged_addr(p);
+> >>
+> >>              err = -ENODEV;
+> >>              if (node < 0 || node >= MAX_NUMNODES)
+> >> diff --git a/mm/mincore.c b/mm/mincore.c
+> >> index c3f058bd0faf..64c322ed845c 100644
+> >> --- a/mm/mincore.c
+> >> +++ b/mm/mincore.c
+> >> @@ -249,6 +249,8 @@ SYSCALL_DEFINE3(mincore, unsigned long, start, size_t, len,
+> >>      unsigned long pages;
+> >>      unsigned char *tmp;
+> >>
+> >> +    start = untagged_addr(start);
+> >> +
+> >>      /* Check the start address: needs to be page-aligned.. */
+> >>      if (start & ~PAGE_MASK)
+> >>              return -EINVAL;fixup_user_fault
+> >> diff --git a/mm/mlock.c b/mm/mlock.c
+> >> index 080f3b36415b..e82609eaa428 100644
+> >> --- a/mm/mlock.c
+> >> +++ b/mm/mlock.c
+> >> @@ -674,6 +674,8 @@ static __must_check int do_mlock(unsigned long start, size_t len, vm_flags_t fla
+> >>      unsigned long lock_limit;
+> >>      int error = -ENOMEM;
+> >>
+> >> +    start = untagged_addr(start);
+> >> +
+> >>      if (!can_do_mlock())
+> >>              return -EPERM;
+> >>
+> >> @@ -735,6 +737,8 @@ SYSCALL_DEFINE2(munlock, unsigned long, start, size_t, len)
+> >>  {
+> >>      int ret;
+> >>
+> >> +    start = untagged_addr(start);
+> >> +
+> >>      len = PAGE_ALIGN(len + (offset_in_page(start)));
+> >>      start &= PAGE_MASK;
+> >>
+> >> diff --git a/mm/mprotect.c b/mm/mprotect.c
+> >> index bf38dfbbb4b4..19f981b733bc 100644
+> >> --- a/mm/mprotect.c
+> >> +++ b/mm/mprotect.c
+> >> @@ -465,6 +465,8 @@ static int do_mprotect_pkey(unsigned long start, size_t len,
+> >>      const bool rier = (current->personality & READ_IMPLIES_EXEC) &&
+> >>                              (prot & PROT_READ);
+> >>
+> >> +    start = untagged_addr(start);
+> >> +
+> >>      prot &= ~(PROT_GROWSDOWN|PROT_GROWSUP);
+> >>      if (grows == (PROT_GROWSDOWN|PROT_GROWSUP)) /* can't be both */
+> >>              return -EINVAL;
+> >> diff --git a/mm/mremap.c b/mm/mremap.c
+> >> index fc241d23cd97..64c9a3b8be0a 100644
+> >> --- a/mm/mremap.c
+> >> +++ b/mm/mremap.c
+> >> @@ -606,6 +606,13 @@ SYSCALL_DEFINE5(mremap, unsigned long, addr, unsigned long, old_len,
+> >>      LIST_HEAD(uf_unmap_early);
+> >>      LIST_HEAD(uf_unmap);
+> >>
+> >> +    /*
+> >> +     * Architectures may interpret the tag passed to mmap as a background
+> >> +     * colour for the corresponding vma. For mremap we don't allow tagged
+> >> +     * new_addr to preserve similar behaviour to mmap.
+> >> +     */
+> >> +    addr = untagged_addr(addr);
+> >> +
+> >>      if (flags & ~(MREMAP_FIXED | MREMAP_MAYMOVE))
+> >>              return ret;
+> >>
+> >> diff --git a/mm/msync.c b/mm/msync.c
+> >> index ef30a429623a..c3bd3e75f687 100644
+> >> --- a/mm/msync.c
+> >> +++ b/mm/msync.c
+> >> @@ -37,6 +37,8 @@ SYSCALL_DEFINE3(msync, unsigned long, start, size_t, len, int, flags)
+> >>      int unmapped_error = 0;
+> >>      int error = -EINVAL;
+> >>
+> >> +    start = untagged_addr(start);
+> >> +
+> >>      if (flags & ~(MS_ASYNC | MS_INVALIDATE | MS_SYNC))
+> >>              goto out;
+> >>      if (offset_in_page(start))
+> >>
+> >
+> >
+>
+>
