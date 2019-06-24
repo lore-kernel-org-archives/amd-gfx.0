@@ -1,116 +1,56 @@
-From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v18 08/15] userfaultfd: untag user pointers
-Date: Mon, 24 Jun 2019 18:51:21 +0100
-Message-ID: <20190624175120.GN29120@arrakis.emea.arm.com>
-References: <cover.1561386715.git.andreyknvl@google.com>
- <d8e3b9a819e98d6527e506027b173b128a148d3c.1561386715.git.andreyknvl@google.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: update infoframe after dig fe is turned on
+ (v2)
+Date: Mon, 24 Jun 2019 13:56:31 -0400
+Message-ID: <20190624175631.25375-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <d8e3b9a819e98d6527e506027b173b128a148d3c.1561386715.git.andreyknvl@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>, Roman Li <roman.li-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Jun 24, 2019 at 04:32:53PM +0200, Andrey Konovalov wrote:
-> This patch is a part of a series that extends kernel ABI to allow to pass
-> tagged user pointers (with the top byte set to something else other than
-> 0x00) as syscall arguments.
-> 
-> userfaultfd code use provided user pointers for vma lookups, which can
-> only by done with untagged pointers.
-> 
-> Untag user pointers in validate_range().
-> 
-> Reviewed-by: Vincenzo Frascino <vincenzo.frascino@arm.com>
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> Reviewed-by: Kees Cook <keescook@chromium.org>
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> ---
->  fs/userfaultfd.c | 22 ++++++++++++----------
->  1 file changed, 12 insertions(+), 10 deletions(-)
-
-Same here, it needs an ack from Al Viro.
-
-> diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-> index ae0b8b5f69e6..c2be36a168ca 100644
-> --- a/fs/userfaultfd.c
-> +++ b/fs/userfaultfd.c
-> @@ -1261,21 +1261,23 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
->  }
->  
->  static __always_inline int validate_range(struct mm_struct *mm,
-> -					  __u64 start, __u64 len)
-> +					  __u64 *start, __u64 len)
->  {
->  	__u64 task_size = mm->task_size;
->  
-> -	if (start & ~PAGE_MASK)
-> +	*start = untagged_addr(*start);
-> +
-> +	if (*start & ~PAGE_MASK)
->  		return -EINVAL;
->  	if (len & ~PAGE_MASK)
->  		return -EINVAL;
->  	if (!len)
->  		return -EINVAL;
-> -	if (start < mmap_min_addr)
-> +	if (*start < mmap_min_addr)
->  		return -EINVAL;
-> -	if (start >= task_size)
-> +	if (*start >= task_size)
->  		return -EINVAL;
-> -	if (len > task_size - start)
-> +	if (len > task_size - *start)
->  		return -EINVAL;
->  	return 0;
->  }
-> @@ -1325,7 +1327,7 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
->  		goto out;
->  	}
->  
-> -	ret = validate_range(mm, uffdio_register.range.start,
-> +	ret = validate_range(mm, &uffdio_register.range.start,
->  			     uffdio_register.range.len);
->  	if (ret)
->  		goto out;
-> @@ -1514,7 +1516,7 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
->  	if (copy_from_user(&uffdio_unregister, buf, sizeof(uffdio_unregister)))
->  		goto out;
->  
-> -	ret = validate_range(mm, uffdio_unregister.start,
-> +	ret = validate_range(mm, &uffdio_unregister.start,
->  			     uffdio_unregister.len);
->  	if (ret)
->  		goto out;
-> @@ -1665,7 +1667,7 @@ static int userfaultfd_wake(struct userfaultfd_ctx *ctx,
->  	if (copy_from_user(&uffdio_wake, buf, sizeof(uffdio_wake)))
->  		goto out;
->  
-> -	ret = validate_range(ctx->mm, uffdio_wake.start, uffdio_wake.len);
-> +	ret = validate_range(ctx->mm, &uffdio_wake.start, uffdio_wake.len);
->  	if (ret)
->  		goto out;
->  
-> @@ -1705,7 +1707,7 @@ static int userfaultfd_copy(struct userfaultfd_ctx *ctx,
->  			   sizeof(uffdio_copy)-sizeof(__s64)))
->  		goto out;
->  
-> -	ret = validate_range(ctx->mm, uffdio_copy.dst, uffdio_copy.len);
-> +	ret = validate_range(ctx->mm, &uffdio_copy.dst, uffdio_copy.len);
->  	if (ret)
->  		goto out;
->  	/*
-> @@ -1761,7 +1763,7 @@ static int userfaultfd_zeropage(struct userfaultfd_ctx *ctx,
->  			   sizeof(uffdio_zeropage)-sizeof(__s64)))
->  		goto out;
->  
-> -	ret = validate_range(ctx->mm, uffdio_zeropage.range.start,
-> +	ret = validate_range(ctx->mm, &uffdio_zeropage.range.start,
->  			     uffdio_zeropage.range.len);
->  	if (ret)
->  		goto out;
-> -- 
-> 2.22.0.410.gd8fdbe21b5-goog
+W1doeV0KVGhlIEFWSSBpbmZvZnJhbWUgaXMgaW5jb3JyZWN0bHkgcHJvZ3JhbW1lZCBvbiBEQ04x
+LzIgd2hlbiBlbmFibGluZyBhCnN0cmVhbSAtIGNhdXNpbmcgdGhlIHdyb25nIHBpeGVsIGVuY29k
+aW5nIHRvIGJlIHVzZWQgZm9yIGRpc3BsYXkuCgpUaGlzIGlzIGJlY2F1c2UgdGhlIEFWSSBpbmZv
+ZnJhbWUgaXMgcHJvZ3JhbW1lZCBiZWZvcmUgdGhlIERJRyBCRSBpcwpjb25uZWN0ZWQgdG8gdGhl
+IEZFIGFuZCB0dXJuZWQgb24sIHNvIGVuYWJsaW5nIHRoZSBBRk1UIGJsb2NrIGRvZXNuJ3QKYWN0
+dWFsbHkgd29yayBhbmQgdGhlIHJlZ2lzdGVycyBzdWJzZXF1ZW50bHkgY2FuJ3QgYmUgd3JpdHRl
+biB0by4KCltIb3ddClByb2dyYW0gdGhlIGluZm9mcmFtZSAqYWZ0ZXIqIHR1cm5pbmcgb24gdGhl
+IERJRyBGRS4gVGhpcyB3YXMgdGhlCmJlaGF2aW9yIHByZXZpb3VzbHkgdXNlZCBidXQgaXQgd2Fz
+IGluY29ycmVjdGx5IHJldmVydGVkCndoZW4gYWRkaW5nIHRoZSBEQ04yIEhXIHNlcXVlbmNlciBj
+b2RlLgoKRml4ZXM6IDU0ZmYzNTkxNTk0OCAoImRybS9hbWQvZGlzcGxheTogQWRkIERDTjIgSFcg
+U2VxdWVuY2VyIGFuZCBSZXNvdXJjZSIpCgpDYzogSGFycnkgV2VudGxhbmQgPGhhcnJ5LndlbnRs
+YW5kQGFtZC5jb20+CkNjOiBSb21hbiBMaSA8cm9tYW4ubGlAYW1kLmNvbT4KQ2M6IExlbyBMaSA8
+c3VucGVuZy5saUBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxu
+aWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMgfCAyICsrCiAxIGZpbGUgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZGNlMTEwL2RjZTExMF9od19zZXF1ZW5jZXIuYwppbmRleCA5NDBlNzRiN2Qy
+YzYuLmI0YjhkZWQxNmUyMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RjZTExMC9kY2UxMTBfaHdfc2VxdWVuY2VyLmMKQEAgLTY2Niw2ICs2NjYs
+NyBAQCB2b2lkIGRjZTExMF9lbmFibGVfc3RyZWFtKHN0cnVjdCBwaXBlX2N0eCAqcGlwZV9jdHgp
+CiAKIAkvKiB1cGRhdGUgQVZJIGluZm8gZnJhbWUgKEhETUksIERQKSovCiAJLyogVE9ETzogRlBH
+QSBtYXkgY2hhbmdlIHRvIGh3c3MudXBkYXRlX2luZm9fZnJhbWUgKi8KKwlkY2UxMTBfdXBkYXRl
+X2luZm9fZnJhbWUocGlwZV9jdHgpOwogCiAjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQ19E
+Q04yXzApCiAJaWYgKHBpcGVfY3R4LT5zdHJlYW1fcmVzLnN0cmVhbV9lbmMtPmZ1bmNzLT5zZXRf
+ZHluYW1pY19tZXRhZGF0YSAhPSBOVUxMICYmCkBAIC02ODYsNiArNjg3LDcgQEAgdm9pZCBkY2Ux
+MTBfZW5hYmxlX3N0cmVhbShzdHJ1Y3QgcGlwZV9jdHggKnBpcGVfY3R4KQogCQkJCQkJCWRtZGF0
+YV9kcCA6IGRtZGF0YV9oZG1pKTsKIAl9CiAjZW5kaWYKKwlkY2UxMTBfdXBkYXRlX2luZm9fZnJh
+bWUocGlwZV9jdHgpOwogCiAJLyogZW5hYmxlIGVhcmx5IGNvbnRyb2wgdG8gYXZvaWQgY29ycnVw
+dGlvbiBvbiBEUCBtb25pdG9yKi8KIAlhY3RpdmVfdG90YWxfd2l0aF9ib3JkZXJzID0KLS0gCjIu
+MTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
