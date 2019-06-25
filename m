@@ -1,48 +1,40 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 1/2] drm/amdgpu/powerplay: FEATURE_MASK is 64 bit so use ULL
-Date: Tue, 25 Jun 2019 08:58:29 -0500
-Message-ID: <20190625135830.26173-1-alexander.deucher@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Use msleep instead of udelay for 8ms wait
+Date: Tue, 25 Jun 2019 10:00:46 -0400
+Message-ID: <20190625140046.31682-1-harry.wentland@amd.com>
+References: <CAPM=9txaQ43GwOzXSE3prTRLbMt+ip=s_ssmFzWsfsTYdLssaw@mail.gmail.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CAPM=9txaQ43GwOzXSE3prTRLbMt+ip=s_ssmFzWsfsTYdLssaw@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: airlied@gmail.com, natechancellor@gmail.com
+Cc: sunpeng.li@amd.com, Anthony.Koo@amd.com, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, alexander.deucher@amd.com, Jun.Lei@amd.com, Bhawanpreet.Lakha@amd.com, christian.koenig@amd.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-VUxMIGlzIG5lZWRlZCBmb3IgMzIgYml0IGFyY2hlcy4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS9uYXZpMTBfcHB0LmMgfCAyICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS92ZWdhMjBfcHB0LmMgfCAyICstCiAyIGZpbGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
-KSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2Vy
-cGxheS9uYXZpMTBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBf
-cHB0LmMKaW5kZXggOTliMjBmZWQzNDdhLi4yZDQzZTNkYzc5ZjYgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKQEAgLTM3LDcgKzM3LDcgQEAKIAogI2luY2x1
-ZGUgImFzaWNfcmVnL21wL21wXzExXzBfc2hfbWFzay5oIgogCi0jZGVmaW5lIEZFQVRVUkVfTUFT
-SyhmZWF0dXJlKSAoMVVMIDw8IGZlYXR1cmUpCisjZGVmaW5lIEZFQVRVUkVfTUFTSyhmZWF0dXJl
-KSAoMVVMTCA8PCBmZWF0dXJlKQogI2RlZmluZSBTTUNfRFBNX0ZFQVRVUkUgKCBcCiAJRkVBVFVS
-RV9NQVNLKEZFQVRVUkVfRFBNX1BSRUZFVENIRVJfQklUKSB8IFwKIAlGRUFUVVJFX01BU0soRkVB
-VFVSRV9EUE1fR0ZYQ0xLX0JJVCkJIHwgXApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-dmVnYTIwX3BwdC5jCmluZGV4IDJmYzRlMmE2ZmQ4Mi4uMGYxNGZlMTRlY2Q4IDEwMDY0NAotLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jCkBAIC01NzYsNyArNTc2LDcgQEAg
-c3RhdGljIGludCB2ZWdhMjBfcnVuX2J0Y19hZmxsKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQog
-CXJldHVybiBzbXVfc2VuZF9zbWNfbXNnKHNtdSwgU01VX01TR19SdW5BZmxsQnRjKTsKIH0KIAot
-I2RlZmluZSBGRUFUVVJFX01BU0soZmVhdHVyZSkgKDFVTCA8PCBmZWF0dXJlKQorI2RlZmluZSBG
-RUFUVVJFX01BU0soZmVhdHVyZSkgKDFVTEwgPDwgZmVhdHVyZSkKIHN0YXRpYyBpbnQKIHZlZ2Ey
-MF9nZXRfYWxsb3dlZF9mZWF0dXJlX21hc2soc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCiAJCQkJ
-ICB1aW50MzJfdCAqZmVhdHVyZV9tYXNrLCB1aW50MzJfdCBudW0pCi0tIAoyLjIwLjEKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
-ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+YXJtMzIncyB1ZGVsYXkgb25seSBhbGxvd3MgdmFsdWVzIHVwIHRvIDIwMDAgbWljcm9zZWNvbmRz
+LiBtc2xlZXAKZG9lcyB0aGUgdHJpY2sgZm9yIHVzIGhlcmUgYXMgdGhlcmUgaXMgbm8gcHJvYmxl
+bSBpZiB0aGlzIGlzbid0Cm1pY3Jvc2Vjb25kIGFjY3VyYXRlIGFuZCB0YWtlcyBhIHRhZCBsb25n
+ZXIuCgpTaWduZWQtb2ZmLWJ5OiBIYXJyeSBXZW50bGFuZCA8aGFycnkud2VudGxhbmRAYW1kLmNv
+bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgfCAy
+ICstCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMKaW5kZXggNGMzMTkz
+MGYxY2RmLi5mNWQwMmY4OWIzZjkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
+cGxheS9kYy9jb3JlL2RjX2xpbmsuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvY29yZS9kY19saW5rLmMKQEAgLTU0OCw3ICs1NDgsNyBAQCBzdGF0aWMgdm9pZCByZWFkX2Vk
+cF9jdXJyZW50X2xpbmtfc2V0dGluZ3Nfb25fZGV0ZWN0KHN0cnVjdCBkY19saW5rICpsaW5rKQog
+CQkJYnJlYWs7CiAJCX0KIAotCQl1ZGVsYXkoODAwMCk7CisJCW1zbGVlcCg4KTsKIAl9CiAKIAlB
+U1NFUlQoc3RhdHVzID09IERDX09LKTsKLS0gCjIuMjIuMAoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2
+ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
