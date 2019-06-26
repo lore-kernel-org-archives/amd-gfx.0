@@ -1,45 +1,65 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: remove unnecessary warning message on gpu
- reset
-Date: Wed, 26 Jun 2019 17:50:48 +0000
-Message-ID: <a9fa9777-c502-22f8-9cb7-97a082330eee@amd.com>
-References: <1561571394-16348-1-git-send-email-shaoyun.liu@amd.com>
+From: Khalid Aziz <khalid.aziz@oracle.com>
+Subject: Re: [PATCH v18 10/15] drm/radeon: untag user pointers in
+ radeon_gem_userptr_ioctl
+Date: Wed, 26 Jun 2019 11:50:39 -0600
+Message-ID: <28554e21-04b8-2461-e576-5abe0b53cd59@oracle.com>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <61d800c35a4f391218fbca6f05ec458557d8d097.1561386715.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1561571394-16348-1-git-send-email-shaoyun.liu-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
+In-Reply-To: <61d800c35a4f391218fbca6f05ec458557d8d097.1561386715.git.andreyknvl@google.com>
 Content-Language: en-US
-Content-ID: <79A14804C34F2B4AAAACF3E6B73FD876-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
+To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Mark Rutland <mark.rutland@arm.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, Kostya Serebryany <kcc@google.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>J
+List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29t
-Pg0KDQpBbmRyZXkNCg0KT24gNi8yNi8xOSAxOjUwIFBNLCBMaXUsIFNoYW95dW4gd3JvdGU6DQo+
-IEluIFhHTUkgY29uZmlndXJhdGlvbiwgbW9yZSB0aGFuIG9uZSBhc2ljIGNhbiBiZSByZXNldCBh
-dCBzYW1lIHRpbWUsDQo+IGtmZCBpcyBhYmxlIHRvIGhhbmRsZSB0aGlzIGFuZCBubyBuZWVkIHRv
-IHRyaWdnZXIgdGhlIHdhcm5pbmcNCj4NCj4gQ2hhbmdlLUlkOiBJZjMzOTUwMzg2MGU4NmVlMWRi
-ZWVkMjk0YmExYzEwM2ZjY2U3MGI3Yg0KPiBTaWduZWQtb2ZmLWJ5OiBzaGFveXVubCA8c2hhb3l1
-bi5saXVAYW1kLmNvbT4NCj4gLS0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2Zk
-X2RldmljZS5jIHwgMSAtDQo+ICAgMSBmaWxlIGNoYW5nZWQsIDEgZGVsZXRpb24oLSkNCj4NCj4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYw0KPiBpbmRleCAyNmVhNDZkLi4y
-ZTJmNzI0IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2
-aWNlLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jDQo+
-IEBAIC03MzgsNyArNzM4LDYgQEAgaW50IGtnZDJrZmRfcG9zdF9yZXNldChzdHJ1Y3Qga2ZkX2Rl
-diAqa2ZkKQ0KPiAgIAlpZiAocmV0KQ0KPiAgIAkJcmV0dXJuIHJldDsNCj4gICAJY291bnQgPSBh
-dG9taWNfZGVjX3JldHVybigma2ZkX2xvY2tlZCk7DQo+IC0JV0FSTl9PTkNFKGNvdW50ICE9IDAs
-ICJLRkQgcmVzZXQgcmVmLiBlcnJvciIpOw0KPiAgIA0KPiAgIAlhdG9taWNfc2V0KCZrZmQtPnNy
-YW1fZWNjX2ZsYWcsIDApOw0KPiAgIA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+On 6/24/19 8:32 AM, Andrey Konovalov wrote:
+> This patch is a part of a series that extends kernel ABI to allow to pass
+> tagged user pointers (with the top byte set to something else other than
+> 0x00) as syscall arguments.
+> 
+> In radeon_gem_userptr_ioctl() an MMU notifier is set up with a (tagged)
+> userspace pointer. The untagged address should be used so that MMU
+> notifiers for the untagged address get correctly matched up with the right
+> BO. This funcation also calls radeon_ttm_tt_pin_userptr(), which uses
+> provided user pointers for vma lookups, which can only by done with
+> untagged pointers.
+> 
+> This patch untags user pointers in radeon_gem_userptr_ioctl().
+> 
+> Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> ---
+
+Reviewed-by: Khalid Aziz <khalid.aziz@oracle.com>
+
+
+>  drivers/gpu/drm/radeon/radeon_gem.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
+> index 44617dec8183..90eb78fb5eb2 100644
+> --- a/drivers/gpu/drm/radeon/radeon_gem.c
+> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
+> @@ -291,6 +291,8 @@ int radeon_gem_userptr_ioctl(struct drm_device *dev, void *data,
+>  	uint32_t handle;
+>  	int r;
+>  
+> +	args->addr = untagged_addr(args->addr);
+> +
+>  	if (offset_in_page(args->addr | args->size))
+>  		return -EINVAL;
+>  
+> 
