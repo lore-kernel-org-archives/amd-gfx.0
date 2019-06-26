@@ -1,13 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Set queue_preemption_timeout_ms default value
-Date: Wed, 26 Jun 2019 15:26:11 +0000
-Message-ID: <BN6PR12MB1809A633887862F6746B0E63F7E20@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <1561562565-24858-1-git-send-email-Oak.Zeng@amd.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [RFC PATCH v3 01/11] cgroup: Introduce cgroup for drm subsystem
+Date: Wed, 26 Jun 2019 17:49:29 +0200
+Message-ID: <20190626154929.GP12905@phenom.ffwll.local>
+References: <20190626150522.11618-1-Kenny.Ho@amd.com>
+ <20190626150522.11618-2-Kenny.Ho@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1270146162=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1561562565-24858-1-git-send-email-Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20190626150522.11618-2-Kenny.Ho-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,128 +20,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zeng, Oak" <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Li,
- Candice" <Candice.Li-5C7GfCeVMHo@public.gmane.org>
+To: Kenny Ho <Kenny.Ho-5C7GfCeVMHo@public.gmane.org>
+Cc: jsparks-WVYJKLFxKCc@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, lkaplan-WVYJKLFxKCc@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, joseph.greathouse-5C7GfCeVMHo@public.gmane.org, tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org, cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
---===============1270146162==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809A633887862F6746B0E63F7E20BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809A633887862F6746B0E63F7E20BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: Zeng, Oak
-Sent: Wednesday, June 26, 2019 11:22 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Kuehling, Felix; Deucher, Alexander; Li, Candice; Zeng, Oak
-Subject: [PATCH] drm/amdgpu: Set queue_preemption_timeout_ms default value
-
-Set default value of this kernel parameter to 9000
-
-Change-Id: If91db4d2c2ac08e25d7728d49629cbaec0d6c773
-Signed-off-by: Oak Zeng <Oak.Zeng-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 7cf6ab0..e74a175 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -700,7 +700,7 @@ MODULE_PARM_DESC(hws_gws_support, "MEC FW support gws b=
-arriers (false =3D not supp
-   * DOC: queue_preemption_timeout_ms (int)
-   * queue preemption timeout in ms (1 =3D Minimum, 9000 =3D default)
-   */
--int queue_preemption_timeout_ms;
-+int queue_preemption_timeout_ms =3D 9000;
- module_param(queue_preemption_timeout_ms, int, 0644);
- MODULE_PARM_DESC(queue_preemption_timeout_ms, "queue preemption timeout in=
- ms (1 =3D Minimum, 9000 =3D default)");
- #endif
---
-2.7.4
-
-
---_000_BN6PR12MB1809A633887862F6746B0E63F7E20BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zeng, Oak<br>
-<b>Sent:</b> Wednesday, June 26, 2019 11:22 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Kuehling, Felix; Deucher, Alexander; Li, Candice; Zeng, Oak<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Set queue_preemption_timeout_ms default=
- value</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Set default value of this kernel parameter to 9000=
-<br>
-<br>
-Change-Id: If91db4d2c2ac08e25d7728d49629cbaec0d6c773<br>
-Signed-off-by: Oak Zeng &lt;Oak.Zeng-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index 7cf6ab0..e74a175 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -700,7 &#43;700,7 @@ MODULE_PARM_DESC(hws_gws_support, &quot;MEC FW supp=
-ort gws barriers (false =3D not supp<br>
-&nbsp;&nbsp; * DOC: queue_preemption_timeout_ms (int)<br>
-&nbsp;&nbsp; * queue preemption timeout in ms (1 =3D Minimum, 9000 =3D defa=
-ult)<br>
-&nbsp;&nbsp; */<br>
--int queue_preemption_timeout_ms;<br>
-&#43;int queue_preemption_timeout_ms =3D 9000;<br>
-&nbsp;module_param(queue_preemption_timeout_ms, int, 0644);<br>
-&nbsp;MODULE_PARM_DESC(queue_preemption_timeout_ms, &quot;queue preemption =
-timeout in ms (1 =3D Minimum, 9000 =3D default)&quot;);<br>
-&nbsp;#endif<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809A633887862F6746B0E63F7E20BN6PR12MB1809namp_--
-
---===============1270146162==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1270146162==--
+T24gV2VkLCBKdW4gMjYsIDIwMTkgYXQgMTE6MDU6MTJBTSAtMDQwMCwgS2VubnkgSG8gd3JvdGU6
+Ck5lZWRzIGEgYml0IG1vcmUgY29tbWl0IG1lc3NhZ2UgaGVyZSBJIGh0aW5rLgoKPiBDaGFuZ2Ut
+SWQ6IEk2ODMwZDM5OTBmNjNmMGMxM2FiZWJhMjliMWQzMzBjZjI4ODgyODMxCj4gU2lnbmVkLW9m
+Zi1ieTogS2VubnkgSG8gPEtlbm55LkhvQGFtZC5jb20+CgpCdW5jaCBvZiBuYW1pbmcgYmlrZXNo
+ZWRzCj4gLS0tCj4gIGluY2x1ZGUvbGludXgvY2dyb3VwX2RybS5oICAgIHwgNzYgKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgaW5jbHVkZS9saW51eC9jZ3JvdXBfc3Vic3lz
+LmggfCAgNCArKwo+ICBpbml0L0tjb25maWcgICAgICAgICAgICAgICAgICB8ICA1ICsrKwo+ICBr
+ZXJuZWwvY2dyb3VwL01ha2VmaWxlICAgICAgICB8ICAxICsKPiAga2VybmVsL2Nncm91cC9kcm0u
+YyAgICAgICAgICAgfCA0MiArKysrKysrKysrKysrKysrKysrCj4gIDUgZmlsZXMgY2hhbmdlZCwg
+MTI4IGluc2VydGlvbnMoKykKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvbGludXgvY2dy
+b3VwX2RybS5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBrZXJuZWwvY2dyb3VwL2RybS5jCgo+IAo+
+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2Nncm91cF9kcm0uaCBiL2luY2x1ZGUvbGludXgv
+Y2dyb3VwX2RybS5oCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCAwMDAwMDAwMDAwMDAu
+Ljk5MjhlNjAwMzdhNQo+IC0tLSAvZGV2L251bGwKPiArKysgYi9pbmNsdWRlL2xpbnV4L2Nncm91
+cF9kcm0uaAo+IEBAIC0wLDAgKzEsNzYgQEAKPiArLyogU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
+IE1JVAo+ICsgKiBDb3B5cmlnaHQgMjAxOSBBZHZhbmNlZCBNaWNybyBEZXZpY2VzLCBJbmMuCj4g
+KyAqLwo+ICsjaWZuZGVmIF9DR1JPVVBfRFJNX0gKPiArI2RlZmluZSBfQ0dST1VQX0RSTV9ICj4g
+Kwo+ICsjaWZkZWYgQ09ORklHX0NHUk9VUF9EUk0KPiArCj4gKyNpbmNsdWRlIDxsaW51eC9jZ3Jv
+dXAuaD4KPiArCj4gK3N0cnVjdCBkcm1jZ3JwIHsKCmRybV9jZ3JvdXAgZm9yIG1vcmUgY29uc2lz
+dGVuY3kgaG93IHdlIHVzdWFsbHkgY2FsbCB0aGVzZSB0aGluZ3MuCgo+ICsJc3RydWN0IGNncm91
+cF9zdWJzeXNfc3RhdGUJY3NzOwo+ICt9Owo+ICsKPiArc3RhdGljIGlubGluZSBzdHJ1Y3QgZHJt
+Y2dycCAqY3NzX2RybWNncnAoc3RydWN0IGNncm91cF9zdWJzeXNfc3RhdGUgKmNzcykKCmNjc190
+b19kcm1fY2dyb3VwCgo+ICt7Cj4gKwlyZXR1cm4gY3NzID8gY29udGFpbmVyX29mKGNzcywgc3Ry
+dWN0IGRybWNncnAsIGNzcykgOiBOVUxMOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW5saW5lIHN0cnVj
+dCBkcm1jZ3JwICpkcm1jZ3JwX2Zyb20oc3RydWN0IHRhc2tfc3RydWN0ICp0YXNrKQoKdGFza19n
+ZXRfZHJtX2Nncm91cCBmb3IgY29uc2lzdGVuY3kgd2l0aCB0YXNrX2dldF9jc3M/Cgo+ICt7Cj4g
+KwlyZXR1cm4gY3NzX2RybWNncnAodGFza19nZXRfY3NzKHRhc2ssIGRybV9jZ3JwX2lkKSk7Cj4g
+K30KPiArCj4gK3N0YXRpYyBpbmxpbmUgc3RydWN0IGRybWNncnAgKmdldF9kcm1jZ3JwKHN0cnVj
+dCB0YXNrX3N0cnVjdCAqdGFzaykKPiArewo+ICsJc3RydWN0IGNncm91cF9zdWJzeXNfc3RhdGUg
+KmNzcyA9IHRhc2tfZ2V0X2Nzcyh0YXNrLCBkcm1fY2dycF9pZCk7Cj4gKwo+ICsJaWYgKGNzcykK
+PiArCQljc3NfZ2V0KGNzcyk7Cj4gKwo+ICsJcmV0dXJuIGNzc19kcm1jZ3JwKGNzcyk7Cj4gK30K
+PiArCj4gK3N0YXRpYyBpbmxpbmUgdm9pZCBwdXRfZHJtY2dycChzdHJ1Y3QgZHJtY2dycCAqZHJt
+Y2dycCkKCkluIGRybSB3ZSBnZW5lcmFsbHkgcHV0IF9nZXQvX3B1dCBhdCB0aGUgZW5kLCBjZ3Jv
+dXAgc2VlbXMgdG8gZG8gdGhlIHNhbWUuCgo+ICt7Cj4gKwlpZiAoZHJtY2dycCkKPiArCQljc3Nf
+cHV0KCZkcm1jZ3JwLT5jc3MpOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW5saW5lIHN0cnVjdCBkcm1j
+Z3JwICpwYXJlbnRfZHJtY2dycChzdHJ1Y3QgZHJtY2dycCAqY2cpCgpJJ2QgYWxzbyBjYWxsIHRo
+aXMgZHJtX2Nncm91cF9wYXJlbnQgb3Igc28uCgpBbHNvIGFsbCB0aGUgYWJvdmUgbmVlZHMgYSBi
+aXQgb2YgbmljZSBrZXJuZWxkb2MgZm9yIHRoZSBmaW5hbCB2ZXJzaW9uLgotRGFuaWVsCgo+ICt7
+Cj4gKwlyZXR1cm4gY3NzX2RybWNncnAoY2ctPmNzcy5wYXJlbnQpOwo+ICt9Cj4gKwo+ICsjZWxz
+ZSAvKiBDT05GSUdfQ0dST1VQX0RSTSAqLwo+ICsKPiArc3RydWN0IGRybWNncnAgewo+ICt9Owo+
+ICsKPiArc3RhdGljIGlubGluZSBzdHJ1Y3QgZHJtY2dycCAqY3NzX2RybWNncnAoc3RydWN0IGNn
+cm91cF9zdWJzeXNfc3RhdGUgKmNzcykKPiArewo+ICsJcmV0dXJuIE5VTEw7Cj4gK30KPiArCj4g
+K3N0YXRpYyBpbmxpbmUgc3RydWN0IGRybWNncnAgKmRybWNncnBfZnJvbShzdHJ1Y3QgdGFza19z
+dHJ1Y3QgKnRhc2spCj4gK3sKPiArCXJldHVybiBOVUxMOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW5s
+aW5lIHN0cnVjdCBkcm1jZ3JwICpnZXRfZHJtY2dycChzdHJ1Y3QgdGFza19zdHJ1Y3QgKnRhc2sp
+Cj4gK3sKPiArCXJldHVybiBOVUxMOwo+ICt9Cj4gKwo+ICtzdGF0aWMgaW5saW5lIHZvaWQgcHV0
+X2RybWNncnAoc3RydWN0IGRybWNncnAgKmRybWNncnApCj4gK3sKPiArfQo+ICsKPiArc3RhdGlj
+IGlubGluZSBzdHJ1Y3QgZHJtY2dycCAqcGFyZW50X2RybWNncnAoc3RydWN0IGRybWNncnAgKmNn
+KQo+ICt7Cj4gKwlyZXR1cm4gTlVMTDsKPiArfQo+ICsKPiArI2VuZGlmCS8qIENPTkZJR19DR1JP
+VVBfRFJNICovCj4gKyNlbmRpZgkvKiBfQ0dST1VQX0RSTV9IICovCj4gZGlmZiAtLWdpdCBhL2lu
+Y2x1ZGUvbGludXgvY2dyb3VwX3N1YnN5cy5oIGIvaW5jbHVkZS9saW51eC9jZ3JvdXBfc3Vic3lz
+LmgKPiBpbmRleCBhY2I3N2RjZmYzYjQuLmRkZWRhZDgwOWU4YiAxMDA2NDQKPiAtLS0gYS9pbmNs
+dWRlL2xpbnV4L2Nncm91cF9zdWJzeXMuaAo+ICsrKyBiL2luY2x1ZGUvbGludXgvY2dyb3VwX3N1
+YnN5cy5oCj4gQEAgLTYxLDYgKzYxLDEwIEBAIFNVQlNZUyhwaWRzKQo+ICBTVUJTWVMocmRtYSkK
+PiAgI2VuZGlmCj4gIAo+ICsjaWYgSVNfRU5BQkxFRChDT05GSUdfQ0dST1VQX0RSTSkKPiArU1VC
+U1lTKGRybSkKPiArI2VuZGlmCj4gKwo+ICAvKgo+ICAgKiBUaGUgZm9sbG93aW5nIHN1YnN5c3Rl
+bXMgYXJlIG5vdCBzdXBwb3J0ZWQgb24gdGhlIGRlZmF1bHQgaGllcmFyY2h5Lgo+ICAgKi8KPiBk
+aWZmIC0tZ2l0IGEvaW5pdC9LY29uZmlnIGIvaW5pdC9LY29uZmlnCj4gaW5kZXggZDQ3Y2I3N2Ey
+MjBlLi4wYjBmMTEyZWIyM2IgMTAwNjQ0Cj4gLS0tIGEvaW5pdC9LY29uZmlnCj4gKysrIGIvaW5p
+dC9LY29uZmlnCj4gQEAgLTgzOSw2ICs4MzksMTEgQEAgY29uZmlnIENHUk9VUF9SRE1BCj4gIAkg
+IEF0dGFjaGluZyBwcm9jZXNzZXMgd2l0aCBhY3RpdmUgUkRNQSByZXNvdXJjZXMgdG8gdGhlIGNn
+cm91cAo+ICAJICBoaWVyYXJjaHkgaXMgYWxsb3dlZCBldmVuIGlmIGNhbiBjcm9zcyB0aGUgaGll
+cmFyY2h5J3MgbGltaXQuCj4gIAo+ICtjb25maWcgQ0dST1VQX0RSTQo+ICsJYm9vbCAiRFJNIGNv
+bnRyb2xsZXIgKEVYUEVSSU1FTlRBTCkiCj4gKwloZWxwCj4gKwkgIFByb3ZpZGVzIGFjY291bnRp
+bmcgYW5kIGVuZm9yY2VtZW50IG9mIHJlc291cmNlcyBpbiB0aGUgRFJNIHN1YnN5c3RlbS4KPiAr
+Cj4gIGNvbmZpZyBDR1JPVVBfRlJFRVpFUgo+ICAJYm9vbCAiRnJlZXplciBjb250cm9sbGVyIgo+
+ICAJaGVscAo+IGRpZmYgLS1naXQgYS9rZXJuZWwvY2dyb3VwL01ha2VmaWxlIGIva2VybmVsL2Nn
+cm91cC9NYWtlZmlsZQo+IGluZGV4IGJmY2RhZTg5NjEyMi4uNmFmMTRiZDkzMDUwIDEwMDY0NAo+
+IC0tLSBhL2tlcm5lbC9jZ3JvdXAvTWFrZWZpbGUKPiArKysgYi9rZXJuZWwvY2dyb3VwL01ha2Vm
+aWxlCj4gQEAgLTQsNSArNCw2IEBAIG9iai15IDo9IGNncm91cC5vIHJzdGF0Lm8gbmFtZXNwYWNl
+Lm8gY2dyb3VwLXYxLm8KPiAgb2JqLSQoQ09ORklHX0NHUk9VUF9GUkVFWkVSKSArPSBmcmVlemVy
+Lm8KPiAgb2JqLSQoQ09ORklHX0NHUk9VUF9QSURTKSArPSBwaWRzLm8KPiAgb2JqLSQoQ09ORklH
+X0NHUk9VUF9SRE1BKSArPSByZG1hLm8KPiArb2JqLSQoQ09ORklHX0NHUk9VUF9EUk0pICs9IGRy
+bS5vCj4gIG9iai0kKENPTkZJR19DUFVTRVRTKSArPSBjcHVzZXQubwo+ICBvYmotJChDT05GSUdf
+Q0dST1VQX0RFQlVHKSArPSBkZWJ1Zy5vCj4gZGlmZiAtLWdpdCBhL2tlcm5lbC9jZ3JvdXAvZHJt
+LmMgYi9rZXJuZWwvY2dyb3VwL2RybS5jCj4gbmV3IGZpbGUgbW9kZSAxMDA2NDQKPiBpbmRleCAw
+MDAwMDAwMDAwMDAuLjY2Y2IxZGRhMDIzZAo+IC0tLSAvZGV2L251bGwKPiArKysgYi9rZXJuZWwv
+Y2dyb3VwL2RybS5jCj4gQEAgLTAsMCArMSw0MiBAQAo+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRp
+ZmllcjogTUlUCj4gKy8vIENvcHlyaWdodCAyMDE5IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIElu
+Yy4KPiArI2luY2x1ZGUgPGxpbnV4L3NsYWIuaD4KPiArI2luY2x1ZGUgPGxpbnV4L2Nncm91cC5o
+Pgo+ICsjaW5jbHVkZSA8bGludXgvY2dyb3VwX2RybS5oPgo+ICsKPiArc3RhdGljIHN0cnVjdCBk
+cm1jZ3JwICpyb290X2RybWNncnAgX19yZWFkX21vc3RseTsKPiArCj4gK3N0YXRpYyB2b2lkIGRy
+bWNncnBfY3NzX2ZyZWUoc3RydWN0IGNncm91cF9zdWJzeXNfc3RhdGUgKmNzcykKPiArewo+ICsJ
+c3RydWN0IGRybWNncnAgKmRybWNncnAgPSBjc3NfZHJtY2dycChjc3MpOwo+ICsKPiArCWtmcmVl
+KGRybWNncnApOwo+ICt9Cj4gKwo+ICtzdGF0aWMgc3RydWN0IGNncm91cF9zdWJzeXNfc3RhdGUg
+Kgo+ICtkcm1jZ3JwX2Nzc19hbGxvYyhzdHJ1Y3QgY2dyb3VwX3N1YnN5c19zdGF0ZSAqcGFyZW50
+X2NzcykKPiArewo+ICsJc3RydWN0IGRybWNncnAgKnBhcmVudCA9IGNzc19kcm1jZ3JwKHBhcmVu
+dF9jc3MpOwo+ICsJc3RydWN0IGRybWNncnAgKmRybWNncnA7Cj4gKwo+ICsJZHJtY2dycCA9IGt6
+YWxsb2Moc2l6ZW9mKHN0cnVjdCBkcm1jZ3JwKSwgR0ZQX0tFUk5FTCk7Cj4gKwlpZiAoIWRybWNn
+cnApCj4gKwkJcmV0dXJuIEVSUl9QVFIoLUVOT01FTSk7Cj4gKwo+ICsJaWYgKCFwYXJlbnQpCj4g
+KwkJcm9vdF9kcm1jZ3JwID0gZHJtY2dycDsKPiArCj4gKwlyZXR1cm4gJmRybWNncnAtPmNzczsK
+PiArfQo+ICsKPiArc3RydWN0IGNmdHlwZSBmaWxlc1tdID0gewo+ICsJeyB9CS8qIHRlcm1pbmF0
+ZSAqLwo+ICt9Owo+ICsKPiArc3RydWN0IGNncm91cF9zdWJzeXMgZHJtX2NncnBfc3Vic3lzID0g
+ewo+ICsJLmNzc19hbGxvYwk9IGRybWNncnBfY3NzX2FsbG9jLAo+ICsJLmNzc19mcmVlCT0gZHJt
+Y2dycF9jc3NfZnJlZSwKPiArCS5lYXJseV9pbml0CT0gZmFsc2UsCj4gKwkubGVnYWN5X2NmdHlw
+ZXMJPSBmaWxlcywKPiArCS5kZmxfY2Z0eXBlcwk9IGZpbGVzLAo+ICt9Owo+IC0tIAo+IDIuMjEu
+MAo+IAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
+ZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZl
+bAoKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9u
+Cmh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeA==
