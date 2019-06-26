@@ -1,15 +1,12 @@
-From: Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
-Subject: Re: [PATCH 4/7] drm/radeon: Fill out gem_object->resv
-Date: Tue, 25 Jun 2019 22:52:17 +0200
-Message-ID: <20190625205217.GC19279@ravnborg.org>
-References: <20190625204208.5614-1-daniel.vetter@ffwll.ch>
- <20190625204208.5614-5-daniel.vetter@ffwll.ch>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: warn on smu interface version mismatch
+Date: Wed, 26 Jun 2019 06:24:19 +0000
+Message-ID: <20190626062402.18551-1-xiaojie.yuan@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20190625204208.5614-5-daniel.vetter-/w4YWyX8dFk@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,23 +17,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, DRI Development <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, Emil Velikov <emil.velikov-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Yuan,
+ Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 
-T24gVHVlLCBKdW4gMjUsIDIwMTkgYXQgMTA6NDI6MDVQTSArMDIwMCwgRGFuaWVsIFZldHRlciB3
-cm90ZToKPiBUaGF0IHdheSB3ZSBjYW4gZGl0Y2ggb3VyIGdlbV9wcmltZV9yZXNfb2JqIGltcGxl
-bWVudGF0aW9uLiBTaW5jZSB0dG0KPiBhYnNvbHV0ZWx5IG5lZWRzIHRoZSByaWdodCByZXNlcnZh
-dGlvbiBvYmplY3QgYWxsIHRoZSBib2lsZXJwbGF0ZSBpcwo+IGFscmVhZHkgdGhlcmUgYW5kIHdl
-IGp1c3QgaGF2ZSB0byB3aXJlIGl0IHVwIGNvcnJlY3RseS4KPiAKPiBOb3RlIHRoYXQgZ2VtL3By
-aW1lIGRvZXNuJ3QgY2FyZSB3aGVuIHdlIGRvIHRoaXMsIGFzIGxvbmcgYXMgd2UgZG8gaXQKPiBi
-ZWZvcmUgdGhlIGJvIGlzIHJlZ2lzdGVyZWQgYW5kIHNvbWVvbmUgY2FuIGNhbGwgdGhlIGhhbmRs
-ZTJmZCBpb2N0bAo+IG9uIGl0Lgo+IAo+IEFzaWRlOiB0dG1fYnVmZmVyX29iamVjdC50dG1fcmVz
-diBjb3VsZCBwcm9iYWJseSBiZSBkaXRjaGVkIGluIGZhdm91cgo+IG9mIGFsd2F5cyBwYXNzaW5n
-IGEgbm9uLU5VTEwgcmVzdiB0byB0dG1fYm9faW5pdCgpLiBBdCBsZWFzdCBmb3IgZ2VtCj4gZHJp
-dmVycyB0aGF0IHdvdWxkIGF2b2lkIGhhdmluZyB0d28gb2YgdGhlc2UsIG9uIGluIHR0bV9idWZm
-ZXJfb2JqZWN0Cj4gYW5kIHRoZSBvdGhlciBpbiBkcm1fZ2VtX29iamVjdCwgb25lIGp1c3QgdGhl
-cmUgZm9yIGNvbmZ1c2lvbi4KU29tZXRoaW5nIGZvciB0b2RvLnJzdCAtIHNvIHRoaXMgZG9lcyBu
-b3QgZ2V0IGxvc3QgaW4gYSBjaGFuZ2Vsb2cKcGVvcGxlIHdpbGwgc29vbiBmb3JnZXQ/CgoJU2Ft
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+U2lnbmVkLW9mZi1ieTogWGlhb2ppZSBZdWFuIDx4aWFvamllLnl1YW5AYW1kLmNvbT4NCi0tLQ0K
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jIHwgMyArLS0NCiAxIGZp
+bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDIgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jDQppbmRleCBjM2Y0OGZhZTZmMzIuLjMzOWQw
+NjNlMjRmZiAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92
+MTFfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYw0K
+QEAgLTI3Miw4ICsyNzIsNyBAQCBzdGF0aWMgaW50IHNtdV92MTFfMF9jaGVja19md192ZXJzaW9u
+KHN0cnVjdCBzbXVfY29udGV4dCAqc211KQ0KIAkJCSJzbXUgZncgdmVyc2lvbiA9IDB4JTA4eCAo
+JWQuJWQuJWQpXG4iLA0KIAkJCXNtdS0+c21jX2lmX3ZlcnNpb24sIGlmX3ZlcnNpb24sDQogCQkJ
+c211X3ZlcnNpb24sIHNtdV9tYWpvciwgc211X21pbm9yLCBzbXVfZGVidWcpOw0KLQkJcHJfZXJy
+KCJTTVUgZHJpdmVyIGlmIHZlcnNpb24gbm90IG1hdGNoZWRcbiIpOw0KLQkJcmV0ID0gLUVJTlZB
+TDsNCisJCXByX3dhcm4oIlNNVSBkcml2ZXIgaWYgdmVyc2lvbiBub3QgbWF0Y2hlZFxuIik7DQog
+CX0NCiANCiAJcmV0dXJuIHJldDsNCi0tIA0KMi4yMC4xDQoNCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeA==
