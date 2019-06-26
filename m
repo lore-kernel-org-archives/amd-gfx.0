@@ -1,79 +1,24 @@
-From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][next[ drm/amd/display: fix a couple of spelling mistakes
-Date: Wed, 26 Jun 2019 14:24:27 +0100
-Message-ID: <20190626132427.12615-1-colin.king@canonical.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Subject: Re: [PATCH][next[ drm/amd/display: fix a couple of spelling mistakes
+Date: Wed, 26 Jun 2019 14:25:34 +0100
+Message-ID: <CAPj87rM9y5Zen5A5KkiCqqUF5m+vAwwtLj-iJrcwFfzMev+Mrw@mail.gmail.com>
+References: <20190626132427.12615-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="UTF-8"
 Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190626132427.12615-1-colin.king@canonical.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Nikola Cornij <nikola.cornij@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+To: Colin King <colin.king@canonical.com>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Nikola Cornij <nikola.cornij@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Colin Ian King <colin.king@canonical.com>
+Hi Colin,
 
-There are a couple of spelling mistakes in dm_error messages and
-a comment. Fix these.
+On Wed, 26 Jun 2019 at 14:24, Colin King <colin.king@canonical.com> wrote:
+> There are a couple of spelling mistakes in dm_error messages and
+> a comment. Fix these.
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c | 2 +-
- drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c      | 8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+Whilst there, you might fix the '[next[' typo in the commit message.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
-index be49fc7f4abe..ffd0014ec3b5 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c
-@@ -126,7 +126,7 @@ static void dsc2_get_enc_caps(struct dsc_enc_caps *dsc_enc_caps, int pixel_clock
- 
- 	/* Maximum total throughput with all the slices combined. This is different from how DP spec specifies it.
- 	 * Our decoder's total throughput in Pix/s is equal to DISPCLK. This is then shared between slices.
--	 * The value below is the absolute maximum value. The actual througput may be lower, but it'll always
-+	 * The value below is the absolute maximum value. The actual throughput may be lower, but it'll always
- 	 * be sufficient to process the input pixel rate fed into a single DSC engine.
- 	 */
- 	dsc_enc_caps->max_total_throughput_mps = DCN20_MAX_DISPLAY_CLOCK_Mhz;
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-index 77e7a0f8a527..ef5f84a144c3 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
-@@ -47,7 +47,7 @@ static bool dsc_buff_block_size_from_dpcd(int dpcd_buff_block_size, int *buff_bl
- 		*buff_block_size = 64 * 1024;
- 		break;
- 	default: {
--			dm_error("%s: DPCD DSC buffer size not recoginzed.\n", __func__);
-+			dm_error("%s: DPCD DSC buffer size not recognized.\n", __func__);
- 			return false;
- 		}
- 	}
-@@ -63,7 +63,7 @@ static bool dsc_line_buff_depth_from_dpcd(int dpcd_line_buff_bit_depth, int *lin
- 	else if (dpcd_line_buff_bit_depth == 8)
- 		*line_buff_bit_depth = 8;
- 	else {
--		dm_error("%s: DPCD DSC buffer depth not recoginzed.\n", __func__);
-+		dm_error("%s: DPCD DSC buffer depth not recognized.\n", __func__);
- 		return false;
- 	}
- 
-@@ -123,7 +123,7 @@ static bool dsc_throughput_from_dpcd(int dpcd_throughput, int *throughput)
- 		*throughput = 1000;
- 		break;
- 	default: {
--			dm_error("%s: DPCD DSC througput mode not recoginzed.\n", __func__);
-+			dm_error("%s: DPCD DSC throughput mode not recognized.\n", __func__);
- 			return false;
- 		}
- 	}
-@@ -152,7 +152,7 @@ static bool dsc_bpp_increment_div_from_dpcd(int bpp_increment_dpcd, uint32_t *bp
- 		*bpp_increment_div = 1;
- 		break;
- 	default: {
--		dm_error("%s: DPCD DSC bits-per-pixel increment not recoginzed.\n", __func__);
-+		dm_error("%s: DPCD DSC bits-per-pixel increment not recognized.\n", __func__);
- 		return false;
- 	}
- 	}
--- 
-2.20.1
+Cheers,
+Daniel
