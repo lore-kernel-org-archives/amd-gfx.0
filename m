@@ -1,65 +1,48 @@
-From: Khalid Aziz <khalid.aziz@oracle.com>
-Subject: Re: [PATCH v18 10/15] drm/radeon: untag user pointers in
- radeon_gem_userptr_ioctl
-Date: Wed, 26 Jun 2019 11:50:39 -0600
-Message-ID: <28554e21-04b8-2461-e576-5abe0b53cd59@oracle.com>
-References: <cover.1561386715.git.andreyknvl@google.com>
- <61d800c35a4f391218fbca6f05ec458557d8d097.1561386715.git.andreyknvl@google.com>
+From: Kenny Ho <y2kenny@gmail.com>
+Subject: Re: [RFC PATCH v3 01/11] cgroup: Introduce cgroup for drm subsystem
+Date: Wed, 26 Jun 2019 15:35:06 -0400
+Message-ID: <CAOWid-dyGwf=e0ikBEQ=bnVM_bC8-FeTOD8fJVMJKUgPv6vtyw@mail.gmail.com>
+References: <20190626150522.11618-1-Kenny.Ho@amd.com>
+ <20190626150522.11618-2-Kenny.Ho@amd.com>
+ <20190626154929.GP12905@phenom.ffwll.local>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
-In-Reply-To: <61d800c35a4f391218fbca6f05ec458557d8d097.1561386715.git.andreyknvl@google.com>
-Content-Language: en-US
-List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
-List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
-List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
-List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
-List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
- <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
-Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
-Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
-To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Cc: Mark Rutland <mark.rutland@arm.com>, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, Kostya Serebryany <kcc@google.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Alex Williamson <alex.williamson@redhat.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Yishai Hadas <yishaih@mellanox.com>J
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190626154929.GP12905@phenom.ffwll.local>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Daniel Vetter <daniel@ffwll.ch>
+Cc: Kenny Ho <Kenny.Ho@amd.com>, jsparks@cray.com, amd-gfx@lists.freedesktop.org, lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org, joseph.greathouse@amd.com, Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 6/24/19 8:32 AM, Andrey Konovalov wrote:
-> This patch is a part of a series that extends kernel ABI to allow to pass
-> tagged user pointers (with the top byte set to something else other than
-> 0x00) as syscall arguments.
-> 
-> In radeon_gem_userptr_ioctl() an MMU notifier is set up with a (tagged)
-> userspace pointer. The untagged address should be used so that MMU
-> notifiers for the untagged address get correctly matched up with the right
-> BO. This funcation also calls radeon_ttm_tt_pin_userptr(), which uses
-> provided user pointers for vma lookups, which can only by done with
-> untagged pointers.
-> 
-> This patch untags user pointers in radeon_gem_userptr_ioctl().
-> 
-> Suggested-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> ---
-
-Reviewed-by: Khalid Aziz <khalid.aziz@oracle.com>
-
-
->  drivers/gpu/drm/radeon/radeon_gem.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/radeon/radeon_gem.c b/drivers/gpu/drm/radeon/radeon_gem.c
-> index 44617dec8183..90eb78fb5eb2 100644
-> --- a/drivers/gpu/drm/radeon/radeon_gem.c
-> +++ b/drivers/gpu/drm/radeon/radeon_gem.c
-> @@ -291,6 +291,8 @@ int radeon_gem_userptr_ioctl(struct drm_device *dev, void *data,
->  	uint32_t handle;
->  	int r;
->  
-> +	args->addr = untagged_addr(args->addr);
-> +
->  	if (offset_in_page(args->addr | args->size))
->  		return -EINVAL;
->  
-> 
+T24gV2VkLCBKdW4gMjYsIDIwMTkgYXQgMTE6NDkgQU0gRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZm
+d2xsLmNoPiB3cm90ZToKPgo+IEJ1bmNoIG9mIG5hbWluZyBiaWtlc2hlZHMKCkkgYXBwcmVjaWF0
+ZSB0aGUgc3VnZ2VzdGlvbnMsIG5hbWluZyBpcyBoYXJkIDopLgoKPiA+ICsjaW5jbHVkZSA8bGlu
+dXgvY2dyb3VwLmg+Cj4gPiArCj4gPiArc3RydWN0IGRybWNncnAgewo+Cj4gZHJtX2Nncm91cCBm
+b3IgbW9yZSBjb25zaXN0ZW5jeSBob3cgd2UgdXN1YWxseSBjYWxsIHRoZXNlIHRoaW5ncy4KCkkg
+d2FzIGhvcGluZyB0byBrZWVwIHRoZSBzeW1ib2wgc2hvcnQgaWYgcG9zc2libGUuICBJIHN0YXJ0
+ZWQgd2l0aApkcm1jZyAoZm9sbG93aW5nIGJsa2NnKSwgIGJ1dCBJIGJlbGlldmUgdGhhdCBjYXVz
+ZXMgY29uZnVzaW9uIHdpdGgKb3RoZXIgYXNwZWN0IG9mIHRoZSBkcm0gc3Vic3lzdGVtLiAgSSBk
+b24ndCBoYXZlIHRvbyBzdHJvbmcgb2YgYW4Kb3BpbmlvbiBvbiB0aGlzIGJ1dCBJJ2QgcHJlZmVy
+IG5vdCBuZWVkaW5nIHRvIGtlZXAgcmVmYWN0b3JpbmcuICBTbyBpZgp0aGVyZSBhcmUgb3RoZXIg
+b3BpbmlvbnMgb24gdGhpcywgcGxlYXNlIHNwZWFrIHVwLgoKPiA+ICsKPiA+ICtzdGF0aWMgaW5s
+aW5lIHZvaWQgcHV0X2RybWNncnAoc3RydWN0IGRybWNncnAgKmRybWNncnApCj4KPiBJbiBkcm0g
+d2UgZ2VuZXJhbGx5IHB1dCBfZ2V0L19wdXQgYXQgdGhlIGVuZCwgY2dyb3VwIHNlZW1zIHRvIGRv
+IHRoZSBzYW1lLgoKb2ssIEkgd2lsbCByZWZhY3Rvci4KCj4gPiArewo+ID4gKyAgICAgaWYgKGRy
+bWNncnApCj4gPiArICAgICAgICAgICAgIGNzc19wdXQoJmRybWNncnAtPmNzcyk7Cj4gPiArfQo+
+ID4gKwo+ID4gK3N0YXRpYyBpbmxpbmUgc3RydWN0IGRybWNncnAgKnBhcmVudF9kcm1jZ3JwKHN0
+cnVjdCBkcm1jZ3JwICpjZykKPgo+IEknZCBhbHNvIGNhbGwgdGhpcyBkcm1fY2dyb3VwX3BhcmVu
+dCBvciBzby4KPgo+IEFsc28gYWxsIHRoZSBhYm92ZSBuZWVkcyBhIGJpdCBvZiBuaWNlIGtlcm5l
+bGRvYyBmb3IgdGhlIGZpbmFsIHZlcnNpb24uCj4gLURhbmllbAoKTm90ZWQsIHdpbGwgZG8sIHRo
+YW5rcy4KClJlZ2FyZHMsCktlbm55Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2RyaS1kZXZlbA==
