@@ -1,117 +1,53 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [PATCH 4/7] drm/radeon: Fill out gem_object->resv
-Date: Thu, 27 Jun 2019 09:33:50 +0200
-Message-ID: <20190627073350.GG12905@phenom.ffwll.local>
-References: <20190625204208.5614-1-daniel.vetter@ffwll.ch>
- <20190625204208.5614-5-daniel.vetter@ffwll.ch>
- <4cfa949e-1a20-149c-0758-e1bd97fd3cf5@amd.com>
- <20190626082312.GI12905@phenom.ffwll.local>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH -next] drm/amdgpu: fix debugfs_simple_attr.cocci warnings
+Date: Thu, 27 Jun 2019 07:45:24 +0000
+Message-ID: <20190627074524.84150-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Disposition: inline
-In-Reply-To: <20190626082312.GI12905-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, DRI Development <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>, Emil Velikov <emil.velikov-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7BIT
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, dan.carpenter@oracle.com, sam@ravnborg.org, Kevin1.Wang@amd.com, Jack.Xiao@amd.com, Hawking.Zhang@amd.com, ray.huang@amd.com
+Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBKdW4gMjYsIDIwMTkgYXQgMTA6MjM6MTJBTSArMDIwMCwgRGFuaWVsIFZldHRlciB3
-cm90ZToKPiBPbiBXZWQsIEp1biAyNiwgMjAxOSBhdCAwNzoxMDoyMUFNICswMDAwLCBLb2VuaWcs
-IENocmlzdGlhbiB3cm90ZToKPiA+IFRob3NlIHBhdGNoZXMgd291bGQgYmVjb21lIHN1cGVyZmx1
-b3VzIHdoZW4gbWVyZ2luZyBHZXJkJ3Mgd29yay4KPiAKPiBOb3QgZW50aXJlbHksIHRoZXkgc3Rp
-bGwgcmVtb3ZlIHRoZSBnZW1fcHJpbWVfcmVzX29iai4gU2V0dGluZyB1cAo+IGdlbV9iby5yZXN2
-IGlzIG9ubHkgb25lIGhhbGYgb2Ygd2hhdCB0aGVzZSBkbyBoZXJlLiBBbmQgeWVhaCBJIHRoaW5r
-IHRoYXQKPiBzaW5nbGUgYWRkaXRpb24gY2FuIGJlIHJlbW92ZWQgYWdhaW4gd2hlbiBHZXJkJ3Mg
-c3R1ZmYgbGFuZHMuCj4gIAo+ID4gQnV0IEknbSBub3Qgc3VyZSBpZiB0aGF0IGlzIGdvaW5nIHRv
-IGZseSBzb29uIG9yIG5vdC4KPiAKPiBJIHRoaW5rIHItYiBmcm9tIFRob21hcyBaaW1tZXJtYW5u
-IChvciBzb21lIG90aGVyIHR0bStnZW0gc3Rha2Vob2xkZXIpIGFuZAo+IHdlJ3JlIGdvb2QgdG8g
-bGFuZCB0aGVtLiBUaG9tYXMgSGVsbHN0cm9tIG1lbGxvd2VkIGRvd24gaGlzICJuYWNrIiB0bwo+
-ICJJJ2xsIGxvb2sgYXQgdGhpcyBpbiBBdWd1c3QgYWdhaW4gYW5kIGNvdXJzZS1jb3JyZWN0IGlm
-IG5lY2Vzc2FyeSIuCgpKdXN0IHBpbmdlZCBHZXJkIG9uIHRoaXMsIHNvIHdlIGNhbiBzdGFydCBj
-b29yZGluYXRpb24uCgpidHcgcGxhbm5pbmcgdG8gcmV2aWV3IHRoaXMgZnJvbSBhbWQgc2lkZSwg
-SSdkIGxpa2UgdG8gZGl0Y2gKZ2VtX3ByaW1lX3Jlc19vYmogZXNwZWNpYWxseSB3aXRoIEdlcmQg
-c2VyaWVzIGl0J3MgcG9pbnRsZXNzLgotRGFuaWVsCgo+IC1EYW5pZWwKPiAKPiA+IAo+ID4gQ2hy
-aXN0aWFuLgo+ID4gCj4gPiBBbSAyNS4wNi4xOSB1bSAyMjo0MiBzY2hyaWViIERhbmllbCBWZXR0
-ZXI6Cj4gPiA+IFRoYXQgd2F5IHdlIGNhbiBkaXRjaCBvdXIgZ2VtX3ByaW1lX3Jlc19vYmogaW1w
-bGVtZW50YXRpb24uIFNpbmNlIHR0bQo+ID4gPiBhYnNvbHV0ZWx5IG5lZWRzIHRoZSByaWdodCBy
-ZXNlcnZhdGlvbiBvYmplY3QgYWxsIHRoZSBib2lsZXJwbGF0ZSBpcwo+ID4gPiBhbHJlYWR5IHRo
-ZXJlIGFuZCB3ZSBqdXN0IGhhdmUgdG8gd2lyZSBpdCB1cCBjb3JyZWN0bHkuCj4gPiA+Cj4gPiA+
-IE5vdGUgdGhhdCBnZW0vcHJpbWUgZG9lc24ndCBjYXJlIHdoZW4gd2UgZG8gdGhpcywgYXMgbG9u
-ZyBhcyB3ZSBkbyBpdAo+ID4gPiBiZWZvcmUgdGhlIGJvIGlzIHJlZ2lzdGVyZWQgYW5kIHNvbWVv
-bmUgY2FuIGNhbGwgdGhlIGhhbmRsZTJmZCBpb2N0bAo+ID4gPiBvbiBpdC4KPiA+ID4KPiA+ID4g
-QXNpZGU6IHR0bV9idWZmZXJfb2JqZWN0LnR0bV9yZXN2IGNvdWxkIHByb2JhYmx5IGJlIGRpdGNo
-ZWQgaW4gZmF2b3VyCj4gPiA+IG9mIGFsd2F5cyBwYXNzaW5nIGEgbm9uLU5VTEwgcmVzdiB0byB0
-dG1fYm9faW5pdCgpLiBBdCBsZWFzdCBmb3IgZ2VtCj4gPiA+IGRyaXZlcnMgdGhhdCB3b3VsZCBh
-dm9pZCBoYXZpbmcgdHdvIG9mIHRoZXNlLCBvbiBpbiB0dG1fYnVmZmVyX29iamVjdAo+ID4gPiBh
-bmQgdGhlIG90aGVyIGluIGRybV9nZW1fb2JqZWN0LCBvbmUganVzdCB0aGVyZSBmb3IgY29uZnVz
-aW9uLgo+ID4gPgo+ID4gPiBSZXZpZXdlZC1ieTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZA
-Y29sbGFib3JhLmNvbT4KPiA+ID4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFuaWVs
-LnZldHRlckBpbnRlbC5jb20+Cj4gPiA+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVj
-aGVyQGFtZC5jb20+Cj4gPiA+IENjOiAiQ2hyaXN0aWFuIEvDtm5pZyIgPGNocmlzdGlhbi5rb2Vu
-aWdAYW1kLmNvbT4KPiA+ID4gQ2M6ICJEYXZpZCAoQ2h1bk1pbmcpIFpob3UiIDxEYXZpZDEuWmhv
-dUBhbWQuY29tPgo+ID4gPiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+ID4g
-LS0tCj4gPiA+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMgICAgfCAyIC0t
-Cj4gPiA+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMgfCAxICsKPiA+
-ID4gICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9wcmltZS5jICB8IDcgLS0tLS0tLQo+
-ID4gPiAgIDMgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDkgZGVsZXRpb25zKC0pCj4g
-PiA+Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jCj4gPiA+IGluZGV4IDQ0MDNl
-NzZlMWFlMC4uYTRhNzhkZmRlZjM3IDEwMDY0NAo+ID4gPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-cmFkZW9uL3JhZGVvbl9kcnYuYwo+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
-ZGVvbl9kcnYuYwo+ID4gPiBAQCAtMTUyLDcgKzE1Miw2IEBAIHN0cnVjdCBkcm1fZ2VtX29iamVj
-dCAqcmFkZW9uX2dlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUoc3RydWN0IGRybV9kZXZpY2UgKmRl
-diwKPiA+ID4gICAJCQkJCQkJc3RydWN0IHNnX3RhYmxlICpzZyk7Cj4gPiA+ICAgaW50IHJhZGVv
-bl9nZW1fcHJpbWVfcGluKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKTsKPiA+ID4gICB2b2lk
-IHJhZGVvbl9nZW1fcHJpbWVfdW5waW4oc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopOwo+ID4g
-PiAtc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmFkZW9uX2dlbV9wcmltZV9yZXNfb2JqKHN0
-cnVjdCBkcm1fZ2VtX29iamVjdCAqKTsKPiA+ID4gICB2b2lkICpyYWRlb25fZ2VtX3ByaW1lX3Zt
-YXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopOwo+ID4gPiAgIHZvaWQgcmFkZW9uX2dlbV9w
-cmltZV92dW5tYXAoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosIHZvaWQgKnZhZGRyKTsKPiA+
-ID4gICAKPiA+ID4gQEAgLTU2Niw3ICs1NjUsNiBAQCBzdGF0aWMgc3RydWN0IGRybV9kcml2ZXIg
-a21zX2RyaXZlciA9IHsKPiA+ID4gICAJLmdlbV9wcmltZV9leHBvcnQgPSByYWRlb25fZ2VtX3By
-aW1lX2V4cG9ydCwKPiA+ID4gICAJLmdlbV9wcmltZV9waW4gPSByYWRlb25fZ2VtX3ByaW1lX3Bp
-biwKPiA+ID4gICAJLmdlbV9wcmltZV91bnBpbiA9IHJhZGVvbl9nZW1fcHJpbWVfdW5waW4sCj4g
-PiA+IC0JLmdlbV9wcmltZV9yZXNfb2JqID0gcmFkZW9uX2dlbV9wcmltZV9yZXNfb2JqLAo+ID4g
-PiAgIAkuZ2VtX3ByaW1lX2dldF9zZ190YWJsZSA9IHJhZGVvbl9nZW1fcHJpbWVfZ2V0X3NnX3Rh
-YmxlLAo+ID4gPiAgIAkuZ2VtX3ByaW1lX2ltcG9ydF9zZ190YWJsZSA9IHJhZGVvbl9nZW1fcHJp
-bWVfaW1wb3J0X3NnX3RhYmxlLAo+ID4gPiAgIAkuZ2VtX3ByaW1lX3ZtYXAgPSByYWRlb25fZ2Vt
-X3ByaW1lX3ZtYXAsCj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
-ZGVvbl9vYmplY3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5jCj4g
-PiA+IGluZGV4IDIxZjczZmM4NmYzOC4uN2EyYmFkODQzZjhhIDEwMDY0NAo+ID4gPiAtLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYwo+ID4gPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYwo+ID4gPiBAQCAtMjYyLDYgKzI2Miw3IEBA
-IGludCByYWRlb25fYm9fY3JlYXRlKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LAo+ID4gPiAg
-IAlyID0gdHRtX2JvX2luaXQoJnJkZXYtPm1tYW4uYmRldiwgJmJvLT50Ym8sIHNpemUsIHR5cGUs
-Cj4gPiA+ICAgCQkJJmJvLT5wbGFjZW1lbnQsIHBhZ2VfYWxpZ24sICFrZXJuZWwsIGFjY19zaXpl
-LAo+ID4gPiAgIAkJCXNnLCByZXN2LCAmcmFkZW9uX3R0bV9ib19kZXN0cm95KTsKPiA+ID4gKwli
-by0+Z2VtX2Jhc2UucmVzdiA9IGJvLT50Ym8ucmVzdjsKPiA+ID4gICAJdXBfcmVhZCgmcmRldi0+
-cG0ubWNsa19sb2NrKTsKPiA+ID4gICAJaWYgKHVubGlrZWx5KHIgIT0gMCkpIHsKPiA+ID4gICAJ
-CXJldHVybiByOwo+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRl
-b25fcHJpbWUuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3ByaW1lLmMKPiA+ID4g
-aW5kZXggZGVhZmZjZTUwYTJlLi44Y2UzZTgwNDVkNDIgMTAwNjQ0Cj4gPiA+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3ByaW1lLmMKPiA+ID4gKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yYWRlb25fcHJpbWUuYwo+ID4gPiBAQCAtMTE3LDEzICsxMTcsNiBAQCB2b2lk
-IHJhZGVvbl9nZW1fcHJpbWVfdW5waW4oc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmopCj4gPiA+
-ICAgfQo+ID4gPiAgIAo+ID4gPiAgIAo+ID4gPiAtc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAq
-cmFkZW9uX2dlbV9wcmltZV9yZXNfb2JqKHN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqKQo+ID4g
-PiAtewo+ID4gPiAtCXN0cnVjdCByYWRlb25fYm8gKmJvID0gZ2VtX3RvX3JhZGVvbl9ibyhvYmop
-Owo+ID4gPiAtCj4gPiA+IC0JcmV0dXJuIGJvLT50Ym8ucmVzdjsKPiA+ID4gLX0KPiA+ID4gLQo+
-ID4gPiAgIHN0cnVjdCBkbWFfYnVmICpyYWRlb25fZ2VtX3ByaW1lX2V4cG9ydChzdHJ1Y3QgZHJt
-X2dlbV9vYmplY3QgKmdvYmosCj4gPiA+ICAgCQkJCQlpbnQgZmxhZ3MpCj4gPiA+ICAgewo+ID4g
-Cj4gCj4gLS0gCj4gRGFuaWVsIFZldHRlcgo+IFNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jw
-b3JhdGlvbgo+IGh0dHA6Ly9ibG9nLmZmd2xsLmNoCgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2Fy
-ZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9yYXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Use DEFINE_DEBUGFS_ATTRIBUTE rather than DEFINE_SIMPLE_ATTRIBUTE
+for debugfs files.
+
+Semantic patch information:
+Rationale: DEFINE_SIMPLE_ATTRIBUTE + debugfs_create_file()
+imposes some significant overhead as compared to
+DEFINE_DEBUGFS_ATTRIBUTE + debugfs_create_file_unsafe().
+
+Generated by: scripts/coccinelle/api/debugfs/debugfs_simple_attr.cocci
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 20ce158490db..9d9f4cbbc4bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1082,15 +1082,15 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
+ 	return 0;
+ }
+ 
+-DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
+-			amdgpu_debugfs_ib_preempt, "%llu\n");
++DEFINE_DEBUGFS_ATTRIBUTE(fops_ib_preempt, NULL, amdgpu_debugfs_ib_preempt,
++			 "%llu\n");
+ 
+ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ {
+ 	adev->debugfs_preempt =
+-		debugfs_create_file("amdgpu_preempt_ib", 0600,
+-				    adev->ddev->primary->debugfs_root,
+-				    (void *)adev, &fops_ib_preempt);
++		debugfs_create_file_unsafe("amdgpu_preempt_ib", 0600,
++					   adev->ddev->primary->debugfs_root,
++					   (void *)adev, &fops_ib_preempt);
+ 	if (!(adev->debugfs_preempt)) {
+ 		DRM_ERROR("unable to create amdgpu_preempt_ib debugsfs file\n");
+ 		return -EIO;
