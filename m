@@ -1,16 +1,13 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [PATCH 2/2] dma-buf: cleanup shared fence removal
-Date: Thu, 27 Jun 2019 17:34:24 +0200
-Message-ID: <CAKMK7uFoeugD0ASHm4DRLzq6h3aAvNhE1ODh-bxoH7Lucf1m3w@mail.gmail.com>
-References: <20190627101813.61430-1-christian.koenig@amd.com>
- <20190627101813.61430-2-christian.koenig@amd.com>
- <CAKMK7uGtdSxVSUor8P_8XH+uf4_A-kRfY6h+XnJoizscWE4AOg@mail.gmail.com>
- <f1a792c2-87e0-9aba-c6f1-0374122d025b@gmail.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
+Date: Thu, 27 Jun 2019 15:38:07 +0000
+Message-ID: <BN6PR12MB18093E64A4289711D31BCED8F7FD0@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1561618176-27968-1-git-send-email-tianci.yin@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0121678408=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f1a792c2-87e0-9aba-c6f1-0374122d025b-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <1561618176-27968-1-git-send-email-tianci.yin-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -21,178 +18,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
-Cc: dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-T24gVGh1LCBKdW4gMjcsIDIwMTkgYXQgMzoxOSBQTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
-LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBbSAyNy4wNi4xOSB1bSAxMjo0
-MyBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4gPiBPbiBUaHUsIEp1biAyNywgMjAxOSBhdCAxMjox
-OCBQTSBDaHJpc3RpYW4gS8O2bmlnCj4gPiA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5j
-b20+IHdyb3RlOgo+ID4+IFdoaWxlIGZyZWVpbmcgdXAgbWVtb3J5IGl0IGlzIGVhc2llciB0byBy
-ZW1vdmUgYSBmZW5jZSBmcm9tIGEgcmVzZXJ2YXRpb24KPiA+PiBvYmplY3QgaW5zdGVhZCBvZiBz
-aWduYWxpbmcgaXQgYW5kIGluc3RhbGxpbmcgYSBuZXcgb25lIGluIGFsbCBvdGhlciBvYmplY3Rz
-Lgo+ID4+Cj4gPj4gQ2xlYW4gdGhpcyB1cCBieSBhZGRpbmcgdGhlIHJlbW92YWwgZnVuY3Rpb24g
-dG8gdGhlIGNvcmUgcmVzZXJ2YXRpb24gb2JqZWN0Cj4gPj4gY29kZSBpbnN0ZWFkIG9mIG1lc3Np
-bmcgd2l0aCB0aGUgaW50ZXJuYWwgaW4gYW1kZ3B1Lgo+ID4+Cj4gPj4gTm8gZnVuY3Rpb25hbCBj
-aGFuZ2UuCj4gPj4KPiA+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+Cj4gPj4gLS0tCj4gPj4gICBkcml2ZXJzL2RtYS1idWYvcmVzZXJ2
-YXRpb24uYyAgICAgICAgICAgICAgICAgfCA2MiArKysrKysrKysrKysrKysrKysrCj4gPj4gICAu
-Li4vZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyAgfCA0NSArLS0tLS0t
-LS0tLS0tLQo+ID4+ICAgaW5jbHVkZS9saW51eC9yZXNlcnZhdGlvbi5oICAgICAgICAgICAgICAg
-ICAgIHwgIDMgKy0KPiA+PiAgIDMgZmlsZXMgY2hhbmdlZCwgNjUgaW5zZXJ0aW9ucygrKSwgNDUg
-ZGVsZXRpb25zKC0pCj4gPj4KPiA+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEtYnVmL3Jlc2Vy
-dmF0aW9uLmMgYi9kcml2ZXJzL2RtYS1idWYvcmVzZXJ2YXRpb24uYwo+ID4+IGluZGV4IGVmNzEw
-ZWZmZWRmYS4uZTQzYTMxNmEwMDVkIDEwMDY0NAo+ID4+IC0tLSBhL2RyaXZlcnMvZG1hLWJ1Zi9y
-ZXNlcnZhdGlvbi5jCj4gPj4gKysrIGIvZHJpdmVycy9kbWEtYnVmL3Jlc2VydmF0aW9uLmMKPiA+
-PiBAQCAtMjMxLDYgKzIzMSw2OCBAQCB2b2lkIHJlc2VydmF0aW9uX29iamVjdF9hZGRfc2hhcmVk
-X2ZlbmNlKHN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKm9iaiwKPiA+PiAgIH0KPiA+PiAgIEVY
-UE9SVF9TWU1CT0wocmVzZXJ2YXRpb25fb2JqZWN0X2FkZF9zaGFyZWRfZmVuY2UpOwo+ID4+Cj4g
-Pj4gKy8qKgo+ID4+ICsgKiByZXNlcnZhdGlvbl9vYmplY3RfcmVtb3ZlX3NoYXJlZF9mZW5jZSAt
-IHJlbW92ZSBzaGFyZWQgZmVuY2VzCj4gPj4gKyAqIEBvYmo6IHRoZSByZXNlcnZhdGlvbiBvYmpl
-Y3QKPiA+PiArICogQGNvbnRleHQ6IHRoZSBjb250ZXh0IG9mIHRoZSBmZW5jZXMgdG8gcmVtb3Zl
-Cj4gPj4gKyAqCj4gPj4gKyAqIFJlbW92ZSBzaGFyZWQgZmVuY2VzIGJhc2VkIG9uIHRoZWlyIGZl
-bmNlIGNvbnRleHQuCj4gPj4gKyAqLwo+ID4gVGhpcyBuZWVkcyBhIHNlcmlvdXMgZXhwbGFuYXRp
-b24gb2YgIndoeT8iLiBSZW1vdmluZyBmZW5jZXMgd2l0aG91dAo+ID4gZ3VhcmFudGVlaW5nIHRo
-ZXkncmUgYWxsIHNpZ25hbGVkIGlzIGEgZ29vZCB3YXkgdG8gY3JlYXRlIGhhdm9jLiBZb3VyCj4g
-PiBjb21taXQgbWVzc2FnZSBoYXMgYSBmZXcgd29yZHMgYWJvdXQgd2hhdCB5b3UncmUgZG9pbmcg
-aGVyZSwgYnV0IGl0Cj4gPiBzdGlsbCBkb2Vzbid0IGV4cGxhaW4gd2h5IHRoaXMgaXMgc2FmZSBh
-bmQgd2hlbiBleGFjdGx5IGl0IHNob3VsZCBiZQo+ID4gdXNlZC4KPgo+IFllYWgsIEknbSBub3Qg
-dmVyeSBrZWVuIGFib3V0IHRoaXMgZWl0aGVyLgo+Cj4gVGhlIGtleSBwb2ludCBpcyB0aGUgbWVt
-b3J5IGlzIG5vdCBhY2Nlc3NpYmxlIGJ5IHRoZSBoYXJkd2FyZSBhbnkgbW9yZQo+IGJlY2F1c2Ug
-aXQgaXMgZnJlZWQgYW5kIHJlbW92ZWQgZnJvbSB0aGUgcGFnZSB0YWJsZXMuCj4KPiBTbyBmdXJ0
-aGVyIGFjY2VzcyBpcyBwcmV2ZW50ZWQgYW5kIGluIHRoaXMgc3BlY2lhbCBjYXNlIGl0IGlzIGFj
-dHVhbGx5Cj4gdmFsaWQgdG8gZG8gdGhpcyBldmVuIGlmIHRoZSBvcGVyYXRpb24gcmVwcmVzZW50
-ZWQgYnkgdGhlIGZlbmNlIGlzIHN0aWxsCj4gb25nb2luZy4KCkhtLCB3aHkgZG8geW91IGhhdmUg
-dG8gcmVtb3ZlIHRoZXNlIGZlbmNlcyB0aGVuPyBDYW4ndCB5b3UganVzdCBsZXQKdGhlbSBzaWdu
-YWwgYW5kIGdldCBjb2xsZWN0ZWQgYXMgdXN1YWw/IEFzIHNvb24gYXMgeW91IHNoYXJlIGJ1ZmZl
-cnMKdGhlc2UgZmVuY2VzIGNhbiBnZXQgYW55d2hlcmUsIHNvIHlvdSBuZWVkIHRvIGNvcnJlY3Rs
-eSB1bndpbmQgdGhlbSBubwptYXR0ZXIgd2hhdC4KCllvdSdyZSBraW5kYSBzdGlsbCBqdXN0IGRl
-c2NyaWJpbmcgd2hhdCB5b3UncmUgZG9pbmcsIG5vdCB3aHkuCgo+IEhvdyBzaG91bGQgd2Ugd29y
-ZCB0aGlzPyBTb21ldGhpbmcgbGlrZToKPgo+ICAgKiBSZW1vdmUgc2hhcmVkIGZlbmNlcyBiYXNl
-ZCBvbiB0aGVpciBmZW5jZSBjb250ZXh0LiBSZW1vdmluZyBhIGZlbmNlCj4gYmVmb3JlIGl0IGlz
-IHNpZ25hbGVkIGlzIG9ubHkgdmFsaWQgaWYgaGFyZHdhcmUgYWNjZXNzIGlzIHByZXZlbnRlZCBi
-eQo+IHNvbWUgb3RoZXIgbWVhbnMgbGlrZSBJT01NVSBvciBzaW1pbGFyIHZpcnR1YWwgbWVtb3J5
-IHByb3RlY3Rpb24uCgpUaGUgcGFydCB0aGF0IGZyZWFrcyBtZSBvdXQgaXMgd2hldGhlciB3ZSBi
-cmVhayB0aGUgZmVuY2UgY2hhaW5nCmFueXdoZXJlIGJ5IHJlbW92aW5nIGZlbmNlcy4gQnV0IEkg
-Z3Vlc3MgaWYgeW91J3JlIG9ubHkgcmVtb3ZpbmcgdGhlCnNoYXJlZCBmZW5jZXMgdGhhdCBzaG91
-ZGwgYmUgZmluZSAuLi4KCj4gPiBBbHNvIEknbSBub3Qgc3VyZSAoZGVwZW5kaW5nIHVwb24gd2hh
-dCB5b3UgdXNlIHRoaXMgZm9yKSB0aGlzIGlzCj4gPiBhY3R1YWxseSBjb3JyZWN0IG91dHNpZGUg
-b2YgYW1kZ3B1IGFuZCBpdCdzIGlnbm9yYW5jZSBvZiB0aGUgZXhjbHVzaXZlCj4gPiBmZW5jZS4K
-Pgo+IE5vLCB0aGF0IGlzIGNvbXBsZXRlbHkgdW5yZWxhdGVkLiBCdXQgSSB0aG91Z2h0IHRoYXQg
-SSBjbGVhbiB0aGlzIHVwCj4gYmVmb3JlIEkgc3RhcnQgdG8gdGFja2xlIHRoZSBleGNsdXNpdmUg
-ZmVuY2UgaXNzdWUuCgouLi4gZXhjZXB0IGFtZGdwdSBoYXMgaW50ZXJuYWxseSBhIHZlcnkgc3Ry
-YW5nZSBpZGVhIG9mIHNoYXJlZCBmZW5jZXMKd2l0aCBhdXRvLWV4Y2x1c2l2ZSBwcm9tb3Rpb24u
-IEFuZCBJIHRoaW5rIHJlbW92aW5nIGV4Y2x1c2l2ZSBmZW5jZXMKd2lsbCBicmVhayB0aGUgZmVu
-Y2UgZGVwZW5kZW5jaWVzIG9mIG90aGVyIChlYXJsaWVyKSBkbWEgZHJpdmVycyBieQpvdGhlciBv
-cGVyYXRpb25zLiBPciBpcyB0aGF0IHdoeSB5b3UgZmlsdGVyIG9uIHRoZSBjb250ZXh0LAplc3Nl
-bnRpYWxseSBhbWQncyB3YXkgb2Ygc2F5aW5nICJyZW1vdmUgYWxsIHNoYXJlZCBmZW5jZXMgZm9y
-IHRoaXMKdGhpbmcsIGtlZXAgb25seSB0aGUgZXhjbHVzaXZlIG9uZXMiLgoKSSBndWVzcyBJIG5l
-ZWQgdG8gcmVhZCB3aGF0IHRoaXMgYWN0dWFsbHkgZG9lcyBpbiB0aGUgY29kZSwgc2luY2UgSQpz
-dGlsbCBoYXZlIG5vIGlkZWEgd2h5IHlvdSBuZWVkIHRvIGRvIHRoaXMuCi1EYW5pZWwKCj4gQ2hy
-aXN0aWFuLgo+Cj4gPiAtRGFuaWVsCj4gPgo+ID4+ICtpbnQgcmVzZXJ2YXRpb25fb2JqZWN0X3Jl
-bW92ZV9zaGFyZWRfZmVuY2Uoc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqb2JqLAo+ID4+ICsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50NjRfdCBjb250ZXh0
-KQo+ID4+ICt7Cj4gPj4gKyAgICAgICBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0X2xpc3QgKm9s
-ZCwgKm5ldzsKPiA+PiArICAgICAgIHVuc2lnbmVkIGludCBpLCBqLCBrOwo+ID4+ICsKPiA+PiAr
-ICAgICAgIHJlc2VydmF0aW9uX29iamVjdF9hc3NlcnRfaGVsZChvYmopOwo+ID4+ICsKPiA+PiAr
-ICAgICAgIG9sZCA9IHJlc2VydmF0aW9uX29iamVjdF9nZXRfbGlzdChvYmopOwo+ID4+ICsgICAg
-ICAgaWYgKCFvbGQpCj4gPj4gKyAgICAgICAgICAgICAgIHJldHVybiAwOwo+ID4+ICsKPiA+PiAr
-ICAgICAgIG5ldyA9IGttYWxsb2Mob2Zmc2V0b2YodHlwZW9mKCpuZXcpLCBzaGFyZWRbb2xkLT5z
-aGFyZWRfbWF4XSksCj4gPj4gKyAgICAgICAgICAgICAgICAgICAgIEdGUF9LRVJORUwpOwo+ID4+
-ICsgICAgICAgaWYgKCFuZXcpCj4gPj4gKyAgICAgICAgICAgICAgIHJldHVybiAtRU5PTUVNOwo+
-ID4+ICsKPiA+PiArICAgICAgIC8qIEdvIHRocm91Z2ggYWxsIHRoZSBzaGFyZWQgZmVuY2VzIGlu
-IHRoZSByZXNldmF0aW9uIG9iamVjdCBhbmQgc29ydAo+ID4+ICsgICAgICAgICogdGhlIGludGVy
-ZXN0aW5nIG9uZXMgdG8gdGhlIGVuZCBvZiB0aGUgbmV3IGxpc3QuCj4gPj4gKyAgICAgICAgKi8K
-PiA+PiArICAgICAgIGZvciAoaSA9IDAsIGogPSBvbGQtPnNoYXJlZF9jb3VudCwgayA9IDA7IGkg
-PCBvbGQtPnNoYXJlZF9jb3VudDsgKytpKSB7Cj4gPj4gKyAgICAgICAgICAgICAgIHN0cnVjdCBk
-bWFfZmVuY2UgKmY7Cj4gPj4gKwo+ID4+ICsgICAgICAgICAgICAgICBmID0gcmN1X2RlcmVmZXJl
-bmNlX3Byb3RlY3RlZChvbGQtPnNoYXJlZFtpXSwKPiA+PiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcmVzZXJ2YXRpb25fb2JqZWN0X2hlbGQob2JqKSk7Cj4g
-Pj4gKwo+ID4+ICsgICAgICAgICAgICAgICBpZiAoZi0+Y29udGV4dCA9PSBjb250ZXh0KQo+ID4+
-ICsgICAgICAgICAgICAgICAgICAgICAgIFJDVV9JTklUX1BPSU5URVIobmV3LT5zaGFyZWRbLS1q
-XSwgZik7Cj4gPj4gKyAgICAgICAgICAgICAgIGVsc2UKPiA+PiArICAgICAgICAgICAgICAgICAg
-ICAgICBSQ1VfSU5JVF9QT0lOVEVSKG5ldy0+c2hhcmVkW2srK10sIGYpOwo+ID4+ICsgICAgICAg
-fQo+ID4+ICsgICAgICAgbmV3LT5zaGFyZWRfbWF4ID0gb2xkLT5zaGFyZWRfbWF4Owo+ID4+ICsg
-ICAgICAgbmV3LT5zaGFyZWRfY291bnQgPSBrOwo+ID4+ICsKPiA+PiArICAgICAgIC8qIEluc3Rh
-bGwgdGhlIG5ldyBmZW5jZSBsaXN0LCBzZXFjb3VudCBwcm92aWRlcyB0aGUgYmFycmllcnMgKi8K
-PiA+PiArICAgICAgIHByZWVtcHRfZGlzYWJsZSgpOwo+ID4+ICsgICAgICAgd3JpdGVfc2VxY291
-bnRfYmVnaW4oJm9iai0+c2VxKTsKPiA+PiArICAgICAgIFJDVV9JTklUX1BPSU5URVIob2JqLT5m
-ZW5jZSwgbmV3KTsKPiA+PiArICAgICAgIHdyaXRlX3NlcWNvdW50X2VuZCgmb2JqLT5zZXEpOwo+
-ID4+ICsgICAgICAgcHJlZW1wdF9lbmFibGUoKTsKPiA+PiArCj4gPj4gKyAgICAgICAvKiBEcm9w
-IHRoZSByZWZlcmVuY2VzIHRvIHRoZSByZW1vdmVkIGZlbmNlcyAqLwo+ID4+ICsgICAgICAgZm9y
-IChpID0gaiwgayA9IDA7IGkgPCBvbGQtPnNoYXJlZF9jb3VudDsgKytpKSB7Cj4gPj4gKyAgICAg
-ICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKmY7Cj4gPj4gKwo+ID4+ICsgICAgICAgICAgICAg
-ICBmID0gcmN1X2RlcmVmZXJlbmNlX3Byb3RlY3RlZChuZXctPnNoYXJlZFtpXSwKPiA+PiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmVzZXJ2YXRpb25fb2Jq
-ZWN0X2hlbGQob2JqKSk7Cj4gPj4gKyAgICAgICAgICAgICAgIGRtYV9mZW5jZV9wdXQoZik7Cj4g
-Pj4gKyAgICAgICB9Cj4gPj4gKyAgICAgICBrZnJlZV9yY3Uob2xkLCByY3UpOwo+ID4+ICsKPiA+
-PiArICAgICAgIHJldHVybiAwOwo+ID4+ICt9Cj4gPj4gK0VYUE9SVF9TWU1CT0wocmVzZXJ2YXRp
-b25fb2JqZWN0X3JlbW92ZV9zaGFyZWRfZmVuY2UpOwo+ID4+ICsKPiA+PiAgIC8qKgo+ID4+ICAg
-ICogcmVzZXJ2YXRpb25fb2JqZWN0X2FkZF9leGNsX2ZlbmNlIC0gQWRkIGFuIGV4Y2x1c2l2ZSBm
-ZW5jZS4KPiA+PiAgICAqIEBvYmo6IHRoZSByZXNlcnZhdGlvbiBvYmplY3QKPiA+PiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCj4gPj4gaW5k
-ZXggMTBhYmFlMzk4ZTUxLi45YjI1YWQzZDAwM2UgMTAwNjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCj4gPj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCj4gPj4gQEAgLTIyNCw1
-MCArMjI0LDcgQEAgc3RhdGljIGludCBhbWRncHVfYW1ka2ZkX3JlbW92ZV9ldmljdGlvbl9mZW5j
-ZShzdHJ1Y3QgYW1kZ3B1X2JvICpibywKPiA+PiAgICAgICAgICBpZiAoIWVmKQo+ID4+ICAgICAg
-ICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gPj4KPiA+PiAtICAgICAgIG9sZCA9IHJlc2Vy
-dmF0aW9uX29iamVjdF9nZXRfbGlzdChyZXN2KTsKPiA+PiAtICAgICAgIGlmICghb2xkKQo+ID4+
-IC0gICAgICAgICAgICAgICByZXR1cm4gMDsKPiA+PiAtCj4gPj4gLSAgICAgICBuZXcgPSBrbWFs
-bG9jKG9mZnNldG9mKHR5cGVvZigqbmV3KSwgc2hhcmVkW29sZC0+c2hhcmVkX21heF0pLAo+ID4+
-IC0gICAgICAgICAgICAgICAgICAgICBHRlBfS0VSTkVMKTsKPiA+PiAtICAgICAgIGlmICghbmV3
-KQo+ID4+IC0gICAgICAgICAgICAgICByZXR1cm4gLUVOT01FTTsKPiA+PiAtCj4gPj4gLSAgICAg
-ICAvKiBHbyB0aHJvdWdoIGFsbCB0aGUgc2hhcmVkIGZlbmNlcyBpbiB0aGUgcmVzZXZhdGlvbiBv
-YmplY3QgYW5kIHNvcnQKPiA+PiAtICAgICAgICAqIHRoZSBpbnRlcmVzdGluZyBvbmVzIHRvIHRo
-ZSBlbmQgb2YgdGhlIGxpc3QuCj4gPj4gLSAgICAgICAgKi8KPiA+PiAtICAgICAgIGZvciAoaSA9
-IDAsIGogPSBvbGQtPnNoYXJlZF9jb3VudCwgayA9IDA7IGkgPCBvbGQtPnNoYXJlZF9jb3VudDsg
-KytpKSB7Cj4gPj4gLSAgICAgICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKmY7Cj4gPj4gLQo+
-ID4+IC0gICAgICAgICAgICAgICBmID0gcmN1X2RlcmVmZXJlbmNlX3Byb3RlY3RlZChvbGQtPnNo
-YXJlZFtpXSwKPiA+PiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcmVzZXJ2YXRpb25fb2JqZWN0X2hlbGQocmVzdikpOwo+ID4+IC0KPiA+PiAtICAgICAgICAg
-ICAgICAgaWYgKGYtPmNvbnRleHQgPT0gZWYtPmJhc2UuY29udGV4dCkKPiA+PiAtICAgICAgICAg
-ICAgICAgICAgICAgICBSQ1VfSU5JVF9QT0lOVEVSKG5ldy0+c2hhcmVkWy0tal0sIGYpOwo+ID4+
-IC0gICAgICAgICAgICAgICBlbHNlCj4gPj4gLSAgICAgICAgICAgICAgICAgICAgICAgUkNVX0lO
-SVRfUE9JTlRFUihuZXctPnNoYXJlZFtrKytdLCBmKTsKPiA+PiAtICAgICAgIH0KPiA+PiAtICAg
-ICAgIG5ldy0+c2hhcmVkX21heCA9IG9sZC0+c2hhcmVkX21heDsKPiA+PiAtICAgICAgIG5ldy0+
-c2hhcmVkX2NvdW50ID0gazsKPiA+PiAtCj4gPj4gLSAgICAgICAvKiBJbnN0YWxsIHRoZSBuZXcg
-ZmVuY2UgbGlzdCwgc2VxY291bnQgcHJvdmlkZXMgdGhlIGJhcnJpZXJzICovCj4gPj4gLSAgICAg
-ICBwcmVlbXB0X2Rpc2FibGUoKTsKPiA+PiAtICAgICAgIHdyaXRlX3NlcWNvdW50X2JlZ2luKCZy
-ZXN2LT5zZXEpOwo+ID4+IC0gICAgICAgUkNVX0lOSVRfUE9JTlRFUihyZXN2LT5mZW5jZSwgbmV3
-KTsKPiA+PiAtICAgICAgIHdyaXRlX3NlcWNvdW50X2VuZCgmcmVzdi0+c2VxKTsKPiA+PiAtICAg
-ICAgIHByZWVtcHRfZW5hYmxlKCk7Cj4gPj4gLQo+ID4+IC0gICAgICAgLyogRHJvcCB0aGUgcmVm
-ZXJlbmNlcyB0byB0aGUgcmVtb3ZlZCBmZW5jZXMgb3IgbW92ZSB0aGVtIHRvIGVmX2xpc3QgKi8K
-PiA+PiAtICAgICAgIGZvciAoaSA9IGosIGsgPSAwOyBpIDwgb2xkLT5zaGFyZWRfY291bnQ7ICsr
-aSkgewo+ID4+IC0gICAgICAgICAgICAgICBzdHJ1Y3QgZG1hX2ZlbmNlICpmOwo+ID4+IC0KPiA+
-PiAtICAgICAgICAgICAgICAgZiA9IHJjdV9kZXJlZmVyZW5jZV9wcm90ZWN0ZWQobmV3LT5zaGFy
-ZWRbaV0sCj4gPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHJlc2VydmF0aW9uX29iamVjdF9oZWxkKHJlc3YpKTsKPiA+PiAtICAgICAgICAgICAgICAgZG1h
-X2ZlbmNlX3B1dChmKTsKPiA+PiAtICAgICAgIH0KPiA+PiAtICAgICAgIGtmcmVlX3JjdShvbGQs
-IHJjdSk7Cj4gPj4gLQo+ID4+IC0gICAgICAgcmV0dXJuIDA7Cj4gPj4gKyAgICAgICByZXR1cm4g
-cmVzZXJ2YXRpb25fb2JqZWN0X3JlbW92ZV9zaGFyZWRfZmVuY2UocmVzdiwgZWYtPmJhc2UuY29u
-dGV4dCk7Cj4gPj4gICB9Cj4gPj4KPiA+PiAgIHN0YXRpYyBpbnQgYW1kZ3B1X2FtZGtmZF9ib192
-YWxpZGF0ZShzdHJ1Y3QgYW1kZ3B1X2JvICpibywgdWludDMyX3QgZG9tYWluLAo+ID4+IGRpZmYg
-LS1naXQgYS9pbmNsdWRlL2xpbnV4L3Jlc2VydmF0aW9uLmggYi9pbmNsdWRlL2xpbnV4L3Jlc2Vy
-dmF0aW9uLmgKPiA+PiBpbmRleCBmNDdlODE5NmQwMzkuLjFjODMzYTU2YjY3OCAxMDA2NDQKPiA+
-PiAtLS0gYS9pbmNsdWRlL2xpbnV4L3Jlc2VydmF0aW9uLmgKPiA+PiArKysgYi9pbmNsdWRlL2xp
-bnV4L3Jlc2VydmF0aW9uLmgKPiA+PiBAQCAtMjI5LDcgKzIyOSw4IEBAIGludCByZXNlcnZhdGlv
-bl9vYmplY3RfcmVzZXJ2ZV9zaGFyZWQoc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqb2JqLAo+
-ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGludCBu
-dW1fZmVuY2VzKTsKPiA+PiAgIHZvaWQgcmVzZXJ2YXRpb25fb2JqZWN0X2FkZF9zaGFyZWRfZmVu
-Y2Uoc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqb2JqLAo+ID4+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlKTsKPiA+PiAt
-Cj4gPj4gK2ludCByZXNlcnZhdGlvbl9vYmplY3RfcmVtb3ZlX3NoYXJlZF9mZW5jZShzdHJ1Y3Qg
-cmVzZXJ2YXRpb25fb2JqZWN0ICpvYmosCj4gPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHVpbnQ2NF90IGNvbnRleHQpOwo+ID4+ICAgdm9pZCByZXNlcnZhdGlv
-bl9vYmplY3RfYWRkX2V4Y2xfZmVuY2Uoc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqb2JqLAo+
-ID4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgZG1hX2Zl
-bmNlICpmZW5jZSk7Cj4gPj4KPiA+PiAtLQo+ID4+IDIuMTcuMQo+ID4+Cj4gPj4gX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiA+PiBkcmktZGV2ZWwgbWFp
-bGluZyBsaXN0Cj4gPj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4+IGh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCj4gPgo+
-ID4KPgoKCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3Jh
-dGlvbgorNDEgKDApIDc5IDM2NSA1NyA0OCAtIGh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+--===============0121678408==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18093E64A4289711D31BCED8F7FD0BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18093E64A4289711D31BCED8F7FD0BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tianci Y=
+in <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, June 27, 2019 2:49 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Xiao, Jack; Yin, Tianci (Rico); Zhang, Hawking
+Subject: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
+
+From: tiancyin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+
+update the smu11_driver_if_navi10.h since navi10 smu fw
+update to 42.28
+
+Signed-off-by: tiancyin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h | 6 +++---
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c                 | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h b/d=
+rivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
+index a8b31bc..adbbfeb 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
+@@ -26,7 +26,7 @@
+ // *** IMPORTANT ***
+ // SMU TEAM: Always increment the interface version if
+ // any structure is changed in this file
+-#define SMU11_DRIVER_IF_VERSION 0x32
++#define SMU11_DRIVER_IF_VERSION 0x33
+
+ #define PPTABLE_NV10_SMU_VERSION 8
+
+@@ -813,8 +813,8 @@ typedef struct {
+   uint16_t     UclkAverageLpfTau;
+   uint16_t     GfxActivityLpfTau;
+   uint16_t     UclkActivityLpfTau;
++  uint16_t     SocketPowerLpfTau;
+
+-  uint16_t     Padding;
+   // Padding - ignore
+   uint32_t     MmHubPadding[8]; // SMU internal use
+ } DriverSmuConfig_t;
+@@ -853,7 +853,7 @@ typedef struct {
+   uint8_t  CurrGfxVoltageOffset  ;
+   uint8_t  CurrMemVidOffset      ;
+   uint8_t  Padding8              ;
+-  uint16_t CurrSocketPower       ;
++  uint16_t AverageSocketPower    ;
+   uint16_t TemperatureEdge       ;
+   uint16_t TemperatureHotspot    ;
+   uint16_t TemperatureMem        ;
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index 99566de..373aeba 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -863,7 +863,7 @@ static int navi10_get_gpu_power(struct smu_context *smu=
+, uint32_t *value)
+         if (ret)
+                 return ret;
+
+-       *value =3D metrics.CurrSocketPower << 8;
++       *value =3D metrics.AverageSocketPower << 8;
+
+         return 0;
+ }
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18093E64A4289711D31BCED8F7FD0BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Tianci Yin &lt;tianci.yin@amd=
+.com&gt;<br>
+<b>Sent:</b> Thursday, June 27, 2019 2:49 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Xiao, Jack; Yin, Tianci (Rico); Zhang, Hawking<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">From: tiancyin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+update the smu11_driver_if_navi10.h since navi10 smu fw<br>
+update to 42.28<br>
+<br>
+Signed-off-by: tiancyin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h | 6 &#43;&=
+#43;&#43;---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &=
+#43;-<br>
+&nbsp;2 files changed, 4 insertions(&#43;), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h b/d=
+rivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h<br>
+index a8b31bc..adbbfeb 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.=
+h<br>
+@@ -26,7 &#43;26,7 @@<br>
+&nbsp;// *** IMPORTANT ***<br>
+&nbsp;// SMU TEAM: Always increment the interface version if <br>
+&nbsp;// any structure is changed in this file<br>
+-#define SMU11_DRIVER_IF_VERSION 0x32<br>
+&#43;#define SMU11_DRIVER_IF_VERSION 0x33<br>
+&nbsp;<br>
+&nbsp;#define PPTABLE_NV10_SMU_VERSION 8<br>
+&nbsp;<br>
+@@ -813,8 &#43;813,8 @@ typedef struct {<br>
+&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; UclkAverageLpfTau;<br>
+&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; GfxActivityLpfTau;<br>
+&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; UclkActivityLpfTau;<br>
+&#43;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; SocketPowerLpfTau;<br>
+&nbsp;<br>
+-&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; Padding;&nbsp; <br>
+&nbsp;&nbsp; // Padding - ignore<br>
+&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp; MmHubPadding[8]; // SMU inter=
+nal use<br>
+&nbsp;} DriverSmuConfig_t;<br>
+@@ -853,7 &#43;853,7 @@ typedef struct {<br>
+&nbsp;&nbsp; uint8_t&nbsp; CurrGfxVoltageOffset&nbsp; ;<br>
+&nbsp;&nbsp; uint8_t&nbsp; CurrMemVidOffset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=
+<br>
+&nbsp;&nbsp; uint8_t&nbsp; Padding8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<br>
+-&nbsp; uint16_t CurrSocketPower&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<br>
+&#43;&nbsp; uint16_t AverageSocketPower&nbsp;&nbsp;&nbsp; ;<br>
+&nbsp;&nbsp; uint16_t TemperatureEdge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=
+<br>
+&nbsp;&nbsp; uint16_t TemperatureHotspot&nbsp;&nbsp;&nbsp; ;<br>
+&nbsp;&nbsp; uint16_t TemperatureMem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index 99566de..373aeba 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -863,7 &#43;863,7 @@ static int navi10_get_gpu_power(struct smu_context =
+*smu, uint32_t *value)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics.CurrSocketPower &l=
+t;&lt; 8;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics.AverageSocketP=
+ower &lt;&lt; 8;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18093E64A4289711D31BCED8F7FD0BN6PR12MB1809namp_--
+
+--===============0121678408==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0121678408==--
