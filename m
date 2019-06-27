@@ -1,50 +1,76 @@
-From: YueHaibing <yuehaibing@huawei.com>
-Subject: [PATCH -next] drm/amdgpu: remove set but not used variable 'psp_enabled'
-Date: Thu, 27 Jun 2019 07:53:50 +0000
-Message-ID: <20190627075350.86800-1-yuehaibing@huawei.com>
+From: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: handle
+ AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID on gfx10
+Date: Thu, 27 Jun 2019 15:50:15 +0800
+Message-ID: <b789da4a-2e31-31eb-4706-ea9b6fbc45c1@amd.com>
+References: <20190626223521.14347-1-maraeo@gmail.com>
+ <20190626223521.14347-2-maraeo@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, harry.wentland@amd.com, tianci.yin@amd.com, tao.zhou1@amd.com, leo.liu@amd.com, ray.huang@amd.com, Jack.Xiao@amd.com, Hawking.Zhang@amd.com, kenneth.feng@amd.com
-Cc: YueHaibing <yuehaibing@huawei.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190626223521.14347-2-maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/amd/amdgpu/nv.c: In function 'nv_common_early_init':
-drivers/gpu/drm/amd/amdgpu/nv.c:471:7: warning:
- variable 'psp_enabled' set but not used [-Wunused-but-set-variable]
-
-It's not used since inroduction in
-commit c6b6a42175f5 ("drm/amdgpu: add navi10 common ip block (v3)")
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- drivers/gpu/drm/amd/amdgpu/nv.c | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index af20ffb55c54..8b9fa3db8daa 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -468,7 +468,6 @@ static const struct amdgpu_asic_funcs nv_asic_funcs =
- 
- static int nv_common_early_init(void *handle)
- {
--	bool psp_enabled = false;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
- 	adev->smc_rreg = NULL;
-@@ -485,10 +484,6 @@ static int nv_common_early_init(void *handle)
- 
- 	adev->asic_funcs = &nv_asic_funcs;
- 
--	if (amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP) &&
--	    (amdgpu_ip_block_mask & (1 << AMD_IP_BLOCK_TYPE_PSP)))
--		psp_enabled = true;
--
- 	adev->rev_id = nv_get_rev_id(adev);
- 	adev->external_rev_id = 0xff;
- 	switch (adev->asic_type) {
+YW55IHJlYXNvbiBmb3Igbm90IGNhcmUgLmVtaXRfaWJfc2l6ZSBpbiB0aGlzIG9uZT8KCi1EYXZp
+ZAoKCk9uIDIwMTnlubQwNuaciDI35pelIDA2OjM1LCBNYXJlayBPbMWhw6FrIHdyb3RlOgo+IEZy
+b206IE1hcmVrIE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Cj4KPiBTaWduZWQtb2ZmLWJ5
+OiBNYXJlayBPbMWhw6FrIDxtYXJlay5vbHNha0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgfCAxNyArKysrKysrKysrKysrKysrKwo+ICAg
+MSBmaWxlIGNoYW5nZWQsIDE3IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92MTBfMC5jCj4gaW5kZXggNmJhYWE2NWExZGFhLi41YjgwN2ExOWJiYmYgMTAwNjQ0
+Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKPiArKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+IEBAIC00MjU3LDIwICs0MjU3
+LDM2IEBAIHN0YXRpYyB2b2lkIGdmeF92MTBfMF9yaW5nX2VtaXRfaWJfZ2Z4KHN0cnVjdCBhbWRn
+cHVfcmluZyAqcmluZywKPiAgIH0KPiAgIAo+ICAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX3Jpbmdf
+ZW1pdF9pYl9jb21wdXRlKHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKPiAgIAkJCQkJICAgc3Ry
+dWN0IGFtZGdwdV9qb2IgKmpvYiwKPiAgIAkJCQkJICAgc3RydWN0IGFtZGdwdV9pYiAqaWIsCj4g
+ICAJCQkJCSAgIHVpbnQzMl90IGZsYWdzKQo+ICAgewo+ICAgCXVuc2lnbmVkIHZtaWQgPSBBTURH
+UFVfSk9CX0dFVF9WTUlEKGpvYik7Cj4gICAJdTMyIGNvbnRyb2wgPSBJTkRJUkVDVF9CVUZGRVJf
+VkFMSUQgfCBpYi0+bGVuZ3RoX2R3IHwgKHZtaWQgPDwgMjQpOwo+ICAgCj4gKwkvKiBDdXJyZW50
+bHksIHRoZXJlIGlzIGEgaGlnaCBwb3NzaWJpbGl0eSB0byBnZXQgd2F2ZSBJRCBtaXNtYXRjaAo+
+ICsJICogYmV0d2VlbiBNRSBhbmQgR0RTLCBsZWFkaW5nIHRvIGEgaHcgZGVhZGxvY2ssIGJlY2F1
+c2UgTUUgZ2VuZXJhdGVzCj4gKwkgKiBkaWZmZXJlbnQgd2F2ZSBJRHMgdGhhbiB0aGUgR0RTIGV4
+cGVjdHMuIFRoaXMgc2l0dWF0aW9uIGhhcHBlbnMKPiArCSAqIHJhbmRvbWx5IHdoZW4gYXQgbGVh
+c3QgNSBjb21wdXRlIHBpcGVzIHVzZSBHRFMgb3JkZXJlZCBhcHBlbmQuCj4gKwkgKiBUaGUgd2F2
+ZSBJRHMgZ2VuZXJhdGVkIGJ5IE1FIGFyZSBhbHNvIHdyb25nIGFmdGVyIHN1c3BlbmQvcmVzdW1l
+Lgo+ICsJICogVGhvc2UgYXJlIHByb2JhYmx5IGJ1Z3Mgc29tZXdoZXJlIGVsc2UgaW4gdGhlIGtl
+cm5lbCBkcml2ZXIuCj4gKwkgKgo+ICsJICogV3JpdGluZyBHRFNfQ09NUFVURV9NQVhfV0FWRV9J
+RCByZXNldHMgd2F2ZSBJRCBjb3VudGVycyBpbiBNRSBhbmQKPiArCSAqIEdEUyB0byAwIGZvciB0
+aGlzIHJpbmcgKG1lL3BpcGUpLgo+ICsJICovCj4gKwlpZiAoaWItPmZsYWdzICYgQU1ER1BVX0lC
+X0ZMQUdfUkVTRVRfR0RTX01BWF9XQVZFX0lEKSB7Cj4gKwkJYW1kZ3B1X3Jpbmdfd3JpdGUocmlu
+ZywgUEFDS0VUMyhQQUNLRVQzX1NFVF9DT05GSUdfUkVHLCAxKSk7Cj4gKwkJYW1kZ3B1X3Jpbmdf
+d3JpdGUocmluZywgbW1HRFNfQ09NUFVURV9NQVhfV0FWRV9JRCk7Cj4gKwkJYW1kZ3B1X3Jpbmdf
+d3JpdGUocmluZywgcmluZy0+YWRldi0+Z2RzLmdkc19jb21wdXRlX21heF93YXZlX2lkKTsKPiAr
+CX0KPiArCj4gICAJYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywgUEFDS0VUMyhQQUNLRVQzX0lORElS
+RUNUX0JVRkZFUiwgMikpOwo+ICAgCUJVR19PTihpYi0+Z3B1X2FkZHIgJiAweDMpOyAvKiBEd29y
+ZCBhbGlnbiAqLwo+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsCj4gICAjaWZkZWYgX19CSUdf
+RU5ESUFOCj4gICAJCQkJKDIgPDwgMCkgfAo+ICAgI2VuZGlmCj4gICAJCQkJbG93ZXJfMzJfYml0
+cyhpYi0+Z3B1X2FkZHIpKTsKPiAgIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCB1cHBlcl8zMl9i
+aXRzKGliLT5ncHVfYWRkcikpOwo+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIGNvbnRyb2wp
+Owo+ICAgfQo+IEBAIC01MTAzLDIwICs1MTE5LDIxIEBAIHN0YXRpYyB2b2lkIGdmeF92MTBfMF9z
+ZXRfcmxjX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCX0KPiAgIH0KPiAg
+IAo+ICAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX3NldF9nZHNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikKPiAgIHsKPiAgIAkvKiBpbml0IGFzaWMgZ2RzIGluZm8gKi8KPiAgIAlzd2l0
+Y2ggKGFkZXYtPmFzaWNfdHlwZSkgewo+ICAgCWNhc2UgQ0hJUF9OQVZJMTA6Cj4gICAJZGVmYXVs
+dDoKPiAgIAkJYWRldi0+Z2RzLmdkc19zaXplID0gMHgxMDAwMDsKPiArCQlhZGV2LT5nZHMuZ2Rz
+X2NvbXB1dGVfbWF4X3dhdmVfaWQgPSAweDRmZjsKPiAgIAkJYWRldi0+Z2RzLnZndF9nc19tYXhf
+d2F2ZV9pZCA9IDB4M2ZmOwo+ICAgCQlicmVhazsKPiAgIAl9Cj4gICAKPiAgIAlhZGV2LT5nZHMu
+Z3dzX3NpemUgPSA2NDsKPiAgIAlhZGV2LT5nZHMub2Ffc2l6ZSA9IDE2Owo+ICAgfQo+ICAgCj4g
+ICBzdGF0aWMgdm9pZCBnZnhfdjEwXzBfc2V0X3VzZXJfd2dwX2luYWN0aXZlX2JpdG1hcF9wZXJf
+c2goc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAJCQkJCQkJICB1MzIgYml0bWFwKQoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
