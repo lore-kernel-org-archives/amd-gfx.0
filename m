@@ -1,182 +1,113 @@
-From: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH][next] drm/amd/powerplay: fix out of memory check on
- od8_settings
-Date: Fri, 28 Jun 2019 15:49:07 +0000
-Message-ID: <DM6PR12MB32096A1C759F688B42A8519FFEFC0@DM6PR12MB3209.namprd12.prod.outlook.com>
-References: <20190628151354.14107-1-colin.king@canonical.com>
+From: Andrzej Pietrasiewicz <andrzej.p-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
+Subject: [PATCH v3 00/22] Associate ddc adapters with connectors
+Date: Fri, 28 Jun 2019 18:01:14 +0200
+Message-ID: <cover.1561735433.git.andrzej.p@collabora.com>
+References: <3fb19371-db7d-f9dc-31a7-1ccd126f6784@collabora.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2142614678=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190628151354.14107-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
-
---===============2142614678==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB32096A1C759F688B42A8519FFEFC0DM6PR12MB3209namp_"
-
---_000_DM6PR12MB32096A1C759F688B42A8519FFEFC0DM6PR12MB3209namp_
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-rockchip-bounces+glpar-linux-rockchip=m.gmane.org-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+In-Reply-To: <3fb19371-db7d-f9dc-31a7-1ccd126f6784-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-rockchip>,
+ <mailto:linux-rockchip-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-rockchip/>
+List-Post: <mailto:linux-rockchip-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+List-Help: <mailto:linux-rockchip-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-rockchip>,
+ <mailto:linux-rockchip-request-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org?subject=subscribe>
+Sender: "Linux-rockchip" <linux-rockchip-bounces-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org>
+Errors-To: linux-rockchip-bounces+glpar-linux-rockchip=m.gmane.org-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org
+To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: "Y.C. Chen" <yc_chen-SAlXDmAnmOAqDJ6do+/SaQ@public.gmane.org>, =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko-4mtYJXux2i+zQB+pC5nmwQ@public.gmane.org>, Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>, Neil Armstrong <narmstrong-rdvid1DuHRBWk0Htik3J/w@public.gmane.org>, Maxime Ripard <maxime.ripard-LDxbnhwyfcJBDgjK7y7TUQ@public.gmane.org>, Douglas Anderson <dianders-F7+t8E8rja9g9hUCZPvPmw@public.gmane.org>, Andrzej Hajda <a.hajda-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org>, Thierry Reding <thierry.reding-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Laurent Pinchart <Laurent.pinchart-ryLnwIuWjnjg/C1BVhZhaw@public.gmane.org>, Benjamin Gaignard <benjamin.gaignard-QSEj5FYQhm4dnm+yROfE0A@public.gmane.org>, kernel-ZGY8ohtN/8qB+jHODAdFcQ@public.gmane.org, Fabio Estevam <festevam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, linux-samsung-soc-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, Joonyoung Shim <jy0922.shim-Sze3O3UU22JBDgjK7y7TUQ@public.gmane.org>, linux-rockchip-IAPFreCvJWM7uuMidbF8XUB+6BGkLq7r@public.gmane.org, Vincent Abriou <vincent.abriou-qxv4g6HH51o@public.gmane.org>, Rob Clark <robdclark-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Krzysztof Kozlowski <krzk-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Jonathan Hunter <jonathanh-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>David
+List-Id: amd-gfx.lists.freedesktop.org
 
-Acked-by: Slava Abramov <slava.abramov-5C7GfCeVMHo@public.gmane.org>
+It is difficult for a user to know which of the i2c adapters is for which
+drm connector. This series addresses this problem.
 
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Colin Ki=
-ng <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Sent: Friday, June 28, 2019 11:13:54 AM
-To: Wang, Kevin(Yang); Rex Zhu; Quan, Evan; Deucher, Alexander; Koenig, Chr=
-istian; Zhou, David(ChunMing); David Airlie; Daniel Vetter; amd-gfx@lists.f=
-reedesktop.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Subject: [PATCH][next] drm/amd/powerplay: fix out of memory check on od8_se=
-ttings
+The idea is to have a symbolic link in connector's sysfs directory, e.g.:
 
-From: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+ls -l /sys/class/drm/card0-HDMI-A-1/ddc
+lrwxrwxrwx 1 root root 0 Jun 24 10:42 /sys/class/drm/card0-HDMI-A-1/ddc \
+	-> ../../../../soc/13880000.i2c/i2c-2
 
-The null pointer check on od8_settings is currently the opposite of what
-it is intended to do. Fix this by adding in the missing ! operator.
+The user then knows that their card0-HDMI-A-1 uses i2c-2 and can e.g. run
+ddcutil:
 
-Addressed-Coverity: ("Resource leak")
-Fixes: 0c83d32c565c ("drm/amd/powerplay: simplified od_settings for each as=
-ic")
-Signed-off-by: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ddcutil -b 2 getvcp 0x10
+VCP code 0x10 (Brightness                    ): current value =    90, max value =   100
 
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/vega20_ppt.c
-index 0f14fe14ecd8..eb9e6b3a5265 100644
---- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-@@ -1501,8 +1501,7 @@ static int vega20_set_default_od8_setttings(struct sm=
-u_context *smu)
-                 return -EINVAL;
+The first patch in the series adds struct i2c_adapter pointer to struct
+drm_connector. If the field is used by a particular driver, then an
+appropriate symbolic link is created by the generic code, which is also added
+by this patch.
 
-         od8_settings =3D kzalloc(sizeof(struct vega20_od8_settings), GFP_K=
-ERNEL);
--
--       if (od8_settings)
-+       if (!od8_settings)
-                 return -ENOMEM;
+The second patch is an example of how to convert a driver to this new scheme.
 
-         smu->od_settings =3D (void *)od8_settings;
---
-2.20.1
+v1..v2:
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+- used fixed name "ddc" for the symbolic link in order to make it easy for
+userspace to find the i2c adapter
 
---_000_DM6PR12MB32096A1C759F688B42A8519FFEFC0DM6PR12MB3209namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+v2..v3:
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-family: Calib=
-ri, Helvetica, sans-serif, EmojiFont, &quot;Apple Color Emoji&quot;, &quot;=
-Segoe UI Emoji&quot;, NotoColorEmoji, &quot;Segoe UI Symbol&quot;, &quot;An=
-droid Emoji&quot;, EmojiSymbols; font-size: 16px;">Acked-by: Slava Abramov =
-&lt;slava.abramov-5C7GfCeVMHo@public.gmane.org&gt;</span><br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Colin King &lt;colin.king@can=
-onical.com&gt;<br>
-<b>Sent:</b> Friday, June 28, 2019 11:13:54 AM<br>
-<b>To:</b> Wang, Kevin(Yang); Rex Zhu; Quan, Evan; Deucher, Alexander; Koen=
-ig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter; amd-gfx@=
-lists.freedesktop.org; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br=
->
-<b>Subject:</b> [PATCH][next] drm/amd/powerplay: fix out of memory check on=
- od8_settings</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&=
-gt;<br>
-<br>
-The null pointer check on od8_settings is currently the opposite of what<br=
->
-it is intended to do. Fix this by adding in the missing ! operator.<br>
-<br>
-Addressed-Coverity: (&quot;Resource leak&quot;)<br>
-Fixes: 0c83d32c565c (&quot;drm/amd/powerplay: simplified od_settings for ea=
-ch asic&quot;)<br>
-Signed-off-by: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 3 &#43;--<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/vega20_ppt.c<br>
-index 0f14fe14ecd8..eb9e6b3a5265 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-@@ -1501,8 &#43;1501,7 @@ static int vega20_set_default_od8_setttings(struc=
-t smu_context *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; od8_settings =3D kzalloc(s=
-izeof(struct vega20_od8_settings), GFP_KERNEL);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (od8_settings)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!od8_settings)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -ENOMEM;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;od_settings =3D (v=
-oid *)od8_settings;<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
+- converted as many drivers as possible.
 
---_000_DM6PR12MB32096A1C759F688B42A8519FFEFC0DM6PR12MB3209namp_--
+PATCHES 3/22-22/22 SHOULD BE CONSIDERED RFC!
 
---===============2142614678==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Andrzej Pietrasiewicz (22):
+  drm: Include ddc adapter pointer in struct drm_connector
+  drm/exynos: Provide ddc symlink in connector's sysfs
+  drm: rockchip: Provide ddc symlink in rk3066_hdmi sysfs directory
+  drm: rockchip: Provide ddc symlink in inno_hdmi sysfs directory
+  drm/msm/hdmi: Provide ddc symlink in hdmi connector sysfs directory
+  drm/sun4i: hdmi: Provide ddc symlink in sun4i hdmi connector sysfs
+    directory
+  drm/mediatek: Provide ddc symlink in hdmi connector sysfs directory
+  drm/tegra: Provide ddc symlink in output connector sysfs directory
+  drm/imx: imx-ldb: Provide ddc symlink in connector's sysfs
+  drm/imx: imx-tve: Provide ddc symlink in connector's sysfs
+  drm/vc4: Provide ddc symlink in connector sysfs directory
+  drm: zte: Provide ddc symlink in hdmi connector sysfs directory
+  drm: zte: Provide ddc symlink in vga connector sysfs directory
+  drm/tilcdc: Provide ddc symlink in connector sysfs directory
+  drm: sti: Provide ddc symlink in hdmi connector sysfs directory
+  drm/mgag200: Provide ddc symlink in connector sysfs directory
+  drm/ast: Provide ddc symlink in connector sysfs directory
+  drm/bridge: dumb-vga-dac: Provide ddc symlink in connector sysfs
+    directory
+  drm/bridge: dw-hdmi: Provide ddc symlink in connector sysfs directory
+  drm/bridge: ti-tfp410: Provide ddc symlink in connector sysfs
+    directory
+  drm/amdgpu: Provide ddc symlink in connector sysfs directory
+  drm/radeon: Provide ddc symlink in connector sysfs directory
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+ .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 70 +++++++++++-----
+ drivers/gpu/drm/ast/ast_mode.c                |  1 +
+ drivers/gpu/drm/bridge/dumb-vga-dac.c         | 19 ++---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 40 ++++-----
+ drivers/gpu/drm/bridge/ti-tfp410.c            | 19 ++---
+ drivers/gpu/drm/drm_sysfs.c                   |  7 ++
+ drivers/gpu/drm/exynos/exynos_hdmi.c          | 11 ++-
+ drivers/gpu/drm/imx/imx-ldb.c                 | 13 ++-
+ drivers/gpu/drm/imx/imx-tve.c                 |  8 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c           |  9 +-
+ drivers/gpu/drm/mgag200/mgag200_mode.c        |  1 +
+ drivers/gpu/drm/msm/hdmi/hdmi_connector.c     |  1 +
+ drivers/gpu/drm/radeon/radeon_connectors.c    | 82 ++++++++++++++-----
+ drivers/gpu/drm/rockchip/inno_hdmi.c          | 17 ++--
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c        | 17 ++--
+ drivers/gpu/drm/sti/sti_hdmi.c                |  1 +
+ drivers/gpu/drm/sun4i/sun4i_hdmi.h            |  1 -
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c        | 14 ++--
+ drivers/gpu/drm/tegra/drm.h                   |  1 -
+ drivers/gpu/drm/tegra/output.c                | 12 +--
+ drivers/gpu/drm/tegra/sor.c                   |  6 +-
+ drivers/gpu/drm/tilcdc/tilcdc_tfp410.c        |  1 +
+ drivers/gpu/drm/vc4/vc4_hdmi.c                | 16 ++--
+ drivers/gpu/drm/zte/zx_hdmi.c                 | 25 ++----
+ drivers/gpu/drm/zte/zx_vga.c                  | 25 ++----
+ include/drm/drm_connector.h                   | 11 +++
+ 26 files changed, 252 insertions(+), 176 deletions(-)
 
---===============2142614678==--
+-- 
+2.17.1
