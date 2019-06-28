@@ -1,96 +1,40 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/5] drm/amdgpu: allow direct submission in the VM backends
-Date: Fri, 28 Jun 2019 17:26:07 +0200
-Message-ID: <99be1543-66a2-b297-f18b-e98436147f76@gmail.com>
-References: <20190628121812.1400-1-christian.koenig@amd.com>
- <58a7ff4f-47f2-42a6-f9af-ca28726535bf@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amd/powerplay: remove a less than zero uint32_t check
+Date: Fri, 28 Jun 2019 16:28:04 +0100
+Message-ID: <20190628152804.16954-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <58a7ff4f-47f2-42a6-f9af-ca28726535bf-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjguMDYuMTkgdW0gMTY6MzAgc2NocmllYiBDaHVubWluZyBaaG91Ogo+IOWcqCAyMDE5LzYv
-MjggMjA6MTgsIENocmlzdGlhbiBLw7ZuaWcg5YaZ6YGTOgo+PiBUaGlzIGFsbG93cyB1cyB0byB1
-cGRhdGUgcGFnZSB0YWJsZXMgZGlyZWN0bHkgd2hpbGUgaW4gYSBwYWdlIGZhdWx0Lgo+Pgo+PiBT
-aWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
-Cj4+IC0tLQo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaCAgICAg
-IHwgIDUgKysrKwo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm1fY3B1
-LmMgIHwgIDQgKysrCj4+ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9z
-ZG1hLmMgfCAyOSArKysrKysrKysrKysrLS0tLS0tLS0KPj4gICAgMyBmaWxlcyBjaGFuZ2VkLCAy
-NyBpbnNlcnRpb25zKCspLCAxMSBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmgKPj4gaW5kZXggNDg5YTE2MmNhNjIwLi41OTQxYWNjZWEwNjEgMTAw
-NjQ0Cj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oCj4+IEBAIC0xOTcsNiAr
-MTk3LDExIEBAIHN0cnVjdCBhbWRncHVfdm1fdXBkYXRlX3BhcmFtcyB7Cj4+ICAgIAkgKi8KPj4g
-ICAgCXN0cnVjdCBhbWRncHVfdm0gKnZtOwo+PiAgICAKPj4gKwkvKioKPj4gKwkgKiBAZGlyZWN0
-OiBpZiBjaGFuZ2VzIHNob3VsZCBiZSBtYWRlIGRpcmVjdGx5Cj4+ICsJICovCj4+ICsJYm9vbCBk
-aXJlY3Q7Cj4+ICsKPj4gICAgCS8qKgo+PiAgICAJICogQHBhZ2VzX2FkZHI6Cj4+ICAgIAkgKgo+
-PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtX2NwdS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtX2NwdS5jCj4+IGluZGV4IDUy
-MjJkMTY1YWJmYy4uZjk0ZTQ4OTYwNzljIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdm1fY3B1LmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtX2NwdS5jCj4+IEBAIC00OSw2ICs0OSwxMCBAQCBzdGF0aWMgaW50IGFt
-ZGdwdV92bV9jcHVfcHJlcGFyZShzdHJ1Y3QgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgKnAsIHZv
-aWQgKm93bmVyLAo+PiAgICB7Cj4+ICAgIAlpbnQgcjsKPj4gICAgCj4+ICsJLyogRG9uJ3Qgd2Fp
-dCBmb3IgYW55dGhpbmcgZHVyaW5nIHBhZ2UgZmF1bHQgKi8KPj4gKwlpZiAocC0+ZGlyZWN0KQo+
-PiArCQlyZXR1cm4gMDsKPj4gKwo+PiAgICAJLyogV2FpdCBmb3IgUFQgQk9zIHRvIGJlIGlkbGUu
-IFBUcyBzaGFyZSB0aGUgc2FtZSByZXN2LiBvYmplY3QKPj4gICAgCSAqIGFzIHRoZSByb290IFBE
-IEJPCj4+ICAgIAkgKi8KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92bV9zZG1hLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm1f
-c2RtYS5jCj4+IGluZGV4IGRkZDE4MWY1ZWQzNy4uODkxZDU5NzA2M2NiIDEwMDY0NAo+PiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm1fc2RtYS5jCj4+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9zZG1hLmMKPj4gQEAgLTY4LDE3ICs2
-OCwxNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9zZG1hX3ByZXBhcmUoc3RydWN0IGFtZGdwdV92
-bV91cGRhdGVfcGFyYW1zICpwLAo+PiAgICAJaWYgKHIpCj4+ICAgIAkJcmV0dXJuIHI7Cj4+ICAg
-IAo+PiAtCXIgPSBhbWRncHVfc3luY19mZW5jZShwLT5hZGV2LCAmcC0+am9iLT5zeW5jLCBleGNs
-dXNpdmUsIGZhbHNlKTsKPj4gLQlpZiAocikKPj4gLQkJcmV0dXJuIHI7Cj4+ICsJcC0+bnVtX2R3
-X2xlZnQgPSBuZHc7Cj4+ICsKPj4gKwlpZiAocC0+ZGlyZWN0KQo+PiArCQlyZXR1cm4gMDsKPj4g
-ICAgCj4+IC0JciA9IGFtZGdwdV9zeW5jX3Jlc3YocC0+YWRldiwgJnAtPmpvYi0+c3luYywgcm9v
-dC0+dGJvLnJlc3YsCj4+IC0JCQkgICAgIG93bmVyLCBmYWxzZSk7Cj4+ICsJciA9IGFtZGdwdV9z
-eW5jX2ZlbmNlKHAtPmFkZXYsICZwLT5qb2ItPnN5bmMsIGV4Y2x1c2l2ZSwgZmFsc2UpOwo+PiAg
-ICAJaWYgKHIpCj4+ICAgIAkJcmV0dXJuIHI7Cj4+ICAgIAo+PiAtCXAtPm51bV9kd19sZWZ0ID0g
-bmR3Owo+PiAtCXJldHVybiAwOwo+PiArCXJldHVybiBhbWRncHVfc3luY19yZXN2KHAtPmFkZXYs
-ICZwLT5qb2ItPnN5bmMsIHJvb3QtPnRiby5yZXN2LAo+PiArCQkJCW93bmVyLCBmYWxzZSk7Cj4+
-ICAgIH0KPj4gICAgCj4+ICAgIC8qKgo+PiBAQCAtOTksMTMgKzk5LDIxIEBAIHN0YXRpYyBpbnQg
-YW1kZ3B1X3ZtX3NkbWFfY29tbWl0KHN0cnVjdCBhbWRncHVfdm1fdXBkYXRlX3BhcmFtcyAqcCwK
-Pj4gICAgCXN0cnVjdCBkbWFfZmVuY2UgKmY7Cj4+ICAgIAlpbnQgcjsKPj4gICAgCj4+IC0Jcmlu
-ZyA9IGNvbnRhaW5lcl9vZihwLT52bS0+ZW50aXR5LnJxLT5zY2hlZCwgc3RydWN0IGFtZGdwdV9y
-aW5nLCBzY2hlZCk7Cj4+ICsJaWYgKHAtPmRpcmVjdCkKPj4gKwkJcmluZyA9IHAtPmFkZXYtPnZt
-X21hbmFnZXIucGFnZV9mYXVsdDsKPj4gKwllbHNlCj4+ICsJCXJpbmcgPSBjb250YWluZXJfb2Yo
-cC0+dm0tPmVudGl0eS5ycS0+c2NoZWQsCj4+ICsJCQkJICAgIHN0cnVjdCBhbWRncHVfcmluZywg
-c2NoZWQpOwo+PiAgICAKPj4gICAgCVdBUk5fT04oaWItPmxlbmd0aF9kdyA9PSAwKTsKPj4gICAg
-CWFtZGdwdV9yaW5nX3BhZF9pYihyaW5nLCBpYik7Cj4+ICAgIAlXQVJOX09OKGliLT5sZW5ndGhf
-ZHcgPiBwLT5udW1fZHdfbGVmdCk7Cj4+IC0JciA9IGFtZGdwdV9qb2Jfc3VibWl0KHAtPmpvYiwg
-JnAtPnZtLT5lbnRpdHksCj4+IC0JCQkgICAgICBBTURHUFVfRkVOQ0VfT1dORVJfVk0sICZmKTsK
-Pj4gKwo+PiArCWlmIChwLT5kaXJlY3QpCj4+ICsJCXIgPSBhbWRncHVfam9iX3N1Ym1pdF9kaXJl
-Y3QocC0+am9iLCByaW5nLCAmZik7Cj4gV2hlbiB3ZSB1c2UgZGlyZWN0IHN1Ym1pc3Npb24gYWZ0
-ZXIgaW50aWFsaXphdGlvbiwgd2UgbmVlZCB0byB0YWtlIGNhcmUKPiBvZiByaW5nIHJhY2UgY29u
-ZGlzaW9uLCBkb24ndCB3ZT8gQW0gSSBtaXNzaW5nIGFueXRoaW5nPwoKRGlyZWN0IHN1Ym1pc3Np
-b24gY2FuIG9ubHkgdXNlZCBieSB0aGUgcGFnZSBmYXVsdCB3b3JrZXIgdGhyZWFkLiBBbmQgYXQg
-CmxlYXN0IGZvciBub3cgdGhlcmUgaXMgZXhhY3RseSBvbmUgd29ya2VyIHRocmVhZC4KCkNocmlz
-dGlhbi4KCj4KPgo+IC1EYXZpZAo+Cj4+ICsJZWxzZQo+PiArCQlyID0gYW1kZ3B1X2pvYl9zdWJt
-aXQocC0+am9iLCAmcC0+dm0tPmVudGl0eSwKPj4gKwkJCQkgICAgICBBTURHUFVfRkVOQ0VfT1dO
-RVJfVk0sICZmKTsKPj4gICAgCWlmIChyKQo+PiAgICAJCWdvdG8gZXJyb3I7Cj4+ICAgIAo+PiBA
-QCAtMTIwLDcgKzEyOCw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX3NkbWFfY29tbWl0KHN0cnVj
-dCBhbWRncHVfdm1fdXBkYXRlX3BhcmFtcyAqcCwKPj4gICAgCXJldHVybiByOwo+PiAgICB9Cj4+
-ICAgIAo+PiAtCj4+ICAgIC8qKgo+PiAgICAgKiBhbWRncHVfdm1fc2RtYV9jb3B5X3B0ZXMgLSBj
-b3B5IHRoZSBQVEVzIGZyb20gbWFwcGluZwo+PiAgICAgKgoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4
+From: Colin Ian King <colin.king@canonical.com>
+
+The check to see if the uint32_t variable 'size' is less than zero
+is redundant as it is unsigned and can never be less than zero.
+Remove this redundant check.
+
+Addresses-Coverity: ("Unsigned compared to zero")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index ac151da..6ea48d6 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -1043,9 +1043,6 @@ static int navi10_set_power_profile_mode(struct smu_context *smu, long *input, u
+ 	}
+ 
+ 	if (smu->power_profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
+-		if (size < 0)
+-			return -EINVAL;
+-
+ 		ret = smu_update_table(smu,
+ 				       SMU_TABLE_ACTIVITY_MONITOR_COEFF | WORKLOAD_PPLIB_CUSTOM_BIT << 16,
+ 				       (void *)(&activity_monitor), false);
+-- 
+2.7.4
