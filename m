@@ -1,268 +1,119 @@
-From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
-Date: Fri, 28 Jun 2019 07:01:43 +0000
-Message-ID: <MN2PR12MB29749635290092A031CB5A4C95FC0@MN2PR12MB2974.namprd12.prod.outlook.com>
-References: <1561618176-27968-1-git-send-email-tianci.yin@amd.com>,
- <BN6PR12MB18093E64A4289711D31BCED8F7FD0@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 2/2] dma-buf: cleanup shared fence removal
+Date: Fri, 28 Jun 2019 09:30:03 +0200
+Message-ID: <CAKMK7uFMZLemYkWTyOH_0akUbE53X44Xj7jky90G-jWtwSUicw@mail.gmail.com>
+References: <20190627101813.61430-1-christian.koenig@amd.com>
+ <20190627101813.61430-2-christian.koenig@amd.com>
+ <CAKMK7uGtdSxVSUor8P_8XH+uf4_A-kRfY6h+XnJoizscWE4AOg@mail.gmail.com>
+ <f1a792c2-87e0-9aba-c6f1-0374122d025b@gmail.com>
+ <CAKMK7uFoeugD0ASHm4DRLzq6h3aAvNhE1ODh-bxoH7Lucf1m3w@mail.gmail.com>
+ <5e182e5d-efcb-00bd-fa31-6e8bc9571ce6@amd.com>
+ <20190627171053.GN12905@phenom.ffwll.local>
+ <4844af2e-fbff-ceb9-c16e-32bb7012559f@amd.com>
+ <CAKMK7uF2Wb_K9MqALs8o_2i+HDhv=JcnHj6t4VAUO80UVpszZQ@mail.gmail.com>
+ <6e9b4005-e490-ab27-2051-1eab801dafd3@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0514965742=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR12MB18093E64A4289711D31BCED8F7FD0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-
---===============0514965742==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_"
-
---_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Thanks Alex!
-________________________________
-From: Deucher, Alexander
-Sent: Thursday, June 27, 2019 23:38
-To: Yin, Tianci (Rico); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiao, Jack; Zhang, Hawking
-Subject: Re: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tianci Y=
-in <tianci.yin-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, June 27, 2019 2:49 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiao, Jack; Yin, Tianci (Rico); Zhang, Hawking
-Subject: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
-
-From: tiancyin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
-
-update the smu11_driver_if_navi10.h since navi10 smu fw
-update to 42.28
-
-Signed-off-by: tiancyin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h | 6 +++---
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c                 | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h b/d=
-rivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
-index a8b31bc..adbbfeb 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
-@@ -26,7 +26,7 @@
- // *** IMPORTANT ***
- // SMU TEAM: Always increment the interface version if
- // any structure is changed in this file
--#define SMU11_DRIVER_IF_VERSION 0x32
-+#define SMU11_DRIVER_IF_VERSION 0x33
-
- #define PPTABLE_NV10_SMU_VERSION 8
-
-@@ -813,8 +813,8 @@ typedef struct {
-   uint16_t     UclkAverageLpfTau;
-   uint16_t     GfxActivityLpfTau;
-   uint16_t     UclkActivityLpfTau;
-+  uint16_t     SocketPowerLpfTau;
-
--  uint16_t     Padding;
-   // Padding - ignore
-   uint32_t     MmHubPadding[8]; // SMU internal use
- } DriverSmuConfig_t;
-@@ -853,7 +853,7 @@ typedef struct {
-   uint8_t  CurrGfxVoltageOffset  ;
-   uint8_t  CurrMemVidOffset      ;
-   uint8_t  Padding8              ;
--  uint16_t CurrSocketPower       ;
-+  uint16_t AverageSocketPower    ;
-   uint16_t TemperatureEdge       ;
-   uint16_t TemperatureHotspot    ;
-   uint16_t TemperatureMem        ;
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c
-index 99566de..373aeba 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -863,7 +863,7 @@ static int navi10_get_gpu_power(struct smu_context *smu=
-, uint32_t *value)
-         if (ret)
-                 return ret;
-
--       *value =3D metrics.CurrSocketPower << 8;
-+       *value =3D metrics.AverageSocketPower << 8;
-
-         return 0;
- }
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks&nbsp;Alex!</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander<br=
->
-<b>Sent:</b> Thursday, June 27, 2019 23:38<br>
-<b>To:</b> Yin, Tianci (Rico); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Xiao, Jack; Zhang, Hawking<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi1=
-0.h</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Tianci Yin &lt;tianci.yin@a=
-md.com&gt;<br>
-<b>Sent:</b> Thursday, June 27, 2019 2:49 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Xiao, Jack; Yin, Tianci (Rico); Zhang, Hawking<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">From: tiancyin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-update the smu11_driver_if_navi10.h since navi10 smu fw<br>
-update to 42.28<br>
-<br>
-Signed-off-by: tiancyin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h | 6 &#43;&=
-#43;&#43;---<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &=
-#43;-<br>
-&nbsp;2 files changed, 4 insertions(&#43;), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h b/d=
-rivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h<br>
-index a8b31bc..adbbfeb 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.=
-h<br>
-@@ -26,7 &#43;26,7 @@<br>
-&nbsp;// *** IMPORTANT ***<br>
-&nbsp;// SMU TEAM: Always increment the interface version if <br>
-&nbsp;// any structure is changed in this file<br>
--#define SMU11_DRIVER_IF_VERSION 0x32<br>
-&#43;#define SMU11_DRIVER_IF_VERSION 0x33<br>
-&nbsp;<br>
-&nbsp;#define PPTABLE_NV10_SMU_VERSION 8<br>
-&nbsp;<br>
-@@ -813,8 &#43;813,8 @@ typedef struct {<br>
-&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; UclkAverageLpfTau;<br>
-&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; GfxActivityLpfTau;<br>
-&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; UclkActivityLpfTau;<br>
-&#43;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; SocketPowerLpfTau;<br>
-&nbsp;<br>
--&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; Padding;&nbsp; <br>
-&nbsp;&nbsp; // Padding - ignore<br>
-&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp; MmHubPadding[8]; // SMU inter=
-nal use<br>
-&nbsp;} DriverSmuConfig_t;<br>
-@@ -853,7 &#43;853,7 @@ typedef struct {<br>
-&nbsp;&nbsp; uint8_t&nbsp; CurrGfxVoltageOffset&nbsp; ;<br>
-&nbsp;&nbsp; uint8_t&nbsp; CurrMemVidOffset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=
-<br>
-&nbsp;&nbsp; uint8_t&nbsp; Padding8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<br>
--&nbsp; uint16_t CurrSocketPower&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<br>
-&#43;&nbsp; uint16_t AverageSocketPower&nbsp;&nbsp;&nbsp; ;<br>
-&nbsp;&nbsp; uint16_t TemperatureEdge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=
-<br>
-&nbsp;&nbsp; uint16_t TemperatureHotspot&nbsp;&nbsp;&nbsp; ;<br>
-&nbsp;&nbsp; uint16_t TemperatureMem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c<br>
-index 99566de..373aeba 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-@@ -863,7 &#43;863,7 @@ static int navi10_get_gpu_power(struct smu_context =
-*smu, uint32_t *value)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics.CurrSocketPower &l=
-t;&lt; 8;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics.AverageSocketP=
-ower &lt;&lt; 8;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_--
-
---===============0514965742==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <6e9b4005-e490-ab27-2051-1eab801dafd3@amd.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0514965742==--
+T24gRnJpLCBKdW4gMjgsIDIwMTkgYXQgODozMiBBTSBLb2VuaWcsIENocmlzdGlhbgo8Q2hyaXN0
+aWFuLktvZW5pZ0BhbWQuY29tPiB3cm90ZToKPiBBbSAyNy4wNi4xOSB1bSAyMTo1NyBzY2hyaWVi
+IERhbmllbCBWZXR0ZXI6Cj4gPiBbU05JUF0KPiA+PiBBZ2FpbiwgdGhlIHJlYXNvbiB0byByZW1v
+dmUgdGhlIGZlbmNlIGZyb20gb25lIHJlc2VydmF0aW9uIG9iamVjdCBpcwo+ID4+IHNpbXBseSB0
+aGF0IGl0IGlzIGZhc3RlciB0byByZW1vdmUgaXQgZnJvbSBvbmUgb2JqZWN0IHRoYW4gdG8gYXR0
+YWNoIGEKPiA+PiBuZXcgZmVuY2UgdG8gYWxsIG90aGVyIG9iamVjdHMuCj4gPiBIbSBJIGd1ZXNz
+IEkgd2FzIGxlYWQgYXN0cmF5IGJ5IHRoZSBldmljdGlvbl9mZW5jZSBpbnZhbGlkYXRpb24gdGhp
+bmcKPiA+IGluIGVuYWJsZV9zaWduYWxpbmcsIGFuZCBhIGZldyBvdGhlciBwbGFjZXMgdGhhdCBm
+cmVlZCB0aGUgYm8gcmlnaHQKPiA+IGFmdGVycyAobGlrZSBhbWRncHVfYW1ka2ZkX2dwdXZtX2Zy
+ZWVfbWVtb3J5X29mX2dwdSksIHdoZXJlIHJlbW92aW5nCj4gPiB0aGUgZmVuY2VzIGZpcnN0IGFu
+ZCB0aGVuIGZyZWVpbmcgdGhlIGJvIGlzIGtpbmRhIHBvaW50bGVzcy4KPgo+IEFIISBOb3cgSSBr
+bm93IHdoZXJlIHlvdXIgbWlzc2luZyBwdXp6bGUgcGllY2UgaXMuCj4KPiBTZWUgd2hlbiB3ZSBm
+cmVlIGEgYnVmZmVyIG9iamVjdCBUVE0gcHV0cyBpdCBvbiB0aGUgZGVsYXllZCBkZWxldGUgbGlz
+dAo+IHRvIG1ha2Ugc3VyZSB0aGF0IGl0IGdldHMgZnJlZWQgdXAgb25seSBhZnRlciBhbGwgZmVu
+Y2VzIGFyZSBzaWduYWxlZC4KPgo+IFNvIHRoaXMgaXMgZXNzZW50aWFsbHkgdG8gbWFrZSBzdXJl
+IHRoZSBCTyBnZXRzIGZyZWVkIHVwIGltbWVkaWF0ZWx5LgoKV2VsbCB5ZWFoIHlvdSBoYXZlIHRv
+IHdhaXQgZm9yIG91dHN0YW5kaW5nIHJlbmRlcmluZy4gRXZlcnlvbmUgZG9lcwp0aGF0LiBUaGUg
+cHJvYmxlbSBpcyB0aGF0IC0+ZXZpY3Rpb25fZmVuY2UgZG9lcyBub3QgcmVwcmVzZW50CnJlbmRl
+cmluZywgaXQncyBhIHZlcnkgY29udHJpdmVkIHdheSB0byBpbXBsZW1lbnQgdGhlIC0+bm90aWZ5
+X21vdmUKY2FsbGJhY2suCgpGb3IgcmVhbCBmZW5jZXMgeW91IGhhdmUgdG8gd2FpdCBmb3IgcmVu
+ZGVyaW5nIHRvIGNvbXBsZXRlLCBwdXR0aW5nCmFzaWRlIGNvcm5lciBjYXNlcyBsaWtlIGRlc3Ry
+b3lpbmcgYW4gZW50aXJlIGNvbnRleHQgd2l0aCBhbGwgaXRzCnBlbmRpbmcgcmVuZGVyaW5nLiBO
+b3QgcmVhbGx5IHNvbWV0aGluZyB3ZSBzaG91bGQgb3B0aW1pemUgZm9yIEkKdGhpbmsuCgo+ID4g
+Tm93IHdpdGggeW91ciBpbnNpc3RlbmNlIHRoYXQgSSdtIGdldHRpbmcgc29tZXRoaW5nIHdyb25n
+IEkgZ3Vlc3MgdGhlCj4gPiB5b3UncmUgdGFsa2luZyBhYm91dCB0aGUgdW5iaW5kIGNhc2UsIHdo
+ZXJlIHRoZSBibyBzdXJ2aXZlcywgYnV0IGl0J3MKPiA+IG1hcHBpbmcgZGlzYXBwZWFycywgYW5k
+IGhlbmNlIHRoYXQgc3BlY2lmaWMgZXZpY3Rpb25fZmVuY2UgbmVlZHMgdG8gYmUKPiA+IHJlbW92
+ZWQuCj4gPiBBbmQgeWVhaCB0aGVyZSBJIGd1ZXNzIGp1c3QgcmVtb3ZpbmcgdGhlIG1hZ2ljIGV2
+aWN0aW9uIGZlbmNlIGlzCj4gPiBjaGVhcGVyIHRoYW4gcmVwbGFjaW5nIGFsbCB0aGUgb3RoZXJz
+Lgo+Cj4gSWYgcG9zc2libGUgSSBhY3R1YWxseSB3YW50IHRvIGFwcGx5IHRoaXMgdG8gdGhlIGdl
+bmVyYWwgY2FzZSBvZiBmcmVlaW5nCj4gdXAgcGVyIHByb2Nlc3MgcmVzb3VyY2VzLgo+Cj4gSW4g
+b3RoZXIgd29yZHMgd2hlbiB3ZSBkb24ndCB0cmFjayByZXNvdXJjZSB1c2FnZSBvbiBhIHBlciBz
+dWJtaXNzaW9uCj4gYmFzaXMgZnJlZWluZyB1cCByZXNvdXJjZXMgaXMgY29zdGx5IGJlY2F1c2Ug
+d2UgYWx3YXlzIGhhdmUgdG8gd2FpdCBmb3IKPiB0aGUgbGFzdCBzdWJtaXNzaW9uLgo+Cj4gQnV0
+IGlmIHdlIGNhbiBwcmV2ZW50IGZ1cnRoZXIgYWNjZXNzIHRvIHRoZSByZXNvdXJjZSB1c2luZyBw
+YWdlIHRhYmxlcwo+IGl0IGlzIHBlcmZlY3RseSB2YWxpZCB0byBmcmVlIGl0IGFzIHNvb24gYXMg
+dGhlIHBhZ2UgdGFibGVzIGFyZSB1cCB0byBkYXRlLgoKU3RpbGwgbm90IHNlZWluZyBob3cgeW91
+IGNhbiB1c2UgdGhpcyBvdXRzaWRlIG9mIHRoZSBtYWdpYyBhbWRrZmQKZXZpY3Rpb25fZmVuY2Uu
+CgpTbyB3aXRoIHRoZSBtYWdpYyBhbWRrZmRfZXZpY3Rpb24gZmVuY2UgSSBhZ3JlZSB0aGlzIG1h
+a2VzIHNlbnNlLiBUaGUKcHJvYmxlbSBJJ20gaGF2aW5nIGhlcmUgaXMgdGhhdCB0aGUgbWFnaWMg
+ZXZpY3Rpb24gZmVuY2UgaXRzZWxmCmRvZXNuJ3QgbWFrZSBzZW5zZS4gV2hhdCBJIGV4cGVjdCB3
+aWxsIGhhcHBlbiAoaW4gdGVybXMgb2YgdGhlIG5ldwpkeW5hbWljIGRtYS1idWYgc3R1ZmYsIEkg
+ZG9uJ3QgaGF2ZSB0aGUgdHRtLWlzbSByZWFkeSB0byBleHBsYWluIGl0IGluCnRob3NlIGNvbmNl
+cHRzKS4KCi0gd2hlbiB5b3Ugc3VibWl0IGNvbW1hbmQgYnVmZmVycywgeW91IF9kb250XyBhdHRh
+Y2ggZmVuY2VzIHRvIGFsbAppbnZvbHZlZCBidWZmZXJzCi0gd2hlbiB5b3UgZ2V0IGEgLT5ub3Rp
+ZnlfbW92ZSB0aGVyZSdzIGN1cnJlbnRseSAyIG9wdGlvbnM6CjEuIGluZWZmaWNpZW50IHdheTog
+d2FpdCBmb3IgdGhlIGxhdGVzdCBjb21tYW5kIGJ1ZmZlciB0byBjb21wbGV0ZSwgYXMKYSBkZWZl
+bnNpdmUgbW92ZS4gVG8gZG8gdGhhdCB5b3UgYXR0YWNoIHRoZSBmZW5jZSBmcm9tIHRoYXQgY29t
+bWFuZApidWZmZXIgdG8gdGhlIG9iaiBpbiB5b3VyIG5vdGlmaXlfbW92ZSBjYWxsYmFjayAodGhl
+IGtlcm5lbGRvYyBkb2Vzbid0CmV4cGxhaW4gdGhpcywgYnV0IEkgdGhpbmsgd2UgcmVhbGx5IG5l
+ZWQgdGhpcykuCjIuIGVmZmljaWVudCB3YXk6IFlvdSBqdXN0IHVubWFwIGZyb20gcGFnZXRhYmxl
+cyAoYW5kIGVhdC9oYW5kbGUgdGhlCmZhdWx0IGlmIHRoZXJlIGlzIGFueSkuCgpObyB3aGVyZSBk
+byB5b3UgbmVlZCB0byByZW1vdmUgYSBmZW5jZSwgYmVjYXVzZSB5b3UgbmV2ZXIgYXR0YWNoZWQg
+YQpib2d1cyBmZW5jZS4KCk5vdyB3aXRoIHRoZSBtYWdpYyBldmljdGlvbiB0cmljayBhbWRrZmQg
+dXNlcywgeW91IGNhbid0IGRvIHRoYXQsCmJlY2F1c2UgeW91IG5lZWQgdG8gYXR0YWNoIHRoaXMg
+bWFnaWMgZmVuY2UgdG8gYWxsIGJ1ZmZlcnMsIGFsbCB0aGUKdGltZS4gQW5kIHNpbmNlIGl0IHN0
+aWxsIG5lZWRzIHRvIHdvcmsgbGlrZSBhIGZlbmNlIGl0J3Mgb25lLXNob3QKb25seSwgaS5lLiBp
+bnN0ZWFkIG9mIGEgcmV1c2VhYmxlIC0+bm90aWZ5X21vdmUgY2FsbGJhY2sgeW91IG5lZWQgdG8K
+Y3JlYXRlIGEgbmV3IGZlbmNlIGV2ZXJ5IHRpbWUgLT5lbmFibGVfc2lnbmFsbGluZyBpcyBjYWxs
+ZWQuIFNvIGluIGEKd2F5IHJlcGxhY2luZyBmZW5jZXMgaXMganVzdCBhbiBhcnRpZmFjdCBvZiBz
+b21lIHZlcnksIHZlcnkgY3JhenkKY2FsbGluZyBjb252ZW50aW9uLgoKSWYgeW91IGhhdmUgYSBy
+ZWFsIGNhbGxiYWNrLCB0aGVyZSdzIG5vIG5lZWQgZm9yIGN5Y2xpbmcgdGhyb3VnaApmZW5jZXMs
+IGFuZCB0aGVyZWZvcmUgdGhlcmUncyBhbHNvIG5vIG5lZWQgdG8gb3B0aW1pemUgdGhlaXIgcmVt
+b3ZhbC4KCk9yIGRpZCB5b3Ugd29yayB1bmRlciB0aGUgYXNzdW1wdGlvbiB0aGF0IC0+bm90aWZ5
+X21vdmUgY2Fubm90IGF0dGFjaApuZXcgZmVuY2VzLCBhbmQgdGhlcmVmb3JlIHlvdSdkIGhhdmUg
+dG8gcm9sbCB0aGlzIG1hZ2ljIGZlbmNlIHRyaWNrIHRvCmV2ZW4gbW9yZSBwbGFjZXM/Cgo+ID4g
+Tm93IEkgZ3Vlc3MgSSB1bmRlcnN0YW5kIHRoZSBtZWNoYW5pY3Mgb2YgdGhpcyBzb21ld2hhdCwg
+YW5kIHdoYXQKPiA+IHlvdSdyZSBkb2luZywgYW5kIGxpdCBvb2tzIGV2ZW4gc29tZXdoYXQgc2Fm
+ZS4gQnV0IEkgaGF2ZSBubyBpZGVhIHdoYXQKPiA+IHRoaXMgaXMgc3VwcG9zZWQgdG8gYWNoaWV2
+ZS4gSXQgZmVlbHMgYSBiaXQgbGlrZSAtPm5vdGlmeV9tb3ZlLCBidXQKPiA+IGltcGxlbWVudGVk
+IGluIHRoZSBtb3N0IGhvcnJpYmxlIHdheSBwb3NzaWJsZS4gT3IgbWF5YmUgc29tZXRoaW5nCj4g
+PiBlbHNlLgo+ID4KPiA+IFJlYWxseSBubyBpZGVhLgo+ID4KPiA+IEFuZCBnaXZlbiB0aGF0IHdl
+J3ZlIHdhc3RlZCBJIGZldyBwYWdlcyBmdWxsIG9mIHBhcmFncmFwaHMgYWxyZWFkeSBvbgo+ID4g
+dHJ5aW5nIHRvIGV4cGxhaW4gd2hhdCB5b3VyIG5ldyBsaXR0bGUgaGVscGVyIGlzIGZvciwgd2hl
+biBpdCdzIHNhZmUKPiA+IHRvIHVzZSwgd2hlbiBpdCdzIG1heWJlIG5vdCBhIGdvb2QgaWRlYSwg
+YW5kIHdlIHN0aWxsIGhhdmVuJ3QgZXZlbgo+ID4gYm90dG9tZWQgb3V0IG9uIHdoYXQgdGhpcyBp
+cyBmb3IgLi4uIHdlbGwgSSByZWFsbHkgZG9uJ3QgdGhpbmsgaXQncyBhCj4gPiBnb29kIGlkZWEg
+dG8gaW5mbGljdCB0aGlzIGludG8gY29yZSBjb2RlLiBCZWNhdXNlIGp1c3QgYmxpbmRseQo+ID4g
+cmVtb3Zpbmcgbm9ybWFsIGZlbmNlcyBpcyBub3Qgc2FmZS4KPiA+Cj4gPiBFc3BlY2lhbGx5IHdp
+dGggbGlrZSBoYWxmIGEgc2VudGVuY2Ugb2Yga2VybmVsZG9jIHRoYXQgZXhwbGFpbnMKPiA+IG5v
+dGhpbmcgb2YgYWxsIHRoaXMgY29tcGxleGl0eS4KClN0aWxsIG1ha2VzIG5vIHNlbnNlIHRvIG1l
+IHRvIGhhdmUgaW4gY29yZSBjb2RlLgotRGFuaWVsCi0tIApEYW5pZWwgVmV0dGVyClNvZnR3YXJl
+IEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgorNDEgKDApIDc5IDM2NSA1NyA0OCAtIGh0dHA6
+Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
+ZXZlbA==
