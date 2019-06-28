@@ -1,75 +1,44 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Don't skip display settings in hwmgr_resume()
-Date: Fri, 28 Jun 2019 10:07:11 -0400
-Message-ID: <CADnq5_ODsuKDRFyi5v5nOLmXCFnguaVYLXAn-Z2=bX6sK8DLsQ@mail.gmail.com>
-References: <20190620232127.25436-1-lyude@redhat.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu: fix off-by-one comparison on a WARN_ON
+ message
+Date: Fri, 28 Jun 2019 15:08:01 +0100
+Message-ID: <20190628140801.31937-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190620232127.25436-1-lyude@redhat.com>
-Sender: stable-owner@vger.kernel.org
-To: Lyude Paul <lyude@redhat.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, "for 3.8" <stable@vger.kernel.org>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>, Evan Quan <evan.quan@amd.com>, Rex Zhu <rex.zhu@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Jun 20, 2019 at 7:22 PM Lyude Paul <lyude@redhat.com> wrote:
->
-> I'm not entirely sure why this is, but for some reason:
->
-> 921935dc6404 ("drm/amd/powerplay: enforce display related settings only on needed")
->
-> Breaks runtime PM resume on the Radeon PRO WX 3100 (Lexa) in one the
-> pre-production laptops I have. The issue manifests as the following
-> messages in dmesg:
->
-> [drm] UVD and UVD ENC initialized successfully.
-> amdgpu 0000:3b:00.0: [drm:amdgpu_ring_test_helper [amdgpu]] *ERROR* ring vce1 test failed (-110)
-> [drm:amdgpu_device_ip_resume_phase2 [amdgpu]] *ERROR* resume of IP block <vce_v3_0> failed -110
-> [drm:amdgpu_device_resume [amdgpu]] *ERROR* amdgpu_device_ip_resume failed (-110).
->
-> And happens after about 6-10 runtime PM suspend/resume cycles (sometimes
-> sooner, if you're lucky!). Unfortunately I can't seem to pin down
-> precisely which part in psm_adjust_power_state_dynamic that is causing
-> the issue, but not skipping the display setting setup seems to fix it.
-> Hopefully if there is a better fix for this, this patch will spark
-> discussion around it.
->
-> Fixes: 921935dc6404 ("drm/amd/powerplay: enforce display related settings only on needed")
-> Cc: Evan Quan <evan.quan@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Rex Zhu <Rex.Zhu@amd.com>
-> Cc: Likun Gao <Likun.Gao@amd.com>
-> Cc: <stable@vger.kernel.org> # v5.1+
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-
-I've gone ahead and applied this.
-
-Thanks,
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-> index 6cd6497c6fc2..0e1b2d930816 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/hwmgr.c
-> @@ -325,7 +325,7 @@ int hwmgr_resume(struct pp_hwmgr *hwmgr)
->         if (ret)
->                 return ret;
->
-> -       ret = psm_adjust_power_state_dynamic(hwmgr, true, NULL);
-> +       ret = psm_adjust_power_state_dynamic(hwmgr, false, NULL);
->
->         return ret;
->  }
-> --
-> 2.21.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25pY2FsLmNvbT4KClRoZSBXQVJO
+X09OIGlzIGN1cnJlbnRseSB0aHJvd2luZyBhIHdhcm5pbmcgd2hlbiBpIGlzIDY1IG9yIGhpZ2hl
+ciB3aGljaAppcyBvZmYgYnkgb25lLiBJdCBzaG91bGQgYmUgNjQgb3IgaGlnaGVyICg2NCBxdWV1
+ZXMgZnJvbSAwLi42MyBpbmNsdXNpdmUpLApzbyBmaXggdGhpcyBvZmYtYnktb25lIGNvbXBhcmlz
+b24uCgpGaXhlczogODQ5YWNhOWY5YzAzICgiZHJtL2FtZGdwdTogTW92ZSBjb21tb24gY29kZSB0
+byBhbWRncHVfZ2Z4LmMiKQpTaWduZWQtb2ZmLWJ5OiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2lu
+Z0BjYW5vbmljYWwuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9n
+ZnguYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYwppbmRleCA3NDA2NmUxNDY2
+ZjcuLmM4ZDEwNmM1OWUyNyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2dmeC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZngu
+YwpAQCAtNTAxLDcgKzUwMSw3IEBAIGludCBhbWRncHVfZ2Z4X2VuYWJsZV9rY3Eoc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYpCiAJCS8qIFRoaXMgc2l0dWF0aW9uIG1heSBiZSBoaXQgaW4gdGhl
+IGZ1dHVyZSBpZiBhIG5ldyBIVwogCQkgKiBnZW5lcmF0aW9uIGV4cG9zZXMgbW9yZSB0aGFuIDY0
+IHF1ZXVlcy4gSWYgc28sIHRoZQogCQkgKiBkZWZpbml0aW9uIG9mIHF1ZXVlX21hc2sgbmVlZHMg
+dXBkYXRpbmcgKi8KLQkJaWYgKFdBUk5fT04oaSA+IChzaXplb2YocXVldWVfbWFzaykqOCkpKSB7
+CisJCWlmIChXQVJOX09OKGkgPj0gKHNpemVvZihxdWV1ZV9tYXNrKSo4KSkpIHsKIAkJCURSTV9F
+UlJPUigiSW52YWxpZCBLQ1EgZW5hYmxlZDogJWRcbiIsIGkpOwogCQkJYnJlYWs7CiAJCX0KLS0g
+CjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
+ZHJpLWRldmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
