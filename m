@@ -1,18 +1,15 @@
-From: Kenny Ho <y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [RFC PATCH v3 09/11] drm,
- cgroup: Add per cgroup bw measure and control
-Date: Fri, 28 Jun 2019 15:49:28 -0400
-Message-ID: <CAOWid-dCkevUiN27pkwfPketdqS8O+ZGYu8vRMPY2GhXGaVARA@mail.gmail.com>
-References: <20190626150522.11618-1-Kenny.Ho@amd.com>
- <20190626150522.11618-10-Kenny.Ho@amd.com>
- <20190626162554.GU12905@phenom.ffwll.local>
- <CAOWid-dO5QH4wLyN_ztMaoZtLM9yzw-FEMgk3ufbh1ahHJ2vVg@mail.gmail.com>
- <20190627061153.GD12905@phenom.ffwll.local>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: handle
+ AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID on gfx10
+Date: Fri, 28 Jun 2019 16:35:23 -0400
+Message-ID: <CAAxE2A6+wQ+ZGE5TLO7Ed8dPxgHaNdGdx54-GeLU2z5hdTTz2w@mail.gmail.com>
+References: <20190626223521.14347-1-maraeo@gmail.com>
+ <20190626223521.14347-2-maraeo@gmail.com>
+ <b789da4a-2e31-31eb-4706-ea9b6fbc45c1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0683580359=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190627061153.GD12905-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
+In-Reply-To: <b789da4a-2e31-31eb-4706-ea9b6fbc45c1-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,37 +20,252 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Kenny Ho <Kenny.Ho-5C7GfCeVMHo@public.gmane.org>, jsparks-WVYJKLFxKCc@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, lkaplan-WVYJKLFxKCc@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, joseph.greathouse-5C7GfCeVMHo@public.gmane.org, Tejun Heo <tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, cgroups-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org>
+Cc: amd-gfx mailing list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-T24gVGh1LCBKdW4gMjcsIDIwMTkgYXQgMjoxMSBBTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3
-bGwuY2g+IHdyb3RlOgo+IEkgZmVlbCBsaWtlIGEgYmV0dGVyIGFwcHJvYWNoIHdvdWxkIGJ5IHRv
-IGFkZCBhIGNncm91cCBmb3IgdGhlIHZhcmlvdXMKPiBlbmdpbmVzIG9uIHRoZSBncHUsIGFuZCB0
-aGVuIGFsc28gYWNjb3VudCBhbGwgdGhlIHNkbWEgKG9yIHdoYXRldmVyIHRoZQo+IG5hbWUgb2Yg
-dGhlIGFtZCBjb3B5IGVuZ2luZXMgaXMgYWdhaW4pIHVzYWdlIGJ5IHR0bV9ibyBtb3ZlcyB0byB0
-aGUgcmlnaHQKPiBjZ3JvdXAuICBJIHRoaW5rIHRoYXQncyBhIG1vcmUgbWVhbmluZ2Z1bCBsaW1p
-dGF0aW9uLiBGb3IgZGlyZWN0IHRocmFzaGluZwo+IGNvbnRyb2wgSSB0aGluayB0aGVyZSdzIGJv
-dGggbm90IGVub3VnaCBpbmZvcm1hdGlvbiBhdmFpbGFibGUgaW4gdGhlCj4ga2VybmVsICh5b3Un
-ZCBuZWVkIHNvbWUgcGVyZm9ybWFuY2UgY291bnRlcnMgdG8gd2F0Y2ggaG93IG11Y2ggYmFuZHdp
-ZHRoCj4gdXNlcnNwYWNlIGJhdGNoZXMvQ1MgYXJlIHdhc3RpbmcpLCBhbmQgSSBkb24ndCB0aGlu
-ayB0aGUgdHRtIGV2aWN0aW9uCj4gbG9naWMgaXMgcmVhZHkgdG8gc3RlcCBvdmVyIGFsbCB0aGUg
-cHJpb3JpdHkgaW52ZXJzaW9uIGlzc3VlcyB0aGlzIHdpbGwKPiBicmluZyB1cC4gTWFuYWdpbmcg
-c2RtYSB1c2FnZSBvdG9oIHdpbGwgYmUgYSBsb3QgbW9yZSBzdHJhaWdodGZvcndhcmQgKGJ1dAo+
-IHN0aWxsIGhhcyBhbGwgdGhlIHByaW9yaXR5IGludmVyc2lvbiBwcm9ibGVtcywgYnV0IGluIHRo
-ZSBzY2hlZHVsZXIgdGhhdAo+IG1pZ2h0IGJlIGVhc2llciB0byBmaXggcGVyaGFwcyB3aXRoIHRo
-ZSBleHBsaWNpdCBkZXBlbmRlbmN5IGdyYXBoIC0gaW4gdGhlCj4gaTkxNSBzY2hlZHVsZXIgd2Ug
-YWxyZWFkeSBoYXZlIHByaW9yaXR5IGJvb3N0aW5nIGFmYWl1aSkuCk15IGNvbmNlcm4gd2l0aCBo
-b29raW5nIGludG8gdGhlIGVuZ2luZS8gbG93ZXIgbGV2ZWwgaXMgdGhhdCB0aGUKZW5naW5lIG1h
-eSBub3QgYmUgcHJvY2Vzcy9jZ3JvdXAgYXdhcmUuICBTbyB0aGUgYmFuZHdpZHRoIHRyYWNraW5n
-IGlzCnBlciBkZXZpY2UuICBJIGFtIGFsc28gd29uZGVyaW5nIGlmIHRoaXMgaXMgYWxzbyBwb3Rl
-bnRpYWxseSBiZSBhIGNhc2UKb2YgcGVyZmVjdCBnZXR0aW5nIGluIHRoZSB3YXkgb2YgZ29vZC4g
-IFdoaWxlIHR0bV9ib19oYW5kbGVfbW92ZV9tZW0KbWF5IG5vdCB0cmFjayBldmVyeXRoaW5nLCBp
-dCBpcyBzdGlsbCBhIGtleSBmdW5jdGlvbiBmb3IgYSBsb3Qgb2YgdGhlCm1lbW9yeSBvcGVyYXRp
-b24uICBBbHNvLCBpZiB0aGUgcHJvZ3JhbW1pbmcgbW9kZWwgaXMgZGVzaWduZWQgdG8KYnlwYXNz
-IHRoZSBrZXJuZWwgdGhlbiBJIGFtIG5vdCBzdXJlIGlmIHRoZXJlIGFyZSBhbnl0aGluZyB0aGUg
-a2VybmVsCmNhbiBkby4gIChUaGluZ3MgbGlrZSBrZXJuZWwtYnlwYXNzIG5ldHdvcmsgc3RhY2sg
-Y29tZXMgdG8gbWluZC4pICBBbGwKdGhhdCBzYWlkLCBJIHdpbGwgY2VydGFpbmx5IGRpZyBkZWVw
-ZXIgaW50byB0aGUgdG9waWMuCgpSZWdhcmRzLApLZW5ueQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZng=
+--===============0683580359==
+Content-Type: multipart/alternative; boundary="000000000000f4f95e058c683937"
+
+--000000000000f4f95e058c683937
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks. I'll push both patches with emit_ib_size updated for this patch.
+
+Marek
+
+On Thu, Jun 27, 2019 at 3:50 AM zhoucm1 <zhoucm1-5C7GfCeVMHo@public.gmane.org> wrote:
+
+> any reason for not care .emit_ib_size in this one?
+>
+> -David
+>
+>
+> On 2019=E5=B9=B406=E6=9C=8827=E6=97=A5 06:35, Marek Ol=C5=A1=C3=A1k wrote=
+:
+> > From: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+> >
+> > Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak-5C7GfCeVMHo@public.gmane.org>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 17 +++++++++++++++++
+> >   1 file changed, 17 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > index 6baaa65a1daa..5b807a19bbbf 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> > @@ -4257,20 +4257,36 @@ static void gfx_v10_0_ring_emit_ib_gfx(struct
+> amdgpu_ring *ring,
+> >   }
+> >
+> >   static void gfx_v10_0_ring_emit_ib_compute(struct amdgpu_ring *ring,
+> >                                          struct amdgpu_job *job,
+> >                                          struct amdgpu_ib *ib,
+> >                                          uint32_t flags)
+> >   {
+> >       unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);
+> >       u32 control =3D INDIRECT_BUFFER_VALID | ib->length_dw | (vmid << =
+24);
+> >
+> > +     /* Currently, there is a high possibility to get wave ID mismatch
+> > +      * between ME and GDS, leading to a hw deadlock, because ME
+> generates
+> > +      * different wave IDs than the GDS expects. This situation happen=
+s
+> > +      * randomly when at least 5 compute pipes use GDS ordered append.
+> > +      * The wave IDs generated by ME are also wrong after
+> suspend/resume.
+> > +      * Those are probably bugs somewhere else in the kernel driver.
+> > +      *
+> > +      * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave ID counters in ME
+> and
+> > +      * GDS to 0 for this ring (me/pipe).
+> > +      */
+> > +     if (ib->flags & AMDGPU_IB_FLAG_RESET_GDS_MAX_WAVE_ID) {
+> > +             amdgpu_ring_write(ring, PACKET3(PACKET3_SET_CONFIG_REG,
+> 1));
+> > +             amdgpu_ring_write(ring, mmGDS_COMPUTE_MAX_WAVE_ID);
+> > +             amdgpu_ring_write(ring,
+> ring->adev->gds.gds_compute_max_wave_id);
+> > +     }
+> > +
+> >       amdgpu_ring_write(ring, PACKET3(PACKET3_INDIRECT_BUFFER, 2));
+> >       BUG_ON(ib->gpu_addr & 0x3); /* Dword align */
+> >       amdgpu_ring_write(ring,
+> >   #ifdef __BIG_ENDIAN
+> >                               (2 << 0) |
+> >   #endif
+> >                               lower_32_bits(ib->gpu_addr));
+> >       amdgpu_ring_write(ring, upper_32_bits(ib->gpu_addr));
+> >       amdgpu_ring_write(ring, control);
+> >   }
+> > @@ -5103,20 +5119,21 @@ static void gfx_v10_0_set_rlc_funcs(struct
+> amdgpu_device *adev)
+> >       }
+> >   }
+> >
+> >   static void gfx_v10_0_set_gds_init(struct amdgpu_device *adev)
+> >   {
+> >       /* init asic gds info */
+> >       switch (adev->asic_type) {
+> >       case CHIP_NAVI10:
+> >       default:
+> >               adev->gds.gds_size =3D 0x10000;
+> > +             adev->gds.gds_compute_max_wave_id =3D 0x4ff;
+> >               adev->gds.vgt_gs_max_wave_id =3D 0x3ff;
+> >               break;
+> >       }
+> >
+> >       adev->gds.gws_size =3D 64;
+> >       adev->gds.oa_size =3D 16;
+> >   }
+> >
+> >   static void gfx_v10_0_set_user_wgp_inactive_bitmap_per_sh(struct
+> amdgpu_device *adev,
+> >                                                         u32 bitmap)
+>
+>
+
+--000000000000f4f95e058c683937
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Thanks. I&#39;ll push both patches with emit_ib_size =
+updated for this patch.<br></div><div><br></div><div>Marek<br></div><div><b=
+r></div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On=
+ Thu, Jun 27, 2019 at 3:50 AM zhoucm1 &lt;<a href=3D"mailto:zhoucm1-5C7GfCeVMHo@public.gmane.org=
+">zhoucm1-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote"=
+ style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);p=
+adding-left:1ex">any reason for not care .emit_ib_size in this one?<br>
+<br>
+-David<br>
+<br>
+<br>
+On 2019=E5=B9=B406=E6=9C=8827=E6=97=A5 06:35, Marek Ol=C5=A1=C3=A1k wrote:<=
+br>
+&gt; From: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak-5C7GfCeVMHo@public.gmane.org"=
+ target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt;<br>
+&gt; Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak=
+@amd.com" target=3D"_blank">marek.olsak-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+&gt; ---<br>
+&gt;=C2=A0 =C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 17 ++++++++++++++=
++++<br>
+&gt;=C2=A0 =C2=A01 file changed, 17 insertions(+)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/=
+amd/amdgpu/gfx_v10_0.c<br>
+&gt; index 6baaa65a1daa..5b807a19bbbf 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+&gt; +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+&gt; @@ -4257,20 +4257,36 @@ static void gfx_v10_0_ring_emit_ib_gfx(struct =
+amdgpu_ring *ring,<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0static void gfx_v10_0_ring_emit_ib_compute(struct amdgpu_r=
+ing *ring,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 struct amdgpu_job *job,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 struct amdgpu_ib *ib,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 uint32_t flags)<br>
+&gt;=C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned vmid =3D AMDGPU_JOB_GET_VMID(job);<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0u32 control =3D INDIRECT_BUFFER_VALID | ib-&=
+gt;length_dw | (vmid &lt;&lt; 24);<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/* Currently, there is a high possibility to get =
+wave ID mismatch<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * between ME and GDS, leading to a hw deadlock, =
+because ME generates<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * different wave IDs than the GDS expects. This =
+situation happens<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * randomly when at least 5 compute pipes use GDS=
+ ordered append.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * The wave IDs generated by ME are also wrong af=
+ter suspend/resume.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * Those are probably bugs somewhere else in the =
+kernel driver.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 *<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * Writing GDS_COMPUTE_MAX_WAVE_ID resets wave ID=
+ counters in ME and<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * GDS to 0 for this ring (me/pipe).<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (ib-&gt;flags &amp; AMDGPU_IB_FLAG_RESET_GDS_M=
+AX_WAVE_ID) {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(rin=
+g, PACKET3(PACKET3_SET_CONFIG_REG, 1));<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(rin=
+g, mmGDS_COMPUTE_MAX_WAVE_ID);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(rin=
+g, ring-&gt;adev-&gt;gds.gds_compute_max_wave_id);<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0}<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(ring, PACKET3(PACKET3_INDI=
+RECT_BUFFER, 2));<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0BUG_ON(ib-&gt;gpu_addr &amp; 0x3); /* Dword =
+align */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(ring,<br>
+&gt;=C2=A0 =C2=A0#ifdef __BIG_ENDIAN<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(2 &lt;&lt; 0) |<br>
+&gt;=C2=A0 =C2=A0#endif<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lower_32_bits(ib-&gt;gpu_addr));<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(ring, upper_32_bits(ib-&gt=
+;gpu_addr));<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_ring_write(ring, control);<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt; @@ -5103,20 +5119,21 @@ static void gfx_v10_0_set_rlc_funcs(struct amd=
+gpu_device *adev)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0static void gfx_v10_0_set_gds_init(struct amdgpu_device *a=
+dev)<br>
+&gt;=C2=A0 =C2=A0{<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* init asic gds info */<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0switch (adev-&gt;asic_type) {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0case CHIP_NAVI10:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0default:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds=
+_size =3D 0x10000;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gds_comp=
+ute_max_wave_id =3D 0x4ff;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.vgt=
+_gs_max_wave_id =3D 0x3ff;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0break;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.gws_size =3D 64;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;gds.oa_size =3D 16;<br>
+&gt;=C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0static void gfx_v10_0_set_user_wgp_inactive_bitmap_per_sh(=
+struct amdgpu_device *adev,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u32 bitmap)<br>
+<br>
+</blockquote></div></div>
+
+--000000000000f4f95e058c683937--
+
+--===============0683580359==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0683580359==--
