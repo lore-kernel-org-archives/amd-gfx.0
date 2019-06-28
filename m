@@ -1,18 +1,14 @@
-From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Subject: Re: [RFC PATCH v3 07/11] drm, cgroup: Add TTM buffer allocation stats
-Date: Fri, 28 Jun 2019 08:53:52 +0200
-Message-ID: <CAKMK7uGMkmXnJBr2gr5kikXUTyxGRAvtAi9XxBCcwkJo5z-bjw@mail.gmail.com>
-References: <20190626150522.11618-1-Kenny.Ho@amd.com>
- <20190626150522.11618-8-Kenny.Ho@amd.com>
- <20190626161254.GS12905@phenom.ffwll.local>
- <CAOWid-f3kKnM=4oC5Bba5WW5WNV2MH5PvVamrhO6LBr5ydPJQg@mail.gmail.com>
- <20190627060113.GC12905@phenom.ffwll.local>
- <01a6efa8-802c-b8b1-931e-4f0c1c63beca@intel.com>
+From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
+Date: Fri, 28 Jun 2019 07:01:43 +0000
+Message-ID: <MN2PR12MB29749635290092A031CB5A4C95FC0@MN2PR12MB2974.namprd12.prod.outlook.com>
+References: <1561618176-27968-1-git-send-email-tianci.yin@amd.com>,
+ <BN6PR12MB18093E64A4289711D31BCED8F7FD0@BN6PR12MB1809.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0514965742=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <01a6efa8-802c-b8b1-931e-4f0c1c63beca-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
+In-Reply-To: <BN6PR12MB18093E64A4289711D31BCED8F7FD0-/b2+HYfkarSEx6ez0IUAagdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,90 +19,250 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Welty, Brian" <brian.welty-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Cc: Kenny Ho <Kenny.Ho-5C7GfCeVMHo@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, jsparks-WVYJKLFxKCc@public.gmane.org, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, lkaplan-WVYJKLFxKCc@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Kenny Ho <y2kenny-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, joseph.greathouse-5C7GfCeVMHo@public.gmane.org, Tejun Heo <tj-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+To: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
 
-T24gRnJpLCBKdW4gMjgsIDIwMTkgYXQgMzoxNiBBTSBXZWx0eSwgQnJpYW4gPGJyaWFuLndlbHR5
-QGludGVsLmNvbT4gd3JvdGU6Cj4gT24gNi8yNi8yMDE5IDExOjAxIFBNLCBEYW5pZWwgVmV0dGVy
-IHdyb3RlOgo+ID4gT24gVGh1LCBKdW4gMjcsIDIwMTkgYXQgMTI6MDY6MTNBTSAtMDQwMCwgS2Vu
-bnkgSG8gd3JvdGU6Cj4gPj4gT24gV2VkLCBKdW4gMjYsIDIwMTkgYXQgMTI6MTIgUE0gRGFuaWVs
-IFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPiB3cm90ZToKPiA+Pj4KPiA+Pj4gSSB0aGluayB3aXRo
-IGFsbCB0aGUgdHRtIHJlZmFjdG9yaW5nIGdvaW5nIG9uIEkgdGhpbmsgd2UgbmVlZCB0byBkZS10
-dG0KPiA+Pj4gdGhlIGludGVyZmFjZSBmdW5jdGlvbnMgaGVyZSBhIGJpdC4gV2l0aCBHZXJkIEhv
-ZmZtYW5zIHNlcmllcyB5b3UgY2FuIGp1c3QKPiA+Pj4gdXNlIGEgZ2VtX2JvIHBvaW50ZXIgaGVy
-ZSwgc28gd2hhdCdzIGxlZnQgdG8gZG8gaXMgaGF2ZSBzb21lIGV4dHJhY3RlZAo+ID4+PiBzdHJ1
-Y3R1cmUgZm9yIHRyYWNraW5nIG1lbW9yeSB0eXBlcy4gSSB0aGluayBCcmlhbiBXZWx0eSBoYXMg
-c29tZSBpZGVhcwo+ID4+PiBmb3IgdGhpcywgZXZlbiBpbiBwYXRjaCBmb3JtLiBXb3VsZCBiZSBn
-b29kIHRvIGtlZXAgaGltIG9uIGNjIGF0IGxlYXN0IGZvcgo+ID4+PiB0aGUgbmV4dCB2ZXJzaW9u
-LiBXZSdkIG5lZWQgdG8gZXhwbGljaXRseSBoYW5kIGluIHRoZSB0dG1fbWVtX3JlZyAob3IKPiA+
-Pj4gd2hhdGV2ZXIgdGhlIHNwZWNpZmljIHRoaW5nIGlzIGdvaW5nIHRvIGJlKS4KPiA+Pgo+ID4+
-IEkgYXNzdW1lIEdlcmQgSG9mZm1hbidzIHNlcmllcyB5b3UgYXJlIHJlZmVycmluZyB0byBpcyB0
-aGlzIG9uZT8KPiA+PiBodHRwczovL3d3dy5zcGluaWNzLm5ldC9saXN0cy9kcmktZGV2ZWwvbXNn
-MjE1MDU2Lmh0bWwKPiA+Cj4gPiBUaGVyZSdzIGEgbmV3ZXIgb25lLCBtdWNoIG1vcmUgY29tcGxl
-dGUsIGJ1dCB5ZXMgdGhhdCdzIHRoZSB3b3JrLgo+ID4KPiA+PiBJIGNhbiBjZXJ0YWlubHkga2Vl
-cCBhbiBleWUgb3V0IGZvciBHZXJkJ3MgcmVmYWN0b3Jpbmcgd2hpbGUKPiA+PiByZWZhY3Rvcmlu
-ZyBvdGhlciBwYXJ0cyBvZiB0aGlzIFJGQy4KPiA+Pgo+ID4+IEkgaGF2ZSBhZGRlZCBCcmlhbiBh
-bmQgR2VyZCB0byB0aGUgdGhyZWFkIGZvciBhd2FyZW5lc3MuCj4gPgo+ID4gYnR3IGp1c3QgcmVh
-bGl6ZWQgdGhhdCBtYXliZSBidWlsZGluZyB0aGUgaW50ZXJmYWNlcyBvbiB0b3Agb2YgdHRtX21l
-bV9yZWcKPiA+IGlzIG1heWJlIG5vdCB0aGUgYmVzdC4gVGhhdCdzIHdoYXQgeW91J3JlIHVzaW5n
-IHJpZ2h0IG5vdywgYnV0IGluIGEgd2F5Cj4gPiB0aGF0J3MganVzdCB0aGUgdHRtIGludGVybmFs
-IGRldGFpbCBvZiBob3cgdGhlIGJhY2tpbmcgc3RvcmFnZSBpcwo+ID4gYWxsb2NhdGVkLiBJIHRo
-aW5rIHRoZSBzdHJ1Y3R1cmUgd2UgbmVlZCB0byBhYnN0cmFjdCBhd2F5IGlzCj4gPiB0dG1fbWVt
-X3R5cGVfbWFuYWdlciwgd2l0aG91dCBhbnkgb2YgdGhlIGFjdHVhbCBtYW5hZ2VtZW50IGRldGFp
-bHMuCj4gPgo+Cj4gQW55IGRlLXR0bSByZWZhY3RvcmluZyBzaG91bGQgcHJvYmFibHkgbm90IHNw
-YW0gYWxsIHRoZSBjZ3JvdXBzIGZvbGtzLgo+IFNvIEkgcmVtb3ZlZCBjZ3JvdXBzIGxpc3QuCj4K
-PiBBcyBEYW5pZWwgbWVudGlvbmVkLCBzb21lIG9mIHVzIGFyZSBsb29raW5nIGF0IHBvc3NpYmxl
-IHJlZmFjdG9yaW5nIG9mIFRUTQo+IGZvciByZXVzZSBpbiBpOTE1IGRyaXZlci4KPiBIZXJlIGlz
-IGEgYnJpZWYgc3VtbWFyeSBvZiBzb21lIGlkZWFzIHRvIGJlIGNvbnNpZGVyZWQ6Cj4KPiAgMSkg
-cmVmYWN0b3IgcGFydCBvZiB0dG1fbWVtX3R5cGVfbWFuYWdlciBpbnRvIGEgbmV3IGRybV9tZW1f
-dHlwZV9yZWdpb24uCj4gICAgIFJlYWxseSwgc2hvdWxkIHRoZW4gbW92ZSB0aGUgYXJyYXkgZnJv
-bSB0dG1fYm9fZGV2aWNlLm1hbltdIGludG8gZHJtX2RldmljZS4KPgo+ICAgICBSZWxldmFudCB0
-byBkcm1fY2dyb3VwLCB5b3UgY291bGQgdGhlbiBwZXJoYXBzIGFjY2VzcyB0aGVzZSBzdGF0cyB0
-aHJvdWdoCj4gICAgIGRybV9kZXZpY2UgYW5kIGRvbid0IG5lZWQgdGhlIG1lbV9zdGF0cyBhcnJh
-eSBpbiBkcm1jZ3JwX2RldmljZV9yZXNvdXJjZS4KPgo+ICAgMWEpICBkb2luZyB0aGlzIHJpZ2h0
-IG1lYW5zIHJlcGxhY2luZyBUVE1fUExfWFhYIG1lbW9yeSB0eXBlcyB3aXRoIG5ldyBEUk0KPiAg
-ICAgIGRlZmluZXMuICBCdXQgY291bGQga2VlcCB0aGUgVFRNIG9uZXMgYXMgcmVkZWZpbml0aW9u
-IG9mIChuZXcpIERSTSBvbmVzLgo+ICAgICAgUHJvYmFibHkgdGhvc2UgcHJpdmF0ZSBvbmVzIChU
-VE1fUExfUFJJVikgbWFrZSB0aGlzIGRpZmZpY3VsdC4KPgo+ICAgQWxsIG9mIHRoZSBhYm92ZSBj
-b3VsZCBiZSBldmVudHVhbGx5IGxldmVyYWdlZCBieSB0aGUgdnJhbSBzdXBwb3J0IGJlaW5nCj4g
-ICBpbXBsZW1lbnRlZCBub3cgaW4gaTkxNSBkcml2ZXIuCj4KPiAgIDIpIHJlZmFjdG9yIHR0bV9t
-ZW1fcmVnICsgdHRtX2J1c19wbGFjZW1lbnQgaW50byBzb21ldGhpbmcgZ2VuZXJpYyBmb3IKPiAg
-ICAgIGFueSBHRU0gb2JqZWN0LCAgbWF5YmUgY2FsbCBpdCBkcm1fZ2VtX29iamVjdF9wbGFjZW1l
-bnQuCj4gICAgICB0dG1fbWVtX3JlZyBjb3VsZCByZW1haW4gYXMgYSB3cmFwcGVyIGZvciBUVE0g
-ZHJpdmVycy4KPiAgICAgIFRoaXMgaGFzbid0IGJlZW4gYnJvYWRseSBkaXNjdXNzZWQgd2l0aCBp
-bnRlbC1nZnggZm9sa3MsIHNvIG5vdCBzdXJlCj4gICAgICB0aGlzIGZpdHMgd2VsbCBpbnRvIGk5
-MTUgb3Igbm90Lgo+Cj4gICAgICBSZWxldmFudCB0byBkcm1fY2dyb3VwLCBtYXliZSB0aGlzIGZ1
-bmN0aW9uOgo+ICAgICAgICAgZHJtY2dycF9tZW1fdHJhY2tfbW92ZShzdHJ1Y3QgdHRtX2J1ZmZl
-cl9vYmplY3QgKm9sZF9ibywgYm9vbCBldmljdCwKPiAgICAgICAgICAgICAgICAgc3RydWN0IHR0
-bV9tZW1fcmVnICpuZXdfbWVtKQo+ICAgICAgY291bGQgcG90ZW50aWFsbHkgYmVjb21lOgo+ICAg
-ICAgICAgZHJtY2dycF9tZW1fdHJhY2tfbW92ZShzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKm9sZF9i
-bywgYm9vbCBldmljdCwKPiAgICAgICAgICAgICAgICAgc3RydWN0IGRybV9nZW1fb2JqZWN0X3Bs
-YWNlbWVudCAqbmV3X3BsYWNlKQo+Cj4gICAgICBUaG91Z2ggZnJvbSB0dG1fbWVtX3JlZywgeW91
-IGxvb2sgdG8gb25seSBiZSB1c2luZyBtZW1fdHlwZSBhbmQgc2l6ZS4KPiAgICAgIEkgdGhpbmsg
-RGFuaWVsIGlzIG5vdGluZyB0aGF0IHR0bV9tZW1fcmVnIHdhc24ndCB0cnVseSBuZWVkZWQgaGVy
-ZSwgc28KPiAgICAgIHlvdSBjb3VsZCBqdXN0IHBhc3MgaW4gdGhlIG1lbV90eXBlIGFuZCBzaXpl
-IGluc3RlYWQuCgpZZWFoIEkgdGhpbmsgdGhlIHJlbGV2YW50IHBhcnQgb2YgeW91ciByZWZhY3Rv
-cmluZyBpcyBjcmVhdGluZyBhIG1vcmUKYWJzdHJhY3QgbWVtb3J5IHR5cGUvcmVzb3VyY2UgdGhp
-bmcgKG5vdCB0aGUgaW5kaXZpZHVhbCBhbGxvY2F0aW9ucwpmcm9tIGl0IHdoaWNoIHR0bSBjYWxs
-cyByZWdpb25zIGFuZCBJIGdldCBjb25mdXNlZCBhYm91dCB0aGF0IGV2ZXJ5CnRpbWUpLiBJIHRo
-aW5rIHRoYXQgYWJzdHJhY3Rpb24gc2hvdWxkIGFsc28gaGF2ZSBhIGZpZWxkIGZvciB0aGUgdG90
-YWwKKHdoaWNoIEkgdGhpbmsgY2dyb3VwcyBhbHNvIG5lZWRzLCBib3RoIGFzIHJlYWQtb25seSBp
-bmZvcm1hdGlvbiBhbmQKc3RhcnRpbmcgdmFsdWUpLiB0dG0gd291bGQgdGhhdCBwdXQgc29tZXdo
-ZXJlIGludG8gdGhlCnR0bV9tZW1fdHlwZV9tYW5hZ2VyLCBpOTE1IHdvdWxkIHB1dCBpdCBzb21l
-d2hlcmUgZWxzZSwgY21hIGJhc2VkCmRyaXZlcnMgY291bGQgcGVyaGFwcyBleHBvc2UgdGhlIGNt
-YSBoZWFwIGxpa2UgdGhhdCAoaWYgaXQncyBleGNsdXNpdmUKdG8gdGhlIGdwdSBhdCBsZWFzdCku
-Cgo+IFdvdWxkIGFwcHJlY2lhdGUgYW55IGZlZWRiYWNrIChwb3NpdGl2ZSBvciBuZWdhdGl2ZSkg
-b24gYWJvdmUuLi4uCj4gUGVyaGFwcyB0aGlzIHNob3VsZCBtb3ZlIHRvIGEgbmV3IHRocmVhZD8g
-ICBJIGNvdWxkIHNlbmQgb3V0IGJhc2ljIFJGQwo+IHBhdGNoZXMgZm9yICgxKSBpZiBoZWxwZnVs
-IGJ1dCBhcyBpdCB0b3VjaGVzIGFsbCB0aGUgVFRNIGRyaXZlcnMsIG5pY2UgdG8KPiBoZWFyIHNv
-bWUgZmVlZGJhY2sgZmlyc3QuCj4gQW55d2F5LCB0aGlzIGRvZXNuJ3QgbmVjZXNzYXJpbHkgbmVl
-ZCB0byBibG9jayBmb3J3YXJkIHByb2dyZXNzIG9uIGRybV9jZ3JvdXAsCj4gYXMgcmVmYWN0b3Jp
-bmcgaW50byBjb21tb24gYmFzZSBzdHJ1Y3R1cmVzIGNvdWxkIGhhcHBlbiBpbmNyZW1lbnRhbGx5
-LgoKWWVhaCBJIHRoaW5rIG5ldyBkcmktZGV2ZWwgdGhyZWFkIHdpdGggYSB0b3RhbGx5IHVucG9s
-aXNoZWQgcmZjIGFzCmRyYWZ0IHBsdXMgdGhpcyBhcyB0aGUgaW50cm8gd291bGQgYmUgZ29vZC4g
-VGhhdCB3YXkgd2UgY2FuIGdyb3VuZAp0aGlzIGEgYml0IGJldHRlciBpbiBhY3R1YWwgY29kZS4K
-LURhbmllbAotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9y
-YXRpb24KKzQxICgwKSA3OSAzNjUgNTcgNDggLSBodHRwOi8vYmxvZy5mZndsbC5jaApfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============0514965742==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_"
+
+--_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks Alex!
+________________________________
+From: Deucher, Alexander
+Sent: Thursday, June 27, 2019 23:38
+To: Yin, Tianci (Rico); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Xiao, Jack; Zhang, Hawking
+Subject: Re: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Tianci Y=
+in <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+Sent: Thursday, June 27, 2019 2:49 AM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Xiao, Jack; Yin, Tianci (Rico); Zhang, Hawking
+Subject: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h
+
+From: tiancyin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+
+update the smu11_driver_if_navi10.h since navi10 smu fw
+update to 42.28
+
+Signed-off-by: tiancyin <tianci.yin-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h | 6 +++---
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c                 | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h b/d=
+rivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
+index a8b31bc..adbbfeb 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h
+@@ -26,7 +26,7 @@
+ // *** IMPORTANT ***
+ // SMU TEAM: Always increment the interface version if
+ // any structure is changed in this file
+-#define SMU11_DRIVER_IF_VERSION 0x32
++#define SMU11_DRIVER_IF_VERSION 0x33
+
+ #define PPTABLE_NV10_SMU_VERSION 8
+
+@@ -813,8 +813,8 @@ typedef struct {
+   uint16_t     UclkAverageLpfTau;
+   uint16_t     GfxActivityLpfTau;
+   uint16_t     UclkActivityLpfTau;
++  uint16_t     SocketPowerLpfTau;
+
+-  uint16_t     Padding;
+   // Padding - ignore
+   uint32_t     MmHubPadding[8]; // SMU internal use
+ } DriverSmuConfig_t;
+@@ -853,7 +853,7 @@ typedef struct {
+   uint8_t  CurrGfxVoltageOffset  ;
+   uint8_t  CurrMemVidOffset      ;
+   uint8_t  Padding8              ;
+-  uint16_t CurrSocketPower       ;
++  uint16_t AverageSocketPower    ;
+   uint16_t TemperatureEdge       ;
+   uint16_t TemperatureHotspot    ;
+   uint16_t TemperatureMem        ;
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index 99566de..373aeba 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -863,7 +863,7 @@ static int navi10_get_gpu_power(struct smu_context *smu=
+, uint32_t *value)
+         if (ret)
+                 return ret;
+
+-       *value =3D metrics.CurrSocketPower << 8;
++       *value =3D metrics.AverageSocketPower << 8;
+
+         return 0;
+ }
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks&nbsp;Alex!</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander<br=
+>
+<b>Sent:</b> Thursday, June 27, 2019 23:38<br>
+<b>To:</b> Yin, Tianci (Rico); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Xiao, Jack; Zhang, Hawking<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: update smu11_driver_if_navi1=
+0.h</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+</div>
+<div id=3D"x_appendonsend"></div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Tianci Yin &lt;tianci.yin@a=
+md.com&gt;<br>
+<b>Sent:</b> Thursday, June 27, 2019 2:49 AM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Xiao, Jack; Yin, Tianci (Rico); Zhang, Hawking<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: update smu11_driver_if_navi10.h<=
+/font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">From: tiancyin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+update the smu11_driver_if_navi10.h since navi10 smu fw<br>
+update to 42.28<br>
+<br>
+Signed-off-by: tiancyin &lt;tianci.yin-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h | 6 &#43;&=
+#43;&#43;---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 2 &=
+#43;-<br>
+&nbsp;2 files changed, 4 insertions(&#43;), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h b/d=
+rivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h<br>
+index a8b31bc..adbbfeb 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_navi10.=
+h<br>
+@@ -26,7 &#43;26,7 @@<br>
+&nbsp;// *** IMPORTANT ***<br>
+&nbsp;// SMU TEAM: Always increment the interface version if <br>
+&nbsp;// any structure is changed in this file<br>
+-#define SMU11_DRIVER_IF_VERSION 0x32<br>
+&#43;#define SMU11_DRIVER_IF_VERSION 0x33<br>
+&nbsp;<br>
+&nbsp;#define PPTABLE_NV10_SMU_VERSION 8<br>
+&nbsp;<br>
+@@ -813,8 &#43;813,8 @@ typedef struct {<br>
+&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; UclkAverageLpfTau;<br>
+&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; GfxActivityLpfTau;<br>
+&nbsp;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; UclkActivityLpfTau;<br>
+&#43;&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; SocketPowerLpfTau;<br>
+&nbsp;<br>
+-&nbsp; uint16_t&nbsp;&nbsp;&nbsp;&nbsp; Padding;&nbsp; <br>
+&nbsp;&nbsp; // Padding - ignore<br>
+&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp; MmHubPadding[8]; // SMU inter=
+nal use<br>
+&nbsp;} DriverSmuConfig_t;<br>
+@@ -853,7 &#43;853,7 @@ typedef struct {<br>
+&nbsp;&nbsp; uint8_t&nbsp; CurrGfxVoltageOffset&nbsp; ;<br>
+&nbsp;&nbsp; uint8_t&nbsp; CurrMemVidOffset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=
+<br>
+&nbsp;&nbsp; uint8_t&nbsp; Padding8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<br>
+-&nbsp; uint16_t CurrSocketPower&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;<br>
+&#43;&nbsp; uint16_t AverageSocketPower&nbsp;&nbsp;&nbsp; ;<br>
+&nbsp;&nbsp; uint16_t TemperatureEdge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ;=
+<br>
+&nbsp;&nbsp; uint16_t TemperatureHotspot&nbsp;&nbsp;&nbsp; ;<br>
+&nbsp;&nbsp; uint16_t TemperatureMem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index 99566de..373aeba 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -863,7 &#43;863,7 @@ static int navi10_get_gpu_power(struct smu_context =
+*smu, uint32_t *value)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics.CurrSocketPower &l=
+t;&lt; 8;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *value =3D metrics.AverageSocketP=
+ower &lt;&lt; 8;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB29749635290092A031CB5A4C95FC0MN2PR12MB2974namp_--
+
+--===============0514965742==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0514965742==--
