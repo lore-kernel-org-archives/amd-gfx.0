@@ -1,217 +1,97 @@
-From: "Abramov, Slava" <Slava.Abramov@amd.com>
-Subject: Re: [PATCH] drm/amd/powerplay: fix incorrect assignments to mclk_mask
- and soc_mask
-Date: Fri, 28 Jun 2019 15:15:56 +0000
-Message-ID: <DM6PR12MB3209F8BBDE81786CE2D416E7FEFC0@DM6PR12MB3209.namprd12.prod.outlook.com>
-References: <20190628144517.7747-1-colin.king@canonical.com>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] dma-buf: cleanup shared fence removal
+Date: Fri, 28 Jun 2019 15:21:11 +0000
+Message-ID: <af333288-9804-30e4-28ef-fda4c18b4a5d@amd.com>
+References: <20190627101813.61430-1-christian.koenig@amd.com>
+ <20190627101813.61430-2-christian.koenig@amd.com>
+ <CAKMK7uGtdSxVSUor8P_8XH+uf4_A-kRfY6h+XnJoizscWE4AOg@mail.gmail.com>
+ <f1a792c2-87e0-9aba-c6f1-0374122d025b@gmail.com>
+ <CAKMK7uFoeugD0ASHm4DRLzq6h3aAvNhE1ODh-bxoH7Lucf1m3w@mail.gmail.com>
+ <5e182e5d-efcb-00bd-fa31-6e8bc9571ce6@amd.com>
+ <20190627171053.GN12905@phenom.ffwll.local>
+ <4844af2e-fbff-ceb9-c16e-32bb7012559f@amd.com>
+ <CAKMK7uF2Wb_K9MqALs8o_2i+HDhv=JcnHj6t4VAUO80UVpszZQ@mail.gmail.com>
+ <6e9b4005-e490-ab27-2051-1eab801dafd3@amd.com>
+ <CAKMK7uFMZLemYkWTyOH_0akUbE53X44Xj7jky90G-jWtwSUicw@mail.gmail.com>
+ <92ea4ca1-bb9d-e4d7-792a-33b74f25ccf8@gmail.com>
+ <CAKMK7uG-5e_V1OmWJKyHLGLXhBbex1LCVV7cdWjAgLSk-kTozA@mail.gmail.com>
+ <1031bb44-449a-f18b-d217-2cb5a4f820f7@amd.com>
+ <CAKMK7uFDKDhJQ05b6yb8Srz5E=YkzL+PGTZTYZX-b5dmWrwBVQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0774938360=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190628144517.7747-1-colin.king@canonical.com>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Colin King <colin.king@canonical.com>, "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, Rex Zhu <rex.zhu@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Cc: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============0774938360==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB3209F8BBDE81786CE2D416E7FEFC0DM6PR12MB3209namp_"
-
---_000_DM6PR12MB3209F8BBDE81786CE2D416E7FEFC0DM6PR12MB3209namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Slava Abramov <slava.abramov@amd.com>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Colin Ki=
-ng <colin.king@canonical.com>
-Sent: Friday, June 28, 2019 10:45:17 AM
-To: Wang, Kevin(Yang); Rex Zhu; Quan, Evan; Deucher, Alexander; Koenig, Chr=
-istian; Zhou, David(ChunMing); David Airlie; Daniel Vetter; amd-gfx@lists.f=
-reedesktop.org; dri-devel@lists.freedesktop.org
-Cc: kernel-janitors@vger.kernel.org; linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amd/powerplay: fix incorrect assignments to mclk_mask =
-and soc_mask
-
-From: Colin Ian King <colin.king@canonical.com>
-
-There are null pointer checks on mlck_mask and soc_mask however the
-sclk_mask is being used in assignments in what looks to be a cut-n-paste
-coding error. Fix this by using the correct pointers in the assignments.
-
-Addresses-Coverity: ("Dereference after null check")
-Fixes: 2d9fb9b06643 ("drm/amd/powerplay: add function get_profiling_clk_mas=
-k for navi10")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c
-index 27e5c80..ac151da 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1134,14 +1134,14 @@ static int navi10_get_profiling_clk_mask(struct smu=
-_context *smu,
-                         ret =3D smu_get_dpm_level_count(smu, SMU_MCLK, &le=
-vel_count);
-                         if (ret)
-                                 return ret;
--                       *sclk_mask =3D level_count - 1;
-+                       *mclk_mask =3D level_count - 1;
-                 }
-
-                 if(soc_mask) {
-                         ret =3D smu_get_dpm_level_count(smu, SMU_SOCCLK, &=
-level_count);
-                         if (ret)
-                                 return ret;
--                       *sclk_mask =3D level_count - 1;
-+                       *soc_mask =3D level_count - 1;
-                 }
-         }
-
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM6PR12MB3209F8BBDE81786CE2D416E7FEFC0DM6PR12MB3209namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-family: Calib=
-ri, Helvetica, sans-serif, serif, EmojiFont; font-size: 16px;">Acked-by: Sl=
-ava Abramov &lt;slava.abramov@amd.com&gt;</span><br>
-</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Colin King &lt;colin.king@can=
-onical.com&gt;<br>
-<b>Sent:</b> Friday, June 28, 2019 10:45:17 AM<br>
-<b>To:</b> Wang, Kevin(Yang); Rex Zhu; Quan, Evan; Deucher, Alexander; Koen=
-ig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter; amd-gfx@=
-lists.freedesktop.org; dri-devel@lists.freedesktop.org<br>
-<b>Cc:</b> kernel-janitors@vger.kernel.org; linux-kernel@vger.kernel.org<br=
->
-<b>Subject:</b> [PATCH] drm/amd/powerplay: fix incorrect assignments to mcl=
-k_mask and soc_mask</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Colin Ian King &lt;colin.king@canonical.com&=
-gt;<br>
-<br>
-There are null pointer checks on mlck_mask and soc_mask however the<br>
-sclk_mask is being used in assignments in what looks to be a cut-n-paste<br=
->
-coding error. Fix this by using the correct pointers in the assignments.<br=
->
-<br>
-Addresses-Coverity: (&quot;Dereference after null check&quot;)<br>
-Fixes: 2d9fb9b06643 (&quot;drm/amd/powerplay: add function get_profiling_cl=
-k_mask for navi10&quot;)<br>
-Signed-off-by: Colin Ian King &lt;colin.king@canonical.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 &#43;&#43;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c<br>
-index 27e5c80..ac151da 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-@@ -1134,14 &#43;1134,14 @@ static int navi10_get_profiling_clk_mask(struct=
- smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
-=3D smu_get_dpm_level_count(smu, SMU_MCLK, &amp;level_count);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
-et)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sclk_mask =3D l=
-evel_count - 1;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *mclk_mask =
-=3D level_count - 1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if(soc_mask) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
-=3D smu_get_dpm_level_count(smu, SMU_SOCCLK, &amp;level_count);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
-et)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sclk_mask =3D l=
-evel_count - 1;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *soc_mask =
-=3D level_count - 1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB3209F8BBDE81786CE2D416E7FEFC0DM6PR12MB3209namp_--
-
---===============0774938360==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CAKMK7uFDKDhJQ05b6yb8Srz5E=YkzL+PGTZTYZX-b5dmWrwBVQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+Content-ID: <C021D52B9903594B9A6301402CC9FD03-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, dri-devel <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============0774938360==--
+QW0gMjguMDYuMTkgdW0gMTY6Mzggc2NocmllYiBEYW5pZWwgVmV0dGVyOg0KW1NOSVBdDQo+Pj4+
+PiAtIHdoZW4geW91IHN1Ym1pdCBjb21tYW5kIGJ1ZmZlcnMsIHlvdSBfZG9udF8gYXR0YWNoIGZl
+bmNlcyB0byBhbGwNCj4+Pj4+IGludm9sdmVkIGJ1ZmZlcnMNCj4+Pj4gVGhhdCdzIG5vdCBnb2lu
+ZyB0byB3b3JrIGJlY2F1c2UgdGhlbiB0aGUgbWVtb3J5IG1hbmFnZW1lbnQgdGhlbiB0aGlua3MN
+Cj4+Pj4gdGhhdCB0aGUgYnVmZmVyIGlzIGltbWVkaWF0ZWx5IG1vdmFibGUsIHdoaWNoIGl0IGlz
+bid0LA0KPj4+IEkgZ3Vlc3Mgd2UgbmVlZCB0byBmaXggdGhhdCB0aGVuLiBJIHByZXR0eSBtdWNo
+IGFzc3VtZWQgdGhhdA0KPj4+IC0+bm90aWZ5X21vdmUgY291bGQgYWRkIHdoYXRldmVyIGZlbmNl
+cyB5b3UgbWlnaHQgd2FudCB0byBhZGQuIFdoaWNoDQo+Pj4gd291bGQgdmVyeSBuZWF0bHkgYWxs
+b3cgdXMgdG8gc29sdmUgdGhpcyBwcm9ibGVtIGhlcmUsIGluc3RlYWQgb2YNCj4+PiBjb21pbmcg
+dXAgd2l0aCBmYWtlIGZlbmNlcyBhbmQgZnVuIHN0dWZmIGxpa2UgdGhhdC4NCj4+IEFkZGluZyB0
+aGUgZmVuY2UgbGF0ZXIgb24gaXMgbm90IGEgc29sdXRpb24gYmVjYXVzZSB3ZSBuZWVkIHNvbWV0
+aGluZw0KPj4gd2hpY2ggYmVmb3JlaGFuZCBjYW4gY2hlY2sgaWYgYSBidWZmZXIgaXMgbW92YWJs
+ZSBvciBub3QuDQo+Pg0KPj4gSW4gdGhlIGNhc2Ugb2YgYSBtb3ZlX25vdGlmeSB0aGUgZGVjaXNp
+b24gdG8gbW92ZSBpdCBpcyBhbHJlYWR5IGRvbmUgYW5kDQo+PiB5b3UgY2FuJ3Qgc2F5IG9oIHNv
+cnJ5IEkgaGF2ZSB0byBldmljdCBteSBwcm9jZXNzIGFuZCByZXByb2dyYW0gdGhlDQo+PiBoYXJk
+d2FyZSBvciB3aGF0ZXZlci4NCj4+DQo+PiBFc3BlY2lhbGx5IHdoZW4geW91IGRvIHRoaXMgaW4g
+YW4gT09NIHNpdHVhdGlvbi4NCj4gV2h5PyBJIG1lYW4gd2hlbiB0aGUgZmVuY2UgZm9yIGEgQ1Mg
+aXMgdGhlcmUgYWxyZWFkeSwgaXQgbWlnaHQgYWxzbw0KPiBzdGlsbCBoYW5nIG91dCBpbiB0aGUg
+c2NoZWR1bGVyLCBvciBiZSBibG9ja2VkIG9uIGEgZmVuY2UgZnJvbSBhbm90aGVyDQo+IGRyaXZl
+ciwgb3IgYW55dGhpbmcgbGlrZSB0aGF0LiBJIGRvbid0IHNlZSBhIGNvbmNlcHR1YWwgZGlmZmVy
+ZW5jZS4NCj4gUGx1cyB3aXRoIGR5bmFtaWMgZG1hLWJ1ZiB0aGUgZW50aXJlIHBvaW50IGlzIHRo
+YXQgYW4gYXR0YWNoZWQgZmVuY2VzDQo+IGRvZXMgX25vdF8gbWVhbiB0aGUgYnVmZmVyIGlzIHBl
+cm1hbmVudGx5IHBpbm5lZCwgYnV0IGNhbiBiZSBtb3ZlZCBpZg0KPiB5b3Ugc3luYyBjb3JyZWN0
+bHkuIE1pZ2h0IG5lZWQgYSBiaXQgb2YgdHVuaW5nIG9yIGEgZmxhZyB0byBpbmRpY2F0ZQ0KPiB0
+aGF0IHNvbWUgYnVmZmVycyBzaG91bGQgYWx3YXN5IGNvbnNpZGVyZWQgdG8gYmUgYnVzeSwgYW5k
+IHRoYXQgeW91DQo+IHNob3VsZG4ndCBzdGFydCBldmljdGluZyB0aG9zZS4gQnV0IHRoYXQncyBr
+aW5kYSBhIGRldGFpbC4NCj4NCj4gIEZyb20gYSB2ZXJ5IGhpZ2ggbGV2ZWwgdGhlcmUncyByZWFs
+bHkgbm8gZGlmZmVyZW5jZSBiZXR3ZW4NCj4gLT5ub3RpZnlfbW92ZSBhbmQgdGhlIGV2aWN0aW9u
+X2ZlbmNlLiBCb3RoIGdpdmUgeW91IGEgY2FsbGJhY2sgd2hlbg0KPiBzb21lb25lIGVsc2UgbmVl
+ZHMgdG8gbW92ZSB0aGUgYnVmZmVyLCB0aGF0J3MgYWxsLiBUaGUgb25seSBkaWZmZXJlbmNlDQo+
+IGlzIHRoYXQgdGhlIGV2aWN0aW9uX2ZlbmNlIHRoaW5nIGp1bWJsZXMgdGhlIGNhbGxiYWNrIGFu
+ZCB0aGUgZmVuY2UNCj4gaW50byBvbmUsIGJ5IHByZWF0dGFjaGluZyBhIGZlbmNlIGp1c3QgaW4g
+Y2FzZS4gQnV0IGFnYWluIGZyb20gYQ0KPiBjb25jZXB0dWFsIHBvdiBpdCBkb2Vzbid0IG1hdHRl
+ciB3aGV0aGVyIHRoZSBmZW5jZSBpcyBhbHdheXMgaGFuZ2luZw0KPiBhcm91bmQsIG9yIHdoZXRo
+ZXIgeW91IGp1c3QgYXR0YWNoIGl0IHdoZW4gLT5ub3RpZnlfbW92ZSBpcyBjYWxsZWQuDQoNClN1
+cmUgdGhlcmUgaXMgYSBkaWZmZXJlbmNlLiBTZWUgd2hlbiB5b3UgYXR0YWNoIHRoZSBmZW5jZSBi
+ZWZvcmVoYW5kIHRoZSANCm1lbW9yeSBtYW5hZ2VtZW50IGNhbiBrbm93IHRoYXQgdGhlIGJ1ZmZl
+ciBpcyBidXN5Lg0KDQpKdXN0IGltYWdpbmUgdGhlIGZvbGxvd2luZzogV2UgYXJlIGluIGFuIE9P
+TSBzaXR1YXRpb24gYW5kIG5lZWQgdG8gc3dhcCANCnRoaW5ncyBvdXQgdG8gZGlzayENCg0KV2hl
+biB0aGUgZmVuY2UgaXMgYXR0YWNoZWQgYmVmb3JlaGFuZCB0aGUgaGFuZGxpbmcgY2FuIGJlIGFz
+IGZvbGxvd2luZzoNCjEuIE1NIHBpY2tzIGEgQk8gZnJvbSB0aGUgTFJVIGFuZCBzdGFydHMgdG8g
+ZXZpY3QgaXQuDQoyLiBUaGUgZXZpY3Rpb24gZmVuY2UgaXMgZW5hYmxlZCBhbmQgd2Ugc3RvcCB0
+aGUgcHJvY2VzcyB1c2luZyB0aGlzIEJPLg0KMy4gQXMgc29vbiBhcyB0aGUgcHJvY2VzcyBpcyBz
+dG9wcGVkIHRoZSBmZW5jZSBpcyBzZXQgaW50byB0aGUgc2lnbmFsZWQgDQpzdGF0ZS4NCjQuIE1N
+IG5lZWRzIHRvIGV2aWN0IG1vcmUgQk9zIGFuZCBzaW5jZSB0aGUgZmVuY2UgZm9yIHRoaXMgcHJv
+Y2VzcyBpcyANCm5vdyBpbiB0aGUgc2lnbmFsZWQgc3RhdGUgaXQgY2FuIGludGVudGlvbmFsbHkg
+cGljayB0aGUgb25lcyB1cCB3aGljaCANCmFyZSBub3cgaWRsZS4NCg0KV2hlbiB3ZSBhdHRhY2gg
+dGhlIGZlbmNlIG9ubHkgb24gZXZpY3Rpb24gdGhhdCBjYW4ndCBoYXBwZW4gYW5kIHRoZSBNTSAN
+CndvdWxkIGp1c3QgcGljayB0aGUgbmV4dCByYW5kb20gQk8gYW5kIHBvdGVudGlhbGx5IHN0b3Ag
+YW5vdGhlciBwcm9jZXNzLg0KDQpTbyBJIHRoaW5rIHdlIGNhbiBzdW1tYXJpemUgdGhhdCB0aGUg
+bWVtb3J5IG1hbmFnZW1lbnQgZGVmaW5pdGVseSBuZWVkcyANCnRvIGtub3cgYmVmb3JlaGFuZCBo
+b3cgY29zdGx5IGl0IGlzIHRvIGV2aWN0IGEgQk8uDQoNCkFuZCBvZiBjb3Vyc2UgaW1wbGVtZW50
+IHRoaXMgd2l0aCBmbGFncyBvciB1c2UgY291bnRlcnMgb3Igd2hhdGV2ZXIsIGJ1dCANCndlIGFs
+cmVhZHkgaGF2ZSB0aGUgZmVuY2UgaW5mcmFzdHJ1Y3R1cmUgYW5kIEkgZG9uJ3Qgc2VlIGEgcmVh
+c29uIG5vdCB0byANCnVzZSBpdC4NCg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
