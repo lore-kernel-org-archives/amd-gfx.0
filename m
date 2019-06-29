@@ -1,7 +1,7 @@
 From: Colin King <colin.king@canonical.com>
-Subject: [PATCH][next] drm/amd/display: don't release dc->current_state if it is null
-Date: Sat, 29 Jun 2019 13:27:50 +0100
-Message-ID: <20190629122750.12219-1-colin.king@canonical.com>
+Subject: [PATCH][next] drm/amd/amdgpu: remove redundant assignment to variable res
+Date: Sat, 29 Jun 2019 13:37:23 +0100
+Message-ID: <20190629123723.12752-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -13,34 +13,28 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 From: Colin Ian King <colin.king@canonical.com>
 
-Currently function construct calls destruct if the allocation of
-dc->current_state fails, however, the destruct function will
-attempt dereference dc->current_state when calling dc_release_state.
-Avoid this null pointer dereference by checking if the pointer is
-not null before calling dc_release_state.
+Variable res is being initialized with a value that is never read
+and res is being re-assigned a little later on. The assignment is
+redundant and hence can be removed.
 
-Addresses-Coverity: ("Dereference after null check")
+Addresses-Coverity: ("Unused value")
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 18c775a950cc..0e1f132ae310 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -608,8 +608,10 @@ const struct dc_link_settings *dc_link_get_link_cap(
- 
- static void destruct(struct dc *dc)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index df08ea172595..9b1bd8726fc2 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4527,7 +4527,7 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
  {
--	dc_release_state(dc->current_state);
--	dc->current_state = NULL;
-+	if (dc->current_state) {
-+		dc_release_state(dc->current_state);
-+		dc->current_state = NULL;
-+	}
+ 	uint32_t formats[32];
+ 	int num_formats;
+-	int res = -EPERM;
++	int res;
  
- 	destroy_links(dc);
- 
+ 	num_formats = get_plane_formats(plane, plane_cap, formats,
+ 					ARRAY_SIZE(formats));
 -- 
 2.20.1
