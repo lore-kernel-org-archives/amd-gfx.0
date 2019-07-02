@@ -1,20 +1,12 @@
-From: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: The problem "ring gfx timeout" are experienced yet another AMD
- GPU Vega 8 user
-Date: Tue, 2 Jul 2019 09:07:03 +0500
-Message-ID: <CABXGCsNpD93nBCWiL0VV_x+7jjY+HMYMbWsswxvHWWZXJaAhTQ@mail.gmail.com>
-References: <CABXGCsMas72q52GYvH+5Po-KDPfqu74XO_YznqJKnp+-+1Mnww@mail.gmail.com>
- <e92cffb7-6627-6f52-70de-e09d9bdbbe0a@amd.com>
- <CAAxE2A4tM-OoxcnLw14M8aZJLPLnPm2aN4fpTVQX_aUyJ9OBNw@mail.gmail.com>
- <CABXGCsMJKKu6DxvKvD8U6Ffkmt8KinNS96w4ygZ7xaemvEhocg@mail.gmail.com>
- <CAAxE2A6US6YBpESnwqm-EGsDapOVVfbHXxdrkjG1UddFPO0mOQ@mail.gmail.com>
- <CABXGCsOWGpop=5_a6nrRoqWSWagkMg_sYCPL8ZuSuByvcDDu+w@mail.gmail.com>
- <CAAxE2A4Xdsutk=teU=vi_Gnr2tuwinu6_JSfkoqTGwd1NrSpxQ@mail.gmail.com>
+From: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdkfd: remove an unused variable
+Date: Tue, 2 Jul 2019 06:58:22 +0000
+Message-ID: <1562050664-24740-1-git-send-email-Jack.Xiao@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CAAxE2A4Xdsutk=teU=vi_Gnr2tuwinu6_JSfkoqTGwd1NrSpxQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -25,19 +17,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>
 
-T24gV2VkLCAyNyBGZWIgMjAxOSBhdCAwMDo1NywgTWFyZWsgT2zFocOhayA8bWFyYWVvQGdtYWls
-LmNvbT4gd3JvdGU6Cj4KPiBTYWRseSwgdGhlIGxvZ3MgZG9uJ3QgY29udGFpbiBhbnkgY2x1ZSBh
-cyB0byB3aHkgaXQgaGFuZ3MuCj4KPiBJdCB3b3VsZCBiZSBoZWxwZnVsIHRvIGNoZWNrIGlmIHRo
-ZSBoYW5nIGNhbiBiZSByZXByb2R1Y2VkIG9uIFZlZ2EgNTYgb3IgNjQgYXMgd2VsbC4KPgo+IE1h
-cmVrCj4KCkhpLCBNYXJlay4KCkknbSBzb3JyeSB0byB0cm91YmxlIHlvdS4KQnV0IHRvZGF5IHRo
-ZSB1c2VyIG9mIGRlc2NyaWJlZCBhYm92ZSBWZWdhIDggZ3JhcGhpYyBzZW5kZWQgbWUgZnJlc2gg
-bG9ncy4KCkFjdHVhbCB2ZXJzaW9uczoga2VybmVsIDUuMS4xNSAvIERSTSAzLjMwLjAgLyBNZXNh
-IDE5LjAuIC8gTExWTSA4LjAuMAoKSSB1cGxvYWRlZCBhbGwgbG9ncyB0byBtZWdhIGNsb3VkIHN0
-b3JhZ2UuCkNhbiB5b3UgbG9vayB0aGlzIGxvZ3MgcGxlYXNlPwoKaHR0cHM6Ly9tZWdhLm56LyNG
-IU10NW1oS2lJIThTdjJUNWE2eVR4QnFWa25oSDFOakEKCgotLQpCZXN0IFJlZ2FyZHMsCk1pa2Ug
-R2F2cmlsb3YuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+SnVzdCBmb3IgY2xlYW51cC4KClNpZ25lZC1vZmYtYnk6IEphY2sgWGlhbyA8SmFjay5YaWFvQGFt
+ZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZS5jIHwgMSAt
+CiAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1ka2ZkL2tmZF9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9kZXZpY2UuYwppbmRleCAyNGRiODJiLi4zMzIyYTQ0IDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRrZmQva2ZkX2RldmljZS5jCkBAIC00ODcsNyArNDg3LDYgQEAgc3RydWN0IGtmZF9kZXYg
+KmtnZDJrZmRfcHJvYmUoc3RydWN0IGtnZF9kZXYgKmtnZCwKIAlzdHJ1Y3QgcGNpX2RldiAqcGRl
+diwgY29uc3Qgc3RydWN0IGtmZDJrZ2RfY2FsbHMgKmYyZykKIHsKIAlzdHJ1Y3Qga2ZkX2RldiAq
+a2ZkOwotCWludCByZXQ7CiAJY29uc3Qgc3RydWN0IGtmZF9kZXZpY2VfaW5mbyAqZGV2aWNlX2lu
+Zm8gPQogCQkJCQlsb29rdXBfZGV2aWNlX2luZm8ocGRldi0+ZGV2aWNlKTsKIAotLSAKMS45LjEK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
