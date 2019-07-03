@@ -1,84 +1,319 @@
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/3] drm: introduce DRIVER_FORCE_AUTH
-Date: Wed,  3 Jul 2019 14:31:03 +0100
-Message-ID: <20190703133104.3211-2-emil.l.velikov@gmail.com>
-References: <20190703133104.3211-1-emil.l.velikov@gmail.com>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+Subject: Re: [PATCH 2/3] drm: introduce DRIVER_FORCE_AUTH
+Date: Wed, 3 Jul 2019 13:48:15 +0000
+Message-ID: <9237e00e-2e10-4961-a759-19f0cb75a1fb@email.android.com>
+References: <20190703133104.3211-1-emil.l.velikov@gmail.com>,
+ <20190703133104.3211-2-emil.l.velikov@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190703133104.3211-1-emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: multipart/mixed; boundary="===============0740157233=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190703133104.3211-2-emil.l.velikov@gmail.com>
+Content-Language: de-DE
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Emil Velikov <emil.l.velikov@gmail.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZAY29sbGFib3JhLmNvbT4KCldpdGggZWFy
-bGllciBjb21taXRzIHdlJ3ZlIHJlbW92ZWQgRFJNX0FVVEggZm9yIGRyaXZlciBpb2N0bHMgYW5u
-b3RhdGVkCndpdGggRFJNX0FVVEggfCBEUk1fUkVOREVSX0FMTE9XLCBhcyB0aGUgcHJvdGVjdGlv
-biBpdCBpbnRyb2R1Y2VzIGlzCmVmZmVjdGl2ZWx5IG5vdCBleGlzdGVudC4KCldpdGggbmV4dCBj
-b21taXQsIHdlJ2xsIGVmZmVjdGl2ZWx5IGRvIHRoZSBzYW1lIGZvciBEUk0gY29yZS4KCllldCB0
-aGUgQU1EIGRldmVsb3BlcnMgaGF2ZSB2b2ljZWQgY29uY2VybnMgdGhhdCBieSBkb2luZyBzbywg
-ZGV2ZWxvcGVycwp3b3JraW5nIG9uIHRoZSBjbG9zZWQgc291cmNlIHVzZXItc3BhY2UgZHJpdmVy
-IG1pZ2h0IHJlbW92ZSByZW5kZXIgbm9kZQpzdXBwb3J0LgoKU2luY2Ugd2UgZG8gX25vdF8gd2Fu
-dCB0aGF0IHRvIGhhcHBlbiwgYWRkIHdvcmthcm91bmQgZm9yIHRob3NlIHR3bwpkcml2ZXJzCgpD
-YzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpDYzogQ2hyaXN0aWFu
-IEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgpDYzogYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZndsbC5jaD4KU2lnbmVkLW9m
-Zi1ieTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZAY29sbGFib3JhLmNvbT4KLS0tCkNocmlz
-dGlhbiwgQWxleCB0aGlzIGlzIHRoZSBjbGVhbmVyIHdheSB0byBoYW5kbGUgQU1ER1BVL3JhZGVv
-biBhbHRob3VnaAppZiB5b3UgcHJlZmVyIGFsdGVybmF0aXZlIG1ldGhvZHMgbGV0IG1lIGtub3cu
-CgpSZXZpZXcsIGFja3MgYW5kIG90aGVycyBhcmUgYXBwcmVjaWF0ZWQsIHNpbmNlIEknZCBsaWtl
-IHRvIGdldCB0aGlzCnRocm91Z2ggdGhlIGRybS1taXNjIHRyZWUuCgpUaGFua3MKRW1pbAoKVW5y
-ZWxhdGVkOgpUaGUgVVNFX0FHUCBmbGFnIGluIEFNREdQVSBzaG91bGQgYmUgbnVrZWQuIFdoaWxl
-IGZvciByYWRlb24sIG9uZSBjYW4KY29weSBpbiB0aGUgZHJpdmVyIHRoZSAxMC0yMCBsaW5lcyB3
-b3J0aCBvZiBhZ3BfaW5pdC9yZWxlYXNlIGFuZCBhbHNvCmRyb3AgdGhlIGZsYWcuCgpCb251cyBw
-b2ludHMgb2YgYWdwX2luaXQgY29kZSBnZXRzIGEgTEVHQUNZIGNoZWNrIGFsb25nc2lkZSB0aGUg
-VVNFX0FHUApvbmUuCi0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5j
-IHwgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rydi5jICAgICB8ICAyICst
-CiBpbmNsdWRlL2RybS9kcm1fZHJ2LmggICAgICAgICAgICAgICAgICAgfCAxMCArKysrKysrKysr
-CiAzIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCmluZGV4IDhlMWIyNjkzNTFlOC4uY2Zj
-MmVmMTEzMzBjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-ZHJ2LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCkBAIC0x
-MzA3LDcgKzEzMDcsNyBAQCBhbWRncHVfZ2V0X2NydGNfc2Nhbm91dF9wb3NpdGlvbihzdHJ1Y3Qg
-ZHJtX2RldmljZSAqZGV2LCB1bnNpZ25lZCBpbnQgcGlwZSwKIAogc3RhdGljIHN0cnVjdCBkcm1f
-ZHJpdmVyIGttc19kcml2ZXIgPSB7CiAJLmRyaXZlcl9mZWF0dXJlcyA9Ci0JICAgIERSSVZFUl9V
-U0VfQUdQIHwgRFJJVkVSX0FUT01JQyB8CisJICAgIERSSVZFUl9VU0VfQUdQIHwgRFJJVkVSX0FU
-T01JQyB8IERSSVZFUl9GT1JDRV9BVVRIIHwKIAkgICAgRFJJVkVSX0dFTSB8CiAJICAgIERSSVZF
-Ul9SRU5ERVIgfCBEUklWRVJfTU9ERVNFVCB8IERSSVZFUl9TWU5DT0JKLAogCS5sb2FkID0gYW1k
-Z3B1X2RyaXZlcl9sb2FkX2ttcywKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMKaW5kZXgg
-NDQwM2U3NmUxYWUwLi41YTFiZmFkMWFkNWUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9y
-YWRlb24vcmFkZW9uX2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Ry
-di5jCkBAIC01MzgsNyArNTM4LDcgQEAgcmFkZW9uX2dldF9jcnRjX3NjYW5vdXRfcG9zaXRpb24o
-c3RydWN0IGRybV9kZXZpY2UgKmRldiwgdW5zaWduZWQgaW50IHBpcGUsCiAKIHN0YXRpYyBzdHJ1
-Y3QgZHJtX2RyaXZlciBrbXNfZHJpdmVyID0gewogCS5kcml2ZXJfZmVhdHVyZXMgPQotCSAgICBE
-UklWRVJfVVNFX0FHUCB8IERSSVZFUl9HRU0gfCBEUklWRVJfUkVOREVSLAorCSAgICBEUklWRVJf
-VVNFX0FHUCB8IERSSVZFUl9HRU0gfCBEUklWRVJfUkVOREVSIHwgRFJJVkVSX0ZPUkNFX0FVVEgs
-CiAJLmxvYWQgPSByYWRlb25fZHJpdmVyX2xvYWRfa21zLAogCS5vcGVuID0gcmFkZW9uX2RyaXZl
-cl9vcGVuX2ttcywKIAkucG9zdGNsb3NlID0gcmFkZW9uX2RyaXZlcl9wb3N0Y2xvc2Vfa21zLApk
-aWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vZHJtX2Rydi5oIGIvaW5jbHVkZS9kcm0vZHJtX2Rydi5o
-CmluZGV4IGIzM2YyY2VlMjA5OS4uNWZiMjg0NjM5NmJjIDEwMDY0NAotLS0gYS9pbmNsdWRlL2Ry
-bS9kcm1fZHJ2LmgKKysrIGIvaW5jbHVkZS9kcm0vZHJtX2Rydi5oCkBAIC05Miw2ICs5MiwxNiBA
-QCBlbnVtIGRybV9kcml2ZXJfZmVhdHVyZSB7CiAJICogc3luY2hyb25pemF0aW9uIG9mIGNvbW1h
-bmQgc3VibWlzc2lvbi4KIAkgKi8KIAlEUklWRVJfU1lOQ09CSl9USU1FTElORSAgICAgICAgID0g
-QklUKDYpLAorCS8qKgorCSAqIEBEUklWRVJfRk9SQ0VfQVVUSDoKKwkgKgorCSAqIERyaXZlciBt
-YW5kYXRlcyB0aGF0IERSTV9BVVRIIGlzIGhvbm91cmVkLCBldmVuIGlmIHRoZSBzYW1lIGlvY3Rs
-CisJICogaXMgZXhwb3NlZCB2aWEgdGhlIHJlbmRlciBub2RlIC0gYWthIGFueSBvZiBhbiAiYXV0
-aGVudGljYXRpb24iIGlzCisJICogYSBmYWxsYWN5LgorCSAqCisJICogVXNlZCBvbmx5IGJ5IGFt
-ZGdwdSBhbmQgcmFkZW9uLiBEbyBub3QgdXNlLgorCSAqLworCURSSVZFUl9GT1JDRV9BVVRICQk9
-IEJJVCg3KSwKIAogCS8qIElNUE9SVEFOVDogQmVsb3cgYXJlIGFsbCB0aGUgbGVnYWN5IGZsYWdz
-LCBhZGQgbmV3IG9uZXMgYWJvdmUuICovCiAKLS0gCjIuMjEuMAoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0740157233==
+Content-Language: de-DE
+Content-Type: multipart/alternative;
+	boundary="_000_9237e00e2e104961a75919f0cb75a1fbemailandroidcom_"
+
+--_000_9237e00e2e104961a75919f0cb75a1fbemailandroidcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Well this is still a NAK.
+
+As stated previously please just don't remove DRM_AUTH and keep the functio=
+nality as it is.
+
+I absolutely don't see the point to add a new flag to remove the same funct=
+ionality a different flag provides.
+
+Christian.
+
+Am 03.07.2019 15:30 schrieb Emil Velikov <emil.l.velikov@gmail.com>:
+From: Emil Velikov <emil.velikov@collabora.com>
+
+With earlier commits we've removed DRM_AUTH for driver ioctls annotated
+with DRM_AUTH | DRM_RENDER_ALLOW, as the protection it introduces is
+effectively not existent.
+
+With next commit, we'll effectively do the same for DRM core.
+
+Yet the AMD developers have voiced concerns that by doing so, developers
+working on the closed source user-space driver might remove render node
+support.
+
+Since we do _not_ want that to happen, add workaround for those two
+drivers
+
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian K=F6nig <christian.koenig@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Signed-off-by: Emil Velikov <emil.velikov@collabora.com>
+---
+Christian, Alex this is the cleaner way to handle AMDGPU/radeon although
+if you prefer alternative methods let me know.
+
+Review, acks and others are appreciated, since I'd like to get this
+through the drm-misc tree.
+
+Thanks
+Emil
+
+Unrelated:
+The USE_AGP flag in AMDGPU should be nuked. While for radeon, one can
+copy in the driver the 10-20 lines worth of agp_init/release and also
+drop the flag.
+
+Bonus points of agp_init code gets a LEGACY check alongside the USE_AGP
+one.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  2 +-
+ drivers/gpu/drm/radeon/radeon_drv.c     |  2 +-
+ include/drm/drm_drv.h                   | 10 ++++++++++
+ 3 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 8e1b269351e8..cfc2ef11330c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1307,7 +1307,7 @@ amdgpu_get_crtc_scanout_position(struct drm_device *d=
+ev, unsigned int pipe,
+
+ static struct drm_driver kms_driver =3D {
+         .driver_features =3D
+-           DRIVER_USE_AGP | DRIVER_ATOMIC |
++           DRIVER_USE_AGP | DRIVER_ATOMIC | DRIVER_FORCE_AUTH |
+             DRIVER_GEM |
+             DRIVER_RENDER | DRIVER_MODESET | DRIVER_SYNCOBJ,
+         .load =3D amdgpu_driver_load_kms,
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/r=
+adeon_drv.c
+index 4403e76e1ae0..5a1bfad1ad5e 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -538,7 +538,7 @@ radeon_get_crtc_scanout_position(struct drm_device *dev=
+, unsigned int pipe,
+
+ static struct drm_driver kms_driver =3D {
+         .driver_features =3D
+-           DRIVER_USE_AGP | DRIVER_GEM | DRIVER_RENDER,
++           DRIVER_USE_AGP | DRIVER_GEM | DRIVER_RENDER | DRIVER_FORCE_AUTH=
+,
+         .load =3D radeon_driver_load_kms,
+         .open =3D radeon_driver_open_kms,
+         .postclose =3D radeon_driver_postclose_kms,
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index b33f2cee2099..5fb2846396bc 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -92,6 +92,16 @@ enum drm_driver_feature {
+          * synchronization of command submission.
+          */
+         DRIVER_SYNCOBJ_TIMELINE         =3D BIT(6),
++       /**
++        * @DRIVER_FORCE_AUTH:
++        *
++        * Driver mandates that DRM_AUTH is honoured, even if the same ioct=
+l
++        * is exposed via the render node - aka any of an "authentication" =
+is
++        * a fallacy.
++        *
++        * Used only by amdgpu and radeon. Do not use.
++        */
++       DRIVER_FORCE_AUTH               =3D BIT(7),
+
+         /* IMPORTANT: Below are all the legacy flags, add new ones above. =
+*/
+
+--
+2.21.0
+
+
+--_000_9237e00e2e104961a75919f0cb75a1fbemailandroidcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div dir=3D"auto">Well this is still a NAK.
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">As stated previously please just don't remove DRM_AUTH an=
+d keep the functionality as it is.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">I absolutely don't see the point to add a new flag to rem=
+ove the same functionality a different flag provides.</div>
+<div dir=3D"auto"><br>
+</div>
+<div dir=3D"auto">Christian.</div>
+</div>
+<div class=3D"x_gmail_extra"><br>
+<div class=3D"x_gmail_quote">Am 03.07.2019 15:30 schrieb Emil Velikov &lt;e=
+mil.l.velikov@gmail.com&gt;:<br type=3D"attribution">
+</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">From: Emil Velikov &lt;emil.velikov@collabora.com&=
+gt;<br>
+<br>
+With earlier commits we've removed DRM_AUTH for driver ioctls annotated<br>
+with DRM_AUTH | DRM_RENDER_ALLOW, as the protection it introduces is<br>
+effectively not existent.<br>
+<br>
+With next commit, we'll effectively do the same for DRM core.<br>
+<br>
+Yet the AMD developers have voiced concerns that by doing so, developers<br=
+>
+working on the closed source user-space driver might remove render node<br>
+support.<br>
+<br>
+Since we do _not_ want that to happen, add workaround for those two<br>
+drivers<br>
+<br>
+Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Cc: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
+Cc: amd-gfx@lists.freedesktop.org<br>
+Cc: Daniel Vetter &lt;daniel@ffwll.ch&gt;<br>
+Signed-off-by: Emil Velikov &lt;emil.velikov@collabora.com&gt;<br>
+---<br>
+Christian, Alex this is the cleaner way to handle AMDGPU/radeon although<br=
+>
+if you prefer alternative methods let me know.<br>
+<br>
+Review, acks and others are appreciated, since I'd like to get this<br>
+through the drm-misc tree.<br>
+<br>
+Thanks<br>
+Emil<br>
+<br>
+Unrelated:<br>
+The USE_AGP flag in AMDGPU should be nuked. While for radeon, one can<br>
+copy in the driver the 10-20 lines worth of agp_init/release and also<br>
+drop the flag.<br>
+<br>
+Bonus points of agp_init code gets a LEGACY check alongside the USE_AGP<br>
+one.<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |&nbsp; 2 &#43;-<br>
+&nbsp;drivers/gpu/drm/radeon/radeon_drv.c&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2=
+ &#43;-<br>
+&nbsp;include/drm/drm_drv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 10 &#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&nbsp;3 files changed, 12 insertions(&#43;), 2 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 8e1b269351e8..cfc2ef11330c 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -1307,7 &#43;1307,7 @@ amdgpu_get_crtc_scanout_position(struct drm_devic=
+e *dev, unsigned int pipe,<br>
+&nbsp;<br>
+&nbsp;static struct drm_driver kms_driver =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .driver_features =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRIVER_USE_AG=
+P | DRIVER_ATOMIC |<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRIVER_US=
+E_AGP | DRIVER_ATOMIC | DRIVER_FORCE_AUTH |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DR=
+IVER_GEM |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DR=
+IVER_RENDER | DRIVER_MODESET | DRIVER_SYNCOBJ,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .load =3D amdgpu_driver_lo=
+ad_kms,<br>
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/r=
+adeon_drv.c<br>
+index 4403e76e1ae0..5a1bfad1ad5e 100644<br>
+--- a/drivers/gpu/drm/radeon/radeon_drv.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/radeon/radeon_drv.c<br>
+@@ -538,7 &#43;538,7 @@ radeon_get_crtc_scanout_position(struct drm_device =
+*dev, unsigned int pipe,<br>
+&nbsp;<br>
+&nbsp;static struct drm_driver kms_driver =3D {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .driver_features =3D<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRIVER_USE_AG=
+P | DRIVER_GEM | DRIVER_RENDER,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRIVER_US=
+E_AGP | DRIVER_GEM | DRIVER_RENDER | DRIVER_FORCE_AUTH,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .load =3D radeon_driver_lo=
+ad_kms,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .open =3D radeon_driver_op=
+en_kms,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .postclose =3D radeon_driv=
+er_postclose_kms,<br>
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h<br>
+index b33f2cee2099..5fb2846396bc 100644<br>
+--- a/include/drm/drm_drv.h<br>
+&#43;&#43;&#43; b/include/drm/drm_drv.h<br>
+@@ -92,6 &#43;92,16 @@ enum drm_driver_feature {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * synchronization of=
+ command submission.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRIVER_SYNCOBJ_TIMELINE&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D BIT(6),<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @DRIVER_FORCE_AUTH:<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Driver mandates that DRM_=
+AUTH is honoured, even if the same ioctl<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * is exposed via the render=
+ node - aka any of an &quot;authentication&quot; is<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * a fallacy.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Used only by amdgpu and r=
+adeon. Do not use.<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRIVER_FORCE_AUTH&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D BI=
+T(7),<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* IMPORTANT: Below are al=
+l the legacy flags, add new ones above. */<br>
+&nbsp;<br>
+-- <br>
+2.21.0<br>
+<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_9237e00e2e104961a75919f0cb75a1fbemailandroidcom_--
+
+--===============0740157233==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+
+--===============0740157233==--
