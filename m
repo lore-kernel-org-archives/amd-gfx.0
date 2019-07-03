@@ -1,12 +1,15 @@
-From: =?UTF-8?B?0JzQuNGF0LDQuNC7INCR0L7Qs9C00LDQvdC+0LI=?=
- <max.kammerer-/E1597aS9LQAvxtiuMwx3w@public.gmane.org>
-Subject: Which changes in graphic stack could cause eye strain problems
-Date: Wed, 3 Jul 2019 07:57:11 +0000 (UTC)
-Message-ID: <1441784245.1474829.1562140631783@mail.yahoo.com>
-References: <1441784245.1474829.1562140631783.ref@mail.yahoo.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [pull] amdgpu drm-fixes-5.2
+Date: Wed, 3 Jul 2019 15:20:32 +0200
+Message-ID: <CAKMK7uHR1VBDrkRMxpYw+Qb6fgfRr2conGEyU4CZ9vUAKyJmMQ@mail.gmail.com>
+References: <20190703015705.3162-1-alexander.deucher@amd.com>
+ <20190703095453.GE15868@phenom.ffwll.local>
+ <CADnq5_PC44xY9S3C+s0D4Yx9e3Wsh7TM_-yqe1auRDMWgBZ49g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1090547162=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_PC44xY9S3C+s0D4Yx9e3Wsh7TM_-yqe1auRDMWgBZ49g-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -17,115 +20,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1090547162==
-Content-Type: multipart/alternative;
-	boundary="----=_Part_1474828_907294812.1562140631781"
-
-------=_Part_1474828_907294812.1562140631781
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
- I've been using Ubuntu 14.4.0 (with updates) for many years and can't swit=
-ch to any newer Linux distribution.
-Actually on attempt to upgrade to anything newer I got problems with eyes a=
-nd head (actually problem feelings are started in muscle at my right head s=
-ide and then in eyes - irritation, burn, discomfort and so on, then i got a=
- weakness in my full body).=20
-My hardware configuration is same during attempt of upgrade and I have simi=
-lar filing regardless of used driver (opensource or proprietary).Problem fe=
-elings doesn't depends on used graphic card: AMD/ATI, Nvidia or Intel.
-The hardness of feelings just depends on distribution: the hardest ones on =
-Ubuntu 19.04 and less ones on Mint 19.1
-
-I think that some relevant for my story changes was added to graphic stack =
-around 2014 year=20
-or maybe even before 2014 and default=C2=A0 behaviour was switched to them =
-around 2014.
-There are several report of same problem with intel graphic made in 2014:ht=
-tps://lists.freedesktop.org/archives/intel-gfx/2014-January/038104.html
-https://lists.freedesktop.org/archives/intel-gfx/2014-March/042689.html
-Actually I can't use any display with LED backlight and still using one wit=
-h CCFL. Maybe this changes are related to LED display support.
-
-There is also report on ledstrain site:https://ledstrain.org/d/384-linux-us=
-ers-any-known-good-distro-de/15
-
-Could you suggest which changes could be related to described problem?Could=
- it be some hidden dithering in graphics stack or something else?My attempt=
- to play with different configuration options doesn't give me any result (i=
-ncluding dithering disabling in graphic card driver)?
-Best regards,=C2=A0=C2=A0 Mike
-
-
-
-
-
-
-------=_Part_1474828_907294812.1562140631781
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head></head><body><div class=3D"ydp9255c4beyahoo-style-wrap" style=
-=3D"font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:13px=
-;"><div dir=3D"ltr" data-setdir=3D"false"><span> <span>I've been using Ubun=
-tu 14.4.0 (with updates) for many years and can't switch to any newer Linux=
- distribution.</span><br></span></div><div dir=3D"ltr" data-setdir=3D"false=
-"><span>Actually on attempt to upgrade to anything newer I got problems wit=
-h eyes and head (actually problem feelings are started in muscle at my righ=
-t head side and then in eyes - irritation, burn, discomfort and so on, then=
- i got a weakness in my full body). <br></span></div><div dir=3D"ltr" data-=
-setdir=3D"false"><span>My hardware configuration is same during attempt of =
-upgrade and I have similar filing <span><span class=3D"ydp813558b8tlid-tran=
-slation ydp813558b8translation" lang=3D"en"><span title=3D"">regardless</sp=
-an></span></span> of used driver (opensource or proprietary).</span></div><=
-div dir=3D"ltr" data-setdir=3D"false"><span>Problem feelings doesn't depend=
-s on used graphic card: AMD/ATI, Nvidia or Intel.<br></span></div><div dir=
-=3D"ltr" data-setdir=3D"false"><span>The hardness of feelings just depends =
-on distribution: the hardest ones on Ubuntu 19.04 and less ones on Mint 19.=
-1<br></span></div><div dir=3D"ltr" data-setdir=3D"false"><span><br></span><=
-/div><div dir=3D"ltr" data-setdir=3D"false"><span>I think that some relevan=
-t for my story changes was added to graphic stack around 2014 year <br></sp=
-an></div><div dir=3D"ltr" data-setdir=3D"false"><span>or maybe even before =
-2014 and default&nbsp; <span>behaviour</span> was switched to them around 2=
-014.<br></span></div><div dir=3D"ltr" data-setdir=3D"false"><span>There are=
- several report of same problem with intel graphic made in 2014:</span></di=
-v><div dir=3D"ltr" data-setdir=3D"false"><div><span><a href=3D"https://list=
-s.freedesktop.org/archives/intel-gfx/2014-January/038104.html" rel=3D"nofol=
-low" target=3D"_blank">https://lists.freedesktop.org/archives/intel-gfx/201=
-4-January/038104.html</a><br></span></div><div dir=3D"ltr" data-setdir=3D"f=
-alse"><div><a href=3D"https://lists.freedesktop.org/archives/intel-gfx/2014=
--March/042689.html" rel=3D"nofollow" target=3D"_blank">https://lists.freede=
-sktop.org/archives/intel-gfx/2014-March/042689.html</a></div><div><br></div=
-><div dir=3D"ltr" data-setdir=3D"false">Actually I can't use any display wi=
-th LED backlight and still using one with CCFL. Maybe this changes are rela=
-ted to LED display support.<br></div><div><br></div><div dir=3D"ltr" data-s=
-etdir=3D"false">There is also report on ledstrain site:</div><div dir=3D"lt=
-r" data-setdir=3D"false"><a href=3D"https://ledstrain.org/d/384-linux-users=
--any-known-good-distro-de/15" rel=3D"nofollow" target=3D"_blank">https://le=
-dstrain.org/d/384-linux-users-any-known-good-distro-de/15</a></div><div><br=
-></div><div><br></div><div dir=3D"ltr" data-setdir=3D"false">Could you sugg=
-est which changes could be related to described problem?</div><div dir=3D"l=
-tr" data-setdir=3D"false">Could it be some hidden dithering in graphics sta=
-ck or something else?</div><div dir=3D"ltr" data-setdir=3D"false">My attemp=
-t to play with different configuration options doesn't give me any result (=
-including dithering disabling in graphic card driver)?</div><div dir=3D"ltr=
-" data-setdir=3D"false"><br></div><div dir=3D"ltr" data-setdir=3D"false">Be=
-st regards,</div><div dir=3D"ltr" data-setdir=3D"false">&nbsp;&nbsp; Mike<b=
-r></div><div><br></div><div><br></div><span></span></div><div><br></div><di=
-v><br></div><div><br></div></div><div dir=3D"ltr" data-setdir=3D"false"><sp=
-an></span></div></div></body></html>
-------=_Part_1474828_907294812.1562140631781--
-
---===============1090547162==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1090547162==--
+T24gV2VkLCBKdWwgMywgMjAxOSBhdCAzOjEwIFBNIEFsZXggRGV1Y2hlciA8YWxleGRldWNoZXJA
+Z21haWwuY29tPiB3cm90ZToKPgo+IE9uIFdlZCwgSnVsIDMsIDIwMTkgYXQgNTo1NCBBTSBEYW5p
+ZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+IHdyb3RlOgo+ID4KPiA+IE9uIFR1ZSwgSnVsIDAy
+LCAyMDE5IGF0IDA4OjU3OjA1UE0gLTA1MDAsIEFsZXggRGV1Y2hlciB3cm90ZToKPiA+ID4gSGkg
+RGF2ZSwgRGFuaWVsLAo+ID4gPgo+ID4gPiAzIGZpeGVzIGFsbCBjYydlZCB0byBzdGFibGUuICBO
+b3RlIHRoYXQgZGltIGNvbXBsYWlucyBhYm91dCB0aGUgRml4ZXMgdGFnCj4gPiA+IGluIG9uZSBv
+ZiB0aGUgcGF0Y2hlcy4gIFRoZSBwYXRjaCBoYXM6Cj4gPiA+IEZpeGVzOiA5MjE5MzVkYzY0MDQg
+KCJkcm0vYW1kL3Bvd2VycGxheTogZW5mb3JjZSBkaXNwbGF5IHJlbGF0ZWQgc2V0dGluZ3Mgb25s
+eSBvbiBuZWVkZWQiKQo+ID4gPiB3aGlsZSBkaW0gcmVjb21tZW5kczoKPiA+Cj4gPiBUaGlzIGlz
+IHRoZSByaWdodCBmb3JtYXQuCj4gPgo+ID4gPiBGaXhlczogY29tbWl0IDkyMTkzNWRjNjQwNCAo
+ImRybS9hbWQvcG93ZXJwbGF5OiBlbmZvcmNlIGRpc3BsYXkgcmVsYXRlZCBzZXR0aW5ncyBvbmx5
+IG9uIG5lZWRlZCIpCj4gPgo+ID4gQWRkaW5nIGEgImNvbW1pdCIgaXMgd3JvbmcuIEFuZCBhdCBs
+ZWFzdCBteSBkaW0gaGVyZSBkb2Vzbid0IGNvbXBsYWluCj4gPiBhYm91dCB5b3VyIHB1bGwuIEhv
+dyBkaWQgeW91IHRlc3QgdGhpcz8KPgo+IGRpbSBjaGVja3BhdGNoIDY2NWQ2ZDRlMzIzMTNhNzk1
+MmJiMzMzOTY0N2Y3NGMzYTZiMGQ3OGEKCkhhaCwgYW5vdGhlciBvbmUgZmVsbCBpbnRvIHRoZSB0
+cmFwIDotLwoKZGltIGNoZWNrcGF0Y2ggaXMganVzdCBhIHdyYXBwZXIgYXJvdW5kIHNjcmlwdHMv
+Y2hlY2twYXRjaC5wbCwgaXQncwpub3Qgd2hhdCdzIHVzZWQgd2hlbiB5b3UgcHVzaCB0byBhIGRp
+bSBtYW5hZ2VkIGJyYW5jaCwgb3Igd2hhdCB3ZSB1c2UKd2hlbiBwcm9jZXNzaW5nIGEgcHVsbCBy
+ZXF1ZXN0LgoKPiAtOjg6IEVSUk9SOkdJVF9DT01NSVRfSUQ6IFBsZWFzZSB1c2UgZ2l0IGNvbW1p
+dCBkZXNjcmlwdGlvbiBzdHlsZQo+ICdjb21taXQgPDEyKyBjaGFycyBvZiBzaGExPiAoIjx0aXRs
+ZSBsaW5lPiIpJyAtIGllOiAnY29tbWl0Cj4gOTIxOTM1ZGM2NDA0ICgiZHJtL2FtZC9wb3dlcnBs
+YXk6IGVuZm9yY2UgZGlzcGxheSByZWxhdGVkIHNldHRpbmdzCj4gb25seSBvbiBuZWVkZWQiKScK
+PiAjODoKPiA5MjE5MzVkYzY0MDQgKCJkcm0vYW1kL3Bvd2VycGxheTogZW5mb3JjZSBkaXNwbGF5
+IHJlbGF0ZWQgc2V0dGluZ3MKPiBvbmx5IG9uIG5lZWRlZCIpCgpCZWNhdXNlIGNoZWNrcGF0Y2gg
+aXMgZ2FyYmFnZS4gVGhlIHJlYWwgZGltIGNoZWNrcyBvbmx5IGdldCB1c2VkIGZvcgpkaW0gcHVz
+aCBhbmQgZGltIGFwcGx5LXB1bGwuIFRoZXJlIHdhcyBhIGhhbGYtYmFrZWQgcGF0Y2ggc29tZXdo
+ZXJlIHRvCmludGVncmF0ZSB0aGF0IGludG8gZGltIGNoZWNrcGF0Y2gsIGJ1dCB0aGF0IHN0aWxs
+IGxlYXZlcyB0aGUgcHJvYmxlbQp0aGF0IGNoZWNrcGF0Y2gucGwgaXMgdXNlbGVzcy4gT3RoZXIg
+b3B0aW9uIGlzIGlmIHlvdSB1c2UgZGltIHB1c2ggdG8KcHVzaCB0byB0aGUgZHJtLWFtZC5naXQg
+dHJlZSAoaXQncyBzdGlsbCBhbGwgc2V0IHVwIGZyb20geWVhcnMgYmFjawp3aGVuIGF0IGxlYXN0
+IEhhcnJ5IHNlZW1lZCBzb21ld2hhdCBlbnRodXNpYXN0aWMgYWJvdXQKZ3JvdXAtbWFpbnRhaW5p
+bmcgYW1kLmdpdCBvdXRzaWRlIG9mIHRoZSBhbWQgZmlyZXdhbGwgaW5zdGVhZCBvZgppbnNpZGUp
+LgoKCgoKPiBBbGV4Cj4KPiA+IC1EYW5pZWwKPiA+Cj4gPiA+IEkgZmVlbCBsaWtlIHRoZSBmb3Jt
+ZXIgaXMgdGhlIG1vcmUgY29tbW9uIG5vbWVuY2xldHVyZSAoYXQgbGVhc3QgaGlzdG9yaWNhbGx5
+KSwKPiA+ID4gYnV0IEknbSBoYXBweSB0byByZXNwaW4gaWYgeW91J2QgcHJlZmVyLgo+ID4gPgo+
+ID4gPiBUaGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29tbWl0IDY2NWQ2ZDRlMzIzMTNhNzk1
+MmJiMzMzOTY0N2Y3NGMzYTZiMGQ3OGE6Cj4gPiA+Cj4gPiA+ICAgTWVyZ2UgdGFnICdkcm0tbWlz
+Yy1maXhlcy0yMDE5LTA2LTI2JyBvZiBnaXQ6Ly9hbm9uZ2l0LmZyZWVkZXNrdG9wLm9yZy9kcm0v
+ZHJtLW1pc2MgaW50byBkcm0tZml4ZXMgKDIwMTktMDYtMjcgMTE6MzQ6NTIgKzEwMDApCj4gPiA+
+Cj4gPiA+IGFyZSBhdmFpbGFibGUgaW4gdGhlIEdpdCByZXBvc2l0b3J5IGF0Ogo+ID4gPgo+ID4g
+PiAgIGdpdDovL3Blb3BsZS5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IHRhZ3MvZHJtLWZp
+eGVzLTUuMi0yMDE5LTA3LTAyCj4gPiA+Cj4gPiA+IGZvciB5b3UgdG8gZmV0Y2ggY2hhbmdlcyB1
+cCB0byAyNWYwOWY4NTg4MzViMGU5YTA2MjEzODExMDMxMTkwYTE3ZDhhYjc4Ogo+ID4gPgo+ID4g
+PiAgIGRybS9hbWRncHUvZ2Z4OTogdXNlIHJlc2V0IGRlZmF1bHQgZm9yIFBBX1NDX0ZJRk9fU0la
+RSAoMjAxOS0wNy0wMSAxMjoxNjoyNiAtMDUwMCkKPiA+ID4KPiA+ID4gLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4gPiBk
+cm0tZml4ZXMtNS4yLTIwMTktMDctMDI6Cj4gPiA+Cj4gPiA+IEZpeGVzIGZvciBzdGFibGUKPiA+
+ID4KPiA+ID4gYW1kZ3B1Ogo+ID4gPiAtIHN0YWJpbGl0eSBmaXggZm9yIGdmeDkKPiA+ID4gLSBy
+ZWdyZXNzaW9uIGZpeCBmb3IgSEcgb24gc29tZSBwb2xhcmlzIGJvYXJkcwo+ID4gPiAtIGNyYXNo
+IGZpeCBmb3Igc29tZSBuZXcgT0VNIGJvYXJkcwo+ID4gPgo+ID4gPiAtLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiA+IEFs
+ZXggRGV1Y2hlciAoMSk6Cj4gPiA+ICAgICAgIGRybS9hbWRncHUvZ2Z4OTogdXNlIHJlc2V0IGRl
+ZmF1bHQgZm9yIFBBX1NDX0ZJRk9fU0laRQo+ID4gPgo+ID4gPiBFdmFuIFF1YW4gKDEpOgo+ID4g
+PiAgICAgICBkcm0vYW1kL3Bvd2VycGxheTogdXNlIGhhcmR3YXJlIGZhbiBjb250cm9sIGlmIG5v
+IHBvd2VycGxheSBmYW4gdGFibGUKPiA+ID4KPiA+ID4gTHl1ZGUgUGF1bCAoMSk6Cj4gPiA+ICAg
+ICAgIGRybS9hbWRncHU6IERvbid0IHNraXAgZGlzcGxheSBzZXR0aW5ncyBpbiBod21ncl9yZXN1
+bWUoKQo+ID4gPgo+ID4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAg
+ICAgICAgICAgICAgICAgfCAxOSAtLS0tLS0tLS0tLS0tLS0tLS0tCj4gPiA+ICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5jICAgICAgICAgICB8ICAyICstCj4gPiA+
+ICAuLi4vZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvcHJvY2Vzc19wcHRhYmxlc192MV8wLmMgICB8
+ICA0ICsrKy0KPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9od21nci5o
+ICAgICAgICAgICAgIHwgIDEgKwo+ID4gPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVt
+Z3IvcG9sYXJpczEwX3NtdW1nci5jICAgfCAgNCArKysrCj4gPiA+ICA1IGZpbGVzIGNoYW5nZWQs
+IDkgaW5zZXJ0aW9ucygrKSwgMjEgZGVsZXRpb25zKC0pCj4gPgo+ID4gLS0KPiA+IERhbmllbCBW
+ZXR0ZXIKPiA+IFNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgo+ID4gaHR0cDov
+L2Jsb2cuZmZ3bGwuY2gKCgoKLS0gCkRhbmllbCBWZXR0ZXIKU29mdHdhcmUgRW5naW5lZXIsIElu
+dGVsIENvcnBvcmF0aW9uCis0MSAoMCkgNzkgMzY1IDU3IDQ4IC0gaHR0cDovL2Jsb2cuZmZ3bGwu
+Y2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
+cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
