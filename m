@@ -1,76 +1,100 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [pull] amdgpu drm-fixes-5.2
-Date: Wed, 3 Jul 2019 09:10:37 -0400
-Message-ID: <CADnq5_PC44xY9S3C+s0D4Yx9e3Wsh7TM_-yqe1auRDMWgBZ49g@mail.gmail.com>
-References: <20190703015705.3162-1-alexander.deucher@amd.com>
- <20190703095453.GE15868@phenom.ffwll.local>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190703095453.GE15868-dv86pmgwkMBes7Z6vYuT8azUEOm+Xw19@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel.vetter-/w4YWyX8dFk@public.gmane.org>, Dave Airlie <airlied-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: Fuqian Huang <huangfq.daxian@gmail.com>
+Subject: [PATCH 06/30] drm/amdgpu: Use kmemdup rather than duplicating its implementation
+Date: Wed,  3 Jul 2019 21:14:14 +0800
+Message-ID: <20190703131414.24947-1-huangfq.daxian@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Fuqian Huang <huangfq.daxian@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBKdWwgMywgMjAxOSBhdCA1OjU0IEFNIERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZnds
-bC5jaD4gd3JvdGU6Cj4KPiBPbiBUdWUsIEp1bCAwMiwgMjAxOSBhdCAwODo1NzowNVBNIC0wNTAw
-LCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gPiBIaSBEYXZlLCBEYW5pZWwsCj4gPgo+ID4gMyBmaXhl
-cyBhbGwgY2MnZWQgdG8gc3RhYmxlLiAgTm90ZSB0aGF0IGRpbSBjb21wbGFpbnMgYWJvdXQgdGhl
-IEZpeGVzIHRhZwo+ID4gaW4gb25lIG9mIHRoZSBwYXRjaGVzLiAgVGhlIHBhdGNoIGhhczoKPiA+
-IEZpeGVzOiA5MjE5MzVkYzY0MDQgKCJkcm0vYW1kL3Bvd2VycGxheTogZW5mb3JjZSBkaXNwbGF5
-IHJlbGF0ZWQgc2V0dGluZ3Mgb25seSBvbiBuZWVkZWQiKQo+ID4gd2hpbGUgZGltIHJlY29tbWVu
-ZHM6Cj4KPiBUaGlzIGlzIHRoZSByaWdodCBmb3JtYXQuCj4KPiA+IEZpeGVzOiBjb21taXQgOTIx
-OTM1ZGM2NDA0ICgiZHJtL2FtZC9wb3dlcnBsYXk6IGVuZm9yY2UgZGlzcGxheSByZWxhdGVkIHNl
-dHRpbmdzIG9ubHkgb24gbmVlZGVkIikKPgo+IEFkZGluZyBhICJjb21taXQiIGlzIHdyb25nLiBB
-bmQgYXQgbGVhc3QgbXkgZGltIGhlcmUgZG9lc24ndCBjb21wbGFpbgo+IGFib3V0IHlvdXIgcHVs
-bC4gSG93IGRpZCB5b3UgdGVzdCB0aGlzPwoKZGltIGNoZWNrcGF0Y2ggNjY1ZDZkNGUzMjMxM2E3
-OTUyYmIzMzM5NjQ3Zjc0YzNhNmIwZDc4YQoKLTo4OiBFUlJPUjpHSVRfQ09NTUlUX0lEOiBQbGVh
-c2UgdXNlIGdpdCBjb21taXQgZGVzY3JpcHRpb24gc3R5bGUKJ2NvbW1pdCA8MTIrIGNoYXJzIG9m
-IHNoYTE+ICgiPHRpdGxlIGxpbmU+IiknIC0gaWU6ICdjb21taXQKOTIxOTM1ZGM2NDA0ICgiZHJt
-L2FtZC9wb3dlcnBsYXk6IGVuZm9yY2UgZGlzcGxheSByZWxhdGVkIHNldHRpbmdzCm9ubHkgb24g
-bmVlZGVkIiknCiM4Ogo5MjE5MzVkYzY0MDQgKCJkcm0vYW1kL3Bvd2VycGxheTogZW5mb3JjZSBk
-aXNwbGF5IHJlbGF0ZWQgc2V0dGluZ3MKb25seSBvbiBuZWVkZWQiKQoKQWxleAoKPiAtRGFuaWVs
-Cj4KPiA+IEkgZmVlbCBsaWtlIHRoZSBmb3JtZXIgaXMgdGhlIG1vcmUgY29tbW9uIG5vbWVuY2xl
-dHVyZSAoYXQgbGVhc3QgaGlzdG9yaWNhbGx5KSwKPiA+IGJ1dCBJJ20gaGFwcHkgdG8gcmVzcGlu
-IGlmIHlvdSdkIHByZWZlci4KPiA+Cj4gPiBUaGUgZm9sbG93aW5nIGNoYW5nZXMgc2luY2UgY29t
-bWl0IDY2NWQ2ZDRlMzIzMTNhNzk1MmJiMzMzOTY0N2Y3NGMzYTZiMGQ3OGE6Cj4gPgo+ID4gICBN
-ZXJnZSB0YWcgJ2RybS1taXNjLWZpeGVzLTIwMTktMDYtMjYnIG9mIGdpdDovL2Fub25naXQuZnJl
-ZWRlc2t0b3Aub3JnL2RybS9kcm0tbWlzYyBpbnRvIGRybS1maXhlcyAoMjAxOS0wNi0yNyAxMToz
-NDo1MiArMTAwMCkKPiA+Cj4gPiBhcmUgYXZhaWxhYmxlIGluIHRoZSBHaXQgcmVwb3NpdG9yeSBh
-dDoKPiA+Cj4gPiAgIGdpdDovL3Blb3BsZS5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IHRh
-Z3MvZHJtLWZpeGVzLTUuMi0yMDE5LTA3LTAyCj4gPgo+ID4gZm9yIHlvdSB0byBmZXRjaCBjaGFu
-Z2VzIHVwIHRvIDI1ZjA5Zjg1ODgzNWIwZTlhMDYyMTM4MTEwMzExOTBhMTdkOGFiNzg6Cj4gPgo+
-ID4gICBkcm0vYW1kZ3B1L2dmeDk6IHVzZSByZXNldCBkZWZhdWx0IGZvciBQQV9TQ19GSUZPX1NJ
-WkUgKDIwMTktMDctMDEgMTI6MTY6MjYgLTA1MDApCj4gPgo+ID4gLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4gZHJtLWZp
-eGVzLTUuMi0yMDE5LTA3LTAyOgo+ID4KPiA+IEZpeGVzIGZvciBzdGFibGUKPiA+Cj4gPiBhbWRn
-cHU6Cj4gPiAtIHN0YWJpbGl0eSBmaXggZm9yIGdmeDkKPiA+IC0gcmVncmVzc2lvbiBmaXggZm9y
-IEhHIG9uIHNvbWUgcG9sYXJpcyBib2FyZHMKPiA+IC0gY3Jhc2ggZml4IGZvciBzb21lIG5ldyBP
-RU0gYm9hcmRzCj4gPgo+ID4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4gQWxleCBEZXVjaGVyICgxKToKPiA+ICAgICAg
-IGRybS9hbWRncHUvZ2Z4OTogdXNlIHJlc2V0IGRlZmF1bHQgZm9yIFBBX1NDX0ZJRk9fU0laRQo+
-ID4KPiA+IEV2YW4gUXVhbiAoMSk6Cj4gPiAgICAgICBkcm0vYW1kL3Bvd2VycGxheTogdXNlIGhh
-cmR3YXJlIGZhbiBjb250cm9sIGlmIG5vIHBvd2VycGxheSBmYW4gdGFibGUKPiA+Cj4gPiBMeXVk
-ZSBQYXVsICgxKToKPiA+ICAgICAgIGRybS9hbWRncHU6IERvbid0IHNraXAgZGlzcGxheSBzZXR0
-aW5ncyBpbiBod21ncl9yZXN1bWUoKQo+ID4KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nZnhfdjlfMC5jICAgICAgICAgICAgICAgICB8IDE5IC0tLS0tLS0tLS0tLS0tLS0tLS0KPiA+
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci9od21nci5jICAgICAgICAgICB8
-ICAyICstCj4gPiAgLi4uL2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3Byb2Nlc3NfcHB0YWJsZXNf
-djFfMC5jICAgfCAgNCArKystCj4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5j
-L2h3bWdyLmggICAgICAgICAgICAgfCAgMSArCj4gPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxh
-eS9zbXVtZ3IvcG9sYXJpczEwX3NtdW1nci5jICAgfCAgNCArKysrCj4gPiAgNSBmaWxlcyBjaGFu
-Z2VkLCA5IGluc2VydGlvbnMoKyksIDIxIGRlbGV0aW9ucygtKQo+Cj4gLS0KPiBEYW5pZWwgVmV0
-dGVyCj4gU29mdHdhcmUgRW5naW5lZXIsIEludGVsIENvcnBvcmF0aW9uCj4gaHR0cDovL2Jsb2cu
-ZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+kmemdup is introduced to duplicate a region of memory in a neat way.
+Rather than kmalloc/kzalloc + memset, which the programmer needs to
+write the size twice (sometimes lead to mistakes), kmemdup improves
+readability, leads to smaller code and also reduce the chances of mistakes.
+Suggestion to use kmemdup rather than using kmalloc/kzalloc + memset.
+
+Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c           | 5 ++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c           | 5 ++---
+ drivers/gpu/drm/amd/display/dc/core/dc.c        | 6 ++----
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 +---
+ 4 files changed, 7 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index 02955e6e9dd9..48e38479d634 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -3925,11 +3925,10 @@ static int gfx_v8_0_init_save_restore_list(struct amdgpu_device *adev)
+ 
+ 	int list_size;
+ 	unsigned int *register_list_format =
+-		kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
++		kmemdup(adev->gfx.rlc.register_list_format,
++			adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
+ 	if (!register_list_format)
+ 		return -ENOMEM;
+-	memcpy(register_list_format, adev->gfx.rlc.register_list_format,
+-			adev->gfx.rlc.reg_list_format_size_bytes);
+ 
+ 	gfx_v8_0_parse_ind_reg_list(register_list_format,
+ 				RLC_FormatDirectRegListLength,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index b610e3b30d95..09d901ef216d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2092,11 +2092,10 @@ static int gfx_v9_1_init_rlc_save_restore_list(struct amdgpu_device *adev)
+ 	u32 tmp = 0;
+ 
+ 	u32 *register_list_format =
+-		kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
++		kmemdup(adev->gfx.rlc.register_list_format,
++			adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
+ 	if (!register_list_format)
+ 		return -ENOMEM;
+-	memcpy(register_list_format, adev->gfx.rlc.register_list_format,
+-		adev->gfx.rlc.reg_list_format_size_bytes);
+ 
+ 	/* setup unique_indirect_regs array and indirect_start_offsets array */
+ 	unique_indirect_reg_count = ARRAY_SIZE(unique_indirect_regs);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 18c775a950cc..6ced3b9cdce2 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -1263,14 +1263,12 @@ struct dc_state *dc_create_state(struct dc *dc)
+ struct dc_state *dc_copy_state(struct dc_state *src_ctx)
+ {
+ 	int i, j;
+-	struct dc_state *new_ctx = kzalloc(sizeof(struct dc_state),
+-					   GFP_KERNEL);
++	struct dc_state *new_ctx = kmemdup(src_ctx,
++			sizeof(struct dc_state), GFP_KERNEL);
+ 
+ 	if (!new_ctx)
+ 		return NULL;
+ 
+-	memcpy(new_ctx, src_ctx, sizeof(struct dc_state));
+-
+ 	for (i = 0; i < MAX_PIPES; i++) {
+ 			struct pipe_ctx *cur_pipe = &new_ctx->res_ctx.pipe_ctx[i];
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+index 96e97d25d639..d4b563a2e220 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -167,12 +167,10 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
+ {
+ 	struct dc_stream_state *new_stream;
+ 
+-	new_stream = kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
++	new_stream = kzalloc(stream, sizeof(struct dc_stream_state), GFP_KERNEL);
+ 	if (!new_stream)
+ 		return NULL;
+ 
+-	memcpy(new_stream, stream, sizeof(struct dc_stream_state));
+-
+ 	if (new_stream->sink)
+ 		dc_sink_retain(new_stream->sink);
+ 
+-- 
+2.11.0
