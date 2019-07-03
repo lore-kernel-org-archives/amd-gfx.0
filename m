@@ -1,100 +1,131 @@
-From: Fuqian Huang <huangfq.daxian@gmail.com>
-Subject: [PATCH 06/30] drm/amdgpu: Use kmemdup rather than duplicating its implementation
-Date: Wed,  3 Jul 2019 21:14:14 +0800
-Message-ID: <20190703131414.24947-1-huangfq.daxian@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Fuqian Huang <huangfq.daxian@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: =?UTF-8?B?0JzQuNGF0LDQuNC7INCR0L7Qs9C00LDQvdC+0LI=?=
+ <max.kammerer-/E1597aS9LQAvxtiuMwx3w@public.gmane.org>
+Subject: Which changes in graphic stack could cause eye strain problems
+Date: Wed, 3 Jul 2019 07:57:11 +0000 (UTC)
+Message-ID: <1441784245.1474829.1562140631783@mail.yahoo.com>
+References: <1441784245.1474829.1562140631783.ref@mail.yahoo.com>
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============1090547162=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-kmemdup is introduced to duplicate a region of memory in a neat way.
-Rather than kmalloc/kzalloc + memset, which the programmer needs to
-write the size twice (sometimes lead to mistakes), kmemdup improves
-readability, leads to smaller code and also reduce the chances of mistakes.
-Suggestion to use kmemdup rather than using kmalloc/kzalloc + memset.
+--===============1090547162==
+Content-Type: multipart/alternative;
+	boundary="----=_Part_1474828_907294812.1562140631781"
 
-Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c           | 5 ++---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c           | 5 ++---
- drivers/gpu/drm/amd/display/dc/core/dc.c        | 6 ++----
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 +---
- 4 files changed, 7 insertions(+), 13 deletions(-)
+------=_Part_1474828_907294812.1562140631781
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-index 02955e6e9dd9..48e38479d634 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-@@ -3925,11 +3925,10 @@ static int gfx_v8_0_init_save_restore_list(struct amdgpu_device *adev)
- 
- 	int list_size;
- 	unsigned int *register_list_format =
--		kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
-+		kmemdup(adev->gfx.rlc.register_list_format,
-+			adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
- 	if (!register_list_format)
- 		return -ENOMEM;
--	memcpy(register_list_format, adev->gfx.rlc.register_list_format,
--			adev->gfx.rlc.reg_list_format_size_bytes);
- 
- 	gfx_v8_0_parse_ind_reg_list(register_list_format,
- 				RLC_FormatDirectRegListLength,
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index b610e3b30d95..09d901ef216d 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2092,11 +2092,10 @@ static int gfx_v9_1_init_rlc_save_restore_list(struct amdgpu_device *adev)
- 	u32 tmp = 0;
- 
- 	u32 *register_list_format =
--		kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
-+		kmemdup(adev->gfx.rlc.register_list_format,
-+			adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
- 	if (!register_list_format)
- 		return -ENOMEM;
--	memcpy(register_list_format, adev->gfx.rlc.register_list_format,
--		adev->gfx.rlc.reg_list_format_size_bytes);
- 
- 	/* setup unique_indirect_regs array and indirect_start_offsets array */
- 	unique_indirect_reg_count = ARRAY_SIZE(unique_indirect_regs);
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 18c775a950cc..6ced3b9cdce2 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1263,14 +1263,12 @@ struct dc_state *dc_create_state(struct dc *dc)
- struct dc_state *dc_copy_state(struct dc_state *src_ctx)
- {
- 	int i, j;
--	struct dc_state *new_ctx = kzalloc(sizeof(struct dc_state),
--					   GFP_KERNEL);
-+	struct dc_state *new_ctx = kmemdup(src_ctx,
-+			sizeof(struct dc_state), GFP_KERNEL);
- 
- 	if (!new_ctx)
- 		return NULL;
- 
--	memcpy(new_ctx, src_ctx, sizeof(struct dc_state));
--
- 	for (i = 0; i < MAX_PIPES; i++) {
- 			struct pipe_ctx *cur_pipe = &new_ctx->res_ctx.pipe_ctx[i];
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 96e97d25d639..d4b563a2e220 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -167,12 +167,10 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
- {
- 	struct dc_stream_state *new_stream;
- 
--	new_stream = kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
-+	new_stream = kzalloc(stream, sizeof(struct dc_stream_state), GFP_KERNEL);
- 	if (!new_stream)
- 		return NULL;
- 
--	memcpy(new_stream, stream, sizeof(struct dc_stream_state));
--
- 	if (new_stream->sink)
- 		dc_sink_retain(new_stream->sink);
- 
--- 
-2.11.0
+ I've been using Ubuntu 14.4.0 (with updates) for many years and can't swit=
+ch to any newer Linux distribution.
+Actually on attempt to upgrade to anything newer I got problems with eyes a=
+nd head (actually problem feelings are started in muscle at my right head s=
+ide and then in eyes - irritation, burn, discomfort and so on, then i got a=
+ weakness in my full body).=20
+My hardware configuration is same during attempt of upgrade and I have simi=
+lar filing regardless of used driver (opensource or proprietary).Problem fe=
+elings doesn't depends on used graphic card: AMD/ATI, Nvidia or Intel.
+The hardness of feelings just depends on distribution: the hardest ones on =
+Ubuntu 19.04 and less ones on Mint 19.1
+
+I think that some relevant for my story changes was added to graphic stack =
+around 2014 year=20
+or maybe even before 2014 and default=C2=A0 behaviour was switched to them =
+around 2014.
+There are several report of same problem with intel graphic made in 2014:ht=
+tps://lists.freedesktop.org/archives/intel-gfx/2014-January/038104.html
+https://lists.freedesktop.org/archives/intel-gfx/2014-March/042689.html
+Actually I can't use any display with LED backlight and still using one wit=
+h CCFL. Maybe this changes are related to LED display support.
+
+There is also report on ledstrain site:https://ledstrain.org/d/384-linux-us=
+ers-any-known-good-distro-de/15
+
+Could you suggest which changes could be related to described problem?Could=
+ it be some hidden dithering in graphics stack or something else?My attempt=
+ to play with different configuration options doesn't give me any result (i=
+ncluding dithering disabling in graphic card driver)?
+Best regards,=C2=A0=C2=A0 Mike
+
+
+
+
+
+
+------=_Part_1474828_907294812.1562140631781
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div class=3D"ydp9255c4beyahoo-style-wrap" style=
+=3D"font-family:Helvetica Neue, Helvetica, Arial, sans-serif;font-size:13px=
+;"><div dir=3D"ltr" data-setdir=3D"false"><span> <span>I've been using Ubun=
+tu 14.4.0 (with updates) for many years and can't switch to any newer Linux=
+ distribution.</span><br></span></div><div dir=3D"ltr" data-setdir=3D"false=
+"><span>Actually on attempt to upgrade to anything newer I got problems wit=
+h eyes and head (actually problem feelings are started in muscle at my righ=
+t head side and then in eyes - irritation, burn, discomfort and so on, then=
+ i got a weakness in my full body). <br></span></div><div dir=3D"ltr" data-=
+setdir=3D"false"><span>My hardware configuration is same during attempt of =
+upgrade and I have similar filing <span><span class=3D"ydp813558b8tlid-tran=
+slation ydp813558b8translation" lang=3D"en"><span title=3D"">regardless</sp=
+an></span></span> of used driver (opensource or proprietary).</span></div><=
+div dir=3D"ltr" data-setdir=3D"false"><span>Problem feelings doesn't depend=
+s on used graphic card: AMD/ATI, Nvidia or Intel.<br></span></div><div dir=
+=3D"ltr" data-setdir=3D"false"><span>The hardness of feelings just depends =
+on distribution: the hardest ones on Ubuntu 19.04 and less ones on Mint 19.=
+1<br></span></div><div dir=3D"ltr" data-setdir=3D"false"><span><br></span><=
+/div><div dir=3D"ltr" data-setdir=3D"false"><span>I think that some relevan=
+t for my story changes was added to graphic stack around 2014 year <br></sp=
+an></div><div dir=3D"ltr" data-setdir=3D"false"><span>or maybe even before =
+2014 and default&nbsp; <span>behaviour</span> was switched to them around 2=
+014.<br></span></div><div dir=3D"ltr" data-setdir=3D"false"><span>There are=
+ several report of same problem with intel graphic made in 2014:</span></di=
+v><div dir=3D"ltr" data-setdir=3D"false"><div><span><a href=3D"https://list=
+s.freedesktop.org/archives/intel-gfx/2014-January/038104.html" rel=3D"nofol=
+low" target=3D"_blank">https://lists.freedesktop.org/archives/intel-gfx/201=
+4-January/038104.html</a><br></span></div><div dir=3D"ltr" data-setdir=3D"f=
+alse"><div><a href=3D"https://lists.freedesktop.org/archives/intel-gfx/2014=
+-March/042689.html" rel=3D"nofollow" target=3D"_blank">https://lists.freede=
+sktop.org/archives/intel-gfx/2014-March/042689.html</a></div><div><br></div=
+><div dir=3D"ltr" data-setdir=3D"false">Actually I can't use any display wi=
+th LED backlight and still using one with CCFL. Maybe this changes are rela=
+ted to LED display support.<br></div><div><br></div><div dir=3D"ltr" data-s=
+etdir=3D"false">There is also report on ledstrain site:</div><div dir=3D"lt=
+r" data-setdir=3D"false"><a href=3D"https://ledstrain.org/d/384-linux-users=
+-any-known-good-distro-de/15" rel=3D"nofollow" target=3D"_blank">https://le=
+dstrain.org/d/384-linux-users-any-known-good-distro-de/15</a></div><div><br=
+></div><div><br></div><div dir=3D"ltr" data-setdir=3D"false">Could you sugg=
+est which changes could be related to described problem?</div><div dir=3D"l=
+tr" data-setdir=3D"false">Could it be some hidden dithering in graphics sta=
+ck or something else?</div><div dir=3D"ltr" data-setdir=3D"false">My attemp=
+t to play with different configuration options doesn't give me any result (=
+including dithering disabling in graphic card driver)?</div><div dir=3D"ltr=
+" data-setdir=3D"false"><br></div><div dir=3D"ltr" data-setdir=3D"false">Be=
+st regards,</div><div dir=3D"ltr" data-setdir=3D"false">&nbsp;&nbsp; Mike<b=
+r></div><div><br></div><div><br></div><span></span></div><div><br></div><di=
+v><br></div><div><br></div></div><div dir=3D"ltr" data-setdir=3D"false"><sp=
+an></span></div></div></body></html>
+------=_Part_1474828_907294812.1562140631781--
+
+--===============1090547162==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1090547162==--
