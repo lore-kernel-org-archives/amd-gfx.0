@@ -1,90 +1,29 @@
-From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Subject: Re: [RFC] mm/hmm: pass mmu_notifier_range to
- sync_cpu_device_pagetables
-Date: Wed, 3 Jul 2019 15:08:41 +0000
-Message-ID: <20190703150836.GM18688@mellanox.com>
-References: <20190608001452.7922-1-rcampbell@nvidia.com>
- <20190702195317.GT31718@mellanox.com> <20190702224912.GA24043@lst.de>
- <20190702225911.GA11833@mellanox.com>
- <1dc82dc8-3e6f-1d6f-b14d-41ae3c1b2709@amd.com>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Subject: Re: [PATCH 06/30] drm/amdgpu: Use kmemdup rather than duplicating its implementation
+Date: Wed, 3 Jul 2019 16:21:45 +0100
+Message-ID: <CACvgo52wa8FzddSB09WoBCfR=Jdb-AD1G3_siB7c2nWWtmdpGg@mail.gmail.com>
+References: <20190703131414.24947-1-huangfq.daxian@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1dc82dc8-3e6f-1d6f-b14d-41ae3c1b2709-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <5850BAD4694CCA479493175E5B4779A2-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Jerome Glisse <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190703131414.24947-1-huangfq.daxian@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Fuqian Huang <huangfq.daxian@gmail.com>
+Cc: David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, "Linux-Kernel@Vger. Kernel. Org" <linux-kernel@vger.kernel.org>, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>, ML dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBKdWwgMDMsIDIwMTkgYXQgMDI6Mjc6MjJBTSArMDAwMCwgS3VlaGxpbmcsIEZlbGl4
-IHdyb3RlOgo+IE9uIDIwMTktMDctMDIgNjo1OSBwLm0uLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6
-Cj4gPiBPbiBXZWQsIEp1bCAwMywgMjAxOSBhdCAxMjo0OToxMkFNICswMjAwLCBDaHJpc3RvcGgg
-SGVsbHdpZyB3cm90ZToKPiA+PiBPbiBUdWUsIEp1bCAwMiwgMjAxOSBhdCAwNzo1MzoyM1BNICsw
-MDAwLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6Cj4gPj4+PiBJJ20gc2VuZGluZyB0aGlzIG91dCBu
-b3cgc2luY2Ugd2UgYXJlIHVwZGF0aW5nIG1hbnkgb2YgdGhlIEhNTSBBUElzCj4gPj4+PiBhbmQg
-SSB0aGluayBpdCB3aWxsIGJlIHVzZWZ1bC4KPiA+Pj4gVGhpcyBtYWtlIHNvIG11Y2ggc2Vuc2Us
-IEknZCBsaWtlIHRvIGFwcGx5IHRoaXMgaW4gaG1tLmdpdCwgaXMgdGhlcmUKPiA+Pj4gYW55IG9i
-amVjdGlvbj8KPiA+PiBBcyB0aGlzIGNyZWF0ZXMgYSBzb21ld2hhdCBoYWlyeSBjb25mbGljdCBm
-b3IgYW1kZ3B1LCB3b3VsZG4ndCBpdCBiZQo+ID4+IGEgYmV0dGVyIGlkZWEgdG8gd2FpdCBhIGJp
-dCBhbmQgYXBwbHkgaXQgZmlyc3QgdGhpbmcgZm9yIG5leHQgbWVyZ2UKPiA+PiB3aW5kb3c/Cj4g
-PiBNeSB0aGlua2luZyBpcyB0aGF0IEFNRCBHUFUgYWxyZWFkeSBoYXMgYSBtb25zdGVyIGNvbmZs
-aWN0IGZyb20gdGhpczoKPiA+Cj4gPiAgIGludCBobW1fcmFuZ2VfcmVnaXN0ZXIoc3RydWN0IGht
-bV9yYW5nZSAqcmFuZ2UsCj4gPiAtICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBtbV9zdHJ1
-Y3QgKm1tLAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgaG1tX21pcnJvciAqbWly
-cm9yLAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBzdGFydCwKPiA+
-ICAgICAgICAgICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgZW5kLAo+ID4gICAgICAgICAg
-ICAgICAgICAgICAgICAgdW5zaWduZWQgcGFnZV9zaGlmdCk7Cj4gPgo+ID4gU28sIGRlcGVuZGlu
-ZyBvbiBob3cgdGhhdCBpcyByZXNvbHZlZCB3ZSBtaWdodCB3YW50IHRvIGRvIGJvdGggQVBJCj4g
-PiBjaGFuZ2VzIGF0IG9uY2UuCj4gCj4gSSBqdXN0IHNlbnQgb3V0IGEgZml4IGZvciB0aGUgaG1t
-X21pcnJvciBBUEkgY2hhbmdlLgoKSSB0aGluayBpZiB5b3UgZm9sbG93IG15IHN1Z2dlc3Rpb24g
-dG8gYXBwbHkgYSBwcmVwIHBhdGNoIHRvIEFNRCBHUFUKdG8gbWFrZSB0aGUgY29uZmxpY3QgcmVz
-b2x1dGlvbiBzaW1wbGUsIHdlIHNob3VsZCBkZWZlciB0aGlzIHBhdGNoCnVudGlsIG5leHQga2Vy
-bmVsIGZvciB0aGUgcmVhc29ucyBDSCBnYXZlLgoKPiA+IE9yIHdlIG1heSBoYXZlIHRvIHJldmVy
-dCB0aGUgYWJvdmUgY2hhbmdlIGF0IHRoaXMgbGF0ZSBkYXRlLgo+ID4KPiA+IFdhaXRpbmcgZm9y
-IEFNREdQVSB0ZWFtIHRvIGRpc2N1c3Mgd2hhdCBwcm9jZXNzIHRoZXkgd2FudCB0byB1c2UuCj4g
-Cj4gWWVhaCwgSSdtIHdvbmRlcmluZyB3aGF0IHRoZSBwcm9jZXNzIGlzIG15c2VsZi4gV2l0aCBI
-TU0gYW5kIGRyaXZlciAKPiBkZXZlbG9wbWVudCBoYXBwZW5pbmcgb24gZGlmZmVyZW50IGJyYW5j
-aGVzIHRoZXNlIGtpbmRzIG9mIEFQSSBjaGFuZ2VzIAo+IGFyZSBwYWluZnVsLiBUaGVyZSBzZWVt
-cyB0byBiZSBhIGJ1aWx0LWluIGFzc3VtcHRpb24gaW4gdGhlIGN1cnJlbnQgCj4gcHJvY2Vzcywg
-dGhhdCBjb2RlIGZsb3dzIG1vc3RseSBpbiBvbmUgZGlyZWN0aW9uIGFtZC1zdGFnaW5nLWRybS1u
-ZXh0IC0+IAo+IGRybS1uZXh0IC0+IGxpbnV4LW5leHQgLT4gbGludXguIFRoYXQgYXNzdW1wdGlv
-biBpcyBicm9rZW4gd2l0aCBITU0gY29kZSAKPiBldm9sdmluZyByYXBpZGx5IGluIGJvdGggYW1k
-Z3B1IGFuZCBtbS4KCkl0IGxvb2tzIHRvIG1lIGxpa2UgQU1EIEdQVSB1c2VzIGEgcHVsbCByZXF1
-ZXN0IG1vZGVsLiBTbyBhIGdvYWwgYXMgYQp0cmVlIHJ1bm5lciBzaG91bGQgYmUgdG8gd29yayB3
-aXRoIHRoZSBvdGhlciB0cmVlcyAoaWUgaG1tLmdpdCwgZXRjKQp0byBtaW5pbWl6ZSBjb25mbGlj
-dHMgYmV0d2VlbiB0aGUgUFIgeW91IHdpbGwgc2VuZCBhbmQgdGhlIFBSIG90aGVyCnRyZWVzIHdp
-bGwgc2VuZC4KCkRvIG5vdCBmb2N1cyBvbiBsaW51eC1uZXh0LCB0aGF0IGlzIGp1c3QgYW4gJ2Vh
-cmx5IHdhcm5pbmcgc3lzdGVtJwp0aGF0IGNvbmZsaWN0cyBhcmUgb24gdGhlIGhvcml6b24sIHdl
-IGtuZXcgYWJvdXQgdGhpcyBvbmUgOikgKHdlbGwsCm1vc3RseSwgSSB3YXMgc3VycHJpc2VkIGhv
-dyBiaWcgaXQgd2FzLCBteSBiYWQpCgpTbyB3ZSBtdXN0IHN0YXkgaW4gY28tb3JkaW5hdGlvbiB3
-aXRoIHBhdGNoZXMgaW4tZmxpZ2h0IG9uIHRoZSBsaXN0CmFuZCBtYWtlIHRoZSByaWdodCBkZWNp
-c2lvbiwgZGVwZW5kaW5nIG9uIHRoZSBzaXR1YXRpb24uIENvbW11bmljYXRpb24KaGVyZSBpcyBr
-ZXkgOikKCldlIGhhdmUgbG90cyBvZiBzdHJhdGVnaWVzIGF2YWlsYWJsZSB0byBkZWFsIHdpdGgg
-dGhlc2Ugc2l0dWF0aW9ucy4KCj4gSWYgd2Ugd2FudCB0byBjb250aW51ZSBkZXZlbG9waW5nIEhN
-TSBkcml2ZXIgY2hhbmdlcyBpbgo+IGFtZC1zdGFnaW5nLWRybS1uZXh0LCB3ZSdsbCBuZWVkIHRv
-IHN5bmNocm9uaXplIHdpdGggaG1tLmdpdCBtb3JlIAo+IGZyZXF1ZW50bHksIGJvdGggd2F5cy4K
-Ckl0IGNhbid0IHJlYWxseSBnbyBib3RoIHdheXMuIGhtbS5naXQgaGFzIHRvIGJlIG9ubHkgdGhl
-IGhtbSB0b3BpYywKb3RoZXJ3aXNlIGl0IGRvZXNuJ3QgcmVhbGx5IHdvcmsuCgo+IEkgYmVsaWV2
-ZSBwYXJ0IG9mIHRoZSBwcm9ibGVtIGlzLCB0aGF0IHRoZXJlIGlzIGEgZmFpcmx5IGxvbmcKPiBs
-ZWFkLXRpbWUgZnJvbSBnZXR0aW5nIGNoYW5nZXMgZnJvbSBhbWQtc3RhZ2luZy1kcm0tbmV4dCBp
-bnRvCj4gbGludXgtbmV4dCwgYXMgdGhleSBhcmUgaGVsZCBmb3Igb25lIHJlbGVhc2UgY3ljbGUg
-aW4gZHJtLW5leHQuCj4gUHVzaGluZyBITU0tcmVsYXRlZCBjaGFuZ2VzIHRocm91Z2ggZHJtLWZp
-eGVzIG1heSBvZmZlciBhIGtpbmQgb2YKPiBzaG9ydGN1dC4gUGhpbGlwIGFuZCBteSBsYXRlc3Qg
-Zml4dXAgaXMganVzdCBieXBhc3NpbmcgZHJtLW5leHQKPiBjb21wbGV0ZWx5IGFuZCBnb2luZyBz
-dHJhaWdodCBpbnRvIGxpbnV4LW5leHQsIHRob3VnaC4KCkknbSBub3Qgc28gZmFtaWxpYXIgd2l0
-aCB0aGUgRFJNIHdvcmsgZmxvdyB0byBnaXZlIHlvdSBhZHZpY2Ugb24gdGhpcy4KCkphc29uCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
-bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Wed, 3 Jul 2019 at 14:15, Fuqian Huang <huangfq.daxian@gmail.com> wrote:
+>
+> kmemdup is introduced to duplicate a region of memory in a neat way.
+> Rather than kmalloc/kzalloc + memset, which the programmer needs to
+> write the size twice (sometimes lead to mistakes), kmemdup improves
+> readability, leads to smaller code and also reduce the chances of mistakes.
+> Suggestion to use kmemdup rather than using kmalloc/kzalloc + memset.
+>
+> Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
+Fuqian please add reviewed-by and other tags when sending new revisions.
+
+Fwiw the patch is:
+Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+
+-Emil
