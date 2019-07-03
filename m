@@ -1,15 +1,11 @@
-From: Emil Velikov <emil.l.velikov@gmail.com>
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
 Subject: Re: [PATCH 2/3] drm: introduce DRIVER_FORCE_AUTH
-Date: Wed, 3 Jul 2019 15:00:40 +0100
-Message-ID: <CACvgo51MdDQSyf=a_gpFA66KepsDBcxZo66aZ_B6m9apvBJMhQ@mail.gmail.com>
-References: <20190703133104.3211-1-emil.l.velikov@gmail.com>
- <20190703133104.3211-2-emil.l.velikov@gmail.com>
- <9237e00e-2e10-4961-a759-19f0cb75a1fb@email.android.com>
+Date: Wed, 3 Jul 2019 14:33:18 +0000
+Message-ID: <744310ce-4546-4406-ad8d-49af0f06cd49@email.android.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0718213152=="
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <9237e00e-2e10-4961-a759-19f0cb75a1fb@email.android.com>
+Content-Language: de-DE
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -19,19 +15,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
+To: Emil Velikov <emil.l.velikov@gmail.com>
 Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCAzIEp1bCAyMDE5IGF0IDE0OjQ4LCBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFu
-LktvZW5pZ0BhbWQuY29tPiB3cm90ZToKPgo+IFdlbGwgdGhpcyBpcyBzdGlsbCBhIE5BSy4KPgo+
-IEFzIHN0YXRlZCBwcmV2aW91c2x5IHBsZWFzZSBqdXN0IGRvbid0IHJlbW92ZSBEUk1fQVVUSCBh
-bmQga2VlcCB0aGUgZnVuY3Rpb25hbGl0eSBhcyBpdCBpcy4KPgpBRkFJQ1Qgbm9ib2R5IHdhcyBp
-biBmYXZvdXIgb2YgeW91ciBzdWdnZXN0aW9uIHRvIHJlbW92ZSBEUk1fQVVUSCBmcm9tCnRoZSBo
-YW5kbGUgdG8vZnJvbSBmZCBpb2NsdHMuClRodXMgdGhpcyBzZWVtcyBsaWtlIHRoZSBzZWNvbmQg
-YmVzdCBvcHRpb24uCgpUaGlyZCByb3V0ZSB0aGF0IEkgc2VlIGlzIGRvaW5nIGRyaXZlcl9uYW1l
-ID09ICJhbWRncHUiIHx8IGRyaXZlcl9uYW1lCj09ICJyYWRlb24iIGluIGNvcmUuCklmIHlvdSBo
-YXZlIGFsdGVybmF0aXZlIHNvbHV0aW9uIEknbSBhbGwgZWFycy4KCi1FbWlsCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxp
-c3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1kZXZlbA==
+--===============0718213152==
+Content-Language: de-DE
+Content-Type: multipart/alternative;
+	boundary="_000_744310ce45464406ad8d49af0f06cd49emailandroidcom_"
+
+--_000_744310ce45464406ad8d49af0f06cd49emailandroidcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+
+DQoNCkFtIDAzLjA3LjIwMTkgMTY6MDAgc2NocmllYiBFbWlsIFZlbGlrb3YgPGVtaWwubC52ZWxp
+a292QGdtYWlsLmNvbT46DQpPbiBXZWQsIDMgSnVsIDIwMTkgYXQgMTQ6NDgsIEtvZW5pZywgQ2hy
+aXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+IHdyb3RlOg0KPg0KPiBXZWxsIHRoaXMg
+aXMgc3RpbGwgYSBOQUsuDQo+DQo+IEFzIHN0YXRlZCBwcmV2aW91c2x5IHBsZWFzZSBqdXN0IGRv
+bid0IHJlbW92ZSBEUk1fQVVUSCBhbmQga2VlcCB0aGUgZnVuY3Rpb25hbGl0eSBhcyBpdCBpcy4N
+Cj4NCkFGQUlDVCBub2JvZHkgd2FzIGluIGZhdm91ciBvZiB5b3VyIHN1Z2dlc3Rpb24gdG8gcmVt
+b3ZlIERSTV9BVVRIIGZyb20NCnRoZSBoYW5kbGUgdG8vZnJvbSBmZCBpb2NsdHMuDQpUaHVzIHRo
+aXMgc2VlbXMgbGlrZSB0aGUgc2Vjb25kIGJlc3Qgb3B0aW9uLg0KDQpXZWxsIGp1c3Qga2VlcCBp
+dC4gQXMgSSBzYWlkIHBsZWFzZSBkb24ndCBjaGFuZ2UgYW55dGhpbmcgaGVyZS4NCg0KRHJvcHBp
+bmcgRFJNX0FVVEggZnJvbSB0aGUgZHJpdmVyIElPQ1RMcyB3YXMgc3VmZmljaWVudCB0byB3b3Jr
+IGFyb3VuZCB0aGUgcHJvYmxlbXMgYXQgaGFuZCBmYXIgYXMgSSBrbm93Lg0KDQpBbmQgc3RvcHBp
+bmcgdGhvc2UgdHdvIGF0IGxlYXN0IHByZXZlbnRzIHVzZXJzcGFjZSB0byBhYnVzZSB0aGlzIGV2
+ZW4gbW9yZS4NCg0KT24gdGhlIG90aGVyIGhhbmQgSSBoYXZlbid0IHNlZW4gYW55IE5BSyBvbiBk
+cm9wcGluZyBEUk1fQVVUSCBmcm9tIHRoZW0uDQoNCkNocmlzdGlhbi4NCg0KDQoNClRoaXJkIHJv
+dXRlIHRoYXQgSSBzZWUgaXMgZG9pbmcgZHJpdmVyX25hbWUgPT0gImFtZGdwdSIgfHwgZHJpdmVy
+X25hbWUNCj09ICJyYWRlb24iIGluIGNvcmUuDQpJZiB5b3UgaGF2ZSBhbHRlcm5hdGl2ZSBzb2x1
+dGlvbiBJJ20gYWxsIGVhcnMuDQoNCi1FbWlsDQoNCg==
+
+--_000_744310ce45464406ad8d49af0f06cd49emailandroidcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <D5DFF67CD0A98A44BD01BDD8FC171AF5@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: base64
+
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBkaXI9ImF1
+dG8iPg0KPGRpdj48YnI+DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+PGJyPg0KPGRpdiBjbGFz
+cz0iZ21haWxfcXVvdGUiPkFtIDAzLjA3LjIwMTkgMTY6MDAgc2NocmllYiBFbWlsIFZlbGlrb3Yg
+Jmx0O2VtaWwubC52ZWxpa292QGdtYWlsLmNvbSZndDs6PGJyIHR5cGU9ImF0dHJpYnV0aW9uIj4N
+CjxibG9ja3F1b3RlIGNsYXNzPSJxdW90ZSIgc3R5bGU9Im1hcmdpbjowIDAgMCAuOGV4O2JvcmRl
+ci1sZWZ0OjFweCAjY2NjIHNvbGlkO3BhZGRpbmctbGVmdDoxZXgiPg0KPGRpdj48Zm9udCBzaXpl
+PSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHQiPg0KPGRpdj5PbiBXZWQsIDMgSnVsIDIw
+MTkgYXQgMTQ6NDgsIEtvZW5pZywgQ2hyaXN0aWFuICZsdDtDaHJpc3RpYW4uS29lbmlnQGFtZC5j
+b20mZ3Q7IHdyb3RlOjxicj4NCiZndDs8YnI+DQomZ3Q7IFdlbGwgdGhpcyBpcyBzdGlsbCBhIE5B
+Sy48YnI+DQomZ3Q7PGJyPg0KJmd0OyBBcyBzdGF0ZWQgcHJldmlvdXNseSBwbGVhc2UganVzdCBk
+b24ndCByZW1vdmUgRFJNX0FVVEggYW5kIGtlZXAgdGhlIGZ1bmN0aW9uYWxpdHkgYXMgaXQgaXMu
+PGJyPg0KJmd0Ozxicj4NCkFGQUlDVCBub2JvZHkgd2FzIGluIGZhdm91ciBvZiB5b3VyIHN1Z2dl
+c3Rpb24gdG8gcmVtb3ZlIERSTV9BVVRIIGZyb208YnI+DQp0aGUgaGFuZGxlIHRvL2Zyb20gZmQg
+aW9jbHRzLjxicj4NClRodXMgdGhpcyBzZWVtcyBsaWtlIHRoZSBzZWNvbmQgYmVzdCBvcHRpb24u
+PGJyPg0KPC9kaXY+DQo8L3NwYW4+PC9mb250PjwvZGl2Pg0KPC9ibG9ja3F1b3RlPg0KPC9kaXY+
+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9
+ImF1dG8iPldlbGwganVzdCBrZWVwIGl0LiBBcyBJIHNhaWQgcGxlYXNlIGRvbid0IGNoYW5nZSBh
+bnl0aGluZyBoZXJlLjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBk
+aXI9ImF1dG8iPkRyb3BwaW5nIERSTV9BVVRIIGZyb20gdGhlIGRyaXZlciBJT0NUTHMgd2FzIHN1
+ZmZpY2llbnQgdG8gd29yayBhcm91bmQgdGhlIHByb2JsZW1zIGF0IGhhbmQgZmFyIGFzIEkga25v
+dy48L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj48YnI+DQo8L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj5B
+bmQgc3RvcHBpbmcgdGhvc2UgdHdvIGF0IGxlYXN0IHByZXZlbnRzIHVzZXJzcGFjZSB0byBhYnVz
+ZSB0aGlzIGV2ZW4gbW9yZS48L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj48YnI+DQo8L2Rpdj4NCjxk
+aXYgZGlyPSJhdXRvIj5PbiB0aGUgb3RoZXIgaGFuZCBJIGhhdmVuJ3Qgc2VlbiBhbnkgTkFLIG9u
+IGRyb3BwaW5nIERSTV9BVVRIIGZyb20gdGhlbS48L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj48YnI+
+DQo8L2Rpdj4NCjxkaXYgZGlyPSJhdXRvIj5DaHJpc3RpYW4uPC9kaXY+DQo8ZGl2IGRpcj0iYXV0
+byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0i
+YXV0byI+DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+DQo8ZGl2IGNsYXNzPSJnbWFpbF9xdW90
+ZSI+DQo8YmxvY2txdW90ZSBjbGFzcz0icXVvdGUiIHN0eWxlPSJtYXJnaW46MCAwIDAgLjhleDti
+b3JkZXItbGVmdDoxcHggI2NjYyBzb2xpZDtwYWRkaW5nLWxlZnQ6MWV4Ij4NCjxkaXY+PGZvbnQg
+c2l6ZT0iMiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMXB0Ij4NCjxkaXY+PGJyPg0KVGhpcmQg
+cm91dGUgdGhhdCBJIHNlZSBpcyBkb2luZyBkcml2ZXJfbmFtZSA9PSAmcXVvdDthbWRncHUmcXVv
+dDsgfHwgZHJpdmVyX25hbWU8YnI+DQo9PSAmcXVvdDtyYWRlb24mcXVvdDsgaW4gY29yZS48YnI+
+DQpJZiB5b3UgaGF2ZSBhbHRlcm5hdGl2ZSBzb2x1dGlvbiBJJ20gYWxsIGVhcnMuPGJyPg0KPGJy
+Pg0KLUVtaWw8YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+
+DQo8L2Rpdj4NCjxicj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4N
+Cg==
+
+--_000_744310ce45464406ad8d49af0f06cd49emailandroidcom_--
+
+--===============0718213152==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+
+--===============0718213152==--
