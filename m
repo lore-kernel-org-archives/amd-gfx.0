@@ -1,7 +1,7 @@
 From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH 7/7] drm/amd/powerplay: Zero initialize current_rpm in vega20_get_fan_speed_percent
-Date: Wed,  3 Jul 2019 22:52:18 -0700
-Message-ID: <20190704055217.45860-8-natechancellor@gmail.com>
+Subject: [PATCH 6/7] drm/amd/powerplay: Use proper enums in vega20_print_clk_levels
+Date: Wed,  3 Jul 2019 22:52:17 -0700
+Message-ID: <20190704055217.45860-7-natechancellor@gmail.com>
 References: <20190704055217.45860-1-natechancellor@gmail.com>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -12,39 +12,64 @@ To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
 Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com, Nathan Chancellor <natechancellor@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-clang warns (trimmed for brevity):
+clang warns:
 
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3023:8: warning:
-variable 'current_rpm' is used uninitialized whenever '?:' condition is
-false [-Wsometimes-uninitialized]
-        ret = smu_get_current_rpm(smu, &current_rpm);
-              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:995:39: warning:
+implicit conversion from enumeration type 'PPCLK_e' to different
+enumeration type 'enum smu_clk_type' [-Wenum-conversion]
+                ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:1016:39: warning:
+implicit conversion from enumeration type 'PPCLK_e' to different
+enumeration type 'enum smu_clk_type' [-Wenum-conversion]
+                ret = smu_get_current_clk_freq(smu, PPCLK_FCLK, &now);
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:1031:39: warning:
+implicit conversion from enumeration type 'PPCLK_e' to different
+enumeration type 'enum smu_clk_type' [-Wenum-conversion]
+                ret = smu_get_current_clk_freq(smu, PPCLK_DCEFCLK, &now);
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
 
-smu_get_current_rpm expands to a ternary operator conditional on
-smu->funcs->get_current_rpm being not NULL. When this is false,
-current_rpm will be uninitialized. Zero initialize current_rpm to
-avoid using random stack values if that ever happens.
+The values are mapped one to one in vega20_get_smu_clk_index so just use
+the proper enums here.
 
-Fixes: ee0db82027ee ("drm/amd/powerplay: move PPTable_t uses into asic level")
-Link: https://github.com/ClangBuiltLinux/linux/issues/588
+Fixes: 096761014227 ("drm/amd/powerplay: support sysfs to get socclk, fclk, dcefclk")
+Link: https://github.com/ClangBuiltLinux/linux/issues/587
 Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 ---
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-index e62dd6919b24..e37b39987587 100644
+index 0f14fe14ecd8..e62dd6919b24 100644
 --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-@@ -3016,8 +3016,7 @@ static int vega20_get_fan_speed_percent(struct smu_context *smu,
- 					uint32_t *speed)
- {
- 	int ret = 0;
--	uint32_t percent = 0;
--	uint32_t current_rpm;
-+	uint32_t current_rpm = 0, percent = 0;
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
+@@ -992,7 +992,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
+ 		break;
  
- 	ret = smu_get_current_rpm(smu, &current_rpm);
+ 	case SMU_SOCCLK:
+-		ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
++		ret = smu_get_current_clk_freq(smu, SMU_SOCCLK, &now);
+ 		if (ret) {
+ 			pr_err("Attempt to get current socclk Failed!");
+ 			return ret;
+@@ -1013,7 +1013,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 
+ 	case SMU_FCLK:
+-		ret = smu_get_current_clk_freq(smu, PPCLK_FCLK, &now);
++		ret = smu_get_current_clk_freq(smu, SMU_FCLK, &now);
+ 		if (ret) {
+ 			pr_err("Attempt to get current fclk Failed!");
+ 			return ret;
+@@ -1028,7 +1028,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 
+ 	case SMU_DCEFCLK:
+-		ret = smu_get_current_clk_freq(smu, PPCLK_DCEFCLK, &now);
++		ret = smu_get_current_clk_freq(smu, SMU_DCEFCLK, &now);
+ 		if (ret) {
+ 			pr_err("Attempt to get current dcefclk Failed!");
+ 			return ret;
 -- 
 2.22.0
