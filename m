@@ -1,48 +1,52 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Disable ras features on all IPs before gpu
- reset
-Date: Thu, 4 Jul 2019 13:36:47 +0000
-Message-ID: <a01e9182-9e6a-4c96-784d-927f0ad14b15@amd.com>
-References: <SN6PR12MB2800A452CC9315AE18E83E9D87FA0@SN6PR12MB2800.namprd12.prod.outlook.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu/psp: fix incorrect logic when checking asic_type
+Date: Thu,  4 Jul 2019 15:23:29 +0100
+Message-ID: <20190704142329.22983-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <SN6PR12MB2800A452CC9315AE18E83E9D87FA0-kxOKjb6HO/EqkY47FTA1ogdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-Content-ID: <32FF346000C2F145A5E60D4445A0EB29-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-QWNrZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPg0K
-DQpBbmRyZXkNCg0KT24gNy8zLzE5IDExOjA5IFBNLCBQYW4sIFhpbmh1aSB3cm90ZToNCj4gUGVy
-Zm9ybSBhIHJhc19zdXNwZW5kIHRvIGRpc2FibGUgcmFzIG9uIGFsbCBJUHMgdG8gd29ya2Fyb3Vu
-ZA0KPiBzb21lIFJPQ20gc3RhYmlsaXR5IGlzc3VlLg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiB4aW5o
-dWkgcGFuIDx4aW5odWkucGFuQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDQgKysrKw0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA0
-IGluc2VydGlvbnMoKykNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
-ZXZpY2UuYw0KPiBpbmRleCA1MTMyYzU5YjQzOTcuLjk5MjA4ZmU2ODRhYSAxMDA2NDQNCj4gLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jDQo+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYw0KPiBAQCAtMzc1OSw2ICsz
-NzU5LDEwIEBAIGludCBhbWRncHVfZGV2aWNlX2dwdV9yZWNvdmVyKHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2LA0KPiAgIA0KPiAgIAkvKiBibG9jayBhbGwgc2NoZWR1bGVycyBhbmQgcmVzZXQg
-Z2l2ZW4gam9iJ3MgcmluZyAqLw0KPiAgIAlsaXN0X2Zvcl9lYWNoX2VudHJ5KHRtcF9hZGV2LCBk
-ZXZpY2VfbGlzdF9oYW5kbGUsIGdtYy54Z21pLmhlYWQpIHsNCj4gKwkJLyogZGlzYWJsZSByYXMg
-b24gQUxMIElQcyAqLw0KPiArCQlpZiAoYW1kZ3B1X2RldmljZV9pcF9uZWVkX2Z1bGxfcmVzZXQo
-dG1wX2FkZXYpKQ0KPiArCQkJYW1kZ3B1X3Jhc19zdXNwZW5kKHRtcF9hZGV2KTsNCj4gKw0KPiAg
-IAkJZm9yIChpID0gMDsgaSA8IEFNREdQVV9NQVhfUklOR1M7ICsraSkgew0KPiAgIAkJCXN0cnVj
-dCBhbWRncHVfcmluZyAqcmluZyA9IHRtcF9hZGV2LT5yaW5nc1tpXTsNCj4gICANCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Colin Ian King <colin.king@canonical.com>
+
+Currently the check of the asic_type is always returning true because
+of the use of ||.  Fix this by using && instead.  Also break overly
+wide line.
+
+Addresses-Coverity: ("Constant expression result")
+Fixes: dab70ff24db6 ("drm/amdgpu/psp: add psp support for navi14")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index 527dc371598d..e4afd34e3034 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -540,7 +540,8 @@ psp_v11_0_sram_map(struct amdgpu_device *adev,
+ 
+ 	case AMDGPU_UCODE_ID_RLC_G:
+ 		*sram_offset = 0x2000;
+-		if (adev->asic_type != CHIP_NAVI10 || adev->asic_type != CHIP_NAVI14) {
++		if (adev->asic_type != CHIP_NAVI10 &&
++		    adev->asic_type != CHIP_NAVI14) {
+ 			*sram_addr_reg_offset = SOC15_REG_OFFSET(GC, 0, mmRLC_GPM_UCODE_ADDR);
+ 			*sram_data_reg_offset = SOC15_REG_OFFSET(GC, 0, mmRLC_GPM_UCODE_DATA);
+ 		} else {
+@@ -551,7 +552,8 @@ psp_v11_0_sram_map(struct amdgpu_device *adev,
+ 
+ 	case AMDGPU_UCODE_ID_SDMA0:
+ 		*sram_offset = 0x0;
+-		if (adev->asic_type != CHIP_NAVI10 || adev->asic_type != CHIP_NAVI14) {
++		if (adev->asic_type != CHIP_NAVI10 &&
++		    adev->asic_type != CHIP_NAVI14) {
+ 			*sram_addr_reg_offset = SOC15_REG_OFFSET(SDMA0, 0, mmSDMA0_UCODE_ADDR);
+ 			*sram_data_reg_offset = SOC15_REG_OFFSET(SDMA0, 0, mmSDMA0_UCODE_DATA);
+ 		} else {
+-- 
+2.20.1
