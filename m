@@ -1,7 +1,7 @@
 From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH 5/7] drm/amd/display: Use proper enum conversion functions
-Date: Wed,  3 Jul 2019 22:52:16 -0700
-Message-ID: <20190704055217.45860-6-natechancellor@gmail.com>
+Subject: [PATCH 7/7] drm/amd/powerplay: Zero initialize current_rpm in vega20_get_fan_speed_percent
+Date: Wed,  3 Jul 2019 22:52:18 -0700
+Message-ID: <20190704055217.45860-8-natechancellor@gmail.com>
 References: <20190704055217.45860-1-natechancellor@gmail.com>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -12,53 +12,39 @@ To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
 Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com, Nathan Chancellor <natechancellor@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-clang warns:
+clang warns (trimmed for brevity):
 
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:336:8:
-warning: implicit conversion from enumeration type 'enum smu_clk_type'
-to different enumeration type 'enum amd_pp_clock_type'
-[-Wenum-conversion]
-                                        dc_to_smu_clock_type(clk_type),
-                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:421:14:
-warning: implicit conversion from enumeration type 'enum
-amd_pp_clock_type' to different enumeration type 'enum smu_clk_type'
-[-Wenum-conversion]
-                                        dc_to_pp_clock_type(clk_type),
-                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3023:8: warning:
+variable 'current_rpm' is used uninitialized whenever '?:' condition is
+false [-Wsometimes-uninitialized]
+        ret = smu_get_current_rpm(smu, &current_rpm);
+              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-There are functions to properly convert between all of these types, use
-them so there are no longer any warnings.
+smu_get_current_rpm expands to a ternary operator conditional on
+smu->funcs->get_current_rpm being not NULL. When this is false,
+current_rpm will be uninitialized. Zero initialize current_rpm to
+avoid using random stack values if that ever happens.
 
-Fixes: a43913ea50a5 ("drm/amd/powerplay: add function get_clock_by_type_with_latency for navi10")
-Fixes: e5e4e22391c2 ("drm/amd/powerplay: add interface to get clock by type with latency for display (v2)")
-Link: https://github.com/ClangBuiltLinux/linux/issues/586
+Fixes: ee0db82027ee ("drm/amd/powerplay: move PPTable_t uses into asic level")
+Link: https://github.com/ClangBuiltLinux/linux/issues/588
 Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-index eac09bfe3be2..0f76cfff9d9b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-@@ -333,7 +333,7 @@ bool dm_pp_get_clock_levels_by_type(
- 		}
- 	} else if (adev->smu.funcs && adev->smu.funcs->get_clock_by_type) {
- 		if (smu_get_clock_by_type(&adev->smu,
--					  dc_to_smu_clock_type(clk_type),
-+					  dc_to_pp_clock_type(clk_type),
- 					  &pp_clks)) {
- 			get_default_clock_levels(clk_type, dc_clks);
- 			return true;
-@@ -418,7 +418,7 @@ bool dm_pp_get_clock_levels_by_type_with_latency(
- 			return false;
- 	} else if (adev->smu.ppt_funcs && adev->smu.ppt_funcs->get_clock_by_type_with_latency) {
- 		if (smu_get_clock_by_type_with_latency(&adev->smu,
--						       dc_to_pp_clock_type(clk_type),
-+						       dc_to_smu_clock_type(clk_type),
- 						       &pp_clks))
- 			return false;
- 	}
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+index e62dd6919b24..e37b39987587 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -3016,8 +3016,7 @@ static int vega20_get_fan_speed_percent(struct smu_context *smu,
+ 					uint32_t *speed)
+ {
+ 	int ret = 0;
+-	uint32_t percent = 0;
+-	uint32_t current_rpm;
++	uint32_t current_rpm = 0, percent = 0;
+ 	PPTable_t *pptable = smu->smu_table.driver_pptable;
+ 
+ 	ret = smu_get_current_rpm(smu, &current_rpm);
 -- 
 2.22.0
