@@ -1,7 +1,7 @@
 From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH 1/7] drm/amdgpu/mes10.1: Fix header guard
-Date: Wed,  3 Jul 2019 22:52:12 -0700
-Message-ID: <20190704055217.45860-2-natechancellor@gmail.com>
+Subject: [PATCH 2/7] drm/amd/powerplay: Use memset to initialize metrics structs
+Date: Wed,  3 Jul 2019 22:52:13 -0700
+Message-ID: <20190704055217.45860-3-natechancellor@gmail.com>
 References: <20190704055217.45860-1-natechancellor@gmail.com>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -14,40 +14,71 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 clang warns:
 
- In file included from drivers/gpu/drm/amd/amdgpu/nv.c:53:
- drivers/gpu/drm/amd/amdgpu/../amdgpu/mes_v10_1.h:24:9: warning:
- '__MES_V10_1_H__' is used as a header guard here, followed by #define of
- a different macro [-Wheader-guard]
- #ifndef __MES_V10_1_H__
-         ^~~~~~~~~~~~~~~
- drivers/gpu/drm/amd/amdgpu/../amdgpu/mes_v10_1.h:25:9: note:
- '__MES_v10_1_H__' is defined here; did you mean '__MES_V10_1_H__'?
- #define __MES_v10_1_H__
-         ^~~~~~~~~~~~~~~
-         __MES_V10_1_H__
- 1 warning generated.
+drivers/gpu/drm/amd/amdgpu/../powerplay/navi10_ppt.c:601:33: warning:
+suggest braces around initialization of subobject [-Wmissing-braces]
+        static SmuMetrics_t metrics = {0};
+                                       ^
+                                       {}
+drivers/gpu/drm/amd/amdgpu/../powerplay/navi10_ppt.c:905:26: warning:
+suggest braces around initialization of subobject [-Wmissing-braces]
+        SmuMetrics_t metrics = {0};
+                                ^
+                                {}
+2 warnings generated.
 
-Capitalize the V.
+One way to fix these warnings is to add additional braces like clang
+suggests; however, there has been a bit of push back from some
+maintainers[1][2], who just prefer memset as it is unambiguous, doesn't
+depend on a particular compiler version[3], and properly initializes all
+subobjects. Do that here so there are no more warnings.
 
-Fixes: 886f82aa7a1d ("drm/amdgpu/mes10.1: add ip block mes10.1 (v2)")
-Link: https://github.com/ClangBuiltLinux/linux/issues/582
+[1]: https://lore.kernel.org/lkml/022e41c0-8465-dc7a-a45c-64187ecd9684@amd.com/
+[2]: https://lore.kernel.org/lkml/20181128.215241.702406654469517539.davem@davemloft.net/
+[3]: https://lore.kernel.org/lkml/20181116150432.2408a075@redhat.com/
+
+Fixes: 98e1a543c7b1 ("drm/amd/powerplay: add function get current clock freq interface for navi10")
+Fixes: ab43c4bf1cc8 ("drm/amd/powerplay: fix fan speed show error (for hwmon pwm)")
+Link: https://github.com/ClangBuiltLinux/linux/issues/583
 Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.h b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.h
-index 17b9b53fa892..9afd6ddb01e9 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.h
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.h
-@@ -22,7 +22,7 @@
-  */
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index e00397f84b2f..f5d2ada05bc6 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -598,12 +598,14 @@ static int navi10_get_current_clk_freq_by_table(struct smu_context *smu,
+ 				       enum smu_clk_type clk_type,
+ 				       uint32_t *value)
+ {
+-	static SmuMetrics_t metrics = {0};
++	static SmuMetrics_t metrics;
+ 	int ret = 0, clk_id = 0;
  
- #ifndef __MES_V10_1_H__
--#define __MES_v10_1_H__
-+#define __MES_V10_1_H__
+ 	if (!value)
+ 		return -EINVAL;
  
- extern const struct amdgpu_ip_block_version mes_v10_1_ip_block;
++	memset(&metrics, 0, sizeof(metrics));
++
+ 	ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS, (void *)&metrics, false);
+ 	if (ret)
+ 		return ret;
+@@ -902,12 +904,14 @@ static bool navi10_is_dpm_running(struct smu_context *smu)
  
+ static int navi10_get_fan_speed(struct smu_context *smu, uint16_t *value)
+ {
+-	SmuMetrics_t metrics = {0};
++	SmuMetrics_t metrics;
+ 	int ret = 0;
+ 
+ 	if (!value)
+ 		return -EINVAL;
+ 
++	memset(&metrics, 0, sizeof(metrics));
++
+ 	ret = smu_update_table(smu, SMU_TABLE_SMU_METRICS,
+ 			       (void *)&metrics, false);
+ 	if (ret)
 -- 
 2.22.0
