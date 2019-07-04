@@ -1,7 +1,7 @@
 From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: [PATCH 3/7] drm/amd/powerplay: Use proper enums in smu_adjust_power_state_dynamic
-Date: Wed,  3 Jul 2019 22:52:14 -0700
-Message-ID: <20190704055217.45860-4-natechancellor@gmail.com>
+Subject: [PATCH 4/7] drm/amd/powerplay: Zero initialize freq in smu_v11_0_get_current_clk_freq
+Date: Wed,  3 Jul 2019 22:52:15 -0700
+Message-ID: <20190704055217.45860-5-natechancellor@gmail.com>
 References: <20190704055217.45860-1-natechancellor@gmail.com>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -12,43 +12,42 @@ To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
 Cc: David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com, Nathan Chancellor <natechancellor@gmail.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-clang warns:
+clang warns (trimmed for brevity):
 
-drivers/gpu/drm/amd/amdgpu/../powerplay/amdgpu_smu.c:1374:30: warning:
-implicit conversion from enumeration type 'enum pp_clock_type' to
-different enumeration type 'enum smu_clk_type' [-Wenum-conversion]
-                        smu_force_clk_levels(smu, PP_SCLK, 1 << sclk_mask);
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/amdgpu_smu.c:1375:30: warning:
-implicit conversion from enumeration type 'enum pp_clock_type' to
-different enumeration type 'enum smu_clk_type' [-Wenum-conversion]
-                        smu_force_clk_levels(smu, PP_MCLK, 1 << mclk_mask);
-                        ~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c:1098:10: warning:
+variable 'freq' is used uninitialized whenever '?:' condition is false
+[-Wsometimes-uninitialized]
+                ret =  smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
+                       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This appears to be a copy and paste fail from when this was a call to
-vega20_force_clk_levels.
+If get_current_clk_freq_by_table is ever NULL, freq will fail to be
+properly initialized. Zero initialize it to avoid using uninitialized
+stack values.
 
-Fixes: bc0fcffd36ba ("drm/amd/powerplay: Unify smu handle task function (v2)")
-Link: https://github.com/ClangBuiltLinux/linux/issues/584
+smu_get_current_clk_freq_by_table expands to a ternary operator
+conditional on smu->funcs->get_current_clk_freq_by_table being not NULL.
+When this is false, freq will be uninitialized. Zero initialize freq to
+avoid using random stack values if that ever happens.
+
+Fixes: e36182490dec ("drm/amd/powerplay: fix dpm freq unit error (10KHz -> Mhz)")
+Link: https://github.com/ClangBuiltLinux/linux/issues/585
 Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 31152d495f69..e897469f7431 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1371,8 +1371,8 @@ int smu_adjust_power_state_dynamic(struct smu_context *smu,
- 							 &soc_mask);
- 			if (ret)
- 				return ret;
--			smu_force_clk_levels(smu, PP_SCLK, 1 << sclk_mask);
--			smu_force_clk_levels(smu, PP_MCLK, 1 << mclk_mask);
-+			smu_force_clk_levels(smu, SMU_SCLK, 1 << sclk_mask);
-+			smu_force_clk_levels(smu, SMU_MCLK, 1 << mclk_mask);
- 			break;
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 632a20587c8b..a6f8cd6df7f1 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -1088,7 +1088,7 @@ static int smu_v11_0_get_current_clk_freq(struct smu_context *smu,
+ 					  uint32_t *value)
+ {
+ 	int ret = 0;
+-	uint32_t freq;
++	uint32_t freq = 0;
  
- 		case AMD_DPM_FORCED_LEVEL_MANUAL:
+ 	if (clk_id >= SMU_CLK_COUNT || !value)
+ 		return -EINVAL;
 -- 
 2.22.0
