@@ -1,316 +1,126 @@
-From: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/ttm: make some functions static
-Date: Fri, 5 Jul 2019 20:22:30 +0000
-Message-ID: <BN6PR12MB161810373183A43F8FE1AB7085F50@BN6PR12MB1618.namprd12.prod.outlook.com>
-References: <20190705171227.21009-1-alexander.deucher@amd.com>,
- <f4c1f72f-9dfa-da35-eb1f-5f58dbabdc3f@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v2 07/35] drm/amdgpu: Use kmemdup rather than duplicating
+ its implementation
+Date: Fri, 5 Jul 2019 16:32:39 -0400
+Message-ID: <CADnq5_Pr1=69rwce-bkDA7y-16MgYwCg8z2ghOvDqooMMj3r6A@mail.gmail.com>
+References: <20190703162718.32184-1-huangfq.daxian@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1676091810=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f4c1f72f-9dfa-da35-eb1f-5f58dbabdc3f-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190703162718.32184-1-huangfq.daxian@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Fuqian Huang <huangfq.daxian@gmail.com>
+Cc: David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============1676091810==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB161810373183A43F8FE1AB7085F50BN6PR12MB1618namp_"
-
---_000_BN6PR12MB161810373183A43F8FE1AB7085F50BN6PR12MB1618namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-How would we handle that? Having a revert on amd-kfd-staging? We can ensure=
- that amd-staging-dkms doesn't cherrypick it in, but since KFD merges, it w=
-ould be more complicated.
-
-Kent
-
-KENT RUSSELL
-Sr. Software Engineer | Linux Compute Kernel
-1 Commerce Valley Drive East
-Markham, ON L3T 7X6
-O +(1) 289-695-2122 | Ext 72122
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Kuehling=
-, Felix <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, July 5, 2019 2:59:31 PM
-To: Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander
-Subject: Re: [PATCH] drm/amdgpu/ttm: make some functions static
-
-On 2019-07-05 1:12 p.m., Alex Deucher wrote:
-> Noticed while reviewing the code.
+On Wed, Jul 3, 2019 at 1:13 PM Fuqian Huang <huangfq.daxian@gmail.com> wrote:
 >
-> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Reviewed-by: Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-
-We'll need to be careful not to merge this change on amd-kfd-staging and
-amd-staging-dkms. On those branches, this function is called from
-amdgpu_amdkfd_gpuvm.c.
-
-Regards,
-   Felix
-
-
+> kmemdup is introduced to duplicate a region of memory in a neat way.
+> Rather than kmalloc/kzalloc + memcpy, which the programmer needs to
+> write the size twice (sometimes lead to mistakes), kmemdup improves
+> readability, leads to smaller code and also reduce the chances of mistakes.
+> Suggestion to use kmemdup rather than using kmalloc/kzalloc + memcpy.
+>
+> Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
+> Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 +++++++-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  6 ------
->   2 files changed, 7 insertions(+), 13 deletions(-)
+> Changes in v2:
+>   - Fix a typo in commit message (memset -> memcpy)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.c
-> index c9faa69cd677..d090106ef23b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -299,12 +299,12 @@ static struct drm_mm_node *amdgpu_find_mm_node(stru=
-ct ttm_mem_reg *mem,
->    *
->    * @f: Returns the last fence if multiple jobs are submitted.
->    */
-> -int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
-> -                            struct amdgpu_copy_mem *src,
-> -                            struct amdgpu_copy_mem *dst,
-> -                            uint64_t size,
-> -                            struct reservation_object *resv,
-> -                            struct dma_fence **f)
-> +static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
-> +                                   struct amdgpu_copy_mem *src,
-> +                                   struct amdgpu_copy_mem *dst,
-> +                                   uint64_t size,
-> +                                   struct reservation_object *resv,
-> +                                   struct dma_fence **f)
->   {
->        struct amdgpu_ring *ring =3D adev->mman.buffer_funcs_ring;
->        struct drm_mm_node *src_mm, *dst_mm;
-> @@ -949,7 +949,7 @@ static void amdgpu_ttm_tt_unpin_userptr(struct ttm_tt=
- *ttm)
->   #endif
->   }
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c           | 5 ++---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c           | 5 ++---
+>  drivers/gpu/drm/amd/display/dc/core/dc.c        | 6 ++----
+>  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 +---
+>  4 files changed, 7 insertions(+), 13 deletions(-)
 >
-> -int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
-> +static int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,
->                                struct ttm_buffer_object *tbo,
->                                uint64_t flags)
->   {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ttm.h
-> index c2b7669004ba..de89c218db26 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -86,12 +86,6 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint6=
-4_t src_offset,
->                       struct reservation_object *resv,
->                       struct dma_fence **fence, bool direct_submit,
->                       bool vm_needs_flush);
-> -int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
-> -                            struct amdgpu_copy_mem *src,
-> -                            struct amdgpu_copy_mem *dst,
-> -                            uint64_t size,
-> -                            struct reservation_object *resv,
-> -                            struct dma_fence **f);
->   int amdgpu_fill_buffer(struct amdgpu_bo *bo,
->                        uint32_t src_data,
->                        struct reservation_object *resv,
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB161810373183A43F8FE1AB7085F50BN6PR12MB1618namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index 02955e6e9dd9..48e38479d634 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -3925,11 +3925,10 @@ static int gfx_v8_0_init_save_restore_list(struct amdgpu_device *adev)
 >
-</head>
-<body>
-How would we handle that? Having a revert on amd-kfd-staging? We can ensure=
- that amd-staging-dkms doesn't cherrypick it in, but since KFD merges, it w=
-ould be more complicated.<br>
-<br>
-Kent<br>
-<br>
-KENT RUSSELL<br>
-Sr. Software Engineer | Linux Compute Kernel<br>
-1 Commerce Valley Drive East<br>
-Markham, ON L3T 7X6<br>
-O &#43;(1) 289-695-2122 | Ext 72122<br>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Kuehling, Felix &lt;Felix.Kue=
-hling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, July 5, 2019 2:59:31 PM<br>
-<b>To:</b> Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Deucher, Alexander<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/ttm: make some functions static</fon=
-t>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2019-07-05 1:12 p.m., Alex Deucher wrote:<br>
-&gt; Noticed while reviewing the code.<br>
-&gt;<br>
-&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Reviewed-by: Felix Kuehling &lt;Felix.Kuehling-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-We'll need to be careful not to merge this change on amd-kfd-staging and <b=
-r>
-amd-staging-dkms. On those branches, this function is called from <br>
-amdgpu_amdkfd_gpuvm.c.<br>
-<br>
-Regards,<br>
-&nbsp;&nbsp; Felix<br>
-<br>
-<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 14 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;-------<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |&nbsp; 6 ------<b=
-r>
-&gt;&nbsp;&nbsp; 2 files changed, 7 insertions(&#43;), 13 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; index c9faa69cd677..d090106ef23b 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
-&gt; @@ -299,12 &#43;299,12 @@ static struct drm_mm_node *amdgpu_find_mm_no=
-de(struct ttm_mem_reg *mem,<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-&gt;&nbsp;&nbsp;&nbsp; * @f: Returns the last fence if multiple jobs are su=
-bmitted.<br>
-&gt;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct amdgpu_copy_mem *src,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct amdgpu_copy_mem *dst,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; uint64_t size,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct reservation_object *resv,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct dma_fence **f)<br>
-&gt; &#43;static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,=
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd=
-gpu_copy_mem *src,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amd=
-gpu_copy_mem *dst,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t s=
-ize,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct res=
-ervation_object *resv,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma=
-_fence **f)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =3D=
- adev-&gt;mman.buffer_funcs_ring;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_mm_node *src_mm, =
-*dst_mm;<br>
-&gt; @@ -949,7 &#43;949,7 @@ static void amdgpu_ttm_tt_unpin_userptr(struct=
- ttm_tt *ttm)<br>
-&gt;&nbsp;&nbsp; #endif<br>
-&gt;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,<br>
-&gt; &#43;static int amdgpu_ttm_gart_bind(struct amdgpu_device *adev,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ttm_buffer_object *tbo,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t flags)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_ttm.h<br>
-&gt; index c2b7669004ba..de89c218db26 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h<br>
-&gt; @@ -86,12 &#43;86,6 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring=
-, uint64_t src_offset,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct reserv=
-ation_object *resv,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fe=
-nce **fence, bool direct_submit,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool vm_needs=
-_flush);<br>
-&gt; -int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct amdgpu_copy_mem *src,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct amdgpu_copy_mem *dst,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; uint64_t size,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct reservation_object *resv,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; struct dma_fence **f);<br>
-&gt;&nbsp;&nbsp; int amdgpu_fill_buffer(struct amdgpu_bo *bo,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_=
-t src_data,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct =
-reservation_object *resv,<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
+>         int list_size;
+>         unsigned int *register_list_format =
+> -               kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
+> +               kmemdup(adev->gfx.rlc.register_list_format,
+> +                       adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
+>         if (!register_list_format)
+>                 return -ENOMEM;
+> -       memcpy(register_list_format, adev->gfx.rlc.register_list_format,
+> -                       adev->gfx.rlc.reg_list_format_size_bytes);
+>
+>         gfx_v8_0_parse_ind_reg_list(register_list_format,
+>                                 RLC_FormatDirectRegListLength,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index b610e3b30d95..09d901ef216d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -2092,11 +2092,10 @@ static int gfx_v9_1_init_rlc_save_restore_list(struct amdgpu_device *adev)
+>         u32 tmp = 0;
+>
+>         u32 *register_list_format =
+> -               kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
+> +               kmemdup(adev->gfx.rlc.register_list_format,
+> +                       adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
+>         if (!register_list_format)
+>                 return -ENOMEM;
+> -       memcpy(register_list_format, adev->gfx.rlc.register_list_format,
+> -               adev->gfx.rlc.reg_list_format_size_bytes);
+>
+>         /* setup unique_indirect_regs array and indirect_start_offsets array */
+>         unique_indirect_reg_count = ARRAY_SIZE(unique_indirect_regs);
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> index 18c775a950cc..6ced3b9cdce2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -1263,14 +1263,12 @@ struct dc_state *dc_create_state(struct dc *dc)
+>  struct dc_state *dc_copy_state(struct dc_state *src_ctx)
+>  {
+>         int i, j;
+> -       struct dc_state *new_ctx = kzalloc(sizeof(struct dc_state),
+> -                                          GFP_KERNEL);
+> +       struct dc_state *new_ctx = kmemdup(src_ctx,
+> +                       sizeof(struct dc_state), GFP_KERNEL);
+>
+>         if (!new_ctx)
+>                 return NULL;
+>
+> -       memcpy(new_ctx, src_ctx, sizeof(struct dc_state));
+> -
+>         for (i = 0; i < MAX_PIPES; i++) {
+>                         struct pipe_ctx *cur_pipe = &new_ctx->res_ctx.pipe_ctx[i];
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> index 96e97d25d639..d4b563a2e220 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> @@ -167,12 +167,10 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
+>  {
+>         struct dc_stream_state *new_stream;
+>
+> -       new_stream = kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
+> +       new_stream = kzalloc(stream, sizeof(struct dc_stream_state), GFP_KERNEL);
 
---_000_BN6PR12MB161810373183A43F8FE1AB7085F50BN6PR12MB1618namp_--
+This doesn't compile.  I've gone ahead and fixed it up locally and
+applied it.  Please check that your patches compile before sending
+them out.
 
---===============1676091810==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Thanks,
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Alex
 
---===============1676091810==--
+>         if (!new_stream)
+>                 return NULL;
+>
+> -       memcpy(new_stream, stream, sizeof(struct dc_stream_state));
+> -
+>         if (new_stream->sink)
+>                 dc_sink_retain(new_stream->sink);
+>
+> --
+> 2.11.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
