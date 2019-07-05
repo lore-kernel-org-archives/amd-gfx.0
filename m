@@ -1,13 +1,13 @@
-From: <sunpeng.li-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/sysfs: Add mstpath attribute to connector devices
-Date: Fri, 5 Jul 2019 10:32:20 -0400
-Message-ID: <20190705143220.11109-1-sunpeng.li@amd.com>
-References: <20190704190519.29525-4-sunpeng.li@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: Where do I file AMDGPU bugs nowadays?
+Date: Fri, 5 Jul 2019 16:01:30 +0000
+Message-ID: <BN6PR12MB18093D3F8EA565ED95B256CEF7F50@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <F62DB80F-3151-405A-BF14-A5B04831115A@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0165849242=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190704190519.29525-4-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <F62DB80F-3151-405A-BF14-A5B04831115A-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,39 +18,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: ville.syrjala-VuQAYsv1563Yd54FQh9/CA@public.gmane.org, lyude-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: Kai-Heng Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+CgpUaGlzIGNhbiBiZSB1c2VkIHRvIGNy
-ZWF0ZSBtb3JlIGRlc2NyaXB0aXZlIHN5bWxpbmtzIGZvciBNU1QgYXV4CmRldmljZXMuIENvbnNp
-ZGVyIHRoZSBmb2xsb3dpbmcgdWRldiBydWxlOgoKU1VCU1lTVEVNPT0iZHJtX2RwX2F1eF9kZXYi
-LCBTVUJTWVNURU1TPT0iZHJtIiwgQVRUUlN7bXN0cGF0aH09PSI/KiIsCglTWU1MSU5LKz0iZHJt
-X2RwX2F1eC9ieS1wYXRoLyRhdHRye21zdHBhdGh9IgoKVGhlIGZvbGxvd2luZyBzeW1saW5rcyB3
-aWxsIGJlIGNyZWF0ZWQgKGRlcGVuZGluZyBvbiB5b3VyIE1TVCB0b3BvbG9neSk6CgokIGxzIC9k
-ZXYvZHJtX2RwX2F1eC9ieS1wYXRoLwpjYXJkMC1tc3Q6MC0xICBjYXJkMC1tc3Q6MC0xLTEgIGNh
-cmQwLW1zdDowLTEtOCAgY2FyZDAtbXN0OjAtOAoKdjI6IHJlbW92ZSB1bm5lY2Vzc2FyeSBsb2Nr
-aW5nIG9mIG1vZGVfY29uZmlnLm11dGV4CgpTaWduZWQtb2ZmLWJ5OiBMZW8gTGkgPHN1bnBlbmcu
-bGlAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX3N5c2ZzLmMgfCAyMCArKysrKysr
-KysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKykKCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5c2ZzLmMgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5
-c2ZzLmMKaW5kZXggYWQxMDgxMGJjOTcyLi43ZDQ4M2FiNjg0YTAgMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9kcm1fc3lzZnMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX3N5c2ZzLmMK
-QEAgLTIzNiwxNiArMjM2LDM2IEBAIHN0YXRpYyBzc2l6ZV90IG1vZGVzX3Nob3coc3RydWN0IGRl
-dmljZSAqZGV2aWNlLAogCXJldHVybiB3cml0dGVuOwogfQogCitzdGF0aWMgc3NpemVfdCBtc3Rw
-YXRoX3Nob3coc3RydWN0IGRldmljZSAqZGV2aWNlLAorCQkJICAgIHN0cnVjdCBkZXZpY2VfYXR0
-cmlidXRlICphdHRyLAorCQkJICAgIGNoYXIgKmJ1ZikKK3sKKwlzdHJ1Y3QgZHJtX2Nvbm5lY3Rv
-ciAqY29ubmVjdG9yID0gdG9fZHJtX2Nvbm5lY3RvcihkZXZpY2UpOworCXNzaXplX3QgcmV0ID0g
-MDsKKwljaGFyICpwYXRoOworCisJaWYgKCFjb25uZWN0b3ItPnBhdGhfYmxvYl9wdHIpCisJCXJl
-dHVybiByZXQ7CisKKwlwYXRoID0gY29ubmVjdG9yLT5wYXRoX2Jsb2JfcHRyLT5kYXRhOworCXJl
-dCA9IHNucHJpbnRmKGJ1ZiwgUEFHRV9TSVpFLCAiY2FyZCVkLSVzXG4iLAorCQkgICAgICAgY29u
-bmVjdG9yLT5kZXYtPnByaW1hcnktPmluZGV4LCBwYXRoKTsKKworCXJldHVybiByZXQ7Cit9CisK
-IHN0YXRpYyBERVZJQ0VfQVRUUl9SVyhzdGF0dXMpOwogc3RhdGljIERFVklDRV9BVFRSX1JPKGVu
-YWJsZWQpOwogc3RhdGljIERFVklDRV9BVFRSX1JPKGRwbXMpOwogc3RhdGljIERFVklDRV9BVFRS
-X1JPKG1vZGVzKTsKK3N0YXRpYyBERVZJQ0VfQVRUUl9STyhtc3RwYXRoKTsKIAogc3RhdGljIHN0
-cnVjdCBhdHRyaWJ1dGUgKmNvbm5lY3Rvcl9kZXZfYXR0cnNbXSA9IHsKIAkmZGV2X2F0dHJfc3Rh
-dHVzLmF0dHIsCiAJJmRldl9hdHRyX2VuYWJsZWQuYXR0ciwKIAkmZGV2X2F0dHJfZHBtcy5hdHRy
-LAogCSZkZXZfYXR0cl9tb2Rlcy5hdHRyLAorCSZkZXZfYXR0cl9tc3RwYXRoLmF0dHIsCiAJTlVM
-TAogfTsKIAotLSAKMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+--===============0165849242==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18093D3F8EA565ED95B256CEF7F50BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18093D3F8EA565ED95B256CEF7F50BN6PR12MB1809namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+That is the correct bug tracker.
+
+Thanks,
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Kai-Heng=
+ Feng <kai.heng.feng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Sent: Thursday, July 4, 2019 4:05 AM
+To: amd-gfx list
+Subject: Where do I file AMDGPU bugs nowadays?
+
+Hi AMDGPU folks,
+
+I=92ve filed a bug [1] a while back, but no response so far.
+I wonder if you still use BFO? Or do you migrate to another bug tracking
+system?
+
+[1]https://bugs.freedesktop.org/show_bug.cgi?id=3D110886
+
+Kai-Heng
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB18093D3F8EA565ED95B256CEF7F50BN6PR12MB1809namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+That is the correct bug tracker.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Kai-Heng Feng &lt;kai.heng.fe=
+ng-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
+<b>Sent:</b> Thursday, July 4, 2019 4:05 AM<br>
+<b>To:</b> amd-gfx list<br>
+<b>Subject:</b> Where do I file AMDGPU bugs nowadays?</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hi AMDGPU folks,<br>
+<br>
+I=92ve filed a bug [1] a while back, but no response so far.<br>
+I wonder if you still use BFO? Or do you migrate to another bug tracking&nb=
+sp; <br>
+system?<br>
+<br>
+[1]https://bugs.freedesktop.org/show_bug.cgi?id=3D110886<br>
+<br>
+Kai-Heng<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18093D3F8EA565ED95B256CEF7F50BN6PR12MB1809namp_--
+
+--===============0165849242==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0165849242==--
