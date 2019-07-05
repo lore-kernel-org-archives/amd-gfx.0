@@ -1,13 +1,14 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: add mode1 (psp) reset for navi asic
-Date: Fri, 5 Jul 2019 05:07:34 +0000
-Message-ID: <MN2PR12MB3296F5EC7A912558985C152CA2F50@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20190705045740.28107-1-kevin1.wang@amd.com>,
- <DM5PR12MB141852448B0C14F9A544533EFCF50@DM5PR12MB1418.namprd12.prod.outlook.com>
+From: "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH v4] drm/amdgpu: fix scheduler timeout calc
+Date: Fri, 5 Jul 2019 05:35:57 +0000
+Message-ID: <MN2PR12MB33128ED5E073B14FD8B13B04FAF50@MN2PR12MB3312.namprd12.prod.outlook.com>
+References: <1561952220-5526-1-git-send-email-flora.cui@amd.com>
+ <MN2PR12MB331205B8AD6A1389A7519A04FAFA0@MN2PR12MB3312.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1034115915=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB141852448B0C14F9A544533EFCF50-2J9CzHegvk81aAVlcVN8UQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <MN2PR12MB331205B8AD6A1389A7519A04FAFA0-rweVpJHSKToE250A+C2e2AdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,269 +20,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Kenenth.Feng-5C7GfCeVMHo@public.gmane.org" <Kenenth.Feng-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1034115915==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296F5EC7A912558985C152CA2F50MN2PR12MB3296namp_"
-
---_000_MN2PR12MB3296F5EC7A912558985C152CA2F50MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-okay, thanks.
-
-
-Best Regards,
-
-Kevin
-
-________________________________
-From: Zhang, Hawking
-Sent: Friday, July 5, 2019 1:02:08 PM
-To: Wang, Kevin(Yang); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiao, Jack; Kenenth.Feng-5C7GfCeVMHo@public.gmane.org
-Subject: RE: [PATCH] drm/amdgpu: add mode1 (psp) reset for navi asic
-
-        if (smu_baco_is_support(smu)) {
-                 ret =3D smu_baco_reset(smu);
-+       } else {
-+               ret =3D nv_asic_mode1_reset(adev);
-         }
-We don=1B$B!G=1B(Bt need {} for single statements. With that fixed, the pat=
-ch is
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-
-Regards,
-Hawking
-
------Original Message-----
-From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Sent: 2019=1B$BG/=1B(B7=1B$B7n=1B(B5=1B$BF|=1B(B 12:58
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Xiao, Jack <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>; Kenenth.Feng-5C7GfCeVMHo@public.gmane.org; Zhang, Hawking <H=
-awking.Zhang-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: add mode1 (psp) reset for navi asic
-
-add mode1 (by psp) reset for navi asic.
-
-Change-Id: Id2e7cb11eb7026296d1488c7c39f895b100f206c
-Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/nv.c | 35 +++++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
-v.c index f6f152e6ade4..05fd4736bc0c 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -256,6 +256,39 @@ static void nv_gpu_pci_config_reset(struct amdgpu_devi=
-ce *adev)  }  #endif
-
-+static int nv_asic_mode1_reset(struct amdgpu_device *adev) {
-+       u32 i;
-+       int ret =3D 0;
-+
-+       amdgpu_atombios_scratch_regs_engine_hung(adev, true);
-+
-+       dev_info(adev->dev, "GPU mode1 reset\n");
-+
-+       /* disable BM */
-+       pci_clear_master(adev->pdev);
-+
-+       pci_save_state(adev->pdev);
-+
-+       ret =3D psp_gpu_reset(adev);
-+       if (ret)
-+               dev_err(adev->dev, "GPU mode1 reset failed\n");
-+
-+       pci_restore_state(adev->pdev);
-+
-+       /* wait for asic to come out of reset */
-+       for (i =3D 0; i < adev->usec_timeout; i++) {
-+               u32 memsize =3D adev->nbio_funcs->get_memsize(adev);
-+
-+               if (memsize !=3D 0xffffffff)
-+                       break;
-+               udelay(1);
-+       }
-+
-+       amdgpu_atombios_scratch_regs_engine_hung(adev, false);
-+
-+       return ret;
-+}
- static int nv_asic_reset(struct amdgpu_device *adev)  {
-
-@@ -272,6 +305,8 @@ static int nv_asic_reset(struct amdgpu_device *adev)
-
-         if (smu_baco_is_support(smu)) {
-                 ret =3D smu_baco_reset(smu);
-+       } else {
-+               ret =3D nv_asic_mode1_reset(adev);
-         }
-
-         return ret;
---
-2.22.0
-
-
---_000_MN2PR12MB3296F5EC7A912558985C152CA2F50MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">okay, thanks.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards,</p>
-<p style=3D"margin-top:0;margin-bottom:0">Kevin</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking<br>
-<b>Sent:</b> Friday, July 5, 2019 1:02:08 PM<br>
-<b>To:</b> Wang, Kevin(Yang); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Xiao, Jack; Kenenth.Feng-5C7GfCeVMHo@public.gmane.org<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: add mode1 (psp) reset for navi asic=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu=
-_baco_is_support(smu)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_baco_reset(smu);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D nv_asic_mode1_reset(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-We don=1B$B!G=1B(Bt need {} for single statements. With that fixed, the pat=
-ch is<br>
-<br>
-Reviewed-by: Hawking Zhang &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
-Regards,<br>
-Hawking<br>
-<br>
------Original Message-----<br>
-From: Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt; <br>
-Sent: 2019=1B$BG/=1B(B7=1B$B7n=1B(B5=1B$BF|=1B(B 12:58<br>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-Cc: Xiao, Jack &lt;Jack.Xiao-5C7GfCeVMHo@public.gmane.org&gt;; Kenenth.Feng-5C7GfCeVMHo@public.gmane.org; Zhang, Hawk=
-ing &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang-urvtwAKJhsc@public.gmane.org=
-m&gt;<br>
-Subject: [PATCH] drm/amdgpu: add mode1 (psp) reset for navi asic<br>
-<br>
-add mode1 (by psp) reset for navi asic.<br>
-<br>
-Change-Id: Id2e7cb11eb7026296d1488c7c39f895b100f206c<br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/nv.c | 35 &#43;&#43;&#43;&#43;&#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;1 file changed, 35 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/n=
-v.c index f6f152e6ade4..05fd4736bc0c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-@@ -256,6 &#43;256,39 @@ static void nv_gpu_pci_config_reset(struct amdgpu_=
-device *adev)&nbsp; }&nbsp; #endif<br>
-&nbsp;<br>
-&#43;static int nv_asic_mode1_reset(struct amdgpu_device *adev) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 i;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_atombios_scratch_regs_engi=
-ne_hung(adev, true);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_info(adev-&gt;dev, &quot;GPU =
-mode1 reset\n&quot;);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* disable BM */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_clear_master(adev-&gt;pdev);<=
-br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_save_state(adev-&gt;pdev);<br=
->
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_gpu_reset(adev);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; dev_err(adev-&gt;dev, &quot;GPU mode1 reset failed\n&quot;);=
-<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pci_restore_state(adev-&gt;pdev);=
-<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* wait for asic to come out of r=
-eset */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; adev-&gt;use=
-c_timeout; i&#43;&#43;) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; u32 memsize =3D adev-&gt;nbio_funcs-&gt;get_memsize(adev);<b=
-r>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (memsize !=3D 0xffffffff)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; udelay(1);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_atombios_scratch_regs_engi=
-ne_hung(adev, false);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&#43;}<br>
-&nbsp;static int nv_asic_reset(struct amdgpu_device *adev)&nbsp; {<br>
-&nbsp;<br>
-@@ -272,6 &#43;305,8 @@ static int nv_asic_reset(struct amdgpu_device *adev=
-)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_baco_is_support(sm=
-u)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_baco_reset(smu);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ret =3D nv_asic_mode1_reset(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
---<br>
-2.22.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB3296F5EC7A912558985C152CA2F50MN2PR12MB3296namp_--
-
---===============1034115915==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1034115915==--
+UGluZy4uLg0KQ291bGQgYW55b25lIGdpdmUgbWUgYSByYj8NCg0KLS0tLS1PcmlnaW5hbCBNZXNz
+YWdlLS0tLS0NCkZyb206IEN1aSwgRmxvcmEgDQpTZW50OiBUaHVyc2RheSwgSnVseSA0LCAyMDE5
+IDExOjA5IEFNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNClN1YmplY3Q6IFJF
+OiBbUEFUQ0ggdjRdIGRybS9hbWRncHU6IGZpeCBzY2hlZHVsZXIgdGltZW91dCBjYWxjDQoNClBp
+bmcuLi4NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEN1aSwgRmxvcmEgPEZs
+b3JhLkN1aUBhbWQuY29tPiANClNlbnQ6IE1vbmRheSwgSnVseSAxLCAyMDE5IDExOjM3IEFNDQpU
+bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBDdWksIEZsb3JhIDxGbG9yYS5D
+dWlAYW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSCB2NF0gZHJtL2FtZGdwdTogZml4IHNjaGVkdWxl
+ciB0aW1lb3V0IGNhbGMNCg0Kc2NoZWR1bGVyIHRpbWVvdXQgaXMgaW4gamlmZmllcw0KdjI6IG1v
+dmUgdGltZW91dCBjaGVjayB0byBhbWRncHVfZGV2aWNlX2dldF9qb2JfdGltZW91dF9zZXR0aW5n
+cyBhZnRlciBwYXJzaW5nIHRoZSB2YWx1ZQ0KdjM6IGFkZCBsb2NrdXBfdGltZW91dCBwYXJhbSBj
+aGVjay4gMDoga2VlcCBkZWZhdWx0IHZhbHVlLiBuZWdhdGl2ZToNCmluZmluaXR5IHRpbWVvdXQu
+DQp2NDogcmVmYWN0b3IgY29kZXMuDQoNCkNoYW5nZS1JZDogSTI2NzA4YzE2M2RiOTQzZmY4ZDkz
+MGRkODFiY2FiNGI0YjlkODRlYjINClNpZ25lZC1vZmYtYnk6IEZsb3JhIEN1aSA8ZmxvcmEuY3Vp
+QGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMg
+fCAxMyArKysrKysrKystLS0tDQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgNCBk
+ZWxldGlvbnMoLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KaW5k
+ZXggZTc0YTE3NS4uZTQ0OGY4ZSAxMDA2NDQNCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kcnYuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rydi5jDQpAQCAtMjQ1LDcgKzI0NSw4IEBAIG1vZHVsZV9wYXJhbV9uYW1lZChtc2ksIGFtZGdw
+dV9tc2ksIGludCwgMDQ0NCk7DQogICogQnkgZGVmYXVsdCh3aXRoIG5vIGxvY2t1cF90aW1lb3V0
+IHNldHRpbmdzKSwgdGhlIHRpbWVvdXQgZm9yIGFsbCBub24tY29tcHV0ZShHRlgsIFNETUEgYW5k
+IFZpZGVvKQ0KICAqIGpvYnMgaXMgMTAwMDAuIEFuZCB0aGVyZSBpcyBubyB0aW1lb3V0IGVuZm9y
+Y2VkIG9uIGNvbXB1dGUgam9icy4NCiAgKi8NCi1NT0RVTEVfUEFSTV9ERVNDKGxvY2t1cF90aW1l
+b3V0LCAiR1BVIGxvY2t1cCB0aW1lb3V0IGluIG1zIChkZWZhdWx0OiAxMDAwMCBmb3Igbm9uLWNv
+bXB1dGUgam9icyBhbmQgbm8gdGltZW91dCBmb3IgY29tcHV0ZSBqb2JzKSwgIg0KK01PRFVMRV9Q
+QVJNX0RFU0MobG9ja3VwX3RpbWVvdXQsICJHUFUgbG9ja3VwIHRpbWVvdXQgaW4gbXMgKGRlZmF1
+bHQ6IDEwMDAwIGZvciBub24tY29tcHV0ZSBqb2JzIGFuZCBpbmZpbml0eSB0aW1lb3V0IGZvciBj
+b21wdXRlIGpvYnMuIg0KKwkJIiAwOiBrZWVwIGRlZmF1bHQgdmFsdWUuIG5lZ2F0aXZlOiBpbmZp
+bml0eSB0aW1lb3V0KSwgIg0KIAkJImZvcm1hdCBpcyBbTm9uLUNvbXB1dGVdIG9yIFtHRlgsQ29t
+cHV0ZSxTRE1BLFZpZGVvXSIpOyAgbW9kdWxlX3BhcmFtX3N0cmluZyhsb2NrdXBfdGltZW91dCwg
+YW1kZ3B1X2xvY2t1cF90aW1lb3V0LCBzaXplb2YoYW1kZ3B1X2xvY2t1cF90aW1lb3V0KSwgMDQ0
+NCk7DQogDQpAQCAtMTMwMCw3ICsxMzAxLDggQEAgaW50IGFtZGdwdV9kZXZpY2VfZ2V0X2pvYl90
+aW1lb3V0X3NldHRpbmdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KIAkgKiBCeSBkZWZh
+dWx0IHRpbWVvdXQgZm9yIG5vbiBjb21wdXRlIGpvYnMgaXMgMTAwMDAuDQogCSAqIEFuZCB0aGVy
+ZSBpcyBubyB0aW1lb3V0IGVuZm9yY2VkIG9uIGNvbXB1dGUgam9icy4NCiAJICovDQotCWFkZXYt
+PmdmeF90aW1lb3V0ID0gYWRldi0+c2RtYV90aW1lb3V0ID0gYWRldi0+dmlkZW9fdGltZW91dCA9
+IDEwMDAwOw0KKwlhZGV2LT5nZnhfdGltZW91dCA9IG1zZWNzX3RvX2ppZmZpZXMoMTAwMDApOw0K
+KwlhZGV2LT5zZG1hX3RpbWVvdXQgPSBhZGV2LT52aWRlb190aW1lb3V0ID0gYWRldi0+Z2Z4X3Rp
+bWVvdXQ7DQogCWFkZXYtPmNvbXB1dGVfdGltZW91dCA9IE1BWF9TQ0hFRFVMRV9USU1FT1VUOw0K
+IA0KIAlpZiAoc3RybmxlbihpbnB1dCwgQU1ER1BVX01BWF9USU1FT1VUX1BBUkFNX0xFTlRIKSkg
+eyBAQCAtMTMxMCwxMCArMTMxMiwxMyBAQCBpbnQgYW1kZ3B1X2RldmljZV9nZXRfam9iX3RpbWVv
+dXRfc2V0dGluZ3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQogCQkJaWYgKHJldCkNCiAJ
+CQkJcmV0dXJuIHJldDsNCiANCi0JCQkvKiBJbnZhbGlkYXRlIDAgYW5kIG5lZ2F0aXZlIHZhbHVl
+cyAqLw0KLQkJCWlmICh0aW1lb3V0IDw9IDApIHsNCisJCQlpZiAodGltZW91dCA9PSAwKSB7DQog
+CQkJCWluZGV4Kys7DQogCQkJCWNvbnRpbnVlOw0KKwkJCX0gZWxzZSBpZiAodGltZW91dCA8IDAp
+IHsNCisJCQkJdGltZW91dCA9IE1BWF9TQ0hFRFVMRV9USU1FT1VUOw0KKwkJCX0gZWxzZSB7DQor
+CQkJCXRpbWVvdXQgPSBtc2Vjc190b19qaWZmaWVzKHRpbWVvdXQpOw0KIAkJCX0NCiANCiAJCQlz
+d2l0Y2ggKGluZGV4KyspIHsNCi0tDQoyLjcuNA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZng=
