@@ -1,126 +1,120 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v2 07/35] drm/amdgpu: Use kmemdup rather than duplicating
- its implementation
-Date: Fri, 5 Jul 2019 16:32:39 -0400
-Message-ID: <CADnq5_Pr1=69rwce-bkDA7y-16MgYwCg8z2ghOvDqooMMj3r6A@mail.gmail.com>
-References: <20190703162718.32184-1-huangfq.daxian@gmail.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/ttm: make some functions static
+Date: Fri, 5 Jul 2019 20:33:33 +0000
+Message-ID: <50c16025-9c22-aa67-59b5-1dc7524b6c2f@amd.com>
+References: <20190705171227.21009-1-alexander.deucher@amd.com>
+ <f4c1f72f-9dfa-da35-eb1f-5f58dbabdc3f@amd.com>
+ <BN6PR12MB161810373183A43F8FE1AB7085F50@BN6PR12MB1618.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190703162718.32184-1-huangfq.daxian@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Fuqian Huang <huangfq.daxian@gmail.com>
-Cc: David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <harry.wentland@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN6PR12MB161810373183A43F8FE1AB7085F50-/b2+HYfkarRqaFUXYJa4HgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+Content-ID: <CF9C223569C271478D6356A87DE3FE71-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Wed, Jul 3, 2019 at 1:13 PM Fuqian Huang <huangfq.daxian@gmail.com> wrote:
->
-> kmemdup is introduced to duplicate a region of memory in a neat way.
-> Rather than kmalloc/kzalloc + memcpy, which the programmer needs to
-> write the size twice (sometimes lead to mistakes), kmemdup improves
-> readability, leads to smaller code and also reduce the chances of mistakes.
-> Suggestion to use kmemdup rather than using kmalloc/kzalloc + memcpy.
->
-> Reviewed-by: Emil Velikov <emil.velikov@collabora.com>
-> Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
-> ---
-> Changes in v2:
->   - Fix a typo in commit message (memset -> memcpy)
->
->  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c           | 5 ++---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c           | 5 ++---
->  drivers/gpu/drm/amd/display/dc/core/dc.c        | 6 ++----
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c | 4 +---
->  4 files changed, 7 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index 02955e6e9dd9..48e38479d634 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -3925,11 +3925,10 @@ static int gfx_v8_0_init_save_restore_list(struct amdgpu_device *adev)
->
->         int list_size;
->         unsigned int *register_list_format =
-> -               kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
-> +               kmemdup(adev->gfx.rlc.register_list_format,
-> +                       adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
->         if (!register_list_format)
->                 return -ENOMEM;
-> -       memcpy(register_list_format, adev->gfx.rlc.register_list_format,
-> -                       adev->gfx.rlc.reg_list_format_size_bytes);
->
->         gfx_v8_0_parse_ind_reg_list(register_list_format,
->                                 RLC_FormatDirectRegListLength,
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index b610e3b30d95..09d901ef216d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -2092,11 +2092,10 @@ static int gfx_v9_1_init_rlc_save_restore_list(struct amdgpu_device *adev)
->         u32 tmp = 0;
->
->         u32 *register_list_format =
-> -               kmalloc(adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
-> +               kmemdup(adev->gfx.rlc.register_list_format,
-> +                       adev->gfx.rlc.reg_list_format_size_bytes, GFP_KERNEL);
->         if (!register_list_format)
->                 return -ENOMEM;
-> -       memcpy(register_list_format, adev->gfx.rlc.register_list_format,
-> -               adev->gfx.rlc.reg_list_format_size_bytes);
->
->         /* setup unique_indirect_regs array and indirect_start_offsets array */
->         unique_indirect_reg_count = ARRAY_SIZE(unique_indirect_regs);
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 18c775a950cc..6ced3b9cdce2 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -1263,14 +1263,12 @@ struct dc_state *dc_create_state(struct dc *dc)
->  struct dc_state *dc_copy_state(struct dc_state *src_ctx)
->  {
->         int i, j;
-> -       struct dc_state *new_ctx = kzalloc(sizeof(struct dc_state),
-> -                                          GFP_KERNEL);
-> +       struct dc_state *new_ctx = kmemdup(src_ctx,
-> +                       sizeof(struct dc_state), GFP_KERNEL);
->
->         if (!new_ctx)
->                 return NULL;
->
-> -       memcpy(new_ctx, src_ctx, sizeof(struct dc_state));
-> -
->         for (i = 0; i < MAX_PIPES; i++) {
->                         struct pipe_ctx *cur_pipe = &new_ctx->res_ctx.pipe_ctx[i];
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> index 96e97d25d639..d4b563a2e220 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -167,12 +167,10 @@ struct dc_stream_state *dc_copy_stream(const struct dc_stream_state *stream)
->  {
->         struct dc_stream_state *new_stream;
->
-> -       new_stream = kzalloc(sizeof(struct dc_stream_state), GFP_KERNEL);
-> +       new_stream = kzalloc(stream, sizeof(struct dc_stream_state), GFP_KERNEL);
-
-This doesn't compile.  I've gone ahead and fixed it up locally and
-applied it.  Please check that your patches compile before sending
-them out.
-
-Thanks,
-
-Alex
-
->         if (!new_stream)
->                 return NULL;
->
-> -       memcpy(new_stream, stream, sizeof(struct dc_stream_state));
-> -
->         if (new_stream->sink)
->                 dc_sink_retain(new_stream->sink);
->
-> --
-> 2.11.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gMjAxOS0wNy0wNSA0OjIyIHAubS4sIFJ1c3NlbGwsIEtlbnQgd3JvdGU6DQo+IEhvdyB3b3Vs
+ZCB3ZSBoYW5kbGUgdGhhdD8gSGF2aW5nIGEgcmV2ZXJ0IG9uIGFtZC1rZmQtc3RhZ2luZz8gV2Ug
+Y2FuIA0KPiBlbnN1cmUgdGhhdCBhbWQtc3RhZ2luZy1ka21zIGRvZXNuJ3QgY2hlcnJ5cGljayBp
+dCBpbiwgYnV0IHNpbmNlIEtGRCANCj4gbWVyZ2VzLCBpdCB3b3VsZCBiZSBtb3JlIGNvbXBsaWNh
+dGVkLg0KDQoNCllvdSBjb3VsZCBtYW51YWxseSBlZGl0IHRoZSBtZXJnZSBjb21taXQgYmVmb3Jl
+IHN1Ym1pdHRpbmcgaXQuIExpa2UgeW91IA0Kd291bGQgZG8gd2hlbiByZXNvbHZpbmcgYSBjb25m
+bGljdC4NCg0KUmVnYXJkcywNCiDCoCBGZWxpeA0KDQoNCj4NCj4gS2VudA0KPg0KPiBLRU5UIFJV
+U1NFTEwNCj4gU3IuIFNvZnR3YXJlIEVuZ2luZWVyIHwgTGludXggQ29tcHV0ZSBLZXJuZWwNCj4g
+MSBDb21tZXJjZSBWYWxsZXkgRHJpdmUgRWFzdA0KPiBNYXJraGFtLCBPTiBMM1QgN1g2DQo+IE8g
+KygxKSAyODktNjk1LTIxMjIgfCBFeHQgNzIxMjINCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+ICpGcm9t
+OiogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVo
+YWxmIG9mIA0KPiBLdWVobGluZywgRmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+ICpT
+ZW50OiogRnJpZGF5LCBKdWx5IDUsIDIwMTkgMjo1OTozMSBQTQ0KPiAqVG86KiBBbGV4IERldWNo
+ZXI7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+ICpDYzoqIERldWNoZXIsIEFsZXhh
+bmRlcg0KPiAqU3ViamVjdDoqIFJlOiBbUEFUQ0hdIGRybS9hbWRncHUvdHRtOiBtYWtlIHNvbWUg
+ZnVuY3Rpb25zIHN0YXRpYw0KPiBPbiAyMDE5LTA3LTA1IDE6MTIgcC5tLiwgQWxleCBEZXVjaGVy
+IHdyb3RlOg0KPiA+IE5vdGljZWQgd2hpbGUgcmV2aWV3aW5nIHRoZSBjb2RlLg0KPiA+DQo+ID4g
+U2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0K
+PiBSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+
+DQo+IFdlJ2xsIG5lZWQgdG8gYmUgY2FyZWZ1bCBub3QgdG8gbWVyZ2UgdGhpcyBjaGFuZ2Ugb24g
+YW1kLWtmZC1zdGFnaW5nIGFuZA0KPiBhbWQtc3RhZ2luZy1ka21zLiBPbiB0aG9zZSBicmFuY2hl
+cywgdGhpcyBmdW5jdGlvbiBpcyBjYWxsZWQgZnJvbQ0KPiBhbWRncHVfYW1ka2ZkX2dwdXZtLmMu
+DQo+DQo+IFJlZ2FyZHMsDQo+IMKgwqAgRmVsaXgNCj4NCj4NCj4gPiAtLS0NCj4gPsKgwqAgZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIHwgMTQgKysrKysrKy0tLS0tLS0N
+Cj4gPsKgwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIHzCoCA2IC0t
+LS0tLQ0KPiA+wqDCoCAyIGZpbGVzIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRp
+b25zKC0pDQo+ID4NCj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3R0bS5jIA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0u
+Yw0KPiA+IGluZGV4IGM5ZmFhNjljZDY3Ny4uZDA5MDEwNmVmMjNiIDEwMDY0NA0KPiA+IC0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPiA+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYw0KPiA+IEBAIC0yOTksMTIgKzI5OSwx
+MiBAQCBzdGF0aWMgc3RydWN0IGRybV9tbV9ub2RlIA0KPiAqYW1kZ3B1X2ZpbmRfbW1fbm9kZShz
+dHJ1Y3QgdHRtX21lbV9yZWcgKm1lbSwNCj4gPsKgwqDCoCAqDQo+ID7CoMKgwqAgKiBAZjogUmV0
+dXJucyB0aGUgbGFzdCBmZW5jZSBpZiBtdWx0aXBsZSBqb2JzIGFyZSBzdWJtaXR0ZWQuDQo+ID7C
+oMKgwqAgKi8NCj4gPiAtaW50IGFtZGdwdV90dG1fY29weV9tZW1fdG9fbWVtKHN0cnVjdCBhbWRn
+cHVfZGV2aWNlICphZGV2LA0KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9jb3B5X21lbSAqc3JjLA0KPiA+IC3C
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3Ry
+dWN0IGFtZGdwdV9jb3B5X21lbSAqZHN0LA0KPiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdWludDY0X3Qgc2l6ZSwNCj4gPiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBy
+ZXNlcnZhdGlvbl9vYmplY3QgKnJlc3YsDQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgZG1hX2ZlbmNlICoqZikNCj4gPiAr
+c3RhdGljIGludCBhbWRncHVfdHRtX2NvcHlfbWVtX3RvX21lbShzdHJ1Y3QgYW1kZ3B1X2Rldmlj
+ZSAqYWRldiwNCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9jb3B5X21lbSAqc3JjLA0K
+PiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2NvcHlfbWVtICpkc3QsDQo+ID4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHVpbnQ2NF90IHNpemUsDQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCByZXNlcnZhdGlv
+bl9vYmplY3QgKnJlc3YsDQo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkbWFfZmVuY2UgKipmKQ0K
+PiA+wqDCoCB7DQo+ID7CoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcgPSBh
+ZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19yaW5nOw0KPiA+wqDCoMKgwqDCoMKgwqAgc3RydWN0IGRy
+bV9tbV9ub2RlICpzcmNfbW0sICpkc3RfbW07DQo+ID4gQEAgLTk0OSw3ICs5NDksNyBAQCBzdGF0
+aWMgdm9pZCBhbWRncHVfdHRtX3R0X3VucGluX3VzZXJwdHIoc3RydWN0IA0KPiB0dG1fdHQgKnR0
+bSkNCj4gPsKgwqAgI2VuZGlmDQo+ID7CoMKgIH0NCj4gPg0KPiA+IC1pbnQgYW1kZ3B1X3R0bV9n
+YXJ0X2JpbmQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID4gK3N0YXRpYyBpbnQgYW1k
+Z3B1X3R0bV9nYXJ0X2JpbmQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ID7CoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBz
+dHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibywNCj4gPsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVpbnQ2NF90IGZsYWdzKQ0K
+PiA+wqDCoCB7DQo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90dG0uaCANCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgN
+Cj4gPiBpbmRleCBjMmI3NjY5MDA0YmEuLmRlODljMjE4ZGIyNiAxMDA2NDQNCj4gPiAtLS0gYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgNCj4gPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgNCj4gPiBAQCAtODYsMTIgKzg2LDYgQEAg
+aW50IGFtZGdwdV9jb3B5X2J1ZmZlcihzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIA0KPiB1aW50
+NjRfdCBzcmNfb2Zmc2V0LA0KPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdiwNCj4gPsKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5j
+ZSwgYm9vbCBkaXJlY3Rfc3VibWl0LA0KPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgYm9vbCB2bV9uZWVkc19mbHVzaCk7DQo+ID4gLWludCBhbWRncHVfdHRt
+X2NvcHlfbWVtX3RvX21lbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gPiAtwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBh
+bWRncHVfY29weV9tZW0gKnNyYywNCj4gPiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBhbWRncHVfY29weV9tZW0gKmRzdCwNCj4g
+PiAtwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IHVpbnQ2NF90IHNpemUsDQo+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2LA0KPiA+
+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+c3RydWN0IGRtYV9mZW5jZSAqKmYpOw0KPiA+wqDCoCBpbnQgYW1kZ3B1X2ZpbGxfYnVmZmVyKHN0
+cnVjdCBhbWRncHVfYm8gKmJvLA0KPiA+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB1aW50MzJfdCBzcmNfZGF0YSwNCj4gPsKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVz
+diwNCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4g
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
