@@ -1,64 +1,57 @@
 From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH 2/2] drm/amd/powerplay: vega20: fix uninitialized variable use
-Date: Mon,  8 Jul 2019 16:07:59 +0200
-Message-ID: <20190708140816.1334640-2-arnd@arndb.de>
-References: <20190708140816.1334640-1-arnd@arndb.de>
+Subject: [PATCH] amdgpu: fix warning about misplaced initializers
+Date: Mon,  8 Jul 2019 16:11:06 +0200
+Message-ID: <20190708141117.1466888-1-arnd@arndb.de>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190708140816.1334640-1-arnd@arndb.de>
 Sender: linux-kernel-owner@vger.kernel.org
 To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Arnd Bergmann <arnd@arndb.de>, Huang Rui <ray.huang@amd.com>, Kevin Wang <kevin1.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>, Chengming Gui <Jack.Gui@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Cc: Arnd Bergmann <arnd@arndb.de>, Kevin Wang <kevin1.wang@amd.com>, Huang Rui <ray.huang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-If smu_get_current_rpm() fails, we can't use the output,
-as that may be uninitialized:
+The navi10_ppt code contains two instances of an incorrect struct initializer:
 
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3023:8: error: variable 'current_rpm' is used uninitialized whenever '?:' condition is false [-Werror,-Wsometimes-uninitialized]
-        ret = smu_get_current_rpm(smu, &current_rpm);
-              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:735:3: note: expanded from macro 'smu_get_current_rpm'
-        ((smu)->funcs->get_current_rpm ? (smu)->funcs->get_current_rpm((smu), (speed)) : 0)
-         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3024:12: note: uninitialized use occurs here
-        percent = current_rpm * 100 / pptable->FanMaximumRpm;
-                  ^~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3023:8: note: remove the '?:' if its condition is always true
-        ret = smu_get_current_rpm(smu, &current_rpm);
-              ^
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:735:3: note: expanded from macro 'smu_get_current_rpm'
-        ((smu)->funcs->get_current_rpm ? (smu)->funcs->get_current_rpm((smu), (speed)) : 0)
-         ^
-drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3020:22: note: initialize the variable 'current_rpm' to silence this warning
-        uint32_t current_rpm;
+drivers/gpu/drm/amd/amdgpu/../powerplay/navi10_ppt.c:601:33: error: suggest braces around initialization of subobject
+      [-Werror,-Wmissing-braces]
+        static SmuMetrics_t metrics = {0};
+                                       ^
+                                       {}
+drivers/gpu/drm/amd/amdgpu/../powerplay/navi10_ppt.c:905:26: error: suggest braces around initialization of subobject
+      [-Werror,-Wmissing-braces]
+        SmuMetrics_t metrics = {0};
+                                ^
 
-Propagate the error code in that case.
+Setting it to {} instead of {0} is correct and more portable here.
 
-Fixes: ee0db82027ee ("drm/amd/powerplay: move PPTable_t uses into asic level")
+Fixes: ab43c4bf1cc8 ("drm/amd/powerplay: fix fan speed show error (for hwmon pwm)")
+Fixes: 98e1a543c7b1 ("drm/amd/powerplay: add function get current clock freq interface for navi10")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-index 9ce3f1c8ae0f..20d477f8dc84 100644
---- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-@@ -3021,10 +3021,13 @@ static int vega20_get_fan_speed_percent(struct smu_context *smu,
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index fdcea2b944ab..ce1da9e6e1bf 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -606,7 +606,7 @@ static int navi10_get_current_clk_freq_by_table(struct smu_context *smu,
+ 				       enum smu_clk_type clk_type,
+ 				       uint32_t *value)
+ {
+-	static SmuMetrics_t metrics = {0};
++	static SmuMetrics_t metrics = {};
+ 	int ret = 0, clk_id = 0;
  
- 	ret = smu_get_current_rpm(smu, &current_rpm);
-+	if (ret)
-+		return ret;
-+
- 	percent = current_rpm * 100 / pptable->FanMaximumRpm;
- 	*speed = percent > 100 ? 100 : percent;
+ 	if (!value)
+@@ -957,7 +957,7 @@ static bool navi10_is_dpm_running(struct smu_context *smu)
  
--	return ret;
-+	return 0;
- }
+ static int navi10_get_fan_speed(struct smu_context *smu, uint16_t *value)
+ {
+-	SmuMetrics_t metrics = {0};
++	SmuMetrics_t metrics = {};
+ 	int ret = 0;
  
- static int vega20_get_gpu_power(struct smu_context *smu, uint32_t *value)
+ 	if (!value)
 -- 
 2.20.0
