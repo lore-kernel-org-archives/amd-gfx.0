@@ -1,43 +1,75 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 0/7] amdgpu clang warning fixes on next-20190703
-Date: Mon, 8 Jul 2019 11:55:50 -0400
-Message-ID: <CADnq5_MGzLLMNPSQXpdxwrBpvsp7Fd1KdExS-K4yNeDBQYEGMg@mail.gmail.com>
-References: <20190704055217.45860-1-natechancellor@gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [1/2] drm/amd/powerplay: smu_v11_0: fix uninitialized variable use
+Date: Mon, 8 Jul 2019 17:58:15 +0200
+Message-ID: <CAK8P3a0hR2+g+vxKqm=a8DgPcNrBaqa3sbuEHuVzaw9Fryd4Zg@mail.gmail.com>
+References: <20190708140816.1334640-1-arnd@arndb.de> <20190708150255.GA32266@archlinux-epyc>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190704055217.45860-1-natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Nathan Chancellor <natechancellor-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, clang-built-linux-/JYPxA39Uh5TLH3MbocFFw@public.gmane.org, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190708150255.GA32266@archlinux-epyc>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nathan Chancellor <natechancellor@gmail.com>
+Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Chengming Gui <Jack.Gui@amd.com>, Kevin Wang <kevin1.wang@amd.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, Huang Rui <ray.huang@amd.com>, dri-devel <dri-devel@lists.freedesktop.org>, Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QXBwbGllZCB0aGUgc2VyaWVzLiAgdGhhbmtzIQoKQWxleAoKT24gVGh1LCBKdWwgNCwgMjAxOSBh
-dCAzOjI2IEFNIE5hdGhhbiBDaGFuY2VsbG9yCjxuYXRlY2hhbmNlbGxvckBnbWFpbC5jb20+IHdy
-b3RlOgo+Cj4gSGkgYWxsLAo+Cj4gSSBkb24ndCBkbyB0aHJlYWRlZCBwYXRjaGVzIHZlcnkgb2Z0
-ZW4gc28gaWYgSSBoYXZlIG1lc3NlZCBzb21ldGhpbmcgdXAsCj4gcGxlYXNlIGZvcmdpdmUgbWUg
-OikKPgo+IFRoaXMgc2VyaWVzIGZpeGVzIGFsbCBvZiB0aGUgY2xhbmcgd2FybmluZ3MgdGhhdCBJ
-IHNhdyBhZGRlZCBpbgo+IG5leHQtMjAxOTA3MDMuIFRoZSBmdWxsIGxpc3QgaXMgdmlzaWJsZSBp
-biB0aGUgZ2lzdCBsaW5rZWQgYmVsb3cgYW5kCj4gZWFjaCBmdWxsIGluZGl2aWR1YWwgd2Fybmlu
-ZyBjYW4gYmUgc2VlbiBpbiB0aGUgR2l0SHViIGxpbmsgaW4gZWFjaAo+IHBhdGNoLgo+Cj4gaHR0
-cHM6Ly9naXN0LmdpdGh1Yi5jb20vNTQxMWFmMDhiOTZjOTliMTRlNjBjNjA4MDBlOTlhNDcKPgo+
-IEFsbCBvZiB0aGUgd2FybmluZ3MgYXJlIGZpeGVkIGluIHdoYXQgSSBiZWxpZXZlIGlzIHRoZSBv
-cHRpbWFsIHdheSBidXQKPiB0aGUgZW51bSBjb252ZXJzaW9uIHdhcm5pbmdzIHdlcmUgdGhlIHRy
-aWNraWVzdDsgcGxlYXNlIHJldmlldyBjYXJlZnVsbHkKPiBhcyB0aGUgY29kZSBwYXRocyBmb3Ig
-c29tZSBvZiB0aGVtIGhhdmUgY2hhbmdlZCAoZXNwZWNpYWxseSBpbiBwYXRjaCAzCj4gYW5kIDYp
-Lgo+Cj4gVGhhbmsgeW91IQo+IE5hdGhhbgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCj4gZHJpLWRldmVsIG1haWxpbmcgbGlzdAo+IGRyaS1kZXZlbEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2RyaS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZng=
+On Mon, Jul 8, 2019 at 5:02 PM Nathan Chancellor
+<natechancellor@gmail.com> wrote:
+> On Mon, Jul 08, 2019 at 04:07:58PM +0200, Arnd Bergmann wrote:
+> >       /* if don't has GetDpmClockFreq Message, try get current clock by SmuMetrics_t */
+> > -     if (smu_msg_get_index(smu, SMU_MSG_GetDpmClockFreq) == 0)
+> > +     if (smu_msg_get_index(smu, SMU_MSG_GetDpmClockFreq) == 0) {
+> >               ret =  smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
+> > -     else {
+> > +             if (ret)
+> > +                     return ret;
+>
+> I am kind of surprised that this fixes the warning. If I am interpreting
+> the warning correctly, it is complaining that the member
+> get_current_clk_freq_by_table could be NULL and not be called to
+> initialize freq and that entire statement will become 0. If that is the
+> case, it seems like this added error handling won't fix that problem,
+> right?
+
+No, I'm fairly sure this is the right fix. Looking at the whole function:
+
+| static int smu_v11_0_get_current_clk_freq(struct smu_context *smu,
+|                                          enum smu_clk_type clk_id,
+|                                          uint32_t *value)
+|{
+|        int ret = 0;
+|        uint32_t freq;
+|
+|        if (clk_id >= SMU_CLK_COUNT || !value)
+|                return -EINVAL;
+|
+|        /* if don't has GetDpmClockFreq Message, try get current
+clock by SmuMetrics_t */
+|        if (smu_msg_get_index(smu, SMU_MSG_GetDpmClockFreq) == 0) {
+|                ret =  smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
+
+Here &freq may or may not get initialized
+
+|        } else {
+|                ret = smu_send_smc_msg_with_param(smu, SMU_MSG_GetDpmClockFreq,
+|
+(smu_clk_get_index(smu, clk_id) << 16));
+|                if (ret)
+|                        return ret;
+|
+|               ret = smu_read_smc_arg(smu, &freq);
+|                if (ret)
+|                        return ret;
+
+Same here, but if it's not initialized, we bail out
+
+|        }
+|
+|       freq *= 100;
+|        *value = freq;
+
+And here it gets assigned to *value
+
+|        return ret;
+|}
+
+    Arnd
