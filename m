@@ -1,78 +1,73 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
-Date: Mon, 8 Jul 2019 14:16:47 +0000
-Message-ID: <cbe718e8-5a4e-9b53-138b-48119fa3018c@amd.com>
-References: <20190708135238.651483-1-arnd@arndb.de>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH 1/2] amdgpu: make pmu support optional
+Date: Mon,  8 Jul 2019 16:41:43 +0200
+Message-ID: <20190708144205.2770771-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190708135238.651483-1-arnd-r2nGTMty4D4@public.gmane.org>
-Content-Language: en-US
-Content-ID: <7974CE63145CD341BBC7EAA284EB17EE-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
-Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland,
- Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Arnd Bergmann <arnd@arndb.de>, Jonathan Kim <Jonathan.Kim@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Huang Rui <ray.huang@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>, Jack Xiao <Jack.Xiao@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Emily Deng <Emily.Deng@amd.com>, xinhui pan <xinhui.pan@amd.com>, Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNy84LzE5IDk6NTIgQU0sIEFybmQgQmVyZ21hbm4gd3JvdGU6DQo+IE9uIDMyLWJpdCBhcmNo
-aXRlY3R1cmVzLCBkaXZpZGluZyBhIDY0LWJpdCBpbnRlZ2VyIGluIHRoZSBrZXJuZWwNCj4gbGVh
-ZHMgdG8gYSBsaW5rIGVycm9yOg0KPiANCj4gRVJST1I6ICJfX3VkaXZkaTMiIFtkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCENCj4gRVJST1I6ICJfX2RpdmRp
-MyIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQ0KPiAN
-Cj4gQ2hhbmdlIHRoZSB0d28gcmVjZW50bHkgaW50cm9kdWNlZCBpbnN0YW5jZXMgdG8gYSBtdWx0
-aXBseStzaGlmdA0KPiBvcGVyYXRpb24gdGhhdCBpcyBhbHNvIG11Y2ggY2hlYXBlciBvbiAzMi1i
-aXQgYXJjaGl0ZWN0dXJlcy4NCj4gV2UgY2FuIGRvIHRoYXQgaGVyZSwgc2luY2UgYm90aCBvZiB0
-aGVtIGFyZSByZWFsbHkgMzItYml0IG51bWJlcnMNCj4gdGhhdCBjaGFuZ2UgYSBmZXcgcGVyY2Vu
-dC4NCj4gDQo+IEZpeGVzOiBiZWRiYmU2YWY0YmUgKCJkcm0vYW1kL2Rpc3BsYXk6IE1vdmUgbGlu
-ayBmdW5jdGlvbnMgZnJvbSBkYyB0byBkY19saW5rIikNCj4gRml4ZXM6IGYxOGJjNGU1M2FkNiAo
-ImRybS9hbWQvZGlzcGxheTogdXBkYXRlIGNhbGN1bGF0ZWQgYm91bmRpbmcgYm94IGxvZ2ljIGZv
-ciBOViIpDQo+IFNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+DQo+
-IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYyAg
-ICAgICAgIHwgNCArKy0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIw
-L2RjbjIwX3Jlc291cmNlLmMgfCAyICstDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAzIGluc2VydGlv
-bnMoKyksIDMgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2NvcmUvZGNfbGluay5jDQo+IGluZGV4IGMxN2RiNWMxNDRhYS4uOGRiZjc1OWViYTQ1
-IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19s
-aW5rLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGlu
-ay5jDQo+IEBAIC0zMDcyLDggKzMwNzIsOCBAQCB1aW50MzJfdCBkY19saW5rX2JhbmR3aWR0aF9r
-YnBzKA0KPiAgIAkJICogYnV0IHRoZSBkaWZmZXJlbmNlIGlzIG1pbmltYWwgYW5kIGlzIGluIGEg
-c2FmZSBkaXJlY3Rpb24sDQo+ICAgCQkgKiB3aGljaCBhbGwgd29ya3Mgd2VsbCBhcm91bmQgcG90
-ZW50aWFsIGFtYmlndWl0eSBvZiBEUCAxLjRhIHNwZWMuDQo+ICAgCQkgKi8NCj4gLQkJbG9uZyBs
-b25nIGZlY19saW5rX2J3X2ticHMgPSBsaW5rX2J3X2ticHMgKiA5NzBMTDsNCj4gLQkJbGlua19i
-d19rYnBzID0gKHVpbnQzMl90KShmZWNfbGlua19id19rYnBzIC8gMTAwMExMKTsNCj4gKwkJbGlu
-a19id19rYnBzID0gbXVsX3U2NF91MzJfc2hyKEJJVF9VTEwoMzIpICogOTcwTEwgLyAxMDAwLA0K
-PiArCQkJCQkgICAgICAgbGlua19id19rYnBzLCAzMik7DQo+ICAgCX0NCj4gICAjZW5kaWYNCj4g
-ICANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9k
-Y24yMF9yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2Rj
-bjIwX3Jlc291cmNlLmMNCj4gaW5kZXggYjM1MzI3YmFmYmM1Li43MGFjOGE5NWQyZGIgMTAwNjQ0
-DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24yMF9yZXNv
-dXJjZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24y
-MF9yZXNvdXJjZS5jDQo+IEBAIC0yNjU3LDcgKzI2NTcsNyBAQCBzdGF0aWMgdm9pZCB1cGRhdGVf
-Ym91bmRpbmdfYm94KHN0cnVjdCBkYyAqZGMsIHN0cnVjdCBfdmNzX2RwaV9zb2NfYm91bmRpbmdf
-Ym94Xw0KPiAgIAkJY2FsY3VsYXRlZF9zdGF0ZXNbaV0uZHJhbV9zcGVlZF9tdHMgPSB1Y2xrX3N0
-YXRlc1tpXSAqIDE2IC8gMTAwMDsNCj4gICANCj4gICAJCS8vIEZDTEs6VUNMSyByYXRpbyBpcyAx
-LjA4DQo+IC0JCW1pbl9mY2xrX3JlcXVpcmVkX2J5X3VjbGsgPSAoKHVuc2lnbmVkIGxvbmcgbG9u
-Zyl1Y2xrX3N0YXRlc1tpXSkgKiAxMDgwIC8gMTAwMDAwMDsNCj4gKwkJbWluX2ZjbGtfcmVxdWly
-ZWRfYnlfdWNsayA9IG11bF91NjRfdTMyX3NocihCSVRfVUxMKDMyKSAqIDEwODAgLyAxMDAwMDAw
-LCB1Y2xrX3N0YXRlc1tpXSwgMzIpOw0KDQpFdmVuIHRob3VnaCB0aGUgbXVsICsgc2hpZnQgd2ls
-bCBiZSBmYXN0ZXIgaGVyZSwgSSB3b3VsZCBwcmVmZXIgdGhhdCANCnRoaXMganVzdCBiZSBhIGRp
-dl91NjQgZm9yIGNsYXJpdHkuDQoNCk5pY2hvbGFzIEthemxhdXNrYXMNCg0KPiAgIA0KPiAgIAkJ
-Y2FsY3VsYXRlZF9zdGF0ZXNbaV0uZmFicmljY2xrX21oeiA9IChtaW5fZmNsa19yZXF1aXJlZF9i
-eV91Y2xrIDwgbWluX2RjZmNsaykgPw0KPiAgIAkJCQltaW5fZGNmY2xrIDogbWluX2ZjbGtfcmVx
-dWlyZWRfYnlfdWNsazsNCj4gDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeA==
+When CONFIG_PERF_EVENTS is disabled, we cannot compile the pmu
+portion of the amdgpu driver:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:48:38: error: no member named 'hw' in 'struct perf_event'
+        struct hw_perf_event *hwc = &event->hw;
+                                     ~~~~~  ^
+drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:51:13: error: no member named 'attr' in 'struct perf_event'
+        if (event->attr.type != event->pmu->type)
+            ~~~~~  ^
+...
+
+Use conditional compilation for this file.
+
+Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/amdgpu/Makefile        | 4 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++--
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
+index 3a15a46b4ecb..3f5329906fce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/Makefile
++++ b/drivers/gpu/drm/amd/amdgpu/Makefile
+@@ -54,7 +54,9 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
+ 	amdgpu_gtt_mgr.o amdgpu_vram_mgr.o amdgpu_virt.o amdgpu_atomfirmware.o \
+ 	amdgpu_vf_error.o amdgpu_sched.o amdgpu_debugfs.o amdgpu_ids.o \
+ 	amdgpu_gmc.o amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
+-	amdgpu_vm_sdma.o amdgpu_pmu.o amdgpu_discovery.o
++	amdgpu_vm_sdma.o amdgpu_discovery.o
++
++amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
+ 
+ # add asic specific block
+ amdgpu-$(CONFIG_DRM_AMDGPU_CIK)+= cik.o cik_ih.o kv_smc.o kv_dpm.o \
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 30989b455047..a02ccce7bf53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2816,7 +2816,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		return r;
+ 	}
+ 
+-	r = amdgpu_pmu_init(adev);
++	if (IS_ENABLED(CONFIG_PERF_EVENTS))
++		r = amdgpu_pmu_init(adev);
+ 	if (r)
+ 		dev_err(adev->dev, "amdgpu_pmu_init failed\n");
+ 
+@@ -2888,7 +2889,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+ 	amdgpu_debugfs_regs_cleanup(adev);
+ 	device_remove_file(adev->dev, &dev_attr_pcie_replay_count);
+ 	amdgpu_ucode_sysfs_fini(adev);
+-	amdgpu_pmu_fini(adev);
++	if (IS_ENABLED(CONFIG_PERF_EVENTS))
++		amdgpu_pmu_fini(adev);
+ 	amdgpu_debugfs_preempt_cleanup(adev);
+ 	if (amdgpu_discovery)
+ 		amdgpu_discovery_fini(adev);
+-- 
+2.20.0
