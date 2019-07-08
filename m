@@ -1,76 +1,51 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: vega20: fix uninitialized variable use
-Date: Mon, 8 Jul 2019 12:03:09 -0400
-Message-ID: <CADnq5_NGiM+Bs_AwBC5GUOv2Dx11_fvaqJXtQZKR_drVy68O8w@mail.gmail.com>
-References: <20190708140816.1334640-1-arnd@arndb.de> <20190708140816.1334640-2-arnd@arndb.de>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Fix build errors with HMM disabled
+Date: Mon, 8 Jul 2019 16:05:06 +0000
+Message-ID: <20190708160441.1087-1-Felix.Kuehling@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190708140816.1334640-2-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Chengming Gui <Jack.Gui@amd.com>, Kevin Wang <kevin1.wang@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
+ Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Jul 8, 2019 at 10:08 AM Arnd Bergmann <arnd@arndb.de> wrote:
->
-> If smu_get_current_rpm() fails, we can't use the output,
-> as that may be uninitialized:
->
-> drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3023:8: error: variable 'current_rpm' is used uninitialized whenever '?:' condition is false [-Werror,-Wsometimes-uninitialized]
->         ret = smu_get_current_rpm(smu, &current_rpm);
->               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:735:3: note: expanded from macro 'smu_get_current_rpm'
->         ((smu)->funcs->get_current_rpm ? (smu)->funcs->get_current_rpm((smu), (speed)) : 0)
->          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3024:12: note: uninitialized use occurs here
->         percent = current_rpm * 100 / pptable->FanMaximumRpm;
->                   ^~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3023:8: note: remove the '?:' if its condition is always true
->         ret = smu_get_current_rpm(smu, &current_rpm);
->               ^
-> drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:735:3: note: expanded from macro 'smu_get_current_rpm'
->         ((smu)->funcs->get_current_rpm ? (smu)->funcs->get_current_rpm((smu), (speed)) : 0)
->          ^
-> drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:3020:22: note: initialize the variable 'current_rpm' to silence this warning
->         uint32_t current_rpm;
->
-> Propagate the error code in that case.
->
-> Fixes: ee0db82027ee ("drm/amd/powerplay: move PPTable_t uses into asic level")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Applied.  thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> index 9ce3f1c8ae0f..20d477f8dc84 100644
-> --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> @@ -3021,10 +3021,13 @@ static int vega20_get_fan_speed_percent(struct smu_context *smu,
->         PPTable_t *pptable = smu->smu_table.driver_pptable;
->
->         ret = smu_get_current_rpm(smu, &current_rpm);
-> +       if (ret)
-> +               return ret;
-> +
->         percent = current_rpm * 100 / pptable->FanMaximumRpm;
->         *speed = percent > 100 ? 100 : percent;
->
-> -       return ret;
-> +       return 0;
->  }
->
->  static int vega20_get_gpu_power(struct smu_context *smu, uint32_t *value)
-> --
-> 2.20.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T25seSBkZWZpbmUgc3RydWN0IGFtZGdwdV9tbiBpZiBITU1fTUlSUk9SIGlzIGVuYWJsZWQuIEFk
+ZCBiYWNrIGEKZm9yd2FyZCBkZWNsYXJhdGlvbiBmb3IgdGhlIGNhc2UgdGhhdCBpdCBpc24ndC4K
+CkZpeGVzOiA2ZjFjM2U2MWQyZDggKCJkcm0vYW1kZ3B1OiBQcmVwYXJlIGZvciBobW1fcmFuZ2Vf
+cmVnaXN0ZXIgQVBJIGNoYW5nZSIpClNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxp
+eC5LdWVobGluZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9tbi5oIHwgNiArKysrKy0KIDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKyksIDEgZGVs
+ZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+bW4uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tbi5oCmluZGV4IDI4MWZk
+OWZlZjY2Mi4uMzNjYTYyMTRkYjkwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfbW4uaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+bW4uaApAQCAtMzUsNiArMzUsOCBAQCBlbnVtIGFtZGdwdV9tbl90eXBlIHsKIAlBTURHUFVfTU5f
+VFlQRV9IU0EsCiB9OwogCisjaWYgZGVmaW5lZChDT05GSUdfSE1NX01JUlJPUikKKwogLyoqCiAg
+KiBzdHJ1Y3QgYW1kZ3B1X21uCiAgKgpAQCAtNjksNyArNzEsNiBAQCBzdHJ1Y3QgYW1kZ3B1X21u
+IHsKIAlzdHJ1Y3QgaG1tX21pcnJvcgltaXJyb3I7CiB9OwogCi0jaWYgZGVmaW5lZChDT05GSUdf
+SE1NX01JUlJPUikKIHZvaWQgYW1kZ3B1X21uX2xvY2soc3RydWN0IGFtZGdwdV9tbiAqbW4pOwog
+dm9pZCBhbWRncHVfbW5fdW5sb2NrKHN0cnVjdCBhbWRncHVfbW4gKm1uKTsKIHN0cnVjdCBhbWRn
+cHVfbW4gKmFtZGdwdV9tbl9nZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCkBAIC03OCw2
+ICs3OSw5IEBAIGludCBhbWRncHVfbW5fcmVnaXN0ZXIoc3RydWN0IGFtZGdwdV9ibyAqYm8sIHVu
+c2lnbmVkIGxvbmcgYWRkcik7CiB2b2lkIGFtZGdwdV9tbl91bnJlZ2lzdGVyKHN0cnVjdCBhbWRn
+cHVfYm8gKmJvKTsKIHZvaWQgYW1kZ3B1X2htbV9pbml0X3JhbmdlKHN0cnVjdCBobW1fcmFuZ2Ug
+KnJhbmdlKTsKICNlbHNlCisKK3N0cnVjdCBhbWRncHVfbW47CisKIHN0YXRpYyBpbmxpbmUgdm9p
+ZCBhbWRncHVfbW5fbG9jayhzdHJ1Y3QgYW1kZ3B1X21uICptbikge30KIHN0YXRpYyBpbmxpbmUg
+dm9pZCBhbWRncHVfbW5fdW5sb2NrKHN0cnVjdCBhbWRncHVfbW4gKm1uKSB7fQogc3RhdGljIGlu
+bGluZSBzdHJ1Y3QgYW1kZ3B1X21uICphbWRncHVfbW5fZ2V0KHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2LAotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+Zng=
