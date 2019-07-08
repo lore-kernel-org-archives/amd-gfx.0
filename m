@@ -1,50 +1,50 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: enable IP discovery by default on navi
-Date: Mon, 8 Jul 2019 10:50:20 -0400
-Message-ID: <CADnq5_OeyDanLqymu2Y0yuTMVhNWDqFCmMZ34ySFo8fZiSuqeQ@mail.gmail.com>
-References: <20190703151341.5916-1-alexander.deucher@amd.com>
- <20190703151341.5916-2-alexander.deucher@amd.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: work around enum conversion warnings
+Date: Mon, 8 Jul 2019 07:54:30 -0700
+Message-ID: <20190708145430.GC43693@archlinux-epyc>
+References: <20190708135725.844960-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190703151341.5916-2-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190708135725.844960-1-arnd@arndb.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Likun Gao <Likun.Gao@amd.com>, Huang Rui <ray.huang@amd.com>, Gui Chengming <Jack.Gui@amd.com>, Kevin Wang <kevin1.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-UGluZyBvbiB0aGlzIHNlcmllcy4KCkFsZXgKCk9uIFdlZCwgSnVsIDMsIDIwMTkgYXQgMTE6MTMg
-QU0gQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gVXNlIHRo
-ZSBJUCBkaXNjb3ZlcnkgdGFibGUgcmF0aGVyIHRoYW4gaGFyZGNvZGluZyB0aGUKPiBzZXR0aW5n
-cyBpbiB0aGUgZHJpdmVyLgo+Cj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
-ZXIuZGV1Y2hlckBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZHJ2LmMgfCAzICsrLQo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAx
-IGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2Rydi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4g
-aW5kZXggNzk0MWE1MzY4ZmI1Li42Zjc3NzJlZWViNzggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2Rydi5jCj4gQEAgLTE0MCw3ICsxNDAsNyBAQCB1aW50IGFtZGdwdV9z
-bXVfbWVtb3J5X3Bvb2xfc2l6ZSA9IDA7Cj4gIHVpbnQgYW1kZ3B1X2RjX2ZlYXR1cmVfbWFzayA9
-IDA7Cj4gIGludCBhbWRncHVfYXN5bmNfZ2Z4X3JpbmcgPSAxOwo+ICBpbnQgYW1kZ3B1X21jYnAg
-PSAwOwo+IC1pbnQgYW1kZ3B1X2Rpc2NvdmVyeSA9IDA7Cj4gK2ludCBhbWRncHVfZGlzY292ZXJ5
-ID0gLTE7Cj4gIGludCBhbWRncHVfbWVzID0gMDsKPgo+ICBzdHJ1Y3QgYW1kZ3B1X21ncHVfaW5m
-byBtZ3B1X2luZm8gPSB7Cj4gQEAgLTU5Miw2ICs1OTIsNyBAQCBtb2R1bGVfcGFyYW1fbmFtZWQo
-bWNicCwgYW1kZ3B1X21jYnAsIGludCwgMDQ0NCk7Cj4gIC8qKgo+ICAgKiBET0M6IGRpc2NvdmVy
-eSAoaW50KQo+ICAgKiBBbGxvdyBkcml2ZXIgdG8gZGlzY292ZXIgaGFyZHdhcmUgSVAgaW5mb3Jt
-YXRpb24gZnJvbSBJUCBEaXNjb3ZlcnkgdGFibGUgYXQgdGhlIHRvcCBvZiBWUkFNLgo+ICsgKiAo
-LTEgPSBhdXRvIChkZWZhdWx0KSwgMCA9IGRpc2FibGVkLCAxID0gZW5hYmxlZCkKPiAgICovCj4g
-IE1PRFVMRV9QQVJNX0RFU0MoZGlzY292ZXJ5LAo+ICAgICAgICAgIkFsbG93IGRyaXZlciB0byBk
-aXNjb3ZlciBoYXJkd2FyZSBJUHMgZnJvbSBJUCBEaXNjb3ZlcnkgdGFibGUgYXQgdGhlIHRvcCBv
-ZiBWUkFNIik7Cj4gLS0KPiAyLjIwLjEKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZng=
+Hi Arnd,
+
+On Mon, Jul 08, 2019 at 03:57:06PM +0200, Arnd Bergmann wrote:
+> A couple of calls to smu_get_current_clk_freq() and smu_force_clk_levels()
+> pass constants of the wrong type, leading to warnings with clang-8:
+> 
+> drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:995:39: error: implicit conversion from enumeration type 'PPCLK_e' to different enumeration type 'enum smu_clk_type' [-Werror,-Wenum-conversion]
+>                 ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
+>                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:775:82: note: expanded from macro 'smu_get_current_clk_freq'
+>         ((smu)->funcs->get_current_clk_freq? (smu)->funcs->get_current_clk_freq((smu), (clk_id), (value)) : 0)
+> 
+> I could not figure out what the purpose is of mixing the types
+> like this and if it is written like this intentionally.
+> Assuming this is all correct, adding an explict case is an
+> easy way to shut up the warnings.
+> 
+> Fixes: bc0fcffd36ba ("drm/amd/powerplay: Unify smu handle task function (v2)")
+> Fixes: 096761014227 ("drm/amd/powerplay: support sysfs to get socclk, fclk, dcefclk")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+I sent a series last week for all of the clang warnings that were added
+in this driver recently.
+
+https://lore.kernel.org/lkml/20190704055217.45860-1-natechancellor@gmail.com/
+
+I think it is safe to use the CLK enums from the expected type (from
+what I could see from going down the code flow rabbit hole).
+
+https://lore.kernel.org/lkml/20190704055217.45860-4-natechancellor@gmail.com/
+
+https://lore.kernel.org/lkml/20190704055217.45860-7-natechancellor@gmail.com/
+
+Cheers,
+Nathan
