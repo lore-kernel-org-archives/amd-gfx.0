@@ -1,58 +1,40 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix build errors with HMM disabled
-Date: Mon, 8 Jul 2019 16:07:42 +0000
-Message-ID: <91eb6cd7-50ba-2726-7391-d87da03ae221@amd.com>
-References: <20190708160441.1087-1-Felix.Kuehling@amd.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 2/2] amdgpu: make SOC15/navi support conditional
+Date: Mon, 8 Jul 2019 18:08:21 +0200
+Message-ID: <CAK8P3a1m-aDAsiVFYyQcoq0a=Y8rA5R3P5TSuBfmK2Gync-8eQ@mail.gmail.com>
+References: <20190708144205.2770771-1-arnd@arndb.de> <20190708144205.2770771-2-arnd@arndb.de>
+ <CADnq5_MFi1cGxo-AGMcGzY4nW8HAuX8SiPfAD=eRrdo0w-aoJQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190708160441.1087-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <A5DA4E75C0180846A1406CA123E530F3-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_MFi1cGxo-AGMcGzY4nW8HAuX8SiPfAD=eRrdo0w-aoJQ@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Oded Gabbay <oded.gabbay@gmail.com>, Philip Yang <Philip.Yang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>, Evan Quan <evan.quan@amd.com>, Yong Zhao <Yong.Zhao@amd.com>, Amber Lin <Amber.Lin@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, xinhui pan <xinhui.pan@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Emily Deng <Emily.Deng@amd.com>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Rex Zhu <Rex.Zhu@amd.com>, Thom
+List-Id: amd-gfx.lists.freedesktop.org
 
-TG9va3MgbGlrZSBBcm5kIEJlcmdtYW5uIGFscmVhZHkgZml4ZWQgaXQgd2l0aCBhIGRpZmZlcmVu
-dCBwYXRjaC4gVGhhdCdzIA0KZmluZSB3aXRoIG1lIHRvby4gRmVlbCBmcmVlIHRvIGlnbm9yZSB0
-aGlzLg0KDQpPbiAyMDE5LTA3LTA4IDEyOjA1IHAubS4sIEt1ZWhsaW5nLCBGZWxpeCB3cm90ZToN
-Cj4gT25seSBkZWZpbmUgc3RydWN0IGFtZGdwdV9tbiBpZiBITU1fTUlSUk9SIGlzIGVuYWJsZWQu
-IEFkZCBiYWNrIGENCj4gZm9yd2FyZCBkZWNsYXJhdGlvbiBmb3IgdGhlIGNhc2UgdGhhdCBpdCBp
-c24ndC4NCj4NCj4gRml4ZXM6IDZmMWMzZTYxZDJkOCAoImRybS9hbWRncHU6IFByZXBhcmUgZm9y
-IGhtbV9yYW5nZV9yZWdpc3RlciBBUEkgY2hhbmdlIikNCj4gU2lnbmVkLW9mZi1ieTogRmVsaXgg
-S3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tbi5oIHwgNiArKysrKy0NCj4gICAxIGZpbGUgY2hhbmdl
-ZCwgNSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9tbi5oDQo+IGluZGV4IDI4MWZkOWZlZjY2Mi4uMzNjYTYyMTRkYjkwIDEw
-MDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaA0KPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfbW4uaA0KPiBAQCAtMzUsNiAr
-MzUsOCBAQCBlbnVtIGFtZGdwdV9tbl90eXBlIHsNCj4gICAJQU1ER1BVX01OX1RZUEVfSFNBLA0K
-PiAgIH07DQo+ICAgDQo+ICsjaWYgZGVmaW5lZChDT05GSUdfSE1NX01JUlJPUikNCj4gKw0KPiAg
-IC8qKg0KPiAgICAqIHN0cnVjdCBhbWRncHVfbW4NCj4gICAgKg0KPiBAQCAtNjksNyArNzEsNiBA
-QCBzdHJ1Y3QgYW1kZ3B1X21uIHsNCj4gICAJc3RydWN0IGhtbV9taXJyb3IJbWlycm9yOw0KPiAg
-IH07DQo+ICAgDQo+IC0jaWYgZGVmaW5lZChDT05GSUdfSE1NX01JUlJPUikNCj4gICB2b2lkIGFt
-ZGdwdV9tbl9sb2NrKHN0cnVjdCBhbWRncHVfbW4gKm1uKTsNCj4gICB2b2lkIGFtZGdwdV9tbl91
-bmxvY2soc3RydWN0IGFtZGdwdV9tbiAqbW4pOw0KPiAgIHN0cnVjdCBhbWRncHVfbW4gKmFtZGdw
-dV9tbl9nZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+IEBAIC03OCw2ICs3OSw5IEBA
-IGludCBhbWRncHVfbW5fcmVnaXN0ZXIoc3RydWN0IGFtZGdwdV9ibyAqYm8sIHVuc2lnbmVkIGxv
-bmcgYWRkcik7DQo+ICAgdm9pZCBhbWRncHVfbW5fdW5yZWdpc3RlcihzdHJ1Y3QgYW1kZ3B1X2Jv
-ICpibyk7DQo+ICAgdm9pZCBhbWRncHVfaG1tX2luaXRfcmFuZ2Uoc3RydWN0IGhtbV9yYW5nZSAq
-cmFuZ2UpOw0KPiAgICNlbHNlDQo+ICsNCj4gK3N0cnVjdCBhbWRncHVfbW47DQo+ICsNCj4gICBz
-dGF0aWMgaW5saW5lIHZvaWQgYW1kZ3B1X21uX2xvY2soc3RydWN0IGFtZGdwdV9tbiAqbW4pIHt9
-DQo+ICAgc3RhdGljIGlubGluZSB2b2lkIGFtZGdwdV9tbl91bmxvY2soc3RydWN0IGFtZGdwdV9t
-biAqbW4pIHt9DQo+ICAgc3RhdGljIGlubGluZSBzdHJ1Y3QgYW1kZ3B1X21uICphbWRncHVfbW5f
-Z2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4
+On Mon, Jul 8, 2019 at 4:46 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Mon, Jul 8, 2019 at 10:42 AM Arnd Bergmann <arnd@arndb.de> wrote:
+> >
+> > Enabling amdgpu but not CONFIG_DRM_AMD_DC leads to a warning:
+> >
+> > drivers/gpu/drm/amd/amdgpu/nv.c: In function 'nv_set_ip_blocks':
+> > drivers/gpu/drm/amd/amdgpu/nv.c:400:3: error: #warning "Enable CONFIG_DRM_AMD_DC for display support on navi." [-Werror=cpp]
+> >  # warning "Enable CONFIG_DRM_AMD_DC for display support on navi."
+> >    ^~~~~~~
+> > drivers/gpu/drm/amd/amdgpu/soc15.c: In function 'soc15_set_ip_blocks':
+> > drivers/gpu/drm/amd/amdgpu/soc15.c:653:3: error: #warning "Enable CONFIG_DRM_AMD_DC for display support on SOC15." [-Werror=cpp]
+> >
+> > However, CONFIG_DRM_AMD_DC can only be enabled on x86, so we
+> > cannot do that when building for other architectures.
+>
+> DC is not limited to x86.
+
+Ah, right, only DRM_AMD_DC_DCN1_0 is x86-only.
+
+>  I can drop the warning if that is the concern.
+
+That would be great, yes.
+
+      Arnd
