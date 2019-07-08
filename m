@@ -1,57 +1,78 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] amdgpu: fix warning about misplaced initializers
-Date: Mon,  8 Jul 2019 16:11:06 +0200
-Message-ID: <20190708141117.1466888-1-arnd@arndb.de>
+From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
+Date: Mon, 8 Jul 2019 14:16:47 +0000
+Message-ID: <cbe718e8-5a4e-9b53-138b-48119fa3018c@amd.com>
+References: <20190708135238.651483-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Arnd Bergmann <arnd@arndb.de>, Kevin Wang <kevin1.wang@amd.com>, Huang Rui <ray.huang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Kenneth Feng <kenneth.feng@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190708135238.651483-1-arnd-r2nGTMty4D4@public.gmane.org>
+Content-Language: en-US
+Content-ID: <7974CE63145CD341BBC7EAA284EB17EE-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
+Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Wentland,
+ Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>
 
-The navi10_ppt code contains two instances of an incorrect struct initializer:
-
-drivers/gpu/drm/amd/amdgpu/../powerplay/navi10_ppt.c:601:33: error: suggest braces around initialization of subobject
-      [-Werror,-Wmissing-braces]
-        static SmuMetrics_t metrics = {0};
-                                       ^
-                                       {}
-drivers/gpu/drm/amd/amdgpu/../powerplay/navi10_ppt.c:905:26: error: suggest braces around initialization of subobject
-      [-Werror,-Wmissing-braces]
-        SmuMetrics_t metrics = {0};
-                                ^
-
-Setting it to {} instead of {0} is correct and more portable here.
-
-Fixes: ab43c4bf1cc8 ("drm/amd/powerplay: fix fan speed show error (for hwmon pwm)")
-Fixes: 98e1a543c7b1 ("drm/amd/powerplay: add function get current clock freq interface for navi10")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index fdcea2b944ab..ce1da9e6e1bf 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -606,7 +606,7 @@ static int navi10_get_current_clk_freq_by_table(struct smu_context *smu,
- 				       enum smu_clk_type clk_type,
- 				       uint32_t *value)
- {
--	static SmuMetrics_t metrics = {0};
-+	static SmuMetrics_t metrics = {};
- 	int ret = 0, clk_id = 0;
- 
- 	if (!value)
-@@ -957,7 +957,7 @@ static bool navi10_is_dpm_running(struct smu_context *smu)
- 
- static int navi10_get_fan_speed(struct smu_context *smu, uint16_t *value)
- {
--	SmuMetrics_t metrics = {0};
-+	SmuMetrics_t metrics = {};
- 	int ret = 0;
- 
- 	if (!value)
--- 
-2.20.0
+T24gNy84LzE5IDk6NTIgQU0sIEFybmQgQmVyZ21hbm4gd3JvdGU6DQo+IE9uIDMyLWJpdCBhcmNo
+aXRlY3R1cmVzLCBkaXZpZGluZyBhIDY0LWJpdCBpbnRlZ2VyIGluIHRoZSBrZXJuZWwNCj4gbGVh
+ZHMgdG8gYSBsaW5rIGVycm9yOg0KPiANCj4gRVJST1I6ICJfX3VkaXZkaTMiIFtkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHUua29dIHVuZGVmaW5lZCENCj4gRVJST1I6ICJfX2RpdmRp
+MyIgW2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQ0KPiAN
+Cj4gQ2hhbmdlIHRoZSB0d28gcmVjZW50bHkgaW50cm9kdWNlZCBpbnN0YW5jZXMgdG8gYSBtdWx0
+aXBseStzaGlmdA0KPiBvcGVyYXRpb24gdGhhdCBpcyBhbHNvIG11Y2ggY2hlYXBlciBvbiAzMi1i
+aXQgYXJjaGl0ZWN0dXJlcy4NCj4gV2UgY2FuIGRvIHRoYXQgaGVyZSwgc2luY2UgYm90aCBvZiB0
+aGVtIGFyZSByZWFsbHkgMzItYml0IG51bWJlcnMNCj4gdGhhdCBjaGFuZ2UgYSBmZXcgcGVyY2Vu
+dC4NCj4gDQo+IEZpeGVzOiBiZWRiYmU2YWY0YmUgKCJkcm0vYW1kL2Rpc3BsYXk6IE1vdmUgbGlu
+ayBmdW5jdGlvbnMgZnJvbSBkYyB0byBkY19saW5rIikNCj4gRml4ZXM6IGYxOGJjNGU1M2FkNiAo
+ImRybS9hbWQvZGlzcGxheTogdXBkYXRlIGNhbGN1bGF0ZWQgYm91bmRpbmcgYm94IGxvZ2ljIGZv
+ciBOViIpDQo+IFNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+DQo+
+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3JlL2RjX2xpbmsuYyAg
+ICAgICAgIHwgNCArKy0tDQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIw
+L2RjbjIwX3Jlc291cmNlLmMgfCAyICstDQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCAzIGluc2VydGlv
+bnMoKyksIDMgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGluay5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2NvcmUvZGNfbGluay5jDQo+IGluZGV4IGMxN2RiNWMxNDRhYS4uOGRiZjc1OWViYTQ1
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19s
+aW5rLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfbGlu
+ay5jDQo+IEBAIC0zMDcyLDggKzMwNzIsOCBAQCB1aW50MzJfdCBkY19saW5rX2JhbmR3aWR0aF9r
+YnBzKA0KPiAgIAkJICogYnV0IHRoZSBkaWZmZXJlbmNlIGlzIG1pbmltYWwgYW5kIGlzIGluIGEg
+c2FmZSBkaXJlY3Rpb24sDQo+ICAgCQkgKiB3aGljaCBhbGwgd29ya3Mgd2VsbCBhcm91bmQgcG90
+ZW50aWFsIGFtYmlndWl0eSBvZiBEUCAxLjRhIHNwZWMuDQo+ICAgCQkgKi8NCj4gLQkJbG9uZyBs
+b25nIGZlY19saW5rX2J3X2ticHMgPSBsaW5rX2J3X2ticHMgKiA5NzBMTDsNCj4gLQkJbGlua19i
+d19rYnBzID0gKHVpbnQzMl90KShmZWNfbGlua19id19rYnBzIC8gMTAwMExMKTsNCj4gKwkJbGlu
+a19id19rYnBzID0gbXVsX3U2NF91MzJfc2hyKEJJVF9VTEwoMzIpICogOTcwTEwgLyAxMDAwLA0K
+PiArCQkJCQkgICAgICAgbGlua19id19rYnBzLCAzMik7DQo+ICAgCX0NCj4gICAjZW5kaWYNCj4g
+ICANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9k
+Y24yMF9yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2Rj
+bjIwX3Jlc291cmNlLmMNCj4gaW5kZXggYjM1MzI3YmFmYmM1Li43MGFjOGE5NWQyZGIgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24yMF9yZXNv
+dXJjZS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24y
+MF9yZXNvdXJjZS5jDQo+IEBAIC0yNjU3LDcgKzI2NTcsNyBAQCBzdGF0aWMgdm9pZCB1cGRhdGVf
+Ym91bmRpbmdfYm94KHN0cnVjdCBkYyAqZGMsIHN0cnVjdCBfdmNzX2RwaV9zb2NfYm91bmRpbmdf
+Ym94Xw0KPiAgIAkJY2FsY3VsYXRlZF9zdGF0ZXNbaV0uZHJhbV9zcGVlZF9tdHMgPSB1Y2xrX3N0
+YXRlc1tpXSAqIDE2IC8gMTAwMDsNCj4gICANCj4gICAJCS8vIEZDTEs6VUNMSyByYXRpbyBpcyAx
+LjA4DQo+IC0JCW1pbl9mY2xrX3JlcXVpcmVkX2J5X3VjbGsgPSAoKHVuc2lnbmVkIGxvbmcgbG9u
+Zyl1Y2xrX3N0YXRlc1tpXSkgKiAxMDgwIC8gMTAwMDAwMDsNCj4gKwkJbWluX2ZjbGtfcmVxdWly
+ZWRfYnlfdWNsayA9IG11bF91NjRfdTMyX3NocihCSVRfVUxMKDMyKSAqIDEwODAgLyAxMDAwMDAw
+LCB1Y2xrX3N0YXRlc1tpXSwgMzIpOw0KDQpFdmVuIHRob3VnaCB0aGUgbXVsICsgc2hpZnQgd2ls
+bCBiZSBmYXN0ZXIgaGVyZSwgSSB3b3VsZCBwcmVmZXIgdGhhdCANCnRoaXMganVzdCBiZSBhIGRp
+dl91NjQgZm9yIGNsYXJpdHkuDQoNCk5pY2hvbGFzIEthemxhdXNrYXMNCg0KPiAgIA0KPiAgIAkJ
+Y2FsY3VsYXRlZF9zdGF0ZXNbaV0uZmFicmljY2xrX21oeiA9IChtaW5fZmNsa19yZXF1aXJlZF9i
+eV91Y2xrIDwgbWluX2RjZmNsaykgPw0KPiAgIAkJCQltaW5fZGNmY2xrIDogbWluX2ZjbGtfcmVx
+dWlyZWRfYnlfdWNsazsNCj4gDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeA==
