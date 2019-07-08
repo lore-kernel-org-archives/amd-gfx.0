@@ -1,72 +1,61 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [1/2] drm/amd/powerplay: smu_v11_0: fix uninitialized variable
- use
-Date: Mon, 8 Jul 2019 08:02:55 -0700
-Message-ID: <20190708150255.GA32266@archlinux-epyc>
-References: <20190708140816.1334640-1-arnd@arndb.de>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: enable IP discovery by default on navi
+Date: Mon, 8 Jul 2019 15:31:29 +0000
+Message-ID: <BN8PR12MB36027C3FF20B1FAD06119E2D89F60@BN8PR12MB3602.namprd12.prod.outlook.com>
+References: <20190703151341.5916-1-alexander.deucher@amd.com>,
+ <20190703151341.5916-2-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190708140816.1334640-1-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Chengming Gui <Jack.Gui@amd.com>, Kevin Wang <kevin1.wang@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org, Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190703151341.5916-2-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Jul 08, 2019 at 04:07:58PM +0200, Arnd Bergmann wrote:
-> A mistake in the error handling caused an uninitialized
-> variable to be used:
-> 
-> drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c:1102:10: error: variable 'freq' is used uninitialized whenever '?:' condition is false [-Werror,-Wsometimes-uninitialized]
->                 ret =  smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
->                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:880:3: note: expanded from macro 'smu_get_current_clk_freq_by_table'
->         ((smu)->ppt_funcs->get_current_clk_freq_by_table ? (smu)->ppt_funcs->get_current_clk_freq_by_table((smu), (clk_type), (value)) : 0)
->          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c:1114:2: note: uninitialized use occurs here
->         freq *= 100;
->         ^~~~
-> drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c:1102:10: note: remove the '?:' if its condition is always true
->                 ret =  smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
->                        ^
-> drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:880:3: note: expanded from macro 'smu_get_current_clk_freq_by_table'
->         ((smu)->ppt_funcs->get_current_clk_freq_by_table ? (smu)->ppt_funcs->get_current_clk_freq_by_table((smu), (clk_type), (value)) : 0)
->          ^
-> drivers/gpu/drm/amd/amdgpu/../powerplay/smu_v11_0.c:1095:15: note: initialize the variable 'freq' to silence this warning
->         uint32_t freq;
->                      ^
->                       = 0
-> 
-> Bail out of smu_v11_0_get_current_clk_freq() before we get there.
-> 
-> Fixes: e36182490dec ("drm/amd/powerplay: fix dpm freq unit error (10KHz -> Mhz)")
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index c3f9714e9047..bd89a13b6679 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -1099,9 +1099,11 @@ static int smu_v11_0_get_current_clk_freq(struct smu_context *smu,
->  		return -EINVAL;
->  
->  	/* if don't has GetDpmClockFreq Message, try get current clock by SmuMetrics_t */
-> -	if (smu_msg_get_index(smu, SMU_MSG_GetDpmClockFreq) == 0)
-> +	if (smu_msg_get_index(smu, SMU_MSG_GetDpmClockFreq) == 0) {
->  		ret =  smu_get_current_clk_freq_by_table(smu, clk_id, &freq);
-> -	else {
-> +		if (ret)
-> +			return ret;
-
-I am kind of surprised that this fixes the warning. If I am interpreting
-the warning correctly, it is complaining that the member
-get_current_clk_freq_by_table could be NULL and not be called to
-initialize freq and that entire statement will become 0. If that is the
-case, it seems like this added error handling won't fix that problem,
-right?
-
-Cheers,
-Nathan
+SGkgQWxleCwKCkkgc2VlIHRoZXJlIGFyZSBtYW55ICdhdXRvJyBtb2R1bGUgcGFyYW1zIGZvciBh
+bWRncHUsIGNvdWxkIHlvdSBwbGVhc2UgZXhwbGFpbiBhYm91dCB0aGUgaGlzdG9yaWNhbCBpbnRl
+bnRpb24gb2YgdXNpbmcgdmFsdWUgJy0xJz8KYW5kIHNoYWxsIHdlIGNoZWNrICdhbWRncHVfZGlz
+Y292ZXJ5JyBhZ2FpbnN0ICctMScgZm9yIGFsbCB0aGUgY29kZSBwYXRocyBpbiBhbWRncHVfZGV2
+aWNlLmMgYW5kIG5hdmkxMF9yZWdfaW5pdC5jPwoKQlIsClhpYW9qaWUKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gb24gYmVoYWxmIG9mIEFsZXggRGV1Y2hlciA8YWxleGRl
+dWNoZXJAZ21haWwuY29tPgpTZW50OiBXZWRuZXNkYXksIEp1bHkgMywgMjAxOSAxMToxMyBQTQpU
+bzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IERldWNoZXIsIEFsZXhhbmRlcgpT
+dWJqZWN0OiBbUEFUQ0ggMi8yXSBkcm0vYW1kZ3B1OiBlbmFibGUgSVAgZGlzY292ZXJ5IGJ5IGRl
+ZmF1bHQgb24gbmF2aQoKVXNlIHRoZSBJUCBkaXNjb3ZlcnkgdGFibGUgcmF0aGVyIHRoYW4gaGFy
+ZGNvZGluZyB0aGUKc2V0dGluZ3MgaW4gdGhlIGRyaXZlci4KClNpZ25lZC1vZmYtYnk6IEFsZXgg
+RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0
+aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9k
+cnYuYwppbmRleCA3OTQxYTUzNjhmYjUuLjZmNzc3MmVlZWI3OCAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwpAQCAtMTQwLDcgKzE0MCw3IEBAIHVpbnQgYW1kZ3B1X3Nt
+dV9tZW1vcnlfcG9vbF9zaXplID0gMDsKIHVpbnQgYW1kZ3B1X2RjX2ZlYXR1cmVfbWFzayA9IDA7
+CiBpbnQgYW1kZ3B1X2FzeW5jX2dmeF9yaW5nID0gMTsKIGludCBhbWRncHVfbWNicCA9IDA7Ci1p
+bnQgYW1kZ3B1X2Rpc2NvdmVyeSA9IDA7CitpbnQgYW1kZ3B1X2Rpc2NvdmVyeSA9IC0xOwogaW50
+IGFtZGdwdV9tZXMgPSAwOwoKIHN0cnVjdCBhbWRncHVfbWdwdV9pbmZvIG1ncHVfaW5mbyA9IHsK
+QEAgLTU5Miw2ICs1OTIsNyBAQCBtb2R1bGVfcGFyYW1fbmFtZWQobWNicCwgYW1kZ3B1X21jYnAs
+IGludCwgMDQ0NCk7CiAvKioKICAqIERPQzogZGlzY292ZXJ5IChpbnQpCiAgKiBBbGxvdyBkcml2
+ZXIgdG8gZGlzY292ZXIgaGFyZHdhcmUgSVAgaW5mb3JtYXRpb24gZnJvbSBJUCBEaXNjb3Zlcnkg
+dGFibGUgYXQgdGhlIHRvcCBvZiBWUkFNLgorICogKC0xID0gYXV0byAoZGVmYXVsdCksIDAgPSBk
+aXNhYmxlZCwgMSA9IGVuYWJsZWQpCiAgKi8KIE1PRFVMRV9QQVJNX0RFU0MoZGlzY292ZXJ5LAog
+ICAgICAgICJBbGxvdyBkcml2ZXIgdG8gZGlzY292ZXIgaGFyZHdhcmUgSVBzIGZyb20gSVAgRGlz
+Y292ZXJ5IHRhYmxlIGF0IHRoZSB0b3Agb2YgVlJBTSIpOwotLQoyLjIwLjEKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2FtZC1nZng=
