@@ -1,70 +1,54 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: properly guard DC support in navi code
-Date: Mon, 8 Jul 2019 16:01:24 +0000
-Message-ID: <6180dc12-cfa6-3f03-1d4e-49c92dfc8ad8@amd.com>
-References: <20190705204142.10231-1-alexander.deucher@amd.com>
- <c62c35e2-a920-081b-6dfc-7fdab8a8b1ba@daenzer.net>
- <25d7a737-534d-8200-2b24-60080218db64@amd.com>
- <CADnq5_Nv-8-jY4FPGWUrDPAUP4TBg_amaR4DGPqyUtkmrNcJzA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: dcn20: include linux/delay.h
+Date: Mon, 8 Jul 2019 12:01:15 -0400
+Message-ID: <CADnq5_P1MC9t5szFNF2TeDDZH6gH+nXrZsMfr785uJKBBmz8nw@mail.gmail.com>
+References: <20190708135329.694852-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CADnq5_Nv-8-jY4FPGWUrDPAUP4TBg_amaR4DGPqyUtkmrNcJzA-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-Content-ID: <6FB5E73ACA084945B5DAB65560EA1632-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190708135329.694852-1-arnd@arndb.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Joshua Aberback <joshua.aberback@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Tony Cheng <Tony.Cheng@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNy84LzE5IDExOjQ3IEFNLCBBbGV4IERldWNoZXIgd3JvdGU6DQo+IE9uIE1vbiwgSnVsIDgs
-IDIwMTkgYXQgODo1NiBBTSBLYXpsYXVza2FzLCBOaWNob2xhcw0KPiA8TmljaG9sYXMuS2F6bGF1
-c2thc0BhbWQuY29tPiB3cm90ZToNCj4+DQo+PiBPbiA3LzgvMTkgNToxNSBBTSwgTWljaGVsIETD
-pG56ZXIgd3JvdGU6DQo+Pj4gT24gMjAxOS0wNy0wNSAxMDo0MSBwLm0uLCBBbGV4IERldWNoZXIg
-d3JvdGU6DQo+Pj4+IE5lZWQgdG8gYWRkIGFwcHJvcHJpYXRlIGlmZGVmLg0KPj4+Pg0KPj4+PiBT
-aWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+
-Pj4+IC0tLQ0KPj4+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jIHwgNCArKysr
-DQo+Pj4+ICAgIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKykNCj4+Pj4NCj4+Pj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9udi5jDQo+Pj4+IGluZGV4IGEwOTBlM2ZkYzc2Mi4uZWUzOWNiNzQwZDQx
-IDEwMDY0NA0KPj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jDQo+Pj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMNCj4+Pj4gQEAgLTM1Miw4ICsz
-NTIsMTIgQEAgaW50IG52X3NldF9pcF9ibG9ja3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-DQo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChh
-ZGV2LCAmc211X3YxMV8wX2lwX2Jsb2NrKTsNCj4+Pj4gICAgICAgICAgICAgICBpZiAoYWRldi0+
-ZW5hYmxlX3ZpcnR1YWxfZGlzcGxheSB8fCBhbWRncHVfc3Jpb3ZfdmYoYWRldikpDQo+Pj4+ICAg
-ICAgICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmZGNl
-X3ZpcnR1YWxfaXBfYmxvY2spOw0KPj4+PiArI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfREMp
-DQo+Pj4+ICAgICAgICAgICAgICAgZWxzZSBpZiAoYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9y
-dChhZGV2KSkNCj4+Pj4gICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9kZXZpY2VfaXBfYmxv
-Y2tfYWRkKGFkZXYsICZkbV9pcF9ibG9jayk7DQo+Pj4+ICsjZWxzZQ0KPj4+PiArIyAgIHdhcm5p
-bmcgIkVuYWJsZSBDT05GSUdfRFJNX0FNRF9EQyBmb3IgZGlzcGxheSBzdXBwb3J0IG9uIG5hdmku
-Ig0KPj4+PiArI2VuZGlmDQo+Pj4+ICAgICAgICAgICAgICAgYW1kZ3B1X2RldmljZV9pcF9ibG9j
-a19hZGQoYWRldiwgJmdmeF92MTBfMF9pcF9ibG9jayk7DQo+Pj4+ICAgICAgICAgICAgICAgYW1k
-Z3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwgJnNkbWFfdjVfMF9pcF9ibG9jayk7DQo+Pj4+
-ICAgICAgICAgICAgICAgaWYgKGFkZXYtPmZpcm13YXJlLmxvYWRfdHlwZSA9PSBBTURHUFVfRldf
-TE9BRF9ESVJFQ1QgJiYNCj4+Pj4NCj4+Pg0KPj4+IElzIENPTkZJR19EUk1fQU1EX0RDIHN0aWxs
-IG5lZWRlZD8gV2hhdCBmb3I/IChPdGhlciB0aGFuIGFjY2lkZW50YWxseQ0KPj4+IGRpc2FibGlu
-ZyBkaXNwbGF5IHdpdGggY3VycmVudCBoYXJkd2FyZSA7KQ0KPj4+DQo+Pj4NCj4+DQo+PiBJdCB3
-b3VsZCBzbGltIGRvd24gbW9kdWxlIHNpemUgYW5kIGNvbXBpbGUgdGltZXMgaWYgeW91IGp1c3Qg
-bmVlZGVkDQo+PiBSYWRlb24gYW5kIG5vdGhpbmcgZWxzZSwgYnV0IGl0J3Mga2luZCBvZiBhIG5p
-Y2hlIHVzZSBjYXNlLg0KPj4NCj4+IEkgdGhpbmsgdGhlIG9ubHkgdGhpbmcgaXQgZG9lcyByaWdo
-dCBub3cgaXMgYXV0b3NlbGVjdCBEQ04gYmFzZWQgb24NCj4+IHdoZXRoZXIgd2UgdGhpbmsgd2Ug
-aGF2ZSBGUCBzdXBwb3J0IG9yIG5vdCwgYnV0IHRoYXQgY291bGQgcHJvYmFibHkgYmUNCj4+IG1v
-dmVkIGVsc2V3aGVyZS4NCj4gDQo+IENhbiBJIGdldCBhbiBhY2sgb3IgUkIgb24gdGhpcz8gIFdl
-IGNhbiBkZWNpZGUgd2hhdCB0byBkbyBhYm91dCB0aGUNCj4gb3B0aW9uIGxhdGVyLg0KPiANCj4g
-QWxleA0KDQpSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1
-c2thc0BhbWQuY29tPg0KDQpUaGlzIGlzIGZpbmUgZm9yIG5vdy4NCg0KPiANCj4+DQo+PiBOaWNo
-b2xhcyBLYXpsYXVza2FzDQoNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA==
+On Mon, Jul 8, 2019 at 9:53 AM Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> Without this header, we get a compiler error in some configurations:
+>
+> .../dc/dcn20/dcn20_hwseq.c: In function 'dcn20_hwss_wait_for_blank_complete':
+> .../dc/dcn20/dcn20_hwseq.c:1493:3: error: implicit declaration of function 'udelay' [-Werror=implicit-function-declaration]
+>
+> Note: the use of udelay itself may be problematic, as can occupy
+> the CPU for 200ms in a busy-loop here.
+>
+> Fixes: 7ed4e6352c16 ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> index 4b0d8b9f61da..6925d25d2457 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+> @@ -22,6 +22,7 @@
+>   * Authors: AMD
+>   *
+>   */
+> +#include <linux/delay.h>
+>
+>  #include "dm_services.h"
+>  #include "dm_helpers.h"
+> --
+> 2.20.0
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
