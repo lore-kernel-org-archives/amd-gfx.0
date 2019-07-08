@@ -1,73 +1,118 @@
 From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH 1/2] amdgpu: make pmu support optional
-Date: Mon,  8 Jul 2019 16:41:43 +0200
-Message-ID: <20190708144205.2770771-1-arnd@arndb.de>
+Subject: [PATCH 2/2] amdgpu: make SOC15/navi support conditional
+Date: Mon,  8 Jul 2019 16:41:44 +0200
+Message-ID: <20190708144205.2770771-2-arnd@arndb.de>
+References: <20190708144205.2770771-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Arnd Bergmann <arnd@arndb.de>, Jonathan Kim <Jonathan.Kim@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, Huang Rui <ray.huang@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>, Jack Xiao <Jack.Xiao@amd.com>, Andrey Grodzovsky <andrey.grodzovsky@amd.com>, Rex Zhu <Rex.Zhu@amd.com>, Emily Deng <Emily.Deng@amd.com>, xinhui pan <xinhui.pan@amd.com>, Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190708144205.2770771-1-arnd@arndb.de>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Oded Gabbay <oded.gabbay@gmail.com>
+Cc: Philip Yang <Philip.Yang@amd.com>, Jack Xiao <Jack.Xiao@amd.com>, Evan Quan <evan.quan@amd.com>, Arnd Bergmann <arnd@arndb.de>, Yong Zhao <Yong.Zhao@amd.com>, Amber Lin <Amber.Lin@amd.com>, Feifei Xu <Feifei.Xu@amd.com>, Felix Kuehling <Felix.Kuehling@amd.com>, xinhui pan <xinhui.pan@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Emily Deng <Emily.Deng@amd.com>, Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org, Rex Zhu <Rex.Zhu@amd.com>, Thomas Gleixner <tglx@linutronix.de>, Shaoyun Liu <Shaoyun.Liu@amd.com>, Oak Zeng <Oak.Zeng@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-When CONFIG_PERF_EVENTS is disabled, we cannot compile the pmu
-portion of the amdgpu driver:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:48:38: error: no member named 'hw' in 'struct perf_event'
-        struct hw_perf_event *hwc = &event->hw;
-                                     ~~~~~  ^
-drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:51:13: error: no member named 'attr' in 'struct perf_event'
-        if (event->attr.type != event->pmu->type)
-            ~~~~~  ^
-...
-
-Use conditional compilation for this file.
-
-Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/amdgpu/Makefile        | 4 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 ++++--
- 2 files changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 3a15a46b4ecb..3f5329906fce 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -54,7 +54,9 @@ amdgpu-y += amdgpu_device.o amdgpu_kms.o \
- 	amdgpu_gtt_mgr.o amdgpu_vram_mgr.o amdgpu_virt.o amdgpu_atomfirmware.o \
- 	amdgpu_vf_error.o amdgpu_sched.o amdgpu_debugfs.o amdgpu_ids.o \
- 	amdgpu_gmc.o amdgpu_xgmi.o amdgpu_csa.o amdgpu_ras.o amdgpu_vm_cpu.o \
--	amdgpu_vm_sdma.o amdgpu_pmu.o amdgpu_discovery.o
-+	amdgpu_vm_sdma.o amdgpu_discovery.o
-+
-+amdgpu-$(CONFIG_PERF_EVENTS) += amdgpu_pmu.o
- 
- # add asic specific block
- amdgpu-$(CONFIG_DRM_AMDGPU_CIK)+= cik.o cik_ih.o kv_smc.o kv_dpm.o \
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 30989b455047..a02ccce7bf53 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2816,7 +2816,8 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 		return r;
- 	}
- 
--	r = amdgpu_pmu_init(adev);
-+	if (IS_ENABLED(CONFIG_PERF_EVENTS))
-+		r = amdgpu_pmu_init(adev);
- 	if (r)
- 		dev_err(adev->dev, "amdgpu_pmu_init failed\n");
- 
-@@ -2888,7 +2889,8 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
- 	amdgpu_debugfs_regs_cleanup(adev);
- 	device_remove_file(adev->dev, &dev_attr_pcie_replay_count);
- 	amdgpu_ucode_sysfs_fini(adev);
--	amdgpu_pmu_fini(adev);
-+	if (IS_ENABLED(CONFIG_PERF_EVENTS))
-+		amdgpu_pmu_fini(adev);
- 	amdgpu_debugfs_preempt_cleanup(adev);
- 	if (amdgpu_discovery)
- 		amdgpu_discovery_fini(adev);
--- 
-2.20.0
+RW5hYmxpbmcgYW1kZ3B1IGJ1dCBub3QgQ09ORklHX0RSTV9BTURfREMgbGVhZHMgdG8gYSB3YXJu
+aW5nOgoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYzogSW4gZnVuY3Rpb24gJ252X3Nl
+dF9pcF9ibG9ja3MnOgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jOjQwMDozOiBlcnJv
+cjogI3dhcm5pbmcgIkVuYWJsZSBDT05GSUdfRFJNX0FNRF9EQyBmb3IgZGlzcGxheSBzdXBwb3J0
+IG9uIG5hdmkuIiBbLVdlcnJvcj1jcHBdCiAjIHdhcm5pbmcgIkVuYWJsZSBDT05GSUdfRFJNX0FN
+RF9EQyBmb3IgZGlzcGxheSBzdXBwb3J0IG9uIG5hdmkuIgogICBefn5+fn5+CmRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmM6IEluIGZ1bmN0aW9uICdzb2MxNV9zZXRfaXBfYmxvY2tz
+JzoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUuYzo2NTM6MzogZXJyb3I6ICN3YXJu
+aW5nICJFbmFibGUgQ09ORklHX0RSTV9BTURfREMgZm9yIGRpc3BsYXkgc3VwcG9ydCBvbiBTT0Mx
+NS4iIFstV2Vycm9yPWNwcF0KCkhvd2V2ZXIsIENPTkZJR19EUk1fQU1EX0RDIGNhbiBvbmx5IGJl
+IGVuYWJsZWQgb24geDg2LCBzbyB3ZQpjYW5ub3QgZG8gdGhhdCB3aGVuIGJ1aWxkaW5nIGZvciBv
+dGhlciBhcmNoaXRlY3R1cmVzLgoKQWRkIGFub3RoZXIgS2NvbmZpZyBzeW1ib2wgdG8gaGFuZGxl
+IHRoZSBTT0MxNSBhbmQgbmF2aSwgbWFraW5nCnN1cmUgdGhhdCB3ZSBpbXBsaWNpdGx5IGVuYWJs
+ZSBEQy4KClNpZ25lZC1vZmYtYnk6IEFybmQgQmVyZ21hbm4gPGFybmRAYXJuZGIuZGU+Ci0tLQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZyAgICAgICAgIHwgIDcgKysrKysKIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L01ha2VmaWxlICAgICAgICB8IDMyICsrKysrKysrKysr
+KysrKy0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYyB8
+ICAyICsrCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgfCAgMiAr
+KwogNCBmaWxlcyBjaGFuZ2VkLCAzMyBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlvbnMoLSkKCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZwppbmRleCBhMDRmMmZjN2JmMzcuLmQ3MTg2ZGQ4OGRi
+YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZworKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnCkBAIC0yNCw2ICsyNCwxMyBAQCBjb25m
+aWcgRFJNX0FNREdQVV9DSUsKIAogCSAgcmFkZW9uLmNpa19zdXBwb3J0PTAgYW1kZ3B1LmNpa19z
+dXBwb3J0PTEKIAorY29uZmlnIERSTV9BTURHUFVfU09DMTUKKwlib29sICJFbmFibGUgYW1kZ3B1
+IHN1cHBvcnQgZm9yIFNPQzE1IHBhcnRzIgorCWRlcGVuZHMgb24gRFJNX0FNREdQVQorCXNlbGVj
+dCBEUk1fQU1EX0RDCisJaGVscAorCSAgQ2hvb3NlIHRoaXMgb3B0aW9uIGlmIHlvdSB3YW50IHRv
+IGVuYWJsZSBzdXBwb3J0IGZvciBTT0MxNSBhc2ljcy4KKwogY29uZmlnIERSTV9BTURHUFVfVVNF
+UlBUUgogCWJvb2wgIkFsd2F5cyBlbmFibGUgdXNlcnB0ciB3cml0ZSBzdXBwb3J0IgogCWRlcGVu
+ZHMgb24gRFJNX0FNREdQVQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+TWFrZWZpbGUgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9NYWtlZmlsZQppbmRleCAzZjUz
+Mjk5MDZmY2UuLmU5NWFlNDY4ZWFhMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvTWFrZWZpbGUKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvTWFrZWZpbGUK
+QEAgLTY0LDkgKzY0LDEwIEBAIGFtZGdwdS0kKENPTkZJR19EUk1fQU1ER1BVX0NJSykrPSBjaWsu
+byBjaWtfaWgubyBrdl9zbWMubyBrdl9kcG0ubyBcCiAKIGFtZGdwdS0kKENPTkZJR19EUk1fQU1E
+R1BVX1NJKSs9IHNpLm8gZ21jX3Y2XzAubyBnZnhfdjZfMC5vIHNpX2loLm8gc2lfZG1hLm8gZGNl
+X3Y2XzAubyBzaV9kcG0ubyBzaV9zbWMubwogCi1hbWRncHUteSArPSBcCi0JdmkubyBteGdwdV92
+aS5vIG5iaW9fdjZfMS5vIHNvYzE1Lm8gZW11X3NvYy5vIG14Z3B1X2FpLm8gbmJpb192N18wLm8g
+dmVnYTEwX3JlZ19pbml0Lm8gXAotCXZlZ2EyMF9yZWdfaW5pdC5vIG5iaW9fdjdfNC5vIG5iaW9f
+djJfMy5vIG52Lm8gbmF2aTEwX3JlZ19pbml0Lm8gbmF2aTE0X3JlZ19pbml0Lm8KK2FtZGdwdS15
+ICs9IHZpLm8gbXhncHVfdmkubyBlbXVfc29jLm8gbmJpb192N180Lm8KKworYW1kZ3B1LSQoQ09O
+RklHX0RSTV9BTURHUFVfU09DMTUpICs9IGdtY192OV8wLm8gbmJpb192Nl8xLm8gc29jMTUubyBt
+eGdwdV9haS5vIG5iaW9fdjdfMC5vIFwKKwl2ZWdhMTBfcmVnX2luaXQubyB2ZWdhMjBfcmVnX2lu
+aXQubyBuYmlvX3YyXzMubyBudi5vIG5hdmkxMF9yZWdfaW5pdC5vIG5hdmkxNF9yZWdfaW5pdC5v
+CiAKICMgYWRkIERGIGJsb2NrCiBhbWRncHUteSArPSBcCkBAIC03Nyw3ICs3OCwxMCBAQCBhbWRn
+cHUteSArPSBcCiBhbWRncHUteSArPSBcCiAJZ21jX3Y3XzAubyBcCiAJZ21jX3Y4XzAubyBcCi0J
+Z2Z4aHViX3YxXzAubyBtbWh1Yl92MV8wLm8gZ21jX3Y5XzAubyBnZnhodWJfdjFfMS5vIFwKKwln
+ZnhodWJfdjFfMC5vIG1taHViX3YxXzAubyBnZnhodWJfdjFfMS5vCisKK2FtZGdwdS0kKENPTkZJ
+R19EUk1fQU1ER1BVX1NPQzE1KSArPSBcCisJZ21jX3Y5XzAubyBcCiAJZ2Z4aHViX3YyXzAubyBt
+bWh1Yl92Ml8wLm8gZ21jX3YxMF8wLm8KIAogIyBhZGQgSUggYmxvY2sKQEAgLTg2LDcgKzkwLDkg
+QEAgYW1kZ3B1LXkgKz0gXAogCWFtZGdwdV9paC5vIFwKIAlpY2VsYW5kX2loLm8gXAogCXRvbmdh
+X2loLm8gXAotCWN6X2loLm8gXAorCWN6X2loLm8KKworYW1kZ3B1LSQoQ09ORklHX0RSTV9BTURH
+UFVfU09DMTUpICs9IFwKIAl2ZWdhMTBfaWgubyBcCiAJbmF2aTEwX2loLm8KIApAQCAtMTExLDcg
+KzExNyw5IEBAIGFtZGdwdS15ICs9IFwKIGFtZGdwdS15ICs9IFwKIAlhbWRncHVfZ2Z4Lm8gXAog
+CWFtZGdwdV9ybGMubyBcCi0JZ2Z4X3Y4XzAubyBcCisJZ2Z4X3Y4XzAubworCithbWRncHUtJChD
+T05GSUdfRFJNX0FNREdQVV9TT0MxNSkgKz0gXAogCWdmeF92OV8wLm8gXAogCWdmeF92MTBfMC5v
+CiAKQEAgLTExOSwxMiArMTI3LDE0IEBAIGFtZGdwdS15ICs9IFwKIGFtZGdwdS15ICs9IFwKIAlh
+bWRncHVfc2RtYS5vIFwKIAlzZG1hX3YyXzQubyBcCi0Jc2RtYV92M18wLm8gXAorCXNkbWFfdjNf
+MC5vCisKK2FtZGdwdS0kKENPTkZJR19EUk1fQU1ER1BVX1NPQzE1KSArPSBcCiAJc2RtYV92NF8w
+Lm8gXAogCXNkbWFfdjVfMC5vCiAKICMgYWRkIE1FUyBibG9jawotYW1kZ3B1LXkgKz0gXAorYW1k
+Z3B1LSQoQ09ORklHX0RSTV9BTURHUFVfU09DMTUpICs9IFwKIAltZXNfdjEwXzEubwogCiAjIGFk
+ZCBVVkQgYmxvY2sKQEAgLTE2MSw4ICsxNzEsMTAgQEAgYW1kZ3B1LXkgKz0gXAogCSBhbWRncHVf
+YW1ka2ZkX2ZlbmNlLm8gXAogCSBhbWRncHVfYW1ka2ZkX2dwdXZtLm8gXAogCSBhbWRncHVfYW1k
+a2ZkX2dmeF92OC5vIFwKLQkgYW1kZ3B1X2FtZGtmZF9nZnhfdjkubyBcCi0JIGFtZGdwdV9hbWRr
+ZmRfZ2Z4X3YxMC5vCisKK2FtZGdwdS0kKENPTkZJR19EUk1fQU1ER1BVX1NPQzE1KSArPSBcCisJ
+YW1kZ3B1X2FtZGtmZF9nZnhfdjkubyBcCisJYW1kZ3B1X2FtZGtmZF9nZnhfdjEwLm8KIAogaWZu
+ZXEgKCQoQ09ORklHX0RSTV9BTURHUFVfQ0lLKSwpCiBhbWRncHUteSArPSBhbWRncHVfYW1ka2Zk
+X2dmeF92Ny5vCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+YW1ka2ZkLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkLmMKaW5k
+ZXggOWZhNGYyNWEzNzQ1Li4xMDFkODA2ZmY5OTYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfYW1ka2ZkLmMKQEAgLTgxLDYgKzgxLDcgQEAgdm9pZCBhbWRncHVfYW1ka2Zk
+X2RldmljZV9wcm9iZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAljYXNlIENISVBfVkVH
+QU06CiAJCWtmZDJrZ2QgPSBhbWRncHVfYW1ka2ZkX2dmeF84XzBfZ2V0X2Z1bmN0aW9ucygpOwog
+CQlicmVhazsKKyNpZmRlZiBDT05GSUdfRFJNX0FNREdQVV9TT0MxNQogCWNhc2UgQ0hJUF9WRUdB
+MTA6CiAJY2FzZSBDSElQX1ZFR0ExMjoKIAljYXNlIENISVBfVkVHQTIwOgpAQCAtOTAsNiArOTEs
+NyBAQCB2b2lkIGFtZGdwdV9hbWRrZmRfZGV2aWNlX3Byb2JlKHN0cnVjdCBhbWRncHVfZGV2aWNl
+ICphZGV2KQogCWNhc2UgQ0hJUF9OQVZJMTA6CiAJCWtmZDJrZ2QgPSBhbWRncHVfYW1ka2ZkX2dm
+eF8xMF8wX2dldF9mdW5jdGlvbnMoKTsKIAkJYnJlYWs7CisjZW5kaWYKIAlkZWZhdWx0OgogCQlk
+ZXZfaW5mbyhhZGV2LT5kZXYsICJrZmQgbm90IHN1cHBvcnRlZCBvbiB0aGlzIEFTSUNcbiIpOwog
+CQlyZXR1cm47CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5k
+ZXggYTAyY2NjZTdiZjUzLi4yYTY0NDdmZWJjYjAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTE1MzAsNiArMTUzMCw3IEBAIHN0YXRpYyBpbnQgYW1k
+Z3B1X2RldmljZV9pcF9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJ
+cmV0dXJuIHI7CiAJCWJyZWFrOwogI2VuZGlmCisjaWZkZWYgQ09ORklHX0RSTV9BTURHUFVfU09D
+MTUKIAljYXNlIENISVBfVkVHQTEwOgogCWNhc2UgQ0hJUF9WRUdBMTI6CiAJY2FzZSBDSElQX1ZF
+R0EyMDoKQEAgLTE1NTEsNiArMTU1Miw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9pcF9l
+YXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQlpZiAocikKIAkJCXJldHVy
+biByOwogCQlicmVhazsKKyNlbmRpZgogCWRlZmF1bHQ6CiAJCS8qIEZJWE1FOiBub3Qgc3VwcG9y
+dGVkIHlldCAqLwogCQlyZXR1cm4gLUVJTlZBTDsKLS0gCjIuMjAuMAoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlzdApk
+cmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
