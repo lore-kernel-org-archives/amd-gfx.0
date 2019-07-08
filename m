@@ -1,65 +1,40 @@
 From: Arnd Bergmann <arnd@arndb.de>
-Subject: [PATCH] drm/amd/display: avoid 64-bit division
-Date: Mon,  8 Jul 2019 15:52:08 +0200
-Message-ID: <20190708135238.651483-1-arnd@arndb.de>
+Subject: [PATCH] drm/amd/display: dcn20: include linux/delay.h
+Date: Mon,  8 Jul 2019 15:53:18 +0200
+Message-ID: <20190708135329.694852-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Charlene Liu <Charlene.Liu@amd.com>, Chris Park <Chris.Park@amd.com>, Arnd Bergmann <arnd@arndb.de>, Tony Cheng <tony.cheng@amd.com>, David Francis <David.Francis@amd.com>, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, Nikola Cornij <nikola.cornij@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, dri-devel@lists.freedesktop.org, Jun Lei <Jun.Lei@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Anthony Koo <Anthony.Koo@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Tony Cheng <Tony.Cheng@amd.com>, Joshua Aberback <joshua.aberback@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMzItYml0IGFyY2hpdGVjdHVyZXMsIGRpdmlkaW5nIGEgNjQtYml0IGludGVnZXIgaW4gdGhl
-IGtlcm5lbApsZWFkcyB0byBhIGxpbmsgZXJyb3I6CgpFUlJPUjogIl9fdWRpdmRpMyIgW2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5rb10gdW5kZWZpbmVkIQpFUlJPUjogIl9fZGl2
-ZGkzIiBbZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmtvXSB1bmRlZmluZWQhCgpD
-aGFuZ2UgdGhlIHR3byByZWNlbnRseSBpbnRyb2R1Y2VkIGluc3RhbmNlcyB0byBhIG11bHRpcGx5
-K3NoaWZ0Cm9wZXJhdGlvbiB0aGF0IGlzIGFsc28gbXVjaCBjaGVhcGVyIG9uIDMyLWJpdCBhcmNo
-aXRlY3R1cmVzLgpXZSBjYW4gZG8gdGhhdCBoZXJlLCBzaW5jZSBib3RoIG9mIHRoZW0gYXJlIHJl
-YWxseSAzMi1iaXQgbnVtYmVycwp0aGF0IGNoYW5nZSBhIGZldyBwZXJjZW50LgoKRml4ZXM6IGJl
-ZGJiZTZhZjRiZSAoImRybS9hbWQvZGlzcGxheTogTW92ZSBsaW5rIGZ1bmN0aW9ucyBmcm9tIGRj
-IHRvIGRjX2xpbmsiKQpGaXhlczogZjE4YmM0ZTUzYWQ2ICgiZHJtL2FtZC9kaXNwbGF5OiB1cGRh
-dGUgY2FsY3VsYXRlZCBib3VuZGluZyBib3ggbG9naWMgZm9yIE5WIikKU2lnbmVkLW9mZi1ieTog
-QXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5kZT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvY29yZS9kY19saW5rLmMgICAgICAgICB8IDQgKystLQogZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX3Jlc291cmNlLmMgfCAyICstCiAyIGZpbGVzIGNo
-YW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19saW5rLmMKaW5kZXggYzE3ZGI1YzE0NGFhLi44ZGJm
-NzU5ZWJhNDUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9jb3Jl
-L2RjX2xpbmsuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19s
-aW5rLmMKQEAgLTMwNzIsOCArMzA3Miw4IEBAIHVpbnQzMl90IGRjX2xpbmtfYmFuZHdpZHRoX2ti
-cHMoCiAJCSAqIGJ1dCB0aGUgZGlmZmVyZW5jZSBpcyBtaW5pbWFsIGFuZCBpcyBpbiBhIHNhZmUg
-ZGlyZWN0aW9uLAogCQkgKiB3aGljaCBhbGwgd29ya3Mgd2VsbCBhcm91bmQgcG90ZW50aWFsIGFt
-YmlndWl0eSBvZiBEUCAxLjRhIHNwZWMuCiAJCSAqLwotCQlsb25nIGxvbmcgZmVjX2xpbmtfYndf
-a2JwcyA9IGxpbmtfYndfa2JwcyAqIDk3MExMOwotCQlsaW5rX2J3X2ticHMgPSAodWludDMyX3Qp
-KGZlY19saW5rX2J3X2ticHMgLyAxMDAwTEwpOworCQlsaW5rX2J3X2ticHMgPSBtdWxfdTY0X3Uz
-Ml9zaHIoQklUX1VMTCgzMikgKiA5NzBMTCAvIDEwMDAsCisJCQkJCSAgICAgICBsaW5rX2J3X2ti
-cHMsIDMyKTsKIAl9CiAjZW5kaWYKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjbjIwL2RjbjIwX3Jlc291cmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rp
-c3BsYXkvZGMvZGNuMjAvZGNuMjBfcmVzb3VyY2UuYwppbmRleCBiMzUzMjdiYWZiYzUuLjcwYWM4
-YTk1ZDJkYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIw
-L2RjbjIwX3Jlc291cmNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2Rj
-bjIwL2RjbjIwX3Jlc291cmNlLmMKQEAgLTI2NTcsNyArMjY1Nyw3IEBAIHN0YXRpYyB2b2lkIHVw
-ZGF0ZV9ib3VuZGluZ19ib3goc3RydWN0IGRjICpkYywgc3RydWN0IF92Y3NfZHBpX3NvY19ib3Vu
-ZGluZ19ib3hfCiAJCWNhbGN1bGF0ZWRfc3RhdGVzW2ldLmRyYW1fc3BlZWRfbXRzID0gdWNsa19z
-dGF0ZXNbaV0gKiAxNiAvIDEwMDA7CiAKIAkJLy8gRkNMSzpVQ0xLIHJhdGlvIGlzIDEuMDgKLQkJ
-bWluX2ZjbGtfcmVxdWlyZWRfYnlfdWNsayA9ICgodW5zaWduZWQgbG9uZyBsb25nKXVjbGtfc3Rh
-dGVzW2ldKSAqIDEwODAgLyAxMDAwMDAwOworCQltaW5fZmNsa19yZXF1aXJlZF9ieV91Y2xrID0g
-bXVsX3U2NF91MzJfc2hyKEJJVF9VTEwoMzIpICogMTA4MCAvIDEwMDAwMDAsIHVjbGtfc3RhdGVz
-W2ldLCAzMik7CiAKIAkJY2FsY3VsYXRlZF9zdGF0ZXNbaV0uZmFicmljY2xrX21oeiA9IChtaW5f
-ZmNsa19yZXF1aXJlZF9ieV91Y2xrIDwgbWluX2RjZmNsaykgPwogCQkJCW1pbl9kY2ZjbGsgOiBt
-aW5fZmNsa19yZXF1aXJlZF9ieV91Y2xrOwotLSAKMi4yMC4wCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1k
-ZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+Without this header, we get a compiler error in some configurations:
+
+.../dc/dcn20/dcn20_hwseq.c: In function 'dcn20_hwss_wait_for_blank_complete':
+.../dc/dcn20/dcn20_hwseq.c:1493:3: error: implicit declaration of function 'udelay' [-Werror=implicit-function-declaration]
+
+Note: the use of udelay itself may be problematic, as can occupy
+the CPU for 200ms in a busy-loop here.
+
+Fixes: 7ed4e6352c16 ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 4b0d8b9f61da..6925d25d2457 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -22,6 +22,7 @@
+  * Authors: AMD
+  *
+  */
++#include <linux/delay.h>
+ 
+ #include "dm_services.h"
+ #include "dm_helpers.h"
+-- 
+2.20.0
