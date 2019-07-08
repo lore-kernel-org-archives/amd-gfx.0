@@ -1,261 +1,76 @@
-From: "Abramov, Slava" <Slava.Abramov@amd.com>
-Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
-Date: Mon, 8 Jul 2019 18:20:20 +0000
-Message-ID: <DM6PR12MB3209EA0481059F3970CF5D83FEF60@DM6PR12MB3209.namprd12.prod.outlook.com>
-References: <20190708135238.651483-1-arnd@arndb.de>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: [PATCH] drm/amdgpu/psp: add a mutex to protect access to the psp ring
+Date: Mon,  8 Jul 2019 13:36:22 -0500
+Message-ID: <20190708183622.5705-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1747591889=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190708135238.651483-1-arnd@arndb.de>
-Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Arnd Bergmann <arnd@arndb.de>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "Liu, Charlene" <Charlene.Liu@amd.com>, "Park, Chris" <Chris.Park@amd.com>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Francis,
- David" <David.Francis@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Cornij,
- Nikola" <Nikola.Cornij@amd.com>, "Laktyushkin,
- Dmytro" <Dmytro.Laktyushkin@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Lei,
- Jun" <Jun.Lei@amd.com>, "Cheng, Tony" <Tony.Cheng@amd.com>, "Koo,
- Anthony" <Anthony.Koo@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
-
---===============1747591889==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB3209EA0481059F3970CF5D83FEF60DM6PR12MB3209namp_"
-
---_000_DM6PR12MB3209EA0481059F3970CF5D83FEF60DM6PR12MB3209namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Slava Abramov <slava.abramov@amd.com>
-
-Tested-by: Slava Abramov <slava.abramov@amd.com>
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Arnd Ber=
-gmann <arnd@arndb.de>
-Sent: Monday, July 8, 2019 9:52:08 AM
-To: Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander; Koenig, Christ=
-ian; Zhou, David(ChunMing); David Airlie; Daniel Vetter
-Cc: Liu, Charlene; Park, Chris; Arnd Bergmann; Cheng, Tony; Francis, David;=
- linux-kernel@vger.kernel.org; amd-gfx@lists.freedesktop.org; Cornij, Nikol=
-a; Laktyushkin, Dmytro; dri-devel@lists.freedesktop.org; Lei, Jun; Lakha, B=
-hawanpreet; Koo, Anthony
-Subject: [PATCH] drm/amd/display: avoid 64-bit division
-
-On 32-bit architectures, dividing a 64-bit integer in the kernel
-leads to a link error:
-
-ERROR: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: "__divdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-
-Change the two recently introduced instances to a multiply+shift
-operation that is also much cheaper on 32-bit architectures.
-We can do that here, since both of them are really 32-bit numbers
-that change a few percent.
-
-Fixes: bedbbe6af4be ("drm/amd/display: Move link functions from dc to dc_li=
-nk")
-Fixes: f18bc4e53ad6 ("drm/amd/display: update calculated bounding box logic=
- for NV")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c         | 4 ++--
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c
-index c17db5c144aa..8dbf759eba45 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3072,8 +3072,8 @@ uint32_t dc_link_bandwidth_kbps(
-                  * but the difference is minimal and is in a safe directio=
-n,
-                  * which all works well around potential ambiguity of DP 1=
-.4a spec.
-                  */
--               long long fec_link_bw_kbps =3D link_bw_kbps * 970LL;
--               link_bw_kbps =3D (uint32_t)(fec_link_bw_kbps / 1000LL);
-+               link_bw_kbps =3D mul_u64_u32_shr(BIT_ULL(32) * 970LL / 1000=
-,
-+                                              link_bw_kbps, 32);
-         }
- #endif
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index b35327bafbc5..70ac8a95d2db 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2657,7 +2657,7 @@ static void update_bounding_box(struct dc *dc, struct=
- _vcs_dpi_soc_bounding_box_
-                 calculated_states[i].dram_speed_mts =3D uclk_states[i] * 1=
-6 / 1000;
-
-                 // FCLK:UCLK ratio is 1.08
--               min_fclk_required_by_uclk =3D ((unsigned long long)uclk_sta=
-tes[i]) * 1080 / 1000000;
-+               min_fclk_required_by_uclk =3D mul_u64_u32_shr(BIT_ULL(32) *=
- 1080 / 1000000, uclk_states[i], 32);
-
-                 calculated_states[i].fabricclk_mhz =3D (min_fclk_required_=
-by_uclk < min_dcfclk) ?
-                                 min_dcfclk : min_fclk_required_by_uclk;
---
-2.20.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_DM6PR12MB3209EA0481059F3970CF5D83FEF60DM6PR12MB3209namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Acked-by: Slava Abramov &lt;slava=
-.abramov@amd.com&gt;</p>
-<p style=3D"margin-top:0;margin-bottom:0">Tested-by: Slava Abramov &lt;slav=
-a.abramov@amd.com&gt;</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Arnd Bergmann &lt;arnd@arndb.=
-de&gt;<br>
-<b>Sent:</b> Monday, July 8, 2019 9:52:08 AM<br>
-<b>To:</b> Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander; Koenig,=
- Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter<br>
-<b>Cc:</b> Liu, Charlene; Park, Chris; Arnd Bergmann; Cheng, Tony; Francis,=
- David; linux-kernel@vger.kernel.org; amd-gfx@lists.freedesktop.org; Cornij=
-, Nikola; Laktyushkin, Dmytro; dri-devel@lists.freedesktop.org; Lei, Jun; L=
-akha, Bhawanpreet; Koo, Anthony<br>
-<b>Subject:</b> [PATCH] drm/amd/display: avoid 64-bit division</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 32-bit architectures, dividing a 64-bit integer=
- in the kernel<br>
-leads to a link error:<br>
-<br>
-ERROR: &quot;__udivdi3&quot; [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefin=
-ed!<br>
-ERROR: &quot;__divdi3&quot; [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefine=
-d!<br>
-<br>
-Change the two recently introduced instances to a multiply&#43;shift<br>
-operation that is also much cheaper on 32-bit architectures.<br>
-We can do that here, since both of them are really 32-bit numbers<br>
-that change a few percent.<br>
-<br>
-Fixes: bedbbe6af4be (&quot;drm/amd/display: Move link functions from dc to =
-dc_link&quot;)<br>
-Fixes: f18bc4e53ad6 (&quot;drm/amd/display: update calculated bounding box =
-logic for NV&quot;)<br>
-Signed-off-by: Arnd Bergmann &lt;arnd@arndb.de&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/core/dc_link.c&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; | 4 &#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 &#43;-<br>
-&nbsp;2 files changed, 3 insertions(&#43;), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c<br>
-index c17db5c144aa..8dbf759eba45 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-@@ -3072,8 &#43;3072,8 @@ uint32_t dc_link_bandwidth_kbps(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * but the difference is minimal and is in a saf=
-e direction,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * which all works well around potential ambigui=
-ty of DP 1.4a spec.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; long long fec_link_bw_kbps =3D link_bw_kbps * 970LL;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; link_bw_kbps =3D (uint32_t)(fec_link_bw_kbps / 1000LL);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; link_bw_kbps =3D mul_u64_u32_shr(BIT_ULL(32) * 970LL / 1000,=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; link_bw_kbps, 32);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;#endif<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-index b35327bafbc5..70ac8a95d2db 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-@@ -2657,7 &#43;2657,7 @@ static void update_bounding_box(struct dc *dc, st=
-ruct _vcs_dpi_soc_bounding_box_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; calculated_states[i].dram_speed_mts =3D uclk_states[i=
-] * 16 / 1000;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; // FCLK:UCLK ratio is 1.08<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; min_fclk_required_by_uclk =3D ((unsigned long long)uclk_states[i=
-]) * 1080 / 1000000;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; min_fclk_required_by_uclk =3D mul_u64_u32_shr(BIT_ULL(32) * =
-1080 / 1000000, uclk_states[i], 32);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; calculated_states[i].fabricclk_mhz =3D (min_fclk_requ=
-ired_by_uclk &lt; min_dcfclk) ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_dcfclk : min_fclk_required_b=
-y_uclk;<br>
--- <br>
-2.20.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB3209EA0481059F3970CF5D83FEF60DM6PR12MB3209namp_--
-
---===============1747591889==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
-
---===============1747591889==--
+V2UgbmVlZCB0byBzZXJpYWxpemUgYWNjZXNzIHRvIHRoZSBwc3AgcmluZyBpZiB0aGVyZSBhcmUg
+bXVsdGlwbGUKY2FsbGVycyBhdCBydW50aW1lLgoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVy
+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9kZXZpY2UuYyB8ICAxICsKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9wc3AuYyAgICB8IDE2ICsrKysrKysrKysrKysrLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9wc3AuaCAgICB8ICAxICsKIDMgZmlsZXMgY2hhbmdlZCwgMTYgaW5zZXJ0
+aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMKaW5kZXggMzA5ODliNDU1MDQ3Li44ZjBmMjA3YmYzZDkgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKQEAgLTI1NDQsNiArMjU0NCw3IEBA
+IGludCBhbWRncHVfZGV2aWNlX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJaGFz
+aF9pbml0KGFkZXYtPm1uX2hhc2gpOwogCW11dGV4X2luaXQoJmFkZXYtPmxvY2tfcmVzZXQpOwog
+CW11dGV4X2luaXQoJmFkZXYtPnZpcnQuZHBtX211dGV4KTsKKwltdXRleF9pbml0KCZhZGV2LT5w
+c3AubXV0ZXgpOwogCiAJciA9IGFtZGdwdV9kZXZpY2VfY2hlY2tfYXJndW1lbnRzKGFkZXYpOwog
+CWlmIChyKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Bz
+cC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5jCmluZGV4IDBkZDJm
+YmIwZmIyYS4uNWIwZjBiNTc0NGMwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfcHNwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3BzcC5jCkBAIC0xMzEsNiArMTMxLDggQEAgcHNwX2NtZF9zdWJtaXRfYnVmKHN0cnVjdCBwc3Bf
+Y29udGV4dCAqcHNwLAogCWludCBpbmRleDsKIAlpbnQgdGltZW91dCA9IDIwMDA7CiAKKwltdXRl
+eF9sb2NrKCZwc3AtPm11dGV4KTsKKwogCW1lbXNldChwc3AtPmNtZF9idWZfbWVtLCAwLCBQU1Bf
+Q01EX0JVRkZFUl9TSVpFKTsKIAogCW1lbWNweShwc3AtPmNtZF9idWZfbWVtLCBjbWQsIHNpemVv
+ZihzdHJ1Y3QgcHNwX2dmeF9jbWRfcmVzcCkpOwpAQCAtMTQwLDYgKzE0Miw3IEBAIHBzcF9jbWRf
+c3VibWl0X2J1ZihzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwKIAkJCSAgICAgZmVuY2VfbWNfYWRk
+ciwgaW5kZXgpOwogCWlmIChyZXQpIHsKIAkJYXRvbWljX2RlYygmcHNwLT5mZW5jZV92YWx1ZSk7
+CisJCW11dGV4X3VubG9jaygmcHNwLT5tdXRleCk7CiAJCXJldHVybiByZXQ7CiAJfQogCkBAIC0x
+NjIsOCArMTY1LDEwIEBAIHBzcF9jbWRfc3VibWl0X2J1ZihzdHJ1Y3QgcHNwX2NvbnRleHQgKnBz
+cCwKIAkJCQkgIHVjb2RlLT51Y29kZV9pZCk7CiAJCURSTV9XQVJOKCJwc3AgY29tbWFuZCBmYWls
+ZWQgYW5kIHJlc3BvbnNlIHN0YXR1cyBpcyAoJWQpXG4iLAogCQkJICBwc3AtPmNtZF9idWZfbWVt
+LT5yZXNwLnN0YXR1cyk7Ci0JCWlmICghdGltZW91dCkKKwkJaWYgKCF0aW1lb3V0KSB7CisJCQlt
+dXRleF91bmxvY2soJnBzcC0+bXV0ZXgpOwogCQkJcmV0dXJuIC1FSU5WQUw7CisJCX0KIAl9CiAK
+IAkvKiBnZXQgeEdNSSBzZXNzaW9uIGlkIGZyb20gcmVzcG9uc2UgYnVmZmVyICovCkBAIC0xNzMs
+NiArMTc4LDcgQEAgcHNwX2NtZF9zdWJtaXRfYnVmKHN0cnVjdCBwc3BfY29udGV4dCAqcHNwLAog
+CQl1Y29kZS0+dG1yX21jX2FkZHJfbG8gPSBwc3AtPmNtZF9idWZfbWVtLT5yZXNwLmZ3X2FkZHJf
+bG87CiAJCXVjb2RlLT50bXJfbWNfYWRkcl9oaSA9IHBzcC0+Y21kX2J1Zl9tZW0tPnJlc3AuZndf
+YWRkcl9oaTsKIAl9CisJbXV0ZXhfdW5sb2NrKCZwc3AtPm11dGV4KTsKIAogCXJldHVybiByZXQ7
+CiB9CkBAIC0xMTg5LDEwICsxMTk1LDE2IEBAIHN0YXRpYyBpbnQgcHNwX3Jlc3VtZSh2b2lkICpo
+YW5kbGUpCiAKIGludCBwc3BfZ3B1X3Jlc2V0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
+eworCWludCByZXQ7CisKIAlpZiAoYWRldi0+ZmlybXdhcmUubG9hZF90eXBlICE9IEFNREdQVV9G
+V19MT0FEX1BTUCkKIAkJcmV0dXJuIDA7CiAKLQlyZXR1cm4gcHNwX21vZGUxX3Jlc2V0KCZhZGV2
+LT5wc3ApOworCW11dGV4X2xvY2soJmFkZXYtPnBzcC5tdXRleCk7CisJcmV0ID0gcHNwX21vZGUx
+X3Jlc2V0KCZhZGV2LT5wc3ApOworCW11dGV4X3VubG9jaygmYWRldi0+cHNwLm11dGV4KTsKKwor
+CXJldHVybiByZXQ7CiB9CiAKIGludCBwc3BfcmxjX2F1dG9sb2FkX3N0YXJ0KHN0cnVjdCBwc3Bf
+Y29udGV4dCAqcHNwKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3BzcC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BzcC5oCmluZGV4
+IDYwMzlhY2M4NDM0Ni4uZTI4Y2Y1ZTQwMTZlIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfcHNwLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X3BzcC5oCkBAIC0yMDEsNiArMjAxLDcgQEAgc3RydWN0IHBzcF9jb250ZXh0CiAJdWlu
+dDhfdAkJCQkqdGFfcmFzX3N0YXJ0X2FkZHI7CiAJc3RydWN0IHBzcF94Z21pX2NvbnRleHQJCXhn
+bWlfY29udGV4dDsKIAlzdHJ1Y3QgcHNwX3Jhc19jb250ZXh0CQlyYXM7CisJc3RydWN0IG11dGV4
+CQkJbXV0ZXg7CiB9OwogCiBzdHJ1Y3QgYW1kZ3B1X3BzcF9mdW5jcyB7Ci0tIAoyLjIwLjEKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
