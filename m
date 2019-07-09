@@ -1,109 +1,66 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH 5/7] drm/amd/display: Use proper enum conversion functions
-Date: Tue, 9 Jul 2019 20:51:33 +0200
-Message-ID: <CAK8P3a1vEtrS7SbhCPVxoYBcroT+Hr3Q4LFs6AJJ8G8GVw5SVA@mail.gmail.com>
-References: <20190704055217.45860-1-natechancellor@gmail.com> <20190704055217.45860-6-natechancellor@gmail.com>
+From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 1/3] drm/amdgpu: Add flag for allocating memory for
+ sensitive data
+Date: Tue, 9 Jul 2019 19:00:46 +0000
+Message-ID: <da90e4c0-067b-2ffe-01df-f59c2b7ec556@amd.com>
+References: <20190709053222.22588-1-Felix.Kuehling@amd.com>
+ <b1a0638a-4be3-0a7b-7d29-309942f24263@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190704055217.45860-6-natechancellor@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Nathan Chancellor <natechancellor@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, clang-built-linux <clang-built-linux@googlegroups.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <b1a0638a-4be3-0a7b-7d29-309942f24263-otUistvHUpPR7s880joybQ@public.gmane.org>
+Content-Language: en-US
+Content-ID: <2C58B76A383BA243BB5B61B2585CAC4F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Thu, Jul 4, 2019 at 7:52 AM Nathan Chancellor
-<natechancellor@gmail.com> wrote:
->
-> clang warns:
->
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:336:8:
-> warning: implicit conversion from enumeration type 'enum smu_clk_type'
-> to different enumeration type 'enum amd_pp_clock_type'
-> [-Wenum-conversion]
->                                         dc_to_smu_clock_type(clk_type),
->                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:421:14:
-> warning: implicit conversion from enumeration type 'enum
-> amd_pp_clock_type' to different enumeration type 'enum smu_clk_type'
-> [-Wenum-conversion]
->                                         dc_to_pp_clock_type(clk_type),
->                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->
-> There are functions to properly convert between all of these types, use
-> them so there are no longer any warnings.
-
-I had a different solution for this one as well. The difference is that your
-patch keeps the types and assumes that the functions do the right thing
-(i.e. the warning was correct), while my version assumes that the code
-works correctly, but the types are wrong (a false positive warning).
-
-One of the two patches is correct, the other one is broken, but I have
-no idea which one.
-
-      Arnd
-
->From 61316b80c852d103bb61e1ce9904002414600125 Mon Sep 17 00:00:00 2001
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Mon, 8 Jul 2019 17:44:05 +0200
-Subject: [PATCH] drm/amd/powerplay: fix one more incorrect enum conversion
-
-Similar to a previous patch, this one converts the type from a
-function argument of a different enum type:
-
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:336:8:
-error: implicit conversion from enumeration type 'enum smu_clk_type'
-to different enumeration type 'enum amd_pp_clock_type'
-[-Werror,-Wenum-conversion]
-                                          dc_to_smu_clock_type(clk_type),
-                                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:868:77: note:
-expanded from macro 'smu_get_clock_by_type'
-        ((smu)->funcs->get_clock_by_type ?
-(smu)->funcs->get_clock_by_type((smu), (type), (clocks)) : 0)
-                                           ~
-            ^~~~
-drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:421:14:
-error: implicit conversion from enumeration type 'enum
-amd_pp_clock_type' to different enumeration type 'enum smu_clk_type'
-[-Werror,-Wenum-conversion]
-
-dc_to_pp_clock_type(clk_type),
-
-^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:872:111:
-note: expanded from macro 'smu_get_clock_by_type_with_latency'
-
-Add another type cast.
-
-Fixes: e5e4e22391c2 ("drm/amd/powerplay: add interface to get clock by
-type with latency for display (v2)")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-index eac09bfe3be2..88e3f8456b1c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
-@@ -333,7 +333,7 @@ bool dm_pp_get_clock_levels_by_type(
-                }
-        } else if (adev->smu.funcs && adev->smu.funcs->get_clock_by_type) {
-                if (smu_get_clock_by_type(&adev->smu,
--                                         dc_to_smu_clock_type(clk_type),
-+                                         (enum
-amd_pp_clock_type)dc_to_smu_clock_type(clk_type),
-                                          &pp_clks)) {
-                        get_default_clock_levels(clk_type, dc_clks);
-                        return true;
-@@ -418,7 +418,7 @@ bool dm_pp_get_clock_levels_by_type_with_latency(
-                        return false;
-        } else if (adev->smu.ppt_funcs &&
-adev->smu.ppt_funcs->get_clock_by_type_with_latency) {
-                if (smu_get_clock_by_type_with_latency(&adev->smu,
--
-dc_to_pp_clock_type(clk_type),
-+                                                      (enum
-smu_clk_type)dc_to_pp_clock_type(clk_type),
-                                                       &pp_clks))
-                        return false;
-        }
+T24gMjAxOS0wNy0wOSA2OjM0IGEubS4sIE1pY2hlbCBEw6RuemVyIHdyb3RlOg0KPiBPbiAyMDE5
+LTA3LTA5IDc6MzIgYS5tLiwgS3VlaGxpbmcsIEZlbGl4IHdyb3RlOg0KPj4gVGhpcyBtZW1vcnkg
+YWxsb2NhdGlvbiBmbGFnIHdpbGwgYmUgdXNlZCB0byBpbmRpY2F0ZSBCT3MgY29udGFpbmluZw0K
+Pj4gc2Vuc2l0aXZlIGRhdGEgdGhhdCBzaG91bGQgbm90IGJlIGxlYWtlZCB0byBvdGhlciBwcm9j
+ZXNzZXMuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhs
+aW5nQGFtZC5jb20+DQo+PiAtLS0NCj4+ICAgaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgg
+fCA0ICsrKysNCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDQgaW5zZXJ0aW9ucygrKQ0KPj4NCj4+IGRp
+ZmYgLS1naXQgYS9pbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCBiL2luY2x1ZGUvdWFwaS9k
+cm0vYW1kZ3B1X2RybS5oDQo+PiBpbmRleCA2MTg3MDQ3OGJjOWMuLjU4NjU5YzI4YzI2ZSAxMDA2
+NDQNCj4+IC0tLSBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oDQo+PiArKysgYi9pbmNs
+dWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaA0KPj4gQEAgLTEzMSw2ICsxMzEsMTAgQEAgZXh0ZXJu
+ICJDIiB7DQo+PiAgICAqIGZvciB0aGUgc2Vjb25kIHBhZ2Ugb253YXJkIHNob3VsZCBiZSBzZXQg
+dG8gTkMuDQo+PiAgICAqLw0KPj4gICAjZGVmaW5lIEFNREdQVV9HRU1fQ1JFQVRFX01RRF9HRlg5
+CQkoMSA8PCA4KQ0KPj4gKy8qIEZsYWcgdGhhdCBCTyBtYXkgY29udGFpbiBzZW5zaXRpdmUgZGF0
+YSB0aGF0IG11c3QgYmUgY2xlYXJlZCBiZWZvcmUNCj4+ICsgKiByZWxlYXNpbmcgdGhlIG1lbW9y
+eQ0KPj4gKyAqLw0KPj4gKyNkZWZpbmUgQU1ER1BVX0dFTV9DUkVBVEVfVlJBTV9TRU5TSVRJVkUJ
+KDEgPDwgOSkNCj4+ICAgDQo+PiAgIHN0cnVjdCBkcm1fYW1kZ3B1X2dlbV9jcmVhdGVfaW4gIHsN
+Cj4+ICAgCS8qKiB0aGUgcmVxdWVzdGVkIG1lbW9yeSBzaXplICovDQo+Pg0KPiBUaGlzIGZsYWcg
+ZXNzZW50aWFsbHkgbWVhbnMgIlBsZWFzZSBkb24ndCBsZWFrIG15IEJPIGNvbnRlbnRzIi4NCj4g
+U2ltaWxhcmx5LCBBTURHUFVfR0VNX0NSRUFURV9WUkFNX0NMRUFSRUQgZXNzZW50aWFsbHkgbWVh
+bnMgIlBsZWFzZQ0KPiBkb24ndCBsZXQgbWUgc2VlIHByZXZpb3VzIG1lbW9yeSBjb250ZW50cyIu
+DQo+DQo+IEknZCBhcmd1ZSB0aGF0IG5laXRoZXIgZmxhZyBzaG91bGQgcmVhbGx5IGJlIG5lZWRl
+ZDsgQk8gY29udGVudHMNCj4gc2hvdWxkbid0IGJlIGxlYWtlZCBieSBkZWZhdWx0Lg0KDQpNeSBj
+b25jbHVzaW9uIGZyb20gcHJldmlvdXMgZGlzY3Vzc2lvbnMgd2FzIHRoYXQgQ1JFQVRFX1ZSQU1f
+Q0xFQVJFRCBoYXMgDQpubyBzZWN1cml0eSBpbXBsaWNhdGlvbnMuIEl0J3MgYmFzaWNhbGx5IGNv
+bXBsZXRlbHkgaW5lZmZlY3RpdmUgYXMgYSANCnNlY3VyaXR5IG1lYXN1cmUuIEl0J3MgbW9yZSBh
+IGNvbnZlbmllbmNlIGZlYXR1cmUuIFRoZXJlZm9yZSBJIHRoaW5rIGl0IA0Kc3RpbGwgaGFzIGEg
+cGxhY2UgYXMgdGhhdC4NCg0KSSdkIGFncmVlIG9uIHByaW5jaXBsZSB0aGF0IGRhdGEgc2hvdWxk
+bid0IGJlIGxlYWtlZCBieSBkZWZhdWx0LCBidXQgaXQgDQpoYXMgYmVlbiB0aGUgZGVmYXVsdCBm
+b3IgYSBsb25nIHRpbWUuIE15IGltcHJlc3Npb24gd2FzIHRoYXQgZ3JhcGhpY3MgDQpndXlzIGNh
+cmVkIG1vcmUgYWJvdXQgcGVyZm9ybWFuY2UgdGhhbiBzZWN1cml0eS4gU28gY2hhbmdpbmcgdGhl
+IGRlZmF1bHQgDQptYXkgYmUgYSBoYXJkIHNlbGwuIE9uIHRoZSBjb21wdXRlIHNpZGUgd2UgYWxy
+ZWFkeSB0b29rIGEgYmlnIA0KcGVyZm9ybWFuY2UgaGl0IGJ5IGNsZWFyaW5nIGFsbCBvdXIgVlJB
+TSwgc28gdGhpcyBjaGFuZ2Ugd291bGQgYmUgYW4gDQppbXByb3ZlbWVudCBmb3IgdXMuIFRoZXJl
+Zm9yZSBJIHRoaW5rIGl0IHN0aWxsIG1ha2VzIHNlbnNlIHRvIGxldCB0aGUgDQphcHBsaWNhdGlv
+biBjaG9vc2UuDQoNClJlZ2FyZHMsDQogwqAgRmVsaXgNCg0KDQo+DQo+DQpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
