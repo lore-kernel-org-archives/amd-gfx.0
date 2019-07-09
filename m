@@ -1,356 +1,109 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
-Date: Tue, 9 Jul 2019 16:40:24 +0000
-Message-ID: <BN6PR12MB1809956A9C61870CB7F675F5F7F10@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190708135238.651483-1-arnd@arndb.de>,
- <DM6PR12MB320967C48957C4F2F0E92438FEF10@DM6PR12MB3209.namprd12.prod.outlook.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH 5/7] drm/amd/display: Use proper enum conversion functions
+Date: Tue, 9 Jul 2019 20:51:33 +0200
+Message-ID: <CAK8P3a1vEtrS7SbhCPVxoYBcroT+Hr3Q4LFs6AJJ8G8GVw5SVA@mail.gmail.com>
+References: <20190704055217.45860-1-natechancellor@gmail.com> <20190704055217.45860-6-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1879220509=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM6PR12MB320967C48957C4F2F0E92438FEF10-lmeGfMZKVrEA9tGwT7oCEgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>, Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
-Cc: "Liu, Charlene" <Charlene.Liu-5C7GfCeVMHo@public.gmane.org>, "Park, Chris" <Chris.Park-5C7GfCeVMHo@public.gmane.org>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Francis,
- David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Cornij,
- Nikola" <Nikola.Cornij-5C7GfCeVMHo@public.gmane.org>, "Laktyushkin,
- Dmytro" <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Lei,
- Jun" <Jun.Lei-5C7GfCeVMHo@public.gmane.org>, "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, "Koo,
- Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190704055217.45860-6-natechancellor@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Nathan Chancellor <natechancellor@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, clang-built-linux <clang-built-linux@googlegroups.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============1879220509==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-I'll just apply Arnd's patch.  If the display team wants to adjust it later=
- to clarify the operation, they should go ahead as a follow up patch.
-
-Thanks,
-
-Alex
-________________________________
-From: Abramov, Slava
-Sent: Tuesday, July 9, 2019 12:31 PM
-To: Arnd Bergmann; Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander;=
- Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter
-Cc: Liu, Charlene; Park, Chris; Cheng, Tony; Francis, David; linux-kernel@v=
-ger.kernel.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij, Nikola; Laktyushkin,=
- Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; Lakha, Bhawanpreet; Koo=
-, Anthony
-Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
-
-
-Hi Arnd!
-
-
-Thanks for bisecting this issue.
-
-
-I wonder whether you are going to commit your patch or planning to update i=
-t and it's still in your work queue.  We have one of our 32-bit builds fail=
-ing because of this issue, so that I would like either to fix it or wait to=
- your fix if it has chances to go upstream today.
-
-
-Sincerely,
-
-
-
-Slava Abramov
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Arnd Ber=
-gmann <arnd-r2nGTMty4D4@public.gmane.org>
-Sent: Monday, July 8, 2019 9:52:08 AM
-To: Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander; Koenig, Christ=
-ian; Zhou, David(ChunMing); David Airlie; Daniel Vetter
-Cc: Liu, Charlene; Park, Chris; Arnd Bergmann; Cheng, Tony; Francis, David;=
- linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij, Nikol=
-a; Laktyushkin, Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; Lakha, B=
-hawanpreet; Koo, Anthony
-Subject: [PATCH] drm/amd/display: avoid 64-bit division
-
-On 32-bit architectures, dividing a 64-bit integer in the kernel
-leads to a link error:
-
-ERROR: "__udivdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-ERROR: "__divdi3" [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefined!
-
-Change the two recently introduced instances to a multiply+shift
-operation that is also much cheaper on 32-bit architectures.
-We can do that here, since both of them are really 32-bit numbers
-that change a few percent.
-
-Fixes: bedbbe6af4be ("drm/amd/display: Move link functions from dc to dc_li=
-nk")
-Fixes: f18bc4e53ad6 ("drm/amd/display: update calculated bounding box logic=
- for NV")
-Signed-off-by: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c         | 4 ++--
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c
-index c17db5c144aa..8dbf759eba45 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -3072,8 +3072,8 @@ uint32_t dc_link_bandwidth_kbps(
-                  * but the difference is minimal and is in a safe directio=
-n,
-                  * which all works well around potential ambiguity of DP 1=
-.4a spec.
-                  */
--               long long fec_link_bw_kbps =3D link_bw_kbps * 970LL;
--               link_bw_kbps =3D (uint32_t)(fec_link_bw_kbps / 1000LL);
-+               link_bw_kbps =3D mul_u64_u32_shr(BIT_ULL(32) * 970LL / 1000=
-,
-+                                              link_bw_kbps, 32);
-         }
- #endif
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index b35327bafbc5..70ac8a95d2db 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2657,7 +2657,7 @@ static void update_bounding_box(struct dc *dc, struct=
- _vcs_dpi_soc_bounding_box_
-                 calculated_states[i].dram_speed_mts =3D uclk_states[i] * 1=
-6 / 1000;
-
-                 // FCLK:UCLK ratio is 1.08
--               min_fclk_required_by_uclk =3D ((unsigned long long)uclk_sta=
-tes[i]) * 1080 / 1000000;
-+               min_fclk_required_by_uclk =3D mul_u64_u32_shr(BIT_ULL(32) *=
- 1080 / 1000000, uclk_states[i], 32);
-
-                 calculated_states[i].fabricclk_mhz =3D (min_fclk_required_=
-by_uclk < min_dcfclk) ?
-                                 min_dcfclk : min_fclk_required_by_uclk;
---
-2.20.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Thu, Jul 4, 2019 at 7:52 AM Nathan Chancellor
+<natechancellor@gmail.com> wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I'll just apply Arnd's patch.&nbsp; If the display team wants to adjust it =
-later to clarify the operation, they should go ahead as a follow up patch.<=
-/div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Thanks,<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Abramov, Slava<br>
-<b>Sent:</b> Tuesday, July 9, 2019 12:31 PM<br>
-<b>To:</b> Arnd Bergmann; Wentland, Harry; Li, Sun peng (Leo); Deucher, Ale=
-xander; Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vett=
-er<br>
-<b>Cc:</b> Liu, Charlene; Park, Chris; Cheng, Tony; Francis, David; linux-k=
-ernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij, Nikola; Lakty=
-ushkin, Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; Lakha, Bhawanpre=
-et; Koo, Anthony<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/display: avoid 64-bit division</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
-or:#000000; font-family:Calibri,Helvetica,sans-serif">
-<p style=3D"margin-top:0; margin-bottom:0">Hi Arnd!</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Thanks for bisecting this issue.=
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">I wonder whether you are going t=
-o commit your patch or planning to update it and it's still in your work qu=
-eue.&nbsp; We have one of our 32-bit builds failing because of this issue, =
-so that I would like either to fix it or
- wait to your fix if it has chances to go upstream today.</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Sincerely,</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Slava Abramov</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Arnd Bergmann &lt;arnd@arnd=
-b.de&gt;<br>
-<b>Sent:</b> Monday, July 8, 2019 9:52:08 AM<br>
-<b>To:</b> Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander; Koenig,=
- Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter<br>
-<b>Cc:</b> Liu, Charlene; Park, Chris; Arnd Bergmann; Cheng, Tony; Francis,=
- David; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij=
-, Nikola; Laktyushkin, Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; L=
-akha, Bhawanpreet; Koo, Anthony<br>
-<b>Subject:</b> [PATCH] drm/amd/display: avoid 64-bit division</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">On 32-bit architectures, dividing a 64-bit integ=
-er in the kernel<br>
-leads to a link error:<br>
-<br>
-ERROR: &quot;__udivdi3&quot; [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefin=
-ed!<br>
-ERROR: &quot;__divdi3&quot; [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefine=
-d!<br>
-<br>
-Change the two recently introduced instances to a multiply&#43;shift<br>
-operation that is also much cheaper on 32-bit architectures.<br>
-We can do that here, since both of them are really 32-bit numbers<br>
-that change a few percent.<br>
-<br>
-Fixes: bedbbe6af4be (&quot;drm/amd/display: Move link functions from dc to =
-dc_link&quot;)<br>
-Fixes: f18bc4e53ad6 (&quot;drm/amd/display: update calculated bounding box =
-logic for NV&quot;)<br>
-Signed-off-by: Arnd Bergmann &lt;arnd-r2nGTMty4D4@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/core/dc_link.c&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; | 4 &#43;&#43;--<br>
-&nbsp;drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 &#43;-<br>
-&nbsp;2 files changed, 3 insertions(&#43;), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/dr=
-m/amd/display/dc/core/dc_link.c<br>
-index c17db5c144aa..8dbf759eba45 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/core/dc_link.c<br>
-@@ -3072,8 &#43;3072,8 @@ uint32_t dc_link_bandwidth_kbps(<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * but the difference is minimal and is in a saf=
-e direction,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * which all works well around potential ambigui=
-ty of DP 1.4a spec.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; long long fec_link_bw_kbps =3D link_bw_kbps * 970LL;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; link_bw_kbps =3D (uint32_t)(fec_link_bw_kbps / 1000LL);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; link_bw_kbps =3D mul_u64_u32_shr(BIT_ULL(32) * 970LL / 1000,=
-<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; link_bw_kbps, 32);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;#endif<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/driver=
-s/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-index b35327bafbc5..70ac8a95d2db 100644<br>
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c<br>
-@@ -2657,7 &#43;2657,7 @@ static void update_bounding_box(struct dc *dc, st=
-ruct _vcs_dpi_soc_bounding_box_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; calculated_states[i].dram_speed_mts =3D uclk_states[i=
-] * 16 / 1000;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; // FCLK:UCLK ratio is 1.08<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; min_fclk_required_by_uclk =3D ((unsigned long long)uclk_states[i=
-]) * 1080 / 1000000;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; min_fclk_required_by_uclk =3D mul_u64_u32_shr(BIT_ULL(32) * =
-1080 / 1000000, uclk_states[i], 32);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; calculated_states[i].fabricclk_mhz =3D (min_fclk_requ=
-ired_by_uclk &lt; min_dcfclk) ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; min_dcfclk : min_fclk_required_b=
-y_uclk;<br>
--- <br>
-2.20.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</div>
-</body>
-</html>
+> clang warns:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:336:8:
+> warning: implicit conversion from enumeration type 'enum smu_clk_type'
+> to different enumeration type 'enum amd_pp_clock_type'
+> [-Wenum-conversion]
+>                                         dc_to_smu_clock_type(clk_type),
+>                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:421:14:
+> warning: implicit conversion from enumeration type 'enum
+> amd_pp_clock_type' to different enumeration type 'enum smu_clk_type'
+> [-Wenum-conversion]
+>                                         dc_to_pp_clock_type(clk_type),
+>                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
+> There are functions to properly convert between all of these types, use
+> them so there are no longer any warnings.
 
---_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_--
+I had a different solution for this one as well. The difference is that your
+patch keeps the types and assumes that the functions do the right thing
+(i.e. the warning was correct), while my version assumes that the code
+works correctly, but the types are wrong (a false positive warning).
 
---===============1879220509==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
+One of the two patches is correct, the other one is broken, but I have
+no idea which one.
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+      Arnd
 
---===============1879220509==--
+>From 61316b80c852d103bb61e1ce9904002414600125 Mon Sep 17 00:00:00 2001
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Mon, 8 Jul 2019 17:44:05 +0200
+Subject: [PATCH] drm/amd/powerplay: fix one more incorrect enum conversion
+
+Similar to a previous patch, this one converts the type from a
+function argument of a different enum type:
+
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:336:8:
+error: implicit conversion from enumeration type 'enum smu_clk_type'
+to different enumeration type 'enum amd_pp_clock_type'
+[-Werror,-Wenum-conversion]
+                                          dc_to_smu_clock_type(clk_type),
+                                          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:868:77: note:
+expanded from macro 'smu_get_clock_by_type'
+        ((smu)->funcs->get_clock_by_type ?
+(smu)->funcs->get_clock_by_type((smu), (type), (clocks)) : 0)
+                                           ~
+            ^~~~
+drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:421:14:
+error: implicit conversion from enumeration type 'enum
+amd_pp_clock_type' to different enumeration type 'enum smu_clk_type'
+[-Werror,-Wenum-conversion]
+
+dc_to_pp_clock_type(clk_type),
+
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:872:111:
+note: expanded from macro 'smu_get_clock_by_type_with_latency'
+
+Add another type cast.
+
+Fixes: e5e4e22391c2 ("drm/amd/powerplay: add interface to get clock by
+type with latency for display (v2)")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+index eac09bfe3be2..88e3f8456b1c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c
+@@ -333,7 +333,7 @@ bool dm_pp_get_clock_levels_by_type(
+                }
+        } else if (adev->smu.funcs && adev->smu.funcs->get_clock_by_type) {
+                if (smu_get_clock_by_type(&adev->smu,
+-                                         dc_to_smu_clock_type(clk_type),
++                                         (enum
+amd_pp_clock_type)dc_to_smu_clock_type(clk_type),
+                                          &pp_clks)) {
+                        get_default_clock_levels(clk_type, dc_clks);
+                        return true;
+@@ -418,7 +418,7 @@ bool dm_pp_get_clock_levels_by_type_with_latency(
+                        return false;
+        } else if (adev->smu.ppt_funcs &&
+adev->smu.ppt_funcs->get_clock_by_type_with_latency) {
+                if (smu_get_clock_by_type_with_latency(&adev->smu,
+-
+dc_to_pp_clock_type(clk_type),
++                                                      (enum
+smu_clk_type)dc_to_pp_clock_type(clk_type),
+                                                       &pp_clks))
+                        return false;
+        }
