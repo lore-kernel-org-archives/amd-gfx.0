@@ -1,33 +1,42 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH 0/7] amdgpu clang warning fixes on next-20190703
-Date: Tue, 9 Jul 2019 00:22:47 -0700
-Message-ID: <20190709072247.GA92551@archlinux-threadripper>
-References: <20190704055217.45860-1-natechancellor@gmail.com>
- <CADnq5_MGzLLMNPSQXpdxwrBpvsp7Fd1KdExS-K4yNeDBQYEGMg@mail.gmail.com>
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH] drm/amdgpu: Fix build without CONFIG_HMM_MIRROR
+Date: Tue, 9 Jul 2019 17:10:48 +0800
+Message-ID: <20190709091048.35260-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CADnq5_MGzLLMNPSQXpdxwrBpvsp7Fd1KdExS-K4yNeDBQYEGMg@mail.gmail.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, clang-built-linux@googlegroups.com, amd-gfx list <amd-gfx@lists.freedesktop.org>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Philip.Yang@amd.com, Felix.Kuehling@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Jul 08, 2019 at 11:55:50AM -0400, Alex Deucher wrote:
-> Applied the series.  thanks!
-> 
-> Alex
+If CONFIG_HMM_MIRROR is not set, building may fails:
 
-Thank you :)
+In file included from drivers/gpu/drm/amd/amdgpu/amdgpu.h:72:0,
+                 from drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:40:
+drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h:69:20: error: field mirror has incomplete type
+  struct hmm_mirror mirror;
 
-I don't see the enum conversion ones in your current tree. If they
-indeed caused issues, could you guys please look into fixing the
-warnings properly yourselves (maybe something like Arnd's patch?)
-or let me know how you would like them fixed (explicit casts, changing
-type to int, etc)?
+Fixes: 7590f6d211ec ("drm/amdgpu: Prepare for hmm_range_register API change")
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-https://patchwork.freedesktop.org/patch/316466/
-
-Cheers,
-Nathan
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
+index 281fd9f..b14f175 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.h
+@@ -65,8 +65,10 @@ struct amdgpu_mn {
+ 	struct rw_semaphore	lock;
+ 	struct rb_root_cached	objects;
+ 
++#if defined(CONFIG_HMM_MIRROR)
+ 	/* HMM mirror */
+ 	struct hmm_mirror	mirror;
++#endif
+ };
+ 
+ #if defined(CONFIG_HMM_MIRROR)
+-- 
+2.7.4
