@@ -1,42 +1,52 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH 1/7] drm/amdgpu/mes10.1: Fix header guard
-Date: Mon, 8 Jul 2019 22:24:14 +0200
-Message-ID: <CAK8P3a1thzkjD5V39QcVWb1fQe62g6PLChMKuwodyu_rbWhgBw@mail.gmail.com>
-References: <20190704055217.45860-1-natechancellor@gmail.com> <20190704055217.45860-2-natechancellor@gmail.com>
+From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdgpu: enable IP discovery by default on navi
+Date: Tue, 9 Jul 2019 01:16:06 +0000
+Message-ID: <0FD6BA84-9EF5-4A25-8EF1-EFC12F9A46EC@amd.com>
+References: <20190708184811.6409-1-alexander.deucher@amd.com>,
+ <20190708184811.6409-3-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190704055217.45860-2-natechancellor@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Nathan Chancellor <natechancellor@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, clang-built-linux <clang-built-linux@googlegroups.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190708184811.6409-3-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Thu, Jul 4, 2019 at 7:52 AM Nathan Chancellor
-<natechancellor@gmail.com> wrote:
->
-> clang warns:
->
->  In file included from drivers/gpu/drm/amd/amdgpu/nv.c:53:
->  drivers/gpu/drm/amd/amdgpu/../amdgpu/mes_v10_1.h:24:9: warning:
->  '__MES_V10_1_H__' is used as a header guard here, followed by #define of
->  a different macro [-Wheader-guard]
->  #ifndef __MES_V10_1_H__
->          ^~~~~~~~~~~~~~~
->  drivers/gpu/drm/amd/amdgpu/../amdgpu/mes_v10_1.h:25:9: note:
->  '__MES_v10_1_H__' is defined here; did you mean '__MES_V10_1_H__'?
->  #define __MES_v10_1_H__
->          ^~~~~~~~~~~~~~~
->          __MES_V10_1_H__
->  1 warning generated.
->
-> Capitalize the V.
->
-> Fixes: 886f82aa7a1d ("drm/amdgpu/mes10.1: add ip block mes10.1 (v2)")
-> Link: https://github.com/ClangBuiltLinux/linux/issues/582
-> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-
-I ran into the same one now, and saw your version before sending an
-identical patch.
-
-Acked-by: Arnd Bergmann <arnd@arndb.de>
+U2VyaWVzIGlzIFJldmlld2VkLWJ5OiBYaWFvamllIFl1YW4gPHhpYW9qaWUueXVhbkBhbWQuY29t
+PgoKQlIsClhpYW9qaWUKCj4gT24gSnVsIDksIDIwMTksIGF0IDI6NDggQU0sIEFsZXggRGV1Y2hl
+ciA8YWxleGRldWNoZXJAZ21haWwuY29tPiB3cm90ZToKPiAKPiBVc2UgdGhlIElQIGRpc2NvdmVy
+eSB0YWJsZSByYXRoZXIgdGhhbiBoYXJkY29kaW5nIHRoZQo+IHNldHRpbmdzIGluIHRoZSBkcml2
+ZXIuCj4gCj4gUmV2aWV3ZWQtYnk6IFhpYW9qaWUgWXVhbiA8eGlhb2ppZS55dWFuQGFtZC5jb20+
+Cj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29t
+Pgo+IC0tLQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYyB8IDMgKyst
+Cj4gMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQo+IAo+IGRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBpbmRleCA3OTQxYTUzNjhmYjUu
+LjZmNzc3MmVlZWI3OCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfZHJ2LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2
+LmMKPiBAQCAtMTQwLDcgKzE0MCw3IEBAIHVpbnQgYW1kZ3B1X3NtdV9tZW1vcnlfcG9vbF9zaXpl
+ID0gMDsKPiB1aW50IGFtZGdwdV9kY19mZWF0dXJlX21hc2sgPSAwOwo+IGludCBhbWRncHVfYXN5
+bmNfZ2Z4X3JpbmcgPSAxOwo+IGludCBhbWRncHVfbWNicCA9IDA7Cj4gLWludCBhbWRncHVfZGlz
+Y292ZXJ5ID0gMDsKPiAraW50IGFtZGdwdV9kaXNjb3ZlcnkgPSAtMTsKPiBpbnQgYW1kZ3B1X21l
+cyA9IDA7Cj4gCj4gc3RydWN0IGFtZGdwdV9tZ3B1X2luZm8gbWdwdV9pbmZvID0gewo+IEBAIC01
+OTIsNiArNTkyLDcgQEAgbW9kdWxlX3BhcmFtX25hbWVkKG1jYnAsIGFtZGdwdV9tY2JwLCBpbnQs
+IDA0NDQpOwo+IC8qKgo+ICAqIERPQzogZGlzY292ZXJ5IChpbnQpCj4gICogQWxsb3cgZHJpdmVy
+IHRvIGRpc2NvdmVyIGhhcmR3YXJlIElQIGluZm9ybWF0aW9uIGZyb20gSVAgRGlzY292ZXJ5IHRh
+YmxlIGF0IHRoZSB0b3Agb2YgVlJBTS4KPiArICogKC0xID0gYXV0byAoZGVmYXVsdCksIDAgPSBk
+aXNhYmxlZCwgMSA9IGVuYWJsZWQpCj4gICovCj4gTU9EVUxFX1BBUk1fREVTQyhkaXNjb3Zlcnks
+Cj4gICAgIkFsbG93IGRyaXZlciB0byBkaXNjb3ZlciBoYXJkd2FyZSBJUHMgZnJvbSBJUCBEaXNj
+b3ZlcnkgdGFibGUgYXQgdGhlIHRvcCBvZiBWUkFNIik7Cj4gLS0gCj4gMi4yMC4xCj4gCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
