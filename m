@@ -1,39 +1,59 @@
-From: "Abramov, Slava" <Slava.Abramov@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
-Date: Tue, 9 Jul 2019 16:31:53 +0000
-Message-ID: <DM6PR12MB320967C48957C4F2F0E92438FEF10@DM6PR12MB3209.namprd12.prod.outlook.com>
-References: <20190708135238.651483-1-arnd@arndb.de>
+Date: Tue, 9 Jul 2019 16:40:24 +0000
+Message-ID: <BN6PR12MB1809956A9C61870CB7F675F5F7F10@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190708135238.651483-1-arnd@arndb.de>,
+ <DM6PR12MB320967C48957C4F2F0E92438FEF10@DM6PR12MB3209.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0514748226=="
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190708135238.651483-1-arnd@arndb.de>
+Content-Type: multipart/mixed; boundary="===============1879220509=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <DM6PR12MB320967C48957C4F2F0E92438FEF10-lmeGfMZKVrEA9tGwT7oCEgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Arnd Bergmann <arnd@arndb.de>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: "Liu, Charlene" <Charlene.Liu@amd.com>, "Park, Chris" <Chris.Park@amd.com>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Francis,
- David" <David.Francis@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Cornij,
- Nikola" <Nikola.Cornij@amd.com>, "Laktyushkin,
- Dmytro" <Dmytro.Laktyushkin@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Lei,
- Jun" <Jun.Lei@amd.com>, "Cheng, Tony" <Tony.Cheng@amd.com>, "Koo,
- Anthony" <Anthony.Koo@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Abramov, Slava" <Slava.Abramov-5C7GfCeVMHo@public.gmane.org>, Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>, "Wentland, Harry" <Harry.Wentland-5C7GfCeVMHo@public.gmane.org>, "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou,
+ David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: "Liu, Charlene" <Charlene.Liu-5C7GfCeVMHo@public.gmane.org>, "Park, Chris" <Chris.Park-5C7GfCeVMHo@public.gmane.org>, "Lakha, Bhawanpreet" <Bhawanpreet.Lakha-5C7GfCeVMHo@public.gmane.org>, "Francis,
+ David" <David.Francis-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Cornij,
+ Nikola" <Nikola.Cornij-5C7GfCeVMHo@public.gmane.org>, "Laktyushkin,
+ Dmytro" <Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Lei,
+ Jun" <Jun.Lei-5C7GfCeVMHo@public.gmane.org>, "Cheng, Tony" <Tony.Cheng-5C7GfCeVMHo@public.gmane.org>, "Koo,
+ Anthony" <Anthony.Koo-5C7GfCeVMHo@public.gmane.org>
 
---===============0514748226==
+--===============1879220509==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB320967C48957C4F2F0E92438FEF10DM6PR12MB3209namp_"
+	boundary="_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_"
 
---_000_DM6PR12MB320967C48957C4F2F0E92438FEF10DM6PR12MB3209namp_
+--_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+I'll just apply Arnd's patch.  If the display team wants to adjust it later=
+ to clarify the operation, they should go ahead as a follow up patch.
+
+Thanks,
+
+Alex
+________________________________
+From: Abramov, Slava
+Sent: Tuesday, July 9, 2019 12:31 PM
+To: Arnd Bergmann; Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander;=
+ Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter
+Cc: Liu, Charlene; Park, Chris; Cheng, Tony; Francis, David; linux-kernel@v=
+ger.kernel.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij, Nikola; Laktyushkin,=
+ Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; Lakha, Bhawanpreet; Koo=
+, Anthony
+Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
+
 
 Hi Arnd!
 
@@ -54,14 +74,14 @@ Sincerely,
 Slava Abramov
 
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Arnd Ber=
-gmann <arnd@arndb.de>
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Arnd Ber=
+gmann <arnd-r2nGTMty4D4@public.gmane.org>
 Sent: Monday, July 8, 2019 9:52:08 AM
 To: Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander; Koenig, Christ=
 ian; Zhou, David(ChunMing); David Airlie; Daniel Vetter
 Cc: Liu, Charlene; Park, Chris; Arnd Bergmann; Cheng, Tony; Francis, David;=
- linux-kernel@vger.kernel.org; amd-gfx@lists.freedesktop.org; Cornij, Nikol=
-a; Laktyushkin, Dmytro; dri-devel@lists.freedesktop.org; Lei, Jun; Lakha, B=
+ linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij, Nikol=
+a; Laktyushkin, Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; Lakha, B=
 hawanpreet; Koo, Anthony
 Subject: [PATCH] drm/amd/display: avoid 64-bit division
 
@@ -80,7 +100,7 @@ Fixes: bedbbe6af4be ("drm/amd/display: Move link functions from dc to dc_li=
 nk")
 Fixes: f18bc4e53ad6 ("drm/amd/display: update calculated bounding box logic=
  for NV")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Arnd Bergmann <arnd-r2nGTMty4D4@public.gmane.org>
 ---
  drivers/gpu/drm/amd/display/dc/core/dc_link.c         | 4 ++--
  drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 2 +-
@@ -129,10 +149,10 @@ by_uclk < min_dcfclk) ?
 
 _______________________________________________
 amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_DM6PR12MB320967C48957C4F2F0E92438FEF10DM6PR12MB3209namp_
+--_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -140,52 +160,96 @@ Content-Transfer-Encoding: quoted-printable
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Hi Arnd!</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Thanks for bisecting this issue.<=
-/p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">I wonder whether you are going to=
- commit your patch or planning to update it and it's still in your work que=
-ue.&nbsp; We have one of our 32-bit builds failing because of this issue, s=
-o that I would like either to fix it or
- wait to your fix if it has chances to go upstream today.</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Sincerely,</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Slava Abramov</p>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I'll just apply Arnd's patch.&nbsp; If the display team wants to adjust it =
+later to clarify the operation, they should go ahead as a follow up patch.<=
+/div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
 </div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Thanks,<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Arnd Bergmann &lt;arnd@arndb.=
-de&gt;<br>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Abramov, Slava<br>
+<b>Sent:</b> Tuesday, July 9, 2019 12:31 PM<br>
+<b>To:</b> Arnd Bergmann; Wentland, Harry; Li, Sun peng (Leo); Deucher, Ale=
+xander; Koenig, Christian; Zhou, David(ChunMing); David Airlie; Daniel Vett=
+er<br>
+<b>Cc:</b> Liu, Charlene; Park, Chris; Cheng, Tony; Francis, David; linux-k=
+ernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij, Nikola; Lakty=
+ushkin, Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; Lakha, Bhawanpre=
+et; Koo, Anthony<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/display: avoid 64-bit division</font>
+<div>&nbsp;</div>
+</div>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0">Hi Arnd!</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Thanks for bisecting this issue.=
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">I wonder whether you are going t=
+o commit your patch or planning to update it and it's still in your work qu=
+eue.&nbsp; We have one of our 32-bit builds failing because of this issue, =
+so that I would like either to fix it or
+ wait to your fix if it has chances to go upstream today.</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Sincerely,</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0"><br>
+</p>
+<p style=3D"margin-top:0; margin-bottom:0">Slava Abramov</p>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Arnd Bergmann &lt;arnd@arnd=
+b.de&gt;<br>
 <b>Sent:</b> Monday, July 8, 2019 9:52:08 AM<br>
 <b>To:</b> Wentland, Harry; Li, Sun peng (Leo); Deucher, Alexander; Koenig,=
  Christian; Zhou, David(ChunMing); David Airlie; Daniel Vetter<br>
 <b>Cc:</b> Liu, Charlene; Park, Chris; Arnd Bergmann; Cheng, Tony; Francis,=
- David; linux-kernel@vger.kernel.org; amd-gfx@lists.freedesktop.org; Cornij=
-, Nikola; Laktyushkin, Dmytro; dri-devel@lists.freedesktop.org; Lei, Jun; L=
+ David; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Cornij=
+, Nikola; Laktyushkin, Dmytro; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org; Lei, Jun; L=
 akha, Bhawanpreet; Koo, Anthony<br>
 <b>Subject:</b> [PATCH] drm/amd/display: avoid 64-bit division</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 32-bit architectures, dividing a 64-bit integer=
- in the kernel<br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">On 32-bit architectures, dividing a 64-bit integ=
+er in the kernel<br>
 leads to a link error:<br>
 <br>
 ERROR: &quot;__udivdi3&quot; [drivers/gpu/drm/amd/amdgpu/amdgpu.ko] undefin=
@@ -202,7 +266,7 @@ Fixes: bedbbe6af4be (&quot;drm/amd/display: Move link functions from dc to =
 dc_link&quot;)<br>
 Fixes: f18bc4e53ad6 (&quot;drm/amd/display: update calculated bounding box =
 logic for NV&quot;)<br>
-Signed-off-by: Arnd Bergmann &lt;arnd@arndb.de&gt;<br>
+Signed-off-by: Arnd Bergmann &lt;arnd-r2nGTMty4D4@public.gmane.org&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/display/dc/core/dc_link.c&nbsp;&nbsp;&nbsp;&nbsp;=
 &nbsp;&nbsp;&nbsp;&nbsp; | 4 &#43;&#43;--<br>
@@ -269,23 +333,24 @@ y_uclk;<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
 lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
 </span></font></div>
+</div>
 </body>
 </html>
 
---_000_DM6PR12MB320967C48957C4F2F0E92438FEF10DM6PR12MB3209namp_--
+--_000_BN6PR12MB1809956A9C61870CB7F675F5F7F10BN6PR12MB1809namp_--
 
---===============0514748226==
+--===============1879220509==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
 Content-Disposition: inline
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
-IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0514748226==--
+--===============1879220509==--
