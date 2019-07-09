@@ -1,35 +1,62 @@
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] drm/amd/display: avoid 64-bit division
-Date: Tue, 9 Jul 2019 21:37:54 +0200
-Message-ID: <CAK8P3a2GbpkDnpq_MS4iRe7HM0MTxSkx=rB0=OHQZk4TXbvh1Q@mail.gmail.com>
-References: <20190708135238.651483-1-arnd@arndb.de> <DM6PR12MB320967C48957C4F2F0E92438FEF10@DM6PR12MB3209.namprd12.prod.outlook.com>
- <BN6PR12MB1809956A9C61870CB7F675F5F7F10@BN6PR12MB1809.namprd12.prod.outlook.com>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: Re: [PATCH 5/7] drm/amd/display: Use proper enum conversion functions
+Date: Tue, 9 Jul 2019 13:21:50 -0700
+Message-ID: <20190709202150.GB96242@archlinux-threadripper>
+References: <20190704055217.45860-1-natechancellor@gmail.com>
+ <20190704055217.45860-6-natechancellor@gmail.com>
+ <CAK8P3a1vEtrS7SbhCPVxoYBcroT+Hr3Q4LFs6AJJ8G8GVw5SVA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <BN6PR12MB1809956A9C61870CB7F675F5F7F10@BN6PR12MB1809.namprd12.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <CAK8P3a1vEtrS7SbhCPVxoYBcroT+Hr3Q4LFs6AJJ8G8GVw5SVA@mail.gmail.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Cc: "Abramov, Slava" <Slava.Abramov@amd.com>, "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "Liu, Charlene" <Charlene.Liu@amd.com>, "Park, Chris" <Chris.Park@amd.com>, "Cheng, Tony" <Tony.Cheng@amd.com>, "Francis, David" <David.Francis@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Cornij, Nikola" <Nikola.Cornij@amd.com>, "Laktyushkin, Dmytro" <Dmytro.Laktyushkin@amd.com>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Lei, Jun" <Jun.Lei@amd.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, clang-built-linux <clang-built-linux@googlegroups.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Jul 9, 2019 at 6:40 PM Deucher, Alexander
-<Alexander.Deucher@amd.com> wrote:
->
-> I'll just apply Arnd's patch.  If the display team wants to adjust it later to clarify the
-> operation, they should go ahead as a follow up patch.
-
-Thanks!
-
-> From: Abramov, Slava
-> Sent: Tuesday, July 9, 2019 12:31 PM
-> > Thanks for bisecting this issue.
+On Tue, Jul 09, 2019 at 08:51:33PM +0200, Arnd Bergmann wrote:
+> On Thu, Jul 4, 2019 at 7:52 AM Nathan Chancellor
+> <natechancellor@gmail.com> wrote:
 > >
-> > I wonder whether you are going to commit your patch or planning to update it and it's
-> > still in your work queue.  We have one of our 32-bit builds failing because of this
-> > issue, so that I would like either to fix it or wait to your fix if it has chances to go
-> > upstream today.
+> > clang warns:
+> >
+> > drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:336:8:
+> > warning: implicit conversion from enumeration type 'enum smu_clk_type'
+> > to different enumeration type 'enum amd_pp_clock_type'
+> > [-Wenum-conversion]
+> >                                         dc_to_smu_clock_type(clk_type),
+> >                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> > drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/amdgpu_dm_pp_smu.c:421:14:
+> > warning: implicit conversion from enumeration type 'enum
+> > amd_pp_clock_type' to different enumeration type 'enum smu_clk_type'
+> > [-Wenum-conversion]
+> >                                         dc_to_pp_clock_type(clk_type),
+> >                                         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+> >
+> > There are functions to properly convert between all of these types, use
+> > them so there are no longer any warnings.
+> 
+> I had a different solution for this one as well. The difference is that your
+> patch keeps the types and assumes that the functions do the right thing
+> (i.e. the warning was correct), while my version assumes that the code
+> works correctly, but the types are wrong (a false positive warning).
+> 
+> One of the two patches is correct, the other one is broken, but I have
+> no idea which one.
+> 
+>       Arnd
 
-I was going to update the patch, but had not gotten to that yet.
+Indeed. I would personally argue that if using the correct conversion
+functions (which are here to specifically avoid this type of warning)
+causes issues, this code should probably not be using enumerated types
+at all since the entire point is to enforce semantic correctness, not
+just be a special way to represent small integer values, especially in
+the case where the CLK values are completely different numerical values
+in various enumerated types. I think enumerated type casts are ugly and
+defeat the purpose of them but that's obviously just my opinion :)
 
-     Arnd
+Hopefully we can get some clarity on this soon.
+
+Cheers,
+Nathan
