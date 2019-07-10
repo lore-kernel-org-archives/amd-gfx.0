@@ -1,81 +1,84 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Add flag for allocating memory for
- sensitive data
-Date: Wed, 10 Jul 2019 09:22:57 +0200
-Message-ID: <519e26e8-c363-2b4c-756c-d87fbe2543d9@daenzer.net>
-References: <20190709053222.22588-1-Felix.Kuehling@amd.com>
- <b1a0638a-4be3-0a7b-7d29-309942f24263@daenzer.net>
- <da90e4c0-067b-2ffe-01df-f59c2b7ec556@amd.com>
+From: maowenan <maowenan@huawei.com>
+Subject: Re: [PATCH -next v4] drm/amdgpu: return 'ret' immediately if failed
+ in amdgpu_pmu_init
+Date: Wed, 10 Jul 2019 15:31:28 +0800
+Message-ID: <8008fcf8-47a1-111f-4467-1a16171129dd@huawei.com>
+References: <20190624094850.GQ18776@kadam>
+ <20190624112318.149299-1-maowenan@huawei.com>
+ <CH2PR12MB3831BE36FF61D74FC529F64F85E00@CH2PR12MB3831.namprd12.prod.outlook.com>
+ <2d7c2525-4503-3706-7d00-0b9bf230266d@huawei.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <da90e4c0-067b-2ffe-01df-f59c2b7ec556-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <2d7c2525-4503-3706-7d00-0b9bf230266d@huawei.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>, "julia.lawall@lip6.fr" <julia.lawall@lip6.fr>
+Cc: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wNy0wOSA5OjAwIHAubS4sIEt1ZWhsaW5nLCBGZWxpeCB3cm90ZToKPiBPbiAyMDE5
-LTA3LTA5IDY6MzQgYS5tLiwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4+IE9uIDIwMTktMDctMDkg
-NzozMiBhLm0uLCBLdWVobGluZywgRmVsaXggd3JvdGU6Cj4+PiBUaGlzIG1lbW9yeSBhbGxvY2F0
-aW9uIGZsYWcgd2lsbCBiZSB1c2VkIHRvIGluZGljYXRlIEJPcyBjb250YWluaW5nCj4+PiBzZW5z
-aXRpdmUgZGF0YSB0aGF0IHNob3VsZCBub3QgYmUgbGVha2VkIHRvIG90aGVyIHByb2Nlc3Nlcy4K
-Pj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1k
-LmNvbT4KPj4+IC0tLQo+Pj4gICBpbmNsdWRlL3VhcGkvZHJtL2FtZGdwdV9kcm0uaCB8IDQgKysr
-Kwo+Pj4gICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspCj4+Pgo+Pj4gZGlmZiAtLWdp
-dCBhL2luY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1X2RybS5oIGIvaW5jbHVkZS91YXBpL2RybS9hbWRn
-cHVfZHJtLmgKPj4+IGluZGV4IDYxODcwNDc4YmM5Yy4uNTg2NTljMjhjMjZlIDEwMDY0NAo+Pj4g
-LS0tIGEvaW5jbHVkZS91YXBpL2RybS9hbWRncHVfZHJtLmgKPj4+ICsrKyBiL2luY2x1ZGUvdWFw
-aS9kcm0vYW1kZ3B1X2RybS5oCj4+PiBAQCAtMTMxLDYgKzEzMSwxMCBAQCBleHRlcm4gIkMiIHsK
-Pj4+ICAgICogZm9yIHRoZSBzZWNvbmQgcGFnZSBvbndhcmQgc2hvdWxkIGJlIHNldCB0byBOQy4K
-Pj4+ICAgICovCj4+PiAgICNkZWZpbmUgQU1ER1BVX0dFTV9DUkVBVEVfTVFEX0dGWDkJCSgxIDw8
-IDgpCj4+PiArLyogRmxhZyB0aGF0IEJPIG1heSBjb250YWluIHNlbnNpdGl2ZSBkYXRhIHRoYXQg
-bXVzdCBiZSBjbGVhcmVkIGJlZm9yZQo+Pj4gKyAqIHJlbGVhc2luZyB0aGUgbWVtb3J5Cj4+PiAr
-ICovCj4+PiArI2RlZmluZSBBTURHUFVfR0VNX0NSRUFURV9WUkFNX1NFTlNJVElWRQkoMSA8PCA5
-KQo+Pj4gICAKPj4+ICAgc3RydWN0IGRybV9hbWRncHVfZ2VtX2NyZWF0ZV9pbiAgewo+Pj4gICAJ
-LyoqIHRoZSByZXF1ZXN0ZWQgbWVtb3J5IHNpemUgKi8KPj4+Cj4+IFRoaXMgZmxhZyBlc3NlbnRp
-YWxseSBtZWFucyAiUGxlYXNlIGRvbid0IGxlYWsgbXkgQk8gY29udGVudHMiLgo+PiBTaW1pbGFy
-bHksIEFNREdQVV9HRU1fQ1JFQVRFX1ZSQU1fQ0xFQVJFRCBlc3NlbnRpYWxseSBtZWFucyAiUGxl
-YXNlCj4+IGRvbid0IGxldCBtZSBzZWUgcHJldmlvdXMgbWVtb3J5IGNvbnRlbnRzIi4KPj4KPj4g
-SSdkIGFyZ3VlIHRoYXQgbmVpdGhlciBmbGFnIHNob3VsZCByZWFsbHkgYmUgbmVlZGVkOyBCTyBj
-b250ZW50cwo+PiBzaG91bGRuJ3QgYmUgbGVha2VkIGJ5IGRlZmF1bHQuCj4gCj4gTXkgY29uY2x1
-c2lvbiBmcm9tIHByZXZpb3VzIGRpc2N1c3Npb25zIHdhcyB0aGF0IENSRUFURV9WUkFNX0NMRUFS
-RUQgaGFzIAo+IG5vIHNlY3VyaXR5IGltcGxpY2F0aW9ucy4gSXQncyBiYXNpY2FsbHkgY29tcGxl
-dGVseSBpbmVmZmVjdGl2ZSBhcyBhIAo+IHNlY3VyaXR5IG1lYXN1cmUuCgpBYnNvbHV0ZWx5LCB3
-aGljaCBpcyB3aHkgSSBhcmd1ZWQgYWdhaW5zdCBpdCB3aGVuIGl0IHdhcyBwcm9wb3NlZC4KCj4g
-SXQncyBtb3JlIGEgY29udmVuaWVuY2UgZmVhdHVyZS4gVGhlcmVmb3JlIEkgdGhpbmsgaXQgc3Rp
-bGwgaGFzIGEgcGxhY2UKPiBhcyB0aGF0LgoKSXQnZCBiZSBhIG5vLW9wIGlmIG1lbW9yeSB3YXMg
-YWx3YXlzIGNsZWFyZWQuIDopCgoKPiBJJ2QgYWdyZWUgb24gcHJpbmNpcGxlIHRoYXQgZGF0YSBz
-aG91bGRuJ3QgYmUgbGVha2VkIGJ5IGRlZmF1bHQsIGJ1dCBpdCAKPiBoYXMgYmVlbiB0aGUgZGVm
-YXVsdCBmb3IgYSBsb25nIHRpbWUuIE15IGltcHJlc3Npb24gd2FzIHRoYXQgZ3JhcGhpY3MgCj4g
-Z3V5cyBjYXJlZCBtb3JlIGFib3V0IHBlcmZvcm1hbmNlIHRoYW4gc2VjdXJpdHkuIFNvIGNoYW5n
-aW5nIHRoZSBkZWZhdWx0IAo+IG1heSBiZSBhIGhhcmQgc2VsbC4gT24gdGhlIGNvbXB1dGUgc2lk
-ZSB3ZSBhbHJlYWR5IHRvb2sgYSBiaWcgCj4gcGVyZm9ybWFuY2UgaGl0IGJ5IGNsZWFyaW5nIGFs
-bCBvdXIgVlJBTSwgc28gdGhpcyBjaGFuZ2Ugd291bGQgYmUgYW4gCj4gaW1wcm92ZW1lbnQgZm9y
-IHVzLiBUaGVyZWZvcmUgSSB0aGluayBpdCBzdGlsbCBtYWtlcyBzZW5zZSB0byBsZXQgdGhlIAo+
-IGFwcGxpY2F0aW9uIGNob29zZS4KCldoYXQgZXhhY3RseSBjb3VsZCB1c2Vyc3BhY2UgYmUgYWxs
-b3dlZCB0byBjaG9vc2UgdGhvdWdoPyBJIGNhbiBvbmx5CnRoaW5rIG9mIGRpc2FibGluZyB0aGUg
-Y2xlYXJpbmcgb2YgbWVtb3J5IGl0IGFsbG9jYXRlcyAoIlBsZWFzZSBsZWFrIG15CkJPIGNvbnRl
-bnRzIiksIHdoaWNoIHNlZW1zIG9mIHJhdGhlciBkdWJpb3VzIHZhbHVlLgoKV2hhdCBtaWdodCBi
-ZSBmZWFzaWJsZSBpcyBhbGxvd2luZyB0aGUgc3lzdGVtIGFkbWluaXN0cmF0b3IgdG8gZGlzYWJs
-ZQppdCwgc2ltaWxhciB0byB0aGUgbWl0aWdhdGlvbnMgZm9yIE1lbHRkb3duL1NwZWN0cmUvLi4u
-IHZ1bG5lcmFiaWxpdGllcy4KT1RPSCBJIGRvbid0IGtub3cgb2YgYW55IG1lY2hhbmlzbSBmb3Ig
-ZGlzYWJsaW5nIHRoZSBjbGVhcmluZyBvZiBub3JtYWwKc3lzdGVtIFJBTSAod2hpY2ggaXMgYWxz
-byBlZmZlY3RpdmUgYXQgbGVhc3QgdG8gc29tZSBkZWdyZWUgZm9yIEJPcwpvdXRzaWRlIG9mIFZS
-QU0sIG1ha2luZyB0aGUgd2hvbGUgdGhpbmcgYSBiaXQgaW5jb25zaXN0ZW50KS4KCgotLSAKRWFy
-dGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgaHR0cHM6
-Ly93d3cuYW1kLmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAg
-ICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+
+gentle ping
+
+
+On 2019/6/26 19:35, maowenan wrote:
+> 
+> 
+> On 2019/6/25 1:42, Kim, Jonathan wrote:
+>> Immediate return should be ok since perf registration isn't dependent on gpu hw.
+>>
+>> Reviewed-by: Jonathan Kim <Jonathan.Kim@amd.com>
+> 
+> thanks for review.
+> 
+>>
+>> -----Original Message-----
+>> From: Mao Wenan <maowenan@huawei.com> 
+>> Sent: Monday, June 24, 2019 7:23 AM
+>> To: airlied@linux.ie; daniel@ffwll.ch; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>; dan.carpenter@oracle.com; julia.lawall@lip6.fr
+>> Cc: kernel-janitors@vger.kernel.org; amd-gfx@lists.freedesktop.org; linux-kernel@vger.kernel.org; Kim, Jonathan <Jonathan.Kim@amd.com>; Mao Wenan <maowenan@huawei.com>
+>> Subject: [PATCH -next v4] drm/amdgpu: return 'ret' immediately if failed in amdgpu_pmu_init
+>>
+>> [CAUTION: External Email]
+>>
+>> There is one warning:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c: In function ‘amdgpu_pmu_init’:
+>> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:249:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+>>   int ret = 0;
+>>       ^
+>> amdgpu_pmu_init() is called by amdgpu_device_init() in drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
+>> which will use the return value. So it should return 'ret' immediately if init_pmu_by_type() failed.
+>> amdgpu_device_init()
+>>         r = amdgpu_pmu_init(adev);
+>>
+>> Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
+>>
+>> Signed-off-by: Mao Wenan <maowenan@huawei.com>
+>> ---
+>>  v1->v2: change the subject for this patch; change the indenting when it calls init_pmu_by_type; use the value 'ret' in  amdgpu_pmu_init().
+>>  v2->v3: change the subject for this patch; return 'ret' immediately if failed to call init_pmu_by_type().
+>>  v3->v4: delete the indenting for init_pmu_by_type() arguments. The original indenting is correct.
+>>
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>> index 0e6dba9f60f0..c98cf77a37f3 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
+>> @@ -254,6 +254,8 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
+>>                 ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
+>>                                        "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
+>>                                        DF_V3_6_MAX_COUNTERS);
+>> +               if (ret)
+>> +                       return ret;
+>>
+>>                 /* other pmu types go here*/
+>>                 break;
+>> --
+>> 2.20.1
+>>
+> 
+> 
+> .
+> 
