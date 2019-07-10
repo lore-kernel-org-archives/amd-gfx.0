@@ -1,84 +1,82 @@
-From: maowenan <maowenan@huawei.com>
-Subject: Re: [PATCH -next v4] drm/amdgpu: return 'ret' immediately if failed
- in amdgpu_pmu_init
-Date: Wed, 10 Jul 2019 15:31:28 +0800
-Message-ID: <8008fcf8-47a1-111f-4467-1a16171129dd@huawei.com>
-References: <20190624094850.GQ18776@kadam>
- <20190624112318.149299-1-maowenan@huawei.com>
- <CH2PR12MB3831BE36FF61D74FC529F64F85E00@CH2PR12MB3831.namprd12.prod.outlook.com>
- <2d7c2525-4503-3706-7d00-0b9bf230266d@huawei.com>
+From: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/ttm: Fix the memory delay free issue
+Date: Wed, 10 Jul 2019 17:29:31 +0800
+Message-ID: <1562750971-1628-1-git-send-email-Emily.Deng@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <2d7c2525-4503-3706-7d00-0b9bf230266d@huawei.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Kim, Jonathan" <Jonathan.Kim@amd.com>, "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "dan.carpenter@oracle.com" <dan.carpenter@oracle.com>, "julia.lawall@lip6.fr" <julia.lawall@lip6.fr>
-Cc: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Emily Deng <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
 
-
-gentle ping
-
-
-On 2019/6/26 19:35, maowenan wrote:
-> 
-> 
-> On 2019/6/25 1:42, Kim, Jonathan wrote:
->> Immediate return should be ok since perf registration isn't dependent on gpu hw.
->>
->> Reviewed-by: Jonathan Kim <Jonathan.Kim@amd.com>
-> 
-> thanks for review.
-> 
->>
->> -----Original Message-----
->> From: Mao Wenan <maowenan@huawei.com> 
->> Sent: Monday, June 24, 2019 7:23 AM
->> To: airlied@linux.ie; daniel@ffwll.ch; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>; dan.carpenter@oracle.com; julia.lawall@lip6.fr
->> Cc: kernel-janitors@vger.kernel.org; amd-gfx@lists.freedesktop.org; linux-kernel@vger.kernel.org; Kim, Jonathan <Jonathan.Kim@amd.com>; Mao Wenan <maowenan@huawei.com>
->> Subject: [PATCH -next v4] drm/amdgpu: return 'ret' immediately if failed in amdgpu_pmu_init
->>
->> [CAUTION: External Email]
->>
->> There is one warning:
->> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c: In function ‘amdgpu_pmu_init’:
->> drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c:249:6: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
->>   int ret = 0;
->>       ^
->> amdgpu_pmu_init() is called by amdgpu_device_init() in drivers/gpu/drm/amd/amdgpu/amdgpu_device.c,
->> which will use the return value. So it should return 'ret' immediately if init_pmu_by_type() failed.
->> amdgpu_device_init()
->>         r = amdgpu_pmu_init(adev);
->>
->> Fixes: 9c7c85f7ea1f ("drm/amdgpu: add pmu counters")
->>
->> Signed-off-by: Mao Wenan <maowenan@huawei.com>
->> ---
->>  v1->v2: change the subject for this patch; change the indenting when it calls init_pmu_by_type; use the value 'ret' in  amdgpu_pmu_init().
->>  v2->v3: change the subject for this patch; return 'ret' immediately if failed to call init_pmu_by_type().
->>  v3->v4: delete the indenting for init_pmu_by_type() arguments. The original indenting is correct.
->>
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c | 2 ++
->>  1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
->> index 0e6dba9f60f0..c98cf77a37f3 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pmu.c
->> @@ -254,6 +254,8 @@ int amdgpu_pmu_init(struct amdgpu_device *adev)
->>                 ret = init_pmu_by_type(adev, df_v3_6_attr_groups,
->>                                        "DF", "amdgpu_df", PERF_TYPE_AMDGPU_DF,
->>                                        DF_V3_6_MAX_COUNTERS);
->> +               if (ret)
->> +                       return ret;
->>
->>                 /* other pmu types go here*/
->>                 break;
->> --
->> 2.20.1
->>
-> 
-> 
-> .
-> 
+Rm9yIHZ1bGthbiBjdHMgYWxsb2NhdGlvbiB0ZXN0IGNhc2VzLCB0aGV5IHdpbGwgY3JlYXRlIGEg
+c2VyaWVzIG9mIGJvcywgYW5kIHRoZW4gZnJlZQp0aGVtLiBBcyBpdCBoYXMgbG90cyBvZiBhbGxv
+Y3Rpb24gdGVzdCBjYXNlcyB3aXRoIHRoZSBzYW1lIHZtLCBhcyBwZXIgdm0KYm8gZmVhdHVyZSBl
+bmFibGUsIGFsbCBvZiB0aG9zZSBib3MnIHJlc3YgYXJlIHRoZSBzYW1lLiBCdXQgdGhlIGJvIGZy
+ZWUgaXMgcXVpdGUgc2xvdywKYXMgdGhleSB1c2UgdGhlIHNhbWUgcmVzdiBvYmplY3QsIGZvciBl
+dmVyeSB0aW1lLCBmcmVlIGEgYm8sCml0IHdpbGwgY2hlY2sgdGhlIHJlc3Ygd2hldGhlciBzaWdu
+YWwsIGlmIGl0IHNpZ25hbCwgdGhlbiB3aWxsIGZyZWUgaXQuIEJ1dAphcyB0aGUgdGVzdCBjYXNl
+cyB3aWxsIGNvbnRpbnVlIHRvIGNyZWF0ZSBibywgYW5kIHRoZSByZXN2IGZlbmNlIGlzIGluY3Jl
+YXNpbmcuIFNvIHRoZQpmcmVlIGlzIG1vcmUgc2xvd2VyIHRoYW4gY3JlYXRpbmcuIEl0IHdpbGwg
+Y2F1c2UgbWVtb3J5IGV4aGF1c3RpbmcuCgpNZXRob2Q6CldoZW4gdGhlIHJlc3Ygc2lnbmFsLCBy
+ZWxlYXNlIGFsbCB0aGUgYm9zIHdoaWNoIGFyZSB1c2UgdGhlIHNhbWUKcmVzdiBvYmplY3QuCgpT
+aWduZWQtb2ZmLWJ5OiBFbWlseSBEZW5nIDxFbWlseS5EZW5nQGFtZC5jb20+Ci0tLQogZHJpdmVy
+cy9ncHUvZHJtL3R0bS90dG1fYm8uYyB8IDI5ICsrKysrKysrKysrKysrKysrKysrKysrKy0tLS0t
+CiAxIGZpbGUgY2hhbmdlZCwgMjQgaW5zZXJ0aW9ucygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGIvZHJpdmVycy9ncHUvZHJtL3R0
+bS90dG1fYm8uYwppbmRleCBmOWEzZDRjLi41N2VjNTliIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vdHRtL3R0bV9iby5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKQEAg
+LTU0Myw2ICs1NDMsNyBAQCBzdGF0aWMgaW50IHR0bV9ib19jbGVhbnVwX3JlZnMoc3RydWN0IHR0
+bV9idWZmZXJfb2JqZWN0ICpibywKIHsKIAlzdHJ1Y3QgdHRtX2JvX2dsb2JhbCAqZ2xvYiA9IGJv
+LT5iZGV2LT5nbG9iOwogCXN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3Y7CisJc3RydWN0
+IHR0bV9idWZmZXJfb2JqZWN0ICpyZXN2X2JvLCAqcmVzdl9ib19uZXh0OwogCWludCByZXQ7CiAK
+IAlpZiAodW5saWtlbHkobGlzdF9lbXB0eSgmYm8tPmRkZXN0cm95KSkpCkBAIC01NjYsMTAgKzU2
+NywxNCBAQCBzdGF0aWMgaW50IHR0bV9ib19jbGVhbnVwX3JlZnMoc3RydWN0IHR0bV9idWZmZXJf
+b2JqZWN0ICpibywKIAkJCQkJCQkgICBpbnRlcnJ1cHRpYmxlLAogCQkJCQkJCSAgIDMwICogSFop
+OwogCi0JCWlmIChscmV0IDwgMCkKKwkJaWYgKGxyZXQgPCAwKSB7CisJCQlrcmVmX3B1dCgmYm8t
+Pmxpc3Rfa3JlZiwgdHRtX2JvX3JlbGVhc2VfbGlzdCk7CiAJCQlyZXR1cm4gbHJldDsKLQkJZWxz
+ZSBpZiAobHJldCA9PSAwKQorCQl9CisJCWVsc2UgaWYgKGxyZXQgPT0gMCkgeworCQkJa3JlZl9w
+dXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19yZWxlYXNlX2xpc3QpOwogCQkJcmV0dXJuIC1FQlVT
+WTsKKwkJfQogCiAJCXNwaW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOwogCQlpZiAodW5sb2NrX3Jl
+c3YgJiYgIWtjbF9yZXNlcnZhdGlvbl9vYmplY3RfdHJ5bG9jayhiby0+cmVzdikpIHsKQEAgLTU4
+Miw2ICs1ODcsNyBAQCBzdGF0aWMgaW50IHR0bV9ib19jbGVhbnVwX3JlZnMoc3RydWN0IHR0bV9i
+dWZmZXJfb2JqZWN0ICpibywKIAkJCSAqIGhlcmUuCiAJCQkgKi8KIAkJCXNwaW5fdW5sb2NrKCZn
+bG9iLT5scnVfbG9jayk7CisJCQlrcmVmX3B1dCgmYm8tPmxpc3Rfa3JlZiwgdHRtX2JvX3JlbGVh
+c2VfbGlzdCk7CiAJCQlyZXR1cm4gMDsKIAkJfQogCQlyZXQgPSAwOwpAQCAtNTkxLDE1ICs1OTcs
+MjkgQEAgc3RhdGljIGludCB0dG1fYm9fY2xlYW51cF9yZWZzKHN0cnVjdCB0dG1fYnVmZmVyX29i
+amVjdCAqYm8sCiAJCWlmICh1bmxvY2tfcmVzdikKIAkJCWtjbF9yZXNlcnZhdGlvbl9vYmplY3Rf
+dW5sb2NrKGJvLT5yZXN2KTsKIAkJc3Bpbl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsKKwkJa3Jl
+Zl9wdXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19yZWxlYXNlX2xpc3QpOwogCQlyZXR1cm4gcmV0
+OwogCX0KIAogCXR0bV9ib19kZWxfZnJvbV9scnUoYm8pOwogCWxpc3RfZGVsX2luaXQoJmJvLT5k
+ZGVzdHJveSk7CiAJa3JlZl9wdXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19yZWZfYnVnKTsKLQog
+CXNwaW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7CiAJdHRtX2JvX2NsZWFudXBfbWVtdHlwZV91
+c2UoYm8pOworCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVsZWFzZV9saXN0KTsK
+KworCXNwaW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOworCWxpc3RfZm9yX2VhY2hfZW50cnlfc2Fm
+ZShyZXN2X2JvLCByZXN2X2JvX25leHQsICZiby0+YmRldi0+ZGRlc3Ryb3ksIGRkZXN0cm95KSB7
+CisJCWlmIChyZXN2X2JvLT5yZXN2ID09IGJvLT5yZXN2KSB7CisJCQl0dG1fYm9fZGVsX2Zyb21f
+bHJ1KHJlc3ZfYm8pOworCQkJbGlzdF9kZWxfaW5pdCgmcmVzdl9iby0+ZGRlc3Ryb3kpOworCQkJ
+c3Bpbl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsKKwkJCXR0bV9ib19jbGVhbnVwX21lbXR5cGVf
+dXNlKHJlc3ZfYm8pOworCQkJa3JlZl9wdXQoJnJlc3ZfYm8tPmxpc3Rfa3JlZiwgdHRtX2JvX3Jl
+bGVhc2VfbGlzdCk7CisJCQlzcGluX2xvY2soJmdsb2ItPmxydV9sb2NrKTsKKwkJfQorCX0KKwlz
+cGluX3VubG9jaygmZ2xvYi0+bHJ1X2xvY2spOwogCiAJaWYgKHVubG9ja19yZXN2KQogCQlrY2xf
+cmVzZXJ2YXRpb25fb2JqZWN0X3VubG9jayhiby0+cmVzdik7CkBAIC02MzksOSArNjU5LDggQEAg
+c3RhdGljIGJvb2wgdHRtX2JvX2RlbGF5ZWRfZGVsZXRlKHN0cnVjdCB0dG1fYm9fZGV2aWNlICpi
+ZGV2LCBib29sIHJlbW92ZV9hbGwpCiAJCQl0dG1fYm9fY2xlYW51cF9yZWZzKGJvLCBmYWxzZSwg
+IXJlbW92ZV9hbGwsIHRydWUpOwogCQl9IGVsc2UgewogCQkJc3Bpbl91bmxvY2soJmdsb2ItPmxy
+dV9sb2NrKTsKKwkJCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVsZWFzZV9saXN0
+KTsKIAkJfQotCi0JCWtyZWZfcHV0KCZiby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVsZWFzZV9saXN0
+KTsKIAkJc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7CiAJfQogCWxpc3Rfc3BsaWNlX3RhaWwo
+JnJlbW92ZWQsICZiZGV2LT5kZGVzdHJveSk7Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
