@@ -1,13 +1,14 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: bug fix for sysfs
-Date: Thu, 11 Jul 2019 08:26:58 +0000
-Message-ID: <MN2PR12MB32964A1C7CCA49719BF403A6A2F30@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <1562831100-4555-1-git-send-email-kenneth.feng@amd.com>,
- <MN2PR12MB334478BBC6BF900531703301E4F30@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu/discovery: fix DCE_HWIP mapping error in
+ hw_id_map array
+Date: Thu, 11 Jul 2019 08:28:32 +0000
+Message-ID: <CH2PR12MB3767908A917424D54CDC6CDAFEF30@CH2PR12MB3767.namprd12.prod.outlook.com>
+References: <1562832050-28203-1-git-send-email-tianci.yin@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0277423922=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB334478BBC6BF900531703301E4F30-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <1562832050-28203-1-git-send-email-tianci.yin-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,218 +20,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Yin,
+ Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>, "Zhang,
+ Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
 
---===============0277423922==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB32964A1C7CCA49719BF403A6A2F30MN2PR12MB3296namp_"
-
---_000_MN2PR12MB32964A1C7CCA49719BF403A6A2F30MN2PR12MB3296namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-
-
-Best Regards,
-Kevin
-
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Quan, Ev=
-an <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, July 11, 2019 4:14:11 PM
-To: Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Feng, Kenneth
-Subject: RE: [PATCH] drm/amd/powerplay: bug fix for sysfs
-
-Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of
-> Kenneth Feng
-> Sent: Thursday, July 11, 2019 3:45 PM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH] drm/amd/powerplay: bug fix for sysfs
->
-> when we set profile_peak to sysfs:power_dpm_force_performance_level,
-> we gets the wrong socclk level and mclk level.this patch fix this issue.
->
-> Signed-off-by: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index 5ee6508..cd32b20 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -1157,14 +1157,14 @@ static int navi10_get_profiling_clk_mask(struct
-> smu_context *smu,
->                        ret =3D smu_get_dpm_level_count(smu, SMU_MCLK,
-> &level_count);
->                        if (ret)
->                                return ret;
-> -                     *sclk_mask =3D level_count - 1;
-> +                     *mclk_mask =3D level_count - 1;
->                }
->
->                if(soc_mask) {
->                        ret =3D smu_get_dpm_level_count(smu, SMU_SOCCLK,
-> &level_count);
->                        if (ret)
->                                return ret;
-> -                     *sclk_mask =3D level_count - 1;
-> +                     *soc_mask =3D level_count - 1;
->                }
->        }
->
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB32964A1C7CCA49719BF403A6A2F30MN2PR12MB3296namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p style=3D"margin-top:0;margin-bottom:0">Reviewed-by: Kevin Wang &lt;kevin=
-1.wang-5C7GfCeVMHo@public.gmane.org&gt;</p>
-<p style=3D"margin-top:0;margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0;margin-bottom:0">Best Regards,<br>
-Kevin</p>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Quan, Evan &lt;Evan.Quan@amd.=
-com&gt;<br>
-<b>Sent:</b> Thursday, July 11, 2019 4:14:11 PM<br>
-<b>To:</b> Feng, Kenneth; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Feng, Kenneth<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: bug fix for sysfs</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Reviewed-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<b=
-r>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf =
-Of<br>
-&gt; Kenneth Feng<br>
-&gt; Sent: Thursday, July 11, 2019 3:45 PM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Subject: [PATCH] drm/amd/powerplay: bug fix for sysfs<br>
-&gt; <br>
-&gt; when we set profile_peak to sysfs:power_dpm_force_performance_level,<b=
-r>
-&gt; we gets the wrong socclk level and mclk level.this patch fix this issu=
-e.<br>
-&gt; <br>
-&gt; Signed-off-by: Kenneth Feng &lt;kenneth.feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 &#43;&#43;--<br>
-&gt;&nbsp; 1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; index 5ee6508..cd32b20 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; @@ -1157,14 &#43;1157,14 @@ static int navi10_get_profiling_clk_mask(s=
-truct<br>
-&gt; smu_context *smu,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D=
- smu_get_dpm_level_count(smu, SMU_MCLK,<br>
-&gt; &amp;level_count);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret=
-)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sclk_mask =3D level_co=
-unt - 1;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *mclk_mask =3D leve=
-l_count - 1;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if(soc_mask) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D=
- smu_get_dpm_level_count(smu, SMU_SOCCLK,<br>
-&gt; &amp;level_count);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret=
-)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sclk_mask =3D level_co=
-unt - 1;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *soc_mask =3D level=
-_count - 1;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt; --<br>
-&gt; 2.7.4<br>
-&gt; <br>
-&gt; _______________________________________________<br>
-&gt; amd-gfx mailing list<br>
-&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
-ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB32964A1C7CCA49719BF403A6A2F30MN2PR12MB3296namp_--
-
---===============0277423922==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0277423922==--
+UmV2aWV3ZWQtYnk6IEZlaWZlaSBYdSA8RmVpZmVpLlh1QGFtZC5jb20+DQoNClJlZ2FyZHMsDQpG
+ZWlmZWkNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGFtZC1nZnggPGFtZC1n
+ZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBUaWFuY2kgWWlu
+DQpTZW50OiAyMDE55bm0N+aciDEx5pelIDE2OjAxDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcNCkNjOiBYaWFvLCBKYWNrIDxKYWNrLlhpYW9AYW1kLmNvbT47IFl1YW4sIFhpYW9q
+aWUgPFhpYW9qaWUuWXVhbkBhbWQuY29tPjsgWWluLCBUaWFuY2kgKFJpY28pIDxUaWFuY2kuWWlu
+QGFtZC5jb20+OyBaaGFuZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPg0KU3ViamVj
+dDogW1BBVENIXSBkcm0vYW1kZ3B1L2Rpc2NvdmVyeTogZml4IERDRV9IV0lQIG1hcHBpbmcgZXJy
+b3IgaW4gaHdfaWRfbWFwIGFycmF5DQoNCkZyb206IHRpYW5jeWluIDx0aWFuY2kueWluQGFtZC5j
+b20+DQoNCklEIG9mIERDRV9IV0lQIGZyb20gdmJpb3MgaXMgRE1VX0hXSUQsDQptaXNtYXRjaCBj
+YXVzZSBudWxsIHBvaW50ZXIgY3Jhc2ggaW4gbmF2aTEwIG1vZHByb2JlLg0KDQpDaGFuZ2UtSWQ6
+IEkzYmUzNjNjZjUyNDhkZTkwNGIzYmRhZTJmMzRkM2JiZTBiYmJjMDdkDQpTaWduZWQtb2ZmLWJ5
+OiB0aWFuY3lpbiA8dGlhbmNpLnlpbkBhbWQuY29tPg0KLS0tDQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5jIHwgMiArLQ0KIDEgZmlsZSBjaGFuZ2VkLCAxIGlu
+c2VydGlvbigrKSwgMSBkZWxldGlvbigtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2Rpc2NvdmVyeS5jDQppbmRleCBlMDQ5YWU2Li4xNDgxODk5IDEwMDY0NA0KLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc2NvdmVyeS5jDQorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzY292ZXJ5LmMNCkBAIC0xMjMsNyAr
+MTIzLDcgQEAgc3RhdGljIGludCBod19pZF9tYXBbTUFYX0hXSVBdID0gew0KIAlbVVZEX0hXSVBd
+CT0gVVZEX0hXSUQsDQogCVtWQ0VfSFdJUF0JPSBWQ0VfSFdJRCwNCiAJW0RGX0hXSVBdCT0gREZf
+SFdJRCwNCi0JW0RDRV9IV0lQXQk9IERDRUFaX0hXSUQsDQorCVtEQ0VfSFdJUF0JPSBETVVfSFdJ
+RCwNCiAJW09TU1NZU19IV0lQXQk9IE9TU1NZU19IV0lELA0KIAlbU01VSU9fSFdJUF0JPSBTTVVJ
+T19IV0lELA0KIAlbUFdSX0hXSVBdCT0gUFdSX0hXSUQsDQotLSANCjIuNy40DQoNCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcg
+bGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9hbWQtZ2Z4
