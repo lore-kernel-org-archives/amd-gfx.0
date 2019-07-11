@@ -1,67 +1,175 @@
-From: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd: fix cp hang in eviction
-Date: Thu, 11 Jul 2019 16:38:37 +0000
-Message-ID: <52c25e2d-f080-0474-7132-dc7a7ff635b9@amd.com>
-References: <1562772046-7681-1-git-send-email-JinhuiEric.Huang@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v4 16/23] drm/mgag200: Provide ddc symlink in connector
+ sysfs directory
+Date: Thu, 11 Jul 2019 19:26:21 +0200
+Message-ID: <3a2bb4ef-0fd7-3076-e6c2-39f2a3454727@suse.de>
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1562772046-7681-1-git-send-email-JinhuiEric.Huang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-Content-ID: <870F95C8DBC6494BB07A437AFD1A1CB5-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, JinHuiEric" <JinHuiEric.Huang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: multipart/mixed; boundary="===============1296044343=="
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>, dri-devel@lists.freedesktop.org
+Cc: Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <narmstrong@baylibre.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Douglas Anderson <dianders@chromium.org>, Thierry Reding <thierry.reding@gmail.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com, linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org, linux-tegra@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org, Alexios Zavras <alexios.zavras@intel.com>, Mamta Shukla <mamtashukla555@gmail.com>, linux-mediatek@lists.infradead.org, Jyr
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wNy0xMCAxMToyMCBhLm0uLCBIdWFuZywgSmluSHVpRXJpYyB3cm90ZToNCj4gVGhl
-IGNwIGhhbmcgb2NjdXJzIGluIE9DTCBjb25mb3JtYW5jZSB0ZXN0IG9ubHkgb24gc3VwZXJtaWNy
-bw0KPiBwbGF0Zm9ybSB3aGljaCBoYXMgNDAgY29yZXMgYW5kIHRoZSB0ZXN0IGdlbmVyYXRlcyA0
-MCB0aHJlYWRzLg0KPiBUaGUgcm9vdCBjYXVzZSBpcyByYWNlIGNvbmRpdGlvbiBpbiBub24tcHJv
-dGVjdGVkIGZsYWdzLg0KPg0KPiBUaGUgZml4IGlzIHRvIGFkZCBmbGFncyBvZiBpc19ldmljdGVk
-IGFuZCBpc19hY3RpdmUoaW5pdF9tcWQoKSkNCj4gaW50byBwcm90ZWN0ZWQgYXJlYS4NCj4NCj4g
-U2lnbmVkLW9mZi1ieTogRXJpYyBIdWFuZyA8SmluaHVpRXJpYy5IdWFuZ0BhbWQuY29tPg0KDQpT
-b3JyeSwgSSBtaXNzZWQgdGhpcyBvbmUuIEkgb25seSBzYXcgdGhlIG9uZSBlYXJsaWVyIHRoYXQg
-eW91IHJlY2FsbGVkLg0KDQpSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhs
-aW5nQGFtZC5jb20+DQoNCg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
-ZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYyB8IDE2ICsrKysrKysrKy0tLS0tLS0NCj4gICAxIGZp
-bGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2Vy
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIu
-Yw0KPiBpbmRleCA5ZmZkZGE1Li5mMjNlMTdiIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYw0KPiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNlX3F1ZXVlX21hbmFnZXIuYw0KPiBAQCAtMTE1
-NywxMiArMTE1Nyw3IEBAIHN0YXRpYyBpbnQgY3JlYXRlX3F1ZXVlX2Nwc2NoKHN0cnVjdCBkZXZp
-Y2VfcXVldWVfbWFuYWdlciAqZHFtLCBzdHJ1Y3QgcXVldWUgKnEsDQo+ICAgDQo+ICAgCW1xZF9t
-Z3IgPSBkcW0tPm1xZF9tZ3JzW2dldF9tcWRfdHlwZV9mcm9tX3F1ZXVlX3R5cGUoDQo+ICAgCQkJ
-cS0+cHJvcGVydGllcy50eXBlKV07DQo+IC0JLyoNCj4gLQkgKiBFdmljdGlvbiBzdGF0ZSBsb2dp
-YzogbWFyayBhbGwgcXVldWVzIGFzIGV2aWN0ZWQsIGV2ZW4gb25lcw0KPiAtCSAqIG5vdCBjdXJy
-ZW50bHkgYWN0aXZlLiBSZXN0b3JpbmcgaW5hY3RpdmUgcXVldWVzIGxhdGVyIG9ubHkNCj4gLQkg
-KiB1cGRhdGVzIHRoZSBpc19ldmljdGVkIGZsYWcgYnV0IGlzIGEgbm8tb3Agb3RoZXJ3aXNlLg0K
-PiAtCSAqLw0KPiAtCXEtPnByb3BlcnRpZXMuaXNfZXZpY3RlZCA9ICEhcXBkLT5ldmljdGVkOw0K
-PiArDQo+ICAgCWlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZUEVfU0RNQSB8
-fA0KPiAgIAkJcS0+cHJvcGVydGllcy50eXBlID09IEtGRF9RVUVVRV9UWVBFX1NETUFfWEdNSSkN
-Cj4gICAJCWRxbS0+YXNpY19vcHMuaW5pdF9zZG1hX3ZtKGRxbSwgcSwgcXBkKTsNCj4gQEAgLTEx
-NzMsOSArMTE2OCwxNiBAQCBzdGF0aWMgaW50IGNyZWF0ZV9xdWV1ZV9jcHNjaChzdHJ1Y3QgZGV2
-aWNlX3F1ZXVlX21hbmFnZXIgKmRxbSwgc3RydWN0IHF1ZXVlICpxLA0KPiAgIAkJcmV0dmFsID0g
-LUVOT01FTTsNCj4gICAJCWdvdG8gb3V0X2RlYWxsb2NhdGVfZG9vcmJlbGw7DQo+ICAgCX0NCj4g
-Kw0KPiArCWRxbV9sb2NrKGRxbSk7DQo+ICsJLyoNCj4gKwkgKiBFdmljdGlvbiBzdGF0ZSBsb2dp
-YzogbWFyayBhbGwgcXVldWVzIGFzIGV2aWN0ZWQsIGV2ZW4gb25lcw0KPiArCSAqIG5vdCBjdXJy
-ZW50bHkgYWN0aXZlLiBSZXN0b3JpbmcgaW5hY3RpdmUgcXVldWVzIGxhdGVyIG9ubHkNCj4gKwkg
-KiB1cGRhdGVzIHRoZSBpc19ldmljdGVkIGZsYWcgYnV0IGlzIGEgbm8tb3Agb3RoZXJ3aXNlLg0K
-PiArCSAqLw0KPiArCXEtPnByb3BlcnRpZXMuaXNfZXZpY3RlZCA9ICEhcXBkLT5ldmljdGVkOw0K
-PiAgIAltcWRfbWdyLT5pbml0X21xZChtcWRfbWdyLCAmcS0+bXFkLCBxLT5tcWRfbWVtX29iaiwN
-Cj4gICAJCQkJJnEtPmdhcnRfbXFkX2FkZHIsICZxLT5wcm9wZXJ0aWVzKTsNCj4gLQlkcW1fbG9j
-ayhkcW0pOw0KPiAgIA0KPiAgIAlsaXN0X2FkZCgmcS0+bGlzdCwgJnFwZC0+cXVldWVzX2xpc3Qp
-Ow0KPiAgIAlxcGQtPnF1ZXVlX2NvdW50Kys7DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1296044343==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="M6nYUrh3oEarMl1892EPEAAzHEDzD10R3"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--M6nYUrh3oEarMl1892EPEAAzHEDzD10R3
+Content-Type: multipart/mixed; boundary="8S0vaGiu1cLt80DL4dXMNOlmLb3f1te4c";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ dri-devel@lists.freedesktop.org
+Cc: kernel@collabora.com, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Dave Airlie <airlied@redhat.com>, Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Sean Paul <sean@poorly.run>,
+ Inki Dae <inki.dae@samsung.com>, Joonyoung Shim <jy0922.shim@samsung.com>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Kukjin Kim <kgene@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ CK Hu <ck.hu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Rob Clark <robdclark@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ Vincent Abriou <vincent.abriou@st.com>, Chen-Yu Tsai <wens@csie.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Jyri Sarha <jsarha@ti.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, Eric Anholt <eric@anholt.net>,
+ Sam Ravnborg <sam@ravnborg.org>, Huang Rui <ray.huang@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>, "Y.C. Chen" <yc_chen@aspeedtech.com>,
+ Neil Armstrong <narmstrong@baylibre.com>,
+ Douglas Anderson <dianders@chromium.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Ramalingam C <ramalingam.c@intel.com>,
+ Shashank Sharma <shashank.sharma@intel.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Todor Tomov <todor.tomov@linaro.org>, Mamta Shukla
+ <mamtashukla555@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+ freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-tegra@vger.kernel.org
+Message-ID: <3a2bb4ef-0fd7-3076-e6c2-39f2a3454727@suse.de>
+Subject: Re: [PATCH v4 16/23] drm/mgag200: Provide ddc symlink in connector
+ sysfs directory
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
+In-Reply-To: <d32a6b1f0a3b79f1fbc8d0894080908526f6e61e.1562843413.git.andrzej.p@collabora.com>
+
+--8S0vaGiu1cLt80DL4dXMNOlmLb3f1te4c
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Am 11.07.19 um 13:26 schrieb Andrzej Pietrasiewicz:
+> Use the ddc pointer provided by the generic connector.
+>=20
+> Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+> ---
+>  drivers/gpu/drm/mgag200/mgag200_mode.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/mgag200/mgag200_mode.c b/drivers/gpu/drm/m=
+gag200/mgag200_mode.c
+> index a25054015e8c..8fb9444b2142 100644
+> --- a/drivers/gpu/drm/mgag200/mgag200_mode.c
+> +++ b/drivers/gpu/drm/mgag200/mgag200_mode.c
+> @@ -1703,6 +1703,11 @@ static struct drm_connector *mga_vga_init(struct=
+ drm_device *dev)
+>  		return NULL;
+> =20
+>  	connector =3D &mga_connector->base;
+> +	mga_connector->i2c =3D mgag200_i2c_create(dev);
+> +	if (!mga_connector->i2c)
+> +		DRM_ERROR("failed to add ddc bus\n");
+> +
+> +	connector->ddc =3D &mga_connector->i2c->adapter;
+> =20
+>  	drm_connector_init(dev, connector,
+>  			   &mga_vga_connector_funcs, DRM_MODE_CONNECTOR_VGA);
+> @@ -1711,10 +1716,6 @@ static struct drm_connector *mga_vga_init(struct=
+ drm_device *dev)
+> =20
+>  	drm_connector_register(connector);
+> =20
+> -	mga_connector->i2c =3D mgag200_i2c_create(dev);
+> -	if (!mga_connector->i2c)
+> -		DRM_ERROR("failed to add ddc bus\n");
+> -
+>  	return connector;
+>  }
+> =20
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstrasse 5, 90409 Nuernberg, Germany
+GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah
+HRB 21284 (AG N=C3=BCrnberg)
+
+
+--8S0vaGiu1cLt80DL4dXMNOlmLb3f1te4c--
+
+--M6nYUrh3oEarMl1892EPEAAzHEDzD10R3
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl0ncUEACgkQaA3BHVML
+eiNDOQf/V82uMwvnLRj0DGrIvbmWkTJ1+JLlhJzekDs6PjWJPTJ9EkobcJ9GuWFV
+hE90Tt8U2u+MkrmeLbHiyVWYUAcWnb5F9ldlRKD+IXaeXnQoxMCuBLIbR/uVz6Mz
+BDUv4l0n+guDhbQZYfPhoQ3NcFnCRBshnxKq9R5F8zALotio+X7ZYvMSV+jxJhST
+6xA7pyIn6qIKcqO/1Ytunpon3rxf2xlJwWLdLhA8mKho3A2JhVmZk38zAWSBZ4FJ
+Q9ja+BhaxP1SO1iA63QqCrrGwoZVUXTdEWAB64Yw4DQyJ+cdDtIZfJDh68uYTbs+
+ggIdNPQBzpJeQHD/WpKXSKA56aYG3w==
+=ciQB
+-----END PGP SIGNATURE-----
+
+--M6nYUrh3oEarMl1892EPEAAzHEDzD10R3--
+
+--===============1296044343==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVs
+IG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
+
+--===============1296044343==--
