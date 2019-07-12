@@ -1,76 +1,77 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/3] drm/amd/powerplay: fix save dpm level error for smu
-Date: Fri, 12 Jul 2019 09:36:58 +0000
-Message-ID: <MN2PR12MB334449E737221DE310C58FF4E4F20@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190712091454.13478-1-kevin1.wang@amd.com>
- <20190712091454.13478-3-kevin1.wang@amd.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Subject: [PATCH] drm/amd/display: Support clang option for stack alignment
+Date: Fri, 12 Jul 2019 11:37:00 +0200
+Message-ID: <20190712093720.1461418-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190712091454.13478-3-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: Arnd Bergmann <arnd@arndb.de>, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Duke Du <Duke.Du@amd.com>, Charlene Liu <charlene.liu@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, clang-built-linux@googlegroups.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-PiB0aGUgc2F2ZSBkcG0gbGV2ZWwgc2hvdWxkIGJlIHNhdmUgcHJldmlvdXMgZHBtIHByb2ZpbGUg
-bGV2ZWwsIHNob3VsZCBub3QKPiBtb2RpZmllZCBieSBnZXQgZHBtIGxldmVsIGZ1bmN0aW9uLgpQ
-bGVhc2UgZ2l2ZSBhIGJldHRlciBkZXNjcmlwdGlvbiB0byBleHBsYWluIHdoeSB0aGlzIGNoYW5n
-ZSBpcyBuZWVkZWQuCgoKZW51bSBhbWRfZHBtX2ZvcmNlZF9sZXZlbCBzbXVfZ2V0X3BlcmZvcm1h
-bmNlX2xldmVsKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogewogCXN0cnVjdCBzbXVfZHBtX2Nv
-bnRleHQgKnNtdV9kcG1fY3R4ID0gJihzbXUtPnNtdV9kcG0pOworCWVudW0gYW1kX2RwbV9mb3Jj
-ZWRfbGV2ZWwgbGV2ZWw7CiAKIAlpZiAoIXNtdV9kcG1fY3R4LT5kcG1fY29udGV4dCkKIAkJcmV0
-dXJuIC1FSU5WQUw7CiAKIAltdXRleF9sb2NrKCYoc211LT5tdXRleCkpOwotCWlmIChzbXVfZHBt
-X2N0eC0+ZHBtX2xldmVsICE9IHNtdV9kcG1fY3R4LT5zYXZlZF9kcG1fbGV2ZWwpIHsKLQkJc211
-X2RwbV9jdHgtPnNhdmVkX2RwbV9sZXZlbCA9IHNtdV9kcG1fY3R4LT5kcG1fbGV2ZWw7Ci0JfQor
-CWxldmVsID0gc211X2RwbV9jdHgtPmRwbV9sZXZlbDsKIAltdXRleF91bmxvY2soJihzbXUtPm11
-dGV4KSk7CiAKLQlyZXR1cm4gc211X2RwbV9jdHgtPmRwbV9sZXZlbDsKKwlyZXR1cm4gbGV2ZWw7
-CiB9CgpDYW4geW91IHNpbXBsaWZ5IHRoZSBpbnRlcmZhY2UgZnVydGhlcj8gTWF5YmUganVzdCBy
-ZXR1cm4gc211X2RwbV9jdHgtPmRwbV9sZXZlbCBhbmQgbm8gbG9jayBuZWVkZWQuCgpXaXRoIGFi
-b3ZlIGFkZHJlc3NlZCwgdGhlIHBhdGNoIGlzIGV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5x
-dWFuQGFtZC5jb20+Cgo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogV2FuZywg
-S2V2aW4oWWFuZykgPEtldmluMS5XYW5nQGFtZC5jb20+Cj4gU2VudDogRnJpZGF5LCBKdWx5IDEy
-LCAyMDE5IDU6MTUgUE0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzog
-RmVuZywgS2VubmV0aCA8S2VubmV0aC5GZW5nQGFtZC5jb20+OyBRdWFuLCBFdmFuCj4gPEV2YW4u
-UXVhbkBhbWQuY29tPjsgWHUsIEZlaWZlaSA8RmVpZmVpLlh1QGFtZC5jb20+OyBXYW5nLAo+IEtl
-dmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSCAzLzNdIGRy
-bS9hbWQvcG93ZXJwbGF5OiBmaXggc2F2ZSBkcG0gbGV2ZWwgZXJyb3IgZm9yIHNtdQo+IAo+IHRo
-ZSBzYXZlIGRwbSBsZXZlbCBzaG91bGQgYmUgc2F2ZSBwcmV2aW91cyBkcG0gcHJvZmlsZSBsZXZl
-bCwgc2hvdWxkIG5vdAo+IG1vZGlmaWVkIGJ5IGdldCBkcG0gbGV2ZWwgZnVuY3Rpb24uCj4gZWc6
-IGRlZmF1bHQgYXV0bwo+IDEuIGF1dG8gLT4gc3RhbmRhcmQgPT0+IGRwbV9sZXZlbCA9IHN0YW5k
-YXJkLCBzYXZlX2RwbSA9IGF1dG8uCj4gMi4gc3RhbmRhcmQgLT4gYXV0byA9PT4gZHBtX2xldmVs
-ID0gYXV0bywgc2F2ZV9kcG0gPSBzdGFuZGFyZC4KPiAKPiBDaGFuZ2UtSWQ6IEliNjc2NmU1N2Nj
-MTg3ZGY0ZjBjODljYzY4ZGNlZTdlZmQ3NzUyOWZkCj4gU2lnbmVkLW9mZi1ieTogS2V2aW4gV2Fu
-ZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvYW1kZ3B1X3NtdS5jIHwgNyArKystLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2Vy
-dGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvYW1kZ3B1X3NtdS5jCj4gaW5kZXggYmU5MGFlNTlkZmE4Li40YWJlZGY3MmExNWUgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCj4gQEAgLTE0
-MjgsMTcgKzE0MjgsMTYgQEAgaW50IHNtdV9oYW5kbGVfdGFzayhzdHJ1Y3Qgc211X2NvbnRleHQg
-KnNtdSwKPiBlbnVtIGFtZF9kcG1fZm9yY2VkX2xldmVsIHNtdV9nZXRfcGVyZm9ybWFuY2VfbGV2
-ZWwoc3RydWN0Cj4gc211X2NvbnRleHQgKnNtdSkgIHsKPiAgCXN0cnVjdCBzbXVfZHBtX2NvbnRl
-eHQgKnNtdV9kcG1fY3R4ID0gJihzbXUtPnNtdV9kcG0pOwo+ICsJZW51bSBhbWRfZHBtX2ZvcmNl
-ZF9sZXZlbCBsZXZlbDsKPiAKPiAgCWlmICghc211X2RwbV9jdHgtPmRwbV9jb250ZXh0KQo+ICAJ
-CXJldHVybiAtRUlOVkFMOwo+IAo+ICAJbXV0ZXhfbG9jaygmKHNtdS0+bXV0ZXgpKTsKPiAtCWlm
-IChzbXVfZHBtX2N0eC0+ZHBtX2xldmVsICE9IHNtdV9kcG1fY3R4LT5zYXZlZF9kcG1fbGV2ZWwp
-Cj4gewo+IC0JCXNtdV9kcG1fY3R4LT5zYXZlZF9kcG1fbGV2ZWwgPSBzbXVfZHBtX2N0eC0KPiA+
-ZHBtX2xldmVsOwo+IC0JfQo+ICsJbGV2ZWwgPSBzbXVfZHBtX2N0eC0+ZHBtX2xldmVsOwo+ICAJ
-bXV0ZXhfdW5sb2NrKCYoc211LT5tdXRleCkpOwo+IAo+IC0JcmV0dXJuIHNtdV9kcG1fY3R4LT5k
-cG1fbGV2ZWw7Cj4gKwlyZXR1cm4gbGV2ZWw7Cj4gIH0KPiAKPiAgaW50IHNtdV9mb3JjZV9wZXJm
-b3JtYW5jZV9sZXZlbChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgZW51bQo+IGFtZF9kcG1fZm9y
-Y2VkX2xldmVsIGxldmVsKQo+IC0tCj4gMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng=
+As previously fixed for dml in commit 4769278e5c7f ("amdgpu/dc/dml:
+Support clang option for stack alignment") and calcs in commit
+cc32ad8f559c ("amdgpu/dc/calcs: Support clang option for stack
+alignment"), dcn20 uses an option that is not available with clang:
+
+clang: error: unknown argument: '-mpreferred-stack-boundary=4'
+scripts/Makefile.build:281: recipe for target 'drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_resource.o' failed
+
+Use the same trick that we have in the other two files.
+
+Fixes: 7ed4e6352c16 ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+---
+ drivers/gpu/drm/amd/display/dc/dcn20/Makefile |  8 +++++++-
+ drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 16 ++++++++++++----
+ 2 files changed, 19 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+index 1b68de27ba74..e9721a906592 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+@@ -10,7 +10,13 @@ ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT
+ DCN20 += dcn20_dsc.o
+ endif
+ 
+-CFLAGS_dcn20_resource.o := -mhard-float -msse -mpreferred-stack-boundary=4
++ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
++	cc_stack_align := -mpreferred-stack-boundary=4
++else ifneq ($(call cc-option, -mstack-alignment=16),)
++	cc_stack_align := -mstack-alignment=16
++endif
++
++CFLAGS_dcn20_resource.o := -mhard-float -msse $(cc_stack_align)
+ 
+ AMD_DAL_DCN20 = $(addprefix $(AMDDALPATH)/dc/dcn20/,$(DCN20))
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+index c5d5b94e2604..e019cd9447e8 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+@@ -1,10 +1,18 @@
+ #
+ # Makefile for the 'dsc' sub-component of DAL.
+ 
+-CFLAGS_rc_calc.o := -mhard-float -msse -mpreferred-stack-boundary=4
+-CFLAGS_rc_calc_dpi.o := -mhard-float -msse -mpreferred-stack-boundary=4
+-CFLAGS_codec_main_amd.o := -mhard-float -msse -mpreferred-stack-boundary=4
+-CFLAGS_dc_dsc.o := -mhard-float -msse -mpreferred-stack-boundary=4
++ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
++	cc_stack_align := -mpreferred-stack-boundary=4
++else ifneq ($(call cc-option, -mstack-alignment=16),)
++	cc_stack_align := -mstack-alignment=16
++endif
++
++dsc_ccflags := -mhard-float -msse $(cc_stack_align)
++
++CFLAGS_rc_calc.o := $(dsc_ccflags)
++CFLAGS_rc_calc_dpi.o := $(dsc_ccflags)
++CFLAGS_codec_main_amd.o := $(dsc_ccflags)
++CFLAGS_dc_dsc.o := $(dsc_ccflags)
+ 
+ DSC = dc_dsc.o rc_calc.o rc_calc_dpi.o
+ 
+-- 
+2.20.0
