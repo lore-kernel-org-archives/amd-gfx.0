@@ -1,14 +1,16 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH 04/10] drm/nouveau: Use connector kdev as aux device parent
-Date: Fri, 12 Jul 2019 15:55:42 -0400
-Message-ID: <93fcded587fd0a2c67df35cc74d6406bd3267c4c.camel@redhat.com>
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Subject: Re: [PATCH 07/10] drm/i915: Implement MST Aux device registration
+Date: Fri, 12 Jul 2019 23:05:59 +0300
+Message-ID: <20190712200559.GN5942@intel.com>
 References: <20190704190519.29525-1-sunpeng.li@amd.com>
- <20190704190519.29525-5-sunpeng.li@amd.com>
+ <20190704190519.29525-8-sunpeng.li@amd.com>
+ <5673f815f4bc01b5d88961a1c087bed2e84ad466.camel@redhat.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190704190519.29525-5-sunpeng.li@amd.com>
+Content-Disposition: inline
+In-Reply-To: <5673f815f4bc01b5d88961a1c087bed2e84ad466.camel@redhat.com>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
 List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
@@ -18,31 +20,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Ben Skeggs <bskeggs@redhat.com>
+To: Lyude Paul <lyude@redhat.com>
+Cc: sunpeng.li@amd.com, Daniel Vetter <daniel.vetter@ffwll.ch>, Sean Paul <sean@poorly.run>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-UmV2aWV3ZWQtYnk6IEx5dWRlIFBhdWwgPGx5dWRlQHJlZGhhdC5jb20+CgpPbiBUaHUsIDIwMTkt
-MDctMDQgYXQgMTU6MDUgLTA0MDAsIHN1bnBlbmcubGlAYW1kLmNvbSB3cm90ZToKPiBGcm9tOiBM
-ZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KPiAKPiBTZXQgdGhlIGNvbm5lY3RvcidzIGtlcm5l
-bCBkZXZpY2UgYXMgdGhlIHBhcmVudCBmb3IgdGhlIGF1eCBrZXJuZWwKPiBkZXZpY2UuIFRoaXMg
-YWxsb3dzIHVkZXYgcnVsZXMgdG8gYWNjZXNzIGNvbm5lY3RvciBhdHRyaWJ1dGVzIHdoZW4KPiBj
-cmVhdGluZyBzeW1saW5rcyB0byBhdXggZGV2aWNlcy4KPiAKPiBDYzogQmVuIFNrZWdncyA8YnNr
-ZWdnc0ByZWRoYXQuY29tPgo+IFNpZ25lZC1vZmYtYnk6IExlbyBMaSA8c3VucGVuZy5saUBhbWQu
-Y29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2Nvbm5lY3Rvci5j
-IHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkK
-PiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9jb25uZWN0
-b3IuYwo+IGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9jb25uZWN0b3IuYwo+IGlu
-ZGV4IDQxMTZlZTYyYWRhZi4uZTMyZGVmMDllZjg5IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9ub3V2ZWF1L25vdXZlYXVfY29ubmVjdG9yLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-bm91dmVhdS9ub3V2ZWF1X2Nvbm5lY3Rvci5jCj4gQEAgLTEzNDYsNyArMTM0Niw3IEBAIG5vdXZl
-YXVfY29ubmVjdG9yX2NyZWF0ZShzdHJ1Y3QgZHJtX2RldmljZSAqZGV2LAo+ICAJCWJyZWFrOwo+
-ICAJY2FzZSBEUk1fTU9ERV9DT05ORUNUT1JfRGlzcGxheVBvcnQ6Cj4gIAljYXNlIERSTV9NT0RF
-X0NPTk5FQ1RPUl9lRFA6Cj4gLQkJbnZfY29ubmVjdG9yLT5hdXguZGV2ID0gZGV2LT5kZXY7Cj4g
-KwkJbnZfY29ubmVjdG9yLT5hdXguZGV2ID0gY29ubmVjdG9yLT5rZGV2Owo+ICAJCW52X2Nvbm5l
-Y3Rvci0+YXV4LnRyYW5zZmVyID0gbm91dmVhdV9jb25uZWN0b3JfYXV4X3hmZXI7Cj4gIAkJc25w
-cmludGYoYXV4X25hbWUsIHNpemVvZihhdXhfbmFtZSksICJzb3ItJTA0eC0lMDR4IiwKPiAgCQkJ
-IGRjYmUtPmhhc2h0LCBkY2JlLT5oYXNobSk7Ci0tIApDaGVlcnMsCglMeXVkZSBQYXVsCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFp
-bGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+T24gRnJpLCBKdWwgMTIsIDIwMTkgYXQgMDM6NDg6NTNQTSAtMDQwMCwgTHl1ZGUgUGF1bCB3cm90
+ZToKPiBCVFcsIEkganVzdCB0cmllZCB0aGVzZSBwYXRjaGVzIG9uIG15IFQ0NTBzICh1c2luZyBp
+OTE1KSBhbmQgSSdtIHNlZWluZyBzb21lCj4ga2VybmVsIHdhcm5pbmdzIHdpdGggdGhlbSB3aGVu
+IGFkZGluZyBEUCBhdXggZGV2aWNlcyBhZnRlciBjb25uZWN0aW5nIGEgbmV3Cj4gTVNUIHRvcG9s
+b2d5IHRvIHRoZSBzeXN0ZW06IAo+IAo+IFsgIDM2Ny43NDI1NzFdIFdBUk5JTkc6IENQVTogMiBQ
+SUQ6IDQ0MiBhdCBkcml2ZXJzL2dwdS9kcm0vZHJtX21vZGVfb2JqZWN0LmM6NDUgX19kcm1fbW9k
+ZV9vYmplY3RfYWRkKzB4YWEvMHhiMCBbZHJtXQoKTG9va3MgbGlrZSBEYW5pZWwgYWRkZWQgdGhh
+dCBwYXJ0aWN1bGFyIFdBUk4gaW4KY29tbWl0IDRmNTM2OGI1NTQxYSAgKCJkcm0va21zOiBDYXRj
+aCBtb2RlX29iamVjdCBsaWZldGltZSBlcnJvcnMiKS4KCi0tIApWaWxsZSBTeXJqw6Rsw6QKSW50
+ZWwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRl
+dmVsIG1haWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
