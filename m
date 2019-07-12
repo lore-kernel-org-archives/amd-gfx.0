@@ -1,118 +1,91 @@
-From: "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/gfx10: set SH_MEM_CONFIG.INITIAL_INST_PREFETCH
-Date: Fri, 12 Jul 2019 13:46:58 +0000
-Message-ID: <20190712134642.68650-1-nicolai.haehnle@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Support clang option for stack alignment
+Date: Fri, 12 Jul 2019 13:51:09 -0400
+Message-ID: <CADnq5_Mm=Fj4AkFtuo+W_295q8r6DY3Sumo7gTG-McUYY=CeVg@mail.gmail.com>
+References: <20190712093720.1461418-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Content-Language: en-US
-Content-ID: <6DCE2EB78C742441A9AB2B910E8ACA5F-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190712093720.1461418-1-arnd@arndb.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Charlene Liu <charlene.liu@amd.com>, Duke Du <Duke.Du@amd.com>, LKML <linux-kernel@vger.kernel.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, clang-built-linux@googlegroups.com, Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-UHJlZmV0Y2ggbW9kZSAwIGlzIG5vdCBzdXBwb3J0ZWQgYW5kIGNhbiBsZWFkIHRvIGhhbmdzIHdp
-dGggY2VydGFpbiB2ZXJ5DQpzcGVjaWZpYyBjb2RlIHBhdHRlcm5zLiBTZXQgYSBzb3VuZCBwcmVm
-ZXRjaCBtb2RlIGZvciBhbGwgVk1JRHMgcmF0aGVyDQp0aGFuIGZvcmNpbmcgYWxsIHNoYWRlcnMg
-dG8gc2V0IHRoZSBwcmVmZXRjaCBtb2RlIGF0IHRoZSBiZWdpbm5pbmcuDQoNClJlZHVjZSBjb2Rl
-IGR1cGxpY2F0aW9uIGEgYml0IHdoaWxlIHdlJ3JlIGF0IGl0LiBOb3RlIHRoYXQgdGhlIDY0LWJp
-dA0KYWRkcmVzcyBtb2RlIGVudW0gYW5kIHRoZSByZXRyeSBhbGwgZW51bSBhcmUgYm90aCAwLCBz
-byB0aGUgb25seQ0KZnVuY3Rpb25hbCBjaGFuZ2UgaXMgaW4gdGhlIElOSVRJQUxfSU5TVF9QUkVG
-RVRDSCBmaWVsZC4NCg0KU2lnbmVkLW9mZi1ieTogTmljb2xhaSBIw6RobmxlIDxuaWNvbGFpLmhh
-ZWhubGVAYW1kLmNvbT4NCi0tDQpJIGhhdmVuJ3QgYmVlbiBhYmxlIHRvIHByb3Blcmx5IHRlc3Qg
-dGhpcyB5ZXQsIGJ1dCBpdCBpcyB0aGUgcmlnaHQgdGhpbmcNCnRvIGJlIGRvaW5nIGluIHByaW5j
-aXBsZS4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jIHwgMjcg
-KysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0NCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5zZXJ0aW9u
-cygrKSwgMTcgZGVsZXRpb25zKC0pDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjEwXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBf
-MC5jDQppbmRleCAwZDk0YzgxMmRmMWIuLmI4NDk4YzM1OTE5MSAxMDA2NDQNCi0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjEwXzAuYw0KQEAgLTE1NywyMCArMTU3LDI3IEBAIHN0YXRpYyBjb25z
-dCBzdHJ1Y3Qgc29jMTVfcmVnX2dvbGRlbiBnb2xkZW5fc2V0dGluZ3NfZ2NfMTBfMV8xW10gPQ0K
-IAlTT0MxNV9SRUdfR09MREVOX1ZBTFVFKEdDLCAwLCBtbVRBX0NOVExfQVVYLCAweGZmZjdmZmZm
-LCAweDAxMDMwMDAwKSwNCiAJU09DMTVfUkVHX0dPTERFTl9WQUxVRShHQywgMCwgbW1UQ1BfQ05U
-TCwgMHg2MDAwMDAxMCwgMHg0NzljMDAxMCksDQogCVNPQzE1X1JFR19HT0xERU5fVkFMVUUoR0Ms
-IDAsIG1tVVRDTDFfQ1RSTCwgMHgwMDgwMDAwMCwgMHgwMDgwMDAwMCksDQogfTsNCiANCiBzdGF0
-aWMgY29uc3Qgc3RydWN0IHNvYzE1X3JlZ19nb2xkZW4gZ29sZGVuX3NldHRpbmdzX2djXzEwXzFf
-bnYxNFtdID0NCiB7DQogCS8qIFBlbmRpbmcgb24gZW11bGF0aW9uIGJyaW5nIHVwICovDQogfTsN
-CiANCisjZGVmaW5lIERFRkFVTFRfU0hfTUVNX0NPTkZJRyBcDQorCSgoU0hfTUVNX0FERFJFU1Nf
-TU9ERV82NCA8PCBTSF9NRU1fQ09ORklHX19BRERSRVNTX01PREVfX1NISUZUKSB8IFwNCisJIChT
-SF9NRU1fQUxJR05NRU5UX01PREVfVU5BTElHTkVEIDw8IFNIX01FTV9DT05GSUdfX0FMSUdOTUVO
-VF9NT0RFX19TSElGVCkgfCBcDQorCSAoU0hfTUVNX1JFVFJZX01PREVfQUxMIDw8IFNIX01FTV9D
-T05GSUdfX1JFVFJZX01PREVfX1NISUZUKSB8IFwNCisJICgzIDw8IFNIX01FTV9DT05GSUdfX0lO
-SVRJQUxfSU5TVF9QUkVGRVRDSF9fU0hJRlQpKQ0KKw0KKw0KIHN0YXRpYyB2b2lkIGdmeF92MTBf
-MF9zZXRfcmluZ19mdW5jcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7DQogc3RhdGljIHZv
-aWQgZ2Z4X3YxMF8wX3NldF9pcnFfZnVuY3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0K
-IHN0YXRpYyB2b2lkIGdmeF92MTBfMF9zZXRfZ2RzX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpOw0KIHN0YXRpYyB2b2lkIGdmeF92MTBfMF9zZXRfcmxjX2Z1bmNzKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGV2KTsNCiBzdGF0aWMgaW50IGdmeF92MTBfMF9nZXRfY3VfaW5mbyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBzdHJ1Y3QgYW1kZ3B1X2N1X2luZm8gKmN1X2luZm8pOw0KIHN0YXRpYyB1aW50NjRfdCBnZnhf
-djEwXzBfZ2V0X2dwdV9jbG9ja19jb3VudGVyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsN
-CiBzdGF0aWMgdm9pZCBnZnhfdjEwXzBfc2VsZWN0X3NlX3NoKHN0cnVjdCBhbWRncHVfZGV2aWNl
-ICphZGV2LCB1MzIgc2VfbnVtLA0KIAkJCQkgICB1MzIgc2hfbnVtLCB1MzIgaW5zdGFuY2UpOw0K
-IHN0YXRpYyB1MzIgZ2Z4X3YxMF8wX2dldF93Z3BfYWN0aXZlX2JpdG1hcF9wZXJfc2goc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpOw0KQEAgLTE0NzYsNDAgKzE0ODMsMzUgQEAgc3RhdGljIHUz
-MiBnZnhfdjEwXzBfaW5pdF9wYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlKHN0cnVjdCBhbWRn
-cHVfZGV2aWNlICphZGUNCiAJcmV0dXJuIHBhX3NjX3RpbGVfc3RlZXJpbmdfb3ZlcnJpZGU7DQog
-fQ0KIA0KICNkZWZpbmUgREVGQVVMVF9TSF9NRU1fQkFTRVMJKDB4NjAwMCkNCiAjZGVmaW5lIEZJ
-UlNUX0NPTVBVVEVfVk1JRAkoOCkNCiAjZGVmaW5lIExBU1RfQ09NUFVURV9WTUlECSgxNikNCiAN
-CiBzdGF0aWMgdm9pZCBnZnhfdjEwXzBfaW5pdF9jb21wdXRlX3ZtaWQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpDQogew0KIAlpbnQgaTsNCi0JdWludDMyX3Qgc2hfbWVtX2NvbmZpZzsNCiAJ
-dWludDMyX3Qgc2hfbWVtX2Jhc2VzOw0KIA0KIAkvKg0KIAkgKiBDb25maWd1cmUgYXBlcnR1cmVz
-Og0KIAkgKiBMRFM6ICAgICAgICAgMHg2MDAwMDAwMCcwMDAwMDAwMCAtIDB4NjAwMDAwMDEnMDAw
-MDAwMDAgKDRHQikNCiAJICogU2NyYXRjaDogICAgIDB4NjAwMDAwMDEnMDAwMDAwMDAgLSAweDYw
-MDAwMDAyJzAwMDAwMDAwICg0R0IpDQogCSAqIEdQVVZNOiAgICAgICAweDYwMDEwMDAwJzAwMDAw
-MDAwIC0gMHg2MDAyMDAwMCcwMDAwMDAwMCAoMVRCKQ0KIAkgKi8NCiAJc2hfbWVtX2Jhc2VzID0g
-REVGQVVMVF9TSF9NRU1fQkFTRVMgfCAoREVGQVVMVF9TSF9NRU1fQkFTRVMgPDwgMTYpOw0KIA0K
-LQlzaF9tZW1fY29uZmlnID0gU0hfTUVNX0FERFJFU1NfTU9ERV82NCB8DQotCQkJU0hfTUVNX0FM
-SUdOTUVOVF9NT0RFX1VOQUxJR05FRCA8PA0KLQkJCVNIX01FTV9DT05GSUdfX0FMSUdOTUVOVF9N
-T0RFX19TSElGVDsNCi0NCiAJbXV0ZXhfbG9jaygmYWRldi0+c3JibV9tdXRleCk7DQogCWZvciAo
-aSA9IEZJUlNUX0NPTVBVVEVfVk1JRDsgaSA8IExBU1RfQ09NUFVURV9WTUlEOyBpKyspIHsNCiAJ
-CW52X2dyYm1fc2VsZWN0KGFkZXYsIDAsIDAsIDAsIGkpOw0KIAkJLyogQ1AgYW5kIHNoYWRlcnMg
-Ki8NCi0JCVdSRUczMl9TT0MxNShHQywgMCwgbW1TSF9NRU1fQ09ORklHLCBzaF9tZW1fY29uZmln
-KTsNCisJCVdSRUczMl9TT0MxNShHQywgMCwgbW1TSF9NRU1fQ09ORklHLCBERUZBVUxUX1NIX01F
-TV9DT05GSUcpOw0KIAkJV1JFRzMyX1NPQzE1KEdDLCAwLCBtbVNIX01FTV9CQVNFUywgc2hfbWVt
-X2Jhc2VzKTsNCiAJfQ0KIAludl9ncmJtX3NlbGVjdChhZGV2LCAwLCAwLCAwLCAwKTsNCiAJbXV0
-ZXhfdW5sb2NrKCZhZGV2LT5zcmJtX211dGV4KTsNCiB9DQogDQogc3RhdGljIHZvaWQgZ2Z4X3Yx
-MF8wX3RjcF9oYXJ2ZXN0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KIHsNCiAJaW50IGks
-IGosIGs7DQogCWludCBtYXhfd2dwX3Blcl9zaCA9IGFkZXYtPmdmeC5jb25maWcubWF4X2N1X3Bl
-cl9zaCA+PiAxOw0KQEAgLTE1OTAsMzEgKzE1OTIsMjIgQEAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8w
-X2NvbnN0YW50c19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KIAlnZnhfdjEwXzBf
-Z2V0X2N1X2luZm8oYWRldiwgJmFkZXYtPmdmeC5jdV9pbmZvKTsNCiAJYWRldi0+Z2Z4LmNvbmZp
-Zy5wYV9zY190aWxlX3N0ZWVyaW5nX292ZXJyaWRlID0NCiAJCWdmeF92MTBfMF9pbml0X3BhX3Nj
-X3RpbGVfc3RlZXJpbmdfb3ZlcnJpZGUoYWRldik7DQogDQogCS8qIFhYWCBTSF9NRU0gcmVncyAq
-Lw0KIAkvKiB3aGVyZSB0byBwdXQgTERTLCBzY3JhdGNoLCBHUFVWTSBpbiBGU0E2NCBzcGFjZSAq
-Lw0KIAltdXRleF9sb2NrKCZhZGV2LT5zcmJtX211dGV4KTsNCiAJZm9yIChpID0gMDsgaSA8IGFk
-ZXYtPnZtX21hbmFnZXIuaWRfbWdyW0FNREdQVV9HRlhIVUJdLm51bV9pZHM7IGkrKykgew0KIAkJ
-bnZfZ3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwgaSk7DQogCQkvKiBDUCBhbmQgc2hhZGVycyAq
-Lw0KLQkJaWYgKGkgPT0gMCkgew0KLQkJCXRtcCA9IFJFR19TRVRfRklFTEQoMCwgU0hfTUVNX0NP
-TkZJRywgQUxJR05NRU5UX01PREUsDQotCQkJCQkgICAgU0hfTUVNX0FMSUdOTUVOVF9NT0RFX1VO
-QUxJR05FRCk7DQotCQkJdG1wID0gUkVHX1NFVF9GSUVMRCh0bXAsIFNIX01FTV9DT05GSUcsIFJF
-VFJZX01PREUsIDApOw0KLQkJCVdSRUczMl9TT0MxNShHQywgMCwgbW1TSF9NRU1fQ09ORklHLCB0
-bXApOw0KLQkJCVdSRUczMl9TT0MxNShHQywgMCwgbW1TSF9NRU1fQkFTRVMsIDApOw0KLQkJfSBl
-bHNlIHsNCi0JCQl0bXAgPSBSRUdfU0VUX0ZJRUxEKDAsIFNIX01FTV9DT05GSUcsIEFMSUdOTUVO
-VF9NT0RFLA0KLQkJCQkJICAgIFNIX01FTV9BTElHTk1FTlRfTU9ERV9VTkFMSUdORUQpOw0KLQkJ
-CXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBTSF9NRU1fQ09ORklHLCBSRVRSWV9NT0RFLCAwKTsN
-Ci0JCQlXUkVHMzJfU09DMTUoR0MsIDAsIG1tU0hfTUVNX0NPTkZJRywgdG1wKTsNCisJCVdSRUcz
-Ml9TT0MxNShHQywgMCwgbW1TSF9NRU1fQ09ORklHLCBERUZBVUxUX1NIX01FTV9DT05GSUcpOw0K
-KwkJaWYgKGkgIT0gMCkgew0KIAkJCXRtcCA9IFJFR19TRVRfRklFTEQoMCwgU0hfTUVNX0JBU0VT
-LCBQUklWQVRFX0JBU0UsDQogCQkJCShhZGV2LT5nbWMucHJpdmF0ZV9hcGVydHVyZV9zdGFydCA+
-PiA0OCkpOw0KIAkJCXRtcCA9IFJFR19TRVRfRklFTEQodG1wLCBTSF9NRU1fQkFTRVMsIFNIQVJF
-RF9CQVNFLA0KIAkJCQkoYWRldi0+Z21jLnNoYXJlZF9hcGVydHVyZV9zdGFydCA+PiA0OCkpOw0K
-IAkJCVdSRUczMl9TT0MxNShHQywgMCwgbW1TSF9NRU1fQkFTRVMsIHRtcCk7DQogCQl9DQogCX0N
-CiAJbnZfZ3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwgMCk7DQogDQogCW11dGV4X3VubG9jaygm
-YWRldi0+c3JibV9tdXRleCk7DQotLSANCjIuMjAuMQ0KDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZng=
+On Fri, Jul 12, 2019 at 5:37 AM Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> As previously fixed for dml in commit 4769278e5c7f ("amdgpu/dc/dml:
+> Support clang option for stack alignment") and calcs in commit
+> cc32ad8f559c ("amdgpu/dc/calcs: Support clang option for stack
+> alignment"), dcn20 uses an option that is not available with clang:
+>
+> clang: error: unknown argument: '-mpreferred-stack-boundary=4'
+> scripts/Makefile.build:281: recipe for target 'drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_resource.o' failed
+>
+> Use the same trick that we have in the other two files.
+>
+> Fixes: 7ed4e6352c16 ("drm/amd/display: Add DCN2 HW Sequencer and Resource")
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dcn20/Makefile |  8 +++++++-
+>  drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 16 ++++++++++++----
+>  2 files changed, 19 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+> index 1b68de27ba74..e9721a906592 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
+> @@ -10,7 +10,13 @@ ifdef CONFIG_DRM_AMD_DC_DSC_SUPPORT
+>  DCN20 += dcn20_dsc.o
+>  endif
+>
+> -CFLAGS_dcn20_resource.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> +ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
+> +       cc_stack_align := -mpreferred-stack-boundary=4
+> +else ifneq ($(call cc-option, -mstack-alignment=16),)
+> +       cc_stack_align := -mstack-alignment=16
+> +endif
+> +
+> +CFLAGS_dcn20_resource.o := -mhard-float -msse $(cc_stack_align)
+>
+>  AMD_DAL_DCN20 = $(addprefix $(AMDDALPATH)/dc/dcn20/,$(DCN20))
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+> index c5d5b94e2604..e019cd9447e8 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+> +++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
+> @@ -1,10 +1,18 @@
+>  #
+>  # Makefile for the 'dsc' sub-component of DAL.
+>
+> -CFLAGS_rc_calc.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> -CFLAGS_rc_calc_dpi.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> -CFLAGS_codec_main_amd.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> -CFLAGS_dc_dsc.o := -mhard-float -msse -mpreferred-stack-boundary=4
+> +ifneq ($(call cc-option, -mpreferred-stack-boundary=4),)
+> +       cc_stack_align := -mpreferred-stack-boundary=4
+> +else ifneq ($(call cc-option, -mstack-alignment=16),)
+> +       cc_stack_align := -mstack-alignment=16
+> +endif
+> +
+> +dsc_ccflags := -mhard-float -msse $(cc_stack_align)
+> +
+> +CFLAGS_rc_calc.o := $(dsc_ccflags)
+> +CFLAGS_rc_calc_dpi.o := $(dsc_ccflags)
+> +CFLAGS_codec_main_amd.o := $(dsc_ccflags)
+> +CFLAGS_dc_dsc.o := $(dsc_ccflags)
+>
+>  DSC = dc_dsc.o rc_calc.o rc_calc_dpi.o
+>
+> --
+> 2.20.0
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
