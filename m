@@ -1,78 +1,58 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: hide #warning for missing DC config
-Date: Fri, 12 Jul 2019 14:01:46 -0400
-Message-ID: <CADnq5_McVegix-m87OwHUvk80NdsFZPQ7d0X8qQtUf84h+Fg1A@mail.gmail.com>
-References: <20190712094118.1559434-1-arnd@arndb.de>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amd/amdgpu: Add missing select_me_pipe_q() for
+ gfx10
+Date: Fri, 12 Jul 2019 14:37:04 -0400
+Message-ID: <CADnq5_Ng7hEK=PMDsB0AKUJpZiSRPeZVNsLvNEhb07agzV_ZcA@mail.gmail.com>
+References: <20190712134406.30374-1-tom.stdenis@amd.com>
+ <20190712134406.30374-2-tom.stdenis@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190712094118.1559434-1-arnd@arndb.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Jack Xiao <Jack.Xiao@amd.com>, Kevin Wang <kevin1.wang@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Xiaojie Yuan <xiaojie.yuan@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190712134406.30374-2-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Fri, Jul 12, 2019 at 5:41 AM Arnd Bergmann <arnd@arndb.de> wrote:
->
-> It is annoying to have #warnings that trigger in randconfig
-> builds like
->
-> drivers/gpu/drm/amd/amdgpu/soc15.c:653:3: error: "Enable CONFIG_DRM_AMD_DC for display support on SOC15."
-> drivers/gpu/drm/amd/amdgpu/nv.c:400:3: error: "Enable CONFIG_DRM_AMD_DC for display support on navi."
->
-> Remove these and rely on the users to turn these on.
-
-Is there some sort of informational message we could use instead?
-Unless you are a server user, most end users want this option enabled.
-
-Alex
-
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  drivers/gpu/drm/amd/amdgpu/nv.c    | 2 --
->  drivers/gpu/drm/amd/amdgpu/soc15.c | 4 ----
->  2 files changed, 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index 9253c03d387a..10ec0e81ee58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -396,8 +396,6 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
->  #if defined(CONFIG_DRM_AMD_DC)
->                 else if (amdgpu_device_has_dc_support(adev))
->                         amdgpu_device_ip_block_add(adev, &dm_ip_block);
-> -#else
-> -#      warning "Enable CONFIG_DRM_AMD_DC for display support on navi."
->  #endif
->                 amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
->                 amdgpu_device_ip_block_add(adev, &sdma_v5_0_ip_block);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index 87152d8ef0df..90fb0149fbea 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -649,8 +649,6 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
->  #if defined(CONFIG_DRM_AMD_DC)
->                 else if (amdgpu_device_has_dc_support(adev))
->                         amdgpu_device_ip_block_add(adev, &dm_ip_block);
-> -#else
-> -#      warning "Enable CONFIG_DRM_AMD_DC for display support on SOC15."
->  #endif
->                 if (!(adev->asic_type == CHIP_VEGA20 && amdgpu_sriov_vf(adev))) {
->                         amdgpu_device_ip_block_add(adev, &uvd_v7_0_ip_block);
-> @@ -671,8 +669,6 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
->  #if defined(CONFIG_DRM_AMD_DC)
->                 else if (amdgpu_device_has_dc_support(adev))
->                         amdgpu_device_ip_block_add(adev, &dm_ip_block);
-> -#else
-> -#      warning "Enable CONFIG_DRM_AMD_DC for display support on SOC15."
->  #endif
->                 amdgpu_device_ip_block_add(adev, &vcn_v1_0_ip_block);
->                 break;
-> --
-> 2.20.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gRnJpLCBKdWwgMTIsIDIwMTkgYXQgOTo0NCBBTSBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlz
+QGFtZC5jb20+IHdyb3RlOgo+Cj4gU2lnbmVkLW9mZi1ieTogVG9tIFN0IERlbmlzIDx0b20uc3Rk
+ZW5pc0BhbWQuY29tPgoKUGxlYXNlIGFkZCBhIHBhdGNoIGRlc2NyaXB0aW9uLiAgV2l0aCB0aGF0
+IGZpeGVkLCB0aGUgc2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5k
+ZXIuZGV1Y2hlckBhbWQuY29tPgoKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dmeF92MTBfMC5jIHwgNyArKysrKysrCj4gIDEgZmlsZSBjaGFuZ2VkLCA3IGluc2VydGlvbnMo
+KykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAu
+YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCj4gaW5kZXggMGQ5NGM4
+MTJkZjFiLi43ZDUyMDdiYmUzODIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4X3YxMF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhf
+djEwXzAuYwo+IEBAIC0xMDYxLDYgKzEwNjEsMTIgQEAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX3Jl
+YWRfd2F2ZV92Z3BycyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgdWludDMyX3Qgc2ltZCwK
+PiAgICAgICAgICAgICAgICAgc3RhcnQgKyBTUUlORF9XQVZFX1ZHUFJTX09GRlNFVCwgc2l6ZSwg
+ZHN0KTsKPiAgfQo+Cj4gK3N0YXRpYyB2b2lkIGdmeF92MTBfMF9zZWxlY3RfbWVfcGlwZV9xKHN0
+cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdTMyIG1lLCB1MzIg
+cGlwZSwgdTMyIHEsIHUzMiB2bSkKPiArIHsKPiArICAgICAgIG52X2dyYm1fc2VsZWN0KGFkZXYs
+IG1lLCBwaXBlLCBxLCB2bSk7Cj4gKyB9Cj4gKwo+Cj4gIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1k
+Z3B1X2dmeF9mdW5jcyBnZnhfdjEwXzBfZ2Z4X2Z1bmNzID0gewo+ICAgICAgICAgLmdldF9ncHVf
+Y2xvY2tfY291bnRlciA9ICZnZnhfdjEwXzBfZ2V0X2dwdV9jbG9ja19jb3VudGVyLAo+IEBAIC0x
+MDY4LDYgKzEwNzQsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGFtZGdwdV9nZnhfZnVuY3MgZ2Z4
+X3YxMF8wX2dmeF9mdW5jcyA9IHsKPiAgICAgICAgIC5yZWFkX3dhdmVfZGF0YSA9ICZnZnhfdjEw
+XzBfcmVhZF93YXZlX2RhdGEsCj4gICAgICAgICAucmVhZF93YXZlX3NncHJzID0gJmdmeF92MTBf
+MF9yZWFkX3dhdmVfc2dwcnMsCj4gICAgICAgICAucmVhZF93YXZlX3ZncHJzID0gJmdmeF92MTBf
+MF9yZWFkX3dhdmVfdmdwcnMsCj4gKyAgICAgICAuc2VsZWN0X21lX3BpcGVfcSA9ICZnZnhfdjEw
+XzBfc2VsZWN0X21lX3BpcGVfcSwKPiAgfTsKPgo+ICBzdGF0aWMgdm9pZCBnZnhfdjEwXzBfZ3B1
+X2Vhcmx5X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gLS0KPiAyLjIxLjAKPgo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
