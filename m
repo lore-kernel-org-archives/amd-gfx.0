@@ -1,18 +1,16 @@
-From: Felix Kuehling <felix.kuehling-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 27/27] drm/amdgpu: Fix GTT size calculation
-Date: Sat, 13 Jul 2019 16:24:57 -0400
-Message-ID: <44747586-8c98-6c85-dc5c-7464f59b205e@gmail.com>
-References: <20190428074331.30107-1-Felix.Kuehling@amd.com>
- <20190428074331.30107-28-Felix.Kuehling@amd.com>
- <86fa9fc3-7a8f-9855-ae1d-5c7ccf2b5260@gmail.com>
- <1b1ec993-1c4b-8661-9b3f-ac0ad8ae64c7@amd.com>
- <134a4999-776f-44c6-99a2-42e8b9366a73@gmail.com>
- <9f882acd-c48f-3bbd-2d90-659c2edead39@amd.com>
- <f5c698ad-2aff-b3c5-2041-05a10983438a@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH v4] drm/amdgpu: fix scheduler timeout calc
+Date: Sun, 14 Jul 2019 09:23:23 +0200
+Message-ID: <6bbd4268-2d5d-fa98-6569-412b918b1a9f@gmail.com>
+References: <1561952220-5526-1-git-send-email-flora.cui@amd.com>
+ <CH2PR12MB3767D1E71B22B99D41ECAB20FEF50@CH2PR12MB3767.namprd12.prod.outlook.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0945771492=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <f5c698ad-2aff-b3c5-2041-05a10983438a-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <CH2PR12MB3767D1E71B22B99D41ECAB20FEF50-rV3HgkLYx2Vb0rI3ZRjBIAdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -23,187 +21,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
+To: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Cui, Flora" <Flora.Cui-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0945771492==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="OZ9Yrfzx3FfSeD2Y0kYYt4HEB2RKs6mRl"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---OZ9Yrfzx3FfSeD2Y0kYYt4HEB2RKs6mRl
-Content-Type: multipart/mixed; boundary="WXqmnOtHoAaoNmIhUbxG39IEM5rwr92cm";
- protected-headers="v1"
-From: Felix Kuehling <felix.kuehling-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>,
- "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>,
- "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Russell, Kent" <Kent.Russell-5C7GfCeVMHo@public.gmane.org>
-Message-ID: <44747586-8c98-6c85-dc5c-7464f59b205e-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 27/27] drm/amdgpu: Fix GTT size calculation
-References: <20190428074331.30107-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
- <20190428074331.30107-28-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
- <86fa9fc3-7a8f-9855-ae1d-5c7ccf2b5260-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
- <1b1ec993-1c4b-8661-9b3f-ac0ad8ae64c7-5C7GfCeVMHo@public.gmane.org>
- <134a4999-776f-44c6-99a2-42e8b9366a73-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
- <9f882acd-c48f-3bbd-2d90-659c2edead39-5C7GfCeVMHo@public.gmane.org>
- <f5c698ad-2aff-b3c5-2041-05a10983438a-5C7GfCeVMHo@public.gmane.org>
-In-Reply-To: <f5c698ad-2aff-b3c5-2041-05a10983438a-5C7GfCeVMHo@public.gmane.org>
-
---WXqmnOtHoAaoNmIhUbxG39IEM5rwr92cm
-Content-Type: multipart/alternative;
- boundary="------------59A3B4AD88DB4C7638B1B15B"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------59A3B4AD88DB4C7638B1B15B
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-Am 2019-04-30 um 1:03 p.m. schrieb Koenig, Christian:
->>> The only real solution I can see is to be able to reliable kill shade=
-rs
->>> in an OOM situation.
->> Well, we can in fact preempt our compute shaders with low latency.
->> Killing a KFD process will do exactly that.
-> I've taken a look at that thing as well and to be honest it is not even=
-=20
-> remotely sufficient.
->
-> We need something which stops the hardware *immediately* from accessing=
-=20
-> system memory, and not wait for the SQ to kill all waves, flush caches =
-
-> etc...
->
-> One possibility I'm playing around with for a while is to replace the=20
-> root PD for the VMIDs in question on the fly. E.g. we just let it point=
-=20
-> to some dummy which redirects everything into nirvana.
->
-> But implementing this is easier said than done...
-
-Warming up this thread, since I just fixed another bug that was enabled
-by artificial memory pressure due to the GTT limit.
-
-I think disabling the PD for the VMIDs is a good idea. A problem is that
-HWS firmware updates PD pointers in the background for its VMIDs. So
-this would require a reliable and fast way to kill the HWS first.
-
-An alternative I thought about is, disabling bus access at the BIF level
-if that's possible somehow. Basically we would instantaneously kill all
-GPU system memory access, signal all fences or just remove all fences
-from all BO reservations (reservation_object_add_excl_fence(resv, NULL))
-to allow memory to be freed, let the OOM killer do its thing, and when
-the dust settles, reset the GPU.
-
-Regards,
-=C2=A0 Felix
-
->
-> Regards,
-> Christian.
-
---------------59A3B4AD88DB4C7638B1B15B
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF=
--8">
-  </head>
-  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <div class=3D"moz-cite-prefix">Am 2019-04-30 um 1:03 p.m. schrieb
-      Koenig, Christian:<br>
-    </div>
-    <blockquote type=3D"cite"
-      cite=3D"mid:f5c698ad-2aff-b3c5-2041-05a10983438a-5C7GfCeVMHo@public.gmane.org">
-      <blockquote type=3D"cite" style=3D"color: #000000;">
-        <blockquote type=3D"cite" style=3D"color: #000000;">
-          <pre class=3D"moz-quote-pre" wrap=3D"">The only real solution I=
- can see is to be able to reliable kill shaders
-in an OOM situation.
-</pre>
-        </blockquote>
-        <pre class=3D"moz-quote-pre" wrap=3D"">Well, we can in fact preem=
-pt our compute shaders with low latency.
-Killing a KFD process will do exactly that.
-</pre>
-      </blockquote>
-      <pre class=3D"moz-quote-pre" wrap=3D"">I've taken a look at that th=
-ing as well and to be honest it is not even=20
-remotely sufficient.
-
-We need something which stops the hardware <b class=3D"moz-txt-star"><spa=
-n class=3D"moz-txt-tag">*</span>immediately<span class=3D"moz-txt-tag">*<=
-/span></b> from accessing=20
-system memory, and not wait for the SQ to kill all waves, flush caches=20
-etc...
-
-One possibility I'm playing around with for a while is to replace the=20
-root PD for the VMIDs in question on the fly. E.g. we just let it point=20
-to some dummy which redirects everything into nirvana.
-
-But implementing this is easier said than done...</pre>
-    </blockquote>
-    <p>Warming up this thread, since I just fixed another bug that was
-      enabled by artificial memory pressure due to the GTT limit.</p>
-    <p>I think disabling the PD for the VMIDs is a good idea. A problem
-      is that HWS firmware updates PD pointers in the background for its
-      VMIDs. So this would require a reliable and fast way to kill the
-      HWS first.</p>
-    <p>An alternative I thought about is, disabling bus access at the
-      BIF level if that's possible somehow. Basically we would
-      instantaneously kill all GPU system memory access, signal all
-      fences or just remove all fences from all BO reservations
-      (reservation_object_add_excl_fence(resv, NULL)) to allow memory to
-      be freed, let the OOM killer do its thing, and when the dust
-      settles, reset the GPU.<br>
-    </p>
-    <p>Regards,<br>
-      =C2=A0 Felix<br>
-    </p>
-    <blockquote type=3D"cite"
-      cite=3D"mid:f5c698ad-2aff-b3c5-2041-05a10983438a-5C7GfCeVMHo@public.gmane.org">
-      <pre class=3D"moz-quote-pre" wrap=3D"">
-
-Regards,
-Christian.
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------59A3B4AD88DB4C7638B1B15B--
-
---WXqmnOtHoAaoNmIhUbxG39IEM5rwr92cm--
-
---OZ9Yrfzx3FfSeD2Y0kYYt4HEB2RKs6mRl
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEAREIAB0WIQSF9iw3xYpcigJ58/LWGSsMBQyTdgUCXSo+HAAKCRDWGSsMBQyT
-dtkeAP96AVm1joiyGB4yLHGKFoXaiu5qJ9k2Vx2N1govvh78JwD/QZ3qFT7aCXMS
-bJ8y1z89fKLJj+imoEpoMAeciayEReA=
-=MlDq
------END PGP SIGNATURE-----
-
---OZ9Yrfzx3FfSeD2Y0kYYt4HEB2RKs6mRl--
-
---===============0945771492==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0945771492==--
+UmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4K
+ClNvcnJ5IGZvciB0aGUgZGVsYXksIEkndmUgYmVlbiBvbiB2YWNhdGlvbiBmb3IgdHdvIHdlZWtz
+LgoKQ2hyaXN0aWFuLgoKQW0gMDUuMDcuMTkgdW0gMDc6Mzcgc2NocmllYiBYdSwgRmVpZmVpOgo+
+IFJldmlld2VkLWJ5OiBGZWlmZWkuWHVAYW1kLmNvbQo+Cj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdl
+LS0tLS0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnPiBPbiBCZWhhbGYgT2YgQ3VpLCBGbG9yYQo+IFNlbnQ6IE1vbmRheSwgSnVseSAxLCAyMDE5
+IDExOjM3IEFNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IEN1aSwg
+RmxvcmEgPEZsb3JhLkN1aUBhbWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSCB2NF0gZHJtL2FtZGdw
+dTogZml4IHNjaGVkdWxlciB0aW1lb3V0IGNhbGMKPgo+IHNjaGVkdWxlciB0aW1lb3V0IGlzIGlu
+IGppZmZpZXMKPiB2MjogbW92ZSB0aW1lb3V0IGNoZWNrIHRvIGFtZGdwdV9kZXZpY2VfZ2V0X2pv
+Yl90aW1lb3V0X3NldHRpbmdzIGFmdGVyIHBhcnNpbmcgdGhlIHZhbHVlCj4gdjM6IGFkZCBsb2Nr
+dXBfdGltZW91dCBwYXJhbSBjaGVjay4gMDoga2VlcCBkZWZhdWx0IHZhbHVlLiBuZWdhdGl2ZToK
+PiBpbmZpbml0eSB0aW1lb3V0Lgo+IHY0OiByZWZhY3RvciBjb2Rlcy4KPgo+IENoYW5nZS1JZDog
+STI2NzA4YzE2M2RiOTQzZmY4ZDkzMGRkODFiY2FiNGI0YjlkODRlYjIKPiBTaWduZWQtb2ZmLWJ5
+OiBGbG9yYSBDdWkgPGZsb3JhLmN1aUBhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2Rydi5jIHwgMTMgKysrKysrKysrLS0tLQo+ICAgMSBmaWxlIGNo
+YW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMKPiBpbmRleCBlNzRhMTc1Li5lNDQ4ZjhlIDEwMDY0NAo+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+ICsrKyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kcnYuYwo+IEBAIC0yNDUsNyArMjQ1LDgg
+QEAgbW9kdWxlX3BhcmFtX25hbWVkKG1zaSwgYW1kZ3B1X21zaSwgaW50LCAwNDQ0KTsKPiAgICAq
+IEJ5IGRlZmF1bHQod2l0aCBubyBsb2NrdXBfdGltZW91dCBzZXR0aW5ncyksIHRoZSB0aW1lb3V0
+IGZvciBhbGwgbm9uLWNvbXB1dGUoR0ZYLCBTRE1BIGFuZCBWaWRlbykKPiAgICAqIGpvYnMgaXMg
+MTAwMDAuIEFuZCB0aGVyZSBpcyBubyB0aW1lb3V0IGVuZm9yY2VkIG9uIGNvbXB1dGUgam9icy4K
+PiAgICAqLwo+IC1NT0RVTEVfUEFSTV9ERVNDKGxvY2t1cF90aW1lb3V0LCAiR1BVIGxvY2t1cCB0
+aW1lb3V0IGluIG1zIChkZWZhdWx0OiAxMDAwMCBmb3Igbm9uLWNvbXB1dGUgam9icyBhbmQgbm8g
+dGltZW91dCBmb3IgY29tcHV0ZSBqb2JzKSwgIgo+ICtNT0RVTEVfUEFSTV9ERVNDKGxvY2t1cF90
+aW1lb3V0LCAiR1BVIGxvY2t1cCB0aW1lb3V0IGluIG1zIChkZWZhdWx0OiAxMDAwMCBmb3Igbm9u
+LWNvbXB1dGUgam9icyBhbmQgaW5maW5pdHkgdGltZW91dCBmb3IgY29tcHV0ZSBqb2JzLiIKPiAr
+CQkiIDA6IGtlZXAgZGVmYXVsdCB2YWx1ZS4gbmVnYXRpdmU6IGluZmluaXR5IHRpbWVvdXQpLCAi
+Cj4gICAJCSJmb3JtYXQgaXMgW05vbi1Db21wdXRlXSBvciBbR0ZYLENvbXB1dGUsU0RNQSxWaWRl
+b10iKTsgIG1vZHVsZV9wYXJhbV9zdHJpbmcobG9ja3VwX3RpbWVvdXQsIGFtZGdwdV9sb2NrdXBf
+dGltZW91dCwgc2l6ZW9mKGFtZGdwdV9sb2NrdXBfdGltZW91dCksIDA0NDQpOwo+ICAgCj4gQEAg
+LTEzMDAsNyArMTMwMSw4IEBAIGludCBhbWRncHVfZGV2aWNlX2dldF9qb2JfdGltZW91dF9zZXR0
+aW5ncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiAgIAkgKiBCeSBkZWZhdWx0IHRpbWVv
+dXQgZm9yIG5vbiBjb21wdXRlIGpvYnMgaXMgMTAwMDAuCj4gICAJICogQW5kIHRoZXJlIGlzIG5v
+IHRpbWVvdXQgZW5mb3JjZWQgb24gY29tcHV0ZSBqb2JzLgo+ICAgCSAqLwo+IC0JYWRldi0+Z2Z4
+X3RpbWVvdXQgPSBhZGV2LT5zZG1hX3RpbWVvdXQgPSBhZGV2LT52aWRlb190aW1lb3V0ID0gMTAw
+MDA7Cj4gKwlhZGV2LT5nZnhfdGltZW91dCA9IG1zZWNzX3RvX2ppZmZpZXMoMTAwMDApOwo+ICsJ
+YWRldi0+c2RtYV90aW1lb3V0ID0gYWRldi0+dmlkZW9fdGltZW91dCA9IGFkZXYtPmdmeF90aW1l
+b3V0Owo+ICAgCWFkZXYtPmNvbXB1dGVfdGltZW91dCA9IE1BWF9TQ0hFRFVMRV9USU1FT1VUOwo+
+ICAgCj4gICAJaWYgKHN0cm5sZW4oaW5wdXQsIEFNREdQVV9NQVhfVElNRU9VVF9QQVJBTV9MRU5U
+SCkpIHsgQEAgLTEzMTAsMTAgKzEzMTIsMTMgQEAgaW50IGFtZGdwdV9kZXZpY2VfZ2V0X2pvYl90
+aW1lb3V0X3NldHRpbmdzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAgCQkJaWYgKHJl
+dCkKPiAgIAkJCQlyZXR1cm4gcmV0Owo+ICAgCj4gLQkJCS8qIEludmFsaWRhdGUgMCBhbmQgbmVn
+YXRpdmUgdmFsdWVzICovCj4gLQkJCWlmICh0aW1lb3V0IDw9IDApIHsKPiArCQkJaWYgKHRpbWVv
+dXQgPT0gMCkgewo+ICAgCQkJCWluZGV4Kys7Cj4gICAJCQkJY29udGludWU7Cj4gKwkJCX0gZWxz
+ZSBpZiAodGltZW91dCA8IDApIHsKPiArCQkJCXRpbWVvdXQgPSBNQVhfU0NIRURVTEVfVElNRU9V
+VDsKPiArCQkJfSBlbHNlIHsKPiArCQkJCXRpbWVvdXQgPSBtc2Vjc190b19qaWZmaWVzKHRpbWVv
+dXQpOwo+ICAgCQkJfQo+ICAgCj4gICAJCQlzd2l0Y2ggKGluZGV4KyspIHsKPiAtLQo+IDIuNy40
+Cj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFt
+ZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKPiBfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFp
+bGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3Rz
+LmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
+ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
