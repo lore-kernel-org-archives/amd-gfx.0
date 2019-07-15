@@ -1,91 +1,108 @@
-From: Fuqian Huang <huangfq.daxian@gmail.com>
-Subject: [PATCH v3 05/24] drm/amdgpu: remove memset after kzalloc
-Date: Mon, 15 Jul 2019 11:17:31 +0800
-Message-ID: <20190715031731.6421-1-huangfq.daxian@gmail.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Fuqian Huang <huangfq.daxian@gmail.com>
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Deng, Emily" <Emily.Deng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/ttm: Fix the memory delay free issue
+Date: Mon, 15 Jul 2019 06:49:17 +0000
+Message-ID: <MN2PR12MB297593776F81FE032B2145218FCF0@MN2PR12MB2975.namprd12.prod.outlook.com>
+References: <1562750971-1628-1-git-send-email-Emily.Deng@amd.com>
+ <a9974a9a-37b2-2310-4073-94eef570f37c@amd.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <a9974a9a-37b2-2310-4073-94eef570f37c-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-kzalloc has already zeroed the memory during the allocation.
-So memset is unneeded.
-
-Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
----
-Changes in v3:
-  - Fix subject prefix: gpu/drm -> drm/amdgpu
-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c       | 2 --
- drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c | 2 --
- drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c            | 2 --
- drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c       | 2 --
- drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c         | 2 --
- 5 files changed, 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-index fd22b4474dbf..4e6da61d1a93 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-@@ -279,8 +279,6 @@ void *amdgpu_dm_irq_register_interrupt(struct amdgpu_device *adev,
- 		return DAL_INVALID_IRQ_HANDLER_IDX;
- 	}
- 
--	memset(handler_data, 0, sizeof(*handler_data));
--
- 	init_handler_common_data(handler_data, ih, handler_args, &adev->dm);
- 
- 	irq_source = int_params->irq_source;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-index 1cd5a8b5cdc1..b760f95e7fa7 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-@@ -1067,8 +1067,6 @@ static int pp_tables_v1_0_initialize(struct pp_hwmgr *hwmgr)
- 	PP_ASSERT_WITH_CODE((NULL != hwmgr->pptable),
- 			    "Failed to allocate hwmgr->pptable!", return -ENOMEM);
- 
--	memset(hwmgr->pptable, 0x00, sizeof(struct phm_ppt_v1_information));
--
- 	powerplay_table = get_powerplay_table(hwmgr);
- 
- 	PP_ASSERT_WITH_CODE((NULL != powerplay_table),
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-index 669bd0c2a16c..d55e264c5df5 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-@@ -2702,8 +2702,6 @@ static int ci_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
- 	cgs_write_register(hwmgr->device, mmMC_SEQ_PMG_CMD_MRS2_LP, cgs_read_register(hwmgr->device, mmMC_PMG_CMD_MRS2));
- 	cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP, cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
- 
--	memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
--
- 	result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
- 
- 	if (0 == result)
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-index 375ccf6ff5f2..c123b4d9c621 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-@@ -2631,8 +2631,6 @@ static int iceland_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
- 	cgs_write_register(hwmgr->device, mmMC_SEQ_PMG_CMD_MRS2_LP, cgs_read_register(hwmgr->device, mmMC_PMG_CMD_MRS2));
- 	cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP, cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
- 
--	memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
--
- 	result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
- 
- 	if (0 == result)
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-index 3ed6c5f1e5cf..60462c7211e3 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-@@ -3114,8 +3114,6 @@ static int tonga_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
- 	cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP,
- 			cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
- 
--	memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
--
- 	result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
- 
- 	if (!result)
--- 
-2.11.0
+SGkgRGF2aWQsDQogICAgIFlvdSBhcmUgcmlnaHQsIGl0IHdpbGwgY29weSBwZXItdm0gcmVzdi4N
+CiAgICAgQnV0IGN1cnJlbnRseSwgaXQgc3RpbGwgaGFzIHRoZSBkZWxheSBmcmVlIGlzc3VlIHdo
+aWNoIG5vbiBwZXIgdm0gYm8gZG9lc24ndCBoYXMuIE1heWJlIGl0IGFscmVhZHkgaGFzIG5ldyBm
+ZW5jZXMgYXBwZW5kIHRvIHRoaXMgcmVzdiBvYmplY3QgYmVmb3JlIGNvcHkuDQoNCkhpIENocmlz
+dGlhbiwNCiAgICBEbyB5b3UgaGF2ZSBhbnkgc3VnZ2VzdGlvbiBhYm91dCB0aGlzPyBGb3IgcGVy
+IHZtIGJvLCBpdCBzZWVtcyBhbHdheXMgZGVsYXkgdG8gZnJlZSB0aGUgdHRtIGJvLg0KDQpCZXN0
+IHdpc2hlcw0KRW1pbHkgRGVuZw0KPi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTog
+WmhvdSwgRGF2aWQoQ2h1bk1pbmcpIDxEYXZpZDEuWmhvdUBhbWQuY29tPg0KPlNlbnQ6IFdlZG5l
+c2RheSwgSnVseSAxMCwgMjAxOSA5OjI4IFBNDQo+VG86IERlbmcsIEVtaWx5IDxFbWlseS5EZW5n
+QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPlN1YmplY3Q6IFJlOiBb
+UEFUQ0hdIGRybS90dG06IEZpeCB0aGUgbWVtb3J5IGRlbGF5IGZyZWUgaXNzdWUNCj4NCj5JdCBk
+b2Vzbid0IG1ha2Ugc2Vuc2UgdGhhdCBmcmVlaW5nIEJPIHN0aWxsIHVzZXMgcGVyLXZtIHJlc3Yu
+DQo+DQo+SSByZW1lbWJlciB3aGVuIEJPIGlzIGluIHJlbGVhc2UgbGlzdCwgaXRzIHJlc3Ygd2ls
+bCBiZSBmcm9tIHBlci12bSByZXN2IGNvcHkuDQo+Q291bGQgeW91IGNoZWNrIGl0Pw0KPg0KPi1E
+YXZpZA0KPg0KPuWcqCAyMDE5LzcvMTAgMTc6MjksIEVtaWx5IERlbmcg5YaZ6YGTOg0KPj4gRm9y
+IHZ1bGthbiBjdHMgYWxsb2NhdGlvbiB0ZXN0IGNhc2VzLCB0aGV5IHdpbGwgY3JlYXRlIGEgc2Vy
+aWVzIG9mDQo+PiBib3MsIGFuZCB0aGVuIGZyZWUgdGhlbS4gQXMgaXQgaGFzIGxvdHMgb2YgYWxs
+b2N0aW9uIHRlc3QgY2FzZXMgd2l0aA0KPj4gdGhlIHNhbWUgdm0sIGFzIHBlciB2bSBibyBmZWF0
+dXJlIGVuYWJsZSwgYWxsIG9mIHRob3NlIGJvcycgcmVzdiBhcmUNCj4+IHRoZSBzYW1lLiBCdXQg
+dGhlIGJvIGZyZWUgaXMgcXVpdGUgc2xvdywgYXMgdGhleSB1c2UgdGhlIHNhbWUgcmVzdg0KPj4g
+b2JqZWN0LCBmb3IgZXZlcnkgdGltZSwgZnJlZSBhIGJvLCBpdCB3aWxsIGNoZWNrIHRoZSByZXN2
+IHdoZXRoZXINCj4+IHNpZ25hbCwgaWYgaXQgc2lnbmFsLCB0aGVuIHdpbGwgZnJlZSBpdC4gQnV0
+IGFzIHRoZSB0ZXN0IGNhc2VzIHdpbGwNCj4+IGNvbnRpbnVlIHRvIGNyZWF0ZSBibywgYW5kIHRo
+ZSByZXN2IGZlbmNlIGlzIGluY3JlYXNpbmcuIFNvIHRoZSBmcmVlIGlzIG1vcmUNCj5zbG93ZXIg
+dGhhbiBjcmVhdGluZy4gSXQgd2lsbCBjYXVzZSBtZW1vcnkgZXhoYXVzdGluZy4NCj4+DQo+PiBN
+ZXRob2Q6DQo+PiBXaGVuIHRoZSByZXN2IHNpZ25hbCwgcmVsZWFzZSBhbGwgdGhlIGJvcyB3aGlj
+aCBhcmUgdXNlIHRoZSBzYW1lIHJlc3YNCj4+IG9iamVjdC4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5
+OiBFbWlseSBEZW5nIDxFbWlseS5EZW5nQGFtZC5jb20+DQo+PiAtLS0NCj4+ICAgZHJpdmVycy9n
+cHUvZHJtL3R0bS90dG1fYm8uYyB8IDI5ICsrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tDQo+
+PiAgIDEgZmlsZSBjaGFuZ2VkLCAyNCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQ0KPj4N
+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jDQo+PiBiL2RyaXZl
+cnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgaW5kZXggZjlhM2Q0Yy4uNTdlYzU5YiAxMDA2NDQNCj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS90dG0vdHRtX2JvLmMNCj4+IEBAIC01NDMsNiArNTQzLDcgQEAgc3RhdGljIGludCB0dG1f
+Ym9fY2xlYW51cF9yZWZzKHN0cnVjdA0KPnR0bV9idWZmZXJfb2JqZWN0ICpibywNCj4+ICAgew0K
+Pj4gICAJc3RydWN0IHR0bV9ib19nbG9iYWwgKmdsb2IgPSBiby0+YmRldi0+Z2xvYjsNCj4+ICAg
+CXN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3QgKnJlc3Y7DQo+PiArCXN0cnVjdCB0dG1fYnVmZmVy
+X29iamVjdCAqcmVzdl9ibywgKnJlc3ZfYm9fbmV4dDsNCj4+ICAgCWludCByZXQ7DQo+Pg0KPj4g
+ICAJaWYgKHVubGlrZWx5KGxpc3RfZW1wdHkoJmJvLT5kZGVzdHJveSkpKQ0KPj4gQEAgLTU2Niwx
+MCArNTY3LDE0IEBAIHN0YXRpYyBpbnQgdHRtX2JvX2NsZWFudXBfcmVmcyhzdHJ1Y3QNCj50dG1f
+YnVmZmVyX29iamVjdCAqYm8sDQo+PiAgIAkJCQkJCQkgICBpbnRlcnJ1cHRpYmxlLA0KPj4gICAJ
+CQkJCQkJICAgMzAgKiBIWik7DQo+Pg0KPj4gLQkJaWYgKGxyZXQgPCAwKQ0KPj4gKwkJaWYgKGxy
+ZXQgPCAwKSB7DQo+PiArCQkJa3JlZl9wdXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19yZWxlYXNl
+X2xpc3QpOw0KPj4gICAJCQlyZXR1cm4gbHJldDsNCj4+IC0JCWVsc2UgaWYgKGxyZXQgPT0gMCkN
+Cj4+ICsJCX0NCj4+ICsJCWVsc2UgaWYgKGxyZXQgPT0gMCkgew0KPj4gKwkJCWtyZWZfcHV0KCZi
+by0+bGlzdF9rcmVmLCB0dG1fYm9fcmVsZWFzZV9saXN0KTsNCj4+ICAgCQkJcmV0dXJuIC1FQlVT
+WTsNCj4+ICsJCX0NCj4+DQo+PiAgIAkJc3Bpbl9sb2NrKCZnbG9iLT5scnVfbG9jayk7DQo+PiAg
+IAkJaWYgKHVubG9ja19yZXN2ICYmICFrY2xfcmVzZXJ2YXRpb25fb2JqZWN0X3RyeWxvY2soYm8t
+PnJlc3YpKQ0KPnsgQEANCj4+IC01ODIsNiArNTg3LDcgQEAgc3RhdGljIGludCB0dG1fYm9fY2xl
+YW51cF9yZWZzKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdA0KPipibywNCj4+ICAgCQkJICogaGVy
+ZS4NCj4+ICAgCQkJICovDQo+PiAgIAkJCXNwaW5fdW5sb2NrKCZnbG9iLT5scnVfbG9jayk7DQo+
+PiArCQkJa3JlZl9wdXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19yZWxlYXNlX2xpc3QpOw0KPj4g
+ICAJCQlyZXR1cm4gMDsNCj4+ICAgCQl9DQo+PiAgIAkJcmV0ID0gMDsNCj4+IEBAIC01OTEsMTUg
+KzU5NywyOSBAQCBzdGF0aWMgaW50IHR0bV9ib19jbGVhbnVwX3JlZnMoc3RydWN0DQo+dHRtX2J1
+ZmZlcl9vYmplY3QgKmJvLA0KPj4gICAJCWlmICh1bmxvY2tfcmVzdikNCj4+ICAgCQkJa2NsX3Jl
+c2VydmF0aW9uX29iamVjdF91bmxvY2soYm8tPnJlc3YpOw0KPj4gICAJCXNwaW5fdW5sb2NrKCZn
+bG9iLT5scnVfbG9jayk7DQo+PiArCQlrcmVmX3B1dCgmYm8tPmxpc3Rfa3JlZiwgdHRtX2JvX3Jl
+bGVhc2VfbGlzdCk7DQo+PiAgIAkJcmV0dXJuIHJldDsNCj4+ICAgCX0NCj4+DQo+PiAgIAl0dG1f
+Ym9fZGVsX2Zyb21fbHJ1KGJvKTsNCj4+ICAgCWxpc3RfZGVsX2luaXQoJmJvLT5kZGVzdHJveSk7
+DQo+PiAgIAlrcmVmX3B1dCgmYm8tPmxpc3Rfa3JlZiwgdHRtX2JvX3JlZl9idWcpOw0KPj4gLQ0K
+Pj4gICAJc3Bpbl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsNCj4+ICAgCXR0bV9ib19jbGVhbnVw
+X21lbXR5cGVfdXNlKGJvKTsNCj4+ICsJa3JlZl9wdXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19y
+ZWxlYXNlX2xpc3QpOw0KPj4gKw0KPj4gKwlzcGluX2xvY2soJmdsb2ItPmxydV9sb2NrKTsNCj4+
+ICsJbGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlKHJlc3ZfYm8sIHJlc3ZfYm9fbmV4dCwgJmJvLT5i
+ZGV2LQ0KPj5kZGVzdHJveSwgZGRlc3Ryb3kpIHsNCj4+ICsJCWlmIChyZXN2X2JvLT5yZXN2ID09
+IGJvLT5yZXN2KSB7DQo+PiArCQkJdHRtX2JvX2RlbF9mcm9tX2xydShyZXN2X2JvKTsNCj4+ICsJ
+CQlsaXN0X2RlbF9pbml0KCZyZXN2X2JvLT5kZGVzdHJveSk7DQo+PiArCQkJc3Bpbl91bmxvY2so
+Jmdsb2ItPmxydV9sb2NrKTsNCj4+ICsJCQl0dG1fYm9fY2xlYW51cF9tZW10eXBlX3VzZShyZXN2
+X2JvKTsNCj4+ICsJCQlrcmVmX3B1dCgmcmVzdl9iby0+bGlzdF9rcmVmLCB0dG1fYm9fcmVsZWFz
+ZV9saXN0KTsNCj4+ICsJCQlzcGluX2xvY2soJmdsb2ItPmxydV9sb2NrKTsNCj4+ICsJCX0NCj4+
+ICsJfQ0KPj4gKwlzcGluX3VubG9jaygmZ2xvYi0+bHJ1X2xvY2spOw0KPj4NCj4+ICAgCWlmICh1
+bmxvY2tfcmVzdikNCj4+ICAgCQlrY2xfcmVzZXJ2YXRpb25fb2JqZWN0X3VubG9jayhiby0+cmVz
+dik7DQo+PiBAQCAtNjM5LDkgKzY1OSw4IEBAIHN0YXRpYyBib29sIHR0bV9ib19kZWxheWVkX2Rl
+bGV0ZShzdHJ1Y3QNCj50dG1fYm9fZGV2aWNlICpiZGV2LCBib29sIHJlbW92ZV9hbGwpDQo+PiAg
+IAkJCXR0bV9ib19jbGVhbnVwX3JlZnMoYm8sIGZhbHNlLCAhcmVtb3ZlX2FsbCwgdHJ1ZSk7DQo+
+PiAgIAkJfSBlbHNlIHsNCj4+ICAgCQkJc3Bpbl91bmxvY2soJmdsb2ItPmxydV9sb2NrKTsNCj4+
+ICsJCQlrcmVmX3B1dCgmYm8tPmxpc3Rfa3JlZiwgdHRtX2JvX3JlbGVhc2VfbGlzdCk7DQo+PiAg
+IAkJfQ0KPj4gLQ0KPj4gLQkJa3JlZl9wdXQoJmJvLT5saXN0X2tyZWYsIHR0bV9ib19yZWxlYXNl
+X2xpc3QpOw0KPj4gICAJCXNwaW5fbG9jaygmZ2xvYi0+bHJ1X2xvY2spOw0KPj4gICAJfQ0KPj4g
+ICAJbGlzdF9zcGxpY2VfdGFpbCgmcmVtb3ZlZCwgJmJkZXYtPmRkZXN0cm95KTsNCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
