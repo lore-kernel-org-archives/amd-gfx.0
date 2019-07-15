@@ -1,99 +1,62 @@
-From: Nathan Chancellor <natechancellor@gmail.com>
-Subject: Re: [PATCH 6/7] drm/amd/powerplay: Use proper enums in
- vega20_print_clk_levels
-Date: Mon, 15 Jul 2019 08:39:32 -0700
-Message-ID: <20190715153932.GA41785@archlinux-threadripper>
-References: <20190704055217.45860-1-natechancellor@gmail.com>
- <20190704055217.45860-7-natechancellor@gmail.com>
- <CAK8P3a1e4xKTZc1Fcd9KLwaGG_wpcAnSNu7mrB6zw+aBJ0e0CA@mail.gmail.com>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v18 07/15] fs/namespace: untag user pointers in copy_mount_options
+Date: Mon, 15 Jul 2019 18:00:04 +0200
+Message-ID: <CAAeHK+x2TL057Fr0K7FZBTYgeEPVU3cC6scEeiSYk-Jkb3xgfg@mail.gmail.com>
+References: <cover.1561386715.git.andreyknvl@google.com> <41e0a911e4e4d533486a1468114e6878e21f9f84.1561386715.git.andreyknvl@google.com>
+ <20190624175009.GM29120@arrakis.emea.arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="UTF-8"
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a1e4xKTZc1Fcd9KLwaGG_wpcAnSNu7mrB6zw+aBJ0e0CA@mail.gmail.com>
+In-Reply-To: <20190624175009.GM29120@arrakis.emea.arm.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, clang-built-linux <clang-built-linux@googlegroups.com>, Kevin Wang <kevin1.wang@amd.com>
+To: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Jul 15, 2019 at 11:25:29AM +0200, Arnd Bergmann wrote:
-> On Thu, Jul 4, 2019 at 7:52 AM Nathan Chancellor
-> <natechancellor@gmail.com> wrote:
+On Mon, Jun 24, 2019 at 7:50 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+>
+> On Mon, Jun 24, 2019 at 04:32:52PM +0200, Andrey Konovalov wrote:
+> > This patch is a part of a series that extends kernel ABI to allow to pass
+> > tagged user pointers (with the top byte set to something else other than
+> > 0x00) as syscall arguments.
 > >
-> > clang warns:
+> > In copy_mount_options a user address is being subtracted from TASK_SIZE.
+> > If the address is lower than TASK_SIZE, the size is calculated to not
+> > allow the exact_copy_from_user() call to cross TASK_SIZE boundary.
+> > However if the address is tagged, then the size will be calculated
+> > incorrectly.
 > >
-> > drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:995:39: warning:
-> > implicit conversion from enumeration type 'PPCLK_e' to different
-> > enumeration type 'enum smu_clk_type' [-Wenum-conversion]
-> >                 ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
-> >                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
-> > drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:1016:39: warning:
-> > implicit conversion from enumeration type 'PPCLK_e' to different
-> > enumeration type 'enum smu_clk_type' [-Wenum-conversion]
-> >                 ret = smu_get_current_clk_freq(smu, PPCLK_FCLK, &now);
-> >                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
-> > drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:1031:39: warning:
-> > implicit conversion from enumeration type 'PPCLK_e' to different
-> > enumeration type 'enum smu_clk_type' [-Wenum-conversion]
-> >                 ret = smu_get_current_clk_freq(smu, PPCLK_DCEFCLK, &now);
-> >                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> > Untag the address before subtracting.
 > >
-> > The values are mapped one to one in vega20_get_smu_clk_index so just use
-> > the proper enums here.
-> >
-> > Fixes: 096761014227 ("drm/amd/powerplay: support sysfs to get socclk, fclk, dcefclk")
-> > Link: https://github.com/ClangBuiltLinux/linux/issues/587
-> > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+> > Reviewed-by: Khalid Aziz <khalid.aziz@oracle.com>
+> > Reviewed-by: Vincenzo Frascino <vincenzo.frascino@arm.com>
+> > Reviewed-by: Kees Cook <keescook@chromium.org>
+> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
 > > ---
-> 
-> Adding Kevin Wang for further review, as he sent a related patch in
-> d36893362d22 ("drm/amd/powerplay: fix smu clock type change miss error")
-> 
-> I assume this one is still required as it triggers the same warning.
-> Kevin, can you have a look?
-> 
->       Arnd
-
-Indeed, this one and https://github.com/ClangBuiltLinux/linux/issues/586
-are still outstanding.
-
-https://patchwork.freedesktop.org/patch/315581/
-
-Cheers,
-Nathan
-
-> 
-> >  drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >  fs/namespace.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> > diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> > index 0f14fe14ecd8..e62dd6919b24 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-> > @@ -992,7 +992,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
-> >                 break;
-> >
-> >         case SMU_SOCCLK:
-> > -               ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
-> > +               ret = smu_get_current_clk_freq(smu, SMU_SOCCLK, &now);
-> >                 if (ret) {
-> >                         pr_err("Attempt to get current socclk Failed!");
-> >                         return ret;
-> > @@ -1013,7 +1013,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
-> >                 break;
-> >
-> >         case SMU_FCLK:
-> > -               ret = smu_get_current_clk_freq(smu, PPCLK_FCLK, &now);
-> > +               ret = smu_get_current_clk_freq(smu, SMU_FCLK, &now);
-> >                 if (ret) {
-> >                         pr_err("Attempt to get current fclk Failed!");
-> >                         return ret;
-> > @@ -1028,7 +1028,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
-> >                 break;
-> >
-> >         case SMU_DCEFCLK:
-> > -               ret = smu_get_current_clk_freq(smu, PPCLK_DCEFCLK, &now);
-> > +               ret = smu_get_current_clk_freq(smu, SMU_DCEFCLK, &now);
-> >                 if (ret) {
-> >                         pr_err("Attempt to get current dcefclk Failed!");
-> >                         return ret;
+> > diff --git a/fs/namespace.c b/fs/namespace.c
+> > index 7660c2749c96..ec78f7223917 100644
+> > --- a/fs/namespace.c
+> > +++ b/fs/namespace.c
+> > @@ -2994,7 +2994,7 @@ void *copy_mount_options(const void __user * data)
+> >        * the remainder of the page.
+> >        */
+> >       /* copy_from_user cannot cross TASK_SIZE ! */
+> > -     size = TASK_SIZE - (unsigned long)data;
+> > +     size = TASK_SIZE - (unsigned long)untagged_addr(data);
+> >       if (size > PAGE_SIZE)
+> >               size = PAGE_SIZE;
+>
+> I think this patch needs an ack from Al Viro (cc'ed).
+>
+> --
+> Catalin
+
+Hi Al,
+
+Could you take a look and give your acked-by?
+
+Thanks!
