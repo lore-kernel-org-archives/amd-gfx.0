@@ -1,58 +1,108 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Fix unaligned memory copies
-Date: Mon, 15 Jul 2019 12:12:12 -0400
-Message-ID: <CADnq5_OCXiEoPU5+K2-NQ+9zNMVRd2mMwY6NYeK6Jp0ssLcjtg@mail.gmail.com>
-References: <20190713064245.20097-1-Felix.Kuehling@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH v3 05/24] drm/amdgpu: remove memset after kzalloc
+Date: Mon, 15 Jul 2019 12:19:43 -0400
+Message-ID: <CADnq5_ODy9iAbB60CC4nFAPLx51jBh_KJCRWO9rdqzWPpP0FFQ@mail.gmail.com>
+References: <20190715031731.6421-1-huangfq.daxian@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190713064245.20097-1-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190715031731.6421-1-huangfq.daxian@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Fuqian Huang <huangfq.daxian@gmail.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gU2F0LCBKdWwgMTMsIDIwMTkgYXQgMjo0MyBBTSBLdWVobGluZywgRmVsaXggPEZlbGl4Lkt1
-ZWhsaW5nQGFtZC5jb20+IHdyb3RlOgo+Cj4gV2hlbiBzdGFydGluZyBhIG5ldyBtbV9ub2RlLCB0
-aGUgcGFnZV9vZmZzZXQgYmVjb21lcyAwLgo+Cj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxp
-bmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxh
-bGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3R0bS5jIHwgMiArKwo+ICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
-KCspCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
-bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gaW5kZXggMzdk
-OWEzYjA5OTQ2Li5kMGY2YzIzZWM3Y2YgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jCj4gQEAgLTM4Niw2ICszODYsNyBAQCBpbnQgYW1kZ3B1X3R0bV9jb3B5X21l
-bV90b19tZW0oc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgc3JjX25vZGVfc3RhcnQgPSBhbWRncHVfbW1fbm9kZV9hZGRyKHNyYy0+Ym8sICsrc3Jj
-X21tLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBzcmMtPm1lbSk7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgc3JjX25vZGVf
-c2l6ZSA9IChzcmNfbW0tPnNpemUgPDwgUEFHRV9TSElGVCk7Cj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgc3JjX3BhZ2Vfb2Zmc2V0ID0gMDsKPiAgICAgICAgICAgICAgICAgfSBlbHNlIHsKPiAg
-ICAgICAgICAgICAgICAgICAgICAgICBzcmNfbm9kZV9zdGFydCArPSBjdXJfc2l6ZTsKPiAgICAg
-ICAgICAgICAgICAgICAgICAgICBzcmNfcGFnZV9vZmZzZXQgPSBzcmNfbm9kZV9zdGFydCAmIChQ
-QUdFX1NJWkUgLSAxKTsKPiBAQCAtMzk1LDYgKzM5Niw3IEBAIGludCBhbWRncHVfdHRtX2NvcHlf
-bWVtX3RvX21lbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgICAgICAgICAg
-ICAgICAgICBkc3Rfbm9kZV9zdGFydCA9IGFtZGdwdV9tbV9ub2RlX2FkZHIoZHN0LT5ibywgKytk
-c3RfbW0sCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGRzdC0+bWVtKTsKPiAgICAgICAgICAgICAgICAgICAgICAgICBkc3Rfbm9k
-ZV9zaXplID0gKGRzdF9tbS0+c2l6ZSA8PCBQQUdFX1NISUZUKTsKPiArICAgICAgICAgICAgICAg
-ICAgICAgICBkc3RfcGFnZV9vZmZzZXQgPSAwOwo+ICAgICAgICAgICAgICAgICB9IGVsc2Ugewo+
-ICAgICAgICAgICAgICAgICAgICAgICAgIGRzdF9ub2RlX3N0YXJ0ICs9IGN1cl9zaXplOwo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgIGRzdF9wYWdlX29mZnNldCA9IGRzdF9ub2RlX3N0YXJ0ICYg
-KFBBR0VfU0laRSAtIDEpOwo+IC0tCj4gMi4xNy4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+On Mon, Jul 15, 2019 at 3:57 AM Fuqian Huang <huangfq.daxian@gmail.com> wrote:
+>
+> kzalloc has already zeroed the memory during the allocation.
+> So memset is unneeded.
+>
+> Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
+
+Applied. thanks!
+
+Alex
+
+> ---
+> Changes in v3:
+>   - Fix subject prefix: gpu/drm -> drm/amdgpu
+>
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c       | 2 --
+>  drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c | 2 --
+>  drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c            | 2 --
+>  drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c       | 2 --
+>  drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c         | 2 --
+>  5 files changed, 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> index fd22b4474dbf..4e6da61d1a93 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
+> @@ -279,8 +279,6 @@ void *amdgpu_dm_irq_register_interrupt(struct amdgpu_device *adev,
+>                 return DAL_INVALID_IRQ_HANDLER_IDX;
+>         }
+>
+> -       memset(handler_data, 0, sizeof(*handler_data));
+> -
+>         init_handler_common_data(handler_data, ih, handler_args, &adev->dm);
+>
+>         irq_source = int_params->irq_source;
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+> index 1cd5a8b5cdc1..b760f95e7fa7 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
+> @@ -1067,8 +1067,6 @@ static int pp_tables_v1_0_initialize(struct pp_hwmgr *hwmgr)
+>         PP_ASSERT_WITH_CODE((NULL != hwmgr->pptable),
+>                             "Failed to allocate hwmgr->pptable!", return -ENOMEM);
+>
+> -       memset(hwmgr->pptable, 0x00, sizeof(struct phm_ppt_v1_information));
+> -
+>         powerplay_table = get_powerplay_table(hwmgr);
+>
+>         PP_ASSERT_WITH_CODE((NULL != powerplay_table),
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
+> index 669bd0c2a16c..d55e264c5df5 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
+> @@ -2702,8 +2702,6 @@ static int ci_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
+>         cgs_write_register(hwmgr->device, mmMC_SEQ_PMG_CMD_MRS2_LP, cgs_read_register(hwmgr->device, mmMC_PMG_CMD_MRS2));
+>         cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP, cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
+>
+> -       memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
+> -
+>         result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
+>
+>         if (0 == result)
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+> index 375ccf6ff5f2..c123b4d9c621 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
+> @@ -2631,8 +2631,6 @@ static int iceland_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
+>         cgs_write_register(hwmgr->device, mmMC_SEQ_PMG_CMD_MRS2_LP, cgs_read_register(hwmgr->device, mmMC_PMG_CMD_MRS2));
+>         cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP, cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
+>
+> -       memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
+> -
+>         result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
+>
+>         if (0 == result)
+> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> index 3ed6c5f1e5cf..60462c7211e3 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
+> @@ -3114,8 +3114,6 @@ static int tonga_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
+>         cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP,
+>                         cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
+>
+> -       memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
+> -
+>         result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
+>
+>         if (!result)
+> --
+> 2.11.0
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
