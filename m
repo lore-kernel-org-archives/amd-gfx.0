@@ -1,60 +1,87 @@
 From: Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH] drm/amd/powerplay: work around enum conversion warnings
-Date: Mon, 15 Jul 2019 11:20:48 +0200
-Message-ID: <CAK8P3a0FyzThq_8dO27OxP7nXVORGf5jQQnfUnnG0u272ChRtQ@mail.gmail.com>
-References: <20190708135725.844960-1-arnd@arndb.de> <20190708145430.GC43693@archlinux-epyc>
- <CAK8P3a0ZVqEYCxoCOcAgJL7oV+su0=eZu_XR6X+9vcXzGDwVSQ@mail.gmail.com>
+Subject: Re: [PATCH 6/7] drm/amd/powerplay: Use proper enums in
+ vega20_print_clk_levels
+Date: Mon, 15 Jul 2019 11:25:29 +0200
+Message-ID: <CAK8P3a1e4xKTZc1Fcd9KLwaGG_wpcAnSNu7mrB6zw+aBJ0e0CA@mail.gmail.com>
+References: <20190704055217.45860-1-natechancellor@gmail.com>
+ <20190704055217.45860-7-natechancellor@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <CAK8P3a0ZVqEYCxoCOcAgJL7oV+su0=eZu_XR6X+9vcXzGDwVSQ@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190704055217.45860-7-natechancellor@gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 To: Nathan Chancellor <natechancellor@gmail.com>
-Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Likun Gao <Likun.Gao@amd.com>, Huang Rui <ray.huang@amd.com>, Gui Chengming <Jack.Gui@amd.com>, Kevin Wang <kevin1.wang@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, clang-built-linux <clang-built-linux@googlegroups.com>
+Cc: clang-built-linux <clang-built-linux@googlegroups.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Kevin Wang <kevin1.wang@amd.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Jul 8, 2019 at 6:05 PM Arnd Bergmann <arnd@arndb.de> wrote:
-> On Mon, Jul 8, 2019 at 4:54 PM Nathan Chancellor
-> <natechancellor@gmail.com> wrote:
-
-> > On Mon, Jul 08, 2019 at 03:57:06PM +0200, Arnd Bergmann wrote:
-> > > A couple of calls to smu_get_current_clk_freq() and smu_force_clk_levels()
-> > > pass constants of the wrong type, leading to warnings with clang-8:
-> > >
-> > > drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:995:39: error: implicit conversion from enumeration type 'PPCLK_e' to different enumeration type 'enum smu_clk_type' [-Werror,-Wenum-conversion]
-> > >                 ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
-> > >                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
-> > > drivers/gpu/drm/amd/amdgpu/../powerplay/inc/amdgpu_smu.h:775:82: note: expanded from macro 'smu_get_current_clk_freq'
-> > >         ((smu)->funcs->get_current_clk_freq? (smu)->funcs->get_current_clk_freq((smu), (clk_id), (value)) : 0)
-> > >
-> > > I could not figure out what the purpose is of mixing the types
-> > > like this and if it is written like this intentionally.
-> > > Assuming this is all correct, adding an explict case is an
-> > > easy way to shut up the warnings.
-> > >
-> > > Fixes: bc0fcffd36ba ("drm/amd/powerplay: Unify smu handle task function (v2)")
-> > > Fixes: 096761014227 ("drm/amd/powerplay: support sysfs to get socclk, fclk, dcefclk")
-> > > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> >
-> > I sent a series last week for all of the clang warnings that were added
-> > in this driver recently.
-> >
-> > https://lore.kernel.org/lkml/20190704055217.45860-1-natechancellor@gmail.com/
-> >
-> > I think it is safe to use the CLK enums from the expected type (from
-> > what I could see from going down the code flow rabbit hole).
-> >
-> > https://lore.kernel.org/lkml/20190704055217.45860-4-natechancellor@gmail.com/
-> >
-> > https://lore.kernel.org/lkml/20190704055217.45860-7-natechancellor@gmail.com/
->
-> I tried that at first but concluded that it could not work because the constants
-> are different. Either it's currently broken and you patches fix the runtime
-> behavior, or it's currently correct and your patches break it.
-
-d36893362d22 ("drm/amd/powerplay: fix smu clock type change miss error")
-was now applied and contains the same change as your first patch.
-
-I assume the other one is still needed though.
-
-       Arnd
+T24gVGh1LCBKdWwgNCwgMjAxOSBhdCA3OjUyIEFNIE5hdGhhbiBDaGFuY2VsbG9yCjxuYXRlY2hh
+bmNlbGxvckBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gY2xhbmcgd2FybnM6Cj4KPiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS8uLi9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jOjk5NTozOTogd2Fybmlu
+ZzoKPiBpbXBsaWNpdCBjb252ZXJzaW9uIGZyb20gZW51bWVyYXRpb24gdHlwZSAnUFBDTEtfZScg
+dG8gZGlmZmVyZW50Cj4gZW51bWVyYXRpb24gdHlwZSAnZW51bSBzbXVfY2xrX3R5cGUnIFstV2Vu
+dW0tY29udmVyc2lvbl0KPiAgICAgICAgICAgICAgICAgcmV0ID0gc211X2dldF9jdXJyZW50X2Ns
+a19mcmVxKHNtdSwgUFBDTEtfU09DQ0xLLCAmbm93KTsKPiAgICAgICAgICAgICAgICAgICAgICAg
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Xn5+fn5+fn5+fn5+fn5+fn5+fgo+IGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL3Bvd2VycGxheS92ZWdhMjBfcHB0LmM6MTAxNjozOTog
+d2FybmluZzoKPiBpbXBsaWNpdCBjb252ZXJzaW9uIGZyb20gZW51bWVyYXRpb24gdHlwZSAnUFBD
+TEtfZScgdG8gZGlmZmVyZW50Cj4gZW51bWVyYXRpb24gdHlwZSAnZW51bSBzbXVfY2xrX3R5cGUn
+IFstV2VudW0tY29udmVyc2lvbl0KPiAgICAgICAgICAgICAgICAgcmV0ID0gc211X2dldF9jdXJy
+ZW50X2Nsa19mcmVxKHNtdSwgUFBDTEtfRkNMSywgJm5vdyk7Cj4gICAgICAgICAgICAgICAgICAg
+ICAgIH5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fl5+fn5+fn5+fn5+fn5+fn5+Cj4gZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYzoxMDMxOjM5
+OiB3YXJuaW5nOgo+IGltcGxpY2l0IGNvbnZlcnNpb24gZnJvbSBlbnVtZXJhdGlvbiB0eXBlICdQ
+UENMS19lJyB0byBkaWZmZXJlbnQKPiBlbnVtZXJhdGlvbiB0eXBlICdlbnVtIHNtdV9jbGtfdHlw
+ZScgWy1XZW51bS1jb252ZXJzaW9uXQo+ICAgICAgICAgICAgICAgICByZXQgPSBzbXVfZ2V0X2N1
+cnJlbnRfY2xrX2ZyZXEoc211LCBQUENMS19EQ0VGQ0xLLCAmbm93KTsKPiAgICAgICAgICAgICAg
+ICAgICAgICAgfn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Xn5+fn5+fn5+fn5+fn5+fn5+
+fn4KPgo+IFRoZSB2YWx1ZXMgYXJlIG1hcHBlZCBvbmUgdG8gb25lIGluIHZlZ2EyMF9nZXRfc211
+X2Nsa19pbmRleCBzbyBqdXN0IHVzZQo+IHRoZSBwcm9wZXIgZW51bXMgaGVyZS4KPgo+IEZpeGVz
+OiAwOTY3NjEwMTQyMjcgKCJkcm0vYW1kL3Bvd2VycGxheTogc3VwcG9ydCBzeXNmcyB0byBnZXQg
+c29jY2xrLCBmY2xrLCBkY2VmY2xrIikKPiBMaW5rOiBodHRwczovL2dpdGh1Yi5jb20vQ2xhbmdC
+dWlsdExpbnV4L2xpbnV4L2lzc3Vlcy81ODcKPiBTaWduZWQtb2ZmLWJ5OiBOYXRoYW4gQ2hhbmNl
+bGxvciA8bmF0ZWNoYW5jZWxsb3JAZ21haWwuY29tPgo+IC0tLQoKQWRkaW5nIEtldmluIFdhbmcg
+Zm9yIGZ1cnRoZXIgcmV2aWV3LCBhcyBoZSBzZW50IGEgcmVsYXRlZCBwYXRjaCBpbgpkMzY4OTMz
+NjJkMjIgKCJkcm0vYW1kL3Bvd2VycGxheTogZml4IHNtdSBjbG9jayB0eXBlIGNoYW5nZSBtaXNz
+IGVycm9yIikKCkkgYXNzdW1lIHRoaXMgb25lIGlzIHN0aWxsIHJlcXVpcmVkIGFzIGl0IHRyaWdn
+ZXJzIHRoZSBzYW1lIHdhcm5pbmcuCktldmluLCBjYW4geW91IGhhdmUgYSBsb29rPwoKICAgICAg
+QXJuZAoKPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jIHwgNiAr
+KystLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkK
+Pgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKPiBpbmRleCAw
+ZjE0ZmUxNGVjZDguLmU2MmRkNjkxOWIyNCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bv
+d2VycGxheS92ZWdhMjBfcHB0LmMKPiBAQCAtOTkyLDcgKzk5Miw3IEBAIHN0YXRpYyBpbnQgdmVn
+YTIwX3ByaW50X2Nsa19sZXZlbHMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCj4gICAgICAgICAg
+ICAgICAgIGJyZWFrOwo+Cj4gICAgICAgICBjYXNlIFNNVV9TT0NDTEs6Cj4gLSAgICAgICAgICAg
+ICAgIHJldCA9IHNtdV9nZXRfY3VycmVudF9jbGtfZnJlcShzbXUsIFBQQ0xLX1NPQ0NMSywgJm5v
+dyk7Cj4gKyAgICAgICAgICAgICAgIHJldCA9IHNtdV9nZXRfY3VycmVudF9jbGtfZnJlcShzbXUs
+IFNNVV9TT0NDTEssICZub3cpOwo+ICAgICAgICAgICAgICAgICBpZiAocmV0KSB7Cj4gICAgICAg
+ICAgICAgICAgICAgICAgICAgcHJfZXJyKCJBdHRlbXB0IHRvIGdldCBjdXJyZW50IHNvY2NsayBG
+YWlsZWQhIik7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKPiBAQCAtMTAx
+Myw3ICsxMDEzLDcgQEAgc3RhdGljIGludCB2ZWdhMjBfcHJpbnRfY2xrX2xldmVscyhzdHJ1Y3Qg
+c211X2NvbnRleHQgKnNtdSwKPiAgICAgICAgICAgICAgICAgYnJlYWs7Cj4KPiAgICAgICAgIGNh
+c2UgU01VX0ZDTEs6Cj4gLSAgICAgICAgICAgICAgIHJldCA9IHNtdV9nZXRfY3VycmVudF9jbGtf
+ZnJlcShzbXUsIFBQQ0xLX0ZDTEssICZub3cpOwo+ICsgICAgICAgICAgICAgICByZXQgPSBzbXVf
+Z2V0X2N1cnJlbnRfY2xrX2ZyZXEoc211LCBTTVVfRkNMSywgJm5vdyk7Cj4gICAgICAgICAgICAg
+ICAgIGlmIChyZXQpIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICBwcl9lcnIoIkF0dGVtcHQg
+dG8gZ2V0IGN1cnJlbnQgZmNsayBGYWlsZWQhIik7Cj4gICAgICAgICAgICAgICAgICAgICAgICAg
+cmV0dXJuIHJldDsKPiBAQCAtMTAyOCw3ICsxMDI4LDcgQEAgc3RhdGljIGludCB2ZWdhMjBfcHJp
+bnRfY2xrX2xldmVscyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKPiAgICAgICAgICAgICAgICAg
+YnJlYWs7Cj4KPiAgICAgICAgIGNhc2UgU01VX0RDRUZDTEs6Cj4gLSAgICAgICAgICAgICAgIHJl
+dCA9IHNtdV9nZXRfY3VycmVudF9jbGtfZnJlcShzbXUsIFBQQ0xLX0RDRUZDTEssICZub3cpOwo+
+ICsgICAgICAgICAgICAgICByZXQgPSBzbXVfZ2V0X2N1cnJlbnRfY2xrX2ZyZXEoc211LCBTTVVf
+RENFRkNMSywgJm5vdyk7Cj4gICAgICAgICAgICAgICAgIGlmIChyZXQpIHsKPiAgICAgICAgICAg
+ICAgICAgICAgICAgICBwcl9lcnIoIkF0dGVtcHQgdG8gZ2V0IGN1cnJlbnQgZGNlZmNsayBGYWls
+ZWQhIik7Cj4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHJldDsKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1haWxpbmcgbGlz
+dApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
