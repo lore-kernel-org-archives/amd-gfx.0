@@ -1,108 +1,54 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH v3 05/24] drm/amdgpu: remove memset after kzalloc
-Date: Mon, 15 Jul 2019 12:19:43 -0400
-Message-ID: <CADnq5_ODy9iAbB60CC4nFAPLx51jBh_KJCRWO9rdqzWPpP0FFQ@mail.gmail.com>
-References: <20190715031731.6421-1-huangfq.daxian@gmail.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: replace simple_strtol() by kstrtou32()
+Date: Mon, 15 Jul 2019 12:25:03 -0400
+Message-ID: <CADnq5_O13JWXuOFJLW9ih9R8iz0PEb0=dv-L-_YD63fMYqn+Pg@mail.gmail.com>
+References: <20190715085301.5311-1-xywang.sjtu@sjtu.edu.cn>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190715031731.6421-1-huangfq.daxian@gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Fuqian Huang <huangfq.daxian@gmail.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190715085301.5311-1-xywang.sjtu-u2tTgNRCH2jM1kAEIRd3EQ@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: xywang.sjtu-u2tTgNRCH2jM1kAEIRd3EQ@public.gmane.org
+Cc: "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Yintian Tao <yttao-5C7GfCeVMHo@public.gmane.org>
 
-On Mon, Jul 15, 2019 at 3:57 AM Fuqian Huang <huangfq.daxian@gmail.com> wrote:
->
-> kzalloc has already zeroed the memory during the allocation.
-> So memset is unneeded.
->
-> Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
-
-Applied. thanks!
-
-Alex
-
-> ---
-> Changes in v3:
->   - Fix subject prefix: gpu/drm -> drm/amdgpu
->
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c       | 2 --
->  drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c | 2 --
->  drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c            | 2 --
->  drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c       | 2 --
->  drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c         | 2 --
->  5 files changed, 10 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> index fd22b4474dbf..4e6da61d1a93 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c
-> @@ -279,8 +279,6 @@ void *amdgpu_dm_irq_register_interrupt(struct amdgpu_device *adev,
->                 return DAL_INVALID_IRQ_HANDLER_IDX;
->         }
->
-> -       memset(handler_data, 0, sizeof(*handler_data));
-> -
->         init_handler_common_data(handler_data, ih, handler_args, &adev->dm);
->
->         irq_source = int_params->irq_source;
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-> index 1cd5a8b5cdc1..b760f95e7fa7 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/process_pptables_v1_0.c
-> @@ -1067,8 +1067,6 @@ static int pp_tables_v1_0_initialize(struct pp_hwmgr *hwmgr)
->         PP_ASSERT_WITH_CODE((NULL != hwmgr->pptable),
->                             "Failed to allocate hwmgr->pptable!", return -ENOMEM);
->
-> -       memset(hwmgr->pptable, 0x00, sizeof(struct phm_ppt_v1_information));
-> -
->         powerplay_table = get_powerplay_table(hwmgr);
->
->         PP_ASSERT_WITH_CODE((NULL != powerplay_table),
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-> index 669bd0c2a16c..d55e264c5df5 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/ci_smumgr.c
-> @@ -2702,8 +2702,6 @@ static int ci_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
->         cgs_write_register(hwmgr->device, mmMC_SEQ_PMG_CMD_MRS2_LP, cgs_read_register(hwmgr->device, mmMC_PMG_CMD_MRS2));
->         cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP, cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
->
-> -       memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
-> -
->         result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
->
->         if (0 == result)
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-> index 375ccf6ff5f2..c123b4d9c621 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/iceland_smumgr.c
-> @@ -2631,8 +2631,6 @@ static int iceland_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
->         cgs_write_register(hwmgr->device, mmMC_SEQ_PMG_CMD_MRS2_LP, cgs_read_register(hwmgr->device, mmMC_PMG_CMD_MRS2));
->         cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP, cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
->
-> -       memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
-> -
->         result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
->
->         if (0 == result)
-> diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-> index 3ed6c5f1e5cf..60462c7211e3 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smumgr/tonga_smumgr.c
-> @@ -3114,8 +3114,6 @@ static int tonga_initialize_mc_reg_table(struct pp_hwmgr *hwmgr)
->         cgs_write_register(hwmgr->device, mmMC_SEQ_WR_CTL_2_LP,
->                         cgs_read_register(hwmgr->device, mmMC_SEQ_WR_CTL_2));
->
-> -       memset(table, 0x00, sizeof(pp_atomctrl_mc_reg_table));
-> -
->         result = atomctrl_initialize_mc_reg_table(hwmgr, module_index, table);
->
->         if (!result)
-> --
-> 2.11.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gTW9uLCBKdWwgMTUsIDIwMTkgYXQgMTA6NTcgQU0gPHh5d2FuZy5zanR1QHNqdHUuZWR1LmNu
+PiB3cm90ZToKPgo+IEZyb206IFdhbmcgWGlheWFuZyA8eHl3YW5nLnNqdHVAc2p0dS5lZHUuY24+
+Cj4KPiBUaGUgc2ltcGxlX3N0cnRvbCgpIGZ1bmN0aW9uIGlzIGRlcHJlY2F0ZWQuIGtzdHJ0b1ts
+LHUzMl0oKSBpcwo+IHRoZSBjb3JyZWN0IHJlcGxhY2VtZW50IGFzIGl0IGNhbiBwcm9wZXJseSBo
+YW5kbGUgb3ZlcmZsb3dzLgo+Cj4gVGhpcyBwYXRjaCByZXBsYWNlcyB0aGUgZGVwcmVjYXRlZCBz
+aW1wbGVfc3RydG9sKCkgdXNlIGludHJvZHVjZWQgcmVjZW50bHkuCj4gQXMgY2xrIGlzIG9mIHR5
+cGUgdWludDMyX3QsIHdlIGFyZSBzYWZlIHRvIHVzZSBrc3RydG91MzIoKS4KPgo+IEl0IGlzIGFs
+c28gc2FmZSB0byByZXR1cm4gemVybyBvbiBzdHJpbmcgcGFyc2luZyBlcnJvciwKPiBzaW1pbGFy
+IHRvIHRoZSBjYXNlIG9mIHJldHVybmluZyB6ZXJvIGlmIGJ1ZiBpcyBlbXB0eSBpbiBwYXJzZV9j
+bGsoKS4KPgo+IEZpeGVzOiBiYjVhMmJkZjM2YTggKCJkcm0vYW1kZ3B1OiBzdXBwb3J0IGRwbSBs
+ZXZlbCBtb2RpZmljYXRpb24gdW5kZXIgdmlydHVhbGl6YXRpb24gdjMiKQo+IFNpZ25lZC1vZmYt
+Ynk6IFdhbmcgWGlheWFuZyA8eHl3YW5nLnNqdHVAc2p0dS5lZHUuY24+CgpBcHBsaWVkLiAgVGhh
+bmtzIQoKQWxleAoKPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zp
+cnQuYyB8IDMgKystCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRp
+b24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dmlydC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYwo+IGluZGV4
+IDdkNDg0ZmFkMzkwOS4uMmFkZGE0N2RlZjY0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdmlydC5jCj4gQEAgLTM4Niw3ICszODYsOCBAQCBzdGF0aWMgdWludDMyX3Qg
+cGFyc2VfY2xrKGNoYXIgKmJ1ZiwgYm9vbCBtaW4pCj4gICAgICAgICAgICAgICAgICBpZiAoIXB0
+cikKPiAgICAgICAgICAgICAgICAgICAgICAgICAgYnJlYWs7Cj4gICAgICAgICAgICAgICAgICBw
+dHIrPTI7Cj4gLSAgICAgICAgICAgICAgICBjbGsgPSBzaW1wbGVfc3RydG91bChwdHIsIE5VTEws
+IDEwKTsKPiArICAgICAgICAgICAgICAgaWYgKGtzdHJ0b3UzMihwdHIsIDEwLCAmY2xrKSkKPiAr
+ICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gMDsKPiAgICAgICAgICB9IHdoaWxlICghbWlu
+KTsKPgo+ICAgICAgICAgIHJldHVybiBjbGsgKiAxMDA7Cj4gLS0KPiAyLjExLjAKPgo+IF9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWls
+aW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
