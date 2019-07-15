@@ -1,50 +1,66 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v18 11/15] IB/mlx4: untag user pointers in
- mlx4_get_umem_mr
-Date: Mon, 15 Jul 2019 15:05:10 -0300
-Message-ID: <20190715180510.GC4970@ziepe.ca>
-References: <cover.1561386715.git.andreyknvl@google.com>
- <ea0ff94ef2b8af12ea6c222c5ebd970e0849b6dd.1561386715.git.andreyknvl@google.com>
- <20190624174015.GL29120@arrakis.emea.arm.com>
- <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu: Fix unaligned memory copies
+Date: Mon, 15 Jul 2019 21:33:03 +0200
+Message-ID: <a9afb49b-32ce-6cf4-f984-0330db9187d3@gmail.com>
+References: <20190713064245.20097-1-Felix.Kuehling@amd.com>
+ <CADnq5_OCXiEoPU5+K2-NQ+9zNMVRd2mMwY6NYeK6Jp0ssLcjtg@mail.gmail.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_OCXiEoPU5+K2-NQ+9zNMVRd2mMwY6NYeK6Jp0ssLcjtg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Mon, Jul 15, 2019 at 06:01:29PM +0200, Andrey Konovalov wrote:
-> On Mon, Jun 24, 2019 at 7:40 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> >
-> > On Mon, Jun 24, 2019 at 04:32:56PM +0200, Andrey Konovalov wrote:
-> > > This patch is a part of a series that extends kernel ABI to allow to pass
-> > > tagged user pointers (with the top byte set to something else other than
-> > > 0x00) as syscall arguments.
-> > >
-> > > mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
-> > > only by done with untagged pointers.
-> > >
-> > > Untag user pointers in this function.
-> > >
-> > > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> > >  drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
-> > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> >
-> > Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-> >
-> > This patch also needs an ack from the infiniband maintainers (Jason).
-> 
-> Hi Jason,
-> 
-> Could you take a look and give your acked-by?
-
-Oh, I think I did this a long time ago. Still looks OK. You will send
-it?
-
-Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
-
-Jason
+QW0gMTUuMDcuMTkgdW0gMTg6MTIgc2NocmllYiBBbGV4IERldWNoZXI6Cj4gT24gU2F0LCBKdWwg
+MTMsIDIwMTkgYXQgMjo0MyBBTSBLdWVobGluZywgRmVsaXggPEZlbGl4Lkt1ZWhsaW5nQGFtZC5j
+b20+IHdyb3RlOgo+PiBXaGVuIHN0YXJ0aW5nIGEgbmV3IG1tX25vZGUsIHRoZSBwYWdlX29mZnNl
+dCBiZWNvbWVzIDAuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5L
+dWVobGluZ0BhbWQuY29tPgo+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
+ZXVjaGVyQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
+LmtvZW5pZ0BhbWQuY29tPgoKPgo+PiAtLS0KPj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfdHRtLmMgfCAyICsrCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygr
+KQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
+bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4+IGluZGV4IDM3
+ZDlhM2IwOTk0Ni4uZDBmNmMyM2VjN2NmIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X3R0bS5jCj4+IEBAIC0zODYsNiArMzg2LDcgQEAgaW50IGFtZGdwdV90dG1fY29w
+eV9tZW1fdG9fbWVtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAo+PiAgICAgICAgICAgICAg
+ICAgICAgICAgICAgc3JjX25vZGVfc3RhcnQgPSBhbWRncHVfbW1fbm9kZV9hZGRyKHNyYy0+Ym8s
+ICsrc3JjX21tLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHNyYy0+bWVtKTsKPj4gICAgICAgICAgICAgICAgICAgICAgICAg
+IHNyY19ub2RlX3NpemUgPSAoc3JjX21tLT5zaXplIDw8IFBBR0VfU0hJRlQpOwo+PiArICAgICAg
+ICAgICAgICAgICAgICAgICBzcmNfcGFnZV9vZmZzZXQgPSAwOwo+PiAgICAgICAgICAgICAgICAg
+IH0gZWxzZSB7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICBzcmNfbm9kZV9zdGFydCArPSBj
+dXJfc2l6ZTsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgIHNyY19wYWdlX29mZnNldCA9IHNy
+Y19ub2RlX3N0YXJ0ICYgKFBBR0VfU0laRSAtIDEpOwo+PiBAQCAtMzk1LDYgKzM5Niw3IEBAIGlu
+dCBhbWRncHVfdHRtX2NvcHlfbWVtX3RvX21lbShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwK
+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgIGRzdF9ub2RlX3N0YXJ0ID0gYW1kZ3B1X21tX25v
+ZGVfYWRkcihkc3QtPmJvLCArK2RzdF9tbSwKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBkc3QtPm1lbSk7Cj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICBkc3Rfbm9kZV9zaXplID0gKGRzdF9tbS0+c2l6ZSA8PCBQQUdFX1NI
+SUZUKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgZHN0X3BhZ2Vfb2Zmc2V0ID0gMDsKPj4g
+ICAgICAgICAgICAgICAgICB9IGVsc2Ugewo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgZHN0
+X25vZGVfc3RhcnQgKz0gY3VyX3NpemU7Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICBkc3Rf
+cGFnZV9vZmZzZXQgPSBkc3Rfbm9kZV9zdGFydCAmIChQQUdFX1NJWkUgLSAxKTsKPj4gLS0KPj4g
+Mi4xNy4xCj4+Cj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCj4+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4g
+YW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
