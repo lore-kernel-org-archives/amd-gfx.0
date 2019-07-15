@@ -1,98 +1,50 @@
-From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Subject: Re: HMM related use-after-free with amdgpu
-Date: Mon, 15 Jul 2019 17:25:21 +0000
-Message-ID: <20190715172515.GA5043@mellanox.com>
-References: <9a38f48b-3974-a238-5987-5251c1343f6b@daenzer.net>
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v18 11/15] IB/mlx4: untag user pointers in
+ mlx4_get_umem_mr
+Date: Mon, 15 Jul 2019 15:05:10 -0300
+Message-ID: <20190715180510.GC4970@ziepe.ca>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <ea0ff94ef2b8af12ea6c222c5ebd970e0849b6dd.1561386715.git.andreyknvl@google.com>
+ <20190624174015.GL29120@arrakis.emea.arm.com>
+ <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <9a38f48b-3974-a238-5987-5251c1343f6b-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-Content-ID: <DFDD35BEF84A19498025B2135B14AE30-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, =?utf-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gTW9uLCBKdWwgMTUsIDIwMTkgYXQgMDY6NTE6MDZQTSArMDIwMCwgTWljaGVsIETDpG56ZXIg
-d3JvdGU6DQo+IA0KPiBXaXRoIGEgS0FTQU4gZW5hYmxlZCBrZXJuZWwgYnVpbHQgZnJvbSBhbWQt
-c3RhZ2luZy1kcm0tbmV4dCwgdGhlDQo+IGF0dGFjaGVkIHVzZS1hZnRlci1mcmVlIGlzIHByZXR0
-eSByZWxpYWJseSBkZXRlY3RlZCBkdXJpbmcgYSBwaWdsaXQgZ3B1IHJ1bi4NCg0KRG9lcyB0aGlz
-IGJyYW5jaCB5b3UgYXJlIHRlc3RpbmcgaGF2ZSB0aGUgaG1tLmdpdCBtZXJnZWQ/IEkgdGhpbmsg
-ZnJvbQ0KdGhlIG5hbWUgaXQgZG9lcyBub3Q/DQoNClVzZSBhZnRlciBmcmVlJ3Mgb2YgdGhpcyBu
-YXR1cmUgd2VyZSBzb21ldGhpbmcgdGhhdCB3YXMgZml4ZWQgaW4NCmhtbS5naXQuLg0KDQpJIGRv
-bid0IHNlZSBhbiBvYnZpb3VzIHdheSB5b3UgY2FuIGhpdCBzb21ldGhpbmcgbGlrZSB0aGlzIHdp
-dGggdGhlDQpuZXcgY29kZSBhcnJhbmdlbWVudC4uDQoNCj4gUC5TLiBXaXRoIG15IHN0YW5kYXJk
-IGtlcm5lbHMgd2l0aG91dCBLQVNBTiAoY3VycmVudGx5IDUuMi55ICsgZHJtLW5leHQNCj4gY2hh
-bmdlcyBmb3IgNS4zKSwgSSdtIGhhdmluZyB0cm91YmxlIGxhdGVseSBjb21wbGV0aW5nIGEgcGln
-bGl0IHJ1biwNCj4gcnVubmluZyBpbnRvIHZhcmlvdXMgaXNzdWVzIHdoaWNoIGxvb2sgbGlrZSBt
-ZW1vcnkgY29ycnVwdGlvbiwgc28gbWlnaHQNCj4gYmUgcmVsYXRlZC4NCg0KSSdtIHNrZXB0aWNh
-bCB0aGF0IHRoZSBBTURHUFUgaW1wbGVtZW50YXRpb24gb2YgdGhlIGxvY2tpbmcgYXJvdW5kIHRo
-ZQ0KaG1tX3JhbmdlICYgbWlycm9yIGlzIHdvcmtpbmcsIGl0IGRvZXNuJ3IgZm9sbG93IHRoZSBw
-ZXJzY3JpYmVkDQpwYXR0ZXJuIGF0IGxlYXN0Lg0KDQo+IEp1bCAxNSAxODowOToyOSBrYXZlcmkg
-a2VybmVsOiBbICA1NjAuMzg4NzUxXVtUMTI1NjhdID09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ0KPiBKdWwgMTUgMTg6MDk6
-Mjkga2F2ZXJpIGtlcm5lbDogWyAgNTYwLjM4OTA2M11bVDEyNTY4XSBCVUc6IEtBU0FOOiB1c2Ut
-YWZ0ZXItZnJlZSBpbiBfX21tdV9ub3RpZmllcl9yZWxlYXNlKzB4Mjg2LzB4M2UwDQo+IEp1bCAx
-NSAxODowOToyOSBrYXZlcmkga2VybmVsOiBbICA1NjAuMzg5MDY4XVtUMTI1NjhdIFJlYWQgb2Yg
-c2l6ZSA4IGF0IGFkZHIgZmZmZjg4ODM1ZTFjN2NiMCBieSB0YXNrIGFtZF9waW5uZWRfbWVtby8x
-MjU2OA0KPiBKdWwgMTUgMTg6MDk6Mjkga2F2ZXJpIGtlcm5lbDogWyAgNTYwLjM4OTA3MV1bVDEy
-NTY4XSANCj4gSnVsIDE1IDE4OjA5OjI5IGthdmVyaSBrZXJuZWw6IFsgIDU2MC4zODkwNzddW1Qx
-MjU2OF0gQ1BVOiA5IFBJRDogMTI1NjggQ29tbTogYW1kX3Bpbm5lZF9tZW1vIFRhaW50ZWQ6IEcg
-ICAgICAgICAgIE9FICAgICA1LjIuMC1yYzEtMDA4MTEtZzJhZDVhN2QzMWJkZiAjMTI1DQo+IEp1
-bCAxNSAxODowOToyOSBrYXZlcmkga2VybmVsOiBbICA1NjAuMzg5MDgwXVtUMTI1NjhdIEhhcmR3
-YXJlIG5hbWU6IE1pY3JvLVN0YXIgSW50ZXJuYXRpb25hbCBDby4sIEx0ZC4gTVMtN0EzNC9CMzUw
-IFRPTUFIQVdLIChNUy03QTM0KSwgQklPUyAxLjgwIDA5LzEzLzIwMTcNCj4gSnVsIDE1IDE4OjA5
-OjI5IGthdmVyaSBrZXJuZWw6IFsgIDU2MC4zODkwODRdW1QxMjU2OF0gQ2FsbCBUcmFjZToNCj4g
-SnVsIDE1IDE4OjA5OjI5IGthdmVyaSBrZXJuZWw6IFsgIDU2MC4zODkwOTFdW1QxMjU2OF0gIGR1
-bXBfc3RhY2srMHg3Yy8weGMwDQo+IEp1bCAxNSAxODowOToyOSBrYXZlcmkga2VybmVsOiBbICA1
-NjAuMzg5MDk3XVtUMTI1NjhdICA/IF9fbW11X25vdGlmaWVyX3JlbGVhc2UrMHgyODYvMHgzZTAN
-Cj4gSnVsIDE1IDE4OjA5OjI5IGthdmVyaSBrZXJuZWw6IFsgIDU2MC4zODkxMDFdW1QxMjU2OF0g
-IHByaW50X2FkZHJlc3NfZGVzY3JpcHRpb24rMHg2NS8weDIyZQ0KPiBKdWwgMTUgMTg6MDk6Mjkg
-a2F2ZXJpIGtlcm5lbDogWyAgNTYwLjM4OTEwNl1bVDEyNTY4XSAgPyBfX21tdV9ub3RpZmllcl9y
-ZWxlYXNlKzB4Mjg2LzB4M2UwDQo+IEp1bCAxNSAxODowOToyOSBrYXZlcmkga2VybmVsOiBbICA1
-NjAuMzg5MTEwXVtUMTI1NjhdICA/IF9fbW11X25vdGlmaWVyX3JlbGVhc2UrMHgyODYvMHgzZTAN
-Cj4gSnVsIDE1IDE4OjA5OjI5IGthdmVyaSBrZXJuZWw6IFsgIDU2MC4zODkxMTVdW1QxMjU2OF0g
-IF9fa2FzYW5fcmVwb3J0LmNvbGQuMysweDFhLzB4M2QNCj4gSnVsIDE1IDE4OjA5OjI5IGthdmVy
-aSBrZXJuZWw6IFsgIDU2MC4zODkxMjJdW1QxMjU2OF0gID8gX19tbXVfbm90aWZpZXJfcmVsZWFz
-ZSsweDI4Ni8weDNlMA0KPiBKdWwgMTUgMTg6MDk6Mjkga2F2ZXJpIGtlcm5lbDogWyAgNTYwLjM4
-OTEyOF1bVDEyNTY4XSAga2FzYW5fcmVwb3J0KzB4ZS8weDIwDQo+IEp1bCAxNSAxODowOToyOSBr
-YXZlcmkga2VybmVsOiBbICA1NjAuMzg5MTMyXVtUMTI1NjhdICBfX21tdV9ub3RpZmllcl9yZWxl
-YXNlKzB4Mjg2LzB4M2UwDQoNClNvIHdlIGFyZSBpdGVyYXRpbmcgb3ZlciB0aGUgbW4gbGlzdCBh
-bmQgdG91Y2hlZCBmcmVlJ2QgbWVtb3J5DQoNCj4gSnVsIDE1IDE4OjA5OjI5IGthdmVyaSBrZXJu
-ZWw6IFsgIDU2MC4zODkzMDldW1QxMjU2OF0gQWxsb2NhdGVkIGJ5IHRhc2sgMTI1Njg6DQo+IEp1
-bCAxNSAxODowOToyOSBrYXZlcmkga2VybmVsOiBbICA1NjAuMzg5MzE0XVtUMTI1NjhdICBzYXZl
-X3N0YWNrKzB4MTkvMHg4MA0KPiBKdWwgMTUgMTg6MDk6Mjkga2F2ZXJpIGtlcm5lbDogWyAgNTYw
-LjM4OTMxOF1bVDEyNTY4XSAgX19rYXNhbl9rbWFsbG9jLmNvbnN0cHJvcC44KzB4YzEvMHhkMA0K
-PiBKdWwgMTUgMTg6MDk6Mjkga2F2ZXJpIGtlcm5lbDogWyAgNTYwLjM4OTMyM11bVDEyNTY4XSAg
-aG1tX2dldF9vcl9jcmVhdGUrMHg4Zi8weDNmMA0KDQpUaGUgbWVtb3J5IGlzIHByb2JhYmx5IGEg
-c3RydWN0IGhtbQ0KDQo+IEp1bCAxNSAxODowOToyOSBrYXZlcmkga2VybmVsOiBbICA1NjAuMzg5
-ODU3XVtUMTI1NjhdIEZyZWVkIGJ5IHRhc2sgMTI1Njg6DQo+IEp1bCAxNSAxODowOToyOSBrYXZl
-cmkga2VybmVsOiBbICA1NjAuMzg5ODYwXVtUMTI1NjhdICBzYXZlX3N0YWNrKzB4MTkvMHg4MA0K
-PiBKdWwgMTUgMTg6MDk6Mjkga2F2ZXJpIGtlcm5lbDogWyAgNTYwLjM4OTg2NF1bVDEyNTY4XSAg
-X19rYXNhbl9zbGFiX2ZyZWUrMHgxMjUvMHgxNzANCj4gSnVsIDE1IDE4OjA5OjI5IGthdmVyaSBr
-ZXJuZWw6IFsgIDU2MC4zODk4NjddW1QxMjU2OF0gIGtmcmVlKzB4ZTIvMHgyOTANCj4gSnVsIDE1
-IDE4OjA5OjI5IGthdmVyaSBrZXJuZWw6IFsgIDU2MC4zODk4NzFdW1QxMjU2OF0gIF9fbW11X25v
-dGlmaWVyX3JlbGVhc2UrMHhlZi8weDNlMA0KPiBKdWwgMTUgMTg6MDk6Mjkga2F2ZXJpIGtlcm5l
-bDogWyAgNTYwLjM4OTg3NV1bVDEyNTY4XSAgZXhpdF9tbWFwKzB4OTMvMHg0MDANCg0KQW5kIHRo
-ZSBmcmVlIHdhcyBhbHNvIGRvbmUgaW4gbm90aWZpZXJfcmVsZWFzZSAocHJlc3VtYWJseSB0aGUN
-CmJhY2t0cmFjZSBpcyBjb3JydXB0IGFuZCB0aGlzIGlzIHJlYWxseSBpbiB0aGUgb2xkIGhtbV9y
-ZWxlYXNlIC0+DQpobW1fcHV0IC0+IGhtbV9mcmVlIC0+IGtmcmVlIGNhbGwgY2hhaW4pDQoNCldo
-aWNoIHdhcyBub3QgT0ssIGFzIF9fbW11X25vdGlmaWVyX3JlbGVhc2UgZG9lc24ndCB1c2UgYSAn
-c2FmZScgaGxpc3QNCml0ZXJhdG9yLCBzbyB0aGUgcmVsZWFzZSBjYWxsYmFjayBjYW4gbmV2ZXIg
-dHJpZ2dlciBrZnJlZSBvZiBhIHN0cnVjdA0KbW11X25vdGlmaWVyLg0KDQpUaGUgbmV3IGhtbS5n
-aXQgY29kZSBkb2VzIG5vdCBjYWxsIGtmcmVlIGZyb20gcmVsZWFzZSwgaXQgc2NoZWR1bGVzDQp0
-aGF0IHRocm91Z2ggYSBTUkNVIHdoaWNoIHdvbid0IHJ1biB1bnRpbCBfX21tdV9ub3RpZmllcl9y
-ZWxlYXNlDQpyZXR1cm5zLCBieSBkZWZpbml0aW9uLiANCg0KU28gc2hvdWxkIGJlIGZpeGVkLg0K
-DQpKYXNvbg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Mon, Jul 15, 2019 at 06:01:29PM +0200, Andrey Konovalov wrote:
+> On Mon, Jun 24, 2019 at 7:40 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> >
+> > On Mon, Jun 24, 2019 at 04:32:56PM +0200, Andrey Konovalov wrote:
+> > > This patch is a part of a series that extends kernel ABI to allow to pass
+> > > tagged user pointers (with the top byte set to something else other than
+> > > 0x00) as syscall arguments.
+> > >
+> > > mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
+> > > only by done with untagged pointers.
+> > >
+> > > Untag user pointers in this function.
+> > >
+> > > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> > >  drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
+> > >  1 file changed, 4 insertions(+), 3 deletions(-)
+> >
+> > Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+> >
+> > This patch also needs an ack from the infiniband maintainers (Jason).
+> 
+> Hi Jason,
+> 
+> Could you take a look and give your acked-by?
+
+Oh, I think I did this a long time ago. Still looks OK. You will send
+it?
+
+Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+
+Jason
