@@ -1,46 +1,99 @@
-From: xywang.sjtu-u2tTgNRCH2jM1kAEIRd3EQ@public.gmane.org
-Subject: [PATCH] drm/amdgpu: replace simple_strtol() by kstrtou32()
-Date: Mon, 15 Jul 2019 16:53:01 +0800
-Message-ID: <20190715085301.5311-1-xywang.sjtu@sjtu.edu.cn>
+From: Nathan Chancellor <natechancellor@gmail.com>
+Subject: Re: [PATCH 6/7] drm/amd/powerplay: Use proper enums in
+ vega20_print_clk_levels
+Date: Mon, 15 Jul 2019 08:39:32 -0700
+Message-ID: <20190715153932.GA41785@archlinux-threadripper>
+References: <20190704055217.45860-1-natechancellor@gmail.com>
+ <20190704055217.45860-7-natechancellor@gmail.com>
+ <CAK8P3a1e4xKTZc1Fcd9KLwaGG_wpcAnSNu7mrB6zw+aBJ0e0CA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org, yttao-5C7GfCeVMHo@public.gmane.org
-Cc: Wang Xiayang <xywang.sjtu-u2tTgNRCH2jM1kAEIRd3EQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CAK8P3a1e4xKTZc1Fcd9KLwaGG_wpcAnSNu7mrB6zw+aBJ0e0CA@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, clang-built-linux <clang-built-linux@googlegroups.com>, Kevin Wang <kevin1.wang@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogV2FuZyBYaWF5YW5nIDx4eXdhbmcuc2p0dUBzanR1LmVkdS5jbj4KClRoZSBzaW1wbGVf
-c3RydG9sKCkgZnVuY3Rpb24gaXMgZGVwcmVjYXRlZC4ga3N0cnRvW2wsdTMyXSgpIGlzCnRoZSBj
-b3JyZWN0IHJlcGxhY2VtZW50IGFzIGl0IGNhbiBwcm9wZXJseSBoYW5kbGUgb3ZlcmZsb3dzLgoK
-VGhpcyBwYXRjaCByZXBsYWNlcyB0aGUgZGVwcmVjYXRlZCBzaW1wbGVfc3RydG9sKCkgdXNlIGlu
-dHJvZHVjZWQgcmVjZW50bHkuCkFzIGNsayBpcyBvZiB0eXBlIHVpbnQzMl90LCB3ZSBhcmUgc2Fm
-ZSB0byB1c2Uga3N0cnRvdTMyKCkuCgpJdCBpcyBhbHNvIHNhZmUgdG8gcmV0dXJuIHplcm8gb24g
-c3RyaW5nIHBhcnNpbmcgZXJyb3IsCnNpbWlsYXIgdG8gdGhlIGNhc2Ugb2YgcmV0dXJuaW5nIHpl
-cm8gaWYgYnVmIGlzIGVtcHR5IGluIHBhcnNlX2NsaygpLgoKRml4ZXM6IGJiNWEyYmRmMzZhOCAo
-ImRybS9hbWRncHU6IHN1cHBvcnQgZHBtIGxldmVsIG1vZGlmaWNhdGlvbiB1bmRlciB2aXJ0dWFs
-aXphdGlvbiB2MyIpClNpZ25lZC1vZmYtYnk6IFdhbmcgWGlheWFuZyA8eHl3YW5nLnNqdHVAc2p0
-dS5lZHUuY24+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYyB8
-IDMgKystCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92aXJ0LmMKaW5kZXggN2Q0ODRmYWQzOTA5
-Li4yYWRkYTQ3ZGVmNjQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92aXJ0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZpcnQu
-YwpAQCAtMzg2LDcgKzM4Niw4IEBAIHN0YXRpYyB1aW50MzJfdCBwYXJzZV9jbGsoY2hhciAqYnVm
-LCBib29sIG1pbikKICAgICAgICAgICAgICAgICBpZiAoIXB0cikKICAgICAgICAgICAgICAgICAg
-ICAgICAgIGJyZWFrOwogICAgICAgICAgICAgICAgIHB0cis9MjsKLSAgICAgICAgICAgICAgICBj
-bGsgPSBzaW1wbGVfc3RydG91bChwdHIsIE5VTEwsIDEwKTsKKwkJaWYgKGtzdHJ0b3UzMihwdHIs
-IDEwLCAmY2xrKSkKKwkJCXJldHVybiAwOwogICAgICAgICB9IHdoaWxlICghbWluKTsKIAogICAg
-ICAgICByZXR1cm4gY2xrICogMTAwOwotLSAKMi4xMS4wCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZng=
+On Mon, Jul 15, 2019 at 11:25:29AM +0200, Arnd Bergmann wrote:
+> On Thu, Jul 4, 2019 at 7:52 AM Nathan Chancellor
+> <natechancellor@gmail.com> wrote:
+> >
+> > clang warns:
+> >
+> > drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:995:39: warning:
+> > implicit conversion from enumeration type 'PPCLK_e' to different
+> > enumeration type 'enum smu_clk_type' [-Wenum-conversion]
+> >                 ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
+> >                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
+> > drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:1016:39: warning:
+> > implicit conversion from enumeration type 'PPCLK_e' to different
+> > enumeration type 'enum smu_clk_type' [-Wenum-conversion]
+> >                 ret = smu_get_current_clk_freq(smu, PPCLK_FCLK, &now);
+> >                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~
+> > drivers/gpu/drm/amd/amdgpu/../powerplay/vega20_ppt.c:1031:39: warning:
+> > implicit conversion from enumeration type 'PPCLK_e' to different
+> > enumeration type 'enum smu_clk_type' [-Wenum-conversion]
+> >                 ret = smu_get_current_clk_freq(smu, PPCLK_DCEFCLK, &now);
+> >                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~
+> >
+> > The values are mapped one to one in vega20_get_smu_clk_index so just use
+> > the proper enums here.
+> >
+> > Fixes: 096761014227 ("drm/amd/powerplay: support sysfs to get socclk, fclk, dcefclk")
+> > Link: https://github.com/ClangBuiltLinux/linux/issues/587
+> > Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+> > ---
+> 
+> Adding Kevin Wang for further review, as he sent a related patch in
+> d36893362d22 ("drm/amd/powerplay: fix smu clock type change miss error")
+> 
+> I assume this one is still required as it triggers the same warning.
+> Kevin, can you have a look?
+> 
+>       Arnd
+
+Indeed, this one and https://github.com/ClangBuiltLinux/linux/issues/586
+are still outstanding.
+
+https://patchwork.freedesktop.org/patch/315581/
+
+Cheers,
+Nathan
+
+> 
+> >  drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+> > index 0f14fe14ecd8..e62dd6919b24 100644
+> > --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+> > +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+> > @@ -992,7 +992,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
+> >                 break;
+> >
+> >         case SMU_SOCCLK:
+> > -               ret = smu_get_current_clk_freq(smu, PPCLK_SOCCLK, &now);
+> > +               ret = smu_get_current_clk_freq(smu, SMU_SOCCLK, &now);
+> >                 if (ret) {
+> >                         pr_err("Attempt to get current socclk Failed!");
+> >                         return ret;
+> > @@ -1013,7 +1013,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
+> >                 break;
+> >
+> >         case SMU_FCLK:
+> > -               ret = smu_get_current_clk_freq(smu, PPCLK_FCLK, &now);
+> > +               ret = smu_get_current_clk_freq(smu, SMU_FCLK, &now);
+> >                 if (ret) {
+> >                         pr_err("Attempt to get current fclk Failed!");
+> >                         return ret;
+> > @@ -1028,7 +1028,7 @@ static int vega20_print_clk_levels(struct smu_context *smu,
+> >                 break;
+> >
+> >         case SMU_DCEFCLK:
+> > -               ret = smu_get_current_clk_freq(smu, PPCLK_DCEFCLK, &now);
+> > +               ret = smu_get_current_clk_freq(smu, SMU_DCEFCLK, &now);
+> >                 if (ret) {
+> >                         pr_err("Attempt to get current dcefclk Failed!");
+> >                         return ret;
