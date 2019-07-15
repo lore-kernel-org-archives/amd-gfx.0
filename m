@@ -1,14 +1,12 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 090/102] drm/amdgpu: clean up nonexistent firmware declaration
- for Arcturus
-Date: Mon, 15 Jul 2019 16:24:25 -0500
-Message-ID: <20190715212437.31793-88-alexander.deucher@amd.com>
-References: <20190715212437.31793-1-alexander.deucher@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amdgpu/gfx10: set SH_MEM_CONFIG.INITIAL_INST_PREFETCH
+Date: Mon, 15 Jul 2019 18:54:41 -0400
+Message-ID: <CAAxE2A7MVs52Vw_+CsbvEiWXf6GDpCSHUR16HLeznOe5ZGctFA@mail.gmail.com>
+References: <20190712134642.68650-1-nicolai.haehnle@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0405660493=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190715212437.31793-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190712134642.68650-1-nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,26 +17,401 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Le Ma <le.ma-5C7GfCeVMHo@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RnJvbTogTGUgTWEgPGxlLm1hQGFtZC5jb20+CgpTaWduZWQtb2ZmLWJ5OiBMZSBNYSA8bGUubWFA
-YW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNv
-bT4KUmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+ClNpZ25lZC1vZmYt
-Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgMyAtLS0KIDEgZmlsZSBjaGFuZ2VkLCAz
-IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCmluZGV4IDJm
-NTUzNTk1YTg5OC4uODFmODk2YjRhYTZkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-OV8wLmMKQEAgLTEwMCw5ICsxMDAsNiBAQCBNT0RVTEVfRklSTVdBUkUoImFtZGdwdS9yYXZlbjJf
-bWVjMi5iaW4iKTsKIE1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L3JhdmVuMl9ybGMuYmluIik7CiBN
-T0RVTEVfRklSTVdBUkUoImFtZGdwdS9yYXZlbl9raWNrZXJfcmxjLmJpbiIpOwogCi1NT0RVTEVf
-RklSTVdBUkUoImFtZGdwdS9hcmN0dXJ1c19jZS5iaW4iKTsKLU1PRFVMRV9GSVJNV0FSRSgiYW1k
-Z3B1L2FyY3R1cnVzX3BmcC5iaW4iKTsKLU1PRFVMRV9GSVJNV0FSRSgiYW1kZ3B1L2FyY3R1cnVz
-X21lLmJpbiIpOwogTU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvYXJjdHVydXNfbWVjLmJpbiIpOwog
-TU9EVUxFX0ZJUk1XQVJFKCJhbWRncHUvYXJjdHVydXNfbWVjMi5iaW4iKTsKIE1PRFVMRV9GSVJN
-V0FSRSgiYW1kZ3B1L2FyY3R1cnVzX3JsYy5iaW4iKTsKLS0gCjIuMjAuMQoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0405660493==
+Content-Type: multipart/alternative; boundary="00000000000068b520058dc027ec"
+
+--00000000000068b520058dc027ec
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+The patch doesn't apply. Can you rebase it?
+
+Thanks,
+Marek
+
+On Fri, Jul 12, 2019 at 9:47 AM Haehnle, Nicolai <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
+wrote:
+
+> Prefetch mode 0 is not supported and can lead to hangs with certain very
+> specific code patterns. Set a sound prefetch mode for all VMIDs rather
+> than forcing all shaders to set the prefetch mode at the beginning.
+>
+> Reduce code duplication a bit while we're at it. Note that the 64-bit
+> address mode enum and the retry all enum are both 0, so the only
+> functional change is in the INITIAL_INST_PREFETCH field.
+>
+> Signed-off-by: Nicolai H=C3=A4hnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
+> --
+> I haven't been able to properly test this yet, but it is the right thing
+> to be doing in principle.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 27 ++++++++++----------------
+>  1 file changed, 10 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 0d94c812df1b..b8498c359191 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -157,20 +157,27 @@ static const struct soc15_reg_golden
+> golden_settings_gc_10_1_1[] =3D
+>         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff,
+> 0x01030000),
+>         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x60000010, 0x479c0010)=
+,
+>         SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x00800000,
+> 0x00800000),
+>  };
+>
+>  static const struct soc15_reg_golden golden_settings_gc_10_1_nv14[] =3D
+>  {
+>         /* Pending on emulation bring up */
+>  };
+>
+> +#define DEFAULT_SH_MEM_CONFIG \
+> +       ((SH_MEM_ADDRESS_MODE_64 << SH_MEM_CONFIG__ADDRESS_MODE__SHIFT) |=
+ \
+> +        (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
+> SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) | \
+> +        (SH_MEM_RETRY_MODE_ALL << SH_MEM_CONFIG__RETRY_MODE__SHIFT) | \
+> +        (3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT))
+> +
+> +
+>  static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev);
+>  static void gfx_v10_0_set_irq_funcs(struct amdgpu_device *adev);
+>  static void gfx_v10_0_set_gds_init(struct amdgpu_device *adev);
+>  static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev);
+>  static int gfx_v10_0_get_cu_info(struct amdgpu_device *adev,
+>                                   struct amdgpu_cu_info *cu_info);
+>  static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device
+> *adev);
+>  static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se_nu=
+m,
+>                                    u32 sh_num, u32 instance);
+>  static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_device
+> *adev);
+> @@ -1476,40 +1483,35 @@ static u32
+> gfx_v10_0_init_pa_sc_tile_steering_override(struct amdgpu_device *ade
+>         return pa_sc_tile_steering_override;
+>  }
+>
+>  #define DEFAULT_SH_MEM_BASES   (0x6000)
+>  #define FIRST_COMPUTE_VMID     (8)
+>  #define LAST_COMPUTE_VMID      (16)
+>
+>  static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
+>  {
+>         int i;
+> -       uint32_t sh_mem_config;
+>         uint32_t sh_mem_bases;
+>
+>         /*
+>          * Configure apertures:
+>          * LDS:         0x60000000'00000000 - 0x60000001'00000000 (4GB)
+>          * Scratch:     0x60000001'00000000 - 0x60000002'00000000 (4GB)
+>          * GPUVM:       0x60010000'00000000 - 0x60020000'00000000 (1TB)
+>          */
+>         sh_mem_bases =3D DEFAULT_SH_MEM_BASES | (DEFAULT_SH_MEM_BASES << =
+16);
+>
+> -       sh_mem_config =3D SH_MEM_ADDRESS_MODE_64 |
+> -                       SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
+> -                       SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
+> -
+>         mutex_lock(&adev->srbm_mutex);
+>         for (i =3D FIRST_COMPUTE_VMID; i < LAST_COMPUTE_VMID; i++) {
+>                 nv_grbm_select(adev, 0, 0, 0, i);
+>                 /* CP and shaders */
+> -               WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, sh_mem_config);
+> +               WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG,
+> DEFAULT_SH_MEM_CONFIG);
+>                 WREG32_SOC15(GC, 0, mmSH_MEM_BASES, sh_mem_bases);
+>         }
+>         nv_grbm_select(adev, 0, 0, 0, 0);
+>         mutex_unlock(&adev->srbm_mutex);
+>  }
+>
+>  static void gfx_v10_0_tcp_harvest(struct amdgpu_device *adev)
+>  {
+>         int i, j, k;
+>         int max_wgp_per_sh =3D adev->gfx.config.max_cu_per_sh >> 1;
+> @@ -1590,31 +1592,22 @@ static void gfx_v10_0_constants_init(struct
+> amdgpu_device *adev)
+>         gfx_v10_0_get_cu_info(adev, &adev->gfx.cu_info);
+>         adev->gfx.config.pa_sc_tile_steering_override =3D
+>                 gfx_v10_0_init_pa_sc_tile_steering_override(adev);
+>
+>         /* XXX SH_MEM regs */
+>         /* where to put LDS, scratch, GPUVM in FSA64 space */
+>         mutex_lock(&adev->srbm_mutex);
+>         for (i =3D 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB].num_ids;
+> i++) {
+>                 nv_grbm_select(adev, 0, 0, 0, i);
+>                 /* CP and shaders */
+> -               if (i =3D=3D 0) {
+> -                       tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG,
+> ALIGNMENT_MODE,
+> -
+>  SH_MEM_ALIGNMENT_MODE_UNALIGNED);
+> -                       tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG,
+> RETRY_MODE, 0);
+> -                       WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);
+> -                       WREG32_SOC15(GC, 0, mmSH_MEM_BASES, 0);
+> -               } else {
+> -                       tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG,
+> ALIGNMENT_MODE,
+> -
+>  SH_MEM_ALIGNMENT_MODE_UNALIGNED);
+> -                       tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG,
+> RETRY_MODE, 0);
+> -                       WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);
+> +               WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG,
+> DEFAULT_SH_MEM_CONFIG);
+> +               if (i !=3D 0) {
+>                         tmp =3D REG_SET_FIELD(0, SH_MEM_BASES, PRIVATE_BA=
+SE,
+>                                 (adev->gmc.private_aperture_start >> 48))=
+;
+>                         tmp =3D REG_SET_FIELD(tmp, SH_MEM_BASES, SHARED_B=
+ASE,
+>                                 (adev->gmc.shared_aperture_start >> 48));
+>                         WREG32_SOC15(GC, 0, mmSH_MEM_BASES, tmp);
+>                 }
+>         }
+>         nv_grbm_select(adev, 0, 0, 0, 0);
+>
+>         mutex_unlock(&adev->srbm_mutex);
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--00000000000068b520058dc027ec
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>The patch doesn&#39;t apply. Can you rebase it?</div>=
+<div><br></div><div>Thanks,</div><div>Marek<br></div></div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jul 12, 2019=
+ at 9:47 AM Haehnle, Nicolai &lt;<a href=3D"mailto:Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org"=
+>Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
+,204);padding-left:1ex">Prefetch mode 0 is not supported and can lead to ha=
+ngs with certain very<br>
+specific code patterns. Set a sound prefetch mode for all VMIDs rather<br>
+than forcing all shaders to set the prefetch mode at the beginning.<br>
+<br>
+Reduce code duplication a bit while we&#39;re at it. Note that the 64-bit<b=
+r>
+address mode enum and the retry all enum are both 0, so the only<br>
+functional change is in the INITIAL_INST_PREFETCH field.<br>
+<br>
+Signed-off-by: Nicolai H=C3=A4hnle &lt;<a href=3D"mailto:nicolai.haehnle@am=
+d.com" target=3D"_blank">nicolai.haehnle-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
+--<br>
+I haven&#39;t been able to properly test this yet, but it is the right thin=
+g<br>
+to be doing in principle.<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 27 ++++++++++---------------=
+-<br>
+=C2=A01 file changed, 10 insertions(+), 17 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v10_0.c<br>
+index 0d94c812df1b..b8498c359191 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+@@ -157,20 +157,27 @@ static const struct soc15_reg_golden golden_settings_=
+gc_10_1_1[] =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0x=
+fff7ffff, 0x01030000),<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x600=
+00010, 0x479c0010),<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x0=
+0800000, 0x00800000),<br>
+=C2=A0};<br>
+<br>
+=C2=A0static const struct soc15_reg_golden golden_settings_gc_10_1_nv14[] =
+=3D<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Pending on emulation bring up */<br>
+=C2=A0};<br>
+<br>
++#define DEFAULT_SH_MEM_CONFIG \<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0((SH_MEM_ADDRESS_MODE_64 &lt;&lt; SH_MEM_CONFIG=
+__ADDRESS_MODE__SHIFT) | \<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 (SH_MEM_ALIGNMENT_MODE_UNALIGNED &lt;&lt; SH_M=
+EM_CONFIG__ALIGNMENT_MODE__SHIFT) | \<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 (SH_MEM_RETRY_MODE_ALL &lt;&lt; SH_MEM_CONFIG_=
+_RETRY_MODE__SHIFT) | \<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 (3 &lt;&lt; SH_MEM_CONFIG__INITIAL_INST_PREFET=
+CH__SHIFT))<br>
++<br>
++<br>
+=C2=A0static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev);<br>
+=C2=A0static void gfx_v10_0_set_irq_funcs(struct amdgpu_device *adev);<br>
+=C2=A0static void gfx_v10_0_set_gds_init(struct amdgpu_device *adev);<br>
+=C2=A0static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev);<br>
+=C2=A0static int gfx_v10_0_get_cu_info(struct amdgpu_device *adev,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_cu_info *cu_inf=
+o);<br>
+=C2=A0static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device =
+*adev);<br>
+=C2=A0static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se=
+_num,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u32 sh_num, u32 instanc=
+e);<br>
+=C2=A0static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_devic=
+e *adev);<br>
+@@ -1476,40 +1483,35 @@ static u32 gfx_v10_0_init_pa_sc_tile_steering_overr=
+ide(struct amdgpu_device *ade<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return pa_sc_tile_steering_override;<br>
+=C2=A0}<br>
+<br>
+=C2=A0#define DEFAULT_SH_MEM_BASES=C2=A0 =C2=A0(0x6000)<br>
+=C2=A0#define FIRST_COMPUTE_VMID=C2=A0 =C2=A0 =C2=A0(8)<br>
+=C2=A0#define LAST_COMPUTE_VMID=C2=A0 =C2=A0 =C2=A0 (16)<br>
+<br>
+=C2=A0static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)<b=
+r>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t sh_mem_config;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t sh_mem_bases;<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Configure apertures:<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* LDS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00=
+x60000000&#39;00000000 - 0x60000001&#39;00000000 (4GB)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Scratch:=C2=A0 =C2=A0 =C2=A00x60000001&=
+#39;00000000 - 0x60000002&#39;00000000 (4GB)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* GPUVM:=C2=A0 =C2=A0 =C2=A0 =C2=A00x6001=
+0000&#39;00000000 - 0x60020000&#39;00000000 (1TB)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 sh_mem_bases =3D DEFAULT_SH_MEM_BASES | (DEFAUL=
+T_SH_MEM_BASES &lt;&lt; 16);<br>
+<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0sh_mem_config =3D SH_MEM_ADDRESS_MODE_64 |<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0SH_MEM_ALIGNMENT_MODE_UNALIGNED &lt;&lt;<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;<br>
+-<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_lock(&amp;adev-&gt;srbm_mutex);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D FIRST_COMPUTE_VMID; i &lt; LAST_COMP=
+UTE_VMID; i++) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev=
+, 0, 0, 0, i);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* CP and shaders *=
+/<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SOC15(GC, 0,=
+ mmSH_MEM_CONFIG, sh_mem_config);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SOC15(GC, 0,=
+ mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WREG32_SOC15(GC, 0,=
+ mmSH_MEM_BASES, sh_mem_bases);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev, 0, 0, 0, 0);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_unlock(&amp;adev-&gt;srbm_mutex);<br>
+=C2=A0}<br>
+<br>
+=C2=A0static void gfx_v10_0_tcp_harvest(struct amdgpu_device *adev)<br>
+=C2=A0{<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i, j, k;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 int max_wgp_per_sh =3D adev-&gt;gfx.config.max_=
+cu_per_sh &gt;&gt; 1;<br>
+@@ -1590,31 +1592,22 @@ static void gfx_v10_0_constants_init(struct amdgpu_=
+device *adev)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 gfx_v10_0_get_cu_info(adev, &amp;adev-&gt;gfx.c=
+u_info);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.config.pa_sc_tile_steering_overrid=
+e =3D<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 gfx_v10_0_init_pa_s=
+c_tile_steering_override(adev);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* XXX SH_MEM regs */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* where to put LDS, scratch, GPUVM in FSA64 sp=
+ace */<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_lock(&amp;adev-&gt;srbm_mutex);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; adev-&gt;vm_manager.id_mgr=
+[AMDGPU_GFXHUB].num_ids; i++) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev=
+, 0, 0, 0, i);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* CP and shaders *=
+/<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (i =3D=3D 0) {<b=
+r>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG, ALIGNMENT_MODE,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0SH_MEM_ALIGNMENT_MODE_UNALIGNED);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG, RETRY_MODE, 0);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0WREG32_SOC15(GC, 0, mmSH_MEM_BASES, 0);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG, ALIGNMENT_MODE,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0SH_MEM_ALIGNMENT_MODE_UNALIGNED);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG, RETRY_MODE, 0);<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SOC15(GC, 0,=
+ mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (i !=3D 0) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 tmp =3D REG_SET_FIELD(0, SH_MEM_BASES, PRIVATE_BASE,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (adev-&gt;gmc.private_aperture_start=
+ &gt;&gt; 48));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 tmp =3D REG_SET_FIELD(tmp, SH_MEM_BASES, SHARED_BASE,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (adev-&gt;gmc.shared_aperture_start =
+&gt;&gt; 48));<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 WREG32_SOC15(GC, 0, mmSH_MEM_BASES, tmp);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev, 0, 0, 0, 0);<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_unlock(&amp;adev-&gt;srbm_mutex);<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a></blockquote></div>
+
+--00000000000068b520058dc027ec--
+
+--===============0405660493==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0405660493==--
