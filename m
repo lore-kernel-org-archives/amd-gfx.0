@@ -1,89 +1,31 @@
-From: Oleg Vasilev <oleg.vasilev-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH v2 6/6] drm/amdgpu: utilize subconnector property for DP
-Date: Mon, 15 Jul 2019 14:23:34 +0300
-Message-ID: <20190715112408.20114-7-oleg.vasilev@intel.com>
-References: <20190701080022.9415-1-oleg.vasilev@intel.com>
- <20190715112408.20114-1-oleg.vasilev@intel.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190715112408.20114-1-oleg.vasilev-ral2JQCrhuEAvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+From: Fuqian Huang <huangfq.daxian@gmail.com>
+Subject: [PATCH] drm/amd/powerplay: remove redundant memset
+Date: Mon, 15 Jul 2019 19:43:32 +0800
+Message-ID: <20190715114332.24634-1-huangfq.daxian@gmail.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Fuqian Huang <huangfq.daxian@gmail.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2luY2UgRFAtc3BlY2lmaWMgaW5mb3JtYXRpb24gaXMgc3RvcmVkIGluIGRyaXZlcidzIHN0cnVj
-dHVyZXMsIGV2ZXJ5CmRyaXZlciBuZWVkcyB0byBpbXBsZW1lbnQgc3ViY29ubmVjdG9yIHByb3Bl
-cnR5IGJ5IGl0c2VsZi4KClNpZ25lZC1vZmYtYnk6IE9sZWcgVmFzaWxldiA8b2xlZy52YXNpbGV2
-QGludGVsLmNvbT4KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCi0tLQogZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYyB8IDEyICsrKysrKysrKysr
-KwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCAgICAgICB8ICAxICsK
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2F0b21iaW9zX2RwLmMgICAgICAgfCAxOCArKysr
-KysrKysrKysrKysrKy0KIDMgZmlsZXMgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9j
-b25uZWN0b3JzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9y
-cy5jCmluZGV4IDczYjJlZGU3NzNkMy4uMDk5Mjg2NDY3YzgyIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3JzLmMKQEAgLTI2LDYgKzI2LDcgQEAKIAog
-I2luY2x1ZGUgPGRybS9kcm1fZWRpZC5oPgogI2luY2x1ZGUgPGRybS9kcm1fZmJfaGVscGVyLmg+
-CisjaW5jbHVkZSA8ZHJtL2RybV9kcF9oZWxwZXIuaD4KICNpbmNsdWRlIDxkcm0vZHJtX3Byb2Jl
-X2hlbHBlci5oPgogI2luY2x1ZGUgPGRybS9hbWRncHVfZHJtLmg+CiAjaW5jbHVkZSAiYW1kZ3B1
-LmgiCkBAIC0xNDA3LDYgKzE0MDgsMTAgQEAgYW1kZ3B1X2Nvbm5lY3Rvcl9kcF9kZXRlY3Qoc3Ry
-dWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwgYm9vbCBmb3JjZSkKIAkJcG1fcnVudGltZV9w
-dXRfYXV0b3N1c3BlbmQoY29ubmVjdG9yLT5kZXYtPmRldik7CiAJfQogCisJZHJtX2RwX3NldF9z
-dWJjb25uZWN0b3JfcHJvcGVydHkoJmFtZGdwdV9jb25uZWN0b3ItPmJhc2UsCisJCQkJCSByZXQs
-CisJCQkJCSBhbWRncHVfZGlnX2Nvbm5lY3Rvci0+ZHBjZCwKKwkJCQkJIGFtZGdwdV9kaWdfY29u
-bmVjdG9yLT5kb3duc3RyZWFtX3BvcnRzKTsKIAlyZXR1cm4gcmV0OwogfQogCkBAIC0xNTY3LDYg
-KzE1NzIsMTMgQEAgYW1kZ3B1X2Nvbm5lY3Rvcl9hZGQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYsCiAJCQlEUk1fRVJST1IoIkZhaWxlZCB0byBhc3NpZ24gcm91dGVyIGkyYyBidXMhIENoZWNr
-IGRtZXNnIGZvciBpMmMgZXJyb3JzLlxuIik7CiAJfQogCisJaWYgKChjb25uZWN0b3ItPmNvbm5l
-Y3Rvcl90eXBlID09IERSTV9NT0RFX0NPTk5FQ1RPUl9EaXNwbGF5UG9ydCkgfHwKKwkJICAgKGNv
-bm5lY3Rvci0+Y29ubmVjdG9yX3R5cGUgPT0gRFJNX01PREVfQ09OTkVDVE9SX2VEUCkpCisJewor
-CQlkcm1fbW9kZV9hZGRfZHBfc3ViY29ubmVjdG9yX3Byb3BlcnR5KCZhbWRncHVfY29ubmVjdG9y
-LT5iYXNlKTsKKwl9CisKKwogCWlmIChpc19kcF9icmlkZ2UpIHsKIAkJYW1kZ3B1X2RpZ19jb25u
-ZWN0b3IgPSBremFsbG9jKHNpemVvZihzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3Rvcl9hdG9tX2RpZyks
-IEdGUF9LRVJORUwpOwogCQlpZiAoIWFtZGdwdV9kaWdfY29ubmVjdG9yKQpkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgKaW5kZXggZWI5OTc1ZjRkZWNiLi5jYjM2MGI0NDM3
-MWMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2RlLmgK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X21vZGUuaApAQCAtNDY5LDYg
-KzQ2OSw3IEBAIHN0cnVjdCBhbWRncHVfZW5jb2RlciB7CiBzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3Rv
-cl9hdG9tX2RpZyB7CiAJLyogZGlzcGxheXBvcnQgKi8KIAl1OCBkcGNkW0RQX1JFQ0VJVkVSX0NB
-UF9TSVpFXTsKKwl1OCBkb3duc3RyZWFtX3BvcnRzW0RQX01BWF9ET1dOU1RSRUFNX1BPUlRTXTsK
-IAl1OCBkcF9zaW5rX3R5cGU7CiAJaW50IGRwX2Nsb2NrOwogCWludCBkcF9sYW5lX2NvdW50Owpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfZHAuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2F0b21iaW9zX2RwLmMKaW5kZXggNjg1OGNkZTlmYzVk
-Li5iMGQ0MTQ1NTNlNzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2F0
-b21iaW9zX2RwLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfZHAu
-YwpAQCAtMzM0LDYgKzMzNCwyMiBAQCBzdGF0aWMgdm9pZCBhbWRncHVfYXRvbWJpb3NfZHBfcHJv
-YmVfb3VpKHN0cnVjdCBhbWRncHVfY29ubmVjdG9yICphbWRncHVfY29ubmVjdAogCQkJICAgICAg
-YnVmWzBdLCBidWZbMV0sIGJ1ZlsyXSk7CiB9CiAKK3N0YXRpYyB2b2lkIGFtZGdwdV9hdG9tYmlv
-c19kcF9kc19wb3J0cyhzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYW1kZ3B1X2Nvbm5lY3RvcikK
-K3sKKwlzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3Rvcl9hdG9tX2RpZyAqZGlnX2Nvbm5lY3RvciA9IGFt
-ZGdwdV9jb25uZWN0b3ItPmNvbl9wcml2OworCWludCByZXQ7CisKKwlpZiAoZGlnX2Nvbm5lY3Rv
-ci0+ZHBjZFtEUF9EUENEX1JFVl0gPiAweDEwKSB7CisJCXJldCA9IGRybV9kcF9kcGNkX3JlYWQo
-JmFtZGdwdV9jb25uZWN0b3ItPmRkY19idXMtPmF1eCwKKwkJCQkgICAgICAgRFBfRE9XTlNUUkVB
-TV9QT1JUXzAsCisJCQkJICAgICAgIGRpZ19jb25uZWN0b3ItPmRvd25zdHJlYW1fcG9ydHMsCisJ
-CQkJICAgICAgIERQX01BWF9ET1dOU1RSRUFNX1BPUlRTKTsKKwkJaWYgKHJldCkKKwkJCW1lbXNl
-dChkaWdfY29ubmVjdG9yLT5kb3duc3RyZWFtX3BvcnRzLCAwLAorCQkJICAgICAgIERQX01BWF9E
-T1dOU1RSRUFNX1BPUlRTKTsKKwl9Cit9CisKIGludCBhbWRncHVfYXRvbWJpb3NfZHBfZ2V0X2Rw
-Y2Qoc3RydWN0IGFtZGdwdV9jb25uZWN0b3IgKmFtZGdwdV9jb25uZWN0b3IpCiB7CiAJc3RydWN0
-IGFtZGdwdV9jb25uZWN0b3JfYXRvbV9kaWcgKmRpZ19jb25uZWN0b3IgPSBhbWRncHVfY29ubmVj
-dG9yLT5jb25fcHJpdjsKQEAgLTM0OSw3ICszNjUsNyBAQCBpbnQgYW1kZ3B1X2F0b21iaW9zX2Rw
-X2dldF9kcGNkKHN0cnVjdCBhbWRncHVfY29ubmVjdG9yICphbWRncHVfY29ubmVjdG9yKQogCQkJ
-ICAgICAgZGlnX2Nvbm5lY3Rvci0+ZHBjZCk7CiAKIAkJYW1kZ3B1X2F0b21iaW9zX2RwX3Byb2Jl
-X291aShhbWRncHVfY29ubmVjdG9yKTsKLQorCQlhbWRncHVfYXRvbWJpb3NfZHBfZHNfcG9ydHMo
-YW1kZ3B1X2Nvbm5lY3Rvcik7CiAJCXJldHVybiAwOwogCX0KIAotLSAKMi4yMi4wCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+kzalloc has already zeroed the memory.
+So the memset is unneeded.
+
+Signed-off-by: Fuqian Huang <huangfq.daxian@gmail.com>
+---
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+index 8fafcbdb1dfd..0fb6066997b2 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -1295,7 +1295,6 @@ static int vega20_set_default_od8_setttings(struct smu_context *smu)
+ 	if (!table_context->od8_settings)
+ 		return -ENOMEM;
+ 
+-	memset(table_context->od8_settings, 0, sizeof(struct vega20_od8_settings));
+ 	od8_settings = (struct vega20_od8_settings *)table_context->od8_settings;
+ 
+ 	if (smu_feature_is_enabled(smu, FEATURE_DPM_SOCCLK_BIT)) {
+-- 
+2.11.0
