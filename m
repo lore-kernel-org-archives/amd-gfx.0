@@ -1,113 +1,32 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH v2] drm/amd/powerplay: add helper of
- smu_clk_dpm_is_enabled for smu
-Date: Mon, 15 Jul 2019 02:31:41 +0000
-Message-ID: <MN2PR12MB33440B9AF459C11C34D2B019E4CF0@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190712095930.16268-1-kevin1.wang@amd.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [GIT PULL] Please pull hmm changes
+Date: Sun, 14 Jul 2019 19:48:40 -0700
+Message-ID: <CAHk-=wgHKrYEMDbA9CxZ2Sw8JuW3=Wxr1fZo+EvXXLhg4iUOmw@mail.gmail.com>
+References: <20190709192418.GA13677@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190712095930.16268-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190709192418.GA13677@ziepe.ca>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jason Gunthorpe <jgg@mellanox.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Dan Williams <dan.j.williams@intel.com>, Christoph Hellwig <hch@lst.de>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VXN1YWxseSBmb3IgQVBJICAqaXNfZW5hYmxlZCwgZWl0aGVyIDAgb3IgMSBzaG91bGQgYmUgcmV0
-dXJuZWQuCk9yIHlvdSBjYW4gZ2l2ZSB0aGUgQVBJIGEgbmV3IG5hbWluZy4gCldpdGggdGhhdCBh
-ZGRyZXNzZWQsIHRoZSBwYXRjaCBpcyByZXZpZXdlZC1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5A
-YW1kLmNvbT4KClJlZ2FyZHMsCkV2YW4KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+IEZy
-b206IFdhbmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPgo+IFNlbnQ6IEZyaWRh
-eSwgSnVseSAxMiwgMjAxOSA2OjAwIFBNCj4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gQ2M6IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsgUXVhbiwgRXZh
-bgo+IDxFdmFuLlF1YW5AYW1kLmNvbT47IFdhbmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0Bh
-bWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSCB2Ml0gZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBoZWxw
-ZXIgb2YKPiBzbXVfY2xrX2RwbV9pc19lbmFibGVkIGZvciBzbXUKPiAKPiB2MjogY2hhbmdlIGZ1
-bmN0aW9uIG5hbWUgdG8gc211X2Nsa19kcG1faXNfZW5hYmxlZC4KPiBhZGQgdGhpcyBoZWxwZXIg
-ZnVuY3Rpb24gdG8gY2hlY2sgZHBtIGNsayBmZWF0dXJlIGlzIGVuYWJsZWQuCj4gCj4gQ2hhbmdl
-LUlkOiBJN2Y5OTQ5MDMzYzMxOGZlYzYxOGE5NzAxZGY0YTA4MmQ1NGE2MjZjOAo+IFNpZ25lZC1v
-ZmYtYnk6IEtldmluIFdhbmcgPGtldmluMS53YW5nQGFtZC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYyAgICB8IDY5ICsrKysrKysrKysrKy0t
-LS0tCj4gLS0KPiAgLi4uL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oICAg
-IHwgIDEgKwo+ICAyIGZpbGVzIGNoYW5nZWQsIDQ3IGluc2VydGlvbnMoKyksIDIzIGRlbGV0aW9u
-cygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRn
-cHVfc211LmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+
-IGluZGV4IDc4N2EyOTNmZGU5Ny4uYzE2MTk1ZTE5MDc4IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwo+IEBAIC02OSw2ICs2OSwxMCBAQCBpbnQgc211
-X3NldF9zb2Z0X2ZyZXFfcmFuZ2Uoc3RydWN0IHNtdV9jb250ZXh0Cj4gKnNtdSwgZW51bSBzbXVf
-Y2xrX3R5cGUgY2xrX3R5cGUsCj4gIAlpZiAobWluIDw9IDAgJiYgbWF4IDw9IDApCj4gIAkJcmV0
-dXJuIC1FSU5WQUw7Cj4gCj4gKwlyZXQgPSBzbXVfY2xrX2RwbV9pc19lbmFibGVkKHNtdSwgY2xr
-X3R5cGUpOwo+ICsJaWYgKHJldCkKPiArCQlyZXR1cm4gcmV0Owo+ICsKPiAgCWNsa19pZCA9IHNt
-dV9jbGtfZ2V0X2luZGV4KHNtdSwgY2xrX3R5cGUpOwo+ICAJaWYgKGNsa19pZCA8IDApCj4gIAkJ
-cmV0dXJuIGNsa19pZDsKPiBAQCAtMTAyLDYgKzEwNiwxMCBAQCBpbnQgc211X3NldF9oYXJkX2Zy
-ZXFfcmFuZ2Uoc3RydWN0IHNtdV9jb250ZXh0Cj4gKnNtdSwgZW51bSBzbXVfY2xrX3R5cGUgY2xr
-X3R5cGUsCj4gIAlpZiAobWluIDw9IDAgJiYgbWF4IDw9IDApCj4gIAkJcmV0dXJuIC1FSU5WQUw7
-Cj4gCj4gKwlyZXQgPSBzbXVfY2xrX2RwbV9pc19lbmFibGVkKHNtdSwgY2xrX3R5cGUpOwo+ICsJ
-aWYgKHJldCkKPiArCQlyZXR1cm4gcmV0Owo+ICsKPiAgCWNsa19pZCA9IHNtdV9jbGtfZ2V0X2lu
-ZGV4KHNtdSwgY2xrX3R5cGUpOwo+ICAJaWYgKGNsa19pZCA8IDApCj4gIAkJcmV0dXJuIGNsa19p
-ZDsKPiBAQCAtMTM1LDI5ICsxNDMsOSBAQCBpbnQgc211X2dldF9kcG1fZnJlcV9yYW5nZShzdHJ1
-Y3Qgc211X2NvbnRleHQKPiAqc211LCBlbnVtIHNtdV9jbGtfdHlwZSBjbGtfdHlwZSwKPiAgCWlm
-ICghbWluICYmICFtYXgpCj4gIAkJcmV0dXJuIC1FSU5WQUw7Cj4gCj4gLQlzd2l0Y2ggKGNsa190
-eXBlKSB7Cj4gLQljYXNlIFNNVV9NQ0xLOgo+IC0JY2FzZSBTTVVfVUNMSzoKPiAtCQlpZiAoIXNt
-dV9mZWF0dXJlX2lzX2VuYWJsZWQoc211LAo+IFNNVV9GRUFUVVJFX0RQTV9VQ0xLX0JJVCkpIHsK
-PiAtCQkJcHJfd2FybigidWNsayBkcG0gaXMgbm90IGVuYWJsZWRcbiIpOwo+IC0JCQlyZXR1cm4g
-MDsKPiAtCQl9Cj4gLQkJYnJlYWs7Cj4gLQljYXNlIFNNVV9HRlhDTEs6Cj4gLQljYXNlIFNNVV9T
-Q0xLOgo+IC0JCWlmICghc211X2ZlYXR1cmVfaXNfZW5hYmxlZChzbXUsCj4gU01VX0ZFQVRVUkVf
-RFBNX0dGWENMS19CSVQpKSB7Cj4gLQkJCXByX3dhcm4oImdmeGNsayBkcG0gaXMgbm90IGVuYWJs
-ZWRcbiIpOwo+IC0JCQlyZXR1cm4gMDsKPiAtCQl9Cj4gLQljYXNlIFNNVV9TT0NDTEs6Cj4gLQkJ
-aWYgKCFzbXVfZmVhdHVyZV9pc19lbmFibGVkKHNtdSwKPiBTTVVfRkVBVFVSRV9EUE1fU09DQ0xL
-X0JJVCkpIHsKPiAtCQkJcHJfd2Fybigic29ja2NsayBkcG0gaXMgbm90IGVuYWJsZWRcbiIpOwo+
-IC0JCQlyZXR1cm4gMDsKPiAtCQl9Cj4gLQkJYnJlYWs7Cj4gLQlkZWZhdWx0Ogo+IC0JCWJyZWFr
-Owo+IC0JfQo+ICsJcmV0ID0gc211X2Nsa19kcG1faXNfZW5hYmxlZChzbXUsIGNsa190eXBlKTsK
-PiArCWlmIChyZXQpCj4gKwkJcmV0dXJuIHJldDsKPiAKPiAgCW11dGV4X2xvY2soJnNtdS0+bXV0
-ZXgpOwo+ICAJY2xrX2lkID0gc211X2Nsa19nZXRfaW5kZXgoc211LCBjbGtfdHlwZSk7IEBAIC0y
-MDAsNiArMTg4LDEwIEBACj4gaW50IHNtdV9nZXRfZHBtX2ZyZXFfYnlfaW5kZXgoc3RydWN0IHNt
-dV9jb250ZXh0ICpzbXUsIGVudW0KPiBzbXVfY2xrX3R5cGUgY2xrX3R5cAo+ICAJaWYgKCF2YWx1
-ZSkKPiAgCQlyZXR1cm4gLUVJTlZBTDsKPiAKPiArCXJldCA9IHNtdV9jbGtfZHBtX2lzX2VuYWJs
-ZWQoc211LCBjbGtfdHlwZSk7Cj4gKwlpZiAocmV0KQo+ICsJCXJldHVybiByZXQ7Cj4gKwo+ICAJ
-Y2xrX2lkID0gc211X2Nsa19nZXRfaW5kZXgoc211LCBjbGtfdHlwZSk7Cj4gIAlpZiAoY2xrX2lk
-IDwgMCkKPiAgCQlyZXR1cm4gY2xrX2lkOwo+IEBAIC0yMjgsNiArMjIwLDM3IEBAIGludCBzbXVf
-Z2V0X2RwbV9sZXZlbF9jb3VudChzdHJ1Y3Qgc211X2NvbnRleHQKPiAqc211LCBlbnVtIHNtdV9j
-bGtfdHlwZSBjbGtfdHlwZSwKPiAgCXJldHVybiBzbXVfZ2V0X2RwbV9mcmVxX2J5X2luZGV4KHNt
-dSwgY2xrX3R5cGUsIDB4ZmYsIHZhbHVlKTsgIH0KPiAKPiAraW50IHNtdV9jbGtfZHBtX2lzX2Vu
-YWJsZWQoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0KPiBzbXVfY2xrX3R5cGUKPiArY2xr
-X3R5cGUpIHsKPiArCWludCByZXQgPSAwOwo+ICsJZW51bSBzbXVfZmVhdHVyZV9tYXNrIGZlYXR1
-cmVfaWQgPSAwOwo+ICsKPiArCXN3aXRjaCAoY2xrX3R5cGUpIHsKPiArCWNhc2UgU01VX01DTEs6
-Cj4gKwljYXNlIFNNVV9VQ0xLOgo+ICsJCWZlYXR1cmVfaWQgPSBTTVVfRkVBVFVSRV9EUE1fVUNM
-S19CSVQ7Cj4gKwkJYnJlYWs7Cj4gKwljYXNlIFNNVV9HRlhDTEs6Cj4gKwljYXNlIFNNVV9TQ0xL
-Ogo+ICsJCWZlYXR1cmVfaWQgPSBTTVVfRkVBVFVSRV9EUE1fR0ZYQ0xLX0JJVDsKPiArCQlicmVh
-azsKPiArCWNhc2UgU01VX1NPQ0NMSzoKPiArCQlmZWF0dXJlX2lkID0gIFNNVV9GRUFUVVJFX0RQ
-TV9TT0NDTEtfQklUOwo+ICsJCWJyZWFrOwo+ICsJZGVmYXVsdDoKPiArCQlyZXR1cm4gMDsKPiAr
-CX0KPiArCj4gKwlyZXQgPSBzbXVfZmVhdHVyZV9pc19lbmFibGVkKHNtdSwgZmVhdHVyZV9pZCk7
-Cj4gKwlpZiAocmV0KSB7Cj4gKwkJcHJfd2Fybigic211ICVkIGNsayBkcG0gZmVhdHVyZSAlZCBp
-cyBub3QgZW5hYmxlZFxuIiwKPiBjbGtfdHlwZSwgZmVhdHVyZV9pZCk7Cj4gKwkJcmV0dXJuIC1F
-QUNDRVM7Cj4gKwl9Cj4gKwo+ICsJcmV0dXJuIHJldDsKPiArfQo+ICsKPiArCj4gIGludCBzbXVf
-ZHBtX3NldF9wb3dlcl9nYXRlKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCB1aW50MzJfdAo+IGJs
-b2NrX3R5cGUsCj4gIAkJCSAgIGJvb2wgZ2F0ZSkKPiAgewo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCj4gYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCj4gaW5kZXggYzk3MzI0ZWY3ZGIyLi40
-NjI5YTY0YTkwZWQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
-aW5jL2FtZGdwdV9zbXUuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2lu
-Yy9hbWRncHVfc211LmgKPiBAQCAtOTczLDUgKzk3Myw2IEBAIGludCBzbXVfc2V0X2hhcmRfZnJl
-cV9yYW5nZShzdHJ1Y3Qgc211X2NvbnRleHQKPiAqc211LCBlbnVtIHNtdV9jbGtfdHlwZSBjbGtf
-dHlwZSwgIGVudW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWwKPiBzbXVfZ2V0X3BlcmZvcm1hbmNlX2xl
-dmVsKHN0cnVjdCBzbXVfY29udGV4dCAqc211KTsgIGludAo+IHNtdV9mb3JjZV9wZXJmb3JtYW5j
-ZV9sZXZlbChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgZW51bQo+IGFtZF9kcG1fZm9yY2VkX2xl
-dmVsIGxldmVsKTsgIGludCBzbXVfc2V0X2Rpc3BsYXlfY291bnQoc3RydWN0Cj4gc211X2NvbnRl
-eHQgKnNtdSwgdWludDMyX3QgY291bnQpOwo+ICtpbnQgc211X2Nsa19kcG1faXNfZW5hYmxlZChz
-dHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgZW51bQo+IHNtdV9jbGtfdHlwZQo+ICtjbGtfdHlwZSk7
-Cj4gCj4gICNlbmRpZgo+IC0tCj4gMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+On Tue, Jul 9, 2019 at 12:24 PM Jason Gunthorpe <jgg@mellanox.com> wrote:
+>
+> I'm sending it early as it is now a dependency for several patches in
+> mm's quilt.
+
+.. but I waited to merge it until I had time to review it more
+closely, because I expected the review to be painful.
+
+I'm happy to say that I was overly pessimistic, and that instead of
+finding things to hate, I found it all looking good.
+
+Particularly the whole "use reference counts properly, so that
+lifetimes make sense and all those nasty cases can't happen" parts.
+
+It's all merged, just waiting for the test-build to verify that I
+didn't miss anything (well, at least nothing obvious).
+
+                      Linus
