@@ -1,45 +1,73 @@
-From: Andrey Konovalov <andreyknvl@google.com>
-Subject: Re: [PATCH v18 11/15] IB/mlx4: untag user pointers in mlx4_get_umem_mr
-Date: Mon, 15 Jul 2019 18:01:29 +0200
-Message-ID: <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
-References: <cover.1561386715.git.andreyknvl@google.com> <ea0ff94ef2b8af12ea6c222c5ebd970e0849b6dd.1561386715.git.andreyknvl@google.com>
- <20190624174015.GL29120@arrakis.emea.arm.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: hide #warning for missing DC config
+Date: Mon, 15 Jul 2019 12:09:45 -0400
+Message-ID: <CADnq5_NX+eGdsK20_Cn_+5WDbJpyPukqhyXhgEoce4UagAncrA@mail.gmail.com>
+References: <20190712094118.1559434-1-arnd@arndb.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190624174015.GL29120@arrakis.emea.arm.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190712094118.1559434-1-arnd@arndb.de>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Jack Xiao <Jack.Xiao@amd.com>, David Airlie <airlied@linux.ie>, Kevin Wang <kevin1.wang@amd.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Huang Rui <ray.huang@amd.com>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Xiaojie Yuan <xiaojie.yuan@amd.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Jun 24, 2019 at 7:40 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
->
-> On Mon, Jun 24, 2019 at 04:32:56PM +0200, Andrey Konovalov wrote:
-> > This patch is a part of a series that extends kernel ABI to allow to pass
-> > tagged user pointers (with the top byte set to something else other than
-> > 0x00) as syscall arguments.
-> >
-> > mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
-> > only by done with untagged pointers.
-> >
-> > Untag user pointers in this function.
-> >
-> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> > ---
-> >  drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
-> >  1 file changed, 4 insertions(+), 3 deletions(-)
->
-> Acked-by: Catalin Marinas <catalin.marinas@arm.com>
->
-> This patch also needs an ack from the infiniband maintainers (Jason).
-
-Hi Jason,
-
-Could you take a look and give your acked-by?
-
-Thanks!
-
->
-> --
-> Catalin
+T24gRnJpLCBKdWwgMTIsIDIwMTkgYXQgNTo0MSBBTSBBcm5kIEJlcmdtYW5uIDxhcm5kQGFybmRi
+LmRlPiB3cm90ZToKPgo+IEl0IGlzIGFubm95aW5nIHRvIGhhdmUgI3dhcm5pbmdzIHRoYXQgdHJp
+Z2dlciBpbiByYW5kY29uZmlnCj4gYnVpbGRzIGxpa2UKPgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L3NvYzE1LmM6NjUzOjM6IGVycm9yOiAiRW5hYmxlIENPTkZJR19EUk1fQU1EX0RDIGZv
+ciBkaXNwbGF5IHN1cHBvcnQgb24gU09DMTUuIgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L252LmM6NDAwOjM6IGVycm9yOiAiRW5hYmxlIENPTkZJR19EUk1fQU1EX0RDIGZvciBkaXNwbGF5
+IHN1cHBvcnQgb24gbmF2aS4iCj4KPiBSZW1vdmUgdGhlc2UgYW5kIHJlbHkgb24gdGhlIHVzZXJz
+IHRvIHR1cm4gdGhlc2Ugb24uCj4KPiBTaWduZWQtb2ZmLWJ5OiBBcm5kIEJlcmdtYW5uIDxhcm5k
+QGFybmRiLmRlPgoKQXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCj4gLS0tCj4gIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L252LmMgICAgfCAyIC0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L3NvYzE1LmMgfCA0IC0tLS0KPiAgMiBmaWxlcyBjaGFuZ2VkLCA2IGRlbGV0aW9ucygtKQo+
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jCj4gaW5kZXggOTI1M2MwM2QzODdhLi4xMGVjMGU4MWVl
+NTggMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYwo+ICsrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMKPiBAQCAtMzk2LDggKzM5Niw2IEBAIGlu
+dCBudl9zZXRfaXBfYmxvY2tzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQo+ICAjaWYgZGVm
+aW5lZChDT05GSUdfRFJNX0FNRF9EQykKPiAgICAgICAgICAgICAgICAgZWxzZSBpZiAoYW1kZ3B1
+X2RldmljZV9oYXNfZGNfc3VwcG9ydChhZGV2KSkKPiAgICAgICAgICAgICAgICAgICAgICAgICBh
+bWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmZG1faXBfYmxvY2spOwo+IC0jZWxzZQo+
+IC0jICAgICAgd2FybmluZyAiRW5hYmxlIENPTkZJR19EUk1fQU1EX0RDIGZvciBkaXNwbGF5IHN1
+cHBvcnQgb24gbmF2aS4iCj4gICNlbmRpZgo+ICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNl
+X2lwX2Jsb2NrX2FkZChhZGV2LCAmZ2Z4X3YxMF8wX2lwX2Jsb2NrKTsKPiAgICAgICAgICAgICAg
+ICAgYW1kZ3B1X2RldmljZV9pcF9ibG9ja19hZGQoYWRldiwgJnNkbWFfdjVfMF9pcF9ibG9jayk7
+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9zb2MxNS5jCj4gaW5kZXggODcxNTJkOGVmMGRmLi45MGZi
+MDE0OWZiZWEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvc29jMTUu
+Ywo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1LmMKPiBAQCAtNjQ5LDgg
+KzY0OSw2IEBAIGludCBzb2MxNV9zZXRfaXBfYmxvY2tzKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2KQo+ICAjaWYgZGVmaW5lZChDT05GSUdfRFJNX0FNRF9EQykKPiAgICAgICAgICAgICAgICAg
+ZWxzZSBpZiAoYW1kZ3B1X2RldmljZV9oYXNfZGNfc3VwcG9ydChhZGV2KSkKPiAgICAgICAgICAg
+ICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmZG1faXBfYmxv
+Y2spOwo+IC0jZWxzZQo+IC0jICAgICAgd2FybmluZyAiRW5hYmxlIENPTkZJR19EUk1fQU1EX0RD
+IGZvciBkaXNwbGF5IHN1cHBvcnQgb24gU09DMTUuIgo+ICAjZW5kaWYKPiAgICAgICAgICAgICAg
+ICAgaWYgKCEoYWRldi0+YXNpY190eXBlID09IENISVBfVkVHQTIwICYmIGFtZGdwdV9zcmlvdl92
+ZihhZGV2KSkpIHsKPiAgICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfZGV2aWNlX2lwX2Js
+b2NrX2FkZChhZGV2LCAmdXZkX3Y3XzBfaXBfYmxvY2spOwo+IEBAIC02NzEsOCArNjY5LDYgQEAg
+aW50IHNvYzE1X3NldF9pcF9ibG9ja3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4gICNp
+ZiBkZWZpbmVkKENPTkZJR19EUk1fQU1EX0RDKQo+ICAgICAgICAgICAgICAgICBlbHNlIGlmIChh
+bWRncHVfZGV2aWNlX2hhc19kY19zdXBwb3J0KGFkZXYpKQo+ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGFtZGdwdV9kZXZpY2VfaXBfYmxvY2tfYWRkKGFkZXYsICZkbV9pcF9ibG9jayk7Cj4gLSNl
+bHNlCj4gLSMgICAgICB3YXJuaW5nICJFbmFibGUgQ09ORklHX0RSTV9BTURfREMgZm9yIGRpc3Bs
+YXkgc3VwcG9ydCBvbiBTT0MxNS4iCj4gICNlbmRpZgo+ICAgICAgICAgICAgICAgICBhbWRncHVf
+ZGV2aWNlX2lwX2Jsb2NrX2FkZChhZGV2LCAmdmNuX3YxXzBfaXBfYmxvY2spOwo+ICAgICAgICAg
+ICAgICAgICBicmVhazsKPiAtLQo+IDIuMjAuMAo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRl
+dmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2RyaS1kZXZlbA==
