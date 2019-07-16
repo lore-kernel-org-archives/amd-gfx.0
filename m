@@ -1,90 +1,56 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Fix silent amdgpu_bo_move failures
-Date: Tue, 16 Jul 2019 11:29:19 +0200
-Message-ID: <166533ad-2894-5a93-d5dc-09887c3067e3@gmail.com>
-References: <20190713064211.20047-1-Felix.Kuehling@amd.com>
- <20190713064211.20047-2-Felix.Kuehling@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v18 11/15] IB/mlx4: untag user pointers in mlx4_get_umem_mr
+Date: Tue, 16 Jul 2019 12:42:07 +0200
+Message-ID: <CAAeHK+xPQqJP7p_JFxc4jrx9k7N0TpBWEuB8Px7XHvrfDU1_gw@mail.gmail.com>
+References: <cover.1561386715.git.andreyknvl@google.com> <ea0ff94ef2b8af12ea6c222c5ebd970e0849b6dd.1561386715.git.andreyknvl@google.com>
+ <20190624174015.GL29120@arrakis.emea.arm.com> <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
+ <20190715180510.GC4970@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190713064211.20047-2-Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190715180510.GC4970@ziepe.ca>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTMuMDcuMTkgdW0gMDg6NDIgc2NocmllYiBLdWVobGluZywgRmVsaXg6Cj4gVW5kZXIgbWVt
-b3J5IHByZXNzdXJlLCBidWZmZXIgbW92ZXMgYmV0d2VlbiBSQU0gdG8gVlJBTSAgY2FuCj4gZmFp
-bCB3aGVuIHRoZXJlIGlzIG5vIEdUVCBzcGFjZSBhdmFpbGFibGUuIEluIHRob3NlIGNhc2VzCj4g
-YW1kZ3B1X2JvX21vdmUgZmFsbHMgYmFjayB0byB0dG1fYm9fbW92ZV9tZW1jcHksIHdoaWNoIHNl
-ZW1zIHRvCj4gc3VjY2VlZCwgYWx0aG91Z2ggaXQgZG9lc24ndCByZWFsbHkgc3VwcG9ydCBub24t
-Y29udGlndW91cyBvcgo+IGludmlzaWJsZSBWUkFNLiBUaGlzIG1hbmlmZXN0cyBhcyBWTSBmYXVs
-dHMgd2l0aCBjb3JydXB0ZWQgcGFnZQo+IHRhYmxlIGVudHJpZXMgaW4gS0ZEIGV2aWN0aW9uIHN0
-cmVzcyB0ZXN0cy4KPgo+IFByaW50IHNvbWUgaGVscGZ1bCBtZXNzYWdlcyB3aGVuIGxhY2sgb2Yg
-R1RUIHNwYWNlIGlzIGNhdXNpbmcgYnVmZmVyCj4gbW92ZXMgdG8gZmFpbC4gQ2hlY2sgdGhhdCBz
-b3VyY2UgYW5kIGRlc3RpbmF0aW9uIG1lbW9yeSByZWdpb25zIGFyZQo+IHN1cHBvcnRlZCBieSB0
-dG1fYm9fbW92ZV9tZW1jcHkgYmVmb3JlIHRha2luZyB0aGF0IGZhbGxiYWNrLgo+Cj4gU2lnbmVk
-LW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpSZXZpZXdl
-ZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0K
-PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8IDQwICsrKysrKysr
-KysrKysrKysrKysrKysrLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAzNyBpbnNlcnRpb25zKCspLCAz
-IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+
-IGluZGV4IDc4NDQwNzQ4Yzg3Zi4uMzdkOWEzYjA5OTQ2IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV90dG0uYwo+IEBAIC00OTgsNiArNDk4LDcgQEAgc3RhdGljIGludCBh
-bWRncHVfbW92ZV92cmFtX3JhbShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBib29sIGV2
-aWN0LAo+ICAgCXBsYWNlbWVudHMuZmxhZ3MgPSBUVE1fUExfTUFTS19DQUNISU5HIHwgVFRNX1BM
-X0ZMQUdfVFQ7Cj4gICAJciA9IHR0bV9ib19tZW1fc3BhY2UoYm8sICZwbGFjZW1lbnQsICZ0bXBf
-bWVtLCBjdHgpOwo+ICAgCWlmICh1bmxpa2VseShyKSkgewo+ICsJCXByX2VycigiRmFpbGVkIHRv
-IGZpbmQgR1RUIHNwYWNlIGZvciBibGl0IGZyb20gVlJBTVxuIik7Cj4gICAJCXJldHVybiByOwo+
-ICAgCX0KPiAgIAo+IEBAIC01NTYsNiArNTU3LDcgQEAgc3RhdGljIGludCBhbWRncHVfbW92ZV9y
-YW1fdnJhbShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBib29sIGV2aWN0LAo+ICAgCXBs
-YWNlbWVudHMuZmxhZ3MgPSBUVE1fUExfTUFTS19DQUNISU5HIHwgVFRNX1BMX0ZMQUdfVFQ7Cj4g
-ICAJciA9IHR0bV9ib19tZW1fc3BhY2UoYm8sICZwbGFjZW1lbnQsICZ0bXBfbWVtLCBjdHgpOwo+
-ICAgCWlmICh1bmxpa2VseShyKSkgewo+ICsJCXByX2VycigiRmFpbGVkIHRvIGZpbmQgR1RUIHNw
-YWNlIGZvciBibGl0IHRvIFZSQU1cbiIpOwo+ICAgCQlyZXR1cm4gcjsKPiAgIAl9Cj4gICAKPiBA
-QCAtNTc1LDYgKzU3NywzMCBAQCBzdGF0aWMgaW50IGFtZGdwdV9tb3ZlX3JhbV92cmFtKHN0cnVj
-dCB0dG1fYnVmZmVyX29iamVjdCAqYm8sIGJvb2wgZXZpY3QsCj4gICAJcmV0dXJuIHI7Cj4gICB9
-Cj4gICAKPiArLyoqCj4gKyAqIGFtZGdwdV9tZW1fdmlzaWJsZSAtIENoZWNrIHRoYXQgbWVtb3J5
-IGNhbiBiZSBhY2Nlc3NlZCBieSB0dG1fYm9fbW92ZV9tZW1jcHkKPiArICoKPiArICogQ2FsbGVk
-IGJ5IGFtZGdwdV9ib19tb3ZlKCkKPiArICovCj4gK3N0YXRpYyBib29sIGFtZGdwdV9tZW1fdmlz
-aWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiArCQkJICAgICAgIHN0cnVjdCB0dG1f
-bWVtX3JlZyAqbWVtKQo+ICt7Cj4gKwlzdHJ1Y3QgZHJtX21tX25vZGUgKm5vZGVzID0gbWVtLT5t
-bV9ub2RlOwo+ICsKPiArCWlmIChtZW0tPm1lbV90eXBlID09IFRUTV9QTF9TWVNURU0gfHwKPiAr
-CSAgICBtZW0tPm1lbV90eXBlID09IFRUTV9QTF9UVCkKPiArCQlyZXR1cm4gdHJ1ZTsKPiArCWlm
-IChtZW0tPm1lbV90eXBlICE9IFRUTV9QTF9WUkFNKQo+ICsJCXJldHVybiBmYWxzZTsKPiArCj4g
-KwkvKiB0dG1fbWVtX3JlZ19pb3JlbWFwIG9ubHkgc3VwcG9ydHMgY29udGlndW91cyBtZW1vcnkg
-Ki8KPiArCWlmIChub2Rlcy0+c2l6ZSAhPSBtZW0tPm51bV9wYWdlcykKPiArCQlyZXR1cm4gZmFs
-c2U7Cj4gKwo+ICsJcmV0dXJuICgobm9kZXMtPnN0YXJ0ICsgbm9kZXMtPnNpemUpIDw8IFBBR0Vf
-U0hJRlQpCj4gKwkJPD0gYWRldi0+Z21jLnZpc2libGVfdnJhbV9zaXplOwo+ICt9Cj4gKwo+ICAg
-LyoqCj4gICAgKiBhbWRncHVfYm9fbW92ZSAtIE1vdmUgYSBidWZmZXIgb2JqZWN0IHRvIGEgbmV3
-IG1lbW9yeSBsb2NhdGlvbgo+ICAgICoKPiBAQCAtNjE5LDggKzY0NSwxMCBAQCBzdGF0aWMgaW50
-IGFtZGdwdV9ib19tb3ZlKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sIGJvb2wgZXZpY3Qs
-Cj4gICAJCXJldHVybiAwOwo+ICAgCX0KPiAgIAo+IC0JaWYgKCFhZGV2LT5tbWFuLmJ1ZmZlcl9m
-dW5jc19lbmFibGVkKQo+ICsJaWYgKCFhZGV2LT5tbWFuLmJ1ZmZlcl9mdW5jc19lbmFibGVkKSB7
-Cj4gKwkJciA9IC1FTk9ERVY7Cj4gICAJCWdvdG8gbWVtY3B5Owo+ICsJfQo+ICAgCj4gICAJaWYg
-KG9sZF9tZW0tPm1lbV90eXBlID09IFRUTV9QTF9WUkFNICYmCj4gICAJICAgIG5ld19tZW0tPm1l
-bV90eXBlID09IFRUTV9QTF9TWVNURU0pIHsKPiBAQCAtNjM1LDEwICs2NjMsMTYgQEAgc3RhdGlj
-IGludCBhbWRncHVfYm9fbW92ZShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLCBib29sIGV2
-aWN0LAo+ICAgCj4gICAJaWYgKHIpIHsKPiAgIG1lbWNweToKPiAtCQlyID0gdHRtX2JvX21vdmVf
-bWVtY3B5KGJvLCBjdHgsIG5ld19tZW0pOwo+IC0JCWlmIChyKSB7Cj4gKwkJLyogQ2hlY2sgdGhh
-dCBhbGwgbWVtb3J5IGlzIENQVSBhY2Nlc3NpYmxlICovCj4gKwkJaWYgKCFhbWRncHVfbWVtX3Zp
-c2libGUoYWRldiwgb2xkX21lbSkgfHwKPiArCQkgICAgIWFtZGdwdV9tZW1fdmlzaWJsZShhZGV2
-LCBuZXdfbWVtKSkgewo+ICsJCQlwcl9lcnIoIk1vdmUgYnVmZmVyIGZhbGxiYWNrIHRvIG1lbWNw
-eSB1bmF2YWlsYWJsZVxuIik7Cj4gICAJCQlyZXR1cm4gcjsKPiAgIAkJfQo+ICsKPiArCQlyID0g
-dHRtX2JvX21vdmVfbWVtY3B5KGJvLCBjdHgsIG5ld19tZW0pOwo+ICsJCWlmIChyKQo+ICsJCQly
-ZXR1cm4gcjsKPiAgIAl9Cj4gICAKPiAgIAlpZiAoYm8tPnR5cGUgPT0gdHRtX2JvX3R5cGVfZGV2
-aWNlICYmCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Mon, Jul 15, 2019 at 8:05 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+>
+> On Mon, Jul 15, 2019 at 06:01:29PM +0200, Andrey Konovalov wrote:
+> > On Mon, Jun 24, 2019 at 7:40 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> > >
+> > > On Mon, Jun 24, 2019 at 04:32:56PM +0200, Andrey Konovalov wrote:
+> > > > This patch is a part of a series that extends kernel ABI to allow to pass
+> > > > tagged user pointers (with the top byte set to something else other than
+> > > > 0x00) as syscall arguments.
+> > > >
+> > > > mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
+> > > > only by done with untagged pointers.
+> > > >
+> > > > Untag user pointers in this function.
+> > > >
+> > > > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> > > >  drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
+> > > >  1 file changed, 4 insertions(+), 3 deletions(-)
+> > >
+> > > Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+> > >
+> > > This patch also needs an ack from the infiniband maintainers (Jason).
+> >
+> > Hi Jason,
+> >
+> > Could you take a look and give your acked-by?
+>
+> Oh, I think I did this a long time ago. Still looks OK.
+
+Hm, maybe that was we who lost it. Thanks!
+
+> You will send it?
+
+I will resend the patchset once the merge window is closed, if that's
+what you mean.
+
+>
+> Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+>
+> Jason
