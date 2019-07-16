@@ -1,56 +1,46 @@
-From: Andrey Konovalov <andreyknvl@google.com>
-Subject: Re: [PATCH v18 11/15] IB/mlx4: untag user pointers in mlx4_get_umem_mr
-Date: Tue, 16 Jul 2019 12:42:07 +0200
-Message-ID: <CAAeHK+xPQqJP7p_JFxc4jrx9k7N0TpBWEuB8Px7XHvrfDU1_gw@mail.gmail.com>
-References: <cover.1561386715.git.andreyknvl@google.com> <ea0ff94ef2b8af12ea6c222c5ebd970e0849b6dd.1561386715.git.andreyknvl@google.com>
- <20190624174015.GL29120@arrakis.emea.arm.com> <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
- <20190715180510.GC4970@ziepe.ca>
+From: JingYi Hou <houjingyi647@gmail.com>
+Subject: [PATCH] drm/amdgpu: fix double fetch in
+ amdgpu_ras_debugfs_ctrl_parse_data()
+Date: Tue, 16 Jul 2019 04:11:22 -0700
+Message-ID: <20190716111122.GA35069@ubuntu>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190715180510.GC4970@ziepe.ca>
+Content-Disposition: inline
 Sender: linux-kernel-owner@vger.kernel.org
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Mon, Jul 15, 2019 at 8:05 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
->
-> On Mon, Jul 15, 2019 at 06:01:29PM +0200, Andrey Konovalov wrote:
-> > On Mon, Jun 24, 2019 at 7:40 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > >
-> > > On Mon, Jun 24, 2019 at 04:32:56PM +0200, Andrey Konovalov wrote:
-> > > > This patch is a part of a series that extends kernel ABI to allow to pass
-> > > > tagged user pointers (with the top byte set to something else other than
-> > > > 0x00) as syscall arguments.
-> > > >
-> > > > mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
-> > > > only by done with untagged pointers.
-> > > >
-> > > > Untag user pointers in this function.
-> > > >
-> > > > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> > > >  drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
-> > > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > >
-> > > Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-> > >
-> > > This patch also needs an ack from the infiniband maintainers (Jason).
-> >
-> > Hi Jason,
-> >
-> > Could you take a look and give your acked-by?
->
-> Oh, I think I did this a long time ago. Still looks OK.
+In amdgpu_ras_debugfs_ctrl_parse_data(), first fetch str from buf to
+get op value, if op == -1 which means no command matched, fetch data
+from buf again.
 
-Hm, maybe that was we who lost it. Thanks!
+If change buf between two fetches may cause security problems or
+unexpected behaivor. amdgpu_ras_debugfs_ctrl_parse_data() was called
+by amdgpu_ras_debugfs_ctrl_write() and value of op was used later.
 
-> You will send it?
+We should check whether data->op == -1 or not after second fetch. if
+data->op != -1 means buf changed and should return -EINVAL.
 
-I will resend the patchset once the merge window is closed, if that's
-what you mean.
+Signed-off-by: JingYi Hou <houjingyi647@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->
-> Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
->
-> Jason
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 22bd21efe6b1..845e73e98cd7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -233,6 +233,9 @@ static int amdgpu_ras_debugfs_ctrl_parse_data(struct file *f,
+
+ 		if (copy_from_user(data, buf, sizeof(*data)))
+ 			return -EINVAL;
++
++		if(data->op != -1)
++			return -EINVAL;
+ 	}
+
+ 	return 0;
+--
+2.20.1
