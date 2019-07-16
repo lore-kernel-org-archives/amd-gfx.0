@@ -1,45 +1,62 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/amdgpu: Fix offset for vmid selection in debugfs
- interface
-Date: Tue, 16 Jul 2019 13:30:56 +0200
-Message-ID: <e6bc6d43-d4ac-467f-22b3-2be79619b93e@gmail.com>
-References: <20190716112434.29017-1-tom.stdenis@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH v18 11/15] IB/mlx4: untag user pointers in
+ mlx4_get_umem_mr
+Date: Tue, 16 Jul 2019 09:06:24 -0300
+Message-ID: <20190716120624.GA29727@ziepe.ca>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <ea0ff94ef2b8af12ea6c222c5ebd970e0849b6dd.1561386715.git.andreyknvl@google.com>
+ <20190624174015.GL29120@arrakis.emea.arm.com>
+ <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
+ <20190715180510.GC4970@ziepe.ca>
+ <CAAeHK+xPQqJP7p_JFxc4jrx9k7N0TpBWEuB8Px7XHvrfDU1_gw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190716112434.29017-1-tom.stdenis-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CAAeHK+xPQqJP7p_JFxc4jrx9k7N0TpBWEuB8Px7XHvrfDU1_gw@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMTYuMDcuMTkgdW0gMTM6MjQgc2NocmllYiBTdERlbmlzLCBUb206Cj4gVGhlIHJlZ2lzdGVy
-IGRlYnVnZnMgaW50ZXJmYWNlIHdhcyB1c2luZyB0aGUgd3JvbmcgYml0bWFzayBmb3Igdm1pZAo+
-IHNlbGVjdGlvbiBmb3IgR0ZYX0NOVEwuCj4KPiBTaWduZWQtb2ZmLWJ5OiBUb20gU3QgRGVuaXMg
-PHRvbS5zdGRlbmlzQGFtZC5jb20+CgpBY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0
-aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9kZWJ1Z2ZzLmMgfCAyICstCj4gICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24o
-KyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZGVidWdmcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2RlYnVnZnMuYwo+IGluZGV4IDg3YjMyODczMDQ2Zi4uNTk4NDllZDk3OTdkIDEwMDY0NAo+IC0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKPiArKysgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jCj4gQEAgLTEzMiw3ICsx
-MzIsNyBAQCBzdGF0aWMgaW50ICBhbWRncHVfZGVidWdmc19wcm9jZXNzX3JlZ19vcChib29sIHJl
-YWQsIHN0cnVjdCBmaWxlICpmLAo+ICAgCQltZSA9ICgqcG9zICYgR0VOTUFTS19VTEwoMzMsIDI0
-KSkgPj4gMjQ7Cj4gICAJCXBpcGUgPSAoKnBvcyAmIEdFTk1BU0tfVUxMKDQzLCAzNCkpID4+IDM0
-Owo+ICAgCQlxdWV1ZSA9ICgqcG9zICYgR0VOTUFTS19VTEwoNTMsIDQ0KSkgPj4gNDQ7Cj4gLQkJ
-dm1pZCA9ICgqcG9zICYgR0VOTUFTS19VTEwoNDgsIDQ1KSkgPj4gNTQ7Cj4gKwkJdm1pZCA9ICgq
-cG9zICYgR0VOTUFTS19VTEwoNTgsIDU0KSkgPj4gNTQ7Cj4gICAKPiAgIAkJdXNlX3JpbmcgPSAx
-Owo+ICAgCX0gZWxzZSB7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Tue, Jul 16, 2019 at 12:42:07PM +0200, Andrey Konovalov wrote:
+> On Mon, Jul 15, 2019 at 8:05 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> >
+> > On Mon, Jul 15, 2019 at 06:01:29PM +0200, Andrey Konovalov wrote:
+> > > On Mon, Jun 24, 2019 at 7:40 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
+> > > >
+> > > > On Mon, Jun 24, 2019 at 04:32:56PM +0200, Andrey Konovalov wrote:
+> > > > > This patch is a part of a series that extends kernel ABI to allow to pass
+> > > > > tagged user pointers (with the top byte set to something else other than
+> > > > > 0x00) as syscall arguments.
+> > > > >
+> > > > > mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
+> > > > > only by done with untagged pointers.
+> > > > >
+> > > > > Untag user pointers in this function.
+> > > > >
+> > > > > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> > > > >  drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
+> > > > >  1 file changed, 4 insertions(+), 3 deletions(-)
+> > > >
+> > > > Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+> > > >
+> > > > This patch also needs an ack from the infiniband maintainers (Jason).
+> > >
+> > > Hi Jason,
+> > >
+> > > Could you take a look and give your acked-by?
+> >
+> > Oh, I think I did this a long time ago. Still looks OK.
+> 
+> Hm, maybe that was we who lost it. Thanks!
+> 
+> > You will send it?
+> 
+> I will resend the patchset once the merge window is closed, if that's
+> what you mean.
+
+No.. I mean who send it to Linus's tree? ie do you want me to take
+this patch into rdma?
+
+Jason
