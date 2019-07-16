@@ -1,54 +1,76 @@
-From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Subject: Re: HMM related use-after-free with amdgpu
-Date: Tue, 16 Jul 2019 16:35:50 +0000
-Message-ID: <20190716163545.GF29741@mellanox.com>
-References: <9a38f48b-3974-a238-5987-5251c1343f6b@daenzer.net>
- <20190715172515.GA5043@mellanox.com>
- <823db68e-6601-bb3a-0c1f-bfc5169cb7c9@daenzer.net>
-Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <823db68e-6601-bb3a-0c1f-bfc5169cb7c9-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-Content-ID: <B859CA61BFFF174FA8C0CFAC40B38C07-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, =?utf-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+From: KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
+Subject: [PATCH] drm/radeon: Fix EEH during kexec
+Date: Tue, 16 Jul 2019 13:10:02 -0500
+Message-ID: <1563300606-28434-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, KyleMahlkuch <kmahlkuc@linux.vnet.ibm.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBKdWwgMTYsIDIwMTkgYXQgMDY6MzE6MDlQTSArMDIwMCwgTWljaGVsIETDpG56ZXIg
-d3JvdGU6DQo+IE9uIDIwMTktMDctMTUgNzoyNSBwLm0uLCBKYXNvbiBHdW50aG9ycGUgd3JvdGU6
-DQo+ID4gT24gTW9uLCBKdWwgMTUsIDIwMTkgYXQgMDY6NTE6MDZQTSArMDIwMCwgTWljaGVsIETD
-pG56ZXIgd3JvdGU6DQo+ID4+DQo+ID4+IFdpdGggYSBLQVNBTiBlbmFibGVkIGtlcm5lbCBidWls
-dCBmcm9tIGFtZC1zdGFnaW5nLWRybS1uZXh0LCB0aGUNCj4gPj4gYXR0YWNoZWQgdXNlLWFmdGVy
-LWZyZWUgaXMgcHJldHR5IHJlbGlhYmx5IGRldGVjdGVkIGR1cmluZyBhIHBpZ2xpdCBncHUgcnVu
-Lg0KPiA+IA0KPiA+IERvZXMgdGhpcyBicmFuY2ggeW91IGFyZSB0ZXN0aW5nIGhhdmUgdGhlIGht
-bS5naXQgbWVyZ2VkPyBJIHRoaW5rIGZyb20NCj4gPiB0aGUgbmFtZSBpdCBkb2VzIG5vdD8NCj4g
-DQo+IEluZGVlZCwgbm8uDQo+IA0KPiANCj4gPiBVc2UgYWZ0ZXIgZnJlZSdzIG9mIHRoaXMgbmF0
-dXJlIHdlcmUgc29tZXRoaW5nIHRoYXQgd2FzIGZpeGVkIGluDQo+ID4gaG1tLmdpdC4uDQo+ID4g
-DQo+ID4gSSBkb24ndCBzZWUgYW4gb2J2aW91cyB3YXkgeW91IGNhbiBoaXQgc29tZXRoaW5nIGxp
-a2UgdGhpcyB3aXRoIHRoZQ0KPiA+IG5ldyBjb2RlIGFycmFuZ2VtZW50Li4NCj4gDQo+IEkgdHJp
-ZWQgbWVyZ2luZyB0aGUgaG1tLWRldm1lbS1jbGVhbnVwLjQgY2hhbmdlc1swXSBpbnRvIG15IDUu
-Mi55ICsNCj4gZHJtLW5leHQgZm9yIDUuMyBrZXJuZWwuIFdoaWxlIHRoZSByZXN1bHQgZGlkbid0
-IGhpdCB0aGUgcHJvYmxlbSwgYWxsDQo+IEdMX0FNRF9waW5uZWRfbWVtb3J5IHBpZ2xpdCB0ZXN0
-cyBmYWlsZWQsIHNvIEkgc3VzcGVjdCB0aGUgcHJvYmxlbSB3YXMNCj4gc2ltcGx5IGF2b2lkZWQg
-Ynkgbm90IGFjdHVhbGx5IGhpdHRpbmcgdGhlIEhNTSByZWxhdGVkIGZ1bmN0aW9uYWxpdHkuDQo+
-IA0KPiBJdCdzIHBvc3NpYmxlIHRoYXQgSSBtYWRlIGEgbWlzdGFrZSBpbiBtZXJnaW5nIHRoZSBj
-aGFuZ2VzLCBvciB0aGF0IEkNCj4gbWlzc2VkIHNvbWUgb3RoZXIgcmVxdWlyZWQgY2hhbmdlcy4g
-QnV0IGl0J3MgYWxzbyBwb3NzaWJsZSB0aGF0IHRoZSBITU0NCj4gY2hhbmdlcyBicm9rZSB0aGUg
-Y29ycmVzcG9uZGluZyB1c2VyLXBvaW50ZXIgZnVuY3Rpb25hbGl0eSBpbiBhbWRncHUuDQoNCk5v
-dCBzdXJlLCB0aGlzIHdhcyBhbGwgVGVzdGVkIGJ5IHRoZSBBTUQgdGVhbSBzbyBpdCBzaG91bGQg
-d29yaywgSQ0KaG9wZS4NCg0KSXQgc2hvdWxkIGFsbCBiZSBzb3J0ZWQgb3V0IGluIHJjMSwgdHJ5
-IGFnYWluIHRoZW4/DQoNCkphc29uDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZng=
+During kexec some adapters hit an EEH since they are not properly
+shut down in the radeon_pci_shutdown() function. Adding
+radeon_suspend_kms() fixes this issue.
+
+Since radeon.h is now included in radeon_drv.c radeon_init() needs
+a new name. I chose radeon_initl(). This can be changed if there is
+another suggestion for a name.
+
+Signed-off-by: Kyle Mahlkuch <Kyle.Mahlkuch at ibm.com>
+---
+ drivers/gpu/drm/radeon/radeon_drv.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index 2e96c88..550f9b0 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -32,6 +32,7 @@
+ #include <drm/drmP.h>
+ #include <drm/radeon_drm.h>
+ #include "radeon_drv.h"
++#include "radeon.h"
+ 
+ #include <drm/drm_pciids.h>
+ #include <linux/console.h>
+@@ -344,11 +345,21 @@ static int radeon_pci_probe(struct pci_dev *pdev,
+ static void
+ radeon_pci_shutdown(struct pci_dev *pdev)
+ {
++	struct drm_device *ddev = pci_get_drvdata(pdev);
++	struct radeon_device *rdev = ddev->dev_private;
++
+ 	/* if we are running in a VM, make sure the device
+ 	 * torn down properly on reboot/shutdown
+ 	 */
+ 	if (radeon_device_is_virtual())
+ 		radeon_pci_remove(pdev);
++
++	/* Some adapters need to be suspended before a
++	* shutdown occurs in order to prevent an error
++	* during kexec.
++	*/
++	if (rdev->family == CHIP_CAICOS)
++		radeon_suspend_kms(ddev, true, true, false);
+ }
+ 
+ static int radeon_pmops_suspend(struct device *dev)
+@@ -589,7 +600,7 @@ static long radeon_kms_compat_ioctl(struct file *filp, unsigned int cmd, unsigne
+ 	.driver.pm = &radeon_pm_ops,
+ };
+ 
+-static int __init radeon_init(void)
++static int __init radeon_initl(void)
+ {
+ 	if (vgacon_text_force() && radeon_modeset == -1) {
+ 		DRM_INFO("VGACON disable radeon kernel modesetting.\n");
+@@ -621,7 +632,7 @@ static void __exit radeon_exit(void)
+ 	radeon_unregister_atpx_handler();
+ }
+ 
+-module_init(radeon_init);
++module_init(radeon_initl);
+ module_exit(radeon_exit);
+ 
+ MODULE_AUTHOR(DRIVER_AUTHOR);
+-- 
+1.8.3.1
