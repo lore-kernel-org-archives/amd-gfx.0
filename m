@@ -1,13 +1,15 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/psp11: check if prior to navi10 for sram map
-Date: Tue, 16 Jul 2019 16:03:00 +0000
-Message-ID: <BN6PR12MB18096684A232AD7A6564D06EF7CE0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190716155456.11236-1-xiaojie.yuan@amd.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: HMM related use-after-free with amdgpu
+Date: Tue, 16 Jul 2019 18:31:09 +0200
+Message-ID: <823db68e-6601-bb3a-0c1f-bfc5169cb7c9@daenzer.net>
+References: <9a38f48b-3974-a238-5987-5251c1343f6b@daenzer.net>
+ <20190715172515.GA5043@mellanox.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1200469434=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190716155456.11236-1-xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20190715172515.GA5043-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+Content-Language: en-CA
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,167 +20,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "tao1.zhou-5C7GfCeVMHo@public.gmane.org" <tao1.zhou-5C7GfCeVMHo@public.gmane.org>, "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+To: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+Cc: "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1200469434==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18096684A232AD7A6564D06EF7CE0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB18096684A232AD7A6564D06EF7CE0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Yuan, Xi=
-aojie <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, July 16, 2019 11:55 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: tao1.zhou-5C7GfCeVMHo@public.gmane.org; Xiao, Jack; Yuan, Xiaojie; Zhang, Hawking
-Subject: [PATCH] drm/amdgpu/psp11: check if prior to navi10 for sram map
-
-Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v11_0.c
-index 87596c69b235..a8b526dbb6c6 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -538,7 +538,7 @@ psp_v11_0_sram_map(struct amdgpu_device *adev,
-
-         case AMDGPU_UCODE_ID_RLC_G:
-                 *sram_offset =3D 0x2000;
--               if (adev->asic_type !=3D CHIP_NAVI10) {
-+               if (adev->asic_type < CHIP_NAVI10) {
-                         *sram_addr_reg_offset =3D SOC15_REG_OFFSET(GC, 0, =
-mmRLC_GPM_UCODE_ADDR);
-                         *sram_data_reg_offset =3D SOC15_REG_OFFSET(GC, 0, =
-mmRLC_GPM_UCODE_DATA);
-                 }
-@@ -550,7 +550,7 @@ psp_v11_0_sram_map(struct amdgpu_device *adev,
-
-         case AMDGPU_UCODE_ID_SDMA0:
-                 *sram_offset =3D 0x0;
--               if (adev->asic_type !=3D CHIP_NAVI10) {
-+               if (adev->asic_type < CHIP_NAVI10) {
-                         *sram_addr_reg_offset =3D SOC15_REG_OFFSET(SDMA0, =
-0, mmSDMA0_UCODE_ADDR);
-                         *sram_data_reg_offset =3D SOC15_REG_OFFSET(SDMA0, =
-0, mmSDMA0_UCODE_DATA);
-                 }
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB18096684A232AD7A6564D06EF7CE0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Yuan, Xiaojie &lt;Xiaojie.Yua=
-n@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, July 16, 2019 11:55 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> tao1.zhou-5C7GfCeVMHo@public.gmane.org; Xiao, Jack; Yuan, Xiaojie; Zhang, Hawking<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/psp11: check if prior to navi10 for sram=
- map</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Signed-off-by: Xiaojie Yuan &lt;xiaojie.yuan@amd.c=
-om&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 4 &#43;&#43;--<br>
-&nbsp;1 file changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/psp_v11_0.c<br>
-index 87596c69b235..a8b526dbb6c6 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c<br>
-@@ -538,7 &#43;538,7 @@ psp_v11_0_sram_map(struct amdgpu_device *adev,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_UCODE_ID_RLC_G=
-:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *sram_offset =3D 0x2000;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;asic_type !=3D CHIP_NAVI10) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;asic_type &lt; CHIP_NAVI10) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sram=
-_addr_reg_offset =3D SOC15_REG_OFFSET(GC, 0, mmRLC_GPM_UCODE_ADDR);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sram=
-_data_reg_offset =3D SOC15_REG_OFFSET(GC, 0, mmRLC_GPM_UCODE_DATA);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -550,7 &#43;550,7 @@ psp_v11_0_sram_map(struct amdgpu_device *adev,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_UCODE_ID_SDMA0=
-:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *sram_offset =3D 0x0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (adev-&gt;asic_type !=3D CHIP_NAVI10) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (adev-&gt;asic_type &lt; CHIP_NAVI10) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sram=
-_addr_reg_offset =3D SOC15_REG_OFFSET(SDMA0, 0, mmSDMA0_UCODE_ADDR);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *sram=
-_data_reg_offset =3D SOC15_REG_OFFSET(SDMA0, 0, mmSDMA0_UCODE_DATA);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB18096684A232AD7A6564D06EF7CE0BN6PR12MB1809namp_--
-
---===============1200469434==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1200469434==--
+T24gMjAxOS0wNy0xNSA3OjI1IHAubS4sIEphc29uIEd1bnRob3JwZSB3cm90ZToKPiBPbiBNb24s
+IEp1bCAxNSwgMjAxOSBhdCAwNjo1MTowNlBNICswMjAwLCBNaWNoZWwgRMOkbnplciB3cm90ZToK
+Pj4KPj4gV2l0aCBhIEtBU0FOIGVuYWJsZWQga2VybmVsIGJ1aWx0IGZyb20gYW1kLXN0YWdpbmct
+ZHJtLW5leHQsIHRoZQo+PiBhdHRhY2hlZCB1c2UtYWZ0ZXItZnJlZSBpcyBwcmV0dHkgcmVsaWFi
+bHkgZGV0ZWN0ZWQgZHVyaW5nIGEgcGlnbGl0IGdwdSBydW4uCj4gCj4gRG9lcyB0aGlzIGJyYW5j
+aCB5b3UgYXJlIHRlc3RpbmcgaGF2ZSB0aGUgaG1tLmdpdCBtZXJnZWQ/IEkgdGhpbmsgZnJvbQo+
+IHRoZSBuYW1lIGl0IGRvZXMgbm90PwoKSW5kZWVkLCBuby4KCgo+IFVzZSBhZnRlciBmcmVlJ3Mg
+b2YgdGhpcyBuYXR1cmUgd2VyZSBzb21ldGhpbmcgdGhhdCB3YXMgZml4ZWQgaW4KPiBobW0uZ2l0
+Li4KPiAKPiBJIGRvbid0IHNlZSBhbiBvYnZpb3VzIHdheSB5b3UgY2FuIGhpdCBzb21ldGhpbmcg
+bGlrZSB0aGlzIHdpdGggdGhlCj4gbmV3IGNvZGUgYXJyYW5nZW1lbnQuLgoKSSB0cmllZCBtZXJn
+aW5nIHRoZSBobW0tZGV2bWVtLWNsZWFudXAuNCBjaGFuZ2VzWzBdIGludG8gbXkgNS4yLnkgKwpk
+cm0tbmV4dCBmb3IgNS4zIGtlcm5lbC4gV2hpbGUgdGhlIHJlc3VsdCBkaWRuJ3QgaGl0IHRoZSBw
+cm9ibGVtLCBhbGwKR0xfQU1EX3Bpbm5lZF9tZW1vcnkgcGlnbGl0IHRlc3RzIGZhaWxlZCwgc28g
+SSBzdXNwZWN0IHRoZSBwcm9ibGVtIHdhcwpzaW1wbHkgYXZvaWRlZCBieSBub3QgYWN0dWFsbHkg
+aGl0dGluZyB0aGUgSE1NIHJlbGF0ZWQgZnVuY3Rpb25hbGl0eS4KCkl0J3MgcG9zc2libGUgdGhh
+dCBJIG1hZGUgYSBtaXN0YWtlIGluIG1lcmdpbmcgdGhlIGNoYW5nZXMsIG9yIHRoYXQgSQptaXNz
+ZWQgc29tZSBvdGhlciByZXF1aXJlZCBjaGFuZ2VzLiBCdXQgaXQncyBhbHNvIHBvc3NpYmxlIHRo
+YXQgdGhlIEhNTQpjaGFuZ2VzIGJyb2tlIHRoZSBjb3JyZXNwb25kaW5nIHVzZXItcG9pbnRlciBm
+dW5jdGlvbmFsaXR5IGluIGFtZGdwdS4KCgpbMF0gU3BlY2lmaWNhbGx5LCB0aGUgZm9sbG93aW5n
+IChyYW5nZXMgb2YpIGNvbW1pdHM6Cgo5ZmZiZThhYzA1ZGJiNGFiNGE0ODM2YTU1YTQ3ZmM2YmU5
+NDVhMzhmICgtPiBsb2NrZGVwX2Fzc2VydF9oZWxkX3dyaXRlKQplMWJmYTg3Mzk5ZTM3MjQ0NjQ1
+NGVjYmFlYmEyODAwZjBhMzg1NzMzLi41ZGEwNGNjODZkMTIxNWZkOWZlMGU1Yzg4ZWFkNmU4NDI4
+YTc1ZTU2CmZlYzg4YWIwYWY5NzA2YjIyMDFlNWRhZjM3N2M1MDMxYzYyZDExZjdeLi5mZWM4OGFi
+MGFmOTcwNmIyMjAxZTVkYWYzNzdjNTAzMWM2MmQxMWY3CgotLSAKRWFydGhsaW5nIE1pY2hlbCBE
+w6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgaHR0cHM6Ly93d3cuYW1kLmNvbQpM
+aWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwgICAgICAgICAgICAgTWVzYSBh
+bmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
