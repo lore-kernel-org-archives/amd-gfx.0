@@ -1,417 +1,120 @@
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/gfx10: set SH_MEM_CONFIG.INITIAL_INST_PREFETCH
-Date: Mon, 15 Jul 2019 18:54:41 -0400
-Message-ID: <CAAxE2A7MVs52Vw_+CsbvEiWXf6GDpCSHUR16HLeznOe5ZGctFA@mail.gmail.com>
-References: <20190712134642.68650-1-nicolai.haehnle@amd.com>
+From: "Quan, Evan" <Evan.Quan@amd.com>
+Subject: RE: [PATCH 6/7] drm/amd/powerplay: Use proper enums in
+ vega20_print_clk_levels
+Date: Tue, 16 Jul 2019 01:00:02 +0000
+Message-ID: <MN2PR12MB3344EFEEA62F1FC0CE238F2CE4CE0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190704055217.45860-1-natechancellor@gmail.com>
+ <20190704055217.45860-7-natechancellor@gmail.com>
+ <CAK8P3a1e4xKTZc1Fcd9KLwaGG_wpcAnSNu7mrB6zw+aBJ0e0CA@mail.gmail.com>
+ <20190715153932.GA41785@archlinux-threadripper>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0405660493=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190712134642.68650-1-nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Haehnle, Nicolai" <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
---===============0405660493==
-Content-Type: multipart/alternative; boundary="00000000000068b520058dc027ec"
-
---00000000000068b520058dc027ec
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-The patch doesn't apply. Can you rebase it?
-
-Thanks,
-Marek
-
-On Fri, Jul 12, 2019 at 9:47 AM Haehnle, Nicolai <Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org>
-wrote:
-
-> Prefetch mode 0 is not supported and can lead to hangs with certain very
-> specific code patterns. Set a sound prefetch mode for all VMIDs rather
-> than forcing all shaders to set the prefetch mode at the beginning.
->
-> Reduce code duplication a bit while we're at it. Note that the 64-bit
-> address mode enum and the retry all enum are both 0, so the only
-> functional change is in the INITIAL_INST_PREFETCH field.
->
-> Signed-off-by: Nicolai H=C3=A4hnle <nicolai.haehnle-5C7GfCeVMHo@public.gmane.org>
-> --
-> I haven't been able to properly test this yet, but it is the right thing
-> to be doing in principle.
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 27 ++++++++++----------------
->  1 file changed, 10 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 0d94c812df1b..b8498c359191 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -157,20 +157,27 @@ static const struct soc15_reg_golden
-> golden_settings_gc_10_1_1[] =3D
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0xfff7ffff,
-> 0x01030000),
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x60000010, 0x479c0010)=
-,
->         SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x00800000,
-> 0x00800000),
->  };
->
->  static const struct soc15_reg_golden golden_settings_gc_10_1_nv14[] =3D
->  {
->         /* Pending on emulation bring up */
->  };
->
-> +#define DEFAULT_SH_MEM_CONFIG \
-> +       ((SH_MEM_ADDRESS_MODE_64 << SH_MEM_CONFIG__ADDRESS_MODE__SHIFT) |=
- \
-> +        (SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT) | \
-> +        (SH_MEM_RETRY_MODE_ALL << SH_MEM_CONFIG__RETRY_MODE__SHIFT) | \
-> +        (3 << SH_MEM_CONFIG__INITIAL_INST_PREFETCH__SHIFT))
-> +
-> +
->  static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev);
->  static void gfx_v10_0_set_irq_funcs(struct amdgpu_device *adev);
->  static void gfx_v10_0_set_gds_init(struct amdgpu_device *adev);
->  static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev);
->  static int gfx_v10_0_get_cu_info(struct amdgpu_device *adev,
->                                   struct amdgpu_cu_info *cu_info);
->  static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device
-> *adev);
->  static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se_nu=
-m,
->                                    u32 sh_num, u32 instance);
->  static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_device
-> *adev);
-> @@ -1476,40 +1483,35 @@ static u32
-> gfx_v10_0_init_pa_sc_tile_steering_override(struct amdgpu_device *ade
->         return pa_sc_tile_steering_override;
->  }
->
->  #define DEFAULT_SH_MEM_BASES   (0x6000)
->  #define FIRST_COMPUTE_VMID     (8)
->  #define LAST_COMPUTE_VMID      (16)
->
->  static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)
->  {
->         int i;
-> -       uint32_t sh_mem_config;
->         uint32_t sh_mem_bases;
->
->         /*
->          * Configure apertures:
->          * LDS:         0x60000000'00000000 - 0x60000001'00000000 (4GB)
->          * Scratch:     0x60000001'00000000 - 0x60000002'00000000 (4GB)
->          * GPUVM:       0x60010000'00000000 - 0x60020000'00000000 (1TB)
->          */
->         sh_mem_bases =3D DEFAULT_SH_MEM_BASES | (DEFAULT_SH_MEM_BASES << =
-16);
->
-> -       sh_mem_config =3D SH_MEM_ADDRESS_MODE_64 |
-> -                       SH_MEM_ALIGNMENT_MODE_UNALIGNED <<
-> -                       SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;
-> -
->         mutex_lock(&adev->srbm_mutex);
->         for (i =3D FIRST_COMPUTE_VMID; i < LAST_COMPUTE_VMID; i++) {
->                 nv_grbm_select(adev, 0, 0, 0, i);
->                 /* CP and shaders */
-> -               WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, sh_mem_config);
-> +               WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG,
-> DEFAULT_SH_MEM_CONFIG);
->                 WREG32_SOC15(GC, 0, mmSH_MEM_BASES, sh_mem_bases);
->         }
->         nv_grbm_select(adev, 0, 0, 0, 0);
->         mutex_unlock(&adev->srbm_mutex);
->  }
->
->  static void gfx_v10_0_tcp_harvest(struct amdgpu_device *adev)
->  {
->         int i, j, k;
->         int max_wgp_per_sh =3D adev->gfx.config.max_cu_per_sh >> 1;
-> @@ -1590,31 +1592,22 @@ static void gfx_v10_0_constants_init(struct
-> amdgpu_device *adev)
->         gfx_v10_0_get_cu_info(adev, &adev->gfx.cu_info);
->         adev->gfx.config.pa_sc_tile_steering_override =3D
->                 gfx_v10_0_init_pa_sc_tile_steering_override(adev);
->
->         /* XXX SH_MEM regs */
->         /* where to put LDS, scratch, GPUVM in FSA64 space */
->         mutex_lock(&adev->srbm_mutex);
->         for (i =3D 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB].num_ids;
-> i++) {
->                 nv_grbm_select(adev, 0, 0, 0, i);
->                 /* CP and shaders */
-> -               if (i =3D=3D 0) {
-> -                       tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG,
-> ALIGNMENT_MODE,
-> -
->  SH_MEM_ALIGNMENT_MODE_UNALIGNED);
-> -                       tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG,
-> RETRY_MODE, 0);
-> -                       WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);
-> -                       WREG32_SOC15(GC, 0, mmSH_MEM_BASES, 0);
-> -               } else {
-> -                       tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG,
-> ALIGNMENT_MODE,
-> -
->  SH_MEM_ALIGNMENT_MODE_UNALIGNED);
-> -                       tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG,
-> RETRY_MODE, 0);
-> -                       WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);
-> +               WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG,
-> DEFAULT_SH_MEM_CONFIG);
-> +               if (i !=3D 0) {
->                         tmp =3D REG_SET_FIELD(0, SH_MEM_BASES, PRIVATE_BA=
-SE,
->                                 (adev->gmc.private_aperture_start >> 48))=
-;
->                         tmp =3D REG_SET_FIELD(tmp, SH_MEM_BASES, SHARED_B=
-ASE,
->                                 (adev->gmc.shared_aperture_start >> 48));
->                         WREG32_SOC15(GC, 0, mmSH_MEM_BASES, tmp);
->                 }
->         }
->         nv_grbm_select(adev, 0, 0, 0, 0);
->
->         mutex_unlock(&adev->srbm_mutex);
-> --
-> 2.20.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---00000000000068b520058dc027ec
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>The patch doesn&#39;t apply. Can you rebase it?</div>=
-<div><br></div><div>Thanks,</div><div>Marek<br></div></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jul 12, 2019=
- at 9:47 AM Haehnle, Nicolai &lt;<a href=3D"mailto:Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org"=
->Nicolai.Haehnle-5C7GfCeVMHo@public.gmane.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
-_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204=
-,204);padding-left:1ex">Prefetch mode 0 is not supported and can lead to ha=
-ngs with certain very<br>
-specific code patterns. Set a sound prefetch mode for all VMIDs rather<br>
-than forcing all shaders to set the prefetch mode at the beginning.<br>
-<br>
-Reduce code duplication a bit while we&#39;re at it. Note that the 64-bit<b=
-r>
-address mode enum and the retry all enum are both 0, so the only<br>
-functional change is in the INITIAL_INST_PREFETCH field.<br>
-<br>
-Signed-off-by: Nicolai H=C3=A4hnle &lt;<a href=3D"mailto:nicolai.haehnle@am=
-d.com" target=3D"_blank">nicolai.haehnle-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
---<br>
-I haven&#39;t been able to properly test this yet, but it is the right thin=
-g<br>
-to be doing in principle.<br>
----<br>
-=C2=A0drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 27 ++++++++++---------------=
--<br>
-=C2=A01 file changed, 10 insertions(+), 17 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index 0d94c812df1b..b8498c359191 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -157,20 +157,27 @@ static const struct soc15_reg_golden golden_settings_=
-gc_10_1_1[] =3D<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_REG_GOLDEN_VALUE(GC, 0, mmTA_CNTL_AUX, 0x=
-fff7ffff, 0x01030000),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_REG_GOLDEN_VALUE(GC, 0, mmTCP_CNTL, 0x600=
-00010, 0x479c0010),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0x0=
-0800000, 0x00800000),<br>
-=C2=A0};<br>
-<br>
-=C2=A0static const struct soc15_reg_golden golden_settings_gc_10_1_nv14[] =
-=3D<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* Pending on emulation bring up */<br>
-=C2=A0};<br>
-<br>
-+#define DEFAULT_SH_MEM_CONFIG \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0((SH_MEM_ADDRESS_MODE_64 &lt;&lt; SH_MEM_CONFIG=
-__ADDRESS_MODE__SHIFT) | \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 (SH_MEM_ALIGNMENT_MODE_UNALIGNED &lt;&lt; SH_M=
-EM_CONFIG__ALIGNMENT_MODE__SHIFT) | \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 (SH_MEM_RETRY_MODE_ALL &lt;&lt; SH_MEM_CONFIG_=
-_RETRY_MODE__SHIFT) | \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 (3 &lt;&lt; SH_MEM_CONFIG__INITIAL_INST_PREFET=
-CH__SHIFT))<br>
-+<br>
-+<br>
-=C2=A0static void gfx_v10_0_set_ring_funcs(struct amdgpu_device *adev);<br>
-=C2=A0static void gfx_v10_0_set_irq_funcs(struct amdgpu_device *adev);<br>
-=C2=A0static void gfx_v10_0_set_gds_init(struct amdgpu_device *adev);<br>
-=C2=A0static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev);<br>
-=C2=A0static int gfx_v10_0_get_cu_info(struct amdgpu_device *adev,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct amdgpu_cu_info *cu_inf=
-o);<br>
-=C2=A0static uint64_t gfx_v10_0_get_gpu_clock_counter(struct amdgpu_device =
-*adev);<br>
-=C2=A0static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se=
-_num,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0u32 sh_num, u32 instanc=
-e);<br>
-=C2=A0static u32 gfx_v10_0_get_wgp_active_bitmap_per_sh(struct amdgpu_devic=
-e *adev);<br>
-@@ -1476,40 +1483,35 @@ static u32 gfx_v10_0_init_pa_sc_tile_steering_overr=
-ide(struct amdgpu_device *ade<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return pa_sc_tile_steering_override;<br>
-=C2=A0}<br>
-<br>
-=C2=A0#define DEFAULT_SH_MEM_BASES=C2=A0 =C2=A0(0x6000)<br>
-=C2=A0#define FIRST_COMPUTE_VMID=C2=A0 =C2=A0 =C2=A0(8)<br>
-=C2=A0#define LAST_COMPUTE_VMID=C2=A0 =C2=A0 =C2=A0 (16)<br>
-<br>
-=C2=A0static void gfx_v10_0_init_compute_vmid(struct amdgpu_device *adev)<b=
-r>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0uint32_t sh_mem_config;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint32_t sh_mem_bases;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Configure apertures:<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* LDS:=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00=
-x60000000&#39;00000000 - 0x60000001&#39;00000000 (4GB)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* Scratch:=C2=A0 =C2=A0 =C2=A00x60000001&=
-#39;00000000 - 0x60000002&#39;00000000 (4GB)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0* GPUVM:=C2=A0 =C2=A0 =C2=A0 =C2=A00x6001=
-0000&#39;00000000 - 0x60020000&#39;00000000 (1TB)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*/<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 sh_mem_bases =3D DEFAULT_SH_MEM_BASES | (DEFAUL=
-T_SH_MEM_BASES &lt;&lt; 16);<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0sh_mem_config =3D SH_MEM_ADDRESS_MODE_64 |<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0SH_MEM_ALIGNMENT_MODE_UNALIGNED &lt;&lt;<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0SH_MEM_CONFIG__ALIGNMENT_MODE__SHIFT;<br>
--<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_lock(&amp;adev-&gt;srbm_mutex);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D FIRST_COMPUTE_VMID; i &lt; LAST_COMP=
-UTE_VMID; i++) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev=
-, 0, 0, 0, i);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* CP and shaders *=
-/<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SOC15(GC, 0,=
- mmSH_MEM_CONFIG, sh_mem_config);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SOC15(GC, 0,=
- mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 WREG32_SOC15(GC, 0,=
- mmSH_MEM_BASES, sh_mem_bases);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev, 0, 0, 0, 0);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_unlock(&amp;adev-&gt;srbm_mutex);<br>
-=C2=A0}<br>
-<br>
-=C2=A0static void gfx_v10_0_tcp_harvest(struct amdgpu_device *adev)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int i, j, k;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int max_wgp_per_sh =3D adev-&gt;gfx.config.max_=
-cu_per_sh &gt;&gt; 1;<br>
-@@ -1590,31 +1592,22 @@ static void gfx_v10_0_constants_init(struct amdgpu_=
-device *adev)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 gfx_v10_0_get_cu_info(adev, &amp;adev-&gt;gfx.c=
-u_info);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 adev-&gt;gfx.config.pa_sc_tile_steering_overrid=
-e =3D<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 gfx_v10_0_init_pa_s=
-c_tile_steering_override(adev);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* XXX SH_MEM regs */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* where to put LDS, scratch, GPUVM in FSA64 sp=
-ace */<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_lock(&amp;adev-&gt;srbm_mutex);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (i =3D 0; i &lt; adev-&gt;vm_manager.id_mgr=
-[AMDGPU_GFXHUB].num_ids; i++) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev=
-, 0, 0, 0, i);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* CP and shaders *=
-/<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (i =3D=3D 0) {<b=
-r>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG, ALIGNMENT_MODE,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0SH_MEM_ALIGNMENT_MODE_UNALIGNED);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG, RETRY_MODE, 0);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0WREG32_SOC15(GC, 0, mmSH_MEM_BASES, 0);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0} else {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tmp =3D REG_SET_FIELD(0, SH_MEM_CONFIG, ALIGNMENT_MODE,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0SH_MEM_ALIGNMENT_MODE_UNALIGNED);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0tmp =3D REG_SET_FIELD(tmp, SH_MEM_CONFIG, RETRY_MODE, 0);<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, tmp);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0WREG32_SOC15(GC, 0,=
- mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (i !=3D 0) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tmp =3D REG_SET_FIELD(0, SH_MEM_BASES, PRIVATE_BASE,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (adev-&gt;gmc.private_aperture_start=
- &gt;&gt; 48));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 tmp =3D REG_SET_FIELD(tmp, SH_MEM_BASES, SHARED_BASE,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 (adev-&gt;gmc.shared_aperture_start =
-&gt;&gt; 48));<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 WREG32_SOC15(GC, 0, mmSH_MEM_BASES, tmp);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 nv_grbm_select(adev, 0, 0, 0, 0);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 mutex_unlock(&amp;adev-&gt;srbm_mutex);<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" target=3D"_blank">amd-gfx@=
-lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
-/amd-gfx</a></blockquote></div>
-
---00000000000068b520058dc027ec--
-
---===============0405660493==
 Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
 Content-Transfer-Encoding: base64
-Content-Disposition: inline
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190715153932.GA41785@archlinux-threadripper>
+Content-Language: en-US
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Nathan Chancellor <natechancellor@gmail.com>, Arnd Bergmann <arnd@arndb.de>
+Cc: clang-built-linux <clang-built-linux@googlegroups.com>, "Li,
+ Sun peng (Leo)" <Sunpeng.Li@amd.com>, Rex Zhu <rex.zhu@amd.com>, "Wang,
+ Kevin(Yang)" <Kevin1.Wang@amd.com>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>, dri-devel <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0405660493==--
+VGhhbmtzISAgVGhpcyBpcyByZXZpZXdlZC1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNv
+bT4KClJlZ2FyZHMKRXZhbgo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gRnJvbTogTmF0
+aGFuIENoYW5jZWxsb3IgPG5hdGVjaGFuY2VsbG9yQGdtYWlsLmNvbT4KPiBTZW50OiBNb25kYXks
+IEp1bHkgMTUsIDIwMTkgMTE6NDAgUE0KPiBUbzogQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5k
+ZT4KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsg
+S29lbmlnLCBDaHJpc3RpYW4KPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgWmhvdSwgRGF2
+aWQoQ2h1bk1pbmcpCj4gPERhdmlkMS5aaG91QGFtZC5jb20+OyBXZW50bGFuZCwgSGFycnkgPEhh
+cnJ5LldlbnRsYW5kQGFtZC5jb20+Owo+IExpLCBTdW4gcGVuZyAoTGVvKSA8U3VucGVuZy5MaUBh
+bWQuY29tPjsgUmV4IFpodSA8cmV4LnpodUBhbWQuY29tPjsKPiBRdWFuLCBFdmFuIDxFdmFuLlF1
+YW5AYW1kLmNvbT47IERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5pZT47IERhbmllbAo+IFZl
+dHRlciA8ZGFuaWVsQGZmd2xsLmNoPjsgYW1kLWdmeCBsaXN0IDxhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZz47IGRyaS0KPiBkZXZlbCA8ZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zz47IExpbnV4IEtlcm5lbCBNYWlsaW5nIExpc3QgPGxpbnV4LQo+IGtlcm5lbEB2Z2VyLmtlcm5l
+bC5vcmc+OyBjbGFuZy1idWlsdC1saW51eCA8Y2xhbmctYnVpbHQtCj4gbGludXhAZ29vZ2xlZ3Jv
+dXBzLmNvbT47IFdhbmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPgo+IFN1Ympl
+Y3Q6IFJlOiBbUEFUQ0ggNi83XSBkcm0vYW1kL3Bvd2VycGxheTogVXNlIHByb3BlciBlbnVtcyBp
+bgo+IHZlZ2EyMF9wcmludF9jbGtfbGV2ZWxzCj4gCj4gT24gTW9uLCBKdWwgMTUsIDIwMTkgYXQg
+MTE6MjU6MjlBTSArMDIwMCwgQXJuZCBCZXJnbWFubiB3cm90ZToKPiA+IE9uIFRodSwgSnVsIDQs
+IDIwMTkgYXQgNzo1MiBBTSBOYXRoYW4gQ2hhbmNlbGxvcgo+ID4gPG5hdGVjaGFuY2VsbG9yQGdt
+YWlsLmNvbT4gd3JvdGU6Cj4gPiA+Cj4gPiA+IGNsYW5nIHdhcm5zOgo+ID4gPgo+ID4gPiBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8uLi9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jOjk5NTozOToK
+PiB3YXJuaW5nOgo+ID4gPiBpbXBsaWNpdCBjb252ZXJzaW9uIGZyb20gZW51bWVyYXRpb24gdHlw
+ZSAnUFBDTEtfZScgdG8gZGlmZmVyZW50Cj4gPiA+IGVudW1lcmF0aW9uIHR5cGUgJ2VudW0gc211
+X2Nsa190eXBlJyBbLVdlbnVtLWNvbnZlcnNpb25dCj4gPiA+ICAgICAgICAgICAgICAgICByZXQg
+PSBzbXVfZ2V0X2N1cnJlbnRfY2xrX2ZyZXEoc211LCBQUENMS19TT0NDTEssICZub3cpOwo+ID4g
+Pgo+ID4gPiB+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5efn5+fn5+fn5+fn5+fn5+fn5+
+Cj4gPiA+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL3Bvd2VycGxheS92ZWdhMjBfcHB0
+LmM6MTAxNjozOToKPiB3YXJuaW5nOgo+ID4gPiBpbXBsaWNpdCBjb252ZXJzaW9uIGZyb20gZW51
+bWVyYXRpb24gdHlwZSAnUFBDTEtfZScgdG8gZGlmZmVyZW50Cj4gPiA+IGVudW1lcmF0aW9uIHR5
+cGUgJ2VudW0gc211X2Nsa190eXBlJyBbLVdlbnVtLWNvbnZlcnNpb25dCj4gPiA+ICAgICAgICAg
+ICAgICAgICByZXQgPSBzbXVfZ2V0X2N1cnJlbnRfY2xrX2ZyZXEoc211LCBQUENMS19GQ0xLLCAm
+bm93KTsKPiA+ID4KPiA+ID4gfn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+Xn5+fn5+fn5+
+fn5+fn5+fn4KPiA+ID4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vcG93ZXJwbGF5L3Zl
+Z2EyMF9wcHQuYzoxMDMxOjM5Ogo+IHdhcm5pbmc6Cj4gPiA+IGltcGxpY2l0IGNvbnZlcnNpb24g
+ZnJvbSBlbnVtZXJhdGlvbiB0eXBlICdQUENMS19lJyB0byBkaWZmZXJlbnQKPiA+ID4gZW51bWVy
+YXRpb24gdHlwZSAnZW51bSBzbXVfY2xrX3R5cGUnIFstV2VudW0tY29udmVyc2lvbl0KPiA+ID4g
+ICAgICAgICAgICAgICAgIHJldCA9IHNtdV9nZXRfY3VycmVudF9jbGtfZnJlcShzbXUsIFBQQ0xL
+X0RDRUZDTEssICZub3cpOwo+ID4gPgo+ID4gPiB+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5efn5+fn5+fn5+fn5+fn5+fn5+fgo+ID4gPgo+ID4gPiBUaGUgdmFsdWVzIGFyZSBtYXBwZWQg
+b25lIHRvIG9uZSBpbiB2ZWdhMjBfZ2V0X3NtdV9jbGtfaW5kZXggc28ganVzdAo+ID4gPiB1c2Ug
+dGhlIHByb3BlciBlbnVtcyBoZXJlLgo+ID4gPgo+ID4gPiBGaXhlczogMDk2NzYxMDE0MjI3ICgi
+ZHJtL2FtZC9wb3dlcnBsYXk6IHN1cHBvcnQgc3lzZnMgdG8gZ2V0Cj4gPiA+IHNvY2NsaywgZmNs
+aywgZGNlZmNsayIpCj4gPiA+IExpbms6IGh0dHBzOi8vZ2l0aHViLmNvbS9DbGFuZ0J1aWx0TGlu
+dXgvbGludXgvaXNzdWVzLzU4Nwo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBOYXRoYW4gQ2hhbmNlbGxv
+ciA8bmF0ZWNoYW5jZWxsb3JAZ21haWwuY29tPgo+ID4gPiAtLS0KPiA+Cj4gPiBBZGRpbmcgS2V2
+aW4gV2FuZyBmb3IgZnVydGhlciByZXZpZXcsIGFzIGhlIHNlbnQgYSByZWxhdGVkIHBhdGNoIGlu
+Cj4gPiBkMzY4OTMzNjJkMjIgKCJkcm0vYW1kL3Bvd2VycGxheTogZml4IHNtdSBjbG9jayB0eXBl
+IGNoYW5nZSBtaXNzCj4gPiBlcnJvciIpCj4gPgo+ID4gSSBhc3N1bWUgdGhpcyBvbmUgaXMgc3Rp
+bGwgcmVxdWlyZWQgYXMgaXQgdHJpZ2dlcnMgdGhlIHNhbWUgd2FybmluZy4KPiA+IEtldmluLCBj
+YW4geW91IGhhdmUgYSBsb29rPwo+ID4KPiA+ICAgICAgIEFybmQKPiAKPiBJbmRlZWQsIHRoaXMg
+b25lIGFuZCBodHRwczovL2dpdGh1Yi5jb20vQ2xhbmdCdWlsdExpbnV4L2xpbnV4L2lzc3Vlcy81
+ODYKPiBhcmUgc3RpbGwgb3V0c3RhbmRpbmcuCj4gCj4gaHR0cHM6Ly9wYXRjaHdvcmsuZnJlZWRl
+c2t0b3Aub3JnL3BhdGNoLzMxNTU4MS8KPiAKPiBDaGVlcnMsCj4gTmF0aGFuCj4gCj4gPgo+ID4g
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvdmVnYTIwX3BwdC5jIHwgNiArKystLS0K
+PiA+ID4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCj4g
+PiA+Cj4gPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdh
+MjBfcHB0LmMKPiA+ID4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0
+LmMKPiA+ID4gaW5kZXggMGYxNGZlMTRlY2Q4Li5lNjJkZDY5MTliMjQgMTAwNjQ0Cj4gPiA+IC0t
+LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYwo+ID4gPiArKysg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKPiA+ID4gQEAgLTk5
+Miw3ICs5OTIsNyBAQCBzdGF0aWMgaW50IHZlZ2EyMF9wcmludF9jbGtfbGV2ZWxzKHN0cnVjdAo+
+IHNtdV9jb250ZXh0ICpzbXUsCj4gPiA+ICAgICAgICAgICAgICAgICBicmVhazsKPiA+ID4KPiA+
+ID4gICAgICAgICBjYXNlIFNNVV9TT0NDTEs6Cj4gPiA+IC0gICAgICAgICAgICAgICByZXQgPSBz
+bXVfZ2V0X2N1cnJlbnRfY2xrX2ZyZXEoc211LCBQUENMS19TT0NDTEssICZub3cpOwo+ID4gPiAr
+ICAgICAgICAgICAgICAgcmV0ID0gc211X2dldF9jdXJyZW50X2Nsa19mcmVxKHNtdSwgU01VX1NP
+Q0NMSywKPiA+ID4gKyAmbm93KTsKPiA+ID4gICAgICAgICAgICAgICAgIGlmIChyZXQpIHsKPiA+
+ID4gICAgICAgICAgICAgICAgICAgICAgICAgcHJfZXJyKCJBdHRlbXB0IHRvIGdldCBjdXJyZW50
+IHNvY2NsayBGYWlsZWQhIik7Cj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiBy
+ZXQ7Cj4gPiA+IEBAIC0xMDEzLDcgKzEwMTMsNyBAQCBzdGF0aWMgaW50IHZlZ2EyMF9wcmludF9j
+bGtfbGV2ZWxzKHN0cnVjdAo+IHNtdV9jb250ZXh0ICpzbXUsCj4gPiA+ICAgICAgICAgICAgICAg
+ICBicmVhazsKPiA+ID4KPiA+ID4gICAgICAgICBjYXNlIFNNVV9GQ0xLOgo+ID4gPiAtICAgICAg
+ICAgICAgICAgcmV0ID0gc211X2dldF9jdXJyZW50X2Nsa19mcmVxKHNtdSwgUFBDTEtfRkNMSywg
+Jm5vdyk7Cj4gPiA+ICsgICAgICAgICAgICAgICByZXQgPSBzbXVfZ2V0X2N1cnJlbnRfY2xrX2Zy
+ZXEoc211LCBTTVVfRkNMSywgJm5vdyk7Cj4gPiA+ICAgICAgICAgICAgICAgICBpZiAocmV0KSB7
+Cj4gPiA+ICAgICAgICAgICAgICAgICAgICAgICAgIHByX2VycigiQXR0ZW1wdCB0byBnZXQgY3Vy
+cmVudCBmY2xrIEZhaWxlZCEiKTsKPiA+ID4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJu
+IHJldDsKPiA+ID4gQEAgLTEwMjgsNyArMTAyOCw3IEBAIHN0YXRpYyBpbnQgdmVnYTIwX3ByaW50
+X2Nsa19sZXZlbHMoc3RydWN0Cj4gc211X2NvbnRleHQgKnNtdSwKPiA+ID4gICAgICAgICAgICAg
+ICAgIGJyZWFrOwo+ID4gPgo+ID4gPiAgICAgICAgIGNhc2UgU01VX0RDRUZDTEs6Cj4gPiA+IC0g
+ICAgICAgICAgICAgICByZXQgPSBzbXVfZ2V0X2N1cnJlbnRfY2xrX2ZyZXEoc211LCBQUENMS19E
+Q0VGQ0xLLCAmbm93KTsKPiA+ID4gKyAgICAgICAgICAgICAgIHJldCA9IHNtdV9nZXRfY3VycmVu
+dF9jbGtfZnJlcShzbXUsIFNNVV9EQ0VGQ0xLLAo+ID4gPiArICZub3cpOwo+ID4gPiAgICAgICAg
+ICAgICAgICAgaWYgKHJldCkgewo+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICBwcl9lcnIo
+IkF0dGVtcHQgdG8gZ2V0IGN1cnJlbnQgZGNlZmNsayBGYWlsZWQhIik7Cj4gPiA+ICAgICAgICAg
+ICAgICAgICAgICAgICAgIHJldHVybiByZXQ7Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2RyaS1kZXZlbA==
