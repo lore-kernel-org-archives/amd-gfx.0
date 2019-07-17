@@ -1,66 +1,56 @@
-From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/3] drm: introduce DRIVER_FORCE_AUTH
-Date: Wed, 17 Jul 2019 08:26:11 +0000
-Message-ID: <4362a379-6f74-d7b4-c512-0c827d8fff2e@amd.com>
-References: <0bc184ea-bcc3-48cb-9b28-42e8fc037303@email.android.com>
- <CACvgo52y50bV90+7JeABvKCNCwT_E7r7CXTw98bOgyiDDzG2Pg@mail.gmail.com>
+From: syzbot <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com>
+Subject: kernel panic: stack is corrupted in pointer
+Date: Wed, 17 Jul 2019 01:58:07 -0700
+Message-ID: <0000000000001a51c4058ddcb1b6@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <CACvgo52y50bV90+7JeABvKCNCwT_E7r7CXTw98bOgyiDDzG2Pg-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
-Content-Language: en-US
-Content-ID: <2CA5D596283AB84B82F9A3B98589ED98-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, ast@kernel.org, christian.koenig@amd.com, daniel@iogearbox.net, david1.zhou@amd.com, dri-devel@lists.freedesktop.org, leo.liu@amd.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgRW1pbCwNCg0KU29ycnkgZm9yIHRoZSBkZWxheSwgZmluYWxseSBjb21pbmcgYmFjayB0byB0
-aGlzIGFmdGVyIG15IHZhY2F0aW9uLg0KDQpBbSAwMy4wNy4xOSB1bSAxNzoxNCBzY2hyaWViIEVt
-aWwgVmVsaWtvdjoNCj4gT24gV2VkLCAzIEp1bCAyMDE5IGF0IDE1OjU4LCBLb2VuaWcsIENocmlz
-dGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPiB3cm90ZToNCj4+IEFtIDAzLjA3LjIwMTkg
-MTY6NTEgc2NocmllYiBFbWlsIFZlbGlrb3YgPGVtaWwubC52ZWxpa292QGdtYWlsLmNvbT46DQo+
-Pg0KPj4gT24gV2VkLCAzIEp1bCAyMDE5IGF0IDE1OjMzLCBLb2VuaWcsIENocmlzdGlhbiA8Q2hy
-aXN0aWFuLktvZW5pZ0BhbWQuY29tPiB3cm90ZToNCj4+PiBBbSAwMy4wNy4yMDE5IDE2OjAwIHNj
-aHJpZWIgRW1pbCBWZWxpa292IDxlbWlsLmwudmVsaWtvdkBnbWFpbC5jb20+Og0KPj4+DQo+Pj4g
-T24gV2VkLCAzIEp1bCAyMDE5IGF0IDE0OjQ4LCBLb2VuaWcsIENocmlzdGlhbiA8Q2hyaXN0aWFu
-LktvZW5pZ0BhbWQuY29tPiB3cm90ZToNCj4+Pj4gV2VsbCB0aGlzIGlzIHN0aWxsIGEgTkFLLg0K
-Pj4+Pg0KPj4+PiBBcyBzdGF0ZWQgcHJldmlvdXNseSBwbGVhc2UganVzdCBkb24ndCByZW1vdmUg
-RFJNX0FVVEggYW5kIGtlZXAgdGhlIGZ1bmN0aW9uYWxpdHkgYXMgaXQgaXMuDQo+Pj4+DQo+Pj4g
-QUZBSUNUIG5vYm9keSB3YXMgaW4gZmF2b3VyIG9mIHlvdXIgc3VnZ2VzdGlvbiB0byByZW1vdmUg
-RFJNX0FVVEggZnJvbQ0KPj4+IHRoZSBoYW5kbGUgdG8vZnJvbSBmZCBpb2NsdHMuDQo+Pj4gVGh1
-cyB0aGlzIHNlZW1zIGxpa2UgdGhlIHNlY29uZCBiZXN0IG9wdGlvbi4NCj4+Pg0KPj4+DQo+Pj4g
-V2VsbCBqdXN0IGtlZXAgaXQuIEFzIEkgc2FpZCBwbGVhc2UgZG9uJ3QgY2hhbmdlIGFueXRoaW5n
-IGhlcmUuDQo+Pj4NCj4+PiBEcm9wcGluZyBEUk1fQVVUSCBmcm9tIHRoZSBkcml2ZXIgSU9DVExz
-IHdhcyBzdWZmaWNpZW50IHRvIHdvcmsgYXJvdW5kIHRoZSBwcm9ibGVtcyBhdCBoYW5kIGZhciBh
-cyBJIGtub3cuDQo+Pj4NCj4+IFdlIGFsc28gbmVlZCB0aGUgRFJNX0FVVEggZm9yIGhhbmRsZSB0
-by9mcm9tIGZkIG9uZXMuIE1lc2EgZHJpdmVycyB1c2UNCj4+IHRob3NlIGlvY3Rscy4NCj4+DQo+
-Pg0KPj4gWWVhaCwgYnV0IG9ubHkgZm9yIGltcG9ydGluZy9leHBvcnRpbmcgdGhpbmdzLg0KPj4N
-Cj4+IEFuZCBpbiB0aG9zZSBjYXNlcyB3ZSBlaXRoZXIgYWxyZWFkeSBnYXZlIHJlbmRlciBub2Rl
-cyBvciBjb3JyZWN0bHkgYXV0aGVudGljYXRlZCBwcmltYXJ5IG5vZGVzLg0KPj4NCj4+IFNvIG5v
-IG5lZWQgdG8gY2hhbmdlIGFueXRoaW5nIGhlcmUgYXMgZmFyIGFzIEkgc2VlLg0KPj4NCj4gTm90
-IHF1aXRlLiBXaGVuIHdvcmtpbmcgd2l0aCB0aGUgcHJpbWFyeSBub2RlIHdlIGhhdmUgdGhlIGZv
-bGxvd2luZyBzY2VuYXJpb3M6DQo+ICAgLSBoYW5kbGUgdG8gZmQgLT4gcGFzcyBmZCB0byBvdGhl
-ciBBUElzIC0gZ2JtLCBvcGVuY2wsIHZkcGF1LCBldGMNCj4gICAtIGhhbmRsZSB0byBmZCAtPiBm
-ZCB0byBoYW5kbGUgLSB1c2UgaXQgaW50ZXJuYWxseQ0KDQpZZWFoLCBidXQgdGhpcyB3b3VsZCBv
-bmNlIG1vcmUgbWVhbiB0aGF0IHdlIGV4cG9zZSB0aGUgc2FtZSANCmZ1bmN0aW9uYWxpdHkgb24g
-dGhlIHByaW1hcnkgbm9kZSB3ZSBkbyBvbiB0aGUgcmVuZGVyIG5vZGUuDQoNCkFuZCB0aGF0IGlz
-IGV4YWN0bHkgd2hhdCBJIHdhbnQgdG8gcHJldmVudCwgYmVjYXVzZSBJIHRoaW5rIGl0IGlzIGEg
-dmVyeSANCmJhZCBpZGVhIGFuZCB3aWxsIHJlc3VsdCBpbiBiYXNpY2FsbHkgZGVwcmVjYXRpbmcg
-dGhlIHJlbmRlciBub2RlLg0KDQpGb3IgdGhlIHByb2JsZW0gYXQgaGFuZCBpdCB3YXMgc3VmZmlj
-aWVudCB0byBkcm9wIHRoZSBEUk1fQVVUSCBmbGFnIGZyb20gDQp0aGUgZHJpdmVyIElPQ1RMcyBh
-bmQgSSBkb24ndCBzZWUgYSByZWFzb24gd2h5IHdlIHNob3VsZCBnbyBmdXJ0aGVyIHRoYW4gDQp0
-aGlzLg0KDQpQbGVhc2UganVzdCBjb21wbGV0ZWx5IGRyb3AgdGhpcyB3aG9sZSBhcHByb2FjaCwN
-CkNocmlzdGlhbi4NCg0KPg0KPiAtRW1pbA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2FtZC1nZng=
+Hello,
+
+syzbot found the following crash on:
+
+HEAD commit:    1438cde7 Add linux-next specific files for 20190716
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=13988058600000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=3430a151e1452331
+dashboard link: https://syzkaller.appspot.com/bug?extid=79f5f028005a77ecb6bb
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=111fc8afa00000
+
+The bug was bisected to:
+
+commit 96a5d8d4915f3e241ebb48d5decdd110ab9c7dcf
+Author: Leo Liu <leo.liu@amd.com>
+Date:   Fri Jul 13 15:26:28 2018 +0000
+
+     drm/amdgpu: Make sure IB tests flushed after IP resume
+
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=14a46200600000
+final crash:    https://syzkaller.appspot.com/x/report.txt?x=16a46200600000
+console output: https://syzkaller.appspot.com/x/log.txt?x=12a46200600000
+
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com
+Fixes: 96a5d8d4915f ("drm/amdgpu: Make sure IB tests flushed after IP  
+resume")
+
+Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in:  
+pointer+0x702/0x750 lib/vsprintf.c:2187
+Shutting down cpus with NMI
+Kernel Offset: disabled
+
+
+---
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+syzbot can test patches for this bug, for details see:
+https://goo.gl/tpsmEJ#testing-patches
