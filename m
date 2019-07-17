@@ -1,50 +1,128 @@
-From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: report bootup clock as max supported on
- dpm disabled
-Date: Wed, 17 Jul 2019 17:34:32 +0800
-Message-ID: <20190717093432.25165-1-evan.quan@amd.com>
+From: Mike Rapoport <rppt@linux.ibm.com>
+Subject: Re: [PATCH v18 08/15] userfaultfd: untag user pointers
+Date: Wed, 17 Jul 2019 14:09:13 +0300
+Message-ID: <20190717110910.GA12017@rapoport-lnx>
+References: <cover.1561386715.git.andreyknvl@google.com>
+ <d8e3b9a819e98d6527e506027b173b128a148d3c.1561386715.git.andreyknvl@google.com>
+ <20190624175120.GN29120@arrakis.emea.arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, feifei.xu-5C7GfCeVMHo@public.gmane.org, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, le.ma-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190624175120.GN29120@arrakis.emea.arm.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2l0aCBnZnhjbGsgb3IgdWNsayBkcG0gZGlzYWJsZWQsIGl0J3MgcmVhc29uYWJsZSB0byByZXBv
-cnQgYm9vdHVwIGNsb2NrCmFzIHRoZSBtYXggc3VwcG9ydGVkLgoKQ2hhbmdlLUlkOiBJZjhhYTdh
-OTEyZThhMzQ0MTRiMGU5YzJiNDZkZTliNmUzMTZmZDlkNwpTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1
-YW4gPGV2YW4ucXVhbkBhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L2FtZGdwdV9zbXUuYyB8IDI3ICsrKysrKysrKysrKysrKysrKysrKysrKysrLQogMSBmaWxlIGNo
-YW5nZWQsIDI2IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMKaW5kZXggNWQ1NjY0Zi4uZDM3MGIwOSAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwpAQCAtMTM3LDEyICsxMzcs
-MzcgQEAgaW50IHNtdV9nZXRfZHBtX2ZyZXFfcmFuZ2Uoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUs
-IGVudW0gc211X2Nsa190eXBlIGNsa190eXBlLAogewogCWludCByZXQgPSAwLCBjbGtfaWQgPSAw
-OwogCXVpbnQzMl90IHBhcmFtID0gMDsKKwl1aW50MzJfdCBjbG9ja19saW1pdDsKIAogCWlmICgh
-bWluICYmICFtYXgpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JaWYgKCFzbXVfY2xrX2RwbV9pc19l
-bmFibGVkKHNtdSwgY2xrX3R5cGUpKQorCWlmICghc211X2Nsa19kcG1faXNfZW5hYmxlZChzbXUs
-IGNsa190eXBlKSkgeworCQlzd2l0Y2ggKGNsa190eXBlKSB7CisJCWNhc2UgU01VX01DTEs6CisJ
-CWNhc2UgU01VX1VDTEs6CisJCQljbG9ja19saW1pdCA9IHNtdS0+c211X3RhYmxlLmJvb3RfdmFs
-dWVzLnVjbGs7CisJCQlicmVhazsKKwkJY2FzZSBTTVVfR0ZYQ0xLOgorCQljYXNlIFNNVV9TQ0xL
-OgorCQkJY2xvY2tfbGltaXQgPSBzbXUtPnNtdV90YWJsZS5ib290X3ZhbHVlcy5nZnhjbGs7CisJ
-CQlicmVhazsKKwkJY2FzZSBTTVVfU09DQ0xLOgorCQkJY2xvY2tfbGltaXQgPSBzbXUtPnNtdV90
-YWJsZS5ib290X3ZhbHVlcy5zb2NjbGs7CisJCQlicmVhazsKKwkJZGVmYXVsdDoKKwkJCWNsb2Nr
-X2xpbWl0ID0gMDsKKwkJCWJyZWFrOworCQl9CisKKwkJLyogY2xvY2sgaW4gTWh6IHVuaXQgKi8K
-KwkJaWYgKG1pbikKKwkJCSptaW4gPSBjbG9ja19saW1pdCAvIDEwMDsKKwkJaWYgKG1heCkKKwkJ
-CSptYXggPSBjbG9ja19saW1pdCAvIDEwMDsKKwogCQlyZXR1cm4gMDsKKwl9CiAKIAltdXRleF9s
-b2NrKCZzbXUtPm11dGV4KTsKIAljbGtfaWQgPSBzbXVfY2xrX2dldF9pbmRleChzbXUsIGNsa190
-eXBlKTsKLS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Mon, Jun 24, 2019 at 06:51:21PM +0100, Catalin Marinas wrote:
+> On Mon, Jun 24, 2019 at 04:32:53PM +0200, Andrey Konovalov wrote:
+> > This patch is a part of a series that extends kernel ABI to allow to pass
+> > tagged user pointers (with the top byte set to something else other than
+> > 0x00) as syscall arguments.
+> > 
+> > userfaultfd code use provided user pointers for vma lookups, which can
+> > only by done with untagged pointers.
+> > 
+> > Untag user pointers in validate_range().
+> > 
+> > Reviewed-by: Vincenzo Frascino <vincenzo.frascino@arm.com>
+> > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+> > Reviewed-by: Kees Cook <keescook@chromium.org>
+> > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
+> > ---
+> >  fs/userfaultfd.c | 22 ++++++++++++----------
+> >  1 file changed, 12 insertions(+), 10 deletions(-)
+> 
+> Same here, it needs an ack from Al Viro.
+
+The userfault patches usually go via -mm tree, not sure if Al looks at them :) 
+ 
+FWIW, you can add 
+
+Reviewed-by: Mike Rapoport <rppt@linux.ibm.com>
+
+> > diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
+> > index ae0b8b5f69e6..c2be36a168ca 100644
+> > --- a/fs/userfaultfd.c
+> > +++ b/fs/userfaultfd.c
+> > @@ -1261,21 +1261,23 @@ static __always_inline void wake_userfault(struct userfaultfd_ctx *ctx,
+> >  }
+> >  
+> >  static __always_inline int validate_range(struct mm_struct *mm,
+> > -					  __u64 start, __u64 len)
+> > +					  __u64 *start, __u64 len)
+> >  {
+> >  	__u64 task_size = mm->task_size;
+> >  
+> > -	if (start & ~PAGE_MASK)
+> > +	*start = untagged_addr(*start);
+> > +
+> > +	if (*start & ~PAGE_MASK)
+> >  		return -EINVAL;
+> >  	if (len & ~PAGE_MASK)
+> >  		return -EINVAL;
+> >  	if (!len)
+> >  		return -EINVAL;
+> > -	if (start < mmap_min_addr)
+> > +	if (*start < mmap_min_addr)
+> >  		return -EINVAL;
+> > -	if (start >= task_size)
+> > +	if (*start >= task_size)
+> >  		return -EINVAL;
+> > -	if (len > task_size - start)
+> > +	if (len > task_size - *start)
+> >  		return -EINVAL;
+> >  	return 0;
+> >  }
+> > @@ -1325,7 +1327,7 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+> >  		goto out;
+> >  	}
+> >  
+> > -	ret = validate_range(mm, uffdio_register.range.start,
+> > +	ret = validate_range(mm, &uffdio_register.range.start,
+> >  			     uffdio_register.range.len);
+> >  	if (ret)
+> >  		goto out;
+> > @@ -1514,7 +1516,7 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+> >  	if (copy_from_user(&uffdio_unregister, buf, sizeof(uffdio_unregister)))
+> >  		goto out;
+> >  
+> > -	ret = validate_range(mm, uffdio_unregister.start,
+> > +	ret = validate_range(mm, &uffdio_unregister.start,
+> >  			     uffdio_unregister.len);
+> >  	if (ret)
+> >  		goto out;
+> > @@ -1665,7 +1667,7 @@ static int userfaultfd_wake(struct userfaultfd_ctx *ctx,
+> >  	if (copy_from_user(&uffdio_wake, buf, sizeof(uffdio_wake)))
+> >  		goto out;
+> >  
+> > -	ret = validate_range(ctx->mm, uffdio_wake.start, uffdio_wake.len);
+> > +	ret = validate_range(ctx->mm, &uffdio_wake.start, uffdio_wake.len);
+> >  	if (ret)
+> >  		goto out;
+> >  
+> > @@ -1705,7 +1707,7 @@ static int userfaultfd_copy(struct userfaultfd_ctx *ctx,
+> >  			   sizeof(uffdio_copy)-sizeof(__s64)))
+> >  		goto out;
+> >  
+> > -	ret = validate_range(ctx->mm, uffdio_copy.dst, uffdio_copy.len);
+> > +	ret = validate_range(ctx->mm, &uffdio_copy.dst, uffdio_copy.len);
+> >  	if (ret)
+> >  		goto out;
+> >  	/*
+> > @@ -1761,7 +1763,7 @@ static int userfaultfd_zeropage(struct userfaultfd_ctx *ctx,
+> >  			   sizeof(uffdio_zeropage)-sizeof(__s64)))
+> >  		goto out;
+> >  
+> > -	ret = validate_range(ctx->mm, uffdio_zeropage.range.start,
+> > +	ret = validate_range(ctx->mm, &uffdio_zeropage.range.start,
+> >  			     uffdio_zeropage.range.len);
+> >  	if (ret)
+> >  		goto out;
+> > -- 
+> > 2.22.0.410.gd8fdbe21b5-goog
+
+-- 
+Sincerely yours,
+Mike.
