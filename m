@@ -1,76 +1,51 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH v18 11/15] IB/mlx4: untag user pointers in
- mlx4_get_umem_mr
-Date: Wed, 17 Jul 2019 08:58:28 -0300
-Message-ID: <20190717115828.GE12119@ziepe.ca>
-References: <cover.1561386715.git.andreyknvl@google.com>
- <ea0ff94ef2b8af12ea6c222c5ebd970e0849b6dd.1561386715.git.andreyknvl@google.com>
- <20190624174015.GL29120@arrakis.emea.arm.com>
- <CAAeHK+y8vE=G_odK6KH=H064nSQcVgkQkNwb2zQD9swXxKSyUQ@mail.gmail.com>
- <20190715180510.GC4970@ziepe.ca>
- <CAAeHK+xPQqJP7p_JFxc4jrx9k7N0TpBWEuB8Px7XHvrfDU1_gw@mail.gmail.com>
- <20190716120624.GA29727@ziepe.ca>
- <CAAeHK+xPPQ9QjAksbfWG-Zmnawt-cdw9eO_6GVxjEYcaDGvaRA@mail.gmail.com>
+From: "StDenis, Tom" <Tom.StDenis-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu: Fix offset for vmid selection in debugfs
+ interface
+Date: Wed, 17 Jul 2019 12:44:07 +0000
+Message-ID: <4d8fb065-f31b-d730-04d0-6c6e83b3a171@amd.com>
+References: <20190716112434.29017-1-tom.stdenis@amd.com>
+ <e6bc6d43-d4ac-467f-22b3-2be79619b93e@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAAeHK+xPPQ9QjAksbfWG-Zmnawt-cdw9eO_6GVxjEYcaDGvaRA@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <e6bc6d43-d4ac-467f-22b3-2be79619b93e-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+Content-ID: <5C73CA43C41CA34BAF40AF488CE5C4FF-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Wed, Jul 17, 2019 at 01:44:07PM +0200, Andrey Konovalov wrote:
-> On Tue, Jul 16, 2019 at 2:06 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > On Tue, Jul 16, 2019 at 12:42:07PM +0200, Andrey Konovalov wrote:
-> > > On Mon, Jul 15, 2019 at 8:05 PM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> > > >
-> > > > On Mon, Jul 15, 2019 at 06:01:29PM +0200, Andrey Konovalov wrote:
-> > > > > On Mon, Jun 24, 2019 at 7:40 PM Catalin Marinas <catalin.marinas@arm.com> wrote:
-> > > > > >
-> > > > > > On Mon, Jun 24, 2019 at 04:32:56PM +0200, Andrey Konovalov wrote:
-> > > > > > > This patch is a part of a series that extends kernel ABI to allow to pass
-> > > > > > > tagged user pointers (with the top byte set to something else other than
-> > > > > > > 0x00) as syscall arguments.
-> > > > > > >
-> > > > > > > mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
-> > > > > > > only by done with untagged pointers.
-> > > > > > >
-> > > > > > > Untag user pointers in this function.
-> > > > > > >
-> > > > > > > Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
-> > > > > > >  drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
-> > > > > > >  1 file changed, 4 insertions(+), 3 deletions(-)
-> > > > > >
-> > > > > > Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-> > > > > >
-> > > > > > This patch also needs an ack from the infiniband maintainers (Jason).
-> > > > >
-> > > > > Hi Jason,
-> > > > >
-> > > > > Could you take a look and give your acked-by?
-> > > >
-> > > > Oh, I think I did this a long time ago. Still looks OK.
-> > >
-> > > Hm, maybe that was we who lost it. Thanks!
-> > >
-> > > > You will send it?
-> > >
-> > > I will resend the patchset once the merge window is closed, if that's
-> > > what you mean.
-> >
-> > No.. I mean who send it to Linus's tree? ie do you want me to take
-> > this patch into rdma?
-> 
-> I think the plan was to merge the whole series through the mm tree.
-> But I don't mind if you want to take this patch into your tree. It's
-> just that this patch doesn't make much sense without the rest of the
-> series.
-
-Generally I prefer if subsystem changes stay in subsystem trees. If
-the patch is good standalone, and the untag API has already been
-merged, this is a better strategy.
-
-Jason
+VGhhbmtzLg0KDQoNCkFsZXggY2FuIEkgZ3JhYiBhbiBSLWIgcGxlYXNlPw0KDQoNCkNoZWVycywN
+Cg0KVG9tDQoNCk9uIDIwMTktMDctMTYgNzozMCBhLm0uLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3Rl
+Og0KPiBBbSAxNi4wNy4xOSB1bSAxMzoyNCBzY2hyaWViIFN0RGVuaXMsIFRvbToNCj4+IFRoZSBy
+ZWdpc3RlciBkZWJ1Z2ZzIGludGVyZmFjZSB3YXMgdXNpbmcgdGhlIHdyb25nIGJpdG1hc2sgZm9y
+IHZtaWQNCj4+IHNlbGVjdGlvbiBmb3IgR0ZYX0NOVEwuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTog
+VG9tIFN0IERlbmlzIDx0b20uc3RkZW5pc0BhbWQuY29tPg0KPg0KPiBBY2tlZC1ieTogQ2hyaXN0
+aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPg0KPg0KPj4gLS0tDQo+PiDCoCBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jIHwgMiArLQ0KPj4gwqAg
+MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pDQo+Pg0KPj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMgDQo+
+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMNCj4+IGluZGV4
+IDg3YjMyODczMDQ2Zi4uNTk4NDllZDk3OTdkIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYw0KPj4gQEAgLTEzMiw3ICsxMzIsNyBAQCBzdGF0
+aWMgaW50IGFtZGdwdV9kZWJ1Z2ZzX3Byb2Nlc3NfcmVnX29wKGJvb2wgDQo+PiByZWFkLCBzdHJ1
+Y3QgZmlsZSAqZiwNCj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBtZSA9ICgqcG9zICYgR0VOTUFTS19V
+TEwoMzMsIDI0KSkgPj4gMjQ7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcGlwZSA9ICgqcG9zICYg
+R0VOTUFTS19VTEwoNDMsIDM0KSkgPj4gMzQ7DQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcXVldWUg
+PSAoKnBvcyAmIEdFTk1BU0tfVUxMKDUzLCA0NCkpID4+IDQ0Ow0KPj4gLcKgwqDCoMKgwqDCoMKg
+IHZtaWQgPSAoKnBvcyAmIEdFTk1BU0tfVUxMKDQ4LCA0NSkpID4+IDU0Ow0KPj4gK8KgwqDCoMKg
+wqDCoMKgIHZtaWQgPSAoKnBvcyAmIEdFTk1BU0tfVUxMKDU4LCA1NCkpID4+IDU0Ow0KPj4gwqAg
+wqDCoMKgwqDCoMKgwqDCoMKgIHVzZV9yaW5nID0gMTsNCj4+IMKgwqDCoMKgwqAgfSBlbHNlIHsN
+Cj4NCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
