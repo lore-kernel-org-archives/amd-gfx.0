@@ -1,11 +1,13 @@
 From: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/: use VCN firmware offset for cache window
-Date: Thu, 18 Jul 2019 15:46:57 +0000
-Message-ID: <20190718154616.14841-1-leo.liu@amd.com>
+Subject: [PATCH] drm/amdgpu: use VCN firmware offset for cache window
+Date: Thu, 18 Jul 2019 15:49:57 +0000
+Message-ID: <20190718154945.15004-1-leo.liu@amd.com>
+References: <20190718154616.14841-1-leo.liu@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190718154616.14841-1-leo.liu-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
