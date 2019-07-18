@@ -1,35 +1,52 @@
-From: Bjorn Helgaas <bhelgaas@google.com>
-Subject: Re: [PATCH] drm/amdgpu: Prefer pcie_capability_read_word()
-Date: Thu, 18 Jul 2019 07:58:52 -0500
-Message-ID: <CAErSpo5S=VyyV6Euzf7qhO0zukU_mnXqJgEhy9fwR0AYf4LTpA@mail.gmail.com>
-References: <20190718020745.8867-1-fred@fredlawl.com> <20190718020745.8867-2-fred@fredlawl.com>
+From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
+Subject: Re: [PATCH 07/87] drm/amd/display: move bw calc code into helpers
+Date: Thu, 18 Jul 2019 16:49:56 +0200
+Message-ID: <66c6c4d7-34b3-b73b-4e21-f745fff470cd@daenzer.net>
+References: <20190715212049.4584-1-sunpeng.li@amd.com>
+ <20190715212049.4584-8-sunpeng.li@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190718020745.8867-2-fred@fredlawl.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Frederick Lawler <fred@fredlawl.com>
-Cc: David Airlie <airlied@linux.ie>, daniel@ffwll.ch, amd-gfx@lists.freedesktop.org, DRI mailing list <dri-devel@lists.freedesktop.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190715212049.4584-8-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-CA
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: sunpeng.li-5C7GfCeVMHo@public.gmane.org
+Cc: Fatemeh Darbehani <Fatemeh.Darbehani-5C7GfCeVMHo@public.gmane.org>, Eric Yang <Eric.Yang2-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Wed, Jul 17, 2019 at 9:08 PM Frederick Lawler <fred@fredlawl.com> wrote:
->
-> Commit 8c0d3a02c130 ("PCI: Add accessors for PCI Express Capability")
-> added accessors for the PCI Express Capability so that drivers didn't
-> need to be aware of differences between v1 and v2 of the PCI
-> Express Capability.
->
-> Replace pci_read_config_word() and pci_write_config_word() calls with
-> pcie_capability_read_word() and pcie_capability_write_word().
->
-> Signed-off-by: Frederick Lawler <fred@fredlawl.com>
-
-> -                               pci_read_config_word(adev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
-> +                               pcie_capability_read_word(adev->pdev,
-> +                                                         PCI_EXP_LNKCTL2,
-> +                                                         &tmp16);
->                                 tmp16 &= ~((1 << 4) | (7 << 9));
->                                 tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 9)));
-
-Same comments as for radeon.  Looks like a lot of similar code between
-radeon and amdgpu.
+T24gMjAxOS0wNy0xNSAxMToxOSBwLm0uLCBzdW5wZW5nLmxpQGFtZC5jb20gd3JvdGU6Cj4gRnJv
+bTogRXJpYyBZYW5nIDxFcmljLllhbmcyQGFtZC5jb20+Cj4gCj4gW1doeV0KPiBGb3IgYmV0dGVy
+IHJlYWRhYmlsaXR5IGFuZCByZXVzYWJpbGl0eQo+IAo+IFtIb3ddCj4gTW92ZSBzbmlwcGV0cyBv
+ZiBCVyBjYWxjdWxhdGlvbiBjb2RlIGludG8gaGVscGVycy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBF
+cmljIFlhbmcgPEVyaWMuWWFuZzJAYW1kLmNvbT4KPiBSZXZpZXdlZC1ieTogRmF0ZW1laCBEYXJi
+ZWhhbmkgPEZhdGVtZWguRGFyYmVoYW5pQGFtZC5jb20+Cj4gQWNrZWQtYnk6IExlbyBMaSA8c3Vu
+cGVuZy5saUBhbWQuY29tPgo+IC0tLQo+ICBbLi4uXQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBpbmRleCAwODZkMmYzYjBkYjMuLmU5Y2NmNDFlMzFl
+ZSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNl
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBA
+QCAtMTI2LDYgKzEyNiw3IEBAIHN0YXRpYyBERVZJQ0VfQVRUUihwY2llX3JlcGxheV9jb3VudCwg
+U19JUlVHTywKPiAgCQlhbWRncHVfZGV2aWNlX2dldF9wY2llX3JlcGxheV9jb3VudCwgTlVMTCk7
+Cj4gIAo+ICBzdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNlX2dldF9wY2llX2luZm8oc3RydWN0IGFt
+ZGdwdV9kZXZpY2UgKmFkZXYpOwo+ICtzdGF0aWMgdm9pZCBhbWRncHVfZGV2aWNlX3BhcnNlX2Zh
+a2VkX2RpZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldik7CgpUaGlzIGZ1bmN0aW9uIGlzbid0
+IGRlZmluZWQgYW55d2hlcmUsIHByb2R1Y2luZyBhIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0v
+L2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jOjEzMToxMzogd2FybmluZzog4oCYYW1kZ3B1X2Rl
+dmljZV9wYXJzZV9mYWtlZF9kaWTigJkgZGVjbGFyZWQg4oCYc3RhdGlj4oCZIGJ1dCBuZXZlciBk
+ZWZpbmVkIFstV3VudXNlZC1mdW5jdGlvbl0KIHN0YXRpYyB2b2lkIGFtZGdwdV9kZXZpY2VfcGFy
+c2VfZmFrZWRfZGlkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTsKICAgICAgICAgICAgIF5+
+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+CgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnpl
+ciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgIGh0dHBzOi8vd3d3LmFtZC5jb20KTGlicmUg
+c29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFgg
+ZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
