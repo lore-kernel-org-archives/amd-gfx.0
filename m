@@ -1,14 +1,19 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: change sysfs pp_dpm_xxx format for
- navi10
-Date: Thu, 18 Jul 2019 08:40:58 +0000
-Message-ID: <BN8PR12MB3283E46FC5AFEAFE75E04435A2C80@BN8PR12MB3283.namprd12.prod.outlook.com>
-References: <20190718080142.26040-1-kevin1.wang@amd.com>,
- <MN2PR12MB3344E71BF98AB9178B871D00E4C80@MN2PR12MB3344.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 1/5] drm/amdgpu: allow direct submission in the VM backends
+Date: Thu, 18 Jul 2019 10:47:42 +0200
+Message-ID: <005fc745-8c58-4f56-326f-b0ebc5b3a5e6@gmail.com>
+References: <20190628121812.1400-1-christian.koenig@amd.com>
+ <a6e1e599-d972-1dc0-e0e7-5201895dee35@amd.com>
+ <0ad76267-d76d-c2fc-0397-7a696cc9926c@gmail.com>
+ <18ebb588-efba-2c5c-3f0b-05ef9e3542ad@amd.com>
+ <5f35fc24-3c35-4fe8-6b54-bafb9c9f069e@gmail.com>
+ <0a70b4ff-fe80-5f2a-1727-48abc3f71278@amd.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0833817387=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3344E71BF98AB9178B871D00E4C80-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <0a70b4ff-fe80-5f2a-1727-48abc3f71278-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,446 +25,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng,
- Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============0833817387==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN8PR12MB3283E46FC5AFEAFE75E04435A2C80BN8PR12MB3283namp_"
-
---_000_BN8PR12MB3283E46FC5AFEAFE75E04435A2C80BN8PR12MB3283namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Evan,
-
-
-1. the other clock type also will check dpm fine grained support.
-
-2. i will change code to v2 to avoid below case
-
-    0: 300M *
-    1: 300M
-     2: 1800M
-
-
-Best Regards,
-
-Kevin
-
-________________________________
-From: Quan, Evan
-Sent: Thursday, July 18, 2019 4:16:22 PM
-To: Wang, Kevin(Yang); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Feng, Kenneth; Huang, Ray; Xu, Feifei
-Subject: RE: [PATCH] drm/amd/powerplay: change sysfs pp_dpm_xxx format for =
-navi10
-
-1. Please commonilzie a new API e.g. smu_is_fine_grained_dpm which can be s=
-hared for other clocks in future.
-2. if the current clock is same as min or max, the output will be a little =
-strange
-    0: 300M *
-    1: 300M
-     2: 1800M
-Please check how raven handle this situation.
-
-Regards,
-Evan
-> -----Original Message-----
-> From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-> Sent: Thursday, July 18, 2019 4:02 PM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Quan, Evan
-> <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; Xu, Feifei
-> <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-> Subject: [PATCH] drm/amd/powerplay: change sysfs pp_dpm_xxx format for
-> navi10
->
-> the navi10 gfxclk (sclk) support fine grained DPM,
-> so use level 1 to show current dpm freq in sysfs pp_dpm_xxx
->
-> Change-Id: Idae2424f8cc91fe94cebe7f3103e112b4f912fbc
-> Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-> ---
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 41 +++++++++++++++++--
-> ---
->  1 file changed, 33 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index 895a4e592d5a..ef60b92fef6c 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -632,6 +632,10 @@ static int navi10_print_clk_levels(struct smu_contex=
-t
-> *smu,
->  {
->        int i, size =3D 0, ret =3D 0;
->        uint32_t cur_value =3D 0, value =3D 0, count =3D 0;
-> +     uint32_t freq_values[3] =3D {0};
-> +     uint32_t clk_index =3D 0, mark_index =3D 0;
-> +     PPTable_t *pptable =3D smu->smu_table.driver_pptable;
-> +     DpmDescriptor_t *dpm_desc =3D NULL;
->
->        switch (clk_type) {
->        case SMU_GFXCLK:
-> @@ -641,25 +645,46 @@ static int navi10_print_clk_levels(struct
-> smu_context *smu,
->        case SMU_UCLK:
->        case SMU_FCLK:
->        case SMU_DCEFCLK:
-> +             clk_index =3D smu_clk_get_index(smu, clk_type);
-> +             dpm_desc =3D &pptable->DpmDescriptor[clk_index];
-> +
->                ret =3D smu_get_current_clk_freq(smu, clk_type, &cur_value=
-);
->                if (ret)
->                        return size;
-> -             /* 10KHz -> MHz */
-> -             cur_value =3D cur_value / 100;
-> -
-> -             size +=3D sprintf(buf, "current clk: %uMhz\n", cur_value);
->
->                ret =3D smu_get_dpm_level_count(smu, clk_type, &count);
->                if (ret)
->                        return size;
->
-> -             for (i =3D 0; i < count; i++) {
-> -                     ret =3D smu_get_dpm_freq_by_index(smu, clk_type, i,
-> &value);
-> +             /* 0 - Fine grained DPM, 1 - Discrete DPM */
-> +             if (dpm_desc->SnapToDiscrete =3D=3D 1) {
-> +                     /* 10KHz -> MHz */
-> +                     cur_value =3D cur_value / 100;
-> +                     for (i =3D 0; i < count; i++) {
-> +                             ret =3D smu_get_dpm_freq_by_index(smu,
-> clk_type, i, &value);
-> +                             if (ret)
-> +                                     return size;
-> +
-> +                             size +=3D sprintf(buf + size, "%d: %uMhz %s=
-\n",
-> i, value,
-> +                                             cur_value =3D=3D value ? "*=
-" : "");
-> +                     }
-> +             } else {
-> +                     ret =3D smu_get_dpm_freq_by_index(smu, clk_type, 0,
-> &freq_values[0]);
-> +                     if (ret)
-> +                             return size;
-> +                     ret =3D smu_get_dpm_freq_by_index(smu, clk_type,
-> count - 1, &freq_values[2]);
->                        if (ret)
->                                return size;
->
-> -                     size +=3D sprintf(buf + size, "%d: %uMhz %s\n", i, =
-value,
-> -                                     cur_value =3D=3D value ? "*" : "");
-> +                     freq_values[1] =3D cur_value / 100;
-> +                     mark_index =3D cur_value =3D=3D freq_values[0] ? 0 =
-:
-> +                                  cur_value =3D=3D freq_values[2] ? 2 : =
-1;
-> +
-> +                     for (i =3D 0; i < 3; i++) {
-> +                             size +=3D sprintf(buf + size, "%d: %uMhz %s=
-\n",
-> i, freq_values[i],
-> +                                             i =3D=3D mark_index ? "*" :=
- "");
-> +                     }
-> +
->                }
->                break;
->        default:
-> --
-> 2.22.0
-
-
---_000_BN8PR12MB3283E46FC5AFEAFE75E04435A2C80BN8PR12MB3283namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
-r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;">
-<p style=3D"margin-top:0; margin-bottom:0">Hi Evan,</p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"font-size:12pt">1=
-.</span><span style=3D"font-size:12pt">&nbsp;</span><span style=3D"font-siz=
-e:12pt">the other&nbsp;clock type also will check dpm fine grained support.=
-</span></p>
-<div><span style=3D"font-size:12pt"></span></div>
-<p></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"font-size:12pt">2=
-. i will change code to v2 to avoid below case<span style=3D"color:rgb(33,3=
-3,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&q=
-uot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px"></span><=
-/span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"font-size:12pt"><=
-span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Seg=
-oe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; f=
-ont-size:14.6667px">&nbsp; &nbsp; 0: 300M *</span><br style=3D"color:rgb(33=
-,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Segoe WP=
-&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&nbsp;&nbsp;&nbsp; 1: 300M</span><br style=3D"color:rg=
-b(33,33,33); font-family:wf_segoe-ui_normal,&quot;Segoe UI&quot;,&quot;Sego=
-e WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; font-size:14.6667px">
-<span style=3D"color:rgb(33,33,33); font-family:wf_segoe-ui_normal,&quot;Se=
-goe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif,serif,EmojiFont; =
-font-size:14.6667px">&nbsp;&nbsp;&nbsp;&nbsp; 2: 1800M</span></span></p>
-<p style=3D"margin-top:0; margin-bottom:0"><br>
-</p>
-<p style=3D"margin-top:0; margin-bottom:0">Best Regards,</p>
-<p style=3D"margin-top:0; margin-bottom:0">Kevin</p>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Quan, Evan<br>
-<b>Sent:</b> Thursday, July 18, 2019 4:16:22 PM<br>
-<b>To:</b> Wang, Kevin(Yang); amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Feng, Kenneth; Huang, Ray; Xu, Feifei<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: change sysfs pp_dpm_xxx form=
-at for navi10</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">1. Please commonilzie a new API e.g. smu_is_fine_g=
-rained_dpm which can be shared for other clocks in future.<br>
-2. if the current clock is same as min or max, the output will be a little =
-strange<br>
-&nbsp;&nbsp;&nbsp; 0: 300M *<br>
-&nbsp;&nbsp;&nbsp; 1: 300M<br>
-&nbsp;&nbsp;&nbsp;&nbsp; 2: 1800M<br>
-Please check how raven handle this situation.<br>
-<br>
-Regards,<br>
-Evan<br>
-&gt; -----Original Message-----<br>
-&gt; From: Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; Sent: Thursday, July 18, 2019 4:02 PM<br>
-&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-&gt; Cc: Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan<br>
-&gt; &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Xu, F=
-eifei<br>
-&gt; &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-&gt; Subject: [PATCH] drm/amd/powerplay: change sysfs pp_dpm_xxx format for=
-<br>
-&gt; navi10<br>
-&gt; <br>
-&gt; the navi10 gfxclk (sclk) support fine grained DPM,<br>
-&gt; so use level 1 to show current dpm freq in sysfs pp_dpm_xxx<br>
-&gt; <br>
-&gt; Change-Id: Idae2424f8cc91fe94cebe7f3103e112b4f912fbc<br>
-&gt; Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 41 &#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--<br>
-&gt; ---<br>
-&gt;&nbsp; 1 file changed, 33 insertions(&#43;), 8 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; index 895a4e592d5a..ef60b92fef6c 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; @@ -632,6 &#43;632,10 @@ static int navi10_print_clk_levels(struct smu=
-_context<br>
-&gt; *smu,<br>
-&gt;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, size =3D 0, ret =3D 0=
-;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cur_value =3D 0, va=
-lue =3D 0, count =3D 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t freq_values[3] =3D {0};<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t clk_index =3D 0, mark_index =3D=
- 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D smu-&gt;smu_table=
-.driver_pptable;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; DpmDescriptor_t *dpm_desc =3D NULL;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (clk_type) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_GFXCLK:<br>
-&gt; @@ -641,25 &#43;645,46 @@ static int navi10_print_clk_levels(struct<br=
->
-&gt; smu_context *smu,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_UCLK:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_FCLK:<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_DCEFCLK:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; clk_index =3D smu_clk_get_index(smu, clk_type);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; dpm_desc =3D &amp;pptable-&gt;DpmDescriptor[clk_index];<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; ret =3D smu_get_current_clk_freq(smu, clk_type, &amp;cu=
-r_value);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
-size;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /* 10KHz -&gt; MHz */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; cur_value =3D cur_value / 100;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; size &#43;=3D sprintf(buf, &quot;current clk: %uMhz\n&quot;, cur_value)=
-;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm_level_count(smu, clk_type, &amp;cou=
-nt);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
-size;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; for (i =3D 0; i &lt; count; i&#43;&#43;) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm_fre=
-q_by_index(smu, clk_type, i,<br>
-&gt; &amp;value);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; /* 0 - Fine grained DPM, 1 - Discrete DPM */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (dpm_desc-&gt;SnapToDiscrete =3D=3D 1) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* 10KHz -&gt; MHz =
-*/<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cur_value =3D cur_v=
-alue / 100;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt=
-; count; i&#43;&#43;) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm_freq_by_index(smu,<br>
-&gt; clk_type, i, &amp;value);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; return size;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;%d=
-: %uMhz %s\n&quot;,<br>
-&gt; i, value,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cur_value =3D=3D value ? =
-&quot;*&quot; : &quot;&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; } else {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm=
-_freq_by_index(smu, clk_type, 0,<br>
-&gt; &amp;freq_values[0]);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm=
-_freq_by_index(smu, clk_type,<br>
-&gt; count - 1, &amp;freq_values[2]);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret=
-)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
-&gt; <br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(b=
-uf &#43; size, &quot;%d: %uMhz %s\n&quot;, i, value,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cu=
-r_value =3D=3D value ? &quot;*&quot; : &quot;&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_values[1] =3D =
-cur_value / 100;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mark_index =3D cur_=
-value =3D=3D freq_values[0] ? 0 :<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cur_value =3D=3D=
- freq_values[2] ? 2 : 1;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt=
-; 3; i&#43;&#43;) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &quot;%d=
-: %uMhz %s\n&quot;,<br>
-&gt; i, freq_values[i],<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i =3D=3D mark_index ? &qu=
-ot;*&quot; : &quot;&quot;);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; break;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt; --<br>
-&gt; 2.22.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BN8PR12MB3283E46FC5AFEAFE75E04435A2C80BN8PR12MB3283namp_--
-
---===============0833817387==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0833817387==--
+QW0gMTcuMDcuMTkgdW0gMjI6MzEgc2NocmllYiBLdWVobGluZywgRmVsaXg6Cj4gT24gMjAxOS0w
+Ny0xNyA1OjEwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+PiBBbSAxNi4wNy4xOSB1bSAxODo0
+MCBzY2hyaWViIEt1ZWhsaW5nLCBGZWxpeDoKPj4+IE9uIDIwMTktMDctMTYgOTozNiBhLm0uLCBD
+aHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+Pj4+IEFtIDAyLjA3LjE5IHVtIDIxOjM1IHNjaHJpZWIg
+S3VlaGxpbmcsIEZlbGl4Ogo+Pj4+PiBUaGlzIGFzc3VtZXMgdGhhdCBwYWdlIHRhYmxlcyBhcmUg
+cmVzaWRlbnQgd2hlbiBhIHBhZ2UgZmF1bHQgaXMKPj4+Pj4gaGFuZGxlZC4KPj4+PiBZZWFoLCB0
+aGF0IGlzIGNvcnJlY3QuIEkgYWxzbyBoYXZlbid0IGNvbXBsZXRlbHkgZmlndXJlZCBvdXQgaG93
+IHdlCj4+Pj4gY2FuIHByZXZlbnQgdGhlIFZNIGZyb20gYmVpbmcgZGVzdHJveWVkIHdoaWxlIGhh
+bmRsaW5nIHRoZSBmYXVsdC4KPj4+IFRoZXJlIGFyZSBvdGhlciBjYXNlcyBJIGhhZCBpbiBtaW5k
+OiBQYWdlIHRhYmxlcyBjYW4gYmUgZXZpY3RlZC4gRm9yIEtGRAo+Pj4gcHJvY2Vzc2VzIHdoaWNo
+IGNhbiBiZSBwcmVlbXB0ZWQgd2l0aCBDV1NSLCBpdCdzIHBvc3NpYmxlIHRoYXQgYSB3YXZlCj4+
+PiB0aGF0IGNhdXNlZCBhIHBhZ2UgZmF1bHQgaXMgcHJlZW1wdGVkIGR1ZSB0byBhIHBhZ2UgdGFi
+bGUgZXZpY3Rpb24uIFRoYXQKPj4+IG1lYW5zLCBieSB0aGUgdGltZSB0aGUgcGFnZSBmYXVsdCBp
+cyBoYW5kbGVkLCB0aGUgcGFnZSB0YWJsZSBpcyBubwo+Pj4gbG9uZ2VyIHJlc2lkZW50Lgo+PiBU
+aGlzIGlzIGEgY29ybmVyIGNhc2Ugd2UgY2FuIGhhbmRsZSBsYXRlciBvbi4gQXMgbG9uZyBhcyB0
+aGUgVk0gaXMKPj4gc3RpbGwgYWxpdmUganVzdCBhbGxvY2F0aW5nIHBhZ2UgdGFibGVzIGFnYWlu
+IHNob3VsZCBiZSBzdWZmaWNpZW50IGZvcgo+PiB0aGlzLgo+IERvIHlvdSBtZWFuLCBpbnN0ZWFk
+IG9mIG1pZ3JhdGluZyBwYWdlIHRhYmxlcyBiYWNrLCB0aHJvd2luZyB0aGVtIGF3YXkKPiBhbmQg
+YWxsb2NhdGluZyBhIG5ldyBvbmU/CgpZZXMsIGV4YWN0bHkgdGhhdCdzIHRoZSBpZGVhIGhlcmUu
+Cgo+IEFsc28sIHRoaXMgbWF5IGJlIGEgY29ybmVyIGNhc2UuIEJ1dCBJIGZlZWwgeW91J3JlIGxp
+bWl0aW5nIHlvdXJzZWxmIHRvCj4gYSBzbWFsbCByYW5nZSBvZiBjdXJyZW50IHVzZSBjYXNlcy4g
+SSdtIG5vdCBjb252aW5jZWQgdGhhdCB0aGUgZGVzaWduCj4geW91J3JlIGJ1aWxkaW5nIGhlcmUg
+d2lsbCBzY2FsZSB0byBmdXR1cmUgdXNlIGNhc2VzIGZvciBITU0gdXBkYXRpbmcKPiBwYWdlIHRh
+YmxlcyBmb3IgcmFuZG9tIHZpcnR1YWwgYWRkcmVzc2VzLiBJJ20gbG9va2luZyBmb3IgYSBnZW5l
+cmFsCj4gc29sdXRpb24gdGhhdCB3aWxsIHdvcmsgZm9yIHRob3NlIGZ1dHVyZSB1c2UgY2FzZXMu
+IE90aGVyd2lzZSB3ZSdsbCBlbmQKPiB1cCBoYXZpbmcgdG8gcmV3cml0ZSB0aGlzIHBhZ2UtdGFi
+bGUtdXBkYXRlLWluLWZhdWx0LWhhbmRsZXIgY29kZSBmcm9tCj4gc2NyYXRjaCBpbiBhIG1vbnRo
+IG9yIHR3by4KCldlbGwgYWN0dWFsbHkgSSdtIGtlZXBpbmcgbW9zdGx5IEhNTSBpbiBtaW5kLiBG
+aWxsaW5nIHBhZ2UgdGFibGVzIG9uIApkZW1hbmQgaXMganVzdCBhIHN0ZXAgaW4gYmV0d2Vlbi4K
+CkkgYWxzbyB3YW50IHRvIHN1cHBvcnQgYSB1c2UgY2FzZSB3aGVyZSBwZXItVk0tQk9zIGFyZSBz
+d2FwcGVkIGluIGFuZCAKb3V0IG9uIGRlbWFuZCwgYnV0IEkgdGhpbmsgdGhhdCB3ZSB3aWxsIGp1
+c3QgdXNlIHRoYXQgZm9yIHRlc3RpbmcuCgo+Pj4+IEkgbWVhbiBpdCdzIHBlcmZlY3RseSBwb3Nz
+aWJsZSB0aGF0IHRoZSBwcm9jZXNzIGlzIGtpbGxlZCB3aGlsZSBmYXVsdHMKPj4+PiBhcmUgc3Rp
+bGwgaW4gdGhlIHBpcGVsaW5lLgo+Pj4+Cj4+Pj4+IEkgdGhpbmsgaXQncyBwb3NzaWJsZSB0aGF0
+IGEgcGFnZSB0YWJsZSBnZXRzIGV2aWN0ZWQgd2hpbGUgYSBwYWdlCj4+Pj4+IGZhdWx0Cj4+Pj4+
+IGlzIHBlbmRpbmcuIE1heWJlIG5vdCB3aXRoIGdyYXBoaWNzLCBidXQgZGVmaW5pdGVseSB3aXRo
+IGNvbXB1dGUgd2hlcmUKPj4+Pj4gd2F2ZXMgY2FuIGJlIHByZWVtcHRlZCB3aGlsZSB3YWl0aW5n
+IGZvciBhIHBhZ2UgZmF1bHQuIEluIHRoYXQgY2FzZQo+Pj4+PiB0aGUKPj4+Pj4gZGlyZWN0IGFj
+Y2VzcyB3b3VsZCBicmVhay4KPj4+Pj4KPj4+Pj4gRXZlbiB3aXRoIGdyYXBoaWNzIEkgdGhpbmsg
+aXQncyBzdGlsbCBwb3NzaWJsZSB0aGF0IG5ldyBwYWdlIHRhYmxlcwo+Pj4+PiBuZWVkCj4+Pj4+
+IHRvIGJlIGFsbG9jYXRlZCB0byBoYW5kbGUgYSBwYWdlIGZhdWx0LiBXaGVuIHRoYXQgaGFwcGVu
+cywgeW91IG5lZWQgdG8KPj4+Pj4gd2FpdCBmb3IgZmVuY2VzIHRvIGxldCBuZXcgcGFnZSB0YWJs
+ZXMgYmUgdmFsaWRhdGVkIGFuZCBpbml0aWFsaXplZC4KPj4+PiBZZWFoLCB0aGUgcHJvYmxlbSBo
+ZXJlIGlzIHRoYXQgd2hlbiB5b3Ugd2FpdCBvbiBmZW5jZXMgd2hpY2ggaW4gdHVybgo+Pj4+IGRl
+cGVuZCBvbiB5b3VyIHN1Ym1pc3Npb24geW91ciBlbmQgdXAgaW4gYSBkZWFkbG9jay4KPj4+Pgo+
+Pj4gSSB0aGluayB0aGlzIGltcGxpZXMgdGhhdCB5b3UgaGF2ZSBhbWRncHVfY3MgZmVuY2VzIGF0
+dGFjaGVkIHRvIHBhZ2UKPj4+IHRhYmxlcy4gSSBiZWxpZXZlIHRoaXMgaXMgdGhlIGZ1bmRhbWVu
+dGFsIGlzc3VlIHRoYXQgbmVlZHMgdG8gYmUgZml4ZWQuCj4+IFdlIHN0aWxsIG5lZWQgdGhpcyBj
+YXVzZSBldmVuIHdpdGggcGFnZSBmYXVsdHMgdGhlIHJvb3QgUEQgY2FuJ3QgYmUKPj4gZXZpY3Rl
+ZC4KPj4KPj4gV2hhdCB3ZSBjYW4gcHJvYmFibHkgZG8gaXMgdG8gc3BsaXQgdXAgdGhlIFBEcy9Q
+VHMgaW50byB0aGUgcm9vdCBQRAo+PiBhbmQgZXZlcnl0aGluZyBlbHNlLgo+IFllYWgsIHRoZSBy
+b290IFBEIGFsd2F5cyBleGlzdHMgYXMgbG9uZyBhcyB0aGUgVk0gZXhpc3RzLiBFdmVyeXRoaW5n
+Cj4gZWxzZSBjYW4gYmUgY3JlYXRlZC9kZXN0cm95ZWQvbW92ZWQgZHluYW1pY2FsbHkuCgpZZWFo
+LCBleGFjdGx5LiBUaGUgcXVlc3Rpb24gaXMgaG93IGRvIHdlIHdhbnQgdG8ga2VlcCB0aGUgcm9v
+dCBQRCBpbiBwbGFjZT8KCldlIGNvdWxkIHN0aWxsIGFkZCB0aGUgZmVuY2Ugb3Igd2UgY291bGQg
+cGluIGl0IHBlcm1hbmVudGx5LgoKPj4+IElmIHlvdSB3YW50IHRvIG1hbmFnZSBwYWdlIHRhYmxl
+cyBpbiBwYWdlIGZhdWx0IGludGVycnVwdCBoYW5kbGVycywgeW91Cj4+PiBjYW4ndCBoYXZlIGNv
+bW1hbmQgc3VibWlzc2lvbiBmZW5jZXMgYXR0YWNoZWQgdG8geW91ciBwYWdlIHRhYmxlcy4gWW91
+Cj4+PiBjYW4gYWxsb3cgcGFnZSB0YWJsZXMgdG8gYmUgZXZpY3RlZCB3aGlsZSB0aGUgY29tbWFu
+ZCBzdWJtaXNzaW9uIGlzIGluCj4+PiBwcm9ncmVzcy4gQSBwYWdlIGZhdWx0IHdpbGwgZmF1bHQg
+aXQgYmFjayBpbiBpZiBpdCdzIG5lZWRlZC4gSWYgeW91Cj4+PiBlbGltaW5hdGUgY29tbWFuZCBz
+dWJtaXNzaW9uIGZlbmNlcyBvbiB0aGUgcGFnZSB0YWJsZXMsIHlvdSByZW1vdmUgdGhlCj4+PiBw
+b3RlbnRpYWwgZm9yIGRlYWRsb2Nrcy4KPj4gTm8sIHRoZXJlIGlzIHN0aWxsIGEgaHVnZSBwb3Rl
+bnRpYWwgZm9yIGRlYWRsb2NrcyBoZXJlLgo+Pgo+PiBBZGRpdGlvbmFsIHRvIHRoZSByb290IFBE
+cyB5b3UgY2FuIGhhdmUgYSBNTSBzdWJtaXNzaW9uIHdoaWNoIG5lZWRzIHRvCj4+IHdhaXQgZm9y
+IGEgY29tcHV0ZSBzdWJtaXNzaW9uIHRvIGJlIGZpbmlzaGVkLgo+IEkgYXNzdW1lIGJ5IE1NIHlv
+dSBtZWFuICJtZW1vcnkgbWFuZ2VyIiwgbm90ICJtdWx0aS1tZWRpYSIuIFtTTklQXQoKU29ycnkg
+SSBtZWFudCAibXVsdGktbWVkaWEiLCBzbyBqdXN0IHNuaXBwZWQgeW91ciByZXNwb25zZS4KCldo
+YXQgSSB3YW50IHRvIHNheSBoZXJlIGlzIHRoYXQgSSBkb24ndCBiZWxpZXZlIHdlIGNhbiBrZWVw
+IHVzZXIgQ1MgCmZlbmNlcyBvdXIgb2YgbWVtb3J5IG1hbmFnZW1lbnQuCgpTZWUgdGhlcmUgY2Fu
+IGJlIHN1Ym1pc3Npb24gZnJvbSBlbmdpbmVzIHdoaWNoIGRvbid0IHN1cHBvcnQgb3IgZG9uJ3Qg
+CndhbnQgdG8gZW5hYmxlZCByZWNvdmVyYWJsZSBwYWdlIGZhdWx0cyB3aGljaCBkZXBlbmQgb24g
+c3VibWlzc2lvbnMgCndoaWNoIGRvIHVzZSByZWNvdmVyYWJsZSBwYWdlIGZhdWx0cy4KCkkgbWVh
+biBpdCB3YXMgeW91ciByZXF1aXJlbWVudCB0aGF0IHdlIGhhdmUgYSBtaXggb2YgcGFnZSBmYXVs
+dCBhbmQgCnByZS1maWxsZWQgcGFnZSB0YWJsZXMgaW4gdGhlIHNhbWUgcHJvY2Vzcy4KCj4+IElm
+IHlvdSB0aGVuIG1ha2UgeW91ciBuZXcgYWxsb2NhdGlvbiBkZXBlbmQgb24gdGhlIE1NIHN1Ym1p
+c3Npb24gdG8gYmUKPj4gZmluaXNoZWQgeW91IGhhdmUgYSBjbGFzc2ljYWwgY2lyY2xlIGRlcGVu
+ZGVuY3kgYW5kIGEgZGVhZGxvY2sgYXQgaGFuZC4KPiBJIGRvbid0IHNlZSBpdC4gQWxsb2NhdGUg
+cGFnZSB0YWJsZSwgd2FpdCBmb3IgZmVuY2UgYXNzb2NpYXRlZCB3aXRoIHRoYXQKPiBwYWdlIHRh
+YmxlIGluaXRpYWxpemF0aW9uLCB1cGRhdGUgUFRFcy4gQXQgbm8gcG9pbnQgZG8gd2UgZGVwZW5k
+IG9uIHRoZQo+IHVzZXIgQ1MgYmVpbmcgc3RhbGxlZCBieSB0aGUgcGFnZSBmYXVsdC4gVGhlcmUg
+aXMgbm90IHVzZXIgc3VibWlzc2lvbiBvbgo+IHRoZSBwYWdpbmcgcmluZy4gQW55dGhpbmcgdGhh
+dCBoYXMgYmVlbiBzY2hlZHVsZWQgb24gdGhlIHBhZ2luZyByaW5nIGhhcwo+IGl0cyBkZXBlbmRl
+bmNpZXMgc2F0aXNmaWVkLgoKQWxsb2NhdGlvbiBpcyB0aGUgbWFpbiBwcm9ibGVtIGhlcmUuIFdl
+IG5lZWQgdG8gbWFrZSBzdXJlIHRoYXQgd2UgbmV2ZXIgCmV2ZXIgZGVwZW5kIG9uIHVzZXIgQ1Mg
+d2hlbiBtYWtpbmcgbWVtb3J5IGFsbG9jYXRpb24gaW4gdGhlIHBhZ2UgZmF1bHQgCmhhbmRsZXIu
+Cgo+IFdlIG1heSBuZWVkIHNlcGFyYXRlIHNjaGVkdWxlciBlbnRpdGllcwo+IChxdWV1ZXMpIGZv
+ciByZWd1bGFyIE1NIHN1Ym1pc3Npb25zIHRoYXQgY2FuIGRlcGVuZCBvbiB1c2VyIGZlbmNlcyBh
+bmQKPiBWTSBzdWJtaXNzaW9ucyB0aGF0IG11c3Qgbm90LgoKWWVhaCwgdGhvdWdodCBhYm91dCB0
+aGF0IGFzIHdlbGwgYnV0IGV2ZW4gdGhlbiB5b3UgbmVlZCBhIHdheSB0byBub3RlIAp0aGF0IHlv
+dSB3YW50IHRvIHVzZSB0aGlzIHNlcGFyYXRlIGVudGl0eS4KCj4+IFRoZSBvbmx5IHdheSBhcm91
+bmQgdGhhdCBpcyB0byBhbGxvY2F0ZSB0aGUgbmV3IHBhZ2UgdGFibGVzIHdpdGggdGhlCj4+IG5v
+X3dhaXRfZ3B1IGZsYWcgc2V0IGFuZCBzbyBhdm9pZCBoYXZpbmcgYW55IGRlcGVuZGVuY2llcyBv
+biBvbmdvaW5nCj4+IG9wZXJhdGlvbnMuCj4gV2UgZGlzY3Vzc2VkIHRoaXMgYmVmb3JlLiBJIHN1
+Z2dlc3RlZCBhbiBlbWVyZ2VuY3kgcG9vbCBmb3IgcGFnZSB0YWJsZXMuCj4gVGhhdCBwb29sIGNh
+biBoYXZlIGEgbGltaXRlZCBzaXplLiBJZiBwYWdlIHRhYmxlcyBkb24ndCBoYXZlIHVzZXIgZmVu
+Y2VzCj4gb24gdGhlbSwgdGhleSBjYW4gYWx3YXlzIGJlIGV2aWN0ZWQsIHNvIHdlIGNhbiBhbHdh
+eXMgbWFrZSByb29tIGluIHRoaXMKPiBlbWVyZ2VuY3kgcG9vbC4KCllvdSB1bmRlcmVzdGltYXRl
+IHRoZSBwcm9ibGVtLiBGb3IgcGFnZSB0YWJsZXMgSSBjYW4gbWFrZSBzdXJlIHJhdGhlciAKZWFz
+aWx5IHRoYXQgd2UgY2FuIGFsd2F5cyBhbGxvY2F0ZSBzb21ldGhpbmcsIGJ1dCBBTEwgYWxsb2Nh
+dGlvbnMgbWFkZSAKZHVyaW5nIHBhZ2UgZmF1bHQgY2FuJ3QgZGVwZW5kIG9uIHVzZXIgQ1MuCgpU
+aGlzIG1lYW5zIHdlIG5lZWQgdG8gdXNlIHRoaXMgZm9yIHBhZ2VzIHdoaWNoIGFyZSB1c2VkIGZv
+ciBITU0gYmFzZWQgCm1pZ3JhdGlvbiBhbmQgZm9yIHRoaXMgeW91IGNhbid0IGhhdmUgYSBmaXhl
+ZCBwb29sLgoKPj4+IEJ1dCB5b3UgZG8gbmVlZCBmZW5jZXMgb24gcGFnZSB0YWJsZXMgcmVsYXRl
+ZCB0byB0aGUgYWxsb2NhdGlvbiBhbmQKPj4+IG1pZ3JhdGlvbiBvZiBwYWdlIHRhYmxlcyB0aGVt
+c2VsdmVzLiBBbmQgeW91ciBwYWdlIHRhYmxlIHVwZGF0ZXMgbXVzdAo+Pj4gd2FpdCBmb3IgdGhv
+c2UgZmVuY2VzLiBUaGVyZWZvcmUgSSB0aGluayB0aGUgd2hvbGUgYXBwcm9hY2ggb2YgZGlyZWN0
+Cj4+PiBzdWJtaXNzaW9uIGZvciBwYWdlIHRhYmxlIHVwZGF0ZXMgaXMgZnVuZGFtZW50YWxseSBi
+cm9rZW4uCj4+IEZvciB0aGUgcmVhc29ucyBub3RlZCBhYm92ZSB5b3UgY2FuJ3QgaGF2ZSBhbnkg
+ZmVuY2VzIHJlbGF0ZWQgdG8gdGhlCj4+IGFsbG9jYXRpb24gYW5kIG1pZ3JhdGlvbiBvbiBwYWdl
+IHRhYmxlcy4KPj4KPj4gV2hhdCBjYW4gaGFwcGVuIGxhdGVyIG9uIGlzIHRoYXQgeW91IG5lZWQg
+dG8gd2FpdCBmb3IgYSBCTyBtb3ZlIHRvCj4+IGZpbmlzaCBiZWZvcmUgd2UgY2FuIHVwZGF0ZSB0
+aGUgcGFnZSB0YWJsZXMuCj4gQSBwYWdlIHRhYmxlIHVwZGF0ZWQgY29taW5nIGZyb20gYSBwYWdl
+IGZhdWx0IGhhbmRsZXIgc2hvdWxkIG5ldmVyIGhhdmUgIGNvdWxkIHdhbnQgdG8gbWlncmF0ZSBt
+ZW1vcnkKPiB0byB3YWl0IGZvciBhbnkgQk8gbW92ZS4gVGhlIGZhY3QgdGhhdCB0aGVyZSB3YXMg
+YSBwYWdlIGZhdWx0IG1lYW5zLAo+IHNvbWVvbmUgaXMgdHJ5aW5nIHRvIGFjY2VzcyB0aGlzIG1l
+bW9yeSByaWdodCBub3cuCgpXZWxsIGVzc2VudGlhbGx5IHdpdGggSE1NIHdlIHdhbnQgdG8gbWln
+cmF0ZSBtZW1vcnkgdG8gVlJBTSBkdXJpbmcgdGhlIApwYWdlIGZhdWx0IGhhbmRsZXIsIGRvbid0
+IHdlPwoKPj4gQnV0IEkgdGhpbmsgdGhhdCB0aGlzIGlzIGEgY29tcGxldGVseSBkaWZmZXJlbnQg
+b3BlcmF0aW9uIHdoaWNoCj4+IHNob3VsZG4ndCBiZSBoYW5kbGVkIGluIHRoZSBmYXVsdCBoYW5k
+bGVyLgo+IFJpZ2h0LiBJZiB5b3UgaGF2ZSBwYWdlIHRhYmxlIHVwZGF0ZXMgZG9uZSB0byBwcmVw
+YXJlIGZvciBhIENTLCB0aGV5IGNhbgo+IGRlcGVuZCBvbiB1c2UgZmVuY2VzLiBQYWdlIHRhYmxl
+IHVwZGF0ZXMgZG9uZSBhcyBwYXJ0IG9mIHRoZSBwYWdlIGZhdWx0Cj4gaGFuZGxlciBtdXN0IG5v
+dC4gQWdhaW4sIEkgdGhpbmsgdGhpcyBjb3VsZCBiZSBoYW5kbGVkIGJ5IHVzaW5nIHNlcGFyYXRl
+Cj4gc2NoZWR1bGVyIGVudGl0aWVzIHRvIGF2b2lkIGZhbHNlIGRlcGVuZGVuY2llcy4KCkFncmVl
+ZCwgYnV0IHVzaW5nIGEgc2VwYXJhdGUgZW50aXR5IG1lYW5zIHRoYXQgd2UgYXJlIHNlbmRpbmcg
+dGhlIAp1cGRhdGVzIHRvIGEgc2VwYXJhdGUga2VybmVsIHRocmVhZCBmaXJzdCB3aGljaCB0aGVu
+IGNvbW1pdHMgdGhlbSB0byB0aGUgCnJpbmcgYnVmZmVyLgoKSSB3YXMgYWxyZWFkeSBhIHN0ZXAg
+ZnVydGhlciBhbmQgdGhvdWdodCB0aGF0IHdlIGNhbiBhdm9pZCB0aGlzIGV4dHJhIApvdmVyaGVh
+ZCBhbmQgd3JpdGUgZGlyZWN0bHkgdG8gdGhlIHJpbmcgYnVmZmVyLgoKPj4gSW4gdGhvc2UgY2Fz
+ZXMgdGhlIGZhdWx0IGhhbmRsZXIgd291bGQganVzdCBzaWxlbmNlIHRoZSByZXRyeSBmYXVsdAo+
+PiBhbmQgY29udGludWUgY3J1bmNoaW5nIG9uIG90aGVyIGZhdWx0cy4KPiBJIGRvbid0IHRoaW5r
+IHRoYXQncyB0aGUgcmlnaHQgYXBwcm9hY2guIElmIHlvdSBoYXZlIGEgcmV0cnkgZgo+IGF1bHQg
+Zm9yIGEKPiB2aXJ0dWFsIGFkZHJlc3MsIGl0IG1lYW5zIHlvdSBhbHJlYWR5IGhhdmUgc29tZXRo
+aW5nIHJ1bm5pbmcgb24gdGhlIEdQVQo+IGFjY2Vzc2luZyBpdC4gSXQgY2FuJ3QgYmUgc29tZXRo
+aW5nIHRoYXQgZGVwZW5kcyBvbiBhbiBpbi1mbGlnaHQgcGFnZQo+IHRhYmxlIHVwZGF0ZSwgYmVj
+YXVzZSB0aGUgc2NoZWR1bGVyIHdvdWxkIG5vdCBoYXZlIGVtaXR0ZWQgdGhhdCB0byB0aGUKPiBy
+aW5nLiBZb3UgZWl0aGVyIG5lZWQgdG8gZmlsbCBpbiBhIHZhbGlkIGFkZHJlc3MsIG9yIGlmIHRo
+ZXJlIGlzIG5vdGhpbmcKPiBtYXBwZWQgYXQgdGhhdCBhZGRyZXNzICh5ZXQpLCB0cmVhdCBpdCBh
+cyBhbiBhcHBsaWNhdGlvbiBlcnJvciBhbmQKPiBjb252ZXJ0IGl0IGludG8gYSBuby1yZXRyeS1m
+YXVsdCB3aGljaCBraWxscyB0aGUgYXBwbGljYXRpb24uCgpNaG0sIGFuZCB3aGF0IGRvIHdlIGRv
+IGlmIHdlIHdhbnQgdG8gbWlncmF0ZSBhIHBhZ2UgdG8gVlJBTSBpbiBhIGZhdWx0IApoYW5kbGVy
+PwoKSSBtZWFuIHRoYXQncyB3aGF0IEhNTSBpcyBtb3N0bHkgYWxsIGFib3V0LCBpc24ndCBpdD8K
+ClJlZ2FyZHMsCkNocmlzdGlhbi4KCj4KPiBSZWdhcmRzLAo+ICAgwqAgRmVsaXgKPgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
+IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
+a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
