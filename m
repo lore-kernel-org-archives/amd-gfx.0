@@ -1,14 +1,15 @@
-From: Chengming Gui <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/3] drm/amd/powerplay: add mutex lock to protect dpm context
- resource
-Date: Thu, 18 Jul 2019 18:02:18 +0800
-Message-ID: <1563444138-23948-3-git-send-email-Jack.Gui@amd.com>
-References: <1563444138-23948-1-git-send-email-Jack.Gui@amd.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v2] drm/amd/powerplay: change sysfs pp_dpm_xxx format for
+ navi10
+Date: Thu, 18 Jul 2019 10:07:48 +0000
+Message-ID: <MN2PR12MB334488835DA1A0FCA28517BAE4C80@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190718094249.22234-1-kevin1.wang@amd.com>,
+ <MN2PR12MB3598D6F59B73A6508563CBA38EC80@MN2PR12MB3598.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1772752187=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1563444138-23948-1-git-send-email-Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MN2PR12MB3598D6F59B73A6508563CBA38EC80-rweVpJHSKTohWwLleUddgQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: zh-CN
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,73 +20,368 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Chengming Gui <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+To: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 
-YWRkIG11dGV4IGxvY2sgdG8gcHJvdGVjdCBkcG0gY29udGV4dCByZXNvdXJjZQoKU2lnbmVkLW9m
-Zi1ieTogQ2hlbmdtaW5nIEd1aSA8SmFjay5HdWlAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgICAgIHwgNSArKystLQogZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaCB8IDEgKwogZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jICAgICB8IDggKysrKysrKysKIDMgZmlsZXMgY2hh
-bmdlZCwgMTIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMKaW5kZXggNjkzNDE0Zi4uYWMwMTk2MCAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9zbXUuYwpAQCAtNjY0LDYgKzY2NCw3
-IEBAIHN0YXRpYyBpbnQgc211X3N3X2luaXQodm9pZCAqaGFuZGxlKQogCXNtdS0+d2F0ZXJtYXJr
-c19iaXRtYXAgPSAwOwogCXNtdS0+cG93ZXJfcHJvZmlsZV9tb2RlID0gUFBfU01DX1BPV0VSX1BS
-T0ZJTEVfQk9PVFVQX0RFRkFVTFQ7CiAJc211LT5kZWZhdWx0X3Bvd2VyX3Byb2ZpbGVfbW9kZSA9
-IFBQX1NNQ19QT1dFUl9QUk9GSUxFX0JPT1RVUF9ERUZBVUxUOworCW11dGV4X2luaXQoJnNtdS0+
-c211X2RwbS5tdXRleCk7CiAJc211LT5zbXVfZHBtLmRlZmF1bHRfc2Nsa19saW1pdCA9IDA7CiAJ
-c211LT5zbXVfZHBtLnBlYWtfc2Nsa19saW1pdCA9IDA7CiAKQEAgLTE0NzEsOSArMTQ3Miw5IEBA
-IGVudW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWwgc211X2dldF9wZXJmb3JtYW5jZV9sZXZlbChzdHJ1
-Y3Qgc211X2NvbnRleHQgKnNtdSkKIAlpZiAoIXNtdV9kcG1fY3R4LT5kcG1fY29udGV4dCkKIAkJ
-cmV0dXJuIC1FSU5WQUw7CiAKLQltdXRleF9sb2NrKCYoc211LT5tdXRleCkpOworCW11dGV4X2xv
-Y2soJihzbXVfZHBtX2N0eC0+bXV0ZXgpKTsKIAlsZXZlbCA9IHNtdV9kcG1fY3R4LT5kcG1fbGV2
-ZWw7Ci0JbXV0ZXhfdW5sb2NrKCYoc211LT5tdXRleCkpOworCW11dGV4X3VubG9jaygmKHNtdV9k
-cG1fY3R4LT5tdXRleCkpOwogCiAJcmV0dXJuIGxldmVsOwogfQpkaWZmIC0tZ2l0IGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmgKaW5kZXggYWNiNTIyYi4uYjZmY2FkMiAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUu
-aAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCkBA
-IC00NDksNiArNDQ5LDcgQEAgc3RydWN0IHNtdV9kcG1fY29udGV4dCB7CiAJc3RydWN0IHNtdV9w
-b3dlcl9zdGF0ZSAqZHBtX3JlcXVlc3RfcG93ZXJfc3RhdGU7CiAJc3RydWN0IHNtdV9wb3dlcl9z
-dGF0ZSAqZHBtX2N1cnJlbnRfcG93ZXJfc3RhdGU7CiAJc3RydWN0IG1jbG9ja19sYXRlbmN5X3Rh
-YmxlICptY2xrX2xhdGVuY3lfdGFibGU7CisJc3RydWN0IG11dGV4IG11dGV4OwogfTsKIAogc3Ry
-dWN0IHNtdV9wb3dlcl9nYXRlIHsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L25hdmkxMF9wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkx
-MF9wcHQuYwppbmRleCBiNGRlYjllLi4yMDc5MDk3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9w
-b3dlcnBsYXkvbmF2aTEwX3BwdC5jCkBAIC02OTMsNyArNjkzLDkgQEAgc3RhdGljIGludCBuYXZp
-MTBfZm9yY2VfY2xrX2xldmVscyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKIAljYXNlIFNNVV9H
-RlhDTEs6CiAJY2FzZSBTTVVfU0NMSzoKIAkJaWYgKHNtdV9kcG1fY3R4LT5wZWFrX3NjbGtfbGlt
-aXQpIHsKKwkJCW11dGV4X2xvY2soJnNtdV9kcG1fY3R4LT5tdXRleCk7CiAJCQltYXhfZnJlcSA9
-IHNtdV9kcG1fY3R4LT5wZWFrX3NjbGtfbGltaXQ7CisJCQltdXRleF91bmxvY2soJnNtdV9kcG1f
-Y3R4LT5tdXRleCk7CiAJCQlyZXQgPSBzbXVfZ2V0X2RwbV9mcmVxX2J5X2luZGV4KHNtdSwgY2xr
-X3R5cGUsIHNvZnRfbWluX2xldmVsLCAmbWluX2ZyZXEpOwogCQkJaWYgKHJldCkKIAkJCQlyZXR1
-cm4gc2l6ZTsKQEAgLTg3OCw3ICs4ODAsOSBAQCBzdGF0aWMgaW50IG5hdmkxMF91bmZvcmNlX2Rw
-bV9sZXZlbHMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCQlyZXR1cm4gcmV0OwogCiAJCWlm
-IChjbGtfdHlwZSA9PSBTTVVfR0ZYQ0xLICYmIHNtdV9kcG1fY3R4LT5kZWZhdWx0X3NjbGtfbGlt
-aXQgIT0gMCkgeworCQkJbXV0ZXhfbG9jaygmc211X2RwbV9jdHgtPm11dGV4KTsKIAkJCW1heF9m
-cmVxID0gc211X2RwbV9jdHgtPmRlZmF1bHRfc2Nsa19saW1pdDsKKwkJCW11dGV4X3VubG9jaygm
-c211X2RwbV9jdHgtPm11dGV4KTsKIAkJCXJldCA9IHNtdV9nZXRfZHBtX2ZyZXFfcmFuZ2Uoc211
-LCBTTVVfR0ZYQ0xLLAogCQkJCQkJICAgICAmbWluX2ZyZXEsIE5VTEwpOwogCQkJaWYgKHJldCkK
-QEAgLTg4OCw3ICs4OTIsOSBAQCBzdGF0aWMgaW50IG5hdmkxMF91bmZvcmNlX2RwbV9sZXZlbHMo
-c3RydWN0IHNtdV9jb250ZXh0ICpzbXUpCiAJCWlmIChyZXQpCiAJCQlyZXR1cm4gcmV0OwogCX0K
-KwltdXRleF9sb2NrKCZzbXVfZHBtX2N0eC0+bXV0ZXgpOwogCXNtdV9kcG1fY3R4LT5wZWFrX3Nj
-bGtfbGltaXQgPSAwOworCW11dGV4X3VubG9jaygmc211X2RwbV9jdHgtPm11dGV4KTsKIAogCXJl
-dHVybiByZXQ7CiB9CkBAIC0xNTcxLDYgKzE1NzcsNyBAQCBzdGF0aWMgaW50IG5hdmkxMF9hcHBs
-eV9jbG9ja3NfYWRqdXN0X3J1bGVzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogCXN0cnVjdCBz
-bXVfZHBtX2NvbnRleHQgKnNtdV9kcG1fY3R4ID0gJihzbXUtPnNtdV9kcG0pOwogCXN0cnVjdCBh
-bWRncHVfZGV2aWNlICphZGV2ID0gc211LT5hZGV2OwogCisJbXV0ZXhfbG9jaygmc211X2RwbV9j
-dHgtPm11dGV4KTsKIAlpZiAoc211X2RwbV9jdHgtPmRlZmF1bHRfc2Nsa19saW1pdCA9PSAwKSB7
-CiAJCXJldCA9IHNtdV9nZXRfZHBtX2ZyZXFfcmFuZ2Uoc211LCBTTVVfU0NMSywgTlVMTCwKIAkJ
-CQkJICAgICAmc211X2RwbV9jdHgtPmRlZmF1bHRfc2Nsa19saW1pdCk7CkBAIC0xNTg4LDYgKzE1
-OTUsNyBAQCBzdGF0aWMgaW50IG5hdmkxMF9hcHBseV9jbG9ja3NfYWRqdXN0X3J1bGVzKHN0cnVj
-dCBzbXVfY29udGV4dCAqc211KQogCX0gZWxzZSBpZiAoc211X2RwbV9jdHgtPmRwbV9sZXZlbCAh
-PSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX1BFQUsgJiYgc211X2RwbV9jdHgtPnBlYWtf
-c2Nsa19saW1pdCAhPSAwKSB7CiAJCXNtdV9kcG1fY3R4LT5wZWFrX3NjbGtfbGltaXQgPSAwOwog
-CX0KKwltdXRleF91bmxvY2soJnNtdV9kcG1fY3R4LT5tdXRleCk7CiAKIAlyZXR1cm4gMDsKIH0K
-LS0gCjIuNy40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============1772752187==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB334488835DA1A0FCA28517BAE4C80MN2PR12MB3344namp_"
+
+--_000_MN2PR12MB334488835DA1A0FCA28517BAE4C80MN2PR12MB3344namp_
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
+
+cmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCrvxyKEgT3V0bG9v
+ayBmb3IgaU9TPGh0dHBzOi8vYWthLm1zL28wdWtlZj4NCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fDQq3orz+yMs6IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPg0K
+t6LLzcqxvOQ6IFRodXJzZGF5LCBKdWx5IDE4LCAyMDE5IDU6NDk6NTYgUE0NCsrVvP7IyzogV2Fu
+ZywgS2V2aW4oWWFuZykgPEtldmluMS5XYW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZyA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+DQqzrcvNOiBRdWFuLCBF
+dmFuIDxFdmFuLlF1YW5AYW1kLmNvbT47IEh1YW5nLCBSYXkgPFJheS5IdWFuZ0BhbWQuY29tPjsg
+WHUsIEZlaWZlaSA8RmVpZmVpLlh1QGFtZC5jb20+DQrW98ziOiBSRTogW1BBVENIIHYyXSBkcm0v
+YW1kL3Bvd2VycGxheTogY2hhbmdlIHN5c2ZzIHBwX2RwbV94eHggZm9ybWF0IGZvciBuYXZpMTAN
+Cg0KUmV2aWV3ZWQtYnk6IEtlbm5ldGggRmVuZyA8a2VubmV0aC5mZW5nQGFtZC5jb20+DQoNCg0K
+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogV2FuZywgS2V2aW4oWWFuZykNClNl
+bnQ6IFRodXJzZGF5LCBKdWx5IDE4LCAyMDE5IDU6NDMgUE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZw0KQ2M6IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsg
+UXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBIdWFuZywgUmF5IDxSYXkuSHVhbmdAYW1k
+LmNvbT47IFh1LCBGZWlmZWkgPEZlaWZlaS5YdUBhbWQuY29tPjsgV2FuZywgS2V2aW4oWWFuZykg
+PEtldmluMS5XYW5nQGFtZC5jb20+DQpTdWJqZWN0OiBbUEFUQ0ggdjJdIGRybS9hbWQvcG93ZXJw
+bGF5OiBjaGFuZ2Ugc3lzZnMgcHBfZHBtX3h4eCBmb3JtYXQgZm9yIG5hdmkxMA0KDQp2MjoNCnNl
+dCBhdmVyYWdlIGNsb2NrIHZhbHVlIG9uIGxldmVsIDEgd2hlbiBjdXJyZW50IGNsb2NrIGVxdWFs
+IG1pbiBvciBtYXggY2xvY2sgKGZpbmUgZ3JhaW5lZCBkcG0gc3VwcG9ydCkuDQoNCnRoZSBuYXZp
+MTAgZ2Z4Y2xrIChzY2xrKSBzdXBwb3J0IGZpbmUgZ3JhaW5lZCBEUE0sIHNvIHVzZSBsZXZlbCAx
+IHRvIHNob3cgY3VycmVudCBkcG0gZnJlcSBpbiBzeXNmcyBwcF9kcG1feHh4DQoNCkNoYW5nZS1J
+ZDogSTE0ZGFhNmUzMGM1MmM4OTc5NTcwOGVjMDY2NjA4NjJiYjQ1OTEwMzYNClNpZ25lZC1vZmYt
+Ynk6IEtldmluIFdhbmcgPGtldmluMS53YW5nQGFtZC5jb20+DQotLS0NCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMgfCA0NyArKysrKysrKysrKysrKysrKysrLS0t
+DQogMSBmaWxlIGNoYW5nZWQsIDQxIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pDQoNCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMNCmluZGV4IDg5NWE0ZTU5
+MmQ1YS4uMWY3MjFiODVjMGY2IDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
+cnBsYXkvbmF2aTEwX3BwdC5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9u
+YXZpMTBfcHB0LmMNCkBAIC02MjcsMTEgKzYyNywyNiBAQCBzdGF0aWMgaW50IG5hdmkxMF9nZXRf
+Y3VycmVudF9jbGtfZnJlcV9ieV90YWJsZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwNCiAgICAg
+ICAgIHJldHVybiByZXQ7DQogfQ0KDQorc3RhdGljIGJvb2wgbmF2aTEwX2lzX3N1cHBvcnRfZmlu
+ZV9ncmFpbmVkX2RwbShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwNCitlbnVtIHNtdV9jbGtfdHlw
+ZSBjbGtfdHlwZSkgew0KKyAgICAgICBQUFRhYmxlX3QgKnBwdGFibGUgPSBzbXUtPnNtdV90YWJs
+ZS5kcml2ZXJfcHB0YWJsZTsNCisgICAgICAgRHBtRGVzY3JpcHRvcl90ICpkcG1fZGVzYyA9IE5V
+TEw7DQorICAgICAgIHVpbnQzMl90IGNsa19pbmRleCA9IDA7DQorDQorICAgICAgIGNsa19pbmRl
+eCA9IHNtdV9jbGtfZ2V0X2luZGV4KHNtdSwgY2xrX3R5cGUpOw0KKyAgICAgICBkcG1fZGVzYyA9
+ICZwcHRhYmxlLT5EcG1EZXNjcmlwdG9yW2Nsa19pbmRleF07DQorDQorICAgICAgIC8qIDAgLSBG
+aW5lIGdyYWluZWQgRFBNLCAxIC0gRGlzY3JldGUgRFBNICovDQorICAgICAgIHJldHVybiBkcG1f
+ZGVzYy0+U25hcFRvRGlzY3JldGUgPT0gMCA/IHRydWUgOiBmYWxzZTsgfQ0KKw0KIHN0YXRpYyBp
+bnQgbmF2aTEwX3ByaW50X2Nsa19sZXZlbHMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsDQogICAg
+ICAgICAgICAgICAgICAgICAgICAgZW51bSBzbXVfY2xrX3R5cGUgY2xrX3R5cGUsIGNoYXIgKmJ1
+ZikgIHsNCiAgICAgICAgIGludCBpLCBzaXplID0gMCwgcmV0ID0gMDsNCiAgICAgICAgIHVpbnQz
+Ml90IGN1cl92YWx1ZSA9IDAsIHZhbHVlID0gMCwgY291bnQgPSAwOw0KKyAgICAgICB1aW50MzJf
+dCBmcmVxX3ZhbHVlc1szXSA9IHswfTsNCisgICAgICAgdWludDMyX3QgbWFya19pbmRleCA9IDA7
+DQoNCiAgICAgICAgIHN3aXRjaCAoY2xrX3R5cGUpIHsNCiAgICAgICAgIGNhc2UgU01VX0dGWENM
+SzoNCkBAIC02NDQsMjIgKzY1OSw0MiBAQCBzdGF0aWMgaW50IG5hdmkxMF9wcmludF9jbGtfbGV2
+ZWxzKHN0cnVjdCBzbXVfY29udGV4dCAqc211LA0KICAgICAgICAgICAgICAgICByZXQgPSBzbXVf
+Z2V0X2N1cnJlbnRfY2xrX2ZyZXEoc211LCBjbGtfdHlwZSwgJmN1cl92YWx1ZSk7DQogICAgICAg
+ICAgICAgICAgIGlmIChyZXQpDQogICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHNpemU7
+DQorDQogICAgICAgICAgICAgICAgIC8qIDEwS0h6IC0+IE1IeiAqLw0KICAgICAgICAgICAgICAg
+ICBjdXJfdmFsdWUgPSBjdXJfdmFsdWUgLyAxMDA7DQoNCi0gICAgICAgICAgICAgICBzaXplICs9
+IHNwcmludGYoYnVmLCAiY3VycmVudCBjbGs6ICV1TWh6XG4iLCBjdXJfdmFsdWUpOw0KLQ0KICAg
+ICAgICAgICAgICAgICByZXQgPSBzbXVfZ2V0X2RwbV9sZXZlbF9jb3VudChzbXUsIGNsa190eXBl
+LCAmY291bnQpOw0KICAgICAgICAgICAgICAgICBpZiAocmV0KQ0KICAgICAgICAgICAgICAgICAg
+ICAgICAgIHJldHVybiBzaXplOw0KDQotICAgICAgICAgICAgICAgZm9yIChpID0gMDsgaSA8IGNv
+dW50OyBpKyspIHsNCi0gICAgICAgICAgICAgICAgICAgICAgIHJldCA9IHNtdV9nZXRfZHBtX2Zy
+ZXFfYnlfaW5kZXgoc211LCBjbGtfdHlwZSwgaSwgJnZhbHVlKTsNCisgICAgICAgICAgICAgICBp
+ZiAoIW5hdmkxMF9pc19zdXBwb3J0X2ZpbmVfZ3JhaW5lZF9kcG0oc211LCBjbGtfdHlwZSkpIHsN
+CisgICAgICAgICAgICAgICAgICAgICAgIGZvciAoaSA9IDA7IGkgPCBjb3VudDsgaSsrKSB7DQor
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IHNtdV9nZXRfZHBtX2ZyZXFfYnlf
+aW5kZXgoc211LCBjbGtfdHlwZSwgaSwgJnZhbHVlKTsNCisgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgaWYgKHJldCkNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm4gc2l6ZTsNCisNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2l6ZSAr
+PSBzcHJpbnRmKGJ1ZiArIHNpemUsICIlZDogJXVNaHogJXNcbiIsIGksIHZhbHVlLA0KKyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3VyX3ZhbHVlID09IHZh
+bHVlID8gIioiIDogIiIpOw0KKyAgICAgICAgICAgICAgICAgICAgICAgfQ0KKyAgICAgICAgICAg
+ICAgIH0gZWxzZSB7DQorICAgICAgICAgICAgICAgICAgICAgICByZXQgPSBzbXVfZ2V0X2RwbV9m
+cmVxX2J5X2luZGV4KHNtdSwgY2xrX3R5cGUsIDAsICZmcmVxX3ZhbHVlc1swXSk7DQorICAgICAg
+ICAgICAgICAgICAgICAgICBpZiAocmV0KQ0KKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICByZXR1cm4gc2l6ZTsNCisgICAgICAgICAgICAgICAgICAgICAgIHJldCA9IHNtdV9nZXRfZHBt
+X2ZyZXFfYnlfaW5kZXgoc211LCBjbGtfdHlwZSwgY291bnQgLSAxLA0KKyZmcmVxX3ZhbHVlc1sy
+XSk7DQogICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHJldCkNCiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHJldHVybiBzaXplOw0KDQotICAgICAgICAgICAgICAgICAgICAgICBz
+aXplICs9IHNwcmludGYoYnVmICsgc2l6ZSwgIiVkOiAldU1oeiAlc1xuIiwgaSwgdmFsdWUsDQot
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY3VyX3ZhbHVlID09IHZhbHVl
+ID8gIioiIDogIiIpOw0KKyAgICAgICAgICAgICAgICAgICAgICAgZnJlcV92YWx1ZXNbMV0gPSBj
+dXJfdmFsdWU7DQorICAgICAgICAgICAgICAgICAgICAgICBtYXJrX2luZGV4ID0gY3VyX3ZhbHVl
+ID09IGZyZXFfdmFsdWVzWzBdID8gMCA6DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgY3VyX3ZhbHVlID09IGZyZXFfdmFsdWVzWzJdID8gMiA6IDE7DQorICAgICAgICAgICAg
+ICAgICAgICAgICBpZiAobWFya19pbmRleCAhPSAxKQ0KKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBmcmVxX3ZhbHVlc1sxXSA9IChmcmVxX3ZhbHVlc1swXSArIGZyZXFfdmFsdWVzWzJd
+KSAvIDI7DQorDQorICAgICAgICAgICAgICAgICAgICAgICBmb3IgKGkgPSAwOyBpIDwgMzsgaSsr
+KSB7DQorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNpemUgKz0gc3ByaW50ZihidWYg
+KyBzaXplLCAiJWQ6ICV1TWh6ICVzXG4iLCBpLCBmcmVxX3ZhbHVlc1tpXSwNCisgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGkgPT0gbWFya19pbmRleCA/ICIq
+IiA6ICIiKTsNCisgICAgICAgICAgICAgICAgICAgICAgIH0NCisNCiAgICAgICAgICAgICAgICAg
+fQ0KICAgICAgICAgICAgICAgICBicmVhazsNCiAgICAgICAgIGRlZmF1bHQ6DQotLQ0KMi4yMi4w
+DQoNCg==
+
+--_000_MN2PR12MB334488835DA1A0FCA28517BAE4C80MN2PR12MB3344namp_
+Content-Type: text/html; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div>
+<div>
+<div style=3D"direction:ltr">reviewed-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&g=
+t;</div>
+<div style=3D"direction:ltr"></div>
+</div>
+<div><br>
+</div>
+<div class=3D"x_ms-outlook-ios-signature">=BB=F1=C8=A1 <a href=3D"https://a=
+ka.ms/o0ukef">Outlook for iOS</a></div>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>=B7=A2=BC=FE=C8=CB:</b> Feng,=
+ Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>=B7=A2=CB=CD=CA=B1=BC=E4:</b> Thursday, July 18, 2019 5:49:56 PM<br>
+<b>=CA=D5=BC=FE=C8=CB:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;; a=
+md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>=B3=AD=CB=CD:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;R=
+ay.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>=D6=F7=CC=E2:</b> RE: [PATCH v2] drm/amd/powerplay: change sysfs pp_dpm_=
+xxx format for navi10</font>
+<div>&nbsp;</div>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:11pt;">
+<div class=3D"PlainText">Reviewed-by: Kenneth Feng &lt;kenneth.feng-5C7GfCeVMHo@public.gmane.org=
+&gt;<br>
+<br>
+<br>
+<br>
+-----Original Message-----<br>
+From: Wang, Kevin(Yang) <br>
+Sent: Thursday, July 18, 2019 5:43 PM<br>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+Cc: Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.Quan@am=
+d.com&gt;; Huang, Ray &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Xu, Feifei &lt;Feifei.Xu@a=
+md.com&gt;; Wang, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Subject: [PATCH v2] drm/amd/powerplay: change sysfs pp_dpm_xxx format for n=
+avi10<br>
+<br>
+v2:<br>
+set average clock value on level 1 when current clock equal min or max cloc=
+k (fine grained dpm support).<br>
+<br>
+the navi10 gfxclk (sclk) support fine grained DPM, so use level 1 to show c=
+urrent dpm freq in sysfs pp_dpm_xxx<br>
+<br>
+Change-Id: I14daa6e30c52c89795708ec06660862bb4591036<br>
+Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 47 &#43;&#43;&#43;&#43;&=
+#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-=
+--<br>
+&nbsp;1 file changed, 41 insertions(&#43;), 6 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index 895a4e592d5a..1f721b85c0f6 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -627,11 &#43;627,26 @@ static int navi10_get_current_clk_freq_by_table(s=
+truct smu_context *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&nbsp;}<br>
+&nbsp;<br>
+&#43;static bool navi10_is_support_fine_grained_dpm(struct smu_context *smu=
+, <br>
+&#43;enum smu_clk_type clk_type) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D smu-&gt;sm=
+u_table.driver_pptable;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DpmDescriptor_t *dpm_desc =3D NUL=
+L;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t clk_index =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clk_index =3D smu_clk_get_index(s=
+mu, clk_type);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dpm_desc =3D &amp;pptable-&gt;Dpm=
+Descriptor[clk_index];<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* 0 - Fine grained DPM, 1 - Disc=
+rete DPM */<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return dpm_desc-&gt;SnapToDiscret=
+e =3D=3D 0 ? true : false; }<br>
+&#43;<br>
+&nbsp;static int navi10_print_clk_levels(struct smu_context *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum =
+smu_clk_type clk_type, char *buf)&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, size =3D 0, ret =3D=
+ 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t cur_value =3D 0, =
+value =3D 0, count =3D 0;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t freq_values[3] =3D {0};<=
+br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mark_index =3D 0;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (clk_type) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case SMU_GFXCLK:<br>
+@@ -644,22 &#43;659,42 @@ static int navi10_print_clk_levels(struct smu_con=
+text *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_current_clk_freq(smu, clk_type, &amp;=
+cur_value);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n size;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /* 10KHz -&gt; MHz */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; cur_value =3D cur_value / 100;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; size &#43;=3D sprintf(buf, &quot;current clk: %uMhz\n&quot;, cur=
+_value);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm_level_count(smu, clk_type, &amp;c=
+ount);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n size;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; for (i =3D 0; i &lt; count; i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_=
+dpm_freq_by_index(smu, clk_type, i, &amp;value);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; if (!navi10_is_support_fine_grained_dpm(smu, clk_type)) {<br=
+>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0=
+; i &lt; count; i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm_freq_by_index(smu, =
+clk_type, i, &amp;value);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; return size;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &=
+quot;%d: %uMhz %s\n&quot;, i, value,<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cur_value =3D=3D v=
+alue ? &quot;*&quot; : &quot;&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; } else {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_=
+get_dpm_freq_by_index(smu, clk_type, 0, &amp;freq_values[0]);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_=
+get_dpm_freq_by_index(smu, clk_type, count - 1,
+<br>
+&#43;&amp;freq_values[2]);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r=
+et)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return size;<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sp=
+rintf(buf &#43; size, &quot;%d: %uMhz %s\n&quot;, i, value,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; cur_value =3D=3D value ? &quot;*&quot; : &quot;&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_values[=
+1] =3D cur_value;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mark_index =
+=3D cur_value =3D=3D freq_values[0] ? 0 :<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cur_value=
+ =3D=3D freq_values[2] ? 2 : 1;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mark_ind=
+ex !=3D 1)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; freq_values[1] =3D (freq_values[0] &#43=
+; freq_values[2]) / 2;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0=
+; i &lt; 3; i&#43;&#43;) {<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size &#43;=3D sprintf(buf &#43; size, &=
+quot;%d: %uMhz %s\n&quot;, i, freq_values[i],<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; i =3D=3D mark_inde=
+x ? &quot;*&quot; : &quot;&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+--<br>
+2.22.0<br>
+<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_MN2PR12MB334488835DA1A0FCA28517BAE4C80MN2PR12MB3344namp_--
+
+--===============1772752187==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1772752187==--
