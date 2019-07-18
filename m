@@ -1,55 +1,64 @@
-From: Lyude Paul <lyude@redhat.com>
-Subject: [PATCH] drm/amdgpu/dm: Remove unneeded hotplug event in s3_handle_mst()
-Date: Wed, 17 Jul 2019 21:48:56 -0400
-Message-ID: <20190718014858.9257-1-lyude@redhat.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu/pm: remove check for pp funcs in freq sysfs
+ handlers
+Date: Thu, 18 Jul 2019 01:59:31 +0000
+Message-ID: <MN2PR12MB33442668FD634813753F0491E4C80@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190717181527.6492-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Sender: linux-kernel-owner@vger.kernel.org
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, David Francis <David.Francis@amd.com>, Mario Kleiner <mario.kleiner.de@gmail.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Anthony Koo <Anthony.Koo@amd.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190717181527.6492-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-The DRM DP MST topology manager will send it's own hotplug events when
-connectors are destroyed, so there's no reason to send an additional
-hotplug event here.
-
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 0242d693f4f6..156eeacee2ae 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -812,7 +812,6 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
- 	struct drm_connector *connector;
- 	struct drm_dp_mst_topology_mgr *mgr;
- 	int ret;
--	bool need_hotplug = false;
- 
- 	drm_modeset_lock(&dev->mode_config.connection_mutex, NULL);
- 
-@@ -831,15 +830,15 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
- 			ret = drm_dp_mst_topology_mgr_resume(mgr);
- 			if (ret < 0) {
- 				drm_dp_mst_topology_mgr_set_mst(mgr, false);
--				need_hotplug = true;
-+				mutex_lock(&aconnector->hpd_lock);
-+				aconnector->dc_link->type =
-+					dc_connection_single;
-+				mutex_unlock(&aconnector->hpd_lock);
- 			}
- 		}
- 	}
- 
- 	drm_modeset_unlock(&dev->mode_config.connection_mutex);
--
--	if (need_hotplug)
--		drm_kms_helper_hotplug_event(dev);
- }
- 
- /**
--- 
-2.21.0
+UmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+DQoNCj4gLS0tLS1Pcmln
+aW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mIEFsZXgNCj4gRGV1Y2hlcg0KPiBTZW50OiBU
+aHVyc2RheSwgSnVseSAxOCwgMjAxOSAyOjE1IEFNDQo+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBh
+bWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0hdIGRybS9hbWRncHUvcG06IHJlbW92ZSBjaGVjayBm
+b3IgcHAgZnVuY3MgaW4gZnJlcSBzeXNmcw0KPiBoYW5kbGVycw0KPiANCj4gVGhlIGRwbSBzZW5z
+b3IgZnVuY3Rpb24gYWxyZWFkeSBkb2VzIHRoaXMgZm9yIHVzLiAgVGhpcyBmaXhlcyB0aGUgZnJl
+cSpfaW5wdXQNCj4gZmlsZXMgd2l0aCB0aGUgbmV3IFNNVSBpbXBsZW1lbnRhdGlvbi4NCj4gDQo+
+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4N
+Cj4gLS0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDEwIC0t
+LS0tLS0tLS0NCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMCBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYw0KPiBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jDQo+IGluZGV4IDM5N2FmOTA5NGEzOS4u
+OGI3ZWZkMGE3MDI4IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcG0uYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0u
+Yw0KPiBAQCAtMjA3NywxMSArMjA3Nyw2IEBAIHN0YXRpYyBzc2l6ZV90IGFtZGdwdV9od21vbl9z
+aG93X3NjbGsoc3RydWN0DQo+IGRldmljZSAqZGV2LA0KPiAgCSAgICAgKGRkZXYtPnN3aXRjaF9w
+b3dlcl9zdGF0ZSAhPSBEUk1fU1dJVENIX1BPV0VSX09OKSkNCj4gIAkJcmV0dXJuIC1FSU5WQUw7
+DQo+IA0KPiAtCS8qIHNhbml0eSBjaGVjayBQUCBpcyBlbmFibGVkICovDQo+IC0JaWYgKCEoYWRl
+di0+cG93ZXJwbGF5LnBwX2Z1bmNzICYmDQo+IC0JICAgICAgYWRldi0+cG93ZXJwbGF5LnBwX2Z1
+bmNzLT5yZWFkX3NlbnNvcikpDQo+IC0JICAgICAgcmV0dXJuIC1FSU5WQUw7DQo+IC0NCj4gIAkv
+KiBnZXQgdGhlIHNjbGsgKi8NCj4gIAlyID0gYW1kZ3B1X2RwbV9yZWFkX3NlbnNvcihhZGV2LA0K
+PiBBTURHUFVfUFBfU0VOU09SX0dGWF9TQ0xLLA0KPiAgCQkJCSAgICh2b2lkICopJnNjbGssICZz
+aXplKTsNCj4gQEAgLTIxMTIsMTEgKzIxMDcsNiBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfaHdt
+b25fc2hvd19tY2xrKHN0cnVjdA0KPiBkZXZpY2UgKmRldiwNCj4gIAkgICAgIChkZGV2LT5zd2l0
+Y2hfcG93ZXJfc3RhdGUgIT0gRFJNX1NXSVRDSF9QT1dFUl9PTikpDQo+ICAJCXJldHVybiAtRUlO
+VkFMOw0KPiANCj4gLQkvKiBzYW5pdHkgY2hlY2sgUFAgaXMgZW5hYmxlZCAqLw0KPiAtCWlmICgh
+KGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcyAmJg0KPiAtCSAgICAgIGFkZXYtPnBvd2VycGxheS5w
+cF9mdW5jcy0+cmVhZF9zZW5zb3IpKQ0KPiAtCSAgICAgIHJldHVybiAtRUlOVkFMOw0KPiAtDQo+
+ICAJLyogZ2V0IHRoZSBzY2xrICovDQo+ICAJciA9IGFtZGdwdV9kcG1fcmVhZF9zZW5zb3IoYWRl
+diwNCj4gQU1ER1BVX1BQX1NFTlNPUl9HRlhfTUNMSywNCj4gIAkJCQkgICAodm9pZCAqKSZtY2xr
+LCAmc2l6ZSk7DQo+IC0tDQo+IDIuMjAuMQ0KPiANCj4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2FtZC1nZng=
