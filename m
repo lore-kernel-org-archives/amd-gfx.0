@@ -1,12 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/: use VCN firmware offset for cache window
-Date: Thu, 18 Jul 2019 15:51:01 +0000
-Message-ID: <BN6PR12MB180932472127F74480B34989F7C80@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190718154616.14841-1-leo.liu@amd.com>
+From: "Liu, Zhan" <Zhan.Liu-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 87/87] drm/amd/display: Force uclk to max for every state
+Date: Thu, 18 Jul 2019 15:51:29 +0000
+Message-ID: <MN2PR12MB3471B471CBA41205293AA6E29EC80@MN2PR12MB3471.namprd12.prod.outlook.com>
+References: <20190715212049.4584-1-sunpeng.li@amd.com>
+ <20190715212049.4584-88-sunpeng.li@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0808189205=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190718154616.14841-1-leo.liu-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190715212049.4584-88-sunpeng.li-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -18,154 +20,87 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Li, Sun peng (Leo)" <Sunpeng.Li-5C7GfCeVMHo@public.gmane.org>, "Kazlauskas,
+ Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
---===============0808189205==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180932472127F74480B34989F7C80BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180932472127F74480B34989F7C80BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Liu, Leo=
- <Leo.Liu-5C7GfCeVMHo@public.gmane.org>
-Sent: Thursday, July 18, 2019 11:46 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Liu, Leo
-Subject: [PATCH] drm/amdgpu/: use VCN firmware offset for cache window
-
-Since we are using the signed FW now, and also using PSP firmware loading,
-but it's still potential to break driver when loading FW directly
-instead of PSP, so we should add offset.
-
-Signed-off-by: Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v2_0.c
-index 3cb62e448a37..88e3dedcf926 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-@@ -379,11 +379,8 @@ static void vcn_v2_0_mc_resume(struct amdgpu_device *a=
-dev)
-                 WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,
-                         upper_32_bits(adev->vcn.inst->gpu_addr));
-                 offset =3D size;
--               /* No signed header for now from firmware
-                 WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0,
-                         AMDGPU_UVD_FIRMWARE_OFFSET >> 3);
--               */
--               WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0, 0);
-         }
-
-         WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_SIZE0, size);
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180932472127F74480B34989F7C80BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Liu, Leo &lt;Leo.Liu-5C7GfCeVMHo@public.gmane.org&=
-gt;<br>
-<b>Sent:</b> Thursday, July 18, 2019 11:46 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Liu, Leo<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/: use VCN firmware offset for cache wind=
-ow</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Since we are using the signed FW now, and also usi=
-ng PSP firmware loading,<br>
-but it's still potential to break driver when loading FW directly<br>
-instead of PSP, so we should add offset.<br>
-<br>
-Signed-off-by: Leo Liu &lt;leo.liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 3 ---<br>
-&nbsp;1 file changed, 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/am=
-dgpu/vcn_v2_0.c<br>
-index 3cb62e448a37..88e3dedcf926 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
-@@ -379,11 &#43;379,8 @@ static void vcn_v2_0_mc_resume(struct amdgpu_devic=
-e *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_H=
-IGH,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; upper=
-_32_bits(adev-&gt;vcn.inst-&gt;gpu_addr));<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; offset =3D size;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; /* No signed header for now from firmware<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGP=
-U_UVD_FIRMWARE_OFFSET &gt;&gt; 3);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD_VCPU_CACHE_OFFSET0, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(UVD, 0, mmUVD=
-_VCPU_CACHE_SIZE0, size);<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180932472127F74480B34989F7C80BN6PR12MB1809namp_--
-
---===============0808189205==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0808189205==--
+DQoNClJldmlld2VkLWJ5OiBaaGFuIExpdSA8Wmhhbi5MaXVAYW1kLmNvbT4NCg0KDQoNCg0KLS0t
+LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0Bs
+aXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBzdW5wZW5nLmxpQGFtZC5jb20NClNl
+bnQ6IE1vbmRheSwgSnVseSAxNSwgMjAxOSA1OjIxIFBNDQpUbzogYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcNCkNjOiBMaSwgU3VuIHBlbmcgKExlbykgPFN1bnBlbmcuTGlAYW1kLmNvbT47
+IEthemxhdXNrYXMsIE5pY2hvbGFzIDxOaWNob2xhcy5LYXpsYXVza2FzQGFtZC5jb20+DQpTdWJq
+ZWN0OiBbUEFUQ0ggODcvODddIGRybS9hbWQvZGlzcGxheTogRm9yY2UgdWNsayB0byBtYXggZm9y
+IGV2ZXJ5IHN0YXRlDQoNCkZyb206IE5pY2hvbGFzIEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxh
+dXNrYXNAYW1kLmNvbT4NCg0KV29ya2Fyb3VuZCBmb3Igbm93IHRvIGF2b2lkIHVuZGVyZmxvdy4N
+Cg0KVGhlIHVjbGsgc3dpdGNoIHRpbWUgc2hvdWxkIHJlYWxseSBiZSBidW1wZWQgdXAgdG8gNDA0
+LCBidXQgZG9pbmcgc28gd291bGQgZXhwb3NlIHAtc3RhdGUgaGFuZyBpc3N1ZXMgZm9yIGhpZ2hl
+ciBiYW5kd2lkdGggZGlzcGxheSBjb25maWd1cmF0aW9ucy4NCg0KQ2hhbmdlLUlkOiBJOTgwNjBm
+YzljNGVlZWNlMDdlZjU0ZTEzYTE0NGRlZjg4YTNjM2QyMQ0KU2lnbmVkLW9mZi1ieTogTmljaG9s
+YXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPg0KU2lnbmVkLW9mZi1i
+eTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+DQotLS0NCiAuLi4vZ3B1L2RybS9hbWQvZGlz
+cGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX3BwX3NtdS5jICAgfCAgNiArKystLS0NCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAvZGNuMjBfcmVzb3VyY2UuYyAgfCAxMCArKysr
+KysrKysrDQogMiBmaWxlcyBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygt
+KQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
+bWRncHVfZG1fcHBfc211LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
+L2FtZGdwdV9kbV9wcF9zbXUuYw0KaW5kZXggOTgzYTFiZDU2MjcyLi43NDY5N2NlZjVkZmUgMTAw
+NjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9k
+bV9wcF9zbXUuYw0KKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9h
+bWRncHVfZG1fcHBfc211LmMNCkBAIC05MTIsMTEgKzkxMiwxMSBAQCB2b2lkIGRtX3BwX2dldF9m
+dW5jcygNCiAJCS8qIHRvZG8gc2V0X3BtZV93YV9lbmFibGUgY2F1c2UgNGtANm9oeiBkaXNwbGF5
+IG5vdCBsaWdodCB1cCAqLw0KIAkJZnVuY3MtPm52X2Z1bmNzLnNldF9wbWVfd2FfZW5hYmxlID0g
+TlVMTDsNCiAJCS8qIHRvZG8gZGVidWcgd2FyaW5nIG1lc3NhZ2UgKi8NCi0JCWZ1bmNzLT5udl9m
+dW5jcy5zZXRfaGFyZF9taW5fdWNsa19ieV9mcmVxID0gTlVMTDsNCisJCWZ1bmNzLT5udl9mdW5j
+cy5zZXRfaGFyZF9taW5fdWNsa19ieV9mcmVxID0gDQorcHBfbnZfc2V0X2hhcmRfbWluX3VjbGtf
+YnlfZnJlcTsNCiAJCS8qIHRvZG8gIGNvbXBhcmUgZGF0YSB3aXRoIHdpbmRvdyBkcml2ZXIqLw0K
+LQkJZnVuY3MtPm52X2Z1bmNzLmdldF9tYXhpbXVtX3N1c3RhaW5hYmxlX2Nsb2NrcyA9IE5VTEw7
+DQorCQlmdW5jcy0+bnZfZnVuY3MuZ2V0X21heGltdW1fc3VzdGFpbmFibGVfY2xvY2tzID0gDQor
+cHBfbnZfZ2V0X21heGltdW1fc3VzdGFpbmFibGVfY2xvY2tzOw0KIAkJLyp0b2RvICBjb21wYXJl
+IGRhdGEgd2l0aCB3aW5kb3cgZHJpdmVyICovDQotCQlmdW5jcy0+bnZfZnVuY3MuZ2V0X3VjbGtf
+ZHBtX3N0YXRlcyA9IE5VTEw7DQorCQlmdW5jcy0+bnZfZnVuY3MuZ2V0X3VjbGtfZHBtX3N0YXRl
+cyA9IHBwX252X2dldF91Y2xrX2RwbV9zdGF0ZXM7DQogCQlicmVhazsNCiAjZW5kaWYNCiAJZGVm
+YXVsdDoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAv
+ZGNuMjBfcmVzb3VyY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9k
+Y24yMF9yZXNvdXJjZS5jDQppbmRleCAyY2Y3ODhhMzcwNGUuLjQ0NTM3NjUxZjBhMSAxMDA2NDQN
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24yMF9yZXNvdXJj
+ZS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAvZGNuMjBfcmVz
+b3VyY2UuYw0KQEAgLTI3MDcsNiArMjcwNyw5IEBAIHN0YXRpYyB2b2lkIGNhcF9zb2NfY2xvY2tz
+KA0KIAkJCQkJCSYmIG1heF9jbG9ja3MudUNsb2NrSW5LaHogIT0gMCkNCiAJCQliYi0+Y2xvY2tf
+bGltaXRzW2ldLmRyYW1fc3BlZWRfbXRzID0gKG1heF9jbG9ja3MudUNsb2NrSW5LaHogLyAxMDAw
+KSAqIDE2Ow0KIA0KKwkJLy8gSEFDSzogRm9yY2UgZXZlcnkgdWNsayB0byBtYXggZm9yIG5vdyB0
+byAiZGlzYWJsZSIgdWNsayBzd2l0Y2hpbmcuDQorCQliYi0+Y2xvY2tfbGltaXRzW2ldLmRyYW1f
+c3BlZWRfbXRzID0gKG1heF9jbG9ja3MudUNsb2NrSW5LaHogLyAxMDAwKSANCisqIDE2Ow0KKw0K
+IAkJaWYgKChiYi0+Y2xvY2tfbGltaXRzW2ldLmZhYnJpY2Nsa19taHogPiAobWF4X2Nsb2Nrcy5m
+YWJyaWNDbG9ja0luS2h6IC8gMTAwMCkpDQogCQkJCQkJJiYgbWF4X2Nsb2Nrcy5mYWJyaWNDbG9j
+a0luS2h6ICE9IDApDQogCQkJYmItPmNsb2NrX2xpbWl0c1tpXS5mYWJyaWNjbGtfbWh6ID0gKG1h
+eF9jbG9ja3MuZmFicmljQ2xvY2tJbktoeiAvIDEwMDApOyBAQCAtMjkyMiw2ICsyOTI1LDggQEAg
+c3RhdGljIGJvb2wgaW5pdF9zb2NfYm91bmRpbmdfYm94KHN0cnVjdCBkYyAqZGMsDQogCQkJCWxl
+MzJfdG9fY3B1KGJiLT52bW1fcGFnZV9zaXplX2J5dGVzKTsNCiAJCWRjbjJfMF9zb2MuZHJhbV9j
+bG9ja19jaGFuZ2VfbGF0ZW5jeV91cyA9DQogCQkJCWZpeGVkMTZfdG9fZG91YmxlX3RvX2NwdShi
+Yi0+ZHJhbV9jbG9ja19jaGFuZ2VfbGF0ZW5jeV91cyk7DQorCQkvLyBIQUNLISEgTG93ZXIgdWNs
+b2NrIGxhdGVuY3kgc3dpdGNoIHRpbWUgc28gd2UgZG9uJ3Qgc3dpdGNoDQorCQlkY24yXzBfc29j
+LmRyYW1fY2xvY2tfY2hhbmdlX2xhdGVuY3lfdXMgPSAxMDsNCiAJCWRjbjJfMF9zb2Mud3JpdGVi
+YWNrX2RyYW1fY2xvY2tfY2hhbmdlX2xhdGVuY3lfdXMgPQ0KIAkJCQlmaXhlZDE2X3RvX2RvdWJs
+ZV90b19jcHUoYmItPndyaXRlYmFja19kcmFtX2Nsb2NrX2NoYW5nZV9sYXRlbmN5X3VzKTsNCiAJ
+CWRjbjJfMF9zb2MucmV0dXJuX2J1c193aWR0aF9ieXRlcyA9DQpAQCAtMjk2Myw2ICsyOTY4LDcg
+QEAgc3RhdGljIGJvb2wgaW5pdF9zb2NfYm91bmRpbmdfYm94KHN0cnVjdCBkYyAqZGMsDQogCQlz
+dHJ1Y3QgcHBfc211X252X2Nsb2NrX3RhYmxlIG1heF9jbG9ja3MgPSB7MH07DQogCQl1bnNpZ25l
+ZCBpbnQgdWNsa19zdGF0ZXNbOF0gPSB7MH07DQogCQl1bnNpZ25lZCBpbnQgbnVtX3N0YXRlcyA9
+IDA7DQorCQlpbnQgaTsNCiAJCWVudW0gcHBfc211X3N0YXR1cyBzdGF0dXM7DQogCQlib29sIGNs
+b2NrX2xpbWl0c19hdmFpbGFibGUgPSBmYWxzZTsNCiAJCWJvb2wgdWNsa19zdGF0ZXNfYXZhaWxh
+YmxlID0gZmFsc2U7DQpAQCAtMjk4NCw2ICsyOTkwLDEwIEBAIHN0YXRpYyBib29sIGluaXRfc29j
+X2JvdW5kaW5nX2JveChzdHJ1Y3QgZGMgKmRjLA0KIAkJCWNsb2NrX2xpbWl0c19hdmFpbGFibGUg
+PSAoc3RhdHVzID09IFBQX1NNVV9SRVNVTFRfT0spOw0KIAkJfQ0KIA0KKwkJLy8gSEFDSzogVXNl
+IHRoZSBtYXggdWNsa19zdGF0ZXMgdmFsdWUgZm9yIGFsbCBlbGVtZW50cy4NCisJCWZvciAoaSA9
+IDA7IGkgPCBudW1fc3RhdGVzOyBpKyspDQorCQkJdWNsa19zdGF0ZXNbaV0gPSB1Y2xrX3N0YXRl
+c1tudW1fc3RhdGVzIC0gMV07DQorDQogCQlpZiAoY2xvY2tfbGltaXRzX2F2YWlsYWJsZSAmJiB1
+Y2xrX3N0YXRlc19hdmFpbGFibGUgJiYgbnVtX3N0YXRlcykNCiAJCQl1cGRhdGVfYm91bmRpbmdf
+Ym94KGRjLCAmZGNuMl8wX3NvYywgJm1heF9jbG9ja3MsIHVjbGtfc3RhdGVzLCBudW1fc3RhdGVz
+KTsNCiAJCWVsc2UgaWYgKGNsb2NrX2xpbWl0c19hdmFpbGFibGUpDQotLQ0KMi4yMi4wDQoNCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdA0KYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA0KX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1k
+LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcv
+bWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
