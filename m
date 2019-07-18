@@ -1,324 +1,310 @@
-From: Frederick Lawler <fred@fredlawl.com>
-Subject: [PATCH] drm/radeon: Prefer pcie_capability_read_word()
-Date: Wed, 17 Jul 2019 21:07:38 -0500
-Message-ID: <20190718020745.8867-3-fred@fredlawl.com>
-References: <20190718020745.8867-1-fred@fredlawl.com>
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190718020745.8867-1-fred@fredlawl.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, daniel@ffwll.ch
-Cc: Frederick Lawler <fred@fredlawl.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, bhelgaas@google.com
-List-Id: amd-gfx.lists.freedesktop.org
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 2/2] drm/amdgpu: add sclk/uclk sensor support for vega20
+Date: Thu, 18 Jul 2019 03:47:55 +0000
+Message-ID: <BN6PR12MB180992420807D62D015ED4C4F7C80@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190717143540.30090-1-alexander.deucher@amd.com>
+ <20190717143540.30090-2-alexander.deucher@amd.com>,
+ <MN2PR12MB3344577E7EAD4F9B9E267846E4C80@MN2PR12MB3344.namprd12.prod.outlook.com>
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============1234995312=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <MN2PR12MB3344577E7EAD4F9B9E267846E4C80-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Commit 8c0d3a02c130 ("PCI: Add accessors for PCI Express Capability")
-added accessors for the PCI Express Capability so that drivers didn't
-need to be aware of differences between v1 and v2 of the PCI
-Express Capability.
+--===============1234995312==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB180992420807D62D015ED4C4F7C80BN6PR12MB1809namp_"
 
-Replace pci_read_config_word() and pci_write_config_word() calls with
-pcie_capability_read_word() and pcie_capability_write_word().
+--_000_BN6PR12MB180992420807D62D015ED4C4F7C80BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Frederick Lawler <fred@fredlawl.com>
----
- drivers/gpu/drm/radeon/cik.c | 70 +++++++++++++++++++++-------------
- drivers/gpu/drm/radeon/si.c  | 73 +++++++++++++++++++++++-------------
- 2 files changed, 90 insertions(+), 53 deletions(-)
+Ah, I missed that they were already handled in smu_v11_0.c.  In that case, =
+I think I can drop these patches.
 
-diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index ab7b4e2ffcd2..f6c91ac5427a 100644
---- a/drivers/gpu/drm/radeon/cik.c
-+++ b/drivers/gpu/drm/radeon/cik.c
-@@ -9500,7 +9500,6 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- {
- 	struct pci_dev *root = rdev->pdev->bus->self;
- 	enum pci_bus_speed speed_cap;
--	int bridge_pos, gpu_pos;
- 	u32 speed_cntl, current_data_rate;
- 	int i;
- 	u16 tmp16;
-@@ -9542,12 +9541,7 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 		DRM_INFO("enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0\n");
- 	}
- 
--	bridge_pos = pci_pcie_cap(root);
--	if (!bridge_pos)
--		return;
--
--	gpu_pos = pci_pcie_cap(rdev->pdev);
--	if (!gpu_pos)
-+	if (!pci_is_pcie(root) || !pci_is_pcie(rdev->pdev))
- 		return;
- 
- 	if (speed_cap == PCIE_SPEED_8_0GT) {
-@@ -9557,14 +9551,17 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
--			pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
-+			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
-+						  &bridge_cfg);
-+			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
-+						  &gpu_cfg);
- 
- 			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
-+			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
- 
- 			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
-+			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
-+						   tmp16);
- 
- 			tmp = RREG32_PCIE_PORT(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -9582,15 +9579,23 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 
- 			for (i = 0; i < 10; i++) {
- 				/* check status */
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_DEVSTA, &tmp16);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_DEVSTA,
-+							  &tmp16);
- 				if (tmp16 & PCI_EXP_DEVSTA_TRPND)
- 					break;
- 
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
-+							  &bridge_cfg);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL,
-+							  &gpu_cfg);
- 
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &bridge_cfg2);
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &gpu_cfg2);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-+							  &bridge_cfg2);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL2,
-+							  &gpu_cfg2);
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
- 				tmp |= LC_SET_QUIESCE;
-@@ -9603,26 +9608,39 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 				msleep(100);
- 
- 				/* linkctl */
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &tmp16);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
-+							  &tmp16);
- 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
- 				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
-+				pcie_capability_write_word(root, PCI_EXP_LNKCTL,
-+							   tmp16);
- 
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &tmp16);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL,
-+							  &tmp16);
- 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
- 				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
-+				pcie_capability_write_word(rdev->pdev,
-+							   PCI_EXP_LNKCTL,
-+							   tmp16);
- 
- 				/* linkctl2 */
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-+							  &tmp16);
- 				tmp16 &= ~((1 << 4) | (7 << 9));
- 				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 9)));
--				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
-+				pcie_capability_write_word(root,
-+							   PCI_EXP_LNKCTL2,
-+							   tmp16);
- 
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL2,
-+							  &tmp16);
- 				tmp16 &= ~((1 << 4) | (7 << 9));
- 				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 9)));
--				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
-+				pcie_capability_write_word(rdev->pdev,
-+							   PCI_EXP_LNKCTL2,
-+							   tmp16);
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
- 				tmp &= ~LC_SET_QUIESCE;
-@@ -9636,7 +9654,7 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
- 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
- 
--	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
-+	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
- 	tmp16 &= ~0xf;
- 	if (speed_cap == PCIE_SPEED_8_0GT)
- 		tmp16 |= 3; /* gen3 */
-@@ -9644,7 +9662,7 @@ static void cik_pcie_gen3_enable(struct radeon_device *rdev)
- 		tmp16 |= 2; /* gen2 */
- 	else
- 		tmp16 |= 1; /* gen1 */
--	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
-+	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
- 
- 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
- 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
-diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index 841bc8bc333d..6916703d7899 100644
---- a/drivers/gpu/drm/radeon/si.c
-+++ b/drivers/gpu/drm/radeon/si.c
-@@ -3253,7 +3253,7 @@ static void si_gpu_init(struct radeon_device *rdev)
- 		/* XXX what about 12? */
- 		rdev->config.si.tile_config |= (3 << 0);
- 		break;
--	}	
-+	}
- 	switch ((mc_arb_ramcfg & NOOFBANK_MASK) >> NOOFBANK_SHIFT) {
- 	case 0: /* four banks */
- 		rdev->config.si.tile_config |= 0 << 4;
-@@ -7083,7 +7083,6 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- {
- 	struct pci_dev *root = rdev->pdev->bus->self;
- 	enum pci_bus_speed speed_cap;
--	int bridge_pos, gpu_pos;
- 	u32 speed_cntl, current_data_rate;
- 	int i;
- 	u16 tmp16;
-@@ -7125,12 +7124,7 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 		DRM_INFO("enabling PCIE gen 2 link speeds, disable with radeon.pcie_gen2=0\n");
- 	}
- 
--	bridge_pos = pci_pcie_cap(root);
--	if (!bridge_pos)
--		return;
--
--	gpu_pos = pci_pcie_cap(rdev->pdev);
--	if (!gpu_pos)
-+	if (!pci_is_pcie(root) || !pci_is_pcie(rdev->pdev))
- 		return;
- 
- 	if (speed_cap == PCIE_SPEED_8_0GT) {
-@@ -7140,14 +7134,17 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 			u16 bridge_cfg2, gpu_cfg2;
- 			u32 max_lw, current_lw, tmp;
- 
--			pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
--			pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
-+			pcie_capability_read_word(root, PCI_EXP_LNKCTL,
-+						  &bridge_cfg);
-+			pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL,
-+						  &gpu_cfg);
- 
- 			tmp16 = bridge_cfg | PCI_EXP_LNKCTL_HAWD;
--			pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
-+			pcie_capability_write_word(root, PCI_EXP_LNKCTL, tmp16);
- 
- 			tmp16 = gpu_cfg | PCI_EXP_LNKCTL_HAWD;
--			pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
-+			pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL,
-+						   tmp16);
- 
- 			tmp = RREG32_PCIE(PCIE_LC_STATUS1);
- 			max_lw = (tmp & LC_DETECTED_LINK_WIDTH_MASK) >> LC_DETECTED_LINK_WIDTH_SHIFT;
-@@ -7165,15 +7162,23 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 
- 			for (i = 0; i < 10; i++) {
- 				/* check status */
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_DEVSTA, &tmp16);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_DEVSTA,
-+							  &tmp16);
- 				if (tmp16 & PCI_EXP_DEVSTA_TRPND)
- 					break;
- 
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &bridge_cfg);
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &gpu_cfg);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
-+							  &bridge_cfg);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL,
-+							  &gpu_cfg);
- 
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &bridge_cfg2);
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &gpu_cfg2);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-+							  &bridge_cfg2);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL2,
-+							  &gpu_cfg2);
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
- 				tmp |= LC_SET_QUIESCE;
-@@ -7186,26 +7191,40 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 				msleep(100);
- 
- 				/* linkctl */
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL, &tmp16);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL,
-+							  &tmp16);
- 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
- 				tmp16 |= (bridge_cfg & PCI_EXP_LNKCTL_HAWD);
--				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL, tmp16);
-+				pcie_capability_write_word(root,
-+							   PCI_EXP_LNKCTL,
-+							   tmp16);
- 
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, &tmp16);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL,
-+							  &tmp16);
- 				tmp16 &= ~PCI_EXP_LNKCTL_HAWD;
- 				tmp16 |= (gpu_cfg & PCI_EXP_LNKCTL_HAWD);
--				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL, tmp16);
-+				pcie_capability_write_word(rdev->pdev,
-+							   PCI_EXP_LNKCTL,
-+							   tmp16);
- 
- 				/* linkctl2 */
--				pci_read_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, &tmp16);
-+				pcie_capability_read_word(root, PCI_EXP_LNKCTL2,
-+							  &tmp16);
- 				tmp16 &= ~((1 << 4) | (7 << 9));
- 				tmp16 |= (bridge_cfg2 & ((1 << 4) | (7 << 9)));
--				pci_write_config_word(root, bridge_pos + PCI_EXP_LNKCTL2, tmp16);
-+				pcie_capability_write_word(root,
-+							   PCI_EXP_LNKCTL2,
-+							   tmp16);
- 
--				pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
-+				pcie_capability_read_word(rdev->pdev,
-+							  PCI_EXP_LNKCTL2,
-+							  &tmp16);
- 				tmp16 &= ~((1 << 4) | (7 << 9));
- 				tmp16 |= (gpu_cfg2 & ((1 << 4) | (7 << 9)));
--				pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
-+				pcie_capability_write_word(rdev->pdev,
-+							   PCI_EXP_LNKCTL2,
-+							   tmp16);
- 
- 				tmp = RREG32_PCIE_PORT(PCIE_LC_CNTL4);
- 				tmp &= ~LC_SET_QUIESCE;
-@@ -7219,7 +7238,7 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 	speed_cntl &= ~LC_FORCE_DIS_SW_SPEED_CHANGE;
- 	WREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL, speed_cntl);
- 
--	pci_read_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, &tmp16);
-+	pcie_capability_read_word(rdev->pdev, PCI_EXP_LNKCTL2, &tmp16);
- 	tmp16 &= ~0xf;
- 	if (speed_cap == PCIE_SPEED_8_0GT)
- 		tmp16 |= 3; /* gen3 */
-@@ -7227,7 +7246,7 @@ static void si_pcie_gen3_enable(struct radeon_device *rdev)
- 		tmp16 |= 2; /* gen2 */
- 	else
- 		tmp16 |= 1; /* gen1 */
--	pci_write_config_word(rdev->pdev, gpu_pos + PCI_EXP_LNKCTL2, tmp16);
-+	pcie_capability_write_word(rdev->pdev, PCI_EXP_LNKCTL2, tmp16);
- 
- 	speed_cntl = RREG32_PCIE_PORT(PCIE_LC_SPEED_CNTL);
- 	speed_cntl |= LC_INITIATE_LINK_SPEED_CHANGE;
--- 
-2.17.1
+Alex
+________________________________
+From: Quan, Evan
+Sent: Wednesday, July 17, 2019 8:58 PM
+To: Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Deucher, Alexander
+Subject: RE: [PATCH 2/2] drm/amdgpu: add sclk/uclk sensor support for vega2=
+0
+
+I think the AMDGPU_PP_SENSOR_GFX_SCLK and AMDGPU_PP_SENSOR_GFX_MCLK request=
+s are handled in smu_v11_0_read_sensor.
+It means it cannot reach navi10_ppt.c and vega20_ppt.c.
+Maybe this should be fixed in smu_v11_0_read_sensor.
+
+Regards,
+Evan
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Alex
+> Deucher
+> Sent: Wednesday, July 17, 2019 10:36 PM
+> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+> Subject: [PATCH 2/2] drm/amdgpu: add sclk/uclk sensor support for vega20
+>
+> Query the metrics table to get the average sclk and uclk.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 35
+> ++++++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+> b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+> index 9204e4e50d09..763d73af6cd1 100644
+> --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+> @@ -3117,6 +3117,36 @@ static int vega20_thermal_get_temperature(struct
+> smu_context *smu,
+>
+>        return 0;
+>  }
+> +
+> +static int vega20_get_avg_clocks(struct smu_context *smu,
+> +                              enum amd_pp_sensors sensor,
+> +                              uint32_t *value)
+> +{
+> +     SmuMetrics_t metrics;
+> +     int ret =3D 0;
+> +
+> +     if (!value)
+> +             return -EINVAL;
+> +
+> +     ret =3D smu_update_table(smu, SMU_TABLE_SMU_METRICS, (void
+> *)&metrics, false);
+> +     if (ret)
+> +             return ret;
+> +
+> +     switch (sensor) {
+> +     case AMDGPU_PP_SENSOR_GFX_SCLK:
+> +             *value =3D metrics.AverageGfxclkFrequency * 100;
+> +             break;
+> +     case AMDGPU_PP_SENSOR_GFX_MCLK:
+> +             *value =3D metrics.AverageUclkFrequency * 100;
+> +             break;
+> +     default:
+> +             pr_err("Invalid sensor for retrieving avg clock\n");
+> +             return -EINVAL;
+> +     }
+> +
+> +     return 0;
+> +}
+> +
+>  static int vega20_read_sensor(struct smu_context *smu,
+>                                 enum amd_pp_sensors sensor,
+>                                 void *data, uint32_t *size)
+> @@ -3147,6 +3177,11 @@ static int vega20_read_sensor(struct smu_context
+> *smu,
+>                ret =3D vega20_thermal_get_temperature(smu, sensor,
+> (uint32_t *)data);
+>                *size =3D 4;
+>                break;
+> +     case AMDGPU_PP_SENSOR_GFX_SCLK:
+> +     case AMDGPU_PP_SENSOR_GFX_MCLK:
+> +             ret =3D vega20_get_avg_clocks(smu, sensor, (uint32_t *)data=
+);
+> +             *size =3D 4;
+> +             break;
+>        default:
+>                return -EINVAL;
+>        }
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN6PR12MB180992420807D62D015ED4C4F7C80BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Ah, I missed that they were already handled in smu_v11_0.c.&nbsp; In that c=
+ase, I think I can drop these patches.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Quan, Evan<br>
+<b>Sent:</b> Wednesday, July 17, 2019 8:58 PM<br>
+<b>To:</b> Alex Deucher; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Deucher, Alexander<br>
+<b>Subject:</b> RE: [PATCH 2/2] drm/amdgpu: add sclk/uclk sensor support fo=
+r vega20</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">I think the AMDGPU_PP_SENSOR_GFX_SCLK and AMDGPU_P=
+P_SENSOR_GFX_MCLK requests are handled in smu_v11_0_read_sensor.<br>
+It means it cannot reach navi10_ppt.c and vega20_ppt.c.<br>
+Maybe this should be fixed in smu_v11_0_read_sensor.<br>
+<br>
+Regards,<br>
+Evan<br>
+&gt; -----Original Message-----<br>
+&gt; From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf =
+Of Alex<br>
+&gt; Deucher<br>
+&gt; Sent: Wednesday, July 17, 2019 10:36 PM<br>
+&gt; To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; Cc: Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; Subject: [PATCH 2/2] drm/amdgpu: add sclk/uclk sensor support for vega=
+20<br>
+&gt; <br>
+&gt; Query the metrics table to get the average sclk and uclk.<br>
+&gt; <br>
+&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/powerplay/vega20_ppt.c | 35<br>
+&gt; &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; 1 file changed, 35 insertions(&#43;)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&gt; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&gt; index 9204e4e50d09..763d73af6cd1 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&gt; @@ -3117,6 &#43;3117,36 @@ static int vega20_thermal_get_temperature(s=
+truct<br>
+&gt; smu_context *smu,<br>
+&gt; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;static int vega20_get_avg_clocks(struct smu_context *smu,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pp_sensors sensor,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *value)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; SmuMetrics_t metrics;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!value)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; return -EINVAL;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_update_table(smu, SMU_TABLE_=
+SMU_METRICS, (void<br>
+&gt; *)&amp;metrics, false);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; return ret;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_SCLK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; *value =3D metrics.AverageGfxclkFrequency * 100;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_MCLK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; *value =3D metrics.AverageUclkFrequency * 100;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; pr_err(&quot;Invalid sensor for retrieving avg clock\n&quot;);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp; static int vega20_read_sensor(struct smu_context *smu,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum amd_pp_sensors sensor,<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *data, uint32_t *size)<=
+br>
+&gt; @@ -3147,6 &#43;3177,11 @@ static int vega20_read_sensor(struct smu_co=
+ntext<br>
+&gt; *smu,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ret =3D vega20_thermal_get_temperature(smu, sensor,<br>
+&gt; (uint32_t *)data);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_SCLK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_MCLK:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; ret =3D vega20_get_avg_clocks(smu, sensor, (uint32_t *)data);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; *size =3D 4;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; --<br>
+&gt; 2.20.1<br>
+&gt; <br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB180992420807D62D015ED4C4F7C80BN6PR12MB1809namp_--
+
+--===============1234995312==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1234995312==--
