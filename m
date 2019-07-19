@@ -1,54 +1,65 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 5.1 026/141] drm/amd/display: CS_TFM_1D only applied
- post EOTF
-Date: Fri, 19 Jul 2019 00:00:51 -0400
-Message-ID: <20190719040246.15945-26-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.1 027/141] drm/amd/display: Increase Backlight Gain Step Size
+Date: Fri, 19 Jul 2019 00:00:52 -0400
+Message-ID: <20190719040246.15945-27-sashal@kernel.org>
 References: <20190719040246.15945-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190719040246.15945-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Aric Cyr <Aric.Cyr-5C7GfCeVMHo@public.gmane.org>, Krunoslav Kovac <Krunoslav.Kovac-5C7GfCeVMHo@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190719040246.15945-1-sashal@kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Eryk Brol <eryk.brol@amd.com>, Jun Lei <Jun.Lei@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogS3J1bm9zbGF2IEtvdmFjIDxLcnVub3NsYXYuS292YWNAYW1kLmNvbT4KClsgVXBzdHJl
-YW0gY29tbWl0IDZhZDM0YWRlYWVjNWI1NmE1YmE5MGU5MDA5OWNhYmYxYzFmZTlkZDIgXQoKW1do
-eV0KVGhlcmUncyBzb21lIHVubmVjZXNzYXJ5IG1lbSBhbGxvY2F0aW9uIGZvciBDU19URk1fSUQu
-IFdoYXQncyB3b3JzZSwgaXQKZGVwZW5kcyBvbiBMVVQgc2l6ZSBhbmQgc2luY2UgaXQncyA0SyBm
-b3IgQ1NfVEZNXzFELCBpdCBpcyAxNnggYmlnZ2VyCnRoYW4gaW4gcmVndWxhciBjYXNlIHdoZW4g
-aXQncyBhY3R1YWxseSBuZWVkZWQuIFRoaXMgbGVhZHMgdG8gc29tZQpjcmFzaGVzIGluIHN0cmVz
-cyBjb25kaXRpb25zLgoKW0hvd10KU2tpcCByYW1wIGNvbWJpbmluZyBkZXNpZ25lZCBmb3IgUkdC
-MjU2IGFuZCBEWEdJIGdhbW1hIHdpdGggQ1NfVEZNXzFELgoKU2lnbmVkLW9mZi1ieTogS3J1bm9z
-bGF2IEtvdmFjIDxLcnVub3NsYXYuS292YWNAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IEFyaWMgQ3ly
-IDxBcmljLkN5ckBhbWQuY29tPgpBY2tlZC1ieTogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+
-ClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
-U2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2NvbG9yL2NvbG9yX2dhbW1hLmMgfCAzICsr
-LQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2NvbG9yL2NvbG9yX2dh
-bW1hLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9jb2xvci9jb2xvcl9n
-YW1tYS5jCmluZGV4IGExMDU1NDEzYmFkZS4uMzFmODY3YmI1YWZlIDEwMDY0NAotLS0gYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvbW9kdWxlcy9jb2xvci9jb2xvcl9nYW1tYS5jCisrKyBi
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9tb2R1bGVzL2NvbG9yL2NvbG9yX2dhbW1hLmMK
-QEAgLTE1NjQsNyArMTU2NCw4IEBAIGJvb2wgbW9kX2NvbG9yX2NhbGN1bGF0ZV9yZWdhbW1hX3Bh
-cmFtcyhzdHJ1Y3QgZGNfdHJhbnNmZXJfZnVuYyAqb3V0cHV0X3RmLAogCiAJb3V0cHV0X3RmLT50
-eXBlID0gVEZfVFlQRV9ESVNUUklCVVRFRF9QT0lOVFM7CiAKLQlpZiAocmFtcCAmJiAobWFwVXNl
-clJhbXAgfHwgcmFtcC0+dHlwZSAhPSBHQU1NQV9SR0JfMjU2KSkgeworCWlmIChyYW1wICYmIHJh
-bXAtPnR5cGUgIT0gR0FNTUFfQ1NfVEZNXzFEICYmCisJCQkobWFwVXNlclJhbXAgfHwgcmFtcC0+
-dHlwZSAhPSBHQU1NQV9SR0JfMjU2KSkgewogCQlyZ2JfdXNlciA9IGt2Y2FsbG9jKHJhbXAtPm51
-bV9lbnRyaWVzICsgX0VYVFJBX1BPSU5UUywKIAkJCSAgICBzaXplb2YoKnJnYl91c2VyKSwKIAkJ
-CSAgICBHRlBfS0VSTkVMKTsKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+From: Eryk Brol <eryk.brol@amd.com>
+
+[ Upstream commit e25228b02e4833e5b0fdd262801a2ae6cc72b39d ]
+
+[Why]
+Some backlight tests fail due to backlight settling
+taking too long. This happens because the step
+size used to change backlight levels is too small.
+
+[How]
+1. Change the size of the backlight gain step size
+2. Change how DMCU firmware gets the step size value
+   so that it is passed in by driver during DMCU initn
+
+Signed-off-by: Eryk Brol <eryk.brol@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c | 3 +++
+ drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.h | 2 ++
+ 2 files changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
+index c2926cf19dee..407fb22be66a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
+@@ -365,6 +365,9 @@ static bool dcn10_dmcu_init(struct dmcu *dmcu)
+ 		/* Set initialized ramping boundary value */
+ 		REG_WRITE(MASTER_COMM_DATA_REG1, 0xFFFF);
+ 
++		/* Set backlight ramping stepsize */
++		REG_WRITE(MASTER_COMM_DATA_REG2, abm_gain_stepsize);
++
+ 		/* Set command to initialize microcontroller */
+ 		REG_UPDATE(MASTER_COMM_CMD_REG, MASTER_COMM_CMD_REG_BYTE0,
+ 			MCP_INIT_DMCU);
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.h b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.h
+index c24c0e5ea44e..249a3c23b607 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.h
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.h
+@@ -263,4 +263,6 @@ struct dmcu *dcn10_dmcu_create(
+ 
+ void dce_dmcu_destroy(struct dmcu **dmcu);
+ 
++static const uint32_t abm_gain_stepsize = 0x0060;
++
+ #endif /* _DCE_ABM_H_ */
+-- 
+2.20.1
