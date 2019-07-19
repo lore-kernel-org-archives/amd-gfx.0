@@ -1,14 +1,20 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: refine AMDGPU_PP_SENSOR_XXX index for
- powerplay
-Date: Fri, 19 Jul 2019 13:26:59 +0000
-Message-ID: <BN6PR12MB1809F9A641D069E726088390F7CB0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190719121700.19656-1-kevin1.wang@amd.com>
+From: Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Subject: Re: [PATCH 1/6] dma-buf: add dynamic DMA-buf handling v13
+Date: Fri, 19 Jul 2019 15:30:34 +0200
+Message-ID: <20190719133034.GQ15868@phenom.ffwll.local>
+References: <20190626122310.1498-1-christian.koenig@amd.com>
+ <20190626122933.GK12905@phenom.ffwll.local>
+ <ef70981d-3d52-b339-b3f5-190635969621@gmail.com>
+ <20190719085757.GD15868@phenom.ffwll.local>
+ <4704d3c5-894d-6ac1-4afb-06c275700bac@amd.com>
+ <20190719093144.GK15868@phenom.ffwll.local>
+ <ff12f6e0-f34b-5ea0-72d5-851ef6bb141f@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0088042744=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190719121700.19656-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <ff12f6e0-f34b-5ea0-72d5-851ef6bb141f-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -19,594 +25,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+To: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
 
---===============0088042744==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809F9A641D069E726088390F7CB0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB1809F9A641D069E726088390F7CB0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Wang, Ke=
-vin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, July 19, 2019 8:17 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Wang, Kevin(Yang); Huang, Ray; Feng, Kenneth; Quan, Evan
-Subject: [PATCH] drm/amd/powerplay: refine AMDGPU_PP_SENSOR_XXX index for p=
-owerplay
-
-for patch:
-drm/amd/powerplay: expose current hotspot and memory temperatures V2
-
-this patch will add some new sensor type to enum amd_pp_sensors,
-we should add these types to tail to be compatible with the sensor in
-effect.
-
-eg: some application will use old amd_pp_sensors type, likes umr.
-the umr will use sensor index to get specific sensor value by sysfs
-of "/sys/kernel/debug/dri/0/amdgpu_sensors", the old change will cause
-the umr can't get correct value, it should be update sensor index by
-this header for itself.
-
-Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/amdgpu/si_dpm.c                | 1 +
- drivers/gpu/drm/amd/include/kgd_pp_interface.h     | 6 +++---
- drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c  | 1 +
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   | 1 +
- drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c   | 1 +
- drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 1 +
- drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 1 +
- drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 1 +
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c         | 2 ++
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c         | 2 ++
- 10 files changed, 14 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdg=
-pu/si_dpm.c
-index d57e75e5c71f..9f120333dc71 100644
---- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
-@@ -8012,6 +8012,7 @@ static int si_dpm_read_sensor(void *handle, int idx,
-                 }
-                 return -EINVAL;
-         case AMDGPU_PP_SENSOR_GPU_TEMP:
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *((uint32_t *)value) =3D si_dpm_get_temp(adev);
-                 *size =3D 4;
-                 return 0;
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h
-index 9733bbf9bc72..af71da7d9896 100644
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_pp_interface.h
-@@ -112,9 +112,6 @@ enum amd_pp_sensors {
-         AMDGPU_PP_SENSOR_MEM_LOAD,
-         AMDGPU_PP_SENSOR_GFX_MCLK,
-         AMDGPU_PP_SENSOR_GPU_TEMP,
--       AMDGPU_PP_SENSOR_EDGE_TEMP =3D AMDGPU_PP_SENSOR_GPU_TEMP,
--       AMDGPU_PP_SENSOR_HOTSPOT_TEMP,
--       AMDGPU_PP_SENSOR_MEM_TEMP,
-         AMDGPU_PP_SENSOR_VCE_POWER,
-         AMDGPU_PP_SENSOR_UVD_POWER,
-         AMDGPU_PP_SENSOR_GPU_POWER,
-@@ -123,6 +120,9 @@ enum amd_pp_sensors {
-         AMDGPU_PP_SENSOR_ENABLED_SMC_FEATURES_MASK,
-         AMDGPU_PP_SENSOR_MIN_FAN_RPM,
-         AMDGPU_PP_SENSOR_MAX_FAN_RPM,
-+       AMDGPU_PP_SENSOR_EDGE_TEMP,
-+       AMDGPU_PP_SENSOR_HOTSPOT_TEMP,
-+       AMDGPU_PP_SENSOR_MEM_TEMP,
- };
-
- enum amd_pp_task {
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
-u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-index e32ae9d3373c..c6d8b399cc80 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-@@ -1130,6 +1130,7 @@ static int smu10_read_sensor(struct pp_hwmgr *hwmgr, =
-int idx,
-                 *size =3D 4;
-                 break;
-         case AMDGPU_PP_SENSOR_GPU_TEMP:
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *((uint32_t *)value) =3D smu10_thermal_get_temperature(hwm=
-gr);
-                 break;
-         default:
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index 10d66e3c7a9f..1195f86f86af 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -3546,6 +3546,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmgr, i=
-nt idx,
-                 *size =3D 4;
-                 return 0;
-         case AMDGPU_PP_SENSOR_GPU_TEMP:
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *((uint32_t *)value) =3D smu7_thermal_get_temperature(hwmg=
-r);
-                 *size =3D 4;
-                 return 0;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
-index 019d6a206492..b2fc57dfb467 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c
-@@ -1769,6 +1769,7 @@ static int smu8_read_sensor(struct pp_hwmgr *hwmgr, i=
-nt idx,
-                 *((uint32_t *)value) =3D data->vce_power_gated ? 0 : 1;
-                 return 0;
-         case AMDGPU_PP_SENSOR_GPU_TEMP:
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *((uint32_t *)value) =3D smu8_thermal_get_temperature(hwmg=
-r);
-                 return 0;
-         default:
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-index 1d9bb29adaef..a309aeed53ab 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
-@@ -3794,6 +3794,7 @@ static int vega10_read_sensor(struct pp_hwmgr *hwmgr,=
- int idx,
-                 *size =3D 4;
-                 break;
-         case AMDGPU_PP_SENSOR_GPU_TEMP:
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *((uint32_t *)value) =3D vega10_thermal_get_temperature(hw=
-mgr);
-                 *size =3D 4;
-                 break;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-index efb6d3762feb..69d1255db091 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c
-@@ -1368,6 +1368,7 @@ static int vega12_read_sensor(struct pp_hwmgr *hwmgr,=
- int idx,
-                         *size =3D 4;
-                 break;
-         case AMDGPU_PP_SENSOR_GPU_TEMP:
-+       case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *((uint32_t *)value) =3D vega12_thermal_get_temperature(hw=
-mgr);
-                 *size =3D 4;
-                 break;
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-index f27c6fbb192e..172321f44940 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
-@@ -2185,6 +2185,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hwmgr,=
- int idx,
-                 *((uint32_t *)value) =3D vega20_thermal_get_temperature(hw=
-mgr);
-                 *size =3D 4;
-                 break;
-+       case AMDGPU_PP_SENSOR_GPU_TEMP:
-         case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 ret =3D vega20_get_metrics_table(hwmgr, &metrics_table);
-                 if (ret)
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c
-index 0a53695785b6..35e5aa152ee1 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1341,6 +1341,7 @@ static int navi10_thermal_get_temperature(struct smu_=
-context *smu,
-                 *value =3D metrics.TemperatureHotspot *
-                         SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-                 break;
-+       case AMDGPU_PP_SENSOR_GPU_TEMP:
-         case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *value =3D metrics.TemperatureEdge *
-                         SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-@@ -1384,6 +1385,7 @@ static int navi10_read_sensor(struct smu_context *smu=
-,
-                 break;
-         case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
-         case AMDGPU_PP_SENSOR_EDGE_TEMP:
-+       case AMDGPU_PP_SENSOR_GPU_TEMP:
-         case AMDGPU_PP_SENSOR_MEM_TEMP:
-                 ret =3D navi10_thermal_get_temperature(smu, sensor, (uint3=
-2_t *)data);
-                 *size =3D 4;
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/vega20_ppt.c
-index b44ec7c670c5..55996f3a1883 100644
---- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
-@@ -3123,6 +3123,7 @@ static int vega20_thermal_get_temperature(struct smu_=
-context *smu,
-
-                 *value =3D temp;
-                 break;
-+       case AMDGPU_PP_SENSOR_GPU_TEMP:
-         case AMDGPU_PP_SENSOR_EDGE_TEMP:
-                 *value =3D metrics.TemperatureEdge *
-                         SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
-@@ -3166,6 +3167,7 @@ static int vega20_read_sensor(struct smu_context *smu=
-,
-                 *size =3D 4;
-                 break;
-         case AMDGPU_PP_SENSOR_HOTSPOT_TEMP:
-+       case AMDGPU_PP_SENSOR_GPU_TEMP:
-         case AMDGPU_PP_SENSOR_EDGE_TEMP:
-         case AMDGPU_PP_SENSOR_MEM_TEMP:
-                 ret =3D vega20_thermal_get_temperature(smu, sensor, (uint3=
-2_t *)data);
---
-2.22.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB1809F9A641D069E726088390F7CB0BN6PR12MB1809namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Wang, Kevin(Yang) &lt;Kevin1.=
-Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Friday, July 19, 2019 8:17 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Wang, Kevin(Yang); Huang, Ray; Feng, Kenneth; Quan, Evan<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: refine AMDGPU_PP_SENSOR_XXX inde=
-x for powerplay</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">for patch:<br>
-drm/amd/powerplay: expose current hotspot and memory temperatures V2<br>
-<br>
-this patch will add some new sensor type to enum amd_pp_sensors,<br>
-we should add these types to tail to be compatible with the sensor in<br>
-effect.<br>
-<br>
-eg: some application will use old amd_pp_sensors type, likes umr.<br>
-the umr will use sensor index to get specific sensor value by sysfs<br>
-of &quot;/sys/kernel/debug/dri/0/amdgpu_sensors&quot;, the old change will =
-cause<br>
-the umr can't get correct value, it should be update sensor index by<br>
-this header for itself.<br>
-<br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/si_dpm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/include/kgd_pp_interface.h&nbsp;&nbsp;&nbsp;&nbsp=
-; | 6 &#43;&#43;&#43;---<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c&nbsp; | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c&nbsp;&nbsp; | 1 &#43=
-;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c&nbsp;&nbsp; | 1 &#43=
-;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; | 2 &#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; | 2 &#43;&#43;<br>
-&nbsp;10 files changed, 14 insertions(&#43;), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdg=
-pu/si_dpm.c<br>
-index d57e75e5c71f..9f120333dc71 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/si_dpm.c<br>
-@@ -8012,6 &#43;8012,7 @@ static int si_dpm_read_sensor(void *handle, int i=
-dx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
-TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D si_dpm_get_temp(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-diff --git a/drivers/gpu/drm/amd/include/kgd_pp_interface.h b/drivers/gpu/d=
-rm/amd/include/kgd_pp_interface.h<br>
-index 9733bbf9bc72..af71da7d9896 100644<br>
---- a/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_pp_interface.h<br>
-@@ -112,9 &#43;112,6 @@ enum amd_pp_sensors {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_MEM_LOAD,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GFX_MCLK,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GPU_TEMP,=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_EDGE_TEMP =3D AMDGPU=
-_PP_SENSOR_GPU_TEMP,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_HOTSPOT_TEMP,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_MEM_TEMP,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_VCE_POWER=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_UVD_POWER=
-,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_GPU_POWER=
-,<br>
-@@ -123,6 &#43;120,9 @@ enum amd_pp_sensors {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_ENABLED_S=
-MC_FEATURES_MASK,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_MIN_FAN_R=
-PM,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_MAX_FAN_R=
-PM,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_EDGE_TEMP,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_HOTSPOT_TEMP,<br=
->
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_PP_SENSOR_MEM_TEMP,<br>
-&nbsp;};<br>
-&nbsp;<br>
-&nbsp;enum amd_pp_task {<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gp=
-u/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
-index e32ae9d3373c..c6d8b399cc80 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c<br>
-@@ -1130,6 &#43;1130,7 @@ static int smu10_read_sensor(struct pp_hwmgr *hwm=
-gr, int idx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
-TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D smu10_thermal_get_temperatur=
-e(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-index 10d66e3c7a9f..1195f86f86af 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c<br>
-@@ -3546,6 &#43;3546,7 @@ static int smu7_read_sensor(struct pp_hwmgr *hwmg=
-r, int idx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
-TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D smu7_thermal_get_temperature=
-(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c b/drivers/gpu=
-/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
-index 019d6a206492..b2fc57dfb467 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/smu8_hwmgr.c<br>
-@@ -1769,6 &#43;1769,7 @@ static int smu8_read_sensor(struct pp_hwmgr *hwmg=
-r, int idx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D data-&gt;vce_power_gated ? 0=
- : 1;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
-TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D smu8_thermal_get_temperature=
-(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-index 1d9bb29adaef..a309aeed53ab 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c<br>
-@@ -3794,6 &#43;3794,7 @@ static int vega10_read_sensor(struct pp_hwmgr *hw=
-mgr, int idx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
-TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D vega10_thermal_get_temperatu=
-re(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
-index efb6d3762feb..69d1255db091 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega12_hwmgr.c<br>
-@@ -1368,6 &#43;1368,7 @@ static int vega12_read_sensor(struct pp_hwmgr *hw=
-mgr, int idx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *size=
- =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_=
-TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE_TEMP:<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D vega12_thermal_get_temperatu=
-re(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
-pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-index f27c6fbb192e..172321f44940 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
-@@ -2185,6 &#43;2185,7 @@ static int vega20_read_sensor(struct pp_hwmgr *hw=
-mgr, int idx,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)value) =3D vega20_thermal_get_temperatu=
-re(hwmgr);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_TEMP:<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE=
-_TEMP:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D vega20_get_metrics_table(hwmgr, &amp;metrics_=
-table);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c<br>
-index 0a53695785b6..35e5aa152ee1 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-@@ -1341,6 &#43;1341,7 @@ static int navi10_thermal_get_temperature(struct =
-smu_context *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *value =3D metrics.TemperatureHotspot *<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_T=
-EMPERATURE_UNITS_PER_CENTIGRADES;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_TEMP:<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE=
-_TEMP:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *value =3D metrics.TemperatureEdge *<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_T=
-EMPERATURE_UNITS_PER_CENTIGRADES;<br>
-@@ -1384,6 &#43;1385,7 @@ static int navi10_read_sensor(struct smu_context =
-*smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_HOTS=
-POT_TEMP:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE=
-_TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_TEMP:<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MEM_=
-TEMP:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D navi10_thermal_get_temperature(smu, sensor, (=
-uint32_t *)data);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/vega20_ppt.c<br>
-index b44ec7c670c5..55996f3a1883 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
-@@ -3123,6 &#43;3123,7 @@ static int vega20_thermal_get_temperature(struct =
-smu_context *smu,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *value =3D temp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_TEMP:<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE=
-_TEMP:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *value =3D metrics.TemperatureEdge *<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SMU_T=
-EMPERATURE_UNITS_PER_CENTIGRADES;<br>
-@@ -3166,6 &#43;3167,7 @@ static int vega20_read_sensor(struct smu_context =
-*smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_HOTS=
-POT_TEMP:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GPU_TEMP:<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_EDGE=
-_TEMP:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MEM_=
-TEMP:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D vega20_thermal_get_temperature(smu, sensor, (=
-uint32_t *)data);<br>
--- <br>
-2.22.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB1809F9A641D069E726088390F7CB0BN6PR12MB1809namp_--
-
---===============0088042744==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0088042744==--
+T24gRnJpLCBKdWwgMTksIDIwMTkgYXQgMTI6MDU6MzZQTSArMDAwMCwgS29lbmlnLCBDaHJpc3Rp
+YW4gd3JvdGU6Cj4gQW0gMTkuMDcuMTkgdW0gMTE6MzEgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+
+ID4gT24gRnJpLCBKdWwgMTksIDIwMTkgYXQgMDk6MTQ6MDVBTSArMDAwMCwgS29lbmlnLCBDaHJp
+c3RpYW4gd3JvdGU6Cj4gPj4gQW0gMTkuMDcuMTkgdW0gMTA6NTcgc2NocmllYiBEYW5pZWwgVmV0
+dGVyOgo+ID4+PiBPbiBUdWUsIEp1bCAxNiwgMjAxOSBhdCAwNDoyMTo1M1BNICswMjAwLCBDaHJp
+c3RpYW4gS8O2bmlnIHdyb3RlOgo+ID4+Pj4gQW0gMjYuMDYuMTkgdW0gMTQ6Mjkgc2NocmllYiBE
+YW5pZWwgVmV0dGVyOgo+ID4+Pj4gW1NOSVBdCj4gPj4+IFdlbGwgbXkgbWFpbCBoZXJlIHByZWNl
+ZWRlZCB0aGUgZW50aXJlIGFtZGtmZCBldmljdGlvbl9mZW5jZSBkaXNjdXNzaW9uLgo+ID4+PiBX
+aXRoIHRoYXQgSSdtIG5vdCBzdXJlIGFueW1vcmUsIHNpbmNlIHdlIGRvbid0IHJlYWxseSBuZWVk
+IHR3byBhcHByb2FjaGVzCj4gPj4+IG9mIHRoZSBzYW1lIHRoaW5nLiBBbmQgaWYgdGhlIHBsYW4g
+aXMgdG8gbW92ZSBhbWRrZmQgb3ZlciBmcm9tIHRoZQo+ID4+PiBldmljdGlvbl9mZW5jZSB0cmlj
+ayB0byB1c2luZyB0aGUgaW52YWxpZGF0ZSBjYWxsYmFjayBoZXJlLCB0aGVuIEkgdGhpbmsKPiA+
+Pj4gd2UgbWlnaHQgbmVlZCBzb21lIGNsYXJpZmljYXRpb25zIG9uIHdoYXQgZXhhY3RseSB0aGF0
+IG1lYW5zLgo+ID4+IE1obSwgSSB0aG91Z2h0IHRoYXQgdGhpcyB3YXMgb3J0aG9nb25hbC4gSSBt
+ZWFuIHRoZSBpbnZhbGlkYXRpb24KPiA+PiBjYWxsYmFjayBmb3IgYSBidWZmZXIgYXJlIGluZGVw
+ZW5kZW50IGZyb20gaG93IHRoZSBkcml2ZXIgaXMgZ29pbmcgdG8KPiA+PiB1c2UgaXQgaW4gdGhl
+IGVuZC4KPiA+Pgo+ID4+IE9yIGRvIHlvdSBtZWFuIHRoYXQgd2UgY291bGQgdXNlIGZlbmNlcyBh
+bmQgc2F2ZSB1cyBmcm9tIGFkZGluZyBqdXN0Cj4gPj4gYW5vdGhlciBtZWNoYW5pc20gZm9yIHRo
+ZSBzYW1lIHNpZ25hbGluZyB0aGluZz8KPiA+Pgo+ID4+IFRoYXQgY291bGQgb2YgY291cnNlIHdv
+cmssIGJ1dCBJIGhhZCB0aGUgaW1wcmVzc2lvbiB0aGF0IHlvdSBhcmUgbm90Cj4gPj4gdmVyeSBp
+biBmYXZvciBvZiB0aGF0Lgo+ID4gSXQgd29uJ3QsIHNpbmNlIHlvdSBjYW4gZWl0aGVyIHVzZSB0
+aGUgZmVuY2UgYXMgdGhlIGludmFsaWRhdGUgY2FsbGJhY2ssCj4gPiBvciBhcyBhIGZlbmNlIChm
+b3IgaW1wbGljaXQgc3luYykuIEJ1dCBub3QgYm90aC4KPiAKPiBXaHkgbm90IGJvdGg/IEkgbWVh
+biBpbXBsaWNpdCBzeW5jIGlzIGFuIGFydGlmYWN0IHlvdSBuZWVkIHRvIGhhbmRsZSAKPiBzZXBh
+cmF0ZWx5IGFueXdheS4KCkkgZ3Vlc3MgSSB3YXMgdW5jbGVhcjogV2UgbmVlZCBzb21ldGhpbmcg
+dGhhdCBkb2VzIGltcGxpY2l0IHN5bmMgYW5kCmR5bmFtaWMgbWlncmF0aW9uIGJvdGguIEFuZCBJ
+IHRoaW5rIGlmIHlvdSBkbyB0aGUgdHJpY2t5IGF1dG8tbWlncmF0ZSBvbgpmaXJzdCBlbmFibGVf
+c2lnbmFsaW5nIGxpa2UgYW1ka2ZkLCB0aGVuIHlvdSBjYW4ndCByZWFsbHkgdXNlIHRoZQpyZXNl
+cnZhdGlvbl9vYmplY3QgZm9yIGltcGxpY2l0IHN5bmMgYW55bW9yZS4KCj4gPiBCdXQgSSBhbHNv
+IGRvbid0IHRoaW5rIGl0J3MgYSBnb29kIGlkZWEgdG8gaGF2ZSAyIGludmFsaWRhdGlvbiBtZWNo
+YW5pc21zLAo+ID4gYW5kIHNpbmNlIHdlIGRvIGhhdmUgb25lIG1lcmdlZCBpbi10cmVlIGFscmVh
+ZHkgd291bGQgYmUgZ29vZCB0byBwcm9vZgo+ID4gdGhhdCB0aGUgbmV3IG9uZSBpcyB1cCB0byB0
+aGUgZXhpc3RpbmcgY2hhbGxlbmdlLgo+IAo+IE9rLCBob3cgdG8gcHJvY2VlZCB0aGVuPyBTaG91
+bGQgSSBmaXggdXAgdGhlIGltcGxpY2l0IHN5bmNpbmcgb2YgZmVuY2VzIAo+IGZpcnN0PyBJJ3Zl
+IGdvIGEgY291cGxlIG9mIGlkZWFzIGZvciB0aGF0IGFzIHdlbGwuCj4gCj4gVGhpcyB3YXkgd2Ug
+d29uJ3QgaGF2ZSBhbnkgZHJpdmVyIHNwZWNpZmljIGRlZmluaXRpb24gb2Ygd2hhdCB0aGUgZmVu
+Y2VzIAo+IGluIGEgcmVzZXJ2YXRpb24gb2JqZWN0IG1lYW4gYW55IG1vcmUuCgpZZWFoIEkgdGhp
+bmsgbW92aW5nIGZvcndhcmQgd2l0aCB0aGlzIHNlcmllcyBoZXJlIGlzIHRoZSBiZXN0IHBsYW4g
+d2UKaGF2ZS4gSSBqdXN0IHRoaW5rIGF0IGxlYXN0IGEgcG9jIHRoYXQgdGhlIGFtZGtmZCBldmlj
+dGlvbi9taWdyYXRpb24gbG9naWMKZml0cyBpbnRvIHRoaXMgd291bGQgYmUgcmVhbGx5IGdvb2Qu
+IEkgZG8gdGhpbmsgd2UnbGwgbmVlZCB0aGF0IGFueXdheSBmb3IKZ3B1IGRyaXZlcnMsIHRoZXJl
+J3MgYSBsb3Qgb2Ygbm9pc2UgdG8gc3dpdGNoIGZyb20gc3VwcGx5aW5nIHRoZSB3b3JraW5nCnNl
+dCBvZiBCTyBvbiBlYWNoIENTIHRvIHNvbWV0aGluZyBtb3JlIHNlbWktcGVybWFuZW50bHkgcGlu
+bmVkIChpLmUuIG11Y2gKbW9yZSB0aGUgYW1ka2ZkIG1vZGVsKS4gTWFraW5nIHN1cmUgZHluYW1p
+YyBkbWEtYnVmIGNhbiBjb3BlIHdpdGggdGhhdApzb3VuZHMgbGlrZSBzb2xpZCBmdXR1cmUgcHJv
+b2ZpbmcuCgo+ID4gRm9yIGNvbnRleHQ6IEkgc3BlbmQgd2F5IHRvbyBtdWNoIHRpbWUgcmVhZGlu
+ZyB0dG0sIGFtZGdwdS9rZmQgYW5kIGk5MTUtZ2VtCj4gPiBjb2RlIGFuZCBteSBvdmVyYWxsIGlt
+cHJlc3Npb24gaXMgdGhhdCBldmVyeW9uZSdzIGp1c3QgcnVubmluZyBhcm91bmQgaW4KPiA+IG9w
+cG9zaXRlIGRpcmVjdGlvbnMgYW5kIGl0J3Mgb25lIGh1Z2UgaGFpcmJhbGwgb2YgYSBtZXNzLiBX
+aXRoIGEgcHJldHR5Cj4gPiBldmVuIGRpc3RyaWJ1dGlvbiBvZiBlcXVhbGx5ICJlZWsgdGhpcyBp
+cyBob3JyaWJsZSIgYnV0IGFsc28gIndvdyB0aGlzIGlzCj4gPiBtdWNoIGJldHRlciB0aGFuIHdo
+YXQgdGhlIG90aGVyIGRyaXZlciBkb2VzIi4gU28gdGhhdCdzIHdoeSBJJ20gZXZlbiBtb3JlCj4g
+PiBvbiB0aGUgImFyZSB3ZSBzdXJlIHRoaXMgaXMgdGhlIHJpZ2h0IHRoaW5nIiB0cmFpbi4KPiAK
+PiBUb3RhbGx5IGFncmVlIG9uIHRoYXQsIGJ1dCB3ZSBzaG91bGQgYWxzbyBub3QgbWFrZSB0aGUg
+bWlzdGFrZSB3ZSBoYXZlIAo+IHNlZW4gb24gV2luZG93cyB0byB0cnkgdG8gZm9yY2UgYWxsIGRy
+aXZlcnMgaW50byBhIGNvbW1vbiBtZW1vcnkgbWFuYWdlbWVudC4KCkFncmVlZCB0aGF0IGRvZXNu
+J3Qgd29yayBlaXRoZXIsIHNlZSBhbGwgdGhlIGRyaTEgaG9ycm9ycy4KCj4gVGhhdCBkaWRuJ3Qg
+d29ya2VkIG91dCB0aGF0IHdlbGwgaW4gdGhlIGVuZCBhbmQgSSB3b3VsZCByYXRoZXIgZ28gZG93
+biAKPiB0aGUgcm91dGUgb2YgdHJ5aW5nIHRvIG1vdmUgbG9naWMgaW50byBzZXBhcmF0ZSBjb21w
+b25lbnRzIGFuZCBiYWNraW5nIAo+IG9mZiBpbnRvIGRyaXZlciBzcGVjaWZpYyBsb2dpYyBpZiB3
+ZSBmb3VuZCB0aGF0IGNvbW1vbiBzdHVmZiBkb2Vzbid0IHdvcmsuCgpZZWFoIEkgdGhpbmsgYSBi
+aXQgbW9yZSByZXZpZXdpbmcvZm9sbG93aW5nIGVhY2ggYW5vdGhlcidzIHN0dWZmLCBhbmQgc29t
+ZQpiZXR0ZXIgYWxpZ25tZW50IGluIHRoZSBmb3VuZGF0aW9uIG9mIHRoZSB1bmRlcmx5aW5nIGRl
+c2lnbiBpcyBnb29kLiBJJ20Kc3VwZXIgc3Rva2VkIGFib3V0IEdlcmQncyBzZXJpZXMgZm9yIHRo
+aXMgcmVhc29uLiBJJ20gYWxzbyBob3BpbmcgdGhhdApobW1fbWlycm9yIGNhbiBoZWxwIGEgbG90
+IGZvciB1c2VycHRyICh3aGljaCBpcyBhbm90aGVyIGFyZWEgdGhhdCBqdXN0CmZyZWFrcyBtZSBv
+dXQsIGFuZCB0aGVyZSBJIHRoaW5rIGFtZGdwdSBoYXMgdGhlIGN1cnJlbnRseSBjbGVhbmVzdAph
+cHByb2FjaCB3aXRoIHRoZSBobW1fbWlycm9yKS4KCkkgdGhpbmsgZ2VuZXJhbGx5IG1vcmUgaGVs
+cGVycyBhbmQgbGVzcyBtaWRsYXllcnMgc2hvdWxkIGhlbHAgdG9vLiBBaW1pbmcKZm9yIHRoYXQg
+d2l0aCBhdG9taWMgd2FzIGltbyB0aGUgYmVzdCB0aGluZyB3ZSd2ZSBkb25lIG9uIHRoZSBkaXNw
+bGF5IHNpZGUKc2luY2UgdGhlIG9yaWdpbmFsIGttcyBzdHVmZiAtIHRoZSBvbGQgbGVnYWN5IGhl
+bHBlcnMgd2hlcmUgcmVhbGx5IG5vdAptb2R1bGFyIGFuZCBlYXN5IHRvIGV4dGVuZCBhdCBhbGws
+IGtpbmRhIHNpbWlsYXIgdG8gdHRtIG9uIHRoZSBtZW1vcnkKaGFuZGxpbmcgc2lkZS4KCkkgaGF2
+ZSBubyBpZGVhIHdoYXQgYmVzdCB0byBkbyB3aXRoIGFsbCB0aGUgZXhpc3RpbmcgdHRtIGRyaXZl
+cnMsIHNpbmNlCmUuZy4gaWYgd2UgYmFrZSBpbiB0aGUgImJvIGxvY2sgbmVzdHMgd2l0aGluIG1t
+YXBfc2VtIiBydWxlLCBsaWtlIGFtZGdwdQphbmQgaTkxNSBuZWVkIChhbmQgcmVhbGx5IGl0J3Mg
+dGhlIG9ubHkgd2F5IHRvIG1ha2UgdGhpcyB3b3JrKSwgdGhlbgpldmVyeW9uZSBlbHNlIGlzIGJy
+b2tlbi4gQnJva2VuIGluIHRoZSBzZW5zZSBvZiBsb2NrZGVwIHNwbGF0cyBhdCBsZWFzdCwKd2hp
+Y2ggaXMga2luZGEgd29yc2UgdGhhbiBqdXN0IGxldHRpbmcgdGhlIGxlZ2FjeSBtb2Rlc2V0IGRy
+aXZlcnMgcXVpZXRseQpwYXNzIGludG8gdGhlIG5pZ2h0IHdpdGhvdXQgdG91Y2hpbmcgdGhlbS4K
+LURhbmllbAotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwgQ29ycG9y
+YXRpb24KaHR0cDovL2Jsb2cuZmZ3bGwuY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4
