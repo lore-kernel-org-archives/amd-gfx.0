@@ -1,53 +1,50 @@
 From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 4.19 010/101] drm/amd/display: Fill prescale_params->scale for RGB565
-Date: Fri, 19 Jul 2019 00:06:01 -0400
-Message-ID: <20190719040732.17285-10-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 011/101] drm/amdgpu/sriov: Need to initialize the HDP_NONSURFACE_BAStE
+Date: Fri, 19 Jul 2019 00:06:02 -0400
+Message-ID: <20190719040732.17285-11-sashal@kernel.org>
 References: <20190719040732.17285-1-sashal@kernel.org>
 Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
+Return-path: <linux-kernel-owner@vger.kernel.org>
 In-Reply-To: <20190719040732.17285-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
+Sender: linux-kernel-owner@vger.kernel.org
 To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>, Roman Li <Roman.Li@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: Tiecheng Zhou <Tiecheng.Zhou@amd.com>, Emily Deng <Emily.Deng@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
 
-[ Upstream commit 1352c779cb74d427f4150cbe779a2f7886f70cae ]
+[ Upstream commit fe2b5323d2c3cedaa3bf943dc7a0d233c853c914 ]
 
-[Why]
-An assertion is thrown when using SURFACE_PIXEL_FORMAT_GRPH_RGB565
-formats on DCE since the prescale_params->scale wasn't being filled.
+it requires to initialize HDP_NONSURFACE_BASE, so as to avoid
+using the value left by a previous VM under sriov scenario.
 
-Found by a dmesg-fail when running the
-igt@kms_plane@pixel-format-pipe-a-planes test on Baffin.
+v2: it should not hurt baremetal, generalize it for both sriov
+and baremetal
 
-[How]
-Fill in the scale parameter.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Roman Li <Roman.Li@amd.com>
-Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+Signed-off-by: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 3 +++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 3 +++
  1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 53ccacf99eca..c3ad2bbec1a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -242,6 +242,9 @@ static void build_prescale_params(struct ipp_prescale_params *prescale_params,
- 	prescale_params->mode = IPP_PRESCALE_MODE_FIXED_UNSIGNED;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 72f8018fa2a8..ede27dab675f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -1037,6 +1037,9 @@ static int gmc_v9_0_gart_enable(struct amdgpu_device *adev)
+ 	tmp = RREG32_SOC15(HDP, 0, mmHDP_HOST_PATH_CNTL);
+ 	WREG32_SOC15(HDP, 0, mmHDP_HOST_PATH_CNTL, tmp);
  
- 	switch (plane_state->format) {
-+	case SURFACE_PIXEL_FORMAT_GRPH_RGB565:
-+		prescale_params->scale = 0x2082;
-+		break;
- 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB8888:
- 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR8888:
- 		prescale_params->scale = 0x2020;
++	WREG32_SOC15(HDP, 0, mmHDP_NONSURFACE_BASE, (adev->gmc.vram_start >> 8));
++	WREG32_SOC15(HDP, 0, mmHDP_NONSURFACE_BASE_HI, (adev->gmc.vram_start >> 40));
++
+ 	/* After HDP is initialized, flush HDP.*/
+ 	adev->nbio_funcs->hdp_flush(adev, NULL);
+ 
 -- 
 2.20.1
