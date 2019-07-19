@@ -1,14 +1,11 @@
-From: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: custom peak clock freq for navi10
-Date: Fri, 19 Jul 2019 06:01:23 +0000
-Message-ID: <MN2PR12MB3598B7FA125EB5DC2C640D7E8ECB0@MN2PR12MB3598.namprd12.prod.outlook.com>
-References: <20190719034517.25780-1-kevin1.wang@amd.com>,
- <MN2PR12MB3344FA52A933E4922488E720E4CB0@MN2PR12MB3344.namprd12.prod.outlook.com>
- <MN2PR12MB329645069BD87A5E337E5CD0A2CB0@MN2PR12MB3296.namprd12.prod.outlook.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH v2] drm/amd/powerplay: custom peak clock freq for navi10
+Date: Fri, 19 Jul 2019 06:12:58 +0000
+Message-ID: <20190719061242.14222-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0636882689=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB329645069BD87A5E337E5CD0A2CB0-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,931 +17,140 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Gui,
- Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Gui, Jack" <Jack.Gui-5C7GfCeVMHo@public.gmane.org>, "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, "Wang,
+ Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Quan,
+ Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
 
---===============0636882689==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3598B7FA125EB5DC2C640D7E8ECB0MN2PR12MB3598namp_"
-
---_000_MN2PR12MB3598B7FA125EB5DC2C640D7E8ECB0MN2PR12MB3598namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Parameter 0xff for message PPSMC_MSG_GetDpmFreqByIndex will get the dpm num=
-bers, so it's ok.
-
-Reviewed-by: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org<mailto:kenneth.feng-5C7GfCeVMHo@public.gmane.org=
->>
-
-
-From: Wang, Kevin(Yang)
-Sent: Friday, July 19, 2019 1:36 PM
-To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; X=
-u, Feifei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>; Gui, Jack <Jack.Gui-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: custom peak clock freq for navi10
-
-
-Comment inline
-
-________________________________
-From: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
-Sent: Friday, July 19, 2019 1:03 PM
-To: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>; am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <amd-gfx@=
-lists.freedesktop.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
-Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org<mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>>; Huan=
-g, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org<mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org>>; Xu, Feifei <Feifei.Xu=
-@amd.com<mailto:Feifei.Xu-5C7GfCeVMHo@public.gmane.org>>; Gui, Jack <Jack.Gui-5C7GfCeVMHo@public.gmane.org<mailto:Jac=
-k.Gui-5C7GfCeVMHo@public.gmane.org>>
-Subject: RE: [PATCH] drm/amd/powerplay: custom peak clock freq for navi10
-
-Comment inline
-
-> -----Original Message-----
-> From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>
-> Sent: Friday, July 19, 2019 11:46 AM
-> To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org<mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>>; Qu=
-an, Evan
-> <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>; Huang, Ray <Ray.Huang@amd.=
-com<mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org>>; Xu, Feifei
-> <Feifei.Xu-5C7GfCeVMHo@public.gmane.org<mailto:Feifei.Xu-5C7GfCeVMHo@public.gmane.org>>; Gui, Jack <Jack.Gui-urvtwAKJhsc@public.gmane.org=
-m<mailto:Jack.Gui-5C7GfCeVMHo@public.gmane.org>>; Wang, Kevin(Yang)
-> <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>
-> Subject: [PATCH] drm/amd/powerplay: custom peak clock freq for navi10
->
-> 1.NAVI10_PEAK_SCLK_XTX    1830 Mhz
-> 2.NAVI10_PEAK_SCLK_XT     1755 Mhz
-> 3.NAVI10_PEAK_SCLK_XL     1625 Mhz
->
-> Change-Id: I48863a9d0e261b9e7778a6c0e4a8762d7c978da6
-> Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org<mailto:kevin1.wang-5C7GfCeVMHo@public.gmane.org=
->>
-> ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 65 ++++++++++--------
-> -
->  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  4 ++
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 55 ++++++++++++++++
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.h    |  4 ++
->  4 files changed, 97 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 7f51bbd2ac90..ab389dde9562 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -1360,37 +1360,40 @@ int smu_adjust_power_state_dynamic(struct
-> smu_context *smu,
->        }
->
->        if (smu_dpm_ctx->dpm_level !=3D level) {
-> -             switch (level) {
-> -             case AMD_DPM_FORCED_LEVEL_HIGH:
-> -                     ret =3D smu_force_dpm_limit_value(smu, true);
-> -                     break;
-> -             case AMD_DPM_FORCED_LEVEL_LOW:
-> -                     ret =3D smu_force_dpm_limit_value(smu, false);
-> -                     break;
-> -
-> -             case AMD_DPM_FORCED_LEVEL_AUTO:
-> -             case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-> -                     ret =3D smu_unforce_dpm_levels(smu);
-> -                     break;
-> -
-> -             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-> -             case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-> -             case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-> -                     ret =3D smu_get_profiling_clk_mask(smu, level,
-> -                                                      &sclk_mask,
-> -                                                      &mclk_mask,
-> -                                                      &soc_mask);
-> -                     if (ret)
-> -                             return ret;
-> -                     smu_force_clk_levels(smu, SMU_SCLK, 1 <<
-> sclk_mask);
-> -                     smu_force_clk_levels(smu, SMU_MCLK, 1 <<
-> mclk_mask);
-> -                     smu_force_clk_levels(smu, SMU_SOCCLK, 1 <<
-> soc_mask);
-> -                     break;
-> -
-> -             case AMD_DPM_FORCED_LEVEL_MANUAL:
-> -             case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
-> -             default:
-> -                     break;
-> +             ret =3D smu_set_performance_level(smu, level);
-> +             if (ret) {
-[Quan, Evan] Since this actually handles AMD_DPM_FORCED_LEVEL_PROFILE_PEAK =
-only. Please move this under "case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:".
-And please give it a more meaningful name e.g. smu_set_asic_peak_profile().
-
-[kevin]: in the future, for specifc asic, it may be custom other performanc=
-e level, so we should have this capacity to support other asic with any per=
-formance level. and i think it is not a good way to handle performance leve=
-l use case by case method for each asic.
-
-> +                     switch (level) {
-> +                     case AMD_DPM_FORCED_LEVEL_HIGH:
-> +                             ret =3D smu_force_dpm_limit_value(smu, true=
-);
-> +                             break;
-> +                     case AMD_DPM_FORCED_LEVEL_LOW:
-> +                             ret =3D smu_force_dpm_limit_value(smu,
-> false);
-> +                             break;
-> +
-> +                     case AMD_DPM_FORCED_LEVEL_AUTO:
-> +                     case
-> AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-> +                             ret =3D smu_unforce_dpm_levels(smu);
-> +                             break;
-> +
-> +                     case
-> AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-> +                     case
-> AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-> +                     case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-> +                             ret =3D smu_get_profiling_clk_mask(smu, lev=
-el,
-> +                                                              &sclk_mask=
-,
-> +                                                              &mclk_mask=
-,
-> +                                                              &soc_mask)=
-;
-> +                             if (ret)
-> +                                     return ret;
-> +                             smu_force_clk_levels(smu, SMU_SCLK, 1 <<
-> sclk_mask);
-> +                             smu_force_clk_levels(smu, SMU_MCLK, 1 <<
-> mclk_mask);
-> +                             smu_force_clk_levels(smu, SMU_SOCCLK, 1
-> << soc_mask);
-> +                             break;
-> +
-> +                     case AMD_DPM_FORCED_LEVEL_MANUAL:
-> +                     case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:
-> +                     default:
-> +                             break;
-> +                     }
->                }
->
->                if (!ret)
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> index 514d31518853..ba5ddafcbdba 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> @@ -631,6 +631,7 @@ struct pptable_funcs {
->        int (*get_thermal_temperature_range)(struct smu_context *smu,
-> struct smu_temperature_range *range);
->        int (*get_uclk_dpm_states)(struct smu_context *smu, uint32_t
-> *clocks_in_khz, uint32_t *num_states);
->        int (*set_default_od_settings)(struct smu_context *smu, bool
-> initialize);
-> +     int (*set_performance_level)(struct smu_context *smu, int32_t
-> level);
->  };
->
->  struct smu_funcs
-> @@ -928,6 +929,9 @@ struct smu_funcs
->        ((smu)->funcs->baco_get_state? (smu)->funcs-
-> >baco_get_state((smu), (state)) : 0)
->  #define smu_baco_reset(smu) \
->        ((smu)->funcs->baco_reset? (smu)->funcs->baco_reset((smu)) : 0)
-> +#define smu_set_performance_level(smu, level) \
-> +     ((smu)->ppt_funcs->set_performance_level? (smu)->ppt_funcs-
-> >set_performance_level((smu), (level)) : -EINVAL);
-> +
->
->  extern int smu_get_atom_data_table(struct smu_context *smu, uint32_t
-> table,
->                                   uint16_t *size, uint8_t *frev, uint8_t =
-*crev,
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index e44041a25e64..9024d91477f0 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -1590,6 +1590,60 @@ static int navi10_set_ppfeature_status(struct
-> smu_context *smu,
->        return 0;
->  }
->
-> +static int navi10_set_peak_clock_by_device(struct smu_context *smu)
-> +{
-> +     struct amdgpu_device *adev =3D smu->adev;
-> +     int ret =3D 0;
-> +     uint32_t sclk_freq =3D 0, uclk_freq =3D 0;
-> +     uint32_t uclk_level =3D 0;
-> +
-> +     switch (adev->rev_id) {
-> +     case 0xf0: /* XTX */
-> +     case 0xC0:
-> +             sclk_freq =3D NAVI10_PEAK_SCLK_XTX;
-> +             break;
-> +     case 0xf1: /* XT */
-> +     case 0xC1:
-> +             sclk_freq =3D NAVI10_PEAK_SCLK_XT;
-> +             break;
-> +     default: /* XL */
-> +             sclk_freq =3D NAVI10_PEAK_SCLK_XL;
-> +             break;
-> +     }
-> +
-> +     ret =3D smu_get_dpm_level_count(smu, SMU_UCLK, &uclk_level);
-> +     if (ret)
-> +             return ret;
-> +     ret =3D smu_get_dpm_freq_by_index(smu, SMU_UCLK, uclk_level - 1,
-> &uclk_freq);
-> +     if (ret)
-> +             return ret;
-[Quan, Evan] I think with dpm level (3rd argument) set as 0xff directly,  y=
-ou can  get the clock frequency for the max level.
-[kevin]: not right, 0xff will return dpm clock level count, see function sm=
-u_get_dpm_level_count
-> +
-> +     ret =3D smu_set_soft_freq_range(smu, SMU_SCLK, sclk_freq,
-> sclk_freq);
-> +     if (ret)
-> +             return ret;
-> +     ret =3D smu_set_soft_freq_range(smu, SMU_UCLK, uclk_freq,
-> uclk_freq);
-> +     if (ret)
-> +             return ret;
-> +
-> +     return ret;
-> +}
-> +
-> +static int navi10_set_performance_level(struct smu_context *smu, int32_t
-> level)
-> +{
-> +     int ret =3D 0;
-> +
-> +     switch (level) {
-> +     case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-> +             ret =3D navi10_set_peak_clock_by_device(smu);
-> +             break;
-> +     default:
-> +             ret =3D -EINVAL;
-> +             break;
-> +     }
-> +
-> +     return ret;
-> +}
-> +
->  static const struct pptable_funcs navi10_ppt_funcs =3D {
->        .tables_init =3D navi10_tables_init,
->        .alloc_dpm_context =3D navi10_allocate_dpm_context,
-> @@ -1625,6 +1679,7 @@ static const struct pptable_funcs navi10_ppt_funcs
-> =3D {
->        .get_uclk_dpm_states =3D navi10_get_uclk_dpm_states,
->        .get_ppfeature_status =3D navi10_get_ppfeature_status,
->        .set_ppfeature_status =3D navi10_set_ppfeature_status,
-> +     .set_performance_level =3D navi10_set_performance_level,
->  };
->
->  void navi10_set_ppt_funcs(struct smu_context *smu)
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.h
-> b/drivers/gpu/drm/amd/powerplay/navi10_ppt.h
-> index 957288e22f47..620ff17c2fef 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.h
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.h
-> @@ -23,6 +23,10 @@
->  #ifndef __NAVI10_PPT_H__
->  #define __NAVI10_PPT_H__
->
-> +#define NAVI10_PEAK_SCLK_XTX         (1830)
-> +#define NAVI10_PEAK_SCLK_XT           (1755)
-> +#define NAVI10_PEAK_SCLK_XL           (1625)
-> +
->  extern void navi10_set_ppt_funcs(struct smu_context *smu);
->
->  #endif
-> --
-> 2.22.0
-
---_000_MN2PR12MB3598B7FA125EB5DC2C640D7E8ECB0MN2PR12MB3598namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
-o\:* {behavior:url(#default#VML);}
-w\:* {behavior:url(#default#VML);}
-.shape {behavior:url(#default#VML);}
-</style><![endif]--><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-span.EmailStyle18
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:#1F497D;}
-span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:"Calibri",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:black">Parameter 0xff for message PPSMC_MSG_Ge=
-tDpmFreqByIndex will get the dpm numbers, so it&#8217;s ok.<o:p></o:p></spa=
-n></p>
-<p class=3D"MsoPlainText">Reviewed-by: Kenneth Feng &lt;<a href=3D"mailto:k=
-enneth.feng-5C7GfCeVMHo@public.gmane.org">kenneth.feng-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Wang, Kevin(Yang)
-<br>
-<b>Sent:</b> Friday, July 19, 2019 1:36 PM<br>
-<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org<br>
-<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;Ray.H=
-uang-5C7GfCeVMHo@public.gmane.org&gt;; Xu, Feifei &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;; Gui, Jack &lt;Jack.=
-Gui-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: custom peak clock freq for n=
-avi10<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div id=3D"divtagdefaultwrapper">
-<p><span style=3D"font-size:11.0pt;font-family:&quot;Calibri&quot;,sans-ser=
-if;color:black">Comment inline</span><span style=3D"font-family:&quot;Calib=
-ri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
-<div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center"><span=
- style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:black">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</span></div>
-<div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Quan, =
-Evan &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Sent:</b> Friday, July 19, 2019 1:03 PM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kev=
-in1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;;
-<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
-org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Feng, Kenneth &lt;<a href=3D"mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org">Kennet=
-h.Feng-5C7GfCeVMHo@public.gmane.org</a>&gt;; Huang, Ray &lt;<a href=3D"mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org"=
->Ray.Huang-5C7GfCeVMHo@public.gmane.org</a>&gt;; Xu, Feifei &lt;<a href=3D"mailto:Feifei.Xu@amd.=
-com">Feifei.Xu-5C7GfCeVMHo@public.gmane.org</a>&gt;; Gui, Jack &lt;<a href=3D"mailto:Jack.Gui@am=
-d.com">Jack.Gui-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amd/powerplay: custom peak clock freq for n=
-avi10</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color=
-:black">
-<o:p></o:p></span></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black">&nbsp;<o:p></o:p></span></p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:black">Comment inline<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kev=
-in1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; Sent: Friday, July 19, 2019 11:46 AM<br>
-&gt; To: <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32mzQB+pC5nmwQ@public.gmane.org=
-edesktop.org</a><br>
-&gt; Cc: Feng, Kenneth &lt;<a href=3D"mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org">Kenneth.=
-Feng-5C7GfCeVMHo@public.gmane.org</a>&gt;; Quan, Evan<br>
-&gt; &lt;<a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.Quan-5C7GfCeVMHo@public.gmane.org</a>&gt;; Hu=
-ang, Ray &lt;<a href=3D"mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org">Ray.Huang-5C7GfCeVMHo@public.gmane.org</a>&gt;=
-; Xu, Feifei<br>
-&gt; &lt;<a href=3D"mailto:Feifei.Xu-5C7GfCeVMHo@public.gmane.org">Feifei.Xu-5C7GfCeVMHo@public.gmane.org</a>&gt;; Gu=
-i, Jack &lt;<a href=3D"mailto:Jack.Gui-5C7GfCeVMHo@public.gmane.org">Jack.Gui-5C7GfCeVMHo@public.gmane.org</a>&gt;; W=
-ang, Kevin(Yang)<br>
-&gt; &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kevin1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;=
-<br>
-&gt; Subject: [PATCH] drm/amd/powerplay: custom peak clock freq for navi10<=
-br>
-&gt; <br>
-&gt; 1.NAVI10_PEAK_SCLK_XTX&nbsp;&nbsp;&nbsp; 1830 Mhz<br>
-&gt; 2.NAVI10_PEAK_SCLK_XT&nbsp;&nbsp;&nbsp;&nbsp; 1755 Mhz<br>
-&gt; 3.NAVI10_PEAK_SCLK_XL&nbsp;&nbsp;&nbsp;&nbsp; 1625 Mhz<br>
-&gt; <br>
-&gt; Change-Id: I48863a9d0e261b9e7778a6c0e4a8762d7c978da6<br>
-&gt; Signed-off-by: Kevin Wang &lt;<a href=3D"mailto:kevin1.wang-5C7GfCeVMHo@public.gmane.org">k=
-evin1.wang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp; | 6=
-5 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--------<br>
-&gt; -<br>
-&gt;&nbsp; .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h&nbsp;&nbsp;&nbsp; |&n=
-bsp; 4 &#43;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp; | 5=
-5 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#4=
-3;&#43;<br>
-&gt;&nbsp; drivers/gpu/drm/amd/powerplay/navi10_ppt.h&nbsp;&nbsp;&nbsp; |&n=
-bsp; 4 &#43;&#43;<br>
-&gt;&nbsp; 4 files changed, 97 insertions(&#43;), 31 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; index 7f51bbd2ac90..ab389dde9562 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&gt; @@ -1360,37 &#43;1360,40 @@ int smu_adjust_power_state_dynamic(struct<=
-br>
-&gt; smu_context *smu,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_dpm_ctx-&gt;dpm_leve=
-l !=3D level) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; switch (level) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_HIGH:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_force_dpm_l=
-imit_value(smu, true);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_LOW:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_force_dpm_l=
-imit_value(smu, false);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_AUTO:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_unforce_dpm=
-_levels(smu);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_profili=
-ng_clk_mask(smu, level,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; &amp;sclk_mask,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; &amp;mclk_mask,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; &amp;soc_mask);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_force_clk_levels(sm=
-u, SMU_SCLK, 1 &lt;&lt;<br>
-&gt; sclk_mask);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_force_clk_levels(sm=
-u, SMU_MCLK, 1 &lt;&lt;<br>
-&gt; mclk_mask);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_force_clk_levels(sm=
-u, SMU_SOCCLK, 1 &lt;&lt;<br>
-&gt; soc_mask);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; -<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_MANUAL:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; case AMD_DPM_FORCED_LEVEL_PROFILE_EXIT:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; default:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D smu_set_performance_level(smu, level);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (ret) {<br>
-[Quan, Evan] Since this actually handles AMD_DPM_FORCED_LEVEL_PROFILE_PEAK =
-only. Please move this under &quot;case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:&=
-quot;.<br>
-And please give it a more meaningful name e.g. smu_set_asic_peak_profile().=
-<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:black">[kevin]: in the future, for specifc asi=
-c, it may be&nbsp;custom other performance level, so&nbsp;we should have th=
-is&nbsp;capacity to&nbsp;support other asic with any performance level.&nbs=
-p;and
- i think it is not a good way to handle performance level use&nbsp;case by =
-case method for each asic.<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:black"><br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (level) {<br=
->
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED=
-_LEVEL_HIGH:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_force_dpm_limit_value(smu, true);<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED=
-_LEVEL_LOW:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_force_dpm_limit_value(smu,<br>
-&gt; false);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED=
-_LEVEL_AUTO:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case<br>
-&gt; AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_unforce_dpm_levels(smu);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case<br>
-&gt; AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case<br>
-&gt; AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED=
-_LEVEL_PROFILE_PEAK:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_profiling_clk_mask(smu, level,=
-<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; &amp;sclk_mask,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; &amp;mclk_mask,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; &amp;soc_mask);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; return ret;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_force_clk_levels(smu, SMU_SCLK, 1 &lt;&lt;=
-<br>
-&gt; sclk_mask);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_force_clk_levels(smu, SMU_MCLK, 1 &lt;&lt;=
-<br>
-&gt; mclk_mask);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_force_clk_levels(smu, SMU_SOCCLK, 1<br>
-&gt; &lt;&lt; soc_mask);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED=
-_LEVEL_MANUAL:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED=
-_LEVEL_PROFILE_EXIT:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; }<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!ret)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-&gt; index 514d31518853..ba5ddafcbdba 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
-&gt; @@ -631,6 &#43;631,7 @@ struct pptable_funcs {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_thermal_temperatur=
-e_range)(struct smu_context *smu,<br>
-&gt; struct smu_temperature_range *range);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_uclk_dpm_states)(s=
-truct smu_context *smu, uint32_t<br>
-&gt; *clocks_in_khz, uint32_t *num_states);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_default_od_setting=
-s)(struct smu_context *smu, bool<br>
-&gt; initialize);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int (*set_performance_level)(struct smu_=
-context *smu, int32_t<br>
-&gt; level);<br>
-&gt;&nbsp; };<br>
-&gt; <br>
-&gt;&nbsp; struct smu_funcs<br>
-&gt; @@ -928,6 &#43;929,9 @@ struct smu_funcs<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;baco_ge=
-t_state? (smu)-&gt;funcs-<br>
-&gt; &gt;baco_get_state((smu), (state)) : 0)<br>
-&gt;&nbsp; #define smu_baco_reset(smu) \<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;baco_re=
-set? (smu)-&gt;funcs-&gt;baco_reset((smu)) : 0)<br>
-&gt; &#43;#define smu_set_performance_level(smu, level) \<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;set_performance=
-_level? (smu)-&gt;ppt_funcs-<br>
-&gt; &gt;set_performance_level((smu), (level)) : -EINVAL);<br>
-&gt; &#43;<br>
-&gt; <br>
-&gt;&nbsp; extern int smu_get_atom_data_table(struct smu_context *smu, uint=
-32_t<br>
-&gt; table,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint16_t *size, =
-uint8_t *frev, uint8_t *crev,<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; index e44041a25e64..9024d91477f0 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&gt; @@ -1590,6 &#43;1590,60 @@ static int navi10_set_ppfeature_status(stru=
-ct<br>
-&gt; smu_context *smu,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp; }<br>
-&gt; <br>
-&gt; &#43;static int navi10_set_peak_clock_by_device(struct smu_context *sm=
-u)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D smu-&gt;a=
-dev;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk_freq =3D 0, uclk_freq =3D =
-0;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t uclk_level =3D 0;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;rev_id) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case 0xf0: /* XTX */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case 0xC0:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; sclk_freq =3D NAVI10_PEAK_SCLK_XTX;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case 0xf1: /* XT */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case 0xC1:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; sclk_freq =3D NAVI10_PEAK_SCLK_XT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; default: /* XL */<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; sclk_freq =3D NAVI10_PEAK_SCLK_XL;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm_level_count(smu, SMU=
-_UCLK, &amp;uclk_level);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return ret;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_dpm_freq_by_index(smu, S=
-MU_UCLK, uclk_level - 1,<br>
-&gt; &amp;uclk_freq);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return ret;<br>
-[Quan, Evan] I think with dpm level (3rd argument) set as 0xff directly,&nb=
-sp; you can&nbsp; get the clock frequency for the max level.<o:p></o:p></sp=
-an></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black">[kevin]:=
- not right, 0xff will return dpm clock level count, see function smu_get_dp=
-m_level_count&nbsp;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_set_soft_freq_range(smu, SMU=
-_SCLK, sclk_freq,<br>
-&gt; sclk_freq);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return ret;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_set_soft_freq_range(smu, SMU=
-_UCLK, uclk_freq,<br>
-&gt; uclk_freq);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; return ret;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt; &#43;static int navi10_set_performance_level(struct smu_context *smu, =
-int32_t<br>
-&gt; level)<br>
-&gt; &#43;{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; switch (level) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:<=
-br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D navi10_set_peak_clock_by_device(smu);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; ret =3D -EINVAL;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; break;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; &#43;}<br>
-&gt; &#43;<br>
-&gt;&nbsp; static const struct pptable_funcs navi10_ppt_funcs =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .tables_init =3D navi10_tabl=
-es_init,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .alloc_dpm_context =3D navi1=
-0_allocate_dpm_context,<br>
-&gt; @@ -1625,6 &#43;1679,7 @@ static const struct pptable_funcs navi10_ppt=
-_funcs<br>
-&gt; =3D {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_uclk_dpm_states =3D nav=
-i10_get_uclk_dpm_states,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_ppfeature_status =3D na=
-vi10_get_ppfeature_status,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_ppfeature_status =3D na=
-vi10_set_ppfeature_status,<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .set_performance_level =3D navi10_set_pe=
-rformance_level,<br>
-&gt;&nbsp; };<br>
-&gt; <br>
-&gt;&nbsp; void navi10_set_ppt_funcs(struct smu_context *smu)<br>
-&gt; diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.h<br>
-&gt; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.h<br>
-&gt; index 957288e22f47..620ff17c2fef 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.h<br>
-&gt; @@ -23,6 &#43;23,10 @@<br>
-&gt;&nbsp; #ifndef __NAVI10_PPT_H__<br>
-&gt;&nbsp; #define __NAVI10_PPT_H__<br>
-&gt; <br>
-&gt; &#43;#define NAVI10_PEAK_SCLK_XTX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp; (1830)<br>
-&gt; &#43;#define NAVI10_PEAK_SCLK_XT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; (1755)<br>
-&gt; &#43;#define NAVI10_PEAK_SCLK_XL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp; (1625)<br>
-&gt; &#43;<br>
-&gt;&nbsp; extern void navi10_set_ppt_funcs(struct smu_context *smu);<br>
-&gt; <br>
-&gt;&nbsp; #endif<br>
-&gt; --<br>
-&gt; 2.22.0<o:p></o:p></span></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB3598B7FA125EB5DC2C640D7E8ECB0MN2PR12MB3598namp_--
-
---===============0636882689==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============0636882689==--
+djI6CmFkZCBmdW5jdGlvbiBzbXVfZGVmYXVsdF9zZXRfcGVyZm9ybWFuY2VfbGV2ZWwgYXMgZGVm
+YXVsdCBkcG0gbGV2ZWwgaGFuZGxlci4KY2hhbmdlIGZ1bmN0aW9uIG5hbWUgc211X3NldF9wZXJm
+b3JtYW5jZV9sZXZlbCB0byBzbXVfYXNpY19zZXRfcGVyZm9ybWFuY2VfbGV2ZWwKCnYxOgoxLk5B
+VkkxMF9QRUFLX1NDTEtfWFRYICAgIDE4MzAgTWh6CjIuTkFWSTEwX1BFQUtfU0NMS19YVCAgICAg
+MTc1NSBNaHoKMy5OQVZJMTBfUEVBS19TQ0xLX1hMICAgICAxNjI1IE1oegoKQ2hhbmdlLUlkOiBJ
+YzYzYmM4NWRhMWI5MzJmODYyZDhlYzhiOWRjMDIwMDFiOGE0MjI1NQpTaWduZWQtb2ZmLWJ5OiBL
+ZXZpbiBXYW5nIDxrZXZpbjEud2FuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2FtZGdwdV9zbXUuYyAgICB8IDczICsrKysrKysrKystLS0tLS0tLS0KIC4uLi9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaCAgICB8ICA0ICsKIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYyAgICB8IDU1ICsrKysrKysrKysrKysr
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmggICAgfCAgNCArCiA0
+IGZpbGVzIGNoYW5nZWQsIDEwMyBpbnNlcnRpb25zKCspLCAzMyBkZWxldGlvbnMoLSkKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMKaW5kZXggN2Y1MWJiZDJhYzkw
+Li4zOTFjZTdjMDhjNjYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
+L2FtZGdwdV9zbXUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVf
+c211LmMKQEAgLTEzMjMsMTMgKzEzMjMsNDkgQEAgc3RhdGljIGludCBzbXVfZW5hYmxlX3VtZF9w
+c3RhdGUodm9pZCAqaGFuZGxlLAogCXJldHVybiAwOwogfQogCitzdGF0aWMgaW50IHNtdV9kZWZh
+dWx0X3NldF9wZXJmb3JtYW5jZV9sZXZlbChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgZW51bSBh
+bWRfZHBtX2ZvcmNlZF9sZXZlbCBsZXZlbCkKK3sKKwlpbnQgcmV0ID0gMDsKKwl1aW50MzJfdCBz
+Y2xrX21hc2ssIG1jbGtfbWFzaywgc29jX21hc2s7CisKKwlzd2l0Y2ggKGxldmVsKSB7CisJY2Fz
+ZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9ISUdIOgorCQlyZXQgPSBzbXVfZm9yY2VfZHBtX2xpbWl0
+X3ZhbHVlKHNtdSwgdHJ1ZSk7CisJCWJyZWFrOworCWNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxf
+TE9XOgorCQlyZXQgPSBzbXVfZm9yY2VfZHBtX2xpbWl0X3ZhbHVlKHNtdSwgZmFsc2UpOworCQli
+cmVhazsKKwljYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX0FVVE86CisJY2FzZSBBTURfRFBNX0ZP
+UkNFRF9MRVZFTF9QUk9GSUxFX1NUQU5EQVJEOgorCQlyZXQgPSBzbXVfdW5mb3JjZV9kcG1fbGV2
+ZWxzKHNtdSk7CisJCWJyZWFrOworCWNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9N
+SU5fU0NMSzoKKwljYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfTUlOX01DTEs6CisJ
+Y2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX1BFQUs6CisJCXJldCA9IHNtdV9nZXRf
+cHJvZmlsaW5nX2Nsa19tYXNrKHNtdSwgbGV2ZWwsCisJCQkJCQkgJnNjbGtfbWFzaywKKwkJCQkJ
+CSAmbWNsa19tYXNrLAorCQkJCQkJICZzb2NfbWFzayk7CisJCWlmIChyZXQpCisJCQlyZXR1cm4g
+cmV0OworCQlzbXVfZm9yY2VfY2xrX2xldmVscyhzbXUsIFNNVV9TQ0xLLCAxIDw8IHNjbGtfbWFz
+ayk7CisJCXNtdV9mb3JjZV9jbGtfbGV2ZWxzKHNtdSwgU01VX01DTEssIDEgPDwgbWNsa19tYXNr
+KTsKKwkJc211X2ZvcmNlX2Nsa19sZXZlbHMoc211LCBTTVVfU09DQ0xLLCAxIDw8IHNvY19tYXNr
+KTsKKwkJYnJlYWs7CisJY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9NQU5VQUw6CisJY2FzZSBB
+TURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxFX0VYSVQ6CisJZGVmYXVsdDoKKwkJYnJlYWs7CisJ
+fQorCXJldHVybiByZXQ7Cit9CisKIGludCBzbXVfYWRqdXN0X3Bvd2VyX3N0YXRlX2R5bmFtaWMo
+c3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCiAJCQkJICAgZW51bSBhbWRfZHBtX2ZvcmNlZF9sZXZl
+bCBsZXZlbCwKIAkJCQkgICBib29sIHNraXBfZGlzcGxheV9zZXR0aW5ncykKIHsKIAlpbnQgcmV0
+ID0gMDsKIAlpbnQgaW5kZXggPSAwOwotCXVpbnQzMl90IHNjbGtfbWFzaywgbWNsa19tYXNrLCBz
+b2NfbWFzazsKIAlsb25nIHdvcmtsb2FkOwogCXN0cnVjdCBzbXVfZHBtX2NvbnRleHQgKnNtdV9k
+cG1fY3R4ID0gJihzbXUtPnNtdV9kcG0pOwogCkBAIC0xMzYwLDM5ICsxMzk2LDEwIEBAIGludCBz
+bXVfYWRqdXN0X3Bvd2VyX3N0YXRlX2R5bmFtaWMoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCiAJ
+fQogCiAJaWYgKHNtdV9kcG1fY3R4LT5kcG1fbGV2ZWwgIT0gbGV2ZWwpIHsKLQkJc3dpdGNoIChs
+ZXZlbCkgewotCQljYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX0hJR0g6Ci0JCQlyZXQgPSBzbXVf
+Zm9yY2VfZHBtX2xpbWl0X3ZhbHVlKHNtdSwgdHJ1ZSk7Ci0JCQlicmVhazsKLQkJY2FzZSBBTURf
+RFBNX0ZPUkNFRF9MRVZFTF9MT1c6Ci0JCQlyZXQgPSBzbXVfZm9yY2VfZHBtX2xpbWl0X3ZhbHVl
+KHNtdSwgZmFsc2UpOwotCQkJYnJlYWs7Ci0KLQkJY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9B
+VVRPOgotCQljYXNlIEFNRF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfU1RBTkRBUkQ6Ci0JCQly
+ZXQgPSBzbXVfdW5mb3JjZV9kcG1fbGV2ZWxzKHNtdSk7Ci0JCQlicmVhazsKLQotCQljYXNlIEFN
+RF9EUE1fRk9SQ0VEX0xFVkVMX1BST0ZJTEVfTUlOX1NDTEs6Ci0JCWNhc2UgQU1EX0RQTV9GT1JD
+RURfTEVWRUxfUFJPRklMRV9NSU5fTUNMSzoKLQkJY2FzZSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9Q
+Uk9GSUxFX1BFQUs6Ci0JCQlyZXQgPSBzbXVfZ2V0X3Byb2ZpbGluZ19jbGtfbWFzayhzbXUsIGxl
+dmVsLAotCQkJCQkJCSAmc2Nsa19tYXNrLAotCQkJCQkJCSAmbWNsa19tYXNrLAotCQkJCQkJCSAm
+c29jX21hc2spOwotCQkJaWYgKHJldCkKLQkJCQlyZXR1cm4gcmV0OwotCQkJc211X2ZvcmNlX2Ns
+a19sZXZlbHMoc211LCBTTVVfU0NMSywgMSA8PCBzY2xrX21hc2spOwotCQkJc211X2ZvcmNlX2Ns
+a19sZXZlbHMoc211LCBTTVVfTUNMSywgMSA8PCBtY2xrX21hc2spOwotCQkJc211X2ZvcmNlX2Ns
+a19sZXZlbHMoc211LCBTTVVfU09DQ0xLLCAxIDw8IHNvY19tYXNrKTsKLQkJCWJyZWFrOwotCi0J
+CWNhc2UgQU1EX0RQTV9GT1JDRURfTEVWRUxfTUFOVUFMOgotCQljYXNlIEFNRF9EUE1fRk9SQ0VE
+X0xFVkVMX1BST0ZJTEVfRVhJVDoKLQkJZGVmYXVsdDoKLQkJCWJyZWFrOworCQlyZXQgPSBzbXVf
+YXNpY19zZXRfcGVyZm9ybWFuY2VfbGV2ZWwoc211LCBsZXZlbCk7CisJCWlmIChyZXQpIHsKKwkJ
+CXJldCA9IHNtdV9kZWZhdWx0X3NldF9wZXJmb3JtYW5jZV9sZXZlbChzbXUsIGxldmVsKTsKIAkJ
+fQotCiAJCWlmICghcmV0KQogCQkJc211X2RwbV9jdHgtPmRwbV9sZXZlbCA9IGxldmVsOwogCX0K
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211
+LmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCmluZGV4
+IDUxNGQzMTUxODg1My4uMzQwOTNkZGNhMTA1IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L2luYy9hbWRncHVfc211LmgKQEAgLTYzMSw2ICs2MzEsNyBAQCBzdHJ1Y3QgcHB0
+YWJsZV9mdW5jcyB7CiAJaW50ICgqZ2V0X3RoZXJtYWxfdGVtcGVyYXR1cmVfcmFuZ2UpKHN0cnVj
+dCBzbXVfY29udGV4dCAqc211LCBzdHJ1Y3Qgc211X3RlbXBlcmF0dXJlX3JhbmdlICpyYW5nZSk7
+CiAJaW50ICgqZ2V0X3VjbGtfZHBtX3N0YXRlcykoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIHVp
+bnQzMl90ICpjbG9ja3NfaW5fa2h6LCB1aW50MzJfdCAqbnVtX3N0YXRlcyk7CiAJaW50ICgqc2V0
+X2RlZmF1bHRfb2Rfc2V0dGluZ3MpKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBib29sIGluaXRp
+YWxpemUpOworCWludCAoKnNldF9wZXJmb3JtYW5jZV9sZXZlbCkoc3RydWN0IHNtdV9jb250ZXh0
+ICpzbXUsIGVudW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWwgbGV2ZWwpOwogfTsKIAogc3RydWN0IHNt
+dV9mdW5jcwpAQCAtOTI4LDYgKzkyOSw5IEBAIHN0cnVjdCBzbXVfZnVuY3MKIAkoKHNtdSktPmZ1
+bmNzLT5iYWNvX2dldF9zdGF0ZT8gKHNtdSktPmZ1bmNzLT5iYWNvX2dldF9zdGF0ZSgoc211KSwg
+KHN0YXRlKSkgOiAwKQogI2RlZmluZSBzbXVfYmFjb19yZXNldChzbXUpIFwKIAkoKHNtdSktPmZ1
+bmNzLT5iYWNvX3Jlc2V0PyAoc211KS0+ZnVuY3MtPmJhY29fcmVzZXQoKHNtdSkpIDogMCkKKyNk
+ZWZpbmUgc211X2FzaWNfc2V0X3BlcmZvcm1hbmNlX2xldmVsKHNtdSwgbGV2ZWwpIFwKKwkoKHNt
+dSktPnBwdF9mdW5jcy0+c2V0X3BlcmZvcm1hbmNlX2xldmVsPyAoc211KS0+cHB0X2Z1bmNzLT5z
+ZXRfcGVyZm9ybWFuY2VfbGV2ZWwoKHNtdSksIChsZXZlbCkpIDogLUVJTlZBTCk7CisKIAogZXh0
+ZXJuIGludCBzbXVfZ2V0X2F0b21fZGF0YV90YWJsZShzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwg
+dWludDMyX3QgdGFibGUsCiAJCQkJICAgdWludDE2X3QgKnNpemUsIHVpbnQ4X3QgKmZyZXYsIHVp
+bnQ4X3QgKmNyZXYsCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9u
+YXZpMTBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMK
+aW5kZXggZTQ0MDQxYTI1ZTY0Li5hM2M4Mjg2N2U0MzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L3Bvd2VycGxheS9uYXZpMTBfcHB0LmMKQEAgLTE1OTAsNiArMTU5MCw2MCBAQCBzdGF0aWMgaW50
+IG5hdmkxMF9zZXRfcHBmZWF0dXJlX3N0YXR1cyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKIAly
+ZXR1cm4gMDsKIH0KIAorc3RhdGljIGludCBuYXZpMTBfc2V0X3BlYWtfY2xvY2tfYnlfZGV2aWNl
+KHN0cnVjdCBzbXVfY29udGV4dCAqc211KQoreworCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2
+ID0gc211LT5hZGV2OworCWludCByZXQgPSAwOworCXVpbnQzMl90IHNjbGtfZnJlcSA9IDAsIHVj
+bGtfZnJlcSA9IDA7CisJdWludDMyX3QgdWNsa19sZXZlbCA9IDA7CisKKwlzd2l0Y2ggKGFkZXYt
+PnJldl9pZCkgeworCWNhc2UgMHhmMDogLyogWFRYICovCisJY2FzZSAweGMwOgorCQlzY2xrX2Zy
+ZXEgPSBOQVZJMTBfUEVBS19TQ0xLX1hUWDsKKwkJYnJlYWs7CisJY2FzZSAweGYxOiAvKiBYVCAq
+LworCWNhc2UgMHhjMToKKwkJc2Nsa19mcmVxID0gTkFWSTEwX1BFQUtfU0NMS19YVDsKKwkJYnJl
+YWs7CisJZGVmYXVsdDogLyogWEwgKi8KKwkJc2Nsa19mcmVxID0gTkFWSTEwX1BFQUtfU0NMS19Y
+TDsKKwkJYnJlYWs7CisJfQorCisJcmV0ID0gc211X2dldF9kcG1fbGV2ZWxfY291bnQoc211LCBT
+TVVfVUNMSywgJnVjbGtfbGV2ZWwpOworCWlmIChyZXQpCisJCXJldHVybiByZXQ7CisJcmV0ID0g
+c211X2dldF9kcG1fZnJlcV9ieV9pbmRleChzbXUsIFNNVV9VQ0xLLCB1Y2xrX2xldmVsIC0gMSwg
+JnVjbGtfZnJlcSk7CisJaWYgKHJldCkKKwkJcmV0dXJuIHJldDsKKworCXJldCA9IHNtdV9zZXRf
+c29mdF9mcmVxX3JhbmdlKHNtdSwgU01VX1NDTEssIHNjbGtfZnJlcSwgc2Nsa19mcmVxKTsKKwlp
+ZiAocmV0KQorCQlyZXR1cm4gcmV0OworCXJldCA9IHNtdV9zZXRfc29mdF9mcmVxX3JhbmdlKHNt
+dSwgU01VX1VDTEssIHVjbGtfZnJlcSwgdWNsa19mcmVxKTsKKwlpZiAocmV0KQorCQlyZXR1cm4g
+cmV0OworCisJcmV0dXJuIHJldDsKK30KKworc3RhdGljIGludCBuYXZpMTBfc2V0X3BlcmZvcm1h
+bmNlX2xldmVsKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVtIGFtZF9kcG1fZm9yY2VkX2xl
+dmVsIGxldmVsKQoreworCWludCByZXQgPSAwOworCisJc3dpdGNoIChsZXZlbCkgeworCWNhc2Ug
+QU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9QRUFLOgorCQlyZXQgPSBuYXZpMTBfc2V0X3Bl
+YWtfY2xvY2tfYnlfZGV2aWNlKHNtdSk7CisJCWJyZWFrOworCWRlZmF1bHQ6CisJCXJldCA9IC1F
+SU5WQUw7CisJCWJyZWFrOworCX0KKworCXJldHVybiByZXQ7Cit9CisKIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgcHB0YWJsZV9mdW5jcyBuYXZpMTBfcHB0X2Z1bmNzID0gewogCS50YWJsZXNfaW5pdCA9
+IG5hdmkxMF90YWJsZXNfaW5pdCwKIAkuYWxsb2NfZHBtX2NvbnRleHQgPSBuYXZpMTBfYWxsb2Nh
+dGVfZHBtX2NvbnRleHQsCkBAIC0xNjI1LDYgKzE2NzksNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
+IHBwdGFibGVfZnVuY3MgbmF2aTEwX3BwdF9mdW5jcyA9IHsKIAkuZ2V0X3VjbGtfZHBtX3N0YXRl
+cyA9IG5hdmkxMF9nZXRfdWNsa19kcG1fc3RhdGVzLAogCS5nZXRfcHBmZWF0dXJlX3N0YXR1cyA9
+IG5hdmkxMF9nZXRfcHBmZWF0dXJlX3N0YXR1cywKIAkuc2V0X3BwZmVhdHVyZV9zdGF0dXMgPSBu
+YXZpMTBfc2V0X3BwZmVhdHVyZV9zdGF0dXMsCisJLnNldF9wZXJmb3JtYW5jZV9sZXZlbCA9IG5h
+dmkxMF9zZXRfcGVyZm9ybWFuY2VfbGV2ZWwsCiB9OwogCiB2b2lkIG5hdmkxMF9zZXRfcHB0X2Z1
+bmNzKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvbmF2aTEwX3BwdC5oCmluZGV4IDk1NzI4OGUyMmY0Ny4uNjIwZmYxN2MyZmVmIDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmgKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5oCkBAIC0yMyw2ICsyMywxMCBA
+QAogI2lmbmRlZiBfX05BVkkxMF9QUFRfSF9fCiAjZGVmaW5lIF9fTkFWSTEwX1BQVF9IX18KIAor
+I2RlZmluZSBOQVZJMTBfUEVBS19TQ0xLX1hUWAkJKDE4MzApCisjZGVmaW5lIE5BVkkxMF9QRUFL
+X1NDTEtfWFQgIAkJKDE3NTUpCisjZGVmaW5lIE5BVkkxMF9QRUFLX1NDTEtfWEwgIAkJKDE2MjUp
+CisKIGV4dGVybiB2b2lkIG5hdmkxMF9zZXRfcHB0X2Z1bmNzKHN0cnVjdCBzbXVfY29udGV4dCAq
+c211KTsKIAogI2VuZGlmCi0tIAoyLjIyLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeA==
