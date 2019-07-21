@@ -1,7 +1,8 @@
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amdgpu/gfx10: Fix missing break in switch statement
-Date: Sun, 21 Jul 2019 17:39:49 -0500
-Message-ID: <20190721223949.GA13591@embeddedor>
+Subject: [PATCH] drm/amdkfd/kfd_mqd_manager_v10: Fix missing break in switch
+ statement
+Date: Sun, 21 Jul 2019 17:59:20 -0500
+Message-ID: <20190721225920.GA18099@embeddedor>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
@@ -16,29 +17,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: Kees Cook <keescook@chromium.org>, "Gustavo A. R. Silva" <gustavo@embeddedor.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: Philip Cox <Philip.Cox@amd.com>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
 QWRkIG1pc3NpbmcgYnJlYWsgc3RhdGVtZW50IGluIG9yZGVyIHRvIHByZXZlbnQgdGhlIGNvZGUg
-ZnJvbSBmYWxsaW5nCnRocm91Z2ggdG8gY2FzZSBBTURHUFVfSVJRX1NUQVRFX0VOQUJMRS4KClRo
-aXMgYnVnIHdhcyBmb3VuZCB0aGFua3MgdG8gdGhlIG9uZ29pbmcgZWZmb3J0cyB0byBlbmFibGUK
-LVdpbXBsaWNpdC1mYWxsdGhyb3VnaC4KCkZpeGVzOiBhNjQ0ZDg1YTVjZDQgKCJkcm0vYW1kZ3B1
-OiBhZGQgZ2Z4IHYxMCBpbXBsZW1lbnRhdGlvbiAodjEwKSIpCkNjOiBzdGFibGVAdmdlci5rZXJu
-ZWwub3JnClNpZ25lZC1vZmYtYnk6IEd1c3Rhdm8gQS4gUi4gU2lsdmEgPGd1c3Rhdm9AZW1iZWRk
-ZWRvci5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgfCAx
-ICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ2Z4X3YxMF8wLmMKaW5kZXggMTY3NWQ1ODM3YzNjLi4zNWU4ZTI5MTM5YjEgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCisrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCkBAIC00NjExLDYgKzQ2MTEsNyBAQCBnZnhf
-djEwXzBfc2V0X2dmeF9lb3BfaW50ZXJydXB0X3N0YXRlKHN0cnVjdCBhbWRncHVfZGV2aWNlICph
-ZGV2LAogCQljcF9pbnRfY250bCA9IFJFR19TRVRfRklFTEQoY3BfaW50X2NudGwsIENQX0lOVF9D
-TlRMX1JJTkcwLAogCQkJCQkgICAgVElNRV9TVEFNUF9JTlRfRU5BQkxFLCAwKTsKIAkJV1JFRzMy
-KGNwX2ludF9jbnRsX3JlZywgY3BfaW50X2NudGwpOworCQlicmVhazsKIAljYXNlIEFNREdQVV9J
-UlFfU1RBVEVfRU5BQkxFOgogCQljcF9pbnRfY250bCA9IFJSRUczMihjcF9pbnRfY250bF9yZWcp
-OwogCQljcF9pbnRfY250bCA9IFJFR19TRVRfRklFTEQoY3BfaW50X2NudGwsIENQX0lOVF9DTlRM
-X1JJTkcwLAotLSAKMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
-cmktZGV2ZWw=
+ZnJvbSBmYWxsaW5nCnRocm91Z2ggdG8gY2FzZSBLRkRfTVFEX1RZUEVfQ09NUFVURS4KClRoaXMg
+YnVnIHdhcyBmb3VuZCB0aGFua3MgdG8gdGhlIG9uZ29pbmcgZWZmb3J0cyB0byBlbmFibGUKLVdp
+bXBsaWNpdC1mYWxsdGhyb3VnaC4KCkZpeGVzOiAxNDMyOGFhNThjZTUgKCJkcm0vYW1ka2ZkOiBB
+ZGQgbmF2aTEwIHN1cHBvcnQgdG8gYW1ka2ZkLiAodjMpIikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5l
+bC5vcmcKU2lnbmVkLW9mZi1ieTogR3VzdGF2byBBLiBSLiBTaWx2YSA8Z3VzdGF2b0BlbWJlZGRl
+ZG9yLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJf
+djEwLmMgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYwppbmRleCA0ZjhhNmZm
+YzU3NzUuLjFkOGIxM2FkNDZmOSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
+ZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2Zk
+L2tmZF9tcWRfbWFuYWdlcl92MTAuYwpAQCAtNDMwLDYgKzQzMCw3IEBAIHN0cnVjdCBtcWRfbWFu
+YWdlciAqbXFkX21hbmFnZXJfaW5pdF92MTAoZW51bSBLRkRfTVFEX1RZUEUgdHlwZSwKIAlzd2l0
+Y2ggKHR5cGUpIHsKIAljYXNlIEtGRF9NUURfVFlQRV9DUDoKIAkJcHJfZGVidWcoIiVzQCVpXG4i
+LCBfX2Z1bmNfXywgX19MSU5FX18pOworCQlicmVhazsKIAljYXNlIEtGRF9NUURfVFlQRV9DT01Q
+VVRFOgogCQlwcl9kZWJ1ZygiJXNAJWlcbiIsIF9fZnVuY19fLCBfX0xJTkVfXyk7CiAJCW1xZC0+
+YWxsb2NhdGVfbXFkID0gYWxsb2NhdGVfbXFkOwotLSAKMi4yMi4wCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRy
+aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
