@@ -1,54 +1,61 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/gfx10: Fix missing break in switch statement
-Date: Mon, 22 Jul 2019 15:12:11 -0400
-Message-ID: <CADnq5_NZNA3wCq4U4jbOU7BHfYgan5m=R6MbWmJ3Xp1oYMAUog@mail.gmail.com>
-References: <20190721223949.GA13591@embeddedor>
+From: "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm: drop DRM_AUTH from PRIME_TO/FROM_HANDLE ioctls
+Date: Mon, 22 Jul 2019 19:13:17 +0000
+Message-ID: <c190b41d-2967-5cbf-58ac-d08b35a85ed0@amd.com>
+References: <20190722174025.9830-1-emil.l.velikov@gmail.com>
+ <20190722174025.9830-3-emil.l.velikov@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190721223949.GA13591@embeddedor>
-Sender: linux-kernel-owner@vger.kernel.org
-To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Cc: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Kees Cook <keescook@chromium.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190722174025.9830-3-emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Content-Language: en-US
+Content-ID: <B9AEFC5EBFD74B4FA4C74643A03C8403-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-On Sun, Jul 21, 2019 at 6:39 PM Gustavo A. R. Silva
-<gustavo@embeddedor.com> wrote:
->
-> Add missing break statement in order to prevent the code from falling
-> through to case AMDGPU_IRQ_STATE_ENABLE.
->
-> This bug was found thanks to the ongoing efforts to enable
-> -Wimplicit-fallthrough.
->
-> Fixes: a644d85a5cd4 ("drm/amdgpu: add gfx v10 implementation (v10)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
-
-Applied.  Thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index 1675d5837c3c..35e8e29139b1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -4611,6 +4611,7 @@ gfx_v10_0_set_gfx_eop_interrupt_state(struct amdgpu_device *adev,
->                 cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_INT_CNTL_RING0,
->                                             TIME_STAMP_INT_ENABLE, 0);
->                 WREG32(cp_int_cntl_reg, cp_int_cntl);
-> +               break;
->         case AMDGPU_IRQ_STATE_ENABLE:
->                 cp_int_cntl = RREG32(cp_int_cntl_reg);
->                 cp_int_cntl = REG_SET_FIELD(cp_int_cntl, CP_INT_CNTL_RING0,
-> --
-> 2.22.0
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+QW0gMjIuMDcuMTkgdW0gMTk6NDAgc2NocmllYiBFbWlsIFZlbGlrb3Y6DQo+IEZyb206IEVtaWwg
+VmVsaWtvdiA8ZW1pbC52ZWxpa292QGNvbGxhYm9yYS5jb20+DQo+DQo+IEFzIG1lbnRpb25lZCBi
+eSBDaHJpc3RpYW4sIGZvciBkcml2ZXJzIHdoaWNoIHN1cHBvcnQgb25seSBwcmltYXJ5IG5vZGVz
+DQo+IHRoaXMgY2hhbmdlcyB0aGUgcmV0dXJuZWQgZXJyb3IgZnJvbSAtRUFDQ0VTIGludG8gLUVP
+UE5PVFNVUFAvLUVOT1NZUy4NCj4NCj4gRm9yIG90aGVycywgdGhpcyBjaGVjayBpbiBwYXJ0aWN1
+bGFyIHdpbGwgYmUgYSBub29wLiBTbyBsZXQncyByZW1vdmUgaXQNCj4gYXMgc3VnZ2VzdGVkIGJ5
+IENocmlzdGlhbi4NCj4NCj4gQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1k
+LmNvbT4NCj4gQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4N
+Cj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IENjOiBEYW5pZWwgVmV0dGVy
+IDxkYW5pZWxAZmZ3bGwuY2g+DQo+IFNpZ25lZC1vZmYtYnk6IEVtaWwgVmVsaWtvdiA8ZW1pbC52
+ZWxpa292QGNvbGxhYm9yYS5jb20+DQoNCkxvb2tzIGxpa2UgSSBjYW4ndCBjb252aW5jZSB5b3Ug
+dGhhdCBvcGVuaW5nIHVwIHRoZSBwcmltYXJ5IG5vZGUgbGlrZSANCnRoaXMgaXMgYSBiYWQgaWRl
+YS4NCg0KV2VsbCBhdCBsZWFzdCB3ZSBkb24ndCBuZWVkIHRvIGFkZCBhbnkgbmV3IGZsYWdzLCBz
+byBmZWVsIGZyZWUgdG8gYWRkIG15IA0KQWNrZWQtYnkuDQoNCkNocmlzdGlhbi4NCg0KPiAtLS0N
+Cj4gICBkcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMgfCA0ICsrLS0NCj4gICAxIGZpbGUgY2hh
+bmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPg0KPiBkaWZmIC0tZ2l0IGEv
+ZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5j
+DQo+IGluZGV4IDA5ZjdmOGUzM2ZhMy4uYTM5NzE3N2FmMzY5IDEwMDY0NA0KPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0
+bC5jDQo+IEBAIC02NDcsOCArNjQ3LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1faW9jdGxf
+ZGVzYyBkcm1faW9jdGxzW10gPSB7DQo+ICAgDQo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RM
+X01PREVfR0VUUkVTT1VSQ0VTLCBkcm1fbW9kZV9nZXRyZXNvdXJjZXMsIDApLA0KPiAgIA0KPiAt
+CURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1BSSU1FX0hBTkRMRV9UT19GRCwgZHJtX3ByaW1lX2hh
+bmRsZV90b19mZF9pb2N0bCwgRFJNX0FVVEh8RFJNX1JFTkRFUl9BTExPVyksDQo+IC0JRFJNX0lP
+Q1RMX0RFRihEUk1fSU9DVExfUFJJTUVfRkRfVE9fSEFORExFLCBkcm1fcHJpbWVfZmRfdG9faGFu
+ZGxlX2lvY3RsLCBEUk1fQVVUSHxEUk1fUkVOREVSX0FMTE9XKSwNCj4gKwlEUk1fSU9DVExfREVG
+KERSTV9JT0NUTF9QUklNRV9IQU5ETEVfVE9fRkQsIGRybV9wcmltZV9oYW5kbGVfdG9fZmRfaW9j
+dGwsIERSTV9SRU5ERVJfQUxMT1cpLA0KPiArCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1BSSU1F
+X0ZEX1RPX0hBTkRMRSwgZHJtX3ByaW1lX2ZkX3RvX2hhbmRsZV9pb2N0bCwgRFJNX1JFTkRFUl9B
+TExPVyksDQo+ICAgDQo+ICAgCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX01PREVfR0VUUExBTkVS
+RVNPVVJDRVMsIGRybV9tb2RlX2dldHBsYW5lX3JlcywgMCksDQo+ICAgCURSTV9JT0NUTF9ERUYo
+RFJNX0lPQ1RMX01PREVfR0VUQ1JUQywgZHJtX21vZGVfZ2V0Y3J0YywgMCksDQoNCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
