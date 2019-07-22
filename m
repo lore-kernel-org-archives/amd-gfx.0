@@ -1,65 +1,72 @@
-From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [PATCH] drm/amdkfd/kfd_mqd_manager_v10: Avoid fall-through warning
-Date: Mon, 22 Jul 2019 12:47:16 -0500
-Message-ID: <20190722174716.GA17037@embeddedor>
+From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
+Subject: Re: [PATCH] drm/amdkfd/kfd_mqd_manager_v10: Avoid fall-through warning
+Date: Mon, 22 Jul 2019 18:14:50 +0000
+Message-ID: <7769041f-f321-1e99-a94f-52bdb7c016b5@amd.com>
+References: <20190722174716.GA17037@embeddedor>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-Sender: linux-kernel-owner@vger.kernel.org
-To: Cox@embeddedor, Philip <Philip.Cox@amd.com>, Liu@embeddedor, Shaoyun <Shaoyun.Liu@amd.com>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <20190722174716.GA17037@embeddedor>
+Content-Language: en-US
+Content-ID: <7EA55DF28A76A84C916C0474DFDE086A@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: "Gustavo A. R. Silva" <gustavo@embeddedor.com>, "Cox, Philip" <Philip.Cox@amd.com>, Oded Gabbay <oded.gabbay@gmail.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-In preparation to enabling -Wimplicit-fallthrough, this patch silences
-the following warning:
-
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_mqd_manager_v10.c: In function ‘mqd_manager_init_v10’:
-./include/linux/dynamic_debug.h:122:52: warning: this statement may fall through [-Wimplicit-fallthrough=]
- #define __dynamic_func_call(id, fmt, func, ...) do { \
-                                                    ^
-./include/linux/dynamic_debug.h:143:2: note: in expansion of macro ‘__dynamic_func_call’
-  __dynamic_func_call(__UNIQUE_ID(ddebug), fmt, func, ##__VA_ARGS__)
-  ^~~~~~~~~~~~~~~~~~~
-./include/linux/dynamic_debug.h:153:2: note: in expansion of macro ‘_dynamic_func_call’
-  _dynamic_func_call(fmt, __dynamic_pr_debug,  \
-  ^~~~~~~~~~~~~~~~~~
-./include/linux/printk.h:336:2: note: in expansion of macro ‘dynamic_pr_debug’
-  dynamic_pr_debug(fmt, ##__VA_ARGS__)
-  ^~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_mqd_manager_v10.c:432:3: note: in expansion of macro ‘pr_debug’
-   pr_debug("%s@%i\n", __func__, __LINE__);
-   ^~~~~~~~
-drivers/gpu/drm/amd/amdgpu/../amdkfd/kfd_mqd_manager_v10.c:433:2: note: here
-  case KFD_MQD_TYPE_COMPUTE:
-  ^~~~
-
-by removing the call to pr_debug() in KFD_MQD_TYPE_CP:
-
-"The mqd init for CP and COMPUTE will have the same  routine." [1]
-
-This bug was found thanks to the ongoing efforts to enable
--Wimplicit-fallthrough.
-
-[1] https://lore.kernel.org/lkml/c735a1cc-a545-50fb-44e7-c0ad93ee8ee7@amd.com/
-
-Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-index 4f8a6ffc5775..9cd3eb2d90bd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
-@@ -429,7 +429,6 @@ struct mqd_manager *mqd_manager_init_v10(enum KFD_MQD_TYPE type,
- 
- 	switch (type) {
- 	case KFD_MQD_TYPE_CP:
--		pr_debug("%s@%i\n", __func__, __LINE__);
- 	case KFD_MQD_TYPE_COMPUTE:
- 		pr_debug("%s@%i\n", __func__, __LINE__);
- 		mqd->allocate_mqd = allocate_mqd;
--- 
-2.22.0
+UmV2aWV3ZWQtYnk6wqAgc2hhb3l1bmwgPHNoYW95dW4ubGl1QGFtZC5jb20+DQoNCk9uIDIwMTkt
+MDctMjIgMTo0NyBwLm0uLCBHdXN0YXZvIEEuIFIuIFNpbHZhIHdyb3RlOg0KPiBJbiBwcmVwYXJh
+dGlvbiB0byBlbmFibGluZyAtV2ltcGxpY2l0LWZhbGx0aHJvdWdoLCB0aGlzIHBhdGNoIHNpbGVu
+Y2VzDQo+IHRoZSBmb2xsb3dpbmcgd2FybmluZzoNCj4NCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvLi4vYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYzogSW4gZnVuY3Rpb24g4oCYbXFk
+X21hbmFnZXJfaW5pdF92MTDigJk6DQo+IC4vaW5jbHVkZS9saW51eC9keW5hbWljX2RlYnVnLmg6
+MTIyOjUyOiB3YXJuaW5nOiB0aGlzIHN0YXRlbWVudCBtYXkgZmFsbCB0aHJvdWdoIFstV2ltcGxp
+Y2l0LWZhbGx0aHJvdWdoPV0NCj4gICAjZGVmaW5lIF9fZHluYW1pY19mdW5jX2NhbGwoaWQsIGZt
+dCwgZnVuYywgLi4uKSBkbyB7IFwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBeDQo+IC4vaW5jbHVkZS9saW51eC9keW5hbWljX2RlYnVnLmg6
+MTQzOjI6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhfX2R5bmFtaWNfZnVuY19jYWxs
+4oCZDQo+ICAgIF9fZHluYW1pY19mdW5jX2NhbGwoX19VTklRVUVfSUQoZGRlYnVnKSwgZm10LCBm
+dW5jLCAjI19fVkFfQVJHU19fKQ0KPiAgICBefn5+fn5+fn5+fn5+fn5+fn5+DQo+IC4vaW5jbHVk
+ZS9saW51eC9keW5hbWljX2RlYnVnLmg6MTUzOjI6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNy
+byDigJhfZHluYW1pY19mdW5jX2NhbGzigJkNCj4gICAgX2R5bmFtaWNfZnVuY19jYWxsKGZtdCwg
+X19keW5hbWljX3ByX2RlYnVnLCAgXA0KPiAgICBefn5+fn5+fn5+fn5+fn5+fn4NCj4gLi9pbmNs
+dWRlL2xpbnV4L3ByaW50ay5oOjMzNjoyOiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCY
+ZHluYW1pY19wcl9kZWJ1Z+KAmQ0KPiAgICBkeW5hbWljX3ByX2RlYnVnKGZtdCwgIyNfX1ZBX0FS
+R1NfXykNCj4gICAgXn5+fn5+fn5+fn5+fn5+fg0KPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS8uLi9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jOjQzMjozOiBub3RlOiBpbiBleHBhbnNp
+b24gb2YgbWFjcm8g4oCYcHJfZGVidWfigJkNCj4gICAgIHByX2RlYnVnKCIlc0AlaVxuIiwgX19m
+dW5jX18sIF9fTElORV9fKTsNCj4gICAgIF5+fn5+fn5+DQo+IGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1Ly4uL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmM6NDMzOjI6IG5vdGU6IGhlcmUN
+Cj4gICAgY2FzZSBLRkRfTVFEX1RZUEVfQ09NUFVURToNCj4gICAgXn5+fg0KPg0KPiBieSByZW1v
+dmluZyB0aGUgY2FsbCB0byBwcl9kZWJ1ZygpIGluIEtGRF9NUURfVFlQRV9DUDoNCj4NCj4gIlRo
+ZSBtcWQgaW5pdCBmb3IgQ1AgYW5kIENPTVBVVEUgd2lsbCBoYXZlIHRoZSBzYW1lICByb3V0aW5l
+LiIgWzFdDQo+DQo+IFRoaXMgYnVnIHdhcyBmb3VuZCB0aGFua3MgdG8gdGhlIG9uZ29pbmcgZWZm
+b3J0cyB0byBlbmFibGUNCj4gLVdpbXBsaWNpdC1mYWxsdGhyb3VnaC4NCj4NCj4gWzFdIGh0dHBz
+Oi8vbG9yZS5rZXJuZWwub3JnL2xrbWwvYzczNWExY2MtYTU0NS01MGZiLTQ0ZTctYzBhZDkzZWU4
+ZWU3QGFtZC5jb20vDQo+DQo+IFNpZ25lZC1vZmYtYnk6IEd1c3Rhdm8gQS4gUi4gU2lsdmEgPGd1
+c3Rhdm9AZW1iZWRkZWRvci5jb20+DQo+IC0tLQ0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+a2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYyB8IDEgLQ0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGRl
+bGV0aW9uKC0pDQo+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9r
+ZmRfbXFkX21hbmFnZXJfdjEwLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFk
+X21hbmFnZXJfdjEwLmMNCj4gaW5kZXggNGY4YTZmZmM1Nzc1Li45Y2QzZWIyZDkwYmQgMTAwNjQ0
+DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAu
+Yw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEw
+LmMNCj4gQEAgLTQyOSw3ICs0MjksNiBAQCBzdHJ1Y3QgbXFkX21hbmFnZXIgKm1xZF9tYW5hZ2Vy
+X2luaXRfdjEwKGVudW0gS0ZEX01RRF9UWVBFIHR5cGUsDQo+ICAgDQo+ICAgCXN3aXRjaCAodHlw
+ZSkgew0KPiAgIAljYXNlIEtGRF9NUURfVFlQRV9DUDoNCj4gLQkJcHJfZGVidWcoIiVzQCVpXG4i
+LCBfX2Z1bmNfXywgX19MSU5FX18pOw0KPiAgIAljYXNlIEtGRF9NUURfVFlQRV9DT01QVVRFOg0K
+PiAgIAkJcHJfZGVidWcoIiVzQCVpXG4iLCBfX2Z1bmNfXywgX19MSU5FX18pOw0KPiAgIAkJbXFk
+LT5hbGxvY2F0ZV9tcWQgPSBhbGxvY2F0ZV9tcWQ7DQpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
+bi9saXN0aW5mby9kcmktZGV2ZWw=
