@@ -1,13 +1,14 @@
-From: "Greathouse, Joseph" <Joseph.Greathouse-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amdgpu: Default disable GDS for compute+gfx
-Date: Mon, 22 Jul 2019 15:34:01 +0000
-Message-ID: <20190722153350.29339-1-Joseph.Greathouse@amd.com>
-References: <7002f783-2223-a524-2c60-03447377bd28@amd.com>
+From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd/kfd_mqd_manager_v10: Fix missing break in
+ switch statement
+Date: Mon, 22 Jul 2019 15:58:00 +0000
+Message-ID: <BN6PR12MB18098741A081711936563597F7C40@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <20190721225920.GA18099@embeddedor>,
+ <c735a1cc-a545-50fb-44e7-c0ad93ee8ee7@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1749919304=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7002f783-2223-a524-2c60-03447377bd28-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <c735a1cc-a545-50fb-44e7-c0ad93ee8ee7-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,145 +20,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Olsak, Marek" <Marek.Olsak-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Greathouse,
- Joseph" <Joseph.Greathouse-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>, "Gustavo A. R. Silva" <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>, "Cox, Philip" <Philip.Cox-5C7GfCeVMHo@public.gmane.org>, Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-VW5pdHMgaW4gdGhlIEdEUyBibG9jayBkZWZhdWx0IHRvIGFsbG93aW5nIGFsbCBWTUlEcyBhY2Nl
-c3MgdG8gYWxsCmVudHJpZXMuIERpc2FibGUgc2hhZGVyIGFjY2VzcyB0byB0aGUgR0RTLCBHV1Ms
-IGFuZCBPQSBibG9ja3MgZnJvbSBhbGwKY29tcHV0ZSBhbmQgZ2Z4IFZNSURzIGJ5IGRlZmF1bHQu
-IEZvciBjb21wdXRlLCBIV1MgZmlybXdhcmUgd2lsbCBzZXQKdXAgdGhlIGFjY2VzcyBiaXRzIGZv
-ciB0aGUgYXBwcm9wcmlhdGUgVk1JRCB3aGVuIGEgY29tcHV0ZSBxdWV1ZQpyZXF1aXJlcyBhY2Nl
-c3MgdG8gdGhlc2UgYmxvY2tzLgpUaGUgZHJpdmVyIHdpbGwgaGFuZGxlIGVuYWJsaW5nIGFjY2Vz
-cyBvbi1kZW1hbmQgZm9yIGdyYXBoaWNzIFZNSURzLgoKTGVhdmluZyBWTUlEMCB3aXRoIGZ1bGwg
-YWNjZXNzIGJlY2F1c2Ugb3RoZXJ3aXNlIEhXUyBjYW5ub3Qgc2F2ZSBvcgpyZXN0b3JlIHZhbHVl
-cyBkdXJpbmcgdGFzayBzd2l0Y2guCgp2MjogRml4ZWQgY29kZSBhbmQgY29tbWVudCBzdHlsaW5n
-LgoKQ2hhbmdlLUlkOiBJM2Q3NjhhOTY5MzVkMmVkMWRmZjA5YjAyYzk5NTA5MGY0ZmJmYTUzOQpT
-aWduZWQtb2ZmLWJ5OiBKb3NlcGggR3JlYXRob3VzZSA8Sm9zZXBoLkdyZWF0aG91c2VAYW1kLmNv
-bT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYyB8IDI1ICsrKysr
-KysrKysrKysrKysrKy0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18w
-LmMgIHwgMjQgKysrKysrKysrKysrKysrKystLS0tLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjhfMC5jICB8IDI0ICsrKysrKysrKysrKysrKysrLS0tLS0tLQogZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgfCAyNCArKysrKysrKysrKysrKysrKy0tLS0t
-LS0KIDQgZmlsZXMgY2hhbmdlZCwgNjkgaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRpb25zKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwppbmRleCA3M2RjYjYzMmEzY2UuLjJh
-OTY5MmJjMzRiNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Yx
-MF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKQEAgLTE1
-MTYsMTcgKzE1MTYsMjcgQEAgc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX2luaXRfY29tcHV0ZV92bWlk
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCX0KIAludl9ncmJtX3NlbGVjdChhZGV2LCAw
-LCAwLCAwLCAwKTsKIAltdXRleF91bmxvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOworfQogCi0JLyog
-SW5pdGlhbGl6ZSBhbGwgY29tcHV0ZSBWTUlEcyB0byBoYXZlIG5vIEdEUywgR1dTLCBvciBPQQot
-CSAgIGFjY2Nlc3MuIFRoZXNlIHNob3VsZCBiZSBlbmFibGVkIGJ5IEZXIGZvciB0YXJnZXQgVk1J
-RHMuICovCi0JZm9yIChpID0gRklSU1RfQ09NUFVURV9WTUlEOyBpIDwgTEFTVF9DT01QVVRFX1ZN
-SUQ7IGkrKykgewotCQlXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbUdEU19WTUlEMF9CQVNF
-LCAyICogaSwgMCk7Ci0JCVdSRUczMl9TT0MxNV9PRkZTRVQoR0MsIDAsIG1tR0RTX1ZNSUQwX1NJ
-WkUsIDIgKiBpLCAwKTsKLQkJV1JFRzMyX1NPQzE1X09GRlNFVChHQywgMCwgbW1HRFNfR1dTX1ZN
-SUQwLCBpLCAwKTsKLQkJV1JFRzMyX1NPQzE1X09GRlNFVChHQywgMCwgbW1HRFNfT0FfVk1JRDAs
-IGksIDApOworc3RhdGljIHZvaWQgZ2Z4X3YxMF8wX2luaXRfZ2RzX3ZtaWQoc3RydWN0IGFtZGdw
-dV9kZXZpY2UgKmFkZXYpCit7CisJaW50IHZtaWQ7CisKKwkvKgorCSAqIEluaXRpYWxpemUgYWxs
-IGNvbXB1dGUgYW5kIHVzZXItZ2Z4IFZNSURzIHRvIGhhdmUgbm8gR0RTLCBHV1MsIG9yIE9BCisJ
-ICogYWNjZXNzLiBDb21wdXRlIFZNSURzIHNob3VsZCBiZSBlbmFibGVkIGJ5IEZXIGZvciB0YXJn
-ZXQgVk1JRHMsCisJICogdGhlIGRyaXZlciBjYW4gZW5hYmxlIHRoZW0gZm9yIGdyYXBoaWNzLiBW
-TUlEMCBzaG91bGQgbWFpbnRhaW4KKwkgKiBhY2Nlc3Mgc28gdGhhdCBIV1MgZmlybXdhcmUgY2Fu
-IHNhdmUvcmVzdG9yZSBlbnRyaWVzLgorCSAqLworCWZvciAodm1pZCA9IDE7IHZtaWQgPCAxNjsg
-dm1pZCsrKSB7CisJCVdSRUczMl9TT0MxNV9PRkZTRVQoR0MsIDAsIG1tR0RTX1ZNSUQwX0JBU0Us
-IDIgKiB2bWlkLCAwKTsKKwkJV1JFRzMyX1NPQzE1X09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBf
-U0laRSwgMiAqIHZtaWQsIDApOworCQlXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbUdEU19H
-V1NfVk1JRDAsIHZtaWQsIDApOworCQlXUkVHMzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbUdEU19P
-QV9WTUlEMCwgdm1pZCwgMCk7CiAJfQogfQogCisKIHN0YXRpYyB2b2lkIGdmeF92MTBfMF90Y3Bf
-aGFydmVzdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAlpbnQgaSwgaiwgazsKQEAg
-LTE2MjksNiArMTYzOSw3IEBAIHN0YXRpYyB2b2lkIGdmeF92MTBfMF9jb25zdGFudHNfaW5pdChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAltdXRleF91bmxvY2soJmFkZXYtPnNyYm1fbXV0
-ZXgpOwogCiAJZ2Z4X3YxMF8wX2luaXRfY29tcHV0ZV92bWlkKGFkZXYpOworCWdmeF92MTBfMF9p
-bml0X2dkc192bWlkKGFkZXYpOwogCiB9CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dmeF92N18wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdf
-MC5jCmluZGV4IDNmOTg2MjQ3NzJhNC4uNDg3OTZiNjgyNGNmIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2dmeF92N18wLmMKQEAgLTE4NzcsMTQgKzE4NzcsMjMgQEAgc3RhdGljIHZvaWQgZ2Z4
-X3Y3XzBfaW5pdF9jb21wdXRlX3ZtaWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCiAJfQog
-CWNpa19zcmJtX3NlbGVjdChhZGV2LCAwLCAwLCAwLCAwKTsKIAltdXRleF91bmxvY2soJmFkZXYt
-PnNyYm1fbXV0ZXgpOworfQogCi0JLyogSW5pdGlhbGl6ZSBhbGwgY29tcHV0ZSBWTUlEcyB0byBo
-YXZlIG5vIEdEUywgR1dTLCBvciBPQQotCSAgIGFjY2Nlc3MuIFRoZXNlIHNob3VsZCBiZSBlbmFi
-bGVkIGJ5IEZXIGZvciB0YXJnZXQgVk1JRHMuICovCi0JZm9yIChpID0gRklSU1RfQ09NUFVURV9W
-TUlEOyBpIDwgTEFTVF9DT01QVVRFX1ZNSUQ7IGkrKykgewotCQlXUkVHMzIoYW1kZ3B1X2dkc19y
-ZWdfb2Zmc2V0W2ldLm1lbV9iYXNlLCAwKTsKLQkJV1JFRzMyKGFtZGdwdV9nZHNfcmVnX29mZnNl
-dFtpXS5tZW1fc2l6ZSwgMCk7Ci0JCVdSRUczMihhbWRncHVfZ2RzX3JlZ19vZmZzZXRbaV0uZ3dz
-LCAwKTsKLQkJV1JFRzMyKGFtZGdwdV9nZHNfcmVnX29mZnNldFtpXS5vYSwgMCk7CitzdGF0aWMg
-dm9pZCBnZnhfdjdfMF9pbml0X2dkc192bWlkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQor
-eworCWludCB2bWlkOworCisJLyoKKwkgKiBJbml0aWFsaXplIGFsbCBjb21wdXRlIGFuZCB1c2Vy
-LWdmeCBWTUlEcyB0byBoYXZlIG5vIEdEUywgR1dTLCBvciBPQQorCSAqIGFjY2Vzcy4gQ29tcHV0
-ZSBWTUlEcyBzaG91bGQgYmUgZW5hYmxlZCBieSBGVyBmb3IgdGFyZ2V0IFZNSURzLAorCSAqIHRo
-ZSBkcml2ZXIgY2FuIGVuYWJsZSB0aGVtIGZvciBncmFwaGljcy4gVk1JRDAgc2hvdWxkIG1haW50
-YWluCisJICogYWNjZXNzIHNvIHRoYXQgSFdTIGZpcm13YXJlIGNhbiBzYXZlL3Jlc3RvcmUgZW50
-cmllcy4KKwkgKi8KKwlmb3IgKHZtaWQgPSAxOyB2bWlkIDwgMTY7IHZtaWQrKykgeworCQlXUkVH
-MzIoYW1kZ3B1X2dkc19yZWdfb2Zmc2V0W3ZtaWRdLm1lbV9iYXNlLCAwKTsKKwkJV1JFRzMyKGFt
-ZGdwdV9nZHNfcmVnX29mZnNldFt2bWlkXS5tZW1fc2l6ZSwgMCk7CisJCVdSRUczMihhbWRncHVf
-Z2RzX3JlZ19vZmZzZXRbdm1pZF0uZ3dzLCAwKTsKKwkJV1JFRzMyKGFtZGdwdV9nZHNfcmVnX29m
-ZnNldFt2bWlkXS5vYSwgMCk7CiAJfQogfQogCkBAIC0xOTY2LDYgKzE5NzUsNyBAQCBzdGF0aWMg
-dm9pZCBnZnhfdjdfMF9jb25zdGFudHNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-IAltdXRleF91bmxvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwogCiAJZ2Z4X3Y3XzBfaW5pdF9jb21w
-dXRlX3ZtaWQoYWRldik7CisJZ2Z4X3Y3XzBfaW5pdF9nZHNfdm1pZChhZGV2KTsKIAogCVdSRUcz
-MihtbVNYX0RFQlVHXzEsIDB4MjApOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAu
-YwppbmRleCBlNDAyOGQ1NGY4ZjcuLmQyOTA3MTg2YmIyNCAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjhfMC5jCkBAIC0zNzAyLDE0ICszNzAyLDIzIEBAIHN0YXRpYyB2b2lkIGdmeF92
-OF8wX2luaXRfY29tcHV0ZV92bWlkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCX0KIAl2
-aV9zcmJtX3NlbGVjdChhZGV2LCAwLCAwLCAwLCAwKTsKIAltdXRleF91bmxvY2soJmFkZXYtPnNy
-Ym1fbXV0ZXgpOworfQogCi0JLyogSW5pdGlhbGl6ZSBhbGwgY29tcHV0ZSBWTUlEcyB0byBoYXZl
-IG5vIEdEUywgR1dTLCBvciBPQQotCSAgIGFjY2Nlc3MuIFRoZXNlIHNob3VsZCBiZSBlbmFibGVk
-IGJ5IEZXIGZvciB0YXJnZXQgVk1JRHMuICovCi0JZm9yIChpID0gRklSU1RfQ09NUFVURV9WTUlE
-OyBpIDwgTEFTVF9DT01QVVRFX1ZNSUQ7IGkrKykgewotCQlXUkVHMzIoYW1kZ3B1X2dkc19yZWdf
-b2Zmc2V0W2ldLm1lbV9iYXNlLCAwKTsKLQkJV1JFRzMyKGFtZGdwdV9nZHNfcmVnX29mZnNldFtp
-XS5tZW1fc2l6ZSwgMCk7Ci0JCVdSRUczMihhbWRncHVfZ2RzX3JlZ19vZmZzZXRbaV0uZ3dzLCAw
-KTsKLQkJV1JFRzMyKGFtZGdwdV9nZHNfcmVnX29mZnNldFtpXS5vYSwgMCk7CitzdGF0aWMgdm9p
-ZCBnZnhfdjhfMF9pbml0X2dkc192bWlkKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQorewor
-CWludCB2bWlkOworCisJLyoKKwkgKiBJbml0aWFsaXplIGFsbCBjb21wdXRlIGFuZCB1c2VyLWdm
-eCBWTUlEcyB0byBoYXZlIG5vIEdEUywgR1dTLCBvciBPQQorCSAqIGFjY2Vzcy4gQ29tcHV0ZSBW
-TUlEcyBzaG91bGQgYmUgZW5hYmxlZCBieSBGVyBmb3IgdGFyZ2V0IFZNSURzLAorCSAqIHRoZSBk
-cml2ZXIgY2FuIGVuYWJsZSB0aGVtIGZvciBncmFwaGljcy4gVk1JRDAgc2hvdWxkIG1haW50YWlu
-CisJICogYWNjZXNzIHNvIHRoYXQgSFdTIGZpcm13YXJlIGNhbiBzYXZlL3Jlc3RvcmUgZW50cmll
-cy4KKwkgKi8KKwlmb3IgKHZtaWQgPSAxOyB2bWlkIDwgMTY7IHZtaWQrKykgeworCQlXUkVHMzIo
-YW1kZ3B1X2dkc19yZWdfb2Zmc2V0W3ZtaWRdLm1lbV9iYXNlLCAwKTsKKwkJV1JFRzMyKGFtZGdw
-dV9nZHNfcmVnX29mZnNldFt2bWlkXS5tZW1fc2l6ZSwgMCk7CisJCVdSRUczMihhbWRncHVfZ2Rz
-X3JlZ19vZmZzZXRbdm1pZF0uZ3dzLCAwKTsKKwkJV1JFRzMyKGFtZGdwdV9nZHNfcmVnX29mZnNl
-dFt2bWlkXS5vYSwgMCk7CiAJfQogfQogCkBAIC0zNzc5LDYgKzM3ODgsNyBAQCBzdGF0aWMgdm9p
-ZCBnZnhfdjhfMF9jb25zdGFudHNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAlt
-dXRleF91bmxvY2soJmFkZXYtPnNyYm1fbXV0ZXgpOwogCiAJZ2Z4X3Y4XzBfaW5pdF9jb21wdXRl
-X3ZtaWQoYWRldik7CisJZ2Z4X3Y4XzBfaW5pdF9nZHNfdm1pZChhZGV2KTsKIAogCW11dGV4X2xv
-Y2soJmFkZXYtPmdyYm1faWR4X211dGV4KTsKIAkvKgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OV8wLmMKaW5kZXggMjU5YTM1Mzk1ZmVjLi5iZDdmNDMxYTI0ZDkgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwpAQCAtMjAyNSwxNCArMjAyNSwyMyBAQCBzdGF0aWMgdm9p
-ZCBnZnhfdjlfMF9pbml0X2NvbXB1dGVfdm1pZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikK
-IAl9CiAJc29jMTVfZ3JibV9zZWxlY3QoYWRldiwgMCwgMCwgMCwgMCk7CiAJbXV0ZXhfdW5sb2Nr
-KCZhZGV2LT5zcmJtX211dGV4KTsKK30KIAotCS8qIEluaXRpYWxpemUgYWxsIGNvbXB1dGUgVk1J
-RHMgdG8gaGF2ZSBubyBHRFMsIEdXUywgb3IgT0EKLQkgICBhY2NjZXNzLiBUaGVzZSBzaG91bGQg
-YmUgZW5hYmxlZCBieSBGVyBmb3IgdGFyZ2V0IFZNSURzLiAqLwotCWZvciAoaSA9IEZJUlNUX0NP
-TVBVVEVfVk1JRDsgaSA8IExBU1RfQ09NUFVURV9WTUlEOyBpKyspIHsKLQkJV1JFRzMyX1NPQzE1
-X09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBfQkFTRSwgMiAqIGksIDApOwotCQlXUkVHMzJfU09D
-MTVfT0ZGU0VUKEdDLCAwLCBtbUdEU19WTUlEMF9TSVpFLCAyICogaSwgMCk7Ci0JCVdSRUczMl9T
-T0MxNV9PRkZTRVQoR0MsIDAsIG1tR0RTX0dXU19WTUlEMCwgaSwgMCk7Ci0JCVdSRUczMl9TT0Mx
-NV9PRkZTRVQoR0MsIDAsIG1tR0RTX09BX1ZNSUQwLCBpLCAwKTsKK3N0YXRpYyB2b2lkIGdmeF92
-OV8wX2luaXRfZ2RzX3ZtaWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCit7CisJaW50IHZt
-aWQ7CisKKwkvKgorCSAqIEluaXRpYWxpemUgYWxsIGNvbXB1dGUgYW5kIHVzZXItZ2Z4IFZNSURz
-IHRvIGhhdmUgbm8gR0RTLCBHV1MsIG9yIE9BCisJICogYWNjZXNzLiBDb21wdXRlIFZNSURzIHNo
-b3VsZCBiZSBlbmFibGVkIGJ5IEZXIGZvciB0YXJnZXQgVk1JRHMsCisJICogdGhlIGRyaXZlciBj
-YW4gZW5hYmxlIHRoZW0gZm9yIGdyYXBoaWNzLiBWTUlEMCBzaG91bGQgbWFpbnRhaW4KKwkgKiBh
-Y2Nlc3Mgc28gdGhhdCBIV1MgZmlybXdhcmUgY2FuIHNhdmUvcmVzdG9yZSBlbnRyaWVzLgorCSAq
-LworCWZvciAodm1pZCA9IDE7IHZtaWQgPCAxNjsgdm1pZCsrKSB7CisJCVdSRUczMl9TT0MxNV9P
-RkZTRVQoR0MsIDAsIG1tR0RTX1ZNSUQwX0JBU0UsIDIgKiB2bWlkLCAwKTsKKwkJV1JFRzMyX1NP
-QzE1X09GRlNFVChHQywgMCwgbW1HRFNfVk1JRDBfU0laRSwgMiAqIHZtaWQsIDApOworCQlXUkVH
-MzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbUdEU19HV1NfVk1JRDAsIHZtaWQsIDApOworCQlXUkVH
-MzJfU09DMTVfT0ZGU0VUKEdDLCAwLCBtbUdEU19PQV9WTUlEMCwgdm1pZCwgMCk7CiAJfQogfQog
-CkBAIC0yMDgwLDYgKzIwODksNyBAQCBzdGF0aWMgdm9pZCBnZnhfdjlfMF9jb25zdGFudHNfaW5p
-dChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAltdXRleF91bmxvY2soJmFkZXYtPnNyYm1f
-bXV0ZXgpOwogCiAJZ2Z4X3Y5XzBfaW5pdF9jb21wdXRlX3ZtaWQoYWRldik7CisJZ2Z4X3Y5XzBf
-aW5pdF9nZHNfdm1pZChhZGV2KTsKIH0KIAogc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfd2FpdF9mb3Jf
-cmxjX3NlcmRlcyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKLS0gCjIuMTkuMQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVz
-a3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============1749919304==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN6PR12MB18098741A081711936563597F7C40BN6PR12MB1809namp_"
+
+--_000_BN6PR12MB18098741A081711936563597F7C40BN6PR12MB1809namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+We need to add a /*fall through */ comment then.
+
+Alex
+________________________________
+From: Liu, Shaoyun <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, July 22, 2019 11:14 AM
+To: Gustavo A. R. Silva <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>; Cox, Philip <Philip.Cox@a=
+md.com>; Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; Deucher, Alexander <Alexander=
+.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>; Zhou, Davi=
+d(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; David Airlie <airlied-cv59FeDIM0c@public.gmane.org>; Daniel =
+Vetter <daniel-/w4YWyX8dFk@public.gmane.org>
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; dri-deve=
+l@lists.freedesktop.org <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; linux-kernel@vge=
+r.kernel.org <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+Subject: Re: [PATCH] drm/amdkfd/kfd_mqd_manager_v10: Fix missing break in s=
+witch statement
+
+This one properly in purpose , The mqd init for CP and  COMPUTE will
+have the same  routine .
+
+Regard
+
+sshaoyun.liu
+
+On 2019-07-21 6:59 p.m., Gustavo A. R. Silva wrote:
+> Add missing break statement in order to prevent the code from falling
+> through to case KFD_MQD_TYPE_COMPUTE.
+>
+> This bug was found thanks to the ongoing efforts to enable
+> -Wimplicit-fallthrough.
+>
+> Fixes: 14328aa58ce5 ("drm/amdkfd: Add navi10 support to amdkfd. (v3)")
+> Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+> Signed-off-by: Gustavo A. R. Silva <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/drivers/g=
+pu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> index 4f8a6ffc5775..1d8b13ad46f9 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c
+> @@ -430,6 +430,7 @@ struct mqd_manager *mqd_manager_init_v10(enum KFD_MQD=
+_TYPE type,
+>        switch (type) {
+>        case KFD_MQD_TYPE_CP:
+>                pr_debug("%s@%i\n", __func__, __LINE__);
+> +             break;
+>        case KFD_MQD_TYPE_COMPUTE:
+>                pr_debug("%s@%i\n", __func__, __LINE__);
+>                mqd->allocate_mqd =3D allocate_mqd;
+
+--_000_BN6PR12MB18098741A081711936563597F7C40BN6PR12MB1809namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+We need to add a /*fall through */ comment then.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Shaoyun &lt;Shao=
+yun.Liu-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Monday, July 22, 2019 11:14 AM<br>
+<b>To:</b> Gustavo A. R. Silva &lt;gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org&gt;; Cox, Philip =
+&lt;Philip.Cox-5C7GfCeVMHo@public.gmane.org&gt;; Oded Gabbay &lt;oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; Deuc=
+her, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christian &lt;Chr=
+istian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;; Zhou, David(ChunMing) &lt;David1.Zhou-5C7GfCeVMHo@public.gmane.org&gt=
+;;
+ David Airlie &lt;airlied-cv59FeDIM0c@public.gmane.org&gt;; Daniel Vetter &lt;daniel-/w4YWyX8dFk@public.gmane.org&g=
+t;<br>
+<b>Cc:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt=
+;; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org &lt;linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd/kfd_mqd_manager_v10: Fix missing bre=
+ak in switch statement</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This one properly in purpose , The mqd init for CP=
+ and&nbsp; COMPUTE will
+<br>
+have the same&nbsp; routine .<br>
+<br>
+Regard<br>
+<br>
+sshaoyun.liu<br>
+<br>
+On 2019-07-21 6:59 p.m., Gustavo A. R. Silva wrote:<br>
+&gt; Add missing break statement in order to prevent the code from falling<=
+br>
+&gt; through to case KFD_MQD_TYPE_COMPUTE.<br>
+&gt;<br>
+&gt; This bug was found thanks to the ongoing efforts to enable<br>
+&gt; -Wimplicit-fallthrough.<br>
+&gt;<br>
+&gt; Fixes: 14328aa58ce5 (&quot;drm/amdkfd: Add navi10 support to amdkfd. (=
+v3)&quot;)<br>
+&gt; Cc: stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org<br>
+&gt; Signed-off-by: Gustavo A. R. Silva &lt;gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c | 1 &#43;=
+<br>
+&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(&#43;)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c<br>
+&gt; index 4f8a6ffc5775..1d8b13ad46f9 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v10.c<br>
+&gt; @@ -430,6 &#43;430,7 @@ struct mqd_manager *mqd_manager_init_v10(enum =
+KFD_MQD_TYPE type,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (type) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case KFD_MQD_TYPE_CP:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pr_debug(&quot;%s@%i\n&quot;, __func__, __LINE__);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; break;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case KFD_MQD_TYPE_COMPUTE:<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pr_debug(&quot;%s@%i\n&quot;, __func__, __LINE__);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; mqd-&gt;allocate_mqd =3D allocate_mqd;<br>
+</div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN6PR12MB18098741A081711936563597F7C40BN6PR12MB1809namp_--
+
+--===============1749919304==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1749919304==--
