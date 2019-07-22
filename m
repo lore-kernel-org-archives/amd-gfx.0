@@ -1,78 +1,41 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdkfd/kfd_mqd_manager_v10: Avoid fall-through warning
-Date: Mon, 22 Jul 2019 15:13:44 -0400
-Message-ID: <CADnq5_MqhTXyuAf-UubM7Ht7Ta56+_VmecWg1L2=5mhhox1Otg@mail.gmail.com>
-References: <20190722174716.GA17037@embeddedor>
- <7769041f-f321-1e99-a94f-52bdb7c016b5@amd.com>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: Re: [PATCH] drm/amdgpu/gfx10: Fix missing break in switch statement
+Date: Mon, 22 Jul 2019 14:14:37 -0500
+Message-ID: <8a539933-bb59-0204-58a9-ab54fa6b1c94@embeddedor.com>
+References: <20190721223949.GA13591@embeddedor>
+ <CADnq5_NZNA3wCq4U4jbOU7BHfYgan5m=R6MbWmJ3Xp1oYMAUog@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <7769041f-f321-1e99-a94f-52bdb7c016b5-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Liu, Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
-Cc: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Gustavo A. R. Silva" <gustavo-L1vi/lXTdts+Va1GwOuvDg@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Cox, Philip" <Philip.Cox-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CADnq5_NZNA3wCq4U4jbOU7BHfYgan5m=R6MbWmJ3Xp1oYMAUog@mail.gmail.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Hawking Zhang <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Kees Cook <keescook@chromium.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIE1vbiwgSnVsIDIyLCAyMDE5IGF0IDI6MTQgUE0g
-TGl1LCBTaGFveXVuIDxTaGFveXVuLkxpdUBhbWQuY29tPiB3cm90ZToKPgo+IFJldmlld2VkLWJ5
-OiAgc2hhb3l1bmwgPHNoYW95dW4ubGl1QGFtZC5jb20+Cj4KPiBPbiAyMDE5LTA3LTIyIDE6NDcg
-cC5tLiwgR3VzdGF2byBBLiBSLiBTaWx2YSB3cm90ZToKPiA+IEluIHByZXBhcmF0aW9uIHRvIGVu
-YWJsaW5nIC1XaW1wbGljaXQtZmFsbHRocm91Z2gsIHRoaXMgcGF0Y2ggc2lsZW5jZXMKPiA+IHRo
-ZSBmb2xsb3dpbmcgd2FybmluZzoKPiA+Cj4gPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS8u
-Li9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jOiBJbiBmdW5jdGlvbiDigJhtcWRfbWFuYWdl
-cl9pbml0X3YxMOKAmToKPiA+IC4vaW5jbHVkZS9saW51eC9keW5hbWljX2RlYnVnLmg6MTIyOjUy
-OiB3YXJuaW5nOiB0aGlzIHN0YXRlbWVudCBtYXkgZmFsbCB0aHJvdWdoIFstV2ltcGxpY2l0LWZh
-bGx0aHJvdWdoPV0KPiA+ICAgI2RlZmluZSBfX2R5bmFtaWNfZnVuY19jYWxsKGlkLCBmbXQsIGZ1
-bmMsIC4uLikgZG8geyBcCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIF4KPiA+IC4vaW5jbHVkZS9saW51eC9keW5hbWljX2RlYnVnLmg6MTQz
-OjI6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhfX2R5bmFtaWNfZnVuY19jYWxs4oCZ
-Cj4gPiAgICBfX2R5bmFtaWNfZnVuY19jYWxsKF9fVU5JUVVFX0lEKGRkZWJ1ZyksIGZtdCwgZnVu
-YywgIyNfX1ZBX0FSR1NfXykKPiA+ICAgIF5+fn5+fn5+fn5+fn5+fn5+fn4KPiA+IC4vaW5jbHVk
-ZS9saW51eC9keW5hbWljX2RlYnVnLmg6MTUzOjI6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNy
-byDigJhfZHluYW1pY19mdW5jX2NhbGzigJkKPiA+ICAgIF9keW5hbWljX2Z1bmNfY2FsbChmbXQs
-IF9fZHluYW1pY19wcl9kZWJ1ZywgIFwKPiA+ICAgIF5+fn5+fn5+fn5+fn5+fn5+fgo+ID4gLi9p
-bmNsdWRlL2xpbnV4L3ByaW50ay5oOjMzNjoyOiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g
-4oCYZHluYW1pY19wcl9kZWJ1Z+KAmQo+ID4gICAgZHluYW1pY19wcl9kZWJ1ZyhmbXQsICMjX19W
-QV9BUkdTX18pCj4gPiAgICBefn5+fn5+fn5+fn5+fn5+Cj4gPiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS8uLi9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jOjQzMjozOiBub3RlOiBpbiBl
-eHBhbnNpb24gb2YgbWFjcm8g4oCYcHJfZGVidWfigJkKPiA+ICAgICBwcl9kZWJ1ZygiJXNAJWlc
-biIsIF9fZnVuY19fLCBfX0xJTkVfXyk7Cj4gPiAgICAgXn5+fn5+fn4KPiA+IGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1Ly4uL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmM6NDMzOjI6IG5v
-dGU6IGhlcmUKPiA+ICAgIGNhc2UgS0ZEX01RRF9UWVBFX0NPTVBVVEU6Cj4gPiAgICBefn5+Cj4g
-Pgo+ID4gYnkgcmVtb3ZpbmcgdGhlIGNhbGwgdG8gcHJfZGVidWcoKSBpbiBLRkRfTVFEX1RZUEVf
-Q1A6Cj4gPgo+ID4gIlRoZSBtcWQgaW5pdCBmb3IgQ1AgYW5kIENPTVBVVEUgd2lsbCBoYXZlIHRo
-ZSBzYW1lICByb3V0aW5lLiIgWzFdCj4gPgo+ID4gVGhpcyBidWcgd2FzIGZvdW5kIHRoYW5rcyB0
-byB0aGUgb25nb2luZyBlZmZvcnRzIHRvIGVuYWJsZQo+ID4gLVdpbXBsaWNpdC1mYWxsdGhyb3Vn
-aC4KPiA+Cj4gPiBbMV0gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGttbC9jNzM1YTFjYy1hNTQ1
-LTUwZmItNDRlNy1jMGFkOTNlZThlZTdAYW1kLmNvbS8KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBH
-dXN0YXZvIEEuIFIuIFNpbHZhIDxndXN0YXZvQGVtYmVkZGVkb3IuY29tPgo+ID4gLS0tCj4gPiAg
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9tcWRfbWFuYWdlcl92MTAuYyB8IDEgLQo+
-ID4gICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmMKPiA+IGluZGV4IDRmOGE2
-ZmZjNTc3NS4uOWNkM2ViMmQ5MGJkIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX21xZF9tYW5hZ2VyX3YxMC5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGtmZC9rZmRfbXFkX21hbmFnZXJfdjEwLmMKPiA+IEBAIC00MjksNyArNDI5LDYgQEAg
-c3RydWN0IG1xZF9tYW5hZ2VyICptcWRfbWFuYWdlcl9pbml0X3YxMChlbnVtIEtGRF9NUURfVFlQ
-RSB0eXBlLAo+ID4KPiA+ICAgICAgIHN3aXRjaCAodHlwZSkgewo+ID4gICAgICAgY2FzZSBLRkRf
-TVFEX1RZUEVfQ1A6Cj4gPiAtICAgICAgICAgICAgIHByX2RlYnVnKCIlc0AlaVxuIiwgX19mdW5j
-X18sIF9fTElORV9fKTsKPiA+ICAgICAgIGNhc2UgS0ZEX01RRF9UWVBFX0NPTVBVVEU6Cj4gPiAg
-ICAgICAgICAgICAgIHByX2RlYnVnKCIlc0AlaVxuIiwgX19mdW5jX18sIF9fTElORV9fKTsKPiA+
-ICAgICAgICAgICAgICAgbXFkLT5hbGxvY2F0ZV9tcWQgPSBhbGxvY2F0ZV9tcWQ7Cj4gX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFp
-bGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+
+
+On 7/22/19 2:12 PM, Alex Deucher wrote:
+> On Sun, Jul 21, 2019 at 6:39 PM Gustavo A. R. Silva
+> <gustavo@embeddedor.com> wrote:
+>>
+>> Add missing break statement in order to prevent the code from falling
+>> through to case AMDGPU_IRQ_STATE_ENABLE.
+>>
+>> This bug was found thanks to the ongoing efforts to enable
+>> -Wimplicit-fallthrough.
+>>
+>> Fixes: a644d85a5cd4 ("drm/amdgpu: add gfx v10 implementation (v10)")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+> 
+> Applied.  Thanks!
+> 
+
+Awesome! Glad to help. :)
+
+Thanks
+--
+Gustavo
