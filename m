@@ -1,13 +1,14 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amd/powerplay: correct confusing naming for
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: correct confusing naming for
  smu_feature_set_enabled
-Date: Mon, 22 Jul 2019 06:59:52 +0000
-Message-ID: <MN2PR12MB3296197F32A37621120B9709A2C40@MN2PR12MB3296.namprd12.prod.outlook.com>
+Date: Mon, 22 Jul 2019 07:17:55 +0000
+Message-ID: <MN2PR12MB3344C65D72C585B8104DDF5CE4C40@MN2PR12MB3344.namprd12.prod.outlook.com>
 References: <20190722063426.19597-1-evan.quan@amd.com>
+ <MN2PR12MB3296197F32A37621120B9709A2C40@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1111384964=="
+Content-Type: multipart/mixed; boundary="===============0092529385=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190722063426.19597-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MN2PR12MB3296197F32A37621120B9709A2C40-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,16 +20,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1111384964==
+--===============0092529385==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3296197F32A37621120B9709A2C40MN2PR12MB3296namp_"
+	boundary="_000_MN2PR12MB3344C65D72C585B8104DDF5CE4C40MN2PR12MB3344namp_"
 
---_000_MN2PR12MB3296197F32A37621120B9709A2C40MN2PR12MB3296namp_
+--_000_MN2PR12MB3344C65D72C585B8104DDF5CE4C40MN2PR12MB3344namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+I cannot get your point. What do you mean "pairs of functions"?
+Yes, this patch does not bring real changes.
+But this helps for future maintain and fit common logic.
+1. As in my previous patch("drm/amd/powerplay: correct Navi10 VCN powergate=
+ control" ),  "smu_feature_set_enabled(smu, SMU_FEATURE_VCN_PG_BIT, enable)=
+;" was mistakenly used. I thought and expected smu_feature_set_enabled set =
+the bitmask on only. I do not want it to enable or disable the feature.
+2. smu_feature_set_enabled should in the same logic as smu_feature_set_supp=
+orted. It updates only the saved bit mask. That's the expected behavior for=
+ some APIs named as _set_enabled/supported.
+3. The original callers who want feature enablement/disablement are updated=
+ to use smu_enable_smc_feature(). I do not see any problem with that.
+
+Regards,
+Evan
+From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Sent: Monday, July 22, 2019 3:00 PM
+To: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Subject: Re: [PATCH] drm/amd/powerplay: correct confusing naming for smu_fe=
+ature_set_enabled
 
 before this patch, we have 4 apis to manage smu feature bits.
 the patch add a new one in them, but it is not add any feature in smu.
@@ -58,11 +80,13 @@ extern int smu_feature_set_supported(struct smu_context *smu,
 Best Regards,
 Kevin
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
-n <evan.quan-5C7GfCeVMHo@public.gmane.org>
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> on behalf of Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:e=
+van.quan-5C7GfCeVMHo@public.gmane.org>>
 Sent: Monday, July 22, 2019 2:34:26 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
+Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org<mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org>>
 Subject: [PATCH] drm/amd/powerplay: correct confusing naming for smu_featur=
 e_set_enabled
 
@@ -72,7 +96,7 @@ feature enablement job. And smu_feature_set_enabled is updated to
 setting the bitmask only(as smu_feature_set_supported).
 
 Change-Id: I758e4461be34c0fcbdf19448e34180a5251926c4
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org<mailto:evan.quan-5C7GfCeVMHo@public.gmane.org>>
 ---
  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 29 +++++++++++++------
  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  2 ++
@@ -217,98 +241,268 @@ BIT))
 
 _______________________________________________
 amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_MN2PR12MB3296197F32A37621120B9709A2C40MN2PR12MB3296namp_
+--_000_MN2PR12MB3344C65D72C585B8104DDF5CE4C40MN2PR12MB3344namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-before this patch, we have 4 apis to manage smu feature bits.
-<div>the patch add a new one in them, but it is not add any feature in smu.=
+<body lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I cannot get your point. What do you mean &#8220;pai=
+rs of functions&#8221;?<o:p></o:p></p>
+<p class=3D"MsoNormal">Yes, this patch does not bring real changes.<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">But this helps for future maintain and fit common lo=
+gic.<o:p></o:p></p>
+<p class=3D"MsoNormal">1. As in my previous patch(&#8220;drm/amd/powerplay:=
+ correct Navi10 VCN powergate control&#8221; ), &nbsp;&#8220;smu_feature_se=
+t_enabled(smu, SMU_FEATURE_VCN_PG_BIT, enable);&#8221; was mistakenly used.=
+ I thought and expected smu_feature_set_enabled set the bitmask
+ on only. I do not want it to enable or disable the feature.<o:p></o:p></p>
+<p class=3D"MsoNormal">2. smu_feature_set_enabled should in the same logic =
+as smu_feature_set_supported. It updates only the saved bit mask. That&#821=
+7;s the expected behavior for some APIs named as _<i>set</i>_enabled/suppor=
+ted.<o:p></o:p></p>
+<p class=3D"MsoNormal">3. The original callers who want feature enablement/=
+disablement are updated to use smu_enable_smc_feature(). I do not see any p=
+roblem with that.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Evan<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.c=
+om&gt; <br>
+<b>Sent:</b> Monday, July 22, 2019 3:00 PM<br>
+<b>To:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: correct confusing naming for=
+ smu_feature_set_enabled<o:p></o:p></p>
 </div>
-<div><br>
 </div>
-<div>before your patch:</div>
-<div>smu_feature_is_enabled and smu_feature_set_enabled is pair of function=
-s,</div>
-<div>after your patch:</div>
-<div>smu_feature_is_enabled and smu_enable_smc_feature is pair of functions=
-<span style=3D"font-size: 12pt;">;</span></div>
-<div><span style=3D"font-size: 12pt;"><br>
-</span></div>
-<div><span style=3D"font-size: 12pt;"></span></div>
-<div>so the driver don't have&nbsp;scenario needs to use smu_feature_set_en=
-abeld,&nbsp;</div>
-<div>do you agree it?</div>
-<div><br>
-</div>
-<div>m<span style=3D"font-size: 12pt;">ost of the time we update SMC featur=
-e, we must update software bitmap in smu_feature structure.</span></div>
-<div>if not, the smu_feature_is_enabled funciton is not work well.</div>
-<div><br>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div id=3D"divtagdefaultwrapper">
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">before =
+this patch, we have 4 apis to manage smu feature bits.
+<o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">the pat=
+ch add a new one in them, but it is not add any feature in smu.<o:p></o:p><=
+/span></p>
 </div>
 <div>
-<div></div>
-<div><span style=3D"font-size: 9pt;">extern int smu_feature_init_dpm(struct=
- smu_context *smu);</span></div>
-<div><span style=3D"font-size: 9pt;">extern int smu_feature_is_enabled(stru=
-ct smu_context *smu,</span></div>
-<div><span style=3D"white-space: pre; font-size: 9pt;"></span><span style=
-=3D"font-size: 9pt;">&nbsp; enum smu_feature_mask mask);</span></div>
-<div><span style=3D"font-size: 9pt;">extern int smu_feature_set_enabled(str=
-uct smu_context *smu,</span></div>
-<div><span style=3D"white-space: pre; font-size: 9pt;"></span><span style=
-=3D"font-size: 9pt;">&nbsp; &nbsp;enum smu_feature_mask mask, bool enable);=
-</span></div>
-<div><span style=3D"font-size: 9pt;">extern int smu_feature_is_supported(st=
-ruct smu_context *smu,</span></div>
-<div><span style=3D"white-space: pre; font-size: 9pt;"></span><span style=
-=3D"font-size: 9pt;">&nbsp; &nbsp; enum smu_feature_mask mask);</span></div=
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">before =
+your patch:<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">smu_fea=
+ture_is_enabled and smu_feature_set_enabled is pair of functions,<o:p></o:p=
+></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">after y=
+our patch:<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">smu_fea=
+ture_is_enabled and smu_enable_smc_feature is pair of functions;<o:p></o:p>=
+</span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">so the =
+driver don't have&nbsp;scenario needs to use smu_feature_set_enabeld,&nbsp;=
+<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">do you =
+agree it?<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">most of=
+ the time we update SMC feature, we must update software bitmap in smu_feat=
+ure structure.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">if not,=
+ the smu_feature_is_enabled funciton is not work well.<o:p></o:p></span></p=
 >
-<div><span style=3D"font-size: 9pt;">extern int smu_feature_set_supported(s=
-truct smu_context *smu,</span></div>
-<div><span style=3D"white-space: pre; font-size: 9pt;"></span><span style=
-=3D"font-size: 9pt;">&nbsp; &nbsp; &nbsp;enum smu_feature_mask mask, bool e=
-nable);</span></div>
-<br>
 </div>
-<div>Best Regards,<br>
-Kevin</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">extern i=
+nt smu_feature_init_dpm(struct smu_context *smu);</span><span style=3D"font=
+-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">extern i=
+nt smu_feature_is_enabled(struct smu_context *smu,</span><span style=3D"fon=
+t-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">&nbsp; e=
+num smu_feature_mask mask);</span><span style=3D"font-size:12.0pt;color:bla=
+ck"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">extern i=
+nt smu_feature_set_enabled(struct smu_context *smu,</span><span style=3D"fo=
+nt-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">&nbsp; &=
+nbsp;enum smu_feature_mask mask, bool enable);</span><span style=3D"font-si=
+ze:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">extern i=
+nt smu_feature_is_supported(struct smu_context *smu,</span><span style=3D"f=
+ont-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">&nbsp; &=
+nbsp; enum smu_feature_mask mask);</span><span style=3D"font-size:12.0pt;co=
+lor:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">extern i=
+nt smu_feature_set_supported(struct smu_context *smu,</span><span style=3D"=
+font-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">&nbsp; &=
+nbsp; &nbsp;enum smu_feature_mask mask, bool enable);</span><span style=3D"=
+font-size:12.0pt;color:black"><o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Best Re=
+gards,<br>
+Kevin<o:p></o:p></span></p>
+</div>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> amd-gfx &lt;</span><a href=3D"mailto:amd-gfx-bounce=
+s@lists.freedesktop.org">amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><span sty=
+le=3D"color:black">&gt; on behalf of Evan Quan &lt;</span><a href=3D"mailto=
+:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<b=
+r>
 <b>Sent:</b> Monday, July 22, 2019 2:34:26 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>To:</b> </span><a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@=
+lists.freedesktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D=
+"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><sp=
+an style=3D"color:black">&gt;<br>
+<b>Cc:</b> Quan, Evan &lt;</span><a href=3D"mailto:Evan.Quan-5C7GfCeVMHo@public.gmane.org">Evan.=
+Quan-5C7GfCeVMHo@public.gmane.org</a><span style=3D"color:black">&gt;<br>
 <b>Subject:</b> [PATCH] drm/amd/powerplay: correct confusing naming for smu=
-_feature_set_enabled</font>
-<div>&nbsp;</div>
+_feature_set_enabled</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">It does more than updating the bitmask. In fact it=
- enables also the<br>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">It does more than updating the bitmask. In fact it e=
+nables also the<br>
 feature. That's confusing. As for this, a new API is added for the<br>
 feature enablement job. And smu_feature_set_enabled is updated to<br>
 setting the bitmask only(as smu_feature_set_supported).<br>
 <br>
 Change-Id: I758e4461be34c0fcbdf19448e34180a5251926c4<br>
-Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Evan Quan &lt;<a href=3D"mailto:evan.quan-5C7GfCeVMHo@public.gmane.org">evan.quan=
+@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp; | 29 &#4=
 3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;------<br>
@@ -506,16 +700,20 @@ r>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9/rsn8yoX9R0@public.gmane.org=
+org</a><br>
 <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a><o:p></o:p></p>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
 
---_000_MN2PR12MB3296197F32A37621120B9709A2C40MN2PR12MB3296namp_--
+--_000_MN2PR12MB3344C65D72C585B8104DDF5CE4C40MN2PR12MB3344namp_--
 
---===============1111384964==
+--===============0092529385==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -525,4 +723,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1111384964==--
+--===============0092529385==--
