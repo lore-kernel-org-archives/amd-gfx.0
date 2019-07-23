@@ -1,14 +1,12 @@
-From: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: add callback function of
- get_thermal_temperature_range
-Date: Tue, 23 Jul 2019 09:43:34 +0000
-Message-ID: <MN2PR12MB3598AF54FB70B1DC3B54FA378EC70@MN2PR12MB3598.namprd12.prod.outlook.com>
-References: <20190723093109.2701-1-kevin1.wang@amd.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: change smu_read_sensor sequence in smu
+Date: Tue, 23 Jul 2019 09:43:49 +0000
+Message-ID: <MN2PR12MB3296043F281A9E7345179AE1A2C70@MN2PR12MB3296.namprd12.prod.outlook.com>
+References: <1563874746-6318-1-git-send-email-kenneth.feng@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============2099513554=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190723093109.2701-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <1563874746-6318-1-git-send-email-kenneth.feng-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,152 +18,469 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+To: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
-UmV2aWV3ZWQtYnk6IEtlbm5ldGggRmVuZyA8a2VubmV0aC5mZW5nQGFtZC5jb20+CgoKLS0tLS1P
-cmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJvbTogV2FuZywgS2V2aW4oWWFuZykgClNlbnQ6IFR1ZXNk
-YXksIEp1bHkgMjMsIDIwMTkgNTozMiBQTQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKQ2M6IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPjsgSHVhbmcsIFJheSA8
-UmF5Lkh1YW5nQGFtZC5jb20+OyBXYW5nLCBLZXZpbihZYW5nKSA8S2V2aW4xLldhbmdAYW1kLmNv
-bT47IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPgpTdWJqZWN0OiBbUEFUQ0hd
-IGRybS9hbWQvcG93ZXJwbGF5OiBhZGQgY2FsbGJhY2sgZnVuY3Rpb24gb2YgZ2V0X3RoZXJtYWxf
-dGVtcGVyYXR1cmVfcmFuZ2UKCjEuIHRoZSB0aGVybWFsIHRlbXBlcmF0dXJlIGlzIGFzaWMgcmVs
-YXRlZCBkYXRhLCBtb3ZlIHRoZSBjb2RlIGxvZ2ljIHRvIHh4eF9wcHQuYy4KMi4gcmVwbGFjZSBk
-YXRhIHN0cnVjdHVyZSBQUF9UZW1wZXJhdHVyZVJhbmdlIHdpdGggc211X3RlbXBlcmF0dXJlX3Jh
-bmdlLgozLiBjaGFuZ2UgdGVtcGVyYXR1cmUgdWludCBmcm9tIHRlbXAqMTAwMCB0byB0ZW1wICh0
-ZW1wZXJhdHVyZSB1aW50KS4KClNpZ25lZC1vZmYtYnk6IEtldmluIFdhbmcgPGtldmluMS53YW5n
-QGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEtlbm5ldGggRmVuZyA8a2VubmV0aC5mZW5nQGFtZC5j
-b20+CkFja2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgotLS0KIC4uLi9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaCAgICB8ICAxIC0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYyAgICB8IDE3ICsrKysrKysrKysKIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jICAgICB8IDE4ICsrKysrKy0tLS0K
-IGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYyAgICB8IDM0ICsrKysr
-Ky0tLS0tLS0tLS0tLS0KIDQgZmlsZXMgY2hhbmdlZCwgNDAgaW5zZXJ0aW9ucygrKSwgMzAgZGVs
-ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5j
-L2FtZGdwdV9zbXUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVf
-c211LmgKaW5kZXggMzQwOTNkZGNhMTA1Li43MTA1ZjgwNDEwODggMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmgKKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaApAQCAtNDM5LDcgKzQzOSw2IEBA
-IHN0cnVjdCBzbXVfdGFibGVfY29udGV4dAogCXN0cnVjdCBzbXVfdGFibGUJCSp0YWJsZXM7CiAJ
-dWludDMyX3QJCQl0YWJsZV9jb3VudDsKIAlzdHJ1Y3Qgc211X3RhYmxlCQltZW1vcnlfcG9vbDsK
-LQl1aW50MTZfdCAgICAgICAgICAgICAgICAgICAgICAgIHNvZnR3YXJlX3NodXRkb3duX3RlbXA7
-CiAJdWludDhfdCAgICAgICAgICAgICAgICAgICAgICAgICB0aGVybWFsX2NvbnRyb2xsZXJfdHlw
-ZTsKIAl1aW50MTZfdAkJCVREUE9ETGltaXQ7CiAKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJw
-bGF5L25hdmkxMF9wcHQuYwppbmRleCA0NmUyOTEzZTRhZjQuLmE0YzRkNDk5NzE4OSAxMDA2NDQK
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYwpAQCAtMTYzOCw2ICsxNjM4
-LDIyIEBAIHN0YXRpYyBpbnQgbmF2aTEwX3NldF9wZXJmb3JtYW5jZV9sZXZlbChzdHJ1Y3Qgc211
-X2NvbnRleHQgKnNtdSwgZW51bSBhbWRfZHBtX2ZvCiAJcmV0dXJuIHJldDsKIH0KIAorc3RhdGlj
-IGludCBuYXZpMTBfZ2V0X3RoZXJtYWxfdGVtcGVyYXR1cmVfcmFuZ2Uoc3RydWN0IHNtdV9jb250
-ZXh0ICpzbXUsCisJCQkJCQlzdHJ1Y3Qgc211X3RlbXBlcmF0dXJlX3JhbmdlICpyYW5nZSkgewor
-CXN0cnVjdCBzbXVfdGFibGVfY29udGV4dCAqdGFibGVfY29udGV4dCA9ICZzbXUtPnNtdV90YWJs
-ZTsKKwlzdHJ1Y3Qgc211XzExXzBfcG93ZXJwbGF5X3RhYmxlICpwb3dlcnBsYXlfdGFibGUgPSAK
-K3RhYmxlX2NvbnRleHQtPnBvd2VyX3BsYXlfdGFibGU7CisKKwlpZiAoIXJhbmdlIHx8ICFwb3dl
-cnBsYXlfdGFibGUpCisJCXJldHVybiAtRUlOVkFMOworCisJLyogVGhlIHVuaXQgaXMgdGVtcGVy
-YXR1cmUgKi8KKwlyYW5nZS0+bWluID0gMDsKKwlyYW5nZS0+bWF4ID0gcG93ZXJwbGF5X3RhYmxl
-LT5zb2Z0d2FyZV9zaHV0ZG93bl90ZW1wOworCisJcmV0dXJuIDA7Cit9CisKIHN0YXRpYyBjb25z
-dCBzdHJ1Y3QgcHB0YWJsZV9mdW5jcyBuYXZpMTBfcHB0X2Z1bmNzID0gewogCS50YWJsZXNfaW5p
-dCA9IG5hdmkxMF90YWJsZXNfaW5pdCwKIAkuYWxsb2NfZHBtX2NvbnRleHQgPSBuYXZpMTBfYWxs
-b2NhdGVfZHBtX2NvbnRleHQsIEBAIC0xNjc0LDYgKzE2OTAsNyBAQCBzdGF0aWMgY29uc3Qgc3Ry
-dWN0IHBwdGFibGVfZnVuY3MgbmF2aTEwX3BwdF9mdW5jcyA9IHsKIAkuZ2V0X3BwZmVhdHVyZV9z
-dGF0dXMgPSBuYXZpMTBfZ2V0X3BwZmVhdHVyZV9zdGF0dXMsCiAJLnNldF9wcGZlYXR1cmVfc3Rh
-dHVzID0gbmF2aTEwX3NldF9wcGZlYXR1cmVfc3RhdHVzLAogCS5zZXRfcGVyZm9ybWFuY2VfbGV2
-ZWwgPSBuYXZpMTBfc2V0X3BlcmZvcm1hbmNlX2xldmVsLAorCS5nZXRfdGhlcm1hbF90ZW1wZXJh
-dHVyZV9yYW5nZSA9IG5hdmkxMF9nZXRfdGhlcm1hbF90ZW1wZXJhdHVyZV9yYW5nZSwKIH07CiAK
-IHZvaWQgbmF2aTEwX3NldF9wcHRfZnVuY3Moc3RydWN0IHNtdV9jb250ZXh0ICpzbXUpIGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jCmluZGV4IDc2YmMxNTc1MjVkMC4u
-NGFkOWUwYzVhNjM3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9z
-bXVfdjExXzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAu
-YwpAQCAtMTE0NywxMCArMTE0Nyw4IEBAIHN0YXRpYyBpbnQgc211X3YxMV8wX3NldF90aGVybWFs
-X3JhbmdlKHN0cnVjdCBzbXVfY29udGV4dCAqc211LAogCQkJCSAgICAgICBzdHJ1Y3Qgc211X3Rl
-bXBlcmF0dXJlX3JhbmdlICpyYW5nZSkgIHsKIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiA9
-IHNtdS0+YWRldjsKLQlpbnQgbG93ID0gU01VX1RIRVJNQUxfTUlOSU1VTV9BTEVSVF9URU1QICoK
-LQkJU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKLQlpbnQgaGlnaCA9IFNN
-VV9USEVSTUFMX01BWElNVU1fQUxFUlRfVEVNUCAqCi0JCVNNVV9URU1QRVJBVFVSRV9VTklUU19Q
-RVJfQ0VOVElHUkFERVM7CisJaW50IGxvdyA9IFNNVV9USEVSTUFMX01JTklNVU1fQUxFUlRfVEVN
-UDsKKwlpbnQgaGlnaCA9IFNNVV9USEVSTUFMX01BWElNVU1fQUxFUlRfVEVNUDsKIAl1aW50MzJf
-dCB2YWw7CiAKIAlpZiAoIXJhbmdlKQpAQCAtMTE2MSw2ICsxMTU5LDkgQEAgc3RhdGljIGludCBz
-bXVfdjExXzBfc2V0X3RoZXJtYWxfcmFuZ2Uoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCiAJaWYg
-KGhpZ2ggPiByYW5nZS0+bWF4KQogCQloaWdoID0gcmFuZ2UtPm1heDsKIAorCWxvdyA9IG1heChT
-TVVfVEhFUk1BTF9NSU5JTVVNX0FMRVJUX1RFTVAsIHJhbmdlLT5taW4pOworCWhpZ2ggPSBtaW4o
-U01VX1RIRVJNQUxfTUFYSU1VTV9BTEVSVF9URU1QLCByYW5nZS0+bWF4KTsKKwogCWlmIChsb3cg
-PiBoaWdoKQogCQlyZXR1cm4gLUVJTlZBTDsKIApAQCAtMTE2OSw4ICsxMTcwLDggQEAgc3RhdGlj
-IGludCBzbXVfdjExXzBfc2V0X3RoZXJtYWxfcmFuZ2Uoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUs
-CiAJdmFsID0gUkVHX1NFVF9GSUVMRCh2YWwsIFRITV9USEVSTUFMX0lOVF9DVFJMLCBUSEVSTV9J
-SF9IV19FTkEsIDEpOwogCXZhbCA9IFJFR19TRVRfRklFTEQodmFsLCBUSE1fVEhFUk1BTF9JTlRf
-Q1RSTCwgVEhFUk1fSU5USF9NQVNLLCAwKTsKIAl2YWwgPSBSRUdfU0VUX0ZJRUxEKHZhbCwgVEhN
-X1RIRVJNQUxfSU5UX0NUUkwsIFRIRVJNX0lOVExfTUFTSywgMCk7Ci0JdmFsID0gUkVHX1NFVF9G
-SUVMRCh2YWwsIFRITV9USEVSTUFMX0lOVF9DVFJMLCBESUdfVEhFUk1fSU5USCwgKGhpZ2ggLyBT
-TVVfVEVNUEVSQVRVUkVfVU5JVFNfUEVSX0NFTlRJR1JBREVTKSk7Ci0JdmFsID0gUkVHX1NFVF9G
-SUVMRCh2YWwsIFRITV9USEVSTUFMX0lOVF9DVFJMLCBESUdfVEhFUk1fSU5UTCwgKGxvdyAvIFNN
-VV9URU1QRVJBVFVSRV9VTklUU19QRVJfQ0VOVElHUkFERVMpKTsKKwl2YWwgPSBSRUdfU0VUX0ZJ
-RUxEKHZhbCwgVEhNX1RIRVJNQUxfSU5UX0NUUkwsIERJR19USEVSTV9JTlRILCAoaGlnaCAmIDB4
-ZmYpKTsKKwl2YWwgPSBSRUdfU0VUX0ZJRUxEKHZhbCwgVEhNX1RIRVJNQUxfSU5UX0NUUkwsIERJ
-R19USEVSTV9JTlRMLCAobG93ICYgCisweGZmKSk7CiAJdmFsID0gdmFsICYgKH5USE1fVEhFUk1B
-TF9JTlRfQ1RSTF9fVEhFUk1fVFJJR0dFUl9NQVNLX01BU0spOwogCiAJV1JFRzMyX1NPQzE1KFRI
-TSwgMCwgbW1USE1fVEhFUk1BTF9JTlRfQ1RSTCwgdmFsKTsgQEAgLTEyMDksNyArMTIxMCwxMCBA
-QCBzdGF0aWMgaW50IHNtdV92MTFfMF9zdGFydF90aGVybWFsX2NvbnRyb2woc3RydWN0IHNtdV9j
-b250ZXh0ICpzbXUpCiAKIAlpZiAoIXNtdS0+cG1fZW5hYmxlZCkKIAkJcmV0dXJuIHJldDsKKwog
-CXJldCA9IHNtdV9nZXRfdGhlcm1hbF90ZW1wZXJhdHVyZV9yYW5nZShzbXUsICZyYW5nZSk7CisJ
-aWYgKHJldCkKKwkJcmV0dXJuIHJldDsKIAogCWlmIChzbXUtPnNtdV90YWJsZS50aGVybWFsX2Nv
-bnRyb2xsZXJfdHlwZSkgewogCQlyZXQgPSBzbXVfdjExXzBfc2V0X3RoZXJtYWxfcmFuZ2Uoc211
-LCAmcmFuZ2UpOyBAQCAtMTIzNCw2ICsxMjM4LDggQEAgc3RhdGljIGludCBzbXVfdjExXzBfc3Rh
-cnRfdGhlcm1hbF9jb250cm9sKHN0cnVjdCBzbXVfY29udGV4dCAqc211KQogCWFkZXYtPnBtLmRw
-bS50aGVybWFsLm1pbl9tZW1fdGVtcCA9IHJhbmdlLm1lbV9taW47CiAJYWRldi0+cG0uZHBtLnRo
-ZXJtYWwubWF4X21lbV9jcml0X3RlbXAgPSByYW5nZS5tZW1fY3JpdF9tYXg7CiAJYWRldi0+cG0u
-ZHBtLnRoZXJtYWwubWF4X21lbV9lbWVyZ2VuY3lfdGVtcCA9IHJhbmdlLm1lbV9lbWVyZ2VuY3lf
-bWF4OworCWFkZXYtPnBtLmRwbS50aGVybWFsLm1pbl90ZW1wID0gcmFuZ2UubWluICogU01VX1RF
-TVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKKwlhZGV2LT5wbS5kcG0udGhlcm1hbC5t
-YXhfdGVtcCA9IHJhbmdlLm1heCAqIAorU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdS
-QURFUzsKIAogCXJldHVybiByZXQ7CiB9CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L3Bvd2VycGxheS92ZWdhMjBfcHB0LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS92
-ZWdhMjBfcHB0LmMKaW5kZXggYmNkMGVmYWY3YmJkLi5kZWIxMDJmZmVkYzIgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3ZlZ2EyMF9wcHQuYworKysgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS92ZWdhMjBfcHB0LmMKQEAgLTQ2Myw3ICs0NjMsNiBAQCBz
-dGF0aWMgaW50IHZlZ2EyMF9zdG9yZV9wb3dlcnBsYXlfdGFibGUoc3RydWN0IHNtdV9jb250ZXh0
-ICpzbXUpCiAJbWVtY3B5KHRhYmxlX2NvbnRleHQtPmRyaXZlcl9wcHRhYmxlLCAmcG93ZXJwbGF5
-X3RhYmxlLT5zbWNQUFRhYmxlLAogCSAgICAgICBzaXplb2YoUFBUYWJsZV90KSk7CiAKLQl0YWJs
-ZV9jb250ZXh0LT5zb2Z0d2FyZV9zaHV0ZG93bl90ZW1wID0gcG93ZXJwbGF5X3RhYmxlLT51c1Nv
-ZnR3YXJlU2h1dGRvd25UZW1wOwogCXRhYmxlX2NvbnRleHQtPnRoZXJtYWxfY29udHJvbGxlcl90
-eXBlID0gcG93ZXJwbGF5X3RhYmxlLT51Y1RoZXJtYWxDb250cm9sbGVyVHlwZTsKIAl0YWJsZV9j
-b250ZXh0LT5URFBPRExpbWl0ID0gbGUzMl90b19jcHUocG93ZXJwbGF5X3RhYmxlLT5PdmVyRHJp
-dmU4VGFibGUuT0RTZXR0aW5nc01heFtBVE9NX1ZFR0EyMF9PRFNFVFRJTkdfUE9XRVJQRVJDRU5U
-QUdFXSk7CiAKQEAgLTMyMzUsMzUgKzMyMzQsMjQgQEAgc3RhdGljIGludCB2ZWdhMjBfc2V0X3dh
-dGVybWFya3NfdGFibGUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsCiAJcmV0dXJuIDA7CiB9CiAK
-LXN0YXRpYyBjb25zdCBzdHJ1Y3Qgc211X3RlbXBlcmF0dXJlX3JhbmdlIHZlZ2EyMF90aGVybWFs
-X3BvbGljeVtdID0gLXsKLQl7LTI3MzE1MCwgIDk5MDAwLCA5OTAwMCwgLTI3MzE1MCwgOTkwMDAs
-IDk5MDAwLCAtMjczMTUwLCA5OTAwMCwgOTkwMDB9LAotCXsgMTIwMDAwLCAxMjAwMDAsIDEyMDAw
-MCwgMTIwMDAwLCAxMjAwMDAsIDEyMDAwMCwgMTIwMDAwLCAxMjAwMDAsIDEyMDAwMH0sCi19Owot
-CiBzdGF0aWMgaW50IHZlZ2EyMF9nZXRfdGhlcm1hbF90ZW1wZXJhdHVyZV9yYW5nZShzdHJ1Y3Qg
-c211X2NvbnRleHQgKnNtdSwKIAkJCQkJCXN0cnVjdCBzbXVfdGVtcGVyYXR1cmVfcmFuZ2UqcmFu
-Z2UpICB7Ci0KKwlzdHJ1Y3Qgc211X3RhYmxlX2NvbnRleHQgKnRhYmxlX2NvbnRleHQgPSAmc211
-LT5zbXVfdGFibGU7CisJQVRPTV9WZWdhMjBfUE9XRVJQTEFZVEFCTEUgKnBvd2VycGxheV90YWJs
-ZSA9IAordGFibGVfY29udGV4dC0+cG93ZXJfcGxheV90YWJsZTsKIAlQUFRhYmxlX3QgKnBwdGFi
-bGUgPSBzbXUtPnNtdV90YWJsZS5kcml2ZXJfcHB0YWJsZTsKIAotCWlmICghcmFuZ2UpCisJaWYg
-KCFyYW5nZSB8fCAhcG93ZXJwbGF5X3RhYmxlKQogCQlyZXR1cm4gLUVJTlZBTDsKIAotCW1lbWNw
-eShyYW5nZSwgJnZlZ2EyMF90aGVybWFsX3BvbGljeVswXSwgc2l6ZW9mKHN0cnVjdCBzbXVfdGVt
-cGVyYXR1cmVfcmFuZ2UpKTsKLQotCXJhbmdlLT5tYXggPSBwcHRhYmxlLT5UZWRnZUxpbWl0ICoK
-LQkJU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKLQlyYW5nZS0+ZWRnZV9l
-bWVyZ2VuY3lfbWF4ID0gKHBwdGFibGUtPlRlZGdlTGltaXQgKyBDVEZfT0ZGU0VUX0VER0UpICoK
-LQkJU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKLQlyYW5nZS0+aG90c3Bv
-dF9jcml0X21heCA9IHBwdGFibGUtPlRob3RzcG90TGltaXQgKgotCQlTTVVfVEVNUEVSQVRVUkVf
-VU5JVFNfUEVSX0NFTlRJR1JBREVTOwotCXJhbmdlLT5ob3RzcG90X2VtZXJnZW5jeV9tYXggPSAo
-cHB0YWJsZS0+VGhvdHNwb3RMaW1pdCArIENURl9PRkZTRVRfSE9UU1BPVCkgKgotCQlTTVVfVEVN
-UEVSQVRVUkVfVU5JVFNfUEVSX0NFTlRJR1JBREVTOwotCXJhbmdlLT5tZW1fY3JpdF9tYXggPSBw
-cHRhYmxlLT5UaGJtTGltaXQgKgotCQlTTVVfVEVNUEVSQVRVUkVfVU5JVFNfUEVSX0NFTlRJR1JB
-REVTOwotCXJhbmdlLT5tZW1fZW1lcmdlbmN5X21heCA9IChwcHRhYmxlLT5UaGJtTGltaXQgKyBD
-VEZfT0ZGU0VUX0hCTSkqCi0JCVNNVV9URU1QRVJBVFVSRV9VTklUU19QRVJfQ0VOVElHUkFERVM7
-CisJLyogVGhlIHVuaXQgaXMgdGVtcGVyYXR1cmUgKi8KKwlyYW5nZS0+bWluID0gMDsKKwlyYW5n
-ZS0+bWF4ID0gcG93ZXJwbGF5X3RhYmxlLT51c1NvZnR3YXJlU2h1dGRvd25UZW1wOworCXJhbmdl
-LT5lZGdlX2VtZXJnZW5jeV9tYXggPSAocHB0YWJsZS0+VGVkZ2VMaW1pdCArIENURl9PRkZTRVRf
-RURHRSk7CisJcmFuZ2UtPmhvdHNwb3RfY3JpdF9tYXggPSBwcHRhYmxlLT5UaG90c3BvdExpbWl0
-OworCXJhbmdlLT5ob3RzcG90X2VtZXJnZW5jeV9tYXggPSAocHB0YWJsZS0+VGhvdHNwb3RMaW1p
-dCArIENURl9PRkZTRVRfSE9UU1BPVCk7CisJcmFuZ2UtPm1lbV9jcml0X21heCA9IHBwdGFibGUt
-PlRoYm1MaW1pdDsKKwlyYW5nZS0+bWVtX2VtZXJnZW5jeV9tYXggPSAocHB0YWJsZS0+VGhibUxp
-bWl0ICsgQ1RGX09GRlNFVF9IQk0pOwogCiAKIAlyZXR1cm4gMDsKLS0KMi4yMi4wCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
-bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
-dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+--===============2099513554==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3296043F281A9E7345179AE1A2C70MN2PR12MB3296namp_"
+
+--_000_MN2PR12MB3296043F281A9E7345179AE1A2C70MN2PR12MB3296namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+it looks fine for me,
+
+please @Deucher, Alexander<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> double check c=
+onfirm.
+
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+
+Best Regards,
+Kevin
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Kenneth =
+Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, July 23, 2019 5:39 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: change smu_read_sensor sequence in smu
+
+change the smu_read_sensor sequence to:
+
+asic specific sensor read -> smu v11 specific sensor read -> smu v11 common=
+ sensor read
+
+Signed-off-by: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 3 +++
+ drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 4 ++--
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c     | 5 ++++-
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c      | 8 ++++----
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c     | 5 ++++-
+ 5 files changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c
+index 416f9a8..8ff18c8 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -315,6 +315,9 @@ int smu_common_read_sensor(struct smu_context *smu, enu=
+m amd_pp_sensors sensor,
+ {
+         int ret =3D 0;
+
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK:
+                 *((uint32_t *)data) =3D smu->pstate_sclk;
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h
+index b702c9e..fabb373 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -819,9 +819,9 @@ struct smu_funcs
+ #define smu_start_thermal_control(smu) \
+         ((smu)->funcs->start_thermal_control? (smu)->funcs->start_thermal_=
+control((smu)) : 0)
+ #define smu_read_sensor(smu, sensor, data, size) \
+-       ((smu)->funcs->read_sensor? (smu)->funcs->read_sensor((smu), (senso=
+r), (data), (size)) : 0)
+-#define smu_asic_read_sensor(smu, sensor, data, size) \
+         ((smu)->ppt_funcs->read_sensor? (smu)->ppt_funcs->read_sensor((smu=
+), (sensor), (data), (size)) : 0)
++#define smu_smc_read_sensor(smu, sensor, data, size) \
++       ((smu)->funcs->read_sensor? (smu)->funcs->read_sensor((smu), (senso=
+r), (data), (size)) : -EINVAL)
+ #define smu_get_power_profile_mode(smu, buf) \
+         ((smu)->ppt_funcs->get_power_profile_mode ? (smu)->ppt_funcs->get_=
+power_profile_mode((smu), buf) : 0)
+ #define smu_set_power_profile_mode(smu, param, param_size) \
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index c8ce9bb..6409718 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -1366,6 +1366,9 @@ static int navi10_read_sensor(struct smu_context *smu=
+,
+         struct smu_table_context *table_context =3D &smu->smu_table;
+         PPTable_t *pptable =3D table_context->driver_pptable;
+
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
+                 *(uint32_t *)data =3D pptable->FanMaximumRpm;
+@@ -1387,7 +1390,7 @@ static int navi10_read_sensor(struct smu_context *smu=
+,
+                 *size =3D 4;
+                 break;
+         default:
+-               return -EINVAL;
++               ret =3D smu_smc_read_sensor(smu, sensor, data, size);
+         }
+
+         return ret;
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v11_0.c
+index e3a1784..5267b68 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -1267,6 +1267,10 @@ static int smu_v11_0_read_sensor(struct smu_context =
+*smu,
+                                  void *data, uint32_t *size)
+ {
+         int ret =3D 0;
++
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_GFX_MCLK:
+                 ret =3D smu_get_current_clk_freq(smu, SMU_UCLK, (uint32_t =
+*)data);
+@@ -1289,10 +1293,6 @@ static int smu_v11_0_read_sensor(struct smu_context =
+*smu,
+                 break;
+         }
+
+-       /* try get sensor data by asic */
+-       if (ret)
+-               ret =3D smu_asic_read_sensor(smu, sensor, data, size);
+-
+         if (ret)
+                 *size =3D 0;
+
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c
+index 9ead361..e864a54 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -3163,6 +3163,9 @@ static int vega20_read_sensor(struct smu_context *smu=
+,
+         struct smu_table_context *table_context =3D &smu->smu_table;
+         PPTable_t *pptable =3D table_context->driver_pptable;
+
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
+                 *(uint32_t *)data =3D pptable->FanMaximumRpm;
+@@ -3186,7 +3189,7 @@ static int vega20_read_sensor(struct smu_context *smu=
+,
+                 *size =3D 4;
+                 break;
+         default:
+-               return -EINVAL;
++               ret =3D smu_smc_read_sensor(smu, sensor, data, size);
+         }
+
+         return ret;
+--
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in the sections below.
+
+
+--_000_MN2PR12MB3296043F281A9E7345179AE1A2C70MN2PR12MB3296namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p style=3D"margin-top:0;margin-bottom:0"><span style=3D"font-size: 12pt;">=
+it looks fine for me,&nbsp;</span><br>
+</p>
+<div>please <a class=3D"mention ms-bgc-nlr ms-fcl-b" id=3D"OWAAM928179" hre=
+f=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">
+@Deucher, Alexander</a>&nbsp;double check confirm.</div>
+<div><br>
+</div>
+<div>Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div><br>
+</div>
+<div>Best Regards,<br>
+Kevin<br>
+<br>
+<div style=3D"color: rgb(0, 0, 0);">
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Kenneth Feng &lt;kenneth.feng=
+@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, July 23, 2019 5:39 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: change smu_read_sensor sequence =
+in smu</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">change the smu_read_sensor sequence to:<br>
+<br>
+asic specific sensor read -&gt; smu v11 specific sensor read -&gt; smu v11 =
+common sensor read<br>
+<br>
+Signed-off-by: Kenneth Feng &lt;kenneth.feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+3 &#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 4 &#43;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+5 &#43;&#43;&#43;&#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; | 8 &#43;&#43;&#43;&#43;----<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+5 &#43;&#43;&#43;&#43;-<br>
+&nbsp;5 files changed, 17 insertions(&#43;), 8 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c<br>
+index 416f9a8..8ff18c8 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+@@ -315,6 &#43;315,9 @@ int smu_common_read_sensor(struct smu_context *smu,=
+ enum amd_pp_sensors sensor,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_STAB=
+LE_PSTATE_SCLK:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)data) =3D smu-&gt;pstate_sclk;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h<br>
+index b702c9e..fabb373 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+@@ -819,9 &#43;819,9 @@ struct smu_funcs<br>
+&nbsp;#define smu_start_thermal_control(smu) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;start=
+_thermal_control? (smu)-&gt;funcs-&gt;start_thermal_control((smu)) : 0)<br>
+&nbsp;#define smu_read_sensor(smu, sensor, data, size) \<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;read_sensor? (sm=
+u)-&gt;funcs-&gt;read_sensor((smu), (sensor), (data), (size)) : 0)<br>
+-#define smu_asic_read_sensor(smu, sensor, data, size) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;r=
+ead_sensor? (smu)-&gt;ppt_funcs-&gt;read_sensor((smu), (sensor), (data), (s=
+ize)) : 0)<br>
+&#43;#define smu_smc_read_sensor(smu, sensor, data, size) \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;read_sensor?=
+ (smu)-&gt;funcs-&gt;read_sensor((smu), (sensor), (data), (size)) : -EINVAL=
+)<br>
+&nbsp;#define smu_get_power_profile_mode(smu, buf) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;g=
+et_power_profile_mode ? (smu)-&gt;ppt_funcs-&gt;get_power_profile_mode((smu=
+), buf) : 0)<br>
+&nbsp;#define smu_set_power_profile_mode(smu, param, param_size) \<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index c8ce9bb..6409718 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -1366,6 &#43;1366,9 @@ static int navi10_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+table_context =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D tab=
+le_context-&gt;driver_pptable;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MAX_=
+FAN_RPM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint32_t *)data =3D pptable-&gt;FanMaximumRpm;<br>
+@@ -1387,7 &#43;1390,7 @@ static int navi10_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_smc_read_sensor(smu, sensor, data, size);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v11_0.c<br>
+index e3a1784..5267b68 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
+@@ -1267,6 &#43;1267,10 @@ static int smu_v11_0_read_sensor(struct smu_cont=
+ext *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *data, uint32_t *size=
+)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_=
+MCLK:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_current_clk_freq(smu, SMU_UCLK, (uint=
+32_t *)data);<br>
+@@ -1289,10 &#43;1293,6 @@ static int smu_v11_0_read_sensor(struct smu_cont=
+ext *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* try get sensor data by asic */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D smu_asic_read_sensor(smu, sensor, data, size);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *size =3D 0;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c<br>
+index 9ead361..e864a54 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+@@ -3163,6 &#43;3163,9 @@ static int vega20_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+table_context =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D tab=
+le_context-&gt;driver_pptable;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MAX_=
+FAN_RPM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint32_t *)data =3D pptable-&gt;FanMaximumRpm;<br>
+@@ -3186,7 &#43;3189,7 @@ static int vega20_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_smc_read_sensor(smu, sensor, data, size);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+-- <br>
+2.7.4<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk308364" class=3D"OWAAutoLink" previewremoved=3D"true">https://lists.free=
+desktop.org/mailman/listinfo/amd-gfx</a></div>
+<div id=3D"LPBorder_GT_15638749518470.02267473158651634" style=3D"margin-bo=
+ttom: 20px; overflow: auto; width: 100%; text-indent: 0px;">
+<table id=3D"LPContainer_15638749518450.8626503153022167" role=3D"presentat=
+ion" cellspacing=3D"0" style=3D"width: 90%; background-color: rgb(255, 255,=
+ 255); position: relative; overflow: auto; padding-top: 20px; padding-botto=
+m: 20px; margin-top: 20px; border-top: 1px dotted rgb(200, 200, 200); borde=
+r-bottom: 1px dotted rgb(200, 200, 200);">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing: 0px;">
+<td id=3D"TextCell_15638749518460.7609342713450393" colspan=3D"2" style=3D"=
+vertical-align: top; position: relative; padding: 0px; display: table-cell;=
+">
+<div id=3D"LPRemovePreviewContainer_15638749518460.24310328073303422"></div=
+>
+<div id=3D"LPTitle_15638749518460.7214757521911543" style=3D"top: 0px; colo=
+r: rgb(0, 120, 215); font-weight: 400; font-size: 21px; font-family: wf_seg=
+oe-ui_light, &quot;Segoe UI Light&quot;, &quot;Segoe WP Light&quot;, &quot;=
+Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-serif; line-heigh=
+t: 21px;">
+<a id=3D"LPUrlAnchor_15638749518460.9823406329165418" href=3D"https://lists=
+.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
+decoration: none;">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15638749518470.8057760659421027" style=3D"margin: 10p=
+x 0px 16px; color: rgb(102, 102, 102); font-weight: 400; font-family: wf_se=
+goe-ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, s=
+ans-serif; font-size: 14px; line-height: 14px;">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15638749518470.6436677658830974" style=3D"display:=
+ block; color: rgb(102, 102, 102); font-weight: 400; font-family: wf_segoe-=
+ui_normal, &quot;Segoe UI&quot;, &quot;Segoe WP&quot;, Tahoma, Arial, sans-=
+serif; font-size: 14px; line-height: 20px; max-height: 100px; overflow: hid=
+den;">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in
+ the sections below.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</span></font></div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB3296043F281A9E7345179AE1A2C70MN2PR12MB3296namp_--
+
+--===============2099513554==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============2099513554==--
