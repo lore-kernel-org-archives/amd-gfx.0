@@ -1,42 +1,78 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 2/3] drm/amdgpu/powerplay/vega10: call PrepareMp1ForUnload in
- power_off_asic
-Date: Tue, 23 Jul 2019 12:00:48 -0500
-Message-ID: <20190723170049.9143-2-alexander.deucher@amd.com>
-References: <20190723170049.9143-1-alexander.deucher@amd.com>
+From: John Fastabend <john.fastabend@gmail.com>
+Subject: Re: kernel panic: stack is corrupted in pointer
+Date: Tue, 23 Jul 2019 10:26:18 -0700
+Message-ID: <5d37433a832d_3aba2ae4f6ec05bc3a@john-XPS-13-9370.notmuch>
+References: <0000000000001a51c4058ddcb1b6@google.com>
+ <CACT4Y+ZGwKP+f4esJdx60AywO9b3Y5Bxb4zLtH6EEkaHpP6Zag@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190723170049.9143-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <CACT4Y+ZGwKP+f4esJdx60AywO9b3Y5Bxb4zLtH6EEkaHpP6Zag@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dmitry Vyukov <dvyukov@google.com>, syzbot <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com>, John Fastabend <john.fastabend@gmail.com>, bpf <bpf@vger.kernel.org>
+Cc: David Airlie <airlied@linux.ie>, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, Alexei Starovoitov <ast@kernel.org>, christian.koenig@amd.com, Daniel Borkmann <daniel@iogearbox.net>, david1.zhou@amd.com, DRI <dri-devel@lists.freedesktop.org>, leo.liu@amd.com, LKML <linux-kernel@vger.kernel.org>, netdev <netdev@vger.kernel.org>, syzkaller-bugs <syzkaller-bugs@googlegroups.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-TmVlZGVkIHRvIG1ha2Ugc3VyZSB0aGUgc211IGlzIGlkbGUgd2hlbiByZXNldHRpbmcuIFRoaXMg
-bWF5IGZpeApzcG9yYXRpYyBmYWlsdXJlcyB3aXRoIEdQVSByZXNldC4KClNpZ25lZC1vZmYtYnk6
-IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYyB8IDUgKysrKysKIDEgZmls
-ZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9od21nci92ZWdhMTBfaHdtZ3IuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-cG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMF9od21nci5jCmluZGV4IDFkOWJiMjlhZGFlZi4uYTYwNjZk
-OTJkZTc4IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92
-ZWdhMTBfaHdtZ3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92
-ZWdhMTBfaHdtZ3IuYwpAQCAtNDc0MCw2ICs0NzQwLDExIEBAIHN0YXRpYyBpbnQgdmVnYTEwX3Bv
-d2VyX29mZl9hc2ljKHN0cnVjdCBwcF9od21nciAqaHdtZ3IpCiAJCQkpOwogCWRhdGEtPndhdGVy
-X21hcmtzX2JpdG1hcCAmPSB+KFdhdGVyTWFya3NMb2FkZWQpOwogCisJUFBfQVNTRVJUX1dJVEhf
-Q09ERSgocmVzdWx0ID0gc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsCisJCQlQUFNNQ19NU0df
-UHJlcGFyZU1wMUZvclVubG9hZCkpID09IDAsCisJCQkiW1ByZXBhcmVNcDFGb3JVbmxvYWRdIEZh
-aWxlZCEiLAorCQkJcmV0dXJuIHJlc3VsdCk7CisKIAlyZXR1cm4gcmVzdWx0OwogfQogCi0tIAoy
-LjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Dmitry Vyukov wrote:
+> On Wed, Jul 17, 2019 at 10:58 AM syzbot
+> <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com> wrote:
+> >
+> > Hello,
+> >
+> > syzbot found the following crash on:
+> >
+> > HEAD commit:    1438cde7 Add linux-next specific files for 20190716
+> > git tree:       linux-next
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=13988058600000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=3430a151e1452331
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=79f5f028005a77ecb6bb
+> > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=111fc8afa00000
+> 
+> From the repro it looks like the same bpf stack overflow bug. +John
+> We need to dup them onto some canonical report for this bug, or this
+> becomes unmanageable.
+
+Fixes in bpf tree should fix this. Hopefully, we will squash this once fixes
+percolate up.
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+
+> 
+> #syz dup: kernel panic: corrupted stack end in dput
+> 
+> > The bug was bisected to:
+> >
+> > commit 96a5d8d4915f3e241ebb48d5decdd110ab9c7dcf
+> > Author: Leo Liu <leo.liu@amd.com>
+> > Date:   Fri Jul 13 15:26:28 2018 +0000
+> >
+> >      drm/amdgpu: Make sure IB tests flushed after IP resume
+> >
+> > bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=14a46200600000
+> > final crash:    https://syzkaller.appspot.com/x/report.txt?x=16a46200600000
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=12a46200600000
+> >
+> > IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> > Reported-by: syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com
+> > Fixes: 96a5d8d4915f ("drm/amdgpu: Make sure IB tests flushed after IP
+> > resume")
+> >
+> > Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in:
+> > pointer+0x702/0x750 lib/vsprintf.c:2187
+> > Shutting down cpus with NMI
+> > Kernel Offset: disabled
+> >
+> >
+> > ---
+> > This bug is generated by a bot. It may contain errors.
+> > See https://goo.gl/tpsmEJ for more information about syzbot.
+> > syzbot engineers can be reached at syzkaller@googlegroups.com.
+> >
+> > syzbot will keep track of this bug report. See:
+> > https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> > For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+> > syzbot can test patches for this bug, for details see:
+> > https://goo.gl/tpsmEJ#testing-patches
