@@ -1,115 +1,60 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH] drm/amd/display: readd -msse2 to prevent Clang from
- emitting libcalls to undefined SW FP routines
-Date: Tue, 23 Jul 2019 14:31:03 -0400
-Message-ID: <CADnq5_MA+oCYRWLyaJT+oQGwA2jDwfX554qNZoS6BtKmeSru1Q@mail.gmail.com>
-References: <20190722223112.199769-1-ndesaulniers@google.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH][next] drm/amdgpu: remove redundant assignment to pointer
+ 'ring'
+Date: Tue, 23 Jul 2019 14:45:07 -0400
+Message-ID: <CADnq5_PE1rDzqd13MPWJmeK_BUS0EthH=WcZ0wruTy55yarnpw@mail.gmail.com>
+References: <20190723134120.28441-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190722223112.199769-1-ndesaulniers@google.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, "Wentland, Harry" <harry.wentland@amd.com>, David Airlie <airlied@linux.ie>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, clang-built-linux@googlegroups.com, amd-gfx list <amd-gfx@lists.freedesktop.org>, Matthias Kaehlcke <mka@google.com>, samitolvanen@google.com, Guenter Roeck <linux@roeck-us.net>, Arnd Bergmann <arnd@arndb.de>, Charlene Liu <charlene.liu@amd.com>, Leo Li <sunpeng.li@amd.com>, Sedat Dilek <sedat.dilek@gmail.com>, Nathan Chancellor <natechancellor@gmail.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@amd.com>, LKML <linux-kernel@vger.kernel.org>, "S, Shirish" <Shirish.S@amd.com>, Dmytro Laktyushkin <Dmytro>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190723134120.28441-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Cc: David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Jul 23, 2019 at 3:16 AM Nick Desaulniers
-<ndesaulniers@google.com> wrote:
->
-> arch/x86/Makefile disables SSE and SSE2 for the whole kernel.  The
-> AMDGPU drivers modified in this patch re-enable SSE but not SSE2.  Turn
-> on SSE2 to support emitting double precision floating point instructions
-> rather than calls to non-existent (usually available from gcc_s or
-> compiler_rt) floating point helper routines for Clang.
->
-> This was originally landed in:
-> commit 10117450735c ("drm/amd/display: add -msse2 to prevent Clang from emitting libcalls to undefined SW FP routines")
-> but reverted in:
-> commit 193392ed9f69 ("Revert "drm/amd/display: add -msse2 to prevent Clang from emitting libcalls to undefined SW FP routines"")
-> due to bugreports from GCC builds. Add guards to only do so for Clang.
->
-> Link: https://bugs.freedesktop.org/show_bug.cgi?id=109487
-> Link: https://github.com/ClangBuiltLinux/linux/issues/327
->
-> Suggested-by: Sedat Dilek <sedat.dilek@gmail.com>
-> Suggested-by: Sami Tolvanen <samitolvanen@google.com>
-> Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
-
-Applied.  Thanks!
-
-Alex
-
-> ---
->  drivers/gpu/drm/amd/display/dc/calcs/Makefile | 4 ++++
->  drivers/gpu/drm/amd/display/dc/dcn20/Makefile | 4 ++++
->  drivers/gpu/drm/amd/display/dc/dml/Makefile   | 4 ++++
->  drivers/gpu/drm/amd/display/dc/dsc/Makefile   | 4 ++++
->  4 files changed, 16 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/Makefile b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> index 95f332ee3e7e..16614d73a5fc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/calcs/Makefile
-> @@ -32,6 +32,10 @@ endif
->
->  calcs_ccflags := -mhard-float -msse $(cc_stack_align)
->
-> +ifdef CONFIG_CC_IS_CLANG
-> +calcs_ccflags += -msse2
-> +endif
-> +
->  CFLAGS_dcn_calcs.o := $(calcs_ccflags)
->  CFLAGS_dcn_calc_auto.o := $(calcs_ccflags)
->  CFLAGS_dcn_calc_math.o := $(calcs_ccflags) -Wno-tautological-compare
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> index e9721a906592..f57a3b281408 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/Makefile
-> @@ -18,6 +18,10 @@ endif
->
->  CFLAGS_dcn20_resource.o := -mhard-float -msse $(cc_stack_align)
->
-> +ifdef CONFIG_CC_IS_CLANG
-> +CFLAGS_dcn20_resource.o += -msse2
-> +endif
-> +
->  AMD_DAL_DCN20 = $(addprefix $(AMDDALPATH)/dc/dcn20/,$(DCN20))
->
->  AMD_DISPLAY_FILES += $(AMD_DAL_DCN20)
-> diff --git a/drivers/gpu/drm/amd/display/dc/dml/Makefile b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> index 0bb7a20675c4..132ade1a234e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dml/Makefile
-> @@ -32,6 +32,10 @@ endif
->
->  dml_ccflags := -mhard-float -msse $(cc_stack_align)
->
-> +ifdef CONFIG_CC_IS_CLANG
-> +dml_ccflags += -msse2
-> +endif
-> +
->  CFLAGS_display_mode_lib.o := $(dml_ccflags)
->
->  ifdef CONFIG_DRM_AMD_DC_DCN2_0
-> diff --git a/drivers/gpu/drm/amd/display/dc/dsc/Makefile b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> index e019cd9447e8..17db603f2d1f 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/dsc/Makefile
-> @@ -9,6 +9,10 @@ endif
->
->  dsc_ccflags := -mhard-float -msse $(cc_stack_align)
->
-> +ifdef CONFIG_CC_IS_CLANG
-> +dsc_ccflags += -msse2
-> +endif
-> +
->  CFLAGS_rc_calc.o := $(dsc_ccflags)
->  CFLAGS_rc_calc_dpi.o := $(dsc_ccflags)
->  CFLAGS_codec_main_amd.o := $(dsc_ccflags)
-> --
-> 2.22.0.657.g960e92d24f-goog
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+T24gVHVlLCBKdWwgMjMsIDIwMTkgYXQgOTo0MSBBTSBDb2xpbiBLaW5nIDxjb2xpbi5raW5nQGNh
+bm9uaWNhbC5jb20+IHdyb3RlOgo+Cj4gRnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdA
+Y2Fub25pY2FsLmNvbT4KPgo+IFRoZSBwb2ludGVyICdyaW5nJyBpcyBiZWluZyBhc3NpZ25lZCBh
+IHZhbHVlIHRoYXQgaXMgbmV2ZXIKPiByZWFkLCBoZW5jZSB0aGUgYXNzaWdubWVudCBpcyByZWR1
+bmRhbnQgYW5kIGNhbiBiZSByZW1vdmVkLgo+Cj4gQWRkcmVzc2VzLUNvdmVyaXR5OiAoIlVudXNl
+ZCB2YWx1ZSIpCj4gU2lnbmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fu
+b25pY2FsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAu
+YyB8IDEgLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS92Y25fdjFfMC5jCj4gaW5kZXggOTNiMzUwMGU1MjJiLi5hMmE4Y2E5NDJmMzQg
+MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+ICsr
+KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKPiBAQCAtMTMzMSw3ICsx
+MzMxLDYgQEAgc3RhdGljIGludCB2Y25fdjFfMF9wYXVzZV9kcGdfbW9kZShzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFdSRUczMl9T
+T0MxNShVVkQsIDAsIG1tVVZEX0pSQkNfUkJfQ05UTCwKPiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVWRF9KUkJDX1JCX0NOVExfX1JCX1JQ
+VFJfV1JfRU5fTUFTSyk7Cj4KPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJpbmcg
+PSAmYWRldi0+dmNuLmluc3QtPnJpbmdfZGVjOwo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgV1JFRzMyX1NPQzE1KFVWRCwgMCwgbW1VVkRfUkJDX1JCX1dQVFIsCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlJFRzMyX1NPQzE1KFVW
+RCwgMCwgbW1VVkRfU0NSQVRDSDIpICYgMHg3RkZGRkZGRik7Cj4gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBTT0MxNV9XQUlUX09OX1JSRUcoVVZELCAwLCBtbVVWRF9QT1dFUl9TVEFU
+VVMsCgpXaGlsZSB3ZSBkb24ndCB1c2UgcmluZyBoZXJlLCBJIHRoaW5rIHRoZSBhc3NpZ25tZW50
+IGlzIHVzZWZ1bCB0bwpkZWxpbmVhdGUgdGhhdCB3ZSBhcmUgbm8gbG9uZ2VyIHdvcmtpbmcgd2l0
+aCB0aGUganBlZyByaW5nLCBidXQgcmF0aGVyCnRoZSBkZWNvZGUgcmluZy4gIFRoZSBtbVVWRF9S
+QkNfUkJfV1BUUiByZWdpc3RlciBpcyBwYXJ0IG9mIHRoZSBkZWNvZGUKcmluZywgbm90IGpwZWcu
+ICBXZSB3b3VsZCBub3JtYWxseSB1c2UgdGhlIHJpbmctPndwdHIgbGlrZSB3ZSBkbyBmb3IKdGhl
+IG90aGVyIHJpbmdzLCBidXQgaW4gdGhpcyBwYXJ0aWN1bGFyIGNhc2UsIHRoZSB2YWx1ZSBoYXBw
+ZW5zIHRvIGJlCnNoYWRvd2VkIHRvIGEgc2NyYXRjaCByZWdpc3RlciBkdWUgdG8gdGhlIHdheSB0
+aGUgZHluYW1pYyBwb3dlciBnYXRpbmcKd29ya3Mgb24gdGhhdCByaW5nLgoKQWxleAoKPiAtLQo+
+IDIuMjAuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
+LWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
+ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
