@@ -1,69 +1,54 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amd/powerplay: fix temperature granularity error in smu11
-Date: Tue, 23 Jul 2019 12:08:15 +0000
-Message-ID: <20190723120756.27823-1-kevin1.wang@amd.com>
+From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Subject: Re: [PATCH v4 14/23] drm/tilcdc: Provide ddc symlink in connector
+ sysfs directory
+Date: Tue, 23 Jul 2019 14:44:50 +0200
+Message-ID: <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d1d415022c598fb7acd033f0f322dd67250adaa9.1562843413.git.andrzej.p@collabora.com>
+ <20190723090532.GA787@ravnborg.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190723090532.GA787@ravnborg.org>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Sam Ravnborg <sam@ravnborg.org>
+Cc: Neil Armstrong <narmstrong@baylibre.com>, Maxime Ripard <maxime.ripard@bootlin.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Matthias Brugger <matthias.bgg@gmail.com>, Thierry Reding <thierry.reding@gmail.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Shawn Guo <shawnguo@kernel.org>, kernel@collabora.com, linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, Sean Paul <sean@poorly.run>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>, linux-ar
+List-Id: amd-gfx.lists.freedesktop.org
 
-aW4gdGhpcyBwYXRjaCwKZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBjYWxsYmFjayBmdW5jdGlvbiBv
-ZiBnZXRfdGhlcm1hbF90ZW1wZXJhdHVyZV9yYW5nZQp0aGUgZHJpdmVyIG1pc3NlZCB0ZW1wZXJh
-dHVyZSBncmFudWxhcml0eSBjaGFuZ2Ugb24gb3RoZXIgdGVtcGVyYXR1cmUuCgpTaWduZWQtb2Zm
-LWJ5OiBLZXZpbiBXYW5nIDxrZXZpbjEud2FuZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jIHwgMTggKysrKysrKysrLS0tLS0tLS0tCiAxIGZp
-bGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMKaW5kZXggNzQ1YjM1YTE2MDBkLi43MzU4MDJi
-YjA3YjkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFf
-MC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jCkBAIC0x
-MjI5LDE1ICsxMjI5LDE1IEBAIHN0YXRpYyBpbnQgc211X3YxMV8wX3N0YXJ0X3RoZXJtYWxfY29u
-dHJvbChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSkKIAkJCXJldHVybiByZXQ7CiAJfQogCi0JYWRl
-di0+cG0uZHBtLnRoZXJtYWwubWluX3RlbXAgPSByYW5nZS5taW47Ci0JYWRldi0+cG0uZHBtLnRo
-ZXJtYWwubWF4X3RlbXAgPSByYW5nZS5tYXg7Ci0JYWRldi0+cG0uZHBtLnRoZXJtYWwubWF4X2Vk
-Z2VfZW1lcmdlbmN5X3RlbXAgPSByYW5nZS5lZGdlX2VtZXJnZW5jeV9tYXg7Ci0JYWRldi0+cG0u
-ZHBtLnRoZXJtYWwubWluX2hvdHNwb3RfdGVtcCA9IHJhbmdlLmhvdHNwb3RfbWluOwotCWFkZXYt
-PnBtLmRwbS50aGVybWFsLm1heF9ob3RzcG90X2NyaXRfdGVtcCA9IHJhbmdlLmhvdHNwb3RfY3Jp
-dF9tYXg7Ci0JYWRldi0+cG0uZHBtLnRoZXJtYWwubWF4X2hvdHNwb3RfZW1lcmdlbmN5X3RlbXAg
-PSByYW5nZS5ob3RzcG90X2VtZXJnZW5jeV9tYXg7Ci0JYWRldi0+cG0uZHBtLnRoZXJtYWwubWlu
-X21lbV90ZW1wID0gcmFuZ2UubWVtX21pbjsKLQlhZGV2LT5wbS5kcG0udGhlcm1hbC5tYXhfbWVt
-X2NyaXRfdGVtcCA9IHJhbmdlLm1lbV9jcml0X21heDsKLQlhZGV2LT5wbS5kcG0udGhlcm1hbC5t
-YXhfbWVtX2VtZXJnZW5jeV90ZW1wID0gcmFuZ2UubWVtX2VtZXJnZW5jeV9tYXg7CisJYWRldi0+
-cG0uZHBtLnRoZXJtYWwubWluX3RlbXAgPSByYW5nZS5taW4gKiBTTVVfVEVNUEVSQVRVUkVfVU5J
-VFNfUEVSX0NFTlRJR1JBREVTOworCWFkZXYtPnBtLmRwbS50aGVybWFsLm1heF90ZW1wID0gcmFu
-Z2UubWF4ICogU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKKwlhZGV2LT5w
-bS5kcG0udGhlcm1hbC5tYXhfZWRnZV9lbWVyZ2VuY3lfdGVtcCA9IHJhbmdlLmVkZ2VfZW1lcmdl
-bmN5X21heCAqIFNNVV9URU1QRVJBVFVSRV9VTklUU19QRVJfQ0VOVElHUkFERVM7CisJYWRldi0+
-cG0uZHBtLnRoZXJtYWwubWluX2hvdHNwb3RfdGVtcCA9IHJhbmdlLmhvdHNwb3RfbWluICogU01V
-X1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKKwlhZGV2LT5wbS5kcG0udGhlcm1h
-bC5tYXhfaG90c3BvdF9jcml0X3RlbXAgPSByYW5nZS5ob3RzcG90X2NyaXRfbWF4ICogU01VX1RF
-TVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKKwlhZGV2LT5wbS5kcG0udGhlcm1hbC5t
-YXhfaG90c3BvdF9lbWVyZ2VuY3lfdGVtcCA9IHJhbmdlLmhvdHNwb3RfZW1lcmdlbmN5X21heCAq
-IFNNVV9URU1QRVJBVFVSRV9VTklUU19QRVJfQ0VOVElHUkFERVM7CisJYWRldi0+cG0uZHBtLnRo
-ZXJtYWwubWluX21lbV90ZW1wID0gcmFuZ2UubWVtX21pbiAqIFNNVV9URU1QRVJBVFVSRV9VTklU
-U19QRVJfQ0VOVElHUkFERVM7CisJYWRldi0+cG0uZHBtLnRoZXJtYWwubWF4X21lbV9jcml0X3Rl
-bXAgPSByYW5nZS5tZW1fY3JpdF9tYXggKiBTTVVfVEVNUEVSQVRVUkVfVU5JVFNfUEVSX0NFTlRJ
-R1JBREVTOworCWFkZXYtPnBtLmRwbS50aGVybWFsLm1heF9tZW1fZW1lcmdlbmN5X3RlbXAgPSBy
-YW5nZS5tZW1fZW1lcmdlbmN5X21heCAqIFNNVV9URU1QRVJBVFVSRV9VTklUU19QRVJfQ0VOVElH
-UkFERVM7CiAJYWRldi0+cG0uZHBtLnRoZXJtYWwubWluX3RlbXAgPSByYW5nZS5taW4gKiBTTVVf
-VEVNUEVSQVRVUkVfVU5JVFNfUEVSX0NFTlRJR1JBREVTOwogCWFkZXYtPnBtLmRwbS50aGVybWFs
-Lm1heF90ZW1wID0gcmFuZ2UubWF4ICogU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdS
-QURFUzsKIAotLSAKMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-Zng=
+Hi Sam,
+
+W dniu 23.07.2019 o 11:05, Sam Ravnborg pisze:
+> Hi Andrzej
+> 
+> On Thu, Jul 11, 2019 at 01:26:41PM +0200, Andrzej Pietrasiewicz wrote:
+>> Use the ddc pointer provided by the generic connector.
+>>
+>> Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+>> ---
+>>   drivers/gpu/drm/tilcdc/tilcdc_tfp410.c | 1 +
+>>   1 file changed, 1 insertion(+)
+>>
+>> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c b/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c
+>> index 62d014c20988..c373edb95666 100644
+>> --- a/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c
+>> +++ b/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c
+>> @@ -219,6 +219,7 @@ static struct drm_connector *tfp410_connector_create(struct drm_device *dev,
+>>   	tfp410_connector->mod = mod;
+>>   
+>>   	connector = &tfp410_connector->base;
+>> +	connector->ddc = mod->i2c;
+>>   
+>>   	drm_connector_init(dev, connector, &tfp410_connector_funcs,
+>>   			DRM_MODE_CONNECTOR_DVID);
+> 
+> When reading this code, it looks strange that we set connector->ddc
+> *before* the call to init the connector.
+> One could risk that drm_connector_init() used memset(..) to clear all
+> fields or so, and it would break this order.
+
+I verified the code of drm_connector_init() and cannot find any memset()
+invocations there. What is your actual concern?
+
+Andrzej
