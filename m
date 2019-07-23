@@ -1,13 +1,13 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amd/powerplay: some cosmetic fixes
-Date: Tue, 23 Jul 2019 15:00:08 +0000
-Message-ID: <BN6PR12MB18092BC08806A0B2342C54DCF7C70@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190723084112.11439-1-evan.quan@amd.com>,
- <20190723084112.11439-2-evan.quan@amd.com>
+Subject: Re: [PATCH] drm/amd/powerplay: change smu_read_sensor sequence in smu
+Date: Tue, 23 Jul 2019 15:06:13 +0000
+Message-ID: <BN6PR12MB1809826E34BDEAA5E1F5D7AFF7C70@BN6PR12MB1809.namprd12.prod.outlook.com>
+References: <1563874746-6318-1-git-send-email-kenneth.feng@amd.com>,
+ <MN2PR12MB3296043F281A9E7345179AE1A2C70@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1204709327=="
+Content-Type: multipart/mixed; boundary="===============1101161715=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190723084112.11439-2-evan.quan-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MN2PR12MB3296043F281A9E7345179AE1A2C70-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,183 +19,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
---===============1204709327==
+--===============1101161715==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB18092BC08806A0B2342C54DCF7C70BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB1809826E34BDEAA5E1F5D7AFF7C70BN6PR12MB1809namp_"
 
---_000_BN6PR12MB18092BC08806A0B2342C54DCF7C70BN6PR12MB1809namp_
+--_000_BN6PR12MB1809826E34BDEAA5E1F5D7AFF7C70BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Looks good to me.
+
+Acked-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 ________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Evan Qua=
-n <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Sent: Tuesday, July 23, 2019 4:41 AM
+From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, July 23, 2019 5:43 AM
+To: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org=
+>
+Subject: Re: [PATCH] drm/amd/powerplay: change smu_read_sensor sequence in =
+smu
+
+
+it looks fine for me,
+
+please @Deucher, Alexander<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org> double check c=
+onfirm.
+
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+
+Best Regards,
+Kevin
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Kenneth =
+Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>
+Sent: Tuesday, July 23, 2019 5:39 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 2/2] drm/amd/powerplay: some cosmetic fixes
+Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: change smu_read_sensor sequence in smu
 
-Drop redundant check, duplicate check, duplicate setting
-and fix the return value.
+change the smu_read_sensor sequence to:
 
-Change-Id: I04171bcac82f17152371d05e6958d4fc072c0f6b
-Signed-off-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+asic specific sensor read -> smu v11 specific sensor read -> smu v11 common=
+ sensor read
+
+Signed-off-by: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c     | 33 +++++++++++-----------
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 30 ++++++++------------
- 2 files changed, 28 insertions(+), 35 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 3 +++
+ drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 4 ++--
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c     | 5 ++++-
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c      | 8 ++++----
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c     | 5 ++++-
+ 5 files changed, 17 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index 866097d5cf26..aad3e105901b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -367,13 +367,6 @@ static ssize_t amdgpu_set_dpm_forced_performance_level=
-(struct device *dev,
-              (ddev->switch_power_state !=3D DRM_SWITCH_POWER_ON))
-                 return -EINVAL;
-
--       if (!amdgpu_sriov_vf(adev)) {
--               if (is_support_sw_smu(adev))
--                       current_level =3D smu_get_performance_level(&adev->=
-smu);
--               else if (adev->powerplay.pp_funcs->get_performance_level)
--                       current_level =3D amdgpu_dpm_get_performance_level(=
-adev);
--       }
--
-         if (strncmp("low", buf, strlen("low")) =3D=3D 0) {
-                 level =3D AMD_DPM_FORCED_LEVEL_LOW;
-         } else if (strncmp("high", buf, strlen("high")) =3D=3D 0) {
-@@ -397,17 +390,23 @@ static ssize_t amdgpu_set_dpm_forced_performance_leve=
-l(struct device *dev,
-                 goto fail;
-         }
-
--        if (amdgpu_sriov_vf(adev)) {
--                if (amdgim_is_hwperf(adev) &&
--                    adev->virt.ops->force_dpm_level) {
--                        mutex_lock(&adev->pm.mutex);
--                        adev->virt.ops->force_dpm_level(adev, level);
--                        mutex_unlock(&adev->pm.mutex);
--                        return count;
--                } else {
--                        return -EINVAL;
-+       /* handle sriov case here */
-+       if (amdgpu_sriov_vf(adev)) {
-+               if (amdgim_is_hwperf(adev) &&
-+                   adev->virt.ops->force_dpm_level) {
-+                       mutex_lock(&adev->pm.mutex);
-+                       adev->virt.ops->force_dpm_level(adev, level);
-+                       mutex_unlock(&adev->pm.mutex);
-+                       return count;
-+               } else {
-+                       return -EINVAL;
-                 }
--        }
-+       }
-+
-+       if (is_support_sw_smu(adev))
-+               current_level =3D smu_get_performance_level(&adev->smu);
-+       else if (adev->powerplay.pp_funcs->get_performance_level)
-+               current_level =3D amdgpu_dpm_get_performance_level(adev);
-
-         if (current_level =3D=3D level)
-                 return count;
 diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
 md/powerplay/amdgpu_smu.c
-index 266614e27392..a92d13b513da 100644
+index 416f9a8..8ff18c8 100644
 --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1398,6 +1398,7 @@ int smu_adjust_power_state_dynamic(struct smu_context=
- *smu,
-
-         if (!smu->pm_enabled)
-                 return -EINVAL;
-+
-         if (!skip_display_settings) {
-                 ret =3D smu_display_config_changed(smu);
-                 if (ret) {
-@@ -1406,8 +1407,6 @@ int smu_adjust_power_state_dynamic(struct smu_context=
- *smu,
-                 }
-         }
-
--       if (!smu->pm_enabled)
--               return -EINVAL;
-         ret =3D smu_apply_clocks_adjust_rules(smu);
-         if (ret) {
-                 pr_err("Failed to apply clocks adjust rules!");
-@@ -1426,9 +1425,14 @@ int smu_adjust_power_state_dynamic(struct smu_contex=
-t *smu,
-                 ret =3D smu_asic_set_performance_level(smu, level);
-                 if (ret) {
-                         ret =3D smu_default_set_performance_level(smu, lev=
-el);
-+                       if (ret) {
-+                               pr_err("Failed to set performance level!");
-+                               return ret;
-+                       }
-                 }
--               if (!ret)
--                       smu_dpm_ctx->dpm_level =3D level;
-+
-+               /* update the saved copy */
-+               smu_dpm_ctx->dpm_level =3D level;
-         }
-
-         if (smu_dpm_ctx->dpm_level !=3D AMD_DPM_FORCED_LEVEL_MANUAL) {
-@@ -1487,28 +1491,18 @@ enum amd_dpm_forced_level smu_get_performance_level=
-(struct smu_context *smu)
-
- int smu_force_performance_level(struct smu_context *smu, enum amd_dpm_forc=
-ed_level level)
+@@ -315,6 +315,9 @@ int smu_common_read_sensor(struct smu_context *smu, enu=
+m amd_pp_sensors sensor,
  {
--       int ret =3D 0;
--       int i;
-         struct smu_dpm_context *smu_dpm_ctx =3D &(smu->smu_dpm);
-+       int ret =3D 0;
+         int ret =3D 0;
 
-         if (!smu_dpm_ctx->dpm_context)
-                 return -EINVAL;
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK:
+                 *((uint32_t *)data) =3D smu->pstate_sclk;
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h
+index b702c9e..fabb373 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -819,9 +819,9 @@ struct smu_funcs
+ #define smu_start_thermal_control(smu) \
+         ((smu)->funcs->start_thermal_control? (smu)->funcs->start_thermal_=
+control((smu)) : 0)
+ #define smu_read_sensor(smu, sensor, data, size) \
+-       ((smu)->funcs->read_sensor? (smu)->funcs->read_sensor((smu), (senso=
+r), (data), (size)) : 0)
+-#define smu_asic_read_sensor(smu, sensor, data, size) \
+         ((smu)->ppt_funcs->read_sensor? (smu)->ppt_funcs->read_sensor((smu=
+), (sensor), (data), (size)) : 0)
++#define smu_smc_read_sensor(smu, sensor, data, size) \
++       ((smu)->funcs->read_sensor? (smu)->funcs->read_sensor((smu), (senso=
+r), (data), (size)) : -EINVAL)
+ #define smu_get_power_profile_mode(smu, buf) \
+         ((smu)->ppt_funcs->get_power_profile_mode ? (smu)->ppt_funcs->get_=
+power_profile_mode((smu), buf) : 0)
+ #define smu_set_power_profile_mode(smu, param, param_size) \
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c
+index c8ce9bb..6409718 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -1366,6 +1366,9 @@ static int navi10_read_sensor(struct smu_context *smu=
+,
+         struct smu_table_context *table_context =3D &smu->smu_table;
+         PPTable_t *pptable =3D table_context->driver_pptable;
 
--       for (i =3D 0; i < smu->adev->num_ip_blocks; i++) {
--               if (smu->adev->ip_blocks[i].version->type =3D=3D AMD_IP_BLO=
-CK_TYPE_SMC)
--                       break;
--       }
--
--
--       smu->adev->ip_blocks[i].version->funcs->enable_umd_pstate(smu, &lev=
-el);
--       ret =3D smu_handle_task(smu, level,
--                             AMD_PP_TASK_READJUST_POWER_STATE);
-+       ret =3D smu_enable_umd_pstate(smu, &level);
-         if (ret)
-                 return ret;
-
--       mutex_lock(&smu->mutex);
--       smu_dpm_ctx->dpm_level =3D level;
--       mutex_unlock(&smu->mutex);
-+       ret =3D smu_handle_task(smu, level,
-+                             AMD_PP_TASK_READJUST_POWER_STATE);
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
+                 *(uint32_t *)data =3D pptable->FanMaximumRpm;
+@@ -1387,7 +1390,7 @@ static int navi10_read_sensor(struct smu_context *smu=
+,
+                 *size =3D 4;
+                 break;
+         default:
+-               return -EINVAL;
++               ret =3D smu_smc_read_sensor(smu, sensor, data, size);
+         }
 
          return ret;
- }
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v11_0.c
+index e3a1784..5267b68 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -1267,6 +1267,10 @@ static int smu_v11_0_read_sensor(struct smu_context =
+*smu,
+                                  void *data, uint32_t *size)
+ {
+         int ret =3D 0;
++
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_GFX_MCLK:
+                 ret =3D smu_get_current_clk_freq(smu, SMU_UCLK, (uint32_t =
+*)data);
+@@ -1289,10 +1293,6 @@ static int smu_v11_0_read_sensor(struct smu_context =
+*smu,
+                 break;
+         }
+
+-       /* try get sensor data by asic */
+-       if (ret)
+-               ret =3D smu_asic_read_sensor(smu, sensor, data, size);
+-
+         if (ret)
+                 *size =3D 0;
+
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c
+index 9ead361..e864a54 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -3163,6 +3163,9 @@ static int vega20_read_sensor(struct smu_context *smu=
+,
+         struct smu_table_context *table_context =3D &smu->smu_table;
+         PPTable_t *pptable =3D table_context->driver_pptable;
+
++       if(!data || !size)
++               return -EINVAL;
++
+         switch (sensor) {
+         case AMDGPU_PP_SENSOR_MAX_FAN_RPM:
+                 *(uint32_t *)data =3D pptable->FanMaximumRpm;
+@@ -3186,7 +3189,7 @@ static int vega20_read_sensor(struct smu_context *smu=
+,
+                 *size =3D 4;
+                 break;
+         default:
+-               return -EINVAL;
++               ret =3D smu_smc_read_sensor(smu, sensor, data, size);
+         }
+
+         return ret;
 --
-2.22.0
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+amd-gfx Info Page - freedesktop.org<https://lists.freedesktop.org/mailman/l=
+istinfo/amd-gfx>
+lists.freedesktop.org
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in the sections below.
 
---_000_BN6PR12MB18092BC08806A0B2342C54DCF7C70BN6PR12MB1809namp_
+
+--_000_BN6PR12MB1809826E34BDEAA5E1F5D7AFF7C70BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -209,283 +225,299 @@ ttom:0;} </style>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
+Looks good to me.</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Acked-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
 </div>
 <div id=3D"appendonsend"></div>
 <hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
 <div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
-<b>Sent:</b> Tuesday, July 23, 2019 4:41 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amd/powerplay: some cosmetic fixes</font>
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Kevin(Yang) &lt=
+;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, July 23, 2019 5:43 AM<br>
+<b>To:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
+sktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; Deucher, Alexander &lt;Ale=
+xander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amd/powerplay: change smu_read_sensor seque=
+nce in smu</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Drop redundant check, duplicate check, duplicate s=
-etting<br>
-and fix the return value.<br>
+<style type=3D"text/css" style=3D"display:none">
+<!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+<div dir=3D"ltr">
+<div id=3D"x_divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; col=
+or:#000000; font-family:Calibri,Helvetica,sans-serif">
+<p style=3D"margin-top:0; margin-bottom:0"><span style=3D"font-size:12pt">i=
+t looks fine for me,&nbsp;</span><br>
+</p>
+<div>please <a class=3D"x_mention x_ms-bgc-nlr x_ms-fcl-b" id=3D"OWAAM92817=
+9" href=3D"mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org">
+@Deucher, Alexander</a>&nbsp;double check confirm.</div>
+<div><br>
+</div>
+<div>Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
+<div><br>
+</div>
+<div>Best Regards,<br>
+Kevin<br>
 <br>
-Change-Id: I04171bcac82f17152371d05e6958d4fc072c0f6b<br>
-Signed-off-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<div style=3D"color:rgb(0,0,0)">
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Kenneth Feng &lt;kenneth.fe=
+ng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Sent:</b> Tuesday, July 23, 2019 5:39 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
+gt;<br>
+<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: change smu_read_sensor sequence =
+in smu</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">change the smu_read_sensor sequence to:<br>
+<br>
+asic specific sensor read -&gt; smu v11 specific sensor read -&gt; smu v11 =
+common sensor read<br>
+<br>
+Signed-off-by: Kenneth Feng &lt;kenneth.feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp; | 33 &=
-#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-----------<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 30 &#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;------------<br>
-&nbsp;2 files changed, 28 insertions(&#43;), 35 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+3 &#43;&#43;&#43;<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 4 &#43;&#43;--<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+5 &#43;&#43;&#43;&#43;-<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; | 8 &#43;&#43;&#43;&#43;----<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/vega20_ppt.c&nbsp;&nbsp;&nbsp;&nbsp; | =
+5 &#43;&#43;&#43;&#43;-<br>
+&nbsp;5 files changed, 17 insertions(&#43;), 8 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index 866097d5cf26..aad3e105901b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -367,13 &#43;367,6 @@ static ssize_t amdgpu_set_dpm_forced_performance_l=
-evel(struct device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; (ddev-&gt;switch_power_state !=3D DRM_SWITCH_POWER_ON))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (is_support_sw_smu(adev))<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current_level =
-=3D smu_get_performance_level(&amp;adev-&gt;smu);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; else if (adev-&gt;powerplay.pp_funcs-&gt;get_performance_level)<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; current_level =
-=3D amdgpu_dpm_get_performance_level(adev);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (strncmp(&quot;low&quot=
-;, buf, strlen(&quot;low&quot;)) =3D=3D 0) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; level =3D AMD_DPM_FORCED_LEVEL_LOW;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (strncmp(&quot;h=
-igh&quot;, buf, strlen(&quot;high&quot;)) =3D=3D 0) {<br>
-@@ -397,17 &#43;390,23 @@ static ssize_t amdgpu_set_dpm_forced_performance_=
-level(struct device *dev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; goto fail;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br=
->
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; if (amdgim_is_hwperf(adev) &amp;&amp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;virt.ops-&gt;force_dpm_le=
-vel) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock=
-(&amp;adev-&gt;pm.mutex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;v=
-irt.ops-&gt;force_dpm_level(adev, level);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlo=
-ck(&amp;adev-&gt;pm.mutex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return cou=
-nt;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EI=
-NVAL;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* handle sriov case here */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_sriov_vf(adev)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; if (amdgim_is_hwperf(adev) &amp;&amp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;virt.ops-&gt;force_dpm_leve=
-l) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&=
-amp;adev-&gt;pm.mutex);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;vir=
-t.ops-&gt;force_dpm_level(adev, level);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock=
-(&amp;adev-&gt;pm.mutex);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return count=
-;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINV=
-AL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (is_support_sw_smu(adev))<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; current_level =3D smu_get_performance_level(&amp;adev-&gt;sm=
-u);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (adev-&gt;powerplay.pp_fu=
-ncs-&gt;get_performance_level)<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; current_level =3D amdgpu_dpm_get_performance_level(adev);<br=
->
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (current_level =3D=3D l=
-evel)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return count;<br>
 diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
 md/powerplay/amdgpu_smu.c<br>
-index 266614e27392..a92d13b513da 100644<br>
+index 416f9a8..8ff18c8 100644<br>
 --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
 &#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-@@ -1398,6 &#43;1398,7 @@ int smu_adjust_power_state_dynamic(struct smu_con=
-text *smu,<br>
+@@ -315,6 &#43;315,9 @@ int smu_common_read_sensor(struct smu_context *smu,=
+ enum amd_pp_sensors sensor,<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;pm_enabled)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
 &#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!skip_display_settings=
-) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_STAB=
+LE_PSTATE_SCLK:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_display_config_changed(smu);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-@@ -1406,8 &#43;1407,6 @@ int smu_adjust_power_state_dynamic(struct smu_con=
-text *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+sp;&nbsp;&nbsp;&nbsp; *((uint32_t *)data) =3D smu-&gt;pstate_sclk;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/d=
+rm/amd/powerplay/inc/amdgpu_smu.h<br>
+index b702c9e..fabb373 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h<br>
+@@ -819,9 &#43;819,9 @@ struct smu_funcs<br>
+&nbsp;#define smu_start_thermal_control(smu) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;start=
+_thermal_control? (smu)-&gt;funcs-&gt;start_thermal_control((smu)) : 0)<br>
+&nbsp;#define smu_read_sensor(smu, sensor, data, size) \<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;read_sensor? (sm=
+u)-&gt;funcs-&gt;read_sensor((smu), (sensor), (data), (size)) : 0)<br>
+-#define smu_asic_read_sensor(smu, sensor, data, size) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;r=
+ead_sensor? (smu)-&gt;ppt_funcs-&gt;read_sensor((smu), (sensor), (data), (s=
+ize)) : 0)<br>
+&#43;#define smu_smc_read_sensor(smu, sensor, data, size) \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;funcs-&gt;read_sensor?=
+ (smu)-&gt;funcs-&gt;read_sensor((smu), (sensor), (data), (size)) : -EINVAL=
+)<br>
+&nbsp;#define smu_get_power_profile_mode(smu, buf) \<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((smu)-&gt;ppt_funcs-&gt;g=
+et_power_profile_mode ? (smu)-&gt;ppt_funcs-&gt;get_power_profile_mode((smu=
+), buf) : 0)<br>
+&nbsp;#define smu_set_power_profile_mode(smu, param, param_size) \<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/navi10_ppt.c<br>
+index c8ce9bb..6409718 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
+@@ -1366,6 &#43;1366,9 @@ static int navi10_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+table_context =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D tab=
+le_context-&gt;driver_pptable;<br>
 &nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu-&gt;pm_enabled)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MAX_=
+FAN_RPM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint32_t *)data =3D pptable-&gt;FanMaximumRpm;<br>
+@@ -1387,7 &#43;1390,7 @@ static int navi10_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_apply_clocks_a=
-djust_rules(smu);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; pr_err(&quot;Failed to apply clocks adjust rules!&quo=
-t;);<br>
-@@ -1426,9 &#43;1425,14 @@ int smu_adjust_power_state_dynamic(struct smu_co=
-ntext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_asic_set_performance_level(smu, level);<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
-=3D smu_default_set_performance_level(smu, level);<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;Failed to set performance =
-level!&quot;);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (!ret)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_dpm_ctx-&gt;=
-dpm_level =3D level;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; /* update the saved copy */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; smu_dpm_ctx-&gt;dpm_level =3D level;<br>
+p;&nbsp;&nbsp; ret =3D smu_smc_read_sensor(smu, sensor, data, size);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 &nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (smu_dpm_ctx-&gt;dpm_le=
-vel !=3D AMD_DPM_FORCED_LEVEL_MANUAL) {<br>
-@@ -1487,28 &#43;1491,18 @@ enum amd_dpm_forced_level smu_get_performance_l=
-evel(struct smu_context *smu)<br>
-&nbsp;<br>
-&nbsp;int smu_force_performance_level(struct smu_context *smu, enum amd_dpm=
-_forced_level level)<br>
-&nbsp;{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_dpm_context *sm=
-u_dpm_ctx =3D &amp;(smu-&gt;smu_dpm);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!smu_dpm_ctx-&gt;dpm_c=
-ontext)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
+d/powerplay/smu_v11_0.c<br>
+index e3a1784..5267b68 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
+@@ -1267,6 &#43;1267,10 @@ static int smu_v11_0_read_sensor(struct smu_cont=
+ext *smu,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *data, uint32_t *size=
+)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&#43;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_GFX_=
+MCLK:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; ret =3D smu_get_current_clk_freq(smu, SMU_UCLK, (uint=
+32_t *)data);<br>
+@@ -1289,10 &#43;1293,6 @@ static int smu_v11_0_read_sensor(struct smu_cont=
+ext *smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 &nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i =3D 0; i &lt; smu-&gt;adev-&gt=
-;num_ip_blocks; i&#43;&#43;) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* try get sensor data by asic */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; if (smu-&gt;adev-&gt;ip_blocks[i].version-&gt;type =3D=3D AMD_IP=
-_BLOCK_TYPE_SMC)<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+bsp;&nbsp; ret =3D smu_asic_read_sensor(smu, sensor, data, size);<br>
 -<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&gt;adev-&gt;ip_blocks[i].version=
--&gt;funcs-&gt;enable_umd_pstate(smu, &amp;level);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_handle_task(smu, level,<b=
-r>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; AMD_PP_TASK_READJUST_POWER_STATE);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_enable_umd_pstate(smu=
-, &amp;level);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
+sp;&nbsp;&nbsp;&nbsp; *size =3D 0;<br>
 &nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;smu-&gt;mutex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_dpm_ctx-&gt;dpm_level =3D level;<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;smu-&gt;mutex);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D smu_handle_task(smu, leve=
-l,<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/a=
+md/powerplay/vega20_ppt.c<br>
+index 9ead361..e864a54 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c<br>
+@@ -3163,6 &#43;3163,9 @@ static int vega20_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct smu_table_context *=
+table_context =3D &amp;smu-&gt;smu_table;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PPTable_t *pptable =3D tab=
+le_context-&gt;driver_pptable;<br>
+&nbsp;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(!data || !size)<br>
 &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; AMD_PP_TASK_READJUST_POWER_STATE);<br>
+p;&nbsp;&nbsp; return -EINVAL;<br>
+&#43;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (sensor) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case AMDGPU_PP_SENSOR_MAX_=
+FAN_RPM:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *(uint32_t *)data =3D pptable-&gt;FanMaximumRpm;<br>
+@@ -3186,7 &#43;3189,7 @@ static int vega20_read_sensor(struct smu_context =
+*smu,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; *size =3D 4;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return -EINVAL;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; ret =3D smu_smc_read_sensor(smu, sensor, data, size);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
 &nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
 -- <br>
-2.22.0<br>
+2.7.4<br>
 <br>
 _______________________________________________<br>
 amd-gfx mailing list<br>
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" id=3D"LP=
+lnk308364" class=3D"x_OWAAutoLink">https://lists.freedesktop.org/mailman/li=
+stinfo/amd-gfx</a></div>
+<div id=3D"LPBorder_GT_15638749518470.02267473158651634" style=3D"margin-bo=
+ttom:20px; overflow:auto; width:100%; text-indent:0px">
+<table id=3D"LPContainer_15638749518450.8626503153022167" role=3D"presentat=
+ion" cellspacing=3D"0" style=3D"width:90%; background-color:rgb(255,255,255=
+); overflow:auto; padding-top:20px; padding-bottom:20px; margin-top:20px; b=
+order-top:1px dotted rgb(200,200,200); border-bottom:1px dotted rgb(200,200=
+,200)">
+<tbody>
+<tr valign=3D"top" style=3D"border-spacing:0px">
+<td id=3D"x_TextCell_15638749518460.7609342713450393" colspan=3D"2" style=
+=3D"vertical-align:top; padding:0px; display:table-cell">
+<div id=3D"LPRemovePreviewContainer_15638749518460.24310328073303422"></div=
+>
+<div id=3D"LPTitle_15638749518460.7214757521911543" style=3D"top:0px; color=
+:rgb(0,120,215); font-weight:400; font-size:21px; font-family:wf_segoe-ui_l=
+ight,&quot;Segoe UI Light&quot;,&quot;Segoe WP Light&quot;,&quot;Segoe UI&q=
+uot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; line-height:21px">
+<a id=3D"LPUrlAnchor_15638749518460.9823406329165418" href=3D"https://lists=
+.freedesktop.org/mailman/listinfo/amd-gfx" target=3D"_blank" style=3D"text-=
+decoration:none">amd-gfx Info Page - freedesktop.org</a></div>
+<div id=3D"LPMetadata_15638749518470.8057760659421027" style=3D"margin:10px=
+ 0px 16px; color:rgb(102,102,102); font-weight:400; font-family:wf_segoe-ui=
+_normal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; =
+font-size:14px; line-height:14px">
+lists.freedesktop.org</div>
+<div id=3D"LPDescription_15638749518470.6436677658830974" style=3D"display:=
+block; color:rgb(102,102,102); font-weight:400; font-family:wf_segoe-ui_nor=
+mal,&quot;Segoe UI&quot;,&quot;Segoe WP&quot;,Tahoma,Arial,sans-serif; font=
+-size:14px; line-height:20px; max-height:100px; overflow:hidden">
+To see the collection of prior postings to the list, visit the amd-gfx Arch=
+ives.. Using amd-gfx: To post a message to all the list members, send email=
+ to amd-gfx-PD4FTy7X32lNgt0PjOBp9xlNPtJONSTn@public.gmane.org You can subscribe to the list, or change=
+ your existing subscription, in
+ the sections below.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
 </span></font></div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
 
---_000_BN6PR12MB18092BC08806A0B2342C54DCF7C70BN6PR12MB1809namp_--
+--_000_BN6PR12MB1809826E34BDEAA5E1F5D7AFF7C70BN6PR12MB1809namp_--
 
---===============1204709327==
+--===============1101161715==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -495,4 +527,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1204709327==--
+--===============1101161715==--
