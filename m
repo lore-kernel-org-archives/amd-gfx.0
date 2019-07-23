@@ -1,7 +1,7 @@
 From: Andrey Konovalov <andreyknvl@google.com>
-Subject: [PATCH v19 11/15] IB/mlx4: untag user pointers in mlx4_get_umem_mr
-Date: Tue, 23 Jul 2019 19:58:48 +0200
-Message-ID: <7969018013a67ddbbf784ac7afeea5a57b1e2bcb.1563904656.git.andreyknvl@google.com>
+Subject: [PATCH v19 06/15] mm: untag user pointers in get_vaddr_frames
+Date: Tue, 23 Jul 2019 19:58:43 +0200
+Message-ID: <28f05e49c92b2a69c4703323d6c12208f3d881fe.1563904656.git.andreyknvl@google.com>
 References: <cover.1563904656.git.andreyknvl@google.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -16,43 +16,31 @@ This patch is a part of a series that extends kernel ABI to allow to pass
 tagged user pointers (with the top byte set to something else other than
 0x00) as syscall arguments.
 
-mlx4_get_umem_mr() uses provided user pointers for vma lookups, which can
-only by done with untagged pointers.
+get_vaddr_frames uses provided user pointers for vma lookups, which can
+only by done with untagged pointers. Instead of locating and changing
+all callers of this function, perform untagging in it.
 
-Untag user pointers in this function.
-
-Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+Reviewed-by: Khalid Aziz <khalid.aziz@oracle.com>
+Reviewed-by: Vincenzo Frascino <vincenzo.frascino@arm.com>
 Acked-by: Catalin Marinas <catalin.marinas@arm.com>
 Reviewed-by: Kees Cook <keescook@chromium.org>
 Signed-off-by: Andrey Konovalov <andreyknvl@google.com>
 ---
- drivers/infiniband/hw/mlx4/mr.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ mm/frame_vector.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/infiniband/hw/mlx4/mr.c b/drivers/infiniband/hw/mlx4/mr.c
-index 753479285ce9..6ae503cfc526 100644
---- a/drivers/infiniband/hw/mlx4/mr.c
-+++ b/drivers/infiniband/hw/mlx4/mr.c
-@@ -377,6 +377,7 @@ static struct ib_umem *mlx4_get_umem_mr(struct ib_udata *udata, u64 start,
- 	 * again
- 	 */
- 	if (!ib_access_writable(access_flags)) {
-+		unsigned long untagged_start = untagged_addr(start);
- 		struct vm_area_struct *vma;
+diff --git a/mm/frame_vector.c b/mm/frame_vector.c
+index c64dca6e27c2..c431ca81dad5 100644
+--- a/mm/frame_vector.c
++++ b/mm/frame_vector.c
+@@ -46,6 +46,8 @@ int get_vaddr_frames(unsigned long start, unsigned int nr_frames,
+ 	if (WARN_ON_ONCE(nr_frames > vec->nr_allocated))
+ 		nr_frames = vec->nr_allocated;
  
- 		down_read(&current->mm->mmap_sem);
-@@ -385,9 +386,9 @@ static struct ib_umem *mlx4_get_umem_mr(struct ib_udata *udata, u64 start,
- 		 * cover the memory, but for now it requires a single vma to
- 		 * entirely cover the MR to support RO mappings.
- 		 */
--		vma = find_vma(current->mm, start);
--		if (vma && vma->vm_end >= start + length &&
--		    vma->vm_start <= start) {
-+		vma = find_vma(current->mm, untagged_start);
-+		if (vma && vma->vm_end >= untagged_start + length &&
-+		    vma->vm_start <= untagged_start) {
- 			if (vma->vm_flags & VM_WRITE)
- 				access_flags |= IB_ACCESS_LOCAL_WRITE;
- 		} else {
++	start = untagged_addr(start);
++
+ 	down_read(&mm->mmap_sem);
+ 	locked = 1;
+ 	vma = find_vma_intersection(mm, start, start + 1);
 -- 
 2.22.0.709.g102302147b-goog
