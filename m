@@ -1,60 +1,110 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH][next] drm/amdgpu: remove redundant assignment to pointer
- 'ring'
-Date: Tue, 23 Jul 2019 14:45:07 -0400
-Message-ID: <CADnq5_PE1rDzqd13MPWJmeK_BUS0EthH=WcZ0wruTy55yarnpw@mail.gmail.com>
-References: <20190723134120.28441-1-colin.king@canonical.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Use dev_get_drvdata where possible
+Date: Tue, 23 Jul 2019 14:47:52 -0400
+Message-ID: <CADnq5_Py-Bj0947A_aj4ORDyg6UA3R5y=3v5FLttzL6nBvixkA@mail.gmail.com>
+References: <20190723090449.27589-1-hslester96@gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190723134120.28441-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
-Cc: David Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Maling list - DRI developers <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Leo Liu <leo.liu-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190723090449.27589-1-hslester96@gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Chuhong Yuan <hslester96@gmail.com>
+Cc: David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBKdWwgMjMsIDIwMTkgYXQgOTo0MSBBTSBDb2xpbiBLaW5nIDxjb2xpbi5raW5nQGNh
-bm9uaWNhbC5jb20+IHdyb3RlOgo+Cj4gRnJvbTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdA
-Y2Fub25pY2FsLmNvbT4KPgo+IFRoZSBwb2ludGVyICdyaW5nJyBpcyBiZWluZyBhc3NpZ25lZCBh
-IHZhbHVlIHRoYXQgaXMgbmV2ZXIKPiByZWFkLCBoZW5jZSB0aGUgYXNzaWdubWVudCBpcyByZWR1
-bmRhbnQgYW5kIGNhbiBiZSByZW1vdmVkLgo+Cj4gQWRkcmVzc2VzLUNvdmVyaXR5OiAoIlVudXNl
-ZCB2YWx1ZSIpCj4gU2lnbmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fu
-b25pY2FsLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAu
-YyB8IDEgLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS92Y25fdjFfMC5jCj4gaW5kZXggOTNiMzUwMGU1MjJiLi5hMmE4Y2E5NDJmMzQg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YxXzAuYwo+ICsr
-KyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92MV8wLmMKPiBAQCAtMTMzMSw3ICsx
-MzMxLDYgQEAgc3RhdGljIGludCB2Y25fdjFfMF9wYXVzZV9kcGdfbW9kZShzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldiwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFdSRUczMl9T
-T0MxNShVVkQsIDAsIG1tVVZEX0pSQkNfUkJfQ05UTCwKPiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFVWRF9KUkJDX1JCX0NOVExfX1JCX1JQ
-VFJfV1JfRU5fTUFTSyk7Cj4KPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJpbmcg
-PSAmYWRldi0+dmNuLmluc3QtPnJpbmdfZGVjOwo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgV1JFRzMyX1NPQzE1KFVWRCwgMCwgbW1VVkRfUkJDX1JCX1dQVFIsCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUlJFRzMyX1NPQzE1KFVW
-RCwgMCwgbW1VVkRfU0NSQVRDSDIpICYgMHg3RkZGRkZGRik7Cj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBTT0MxNV9XQUlUX09OX1JSRUcoVVZELCAwLCBtbVVWRF9QT1dFUl9TVEFU
-VVMsCgpXaGlsZSB3ZSBkb24ndCB1c2UgcmluZyBoZXJlLCBJIHRoaW5rIHRoZSBhc3NpZ25tZW50
-IGlzIHVzZWZ1bCB0bwpkZWxpbmVhdGUgdGhhdCB3ZSBhcmUgbm8gbG9uZ2VyIHdvcmtpbmcgd2l0
-aCB0aGUganBlZyByaW5nLCBidXQgcmF0aGVyCnRoZSBkZWNvZGUgcmluZy4gIFRoZSBtbVVWRF9S
-QkNfUkJfV1BUUiByZWdpc3RlciBpcyBwYXJ0IG9mIHRoZSBkZWNvZGUKcmluZywgbm90IGpwZWcu
-ICBXZSB3b3VsZCBub3JtYWxseSB1c2UgdGhlIHJpbmctPndwdHIgbGlrZSB3ZSBkbyBmb3IKdGhl
-IG90aGVyIHJpbmdzLCBidXQgaW4gdGhpcyBwYXJ0aWN1bGFyIGNhc2UsIHRoZSB2YWx1ZSBoYXBw
-ZW5zIHRvIGJlCnNoYWRvd2VkIHRvIGEgc2NyYXRjaCByZWdpc3RlciBkdWUgdG8gdGhlIHdheSB0
-aGUgZHluYW1pYyBwb3dlciBnYXRpbmcKd29ya3Mgb24gdGhhdCByaW5nLgoKQWxleAoKPiAtLQo+
-IDIuMjAuMQo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJp
-LWRldmVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Tue, Jul 23, 2019 at 9:36 AM Chuhong Yuan <hslester96@gmail.com> wrote:
+>
+> Instead of using to_pci_dev + pci_get_drvdata,
+> use dev_get_drvdata to make code simpler.
+>
+> Signed-off-by: Chuhong Yuan <hslester96@gmail.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 27 +++++++++----------------
+>  1 file changed, 10 insertions(+), 17 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index f2e8b4238efd..df82091a29d3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1097,16 +1097,14 @@ amdgpu_pci_shutdown(struct pci_dev *pdev)
+>
+>  static int amdgpu_pmops_suspend(struct device *dev)
+>  {
+> -       struct pci_dev *pdev = to_pci_dev(dev);
+> +       struct drm_device *drm_dev = dev_get_drvdata(dev);
+>
+> -       struct drm_device *drm_dev = pci_get_drvdata(pdev);
+>         return amdgpu_device_suspend(drm_dev, true, true);
+>  }
+>
+>  static int amdgpu_pmops_resume(struct device *dev)
+>  {
+> -       struct pci_dev *pdev = to_pci_dev(dev);
+> -       struct drm_device *drm_dev = pci_get_drvdata(pdev);
+> +       struct drm_device *drm_dev = dev_get_drvdata(dev);
+>
+>         /* GPU comes up enabled by the bios on resume */
+>         if (amdgpu_device_is_px(drm_dev)) {
+> @@ -1120,33 +1118,29 @@ static int amdgpu_pmops_resume(struct device *dev)
+>
+>  static int amdgpu_pmops_freeze(struct device *dev)
+>  {
+> -       struct pci_dev *pdev = to_pci_dev(dev);
+> -
+> -       struct drm_device *drm_dev = pci_get_drvdata(pdev);
+> +       struct drm_device *drm_dev = dev_get_drvdata(dev);
+> +
+>         return amdgpu_device_suspend(drm_dev, false, true);
+>  }
+>
+>  static int amdgpu_pmops_thaw(struct device *dev)
+>  {
+> -       struct pci_dev *pdev = to_pci_dev(dev);
+> -
+> -       struct drm_device *drm_dev = pci_get_drvdata(pdev);
+> +       struct drm_device *drm_dev = dev_get_drvdata(dev);
+> +
+>         return amdgpu_device_resume(drm_dev, false, true);
+>  }
+>
+>  static int amdgpu_pmops_poweroff(struct device *dev)
+>  {
+> -       struct pci_dev *pdev = to_pci_dev(dev);
+> -
+> -       struct drm_device *drm_dev = pci_get_drvdata(pdev);
+> +       struct drm_device *drm_dev = dev_get_drvdata(dev);
+> +
+>         return amdgpu_device_suspend(drm_dev, true, true);
+>  }
+>
+>  static int amdgpu_pmops_restore(struct device *dev)
+>  {
+> -       struct pci_dev *pdev = to_pci_dev(dev);
+> +       struct drm_device *drm_dev = dev_get_drvdata(dev);
+>
+> -       struct drm_device *drm_dev = pci_get_drvdata(pdev);
+>         return amdgpu_device_resume(drm_dev, false, true);
+>  }
+>
+> @@ -1205,8 +1199,7 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+>
+>  static int amdgpu_pmops_runtime_idle(struct device *dev)
+>  {
+> -       struct pci_dev *pdev = to_pci_dev(dev);
+> -       struct drm_device *drm_dev = pci_get_drvdata(pdev);
+> +       struct drm_device *drm_dev = dev_get_drvdata(dev);
+>         struct drm_crtc *crtc;
+>
+>         if (!amdgpu_device_is_px(drm_dev)) {
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
