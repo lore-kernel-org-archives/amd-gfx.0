@@ -1,29 +1,85 @@
-From: syzbot <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com>
-Subject: Re: kernel panic: stack is corrupted in pointer
-Date: Tue, 23 Jul 2019 18:40:01 -0700
-Message-ID: <000000000000384ae4058e636360@google.com>
-References: <5d3744ff777cc_436d2adb6bf105c41c@john-XPS-13-9370.notmuch>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amd/powerplay: fix temperature granularity error in
+ smu11
+Date: Wed, 24 Jul 2019 02:34:08 +0000
+Message-ID: <MN2PR12MB33442FF3B6EB92F3040F6692E4C60@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190723120756.27823-1-kevin1.wang@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <5d3744ff777cc_436d2adb6bf105c41c@john-XPS-13-9370.notmuch>
-Sender: linux-kernel-owner@vger.kernel.org
-To: airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, ast@kernel.org, bpf@vger.kernel.org, christian.koenig@amd.com, daniel@iogearbox.net, david1.zhou@amd.com, dri-devel@lists.freedesktop.org, dvyukov@google.com, john.fastabend@gmail.com, leo.liu@amd.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190723120756.27823-1-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
 
-Hello,
-
-syzbot has tested the proposed patch and the reproducer did not trigger  
-crash:
-
-Reported-and-tested-by:  
-syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com
-
-Tested on:
-
-commit:         decb705e libbpf: fix using uninitialized ioctl results
-git tree:       bpf
-kernel config:  https://syzkaller.appspot.com/x/.config?x=87305c3ca9c25c70
-compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-
-Note: testing is done by a robot and is best-effort only.
+QmV0dGVyIHRvIGNvbWJpbmUgdGhpcyB3aXRoIHByZXZpb3VzIHB0YWNoKGRybS9hbWQvcG93ZXJw
+bGF5OiBhZGQgY2FsbGJhY2sgZnVuY3Rpb24gb2YgZ2V0X3RoZXJtYWxfdGVtcGVyYXR1cmVfcmFu
+Z2UpIGFzIG9uZS4KU2luY2UgdGhpcyBpc3N1ZSB0byBmaXggd2FzIGFjdHVhbGx5IGludHJvZHVj
+ZWQgYnkgdGhhdCBwYXRjaC4KIApCdXQgaWYgdGhlIG9yaWdpbmFsIHBhdGNoIHdhcyBhbHJlYWR5
+IHN1Ym1pdHRlZCwgaXQncyBPSyB0byBjb21taXQgdGhpcyBzZXBhcmF0ZWx5LgoKRWl0aGVyIHdh
+eSwgdGhpcyB3YXkgaXMgUmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+
+CgpSZWdhcmRzLApFdmFuCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KPiBGcm9tOiBXYW5n
+LCBLZXZpbihZYW5nKSA8S2V2aW4xLldhbmdAYW1kLmNvbT4KPiBTZW50OiBUdWVzZGF5LCBKdWx5
+IDIzLCAyMDE5IDg6MDggUE0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBD
+YzogRmVuZywgS2VubmV0aCA8S2VubmV0aC5GZW5nQGFtZC5jb20+OyBIdWFuZywgUmF5Cj4gPFJh
+eS5IdWFuZ0BhbWQuY29tPjsgUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBXYW5nLAo+
+IEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPgo+IFN1YmplY3Q6IFtQQVRDSF0gZHJt
+L2FtZC9wb3dlcnBsYXk6IGZpeCB0ZW1wZXJhdHVyZSBncmFudWxhcml0eSBlcnJvciBpbgo+IHNt
+dTExCj4gCj4gaW4gdGhpcyBwYXRjaCwKPiBkcm0vYW1kL3Bvd2VycGxheTogYWRkIGNhbGxiYWNr
+IGZ1bmN0aW9uIG9mCj4gZ2V0X3RoZXJtYWxfdGVtcGVyYXR1cmVfcmFuZ2UgdGhlIGRyaXZlciBt
+aXNzZWQgdGVtcGVyYXR1cmUgZ3JhbnVsYXJpdHkKPiBjaGFuZ2Ugb24gb3RoZXIgdGVtcGVyYXR1
+cmUuCj4gCj4gU2lnbmVkLW9mZi1ieTogS2V2aW4gV2FuZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4K
+PiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMgfCAxOCAr
+KysrKysrKystLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgOSBk
+ZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvc211X3YxMV8wLmMKPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFf
+MC5jCj4gaW5kZXggNzQ1YjM1YTE2MDBkLi43MzU4MDJiYjA3YjkgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMKPiArKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYwo+IEBAIC0xMjI5LDE1ICsxMjI5LDE1IEBA
+IHN0YXRpYyBpbnQKPiBzbXVfdjExXzBfc3RhcnRfdGhlcm1hbF9jb250cm9sKHN0cnVjdCBzbXVf
+Y29udGV4dCAqc211KQo+ICAJCQlyZXR1cm4gcmV0Owo+ICAJfQo+IAo+IC0JYWRldi0+cG0uZHBt
+LnRoZXJtYWwubWluX3RlbXAgPSByYW5nZS5taW47Cj4gLQlhZGV2LT5wbS5kcG0udGhlcm1hbC5t
+YXhfdGVtcCA9IHJhbmdlLm1heDsKPiAtCWFkZXYtPnBtLmRwbS50aGVybWFsLm1heF9lZGdlX2Vt
+ZXJnZW5jeV90ZW1wID0KPiByYW5nZS5lZGdlX2VtZXJnZW5jeV9tYXg7Cj4gLQlhZGV2LT5wbS5k
+cG0udGhlcm1hbC5taW5faG90c3BvdF90ZW1wID0gcmFuZ2UuaG90c3BvdF9taW47Cj4gLQlhZGV2
+LT5wbS5kcG0udGhlcm1hbC5tYXhfaG90c3BvdF9jcml0X3RlbXAgPQo+IHJhbmdlLmhvdHNwb3Rf
+Y3JpdF9tYXg7Cj4gLQlhZGV2LT5wbS5kcG0udGhlcm1hbC5tYXhfaG90c3BvdF9lbWVyZ2VuY3lf
+dGVtcCA9Cj4gcmFuZ2UuaG90c3BvdF9lbWVyZ2VuY3lfbWF4Owo+IC0JYWRldi0+cG0uZHBtLnRo
+ZXJtYWwubWluX21lbV90ZW1wID0gcmFuZ2UubWVtX21pbjsKPiAtCWFkZXYtPnBtLmRwbS50aGVy
+bWFsLm1heF9tZW1fY3JpdF90ZW1wID0KPiByYW5nZS5tZW1fY3JpdF9tYXg7Cj4gLQlhZGV2LT5w
+bS5kcG0udGhlcm1hbC5tYXhfbWVtX2VtZXJnZW5jeV90ZW1wID0KPiByYW5nZS5tZW1fZW1lcmdl
+bmN5X21heDsKPiArCWFkZXYtPnBtLmRwbS50aGVybWFsLm1pbl90ZW1wID0gcmFuZ2UubWluICoK
+PiBTTVVfVEVNUEVSQVRVUkVfVU5JVFNfUEVSX0NFTlRJR1JBREVTOwo+ICsJYWRldi0+cG0uZHBt
+LnRoZXJtYWwubWF4X3RlbXAgPSByYW5nZS5tYXggKgo+IFNNVV9URU1QRVJBVFVSRV9VTklUU19Q
+RVJfQ0VOVElHUkFERVM7Cj4gKwlhZGV2LT5wbS5kcG0udGhlcm1hbC5tYXhfZWRnZV9lbWVyZ2Vu
+Y3lfdGVtcCA9Cj4gcmFuZ2UuZWRnZV9lbWVyZ2VuY3lfbWF4ICoKPiBTTVVfVEVNUEVSQVRVUkVf
+VU5JVFNfUEVSX0NFTlRJR1JBREVTOwo+ICsJYWRldi0+cG0uZHBtLnRoZXJtYWwubWluX2hvdHNw
+b3RfdGVtcCA9IHJhbmdlLmhvdHNwb3RfbWluICoKPiBTTVVfVEVNUEVSQVRVUkVfVU5JVFNfUEVS
+X0NFTlRJR1JBREVTOwo+ICsJYWRldi0+cG0uZHBtLnRoZXJtYWwubWF4X2hvdHNwb3RfY3JpdF90
+ZW1wID0KPiByYW5nZS5ob3RzcG90X2NyaXRfbWF4ICogU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BF
+Ul9DRU5USUdSQURFUzsKPiArCWFkZXYtPnBtLmRwbS50aGVybWFsLm1heF9ob3RzcG90X2VtZXJn
+ZW5jeV90ZW1wID0KPiByYW5nZS5ob3RzcG90X2VtZXJnZW5jeV9tYXggKgo+IFNNVV9URU1QRVJB
+VFVSRV9VTklUU19QRVJfQ0VOVElHUkFERVM7Cj4gKwlhZGV2LT5wbS5kcG0udGhlcm1hbC5taW5f
+bWVtX3RlbXAgPSByYW5nZS5tZW1fbWluICoKPiBTTVVfVEVNUEVSQVRVUkVfVU5JVFNfUEVSX0NF
+TlRJR1JBREVTOwo+ICsJYWRldi0+cG0uZHBtLnRoZXJtYWwubWF4X21lbV9jcml0X3RlbXAgPQo+
+IHJhbmdlLm1lbV9jcml0X21heCAqIFNNVV9URU1QRVJBVFVSRV9VTklUU19QRVJfQ0VOVElHUkFE
+RVM7Cj4gKwlhZGV2LT5wbS5kcG0udGhlcm1hbC5tYXhfbWVtX2VtZXJnZW5jeV90ZW1wID0KPiBy
+YW5nZS5tZW1fZW1lcmdlbmN5X21heAo+ICsqIFNNVV9URU1QRVJBVFVSRV9VTklUU19QRVJfQ0VO
+VElHUkFERVM7Cj4gIAlhZGV2LT5wbS5kcG0udGhlcm1hbC5taW5fdGVtcCA9IHJhbmdlLm1pbiAq
+Cj4gU01VX1RFTVBFUkFUVVJFX1VOSVRTX1BFUl9DRU5USUdSQURFUzsKPiAgCWFkZXYtPnBtLmRw
+bS50aGVybWFsLm1heF90ZW1wID0gcmFuZ2UubWF4ICoKPiBTTVVfVEVNUEVSQVRVUkVfVU5JVFNf
+UEVSX0NFTlRJR1JBREVTOwo+IAo+IC0tCj4gMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZng=
