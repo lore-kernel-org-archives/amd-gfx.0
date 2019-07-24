@@ -1,61 +1,29 @@
-From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 3/3] drm/amdgpu/powerplay/vega12: call PrepareMp1ForUnload
- in power_off_asic
-Date: Wed, 24 Jul 2019 01:31:49 +0000
-Message-ID: <MN2PR12MB33441259E471BD6780DB6975E4C60@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <20190723170049.9143-1-alexander.deucher@amd.com>
- <20190723170049.9143-3-alexander.deucher@amd.com>
- <bda866af-42f0-d40d-baf3-ffbfcb2867e2@amd.com>
+From: syzbot <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com>
+Subject: Re: kernel panic: stack is corrupted in pointer
+Date: Tue, 23 Jul 2019 18:40:01 -0700
+Message-ID: <000000000000384ae4058e636360@google.com>
+References: <5d3744ff777cc_436d2adb6bf105c41c@john-XPS-13-9370.notmuch>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <bda866af-42f0-d40d-baf3-ffbfcb2867e2-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed; delsp=yes
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <5d3744ff777cc_436d2adb6bf105c41c@john-XPS-13-9370.notmuch>
+Sender: linux-kernel-owner@vger.kernel.org
+To: airlied@linux.ie, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, ast@kernel.org, bpf@vger.kernel.org, christian.koenig@amd.com, daniel@iogearbox.net, david1.zhou@amd.com, dri-devel@lists.freedesktop.org, dvyukov@google.com, john.fastabend@gmail.com, leo.liu@amd.com, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+List-Id: amd-gfx.lists.freedesktop.org
 
-Tm8uIEhvbGQgb24uIExldCBtZSBkaXNjdXNzIHRoaXMgaW50ZXJuYWxseS4NCg0KUmVnYXJkcywN
-CkV2YW4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogYW1kLWdmeCA8YW1k
-LWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mDQo+IEdyb2R6
-b3Zza3ksIEFuZHJleQ0KPiBTZW50OiBXZWRuZXNkYXksIEp1bHkgMjQsIDIwMTkgNDowMSBBTQ0K
-PiBUbzogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBhbWQtDQo+IGdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVy
-LkRldWNoZXJAYW1kLmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCAzLzNdIGRybS9hbWRncHUv
-cG93ZXJwbGF5L3ZlZ2ExMjogY2FsbA0KPiBQcmVwYXJlTXAxRm9yVW5sb2FkIGluIHBvd2VyX29m
-Zl9hc2ljDQo+IA0KPiBTZXJpZXMgaXMgQWNrZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRy
-ZXkuZ3JvZHpvdnNreUBhbWQuY29tPg0KPiANCj4gQW5kcmV5DQo+IA0KPiBPbiA3LzIzLzE5IDE6
-MDAgUE0sIEFsZXggRGV1Y2hlciB3cm90ZToNCj4gPiBOZWVkZWQgdG8gbWFrZSBzdXJlIHRoZSBz
-bXUgaXMgaWRsZSB3aGVuIHJlc2V0dGluZy4gVGhpcyBtYXkgZml4DQo+ID4gc3BvcmF0aWMgZmFp
-bHVyZXMgd2l0aCBHUFUgcmVzZXQuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNo
-ZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+ID4gLS0tDQo+ID4gICBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJfaHdtZ3IuYyB8IDUgKysrKysNCj4gPiAg
-IDEgZmlsZSBjaGFuZ2VkLCA1IGluc2VydGlvbnMoKykNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJfaHdtZ3IuYw0KPiA+IGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEyX2h3bWdyLmMNCj4gPiBp
-bmRleCBlZmI2ZDM3NjJmZWIuLjNkMzUwNDQxMWI2MyAxMDA2NDQNCj4gPiAtLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJfaHdtZ3IuYw0KPiA+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5jDQo+ID4gQEAg
-LTI0NjgsNiArMjQ2OCwxMSBAQCBzdGF0aWMgaW50IHZlZ2ExMl9wb3dlcl9vZmZfYXNpYyhzdHJ1
-Y3QNCj4gcHBfaHdtZ3IgKmh3bWdyKQ0KPiA+ICAgCQkJKTsNCj4gPiAgIAlkYXRhLT53YXRlcl9t
-YXJrc19iaXRtYXAgJj0gfihXYXRlck1hcmtzTG9hZGVkKTsNCj4gPg0KPiA+ICsJUFBfQVNTRVJU
-X1dJVEhfQ09ERSgocmVzdWx0ID0gc211bV9zZW5kX21zZ190b19zbWMoaHdtZ3IsDQo+ID4gKwkJ
-CVBQU01DX01TR19QcmVwYXJlTXAxRm9yVW5sb2FkKSkgPT0gMCwNCj4gPiArCQkJIltQcmVwYXJl
-TXAxRm9yVW5sb2FkXSBGYWlsZWQhIiwNCj4gPiArCQkJcmV0dXJuIHJlc3VsdCk7DQo+ID4gKw0K
-PiA+ICAgCXJldHVybiByZXN1bHQ7DQo+ID4gICB9DQo+ID4NCj4gX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4g
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng=
+Hello,
+
+syzbot has tested the proposed patch and the reproducer did not trigger  
+crash:
+
+Reported-and-tested-by:  
+syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         decb705e libbpf: fix using uninitialized ioctl results
+git tree:       bpf
+kernel config:  https://syzkaller.appspot.com/x/.config?x=87305c3ca9c25c70
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+
+Note: testing is done by a robot and is best-effort only.
