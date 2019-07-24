@@ -1,76 +1,98 @@
-From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH v4 2/4] drm/amdgpu: Create helper to clear
- AMDGPU_GEM_CREATE_CPU_GTT_USWC
-Date: Wed, 24 Jul 2019 15:48:39 +0000
-Message-ID: <fc62b097-c85c-4d87-92db-96167403d26c@amd.com>
-References: <1563982066-21793-1-git-send-email-andrey.grodzovsky@amd.com>
- <1563982066-21793-3-git-send-email-andrey.grodzovsky@amd.com>
- <8de768fe-5089-f7a9-da25-31c96926953a@daenzer.net>
+From: John Fastabend <john.fastabend@gmail.com>
+Subject: Re: kernel panic: stack is corrupted in pointer
+Date: Wed, 24 Jul 2019 09:22:26 -0700
+Message-ID: <5d3885c2e2e20_73c32aebc43b65c08@john-XPS-13-9370.notmuch>
+References: <0000000000001a51c4058ddcb1b6@google.com>
+ <CACT4Y+ZGwKP+f4esJdx60AywO9b3Y5Bxb4zLtH6EEkaHpP6Zag@mail.gmail.com>
+ <5d37433a832d_3aba2ae4f6ec05bc3a@john-XPS-13-9370.notmuch>
+ <CACT4Y+ZbPmRB9T9ZzhE79VnKKD3+ieHeLpaDGRkcQ72nADKH_g@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <8de768fe-5089-f7a9-da25-31c96926953a-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
-Content-ID: <001DB0B90139D54C8FE310C9E87A1AC9-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Cc: "Deucher,
- Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <netdev-owner@vger.kernel.org>
+In-Reply-To: <CACT4Y+ZbPmRB9T9ZzhE79VnKKD3+ieHeLpaDGRkcQ72nADKH_g@mail.gmail.com>
+Sender: netdev-owner@vger.kernel.org
+To: Dmitry Vyukov <dvyukov@google.com>, John Fastabend <john.fastabend@gmail.com>
+Cc: syzbot <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com>, bpf <bpf@vger.kernel.org>, David Airlie <airlied@linux.ie>, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, Alexei Starovoitov <ast@kernel.org>, christian.koenig@amd.com, Daniel Borkmann <daniel@iogearbox.net>, david1.zhou@amd.com, DRI <dri-devel@lists.freedesktop.org>, leo.liu@amd.com, LKML <linux-kernel@vger.kernel.org>, netdev <netdev@vger.kernel.org>, syzkaller-bugs <syzkaller-bugs@googlegroups.com>, Marco Elver <elver@google.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-DQpPbiA3LzI0LzE5IDExOjQwIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToNCj4gT24gMjAxOS0w
-Ny0yNCA1OjI3IHAubS4sIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOg0KPj4gTW92ZSB0aGUgbG9n
-aWMgdG8gY2xlYXIgQU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0dUVF9VU1dDIGluDQo+PiBhbWRncHVf
-Ym9fZG9fY3JlYXRlIGludG8gc3RhbmRhbG9uZSBoZWxwZXIgc28gaXQgY2FuIGJlIHJldXNlZA0K
-Pj4gaW4gb3RoZXIgZnVuY3Rpb25zLg0KPj4NCj4+IHY0Og0KPj4gU3dpdGNoIHRvIHJldHVybiBi
-b29sLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3Jv
-ZHpvdnNreUBhbWQuY29tPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV9vYmplY3QuYyB8IDYxICsrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQ0KPj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmggfCAgMiArDQo+PiAg
-IDIgZmlsZXMgY2hhbmdlZCwgMzcgaW5zZXJ0aW9ucygrKSwgMjYgZGVsZXRpb25zKC0pDQo+Pg0K
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3Qu
-YyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYw0KPj4gaW5kZXgg
-OTg5YjdiNS4uZGFmZGI2OCAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9vYmplY3QuYw0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X29iamVjdC5jDQo+PiBAQCAtNDEzLDYgKzQxMyw0MCBAQCBzdGF0aWMgYm9vbCBhbWRn
-cHVfYm9fdmFsaWRhdGVfc2l6ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+ICAgCXJl
-dHVybiBmYWxzZTsNCj4+ICAgfQ0KPj4gICANCj4+ICtib29sIGFtZGdwdV9ib19zdXBwb3J0X3Vz
-d2ModTY0IGJvX2ZsYWdzKQ0KPj4gK3sNCj4+ICsNCj4+ICsjaWZkZWYgQ09ORklHX1g4Nl8zMg0K
-Pj4gKwkvKiBYWFg6IFdyaXRlLWNvbWJpbmVkIENQVSBtYXBwaW5ncyBvZiBHVFQgc2VlbSBicm9r
-ZW4gb24gMzItYml0DQo+PiArCSAqIFNlZSBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3No
-b3dfYnVnLmNnaT9pZD04NDYyNw0KPj4gKwkgKi8NCj4+ICsJcmV0dXJuIGZhbHNlDQo+IE1pc3Np
-bmcgc2VtaWNvbG9uLg0KPg0KPg0KPj4gKyNlbGlmIGRlZmluZWQoQ09ORklHX1g4NikgJiYgIWRl
-ZmluZWQoQ09ORklHX1g4Nl9QQVQpDQo+PiArCS8qIERvbid0IHRyeSB0byBlbmFibGUgd3JpdGUt
-Y29tYmluaW5nIHdoZW4gaXQgY2FuJ3Qgd29yaywgb3IgdGhpbmdzDQo+PiArCSAqIG1heSBiZSBz
-bG93DQo+PiArCSAqIFNlZSBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNn
-aT9pZD04ODc1OA0KPj4gKwkgKi8NCj4+ICsNCj4+ICsjaWZuZGVmIENPTkZJR19DT01QSUxFX1RF
-U1QNCj4+ICsjd2FybmluZyBQbGVhc2UgZW5hYmxlIENPTkZJR19NVFJSIGFuZCBDT05GSUdfWDg2
-X1BBVCBmb3IgYmV0dGVyIHBlcmZvcm1hbmNlIFwNCj4+ICsJIHRoYW5rcyB0byB3cml0ZS1jb21i
-aW5pbmcNCj4+ICsjZW5kaWYNCj4+ICsNCj4+ICsJaWYgKGJvX2ZsYWdzICYgQU1ER1BVX0dFTV9D
-UkVBVEVfQ1BVX0dUVF9VU1dDKQ0KPj4gKwkJRFJNX0lORk9fT05DRSgiUGxlYXNlIGVuYWJsZSBD
-T05GSUdfTVRSUiBhbmQgQ09ORklHX1g4Nl9QQVQgZm9yICINCj4+ICsJCQkgICAgICAiYmV0dGVy
-IHBlcmZvcm1hbmNlIHRoYW5rcyB0byB3cml0ZS1jb21iaW5pbmdcbiIpOw0KPiBUaGUgQU1ER1BV
-X0dFTV9DUkVBVEVfQ1BVX0dUVF9VU1dDIGNoZWNrIHdpbGwgYWx3YXlzIHBhc3MgYXQgc29tZSBw
-b2ludA0KPiBkdWUgdG8gcGF0Y2ggMSwgc28gcGFzc2luZyBpbiB0aGUgZmxhZ3MgaXMga2luZCBv
-ZiBwb2ludGxlc3MuIEp1c3QgZG8NCj4gdGhlIERSTV9JTkZPX09OQ0UgdW5jb25kaXRpb25hbGx5
-IGhlcmUuDQoNCkFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNXQyBpcyBzZXQgdW5jb25kaXRp
-b25hbGx5IG9ubHkgZm9yIEZCIGNvbnNvbGUgQk9zIGluIHBhdGNoIDEsIGZvciB1c2VyIG1vZGUg
-Qk9zIHRoaXMNCmZsYWcgbWlnaHQgbm90IGJlIHNldCBpbiB1c2VyIG1vZGUgYW5kIHNvIHRoaXMg
-d2FybmluZyBzaG91bGRuJ3QgcG9wIGluIHRoaXMgY2FzZS4NCg0KQW5kcmV5DQoNCg0KPg0KPg0K
-Pj4gQEAgLTQ2NiwzMyArNTAwLDggQEAgc3RhdGljIGludCBhbWRncHVfYm9fZG9fY3JlYXRlKHN0
-cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gICANCj4+IFsuLi5dDQo+PiAgIA0KPj4gKwlp
-ZiAoYW1kZ3B1X2JvX3N1cHBvcnRfdXN3Yyhiby0+ZmxhZ3MpKQ0KPj4gICAJCWJvLT5mbGFncyAm
-PSB+QU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0dUVF9VU1dDOw0KPiBNaXNzaW5nICIhIi4NCj4NCj4N
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
-bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+Dmitry Vyukov wrote:
+> On Tue, Jul 23, 2019 at 7:26 PM John Fastabend <john.fastabend@gmail.com> wrote:
+> >
+> > Dmitry Vyukov wrote:
+> > > On Wed, Jul 17, 2019 at 10:58 AM syzbot
+> > > <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com> wrote:
+> > > >
+> > > > Hello,
+> > > >
+> > > > syzbot found the following crash on:
+> > > >
+> > > > HEAD commit:    1438cde7 Add linux-next specific files for 20190716
+> > > > git tree:       linux-next
+> > > > console output: https://syzkaller.appspot.com/x/log.txt?x=13988058600000
+> > > > kernel config:  https://syzkaller.appspot.com/x/.config?x=3430a151e1452331
+> > > > dashboard link: https://syzkaller.appspot.com/bug?extid=79f5f028005a77ecb6bb
+> > > > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+> > > > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=111fc8afa00000
+> > >
+> > > From the repro it looks like the same bpf stack overflow bug. +John
+> > > We need to dup them onto some canonical report for this bug, or this
+> > > becomes unmanageable.
+> >
+> > Fixes in bpf tree should fix this. Hopefully, we will squash this once fixes
+> > percolate up.
+> >
+> > #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+> 
+> Cool! What is the fix?
+
+It took a series of patches here,
+
+https://www.spinics.net/lists/netdev/msg586986.html
+
+The fix commits from bpf tree are,
+
+(git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git) 
+
+318892ac068397f40ff81d9155898da01493b1d2
+ac78fc148d8249dbf382c2127456dd08ec5b161c
+f87e62d45e51b12d48d2cb46b5cde8f83b866bc4
+313ab004805cf52a42673b15852b3842474ccd87
+32857cf57f920cdc03b5095f08febec94cf9c36b
+45a4521dcbd92e71c9e53031b40e34211d3b4feb
+2bb90e5cc90e1d09f631aeab041a9cf913a5bbe5
+0e858739c2d2eedeeac1d35bfa0ec3cc2a7190d8
+95fa145479fbc0a0c1fd3274ceb42ec03c042a4a
+
+The last commit fixes this paticular syzbot issue,
+
+commit 95fa145479fbc0a0c1fd3274ceb42ec03c042a4a
+Author: John Fastabend <john.fastabend@gmail.com>
+Date:   Fri Jul 19 10:29:22 2019 -0700
+
+    bpf: sockmap/tls, close can race with map free
+
+The other commits address some other issues found while testing.
+
+> We don't need to wait for the fix to percolate up (and then down
+> too!). syzbot gracefully handles when a patch is not yet present
+> everywhere (it happens all the time).
+
+Great. By the way the above should fix many of the outstanding
+reports against bpf sockmap and tls side. I'll have to walk through
+each one individually to double check though. I guess we can mark
+them as dup reports and syzbot should sort it out?
+
+> 
+> Btw, this was due to a stack overflow, right? Or something else?
+
+Right, stack overflow due to race in updating sock ops where build a
+circular call chain.
+
+> We are trying to make KASAN configuration detect stack overflows too,
+> so that it does not cause havoc next time. But it turns out to be
+> non-trivial and our current attempt seems to fail:
+> https://groups.google.com/forum/#!topic/kasan-dev/IhYv7QYhLfY
+> 
+> 
