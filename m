@@ -1,54 +1,169 @@
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Subject: Re: [PATCH 1/3] drm/amdgpu: Fix hard hang for S/G display BOs.
-Date: Wed, 24 Jul 2019 09:43:32 +0200
-Message-ID: <8e1b34f3-46b3-b252-3fa5-9a489ec8c35c@daenzer.net>
-References: <1563897851-11501-1-git-send-email-andrey.grodzovsky@amd.com>
- <1563897851-11501-2-git-send-email-andrey.grodzovsky@amd.com>
- <d4c126b7-4fa5-19ff-6687-9a260927dc67@daenzer.net>
- <ced516f5-546d-cd49-6e0e-87d2528bde41@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v4 14/23] drm/tilcdc: Provide ddc symlink in connector
+ sysfs directory
+Date: Wed, 24 Jul 2019 10:01:05 +0200
+Message-ID: <acfd895d-ab59-0190-e25c-1827bd8d214b@suse.de>
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d1d415022c598fb7acd033f0f322dd67250adaa9.1562843413.git.andrzej.p@collabora.com>
+ <20190723090532.GA787@ravnborg.org>
+ <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <ced516f5-546d-cd49-6e0e-87d2528bde41-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-CA
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wu,
- Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
- Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="3hEKoYM3ihXgipFwLohglgI6I6K0PHVBV"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: Neil Armstrong <narmstrong@baylibre.com>, Maxime Ripard <maxime.ripard@bootlin.com>, dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>, linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com, linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, Dave Airlie <airlied@redhat.com>, freedreno@lists.freedesktop.org, Pengutronix Kernel Team <kernel@pengutronix.de>, Jonas
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gMjAxOS0wNy0yMyA3OjMxIHAubS4sIEdyb2R6b3Zza3ksIEFuZHJleSB3cm90ZToKPiBPbiA3
-LzIzLzE5IDEyOjE4IFBNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4KPj4gQW55d2F5LCB0aGlz
-IHNob3VsZCBiZSBoYW5kbGVkIGluIGFtZGdwdV9kaXNwbGF5X3N1cHBvcnRlZF9kb21haW5zCj4+
-IGluc3RlYWQgKGUuZy4gYnkgbm90IGFsbG93aW5nIEdUVCBpZiBDT05GSUdfWDg2XzMyIGlzIGRl
-ZmluZWQpLAo+IAo+IAo+IFdlIGhhdmUgZHJtX2FyY2hfY2FuX3djX21lbW9yeSBmdW5jdGlvbiB0
-byBjb3ZlciBhbGwgdGhlIGNhc2VzIHdoZW4gVVNXQyAKPiBtYXBwaW5nIGlzIG5vdCBhbGxvd2Vk
-LCB3aHkgdGhlIENPTkZJR19YODZfMzIgaGVyZSA/CgpJdCdzIG9uZSBjYXNlIHdoZXJlIGFtZGdw
-dV9ib19kb19jcmVhdGUoKSBjbGVhcnMgdGhlCkFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNX
-QyBmbGFnLgoKCj4+IG90aGVyd2lzZSB0aGUgQk8gY291bGQgc3RpbGwgYmUgcGlubmVkIHRvIEdU
-VCBsYXRlci4KPiAKPiBUaGUgb25seSBvdGhlciBsYXRlciBwbGFjZSBJIGtub3cgaXMgZG1fcGxh
-bmVfaGVscGVyX3ByZXBhcmVfZmIgb2Ygd2hpY2ggCj4gSSB0YWtlIGNhcmUgaW4gcGF0Y2ggMy4g
-V2hhdCBvdGhlciBwbGFjZXMgeW91IGhhdmUgaW4gbWluZCA/CgphbWRncHVfZG1hX2J1Zl9iZWdp
-bl9jcHVfYWNjZXNzICYgYW1kZ3B1X21vZGVfZHVtYl9jcmVhdGUuIChXaGlsZSBub3QKaGFuZGxp
-bmcgaXQgdGhlcmUgcHJvYmFibHkgd29uJ3QgY2F1c2UgaGFuZ3MsIGl0J2QgbGlrZWx5IHJlc3Vs
-dCBpbgpzdXBlcmZsdW91cyBCTyBtaWdyYXRpb25zKQoKQnV0IGV2ZW4gaWYgdGhlcmUgd2VyZSBu
-byBvdGhlciBwbGFjZXMgcmlnaHQgbm93LCBoYW5kbGluZyBpdCBzZXBhcmF0ZWx5CndvdWxkIGJl
-IGZyYWdpbGUgV1JUIGZ1dHVyZSBhbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlucyBjYWxs
-ZXJzCmdldHRpbmcgaXQgd3JvbmcuCgpBbnl3YXksIHlvdSdyZSBhdHRlbXB0aW5nIHRvIGhhbmRs
-ZSBpdCBpbgphbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlucyBpbiB0aGUgdjIgc2VyaWVz
-LCB0aGFua3MuCgoKLS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwg
-ICAgICAgICAgICAgIGh0dHBzOi8vd3d3LmFtZC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFz
-dCAgICAgICAgICAgICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--3hEKoYM3ihXgipFwLohglgI6I6K0PHVBV
+Content-Type: multipart/mixed; boundary="KIKXUXCjxjc3xDRil2vLGI4WFDOmJ9a2q";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ Sam Ravnborg <sam@ravnborg.org>
+Cc: Neil Armstrong <narmstrong@baylibre.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, dri-devel@lists.freedesktop.org,
+ Douglas Anderson <dianders@chromium.org>, linux-tegra@vger.kernel.org,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com,
+ linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+ David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>,
+ Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Dave Airlie <airlied@redhat.com>, freedreno@lists.freedesktop.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, Jyri Sarha <jsarha@ti.com>,
+ Alexios Zavras <alexios.zavras@intel.com>,
+ Mamta Shukla <mamtashukla555@gmail.com>, linux-mediatek@lists.infradead.org,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Sean Paul <sean@poorly.run>,
+ linux-arm-kernel@lists.infradead.org,
+ Jernej Skrabec <jernej.skrabec@siol.net>, amd-gfx@lists.freedesktop.org,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-kernel@vger.kernel.org,
+ Todor Tomov <todor.tomov@linaro.org>,
+ Kyungmin Park <kyungmin.park@samsung.com>, Huang Rui <ray.huang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Shawn Guo <shawnguo@kernel.org>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Gerd Hoffmann <kraxel@redhat.com>
+Message-ID: <acfd895d-ab59-0190-e25c-1827bd8d214b@suse.de>
+Subject: Re: [PATCH v4 14/23] drm/tilcdc: Provide ddc symlink in connector
+ sysfs directory
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d1d415022c598fb7acd033f0f322dd67250adaa9.1562843413.git.andrzej.p@collabora.com>
+ <20190723090532.GA787@ravnborg.org>
+ <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
+In-Reply-To: <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
+
+--KIKXUXCjxjc3xDRil2vLGI4WFDOmJ9a2q
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 23.07.19 um 14:44 schrieb Andrzej Pietrasiewicz:
+> Hi Sam,
+>=20
+> W dniu 23.07.2019 o=C2=A011:05, Sam Ravnborg pisze:
+>> Hi Andrzej
+>>
+>> On Thu, Jul 11, 2019 at 01:26:41PM +0200, Andrzej Pietrasiewicz wrote:=
+
+>>> Use the ddc pointer provided by the generic connector.
+>>>
+>>> Signed-off-by: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+>>> ---
+>>> =C2=A0 drivers/gpu/drm/tilcdc/tilcdc_tfp410.c | 1 +
+>>> =C2=A0 1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c
+>>> b/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c
+>>> index 62d014c20988..c373edb95666 100644
+>>> --- a/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c
+>>> +++ b/drivers/gpu/drm/tilcdc/tilcdc_tfp410.c
+>>> @@ -219,6 +219,7 @@ static struct drm_connector
+>>> *tfp410_connector_create(struct drm_device *dev,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tfp410_connector->mod =3D mod;
+>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 connector =3D &tfp410_connector=
+->base;
+>>> +=C2=A0=C2=A0=C2=A0 connector->ddc =3D mod->i2c;
+>>> =C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm_connector_init(dev, connect=
+or, &tfp410_connector_funcs,
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 DRM_MODE_CONNECTOR_DVID);
+>>
+>> When reading this code, it looks strange that we set connector->ddc
+>> *before* the call to init the connector.
+>> One could risk that drm_connector_init() used memset(..) to clear all
+>> fields or so, and it would break this order.
+>=20
+> I verified the code of drm_connector_init() and cannot find any memset(=
+)
+> invocations there. What is your actual concern?
+
+I think this echoes my concern about the implicit order of operation. It
+seems too easy to get this wrong. If you don't want to add an additional
+interface for setting the ddc field, why not add a dedicated initializer
+function that sets the ddc field? Something like this.
+
+int drm_connector_init_with_ddc(connector, funcs, ..., ddc)
+{
+	ret =3D drm_connector_init(connector, funcs, ...);
+	if (ret)
+		return ret;
+
+	if (!ddc)
+		return 0;
+
+	connector->ddc =3D ddc;
+	/* set up sysfs */
+
+	return 0;
+}
+
+Best regards
+Thomas
+
+> Andrzej
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Linux GmbH, Maxfeldstrasse 5, 90409 Nuernberg, Germany
+GF: Felix Imend=C3=B6rffer, Mary Higgins, Sri Rasiah
+HRB 21284 (AG N=C3=BCrnberg)
+
+
+--KIKXUXCjxjc3xDRil2vLGI4WFDOmJ9a2q--
+
+--3hEKoYM3ihXgipFwLohglgI6I6K0PHVBV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl04EEEACgkQaA3BHVML
+eiNRWAf8CYxCmH/26EWFNpq9GZQjDMvAU5wdcW44Lnp0dMtgf/nqPvbEtkPYWt1D
+lMAlcSy9rrFFtW3E2HFwK5V9QbW9LvxdRaA7gK0ypMrYgmO5QECHQGMCaRxb/DpK
+02ZW59khdYpqNbLfjZ3toTs6BiHuBS2OF5tHq4SbvHwdva4pzOQtwQ90TVrNcOp+
+8kSGLB/0+CcOvKhgjd1uyw1w5lE/cILPT4sfXYlutlSRsHTCA7FwXHwhoqMyfYK4
+xlDAr72YN6/Lt9gLuKqWSFX9O9vvSpMMjp6nnzFwCguc+Nz53L4ra49cJ8qPP6dY
+wBV/ccooRzGp27r8ENmXR8wKLfTP8g==
+=ol/N
+-----END PGP SIGNATURE-----
+
+--3hEKoYM3ihXgipFwLohglgI6I6K0PHVBV--
