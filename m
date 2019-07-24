@@ -1,155 +1,76 @@
-From: Gilberto Nunes <gilberto.nunes32@gmail.com>
-Subject: Re: amdgpu errors reported with kernel 5.2.2 (was Re: Problem with
- kernel major than 4.15.x)
-Date: Wed, 24 Jul 2019 14:00:58 -0300
-Message-ID: <CAOKSTBvrdqi3Mo-QyOuEE5gC08YsuTyZKC0LQNcsS=JQb1VKEw@mail.gmail.com>
-References: <CAOKSTBtbJxEhTL--=8Mx2xw8boRXs5KP5SHrKTybVBh4zF6G5Q@mail.gmail.com>
- <CAOKSTBsx=gcJnc26xhxvG_g=MgkCvvTF01dBeZ+o8ci7TwW7-g@mail.gmail.com>
- <ecf65167e4c95674493b56d83f3f9ebc65ff52d9.camel@opteya.com>
+From: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
+Date: Wed, 24 Jul 2019 18:12:20 +0100
+Message-ID: <f27f4e55-fcd6-9ae7-d9ca-cac2aea5fe70@arm.com>
+References: <cover.1563904656.git.andreyknvl@google.com>
+ <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
+ <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
+ <CAAeHK+xXzdQHpVXL7f1T2Ef2P7GwFmDMSaBH4VG8fT3=c_OnjQ@mail.gmail.com>
+ <20190724142059.GC21234@fuggles.cambridge.arm.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <kernelnewbies-bounces@kernelnewbies.org>
-In-Reply-To: <ecf65167e4c95674493b56d83f3f9ebc65ff52d9.camel@opteya.com>
-List-Unsubscribe: <https://lists.kernelnewbies.org/mailman/options/kernelnewbies>,
- <mailto:kernelnewbies-request@kernelnewbies.org?subject=unsubscribe>
-List-Archive: <http://lists.kernelnewbies.org/pipermail/kernelnewbies/>
-List-Post: <mailto:kernelnewbies@kernelnewbies.org>
-List-Help: <mailto:kernelnewbies-request@kernelnewbies.org?subject=help>
-List-Subscribe: <https://lists.kernelnewbies.org/mailman/listinfo/kernelnewbies>,
- <mailto:kernelnewbies-request@kernelnewbies.org?subject=subscribe>
-Errors-To: kernelnewbies-bounces@kernelnewbies.org
-To: Yann Droneaud <ydroneaud@opteya.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190724142059.GC21234@fuggles.cambridge.arm.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Will Deacon <will.deacon@arm.com>, Andrey Konovalov <andreyknvl@google.com>
+Cc: Will Deacon <will@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@g>
 List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzIFlhbm4gdG8gcmVkaXJlY3QgdG8gdGhlIHByb3BlciBsaXN0cyEKLS0tCkdpbGJlcnRv
-IE51bmVzIEZlcnJlaXJhCgooNDcpIDMwMjUtNTkwNwooNDcpIDk5Njc2LTc1MzAgLSBXaGF0c2Fw
-cCAvIFRlbGVncmFtCgpTa3lwZTogZ2lsYmVydG8ubnVuZXMzNgoKCgoKRW0gcXVhLCAyNCBkZSBq
-dWwgZGUgMjAxOSDDoHMgMTE6NTksIFlhbm4gRHJvbmVhdWQKPHlkcm9uZWF1ZEBvcHRleWEuY29t
-PiBlc2NyZXZldToKPgo+IEhpLAo+Cj4gTGUgbWVyY3JlZGkgMjQganVpbGxldCAyMDE5IMOgIDA5
-OjQzIC0wMzAwLCBHaWxiZXJ0byBOdW5lcyBhIMOpY3JpdCA6Cj4gPgo+ID4gUmlnaHQgbm93LCBJ
-IGJvb3RlZCBteSBsYXB0b3Agd2l0aCBrZXJuZWwKPiA+IExpbnV4IHZlcnNpb24gNS4yLjItMDUw
-MjAyLWdlbmVyaWMgKGtlcm5lbEBrYXRobGVlbikgKGdjYyB2ZXJzaW9uCj4gPiA5LjEuMCAoVWJ1
-bnR1IDkuMS4wLTl1YnVudHUyKSkgIzIwMTkwNzIzMTI1MCBTTVAgVHVlIEp1bCAyMyAxMjo1Mzoy
-MQo+ID4gVVRDIDIwMTkKPiA+Cj4gPiBUaGUgc3lzdGVtIGJvb3Qgc2xvd2x5LCBhbmQgSSBoYXZl
-IGEgU1NEIFNhbXN1bmcsIHdoaWNoIGluIGtlcm5lbAo+ID4gNC4xNSwgYm9vdCBxdWlja2x5Lgo+
-ID4gQW5kIHRoZXJlJ3MgbWFueSBlcnJvcnMgaW4gZG1lc2cgY29tbWFuZCwgbGlrZSB5b3UgY2Fu
-IHNlZSBpbiB0aGlzCj4gPiBwYXN0YmluCj4gPgo+ID4gaHR0cHM6Ly9wYXN0ZS51YnVudHUuY29t
-L3AvWWhiam56WVlZaC8KPiA+Cj4KPiBUaGVyZSBzdXJlbHkgc29tZXRoaW5nIGdvaW5nIG9uIHdp
-dGggYW1kZ3B1Ogo+Cj4gWyAgICAxLjk5ODAyMV0gW2RybV0gYW1kZ3B1IGtlcm5lbCBtb2Rlc2V0
-dGluZyBlbmFibGVkLgo+IFsgICAgMS45OTk0MTVdIGFtZGdwdSAwMDAwOjAwOjAxLjA6IHJlbW92
-ZV9jb25mbGljdGluZ19wY2lfZnJhbWVidWZmZXJzOiBiYXIgMDogMHhlMDAwMDAwMCAtPiAweGVm
-ZmZmZmZmCj4gWyAgICAxLjk5OTQxN10gYW1kZ3B1IDAwMDA6MDA6MDEuMDogcmVtb3ZlX2NvbmZs
-aWN0aW5nX3BjaV9mcmFtZWJ1ZmZlcnM6IGJhciAyOiAweGQwODAwMDAwIC0+IDB4ZDBmZmZmZmYK
-PiBbICAgIDEuOTk5NDE5XSBhbWRncHUgMDAwMDowMDowMS4wOiByZW1vdmVfY29uZmxpY3Rpbmdf
-cGNpX2ZyYW1lYnVmZmVyczogYmFyIDU6IDB4ZDE2MDAwMDAgLT4gMHhkMTYzZmZmZgo+IFsgICAg
-MS45OTk0MjJdIGZiMDogc3dpdGNoaW5nIHRvIGFtZGdwdWRybWZiIGZyb20gVkVTQSBWR0EKPiBb
-ICAgIDEuOTk5NjA2XSBhbWRncHUgMDAwMDowMDowMS4wOiB2Z2FhcmI6IGRlYWN0aXZhdGUgdmdh
-IGNvbnNvbGUKPiBbICAgIDIuMDAwMDYwXSBbZHJtXSBpbml0aWFsaXppbmcga2VybmVsIG1vZGVz
-ZXR0aW5nIChDQVJSSVpPIDB4MTAwMjoweDk4NzQgMHgxMDI1OjB4MTIwMSAweEM4KS4KPiAuLi4K
-PiBbICAgIDIuMDAwMzQyXSBbZHJtXSBVVkQgaXMgZW5hYmxlZCBpbiBwaHlzaWNhbCBtb2RlCj4g
-WyAgICAyLjAwMDM1NF0gW2RybV0gVkNFIGVuYWJsZWQgaW4gcGh5c2ljYWwgbW9kZQo+IFsgICAg
-Mi4wMTU3OTFdIFtkcm1dIEJJT1Mgc2lnbmF0dXJlIGluY29ycmVjdCAwIDAKPiBbICAgIDIuMDE4
-OTQ3XSBbZHJtXSBSQVMgSU5GTzogcmFzIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseSwgaGFyZHdh
-cmUgYWJpbGl0eVswXSByYXNfbWFza1swXQo+IFsgICAgMi4wMTg5NTRdIFtkcm1dIHZtIHNpemUg
-aXMgNjQgR0IsIDIgbGV2ZWxzLCBibG9jayBzaXplIGlzIDEwLWJpdCwgZnJhZ21lbnQgc2l6ZSBp
-cyA5LWJpdAo+IFsgICAgMi4wMTg5NjFdIGFtZGdwdSAwMDAwOjAwOjAxLjA6IFZSQU06IDUxMk0g
-MHgwMDAwMDBGNDAwMDAwMDAwIC0gMHgwMDAwMDBGNDFGRkZGRkZGICg1MTJNIHVzZWQpCj4gWyAg
-ICAyLjAxODk2M10gYW1kZ3B1IDAwMDA6MDA6MDEuMDogR0FSVDogMTAyNE0gMHgwMDAwMDBGRjAw
-MDAwMDAwIC0gMHgwMDAwMDBGRjNGRkZGRkZGCj4gWyAgICAyLjAxODk2OF0gW2RybV0gRGV0ZWN0
-ZWQgVlJBTSBSQU09NTEyTSwgQkFSPTUxMk0KPiBbICAgIDIuMDE4OTY5XSBbZHJtXSBSQU0gd2lk
-dGggNjRiaXRzIFVOS05PV04KPiBbICAgIDIuMDE5MzIzXSBbZHJtXSBhbWRncHU6IDUxMk0gb2Yg
-VlJBTSBtZW1vcnkgcmVhZHkKPiBbICAgIDIuMDE5MzI2XSBbZHJtXSBhbWRncHU6IDMwNzJNIG9m
-IEdUVCBtZW1vcnkgcmVhZHkuCj4gWyAgICAyLjAxOTM0OV0gW2RybV0gR0FSVDogbnVtIGNwdSBw
-YWdlcyAyNjIxNDQsIG51bSBncHUgcGFnZXMgMjYyMTQ0Cj4gWyAgICAyLjAxOTQwNl0gW2RybV0g
-UENJRSBHQVJUIG9mIDEwMjRNIGVuYWJsZWQgKHRhYmxlIGF0IDB4MDAwMDAwRjQwMDQwMTAwMCku
-Cj4gWyAgICAyLjAyMjA2Nl0gW2RybV0gRm91bmQgVVZEIGZpcm13YXJlIFZlcnNpb246IDEuODcg
-RmFtaWx5IElEOiAxMQo+IFsgICAgMi4wMjIwNzddIFtkcm1dIFVWRCBFTkMgaXMgZGlzYWJsZWQK
-PiBbICAgIDIuMDIzMTMzXSBbZHJtXSBGb3VuZCBWQ0UgZmlybXdhcmUgVmVyc2lvbjogNTIuNCBC
-aW5hcnkgSUQ6IDMKPiAuLi4KPiBbICAgIDIuMDMwMzYwXSBbZHJtOmNvbnN0cnVjdCBbYW1kZ3B1
-XV0gKkVSUk9SKiBjb25zdHJ1Y3Q6IEludmFsaWQgQ29ubmVjdG9yIE9iamVjdElEIGZyb20gQWRh
-cHRlciBTZXJ2aWNlIGZvciBjb25uZWN0b3IgaW5kZXg6MiEgdHlwZSAwIGV4cGVjdGVkIDMKPiBb
-ICAgIDIuMDUxNzI2XSBbZHJtXSBEaXNwbGF5IENvcmUgaW5pdGlhbGl6ZWQgd2l0aCB2My4yLjI3
-IQo+IFsgICAgMi4wNTkzMTNdIFtkcm1dIFNBRHMgY291bnQgaXM6IC0yLCBkb24ndCBuZWVkIHRv
-IHJlYWQgaXQKPiBbICAgIDIuMDg2Mjc0XSBbZHJtXSBTdXBwb3J0cyB2YmxhbmsgdGltZXN0YW1w
-IGNhY2hpbmcgUmV2IDIgKDIxLjEwLjIwMTMpLgo+IFsgICAgMi4wODYyNzZdIFtkcm1dIERyaXZl
-ciBzdXBwb3J0cyBwcmVjaXNlIHZibGFuayB0aW1lc3RhbXAgcXVlcnkuCj4gWyAgICAyLjExMjI4
-N10gW2RybV0gVVZEIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseS4KPiBbICAgIDIuMzExNTE2XSBb
-ZHJtXSBWQ0UgaW5pdGlhbGl6ZWQgc3VjY2Vzc2Z1bGx5Lgo+IFsgICAgMi4zMTU5MTBdIGtmZCBr
-ZmQ6IEFsbG9jYXRlZCAzOTY5MDU2IGJ5dGVzIG9uIGdhcnQKPiBbICAgIDIuMzE2MTMyXSBrZmQg
-a2ZkOiBhZGRlZCBkZXZpY2UgMTAwMjo5ODc0Cj4gLi4uCj4gWyAgICAyLjMxNzU4MF0gZmJjb246
-IGFtZGdwdWRybWZiIChmYjApIGlzIHByaW1hcnkgZGV2aWNlCj4gWyAgICAyLjM1MDUxM10gYW1k
-Z3B1IDAwMDA6MDA6MDEuMDogZmIwOiBhbWRncHVkcm1mYiBmcmFtZSBidWZmZXIgZGV2aWNlCj4g
-WyAgICAyLjM3MTkzOV0gW2RybV0gSW5pdGlhbGl6ZWQgYW1kZ3B1IDMuMzIuMCAyMDE1MDEwMSBm
-b3IgMDAwMDowMDowMS4wIG9uIG1pbm9yIDAKPiBbICAgIDIuMzcxOTk5XSBhbWRncHUgMDAwMDow
-MzowMC4wOiByZW1vdmVfY29uZmxpY3RpbmdfcGNpX2ZyYW1lYnVmZmVyczogYmFyIDA6IDB4YzAw
-MDAwMDAgLT4gMHhjZmZmZmZmZgo+IFsgICAgMi4zNzIwMDBdIGFtZGdwdSAwMDAwOjAzOjAwLjA6
-IHJlbW92ZV9jb25mbGljdGluZ19wY2lfZnJhbWVidWZmZXJzOiBiYXIgMjogMHhkMDAwMDAwMCAt
-PiAweGQwMWZmZmZmCj4gWyAgICAyLjM3MjAwMl0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogcmVtb3Zl
-X2NvbmZsaWN0aW5nX3BjaV9mcmFtZWJ1ZmZlcnM6IGJhciA1OiAweGQxNDAwMDAwIC0+IDB4ZDE0
-M2ZmZmYKPiBbICAgIDIuMzcyMjEzXSBbZHJtXSBpbml0aWFsaXppbmcga2VybmVsIG1vZGVzZXR0
-aW5nIChQT0xBUklTMTIgMHgxMDAyOjB4Njk5RiAweDEwMjU6MHgxMjEwIDB4QzMpLgo+IC4uLgo+
-IFsgICAgMi4zNzI0NDhdIGtmZCBrZmQ6IHNraXBwZWQgZGV2aWNlIDEwMDI6Njk5ZiwgUENJIHJl
-amVjdHMgYXRvbWljcwo+IFsgICAgMi4zNzI0NjNdIFtkcm1dIFVWRCBpcyBlbmFibGVkIGluIFZN
-IG1vZGUKPiBbICAgIDIuMzcyNDYzXSBbZHJtXSBVVkQgRU5DIGlzIGVuYWJsZWQgaW4gVk0gbW9k
-ZQo+IFsgICAgMi4zNzI0NjddIFtkcm1dIFZDRSBlbmFibGVkIGluIFZNIG1vZGUKPiBbICAgIDIu
-NDg4NjMzXSBbZHJtXSBHUFUgcG9zdGluZyBub3cuLi4KPiBbICAgIDIuNTA3NzgzXSBbZHJtXSBS
-QVMgSU5GTzogcmFzIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseSwgaGFyZHdhcmUgYWJpbGl0eVsw
-XSByYXNfbWFza1swXQo+IFsgICAgMi41MDc3OTJdIFtkcm1dIHZtIHNpemUgaXMgNjQgR0IsIDIg
-bGV2ZWxzLCBibG9jayBzaXplIGlzIDEwLWJpdCwgZnJhZ21lbnQgc2l6ZSBpcyA5LWJpdAo+IFsg
-ICAgMi41MDc4NjBdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFZSQU06IDIwNDhNIDB4MDAwMDAwRjQw
-MDAwMDAwMCAtIDB4MDAwMDAwRjQ3RkZGRkZGRiAoMjA0OE0gdXNlZCkKPiBbICAgIDIuNTA3ODYy
-XSBhbWRncHUgMDAwMDowMzowMC4wOiBHQVJUOiAyNTZNIDB4MDAwMDAwRkYwMDAwMDAwMCAtIDB4
-MDAwMDAwRkYwRkZGRkZGRgo+IFsgICAgMi41MDc4NzZdIFtkcm1dIERldGVjdGVkIFZSQU0gUkFN
-PTIwNDhNLCBCQVI9MjU2TQo+IFsgICAgMi41MDc4NzZdIFtkcm1dIFJBTSB3aWR0aCAxMjhiaXRz
-IEdERFI1Cj4gWyAgICAyLjUwNzg5OV0gW2RybV0gYW1kZ3B1OiAyMDQ4TSBvZiBWUkFNIG1lbW9y
-eSByZWFkeQo+IFsgICAgMi41MDc5MDJdIFtkcm1dIGFtZGdwdTogMzA3Mk0gb2YgR1RUIG1lbW9y
-eSByZWFkeS4KPiBbICAgIDIuNTA3OTM0XSBbZHJtXSBHQVJUOiBudW0gY3B1IHBhZ2VzIDY1NTM2
-LCBudW0gZ3B1IHBhZ2VzIDY1NTM2Cj4gWyAgICAyLjUwODg0NF0gW2RybV0gUENJRSBHQVJUIG9m
-IDI1Nk0gZW5hYmxlZCAodGFibGUgYXQgMHgwMDAwMDBGNDAwMDAwMDAwKS4KPiBbICAgIDIuNTA4
-OTkyXSBbZHJtXSBDaGFpbmVkIElCIHN1cHBvcnQgZW5hYmxlZCEKPiBbICAgIDIuNTExMDIwXSBb
-ZHJtXSBGb3VuZCBVVkQgZmlybXdhcmUgVmVyc2lvbjogMS4xMzAgRmFtaWx5IElEOiAxNgo+IFsg
-ICAgMi41MTM0NzddIFtkcm1dIEZvdW5kIFZDRSBmaXJtd2FyZSBWZXJzaW9uOiA1Mi40IEJpbmFy
-eSBJRDogMwo+IFsgICAgMi41NzY0ODhdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1
-ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAgMi41
-NzY1MjFdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVh
-a2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAgMi41NzY1NDJdIGFtZGdwdTogW3Bv
-d2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBu
-b3QgcGF0Y2hlZAo+IFsgICAgMi41NzY1NjNdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2
-YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAg
-Mi41NzY1ODRdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEg
-TGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAgMi41NzY2MDRdIGFtZGdwdTog
-W3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQn
-cyBub3QgcGF0Y2hlZAo+IFsgICAgMi41NzY2MjVdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFn
-ZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IC4u
-Lgo+IFsgICAgMi41OTAyOThdIFtkcm1dIERpc3BsYXkgQ29yZSBpbml0aWFsaXplZCB3aXRoIHYz
-LjIuMjchCj4gWyAgICAyLjU5MDM2N10gW2RybV0gU3VwcG9ydHMgdmJsYW5rIHRpbWVzdGFtcCBj
-YWNoaW5nIFJldiAyICgyMS4xMC4yMDEzKS4KPiBbICAgIDIuNTkwMzY4XSBbZHJtXSBEcml2ZXIg
-c3VwcG9ydHMgcHJlY2lzZSB2YmxhbmsgdGltZXN0YW1wIHF1ZXJ5Lgo+IFsgICAgMi42MTczMTBd
-IFtkcm1dIFVWRCBhbmQgVVZEIEVOQyBpbml0aWFsaXplZCBzdWNjZXNzZnVsbHkuCj4gWyAgICAy
-LjcyNzI0OV0gW2RybV0gVkNFIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseS4KPiBbICAgIDIuNzM0
-OTA3XSBbZHJtXSBJbml0aWFsaXplZCBhbWRncHUgMy4zMi4wIDIwMTUwMTAxIGZvciAwMDAwOjAz
-OjAwLjAgb24gbWlub3IgMQo+IFsgICAgMy45MTE4MjZdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFtk
-cm06YW1kZ3B1X2liX3JpbmdfdGVzdHMgW2FtZGdwdV1dICpFUlJPUiogSUIgdGVzdCBmYWlsZWQg
-b24gdXZkICgtMTEwKS4KPiBbICAgIDQuMjM5ODI4XSBhbWRncHU6IFtwb3dlcnBsYXldCj4gICAg
-ICAgICAgICAgICAgIGZhaWxlZCB0byBzZW5kIG1lc3NhZ2UgMTViIHJldCBpcyAwCj4gWyAgICA0
-LjgzODA3Ml0gYW1kZ3B1OiBbcG93ZXJwbGF5XQo+ICAgICAgICAgICAgICAgICBsYXN0IG1lc3Nh
-Z2Ugd2FzIGZhaWxlZCByZXQgaXMgMAo+IFsgICAgNS4zMzk3NjFdIGFtZGdwdTogW3Bvd2VycGxh
-eV0KPiAgICAgICAgICAgICAgICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAxNWEgcmV0IGlzIDAK
-PiBbICAgIDUuODgzMTY5XSBhbWRncHU6IFtwb3dlcnBsYXldCj4gICAgICAgICAgICAgICAgIGxh
-c3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJldCBpcyAwCj4gWyAgICA2LjQyMDY1MV0gYW1kZ3B1OiBb
-cG93ZXJwbGF5XQo+ICAgICAgICAgICAgICAgICBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDE1NSBy
-ZXQgaXMgMAo+IFsgICAgNi40MjA3NzVdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFtkcm06YW1kZ3B1
-X2liX3JpbmdfdGVzdHMgW2FtZGdwdV1dICpFUlJPUiogSUIgdGVzdCBmYWlsZWQgb24gdmNlMCAo
-LTExMCkuCj4gWyAgICA2LjQyMDg2Ml0gW2RybTphbWRncHVfZGV2aWNlX2lwX2xhdGVfaW5pdF9m
-dW5jX2hhbmRsZXIgW2FtZGdwdV1dICpFUlJPUiogaWIgcmluZyB0ZXN0IGZhaWxlZCAoLTExMCku
-Cj4gWyAgICA2LjkyNTc0OF0gYW1kZ3B1OiBbcG93ZXJwbGF5XQo+ICAgICAgICAgICAgICAgICBs
-YXN0IG1lc3NhZ2Ugd2FzIGZhaWxlZCByZXQgaXMgMAo+IFsgICAgNy40MTk1MzldIGFtZGdwdTog
-W3Bvd2VycGxheV0KPiAgICAgICAgICAgICAgICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAxNWIg
-cmV0IGlzIDAKPiBbICAgMTEuNzI0MTIzXSBhbWRncHU6IFtwb3dlcnBsYXldCj4gICAgICAgICAg
-ICAgICAgIGxhc3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJldCBpcyAwCj4KPiBhbmQgc28gb24gLi4u
-Cj4KPiBSZWdhcmRzLgo+Cj4gLS0KPiBZYW5uIERyb25lYXVkCj4gT1BURVlBCj4KPgoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KS2VybmVsbmV3YmllcyBt
-YWlsaW5nIGxpc3QKS2VybmVsbmV3Ymllc0BrZXJuZWxuZXdiaWVzLm9yZwpodHRwczovL2xpc3Rz
-Lmtlcm5lbG5ld2JpZXMub3JnL21haWxtYW4vbGlzdGluZm8va2VybmVsbmV3Ymllcwo=
+Hi Will and Andrey,
+
+On 24/07/2019 15:20, Will Deacon wrote:
+> On Wed, Jul 24, 2019 at 04:16:49PM +0200, Andrey Konovalov wrote:
+>> On Wed, Jul 24, 2019 at 4:02 PM Will Deacon <will@kernel.org> wrote:
+>>> On Tue, Jul 23, 2019 at 08:03:29PM +0200, Andrey Konovalov wrote:
+>>>> On Tue, Jul 23, 2019 at 7:59 PM Andrey Konovalov <andreyknvl@google.com> wrote:
+>>>>>
+>>>>> === Overview
+>>>>>
+>>>>> arm64 has a feature called Top Byte Ignore, which allows to embed pointer
+>>>>> tags into the top byte of each pointer. Userspace programs (such as
+>>>>> HWASan, a memory debugging tool [1]) might use this feature and pass
+>>>>> tagged user pointers to the kernel through syscalls or other interfaces.
+>>>>>
+>>>>> Right now the kernel is already able to handle user faults with tagged
+>>>>> pointers, due to these patches:
+>>>>>
+>>>>> 1. 81cddd65 ("arm64: traps: fix userspace cache maintenance emulation on a
+>>>>>              tagged pointer")
+>>>>> 2. 7dcd9dd8 ("arm64: hw_breakpoint: fix watchpoint matching for tagged
+>>>>>               pointers")
+>>>>> 3. 276e9327 ("arm64: entry: improve data abort handling of tagged
+>>>>>               pointers")
+>>>>>
+>>>>> This patchset extends tagged pointer support to syscall arguments.
+>>>
+>>> [...]
+>>>
+>>>> Do you think this is ready to be merged?
+>>>>
+>>>> Should this go through the mm or the arm tree?
+>>>
+>>> I would certainly prefer to take at least the arm64 bits via the arm64 tree
+>>> (i.e. patches 1, 2 and 15). We also need a Documentation patch describing
+>>> the new ABI.
+>>
+>> Sounds good! Should I post those patches together with the
+>> Documentation patches from Vincenzo as a separate patchset?
+> 
+> Yes, please (although as you say below, we need a new version of those
+> patches from Vincenzo to address the feedback on v5). The other thing I
+> should say is that I'd be happy to queue the other patches in the series
+> too, but some of them are missing acks from the relevant maintainers (e.g.
+> the mm/ and fs/ changes).
+> 
+
+I am actively working on the document and will share v6 with the requested
+changes in the next few days.
+
+> Will
+> 
+
+-- 
+Regards,
+Vincenzo
