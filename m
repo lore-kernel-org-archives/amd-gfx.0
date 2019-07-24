@@ -1,12 +1,14 @@
 From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH 1/3] Revert "drm/amdgpu/powerplay/vega12: call
+Subject: [PATCH 3/3] Revert "drm/amdgpu/powerplay/vega20: call
  PrepareMp1ForUnload in power_off_asic"
-Date: Wed, 24 Jul 2019 09:43:31 -0500
-Message-ID: <20190724144333.24047-1-alexander.deucher@amd.com>
+Date: Wed, 24 Jul 2019 09:43:33 -0500
+Message-ID: <20190724144333.24047-3-alexander.deucher@amd.com>
+References: <20190724144333.24047-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190724144333.24047-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,17 +22,17 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-VGhpcyByZXZlcnRzIGNvbW1pdCBiYzQzNDY4NDU3NjIzYjNmNzcyZjE0MzgzNDU1ZTJhYmRkYmFk
-ZGFmLgoKUmV2ZXJ0IGZvciBub3cgcGVuZGluZyBmdXJ0aGVyIGRpc2N1c3Npb25zIHdpdGggcG93
+VGhpcyByZXZlcnRzIGNvbW1pdCBjM2IwOTlmMThjNDViZDhkNzhhNTFhNzA2YzY0OGQ1ODgzMjFj
+MTljLgoKUmV2ZXJ0IGZvciBub3cgcGVuZGluZyBmdXJ0aGVyIGRpc2N1c3Npb25zIHdpdGggcG93
 ZXIgdGVhbS4KClNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
-YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMTJf
+YW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9od21nci92ZWdhMjBf
 aHdtZ3IuYyB8IDUgLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA1IGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTEyX2h3bWdyLmMKaW5k
-ZXggM2QzNTA0NDExYjYzLi5lZmI2ZDM3NjJmZWIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2ExMl9od21nci5jCkBAIC0yNDY4LDExICsyNDY4LDYg
-QEAgc3RhdGljIGludCB2ZWdhMTJfcG93ZXJfb2ZmX2FzaWMoc3RydWN0IHBwX2h3bWdyICpod21n
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaHdtZ3IvdmVnYTIwX2h3bWdyLmMKaW5k
+ZXggZTE2ZDY2NTQ2OTJmLi5mMjdjNmZiYjE5MmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2h3bWdyL3ZlZ2EyMF9od21nci5jCkBAIC0zNzY0LDExICszNzY0LDYg
+QEAgc3RhdGljIGludCB2ZWdhMjBfcG93ZXJfb2ZmX2FzaWMoc3RydWN0IHBwX2h3bWdyICpod21n
 cikKIAkJCSk7CiAJZGF0YS0+d2F0ZXJfbWFya3NfYml0bWFwICY9IH4oV2F0ZXJNYXJrc0xvYWRl
 ZCk7CiAKLQlQUF9BU1NFUlRfV0lUSF9DT0RFKChyZXN1bHQgPSBzbXVtX3NlbmRfbXNnX3RvX3Nt
 Yyhod21nciwKLQkJCVBQU01DX01TR19QcmVwYXJlTXAxRm9yVW5sb2FkKSkgPT0gMCwKLQkJCSJb
