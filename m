@@ -1,98 +1,155 @@
-From: John Fastabend <john.fastabend@gmail.com>
-Subject: Re: kernel panic: stack is corrupted in pointer
-Date: Wed, 24 Jul 2019 09:22:26 -0700
-Message-ID: <5d3885c2e2e20_73c32aebc43b65c08@john-XPS-13-9370.notmuch>
-References: <0000000000001a51c4058ddcb1b6@google.com>
- <CACT4Y+ZGwKP+f4esJdx60AywO9b3Y5Bxb4zLtH6EEkaHpP6Zag@mail.gmail.com>
- <5d37433a832d_3aba2ae4f6ec05bc3a@john-XPS-13-9370.notmuch>
- <CACT4Y+ZbPmRB9T9ZzhE79VnKKD3+ieHeLpaDGRkcQ72nADKH_g@mail.gmail.com>
+From: Gilberto Nunes <gilberto.nunes32@gmail.com>
+Subject: Re: amdgpu errors reported with kernel 5.2.2 (was Re: Problem with
+ kernel major than 4.15.x)
+Date: Wed, 24 Jul 2019 14:00:58 -0300
+Message-ID: <CAOKSTBvrdqi3Mo-QyOuEE5gC08YsuTyZKC0LQNcsS=JQb1VKEw@mail.gmail.com>
+References: <CAOKSTBtbJxEhTL--=8Mx2xw8boRXs5KP5SHrKTybVBh4zF6G5Q@mail.gmail.com>
+ <CAOKSTBsx=gcJnc26xhxvG_g=MgkCvvTF01dBeZ+o8ci7TwW7-g@mail.gmail.com>
+ <ecf65167e4c95674493b56d83f3f9ebc65ff52d9.camel@opteya.com>
 Mime-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
-Return-path: <netdev-owner@vger.kernel.org>
-In-Reply-To: <CACT4Y+ZbPmRB9T9ZzhE79VnKKD3+ieHeLpaDGRkcQ72nADKH_g@mail.gmail.com>
-Sender: netdev-owner@vger.kernel.org
-To: Dmitry Vyukov <dvyukov@google.com>, John Fastabend <john.fastabend@gmail.com>
-Cc: syzbot <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com>, bpf <bpf@vger.kernel.org>, David Airlie <airlied@linux.ie>, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, Alexei Starovoitov <ast@kernel.org>, christian.koenig@amd.com, Daniel Borkmann <daniel@iogearbox.net>, david1.zhou@amd.com, DRI <dri-devel@lists.freedesktop.org>, leo.liu@amd.com, LKML <linux-kernel@vger.kernel.org>, netdev <netdev@vger.kernel.org>, syzkaller-bugs <syzkaller-bugs@googlegroups.com>, Marco Elver <elver@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <kernelnewbies-bounces@kernelnewbies.org>
+In-Reply-To: <ecf65167e4c95674493b56d83f3f9ebc65ff52d9.camel@opteya.com>
+List-Unsubscribe: <https://lists.kernelnewbies.org/mailman/options/kernelnewbies>,
+ <mailto:kernelnewbies-request@kernelnewbies.org?subject=unsubscribe>
+List-Archive: <http://lists.kernelnewbies.org/pipermail/kernelnewbies/>
+List-Post: <mailto:kernelnewbies@kernelnewbies.org>
+List-Help: <mailto:kernelnewbies-request@kernelnewbies.org?subject=help>
+List-Subscribe: <https://lists.kernelnewbies.org/mailman/listinfo/kernelnewbies>,
+ <mailto:kernelnewbies-request@kernelnewbies.org?subject=subscribe>
+Errors-To: kernelnewbies-bounces@kernelnewbies.org
+To: Yann Droneaud <ydroneaud@opteya.com>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, kernelnewbies@kernelnewbies.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Dmitry Vyukov wrote:
-> On Tue, Jul 23, 2019 at 7:26 PM John Fastabend <john.fastabend@gmail.com> wrote:
-> >
-> > Dmitry Vyukov wrote:
-> > > On Wed, Jul 17, 2019 at 10:58 AM syzbot
-> > > <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com> wrote:
-> > > >
-> > > > Hello,
-> > > >
-> > > > syzbot found the following crash on:
-> > > >
-> > > > HEAD commit:    1438cde7 Add linux-next specific files for 20190716
-> > > > git tree:       linux-next
-> > > > console output: https://syzkaller.appspot.com/x/log.txt?x=13988058600000
-> > > > kernel config:  https://syzkaller.appspot.com/x/.config?x=3430a151e1452331
-> > > > dashboard link: https://syzkaller.appspot.com/bug?extid=79f5f028005a77ecb6bb
-> > > > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-> > > > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=111fc8afa00000
-> > >
-> > > From the repro it looks like the same bpf stack overflow bug. +John
-> > > We need to dup them onto some canonical report for this bug, or this
-> > > becomes unmanageable.
-> >
-> > Fixes in bpf tree should fix this. Hopefully, we will squash this once fixes
-> > percolate up.
-> >
-> > #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
-> 
-> Cool! What is the fix?
-
-It took a series of patches here,
-
-https://www.spinics.net/lists/netdev/msg586986.html
-
-The fix commits from bpf tree are,
-
-(git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git) 
-
-318892ac068397f40ff81d9155898da01493b1d2
-ac78fc148d8249dbf382c2127456dd08ec5b161c
-f87e62d45e51b12d48d2cb46b5cde8f83b866bc4
-313ab004805cf52a42673b15852b3842474ccd87
-32857cf57f920cdc03b5095f08febec94cf9c36b
-45a4521dcbd92e71c9e53031b40e34211d3b4feb
-2bb90e5cc90e1d09f631aeab041a9cf913a5bbe5
-0e858739c2d2eedeeac1d35bfa0ec3cc2a7190d8
-95fa145479fbc0a0c1fd3274ceb42ec03c042a4a
-
-The last commit fixes this paticular syzbot issue,
-
-commit 95fa145479fbc0a0c1fd3274ceb42ec03c042a4a
-Author: John Fastabend <john.fastabend@gmail.com>
-Date:   Fri Jul 19 10:29:22 2019 -0700
-
-    bpf: sockmap/tls, close can race with map free
-
-The other commits address some other issues found while testing.
-
-> We don't need to wait for the fix to percolate up (and then down
-> too!). syzbot gracefully handles when a patch is not yet present
-> everywhere (it happens all the time).
-
-Great. By the way the above should fix many of the outstanding
-reports against bpf sockmap and tls side. I'll have to walk through
-each one individually to double check though. I guess we can mark
-them as dup reports and syzbot should sort it out?
-
-> 
-> Btw, this was due to a stack overflow, right? Or something else?
-
-Right, stack overflow due to race in updating sock ops where build a
-circular call chain.
-
-> We are trying to make KASAN configuration detect stack overflows too,
-> so that it does not cause havoc next time. But it turns out to be
-> non-trivial and our current attempt seems to fail:
-> https://groups.google.com/forum/#!topic/kasan-dev/IhYv7QYhLfY
-> 
-> 
+VGhhbmtzIFlhbm4gdG8gcmVkaXJlY3QgdG8gdGhlIHByb3BlciBsaXN0cyEKLS0tCkdpbGJlcnRv
+IE51bmVzIEZlcnJlaXJhCgooNDcpIDMwMjUtNTkwNwooNDcpIDk5Njc2LTc1MzAgLSBXaGF0c2Fw
+cCAvIFRlbGVncmFtCgpTa3lwZTogZ2lsYmVydG8ubnVuZXMzNgoKCgoKRW0gcXVhLCAyNCBkZSBq
+dWwgZGUgMjAxOSDDoHMgMTE6NTksIFlhbm4gRHJvbmVhdWQKPHlkcm9uZWF1ZEBvcHRleWEuY29t
+PiBlc2NyZXZldToKPgo+IEhpLAo+Cj4gTGUgbWVyY3JlZGkgMjQganVpbGxldCAyMDE5IMOgIDA5
+OjQzIC0wMzAwLCBHaWxiZXJ0byBOdW5lcyBhIMOpY3JpdCA6Cj4gPgo+ID4gUmlnaHQgbm93LCBJ
+IGJvb3RlZCBteSBsYXB0b3Agd2l0aCBrZXJuZWwKPiA+IExpbnV4IHZlcnNpb24gNS4yLjItMDUw
+MjAyLWdlbmVyaWMgKGtlcm5lbEBrYXRobGVlbikgKGdjYyB2ZXJzaW9uCj4gPiA5LjEuMCAoVWJ1
+bnR1IDkuMS4wLTl1YnVudHUyKSkgIzIwMTkwNzIzMTI1MCBTTVAgVHVlIEp1bCAyMyAxMjo1Mzoy
+MQo+ID4gVVRDIDIwMTkKPiA+Cj4gPiBUaGUgc3lzdGVtIGJvb3Qgc2xvd2x5LCBhbmQgSSBoYXZl
+IGEgU1NEIFNhbXN1bmcsIHdoaWNoIGluIGtlcm5lbAo+ID4gNC4xNSwgYm9vdCBxdWlja2x5Lgo+
+ID4gQW5kIHRoZXJlJ3MgbWFueSBlcnJvcnMgaW4gZG1lc2cgY29tbWFuZCwgbGlrZSB5b3UgY2Fu
+IHNlZSBpbiB0aGlzCj4gPiBwYXN0YmluCj4gPgo+ID4gaHR0cHM6Ly9wYXN0ZS51YnVudHUuY29t
+L3AvWWhiam56WVlZaC8KPiA+Cj4KPiBUaGVyZSBzdXJlbHkgc29tZXRoaW5nIGdvaW5nIG9uIHdp
+dGggYW1kZ3B1Ogo+Cj4gWyAgICAxLjk5ODAyMV0gW2RybV0gYW1kZ3B1IGtlcm5lbCBtb2Rlc2V0
+dGluZyBlbmFibGVkLgo+IFsgICAgMS45OTk0MTVdIGFtZGdwdSAwMDAwOjAwOjAxLjA6IHJlbW92
+ZV9jb25mbGljdGluZ19wY2lfZnJhbWVidWZmZXJzOiBiYXIgMDogMHhlMDAwMDAwMCAtPiAweGVm
+ZmZmZmZmCj4gWyAgICAxLjk5OTQxN10gYW1kZ3B1IDAwMDA6MDA6MDEuMDogcmVtb3ZlX2NvbmZs
+aWN0aW5nX3BjaV9mcmFtZWJ1ZmZlcnM6IGJhciAyOiAweGQwODAwMDAwIC0+IDB4ZDBmZmZmZmYK
+PiBbICAgIDEuOTk5NDE5XSBhbWRncHUgMDAwMDowMDowMS4wOiByZW1vdmVfY29uZmxpY3Rpbmdf
+cGNpX2ZyYW1lYnVmZmVyczogYmFyIDU6IDB4ZDE2MDAwMDAgLT4gMHhkMTYzZmZmZgo+IFsgICAg
+MS45OTk0MjJdIGZiMDogc3dpdGNoaW5nIHRvIGFtZGdwdWRybWZiIGZyb20gVkVTQSBWR0EKPiBb
+ICAgIDEuOTk5NjA2XSBhbWRncHUgMDAwMDowMDowMS4wOiB2Z2FhcmI6IGRlYWN0aXZhdGUgdmdh
+IGNvbnNvbGUKPiBbICAgIDIuMDAwMDYwXSBbZHJtXSBpbml0aWFsaXppbmcga2VybmVsIG1vZGVz
+ZXR0aW5nIChDQVJSSVpPIDB4MTAwMjoweDk4NzQgMHgxMDI1OjB4MTIwMSAweEM4KS4KPiAuLi4K
+PiBbICAgIDIuMDAwMzQyXSBbZHJtXSBVVkQgaXMgZW5hYmxlZCBpbiBwaHlzaWNhbCBtb2RlCj4g
+WyAgICAyLjAwMDM1NF0gW2RybV0gVkNFIGVuYWJsZWQgaW4gcGh5c2ljYWwgbW9kZQo+IFsgICAg
+Mi4wMTU3OTFdIFtkcm1dIEJJT1Mgc2lnbmF0dXJlIGluY29ycmVjdCAwIDAKPiBbICAgIDIuMDE4
+OTQ3XSBbZHJtXSBSQVMgSU5GTzogcmFzIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseSwgaGFyZHdh
+cmUgYWJpbGl0eVswXSByYXNfbWFza1swXQo+IFsgICAgMi4wMTg5NTRdIFtkcm1dIHZtIHNpemUg
+aXMgNjQgR0IsIDIgbGV2ZWxzLCBibG9jayBzaXplIGlzIDEwLWJpdCwgZnJhZ21lbnQgc2l6ZSBp
+cyA5LWJpdAo+IFsgICAgMi4wMTg5NjFdIGFtZGdwdSAwMDAwOjAwOjAxLjA6IFZSQU06IDUxMk0g
+MHgwMDAwMDBGNDAwMDAwMDAwIC0gMHgwMDAwMDBGNDFGRkZGRkZGICg1MTJNIHVzZWQpCj4gWyAg
+ICAyLjAxODk2M10gYW1kZ3B1IDAwMDA6MDA6MDEuMDogR0FSVDogMTAyNE0gMHgwMDAwMDBGRjAw
+MDAwMDAwIC0gMHgwMDAwMDBGRjNGRkZGRkZGCj4gWyAgICAyLjAxODk2OF0gW2RybV0gRGV0ZWN0
+ZWQgVlJBTSBSQU09NTEyTSwgQkFSPTUxMk0KPiBbICAgIDIuMDE4OTY5XSBbZHJtXSBSQU0gd2lk
+dGggNjRiaXRzIFVOS05PV04KPiBbICAgIDIuMDE5MzIzXSBbZHJtXSBhbWRncHU6IDUxMk0gb2Yg
+VlJBTSBtZW1vcnkgcmVhZHkKPiBbICAgIDIuMDE5MzI2XSBbZHJtXSBhbWRncHU6IDMwNzJNIG9m
+IEdUVCBtZW1vcnkgcmVhZHkuCj4gWyAgICAyLjAxOTM0OV0gW2RybV0gR0FSVDogbnVtIGNwdSBw
+YWdlcyAyNjIxNDQsIG51bSBncHUgcGFnZXMgMjYyMTQ0Cj4gWyAgICAyLjAxOTQwNl0gW2RybV0g
+UENJRSBHQVJUIG9mIDEwMjRNIGVuYWJsZWQgKHRhYmxlIGF0IDB4MDAwMDAwRjQwMDQwMTAwMCku
+Cj4gWyAgICAyLjAyMjA2Nl0gW2RybV0gRm91bmQgVVZEIGZpcm13YXJlIFZlcnNpb246IDEuODcg
+RmFtaWx5IElEOiAxMQo+IFsgICAgMi4wMjIwNzddIFtkcm1dIFVWRCBFTkMgaXMgZGlzYWJsZWQK
+PiBbICAgIDIuMDIzMTMzXSBbZHJtXSBGb3VuZCBWQ0UgZmlybXdhcmUgVmVyc2lvbjogNTIuNCBC
+aW5hcnkgSUQ6IDMKPiAuLi4KPiBbICAgIDIuMDMwMzYwXSBbZHJtOmNvbnN0cnVjdCBbYW1kZ3B1
+XV0gKkVSUk9SKiBjb25zdHJ1Y3Q6IEludmFsaWQgQ29ubmVjdG9yIE9iamVjdElEIGZyb20gQWRh
+cHRlciBTZXJ2aWNlIGZvciBjb25uZWN0b3IgaW5kZXg6MiEgdHlwZSAwIGV4cGVjdGVkIDMKPiBb
+ICAgIDIuMDUxNzI2XSBbZHJtXSBEaXNwbGF5IENvcmUgaW5pdGlhbGl6ZWQgd2l0aCB2My4yLjI3
+IQo+IFsgICAgMi4wNTkzMTNdIFtkcm1dIFNBRHMgY291bnQgaXM6IC0yLCBkb24ndCBuZWVkIHRv
+IHJlYWQgaXQKPiBbICAgIDIuMDg2Mjc0XSBbZHJtXSBTdXBwb3J0cyB2YmxhbmsgdGltZXN0YW1w
+IGNhY2hpbmcgUmV2IDIgKDIxLjEwLjIwMTMpLgo+IFsgICAgMi4wODYyNzZdIFtkcm1dIERyaXZl
+ciBzdXBwb3J0cyBwcmVjaXNlIHZibGFuayB0aW1lc3RhbXAgcXVlcnkuCj4gWyAgICAyLjExMjI4
+N10gW2RybV0gVVZEIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseS4KPiBbICAgIDIuMzExNTE2XSBb
+ZHJtXSBWQ0UgaW5pdGlhbGl6ZWQgc3VjY2Vzc2Z1bGx5Lgo+IFsgICAgMi4zMTU5MTBdIGtmZCBr
+ZmQ6IEFsbG9jYXRlZCAzOTY5MDU2IGJ5dGVzIG9uIGdhcnQKPiBbICAgIDIuMzE2MTMyXSBrZmQg
+a2ZkOiBhZGRlZCBkZXZpY2UgMTAwMjo5ODc0Cj4gLi4uCj4gWyAgICAyLjMxNzU4MF0gZmJjb246
+IGFtZGdwdWRybWZiIChmYjApIGlzIHByaW1hcnkgZGV2aWNlCj4gWyAgICAyLjM1MDUxM10gYW1k
+Z3B1IDAwMDA6MDA6MDEuMDogZmIwOiBhbWRncHVkcm1mYiBmcmFtZSBidWZmZXIgZGV2aWNlCj4g
+WyAgICAyLjM3MTkzOV0gW2RybV0gSW5pdGlhbGl6ZWQgYW1kZ3B1IDMuMzIuMCAyMDE1MDEwMSBm
+b3IgMDAwMDowMDowMS4wIG9uIG1pbm9yIDAKPiBbICAgIDIuMzcxOTk5XSBhbWRncHUgMDAwMDow
+MzowMC4wOiByZW1vdmVfY29uZmxpY3RpbmdfcGNpX2ZyYW1lYnVmZmVyczogYmFyIDA6IDB4YzAw
+MDAwMDAgLT4gMHhjZmZmZmZmZgo+IFsgICAgMi4zNzIwMDBdIGFtZGdwdSAwMDAwOjAzOjAwLjA6
+IHJlbW92ZV9jb25mbGljdGluZ19wY2lfZnJhbWVidWZmZXJzOiBiYXIgMjogMHhkMDAwMDAwMCAt
+PiAweGQwMWZmZmZmCj4gWyAgICAyLjM3MjAwMl0gYW1kZ3B1IDAwMDA6MDM6MDAuMDogcmVtb3Zl
+X2NvbmZsaWN0aW5nX3BjaV9mcmFtZWJ1ZmZlcnM6IGJhciA1OiAweGQxNDAwMDAwIC0+IDB4ZDE0
+M2ZmZmYKPiBbICAgIDIuMzcyMjEzXSBbZHJtXSBpbml0aWFsaXppbmcga2VybmVsIG1vZGVzZXR0
+aW5nIChQT0xBUklTMTIgMHgxMDAyOjB4Njk5RiAweDEwMjU6MHgxMjEwIDB4QzMpLgo+IC4uLgo+
+IFsgICAgMi4zNzI0NDhdIGtmZCBrZmQ6IHNraXBwZWQgZGV2aWNlIDEwMDI6Njk5ZiwgUENJIHJl
+amVjdHMgYXRvbWljcwo+IFsgICAgMi4zNzI0NjNdIFtkcm1dIFVWRCBpcyBlbmFibGVkIGluIFZN
+IG1vZGUKPiBbICAgIDIuMzcyNDYzXSBbZHJtXSBVVkQgRU5DIGlzIGVuYWJsZWQgaW4gVk0gbW9k
+ZQo+IFsgICAgMi4zNzI0NjddIFtkcm1dIFZDRSBlbmFibGVkIGluIFZNIG1vZGUKPiBbICAgIDIu
+NDg4NjMzXSBbZHJtXSBHUFUgcG9zdGluZyBub3cuLi4KPiBbICAgIDIuNTA3NzgzXSBbZHJtXSBS
+QVMgSU5GTzogcmFzIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseSwgaGFyZHdhcmUgYWJpbGl0eVsw
+XSByYXNfbWFza1swXQo+IFsgICAgMi41MDc3OTJdIFtkcm1dIHZtIHNpemUgaXMgNjQgR0IsIDIg
+bGV2ZWxzLCBibG9jayBzaXplIGlzIDEwLWJpdCwgZnJhZ21lbnQgc2l6ZSBpcyA5LWJpdAo+IFsg
+ICAgMi41MDc4NjBdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFZSQU06IDIwNDhNIDB4MDAwMDAwRjQw
+MDAwMDAwMCAtIDB4MDAwMDAwRjQ3RkZGRkZGRiAoMjA0OE0gdXNlZCkKPiBbICAgIDIuNTA3ODYy
+XSBhbWRncHUgMDAwMDowMzowMC4wOiBHQVJUOiAyNTZNIDB4MDAwMDAwRkYwMDAwMDAwMCAtIDB4
+MDAwMDAwRkYwRkZGRkZGRgo+IFsgICAgMi41MDc4NzZdIFtkcm1dIERldGVjdGVkIFZSQU0gUkFN
+PTIwNDhNLCBCQVI9MjU2TQo+IFsgICAgMi41MDc4NzZdIFtkcm1dIFJBTSB3aWR0aCAxMjhiaXRz
+IEdERFI1Cj4gWyAgICAyLjUwNzg5OV0gW2RybV0gYW1kZ3B1OiAyMDQ4TSBvZiBWUkFNIG1lbW9y
+eSByZWFkeQo+IFsgICAgMi41MDc5MDJdIFtkcm1dIGFtZGdwdTogMzA3Mk0gb2YgR1RUIG1lbW9y
+eSByZWFkeS4KPiBbICAgIDIuNTA3OTM0XSBbZHJtXSBHQVJUOiBudW0gY3B1IHBhZ2VzIDY1NTM2
+LCBudW0gZ3B1IHBhZ2VzIDY1NTM2Cj4gWyAgICAyLjUwODg0NF0gW2RybV0gUENJRSBHQVJUIG9m
+IDI1Nk0gZW5hYmxlZCAodGFibGUgYXQgMHgwMDAwMDBGNDAwMDAwMDAwKS4KPiBbICAgIDIuNTA4
+OTkyXSBbZHJtXSBDaGFpbmVkIElCIHN1cHBvcnQgZW5hYmxlZCEKPiBbICAgIDIuNTExMDIwXSBb
+ZHJtXSBGb3VuZCBVVkQgZmlybXdhcmUgVmVyc2lvbjogMS4xMzAgRmFtaWx5IElEOiAxNgo+IFsg
+ICAgMi41MTM0NzddIFtkcm1dIEZvdW5kIFZDRSBmaXJtd2FyZSBWZXJzaW9uOiA1Mi40IEJpbmFy
+eSBJRDogMwo+IFsgICAgMi41NzY0ODhdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1
+ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAgMi41
+NzY1MjFdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVh
+a2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAgMi41NzY1NDJdIGFtZGdwdTogW3Bv
+d2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBu
+b3QgcGF0Y2hlZAo+IFsgICAgMi41NzY1NjNdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2
+YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAg
+Mi41NzY1ODRdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEg
+TGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IFsgICAgMi41NzY2MDRdIGFtZGdwdTog
+W3Bvd2VycGxheV0gVm9sdGFnZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQn
+cyBub3QgcGF0Y2hlZAo+IFsgICAgMi41NzY2MjVdIGFtZGdwdTogW3Bvd2VycGxheV0gVm9sdGFn
+ZSB2YWx1ZSBsb29rcyBsaWtlIGEgTGVha2FnZSBJRCBidXQgaXQncyBub3QgcGF0Y2hlZAo+IC4u
+Lgo+IFsgICAgMi41OTAyOThdIFtkcm1dIERpc3BsYXkgQ29yZSBpbml0aWFsaXplZCB3aXRoIHYz
+LjIuMjchCj4gWyAgICAyLjU5MDM2N10gW2RybV0gU3VwcG9ydHMgdmJsYW5rIHRpbWVzdGFtcCBj
+YWNoaW5nIFJldiAyICgyMS4xMC4yMDEzKS4KPiBbICAgIDIuNTkwMzY4XSBbZHJtXSBEcml2ZXIg
+c3VwcG9ydHMgcHJlY2lzZSB2YmxhbmsgdGltZXN0YW1wIHF1ZXJ5Lgo+IFsgICAgMi42MTczMTBd
+IFtkcm1dIFVWRCBhbmQgVVZEIEVOQyBpbml0aWFsaXplZCBzdWNjZXNzZnVsbHkuCj4gWyAgICAy
+LjcyNzI0OV0gW2RybV0gVkNFIGluaXRpYWxpemVkIHN1Y2Nlc3NmdWxseS4KPiBbICAgIDIuNzM0
+OTA3XSBbZHJtXSBJbml0aWFsaXplZCBhbWRncHUgMy4zMi4wIDIwMTUwMTAxIGZvciAwMDAwOjAz
+OjAwLjAgb24gbWlub3IgMQo+IFsgICAgMy45MTE4MjZdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFtk
+cm06YW1kZ3B1X2liX3JpbmdfdGVzdHMgW2FtZGdwdV1dICpFUlJPUiogSUIgdGVzdCBmYWlsZWQg
+b24gdXZkICgtMTEwKS4KPiBbICAgIDQuMjM5ODI4XSBhbWRncHU6IFtwb3dlcnBsYXldCj4gICAg
+ICAgICAgICAgICAgIGZhaWxlZCB0byBzZW5kIG1lc3NhZ2UgMTViIHJldCBpcyAwCj4gWyAgICA0
+LjgzODA3Ml0gYW1kZ3B1OiBbcG93ZXJwbGF5XQo+ICAgICAgICAgICAgICAgICBsYXN0IG1lc3Nh
+Z2Ugd2FzIGZhaWxlZCByZXQgaXMgMAo+IFsgICAgNS4zMzk3NjFdIGFtZGdwdTogW3Bvd2VycGxh
+eV0KPiAgICAgICAgICAgICAgICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAxNWEgcmV0IGlzIDAK
+PiBbICAgIDUuODgzMTY5XSBhbWRncHU6IFtwb3dlcnBsYXldCj4gICAgICAgICAgICAgICAgIGxh
+c3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJldCBpcyAwCj4gWyAgICA2LjQyMDY1MV0gYW1kZ3B1OiBb
+cG93ZXJwbGF5XQo+ICAgICAgICAgICAgICAgICBmYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDE1NSBy
+ZXQgaXMgMAo+IFsgICAgNi40MjA3NzVdIGFtZGdwdSAwMDAwOjAzOjAwLjA6IFtkcm06YW1kZ3B1
+X2liX3JpbmdfdGVzdHMgW2FtZGdwdV1dICpFUlJPUiogSUIgdGVzdCBmYWlsZWQgb24gdmNlMCAo
+LTExMCkuCj4gWyAgICA2LjQyMDg2Ml0gW2RybTphbWRncHVfZGV2aWNlX2lwX2xhdGVfaW5pdF9m
+dW5jX2hhbmRsZXIgW2FtZGdwdV1dICpFUlJPUiogaWIgcmluZyB0ZXN0IGZhaWxlZCAoLTExMCku
+Cj4gWyAgICA2LjkyNTc0OF0gYW1kZ3B1OiBbcG93ZXJwbGF5XQo+ICAgICAgICAgICAgICAgICBs
+YXN0IG1lc3NhZ2Ugd2FzIGZhaWxlZCByZXQgaXMgMAo+IFsgICAgNy40MTk1MzldIGFtZGdwdTog
+W3Bvd2VycGxheV0KPiAgICAgICAgICAgICAgICAgZmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAxNWIg
+cmV0IGlzIDAKPiBbICAgMTEuNzI0MTIzXSBhbWRncHU6IFtwb3dlcnBsYXldCj4gICAgICAgICAg
+ICAgICAgIGxhc3QgbWVzc2FnZSB3YXMgZmFpbGVkIHJldCBpcyAwCj4KPiBhbmQgc28gb24gLi4u
+Cj4KPiBSZWdhcmRzLgo+Cj4gLS0KPiBZYW5uIERyb25lYXVkCj4gT1BURVlBCj4KPgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KS2VybmVsbmV3YmllcyBt
+YWlsaW5nIGxpc3QKS2VybmVsbmV3Ymllc0BrZXJuZWxuZXdiaWVzLm9yZwpodHRwczovL2xpc3Rz
+Lmtlcm5lbG5ld2JpZXMub3JnL21haWxtYW4vbGlzdGluZm8va2VybmVsbmV3Ymllcwo=
