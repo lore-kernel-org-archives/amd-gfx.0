@@ -1,95 +1,55 @@
-From: Dmitry Vyukov <dvyukov@google.com>
-Subject: Re: kernel panic: stack is corrupted in pointer
-Date: Wed, 24 Jul 2019 10:30:48 +0200
-Message-ID: <CACT4Y+ZbPmRB9T9ZzhE79VnKKD3+ieHeLpaDGRkcQ72nADKH_g@mail.gmail.com>
-References: <0000000000001a51c4058ddcb1b6@google.com> <CACT4Y+ZGwKP+f4esJdx60AywO9b3Y5Bxb4zLtH6EEkaHpP6Zag@mail.gmail.com>
- <5d37433a832d_3aba2ae4f6ec05bc3a@john-XPS-13-9370.notmuch>
+From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Subject: Re: [PATCH v4 14/23] drm/tilcdc: Provide ddc symlink in connector
+ sysfs directory
+Date: Wed, 24 Jul 2019 10:51:01 +0200
+Message-ID: <f051455a-3559-8f8e-cc76-1a6388b102b5@collabora.com>
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <d1d415022c598fb7acd033f0f322dd67250adaa9.1562843413.git.andrzej.p@collabora.com>
+ <20190723090532.GA787@ravnborg.org>
+ <3ad60be5-49cf-4017-4b74-53a2d6272deb@collabora.com>
+ <acfd895d-ab59-0190-e25c-1827bd8d214b@suse.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <5d37433a832d_3aba2ae4f6ec05bc3a@john-XPS-13-9370.notmuch>
+In-Reply-To: <acfd895d-ab59-0190-e25c-1827bd8d214b@suse.de>
+Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: John Fastabend <john.fastabend@gmail.com>
-Cc: syzbot <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com>, bpf <bpf@vger.kernel.org>, David Airlie <airlied@linux.ie>, alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, Alexei Starovoitov <ast@kernel.org>, christian.koenig@amd.com, Daniel Borkmann <daniel@iogearbox.net>, david1.zhou@amd.com, DRI <dri-devel@lists.freedesktop.org>, leo.liu@amd.com, LKML <linux-kernel@vger.kernel.org>, netdev <netdev@vger.kernel.org>, syzkaller-bugs <syzkaller-bugs@googlegroups.com>, Marco Elver <elver@google.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Sam Ravnborg <sam@ravnborg.org>
+Cc: Neil Armstrong <narmstrong@baylibre.com>, Maxime Ripard <maxime.ripard@bootlin.com>, dri-devel@lists.freedesktop.org, Douglas Anderson <dianders@chromium.org>, linux-tegra@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, kernel@collabora.com, linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, Dave Airlie <airlied@redhat.com>, freedreno@lists.freedesktop.org, Pengutronix Kernel Team <kernel@pengutronix.de>, Jonas
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Jul 23, 2019 at 7:26 PM John Fastabend <john.fastabend@gmail.com> wrote:
->
-> Dmitry Vyukov wrote:
-> > On Wed, Jul 17, 2019 at 10:58 AM syzbot
-> > <syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com> wrote:
-> > >
-> > > Hello,
-> > >
-> > > syzbot found the following crash on:
-> > >
-> > > HEAD commit:    1438cde7 Add linux-next specific files for 20190716
-> > > git tree:       linux-next
-> > > console output: https://syzkaller.appspot.com/x/log.txt?x=13988058600000
-> > > kernel config:  https://syzkaller.appspot.com/x/.config?x=3430a151e1452331
-> > > dashboard link: https://syzkaller.appspot.com/bug?extid=79f5f028005a77ecb6bb
-> > > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-> > > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=111fc8afa00000
-> >
-> > From the repro it looks like the same bpf stack overflow bug. +John
-> > We need to dup them onto some canonical report for this bug, or this
-> > becomes unmanageable.
->
-> Fixes in bpf tree should fix this. Hopefully, we will squash this once fixes
-> percolate up.
->
-> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/bpf/bpf.git
+Hi Thomas,
 
-Cool! What is the fix?
-We don't need to wait for the fix to percolate up (and then down
-too!). syzbot gracefully handles when a patch is not yet present
-everywhere (it happens all the time).
-
-Btw, this was due to a stack overflow, right? Or something else?
-We are trying to make KASAN configuration detect stack overflows too,
-so that it does not cause havoc next time. But it turns out to be
-non-trivial and our current attempt seems to fail:
-https://groups.google.com/forum/#!topic/kasan-dev/IhYv7QYhLfY
+W dniu 24.07.2019 o 10:01, Thomas Zimmermann pisze:
+> Hi
+> 
 
 
-> > #syz dup: kernel panic: corrupted stack end in dput
-> >
-> > > The bug was bisected to:
-> > >
-> > > commit 96a5d8d4915f3e241ebb48d5decdd110ab9c7dcf
-> > > Author: Leo Liu <leo.liu@amd.com>
-> > > Date:   Fri Jul 13 15:26:28 2018 +0000
-> > >
-> > >      drm/amdgpu: Make sure IB tests flushed after IP resume
-> > >
-> > > bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=14a46200600000
-> > > final crash:    https://syzkaller.appspot.com/x/report.txt?x=16a46200600000
-> > > console output: https://syzkaller.appspot.com/x/log.txt?x=12a46200600000
-> > >
-> > > IMPORTANT: if you fix the bug, please add the following tag to the commit:
-> > > Reported-by: syzbot+79f5f028005a77ecb6bb@syzkaller.appspotmail.com
-> > > Fixes: 96a5d8d4915f ("drm/amdgpu: Make sure IB tests flushed after IP
-> > > resume")
-> > >
-> > > Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in:
-> > > pointer+0x702/0x750 lib/vsprintf.c:2187
-> > > Shutting down cpus with NMI
-> > > Kernel Offset: disabled
-> > >
-> > >
-> > > ---
-> > > This bug is generated by a bot. It may contain errors.
-> > > See https://goo.gl/tpsmEJ for more information about syzbot.
-> > > syzbot engineers can be reached at syzkaller@googlegroups.com.
-> > >
-> > > syzbot will keep track of this bug report. See:
-> > > https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-> > > For information about bisection process see: https://goo.gl/tpsmEJ#bisection
-> > > syzbot can test patches for this bug, for details see:
-> > > https://goo.gl/tpsmEJ#testing-patches
->
->
-> --
-> You received this message because you are subscribed to the Google Groups "syzkaller-bugs" group.
-> To unsubscribe from this group and stop receiving emails from it, send an email to syzkaller-bugs+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit https://groups.google.com/d/msgid/syzkaller-bugs/5d37433a832d_3aba2ae4f6ec05bc3a%40john-XPS-13-9370.notmuch.
+> 
+> I think this echoes my concern about the implicit order of operation. It
+> seems too easy to get this wrong. If you don't want to add an additional
+> interface for setting the ddc field, why not add a dedicated initializer
+> function that sets the ddc field? Something like this.
+> 
+> int drm_connector_init_with_ddc(connector, funcs, ..., ddc)
+> {
+> 	ret = drm_connector_init(connector, funcs, ...);
+> 	if (ret)
+> 		return ret;
+> 
+> 	if (!ddc)
+> 		return 0;
+> 
+> 	connector->ddc = ddc;
+> 	/* set up sysfs */
+> 
+> 	return 0;
+> }
+> 
+
+True. I will send a v5 soon.
+
+Thanks,
+
+Andrzej
