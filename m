@@ -1,63 +1,51 @@
-From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Subject: [PATCH v5 08/24] drm/mediatek: Provide ddc symlink in hdmi connector
- sysfs directory
-Date: Wed, 24 Jul 2019 15:59:30 +0200
-Message-ID: <5dbf162d824f9b6909b2a203aa050ccab05ae155.1563960855.git.andrzej.p@collabora.com>
-References: <cover.1563960855.git.andrzej.p@collabora.com>
+From: Will Deacon <will@kernel.org>
+Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
+Date: Wed, 24 Jul 2019 15:02:12 +0100
+Message-ID: <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
+References: <cover.1563904656.git.andreyknvl@google.com>
+ <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <cover.1563960855.git.andrzej.p@collabora.com>
-In-Reply-To: <cover.1563960855.git.andrzej.p@collabora.com>
-References: <cover.1563960855.git.andrzej.p@collabora.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org
-Cc: Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>, Douglas Anderson <dianders@chromium.org>, Thierry Reding <thierry.reding@gmail.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Armijn Hemel <armijn@tjaldur.nl>, kernel@collabora.com, linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, Dave Airlie <airlied@redhat.com>, intel-gfx@lists.freedesktop.org, freedreno@lists.freedesktop.org, linux-tegra@vger.kernel.org, Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org, Mamta Shukla <mamtashukla555@gmail.com>, linux-mediatek@l
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Dave
 List-Id: amd-gfx.lists.freedesktop.org
 
-VXNlIHRoZSBkZGMgcG9pbnRlciBwcm92aWRlZCBieSB0aGUgZ2VuZXJpYyBjb25uZWN0b3IuCgpT
-aWduZWQtb2ZmLWJ5OiBBbmRyemVqIFBpZXRyYXNpZXdpY3ogPGFuZHJ6ZWoucEBjb2xsYWJvcmEu
-Y29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfaGRtaS5jIHwgMTYgKysrKysr
-KystLS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgOCBkZWxldGlvbnMo
-LSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2hkbWkuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfaGRtaS5jCmluZGV4IGNlOTFiNjEzNjRlYi4uY2M0
-YWI4YjA3MGE0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2hkbWku
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2hkbWkuYwpAQCAtMTUwLDcgKzE1
-MCw2IEBAIHN0cnVjdCBtdGtfaGRtaSB7CiAJc3RydWN0IGRldmljZSAqZGV2OwogCXN0cnVjdCBw
-aHkgKnBoeTsKIAlzdHJ1Y3QgZGV2aWNlICpjZWNfZGV2OwotCXN0cnVjdCBpMmNfYWRhcHRlciAq
-ZGRjX2FkcHQ7CiAJc3RydWN0IGNsayAqY2xrW01US19IRE1JX0NMS19DT1VOVF07CiAJc3RydWN0
-IGRybV9kaXNwbGF5X21vZGUgbW9kZTsKIAlib29sIGR2aV9tb2RlOwpAQCAtMTIxNywxMCArMTIx
-NiwxMCBAQCBzdGF0aWMgaW50IG10a19oZG1pX2Nvbm5fZ2V0X21vZGVzKHN0cnVjdCBkcm1fY29u
-bmVjdG9yICpjb25uKQogCXN0cnVjdCBlZGlkICplZGlkOwogCWludCByZXQ7CiAKLQlpZiAoIWhk
-bWktPmRkY19hZHB0KQorCWlmICghY29ubi0+ZGRjKQogCQlyZXR1cm4gLUVOT0RFVjsKIAotCWVk
-aWQgPSBkcm1fZ2V0X2VkaWQoY29ubiwgaGRtaS0+ZGRjX2FkcHQpOworCWVkaWQgPSBkcm1fZ2V0
-X2VkaWQoY29ubiwgY29ubi0+ZGRjKTsKIAlpZiAoIWVkaWQpCiAJCXJldHVybiAtRU5PREVWOwog
-CkBAIC0xMjk5LDkgKzEyOTgsMTAgQEAgc3RhdGljIGludCBtdGtfaGRtaV9icmlkZ2VfYXR0YWNo
-KHN0cnVjdCBkcm1fYnJpZGdlICpicmlkZ2UpCiAJc3RydWN0IG10a19oZG1pICpoZG1pID0gaGRt
-aV9jdHhfZnJvbV9icmlkZ2UoYnJpZGdlKTsKIAlpbnQgcmV0OwogCi0JcmV0ID0gZHJtX2Nvbm5l
-Y3Rvcl9pbml0KGJyaWRnZS0+ZW5jb2Rlci0+ZGV2LCAmaGRtaS0+Y29ubiwKLQkJCQkgJm10a19o
-ZG1pX2Nvbm5lY3Rvcl9mdW5jcywKLQkJCQkgRFJNX01PREVfQ09OTkVDVE9SX0hETUlBKTsKKwly
-ZXQgPSBkcm1fY29ubmVjdG9yX2luaXRfd2l0aF9kZGMoYnJpZGdlLT5lbmNvZGVyLT5kZXYsICZo
-ZG1pLT5jb25uLAorCQkJCQkgICZtdGtfaGRtaV9jb25uZWN0b3JfZnVuY3MsCisJCQkJCSAgRFJN
-X01PREVfQ09OTkVDVE9SX0hETUlBLAorCQkJCQkgIGhkbWktPmNvbm4uZGRjKTsKIAlpZiAocmV0
-KSB7CiAJCWRldl9lcnIoaGRtaS0+ZGV2LCAiRmFpbGVkIHRvIGluaXRpYWxpemUgY29ubmVjdG9y
-OiAlZFxuIiwgcmV0KTsKIAkJcmV0dXJuIHJldDsKQEAgLTE1MTMsOSArMTUxMyw5IEBAIHN0YXRp
-YyBpbnQgbXRrX2hkbWlfZHRfcGFyc2VfcGRhdGEoc3RydWN0IG10a19oZG1pICpoZG1pLAogCX0K
-IAlvZl9ub2RlX3B1dChyZW1vdGUpOwogCi0JaGRtaS0+ZGRjX2FkcHQgPSBvZl9maW5kX2kyY19h
-ZGFwdGVyX2J5X25vZGUoaTJjX25wKTsKKwloZG1pLT5jb25uLmRkYyA9IG9mX2ZpbmRfaTJjX2Fk
-YXB0ZXJfYnlfbm9kZShpMmNfbnApOwogCW9mX25vZGVfcHV0KGkyY19ucCk7Ci0JaWYgKCFoZG1p
-LT5kZGNfYWRwdCkgeworCWlmICghaGRtaS0+Y29ubi5kZGMpIHsKIAkJZGV2X2VycihkZXYsICJG
-YWlsZWQgdG8gZ2V0IGRkYyBpMmMgYWRhcHRlciBieSBub2RlXG4iKTsKIAkJcmV0dXJuIC1FSU5W
-QUw7CiAJfQotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9k
-cmktZGV2ZWw=
+Hi Andrey,
+
+On Tue, Jul 23, 2019 at 08:03:29PM +0200, Andrey Konovalov wrote:
+> On Tue, Jul 23, 2019 at 7:59 PM Andrey Konovalov <andreyknvl@google.com> wrote:
+> >
+> > === Overview
+> >
+> > arm64 has a feature called Top Byte Ignore, which allows to embed pointer
+> > tags into the top byte of each pointer. Userspace programs (such as
+> > HWASan, a memory debugging tool [1]) might use this feature and pass
+> > tagged user pointers to the kernel through syscalls or other interfaces.
+> >
+> > Right now the kernel is already able to handle user faults with tagged
+> > pointers, due to these patches:
+> >
+> > 1. 81cddd65 ("arm64: traps: fix userspace cache maintenance emulation on a
+> >              tagged pointer")
+> > 2. 7dcd9dd8 ("arm64: hw_breakpoint: fix watchpoint matching for tagged
+> >               pointers")
+> > 3. 276e9327 ("arm64: entry: improve data abort handling of tagged
+> >               pointers")
+> >
+> > This patchset extends tagged pointer support to syscall arguments.
+
+[...]
+
+> Do you think this is ready to be merged?
+> 
+> Should this go through the mm or the arm tree?
+
+I would certainly prefer to take at least the arm64 bits via the arm64 tree
+(i.e. patches 1, 2 and 15). We also need a Documentation patch describing
+the new ABI.
+
+Will
