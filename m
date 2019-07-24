@@ -1,73 +1,60 @@
-From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v3 3/3] drm/amd: enable S/G for RAVEN chip
-Date: Wed, 24 Jul 2019 10:10:42 -0400
-Message-ID: <1563977442-4809-4-git-send-email-andrey.grodzovsky@amd.com>
-References: <1563977442-4809-1-git-send-email-andrey.grodzovsky@amd.com>
+From: Andrey Konovalov <andreyknvl@google.com>
+Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
+Date: Wed, 24 Jul 2019 16:16:49 +0200
+Message-ID: <CAAeHK+xXzdQHpVXL7f1T2Ef2P7GwFmDMSaBH4VG8fT3=c_OnjQ@mail.gmail.com>
+References: <cover.1563904656.git.andreyknvl@google.com> <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
+ <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1563977442-4809-1-git-send-email-andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, hersenxs.wu-5C7GfCeVMHo@public.gmane.org, Christian.Koenig-5C7GfCeVMHo@public.gmane.org, shirish.s-5C7GfCeVMHo@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Will Deacon <will@kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugen>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogU2hpcmlzaCBTIDxzaGlyaXNoLnNAYW1kLmNvbT4KCmVuYWJsZXMgZ3B1X3ZtX3N1cHBv
-cnQgaW4gZG0gYW5kIGFkZHMKQU1ER1BVX0dFTV9ET01BSU5fR1RUIGFzIHN1cHBvcnRlZCBkb21h
-aW4KCnYyOgpNb3ZlIEJPIHBsYWNlbWVudCBsb2dpYyBpbnRvIGFtZGdwdV9kaXNwbGF5X3N1cHBv
-cnRlZF9kb21haW5zCgp2MzoKVXNlIGFtZGdwdV9ib192YWxpZGF0ZV91c3djIGluIGFtZGdwdV9k
-aXNwbGF5X3N1cHBvcnRlZF9kb21haW5zLgoKQ2hhbmdlLUlkOiBJZjM0MzAwYmVhYTYwYmUyZDM2
-MTcwYjdiNWIwOTZlYzY0NDUwMmIyMApTaWduZWQtb2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2gu
-c0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5Lmdyb2R6
-b3Zza3lAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlz
-cGxheS5jICAgICAgIHwgMTYgKysrKysrKysrKysrKystLQogZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYyB8ICAyICstCiAyIGZpbGVzIGNoYW5nZWQsIDE1
-IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kaXNwbGF5LmMKaW5kZXggNzY3ZWU2OTkuLjIzYjgwNDYgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMKKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rpc3BsYXkuYwpAQCAtMzcsNiArMzcsNyBAQAog
-I2luY2x1ZGUgPGRybS9kcm1fZWRpZC5oPgogI2luY2x1ZGUgPGRybS9kcm1fZ2VtX2ZyYW1lYnVm
-ZmVyX2hlbHBlci5oPgogI2luY2x1ZGUgPGRybS9kcm1fZmJfaGVscGVyLmg+CisjaW5jbHVkZSA8
-ZHJtL2RybV9jYWNoZS5oPgogCiBzdGF0aWMgdm9pZCBhbWRncHVfZGlzcGxheV9mbGlwX2NhbGxi
-YWNrKHN0cnVjdCBkbWFfZmVuY2UgKmYsCiAJCQkJCSBzdHJ1Y3QgZG1hX2ZlbmNlX2NiICpjYikK
-QEAgLTQ5NiwxMCArNDk3LDIxIEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHJtX2ZyYW1lYnVmZmVy
-X2Z1bmNzIGFtZGdwdV9mYl9mdW5jcyA9IHsKIHVpbnQzMl90IGFtZGdwdV9kaXNwbGF5X3N1cHBv
-cnRlZF9kb21haW5zKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogewogCXVpbnQzMl90IGRv
-bWFpbiA9IEFNREdQVV9HRU1fRE9NQUlOX1ZSQU07CisJdTY0IHVzd2NfZmxhZyA9IEFNREdQVV9H
-RU1fQ1JFQVRFX0NQVV9HVFRfVVNXQzsKIAogI2lmIGRlZmluZWQoQ09ORklHX0RSTV9BTURfREMp
-Ci0JaWYgKGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX0NBUlJJWk8gJiYgYWRldi0+YXNpY190eXBl
-IDwgQ0hJUF9SQVZFTiAmJgotCSAgICBhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUgJiYKKwkvKgor
-CSAqIGlmIGFtZGdwdV9ib192YWxpZGF0ZV91c3djIGNsZWFycyBBTURHUFVfR0VNX0NSRUFURV9D
-UFVfR1RUX1VTV0MgaXQKKwkgKiBtZWFucyB0aGF0IFVTV0MgbWFwcGluZ3MKKwkgKiBpcyBub3Qg
-c3VwcG9ydGVkIGZvciB0aGlzIGJvYXJkLiBCdXQgdGhpcyBtYXBwaW5nIGlzIHJlcXVpcmVkCisJ
-ICogdG8gYXZvaWQgaGFuZyBjYXVzZWQgYnkgcGxhY2VtZW50IG9mIHNjYW5vdXQgQk8gaW4gR1RU
-IG9uIGNlcnRhaW4KKwkgKiBBUFVzLiBTbyBmb3JjZSB0aGUgQk8gcGxhY2VtZW50IHRvIFZSQU0g
-aW4gY2FzZSB0aGlzIGFyY2hpdGVjdHVyZQorCSAqIHdpbGwgbm90IGFsbG93IFVTV0MgbWFwcGlu
-Z3MuCisJICovCisJYW1kZ3B1X2JvX3ZhbGlkYXRlX3Vzd2MoJnVzd2NfZmxhZyk7CisKKwlpZiAo
-YWRldi0+YXNpY190eXBlID49IENISVBfQ0FSUklaTyAmJiBhZGV2LT5hc2ljX3R5cGUgPD0gQ0hJ
-UF9SQVZFTiAmJgorCSAgICBhZGV2LT5mbGFncyAmIEFNRF9JU19BUFUgJiYgdXN3Y19mbGFnICYm
-CiAJICAgIGFtZGdwdV9kZXZpY2VfYXNpY19oYXNfZGNfc3VwcG9ydChhZGV2LT5hc2ljX3R5cGUp
-KQogCQlkb21haW4gfD0gQU1ER1BVX0dFTV9ET01BSU5fR1RUOwogI2VuZGlmCmRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwppbmRleCA0OTIy
-NTg5Li5mMDM4N2NlMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2Ft
-ZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1k
-Z3B1X2RtL2FtZGdwdV9kbS5jCkBAIC02ODYsNyArNjg2LDcgQEAgc3RhdGljIGludCBhbWRncHVf
-ZG1faW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIAkgKi8KIAlpZiAoYWRldi0+Zmxh
-Z3MgJiBBTURfSVNfQVBVICYmCiAJICAgIGFkZXYtPmFzaWNfdHlwZSA+PSBDSElQX0NBUlJJWk8g
-JiYKLQkgICAgYWRldi0+YXNpY190eXBlIDwgQ0hJUF9SQVZFTikKKwkgICAgYWRldi0+YXNpY190
-eXBlIDw9IENISVBfUkFWRU4pCiAJCWluaXRfZGF0YS5mbGFncy5ncHVfdm1fc3VwcG9ydCA9IHRy
-dWU7CiAKIAlpZiAoYW1kZ3B1X2RjX2ZlYXR1cmVfbWFzayAmIERDX0ZCQ19NQVNLKQotLSAKMi43
-LjQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
-ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On Wed, Jul 24, 2019 at 4:02 PM Will Deacon <will@kernel.org> wrote:
+>
+> Hi Andrey,
+>
+> On Tue, Jul 23, 2019 at 08:03:29PM +0200, Andrey Konovalov wrote:
+> > On Tue, Jul 23, 2019 at 7:59 PM Andrey Konovalov <andreyknvl@google.com> wrote:
+> > >
+> > > === Overview
+> > >
+> > > arm64 has a feature called Top Byte Ignore, which allows to embed pointer
+> > > tags into the top byte of each pointer. Userspace programs (such as
+> > > HWASan, a memory debugging tool [1]) might use this feature and pass
+> > > tagged user pointers to the kernel through syscalls or other interfaces.
+> > >
+> > > Right now the kernel is already able to handle user faults with tagged
+> > > pointers, due to these patches:
+> > >
+> > > 1. 81cddd65 ("arm64: traps: fix userspace cache maintenance emulation on a
+> > >              tagged pointer")
+> > > 2. 7dcd9dd8 ("arm64: hw_breakpoint: fix watchpoint matching for tagged
+> > >               pointers")
+> > > 3. 276e9327 ("arm64: entry: improve data abort handling of tagged
+> > >               pointers")
+> > >
+> > > This patchset extends tagged pointer support to syscall arguments.
+>
+> [...]
+>
+> > Do you think this is ready to be merged?
+> >
+> > Should this go through the mm or the arm tree?
+>
+> I would certainly prefer to take at least the arm64 bits via the arm64 tree
+> (i.e. patches 1, 2 and 15). We also need a Documentation patch describing
+> the new ABI.
+
+Sounds good! Should I post those patches together with the
+Documentation patches from Vincenzo as a separate patchset?
+
+Vincenzo, could you share the last version of the Documentation patches?
+
+Thanks!
+
+>
+> Will
