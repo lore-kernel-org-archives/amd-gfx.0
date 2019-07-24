@@ -1,51 +1,111 @@
-From: Will Deacon <will@kernel.org>
-Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
-Date: Wed, 24 Jul 2019 15:02:12 +0100
-Message-ID: <20190724140212.qzvbcx5j2gi5lcoj@willie-the-truck>
-References: <cover.1563904656.git.andreyknvl@google.com>
- <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
+From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+Subject: [PATCH v5 09/24] drm/tegra: Provide ddc symlink in
+ output connector sysfs directory
+Date: Wed, 24 Jul 2019 15:59:31 +0200
+Message-ID: <fe644059eb44b16733999d7541934a8e502f249f.1563960855.git.andrzej.p@collabora.com>
+References: <cover.1563960855.git.andrzej.p@collabora.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CAAeHK+yc0D_nd7nTRsY4=qcSx+eQR0VLut3uXMf4NEiE-VpeCw@mail.gmail.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, Kostya Serebryany <kcc@google.com>, Khalid Aziz <khalid.aziz@oracle.com>, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Dave
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+In-Reply-To: <cover.1563960855.git.andrzej.p@collabora.com>
+In-Reply-To: <cover.1563960855.git.andrzej.p@collabora.com>
+References: <cover.1563960855.git.andrzej.p@collabora.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: dri-devel@lists.freedesktop.org
+Cc: "Y.C. Chen" <yc_chen@aspeedtech.com>, =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>, Sam Ravnborg <sam@ravnborg.org>, Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>, Douglas Anderson <dianders@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, kernel@collabora.com, Fabio Estevam <festevam@gmail.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, Joonyoung Shim <jy0922.shim@samsung.com>, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-Hi Andrey,
-
-On Tue, Jul 23, 2019 at 08:03:29PM +0200, Andrey Konovalov wrote:
-> On Tue, Jul 23, 2019 at 7:59 PM Andrey Konovalov <andreyknvl@google.com> wrote:
-> >
-> > === Overview
-> >
-> > arm64 has a feature called Top Byte Ignore, which allows to embed pointer
-> > tags into the top byte of each pointer. Userspace programs (such as
-> > HWASan, a memory debugging tool [1]) might use this feature and pass
-> > tagged user pointers to the kernel through syscalls or other interfaces.
-> >
-> > Right now the kernel is already able to handle user faults with tagged
-> > pointers, due to these patches:
-> >
-> > 1. 81cddd65 ("arm64: traps: fix userspace cache maintenance emulation on a
-> >              tagged pointer")
-> > 2. 7dcd9dd8 ("arm64: hw_breakpoint: fix watchpoint matching for tagged
-> >               pointers")
-> > 3. 276e9327 ("arm64: entry: improve data abort handling of tagged
-> >               pointers")
-> >
-> > This patchset extends tagged pointer support to syscall arguments.
-
-[...]
-
-> Do you think this is ready to be merged?
-> 
-> Should this go through the mm or the arm tree?
-
-I would certainly prefer to take at least the arm64 bits via the arm64 tree
-(i.e. patches 1, 2 and 15). We also need a Documentation patch describing
-the new ABI.
-
-Will
+VXNlIHRoZSBkZGMgcG9pbnRlciBwcm92aWRlZCBieSB0aGUgZ2VuZXJpYyBjb25uZWN0b3IuCgpT
+aWduZWQtb2ZmLWJ5OiBBbmRyemVqIFBpZXRyYXNpZXdpY3ogPGFuZHJ6ZWoucEBjb2xsYWJvcmEu
+Y29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS90ZWdyYS9kcm0uaCAgICB8ICAxIC0KIGRyaXZlcnMv
+Z3B1L2RybS90ZWdyYS9oZG1pLmMgICB8ICA3ICsrKystLS0KIGRyaXZlcnMvZ3B1L2RybS90ZWdy
+YS9vdXRwdXQuYyB8IDEyICsrKysrKy0tLS0tLQogZHJpdmVycy9ncHUvZHJtL3RlZ3JhL3Nvci5j
+ICAgIHwgMTMgKysrKysrKy0tLS0tLQogNCBmaWxlcyBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCsp
+LCAxNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvZHJt
+LmggYi9kcml2ZXJzL2dwdS9kcm0vdGVncmEvZHJtLmgKaW5kZXggODZkYWExOWZjZjI0Li45YmY3
+MmJjZDNlYzEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS90ZWdyYS9kcm0uaAorKysgYi9k
+cml2ZXJzL2dwdS9kcm0vdGVncmEvZHJtLmgKQEAgLTEyMCw3ICsxMjAsNiBAQCBzdHJ1Y3QgdGVn
+cmFfb3V0cHV0IHsKIAlzdHJ1Y3QgZGV2aWNlICpkZXY7CiAKIAlzdHJ1Y3QgZHJtX3BhbmVsICpw
+YW5lbDsKLQlzdHJ1Y3QgaTJjX2FkYXB0ZXIgKmRkYzsKIAljb25zdCBzdHJ1Y3QgZWRpZCAqZWRp
+ZDsKIAlzdHJ1Y3QgY2VjX25vdGlmaWVyICpjZWM7CiAJdW5zaWduZWQgaW50IGhwZF9pcnE7CmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvaGRtaS5jIGIvZHJpdmVycy9ncHUvZHJt
+L3RlZ3JhL2hkbWkuYwppbmRleCAzMzRjNGQ3ZDIzOGIuLmFhYzg3MTg0N2JlNCAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL2hkbWkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdGVn
+cmEvaGRtaS5jCkBAIC0xNDI1LDkgKzE0MjUsMTAgQEAgc3RhdGljIGludCB0ZWdyYV9oZG1pX2lu
+aXQoc3RydWN0IGhvc3QxeF9jbGllbnQgKmNsaWVudCkKIAogCWhkbWktPm91dHB1dC5kZXYgPSBj
+bGllbnQtPmRldjsKIAotCWRybV9jb25uZWN0b3JfaW5pdChkcm0sICZoZG1pLT5vdXRwdXQuY29u
+bmVjdG9yLAotCQkJICAgJnRlZ3JhX2hkbWlfY29ubmVjdG9yX2Z1bmNzLAotCQkJICAgRFJNX01P
+REVfQ09OTkVDVE9SX0hETUlBKTsKKwlkcm1fY29ubmVjdG9yX2luaXRfd2l0aF9kZGMoZHJtLCAm
+aGRtaS0+b3V0cHV0LmNvbm5lY3RvciwKKwkJCQkgICAgJnRlZ3JhX2hkbWlfY29ubmVjdG9yX2Z1
+bmNzLAorCQkJCSAgICBEUk1fTU9ERV9DT05ORUNUT1JfSERNSUEsCisJCQkJICAgIGhkbWktPm91
+dHB1dC5jb25uZWN0b3IuZGRjKTsKIAlkcm1fY29ubmVjdG9yX2hlbHBlcl9hZGQoJmhkbWktPm91
+dHB1dC5jb25uZWN0b3IsCiAJCQkJICZ0ZWdyYV9oZG1pX2Nvbm5lY3Rvcl9oZWxwZXJfZnVuY3Mp
+OwogCWhkbWktPm91dHB1dC5jb25uZWN0b3IuZHBtcyA9IERSTV9NT0RFX0RQTVNfT0ZGOwpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3RlZ3JhL291dHB1dC5jIGIvZHJpdmVycy9ncHUvZHJt
+L3RlZ3JhL291dHB1dC5jCmluZGV4IDI3NGNiOTU1ZTJlMS4uMGI1MDM3YTI5YzYzIDEwMDY0NAot
+LS0gYS9kcml2ZXJzL2dwdS9kcm0vdGVncmEvb3V0cHV0LmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
+L3RlZ3JhL291dHB1dC5jCkBAIC0zMCw4ICszMCw4IEBAIGludCB0ZWdyYV9vdXRwdXRfY29ubmVj
+dG9yX2dldF9tb2RlcyhzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQogCiAJaWYgKG91
+dHB1dC0+ZWRpZCkKIAkJZWRpZCA9IGttZW1kdXAob3V0cHV0LT5lZGlkLCBzaXplb2YoKmVkaWQp
+LCBHRlBfS0VSTkVMKTsKLQllbHNlIGlmIChvdXRwdXQtPmRkYykKLQkJZWRpZCA9IGRybV9nZXRf
+ZWRpZChjb25uZWN0b3IsIG91dHB1dC0+ZGRjKTsKKwllbHNlIGlmIChjb25uZWN0b3ItPmRkYykK
+KwkJZWRpZCA9IGRybV9nZXRfZWRpZChjb25uZWN0b3IsIGNvbm5lY3Rvci0+ZGRjKTsKIAogCWNl
+Y19ub3RpZmllcl9zZXRfcGh5c19hZGRyX2Zyb21fZWRpZChvdXRwdXQtPmNlYywgZWRpZCk7CiAJ
+ZHJtX2Nvbm5lY3Rvcl91cGRhdGVfZWRpZF9wcm9wZXJ0eShjb25uZWN0b3IsIGVkaWQpOwpAQCAt
+MTExLDggKzExMSw4IEBAIGludCB0ZWdyYV9vdXRwdXRfcHJvYmUoc3RydWN0IHRlZ3JhX291dHB1
+dCAqb3V0cHV0KQogCiAJZGRjID0gb2ZfcGFyc2VfcGhhbmRsZShvdXRwdXQtPm9mX25vZGUsICJu
+dmlkaWEsZGRjLWkyYy1idXMiLCAwKTsKIAlpZiAoZGRjKSB7Ci0JCW91dHB1dC0+ZGRjID0gb2Zf
+ZmluZF9pMmNfYWRhcHRlcl9ieV9ub2RlKGRkYyk7Ci0JCWlmICghb3V0cHV0LT5kZGMpIHsKKwkJ
+b3V0cHV0LT5jb25uZWN0b3IuZGRjID0gb2ZfZmluZF9pMmNfYWRhcHRlcl9ieV9ub2RlKGRkYyk7
+CisJCWlmICghb3V0cHV0LT5jb25uZWN0b3IuZGRjKSB7CiAJCQllcnIgPSAtRVBST0JFX0RFRkVS
+OwogCQkJb2Zfbm9kZV9wdXQoZGRjKTsKIAkJCXJldHVybiBlcnI7CkBAIC0xNzQsOCArMTc0LDgg
+QEAgdm9pZCB0ZWdyYV9vdXRwdXRfcmVtb3ZlKHN0cnVjdCB0ZWdyYV9vdXRwdXQgKm91dHB1dCkK
+IAlpZiAob3V0cHV0LT5ocGRfZ3BpbykKIAkJZnJlZV9pcnEob3V0cHV0LT5ocGRfaXJxLCBvdXRw
+dXQpOwogCi0JaWYgKG91dHB1dC0+ZGRjKQotCQlwdXRfZGV2aWNlKCZvdXRwdXQtPmRkYy0+ZGV2
+KTsKKwlpZiAob3V0cHV0LT5jb25uZWN0b3IuZGRjKQorCQlwdXRfZGV2aWNlKCZvdXRwdXQtPmNv
+bm5lY3Rvci5kZGMtPmRldik7CiB9CiAKIGludCB0ZWdyYV9vdXRwdXRfaW5pdChzdHJ1Y3QgZHJt
+X2RldmljZSAqZHJtLCBzdHJ1Y3QgdGVncmFfb3V0cHV0ICpvdXRwdXQpCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vdGVncmEvc29yLmMgYi9kcml2ZXJzL2dwdS9kcm0vdGVncmEvc29yLmMK
+aW5kZXggNGZmZTM3OTRlNmQzLi42M2I2Y2ZiYmQxN2UgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS90ZWdyYS9zb3IuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vdGVncmEvc29yLmMKQEAgLTIz
+MTEsNyArMjMxMSw3IEBAIHN0YXRpYyB2b2lkIHRlZ3JhX3Nvcl9oZG1pX2Rpc2FibGVfc2NyYW1i
+bGluZyhzdHJ1Y3QgdGVncmFfc29yICpzb3IpCiAKIHN0YXRpYyB2b2lkIHRlZ3JhX3Nvcl9oZG1p
+X3NjZGNfZGlzYWJsZShzdHJ1Y3QgdGVncmFfc29yICpzb3IpCiB7Ci0Jc3RydWN0IGkyY19hZGFw
+dGVyICpkZGMgPSBzb3ItPm91dHB1dC5kZGM7CisJc3RydWN0IGkyY19hZGFwdGVyICpkZGMgPSBz
+b3ItPm91dHB1dC5jb25uZWN0b3IuZGRjOwogCiAJZHJtX3NjZGNfc2V0X2hpZ2hfdG1kc19jbG9j
+a19yYXRpbyhkZGMsIGZhbHNlKTsKIAlkcm1fc2NkY19zZXRfc2NyYW1ibGluZyhkZGMsIGZhbHNl
+KTsKQEAgLTIzMzksNyArMjMzOSw3IEBAIHN0YXRpYyB2b2lkIHRlZ3JhX3Nvcl9oZG1pX2VuYWJs
+ZV9zY3JhbWJsaW5nKHN0cnVjdCB0ZWdyYV9zb3IgKnNvcikKIAogc3RhdGljIHZvaWQgdGVncmFf
+c29yX2hkbWlfc2NkY19lbmFibGUoc3RydWN0IHRlZ3JhX3NvciAqc29yKQogewotCXN0cnVjdCBp
+MmNfYWRhcHRlciAqZGRjID0gc29yLT5vdXRwdXQuZGRjOworCXN0cnVjdCBpMmNfYWRhcHRlciAq
+ZGRjID0gc29yLT5vdXRwdXQuY29ubmVjdG9yLmRkYzsKIAogCWRybV9zY2RjX3NldF9oaWdoX3Rt
+ZHNfY2xvY2tfcmF0aW8oZGRjLCB0cnVlKTsKIAlkcm1fc2NkY19zZXRfc2NyYW1ibGluZyhkZGMs
+IHRydWUpOwpAQCAtMjM1MCw3ICsyMzUwLDcgQEAgc3RhdGljIHZvaWQgdGVncmFfc29yX2hkbWlf
+c2NkY19lbmFibGUoc3RydWN0IHRlZ3JhX3NvciAqc29yKQogc3RhdGljIHZvaWQgdGVncmFfc29y
+X2hkbWlfc2NkY193b3JrKHN0cnVjdCB3b3JrX3N0cnVjdCAqd29yaykKIHsKIAlzdHJ1Y3QgdGVn
+cmFfc29yICpzb3IgPSBjb250YWluZXJfb2Yod29yaywgc3RydWN0IHRlZ3JhX3Nvciwgc2NkYy53
+b3JrKTsKLQlzdHJ1Y3QgaTJjX2FkYXB0ZXIgKmRkYyA9IHNvci0+b3V0cHV0LmRkYzsKKwlzdHJ1
+Y3QgaTJjX2FkYXB0ZXIgKmRkYyA9IHNvci0+b3V0cHV0LmNvbm5lY3Rvci5kZGM7CiAKIAlpZiAo
+IWRybV9zY2RjX2dldF9zY3JhbWJsaW5nX3N0YXR1cyhkZGMpKSB7CiAJCURSTV9ERUJVR19LTVMo
+IlNDREMgbm90IHNjcmFtYmxlZFxuIik7CkBAIC0yODMyLDkgKzI4MzIsMTAgQEAgc3RhdGljIGlu
+dCB0ZWdyYV9zb3JfaW5pdChzdHJ1Y3QgaG9zdDF4X2NsaWVudCAqY2xpZW50KQogCiAJc29yLT5v
+dXRwdXQuZGV2ID0gc29yLT5kZXY7CiAKLQlkcm1fY29ubmVjdG9yX2luaXQoZHJtLCAmc29yLT5v
+dXRwdXQuY29ubmVjdG9yLAotCQkJICAgJnRlZ3JhX3Nvcl9jb25uZWN0b3JfZnVuY3MsCi0JCQkg
+ICBjb25uZWN0b3IpOworCWRybV9jb25uZWN0b3JfaW5pdF93aXRoX2RkYyhkcm0sICZzb3ItPm91
+dHB1dC5jb25uZWN0b3IsCisJCQkJICAgICZ0ZWdyYV9zb3JfY29ubmVjdG9yX2Z1bmNzLAorCQkJ
+CSAgICBjb25uZWN0b3IsCisJCQkJICAgIHNvci0+b3V0cHV0LmNvbm5lY3Rvci5kZGMpOwogCWRy
+bV9jb25uZWN0b3JfaGVscGVyX2FkZCgmc29yLT5vdXRwdXQuY29ubmVjdG9yLAogCQkJCSAmdGVn
+cmFfc29yX2Nvbm5lY3Rvcl9oZWxwZXJfZnVuY3MpOwogCXNvci0+b3V0cHV0LmNvbm5lY3Rvci5k
+cG1zID0gRFJNX01PREVfRFBNU19PRkY7Ci0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2ludGVsLWdmeA==
