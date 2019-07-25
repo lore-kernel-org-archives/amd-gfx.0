@@ -1,13 +1,13 @@
-From: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
 Subject: RE: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature status
  function in smu
-Date: Thu, 25 Jul 2019 08:21:29 +0000
-Message-ID: <MN2PR12MB3598A3BDD074C268557F186D8EC10@MN2PR12MB3598.namprd12.prod.outlook.com>
+Date: Thu, 25 Jul 2019 08:30:10 +0000
+Message-ID: <MN2PR12MB334476A964852FD3B092B385E4C10@MN2PR12MB3344.namprd12.prod.outlook.com>
 References: <20190725051057.28862-1-kevin1.wang@amd.com>,
  <20190725051057.28862-5-kevin1.wang@amd.com>
  <MN2PR12MB32966C19A3EF83A1E868B25CA2C10@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1784726450=="
+Content-Type: multipart/mixed; boundary="===============0702355432=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 In-Reply-To: <MN2PR12MB32966C19A3EF83A1E868B25CA2C10-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
@@ -23,26 +23,28 @@ Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
 
---===============1784726450==
+--===============0702355432==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_"
+	boundary="_000_MN2PR12MB334476A964852FD3B092B385E4C10MN2PR12MB3344namp_"
 
---_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_
+--_000_MN2PR12MB334476A964852FD3B092B385E4C10MN2PR12MB3344namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Series are Reviewed-by: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org<mailto:kenneth.f=
-eng-5C7GfCeVMHo@public.gmane.org>>
+To keep backward compatibility, we cannot change the sysfs file naming.
+But it's a good idea to summarize these as common APIs.
 
-
-From: Wang, Kevin(Yang)
+Regards,
+Evan
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Wang, Ke=
+vin(Yang)
 Sent: Thursday, July 25, 2019 4:10 PM
 To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; D=
-eucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang@a=
+md.com>; Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
 Subject: Re: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature status f=
 unction in smu
 
@@ -735,7 +737,7 @@ nable);
 --
 2.22.0
 
---_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_
+--_000_MN2PR12MB334476A964852FD3B092B385E4C10MN2PR12MB3344namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -769,8 +771,8 @@ w\:* {behavior:url(#default#VML);}
 p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
 a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#0563C1;
@@ -779,28 +781,16 @@ a:visited, span.MsoHyperlinkFollowed
 	{mso-style-priority:99;
 	color:#954F72;
 	text-decoration:underline;}
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"Plain Text Char";
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
 	margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif;}
-p
-	{mso-style-priority:99;
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-span.EmailStyle18
+span.EmailStyle20
 	{mso-style-type:personal-reply;
 	font-family:"Calibri",sans-serif;
-	color:#1F497D;}
-span.PlainTextChar
-	{mso-style-name:"Plain Text Char";
-	mso-style-priority:99;
-	mso-style-link:"Plain Text";
-	font-family:"Calibri",sans-serif;}
+	color:windowtext;}
 .MsoChpDefault
 	{mso-style-type:export-only;
 	font-size:10.0pt;}
@@ -818,326 +808,280 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
-<p class=3D"MsoPlainText"><span style=3D"color:#1F497D">Series are </span>R=
-eviewed-by: Kenneth Feng &lt;<a href=3D"mailto:kenneth.feng-5C7GfCeVMHo@public.gmane.org">kennet=
-h.feng-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal">To keep backward compatibility, we cannot change the=
+ sysfs file naming.<o:p></o:p></p>
+<p class=3D"MsoNormal">But it&#8217;s a good idea to summarize these as com=
+mon APIs.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
+<p class=3D"MsoNormal">Evan<o:p></o:p></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
 <div>
 <div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
 0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Wang, Kevin(Yang)
-<br>
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32mMSPqsTGOZug@public.gmane.org=
+esktop.org&gt;
+<b>On Behalf Of </b>Wang, Kevin(Yang)<br>
 <b>Sent:</b> Thursday, July 25, 2019 4:10 PM<br>
 <b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;Ray.H=
-uang-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray=
+ &lt;Ray.Huang-5C7GfCeVMHo@public.gmane.org&gt;; Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Subject:</b> Re: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature s=
-tatus function in smu<o:p></o:p></span></p>
+tatus function in smu<o:p></o:p></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black">add sample data from sysfs pp_features with this patch.<=
-o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">add sam=
+ple data from sysfs pp_features with this patch.<o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black">print format:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">print f=
+ormat:<o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black">index. feature name (Hardware Message ID): state<o:p></o=
-:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">index. =
+feature name (Hardware Message ID): state<o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><i><span style=3D"font-size:9.0pt;font-family:&quot;=
-Calibri&quot;,sans-serif;color:black">sudo find /sys -name &quot;pp_feature=
-s&quot; -exec cat {} \;</span></i><span style=3D"font-family:&quot;Calibri&=
-quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><i><span style=3D"font-size:9.0pt;color:black">sudo =
+find /sys -name &quot;pp_features&quot; -exec cat {} \;</span></i><span sty=
+le=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">features high: 0x00000623 low: 0xb3cdaff=
-b</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:bla=
-ck"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">features=
+ high: 0x00000623 low: 0xb3cdaffb</span><span style=3D"font-size:12.0pt;col=
+or:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">00. DPM_PREFETCHER &nbsp; &nbsp; &nbsp; =
-( 0) : enabeld</span><span style=3D"font-family:&quot;Calibri&quot;,sans-se=
-rif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">00. DPM_=
+PREFETCHER &nbsp; &nbsp; &nbsp; ( 0) : enabeld</span><span style=3D"font-si=
+ze:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">01. DPM_GFXCLK &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; ( 1) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">01. DPM_=
+GFXCLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( 1) : enabeld</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">02. DPM_UCLK &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; ( 3) : enabeld</span><span style=3D"font-family:&quot;Calibr=
-i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">02. DPM_=
+UCLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( 3) : enabeld</span><span s=
+tyle=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">03. DPM_SOCCLK &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; ( 4) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">03. DPM_=
+SOCCLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( 4) : enabeld</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">04. DPM_MP0CLK &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; ( 5) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">04. DPM_=
+MP0CLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( 5) : enabeld</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">05. DPM_LINK &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; ( 6) : enabeld</span><span style=3D"font-family:&quot;Calibr=
-i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">05. DPM_=
+LINK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ( 6) : enabeld</span><span s=
+tyle=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">06. DPM_DCEFCLK &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp;( 7) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">06. DPM_=
+DCEFCLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;( 7) : enabeld</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">07. DS_GFXCLK &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp;(10) : enabeld</span><span style=3D"font-family:&quot;Calibr=
-i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">07. DS_G=
+FXCLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(10) : enabeld</span><span s=
+tyle=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">08. DS_SOCCLK &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp;(11) : enabeld</span><span style=3D"font-family:&quot;Calibr=
-i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">08. DS_S=
+OCCLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(11) : enabeld</span><span s=
+tyle=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">09. DS_LCLK &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;(12) : disabled</span><span style=3D"font-family:&quot;=
-Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">09. DS_L=
+CLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(12) : disabled</span><=
+span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">10. PPT &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp;(23) : enabeld</span><span style=3D"font-fami=
-ly:&quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">10. PPT =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(23) : enabel=
+d</span><span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">11. TDC &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp; &nbsp;(24) : enabeld</span><span style=3D"font-fami=
-ly:&quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">11. TDC =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(24) : enabel=
+d</span><span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">12. THERMAL &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;(33) : enabeld</span><span style=3D"font-family:&quot;C=
-alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">12. THER=
+MAL &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(33) : enabeld</span><s=
+pan style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">13. RM &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; (35) : disabled</span><span style=3D"font-fam=
-ily:&quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">13. RM &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (35) : disabl=
+ed</span><span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p=
+>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">14. DS_DCEFCLK &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; (13) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">14. DS_D=
+CEFCLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (13) : enabeld</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">15. ACDC &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; (28) : enabeld</span><span style=3D"font-family:&q=
-uot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">15. ACDC=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (28) : enabeld</sp=
+an><span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">16. VR0HOT &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; (29) : enabeld</span><span style=3D"font-family:&quot;C=
-alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">16. VR0H=
+OT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (29) : enabeld</span><s=
+pan style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">17. VR1HOT &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; (30) : disabled</span><span style=3D"font-family:&quot;=
-Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">17. VR1H=
+OT &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (30) : disabled</span><=
+span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">18. FW_CTF &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; (31) : enabeld</span><span style=3D"font-family:&quot;C=
-alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">18. FW_C=
+TF &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (31) : enabeld</span><s=
+pan style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">19. LED_DISPLAY &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp;(36) : disabled</span><span style=3D"font-family:&quot;Calibri&qu=
-ot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">19. LED_=
+DISPLAY &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(36) : disabled</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">20. FAN_CONTROL &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp;(32) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">20. FAN_=
+CONTROL &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(32) : enabeld</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">21. GFX_EDC &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;(25) : enabeld</span><span style=3D"font-family:&quot;C=
-alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">21. GFX_=
+EDC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(25) : enabeld</span><s=
+pan style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">22. GFXOFF &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; (17) : disabled</span><span style=3D"font-family:&quot;=
-Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">22. GFXO=
+FF &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (17) : disabled</span><=
+span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">23. DPM_GFX_PACE &nbsp; &nbsp; &nbsp; &n=
-bsp; ( 2) : disabled</span><span style=3D"font-family:&quot;Calibri&quot;,s=
-ans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">23. DPM_=
+GFX_PACE &nbsp; &nbsp; &nbsp; &nbsp; ( 2) : disabled</span><span style=3D"f=
+ont-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">24. MEM_VDDCI_SCALING &nbsp; &nbsp;( 8) =
-: enabeld</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;c=
-olor:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">24. MEM_=
+VDDCI_SCALING &nbsp; &nbsp;( 8) : enabeld</span><span style=3D"font-size:12=
+.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">25. MEM_MVDD_SCALING &nbsp; &nbsp; ( 9) =
-: enabeld</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;c=
-olor:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">25. MEM_=
+MVDD_SCALING &nbsp; &nbsp; ( 9) : enabeld</span><span style=3D"font-size:12=
+.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">26. DS_UCLK &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;(14) : disabled</span><span style=3D"font-family:&quot;=
-Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">26. DS_U=
+CLK &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(14) : disabled</span><=
+span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">27. GFX_ULV &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;(15) : enabeld</span><span style=3D"font-family:&quot;C=
-alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">27. GFX_=
+ULV &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(15) : enabeld</span><s=
+pan style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">28. FW_DSTATE &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp;(16) : enabeld</span><span style=3D"font-family:&quot;Calibr=
-i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">28. FW_D=
+STATE &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(16) : enabeld</span><span s=
+tyle=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">29. BACO &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; (18) : enabeld</span><span style=3D"font-family:&q=
-uot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">29. BACO=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (18) : enabeld</sp=
+an><span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">30. VCN_PG &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; (19) : enabeld</span><span style=3D"font-family:&quot;C=
-alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">30. VCN_=
+PG &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (19) : enabeld</span><s=
+pan style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">31. JPEG_PG &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;(20) : disabled</span><span style=3D"font-family:&quot;=
-Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">31. JPEG=
+_PG &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(20) : disabled</span><=
+span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">32. USB_PG &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; (21) : disabled</span><span style=3D"font-family:&quot;=
-Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">32. USB_=
+PG &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (21) : disabled</span><=
+span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">33. RSMU_SMN_CG &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp;(22) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
-t;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">33. RSMU=
+_SMN_CG &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(22) : enabeld</span><span style=
+=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">34. APCC_PLUS &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp;(26) : disabled</span><span style=3D"font-family:&quot;Calib=
-ri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">34. APCC=
+_PLUS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(26) : disabled</span><span =
+style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">35. GTHR &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; (27) : disabled</span><span style=3D"font-family:&=
-quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">35. GTHR=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (27) : disabled</s=
+pan><span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">36. GFX_DCS &nbsp; &nbsp; &nbsp; &nbsp; =
-&nbsp; &nbsp; &nbsp;(34) : disabled</span><span style=3D"font-family:&quot;=
-Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">36. GFX_=
+DCS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;(34) : disabled</span><=
+span style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">37. GFX_SS &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; (37) : enabeld</span><span style=3D"font-family:&quot;C=
-alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">37. GFX_=
+SS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (37) : enabeld</span><s=
+pan style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">38. OUT_OF_BAND_MONITOR &nbsp;(38) : dis=
-abled</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color=
-:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">38. OUT_=
+OF_BAND_MONITOR &nbsp;(38) : disabled</span><span style=3D"font-size:12.0pt=
+;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">39. TEMP_DEPENDENT_VMIN &nbsp;(39) : dis=
-abled</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color=
-:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">39. TEMP=
+_DEPENDENT_VMIN &nbsp;(39) : disabled</span><span style=3D"font-size:12.0pt=
+;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">40. MMHUB_PG &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; (40) : disabled</span><span style=3D"font-family:&quot;Calib=
-ri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">40. MMHU=
+B_PG &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (40) : disabled</span><span =
+style=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
 <div>
-<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
-ibri&quot;,sans-serif;color:black">41. ATHUB_PG &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; (41) : enabeld</span><span style=3D"font-family:&quot;Calibr=
-i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;color:black">41. ATHU=
+B_PG &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (41) : enabeld</span><span s=
+tyle=3D"font-size:12.0pt;color:black"><o:p></o:p></span></p>
 </div>
-<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
-serif;color:black"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
 </div>
 <div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
 <hr size=3D"2" width=3D"98%" align=3D"center">
 </div>
 <div id=3D"divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
-size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Wang, =
-Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<=
-/a>&gt;<br>
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang=
+@amd.com">Kevin1.Wang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 <b>Sent:</b> Thursday, July 25, 2019 1:11 PM<br>
 <b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
 reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
@@ -1157,8 +1101,8 @@ s function in smu</span>
 </div>
 <div>
 <div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:11.0pt">1. Unified feature enable status format in sysfs<br>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">1. Unified feature en=
+able status format in sysfs<br>
 2. Rename ppfeature to pp_features to adapt other pp sysfs node name<br>
 3. this function support all asic, not asic related function.<br>
 <br>
@@ -2253,16 +2197,17 @@ _is_dpm_running,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_fan_speed_percent =3D=
  vega20_get_fan_speed_percent,<br>
 -- <br>
-2.22.0<o:p></o:p></span></p>
+2.22.0<o:p></o:p></p>
+</div>
 </div>
 </div>
 </div>
 </body>
 </html>
 
---_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_--
+--_000_MN2PR12MB334476A964852FD3B092B385E4C10MN2PR12MB3344namp_--
 
---===============1784726450==
+--===============0702355432==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -2272,4 +2217,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1784726450==--
+--===============0702355432==--
