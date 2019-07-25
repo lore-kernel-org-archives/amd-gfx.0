@@ -1,14 +1,15 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature status
+From: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature status
  function in smu
-Date: Thu, 25 Jul 2019 08:10:27 +0000
-Message-ID: <MN2PR12MB32966C19A3EF83A1E868B25CA2C10@MN2PR12MB3296.namprd12.prod.outlook.com>
+Date: Thu, 25 Jul 2019 08:21:29 +0000
+Message-ID: <MN2PR12MB3598A3BDD074C268557F186D8EC10@MN2PR12MB3598.namprd12.prod.outlook.com>
 References: <20190725051057.28862-1-kevin1.wang@amd.com>,
  <20190725051057.28862-5-kevin1.wang@amd.com>
+ <MN2PR12MB32966C19A3EF83A1E868B25CA2C10@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============0061046338=="
+Content-Type: multipart/mixed; boundary="===============1784726450=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190725051057.28862-5-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <MN2PR12MB32966C19A3EF83A1E868B25CA2C10-rweVpJHSKTqAm9ToKNQgFgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,18 +21,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
+ Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
 
---===============0061046338==
+--===============1784726450==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB32966C19A3EF83A1E868B25CA2C10MN2PR12MB3296namp_"
+	boundary="_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_"
 
---_000_MN2PR12MB32966C19A3EF83A1E868B25CA2C10MN2PR12MB3296namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+
+Series are Reviewed-by: Kenneth Feng <kenneth.feng-5C7GfCeVMHo@public.gmane.org<mailto:kenneth.f=
+eng-5C7GfCeVMHo@public.gmane.org>>
+
+
+From: Wang, Kevin(Yang)
+Sent: Thursday, July 25, 2019 4:10 PM
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; D=
+eucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature status f=
+unction in smu
 
 add sample data from sysfs pp_features with this patch.
 
@@ -84,12 +97,14 @@ features high: 0x00000623 low: 0xb3cdaffb
 41. ATHUB_PG             (41) : enabeld
 
 ________________________________
-From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+From: Wang, Kevin(Yang) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>
 Sent: Thursday, July 25, 2019 1:11 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>; Huang, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org>; D=
-eucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Wang, Kevin(Yang) <Kevin1.Wa=
-ng-5C7GfCeVMHo@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> <am=
+d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>>
+Cc: Feng, Kenneth <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org<mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>>; Huan=
+g, Ray <Ray.Huang-5C7GfCeVMHo@public.gmane.org<mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org>>; Deucher, Alexander <A=
+lexander.Deucher-5C7GfCeVMHo@public.gmane.org<mailto:Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>>; Wang, Kevin(Ya=
+ng) <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>>
 Subject: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature status funct=
 ion in smu
 
@@ -97,7 +112,7 @@ ion in smu
 2. Rename ppfeature to pp_features to adapt other pp sysfs node name
 3. this function support all asic, not asic related function.
 
-Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+Signed-off-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org<mailto:kevin1.wang-5C7GfCeVMHo@public.gmane.org>>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  24 +--
  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  61 +++++++
@@ -720,195 +735,435 @@ nable);
 --
 2.22.0
 
-
---_000_MN2PR12MB32966C19A3EF83A1E868B25CA2C10MN2PR12MB3296namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-size: 12pt;">add sample data from sysfs pp_features wit=
-h this patch.</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-size: 12pt;"><br>
-</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-size: 12pt;">print format:</span></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-index. feature name (Hardware Message ID): state</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"font-size: 9pt;"><i>sudo find /sys -name &quot;pp_features&q=
-uot; -exec cat {} \;</i></span><span><br>
-</span>
-<div><span style=3D"font-size: 9pt;">features high: 0x00000623 low: 0xb3cda=
-ffb</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">00. DPM_PREFETCHER &nbsp; &nbsp; &nbsp=
-; ( 0) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">01. DPM_GFXCLK &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; ( 1) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">02. DPM_UCLK &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; ( 3) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">03. DPM_SOCCLK &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; ( 4) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">04. DPM_MP0CLK &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; ( 5) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">05. DPM_LINK &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; ( 6) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">06. DPM_DCEFCLK &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp;( 7) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">07. DS_GFXCLK &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp;(10) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">08. DS_SOCCLK &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp;(11) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">09. DS_LCLK &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp;(12) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">10. PPT &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp;(23) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">11. TDC &nbsp; &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; &nbsp; &nbsp; &nbsp;(24) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">12. THERMAL &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp;(33) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">13. RM &nbsp; &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp; &nbsp; &nbsp; (35) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">14. DS_DCEFCLK &nbsp; &nbsp; &nbsp; &n=
-bsp; &nbsp; (13) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">15. ACDC &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; (28) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">16. VR0HOT &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; (29) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">17. VR1HOT &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; (30) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">18. FW_CTF &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; (31) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">19. LED_DISPLAY &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp;(36) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">20. FAN_CONTROL &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp;(32) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">21. GFX_EDC &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp;(25) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">22. GFXOFF &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; (17) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">23. DPM_GFX_PACE &nbsp; &nbsp; &nbsp; =
-&nbsp; ( 2) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">24. MEM_VDDCI_SCALING &nbsp; &nbsp;( 8=
-) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">25. MEM_MVDD_SCALING &nbsp; &nbsp; ( 9=
-) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">26. DS_UCLK &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp;(14) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">27. GFX_ULV &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp;(15) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">28. FW_DSTATE &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp;(16) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">29. BACO &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; (18) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">30. VCN_PG &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; (19) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">31. JPEG_PG &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp;(20) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">32. USB_PG &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; (21) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">33. RSMU_SMN_CG &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp;(22) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">34. APCC_PLUS &nbsp; &nbsp; &nbsp; &nb=
-sp; &nbsp; &nbsp;(26) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">35. GTHR &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; (27) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">36. GFX_DCS &nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp;(34) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">37. GFX_SS &nbsp; &nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; (37) : enabeld</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">38. OUT_OF_BAND_MONITOR &nbsp;(38) : d=
-isabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">39. TEMP_DEPENDENT_VMIN &nbsp;(39) : d=
-isabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">40. MMHUB_PG &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; (40) : disabled</span><br>
-</div>
-<div><span style=3D"font-size: 9pt;">41. ATHUB_PG &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; (41) : enabeld</span><br>
-</div>
-<span></span><br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Wang, Kevin(Yang) &lt=
-;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Sent:</b> Thursday, July 25, 2019 1:11 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;Ray.H=
-uang-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Wan=
-g, Kevin(Yang) &lt;Kevin1.Wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH 5/5] drm/amd/powerplay: implment sysfs feature statu=
-s function in smu</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<div class=3D"PlainText">1. Unified feature enable status format in sysfs<b=
-r>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
+	{mso-style-priority:99;
+	mso-style-link:"Plain Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p
+	{mso-style-priority:99;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman",serif;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:#1F497D;}
+span.PlainTextChar
+	{mso-style-name:"Plain Text Char";
+	mso-style-priority:99;
+	mso-style-link:"Plain Text";
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoPlainText"><span style=3D"color:#1F497D">Series are </span>R=
+eviewed-by: Kenneth Feng &lt;<a href=3D"mailto:kenneth.feng-5C7GfCeVMHo@public.gmane.org">kennet=
+h.feng-5C7GfCeVMHo@public.gmane.org</a>&gt;<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Wang, Kevin(Yang)
+<br>
+<b>Sent:</b> Thursday, July 25, 2019 4:10 PM<br>
+<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<b>Cc:</b> Feng, Kenneth &lt;Kenneth.Feng-5C7GfCeVMHo@public.gmane.org&gt;; Huang, Ray &lt;Ray.H=
+uang-5C7GfCeVMHo@public.gmane.org&gt;; Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
+<b>Subject:</b> Re: [PATCH 5/5] drm/amd/powerplay: implment sysfs feature s=
+tatus function in smu<o:p></o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:black">add sample data from sysfs pp_features with this patch.<=
+o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:black">print format:<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:black">index. feature name (Hardware Message ID): state<o:p></o=
+:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><i><span style=3D"font-size:9.0pt;font-family:&quot;=
+Calibri&quot;,sans-serif;color:black">sudo find /sys -name &quot;pp_feature=
+s&quot; -exec cat {} \;</span></i><span style=3D"font-family:&quot;Calibri&=
+quot;,sans-serif;color:black"><o:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">features high: 0x00000623 low: 0xb3cdaff=
+b</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color:bla=
+ck"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">00. DPM_PREFETCHER &nbsp; &nbsp; &nbsp; =
+( 0) : enabeld</span><span style=3D"font-family:&quot;Calibri&quot;,sans-se=
+rif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">01. DPM_GFXCLK &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; ( 1) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">02. DPM_UCLK &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; ( 3) : enabeld</span><span style=3D"font-family:&quot;Calibr=
+i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">03. DPM_SOCCLK &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; ( 4) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">04. DPM_MP0CLK &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; ( 5) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">05. DPM_LINK &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; ( 6) : enabeld</span><span style=3D"font-family:&quot;Calibr=
+i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">06. DPM_DCEFCLK &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp;( 7) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">07. DS_GFXCLK &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;(10) : enabeld</span><span style=3D"font-family:&quot;Calibr=
+i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">08. DS_SOCCLK &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;(11) : enabeld</span><span style=3D"font-family:&quot;Calibr=
+i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">09. DS_LCLK &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;(12) : disabled</span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">10. PPT &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp;(23) : enabeld</span><span style=3D"font-fami=
+ly:&quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">11. TDC &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; &nbsp; &nbsp; &nbsp;(24) : enabeld</span><span style=3D"font-fami=
+ly:&quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">12. THERMAL &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;(33) : enabeld</span><span style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">13. RM &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; (35) : disabled</span><span style=3D"font-fam=
+ily:&quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">14. DS_DCEFCLK &nbsp; &nbsp; &nbsp; &nbs=
+p; &nbsp; (13) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">15. ACDC &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; (28) : enabeld</span><span style=3D"font-family:&q=
+uot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">16. VR0HOT &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; (29) : enabeld</span><span style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">17. VR1HOT &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; (30) : disabled</span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">18. FW_CTF &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; (31) : enabeld</span><span style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">19. LED_DISPLAY &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp;(36) : disabled</span><span style=3D"font-family:&quot;Calibri&qu=
+ot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">20. FAN_CONTROL &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp;(32) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">21. GFX_EDC &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;(25) : enabeld</span><span style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">22. GFXOFF &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; (17) : disabled</span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">23. DPM_GFX_PACE &nbsp; &nbsp; &nbsp; &n=
+bsp; ( 2) : disabled</span><span style=3D"font-family:&quot;Calibri&quot;,s=
+ans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">24. MEM_VDDCI_SCALING &nbsp; &nbsp;( 8) =
+: enabeld</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;c=
+olor:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">25. MEM_MVDD_SCALING &nbsp; &nbsp; ( 9) =
+: enabeld</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;c=
+olor:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">26. DS_UCLK &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;(14) : disabled</span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">27. GFX_ULV &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;(15) : enabeld</span><span style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">28. FW_DSTATE &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;(16) : enabeld</span><span style=3D"font-family:&quot;Calibr=
+i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">29. BACO &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; (18) : enabeld</span><span style=3D"font-family:&q=
+uot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">30. VCN_PG &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; (19) : enabeld</span><span style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">31. JPEG_PG &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;(20) : disabled</span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">32. USB_PG &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; (21) : disabled</span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">33. RSMU_SMN_CG &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp;(22) : enabeld</span><span style=3D"font-family:&quot;Calibri&quo=
+t;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">34. APCC_PLUS &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp;(26) : disabled</span><span style=3D"font-family:&quot;Calib=
+ri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">35. GTHR &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; &nbsp; &nbsp; (27) : disabled</span><span style=3D"font-family:&=
+quot;Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">36. GFX_DCS &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp;(34) : disabled</span><span style=3D"font-family:&quot;=
+Calibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">37. GFX_SS &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; (37) : enabeld</span><span style=3D"font-family:&quot;C=
+alibri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">38. OUT_OF_BAND_MONITOR &nbsp;(38) : dis=
+abled</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color=
+:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">39. TEMP_DEPENDENT_VMIN &nbsp;(39) : dis=
+abled</span><span style=3D"font-family:&quot;Calibri&quot;,sans-serif;color=
+:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">40. MMHUB_PG &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; (40) : disabled</span><span style=3D"font-family:&quot;Calib=
+ri&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:9.0pt;font-family:&quot;Cal=
+ibri&quot;,sans-serif;color:black">41. ATHUB_PG &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; (41) : enabeld</span><span style=3D"font-family:&quot;Calibr=
+i&quot;,sans-serif;color:black"><o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-family:&quot;Calibri&quot;,sans-=
+serif;color:black"><o:p>&nbsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Wang, =
+Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kevin1.Wang-5C7GfCeVMHo@public.gmane.org<=
+/a>&gt;<br>
+<b>Sent:</b> Thursday, July 25, 2019 1:11 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd=
+-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>&gt;<br>
+<b>Cc:</b> Feng, Kenneth &lt;<a href=3D"mailto:Kenneth.Feng-5C7GfCeVMHo@public.gmane.org">Kennet=
+h.Feng-5C7GfCeVMHo@public.gmane.org</a>&gt;; Huang, Ray &lt;<a href=3D"mailto:Ray.Huang-5C7GfCeVMHo@public.gmane.org"=
+>Ray.Huang-5C7GfCeVMHo@public.gmane.org</a>&gt;; Deucher, Alexander &lt;<a href=3D"mailto:Alexan=
+der.Deucher-5C7GfCeVMHo@public.gmane.org">Alexander.Deucher-5C7GfCeVMHo@public.gmane.org</a>&gt;;
+ Wang, Kevin(Yang) &lt;<a href=3D"mailto:Kevin1.Wang-5C7GfCeVMHo@public.gmane.org">Kevin1.Wang@a=
+md.com</a>&gt;<br>
+<b>Subject:</b> [PATCH 5/5] drm/amd/powerplay: implment sysfs feature statu=
+s function in smu</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
+ize:11.0pt">1. Unified feature enable status format in sysfs<br>
 2. Rename ppfeature to pp_features to adapt other pp sysfs node name<br>
 3. this function support all asic, not asic related function.<br>
 <br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;<br>
+Signed-off-by: Kevin Wang &lt;<a href=3D"mailto:kevin1.wang-5C7GfCeVMHo@public.gmane.org">kevin1=
+.wang-5C7GfCeVMHo@public.gmane.org</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
 nbsp;&nbsp; |&nbsp; 24 &#43;--<br>
@@ -1998,16 +2253,16 @@ _is_dpm_running,<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_fan_speed_percent =3D=
  vega20_get_fan_speed_percent,<br>
 -- <br>
-2.22.0<br>
-<br>
+2.22.0<o:p></o:p></span></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </body>
 </html>
 
---_000_MN2PR12MB32966C19A3EF83A1E868B25CA2C10MN2PR12MB3296namp_--
+--_000_MN2PR12MB3598A3BDD074C268557F186D8EC10MN2PR12MB3598namp_--
 
---===============0061046338==
+--===============1784726450==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -2017,4 +2272,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============0061046338==--
+--===============1784726450==--
