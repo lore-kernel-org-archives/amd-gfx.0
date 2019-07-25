@@ -1,8 +1,8 @@
 From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: =?gb2312?B?s7e72DogW1BBVENIIDIvNV0gZHJtL2FtZC9wb3dlcnBsYXk6IGFkZCBzbXUg?=
- =?gb2312?Q?message_name_support?=
-Date: Thu, 25 Jul 2019 04:57:04 +0000
-Message-ID: <MN2PR12MB3296EC57B64010A55D475B5AA2C10@MN2PR12MB3296.namprd12.prod.outlook.com>
+Subject: =?gb2312?B?s7e72DogW1BBVENIIDEvNV0gZHJtL2FtZC9wb3dlcnBsYXk6IG1vdmUgc211?=
+ =?gb2312?Q?_types_to_smu=5Ftypes.h?=
+Date: Thu, 25 Jul 2019 04:57:20 +0000
+Message-ID: <MN2PR12MB3296810DCEAE7672A4C90FA8A2C10@MN2PR12MB3296.namprd12.prod.outlook.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
@@ -23,8 +23,8 @@ Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huan
  Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>, "Wang,
  Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
 
-V2FuZywgS2V2aW4oWWFuZykg5bCG5pKk5Zue6YKu5Lu24oCcW1BBVENIIDIvNV0gZHJtL2FtZC9w
-b3dlcnBsYXk6IGFkZCBzbXUgbWVzc2FnZSBuYW1lIHN1cHBvcnTigJ3jgIIKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+V2FuZywgS2V2aW4oWWFuZykg5bCG5pKk5Zue6YKu5Lu24oCcW1BBVENIIDEvNV0gZHJtL2FtZC9w
+b3dlcnBsYXk6IG1vdmUgc211IHR5cGVzIHRvIHNtdV90eXBlcy5o4oCd44CCCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
