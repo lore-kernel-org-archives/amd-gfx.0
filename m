@@ -1,14 +1,14 @@
-From: "Feng, Kenneth" <Kenneth.Feng-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH 2/5] drm/amd/powerplay: add smu message name support
-Date: Thu, 25 Jul 2019 07:44:54 +0000
-Message-ID: <MN2PR12MB3598A180E1721A82B2F2D67D8EC10@MN2PR12MB3598.namprd12.prod.outlook.com>
-References: <20190725051057.28862-1-kevin1.wang@amd.com>
- <20190725051057.28862-2-kevin1.wang@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/amdgpu/vcn_v2_0: Set CMD_SOURCE for RB commands
+Date: Thu, 25 Jul 2019 10:09:30 +0200
+Message-ID: <1117bfaf-9158-30f8-9ce1-47f87582ec06@gmail.com>
+References: <BN6PR1201MB0178175C942E341FCEB0D07B9DC60@BN6PR1201MB0178.namprd12.prod.outlook.com>
+ <DM5PR12MB2456E8FF88AA6C6F48A0A12FE5C60@DM5PR12MB2456.namprd12.prod.outlook.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0525257288=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190725051057.28862-2-kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <DM5PR12MB2456E8FF88AA6C6F48A0A12FE5C60-2J9CzHegvk8TFHufQck+3gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -20,236 +20,420 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Huang,
- Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>
+To: "Liu, Leo" <Leo.Liu-5C7GfCeVMHo@public.gmane.org>, "Thai, Thong" <Thong.Thai-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-QSBsaXR0bGUgZGlmZmljdWx0IGZvciBtZSB0byB1bmRlcnN0YW5kLCBidXQgdGhlIGxvZ2ljIGlz
-IG9rLgpSZXZpZXdlZC1ieTogS2VubmV0aCBGZW5nIDxrZW5uZXRoLmZlbmdAYW1kLmNvbT4KCi0t
-LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCkZyb206IFdhbmcsIEtldmluKFlhbmcpIApTZW50OiBU
-aHVyc2RheSwgSnVseSAyNSwgMjAxOSAxOjExIFBNClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpDYzogRmVuZywgS2VubmV0aCA8S2VubmV0aC5GZW5nQGFtZC5jb20+OyBIdWFuZywg
-UmF5IDxSYXkuSHVhbmdAYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRl
-dWNoZXJAYW1kLmNvbT47IFdhbmcsIEtldmluKFlhbmcpIDxLZXZpbjEuV2FuZ0BhbWQuY29tPgpT
-dWJqZWN0OiBbUEFUQ0ggMi81XSBkcm0vYW1kL3Bvd2VycGxheTogYWRkIHNtdSBtZXNzYWdlIG5h
-bWUgc3VwcG9ydAoKYWRkIHNtdV9nZXRfbWVzc2FnZV9uYW1lIHN1cHBvcnQgaW4gc211LgoKU2ln
-bmVkLW9mZi1ieTogS2V2aW4gV2FuZyA8a2V2aW4xLndhbmdAYW1kLmNvbT4KLS0tCiBkcml2ZXJz
-L2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgICAgfCAgMTMgKysKIC4uLi9ncHUv
-ZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaCAgICB8ICAgMSArCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvc211X3R5cGVzLmggfCAyMDUgKysrKysrKysrLS0tLS0t
-LS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyAgICAgfCAgMTIg
-Ky0KIDQgZmlsZXMgY2hhbmdlZCwgMTI0IGluc2VydGlvbnMoKyksIDEwNyBkZWxldGlvbnMoLSkK
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMKaW5kZXggNjkzNWEw
-MGNkMzg5Li40NjA0YjZhZjU2YmIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L2FtZGdwdV9zbXUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9h
-bWRncHVfc211LmMKQEAgLTI5LDYgKzI5LDE5IEBACiAjaW5jbHVkZSAic211X3YxMV8wLmgiCiAj
-aW5jbHVkZSAiYXRvbS5oIgogCisjdW5kZWYgX19TTVVfRFVNTVlfTUFQCisjZGVmaW5lIF9fU01V
-X0RVTU1ZX01BUCh0eXBlKQkjdHlwZQorc3RhdGljIGNvbnN0IGNoYXIqIF9fc211X21lc3NhZ2Vf
-bmFtZXNbXSA9IHsKKwlTTVVfTUVTU0FHRV9UWVBFUworfTsKKworY29uc3QgY2hhciAqc211X2dl
-dF9tZXNzYWdlX25hbWUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0gCitzbXVfbWVzc2Fn
-ZV90eXBlIHR5cGUpIHsKKwlpZiAodHlwZSA8IDAgfHwgdHlwZSA+IFNNVV9NU0dfTUFYX0NPVU5U
-KQorCQlyZXR1cm4gInVua25vdyBzbXUgbWVzc2FnZSI7CisJcmV0dXJuIF9fc211X21lc3NhZ2Vf
-bmFtZXNbdHlwZV07Cit9CisKIGludCBzbXVfZ2V0X3NtY192ZXJzaW9uKHN0cnVjdCBzbXVfY29u
-dGV4dCAqc211LCB1aW50MzJfdCAqaWZfdmVyc2lvbiwgdWludDMyX3QgKnNtdV92ZXJzaW9uKSAg
-ewogCWludCByZXQgPSAwOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
-YXkvaW5jL2FtZGdwdV9zbXUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9h
-bWRncHVfc211LmgKaW5kZXggMzk3MDQwYTRkMWI0Li4wMzVmODU3OTIyZWMgMTAwNjQ0Ci0tLSBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmgKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaApAQCAtODA0LDUgKzgw
-NCw2IEBAIGVudW0gYW1kX2RwbV9mb3JjZWRfbGV2ZWwgc211X2dldF9wZXJmb3JtYW5jZV9sZXZl
-bChzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSk7ICBpbnQgc211X2ZvcmNlX3BlcmZvcm1hbmNlX2xl
-dmVsKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVtIGFtZF9kcG1fZm9yY2VkX2xldmVsIGxl
-dmVsKTsgIGludCBzbXVfc2V0X2Rpc3BsYXlfY291bnQoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUs
-IHVpbnQzMl90IGNvdW50KTsgIGJvb2wgc211X2Nsa19kcG1faXNfZW5hYmxlZChzdHJ1Y3Qgc211
-X2NvbnRleHQgKnNtdSwgZW51bSBzbXVfY2xrX3R5cGUgY2xrX3R5cGUpOworY29uc3QgY2hhciAq
-c211X2dldF9tZXNzYWdlX25hbWUoc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIGVudW0gCitzbXVf
-bWVzc2FnZV90eXBlIHR5cGUpOwogCiAjZW5kaWYKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdHlwZXMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93
-ZXJwbGF5L2luYy9zbXVfdHlwZXMuaAppbmRleCAyOWQxNGMxNjI0MTcuLmQ0MmUzNDI0ZTcwNCAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL3NtdV90eXBlcy5o
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2luYy9zbXVfdHlwZXMuaApAQCAt
-MjMsMTA4ICsyMywxMTIgQEAKICNpZm5kZWYgX19TTVVfVFlQRVNfSF9fCiAjZGVmaW5lIF9fU01V
-X1RZUEVTX0hfXwogCisjZGVmaW5lIFNNVV9NRVNTQUdFX1RZUEVTCQkJICAgICAgXAorICAgICAg
-IF9fU01VX0RVTU1ZX01BUChUZXN0TWVzc2FnZSksCQkgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldFNtdVZlcnNpb24pLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldERyaXZlcklmVmVyc2lvbiksICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEFsbG93ZWRGZWF0dXJlc01hc2tMb3cpLCAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEFsbG93ZWRGZWF0dXJlc01hc2tIaWdoKSwgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEVuYWJsZUFsbFNtdUZlYXR1cmVzKSwgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKERpc2FibGVBbGxTbXVGZWF0dXJlcyksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEVuYWJsZVNtdUZlYXR1cmVzTG93KSwgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEVuYWJsZVNtdUZlYXR1cmVzSGlnaCksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKERpc2FibGVTbXVGZWF0dXJlc0xvdyksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKERpc2FibGVTbXVGZWF0dXJlc0hpZ2gpLCAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldEVuYWJsZWRTbXVGZWF0dXJlc0xvdyksICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldEVuYWJsZWRTbXVGZWF0dXJlc0hpZ2gpLCAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFdvcmtsb2FkTWFzayksICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFBwdExpbWl0KSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldERyaXZlckRyYW1BZGRySGlnaCksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldERyaXZlckRyYW1BZGRyTG93KSwgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFRvb2xzRHJhbUFkZHJIaWdoKSwgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFRvb2xzRHJhbUFkZHJMb3cpLCAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFRyYW5zZmVyVGFibGVTbXUyRHJhbSksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFRyYW5zZmVyVGFibGVEcmFtMlNtdSksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFVzZURlZmF1bHRQUFRhYmxlKSwgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFVzZUJhY2t1cFBQVGFibGUpLCAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJ1bkJ0YyksICAgICAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJlcXVlc3RJMkNCdXMpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJlbGVhc2VJMkNCdXMpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEZsb29yU29jVm9sdGFnZSksICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNvZnRSZXNldCksICAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFN0YXJ0QmFjb01vbml0b3IpLCAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKENhbmNlbEJhY29Nb25pdG9yKSwgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEVudGVyQmFjbyksICAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFNvZnRNaW5CeUZyZXEpLCAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFNvZnRNYXhCeUZyZXEpLCAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEhhcmRNaW5CeUZyZXEpLCAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEhhcmRNYXhCeUZyZXEpLCAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldE1pbkRwbUZyZXEpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldE1heERwbUZyZXEpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldERwbUZyZXFCeUluZGV4KSwgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldERwbUNsb2NrRnJlcSksICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldFNzVm9sdGFnZUJ5RHBtKSwgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldE1lbW9yeUNoYW5uZWxDb25maWcpLCAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEdlbWluaU1vZGUpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEdlbWluaUFwZXJ0dXJlSGlnaCksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEdlbWluaUFwZXJ0dXJlTG93KSwgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldE1pbkxpbmtEcG1CeUluZGV4KSwgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKE92ZXJyaWRlUGNpZVBhcmFtZXRlcnMpLCAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKE92ZXJEcml2ZVNldFBlcmNlbnRhZ2UpLCAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldE1pbkRlZXBTbGVlcERjZWZjbGspLCAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJlZW5hYmxlQWNEY0ludGVycnVwdCksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKE5vdGlmeVBvd2VyU291cmNlKSwgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFVjbGtGYXN0U3dpdGNoKSwgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFVjbGtEb3duSHlzdCksICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdmeERldmljZURyaXZlclJlc2V0KSwgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldEN1cnJlbnRScG0pLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFZpZGVvRnBzKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFRqTWF4KSwgICAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEZhblRlbXBlcmF0dXJlVGFyZ2V0KSwgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFByZXBhcmVNcDFGb3JVbmxvYWQpLCAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKERyYW1Mb2dTZXREcmFtQWRkckhpZ2gpLCAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKERyYW1Mb2dTZXREcmFtQWRkckxvdyksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKERyYW1Mb2dTZXREcmFtU2l6ZSksICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEZhbk1heFJwbSksICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEZhbk1pblB3bSksICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKENvbmZpZ3VyZUdmeERpZHQpLCAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKE51bU9mRGlzcGxheXMpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJlbW92ZU1hcmdpbnMpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJlYWRTZXJpYWxOdW1Ub3AzMiksICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJlYWRTZXJpYWxOdW1Cb3R0b20zMiksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFN5c3RlbVZpcnR1YWxEcmFtQWRkckhpZ2gpLCBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFN5c3RlbVZpcnR1YWxEcmFtQWRkckxvdyksICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFdhZmxUZXN0KSwgICAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldEZjbGtHZnhDbGtSYXRpbyksICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEFsbG93R2Z4T2ZmKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKERpc2FsbG93R2Z4T2ZmKSwgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldFBwdExpbWl0KSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldERjTW9kZU1heERwbUZyZXEpLCAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldERlYnVnRGF0YSksICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldFhnbWlNb2RlKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJ1bkFmbGxCdGMpLCAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEV4aXRCYWNvKSwgICAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFByZXBhcmVNcDFGb3JSZXNldCksICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFByZXBhcmVNcDFGb3JTaHV0ZG93biksICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldE1HcHVGYW5Cb29zdExpbWl0UnBtKSwgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldEFWRlNWb2x0YWdlQnlEcG0pLCAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyVXBWY24pLCAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyRG93blZjbiksICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyVXBKcGVnKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyRG93bkpwZWcpLCAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEJhY29BdWRpb0QzUE1FKSwgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEFybUQzKSwgICAgICAgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJ1bkdmeERjQnRjKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFJ1blNvY0RjQnRjKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldE1lbW9yeUNoYW5uZWxFbmFibGUpLCAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFNldERmU3dpdGNoVHlwZSksICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldFZvbHRhZ2VCeURwbSksICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKEdldFZvbHRhZ2VCeURwbU92ZXJkcml2ZSksICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyVXBWY24wKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyRG93blZjbjAxKSwgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyVXBWY24xKSwgICAgICAgICAgICAgICAgICBcCisgICAgICAgX19TTVVfRFVN
-TVlfTUFQKFBvd2VyRG93blZjbjEpLCAgICAgICAgICAgICAgICBcCiAKKyN1bmRlZiBfX1NNVV9E
-VU1NWV9NQVAKKyNkZWZpbmUgX19TTVVfRFVNTVlfTUFQKHR5cGUpCVNNVV9NU0dfIyN0eXBlCiBl
-bnVtIHNtdV9tZXNzYWdlX3R5cGUgewotCVNNVV9NU0dfVGVzdE1lc3NhZ2UgPSAwLAotCVNNVV9N
-U0dfR2V0U211VmVyc2lvbiwKLQlTTVVfTVNHX0dldERyaXZlcklmVmVyc2lvbiwKLQlTTVVfTVNH
-X1NldEFsbG93ZWRGZWF0dXJlc01hc2tMb3csCi0JU01VX01TR19TZXRBbGxvd2VkRmVhdHVyZXNN
-YXNrSGlnaCwKLQlTTVVfTVNHX0VuYWJsZUFsbFNtdUZlYXR1cmVzLAotCVNNVV9NU0dfRGlzYWJs
-ZUFsbFNtdUZlYXR1cmVzLAotCVNNVV9NU0dfRW5hYmxlU211RmVhdHVyZXNMb3csCi0JU01VX01T
-R19FbmFibGVTbXVGZWF0dXJlc0hpZ2gsCi0JU01VX01TR19EaXNhYmxlU211RmVhdHVyZXNMb3cs
-Ci0JU01VX01TR19EaXNhYmxlU211RmVhdHVyZXNIaWdoLAotCVNNVV9NU0dfR2V0RW5hYmxlZFNt
-dUZlYXR1cmVzTG93LAotCVNNVV9NU0dfR2V0RW5hYmxlZFNtdUZlYXR1cmVzSGlnaCwKLQlTTVVf
-TVNHX1NldFdvcmtsb2FkTWFzaywKLQlTTVVfTVNHX1NldFBwdExpbWl0LAotCVNNVV9NU0dfU2V0
-RHJpdmVyRHJhbUFkZHJIaWdoLAotCVNNVV9NU0dfU2V0RHJpdmVyRHJhbUFkZHJMb3csCi0JU01V
-X01TR19TZXRUb29sc0RyYW1BZGRySGlnaCwKLQlTTVVfTVNHX1NldFRvb2xzRHJhbUFkZHJMb3cs
-Ci0JU01VX01TR19UcmFuc2ZlclRhYmxlU211MkRyYW0sCi0JU01VX01TR19UcmFuc2ZlclRhYmxl
-RHJhbTJTbXUsCi0JU01VX01TR19Vc2VEZWZhdWx0UFBUYWJsZSwKLQlTTVVfTVNHX1VzZUJhY2t1
-cFBQVGFibGUsCi0JU01VX01TR19SdW5CdGMsCi0JU01VX01TR19SZXF1ZXN0STJDQnVzLAotCVNN
-VV9NU0dfUmVsZWFzZUkyQ0J1cywKLQlTTVVfTVNHX1NldEZsb29yU29jVm9sdGFnZSwKLQlTTVVf
-TVNHX1NvZnRSZXNldCwKLQlTTVVfTVNHX1N0YXJ0QmFjb01vbml0b3IsCi0JU01VX01TR19DYW5j
-ZWxCYWNvTW9uaXRvciwKLQlTTVVfTVNHX0VudGVyQmFjbywKLQlTTVVfTVNHX1NldFNvZnRNaW5C
-eUZyZXEsCi0JU01VX01TR19TZXRTb2Z0TWF4QnlGcmVxLAotCVNNVV9NU0dfU2V0SGFyZE1pbkJ5
-RnJlcSwKLQlTTVVfTVNHX1NldEhhcmRNYXhCeUZyZXEsCi0JU01VX01TR19HZXRNaW5EcG1GcmVx
-LAotCVNNVV9NU0dfR2V0TWF4RHBtRnJlcSwKLQlTTVVfTVNHX0dldERwbUZyZXFCeUluZGV4LAot
-CVNNVV9NU0dfR2V0RHBtQ2xvY2tGcmVxLAotCVNNVV9NU0dfR2V0U3NWb2x0YWdlQnlEcG0sCi0J
-U01VX01TR19TZXRNZW1vcnlDaGFubmVsQ29uZmlnLAotCVNNVV9NU0dfU2V0R2VtaW5pTW9kZSwK
-LQlTTVVfTVNHX1NldEdlbWluaUFwZXJ0dXJlSGlnaCwKLQlTTVVfTVNHX1NldEdlbWluaUFwZXJ0
-dXJlTG93LAotCVNNVV9NU0dfU2V0TWluTGlua0RwbUJ5SW5kZXgsCi0JU01VX01TR19PdmVycmlk
-ZVBjaWVQYXJhbWV0ZXJzLAotCVNNVV9NU0dfT3ZlckRyaXZlU2V0UGVyY2VudGFnZSwKLQlTTVVf
-TVNHX1NldE1pbkRlZXBTbGVlcERjZWZjbGssCi0JU01VX01TR19SZWVuYWJsZUFjRGNJbnRlcnJ1
-cHQsCi0JU01VX01TR19Ob3RpZnlQb3dlclNvdXJjZSwKLQlTTVVfTVNHX1NldFVjbGtGYXN0U3dp
-dGNoLAotCVNNVV9NU0dfU2V0VWNsa0Rvd25IeXN0LAotCVNNVV9NU0dfR2Z4RGV2aWNlRHJpdmVy
-UmVzZXQsCi0JU01VX01TR19HZXRDdXJyZW50UnBtLAotCVNNVV9NU0dfU2V0VmlkZW9GcHMsCi0J
-U01VX01TR19TZXRUak1heCwKLQlTTVVfTVNHX1NldEZhblRlbXBlcmF0dXJlVGFyZ2V0LAotCVNN
-VV9NU0dfUHJlcGFyZU1wMUZvclVubG9hZCwKLQlTTVVfTVNHX0RyYW1Mb2dTZXREcmFtQWRkckhp
-Z2gsCi0JU01VX01TR19EcmFtTG9nU2V0RHJhbUFkZHJMb3csCi0JU01VX01TR19EcmFtTG9nU2V0
-RHJhbVNpemUsCi0JU01VX01TR19TZXRGYW5NYXhScG0sCi0JU01VX01TR19TZXRGYW5NaW5Qd20s
-Ci0JU01VX01TR19Db25maWd1cmVHZnhEaWR0LAotCVNNVV9NU0dfTnVtT2ZEaXNwbGF5cywKLQlT
-TVVfTVNHX1JlbW92ZU1hcmdpbnMsCi0JU01VX01TR19SZWFkU2VyaWFsTnVtVG9wMzIsCi0JU01V
-X01TR19SZWFkU2VyaWFsTnVtQm90dG9tMzIsCi0JU01VX01TR19TZXRTeXN0ZW1WaXJ0dWFsRHJh
-bUFkZHJIaWdoLAotCVNNVV9NU0dfU2V0U3lzdGVtVmlydHVhbERyYW1BZGRyTG93LAotCVNNVV9N
-U0dfV2FmbFRlc3QsCi0JU01VX01TR19TZXRGY2xrR2Z4Q2xrUmF0aW8sCi0JU01VX01TR19BbGxv
-d0dmeE9mZiwKLQlTTVVfTVNHX0Rpc2FsbG93R2Z4T2ZmLAotCVNNVV9NU0dfR2V0UHB0TGltaXQs
-Ci0JU01VX01TR19HZXREY01vZGVNYXhEcG1GcmVxLAotCVNNVV9NU0dfR2V0RGVidWdEYXRhLAot
-CVNNVV9NU0dfU2V0WGdtaU1vZGUsCi0JU01VX01TR19SdW5BZmxsQnRjLAotCVNNVV9NU0dfRXhp
-dEJhY28sCi0JU01VX01TR19QcmVwYXJlTXAxRm9yUmVzZXQsCi0JU01VX01TR19QcmVwYXJlTXAx
-Rm9yU2h1dGRvd24sCi0JU01VX01TR19TZXRNR3B1RmFuQm9vc3RMaW1pdFJwbSwKLQlTTVVfTVNH
-X0dldEFWRlNWb2x0YWdlQnlEcG0sCi0JU01VX01TR19Qb3dlclVwVmNuLAotCVNNVV9NU0dfUG93
-ZXJEb3duVmNuLAotCVNNVV9NU0dfUG93ZXJVcEpwZWcsCi0JU01VX01TR19Qb3dlckRvd25KcGVn
-LAotCVNNVV9NU0dfQmFjb0F1ZGlvRDNQTUUsCi0JU01VX01TR19Bcm1EMywKLQlTTVVfTVNHX1J1
-bkdmeERjQnRjLAotCVNNVV9NU0dfUnVuU29jRGNCdGMsCi0JU01VX01TR19TZXRNZW1vcnlDaGFu
-bmVsRW5hYmxlLAotCVNNVV9NU0dfU2V0RGZTd2l0Y2hUeXBlLAotCVNNVV9NU0dfR2V0Vm9sdGFn
-ZUJ5RHBtLAotCVNNVV9NU0dfR2V0Vm9sdGFnZUJ5RHBtT3ZlcmRyaXZlLAotCVNNVV9NU0dfUG93
-ZXJVcFZjbjAsCi0JU01VX01TR19Qb3dlckRvd25WY24wMSwKLQlTTVVfTVNHX1Bvd2VyVXBWY24x
-LAotCVNNVV9NU0dfUG93ZXJEb3duVmNuMSwKKwlTTVVfTUVTU0FHRV9UWVBFUwogCVNNVV9NU0df
-TUFYX0NPVU5ULAogfTsKIApAQCAtMjA3LDQgKzIxMSwzIEBAIGVudW0gc211X2ZlYXR1cmVfbWFz
-ayB7ICB9OwogCiAjZW5kaWYKLQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dl
-cnBsYXkvc211X3YxMV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjEx
-XzAuYwppbmRleCA3NDViMzVhMTYwMGQuLmNjZjZhZjA1NWQwMyAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMKQEAgLTEwMiw4ICsxMDIsOCBAQCBzdGF0aWMgaW50
-IHNtdV92MTFfMF9zZW5kX21zZyhzdHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwgdWludDE2X3QgbXNn
-KQogCXJldCA9IHNtdV92MTFfMF93YWl0X2Zvcl9yZXNwb25zZShzbXUpOwogCiAJaWYgKHJldCkK
-LQkJcHJfZXJyKCJGYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDB4JXgsIHJlc3BvbnNlIDB4JXhcbiIs
-IGluZGV4LAotCQkgICAgICAgcmV0KTsKKwkJcHJfZXJyKCJmYWlsZWQgc2VuZCBtZXNzYWdlOiAl
-MTBzICglZCkgcmVzcG9uc2UgJSN4XG4iLAorCQkgICAgICAgc211X2dldF9tZXNzYWdlX25hbWUo
-c211LCBtc2cpLCBpbmRleCwgcmV0KTsKIAogCXJldHVybiByZXQ7CiAKQEAgLTEyMyw4ICsxMjMs
-OCBAQCBzbXVfdjExXzBfc2VuZF9tc2dfd2l0aF9wYXJhbShzdHJ1Y3Qgc211X2NvbnRleHQgKnNt
-dSwgdWludDE2X3QgbXNnLAogCiAJcmV0ID0gc211X3YxMV8wX3dhaXRfZm9yX3Jlc3BvbnNlKHNt
-dSk7CiAJaWYgKHJldCkKLQkJcHJfZXJyKCJGYWlsZWQgdG8gc2VuZCBtZXNzYWdlIDB4JXgsIHJl
-c3BvbnNlIDB4JXgsIHBhcmFtIDB4JXhcbiIsCi0JCSAgICAgICBpbmRleCwgcmV0LCBwYXJhbSk7
-CisJCXByX2VycigiZmFpbGVkIHNlbmQgbWVzc2FnZTogJTEwcyAoJWQpIFx0cGFyYW06IDB4JTA4
-eCByZXNwb25zZSAlI3hcbiIsCisJCSAgICAgICBzbXVfZ2V0X21lc3NhZ2VfbmFtZShzbXUsIG1z
-ZyksIGluZGV4LCBwYXJhbSwgcmV0KTsKIAogCVdSRUczMl9TT0MxNShNUDEsIDAsIG1tTVAxX1NN
-Tl9DMlBNU0dfOTAsIDApOwogCkBAIC0xMzQsOCArMTM0LDggQEAgc211X3YxMV8wX3NlbmRfbXNn
-X3dpdGhfcGFyYW0oc3RydWN0IHNtdV9jb250ZXh0ICpzbXUsIHVpbnQxNl90IG1zZywKIAogCXJl
-dCA9IHNtdV92MTFfMF93YWl0X2Zvcl9yZXNwb25zZShzbXUpOwogCWlmIChyZXQpCi0JCXByX2Vy
-cigiRmFpbGVkIHRvIHNlbmQgbWVzc2FnZSAweCV4LCByZXNwb25zZSAweCV4IHBhcmFtIDB4JXhc
-biIsCi0JCSAgICAgICBpbmRleCwgcmV0LCBwYXJhbSk7CisJCXByX2VycigiZmFpbGVkIHNlbmQg
-bWVzc2FnZTogJTEwcyAoJWQpIFx0cGFyYW06IDB4JTA4eCByZXNwb25zZSAlI3hcbiIsCisJCSAg
-ICAgICBzbXVfZ2V0X21lc3NhZ2VfbmFtZShzbXUsIG1zZyksIGluZGV4LCBwYXJhbSwgcmV0KTsK
-IAogCXJldHVybiByZXQ7CiB9Ci0tCjIuMjIuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+This is a multi-part message in MIME format.
+--===============0525257288==
+Content-Type: multipart/alternative;
+ boundary="------------503B35CF84205E96698ED970"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------503B35CF84205E96698ED970
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Should we have a define for the 0x80000000 somewhere?
+
+And please break the commit log into fewer characters per line.
+
+Apart from that looks good to me,
+Christian.
+
+Am 25.07.19 um 00:23 schrieb Liu, Leo:
+> Please separate the patches to 2 patches. i. e. New ring test as one 
+> patch.
+>
+> Regards,
+> Leo
+> ------------------------------------------------------------------------
+> *From:* amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of 
+> Thai, Thong <Thong.Thai-5C7GfCeVMHo@public.gmane.org>
+> *Sent:* July 24, 2019 3:50:47 PM
+> *To:* amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+> *Subject:* [PATCH] drm/amd/amdgpu/vcn_v2_0: Set CMD_SOURCE for RB 
+> commands
+> Sets the CMD_SOURCE bit for VCN 2.0 decoder ring-buffer commands. This 
+> bit was previously set by the RBC HW on older versions of the 
+> firmware, and now needs to be set by the driver in order to work with 
+> the SW RBC found in newer versions of the firmware.
+>
+> Signed-off-by: Thong Thai <thong.thai-5C7GfCeVMHo@public.gmane.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 44 ++++++++++++++++++++++-----
+>  1 file changed, 37 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> index bc9726787c97..8daee23425f8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+> @@ -1488,7 +1488,7 @@ static void 
+> vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));
+>          amdgpu_ring_write(ring, 0);
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
+> -       amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_START << 1);
+> +       amdgpu_ring_write(ring, 0x80000000 | (VCN_DEC_CMD_PACKET_START 
+> << 1));
+>  }
+>
+>  /**
+> @@ -1501,7 +1501,7 @@ static void 
+> vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)
+>  static void vcn_v2_0_dec_ring_insert_end(struct amdgpu_ring *ring)
+>  {
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
+> -       amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_END << 1);
+> +       amdgpu_ring_write(ring, 0x80000000 | (VCN_DEC_CMD_PACKET_END 
+> << 1));
+>  }
+>
+>  /**
+> @@ -1546,7 +1546,7 @@ static void vcn_v2_0_dec_ring_emit_fence(struct 
+> amdgpu_ring *ring, u64 addr, u64
+>          amdgpu_ring_write(ring, upper_32_bits(addr) & 0xff);
+>
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
+> -       amdgpu_ring_write(ring, VCN_DEC_CMD_FENCE << 1);
+> +       amdgpu_ring_write(ring, 0x80000000 | (VCN_DEC_CMD_FENCE << 1));
+>
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));
+>          amdgpu_ring_write(ring, 0);
+> @@ -1556,7 +1556,7 @@ static void vcn_v2_0_dec_ring_emit_fence(struct 
+> amdgpu_ring *ring, u64 addr, u64
+>
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
+>
+> -       amdgpu_ring_write(ring, VCN_DEC_CMD_TRAP << 1);
+> +       amdgpu_ring_write(ring, 0x80000000 | (VCN_DEC_CMD_TRAP << 1));
+>  }
+>
+>  /**
+> @@ -1600,7 +1600,7 @@ static void 
+> vcn_v2_0_dec_ring_emit_reg_wait(struct amdgpu_ring *ring,
+>
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
+>
+> -       amdgpu_ring_write(ring, VCN_DEC_CMD_REG_READ_COND_WAIT << 1);
+> +       amdgpu_ring_write(ring, 0x80000000 | 
+> (VCN_DEC_CMD_REG_READ_COND_WAIT << 1));
+>  }
+>
+>  static void vcn_v2_0_dec_ring_emit_vm_flush(struct amdgpu_ring *ring,
+> @@ -1629,7 +1629,7 @@ static void vcn_v2_0_dec_ring_emit_wreg(struct 
+> amdgpu_ring *ring,
+>
+>          amdgpu_ring_write(ring, 
+> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
+>
+> -       amdgpu_ring_write(ring, VCN_DEC_CMD_WRITE_REG << 1);
+> +       amdgpu_ring_write(ring, 0x80000000 | (VCN_DEC_CMD_WRITE_REG << 
+> 1));
+>  }
+>
+>  /**
+> @@ -2082,6 +2082,36 @@ static int vcn_v2_0_process_interrupt(struct 
+> amdgpu_device *adev,
+>          return 0;
+>  }
+>
+> +int vcn_v2_0_dec_ring_test_ring(struct amdgpu_ring *ring)
+> +{
+> +       struct amdgpu_device *adev = ring->adev;
+> +       uint32_t tmp = 0;
+> +       unsigned i;
+> +       int r;
+> +
+> +       WREG32(adev->vcn.external.scratch9, 0xCAFEDEAD);
+> +       r = amdgpu_ring_alloc(ring, 3);
+> +       if (r)
+> +               return r;
+> +       amdgpu_ring_write(ring, PACKET0(adev->vcn.internal.cmd, 0));
+> +       amdgpu_ring_write(ring, 0x80000000 | (VCN_DEC_CMD_PACKET_START 
+> << 1));
+> +       amdgpu_ring_write(ring, PACKET0(adev->vcn.internal.scratch9, 0));
+> +       amdgpu_ring_write(ring, 0xDEADBEEF);
+> +       amdgpu_ring_commit(ring);
+> +       for (i = 0; i < adev->usec_timeout; i++) {
+> +               tmp = RREG32(adev->vcn.external.scratch9);
+> +               if (tmp == 0xDEADBEEF)
+> +                       break;
+> +               DRM_UDELAY(1);
+> +       }
+> +
+> +       if (i >= adev->usec_timeout)
+> +               r = -ETIMEDOUT;
+> +
+> +       return r;
+> +}
+> +
+> +
+>  static int vcn_v2_0_set_powergating_state(void *handle,
+>                                            enum amd_powergating_state 
+> state)
+>  {
+> @@ -2145,7 +2175,7 @@ static const struct amdgpu_ring_funcs 
+> vcn_v2_0_dec_ring_vm_funcs = {
+>          .emit_ib = vcn_v2_0_dec_ring_emit_ib,
+>          .emit_fence = vcn_v2_0_dec_ring_emit_fence,
+>          .emit_vm_flush = vcn_v2_0_dec_ring_emit_vm_flush,
+> -       .test_ring = amdgpu_vcn_dec_ring_test_ring,
+> +       .test_ring = vcn_v2_0_dec_ring_test_ring,
+>          .test_ib = amdgpu_vcn_dec_ring_test_ib,
+>          .insert_nop = vcn_v2_0_dec_ring_insert_nop,
+>          .insert_start = vcn_v2_0_dec_ring_insert_start,
+> -- 
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------503B35CF84205E96698ED970
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Should we have a define for the
+      0x80000000 somewhere?<br>
+      <br>
+      And please break the commit log into fewer characters per line.<br>
+      <br>
+      Apart from that looks good to me,<br>
+      Christian.<br>
+      <br>
+      Am 25.07.19 um 00:23 schrieb Liu, Leo:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:DM5PR12MB2456E8FF88AA6C6F48A0A12FE5C60-2J9CzHegvk8TFHufQck+3gdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org">
+      <meta http-equiv="Content-Type" content="text/html;
+        charset=windows-1252">
+      Please separate the patches to 2 patches. i. e. New ring test as
+      one patch.<br>
+      <br>
+      Regards, <br>
+      Leo<br>
+      <hr style="display:inline-block;width:98%" tabindex="-1">
+      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
+          face="Calibri, sans-serif" color="#000000"><b>From:</b>
+          amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a> on
+          behalf of Thai, Thong <a class="moz-txt-link-rfc2396E" href="mailto:Thong.Thai-5C7GfCeVMHo@public.gmane.org">&lt;Thong.Thai-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+          <b>Sent:</b> July 24, 2019 3:50:47 PM<br>
+          <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
+          <b>Subject:</b> [PATCH] drm/amd/amdgpu/vcn_v2_0: Set
+          CMD_SOURCE for RB commands</font>
+        <div> </div>
+      </div>
+      <div class="BodyFragment"><font size="2"><span
+            style="font-size:11pt;">
+            <div class="PlainText">Sets the CMD_SOURCE bit for VCN 2.0
+              decoder ring-buffer commands. This bit was previously set
+              by the RBC HW on older versions of the firmware, and now
+              needs to be set by the driver in order to work with the SW
+              RBC found in newer versions of the firmware.<br>
+              <br>
+              Signed-off-by: Thong Thai <a class="moz-txt-link-rfc2396E" href="mailto:thong.thai-5C7GfCeVMHo@public.gmane.org">&lt;thong.thai-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
+              ---<br>
+               drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 44
+              ++++++++++++++++++++++-----<br>
+               1 file changed, 37 insertions(+), 7 deletions(-)<br>
+              <br>
+              diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+              b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
+              index bc9726787c97..8daee23425f8 100644<br>
+              --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
+              +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
+              @@ -1488,7 +1488,7 @@ static void
+              vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)<br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));<br>
+                       amdgpu_ring_write(ring, 0);<br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
+              -       amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_START
+              &lt;&lt; 1);<br>
+              +       amdgpu_ring_write(ring, 0x80000000 |
+              (VCN_DEC_CMD_PACKET_START &lt;&lt; 1));<br>
+               }<br>
+               <br>
+               /**<br>
+              @@ -1501,7 +1501,7 @@ static void
+              vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)<br>
+               static void vcn_v2_0_dec_ring_insert_end(struct
+              amdgpu_ring *ring)<br>
+               {<br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
+              -       amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_END
+              &lt;&lt; 1);<br>
+              +       amdgpu_ring_write(ring, 0x80000000 |
+              (VCN_DEC_CMD_PACKET_END &lt;&lt; 1));<br>
+               }<br>
+               <br>
+               /**<br>
+              @@ -1546,7 +1546,7 @@ static void
+              vcn_v2_0_dec_ring_emit_fence(struct amdgpu_ring *ring, u64
+              addr, u64<br>
+                       amdgpu_ring_write(ring, upper_32_bits(addr) &amp;
+              0xff);<br>
+               <br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
+              -       amdgpu_ring_write(ring, VCN_DEC_CMD_FENCE &lt;&lt;
+              1);<br>
+              +       amdgpu_ring_write(ring, 0x80000000 |
+              (VCN_DEC_CMD_FENCE &lt;&lt; 1));<br>
+               <br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));<br>
+                       amdgpu_ring_write(ring, 0);<br>
+              @@ -1556,7 +1556,7 @@ static void
+              vcn_v2_0_dec_ring_emit_fence(struct amdgpu_ring *ring, u64
+              addr, u64<br>
+               <br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
+               <br>
+              -       amdgpu_ring_write(ring, VCN_DEC_CMD_TRAP &lt;&lt;
+              1);<br>
+              +       amdgpu_ring_write(ring, 0x80000000 |
+              (VCN_DEC_CMD_TRAP &lt;&lt; 1));<br>
+               }<br>
+               <br>
+               /**<br>
+              @@ -1600,7 +1600,7 @@ static void
+              vcn_v2_0_dec_ring_emit_reg_wait(struct amdgpu_ring *ring,<br>
+               <br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
+               <br>
+              -       amdgpu_ring_write(ring,
+              VCN_DEC_CMD_REG_READ_COND_WAIT &lt;&lt; 1);<br>
+              +       amdgpu_ring_write(ring, 0x80000000 |
+              (VCN_DEC_CMD_REG_READ_COND_WAIT &lt;&lt; 1));<br>
+               }<br>
+               <br>
+               static void vcn_v2_0_dec_ring_emit_vm_flush(struct
+              amdgpu_ring *ring,<br>
+              @@ -1629,7 +1629,7 @@ static void
+              vcn_v2_0_dec_ring_emit_wreg(struct amdgpu_ring *ring,<br>
+               <br>
+                       amdgpu_ring_write(ring,
+              PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
+               <br>
+              -       amdgpu_ring_write(ring, VCN_DEC_CMD_WRITE_REG
+              &lt;&lt; 1);<br>
+              +       amdgpu_ring_write(ring, 0x80000000 |
+              (VCN_DEC_CMD_WRITE_REG &lt;&lt; 1));<br>
+               }<br>
+               <br>
+               /**<br>
+              @@ -2082,6 +2082,36 @@ static int
+              vcn_v2_0_process_interrupt(struct amdgpu_device *adev,<br>
+                       return 0;<br>
+               }<br>
+               <br>
+              +int vcn_v2_0_dec_ring_test_ring(struct amdgpu_ring *ring)<br>
+              +{<br>
+              +       struct amdgpu_device *adev = ring-&gt;adev;<br>
+              +       uint32_t tmp = 0;<br>
+              +       unsigned i;<br>
+              +       int r;<br>
+              +<br>
+              +       WREG32(adev-&gt;vcn.external.scratch9,
+              0xCAFEDEAD);<br>
+              +       r = amdgpu_ring_alloc(ring, 3);<br>
+              +       if (r)<br>
+              +               return r;<br>
+              +       amdgpu_ring_write(ring,
+              PACKET0(adev-&gt;vcn.internal.cmd, 0));<br>
+              +       amdgpu_ring_write(ring, 0x80000000 |
+              (VCN_DEC_CMD_PACKET_START &lt;&lt; 1));<br>
+              +       amdgpu_ring_write(ring,
+              PACKET0(adev-&gt;vcn.internal.scratch9, 0));<br>
+              +       amdgpu_ring_write(ring, 0xDEADBEEF);<br>
+              +       amdgpu_ring_commit(ring);<br>
+              +       for (i = 0; i &lt; adev-&gt;usec_timeout; i++) {<br>
+              +               tmp =
+              RREG32(adev-&gt;vcn.external.scratch9);<br>
+              +               if (tmp == 0xDEADBEEF)<br>
+              +                       break;<br>
+              +               DRM_UDELAY(1);<br>
+              +       }<br>
+              +<br>
+              +       if (i &gt;= adev-&gt;usec_timeout)<br>
+              +               r = -ETIMEDOUT;<br>
+              +<br>
+              +       return r;<br>
+              +}<br>
+              +<br>
+              +<br>
+               static int vcn_v2_0_set_powergating_state(void *handle,<br>
+                                                         enum
+              amd_powergating_state state)<br>
+               {<br>
+              @@ -2145,7 +2175,7 @@ static const struct
+              amdgpu_ring_funcs vcn_v2_0_dec_ring_vm_funcs = {<br>
+                       .emit_ib = vcn_v2_0_dec_ring_emit_ib,<br>
+                       .emit_fence = vcn_v2_0_dec_ring_emit_fence,<br>
+                       .emit_vm_flush = vcn_v2_0_dec_ring_emit_vm_flush,<br>
+              -       .test_ring = amdgpu_vcn_dec_ring_test_ring,<br>
+              +       .test_ring = vcn_v2_0_dec_ring_test_ring,<br>
+                       .test_ib = amdgpu_vcn_dec_ring_test_ib,<br>
+                       .insert_nop = vcn_v2_0_dec_ring_insert_nop,<br>
+                       .insert_start = vcn_v2_0_dec_ring_insert_start,<br>
+              -- <br>
+              2.17.1<br>
+              <br>
+              _______________________________________________<br>
+              amd-gfx mailing list<br>
+              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a><br>
+              <a
+                href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx"
+                moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+          </span></font></div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------503B35CF84205E96698ED970--
+
+--===============0525257288==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0525257288==--
