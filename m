@@ -1,16 +1,18 @@
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/amdgpu/vcn_v2_0: Mark RB commands as KMD
- commands
-Date: Fri, 26 Jul 2019 13:39:26 +0200
-Message-ID: <b2caaa9f-c4f9-b1b9-4722-62fff3a5904c@gmail.com>
-References: <20190725155204.5739-1-thong.thai@amd.com>
- <2a7d972a-5916-7d00-c8ad-5ff33363d993@gmail.com>
- <BN6PR1201MB0178F74D883BC13DD35CDC369DC00@BN6PR1201MB0178.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v5 2/4] drm/amdgpu: Create helper to clear
+ AMDGPU_GEM_CREATE_CPU_GTT_USWC
+Date: Fri, 26 Jul 2019 13:55:02 +0200
+Message-ID: <881edbab-df57-a1d7-bcf3-987fdbb384db@gmail.com>
+References: <1564064683-31796-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1564064683-31796-3-git-send-email-andrey.grodzovsky@amd.com>
+ <1723b531-097f-2687-6dc9-9de6e3e378a1@gmail.com>
+ <fdf2600a-b0ef-bdca-f22b-51427bef9531@daenzer.net>
 Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1201054984=="
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <BN6PR1201MB0178F74D883BC13DD35CDC369DC00-6iU6OBHu2P+P5uQgMQGiHWrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org>
+In-Reply-To: <fdf2600a-b0ef-bdca-f22b-51427bef9531-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -22,363 +24,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Thai, Thong" <Thong.Thai-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, hersenxs.wu-5C7GfCeVMHo@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, shirish.s-5C7GfCeVMHo@public.gmane.org
 
-This is a multi-part message in MIME format.
---===============1201054984==
-Content-Type: multipart/alternative;
- boundary="------------1A6E11B37A0FBBE6DDB024EA"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------1A6E11B37A0FBBE6DDB024EA
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Good point, this patch is Reviewed-by: Christian König 
-<christian.koenig-5C7GfCeVMHo@public.gmane.org>.
-
-But please ping the firmware guys if that really could be an issue,
-Christian.
-
-Am 26.07.19 um 12:45 schrieb Thai, Thong:
-> Well, not through this particular piece of code, since this explicitly 
-> sets it. But I would imagine someone could set the bit in userspace 
-> and insert KMD commands in the BO as part of some IB instructions - 
-> I’ll have a look.
->
-> ------------------------------------------------------------------------
-> *From:* Christian König <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-> *Sent:* Friday, July 26, 2019 3:17:19 AM
-> *To:* Thai, Thong <Thong.Thai-5C7GfCeVMHo@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org 
-> <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-> *Subject:* Re: [PATCH 1/2] drm/amd/amdgpu/vcn_v2_0: Mark RB commands 
-> as KMD commands
-> Am 25.07.19 um 17:52 schrieb Thai, Thong:
-> > Sets the CMD_SOURCE bit for VCN 2.0 Decoder Ring Buffer commands. This
-> > bit was previously set by the RBC HW on older firmware. Newer firmware
-> > uses a SW RBC and this bit has to be set by the driver.
->
-> Mhm, another question came to my mind: Would it now be possible for user
-> space to set this flag and and gain access to the kernel driver commands?
->
-> Cause that could be a security problem.
->
-> Christian.
->
-> >
-> > Signed-off-by: Thong Thai <thong.thai-5C7GfCeVMHo@public.gmane.org>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 +
-> >   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 12 ++++++------
-> >   2 files changed, 7 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> > index 5e2453ee6b29..4d3bf4adf1eb 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-> > @@ -30,6 +30,7 @@
-> >   #define AMDGPU_VCN_FIRMWARE_OFFSET  256
-> >   #define AMDGPU_VCN_MAX_ENC_RINGS    3
-> >
-> > +#define VCN_DEC_KMD_CMD 0x80000000
-> >   #define VCN_DEC_CMD_FENCE           0x00000000
-> >   #define VCN_DEC_CMD_TRAP            0x00000001
-> >   #define VCN_DEC_CMD_WRITE_REG 0x00000004
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c 
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> > index bc9726787c97..7091aef95ff0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> > @@ -1488,7 +1488,7 @@ static void 
-> vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));
-> >        amdgpu_ring_write(ring, 0);
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
-> > -     amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_START << 1);
-> > +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD | 
-> (VCN_DEC_CMD_PACKET_START << 1));
-> >   }
-> >
-> >   /**
-> > @@ -1501,7 +1501,7 @@ static void 
-> vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)
-> >   static void vcn_v2_0_dec_ring_insert_end(struct amdgpu_ring *ring)
-> >   {
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
-> > -     amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_END << 1);
-> > +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD | 
-> (VCN_DEC_CMD_PACKET_END << 1));
-> >   }
-> >
-> >   /**
-> > @@ -1546,7 +1546,7 @@ static void 
-> vcn_v2_0_dec_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64
-> >        amdgpu_ring_write(ring, upper_32_bits(addr) & 0xff);
-> >
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
-> > -     amdgpu_ring_write(ring, VCN_DEC_CMD_FENCE << 1);
-> > +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD | (VCN_DEC_CMD_FENCE 
-> << 1));
-> >
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));
-> >        amdgpu_ring_write(ring, 0);
-> > @@ -1556,7 +1556,7 @@ static void 
-> vcn_v2_0_dec_ring_emit_fence(struct amdgpu_ring *ring, u64 addr, u64
-> >
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
-> >
-> > -     amdgpu_ring_write(ring, VCN_DEC_CMD_TRAP << 1);
-> > +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD | (VCN_DEC_CMD_TRAP << 
-> 1));
-> >   }
-> >
-> >   /**
-> > @@ -1600,7 +1600,7 @@ static void 
-> vcn_v2_0_dec_ring_emit_reg_wait(struct amdgpu_ring *ring,
-> >
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
-> >
-> > -     amdgpu_ring_write(ring, VCN_DEC_CMD_REG_READ_COND_WAIT << 1);
-> > +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD | 
-> (VCN_DEC_CMD_REG_READ_COND_WAIT << 1));
-> >   }
-> >
-> >   static void vcn_v2_0_dec_ring_emit_vm_flush(struct amdgpu_ring *ring,
-> > @@ -1629,7 +1629,7 @@ static void vcn_v2_0_dec_ring_emit_wreg(struct 
-> amdgpu_ring *ring,
-> >
-> >        amdgpu_ring_write(ring, 
-> PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));
-> >
-> > -     amdgpu_ring_write(ring, VCN_DEC_CMD_WRITE_REG << 1);
-> > +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD | 
-> (VCN_DEC_CMD_WRITE_REG << 1));
-> >   }
-> >
-> >   /**
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------1A6E11B37A0FBBE6DDB024EA
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Good point, this patch is Reviewed-by:
-      Christian König <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig-5C7GfCeVMHo@public.gmane.org">&lt;christian.koenig-5C7GfCeVMHo@public.gmane.org&gt;</a>.<br>
-      <br>
-      But please ping the firmware guys if that really could be an
-      issue,<br>
-      Christian.<br>
-      <br>
-      Am 26.07.19 um 12:45 schrieb Thai, Thong:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:BN6PR1201MB0178F74D883BC13DD35CDC369DC00-6iU6OBHu2P+P5uQgMQGiHWrFom/aUZj6nBOFsp37pqbUKgpGm//BTAC/G2K4zDHf@public.gmane.org">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <meta name="Generator" content="Microsoft Exchange Server">
-      <!-- converted from text -->
-      <style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left: #800000 2px solid; } --></style>
-      <div>
-        <div>
-          <div>
-            <div style="direction:ltr">Well, not through this particular
-              piece of code, since this explicitly sets it. But I would
-              imagine someone could set the bit in userspace and insert
-              KMD commands in the BO as part of some IB instructions -
-              I’ll have a look.</div>
-          </div>
-          <div><br>
-          </div>
-        </div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Christian König <a class="moz-txt-link-rfc2396E" href="mailto:ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org">&lt;ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;</a><br>
-            <b>Sent:</b> Friday, July 26, 2019 3:17:19 AM<br>
-            <b>To:</b> Thai, Thong <a class="moz-txt-link-rfc2396E" href="mailto:Thong.Thai-5C7GfCeVMHo@public.gmane.org">&lt;Thong.Thai-5C7GfCeVMHo@public.gmane.org&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">&lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH 1/2] drm/amd/amdgpu/vcn_v2_0:
-            Mark RB commands as KMD commands</font>
-          <div> </div>
-        </div>
-      </div>
-      <font size="2"><span style="font-size:11pt;">
-          <div class="PlainText">Am 25.07.19 um 17:52 schrieb Thai,
-            Thong:<br>
-            &gt; Sets the CMD_SOURCE bit for VCN 2.0 Decoder Ring Buffer
-            commands. This<br>
-            &gt; bit was previously set by the RBC HW on older firmware.
-            Newer firmware<br>
-            &gt; uses a SW RBC and this bit has to be set by the driver.<br>
-            <br>
-            Mhm, another question came to my mind: Would it now be
-            possible for user <br>
-            space to set this flag and and gain access to the kernel
-            driver commands?<br>
-            <br>
-            Cause that could be a security problem.<br>
-            <br>
-            Christian.<br>
-            <br>
-            &gt;<br>
-            &gt; Signed-off-by: Thong Thai <a class="moz-txt-link-rfc2396E" href="mailto:thong.thai-5C7GfCeVMHo@public.gmane.org">&lt;thong.thai-5C7GfCeVMHo@public.gmane.org&gt;</a><br>
-            &gt; ---<br>
-            &gt;   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  1 +<br>
-            &gt;   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   | 12
-            ++++++------<br>
-            &gt;   2 files changed, 7 insertions(+), 6 deletions(-)<br>
-            &gt;<br>
-            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
-            &gt; index 5e2453ee6b29..4d3bf4adf1eb 100644<br>
-            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
-            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
-            &gt; @@ -30,6 +30,7 @@<br>
-            &gt;   #define AMDGPU_VCN_FIRMWARE_OFFSET  256<br>
-            &gt;   #define AMDGPU_VCN_MAX_ENC_RINGS    3<br>
-            &gt;   <br>
-            &gt; +#define VCN_DEC_KMD_CMD                     
-            0x80000000<br>
-            &gt;   #define VCN_DEC_CMD_FENCE           0x00000000<br>
-            &gt;   #define VCN_DEC_CMD_TRAP            0x00000001<br>
-            &gt;   #define VCN_DEC_CMD_WRITE_REG              
-            0x00000004<br>
-            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-            b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
-            &gt; index bc9726787c97..7091aef95ff0 100644<br>
-            &gt; --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
-            &gt; +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c<br>
-            &gt; @@ -1488,7 +1488,7 @@ static void
-            vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)<br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));<br>
-            &gt;        amdgpu_ring_write(ring, 0);<br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
-            &gt; -     amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_START
-            &lt;&lt; 1);<br>
-            &gt; +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD |
-            (VCN_DEC_CMD_PACKET_START &lt;&lt; 1));<br>
-            &gt;   }<br>
-            &gt;   <br>
-            &gt;   /**<br>
-            &gt; @@ -1501,7 +1501,7 @@ static void
-            vcn_v2_0_dec_ring_insert_start(struct amdgpu_ring *ring)<br>
-            &gt;   static void vcn_v2_0_dec_ring_insert_end(struct
-            amdgpu_ring *ring)<br>
-            &gt;   {<br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
-            &gt; -     amdgpu_ring_write(ring, VCN_DEC_CMD_PACKET_END
-            &lt;&lt; 1);<br>
-            &gt; +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD |
-            (VCN_DEC_CMD_PACKET_END &lt;&lt; 1));<br>
-            &gt;   }<br>
-            &gt;   <br>
-            &gt;   /**<br>
-            &gt; @@ -1546,7 +1546,7 @@ static void
-            vcn_v2_0_dec_ring_emit_fence(struct amdgpu_ring *ring, u64
-            addr, u64<br>
-            &gt;        amdgpu_ring_write(ring, upper_32_bits(addr)
-            &amp; 0xff);<br>
-            &gt;   <br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
-            &gt; -     amdgpu_ring_write(ring, VCN_DEC_CMD_FENCE
-            &lt;&lt; 1);<br>
-            &gt; +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD |
-            (VCN_DEC_CMD_FENCE &lt;&lt; 1));<br>
-            &gt;   <br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_DATA0_INTERNAL_OFFSET, 0));<br>
-            &gt;        amdgpu_ring_write(ring, 0);<br>
-            &gt; @@ -1556,7 +1556,7 @@ static void
-            vcn_v2_0_dec_ring_emit_fence(struct amdgpu_ring *ring, u64
-            addr, u64<br>
-            &gt;   <br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
-            &gt;   <br>
-            &gt; -     amdgpu_ring_write(ring, VCN_DEC_CMD_TRAP &lt;&lt;
-            1);<br>
-            &gt; +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD |
-            (VCN_DEC_CMD_TRAP &lt;&lt; 1));<br>
-            &gt;   }<br>
-            &gt;   <br>
-            &gt;   /**<br>
-            &gt; @@ -1600,7 +1600,7 @@ static void
-            vcn_v2_0_dec_ring_emit_reg_wait(struct amdgpu_ring *ring,<br>
-            &gt;   <br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
-            &gt;   <br>
-            &gt; -     amdgpu_ring_write(ring,
-            VCN_DEC_CMD_REG_READ_COND_WAIT &lt;&lt; 1);<br>
-            &gt; +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD |
-            (VCN_DEC_CMD_REG_READ_COND_WAIT &lt;&lt; 1));<br>
-            &gt;   }<br>
-            &gt;   <br>
-            &gt;   static void vcn_v2_0_dec_ring_emit_vm_flush(struct
-            amdgpu_ring *ring,<br>
-            &gt; @@ -1629,7 +1629,7 @@ static void
-            vcn_v2_0_dec_ring_emit_wreg(struct amdgpu_ring *ring,<br>
-            &gt;   <br>
-            &gt;        amdgpu_ring_write(ring,
-            PACKET0(mmUVD_GPCOM_VCPU_CMD_INTERNAL_OFFSET, 0));<br>
-            &gt;   <br>
-            &gt; -     amdgpu_ring_write(ring, VCN_DEC_CMD_WRITE_REG
-            &lt;&lt; 1);<br>
-            &gt; +     amdgpu_ring_write(ring, VCN_DEC_KMD_CMD |
-            (VCN_DEC_CMD_WRITE_REG &lt;&lt; 1));<br>
-            &gt;   }<br>
-            &gt;   <br>
-            &gt;   /**<br>
-            <br>
-          </div>
-        </span></font>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------1A6E11B37A0FBBE6DDB024EA--
-
---===============1201054984==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1201054984==--
+QW0gMjYuMDcuMTkgdW0gMTA6NTQgc2NocmllYiBNaWNoZWwgRMOkbnplcjoKPiBPbiAyMDE5LTA3
+LTI2IDk6MTEgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMjUuMDcuMTkgdW0g
+MTY6MjQgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPj4+IE1vdmUgdGhlIGxvZ2ljIHRvIGNs
+ZWFyIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNXQyBpbgo+Pj4gYW1kZ3B1X2JvX2RvX2Ny
+ZWF0ZSBpbnRvIHN0YW5kYWxvbmUgaGVscGVyIHNvIGl0IGNhbiBiZSByZXVzZWQKPj4+IGluIG90
+aGVyIGZ1bmN0aW9ucy4KPj4+Cj4+PiB2NDoKPj4+IFN3aXRjaCB0byByZXR1cm4gYm9vbC4KPj4+
+Cj4+PiB2NTogRml4IHR5cG9zLgo+Pj4KPj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92
+c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+Pj4gLS0tCj4+PiAgwqAgZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jIHwgNjEKPj4+ICsrKysrKysrKysrKysr
+KysrLS0tLS0tLS0tLS0tLQo+Pj4gIMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9vYmplY3QuaCB8wqAgMiArCj4+PiAgwqAgMiBmaWxlcyBjaGFuZ2VkLCAzNyBpbnNlcnRpb25z
+KCspLCAyNiBkZWxldGlvbnMoLSkKPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdV9vYmplY3QuYwo+Pj4gaW5kZXggOTg5YjdiNS4uODcwMjA2MiAxMDA2NDQKPj4+
+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwo+Pj4gKysr
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCj4+PiBAQCAtNDEz
+LDYgKzQxMyw0MCBAQCBzdGF0aWMgYm9vbCBhbWRncHVfYm9fdmFsaWRhdGVfc2l6ZShzdHJ1Y3QK
+Pj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4+PiAgwqDCoMKgwqDCoCByZXR1cm4gZmFsc2U7Cj4+
+PiAgwqAgfQo+Pj4gIMKgICtib29sIGFtZGdwdV9ib19zdXBwb3J0X3Vzd2ModTY0IGJvX2ZsYWdz
+KQo+Pj4gK3sKPj4+ICsKPj4+ICsjaWZkZWYgQ09ORklHX1g4Nl8zMgo+Pj4gK8KgwqDCoCAvKiBY
+WFg6IFdyaXRlLWNvbWJpbmVkIENQVSBtYXBwaW5ncyBvZiBHVFQgc2VlbSBicm9rZW4gb24gMzIt
+Yml0Cj4+PiArwqDCoMKgwqAgKiBTZWUgaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93
+X2J1Zy5jZ2k/aWQ9ODQ2MjcKPj4+ICvCoMKgwqDCoCAqLwo+Pj4gK8KgwqDCoCByZXR1cm4gZmFs
+c2U7Cj4+PiArI2VsaWYgZGVmaW5lZChDT05GSUdfWDg2KSAmJiAhZGVmaW5lZChDT05GSUdfWDg2
+X1BBVCkKPj4+ICvCoMKgwqAgLyogRG9uJ3QgdHJ5IHRvIGVuYWJsZSB3cml0ZS1jb21iaW5pbmcg
+d2hlbiBpdCBjYW4ndCB3b3JrLCBvciB0aGluZ3MKPj4+ICvCoMKgwqDCoCAqIG1heSBiZSBzbG93
+Cj4+PiArwqDCoMKgwqAgKiBTZWUgaHR0cHM6Ly9idWdzLmZyZWVkZXNrdG9wLm9yZy9zaG93X2J1
+Zy5jZ2k/aWQ9ODg3NTgKPj4+ICvCoMKgwqDCoCAqLwo+Pj4gKwo+Pj4gKyNpZm5kZWYgQ09ORklH
+X0NPTVBJTEVfVEVTVAo+Pj4gKyN3YXJuaW5nIFBsZWFzZSBlbmFibGUgQ09ORklHX01UUlIgYW5k
+IENPTkZJR19YODZfUEFUIGZvciBiZXR0ZXIKPj4+IHBlcmZvcm1hbmNlIFwKPj4+ICvCoMKgwqDC
+oCB0aGFua3MgdG8gd3JpdGUtY29tYmluaW5nCj4+PiArI2VuZGlmCj4+PiArCj4+PiArwqDCoMKg
+IGlmIChib19mbGFncyAmIEFNREdQVV9HRU1fQ1JFQVRFX0NQVV9HVFRfVVNXQykKPj4+ICvCoMKg
+wqDCoMKgwqDCoCBEUk1fSU5GT19PTkNFKCJQbGVhc2UgZW5hYmxlIENPTkZJR19NVFJSIGFuZCBD
+T05GSUdfWDg2X1BBVAo+Pj4gZm9yICIKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgICJiZXR0ZXIgcGVyZm9ybWFuY2UgdGhhbmtzIHRvIHdyaXRlLWNvbWJpbmluZ1xuIik7
+Cj4+IEkgZG9uJ3QgdGhpbmsgdGhpcyBtZXNzYWdlIGJlbG9uZ3MgaGVyZS4KPj4KPj4gWy4uLl0K
+Pj4+IEBAIC00NjYsMzMgKzUwMCw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2JvX2RvX2NyZWF0ZShz
+dHJ1Y3QKPj4+IFsuLi5dCj4+PiArwqDCoMKgIGlmICghYW1kZ3B1X2JvX3N1cHBvcnRfdXN3Yyhi
+by0+ZmxhZ3MpKQo+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoCBiby0+ZmxhZ3MgJj0gfkFNREdQVV9H
+RU1fQ1JFQVRFX0NQVV9HVFRfVVNXQzsKPj4gUmF0aGVyIGhlcmUgd2Ugc2hvdWxkIGRvICJpZiAo
+Ym9fZmxhZ3MgJiBBTURHUFVfR0VNX0NSRUFURV9DUFVfR1RUX1VTV0MKPj4gJiYgIWFtZGdwdV9i
+b19zdXBwb3J0X3Vzd2MoKSkiIGFuZCB0aGVuIGNsZWFyIHRoZSBmbGFnIGFuZCBhbHNvIHByaW50
+Cj4+IHRoZSB3YXJuaW5nLgo+IFRoYXQgd291bGQgcmVxdWlyZSBkdXBsaWNhdGluZyB0aGUgQ09O
+RklHX1g4Nl9QQVQgcmVsYXRlZCBsb2dpYyBoZXJlIGFzCj4gd2VsbCwgd2hpY2ggaXMgYSBiaXQg
+dWdseS4KCkFjdHVhbGx5IEkgd291bGQgc2F5IHdlIHNob3VsZCBkcm9wIHRoaXMgZXh0cmEgY2hl
+Y2sgYW5kIGFsd2F5cyBlbWl0IGEgCm1lc3NhZ2UgdGhhdCBVU1dDIGlzIGRpc2FibGVkIGZvciB0
+aGlzIHBsYXRmb3JtLgoKV2Ugbm93IG5lZWQgaXQgZm9yIG1vcmUgdGhhbiBqdXN0IGJldHRlciBw
+ZXJmb3JtYW5jZSBhbmQgaXQgc2hvdWxkIGJlIApleHBsaWNpdGx5IG5vdGVkIHRoYXQgdGhpcyBp
+cyBub3QgYXZhaWxhYmxlIGluIHRoZSBsb2dzLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
