@@ -1,96 +1,37 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 1/2] drm/amd/amdgpu/vcn_v2_0: Mark RB commands as KMD
- commands
-Date: Fri, 26 Jul 2019 09:17:19 +0200
-Message-ID: <2a7d972a-5916-7d00-c8ad-5ff33363d993@gmail.com>
-References: <20190725155204.5739-1-thong.thai@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: YueHaibing <yuehaibing@huawei.com>
+Subject: [PATCH] drm/amd/display: remove duplicated include from dc_link.c
+Date: Fri, 26 Jul 2019 15:51:31 +0800
+Message-ID: <20190726075131.14688-1-yuehaibing@huawei.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190725155204.5739-1-thong.thai-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Thai, Thong" <Thong.Thai-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com, airlied@linux.ie, daniel@ffwll.ch, Bhawanpreet.Lakha@amd.com
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, YueHaibing <yuehaibing@huawei.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjUuMDcuMTkgdW0gMTc6NTIgc2NocmllYiBUaGFpLCBUaG9uZzoKPiBTZXRzIHRoZSBDTURf
-U09VUkNFIGJpdCBmb3IgVkNOIDIuMCBEZWNvZGVyIFJpbmcgQnVmZmVyIGNvbW1hbmRzLiBUaGlz
-Cj4gYml0IHdhcyBwcmV2aW91c2x5IHNldCBieSB0aGUgUkJDIEhXIG9uIG9sZGVyIGZpcm13YXJl
-LiBOZXdlciBmaXJtd2FyZQo+IHVzZXMgYSBTVyBSQkMgYW5kIHRoaXMgYml0IGhhcyB0byBiZSBz
-ZXQgYnkgdGhlIGRyaXZlci4KCk1obSwgYW5vdGhlciBxdWVzdGlvbiBjYW1lIHRvIG15IG1pbmQ6
-IFdvdWxkIGl0IG5vdyBiZSBwb3NzaWJsZSBmb3IgdXNlciAKc3BhY2UgdG8gc2V0IHRoaXMgZmxh
-ZyBhbmQgYW5kIGdhaW4gYWNjZXNzIHRvIHRoZSBrZXJuZWwgZHJpdmVyIGNvbW1hbmRzPwoKQ2F1
-c2UgdGhhdCBjb3VsZCBiZSBhIHNlY3VyaXR5IHByb2JsZW0uCgpDaHJpc3RpYW4uCgo+Cj4gU2ln
-bmVkLW9mZi1ieTogVGhvbmcgVGhhaSA8dGhvbmcudGhhaUBhbWQuY29tPgo+IC0tLQo+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oIHwgIDEgKwo+ICAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvdmNuX3YyXzAuYyAgIHwgMTIgKysrKysrLS0tLS0tCj4gICAyIGZp
-bGVzIGNoYW5nZWQsIDcgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmggYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmgKPiBpbmRleCA1ZTI0NTNlZTZiMjkuLjRkM2Jm
-NGFkZjFlYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dmNuLmgKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmgKPiBA
-QCAtMzAsNiArMzAsNyBAQAo+ICAgI2RlZmluZSBBTURHUFVfVkNOX0ZJUk1XQVJFX09GRlNFVAky
-NTYKPiAgICNkZWZpbmUgQU1ER1BVX1ZDTl9NQVhfRU5DX1JJTkdTCTMKPiAgIAo+ICsjZGVmaW5l
-IFZDTl9ERUNfS01EX0NNRAkJCTB4ODAwMDAwMDAKPiAgICNkZWZpbmUgVkNOX0RFQ19DTURfRkVO
-Q0UJCTB4MDAwMDAwMDAKPiAgICNkZWZpbmUgVkNOX0RFQ19DTURfVFJBUAkJMHgwMDAwMDAwMQo+
-ICAgI2RlZmluZSBWQ05fREVDX0NNRF9XUklURV9SRUcJCTB4MDAwMDAwMDQKPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YyXzAuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L3Zjbl92Ml8wLmMKPiBpbmRleCBiYzk3MjY3ODdjOTcuLjcwOTFhZWY5NWZm
-MCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfMC5jCj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YyXzAuYwo+IEBAIC0xNDg4LDcg
-KzE0ODgsNyBAQCBzdGF0aWMgdm9pZCB2Y25fdjJfMF9kZWNfcmluZ19pbnNlcnRfc3RhcnQoc3Ry
-dWN0IGFtZGdwdV9yaW5nICpyaW5nKQo+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFBBQ0tF
-VDAobW1VVkRfR1BDT01fVkNQVV9EQVRBMF9JTlRFUk5BTF9PRkZTRVQsIDApKTsKPiAgIAlhbWRn
-cHVfcmluZ193cml0ZShyaW5nLCAwKTsKPiAgIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNL
-RVQwKG1tVVZEX0dQQ09NX1ZDUFVfQ01EX0lOVEVSTkFMX09GRlNFVCwgMCkpOwo+IC0JYW1kZ3B1
-X3Jpbmdfd3JpdGUocmluZywgVkNOX0RFQ19DTURfUEFDS0VUX1NUQVJUIDw8IDEpOwo+ICsJYW1k
-Z3B1X3Jpbmdfd3JpdGUocmluZywgVkNOX0RFQ19LTURfQ01EIHwgKFZDTl9ERUNfQ01EX1BBQ0tF
-VF9TVEFSVCA8PCAxKSk7Cj4gICB9Cj4gICAKPiAgIC8qKgo+IEBAIC0xNTAxLDcgKzE1MDEsNyBA
-QCBzdGF0aWMgdm9pZCB2Y25fdjJfMF9kZWNfcmluZ19pbnNlcnRfc3RhcnQoc3RydWN0IGFtZGdw
-dV9yaW5nICpyaW5nKQo+ICAgc3RhdGljIHZvaWQgdmNuX3YyXzBfZGVjX3JpbmdfaW5zZXJ0X2Vu
-ZChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCj4gICB7Cj4gICAJYW1kZ3B1X3Jpbmdfd3JpdGUo
-cmluZywgUEFDS0VUMChtbVVWRF9HUENPTV9WQ1BVX0NNRF9JTlRFUk5BTF9PRkZTRVQsIDApKTsK
-PiAtCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFZDTl9ERUNfQ01EX1BBQ0tFVF9FTkQgPDwgMSk7
-Cj4gKwlhbWRncHVfcmluZ193cml0ZShyaW5nLCBWQ05fREVDX0tNRF9DTUQgfCAoVkNOX0RFQ19D
-TURfUEFDS0VUX0VORCA8PCAxKSk7Cj4gICB9Cj4gICAKPiAgIC8qKgo+IEBAIC0xNTQ2LDcgKzE1
-NDYsNyBAQCBzdGF0aWMgdm9pZCB2Y25fdjJfMF9kZWNfcmluZ19lbWl0X2ZlbmNlKHN0cnVjdCBh
-bWRncHVfcmluZyAqcmluZywgdTY0IGFkZHIsIHU2NAo+ICAgCWFtZGdwdV9yaW5nX3dyaXRlKHJp
-bmcsIHVwcGVyXzMyX2JpdHMoYWRkcikgJiAweGZmKTsKPiAgIAo+ICAgCWFtZGdwdV9yaW5nX3dy
-aXRlKHJpbmcsIFBBQ0tFVDAobW1VVkRfR1BDT01fVkNQVV9DTURfSU5URVJOQUxfT0ZGU0VULCAw
-KSk7Cj4gLQlhbWRncHVfcmluZ193cml0ZShyaW5nLCBWQ05fREVDX0NNRF9GRU5DRSA8PCAxKTsK
-PiArCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIFZDTl9ERUNfS01EX0NNRCB8IChWQ05fREVDX0NN
-RF9GRU5DRSA8PCAxKSk7Cj4gICAKPiAgIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQw
-KG1tVVZEX0dQQ09NX1ZDUFVfREFUQTBfSU5URVJOQUxfT0ZGU0VULCAwKSk7Cj4gICAJYW1kZ3B1
-X3Jpbmdfd3JpdGUocmluZywgMCk7Cj4gQEAgLTE1NTYsNyArMTU1Niw3IEBAIHN0YXRpYyB2b2lk
-IHZjbl92Ml8wX2RlY19yaW5nX2VtaXRfZmVuY2Uoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCB1
-NjQgYWRkciwgdTY0Cj4gICAKPiAgIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQwKG1t
-VVZEX0dQQ09NX1ZDUFVfQ01EX0lOVEVSTkFMX09GRlNFVCwgMCkpOwo+ICAgCj4gLQlhbWRncHVf
-cmluZ193cml0ZShyaW5nLCBWQ05fREVDX0NNRF9UUkFQIDw8IDEpOwo+ICsJYW1kZ3B1X3Jpbmdf
-d3JpdGUocmluZywgVkNOX0RFQ19LTURfQ01EIHwgKFZDTl9ERUNfQ01EX1RSQVAgPDwgMSkpOwo+
-ICAgfQo+ICAgCj4gICAvKioKPiBAQCAtMTYwMCw3ICsxNjAwLDcgQEAgc3RhdGljIHZvaWQgdmNu
-X3YyXzBfZGVjX3JpbmdfZW1pdF9yZWdfd2FpdChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4g
-ICAKPiAgIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQwKG1tVVZEX0dQQ09NX1ZDUFVf
-Q01EX0lOVEVSTkFMX09GRlNFVCwgMCkpOwo+ICAgCj4gLQlhbWRncHVfcmluZ193cml0ZShyaW5n
-LCBWQ05fREVDX0NNRF9SRUdfUkVBRF9DT05EX1dBSVQgPDwgMSk7Cj4gKwlhbWRncHVfcmluZ193
-cml0ZShyaW5nLCBWQ05fREVDX0tNRF9DTUQgfCAoVkNOX0RFQ19DTURfUkVHX1JFQURfQ09ORF9X
-QUlUIDw8IDEpKTsKPiAgIH0KPiAgIAo+ICAgc3RhdGljIHZvaWQgdmNuX3YyXzBfZGVjX3Jpbmdf
-ZW1pdF92bV9mbHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4gQEAgLTE2MjksNyArMTYy
-OSw3IEBAIHN0YXRpYyB2b2lkIHZjbl92Ml8wX2RlY19yaW5nX2VtaXRfd3JlZyhzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmcsCj4gICAKPiAgIAlhbWRncHVfcmluZ193cml0ZShyaW5nLCBQQUNLRVQw
-KG1tVVZEX0dQQ09NX1ZDUFVfQ01EX0lOVEVSTkFMX09GRlNFVCwgMCkpOwo+ICAgCj4gLQlhbWRn
-cHVfcmluZ193cml0ZShyaW5nLCBWQ05fREVDX0NNRF9XUklURV9SRUcgPDwgMSk7Cj4gKwlhbWRn
-cHVfcmluZ193cml0ZShyaW5nLCBWQ05fREVDX0tNRF9DTUQgfCAoVkNOX0RFQ19DTURfV1JJVEVf
-UkVHIDw8IDEpKTsKPiAgIH0KPiAgIAo+ICAgLyoqCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZng=
+Remove duplicated include.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 193d6f1..a14785d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -45,10 +45,6 @@
+ #include "dpcd_defs.h"
+ #include "dmcu.h"
+ #include "hw/clk_mgr.h"
+-#if defined(CONFIG_DRM_AMD_DC_DCN2_0)
+-#include "resource.h"
+-#endif
+-#include "hw/clk_mgr.h"
+ 
+ #define DC_LOGGER_INIT(logger)
+ 
+-- 
+2.7.4
