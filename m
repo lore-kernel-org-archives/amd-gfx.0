@@ -1,13 +1,15 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/powerplay: use proper revision id for navi
-Date: Fri, 26 Jul 2019 04:46:35 +0000
-Message-ID: <MN2PR12MB32969739658CAE0B4E8E3DBCA2C00@MN2PR12MB3296.namprd12.prod.outlook.com>
-References: <20190726041041.4023-1-alexander.deucher@amd.com>,
- <MN2PR12MB3775A0024DE6CC275E1AA4AFFEC00@MN2PR12MB3775.namprd12.prod.outlook.com>
+From: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 11/11] drm/amdgpu: put the SMC into the proper state on
+ reset/unload
+Date: Fri, 26 Jul 2019 06:02:08 +0000
+Message-ID: <MN2PR12MB33443691211DC67DFF24A81AE4C00@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20190726032146.3187-1-alexander.deucher@amd.com>
+ <20190726032146.3187-11-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1779956784=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3775A0024DE6CC275E1AA4AFFEC00-rweVpJHSKTrZ2I3O+RQqCgdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+In-Reply-To: <20190726032146.3187-11-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,181 +21,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>, Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
 
---===============1779956784==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB32969739658CAE0B4E8E3DBCA2C00MN2PR12MB3296namp_"
-
---_000_MN2PR12MB32969739658CAE0B4E8E3DBCA2C00MN2PR12MB3296namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
-
-Best Regards,
-Kevin
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Xu, Feif=
-ei <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Sent: Friday, July 26, 2019 12:20 PM
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <am=
-d-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/powerplay: use proper revision id for navi
-
-
-Reviewed-by: Feifei Xu <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> On Behalf Of Alex Deu=
-cher
-Sent: Friday, July 26, 2019 12:11 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH] drm/amdgpu/powerplay: use proper revision id for navi
-
-The PCI revision id determines the sku.
-
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c
-index c873228bf05f..dbac24e44174 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1592,7 +1592,7 @@ static int navi10_set_peak_clock_by_device(struct smu=
-_context *smu)
-         uint32_t sclk_freq =3D 0, uclk_freq =3D 0;
-         uint32_t uclk_level =3D 0;
-
--       switch (adev->rev_id) {
-+       switch (adev->pdev->revision) {
-         case 0xf0: /* XTX */
-         case 0xc0:
-                 sclk_freq =3D NAVI10_PEAK_SCLK_XTX;
---
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_MN2PR12MB32969739658CAE0B4E8E3DBCA2C00MN2PR12MB3296namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevin1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Xu, Feifei &lt;Feifei.Xu@amd.=
-com&gt;<br>
-<b>Sent:</b> Friday, July 26, 2019 12:20 PM<br>
-<b>To:</b> Alex Deucher &lt;alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org&gt;; amd-gfx-PD4FTy7X32lMiVNPc3mojA@public.gmane.org=
-sktop.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu/powerplay: use proper revision id fo=
-r navi</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText"><br>
-Reviewed-by: Feifei Xu &lt;Feifei.Xu-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<br>
------Original Message-----<br>
-From: amd-gfx &lt;amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; On Behalf Of Al=
-ex Deucher<br>
-Sent: Friday, July 26, 2019 12:11 PM<br>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Subject: [PATCH] drm/amdgpu/powerplay: use proper revision id for navi<br>
-<br>
-The PCI revision id determines the sku.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 2 &#43;-<br>
-&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/a=
-md/powerplay/navi10_ppt.c<br>
-index c873228bf05f..dbac24e44174 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c<br>
-@@ -1592,7 &#43;1592,7 @@ static int navi10_set_peak_clock_by_device(struct=
- smu_context *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t sclk_freq =3D 0, =
-uclk_freq =3D 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t uclk_level =3D 0;=
-<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;rev_id) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;pdev-&gt;revisio=
-n) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0xf0: /* XTX */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case 0xc0:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; sclk_freq =3D NAVI10_PEAK_SCLK_XTX;<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_MN2PR12MB32969739658CAE0B4E8E3DBCA2C00MN2PR12MB3296namp_--
-
---===============1779956784==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1779956784==--
+SSB0aGluayBpdCdzIE9LIHRvIGxlYXZlIHRoZSBTMyBhbmQgQkFDTyBhcyB0aGV5IHdlcmUgZm9y
+IG5vdy4NClNlcmllcyBpcyByZXZpZXdlZC1ieSBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29t
+Pg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IGFtZC1nZnggPGFtZC1n
+ZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBBbGV4DQo+IERl
+dWNoZXINCj4gU2VudDogRnJpZGF5LCBKdWx5IDI2LCAyMDE5IDExOjIyIEFNDQo+IFRvOiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4
+YW5kZXIuRGV1Y2hlckBhbWQuY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0ggMTEvMTFdIGRybS9hbWRn
+cHU6IHB1dCB0aGUgU01DIGludG8gdGhlIHByb3BlciBzdGF0ZSBvbg0KPiByZXNldC91bmxvYWQN
+Cj4gDQo+IFdoZW4gZG9pbmcgYSBHUFUgcmVzZXQgb3IgdW5sb2FkaW5nIHRoZSBkcml2ZXIsIHdl
+IG5lZWQgdG8gcHV0IHRoZSBTTVUNCj4gaW50byB0aGUgYXBwcnByaWF0ZSBzdGF0ZSBmb3IgdGhl
+IHJlLWluaXQgYWZ0ZXIgdGhlIHJlc2V0IG9yIHVubG9hZCB0byByZWxpYWJseQ0KPiB3b3JrLg0K
+PiANCj4gSSBkb24ndCB0aGluayB0aGlzIGlzIG5lY2Vzc2FyeSBmb3IgQkFDTyBiZWNhdXNlIHRo
+ZSBTTVUgYWN0dWFsbHkgY29udHJvbHMgdGhlDQo+IEJBQ08gc3RhdGUgdG8gaXQgbmVlZHMgdG8g
+YmUgYWN0aXZlLg0KPiANCj4gRm9yIHN1c3BlbmQgKFMzKSwgdGhlIGFzaWMgaXMgcHV0IGludG8g
+RDMgc28gdGhlIFNNVSB3b3VsZCBiZSBwb3dlcmVkIGRvd24NCj4gc28gSSBkb24ndCB0aGluayB3
+ZSBuZWVkIHRvIHB1dCB0aGUgU01VIGludG8gYW55IHNwZWNpYWwgc3RhdGUuDQo+IA0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+IC0t
+LQ0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAgIHwgIDEgKw0K
+PiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMjcNCj4gKysr
+KysrKysrKysrKysrKysrKysrKw0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2Rydi5jICAgIHwgIDIgKysNCj4gIDMgZmlsZXMgY2hhbmdlZCwgMzAgaW5zZXJ0aW9ucygrKQ0K
+PiANCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oDQo+
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmgNCj4gaW5kZXggZTY2MTQxN2Jh
+OWRkLi4xMjFjYzU1NDRiMmIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2FtZGdwdS5oDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5o
+DQo+IEBAIC05OTMsNiArOTkzLDcgQEAgc3RydWN0IGFtZGdwdV9kZXZpY2Ugew0KPiAgCS8qIHJl
+Y29yZCBsYXN0IG1tIGluZGV4IGJlaW5nIHdyaXR0ZW4gdGhyb3VnaCBXUkVHMzIqLw0KPiAgCXVu
+c2lnbmVkIGxvbmcgbGFzdF9tbV9pbmRleDsNCj4gIAlib29sICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGluX2dwdV9yZXNldDsNCj4gKwllbnVtIHBwX21wMV9zdGF0ZSAgICAgICAgICAgICAg
+IG1wMV9zdGF0ZTsNCj4gIAlzdHJ1Y3QgbXV0ZXggIGxvY2tfcmVzZXQ7DQo+ICAJc3RydWN0IGFt
+ZGdwdV9kb29yYmVsbF9pbmRleCBkb29yYmVsbF9pbmRleDsNCj4gDQo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMNCj4gaW5kZXggNDQyNWZmMDZlY2M0Li4x
+MjdlZDAxZWQ4ZmQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZXZpY2UuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZGV2aWNlLmMNCj4gQEAgLTIxNzQsNiArMjE3NCwyMSBAQCBzdGF0aWMgaW50DQo+IGFtZGdwdV9k
+ZXZpY2VfaXBfc3VzcGVuZF9waGFzZTIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAJ
+CQlEUk1fRVJST1IoInN1c3BlbmQgb2YgSVAgYmxvY2sgPCVzPiBmYWlsZWQgJWRcbiIsDQo+ICAJ
+CQkJICBhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+ZnVuY3MtPm5hbWUsDQo+IHIpOw0KPiAg
+CQl9DQo+ICsJCS8qIGhhbmRsZSBwdXR0aW5nIHRoZSBTTUMgaW4gdGhlIGFwcHJvcHJpYXRlIHN0
+YXRlICovDQo+ICsJCWlmIChhZGV2LT5pcF9ibG9ja3NbaV0udmVyc2lvbi0+dHlwZSA9PQ0KPiBB
+TURfSVBfQkxPQ0tfVFlQRV9TTUMpIHsNCj4gKwkJCWlmIChpc19zdXBwb3J0X3N3X3NtdShhZGV2
+KSkgew0KPiArCQkJCS8qIHRvZG8gKi8NCj4gKwkJCX0gZWxzZSBpZiAoYWRldi0+cG93ZXJwbGF5
+LnBwX2Z1bmNzICYmDQo+ICsJCQkJICAgYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLQ0KPiA+c2V0
+X21wMV9zdGF0ZSkgew0KPiArCQkJCXIgPSBhZGV2LT5wb3dlcnBsYXkucHBfZnVuY3MtDQo+ID5z
+ZXRfbXAxX3N0YXRlKA0KPiArCQkJCQlhZGV2LT5wb3dlcnBsYXkucHBfaGFuZGxlLA0KPiArCQkJ
+CQlhZGV2LT5tcDFfc3RhdGUpOw0KPiArCQkJCWlmIChyKSB7DQo+ICsJCQkJCURSTV9FUlJPUigi
+U01DIGZhaWxlZCB0byBzZXQgbXAxDQo+IHN0YXRlICVkLCAlZFxuIiwNCj4gKwkJCQkJCSAgYWRl
+di0+bXAxX3N0YXRlLCByKTsNCj4gKwkJCQl9DQo+ICsJCQl9DQo+ICsJCX0NCj4gIAl9DQo+IA0K
+PiAgCXJldHVybiAwOw0KPiBAQCAtMzYzOSw2ICszNjU0LDE3IEBAIHN0YXRpYyBib29sIGFtZGdw
+dV9kZXZpY2VfbG9ja19hZGV2KHN0cnVjdA0KPiBhbWRncHVfZGV2aWNlICphZGV2LCBib29sIHRy
+eWxvY2spDQo+IA0KPiAgCWF0b21pY19pbmMoJmFkZXYtPmdwdV9yZXNldF9jb3VudGVyKTsNCj4g
+IAlhZGV2LT5pbl9ncHVfcmVzZXQgPSAxOw0KPiArCXN3aXRjaCAoYW1kZ3B1X2FzaWNfcmVzZXRf
+bWV0aG9kKGFkZXYpKSB7DQo+ICsJY2FzZSBBTURfUkVTRVRfTUVUSE9EX01PREUxOg0KPiArCQlh
+ZGV2LT5tcDFfc3RhdGUgPSBQUF9NUDFfU1RBVEVfU0hVVERPV047DQo+ICsJCWJyZWFrOw0KPiAr
+CWNhc2UgQU1EX1JFU0VUX01FVEhPRF9NT0RFMjoNCj4gKwkJYWRldi0+bXAxX3N0YXRlID0gUFBf
+TVAxX1NUQVRFX1JFU0VUOw0KPiArCQlicmVhazsNCj4gKwlkZWZhdWx0Og0KPiArCQlhZGV2LT5t
+cDFfc3RhdGUgPSBQUF9NUDFfU1RBVEVfTk9ORTsNCj4gKwkJYnJlYWs7DQo+ICsJfQ0KPiAgCS8q
+IEJsb2NrIGtmZDogU1JJT1Ygd291bGQgZG8gaXQgc2VwYXJhdGVseSAqLw0KPiAgCWlmICghYW1k
+Z3B1X3NyaW92X3ZmKGFkZXYpKQ0KPiAgICAgICAgICAgICAgICAgIGFtZGdwdV9hbWRrZmRfcHJl
+X3Jlc2V0KGFkZXYpOyBAQCAtMzY1Miw2ICszNjc4LDcgQEAgc3RhdGljDQo+IHZvaWQgYW1kZ3B1
+X2RldmljZV91bmxvY2tfYWRldihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikNCj4gIAlpZiAo
+IWFtZGdwdV9zcmlvdl92ZihhZGV2KSkNCj4gICAgICAgICAgICAgICAgICBhbWRncHVfYW1ka2Zk
+X3Bvc3RfcmVzZXQoYWRldik7DQo+ICAJYW1kZ3B1X3ZmX2Vycm9yX3RyYW5zX2FsbChhZGV2KTsN
+Cj4gKwlhZGV2LT5tcDFfc3RhdGUgPSBQUF9NUDFfU1RBVEVfTk9ORTsNCj4gIAlhZGV2LT5pbl9n
+cHVfcmVzZXQgPSAwOw0KPiAgCW11dGV4X3VubG9jaygmYWRldi0+bG9ja19yZXNldCk7DQo+ICB9
+DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMN
+Cj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZHJ2LmMNCj4gaW5kZXggNDc0
+MzgwMTM1N2M1Li44MDBkMGNlYjE0YjQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9kcnYuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZHJ2LmMNCj4gQEAgLTEwOTQsNyArMTA5NCw5IEBAIGFtZGdwdV9wY2lfc2h1dGRv
+d24oc3RydWN0IHBjaV9kZXYgKnBkZXYpDQo+ICAJICogdW5mb3J0dW5hdGVseSB3ZSBjYW4ndCBk
+ZXRlY3QgY2VydGFpbg0KPiAgCSAqIGh5cGVydmlzb3JzIHNvIGp1c3QgZG8gdGhpcyBhbGwgdGhl
+IHRpbWUuDQo+ICAJICovDQo+ICsJYWRldi0+bXAxX3N0YXRlID0gUFBfTVAxX1NUQVRFX1VOTE9B
+RDsNCj4gIAlhbWRncHVfZGV2aWNlX2lwX3N1c3BlbmQoYWRldik7DQo+ICsJYWRldi0+bXAxX3N0
+YXRlID0gUFBfTVAxX1NUQVRFX05PTkU7DQo+ICB9DQo+IA0KPiAgc3RhdGljIGludCBhbWRncHVf
+cG1vcHNfc3VzcGVuZChzdHJ1Y3QgZGV2aWNlICpkZXYpDQo+IC0tDQo+IDIuMjAuMQ0KPiANCj4g
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4DQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcg
+bGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNr
+dG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
