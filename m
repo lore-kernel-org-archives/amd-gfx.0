@@ -1,49 +1,29 @@
-From: "Kazlauskas, Nicholas" <Nicholas.Kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu/display: fix the build without
- CONFIG_DRM_AMD_DC_DSC_SUPPORT
-Date: Fri, 26 Jul 2019 16:13:00 +0000
-Message-ID: <40082109-eae3-8a35-c6d8-2e5f8907fd57@amd.com>
-References: <20190726160906.6705-1-alexander.deucher@amd.com>
+From: Ralph Campbell <rcampbell@nvidia.com>
+Subject: Re: [PATCH v2 2/7] mm/hmm: a few more C style and comment clean ups
+Date: Fri, 26 Jul 2019 10:11:48 -0700
+Message-ID: <6673dc71-f43e-849f-ca36-0b20805fc092@nvidia.com>
+References: <20190726005650.2566-1-rcampbell@nvidia.com>
+ <20190726005650.2566-3-rcampbell@nvidia.com> <20190726062320.GA22881@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190726160906.6705-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190726062320.GA22881@lst.de>
 Content-Language: en-US
-Content-ID: <323BA378B780F242AEBD990847A01749-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christoph Hellwig <hch@lst.de>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gNy8yNi8xOSAxMjowOSBQTSwgQWxleCBEZXVjaGVyIHdyb3RlOg0KPiBTb21lIGNvZGUgd2Fz
-IG1pc3NpbmcgdGhlIENPTkZJR19EUk1fQU1EX0RDX0RTQ19TVVBQT1JUIGd1YXJkLg0KPiANCj4g
-U2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0K
-DQpSZXZpZXdlZC1ieTogTmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0Bh
-bWQuY29tPg0KDQpXZSBwcm9iYWJseSB3YW50IHRvIGRyb3AgdGhpcyBhbmQgdGhlIERDTjIgZ3Vh
-cmQgZXZlbnR1YWxseSB0aG91Z2guDQoNCk5pY2hvbGFzIEthemxhdXNrYXMNCg0KPiAtLS0NCj4g
-ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAvZGNuMjBfaHdzZXEuYyB8IDIg
-KysNCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX2h3c2VxLmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNuMjAvZGNuMjBfaHdzZXEuYw0KPiBpbmRl
-eCA2OWU0ZDBkOTZjN2YuLjM4YjNjODliMmE1OSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX2h3c2VxLmMNCj4gKysrIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX2h3c2VxLmMNCj4gQEAgLTYzMCw5ICs2
-MzAsMTEgQEAgc3RhdGljIHZvaWQgZGNuMjBfaW5pdF9odyhzdHJ1Y3QgZGMgKmRjKQ0KPiAgIAkJ
-fQ0KPiAgIAl9DQo+ICAgDQo+ICsjaWZkZWYgQ09ORklHX0RSTV9BTURfRENfRFNDX1NVUFBPUlQN
-Cj4gICAJLyogUG93ZXIgZ2F0ZSBEU0NzICovDQo+ICAgCWZvciAoaSA9IDA7IGkgPCByZXNfcG9v
-bC0+cmVzX2NhcC0+bnVtX2RzYzsgaSsrKQ0KPiAgIAkJZGNuMjBfZHNjX3BnX2NvbnRyb2woaHdz
-LCByZXNfcG9vbC0+ZHNjc1tpXS0+aW5zdCwgZmFsc2UpOw0KPiArI2VuZGlmDQo+ICAgDQo+ICAg
-CS8qIEJsYW5rIHBpeGVsIGRhdGEgd2l0aCBPUFAgRFBHICovDQo+ICAgCWZvciAoaSA9IDA7IGkg
-PCBkYy0+cmVzX3Bvb2wtPnRpbWluZ19nZW5lcmF0b3JfY291bnQ7IGkrKykgew0KPiANCg0KX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
-aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
-ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+On 7/25/19 11:23 PM, Christoph Hellwig wrote:
+> Note: it seems like you've only CCed me on patches 2-7, but not on the
+> cover letter and patch 1.  I'll try to find them later, but to make Ccs
+> useful they should normally cover the whole series.
+> 
+> Otherwise this looks fine to me:
+> 
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> 
+
+Thanks for the review and sorry about the oversight on CCs.
