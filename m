@@ -1,34 +1,71 @@
-From: Andrzej Pietrasiewicz <andrzej.p@collabora.com>
-Subject: Re: [PATCH v5 01/24] drm: Include ddc adapter pointer in struct
- drm_connector
-Date: Fri, 26 Jul 2019 14:18:26 +0200
-Message-ID: <489b4283-c346-b2f3-0b20-3905b261049f@collabora.com>
-References: <cover.1563960855.git.andrzej.p@collabora.com>
- <e82d6aca4f8abc95834c8a36c101d153518bb1ac.1563960855.git.andrzej.p@collabora.com>
- <20190726063759.GB6443@ravnborg.org>
+From: "Grodzovsky, Andrey" <Andrey.Grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH v5 4/4] drm/amd/display: enable S/G for RAVEN chip
+Date: Fri, 26 Jul 2019 12:47:18 +0000
+Message-ID: <1e82a2ab-60d2-f9c0-1a92-71bdce6d6858@amd.com>
+References: <1564064683-31796-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1564064683-31796-5-git-send-email-andrey.grodzovsky@amd.com>
+ <a1e2755c-142c-ceaf-9be4-1ffff4d25cea@gmail.com>
+ <8046a45b-bf49-ad47-8902-ad928dcc97b4@daenzer.net>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190726063759.GB6443@ravnborg.org>
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <8046a45b-bf49-ad47-8902-ad928dcc97b4-otUistvHUpPR7s880joybQ@public.gmane.org>
 Content-Language: en-US
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Sam Ravnborg <sam@ravnborg.org>
-Cc: Neil Armstrong <narmstrong@baylibre.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Matthias Brugger <matthias.bgg@gmail.com>, Thierry Reding <thierry.reding@gmail.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Shawn Guo <shawnguo@kernel.org>, kernel@collabora.com, linux-samsung-soc@vger.kernel.org, Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, Sean Paul <sean@poorly.run>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, linux-rockchip@lists.infradead.org, Thomas Zimmermann <tzimmermann@suse.de>, Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedeskto
-List-Id: amd-gfx.lists.freedesktop.org
+Content-ID: <009563186E589A4FAD53D95DABCEDCEF-asWib9pRmPqcE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?utf-8?B?TWljaGVsIETDpG56ZXI=?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>
+Cc: "Deucher,
+ Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Wu, Hersen" <hersenxs.wu-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "S,
+ Shirish" <Shirish.S-5C7GfCeVMHo@public.gmane.org>
 
-SGkgU2FtLAoKVyBkbml1IDI2LjA3LjIwMTkgb8KgMDg6MzcsIFNhbSBSYXZuYm9yZyBwaXN6ZToK
-PiBIaSBBbmRyemVqLgo+IAo+IFBhdGNoIGxvb2tzIGdvb2QsIGJ1dCBvbmUga2VybmVsLWRvYyBk
-ZXRhaWwuCj4gCgpUaGFua3MsIEkgd2lsbCBhZGRyZXNzIGJvdGggaXNzdWVzIHlvdSBmb3VuZCwg
-aW4gdjYuCgpBbmRyemVqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmRyaS1kZXZlbCBtYWlsaW5nIGxpc3QKZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2RyaS1k
-ZXZlbA==
+VG90YWxseSBhZ3JlZSwgbWUgb3IgU2hpcmlzaCB3aWxsIGFkZCBhIG5ldyBwYXRjaCBmb3IgdGhp
+cyBhcyBJJ3ZlIA0KYWxyZWFkeSBjb21tdXRlZCB0aGUgc2VyaWVzLg0KDQpBbmRyZXkNCg0KT24g
+Ny8yNi8xOSA1OjAzIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToNCj4gT24gMjAxOS0wNy0yNiA5
+OjE0IGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6DQo+PiBBbSAyNS4wNy4xOSB1bSAxNjoy
+NCBzY2hyaWViIEFuZHJleSBHcm9kem92c2t5Og0KPj4+IEZyb206IFNoaXJpc2ggUyA8c2hpcmlz
+aC5zQGFtZC5jb20+DQo+Pj4NCj4+PiBlbmFibGVzIGdwdV92bV9zdXBwb3J0IGluIGRtIGFuZCBh
+ZGRzDQo+Pj4gQU1ER1BVX0dFTV9ET01BSU5fR1RUIGFzIHN1cHBvcnRlZCBkb21haW4NCj4+Pg0K
+Pj4+IHYyOg0KPj4+IE1vdmUgQk8gcGxhY2VtZW50IGxvZ2ljIGludG8gYW1kZ3B1X2Rpc3BsYXlf
+c3VwcG9ydGVkX2RvbWFpbnMNCj4+Pg0KPj4+IHYzOg0KPj4+IFVzZSBhbWRncHVfYm9fdmFsaWRh
+dGVfdXN3YyBpbiBhbWRncHVfZGlzcGxheV9zdXBwb3J0ZWRfZG9tYWlucy4NCj4+Pg0KPj4+IHY0
+Og0KPj4+IGFtZGdwdV9ib192YWxpZGF0ZV91c3djIG1vdmVkIHRvIHNlcHBlcmF0ZSBwYXRjaC4N
+Cj4+Pg0KPj4+IENoYW5nZS1JZDogSWYzNDMwMGJlYWE2MGJlMmQzNjE3MGI3YjViMDk2ZWM2NDQ1
+MDJiMjANCj4+PiBTaWduZWQtb2ZmLWJ5OiBTaGlyaXNoIFMgPHNoaXJpc2guc0BhbWQuY29tPg0K
+Pj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBh
+bWQuY29tPg0KPj4+IC0tLQ0KPj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGlzcGxheS5jwqDCoMKgwqDCoMKgIHwgMiArLQ0KPj4+ICDCoCBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMiArLQ0KPj4+ICDCoCAyIGZpbGVz
+IGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4+Pg0KPj4+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+Pj4g
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+Pj4gaW5kZXgg
+Y2FjOTk3NS4uNzMwNDVhMyAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGlzcGxheS5jDQo+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2Rpc3BsYXkuYw0KPj4+IEBAIC01MDUsNyArNTA1LDcgQEAgdWludDMyX3QgYW1k
+Z3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMoc3RydWN0DQo+Pj4gYW1kZ3B1X2RldmljZSAq
+YWRldikNCj4+PiAgwqDCoMKgwqDCoMKgICogQVBVcy4gU28gZm9yY2UgdGhlIEJPIHBsYWNlbWVu
+dCB0byBWUkFNIGluIGNhc2UgdGhpcw0KPj4+IGFyY2hpdGVjdHVyZQ0KPj4+ICDCoMKgwqDCoMKg
+wqAgKiB3aWxsIG5vdCBhbGxvdyBVU1dDIG1hcHBpbmdzLg0KPj4+ICDCoMKgwqDCoMKgwqAgKi8N
+Cj4+PiAtwqDCoMKgIGlmIChhZGV2LT5hc2ljX3R5cGUgPj0gQ0hJUF9DQVJSSVpPICYmIGFkZXYt
+PmFzaWNfdHlwZSA8DQo+Pj4gQ0hJUF9SQVZFTiAmJg0KPj4+ICvCoMKgwqAgaWYgKGFkZXYtPmFz
+aWNfdHlwZSA+PSBDSElQX0NBUlJJWk8gJiYgYWRldi0+YXNpY190eXBlIDw9DQo+Pj4gQ0hJUF9S
+QVZFTiAmJg0KPj4gVGhpcyB3aG9sZSBhcHByb2FjaCBpcyBpbmNvcnJlY3Qgc2luY2Ugd2UgZG9u
+J3QgY2hlY2sgdGhlIGZsYWdzIG9mIHRoZQ0KPj4gYWN0dWFsbHkgQk8gdXNlZCBmb3Igc2Nhbm91
+dCBhbnkgbW9yZS4NCj4+DQo+PiBBcyBJIHdyb3RlIGJlZm9yZSBpdCBpcyBzdGlsbCBwZXJmZWN0
+bHkgcG9zc2libGUgYW5kIHZhbGlkIHRoYXQNCj4+IHVzZXJzcGFjZSBuZXZlciBzZXRzIHRoaXMg
+ZmxhZy4NCj4gT2ggcmlnaHQsIG5vdyBJIGdldCB3aGF0IHlvdSBtZWFudCBiZWZvcmUhDQo+DQo+
+IEkgZ3Vlc3MgYW1kZ3B1X2Rpc3BsYXlfc3VwcG9ydGVkX2RvbWFpbnMgbmVlZHMgdG8gdGFrZSB0
+aGUgQk8gZmxhZ3MgYXMgYQ0KPiBwYXJhbWV0ZXIsIGFuZCBhbHNvIGNoZWNrIHRoYXQgQU1ER1BV
+X0dFTV9DUkVBVEVfQ1BVX0dUVF9VU1dDIGlzDQo+IGFjdHVhbGx5IHNldC4NCj4NCj4NCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
