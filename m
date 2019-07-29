@@ -1,13 +1,14 @@
-From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: Update pitch on page flips without DC as well
-Date: Mon, 29 Jul 2019 16:21:33 +0000
-Message-ID: <BN6PR12MB180983B728C323E624827F6BF7DD0@BN6PR12MB1809.namprd12.prod.outlook.com>
-References: <20190729162014.9476-1-michel@daenzer.net>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH 3/3] drm/amdkfd: Save/restore vcc on gfx10
+Date: Mon, 29 Jul 2019 12:40:49 -0400
+Message-ID: <CADnq5_NNk8X9cyXXoUgqsG3z9fdXGHdheC82kNUXwNQBuEsbmg@mail.gmail.com>
+References: <1564414258-18161-1-git-send-email-jay.cornwall@amd.com>
+ <1564414258-18161-3-git-send-email-jay.cornwall@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1384198737=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190729162014.9476-1-michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <1564414258-18161-3-git-send-email-jay.cornwall-5C7GfCeVMHo@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -18,425 +19,428 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?iso-8859-1?Q?Michel_D=E4nzer?= <michel-otUistvHUpPR7s880joybQ@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Cornwall, Jay" <Jay.Cornwall-5C7GfCeVMHo@public.gmane.org>
+Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Liu,
+ Shaoyun" <Shaoyun.Liu-5C7GfCeVMHo@public.gmane.org>
 
---===============1384198737==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB180983B728C323E624827F6BF7DD0BN6PR12MB1809namp_"
-
---_000_BN6PR12MB180983B728C323E624827F6BF7DD0BN6PR12MB1809namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Reviewed-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Michel D=
-=E4nzer <michel-otUistvHUpPR7s880joybQ@public.gmane.org>
-Sent: Monday, July 29, 2019 12:20 PM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Subject: [PATCH] drm/amdgpu: Update pitch on page flips without DC as well
-
-From: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
-
-DC already handles this correctly since amdgpu minor version 31. Bump
-the minor version again so that xf86-video-amdgpu can take advantage of
-this working without DC as well now.
-
-Signed-off-by: Michel D=E4nzer <michel.daenzer-5C7GfCeVMHo@public.gmane.org>
----
-
-See https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu/merge_requ=
-ests/39
-for the corresponding xf86-video-amdgpu change.
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c  | 4 ++++
- drivers/gpu/drm/amd/amdgpu/dce_v11_0.c  | 4 ++++
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c   | 4 ++++
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c   | 4 ++++
- 5 files changed, 18 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c
-index 800d0ceb14b4..cf334c465805 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -77,9 +77,10 @@
-  * - 3.31.0 - Add support for per-flip tiling attribute changes with DC
-  * - 3.32.0 - Add syncobj timeline support to AMDGPU_CS.
-  * - 3.33.0 - Fixes for GDS ENOMEM failures in AMDGPU_CS.
-+ * - 3.34.0 - Non-DC can flip correctly between buffers with different pit=
-ches
-  */
- #define KMS_DRIVER_MAJOR        3
--#define KMS_DRIVER_MINOR       33
-+#define KMS_DRIVER_MINOR       34
- #define KMS_DRIVER_PATCHLEVEL   0
-
- #define AMDGPU_MAX_TIMEOUT_PARAM_LENTH  256
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/dce_v10_0.c
-index 1f0426d2fc2a..c609b7af0b6b 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c
-@@ -233,6 +233,7 @@ static void dce_v10_0_page_flip(struct amdgpu_device *a=
-dev,
-                                 int crtc_id, u64 crtc_base, bool async)
- {
-         struct amdgpu_crtc *amdgpu_crtc =3D adev->mode_info.crtcs[crtc_id]=
-;
-+       struct drm_framebuffer *fb =3D amdgpu_crtc->base.primary->fb;
-         u32 tmp;
-
-         /* flip at hsync for async, default is vsync */
-@@ -240,6 +241,9 @@ static void dce_v10_0_page_flip(struct amdgpu_device *a=
-dev,
-         tmp =3D REG_SET_FIELD(tmp, GRPH_FLIP_CONTROL,
-                             GRPH_SURFACE_UPDATE_H_RETRACE_EN, async ? 1 : =
-0);
-         WREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset, tmp);
-+       /* update pitch */
-+       WREG32(mmGRPH_PITCH + amdgpu_crtc->crtc_offset,
-+              fb->pitches[0] / fb->format->cpp[0]);
-         /* update the primary scanout address */
-         WREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_off=
-set,
-                upper_32_bits(crtc_base));
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/dce_v11_0.c
-index 2280b971d758..719db058b306 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c
-@@ -251,6 +251,7 @@ static void dce_v11_0_page_flip(struct amdgpu_device *a=
-dev,
-                                 int crtc_id, u64 crtc_base, bool async)
- {
-         struct amdgpu_crtc *amdgpu_crtc =3D adev->mode_info.crtcs[crtc_id]=
-;
-+       struct drm_framebuffer *fb =3D amdgpu_crtc->base.primary->fb;
-         u32 tmp;
-
-         /* flip immediate for async, default is vsync */
-@@ -258,6 +259,9 @@ static void dce_v11_0_page_flip(struct amdgpu_device *a=
-dev,
-         tmp =3D REG_SET_FIELD(tmp, GRPH_FLIP_CONTROL,
-                             GRPH_SURFACE_UPDATE_IMMEDIATE_EN, async ? 1 : =
-0);
-         WREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset, tmp);
-+       /* update pitch */
-+       WREG32(mmGRPH_PITCH + amdgpu_crtc->crtc_offset,
-+              fb->pitches[0] / fb->format->cpp[0]);
-         /* update the scanout addresses */
-         WREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_off=
-set,
-                upper_32_bits(crtc_base));
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/am=
-dgpu/dce_v6_0.c
-index bea32f076b91..8ee99651d01a 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c
-@@ -186,10 +186,14 @@ static void dce_v6_0_page_flip(struct amdgpu_device *=
-adev,
-                                int crtc_id, u64 crtc_base, bool async)
- {
-         struct amdgpu_crtc *amdgpu_crtc =3D adev->mode_info.crtcs[crtc_id]=
-;
-+       struct drm_framebuffer *fb =3D amdgpu_crtc->base.primary->fb;
-
-         /* flip at hsync for async, default is vsync */
-         WREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset, async ?
-                GRPH_FLIP_CONTROL__GRPH_SURFACE_UPDATE_H_RETRACE_EN_MASK : =
-0);
-+       /* update pitch */
-+       WREG32(mmGRPH_PITCH + amdgpu_crtc->crtc_offset,
-+              fb->pitches[0] / fb->format->cpp[0]);
-         /* update the scanout addresses */
-         WREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_off=
-set,
-                upper_32_bits(crtc_base));
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/dce_v8_0.c
-index 13da915991dd..7037e016493c 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c
-@@ -181,10 +181,14 @@ static void dce_v8_0_page_flip(struct amdgpu_device *=
-adev,
-                                int crtc_id, u64 crtc_base, bool async)
- {
-         struct amdgpu_crtc *amdgpu_crtc =3D adev->mode_info.crtcs[crtc_id]=
-;
-+       struct drm_framebuffer *fb =3D amdgpu_crtc->base.primary->fb;
-
-         /* flip at hsync for async, default is vsync */
-         WREG32(mmGRPH_FLIP_CONTROL + amdgpu_crtc->crtc_offset, async ?
-                GRPH_FLIP_CONTROL__GRPH_SURFACE_UPDATE_H_RETRACE_EN_MASK : =
-0);
-+       /* update pitch */
-+       WREG32(mmGRPH_PITCH + amdgpu_crtc->crtc_offset,
-+              fb->pitches[0] / fb->format->cpp[0]);
-         /* update the primary scanout addresses */
-         WREG32(mmGRPH_PRIMARY_SURFACE_ADDRESS_HIGH + amdgpu_crtc->crtc_off=
-set,
-                upper_32_bits(crtc_base));
---
-2.22.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---_000_BN6PR12MB180983B728C323E624827F6BF7DD0BN6PR12MB1809namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Michel D=E4nzer &lt;michel@da=
-enzer.net&gt;<br>
-<b>Sent:</b> Monday, July 29, 2019 12:20 PM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Update pitch on page flips without DC a=
-s well</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&g=
-t;<br>
-<br>
-DC already handles this correctly since amdgpu minor version 31. Bump<br>
-the minor version again so that xf86-video-amdgpu can take advantage of<br>
-this working without DC as well now.<br>
-<br>
-Signed-off-by: Michel D=E4nzer &lt;michel.daenzer-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-<br>
-See <a href=3D"https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu=
-/merge_requests/39">
-https://gitlab.freedesktop.org/xorg/driver/xf86-video-amdgpu/merge_requests=
-/39</a><br>
-for the corresponding xf86-video-amdgpu change.<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 &#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/dce_v10_0.c&nbsp; | 4 &#43;&#43;&#43;&#43;=
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/dce_v11_0.c&nbsp; | 4 &#43;&#43;&#43;&#43;=
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/dce_v6_0.c&nbsp;&nbsp; | 4 &#43;&#43;&#43;=
-&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/dce_v8_0.c&nbsp;&nbsp; | 4 &#43;&#43;&#43;=
-&#43;<br>
-&nbsp;5 files changed, 18 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_drv.c<br>
-index 800d0ceb14b4..cf334c465805 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
-@@ -77,9 &#43;77,10 @@<br>
-&nbsp; * - 3.31.0 - Add support for per-flip tiling attribute changes with =
-DC<br>
-&nbsp; * - 3.32.0 - Add syncobj timeline support to AMDGPU_CS.<br>
-&nbsp; * - 3.33.0 - Fixes for GDS ENOMEM failures in AMDGPU_CS.<br>
-&#43; * - 3.34.0 - Non-DC can flip correctly between buffers with different=
- pitches<br>
-&nbsp; */<br>
-&nbsp;#define KMS_DRIVER_MAJOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3<=
-br>
--#define KMS_DRIVER_MINOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 33<br>
-&#43;#define KMS_DRIVER_MINOR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 34<br>
-&nbsp;#define KMS_DRIVER_PATCHLEVEL&nbsp;&nbsp; 0<br>
-&nbsp;<br>
-&nbsp;#define AMDGPU_MAX_TIMEOUT_PARAM_LENTH&nbsp; 256<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/dce_v10_0.c<br>
-index 1f0426d2fc2a..c609b7af0b6b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v10_0.c<br>
-@@ -233,6 &#43;233,7 @@ static void dce_v10_0_page_flip(struct amdgpu_devic=
-e *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int crtc_id, u64 crtc_base, bool=
- async)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu=
-_crtc =3D adev-&gt;mode_info.crtcs[crtc_id];<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_framebuffer *fb =3D am=
-dgpu_crtc-&gt;base.primary-&gt;fb;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* flip at hsync for async=
-, default is vsync */<br>
-@@ -240,6 &#43;241,9 @@ static void dce_v10_0_page_flip(struct amdgpu_devic=
-e *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- GRPH_FLIP_CONTROL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; GRPH_SURFACE_UPDATE_H_RETRACE_EN, async ? 1 : 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_FLIP_CONTROL=
- &#43; amdgpu_crtc-&gt;crtc_offset, tmp);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update pitch */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PITCH &#43; amdgpu_=
-crtc-&gt;crtc_offset,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; fb-&gt;pitches[0] / fb-&gt;format-&gt;cpp[0]);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update the primary scan=
-out address */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PRIMARY_SURF=
-ACE_ADDRESS_HIGH &#43; amdgpu_crtc-&gt;crtc_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; upper_32_bits(crtc_base));<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/dce_v11_0.c<br>
-index 2280b971d758..719db058b306 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v11_0.c<br>
-@@ -251,6 &#43;251,7 @@ static void dce_v11_0_page_flip(struct amdgpu_devic=
-e *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int crtc_id, u64 crtc_base, bool=
- async)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu=
-_crtc =3D adev-&gt;mode_info.crtcs[crtc_id];<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_framebuffer *fb =3D am=
-dgpu_crtc-&gt;base.primary-&gt;fb;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 tmp;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* flip immediate for asyn=
-c, default is vsync */<br>
-@@ -258,6 &#43;259,9 @@ static void dce_v11_0_page_flip(struct amdgpu_devic=
-e *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmp =3D REG_SET_FIELD(tmp,=
- GRPH_FLIP_CONTROL,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; GRPH_SURFACE_UPDATE_IMMEDIATE_EN, async ? 1 : 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_FLIP_CONTROL=
- &#43; amdgpu_crtc-&gt;crtc_offset, tmp);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update pitch */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PITCH &#43; amdgpu_=
-crtc-&gt;crtc_offset,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; fb-&gt;pitches[0] / fb-&gt;format-&gt;cpp[0]);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update the scanout addr=
-esses */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PRIMARY_SURF=
-ACE_ADDRESS_HIGH &#43; amdgpu_crtc-&gt;crtc_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; upper_32_bits(crtc_base));<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c b/drivers/gpu/drm/amd/am=
-dgpu/dce_v6_0.c<br>
-index bea32f076b91..8ee99651d01a 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v6_0.c<br>
-@@ -186,10 &#43;186,14 @@ static void dce_v6_0_page_flip(struct amdgpu_devi=
-ce *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int crtc_id, u64 crtc_base, bool async=
-)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu=
-_crtc =3D adev-&gt;mode_info.crtcs[crtc_id];<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_framebuffer *fb =3D am=
-dgpu_crtc-&gt;base.primary-&gt;fb;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* flip at hsync for async=
-, default is vsync */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_FLIP_CONTROL=
- &#43; amdgpu_crtc-&gt;crtc_offset, async ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; GRPH_FLIP_CONTROL__GRPH_SURFACE_UPDATE_H_RETRACE_EN_MASK : =
-0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update pitch */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PITCH &#43; amdgpu_=
-crtc-&gt;crtc_offset,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; fb-&gt;pitches[0] / fb-&gt;format-&gt;cpp[0]);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update the scanout addr=
-esses */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PRIMARY_SURF=
-ACE_ADDRESS_HIGH &#43; amdgpu_crtc-&gt;crtc_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; upper_32_bits(crtc_base));<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c b/drivers/gpu/drm/amd/am=
-dgpu/dce_v8_0.c<br>
-index 13da915991dd..7037e016493c 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/dce_v8_0.c<br>
-@@ -181,10 &#43;181,14 @@ static void dce_v8_0_page_flip(struct amdgpu_devi=
-ce *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int crtc_id, u64 crtc_base, bool async=
-)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_crtc *amdgpu=
-_crtc =3D adev-&gt;mode_info.crtcs[crtc_id];<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_framebuffer *fb =3D am=
-dgpu_crtc-&gt;base.primary-&gt;fb;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* flip at hsync for async=
-, default is vsync */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_FLIP_CONTROL=
- &#43; amdgpu_crtc-&gt;crtc_offset, async ?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; GRPH_FLIP_CONTROL__GRPH_SURFACE_UPDATE_H_RETRACE_EN_MASK : =
-0);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update pitch */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PITCH &#43; amdgpu_=
-crtc-&gt;crtc_offset,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; fb-&gt;pitches[0] / fb-&gt;format-&gt;cpp[0]);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* update the primary scan=
-out addresses */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32(mmGRPH_PRIMARY_SURF=
-ACE_ADDRESS_HIGH &#43; amdgpu_crtc-&gt;crtc_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; upper_32_bits(crtc_base));<br>
--- <br>
-2.22.0<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
-
---_000_BN6PR12MB180983B728C323E624827F6BF7DD0BN6PR12MB1809namp_--
-
---===============1384198737==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1384198737==--
+T24gTW9uLCBKdWwgMjksIDIwMTkgYXQgMTE6MzEgQU0gQ29ybndhbGwsIEpheSA8SmF5LkNvcm53
+YWxsQGFtZC5jb20+IHdyb3RlOgo+Cj4gVkNDIG1vdmVkIG91dCBvZiB1c2VyIFNHUFIgYWxsb2Nh
+dGlvbiBpbiBnZngxMC4gSXQncyBub3cgc3RvcmVkCj4gaW4gU0dQUnMgMTA2LTEwNy4KPgo+IEFs
+c28gZml4ZXMgaW5jb3JyZWN0IFNHUFIgcmVhZCBvZmZzZXRzLgo+Cj4gQ2M6IFNoYW95dW4gTGl1
+IDxzaGFveXVuLmxpdUBhbWQuY29tPgo+IFNpZ25lZC1vZmYtYnk6IEpheSBDb3Jud2FsbCA8amF5
+LmNvcm53YWxsQGFtZC5jb20+CgpTZXJpZXMgaXM6CkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFs
+ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGtmZC9jd3NyX3RyYXBfaGFuZGxlci5oICAgICB8IDQ1MiArKysrKysrKysrLS0tLS0tLS0tLS0K
+PiAgLi4uL2dwdS9kcm0vYW1kL2FtZGtmZC9jd3NyX3RyYXBfaGFuZGxlcl9nZngxMC5hc20gfCAg
+MzQgKy0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAyNDMgaW5zZXJ0aW9ucygrKSwgMjQzIGRlbGV0aW9u
+cygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2N3c3JfdHJh
+cF9oYW5kbGVyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9jd3NyX3RyYXBfaGFuZGxl
+ci5oCj4gaW5kZXggODA4OWJiMy4uYThjZjgyZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGtmZC9jd3NyX3RyYXBfaGFuZGxlci5oCj4gKysrIGIvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQvY3dzcl90cmFwX2hhbmRsZXIuaAo+IEBAIC02ODAsNyArNjgwLDcgQEAgc3Rh
+dGljIGNvbnN0IHVpbnQzMl90IGN3c3JfdHJhcF9nZng5X2hleFtdID0gewo+ICB9Owo+Cj4gIHN0
+YXRpYyBjb25zdCB1aW50MzJfdCBjd3NyX3RyYXBfZ2Z4MTBfaGV4W10gPSB7Cj4gLSAgICAgICAw
+eGJmODIwMDAxLCAweGJmODIwMWMwLAo+ICsgICAgICAgMHhiZjgyMDAwMSwgMHhiZjgyMDFjMSwK
+PiAgICAgICAgIDB4YjA4MDQwMDQsIDB4Yjk3OGY4MDIsCj4gICAgICAgICAweDhhNzg4Njc4LCAw
+eGI5NzFmODAzLAo+ICAgICAgICAgMHg4NzZlZmY3MSwgMHgwMDAwMDQwMCwKPiBAQCAtODA0LDI3
+MSArODA0LDI3MSBAQCBzdGF0aWMgY29uc3QgdWludDMyX3QgY3dzcl90cmFwX2dmeDEwX2hleFtd
+ID0gewo+ICAgICAgICAgMHgwMDAwMDA2MCwgMHhiZjg1ZmZlYSwKPiAgICAgICAgIDB4YmU4MDJm
+MDAsIDB4YmU4MjJmMDIsCj4gICAgICAgICAweGJlODQyZjA0LCAweGJlODYyZjA2LAo+IC0gICAg
+ICAgMHhiZTg4MmYwOCwgMHhmNDY5MDAzYSwKPiAtICAgICAgIDB4ZmEwMDAwMDAsIDB4ZjQ2OTAx
+M2EsCj4gLSAgICAgICAweGZhMDAwMDEwLCAweGY0NjUwMjNhLAo+IC0gICAgICAgMHhmYTAwMDAy
+MCwgMHg4MDc0YzA3NCwKPiAtICAgICAgIDB4ODI3NTgwNzUsIDB4YmVmNDAzNzIsCj4gLSAgICAg
+ICAweGJlZmEwMzgwLCAweGJlZmUwM2MxLAo+IC0gICAgICAgMHg5MDdjOTk3MywgMHg4NzdjODE3
+YywKPiAtICAgICAgIDB4YmYwNjgxN2MsIDB4YmY4NTAwMDIsCj4gLSAgICAgICAweGJlZmYwMzgw
+LCAweGJmODIwMDAyLAo+IC0gICAgICAgMHhiZWZmMDNjMSwgMHhiZjgyMDAwYiwKPiArICAgICAg
+IDB4YmU4ODJmMDgsIDB4YmU4YTJmMGEsCj4gKyAgICAgICAweGY0NjkwMDNhLCAweGZhMDAwMDAw
+LAo+ICsgICAgICAgMHhmNDY5MDEzYSwgMHhmYTAwMDAxMCwKPiArICAgICAgIDB4ZjQ2OTAyM2Es
+IDB4ZmEwMDAwMjAsCj4gKyAgICAgICAweDgwNzRiMDc0LCAweDgyNzU4MDc1LAo+ICsgICAgICAg
+MHhiZWY0MDM3MiwgMHhiZWZhMDM4MCwKPiArICAgICAgIDB4YmVmZTAzYzEsIDB4OTA3Yzk5NzMs
+Cj4gKyAgICAgICAweDg3N2M4MTdjLCAweGJmMDY4MTdjLAo+ICsgICAgICAgMHhiZjg1MDAwMiwg
+MHhiZWZmMDM4MCwKPiArICAgICAgIDB4YmY4MjAwMDIsIDB4YmVmZjAzYzEsCj4gKyAgICAgICAw
+eGJmODIwMDBiLCAweGJlZjYwM2ZmLAo+ICsgICAgICAgMHgwMTAwMDAwMCwgMHhlMDcwNDAwMCwK
+PiArICAgICAgIDB4N2E1ZDAwMDAsIDB4ZTA3MDQwODAsCj4gKyAgICAgICAweDdhNWQwMTAwLCAw
+eGUwNzA0MTAwLAo+ICsgICAgICAgMHg3YTVkMDIwMCwgMHhlMDcwNDE4MCwKPiArICAgICAgIDB4
+N2E1ZDAzMDAsIDB4YmY4MjAwMGEsCj4gICAgICAgICAweGJlZjYwM2ZmLCAweDAxMDAwMDAwLAo+
+ICAgICAgICAgMHhlMDcwNDAwMCwgMHg3YTVkMDAwMCwKPiAtICAgICAgIDB4ZTA3MDQwODAsIDB4
+N2E1ZDAxMDAsCj4gLSAgICAgICAweGUwNzA0MTAwLCAweDdhNWQwMjAwLAo+IC0gICAgICAgMHhl
+MDcwNDE4MCwgMHg3YTVkMDMwMCwKPiAtICAgICAgIDB4YmY4MjAwMGEsIDB4YmVmNjAzZmYsCj4g
+LSAgICAgICAweDAxMDAwMDAwLCAweGUwNzA0MDAwLAo+IC0gICAgICAgMHg3YTVkMDAwMCwgMHhl
+MDcwNDEwMCwKPiAtICAgICAgIDB4N2E1ZDAxMDAsIDB4ZTA3MDQyMDAsCj4gLSAgICAgICAweDdh
+NWQwMjAwLCAweGUwNzA0MzAwLAo+IC0gICAgICAgMHg3YTVkMDMwMCwgMHhiZWZlMDNjMSwKPiAr
+ICAgICAgIDB4ZTA3MDQxMDAsIDB4N2E1ZDAxMDAsCj4gKyAgICAgICAweGUwNzA0MjAwLCAweDdh
+NWQwMjAwLAo+ICsgICAgICAgMHhlMDcwNDMwMCwgMHg3YTVkMDMwMCwKPiArICAgICAgIDB4YmVm
+ZTAzYzEsIDB4OTA3Yzk5NzMsCj4gKyAgICAgICAweDg3N2M4MTdjLCAweGJmMDY4MTdjLAo+ICsg
+ICAgICAgMHhiZjg1MDAwMiwgMHhiZWZmMDM4MCwKPiArICAgICAgIDB4YmY4MjAwMDEsIDB4YmVm
+ZjAzYzEsCj4gKyAgICAgICAweGI5NzE0MzA2LCAweDg3NzFjMTcxLAo+ICsgICAgICAgMHhiZjg0
+MDA0NiwgMHhiZjhhMDAwMCwKPiArICAgICAgIDB4ODc3NmZmNmYsIDB4MDQwMDAwMDAsCj4gKyAg
+ICAgICAweGJmODQwMDQyLCAweDhmNzE4NjcxLAo+ICsgICAgICAgMHg4ZjcxODI3MSwgMHhiZWY2
+MDM3MSwKPiArICAgICAgIDB4Yjk3YTJhMDUsIDB4ODA3YTgxN2EsCj4gICAgICAgICAweDkwN2M5
+OTczLCAweDg3N2M4MTdjLAo+ICAgICAgICAgMHhiZjA2ODE3YywgMHhiZjg1MDAwMiwKPiAtICAg
+ICAgIDB4YmVmZjAzODAsIDB4YmY4MjAwMDEsCj4gLSAgICAgICAweGJlZmYwM2MxLCAweGI5NzE0
+MzA2LAo+IC0gICAgICAgMHg4NzcxYzE3MSwgMHhiZjg0MDA0NiwKPiAtICAgICAgIDB4YmY4YTAw
+MDAsIDB4ODc3NmZmNmYsCj4gLSAgICAgICAweDA0MDAwMDAwLCAweGJmODQwMDQyLAo+IC0gICAg
+ICAgMHg4ZjcxODY3MSwgMHg4ZjcxODI3MSwKPiAtICAgICAgIDB4YmVmNjAzNzEsIDB4Yjk3YTJh
+MDUsCj4gLSAgICAgICAweDgwN2E4MTdhLCAweDkwN2M5OTczLAo+ICsgICAgICAgMHg4ZjdhODk3
+YSwgMHhiZjgyMDAwMSwKPiArICAgICAgIDB4OGY3YThhN2EsIDB4Yjk3NjFlMDYsCj4gKyAgICAg
+ICAweDhmNzY4YTc2LCAweDgwN2E3NjdhLAo+ICsgICAgICAgMHg4MDdhZmY3YSwgMHgwMDAwMDIw
+MCwKPiArICAgICAgIDB4ODA3YWZmN2EsIDB4MDAwMDAwODAsCj4gKyAgICAgICAweGJlZjYwM2Zm
+LCAweDAxMDAwMDAwLAo+ICsgICAgICAgMHhkNzY1MDAwMCwgMHgwMDAxMDBjMSwKPiArICAgICAg
+IDB4ZDc2NjAwMDAsIDB4MDAwMjAwYzEsCj4gKyAgICAgICAweDE2MDAwMDg0LCAweDkwN2M5OTcz
+LAo+ICAgICAgICAgMHg4NzdjODE3YywgMHhiZjA2ODE3YywKPiAtICAgICAgIDB4YmY4NTAwMDIs
+IDB4OGY3YTg5N2EsCj4gLSAgICAgICAweGJmODIwMDAxLCAweDhmN2E4YTdhLAo+IC0gICAgICAg
+MHhiOTc2MWUwNiwgMHg4Zjc2OGE3NiwKPiAtICAgICAgIDB4ODA3YTc2N2EsIDB4ODA3YWZmN2Es
+Cj4gLSAgICAgICAweDAwMDAwMjAwLCAweDgwN2FmZjdhLAo+IC0gICAgICAgMHgwMDAwMDA4MCwg
+MHhiZWY2MDNmZiwKPiAtICAgICAgIDB4MDEwMDAwMDAsIDB4ZDc2NTAwMDAsCj4gLSAgICAgICAw
+eDAwMDEwMGMxLCAweGQ3NjYwMDAwLAo+IC0gICAgICAgMHgwMDAyMDBjMSwgMHgxNjAwMDA4NCwK
+PiAtICAgICAgIDB4OTA3Yzk5NzMsIDB4ODc3YzgxN2MsCj4gLSAgICAgICAweGJmMDY4MTdjLCAw
+eGJlZmMwMzgwLAo+IC0gICAgICAgMHhiZjg1MDAxMiwgMHhiZTgzMDNmZiwKPiAtICAgICAgIDB4
+MDAwMDAwODAsIDB4YmY4MDAwMDAsCj4gKyAgICAgICAweGJlZmMwMzgwLCAweGJmODUwMDEyLAo+
+ICsgICAgICAgMHhiZTgzMDNmZiwgMHgwMDAwMDA4MCwKPiAgICAgICAgIDB4YmY4MDAwMDAsIDB4
+YmY4MDAwMDAsCj4gLSAgICAgICAweGQ4ZDgwMDAwLCAweDAxMDAwMDAwLAo+IC0gICAgICAgMHhi
+ZjhjMDAwMCwgMHhlMDcwNDAwMCwKPiAtICAgICAgIDB4N2E1ZDAxMDAsIDB4ODA3YzAzN2MsCj4g
+LSAgICAgICAweDgwN2EwMzdhLCAweGQ1MjUwMDAwLAo+IC0gICAgICAgMHgwMDAxZmYwMCwgMHgw
+MDAwMDA4MCwKPiAtICAgICAgIDB4YmYwYTcxN2MsIDB4YmY4NWZmZjQsCj4gLSAgICAgICAweGJm
+ODIwMDExLCAweGJlODMwM2ZmLAo+IC0gICAgICAgMHgwMDAwMDEwMCwgMHhiZjgwMDAwMCwKPiAr
+ICAgICAgIDB4YmY4MDAwMDAsIDB4ZDhkODAwMDAsCj4gKyAgICAgICAweDAxMDAwMDAwLCAweGJm
+OGMwMDAwLAo+ICsgICAgICAgMHhlMDcwNDAwMCwgMHg3YTVkMDEwMCwKPiArICAgICAgIDB4ODA3
+YzAzN2MsIDB4ODA3YTAzN2EsCj4gKyAgICAgICAweGQ1MjUwMDAwLCAweDAwMDFmZjAwLAo+ICsg
+ICAgICAgMHgwMDAwMDA4MCwgMHhiZjBhNzE3YywKPiArICAgICAgIDB4YmY4NWZmZjQsIDB4YmY4
+MjAwMTEsCj4gKyAgICAgICAweGJlODMwM2ZmLCAweDAwMDAwMTAwLAo+ICAgICAgICAgMHhiZjgw
+MDAwMCwgMHhiZjgwMDAwMCwKPiAtICAgICAgIDB4ZDhkODAwMDAsIDB4MDEwMDAwMDAsCj4gLSAg
+ICAgICAweGJmOGMwMDAwLCAweGUwNzA0MDAwLAo+IC0gICAgICAgMHg3YTVkMDEwMCwgMHg4MDdj
+MDM3YywKPiAtICAgICAgIDB4ODA3YTAzN2EsIDB4ZDUyNTAwMDAsCj4gLSAgICAgICAweDAwMDFm
+ZjAwLCAweDAwMDAwMTAwLAo+IC0gICAgICAgMHhiZjBhNzE3YywgMHhiZjg1ZmZmNCwKPiAtICAg
+ICAgIDB4YmVmZTAzYzEsIDB4OTA3Yzk5NzMsCj4gLSAgICAgICAweDg3N2M4MTdjLCAweGJmMDY4
+MTdjLAo+IC0gICAgICAgMHhiZjg1MDAwNCwgMHhiZWZhMDNmZiwKPiAtICAgICAgIDB4MDAwMDAy
+MDAsIDB4YmVmZjAzODAsCj4gLSAgICAgICAweGJmODIwMDAzLCAweGJlZmEwM2ZmLAo+IC0gICAg
+ICAgMHgwMDAwMDQwMCwgMHhiZWZmMDNjMSwKPiAtICAgICAgIDB4Yjk3MTJhMDUsIDB4ODA3MTgx
+NzEsCj4gLSAgICAgICAweDhmNzE4MjcxLCAweDkwN2M5OTczLAo+IC0gICAgICAgMHg4NzdjODE3
+YywgMHhiZjA2ODE3YywKPiAtICAgICAgIDB4YmY4NTAwMTcsIDB4YmVmNjAzZmYsCj4gLSAgICAg
+ICAweDAxMDAwMDAwLCAweGJlZmMwMzg0LAo+IC0gICAgICAgMHhiZjBhNzE3YywgMHhiZjg0MDAz
+NywKPiAtICAgICAgIDB4N2UwMDg3MDAsIDB4N2UwMjg3MDEsCj4gLSAgICAgICAweDdlMDQ4NzAy
+LCAweDdlMDY4NzAzLAo+IC0gICAgICAgMHhlMDcwNDAwMCwgMHg3YTVkMDAwMCwKPiAtICAgICAg
+IDB4ZTA3MDQwODAsIDB4N2E1ZDAxMDAsCj4gLSAgICAgICAweGUwNzA0MTAwLCAweDdhNWQwMjAw
+LAo+IC0gICAgICAgMHhlMDcwNDE4MCwgMHg3YTVkMDMwMCwKPiAtICAgICAgIDB4ODA3Yzg0N2Ms
+IDB4ODA3YWZmN2EsCj4gLSAgICAgICAweDAwMDAwMjAwLCAweGJmMGE3MTdjLAo+IC0gICAgICAg
+MHhiZjg1ZmZlZiwgMHhiZjgyMDAyNSwKPiArICAgICAgIDB4YmY4MDAwMDAsIDB4ZDhkODAwMDAs
+Cj4gKyAgICAgICAweDAxMDAwMDAwLCAweGJmOGMwMDAwLAo+ICsgICAgICAgMHhlMDcwNDAwMCwg
+MHg3YTVkMDEwMCwKPiArICAgICAgIDB4ODA3YzAzN2MsIDB4ODA3YTAzN2EsCj4gKyAgICAgICAw
+eGQ1MjUwMDAwLCAweDAwMDFmZjAwLAo+ICsgICAgICAgMHgwMDAwMDEwMCwgMHhiZjBhNzE3YywK
+PiArICAgICAgIDB4YmY4NWZmZjQsIDB4YmVmZTAzYzEsCj4gKyAgICAgICAweDkwN2M5OTczLCAw
+eDg3N2M4MTdjLAo+ICsgICAgICAgMHhiZjA2ODE3YywgMHhiZjg1MDAwNCwKPiArICAgICAgIDB4
+YmVmYTAzZmYsIDB4MDAwMDAyMDAsCj4gKyAgICAgICAweGJlZmYwMzgwLCAweGJmODIwMDAzLAo+
+ICsgICAgICAgMHhiZWZhMDNmZiwgMHgwMDAwMDQwMCwKPiArICAgICAgIDB4YmVmZjAzYzEsIDB4
+Yjk3MTJhMDUsCj4gKyAgICAgICAweDgwNzE4MTcxLCAweDhmNzE4MjcxLAo+ICsgICAgICAgMHg5
+MDdjOTk3MywgMHg4NzdjODE3YywKPiArICAgICAgIDB4YmYwNjgxN2MsIDB4YmY4NTAwMTcsCj4g
+ICAgICAgICAweGJlZjYwM2ZmLCAweDAxMDAwMDAwLAo+ICAgICAgICAgMHhiZWZjMDM4NCwgMHhi
+ZjBhNzE3YywKPiAtICAgICAgIDB4YmY4NDAwMjAsIDB4N2UwMDg3MDAsCj4gKyAgICAgICAweGJm
+ODQwMDM3LCAweDdlMDA4NzAwLAo+ICAgICAgICAgMHg3ZTAyODcwMSwgMHg3ZTA0ODcwMiwKPiAg
+ICAgICAgIDB4N2UwNjg3MDMsIDB4ZTA3MDQwMDAsCj4gLSAgICAgICAweDdhNWQwMDAwLCAweGUw
+NzA0MTAwLAo+IC0gICAgICAgMHg3YTVkMDEwMCwgMHhlMDcwNDIwMCwKPiAtICAgICAgIDB4N2E1
+ZDAyMDAsIDB4ZTA3MDQzMDAsCj4gKyAgICAgICAweDdhNWQwMDAwLCAweGUwNzA0MDgwLAo+ICsg
+ICAgICAgMHg3YTVkMDEwMCwgMHhlMDcwNDEwMCwKPiArICAgICAgIDB4N2E1ZDAyMDAsIDB4ZTA3
+MDQxODAsCj4gICAgICAgICAweDdhNWQwMzAwLCAweDgwN2M4NDdjLAo+IC0gICAgICAgMHg4MDdh
+ZmY3YSwgMHgwMDAwMDQwMCwKPiArICAgICAgIDB4ODA3YWZmN2EsIDB4MDAwMDAyMDAsCj4gICAg
+ICAgICAweGJmMGE3MTdjLCAweGJmODVmZmVmLAo+IC0gICAgICAgMHhiOTcxMWUwNiwgMHg4Nzcx
+YzE3MSwKPiAtICAgICAgIDB4YmY4NDAwMGMsIDB4OGY3MTgzNzEsCj4gLSAgICAgICAweDgwNzE3
+YzcxLCAweGJlZmUwM2MxLAo+IC0gICAgICAgMHhiZWZmMDM4MCwgMHg3ZTAwODcwMCwKPiArICAg
+ICAgIDB4YmY4MjAwMjUsIDB4YmVmNjAzZmYsCj4gKyAgICAgICAweDAxMDAwMDAwLCAweGJlZmMw
+Mzg0LAo+ICsgICAgICAgMHhiZjBhNzE3YywgMHhiZjg0MDAyMCwKPiArICAgICAgIDB4N2UwMDg3
+MDAsIDB4N2UwMjg3MDEsCj4gKyAgICAgICAweDdlMDQ4NzAyLCAweDdlMDY4NzAzLAo+ICAgICAg
+ICAgMHhlMDcwNDAwMCwgMHg3YTVkMDAwMCwKPiAtICAgICAgIDB4ODA3YzgxN2MsIDB4ODA3YWZm
+N2EsCj4gLSAgICAgICAweDAwMDAwMDgwLCAweGJmMGE3MTdjLAo+IC0gICAgICAgMHhiZjg1ZmZm
+OCwgMHhiZjgyMDE0MSwKPiAtICAgICAgIDB4YmVmNDAzN2UsIDB4ODc3NWZmN2YsCj4gLSAgICAg
+ICAweDAwMDBmZmZmLCAweDg4NzVmZjc1LAo+IC0gICAgICAgMHgwMDA0MDAwMCwgMHhiZWY2MDM4
+MCwKPiAtICAgICAgIDB4YmVmNzAzZmYsIDB4MTA4MDdmYWMsCj4gLSAgICAgICAweDg3NzJmZjdm
+LCAweDA4MDAwMDAwLAo+IC0gICAgICAgMHg5MDcyODM3MiwgMHg4ODc3NzI3NywKPiAtICAgICAg
+IDB4ODc3MmZmN2YsIDB4NzAwMDAwMDAsCj4gLSAgICAgICAweDkwNzI4MTcyLCAweDg4Nzc3Mjc3
+LAo+IC0gICAgICAgMHhiOTczMDJkYywgMHg4ZjczOTk3MywKPiAtICAgICAgIDB4ODg3MzczN2Ys
+IDB4ODc3MmZmN2YsCj4gLSAgICAgICAweDA0MDAwMDAwLCAweGJmODQwMDM2LAo+IC0gICAgICAg
+MHhiZWZlMDNjMSwgMHg5MDdjOTk3MywKPiAtICAgICAgIDB4ODc3YzgxN2MsIDB4YmYwNjgxN2Ms
+Cj4gLSAgICAgICAweGJmODUwMDAyLCAweGJlZmYwMzgwLAo+IC0gICAgICAgMHhiZjgyMDAwMSwg
+MHhiZWZmMDNjMSwKPiAtICAgICAgIDB4Yjk2ZjQzMDYsIDB4ODc2ZmMxNmYsCj4gLSAgICAgICAw
+eGJmODQwMDJiLCAweDhmNmY4NjZmLAo+IC0gICAgICAgMHg4ZjZmODI2ZiwgMHhiZWY2MDM2ZiwK
+PiAtICAgICAgIDB4Yjk3ODJhMDUsIDB4ODA3ODgxNzgsCj4gKyAgICAgICAweGUwNzA0MTAwLCAw
+eDdhNWQwMTAwLAo+ICsgICAgICAgMHhlMDcwNDIwMCwgMHg3YTVkMDIwMCwKPiArICAgICAgIDB4
+ZTA3MDQzMDAsIDB4N2E1ZDAzMDAsCj4gKyAgICAgICAweDgwN2M4NDdjLCAweDgwN2FmZjdhLAo+
+ICsgICAgICAgMHgwMDAwMDQwMCwgMHhiZjBhNzE3YywKPiArICAgICAgIDB4YmY4NWZmZWYsIDB4
+Yjk3MTFlMDYsCj4gKyAgICAgICAweDg3NzFjMTcxLCAweGJmODQwMDBjLAo+ICsgICAgICAgMHg4
+ZjcxODM3MSwgMHg4MDcxN2M3MSwKPiArICAgICAgIDB4YmVmZTAzYzEsIDB4YmVmZjAzODAsCj4g
+KyAgICAgICAweDdlMDA4NzAwLCAweGUwNzA0MDAwLAo+ICsgICAgICAgMHg3YTVkMDAwMCwgMHg4
+MDdjODE3YywKPiArICAgICAgIDB4ODA3YWZmN2EsIDB4MDAwMDAwODAsCj4gKyAgICAgICAweGJm
+MGE3MTdjLCAweGJmODVmZmY4LAo+ICsgICAgICAgMHhiZjgyMDE0MSwgMHhiZWY0MDM3ZSwKPiAr
+ICAgICAgIDB4ODc3NWZmN2YsIDB4MDAwMGZmZmYsCj4gKyAgICAgICAweDg4NzVmZjc1LCAweDAw
+MDQwMDAwLAo+ICsgICAgICAgMHhiZWY2MDM4MCwgMHhiZWY3MDNmZiwKPiArICAgICAgIDB4MTA4
+MDdmYWMsIDB4ODc3MmZmN2YsCj4gKyAgICAgICAweDA4MDAwMDAwLCAweDkwNzI4MzcyLAo+ICsg
+ICAgICAgMHg4ODc3NzI3NywgMHg4NzcyZmY3ZiwKPiArICAgICAgIDB4NzAwMDAwMDAsIDB4OTA3
+MjgxNzIsCj4gKyAgICAgICAweDg4Nzc3Mjc3LCAweGI5NzMwMmRjLAo+ICsgICAgICAgMHg4Zjcz
+OTk3MywgMHg4ODczNzM3ZiwKPiArICAgICAgIDB4ODc3MmZmN2YsIDB4MDQwMDAwMDAsCj4gKyAg
+ICAgICAweGJmODQwMDM2LCAweGJlZmUwM2MxLAo+ICAgICAgICAgMHg5MDdjOTk3MywgMHg4Nzdj
+ODE3YywKPiAgICAgICAgIDB4YmYwNjgxN2MsIDB4YmY4NTAwMDIsCj4gLSAgICAgICAweDhmNzg4
+OTc4LCAweGJmODIwMDAxLAo+IC0gICAgICAgMHg4Zjc4OGE3OCwgMHhiOTcyMWUwNiwKPiAtICAg
+ICAgIDB4OGY3MjhhNzIsIDB4ODA3ODcyNzgsCj4gLSAgICAgICAweDgwNzhmZjc4LCAweDAwMDAw
+MjAwLAo+IC0gICAgICAgMHg4MDc4ZmY3OCwgMHgwMDAwMDA4MCwKPiAtICAgICAgIDB4YmVmNjAz
+ZmYsIDB4MDEwMDAwMDAsCj4gLSAgICAgICAweDkwN2M5OTczLCAweDg3N2M4MTdjLAo+IC0gICAg
+ICAgMHhiZjA2ODE3YywgMHhiZWZjMDM4MCwKPiAtICAgICAgIDB4YmY4NTAwMDksIDB4ZTAzMTAw
+MDAsCj4gLSAgICAgICAweDc4MWQwMDAwLCAweDgwN2NmZjdjLAo+IC0gICAgICAgMHgwMDAwMDA4
+MCwgMHg4MDc4ZmY3OCwKPiAtICAgICAgIDB4MDAwMDAwODAsIDB4YmYwYTZmN2MsCj4gLSAgICAg
+ICAweGJmODVmZmY4LCAweGJmODIwMDA4LAo+ICsgICAgICAgMHhiZWZmMDM4MCwgMHhiZjgyMDAw
+MSwKPiArICAgICAgIDB4YmVmZjAzYzEsIDB4Yjk2ZjQzMDYsCj4gKyAgICAgICAweDg3NmZjMTZm
+LCAweGJmODQwMDJiLAo+ICsgICAgICAgMHg4ZjZmODY2ZiwgMHg4ZjZmODI2ZiwKPiArICAgICAg
+IDB4YmVmNjAzNmYsIDB4Yjk3ODJhMDUsCj4gKyAgICAgICAweDgwNzg4MTc4LCAweDkwN2M5OTcz
+LAo+ICsgICAgICAgMHg4NzdjODE3YywgMHhiZjA2ODE3YywKPiArICAgICAgIDB4YmY4NTAwMDIs
+IDB4OGY3ODg5NzgsCj4gKyAgICAgICAweGJmODIwMDAxLCAweDhmNzg4YTc4LAo+ICsgICAgICAg
+MHhiOTcyMWUwNiwgMHg4ZjcyOGE3MiwKPiArICAgICAgIDB4ODA3ODcyNzgsIDB4ODA3OGZmNzgs
+Cj4gKyAgICAgICAweDAwMDAwMjAwLCAweDgwNzhmZjc4LAo+ICsgICAgICAgMHgwMDAwMDA4MCwg
+MHhiZWY2MDNmZiwKPiArICAgICAgIDB4MDEwMDAwMDAsIDB4OTA3Yzk5NzMsCj4gKyAgICAgICAw
+eDg3N2M4MTdjLCAweGJmMDY4MTdjLAo+ICsgICAgICAgMHhiZWZjMDM4MCwgMHhiZjg1MDAwOSwK
+PiAgICAgICAgIDB4ZTAzMTAwMDAsIDB4NzgxZDAwMDAsCj4gLSAgICAgICAweDgwN2NmZjdjLCAw
+eDAwMDAwMTAwLAo+IC0gICAgICAgMHg4MDc4ZmY3OCwgMHgwMDAwMDEwMCwKPiArICAgICAgIDB4
+ODA3Y2ZmN2MsIDB4MDAwMDAwODAsCj4gKyAgICAgICAweDgwNzhmZjc4LCAweDAwMDAwMDgwLAo+
+ICAgICAgICAgMHhiZjBhNmY3YywgMHhiZjg1ZmZmOCwKPiAtICAgICAgIDB4YmVmODAzODAsIDB4
+YmVmZTAzYzEsCj4gLSAgICAgICAweDkwN2M5OTczLCAweDg3N2M4MTdjLAo+IC0gICAgICAgMHhi
+ZjA2ODE3YywgMHhiZjg1MDAwMiwKPiAtICAgICAgIDB4YmVmZjAzODAsIDB4YmY4MjAwMDEsCj4g
+LSAgICAgICAweGJlZmYwM2MxLCAweGI5NmYyYTA1LAo+IC0gICAgICAgMHg4MDZmODE2ZiwgMHg4
+ZjZmODI2ZiwKPiAtICAgICAgIDB4OTA3Yzk5NzMsIDB4ODc3YzgxN2MsCj4gLSAgICAgICAweGJm
+MDY4MTdjLCAweGJmODUwMDIxLAo+IC0gICAgICAgMHhiZWY2MDNmZiwgMHgwMTAwMDAwMCwKPiAt
+ICAgICAgIDB4YmVmMjAzNzgsIDB4ODA3OGZmNzgsCj4gLSAgICAgICAweDAwMDAwMjAwLCAweGJl
+ZmMwMzg0LAo+IC0gICAgICAgMHhlMDMwNDAwMCwgMHg3ODVkMDAwMCwKPiAtICAgICAgIDB4ZTAz
+MDQwODAsIDB4Nzg1ZDAxMDAsCj4gLSAgICAgICAweGUwMzA0MTAwLCAweDc4NWQwMjAwLAo+IC0g
+ICAgICAgMHhlMDMwNDE4MCwgMHg3ODVkMDMwMCwKPiAtICAgICAgIDB4YmY4YzNmNzAsIDB4N2Uw
+MDg1MDAsCj4gLSAgICAgICAweDdlMDI4NTAxLCAweDdlMDQ4NTAyLAo+IC0gICAgICAgMHg3ZTA2
+ODUwMywgMHg4MDdjODQ3YywKPiAtICAgICAgIDB4ODA3OGZmNzgsIDB4MDAwMDAyMDAsCj4gLSAg
+ICAgICAweGJmMGE2ZjdjLCAweGJmODVmZmVlLAo+IC0gICAgICAgMHhlMDMwNDAwMCwgMHg3MjVk
+MDAwMCwKPiAtICAgICAgIDB4ZTAzMDQwODAsIDB4NzI1ZDAxMDAsCj4gLSAgICAgICAweGUwMzA0
+MTAwLCAweDcyNWQwMjAwLAo+IC0gICAgICAgMHhlMDMwNDE4MCwgMHg3MjVkMDMwMCwKPiAtICAg
+ICAgIDB4YmY4MjAwMzEsIDB4YmVmNjAzZmYsCj4gKyAgICAgICAweGJmODIwMDA4LCAweGUwMzEw
+MDAwLAo+ICsgICAgICAgMHg3ODFkMDAwMCwgMHg4MDdjZmY3YywKPiArICAgICAgIDB4MDAwMDAx
+MDAsIDB4ODA3OGZmNzgsCj4gKyAgICAgICAweDAwMDAwMTAwLCAweGJmMGE2ZjdjLAo+ICsgICAg
+ICAgMHhiZjg1ZmZmOCwgMHhiZWY4MDM4MCwKPiArICAgICAgIDB4YmVmZTAzYzEsIDB4OTA3Yzk5
+NzMsCj4gKyAgICAgICAweDg3N2M4MTdjLCAweGJmMDY4MTdjLAo+ICsgICAgICAgMHhiZjg1MDAw
+MiwgMHhiZWZmMDM4MCwKPiArICAgICAgIDB4YmY4MjAwMDEsIDB4YmVmZjAzYzEsCj4gKyAgICAg
+ICAweGI5NmYyYTA1LCAweDgwNmY4MTZmLAo+ICsgICAgICAgMHg4ZjZmODI2ZiwgMHg5MDdjOTk3
+MywKPiArICAgICAgIDB4ODc3YzgxN2MsIDB4YmYwNjgxN2MsCj4gKyAgICAgICAweGJmODUwMDIx
+LCAweGJlZjYwM2ZmLAo+ICAgICAgICAgMHgwMTAwMDAwMCwgMHhiZWYyMDM3OCwKPiAtICAgICAg
+IDB4ODA3OGZmNzgsIDB4MDAwMDA0MDAsCj4gKyAgICAgICAweDgwNzhmZjc4LCAweDAwMDAwMjAw
+LAo+ICAgICAgICAgMHhiZWZjMDM4NCwgMHhlMDMwNDAwMCwKPiAtICAgICAgIDB4Nzg1ZDAwMDAs
+IDB4ZTAzMDQxMDAsCj4gLSAgICAgICAweDc4NWQwMTAwLCAweGUwMzA0MjAwLAo+IC0gICAgICAg
+MHg3ODVkMDIwMCwgMHhlMDMwNDMwMCwKPiArICAgICAgIDB4Nzg1ZDAwMDAsIDB4ZTAzMDQwODAs
+Cj4gKyAgICAgICAweDc4NWQwMTAwLCAweGUwMzA0MTAwLAo+ICsgICAgICAgMHg3ODVkMDIwMCwg
+MHhlMDMwNDE4MCwKPiAgICAgICAgIDB4Nzg1ZDAzMDAsIDB4YmY4YzNmNzAsCj4gICAgICAgICAw
+eDdlMDA4NTAwLCAweDdlMDI4NTAxLAo+ICAgICAgICAgMHg3ZTA0ODUwMiwgMHg3ZTA2ODUwMywK
+PiAgICAgICAgIDB4ODA3Yzg0N2MsIDB4ODA3OGZmNzgsCj4gLSAgICAgICAweDAwMDAwNDAwLCAw
+eGJmMGE2ZjdjLAo+IC0gICAgICAgMHhiZjg1ZmZlZSwgMHhiOTZmMWUwNiwKPiAtICAgICAgIDB4
+ODc2ZmMxNmYsIDB4YmY4NDAwMGUsCj4gLSAgICAgICAweDhmNmY4MzZmLCAweDgwNmY3YzZmLAo+
+IC0gICAgICAgMHhiZWZlMDNjMSwgMHhiZWZmMDM4MCwKPiArICAgICAgIDB4MDAwMDAyMDAsIDB4
+YmYwYTZmN2MsCj4gKyAgICAgICAweGJmODVmZmVlLCAweGUwMzA0MDAwLAo+ICsgICAgICAgMHg3
+MjVkMDAwMCwgMHhlMDMwNDA4MCwKPiArICAgICAgIDB4NzI1ZDAxMDAsIDB4ZTAzMDQxMDAsCj4g
+KyAgICAgICAweDcyNWQwMjAwLCAweGUwMzA0MTgwLAo+ICsgICAgICAgMHg3MjVkMDMwMCwgMHhi
+ZjgyMDAzMSwKPiArICAgICAgIDB4YmVmNjAzZmYsIDB4MDEwMDAwMDAsCj4gKyAgICAgICAweGJl
+ZjIwMzc4LCAweDgwNzhmZjc4LAo+ICsgICAgICAgMHgwMDAwMDQwMCwgMHhiZWZjMDM4NCwKPiAg
+ICAgICAgIDB4ZTAzMDQwMDAsIDB4Nzg1ZDAwMDAsCj4gKyAgICAgICAweGUwMzA0MTAwLCAweDc4
+NWQwMTAwLAo+ICsgICAgICAgMHhlMDMwNDIwMCwgMHg3ODVkMDIwMCwKPiArICAgICAgIDB4ZTAz
+MDQzMDAsIDB4Nzg1ZDAzMDAsCj4gICAgICAgICAweGJmOGMzZjcwLCAweDdlMDA4NTAwLAo+IC0g
+ICAgICAgMHg4MDdjODE3YywgMHg4MDc4ZmY3OCwKPiAtICAgICAgIDB4MDAwMDAwODAsIDB4YmYw
+YTZmN2MsCj4gLSAgICAgICAweGJmODVmZmY3LCAweGJlZmYwM2MxLAo+IC0gICAgICAgMHhlMDMw
+NDAwMCwgMHg3MjVkMDAwMCwKPiAtICAgICAgIDB4ZTAzMDQxMDAsIDB4NzI1ZDAxMDAsCj4gLSAg
+ICAgICAweGUwMzA0MjAwLCAweDcyNWQwMjAwLAo+IC0gICAgICAgMHhlMDMwNDMwMCwgMHg3MjVk
+MDMwMCwKPiAtICAgICAgIDB4Yjk3ODJhMDUsIDB4ODA3ODgxNzgsCj4gLSAgICAgICAweDkwN2M5
+OTczLCAweDg3N2M4MTdjLAo+IC0gICAgICAgMHhiZjA2ODE3YywgMHhiZjg1MDAwMiwKPiAtICAg
+ICAgIDB4OGY3ODg5NzgsIDB4YmY4MjAwMDEsCj4gLSAgICAgICAweDhmNzg4YTc4LCAweGI5NzIx
+ZTA2LAo+IC0gICAgICAgMHg4ZjcyOGE3MiwgMHg4MDc4NzI3OCwKPiAtICAgICAgIDB4ODA3OGZm
+NzgsIDB4MDAwMDAyMDAsCj4gLSAgICAgICAweDgwZjhmZjc4LCAweDAwMDAwMDU4LAo+IC0gICAg
+ICAgMHg4MGY4ODg3OCwgMHhiZWY2MDNmZiwKPiArICAgICAgIDB4N2UwMjg1MDEsIDB4N2UwNDg1
+MDIsCj4gKyAgICAgICAweDdlMDY4NTAzLCAweDgwN2M4NDdjLAo+ICsgICAgICAgMHg4MDc4ZmY3
+OCwgMHgwMDAwMDQwMCwKPiArICAgICAgIDB4YmYwYTZmN2MsIDB4YmY4NWZmZWUsCj4gKyAgICAg
+ICAweGI5NmYxZTA2LCAweDg3NmZjMTZmLAo+ICsgICAgICAgMHhiZjg0MDAwZSwgMHg4ZjZmODM2
+ZiwKPiArICAgICAgIDB4ODA2ZjdjNmYsIDB4YmVmZTAzYzEsCj4gKyAgICAgICAweGJlZmYwMzgw
+LCAweGUwMzA0MDAwLAo+ICsgICAgICAgMHg3ODVkMDAwMCwgMHhiZjhjM2Y3MCwKPiArICAgICAg
+IDB4N2UwMDg1MDAsIDB4ODA3YzgxN2MsCj4gKyAgICAgICAweDgwNzhmZjc4LCAweDAwMDAwMDgw
+LAo+ICsgICAgICAgMHhiZjBhNmY3YywgMHhiZjg1ZmZmNywKPiArICAgICAgIDB4YmVmZjAzYzEs
+IDB4ZTAzMDQwMDAsCj4gKyAgICAgICAweDcyNWQwMDAwLCAweGUwMzA0MTAwLAo+ICsgICAgICAg
+MHg3MjVkMDEwMCwgMHhlMDMwNDIwMCwKPiArICAgICAgIDB4NzI1ZDAyMDAsIDB4ZTAzMDQzMDAs
+Cj4gKyAgICAgICAweDcyNWQwMzAwLCAweGI5NzgyYTA1LAo+ICsgICAgICAgMHg4MDc4ODE3OCwg
+MHg5MDdjOTk3MywKPiArICAgICAgIDB4ODc3YzgxN2MsIDB4YmYwNjgxN2MsCj4gKyAgICAgICAw
+eGJmODUwMDAyLCAweDhmNzg4OTc4LAo+ICsgICAgICAgMHhiZjgyMDAwMSwgMHg4Zjc4OGE3OCwK
+PiArICAgICAgIDB4Yjk3MjFlMDYsIDB4OGY3MjhhNzIsCj4gKyAgICAgICAweDgwNzg3Mjc4LCAw
+eDgwNzhmZjc4LAo+ICsgICAgICAgMHgwMDAwMDIwMCwgMHg4MGY4ZmY3OCwKPiArICAgICAgIDB4
+MDAwMDAwNTAsIDB4YmVmNjAzZmYsCj4gICAgICAgICAweDAxMDAwMDAwLCAweGJlZmMwM2ZmLAo+
+IC0gICAgICAgMHgwMDAwMDA2YSwgMHhmNDI1MDAzYSwKPiAtICAgICAgIDB4ZjAwMDAwMDAsIDB4
+ODBmOGEwNzgsCj4gLSAgICAgICAweGJmOGNjMDdmLCAweDgwZmM4MjdjLAo+ICsgICAgICAgMHgw
+MDAwMDA2YywgMHg4MGY4OTA3OCwKPiArICAgICAgIDB4ZjQyOTAwM2EsIDB4ZjAwMDAwMDAsCj4g
+KyAgICAgICAweGJmOGNjMDdmLCAweDgwZmM4NDdjLAo+ICAgICAgICAgMHhiZjgwMDAwMCwgMHhi
+ZTgwMzEwMCwKPiArICAgICAgIDB4YmU4MjMxMDIsIDB4ODBmOGEwNzgsCj4gICAgICAgICAweGY0
+MmQwMDNhLCAweGYwMDAwMDAwLAo+IC0gICAgICAgMHg4MGY4YzA3OCwgMHhiZjhjYzA3ZiwKPiAt
+ICAgICAgIDB4ODBmYzg4N2MsIDB4YmY4MDAwMDAsCj4gLSAgICAgICAweGJlODAzMTAwLCAweGJl
+ODIzMTAyLAo+IC0gICAgICAgMHhiZTg0MzEwNCwgMHhiZTg2MzEwNiwKPiArICAgICAgIDB4YmY4
+Y2MwN2YsIDB4ODBmYzg4N2MsCj4gKyAgICAgICAweGJmODAwMDAwLCAweGJlODAzMTAwLAo+ICsg
+ICAgICAgMHhiZTgyMzEwMiwgMHhiZTg0MzEwNCwKPiArICAgICAgIDB4YmU4NjMxMDYsIDB4ODBm
+OGMwNzgsCj4gICAgICAgICAweGY0MzEwMDNhLCAweGYwMDAwMDAwLAo+IC0gICAgICAgMHg4MGY4
+YzA3OCwgMHhiZjhjYzA3ZiwKPiAtICAgICAgIDB4ODBmYzkwN2MsIDB4YmY4MDAwMDAsCj4gLSAg
+ICAgICAweGJlODAzMTAwLCAweGJlODIzMTAyLAo+IC0gICAgICAgMHhiZTg0MzEwNCwgMHhiZTg2
+MzEwNiwKPiAtICAgICAgIDB4YmU4ODMxMDgsIDB4YmU4YTMxMGEsCj4gLSAgICAgICAweGJlOGMz
+MTBjLCAweGJlOGUzMTBlLAo+IC0gICAgICAgMHhiZjA2ODA3YywgMHhiZjg0ZmZmMCwKPiAtICAg
+ICAgIDB4Yjk3ODJhMDUsIDB4ODA3ODgxNzgsCj4gLSAgICAgICAweDkwN2M5OTczLCAweDg3N2M4
+MTdjLAo+IC0gICAgICAgMHhiZjA2ODE3YywgMHhiZjg1MDAwMiwKPiAtICAgICAgIDB4OGY3ODg5
+NzgsIDB4YmY4MjAwMDEsCj4gLSAgICAgICAweDhmNzg4YTc4LCAweGI5NzIxZTA2LAo+IC0gICAg
+ICAgMHg4ZjcyOGE3MiwgMHg4MDc4NzI3OCwKPiAtICAgICAgIDB4ODA3OGZmNzgsIDB4MDAwMDAy
+MDAsCj4gLSAgICAgICAweGJlZjYwM2ZmLCAweDAxMDAwMDAwLAo+IC0gICAgICAgMHhmNDIxMWJm
+YSwgMHhmMDAwMDAwMCwKPiAtICAgICAgIDB4ODA3ODg0NzgsIDB4ZjQyMTFiM2EsCj4gKyAgICAg
+ICAweGJmOGNjMDdmLCAweDgwZmM5MDdjLAo+ICsgICAgICAgMHhiZjgwMDAwMCwgMHhiZTgwMzEw
+MCwKPiArICAgICAgIDB4YmU4MjMxMDIsIDB4YmU4NDMxMDQsCj4gKyAgICAgICAweGJlODYzMTA2
+LCAweGJlODgzMTA4LAo+ICsgICAgICAgMHhiZThhMzEwYSwgMHhiZThjMzEwYywKPiArICAgICAg
+IDB4YmU4ZTMxMGUsIDB4YmYwNjgwN2MsCj4gKyAgICAgICAweGJmODRmZmYwLCAweGI5NzgyYTA1
+LAo+ICsgICAgICAgMHg4MDc4ODE3OCwgMHg5MDdjOTk3MywKPiArICAgICAgIDB4ODc3YzgxN2Ms
+IDB4YmYwNjgxN2MsCj4gKyAgICAgICAweGJmODUwMDAyLCAweDhmNzg4OTc4LAo+ICsgICAgICAg
+MHhiZjgyMDAwMSwgMHg4Zjc4OGE3OCwKPiArICAgICAgIDB4Yjk3MjFlMDYsIDB4OGY3MjhhNzIs
+Cj4gKyAgICAgICAweDgwNzg3Mjc4LCAweDgwNzhmZjc4LAo+ICsgICAgICAgMHgwMDAwMDIwMCwg
+MHhiZWY2MDNmZiwKPiArICAgICAgIDB4MDEwMDAwMDAsIDB4ZjQyMTFiZmEsCj4gICAgICAgICAw
+eGYwMDAwMDAwLCAweDgwNzg4NDc4LAo+IC0gICAgICAgMHhmNDIxMWI3YSwgMHhmMDAwMDAwMCwK
+PiAtICAgICAgIDB4ODA3ODg0NzgsIDB4ZjQyMTFlYmEsCj4gKyAgICAgICAweGY0MjExYjNhLCAw
+eGYwMDAwMDAwLAo+ICsgICAgICAgMHg4MDc4ODQ3OCwgMHhmNDIxMWI3YSwKPiAgICAgICAgIDB4
+ZjAwMDAwMDAsIDB4ODA3ODg0NzgsCj4gLSAgICAgICAweGY0MjExZWZhLCAweGYwMDAwMDAwLAo+
+IC0gICAgICAgMHg4MDc4ODQ3OCwgMHhmNDIxMWMzYSwKPiArICAgICAgIDB4ZjQyMTFlYmEsIDB4
+ZjAwMDAwMDAsCj4gKyAgICAgICAweDgwNzg4NDc4LCAweGY0MjExZWZhLAo+ICAgICAgICAgMHhm
+MDAwMDAwMCwgMHg4MDc4ODQ3OCwKPiAtICAgICAgIDB4ZjQyMTFjN2EsIDB4ZjAwMDAwMDAsCj4g
+LSAgICAgICAweDgwNzg4NDc4LCAweGY0MjExZTdhLAo+ICsgICAgICAgMHhmNDIxMWMzYSwgMHhm
+MDAwMDAwMCwKPiArICAgICAgIDB4ODA3ODg0NzgsIDB4ZjQyMTFjN2EsCj4gICAgICAgICAweGYw
+MDAwMDAwLCAweDgwNzg4NDc4LAo+IC0gICAgICAgMHhmNDIxMWNmYSwgMHhmMDAwMDAwMCwKPiAt
+ICAgICAgIDB4ODA3ODg0NzgsIDB4ZjQyMTFiYmEsCj4gKyAgICAgICAweGY0MjExZTdhLCAweGYw
+MDAwMDAwLAo+ICsgICAgICAgMHg4MDc4ODQ3OCwgMHhmNDIxMWNmYSwKPiAgICAgICAgIDB4ZjAw
+MDAwMDAsIDB4ODA3ODg0NzgsCj4gLSAgICAgICAweGJmOGNjMDdmLCAweGI5ZWVmODE0LAo+ICAg
+ICAgICAgMHhmNDIxMWJiYSwgMHhmMDAwMDAwMCwKPiAgICAgICAgIDB4ODA3ODg0NzgsIDB4YmY4
+Y2MwN2YsCj4gLSAgICAgICAweGI5ZWVmODE1LCAweGJlZjIwMzZkLAo+IC0gICAgICAgMHg4NzZk
+ZmY3MiwgMHgwMDAwZmZmZiwKPiAtICAgICAgIDB4YmVmYzAzNmYsIDB4YmVmZTAzN2EsCj4gLSAg
+ICAgICAweGJlZmYwMzdiLCAweDg3NmY3MWZmLAo+IC0gICAgICAgMHgwMDAwMDNmZiwgMHhiOWVm
+NDgwMywKPiAtICAgICAgIDB4YjlmOWY4MTYsIDB4ODc2ZjcxZmYsCj4gLSAgICAgICAweGZmZmZm
+ODAwLCAweDkwNmY4YjZmLAo+IC0gICAgICAgMHhiOWVmYTJjMywgMHhiOWYzZjgwMSwKPiAtICAg
+ICAgIDB4ODc2ZmZmNzIsIDB4ZmMwMDAwMDAsCj4gLSAgICAgICAweDkwNmY5YTZmLCAweDhmNmY5
+MDZmLAo+IC0gICAgICAgMHhiZWYzMDM4MCwgMHg4ODczNmY3MywKPiAtICAgICAgIDB4ODc2ZmZm
+NzIsIDB4MDIwMDAwMDAsCj4gLSAgICAgICAweDkwNmY5OTZmLCAweDhmNmY4ZjZmLAo+ICsgICAg
+ICAgMHhiOWVlZjgxNCwgMHhmNDIxMWJiYSwKPiArICAgICAgIDB4ZjAwMDAwMDAsIDB4ODA3ODg0
+NzgsCj4gKyAgICAgICAweGJmOGNjMDdmLCAweGI5ZWVmODE1LAo+ICsgICAgICAgMHhiZWYyMDM2
+ZCwgMHg4NzZkZmY3MiwKPiArICAgICAgIDB4MDAwMGZmZmYsIDB4YmVmYzAzNmYsCj4gKyAgICAg
+ICAweGJlZmUwMzdhLCAweGJlZmYwMzdiLAo+ICsgICAgICAgMHg4NzZmNzFmZiwgMHgwMDAwMDNm
+ZiwKPiArICAgICAgIDB4YjllZjQ4MDMsIDB4YjlmOWY4MTYsCj4gKyAgICAgICAweDg3NmY3MWZm
+LCAweGZmZmZmODAwLAo+ICsgICAgICAgMHg5MDZmOGI2ZiwgMHhiOWVmYTJjMywKPiArICAgICAg
+IDB4YjlmM2Y4MDEsIDB4ODc2ZmZmNzIsCj4gKyAgICAgICAweGZjMDAwMDAwLCAweDkwNmY5YTZm
+LAo+ICsgICAgICAgMHg4ZjZmOTA2ZiwgMHhiZWYzMDM4MCwKPiAgICAgICAgIDB4ODg3MzZmNzMs
+IDB4ODc2ZmZmNzIsCj4gLSAgICAgICAweDAxMDAwMDAwLCAweDkwNmY5ODZmLAo+IC0gICAgICAg
+MHg4ZjZmOTk2ZiwgMHg4ODczNmY3MywKPiAtICAgICAgIDB4ODc2ZmZmNzAsIDB4MDA4MDAwMDAs
+Cj4gLSAgICAgICAweDkwNmY5NzZmLCAweGI5ZjNmODA3LAo+IC0gICAgICAgMHg4N2ZlN2U3ZSwg
+MHg4N2VhNmE2YSwKPiAtICAgICAgIDB4YjlmMGY4MDIsIDB4YmY4YTAwMDAsCj4gLSAgICAgICAw
+eGJlODAyMjZjLCAweGJmODEwMDAwLAo+ICsgICAgICAgMHgwMjAwMDAwMCwgMHg5MDZmOTk2ZiwK
+PiArICAgICAgIDB4OGY2ZjhmNmYsIDB4ODg3MzZmNzMsCj4gKyAgICAgICAweDg3NmZmZjcyLCAw
+eDAxMDAwMDAwLAo+ICsgICAgICAgMHg5MDZmOTg2ZiwgMHg4ZjZmOTk2ZiwKPiArICAgICAgIDB4
+ODg3MzZmNzMsIDB4ODc2ZmZmNzAsCj4gKyAgICAgICAweDAwODAwMDAwLCAweDkwNmY5NzZmLAo+
+ICsgICAgICAgMHhiOWYzZjgwNywgMHg4N2ZlN2U3ZSwKPiArICAgICAgIDB4ODdlYTZhNmEsIDB4
+YjlmMGY4MDIsCj4gKyAgICAgICAweGJmOGEwMDAwLCAweGJlODAyMjZjLAo+ICsgICAgICAgMHhi
+ZjgxMDAwMCwgMHhiZjlmMDAwMCwKPiAgICAgICAgIDB4YmY5ZjAwMDAsIDB4YmY5ZjAwMDAsCj4g
+ICAgICAgICAweGJmOWYwMDAwLCAweGJmOWYwMDAwLAo+IC0gICAgICAgMHhiZjlmMDAwMCwgMHgw
+MDAwMDAwMCwKPiAgfTsKPiAgc3RhdGljIGNvbnN0IHVpbnQzMl90IGN3c3JfdHJhcF9hcmN0dXJ1
+c19oZXhbXSA9IHsKPiAgICAgICAgIDB4YmY4MjAwMDEsIDB4YmY4MjAyYzQsCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2N3c3JfdHJhcF9oYW5kbGVyX2dmeDEwLmFz
+bSBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2N3c3JfdHJhcF9oYW5kbGVyX2dmeDEwLmFz
+bQo+IGluZGV4IGZhZmRmZDIuLjM1OTg2MjEgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRrZmQvY3dzcl90cmFwX2hhbmRsZXJfZ2Z4MTAuYXNtCj4gKysrIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRrZmQvY3dzcl90cmFwX2hhbmRsZXJfZ2Z4MTAuYXNtCj4gQEAgLTg3LDcg
+Kzg3LDcgQEAgdmFyIFNfU0FWRV9QQ19ISV9GSVJTVF9SRVBMQVlfTUFTSyAgICAgICAgICAgID0g
+MHgwMjAwMDAwMAo+ICB2YXIgU19TQVZFX1BDX0hJX1JFUExBWV9XNjRIX1NISUZUICAgICAgICAg
+ICAgID0gMjQKPiAgdmFyIFNfU0FWRV9QQ19ISV9SRVBMQVlfVzY0SF9NQVNLICAgICAgICAgICAg
+ICA9IDB4MDEwMDAwMDAKPgo+IC12YXIgc19zZ3ByX3NhdmVfbnVtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgID0gMTA2Cj4gK3ZhciBzX3NncHJfc2F2ZV9udW0gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgPSAxMDgKPgo+ICB2YXIgc19zYXZlX3NwaV9pbml0X2xvICAgICAgICAgICAgICAg
+ICAgICAgICAgID0gZXhlY19sbwo+ICB2YXIgc19zYXZlX3NwaV9pbml0X2hpICAgICAgICAgICAg
+ICAgICAgICAgICAgID0gZXhlY19oaQo+IEBAIC0zNTcsMTMgKzM1NywxNCBAQCBMX1NBVkVfU0dQ
+Ul9MT09QOgo+ICAgICAgICAgc19jbXBfbHRfdTMyICAgIG0wLCA5NiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLy9zY2MgPSAobTAgPCBmaXJzdCA5NiBT
+R1BSKSA/IDEgOiAwCj4gICAgICAgICBzX2NicmFuY2hfc2NjMSAgTF9TQVZFX1NHUFJfTE9PUCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvL2ZpcnN0IDk2IFNHUFIgc2F2
+ZSBpcyBjb21wbGV0ZT8KPgo+IC0gICAgICAgLy9zYXZlIHRoZSByZXN0IDEwIFNHUFIKPiArICAg
+ICAgIC8vc2F2ZSB0aGUgcmVzdCAxMiBTR1BSCj4gICAgICAgICBzX21vdnJlbHNfYjY0ICAgczAs
+IHMwICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvL3Mw
+ID0gc1swK20wXSwgczEgPSBzWzErbTBdCj4gICAgICAgICBzX21vdnJlbHNfYjY0ICAgczIsIHMy
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvL3MyID0g
+c1syK20wXSwgczMgPSBzWzMrbTBdCj4gICAgICAgICBzX21vdnJlbHNfYjY0ICAgczQsIHM0ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvL3M0ID0gc1s0
+K20wXSwgczUgPSBzWzUrbTBdCj4gICAgICAgICBzX21vdnJlbHNfYjY0ICAgczYsIHM2ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvL3M2ID0gc1s2K20w
+XSwgczcgPSBzWzcrbTBdCj4gICAgICAgICBzX21vdnJlbHNfYjY0ICAgczgsIHM4ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvL3M4ID0gc1s4K20wXSwg
+czkgPSBzWzkrbTBdCj4gLSAgICAgICB3cml0ZV8xMHNncHJfdG9fbWVtKHMwLCBzX3NhdmVfYnVm
+X3JzcmMwLCBzX3NhdmVfbWVtX29mZnNldCkKPiArICAgICAgIHNfbW92cmVsc19iNjQgICBzMTAs
+IHMxMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8vczEw
+ID0gc1sxMCttMF0sIHMxMSA9IHNbMTErbTBdCj4gKyAgICAgICB3cml0ZV8xMnNncHJfdG9fbWVt
+KHMwLCBzX3NhdmVfYnVmX3JzcmMwLCBzX3NhdmVfbWVtX29mZnNldCkKPgo+ICAgICAgICAgLy8g
+cmVzdG9yZSBzX3NhdmVfYnVmX3JzcmMwLDEKPiAgICAgICAgIHNfbW92X2IzMiAgICAgICBzX3Nh
+dmVfYnVmX3JzcmMwLCBzX3NhdmVfeG5hY2tfbWFzawo+IEBAIC03NjYsMjYgKzc2NywyNSBAQCBM
+X1JFU1RPUkVfU0dQUjoKPiAgICAgICAgIGdldF9zdmdwcl9zaXplX2J5dGVzKHNfcmVzdG9yZV90
+bXApCj4gICAgICAgICBzX2FkZF91MzIgICAgICAgc19yZXN0b3JlX21lbV9vZmZzZXQsIHNfcmVz
+dG9yZV9tZW1fb2Zmc2V0LCBzX3Jlc3RvcmVfdG1wCj4gICAgICAgICBzX2FkZF91MzIgICAgICAg
+c19yZXN0b3JlX21lbV9vZmZzZXQsIHNfcmVzdG9yZV9tZW1fb2Zmc2V0LCBnZXRfc2dwcl9zaXpl
+X2J5dGVzKCkKPiAtICAgICAgIHNfc3ViX3UzMiAgICAgICBzX3Jlc3RvcmVfbWVtX29mZnNldCwg
+c19yZXN0b3JlX21lbV9vZmZzZXQsIDIyKjQgICAgICAgIC8vczEwNn5zMTI3IGlzIG5vdCBzYXZl
+ZAo+IC0gICAgICAgc19zdWJfdTMyICAgICAgIHNfcmVzdG9yZV9tZW1fb2Zmc2V0LCBzX3Jlc3Rv
+cmVfbWVtX29mZnNldCwgMio0ICAgICAgICAgLy8gcmVzdG9yZSBTR1BSIGZyb20gU1tuXSB0byBT
+WzBdLCBieSAyIHNncHJzIGdyb3VwCj4gKyAgICAgICBzX3N1Yl91MzIgICAgICAgc19yZXN0b3Jl
+X21lbV9vZmZzZXQsIHNfcmVzdG9yZV9tZW1fb2Zmc2V0LCAyMCo0ICAgICAgICAvL3MxMDh+czEy
+NyBpcyBub3Qgc2F2ZWQKPgo+ICAgICAgICAgc19tb3ZfYjMyICAgICAgIHNfcmVzdG9yZV9idWZf
+cnNyYzIsIDB4MTAwMDAwMCAgICAgICAgICAgICAgICAgICAgICAgICAgLy9OVU1fUkVDT1JEUyBp
+biBieXRlcwo+Cj4gICAgICAgICBzX21vdl9iMzIgICAgICAgbTAsIHNfc2dwcl9zYXZlX251bQo+
+Cj4gLSAgICAgICByZWFkXzJzZ3ByX2Zyb21fbWVtKHMwLCBzX3Jlc3RvcmVfYnVmX3JzcmMwLCBz
+X3Jlc3RvcmVfbWVtX29mZnNldCkKPiAtCj4gKyAgICAgICByZWFkXzRzZ3ByX2Zyb21fbWVtKHMw
+LCBzX3Jlc3RvcmVfYnVmX3JzcmMwLCBzX3Jlc3RvcmVfbWVtX29mZnNldCkKPiAgICAgICAgIHNf
+d2FpdGNudCAgICAgICBsZ2ttY250KDApCj4KPiAtICAgICAgIHNfc3ViX3UzMiAgICAgICBtMCwg
+bTAsIDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8vIFJl
+c3RvcmUgZnJvbSBTW25dIHRvIFNbMF0KPiArICAgICAgIHNfc3ViX3UzMiAgICAgICBtMCwgbTAs
+IDQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8vIFJlc3Rv
+cmUgZnJvbSBTWzBdIHRvIFNbMTA0XQo+ICAgICAgICAgc19ub3AgICAgICAgICAgIDAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgLy8gaGF6YXJk
+IFNBTFUgTTA9PiBTX01PVlJFTAo+Cj4gICAgICAgICBzX21vdnJlbGRfYjY0ICAgczAsIHMwICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvL3NbMCttMF0g
+PSBzMAo+ICsgICAgICAgc19tb3ZyZWxkX2I2NCAgIHMyLCBzMgo+Cj4gICAgICAgICByZWFkXzhz
+Z3ByX2Zyb21fbWVtKHMwLCBzX3Jlc3RvcmVfYnVmX3JzcmMwLCBzX3Jlc3RvcmVfbWVtX29mZnNl
+dCkKPiAgICAgICAgIHNfd2FpdGNudCAgICAgICBsZ2ttY250KDApCj4KPiAtICAgICAgIHNfc3Vi
+X3UzMiAgICAgICBtMCwgbTAsIDggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIC8vIFJlc3RvcmUgZnJvbSBTW25dIHRvIFNbMF0KPiArICAgICAgIHNfc3ViX3Uz
+MiAgICAgICBtMCwgbTAsIDggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIC8vIFJlc3RvcmUgZnJvbSBTWzBdIHRvIFNbOTZdCj4gICAgICAgICBzX25vcCAgICAg
+ICAgICAgMCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAvLyBoYXphcmQgU0FMVSBNMD0+IFNfTU9WUkVMCj4KPiAgICAgICAgIHNfbW92cmVsZF9i
+NjQgICBzMCwgczAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIC8vc1swK20wXSA9IHMwCj4gQEAgLTkwMywxMSArOTAzLDExIEBAIGZ1bmN0aW9uIHdyaXRl
+XzE2c2dwcl90b19tZW0ocywgc19yc3JjLCBzX21lbV9vZmZzZXQpCj4gICAgICAgICBzX2FkZGNf
+dTMyICAgICAgc19yc3JjWzFdLCBzX3JzcmNbMV0sIDB4MAo+ICBlbmQKPgo+IC1mdW5jdGlvbiB3
+cml0ZV8xMHNncHJfdG9fbWVtKHMsIHNfcnNyYywgc19tZW1fb2Zmc2V0KQo+ICtmdW5jdGlvbiB3
+cml0ZV8xMnNncHJfdG9fbWVtKHMsIHNfcnNyYywgc19tZW1fb2Zmc2V0KQo+ICAgICAgICAgc19i
+dWZmZXJfc3RvcmVfZHdvcmR4NCAgc1swXSwgc19yc3JjLCAwIGdsYzoxCj4gICAgICAgICBzX2J1
+ZmZlcl9zdG9yZV9kd29yZHg0ICBzWzRdLCBzX3JzcmMsIDE2IGdsYzoxCj4gLSAgICAgICBzX2J1
+ZmZlcl9zdG9yZV9kd29yZHgyICBzWzhdLCBzX3JzcmMsIDMyIGdsYzoxCj4gLSAgICAgICBzX2Fk
+ZF91MzIgICAgICAgc19yc3JjWzBdLCBzX3JzcmNbMF0sIDQqMTYKPiArICAgICAgIHNfYnVmZmVy
+X3N0b3JlX2R3b3JkeDQgIHNbOF0sIHNfcnNyYywgMzIgZ2xjOjEKPiArICAgICAgIHNfYWRkX3Uz
+MiAgICAgICBzX3JzcmNbMF0sIHNfcnNyY1swXSwgNCoxMgo+ICAgICAgICAgc19hZGRjX3UzMiAg
+ICAgIHNfcnNyY1sxXSwgc19yc3JjWzFdLCAweDAKPiAgZW5kCj4KPiBAQCAtOTE4LDE4ICs5MTgs
+MTggQEAgZnVuY3Rpb24gcmVhZF9od3JlZ19mcm9tX21lbShzLCBzX3JzcmMsIHNfbWVtX29mZnNl
+dCkKPiAgZW5kCj4KPiAgZnVuY3Rpb24gcmVhZF8xNnNncHJfZnJvbV9tZW0ocywgc19yc3JjLCBz
+X21lbV9vZmZzZXQpCj4gLSAgICAgICBzX2J1ZmZlcl9sb2FkX2R3b3JkeDE2ICBzLCBzX3JzcmMs
+IHNfbWVtX29mZnNldCBnbGM6MQo+ICAgICAgICAgc19zdWJfdTMyICAgICAgIHNfbWVtX29mZnNl
+dCwgc19tZW1fb2Zmc2V0LCA0KjE2Cj4gKyAgICAgICBzX2J1ZmZlcl9sb2FkX2R3b3JkeDE2ICBz
+LCBzX3JzcmMsIHNfbWVtX29mZnNldCBnbGM6MQo+ICBlbmQKPgo+ICBmdW5jdGlvbiByZWFkXzhz
+Z3ByX2Zyb21fbWVtKHMsIHNfcnNyYywgc19tZW1fb2Zmc2V0KQo+ICsgICAgICAgc19zdWJfdTMy
+ICAgICAgIHNfbWVtX29mZnNldCwgc19tZW1fb2Zmc2V0LCA0KjgKPiAgICAgICAgIHNfYnVmZmVy
+X2xvYWRfZHdvcmR4OCAgIHMsIHNfcnNyYywgc19tZW1fb2Zmc2V0IGdsYzoxCj4gLSAgICAgICBz
+X3N1Yl91MzIgICAgICAgc19tZW1fb2Zmc2V0LCBzX21lbV9vZmZzZXQsIDQqMTYKPiAgZW5kCj4K
+PiAtZnVuY3Rpb24gcmVhZF8yc2dwcl9mcm9tX21lbShzLCBzX3JzcmMsIHNfbWVtX29mZnNldCkK
+PiAtICAgICAgIHNfYnVmZmVyX2xvYWRfZHdvcmR4MiBzLCBzX3JzcmMsIHNfbWVtX29mZnNldCBn
+bGM6MQo+IC0gICAgICAgc19zdWJfdTMyICAgICAgIHNfbWVtX29mZnNldCwgc19tZW1fb2Zmc2V0
+LCA0KjgKPiArZnVuY3Rpb24gcmVhZF80c2dwcl9mcm9tX21lbShzLCBzX3JzcmMsIHNfbWVtX29m
+ZnNldCkKPiArICAgICAgIHNfc3ViX3UzMiAgICAgICBzX21lbV9vZmZzZXQsIHNfbWVtX29mZnNl
+dCwgNCo0Cj4gKyAgICAgICBzX2J1ZmZlcl9sb2FkX2R3b3JkeDQgICBzLCBzX3JzcmMsIHNfbWVt
+X29mZnNldCBnbGM6MQo+ICBlbmQKPgo+Cj4gLS0KPiAyLjcuNAo+Cj4gX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeA==
