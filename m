@@ -1,63 +1,89 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix a potential information leaking bug
-Date: Tue, 30 Jul 2019 13:58:04 +0200
-Message-ID: <a4ec163a-81f6-6bf2-9733-daaa760ee79a@gmail.com>
-References: <20190727093030.6256-1-xywang.sjtu@sjtu.edu.cn>
- <44b2a1d2-415f-3ae7-fa84-a0f4711ef4a9@amd.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Jason Gunthorpe <jgg@mellanox.com>
+Subject: [GIT PULL] Please pull hmm changes
+Date: Tue, 30 Jul 2019 11:58:37 +0000
+Message-ID: <20190730115831.GA15720@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <44b2a1d2-415f-3ae7-fa84-a0f4711ef4a9-5C7GfCeVMHo@public.gmane.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+        protocol="application/pgp-signature"; boundary="pWyiEgJYm5f9v55/"
+Return-path: <linux-kernel-owner@vger.kernel.org>
 Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Chunming Zhou <zhoucm1-5C7GfCeVMHo@public.gmane.org>, Wang Xiayang <xywang.sjtu-u2tTgNRCH2jM1kAEIRd3EQ@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Zhou,
- David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, "Koenig,
- Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Linus Torvalds <torvalds@linux-foundation.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Christoph Hellwig <hch@lst.de>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-QW0gMjcuMDcuMTkgdW0gMTE6Mzcgc2NocmllYiBDaHVubWluZyBaaG91Ogo+IOWcqCAyMDE5Lzcv
-MjcgMTc6MzAsIFdhbmcgWGlheWFuZyDlhpnpgZM6Cj4+IENvY2NpbmVsbGUgcmVwb3J0cyBhIHBh
-dGggdGhhdCB0aGUgYXJyYXkgImRhdGEiIGlzIG5ldmVyIGluaXRpYWxpemVkLgo+PiBUaGUgcGF0
-aCBza2lwcyB0aGUgY2hlY2tzIGluIHRoZSBjb25kaXRpb25hbCBicmFuY2hlcyB3aGVuIGVpdGhl
-cgo+PiBvZiBjYWxsYmFjayBmdW5jdGlvbnMsIHJlYWRfd2F2ZV92Z3BycyBhbmQgcmVhZF93YXZl
-X3NncHJzLCBpcyBub3QKPj4gcmVnaXN0ZXJlZC4gTGF0ZXIsIHRoZSB1bmluaXRpYWxpemVkICJk
-YXRhIiBhcnJheSBpcyByZWFkCj4+IGluIHRoZSB3aGlsZS1sb29wIGJlbG93IGFuZCBwYXNzZWQg
-dG8gcHV0X3VzZXIoKS4KPj4KPj4gRml4IHRoZSBwYXRoIGJ5IGFsbG9jYXRpbmcgdGhlIGFycmF5
-IHdpdGgga2NhbGxvYygpLgo+Pgo+PiBUaGUgcGF0Y2ggaXMgc2ltcGxpZXIgdGhhbiBhZGRpbmcg
-YSBmYWxsLWJhY2sgYnJhbmNoIHRoYXQgZXhwbGljaXRseQo+PiBjYWxscyBtZW1zZXQoZGF0YSwg
-MCwgLi4uKS4gQWxzbyBpdCBkb2VzIG5vdCBuZWVkIHRoZSBtdWx0aXBsaWNhdGlvbgo+PiAxMDI0
-KnNpemVvZigqZGF0YSkgYXMgdGhlIHNpemUgcGFyYW1ldGVyIGZvciBtZW1zZXQoKSB0aG91Z2gg
-dGhlcmUgaXMKPj4gbm8gcmlzayBvZiBpbnRlZ2VyIG92ZXJmbG93Lgo+Pgo+PiBTaWduZWQtb2Zm
-LWJ5OiBXYW5nIFhpYXlhbmcgPHh5d2FuZy5zanR1QHNqdHUuZWR1LmNuPgo+IFJldmlld2VkLWJ5
-OiBDaHVubWluZyBaaG91IDxkYXZpZDEuemhvdUBhbWQuY29tPgoKUGlja2VkIHRoYXQgdXAsIHJl
-dmlld2VkIGl0IGFuZCBwdXNoZWQgaXQgaW50byBvdXIgaW50ZXJuYWwgYnJhbmNoLgoKQ2hyaXN0
-aWFuLgoKPgo+IC1EYXZpZAo+Cj4+IC0tLQo+PiAgICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGVidWdmcy5jIHwgMiArLQo+PiAgICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRp
-b24oKyksIDEgZGVsZXRpb24oLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZGVidWdmcy5jCj4+IGluZGV4IDZkNTRkZWNlZjdmOC4uNTY1MmNjNzJlZDNhIDEwMDY0
-NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jCj4+
-ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKPj4gQEAg
-LTcwNyw3ICs3MDcsNyBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfZGVidWdmc19ncHJfcmVhZChz
-dHJ1Y3QgZmlsZSAqZiwgY2hhciBfX3VzZXIgKmJ1ZiwKPj4gICAgCXRocmVhZCA9ICgqcG9zICYg
-R0VOTUFTS19VTEwoNTksIDUyKSkgPj4gNTI7Cj4+ICAgIAliYW5rID0gKCpwb3MgJiBHRU5NQVNL
-X1VMTCg2MSwgNjApKSA+PiA2MDsKPj4gICAgCj4+IC0JZGF0YSA9IGttYWxsb2NfYXJyYXkoMTAy
-NCwgc2l6ZW9mKCpkYXRhKSwgR0ZQX0tFUk5FTCk7Cj4+ICsJZGF0YSA9IGtjYWxsb2MoMTAyNCwg
-c2l6ZW9mKCpkYXRhKSwgR0ZQX0tFUk5FTCk7Cj4+ICAgIAlpZiAoIWRhdGEpCj4+ICAgIAkJcmV0
-dXJuIC1FTk9NRU07Cj4+ICAgIAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYW1kLWdmeAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--pWyiEgJYm5f9v55/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+Hi Linus,
+
+Locking fix for nouveau's use of HMM
+
+This small series was posted by Christoph before the merge window, but didn't
+make it in time for the PR. It fixes various locking errors in the nouveau
+driver's use of the hmm_range_* functions.
+
+The diffstat is a bit big as Christoph did a comprehensive job to move the
+obsolete API from the core header and into the driver before fixing its flow,
+but the risk of regression from this code motion is low.
+
+I don't intend to often send -rc patches for hmm, but this is entangled with
+other changes already, so it is simpler to keep it on the hmm git branch.
+
+Thanks,
+Jason
+
+The following changes since commit 5f9e832c137075045d15cd6899ab0505cfb2ca4b:
+
+  Linus 5.3-rc1 (2019-07-21 14:05:38 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git tags/for-linus-hmm
+
+for you to fetch changes up to de4ee728465f7c0c29241550e083139b2ce9159c:
+
+  nouveau: unlock mmap_sem on all errors from nouveau_range_fault (2019-07-25 16:14:40 -0300)
+
+----------------------------------------------------------------
+HMM patches for 5.3-rc
+
+Fix the locking around nouveau's use of the hmm_range_* APIs. It works
+correctly in the success case, but many of the the edge cases have missing
+unlocks or double unlocks.
+
+----------------------------------------------------------------
+Christoph Hellwig (4):
+      mm/hmm: always return EBUSY for invalid ranges in hmm_range_{fault,snapshot}
+      mm/hmm: move hmm_vma_range_done and hmm_vma_fault to nouveau
+      nouveau: remove the block parameter to nouveau_range_fault
+      nouveau: unlock mmap_sem on all errors from nouveau_range_fault
+
+ Documentation/vm/hmm.rst              |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_svm.c | 47 ++++++++++++++++++++++++++++--
+ include/linux/hmm.h                   | 54 -----------------------------------
+ mm/hmm.c                              | 10 +++----
+ 4 files changed, 49 insertions(+), 64 deletions(-)
+
+--pWyiEgJYm5f9v55/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEfB7FMLh+8QxL+6i3OG33FX4gmxoFAl1AMOIACgkQOG33FX4g
+mxoQ2g//RnLjfumNrH3tMwS8UkYgAoWVh6NGyQ7EjUPT2fvHlfo3dMqzUNK9h+wN
+k2MKDTSZbFVhJQ5scU9KbhzGBXih4+DLnW1bpN1k/6nfZ6EXxRJakmcEz+LE53Pn
+ylcuBXU9SLf733j+uwy42BQhkL7/Ykk+vt/aToWEyuTIXsR7zkTPVd7XH4JcHKi6
+Lsf+zGtBCsIsh27T7uyyyOI52XwcY8Zm6LvfIKdOLczPRB8SzQ3yyMHjG42L7/ui
+VGDvoU+4pMGQmBg2anE49/xsxDrGWeVYgkcsQcw2PhlthXw3VwmWBj83chLU9+qt
+Vc1jofLj4Srgv+mXgFjmu0j1yJ84qoJaBb1YPzxDWoJGHpXyhLWKc7U55lvvotDD
+EJCOV6nE+VMGo/Zu96O+LI4IW05afPxJstNj3XQg72lF4WaRGOS8q3OhmGqntaNh
+ajQNYrcUDODmwepiOpDPf28K2cybwdINqrNKFw2e9eybnBxE4VEoF5vjUIlQmYoj
+BNZAORxOyrnNHr8w3q46pK5OPinjXhNnKXJFrcqldZKKonhRCTIb+vu22CLD0QCC
+DjmflIaGbHx8Q8yB+9B5pFt3j/a9lMzYgfN61Kh1qCOAiDWDXBjJ/c/mA6++iwgL
+08F+Xltp9NoE46VUbpij+5xq6eaXrHWb7v8QyRZJt04KHziebmM=
+=6E82
+-----END PGP SIGNATURE-----
+
+--pWyiEgJYm5f9v55/--
