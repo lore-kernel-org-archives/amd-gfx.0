@@ -1,51 +1,144 @@
-From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Subject: [PATCH 05/13] mm: remove the unused vma argument to
- hmm_range_dma_unmap
-Date: Tue, 30 Jul 2019 08:51:55 +0300
-Message-ID: <20190730055203.28467-6-hch@lst.de>
+From: Christoph Hellwig <hch@lst.de>
+Subject: [PATCH 06/13] mm: remove superflous arguments from hmm_range_register
+Date: Tue, 30 Jul 2019 08:51:56 +0300
+Message-ID: <20190730055203.28467-7-hch@lst.de>
 References: <20190730055203.28467-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190730055203.28467-1-hch-jcswGhMUV9g@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190730055203.28467-1-hch@lst.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Ci0tLQogaW5jbHVk
-ZS9saW51eC9obW0uaCB8IDEgLQogbW0vaG1tLmMgICAgICAgICAgICB8IDIgLS0KIDIgZmlsZXMg
-Y2hhbmdlZCwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2htbS5o
-IGIvaW5jbHVkZS9saW51eC9obW0uaAppbmRleCA4MjI2NTExOGQ5NGEuLjU5YmUwYWEyNDc2ZCAx
-MDA2NDQKLS0tIGEvaW5jbHVkZS9saW51eC9obW0uaAorKysgYi9pbmNsdWRlL2xpbnV4L2htbS5o
-CkBAIC00MjIsNyArNDIyLDYgQEAgbG9uZyBobW1fcmFuZ2VfZG1hX21hcChzdHJ1Y3QgaG1tX3Jh
-bmdlICpyYW5nZSwKIAkJICAgICAgIGRtYV9hZGRyX3QgKmRhZGRycywKIAkJICAgICAgIHVuc2ln
-bmVkIGludCBmbGFncyk7CiBsb25nIGhtbV9yYW5nZV9kbWFfdW5tYXAoc3RydWN0IGhtbV9yYW5n
-ZSAqcmFuZ2UsCi0JCQkgc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEsCiAJCQkgc3RydWN0IGRl
-dmljZSAqZGV2aWNlLAogCQkJIGRtYV9hZGRyX3QgKmRhZGRycywKIAkJCSBib29sIGRpcnR5KTsK
-ZGlmZiAtLWdpdCBhL21tL2htbS5jIGIvbW0vaG1tLmMKaW5kZXggZDY2ZmEyOWI0MmUwLi4zYTM4
-NTI2NjA3NTcgMTAwNjQ0Ci0tLSBhL21tL2htbS5jCisrKyBiL21tL2htbS5jCkBAIC0xMTIxLDcg
-KzExMjEsNiBAQCBFWFBPUlRfU1lNQk9MKGhtbV9yYW5nZV9kbWFfbWFwKTsKIC8qKgogICogaG1t
-X3JhbmdlX2RtYV91bm1hcCgpIC0gdW5tYXAgcmFuZ2Ugb2YgdGhhdCB3YXMgbWFwIHdpdGggaG1t
-X3JhbmdlX2RtYV9tYXAoKQogICogQHJhbmdlOiByYW5nZSBiZWluZyB1bm1hcHBlZAotICogQHZt
-YTogdGhlIHZtYSBhZ2FpbnN0IHdoaWNoIHRoZSByYW5nZSAob3B0aW9uYWwpCiAgKiBAZGV2aWNl
-OiBkZXZpY2UgYWdhaW5zdCB3aGljaCBkbWEgbWFwIHdhcyBkb25lCiAgKiBAZGFkZHJzOiBkbWEg
-YWRkcmVzcyBvZiBtYXBwZWQgcGFnZXMKICAqIEBkaXJ0eTogZGlydHkgcGFnZSBpZiBpdCBoYWQg
-dGhlIHdyaXRlIGZsYWcgc2V0CkBAIC0xMTMzLDcgKzExMzIsNiBAQCBFWFBPUlRfU1lNQk9MKGht
-bV9yYW5nZV9kbWFfbWFwKTsKICAqIGNvbmN1cnJlbnQgbW11IG5vdGlmaWVyIG9yIHN5bmNfY3B1
-X2RldmljZV9wYWdldGFibGVzKCkgdG8gbWFrZSBwcm9ncmVzcy4KICAqLwogbG9uZyBobW1fcmFu
-Z2VfZG1hX3VubWFwKHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlLAotCQkJIHN0cnVjdCB2bV9hcmVh
-X3N0cnVjdCAqdm1hLAogCQkJIHN0cnVjdCBkZXZpY2UgKmRldmljZSwKIAkJCSBkbWFfYWRkcl90
-ICpkYWRkcnMsCiAJCQkgYm9vbCBkaXJ0eSkKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVh
-dUBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9ub3V2ZWF1
+The start, end and page_shift values are all saved in the range
+structure, so we might as well use that for argument passing.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ Documentation/vm/hmm.rst                |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  7 +++++--
+ drivers/gpu/drm/nouveau/nouveau_svm.c   |  5 ++---
+ include/linux/hmm.h                     |  6 +-----
+ mm/hmm.c                                | 20 +++++---------------
+ 5 files changed, 14 insertions(+), 26 deletions(-)
+
+diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
+index ddcb5ca8b296..e63c11f7e0e0 100644
+--- a/Documentation/vm/hmm.rst
++++ b/Documentation/vm/hmm.rst
+@@ -222,7 +222,7 @@ The usage pattern is::
+       range.flags = ...;
+       range.values = ...;
+       range.pfn_shift = ...;
+-      hmm_range_register(&range);
++      hmm_range_register(&range, mirror);
+ 
+       /*
+        * Just wait for range to be valid, safe to ignore return value as we
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index f0821638bbc6..71d6e7087b0b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -818,8 +818,11 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ 				0 : range->flags[HMM_PFN_WRITE];
+ 	range->pfn_flags_mask = 0;
+ 	range->pfns = pfns;
+-	hmm_range_register(range, mirror, start,
+-			   start + ttm->num_pages * PAGE_SIZE, PAGE_SHIFT);
++	range->page_shift = PAGE_SHIFT;
++	range->start = start;
++	range->end = start + ttm->num_pages * PAGE_SIZE;
++
++	hmm_range_register(range, mirror);
+ 
+ 	/*
+ 	 * Just wait for range to be valid, safe to ignore return value as we
+diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
+index b889d5ec4c7e..40e706234554 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_svm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
+@@ -492,9 +492,7 @@ nouveau_range_fault(struct nouveau_svmm *svmm, struct hmm_range *range)
+ 	range->default_flags = 0;
+ 	range->pfn_flags_mask = -1UL;
+ 
+-	ret = hmm_range_register(range, &svmm->mirror,
+-				 range->start, range->end,
+-				 PAGE_SHIFT);
++	ret = hmm_range_register(range, &svmm->mirror);
+ 	if (ret) {
+ 		up_read(&range->hmm->mm->mmap_sem);
+ 		return (int)ret;
+@@ -682,6 +680,7 @@ nouveau_svm_fault(struct nvif_notify *notify)
+ 			 args.i.p.addr + args.i.p.size, fn - fi);
+ 
+ 		/* Have HMM fault pages within the fault window to the GPU. */
++		range.page_shift = PAGE_SHIFT;
+ 		range.start = args.i.p.addr;
+ 		range.end = args.i.p.addr + args.i.p.size;
+ 		range.pfns = args.phys;
+diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+index 59be0aa2476d..c5b51376b453 100644
+--- a/include/linux/hmm.h
++++ b/include/linux/hmm.h
+@@ -400,11 +400,7 @@ void hmm_mirror_unregister(struct hmm_mirror *mirror);
+ /*
+  * Please see Documentation/vm/hmm.rst for how to use the range API.
+  */
+-int hmm_range_register(struct hmm_range *range,
+-		       struct hmm_mirror *mirror,
+-		       unsigned long start,
+-		       unsigned long end,
+-		       unsigned page_shift);
++int hmm_range_register(struct hmm_range *range, struct hmm_mirror *mirror);
+ void hmm_range_unregister(struct hmm_range *range);
+ 
+ /*
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 3a3852660757..926735a3aef9 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -843,35 +843,25 @@ static void hmm_pfns_clear(struct hmm_range *range,
+  * hmm_range_register() - start tracking change to CPU page table over a range
+  * @range: range
+  * @mm: the mm struct for the range of virtual address
+- * @start: start virtual address (inclusive)
+- * @end: end virtual address (exclusive)
+- * @page_shift: expect page shift for the range
++ *
+  * Return: 0 on success, -EFAULT if the address space is no longer valid
+  *
+  * Track updates to the CPU page table see include/linux/hmm.h
+  */
+-int hmm_range_register(struct hmm_range *range,
+-		       struct hmm_mirror *mirror,
+-		       unsigned long start,
+-		       unsigned long end,
+-		       unsigned page_shift)
++int hmm_range_register(struct hmm_range *range, struct hmm_mirror *mirror)
+ {
+-	unsigned long mask = ((1UL << page_shift) - 1UL);
++	unsigned long mask = ((1UL << range->page_shift) - 1UL);
+ 	struct hmm *hmm = mirror->hmm;
+ 	unsigned long flags;
+ 
+ 	range->valid = false;
+ 	range->hmm = NULL;
+ 
+-	if ((start & mask) || (end & mask))
++	if ((range->start & mask) || (range->end & mask))
+ 		return -EINVAL;
+-	if (start >= end)
++	if (range->start >= range->end)
+ 		return -EINVAL;
+ 
+-	range->page_shift = page_shift;
+-	range->start = start;
+-	range->end = end;
+-
+ 	/* Prevent hmm_release() from running while the range is valid */
+ 	if (!mmget_not_zero(hmm->mm))
+ 		return -EFAULT;
+-- 
+2.20.1
