@@ -1,45 +1,32 @@
-From: Jason Gunthorpe <jgg@mellanox.com>
-Subject: Re: [PATCH 07/13] mm: remove the page_shift member from struct
- hmm_range
-Date: Tue, 30 Jul 2019 12:55:17 +0000
-Message-ID: <20190730125512.GF24038@mellanox.com>
-References: <20190730055203.28467-1-hch@lst.de>
- <20190730055203.28467-8-hch@lst.de>
+From: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 03/13] nouveau: pass struct nouveau_svmm to
+ nouveau_range_fault
+Date: Tue, 30 Jul 2019 15:10:38 +0200
+Message-ID: <20190730131038.GB4566@lst.de>
+References: <20190730055203.28467-1-hch@lst.de> <20190730055203.28467-4-hch@lst.de> <20190730123554.GD24038@mellanox.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190730055203.28467-8-hch@lst.de>
-Content-Language: en-US
-Content-ID: <B20876FFD0ED7E4A83072CECCE1E8BF0@eurprd05.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <20190730123554.GD24038@mellanox.com>
 Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@lst.de>
-Cc: =?iso-8859-1?Q?J=E9r=F4me_Glisse?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+To: Jason Gunthorpe <jgg@mellanox.com>
+Cc: Christoph Hellwig <hch@lst.de>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Jul 30, 2019 at 08:51:57AM +0300, Christoph Hellwig wrote:
-> All users pass PAGE_SIZE here, and if we wanted to support single
-> entries for huge pages we should really just add a HMM_FAULT_HUGEPAGE
-> flag instead that uses the huge page size instead of having the
-> caller calculate that size once, just for the hmm code to verify it.
+On Tue, Jul 30, 2019 at 12:35:59PM +0000, Jason Gunthorpe wrote:
+> On Tue, Jul 30, 2019 at 08:51:53AM +0300, Christoph Hellwig wrote:
+> > This avoid having to abuse the vma field in struct hmm_range to unlock
+> > the mmap_sem.
+> 
+> I think the change inside hmm_range_fault got lost on rebase, it is
+> now using:
+> 
+>                 up_read(&range->hmm->mm->mmap_sem);
+> 
+> But, yes, lets change it to use svmm->mm and try to keep struct hmm
+> opaque to drivers
 
-I suspect this was added for the ODP conversion that does use both
-page sizes. I think the ODP code for this is kind of broken, but I
-haven't delved into that..
-
-The challenge is that the driver needs to know what page size to
-configure the hardware before it does any range stuff.
-
-The other challenge is that the HW is configured to do only one page
-size, and if the underlying CPU page side changes it goes south.
-
-What I would prefer is if the driver could somehow dynamically adjust
-the the page size after each dma map, but I don't know if ODP HW can
-do that.
-
-Since this is all driving toward making ODP use this maybe we should
-keep this API?=20
-
-I'm not sure I can loose the crappy huge page support in ODP.
-
-Jason
+It got lost somewhat intentionally as I didn't want the churn, but I
+forgot to update the changelog.  But if you are fine with changing it
+over I can bring it back.
