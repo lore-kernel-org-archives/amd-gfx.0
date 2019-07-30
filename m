@@ -1,144 +1,143 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 06/13] mm: remove superflous arguments from hmm_range_register
-Date: Tue, 30 Jul 2019 08:51:56 +0300
-Message-ID: <20190730055203.28467-7-hch@lst.de>
+From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Subject: [PATCH 07/13] mm: remove the page_shift member from
+ struct hmm_range
+Date: Tue, 30 Jul 2019 08:51:57 +0300
+Message-ID: <20190730055203.28467-8-hch@lst.de>
 References: <20190730055203.28467-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190730055203.28467-1-hch@lst.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190730055203.28467-1-hch-jcswGhMUV9g@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-The start, end and page_shift values are all saved in the range
-structure, so we might as well use that for argument passing.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- Documentation/vm/hmm.rst                |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  7 +++++--
- drivers/gpu/drm/nouveau/nouveau_svm.c   |  5 ++---
- include/linux/hmm.h                     |  6 +-----
- mm/hmm.c                                | 20 +++++---------------
- 5 files changed, 14 insertions(+), 26 deletions(-)
-
-diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
-index ddcb5ca8b296..e63c11f7e0e0 100644
---- a/Documentation/vm/hmm.rst
-+++ b/Documentation/vm/hmm.rst
-@@ -222,7 +222,7 @@ The usage pattern is::
-       range.flags = ...;
-       range.values = ...;
-       range.pfn_shift = ...;
--      hmm_range_register(&range);
-+      hmm_range_register(&range, mirror);
- 
-       /*
-        * Just wait for range to be valid, safe to ignore return value as we
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index f0821638bbc6..71d6e7087b0b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -818,8 +818,11 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 				0 : range->flags[HMM_PFN_WRITE];
- 	range->pfn_flags_mask = 0;
- 	range->pfns = pfns;
--	hmm_range_register(range, mirror, start,
--			   start + ttm->num_pages * PAGE_SIZE, PAGE_SHIFT);
-+	range->page_shift = PAGE_SHIFT;
-+	range->start = start;
-+	range->end = start + ttm->num_pages * PAGE_SIZE;
-+
-+	hmm_range_register(range, mirror);
- 
- 	/*
- 	 * Just wait for range to be valid, safe to ignore return value as we
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index b889d5ec4c7e..40e706234554 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -492,9 +492,7 @@ nouveau_range_fault(struct nouveau_svmm *svmm, struct hmm_range *range)
- 	range->default_flags = 0;
- 	range->pfn_flags_mask = -1UL;
- 
--	ret = hmm_range_register(range, &svmm->mirror,
--				 range->start, range->end,
--				 PAGE_SHIFT);
-+	ret = hmm_range_register(range, &svmm->mirror);
- 	if (ret) {
- 		up_read(&range->hmm->mm->mmap_sem);
- 		return (int)ret;
-@@ -682,6 +680,7 @@ nouveau_svm_fault(struct nvif_notify *notify)
- 			 args.i.p.addr + args.i.p.size, fn - fi);
- 
- 		/* Have HMM fault pages within the fault window to the GPU. */
-+		range.page_shift = PAGE_SHIFT;
- 		range.start = args.i.p.addr;
- 		range.end = args.i.p.addr + args.i.p.size;
- 		range.pfns = args.phys;
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 59be0aa2476d..c5b51376b453 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -400,11 +400,7 @@ void hmm_mirror_unregister(struct hmm_mirror *mirror);
- /*
-  * Please see Documentation/vm/hmm.rst for how to use the range API.
-  */
--int hmm_range_register(struct hmm_range *range,
--		       struct hmm_mirror *mirror,
--		       unsigned long start,
--		       unsigned long end,
--		       unsigned page_shift);
-+int hmm_range_register(struct hmm_range *range, struct hmm_mirror *mirror);
- void hmm_range_unregister(struct hmm_range *range);
- 
- /*
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 3a3852660757..926735a3aef9 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -843,35 +843,25 @@ static void hmm_pfns_clear(struct hmm_range *range,
-  * hmm_range_register() - start tracking change to CPU page table over a range
-  * @range: range
-  * @mm: the mm struct for the range of virtual address
-- * @start: start virtual address (inclusive)
-- * @end: end virtual address (exclusive)
-- * @page_shift: expect page shift for the range
-+ *
-  * Return: 0 on success, -EFAULT if the address space is no longer valid
-  *
-  * Track updates to the CPU page table see include/linux/hmm.h
-  */
--int hmm_range_register(struct hmm_range *range,
--		       struct hmm_mirror *mirror,
--		       unsigned long start,
--		       unsigned long end,
--		       unsigned page_shift)
-+int hmm_range_register(struct hmm_range *range, struct hmm_mirror *mirror)
- {
--	unsigned long mask = ((1UL << page_shift) - 1UL);
-+	unsigned long mask = ((1UL << range->page_shift) - 1UL);
- 	struct hmm *hmm = mirror->hmm;
- 	unsigned long flags;
- 
- 	range->valid = false;
- 	range->hmm = NULL;
- 
--	if ((start & mask) || (end & mask))
-+	if ((range->start & mask) || (range->end & mask))
- 		return -EINVAL;
--	if (start >= end)
-+	if (range->start >= range->end)
- 		return -EINVAL;
- 
--	range->page_shift = page_shift;
--	range->start = start;
--	range->end = end;
--
- 	/* Prevent hmm_release() from running while the range is valid */
- 	if (!mmget_not_zero(hmm->mm))
- 		return -EFAULT;
--- 
-2.20.1
+QWxsIHVzZXJzIHBhc3MgUEFHRV9TSVpFIGhlcmUsIGFuZCBpZiB3ZSB3YW50ZWQgdG8gc3VwcG9y
+dCBzaW5nbGUKZW50cmllcyBmb3IgaHVnZSBwYWdlcyB3ZSBzaG91bGQgcmVhbGx5IGp1c3QgYWRk
+IGEgSE1NX0ZBVUxUX0hVR0VQQUdFCmZsYWcgaW5zdGVhZCB0aGF0IHVzZXMgdGhlIGh1Z2UgcGFn
+ZSBzaXplIGluc3RlYWQgb2YgaGF2aW5nIHRoZQpjYWxsZXIgY2FsY3VsYXRlIHRoYXQgc2l6ZSBv
+bmNlLCBqdXN0IGZvciB0aGUgaG1tIGNvZGUgdG8gdmVyaWZ5IGl0LgoKU2lnbmVkLW9mZi1ieTog
+Q2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3R0bS5jIHwgIDEgLQogZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVh
+dV9zdm0uYyAgIHwgIDEgLQogaW5jbHVkZS9saW51eC9obW0uaCAgICAgICAgICAgICAgICAgICAg
+IHwgMjIgLS0tLS0tLS0tLS0tLQogbW0vaG1tLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHwgNDIgKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLQogNCBmaWxlcyBjaGFuZ2VkLCA5IGlu
+c2VydGlvbnMoKyksIDU3IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV90dG0uYwppbmRleCA3MWQ2ZTcwODdiMGIuLjhiZjc5Mjg4YzRlMiAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwpAQCAtODE4LDcgKzgxOCw2IEBAIGludCBhbWRn
+cHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzKHN0cnVjdCBhbWRncHVfYm8gKmJvLCBzdHJ1Y3QgcGFn
+ZSAqKnBhZ2VzKQogCQkJCTAgOiByYW5nZS0+ZmxhZ3NbSE1NX1BGTl9XUklURV07CiAJcmFuZ2Ut
+PnBmbl9mbGFnc19tYXNrID0gMDsKIAlyYW5nZS0+cGZucyA9IHBmbnM7Ci0JcmFuZ2UtPnBhZ2Vf
+c2hpZnQgPSBQQUdFX1NISUZUOwogCXJhbmdlLT5zdGFydCA9IHN0YXJ0OwogCXJhbmdlLT5lbmQg
+PSBzdGFydCArIHR0bS0+bnVtX3BhZ2VzICogUEFHRV9TSVpFOwogCmRpZmYgLS1naXQgYS9kcml2
+ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X3N2bS5jIGIvZHJpdmVycy9ncHUvZHJtL25vdXZl
+YXUvbm91dmVhdV9zdm0uYwppbmRleCA0MGU3MDYyMzQ1NTQuLmU3MDY4Y2U0Njk0OSAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9zdm0uYworKysgYi9kcml2ZXJz
+L2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X3N2bS5jCkBAIC02ODAsNyArNjgwLDYgQEAgbm91dmVh
+dV9zdm1fZmF1bHQoc3RydWN0IG52aWZfbm90aWZ5ICpub3RpZnkpCiAJCQkgYXJncy5pLnAuYWRk
+ciArIGFyZ3MuaS5wLnNpemUsIGZuIC0gZmkpOwogCiAJCS8qIEhhdmUgSE1NIGZhdWx0IHBhZ2Vz
+IHdpdGhpbiB0aGUgZmF1bHQgd2luZG93IHRvIHRoZSBHUFUuICovCi0JCXJhbmdlLnBhZ2Vfc2hp
+ZnQgPSBQQUdFX1NISUZUOwogCQlyYW5nZS5zdGFydCA9IGFyZ3MuaS5wLmFkZHI7CiAJCXJhbmdl
+LmVuZCA9IGFyZ3MuaS5wLmFkZHIgKyBhcmdzLmkucC5zaXplOwogCQlyYW5nZS5wZm5zID0gYXJn
+cy5waHlzOwpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9obW0uaCBiL2luY2x1ZGUvbGludXgv
+aG1tLmgKaW5kZXggYzViNTEzNzZiNDUzLi41MWUxOGZiYjg5NTMgMTAwNjQ0Ci0tLSBhL2luY2x1
+ZGUvbGludXgvaG1tLmgKKysrIGIvaW5jbHVkZS9saW51eC9obW0uaApAQCAtMTU4LDcgKzE1OCw2
+IEBAIGVudW0gaG1tX3Bmbl92YWx1ZV9lIHsKICAqIEB2YWx1ZXM6IHBmbiB2YWx1ZSBmb3Igc29t
+ZSBzcGVjaWFsIGNhc2UgKG5vbmUsIHNwZWNpYWwsIGVycm9yLCAuLi4pCiAgKiBAZGVmYXVsdF9m
+bGFnczogZGVmYXVsdCBmbGFncyBmb3IgdGhlIHJhbmdlICh3cml0ZSwgcmVhZCwgLi4uIHNlZSBo
+bW0gZG9jKQogICogQHBmbl9mbGFnc19tYXNrOiBhbGxvd3MgdG8gbWFzayBwZm4gZmxhZ3Mgc28g
+dGhhdCBvbmx5IGRlZmF1bHRfZmxhZ3MgbWF0dGVyCi0gKiBAcGFnZV9zaGlmdDogZGV2aWNlIHZp
+cnR1YWwgYWRkcmVzcyBzaGlmdCB2YWx1ZSAoc2hvdWxkIGJlID49IFBBR0VfU0hJRlQpCiAgKiBA
+cGZuX3NoaWZ0czogcGZuIHNoaWZ0IHZhbHVlIChzaG91bGQgYmUgPD0gUEFHRV9TSElGVCkKICAq
+IEB2YWxpZDogcGZucyBhcnJheSBkaWQgbm90IGNoYW5nZSBzaW5jZSBpdCBoYXMgYmVlbiBmaWxs
+IGJ5IGFuIEhNTSBmdW5jdGlvbgogICovCkBAIC0xNzIsMzEgKzE3MSwxMCBAQCBzdHJ1Y3QgaG1t
+X3JhbmdlIHsKIAljb25zdCB1aW50NjRfdAkJKnZhbHVlczsKIAl1aW50NjRfdAkJZGVmYXVsdF9m
+bGFnczsKIAl1aW50NjRfdAkJcGZuX2ZsYWdzX21hc2s7Ci0JdWludDhfdAkJCXBhZ2Vfc2hpZnQ7
+CiAJdWludDhfdAkJCXBmbl9zaGlmdDsKIAlib29sCQkJdmFsaWQ7CiB9OwogCi0vKgotICogaG1t
+X3JhbmdlX3BhZ2Vfc2hpZnQoKSAtIHJldHVybiB0aGUgcGFnZSBzaGlmdCBmb3IgdGhlIHJhbmdl
+Ci0gKiBAcmFuZ2U6IHJhbmdlIGJlaW5nIHF1ZXJpZWQKLSAqIFJldHVybjogcGFnZSBzaGlmdCAo
+cGFnZSBzaXplID0gMSA8PCBwYWdlIHNoaWZ0KSBmb3IgdGhlIHJhbmdlCi0gKi8KLXN0YXRpYyBp
+bmxpbmUgdW5zaWduZWQgaG1tX3JhbmdlX3BhZ2Vfc2hpZnQoY29uc3Qgc3RydWN0IGhtbV9yYW5n
+ZSAqcmFuZ2UpCi17Ci0JcmV0dXJuIHJhbmdlLT5wYWdlX3NoaWZ0OwotfQotCi0vKgotICogaG1t
+X3JhbmdlX3BhZ2Vfc2l6ZSgpIC0gcmV0dXJuIHRoZSBwYWdlIHNpemUgZm9yIHRoZSByYW5nZQot
+ICogQHJhbmdlOiByYW5nZSBiZWluZyBxdWVyaWVkCi0gKiBSZXR1cm46IHBhZ2Ugc2l6ZSBmb3Ig
+dGhlIHJhbmdlIGluIGJ5dGVzCi0gKi8KLXN0YXRpYyBpbmxpbmUgdW5zaWduZWQgbG9uZyBobW1f
+cmFuZ2VfcGFnZV9zaXplKGNvbnN0IHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQotewotCXJldHVy
+biAxVUwgPDwgaG1tX3JhbmdlX3BhZ2Vfc2hpZnQocmFuZ2UpOwotfQotCiAvKgogICogaG1tX3Jh
+bmdlX3dhaXRfdW50aWxfdmFsaWQoKSAtIHdhaXQgZm9yIHJhbmdlIHRvIGJlIHZhbGlkCiAgKiBA
+cmFuZ2U6IHJhbmdlIGFmZmVjdGVkIGJ5IGludmFsaWRhdGlvbiB0byB3YWl0IG9uCmRpZmYgLS1n
+aXQgYS9tbS9obW0uYyBiL21tL2htbS5jCmluZGV4IDkyNjczNWEzYWVmOS4uZjI2ZDZhYmM0ZWQy
+IDEwMDY0NAotLS0gYS9tbS9obW0uYworKysgYi9tbS9obW0uYwpAQCAtMzQ0LDEzICszNDQsMTIg
+QEAgc3RhdGljIGludCBobW1fdm1hX3dhbGtfaG9sZV8odW5zaWduZWQgbG9uZyBhZGRyLCB1bnNp
+Z25lZCBsb25nIGVuZCwKIAlzdHJ1Y3QgaG1tX3ZtYV93YWxrICpobW1fdm1hX3dhbGsgPSB3YWxr
+LT5wcml2YXRlOwogCXN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlID0gaG1tX3ZtYV93YWxrLT5yYW5n
+ZTsKIAl1aW50NjRfdCAqcGZucyA9IHJhbmdlLT5wZm5zOwotCXVuc2lnbmVkIGxvbmcgaSwgcGFn
+ZV9zaXplOworCXVuc2lnbmVkIGxvbmcgaTsKIAogCWhtbV92bWFfd2Fsay0+bGFzdCA9IGFkZHI7
+Ci0JcGFnZV9zaXplID0gaG1tX3JhbmdlX3BhZ2Vfc2l6ZShyYW5nZSk7Ci0JaSA9IChhZGRyIC0g
+cmFuZ2UtPnN0YXJ0KSA+PiByYW5nZS0+cGFnZV9zaGlmdDsKKwlpID0gKGFkZHIgLSByYW5nZS0+
+c3RhcnQpID4+IFBBR0VfU0hJRlQ7CiAKLQlmb3IgKDsgYWRkciA8IGVuZDsgYWRkciArPSBwYWdl
+X3NpemUsIGkrKykgeworCWZvciAoOyBhZGRyIDwgZW5kOyBhZGRyICs9IFBBR0VfU0laRSwgaSsr
+KSB7CiAJCXBmbnNbaV0gPSByYW5nZS0+dmFsdWVzW0hNTV9QRk5fTk9ORV07CiAJCWlmIChmYXVs
+dCB8fCB3cml0ZV9mYXVsdCkgewogCQkJaW50IHJldDsKQEAgLTc3Miw3ICs3NzEsNyBAQCBzdGF0
+aWMgaW50IGhtbV92bWFfd2Fsa19odWdldGxiX2VudHJ5KHB0ZV90ICpwdGUsIHVuc2lnbmVkIGxv
+bmcgaG1hc2ssCiAJCQkJICAgICAgc3RydWN0IG1tX3dhbGsgKndhbGspCiB7CiAjaWZkZWYgQ09O
+RklHX0hVR0VUTEJfUEFHRQotCXVuc2lnbmVkIGxvbmcgYWRkciA9IHN0YXJ0LCBpLCBwZm4sIG1h
+c2ssIHNpemUsIHBmbl9pbmM7CisJdW5zaWduZWQgbG9uZyBhZGRyID0gc3RhcnQsIGksIHBmbiwg
+bWFzazsKIAlzdHJ1Y3QgaG1tX3ZtYV93YWxrICpobW1fdm1hX3dhbGsgPSB3YWxrLT5wcml2YXRl
+OwogCXN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlID0gaG1tX3ZtYV93YWxrLT5yYW5nZTsKIAlzdHJ1
+Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSA9IHdhbGstPnZtYTsKQEAgLTc4MywyNCArNzgyLDEyIEBA
+IHN0YXRpYyBpbnQgaG1tX3ZtYV93YWxrX2h1Z2V0bGJfZW50cnkocHRlX3QgKnB0ZSwgdW5zaWdu
+ZWQgbG9uZyBobWFzaywKIAlwdGVfdCBlbnRyeTsKIAlpbnQgcmV0ID0gMDsKIAotCXNpemUgPSBo
+dWdlX3BhZ2Vfc2l6ZShoKTsKLQltYXNrID0gc2l6ZSAtIDE7Ci0JaWYgKHJhbmdlLT5wYWdlX3No
+aWZ0ICE9IFBBR0VfU0hJRlQpIHsKLQkJLyogTWFrZSBzdXJlIHdlIGFyZSBsb29raW5nIGF0IGEg
+ZnVsbCBwYWdlLiAqLwotCQlpZiAoc3RhcnQgJiBtYXNrKQotCQkJcmV0dXJuIC1FSU5WQUw7Ci0J
+CWlmIChlbmQgPCAoc3RhcnQgKyBzaXplKSkKLQkJCXJldHVybiAtRUlOVkFMOwotCQlwZm5faW5j
+ID0gc2l6ZSA+PiBQQUdFX1NISUZUOwotCX0gZWxzZSB7Ci0JCXBmbl9pbmMgPSAxOwotCQlzaXpl
+ID0gUEFHRV9TSVpFOwotCX0KKwltYXNrID0gaHVnZV9wYWdlX3NpemUoaCkgLSAxOwogCiAJcHRs
+ID0gaHVnZV9wdGVfbG9jayhoc3RhdGVfdm1hKHZtYSksIHdhbGstPm1tLCBwdGUpOwogCWVudHJ5
+ID0gaHVnZV9wdGVwX2dldChwdGUpOwogCi0JaSA9IChzdGFydCAtIHJhbmdlLT5zdGFydCkgPj4g
+cmFuZ2UtPnBhZ2Vfc2hpZnQ7CisJaSA9IChzdGFydCAtIHJhbmdlLT5zdGFydCkgPj4gUEFHRV9T
+SElGVDsKIAlvcmlnX3BmbiA9IHJhbmdlLT5wZm5zW2ldOwogCXJhbmdlLT5wZm5zW2ldID0gcmFu
+Z2UtPnZhbHVlc1tITU1fUEZOX05PTkVdOwogCWNwdV9mbGFncyA9IHB0ZV90b19obW1fcGZuX2Zs
+YWdzKHJhbmdlLCBlbnRyeSk7CkBAIC04MTIsOCArNzk5LDggQEAgc3RhdGljIGludCBobW1fdm1h
+X3dhbGtfaHVnZXRsYl9lbnRyeShwdGVfdCAqcHRlLCB1bnNpZ25lZCBsb25nIGhtYXNrLAogCQln
+b3RvIHVubG9jazsKIAl9CiAKLQlwZm4gPSBwdGVfcGZuKGVudHJ5KSArICgoc3RhcnQgJiBtYXNr
+KSA+PiByYW5nZS0+cGFnZV9zaGlmdCk7Ci0JZm9yICg7IGFkZHIgPCBlbmQ7IGFkZHIgKz0gc2l6
+ZSwgaSsrLCBwZm4gKz0gcGZuX2luYykKKwlwZm4gPSBwdGVfcGZuKGVudHJ5KSArICgoc3RhcnQg
+JiBtYXNrKSA+PiBQQUdFX1NISUZUKTsKKwlmb3IgKDsgYWRkciA8IGVuZDsgYWRkciArPSBQQUdF
+X1NJWkUsIGkrKywgcGZuKyspCiAJCXJhbmdlLT5wZm5zW2ldID0gaG1tX2RldmljZV9lbnRyeV9m
+cm9tX3BmbihyYW5nZSwgcGZuKSB8CiAJCQkJIGNwdV9mbGFnczsKIAlobW1fdm1hX3dhbGstPmxh
+c3QgPSBlbmQ7CkBAIC04NTAsMTQgKzgzNywxMyBAQCBzdGF0aWMgdm9pZCBobW1fcGZuc19jbGVh
+cihzdHJ1Y3QgaG1tX3JhbmdlICpyYW5nZSwKICAqLwogaW50IGhtbV9yYW5nZV9yZWdpc3Rlcihz
+dHJ1Y3QgaG1tX3JhbmdlICpyYW5nZSwgc3RydWN0IGhtbV9taXJyb3IgKm1pcnJvcikKIHsKLQl1
+bnNpZ25lZCBsb25nIG1hc2sgPSAoKDFVTCA8PCByYW5nZS0+cGFnZV9zaGlmdCkgLSAxVUwpOwog
+CXN0cnVjdCBobW0gKmhtbSA9IG1pcnJvci0+aG1tOwogCXVuc2lnbmVkIGxvbmcgZmxhZ3M7CiAK
+IAlyYW5nZS0+dmFsaWQgPSBmYWxzZTsKIAlyYW5nZS0+aG1tID0gTlVMTDsKIAotCWlmICgocmFu
+Z2UtPnN0YXJ0ICYgbWFzaykgfHwgKHJhbmdlLT5lbmQgJiBtYXNrKSkKKwlpZiAoKHJhbmdlLT5z
+dGFydCAmIChQQUdFX1NJWkUgLSAxKSkgfHwgKHJhbmdlLT5lbmQgJiAoUEFHRV9TSVpFIC0gMSkp
+KQogCQlyZXR1cm4gLUVJTlZBTDsKIAlpZiAocmFuZ2UtPnN0YXJ0ID49IHJhbmdlLT5lbmQpCiAJ
+CXJldHVybiAtRUlOVkFMOwpAQCAtOTY0LDE2ICs5NTAsNiBAQCBsb25nIGhtbV9yYW5nZV9mYXVs
+dChzdHJ1Y3QgaG1tX3JhbmdlICpyYW5nZSwgdW5zaWduZWQgaW50IGZsYWdzKQogCQlpZiAodm1h
+ID09IE5VTEwgfHwgKHZtYS0+dm1fZmxhZ3MgJiBkZXZpY2Vfdm1hKSkKIAkJCXJldHVybiAtRUZB
+VUxUOwogCi0JCWlmIChpc192bV9odWdldGxiX3BhZ2Uodm1hKSkgewotCQkJaWYgKGh1Z2VfcGFn
+ZV9zaGlmdChoc3RhdGVfdm1hKHZtYSkpICE9Ci0JCQkgICAgcmFuZ2UtPnBhZ2Vfc2hpZnQgJiYK
+LQkJCSAgICByYW5nZS0+cGFnZV9zaGlmdCAhPSBQQUdFX1NISUZUKQotCQkJCXJldHVybiAtRUlO
+VkFMOwotCQl9IGVsc2UgewotCQkJaWYgKHJhbmdlLT5wYWdlX3NoaWZ0ICE9IFBBR0VfU0hJRlQp
+Ci0JCQkJcmV0dXJuIC1FSU5WQUw7Ci0JCX0KLQogCQlpZiAoISh2bWEtPnZtX2ZsYWdzICYgVk1f
+UkVBRCkpIHsKIAkJCS8qCiAJCQkgKiBJZiB2bWEgZG8gbm90IGFsbG93IHJlYWQgYWNjZXNzLCB0
+aGVuIGFzc3VtZSB0aGF0IGl0Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCk5vdXZlYXUgbWFpbGluZyBsaXN0Ck5vdXZlYXVAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vbm91dmVhdQ==
