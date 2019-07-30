@@ -1,43 +1,45 @@
-From: Jason Gunthorpe <jgg@mellanox.com>
-Subject: Re: [PATCH 03/13] nouveau: pass struct nouveau_svmm to
- nouveau_range_fault
-Date: Tue, 30 Jul 2019 13:14:58 +0000
-Message-ID: <20190730131454.GG24038@mellanox.com>
-References: <20190730055203.28467-1-hch@lst.de>
- <20190730055203.28467-4-hch@lst.de> <20190730123554.GD24038@mellanox.com>
- <20190730131038.GB4566@lst.de>
+From: =?UTF-8?B?5Lq/5LiA?= <teroincn-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: amdgpf: BUG: NULL pointer dereference and memory leak
+Date: Tue, 30 Jul 2019 16:47:15 +0800
+Message-ID: <CANTwqXBS5RohKsRWmfPDVxSEwri=XhuZVAmPAwdJibJODxcobA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190730131038.GB4566@lst.de>
-Content-Language: en-US
-Content-ID: <9EFBC7D2033F0A4F9278F6401B93A640@eurprd05.prod.outlook.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@lst.de>
-Cc: =?iso-8859-1?Q?J=E9r=F4me_Glisse?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: alexander.deucher-5C7GfCeVMHo@public.gmane.org, christian.koenig-5C7GfCeVMHo@public.gmane.org, David1.Zhou-5C7GfCeVMHo@public.gmane.org
+Cc: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On Tue, Jul 30, 2019 at 03:10:38PM +0200, Christoph Hellwig wrote:
-> On Tue, Jul 30, 2019 at 12:35:59PM +0000, Jason Gunthorpe wrote:
-> > On Tue, Jul 30, 2019 at 08:51:53AM +0300, Christoph Hellwig wrote:
-> > > This avoid having to abuse the vma field in struct hmm_range to unloc=
-k
-> > > the mmap_sem.
-> >=20
-> > I think the change inside hmm_range_fault got lost on rebase, it is
-> > now using:
-> >=20
-> >                 up_read(&range->hmm->mm->mmap_sem);
-> >=20
-> > But, yes, lets change it to use svmm->mm and try to keep struct hmm
-> > opaque to drivers
->=20
-> It got lost somewhat intentionally as I didn't want the churn, but I
-> forgot to update the changelog.  But if you are fine with changing it
-> over I can bring it back.
-
-I have a patch deleting hmm->mm, so using svmm seems cleaner churn
-here, we could defer and I can fold this into that patch?
-
-Jason
+SGkgIGFsbGwsCiAgICAgICAgIFdoaWxlIGFuYWx5emluZyB0aGUgc291cmNlIGNvZGUsIEkgbm90
+aWNlIHRoYXQgZnVuY3Rpb24KYW1kZ3B1X2NzX3Byb2Nlc3NfZmVuY2VfZGVwKCkgbWF5IGV4aXN0
+IE5VTEwgcG9pbnRlciBkZXJlZmVyZW5jZSBhbmQKbWVtb3J5IGxlYWsgaW4gdGhlIGZvbGxvd2lu
+ZyBjb2RlIGZyYWdtZW50czoKCgpmZW5jZSA9IGFtZGdwdV9jdHhfZ2V0X2ZlbmNlKGN0eCwgZW50
+aXR5LAogICAgZGVwc1tpXS5oYW5kbGUpOwoKaWYgKGNodW5rLT5jaHVua19pZCA9PSBBTURHUFVf
+Q0hVTktfSURfU0NIRURVTEVEX0RFUEVOREVOQ0lFUykgewogICAgICAgIHN0cnVjdCBkcm1fc2No
+ZWRfZmVuY2UgKnNfZmVuY2UgPSB0b19kcm1fc2NoZWRfZmVuY2UoZmVuY2UpOwogICAgICAgIHN0
+cnVjdCBkbWFfZmVuY2UgKm9sZCA9IGZlbmNlOwoKICAgICAgICBmZW5jZSA9IGRtYV9mZW5jZV9n
+ZXQoJnNfZmVuY2UtPnNjaGVkdWxlZCk7CiAgICAgICAgZG1hX2ZlbmNlX3B1dChvbGQpOwp9Cgpp
+ZiAoSVNfRVJSKGZlbmNlKSkgewogICAgICAgICByID0gUFRSX0VSUihmZW5jZSk7CiAgICAgICAg
+IGFtZGdwdV9jdHhfcHV0KGN0eCk7CiAgICAgICAgIHJldHVybiByOwogIH0gZWxzZSBpZiAoZmVu
+Y2UpIHsKICAgICAgICAgIHIgPSBhbWRncHVfc3luY19mZW5jZShwLT5hZGV2LCAmcC0+am9iLT5z
+eW5jLCBmZW5jZSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHRydWUpOwogICAgICAgICAgZG1hX2ZlbmNlX3B1dChmZW5jZSk7CiAgICAgICAgICAgYW1k
+Z3B1X2N0eF9wdXQoY3R4KTsKICAgICAgICAgICBpZiAocikKICAgICAgICAgICByZXR1cm4gcjsK
+ICAgICAgICAgICB9CgpmdW5jdGlvbiBhbWRncHVfY3R4X2dldF9mZW5jZSBtYXkgcmV0dXJuIE5V
+TEwgcG9pbnRlciwgIHdoaWNoIHdpbGwKY2F1c2UgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLiBX
+aGF0J3MgbW9yZSwgIElTX0VSUigpIHdvdWxkIG5vdApyZXR1cm4gdHJ1ZSB3aGVuIHBvaW50ZXIg
+aXMgTlVMTCwgIHdoaWNoIHdpbGwgY2F1c2UgdGhlIGN0eCByZWZlcmVuY2UKbGVha2VkLgpCdXQg
+SSBkb24ndCBrbm93IGhvdyB0byBmaXggaXQsIHNvIHJlcG9ydCBpdCB0byB5b3UgYWxsLgoKQmVz
+dCBSZWdhcmRzLgpMaW4gWWkuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eA==
