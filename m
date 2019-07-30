@@ -1,89 +1,74 @@
-From: Jason Gunthorpe <jgg@mellanox.com>
-Subject: [GIT PULL] Please pull hmm changes
-Date: Tue, 30 Jul 2019 11:58:37 +0000
-Message-ID: <20190730115831.GA15720@ziepe.ca>
+From: Neil Armstrong <narmstrong@baylibre.com>
+Subject: Re: [PATCH v4 18/23] drm/bridge: dumb-vga-dac: Provide
+ ddc symlink in connector sysfs directory
+Date: Tue, 30 Jul 2019 14:15:44 +0200
+Message-ID: <469ad4ae-34c9-753f-7b4a-9197d3d9f9f4@baylibre.com>
+References: <cover.1562843413.git.andrzej.p@collabora.com>
+ <b039fbddc020d20457023bda631de8aacb5d061d.1562843413.git.andrzej.p@collabora.com>
 Mime-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-        protocol="application/pgp-signature"; boundary="pWyiEgJYm5f9v55/"
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+In-Reply-To: <b039fbddc020d20457023bda631de8aacb5d061d.1562843413.git.andrzej.p@collabora.com>
 Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Linus Torvalds <torvalds@linux-foundation.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Christoph Hellwig <hch@lst.de>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: Andrzej Pietrasiewicz <andrzej.p@collabora.com>, dri-devel@lists.freedesktop.org
+Cc: "Y.C. Chen" <yc_chen@aspeedtech.com>, =?UTF-8?Q?Heiko_St=c3=bcbner?= <heiko@sntech.de>, Sam Ravnborg <sam@ravnborg.org>, Maxime Ripard <maxime.ripard@bootlin.com>, Douglas Anderson <dianders@chromium.org>, Andrzej Hajda <a.hajda@samsung.com>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Benjamin Gaignard <benjamin.gaignard@linaro.org>, kernel@collabora.com, Fabio Estevam <festevam@gmail.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, linux-samsung-soc@vger.kernel.org, Joonyoung Shim <jy0922.shim@samsung.com>, linux-rockchip@lists.infradead.org, Vincent Abriou <vincent.abriou@st.com>, Krzysztof Kozlowski <krzk@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@linux.ie>, Chen-Yu Tsai <wens@csie.org>, Kukjin Kim <kgene@kernel.org>, NXP Linux Team <linux-imx@nxp.com>, CK Hu <ck.hu@mediatek.com>, Dave Airlie <airlied@redhat.com>, inte
 List-Id: amd-gfx.lists.freedesktop.org
 
---pWyiEgJYm5f9v55/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi Linus,
-
-Locking fix for nouveau's use of HMM
-
-This small series was posted by Christoph before the merge window, but didn't
-make it in time for the PR. It fixes various locking errors in the nouveau
-driver's use of the hmm_range_* functions.
-
-The diffstat is a bit big as Christoph did a comprehensive job to move the
-obsolete API from the core header and into the driver before fixing its flow,
-but the risk of regression from this code motion is low.
-
-I don't intend to often send -rc patches for hmm, but this is entangled with
-other changes already, so it is simpler to keep it on the hmm git branch.
-
-Thanks,
-Jason
-
-The following changes since commit 5f9e832c137075045d15cd6899ab0505cfb2ca4b:
-
-  Linus 5.3-rc1 (2019-07-21 14:05:38 -0700)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git tags/for-linus-hmm
-
-for you to fetch changes up to de4ee728465f7c0c29241550e083139b2ce9159c:
-
-  nouveau: unlock mmap_sem on all errors from nouveau_range_fault (2019-07-25 16:14:40 -0300)
-
-----------------------------------------------------------------
-HMM patches for 5.3-rc
-
-Fix the locking around nouveau's use of the hmm_range_* APIs. It works
-correctly in the success case, but many of the the edge cases have missing
-unlocks or double unlocks.
-
-----------------------------------------------------------------
-Christoph Hellwig (4):
-      mm/hmm: always return EBUSY for invalid ranges in hmm_range_{fault,snapshot}
-      mm/hmm: move hmm_vma_range_done and hmm_vma_fault to nouveau
-      nouveau: remove the block parameter to nouveau_range_fault
-      nouveau: unlock mmap_sem on all errors from nouveau_range_fault
-
- Documentation/vm/hmm.rst              |  2 +-
- drivers/gpu/drm/nouveau/nouveau_svm.c | 47 ++++++++++++++++++++++++++++--
- include/linux/hmm.h                   | 54 -----------------------------------
- mm/hmm.c                              | 10 +++----
- 4 files changed, 49 insertions(+), 64 deletions(-)
-
---pWyiEgJYm5f9v55/
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEfB7FMLh+8QxL+6i3OG33FX4gmxoFAl1AMOIACgkQOG33FX4g
-mxoQ2g//RnLjfumNrH3tMwS8UkYgAoWVh6NGyQ7EjUPT2fvHlfo3dMqzUNK9h+wN
-k2MKDTSZbFVhJQ5scU9KbhzGBXih4+DLnW1bpN1k/6nfZ6EXxRJakmcEz+LE53Pn
-ylcuBXU9SLf733j+uwy42BQhkL7/Ykk+vt/aToWEyuTIXsR7zkTPVd7XH4JcHKi6
-Lsf+zGtBCsIsh27T7uyyyOI52XwcY8Zm6LvfIKdOLczPRB8SzQ3yyMHjG42L7/ui
-VGDvoU+4pMGQmBg2anE49/xsxDrGWeVYgkcsQcw2PhlthXw3VwmWBj83chLU9+qt
-Vc1jofLj4Srgv+mXgFjmu0j1yJ84qoJaBb1YPzxDWoJGHpXyhLWKc7U55lvvotDD
-EJCOV6nE+VMGo/Zu96O+LI4IW05afPxJstNj3XQg72lF4WaRGOS8q3OhmGqntaNh
-ajQNYrcUDODmwepiOpDPf28K2cybwdINqrNKFw2e9eybnBxE4VEoF5vjUIlQmYoj
-BNZAORxOyrnNHr8w3q46pK5OPinjXhNnKXJFrcqldZKKonhRCTIb+vu22CLD0QCC
-DjmflIaGbHx8Q8yB+9B5pFt3j/a9lMzYgfN61Kh1qCOAiDWDXBjJ/c/mA6++iwgL
-08F+Xltp9NoE46VUbpij+5xq6eaXrHWb7v8QyRZJt04KHziebmM=
-=6E82
------END PGP SIGNATURE-----
-
---pWyiEgJYm5f9v55/--
+T24gMTEvMDcvMjAxOSAxMzoyNiwgQW5kcnplaiBQaWV0cmFzaWV3aWN6IHdyb3RlOgo+IFVzZSB0
+aGUgZGRjIHBvaW50ZXIgcHJvdmlkZWQgYnkgdGhlIGdlbmVyaWMgY29ubmVjdG9yLgo+IAo+IFNp
+Z25lZC1vZmYtYnk6IEFuZHJ6ZWogUGlldHJhc2lld2ljeiA8YW5kcnplai5wQGNvbGxhYm9yYS5j
+b20+Cj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9icmlkZ2UvZHVtYi12Z2EtZGFjLmMgfCAxOSAr
+KysrKysrKystLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDEw
+IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYnJpZGdlL2R1
+bWItdmdhLWRhYy5jIGIvZHJpdmVycy9ncHUvZHJtL2JyaWRnZS9kdW1iLXZnYS1kYWMuYwo+IGlu
+ZGV4IGQzMjg4NWI5MDZhZS4uYjRjYzMyMzg0MDBhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
+L2RybS9icmlkZ2UvZHVtYi12Z2EtZGFjLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYnJpZGdl
+L2R1bWItdmdhLWRhYy5jCj4gQEAgLTIwLDcgKzIwLDYgQEAgc3RydWN0IGR1bWJfdmdhIHsKPiAg
+CXN0cnVjdCBkcm1fYnJpZGdlCWJyaWRnZTsKPiAgCXN0cnVjdCBkcm1fY29ubmVjdG9yCWNvbm5l
+Y3RvcjsKPiAgCj4gLQlzdHJ1Y3QgaTJjX2FkYXB0ZXIJKmRkYzsKPiAgCXN0cnVjdCByZWd1bGF0
+b3IJKnZkZDsKPiAgfTsKPiAgCj4gQEAgLTQyLDEwICs0MSwxMCBAQCBzdGF0aWMgaW50IGR1bWJf
+dmdhX2dldF9tb2RlcyhzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yKQo+ICAJc3RydWN0
+IGVkaWQgKmVkaWQ7Cj4gIAlpbnQgcmV0Owo+ICAKPiAtCWlmIChJU19FUlIodmdhLT5kZGMpKQo+
+ICsJaWYgKElTX0VSUih2Z2EtPmNvbm5lY3Rvci5kZGMpKQo+ICAJCWdvdG8gZmFsbGJhY2s7Cj4g
+IAo+IC0JZWRpZCA9IGRybV9nZXRfZWRpZChjb25uZWN0b3IsIHZnYS0+ZGRjKTsKPiArCWVkaWQg
+PSBkcm1fZ2V0X2VkaWQoY29ubmVjdG9yLCB2Z2EtPmNvbm5lY3Rvci5kZGMpOwo+ICAJaWYgKCFl
+ZGlkKSB7Cj4gIAkJRFJNX0lORk8oIkVESUQgcmVhZG91dCBmYWlsZWQsIGZhbGxpbmcgYmFjayB0
+byBzdGFuZGFyZCBtb2Rlc1xuIik7Cj4gIAkJZ290byBmYWxsYmFjazsKPiBAQCAtODQsNyArODMs
+NyBAQCBkdW1iX3ZnYV9jb25uZWN0b3JfZGV0ZWN0KHN0cnVjdCBkcm1fY29ubmVjdG9yICpjb25u
+ZWN0b3IsIGJvb2wgZm9yY2UpCj4gIAkgKiB3aXJlIHRoZSBEREMgcGlucywgb3IgdGhlIEkyQyBi
+dXMgbWlnaHQgbm90IGJlIHdvcmtpbmcgYXQKPiAgCSAqIGFsbC4KPiAgCSAqLwo+IC0JaWYgKCFJ
+U19FUlIodmdhLT5kZGMpICYmIGRybV9wcm9iZV9kZGModmdhLT5kZGMpKQo+ICsJaWYgKCFJU19F
+UlIodmdhLT5jb25uZWN0b3IuZGRjKSAmJiBkcm1fcHJvYmVfZGRjKHZnYS0+Y29ubmVjdG9yLmRk
+YykpCj4gIAkJcmV0dXJuIGNvbm5lY3Rvcl9zdGF0dXNfY29ubmVjdGVkOwo+ICAKPiAgCXJldHVy
+biBjb25uZWN0b3Jfc3RhdHVzX3Vua25vd247Cj4gQEAgLTE5MCwxNCArMTg5LDE0IEBAIHN0YXRp
+YyBpbnQgZHVtYl92Z2FfcHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPiAgCQlk
+ZXZfZGJnKCZwZGV2LT5kZXYsICJObyB2ZGQgcmVndWxhdG9yIGZvdW5kOiAlZFxuIiwgcmV0KTsK
+PiAgCX0KPiAgCj4gLQl2Z2EtPmRkYyA9IGR1bWJfdmdhX3JldHJpZXZlX2RkYygmcGRldi0+ZGV2
+KTsKPiAtCWlmIChJU19FUlIodmdhLT5kZGMpKSB7Cj4gLQkJaWYgKFBUUl9FUlIodmdhLT5kZGMp
+ID09IC1FTk9ERVYpIHsKPiArCXZnYS0+Y29ubmVjdG9yLmRkYyA9IGR1bWJfdmdhX3JldHJpZXZl
+X2RkYygmcGRldi0+ZGV2KTsKPiArCWlmIChJU19FUlIodmdhLT5jb25uZWN0b3IuZGRjKSkgewo+
+ICsJCWlmIChQVFJfRVJSKHZnYS0+Y29ubmVjdG9yLmRkYykgPT0gLUVOT0RFVikgewo+ICAJCQlk
+ZXZfZGJnKCZwZGV2LT5kZXYsCj4gIAkJCQkiTm8gaTJjIGJ1cyBzcGVjaWZpZWQuIERpc2FibGlu
+ZyBFRElEIHJlYWRvdXRcbiIpOwo+ICAJCX0gZWxzZSB7Cj4gIAkJCWRldl9lcnIoJnBkZXYtPmRl
+diwgIkNvdWxkbid0IHJldHJpZXZlIGkyYyBidXNcbiIpOwo+IC0JCQlyZXR1cm4gUFRSX0VSUih2
+Z2EtPmRkYyk7Cj4gKwkJCXJldHVybiBQVFJfRVJSKHZnYS0+Y29ubmVjdG9yLmRkYyk7Cj4gIAkJ
+fQo+ICAJfQo+ICAKPiBAQCAtMjE2LDggKzIxNSw4IEBAIHN0YXRpYyBpbnQgZHVtYl92Z2FfcmVt
+b3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4gIAo+ICAJZHJtX2JyaWRnZV9yZW1v
+dmUoJnZnYS0+YnJpZGdlKTsKPiAgCj4gLQlpZiAoIUlTX0VSUih2Z2EtPmRkYykpCj4gLQkJaTJj
+X3B1dF9hZGFwdGVyKHZnYS0+ZGRjKTsKPiArCWlmICghSVNfRVJSKHZnYS0+Y29ubmVjdG9yLmRk
+YykpCj4gKwkJaTJjX3B1dF9hZGFwdGVyKHZnYS0+Y29ubmVjdG9yLmRkYyk7Cj4gIAo+ICAJcmV0
+dXJuIDA7Cj4gIH0KPiAKClJldmlld2VkLWJ5OiBOZWlsIEFybXN0cm9uZyA8bmFybXN0cm9uZ0Bi
+YXlsaWJyZS5jb20+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkludGVsLWdmeCBtYWlsaW5nIGxpc3QKSW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2ludGVsLWdm
+eA==
