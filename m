@@ -1,38 +1,61 @@
-From: Jason Gunthorpe <jgg@mellanox.com>
-Subject: Re: [PATCH 13/13] mm: allow HMM_MIRROR on all architectures with MMU
-Date: Tue, 30 Jul 2019 18:04:56 +0000
-Message-ID: <20190730180452.GS24038@mellanox.com>
-References: <20190730055203.28467-1-hch@lst.de>
- <20190730055203.28467-14-hch@lst.de> <20190730180346.GR24038@mellanox.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: between commits d7d170a8e357 and 22051d9c4a57 begins issue page
+ allocation failure in gnome-shell process
+Date: Wed, 31 Jul 2019 00:34:01 +0500
+Message-ID: <CABXGCsMoHdv2sJPuVsb6yj-sD6P4zQesMQn7qASMczOuSmkJjg@mail.gmail.com>
+References: <CABXGCsOwOOw=i5Mvn33pTU6N-WgF3NY=QNWmXZnTg-2yzJY9+g@mail.gmail.com>
+ <CABXGCsO_tZ+35a-21ao9P0pMECMBZ5MZJcNwViRWNEfxHt=WUQ@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190730180346.GR24038@mellanox.com>
-Content-Language: en-US
-Content-ID: <19A5F90EDC581B4E9B7EA8DB5AE872E2@eurprd05.prod.outlook.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@lst.de>
-Cc: =?iso-8859-1?Q?J=E9r=F4me_Glisse?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CABXGCsO_tZ+35a-21ao9P0pMECMBZ5MZJcNwViRWNEfxHt=WUQ-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
 
-On Tue, Jul 30, 2019 at 03:03:46PM -0300, Jason Gunthorpe wrote:
-> On Tue, Jul 30, 2019 at 08:52:03AM +0300, Christoph Hellwig wrote:
-> > There isn't really any architecture specific code in this page table
-> > walk implementation, so drop the dependencies.
-> >=20
-> > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> >  mm/Kconfig | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
->=20
-> Happy to see it, lets try to get this patch + the required parts of
-> this series into linux-next to be really sure
->=20
-> Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
-
-Oh, can we make this into a non-user selectable option now?=20
-
-ie have the drivers that use the API select it?
-
-Thanks,
-Jason
+SXMgYW55b25lIGhlcmU/IElzIGV2ZXJ5b25lIHNvIGJ1c3kgd2hhdCBpcyB3cm9uZz8KUkMyIGlz
+IHN0aWxsIGFmZmVjdGVkIGJ5IHRoaXMgaXNzdWUgYW5kIHVudXNhYmxlIGZvciBldmVyeSBkYXkg
+YmVjYXVzZQpvcGVuaW5nIGEgdmlkZW8gaW4gdG90ZW0gcGxheWVyIGNhdXNlIERFIGEgaGFuZyB3
+aXRoIGEgbG90IG9mCm1lc3NhZ2VzOgoKWyAxMDcyLjI4MzUxOF0gYW1kZ3B1IDAwMDA6MGI6MDAu
+MDogW2dmeGh1Yl0gcmV0cnkgcGFnZSBmYXVsdAooc3JjX2lkOjAgcmluZzowIHZtaWQ6MyBwYXNp
+ZDozMjc2OSwgZm9yIHByb2Nlc3MgZ25vbWUtc2hlbGwgcGlkIDE5NDgKdGhyZWFkIGdub21lLXNo
+ZWw6Y3MwIHBpZCAxOTgzKQpbIDEwNzIuMjgzNTMwXSBhbWRncHUgMDAwMDowYjowMC4wOiAgIGlu
+IHBhZ2Ugc3RhcnRpbmcgYXQgYWRkcmVzcwoweDAwMDAwMDAxYzMzODUwMDAgZnJvbSAyNwpbIDEw
+NzIuMjgzNTMzXSBhbWRncHUgMDAwMDowYjowMC4wOiBWTV9MMl9QUk9URUNUSU9OX0ZBVUxUX1NU
+QVRVUzoweDAwMzAxMDMxClsgMTA3Mi4yODM1MzldIGFtZGdwdSAwMDAwOjBiOjAwLjA6IFtnZnho
+dWJdIHJldHJ5IHBhZ2UgZmF1bHQKKHNyY19pZDowIHJpbmc6MCB2bWlkOjMgcGFzaWQ6MzI3Njks
+IGZvciBwcm9jZXNzIGdub21lLXNoZWxsIHBpZCAxOTQ4CnRocmVhZCBnbm9tZS1zaGVsOmNzMCBw
+aWQgMTk4MykKWyAxMDcyLjI4MzU0MV0gYW1kZ3B1IDAwMDA6MGI6MDAuMDogICBpbiBwYWdlIHN0
+YXJ0aW5nIGF0IGFkZHJlc3MKMHgwMDAwMDAwMWMzMzg5MDAwIGZyb20gMjcKWyAxMDcyLjI4MzU0
+M10gYW1kZ3B1IDAwMDA6MGI6MDAuMDogVk1fTDJfUFJPVEVDVElPTl9GQVVMVF9TVEFUVVM6MHgw
+MDMwMTAzMQpbIDEwNzIuMjgzNTQ4XSBhbWRncHUgMDAwMDowYjowMC4wOiBbZ2Z4aHViXSByZXRy
+eSBwYWdlIGZhdWx0CihzcmNfaWQ6MCByaW5nOjAgdm1pZDozIHBhc2lkOjMyNzY5LCBmb3IgcHJv
+Y2VzcyBnbm9tZS1zaGVsbCBwaWQgMTk0OAp0aHJlYWQgZ25vbWUtc2hlbDpjczAgcGlkIDE5ODMp
+ClsgMTA3Mi4yODM1NTFdIGFtZGdwdSAwMDAwOjBiOjAwLjA6ICAgaW4gcGFnZSBzdGFydGluZyBh
+dCBhZGRyZXNzCjB4MDAwMDAwMDFjMzM4NzAwMCBmcm9tIDI3ClsgMTA3Mi4yODM1NTJdIGFtZGdw
+dSAwMDAwOjBiOjAwLjA6IFZNX0wyX1BST1RFQ1RJT05fRkFVTFRfU1RBVFVTOjB4MDAzMDEwMzEK
+WyAxMDcyLjI4MzU1N10gYW1kZ3B1IDAwMDA6MGI6MDAuMDogW2dmeGh1Yl0gcmV0cnkgcGFnZSBm
+YXVsdAooc3JjX2lkOjAgcmluZzowIHZtaWQ6MyBwYXNpZDozMjc2OSwgZm9yIHByb2Nlc3MgZ25v
+bWUtc2hlbGwgcGlkIDE5NDgKdGhyZWFkIGdub21lLXNoZWw6Y3MwIHBpZCAxOTgzKQpbIDEwNzIu
+MjgzNTU5XSBhbWRncHUgMDAwMDowYjowMC4wOiAgIGluIHBhZ2Ugc3RhcnRpbmcgYXQgYWRkcmVz
+cwoweDAwMDAwMDAxYzMzODgwMDAgZnJvbSAyNwpbIDEwNzIuMjgzNTYwXSBhbWRncHUgMDAwMDow
+YjowMC4wOiBWTV9MMl9QUk9URUNUSU9OX0ZBVUxUX1NUQVRVUzoweDAwMzAxMDMxClsgMTA3Mi4y
+ODM1NjVdIGFtZGdwdSAwMDAwOjBiOjAwLjA6IFtnZnhodWJdIHJldHJ5IHBhZ2UgZmF1bHQKKHNy
+Y19pZDowIHJpbmc6MCB2bWlkOjMgcGFzaWQ6MzI3NjksIGZvciBwcm9jZXNzIGdub21lLXNoZWxs
+IHBpZCAxOTQ4CnRocmVhZCBnbm9tZS1zaGVsOmNzMCBwaWQgMTk4MykKWyAxMDcyLjI4MzU2Nl0g
+YW1kZ3B1IDAwMDA6MGI6MDAuMDogICBpbiBwYWdlIHN0YXJ0aW5nIGF0IGFkZHJlc3MKMHgwMDAw
+MDAwMWMzMzhjMDAwIGZyb20gMjcKWyAxMDcyLjI4MzU2OF0gYW1kZ3B1IDAwMDA6MGI6MDAuMDog
+Vk1fTDJfUFJPVEVDVElPTl9GQVVMVF9TVEFUVVM6MHgwMDMwMTAzMQoKQWxsIFZlZ2EgR1BVIGlz
+IGFmZmVjdGVkOiBWZWdhIDU2LCBWZWdhIDY0LCBSYWRlb24gVklJCgotLQpCZXN0IFJlZ2FyZHMs
+Ck1pa2UgR2F2cmlsb3YuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
