@@ -1,58 +1,34 @@
-From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Subject: Re: [PATCH 11/13] mm: cleanup the hmm_vma_handle_pmd stub
-Date: Tue, 30 Jul 2019 17:53:14 +0000
-Message-ID: <20190730175309.GN24038@mellanox.com>
+From: Jason Gunthorpe <jgg@mellanox.com>
+Subject: Re: [PATCH 10/13] mm: only define hmm_vma_walk_pud if needed
+Date: Tue, 30 Jul 2019 18:02:39 +0000
+Message-ID: <20190730180234.GP24038@mellanox.com>
 References: <20190730055203.28467-1-hch@lst.de>
- <20190730055203.28467-12-hch@lst.de>
+ <20190730055203.28467-11-hch@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190730055203.28467-12-hch-jcswGhMUV9g@public.gmane.org>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190730055203.28467-11-hch@lst.de>
 Content-Language: en-US
-Content-ID: <EC3900854AA3CC4983AC1C9EED4B06BC-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
+Content-ID: <8AED26FB1F585E4DA3EAA28F935E5D83@eurprd05.prod.outlook.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Christoph Hellwig <hch@lst.de>
+Cc: =?iso-8859-1?Q?J=E9r=F4me_Glisse?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBKdWwgMzAsIDIwMTkgYXQgMDg6NTI6MDFBTSArMDMwMCwgQ2hyaXN0b3BoIEhlbGx3
-aWcgd3JvdGU6Cj4gU3R1YiBvdXQgdGhlIHdob2xlIGZ1bmN0aW9uIHdoZW4gQ09ORklHX1RSQU5T
-UEFSRU5UX0hVR0VQQUdFIGlzIG5vdCBzZXQKPiB0byBtYWtlIHRoZSBmdW5jdGlvbiBlYXNpZXIg
-dG8gcmVhZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
-ZT4KPiAgbW0vaG1tLmMgfCAxOCArKysrKysrKystLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5nZWQs
-IDkgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvbW0vaG1t
-LmMgYi9tbS9obW0uYwo+IGluZGV4IDRkM2JkNDFiNjUyMi4uZjRlOTBlYTU3NzlmIDEwMDY0NAo+
-ICsrKyBiL21tL2htbS5jCj4gQEAgLTQ1NSwxMyArNDU1LDEwIEBAIHN0YXRpYyBpbmxpbmUgdWlu
-dDY0X3QgcG1kX3RvX2htbV9wZm5fZmxhZ3Moc3RydWN0IGhtbV9yYW5nZSAqcmFuZ2UsIHBtZF90
-IHBtZCkKPiAgCQkJCXJhbmdlLT5mbGFnc1tITU1fUEZOX1ZBTElEXTsKPiAgfQo+ICAKPiAtc3Rh
-dGljIGludCBobW1fdm1hX2hhbmRsZV9wbWQoc3RydWN0IG1tX3dhbGsgKndhbGssCj4gLQkJCSAg
-ICAgIHVuc2lnbmVkIGxvbmcgYWRkciwKPiAtCQkJICAgICAgdW5zaWduZWQgbG9uZyBlbmQsCj4g
-LQkJCSAgICAgIHVpbnQ2NF90ICpwZm5zLAo+IC0JCQkgICAgICBwbWRfdCBwbWQpCj4gLXsKPiAg
-I2lmZGVmIENPTkZJR19UUkFOU1BBUkVOVF9IVUdFUEFHRQo+ICtzdGF0aWMgaW50IGhtbV92bWFf
-aGFuZGxlX3BtZChzdHJ1Y3QgbW1fd2FsayAqd2FsaywgdW5zaWduZWQgbG9uZyBhZGRyLAo+ICsJ
-CXVuc2lnbmVkIGxvbmcgZW5kLCB1aW50NjRfdCAqcGZucywgcG1kX3QgcG1kKQo+ICt7Cj4gIAlz
-dHJ1Y3QgaG1tX3ZtYV93YWxrICpobW1fdm1hX3dhbGsgPSB3YWxrLT5wcml2YXRlOwo+ICAJc3Ry
-dWN0IGhtbV9yYW5nZSAqcmFuZ2UgPSBobW1fdm1hX3dhbGstPnJhbmdlOwo+ICAJc3RydWN0IGRl
-dl9wYWdlbWFwICpwZ21hcCA9IE5VTEw7Cj4gQEAgLTQ5MCwxMSArNDg3LDE0IEBAIHN0YXRpYyBp
-bnQgaG1tX3ZtYV9oYW5kbGVfcG1kKHN0cnVjdCBtbV93YWxrICp3YWxrLAo+ICAJCXB1dF9kZXZf
-cGFnZW1hcChwZ21hcCk7Cj4gIAlobW1fdm1hX3dhbGstPmxhc3QgPSBlbmQ7Cj4gIAlyZXR1cm4g
-MDsKPiAtI2Vsc2UKPiAtCS8qIElmIFRIUCBpcyBub3QgZW5hYmxlZCB0aGVuIHdlIHNob3VsZCBu
-ZXZlciByZWFjaCB0aGlzIAoKVGhpcyBvbGQgY29tbWVudCBzYXlzIHdlIHNob3VsZCBuZXZlciBn
-ZXQgaGVyZQoKPiArfQo+ICsjZWxzZSAvKiBDT05GSUdfVFJBTlNQQVJFTlRfSFVHRVBBR0UgKi8K
-PiArc3RhdGljIGludCBobW1fdm1hX2hhbmRsZV9wbWQoc3RydWN0IG1tX3dhbGsgKndhbGssIHVu
-c2lnbmVkIGxvbmcgYWRkciwKPiArCQl1bnNpZ25lZCBsb25nIGVuZCwgdWludDY0X3QgKnBmbnMs
-IHBtZF90IHBtZCkKPiArewo+ICAJcmV0dXJuIC1FSU5WQUw7CgpTbyBjb3VsZCB3ZSBqdXN0IGRv
-CiAgICNkZWZpbmUgaG1tX3ZtYV9oYW5kbGVfcG1kIE5VTEwKCj8KCkF0IHRoZSB2ZXJ5IGxlYXN0
-IHRoaXMgc2VlbXMgbGlrZSBhIFdBUk5fT04gdG9vPwoKSmFzb24KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVh
-dUBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9ub3V2ZWF1
+On Tue, Jul 30, 2019 at 08:52:00AM +0300, Christoph Hellwig wrote:
+> We only need the special pud_entry walker if PUD-sized hugepages and
+> pte mappings are supported, else the common pagewalk code will take
+> care of the iteration.  Not implementing this callback reduced the
+> amount of code compiled for non-x86 platforms, and also fixes compile
+> failures with other architectures when helpers like pud_pfn are not
+> implemented.
+>=20
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  mm/hmm.c | 29 ++++++++++++++++-------------
+>  1 file changed, 16 insertions(+), 13 deletions(-)
+
+Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+
+Jason
