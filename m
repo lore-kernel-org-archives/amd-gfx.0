@@ -1,45 +1,43 @@
-From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
-Subject: Re: [PATCH 02/13] amdgpu: don't initialize range->list in
- amdgpu_hmm_init_range
-Date: Wed, 31 Jul 2019 17:02:24 +0000
-Message-ID: <20190731170219.GG22677@mellanox.com>
-References: <20190730055203.28467-1-hch@lst.de>
- <20190730055203.28467-3-hch@lst.de>
- <a4586f5c-0ae4-8cbd-65ff-dfe70d34f99b@amd.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Subject: Re: [PATCH v19 02/15] arm64: Introduce prctl() options to control the
+ tagged user addresses ABI
+Date: Wed, 31 Jul 2019 10:05:15 -0700
+Message-ID: <7a34470c-73f0-26ac-e63d-161191d4b1e4@intel.com>
+References: <cover.1563904656.git.andreyknvl@google.com>
+ <1c05651c53f90d07e98ee4973c2786ccf315db12.1563904656.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <a4586f5c-0ae4-8cbd-65ff-dfe70d34f99b-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <1c05651c53f90d07e98ee4973c2786ccf315db12.1563904656.git.andreyknvl@google.com>
 Content-Language: en-US
-Content-ID: <FAC49FFA8B421F49B49EF44701A00263-wNKe6lTLrGecE4WynfumptQqCkab/8FMAL8bYrjMMd8@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@redhat.com>, Leon Romanovsky <leon@kernel.org>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Dave Martin <Dave.Martin@arm.com>, Khalid Aziz <khalid.aziz@oracle.com>, enh <enh@>
 List-Id: amd-gfx.lists.freedesktop.org
 
-T24gV2VkLCBKdWwgMzEsIDIwMTkgYXQgMDE6MjU6MDZQTSArMDAwMCwgS3VlaGxpbmcsIEZlbGl4
-IHdyb3RlOgo+IE9uIDIwMTktMDctMzAgMTo1MSBhLm0uLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90
-ZToKPiA+IFRoZSBsaXN0IGlzIHVzZWQgdG8gYWRkIHRoZSByYW5nZSB0byBhbm90aGVyIGxpc3Qg
-YXMgYW4gZW50cnkgaW4gdGhlCj4gPiBjb3JlIGhtbSBjb2RlLCBzbyB0aGVyZSBpcyBubyBuZWVk
-IHRvIGluaXRpYWxpemUgaXQgaW4gYSBkcml2ZXIuCj4gCj4gSSd2ZSBzZWVuIGNvZGUgdGhhdCB1
-c2VzIGxpc3RfZW1wdHkgdG8gY2hlY2sgd2hldGhlciBhIGxpc3QgaGVhZCBoYXMgCj4gYmVlbiBh
-ZGRlZCB0byBhIGxpc3Qgb3Igbm90LiBGb3IgdGhhdCB0byB3b3JrLCB0aGUgbGlzdCBoZWFkIG5l
-ZWRzIHRvIGJlIAo+IGluaXRpYWxpemVkLCBhbmQgaXQgaGFzIHRvIGJlIHJlbW92ZWQgd2l0aCBs
-aXN0X2RlbF9pbml0LiAKCkkgdGhpbmsgdGhlIGlkYSBpcyB0aGF0ICdsaXN0JyBpcyBhIHByaXZh
-dGUgbWVtYmVyIG9mIHJhbmdlIGFuZApkcml2ZXJzIHNob3VsZG4ndCB0b3VjaCBpdCBhdCBhbGwu
-Cgo+IGV2ZXIgZG8gdGhhdCB3aXRoIHJhbmdlLT5saXN0LCB0aGVuIHRoaXMgcGF0Y2ggaXMgUmV2
-aWV3ZWQtYnk6IEZlbGl4IAo+IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKUGxl
-YXNlIHB1dCB0YWdzIG9uIHRoZWlyIG93biBlbXB0eSBsaW5lIHNvIHRoYXQgcGF0Y2h3b3JrcyB3
-aWxsCmNvbGxlY3QgdGhlbSBhdXRvbWF0aWNhbGx5Li4KCkphc29uCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCk5vdXZlYXUgbWFpbGluZyBsaXN0Ck5vdXZl
-YXVAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
-aWxtYW4vbGlzdGluZm8vbm91dmVhdQ==
+On 7/23/19 10:58 AM, Andrey Konovalov wrote:
+> +long set_tagged_addr_ctrl(unsigned long arg)
+> +{
+> +	if (!tagged_addr_prctl_allowed)
+> +		return -EINVAL;
+> +	if (is_compat_task())
+> +		return -EINVAL;
+> +	if (arg & ~PR_TAGGED_ADDR_ENABLE)
+> +		return -EINVAL;
+> +
+> +	update_thread_flag(TIF_TAGGED_ADDR, arg & PR_TAGGED_ADDR_ENABLE);
+> +
+> +	return 0;
+> +}
+
+Instead of a plain enable/disable, a more flexible ABI would be to have
+the tag mask be passed in.  That way, an implementation that has a
+flexible tag size can select it.  It also ensures that userspace
+actually knows what the tag size is and isn't surprised if a hardware
+implementation changes the tag size or position.
+
+Also, this whole set deals with tagging/untagging, but there's an
+effective loss of address space when you do this.  Is that dealt with
+anywhere?  How do we ensure that allocations don't get placed at a
+tagged address before this gets turned on?  Where's that checking?
