@@ -1,88 +1,22 @@
-From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/3] drm/amd/display: Don't replace the dc_state for fast
- updates
-Date: Wed, 31 Jul 2019 12:26:04 -0400
-Message-ID: <20190731162604.28509-3-nicholas.kazlauskas@amd.com>
-References: <20190731162604.28509-1-nicholas.kazlauskas@amd.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
+Date: Wed, 31 Jul 2019 09:50:58 -0700
+Message-ID: <8c618cc9-ae68-9769-c5bb-67f1295abc4e@intel.com>
+References: <cover.1563904656.git.andreyknvl@google.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190731162604.28509-1-nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, David Francis <david.francis-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <cover.1563904656.git.andreyknvl@google.com>
+Content-Language: en-US
+Sender: linux-kernel-owner@vger.kernel.org
+To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@redhat.com>, Leon Romanovsky <leon@kernel.org>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Dave Martin <Dave.Martin@arm.com>, Khalid Aziz <khalid.aziz@oracle.com>, enh <enh@>
+List-Id: amd-gfx.lists.freedesktop.org
 
-W1doeV0KRFJNIHByaXZhdGUgb2JqZWN0cyBoYXZlIG5vIGh3X2RvbmUvZmxpcF9kb25lIGZlbmNp
-bmcgbWVjaGFuaXNtIG9uIHRoZWlyCm93biBhbmQgY2Fubm90IGJlIHVzZWQgdG8gc2VxdWVuY2Ug
-Y29tbWl0cyBhY2NvcmRpbmdseS4KCldoZW4gaXNzdWluZyBjb21taXRzIHRoYXQgZG9uJ3QgdG91
-Y2ggdGhlIHNhbWUgc2V0IG9mIGhhcmR3YXJlIHJlc291cmNlcwpsaWtlIHBhZ2UtZmxpcHMgb24g
-ZGlmZmVyZW50IENSVENzIHdlIGNhbiBydW4gaW50byB0aGUgaXNzdWUgYmVsb3cKYmVjYXVzZSBv
-ZiB0aGlzOgoKMS4gQ2xpZW50IHJlcXVlc3RzIG5vbi1ibG9ja2luZyBDb21taXQgIzEsIGhhcyBh
-IG5ldyBkY19zdGF0ZSAjMSwKc3RhdGUgaXMgc3dhcHBlZCwgY29tbWl0IHRhaWwgaXMgZGVmZXJy
-ZWQgdG8gd29yayBxdWV1ZQoKMi4gQ2xpZW50IHJlcXVlc3RzIG5vbi1ibG9ja2luZyBDb21taXQg
-IzIsIGhhcyBhIG5ldyBkY19zdGF0ZSAjMiwKc3RhdGUgaXMgc3dhcHBlZCwgY29tbWl0IHRhaWwg
-aXMgZGVmZXJyZWQgdG8gd29yayBxdWV1ZQoKMy4gQ29tbWl0ICMyIHdvcmsgc3RhcnRzLCBjb21t
-aXQgdGFpbCBmaW5pc2hlcywKYXRvbWljIHN0YXRlIGlzIGNsZWFyZWQsIGRjX3N0YXRlICMxIGlz
-IGZyZWVkCgo0LiBDb21taXQgIzEgd29yayBzdGFydHMsCmNvbW1pdCB0YWlsIGVuY291bnRlcnMg
-bnVsbCBwb2ludGVyIGRlcmVmIG9uIGRjX3N0YXRlICMxCgpJbiBvcmRlciB0byBjaGFuZ2UgdGhl
-IERDIHN0YXRlIGFzIGluIHRoZSBwcml2YXRlIG9iamVjdCB3ZSBuZWVkIHRvCmVuc3VyZSB0aGF0
-IHdlIHdhaXQgZm9yIGFsbCBvdXRzdGFuZGluZyBjb21taXRzIHRvIGZpbmlzaCBhbmQgdGhhdAph
-bnkgb3RoZXIgcGVuZGluZyBjb21taXRzIG11c3Qgd2FpdCBmb3IgdGhlIGN1cnJlbnQgb25lIHRv
-IGZpbmlzaCBhcwp3ZWxsLgoKV2UgZG8gdGhpcyBmb3IgTUVESVVNIGFuZCBGVUxMIHVwZGF0ZXMu
-IEJ1dCBub3QgZm9yIEZBU1QgdXBkYXRlcywgbm9yCndvdWxkIHdlIHdhbnQgdG8gc2luY2UgaXQg
-d291bGQgY2F1c2Ugc3R1dHRlcmluZyBmcm9tIHRoZSBkZWxheXMuCgpGQVNUIHVwZGF0ZXMgdGhh
-dCBnbyB0aHJvdWdoIGRtX2RldGVybWluZV91cGRhdGVfdHlwZV9mb3JfY29tbWl0IGFsd2F5cwpj
-cmVhdGUgYSBuZXcgZGNfc3RhdGUgYW5kIGxvY2sgdGhlIERSTSBwcml2YXRlIG9iamVjdCBpZiB0
-aGVyZSBhcmUKYW55IGNoYW5nZWQgcGxhbmVzLgoKV2UgbmVlZCB0aGUgb2xkIHN0YXRlIHRvIHZh
-bGlkYXRlLCBidXQgd2UgZG9uJ3QgYWN0dWFsbHkgbmVlZCB0aGUgbmV3CnN0YXRlIGhlcmUuCgpb
-SG93XQpJZiB0aGUgY29tbWl0IGlzbid0IGEgZnVsbCB1cGRhdGUgdGhlbiB0aGUgdXNlIGFmdGVy
-IGZyZWUgY2FuIGJlCnJlc29sdmVkIGJ5IHNpbXBseSBkaXNjYXJkaW5nIHRoZSBuZXcgc3RhdGUg
-ZW50aXJlbHkgYW5kIHJldGFpbmluZwp0aGUgZXhpc3Rpbmcgb25lIGluc3RlYWQuCgpXaXRoIHRo
-aXMgY2hhbmdlIHRoZSBzZXF1ZW5jZSBhYm92ZSBjYW4gYmUgcmVleGFtaW5lZC4gQ29tbWl0ICMy
-IHdpbGwKc3RpbGwgZnJlZSBDb21taXQgIzEncyByZWZlcmVuY2UsIGJ1dCBiZWZvcmUgdGhpcyBo
-YXBwZW5zIHdlIGFjdHVhbGx5CmFkZGVkIGFuIGFkZGl0aW9uYWwgcmVmZXJlbmNlIGFzIHBhcnQg
-b2YgQ29tbWl0ICMyLgoKSWYgYW4gdXBkYXRlIGNvbWVzIGluIGR1cmluZyB0aGlzIHRoYXQgbmVl
-ZHMgdG8gY2hhbmdlIHRoZSBkY19zdGF0ZQppdCB3aWxsIG5lZWQgdG8gd2FpdCBvbiBDb21taXQg
-IzEgYW5kIENvbW1pdCAjMiB0byBmaW5pc2guIFRoZW4gaXQnbGwKc3dhcCB0aGUgc3RhdGUsIGZp
-bmlzaCB0aGUgd29yayBpbiBjb21taXQgdGFpbCBhbmQgZHJvcCB0aGUgbGFzdApyZWZlcmVuY2Ug
-b24gQ29tbWl0ICMyJ3MgZGNfc3RhdGUuCgpCdWd6aWxsYTogaHR0cHM6Ly9idWd6aWxsYS5rZXJu
-ZWwub3JnL3Nob3dfYnVnLmNnaT9pZD0yMDQxODEKQ2M6IExlbyBMaSA8c3VucGVuZy5saUBhbWQu
-Y29tPgpDYzogRGF2aWQgRnJhbmNpcyA8ZGF2aWQuZnJhbmNpc0BhbWQuY29tPgpTaWduZWQtb2Zm
-LWJ5OiBOaWNob2xhcyBLYXpsYXVza2FzIDxuaWNob2xhcy5rYXpsYXVza2FzQGFtZC5jb20+Ci0t
-LQogLi4uL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMjMgKysr
-KysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDIzIGluc2VydGlvbnMoKykKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYwppbmRl
-eCA0YzkwNjYyZTlmYTIuLmZlNTI5MWIxNjE5MyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCkBAIC03Mjg4LDYgKzcyODgsMjkgQEAg
-c3RhdGljIGludCBhbWRncHVfZG1fYXRvbWljX2NoZWNrKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYs
-CiAJCQlyZXQgPSAtRUlOVkFMOwogCQkJZ290byBmYWlsOwogCQl9CisJfSBlbHNlIHsKKwkJLyoK
-KwkJICogVGhlIGNvbW1pdCBpcyBhIGZhc3QgdXBkYXRlLiBGYXN0IHVwZGF0ZXMgc2hvdWxkbid0
-IGNoYW5nZQorCQkgKiB0aGUgREMgY29udGV4dCwgYWZmZWN0IGdsb2JhbCB2YWxpZGF0aW9uLCBh
-bmQgY2FuIGhhdmUgdGhlaXIKKwkJICogY29tbWl0IHdvcmsgZG9uZSBpbiBwYXJhbGxlbCB3aXRo
-IG90aGVyIGNvbW1pdHMgbm90IHRvdWNoaW5nCisJCSAqIHRoZSBzYW1lIHJlc291cmNlLiBJZiB3
-ZSBoYXZlIGEgbmV3IERDIGNvbnRleHQgYXMgcGFydCBvZgorCQkgKiB0aGUgRE0gYXRvbWljIHN0
-YXRlIGZyb20gdmFsaWRhdGlvbiB3ZSBuZWVkIHRvIGZyZWUgaXQgYW5kCisJCSAqIHJldGFpbiB0
-aGUgZXhpc3Rpbmcgb25lIGluc3RlYWQuCisJCSAqLworCQlzdHJ1Y3QgZG1fYXRvbWljX3N0YXRl
-ICpuZXdfZG1fc3RhdGUsICpvbGRfZG1fc3RhdGU7CisKKwkJbmV3X2RtX3N0YXRlID0gZG1fYXRv
-bWljX2dldF9uZXdfc3RhdGUoc3RhdGUpOworCQlvbGRfZG1fc3RhdGUgPSBkbV9hdG9taWNfZ2V0
-X29sZF9zdGF0ZShzdGF0ZSk7CisKKwkJaWYgKG5ld19kbV9zdGF0ZSAmJiBvbGRfZG1fc3RhdGUp
-IHsKKwkJCWlmIChuZXdfZG1fc3RhdGUtPmNvbnRleHQpCisJCQkJZGNfcmVsZWFzZV9zdGF0ZShu
-ZXdfZG1fc3RhdGUtPmNvbnRleHQpOworCisJCQluZXdfZG1fc3RhdGUtPmNvbnRleHQgPSBvbGRf
-ZG1fc3RhdGUtPmNvbnRleHQ7CisKKwkJCWlmIChvbGRfZG1fc3RhdGUtPmNvbnRleHQpCisJCQkJ
-ZGNfcmV0YWluX3N0YXRlKG9sZF9kbV9zdGF0ZS0+Y29udGV4dCk7CisJCX0KIAl9CiAKIAkvKiBN
-dXN0IGJlIHN1Y2Nlc3MgKi8KLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9hbWQtZ2Z4
+On 7/23/19 10:58 AM, Andrey Konovalov wrote:
+> The mmap and mremap (only new_addr) syscalls do not currently accept
+> tagged addresses. Architectures may interpret the tag as a background
+> colour for the corresponding vma.
+
+What the heck is a "background colour"? :)
