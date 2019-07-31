@@ -1,36 +1,59 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: [PATCH 8/8] drm/amdgpu: drop drmP.h from vcn_v2_5.c
-Date: Wed, 31 Jul 2019 10:52:46 -0500
-Message-ID: <20190731155246.20603-8-alexander.deucher@amd.com>
-References: <20190731155246.20603-1-alexander.deucher@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH 1/3] drm/amd/display: Allow cursor async updates for
+ framebuffer swaps
+Date: Wed, 31 Jul 2019 12:26:02 -0400
+Message-ID: <20190731162604.28509-1-nicholas.kazlauskas@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-In-Reply-To: <20190731155246.20603-1-alexander.deucher@amd.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, David Francis <david.francis-5C7GfCeVMHo@public.gmane.org>, Nicholas Kazlauskas <nicholas.kazlauskas-5C7GfCeVMHo@public.gmane.org>
 
-VW51c2VkLgoKU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3Zjbl92Ml81LmMgfCAyICst
-CiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvdmNuX3YyXzUuYwppbmRleCAwYzg0ZGJjNmE2MmQuLjM5NWMyMjU5Zjk3
-OSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmNuX3YyXzUuYworKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92Y25fdjJfNS5jCkBAIC0yMiw3ICsyMiw3IEBA
-CiAgKi8KIAogI2luY2x1ZGUgPGxpbnV4L2Zpcm13YXJlLmg+Ci0jaW5jbHVkZSA8ZHJtL2RybVAu
-aD4KKwogI2luY2x1ZGUgImFtZGdwdS5oIgogI2luY2x1ZGUgImFtZGdwdV92Y24uaCIKICNpbmNs
-dWRlICJzb2MxNS5oIgotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRyaS1kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
-aW5mby9kcmktZGV2ZWw=
+W1doeV0KV2UgcHJldmlvdXNseSBhbGxvd2VkIGZyYW1lYnVmZmVyIHN3YXBzIGFzIGFzeW5jIHVw
+ZGF0ZXMgZm9yIGN1cnNvcgpwbGFuZXMgYnV0IGhhZCB0byBkaXNhYmxlIHRoZW0gZHVlIHRvIGEg
+YnVnIGluIERSTSB3aXRoIGFzeW5jIHVwZGF0ZQpoYW5kbGluZyBhbmQgaW5jb3JyZWN0IHJlZiBj
+b3VudGluZy4gVGhlIGNoZWNrIHRvIGJsb2NrIGZyYW1lYnVmZmVyCnN3YXBzIGhhcyBiZWVuIGFk
+ZGVkIHRvIERSTSBmb3IgYSB3aGlsZSBub3csIHNvIHRoaXMgY2hlY2sgaXMgcmVkdW5kYW50LgoK
+VGhlIHJlYWwgZml4IHRoYXQgYWxsb3dzIHRoaXMgdG8gcHJvcGVybHkgaW4gRFJNIGhhcyBhbHNv
+IGZpbmFsbHkgYmVlbgptZXJnZWQgYW5kIGlzIGdldHRpbmcgYmFja3BvcnRlZCBpbnRvIHN0YWJs
+ZSBicmFuY2hlcywgc28gZHJvcHBpbmcKdGhpcyBub3cgc2VlbXMgdG8gYmUgdGhlIHJpZ2h0IHRp
+bWUgdG8gZG8gc28uCgpbSG93XQpEcm9wIHRoZSByZWR1bmRhbnQgY2hlY2sgZm9yIG9sZF9mYiAh
+PSBuZXdfZmIuCgpXaXRoIHRoZSBwcm9wZXIgZml4IGluIERSTSwgdGhpcyBzaG91bGQgYWxzbyBm
+aXggc29tZSBjdXJzb3Igc3R1dHRlcmluZwppc3N1ZXMgd2l0aCB4Zjg2LXZpZGVvLWFtZGdwdSBz
+aW5jZSBpdCBkb3VibGUgYnVmZmVycyB0aGUgY3Vyc29yLgoKSUdUIHRlc3RzIHRoYXQgc3dhcCBm
+cmFtZWJ1ZmZlcnMgKC12YXJ5aW5nLXNpemUgZm9yIGV4YW1wbGUpIHNob3VsZAphbHNvIHBhc3Mg
+YWdhaW4uCgpDYzogTGVvIExpIDxzdW5wZW5nLmxpQGFtZC5jb20+CkNjOiBEYXZpZCBGcmFuY2lz
+IDxkYXZpZC5mcmFuY2lzQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IE5pY2hvbGFzIEthemxhdXNr
+YXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jIHwgMTAgLS0tLS0tLS0tLQogMSBmaWxlIGNo
+YW5nZWQsIDEwIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5jCmluZGV4IDA0MDE2OTE4MGE2My4uMmVmYjBlYWRmNjAy
+IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdw
+dV9kbS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1
+X2RtLmMKQEAgLTQ1MDQsMjAgKzQ1MDQsMTAgQEAgc3RhdGljIGludCBkbV9wbGFuZV9hdG9taWNf
+Y2hlY2soc3RydWN0IGRybV9wbGFuZSAqcGxhbmUsCiBzdGF0aWMgaW50IGRtX3BsYW5lX2F0b21p
+Y19hc3luY19jaGVjayhzdHJ1Y3QgZHJtX3BsYW5lICpwbGFuZSwKIAkJCQkgICAgICAgc3RydWN0
+IGRybV9wbGFuZV9zdGF0ZSAqbmV3X3BsYW5lX3N0YXRlKQogewotCXN0cnVjdCBkcm1fcGxhbmVf
+c3RhdGUgKm9sZF9wbGFuZV9zdGF0ZSA9Ci0JCWRybV9hdG9taWNfZ2V0X29sZF9wbGFuZV9zdGF0
+ZShuZXdfcGxhbmVfc3RhdGUtPnN0YXRlLCBwbGFuZSk7Ci0KIAkvKiBPbmx5IHN1cHBvcnQgYXN5
+bmMgdXBkYXRlcyBvbiBjdXJzb3IgcGxhbmVzLiAqLwogCWlmIChwbGFuZS0+dHlwZSAhPSBEUk1f
+UExBTkVfVFlQRV9DVVJTT1IpCiAJCXJldHVybiAtRUlOVkFMOwogCi0JLyoKLQkgKiBEUk0gY2Fs
+bHMgcHJlcGFyZV9mYiBhbmQgY2xlYW51cF9mYiBvbiBuZXdfcGxhbmVfc3RhdGUgZm9yCi0JICog
+YXN5bmMgY29tbWl0cyBzbyBkb24ndCBhbGxvdyBmYiBjaGFuZ2VzLgotCSAqLwotCWlmIChvbGRf
+cGxhbmVfc3RhdGUtPmZiICE9IG5ld19wbGFuZV9zdGF0ZS0+ZmIpCi0JCXJldHVybiAtRUlOVkFM
+OwotCiAJcmV0dXJuIDA7CiB9CiAKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4
