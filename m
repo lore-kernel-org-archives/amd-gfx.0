@@ -1,43 +1,54 @@
-From: Dave Hansen <dave.hansen@intel.com>
-Subject: Re: [PATCH v19 02/15] arm64: Introduce prctl() options to control the
- tagged user addresses ABI
-Date: Wed, 31 Jul 2019 10:05:15 -0700
-Message-ID: <7a34470c-73f0-26ac-e63d-161191d4b1e4@intel.com>
-References: <cover.1563904656.git.andreyknvl@google.com>
- <1c05651c53f90d07e98ee4973c2786ccf315db12.1563904656.git.andreyknvl@google.com>
+From: Sam Ravnborg <sam-uyr5N9Q2VtJg9hUCZPvPmw@public.gmane.org>
+Subject: Re: [PATCH 1/8] drm/amdgpu: drop drmP.h in amdgpu_amdkfd_arcturus.c
+Date: Wed, 31 Jul 2019 19:26:06 +0200
+Message-ID: <20190731172606.GA981@ravnborg.org>
+References: <20190731155246.20603-1-alexander.deucher@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <1c05651c53f90d07e98ee4973c2786ccf315db12.1563904656.git.andreyknvl@google.com>
-Content-Language: en-US
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrey Konovalov <andreyknvl@google.com>, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Alexander Deucher <Alexander.Deucher@amd.com>, Christian Koenig <Christian.Koenig@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Wiklander <jens.wiklander@linaro.org>, Alex Williamson <alex.williamson@redhat.com>, Leon Romanovsky <leon@kernel.org>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, Dave Martin <Dave.Martin@arm.com>, Khalid Aziz <khalid.aziz@oracle.com>, enh <enh@>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Disposition: inline
+In-Reply-To: <20190731155246.20603-1-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-On 7/23/19 10:58 AM, Andrey Konovalov wrote:
-> +long set_tagged_addr_ctrl(unsigned long arg)
-> +{
-> +	if (!tagged_addr_prctl_allowed)
-> +		return -EINVAL;
-> +	if (is_compat_task())
-> +		return -EINVAL;
-> +	if (arg & ~PR_TAGGED_ADDR_ENABLE)
-> +		return -EINVAL;
-> +
-> +	update_thread_flag(TIF_TAGGED_ADDR, arg & PR_TAGGED_ADDR_ENABLE);
-> +
-> +	return 0;
-> +}
-
-Instead of a plain enable/disable, a more flexible ABI would be to have
-the tag mask be passed in.  That way, an implementation that has a
-flexible tag size can select it.  It also ensures that userspace
-actually knows what the tag size is and isn't surprised if a hardware
-implementation changes the tag size or position.
-
-Also, this whole set deals with tagging/untagging, but there's an
-effective loss of address space when you do this.  Is that dealt with
-anywhere?  How do we ensure that allocations don't get placed at a
-tagged address before this gets turned on?  Where's that checking?
+SGkgQWxleC4KCk9uIFdlZCwgSnVsIDMxLCAyMDE5IGF0IDEwOjUyOjM5QU0gLTA1MDAsIEFsZXgg
+RGV1Y2hlciB3cm90ZToKPiBVbnVzZWQuCj4gCj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVy
+IDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfYW1ka2ZkX2FyY3R1cnVzLmMgfCAxIC0KPiAgMSBmaWxlIGNoYW5nZWQs
+IDEgZGVsZXRpb24oLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2FtZGtmZF9hcmN0dXJ1cy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2FtZGtmZF9hcmN0dXJ1cy5jCj4gaW5kZXggNGQ5MTAxODM0YmE3Li5jNzlhYWViZWVh
+ZjAgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
+ZF9hcmN0dXJ1cy5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Ft
+ZGtmZF9hcmN0dXJ1cy5jCj4gQEAgLTI4LDcgKzI4LDYgQEAKPiAgI2luY2x1ZGUgPGxpbnV4L3Vh
+Y2Nlc3MuaD4KPiAgI2luY2x1ZGUgPGxpbnV4L21tdV9jb250ZXh0Lmg+Cj4gICNpbmNsdWRlIDxs
+aW51eC9maXJtd2FyZS5oPgo+IC0jaW5jbHVkZSA8ZHJtL2RybVAuaD4KPiAgI2luY2x1ZGUgImFt
+ZGdwdS5oIgo+ICAjaW5jbHVkZSAiYW1kZ3B1X2FtZGtmZC5oIgo+ICAjaW5jbHVkZSAic2RtYTAv
+c2RtYTBfNF8yXzJfb2Zmc2V0LmgiCgpUaGFua3MhCgpBbGwgcGF0Y2hlcyBhcmU6CkFja2VkLWJ5
+OiBTYW0gUmF2bmJvcmcgPHNhbUByYXZuYm9yZy5vcmc+CgoKQWN0dWFsIHN0YXR1cyBpbiBkcm0t
+bWlzYzoKCiQgZ2l0IGdyZXAgZHJtUCB8IGN1dCAtZCAnLycgLWYgMSB8IHNvcnQgfCB1bmlxIC1j
+CiAgICAgIDYgYW1kCQk8PSBmaXhlZCBieSB0aGlzIHBhdGNoc2V0CiAgICAgIDggYXJtCQk8PSBw
+YXRjaCBzZW50LiBOZWVkcyB0byByZWJhc2UgYW5kIHJlc2VuZAogICAgICA2IGFybWFkYQkJPD0g
+cGF0Y2ggc2VudC4gTmVlZHMgdG8gcmViYXNlIGFuZCByZXNlbmQKICAgICAgMSBldG5hdml2CQk8
+PSBhbHJlYWR5IGZpeGVkIGluIGV0bmF2aXYgcmVwbwogICAgICAyIGV4eW5vcwkJPD0gU29tZWhv
+dyBtaXNzZWQgdGhlc2UuIFBhdGNoIHJlYWR5LCBuZWVkcyB0byBzZW5kIGl0IG91dAogICAgICAx
+IGkyYwkJPD0gcGF0Y2ggc2VudC4gTmVlZHMgdG8gcmViYXNlIGFuZCByZXNlbmQKICAgICAgMiBt
+c20JCTw9IHBhdGNoIHNlbnQuIE5lZWRzIHRvIHJlYmFzZSBhbmQgcmVzZW5kCiAgICAgMjcgbm91
+dmVhdQkJPD0gYWxyZWFkeSBmaXhlZCBpbiBub3V2ZWF1IHJlcG8KICAgICAgNCB0ZWdyYQkJPD0g
+cGF0Y2ggc2VudC4gTmVlZHMgdG8gcmVhYnNlIGFuZCByZXNlbmQKICAgICAxMyB2bXdnZngJCTw9
+IGFscmVhZHkgZml4ZWQgaW4gdm13Z2Z4IHJlcG8KClNvIHRoaW5ncyBsb29rcyBkb2FibGUuIEkg
+anVzdCBuZWVkIHRvIGZpbmQgYSBmZXcgaG91cnMuLgoKCVNhbQoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
+eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
+bG1hbi9saXN0aW5mby9hbWQtZ2Z4
