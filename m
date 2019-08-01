@@ -1,35 +1,56 @@
-From: Andrey Konovalov <andreyknvl@google.com>
-Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
-Date: Thu, 1 Aug 2019 14:48:37 +0200
-Message-ID: <CAAeHK+zTFqsLiB3Wf0bAi5A8ukQX5ZuvfUg4td-=r5UhBsUBOQ@mail.gmail.com>
-References: <cover.1563904656.git.andreyknvl@google.com> <8c618cc9-ae68-9769-c5bb-67f1295abc4e@intel.com>
- <13b4cf53-3ecb-f7e7-b504-d77af15d77aa@arm.com>
+From: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH 0/5] enable umc ras ce interrupt v2
+Date: Thu, 1 Aug 2019 12:56:03 +0000
+Message-ID: <DM5PR12MB14185BCB64112F6D9C39BEF1FCDE0@DM5PR12MB1418.namprd12.prod.outlook.com>
+References: <20190801115454.21867-1-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <13b4cf53-3ecb-f7e7-b504-d77af15d77aa@arm.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190801115454.21867-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Chen,
+ Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, "Pan, Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
+Cc: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
 
-On Thu, Aug 1, 2019 at 2:11 PM Kevin Brodsky <kevin.brodsky@arm.com> wrote:
->
-> On 31/07/2019 17:50, Dave Hansen wrote:
-> > On 7/23/19 10:58 AM, Andrey Konovalov wrote:
-> >> The mmap and mremap (only new_addr) syscalls do not currently accept
-> >> tagged addresses. Architectures may interpret the tag as a background
-> >> colour for the corresponding vma.
-> > What the heck is a "background colour"? :)
->
-> Good point, this is some jargon that we started using for MTE, the idea being that
-> the kernel could set a tag value (specified during mmap()) as "background colour" for
-> anonymous pages allocated in that range.
->
-> Anyway, this patch series is not about MTE. Andrey, for v20 (if any), I think it's
-> best to drop this last sentence to avoid any confusion.
-
-Sure, thanks!
-
->
-> Kevin
+U2VyaWVzIGlzDQoNClJldmlld2VkLWJ5OiBIYXdraW5nIFpoYW5nIDxIYXdraW5nLlpoYW5nQGFt
+ZC5jb20+DQoNClJlZ2FyZHMsDQpIYXdraW5nDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0K
+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24g
+QmVoYWxmIE9mIFRhbyBaaG91DQpTZW50OiAyMDE55bm0OOaciDHml6UgMTk6NTUNClRvOiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdA
+YW1kLmNvbT47IExpLCBEZW5uaXMgPERlbm5pcy5MaUBhbWQuY29tPjsgQ2hlbiwgR3VjaHVuIDxH
+dWNodW4uQ2hlbkBhbWQuY29tPjsgUGFuLCBYaW5odWkgPFhpbmh1aS5QYW5AYW1kLmNvbT4NCkNj
+OiBaaG91MSwgVGFvIDxUYW8uWmhvdTFAYW1kLmNvbT4NClN1YmplY3Q6IFtQQVRDSCAwLzVdIGVu
+YWJsZSB1bWMgcmFzIGNlIGludGVycnVwdCB2Mg0KDQpUaGVzZSBwYXRjaGVzIGFkZCBzdXBwb3J0
+IGZvciB1bWMgY2UgaW50ZXJydXB0LCB0aGUgaW50ZXJydXB0IGlzIGNvbnRyb2xsZWQgYnkgYSBl
+cnJvciBjb3VudCB0aHJlc2hvbGQuDQoNCnYyOiBjb3JyZWN0IHR5cG8gaW4gY29tbWl0IGRlc2Ny
+aXB0aW9uIGFuZCB1cGRhdGUgY29tbWVudCBvZiBwYXRjaCAjMiBhZGQgcGF0Y2ggIzUgdG8gcmVw
+bGFjZSBBTURHUFVfUkFTX1VFIHdpdGggQU1ER1BVX1JBU19TVUNDRVNTDQoNClRhbyBaaG91ICg1
+KToNCiAgZHJtL2FtZGdwdTogc3VwcG9ydCBjZSBpbnRlcnJ1cHQgaW4gcmFzIG1vZHVsZQ0KICBk
+cm0vYW1kZ3B1OiBpbXBsZW1lbnQgdW1jIHJhcyBpbml0IGZ1bmN0aW9uDQogIGRybS9hbWRncHU6
+IHVwZGF0ZSB0aGUgY2FsYyBhbGdvcml0aG0gb2YgdW1jIGVjYyBlcnJvciBjb3VudA0KICBkcm0v
+YW1kZ3B1OiBvbmx5IHVuY29ycmVjdGFibGUgZXJyb3IgbmVlZHMgZ3B1IHJlc2V0DQogIGRybS9h
+bWRncHU6IHJlcGxhY2UgQU1ER1BVX1JBU19VRSB3aXRoIEFNREdQVV9SQVNfU1VDQ0VTUw0KDQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jIHwgMTQgKysrKysrLS0tDQog
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYyAgIHwgIDIgKy0NCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jICAgfCAgOCArKystLQ0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3NkbWFfdjRfMC5jICB8ICAyICstDQogZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvdW1jX3Y2XzEuYyAgIHwgNDIgKysrKysrKysrKysrKysrKysrKysrKy0tLQ0KIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3VtY192Nl8xLmggICB8ICA3ICsrKysrDQogNiBmaWxl
+cyBjaGFuZ2VkLCA2MiBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkNCg0KLS0NCjIuMTcu
+MQ0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
+aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
+b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
