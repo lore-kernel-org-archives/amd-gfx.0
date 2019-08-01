@@ -1,53 +1,64 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH v2] drm/radeon: Fix EEH during kexec
-Date: Thu, 1 Aug 2019 14:48:39 -0400
-Message-ID: <CADnq5_P6Hm-zQmfgpmY3MF4h7C9jVAnXmW5NvMGQkmzMyHF53Q@mail.gmail.com>
-References: <1564611032-10016-1-git-send-email-kmahlkuc@linux.vnet.ibm.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH][drm-next] drm/amd/powerplay: fix off-by-one upper bounds
+ limit checks
+Date: Thu, 1 Aug 2019 14:53:28 -0400
+Message-ID: <CADnq5_OqLtvBWXJhT9c=kxK3HeXSEDdfYS1N7Dh68kbiiLk5+w@mail.gmail.com>
+References: <20190801111541.13627-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1564611032-10016-1-git-send-email-kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: KyleMahlkuch <kmahlkuc-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>
-Cc: "Deucher, Alexander" <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Chunming Zhou <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, LKML <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Christian Koenig <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190801111541.13627-1-colin.king@canonical.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin King <colin.king@canonical.com>
+Cc: Kevin Wang <kevin1.wang@amd.com>, Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVGh1LCBBdWcgMSwgMjAxOSBhdCAyOjAxIFBNIEt5bGVNYWhsa3VjaCA8a21haGxrdWNAbGlu
-dXgudm5ldC5pYm0uY29tPiB3cm90ZToKPgo+IER1cmluZyBrZXhlYyBzb21lIGFkYXB0ZXJzIGhp
-dCBhbiBFRUggc2luY2UgdGhleSBhcmUgbm90IHByb3Blcmx5Cj4gc2h1dCBkb3duIGluIHRoZSBy
-YWRlb25fcGNpX3NodXRkb3duKCkgZnVuY3Rpb24uIEFkZGluZwo+IHJhZGVvbl9zdXNwZW5kX2tt
-cygpIGZpeGVzIHRoaXMgaXNzdWUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBLeWxlIE1haGxrdWNoIDxL
-eWxlLk1haGxrdWNoIGF0IGlibS5jb20+CgpBcHBsaWVkLiAgdGhhbmtzIQoKQWxleAoKPiAtLS0K
-PiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZHJ2LmMgfCA4ICsrKysrKysrCj4gIDEg
-ZmlsZSBjaGFuZ2VkLCA4IGluc2VydGlvbnMoKykKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9u
-X2Rydi5jCj4gaW5kZXggYTZjYmUxMS4uMTVkN2JlYiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vcmFkZW9uL3JhZGVvbl9kcnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX2Rydi5jCj4gQEAgLTM0OSwxMSArMzQ5LDE5IEBAIHN0YXRpYyBpbnQgcmFkZW9uX3Bj
-aV9wcm9iZShzdHJ1Y3QgcGNpX2RldiAqcGRldiwKPiAgc3RhdGljIHZvaWQKPiAgcmFkZW9uX3Bj
-aV9zaHV0ZG93bihzdHJ1Y3QgcGNpX2RldiAqcGRldikKPiAgewo+ICsgICAgICAgc3RydWN0IGRy
-bV9kZXZpY2UgKmRkZXYgPSBwY2lfZ2V0X2RydmRhdGEocGRldik7Cj4gKwo+ICAgICAgICAgLyog
-aWYgd2UgYXJlIHJ1bm5pbmcgaW4gYSBWTSwgbWFrZSBzdXJlIHRoZSBkZXZpY2UKPiAgICAgICAg
-ICAqIHRvcm4gZG93biBwcm9wZXJseSBvbiByZWJvb3Qvc2h1dGRvd24KPiAgICAgICAgICAqLwo+
-ICAgICAgICAgaWYgKHJhZGVvbl9kZXZpY2VfaXNfdmlydHVhbCgpKQo+ICAgICAgICAgICAgICAg
-ICByYWRlb25fcGNpX3JlbW92ZShwZGV2KTsKPiArCj4gKyAgICAgICAvKiBTb21lIGFkYXB0ZXJz
-IG5lZWQgdG8gYmUgc3VzcGVuZGVkIGJlZm9yZSBhCj4gKyAgICAgICAqIHNodXRkb3duIG9jY3Vy
-cyBpbiBvcmRlciB0byBwcmV2ZW50IGFuIGVycm9yCj4gKyAgICAgICAqIGR1cmluZyBrZXhlYy4K
-PiArICAgICAgICovCj4gKyAgICAgICByYWRlb25fc3VzcGVuZF9rbXMoZGRldiwgdHJ1ZSwgdHJ1
-ZSwgZmFsc2UpOwo+ICB9Cj4KPiAgc3RhdGljIGludCByYWRlb25fcG1vcHNfc3VzcGVuZChzdHJ1
-Y3QgZGV2aWNlICpkZXYpCj4gLS0KPiAxLjguMy4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4
+On Thu, Aug 1, 2019 at 7:15 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> There are two occurrances of off-by-one upper bound checking of indexes
+> causing potential out-of-bounds array reads. Fix these.
+>
+> Addresses-Coverity: ("Out-of-bounds read")
+> Fixes: cb33363d0e85 ("drm/amd/powerplay: add smu feature name support")
+> Fixes: 6b294793e384 ("drm/amd/powerplay: add smu message name support")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index d029a99e600e..b64113740eb5 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -38,7 +38,7 @@ static const char* __smu_message_names[] = {
+>
+>  const char *smu_get_message_name(struct smu_context *smu, enum smu_message_type type)
+>  {
+> -       if (type < 0 || type > SMU_MSG_MAX_COUNT)
+> +       if (type < 0 || type >= SMU_MSG_MAX_COUNT)
+>                 return "unknown smu message";
+>         return __smu_message_names[type];
+>  }
+> @@ -51,7 +51,7 @@ static const char* __smu_feature_names[] = {
+>
+>  const char *smu_get_feature_name(struct smu_context *smu, enum smu_feature_mask feature)
+>  {
+> -       if (feature < 0 || feature > SMU_FEATURE_COUNT)
+> +       if (feature < 0 || feature >= SMU_FEATURE_COUNT)
+>                 return "unknown smu feature";
+>         return __smu_feature_names[feature];
+>  }
+> --
+> 2.20.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
