@@ -1,38 +1,56 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Extend CU mask to 8 SEs (v2)
-Date: Thu, 1 Aug 2019 15:07:02 -0400
-Message-ID: <CADnq5_OwkVn6y8p51g1dacG7fzw=uZ07o-VtPG24_YxeZKbNDg@mail.gmail.com>
-References: <20190801184741.20064-1-alexander.deucher@amd.com>
- <20190801184741.20064-2-alexander.deucher@amd.com>
- <98bcc2b1-43ae-4a7d-8220-90861d881c2e@www.fastmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH][drm-next] drm/amdgpu: fix unsigned variable instance
+ compared to less than zero
+Date: Thu, 1 Aug 2019 15:12:16 -0400
+Message-ID: <CADnq5_Oo8AthzgGsRCRaiNqn7skzGCGMZGdMcNo8Et+5Zt12Og@mail.gmail.com>
+References: <20190801110145.10803-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <98bcc2b1-43ae-4a7d-8220-90861d881c2e-jFIJ+Wc5/Vo7lZ9V/NTDHw@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Jay Cornwall <jay-gJmSnxjMpeIS+FvcfC7Uqw@public.gmane.org>
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Jay Cornwall <Jay.Cornwall-5C7GfCeVMHo@public.gmane.org>, amd-gfx list <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190801110145.10803-1-colin.king@canonical.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Colin King <colin.king@canonical.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, Le Ma <le.ma@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-V2hvb3BzLiAgRG9uZS4KCkFsZXgKCk9uIFRodSwgQXVnIDEsIDIwMTkgYXQgMzowMiBQTSBKYXkg
-Q29ybndhbGwgPGpheUBqY29ybndhbGwuY29tPiB3cm90ZToKPgo+IE9uIFRodSwgQXVnIDEsIDIw
-MTksIGF0IDEzOjQ3LCBBbGV4IERldWNoZXIgd3JvdGU6Cj4gPiBGcm9tOiBKYXkgQ29ybndhbGwg
-PEpheS5Db3Jud2FsbEBhbWQuY29tPgo+ID4KPiA+IEZvbGxvd2luZyBiaXRtYXAgbGF5b3V0IGxv
-Z2ljIGludHJvZHVjZWQgYnk6Cj4gPiAiZHJtL2FtZGdwdTogc3VwcG9ydCBnZXRfY3VfaW5mbyBm
-b3IgQXJjdHVydXMiLgo+ID4KPiA+IHYyOiBzcXVhc2ggaW4gZml4dXAgZm9yIGdmeF92OV8wLmMg
-KEFsZXgpCj4KPiBUaGVyZSdzIGEgc2Vjb25kIHBhdGNoIHRvIHNxdWFzaCwgd2hpY2ggZml4ZWQg
-YnJlYWthZ2UgaGVyZSAoJSMgc3dhcHBlZCk6Cj4KPiA+IC0gICAgIHByX2RlYnVnKCJ1cGRhdGUg
-Y3UgbWFzayB0byAlI3ggJSN4ICUjeCAlI3hcbiIsCj4gPiArICAgICBwcl9kZWJ1ZygidXBkYXRl
-IGN1IG1hc2sgdG8gIyV4ICMleCAjJXggIyV4ICMleCAjJXggIyV4ICMleFxuIiwKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Thu, Aug 1, 2019 at 7:01 AM Colin King <colin.king@canonical.com> wrote:
+>
+> From: Colin Ian King <colin.king@canonical.com>
+>
+> Currenly the error check on variable instance is always false because
+> it is a uint32_t type and this is never less than zero. Fix this by
+> making it an int type.
+>
+> Addresses-Coverity: ("Unsigned compared against 0")
+> Fixes: 7d0e6329dfdc ("drm/amdgpu: update more sdma instances irq support")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index a33bd867287e..92257f2bf171 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -1962,7 +1962,8 @@ static int sdma_v4_0_process_trap_irq(struct amdgpu_device *adev,
+>  static int sdma_v4_0_process_ras_data_cb(struct amdgpu_device *adev,
+>                 struct amdgpu_iv_entry *entry)
+>  {
+> -       uint32_t instance, err_source;
+> +       uint32_t err_source;
+> +       int instance;
+>
+>         instance = sdma_v4_0_irq_id_to_seq(entry->client_id);
+>         if (instance < 0)
+> --
+> 2.20.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
