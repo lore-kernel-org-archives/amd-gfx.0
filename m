@@ -1,39 +1,40 @@
-From: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 4/4] drm/amdgpu: only uncorrectable error needs gpu reset
-Date: Thu, 1 Aug 2019 14:53:42 +0800
-Message-ID: <20190801065342.8450-5-tao.zhou1@amd.com>
-References: <20190801065342.8450-1-tao.zhou1@amd.com>
+From: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 11/13] mm: cleanup the hmm_vma_handle_pmd stub
+Date: Thu, 1 Aug 2019 09:01:51 +0200
+Message-ID: <20190801070151.GB15404@lst.de>
+References: <20190730055203.28467-1-hch@lst.de> <20190730055203.28467-12-hch@lst.de> <20190730175309.GN24038@mellanox.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190801065342.8450-1-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, hawking.zhang-5C7GfCeVMHo@public.gmane.org, dennis.li-5C7GfCeVMHo@public.gmane.org, guchun.chen-5C7GfCeVMHo@public.gmane.org, xinhui.pan-5C7GfCeVMHo@public.gmane.org
-Cc: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <20190730175309.GN24038@mellanox.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Jason Gunthorpe <jgg@mellanox.com>
+Cc: Christoph Hellwig <hch@lst.de>, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogVGFvIFpob3UgPHRhby56aG91MUBhbWQuY29tPgotLS0KIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgfCA2ICsrKysrLQogMSBmaWxlIGNoYW5nZWQs
-IDUgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192OV8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-bWNfdjlfMC5jCmluZGV4IDA1Y2JkOTBkOWI2Yy4uYjZlZGFkOGJiMzFjIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dtY192OV8wLmMKQEAgLTI1MCw3ICsyNTAsMTEgQEAgc3RhdGljIGludCBn
-bWNfdjlfMF9wcm9jZXNzX3Jhc19kYXRhX2NiKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAog
-CSAqLwogCWlmIChhZGV2LT51bWMuZnVuY3MtPnF1ZXJ5X3Jhc19lcnJvcl9hZGRyZXNzKQogCQlh
-ZGV2LT51bWMuZnVuY3MtPnF1ZXJ5X3Jhc19lcnJvcl9hZGRyZXNzKGFkZXYsIGVycl9kYXRhKTsK
-LQlhbWRncHVfcmFzX3Jlc2V0X2dwdShhZGV2LCAwKTsKKwkKKwkvKiBvbmx5IHVuY29ycmVjdGFi
-bGUgZXJyb3IgbmVlZHMgZ3B1IHJlc2V0ICovCisJaWYgKGVycl9kYXRhLT51ZV9jb3VudCkKKwkJ
-YW1kZ3B1X3Jhc19yZXNldF9ncHUoYWRldiwgMCk7CisKIAlyZXR1cm4gQU1ER1BVX1JBU19VRTsK
-IH0KIAotLSAKMi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Tue, Jul 30, 2019 at 05:53:14PM +0000, Jason Gunthorpe wrote:
+> > -	/* If THP is not enabled then we should never reach this 
+> 
+> This old comment says we should never get here
+> 
+> > +}
+> > +#else /* CONFIG_TRANSPARENT_HUGEPAGE */
+> > +static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+> > +		unsigned long end, uint64_t *pfns, pmd_t pmd)
+> > +{
+> >  	return -EINVAL;
+> 
+> So could we just do
+>    #define hmm_vma_handle_pmd NULL
+> 
+> ?
+> 
+> At the very least this seems like a WARN_ON too?
+
+Despite the name of the function hmm_vma_handle_pmd is not a callback
+for the pagewalk, but actually called from hmm_vma_handle_pmd.
+
+What we could try is just and empty non-inline prototype without an
+actual implementation, which means if the compiler doesn't optimize
+the calls away we'll get a link error.
