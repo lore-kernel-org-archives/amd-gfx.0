@@ -1,14 +1,13 @@
 From: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 3/6] drm/amdgpu: initialize new parameters and functions
- for amdgpu_umc structure
-Date: Thu, 1 Aug 2019 15:29:25 +0000
-Message-ID: <BN6PR12MB1809BF9509C442E4F3284F7CF7DE0@BN6PR12MB1809.namprd12.prod.outlook.com>
+Subject: Re: [PATCH 4/6] drm/amdgpu: add macro of umc for each channel
+Date: Thu, 1 Aug 2019 15:29:55 +0000
+Message-ID: <BN6PR12MB18091E05F855AC098E2E7011F7DE0@BN6PR12MB1809.namprd12.prod.outlook.com>
 References: <20190801064311.7307-1-tao.zhou1@amd.com>,
- <20190801064311.7307-4-tao.zhou1@amd.com>
+ <20190801064311.7307-5-tao.zhou1@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1236868536=="
+Content-Type: multipart/mixed; boundary="===============1262487834=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190801064311.7307-4-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190801064311.7307-5-tao.zhou1-5C7GfCeVMHo@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -23,16 +22,17 @@ Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane
 To: "Zhou1, Tao" <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "Li, Dennis" <Dennis.Li-5C7GfCeVMHo@public.gmane.org>, "Chen, Guchun" <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>, "Pan,
  Xinhui" <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
 
---===============1236868536==
+--===============1262487834==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB1809BF9509C442E4F3284F7CF7DE0BN6PR12MB1809namp_"
+	boundary="_000_BN6PR12MB18091E05F855AC098E2E7011F7DE0BN6PR12MB1809namp_"
 
---_000_BN6PR12MB1809BF9509C442E4F3284F7CF7DE0BN6PR12MB1809namp_
+--_000_BN6PR12MB18091E05F855AC098E2E7011F7DE0BN6PR12MB1809namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Please include a patch description.
+Please include a patch description.  Explain why you need the new helper fu=
+nction.
 
 Alex
 ________________________________
@@ -43,94 +43,58 @@ To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X3
 awking <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>; Li, Dennis <Dennis.Li-5C7GfCeVMHo@public.gmane.org>; Chen, Guchu=
 n <Guchun.Chen-5C7GfCeVMHo@public.gmane.org>; Pan, Xinhui <Xinhui.Pan-5C7GfCeVMHo@public.gmane.org>
 Cc: Zhou1, Tao <Tao.Zhou1-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH 3/6] drm/amdgpu: initialize new parameters and functions fo=
-r amdgpu_umc structure
+Subject: [PATCH 4/6] drm/amdgpu: add macro of umc for each channel
+
+common function for all umc versions
 
 Signed-off-by: Tao Zhou <tao.zhou1-5C7GfCeVMHo@public.gmane.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c |  7 +++++--
- drivers/gpu/drm/amd/amdgpu/umc_v6_1.c | 10 +++++++++-
- drivers/gpu/drm/amd/amdgpu/umc_v6_1.h |  3 +++
- 3 files changed, 17 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c
-index ee06cbe2a7e7..3486b4ce7770 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -631,8 +631,11 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_devic=
-e *adev)
- {
-         switch (adev->asic_type) {
-         case CHIP_VEGA20:
--               adev->umc.max_ras_err_cnt_per_query =3D
--                       UMC_V6_1_UMC_INSTANCE_NUM * UMC_V6_1_CHANNEL_INSTAN=
-CE_NUM;
-+               adev->umc.max_ras_err_cnt_per_query =3D UMC_V6_1_TOTAL_CHAN=
-NEL_NUM;
-+               adev->umc.channel_inst_num =3D UMC_V6_1_CHANNEL_INSTANCE_NU=
-M;
-+               adev->umc.umc_inst_num =3D UMC_V6_1_UMC_INSTANCE_NUM;
-+               adev->umc.channel_offs =3D UMC_V6_1_PER_CHANNEL_OFFSET;
-+               adev->umc.channel_idx_tbl =3D &umc_v6_1_channel_idx_tbl[0][=
-0];
-                 adev->umc.funcs =3D &umc_v6_1_funcs;
-                 break;
-         default:
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c b/drivers/gpu/drm/amd/am=
-dgpu/umc_v6_1.c
-index 035e4fea472c..9ba015d7eb57 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-@@ -41,7 +41,7 @@
- /* offset in 256B block */
- #define OFFSET_IN_256B_BLOCK(addr)              ((addr) & 0xffULL)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_umc.h
+index 2604f5076867..9efdd66279e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+@@ -21,6 +21,29 @@
+ #ifndef __AMDGPU_UMC_H__
+ #define __AMDGPU_UMC_H__
 
--static uint32_t
-+const uint32_t
-         umc_v6_1_channel_idx_tbl[UMC_V6_1_UMC_INSTANCE_NUM][UMC_V6_1_CHANN=
-EL_INSTANCE_NUM] =3D {
-                 {2, 18, 11, 27},        {4, 20, 13, 29},
-                 {1, 17, 8, 24},         {7, 23, 14, 30},
-@@ -235,7 +235,15 @@ static void umc_v6_1_query_ras_error_address(struct am=
-dgpu_device *adev,
-         umc_v6_1_disable_umc_index_mode(adev);
- }
-
-+static void umc_v6_1_ras_init(struct amdgpu_device *adev)
-+{
++/*
++ * void (*func)(struct amdgpu_device *adev, struct ras_err_data *err_data,
++ *                             uint32_t umc_reg_offset, uint32_t channel_i=
+ndex)
++ */
++#define amdgpu_umc_for_each_channel(func)      \
++       struct ras_err_data *err_data =3D (struct ras_err_data *)ras_error_=
+status;        \
++       uint32_t umc_inst, channel_inst, umc_reg_offset, channel_index; \
++       for (umc_inst =3D 0; umc_inst < adev->umc.umc_inst_num; umc_inst++)=
+ {     \
++               /* enable the index mode to query eror count per channel */=
+     \
++               adev->umc.funcs->enable_umc_index_mode(adev, umc_inst); \
++               for (channel_inst =3D 0;  \
++                       channel_inst < adev->umc.channel_inst_num;      \
++                       channel_inst++) {       \
++                       /* calc the register offset according to channel in=
+stance */    \
++                       umc_reg_offset =3D adev->umc.channel_offs * channel=
+_inst; \
++                       /* get channel index of interleaved memory */   \
++                       channel_index =3D adev->umc.channel_idx_tbl[      \
++                               umc_inst * adev->umc.channel_inst_num + cha=
+nnel_inst];  \
++                       (func)(adev, err_data, umc_reg_offset, channel_inde=
+x);  \
++               }       \
++       }       \
++       adev->umc.funcs->disable_umc_index_mode(adev);
 +
-+}
-+
- const struct amdgpu_umc_funcs umc_v6_1_funcs =3D {
-+       .ras_init =3D umc_v6_1_ras_init,
-         .query_ras_error_count =3D umc_v6_1_query_ras_error_count,
-         .query_ras_error_address =3D umc_v6_1_query_ras_error_address,
-+       .enable_umc_index_mode =3D umc_v6_1_enable_umc_index_mode,
-+       .disable_umc_index_mode =3D umc_v6_1_disable_umc_index_mode,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h b/drivers/gpu/drm/amd/am=
-dgpu/umc_v6_1.h
-index bddaf14a77f9..ad4598c0e495 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h
-@@ -24,6 +24,7 @@
- #define __UMC_V6_1_H__
-
- #include "soc15_common.h"
-+#include "amdgpu.h"
-
- /* HBM  Memory Channel Width */
- #define UMC_V6_1_HBM_MEMORY_CHANNEL_WIDTH       128
-@@ -37,5 +38,7 @@
- #define UMC_V6_1_PER_CHANNEL_OFFSET             0x800
-
- extern const struct amdgpu_umc_funcs umc_v6_1_funcs;
-+extern const uint32_t
-+       umc_v6_1_channel_idx_tbl[UMC_V6_1_UMC_INSTANCE_NUM][UMC_V6_1_CHANNE=
-L_INSTANCE_NUM];
-
- #endif
+ struct amdgpu_umc_funcs {
+         void (*ras_init)(struct amdgpu_device *adev);
+         void (*query_ras_error_count)(struct amdgpu_device *adev,
 --
 2.17.1
 
@@ -139,7 +103,7 @@ amd-gfx mailing list
 amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---_000_BN6PR12MB1809BF9509C442E4F3284F7CF7DE0BN6PR12MB1809namp_
+--_000_BN6PR12MB18091E05F855AC098E2E7011F7DE0BN6PR12MB1809namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -153,8 +117,8 @@ ttom:0;} </style>
 <body dir=3D"ltr">
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Please include a patch description. <br>
-</div>
+Please include a patch description.&nbsp; Explain why you need the new help=
+er function.</div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
 <br>
@@ -175,124 +139,93 @@ gt;; Zhang, Hawking &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Li, Denn
 @amd.com&gt;; Chen, Guchun &lt;Guchun.Chen-5C7GfCeVMHo@public.gmane.org&gt;; Pan, Xinhui &lt;Xin=
 hui.Pan-5C7GfCeVMHo@public.gmane.org&gt;<br>
 <b>Cc:</b> Zhou1, Tao &lt;Tao.Zhou1-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH 3/6] drm/amdgpu: initialize new parameters and funct=
-ions for amdgpu_umc structure</font>
+<b>Subject:</b> [PATCH 4/6] drm/amdgpu: add macro of umc for each channel</=
+font>
 <div>&nbsp;</div>
 </div>
 <div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
 ">
-<div class=3D"PlainText">Signed-off-by: Tao Zhou &lt;tao.zhou1-5C7GfCeVMHo@public.gmane.org&gt;<=
-br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c |&nbsp; 7 &#43;&#43;&#43;&#43;&=
-#43;--<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/umc_v6_1.c | 10 &#43;&#43;&#43;&#43;&#43;&=
-#43;&#43;&#43;&#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/umc_v6_1.h |&nbsp; 3 &#43;&#43;&#43;<br>
-&nbsp;3 files changed, 17 insertions(&#43;), 3 deletions(-)<br>
+<div class=3D"PlainText">common function for all umc versions<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gmc_v9_0.c<br>
-index ee06cbe2a7e7..3486b4ce7770 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c<br>
-@@ -631,8 &#43;631,11 @@ static void gmc_v9_0_set_umc_funcs(struct amdgpu_d=
-evice *adev)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
-) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA20:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; adev-&gt;umc.max_ras_err_cnt_per_query =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; UMC_V6_1_UMC_INS=
-TANCE_NUM * UMC_V6_1_CHANNEL_INSTANCE_NUM;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;umc.max_ras_err_cnt_per_query =3D UMC_V6_1_TOTAL_CH=
-ANNEL_NUM;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;umc.channel_inst_num =3D UMC_V6_1_CHANNEL_INSTANCE_=
-NUM;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;umc.umc_inst_num =3D UMC_V6_1_UMC_INSTANCE_NUM;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;umc.channel_offs =3D UMC_V6_1_PER_CHANNEL_OFFSET;<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; adev-&gt;umc.channel_idx_tbl =3D &amp;umc_v6_1_channel_idx_t=
-bl[0][0];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;umc.funcs =3D &amp;umc_v6_1_funcs;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c b/drivers/gpu/drm/amd/am=
-dgpu/umc_v6_1.c<br>
-index 035e4fea472c..9ba015d7eb57 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c<br>
-@@ -41,7 &#43;41,7 @@<br>
-&nbsp;/* offset in 256B block */<br>
-&nbsp;#define OFFSET_IN_256B_BLOCK(addr)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((addr) &amp; 0xffULL)<br>
+Signed-off-by: Tao Zhou &lt;tao.zhou1-5C7GfCeVMHo@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h | 23 &#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;<br>
+&nbsp;1 file changed, 23 insertions(&#43;)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_umc.h<br>
+index 2604f5076867..9efdd66279e5 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h<br>
+@@ -21,6 &#43;21,29 @@<br>
+&nbsp;#ifndef __AMDGPU_UMC_H__<br>
+&nbsp;#define __AMDGPU_UMC_H__<br>
 &nbsp;<br>
--static uint32_t<br>
-&#43;const uint32_t<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umc_v6_1_channel_idx_tbl[U=
-MC_V6_1_UMC_INSTANCE_NUM][UMC_V6_1_CHANNEL_INSTANCE_NUM] =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; {2, 18, 11, 27},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp; {4, 20, 13, 29},<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; {1, 17, 8, 24},&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; {7, 23, 14, 30},<br>
-@@ -235,7 &#43;235,15 @@ static void umc_v6_1_query_ras_error_address(struc=
-t amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umc_v6_1_disable_umc_index=
-_mode(adev);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&#43;static void umc_v6_1_ras_init(struct amdgpu_device *adev)<br>
-&#43;{<br>
-&#43;<br>
-&#43;}<br>
-&#43;<br>
-&nbsp;const struct amdgpu_umc_funcs umc_v6_1_funcs =3D {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .ras_init =3D umc_v6_1_ras_init,<=
+&#43;/*<br>
+&#43; * void (*func)(struct amdgpu_device *adev, struct ras_err_data *err_d=
+ata,<br>
+&#43; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t umc_reg_offset, uint32_t channel_index)<=
 br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_ras_error_count =3D=
- umc_v6_1_query_ras_error_count,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .query_ras_error_address =
-=3D umc_v6_1_query_ras_error_address,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .enable_umc_index_mode =3D umc_v6=
-_1_enable_umc_index_mode,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .disable_umc_index_mode =3D umc_v=
-6_1_disable_umc_index_mode,<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h b/drivers/gpu/drm/amd/am=
-dgpu/umc_v6_1.h<br>
-index bddaf14a77f9..ad4598c0e495 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.h<br>
-@@ -24,6 &#43;24,7 @@<br>
-&nbsp;#define __UMC_V6_1_H__<br>
-&nbsp;<br>
-&nbsp;#include &quot;soc15_common.h&quot;<br>
-&#43;#include &quot;amdgpu.h&quot;<br>
-&nbsp;<br>
-&nbsp;/* HBM&nbsp; Memory Channel Width */<br>
-&nbsp;#define UMC_V6_1_HBM_MEMORY_CHANNEL_WIDTH&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; 128<br>
-@@ -37,5 &#43;38,7 @@<br>
-&nbsp;#define UMC_V6_1_PER_CHANNEL_OFFSET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x800<br>
-&nbsp;<br>
-&nbsp;extern const struct amdgpu_umc_funcs umc_v6_1_funcs;<br>
-&#43;extern const uint32_t<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umc_v6_1_channel_idx_tbl[UMC_V6_1=
-_UMC_INSTANCE_NUM][UMC_V6_1_CHANNEL_INSTANCE_NUM];<br>
-&nbsp;<br>
-&nbsp;#endif<br>
+&#43; */<br>
+&#43;#define amdgpu_umc_for_each_channel(func)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_err_data *err_data =3D=
+ (struct ras_err_data *)ras_error_status;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t umc_inst, channel_inst, =
+umc_reg_offset, channel_index; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (umc_inst =3D 0; umc_inst &lt=
+; adev-&gt;umc.umc_inst_num; umc_inst&#43;&#43;) {&nbsp;&nbsp;&nbsp;&nbsp; =
+\<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; /* enable the index mode to query eror count per channel */&=
+nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; adev-&gt;umc.funcs-&gt;enable_umc_index_mode(adev, umc_inst)=
+; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; for (channel_inst =3D 0;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; channel_inst=
+ &lt; adev-&gt;umc.channel_inst_num;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; channel_inst=
+&#43;&#43;) {&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* calc the =
+register offset according to channel instance */&nbsp;&nbsp;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umc_reg_offs=
+et =3D adev-&gt;umc.channel_offs * channel_inst; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* get chann=
+el index of interleaved memory */&nbsp;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; channel_inde=
+x =3D adev-&gt;umc.channel_idx_tbl[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; umc_inst * adev-&gt;umc.channel_inst_nu=
+m &#43; channel_inst];&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (func)(adev,=
+ err_data, umc_reg_offset, channel_index);&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp; \<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;umc.funcs-&gt;disable_um=
+c_index_mode(adev);<br>
+&#43;<br>
+&nbsp;struct amdgpu_umc_funcs {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*ras_init)(struct am=
+dgpu_device *adev);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*query_ras_error_cou=
+nt)(struct amdgpu_device *adev,<br>
 -- <br>
 2.17.1<br>
 <br>
@@ -305,9 +238,9 @@ lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
 </body>
 </html>
 
---_000_BN6PR12MB1809BF9509C442E4F3284F7CF7DE0BN6PR12MB1809namp_--
+--_000_BN6PR12MB18091E05F855AC098E2E7011F7DE0BN6PR12MB1809namp_--
 
---===============1236868536==
+--===============1262487834==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -317,4 +250,4 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
 YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
 cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
 
---===============1236868536==--
+--===============1262487834==--
