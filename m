@@ -1,68 +1,65 @@
-From: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: [PATCH][drm-next] drm/amd/powerplay: fix a few spelling mistakes
-Date: Thu, 1 Aug 2019 15:02:30 -0400
-Message-ID: <CADnq5_OdBM83zkkgtjwzQ0jqsiDP5wZoMXioGcq4mycX2=Tavw@mail.gmail.com>
-References: <20190801083941.4230-1-colin.king@canonical.com>
+From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH] drm/amd/powerplay: Allow changing of fan_control in
+ smu_v11_0
+Date: Thu, 1 Aug 2019 15:03:39 -0400
+Message-ID: <CADnq5_Od4-L3yEH6XZ+1rW6j=zFC1aWyMD+kzteoL1sBFuthFg@mail.gmail.com>
+References: <20190731201435.10776-1-mcoffin13@gmail.com>
+ <MN2PR12MB334472B24E84DC3C2D94EF37E4DE0@MN2PR12MB3344.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190801083941.4230-1-colin.king@canonical.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Colin King <colin.king@canonical.com>
-Cc: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Maling list - DRI developers <dri-devel@lists.freedesktop.org>, kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <MN2PR12MB334472B24E84DC3C2D94EF37E4DE0-rweVpJHSKToDMgCC8P//OwdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+Cc: Matt Coffin <mcoffin13-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-Applied.  thanks!
-
-Alex
-
-On Thu, Aug 1, 2019 at 4:39 AM Colin King <colin.king@canonical.com> wrote:
->
-> From: Colin Ian King <colin.king@canonical.com>
->
-> There are a few spelling mistakes "unknow" -> "unknown" and
-> "enabeld" -> "enabled". Fix these.
->
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 13b2c8a60232..d029a99e600e 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -39,7 +39,7 @@ static const char* __smu_message_names[] = {
->  const char *smu_get_message_name(struct smu_context *smu, enum smu_message_type type)
->  {
->         if (type < 0 || type > SMU_MSG_MAX_COUNT)
-> -               return "unknow smu message";
-> +               return "unknown smu message";
->         return __smu_message_names[type];
->  }
->
-> @@ -52,7 +52,7 @@ static const char* __smu_feature_names[] = {
->  const char *smu_get_feature_name(struct smu_context *smu, enum smu_feature_mask feature)
->  {
->         if (feature < 0 || feature > SMU_FEATURE_COUNT)
-> -               return "unknow smu feature";
-> +               return "unknown smu feature";
->         return __smu_feature_names[feature];
->  }
->
-> @@ -79,7 +79,7 @@ size_t smu_sys_get_pp_feature_mask(struct smu_context *smu, char *buf)
->                                count++,
->                                smu_get_feature_name(smu, i),
->                                feature_index,
-> -                              !!smu_feature_is_enabled(smu, i) ? "enabeld" : "disabled");
-> +                              !!smu_feature_is_enabled(smu, i) ? "enabled" : "disabled");
->         }
->
->  failed:
-> --
-> 2.20.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIFdlZCwgSnVsIDMxLCAyMDE5IGF0IDExOjE3IFBN
+IFF1YW4sIEV2YW4gPEV2YW4uUXVhbkBhbWQuY29tPiB3cm90ZToKPgo+IFRoYW5rcyBNYXR0LiBU
+aGUgcGF0Y2ggaXMgcmV2aWV3ZWQtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+Cj4K
+PiBSZWdhcmRzLAo+IEV2YW4KPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gPiBGcm9t
+OiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhh
+bGYgT2YKPiA+IE1hdHQgQ29mZmluCj4gPiBTZW50OiBUaHVyc2RheSwgQXVndXN0IDAxLCAyMDE5
+IDQ6MTUgQU0KPiA+IFRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gQ2M6IE1h
+dHQgQ29mZmluIDxtY29mZmluMTNAZ21haWwuY29tPgo+ID4gU3ViamVjdDogW1BBVENIXSBkcm0v
+YW1kL3Bvd2VycGxheTogQWxsb3cgY2hhbmdpbmcgb2YgZmFuX2NvbnRyb2wgaW4KPiA+IHNtdV92
+MTFfMAo+ID4KPiA+IFtXaHldCj4gPiBCZWZvcmUgdGhpcyBjaGFuZ2UsIHRoZSBmYW4gY29udHJv
+bCBzdGF0ZSBvbiBzbXVfdjExIHdhcyBub3QgYWJsZSB0byBiZQo+ID4gY2hhbmdlZCBiZWNhdXNl
+IHRoZSBjYXBhYmlsaXR5IGNoZWNrIGZvciBjaGVja2luZyBpZiB0aGUgZmFuIGNvbnRyb2wgY2Fw
+YWJpbGl0eQo+ID4gZXhpc3RlZCB3YXMgaW52ZXJ0ZWQuCj4gPgo+ID4gW0hvd10KPiA+IFRoZSBj
+YXBhYmlsaXR5IGNoZWNrIGZvciBmYW4gY29udHJvbCBpbiBzbXVfdjExXzBfYXV0b19mYW5fY29u
+dHJvbCB3YXMKPiA+IGludmVydGVkLCB0byBjb3JyZWN0bHkgY2hlY2sgZm9yIHRoZSBhYnNlbmNl
+LCBpbnN0ZWFkIG9mIHByZXNlbmNlIG9mIGZhbgo+ID4gY29udHJvbCBjYXBhYmlsaXRpZXMuCj4g
+Pgo+ID4gU2lnbmVkLW9mZi1ieTogTWF0dCBDb2ZmaW4gPG1jb2ZmaW4xM0BnbWFpbC5jb20+Cj4g
+PiAtLS0KPiA+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyB8IDIg
+Ky0KPiA+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPiA+
+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8w
+LmMKPiA+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMKPiA+IGlu
+ZGV4IDA1ODhkZDhjZDFiYS4uNDNmY2JkYmJhNjMwIDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jCj4gPiBAQCAtMTM2MSw3ICsxMzYxLDcgQEAgc211
+X3YxMV8wX2F1dG9fZmFuX2NvbnRyb2woc3RydWN0IHNtdV9jb250ZXh0Cj4gPiAqc211LCBib29s
+IGF1dG9fZmFuX2NvbnRyb2wpICB7Cj4gPiAgICAgICBpbnQgcmV0ID0gMDsKPiA+Cj4gPiAtICAg
+ICBpZiAoc211X2ZlYXR1cmVfaXNfc3VwcG9ydGVkKHNtdSwKPiA+IFNNVV9GRUFUVVJFX0ZBTl9D
+T05UUk9MX0JJVCkpCj4gPiArICAgICBpZiAoIXNtdV9mZWF0dXJlX2lzX3N1cHBvcnRlZChzbXUs
+Cj4gPiBTTVVfRkVBVFVSRV9GQU5fQ09OVFJPTF9CSVQpKQo+ID4gICAgICAgICAgICAgICByZXR1
+cm4gMDsKPiA+Cj4gPiAgICAgICByZXQgPSBzbXVfZmVhdHVyZV9zZXRfZW5hYmxlZChzbXUsCj4g
+PiBTTVVfRkVBVFVSRV9GQU5fQ09OVFJPTF9CSVQsIGF1dG9fZmFuX2NvbnRyb2wpOwo+ID4gLS0K
+PiA+IDIuMjIuMAo+ID4KPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCj4gPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+ID4gYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKPiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlz
+dGluZm8vYW1kLWdmeAo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
+LWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
