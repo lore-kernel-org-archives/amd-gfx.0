@@ -1,86 +1,82 @@
-From: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: remove unpin clear_state_obj for gfx v8
-Date: Fri, 2 Aug 2019 06:12:05 +0000
-Message-ID: <BN8PR12MB3602D2293EFA72B3A3545EE389D90@BN8PR12MB3602.namprd12.prod.outlook.com>
-References: <1564723334-18375-1-git-send-email-likun.gao@amd.com>
+From: Jens Wiklander <jens.wiklander@linaro.org>
+Subject: Re: [PATCH 16/34] drivers/tee: convert put_page() to put_user_page*()
+Date: Fri, 2 Aug 2019 08:29:07 +0200
+Message-ID: <CAHUa44G++iiwU62jj7QH=V3sr4z26sf007xrwWLPw6AAeMLAEw@mail.gmail.com>
+References: <20190802022005.5117-1-jhubbard@nvidia.com> <20190802022005.5117-17-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <1564723334-18375-1-git-send-email-likun.gao-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Gao, Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Paul Gover <pmw.gover-/E1597aS9LT10XsdtD+oqA@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190802022005.5117-17-jhubbard@nvidia.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: john.hubbard@gmail.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-block@vger.kernel.org, "open list:HARDWARE RANDOM NUMBER GENERATOR CORE" <linux-crypto@vger.kernel.org>, linux-fbdev@vger.kerne
+List-Id: amd-gfx.lists.freedesktop.org
 
-SGkgTGlrdW4sCgpMb29rcyBsaWtlIHlvdSBjYW4gcGluIGNzYiBidWZmZXIgQGdmeF92OF8wX2h3
-X2luaXQoKSBqdXN0IGxpa2Ugd2hhdCBmb2xsb3dpbmcgcGF0Y2ggZG9lcyBmb3IgZ2Z4OSwgc28g
-dGhhdCB3ZSBjYW4gc3RpbGwgdXNlIHRoZSBjb21tb24gZnVuY3Rpb24gYW1kZ3B1X2dmeF9ybGNf
-aW5pdF9jc2IoKToKCmNvbW1pdCAxMzdkYzRiOTA2MGU5OWEyMmRjZTU5YjQyY2E3MTkxMmNmMDE4
-MGYzCkF1dGhvcjogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KRGF0ZTogICBXZWQgSnVs
-IDQgMTY6MjE6NTIgMjAxOCArMDgwMAoKICAgIGRybS9hbWRncHU6IHBpbiB0aGUgY3NiIGJ1ZmZl
-ciBvbiBodyBpbml0IHYyCgogICAgV2l0aG91dCB0aGlzIHBpbiwgdGhlIGNzYiBidWZmZXIgd2ls
-bCBiZSBmaWxsZWQgd2l0aCBpbmNvbnNpc3RlbnQKICAgIGRhdGEgYWZ0ZXIgUzMgcmVzdW1lLiBB
-bmQgdGhhdCB3aWxsIGNhdXNlcyBnZnggaGFuZyBvbiBnZnhvZmYKICAgIGV4aXQgc2luY2UgdGhp
-cyBjc2Igd2lsbCBiZSBleGVjdXRlZCB0aGVuLgoKICAgIHYyOiBmaXQgYW1kZ3B1X2JvX3BpbiBj
-aGFuZ2UodGFrZSBvbmUgbGVzcyBhcmd1bWVudCkKCiAgICBTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1
-YW4gPGV2YW4ucXVhbkBhbWQuY29tPgogICAgUmV2aWV3ZWQtYnk6IEh1YW5nIFJ1aSA8cmF5Lmh1
-YW5nQGFtZC5jb20+CiAgICBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+CgpCUiwKWGlhb2ppZQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnPiBvbiBiZWhhbGYgb2YgbGlrdW4gR2FvIDxsaWt1bi5nYW9AYW1kLmNvbT4KU2Vu
-dDogRnJpZGF5LCBBdWd1c3QgMiwgMjAxOSAxOjIyIFBNClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpDYzogRGV1Y2hlciwgQWxleGFuZGVyOyBHYW8sIExpa3VuOyBQYXVsIEdvdmVy
-ClN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTogcmVtb3ZlIHVucGluIGNsZWFyX3N0YXRlX29i
-aiBmb3IgZ2Z4IHY4CgpGcm9tOiBMaWt1biBHYW8gPExpa3VuLkdhb0BhbWQuY29tPgoKUmVtb3Zl
-IHVucGluIHJsYyBjbGVhcl9zdGF0ZV9vYmogZm9yIGdmeCB2OCB3aGVuIHJsYyBpbml0LAp3aGlj
-aCB3aWxsIG1ha2UgU3RvbmV5IHBtX3N1c3BlbmQgaGFuZy4KClNpZ25lZC1vZmYtYnk6IExpa3Vu
-IEdhbyA8TGlrdW4uR2FvQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y4XzAuYyB8IDIyICsrKysrKysrKysrKysrKysrKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAx
-OSBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjhfMC5jCmluZGV4IGQyOTA3MTguLjBiNzNjNmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvZ2Z4X3Y4XzAuYwpAQCAtMTI5Miw2ICsxMjkyLDggQEAgc3RhdGljIGludCBnZnhfdjhfMF9j
-cF9qdW1wX3RhYmxlX251bShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKCiBzdGF0aWMgaW50
-IGdmeF92OF8wX3JsY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogeworICAgICAg
-IHZvbGF0aWxlIHUzMiAqZHN0X3B0cjsKKyAgICAgICB1MzIgZHdzOwogICAgICAgIGNvbnN0IHN0
-cnVjdCBjc19zZWN0aW9uX2RlZiAqY3NfZGF0YTsKICAgICAgICBpbnQgcjsKCkBAIC0xMzAwLDEw
-ICsxMzAyLDI0IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfcmxjX2luaXQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpCiAgICAgICAgY3NfZGF0YSA9IGFkZXYtPmdmeC5ybGMuY3NfZGF0YTsKCiAg
-ICAgICAgaWYgKGNzX2RhdGEpIHsKLSAgICAgICAgICAgICAgIC8qIGluaXQgY2xlYXIgc3RhdGUg
-YmxvY2sgKi8KLSAgICAgICAgICAgICAgIHIgPSBhbWRncHVfZ2Z4X3JsY19pbml0X2NzYihhZGV2
-KTsKLSAgICAgICAgICAgICAgIGlmIChyKQorICAgICAgICAgICAgICAgLyogY2xlYXIgc3RhdGUg
-YmxvY2sgKi8KKyAgICAgICAgICAgICAgIGFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfc2l6ZSA9
-IGR3cyA9IGFkZXYtPmdmeC5ybGMuZnVuY3MtPmdldF9jc2Jfc2l6ZShhZGV2KTsKKyAgICAgICAg
-ICAgICAgIHIgPSBhbWRncHVfYm9fY3JlYXRlX3Jlc2VydmVkKGFkZXYsIGR3cyAqIDQsIFBBR0Vf
-U0laRSwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEFNREdQ
-VV9HRU1fRE9NQUlOX1ZSQU0sCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAmYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9vYmosCisgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9n
-cHVfYWRkciwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICh2
-b2lkICoqKSZhZGV2LT5nZngucmxjLmNzX3B0cik7CisgICAgICAgICAgICAgICBpZiAocikgewor
-ICAgICAgICAgICAgICAgICAgICAgICBkZXZfd2FybihhZGV2LT5kZXYsICIoJWQpIGNyZWF0ZSBS
-TEMgYyBibyBmYWlsZWRcbiIsIHIpOworICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfZ2Z4
-X3JsY19maW5pKGFkZXYpOwogICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gcjsKKyAgICAg
-ICAgICAgICAgIH0KKworICAgICAgICAgICAgICAgLyogc2V0IHVwIHRoZSBjcyBidWZmZXIgKi8K
-KyAgICAgICAgICAgICAgIGRzdF9wdHIgPSBhZGV2LT5nZngucmxjLmNzX3B0cjsKKyAgICAgICAg
-ICAgICAgIGFkZXYtPmdmeC5ybGMuZnVuY3MtPmdldF9jc2JfYnVmZmVyKGFkZXYsIGRzdF9wdHIp
-OworICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2t1bm1hcChhZGV2LT5nZngucmxjLmNsZWFyX3N0
-YXRlX29iaik7CisgICAgICAgICAgICAgICBhbWRncHVfYm9fdW5yZXNlcnZlKGFkZXYtPmdmeC5y
-bGMuY2xlYXJfc3RhdGVfb2JqKTsKICAgICAgICB9CgogICAgICAgIGlmICgoYWRldi0+YXNpY190
-eXBlID09IENISVBfQ0FSUklaTykgfHwKLS0KMi43LjQKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
-bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Fri, Aug 2, 2019 at 4:20 AM <john.hubbard@gmail.com> wrote:
+>
+> From: John Hubbard <jhubbard@nvidia.com>
+>
+> For pages that were retained via get_user_pages*(), release those pages
+> via the new put_user_page*() routines, instead of via put_page() or
+> release_pages().
+>
+> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+> ("mm: introduce put_user_page*(), placeholder versions").
+>
+> Cc: Jens Wiklander <jens.wiklander@linaro.org>
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  drivers/tee/tee_shm.c | 10 ++--------
+>  1 file changed, 2 insertions(+), 8 deletions(-)
+
+Acked-by: Jens Wiklander <jens.wiklander@linaro.org>
+
+I suppose you're taking this via your own tree or such.
+
+Thanks,
+Jens
+
+>
+> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
+> index 2da026fd12c9..c967d0420b67 100644
+> --- a/drivers/tee/tee_shm.c
+> +++ b/drivers/tee/tee_shm.c
+> @@ -31,16 +31,13 @@ static void tee_shm_release(struct tee_shm *shm)
+>
+>                 poolm->ops->free(poolm, shm);
+>         } else if (shm->flags & TEE_SHM_REGISTER) {
+> -               size_t n;
+>                 int rc = teedev->desc->ops->shm_unregister(shm->ctx, shm);
+>
+>                 if (rc)
+>                         dev_err(teedev->dev.parent,
+>                                 "unregister shm %p failed: %d", shm, rc);
+>
+> -               for (n = 0; n < shm->num_pages; n++)
+> -                       put_page(shm->pages[n]);
+> -
+> +               put_user_pages(shm->pages, shm->num_pages);
+>                 kfree(shm->pages);
+>         }
+>
+> @@ -313,16 +310,13 @@ struct tee_shm *tee_shm_register(struct tee_context *ctx, unsigned long addr,
+>         return shm;
+>  err:
+>         if (shm) {
+> -               size_t n;
+> -
+>                 if (shm->id >= 0) {
+>                         mutex_lock(&teedev->mutex);
+>                         idr_remove(&teedev->idr, shm->id);
+>                         mutex_unlock(&teedev->mutex);
+>                 }
+>                 if (shm->pages) {
+> -                       for (n = 0; n < shm->num_pages; n++)
+> -                               put_page(shm->pages[n]);
+> +                       put_user_pages(shm->pages, shm->num_pages);
+>                         kfree(shm->pages);
+>                 }
+>         }
+> --
+> 2.22.0
+>
