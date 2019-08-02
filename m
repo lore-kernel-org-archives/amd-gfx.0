@@ -1,62 +1,73 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 5.2 20/76] drm/amd/display: use encoder's engine id to
- find matched free audio device
-Date: Fri,  2 Aug 2019 09:18:54 -0400
-Message-ID: <20190802131951.11600-20-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.2 23/76] drm/amd/display: Fix dc_create failure handling and 666 color depths
+Date: Fri,  2 Aug 2019 09:18:57 -0400
+Message-ID: <20190802131951.11600-23-sashal@kernel.org>
 References: <20190802131951.11600-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190802131951.11600-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Charlene Liu <Charlene.Liu-5C7GfCeVMHo@public.gmane.org>, Leo Li <sunpeng.li-5C7GfCeVMHo@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Tai Man <taiman.wong-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190802131951.11600-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: Julian Parkin <julian.parkin@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogVGFpIE1hbiA8dGFpbWFuLndvbmdAYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDc0
-ZWRhNzc2ZDdhNGU2OWVjN2FhMWNlMzBhODc2MzZmMTQyMjBmYmIgXQoKW1doeV0KT24gc29tZSBw
-bGF0Zm9ybXMsIHRoZSBlbmNvZGVyIGlkIDMgaXMgbm90IHBvcHVsYXRlZC4gU28gdGhlIGVuY29k
-ZXJzCmFyZSBub3Qgc3RvcmVkIGluIHJpZ2h0IG9yZGVyIGFzIGluZGV4IChpZDogMCwgMSwgMiwg
-NCwgNSkgYXQgcG9vbC4gVGhpcwp3b3VsZCBjYXVzZSBlbmNvZGVycyBpZCA0ICYgaWQgNSB0byBm
-YWlsIHdoZW4gZmluZGluZyBjb3JyZXNwb25kaW5nCmF1ZGlvIGRldmljZSwgZGVmYXVsdGluZyB0
-byB0aGUgZmlyc3QgYXZhaWxhYmxlIGF1ZGlvIGRldmljZS4gQXMgcmVzdWx0LAp3ZSBjYW5ub3Qg
-c3RyZWFtIGF1ZGlvIGludG8gdHdvIERQIHBvcnRzIHdpdGggZW5jb2RlcnMgaWQgNCAmIGlkIDUu
-CgpbSG93XQpJdCBuZWVkIHRvIGNyZWF0ZSBlbm91Z2ggYXVkaW8gZGV2aWNlIG9iamVjdHMgKDAg
-LSA1KSB0byBwZXJmb3JtIG1hdGNoaW5nLgpUaGVuIHVzZSBlbmNvZGVyIGVuZ2luZSBpZCB0byBm
-aW5kIG1hdGNoZWQgYXVkaW8gZGV2aWNlLgoKU2lnbmVkLW9mZi1ieTogVGFpIE1hbiA8dGFpbWFu
-LndvbmdAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IENoYXJsZW5lIExpdSA8Q2hhcmxlbmUuTGl1QGFt
-ZC5jb20+CkFja2VkLWJ5OiBMZW8gTGkgPHN1bnBlbmcubGlAYW1kLmNvbT4KU2lnbmVkLW9mZi1i
-eTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5
-OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYyB8IDggKysrKysrKy0KIDEgZmlsZSBjaGFu
-Z2VkLCA3IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29yZS9kY19yZXNvdXJjZS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9kaXNwbGF5L2RjL2NvcmUvZGNfcmVzb3VyY2UuYwppbmRleCBlYWM3MTg2ZTRmMDg0
-Li5hZDgyOTA2Yjk5ZGI5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvY29yZS9kY19yZXNvdXJjZS5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9jb3JlL2RjX3Jlc291cmNlLmMKQEAgLTI1NCw3ICsyNTQsNyBAQCBib29sIHJlc291cmNlX2Nv
-bnN0cnVjdCgKIAkJICogUE9SVF9DT05ORUNUSVZJVFkgPT0gMSAoYXMgaW5zdHJ1Y3RlZCBieSBI
-VyB0ZWFtKS4KIAkJICovCiAJCXVwZGF0ZV9udW1fYXVkaW8oJnN0cmFwcywgJm51bV9hdWRpbywg
-JnBvb2wtPmF1ZGlvX3N1cHBvcnQpOwotCQlmb3IgKGkgPSAwOyBpIDwgcG9vbC0+cGlwZV9jb3Vu
-dCAmJiBpIDwgbnVtX2F1ZGlvOyBpKyspIHsKKwkJZm9yIChpID0gMDsgaSA8IGNhcHMtPm51bV9h
-dWRpbzsgaSsrKSB7CiAJCQlzdHJ1Y3QgYXVkaW8gKmF1ZCA9IGNyZWF0ZV9mdW5jcy0+Y3JlYXRl
-X2F1ZGlvKGN0eCwgaSk7CiAKIAkJCWlmIChhdWQgPT0gTlVMTCkgewpAQCAtMTcwMiw2ICsxNzAy
-LDEyIEBAIHN0YXRpYyBzdHJ1Y3QgYXVkaW8gKmZpbmRfZmlyc3RfZnJlZV9hdWRpbygKIAkJCXJl
-dHVybiBwb29sLT5hdWRpb3NbaV07CiAJCX0KIAl9CisKKyAgICAvKiB1c2UgZW5naW5lIGlkIHRv
-IGZpbmQgZnJlZSBhdWRpbyAqLworCWlmICgoaWQgPCBwb29sLT5hdWRpb19jb3VudCkgJiYgKHJl
-c19jdHgtPmlzX2F1ZGlvX2FjcXVpcmVkW2lkXSA9PSBmYWxzZSkpIHsKKwkJcmV0dXJuIHBvb2wt
-PmF1ZGlvc1tpZF07CisJfQorCiAJLypub3QgZm91bmQgdGhlIG1hdGNoaW5nIG9uZSwgZmlyc3Qg
-Y29tZSBmaXJzdCBzZXJ2ZSovCiAJZm9yIChpID0gMDsgaSA8IHBvb2wtPmF1ZGlvX2NvdW50OyBp
-KyspIHsKIAkJaWYgKHJlc19jdHgtPmlzX2F1ZGlvX2FjcXVpcmVkW2ldID09IGZhbHNlKSB7Ci0t
-IAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+From: Julian Parkin <julian.parkin@amd.com>
+
+[ Upstream commit 0905f32977268149f06e3ce6ea4bd6d374dd891f ]
+
+[Why]
+It is possible (but very unlikely) that constructing dc fails
+before current_state is created.
+
+We support 666 color depth in some scenarios, but this
+isn't handled in get_norm_pix_clk. It uses exactly the
+same pixel clock as the 888 case.
+
+[How]
+Check for non null current_state before destructing.
+
+Add case for 666 color depth to get_norm_pix_clk to
+avoid assertion.
+
+Signed-off-by: Julian Parkin <julian.parkin@amd.com>
+Reviewed-by: Charlene Liu <Charlene.Liu@amd.com>
+Acked-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc.c          | 6 ++++--
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 1 +
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index ee6b646180b66..0a7adc2925e35 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -608,8 +608,10 @@ const struct dc_link_settings *dc_link_get_link_cap(
+ 
+ static void destruct(struct dc *dc)
+ {
+-	dc_release_state(dc->current_state);
+-	dc->current_state = NULL;
++	if (dc->current_state) {
++		dc_release_state(dc->current_state);
++		dc->current_state = NULL;
++	}
+ 
+ 	destroy_links(dc);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index ad82906b99db9..b87e8d80bb6a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -1872,6 +1872,7 @@ static int get_norm_pix_clk(const struct dc_crtc_timing *timing)
+ 		pix_clk /= 2;
+ 	if (timing->pixel_encoding != PIXEL_ENCODING_YCBCR422) {
+ 		switch (timing->display_color_depth) {
++		case COLOR_DEPTH_666:
+ 		case COLOR_DEPTH_888:
+ 			normalized_pix_clk = pix_clk;
+ 			break;
+-- 
+2.20.1
