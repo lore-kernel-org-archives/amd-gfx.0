@@ -1,285 +1,155 @@
-From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
-Subject: Re: [PATCH 25/36] drm/amdgpu/smu11: add smu support for navi12
-Date: Fri, 2 Aug 2019 01:47:17 +0000
-Message-ID: <BN8PR12MB32833822ACBA58C095AE4D0FA2D90@BN8PR12MB3283.namprd12.prod.outlook.com>
-References: <20190801202957.29791-1-alexander.deucher@amd.com>,
- <20190801202957.29791-26-alexander.deucher@amd.com>
+From: john.hubbard@gmail.com
+Subject: [PATCH 00/34] put_user_pages(): miscellaneous call sites
+Date: Thu,  1 Aug 2019 19:16:19 -0700
+Message-ID: <20190802021653.4882-1-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2079485385=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190801202957.29791-26-alexander.deucher-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Quan,
- Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "Zhang,
- Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <driverdev-devel-bounces@linuxdriverproject.org>
+List-Unsubscribe: <http://driverdev.linuxdriverproject.org/mailman/options/driverdev-devel>,
+ <mailto:driverdev-devel-request@linuxdriverproject.org?subject=unsubscribe>
+List-Archive: <http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/>
+List-Post: <mailto:driverdev-devel@linuxdriverproject.org>
+List-Help: <mailto:driverdev-devel-request@linuxdriverproject.org?subject=help>
+List-Subscribe: <http://driverdev.linuxdriverproject.org/mailman/listinfo/driverdev-devel>,
+ <mailto:driverdev-devel-request@linuxdriverproject.org?subject=subscribe>
+Errors-To: driverdev-devel-bounces@linuxdriverproject.org
+Sender: "devel" <driverdev-devel-bounces@linuxdriverproject.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, linux-rpi-kernel@lists.infradead.org, Dan Williams <dan.j.williams@intel.com>, linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.orgLKML <l>
+List-Id: amd-gfx.lists.freedesktop.org
 
---===============2079485385==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN8PR12MB32833822ACBA58C095AE4D0FA2D90BN8PR12MB3283namp_"
+From: John Hubbard <jhubbard@nvidia.com>
 
---_000_BN8PR12MB32833822ACBA58C095AE4D0FA2D90BN8PR12MB3283namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-Reviewed-by: Kevin Wang <kevni1.wang-5C7GfCeVMHo@public.gmane.org>
+These are best characterized as miscellaneous conversions: many (not all)
+call sites that don't involve biovec or iov_iter, nor mm/. It also leaves
+out a few call sites that require some more work. These are mostly pretty
+simple ones.
 
-Best Regards,
-Kevin
+It's probably best to send all of these via Andrew's -mm tree, assuming
+that there are no significant merge conflicts with ongoing work in other
+trees (which I doubt, given that these are small changes).
 
-________________________________
-From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Alex Deu=
-cher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Sent: Friday, August 2, 2019 4:29 AM
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: Deucher, Alexander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Zhang, Hawking <Hawking=
-.Zhang-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Yuan, Xiaojie <Xiaojie.Yua=
-n@amd.com>
-Subject: [PATCH 25/36] drm/amdgpu/smu11: add smu support for navi12
+These patches apply to the latest linux.git. Patch #1 is also already in
+Andrew's tree, but given the broad non-linux-mm Cc list, I thought it
+would be more convenient to just include that patch here, so that people
+can use linux.git as the base--even though these are probably destined
+for linux-mm.
 
-From: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
+This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+("mm: introduce put_user_page*(), placeholder versions"). That commit
+has an extensive description of the problem and the planned steps to
+solve it, but the highlites are:
 
-Same as other Navi asics.
+1) Provide put_user_page*() routines, intended to be used
+for releasing pages that were pinned via get_user_pages*().
 
-Signed-off-by: Xiaojie Yuan <xiaojie.yuan-5C7GfCeVMHo@public.gmane.org>
-Reviewed-by: Hawking Zhang <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>
-Reviewed-by: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
-Signed-off-by: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>
----
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 1 +
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c  | 6 ++++++
- 2 files changed, 7 insertions(+)
+2) Convert all of the call sites for get_user_pages*(), to
+invoke put_user_page*(), instead of put_page(). This involves dozens of
+call sites, and will take some time.
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
-md/powerplay/amdgpu_smu.c
-index 46976c90843b..5a613df174e6 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -720,6 +720,7 @@ static int smu_set_funcs(struct amdgpu_device *adev)
-         case CHIP_VEGA20:
-         case CHIP_NAVI10:
-         case CHIP_NAVI14:
-+       case CHIP_NAVI12:
-         case CHIP_ARCTURUS:
-                 if (adev->pm.pp_feature & PP_OVERDRIVE_MASK)
-                         smu->od_enabled =3D true;
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c
-index 43fcbdbba630..84eb14a6650f 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -46,6 +46,7 @@ MODULE_FIRMWARE("amdgpu/vega20_smc.bin");
- MODULE_FIRMWARE("amdgpu/arcturus_smc.bin");
- MODULE_FIRMWARE("amdgpu/navi10_smc.bin");
- MODULE_FIRMWARE("amdgpu/navi14_smc.bin");
-+MODULE_FIRMWARE("amdgpu/navi12_smc.bin");
+3) After (2) is complete, use get_user_pages*() and put_user_page*() to
+implement tracking of these pages. This tracking will be separate from
+the existing struct page refcounting.
 
- #define SMU11_VOLTAGE_SCALE 4
+4) Use the tracking and identification of these pages, to implement
+special handling (especially in writeback paths) when the pages are
+backed by a filesystem.
 
-@@ -163,6 +164,9 @@ static int smu_v11_0_init_microcode(struct smu_context =
-*smu)
-         case CHIP_NAVI14:
-                 chip_name =3D "navi14";
-                 break;
-+       case CHIP_NAVI12:
-+               chip_name =3D "navi12";
-+               break;
-         default:
-                 BUG();
-         }
-@@ -1331,6 +1335,7 @@ static int smu_v11_0_gfx_off_control(struct smu_conte=
-xt *smu, bool enable)
-                 break;
-         case CHIP_NAVI10:
-         case CHIP_NAVI14:
-+       case CHIP_NAVI12:
-                 if (!(adev->pm.pp_feature & PP_GFXOFF_MASK))
-                         return 0;
-                 mutex_lock(&smu->mutex);
-@@ -1754,6 +1759,7 @@ void smu_v11_0_set_smu_funcs(struct smu_context *smu)
-                 break;
-         case CHIP_NAVI10:
-         case CHIP_NAVI14:
-+       case CHIP_NAVI12:
-                 navi10_set_ppt_funcs(smu);
-                 break;
-         default:
---
-2.20.1
+And a few references, also from that commit:
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+[1] https://lwn.net/Articles/774411/ : "DMA and get_user_pages()"
+[2] https://lwn.net/Articles/753027/ : "The Trouble with get_user_pages()"
 
---_000_BN8PR12MB32833822ACBA58C095AE4D0FA2D90BN8PR12MB3283namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevni1.wang-5C7GfCeVMHo@public.gmane.org&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regards,<br>
-Kevin</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
-gmail.com&gt;<br>
-<b>Sent:</b> Friday, August 2, 2019 4:29 AM<br>
-<b>To:</b> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Zhang, Haw=
-king &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.Quan-5C7GfCeVMHo@public.gmane.org&gt;; Y=
-uan, Xiaojie &lt;Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-<b>Subject:</b> [PATCH 25/36] drm/amdgpu/smu11: add smu support for navi12<=
-/font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">From: Xiaojie Yuan &lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;<br=
->
-<br>
-Same as other Navi asics.<br>
-<br>
-Signed-off-by: Xiaojie Yuan &lt;xiaojie.yuan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Reviewed-by: Hawking Zhang &lt;Hawking.Zhang-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Reviewed-by: Evan Quan &lt;evan.quan-5C7GfCeVMHo@public.gmane.org&gt;<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher-5C7GfCeVMHo@public.gmane.org&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 1 &#43;<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c&nbsp; | 6 &#43;&#43;&#43;&#=
-43;&#43;&#43;<br>
-&nbsp;2 files changed, 7 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
-md/powerplay/amdgpu_smu.c<br>
-index 46976c90843b..5a613df174e6 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
-@@ -720,6 &#43;720,7 @@ static int smu_set_funcs(struct amdgpu_device *adev=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA20:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;pm.pp_feature &amp; PP_OVERDRIVE_MASK)<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu-&=
-gt;od_enabled =3D true;<br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c<br>
-index 43fcbdbba630..84eb14a6650f 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-@@ -46,6 &#43;46,7 @@ MODULE_FIRMWARE(&quot;amdgpu/vega20_smc.bin&quot;);<b=
-r>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/arcturus_smc.bin&quot;);<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/navi10_smc.bin&quot;);<br>
-&nbsp;MODULE_FIRMWARE(&quot;amdgpu/navi14_smc.bin&quot;);<br>
-&#43;MODULE_FIRMWARE(&quot;amdgpu/navi12_smc.bin&quot;);<br>
-&nbsp;<br>
-&nbsp;#define SMU11_VOLTAGE_SCALE 4<br>
-&nbsp;<br>
-@@ -163,6 &#43;164,9 @@ static int smu_v11_0_init_microcode(struct smu_cont=
-ext *smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; chip_name =3D &quot;navi14&quot;;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; chip_name =3D &quot;navi12&quot;;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; BUG();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -1331,6 &#43;1335,7 @@ static int smu_v11_0_gfx_off_control(struct smu_c=
-ontext *smu, bool enable)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (!(adev-&gt;pm.pp_feature &amp; PP_GFXOFF_MASK))<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
-n 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;smu-&gt;mutex);<br>
-@@ -1754,6 &#43;1759,7 @@ void smu_v11_0_set_smu_funcs(struct smu_context *=
-smu)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI10:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI14:<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_NAVI12:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; navi10_set_ppt_funcs(smu);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
--- <br>
-2.20.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
-lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
-</span></font></div>
-</body>
-</html>
+Ira Weiny (1):
+  fs/binfmt_elf: convert put_page() to put_user_page*()
 
---_000_BN8PR12MB32833822ACBA58C095AE4D0FA2D90BN8PR12MB3283namp_--
+John Hubbard (33):
+  mm/gup: add make_dirty arg to put_user_pages_dirty_lock()
+  net/rds: convert put_page() to put_user_page*()
+  net/ceph: convert put_page() to put_user_page*()
+  x86/kvm: convert put_page() to put_user_page*()
+  drm/etnaviv: convert release_pages() to put_user_pages()
+  drm/i915: convert put_page() to put_user_page*()
+  drm/radeon: convert put_page() to put_user_page*()
+  media/ivtv: convert put_page() to put_user_page*()
+  media/v4l2-core/mm: convert put_page() to put_user_page*()
+  genwqe: convert put_page() to put_user_page*()
+  scif: convert put_page() to put_user_page*()
+  vmci: convert put_page() to put_user_page*()
+  rapidio: convert put_page() to put_user_page*()
+  oradax: convert put_page() to put_user_page*()
+  staging/vc04_services: convert put_page() to put_user_page*()
+  drivers/tee: convert put_page() to put_user_page*()
+  vfio: convert put_page() to put_user_page*()
+  fbdev/pvr2fb: convert put_page() to put_user_page*()
+  fsl_hypervisor: convert put_page() to put_user_page*()
+  xen: convert put_page() to put_user_page*()
+  fs/exec.c: convert put_page() to put_user_page*()
+  orangefs: convert put_page() to put_user_page*()
+  uprobes: convert put_page() to put_user_page*()
+  futex: convert put_page() to put_user_page*()
+  mm/frame_vector.c: convert put_page() to put_user_page*()
+  mm/gup_benchmark.c: convert put_page() to put_user_page*()
+  mm/memory.c: convert put_page() to put_user_page*()
+  mm/madvise.c: convert put_page() to put_user_page*()
+  mm/process_vm_access.c: convert put_page() to put_user_page*()
+  crypt: convert put_page() to put_user_page*()
+  nfs: convert put_page() to put_user_page*()
+  goldfish_pipe: convert put_page() to put_user_page*()
+  kernel/events/core.c: convert put_page() to put_user_page*()
 
---===============2079485385==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
+ arch/x86/kvm/svm.c                            |   4 +-
+ crypto/af_alg.c                               |   7 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c         |   4 +-
+ drivers/gpu/drm/i915/gem/i915_gem_userptr.c   |   9 +-
+ drivers/gpu/drm/radeon/radeon_ttm.c           |   2 +-
+ drivers/infiniband/core/umem.c                |   5 +-
+ drivers/infiniband/hw/hfi1/user_pages.c       |   5 +-
+ drivers/infiniband/hw/qib/qib_user_pages.c    |   5 +-
+ drivers/infiniband/hw/usnic/usnic_uiom.c      |   5 +-
+ drivers/infiniband/sw/siw/siw_mem.c           |  10 +-
+ drivers/media/pci/ivtv/ivtv-udma.c            |  14 +--
+ drivers/media/pci/ivtv/ivtv-yuv.c             |  10 +-
+ drivers/media/v4l2-core/videobuf-dma-sg.c     |   3 +-
+ drivers/misc/genwqe/card_utils.c              |  17 +--
+ drivers/misc/mic/scif/scif_rma.c              |  17 ++-
+ drivers/misc/vmw_vmci/vmci_context.c          |   2 +-
+ drivers/misc/vmw_vmci/vmci_queue_pair.c       |  11 +-
+ drivers/platform/goldfish/goldfish_pipe.c     |   9 +-
+ drivers/rapidio/devices/rio_mport_cdev.c      |   9 +-
+ drivers/sbus/char/oradax.c                    |   2 +-
+ .../interface/vchiq_arm/vchiq_2835_arm.c      |  10 +-
+ drivers/tee/tee_shm.c                         |  10 +-
+ drivers/vfio/vfio_iommu_type1.c               |   8 +-
+ drivers/video/fbdev/pvr2fb.c                  |   3 +-
+ drivers/virt/fsl_hypervisor.c                 |   7 +-
+ drivers/xen/gntdev.c                          |   5 +-
+ drivers/xen/privcmd.c                         |   7 +-
+ fs/binfmt_elf.c                               |   2 +-
+ fs/binfmt_elf_fdpic.c                         |   2 +-
+ fs/exec.c                                     |   2 +-
+ fs/nfs/direct.c                               |   4 +-
+ fs/orangefs/orangefs-bufmap.c                 |   7 +-
+ include/linux/mm.h                            |   5 +-
+ kernel/events/core.c                          |   2 +-
+ kernel/events/uprobes.c                       |   6 +-
+ kernel/futex.c                                |  10 +-
+ mm/frame_vector.c                             |   4 +-
+ mm/gup.c                                      | 115 ++++++++----------
+ mm/gup_benchmark.c                            |   2 +-
+ mm/madvise.c                                  |   2 +-
+ mm/memory.c                                   |   2 +-
+ mm/process_vm_access.c                        |  18 +--
+ net/ceph/pagevec.c                            |   8 +-
+ net/rds/info.c                                |   5 +-
+ net/rds/message.c                             |   2 +-
+ net/rds/rdma.c                                |  15 ++-
+ virt/kvm/kvm_main.c                           |   4 +-
+ 47 files changed, 151 insertions(+), 266 deletions(-)
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============2079485385==--
+-- 
+2.22.0
