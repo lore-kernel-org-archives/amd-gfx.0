@@ -1,56 +1,39 @@
-From: John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH 00/34] put_user_pages(): miscellaneous call sites
-Date: Fri, 2 Aug 2019 12:33:13 -0700
-Message-ID: <8968c928-5712-03a9-68df-051f5b58fdbc@nvidia.com>
-References: <20190802021653.4882-1-jhubbard@nvidia.com>
- <20190802080554.GD2332@hirez.programming.kicks-ass.net>
+From: Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amdgpu: Fix GPU reset crash regression.
+Date: Fri, 2 Aug 2019 16:53:04 -0400
+Message-ID: <1564779184-22641-1-git-send-email-andrey.grodzovsky@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
-Return-path: <driverdev-devel-bounces@linuxdriverproject.org>
-In-Reply-To: <20190802080554.GD2332@hirez.programming.kicks-ass.net>
-Content-Language: en-US
-List-Unsubscribe: <http://driverdev.linuxdriverproject.org/mailman/options/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=unsubscribe>
-List-Archive: <http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/>
-List-Post: <mailto:driverdev-devel@linuxdriverproject.org>
-List-Help: <mailto:driverdev-devel-request@linuxdriverproject.org?subject=help>
-List-Subscribe: <http://driverdev.linuxdriverproject.org/mailman/listinfo/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=subscribe>
-Errors-To: driverdev-devel-bounces@linuxdriverproject.org
-Sender: "devel" <driverdev-devel-bounces@linuxdriverproject.org>
-To: Peter Zijlstra <peterz@infradead.org>, john.hubbard@gmail.com
-Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, linux-xfs@
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Alexander.Deucher-5C7GfCeVMHo@public.gmane.org, Andrey Grodzovsky <andrey.grodzovsky-5C7GfCeVMHo@public.gmane.org>, Monk.Liu-5C7GfCeVMHo@public.gmane.org
 
-On 8/2/19 1:05 AM, Peter Zijlstra wrote:
-> On Thu, Aug 01, 2019 at 07:16:19PM -0700, john.hubbard@gmail.com wrote:
-> 
->> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
->> ("mm: introduce put_user_page*(), placeholder versions"). That commit
->> has an extensive description of the problem and the planned steps to
->> solve it, but the highlites are:
-> 
-> That is one horridly mangled Changelog there :-/ It looks like it's
-> partially duplicated.
-
-Yeah. It took so long to merge that I think I was no longer able to
-actually see the commit description, after N readings. sigh
-
-> 
-> Anyway; no objections to any of that, but I just wanted to mention that
-> there are other problems with long term pinning that haven't been
-> mentioned, notably they inhibit compaction.
-> 
-> A long time ago I proposed an interface to mark pages as pinned, such
-> that we could run compaction before we actually did the pinning.
-> 
-
-This is all heading toward marking pages as pinned, so we should finally
-get there.  I'll post the RFC for tracking pinned pages shortly.
-
-
-thanks,
--- 
-John Hubbard
-NVIDIA
+YW1kZ3B1X2lwX2Jsb2NrLnN0YXR1cy5odyBmb3IgR01DIHdhc24ndCBzZXQgdG8KZmFsc2Ugb24g
+c3VzcGVuZCBkdXJpbmcgR1BVIHJlc2V0IGFuZCBzbyBvbiByZXN1bWUgZ21jX3Y5XzBfcmVzdW1l
+Cndhc24ndCBjYWxsZWQuCkNhdXNlZCBieSAnZHJtL2FtZGdwdTogZml4IGRvdWJsZSB1Y29kZSBs
+b2FkIGJ5IFBTUCh2MyknCgpTaWduZWQtb2ZmLWJ5OiBBbmRyZXkgR3JvZHpvdnNreSA8YW5kcmV5
+Lmdyb2R6b3Zza3lAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMSBk
+ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwpp
+bmRleCAzMWFiZDg4Li42N2ExZjU0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZGV2aWNlLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jCkBAIC0yMjcwLDkgKzIyNzAsMTAgQEAgc3RhdGljIGludCBhbWRncHVfZGV2
+aWNlX2lwX3N1c3BlbmRfcGhhc2UyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCQkJCQkJ
+ICBhZGV2LT5tcDFfc3RhdGUsIHIpOwogCQkJCQlyZXR1cm4gcjsKIAkJCQl9Ci0JCQkJYWRldi0+
+aXBfYmxvY2tzW2ldLnN0YXR1cy5odyA9IGZhbHNlOwogCQkJfQogCQl9CisKKwkJYWRldi0+aXBf
+YmxvY2tzW2ldLnN0YXR1cy5odyA9IGZhbHNlOwogCX0KIAogCXJldHVybiAwOwotLSAKMi43LjQK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZngg
+bWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
