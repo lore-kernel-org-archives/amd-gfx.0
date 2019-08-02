@@ -1,62 +1,56 @@
 From: Catalin Marinas <catalin.marinas@arm.com>
-Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
-Date: Fri, 2 Aug 2019 11:20:32 +0100
-Message-ID: <20190802102031.GB4175@arrakis.emea.arm.com>
+Subject: Re: [PATCH v19 02/15] arm64: Introduce prctl() options to control
+ the tagged user addresses ABI
+Date: Fri, 2 Aug 2019 11:50:38 +0100
+Message-ID: <20190802105038.GC4175@arrakis.emea.arm.com>
 References: <cover.1563904656.git.andreyknvl@google.com>
- <8c618cc9-ae68-9769-c5bb-67f1295abc4e@intel.com>
- <13b4cf53-3ecb-f7e7-b504-d77af15d77aa@arm.com>
- <CAAeHK+zTFqsLiB3Wf0bAi5A8ukQX5ZuvfUg4td-=r5UhBsUBOQ@mail.gmail.com>
- <96fd8da4-a912-f6cc-2b32-5791027dbbd5@intel.com>
+ <1c05651c53f90d07e98ee4973c2786ccf315db12.1563904656.git.andreyknvl@google.com>
+ <7a34470c-73f0-26ac-e63d-161191d4b1e4@intel.com>
+ <2b274c6f-6023-8eb8-5a86-507e6000e13d@arm.com>
+ <88c59d1e-eda9-fcfe-5ee3-64a331f34313@intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org>
 Content-Disposition: inline
-In-Reply-To: <96fd8da4-a912-f6cc-2b32-5791027dbbd5@intel.com>
-Sender: linux-kernel-owner@vger.kernel.org
+In-Reply-To: <88c59d1e-eda9-fcfe-5ee3-64a331f34313@intel.com>
+List-Unsubscribe: <http://lists.infradead.org/mailman/options/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=unsubscribe>
+List-Archive: <http://lists.infradead.org/pipermail/linux-arm-kernel/>
+List-Post: <mailto:linux-arm-kernel@lists.infradead.org>
+List-Help: <mailto:linux-arm-kernel-request@lists.infradead.org?subject=help>
+List-Subscribe: <http://lists.infradead.org/mailman/listinfo/linux-arm-kernel>,
+ <mailto:linux-arm-kernel-request@lists.infradead.org?subject=subscribe>
+Sender: "linux-arm-kernel" <linux-arm-kernel-bounces@lists.infradead.org>
+Errors-To: linux-arm-kernel-bounces+linux-arm-kernel=m.gmane.org@lists.infradead.org
 To: Dave Hansen <dave.hansen@intel.com>
-Cc: Andrey Konovalov <andreyknvl@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org, Szabolcs Nagy <Szabolcs.Nagy@arm.com>, Will Deacon <will.deacon@arm.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, Khalid Aziz <khalid.aziz@oracle.com>, linux-kselftest@vger.kernel.org, Felix Kuehling <Felix.Kuehling@amd.com>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Jacob Bramley <Jacob.Bramley@arm.com>, Leon Romanovsky <leon@kernel.org>, linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, Dmitry Vyukov <dvyukov@google.com>, Ramana Radhakrishnan <Ramana.Radhakrishnan@arm.com>, Dave Martin <Dave.Martin@arm.com>, Evgeniy Stepanov <eugenis@google.com>, linux-media@vger.kernel.org, Kees Cook <keescook@chromium.org>, Ruben Ayrapetyan <Ruben.Ayrapetyan@arm.com>, Andrey Konovalov <andreyknvl@google.com>, Kevin Brodsky <kevi>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Thu, Aug 01, 2019 at 08:36:47AM -0700, Dave Hansen wrote:
-> On 8/1/19 5:48 AM, Andrey Konovalov wrote:
-> > On Thu, Aug 1, 2019 at 2:11 PM Kevin Brodsky <kevin.brodsky@arm.com> wrote:
-> >> On 31/07/2019 17:50, Dave Hansen wrote:
-> >>> On 7/23/19 10:58 AM, Andrey Konovalov wrote:
-> >>>> The mmap and mremap (only new_addr) syscalls do not currently accept
-> >>>> tagged addresses. Architectures may interpret the tag as a background
-> >>>> colour for the corresponding vma.
-> >>>
-> >>> What the heck is a "background colour"? :)
-> >>
-> >> Good point, this is some jargon that we started using for MTE, the idea being that
-> >> the kernel could set a tag value (specified during mmap()) as "background colour" for
-> >> anonymous pages allocated in that range.
-> >>
-> >> Anyway, this patch series is not about MTE. Andrey, for v20 (if any), I think it's
-> >> best to drop this last sentence to avoid any confusion.
+On Thu, Aug 01, 2019 at 09:45:05AM -0700, Dave Hansen wrote:
+> On 8/1/19 5:38 AM, Kevin Brodsky wrote:
+> > This patch series only changes what is allowed or not at the syscall
+> > interface. It does not change the address space size. On arm64, TBI (Top
+> > Byte Ignore) has always been enabled for userspace, so it has never been
+> > possible to use the upper 8 bits of user pointers for addressing.
+> 
+> Oh, so does the address space that's available already chop that out?
 
-Indeed, the part with the "background colour" and even the "currently"
-adverb should be dropped.
+Yes. Currently the hardware only supports 52-bit virtual addresses. It
+could be expanded (though it needs a 5th page table level) to 56-bit VA
+but it's not currently on our (hardware) plans. Beyond 56-bit, it cannot
+be done without breaking the software expectations (and hopefully I'll
+retire before we need this ;)).
 
-Also, if we merge the patches via different trees anyway, I don't think
-there is a need for Andrey to integrate them with his series. We can
-pick them up directly in the arm64 tree (once the review finished).
+> > If other architectures were to support a similar functionality, then I
+> > agree that a common and more generic interface (if needed) would be
+> > helpful, but as it stands this is an arm64-specific prctl, and on arm64
+> > the address tag is defined by the architecture as bits [63:56].
+> 
+> It should then be an arch_prctl(), no?
 
-> OK, but what does that mean for tagged addresses getting passed to
-> mmap/mremap?  That sentence read to me like "architectures might allow
-> tags for ...something...".  So do we accept tagged addresses into those
-> syscalls?
-
-If mmap() does not return a tagged address, the reasoning is that it
-should not accept one as an address hint (with or without MAP_FIXED).
-Note that these docs should only describe the top-byte-ignore ABI while
-leaving the memory tagging for a future patchset.
-
-In that future patchset, we may want to update the mmap() ABI to allow,
-only in conjunction with PROT_MTE, a tagged pointer as an address
-argument. In such case mmap() will return a tagged address and the pages
-pre-coloured (on fault) with the tag requested by the user. As I said,
-that's to be discussed later in the year.
+I guess you just want renaming SET_TAGGED_ADDR_CTRL() to
+arch_prctl_tagged_addr_ctrl_set()? (similarly for 'get')
 
 -- 
 Catalin
