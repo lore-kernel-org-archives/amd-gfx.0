@@ -1,92 +1,59 @@
-From: =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH] Revert "drm/amdgpu: fix transform feedback GDS hang on gfx10
- (v2)"
-Date: Fri,  2 Aug 2019 18:27:03 -0400
-Message-ID: <20190802222703.428-1-maraeo@gmail.com>
+From: Jeff Layton <jlayton@kernel.org>
+Subject: Re: [PATCH 03/34] net/ceph: convert put_page() to put_user_page*()
+Date: Fri, 02 Aug 2019 18:32:33 -0400
+Message-ID: <2f0d5993e9731808b73b0018f5fc4b3335fc6373.camel@kernel.org>
+References: <20190802022005.5117-1-jhubbard@nvidia.com>
+         <20190802022005.5117-4-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+Return-path: <netdev-owner@vger.kernel.org>
+In-Reply-To: <20190802022005.5117-4-jhubbard@nvidia.com>
+Sender: netdev-owner@vger.kernel.org
+To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
+Cc: Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?ISO-8859-1?Q?J=E9r=F4me?= Glisse <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogTWFyZWsgT2zFocOhayA8bWFyZWsub2xzYWtAYW1kLmNvbT4KClRoaXMgcmV2ZXJ0cyBj
-b21taXQgYjQxMzM1YzZjMDMwM2QxMDBhYmU4OWM4NDNlNTI2NDVkMTk3NGNkOS4KClNFVF9DT05G
-SUdfUkVHIHdyaXRlcyB0byBtZW1vcnkgaWYgcmVnaXN0ZXIgc2hhZG93aW5nIGlzIGVuYWJsZWQs
-CmNhdXNpbmcgYSBWTSBmYXVsdC4KCk5HRyBzdHJlYW1vdXQgaXMgdW5zdGFibGUgYW55d2F5LCBz
-byBhbGwgVU1EcyBzaG91bGQgdXNlIGxlZ2FjeQpzdHJlYW1vdXQuIEkgdGhpbmsgTWVzYSBpcyB0
-aGUgb25seSBkcml2ZXIgdXNpbmcgTkdHIHN0cmVhbW91dC4KClNpZ25lZC1vZmYtYnk6IE1hcmVr
-IE9sxaHDoWsgPG1hcmVrLm9sc2FrQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2dkcy5oIHwgIDEgLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3YxMF8wLmMgIHwgMTIgKy0tLS0tLS0tLS0tCiAyIGZpbGVzIGNoYW5nZWQsIDEgaW5zZXJ0aW9u
-KCspLCAxMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfZ2RzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2Rz
-LmgKaW5kZXggZGY4YTIzNTU0ODMxLi5mNmFjMWU5NTQ4ZjIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZHMuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfZ2RzLmgKQEAgLTI1LDIxICsyNSwyMCBAQAogI2RlZmluZSBfX0FNREdQ
-VV9HRFNfSF9fCiAKIHN0cnVjdCBhbWRncHVfcmluZzsKIHN0cnVjdCBhbWRncHVfYm87CiAKIHN0
-cnVjdCBhbWRncHVfZ2RzIHsKIAl1aW50MzJfdCBnZHNfc2l6ZTsKIAl1aW50MzJfdCBnd3Nfc2l6
-ZTsKIAl1aW50MzJfdCBvYV9zaXplOwogCXVpbnQzMl90IGdkc19jb21wdXRlX21heF93YXZlX2lk
-OwotCXVpbnQzMl90IHZndF9nc19tYXhfd2F2ZV9pZDsKIH07CiAKIHN0cnVjdCBhbWRncHVfZ2Rz
-X3JlZ19vZmZzZXQgewogCXVpbnQzMl90CW1lbV9iYXNlOwogCXVpbnQzMl90CW1lbV9zaXplOwog
-CXVpbnQzMl90CWd3czsKIAl1aW50MzJfdAlvYTsKIH07CiAKICNlbmRpZiAvKiBfX0FNREdQVV9H
-RFNfSF9fICovCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEw
-XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jCmluZGV4IDYxODI5
-MWRmNjU5Yi4uZTM4MjNjOGU5ODUwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9nZnhfdjEwXzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEw
-XzAuYwpAQCAtNDI2OSwyOSArNDI2OSwyMCBAQCBzdGF0aWMgdm9pZCBnZnhfdjEwXzBfcmluZ19l
-bWl0X2hkcF9mbHVzaChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcpCiB9CiAKIHN0YXRpYyB2b2lk
-IGdmeF92MTBfMF9yaW5nX2VtaXRfaWJfZ2Z4KHN0cnVjdCBhbWRncHVfcmluZyAqcmluZywKIAkJ
-CQkgICAgICAgc3RydWN0IGFtZGdwdV9qb2IgKmpvYiwKIAkJCQkgICAgICAgc3RydWN0IGFtZGdw
-dV9pYiAqaWIsCiAJCQkJICAgICAgIHVpbnQzMl90IGZsYWdzKQogewogCXVuc2lnbmVkIHZtaWQg
-PSBBTURHUFVfSk9CX0dFVF9WTUlEKGpvYik7CiAJdTMyIGhlYWRlciwgY29udHJvbCA9IDA7CiAK
-LQkvKiBQcmV2ZW50IGEgaHcgZGVhZGxvY2sgZHVlIHRvIGEgd2F2ZSBJRCBtaXNtYXRjaCBiZXR3
-ZWVuIE1FIGFuZCBHRFMuCi0JICogVGhpcyByZXNldHMgdGhlIHdhdmUgSUQgY291bnRlcnMuIChu
-ZWVkZWQgYnkgdHJhbnNmb3JtIGZlZWRiYWNrKQotCSAqIFRPRE86IFRoaXMgbWlnaHQgb25seSBi
-ZSBuZWVkZWQgb24gYSBWTUlEIHN3aXRjaCB3aGVuIHdlIGNoYW5nZQotCSAqICAgICAgIHRoZSBH
-RFMgT0EgbWFwcGluZywgbm90IHN1cmUuCi0JICovCi0JYW1kZ3B1X3Jpbmdfd3JpdGUocmluZywg
-UEFDS0VUMyhQQUNLRVQzX1NFVF9DT05GSUdfUkVHLCAxKSk7Ci0JYW1kZ3B1X3Jpbmdfd3JpdGUo
-cmluZywgbW1WR1RfR1NfTUFYX1dBVkVfSUQpOwotCWFtZGdwdV9yaW5nX3dyaXRlKHJpbmcsIHJp
-bmctPmFkZXYtPmdkcy52Z3RfZ3NfbWF4X3dhdmVfaWQpOwotCiAJaWYgKGliLT5mbGFncyAmIEFN
-REdQVV9JQl9GTEFHX0NFKQogCQloZWFkZXIgPSBQQUNLRVQzKFBBQ0tFVDNfSU5ESVJFQ1RfQlVG
-RkVSX0NOU1QsIDIpOwogCWVsc2UKIAkJaGVhZGVyID0gUEFDS0VUMyhQQUNLRVQzX0lORElSRUNU
-X0JVRkZFUiwgMik7CiAKIAljb250cm9sIHw9IGliLT5sZW5ndGhfZHcgfCAodm1pZCA8PCAyNCk7
-CiAKIAlpZiAoYW1kZ3B1X21jYnAgJiYgKGliLT5mbGFncyAmIEFNREdQVV9JQl9GTEFHX1BSRUVN
-UFQpKSB7CiAJCWNvbnRyb2wgfD0gSU5ESVJFQ1RfQlVGRkVSX1BSRV9FTkIoMSk7CiAKQEAgLTUw
-MjMsMjEgKzUwMTQsMjEgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBn
-ZnhfdjEwXzBfcmluZ19mdW5jc19nZnggPSB7CiAJCSAgICAgKi8KIAkJNSArIC8qIENPTkRfRVhF
-QyAqLwogCQk3ICsgLyogSERQX2ZsdXNoICovCiAJCTQgKyAvKiBWR1RfZmx1c2ggKi8KIAkJMTQg
-KyAvKglDRV9NRVRBICovCiAJCTMxICsgLyoJREVfTUVUQSAqLwogCQkzICsgLyogQ05UWF9DVFJM
-ICovCiAJCTUgKyAvKiBIRFBfSU5WTCAqLwogCQk4ICsgOCArIC8qIEZFTkNFIHgyICovCiAJCTIs
-IC8qIFNXSVRDSF9CVUZGRVIgKi8KLQkuZW1pdF9pYl9zaXplID0JNywgLyogZ2Z4X3YxMF8wX3Jp
-bmdfZW1pdF9pYl9nZnggKi8KKwkuZW1pdF9pYl9zaXplID0JNCwgLyogZ2Z4X3YxMF8wX3Jpbmdf
-ZW1pdF9pYl9nZnggKi8KIAkuZW1pdF9pYiA9IGdmeF92MTBfMF9yaW5nX2VtaXRfaWJfZ2Z4LAog
-CS5lbWl0X2ZlbmNlID0gZ2Z4X3YxMF8wX3JpbmdfZW1pdF9mZW5jZSwKIAkuZW1pdF9waXBlbGlu
-ZV9zeW5jID0gZ2Z4X3YxMF8wX3JpbmdfZW1pdF9waXBlbGluZV9zeW5jLAogCS5lbWl0X3ZtX2Zs
-dXNoID0gZ2Z4X3YxMF8wX3JpbmdfZW1pdF92bV9mbHVzaCwKIAkuZW1pdF9nZHNfc3dpdGNoID0g
-Z2Z4X3YxMF8wX3JpbmdfZW1pdF9nZHNfc3dpdGNoLAogCS5lbWl0X2hkcF9mbHVzaCA9IGdmeF92
-MTBfMF9yaW5nX2VtaXRfaGRwX2ZsdXNoLAogCS50ZXN0X3JpbmcgPSBnZnhfdjEwXzBfcmluZ190
-ZXN0X3JpbmcsCiAJLnRlc3RfaWIgPSBnZnhfdjEwXzBfcmluZ190ZXN0X2liLAogCS5pbnNlcnRf
-bm9wID0gYW1kZ3B1X3JpbmdfaW5zZXJ0X25vcCwKIAkucGFkX2liID0gYW1kZ3B1X3JpbmdfZ2Vu
-ZXJpY19wYWRfaWIsCkBAIC01MTc1LDIxICs1MTY2LDIwIEBAIHN0YXRpYyB2b2lkIGdmeF92MTBf
-MF9zZXRfcmxjX2Z1bmNzKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogfQogCiBzdGF0aWMg
-dm9pZCBnZnhfdjEwXzBfc2V0X2dkc19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
-ewogCS8qIGluaXQgYXNpYyBnZHMgaW5mbyAqLwogCXN3aXRjaCAoYWRldi0+YXNpY190eXBlKSB7
-CiAJY2FzZSBDSElQX05BVkkxMDoKIAlkZWZhdWx0OgogCQlhZGV2LT5nZHMuZ2RzX3NpemUgPSAw
-eDEwMDAwOwogCQlhZGV2LT5nZHMuZ2RzX2NvbXB1dGVfbWF4X3dhdmVfaWQgPSAweDRmZjsKLQkJ
-YWRldi0+Z2RzLnZndF9nc19tYXhfd2F2ZV9pZCA9IDB4M2ZmOwogCQlicmVhazsKIAl9CiAKIAlh
-ZGV2LT5nZHMuZ3dzX3NpemUgPSA2NDsKIAlhZGV2LT5nZHMub2Ffc2l6ZSA9IDE2OwogfQogCiBz
-dGF0aWMgdm9pZCBnZnhfdjEwXzBfc2V0X3VzZXJfd2dwX2luYWN0aXZlX2JpdG1hcF9wZXJfc2go
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJCQkJCQkJICB1MzIgYml0bWFwKQogewotLSAK
-Mi4xNy4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Thu, 2019-08-01 at 19:19 -0700, john.hubbard@gmail.com wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
+> 
+> For pages that were retained via get_user_pages*(), release those pages
+> via the new put_user_page*() routines, instead of via put_page() or
+> release_pages().
+> 
+> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+> ("mm: introduce put_user_page*(), placeholder versions").
+> 
+> Cc: Ilya Dryomov <idryomov@gmail.com>
+> Cc: Sage Weil <sage@redhat.com>
+> Cc: David S. Miller <davem@davemloft.net>
+> Cc: ceph-devel@vger.kernel.org
+> Cc: netdev@vger.kernel.org
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  net/ceph/pagevec.c | 8 +-------
+>  1 file changed, 1 insertion(+), 7 deletions(-)
+> 
+> diff --git a/net/ceph/pagevec.c b/net/ceph/pagevec.c
+> index 64305e7056a1..c88fff2ab9bd 100644
+> --- a/net/ceph/pagevec.c
+> +++ b/net/ceph/pagevec.c
+> @@ -12,13 +12,7 @@
+>  
+>  void ceph_put_page_vector(struct page **pages, int num_pages, bool dirty)
+>  {
+> -	int i;
+> -
+> -	for (i = 0; i < num_pages; i++) {
+> -		if (dirty)
+> -			set_page_dirty_lock(pages[i]);
+> -		put_page(pages[i]);
+> -	}
+> +	put_user_pages_dirty_lock(pages, num_pages, dirty);
+>  	kvfree(pages);
+>  }
+>  EXPORT_SYMBOL(ceph_put_page_vector);
+
+This patch looks sane enough. Assuming that the earlier patches are OK:
+
+Acked-by: Jeff Layton <jlayton@kernel.org>
