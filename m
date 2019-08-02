@@ -1,13 +1,12 @@
-From: "Greathouse, Joseph" <Joseph.Greathouse-5C7GfCeVMHo@public.gmane.org>
-Subject: [PATCH v2] drm/amdkfd: Remove GPU ID in GWS queue creation
-Date: Thu, 1 Aug 2019 21:14:33 +0000
-Message-ID: <20190801211417.4781-1-Joseph.Greathouse@amd.com>
-References: <d4b6a8a2-20da-027b-bfe9-e77517411884@amd.com>
+From: "Wang, Kevin(Yang)" <Kevin1.Wang-5C7GfCeVMHo@public.gmane.org>
+Subject: Re: [PATCH][drm-next] drm/amd/powerplay: fix a few spelling mistakes
+Date: Fri, 2 Aug 2019 01:44:19 +0000
+Message-ID: <BN8PR12MB32832A7472EA99209E938F53A2D90@BN8PR12MB3283.namprd12.prod.outlook.com>
+References: <20190801083941.4230-1-colin.king@canonical.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0547157239=="
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <d4b6a8a2-20da-027b-bfe9-e77517411884-5C7GfCeVMHo@public.gmane.org>
+In-Reply-To: <20190801083941.4230-1-colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
 Content-Language: en-US
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -19,96 +18,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Kuehling,
- Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "Greathouse,
- Joseph" <Joseph.Greathouse-5C7GfCeVMHo@public.gmane.org>
+To: Colin King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>, Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>, "Quan,
+ Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>, "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, "Koenig, Christian" <Christian.Koenig-5C7GfCeVMHo@public.gmane.org>, "Zhou, David(ChunMing)" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org" <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
 
-VGhlIGdwdV9pZCBhcmd1bWVudCBpcyBub3QgbmVlZGVkIHdoZW4gZW5hYmxpbmcgR1dTIG9uIGEg
-cXVldWUuClRoZSBxdWV1ZSBjYW4gb25seSBiZSBhc3NvY2lhdGVkIHdpdGggb25lIGRldmljZSwg
-c28gdGhlIG9ubHkKcG9zc2libGUgc2l0dWF0aW9ucyBmb3IgdGhlIGNhbGwgYXMgcHJldmlvdXNs
-eSBkZWZpbmVkIHdlcmU6CjEpIHRoZSBncHVfaWQgd2FzIGZvciB0aGUgZGV2aWNlIGFzc29jaWF0
-ZWQgd2l0aCB0aGUgdGFyZ2V0IHF1ZXVlCmFuZCB0aGluZ3Mgd29ya2VkIGFzIGV4cGVjdGVkLCBv
-ciAyKSB0aGUgZ3B1X2lkIHdhcyBmb3IgYSBkZXZpY2UKbm90IGFzc29jaWF0ZWQgd2l0aCB0aGUg
-dGFyZ2V0IHF1ZXVlIGFuZCB0aGUgcmVxdWVzdCB3YXMgdW5kZWZpbmVkLgoKSW4gcGFydGljdWxh
-ciwgdGhlIHByZXZpb3VzIHJlc3VsdCBvZiB0aGUgdW5kZWZpbmVkIG9wZXJhdGlvbiBpcwp0aGF0
-IHlvdSB3b3VsZCBhbGxvY2F0ZSB0aGUgbnVtYmVyIG9mIEdXUyBlbnRyaWVzIGF2YWlsYWJsZSBv
-biB0aGUKZ3B1X2lkIGRldmljZSwgZXZlbiBpZiB0aGUgcXVldWUgd2FzIG9uIGEgZGV2aWNlIHdp
-dGggYSBkaWZmZXJlbnQKbnVtYmVyIGF2YWlsYWJsZS4gRm9yIGV4YW1wbGU6IGEgcXVldWUgb24g
-YSBkZXZpY2Ugd2l0aG91dCBHV1MKY2FwYWJpbGl0eSwgYnV0IHRoZSB1c2VyIHBhc3NlcyBpbiBh
-IGdwdV9pZCBmb3IgYSBkZXZpY2Ugd2l0aCBHV1MuCldlIHdvdWxkIGVuZCB1cCB0cnlpbmcgdG8g
-YWxsb2NhdGUgR1dTIG9uIHRoZSBkZXZpY2UgdGhhdCBkb2VzIG5vdApzdXBwb3J0IGl0LgoKUmF0
-aGVyIHRoYW4gbGVhdmluZyB0aGlzIGZvb3RndW4gYXJvdW5kIGFuZCBtYWtpbmcgbGlmZSBtb3Jl
-CmRpZmZpY3VsdCBmb3IgdXNlciBzcGFjZSwgd2UgY2FuIGluc3RlYWQgZ3JhYiB0aGUgZ3B1X2lk
-IGZyb20gdGhlCnRhcmdldCBxdWV1ZS4gVGhlIGdwdV9pZCBhcmd1bWVudCBiZWluZyBwYXNzZWQg
-aW4gaXMgdGh1cyBub3QKbmVlZGVkLgoKdjI6IEZpeGVkIHN0eWxpbmcsIHJlbW92ZWQgZ3B1X2lk
-IHNpbmNlIGl0IG5ldmVyIGhpdCBtYWluIHJlbGVhc2UKCkNoYW5nZS1JZDogSTczYzAzMmQ3MTE1
-YjYyNTA1YTZlN2M0OGQyYzA2MGZjM2M2ZWU5MTUKU2lnbmVkLW9mZi1ieTogSm9zZXBoIEdyZWF0
-aG91c2UgPEpvc2VwaC5HcmVhdGhvdXNlQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRrZmQva2ZkX2NoYXJkZXYuYyAgICAgIHwgMjYgKysrKysrKysrKysrKystLS0tLQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaCAgICAgICAgIHwgIDIgKysKIC4uLi9h
-bWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFnZXIuYyAgICB8ICA5ICsrKysrKysKIGlu
-Y2x1ZGUvdWFwaS9saW51eC9rZmRfaW9jdGwuaCAgICAgICAgICAgICAgICB8ICAzICstLQogNCBm
-aWxlcyBjaGFuZ2VkLCAzMSBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRldi5jCmluZGV4IGY5MTEyNmY1ZjFiZS4uYjQ2NGFk
-MWUyYzRjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfY2hhcmRl
-di5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9jaGFyZGV2LmMKQEAgLTE1
-NzIsMjUgKzE1NzIsMzcgQEAgc3RhdGljIGludCBrZmRfaW9jdGxfYWxsb2NfcXVldWVfZ3dzKHN0
-cnVjdCBmaWxlICpmaWxlcCwKIHsKIAlpbnQgcmV0dmFsOwogCXN0cnVjdCBrZmRfaW9jdGxfYWxs
-b2NfcXVldWVfZ3dzX2FyZ3MgKmFyZ3MgPSBkYXRhOworCXN0cnVjdCBxdWV1ZSAqcTsKIAlzdHJ1
-Y3Qga2ZkX2RldiAqZGV2OwogCiAJaWYgKCFod3NfZ3dzX3N1cHBvcnQpCiAJCXJldHVybiAtRU5P
-REVWOwogCi0JZGV2ID0ga2ZkX2RldmljZV9ieV9pZChhcmdzLT5ncHVfaWQpOwotCWlmICghZGV2
-KSB7Ci0JCXByX2RlYnVnKCJDb3VsZCBub3QgZmluZCBncHUgaWQgMHgleFxuIiwgYXJncy0+Z3B1
-X2lkKTsKLQkJcmV0dXJuIC1FTk9ERVY7CisJbXV0ZXhfbG9jaygmcC0+bXV0ZXgpOworCXEgPSBw
-cW1fZ2V0X3VzZXJfcXVldWUoJnAtPnBxbSwgYXJncy0+cXVldWVfaWQpOworCisJaWYgKHEpIHsK
-KwkJZGV2ID0gcS0+ZGV2aWNlOworCX0KKwllbHNlIHsKKwkJcmV0dmFsID0gLUVJTlZBTDsKKwkJ
-Z290byBvdXRfdW5sb2NrOworCX0KKworCWlmIChkZXYtPmRxbS0+c2NoZWRfcG9saWN5ID09IEtG
-RF9TQ0hFRF9QT0xJQ1lfTk9fSFdTKSB7CisJCXJldHZhbCA9IC1FTk9ERVY7CisJCWdvdG8gb3V0
-X3VubG9jazsKIAl9Ci0JaWYgKGRldi0+ZHFtLT5zY2hlZF9wb2xpY3kgPT0gS0ZEX1NDSEVEX1BP
-TElDWV9OT19IV1MpCi0JCXJldHVybiAtRU5PREVWOwogCi0JbXV0ZXhfbG9jaygmcC0+bXV0ZXgp
-OwogCXJldHZhbCA9IHBxbV9zZXRfZ3dzKCZwLT5wcW0sIGFyZ3MtPnF1ZXVlX2lkLCBhcmdzLT5u
-dW1fZ3dzID8gZGV2LT5nd3MgOiBOVUxMKTsKIAltdXRleF91bmxvY2soJnAtPm11dGV4KTsKIAog
-CWFyZ3MtPmZpcnN0X2d3cyA9IDA7CiAJcmV0dXJuIHJldHZhbDsKKworb3V0X3VubG9jazoKKwlt
-dXRleF91bmxvY2soJnAtPm11dGV4KTsKKwlyZXR1cm4gcmV0dmFsOwogfQogCiBzdGF0aWMgaW50
-IGtmZF9pb2N0bF9nZXRfZG1hYnVmX2luZm8oc3RydWN0IGZpbGUgKmZpbGVwLApkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaCBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgKaW5kZXggYWE3YmYyMGQyMGY4Li45YjlhOGRhMTg3Yzgg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmgKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3ByaXYuaApAQCAtOTE1LDYgKzkxNSw4IEBA
-IGludCBwcW1fc2V0X2d3cyhzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyICpwcW0sIHVuc2ln
-bmVkIGludCBxaWQsCiAJCQl2b2lkICpnd3MpOwogc3RydWN0IGtlcm5lbF9xdWV1ZSAqcHFtX2dl
-dF9rZXJuZWxfcXVldWUoc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdlciAqcHFtLAogCQkJCQkJ
-dW5zaWduZWQgaW50IHFpZCk7CitzdHJ1Y3QgcXVldWUgKnBxbV9nZXRfdXNlcl9xdWV1ZShzdHJ1
-Y3QgcHJvY2Vzc19xdWV1ZV9tYW5hZ2VyICpwcW0sCisJCQkJCQl1bnNpZ25lZCBpbnQgcWlkKTsK
-IGludCBwcW1fZ2V0X3dhdmVfc3RhdGUoc3RydWN0IHByb2Nlc3NfcXVldWVfbWFuYWdlciAqcHFt
-LAogCQkgICAgICAgdW5zaWduZWQgaW50IHFpZCwKIAkJICAgICAgIHZvaWQgX191c2VyICpjdGxf
-c3RhY2ssCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vz
-c19xdWV1ZV9tYW5hZ2VyLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vz
-c19xdWV1ZV9tYW5hZ2VyLmMKaW5kZXggN2U2YzNlZTgyZjViLi43YTYxYTViMDllZDggMTAwNjQ0
-Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzX3F1ZXVlX21hbmFn
-ZXIuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzc19xdWV1ZV9t
-YW5hZ2VyLmMKQEAgLTQ3Myw2ICs0NzMsMTUgQEAgc3RydWN0IGtlcm5lbF9xdWV1ZSAqcHFtX2dl
-dF9rZXJuZWxfcXVldWUoCiAJcmV0dXJuIE5VTEw7CiB9CiAKK3N0cnVjdCBxdWV1ZSAqcHFtX2dl
-dF91c2VyX3F1ZXVlKHN0cnVjdCBwcm9jZXNzX3F1ZXVlX21hbmFnZXIgKnBxbSwKKwkJCQkJdW5z
-aWduZWQgaW50IHFpZCkKK3sKKwlzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9ub2RlICpwcW47CisKKwlw
-cW4gPSBnZXRfcXVldWVfYnlfcWlkKHBxbSwgcWlkKTsKKwlyZXR1cm4gcHFuID8gcHFuLT5xIDog
-TlVMTDsKK30KKwogaW50IHBxbV9nZXRfd2F2ZV9zdGF0ZShzdHJ1Y3QgcHJvY2Vzc19xdWV1ZV9t
-YW5hZ2VyICpwcW0sCiAJCSAgICAgICB1bnNpZ25lZCBpbnQgcWlkLAogCQkgICAgICAgdm9pZCBf
-X3VzZXIgKmN0bF9zdGFjaywKZGlmZiAtLWdpdCBhL2luY2x1ZGUvdWFwaS9saW51eC9rZmRfaW9j
-dGwuaCBiL2luY2x1ZGUvdWFwaS9saW51eC9rZmRfaW9jdGwuaAppbmRleCAwNzBkMWJjN2U3MjUu
-LjRmNjY3NjQyOGM1YyAxMDA2NDQKLS0tIGEvaW5jbHVkZS91YXBpL2xpbnV4L2tmZF9pb2N0bC5o
-CisrKyBiL2luY2x1ZGUvdWFwaS9saW51eC9rZmRfaW9jdGwuaApAQCAtNDEyLDE3ICs0MTIsMTYg
-QEAgc3RydWN0IGtmZF9pb2N0bF91bm1hcF9tZW1vcnlfZnJvbV9ncHVfYXJncyB7CiAKIC8qIEFs
-bG9jYXRlIEdXUyBmb3Igc3BlY2lmaWMgcXVldWUKICAqCi0gKiBAZ3B1X2lkOiAgICAgIGRldmlj
-ZSBpZGVudGlmaWVyCiAgKiBAcXVldWVfaWQ6ICAgIHF1ZXVlJ3MgaWQgdGhhdCBHV1MgaXMgYWxs
-b2NhdGVkIGZvcgogICogQG51bV9nd3M6ICAgICBob3cgbWFueSBHV1MgdG8gYWxsb2NhdGUKICAq
-IEBmaXJzdF9nd3M6ICAgaW5kZXggb2YgdGhlIGZpcnN0IEdXUyBhbGxvY2F0ZWQuCiAgKiAgICAg
-ICAgICAgICAgIG9ubHkgc3VwcG9ydCBjb250aWd1b3VzIEdXUyBhbGxvY2F0aW9uCiAgKi8KIHN0
-cnVjdCBrZmRfaW9jdGxfYWxsb2NfcXVldWVfZ3dzX2FyZ3MgewotCV9fdTMyIGdwdV9pZDsJCS8q
-IHRvIEtGRCAqLwogCV9fdTMyIHF1ZXVlX2lkOwkJLyogdG8gS0ZEICovCiAJX191MzIgbnVtX2d3
-czsJCS8qIHRvIEtGRCAqLwogCV9fdTMyIGZpcnN0X2d3czsJLyogZnJvbSBLRkQgKi8KKwlfX3Uz
-MiBwYWQ7CiB9OwogCiBzdHJ1Y3Qga2ZkX2lvY3RsX2dldF9kbWFidWZfaW5mb19hcmdzIHsKLS0g
-CjIuMTkuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+--===============0547157239==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN8PR12MB32832A7472EA99209E938F53A2D90BN8PR12MB3283namp_"
+
+--_000_BN8PR12MB32832A7472EA99209E938F53A2D90BN8PR12MB3283namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+________________________________
+From: amd-gfx <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org> on behalf of Colin Ki=
+ng <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+Sent: Thursday, August 1, 2019 4:39 PM
+To: Rex Zhu <rex.zhu-5C7GfCeVMHo@public.gmane.org>; Quan, Evan <Evan.Quan-5C7GfCeVMHo@public.gmane.org>; Deucher, Ale=
+xander <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>; Koenig, Christian <Christian.Koenig@amd=
+.com>; Zhou, David(ChunMing) <David1.Zhou-5C7GfCeVMHo@public.gmane.org>; David Airlie <airlied@l=
+inux.ie>; Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>; amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <a=
+md-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>; dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org <dri-devel@l=
+ists.freedesktop.org>
+Cc: kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org <kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>; linu=
+x-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>
+Subject: [PATCH][drm-next] drm/amd/powerplay: fix a few spelling mistakes
+
+From: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+
+There are a few spelling mistakes "unknow" -> "unknown" and
+"enabeld" -> "enabled". Fix these.
+
+Signed-off-by: Colin Ian King <colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org>
+---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c
+index 13b2c8a60232..d029a99e600e 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -39,7 +39,7 @@ static const char* __smu_message_names[] =3D {
+ const char *smu_get_message_name(struct smu_context *smu, enum smu_message=
+_type type)
+ {
+         if (type < 0 || type > SMU_MSG_MAX_COUNT)
+-               return "unknow smu message";
++               return "unknown smu message";
+         return __smu_message_names[type];
+ }
+
+@@ -52,7 +52,7 @@ static const char* __smu_feature_names[] =3D {
+ const char *smu_get_feature_name(struct smu_context *smu, enum smu_feature=
+_mask feature)
+ {
+         if (feature < 0 || feature > SMU_FEATURE_COUNT)
+-               return "unknow smu feature";
++               return "unknown smu feature";
+         return __smu_feature_names[feature];
+ }
+
+@@ -79,7 +79,7 @@ size_t smu_sys_get_pp_feature_mask(struct smu_context *sm=
+u, char *buf)
+                                count++,
+                                smu_get_feature_name(smu, i),
+                                feature_index,
+-                              !!smu_feature_is_enabled(smu, i) ? "enabeld"=
+ : "disabled");
++                              !!smu_feature_is_enabled(smu, i) ? "enabled"=
+ : "disabled");
+         }
+
+[kevin]:
+thanks correct it.
+Reviewed-by: Kevin Wang <kevin1.wang-5C7GfCeVMHo@public.gmane.org>
+
+BR
+Kevin
+
+ failed:
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_000_BN8PR12MB32832A7472EA99209E938F53A2D90BN8PR12MB3283namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt; on behalf of Colin King &lt;colin.king@can=
+onical.com&gt;<br>
+<b>Sent:</b> Thursday, August 1, 2019 4:39 PM<br>
+<b>To:</b> Rex Zhu &lt;rex.zhu-5C7GfCeVMHo@public.gmane.org&gt;; Quan, Evan &lt;Evan.Quan-urvtwAKJhsc@public.gmane.org=
+m&gt;; Deucher, Alexander &lt;Alexander.Deucher-5C7GfCeVMHo@public.gmane.org&gt;; Koenig, Christ=
+ian &lt;Christian.Koenig-5C7GfCeVMHo@public.gmane.org&gt;; Zhou, David(ChunMing) &lt;David1.Zhou=
+@amd.com&gt;; David Airlie &lt;airlied-cv59FeDIM0c@public.gmane.org&gt;; Daniel Vetter &lt;dani=
+el-/w4YWyX8dFk@public.gmane.org&gt;;
+ amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;; dri-d=
+evel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org &lt;dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org&gt;<br>
+<b>Cc:</b> kernel-janitors-u79uwXL29TY76Z2rM5mHXA@public.gmane.org &lt;kernel-janitors-u79uwXL29TasMV2rI37PzA@public.gmane.org=
+org&gt;; linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org &lt;linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org&gt;<=
+br>
+<b>Subject:</b> [PATCH][drm-next] drm/amd/powerplay: fix a few spelling mis=
+takes</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">From: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&=
+gt;<br>
+<br>
+There are a few spelling mistakes &quot;unknow&quot; -&gt; &quot;unknown&qu=
+ot; and<br>
+&quot;enabeld&quot; -&gt; &quot;enabled&quot;. Fix these.<br>
+<br>
+Signed-off-by: Colin Ian King &lt;colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 6 &#43;&#43;&#43;---<br>
+&nbsp;1 file changed, 3 insertions(&#43;), 3 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/a=
+md/powerplay/amdgpu_smu.c<br>
+index 13b2c8a60232..d029a99e600e 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c<br>
+@@ -39,7 &#43;39,7 @@ static const char* __smu_message_names[] =3D {<br>
+&nbsp;const char *smu_get_message_name(struct smu_context *smu, enum smu_me=
+ssage_type type)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (type &lt; 0 || type &g=
+t; SMU_MSG_MAX_COUNT)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return &quot;unknow smu message&quot;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return &quot;unknown smu message&quot;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return __smu_message_names=
+[type];<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -52,7 &#43;52,7 @@ static const char* __smu_feature_names[] =3D {<br>
+&nbsp;const char *smu_get_feature_name(struct smu_context *smu, enum smu_fe=
+ature_mask feature)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (feature &lt; 0 || feat=
+ure &gt; SMU_FEATURE_COUNT)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; return &quot;unknow smu feature&quot;;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp; return &quot;unknown smu feature&quot;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return __smu_feature_names=
+[feature];<br>
+&nbsp;}<br>
+&nbsp;<br>
+@@ -79,7 &#43;79,7 @@ size_t smu_sys_get_pp_feature_mask(struct smu_context=
+ *smu, char *buf)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; count&#43;&#43;,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; smu_get_feature_name(smu, i),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feature_index,<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; !!smu_feature_is_enabled(smu, i) ? &quot;enabeld&=
+quot; : &quot;disabled&quot;);<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; !!smu_feature_is_enabled(smu, i) ? &quot;enab=
+led&quot; : &quot;disabled&quot;);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;</div>
+<div class=3D"PlainText">
+<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
+lvetica, sans-serif; color: rgb(0, 0, 0)">
+<span style=3D"font-size: 10pt;">[kevin]:</span></div>
+<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
+lvetica, sans-serif; color: rgb(0, 0, 0)">
+<span style=3D"font-size: 10pt;">thanks correct it.</span></div>
+<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
+lvetica, sans-serif; color: rgb(0, 0, 0)">
+<span style=3D"font-size: 10pt;">Reviewed-by: Kevin Wang &lt;kevin1.wang@am=
+d.com&gt;</span></div>
+<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
+lvetica, sans-serif; color: rgb(0, 0, 0)">
+<br>
+</div>
+<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
+lvetica, sans-serif; color: rgb(0, 0, 0)">
+<span style=3D"font-size: 10pt;">BR</span><br>
+<span style=3D"font-size: 10pt;">Kevin</span></div>
+<br>
+&nbsp;failed:<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org<br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://=
+lists.freedesktop.org/mailman/listinfo/amd-gfx</a></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_BN8PR12MB32832A7472EA99209E938F53A2D90BN8PR12MB3283namp_--
+
+--===============0547157239==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============0547157239==--
