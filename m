@@ -1,82 +1,94 @@
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Subject: Re: [PATCH 16/34] drivers/tee: convert put_page() to put_user_page*()
-Date: Fri, 2 Aug 2019 08:29:07 +0200
-Message-ID: <CAHUa44G++iiwU62jj7QH=V3sr4z26sf007xrwWLPw6AAeMLAEw@mail.gmail.com>
-References: <20190802022005.5117-1-jhubbard@nvidia.com> <20190802022005.5117-17-jhubbard@nvidia.com>
+From: "Gao, Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
+Subject: RE: [PATCH] drm/amdgpu: remove unpin clear_state_obj for gfx v8
+Date: Fri, 2 Aug 2019 06:34:53 +0000
+Message-ID: <DM6PR12MB38661352752A4169120B9109EFD90@DM6PR12MB3866.namprd12.prod.outlook.com>
+References: <1564723334-18375-1-git-send-email-likun.gao@amd.com>
+ <BN8PR12MB3602D2293EFA72B3A3545EE389D90@BN8PR12MB3602.namprd12.prod.outlook.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190802022005.5117-17-jhubbard@nvidia.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: john.hubbard@gmail.com
-Cc: Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-block@vger.kernel.org, "open list:HARDWARE RANDOM NUMBER GENERATOR CORE" <linux-crypto@vger.kernel.org>, linux-fbdev@vger.kerne
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <BN8PR12MB3602D2293EFA72B3A3545EE389D90-h6+T2+wrnx1lGJ5xs4l7kQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Paul Gover <pmw.gover-/E1597aS9LT10XsdtD+oqA@public.gmane.org>
 
-On Fri, Aug 2, 2019 at 4:20 AM <john.hubbard@gmail.com> wrote:
->
-> From: John Hubbard <jhubbard@nvidia.com>
->
-> For pages that were retained via get_user_pages*(), release those pages
-> via the new put_user_page*() routines, instead of via put_page() or
-> release_pages().
->
-> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
-> ("mm: introduce put_user_page*(), placeholder versions").
->
-> Cc: Jens Wiklander <jens.wiklander@linaro.org>
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
->  drivers/tee/tee_shm.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
-
-Acked-by: Jens Wiklander <jens.wiklander@linaro.org>
-
-I suppose you're taking this via your own tree or such.
-
-Thanks,
-Jens
-
->
-> diff --git a/drivers/tee/tee_shm.c b/drivers/tee/tee_shm.c
-> index 2da026fd12c9..c967d0420b67 100644
-> --- a/drivers/tee/tee_shm.c
-> +++ b/drivers/tee/tee_shm.c
-> @@ -31,16 +31,13 @@ static void tee_shm_release(struct tee_shm *shm)
->
->                 poolm->ops->free(poolm, shm);
->         } else if (shm->flags & TEE_SHM_REGISTER) {
-> -               size_t n;
->                 int rc = teedev->desc->ops->shm_unregister(shm->ctx, shm);
->
->                 if (rc)
->                         dev_err(teedev->dev.parent,
->                                 "unregister shm %p failed: %d", shm, rc);
->
-> -               for (n = 0; n < shm->num_pages; n++)
-> -                       put_page(shm->pages[n]);
-> -
-> +               put_user_pages(shm->pages, shm->num_pages);
->                 kfree(shm->pages);
->         }
->
-> @@ -313,16 +310,13 @@ struct tee_shm *tee_shm_register(struct tee_context *ctx, unsigned long addr,
->         return shm;
->  err:
->         if (shm) {
-> -               size_t n;
-> -
->                 if (shm->id >= 0) {
->                         mutex_lock(&teedev->mutex);
->                         idr_remove(&teedev->idr, shm->id);
->                         mutex_unlock(&teedev->mutex);
->                 }
->                 if (shm->pages) {
-> -                       for (n = 0; n < shm->num_pages; n++)
-> -                               put_page(shm->pages[n]);
-> +                       put_user_pages(shm->pages, shm->num_pages);
->                         kfree(shm->pages);
->                 }
->         }
-> --
-> 2.22.0
->
+T0ssIHRoYW5rcywgd2lsbCB0cnkgdG8gZml4IHdpdGggdGhhdCBtZXRob2QuCgpSZWdhcmRzLApM
+aWt1bgoKLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0KRnJvbTogWXVhbiwgWGlhb2ppZSA8WGlh
+b2ppZS5ZdWFuQGFtZC5jb20+IApTZW50OiBGcmlkYXksIEF1Z3VzdCAyLCAyMDE5IDI6MTIgUE0K
+VG86IEdhbywgTGlrdW4gPExpa3VuLkdhb0BhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNv
+bT47IFBhdWwgR292ZXIgPHBtdy5nb3ZlckB5YWhvby5jby51az4KU3ViamVjdDogUmU6IFtQQVRD
+SF0gZHJtL2FtZGdwdTogcmVtb3ZlIHVucGluIGNsZWFyX3N0YXRlX29iaiBmb3IgZ2Z4IHY4CgpI
+aSBMaWt1biwKCkxvb2tzIGxpa2UgeW91IGNhbiBwaW4gY3NiIGJ1ZmZlciBAZ2Z4X3Y4XzBfaHdf
+aW5pdCgpIGp1c3QgbGlrZSB3aGF0IGZvbGxvd2luZyBwYXRjaCBkb2VzIGZvciBnZng5LCBzbyB0
+aGF0IHdlIGNhbiBzdGlsbCB1c2UgdGhlIGNvbW1vbiBmdW5jdGlvbiBhbWRncHVfZ2Z4X3JsY19p
+bml0X2NzYigpOgoKY29tbWl0IDEzN2RjNGI5MDYwZTk5YTIyZGNlNTliNDJjYTcxOTEyY2YwMTgw
+ZjMKQXV0aG9yOiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPgpEYXRlOiAgIFdlZCBKdWwg
+NCAxNjoyMTo1MiAyMDE4ICswODAwCgogICAgZHJtL2FtZGdwdTogcGluIHRoZSBjc2IgYnVmZmVy
+IG9uIGh3IGluaXQgdjIKCiAgICBXaXRob3V0IHRoaXMgcGluLCB0aGUgY3NiIGJ1ZmZlciB3aWxs
+IGJlIGZpbGxlZCB3aXRoIGluY29uc2lzdGVudAogICAgZGF0YSBhZnRlciBTMyByZXN1bWUuIEFu
+ZCB0aGF0IHdpbGwgY2F1c2VzIGdmeCBoYW5nIG9uIGdmeG9mZgogICAgZXhpdCBzaW5jZSB0aGlz
+IGNzYiB3aWxsIGJlIGV4ZWN1dGVkIHRoZW4uCgogICAgdjI6IGZpdCBhbWRncHVfYm9fcGluIGNo
+YW5nZSh0YWtlIG9uZSBsZXNzIGFyZ3VtZW50KQoKICAgIFNpZ25lZC1vZmYtYnk6IEV2YW4gUXVh
+biA8ZXZhbi5xdWFuQGFtZC5jb20+CiAgICBSZXZpZXdlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVh
+bmdAYW1kLmNvbT4KICAgIFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
+dWNoZXJAYW1kLmNvbT4KCkJSLApYaWFvamllCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVz
+a3RvcC5vcmc+IG9uIGJlaGFsZiBvZiBsaWt1biBHYW8gPGxpa3VuLmdhb0BhbWQuY29tPgpTZW50
+OiBGcmlkYXksIEF1Z3VzdCAyLCAyMDE5IDE6MjIgUE0KVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCkNjOiBEZXVjaGVyLCBBbGV4YW5kZXI7IEdhbywgTGlrdW47IFBhdWwgR292ZXIK
+U3ViamVjdDogW1BBVENIXSBkcm0vYW1kZ3B1OiByZW1vdmUgdW5waW4gY2xlYXJfc3RhdGVfb2Jq
+IGZvciBnZnggdjgKCkZyb206IExpa3VuIEdhbyA8TGlrdW4uR2FvQGFtZC5jb20+CgpSZW1vdmUg
+dW5waW4gcmxjIGNsZWFyX3N0YXRlX29iaiBmb3IgZ2Z4IHY4IHdoZW4gcmxjIGluaXQsIHdoaWNo
+IHdpbGwgbWFrZSBTdG9uZXkgcG1fc3VzcGVuZCBoYW5nLgoKU2lnbmVkLW9mZi1ieTogTGlrdW4g
+R2FvIDxMaWt1bi5HYW9AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
+ZnhfdjhfMC5jIHwgMjIgKysrKysrKysrKysrKysrKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDE5
+IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
+eF92OF8wLmMKaW5kZXggZDI5MDcxOC4uMGI3M2M2ZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjhfMC5jCkBAIC0xMjkyLDYgKzEyOTIsOCBAQCBzdGF0aWMgaW50IGdmeF92OF8wX2Nw
+X2p1bXBfdGFibGVfbnVtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQoKIHN0YXRpYyBpbnQg
+Z2Z4X3Y4XzBfcmxjX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpICB7CisgICAgICAg
+dm9sYXRpbGUgdTMyICpkc3RfcHRyOworICAgICAgIHUzMiBkd3M7CiAgICAgICAgY29uc3Qgc3Ry
+dWN0IGNzX3NlY3Rpb25fZGVmICpjc19kYXRhOwogICAgICAgIGludCByOwoKQEAgLTEzMDAsMTAg
+KzEzMDIsMjQgQEAgc3RhdGljIGludCBnZnhfdjhfMF9ybGNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikKICAgICAgICBjc19kYXRhID0gYWRldi0+Z2Z4LnJsYy5jc19kYXRhOwoKICAg
+ICAgICBpZiAoY3NfZGF0YSkgewotICAgICAgICAgICAgICAgLyogaW5pdCBjbGVhciBzdGF0ZSBi
+bG9jayAqLwotICAgICAgICAgICAgICAgciA9IGFtZGdwdV9nZnhfcmxjX2luaXRfY3NiKGFkZXYp
+OwotICAgICAgICAgICAgICAgaWYgKHIpCisgICAgICAgICAgICAgICAvKiBjbGVhciBzdGF0ZSBi
+bG9jayAqLworICAgICAgICAgICAgICAgYWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9zaXplID0g
+ZHdzID0gYWRldi0+Z2Z4LnJsYy5mdW5jcy0+Z2V0X2NzYl9zaXplKGFkZXYpOworICAgICAgICAg
+ICAgICAgciA9IGFtZGdwdV9ib19jcmVhdGVfcmVzZXJ2ZWQoYWRldiwgZHdzICogNCwgUEFHRV9T
+SVpFLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgQU1ER1BV
+X0dFTV9ET01BSU5fVlJBTSwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICZhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaiwKKyAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICZhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX2dw
+dV9hZGRyLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKHZv
+aWQgKiopJmFkZXYtPmdmeC5ybGMuY3NfcHRyKTsKKyAgICAgICAgICAgICAgIGlmIChyKSB7Cisg
+ICAgICAgICAgICAgICAgICAgICAgIGRldl93YXJuKGFkZXYtPmRldiwgIiglZCkgY3JlYXRlIFJM
+QyBjIGJvIGZhaWxlZFxuIiwgcik7CisgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9nZnhf
+cmxjX2ZpbmkoYWRldik7CiAgICAgICAgICAgICAgICAgICAgICAgIHJldHVybiByOworICAgICAg
+ICAgICAgICAgfQorCisgICAgICAgICAgICAgICAvKiBzZXQgdXAgdGhlIGNzIGJ1ZmZlciAqLwor
+ICAgICAgICAgICAgICAgZHN0X3B0ciA9IGFkZXYtPmdmeC5ybGMuY3NfcHRyOworICAgICAgICAg
+ICAgICAgYWRldi0+Z2Z4LnJsYy5mdW5jcy0+Z2V0X2NzYl9idWZmZXIoYWRldiwgZHN0X3B0cik7
+CisgICAgICAgICAgICAgICBhbWRncHVfYm9fa3VubWFwKGFkZXYtPmdmeC5ybGMuY2xlYXJfc3Rh
+dGVfb2JqKTsKKyAgICAgICAgICAgICAgIGFtZGdwdV9ib191bnJlc2VydmUoYWRldi0+Z2Z4LnJs
+Yy5jbGVhcl9zdGF0ZV9vYmopOwogICAgICAgIH0KCiAgICAgICAgaWYgKChhZGV2LT5hc2ljX3R5
+cGUgPT0gQ0hJUF9DQVJSSVpPKSB8fAotLQoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
