@@ -1,198 +1,507 @@
-From: Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-Subject: [PATCH v4 11/17] drm/radeon: switch driver from bo->resv to
- bo->base.resv
-Date: Fri,  2 Aug 2019 07:22:41 +0200
-Message-ID: <20190802052247.18427-12-kraxel@redhat.com>
+From: Gerd Hoffmann <kraxel@redhat.com>
+Subject: [PATCH v4 13/17] drm/amdgpu: switch driver from bo->resv to bo->base.resv
+Date: Fri,  2 Aug 2019 07:22:43 +0200
+Message-ID: <20190802052247.18427-14-kraxel@redhat.com>
 References: <20190802052247.18427-1-kraxel@redhat.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190802052247.18427-1-kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, thomas-4+hqylr40dJg9hUCZPvPmw@public.gmane.org, tzimmermann-l3A5Bk7waGM@public.gmane.org, David Airlie <airlied-cv59FeDIM0c@public.gmane.org>, ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, open list <linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, Gerd Hoffmann <kraxel-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, daniel-/w4YWyX8dFk@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190802052247.18427-1-kraxel@redhat.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: dri-devel@lists.freedesktop.org
+Cc: ckoenig.leichtzumerken@gmail.com, thomas@shipmail.org, tzimmermann@suse.de, daniel@ffwll.ch, bskeggs@redhat.com, Gerd Hoffmann <kraxel@redhat.com>, Oded Gabbay <oded.gabbay@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, open list <linux-kernel@vger.kernel.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-U2lnbmVkLW9mZi1ieTogR2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+ClJldmlld2Vk
-LWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fYmVuY2htYXJrLmMgfCA0ICsrLS0KIGRyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMgICAgICAgIHwgMiArLQogZHJpdmVycy9ncHUvZHJt
-L3JhZGVvbi9yYWRlb25fZGlzcGxheS5jICAgfCAyICstCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9u
-L3JhZGVvbl9nZW0uYyAgICAgICB8IDYgKysrLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3Jh
-ZGVvbl9tbi5jICAgICAgICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29i
-amVjdC5jICAgIHwgOSArKysrLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3Rl
-c3QuYyAgICAgIHwgOCArKysrLS0tLQogZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRt
-LmMgICAgICAgfCAyICstCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl91dmQuYyAgICAg
-ICB8IDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3ZtLmMgICAgICAgIHwgNiAr
-KystLS0KIDEwIGZpbGVzIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDIyIGRlbGV0aW9ucygt
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2JlbmNobWFyay5j
-IGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fYmVuY2htYXJrLmMKaW5kZXggN2NlNTA2
-NGE1OWY2Li4xZWE1MGNlMTYzMTIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX2JlbmNobWFyay5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Jl
-bmNobWFyay5jCkBAIC0xMjIsNyArMTIyLDcgQEAgc3RhdGljIHZvaWQgcmFkZW9uX2JlbmNobWFy
-a19tb3ZlKHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LCB1bnNpZ25lZCBzaXplLAogCWlmIChy
-ZGV2LT5hc2ljLT5jb3B5LmRtYSkgewogCQl0aW1lID0gcmFkZW9uX2JlbmNobWFya19kb19tb3Zl
-KHJkZXYsIHNpemUsIHNhZGRyLCBkYWRkciwKIAkJCQkJCVJBREVPTl9CRU5DSE1BUktfQ09QWV9E
-TUEsIG4sCi0JCQkJCQlkb2JqLT50Ym8ucmVzdik7CisJCQkJCQlkb2JqLT50Ym8uYmFzZS5yZXN2
-KTsKIAkJaWYgKHRpbWUgPCAwKQogCQkJZ290byBvdXRfY2xlYW51cDsKIAkJaWYgKHRpbWUgPiAw
-KQpAQCAtMTMzLDcgKzEzMyw3IEBAIHN0YXRpYyB2b2lkIHJhZGVvbl9iZW5jaG1hcmtfbW92ZShz
-dHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwgdW5zaWduZWQgc2l6ZSwKIAlpZiAocmRldi0+YXNp
-Yy0+Y29weS5ibGl0KSB7CiAJCXRpbWUgPSByYWRlb25fYmVuY2htYXJrX2RvX21vdmUocmRldiwg
-c2l6ZSwgc2FkZHIsIGRhZGRyLAogCQkJCQkJUkFERU9OX0JFTkNITUFSS19DT1BZX0JMSVQsIG4s
-Ci0JCQkJCQlkb2JqLT50Ym8ucmVzdik7CisJCQkJCQlkb2JqLT50Ym8uYmFzZS5yZXN2KTsKIAkJ
-aWYgKHRpbWUgPCAwKQogCQkJZ290byBvdXRfY2xlYW51cDsKIAkJaWYgKHRpbWUgPiAwKQpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY3MuYyBiL2RyaXZlcnMvZ3B1
-L2RybS9yYWRlb24vcmFkZW9uX2NzLmMKaW5kZXggZDIwNjY1NGIzMWFkLi43ZTUyNTRhMzRlODQg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2NzLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fY3MuYwpAQCAtMjU3LDcgKzI1Nyw3IEBAIHN0YXRp
-YyBpbnQgcmFkZW9uX2NzX3N5bmNfcmluZ3Moc3RydWN0IHJhZGVvbl9jc19wYXJzZXIgKnApCiAJ
-bGlzdF9mb3JfZWFjaF9lbnRyeShyZWxvYywgJnAtPnZhbGlkYXRlZCwgdHYuaGVhZCkgewogCQlz
-dHJ1Y3QgcmVzZXJ2YXRpb25fb2JqZWN0ICpyZXN2OwogCi0JCXJlc3YgPSByZWxvYy0+cm9iai0+
-dGJvLnJlc3Y7CisJCXJlc3YgPSByZWxvYy0+cm9iai0+dGJvLmJhc2UucmVzdjsKIAkJciA9IHJh
-ZGVvbl9zeW5jX3Jlc3YocC0+cmRldiwgJnAtPmliLnN5bmMsIHJlc3YsCiAJCQkJICAgICByZWxv
-Yy0+dHYubnVtX3NoYXJlZCk7CiAJCWlmIChyKQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L3JhZGVvbi9yYWRlb25fZGlzcGxheS5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25f
-ZGlzcGxheS5jCmluZGV4IGVhNmI3NTJkZDNhNC4uN2JmNzMyMzBhYzBiIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yYWRlb25fZGlzcGxheS5jCkBAIC01MzMsNyArNTMzLDcgQEAgc3RhdGljIGlu
-dCByYWRlb25fY3J0Y19wYWdlX2ZsaXBfdGFyZ2V0KHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAkJ
-RFJNX0VSUk9SKCJmYWlsZWQgdG8gcGluIG5ldyByYm8gYnVmZmVyIGJlZm9yZSBmbGlwXG4iKTsK
-IAkJZ290byBjbGVhbnVwOwogCX0KLQl3b3JrLT5mZW5jZSA9IGRtYV9mZW5jZV9nZXQocmVzZXJ2
-YXRpb25fb2JqZWN0X2dldF9leGNsKG5ld19yYm8tPnRiby5yZXN2KSk7CisJd29yay0+ZmVuY2Ug
-PSBkbWFfZmVuY2VfZ2V0KHJlc2VydmF0aW9uX29iamVjdF9nZXRfZXhjbChuZXdfcmJvLT50Ym8u
-YmFzZS5yZXN2KSk7CiAJcmFkZW9uX2JvX2dldF90aWxpbmdfZmxhZ3MobmV3X3JibywgJnRpbGlu
-Z19mbGFncywgTlVMTCk7CiAJcmFkZW9uX2JvX3VucmVzZXJ2ZShuZXdfcmJvKTsKIApkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZ2VtLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3JhZGVvbl9nZW0uYwppbmRleCA3MjM4MDA3ZjVhYTQuLjAzODczZjIxYTczNCAx
-MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZ2VtLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZ2VtLmMKQEAgLTExNCw3ICsxMTQsNyBAQCBzdGF0
-aWMgaW50IHJhZGVvbl9nZW1fc2V0X2RvbWFpbihzdHJ1Y3QgZHJtX2dlbV9vYmplY3QgKmdvYmos
-CiAJfQogCWlmIChkb21haW4gPT0gUkFERU9OX0dFTV9ET01BSU5fQ1BVKSB7CiAJCS8qIEFza2lu
-ZyBmb3IgY3B1IGFjY2VzcyB3YWl0IGZvciBvYmplY3QgaWRsZSAqLwotCQlyID0gcmVzZXJ2YXRp
-b25fb2JqZWN0X3dhaXRfdGltZW91dF9yY3Uocm9iai0+dGJvLnJlc3YsIHRydWUsIHRydWUsIDMw
-ICogSFopOworCQlyID0gcmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGltZW91dF9yY3Uocm9iai0+
-dGJvLmJhc2UucmVzdiwgdHJ1ZSwgdHJ1ZSwgMzAgKiBIWik7CiAJCWlmICghcikKIAkJCXIgPSAt
-RUJVU1k7CiAKQEAgLTQ0OSw3ICs0NDksNyBAQCBpbnQgcmFkZW9uX2dlbV9idXN5X2lvY3RsKHN0
-cnVjdCBkcm1fZGV2aWNlICpkZXYsIHZvaWQgKmRhdGEsCiAJfQogCXJvYmogPSBnZW1fdG9fcmFk
-ZW9uX2JvKGdvYmopOwogCi0JciA9IHJlc2VydmF0aW9uX29iamVjdF90ZXN0X3NpZ25hbGVkX3Jj
-dShyb2JqLT50Ym8ucmVzdiwgdHJ1ZSk7CisJciA9IHJlc2VydmF0aW9uX29iamVjdF90ZXN0X3Np
-Z25hbGVkX3JjdShyb2JqLT50Ym8uYmFzZS5yZXN2LCB0cnVlKTsKIAlpZiAociA9PSAwKQogCQly
-ID0gLUVCVVNZOwogCWVsc2UKQEAgLTQ3OCw3ICs0NzgsNyBAQCBpbnQgcmFkZW9uX2dlbV93YWl0
-X2lkbGVfaW9jdGwoc3RydWN0IGRybV9kZXZpY2UgKmRldiwgdm9pZCAqZGF0YSwKIAl9CiAJcm9i
-aiA9IGdlbV90b19yYWRlb25fYm8oZ29iaik7CiAKLQlyZXQgPSByZXNlcnZhdGlvbl9vYmplY3Rf
-d2FpdF90aW1lb3V0X3JjdShyb2JqLT50Ym8ucmVzdiwgdHJ1ZSwgdHJ1ZSwgMzAgKiBIWik7CisJ
-cmV0ID0gcmVzZXJ2YXRpb25fb2JqZWN0X3dhaXRfdGltZW91dF9yY3Uocm9iai0+dGJvLmJhc2Uu
-cmVzdiwgdHJ1ZSwgdHJ1ZSwgMzAgKiBIWik7CiAJaWYgKHJldCA9PSAwKQogCQlyID0gLUVCVVNZ
-OwogCWVsc2UgaWYgKHJldCA8IDApCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
-L3JhZGVvbl9tbi5jIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fbW4uYwppbmRleCA4
-YzM4NzFlZDIzYTkuLjBkNjRhY2UwZTZjMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3Jh
-ZGVvbi9yYWRlb25fbW4uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9tbi5j
-CkBAIC0xNjMsNyArMTYzLDcgQEAgc3RhdGljIGludCByYWRlb25fbW5faW52YWxpZGF0ZV9yYW5n
-ZV9zdGFydChzdHJ1Y3QgbW11X25vdGlmaWVyICptbiwKIAkJCQljb250aW51ZTsKIAkJCX0KIAot
-CQkJciA9IHJlc2VydmF0aW9uX29iamVjdF93YWl0X3RpbWVvdXRfcmN1KGJvLT50Ym8ucmVzdiwK
-KwkJCXIgPSByZXNlcnZhdGlvbl9vYmplY3Rfd2FpdF90aW1lb3V0X3JjdShiby0+dGJvLmJhc2Uu
-cmVzdiwKIAkJCQl0cnVlLCBmYWxzZSwgTUFYX1NDSEVEVUxFX1RJTUVPVVQpOwogCQkJaWYgKHIg
-PD0gMCkKIAkJCQlEUk1fRVJST1IoIiglbGQpIGZhaWxlZCB0byB3YWl0IGZvciB1c2VyIGJvXG4i
-LCByKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5j
-IGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMKaW5kZXggNjZhMjEzMzJl
-ZDRmLi40ZThkMWQ4MmRjMGUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFk
-ZW9uX29iamVjdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX29iamVjdC5j
-CkBAIC0yNjIsNyArMjYyLDYgQEAgaW50IHJhZGVvbl9ib19jcmVhdGUoc3RydWN0IHJhZGVvbl9k
-ZXZpY2UgKnJkZXYsCiAJciA9IHR0bV9ib19pbml0KCZyZGV2LT5tbWFuLmJkZXYsICZiby0+dGJv
-LCBzaXplLCB0eXBlLAogCQkJJmJvLT5wbGFjZW1lbnQsIHBhZ2VfYWxpZ24sICFrZXJuZWwsIGFj
-Y19zaXplLAogCQkJc2csIHJlc3YsICZyYWRlb25fdHRtX2JvX2Rlc3Ryb3kpOwotCWJvLT50Ym8u
-YmFzZS5yZXN2ID0gYm8tPnRiby5yZXN2OwogCXVwX3JlYWQoJnJkZXYtPnBtLm1jbGtfbG9jayk7
-CiAJaWYgKHVubGlrZWx5KHIgIT0gMCkpIHsKIAkJcmV0dXJuIHI7CkBAIC02MTEsNyArNjEwLDcg
-QEAgaW50IHJhZGVvbl9ib19nZXRfc3VyZmFjZV9yZWcoc3RydWN0IHJhZGVvbl9ibyAqYm8pCiAJ
-aW50IHN0ZWFsOwogCWludCBpOwogCi0JbG9ja2RlcF9hc3NlcnRfaGVsZCgmYm8tPnRiby5yZXN2
-LT5sb2NrLmJhc2UpOworCWxvY2tkZXBfYXNzZXJ0X2hlbGQoJmJvLT50Ym8uYmFzZS5yZXN2LT5s
-b2NrLmJhc2UpOwogCiAJaWYgKCFiby0+dGlsaW5nX2ZsYWdzKQogCQlyZXR1cm4gMDsKQEAgLTcz
-Nyw3ICs3MzYsNyBAQCB2b2lkIHJhZGVvbl9ib19nZXRfdGlsaW5nX2ZsYWdzKHN0cnVjdCByYWRl
-b25fYm8gKmJvLAogCQkJCXVpbnQzMl90ICp0aWxpbmdfZmxhZ3MsCiAJCQkJdWludDMyX3QgKnBp
-dGNoKQogewotCWxvY2tkZXBfYXNzZXJ0X2hlbGQoJmJvLT50Ym8ucmVzdi0+bG9jay5iYXNlKTsK
-Kwlsb2NrZGVwX2Fzc2VydF9oZWxkKCZiby0+dGJvLmJhc2UucmVzdi0+bG9jay5iYXNlKTsKIAog
-CWlmICh0aWxpbmdfZmxhZ3MpCiAJCSp0aWxpbmdfZmxhZ3MgPSBiby0+dGlsaW5nX2ZsYWdzOwpA
-QCAtNzQ5LDcgKzc0OCw3IEBAIGludCByYWRlb25fYm9fY2hlY2tfdGlsaW5nKHN0cnVjdCByYWRl
-b25fYm8gKmJvLCBib29sIGhhc19tb3ZlZCwKIAkJCQlib29sIGZvcmNlX2Ryb3ApCiB7CiAJaWYg
-KCFmb3JjZV9kcm9wKQotCQlsb2NrZGVwX2Fzc2VydF9oZWxkKCZiby0+dGJvLnJlc3YtPmxvY2su
-YmFzZSk7CisJCWxvY2tkZXBfYXNzZXJ0X2hlbGQoJmJvLT50Ym8uYmFzZS5yZXN2LT5sb2NrLmJh
-c2UpOwogCiAJaWYgKCEoYm8tPnRpbGluZ19mbGFncyAmIFJBREVPTl9USUxJTkdfU1VSRkFDRSkp
-CiAJCXJldHVybiAwOwpAQCAtODcxLDcgKzg3MCw3IEBAIGludCByYWRlb25fYm9fd2FpdChzdHJ1
-Y3QgcmFkZW9uX2JvICpibywgdTMyICptZW1fdHlwZSwgYm9vbCBub193YWl0KQogdm9pZCByYWRl
-b25fYm9fZmVuY2Uoc3RydWN0IHJhZGVvbl9ibyAqYm8sIHN0cnVjdCByYWRlb25fZmVuY2UgKmZl
-bmNlLAogCQkgICAgIGJvb2wgc2hhcmVkKQogewotCXN0cnVjdCByZXNlcnZhdGlvbl9vYmplY3Qg
-KnJlc3YgPSBiby0+dGJvLnJlc3Y7CisJc3RydWN0IHJlc2VydmF0aW9uX29iamVjdCAqcmVzdiA9
-IGJvLT50Ym8uYmFzZS5yZXN2OwogCiAJaWYgKHNoYXJlZCkKIAkJcmVzZXJ2YXRpb25fb2JqZWN0
-X2FkZF9zaGFyZWRfZmVuY2UocmVzdiwgJmZlbmNlLT5iYXNlKTsKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3Rlc3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24v
-cmFkZW9uX3Rlc3QuYwppbmRleCAwZjZiYTgxYTE2NjkuLmE1ZTFkMjEzOWU4MCAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdGVzdC5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9yYWRlb24vcmFkZW9uX3Rlc3QuYwpAQCAtMTIwLDExICsxMjAsMTEgQEAgc3RhdGljIHZv
-aWQgcmFkZW9uX2RvX3Rlc3RfbW92ZXMoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsIGludCBm
-bGFnKQogCQlpZiAocmluZyA9PSBSNjAwX1JJTkdfVFlQRV9ETUFfSU5ERVgpCiAJCQlmZW5jZSA9
-IHJhZGVvbl9jb3B5X2RtYShyZGV2LCBndHRfYWRkciwgdnJhbV9hZGRyLAogCQkJCQkJc2l6ZSAv
-IFJBREVPTl9HUFVfUEFHRV9TSVpFLAotCQkJCQkJdnJhbV9vYmotPnRiby5yZXN2KTsKKwkJCQkJ
-CXZyYW1fb2JqLT50Ym8uYmFzZS5yZXN2KTsKIAkJZWxzZQogCQkJZmVuY2UgPSByYWRlb25fY29w
-eV9ibGl0KHJkZXYsIGd0dF9hZGRyLCB2cmFtX2FkZHIsCiAJCQkJCQkgc2l6ZSAvIFJBREVPTl9H
-UFVfUEFHRV9TSVpFLAotCQkJCQkJIHZyYW1fb2JqLT50Ym8ucmVzdik7CisJCQkJCQkgdnJhbV9v
-YmotPnRiby5iYXNlLnJlc3YpOwogCQlpZiAoSVNfRVJSKGZlbmNlKSkgewogCQkJRFJNX0VSUk9S
-KCJGYWlsZWQgR1RULT5WUkFNIGNvcHkgJWRcbiIsIGkpOwogCQkJciA9IFBUUl9FUlIoZmVuY2Up
-OwpAQCAtMTcxLDExICsxNzEsMTEgQEAgc3RhdGljIHZvaWQgcmFkZW9uX2RvX3Rlc3RfbW92ZXMo
-c3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsIGludCBmbGFnKQogCQlpZiAocmluZyA9PSBSNjAw
-X1JJTkdfVFlQRV9ETUFfSU5ERVgpCiAJCQlmZW5jZSA9IHJhZGVvbl9jb3B5X2RtYShyZGV2LCB2
-cmFtX2FkZHIsIGd0dF9hZGRyLAogCQkJCQkJc2l6ZSAvIFJBREVPTl9HUFVfUEFHRV9TSVpFLAot
-CQkJCQkJdnJhbV9vYmotPnRiby5yZXN2KTsKKwkJCQkJCXZyYW1fb2JqLT50Ym8uYmFzZS5yZXN2
-KTsKIAkJZWxzZQogCQkJZmVuY2UgPSByYWRlb25fY29weV9ibGl0KHJkZXYsIHZyYW1fYWRkciwg
-Z3R0X2FkZHIsCiAJCQkJCQkgc2l6ZSAvIFJBREVPTl9HUFVfUEFHRV9TSVpFLAotCQkJCQkJIHZy
-YW1fb2JqLT50Ym8ucmVzdik7CisJCQkJCQkgdnJhbV9vYmotPnRiby5iYXNlLnJlc3YpOwogCQlp
-ZiAoSVNfRVJSKGZlbmNlKSkgewogCQkJRFJNX0VSUk9SKCJGYWlsZWQgVlJBTS0+R1RUIGNvcHkg
-JWRcbiIsIGkpOwogCQkJciA9IFBUUl9FUlIoZmVuY2UpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9n
-cHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
-bl90dG0uYwppbmRleCBmNDNmZjBlMDY0MWQuLjM1YWM3NWExMWQzOCAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fdHRtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3Jh
-ZGVvbi9yYWRlb25fdHRtLmMKQEAgLTI0NCw3ICsyNDQsNyBAQCBzdGF0aWMgaW50IHJhZGVvbl9t
-b3ZlX2JsaXQoc3RydWN0IHR0bV9idWZmZXJfb2JqZWN0ICpibywKIAlCVUlMRF9CVUdfT04oKFBB
-R0VfU0laRSAlIFJBREVPTl9HUFVfUEFHRV9TSVpFKSAhPSAwKTsKIAogCW51bV9wYWdlcyA9IG5l
-d19tZW0tPm51bV9wYWdlcyAqIChQQUdFX1NJWkUgLyBSQURFT05fR1BVX1BBR0VfU0laRSk7Ci0J
-ZmVuY2UgPSByYWRlb25fY29weShyZGV2LCBvbGRfc3RhcnQsIG5ld19zdGFydCwgbnVtX3BhZ2Vz
-LCBiby0+cmVzdik7CisJZmVuY2UgPSByYWRlb25fY29weShyZGV2LCBvbGRfc3RhcnQsIG5ld19z
-dGFydCwgbnVtX3BhZ2VzLCBiby0+YmFzZS5yZXN2KTsKIAlpZiAoSVNfRVJSKGZlbmNlKSkKIAkJ
-cmV0dXJuIFBUUl9FUlIoZmVuY2UpOwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vcmFk
-ZW9uL3JhZGVvbl91dmQuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3V2ZC5jCmlu
-ZGV4IGZmNGY3OTRkMWM4Ni4uMzExZTY5YzJlZDdmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vcmFkZW9uL3JhZGVvbl91dmQuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
-bl91dmQuYwpAQCAtNDc3LDcgKzQ3Nyw3IEBAIHN0YXRpYyBpbnQgcmFkZW9uX3V2ZF9jc19tc2co
-c3RydWN0IHJhZGVvbl9jc19wYXJzZXIgKnAsIHN0cnVjdCByYWRlb25fYm8gKmJvLAogCQlyZXR1
-cm4gLUVJTlZBTDsKIAl9CiAKLQlmID0gcmVzZXJ2YXRpb25fb2JqZWN0X2dldF9leGNsKGJvLT50
-Ym8ucmVzdik7CisJZiA9IHJlc2VydmF0aW9uX29iamVjdF9nZXRfZXhjbChiby0+dGJvLmJhc2Uu
-cmVzdik7CiAJaWYgKGYpIHsKIAkJciA9IHJhZGVvbl9mZW5jZV93YWl0KChzdHJ1Y3QgcmFkZW9u
-X2ZlbmNlICopZiwgZmFsc2UpOwogCQlpZiAocikgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9yYWRlb25fdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3Zt
-LmMKaW5kZXggODUxMmIwMmU5NTgzLi5lNDhhMDU1MzMxMjYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9yYWRlb24vcmFkZW9uX3ZtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9y
-YWRlb25fdm0uYwpAQCAtNzAyLDcgKzcwMiw3IEBAIGludCByYWRlb25fdm1fdXBkYXRlX3BhZ2Vf
-ZGlyZWN0b3J5KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LAogCWlmIChpYi5sZW5ndGhfZHcg
-IT0gMCkgewogCQlyYWRlb25fYXNpY192bV9wYWRfaWIocmRldiwgJmliKTsKIAotCQlyYWRlb25f
-c3luY19yZXN2KHJkZXYsICZpYi5zeW5jLCBwZC0+dGJvLnJlc3YsIHRydWUpOworCQlyYWRlb25f
-c3luY19yZXN2KHJkZXYsICZpYi5zeW5jLCBwZC0+dGJvLmJhc2UucmVzdiwgdHJ1ZSk7CiAJCVdB
-Uk5fT04oaWIubGVuZ3RoX2R3ID4gbmR3KTsKIAkJciA9IHJhZGVvbl9pYl9zY2hlZHVsZShyZGV2
-LCAmaWIsIE5VTEwsIGZhbHNlKTsKIAkJaWYgKHIpIHsKQEAgLTgzMCw4ICs4MzAsOCBAQCBzdGF0
-aWMgaW50IHJhZGVvbl92bV91cGRhdGVfcHRlcyhzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwK
-IAkJdWludDY0X3QgcHRlOwogCQlpbnQgcjsKIAotCQlyYWRlb25fc3luY19yZXN2KHJkZXYsICZp
-Yi0+c3luYywgcHQtPnRiby5yZXN2LCB0cnVlKTsKLQkJciA9IHJlc2VydmF0aW9uX29iamVjdF9y
-ZXNlcnZlX3NoYXJlZChwdC0+dGJvLnJlc3YsIDEpOworCQlyYWRlb25fc3luY19yZXN2KHJkZXYs
-ICZpYi0+c3luYywgcHQtPnRiby5iYXNlLnJlc3YsIHRydWUpOworCQlyID0gcmVzZXJ2YXRpb25f
-b2JqZWN0X3Jlc2VydmVfc2hhcmVkKHB0LT50Ym8uYmFzZS5yZXN2LCAxKTsKIAkJaWYgKHIpCiAJ
-CQlyZXR1cm4gcjsKIAotLSAKMi4xOC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZng=
+Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+---
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |  8 ++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c        |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    | 22 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  6 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c       |  4 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 30 +++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |  2 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  2 +-
+ 13 files changed, 46 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 1d3ee9c42f7e..fe062b76ec91 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -218,7 +218,7 @@ void amdgpu_amdkfd_unreserve_memory_limit(struct amdgpu_bo *bo)
+ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+ 					struct amdgpu_amdkfd_fence *ef)
+ {
+-	struct reservation_object *resv = bo->tbo.resv;
++	struct reservation_object *resv = bo->tbo.base.resv;
+ 	struct reservation_object_list *old, *new;
+ 	unsigned int i, j, k;
+ 
+@@ -812,7 +812,7 @@ static int process_sync_pds_resv(struct amdkfd_process_info *process_info,
+ 		struct amdgpu_bo *pd = peer_vm->root.base.bo;
+ 
+ 		ret = amdgpu_sync_resv(NULL,
+-					sync, pd->tbo.resv,
++					sync, pd->tbo.base.resv,
+ 					AMDGPU_FENCE_OWNER_KFD, false);
+ 		if (ret)
+ 			return ret;
+@@ -887,7 +887,7 @@ static int init_kfd_vm(struct amdgpu_vm *vm, void **process_info,
+ 				  AMDGPU_FENCE_OWNER_KFD, false);
+ 	if (ret)
+ 		goto wait_pd_fail;
+-	ret = reservation_object_reserve_shared(vm->root.base.bo->tbo.resv, 1);
++	ret = reservation_object_reserve_shared(vm->root.base.bo->tbo.base.resv, 1);
+ 	if (ret)
+ 		goto reserve_shared_fail;
+ 	amdgpu_bo_fence(vm->root.base.bo,
+@@ -2132,7 +2132,7 @@ int amdgpu_amdkfd_add_gws_to_process(void *info, void *gws, struct kgd_mem **mem
+ 	 * Add process eviction fence to bo so they can
+ 	 * evict each other.
+ 	 */
+-	ret = reservation_object_reserve_shared(gws_bo->tbo.resv, 1);
++	ret = reservation_object_reserve_shared(gws_bo->tbo.base.resv, 1);
+ 	if (ret)
+ 		goto reserve_shared_fail;
+ 	amdgpu_bo_fence(gws_bo, &process_info->eviction_fence->base, true);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index e069de8b54e6..2a972d104fec 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -402,7 +402,7 @@ static int amdgpu_cs_bo_validate(struct amdgpu_cs_parser *p,
+ 	struct ttm_operation_ctx ctx = {
+ 		.interruptible = true,
+ 		.no_wait_gpu = false,
+-		.resv = bo->tbo.resv,
++		.resv = bo->tbo.base.resv,
+ 		.flags = 0
+ 	};
+ 	uint32_t domain;
+@@ -730,7 +730,7 @@ static int amdgpu_cs_sync_rings(struct amdgpu_cs_parser *p)
+ 
+ 	list_for_each_entry(e, &p->validated, tv.head) {
+ 		struct amdgpu_bo *bo = ttm_to_amdgpu_bo(e->tv.bo);
+-		struct reservation_object *resv = bo->tbo.resv;
++		struct reservation_object *resv = bo->tbo.base.resv;
+ 
+ 		r = amdgpu_sync_resv(p->adev, &p->job->sync, resv, p->filp,
+ 				     amdgpu_bo_explicit_sync(bo));
+@@ -1729,7 +1729,7 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
+ 	*map = mapping;
+ 
+ 	/* Double check that the BO is reserved by this CS */
+-	if (READ_ONCE((*bo)->tbo.resv->lock.ctx) != &parser->ticket)
++	if (READ_ONCE((*bo)->tbo.base.resv->lock.ctx) != &parser->ticket)
+ 		return -EINVAL;
+ 
+ 	if (!((*bo)->flags & AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index 535650967b1a..b5d020e15c35 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -204,7 +204,7 @@ int amdgpu_display_crtc_page_flip_target(struct drm_crtc *crtc,
+ 		goto unpin;
+ 	}
+ 
+-	r = reservation_object_get_fences_rcu(new_abo->tbo.resv, &work->excl,
++	r = reservation_object_get_fences_rcu(new_abo->tbo.base.resv, &work->excl,
+ 					      &work->shared_count,
+ 					      &work->shared);
+ 	if (unlikely(r != 0)) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index 4ee452fe0526..5e3a08325017 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -216,7 +216,7 @@ static int amdgpu_dma_buf_map_attach(struct dma_buf *dma_buf,
+ 		 * fences on the reservation object into a single exclusive
+ 		 * fence.
+ 		 */
+-		r = __reservation_object_make_exclusive(bo->tbo.resv);
++		r = __reservation_object_make_exclusive(bo->tbo.base.resv);
+ 		if (r)
+ 			goto error_unreserve;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 9ff0501cf1e0..bff9173a1a94 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -134,7 +134,7 @@ int amdgpu_gem_object_open(struct drm_gem_object *obj,
+ 		return -EPERM;
+ 
+ 	if (abo->flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID &&
+-	    abo->tbo.resv != vm->root.base.bo->tbo.resv)
++	    abo->tbo.base.resv != vm->root.base.bo->tbo.base.resv)
+ 		return -EPERM;
+ 
+ 	r = amdgpu_bo_reserve(abo, false);
+@@ -252,7 +252,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 		if (r)
+ 			return r;
+ 
+-		resv = vm->root.base.bo->tbo.resv;
++		resv = vm->root.base.bo->tbo.base.resv;
+ 	}
+ 
+ 	r = amdgpu_gem_object_create(adev, size, args->in.alignment,
+@@ -433,7 +433,7 @@ int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
+ 		return -ENOENT;
+ 	}
+ 	robj = gem_to_amdgpu_bo(gobj);
+-	ret = reservation_object_wait_timeout_rcu(robj->tbo.resv, true, true,
++	ret = reservation_object_wait_timeout_rcu(robj->tbo.base.resv, true, true,
+ 						  timeout);
+ 
+ 	/* ret == 0 means not signaled,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 0cf7e8606fd3..252f71e90953 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -1088,7 +1088,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
+ 	amdgpu_vm_fini(adev, &fpriv->vm);
+ 
+ 	if (pasid)
+-		amdgpu_pasid_free_delayed(pd->tbo.resv, pasid);
++		amdgpu_pasid_free_delayed(pd->tbo.base.resv, pasid);
+ 	amdgpu_bo_unref(&pd);
+ 
+ 	idr_for_each_entry(&fpriv->bo_list_handles, list, handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+index 3971c201f320..50022acc8a81 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+@@ -179,7 +179,7 @@ static void amdgpu_mn_invalidate_node(struct amdgpu_mn_node *node,
+ 		if (!amdgpu_ttm_tt_affect_userptr(bo->tbo.ttm, start, end))
+ 			continue;
+ 
+-		r = reservation_object_wait_timeout_rcu(bo->tbo.resv,
++		r = reservation_object_wait_timeout_rcu(bo->tbo.base.resv,
+ 			true, false, MAX_SCHEDULE_TIMEOUT);
+ 		if (r <= 0)
+ 			DRM_ERROR("(%ld) failed to wait for user bo\n", r);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index 8d649d8a7302..e550b7de8395 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -509,8 +509,6 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 	if (unlikely(r != 0))
+ 		return r;
+ 
+-	bo->tbo.base.resv = bo->tbo.resv;
+-
+ 	if (!amdgpu_gmc_vram_full_visible(&adev->gmc) &&
+ 	    bo->tbo.mem.mem_type == TTM_PL_VRAM &&
+ 	    bo->tbo.mem.start < adev->gmc.visible_vram_size >> PAGE_SHIFT)
+@@ -523,7 +521,7 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 	    bo->tbo.mem.placement & TTM_PL_FLAG_VRAM) {
+ 		struct dma_fence *fence;
+ 
+-		r = amdgpu_fill_buffer(bo, 0, bo->tbo.resv, &fence);
++		r = amdgpu_fill_buffer(bo, 0, bo->tbo.base.resv, &fence);
+ 		if (unlikely(r))
+ 			goto fail_unreserve;
+ 
+@@ -546,7 +544,7 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
+ 
+ fail_unreserve:
+ 	if (!bp->resv)
+-		ww_mutex_unlock(&bo->tbo.resv->lock);
++		ww_mutex_unlock(&bo->tbo.base.resv->lock);
+ 	amdgpu_bo_unref(&bo);
+ 	return r;
+ }
+@@ -567,7 +565,7 @@ static int amdgpu_bo_create_shadow(struct amdgpu_device *adev,
+ 	bp.flags = AMDGPU_GEM_CREATE_CPU_GTT_USWC |
+ 		AMDGPU_GEM_CREATE_SHADOW;
+ 	bp.type = ttm_bo_type_kernel;
+-	bp.resv = bo->tbo.resv;
++	bp.resv = bo->tbo.base.resv;
+ 
+ 	r = amdgpu_bo_do_create(adev, &bp, &bo->shadow);
+ 	if (!r) {
+@@ -608,13 +606,13 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 
+ 	if ((flags & AMDGPU_GEM_CREATE_SHADOW) && !(adev->flags & AMD_IS_APU)) {
+ 		if (!bp->resv)
+-			WARN_ON(reservation_object_lock((*bo_ptr)->tbo.resv,
++			WARN_ON(reservation_object_lock((*bo_ptr)->tbo.base.resv,
+ 							NULL));
+ 
+ 		r = amdgpu_bo_create_shadow(adev, bp->size, *bo_ptr);
+ 
+ 		if (!bp->resv)
+-			reservation_object_unlock((*bo_ptr)->tbo.resv);
++			reservation_object_unlock((*bo_ptr)->tbo.base.resv);
+ 
+ 		if (r)
+ 			amdgpu_bo_unref(bo_ptr);
+@@ -711,7 +709,7 @@ int amdgpu_bo_kmap(struct amdgpu_bo *bo, void **ptr)
+ 		return 0;
+ 	}
+ 
+-	r = reservation_object_wait_timeout_rcu(bo->tbo.resv, false, false,
++	r = reservation_object_wait_timeout_rcu(bo->tbo.base.resv, false, false,
+ 						MAX_SCHEDULE_TIMEOUT);
+ 	if (r < 0)
+ 		return r;
+@@ -1089,7 +1087,7 @@ int amdgpu_bo_set_tiling_flags(struct amdgpu_bo *bo, u64 tiling_flags)
+  */
+ void amdgpu_bo_get_tiling_flags(struct amdgpu_bo *bo, u64 *tiling_flags)
+ {
+-	lockdep_assert_held(&bo->tbo.resv->lock.base);
++	lockdep_assert_held(&bo->tbo.base.resv->lock.base);
+ 
+ 	if (tiling_flags)
+ 		*tiling_flags = bo->tiling_flags;
+@@ -1285,7 +1283,7 @@ int amdgpu_bo_fault_reserve_notify(struct ttm_buffer_object *bo)
+ void amdgpu_bo_fence(struct amdgpu_bo *bo, struct dma_fence *fence,
+ 		     bool shared)
+ {
+-	struct reservation_object *resv = bo->tbo.resv;
++	struct reservation_object *resv = bo->tbo.base.resv;
+ 
+ 	if (shared)
+ 		reservation_object_add_shared_fence(resv, fence);
+@@ -1310,7 +1308,7 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr)
+ 	int r;
+ 
+ 	amdgpu_sync_create(&sync);
+-	amdgpu_sync_resv(adev, &sync, bo->tbo.resv, owner, false);
++	amdgpu_sync_resv(adev, &sync, bo->tbo.base.resv, owner, false);
+ 	r = amdgpu_sync_wait(&sync, intr);
+ 	amdgpu_sync_free(&sync);
+ 
+@@ -1330,7 +1328,7 @@ int amdgpu_bo_sync_wait(struct amdgpu_bo *bo, void *owner, bool intr)
+ u64 amdgpu_bo_gpu_offset(struct amdgpu_bo *bo)
+ {
+ 	WARN_ON_ONCE(bo->tbo.mem.mem_type == TTM_PL_SYSTEM);
+-	WARN_ON_ONCE(!ww_mutex_is_locked(&bo->tbo.resv->lock) &&
++	WARN_ON_ONCE(!ww_mutex_is_locked(&bo->tbo.base.resv->lock) &&
+ 		     !bo->pin_count && bo->tbo.type != ttm_bo_type_kernel);
+ 	WARN_ON_ONCE(bo->tbo.mem.start == AMDGPU_BO_INVALID_OFFSET);
+ 	WARN_ON_ONCE(bo->tbo.mem.mem_type == TTM_PL_VRAM &&
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index b39b501758dd..e8a51e8d94f2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -440,7 +440,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
+ 
+ 	r = amdgpu_ttm_copy_mem_to_mem(adev, &src, &dst,
+ 				       new_mem->num_pages << PAGE_SHIFT,
+-				       bo->resv, &fence);
++				       bo->base.resv, &fence);
+ 	if (r)
+ 		goto error;
+ 
+@@ -1478,14 +1478,14 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	 * cleanly handle page faults.
+ 	 */
+ 	if (bo->type == ttm_bo_type_kernel &&
+-	    !reservation_object_test_signaled_rcu(bo->resv, true))
++	    !reservation_object_test_signaled_rcu(bo->base.resv, true))
+ 		return false;
+ 
+ 	/* If bo is a KFD BO, check if the bo belongs to the current process.
+ 	 * If true, then return false as any KFD process needs all its BOs to
+ 	 * be resident to run successfully
+ 	 */
+-	flist = reservation_object_get_list(bo->resv);
++	flist = reservation_object_get_list(bo->base.resv);
+ 	if (flist) {
+ 		for (i = 0; i < flist->shared_count; ++i) {
+ 			f = rcu_dereference_protected(flist->shared[i],
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index 5b2fea3b4a2c..f858607b17a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -1073,7 +1073,7 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+ 	ib->length_dw = 16;
+ 
+ 	if (direct) {
+-		r = reservation_object_wait_timeout_rcu(bo->tbo.resv,
++		r = reservation_object_wait_timeout_rcu(bo->tbo.base.resv,
+ 							true, false,
+ 							msecs_to_jiffies(10));
+ 		if (r == 0)
+@@ -1085,7 +1085,7 @@ static int amdgpu_uvd_send_msg(struct amdgpu_ring *ring, struct amdgpu_bo *bo,
+ 		if (r)
+ 			goto err_free;
+ 	} else {
+-		r = amdgpu_sync_resv(adev, &job->sync, bo->tbo.resv,
++		r = amdgpu_sync_resv(adev, &job->sync, bo->tbo.base.resv,
+ 				     AMDGPU_FENCE_OWNER_UNDEFINED, false);
+ 		if (r)
+ 			goto err_free;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 24c3c05e2fb7..ed68578b64db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -302,7 +302,7 @@ static void amdgpu_vm_bo_base_init(struct amdgpu_vm_bo_base *base,
+ 	base->next = bo->vm_bo;
+ 	bo->vm_bo = base;
+ 
+-	if (bo->tbo.resv != vm->root.base.bo->tbo.resv)
++	if (bo->tbo.base.resv != vm->root.base.bo->tbo.base.resv)
+ 		return;
+ 
+ 	vm->bulk_moveable = false;
+@@ -583,7 +583,7 @@ void amdgpu_vm_del_from_lru_notify(struct ttm_buffer_object *bo)
+ 	for (bo_base = abo->vm_bo; bo_base; bo_base = bo_base->next) {
+ 		struct amdgpu_vm *vm = bo_base->vm;
+ 
+-		if (abo->tbo.resv == vm->root.base.bo->tbo.resv)
++		if (abo->tbo.base.resv == vm->root.base.bo->tbo.base.resv)
+ 			vm->bulk_moveable = false;
+ 	}
+ 
+@@ -834,7 +834,7 @@ static void amdgpu_vm_bo_param(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 		bp->flags |= AMDGPU_GEM_CREATE_SHADOW;
+ 	bp->type = ttm_bo_type_kernel;
+ 	if (vm->root.base.bo)
+-		bp->resv = vm->root.base.bo->tbo.resv;
++		bp->resv = vm->root.base.bo->tbo.base.resv;
+ }
+ 
+ /**
+@@ -1702,7 +1702,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+ 			ttm = container_of(bo->tbo.ttm, struct ttm_dma_tt, ttm);
+ 			pages_addr = ttm->dma_address;
+ 		}
+-		exclusive = reservation_object_get_excl(bo->tbo.resv);
++		exclusive = reservation_object_get_excl(bo->tbo.base.resv);
+ 	}
+ 
+ 	if (bo) {
+@@ -1712,7 +1712,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+ 		flags = 0x0;
+ 	}
+ 
+-	if (clear || (bo && bo->tbo.resv == vm->root.base.bo->tbo.resv))
++	if (clear || (bo && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv))
+ 		last_update = &vm->last_update;
+ 	else
+ 		last_update = &bo_va->last_pt_update;
+@@ -1743,7 +1743,7 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev,
+ 	 * the evicted list so that it gets validated again on the
+ 	 * next command submission.
+ 	 */
+-	if (bo && bo->tbo.resv == vm->root.base.bo->tbo.resv) {
++	if (bo && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv) {
+ 		uint32_t mem_type = bo->tbo.mem.mem_type;
+ 
+ 		if (!(bo->preferred_domains & amdgpu_mem_type_to_domain(mem_type)))
+@@ -1879,7 +1879,7 @@ static void amdgpu_vm_free_mapping(struct amdgpu_device *adev,
+  */
+ static void amdgpu_vm_prt_fini(struct amdgpu_device *adev, struct amdgpu_vm *vm)
+ {
+-	struct reservation_object *resv = vm->root.base.bo->tbo.resv;
++	struct reservation_object *resv = vm->root.base.bo->tbo.base.resv;
+ 	struct dma_fence *excl, **shared;
+ 	unsigned i, shared_count;
+ 	int r;
+@@ -1993,7 +1993,7 @@ int amdgpu_vm_handle_moved(struct amdgpu_device *adev,
+ 	while (!list_empty(&vm->invalidated)) {
+ 		bo_va = list_first_entry(&vm->invalidated, struct amdgpu_bo_va,
+ 					 base.vm_status);
+-		resv = bo_va->base.bo->tbo.resv;
++		resv = bo_va->base.bo->tbo.base.resv;
+ 		spin_unlock(&vm->invalidated_lock);
+ 
+ 		/* Try to reserve the BO to avoid clearing its ptes */
+@@ -2084,7 +2084,7 @@ static void amdgpu_vm_bo_insert_map(struct amdgpu_device *adev,
+ 	if (mapping->flags & AMDGPU_PTE_PRT)
+ 		amdgpu_vm_prt_get(adev);
+ 
+-	if (bo && bo->tbo.resv == vm->root.base.bo->tbo.resv &&
++	if (bo && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv &&
+ 	    !bo_va->base.moved) {
+ 		list_move(&bo_va->base.vm_status, &vm->moved);
+ 	}
+@@ -2416,7 +2416,7 @@ void amdgpu_vm_bo_trace_cs(struct amdgpu_vm *vm, struct ww_acquire_ctx *ticket)
+ 			struct amdgpu_bo *bo;
+ 
+ 			bo = mapping->bo_va->base.bo;
+-			if (READ_ONCE(bo->tbo.resv->lock.ctx) != ticket)
++			if (READ_ONCE(bo->tbo.base.resv->lock.ctx) != ticket)
+ 				continue;
+ 		}
+ 
+@@ -2443,7 +2443,7 @@ void amdgpu_vm_bo_rmv(struct amdgpu_device *adev,
+ 	struct amdgpu_vm_bo_base **base;
+ 
+ 	if (bo) {
+-		if (bo->tbo.resv == vm->root.base.bo->tbo.resv)
++		if (bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv)
+ 			vm->bulk_moveable = false;
+ 
+ 		for (base = &bo_va->base.bo->vm_bo; *base;
+@@ -2507,7 +2507,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+ 	for (bo_base = bo->vm_bo; bo_base; bo_base = bo_base->next) {
+ 		struct amdgpu_vm *vm = bo_base->vm;
+ 
+-		if (evicted && bo->tbo.resv == vm->root.base.bo->tbo.resv) {
++		if (evicted && bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv) {
+ 			amdgpu_vm_bo_evicted(bo_base);
+ 			continue;
+ 		}
+@@ -2518,7 +2518,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *adev,
+ 
+ 		if (bo->tbo.type == ttm_bo_type_kernel)
+ 			amdgpu_vm_bo_relocated(bo_base);
+-		else if (bo->tbo.resv == vm->root.base.bo->tbo.resv)
++		else if (bo->tbo.base.resv == vm->root.base.bo->tbo.base.resv)
+ 			amdgpu_vm_bo_moved(bo_base);
+ 		else
+ 			amdgpu_vm_bo_invalidated(bo_base);
+@@ -2648,7 +2648,7 @@ void amdgpu_vm_adjust_size(struct amdgpu_device *adev, uint32_t min_vm_size,
+  */
+ long amdgpu_vm_wait_idle(struct amdgpu_vm *vm, long timeout)
+ {
+-	return reservation_object_wait_timeout_rcu(vm->root.base.bo->tbo.resv,
++	return reservation_object_wait_timeout_rcu(vm->root.base.bo->tbo.base.resv,
+ 						   true, true, timeout);
+ }
+ 
+@@ -2723,7 +2723,7 @@ int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 	if (r)
+ 		goto error_free_root;
+ 
+-	r = reservation_object_reserve_shared(root->tbo.resv, 1);
++	r = reservation_object_reserve_shared(root->tbo.base.resv, 1);
+ 	if (r)
+ 		goto error_unreserve;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+index ddd181f5ed37..61fc584cbb1a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+@@ -72,7 +72,7 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_update_params *p,
+ 	if (r)
+ 		return r;
+ 
+-	r = amdgpu_sync_resv(p->adev, &p->job->sync, root->tbo.resv,
++	r = amdgpu_sync_resv(p->adev, &p->job->sync, root->tbo.base.resv,
+ 			     owner, false);
+ 	if (r)
+ 		return r;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 4a29f72334d0..381a5345f195 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5693,7 +5693,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		 * deadlock during GPU reset when this fence will not signal
+ 		 * but we hold reservation lock for the BO.
+ 		 */
+-		r = reservation_object_wait_timeout_rcu(abo->tbo.resv, true,
++		r = reservation_object_wait_timeout_rcu(abo->tbo.base.resv, true,
+ 							false,
+ 							msecs_to_jiffies(5000));
+ 		if (unlikely(r <= 0))
+-- 
+2.18.1
