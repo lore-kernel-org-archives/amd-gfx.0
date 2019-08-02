@@ -1,38 +1,77 @@
-From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-Subject: Re: [PATCH 06/34] drm/i915: convert put_page() to put_user_page*()
-Date: Fri, 02 Aug 2019 12:19:22 +0300
-Message-ID: <156473756254.19842.12384378926183716632@jlahtine-desk.ger.corp.intel.com>
-References: <20190802022005.5117-1-jhubbard@nvidia.com>
- <20190802022005.5117-7-jhubbard@nvidia.com>
+From: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/powerplay: correct navi10 vcn powergate
+Date: Fri, 2 Aug 2019 17:26:45 +0800
+Message-ID: <20190802092645.25486-1-evan.quan@amd.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8BIT
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190802022005.5117-7-jhubbard@nvidia.com>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Andrew Morton <akpm@linux-foundation.org>, john.hubbard@gmail.com
-Cc: Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?utf-8?b?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, linux-nfs@vger.kernel.orgli
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Cc: Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>
 
-Quoting john.hubbard@gmail.com (2019-08-02 05:19:37)
-> From: John Hubbard <jhubbard@nvidia.com>
-> 
-> For pages that were retained via get_user_pages*(), release those pages
-> via the new put_user_page*() routines, instead of via put_page() or
-> release_pages().
-> 
-> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
-> ("mm: introduce put_user_page*(), placeholder versions").
-> 
-> Note that this effectively changes the code's behavior in
-> i915_gem_userptr_put_pages(): it now calls set_page_dirty_lock(),
-> instead of set_page_dirty(). This is probably more accurate.
-
-We've already fixed this in drm-tip where the current code uses
-set_page_dirty_lock().
-
-This would conflict with our tree. Rodrigo is handling
-drm-intel-next for 5.4, so you guys want to coordinate how
-to merge.
-
-Regards, Joonas
+dmNuIGRwbSBvbiBpcyBhIHByZXJlcXVpc2l0ZSBmb3IgdmNuIHBvd2VyIGdhdGUgY29udHJvbC4K
+CkNoYW5nZS1JZDogSWY4OWE4MWJjMDcwOWYxYzI2NTY5ZTM3ODUwN2E4NzNjZmFmNmUwZWYKU2ln
+bmVkLW9mZi1ieTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMgICAgfCAgNCArKystCiAuLi4vZ3B1L2Ry
+bS9hbWQvcG93ZXJwbGF5L2luYy9hbWRncHVfc211LmggICAgfCAgMSArCiBkcml2ZXJzL2dwdS9k
+cm0vYW1kL3Bvd2VycGxheS9uYXZpMTBfcHB0LmMgICAgfCAyMyArKysrKysrKysrKystLS0tLS0t
+CiAzIGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCmluZGV4IDRjODczYjk2MGFm
+ZS4uMTVmOTExMzE0NmVkIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxh
+eS9hbWRncHVfc211LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1
+X3NtdS5jCkBAIC00MDAsNiArNDAwLDggQEAgaW50IHNtdV9nZXRfcG93ZXJfbnVtX3N0YXRlcyhz
+dHJ1Y3Qgc211X2NvbnRleHQgKnNtdSwKIGludCBzbXVfY29tbW9uX3JlYWRfc2Vuc29yKHN0cnVj
+dCBzbXVfY29udGV4dCAqc211LCBlbnVtIGFtZF9wcF9zZW5zb3JzIHNlbnNvciwKIAkJCSAgIHZv
+aWQgKmRhdGEsIHVpbnQzMl90ICpzaXplKQogeworCXN0cnVjdCBzbXVfcG93ZXJfY29udGV4dCAq
+c211X3Bvd2VyID0gJnNtdS0+c211X3Bvd2VyOworCXN0cnVjdCBzbXVfcG93ZXJfZ2F0ZSAqcG93
+ZXJfZ2F0ZSA9ICZzbXVfcG93ZXItPnBvd2VyX2dhdGU7CiAJaW50IHJldCA9IDA7CiAKIAlzd2l0
+Y2ggKHNlbnNvcikgewpAQCAtNDI0LDcgKzQyNiw3IEBAIGludCBzbXVfY29tbW9uX3JlYWRfc2Vu
+c29yKHN0cnVjdCBzbXVfY29udGV4dCAqc211LCBlbnVtIGFtZF9wcF9zZW5zb3JzIHNlbnNvciwK
+IAkJKnNpemUgPSA0OwogCQlicmVhazsKIAljYXNlIEFNREdQVV9QUF9TRU5TT1JfVkNOX1BPV0VS
+X1NUQVRFOgotCQkqKHVpbnQzMl90ICopZGF0YSA9IHNtdV9mZWF0dXJlX2lzX2VuYWJsZWQoc211
+LCBTTVVfRkVBVFVSRV9WQ05fUEdfQklUKSA/IDEgOiAwOworCQkqKHVpbnQzMl90ICopZGF0YSA9
+IHBvd2VyX2dhdGUtPnZjbl9nYXRlZCA/IDAgOiAxOwogCQkqc2l6ZSA9IDQ7CiAJCWJyZWFrOwog
+CWRlZmF1bHQ6CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMv
+YW1kZ3B1X3NtdS5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9z
+bXUuaAppbmRleCAxZWNkNzNjZDc2OGMuLjI1NzliMDAyNjE2YyAxMDA2NDQKLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvaW5jL2FtZGdwdV9zbXUuaAorKysgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1kZ3B1X3NtdS5oCkBAIC0yNzcsNiArMjc3LDcgQEAg
+c3RydWN0IHNtdV9kcG1fY29udGV4dCB7CiBzdHJ1Y3Qgc211X3Bvd2VyX2dhdGUgewogCWJvb2wg
+dXZkX2dhdGVkOwogCWJvb2wgdmNlX2dhdGVkOworCWJvb2wgdmNuX2dhdGVkOwogfTsKIAogc3Ry
+dWN0IHNtdV9wb3dlcl9jb250ZXh0IHsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+cG93ZXJwbGF5L25hdmkxMF9wcHQuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L25h
+dmkxMF9wcHQuYwppbmRleCBmM2FkYjcxMzc4NGEuLmI3YmIwZjc4ZjQ4OSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvbmF2aTEwX3BwdC5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvcG93ZXJwbGF5L25hdmkxMF9wcHQuYwpAQCAtNTkwLDIwICs1OTAsMjcgQEAg
+c3RhdGljIGludCBuYXZpMTBfc2V0X2RlZmF1bHRfZHBtX3RhYmxlKHN0cnVjdCBzbXVfY29udGV4
+dCAqc211KQogCiBzdGF0aWMgaW50IG5hdmkxMF9kcG1fc2V0X3V2ZF9lbmFibGUoc3RydWN0IHNt
+dV9jb250ZXh0ICpzbXUsIGJvb2wgZW5hYmxlKQogeworCXN0cnVjdCBzbXVfcG93ZXJfY29udGV4
+dCAqc211X3Bvd2VyID0gJnNtdS0+c211X3Bvd2VyOworCXN0cnVjdCBzbXVfcG93ZXJfZ2F0ZSAq
+cG93ZXJfZ2F0ZSA9ICZzbXVfcG93ZXItPnBvd2VyX2dhdGU7CiAJaW50IHJldCA9IDA7CiAKIAlp
+ZiAoZW5hYmxlKSB7Ci0JCXJldCA9IHNtdV9zZW5kX3NtY19tc2dfd2l0aF9wYXJhbShzbXUsIFNN
+VV9NU0dfUG93ZXJVcFZjbiwgMSk7Ci0JCWlmIChyZXQpCi0JCQlyZXR1cm4gcmV0OworCQkvKiB2
+Y24gZHBtIG9uIGlzIGEgcHJlcmVxdWlzaXRlIGZvciB2Y24gcG93ZXIgZ2F0ZSBtZXNzYWdlcyAq
+LworCQlpZiAoc211X2ZlYXR1cmVfaXNfZW5hYmxlZChzbXUsIFNNVV9GRUFUVVJFX1ZDTl9QR19C
+SVQpKSB7CisJCQlyZXQgPSBzbXVfc2VuZF9zbWNfbXNnX3dpdGhfcGFyYW0oc211LCBTTVVfTVNH
+X1Bvd2VyVXBWY24sIDEpOworCQkJaWYgKHJldCkKKwkJCQlyZXR1cm4gcmV0OworCQl9CisJCXBv
+d2VyX2dhdGUtPnZjbl9nYXRlZCA9IGZhbHNlOwogCX0gZWxzZSB7Ci0JCXJldCA9IHNtdV9zZW5k
+X3NtY19tc2coc211LCBTTVVfTVNHX1Bvd2VyRG93blZjbik7Ci0JCWlmIChyZXQpCi0JCQlyZXR1
+cm4gcmV0OworCQlpZiAoc211X2ZlYXR1cmVfaXNfZW5hYmxlZChzbXUsIFNNVV9GRUFUVVJFX1ZD
+Tl9QR19CSVQpKSB7CisJCQlyZXQgPSBzbXVfc2VuZF9zbWNfbXNnKHNtdSwgU01VX01TR19Qb3dl
+ckRvd25WY24pOworCQkJaWYgKHJldCkKKwkJCQlyZXR1cm4gcmV0OworCQl9CisJCXBvd2VyX2dh
+dGUtPnZjbl9nYXRlZCA9IHRydWU7CiAJfQogCi0JcmV0ID0gc211X2ZlYXR1cmVfc2V0X2VuYWJs
+ZWQoc211LCBTTVVfRkVBVFVSRV9WQ05fUEdfQklULCBlbmFibGUpOwotCiAJcmV0dXJuIHJldDsK
+IH0KIAotLSAKMi4yMi4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
