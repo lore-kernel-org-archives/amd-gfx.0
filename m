@@ -1,52 +1,85 @@
-From: Emil Velikov <emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: [PATCH v2 2/2] drm: drop DRM_AUTH from PRIME_TO/FROM_HANDLE ioctls
-Date: Fri,  2 Aug 2019 18:01:17 +0100
-Message-ID: <20190802170117.10942-2-emil.l.velikov@gmail.com>
-References: <20190802170117.10942-1-emil.l.velikov@gmail.com>
+From: John Hubbard <jhubbard@nvidia.com>
+Subject: Re: [PATCH 06/34] drm/i915: convert put_page() to put_user_page*()
+Date: Fri, 2 Aug 2019 11:48:08 -0700
+Message-ID: <7d9a9c57-4322-270b-b636-7214019f87e9@nvidia.com>
+References: <20190802022005.5117-1-jhubbard@nvidia.com>
+ <20190802022005.5117-7-jhubbard@nvidia.com>
+ <156473756254.19842.12384378926183716632@jlahtine-desk.ger.corp.intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190802170117.10942-1-emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, emil.l.velikov-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org, Daniel Vetter <daniel-/w4YWyX8dFk@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+Return-path: <netdev-owner@vger.kernel.org>
+In-Reply-To: <156473756254.19842.12384378926183716632@jlahtine-desk.ger.corp.intel.com>
+Content-Language: en-US
+Sender: netdev-owner@vger.kernel.org
+To: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Andrew Morton <akpm@linux-foundation.org>, john.hubbard@gmail.com
+Cc: Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Ira Weiny <ira.weiny@intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZAY29sbGFib3JhLmNvbT4KCkFzIG1lbnRp
-b25lZCBieSBDaHJpc3RpYW4sIGZvciBkcml2ZXJzIHdoaWNoIHN1cHBvcnQgb25seSBwcmltYXJ5
-IG5vZGVzCnRoaXMgY2hhbmdlcyB0aGUgcmV0dXJuZWQgZXJyb3IgZnJvbSAtRUFDQ0VTIGludG8g
-LUVPUE5PVFNVUFAvLUVOT1NZUy4KCkZvciBvdGhlcnMsIHRoaXMgY2hlY2sgaW4gcGFydGljdWxh
-ciB3aWxsIGJlIGEgbm9vcC4gU28gbGV0J3MgcmVtb3ZlIGl0CmFzIHN1Z2dlc3RlZCBieSBDaHJp
-c3RpYW4uCgpDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpDYzog
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKQ2M6IERhbmllbCBWZXR0ZXIgPGRhbmllbEBm
-ZndsbC5jaD4KQWNrZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1k
-LmNvbT4KU2lnbmVkLW9mZi1ieTogRW1pbCBWZWxpa292IDxlbWlsLnZlbGlrb3ZAY29sbGFib3Jh
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vZHJtX2lvY3RsLmMgfCA0ICsrLS0KIDEgZmlsZSBj
-aGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2RybV9pb2N0bC5jIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCmlu
-ZGV4IGY2NzVhM2JiMmM4OC4uODY3YWI0ZTUwMzc0IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vZHJtX2lvY3RsLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2RybV9pb2N0bC5jCkBAIC02NDcs
-OCArNjQ3LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1faW9jdGxfZGVzYyBkcm1faW9jdGxz
-W10gPSB7CiAKIAlEUk1fSU9DVExfREVGKERSTV9JT0NUTF9NT0RFX0dFVFJFU09VUkNFUywgZHJt
-X21vZGVfZ2V0cmVzb3VyY2VzLCAwKSwKIAotCURSTV9JT0NUTF9ERUYoRFJNX0lPQ1RMX1BSSU1F
-X0hBTkRMRV9UT19GRCwgZHJtX3ByaW1lX2hhbmRsZV90b19mZF9pb2N0bCwgRFJNX0FVVEh8RFJN
-X1JFTkRFUl9BTExPVyksCi0JRFJNX0lPQ1RMX0RFRihEUk1fSU9DVExfUFJJTUVfRkRfVE9fSEFO
-RExFLCBkcm1fcHJpbWVfZmRfdG9faGFuZGxlX2lvY3RsLCBEUk1fQVVUSHxEUk1fUkVOREVSX0FM
-TE9XKSwKKwlEUk1fSU9DVExfREVGKERSTV9JT0NUTF9QUklNRV9IQU5ETEVfVE9fRkQsIGRybV9w
-cmltZV9oYW5kbGVfdG9fZmRfaW9jdGwsIERSTV9SRU5ERVJfQUxMT1cpLAorCURSTV9JT0NUTF9E
-RUYoRFJNX0lPQ1RMX1BSSU1FX0ZEX1RPX0hBTkRMRSwgZHJtX3ByaW1lX2ZkX3RvX2hhbmRsZV9p
-b2N0bCwgRFJNX1JFTkRFUl9BTExPVyksCiAKIAlEUk1fSU9DVExfREVGKERSTV9JT0NUTF9NT0RF
-X0dFVFBMQU5FUkVTT1VSQ0VTLCBkcm1fbW9kZV9nZXRwbGFuZV9yZXMsIDApLAogCURSTV9JT0NU
-TF9ERUYoRFJNX0lPQ1RMX01PREVfR0VUQ1JUQywgZHJtX21vZGVfZ2V0Y3J0YywgMCksCi0tIAoy
-LjIxLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFt
-ZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8v
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
+On 8/2/19 2:19 AM, Joonas Lahtinen wrote:
+> Quoting john.hubbard@gmail.com (2019-08-02 05:19:37)
+>> From: John Hubbard <jhubbard@nvidia.com>
+>>
+>> For pages that were retained via get_user_pages*(), release those pages
+>> via the new put_user_page*() routines, instead of via put_page() or
+>> release_pages().
+>>
+>> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+>> ("mm: introduce put_user_page*(), placeholder versions").
+>>
+>> Note that this effectively changes the code's behavior in
+>> i915_gem_userptr_put_pages(): it now calls set_page_dirty_lock(),
+>> instead of set_page_dirty(). This is probably more accurate.
+> 
+> We've already fixed this in drm-tip where the current code uses
+> set_page_dirty_lock().
+> 
+> This would conflict with our tree. Rodrigo is handling
+> drm-intel-next for 5.4, so you guys want to coordinate how
+> to merge.
+> 
+
+Hi Joonas, Rodrigo,
+
+First of all, I apologize for the API breakage: put_user_pages_dirty_lock()
+has an additional "dirty" parameter.
+
+In order to deal with the merge problem, I'll drop this patch from my series,
+and I'd recommend that the drm-intel-next take the following approach:
+
+1) For now, s/put_page/put_user_page/ in i915_gem_userptr_put_pages(),
+and fix up the set_page_dirty() --> set_page_dirty_lock() issue, like this
+(based against linux.git):
+
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c 
+b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+index 528b61678334..94721cc0093b 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+@@ -664,10 +664,10 @@ i915_gem_userptr_put_pages(struct drm_i915_gem_object *obj,
+
+         for_each_sgt_page(page, sgt_iter, pages) {
+                 if (obj->mm.dirty)
+-                       set_page_dirty(page);
++                       set_page_dirty_lock(page);
+
+                 mark_page_accessed(page);
+-               put_page(page);
++               put_user_page(page);
+         }
+         obj->mm.dirty = false;
+
+
+That will leave you with your original set_page_dirty_lock() calls
+and everything works properly.
+
+2) Next cycle, move to the new put_user_pages_dirty_lock().
+
+thanks,
+-- 
+John Hubbard
+NVIDIA
+
+
+> Regards, Joonas
+> 
