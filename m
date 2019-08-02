@@ -1,114 +1,62 @@
-From: "Gao, Likun" <Likun.Gao-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu: remove unpin clear_state_obj for gfx v8
-Date: Fri, 2 Aug 2019 09:49:05 +0000
-Message-ID: <DM6PR12MB38665E09C62DC1EA67297B88EFD90@DM6PR12MB3866.namprd12.prod.outlook.com>
-References: <1564723334-18375-1-git-send-email-likun.gao@amd.com>
- <BN8PR12MB3602D2293EFA72B3A3545EE389D90@BN8PR12MB3602.namprd12.prod.outlook.com>
- <MN2PR12MB3309BB83CBB215AA393EDEF7ECD90@MN2PR12MB3309.namprd12.prod.outlook.com>
+From: Catalin Marinas <catalin.marinas@arm.com>
+Subject: Re: [PATCH v19 00/15] arm64: untag user pointers passed to the kernel
+Date: Fri, 2 Aug 2019 11:20:32 +0100
+Message-ID: <20190802102031.GB4175@arrakis.emea.arm.com>
+References: <cover.1563904656.git.andreyknvl@google.com>
+ <8c618cc9-ae68-9769-c5bb-67f1295abc4e@intel.com>
+ <13b4cf53-3ecb-f7e7-b504-d77af15d77aa@arm.com>
+ <CAAeHK+zTFqsLiB3Wf0bAi5A8ukQX5ZuvfUg4td-=r5UhBsUBOQ@mail.gmail.com>
+ <96fd8da4-a912-f6cc-2b32-5791027dbbd5@intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <MN2PR12MB3309BB83CBB215AA393EDEF7ECD90-rweVpJHSKTpWdvXm18W95QdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Huang, Ray" <Ray.Huang-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher-5C7GfCeVMHo@public.gmane.org>, Paul Gover <pmw.gover-/E1597aS9LT10XsdtD+oqA@public.gmane.org>
+Content-Type: text/plain; charset=us-ascii
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Content-Disposition: inline
+In-Reply-To: <96fd8da4-a912-f6cc-2b32-5791027dbbd5@intel.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Andrey Konovalov <andreyknvl@google.com>, Kevin Brodsky <kevin.brodsky@arm.com>, Linux ARM <linux-arm-kernel@lists.infradead.org>, Linux Memory Management List <linux-mm@kvack.org>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, kvm@vger.kernel.org, "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, Will Deacon <will.deacon@arm.com>, Mark Rutland <mark.rutland@arm.com>, Andrew Morton <akpm@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Kees Cook <keescook@chromium.org>, Yishai Hadas <yishaih@mellanox.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhpcyBpc3N1ZSBvY2N1cnJlZCBvbiBTdG9uZXkuDQoNClJlZ2FyZHMsDQpMaWt1bg0KDQotLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogSHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5j
-b20+IA0KU2VudDogRnJpZGF5LCBBdWd1c3QgMiwgMjAxOSA1OjM2IFBNDQpUbzogWXVhbiwgWGlh
-b2ppZSA8WGlhb2ppZS5ZdWFuQGFtZC5jb20+OyBHYW8sIExpa3VuIDxMaWt1bi5HYW9AYW1kLmNv
-bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpDYzogRGV1Y2hlciwgQWxleGFuZGVy
-IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgUGF1bCBHb3ZlciA8cG13LmdvdmVyQHlhaG9v
-LmNvLnVrPg0KU3ViamVjdDogUkU6IFtQQVRDSF0gZHJtL2FtZGdwdTogcmVtb3ZlIHVucGluIGNs
-ZWFyX3N0YXRlX29iaiBmb3IgZ2Z4IHY4DQoNCklzIHRoZSBpc3N1ZSB0cmlnZ2VyZWQgb24gQVBV
-Pw0KDQpBY3R1YWxseSwgd2hpbGUgd2UgZG8gUzMsIHRoZSB2cmFtIGJvIHdvbid0IGJlIGNsZWFy
-ZWQgb24gQVBVLiBUaGlzIHBhdGNoIGlzIHRvIGZpeCB0aGUgdnJhbSBibyBjbGVhcmluZyBvbiB0
-aGUgREdQVSBzaWRlLg0KDQpUaGFua3MsDQpSYXkNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnPiBPbiBCZWhhbGYgT2YgDQo+IFl1YW4sIFhpYW9qaWUNCj4gU2VudDogRnJpZGF5LCBBdWd1
-c3QgMDIsIDIwMTkgMjoxMiBQTQ0KPiBUbzogR2FvLCBMaWt1biA8TGlrdW4uR2FvQGFtZC5jb20+
-OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVy
-IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgUGF1bCBHb3ZlciANCj4gPHBtdy5nb3ZlckB5
-YWhvby5jby51az4NCj4gU3ViamVjdDogUmU6IFtQQVRDSF0gZHJtL2FtZGdwdTogcmVtb3ZlIHVu
-cGluIGNsZWFyX3N0YXRlX29iaiBmb3IgZ2Z4IA0KPiB2OA0KPiANCj4gSGkgTGlrdW4sDQo+IA0K
-PiBMb29rcyBsaWtlIHlvdSBjYW4gcGluIGNzYiBidWZmZXIgQGdmeF92OF8wX2h3X2luaXQoKSBq
-dXN0IGxpa2Ugd2hhdCANCj4gZm9sbG93aW5nIHBhdGNoIGRvZXMgZm9yIGdmeDksIHNvIHRoYXQg
-d2UgY2FuIHN0aWxsIHVzZSB0aGUgY29tbW9uIA0KPiBmdW5jdGlvbg0KPiBhbWRncHVfZ2Z4X3Js
-Y19pbml0X2NzYigpOg0KPiANCj4gY29tbWl0IDEzN2RjNGI5MDYwZTk5YTIyZGNlNTliNDJjYTcx
-OTEyY2YwMTgwZjMNCj4gQXV0aG9yOiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KPiBE
-YXRlOiAgIFdlZCBKdWwgNCAxNjoyMTo1MiAyMDE4ICswODAwDQo+IA0KPiAgICAgZHJtL2FtZGdw
-dTogcGluIHRoZSBjc2IgYnVmZmVyIG9uIGh3IGluaXQgdjINCj4gDQo+ICAgICBXaXRob3V0IHRo
-aXMgcGluLCB0aGUgY3NiIGJ1ZmZlciB3aWxsIGJlIGZpbGxlZCB3aXRoIGluY29uc2lzdGVudA0K
-PiAgICAgZGF0YSBhZnRlciBTMyByZXN1bWUuIEFuZCB0aGF0IHdpbGwgY2F1c2VzIGdmeCBoYW5n
-IG9uIGdmeG9mZg0KPiAgICAgZXhpdCBzaW5jZSB0aGlzIGNzYiB3aWxsIGJlIGV4ZWN1dGVkIHRo
-ZW4uDQo+IA0KPiAgICAgdjI6IGZpdCBhbWRncHVfYm9fcGluIGNoYW5nZSh0YWtlIG9uZSBsZXNz
-IGFyZ3VtZW50KQ0KPiANCj4gICAgIFNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFu
-QGFtZC5jb20+DQo+ICAgICBSZXZpZXdlZC1ieTogSHVhbmcgUnVpIDxyYXkuaHVhbmdAYW1kLmNv
-bT4NCj4gICAgIFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
-YW1kLmNvbT4NCj4gDQo+IEJSLA0KPiBYaWFvamllDQo+IA0KPiBfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fDQo+IEZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0Bs
-aXN0cy5mcmVlZGVza3RvcC5vcmc+IG9uIGJlaGFsZiBvZiANCj4gbGlrdW4gR2FvIDxsaWt1bi5n
-YW9AYW1kLmNvbT4NCj4gU2VudDogRnJpZGF5LCBBdWd1c3QgMiwgMjAxOSAxOjIyIFBNDQo+IFRv
-OiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogRGV1Y2hlciwgQWxleGFuZGVy
-OyBHYW8sIExpa3VuOyBQYXVsIEdvdmVyDQo+IFN1YmplY3Q6IFtQQVRDSF0gZHJtL2FtZGdwdTog
-cmVtb3ZlIHVucGluIGNsZWFyX3N0YXRlX29iaiBmb3IgZ2Z4IHY4DQo+IA0KPiBGcm9tOiBMaWt1
-biBHYW8gPExpa3VuLkdhb0BhbWQuY29tPg0KPiANCj4gUmVtb3ZlIHVucGluIHJsYyBjbGVhcl9z
-dGF0ZV9vYmogZm9yIGdmeCB2OCB3aGVuIHJsYyBpbml0LCB3aGljaCB3aWxsIA0KPiBtYWtlIFN0
-b25leSBwbV9zdXNwZW5kIGhhbmcuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBMaWt1biBHYW8gPExp
-a3VuLkdhb0BhbWQuY29tPg0KPiAtLS0NCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
-eF92OF8wLmMgfCAyMiArKysrKysrKysrKysrKysrKysrLS0tDQo+ICAxIGZpbGUgY2hhbmdlZCwg
-MTkgaW5zZXJ0aW9ucygrKSwgMyBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvZ2Z4X3Y4XzAuYw0KPiBpbmRleCBkMjkwNzE4Li4wYjczYzZlIDEwMDY0NA0KPiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jDQo+ICsrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMNCj4gQEAgLTEyOTIsNiArMTI5Miw4IEBA
-IHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfY3BfanVtcF90YWJsZV9udW0oc3RydWN0IA0KPiBhbWRncHVf
-ZGV2aWNlICphZGV2KQ0KPiANCj4gIHN0YXRpYyBpbnQgZ2Z4X3Y4XzBfcmxjX2luaXQoc3RydWN0
-IGFtZGdwdV9kZXZpY2UgKmFkZXYpICB7DQo+ICsgICAgICAgdm9sYXRpbGUgdTMyICpkc3RfcHRy
-Ow0KPiArICAgICAgIHUzMiBkd3M7DQo+ICAgICAgICAgY29uc3Qgc3RydWN0IGNzX3NlY3Rpb25f
-ZGVmICpjc19kYXRhOw0KPiAgICAgICAgIGludCByOw0KPiANCj4gQEAgLTEzMDAsMTAgKzEzMDIs
-MjQgQEAgc3RhdGljIGludCBnZnhfdjhfMF9ybGNfaW5pdChzdHJ1Y3QgDQo+IGFtZGdwdV9kZXZp
-Y2UNCj4gKmFkZXYpDQo+ICAgICAgICAgY3NfZGF0YSA9IGFkZXYtPmdmeC5ybGMuY3NfZGF0YTsN
-Cj4gDQo+ICAgICAgICAgaWYgKGNzX2RhdGEpIHsNCj4gLSAgICAgICAgICAgICAgIC8qIGluaXQg
-Y2xlYXIgc3RhdGUgYmxvY2sgKi8NCj4gLSAgICAgICAgICAgICAgIHIgPSBhbWRncHVfZ2Z4X3Js
-Y19pbml0X2NzYihhZGV2KTsNCj4gLSAgICAgICAgICAgICAgIGlmIChyKQ0KPiArICAgICAgICAg
-ICAgICAgLyogY2xlYXIgc3RhdGUgYmxvY2sgKi8NCj4gKyAgICAgICAgICAgICAgIGFkZXYtPmdm
-eC5ybGMuY2xlYXJfc3RhdGVfc2l6ZSA9IGR3cyA9IA0KPiArIGFkZXYtPmdmeC5ybGMuZnVuY3Mt
-DQo+ID5nZXRfY3NiX3NpemUoYWRldik7DQo+ICsgICAgICAgICAgICAgICByID0gYW1kZ3B1X2Jv
-X2NyZWF0ZV9yZXNlcnZlZChhZGV2LCBkd3MgKiA0LCBQQUdFX1NJWkUsDQo+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBBTURHUFVfR0VNX0RPTUFJTl9WUkFN
-LA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmFkZXYt
-PmdmeC5ybGMuY2xlYXJfc3RhdGVfb2JqLA0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgJmFkZXYtPmdmeC5ybGMuY2xlYXJfc3RhdGVfZ3B1X2FkZHIsDQo+
-ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAodm9pZCAqKikm
-YWRldi0+Z2Z4LnJsYy5jc19wdHIpOw0KPiArICAgICAgICAgICAgICAgaWYgKHIpIHsNCj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgZGV2X3dhcm4oYWRldi0+ZGV2LCAiKCVkKSBjcmVhdGUgUkxD
-IGMgYm8gZmFpbGVkXG4iLCByKTsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2dm
-eF9ybGNfZmluaShhZGV2KTsNCj4gICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIHI7DQo+
-ICsgICAgICAgICAgICAgICB9DQo+ICsNCj4gKyAgICAgICAgICAgICAgIC8qIHNldCB1cCB0aGUg
-Y3MgYnVmZmVyICovDQo+ICsgICAgICAgICAgICAgICBkc3RfcHRyID0gYWRldi0+Z2Z4LnJsYy5j
-c19wdHI7DQo+ICsgICAgICAgICAgICAgICBhZGV2LT5nZngucmxjLmZ1bmNzLT5nZXRfY3NiX2J1
-ZmZlcihhZGV2LCBkc3RfcHRyKTsNCj4gKyAgICAgICAgICAgICAgIGFtZGdwdV9ib19rdW5tYXAo
-YWRldi0+Z2Z4LnJsYy5jbGVhcl9zdGF0ZV9vYmopOw0KPiArICAgICAgICAgICAgICAgYW1kZ3B1
-X2JvX3VucmVzZXJ2ZShhZGV2LT5nZngucmxjLmNsZWFyX3N0YXRlX29iaik7DQo+ICAgICAgICAg
-fQ0KPiANCj4gICAgICAgICBpZiAoKGFkZXYtPmFzaWNfdHlwZSA9PSBDSElQX0NBUlJJWk8pIHx8
-DQo+IC0tDQo+IDIuNy40DQo+IA0KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXw0KPiBhbWQtZ2Z4IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZw0KPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngNCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcNCj4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Thu, Aug 01, 2019 at 08:36:47AM -0700, Dave Hansen wrote:
+> On 8/1/19 5:48 AM, Andrey Konovalov wrote:
+> > On Thu, Aug 1, 2019 at 2:11 PM Kevin Brodsky <kevin.brodsky@arm.com> wrote:
+> >> On 31/07/2019 17:50, Dave Hansen wrote:
+> >>> On 7/23/19 10:58 AM, Andrey Konovalov wrote:
+> >>>> The mmap and mremap (only new_addr) syscalls do not currently accept
+> >>>> tagged addresses. Architectures may interpret the tag as a background
+> >>>> colour for the corresponding vma.
+> >>>
+> >>> What the heck is a "background colour"? :)
+> >>
+> >> Good point, this is some jargon that we started using for MTE, the idea being that
+> >> the kernel could set a tag value (specified during mmap()) as "background colour" for
+> >> anonymous pages allocated in that range.
+> >>
+> >> Anyway, this patch series is not about MTE. Andrey, for v20 (if any), I think it's
+> >> best to drop this last sentence to avoid any confusion.
+
+Indeed, the part with the "background colour" and even the "currently"
+adverb should be dropped.
+
+Also, if we merge the patches via different trees anyway, I don't think
+there is a need for Andrey to integrate them with his series. We can
+pick them up directly in the arm64 tree (once the review finished).
+
+> OK, but what does that mean for tagged addresses getting passed to
+> mmap/mremap?  That sentence read to me like "architectures might allow
+> tags for ...something...".  So do we accept tagged addresses into those
+> syscalls?
+
+If mmap() does not return a tagged address, the reasoning is that it
+should not accept one as an address hint (with or without MAP_FIXED).
+Note that these docs should only describe the top-byte-ignore ABI while
+leaving the memory tagging for a future patchset.
+
+In that future patchset, we may want to update the mmap() ABI to allow,
+only in conjunction with PROT_MTE, a tagged pointer as an address
+argument. In such case mmap() will return a tagged address and the pages
+pre-coloured (on fault) with the tag requested by the user. As I said,
+that's to be discussed later in the year.
+
+-- 
+Catalin
