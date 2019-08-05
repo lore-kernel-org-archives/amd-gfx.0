@@ -1,86 +1,112 @@
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Subject: Re: [PATCH v2 06/34] drm/i915: convert put_page() to put_user_page*()
-Date: Mon, 5 Aug 2019 09:53:46 -0700
-Message-ID: <20190805165346.GB25953@intel.com>
-References: <20190804224915.28669-1-jhubbard@nvidia.com>
- <20190804224915.28669-7-jhubbard@nvidia.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: Re: The issue with page allocation 5.3 rc1-rc2 (seems drm culprit here)
+Date: Mon, 5 Aug 2019 22:14:47 +0500
+Message-ID: <CABXGCsM3-Ax0jsLS=QCM6m331onGXLEcfmmc_kLdqgOLzMSj9Q@mail.gmail.com>
+References: <20190805032114.8740-1-hdanton@sina.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <netdev-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190804224915.28669-7-jhubbard@nvidia.com>
-Sender: netdev-owner@vger.kernel.org
-To: john.hubbard@gmail.com
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, David Airlie <airlied@linux.ie>, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?iso-8859-1?B?Suly
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190805032114.8740-1-hdanton@sina.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Hillf Danton <hdanton@sina.com>
+Cc: Dave Airlie <airlied@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, Harry Wentland <harry.wentland@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux Memory Management List <linux-mm@kvack.org>, Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, dri-devel <dri-devel@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Sun, Aug 04, 2019 at 03:48:47PM -0700, john.hubbard@gmail.com wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
-> 
-> For pages that were retained via get_user_pages*(), release those pages
-> via the new put_user_page*() routines, instead of via put_page() or
-> release_pages().
-> 
-> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
-> ("mm: introduce put_user_page*(), placeholder versions").
-> 
-> This is a merge-able version of the fix, because it restricts
-> itself to put_user_page() and put_user_pages(), both of which
-> have not changed their APIs. Later, i915_gem_userptr_put_pages()
-> can be simplified to use put_user_pages_dirty_lock().
+On Mon, 5 Aug 2019 at 08:21, Hillf Danton <hdanton@sina.com> wrote:
+>
+>
+>
+> Try to fix the failure above using vmalloc + kmalloc.
+>
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> @@ -1174,8 +1174,12 @@ struct dc_state *dc_create_state(struct
+>         struct dc_state *context = kzalloc(sizeof(struct dc_state),
+>                                            GFP_KERNEL);
+>
+> -       if (!context)
+> -               return NULL;
+> +       if (!context) {
+> +               context = kvzalloc(sizeof(struct dc_state),
+> +                                          GFP_KERNEL);
+> +               if (!context)
+> +                       return NULL;
+> +       }
+>         /* Each context must have their own instance of VBA and in order to
+>          * initialize and obtain IP and SOC the base DML instance from DC is
+>          * initially copied into every context
+> @@ -1195,8 +1199,13 @@ struct dc_state *dc_copy_state(struct dc
+>         struct dc_state *new_ctx = kmemdup(src_ctx,
+>                         sizeof(struct dc_state), GFP_KERNEL);
+>
+> -       if (!new_ctx)
+> -               return NULL;
+> +       if (!new_ctx) {
+> +               new_ctx = kvmalloc(sizeof(*new_ctx), GFP_KERNEL);
+> +               if (new_ctx)
+> +                       *new_ctx = *src_ctx;
+> +               else
+> +                       return NULL;
+> +       }
+>
+>         for (i = 0; i < MAX_PIPES; i++) {
+>                         struct pipe_ctx *cur_pipe = &new_ctx->res_ctx.pipe_ctx[i];
+> @@ -1230,7 +1239,7 @@ static void dc_state_free(struct kref *k
+>  {
+>         struct dc_state *context = container_of(kref, struct dc_state, refcount);
+>         dc_resource_state_destruct(context);
+> -       kfree(context);
+> +       kvfree(context);
+>  }
+>
+>  void dc_release_state(struct dc_state *context)
+> --
 
-Thanks for that.
-with this version we won't have any conflict.
+Unfortunately couldn't check this patch because, with the patch, the
+kernel did not compile.
+Here is compile error messages:
 
-Ack for going through mm tree.
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function
+'dc_create_state':
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1178:13: error:
+implicit declaration of function 'kvzalloc'; did you mean 'kzalloc'?
+[-Werror=implicit-function-declaration]
+ 1178 |   context = kvzalloc(sizeof(struct dc_state),
+      |             ^~~~~~~~
+      |             kzalloc
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1178:11: warning:
+assignment to 'struct dc_state *' from 'int' makes pointer from
+integer without a cast [-Wint-conversion]
+ 1178 |   context = kvzalloc(sizeof(struct dc_state),
+      |           ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function 'dc_copy_state':
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1203:13: error:
+implicit declaration of function 'kvmalloc'; did you mean 'kmalloc'?
+[-Werror=implicit-function-declaration]
+ 1203 |   new_ctx = kvmalloc(sizeof(*new_ctx), GFP_KERNEL);
+      |             ^~~~~~~~
+      |             kmalloc
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1203:11: warning:
+assignment to 'struct dc_state *' from 'int' makes pointer from
+integer without a cast [-Wint-conversion]
+ 1203 |   new_ctx = kvmalloc(sizeof(*new_ctx), GFP_KERNEL);
+      |           ^
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c: In function 'dc_state_free':
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.c:1242:2: error:
+implicit declaration of function 'kvfree'; did you mean 'kzfree'?
+[-Werror=implicit-function-declaration]
+ 1242 |  kvfree(context);
+      |  ^~~~~~
+      |  kzfree
+cc1: some warnings being treated as errors
+make[4]: *** [scripts/Makefile.build:274:
+drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc.o] Error 1
+make[4]: *** Waiting for unfinished jobs....
+make[3]: *** [scripts/Makefile.build:490: drivers/gpu/drm/amd/amdgpu] Error 2
+make[3]: *** Waiting for unfinished jobs....
+make: *** [Makefile:1084: drivers] Error 2
 
-> 
-> Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> Cc: David Airlie <airlied@linux.ie>
-> Cc: intel-gfx@lists.freedesktop.org
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
->  drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-> index 2caa594322bc..76dda2923cf1 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
-> @@ -527,7 +527,7 @@ __i915_gem_userptr_get_pages_worker(struct work_struct *_work)
->  	}
->  	mutex_unlock(&obj->mm.lock);
->  
-> -	release_pages(pvec, pinned);
-> +	put_user_pages(pvec, pinned);
->  	kvfree(pvec);
->  
->  	i915_gem_object_put(obj);
-> @@ -640,7 +640,7 @@ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
->  		__i915_gem_userptr_set_active(obj, true);
->  
->  	if (IS_ERR(pages))
-> -		release_pages(pvec, pinned);
-> +		put_user_pages(pvec, pinned);
->  	kvfree(pvec);
->  
->  	return PTR_ERR_OR_ZERO(pages);
-> @@ -675,7 +675,7 @@ i915_gem_userptr_put_pages(struct drm_i915_gem_object *obj,
->  			set_page_dirty_lock(page);
->  
->  		mark_page_accessed(page);
-> -		put_page(page);
-> +		put_user_page(page);
->  	}
->  	obj->mm.dirty = false;
->  
-> -- 
-> 2.22.0
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+--
+Best Regards,
+Mike Gavrilov.
