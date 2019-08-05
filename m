@@ -1,121 +1,169 @@
-From: Gerd Hoffmann <kraxel@redhat.com>
-Subject: [PATCH v6 05/17] drm/amdgpu: use embedded gem object
-Date: Mon,  5 Aug 2019 16:01:07 +0200
-Message-ID: <20190805140119.7337-6-kraxel@redhat.com>
-References: <20190805140119.7337-1-kraxel@redhat.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx
+ 00000000189dec14 is still alive
+Date: Mon, 5 Aug 2019 16:27:24 +0200
+Message-ID: <057fc7ff-2b22-970b-992f-cfc818aadf7a@gmail.com>
+References: <tencent_03E0C311B11B64CA539D74F7174F5059E008@qq.com>
+Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <intel-gfx-bounces@lists.freedesktop.org>
-In-Reply-To: <20190805140119.7337-1-kraxel@redhat.com>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
-List-Post: <mailto:intel-gfx@lists.freedesktop.org>
-List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
- <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: intel-gfx-bounces@lists.freedesktop.org
-Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
-To: dri-devel@lists.freedesktop.org
-Cc: "David (ChunMing) Zhou" <David1.Zhou@amd.com>, thomas@shipmail.org, David Airlie <airlied@linux.ie>, ckoenig.leichtzumerken@gmail.com, intel-gfx@lists.freedesktop.org, open list <linux-kernel@vger.kernel.org>, "open list:RADEON and AMDGPU DRM DRIVERS" <amd-gfx@lists.freedesktop.org>, bskeggs@redhat.com, tzimmermann@suse.de, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Gerd Hoffmann <kraxel@redhat.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1473584011=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <tencent_03E0C311B11B64CA539D74F7174F5059E008-9uewiaClKEY@public.gmane.org>
+Content-Language: en-US
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?B?5a2Z5Y2X5YuH?= <497141801-9uewiaClKEY@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-RHJvcCBkcm1fZ2VtX29iamVjdCBmcm9tIGFtZGdwdV9ibywgdXNlIHRoZQp0dG1fYnVmZmVyX29i
-amVjdC5iYXNlIGluc3RlYWQuCgpCdWlsZCB0ZXN0ZWQgb25seS4KClNpZ25lZC1vZmYtYnk6IEdl
-cmQgSG9mZm1hbm4gPGtyYXhlbEByZWRoYXQuY29tPgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvD
-tm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nZW0uaCAgICAgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X29iamVjdC5oICB8ICAxIC0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kbWFfYnVmLmMgfCAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2dlbS5jICAgICB8ICA4ICsrKystLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfb2JqZWN0LmMgIHwgMTAgKysrKystLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X3R0bS5jICAgICB8ICAyICstCiA2IGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMo
-KyksIDEzIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9nZW0uaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0u
-aAppbmRleCBiOGJhNmUyN2M2MWYuLjJmMTcxNTBlMjZlMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nZW0uaApAQCAtMzEsNyArMzEsNyBAQAogICovCiAKICNkZWZpbmUgQU1E
-R1BVX0dFTV9ET01BSU5fTUFYCQkweDMKLSNkZWZpbmUgZ2VtX3RvX2FtZGdwdV9ibyhnb2JqKSBj
-b250YWluZXJfb2YoKGdvYmopLCBzdHJ1Y3QgYW1kZ3B1X2JvLCBnZW1fYmFzZSkKKyNkZWZpbmUg
-Z2VtX3RvX2FtZGdwdV9ibyhnb2JqKSBjb250YWluZXJfb2YoKGdvYmopLCBzdHJ1Y3QgYW1kZ3B1
-X2JvLCB0Ym8uYmFzZSkKIAogdm9pZCBhbWRncHVfZ2VtX29iamVjdF9mcmVlKHN0cnVjdCBkcm1f
-Z2VtX29iamVjdCAqb2JqKTsKIGludCBhbWRncHVfZ2VtX29iamVjdF9vcGVuKHN0cnVjdCBkcm1f
-Z2VtX29iamVjdCAqb2JqLApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X29iamVjdC5oIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVj
-dC5oCmluZGV4IGQ2MDU5M2NjNDM2ZS4uNjQ1YTE4OWQzNjVjIDEwMDY0NAotLS0gYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfb2JqZWN0LmgKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5oCkBAIC05NCw3ICs5NCw2IEBAIHN0cnVjdCBhbWRn
-cHVfYm8gewogCS8qIHBlciBWTSBzdHJ1Y3R1cmUgZm9yIHBhZ2UgdGFibGVzIGFuZCB3aXRoIHZp
-cnR1YWwgYWRkcmVzc2VzICovCiAJc3RydWN0IGFtZGdwdV92bV9ib19iYXNlCSp2bV9ibzsKIAkv
-KiBDb25zdGFudCBhZnRlciBpbml0aWFsaXphdGlvbiAqLwotCXN0cnVjdCBkcm1fZ2VtX29iamVj
-dAkJZ2VtX2Jhc2U7CiAJc3RydWN0IGFtZGdwdV9ibwkJKnBhcmVudDsKIAlzdHJ1Y3QgYW1kZ3B1
-X2JvCQkqc2hhZG93OwogCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfZG1hX2J1Zi5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9i
-dWYuYwppbmRleCAzNDRmMjc3YjU0ZjAuLmNhMzJkYjZlZjVjMCAxMDA2NDQKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5jCkBAIC0zOTMsNyArMzkzLDcgQEAgYW1kZ3B1
-X2dlbV9wcmltZV9pbXBvcnRfc2dfdGFibGUoc3RydWN0IGRybV9kZXZpY2UgKmRldiwKIAkJYm8t
-PnByaW1lX3NoYXJlZF9jb3VudCA9IDE7CiAKIAlyZXNlcnZhdGlvbl9vYmplY3RfdW5sb2NrKHJl
-c3YpOwotCXJldHVybiAmYm8tPmdlbV9iYXNlOworCXJldHVybiAmYm8tPnRiby5iYXNlOwogCiBl
-cnJvcjoKIAlyZXNlcnZhdGlvbl9vYmplY3RfdW5sb2NrKHJlc3YpOwpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X2dlbS5jCmluZGV4IDkzOWY4MzA1NTExYi4uOWZmMDUwMWNmMWUwIDEw
-MDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKKysrIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCkBAIC04NSw3ICs4NSw3IEBA
-IGludCBhbWRncHVfZ2VtX29iamVjdF9jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYs
-IHVuc2lnbmVkIGxvbmcgc2l6ZSwKIAkJfQogCQlyZXR1cm4gcjsKIAl9Ci0JKm9iaiA9ICZiby0+
-Z2VtX2Jhc2U7CisJKm9iaiA9ICZiby0+dGJvLmJhc2U7CiAKIAlyZXR1cm4gMDsKIH0KQEAgLTY4
-OSw3ICs2ODksNyBAQCBpbnQgYW1kZ3B1X2dlbV9vcF9pb2N0bChzdHJ1Y3QgZHJtX2RldmljZSAq
-ZGV2LCB2b2lkICpkYXRhLAogCQlzdHJ1Y3QgZHJtX2FtZGdwdV9nZW1fY3JlYXRlX2luIGluZm87
-CiAJCXZvaWQgX191c2VyICpvdXQgPSB1NjRfdG9fdXNlcl9wdHIoYXJncy0+dmFsdWUpOwogCi0J
-CWluZm8uYm9fc2l6ZSA9IHJvYmotPmdlbV9iYXNlLnNpemU7CisJCWluZm8uYm9fc2l6ZSA9IHJv
-YmotPnRiby5iYXNlLnNpemU7CiAJCWluZm8uYWxpZ25tZW50ID0gcm9iai0+dGJvLm1lbS5wYWdl
-X2FsaWdubWVudCA8PCBQQUdFX1NISUZUOwogCQlpbmZvLmRvbWFpbnMgPSByb2JqLT5wcmVmZXJy
-ZWRfZG9tYWluczsKIAkJaW5mby5kb21haW5fZmxhZ3MgPSByb2JqLT5mbGFnczsKQEAgLTgxOSw4
-ICs4MTksOCBAQCBzdGF0aWMgaW50IGFtZGdwdV9kZWJ1Z2ZzX2dlbV9ib19pbmZvKGludCBpZCwg
-dm9pZCAqcHRyLCB2b2lkICpkYXRhKQogCWlmIChwaW5fY291bnQpCiAJCXNlcV9wcmludGYobSwg
-IiBwaW4gY291bnQgJWQiLCBwaW5fY291bnQpOwogCi0JZG1hX2J1ZiA9IFJFQURfT05DRShiby0+
-Z2VtX2Jhc2UuZG1hX2J1Zik7Ci0JYXR0YWNobWVudCA9IFJFQURfT05DRShiby0+Z2VtX2Jhc2Uu
-aW1wb3J0X2F0dGFjaCk7CisJZG1hX2J1ZiA9IFJFQURfT05DRShiby0+dGJvLmJhc2UuZG1hX2J1
-Zik7CisJYXR0YWNobWVudCA9IFJFQURfT05DRShiby0+dGJvLmJhc2UuaW1wb3J0X2F0dGFjaCk7
-CiAKIAlpZiAoYXR0YWNobWVudCkKIAkJc2VxX3ByaW50ZihtLCAiIGltcG9ydGVkIGZyb20gJXAi
-LCBkbWFfYnVmKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV9vYmplY3QuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYwpp
-bmRleCBlMzUyYWEyY2MyOGIuLjI0MmQ0ZTgxZmM3YyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X29iamVjdC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9vYmplY3QuYwpAQCAtODUsOSArODUsOSBAQCBzdGF0aWMgdm9pZCBhbWRn
-cHVfYm9fZGVzdHJveShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKnRibykKIAogCWFtZGdwdV9i
-b19rdW5tYXAoYm8pOwogCi0JaWYgKGJvLT5nZW1fYmFzZS5pbXBvcnRfYXR0YWNoKQotCQlkcm1f
-cHJpbWVfZ2VtX2Rlc3Ryb3koJmJvLT5nZW1fYmFzZSwgYm8tPnRiby5zZyk7Ci0JZHJtX2dlbV9v
-YmplY3RfcmVsZWFzZSgmYm8tPmdlbV9iYXNlKTsKKwlpZiAoYm8tPnRiby5iYXNlLmltcG9ydF9h
-dHRhY2gpCisJCWRybV9wcmltZV9nZW1fZGVzdHJveSgmYm8tPnRiby5iYXNlLCBiby0+dGJvLnNn
-KTsKKwlkcm1fZ2VtX29iamVjdF9yZWxlYXNlKCZiby0+dGJvLmJhc2UpOwogCS8qIGluIGNhc2Ug
-YW1kZ3B1X2RldmljZV9yZWNvdmVyX3ZyYW0gZ290IE5VTEwgb2YgYm8tPnBhcmVudCAqLwogCWlm
-ICghbGlzdF9lbXB0eSgmYm8tPnNoYWRvd19saXN0KSkgewogCQltdXRleF9sb2NrKCZhZGV2LT5z
-aGFkb3dfbGlzdF9sb2NrKTsKQEAgLTQ1NCw3ICs0NTQsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9i
-b19kb19jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJYm8gPSBremFsbG9jKHNp
-emVvZihzdHJ1Y3QgYW1kZ3B1X2JvKSwgR0ZQX0tFUk5FTCk7CiAJaWYgKGJvID09IE5VTEwpCiAJ
-CXJldHVybiAtRU5PTUVNOwotCWRybV9nZW1fcHJpdmF0ZV9vYmplY3RfaW5pdChhZGV2LT5kZGV2
-LCAmYm8tPmdlbV9iYXNlLCBzaXplKTsKKwlkcm1fZ2VtX3ByaXZhdGVfb2JqZWN0X2luaXQoYWRl
-di0+ZGRldiwgJmJvLT50Ym8uYmFzZSwgc2l6ZSk7CiAJSU5JVF9MSVNUX0hFQUQoJmJvLT5zaGFk
-b3dfbGlzdCk7CiAJYm8tPnZtX2JvID0gTlVMTDsKIAliby0+cHJlZmVycmVkX2RvbWFpbnMgPSBi
-cC0+cHJlZmVycmVkX2RvbWFpbiA/IGJwLT5wcmVmZXJyZWRfZG9tYWluIDoKQEAgLTUwOSw3ICs1
-MDksNyBAQCBzdGF0aWMgaW50IGFtZGdwdV9ib19kb19jcmVhdGUoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYsCiAJaWYgKHVubGlrZWx5KHIgIT0gMCkpCiAJCXJldHVybiByOwogCi0JYm8tPmdl
-bV9iYXNlLnJlc3YgPSBiby0+dGJvLnJlc3Y7CisJYm8tPnRiby5iYXNlLnJlc3YgPSBiby0+dGJv
-LnJlc3Y7CiAKIAlpZiAoIWFtZGdwdV9nbWNfdnJhbV9mdWxsX3Zpc2libGUoJmFkZXYtPmdtYykg
-JiYKIAkgICAgYm8tPnRiby5tZW0ubWVtX3R5cGUgPT0gVFRNX1BMX1ZSQU0gJiYKZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwppbmRleCBlNTFiNDhhYzQ4ZWIuLmIzOWI1MDE3
-NThkZCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwpAQCAtMjI3LDcg
-KzIyNyw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZlcmlmeV9hY2Nlc3Moc3RydWN0IHR0bV9idWZm
-ZXJfb2JqZWN0ICpibywgc3RydWN0IGZpbGUgKmZpbHApCiAKIAlpZiAoYW1kZ3B1X3R0bV90dF9n
-ZXRfdXNlcm1tKGJvLT50dG0pKQogCQlyZXR1cm4gLUVQRVJNOwotCXJldHVybiBkcm1fdm1hX25v
-ZGVfdmVyaWZ5X2FjY2VzcygmYWJvLT5nZW1fYmFzZS52bWFfbm9kZSwKKwlyZXR1cm4gZHJtX3Zt
-YV9ub2RlX3ZlcmlmeV9hY2Nlc3MoJmFiby0+dGJvLmJhc2Uudm1hX25vZGUsCiAJCQkJCSAgZmls
-cC0+cHJpdmF0ZV9kYXRhKTsKIH0KIAotLSAKMi4xOC4xCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRlbC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9pbnRlbC1nZng=
+This is a multi-part message in MIME format.
+--===============1473584011==
+Content-Type: multipart/alternative;
+ boundary="------------EF078863894CBD0E26679AC7"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------EF078863894CBD0E26679AC7
+Content-Type: text/plain; charset=gb18030; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Am 05.08.19 um 14:53 schrieb 孙南勇:
+> Hi All,
+>     Sometime dmesg show this log:
+> [10407.720988] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
+> 00000000189dec14 is still alive
+> [10407.721054] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
+> 00000000189dec14 is still alive
+> [10407.721120] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
+> 00000000189dec14 is still alive
+> [10407.721187] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
+> 00000000189dec14 is still alive
+> [10407.721418] [drm:amdgpu_ctx_mgr_fini [amdgpu]] *ERROR* ctx 
+> 00000000189dec14 is still alive
+>
+> What are the side effects?
+> Does this error will occur GPU hung(such as gfx timeout)?
+> How to fix this?
+>
+> My kernel : 4.19.36
+
+That is hopelessly outdated code, please try to switch something newer 
+and re-test.
+
+Christian.
+
+> Mesa: 18.3.6
+>
+> And I find that in amdgpu_ctx.c, the 
+> function:amdgpu_ctx_mgr_entity_flush doesn't check the
+> ctx->refcount(the check is stopped in this patch: 
+> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=48ad368a8a3ab2fd3c2bc2ccccc6e29b1acda1bb) 
+> ,
+>  why amdgpu_ctx_mgr_entity_fini still need check ctx->refcount?
+> Can i stop check ctx->refcount in amdgpu_ctx_mgr_entity_fini ?
+>
+> Thanks!
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+
+--------------EF078863894CBD0E26679AC7
+Content-Type: text/html; charset=gb18030
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb18030">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 05.08.19 um 14:53 schrieb 孙南勇:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:tencent_03E0C311B11B64CA539D74F7174F5059E008-9uewiaClKEY@public.gmane.org">
+      <meta http-equiv="content-type" content="text/html;
+        charset=gb18030">
+      <div>Hi All,</div>
+      <div>    Sometime dmesg show this log:</div>
+      <div>
+        <div>[10407.720988] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
+          *ERROR* ctx 00000000189dec14 is still alive</div>
+        <div>[10407.721054] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
+          *ERROR* ctx 00000000189dec14 is still alive</div>
+        <div>[10407.721120] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
+          *ERROR* ctx 00000000189dec14 is still alive</div>
+        <div>[10407.721187] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
+          *ERROR* ctx 00000000189dec14 is still alive</div>
+        <div>[10407.721418] [drm:amdgpu_ctx_mgr_fini [amdgpu]] *ERROR*
+          ctx 00000000189dec14 is still alive</div>
+      </div>
+      <div><br>
+      </div>
+      <div>What are the side effects?</div>
+      <div>Does this error will occur GPU hung(such as gfx timeout)?</div>
+      <div>How to fix this?</div>
+      <div><br>
+      </div>
+      <div>
+        <div>My kernel : 4.19.36</div>
+      </div>
+    </blockquote>
+    <br>
+    That is hopelessly outdated code, please try to switch something
+    newer and re-test.<br>
+    <br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:tencent_03E0C311B11B64CA539D74F7174F5059E008-9uewiaClKEY@public.gmane.org">
+      <div>
+        <div>Mesa: 18.3.6</div>
+        <div><br>
+        </div>
+        <div>And I find that in amdgpu_ctx.c, the
+          function:amdgpu_ctx_mgr_entity_flush doesn't check the </div>
+        <div>ctx-&gt;refcount(the check is stopped in this patch:
+<a class="moz-txt-link-freetext" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=48ad368a8a3ab2fd3c2bc2ccccc6e29b1acda1bb">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=48ad368a8a3ab2fd3c2bc2ccccc6e29b1acda1bb</a>)
+          , </div>
+        <div> why amdgpu_ctx_mgr_entity_fini still need
+          check ctx-&gt;refcount?</div>
+        <div>Can i stop check ctx-&gt;refcount in 
+          amdgpu_ctx_mgr_entity_fini ?</div>
+        <div>
+          <div><br>
+          </div>
+          <div>Thanks!</div>
+        </div>
+      </div>
+      <br>
+      <fieldset class="mimeAttachmentHeader"></fieldset>
+      <pre class="moz-quote-pre" wrap="">_______________________________________________
+amd-gfx mailing list
+<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
+<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------EF078863894CBD0E26679AC7--
+
+--===============1473584011==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1473584011==--
