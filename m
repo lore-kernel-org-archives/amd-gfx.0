@@ -1,169 +1,86 @@
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx
- 00000000189dec14 is still alive
-Date: Mon, 5 Aug 2019 16:27:24 +0200
-Message-ID: <057fc7ff-2b22-970b-992f-cfc818aadf7a@gmail.com>
-References: <tencent_03E0C311B11B64CA539D74F7174F5059E008@qq.com>
-Reply-To: christian.koenig-5C7GfCeVMHo@public.gmane.org
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Subject: Re: [PATCH v2 06/34] drm/i915: convert put_page() to put_user_page*()
+Date: Mon, 5 Aug 2019 09:53:46 -0700
+Message-ID: <20190805165346.GB25953@intel.com>
+References: <20190804224915.28669-1-jhubbard@nvidia.com>
+ <20190804224915.28669-7-jhubbard@nvidia.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1473584011=="
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <tencent_03E0C311B11B64CA539D74F7174F5059E008-9uewiaClKEY@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?B?5a2Z5Y2X5YuH?= <497141801-9uewiaClKEY@public.gmane.org>, amd-gfx <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-
-This is a multi-part message in MIME format.
---===============1473584011==
-Content-Type: multipart/alternative;
- boundary="------------EF078863894CBD0E26679AC7"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------EF078863894CBD0E26679AC7
-Content-Type: text/plain; charset=gb18030; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 05.08.19 um 14:53 schrieb 孙南勇:
-> Hi All,
->     Sometime dmesg show this log:
-> [10407.720988] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
-> 00000000189dec14 is still alive
-> [10407.721054] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
-> 00000000189dec14 is still alive
-> [10407.721120] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
-> 00000000189dec14 is still alive
-> [10407.721187] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]] *ERROR* ctx 
-> 00000000189dec14 is still alive
-> [10407.721418] [drm:amdgpu_ctx_mgr_fini [amdgpu]] *ERROR* ctx 
-> 00000000189dec14 is still alive
->
-> What are the side effects?
-> Does this error will occur GPU hung(such as gfx timeout)?
-> How to fix this?
->
-> My kernel : 4.19.36
-
-That is hopelessly outdated code, please try to switch something newer 
-and re-test.
-
-Christian.
-
-> Mesa: 18.3.6
->
-> And I find that in amdgpu_ctx.c, the 
-> function:amdgpu_ctx_mgr_entity_flush doesn't check the
-> ctx->refcount(the check is stopped in this patch: 
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=48ad368a8a3ab2fd3c2bc2ccccc6e29b1acda1bb) 
-> ,
->  why amdgpu_ctx_mgr_entity_fini still need check ctx->refcount?
-> Can i stop check ctx->refcount in amdgpu_ctx_mgr_entity_fini ?
->
-> Thanks!
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------EF078863894CBD0E26679AC7
-Content-Type: text/html; charset=gb18030
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb18030">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 05.08.19 um 14:53 schrieb 孙南勇:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:tencent_03E0C311B11B64CA539D74F7174F5059E008-9uewiaClKEY@public.gmane.org">
-      <meta http-equiv="content-type" content="text/html;
-        charset=gb18030">
-      <div>Hi All,</div>
-      <div>    Sometime dmesg show this log:</div>
-      <div>
-        <div>[10407.720988] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
-          *ERROR* ctx 00000000189dec14 is still alive</div>
-        <div>[10407.721054] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
-          *ERROR* ctx 00000000189dec14 is still alive</div>
-        <div>[10407.721120] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
-          *ERROR* ctx 00000000189dec14 is still alive</div>
-        <div>[10407.721187] [drm:amdgpu_ctx_mgr_entity_fini [amdgpu]]
-          *ERROR* ctx 00000000189dec14 is still alive</div>
-        <div>[10407.721418] [drm:amdgpu_ctx_mgr_fini [amdgpu]] *ERROR*
-          ctx 00000000189dec14 is still alive</div>
-      </div>
-      <div><br>
-      </div>
-      <div>What are the side effects?</div>
-      <div>Does this error will occur GPU hung(such as gfx timeout)?</div>
-      <div>How to fix this?</div>
-      <div><br>
-      </div>
-      <div>
-        <div>My kernel : 4.19.36</div>
-      </div>
-    </blockquote>
-    <br>
-    That is hopelessly outdated code, please try to switch something
-    newer and re-test.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:tencent_03E0C311B11B64CA539D74F7174F5059E008-9uewiaClKEY@public.gmane.org">
-      <div>
-        <div>Mesa: 18.3.6</div>
-        <div><br>
-        </div>
-        <div>And I find that in amdgpu_ctx.c, the
-          function:amdgpu_ctx_mgr_entity_flush doesn't check the </div>
-        <div>ctx-&gt;refcount(the check is stopped in this patch:
-<a class="moz-txt-link-freetext" href="https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=48ad368a8a3ab2fd3c2bc2ccccc6e29b1acda1bb">https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/commit/?id=48ad368a8a3ab2fd3c2bc2ccccc6e29b1acda1bb</a>)
-          , </div>
-        <div> why amdgpu_ctx_mgr_entity_fini still need
-          check ctx-&gt;refcount?</div>
-        <div>Can i stop check ctx-&gt;refcount in 
-          amdgpu_ctx_mgr_entity_fini ?</div>
-        <div>
-          <div><br>
-          </div>
-          <div>Thanks!</div>
-        </div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org">amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a></pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------EF078863894CBD0E26679AC7--
-
---===============1473584011==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=us-ascii
+Return-path: <netdev-owner@vger.kernel.org>
 Content-Disposition: inline
+In-Reply-To: <20190804224915.28669-7-jhubbard@nvidia.com>
+Sender: netdev-owner@vger.kernel.org
+To: john.hubbard@gmail.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, David Airlie <airlied@linux.ie>, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?iso-8859-1?B?Suly
+List-Id: amd-gfx.lists.freedesktop.org
 
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+On Sun, Aug 04, 2019 at 03:48:47PM -0700, john.hubbard@gmail.com wrote:
+> From: John Hubbard <jhubbard@nvidia.com>
+> 
+> For pages that were retained via get_user_pages*(), release those pages
+> via the new put_user_page*() routines, instead of via put_page() or
+> release_pages().
+> 
+> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
+> ("mm: introduce put_user_page*(), placeholder versions").
+> 
+> This is a merge-able version of the fix, because it restricts
+> itself to put_user_page() and put_user_pages(), both of which
+> have not changed their APIs. Later, i915_gem_userptr_put_pages()
+> can be simplified to use put_user_pages_dirty_lock().
 
---===============1473584011==--
+Thanks for that.
+with this version we won't have any conflict.
+
+Ack for going through mm tree.
+
+> 
+> Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> Cc: David Airlie <airlied@linux.ie>
+> Cc: intel-gfx@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
+> ---
+>  drivers/gpu/drm/i915/gem/i915_gem_userptr.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+> index 2caa594322bc..76dda2923cf1 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+> @@ -527,7 +527,7 @@ __i915_gem_userptr_get_pages_worker(struct work_struct *_work)
+>  	}
+>  	mutex_unlock(&obj->mm.lock);
+>  
+> -	release_pages(pvec, pinned);
+> +	put_user_pages(pvec, pinned);
+>  	kvfree(pvec);
+>  
+>  	i915_gem_object_put(obj);
+> @@ -640,7 +640,7 @@ static int i915_gem_userptr_get_pages(struct drm_i915_gem_object *obj)
+>  		__i915_gem_userptr_set_active(obj, true);
+>  
+>  	if (IS_ERR(pages))
+> -		release_pages(pvec, pinned);
+> +		put_user_pages(pvec, pinned);
+>  	kvfree(pvec);
+>  
+>  	return PTR_ERR_OR_ZERO(pages);
+> @@ -675,7 +675,7 @@ i915_gem_userptr_put_pages(struct drm_i915_gem_object *obj,
+>  			set_page_dirty_lock(page);
+>  
+>  		mark_page_accessed(page);
+> -		put_page(page);
+> +		put_user_page(page);
+>  	}
+>  	obj->mm.dirty = false;
+>  
+> -- 
+> 2.22.0
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
