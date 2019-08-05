@@ -1,71 +1,49 @@
-From: "Yin, Tianci (Rico)" <Tianci.Yin-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amdgpu/soc15: fix external_rev_id for navi14
-Date: Mon, 5 Aug 2019 10:16:44 +0000
-Message-ID: <MN2PR12MB2974C716EB4864E4727A1E8795DA0@MN2PR12MB2974.namprd12.prod.outlook.com>
-References: <1564997723-3737-1-git-send-email-tianci.yin@amd.com>
- <DM5PR12MB1418EE05F666713D1B599859FCDA0@DM5PR12MB1418.namprd12.prod.outlook.com>
- <DM5PR12MB14182C295C686901E22911A1FCDA0@DM5PR12MB1418.namprd12.prod.outlook.com>
+From: Colin King <colin.king@canonical.com>
+Subject: [PATCH][drm-next] drm/amd/powerplay: remove redundant duplicated return check
+Date: Mon,  5 Aug 2019 11:29:40 +0100
+Message-ID: <20190805102940.26024-1-colin.king@canonical.com>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <DM5PR12MB14182C295C686901E22911A1FCDA0-2J9CzHegvk81aAVlcVN8UQdYzm3356FpvxpqHgZTriW3zl9H0oFU5g@public.gmane.org>
-Content-Language: en-US
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Zhang, Hawking" <Hawking.Zhang-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Xiao, Jack" <Jack.Xiao-5C7GfCeVMHo@public.gmane.org>, "Yuan, Xiaojie" <Xiaojie.Yuan-5C7GfCeVMHo@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+Sender: linux-kernel-owner@vger.kernel.org
+To: Rex Zhu <rex.zhu@amd.com>, Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-VGhhbmtzIEhhd2tpbmcsIEknbGwgdGFrZSBjYXJlIG9mIHRoZSBkaWZmZXJlbmNlIG9uIHRvcGlj
-IGJyYW5jaCBhbmQgZHJtLW5leHQuDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZy
-b206IFpoYW5nLCBIYXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+IA0KU2VudDogTW9uZGF5
-LCBBdWd1c3QgNSwgMjAxOSA1OjQ5IFBNDQpUbzogWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhh
-bmdAYW1kLmNvbT47IFlpbiwgVGlhbmNpIChSaWNvKSA8VGlhbmNpLllpbkBhbWQuY29tPjsgYW1k
-LWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBYaWFvLCBKYWNrIDxKYWNrLlhpYW9AYW1k
-LmNvbT47IFlpbiwgVGlhbmNpIChSaWNvKSA8VGlhbmNpLllpbkBhbWQuY29tPjsgWXVhbiwgWGlh
-b2ppZSA8WGlhb2ppZS5ZdWFuQGFtZC5jb20+DQpTdWJqZWN0OiBSRTogW1BBVENIXSBkcm0vYW1k
-Z3B1L3NvYzE1OiBmaXggZXh0ZXJuYWxfcmV2X2lkIGZvciBuYXZpMTQNCg0KQlRXLCBwbGVhc2Ug
-bWFrZSBzdXJlIHlvdSBoYXZlIHRoZSBsYXRlc3QgZHJtLW5leHQgY29kZSBiYXNlLiBUaGUgZGVs
-ZXRlZCBjb2RlIHNlZW1zIGxpa2UgaW4gc29tZSB0b3BpYyBicmFuY2guDQoNClJlZ2FyZHMsDQpI
-YXdraW5nDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBhbWQtZ2Z4IDxhbWQt
-Z2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgWmhhbmcsIEhh
-d2tpbmcNClNlbnQ6IDIwMTnlubQ45pyINeaXpSAxNzo0NQ0KVG86IFlpbiwgVGlhbmNpIChSaWNv
-KSA8VGlhbmNpLllpbkBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNj
-OiBYaWFvLCBKYWNrIDxKYWNrLlhpYW9AYW1kLmNvbT47IFlpbiwgVGlhbmNpIChSaWNvKSA8VGlh
-bmNpLllpbkBhbWQuY29tPjsgWXVhbiwgWGlhb2ppZSA8WGlhb2ppZS5ZdWFuQGFtZC5jb20+DQpT
-dWJqZWN0OiBSRTogW1BBVENIXSBkcm0vYW1kZ3B1L3NvYzE1OiBmaXggZXh0ZXJuYWxfcmV2X2lk
-IGZvciBuYXZpMTQNCg0KUmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdA
-YW1kLmNvbT4NCg0KUmVnYXJkcywNCkhhd2tpbmcNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-DQpGcm9tOiBUaWFuY2kgWWluIDx0aWFuY2kueWluQGFtZC5jb20+IA0KU2VudDogMjAxOeW5tDjm
-nIg15pelIDE3OjM1DQpUbzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCkNjOiBaaGFu
-ZywgSGF3a2luZyA8SGF3a2luZy5aaGFuZ0BhbWQuY29tPjsgWGlhbywgSmFjayA8SmFjay5YaWFv
-QGFtZC5jb20+OyBZdWFuLCBYaWFvamllIDxYaWFvamllLll1YW5AYW1kLmNvbT47IFlpbiwgVGlh
-bmNpIChSaWNvKSA8VGlhbmNpLllpbkBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0vYW1k
-Z3B1L3NvYzE1OiBmaXggZXh0ZXJuYWxfcmV2X2lkIGZvciBuYXZpMTQNCg0KRnJvbTogdGlhbmN5
-aW4gPHRpYW5jaS55aW5AYW1kLmNvbT4NCg0KZml4IHRoZSBoYXJkIGNvZGUgZXh0ZXJuYWxfcmV2
-X2lkLg0KDQpDaGFuZ2UtSWQ6IEk3YjQ2ZjdiNDliNmQwNTg2ZDFmYTI4MmQ0OTYxODE1ZmIxMjQz
-NzliDQpTaWduZWQtb2ZmLWJ5OiB0aWFuY3lpbiA8dGlhbmNpLnlpbkBhbWQuY29tPg0KLS0tDQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYyB8IDIgKy0NCiAxIGZpbGUgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L252LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jIGlu
-ZGV4IDliY2U2YTEuLjJmNDViZjIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9udi5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jDQpAQCAtNTQ2
-LDcgKzU0Niw3IEBAIHN0YXRpYyBpbnQgbnZfY29tbW9uX2Vhcmx5X2luaXQodm9pZCAqaGFuZGxl
-KQ0KIAkJCUFNRF9DR19TVVBQT1JUX0JJRl9MUzsNCiAJCWFkZXYtPnBnX2ZsYWdzID0gQU1EX1BH
-X1NVUFBPUlRfVkNOIHwNCiAJCQlBTURfUEdfU1VQUE9SVF9WQ05fRFBHOw0KLQkJYWRldi0+ZXh0
-ZXJuYWxfcmV2X2lkID0gMjA7DQorCQlhZGV2LT5leHRlcm5hbF9yZXZfaWQgPSBhZGV2LT5yZXZf
-aWQgKyAyMDsNCiAJCWJyZWFrOw0KIAlkZWZhdWx0Og0KIAkJLyogRklYTUU6IG5vdCBzdXBwb3J0
-ZWQgeWV0ICovDQotLQ0KMi43LjQNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18NCmFtZC1nZnggbWFpbGluZyBsaXN0DQphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZw0KaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4DQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
+From: Colin Ian King <colin.king@canonical.com>
+
+The check on ret is duplicated in two places, it is redundant code.
+Remove it.
+
+Addresses-Coverity: ("Logically dead code")
+Fixes: b94afb61cdae ("drm/amd/powerplay: honor hw limit on fetching metrics data for navi10")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index d62c2784b102..b272c8dc8f79 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -941,8 +941,6 @@ static int navi10_get_gpu_power(struct smu_context *smu, uint32_t *value)
+ 	ret = navi10_get_metrics_table(smu, &metrics);
+ 	if (ret)
+ 		return ret;
+-	if (ret)
+-		return ret;
+ 
+ 	*value = metrics.AverageSocketPower << 8;
+ 
+@@ -1001,8 +999,6 @@ static int navi10_get_fan_speed_rpm(struct smu_context *smu,
+ 	ret = navi10_get_metrics_table(smu, &metrics);
+ 	if (ret)
+ 		return ret;
+-	if (ret)
+-		return ret;
+ 
+ 	*speed = metrics.CurrFanSpeed;
+ 
+-- 
+2.20.1
