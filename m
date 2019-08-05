@@ -1,84 +1,48 @@
-From: Calum Mackay <calum.mackay@oracle.com>
-Subject: Re: [PATCH v2 31/34] fs/nfs: convert put_page() to put_user_page*()
-Date: Mon, 5 Aug 2019 01:26:59 +0100
-Message-ID: <cf978e10-facc-ba5b-d7e4-d7fc2c3f7ebc@oracle.com>
-References: <20190804224915.28669-1-jhubbard@nvidia.com>
- <20190804224915.28669-32-jhubbard@nvidia.com>
+From: Dave Airlie <airlied@gmail.com>
+Subject: Re: The issue with page allocation 5.3 rc1-rc2 (seems drm culprit
+ here)
+Date: Mon, 5 Aug 2019 11:03:34 +1000
+Message-ID: <CAPM=9tw5By7txR8UVriLxyveX0kff3aNNiMWCTjbVyk33wp5XQ@mail.gmail.com>
+References: <CABXGCsNDYzcpDCM5P0fVWF30N+TMD62CXjv902z39mrCWULsjA@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-Content-Transfer-Encoding: 7bit
-Return-path: <driverdev-devel-bounces@linuxdriverproject.org>
-In-Reply-To: <20190804224915.28669-32-jhubbard@nvidia.com>
-Content-Language: en-GB
-List-Unsubscribe: <http://driverdev.linuxdriverproject.org/mailman/options/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=unsubscribe>
-List-Archive: <http://driverdev.linuxdriverproject.org/pipermail/driverdev-devel/>
-List-Post: <mailto:driverdev-devel@linuxdriverproject.org>
-List-Help: <mailto:driverdev-devel-request@linuxdriverproject.org?subject=help>
-List-Subscribe: <http://driverdev.linuxdriverproject.org/mailman/listinfo/driverdev-devel>,
- <mailto:driverdev-devel-request@linuxdriverproject.org?subject=subscribe>
-Errors-To: driverdev-devel-bounces@linuxdriverproject.org
-Sender: "devel" <driverdev-devel-bounces@linuxdriverproject.org>
-To: john.hubbard@gmail.com, Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org, Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>, dri-devel@lists.freedesktop.org, linux-mm@kvack.org, sparclinux@vger.kernel.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org, amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org, devel@lists.orangefs.org, linux-media@vger.kernel.org, John Hubbard <jhubbard@nvidia.com>, intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, linux-rpi-kernel@lists.infradead.org, Dan Williams <dan.j.williams@intel.com>, Trond Myklebust <trond.myklebust@hammerspace.com>, linux-arm-kernel@lists.infradead.org, linux-nfs@vg
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <dri-devel-bounces@lists.freedesktop.org>
+In-Reply-To: <CABXGCsNDYzcpDCM5P0fVWF30N+TMD62CXjv902z39mrCWULsjA@mail.gmail.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
+List-Post: <mailto:dri-devel@lists.freedesktop.org>
+List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
+ <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: dri-devel-bounces@lists.freedesktop.org
+Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
+To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Linux Memory Management List <linux-mm@kvack.org>, dri-devel <dri-devel@lists.freedesktop.org>, Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-On 04/08/2019 11:49 pm, john.hubbard@gmail.com wrote:
-> From: John Hubbard <jhubbard@nvidia.com>
-> 
-> For pages that were retained via get_user_pages*(), release those pages
-> via the new put_user_page*() routines, instead of via put_page() or
-> release_pages().
-> 
-> This is part a tree-wide conversion, as described in commit fc1d8e7cca2d
-> ("mm: introduce put_user_page*(), placeholder versions").
-> 
-> Cc: Calum Mackay <calum.mackay@oracle.com>
-> Cc: Trond Myklebust <trond.myklebust@hammerspace.com>
-> Cc: Anna Schumaker <anna.schumaker@netapp.com>
-> Cc: linux-nfs@vger.kernel.org
-> Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-> ---
->   fs/nfs/direct.c | 11 ++---------
->   1 file changed, 2 insertions(+), 9 deletions(-)
-
-Reviewed-by: Calum Mackay <calum.mackay@oracle.com>
-
-
-> diff --git a/fs/nfs/direct.c b/fs/nfs/direct.c
-> index 0cb442406168..c0c1b9f2c069 100644
-> --- a/fs/nfs/direct.c
-> +++ b/fs/nfs/direct.c
-> @@ -276,13 +276,6 @@ ssize_t nfs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
->   	return nfs_file_direct_write(iocb, iter);
->   }
->   
-> -static void nfs_direct_release_pages(struct page **pages, unsigned int npages)
-> -{
-> -	unsigned int i;
-> -	for (i = 0; i < npages; i++)
-> -		put_page(pages[i]);
-> -}
-> -
->   void nfs_init_cinfo_from_dreq(struct nfs_commit_info *cinfo,
->   			      struct nfs_direct_req *dreq)
->   {
-> @@ -512,7 +505,7 @@ static ssize_t nfs_direct_read_schedule_iovec(struct nfs_direct_req *dreq,
->   			pos += req_len;
->   			dreq->bytes_left -= req_len;
->   		}
-> -		nfs_direct_release_pages(pagevec, npages);
-> +		put_user_pages(pagevec, npages);
->   		kvfree(pagevec);
->   		if (result < 0)
->   			break;
-> @@ -935,7 +928,7 @@ static ssize_t nfs_direct_write_schedule_iovec(struct nfs_direct_req *dreq,
->   			pos += req_len;
->   			dreq->bytes_left -= req_len;
->   		}
-> -		nfs_direct_release_pages(pagevec, npages);
-> +		put_user_pages(pagevec, npages);
->   		kvfree(pagevec);
->   		if (result < 0)
->   			break;
-> 
+T24gTW9uLCA1IEF1ZyAyMDE5IGF0IDA4OjIzLCBNaWtoYWlsIEdhdnJpbG92CjxtaWtoYWlsLnYu
+Z2F2cmlsb3ZAZ21haWwuY29tPiB3cm90ZToKPgo+IEhpIGZvbGtzLAo+IFR3byB3ZWVrcyBhZ28g
+d2hlbiBjb21taXQgMjIwNTFkOWM0YTU3IGNvbWluZyB0byBteSBzeXN0ZW0uCj4gU3RhcnRlZCBo
+YXBwZW4gcmFuZG9tbHkgZXJyb3JzOgo+ICJnbm9tZS1zaGVsbDogcGFnZSBhbGxvY2F0aW9uIGZh
+aWx1cmU6IG9yZGVyOjQsCj4gbW9kZToweDQwY2MwKEdGUF9LRVJORUx8X19HRlBfQ09NUCksCj4g
+bm9kZW1hc2s9KG51bGwpLGNwdXNldD0vLG1lbXNfYWxsb3dlZD0wIgo+IFN5bXB0b21zOgo+IFRo
+ZSBzY3JlZW4gZ29lcyBvdXQgYXMgaW4gZW5lcmd5IHNhdmluZy4KPiBBbmQgaXQgaXMgaW1wb3Nz
+aWJsZSB0byB3YWtlIHRoZSBjb21wdXRlciBpbiBhIGZldyBtaW51dGVzLgo+Cj4gSSBhbSBtYWtp
+bmcgYmlzZWN0IGFuZCBsb29rcyBsaWtlIHRoZSBmaXJzdCBiYWQgY29tbWl0IGlzIDQ3NmU5NTVk
+ZDY3OS4KPiBIZXJlIGZ1bGwgYmlzZWN0IGxvZ3M6IGh0dHBzOi8vbWVnYS5uei8jRiFrZ1lGeEFJ
+YiF2MXRjSEFOUHkybnMxbGg0TFFMZUlnCj4KPiBJIHdyb3RlIGFib3V0IG15IGZpbmQgdG8gdGhl
+IGFtZC1nZnggbWFpbGluZyBsaXN0LCBidXQgbm8gb25lIGFuc3dlciBtZS4KPiBVbnRpbCB5ZXN0
+ZXJkYXksIEkgdGhvdWdodCBpdCB3YXMgYSBidWcgaW4gdGhlIGFtZGdwdSBkcml2ZXIuCj4gQnV0
+IHllc3RlcmRheSwgYWZ0ZXIgdGhlIG5leHQgb2NjdXJyZW5jZSBvZiBhbiBlcnJvciwgdGhlIHN5
+c3RlbSBoYW5ncwo+IGNvbXBsZXRlbHkgYWxyZWFkeSB3aXRoIGFub3RoZXIgZXJyb3IuCgpEb2Vz
+IGl0IGhhcHBlbiBpZiB5b3UgZGlzYWJsZSBDT05GSUdfRFJNX0FNRF9EQ19EQ04yXzAsIEknbSBh
+c3N1bWluZwp5b3UgZG9uJ3QgaGF2ZSBhIG5hdmkgZ3B1LgoKSSB0aGluayBzb21lIHN0cnVjdCBn
+cmV3IHRvbyBsYXJnZSBpbiB0aGUgbmF2aSBtZXJnZSwgaG9wZWZ1bGx5IGFtZApjYXJlLCBlbHNl
+IHdlIGhhdmUgdG8gZGlzYWJsZSBuYXZpIGJlZm9yZSByZWxlYXNlLgoKSSd2ZSBkaXJlY3RlZCB0
+aGlzIGF0IHRoZSBtYWluIEFNRCBkZXZzIHdobyBtaWdodCBiZSBoZWxwZnVsLgoKRGF2ZS4KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KZHJpLWRldmVsIG1h
+aWxpbmcgbGlzdApkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVs
