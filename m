@@ -1,31 +1,53 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH 14/15] mm: make HMM_MIRROR an implicit option
-Date: Tue, 6 Aug 2019 14:44:51 -0300
-Message-ID: <20190806174451.GL11627@ziepe.ca>
-References: <20190806160554.14046-1-hch@lst.de>
- <20190806160554.14046-15-hch@lst.de>
+From: Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH] drm/amd/display: Add number of slices per line to DSC
+ parameter validation
+Date: Tue, 6 Aug 2019 13:45:49 -0400
+Message-ID: <20190806174549.7856-1-harry.wentland@amd.com>
+References: <CADnq5_OL1+bJUGh44AY48DP=G=xTtdrf+kO2233qjJzudWhw_Q@mail.gmail.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20190806160554.14046-15-hch@lst.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: Christoph Hellwig <hch@lst.de>
-Cc: =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <CADnq5_OL1+bJUGh44AY48DP=G=xTtdrf+kO2233qjJzudWhw_Q-JsoAwUIsXosN+BqQ9rBEUg@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: hariprasad.kelam-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org
+Cc: David1.Zhou-5C7GfCeVMHo@public.gmane.org, sunpeng.li-5C7GfCeVMHo@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, nikola.cornij-5C7GfCeVMHo@public.gmane.org, airlied-cv59FeDIM0c@public.gmane.org, Dmytro.Laktyushkin-5C7GfCeVMHo@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, daniel-/w4YWyX8dFk@public.gmane.org, alexander.deucher-5C7GfCeVMHo@public.gmane.org, colin.king-Z7WLFzj8eWMS+FvcfC7Uqw@public.gmane.org, Harry Wentland <harry.wentland-5C7GfCeVMHo@public.gmane.org>, christian.koenig-5C7GfCeVMHo@public.gmane.org
 
-On Tue, Aug 06, 2019 at 07:05:52PM +0300, Christoph Hellwig wrote:
-> Make HMM_MIRROR an option that is selected by drivers wanting to use it
-> instead of a user visible option as it is just a low-level
-> implementation detail.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/gpu/drm/amd/amdgpu/Kconfig |  4 +++-
->  drivers/gpu/drm/nouveau/Kconfig    |  4 +++-
->  mm/Kconfig                         | 14 ++++++--------
->  3 files changed, 12 insertions(+), 10 deletions(-)
-
-Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
-
-Jason
+RnJvbTogTmlrb2xhIENvcm5paiA8bmlrb2xhLmNvcm5pakBhbWQuY29tPgoKW3doeV0KTnVtYmVy
+IG9mIHNsaWNlcyBwZXIgbGluZSB3YXMgbWlzdGFrZW5seSBsZWZ0IG91dAoKQ2M6IEhhcmlwcmFz
+YWQgS2VsYW0gPGhhcmlwcmFzYWQua2VsYW1AZ21haWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBOaWtv
+bGEgQ29ybmlqIDxuaWtvbGEuY29ybmlqQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IEhhcnJ5IFdl
+bnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgpSZXZpZXdlZC1ieTogSGFycnkgV2VudGxh
+bmQgPGhhcnJ5LndlbnRsYW5kQGFtZC5jb20+Ci0tLQoKVGhhbmtzLCBIYXJpcHJhc2FkLCBmb3Ig
+eW91ciBwYXRjaC4gVGhlIHNlY29uZCBjb25kaXRpb24gc2hvdWxkIGFjdHVhbGx5IGNoZWNrCmZv
+ciBudW1fc2xpY2VzX2guCgpIYXJyeQoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
+Y24yMC9kY24yMF9kc2MuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwg
+MSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
+Yy9kY24yMC9kY24yMF9kc2MuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24y
+MC9kY24yMF9kc2MuYwppbmRleCBlODcwY2FhOGQ0ZmEuLmFkYjY5YzAzOGVmYiAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjbjIwL2RjbjIwX2RzYy5jCisrKyBi
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24yMC9kY24yMF9kc2MuYwpAQCAtMzAy
+LDcgKzMwMiw3IEBAIHN0YXRpYyBib29sIGRzY19wcmVwYXJlX2NvbmZpZyhzdHJ1Y3QgZGlzcGxh
+eV9zdHJlYW1fY29tcHJlc3NvciAqZHNjLCBjb25zdCBzdHJ1CiAJCSAgICBkc2NfY2ZnLT5kY19k
+c2NfY2ZnLmxpbmVidWZfZGVwdGggPT0gMCkpKTsKIAlBU1NFUlQoOTYgPD0gZHNjX2NmZy0+ZGNf
+ZHNjX2NmZy5iaXRzX3Blcl9waXhlbCAmJiBkc2NfY2ZnLT5kY19kc2NfY2ZnLmJpdHNfcGVyX3Bp
+eGVsIDw9IDB4M2ZmKTsgLy8gNi4wIDw9IGJpdHNfcGVyX3BpeGVsIDw9IDYzLjkzNzUKIAotCWlm
+ICghZHNjX2NmZy0+ZGNfZHNjX2NmZy5udW1fc2xpY2VzX3YgfHwgIWRzY19jZmctPmRjX2RzY19j
+ZmcubnVtX3NsaWNlc192IHx8CisJaWYgKCFkc2NfY2ZnLT5kY19kc2NfY2ZnLm51bV9zbGljZXNf
+diB8fCAhZHNjX2NmZy0+ZGNfZHNjX2NmZy5udW1fc2xpY2VzX2ggfHwKIAkJIShkc2NfY2ZnLT5k
+Y19kc2NfY2ZnLnZlcnNpb25fbWlub3IgPT0gMSB8fCBkc2NfY2ZnLT5kY19kc2NfY2ZnLnZlcnNp
+b25fbWlub3IgPT0gMikgfHwKIAkJIWRzY19jZmctPnBpY193aWR0aCB8fCAhZHNjX2NmZy0+cGlj
+X2hlaWdodCB8fAogCQkhKChkc2NfY2ZnLT5kY19kc2NfY2ZnLnZlcnNpb25fbWlub3IgPT0gMSAm
+JiAvLyB2MS4xIGxpbmUgYnVmZmVyIGRlcHRoIHJhbmdlOgotLSAKMi4yMi4wCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZng=
