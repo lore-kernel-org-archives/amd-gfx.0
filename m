@@ -1,182 +1,62 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 04/15] mm: remove the pgmap field from struct hmm_vma_walk
-Date: Tue,  6 Aug 2019 19:05:42 +0300
-Message-ID: <20190806160554.14046-5-hch@lst.de>
+From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Subject: [PATCH 03/15] nouveau: pass struct nouveau_svmm to
+ nouveau_range_fault
+Date: Tue,  6 Aug 2019 19:05:41 +0300
+Message-ID: <20190806160554.14046-4-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190806160554.14046-1-hch@lst.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190806160554.14046-1-hch-jcswGhMUV9g@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-There is only a single place where the pgmap is passed over a function
-call, so replace it with local variables in the places where we deal
-with the pgmap.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- mm/hmm.c | 62 ++++++++++++++++++++++++--------------------------------
- 1 file changed, 27 insertions(+), 35 deletions(-)
-
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 9a908902e4cc..d66fa29b42e0 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -278,7 +278,6 @@ EXPORT_SYMBOL(hmm_mirror_unregister);
- 
- struct hmm_vma_walk {
- 	struct hmm_range	*range;
--	struct dev_pagemap	*pgmap;
- 	unsigned long		last;
- 	unsigned int		flags;
- };
-@@ -475,6 +474,7 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
- 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
- 	struct hmm_range *range = hmm_vma_walk->range;
-+	struct dev_pagemap *pgmap = NULL;
- 	unsigned long pfn, npages, i;
- 	bool fault, write_fault;
- 	uint64_t cpu_flags;
-@@ -490,17 +490,14 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
- 	pfn = pmd_pfn(pmd) + pte_index(addr);
- 	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++) {
- 		if (pmd_devmap(pmd)) {
--			hmm_vma_walk->pgmap = get_dev_pagemap(pfn,
--					      hmm_vma_walk->pgmap);
--			if (unlikely(!hmm_vma_walk->pgmap))
-+			pgmap = get_dev_pagemap(pfn, pgmap);
-+			if (unlikely(!pgmap))
- 				return -EBUSY;
- 		}
- 		pfns[i] = hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
- 	}
--	if (hmm_vma_walk->pgmap) {
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
-+	if (pgmap)
-+		put_dev_pagemap(pgmap);
- 	hmm_vma_walk->last = end;
- 	return 0;
- #else
-@@ -520,7 +517,7 @@ static inline uint64_t pte_to_hmm_pfn_flags(struct hmm_range *range, pte_t pte)
- 
- static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 			      unsigned long end, pmd_t *pmdp, pte_t *ptep,
--			      uint64_t *pfn)
-+			      uint64_t *pfn, struct dev_pagemap **pgmap)
- {
- 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
- 	struct hmm_range *range = hmm_vma_walk->range;
-@@ -591,9 +588,8 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 		goto fault;
- 
- 	if (pte_devmap(pte)) {
--		hmm_vma_walk->pgmap = get_dev_pagemap(pte_pfn(pte),
--					      hmm_vma_walk->pgmap);
--		if (unlikely(!hmm_vma_walk->pgmap))
-+		*pgmap = get_dev_pagemap(pte_pfn(pte), *pgmap);
-+		if (unlikely(!*pgmap))
- 			return -EBUSY;
- 	} else if (IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL) && pte_special(pte)) {
- 		*pfn = range->values[HMM_PFN_SPECIAL];
-@@ -604,10 +600,10 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	return 0;
- 
- fault:
--	if (hmm_vma_walk->pgmap) {
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
-+	if (*pgmap)
-+		put_dev_pagemap(*pgmap);
-+	*pgmap = NULL;
-+
- 	pte_unmap(ptep);
- 	/* Fault any virtual address we were asked to fault */
- 	return hmm_vma_walk_hole_(addr, end, fault, write_fault, walk);
-@@ -620,6 +616,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- {
- 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
- 	struct hmm_range *range = hmm_vma_walk->range;
-+	struct dev_pagemap *pgmap = NULL;
- 	uint64_t *pfns = range->pfns;
- 	unsigned long addr = start, i;
- 	pte_t *ptep;
-@@ -683,23 +680,21 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 	for (; addr < end; addr += PAGE_SIZE, ptep++, i++) {
- 		int r;
- 
--		r = hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, &pfns[i]);
-+		r = hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, &pfns[i],
-+				&pgmap);
- 		if (r) {
- 			/* hmm_vma_handle_pte() did unmap pte directory */
- 			hmm_vma_walk->last = addr;
- 			return r;
- 		}
- 	}
--	if (hmm_vma_walk->pgmap) {
--		/*
--		 * We do put_dev_pagemap() here and not in hmm_vma_handle_pte()
--		 * so that we can leverage get_dev_pagemap() optimization which
--		 * will not re-take a reference on a pgmap if we already have
--		 * one.
--		 */
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
-+	/*
-+	 * We do put_dev_pagemap() here and not in hmm_vma_handle_pte() so that
-+	 * we can leverage the get_dev_pagemap() optimization which will not
-+	 * re-take a reference on a pgmap if we already have one.
-+	 */
-+	if (pgmap)
-+		put_dev_pagemap(pgmap);
- 	pte_unmap(ptep - 1);
- 
- 	hmm_vma_walk->last = addr;
-@@ -714,6 +709,7 @@ static int hmm_vma_walk_pud(pud_t *pudp,
- 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
- 	struct hmm_range *range = hmm_vma_walk->range;
- 	unsigned long addr = start, next;
-+	struct dev_pagemap *pgmap = NULL;
- 	pmd_t *pmdp;
- 	pud_t pud;
- 	int ret;
-@@ -744,17 +740,14 @@ static int hmm_vma_walk_pud(pud_t *pudp,
- 
- 		pfn = pud_pfn(pud) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
- 		for (i = 0; i < npages; ++i, ++pfn) {
--			hmm_vma_walk->pgmap = get_dev_pagemap(pfn,
--					      hmm_vma_walk->pgmap);
--			if (unlikely(!hmm_vma_walk->pgmap))
-+			pgmap = get_dev_pagemap(pfn, pgmap);
-+			if (unlikely(!pgmap))
- 				return -EBUSY;
- 			pfns[i] = hmm_device_entry_from_pfn(range, pfn) |
- 				  cpu_flags;
- 		}
--		if (hmm_vma_walk->pgmap) {
--			put_dev_pagemap(hmm_vma_walk->pgmap);
--			hmm_vma_walk->pgmap = NULL;
--		}
-+		if (pgmap)
-+			put_dev_pagemap(pgmap);
- 		hmm_vma_walk->last = end;
- 		return 0;
- 	}
-@@ -1002,7 +995,6 @@ long hmm_range_fault(struct hmm_range *range, unsigned int flags)
- 			return -EPERM;
- 		}
- 
--		hmm_vma_walk.pgmap = NULL;
- 		hmm_vma_walk.last = start;
- 		hmm_vma_walk.flags = flags;
- 		hmm_vma_walk.range = range;
--- 
-2.20.1
+V2UnbGwgbmVlZCB0aGUgbm91dmVhdV9zdm1tIHN0cnVjdHVyZSB0byBpbXByb3ZlIHRoZSBmdW5j
+dGlvbiBzb29uLgpGb3Igbm93IHRoaXMgYWxsb3dzIHVzaW5nIHRoZSBzdm1tLT5tbSByZWZlcmVu
+Y2UgdG8gdW5sb2NrIHRoZQptbWFwX3NlbSwgYW5kIHRodXMgdGhlIHNhbWUgZGVyZWZlcmVuY2Ug
+Y2hhaW4gdGhhdCB0aGUgY2FsbGVyIHVzZXMKdG8gbG9jayBhbmQgdW5sb2NrIGl0LgoKU2lnbmVk
+LW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Ci0tLQogZHJpdmVycy9ncHUv
+ZHJtL25vdXZlYXUvbm91dmVhdV9zdm0uYyB8IDEyICsrKysrKy0tLS0tLQogMSBmaWxlIGNoYW5n
+ZWQsIDYgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X3N2bS5jIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUv
+bm91dmVhdV9zdm0uYwppbmRleCBhNzQ1MzBiNWE1MjMuLjk4MDcyZmQ0OGNmNyAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9zdm0uYworKysgYi9kcml2ZXJzL2dw
+dS9kcm0vbm91dmVhdS9ub3V2ZWF1X3N2bS5jCkBAIC00ODUsMjMgKzQ4NSwyMyBAQCBub3V2ZWF1
+X3JhbmdlX2RvbmUoc3RydWN0IGhtbV9yYW5nZSAqcmFuZ2UpCiB9CiAKIHN0YXRpYyBpbnQKLW5v
+dXZlYXVfcmFuZ2VfZmF1bHQoc3RydWN0IGhtbV9taXJyb3IgKm1pcnJvciwgc3RydWN0IGhtbV9y
+YW5nZSAqcmFuZ2UpCitub3V2ZWF1X3JhbmdlX2ZhdWx0KHN0cnVjdCBub3V2ZWF1X3N2bW0gKnN2
+bW0sIHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQogewogCWxvbmcgcmV0OwogCiAJcmFuZ2UtPmRl
+ZmF1bHRfZmxhZ3MgPSAwOwogCXJhbmdlLT5wZm5fZmxhZ3NfbWFzayA9IC0xVUw7CiAKLQlyZXQg
+PSBobW1fcmFuZ2VfcmVnaXN0ZXIocmFuZ2UsIG1pcnJvciwKKwlyZXQgPSBobW1fcmFuZ2VfcmVn
+aXN0ZXIocmFuZ2UsICZzdm1tLT5taXJyb3IsCiAJCQkJIHJhbmdlLT5zdGFydCwgcmFuZ2UtPmVu
+ZCwKIAkJCQkgUEFHRV9TSElGVCk7CiAJaWYgKHJldCkgewotCQl1cF9yZWFkKCZyYW5nZS0+aG1t
+LT5tbS0+bW1hcF9zZW0pOworCQl1cF9yZWFkKCZzdm1tLT5tbS0+bW1hcF9zZW0pOwogCQlyZXR1
+cm4gKGludClyZXQ7CiAJfQogCiAJaWYgKCFobW1fcmFuZ2Vfd2FpdF91bnRpbF92YWxpZChyYW5n
+ZSwgSE1NX1JBTkdFX0RFRkFVTFRfVElNRU9VVCkpIHsKLQkJdXBfcmVhZCgmcmFuZ2UtPmhtbS0+
+bW0tPm1tYXBfc2VtKTsKKwkJdXBfcmVhZCgmc3ZtbS0+bW0tPm1tYXBfc2VtKTsKIAkJcmV0dXJu
+IC1FQlVTWTsKIAl9CiAKQEAgLTUwOSw3ICs1MDksNyBAQCBub3V2ZWF1X3JhbmdlX2ZhdWx0KHN0
+cnVjdCBobW1fbWlycm9yICptaXJyb3IsIHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQogCWlmIChy
+ZXQgPD0gMCkgewogCQlpZiAocmV0ID09IDApCiAJCQlyZXQgPSAtRUJVU1k7Ci0JCXVwX3JlYWQo
+JnJhbmdlLT5obW0tPm1tLT5tbWFwX3NlbSk7CisJCXVwX3JlYWQoJnN2bW0tPm1tLT5tbWFwX3Nl
+bSk7CiAJCWhtbV9yYW5nZV91bnJlZ2lzdGVyKHJhbmdlKTsKIAkJcmV0dXJuIHJldDsKIAl9CkBA
+IC02ODksNyArNjg5LDcgQEAgbm91dmVhdV9zdm1fZmF1bHQoc3RydWN0IG52aWZfbm90aWZ5ICpu
+b3RpZnkpCiAJCXJhbmdlLnZhbHVlcyA9IG5vdXZlYXVfc3ZtX3Bmbl92YWx1ZXM7CiAJCXJhbmdl
+LnBmbl9zaGlmdCA9IE5WSUZfVk1NX1BGTk1BUF9WMF9BRERSX1NISUZUOwogYWdhaW46Ci0JCXJl
+dCA9IG5vdXZlYXVfcmFuZ2VfZmF1bHQoJnN2bW0tPm1pcnJvciwgJnJhbmdlKTsKKwkJcmV0ID0g
+bm91dmVhdV9yYW5nZV9mYXVsdChzdm1tLCAmcmFuZ2UpOwogCQlpZiAocmV0ID09IDApIHsKIAkJ
+CW11dGV4X2xvY2soJnN2bW0tPm11dGV4KTsKIAkJCWlmICghbm91dmVhdV9yYW5nZV9kb25lKCZy
+YW5nZSkpIHsKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2
+ZWF1
