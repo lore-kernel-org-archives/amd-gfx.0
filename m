@@ -1,15 +1,16 @@
-From: "Xu, Feifei" <Feifei.Xu-5C7GfCeVMHo@public.gmane.org>
-Subject: RE: [PATCH] drm/amd/powerplay: check before issuing messages for max
- sustainable clocks
-Date: Tue, 6 Aug 2019 08:32:15 +0000
-Message-ID: <CH2PR12MB37670D0D4F293AF87B520905FED50@CH2PR12MB3767.namprd12.prod.outlook.com>
-References: <20190806082120.3352-1-evan.quan@amd.com>
+From: Oded Gabbay <oded.gabbay-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
+Subject: Re: [PATCH hmm] drm/amdkfd: fix a use after free race with
+ mmu_notififer unregister
+Date: Tue, 6 Aug 2019 11:33:26 +0300
+Message-ID: <CAFCwf10aRHeXuOg+5o6=VgzM1dhFQde=b0jZSmgF4DfibYcp_A@mail.gmail.com>
+References: <20190802200705.GA10110@ziepe.ca>
+ <c59ebe8b-9b18-24b8-b02c-8ccaa7df4dc9@amd.com>
+ <20190806073105.GA20575@infradead.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806082120.3352-1-evan.quan-5C7GfCeVMHo@public.gmane.org>
-Content-Language: en-US
+In-Reply-To: <20190806073105.GA20575-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -20,35 +21,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-Cc: "Quan, Evan" <Evan.Quan-5C7GfCeVMHo@public.gmane.org>
+To: Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Cc: Ben Goz <ben.goz-5C7GfCeVMHo@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>, "linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org" <linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, "dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 
-DQpSZXZpZXdlZC1ieTogRmVpZmVpIFh1IDxGZWlmZWkuWHVAYW1kLmNvbT4NCg0KLS0tLS1Pcmln
-aW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5m
-cmVlZGVza3RvcC5vcmc+IE9uIEJlaGFsZiBPZiBFdmFuIFF1YW4NClNlbnQ6IFR1ZXNkYXksIEF1
-Z3VzdCA2LCAyMDE5IDQ6MjEgUE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
-Q2M6IFF1YW4sIEV2YW4gPEV2YW4uUXVhbkBhbWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBkcm0v
-YW1kL3Bvd2VycGxheTogY2hlY2sgYmVmb3JlIGlzc3VpbmcgbWVzc2FnZXMgZm9yIG1heCBzdXN0
-YWluYWJsZSBjbG9ja3MNCg0KVGhvc2UgbWVzc2FnZXMgYXJlIG5vdCBzdXBwb3J0ZWQgb24gQXJj
-dHVydXMgYW5kIHNob3VsZCBub3QgYmUgaXNzdWVkLg0KDQpBZmZlY3RlZCBBU0lDOiBBcmN0dXJ1
-cw0KDQpDaGFuZ2UtSWQ6IEkzOTEwOTlmYzI4ZTAwMzU2MjM0ZmQyYWU3YjY4ZjU4NjFmZDRjMTQ3
-DQpTaWduZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KLS0tDQogZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvc211X3YxMV8wLmMgfCA0ICsrKysNCiAxIGZpbGUg
-Y2hhbmdlZCwgNCBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5
-L3NtdV92MTFfMC5jDQppbmRleCA4NGViMTRhNjY1MGYuLjJkZGI0ZWM3NTMwNSAxMDA2NDQNCi0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L3NtdV92MTFfMC5jDQorKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9zbXVfdjExXzAuYw0KQEAgLTkwNSw2ICs5MDUsMTAg
-QEAgc211X3YxMV8wX2dldF9tYXhfc3VzdGFpbmFibGVfY2xvY2soc3RydWN0IHNtdV9jb250ZXh0
-ICpzbXUsIHVpbnQzMl90ICpjbG9jaywNCiAJaWYgKCFzbXUtPnBtX2VuYWJsZWQpDQogCQlyZXR1
-cm4gcmV0Ow0KIA0KKwlpZiAoKHNtdV9tc2dfZ2V0X2luZGV4KHNtdSwgU01VX01TR19HZXREY01v
-ZGVNYXhEcG1GcmVxKSA8IDApIHx8DQorCSAgICAoc211X21zZ19nZXRfaW5kZXgoc211LCBTTVVf
-TVNHX0dldE1heERwbUZyZXEpIDwgMCkpDQorCQlyZXR1cm4gMDsNCisNCiAJY2xrX2lkID0gc211
-X2Nsa19nZXRfaW5kZXgoc211LCBjbG9ja19zZWxlY3QpOw0KIAlpZiAoY2xrX2lkIDwgMCkNCiAJ
-CXJldHVybiAtRUlOVkFMOw0KLS0NCjIuMjIuMA0KDQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXw0KYW1kLWdmeCBtYWlsaW5nIGxpc3QNCmFtZC1nZnhAbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnDQpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eA==
+T24gVHVlLCBBdWcgNiwgMjAxOSBhdCAxMDozMSBBTSBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGlu
+ZnJhZGVhZC5vcmc+IHdyb3RlOgo+Cj4gQnR3LCB3aG8gbWFpbnRhaW5zIGFta2ZkIHRoZXNlIGRh
+eXM/ICBNQUlOVEFJTkVSUyBzdGlsbCBsaXN0cwo+IE9kZWQsIGJ1dCBoZSBzZWVtcyB0byBoYXZl
+IG1vdmVkIG9uIHRvIEhhYmFuYWxhYnMgYW5kIG1haW50YWlucyB0aGF0Cj4gZHJpdmVycyBub3cg
+d2hpbGUgbm90IGhhdmluZyBhbnkgYWN0aW9uIG9uIGFtZGtmZCBmb3Igb3ZlciBhIHllYXIuCgpJ
+J3ZlIHNlbnQgYSBwYXRjaCB0byB1cGRhdGUgdGhlIE1BSU5UQUlORVJTIGZpbGUgYSBtb250aCBh
+Z28gdG8KZHJpLWRldmVsIGFuZCBEYXZlCihodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9h
+cmNoaXZlcy9kcmktZGV2ZWwvMjAxOS1KdWx5LzIyNTI3Mi5odG1sKQoKVGhhbmtzLApPZGVkCgpP
+ZGVkCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeA==
