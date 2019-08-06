@@ -1,62 +1,55 @@
-From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Subject: [PATCH 03/15] nouveau: pass struct nouveau_svmm to
- nouveau_range_fault
-Date: Tue,  6 Aug 2019 19:05:41 +0300
-Message-ID: <20190806160554.14046-4-hch@lst.de>
+From: Christoph Hellwig <hch@lst.de>
+Subject: [PATCH 05/15] mm: remove the unused vma argument to hmm_range_dma_unmap
+Date: Tue,  6 Aug 2019 19:05:43 +0300
+Message-ID: <20190806160554.14046-6-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806160554.14046-1-hch-jcswGhMUV9g@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190806160554.14046-1-hch@lst.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-V2UnbGwgbmVlZCB0aGUgbm91dmVhdV9zdm1tIHN0cnVjdHVyZSB0byBpbXByb3ZlIHRoZSBmdW5j
-dGlvbiBzb29uLgpGb3Igbm93IHRoaXMgYWxsb3dzIHVzaW5nIHRoZSBzdm1tLT5tbSByZWZlcmVu
-Y2UgdG8gdW5sb2NrIHRoZQptbWFwX3NlbSwgYW5kIHRodXMgdGhlIHNhbWUgZGVyZWZlcmVuY2Ug
-Y2hhaW4gdGhhdCB0aGUgY2FsbGVyIHVzZXMKdG8gbG9jayBhbmQgdW5sb2NrIGl0LgoKU2lnbmVk
-LW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Ci0tLQogZHJpdmVycy9ncHUv
-ZHJtL25vdXZlYXUvbm91dmVhdV9zdm0uYyB8IDEyICsrKysrKy0tLS0tLQogMSBmaWxlIGNoYW5n
-ZWQsIDYgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X3N2bS5jIGIvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUv
-bm91dmVhdV9zdm0uYwppbmRleCBhNzQ1MzBiNWE1MjMuLjk4MDcyZmQ0OGNmNyAxMDA2NDQKLS0t
-IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9zdm0uYworKysgYi9kcml2ZXJzL2dw
-dS9kcm0vbm91dmVhdS9ub3V2ZWF1X3N2bS5jCkBAIC00ODUsMjMgKzQ4NSwyMyBAQCBub3V2ZWF1
-X3JhbmdlX2RvbmUoc3RydWN0IGhtbV9yYW5nZSAqcmFuZ2UpCiB9CiAKIHN0YXRpYyBpbnQKLW5v
-dXZlYXVfcmFuZ2VfZmF1bHQoc3RydWN0IGhtbV9taXJyb3IgKm1pcnJvciwgc3RydWN0IGhtbV9y
-YW5nZSAqcmFuZ2UpCitub3V2ZWF1X3JhbmdlX2ZhdWx0KHN0cnVjdCBub3V2ZWF1X3N2bW0gKnN2
-bW0sIHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQogewogCWxvbmcgcmV0OwogCiAJcmFuZ2UtPmRl
-ZmF1bHRfZmxhZ3MgPSAwOwogCXJhbmdlLT5wZm5fZmxhZ3NfbWFzayA9IC0xVUw7CiAKLQlyZXQg
-PSBobW1fcmFuZ2VfcmVnaXN0ZXIocmFuZ2UsIG1pcnJvciwKKwlyZXQgPSBobW1fcmFuZ2VfcmVn
-aXN0ZXIocmFuZ2UsICZzdm1tLT5taXJyb3IsCiAJCQkJIHJhbmdlLT5zdGFydCwgcmFuZ2UtPmVu
-ZCwKIAkJCQkgUEFHRV9TSElGVCk7CiAJaWYgKHJldCkgewotCQl1cF9yZWFkKCZyYW5nZS0+aG1t
-LT5tbS0+bW1hcF9zZW0pOworCQl1cF9yZWFkKCZzdm1tLT5tbS0+bW1hcF9zZW0pOwogCQlyZXR1
-cm4gKGludClyZXQ7CiAJfQogCiAJaWYgKCFobW1fcmFuZ2Vfd2FpdF91bnRpbF92YWxpZChyYW5n
-ZSwgSE1NX1JBTkdFX0RFRkFVTFRfVElNRU9VVCkpIHsKLQkJdXBfcmVhZCgmcmFuZ2UtPmhtbS0+
-bW0tPm1tYXBfc2VtKTsKKwkJdXBfcmVhZCgmc3ZtbS0+bW0tPm1tYXBfc2VtKTsKIAkJcmV0dXJu
-IC1FQlVTWTsKIAl9CiAKQEAgLTUwOSw3ICs1MDksNyBAQCBub3V2ZWF1X3JhbmdlX2ZhdWx0KHN0
-cnVjdCBobW1fbWlycm9yICptaXJyb3IsIHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlKQogCWlmIChy
-ZXQgPD0gMCkgewogCQlpZiAocmV0ID09IDApCiAJCQlyZXQgPSAtRUJVU1k7Ci0JCXVwX3JlYWQo
-JnJhbmdlLT5obW0tPm1tLT5tbWFwX3NlbSk7CisJCXVwX3JlYWQoJnN2bW0tPm1tLT5tbWFwX3Nl
-bSk7CiAJCWhtbV9yYW5nZV91bnJlZ2lzdGVyKHJhbmdlKTsKIAkJcmV0dXJuIHJldDsKIAl9CkBA
-IC02ODksNyArNjg5LDcgQEAgbm91dmVhdV9zdm1fZmF1bHQoc3RydWN0IG52aWZfbm90aWZ5ICpu
-b3RpZnkpCiAJCXJhbmdlLnZhbHVlcyA9IG5vdXZlYXVfc3ZtX3Bmbl92YWx1ZXM7CiAJCXJhbmdl
-LnBmbl9zaGlmdCA9IE5WSUZfVk1NX1BGTk1BUF9WMF9BRERSX1NISUZUOwogYWdhaW46Ci0JCXJl
-dCA9IG5vdXZlYXVfcmFuZ2VfZmF1bHQoJnN2bW0tPm1pcnJvciwgJnJhbmdlKTsKKwkJcmV0ID0g
-bm91dmVhdV9yYW5nZV9mYXVsdChzdm1tLCAmcmFuZ2UpOwogCQlpZiAocmV0ID09IDApIHsKIAkJ
-CW11dGV4X2xvY2soJnN2bW0tPm11dGV4KTsKIAkJCWlmICghbm91dmVhdV9yYW5nZV9kb25lKCZy
-YW5nZSkpIHsKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2
-ZWF1
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+---
+ include/linux/hmm.h | 1 -
+ mm/hmm.c            | 2 --
+ 2 files changed, 3 deletions(-)
+
+diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+index 82265118d94a..59be0aa2476d 100644
+--- a/include/linux/hmm.h
++++ b/include/linux/hmm.h
+@@ -422,7 +422,6 @@ long hmm_range_dma_map(struct hmm_range *range,
+ 		       dma_addr_t *daddrs,
+ 		       unsigned int flags);
+ long hmm_range_dma_unmap(struct hmm_range *range,
+-			 struct vm_area_struct *vma,
+ 			 struct device *device,
+ 			 dma_addr_t *daddrs,
+ 			 bool dirty);
+diff --git a/mm/hmm.c b/mm/hmm.c
+index d66fa29b42e0..3a3852660757 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -1121,7 +1121,6 @@ EXPORT_SYMBOL(hmm_range_dma_map);
+ /**
+  * hmm_range_dma_unmap() - unmap range of that was map with hmm_range_dma_map()
+  * @range: range being unmapped
+- * @vma: the vma against which the range (optional)
+  * @device: device against which dma map was done
+  * @daddrs: dma address of mapped pages
+  * @dirty: dirty page if it had the write flag set
+@@ -1133,7 +1132,6 @@ EXPORT_SYMBOL(hmm_range_dma_map);
+  * concurrent mmu notifier or sync_cpu_device_pagetables() to make progress.
+  */
+ long hmm_range_dma_unmap(struct hmm_range *range,
+-			 struct vm_area_struct *vma,
+ 			 struct device *device,
+ 			 dma_addr_t *daddrs,
+ 			 bool dirty)
+-- 
+2.20.1
