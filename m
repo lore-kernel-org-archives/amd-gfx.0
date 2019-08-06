@@ -1,69 +1,39 @@
-From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Subject: [PATCH 14/15] mm: make HMM_MIRROR an implicit option
-Date: Tue,  6 Aug 2019 19:05:52 +0300
-Message-ID: <20190806160554.14046-15-hch@lst.de>
+From: Christoph Hellwig <hch@lst.de>
+Subject: [PATCH 13/15] mm: allow HMM_MIRROR on all architectures with MMU
+Date: Tue,  6 Aug 2019 19:05:51 +0300
+Message-ID: <20190806160554.14046-14-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806160554.14046-1-hch-jcswGhMUV9g@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190806160554.14046-1-hch@lst.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-TWFrZSBITU1fTUlSUk9SIGFuIG9wdGlvbiB0aGF0IGlzIHNlbGVjdGVkIGJ5IGRyaXZlcnMgd2Fu
-dGluZyB0byB1c2UgaXQKaW5zdGVhZCBvZiBhIHVzZXIgdmlzaWJsZSBvcHRpb24gYXMgaXQgaXMg
-anVzdCBhIGxvdy1sZXZlbAppbXBsZW1lbnRhdGlvbiBkZXRhaWwuCgpTaWduZWQtb2ZmLWJ5OiBD
-aHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9LY29uZmlnIHwgIDQgKysrLQogZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvS2NvbmZpZyAg
-ICB8ICA0ICsrKy0KIG1tL0tjb25maWcgICAgICAgICAgICAgICAgICAgICAgICAgfCAxNCArKysr
-KystLS0tLS0tLQogMyBmaWxlcyBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAxMCBkZWxldGlv
-bnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnIGIv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZpZwppbmRleCBmNmU1YzAyODJmYzEuLjJl
-OThjMDE2Y2I0NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZp
-ZworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9LY29uZmlnCkBAIC0yNyw3ICsyNyw5
-IEBAIGNvbmZpZyBEUk1fQU1ER1BVX0NJSwogY29uZmlnIERSTV9BTURHUFVfVVNFUlBUUgogCWJv
-b2wgIkFsd2F5cyBlbmFibGUgdXNlcnB0ciB3cml0ZSBzdXBwb3J0IgogCWRlcGVuZHMgb24gRFJN
-X0FNREdQVQotCWRlcGVuZHMgb24gSE1NX01JUlJPUgorCWRlcGVuZHMgb24gTU1VCisJc2VsZWN0
-IEhNTV9NSVJST1IKKwlzZWxlY3QgTU1VX05PVElGSUVSCiAJaGVscAogCSAgVGhpcyBvcHRpb24g
-c2VsZWN0cyBDT05GSUdfSE1NIGFuZCBDT05GSUdfSE1NX01JUlJPUiBpZiBpdAogCSAgaXNuJ3Qg
-YWxyZWFkeSBzZWxlY3RlZCB0byBlbmFibGVkIGZ1bGwgdXNlcnB0ciBzdXBwb3J0LgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvS2NvbmZpZyBiL2RyaXZlcnMvZ3B1L2RybS9u
-b3V2ZWF1L0tjb25maWcKaW5kZXggOTZiOTgxNGU2ZDA2Li5kZjQzNTJjMjc5YmEgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvZ3B1L2RybS9ub3V2ZWF1L0tjb25maWcKKysrIGIvZHJpdmVycy9ncHUvZHJt
-L25vdXZlYXUvS2NvbmZpZwpAQCAtODYsOSArODYsMTEgQEAgY29uZmlnIERSTV9OT1VWRUFVX1NW
-TQogCWJvb2wgIihFWFBFUklNRU5UQUwpIEVuYWJsZSBTVk0gKFNoYXJlZCBWaXJ0dWFsIE1lbW9y
-eSkgc3VwcG9ydCIKIAlkZXBlbmRzIG9uIERFVklDRV9QUklWQVRFCiAJZGVwZW5kcyBvbiBEUk1f
-Tk9VVkVBVQotCWRlcGVuZHMgb24gSE1NX01JUlJPUgorCWRlcGVuZHMgb24gTU1VCiAJZGVwZW5k
-cyBvbiBTVEFHSU5HCisJc2VsZWN0IEhNTV9NSVJST1IKIAlzZWxlY3QgTUlHUkFURV9WTUFfSEVM
-UEVSCisJc2VsZWN0IE1NVV9OT1RJRklFUgogCWRlZmF1bHQgbgogCWhlbHAKIAkgIFNheSBZIGhl
-cmUgaWYgeW91IHdhbnQgdG8gZW5hYmxlIGV4cGVyaW1lbnRhbCBzdXBwb3J0IGZvcgpkaWZmIC0t
-Z2l0IGEvbW0vS2NvbmZpZyBiL21tL0tjb25maWcKaW5kZXggYjE4NzgyYmU5NjljLi41NjM0MzZk
-YzFmMjQgMTAwNjQ0Ci0tLSBhL21tL0tjb25maWcKKysrIGIvbW0vS2NvbmZpZwpAQCAtNjc1LDE2
-ICs2NzUsMTQgQEAgY29uZmlnIE1JR1JBVEVfVk1BX0hFTFBFUgogY29uZmlnIERFVl9QQUdFTUFQ
-X09QUwogCWJvb2wKIAorIworIyBIZWxwZXJzIHRvIG1pcnJvciByYW5nZSBvZiB0aGUgQ1BVIHBh
-Z2UgdGFibGVzIG9mIGEgcHJvY2VzcyBpbnRvIGRldmljZSBwYWdlCisjIHRhYmxlcy4KKyMKIGNv
-bmZpZyBITU1fTUlSUk9SCi0JYm9vbCAiSE1NIG1pcnJvciBDUFUgcGFnZSB0YWJsZSBpbnRvIGEg
-ZGV2aWNlIHBhZ2UgdGFibGUiCisJYm9vbAogCWRlcGVuZHMgb24gTU1VCi0Jc2VsZWN0IE1NVV9O
-T1RJRklFUgotCWhlbHAKLQkgIFNlbGVjdCBITU1fTUlSUk9SIGlmIHlvdSB3YW50IHRvIG1pcnJv
-ciByYW5nZSBvZiB0aGUgQ1BVIHBhZ2UgdGFibGUgb2YgYQotCSAgcHJvY2VzcyBpbnRvIGEgZGV2
-aWNlIHBhZ2UgdGFibGUuIEhlcmUsIG1pcnJvciBtZWFucyAia2VlcCBzeW5jaHJvbml6ZWQiLgot
-CSAgUHJlcmVxdWlzaXRlczogdGhlIGRldmljZSBtdXN0IHByb3ZpZGUgdGhlIGFiaWxpdHkgdG8g
-d3JpdGUtcHJvdGVjdCBpdHMKLQkgIHBhZ2UgdGFibGVzIChhdCBQQUdFX1NJWkUgZ3JhbnVsYXJp
-dHkpLCBhbmQgbXVzdCBiZSBhYmxlIHRvIHJlY292ZXIgZnJvbQotCSAgdGhlIHJlc3VsdGluZyBw
-b3RlbnRpYWwgcGFnZSBmYXVsdHMuCisJZGVwZW5kcyBvbiBNTVVfTk9USUZJRVIKIAogY29uZmln
-IERFVklDRV9QUklWQVRFCiAJYm9vbCAiVW5hZGRyZXNzYWJsZSBkZXZpY2UgbWVtb3J5IChHUFUg
-bWVtb3J5LCAuLi4pIgotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpOb3V2ZWF1IG1haWxpbmcgbGlzdApOb3V2ZWF1QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L25vdXZlYXU=
+There isn't really any architecture specific code in this page table
+walk implementation, so drop the dependencies.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+---
+ mm/Kconfig | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/mm/Kconfig b/mm/Kconfig
+index 56cec636a1fc..b18782be969c 100644
+--- a/mm/Kconfig
++++ b/mm/Kconfig
+@@ -677,8 +677,7 @@ config DEV_PAGEMAP_OPS
+ 
+ config HMM_MIRROR
+ 	bool "HMM mirror CPU page table into a device page table"
+-	depends on (X86_64 || PPC64)
+-	depends on MMU && 64BIT
++	depends on MMU
+ 	select MMU_NOTIFIER
+ 	help
+ 	  Select HMM_MIRROR if you want to mirror range of the CPU page table of a
+-- 
+2.20.1
