@@ -1,54 +1,88 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH 15/15] amdgpu: remove CONFIG_DRM_AMDGPU_USERPTR
-Date: Tue, 6 Aug 2019 17:03:56 -0300
-Message-ID: <20190806200356.GU11627@ziepe.ca>
-References: <20190806160554.14046-1-hch@lst.de>
- <20190806160554.14046-16-hch@lst.de>
- <20190806174437.GK11627@ziepe.ca>
- <587b1c3c-83c4-7de9-242f-6516528049f4@amd.com>
- <CADnq5_Puv-N=FVpNXhv7gOWZ8=tgBD2VjrKpVzEE0imWqJdD1A@mail.gmail.com>
+From: John Hubbard <jhubbard@nvidia.com>
+Subject: Re: [PATCH v2 01/34] mm/gup: add make_dirty arg to
+ put_user_pages_dirty_lock()
+Date: Tue, 6 Aug 2019 13:39:16 -0700
+Message-ID: <0e232d84-e6ea-159e-91d4-77e938377161@nvidia.com>
+References: <20190804224915.28669-1-jhubbard@nvidia.com>
+ <20190804224915.28669-2-jhubbard@nvidia.com>
+ <20190806173945.GA4748@iweiny-DESK2.sc.intel.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-Content-Disposition: inline
-In-Reply-To: <CADnq5_Puv-N=FVpNXhv7gOWZ8=tgBD2VjrKpVzEE0imWqJdD1A@mail.gmail.com>
+In-Reply-To: <20190806173945.GA4748@iweiny-DESK2.sc.intel.com>
+Content-Language: en-US
 Sender: linux-kernel-owner@vger.kernel.org
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: "Kuehling, Felix" <Felix.Kuehling@amd.com>, Christoph Hellwig <hch@lst.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
+To: Ira Weiny <ira.weiny@intel.com>, john.hubbard@gmail.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, Christoph Hellwig <hch@infradead.org>, Dan Williams <dan.j.williams@intel.com>, Dave Chinner <david@fromorbit.com>, Dave Hansen <dave.hansen@linux.intel.com>, Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org, ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org, devel@lists.orangefs.org, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, kvm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org, linux-crypto@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kva
 List-Id: amd-gfx.lists.freedesktop.org
 
-On Tue, Aug 06, 2019 at 02:58:58PM -0400, Alex Deucher wrote:
-> On Tue, Aug 6, 2019 at 1:51 PM Kuehling, Felix <Felix.Kuehling@amd.com> wrote:
-> >
-> > On 2019-08-06 13:44, Jason Gunthorpe wrote:
-> > > On Tue, Aug 06, 2019 at 07:05:53PM +0300, Christoph Hellwig wrote:
-> > >> The option is just used to select HMM mirror support and has a very
-> > >> confusing help text.  Just pull in the HMM mirror code by default
-> > >> instead.
-> > >>
-> > >> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> > >>   drivers/gpu/drm/Kconfig                 |  2 ++
-> > >>   drivers/gpu/drm/amd/amdgpu/Kconfig      | 10 ----------
-> > >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  6 ------
-> > >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 12 ------------
-> > >>   4 files changed, 2 insertions(+), 28 deletions(-)
-> > > Felix, was this an effort to avoid the arch restriction on hmm or
-> > > something? Also can't see why this was like this.
-> >
-> > This option predates KFD's support of userptrs, which in turn predates
-> > HMM. Radeon has the same kind of option, though it doesn't affect HMM in
-> > that case.
-> >
-> > Alex, Christian, can you think of a good reason to maintain userptr
-> > support as an option in amdgpu? I suspect it was originally meant as a
-> > way to allow kernels with amdgpu without MMU notifiers. Now it would
-> > allow a kernel with amdgpu without HMM or MMU notifiers. I don't know if
-> > this is a useful thing to have.
+On 8/6/19 10:39 AM, Ira Weiny wrote:
+> On Sun, Aug 04, 2019 at 03:48:42PM -0700, john.hubbard@gmail.com wrote:
+>> From: John Hubbard <jhubbard@nvidia.com>
+...
+>> -
+>>  /**
+>> - * put_user_pages_dirty() - release and dirty an array of gup-pinned pages
+>> - * @pages:  array of pages to be marked dirty and released.
+>> + * put_user_pages_dirty_lock() - release and optionally dirty gup-pinned pages
+>> + * @pages:  array of pages to be maybe marked dirty, and definitely released.
 > 
-> Right.  There were people that didn't have MMU notifiers that wanted
-> support for the GPU.
+> Better would be.
+> 
+> @pages:  array of pages to be put
 
-?? Is that even a real thing? mmu_notifier does not have much kconfig
-dependency.
+OK, I'll change to that wording.
 
-Jason
+> 
+>>   * @npages: number of pages in the @pages array.
+>> + * @make_dirty: whether to mark the pages dirty
+>>   *
+>>   * "gup-pinned page" refers to a page that has had one of the get_user_pages()
+>>   * variants called on that page.
+>>   *
+>>   * For each page in the @pages array, make that page (or its head page, if a
+>> - * compound page) dirty, if it was previously listed as clean. Then, release
+>> - * the page using put_user_page().
+>> + * compound page) dirty, if @make_dirty is true, and if the page was previously
+>> + * listed as clean. In any case, releases all pages using put_user_page(),
+>> + * possibly via put_user_pages(), for the non-dirty case.
+> 
+> I don't think users of this interface need this level of detail.  I think
+> something like.
+> 
+>  * For each page in the @pages array, release the page.  If @make_dirty is
+>  * true, mark the page dirty prior to release.
+
+Yes, it is too wordy, I'll change to that.
+
+> 
+...
+>> -void put_user_pages_dirty_lock(struct page **pages, unsigned long npages)
+>> -{
+>> -	__put_user_pages_dirty(pages, npages, set_page_dirty_lock);
+>> +	/*
+>> +	 * TODO: this can be optimized for huge pages: if a series of pages is
+>> +	 * physically contiguous and part of the same compound page, then a
+>> +	 * single operation to the head page should suffice.
+>> +	 */
+> 
+> I think this comment belongs to the for loop below...  or just something about
+> how to make this and put_user_pages() more efficient.  It is odd, that this is
+> the same comment as in put_user_pages()...
+
+Actually I think I'll just delete the comment entirely, it's just noise really.
+
+> 
+> The code is good.  So... Other than the comments.
+> 
+> Reviewed-by: Ira Weiny <ira.weiny@intel.com>
+
+
+Thanks for the review!
+
+
+thanks,
+-- 
+John Hubbard
+NVIDIA
