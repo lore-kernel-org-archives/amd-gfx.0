@@ -1,50 +1,63 @@
-From: Alex Deucher <alexdeucher-Re5JQEeQqe8AvxtiuMwx3w@public.gmane.org>
-Subject: Re: [PATCH] drm/amdgpu: fix gfx9 soft recovery
-Date: Tue, 6 Aug 2019 14:49:13 -0400
-Message-ID: <CADnq5_N6V4=JfFVY2d7GVhS5JQH4cp9guN+983NVkX8+5qMPsw@mail.gmail.com>
-References: <20190806181951.17091-1-pierre-eric.pelloux-prayer@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 15/15] amdgpu: remove CONFIG_DRM_AMDGPU_USERPTR
+Date: Tue, 6 Aug 2019 14:58:58 -0400
+Message-ID: <CADnq5_Puv-N=FVpNXhv7gOWZ8=tgBD2VjrKpVzEE0imWqJdD1A@mail.gmail.com>
+References: <20190806160554.14046-1-hch@lst.de> <20190806160554.14046-16-hch@lst.de>
+ <20190806174437.GK11627@ziepe.ca> <587b1c3c-83c4-7de9-242f-6516528049f4@amd.com>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806181951.17091-1-pierre-eric.pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer-5C7GfCeVMHo@public.gmane.org>
-Cc: "amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org" <amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+Content-Type: text/plain; charset="UTF-8"
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <587b1c3c-83c4-7de9-242f-6516528049f4@amd.com>
+Sender: linux-kernel-owner@vger.kernel.org
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Christoph Hellwig <hch@lst.de>, "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>
+List-Id: amd-gfx.lists.freedesktop.org
 
-T24gVHVlLCBBdWcgNiwgMjAxOSBhdCAyOjE5IFBNIFBlbGxvdXgtcHJheWVyLCBQaWVycmUtZXJp
-Ywo8UGllcnJlLWVyaWMuUGVsbG91eC1wcmF5ZXJAYW1kLmNvbT4gd3JvdGU6Cj4KPiBUaGUgU09D
-MTVfUkVHX09GRlNFVCgpIG1hY3JvIHdhc24ndCB1c2VkLCBtYWtpbmcgdGhlIHNvZnQgcmVjb3Zl
-cnkgZmFpbC4KPgo+IFNpZ25lZC1vZmYtYnk6IFBpZXJyZS1FcmljIFBlbGxvdXgtUHJheWVyIDxw
-aWVycmUtZXJpYy5wZWxsb3V4LXByYXllckBhbWQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNl
-cnRpb24oKyksIDEgZGVsZXRpb24oLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5
-XzAuYwo+IGluZGV4IGJjZDAzMDFlZWUxZS4uZmY4N2Y2ZWE1Y2Q2IDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gQEAgLTUzNzUsNyArNTM3NSw3IEBAIHN0YXRpYyB2
-b2lkIGdmeF92OV8wX3Jpbmdfc29mdF9yZWNvdmVyeShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcs
-IHVuc2lnbmVkIHZtaWQpCj4gICAgICAgICB2YWx1ZSA9IFJFR19TRVRfRklFTEQodmFsdWUsIFNR
-X0NNRCwgTU9ERSwgMHgwMSk7Cj4gICAgICAgICB2YWx1ZSA9IFJFR19TRVRfRklFTEQodmFsdWUs
-IFNRX0NNRCwgQ0hFQ0tfVk1JRCwgMSk7Cj4gICAgICAgICB2YWx1ZSA9IFJFR19TRVRfRklFTEQo
-dmFsdWUsIFNRX0NNRCwgVk1fSUQsIHZtaWQpOwo+IC0gICAgICAgV1JFRzMyKG1tU1FfQ01ELCB2
-YWx1ZSk7Cj4gKyAgICAgICBXUkVHMzIoU09DMTVfUkVHX09GRlNFVChHQywgMCwgbW1TUV9DTUQp
-LCB2YWx1ZSk7CgpQbGVhc2UgdXNlIFdSRUczMl9TT0MxNSgpLiAgV2l0aCB0aGF0IGZpeGVkOgpS
-ZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPiAg
-fQo+Cj4gIHN0YXRpYyB2b2lkIGdmeF92OV8wX3NldF9nZnhfZW9wX2ludGVycnVwdF9zdGF0ZShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAtLQo+IDIuMjMuMC5yYzEKPgo+IF9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5n
-IGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJl
-ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
-QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2FtZC1nZng=
+On Tue, Aug 6, 2019 at 1:51 PM Kuehling, Felix <Felix.Kuehling@amd.com> wrote:
+>
+> On 2019-08-06 13:44, Jason Gunthorpe wrote:
+> > On Tue, Aug 06, 2019 at 07:05:53PM +0300, Christoph Hellwig wrote:
+> >> The option is just used to select HMM mirror support and has a very
+> >> confusing help text.  Just pull in the HMM mirror code by default
+> >> instead.
+> >>
+> >> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> >> ---
+> >>   drivers/gpu/drm/Kconfig                 |  2 ++
+> >>   drivers/gpu/drm/amd/amdgpu/Kconfig      | 10 ----------
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  6 ------
+> >>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h | 12 ------------
+> >>   4 files changed, 2 insertions(+), 28 deletions(-)
+> > Felix, was this an effort to avoid the arch restriction on hmm or
+> > something? Also can't see why this was like this.
+>
+> This option predates KFD's support of userptrs, which in turn predates
+> HMM. Radeon has the same kind of option, though it doesn't affect HMM in
+> that case.
+>
+> Alex, Christian, can you think of a good reason to maintain userptr
+> support as an option in amdgpu? I suspect it was originally meant as a
+> way to allow kernels with amdgpu without MMU notifiers. Now it would
+> allow a kernel with amdgpu without HMM or MMU notifiers. I don't know if
+> this is a useful thing to have.
+
+Right.  There were people that didn't have MMU notifiers that wanted
+support for the GPU.  For a lot of older APIs, a lack of userptr
+support was not a big deal (it just disabled some optimizations and
+API extensions), but as it becomes more relevant it may make sense to
+just make it a requirement.
+
+Alex
+
+>
+> Regards,
+>    Felix
+>
+> >
+> > Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+> >
+> > Jason
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
