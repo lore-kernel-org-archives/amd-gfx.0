@@ -1,65 +1,62 @@
-From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Subject: [PATCH 10/15] mm: only define hmm_vma_walk_pud if needed
-Date: Tue,  6 Aug 2019 19:05:48 +0300
-Message-ID: <20190806160554.14046-11-hch@lst.de>
+From: Christoph Hellwig <hch@lst.de>
+Subject: [PATCH 11/15] mm: cleanup the hmm_vma_handle_pmd stub
+Date: Tue,  6 Aug 2019 19:05:49 +0300
+Message-ID: <20190806160554.14046-12-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806160554.14046-1-hch-jcswGhMUV9g@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190806160554.14046-1-hch@lst.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-V2Ugb25seSBuZWVkIHRoZSBzcGVjaWFsIHB1ZF9lbnRyeSB3YWxrZXIgaWYgUFVELXNpemVkIGh1
-Z2VwYWdlcyBhbmQKcHRlIG1hcHBpbmdzIGFyZSBzdXBwb3J0ZWQsIGVsc2UgdGhlIGNvbW1vbiBw
-YWdld2FsayBjb2RlIHdpbGwgdGFrZQpjYXJlIG9mIHRoZSBpdGVyYXRpb24uICBOb3QgaW1wbGVt
-ZW50aW5nIHRoaXMgY2FsbGJhY2sgcmVkdWNlZCB0aGUKYW1vdW50IG9mIGNvZGUgY29tcGlsZWQg
-Zm9yIG5vbi14ODYgcGxhdGZvcm1zLCBhbmQgYWxzbyBmaXhlcyBjb21waWxlCmZhaWx1cmVzIHdp
-dGggb3RoZXIgYXJjaGl0ZWN0dXJlcyB3aGVuIGhlbHBlcnMgbGlrZSBwdWRfcGZuIGFyZSBub3QK
-aW1wbGVtZW50ZWQuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
-ZT4KUmV2aWV3ZWQtYnk6IEphc29uIEd1bnRob3JwZSA8amdnQG1lbGxhbm94LmNvbT4KLS0tCiBt
-bS9obW0uYyB8IDI5ICsrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdl
-ZCwgMTYgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbW0vaG1t
-LmMgYi9tbS9obW0uYwppbmRleCAyMDgzZTRkYjQ2ZjUuLjVlN2FmZTY4NTIxMyAxMDA2NDQKLS0t
-IGEvbW0vaG1tLmMKKysrIGIvbW0vaG1tLmMKQEAgLTQ1NSwxNSArNDU1LDYgQEAgc3RhdGljIGlu
-bGluZSB1aW50NjRfdCBwbWRfdG9faG1tX3Bmbl9mbGFncyhzdHJ1Y3QgaG1tX3JhbmdlICpyYW5n
-ZSwgcG1kX3QgcG1kKQogCQkJCXJhbmdlLT5mbGFnc1tITU1fUEZOX1ZBTElEXTsKIH0KIAotc3Rh
-dGljIGlubGluZSB1aW50NjRfdCBwdWRfdG9faG1tX3Bmbl9mbGFncyhzdHJ1Y3QgaG1tX3Jhbmdl
-ICpyYW5nZSwgcHVkX3QgcHVkKQotewotCWlmICghcHVkX3ByZXNlbnQocHVkKSkKLQkJcmV0dXJu
-IDA7Ci0JcmV0dXJuIHB1ZF93cml0ZShwdWQpID8gcmFuZ2UtPmZsYWdzW0hNTV9QRk5fVkFMSURd
-IHwKLQkJCQlyYW5nZS0+ZmxhZ3NbSE1NX1BGTl9XUklURV0gOgotCQkJCXJhbmdlLT5mbGFnc1tI
-TU1fUEZOX1ZBTElEXTsKLX0KLQogc3RhdGljIGludCBobW1fdm1hX2hhbmRsZV9wbWQoc3RydWN0
-IG1tX3dhbGsgKndhbGssCiAJCQkgICAgICB1bnNpZ25lZCBsb25nIGFkZHIsCiAJCQkgICAgICB1
-bnNpZ25lZCBsb25nIGVuZCwKQEAgLTcwMCwxMCArNjkxLDE5IEBAIHN0YXRpYyBpbnQgaG1tX3Zt
-YV93YWxrX3BtZChwbWRfdCAqcG1kcCwKIAlyZXR1cm4gMDsKIH0KIAotc3RhdGljIGludCBobW1f
-dm1hX3dhbGtfcHVkKHB1ZF90ICpwdWRwLAotCQkJICAgIHVuc2lnbmVkIGxvbmcgc3RhcnQsCi0J
-CQkgICAgdW5zaWduZWQgbG9uZyBlbmQsCi0JCQkgICAgc3RydWN0IG1tX3dhbGsgKndhbGspCisj
-aWYgZGVmaW5lZChDT05GSUdfQVJDSF9IQVNfUFRFX0RFVk1BUCkgJiYgXAorICAgIGRlZmluZWQo
-Q09ORklHX0hBVkVfQVJDSF9UUkFOU1BBUkVOVF9IVUdFUEFHRV9QVUQpCitzdGF0aWMgaW5saW5l
-IHVpbnQ2NF90IHB1ZF90b19obW1fcGZuX2ZsYWdzKHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlLCBw
-dWRfdCBwdWQpCit7CisJaWYgKCFwdWRfcHJlc2VudChwdWQpKQorCQlyZXR1cm4gMDsKKwlyZXR1
-cm4gcHVkX3dyaXRlKHB1ZCkgPyByYW5nZS0+ZmxhZ3NbSE1NX1BGTl9WQUxJRF0gfAorCQkJCXJh
-bmdlLT5mbGFnc1tITU1fUEZOX1dSSVRFXSA6CisJCQkJcmFuZ2UtPmZsYWdzW0hNTV9QRk5fVkFM
-SURdOworfQorCitzdGF0aWMgaW50IGhtbV92bWFfd2Fsa19wdWQocHVkX3QgKnB1ZHAsIHVuc2ln
-bmVkIGxvbmcgc3RhcnQsIHVuc2lnbmVkIGxvbmcgZW5kLAorCQlzdHJ1Y3QgbW1fd2FsayAqd2Fs
-aykKIHsKIAlzdHJ1Y3QgaG1tX3ZtYV93YWxrICpobW1fdm1hX3dhbGsgPSB3YWxrLT5wcml2YXRl
-OwogCXN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlID0gaG1tX3ZtYV93YWxrLT5yYW5nZTsKQEAgLTc2
-NSw2ICs3NjUsOSBAQCBzdGF0aWMgaW50IGhtbV92bWFfd2Fsa19wdWQocHVkX3QgKnB1ZHAsCiAK
-IAlyZXR1cm4gMDsKIH0KKyNlbHNlCisjZGVmaW5lIGhtbV92bWFfd2Fsa19wdWQJTlVMTAorI2Vu
-ZGlmCiAKIHN0YXRpYyBpbnQgaG1tX3ZtYV93YWxrX2h1Z2V0bGJfZW50cnkocHRlX3QgKnB0ZSwg
-dW5zaWduZWQgbG9uZyBobWFzaywKIAkJCQkgICAgICB1bnNpZ25lZCBsb25nIHN0YXJ0LCB1bnNp
-Z25lZCBsb25nIGVuZCwKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9ub3V2ZWF1
+Stub out the whole function when CONFIG_TRANSPARENT_HUGEPAGE is not set
+to make the function easier to read.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ mm/hmm.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
+
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 5e7afe685213..4aa7135f1094 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -455,13 +455,10 @@ static inline uint64_t pmd_to_hmm_pfn_flags(struct hmm_range *range, pmd_t pmd)
+ 				range->flags[HMM_PFN_VALID];
+ }
+ 
+-static int hmm_vma_handle_pmd(struct mm_walk *walk,
+-			      unsigned long addr,
+-			      unsigned long end,
+-			      uint64_t *pfns,
+-			      pmd_t pmd)
+-{
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
++static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
++		unsigned long end, uint64_t *pfns, pmd_t pmd)
++{
+ 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+ 	struct hmm_range *range = hmm_vma_walk->range;
+ 	struct dev_pagemap *pgmap = NULL;
+@@ -490,11 +487,12 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
+ 		put_dev_pagemap(pgmap);
+ 	hmm_vma_walk->last = end;
+ 	return 0;
+-#else
+-	/* If THP is not enabled then we should never reach this code ! */
+-	return -EINVAL;
+-#endif
+ }
++#else /* CONFIG_TRANSPARENT_HUGEPAGE */
++/* stub to allow the code below to compile */
++int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
++		unsigned long end, uint64_t *pfns, pmd_t pmd);
++#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+ 
+ static inline uint64_t pte_to_hmm_pfn_flags(struct hmm_range *range, pte_t pte)
+ {
+-- 
+2.20.1
