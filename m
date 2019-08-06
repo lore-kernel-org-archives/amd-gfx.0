@@ -1,315 +1,117 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v3 hmm 03/11] mm/mmu_notifiers: add a get/put scheme for the registration
-Date: Tue,  6 Aug 2019 20:15:40 -0300
-Message-ID: <20190806231548.25242-4-jgg@ziepe.ca>
+From: Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>
+Subject: [PATCH v3 hmm 02/11] mm/mmu_notifiers: do not speculatively allocate
+	a mmu_notifier_mm
+Date: Tue,  6 Aug 2019 20:15:39 -0300
+Message-ID: <20190806231548.25242-3-jgg@ziepe.ca>
 References: <20190806231548.25242-1-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190806231548.25242-1-jgg@ziepe.ca>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-mm@kvack.org
-Cc: Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, Jason Gunthorpe <jgg@mellanox.com>, Christoph Hellwig <hch@i>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <20190806231548.25242-1-jgg-uk2M96/98Pc@public.gmane.org>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org
+Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, Gavin Shan <shangw-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>, Andrea Righi <andrea-oIIqvOZpAevzfdHfmsDf5w@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Jason Gunthorpe <jgg@mellanox.com>
+From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
 
-Many places in the kernel have a flow where userspace will create some
-object and that object will need to connect to the subsystem's
-mmu_notifier subscription for the duration of its lifetime.
+A prior commit e0f3c3f78da2 ("mm/mmu_notifier: init notifier if necessary")
+made an attempt at doing this, but had to be reverted as calling
+the GFP_KERNEL allocator under the i_mmap_mutex causes deadlock, see
+commit 35cfa2b0b491 ("mm/mmu_notifier: allocate mmu_notifier in advance").
 
-In this case the subsystem is usually tracking multiple mm_structs and it
-is difficult to keep track of what struct mmu_notifier's have been
-allocated for what mm's.
+However, we can avoid that problem by doing the allocation only under
+the mmap_sem, which is already happening.
 
-Since this has been open coded in a variety of exciting ways, provide core
-functionality to do this safely.
+Since all writers to mm->mmu_notifier_mm hold the write side of the
+mmap_sem reading it under that sem is deterministic and we can use that to
+decide if the allocation path is required, without speculation.
 
-This approach uses the strct mmu_notifier_ops * as a key to determine if
-the subsystem has a notifier registered on the mm or not. If there is a
-registration then the existing notifier struct is returned, otherwise the
-ops->alloc_notifiers() is used to create a new per-subsystem notifier for
-the mm.
+The actual update to mmu_notifier_mm must still be done under the
+mm_take_all_locks() to ensure read-side coherency.
 
-The destroy side incorporates an async call_srcu based destruction which
-will avoid bugs in the callers such as commit 6d7c3cde93c1 ("mm/hmm: fix
-use after free with struct hmm in the mmu notifiers").
-
-Since we are inside the mmu notifier core locking is fairly simple, the
-allocation uses the same approach as for mmu_notifier_mm, the write side
-of the mmap_sem makes everything deterministic and we only need to do
-hlist_add_head_rcu() under the mm_take_all_locks(). The new users count
-and the discoverability in the hlist is fully serialized by the
-mmu_notifier_mm->lock.
-
-Co-developed-by: Christoph Hellwig <hch@infradead.org>
-Signed-off-by: Christoph Hellwig <hch@infradead.org>
-Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
+Signed-off-by: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
 ---
- include/linux/mmu_notifier.h |  35 ++++++++
- mm/mmu_notifier.c            | 156 +++++++++++++++++++++++++++++++++--
- 2 files changed, 185 insertions(+), 6 deletions(-)
+ mm/mmu_notifier.c | 34 ++++++++++++++++++++++------------
+ 1 file changed, 22 insertions(+), 12 deletions(-)
 
-diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
-index b6c004bd9f6ad9..31aa971315a142 100644
---- a/include/linux/mmu_notifier.h
-+++ b/include/linux/mmu_notifier.h
-@@ -211,6 +211,19 @@ struct mmu_notifier_ops {
- 	 */
- 	void (*invalidate_range)(struct mmu_notifier *mn, struct mm_struct *mm,
- 				 unsigned long start, unsigned long end);
-+
-+	/*
-+	 * These callbacks are used with the get/put interface to manage the
-+	 * lifetime of the mmu_notifier memory. alloc_notifier() returns a new
-+	 * notifier for use with the mm.
-+	 *
-+	 * free_notifier() is only called after the mmu_notifier has been
-+	 * fully put, calls to any ops callback are prevented and no ops
-+	 * callbacks are currently running. It is called from a SRCU callback
-+	 * and cannot sleep.
-+	 */
-+	struct mmu_notifier *(*alloc_notifier)(struct mm_struct *mm);
-+	void (*free_notifier)(struct mmu_notifier *mn);
- };
- 
- /*
-@@ -227,6 +240,9 @@ struct mmu_notifier_ops {
- struct mmu_notifier {
- 	struct hlist_node hlist;
- 	const struct mmu_notifier_ops *ops;
-+	struct mm_struct *mm;
-+	struct rcu_head rcu;
-+	unsigned int users;
- };
- 
- static inline int mm_has_notifiers(struct mm_struct *mm)
-@@ -234,6 +250,21 @@ static inline int mm_has_notifiers(struct mm_struct *mm)
- 	return unlikely(mm->mmu_notifier_mm);
- }
- 
-+struct mmu_notifier *mmu_notifier_get_locked(const struct mmu_notifier_ops *ops,
-+					     struct mm_struct *mm);
-+static inline struct mmu_notifier *
-+mmu_notifier_get(const struct mmu_notifier_ops *ops, struct mm_struct *mm)
-+{
-+	struct mmu_notifier *ret;
-+
-+	down_write(&mm->mmap_sem);
-+	ret = mmu_notifier_get_locked(ops, mm);
-+	up_write(&mm->mmap_sem);
-+	return ret;
-+}
-+void mmu_notifier_put(struct mmu_notifier *mn);
-+void mmu_notifier_synchronize(void);
-+
- extern int mmu_notifier_register(struct mmu_notifier *mn,
- 				 struct mm_struct *mm);
- extern int __mmu_notifier_register(struct mmu_notifier *mn,
-@@ -581,6 +612,10 @@ static inline void mmu_notifier_mm_destroy(struct mm_struct *mm)
- #define pudp_huge_clear_flush_notify pudp_huge_clear_flush
- #define set_pte_at_notify set_pte_at
- 
-+static inline void mmu_notifier_synchronize(void)
-+{
-+}
-+
- #endif /* CONFIG_MMU_NOTIFIER */
- 
- #endif /* _LINUX_MMU_NOTIFIER_H */
 diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
-index 696810f632ade1..4a770b5211b71d 100644
+index 218a6f108bc2d0..696810f632ade1 100644
 --- a/mm/mmu_notifier.c
 +++ b/mm/mmu_notifier.c
-@@ -248,6 +248,9 @@ int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+@@ -242,27 +242,32 @@ EXPORT_SYMBOL_GPL(__mmu_notifier_invalidate_range);
+  */
+ int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+ {
+-	struct mmu_notifier_mm *mmu_notifier_mm;
++	struct mmu_notifier_mm *mmu_notifier_mm = NULL;
+ 	int ret;
+ 
  	lockdep_assert_held_write(&mm->mmap_sem);
  	BUG_ON(atomic_read(&mm->mm_users) <= 0);
  
-+	mn->mm = mm;
-+	mn->users = 1;
+-	mmu_notifier_mm = kmalloc(sizeof(struct mmu_notifier_mm), GFP_KERNEL);
+-	if (unlikely(!mmu_notifier_mm))
+-		return -ENOMEM;
++	if (!mm->mmu_notifier_mm) {
++		/*
++		 * kmalloc cannot be called under mm_take_all_locks(), but we
++		 * know that mm->mmu_notifier_mm can't change while we hold
++		 * the write side of the mmap_sem.
++		 */
++		mmu_notifier_mm =
++			kmalloc(sizeof(struct mmu_notifier_mm), GFP_KERNEL);
++		if (!mmu_notifier_mm)
++			return -ENOMEM;
 +
- 	if (!mm->mmu_notifier_mm) {
- 		/*
- 		 * kmalloc cannot be called under mm_take_all_locks(), but we
-@@ -295,18 +298,24 @@ int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
++		INIT_HLIST_HEAD(&mmu_notifier_mm->list);
++		spin_lock_init(&mmu_notifier_mm->lock);
++	}
+ 
+ 	ret = mm_take_all_locks(mm);
+ 	if (unlikely(ret))
+ 		goto out_clean;
+ 
+-	if (!mm_has_notifiers(mm)) {
+-		INIT_HLIST_HEAD(&mmu_notifier_mm->list);
+-		spin_lock_init(&mmu_notifier_mm->lock);
+-
+-		mm->mmu_notifier_mm = mmu_notifier_mm;
+-		mmu_notifier_mm = NULL;
+-	}
++	/* Pairs with the mmdrop in mmu_notifier_unregister_* */
+ 	mmgrab(mm);
+ 
+ 	/*
+@@ -273,14 +278,19 @@ int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+ 	 * We can't race against any other mmu notifier method either
+ 	 * thanks to mm_take_all_locks().
+ 	 */
++	if (mmu_notifier_mm)
++		mm->mmu_notifier_mm = mmu_notifier_mm;
++
+ 	spin_lock(&mm->mmu_notifier_mm->lock);
+ 	hlist_add_head_rcu(&mn->hlist, &mm->mmu_notifier_mm->list);
+ 	spin_unlock(&mm->mmu_notifier_mm->lock);
+ 
+ 	mm_drop_all_locks(mm);
++	BUG_ON(atomic_read(&mm->mm_users) <= 0);
++	return 0;
++
+ out_clean:
+ 	kfree(mmu_notifier_mm);
+-	BUG_ON(atomic_read(&mm->mm_users) <= 0);
+ 	return ret;
  }
  EXPORT_SYMBOL_GPL(__mmu_notifier_register);
- 
--/*
-+/**
-+ * mmu_notifier_register - Register a notifier on a mm
-+ * @mn: The notifier to attach
-+ * @mm : The mm to attach the notifier to
-+ *
-  * Must not hold mmap_sem nor any other VM related lock when calling
-  * this registration function. Must also ensure mm_users can't go down
-  * to zero while this runs to avoid races with mmu_notifier_release,
-  * so mm has to be current->mm or the mm should be pinned safely such
-  * as with get_task_mm(). If the mm is not current->mm, the mm_users
-  * pin should be released by calling mmput after mmu_notifier_register
-- * returns. mmu_notifier_unregister must be always called to
-- * unregister the notifier. mm_count is automatically pinned to allow
-- * mmu_notifier_unregister to safely run at any time later, before or
-- * after exit_mmap. ->release will always be called before exit_mmap
-- * frees the pages.
-+ * returns.
-+ *
-+ * mmu_notifier_unregister() or mmu_notifier_put() must be always called to
-+ * unregister the notifier.
-+ *
-+ * While the caller has a mmu_notifer get the mm pointer will remain valid,
-+ * and can be converted to an active mm pointer via mmget_not_zero().
-  */
- int mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
- {
-@@ -319,6 +328,72 @@ int mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
- }
- EXPORT_SYMBOL_GPL(mmu_notifier_register);
- 
-+static struct mmu_notifier *
-+find_get_mmu_notifier(struct mm_struct *mm, const struct mmu_notifier_ops *ops)
-+{
-+	struct mmu_notifier *mn;
-+
-+	spin_lock(&mm->mmu_notifier_mm->lock);
-+	hlist_for_each_entry_rcu (mn, &mm->mmu_notifier_mm->list, hlist) {
-+		if (mn->ops != ops)
-+			continue;
-+
-+		if (likely(mn->users != UINT_MAX))
-+			mn->users++;
-+		else
-+			mn = ERR_PTR(-EOVERFLOW);
-+		spin_unlock(&mm->mmu_notifier_mm->lock);
-+		return mn;
-+	}
-+	spin_unlock(&mm->mmu_notifier_mm->lock);
-+	return NULL;
-+}
-+
-+/**
-+ * mmu_notifier_get_locked - Return the single struct mmu_notifier for
-+ *                           the mm & ops
-+ * @ops: The operations struct being subscribe with
-+ * @mm : The mm to attach notifiers too
-+ *
-+ * This function either allocates a new mmu_notifier via
-+ * ops->alloc_notifier(), or returns an already existing notifier on the
-+ * list. The value of the ops pointer is used to determine when two notifiers
-+ * are the same.
-+ *
-+ * Each call to mmu_notifier_get() must be paired with a caller to
-+ * mmu_notifier_put(). The caller must hold the write side of mm->mmap_sem.
-+ *
-+ * While the caller has a mmu_notifer get the mm pointer will remain valid,
-+ * and can be converted to an active mm pointer via mmget_not_zero().
-+ */
-+struct mmu_notifier *mmu_notifier_get_locked(const struct mmu_notifier_ops *ops,
-+					     struct mm_struct *mm)
-+{
-+	struct mmu_notifier *mn;
-+	int ret;
-+
-+	lockdep_assert_held_write(&mm->mmap_sem);
-+
-+	if (mm->mmu_notifier_mm) {
-+		mn = find_get_mmu_notifier(mm, ops);
-+		if (mn)
-+			return mn;
-+	}
-+
-+	mn = ops->alloc_notifier(mm);
-+	if (IS_ERR(mn))
-+		return mn;
-+	mn->ops = ops;
-+	ret = __mmu_notifier_register(mn, mm);
-+	if (ret)
-+		goto out_free;
-+	return mn;
-+out_free:
-+	mn->ops->free_notifier(mn);
-+	return ERR_PTR(ret);
-+}
-+EXPORT_SYMBOL_GPL(mmu_notifier_get_locked);
-+
- /* this is called after the last mmu_notifier_unregister() returned */
- void __mmu_notifier_mm_destroy(struct mm_struct *mm)
- {
-@@ -397,6 +472,75 @@ void mmu_notifier_unregister_no_release(struct mmu_notifier *mn,
- }
- EXPORT_SYMBOL_GPL(mmu_notifier_unregister_no_release);
- 
-+static void mmu_notifier_free_rcu(struct rcu_head *rcu)
-+{
-+	struct mmu_notifier *mn = container_of(rcu, struct mmu_notifier, rcu);
-+	struct mm_struct *mm = mn->mm;
-+
-+	mn->ops->free_notifier(mn);
-+	/* Pairs with the get in __mmu_notifier_register() */
-+	mmdrop(mm);
-+}
-+
-+/**
-+ * mmu_notifier_put - Release the reference on the notifier
-+ * @mn: The notifier to act on
-+ *
-+ * This function must be paired with each mmu_notifier_get(), it releases the
-+ * reference obtained by the get. If this is the last reference then process
-+ * to free the notifier will be run asynchronously.
-+ *
-+ * Unlike mmu_notifier_unregister() the get/put flow only calls ops->release
-+ * when the mm_struct is destroyed. Instead free_notifier is always called to
-+ * release any resources held by the user.
-+ *
-+ * As ops->release is not guaranteed to be called, the user must ensure that
-+ * all sptes are dropped, and no new sptes can be established before
-+ * mmu_notifier_put() is called.
-+ *
-+ * This function can be called from the ops->release callback, however the
-+ * caller must still ensure it is called pairwise with mmu_notifier_get().
-+ *
-+ * Modules calling this function must call mmu_notifier_module_unload() in
-+ * their __exit functions to ensure the async work is completed.
-+ */
-+void mmu_notifier_put(struct mmu_notifier *mn)
-+{
-+	struct mm_struct *mm = mn->mm;
-+
-+	spin_lock(&mm->mmu_notifier_mm->lock);
-+	if (WARN_ON(!mn->users) || --mn->users)
-+		goto out_unlock;
-+	hlist_del_init_rcu(&mn->hlist);
-+	spin_unlock(&mm->mmu_notifier_mm->lock);
-+
-+	call_srcu(&srcu, &mn->rcu, mmu_notifier_free_rcu);
-+	return;
-+
-+out_unlock:
-+	spin_unlock(&mm->mmu_notifier_mm->lock);
-+}
-+EXPORT_SYMBOL_GPL(mmu_notifier_put);
-+
-+/**
-+ * mmu_notifier_synchronize - Ensure all mmu_notifiers are freed
-+ *
-+ * This function ensures that all outsanding async SRU work from
-+ * mmu_notifier_put() is completed. After it returns any mmu_notifier_ops
-+ * associated with an unused mmu_notifier will no longer be called.
-+ *
-+ * Before using the caller must ensure that all of its mmu_notifiers have been
-+ * fully released via mmu_notifier_put().
-+ *
-+ * Modules using the mmu_notifier_put() API should call this in their __exit
-+ * function to avoid module unloading races.
-+ */
-+void mmu_notifier_synchronize(void)
-+{
-+	synchronize_srcu(&srcu);
-+}
-+EXPORT_SYMBOL_GPL(mmu_notifier_synchronize);
-+
- bool
- mmu_notifier_range_update_to_read_only(const struct mmu_notifier_range *range)
- {
 -- 
 2.22.0
