@@ -1,192 +1,88 @@
-From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v3 hmm 09/11] drm/amdkfd: fix a use after free race with mmu_notifer unregister
-Date: Tue,  6 Aug 2019 20:15:46 -0300
-Message-ID: <20190806231548.25242-10-jgg@ziepe.ca>
+From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+Subject: Re: [PATCH v3 hmm 10/11] drm/amdkfd: use
+ mmu_notifier_put
+Date: Tue, 6 Aug 2019 23:47:44 +0000
+Message-ID: <d58a1a8f-f80c-edfe-4b57-6fde9c0ca180@amd.com>
 References: <20190806231548.25242-1-jgg@ziepe.ca>
+ <20190806231548.25242-11-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190806231548.25242-1-jgg@ziepe.ca>
-Sender: linux-kernel-owner@vger.kernel.org
-To: linux-mm@kvack.org
-Cc: Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, Jason Gunthorpe <jgg@mellanox.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <intel-gfx-bounces@lists.freedesktop.org>
+In-Reply-To: <20190806231548.25242-11-jgg@ziepe.ca>
+Content-Language: en-US
+Content-ID: <08AA45544D5F4047B8BE6878E1D59AF9@namprd12.prod.outlook.com>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/intel-gfx>
+List-Post: <mailto:intel-gfx@lists.freedesktop.org>
+List-Help: <mailto:intel-gfx-request@lists.freedesktop.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/intel-gfx>,
+ <mailto:intel-gfx-request@lists.freedesktop.org?subject=subscribe>
+Errors-To: intel-gfx-bounces@lists.freedesktop.org
+Sender: "Intel-gfx" <intel-gfx-bounces@lists.freedesktop.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>, "linux-mm@kvack.org" <linux-mm@kvack.org>
+Cc: Andrea Arcangeli <aarcange@redhat.com>, "Zhou,
+ David(ChunMing)" <David1.Zhou@amd.com>, Ralph Campbell <rcampbell@nvidia.com>, Dimitri Sivanich <sivanich@sgi.com>, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, "linux-rdma@vger.kernel.org" <linux-rdma@vger.kernel.org>, John Hubbard <jhubbard@nvidia.com>, "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, =?utf-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>, "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>, "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Jason Gunthorpe <jgg@mellanox.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Christoph
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Jason Gunthorpe <jgg@mellanox.com>
-
-When using mmu_notifer_unregister_no_release() the caller must ensure
-there is a SRCU synchronize before the mn memory is freed, otherwise use
-after free races are possible, for instance:
-
-     CPU0                                      CPU1
-                                      invalidate_range_start
-                                         hlist_for_each_entry_rcu(..)
- mmu_notifier_unregister_no_release(&p->mn)
- kfree(mn)
-                                      if (mn->ops->invalidate_range_end)
-
-The error unwind in amdkfd misses the SRCU synchronization.
-
-amdkfd keeps the kfd_process around until the mm is released, so split the
-flow to fully initialize the kfd_process and register it for find_process,
-and with the notifier. Past this point the kfd_process does not need to be
-cleaned up as it is fully ready.
-
-The final failable step does a vm_mmap() and does not seem to impact the
-kfd_process global state. Since it also cannot be undone (and already has
-problems with undo if it internally fails), it has to be last.
-
-This way we don't have to try to unwind the mmu_notifier_register() and
-avoid the problem with the SRCU.
-
-Along the way this also fixes various other error unwind bugs in the flow.
-
-Fixes: 45102048f77e ("amdkfd: Add process queue manager module")
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
-Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 78 +++++++++++-------------
- 1 file changed, 37 insertions(+), 41 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 8f1076c0c88a25..c06e6190f21ffa 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -62,8 +62,8 @@ static struct workqueue_struct *kfd_restore_wq;
- 
- static struct kfd_process *find_process(const struct task_struct *thread);
- static void kfd_process_ref_release(struct kref *ref);
--static struct kfd_process *create_process(const struct task_struct *thread,
--					struct file *filep);
-+static struct kfd_process *create_process(const struct task_struct *thread);
-+static int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep);
- 
- static void evict_process_worker(struct work_struct *work);
- static void restore_process_worker(struct work_struct *work);
-@@ -289,7 +289,15 @@ struct kfd_process *kfd_create_process(struct file *filep)
- 	if (process) {
- 		pr_debug("Process already found\n");
- 	} else {
--		process = create_process(thread, filep);
-+		process = create_process(thread);
-+		if (IS_ERR(process))
-+			goto out;
-+
-+		ret = kfd_process_init_cwsr_apu(process, filep);
-+		if (ret) {
-+			process = ERR_PTR(ret);
-+			goto out;
-+		}
- 
- 		if (!procfs.kobj)
- 			goto out;
-@@ -609,81 +617,69 @@ static int kfd_process_device_init_cwsr_dgpu(struct kfd_process_device *pdd)
- 	return 0;
- }
- 
--static struct kfd_process *create_process(const struct task_struct *thread,
--					struct file *filep)
-+/*
-+ * On return the kfd_process is fully operational and will be freed when the
-+ * mm is released
-+ */
-+static struct kfd_process *create_process(const struct task_struct *thread)
- {
- 	struct kfd_process *process;
- 	int err = -ENOMEM;
- 
- 	process = kzalloc(sizeof(*process), GFP_KERNEL);
--
- 	if (!process)
- 		goto err_alloc_process;
- 
--	process->pasid = kfd_pasid_alloc();
--	if (process->pasid == 0)
--		goto err_alloc_pasid;
--
--	if (kfd_alloc_process_doorbells(process) < 0)
--		goto err_alloc_doorbells;
--
- 	kref_init(&process->ref);
--
- 	mutex_init(&process->mutex);
--
- 	process->mm = thread->mm;
--
--	/* register notifier */
--	process->mmu_notifier.ops = &kfd_process_mmu_notifier_ops;
--	err = mmu_notifier_register(&process->mmu_notifier, process->mm);
--	if (err)
--		goto err_mmu_notifier;
--
--	hash_add_rcu(kfd_processes_table, &process->kfd_processes,
--			(uintptr_t)process->mm);
--
- 	process->lead_thread = thread->group_leader;
--	get_task_struct(process->lead_thread);
--
- 	INIT_LIST_HEAD(&process->per_device_data);
--
-+	INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
-+	INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
-+	process->last_restore_timestamp = get_jiffies_64();
- 	kfd_event_init_process(process);
-+	process->is_32bit_user_mode = in_compat_syscall();
-+
-+	process->pasid = kfd_pasid_alloc();
-+	if (process->pasid == 0)
-+		goto err_alloc_pasid;
-+
-+	if (kfd_alloc_process_doorbells(process) < 0)
-+		goto err_alloc_doorbells;
- 
- 	err = pqm_init(&process->pqm, process);
- 	if (err != 0)
- 		goto err_process_pqm_init;
- 
- 	/* init process apertures*/
--	process->is_32bit_user_mode = in_compat_syscall();
- 	err = kfd_init_apertures(process);
- 	if (err != 0)
- 		goto err_init_apertures;
- 
--	INIT_DELAYED_WORK(&process->eviction_work, evict_process_worker);
--	INIT_DELAYED_WORK(&process->restore_work, restore_process_worker);
--	process->last_restore_timestamp = get_jiffies_64();
--
--	err = kfd_process_init_cwsr_apu(process, filep);
-+	/* Must be last, have to use release destruction after this */
-+	process->mmu_notifier.ops = &kfd_process_mmu_notifier_ops;
-+	err = mmu_notifier_register(&process->mmu_notifier, process->mm);
- 	if (err)
--		goto err_init_cwsr;
-+		goto err_register_notifier;
-+
-+	get_task_struct(process->lead_thread);
-+	hash_add_rcu(kfd_processes_table, &process->kfd_processes,
-+			(uintptr_t)process->mm);
- 
- 	return process;
- 
--err_init_cwsr:
-+err_register_notifier:
- 	kfd_process_free_outstanding_kfd_bos(process);
- 	kfd_process_destroy_pdds(process);
- err_init_apertures:
- 	pqm_uninit(&process->pqm);
- err_process_pqm_init:
--	hash_del_rcu(&process->kfd_processes);
--	synchronize_rcu();
--	mmu_notifier_unregister_no_release(&process->mmu_notifier, process->mm);
--err_mmu_notifier:
--	mutex_destroy(&process->mutex);
- 	kfd_free_process_doorbells(process);
- err_alloc_doorbells:
- 	kfd_pasid_free(process->pasid);
- err_alloc_pasid:
-+	mutex_destroy(&process->mutex);
- 	kfree(process);
- err_alloc_process:
- 	return ERR_PTR(err);
--- 
-2.22.0
+T24gMjAxOS0wOC0wNiAxOToxNSwgSmFzb24gR3VudGhvcnBlIHdyb3RlOg0KPiBGcm9tOiBKYXNv
+biBHdW50aG9ycGUgPGpnZ0BtZWxsYW5veC5jb20+DQo+DQo+IFRoZSBzZXF1ZW5jZSBvZiBtbXVf
+bm90aWZpZXJfdW5yZWdpc3Rlcl9ub19yZWxlYXNlKCksDQo+IG1tdV9ub3RpZmllcl9jYWxsX3Ny
+Y3UoKSBpcyBpZGVudGljYWwgdG8gbW11X25vdGlmaWVyX3B1dCgpIHdpdGggdGhlDQo+IGZyZWVf
+bm90aWZpZXIgY2FsbGJhY2suDQo+DQo+IEFzIHRoaXMgaXMgdGhlIGxhc3QgdXNlciBvZiB0aG9z
+ZSBBUElzLCBjb252ZXJ0aW5nIGl0IG1lYW5zIHdlIGNhbiBkcm9wDQo+IHRoZW0uDQo+DQo+IFNp
+Z25lZC1vZmYtYnk6IEphc29uIEd1bnRob3JwZSA8amdnQG1lbGxhbm94LmNvbT4NCg0KUmV2aWV3
+ZWQtYnk6IEZlbGl4IEt1ZWhsaW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPg0KDQo+IC0tLQ0K
+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggICAgfCAgMyAtLS0NCj4g
+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIHwgMTAgKysrKy0tLS0t
+LQ0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCA5IGRlbGV0aW9ucygtKQ0K
+Pg0KPiBJJ20gcmVhbGx5IG5vdCBzdXJlIHdoYXQgdGhpcyBpcyBkb2luZywgYnV0IGl0IGlzIHZl
+cnkgc3RyYW5nZSB0byBoYXZlIGENCj4gcmVsZWFzZSB3aXRoIG5vIG90aGVyIGNhbGxiYWNrLiBJ
+dCB3b3VsZCBiZSBnb29kIGlmIHRoaXMgd291bGQgY2hhbmdlIHRvIHVzZQ0KPiBnZXQgYXMgd2Vs
+bC4NCktGRCB1c2VzIHRoZSBNTVUgbm90aWZpZXIgdG8gZGV0ZWN0IHByb2Nlc3MgdGVybWluYXRp
+b24gYW5kIGZyZWUgYWxsIHRoZSANCnJlc291cmNlcyBhc3NvY2lhdGVkIHdpdGggdGhlIHByb2Nl
+c3MuIFRoaXMgd2FzIGZpcnN0IGFkZGVkIGZvciBBUFVzIA0Kd2hlcmUgdGhlIElPTU1VdjIgaXMg
+c2V0IHVwIHRvIHBlcmZvcm0gYWRkcmVzcyB0cmFuc2xhdGlvbnMgdXNpbmcgdGhlIA0KQ1BVIHBh
+Z2UgdGFibGUgZm9yIGRldmljZSBtZW1vcnkgYWNjZXNzLiBUaGF0J3Mgd2hlcmUgdGhlIGFzc29j
+aWF0aW9uIG9mIA0KS0ZEIHByb2Nlc3MgcmVzb3VyY2VzIHdpdGggdGhlIGxpZmV0aW1lIG9mIHRo
+ZSBtbV9zdHJ1Y3QgY29tZXMgZnJvbS4NCg0KUmVnYXJkcywNCiDCoCBGZWxpeA0KDQoNCj4NCj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcml2LmggYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJpdi5oDQo+IGluZGV4IDM5MzNmYjZhMzcxZWZi
+Li45NDUwZTIwZDE3MDkzYiAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRr
+ZmQva2ZkX3ByaXYuaA0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJp
+di5oDQo+IEBAIC02ODYsOSArNjg2LDYgQEAgc3RydWN0IGtmZF9wcm9jZXNzIHsNCj4gICAJLyog
+V2Ugd2FudCB0byByZWNlaXZlIGEgbm90aWZpY2F0aW9uIHdoZW4gdGhlIG1tX3N0cnVjdCBpcyBk
+ZXN0cm95ZWQgKi8NCj4gICAJc3RydWN0IG1tdV9ub3RpZmllciBtbXVfbm90aWZpZXI7DQo+ICAg
+DQo+IC0JLyogVXNlIGZvciBkZWxheWVkIGZyZWVpbmcgb2Yga2ZkX3Byb2Nlc3Mgc3RydWN0dXJl
+ICovDQo+IC0Jc3RydWN0IHJjdV9oZWFkCXJjdTsNCj4gLQ0KPiAgIAl1bnNpZ25lZCBpbnQgcGFz
+aWQ7DQo+ICAgCXVuc2lnbmVkIGludCBkb29yYmVsbF9pbmRleDsNCj4gICANCj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jDQo+IGluZGV4IGMwNmU2MTkwZjIxZmZhLi5l
+NWUzMjZmMmYyNjc1ZSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
+a2ZkX3Byb2Nlc3MuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJv
+Y2Vzcy5jDQo+IEBAIC00ODYsMTEgKzQ4Niw5IEBAIHN0YXRpYyB2b2lkIGtmZF9wcm9jZXNzX3Jl
+Zl9yZWxlYXNlKHN0cnVjdCBrcmVmICpyZWYpDQo+ICAgCXF1ZXVlX3dvcmsoa2ZkX3Byb2Nlc3Nf
+d3EsICZwLT5yZWxlYXNlX3dvcmspOw0KPiAgIH0NCj4gICANCj4gLXN0YXRpYyB2b2lkIGtmZF9w
+cm9jZXNzX2Rlc3Ryb3lfZGVsYXllZChzdHJ1Y3QgcmN1X2hlYWQgKnJjdSkNCj4gK3N0YXRpYyB2
+b2lkIGtmZF9wcm9jZXNzX2ZyZWVfbm90aWZpZXIoc3RydWN0IG1tdV9ub3RpZmllciAqbW4pDQo+
+ICAgew0KPiAtCXN0cnVjdCBrZmRfcHJvY2VzcyAqcCA9IGNvbnRhaW5lcl9vZihyY3UsIHN0cnVj
+dCBrZmRfcHJvY2VzcywgcmN1KTsNCj4gLQ0KPiAtCWtmZF91bnJlZl9wcm9jZXNzKHApOw0KPiAr
+CWtmZF91bnJlZl9wcm9jZXNzKGNvbnRhaW5lcl9vZihtbiwgc3RydWN0IGtmZF9wcm9jZXNzLCBt
+bXVfbm90aWZpZXIpKTsNCj4gICB9DQo+ICAgDQo+ICAgc3RhdGljIHZvaWQga2ZkX3Byb2Nlc3Nf
+bm90aWZpZXJfcmVsZWFzZShzdHJ1Y3QgbW11X25vdGlmaWVyICptbiwNCj4gQEAgLTU0MiwxMiAr
+NTQwLDEyIEBAIHN0YXRpYyB2b2lkIGtmZF9wcm9jZXNzX25vdGlmaWVyX3JlbGVhc2Uoc3RydWN0
+IG1tdV9ub3RpZmllciAqbW4sDQo+ICAgDQo+ICAgCW11dGV4X3VubG9jaygmcC0+bXV0ZXgpOw0K
+PiAgIA0KPiAtCW1tdV9ub3RpZmllcl91bnJlZ2lzdGVyX25vX3JlbGVhc2UoJnAtPm1tdV9ub3Rp
+ZmllciwgbW0pOw0KPiAtCW1tdV9ub3RpZmllcl9jYWxsX3NyY3UoJnAtPnJjdSwgJmtmZF9wcm9j
+ZXNzX2Rlc3Ryb3lfZGVsYXllZCk7DQo+ICsJbW11X25vdGlmaWVyX3B1dCgmcC0+bW11X25vdGlm
+aWVyKTsNCj4gICB9DQo+ICAgDQo+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBtbXVfbm90aWZpZXJf
+b3BzIGtmZF9wcm9jZXNzX21tdV9ub3RpZmllcl9vcHMgPSB7DQo+ICAgCS5yZWxlYXNlID0ga2Zk
+X3Byb2Nlc3Nfbm90aWZpZXJfcmVsZWFzZSwNCj4gKwkuZnJlZV9ub3RpZmllciA9IGtmZF9wcm9j
+ZXNzX2ZyZWVfbm90aWZpZXIsDQo+ICAgfTsNCj4gICANCj4gICBzdGF0aWMgaW50IGtmZF9wcm9j
+ZXNzX2luaXRfY3dzcl9hcHUoc3RydWN0IGtmZF9wcm9jZXNzICpwLCBzdHJ1Y3QgZmlsZSAqZmls
+ZXApDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpJbnRl
+bC1nZnggbWFpbGluZyBsaXN0CkludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
+Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9pbnRlbC1nZng=
