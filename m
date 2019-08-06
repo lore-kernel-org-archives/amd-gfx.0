@@ -1,7 +1,7 @@
 From: Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 01/15] amdgpu: remove -EAGAIN handling for hmm_range_fault
-Date: Tue,  6 Aug 2019 19:05:39 +0300
-Message-ID: <20190806160554.14046-2-hch@lst.de>
+Subject: [PATCH 02/15] amdgpu: don't initialize range->list in amdgpu_hmm_init_range
+Date: Tue,  6 Aug 2019 19:05:40 +0300
+Message-ID: <20190806160554.14046-3-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -12,74 +12,27 @@ To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe 
 Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-hmm_range_fault can only return -EAGAIN if called with the
-HMM_FAULT_ALLOW_RETRY flag, which amdgpu never does.  Remove the
-handling for the -EAGAIN case with its non-standard locking scheme.
+The list is used to add the range to another list as an entry in the
+core hmm code, and intended as a private member not exposed to drivers.
+There is no need to initialize it in a driver.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
 Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 23 +++--------------------
- 1 file changed, 3 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 12a59ac83f72..f0821638bbc6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -778,7 +778,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 	struct hmm_range *range;
- 	unsigned long i;
- 	uint64_t *pfns;
--	int retry = 0;
- 	int r = 0;
- 
- 	if (!mm) /* Happens during process shutdown */
-@@ -822,7 +821,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 	hmm_range_register(range, mirror, start,
- 			   start + ttm->num_pages * PAGE_SIZE, PAGE_SHIFT);
- 
--retry:
- 	/*
- 	 * Just wait for range to be valid, safe to ignore return value as we
- 	 * will use the return value of hmm_range_fault() below under the
-@@ -831,24 +829,12 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 	hmm_range_wait_until_valid(range, HMM_RANGE_DEFAULT_TIMEOUT);
- 
- 	down_read(&mm->mmap_sem);
--
- 	r = hmm_range_fault(range, 0);
--	if (unlikely(r < 0)) {
--		if (likely(r == -EAGAIN)) {
--			/*
--			 * return -EAGAIN, mmap_sem is dropped
--			 */
--			if (retry++ < MAX_RETRY_HMM_RANGE_FAULT)
--				goto retry;
--			else
--				pr_err("Retry hmm fault too many times\n");
--		}
--
--		goto out_up_read;
--	}
--
- 	up_read(&mm->mmap_sem);
- 
-+	if (unlikely(r < 0))
-+		goto out_free_pfns;
-+
- 	for (i = 0; i < ttm->num_pages; i++) {
- 		pages[i] = hmm_device_entry_to_page(range, pfns[i]);
- 		if (unlikely(!pages[i])) {
-@@ -864,9 +850,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 
- 	return 0;
- 
--out_up_read:
--	if (likely(r != -EAGAIN))
--		up_read(&mm->mmap_sem);
- out_free_pfns:
- 	hmm_range_unregister(range);
- 	kvfree(pfns);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+index b698b423b25d..60b9fc9561d7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mn.c
+@@ -484,6 +484,5 @@ void amdgpu_hmm_init_range(struct hmm_range *range)
+ 		range->flags = hmm_range_flags;
+ 		range->values = hmm_range_values;
+ 		range->pfn_shift = PAGE_SHIFT;
+-		INIT_LIST_HEAD(&range->list);
+ 	}
+ }
 -- 
 2.20.1
