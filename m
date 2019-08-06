@@ -1,78 +1,56 @@
-From: Sasha Levin <sashal@kernel.org>
-Subject: [PATCH AUTOSEL 5.2 31/59] drm/amdgpu: fix error handling in amdgpu_cs_process_fence_dep
-Date: Tue,  6 Aug 2019 17:32:51 -0400
-Message-ID: <20190806213319.19203-31-sashal@kernel.org>
+From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+Subject: [PATCH AUTOSEL 5.2 32/59] drm/amdgpu: fix a potential information
+ leaking bug
+Date: Tue,  6 Aug 2019 17:32:52 -0400
+Message-ID: <20190806213319.19203-32-sashal@kernel.org>
 References: <20190806213319.19203-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Return-path: <stable-owner@vger.kernel.org>
-In-Reply-To: <20190806213319.19203-1-sashal@kernel.org>
-Sender: stable-owner@vger.kernel.org
-To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Chunming Zhou <david1.zhou@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190806213319.19203-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
+Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Wang Xiayang <xywang.sjtu-u2tTgNRCH2jM1kAEIRd3EQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
 
-From: Christian König <christian.koenig@amd.com>
-
-[ Upstream commit 67d0859e2758ef992fd32499747ce4b1038a63c0 ]
-
-We always need to drop the ctx reference and should check
-for errors first and then dereference the fence pointer.
-
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Reviewed-by: Chunming Zhou <david1.zhou@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 2f6239b6be6fe..fe028561dc0e6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1093,29 +1093,27 @@ static int amdgpu_cs_process_fence_dep(struct amdgpu_cs_parser *p,
- 			return r;
- 		}
- 
--		fence = amdgpu_ctx_get_fence(ctx, entity,
--					     deps[i].handle);
-+		fence = amdgpu_ctx_get_fence(ctx, entity, deps[i].handle);
-+		amdgpu_ctx_put(ctx);
-+
-+		if (IS_ERR(fence))
-+			return PTR_ERR(fence);
-+		else if (!fence)
-+			continue;
- 
- 		if (chunk->chunk_id == AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {
--			struct drm_sched_fence *s_fence = to_drm_sched_fence(fence);
-+			struct drm_sched_fence *s_fence;
- 			struct dma_fence *old = fence;
- 
-+			s_fence = to_drm_sched_fence(fence);
- 			fence = dma_fence_get(&s_fence->scheduled);
- 			dma_fence_put(old);
- 		}
- 
--		if (IS_ERR(fence)) {
--			r = PTR_ERR(fence);
--			amdgpu_ctx_put(ctx);
-+		r = amdgpu_sync_fence(p->adev, &p->job->sync, fence, true);
-+		dma_fence_put(fence);
-+		if (r)
- 			return r;
--		} else if (fence) {
--			r = amdgpu_sync_fence(p->adev, &p->job->sync, fence,
--					true);
--			dma_fence_put(fence);
--			amdgpu_ctx_put(ctx);
--			if (r)
--				return r;
--		}
- 	}
- 	return 0;
- }
--- 
-2.20.1
+RnJvbTogV2FuZyBYaWF5YW5nIDx4eXdhbmcuc2p0dUBzanR1LmVkdS5jbj4KClsgVXBzdHJlYW0g
+Y29tbWl0IDkyOWU1NzFjMDRjMjg1ODYxZTBiYjA0OWEzOTZhMmJkYWVhNjMyODIgXQoKQ29jY2lu
+ZWxsZSByZXBvcnRzIGEgcGF0aCB0aGF0IHRoZSBhcnJheSAiZGF0YSIgaXMgbmV2ZXIgaW5pdGlh
+bGl6ZWQuClRoZSBwYXRoIHNraXBzIHRoZSBjaGVja3MgaW4gdGhlIGNvbmRpdGlvbmFsIGJyYW5j
+aGVzIHdoZW4gZWl0aGVyCm9mIGNhbGxiYWNrIGZ1bmN0aW9ucywgcmVhZF93YXZlX3ZncHJzIGFu
+ZCByZWFkX3dhdmVfc2dwcnMsIGlzIG5vdApyZWdpc3RlcmVkLiBMYXRlciwgdGhlIHVuaW5pdGlh
+bGl6ZWQgImRhdGEiIGFycmF5IGlzIHJlYWQKaW4gdGhlIHdoaWxlLWxvb3AgYmVsb3cgYW5kIHBh
+c3NlZCB0byBwdXRfdXNlcigpLgoKRml4IHRoZSBwYXRoIGJ5IGFsbG9jYXRpbmcgdGhlIGFycmF5
+IHdpdGgga2NhbGxvYygpLgoKVGhlIHBhdGNoIGlzIHNpbXBsaWVyIHRoYW4gYWRkaW5nIGEgZmFs
+bC1iYWNrIGJyYW5jaCB0aGF0IGV4cGxpY2l0bHkKY2FsbHMgbWVtc2V0KGRhdGEsIDAsIC4uLiku
+IEFsc28gaXQgZG9lcyBub3QgbmVlZCB0aGUgbXVsdGlwbGljYXRpb24KMTAyNCpzaXplb2YoKmRh
+dGEpIGFzIHRoZSBzaXplIHBhcmFtZXRlciBmb3IgbWVtc2V0KCkgdGhvdWdoIHRoZXJlIGlzCm5v
+IHJpc2sgb2YgaW50ZWdlciBvdmVyZmxvdy4KClNpZ25lZC1vZmYtYnk6IFdhbmcgWGlheWFuZyA8
+eHl3YW5nLnNqdHVAc2p0dS5lZHUuY24+ClJldmlld2VkLWJ5OiBDaHVubWluZyBaaG91IDxkYXZp
+ZDEuemhvdUBhbWQuY29tPgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
+LmtvZW5pZ0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
+ZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVs
+Lm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jIHwg
+MiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYyBiL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKaW5kZXggODkzMGQ2NmYy
+MjA0MC4uOTFiZmIyNGY5NjNlNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2RlYnVnZnMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGVidWdmcy5jCkBAIC03MDMsNyArNzAzLDcgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2Rl
+YnVnZnNfZ3ByX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNoYXIgX191c2VyICpidWYsCiAJdGhyZWFk
+ID0gKCpwb3MgJiBHRU5NQVNLX1VMTCg1OSwgNTIpKSA+PiA1MjsKIAliYW5rID0gKCpwb3MgJiBH
+RU5NQVNLX1VMTCg2MSwgNjApKSA+PiA2MDsKIAotCWRhdGEgPSBrbWFsbG9jX2FycmF5KDEwMjQs
+IHNpemVvZigqZGF0YSksIEdGUF9LRVJORUwpOworCWRhdGEgPSBrY2FsbG9jKDEwMjQsIHNpemVv
+ZigqZGF0YSksIEdGUF9LRVJORUwpOwogCWlmICghZGF0YSkKIAkJcmV0dXJuIC1FTk9NRU07CiAK
+LS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
