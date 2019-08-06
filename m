@@ -1,56 +1,116 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 4.19 16/32] drm/amdgpu: fix a potential information
- leaking bug
-Date: Tue,  6 Aug 2019 17:35:04 -0400
-Message-ID: <20190806213522.19859-16-sashal@kernel.org>
-References: <20190806213522.19859-1-sashal@kernel.org>
+From: Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>
+Subject: [PATCH v3 hmm 01/11] mm/mmu_notifiers: hoist do_mmu_notifier_register
+	down_write to the caller
+Date: Tue,  6 Aug 2019 20:15:38 -0300
+Message-ID: <20190806231548.25242-2-jgg@ziepe.ca>
+References: <20190806231548.25242-1-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806213522.19859-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Chunming Zhou <david1.zhou-5C7GfCeVMHo@public.gmane.org>, Wang Xiayang <xywang.sjtu-u2tTgNRCH2jM1kAEIRd3EQ@public.gmane.org>, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+In-Reply-To: <20190806231548.25242-1-jgg-uk2M96/98Pc@public.gmane.org>
+List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
+List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
+List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
+List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
+	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
+Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
+To: linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org
+Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, Gavin Shan <shangw-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>, Andrea Righi <andrea-oIIqvOZpAevzfdHfmsDf5w@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogV2FuZyBYaWF5YW5nIDx4eXdhbmcuc2p0dUBzanR1LmVkdS5jbj4KClsgVXBzdHJlYW0g
-Y29tbWl0IDkyOWU1NzFjMDRjMjg1ODYxZTBiYjA0OWEzOTZhMmJkYWVhNjMyODIgXQoKQ29jY2lu
-ZWxsZSByZXBvcnRzIGEgcGF0aCB0aGF0IHRoZSBhcnJheSAiZGF0YSIgaXMgbmV2ZXIgaW5pdGlh
-bGl6ZWQuClRoZSBwYXRoIHNraXBzIHRoZSBjaGVja3MgaW4gdGhlIGNvbmRpdGlvbmFsIGJyYW5j
-aGVzIHdoZW4gZWl0aGVyCm9mIGNhbGxiYWNrIGZ1bmN0aW9ucywgcmVhZF93YXZlX3ZncHJzIGFu
-ZCByZWFkX3dhdmVfc2dwcnMsIGlzIG5vdApyZWdpc3RlcmVkLiBMYXRlciwgdGhlIHVuaW5pdGlh
-bGl6ZWQgImRhdGEiIGFycmF5IGlzIHJlYWQKaW4gdGhlIHdoaWxlLWxvb3AgYmVsb3cgYW5kIHBh
-c3NlZCB0byBwdXRfdXNlcigpLgoKRml4IHRoZSBwYXRoIGJ5IGFsbG9jYXRpbmcgdGhlIGFycmF5
-IHdpdGgga2NhbGxvYygpLgoKVGhlIHBhdGNoIGlzIHNpbXBsaWVyIHRoYW4gYWRkaW5nIGEgZmFs
-bC1iYWNrIGJyYW5jaCB0aGF0IGV4cGxpY2l0bHkKY2FsbHMgbWVtc2V0KGRhdGEsIDAsIC4uLiku
-IEFsc28gaXQgZG9lcyBub3QgbmVlZCB0aGUgbXVsdGlwbGljYXRpb24KMTAyNCpzaXplb2YoKmRh
-dGEpIGFzIHRoZSBzaXplIHBhcmFtZXRlciBmb3IgbWVtc2V0KCkgdGhvdWdoIHRoZXJlIGlzCm5v
-IHJpc2sgb2YgaW50ZWdlciBvdmVyZmxvdy4KClNpZ25lZC1vZmYtYnk6IFdhbmcgWGlheWFuZyA8
-eHl3YW5nLnNqdHVAc2p0dS5lZHUuY24+ClJldmlld2VkLWJ5OiBDaHVubWluZyBaaG91IDxkYXZp
-ZDEuemhvdUBhbWQuY29tPgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
-LmtvZW5pZ0BhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5k
-ZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVs
-Lm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jIHwg
-MiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKaW5kZXggZjVmYjkzNzk1
-YTY5YS4uNjVjZWNmZGQ5YjQ1NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
-cHUvYW1kZ3B1X2RlYnVnZnMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGVidWdmcy5jCkBAIC03MDcsNyArNzA3LDcgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2Rl
-YnVnZnNfZ3ByX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNoYXIgX191c2VyICpidWYsCiAJdGhyZWFk
-ID0gKCpwb3MgJiBHRU5NQVNLX1VMTCg1OSwgNTIpKSA+PiA1MjsKIAliYW5rID0gKCpwb3MgJiBH
-RU5NQVNLX1VMTCg2MSwgNjApKSA+PiA2MDsKIAotCWRhdGEgPSBrbWFsbG9jX2FycmF5KDEwMjQs
-IHNpemVvZigqZGF0YSksIEdGUF9LRVJORUwpOworCWRhdGEgPSBrY2FsbG9jKDEwMjQsIHNpemVv
-ZigqZGF0YSksIEdGUF9LRVJORUwpOwogCWlmICghZGF0YSkKIAkJcmV0dXJuIC1FTk9NRU07CiAK
-LS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+
+This simplifies the code to not have so many one line functions and extra
+logic. __mmu_notifier_register() simply becomes the entry point to
+register the notifier, and the other one calls it under lock.
+
+Also add a lockdep_assert to check that the callers are holding the lock
+as expected.
+
+Suggested-by: Christoph Hellwig <hch-wEGCiKHe2LqWVfeAwA7xHQ@public.gmane.org>
+Signed-off-by: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+---
+ mm/mmu_notifier.c | 35 ++++++++++++++---------------------
+ 1 file changed, 14 insertions(+), 21 deletions(-)
+
+diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+index b5670620aea0fc..218a6f108bc2d0 100644
+--- a/mm/mmu_notifier.c
++++ b/mm/mmu_notifier.c
+@@ -236,22 +236,22 @@ void __mmu_notifier_invalidate_range(struct mm_struct *mm,
+ }
+ EXPORT_SYMBOL_GPL(__mmu_notifier_invalidate_range);
+ 
+-static int do_mmu_notifier_register(struct mmu_notifier *mn,
+-				    struct mm_struct *mm,
+-				    int take_mmap_sem)
++/*
++ * Same as mmu_notifier_register but here the caller must hold the
++ * mmap_sem in write mode.
++ */
++int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+ {
+ 	struct mmu_notifier_mm *mmu_notifier_mm;
+ 	int ret;
+ 
++	lockdep_assert_held_write(&mm->mmap_sem);
+ 	BUG_ON(atomic_read(&mm->mm_users) <= 0);
+ 
+-	ret = -ENOMEM;
+ 	mmu_notifier_mm = kmalloc(sizeof(struct mmu_notifier_mm), GFP_KERNEL);
+ 	if (unlikely(!mmu_notifier_mm))
+-		goto out;
++		return -ENOMEM;
+ 
+-	if (take_mmap_sem)
+-		down_write(&mm->mmap_sem);
+ 	ret = mm_take_all_locks(mm);
+ 	if (unlikely(ret))
+ 		goto out_clean;
+@@ -279,13 +279,11 @@ static int do_mmu_notifier_register(struct mmu_notifier *mn,
+ 
+ 	mm_drop_all_locks(mm);
+ out_clean:
+-	if (take_mmap_sem)
+-		up_write(&mm->mmap_sem);
+ 	kfree(mmu_notifier_mm);
+-out:
+ 	BUG_ON(atomic_read(&mm->mm_users) <= 0);
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(__mmu_notifier_register);
+ 
+ /*
+  * Must not hold mmap_sem nor any other VM related lock when calling
+@@ -302,19 +300,14 @@ static int do_mmu_notifier_register(struct mmu_notifier *mn,
+  */
+ int mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+ {
+-	return do_mmu_notifier_register(mn, mm, 1);
+-}
+-EXPORT_SYMBOL_GPL(mmu_notifier_register);
++	int ret;
+ 
+-/*
+- * Same as mmu_notifier_register but here the caller must hold the
+- * mmap_sem in write mode.
+- */
+-int __mmu_notifier_register(struct mmu_notifier *mn, struct mm_struct *mm)
+-{
+-	return do_mmu_notifier_register(mn, mm, 0);
++	down_write(&mm->mmap_sem);
++	ret = __mmu_notifier_register(mn, mm);
++	up_write(&mm->mmap_sem);
++	return ret;
+ }
+-EXPORT_SYMBOL_GPL(__mmu_notifier_register);
++EXPORT_SYMBOL_GPL(mmu_notifier_register);
+ 
+ /* this is called after the last mmu_notifier_unregister() returned */
+ void __mmu_notifier_mm_destroy(struct mm_struct *mm)
+-- 
+2.22.0
