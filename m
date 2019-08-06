@@ -1,14 +1,14 @@
 From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 5.2 32/59] drm/amdgpu: fix a potential information
+Subject: [PATCH AUTOSEL 4.19 16/32] drm/amdgpu: fix a potential information
  leaking bug
-Date: Tue,  6 Aug 2019 17:32:52 -0400
-Message-ID: <20190806213319.19203-32-sashal@kernel.org>
-References: <20190806213319.19203-1-sashal@kernel.org>
+Date: Tue,  6 Aug 2019 17:35:04 -0400
+Message-ID: <20190806213522.19859-16-sashal@kernel.org>
+References: <20190806213522.19859-1-sashal@kernel.org>
 Mime-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806213319.19203-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
+In-Reply-To: <20190806213522.19859-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
@@ -42,10 +42,10 @@ ZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVs
 Lm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5jIHwg
 MiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
 IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKaW5kZXggODkzMGQ2NmYy
-MjA0MC4uOTFiZmIyNGY5NjNlNSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMKaW5kZXggZjVmYjkzNzk1
+YTY5YS4uNjVjZWNmZGQ5YjQ1NCAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
 cHUvYW1kZ3B1X2RlYnVnZnMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGVidWdmcy5jCkBAIC03MDMsNyArNzAzLDcgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2Rl
+cHVfZGVidWdmcy5jCkBAIC03MDcsNyArNzA3LDcgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2Rl
 YnVnZnNfZ3ByX3JlYWQoc3RydWN0IGZpbGUgKmYsIGNoYXIgX191c2VyICpidWYsCiAJdGhyZWFk
 ID0gKCpwb3MgJiBHRU5NQVNLX1VMTCg1OSwgNTIpKSA+PiA1MjsKIAliYW5rID0gKCpwb3MgJiBH
 RU5NQVNLX1VMTCg2MSwgNjApKSA+PiA2MDsKIAotCWRhdGEgPSBrbWFsbG9jX2FycmF5KDEwMjQs
