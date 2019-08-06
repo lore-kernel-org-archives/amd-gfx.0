@@ -1,190 +1,385 @@
-From: Jason Gunthorpe <jgg-uk2M96/98Pc@public.gmane.org>
-Subject: [PATCH v3 hmm 04/11] misc/sgi-gru: use mmu_notifier_get/put for
-	struct gru_mm_struct
-Date: Tue,  6 Aug 2019 20:15:41 -0300
-Message-ID: <20190806231548.25242-5-jgg@ziepe.ca>
+From: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: [PATCH v3 hmm 06/11] RDMA/odp: use mmu_notifier_get/put for 'struct ib_ucontext_per_mm'
+Date: Tue,  6 Aug 2019 20:15:43 -0300
+Message-ID: <20190806231548.25242-7-jgg@ziepe.ca>
 References: <20190806231548.25242-1-jgg@ziepe.ca>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Return-path: <iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-In-Reply-To: <20190806231548.25242-1-jgg-uk2M96/98Pc@public.gmane.org>
-List-Unsubscribe: <https://lists.linuxfoundation.org/mailman/options/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=unsubscribe>
-List-Archive: <http://lists.linuxfoundation.org/pipermail/iommu/>
-List-Post: <mailto:iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org>
-List-Help: <mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.linuxfoundation.org/mailman/listinfo/iommu>,
-	<mailto:iommu-request-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org?subject=subscribe>
-Sender: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-Errors-To: iommu-bounces-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org
-To: linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org
-Cc: Andrea Arcangeli <aarcange-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, "David (ChunMing) Zhou" <David1.Zhou-5C7GfCeVMHo@public.gmane.org>, Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, Dimitri Sivanich <sivanich-sJ/iWh9BUns@public.gmane.org>, Gavin Shan <shangw-23VcF4HTsmIX0ybBhKVfKdBPR1lH4CV8@public.gmane.org>, Andrea Righi <andrea-oIIqvOZpAevzfdHfmsDf5w@public.gmane.org>, linux-rdma-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, John Hubbard <jhubbard-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, "Kuehling, Felix" <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig-5C7GfCeVMHo@public.gmane.org>, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, iommu-cunTk1MwBs9QetFLy7KEm3xJsTq8ys+cHZ5vskTnxNA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, intel-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190806231548.25242-1-jgg@ziepe.ca>
+Sender: linux-kernel-owner@vger.kernel.org
+To: linux-mm@kvack.org
+Cc: Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, Jason Gunthorpe <jgg@mellanox.com>
 List-Id: amd-gfx.lists.freedesktop.org
 
-From: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+From: Jason Gunthorpe <jgg@mellanox.com>
 
-GRU is already using almost the same algorithm as get/put, it even
-helpfully has a 10 year old comment to make this algorithm common, which
-is finally happening.
+This is a significant simplification, no extra list is kept per FD, and
+the interval tree is now shared between all the ucontexts, reducing
+overhead if there are multiple ucontexts active.
 
-There are a few differences and fixes from this conversion:
-- GRU used rcu not srcu to read the hlist
-- Unclear how the locking worked to prevent gru_register_mmu_notifier()
-  from running concurrently with gru_drop_mmu_notifier() - this version is
-  safe
-- GRU had a release function which only set a variable without any locking
-  that skiped the synchronize_srcu during unregister which looks racey,
-  but this makes it reliable via the integrated call_srcu().
-- It is unclear if the mmap_sem is actually held when
-  __mmu_notifier_register() was called, lockdep will now warn if this is
-  wrong
-
-Signed-off-by: Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>
+Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- drivers/misc/sgi-gru/grufile.c     |  1 +
- drivers/misc/sgi-gru/grutables.h   |  2 -
- drivers/misc/sgi-gru/grutlbpurge.c | 84 +++++++++---------------------
- 3 files changed, 25 insertions(+), 62 deletions(-)
+ drivers/infiniband/core/umem_odp.c    | 170 ++++++++------------------
+ drivers/infiniband/core/uverbs_cmd.c  |   3 -
+ drivers/infiniband/core/uverbs_main.c |   1 +
+ drivers/infiniband/hw/mlx5/main.c     |   5 -
+ include/rdma/ib_umem_odp.h            |  10 +-
+ include/rdma/ib_verbs.h               |   3 -
+ 6 files changed, 54 insertions(+), 138 deletions(-)
 
-diff --git a/drivers/misc/sgi-gru/grufile.c b/drivers/misc/sgi-gru/grufile.c
-index a2a142ae087bfa..9d042310214ff9 100644
---- a/drivers/misc/sgi-gru/grufile.c
-+++ b/drivers/misc/sgi-gru/grufile.c
-@@ -573,6 +573,7 @@ static void __exit gru_exit(void)
- 	gru_free_tables();
- 	misc_deregister(&gru_miscdev);
- 	gru_proc_exit();
+diff --git a/drivers/infiniband/core/umem_odp.c b/drivers/infiniband/core/umem_odp.c
+index c6a992392ee2b8..a02e6e3d7b72fb 100644
+--- a/drivers/infiniband/core/umem_odp.c
++++ b/drivers/infiniband/core/umem_odp.c
+@@ -82,7 +82,7 @@ static void ib_umem_notifier_release(struct mmu_notifier *mn,
+ 	struct rb_node *node;
+ 
+ 	down_read(&per_mm->umem_rwsem);
+-	if (!per_mm->active)
++	if (!per_mm->mn.users)
+ 		goto out;
+ 
+ 	for (node = rb_first_cached(&per_mm->umem_tree); node;
+@@ -132,7 +132,7 @@ static int ib_umem_notifier_invalidate_range_start(struct mmu_notifier *mn,
+ 	else if (!down_read_trylock(&per_mm->umem_rwsem))
+ 		return -EAGAIN;
+ 
+-	if (!per_mm->active) {
++	if (!per_mm->mn.users) {
+ 		up_read(&per_mm->umem_rwsem);
+ 		/*
+ 		 * At this point active is permanently set and visible to this
+@@ -165,7 +165,7 @@ static void ib_umem_notifier_invalidate_range_end(struct mmu_notifier *mn,
+ 	struct ib_ucontext_per_mm *per_mm =
+ 		container_of(mn, struct ib_ucontext_per_mm, mn);
+ 
+-	if (unlikely(!per_mm->active))
++	if (unlikely(!per_mm->mn.users))
+ 		return;
+ 
+ 	rbt_ib_umem_for_each_in_range(&per_mm->umem_tree, range->start,
+@@ -174,125 +174,47 @@ static void ib_umem_notifier_invalidate_range_end(struct mmu_notifier *mn,
+ 	up_read(&per_mm->umem_rwsem);
+ }
+ 
+-static const struct mmu_notifier_ops ib_umem_notifiers = {
+-	.release                    = ib_umem_notifier_release,
+-	.invalidate_range_start     = ib_umem_notifier_invalidate_range_start,
+-	.invalidate_range_end       = ib_umem_notifier_invalidate_range_end,
+-};
+-
+-static void remove_umem_from_per_mm(struct ib_umem_odp *umem_odp)
+-{
+-	struct ib_ucontext_per_mm *per_mm = umem_odp->per_mm;
+-
+-	if (umem_odp->is_implicit_odp)
+-		return;
+-
+-	down_write(&per_mm->umem_rwsem);
+-	interval_tree_remove(&umem_odp->interval_tree, &per_mm->umem_tree);
+-	complete_all(&umem_odp->notifier_completion);
+-	up_write(&per_mm->umem_rwsem);
+-}
+-
+-static struct ib_ucontext_per_mm *alloc_per_mm(struct ib_ucontext *ctx,
+-					       struct mm_struct *mm)
++static struct mmu_notifier *ib_umem_alloc_notifier(struct mm_struct *mm)
+ {
+ 	struct ib_ucontext_per_mm *per_mm;
+-	int ret;
+ 
+ 	per_mm = kzalloc(sizeof(*per_mm), GFP_KERNEL);
+ 	if (!per_mm)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	per_mm->context = ctx;
+-	per_mm->mm = mm;
+ 	per_mm->umem_tree = RB_ROOT_CACHED;
+ 	init_rwsem(&per_mm->umem_rwsem);
+-	per_mm->active = true;
+ 
++	WARN_ON(mm != current->mm);
+ 	rcu_read_lock();
+ 	per_mm->tgid = get_task_pid(current->group_leader, PIDTYPE_PID);
+ 	rcu_read_unlock();
+-
+-	WARN_ON(mm != current->mm);
+-
+-	per_mm->mn.ops = &ib_umem_notifiers;
+-	ret = mmu_notifier_register(&per_mm->mn, per_mm->mm);
+-	if (ret) {
+-		dev_err(&ctx->device->dev,
+-			"Failed to register mmu_notifier %d\n", ret);
+-		goto out_pid;
+-	}
+-
+-	list_add(&per_mm->ucontext_list, &ctx->per_mm_list);
+-	return per_mm;
+-
+-out_pid:
+-	put_pid(per_mm->tgid);
+-	kfree(per_mm);
+-	return ERR_PTR(ret);
++	return &per_mm->mn;
+ }
+ 
+-static struct ib_ucontext_per_mm *get_per_mm(struct ib_umem_odp *umem_odp)
++static void ib_umem_free_notifier(struct mmu_notifier *mn)
+ {
+-	struct ib_ucontext *ctx = umem_odp->umem.context;
+-	struct ib_ucontext_per_mm *per_mm;
+-
+-	lockdep_assert_held(&ctx->per_mm_list_lock);
+-
+-	/*
+-	 * Generally speaking we expect only one or two per_mm in this list,
+-	 * so no reason to optimize this search today.
+-	 */
+-	list_for_each_entry(per_mm, &ctx->per_mm_list, ucontext_list) {
+-		if (per_mm->mm == umem_odp->umem.owning_mm)
+-			return per_mm;
+-	}
+-
+-	return alloc_per_mm(ctx, umem_odp->umem.owning_mm);
+-}
+-
+-static void free_per_mm(struct rcu_head *rcu)
+-{
+-	kfree(container_of(rcu, struct ib_ucontext_per_mm, rcu));
+-}
+-
+-static void put_per_mm(struct ib_umem_odp *umem_odp)
+-{
+-	struct ib_ucontext_per_mm *per_mm = umem_odp->per_mm;
+-	struct ib_ucontext *ctx = umem_odp->umem.context;
+-	bool need_free;
+-
+-	mutex_lock(&ctx->per_mm_list_lock);
+-	umem_odp->per_mm = NULL;
+-	per_mm->odp_mrs_count--;
+-	need_free = per_mm->odp_mrs_count == 0;
+-	if (need_free)
+-		list_del(&per_mm->ucontext_list);
+-	mutex_unlock(&ctx->per_mm_list_lock);
+-
+-	if (!need_free)
+-		return;
+-
+-	/*
+-	 * NOTE! mmu_notifier_unregister() can happen between a start/end
+-	 * callback, resulting in an start/end, and thus an unbalanced
+-	 * lock. This doesn't really matter to us since we are about to kfree
+-	 * the memory that holds the lock, however LOCKDEP doesn't like this.
+-	 */
+-	down_write(&per_mm->umem_rwsem);
+-	per_mm->active = false;
+-	up_write(&per_mm->umem_rwsem);
++	struct ib_ucontext_per_mm *per_mm =
++		container_of(mn, struct ib_ucontext_per_mm, mn);
+ 
+ 	WARN_ON(!RB_EMPTY_ROOT(&per_mm->umem_tree.rb_root));
+-	mmu_notifier_unregister_no_release(&per_mm->mn, per_mm->mm);
++
+ 	put_pid(per_mm->tgid);
+-	mmu_notifier_call_srcu(&per_mm->rcu, free_per_mm);
++	kfree(per_mm);
+ }
+ 
+-static inline int ib_init_umem_odp(struct ib_umem_odp *umem_odp,
+-				   struct ib_ucontext_per_mm *per_mm)
++static const struct mmu_notifier_ops ib_umem_notifiers = {
++	.release                    = ib_umem_notifier_release,
++	.invalidate_range_start     = ib_umem_notifier_invalidate_range_start,
++	.invalidate_range_end       = ib_umem_notifier_invalidate_range_end,
++	.alloc_notifier		    = ib_umem_alloc_notifier,
++	.free_notifier		    = ib_umem_free_notifier,
++};
++
++static inline int ib_init_umem_odp(struct ib_umem_odp *umem_odp)
+ {
+-	struct ib_ucontext *ctx = umem_odp->umem.context;
++	struct ib_ucontext_per_mm *per_mm;
++	struct mmu_notifier *mn;
+ 	int ret;
+ 
+ 	if (!umem_odp->is_implicit_odp) {
+@@ -338,18 +260,13 @@ static inline int ib_init_umem_odp(struct ib_umem_odp *umem_odp,
+ 		}
+ 	}
+ 
+-	mutex_lock(&ctx->per_mm_list_lock);
+-	if (per_mm) {
+-		umem_odp->per_mm = per_mm;
+-	} else {
+-		umem_odp->per_mm = get_per_mm(umem_odp);
+-		if (IS_ERR(umem_odp->per_mm)) {
+-			ret = PTR_ERR(umem_odp->per_mm);
+-			goto out_unlock;
+-		}
++	mn = mmu_notifier_get(&ib_umem_notifiers, umem_odp->umem.owning_mm);
++	if (IS_ERR(mn)) {
++		ret = PTR_ERR(mn);
++		goto out_dma_list;
+ 	}
+-	per_mm->odp_mrs_count++;
+-	mutex_unlock(&ctx->per_mm_list_lock);
++	umem_odp->per_mm = per_mm =
++		container_of(mn, struct ib_ucontext_per_mm, mn);
+ 
+ 	mutex_init(&umem_odp->umem_mutex);
+ 	init_completion(&umem_odp->notifier_completion);
+@@ -363,8 +280,7 @@ static inline int ib_init_umem_odp(struct ib_umem_odp *umem_odp,
+ 
+ 	return 0;
+ 
+-out_unlock:
+-	mutex_unlock(&ctx->per_mm_list_lock);
++out_dma_list:
+ 	kvfree(umem_odp->dma_list);
+ out_page_list:
+ 	kvfree(umem_odp->page_list);
+@@ -409,7 +325,7 @@ struct ib_umem_odp *ib_umem_odp_alloc_implicit(struct ib_udata *udata,
+ 	umem_odp->is_implicit_odp = 1;
+ 	umem_odp->page_shift = PAGE_SHIFT;
+ 
+-	ret = ib_init_umem_odp(umem_odp, NULL);
++	ret = ib_init_umem_odp(umem_odp);
+ 	if (ret) {
+ 		kfree(umem_odp);
+ 		return ERR_PTR(ret);
+@@ -455,7 +371,7 @@ struct ib_umem_odp *ib_umem_odp_alloc_child(struct ib_umem_odp *root,
+ 	umem->owning_mm  = root->umem.owning_mm;
+ 	odp_data->page_shift = PAGE_SHIFT;
+ 
+-	ret = ib_init_umem_odp(odp_data, root->per_mm);
++	ret = ib_init_umem_odp(odp_data);
+ 	if (ret) {
+ 		kfree(odp_data);
+ 		return ERR_PTR(ret);
+@@ -498,11 +414,13 @@ int ib_umem_odp_get(struct ib_umem_odp *umem_odp, int access)
+ 		up_read(&mm->mmap_sem);
+ 	}
+ 
+-	return ib_init_umem_odp(umem_odp, NULL);
++	return ib_init_umem_odp(umem_odp);
+ }
+ 
+ void ib_umem_odp_release(struct ib_umem_odp *umem_odp)
+ {
++	struct ib_ucontext_per_mm *per_mm = umem_odp->per_mm;
++
+ 	/*
+ 	 * Ensure that no more pages are mapped in the umem.
+ 	 *
+@@ -512,8 +430,24 @@ void ib_umem_odp_release(struct ib_umem_odp *umem_odp)
+ 	ib_umem_odp_unmap_dma_pages(umem_odp, ib_umem_start(umem_odp),
+ 				    ib_umem_end(umem_odp));
+ 
+-	remove_umem_from_per_mm(umem_odp);
+-	put_per_mm(umem_odp);
++	down_write(&per_mm->umem_rwsem);
++	if (!umem_odp->is_implicit_odp) {
++		interval_tree_remove(&umem_odp->interval_tree,
++				     &per_mm->umem_tree);
++		complete_all(&umem_odp->notifier_completion);
++	}
++	/*
++	 * NOTE! mmu_notifier_unregister() can happen between a start/end
++	 * callback, resulting in an start/end, and thus an unbalanced
++	 * lock. This doesn't really matter to us since we are about to kfree
++	 * the memory that holds the lock, however LOCKDEP doesn't like this.
++	 * Thus we call the mmu_notifier_put under the rwsem and test the
++	 * internal users count to reliably see if we are past this point.
++	 */
++	mmu_notifier_put(&umem_odp->per_mm->mn);
++	up_write(&per_mm->umem_rwsem);
++
++	umem_odp->per_mm = NULL;
+ 	kvfree(umem_odp->dma_list);
+ 	kvfree(umem_odp->page_list);
+ }
+diff --git a/drivers/infiniband/core/uverbs_cmd.c b/drivers/infiniband/core/uverbs_cmd.c
+index 8f4fd4fac1593a..7c10dfe417a446 100644
+--- a/drivers/infiniband/core/uverbs_cmd.c
++++ b/drivers/infiniband/core/uverbs_cmd.c
+@@ -252,9 +252,6 @@ static int ib_uverbs_get_context(struct uverbs_attr_bundle *attrs)
+ 	ucontext->closing = false;
+ 	ucontext->cleanup_retryable = false;
+ 
+-	mutex_init(&ucontext->per_mm_list_lock);
+-	INIT_LIST_HEAD(&ucontext->per_mm_list);
+-
+ 	ret = get_unused_fd_flags(O_CLOEXEC);
+ 	if (ret < 0)
+ 		goto err_free;
+diff --git a/drivers/infiniband/core/uverbs_main.c b/drivers/infiniband/core/uverbs_main.c
+index 11c13c1381cf5c..e369ac0d6f5159 100644
+--- a/drivers/infiniband/core/uverbs_main.c
++++ b/drivers/infiniband/core/uverbs_main.c
+@@ -1487,6 +1487,7 @@ static void __exit ib_uverbs_cleanup(void)
+ 				 IB_UVERBS_NUM_FIXED_MINOR);
+ 	unregister_chrdev_region(dynamic_uverbs_dev,
+ 				 IB_UVERBS_NUM_DYNAMIC_MINOR);
 +	mmu_notifier_synchronize();
  }
  
- static const struct file_operations gru_fops = {
-diff --git a/drivers/misc/sgi-gru/grutables.h b/drivers/misc/sgi-gru/grutables.h
-index 438191c220570c..a7e44b2eb413f6 100644
---- a/drivers/misc/sgi-gru/grutables.h
-+++ b/drivers/misc/sgi-gru/grutables.h
-@@ -307,10 +307,8 @@ struct gru_mm_tracker {				/* pack to reduce size */
+ module_init(ib_uverbs_init);
+diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/mlx5/main.c
+index cdb6bbbaa14fd8..4400ff7457c7c8 100644
+--- a/drivers/infiniband/hw/mlx5/main.c
++++ b/drivers/infiniband/hw/mlx5/main.c
+@@ -1995,11 +1995,6 @@ static void mlx5_ib_dealloc_ucontext(struct ib_ucontext *ibcontext)
+ 	struct mlx5_ib_dev *dev = to_mdev(ibcontext->device);
+ 	struct mlx5_bfreg_info *bfregi;
  
- struct gru_mm_struct {
- 	struct mmu_notifier	ms_notifier;
--	atomic_t		ms_refcnt;
- 	spinlock_t		ms_asid_lock;	/* protects ASID assignment */
- 	atomic_t		ms_range_active;/* num range_invals active */
--	char			ms_released;
- 	wait_queue_head_t	ms_wait_queue;
- 	DECLARE_BITMAP(ms_asidmap, GRU_MAX_GRUS);
- 	struct gru_mm_tracker	ms_asids[GRU_MAX_GRUS];
-diff --git a/drivers/misc/sgi-gru/grutlbpurge.c b/drivers/misc/sgi-gru/grutlbpurge.c
-index 59ba0adf23cee4..10921cd2608dfa 100644
---- a/drivers/misc/sgi-gru/grutlbpurge.c
-+++ b/drivers/misc/sgi-gru/grutlbpurge.c
-@@ -235,83 +235,47 @@ static void gru_invalidate_range_end(struct mmu_notifier *mn,
- 		gms, range->start, range->end);
- }
+-	/* All umem's must be destroyed before destroying the ucontext. */
+-	mutex_lock(&ibcontext->per_mm_list_lock);
+-	WARN_ON(!list_empty(&ibcontext->per_mm_list));
+-	mutex_unlock(&ibcontext->per_mm_list_lock);
+-
+ 	bfregi = &context->bfregi;
+ 	mlx5_ib_dealloc_transport_domain(dev, context->tdn, context->devx_uid);
  
--static void gru_release(struct mmu_notifier *mn, struct mm_struct *mm)
-+static struct mmu_notifier *gru_alloc_notifier(struct mm_struct *mm)
- {
--	struct gru_mm_struct *gms = container_of(mn, struct gru_mm_struct,
--						 ms_notifier);
-+	struct gru_mm_struct *gms;
-+
-+	gms = kzalloc(sizeof(*gms), GFP_KERNEL);
-+	if (!gms)
-+		return ERR_PTR(-ENOMEM);
-+	STAT(gms_alloc);
-+	spin_lock_init(&gms->ms_asid_lock);
-+	init_waitqueue_head(&gms->ms_wait_queue);
+diff --git a/include/rdma/ib_umem_odp.h b/include/rdma/ib_umem_odp.h
+index 468c9afabbb2fd..5a6c7cd3f33388 100644
+--- a/include/rdma/ib_umem_odp.h
++++ b/include/rdma/ib_umem_odp.h
+@@ -116,20 +116,12 @@ static inline unsigned long ib_umem_end(struct ib_umem_odp *umem_odp)
+ #ifdef CONFIG_INFINIBAND_ON_DEMAND_PAGING
  
--	gms->ms_released = 1;
--	gru_dbg(grudev, "gms %p\n", gms);
-+	return &gms->ms_notifier;
- }
+ struct ib_ucontext_per_mm {
+-	struct ib_ucontext *context;
+-	struct mm_struct *mm;
++	struct mmu_notifier mn;
+ 	struct pid *tgid;
+-	bool active;
  
-+static void gru_free_notifier(struct mmu_notifier *mn)
-+{
-+	kfree(container_of(mn, struct gru_mm_struct, ms_notifier));
-+	STAT(gms_free);
-+}
- 
- static const struct mmu_notifier_ops gru_mmuops = {
- 	.invalidate_range_start	= gru_invalidate_range_start,
- 	.invalidate_range_end	= gru_invalidate_range_end,
--	.release		= gru_release,
-+	.alloc_notifier		= gru_alloc_notifier,
-+	.free_notifier		= gru_free_notifier,
+ 	struct rb_root_cached umem_tree;
+ 	/* Protects umem_tree */
+ 	struct rw_semaphore umem_rwsem;
+-
+-	struct mmu_notifier mn;
+-	unsigned int odp_mrs_count;
+-
+-	struct list_head ucontext_list;
+-	struct rcu_head rcu;
  };
  
--/* Move this to the basic mmu_notifier file. But for now... */
--static struct mmu_notifier *mmu_find_ops(struct mm_struct *mm,
--			const struct mmu_notifier_ops *ops)
--{
--	struct mmu_notifier *mn, *gru_mn = NULL;
--
--	if (mm->mmu_notifier_mm) {
--		rcu_read_lock();
--		hlist_for_each_entry_rcu(mn, &mm->mmu_notifier_mm->list,
--					 hlist)
--		    if (mn->ops == ops) {
--			gru_mn = mn;
--			break;
--		}
--		rcu_read_unlock();
--	}
--	return gru_mn;
--}
--
- struct gru_mm_struct *gru_register_mmu_notifier(void)
- {
--	struct gru_mm_struct *gms;
- 	struct mmu_notifier *mn;
--	int err;
--
--	mn = mmu_find_ops(current->mm, &gru_mmuops);
--	if (mn) {
--		gms = container_of(mn, struct gru_mm_struct, ms_notifier);
--		atomic_inc(&gms->ms_refcnt);
--	} else {
--		gms = kzalloc(sizeof(*gms), GFP_KERNEL);
--		if (!gms)
--			return ERR_PTR(-ENOMEM);
--		STAT(gms_alloc);
--		spin_lock_init(&gms->ms_asid_lock);
--		gms->ms_notifier.ops = &gru_mmuops;
--		atomic_set(&gms->ms_refcnt, 1);
--		init_waitqueue_head(&gms->ms_wait_queue);
--		err = __mmu_notifier_register(&gms->ms_notifier, current->mm);
--		if (err)
--			goto error;
--	}
--	if (gms)
--		gru_dbg(grudev, "gms %p, refcnt %d\n", gms,
--			atomic_read(&gms->ms_refcnt));
--	return gms;
--error:
--	kfree(gms);
--	return ERR_PTR(err);
-+
-+	mn = mmu_notifier_get_locked(&gru_mmuops, current->mm);
-+	if (IS_ERR(mn))
-+		return ERR_CAST(mn);
-+
-+	return container_of(mn, struct gru_mm_struct, ms_notifier);
- }
+ int ib_umem_odp_get(struct ib_umem_odp *umem_odp, int access);
+diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
+index 16196196659a4c..9bd3cde7e8dbe9 100644
+--- a/include/rdma/ib_verbs.h
++++ b/include/rdma/ib_verbs.h
+@@ -1417,9 +1417,6 @@ struct ib_ucontext {
  
- void gru_drop_mmu_notifier(struct gru_mm_struct *gms)
- {
--	gru_dbg(grudev, "gms %p, refcnt %d, released %d\n", gms,
--		atomic_read(&gms->ms_refcnt), gms->ms_released);
--	if (atomic_dec_return(&gms->ms_refcnt) == 0) {
--		if (!gms->ms_released)
--			mmu_notifier_unregister(&gms->ms_notifier, current->mm);
--		kfree(gms);
--		STAT(gms_free);
--	}
-+	mmu_notifier_put(&gms->ms_notifier);
- }
+ 	bool cleanup_retryable;
  
- /*
+-	struct mutex per_mm_list_lock;
+-	struct list_head per_mm_list;
+-
+ 	struct ib_rdmacg_object	cg_obj;
+ 	/*
+ 	 * Implementation details of the RDMA core, don't use in drivers:
 -- 
 2.22.0
