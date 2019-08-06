@@ -1,62 +1,51 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 11/15] mm: cleanup the hmm_vma_handle_pmd stub
-Date: Tue,  6 Aug 2019 19:05:49 +0300
-Message-ID: <20190806160554.14046-12-hch@lst.de>
+From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Subject: [PATCH 12/15] mm: cleanup the hmm_vma_walk_hugetlb_entry
+ stub
+Date: Tue,  6 Aug 2019 19:05:50 +0300
+Message-ID: <20190806160554.14046-13-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190806160554.14046-1-hch@lst.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190806160554.14046-1-hch-jcswGhMUV9g@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-Stub out the whole function when CONFIG_TRANSPARENT_HUGEPAGE is not set
-to make the function easier to read.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- mm/hmm.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
-
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 5e7afe685213..4aa7135f1094 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -455,13 +455,10 @@ static inline uint64_t pmd_to_hmm_pfn_flags(struct hmm_range *range, pmd_t pmd)
- 				range->flags[HMM_PFN_VALID];
- }
- 
--static int hmm_vma_handle_pmd(struct mm_walk *walk,
--			      unsigned long addr,
--			      unsigned long end,
--			      uint64_t *pfns,
--			      pmd_t pmd)
--{
- #ifdef CONFIG_TRANSPARENT_HUGEPAGE
-+static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
-+		unsigned long end, uint64_t *pfns, pmd_t pmd)
-+{
- 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
- 	struct hmm_range *range = hmm_vma_walk->range;
- 	struct dev_pagemap *pgmap = NULL;
-@@ -490,11 +487,12 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk,
- 		put_dev_pagemap(pgmap);
- 	hmm_vma_walk->last = end;
- 	return 0;
--#else
--	/* If THP is not enabled then we should never reach this code ! */
--	return -EINVAL;
--#endif
- }
-+#else /* CONFIG_TRANSPARENT_HUGEPAGE */
-+/* stub to allow the code below to compile */
-+int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
-+		unsigned long end, uint64_t *pfns, pmd_t pmd);
-+#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
- 
- static inline uint64_t pte_to_hmm_pfn_flags(struct hmm_range *range, pte_t pte)
- {
--- 
-2.20.1
+U3R1YiBvdXQgdGhlIHdob2xlIGZ1bmN0aW9uIGFuZCBhc3NpZ24gTlVMTCB0byB0aGUgLmh1Z2V0
+bGJfZW50cnkgbWV0aG9kCmlmIENPTkZJR19IVUdFVExCX1BBR0UgaXMgbm90IHNldCwgYXMgdGhl
+IG1ldGhvZCB3b24ndCBldmVyIGJlIGNhbGxlZCBpbgp0aGF0IGNhc2UuCgpTaWduZWQtb2ZmLWJ5
+OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5kZT4KUmV2aWV3ZWQtYnk6IEphc29uIEd1bnRo
+b3JwZSA8amdnQG1lbGxhbm94LmNvbT4KLS0tCiBtbS9obW0uYyB8IDggKysrKy0tLS0KIDEgZmls
+ZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEv
+bW0vaG1tLmMgYi9tbS9obW0uYwppbmRleCA0YWE3MTM1ZjEwOTQuLmRlZTk5ZDBjYzg1NiAxMDA2
+NDQKLS0tIGEvbW0vaG1tLmMKKysrIGIvbW0vaG1tLmMKQEAgLTc2NywxMSArNzY3LDExIEBAIHN0
+YXRpYyBpbnQgaG1tX3ZtYV93YWxrX3B1ZChwdWRfdCAqcHVkcCwgdW5zaWduZWQgbG9uZyBzdGFy
+dCwgdW5zaWduZWQgbG9uZyBlbmQsCiAjZGVmaW5lIGhtbV92bWFfd2Fsa19wdWQJTlVMTAogI2Vu
+ZGlmCiAKKyNpZmRlZiBDT05GSUdfSFVHRVRMQl9QQUdFCiBzdGF0aWMgaW50IGhtbV92bWFfd2Fs
+a19odWdldGxiX2VudHJ5KHB0ZV90ICpwdGUsIHVuc2lnbmVkIGxvbmcgaG1hc2ssCiAJCQkJICAg
+ICAgdW5zaWduZWQgbG9uZyBzdGFydCwgdW5zaWduZWQgbG9uZyBlbmQsCiAJCQkJICAgICAgc3Ry
+dWN0IG1tX3dhbGsgKndhbGspCiB7Ci0jaWZkZWYgQ09ORklHX0hVR0VUTEJfUEFHRQogCXVuc2ln
+bmVkIGxvbmcgYWRkciA9IHN0YXJ0LCBpLCBwZm47CiAJc3RydWN0IGhtbV92bWFfd2FsayAqaG1t
+X3ZtYV93YWxrID0gd2Fsay0+cHJpdmF0ZTsKIAlzdHJ1Y3QgaG1tX3JhbmdlICpyYW5nZSA9IGht
+bV92bWFfd2Fsay0+cmFuZ2U7CkBAIC04MTAsMTAgKzgxMCwxMCBAQCBzdGF0aWMgaW50IGhtbV92
+bWFfd2Fsa19odWdldGxiX2VudHJ5KHB0ZV90ICpwdGUsIHVuc2lnbmVkIGxvbmcgaG1hc2ssCiAJ
+CXJldHVybiBobW1fdm1hX3dhbGtfaG9sZV8oYWRkciwgZW5kLCBmYXVsdCwgd3JpdGVfZmF1bHQs
+IHdhbGspOwogCiAJcmV0dXJuIHJldDsKLSNlbHNlIC8qIENPTkZJR19IVUdFVExCX1BBR0UgKi8K
+LQlyZXR1cm4gLUVJTlZBTDsKLSNlbmRpZgogfQorI2Vsc2UKKyNkZWZpbmUgaG1tX3ZtYV93YWxr
+X2h1Z2V0bGJfZW50cnkgTlVMTAorI2VuZGlmIC8qIENPTkZJR19IVUdFVExCX1BBR0UgKi8KIAog
+c3RhdGljIHZvaWQgaG1tX3BmbnNfY2xlYXIoc3RydWN0IGhtbV9yYW5nZSAqcmFuZ2UsCiAJCQkg
+ICB1aW50NjRfdCAqcGZucywKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9ub3V2ZWF1
