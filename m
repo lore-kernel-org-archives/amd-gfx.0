@@ -1,39 +1,95 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 13/15] mm: allow HMM_MIRROR on all architectures with MMU
-Date: Tue,  6 Aug 2019 19:05:51 +0300
-Message-ID: <20190806160554.14046-14-hch@lst.de>
+From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Subject: [PATCH 15/15] amdgpu: remove CONFIG_DRM_AMDGPU_USERPTR
+Date: Tue,  6 Aug 2019 19:05:53 +0300
+Message-ID: <20190806160554.14046-16-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190806160554.14046-1-hch@lst.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190806160554.14046-1-hch-jcswGhMUV9g@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-There isn't really any architecture specific code in this page table
-walk implementation, so drop the dependencies.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
----
- mm/Kconfig | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 56cec636a1fc..b18782be969c 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -677,8 +677,7 @@ config DEV_PAGEMAP_OPS
- 
- config HMM_MIRROR
- 	bool "HMM mirror CPU page table into a device page table"
--	depends on (X86_64 || PPC64)
--	depends on MMU && 64BIT
-+	depends on MMU
- 	select MMU_NOTIFIER
- 	help
- 	  Select HMM_MIRROR if you want to mirror range of the CPU page table of a
--- 
-2.20.1
+VGhlIG9wdGlvbiBpcyBqdXN0IHVzZWQgdG8gc2VsZWN0IEhNTSBtaXJyb3Igc3VwcG9ydCBhbmQg
+aGFzIGEgdmVyeQpjb25mdXNpbmcgaGVscCB0ZXh0LiAgSnVzdCBwdWxsIGluIHRoZSBITU0gbWly
+cm9yIGNvZGUgYnkgZGVmYXVsdAppbnN0ZWFkLgoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoIEhl
+bGx3aWcgPGhjaEBsc3QuZGU+Ci0tLQogZHJpdmVycy9ncHUvZHJtL0tjb25maWcgICAgICAgICAg
+ICAgICAgIHwgIDIgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L0tjb25maWcgICAgICB8
+IDEwIC0tLS0tLS0tLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8
+ICA2IC0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5oIHwgMTIg
+LS0tLS0tLS0tLS0tCiA0IGZpbGVzIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMjggZGVsZXRp
+b25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL0tjb25maWcgYi9kcml2ZXJzL2dw
+dS9kcm0vS2NvbmZpZwppbmRleCAxZDgwMjIyNTg3YWQuLjMxOWMxZGEyZTc0ZSAxMDA2NDQKLS0t
+IGEvZHJpdmVycy9ncHUvZHJtL0tjb25maWcKKysrIGIvZHJpdmVycy9ncHUvZHJtL0tjb25maWcK
+QEAgLTIyNiw5ICsyMjYsMTEgQEAgY29uZmlnIERSTV9BTURHUFUKIAlzZWxlY3QgRFJNX1NDSEVE
+CiAgICAgICAgIHNlbGVjdCBEUk1fVFRNCiAJc2VsZWN0IFBPV0VSX1NVUFBMWQorCXNlbGVjdCBI
+TU1fTUlSUk9SCiAJc2VsZWN0IEhXTU9OCiAJc2VsZWN0IEJBQ0tMSUdIVF9DTEFTU19ERVZJQ0UK
+IAlzZWxlY3QgSU5URVJWQUxfVFJFRQorCXNlbGVjdCBNTVVfTk9USUZJRVIKIAlzZWxlY3QgQ0hB
+U0gKIAloZWxwCiAJICBDaG9vc2UgdGhpcyBvcHRpb24gaWYgeW91IGhhdmUgYSByZWNlbnQgQU1E
+IFJhZGVvbiBncmFwaGljcyBjYXJkLgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvS2NvbmZpZyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L0tjb25maWcKaW5kZXgg
+MmU5OGMwMTZjYjQ3Li5jNWM5NjMxNjRmNWUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L0tjb25maWcKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvS2NvbmZp
+ZwpAQCAtMjQsMTYgKzI0LDYgQEAgY29uZmlnIERSTV9BTURHUFVfQ0lLCiAKIAkgIHJhZGVvbi5j
+aWtfc3VwcG9ydD0wIGFtZGdwdS5jaWtfc3VwcG9ydD0xCiAKLWNvbmZpZyBEUk1fQU1ER1BVX1VT
+RVJQVFIKLQlib29sICJBbHdheXMgZW5hYmxlIHVzZXJwdHIgd3JpdGUgc3VwcG9ydCIKLQlkZXBl
+bmRzIG9uIERSTV9BTURHUFUKLQlkZXBlbmRzIG9uIE1NVQotCXNlbGVjdCBITU1fTUlSUk9SCi0J
+c2VsZWN0IE1NVV9OT1RJRklFUgotCWhlbHAKLQkgIFRoaXMgb3B0aW9uIHNlbGVjdHMgQ09ORklH
+X0hNTSBhbmQgQ09ORklHX0hNTV9NSVJST1IgaWYgaXQKLQkgIGlzbid0IGFscmVhZHkgc2VsZWN0
+ZWQgdG8gZW5hYmxlZCBmdWxsIHVzZXJwdHIgc3VwcG9ydC4KLQogY29uZmlnIERSTV9BTURHUFVf
+R0FSVF9ERUJVR0ZTCiAJYm9vbCAiQWxsb3cgR0FSVCBhY2Nlc3MgdGhyb3VnaCBkZWJ1Z2ZzIgog
+CWRlcGVuZHMgb24gRFJNX0FNREdQVQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0
+bS5jCmluZGV4IDhiZjc5Mjg4YzRlMi4uMDBiNzRhZGJkNzkwIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3R0bS5jCkBAIC03NTEsOSArNzUxLDcgQEAgc3RydWN0IGFtZGdwdV90
+dG1fdHQgewogCXVpbnQ2NF90CQl1c2VycHRyOwogCXN0cnVjdCB0YXNrX3N0cnVjdAkqdXNlcnRh
+c2s7CiAJdWludDMyX3QJCXVzZXJmbGFnczsKLSNpZiBJU19FTkFCTEVEKENPTkZJR19EUk1fQU1E
+R1BVX1VTRVJQVFIpCiAJc3RydWN0IGhtbV9yYW5nZQkqcmFuZ2U7Ci0jZW5kaWYKIH07CiAKIC8q
+KgpAQCAtNzYzLDcgKzc2MSw2IEBAIHN0cnVjdCBhbWRncHVfdHRtX3R0IHsKICAqIENhbGxpbmcg
+ZnVuY3Rpb24gbXVzdCBjYWxsIGFtZGdwdV90dG1fdHRfdXNlcnB0cl9yYW5nZV9kb25lKCkgb25j
+ZSBhbmQgb25seQogICogb25jZSBhZnRlcndhcmRzIHRvIHN0b3AgSE1NIHRyYWNraW5nCiAgKi8K
+LSNpZiBJU19FTkFCTEVEKENPTkZJR19EUk1fQU1ER1BVX1VTRVJQVFIpCiAKICNkZWZpbmUgTUFY
+X1JFVFJZX0hNTV9SQU5HRV9GQVVMVAkxNgogCkBAIC04OTIsNyArODg5LDYgQEAgYm9vbCBhbWRn
+cHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzX2RvbmUoc3RydWN0IHR0bV90dCAqdHRtKQogCiAJcmV0
+dXJuIHI7CiB9Ci0jZW5kaWYKIAogLyoqCiAgKiBhbWRncHVfdHRtX3R0X3NldF91c2VyX3BhZ2Vz
+IC0gQ29weSBwYWdlcyBpbiwgcHV0dGluZyBvbGQgcGFnZXMgYXMgbmVjZXNzYXJ5LgpAQCAtOTcw
+LDEyICs5NjYsMTAgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3R0bV90dF91bnBpbl91c2VycHRyKHN0
+cnVjdCB0dG1fdHQgKnR0bSkKIAogCXNnX2ZyZWVfdGFibGUodHRtLT5zZyk7CiAKLSNpZiBJU19F
+TkFCTEVEKENPTkZJR19EUk1fQU1ER1BVX1VTRVJQVFIpCiAJaWYgKGd0dC0+cmFuZ2UgJiYKIAkg
+ICAgdHRtLT5wYWdlc1swXSA9PSBobW1fZGV2aWNlX2VudHJ5X3RvX3BhZ2UoZ3R0LT5yYW5nZSwK
+IAkJCQkJCSAgICAgIGd0dC0+cmFuZ2UtPnBmbnNbMF0pKQogCQlXQVJOX09OQ0UoMSwgIk1pc3Np
+bmcgZ2V0X3VzZXJfcGFnZV9kb25lXG4iKTsKLSNlbmRpZgogfQogCiBpbnQgYW1kZ3B1X3R0bV9n
+YXJ0X2JpbmQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdHRtLmgKaW5kZXggY2FhNzZjNjkzNzAwLi40MDZiMWM1ZTZkZDQgMTAwNjQ0
+Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uaAorKysgYi9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmgKQEAgLTEwMSwyMCArMTAxLDggQEAg
+aW50IGFtZGdwdV9tbWFwKHN0cnVjdCBmaWxlICpmaWxwLCBzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3Qg
+KnZtYSk7CiBpbnQgYW1kZ3B1X3R0bV9hbGxvY19nYXJ0KHN0cnVjdCB0dG1fYnVmZmVyX29iamVj
+dCAqYm8pOwogaW50IGFtZGdwdV90dG1fcmVjb3Zlcl9nYXJ0KHN0cnVjdCB0dG1fYnVmZmVyX29i
+amVjdCAqdGJvKTsKIAotI2lmIElTX0VOQUJMRUQoQ09ORklHX0RSTV9BTURHUFVfVVNFUlBUUikK
+IGludCBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzKHN0cnVjdCBhbWRncHVfYm8gKmJvLCBz
+dHJ1Y3QgcGFnZSAqKnBhZ2VzKTsKIGJvb2wgYW1kZ3B1X3R0bV90dF9nZXRfdXNlcl9wYWdlc19k
+b25lKHN0cnVjdCB0dG1fdHQgKnR0bSk7Ci0jZWxzZQotc3RhdGljIGlubGluZSBpbnQgYW1kZ3B1
+X3R0bV90dF9nZXRfdXNlcl9wYWdlcyhzdHJ1Y3QgYW1kZ3B1X2JvICpibywKLQkJCQkJICAgICAg
+IHN0cnVjdCBwYWdlICoqcGFnZXMpCi17Ci0JcmV0dXJuIC1FUEVSTTsKLX0KLXN0YXRpYyBpbmxp
+bmUgYm9vbCBhbWRncHVfdHRtX3R0X2dldF91c2VyX3BhZ2VzX2RvbmUoc3RydWN0IHR0bV90dCAq
+dHRtKQotewotCXJldHVybiBmYWxzZTsKLX0KLSNlbmRpZgogCiB2b2lkIGFtZGdwdV90dG1fdHRf
+c2V0X3VzZXJfcGFnZXMoc3RydWN0IHR0bV90dCAqdHRtLCBzdHJ1Y3QgcGFnZSAqKnBhZ2VzKTsK
+IGludCBhbWRncHVfdHRtX3R0X3NldF91c2VycHRyKHN0cnVjdCB0dG1fdHQgKnR0bSwgdWludDY0
+X3QgYWRkciwKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9ub3V2
+ZWF1
