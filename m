@@ -1,9 +1,10 @@
-From: Martin Babutzka <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>
-Subject: Issues with hibernation and resume
-Date: Tue, 6 Aug 2019 09:05:13 +0200 (CEST)
-Message-ID: <428588846.275117.1565075113704@mailbusiness.ionos.de>
+From: Guchun Chen <guchun.chen-5C7GfCeVMHo@public.gmane.org>
+Subject: [PATCH libdrm 0/3] add ras eject test for gfx and umc module
+Date: Tue, 6 Aug 2019 15:36:26 +0800
+Message-ID: <20190806073629.10976-1-guchun.chen@amd.com>
 Mime-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1888972418=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
 List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
 List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
@@ -15,27 +16,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
 Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, Hawking.Zhang-5C7GfCeVMHo@public.gmane.org, Dennis.Li-5C7GfCeVMHo@public.gmane.org, Xinhui.Pan-5C7GfCeVMHo@public.gmane.org, Tao.Zhou1-5C7GfCeVMHo@public.gmane.org
+Cc: Guchun Chen <guchun.chen-5C7GfCeVMHo@public.gmane.org>
 
---===============1888972418==
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-
-<!DOCTYPE html>
-<html><head>
-    <meta charset="UTF-8">
-</head><body><p>Dear AMD Developers,</p><p>I am building your amd-staging-drm-next kernels for more than 2 years now and patch this up with the official kernel patches and ubuntu&#39;s sauce patches: <a href="https://github.com/M-Bab/linux-kernel-amdgpu-binaries">https://github.com/M-Bab/linux-kernel-amdgpu-binaries</a><br></p><p>One of the kernel users reports about hibernation problems since quite a while and he gives detailed feedback but I am not a hibernation user and had no time to bisect this. Could you please look into this issue and try to help: </p><p><a href="https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/81">https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/81</a><br></p><p>Thanks for your great work about open-source linux graphics and keep it up!<br><
- /p><p>Many regards,<br>Martin (M-bab)</p></body></html>
- 
-
---===============1888972418==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-
---===============1888972418==--
+VGhlc2UgcGF0Y2hlcyBhcmUgdG8gc3VwcG9ydCByYXMgZWplY3QgdGVzdCBmb3IgZ2Z4IGFuZCB1
+bWMKbW9kdWxlcy4KCkd1Y2h1biBDaGVuICgzKToKICBhbWRncHU6IGFkZCBnZnggcmFzIGVqZWN0
+IGNvbmZpZ3VyYXRpb24gZmlsZQogIHRlc3RzL2FtZGdwdS9yYXM6IHJlZmluZSByYXMgZWplY3Qg
+dGVzdAogIGFtZGdwdTogYWRkIHVtYyByYXMgZWplY3QgdGVzdCBjb25maWd1cmF0aW9uCgogY29u
+ZmlndXJlLmFjICAgICAgICAgICAgIHwgIDE4ICsrCiBkYXRhL2FtZGdwdV9yYXMuanNvbiAgICAg
+fCAyNjAgKysrKysrKysrKysrKysrKysrKysKIG1lc29uLmJ1aWxkICAgICAgICAgICAgICB8ICAg
+MSArCiB0ZXN0cy9hbWRncHUvTWFrZWZpbGUuYW0gfCAgIDUgKy0KIHRlc3RzL2FtZGdwdS9tZXNv
+bi5idWlsZCB8ICAxNiArLQogdGVzdHMvYW1kZ3B1L3Jhc190ZXN0cy5jIHwgNTIwICsrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrLS0tLQogNiBmaWxlcyBjaGFuZ2VkLCA3NjkgaW5z
+ZXJ0aW9ucygrKSwgNTEgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA2NDQgZGF0YS9hbWRn
+cHVfcmFzLmpzb24KCi0tIAoyLjE3LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
+YW1kLWdmeA==
