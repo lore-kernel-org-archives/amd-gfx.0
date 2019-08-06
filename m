@@ -1,91 +1,41 @@
-From: Hillf Danton <hdanton@sina.com>
-Subject: Re: The issue with page allocation 5.3 rc1-rc2 (seems drm culprit
- here)
-Date: Tue,  6 Aug 2019 09:48:30 +0800
-Message-ID: <20190806014830.7424-1-hdanton@sina.com>
+From: Martin Babutzka <martin.babutzka-BGeptl67XyCzQB+pC5nmwQ@public.gmane.org>
+Subject: Issues with hibernation and resume
+Date: Tue, 6 Aug 2019 09:05:13 +0200 (CEST)
+Message-ID: <428588846.275117.1565075113704@mailbusiness.ionos.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <dri-devel-bounces@lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/dri-devel>
-List-Post: <mailto:dri-devel@lists.freedesktop.org>
-List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
- <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Errors-To: dri-devel-bounces@lists.freedesktop.org
-Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-To: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Cc: Linux List Kernel Mailing <linux-kernel@vger.kernel.org>, amd-gfx list <amd-gfx@lists.freedesktop.org>, Linux Memory Management List <linux-mm@kvack.org>, dri-devel <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-List-Id: amd-gfx.lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============1888972418=="
+Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
+List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
+ <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 
-Ck9uIFR1ZSwgNiBBdWcgMjAxOSAwMToxNTowMSArMDgwMCBNaWtoYWlsIEdhdnJpbG92IHdyb3Rl
-Ogo+Cj4gVW5mb3J0dW5hdGVseSBjb3VsZG4ndCBjaGVjayB0aGlzIHBhdGNoIGJlY2F1c2UsIHdp
-dGggdGhlIHBhdGNoLCB0aGUKPiBrZXJuZWwgZGlkIG5vdCBjb21waWxlLgo+IEhlcmUgaXMgY29t
-cGlsZSBlcnJvciBtZXNzYWdlczoKPgo+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rp
-c3BsYXkvZGMvY29yZS9kYy5jOiBJbiBmdW5jdGlvbgo+ICdkY19jcmVhdGVfc3RhdGUnOgo+IGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvY29yZS9kYy5jOjExNzg6MTM6
-IGVycm9yOgo+IGltcGxpY2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uICdrdnphbGxvYyc7IGRp
-ZCB5b3UgbWVhbiAna3phbGxvYyc/Cj4gWy1XZXJyb3I9aW1wbGljaXQtZnVuY3Rpb24tZGVjbGFy
-YXRpb25dCj4gIDExNzggfCAgIGNvbnRleHQgPSBrdnphbGxvYyhzaXplb2Yoc3RydWN0IGRjX3N0
-YXRlKSwKPiAgICAgICB8ICAgICAgICAgICAgIF5+fn5+fn5+Cj4gICAgICAgfCAgICAgICAgICAg
-ICBremFsbG9jCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3Jl
-L2RjLmM6MTE3ODoxMTogd2FybmluZzoKPiBhc3NpZ25tZW50IHRvICdzdHJ1Y3QgZGNfc3RhdGUg
-KicgZnJvbSAnaW50JyBtYWtlcyBwb2ludGVyIGZyb20KPiBpbnRlZ2VyIHdpdGhvdXQgYSBjYXN0
-IFstV2ludC1jb252ZXJzaW9uXQo+ICAxMTc4IHwgICBjb250ZXh0ID0ga3Z6YWxsb2Moc2l6ZW9m
-KHN0cnVjdCBkY19zdGF0ZSksCj4gICAgICAgfCAgICAgICAgICAgXgo+IGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1Ly4uL2Rpc3BsYXkvZGMvY29yZS9kYy5jOiBJbiBmdW5jdGlvbiAnZGNfY29w
-eV9zdGF0ZSc6Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3Jl
-L2RjLmM6MTIwMzoxMzogZXJyb3I6Cj4gaW1wbGljaXQgZGVjbGFyYXRpb24gb2YgZnVuY3Rpb24g
-J2t2bWFsbG9jJzsgZGlkIHlvdSBtZWFuICdrbWFsbG9jJz8KPiBbLVdlcnJvcj1pbXBsaWNpdC1m
-dW5jdGlvbi1kZWNsYXJhdGlvbl0KPiAgMTIwMyB8ICAgbmV3X2N0eCA9IGt2bWFsbG9jKHNpemVv
-ZigqbmV3X2N0eCksIEdGUF9LRVJORUwpOwo+ICAgICAgIHwgICAgICAgICAgICAgXn5+fn5+fn4K
-PiAgICAgICB8ICAgICAgICAgICAgIGttYWxsb2MKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS8uLi9kaXNwbGF5L2RjL2NvcmUvZGMuYzoxMjAzOjExOiB3YXJuaW5nOgo+IGFzc2lnbm1lbnQg
-dG8gJ3N0cnVjdCBkY19zdGF0ZSAqJyBmcm9tICdpbnQnIG1ha2VzIHBvaW50ZXIgZnJvbQo+IGlu
-dGVnZXIgd2l0aG91dCBhIGNhc3QgWy1XaW50LWNvbnZlcnNpb25dCj4gIDEyMDMgfCAgIG5ld19j
-dHggPSBrdm1hbGxvYyhzaXplb2YoKm5ld19jdHgpLCBHRlBfS0VSTkVMKTsKPiAgICAgICB8ICAg
-ICAgICAgICBeCj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9jb3Jl
-L2RjLmM6IEluIGZ1bmN0aW9uICdkY19zdGF0ZV9mcmVlJzoKPiBkcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS8uLi9kaXNwbGF5L2RjL2NvcmUvZGMuYzoxMjQyOjI6IGVycm9yOgo+IGltcGxpY2l0
-IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uICdrdmZyZWUnOyBkaWQgeW91IG1lYW4gJ2t6ZnJlZSc/
-Cj4gWy1XZXJyb3I9aW1wbGljaXQtZnVuY3Rpb24tZGVjbGFyYXRpb25dCj4gIDEyNDIgfCAga3Zm
-cmVlKGNvbnRleHQpOwo+ICAgICAgIHwgIF5+fn5+fgo+ICAgICAgIHwgIGt6ZnJlZQo+IGNjMTog
-c29tZSB3YXJuaW5ncyBiZWluZyB0cmVhdGVkIGFzIGVycm9ycwo+IG1ha2VbNF06ICoqKiBbc2Ny
-aXB0cy9NYWtlZmlsZS5idWlsZDoyNzQ6Cj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4v
-ZGlzcGxheS9kYy9jb3JlL2RjLm9dIEVycm9yIDEKPiBtYWtlWzRdOiAqKiogV2FpdGluZyBmb3Ig
-dW5maW5pc2hlZCBqb2JzLi4uLgo+IG1ha2VbM106ICoqKiBbc2NyaXB0cy9NYWtlZmlsZS5idWls
-ZDo0OTA6IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1XSBFcnJvciAyCj4gbWFrZVszXTogKioq
-IFdhaXRpbmcgZm9yIHVuZmluaXNoZWQgam9icy4uLi4KPiBtYWtlOiAqKiogW01ha2VmaWxlOjEw
-ODQ6IGRyaXZlcnNdIEVycm9yIDIKCk15IGJhZCwgcmVzcGluIHdpdGggb25lIGhlYWRlciBmaWxl
-IGFkZGVkLgoKSGlsbGYKLS0tLS04PC0tLQoKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2NvcmUvZGMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvY29y
-ZS9kYy5jCkBAIC0yMyw2ICsyMyw3IEBACiAgKi8KCiAjaW5jbHVkZSA8bGludXgvc2xhYi5oPgor
-I2luY2x1ZGUgPGxpbnV4L21tLmg+CgogI2luY2x1ZGUgImRtX3NlcnZpY2VzLmgiCgpAQCAtMTE3
-NCw4ICsxMTc1LDEyIEBAIHN0cnVjdCBkY19zdGF0ZSAqZGNfY3JlYXRlX3N0YXRlKHN0cnVjdAog
-CXN0cnVjdCBkY19zdGF0ZSAqY29udGV4dCA9IGt6YWxsb2Moc2l6ZW9mKHN0cnVjdCBkY19zdGF0
-ZSksCiAJCQkJCSAgIEdGUF9LRVJORUwpOwoKLQlpZiAoIWNvbnRleHQpCi0JCXJldHVybiBOVUxM
-OworCWlmICghY29udGV4dCkgeworCQljb250ZXh0ID0ga3Z6YWxsb2Moc2l6ZW9mKHN0cnVjdCBk
-Y19zdGF0ZSksCisJCQkJCSAgIEdGUF9LRVJORUwpOworCQlpZiAoIWNvbnRleHQpCisJCQlyZXR1
-cm4gTlVMTDsKKwl9CiAJLyogRWFjaCBjb250ZXh0IG11c3QgaGF2ZSB0aGVpciBvd24gaW5zdGFu
-Y2Ugb2YgVkJBIGFuZCBpbiBvcmRlciB0bwogCSAqIGluaXRpYWxpemUgYW5kIG9idGFpbiBJUCBh
-bmQgU09DIHRoZSBiYXNlIERNTCBpbnN0YW5jZSBmcm9tIERDIGlzCiAJICogaW5pdGlhbGx5IGNv
-cGllZCBpbnRvIGV2ZXJ5IGNvbnRleHQKQEAgLTExOTUsOCArMTIwMCwxMyBAQCBzdHJ1Y3QgZGNf
-c3RhdGUgKmRjX2NvcHlfc3RhdGUoc3RydWN0IGRjCiAJc3RydWN0IGRjX3N0YXRlICpuZXdfY3R4
-ID0ga21lbWR1cChzcmNfY3R4LAogCQkJc2l6ZW9mKHN0cnVjdCBkY19zdGF0ZSksIEdGUF9LRVJO
-RUwpOwoKLQlpZiAoIW5ld19jdHgpCi0JCXJldHVybiBOVUxMOworCWlmICghbmV3X2N0eCkgewor
-CQluZXdfY3R4ID0ga3ZtYWxsb2Moc2l6ZW9mKCpuZXdfY3R4KSwgR0ZQX0tFUk5FTCk7CisJCWlm
-IChuZXdfY3R4KQorCQkJKm5ld19jdHggPSAqc3JjX2N0eDsKKwkJZWxzZQorCQkJcmV0dXJuIE5V
-TEw7CisJfQoKIAlmb3IgKGkgPSAwOyBpIDwgTUFYX1BJUEVTOyBpKyspIHsKIAkJCXN0cnVjdCBw
-aXBlX2N0eCAqY3VyX3BpcGUgPSAmbmV3X2N0eC0+cmVzX2N0eC5waXBlX2N0eFtpXTsKQEAgLTEy
-MzAsNyArMTI0MCw3IEBAIHN0YXRpYyB2b2lkIGRjX3N0YXRlX2ZyZWUoc3RydWN0IGtyZWYgKmsK
-IHsKIAlzdHJ1Y3QgZGNfc3RhdGUgKmNvbnRleHQgPSBjb250YWluZXJfb2Yoa3JlZiwgc3RydWN0
-IGRjX3N0YXRlLCByZWZjb3VudCk7CiAJZGNfcmVzb3VyY2Vfc3RhdGVfZGVzdHJ1Y3QoY29udGV4
-dCk7Ci0Ja2ZyZWUoY29udGV4dCk7CisJa3ZmcmVlKGNvbnRleHQpOwogfQoKIHZvaWQgZGNfcmVs
-ZWFzZV9zdGF0ZShzdHJ1Y3QgZGNfc3RhdGUgKmNvbnRleHQpCi0tCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpkcmktZGV2ZWwgbWFpbGluZyBsaXN0CmRy
-aS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9kcmktZGV2ZWw=
+--===============1888972418==
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<!DOCTYPE html>
+<html><head>
+    <meta charset="UTF-8">
+</head><body><p>Dear AMD Developers,</p><p>I am building your amd-staging-drm-next kernels for more than 2 years now and patch this up with the official kernel patches and ubuntu&#39;s sauce patches: <a href="https://github.com/M-Bab/linux-kernel-amdgpu-binaries">https://github.com/M-Bab/linux-kernel-amdgpu-binaries</a><br></p><p>One of the kernel users reports about hibernation problems since quite a while and he gives detailed feedback but I am not a hibernation user and had no time to bisect this. Could you please look into this issue and try to help: </p><p><a href="https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/81">https://github.com/M-Bab/linux-kernel-amdgpu-binaries/issues/81</a><br></p><p>Thanks for your great work about open-source linux graphics and keep it up!<br><
+ /p><p>Many regards,<br>Martin (M-bab)</p></body></html>
+ 
+
+--===============1888972418==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+
+--===============1888972418==--
