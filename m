@@ -1,7 +1,7 @@
 From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v3 hmm 07/11] RDMA/odp: remove ib_ucontext from ib_umem
-Date: Tue,  6 Aug 2019 20:15:44 -0300
-Message-ID: <20190806231548.25242-8-jgg@ziepe.ca>
+Subject: [PATCH v3 hmm 08/11] drm/radeon: use mmu_notifier_get/put for struct radeon_mn
+Date: Tue,  6 Aug 2019 20:15:45 -0300
+Message-ID: <20190806231548.25242-9-jgg@ziepe.ca>
 References: <20190806231548.25242-1-jgg@ziepe.ca>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -14,110 +14,306 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-At this point the ucontext is only being stored to access the ib_device,
-so just store the ib_device directly instead. This is more natural and
-logical as the umem has nothing to do with the ucontext.
+radeon is using a device global hash table to track what mmu_notifiers
+have been registered on struct mm. This is better served with the new
+get/put scheme instead.
+
+radeon has a bug where it was not blocking notifier release() until all
+the BO's had been invalidated. This could result in a use after free of
+pages the BOs. This is tied into a second bug where radeon left the
+notifiers running endlessly even once the interval tree became
+empty. This could result in a use after free with module unload.
+
+Both are fixed by changing the lifetime model, the BOs exist in the
+interval tree with their natural lifetimes independent of the mm_struct
+lifetime using the get/put scheme. The release runs synchronously and just
+does invalidate_start across the entire interval tree to create the
+required DMA fence.
+
+Additions to the interval tree after release are already impossible as
+only current->mm is used during the add.
 
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- drivers/infiniband/core/umem.c     |  4 ++--
- drivers/infiniband/core/umem_odp.c | 13 ++++++-------
- include/rdma/ib_umem.h             |  2 +-
- 3 files changed, 9 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/radeon/radeon.h        |   3 -
+ drivers/gpu/drm/radeon/radeon_device.c |   2 -
+ drivers/gpu/drm/radeon/radeon_drv.c    |   2 +
+ drivers/gpu/drm/radeon/radeon_mn.c     | 157 ++++++-------------------
+ 4 files changed, 38 insertions(+), 126 deletions(-)
 
-diff --git a/drivers/infiniband/core/umem.c b/drivers/infiniband/core/umem.c
-index c59aa57d36510f..5ab9165ffbef0a 100644
---- a/drivers/infiniband/core/umem.c
-+++ b/drivers/infiniband/core/umem.c
-@@ -242,7 +242,7 @@ struct ib_umem *ib_umem_get(struct ib_udata *udata, unsigned long addr,
- 			return ERR_PTR(-ENOMEM);
- 	}
+AMD team: I wonder if kfd has similar lifetime issues?
+
+diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
+index 32808e50be12f8..918164f90b114a 100644
+--- a/drivers/gpu/drm/radeon/radeon.h
++++ b/drivers/gpu/drm/radeon/radeon.h
+@@ -2451,9 +2451,6 @@ struct radeon_device {
+ 	/* tracking pinned memory */
+ 	u64 vram_pin_size;
+ 	u64 gart_pin_size;
+-
+-	struct mutex	mn_lock;
+-	DECLARE_HASHTABLE(mn_hash, 7);
+ };
  
--	umem->context    = context;
-+	umem->ibdev = context->device;
- 	umem->length     = size;
- 	umem->address    = addr;
- 	umem->writable   = ib_access_writable(access);
-@@ -370,7 +370,7 @@ void ib_umem_release(struct ib_umem *umem)
- 		return;
- 	}
+ bool radeon_is_px(struct drm_device *dev);
+diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
+index dceb554e567446..788b1d8a80e660 100644
+--- a/drivers/gpu/drm/radeon/radeon_device.c
++++ b/drivers/gpu/drm/radeon/radeon_device.c
+@@ -1325,8 +1325,6 @@ int radeon_device_init(struct radeon_device *rdev,
+ 	init_rwsem(&rdev->pm.mclk_lock);
+ 	init_rwsem(&rdev->exclusive_lock);
+ 	init_waitqueue_head(&rdev->irq.vblank_queue);
+-	mutex_init(&rdev->mn_lock);
+-	hash_init(rdev->mn_hash);
+ 	r = radeon_gem_init(rdev);
+ 	if (r)
+ 		return r;
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index a6cbe11f79c611..b6535ac91fdb74 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -35,6 +35,7 @@
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/vga_switcheroo.h>
++#include <linux/mmu_notifier.h>
  
--	__ib_umem_release(umem->context->device, umem, 1);
-+	__ib_umem_release(umem->ibdev, umem, 1);
- 
- 	atomic64_sub(ib_umem_num_pages(umem), &umem->owning_mm->pinned_vm);
- 	__ib_umem_release_tail(umem);
-diff --git a/drivers/infiniband/core/umem_odp.c b/drivers/infiniband/core/umem_odp.c
-index a02e6e3d7b72fb..da72318e17592f 100644
---- a/drivers/infiniband/core/umem_odp.c
-+++ b/drivers/infiniband/core/umem_odp.c
-@@ -103,7 +103,7 @@ static void ib_umem_notifier_release(struct mmu_notifier *mn,
- 		 */
- 		smp_wmb();
- 		complete_all(&umem_odp->notifier_completion);
--		umem_odp->umem.context->device->ops.invalidate_range(
-+		umem_odp->umem.ibdev->ops.invalidate_range(
- 			umem_odp, ib_umem_start(umem_odp),
- 			ib_umem_end(umem_odp));
- 	}
-@@ -116,7 +116,7 @@ static int invalidate_range_start_trampoline(struct ib_umem_odp *item,
- 					     u64 start, u64 end, void *cookie)
+ #include <drm/drm_crtc_helper.h>
+ #include <drm/drm_drv.h>
+@@ -624,6 +625,7 @@ static void __exit radeon_exit(void)
  {
- 	ib_umem_notifier_start_account(item);
--	item->umem.context->device->ops.invalidate_range(item, start, end);
-+	item->umem.ibdev->ops.invalidate_range(item, start, end);
- 	return 0;
+ 	pci_unregister_driver(pdriver);
+ 	radeon_unregister_atpx_handler();
++	mmu_notifier_synchronize();
  }
  
-@@ -319,7 +319,7 @@ struct ib_umem_odp *ib_umem_odp_alloc_implicit(struct ib_udata *udata,
- 	if (!umem_odp)
- 		return ERR_PTR(-ENOMEM);
- 	umem = &umem_odp->umem;
--	umem->context = context;
-+	umem->ibdev = context->device;
- 	umem->writable = ib_access_writable(access);
- 	umem->owning_mm = current->mm;
- 	umem_odp->is_implicit_odp = 1;
-@@ -364,7 +364,7 @@ struct ib_umem_odp *ib_umem_odp_alloc_child(struct ib_umem_odp *root,
- 	if (!odp_data)
- 		return ERR_PTR(-ENOMEM);
- 	umem = &odp_data->umem;
--	umem->context    = root->umem.context;
-+	umem->ibdev = root->umem.ibdev;
- 	umem->length     = size;
- 	umem->address    = addr;
- 	umem->writable   = root->umem.writable;
-@@ -477,8 +477,7 @@ static int ib_umem_odp_map_dma_single_page(
- 		u64 access_mask,
- 		unsigned long current_seq)
- {
--	struct ib_ucontext *context = umem_odp->umem.context;
--	struct ib_device *dev = context->device;
-+	struct ib_device *dev = umem_odp->umem.ibdev;
- 	dma_addr_t dma_addr;
- 	int remove_existing_mapping = 0;
- 	int ret = 0;
-@@ -691,7 +690,7 @@ void ib_umem_odp_unmap_dma_pages(struct ib_umem_odp *umem_odp, u64 virt,
- {
- 	int idx;
- 	u64 addr;
--	struct ib_device *dev = umem_odp->umem.context->device;
-+	struct ib_device *dev = umem_odp->umem.ibdev;
+ module_init(radeon_init);
+diff --git a/drivers/gpu/drm/radeon/radeon_mn.c b/drivers/gpu/drm/radeon/radeon_mn.c
+index 8c3871ed23a9f0..fc8254273a800b 100644
+--- a/drivers/gpu/drm/radeon/radeon_mn.c
++++ b/drivers/gpu/drm/radeon/radeon_mn.c
+@@ -37,17 +37,8 @@
+ #include "radeon.h"
  
- 	virt = max_t(u64, virt, ib_umem_start(umem_odp));
- 	bound = min_t(u64, bound, ib_umem_end(umem_odp));
-diff --git a/include/rdma/ib_umem.h b/include/rdma/ib_umem.h
-index 1052d0d62be7d2..a91b2af64ec47b 100644
---- a/include/rdma/ib_umem.h
-+++ b/include/rdma/ib_umem.h
-@@ -42,7 +42,7 @@ struct ib_ucontext;
- struct ib_umem_odp;
+ struct radeon_mn {
+-	/* constant after initialisation */
+-	struct radeon_device	*rdev;
+-	struct mm_struct	*mm;
+ 	struct mmu_notifier	mn;
  
- struct ib_umem {
--	struct ib_ucontext     *context;
-+	struct ib_device       *ibdev;
- 	struct mm_struct       *owning_mm;
- 	size_t			length;
- 	unsigned long		address;
+-	/* only used on destruction */
+-	struct work_struct	work;
+-
+-	/* protected by rdev->mn_lock */
+-	struct hlist_node	node;
+-
+ 	/* objects protected by lock */
+ 	struct mutex		lock;
+ 	struct rb_root_cached	objects;
+@@ -58,55 +49,6 @@ struct radeon_mn_node {
+ 	struct list_head		bos;
+ };
+ 
+-/**
+- * radeon_mn_destroy - destroy the rmn
+- *
+- * @work: previously sheduled work item
+- *
+- * Lazy destroys the notifier from a work item
+- */
+-static void radeon_mn_destroy(struct work_struct *work)
+-{
+-	struct radeon_mn *rmn = container_of(work, struct radeon_mn, work);
+-	struct radeon_device *rdev = rmn->rdev;
+-	struct radeon_mn_node *node, *next_node;
+-	struct radeon_bo *bo, *next_bo;
+-
+-	mutex_lock(&rdev->mn_lock);
+-	mutex_lock(&rmn->lock);
+-	hash_del(&rmn->node);
+-	rbtree_postorder_for_each_entry_safe(node, next_node,
+-					     &rmn->objects.rb_root, it.rb) {
+-
+-		interval_tree_remove(&node->it, &rmn->objects);
+-		list_for_each_entry_safe(bo, next_bo, &node->bos, mn_list) {
+-			bo->mn = NULL;
+-			list_del_init(&bo->mn_list);
+-		}
+-		kfree(node);
+-	}
+-	mutex_unlock(&rmn->lock);
+-	mutex_unlock(&rdev->mn_lock);
+-	mmu_notifier_unregister(&rmn->mn, rmn->mm);
+-	kfree(rmn);
+-}
+-
+-/**
+- * radeon_mn_release - callback to notify about mm destruction
+- *
+- * @mn: our notifier
+- * @mn: the mm this callback is about
+- *
+- * Shedule a work item to lazy destroy our notifier.
+- */
+-static void radeon_mn_release(struct mmu_notifier *mn,
+-			      struct mm_struct *mm)
+-{
+-	struct radeon_mn *rmn = container_of(mn, struct radeon_mn, mn);
+-	INIT_WORK(&rmn->work, radeon_mn_destroy);
+-	schedule_work(&rmn->work);
+-}
+-
+ /**
+  * radeon_mn_invalidate_range_start - callback to notify about mm change
+  *
+@@ -183,65 +125,44 @@ static int radeon_mn_invalidate_range_start(struct mmu_notifier *mn,
+ 	return ret;
+ }
+ 
+-static const struct mmu_notifier_ops radeon_mn_ops = {
+-	.release = radeon_mn_release,
+-	.invalidate_range_start = radeon_mn_invalidate_range_start,
+-};
++static void radeon_mn_release(struct mmu_notifier *mn, struct mm_struct *mm)
++{
++	struct mmu_notifier_range range = {
++		.mm = mm,
++		.start = 0,
++		.end = ULONG_MAX,
++		.flags = 0,
++		.event = MMU_NOTIFY_UNMAP,
++	};
++
++	radeon_mn_invalidate_range_start(mn, &range);
++}
+ 
+-/**
+- * radeon_mn_get - create notifier context
+- *
+- * @rdev: radeon device pointer
+- *
+- * Creates a notifier context for current->mm.
+- */
+-static struct radeon_mn *radeon_mn_get(struct radeon_device *rdev)
++static struct mmu_notifier *radeon_mn_alloc_notifier(struct mm_struct *mm)
+ {
+-	struct mm_struct *mm = current->mm;
+ 	struct radeon_mn *rmn;
+-	int r;
+-
+-	if (down_write_killable(&mm->mmap_sem))
+-		return ERR_PTR(-EINTR);
+-
+-	mutex_lock(&rdev->mn_lock);
+-
+-	hash_for_each_possible(rdev->mn_hash, rmn, node, (unsigned long)mm)
+-		if (rmn->mm == mm)
+-			goto release_locks;
+ 
+ 	rmn = kzalloc(sizeof(*rmn), GFP_KERNEL);
+-	if (!rmn) {
+-		rmn = ERR_PTR(-ENOMEM);
+-		goto release_locks;
+-	}
++	if (!rmn)
++		return ERR_PTR(-ENOMEM);
+ 
+-	rmn->rdev = rdev;
+-	rmn->mm = mm;
+-	rmn->mn.ops = &radeon_mn_ops;
+ 	mutex_init(&rmn->lock);
+ 	rmn->objects = RB_ROOT_CACHED;
+-	
+-	r = __mmu_notifier_register(&rmn->mn, mm);
+-	if (r)
+-		goto free_rmn;
+-
+-	hash_add(rdev->mn_hash, &rmn->node, (unsigned long)mm);
+-
+-release_locks:
+-	mutex_unlock(&rdev->mn_lock);
+-	up_write(&mm->mmap_sem);
+-
+-	return rmn;
+-
+-free_rmn:
+-	mutex_unlock(&rdev->mn_lock);
+-	up_write(&mm->mmap_sem);
+-	kfree(rmn);
++	return &rmn->mn;
++}
+ 
+-	return ERR_PTR(r);
++static void radeon_mn_free_notifier(struct mmu_notifier *mn)
++{
++	kfree(container_of(mn, struct radeon_mn, mn));
+ }
+ 
++static const struct mmu_notifier_ops radeon_mn_ops = {
++	.release = radeon_mn_release,
++	.invalidate_range_start = radeon_mn_invalidate_range_start,
++	.alloc_notifier = radeon_mn_alloc_notifier,
++	.free_notifier = radeon_mn_free_notifier,
++};
++
+ /**
+  * radeon_mn_register - register a BO for notifier updates
+  *
+@@ -254,15 +175,16 @@ static struct radeon_mn *radeon_mn_get(struct radeon_device *rdev)
+ int radeon_mn_register(struct radeon_bo *bo, unsigned long addr)
+ {
+ 	unsigned long end = addr + radeon_bo_size(bo) - 1;
+-	struct radeon_device *rdev = bo->rdev;
++	struct mmu_notifier *mn;
+ 	struct radeon_mn *rmn;
+ 	struct radeon_mn_node *node = NULL;
+ 	struct list_head bos;
+ 	struct interval_tree_node *it;
+ 
+-	rmn = radeon_mn_get(rdev);
+-	if (IS_ERR(rmn))
+-		return PTR_ERR(rmn);
++	mn = mmu_notifier_get(&radeon_mn_ops, current->mm);
++	if (IS_ERR(mn))
++		return PTR_ERR(mn);
++	rmn = container_of(mn, struct radeon_mn, mn);
+ 
+ 	INIT_LIST_HEAD(&bos);
+ 
+@@ -309,22 +231,13 @@ int radeon_mn_register(struct radeon_bo *bo, unsigned long addr)
+  */
+ void radeon_mn_unregister(struct radeon_bo *bo)
+ {
+-	struct radeon_device *rdev = bo->rdev;
+-	struct radeon_mn *rmn;
++	struct radeon_mn *rmn = bo->mn;
+ 	struct list_head *head;
+ 
+-	mutex_lock(&rdev->mn_lock);
+-	rmn = bo->mn;
+-	if (rmn == NULL) {
+-		mutex_unlock(&rdev->mn_lock);
+-		return;
+-	}
+-
+ 	mutex_lock(&rmn->lock);
+ 	/* save the next list entry for later */
+ 	head = bo->mn_list.next;
+ 
+-	bo->mn = NULL;
+ 	list_del(&bo->mn_list);
+ 
+ 	if (list_empty(head)) {
+@@ -335,5 +248,7 @@ void radeon_mn_unregister(struct radeon_bo *bo)
+ 	}
+ 
+ 	mutex_unlock(&rmn->lock);
+-	mutex_unlock(&rdev->mn_lock);
++
++	mmu_notifier_put(&rmn->mn);
++	bo->mn = NULL;
+ }
 -- 
 2.22.0
