@@ -1,12 +1,10 @@
 From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v3 hmm 08/11] drm/radeon: use mmu_notifier_get/put for struct radeon_mn
-Date: Tue,  6 Aug 2019 20:15:45 -0300
-Message-ID: <20190806231548.25242-9-jgg@ziepe.ca>
-References: <20190806231548.25242-1-jgg@ziepe.ca>
+Subject: [PATCH v3 hmm 00/11] Add mmu_notifier_get/put for managing mmu notifier registrations
+Date: Tue,  6 Aug 2019 20:15:37 -0300
+Message-ID: <20190806231548.25242-1-jgg@ziepe.ca>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190806231548.25242-1-jgg@ziepe.ca>
 Sender: linux-kernel-owner@vger.kernel.org
 To: linux-mm@kvack.org
 Cc: Andrea Arcangeli <aarcange@redhat.com>, Christoph Hellwig <hch@lst.de>, John Hubbard <jhubbard@nvidia.com>, =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>, Dimitri Sivanich <sivanich@sgi.com>, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, iommu@lists.linux-foundation.org, intel-gfx@lists.freedesktop.org, Gavin Shan <shangw@linux.vnet.ibm.com>, Andrea Righi <andrea@betterlinux.com>, Jason Gunthorpe <jgg@mellanox.com>
@@ -14,306 +12,102 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-radeon is using a device global hash table to track what mmu_notifiers
-have been registered on struct mm. This is better served with the new
-get/put scheme instead.
+This series introduces a new registration flow for mmu_notifiers based on
+the idea that the user would like to get a single refcounted piece of
+memory for a mm, keyed to its use.
 
-radeon has a bug where it was not blocking notifier release() until all
-the BO's had been invalidated. This could result in a use after free of
-pages the BOs. This is tied into a second bug where radeon left the
-notifiers running endlessly even once the interval tree became
-empty. This could result in a use after free with module unload.
+For instance many users of mmu_notifiers use an interval tree or similar
+to dispatch notifications to some object. There are many objects but only
+one notifier subscription per mm holding the tree.
 
-Both are fixed by changing the lifetime model, the BOs exist in the
-interval tree with their natural lifetimes independent of the mm_struct
-lifetime using the get/put scheme. The release runs synchronously and just
-does invalidate_start across the entire interval tree to create the
-required DMA fence.
+Of the 12 places that call mmu_notifier_register:
+ - 7 are maintaining some kind of obvious mapping of mm_struct to
+   mmu_notifier registration, ie in some linked list or hash table. Of
+   the 7 this series converts 4 (gru, hmm, RDMA, radeon)
 
-Additions to the interval tree after release are already impossible as
-only current->mm is used during the add.
+ - 3 (hfi1, gntdev, vhost) are registering multiple notifiers, but each
+   one immediately does some VA range filtering, ie with an interval tree.
+   These would be better with a global subsystem-wide range filter and
+   could convert to this API.
 
-Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
----
- drivers/gpu/drm/radeon/radeon.h        |   3 -
- drivers/gpu/drm/radeon/radeon_device.c |   2 -
- drivers/gpu/drm/radeon/radeon_drv.c    |   2 +
- drivers/gpu/drm/radeon/radeon_mn.c     | 157 ++++++-------------------
- 4 files changed, 38 insertions(+), 126 deletions(-)
+ - 2 (kvm, amd_iommu) are deliberately using a single mm at a time, and
+   really can't use this API. One of the intel-svm's modes is also in this
+   list
 
-AMD team: I wonder if kfd has similar lifetime issues?
+The 3/7 unconverted drivers are:
+ - intel-svm
+   This driver tracks mm's in a global linked list 'global_svm_list'
+   and would benefit from this API.
 
-diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/radeon.h
-index 32808e50be12f8..918164f90b114a 100644
---- a/drivers/gpu/drm/radeon/radeon.h
-+++ b/drivers/gpu/drm/radeon/radeon.h
-@@ -2451,9 +2451,6 @@ struct radeon_device {
- 	/* tracking pinned memory */
- 	u64 vram_pin_size;
- 	u64 gart_pin_size;
--
--	struct mutex	mn_lock;
--	DECLARE_HASHTABLE(mn_hash, 7);
- };
- 
- bool radeon_is_px(struct drm_device *dev);
-diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/radeon/radeon_device.c
-index dceb554e567446..788b1d8a80e660 100644
---- a/drivers/gpu/drm/radeon/radeon_device.c
-+++ b/drivers/gpu/drm/radeon/radeon_device.c
-@@ -1325,8 +1325,6 @@ int radeon_device_init(struct radeon_device *rdev,
- 	init_rwsem(&rdev->pm.mclk_lock);
- 	init_rwsem(&rdev->exclusive_lock);
- 	init_waitqueue_head(&rdev->irq.vblank_queue);
--	mutex_init(&rdev->mn_lock);
--	hash_init(rdev->mn_hash);
- 	r = radeon_gem_init(rdev);
- 	if (r)
- 		return r;
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index a6cbe11f79c611..b6535ac91fdb74 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -35,6 +35,7 @@
- #include <linux/module.h>
- #include <linux/pm_runtime.h>
- #include <linux/vga_switcheroo.h>
-+#include <linux/mmu_notifier.h>
- 
- #include <drm/drm_crtc_helper.h>
- #include <drm/drm_drv.h>
-@@ -624,6 +625,7 @@ static void __exit radeon_exit(void)
- {
- 	pci_unregister_driver(pdriver);
- 	radeon_unregister_atpx_handler();
-+	mmu_notifier_synchronize();
- }
- 
- module_init(radeon_init);
-diff --git a/drivers/gpu/drm/radeon/radeon_mn.c b/drivers/gpu/drm/radeon/radeon_mn.c
-index 8c3871ed23a9f0..fc8254273a800b 100644
---- a/drivers/gpu/drm/radeon/radeon_mn.c
-+++ b/drivers/gpu/drm/radeon/radeon_mn.c
-@@ -37,17 +37,8 @@
- #include "radeon.h"
- 
- struct radeon_mn {
--	/* constant after initialisation */
--	struct radeon_device	*rdev;
--	struct mm_struct	*mm;
- 	struct mmu_notifier	mn;
- 
--	/* only used on destruction */
--	struct work_struct	work;
--
--	/* protected by rdev->mn_lock */
--	struct hlist_node	node;
--
- 	/* objects protected by lock */
- 	struct mutex		lock;
- 	struct rb_root_cached	objects;
-@@ -58,55 +49,6 @@ struct radeon_mn_node {
- 	struct list_head		bos;
- };
- 
--/**
-- * radeon_mn_destroy - destroy the rmn
-- *
-- * @work: previously sheduled work item
-- *
-- * Lazy destroys the notifier from a work item
-- */
--static void radeon_mn_destroy(struct work_struct *work)
--{
--	struct radeon_mn *rmn = container_of(work, struct radeon_mn, work);
--	struct radeon_device *rdev = rmn->rdev;
--	struct radeon_mn_node *node, *next_node;
--	struct radeon_bo *bo, *next_bo;
--
--	mutex_lock(&rdev->mn_lock);
--	mutex_lock(&rmn->lock);
--	hash_del(&rmn->node);
--	rbtree_postorder_for_each_entry_safe(node, next_node,
--					     &rmn->objects.rb_root, it.rb) {
--
--		interval_tree_remove(&node->it, &rmn->objects);
--		list_for_each_entry_safe(bo, next_bo, &node->bos, mn_list) {
--			bo->mn = NULL;
--			list_del_init(&bo->mn_list);
--		}
--		kfree(node);
--	}
--	mutex_unlock(&rmn->lock);
--	mutex_unlock(&rdev->mn_lock);
--	mmu_notifier_unregister(&rmn->mn, rmn->mm);
--	kfree(rmn);
--}
--
--/**
-- * radeon_mn_release - callback to notify about mm destruction
-- *
-- * @mn: our notifier
-- * @mn: the mm this callback is about
-- *
-- * Shedule a work item to lazy destroy our notifier.
-- */
--static void radeon_mn_release(struct mmu_notifier *mn,
--			      struct mm_struct *mm)
--{
--	struct radeon_mn *rmn = container_of(mn, struct radeon_mn, mn);
--	INIT_WORK(&rmn->work, radeon_mn_destroy);
--	schedule_work(&rmn->work);
--}
--
- /**
-  * radeon_mn_invalidate_range_start - callback to notify about mm change
-  *
-@@ -183,65 +125,44 @@ static int radeon_mn_invalidate_range_start(struct mmu_notifier *mn,
- 	return ret;
- }
- 
--static const struct mmu_notifier_ops radeon_mn_ops = {
--	.release = radeon_mn_release,
--	.invalidate_range_start = radeon_mn_invalidate_range_start,
--};
-+static void radeon_mn_release(struct mmu_notifier *mn, struct mm_struct *mm)
-+{
-+	struct mmu_notifier_range range = {
-+		.mm = mm,
-+		.start = 0,
-+		.end = ULONG_MAX,
-+		.flags = 0,
-+		.event = MMU_NOTIFY_UNMAP,
-+	};
-+
-+	radeon_mn_invalidate_range_start(mn, &range);
-+}
- 
--/**
-- * radeon_mn_get - create notifier context
-- *
-- * @rdev: radeon device pointer
-- *
-- * Creates a notifier context for current->mm.
-- */
--static struct radeon_mn *radeon_mn_get(struct radeon_device *rdev)
-+static struct mmu_notifier *radeon_mn_alloc_notifier(struct mm_struct *mm)
- {
--	struct mm_struct *mm = current->mm;
- 	struct radeon_mn *rmn;
--	int r;
--
--	if (down_write_killable(&mm->mmap_sem))
--		return ERR_PTR(-EINTR);
--
--	mutex_lock(&rdev->mn_lock);
--
--	hash_for_each_possible(rdev->mn_hash, rmn, node, (unsigned long)mm)
--		if (rmn->mm == mm)
--			goto release_locks;
- 
- 	rmn = kzalloc(sizeof(*rmn), GFP_KERNEL);
--	if (!rmn) {
--		rmn = ERR_PTR(-ENOMEM);
--		goto release_locks;
--	}
-+	if (!rmn)
-+		return ERR_PTR(-ENOMEM);
- 
--	rmn->rdev = rdev;
--	rmn->mm = mm;
--	rmn->mn.ops = &radeon_mn_ops;
- 	mutex_init(&rmn->lock);
- 	rmn->objects = RB_ROOT_CACHED;
--	
--	r = __mmu_notifier_register(&rmn->mn, mm);
--	if (r)
--		goto free_rmn;
--
--	hash_add(rdev->mn_hash, &rmn->node, (unsigned long)mm);
--
--release_locks:
--	mutex_unlock(&rdev->mn_lock);
--	up_write(&mm->mmap_sem);
--
--	return rmn;
--
--free_rmn:
--	mutex_unlock(&rdev->mn_lock);
--	up_write(&mm->mmap_sem);
--	kfree(rmn);
-+	return &rmn->mn;
-+}
- 
--	return ERR_PTR(r);
-+static void radeon_mn_free_notifier(struct mmu_notifier *mn)
-+{
-+	kfree(container_of(mn, struct radeon_mn, mn));
- }
- 
-+static const struct mmu_notifier_ops radeon_mn_ops = {
-+	.release = radeon_mn_release,
-+	.invalidate_range_start = radeon_mn_invalidate_range_start,
-+	.alloc_notifier = radeon_mn_alloc_notifier,
-+	.free_notifier = radeon_mn_free_notifier,
-+};
-+
- /**
-  * radeon_mn_register - register a BO for notifier updates
-  *
-@@ -254,15 +175,16 @@ static struct radeon_mn *radeon_mn_get(struct radeon_device *rdev)
- int radeon_mn_register(struct radeon_bo *bo, unsigned long addr)
- {
- 	unsigned long end = addr + radeon_bo_size(bo) - 1;
--	struct radeon_device *rdev = bo->rdev;
-+	struct mmu_notifier *mn;
- 	struct radeon_mn *rmn;
- 	struct radeon_mn_node *node = NULL;
- 	struct list_head bos;
- 	struct interval_tree_node *it;
- 
--	rmn = radeon_mn_get(rdev);
--	if (IS_ERR(rmn))
--		return PTR_ERR(rmn);
-+	mn = mmu_notifier_get(&radeon_mn_ops, current->mm);
-+	if (IS_ERR(mn))
-+		return PTR_ERR(mn);
-+	rmn = container_of(mn, struct radeon_mn, mn);
- 
- 	INIT_LIST_HEAD(&bos);
- 
-@@ -309,22 +231,13 @@ int radeon_mn_register(struct radeon_bo *bo, unsigned long addr)
-  */
- void radeon_mn_unregister(struct radeon_bo *bo)
- {
--	struct radeon_device *rdev = bo->rdev;
--	struct radeon_mn *rmn;
-+	struct radeon_mn *rmn = bo->mn;
- 	struct list_head *head;
- 
--	mutex_lock(&rdev->mn_lock);
--	rmn = bo->mn;
--	if (rmn == NULL) {
--		mutex_unlock(&rdev->mn_lock);
--		return;
--	}
--
- 	mutex_lock(&rmn->lock);
- 	/* save the next list entry for later */
- 	head = bo->mn_list.next;
- 
--	bo->mn = NULL;
- 	list_del(&bo->mn_list);
- 
- 	if (list_empty(head)) {
-@@ -335,5 +248,7 @@ void radeon_mn_unregister(struct radeon_bo *bo)
- 	}
- 
- 	mutex_unlock(&rmn->lock);
--	mutex_unlock(&rdev->mn_lock);
-+
-+	mmu_notifier_put(&rmn->mn);
-+	bo->mn = NULL;
- }
+   Its flow is a bit complex, since it also wants a set of non-shared
+   notifiers.
+
+ - i915_gem_usrptr
+   This driver tracks mm's in a per-device hash
+   table (dev_priv->mm_structs), but only has an optional use of
+   mmu_notifiers.  Since it still seems to need the hash table it is
+   difficult to convert.
+
+ - amdkfd/kfd_process
+   This driver is using a global SRCU hash table to track mm's
+
+   The control flow here is very complicated and the driver is relying on
+   this hash table to be fast on the ioctl syscall path.
+
+   It would definitely benefit, but only if the ioctl path didn't need to
+   do the search so often.
+
+This series is already entangled with patches in the hmm & RDMA tree and
+will require some git topic branches for the RDMA ODP stuff. I intend for
+it to go through the hmm tree.
+
+There is a git version here:
+
+https://github.com/jgunthorpe/linux/commits/mmu_notifier
+
+Which has the required pre-patches for the RDMA ODP conversion that are
+still being reviewed.
+
+Jason Gunthorpe (11):
+  mm/mmu_notifiers: hoist do_mmu_notifier_register down_write to the
+    caller
+  mm/mmu_notifiers: do not speculatively allocate a mmu_notifier_mm
+  mm/mmu_notifiers: add a get/put scheme for the registration
+  misc/sgi-gru: use mmu_notifier_get/put for struct gru_mm_struct
+  hmm: use mmu_notifier_get/put for 'struct hmm'
+  RDMA/odp: use mmu_notifier_get/put for 'struct ib_ucontext_per_mm'
+  RDMA/odp: remove ib_ucontext from ib_umem
+  drm/radeon: use mmu_notifier_get/put for struct radeon_mn
+  drm/amdkfd: fix a use after free race with mmu_notifer unregister
+  drm/amdkfd: use mmu_notifier_put
+  mm/mmu_notifiers: remove unregister_no_release
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |   3 -
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c |  88 ++++-----
+ drivers/gpu/drm/nouveau/nouveau_drm.c    |   3 +
+ drivers/gpu/drm/radeon/radeon.h          |   3 -
+ drivers/gpu/drm/radeon/radeon_device.c   |   2 -
+ drivers/gpu/drm/radeon/radeon_drv.c      |   2 +
+ drivers/gpu/drm/radeon/radeon_mn.c       | 157 ++++------------
+ drivers/infiniband/core/umem.c           |   4 +-
+ drivers/infiniband/core/umem_odp.c       | 183 ++++++------------
+ drivers/infiniband/core/uverbs_cmd.c     |   3 -
+ drivers/infiniband/core/uverbs_main.c    |   1 +
+ drivers/infiniband/hw/mlx5/main.c        |   5 -
+ drivers/misc/sgi-gru/grufile.c           |   1 +
+ drivers/misc/sgi-gru/grutables.h         |   2 -
+ drivers/misc/sgi-gru/grutlbpurge.c       |  84 +++------
+ include/linux/hmm.h                      |  12 +-
+ include/linux/mm_types.h                 |   6 -
+ include/linux/mmu_notifier.h             |  40 +++-
+ include/rdma/ib_umem.h                   |   2 +-
+ include/rdma/ib_umem_odp.h               |  10 +-
+ include/rdma/ib_verbs.h                  |   3 -
+ kernel/fork.c                            |   1 -
+ mm/hmm.c                                 | 121 +++---------
+ mm/mmu_notifier.c                        | 230 +++++++++++++++++------
+ 25 files changed, 408 insertions(+), 559 deletions(-)
+
 -- 
 2.22.0
