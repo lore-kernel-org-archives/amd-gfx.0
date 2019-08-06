@@ -1,36 +1,85 @@
-From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
-Subject: hmm cleanups, v2
-Date: Tue,  6 Aug 2019 19:05:38 +0300
-Message-ID: <20190806160554.14046-1-hch@lst.de>
+From: Christoph Hellwig <hch@lst.de>
+Subject: [PATCH 01/15] amdgpu: remove -EAGAIN handling for hmm_range_fault
+Date: Tue,  6 Aug 2019 19:05:39 +0300
+Message-ID: <20190806160554.14046-2-hch@lst.de>
+References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/nouveau>
-List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
- <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
-Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Transfer-Encoding: 8bit
+Return-path: <linux-kernel-owner@vger.kernel.org>
+In-Reply-To: <20190806160554.14046-1-hch@lst.de>
+Sender: linux-kernel-owner@vger.kernel.org
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-CkhpIErDqXLDtG1lLCBCZW4sIEZlbGl4IGFuZCBKYXNvbiwKCmJlbG93IGlzIGEgc2VyaWVzIGFn
-YWluc3QgdGhlIGhtbSB0cmVlIHdoaWNoIGNsZWFucyB1cCB2YXJpb3VzIG1pbm9yCmJpdHMgYW5k
-IGFsbG93cyBITU1fTUlSUk9SIHRvIGJlIGJ1aWx0IG9uIGFsbCBhcmNoaXRlY3R1cmVzLgoKRGlm
-ZnN0YXQ6CgogICAgMTEgZmlsZXMgY2hhbmdlZCwgOTQgaW5zZXJ0aW9ucygrKSwgMjEwIGRlbGV0
-aW9ucygtKQoKQSBnaXQgdHJlZSBpcyBhbHNvIGF2YWlsYWJsZSBhdDoKCiAgICBnaXQ6Ly9naXQu
-aW5mcmFkZWFkLm9yZy91c2Vycy9oY2gvbWlzYy5naXQgaG1tLWNsZWFudXBzLjIKCkdpdHdlYjoK
-CiAgICBodHRwOi8vZ2l0LmluZnJhZGVhZC5vcmcvdXNlcnMvaGNoL21pc2MuZ2l0L3Nob3J0bG9n
-L3JlZnMvaGVhZHMvaG1tLWNsZWFudXBzLjIKCkNoYW5nZXMgc2luY2UgdjE6CiAtIGZpeCB0aGUg
-Y292ZXIgbGV0dGVyIHN1YmplY3QKIC0gaW1wcm92ZSB2YXJpb3VzIHBhdGNoIGRlc2NyaXB0aW9u
-cwogLSB1c2Ugc3ZtbS0+bW0gaW4gbm91dmVhdV9yYW5nZV9mYXVsdAogLSBpbnZlcnNlIHRoZSBo
-bWFzayBmaWVsZCB3aGVuIHVzaW5nIGl0CiAtIHNlbGVjdCBITU1fTUlSUk9SIGluc3RlYWQgb2Yg
-bWFraW5nIGl0IGEgdXNlciB2aXNpYmxlIG9wdGlvbgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpOb3V2ZWF1IG1haWxpbmcgbGlzdApOb3V2ZWF1QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL25vdXZlYXU=
+hmm_range_fault can only return -EAGAIN if called with the
+HMM_FAULT_ALLOW_RETRY flag, which amdgpu never does.  Remove the
+handling for the -EAGAIN case with its non-standard locking scheme.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 23 +++--------------------
+ 1 file changed, 3 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 12a59ac83f72..f0821638bbc6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -778,7 +778,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ 	struct hmm_range *range;
+ 	unsigned long i;
+ 	uint64_t *pfns;
+-	int retry = 0;
+ 	int r = 0;
+ 
+ 	if (!mm) /* Happens during process shutdown */
+@@ -822,7 +821,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ 	hmm_range_register(range, mirror, start,
+ 			   start + ttm->num_pages * PAGE_SIZE, PAGE_SHIFT);
+ 
+-retry:
+ 	/*
+ 	 * Just wait for range to be valid, safe to ignore return value as we
+ 	 * will use the return value of hmm_range_fault() below under the
+@@ -831,24 +829,12 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ 	hmm_range_wait_until_valid(range, HMM_RANGE_DEFAULT_TIMEOUT);
+ 
+ 	down_read(&mm->mmap_sem);
+-
+ 	r = hmm_range_fault(range, 0);
+-	if (unlikely(r < 0)) {
+-		if (likely(r == -EAGAIN)) {
+-			/*
+-			 * return -EAGAIN, mmap_sem is dropped
+-			 */
+-			if (retry++ < MAX_RETRY_HMM_RANGE_FAULT)
+-				goto retry;
+-			else
+-				pr_err("Retry hmm fault too many times\n");
+-		}
+-
+-		goto out_up_read;
+-	}
+-
+ 	up_read(&mm->mmap_sem);
+ 
++	if (unlikely(r < 0))
++		goto out_free_pfns;
++
+ 	for (i = 0; i < ttm->num_pages; i++) {
+ 		pages[i] = hmm_device_entry_to_page(range, pfns[i]);
+ 		if (unlikely(!pages[i])) {
+@@ -864,9 +850,6 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ 
+ 	return 0;
+ 
+-out_up_read:
+-	if (likely(r != -EAGAIN))
+-		up_read(&mm->mmap_sem);
+ out_free_pfns:
+ 	hmm_range_unregister(range);
+ 	kvfree(pfns);
+-- 
+2.20.1
