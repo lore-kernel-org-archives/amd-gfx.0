@@ -1,7 +1,7 @@
 From: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: [PATCH v3 hmm 10/11] drm/amdkfd: use mmu_notifier_put
-Date: Tue,  6 Aug 2019 20:15:47 -0300
-Message-ID: <20190806231548.25242-11-jgg@ziepe.ca>
+Subject: [PATCH v3 hmm 11/11] mm/mmu_notifiers: remove unregister_no_release
+Date: Tue,  6 Aug 2019 20:15:48 -0300
+Message-ID: <20190806231548.25242-12-jgg@ziepe.ca>
 References: <20190806231548.25242-1-jgg@ziepe.ca>
 Mime-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -14,69 +14,89 @@ List-Id: amd-gfx.lists.freedesktop.org
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-The sequence of mmu_notifier_unregister_no_release(),
-mmu_notifier_call_srcu() is identical to mmu_notifier_put() with the
-free_notifier callback.
+mmu_notifier_unregister_no_release() and mmu_notifier_call_srcu() no
+longer have any users, they have all been converted to use
+mmu_notifier_put().
 
-As this is the last user of those APIs, converting it means we can drop
-them.
+So delete this difficult to use interface.
 
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    |  3 ---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c | 10 ++++------
- 2 files changed, 4 insertions(+), 9 deletions(-)
+ include/linux/mmu_notifier.h |  5 -----
+ mm/mmu_notifier.c            | 31 -------------------------------
+ 2 files changed, 36 deletions(-)
 
-I'm really not sure what this is doing, but it is very strange to have a
-release with no other callback. It would be good if this would change to use
-get as well.
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 3933fb6a371efb..9450e20d17093b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -686,9 +686,6 @@ struct kfd_process {
- 	/* We want to receive a notification when the mm_struct is destroyed */
- 	struct mmu_notifier mmu_notifier;
+diff --git a/include/linux/mmu_notifier.h b/include/linux/mmu_notifier.h
+index 31aa971315a142..52929e5ef70826 100644
+--- a/include/linux/mmu_notifier.h
++++ b/include/linux/mmu_notifier.h
+@@ -271,8 +271,6 @@ extern int __mmu_notifier_register(struct mmu_notifier *mn,
+ 				   struct mm_struct *mm);
+ extern void mmu_notifier_unregister(struct mmu_notifier *mn,
+ 				    struct mm_struct *mm);
+-extern void mmu_notifier_unregister_no_release(struct mmu_notifier *mn,
+-					       struct mm_struct *mm);
+ extern void __mmu_notifier_mm_destroy(struct mm_struct *mm);
+ extern void __mmu_notifier_release(struct mm_struct *mm);
+ extern int __mmu_notifier_clear_flush_young(struct mm_struct *mm,
+@@ -513,9 +511,6 @@ static inline void mmu_notifier_range_init(struct mmu_notifier_range *range,
+ 	set_pte_at(___mm, ___address, __ptep, ___pte);			\
+ })
  
--	/* Use for delayed freeing of kfd_process structure */
--	struct rcu_head	rcu;
+-extern void mmu_notifier_call_srcu(struct rcu_head *rcu,
+-				   void (*func)(struct rcu_head *rcu));
 -
- 	unsigned int pasid;
- 	unsigned int doorbell_index;
+ #else /* CONFIG_MMU_NOTIFIER */
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index c06e6190f21ffa..e5e326f2f2675e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -486,11 +486,9 @@ static void kfd_process_ref_release(struct kref *ref)
- 	queue_work(kfd_process_wq, &p->release_work);
+ struct mmu_notifier_range {
+diff --git a/mm/mmu_notifier.c b/mm/mmu_notifier.c
+index 4a770b5211b71d..2ec48f8ba9e288 100644
+--- a/mm/mmu_notifier.c
++++ b/mm/mmu_notifier.c
+@@ -21,18 +21,6 @@
+ /* global SRCU for all MMs */
+ DEFINE_STATIC_SRCU(srcu);
+ 
+-/*
+- * This function allows mmu_notifier::release callback to delay a call to
+- * a function that will free appropriate resources. The function must be
+- * quick and must not block.
+- */
+-void mmu_notifier_call_srcu(struct rcu_head *rcu,
+-			    void (*func)(struct rcu_head *rcu))
+-{
+-	call_srcu(&srcu, rcu, func);
+-}
+-EXPORT_SYMBOL_GPL(mmu_notifier_call_srcu);
+-
+ /*
+  * This function can't run concurrently against mmu_notifier_register
+  * because mm->mm_users > 0 during mmu_notifier_register and exit_mmap
+@@ -453,25 +441,6 @@ void mmu_notifier_unregister(struct mmu_notifier *mn, struct mm_struct *mm)
  }
+ EXPORT_SYMBOL_GPL(mmu_notifier_unregister);
  
--static void kfd_process_destroy_delayed(struct rcu_head *rcu)
-+static void kfd_process_free_notifier(struct mmu_notifier *mn)
+-/*
+- * Same as mmu_notifier_unregister but no callback and no srcu synchronization.
+- */
+-void mmu_notifier_unregister_no_release(struct mmu_notifier *mn,
+-					struct mm_struct *mm)
+-{
+-	spin_lock(&mm->mmu_notifier_mm->lock);
+-	/*
+-	 * Can not use list_del_rcu() since __mmu_notifier_release
+-	 * can delete it before we hold the lock.
+-	 */
+-	hlist_del_init_rcu(&mn->hlist);
+-	spin_unlock(&mm->mmu_notifier_mm->lock);
+-
+-	BUG_ON(atomic_read(&mm->mm_count) <= 0);
+-	mmdrop(mm);
+-}
+-EXPORT_SYMBOL_GPL(mmu_notifier_unregister_no_release);
+-
+ static void mmu_notifier_free_rcu(struct rcu_head *rcu)
  {
--	struct kfd_process *p = container_of(rcu, struct kfd_process, rcu);
--
--	kfd_unref_process(p);
-+	kfd_unref_process(container_of(mn, struct kfd_process, mmu_notifier));
- }
- 
- static void kfd_process_notifier_release(struct mmu_notifier *mn,
-@@ -542,12 +540,12 @@ static void kfd_process_notifier_release(struct mmu_notifier *mn,
- 
- 	mutex_unlock(&p->mutex);
- 
--	mmu_notifier_unregister_no_release(&p->mmu_notifier, mm);
--	mmu_notifier_call_srcu(&p->rcu, &kfd_process_destroy_delayed);
-+	mmu_notifier_put(&p->mmu_notifier);
- }
- 
- static const struct mmu_notifier_ops kfd_process_mmu_notifier_ops = {
- 	.release = kfd_process_notifier_release,
-+	.free_notifier = kfd_process_free_notifier,
- };
- 
- static int kfd_process_init_cwsr_apu(struct kfd_process *p, struct file *filep)
+ 	struct mmu_notifier *mn = container_of(rcu, struct mmu_notifier, rcu);
 -- 
 2.22.0
