@@ -1,146 +1,65 @@
-From: Christoph Hellwig <hch@lst.de>
-Subject: [PATCH 06/15] mm: remove superflous arguments from hmm_range_register
-Date: Tue,  6 Aug 2019 19:05:44 +0300
-Message-ID: <20190806160554.14046-7-hch@lst.de>
+From: Christoph Hellwig <hch-jcswGhMUV9g@public.gmane.org>
+Subject: [PATCH 10/15] mm: only define hmm_vma_walk_pud if needed
+Date: Tue,  6 Aug 2019 19:05:48 +0300
+Message-ID: <20190806160554.14046-11-hch@lst.de>
 References: <20190806160554.14046-1-hch@lst.de>
 Mime-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Return-path: <linux-kernel-owner@vger.kernel.org>
-In-Reply-To: <20190806160554.14046-1-hch@lst.de>
-Sender: linux-kernel-owner@vger.kernel.org
-To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>, Ben Skeggs <bskeggs@redhat.com>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>, linux-mm@kvack.org, nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+Return-path: <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+In-Reply-To: <20190806160554.14046-1-hch-jcswGhMUV9g@public.gmane.org>
+List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
+List-Archive: <https://lists.freedesktop.org/archives/nouveau>
+List-Post: <mailto:nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+List-Help: <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
+List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/nouveau>,
+ <mailto:nouveau-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
+Errors-To: nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Sender: "Nouveau" <nouveau-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
+To: =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Jason Gunthorpe <jgg-VPRAkNaXOzVWk0Htik3J/w@public.gmane.org>, Ben Skeggs <bskeggs-H+wXaHxf7aLQT0dZR+AlfA@public.gmane.org>, Felix Kuehling <Felix.Kuehling-5C7GfCeVMHo@public.gmane.org>
+Cc: Ralph Campbell <rcampbell-DDmLM1+adcrQT0dZR+AlfA@public.gmane.org>, nouveau-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, linux-mm-Bw31MaZKKs3YtjvyW6yDsg@public.gmane.org, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
 List-Id: amd-gfx.lists.freedesktop.org
 
-The start, end and page_shift values are all saved in the range
-structure, so we might as well use that for argument passing.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Jason Gunthorpe <jgg@mellanox.com>
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- Documentation/vm/hmm.rst                |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  7 +++++--
- drivers/gpu/drm/nouveau/nouveau_svm.c   |  5 ++---
- include/linux/hmm.h                     |  6 +-----
- mm/hmm.c                                | 20 +++++---------------
- 5 files changed, 14 insertions(+), 26 deletions(-)
-
-diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
-index ddcb5ca8b296..e63c11f7e0e0 100644
---- a/Documentation/vm/hmm.rst
-+++ b/Documentation/vm/hmm.rst
-@@ -222,7 +222,7 @@ The usage pattern is::
-       range.flags = ...;
-       range.values = ...;
-       range.pfn_shift = ...;
--      hmm_range_register(&range);
-+      hmm_range_register(&range, mirror);
- 
-       /*
-        * Just wait for range to be valid, safe to ignore return value as we
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index f0821638bbc6..71d6e7087b0b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -818,8 +818,11 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 				0 : range->flags[HMM_PFN_WRITE];
- 	range->pfn_flags_mask = 0;
- 	range->pfns = pfns;
--	hmm_range_register(range, mirror, start,
--			   start + ttm->num_pages * PAGE_SIZE, PAGE_SHIFT);
-+	range->page_shift = PAGE_SHIFT;
-+	range->start = start;
-+	range->end = start + ttm->num_pages * PAGE_SIZE;
-+
-+	hmm_range_register(range, mirror);
- 
- 	/*
- 	 * Just wait for range to be valid, safe to ignore return value as we
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index 98072fd48cf7..41fad4719ac6 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -492,9 +492,7 @@ nouveau_range_fault(struct nouveau_svmm *svmm, struct hmm_range *range)
- 	range->default_flags = 0;
- 	range->pfn_flags_mask = -1UL;
- 
--	ret = hmm_range_register(range, &svmm->mirror,
--				 range->start, range->end,
--				 PAGE_SHIFT);
-+	ret = hmm_range_register(range, &svmm->mirror);
- 	if (ret) {
- 		up_read(&svmm->mm->mmap_sem);
- 		return (int)ret;
-@@ -682,6 +680,7 @@ nouveau_svm_fault(struct nvif_notify *notify)
- 			 args.i.p.addr + args.i.p.size, fn - fi);
- 
- 		/* Have HMM fault pages within the fault window to the GPU. */
-+		range.page_shift = PAGE_SHIFT;
- 		range.start = args.i.p.addr;
- 		range.end = args.i.p.addr + args.i.p.size;
- 		range.pfns = args.phys;
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 59be0aa2476d..c5b51376b453 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -400,11 +400,7 @@ void hmm_mirror_unregister(struct hmm_mirror *mirror);
- /*
-  * Please see Documentation/vm/hmm.rst for how to use the range API.
-  */
--int hmm_range_register(struct hmm_range *range,
--		       struct hmm_mirror *mirror,
--		       unsigned long start,
--		       unsigned long end,
--		       unsigned page_shift);
-+int hmm_range_register(struct hmm_range *range, struct hmm_mirror *mirror);
- void hmm_range_unregister(struct hmm_range *range);
- 
- /*
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 3a3852660757..926735a3aef9 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -843,35 +843,25 @@ static void hmm_pfns_clear(struct hmm_range *range,
-  * hmm_range_register() - start tracking change to CPU page table over a range
-  * @range: range
-  * @mm: the mm struct for the range of virtual address
-- * @start: start virtual address (inclusive)
-- * @end: end virtual address (exclusive)
-- * @page_shift: expect page shift for the range
-+ *
-  * Return: 0 on success, -EFAULT if the address space is no longer valid
-  *
-  * Track updates to the CPU page table see include/linux/hmm.h
-  */
--int hmm_range_register(struct hmm_range *range,
--		       struct hmm_mirror *mirror,
--		       unsigned long start,
--		       unsigned long end,
--		       unsigned page_shift)
-+int hmm_range_register(struct hmm_range *range, struct hmm_mirror *mirror)
- {
--	unsigned long mask = ((1UL << page_shift) - 1UL);
-+	unsigned long mask = ((1UL << range->page_shift) - 1UL);
- 	struct hmm *hmm = mirror->hmm;
- 	unsigned long flags;
- 
- 	range->valid = false;
- 	range->hmm = NULL;
- 
--	if ((start & mask) || (end & mask))
-+	if ((range->start & mask) || (range->end & mask))
- 		return -EINVAL;
--	if (start >= end)
-+	if (range->start >= range->end)
- 		return -EINVAL;
- 
--	range->page_shift = page_shift;
--	range->start = start;
--	range->end = end;
--
- 	/* Prevent hmm_release() from running while the range is valid */
- 	if (!mmget_not_zero(hmm->mm))
- 		return -EFAULT;
--- 
-2.20.1
+V2Ugb25seSBuZWVkIHRoZSBzcGVjaWFsIHB1ZF9lbnRyeSB3YWxrZXIgaWYgUFVELXNpemVkIGh1
+Z2VwYWdlcyBhbmQKcHRlIG1hcHBpbmdzIGFyZSBzdXBwb3J0ZWQsIGVsc2UgdGhlIGNvbW1vbiBw
+YWdld2FsayBjb2RlIHdpbGwgdGFrZQpjYXJlIG9mIHRoZSBpdGVyYXRpb24uICBOb3QgaW1wbGVt
+ZW50aW5nIHRoaXMgY2FsbGJhY2sgcmVkdWNlZCB0aGUKYW1vdW50IG9mIGNvZGUgY29tcGlsZWQg
+Zm9yIG5vbi14ODYgcGxhdGZvcm1zLCBhbmQgYWxzbyBmaXhlcyBjb21waWxlCmZhaWx1cmVzIHdp
+dGggb3RoZXIgYXJjaGl0ZWN0dXJlcyB3aGVuIGhlbHBlcnMgbGlrZSBwdWRfcGZuIGFyZSBub3QK
+aW1wbGVtZW50ZWQuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
+ZT4KUmV2aWV3ZWQtYnk6IEphc29uIEd1bnRob3JwZSA8amdnQG1lbGxhbm94LmNvbT4KLS0tCiBt
+bS9obW0uYyB8IDI5ICsrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdl
+ZCwgMTYgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvbW0vaG1t
+LmMgYi9tbS9obW0uYwppbmRleCAyMDgzZTRkYjQ2ZjUuLjVlN2FmZTY4NTIxMyAxMDA2NDQKLS0t
+IGEvbW0vaG1tLmMKKysrIGIvbW0vaG1tLmMKQEAgLTQ1NSwxNSArNDU1LDYgQEAgc3RhdGljIGlu
+bGluZSB1aW50NjRfdCBwbWRfdG9faG1tX3Bmbl9mbGFncyhzdHJ1Y3QgaG1tX3JhbmdlICpyYW5n
+ZSwgcG1kX3QgcG1kKQogCQkJCXJhbmdlLT5mbGFnc1tITU1fUEZOX1ZBTElEXTsKIH0KIAotc3Rh
+dGljIGlubGluZSB1aW50NjRfdCBwdWRfdG9faG1tX3Bmbl9mbGFncyhzdHJ1Y3QgaG1tX3Jhbmdl
+ICpyYW5nZSwgcHVkX3QgcHVkKQotewotCWlmICghcHVkX3ByZXNlbnQocHVkKSkKLQkJcmV0dXJu
+IDA7Ci0JcmV0dXJuIHB1ZF93cml0ZShwdWQpID8gcmFuZ2UtPmZsYWdzW0hNTV9QRk5fVkFMSURd
+IHwKLQkJCQlyYW5nZS0+ZmxhZ3NbSE1NX1BGTl9XUklURV0gOgotCQkJCXJhbmdlLT5mbGFnc1tI
+TU1fUEZOX1ZBTElEXTsKLX0KLQogc3RhdGljIGludCBobW1fdm1hX2hhbmRsZV9wbWQoc3RydWN0
+IG1tX3dhbGsgKndhbGssCiAJCQkgICAgICB1bnNpZ25lZCBsb25nIGFkZHIsCiAJCQkgICAgICB1
+bnNpZ25lZCBsb25nIGVuZCwKQEAgLTcwMCwxMCArNjkxLDE5IEBAIHN0YXRpYyBpbnQgaG1tX3Zt
+YV93YWxrX3BtZChwbWRfdCAqcG1kcCwKIAlyZXR1cm4gMDsKIH0KIAotc3RhdGljIGludCBobW1f
+dm1hX3dhbGtfcHVkKHB1ZF90ICpwdWRwLAotCQkJICAgIHVuc2lnbmVkIGxvbmcgc3RhcnQsCi0J
+CQkgICAgdW5zaWduZWQgbG9uZyBlbmQsCi0JCQkgICAgc3RydWN0IG1tX3dhbGsgKndhbGspCisj
+aWYgZGVmaW5lZChDT05GSUdfQVJDSF9IQVNfUFRFX0RFVk1BUCkgJiYgXAorICAgIGRlZmluZWQo
+Q09ORklHX0hBVkVfQVJDSF9UUkFOU1BBUkVOVF9IVUdFUEFHRV9QVUQpCitzdGF0aWMgaW5saW5l
+IHVpbnQ2NF90IHB1ZF90b19obW1fcGZuX2ZsYWdzKHN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlLCBw
+dWRfdCBwdWQpCit7CisJaWYgKCFwdWRfcHJlc2VudChwdWQpKQorCQlyZXR1cm4gMDsKKwlyZXR1
+cm4gcHVkX3dyaXRlKHB1ZCkgPyByYW5nZS0+ZmxhZ3NbSE1NX1BGTl9WQUxJRF0gfAorCQkJCXJh
+bmdlLT5mbGFnc1tITU1fUEZOX1dSSVRFXSA6CisJCQkJcmFuZ2UtPmZsYWdzW0hNTV9QRk5fVkFM
+SURdOworfQorCitzdGF0aWMgaW50IGhtbV92bWFfd2Fsa19wdWQocHVkX3QgKnB1ZHAsIHVuc2ln
+bmVkIGxvbmcgc3RhcnQsIHVuc2lnbmVkIGxvbmcgZW5kLAorCQlzdHJ1Y3QgbW1fd2FsayAqd2Fs
+aykKIHsKIAlzdHJ1Y3QgaG1tX3ZtYV93YWxrICpobW1fdm1hX3dhbGsgPSB3YWxrLT5wcml2YXRl
+OwogCXN0cnVjdCBobW1fcmFuZ2UgKnJhbmdlID0gaG1tX3ZtYV93YWxrLT5yYW5nZTsKQEAgLTc2
+NSw2ICs3NjUsOSBAQCBzdGF0aWMgaW50IGhtbV92bWFfd2Fsa19wdWQocHVkX3QgKnB1ZHAsCiAK
+IAlyZXR1cm4gMDsKIH0KKyNlbHNlCisjZGVmaW5lIGhtbV92bWFfd2Fsa19wdWQJTlVMTAorI2Vu
+ZGlmCiAKIHN0YXRpYyBpbnQgaG1tX3ZtYV93YWxrX2h1Z2V0bGJfZW50cnkocHRlX3QgKnB0ZSwg
+dW5zaWduZWQgbG9uZyBobWFzaywKIAkJCQkgICAgICB1bnNpZ25lZCBsb25nIHN0YXJ0LCB1bnNp
+Z25lZCBsb25nIGVuZCwKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KTm91dmVhdSBtYWlsaW5nIGxpc3QKTm91dmVhdUBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9ub3V2ZWF1
