@@ -1,73 +1,78 @@
-From: Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-Subject: [PATCH AUTOSEL 5.2 30/59] drm/amd/powerplay: fix null pointer
- dereference around dpm state relates
-Date: Tue,  6 Aug 2019 17:32:50 -0400
-Message-ID: <20190806213319.19203-30-sashal@kernel.org>
+From: Sasha Levin <sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.2 31/59] drm/amdgpu: fix error handling in amdgpu_cs_process_fence_dep
+Date: Tue,  6 Aug 2019 17:32:51 -0400
+Message-ID: <20190806213319.19203-31-sashal@kernel.org>
 References: <20190806213319.19203-1-sashal@kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-Return-path: <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-In-Reply-To: <20190806213319.19203-1-sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>
-List-Id: Discussion list for AMD gfx <amd-gfx.lists.freedesktop.org>
-List-Unsubscribe: <https://lists.freedesktop.org/mailman/options/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=unsubscribe>
-List-Archive: <https://lists.freedesktop.org/archives/amd-gfx>
-List-Post: <mailto:amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-List-Help: <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=help>
-List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
- <mailto:amd-gfx-request-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org?subject=subscribe>
-Errors-To: amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
-Sender: "amd-gfx" <amd-gfx-bounces-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org>
-To: linux-kernel-u79uwXL29TY76Z2rM5mHXA@public.gmane.org, stable-u79uwXL29TY76Z2rM5mHXA@public.gmane.org
-Cc: Alex Deucher <alexander.deucher-5C7GfCeVMHo@public.gmane.org>, Sasha Levin <sashal-DgEjT+Ai2ygdnm+yROfE0A@public.gmane.org>, Evan Quan <evan.quan-5C7GfCeVMHo@public.gmane.org>, dri-devel-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org, amd-gfx-PD4FTy7X32lNgt0PjOBp9y5qC8QIuHrW@public.gmane.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+Return-path: <stable-owner@vger.kernel.org>
+In-Reply-To: <20190806213319.19203-1-sashal@kernel.org>
+Sender: stable-owner@vger.kernel.org
+To: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Chunming Zhou <david1.zhou@amd.com>, Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+List-Id: amd-gfx.lists.freedesktop.org
 
-RnJvbTogRXZhbiBRdWFuIDxldmFuLnF1YW5AYW1kLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IDQ3
-OTE1NmYyZTU1NDAwNzczNzdhODIzZWFmNWE0MjYzYmQzMjkwNjMgXQoKRFBNIHN0YXRlIHJlbGF0
-ZXMgYXJlIG5vdCBzdXBwb3J0ZWQgb24gdGhlIG5ldyBTVyBTTVUgQVNJQ3MuIEJ1dCBzdGlsbApp
-dCdzIG5vdCBPSyB0byB0cmlnZ2VyIG51bGwgcG9pbnRlciBkZXJlZmVyZW5jZSBvbiBhY2Nlc3Np
-bmcgdGhlbS4KClNpZ25lZC1vZmYtYnk6IEV2YW4gUXVhbiA8ZXZhbi5xdWFuQGFtZC5jb20+ClJl
-dmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25l
-ZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVk
-LW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jICAgICB8IDE4ICsrKysrKysrKysrKystLS0tLQog
-ZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jIHwgIDMgKystCiAyIGZp
-bGVzIGNoYW5nZWQsIDE1IGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0
-IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwppbmRleCBhYmVhYWI0YmYxYmMyLi5kNTU1MTliYzM0
-ZTUyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwor
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwpAQCAtMTQ0LDEyICsx
-NDQsMTYgQEAgc3RhdGljIHNzaXplX3QgYW1kZ3B1X2dldF9kcG1fc3RhdGUoc3RydWN0IGRldmlj
-ZSAqZGV2LAogCXN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2ID0gZGRldi0+ZGV2X3ByaXZhdGU7
-CiAJZW51bSBhbWRfcG1fc3RhdGVfdHlwZSBwbTsKIAotCWlmIChpc19zdXBwb3J0X3N3X3NtdShh
-ZGV2KSAmJiBhZGV2LT5zbXUucHB0X2Z1bmNzLT5nZXRfY3VycmVudF9wb3dlcl9zdGF0ZSkKLQkJ
-cG0gPSBhbWRncHVfc211X2dldF9jdXJyZW50X3Bvd2VyX3N0YXRlKGFkZXYpOwotCWVsc2UgaWYg
-KGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+Z2V0X2N1cnJlbnRfcG93ZXJfc3RhdGUpCisJaWYg
-KGlzX3N1cHBvcnRfc3dfc211KGFkZXYpKSB7CisJCWlmIChhZGV2LT5zbXUucHB0X2Z1bmNzLT5n
-ZXRfY3VycmVudF9wb3dlcl9zdGF0ZSkKKwkJCXBtID0gYW1kZ3B1X3NtdV9nZXRfY3VycmVudF9w
-b3dlcl9zdGF0ZShhZGV2KTsKKwkJZWxzZQorCQkJcG0gPSBhZGV2LT5wbS5kcG0udXNlcl9zdGF0
-ZTsKKwl9IGVsc2UgaWYgKGFkZXYtPnBvd2VycGxheS5wcF9mdW5jcy0+Z2V0X2N1cnJlbnRfcG93
-ZXJfc3RhdGUpIHsKIAkJcG0gPSBhbWRncHVfZHBtX2dldF9jdXJyZW50X3Bvd2VyX3N0YXRlKGFk
-ZXYpOwotCWVsc2UKKwl9IGVsc2UgewogCQlwbSA9IGFkZXYtPnBtLmRwbS51c2VyX3N0YXRlOwor
-CX0KIAogCXJldHVybiBzbnByaW50ZihidWYsIFBBR0VfU0laRSwgIiVzXG4iLAogCQkJKHBtID09
-IFBPV0VSX1NUQVRFX1RZUEVfQkFUVEVSWSkgPyAiYmF0dGVyeSIgOgpAQCAtMTc2LDcgKzE4MCwx
-MSBAQCBzdGF0aWMgc3NpemVfdCBhbWRncHVfc2V0X2RwbV9zdGF0ZShzdHJ1Y3QgZGV2aWNlICpk
-ZXYsCiAJCWdvdG8gZmFpbDsKIAl9CiAKLQlpZiAoYWRldi0+cG93ZXJwbGF5LnBwX2Z1bmNzLT5k
-aXNwYXRjaF90YXNrcykgeworCWlmIChpc19zdXBwb3J0X3N3X3NtdShhZGV2KSkgeworCQltdXRl
-eF9sb2NrKCZhZGV2LT5wbS5tdXRleCk7CisJCWFkZXYtPnBtLmRwbS51c2VyX3N0YXRlID0gc3Rh
-dGU7CisJCW11dGV4X3VubG9jaygmYWRldi0+cG0ubXV0ZXgpOworCX0gZWxzZSBpZiAoYWRldi0+
-cG93ZXJwbGF5LnBwX2Z1bmNzLT5kaXNwYXRjaF90YXNrcykgewogCQlhbWRncHVfZHBtX2Rpc3Bh
-dGNoX3Rhc2soYWRldiwgQU1EX1BQX1RBU0tfRU5BQkxFX1VTRVJfU1RBVEUsICZzdGF0ZSk7CiAJ
-fSBlbHNlIHsKIAkJbXV0ZXhfbG9jaygmYWRldi0+cG0ubXV0ZXgpOwpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jCmluZGV4IGVlYzMyOWFiNjAzNzAuLjYxYTZkMTgz
-YzE1M2YgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2FtZGdwdV9z
-bXUuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9hbWRncHVfc211LmMKQEAg
-LTYzLDcgKzYzLDggQEAgaW50IHNtdV9nZXRfcG93ZXJfbnVtX3N0YXRlcyhzdHJ1Y3Qgc211X2Nv
-bnRleHQgKnNtdSwKIAogCS8qIG5vdCBzdXBwb3J0IHBvd2VyIHN0YXRlICovCiAJbWVtc2V0KHN0
-YXRlX2luZm8sIDAsIHNpemVvZihzdHJ1Y3QgcHBfc3RhdGVzX2luZm8pKTsKLQlzdGF0ZV9pbmZv
-LT5udW1zID0gMDsKKwlzdGF0ZV9pbmZvLT5udW1zID0gMTsKKwlzdGF0ZV9pbmZvLT5zdGF0ZXNb
-MF0gPSBQT1dFUl9TVEFURV9UWVBFX0RFRkFVTFQ7CiAKIAlyZXR1cm4gMDsKIH0KLS0gCjIuMjAu
-MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+From: Christian König <christian.koenig@amd.com>
+
+[ Upstream commit 67d0859e2758ef992fd32499747ce4b1038a63c0 ]
+
+We always need to drop the ctx reference and should check
+for errors first and then dereference the fence pointer.
+
+Signed-off-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Chunming Zhou <david1.zhou@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 2f6239b6be6fe..fe028561dc0e6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1093,29 +1093,27 @@ static int amdgpu_cs_process_fence_dep(struct amdgpu_cs_parser *p,
+ 			return r;
+ 		}
+ 
+-		fence = amdgpu_ctx_get_fence(ctx, entity,
+-					     deps[i].handle);
++		fence = amdgpu_ctx_get_fence(ctx, entity, deps[i].handle);
++		amdgpu_ctx_put(ctx);
++
++		if (IS_ERR(fence))
++			return PTR_ERR(fence);
++		else if (!fence)
++			continue;
+ 
+ 		if (chunk->chunk_id == AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES) {
+-			struct drm_sched_fence *s_fence = to_drm_sched_fence(fence);
++			struct drm_sched_fence *s_fence;
+ 			struct dma_fence *old = fence;
+ 
++			s_fence = to_drm_sched_fence(fence);
+ 			fence = dma_fence_get(&s_fence->scheduled);
+ 			dma_fence_put(old);
+ 		}
+ 
+-		if (IS_ERR(fence)) {
+-			r = PTR_ERR(fence);
+-			amdgpu_ctx_put(ctx);
++		r = amdgpu_sync_fence(p->adev, &p->job->sync, fence, true);
++		dma_fence_put(fence);
++		if (r)
+ 			return r;
+-		} else if (fence) {
+-			r = amdgpu_sync_fence(p->adev, &p->job->sync, fence,
+-					true);
+-			dma_fence_put(fence);
+-			amdgpu_ctx_put(ctx);
+-			if (r)
+-				return r;
+-		}
+ 	}
+ 	return 0;
+ }
+-- 
+2.20.1
